@@ -241,7 +241,6 @@ begin
                   then
                     begin
                       aField := SyncItems.GetField(aJsonOutList[i],'SUMMARY');
-                      debugln('Updated:'+aItem.Subject);
                       if Assigned(aField) then
                         aItem.PropertiesDirect[PR_SUBJECT,ptString] := EncodingOut(aField.AsString);
                       aField := SyncItems.GetField(aJsonOutList[i],'DESC');
@@ -263,7 +262,13 @@ begin
                         aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := DecodeRfcDateTime(aField.AsString)
                       else aItem.PropertiesDirect[aItem.GetPropertyDispId($8104, PT_SYSTIME, False, @PSETID_Task),ptTime] := -1;}
                       try
-                        if DoDelete then aItem.Delete; //Delete Done Tasks couse we cant set them correctly done at time
+                        if DoDelete then
+                          begin
+                            aItem.Delete; //Delete Done Tasks couse we cant set them correctly done at time
+                            debugln('Deleted:'+aItem.Subject);
+                          end
+                        else
+                          debugln('Updated:'+aItem.Subject);
                         aItem.CoMessage.SaveChanges(0);
                       except
                       end;

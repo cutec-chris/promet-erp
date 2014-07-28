@@ -46,6 +46,7 @@ type
     procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FAddProjectOnPost : Boolean;
+    FCompletedChanged : Boolean;
     FAddSummaryOnPost : Boolean;
     FDueDateChanged: Boolean;
     FHistory: TBaseHistory;
@@ -797,7 +798,148 @@ procedure TTaskList.DataSetAfterPost(aDataSet: TDataSet);
 var
   aParent: TTask;
   aProject: TProject;
+  Informed1: String;
+  aUser: TUser;
+  Informed2: String;
+  aDeps: TDependencies;
 begin
+  if FCompletedChanged then
+    begin
+      DataSet.DisableControls;
+      if FieldByName('COMPLETED').AsString='Y' then
+        begin
+          DataSet.FieldByName('PERCENT').AsInteger:=100;
+          DataSet.FieldByName('COMPLETEDAT').AsDateTime:=Now();
+          if not History.DataSet.Active then History.Open;
+          History.AddItem(Self.DataSet,strTaskCompleted,Data.BuildLink(FDS.DataSet),'',nil,ACICON_STATUSCH);
+          aProject := TProject.Create(Self,Data,Connection);
+          aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
+          aProject.Open;
+          if DataSet.FieldByName('USER').AsString<>DataSet.FieldByName('OWNER').AsString then
+            begin
+              Informed1 := DataSet.FieldByName('OWNER').AsString;
+              aUser := TUser.Create(Self,Data,Connection);
+              aUser.SelectByAccountno(DataSet.FieldByName('OWNER').AsString);
+              aUser.Open;
+              if aUser.Count>0 then
+                begin
+                  if Assigned(aProject) then
+                    aUser.History.AddItem(aProject.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKCLOSED)
+                  else
+                    aUser.History.AddItem(Self.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKCLOSED);
+                end;
+              aUser.Free;
+            end;
+          if aProject.Count>0 then
+            begin
+              aProject.History.Open;
+              aProject.History.AddItem(aProject.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKCLOSED);
+              Informed2 := Data.Users.GetLeaderAccountno;
+              if (aProject.FieldByName('INFORMLEADER').AsString='Y') and (Informed1 <> Informed2) then
+                begin //Inform Leader of
+                  aUser := TUser.Create(Self,Data,Connection);
+                  aUser.SelectByAccountno(Informed2);
+                  aUser.Open;
+                  if aUser.Count>0 then
+                    begin
+                      if Assigned(aProject) then
+                        aUser.History.AddItem(aProject.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKCLOSED)
+                      else
+                        aUser.History.AddItem(Self.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKCLOSED);
+                    end;
+                  aUser.Free;
+                end
+              else Informed2 := '';
+              if (aProject.FieldByName('INFORMPMANAGER').AsString='Y') and (Informed2<>aProject.FieldByName('PMANAGER').AsString) and (Informed1<>aProject.FieldByName('PMANAGER').AsString) then
+                begin //Inform Leader of
+                  aUser := TUser.Create(Self,Data,Connection);
+                  aUser.SelectByAccountno(aProject.FieldByName('PMANAGER').AsString);
+                  aUser.Open;
+                  if aUser.Count>0 then
+                    begin
+                      if Assigned(aProject) then
+                        aUser.History.AddItem(aProject.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKCLOSED)
+                      else
+                        aUser.History.AddItem(Self.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKCLOSED);
+                    end;
+                  aUser.Free;
+                end;
+            end;
+          aProject.Free;
+        end
+      else if (FieldByName('COMPLETED').AsString='N') and (DataSet.State <> dsInsert) then
+        begin
+          if DataSet.FieldByName('PERCENT').AsInteger = 100 then
+            DataSet.FieldByName('PERCENT').AsInteger:=0;
+          DataSet.FieldByName('COMPLETEDAT').Clear;
+          DataSet.FieldByName('CHECKED').AsString:='N';
+          DataSet.FieldByName('DUEDATE').Clear;
+          DataSet.FieldByName('STARTDATE').Clear;
+          DataSet.FieldByName('BUFFERTIME').Clear;
+          DataSet.FieldByName('PLANTIME').Clear;
+          if not History.DataSet.Active then History.Open;
+          History.AddItem(Self.DataSet,strTaskReopened,Data.BuildLink(FDS.DataSet),'',nil,ACICON_STATUSCH);
+          aProject := TProject.Create(Self,Data,Connection);
+          aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
+          aProject.Open;
+          if aProject.Count>0 then
+            begin
+              aProject.History.Open;
+              aProject.History.AddItem(aProject.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED);
+              Informed2 := Data.Users.GetLeaderAccountno;
+              if (aProject.FieldByName('INFORMLEADER').AsString='Y') then
+                begin //Inform Leader of
+                  aUser := TUser.Create(Self,Data,Connection);
+                  aUser.SelectByAccountno(Informed2);
+                  aUser.Open;
+                  if aUser.Count>0 then
+                    begin
+                      if Assigned(aProject) then
+                        aUser.History.AddItem(aProject.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED)
+                      else
+                        aUser.History.AddItem(Self.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKADDED);
+                    end;
+                  aUser.Free;
+                end;
+              if (aProject.FieldByName('INFORMPMANAGER').AsString='Y') and (Informed2<>aProject.FieldByName('PMANAGER').AsString) then
+                begin //Inform Leader of
+                  aUser := TUser.Create(Self,Data,Connection);
+                  aUser.SelectByAccountno(aProject.FieldByName('PMANAGER').AsString);
+                  aUser.Open;
+                  if aUser.Count>0 then
+                    begin
+                      if Assigned(aProject) then
+                        aUser.History.AddItem(aProject.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED)
+                      else
+                        aUser.History.AddItem(Self.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKADDED);
+                    end;
+                  aUser.Free;
+                end;
+            end;
+          aProject.Free;
+          aDeps := TDependencies.Create(nil,DataModule);
+          aDeps.SelectByLink(Data.BuildLink(DataSet));
+          aDeps.Open;
+          aDeps.First;
+          while not aDeps.EOF do
+            begin
+              aParent := TTask.Create(nil,DataModule);
+              aParent.Select(aDeps.FieldByName('REF_ID').AsVariant);
+              aParent.Open;
+              if (aParent.Count>0) and (aParent.FieldByName('COMPLETED').AsString = 'Y') then
+                begin
+                  aParent.Edit;
+                  aParent.FieldByName('COMPLETED').AsString:='N';
+                  aParent.Post;
+                end;
+              aParent.Free;
+              aDeps.Next;
+            end;
+          aDeps.Free;
+        end;
+      //Check Parent Task
+      DataSet.EnableControls;
+    end;
   if DoCheckTask then
     begin
       if not DataSet.FieldByName('PARENT').IsNull then
@@ -962,140 +1104,7 @@ begin
     exit;
   if Field.FieldName='COMPLETED' then
     begin
-      DataSet.DisableControls;
-      if Field.AsString='Y' then
-        begin
-          DataSet.FieldByName('PERCENT').AsInteger:=100;
-          DataSet.FieldByName('COMPLETEDAT').AsDateTime:=Now();
-          if not History.DataSet.Active then History.Open;
-          History.AddItem(Self.DataSet,strTaskCompleted,Data.BuildLink(FDS.DataSet),'',nil,ACICON_STATUSCH);
-          aProject := TProject.Create(Self,Data,Connection);
-          aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
-          aProject.Open;
-          if DataSet.FieldByName('USER').AsString<>DataSet.FieldByName('OWNER').AsString then
-            begin
-              Informed1 := DataSet.FieldByName('OWNER').AsString;
-              aUser := TUser.Create(Self,Data,Connection);
-              aUser.SelectByAccountno(DataSet.FieldByName('OWNER').AsString);
-              aUser.Open;
-              if aUser.Count>0 then
-                begin
-                  if Assigned(aProject) then
-                    aUser.History.AddItem(aProject.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKCLOSED)
-                  else
-                    aUser.History.AddItem(Self.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKCLOSED);
-                end;
-              aUser.Free;
-            end;
-          if aProject.Count>0 then
-            begin
-              aProject.History.Open;
-              aProject.History.AddItem(aProject.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKCLOSED);
-              Informed2 := Data.Users.GetLeaderAccountno;
-              if (aProject.FieldByName('INFORMLEADER').AsString='Y') and (Informed1 <> Informed2) then
-                begin //Inform Leader of
-                  aUser := TUser.Create(Self,Data,Connection);
-                  aUser.SelectByAccountno(Informed2);
-                  aUser.Open;
-                  if aUser.Count>0 then
-                    begin
-                      if Assigned(aProject) then
-                        aUser.History.AddItem(aProject.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKCLOSED)
-                      else
-                        aUser.History.AddItem(Self.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKCLOSED);
-                    end;
-                  aUser.Free;
-                end
-              else Informed2 := '';
-              if (aProject.FieldByName('INFORMPMANAGER').AsString='Y') and (Informed2<>aProject.FieldByName('PMANAGER').AsString) and (Informed1<>aProject.FieldByName('PMANAGER').AsString) then
-                begin //Inform Leader of
-                  aUser := TUser.Create(Self,Data,Connection);
-                  aUser.SelectByAccountno(aProject.FieldByName('PMANAGER').AsString);
-                  aUser.Open;
-                  if aUser.Count>0 then
-                    begin
-                      if Assigned(aProject) then
-                        aUser.History.AddItem(aProject.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKCLOSED)
-                      else
-                        aUser.History.AddItem(Self.DataSet,Format(strTaskSCompleted,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKCLOSED);
-                    end;
-                  aUser.Free;
-                end;
-            end;
-          aProject.Free;
-        end
-      else if (Field.AsString='N') and (DataSet.State <> dsInsert) then
-        begin
-          if DataSet.FieldByName('PERCENT').AsInteger = 100 then
-            DataSet.FieldByName('PERCENT').AsInteger:=0;
-          DataSet.FieldByName('COMPLETEDAT').Clear;
-          DataSet.FieldByName('CHECKED').AsString:='N';
-          DataSet.FieldByName('DUEDATE').Clear;
-          DataSet.FieldByName('STARTDATE').Clear;
-          DataSet.FieldByName('BUFFERTIME').Clear;
-          DataSet.FieldByName('PLANTIME').Clear;
-          if not History.DataSet.Active then History.Open;
-          History.AddItem(Self.DataSet,strTaskReopened,Data.BuildLink(FDS.DataSet),'',nil,ACICON_STATUSCH);
-          aProject := TProject.Create(Self,Data,Connection);
-          aProject.Select(FDS.DataSet.FieldByName('PROJECTID').AsVariant);
-          aProject.Open;
-          if aProject.Count>0 then
-            begin
-              aProject.History.Open;
-              aProject.History.AddItem(aProject.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED);
-              Informed2 := Data.Users.GetLeaderAccountno;
-              if (aProject.FieldByName('INFORMLEADER').AsString='Y') then
-                begin //Inform Leader of
-                  aUser := TUser.Create(Self,Data,Connection);
-                  aUser.SelectByAccountno(Informed2);
-                  aUser.Open;
-                  if aUser.Count>0 then
-                    begin
-                      if Assigned(aProject) then
-                        aUser.History.AddItem(aProject.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED)
-                      else
-                        aUser.History.AddItem(Self.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKADDED);
-                    end;
-                  aUser.Free;
-                end;
-              if (aProject.FieldByName('INFORMPMANAGER').AsString='Y') and (Informed2<>aProject.FieldByName('PMANAGER').AsString) then
-                begin //Inform Leader of
-                  aUser := TUser.Create(Self,Data,Connection);
-                  aUser.SelectByAccountno(aProject.FieldByName('PMANAGER').AsString);
-                  aUser.Open;
-                  if aUser.Count>0 then
-                    begin
-                      if Assigned(aProject) then
-                        aUser.History.AddItem(aProject.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED)
-                      else
-                        aUser.History.AddItem(Self.DataSet,Format(strTaskSReopened,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',nil,ACICON_TASKADDED);
-                    end;
-                  aUser.Free;
-                end;
-            end;
-          aProject.Free;
-          aDeps := TDependencies.Create(nil,DataModule);
-          aDeps.SelectByLink(Data.BuildLink(DataSet));
-          aDeps.Open;
-          aDeps.First;
-          while not aDeps.EOF do
-            begin
-              aParent := TTask.Create(nil,DataModule);
-              aParent.Select(aDeps.FieldByName('REF_ID').AsVariant);
-              aParent.Open;
-              if (aParent.Count>0) and (aParent.FieldByName('COMPLETED').AsString = 'Y') then
-                begin
-                  aParent.Edit;
-                  aParent.FieldByName('COMPLETED').AsString:='N';
-                  aParent.Post;
-                end;
-              aParent.Free;
-              aDeps.Next;
-            end;
-          aDeps.Free;
-        end;
-      //Check Parent Task
-      DataSet.EnableControls;
+      FCompletedChanged := True;
       DoCheckTask := True;
     end
   else if (Field.FieldName='CHECKED') and (Field.AsString='Y') then
