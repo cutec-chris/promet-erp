@@ -140,6 +140,7 @@ begin
       Result := True;
       aDirList := TLDirectoryList.Create;
       aItem := TLFile.Create('calendars',True);
+      aItem.IsCalendar:=True;
       aDocuments := TDocuments.Create(nil,Data);
       aDocuments.Select(1,'D',0);
       aDocuments.Open;

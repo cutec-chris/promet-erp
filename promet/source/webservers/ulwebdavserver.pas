@@ -35,6 +35,7 @@ type
   end;
   TLFile = class(TLDirectoryList)
   private
+    FIsCal: Boolean;
     FIsDir: Boolean;
     FName: string;
     FProperties: TStringList;
@@ -45,6 +46,7 @@ type
     property Name : string read FName write SetName;
     property Properties : TStringList read FProperties;
     property IsDir : Boolean read FIsDir;
+    property IsCalendar : Boolean read FIsCal write FIsCal;
   end;
   TLGetDirectoryList = function(aDir : string;var aDirList : TLDirectoryList) : Boolean of object;
   TLFileEvent = function(aDir : string) : Boolean of object;
@@ -268,6 +270,7 @@ var
   tmp: DOMString = 'D:options';
   aActivityCollection: TDOMElement = nil;
   aHref: TDOMElement;
+  aDirList : TLDirectoryList;
   Path: string;
 begin
   Result := False;
@@ -282,12 +285,15 @@ begin
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   if pos('trunk',Path) > 0 then
     Path := StringReplace(Path,'trunk','!svn/act',[]);
+//  if Assigned(TLWebDAVServer(FSocket.Creator).OnGetDirectoryList) then
+//    Result := TLWebDAVServer(FSocket.Creator).OnGetDirectoryList(Path,aDirList)
+//  else Result:=True;
+
   aHRef.AppendChild(aDocument.CreateTextNode(Path));
   aActivityCollection.AppendChild(aHref);
   if Assigned(aDocument.DocumentElement) then
     aDocument.DocumentElement.Free;
   aDocument.AppendChild(aOptionsRes);
-  Result:=True;
   TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsOK;
 end;
 function TDAVFindPropOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
@@ -424,7 +430,10 @@ begin
         aPrefix := trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
       aPropNode := TDOMElement(aDocument.DocumentElement.FirstChild);
       for i := 0 to aPropNode.ChildNodes.Count-1 do
-        aProperties.Add(aPropNode.ChildNodes.Item[i].NodeName);
+        begin
+          aProperties.Add(aPropNode.ChildNodes.Item[i].NodeName);
+          writeln('Property:'+aPropNode.ChildNodes.Item[i].NodeName);
+        end;
       aDocument.DocumentElement.Free;
     end;
   aMSRes := aDocument.CreateElementNS('DAV:','D:multistatus');
@@ -505,7 +514,7 @@ function TLWebDAVURIHandler.HandleURI(ASocket: TLHTTPServerSocket
   ): TOutputItem;
   procedure AddDAVheaders;
   begin
-    AppendString(ASocket.FHeaderOut.ExtraHeaders, 'DAV: 1,2'+#13#10);
+    AppendString(ASocket.FHeaderOut.ExtraHeaders, 'DAV: 1,2, access-control, calendar-access'+#13#10);
     AppendString(ASocket.FHeaderOut.ExtraHeaders, 'DAV: <http://apache.org/dav/propset/fs/1>'+#13#10);
     AppendString(ASocket.FHeaderOut.ExtraHeaders, 'MS-Author-Via: DAV'+#13#10);
     AppendString(ASocket.FHeaderOut.ExtraHeaders, 'Vary: Accept-Encoding'+#13#10);
