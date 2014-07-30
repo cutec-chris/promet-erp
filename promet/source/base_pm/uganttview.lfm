@@ -1234,6 +1234,7 @@ object fGanttView: TfGanttView
     object acDeletetask: TAction
       Caption = 'Aufgabe löschen'
       ImageIndex = 60
+      OnExecute = acDeletetaskExecute
     end
   end
   object RecalcTimer: TTimer

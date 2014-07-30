@@ -322,9 +322,9 @@ begin
     begin
       aTask := TTask.Create(Self,DataModule,Connection);
       aTask.SelectFromLink(Dependencies.FieldByName('LINK').AsString);
+      aTask.Open;
       if aTask.Count>0 then
         begin
-          aTask.Open;
           aCompCount:=aCompCount+(aTask.FieldByName('PERCENT').AsInteger/100);
           if aTask.FieldByName('COMPLETED').AsString <> 'Y' then
             begin

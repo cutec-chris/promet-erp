@@ -98,6 +98,7 @@ type
     procedure acAddSnapshotExecute(Sender: TObject);
     procedure acAddSubProjectsExecute(Sender: TObject);
     procedure acCenterTaskExecute(Sender: TObject);
+    procedure acDeletetaskExecute(Sender: TObject);
     procedure acExportToImageExecute(Sender: TObject);
     procedure acFindTimeSlotExecute(Sender: TObject);
     procedure acMakePossibleExecute(Sender: TObject);
@@ -250,6 +251,7 @@ begin
   aPoint := FGantt.Calendar.ScreenToControl(aPoint);
   FSelectedInterval := TP.GetTaskIntervalFromCoordinates(FGantt,aPoint.x,aPoint.y,0);
   acFindTimeSlot.Enabled:=Assigned(FSelectedInterval);
+  acDeletetask.Enabled:=Assigned(FSelectedInterval);
 end;
 
 procedure TfGanttView.RecalcTimerTimer(Sender: TObject);
@@ -765,6 +767,28 @@ begin
       else
         FGantt.StartDate:=aStart-((aDur-((aEnd-aStart)/2)) / 2);
     end;
+end;
+
+procedure TfGanttView.acDeletetaskExecute(Sender: TObject);
+var
+  aTask: TTask;
+  i: Integer;
+begin
+  if not Assigned(FSelectedInterval) then exit;
+  aTask := TTask.Create(nil,Data);
+  aTask.Select(FSelectedInterval.Id);
+  aTask.Open;
+  if aTask.Count>0 then
+    begin
+      aTask.Delete;
+      UpdateDependencies(FSelectedInterval);
+      for i := 0 to FSelectedInterval.ConnectionCount-1 do
+        UpdateDependencies(FSelectedInterval.Connection[i]);
+      FGantt.RemoveInterval(FSelectedInterval);
+      FIntervals.Remove(FSelectedInterval);
+      FreeAndNil(FSelectedInterval);
+    end;
+  aTask.Free;
 end;
 
 procedure TfGanttView.acExportToImageExecute(Sender: TObject);
@@ -1408,7 +1432,6 @@ begin
           aInt.Free;
         end;
       TRessource(FRessources[i]).Free;
-
     end;
   FRessources.Clear;
   FGantt.EndUpdate;
