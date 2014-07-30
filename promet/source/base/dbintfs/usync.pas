@@ -446,7 +446,8 @@ begin
                         Cancel;  //wir warten bis der 2. sync aufruf kommt und erstellen dann unseren syncitem
                       Result.Add(VJSON);
                       with BaseApplication as IBaseApplication do
-                        Debug('Changed Object:'+VJSON.AsJSON);
+                        if BaseApplication.HasOption('debug-json') then
+                          Debug('Changed Object:'+VJSON.AsJSON);
                     end
                   else Cancel;
                 end;
@@ -516,7 +517,8 @@ begin
                     begin
                       if not CanEdit then Edit;
                       with BaseApplication as IBaseApplication do
-                        Debug('Ext Changed Object:'+aObj.AsJSON);
+                        if BaseApplication.HasOption('debug-json') then
+                          Debug('Ext Changed Object:'+aObj.AsJSON);
                       aInternal.Select(LocalID.AsVariant);
                       aInternal.Open;
                       if aInternal.Count=0 then
@@ -591,7 +593,8 @@ begin
               DoSync:=True;
               aObj := aExternal.Items[i] as TJSONObject;
               with BaseApplication as IBaseApplication do
-                debug('Ext Notified Object:'+aObj.AsJSON);
+                if BaseApplication.HasOption('debug-json') then
+                  debug('Ext Notified Object:'+aObj.AsJSON);
               aID := GetField(aObj,'external_id');
               aTime := GetField(aObj,'timestampd');
               if not Assigned(aTime) then
