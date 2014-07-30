@@ -130,6 +130,7 @@ type
     function GetDep(Index: Integer): TInterval;
     function GetDepCount: Integer;
     function GetEarliestDate: TDateTime;
+    function GetIndex: Integer;
     function GetLatest: TDateTime;
     function GetStartDate: TDateTime;
     function GetFinishDate: TDateTime;
@@ -269,6 +270,7 @@ type
     property Gantt : TgsGantt read FGantt;
     property OnExpand : TNotifyEvent read FOnExpand write FOnExpand;
     property Fixed : Boolean read FFixed write FFixed;
+    property Index : Integer read GetIndex;
   end;
   TMouseOverInterval = procedure(Sender : TObject;aInterval : TInterval;X,Y : Integer) of object;
 
@@ -1504,6 +1506,13 @@ end;
 function TInterval.GetEarliestDate: TDateTime;
 begin
   Result := FEarliestDate;
+end;
+
+function TInterval.GetIndex: Integer;
+begin
+  Result := -1;
+  if not Assigned(FParent) then exit;
+  result := Parent.FIntervals.IndexOf(Self);
 end;
 
 function TInterval.GetDep(Index: Integer): TInterval;
@@ -3895,6 +3904,7 @@ begin
     if FTextEdit.Visible and Assigned(FEditInterval) then
     begin
       FEditInterval.Task := FTextEdit.Text;
+      FEditInterval.Change;
       FEditInterval := nil;
       FTextEdit.Visible := False;
     end;

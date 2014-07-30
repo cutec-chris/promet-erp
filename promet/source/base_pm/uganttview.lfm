@@ -1182,6 +1182,9 @@ object fGanttView: TfGanttView
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
     end
+    object MenuItem6: TMenuItem
+      Action = acAddtask
+    end
   end
   object ActionList1: TActionList
     Images = fVisualControls.Images
@@ -1223,13 +1226,10 @@ object fGanttView: TfGanttView
       ImageIndex = 4
       OnExecute = acFindTimeSlotExecute
     end
-    object acCollectTimesforUser: TAction
-      Caption = 'für diesen Nutzer Auslastung einblenden'
-      ImageIndex = 6
-    end
     object acAddtask: TAction
       Caption = 'Aufgabe einfügen'
       ImageIndex = 59
+      OnExecute = acAddtaskExecute
     end
     object acDeletetask: TAction
       Caption = 'Aufgabe löschen'

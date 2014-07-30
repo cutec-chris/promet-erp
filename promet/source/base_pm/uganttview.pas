@@ -40,7 +40,6 @@ type
     acAddSnapshot: TAction;
     acExportToImage: TAction;
     acFindTimeSlot: TAction;
-    acCollectTimesforUser: TAction;
     acAddtask: TAction;
     acDeletetask: TAction;
     ActionList1: TActionList;
@@ -78,6 +77,7 @@ type
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     Panel10: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
@@ -97,6 +97,7 @@ type
     bCSave: TSpeedButton;
     procedure acAddSnapshotExecute(Sender: TObject);
     procedure acAddSubProjectsExecute(Sender: TObject);
+    procedure acAddtaskExecute(Sender: TObject);
     procedure acCenterTaskExecute(Sender: TObject);
     procedure acDeletetaskExecute(Sender: TObject);
     procedure acExportToImageExecute(Sender: TObject);
@@ -194,6 +195,7 @@ resourcestring
   strCollectingDependencies               = 'Abhängigkeiten werden ermittelt...';
   strCollectingresourceTimes              = '... Urlaubszeiten ermitteln';
   strChangeMilestones                     = 'Meilensteine ändern';
+  strNewTask                              = 'neue Aufgabe';
 procedure TfGanttView.AddHelp;
 var
   aWiki: TWikiList;
@@ -903,6 +905,53 @@ begin
     end
   else Populate(FTasks);
 end;
+
+procedure TfGanttView.acAddtaskExecute(Sender: TObject);
+var
+  TP : TfTaskPlan;
+  aActInt: TInterval;
+  aParent: TTask;
+  aTask: TTask;
+  aInterval: TPInterval;
+begin
+  aActInt := TP.GetTaskIntervalFromCoordinates(FGantt,0,FGantt.Calendar.ScreenToClient(Mouse.CursorPos).Y,0,True);
+  aParent := TTask.Create(nil,Data);
+  if Assigned(aActInt) then
+    begin
+      aParent.Select(aActInt.Id);
+      aParent.Open;
+    end;
+  aTask := TTask.Create(nil,Data);
+  aTask.Insert;
+  aTask.FieldByName('PROJECT').AsString:=FTasks.FieldByName('PROJECT').AsString;
+  aTask.FieldByName('PROJECTID').AsVariant:=FTasks.FieldByName('PROJECTID').AsVariant;
+  aTask.FieldByName('SUMMARY').AsString:=strNewTask;
+  if aParent.Count>0 then
+    begin
+      aTask.FieldByName('GPRIORITY').AsInteger:=aPArent.FieldByName('GPRIORITY').AsInteger+1;
+      aTask.FieldByName('PARENT').AsVariant:=aPArent.FieldByName('PARENT').AsVariant;
+    end;
+  aTask.Post;
+  FTasks.DataSet.Refresh;
+  aInterval := TPInterval.Create(FGantt);
+  FIntervals.Add(aInterval);
+  FillInterval(aInterval,aTask);
+  aInterval.Visible:=True;
+  aInterval.Id := aTask.Id.AsVariant;
+  aInterval.OnChanged:=@aIntervalChanged;
+  aInterval.OnDrawBackground:=@aIntervalDrawBackground;
+  if Assigned(aActInt) then
+    begin
+      if Assigned(aActInt.Parent) then
+        aActInt.Parent.InsertInterval(aActInt.Index+1,aInterval)
+      else aActInt.AddInterval(aInterval);
+    end
+  else
+    FGantt.Interval[0].AddInterval(aInterval);
+  aParent.Free;
+  aTask.Free;
+end;
+
 procedure TfGanttView.acAddSnapshotExecute(Sender: TObject);
 var
   aName: String;

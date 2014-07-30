@@ -183,7 +183,8 @@ type
       asUser: string; aConnection: TComponent; CollectTasks,
   CollectCalendar: Boolean;Processmessages : Boolean = True);
     function GetIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
-    function GetTaskIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
+    function GetTaskIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer;
+      IgnoreX: Boolean=False): TInterval;
     function GetTaskFromCoordinates(Gantt : TgsGantt;X,Y,Index : Integer) : string;
   end;
 
@@ -1710,7 +1711,7 @@ begin
 end;
 
 function TfTaskPlan.GetTaskIntervalFromCoordinates(Gantt: TgsGantt; X, Y,
-  Index: Integer): TInterval;
+  Index: Integer;IgnoreX : Boolean = False): TInterval;
 var
   List: TList;
   aId : Variant;
@@ -1731,7 +1732,7 @@ begin
   ay := ay+(Gantt.Tree.TopRow-1);
   if (ay<List.Count) and (ay>-1) then
     begin
-      if IsInRect(X,Y,TInterval(List[ay]).DrawRect) then
+      if IgnoreX or IsInRect(X,Y,TInterval(List[ay]).DrawRect) then
         Result := TInterval(List[ay]);
     end;
   List.Free;
