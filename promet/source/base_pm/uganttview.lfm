@@ -1,7 +1,7 @@
 object fGanttView: TfGanttView
-  Left = 299
+  Left = 361
   Height = 582
-  Top = 173
+  Top = 201
   Width = 1076
   Caption = 'Gantt Ansicht'
   ClientHeight = 582
@@ -1193,6 +1193,7 @@ object fGanttView: TfGanttView
     end
     object acOpen: TAction
       Caption = 'Öffnen'
+      ImageIndex = 19
       OnExecute = acOpenExecute
     end
     object acMakePossible: TAction
@@ -1226,6 +1227,14 @@ object fGanttView: TfGanttView
       Caption = 'für diesen Nutzer Auslastung einblenden'
       ImageIndex = 6
     end
+    object acAddtask: TAction
+      Caption = 'Aufgabe einfügen'
+      ImageIndex = 59
+    end
+    object acDeletetask: TAction
+      Caption = 'Aufgabe löschen'
+      ImageIndex = 60
+    end
   end
   object RecalcTimer: TTimer
     Enabled = False
@@ -1243,6 +1252,9 @@ object fGanttView: TfGanttView
     OnPopup = PopupMenu2Popup
     left = 20
     top = 112
+    object MenuItem5: TMenuItem
+      Action = acAddtask
+    end
     object MenuItem2: TMenuItem
       Action = acFindTimeSlot
       Bitmap.Data = {
@@ -1281,6 +1293,9 @@ object fGanttView: TfGanttView
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
+    end
+    object MenuItem4: TMenuItem
+      Action = acDeletetask
     end
   end
 end

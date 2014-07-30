@@ -1508,7 +1508,9 @@ end;
 
 function TInterval.GetDep(Index: Integer): TInterval;
 begin
-  Result := TInterval(FDependencies[Index]);
+  if Index < FDependencies.Count then
+    Result := TInterval(FDependencies[Index])
+  else Result := nil;
 end;
 
 function TInterval.GetDepCount: Integer;

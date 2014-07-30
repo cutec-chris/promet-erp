@@ -41,6 +41,8 @@ type
     acExportToImage: TAction;
     acFindTimeSlot: TAction;
     acCollectTimesforUser: TAction;
+    acAddtask: TAction;
+    acDeletetask: TAction;
     ActionList1: TActionList;
     bMakePossible: TSpeedButton;
     bCalculate2: TSpeedButton;
@@ -74,6 +76,8 @@ type
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
     Panel10: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
@@ -150,6 +154,9 @@ type
     FSelectedInterval: TInterval;
     FIntervals : TList;
     FManualStarted : Boolean;
+    function FindInterval(aParent: TInterval; aId: Variant): TInterval;
+    function IntervalById(Id: Variant; Root: TInterval=nil): TInterval;
+    procedure UpdateDependencies(aInt : TInterval);
   public
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
@@ -294,6 +301,86 @@ begin
   if FThreads.Count=0 then
     iHourglass.Visible:=False;
   FGantt.Invalidate;
+end;
+
+function TfGanttView.FindInterval(aParent : TInterval;aId : Variant) : TInterval;
+var
+  i: Integer;
+begin
+  Result := nil;
+  for i := 0 to aParent.IntervalCount-1 do
+    begin
+      if aParent.Interval[i].Id = aId then
+        begin
+          Result := aParent.Interval[i];
+          break;
+        end
+      else if aParent.Interval[i].IntervalCount>0 then
+        begin
+          Result := FindInterval(aParent.Interval[i],aId);
+          if Assigned(Result) then break;
+        end;
+    end;
+end;
+function TfGanttView.IntervalById(Id : Variant;Root : TInterval = nil) : TInterval;
+var
+  i: Integer;
+  ares: TInterval;
+begin
+  Result := nil;
+  for i := 0 to FGantt.IntervalCount-1 do
+    begin
+      if FGantt.Interval[i].Id = id then
+        begin
+          Result := FGantt.Interval[i];
+          break;
+        end
+      else if FGantt.Interval[i].IntervalCount>0 then
+        begin
+          Result := FindInterval(FGantt.Interval[i],Id);
+          if Assigned(Result) then break;
+        end;
+    end;
+  if Assigned(Result) and Assigned(Root) then
+    begin
+      ares := result;
+      while Assigned(aRes.Parent) do
+        ares := ares.Parent;
+      if aRes<>Root then
+        Result := nil;
+    end;
+end;
+
+procedure TfGanttView.UpdateDependencies(aInt: TInterval);
+var
+  i: Integer;
+  aTask: TTask;
+  aDep: TInterval;
+begin
+  if not Assigned(aInt) then exit;
+ while aInt.DependencyCount>0 do
+    begin
+      aDep := aInt.Dependencies[0];
+      while (Assigned(aDep) and (aDep.ConnectionCount>0)) do
+        aDep.DeleteConnection(0);
+    end;
+  aTask := TTask.Create(nil,Data);
+  aTask.Select(aInt.Id);
+  aTask.Open;
+  if aTask.Count>0 then
+    begin
+      aTask.Dependencies.Open;
+      while not aTask.Dependencies.EOF do
+        begin
+          aDep := IntervalById(aTask.Dependencies.FieldByName('REF_ID_ID').AsVariant);
+          if Assigned(aDep) then
+            begin
+              aDep.AddConnection(aInt,aTask.FieldByName('STARTDATE').IsNull and aTask.FieldByName('DUEDATE').IsNull,False);
+            end;
+          aTask.Dependencies.Next;
+        end;
+    end;
+  aTask.Free;
 end;
 
 procedure TfGanttView.bDayViewClick(Sender: TObject);
@@ -854,6 +941,8 @@ var
   TP : TfTaskPlan;
   aInt: gsGanttCalendar.TInterval;
   aTask: TTask;
+  i: Integer;
+  DoChange: Boolean;
 begin
   aLink := TP.GetTaskFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval);
   if aLink <> '' then
@@ -861,10 +950,17 @@ begin
       aInt := TP.GetTaskIntervalFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,aSelInterval);
       if Assigned(aInt) then
         begin
-          if (not aInt.Changed) or (MessageDlg(strSaveTaskChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
+          DoChange := aInt.Changed;
+          for i := 0 to aInt.DependencyCount-1 do
+            if aInt.Dependencies[i].Changed then
+              DoChange := True;
+          if (not DoChange) or (MessageDlg(strSaveTaskChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
             begin
               if aInt.Changed then
                 ChangeTask(FTasks,aInt);
+              for i := 0 to aInt.DependencyCount-1 do
+                if aInt.Dependencies[i].Changed then
+                  ChangeTask(FTasks,aInt.Dependencies[i]);
               aEdit :=TfTaskEdit.Create(Self);
               if aEdit.Execute(aLink) then
                 begin
@@ -872,10 +968,11 @@ begin
                   aTask.SelectFromLink(aLink);
                   aTask.Open;
                   FillInterval(TPInterval(aInt),aTask);
+                  UpdateDependencies(TPInterval(aInt));
                   aTask.Free;
                   FGantt.Calendar.Invalidate;
-                  aEdit.Free;
                 end;
+              aEdit.Free;
             end;
         end;
     end;
@@ -1100,53 +1197,6 @@ var
   aRoot: TInterval;
   deps : array of LargeInt;
   Snapshotsfound: Integer;
-  function FindInterval(aParent : TInterval;aId : Variant) : TInterval;
-  var
-    i: Integer;
-  begin
-    Result := nil;
-    for i := 0 to aParent.IntervalCount-1 do
-      begin
-        if aParent.Interval[i].Id = aId then
-          begin
-            Result := aParent.Interval[i];
-            break;
-          end
-        else if aParent.Interval[i].IntervalCount>0 then
-          begin
-            Result := FindInterval(aParent.Interval[i],aId);
-            if Assigned(Result) then break;
-          end;
-      end;
-  end;
-  function IntervalById(Id : Variant;Root : TInterval = nil) : TInterval;
-  var
-    i: Integer;
-    ares: TInterval;
-  begin
-    Result := nil;
-    for i := 0 to FGantt.IntervalCount-1 do
-      begin
-        if FGantt.Interval[i].Id = id then
-          begin
-            Result := FGantt.Interval[i];
-            break;
-          end
-        else if FGantt.Interval[i].IntervalCount>0 then
-          begin
-            Result := FindInterval(FGantt.Interval[i],Id);
-            if Assigned(Result) then break;
-          end;
-      end;
-    if Assigned(Result) and Assigned(Root) then
-      begin
-        ares := result;
-        while Assigned(aRes.Parent) do
-          ares := ares.Parent;
-        if aRes<>Root then
-          Result := nil;
-      end;
-  end;
   function AddTask(AddParents : Boolean = True;Root : TInterval = nil) : TInterval;
   var
     aInterval: TInterval;
