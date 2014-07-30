@@ -181,7 +181,7 @@ begin
           begin
             if VData.AsBoolean then
               begin
-                if VField.AsString <> 'Y' then
+                if Uppercase(VField.AsString) <> 'Y' then
                   begin
                     VField.AsString := 'Y';
                     Result := True;
@@ -189,7 +189,7 @@ begin
               end
             else
               begin
-                if VField.AsString <> 'N' then
+                if (Uppercase(VField.AsString) <> 'N') and (not VField.IsNull) then
                   begin
                     VField.AsString := 'N';
                     Result := True;
@@ -376,6 +376,15 @@ var
   begin
     Result := Round(aDate * SecsPerDay) / SecsPerDay;
   end;
+  function RoundToMinute(T : TTime): TTime;
+  Var
+     H,M,S,ms : Word;
+  begin
+     DecodeTime(T,H,M,S,ms);
+     M := (M div 1) * 1;
+     S := 0;
+     Result := EncodeTime(H,M,S,ms);
+  end;
 
 begin
   with BaseApplication as IBaseApplication do
@@ -426,7 +435,7 @@ begin
                       Insert
                     end
                   else Edit;
-                  DoSync := (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) or (State=dsInsert); //sync only when Chnged ot New
+                  DoSync := (RoundToMinute(aInternal.TimeStamp.AsDateTime)>RoundToMinute(SyncTime.AsDateTime)) or (State=dsInsert); //sync only when Chnged ot New
                   if DoSync then
                     begin
                       VJSON := TJSONObject.Create;
@@ -436,8 +445,8 @@ begin
                       else if State=dsInsert then
                         Cancel;  //wir warten bis der 2. sync aufruf kommt und erstellen dann unseren syncitem
                       Result.Add(VJSON);
-                      //if BaseApplication.HasOption('debug') then
-                      //  debugln('Changed Object:'+VJSON.AsJSON);
+                      with BaseApplication as IBaseApplication do
+                        Debug('Changed Object:'+VJSON.AsJSON);
                     end
                   else Cancel;
                 end;
@@ -500,14 +509,14 @@ begin
                     end;
                   //sync only when Chnged or New
                   if SyncTime.IsNull then
-                    DoSync := DoSync and ((aSyncTime>=aLastSyncedItemTime) or (State=dsInsert))
+                    DoSync := DoSync and ((RoundToMinute(aSyncTime)>RoundToMinute(aLastSyncedItemTime)) or (State=dsInsert))
                   else
-                    DoSync := DoSync and ((aSyncTime>=SyncTime.AsDateTime) or (State=dsInsert));
+                    DoSync := DoSync and ((RoundToMinute(aSyncTime)>RoundToMinute(SyncTime.AsDateTime)) or (State=dsInsert));
                   if DoSync then
                     begin
                       if not CanEdit then Edit;
-                      //if BaseApplication.HasOption('debug') then
-                      //  debugln('Ext Changed Object:'+aObj.AsJSON);
+                      with BaseApplication as IBaseApplication do
+                        Debug('Ext Changed Object:'+aObj.AsJSON);
                       aInternal.Select(LocalID.AsVariant);
                       aInternal.Open;
                       if aInternal.Count=0 then
@@ -528,8 +537,8 @@ begin
                                   begin
                                     if SyncTime.AsDateTime>0 then //geänderter Datensatz
                                       begin
-                                        Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                                        debug(aID.AsString+':'+Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToSecond(aSyncTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                        Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToMinute(aSyncTime))+' > Sync '+DateTimeToStr(RoundToMinute(SyncTime.AsDateTime))]));
+                                        debug(aID.AsString+':'+Format(strSynchedIn,['Remote '+DateTimeToStr(RoundToMinute(aSyncTime))+' > Sync '+DateTimeToStr(RoundToMinute(SyncTime.AsDateTime))]));
                                       end
                                     else
                                       begin
@@ -539,8 +548,8 @@ begin
                                   end
                                 else
                                   begin
-                                    Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                                    debug(aID.AsString+':'+Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                    Hist.History.AddItem(aInternal.DataSet,Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToMinute(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToMinute(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToMinute(SyncTime.AsDateTime))]));
+                                    debug(aID.AsString+':'+Format(strSynchedIn,['Remote:'+DateTimeToStr(RoundToMinute(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToMinute(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToMinute(SyncTime.AsDateTime))]));
                                   end;
                               end;
                           except
@@ -581,8 +590,8 @@ begin
             begin
               DoSync:=True;
               aObj := aExternal.Items[i] as TJSONObject;
-              //if BaseApplication.HasOption('debug') then
-              //  debugln('Ext Notified Object:'+aObj.AsJSON);
+              with BaseApplication as IBaseApplication do
+                debug('Ext Notified Object:'+aObj.AsJSON);
               aID := GetField(aObj,'external_id');
               aTime := GetField(aObj,'timestampd');
               if not Assigned(aTime) then
@@ -653,13 +662,13 @@ begin
                                     end
                                   else if (aInternal.TimeStamp.AsDateTime>SyncTime.AsDateTime) then
                                     begin
-                                      Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                                      debug(aInternal.Id.AsString+':'+Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                      Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToMinute(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToMinute(SyncTime.AsDateTime))]));
+                                      debug(aInternal.Id.AsString+':'+Format(strSynchedOut,['Internal '+DateTimeToStr(RoundToMinute(aInternal.TimeStamp.AsDateTime))+' > Sync '+DateTimeToStr(RoundToMinute(SyncTime.AsDateTime))]));
                                     end
                                   else
                                     begin
-                                      Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
-                                      debug(aInternal.Id.AsString+':'+Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToSecond(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToSecond(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToSecond(SyncTime.AsDateTime))]));
+                                      Hist.History.AddItem(aInternal.DataSet,Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToMinute(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToMinute(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToMinute(SyncTime.AsDateTime))]));
+                                      debug(aInternal.Id.AsString+':'+Format(strSynchedOut,['Remote:'+DateTimeToStr(RoundToMinute(DecodeRfcDateTime(aTime.AsString)))+' Internal:'+DateTimeToStr(RoundToMinute(aInternal.TimeStamp.AsDateTime))+' Sync:'+DateTimeToStr(RoundToMinute(SyncTime.AsDateTime))]));
                                     end;
                                 end;
                               LocalID.AsVariant:=aInternal.Id.AsVariant;

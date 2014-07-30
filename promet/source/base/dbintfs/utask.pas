@@ -311,6 +311,7 @@ var
   tmp : string = '';
   i: Integer;
 begin
+  if aLevel>10 then exit;//recoursion check we may have an circulating dependency
   for i := 0 to aLevel-1 do
   tmp := tmp+' ';
   //debugln(tmp+'CheckDependencies:'+DataSet.FieldByName('SUMMARY').AsString);
@@ -321,12 +322,15 @@ begin
     begin
       aTask := TTask.Create(Self,DataModule,Connection);
       aTask.SelectFromLink(Dependencies.FieldByName('LINK').AsString);
-      aTask.Open;
-      aCompCount:=aCompCount+(aTask.FieldByName('PERCENT').AsInteger/100);
-      if aTask.FieldByName('COMPLETED').AsString <> 'Y' then
+      if aTask.Count>0 then
         begin
-          aTask.CheckDependencies(aLevel+1);
-          AllCompleted:='N';
+          aTask.Open;
+          aCompCount:=aCompCount+(aTask.FieldByName('PERCENT').AsInteger/100);
+          if aTask.FieldByName('COMPLETED').AsString <> 'Y' then
+            begin
+              aTask.CheckDependencies(aLevel+1);
+              AllCompleted:='N';
+            end;
         end;
       aTask.Free;
       Dependencies.DataSet.Next;
