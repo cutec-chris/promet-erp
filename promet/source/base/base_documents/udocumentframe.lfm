@@ -643,7 +643,7 @@ inherited fDocumentFrame: TfDocumentFrame
     Visible = False
     object bExecute1: TSpeedButton
       Left = 4
-      Height = 36
+      Height = 32
       Top = 4
       Width = 36
       Action = acExecute
@@ -689,18 +689,18 @@ inherited fDocumentFrame: TfDocumentFrame
     end
     object Panel7: TPanel
       Left = 44
-      Height = 44
+      Height = 40
       Top = 0
       Width = 60
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 44
+      ClientHeight = 40
       ClientWidth = 60
       TabOrder = 0
       object Label5: TLabel
         Left = 4
         Height = 15
-        Top = 0
+        Top = -4
         Width = 52
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -714,7 +714,7 @@ inherited fDocumentFrame: TfDocumentFrame
       end
       object Bevel5: TBevel
         Left = 0
-        Height = 36
+        Height = 32
         Top = 4
         Width = 8
         Align = alLeft
@@ -815,18 +815,18 @@ inherited fDocumentFrame: TfDocumentFrame
     end
     object Panel8: TPanel
       Left = 104
-      Height = 44
+      Height = 40
       Top = 0
       Width = 56
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 44
+      ClientHeight = 40
       ClientWidth = 56
       TabOrder = 1
       object Label6: TLabel
         Left = 4
         Height = 15
-        Top = 0
+        Top = -4
         Width = 48
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -840,7 +840,7 @@ inherited fDocumentFrame: TfDocumentFrame
       end
       object Bevel6: TBevel
         Left = 0
-        Height = 36
+        Height = 32
         Top = 4
         Width = 8
         Align = alLeft
@@ -939,18 +939,18 @@ inherited fDocumentFrame: TfDocumentFrame
     end
     object Panel9: TPanel
       Left = 160
-      Height = 44
+      Height = 40
       Top = 0
       Width = 56
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 44
+      ClientHeight = 40
       ClientWidth = 56
       TabOrder = 2
       object Label7: TLabel
         Left = 4
         Height = 15
-        Top = 0
+        Top = -4
         Width = 48
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -964,7 +964,7 @@ inherited fDocumentFrame: TfDocumentFrame
       end
       object Bevel7: TBevel
         Left = 0
-        Height = 36
+        Height = 32
         Top = 4
         Width = 8
         Align = alLeft
@@ -1068,18 +1068,18 @@ inherited fDocumentFrame: TfDocumentFrame
     end
     object Panel10: TPanel
       Left = 216
-      Height = 44
+      Height = 40
       Top = 0
       Width = 64
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 44
+      ClientHeight = 40
       ClientWidth = 64
       TabOrder = 3
       object Label8: TLabel
         Left = 4
         Height = 15
-        Top = 0
+        Top = -4
         Width = 56
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -1093,7 +1093,7 @@ inherited fDocumentFrame: TfDocumentFrame
       end
       object Bevel8: TBevel
         Left = 0
-        Height = 36
+        Height = 32
         Top = 4
         Width = 8
         Align = alLeft
@@ -1263,12 +1263,12 @@ inherited fDocumentFrame: TfDocumentFrame
     end
     object acCopyAsLink: TAction
       Category = 'Documents'
-      Caption = 'als Verweis kopieren'
+      Caption = 'als Verknüpfung kopieren'
       OnExecute = acCopyAsLinkExecute
     end
     object acPasteAsLink: TAction
       Category = 'Documents'
-      Caption = 'als verknüpftes Doument einfügen'
+      Caption = 'als Verknüpfung einfügen'
       OnExecute = acPasteAsLinkExecute
     end
     object acExecute: TAction

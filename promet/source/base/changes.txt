@@ -1,4 +1,10 @@
-﻿Build 363
+﻿Build 364
+      - Gantt:erstellen und löschen von Aufgaben direkt in der Gantt Ansicht
+      - Gantt:aktualisieren von Verknüpfungen wenn Aufgaben im Gantt bearbeitet wurden
+      - Gantt:Verknüpfungen von Vorgängern und nachfolgern werden automatisch verbunden beim löschen von Aufgaben
+      - Auftrag:Datums Tab wird bei neuem Auftrag automatisch eingefügt
+      - Links:Button zum suchen von Verknüpfungszielen (hinzufügen zu Verknüpfungen) direkt im Tab (bisher (nur) per Drag&Drop und aus dem Baum möglich)
+Build 363
       - Aufgaben:Speichern/Abbrechen Knopf die Persönlichen Aufgben werden nun innerhalb einer Transaktion bearbeitet und alle Änderungen können zusamen bestätigt/abgebrochen werden
       - erste Version einer MySQL Unterstützung (möglicherweise noch instabil)
       - Nachrichtenzentrale:Modus in dem Das Eingabefeld unten ist (Ähnlich Instant Messangern)
