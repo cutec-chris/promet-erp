@@ -65,6 +65,7 @@ begin
               fs.Free;
             end;
           i := 0;
+          sl.SaveToFile(aIPCFile); //when not saveable, raise exception and exit
           achanged := False;
           while i < sl.Count do
             begin

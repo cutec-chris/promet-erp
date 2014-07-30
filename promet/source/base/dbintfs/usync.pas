@@ -23,7 +23,7 @@ unit usync;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uBaseApplication,
-  fpjson,fpsqltree,LConvEncoding,synautil;
+  fpjson,fpsqltree,LConvEncoding,synautil,Utils;
 type
   TSyncTable = class(TBaseDBDataSet)
   public
@@ -372,20 +372,6 @@ var
   tmp1: String;
   aIntFilter: String;
   aOtherUserItems: TSyncItems;
-  function RoundToSecond(aDate : TDateTime) : TDateTime;
-  begin
-    Result := Round(aDate * SecsPerDay) / SecsPerDay;
-  end;
-  function RoundToMinute(T : TTime): TTime;
-  Var
-     H,M,S,ms : Word;
-  begin
-     DecodeTime(T,H,M,S,ms);
-     M := (M div 1) * 1;
-     S := 0;
-     Result := EncodeTime(H,M,S,ms);
-  end;
-
 begin
   with BaseApplication as IBaseApplication do
     begin

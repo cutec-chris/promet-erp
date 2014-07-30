@@ -48,6 +48,8 @@ function GetMimeTypeforExtension(Extension : string) : string;
 function GetMainIconHandle(Resourcename : string) : Cardinal;
 function CanWriteToProgramDir : Boolean;
 function HexToBin(h: STRING): dword;
+function RoundToSecond(aDate : TDateTime) : TDateTime;
+function RoundToMinute(T : TTime): TTime;
 function RoundTo(const AValue : extended ; const ADigit : TRoundToRange) : extended ;
 function TimeTotext(Seconds : Integer) : string;
 function GetSystemLang : string;
@@ -117,6 +119,19 @@ begin
     begin
       Result := IntToStr(Seconds)+' s';
     end
+end;
+function RoundToSecond(aDate : TDateTime) : TDateTime;
+begin
+  Result := Round(aDate * SecsPerDay) / SecsPerDay;
+end;
+function RoundToMinute(T : TTime): TTime;
+Var
+   H,M,S,ms : Word;
+begin
+   DecodeTime(T,H,M,S,ms);
+   M := (M div 1) * 1;
+   S := 0;
+   Result := EncodeTime(H,M,S,ms);
 end;
 function RoundTo(const AValue : extended ; const ADigit : TRoundToRange) : extended ;
 var X : extended ; i : integer ;
@@ -805,4 +820,4 @@ begin
 end;
 END.
 
- 
+ 
