@@ -122,6 +122,8 @@ type
     procedure cbSnapshotSelect(Sender: TObject);
     procedure FGanttCalendarClick(Sender: TObject);
     procedure FGanttCalendarDblClick(Sender: TObject);
+    procedure FGanttCalendarMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure FGanttCalendarMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure FGanttCalendarMoveOverInterval(Sender: TObject;
@@ -914,7 +916,7 @@ var
   aTask: TTask;
   aInterval: TPInterval;
 begin
-  aActInt := TP.GetTaskIntervalFromCoordinates(FGantt,0,FGantt.Calendar.ScreenToClient(Mouse.CursorPos).Y,0,True);
+  aActInt := TP.GetTaskIntervalFromCoordinates(FGantt,0,aClickPoint.y,0,True);
   aParent := TTask.Create(nil,Data);
   if Assigned(aActInt) then
     begin
@@ -928,7 +930,7 @@ begin
   aTask.FieldByName('SUMMARY').AsString:=strNewTask;
   if aParent.Count>0 then
     begin
-      aTask.FieldByName('GPRIORITY').AsInteger:=aPArent.FieldByName('GPRIORITY').AsInteger+1;
+      aTask.FieldByName('GPRIORITY').AsInteger:=aPArent.FieldByName('GPRIORITY').AsInteger;
       aTask.FieldByName('PARENT').AsVariant:=aPArent.FieldByName('PARENT').AsVariant;
     end;
   aTask.Post;
@@ -1129,6 +1131,13 @@ begin
   aClickPoint := FGantt.Calendar.ScreenToClient(Mouse.CursorPos);
   acOpen.Execute;
 end;
+
+procedure TfGanttView.FGanttCalendarMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  aClickPoint := FGantt.Calendar.ScreenToClient(Mouse.CursorPos);
+end;
+
 procedure TfGanttView.FGanttCalendarMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
@@ -1242,6 +1251,7 @@ begin
   FGantt.Calendar.OnMoveOverInterval:=@FGanttCalendarMoveOverInterval;
   FGantt.Calendar.OnShowHint:=@FGanttCalendarShowHint;
   FGantt.Calendar.OnMouseMove:=@FGanttCalendarMouseMove;
+  FGantt.Calendar.OnMouseDown:=@FGanttCalendarMouseDown;
   FGantt.Calendar.OnDblClick:=@FGanttCalendarDblClick;
   FGantt.Calendar.OnClick:=@FGanttCalendarClick;
   FGantt.Tree.PopupMenu:=PopupMenu1;

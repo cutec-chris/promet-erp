@@ -3901,10 +3901,11 @@ procedure TGanttTree.OnEditExit(Sender: TObject);
 begin
   if Sender = FTextEdit then
   begin
+    if Assigned(FEditInterval) then
+      FEditInterval.Change;
     if FTextEdit.Visible and Assigned(FEditInterval) then
     begin
       FEditInterval.Task := FTextEdit.Text;
-      FEditInterval.Change;
       FEditInterval := nil;
       FTextEdit.Visible := False;
     end;
