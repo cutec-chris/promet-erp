@@ -358,6 +358,7 @@ begin
 end;
 procedure TfWikiFrame.SpeedButton3Click(Sender: TObject);
 begin
+  if Data.Users.Rights.Right('WIKI')<=RIGHT_READ then exit;
   if (DataSet.DataSet.State <> dsEdit)
   and (DataSet.DataSet.State <> dsInsert) then
     DataSet.DataSet.Edit;
@@ -366,6 +367,7 @@ begin
 end;
 procedure TfWikiFrame.SpeedButton4Click(Sender: TObject);
 begin
+  if Data.Users.Rights.Right('WIKI')<=RIGHT_READ then exit;
   if (DataSet.DataSet.State <> dsEdit)
   and (DataSet.DataSet.State <> dsInsert) then
     DataSet.DataSet.Edit;
@@ -377,6 +379,7 @@ procedure TfWikiFrame.SpeedButton9Click(Sender: TObject);
 var
   Stream: TStringStream;
 begin
+  if Data.Users.Rights.Right('WIKI')<=RIGHT_READ then exit;
   if Clipboard.HasFormat(LinkClipboardFormat) then
     begin
       Stream := TStringstream.Create('');
@@ -419,6 +422,7 @@ begin
 end;
 procedure TfWikiFrame.acImageExecute(Sender: TObject);
 begin
+  if Data.Users.Rights.Right('WIKI')<=RIGHT_READ then exit;
   if (DataSet.DataSet.State <> dsEdit)
   and (DataSet.DataSet.State <> dsInsert) then
     DataSet.DataSet.Edit;
@@ -438,6 +442,7 @@ var
   aDocFrame: TfDocumentFrame;
   aPageIndex: Integer;
 begin
+  if Data.Users.Rights.Right('WIKI')<=RIGHT_READ then exit;
   Application.ProcessMessages;
   Application.MainForm.Hide;
   Application.ProcessMessages;
