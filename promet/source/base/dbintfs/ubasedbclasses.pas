@@ -322,12 +322,15 @@ type
   { TTree }
 
   TTree = class(TBaseDBDataSet)
+  private
+    function GetText: TField;
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure Open;override;
     procedure ImportStandartEntrys;
     procedure DefineFields(aDataSet : TDataSet);override;
+    property Text : TField read GetText;
   end;
   TForms = class(TBaseDBDataSet)
   public
@@ -1627,6 +1630,12 @@ begin
           end;
     end;
 end;
+
+function TTree.GetText: TField;
+begin
+  Result := FieldByName('NAME');
+end;
+
 constructor TTree.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin

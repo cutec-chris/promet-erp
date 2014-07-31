@@ -26,7 +26,7 @@ uses
   lNet, uBaseDBInterface, md5,uData,
   pmimemessages,fileutil,lconvencoding,uBaseApplication,
   ulsvnserver, ulwebdavserver, uDocuments, Utils,lMimeTypes,lHTTPUtil,lCommon,
-  DateUtils,uimpvcal,uCalendar,uWiki,synautil;
+  DateUtils,uimpvcal,uCalendar,uWiki,synautil,uBaseDbClasses;
 type
   TSVNServer = class(TBaseCustomApplication)
     procedure ServerAccess(AMessage: string);
@@ -133,6 +133,7 @@ var
   aCal: TCalendar;
   sl: TStringList;
   Stream: TMemoryStream;
+  aDirs: TTree;
 begin
   Result := false;
   if aDir = '/' then
@@ -153,7 +154,8 @@ begin
       if Data.Users.DataSet.Active then
         begin
           aDirList := TLDirectoryList.Create;
-          aItem := TLFile.Create('standard.ics',False);
+          //Add ics file
+          aItem := TLFile.Create('home.ics',False);
           aItem.Properties.Values['getcontenttype'] := 'text/calendar';
           aItem.Properties.Values['creationdate'] := BuildISODate(Now());
           aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
@@ -169,6 +171,30 @@ begin
           Stream.Free;
           sl.Free;
           aDirList.Add(aItem);
+          //Add CalDAV Calendars
+          aDirs := TTree.Create(nil,Data);
+          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
+          aItem := TLFile.Create('home',False);
+          //Select last SQL_ID as ctag
+          aCal := TCalendar.Create(nil,Data);
+          aCal.SelectByUser(Data.Users.Accountno.AsString);
+          aCal.ActualLimit:=1;
+          aCal.SortFields:='TIMESTAMPD';
+          aCal.SortDirection:=sdDescending;
+          aCal.Open;
+          aItem.Properties.Values['cs:getctag'] := aCal.Id.AsString;
+          aCal.Free;
+          aDirList.Add(aItem);
+          while not aDirs.EOF do
+            begin
+              aItem := TLFile.Create(aDirs.Text.AsString,False);
+              aCal := TCalendar.Create(nil,Data);
+              aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
+              aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
+              aCal.Free;
+              aDirs.Next;
+            end;
+          aDirs.Free;
           Result:=True;
         end
       else Result := False;
@@ -214,7 +240,7 @@ var
   sl: TStringList;
   aCal: TCalendar;
 begin
-  if aDir = 'calendars/standart.ics' then
+  if aDir = 'calendars/home.ics' then
     begin
       sl := TStringList.Create;
       aCal := TCalendar.Create(nil,Data);
