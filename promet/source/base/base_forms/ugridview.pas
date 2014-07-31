@@ -2935,7 +2935,10 @@ begin
   {$ifndef slowdebug}
   gList.EndUpdate;
   aOldCol := gList.Col;
-  gList.Col := gList.ColCount-1;
+  try
+    gList.Col := gList.ColCount-1;
+  except
+  end;
   gList.Col := aOldCol;
   {$else}
   debugln('SyncDataSourceEnd='+IntToStr(GetTickCount-aTime));

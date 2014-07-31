@@ -413,18 +413,20 @@ begin
     begin
       if TInterval(Sender).Fixed then exit;
       TInterval(Sender).BeginUpdate;
-      //if TInterval(Sender).MovedFwd then
+      debugln('IntervalChanged('+TInterval(Sender).Task+')');
+      if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
+        TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
+      //Move Forward
+      aDur := NetDuration;
+      if ResourceTimePerDay=0 then ResourceTimePerDay:=1;
+      if NetDuration<(NetTime*(1/ResourceTimePerDay)) then
+        aDur:=(NetTime*(1/ResourceTimePerDay));
+      if aDur<0.5 then aDur:=0.5;
+      if NetDuration<aDur then NetDuration:=aDur;
+      if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
+        TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
+      if TInterval(Sender).Moved then
         begin
-          debugln('IntervalChanged('+TInterval(Sender).Task+')');
-          //Move Forward
-          aDur := NetDuration;
-          if ResourceTimePerDay=0 then ResourceTimePerDay:=1;
-          if NetDuration<(NetTime*(1/ResourceTimePerDay)) then
-            aDur:=(NetTime*(1/ResourceTimePerDay));
-          if aDur<0.5 then aDur:=0.5;
-          if NetDuration<aDur then NetDuration:=aDur;
-          if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
-            TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
           //Add Weekends
           i := trunc(TInterval(Sender).StartDate);
           while i < TInterval(Sender).StartDate+aDur do
@@ -435,34 +437,35 @@ begin
             end;
           //if TInterval(Sender).FinishDate<(TInterval(Sender).StartDate+aDur) then
           TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
-          IntervalDone:=TInterval(Sender).StartDate;
-          for i := 0 to ConnectionCount-1 do
-            begin
-              Connection[i].BeginUpdate;
-              oD := Connection[i].Duration;
-              if Connection[i].StartDate<FinishDate+WaitTime then
-                begin
-                  for c := 0 to Connection[i].IntervalCount-1 do
-                    if Connection[i].Interval[c].StartDate<FinishDate+WaitTime then
-                      begin
-                        oD2 := Connection[i].Interval[c].Duration;
-                        Connection[i].Interval[c].BeginUpdate;
-                        Connection[i].Interval[c].StartDate:=FinishDate+WaitTime;
-                        Connection[i].Interval[c].FinishDate:=FinishDate+WaitTime+oD2;
-                        Connection[i].Interval[c].EndUpdate;
-                      end;
-                  Connection[i].StartDate:=FinishDate+WaitTime;
-                end;
-              if Connection[i].FinishDate<Connection[i].StartDate+oD then
-                Connection[i].FinishDate:=Connection[i].StartDate+oD;
-              Connection[i].IntervalDone:=Connection[i].StartDate;
-              Connection[i].EndUpdate;
-            end;
         end;
-      TInterval(Sender).ResetMovement;
-      TInterval(Sender).Endupdate(True);
-      RecalcTimer.Enabled := True;
+      IntervalDone:=TInterval(Sender).StartDate;
+      for i := 0 to ConnectionCount-1 do
+        begin
+          Connection[i].BeginUpdate;
+          oD := Connection[i].Duration;
+          if Connection[i].StartDate<FinishDate+WaitTime then
+            begin
+              for c := 0 to Connection[i].IntervalCount-1 do
+                if Connection[i].Interval[c].StartDate<FinishDate+WaitTime then
+                  begin
+                    oD2 := Connection[i].Interval[c].Duration;
+                    Connection[i].Interval[c].BeginUpdate;
+                    Connection[i].Interval[c].StartDate:=FinishDate+WaitTime;
+                    Connection[i].Interval[c].FinishDate:=FinishDate+WaitTime+oD2;
+                    Connection[i].Interval[c].EndUpdate;
+                  end;
+              Connection[i].StartDate:=FinishDate+WaitTime;
+            end;
+          if Connection[i].FinishDate<Connection[i].StartDate+oD then
+            Connection[i].FinishDate:=Connection[i].StartDate+oD;
+          Connection[i].IntervalDone:=Connection[i].StartDate;
+          Connection[i].Moved:=True;
+          Connection[i].EndUpdate;
+        end;
     end;
+  TInterval(Sender).ResetMovement;
+  TInterval(Sender).Endupdate(True);
+  RecalcTimer.Enabled := True;
   Found := False;
   for i := 0 to FRessources.Count-1 do
     for a := 0 to TRessource(FRessources[i]).IntervalCount-1 do
