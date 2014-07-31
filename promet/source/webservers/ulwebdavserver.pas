@@ -49,12 +49,14 @@ type
     property IsCalendar : Boolean read FIsCal write FIsCal;
   end;
   TLGetDirectoryList = function(aDir : string;var aDirList : TLDirectoryList) : Boolean of object;
+  TLGetCTag = function(aDir : string;var aCTag : Int64) : Boolean of object;
   TLFileEvent = function(aDir : string) : Boolean of object;
   TLFileStreamEvent = function(aDir : string;Stream : TStream) : Boolean of object;
   TLFileStreamDateEvent = function(aDir : string;Stream : TStream;var FLastModified : TDateTime;var MimeType : string) : Boolean of object;
   TLLoginEvent = function(aUser,aPassword : string) : Boolean of object;
   TLWebDAVServer = class(TLHTTPServer)
   private
+    FCtag: TLGetCTag;
     FDelete: TLFileEvent;
     FGet: TLFileStreamDateEvent;
     FGetDirList: TLGetDirectoryList;
@@ -80,6 +82,7 @@ type
     property OnReadAllowed : TLFileEvent read FreadAllowed write FReadAllowed;
     property OnWriteAllowed : TLFileEvent read FWriteAllowed write FWriteAllowed;
     property OnUserLogin : TLLoginEvent read FUserLogin write FUserLogin;
+    property OngetCTag : TLGetCTag read FCtag write FCtag;
   end;
   TLWebDAVServerSocket = class(TLHTTPServerSocket)
   end;
@@ -363,6 +366,10 @@ var
             aPropC.AppendChild(aDocument.CreateTextNode('httpd/unix-directory'));
             aProp.AppendChild(apropC);
           end;
+        if aFile.IsCalendar then
+          begin
+
+          end;
         for a := 0 to aFile.Properties.Count-1 do
           begin
             if aNotFoundProp.IndexOf(prefix+':'+aFile.Properties.Names[a]) > -1 then
@@ -370,8 +377,10 @@ var
             if (aFile.Properties.Names[a] = 'getcontenttype')
             then
               aPropC := aDocument.CreateElement('D:'+aFile.Properties.Names[a])
+            else if pos(':',aFile.Properties.Names[a])=-1 then
+              aPropC := aDocument.CreateElement(prefix+':'+aFile.Properties.Names[a])
             else
-              aPropC := aDocument.CreateElement(prefix+':'+aFile.Properties.Names[a]);
+              aPropC := aDocument.CreateElement(aFile.Properties.Names[a]);
             aPropC.AppendChild(aDocument.CreateTextNode(aFile.Properties.ValueFromIndex[a]));
             aProp.AppendChild(aPropC);
           end;

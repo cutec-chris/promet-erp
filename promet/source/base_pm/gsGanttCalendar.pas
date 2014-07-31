@@ -93,6 +93,7 @@ type
     Fid: Variant;
     FInCriticalPath: Boolean;
     FIntervalStyle: TIntervalStyle;
+    FMoved: Boolean;
     FMovedBack: Boolean;
     FMovedFwd: Boolean;
     FNetDuration: TDateTime;
@@ -254,6 +255,7 @@ type
     property Changed : Boolean read FChanged write FChanged;
     property MovedBack : Boolean read FMovedBack;
     property MovedFwd : Boolean read FMovedFwd;
+    property Moved : Boolean read FMoved write FMoved;
     procedure ResetMovement;
     property DontChange : Boolean read FDontChange write FDontChange;
     procedure Change;
@@ -1452,6 +1454,7 @@ procedure TInterval.ResetMovement;
 begin
   FMovedBack:=False;
   FMovedFwd :=False;
+  FMoved:=False;
 end;
 
 {
@@ -3065,6 +3068,7 @@ begin
 
             FDragInterval.FinishDate := FDragInterval.StartDate;
           end;
+          FDragInterval.FMoved:=True;
         end;
         ditRightMove:
         begin
@@ -3901,10 +3905,11 @@ procedure TGanttTree.OnEditExit(Sender: TObject);
 begin
   if Sender = FTextEdit then
   begin
+    if Assigned(FEditInterval) then
+      FEditInterval.Change;
     if FTextEdit.Visible and Assigned(FEditInterval) then
     begin
       FEditInterval.Task := FTextEdit.Text;
-      FEditInterval.Change;
       FEditInterval := nil;
       FTextEdit.Visible := False;
     end;

@@ -122,6 +122,8 @@ type
     procedure cbSnapshotSelect(Sender: TObject);
     procedure FGanttCalendarClick(Sender: TObject);
     procedure FGanttCalendarDblClick(Sender: TObject);
+    procedure FGanttCalendarMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure FGanttCalendarMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure FGanttCalendarMoveOverInterval(Sender: TObject;
@@ -411,18 +413,20 @@ begin
     begin
       if TInterval(Sender).Fixed then exit;
       TInterval(Sender).BeginUpdate;
-      //if TInterval(Sender).MovedFwd then
+      debugln('IntervalChanged('+TInterval(Sender).Task+')');
+      if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
+        TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
+      //Move Forward
+      aDur := NetDuration;
+      if ResourceTimePerDay=0 then ResourceTimePerDay:=1;
+      if NetDuration<(NetTime*(1/ResourceTimePerDay)) then
+        aDur:=(NetTime*(1/ResourceTimePerDay));
+      if aDur<0.5 then aDur:=0.5;
+      if NetDuration<aDur then NetDuration:=aDur;
+      if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
+        TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
+      if TInterval(Sender).Moved then
         begin
-          debugln('IntervalChanged('+TInterval(Sender).Task+')');
-          //Move Forward
-          aDur := NetDuration;
-          if ResourceTimePerDay=0 then ResourceTimePerDay:=1;
-          if NetDuration<(NetTime*(1/ResourceTimePerDay)) then
-            aDur:=(NetTime*(1/ResourceTimePerDay));
-          if aDur<0.5 then aDur:=0.5;
-          if NetDuration<aDur then NetDuration:=aDur;
-          if TInterval(Sender).StartDate<TInterval(Sender).Earliest then
-            TInterval(Sender).StartDate:=TInterval(Sender).Earliest;
           //Add Weekends
           i := trunc(TInterval(Sender).StartDate);
           while i < TInterval(Sender).StartDate+aDur do
@@ -433,34 +437,35 @@ begin
             end;
           //if TInterval(Sender).FinishDate<(TInterval(Sender).StartDate+aDur) then
           TInterval(Sender).FinishDate := (TInterval(Sender).StartDate+aDur);
-          IntervalDone:=TInterval(Sender).StartDate;
-          for i := 0 to ConnectionCount-1 do
-            begin
-              Connection[i].BeginUpdate;
-              oD := Connection[i].Duration;
-              if Connection[i].StartDate<FinishDate+WaitTime then
-                begin
-                  for c := 0 to Connection[i].IntervalCount-1 do
-                    if Connection[i].Interval[c].StartDate<FinishDate+WaitTime then
-                      begin
-                        oD2 := Connection[i].Interval[c].Duration;
-                        Connection[i].Interval[c].BeginUpdate;
-                        Connection[i].Interval[c].StartDate:=FinishDate+WaitTime;
-                        Connection[i].Interval[c].FinishDate:=FinishDate+WaitTime+oD2;
-                        Connection[i].Interval[c].EndUpdate;
-                      end;
-                  Connection[i].StartDate:=FinishDate+WaitTime;
-                end;
-              if Connection[i].FinishDate<Connection[i].StartDate+oD then
-                Connection[i].FinishDate:=Connection[i].StartDate+oD;
-              Connection[i].IntervalDone:=Connection[i].StartDate;
-              Connection[i].EndUpdate;
-            end;
         end;
-      TInterval(Sender).ResetMovement;
-      TInterval(Sender).Endupdate(True);
-      RecalcTimer.Enabled := True;
+      IntervalDone:=TInterval(Sender).StartDate;
+      for i := 0 to ConnectionCount-1 do
+        begin
+          Connection[i].BeginUpdate;
+          oD := Connection[i].Duration;
+          if Connection[i].StartDate<FinishDate+WaitTime then
+            begin
+              for c := 0 to Connection[i].IntervalCount-1 do
+                if Connection[i].Interval[c].StartDate<FinishDate+WaitTime then
+                  begin
+                    oD2 := Connection[i].Interval[c].Duration;
+                    Connection[i].Interval[c].BeginUpdate;
+                    Connection[i].Interval[c].StartDate:=FinishDate+WaitTime;
+                    Connection[i].Interval[c].FinishDate:=FinishDate+WaitTime+oD2;
+                    Connection[i].Interval[c].EndUpdate;
+                  end;
+              Connection[i].StartDate:=FinishDate+WaitTime;
+            end;
+          if Connection[i].FinishDate<Connection[i].StartDate+oD then
+            Connection[i].FinishDate:=Connection[i].StartDate+oD;
+          Connection[i].IntervalDone:=Connection[i].StartDate;
+          Connection[i].Moved:=True;
+          Connection[i].EndUpdate;
+        end;
     end;
+  TInterval(Sender).ResetMovement;
+  TInterval(Sender).Endupdate(True);
+  RecalcTimer.Enabled := True;
   Found := False;
   for i := 0 to FRessources.Count-1 do
     for a := 0 to TRessource(FRessources[i]).IntervalCount-1 do
@@ -914,7 +919,7 @@ var
   aTask: TTask;
   aInterval: TPInterval;
 begin
-  aActInt := TP.GetTaskIntervalFromCoordinates(FGantt,0,FGantt.Calendar.ScreenToClient(Mouse.CursorPos).Y,0,True);
+  aActInt := TP.GetTaskIntervalFromCoordinates(FGantt,0,aClickPoint.y,0,True);
   aParent := TTask.Create(nil,Data);
   if Assigned(aActInt) then
     begin
@@ -928,7 +933,7 @@ begin
   aTask.FieldByName('SUMMARY').AsString:=strNewTask;
   if aParent.Count>0 then
     begin
-      aTask.FieldByName('GPRIORITY').AsInteger:=aPArent.FieldByName('GPRIORITY').AsInteger+1;
+      aTask.FieldByName('GPRIORITY').AsInteger:=aPArent.FieldByName('GPRIORITY').AsInteger;
       aTask.FieldByName('PARENT').AsVariant:=aPArent.FieldByName('PARENT').AsVariant;
     end;
   aTask.Post;
@@ -1129,6 +1134,13 @@ begin
   aClickPoint := FGantt.Calendar.ScreenToClient(Mouse.CursorPos);
   acOpen.Execute;
 end;
+
+procedure TfGanttView.FGanttCalendarMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  aClickPoint := FGantt.Calendar.ScreenToClient(Mouse.CursorPos);
+end;
+
 procedure TfGanttView.FGanttCalendarMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
@@ -1242,6 +1254,7 @@ begin
   FGantt.Calendar.OnMoveOverInterval:=@FGanttCalendarMoveOverInterval;
   FGantt.Calendar.OnShowHint:=@FGanttCalendarShowHint;
   FGantt.Calendar.OnMouseMove:=@FGanttCalendarMouseMove;
+  FGantt.Calendar.OnMouseDown:=@FGanttCalendarMouseDown;
   FGantt.Calendar.OnDblClick:=@FGanttCalendarDblClick;
   FGantt.Calendar.OnClick:=@FGanttCalendarClick;
   FGantt.Tree.PopupMenu:=PopupMenu1;
