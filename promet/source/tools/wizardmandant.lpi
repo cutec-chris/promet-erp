@@ -30,6 +30,7 @@
       <local>
         <FormatVersion Value="1"/>
         <CommandLineParams Value="--debug"/>
+        <WorkingDirectory Value="/media/Daten/Source/promet/promet/output/x86_64-linux/"/>
       </local>
     </RunParams>
     <RequiredPackages Count="5">
@@ -99,7 +100,7 @@ if TargetOS='darwin' then
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="6">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EStringListError"/>
       </Item1>
@@ -118,6 +119,9 @@ if TargetOS='darwin' then
       <Item6>
         <Name Value="EZSQLException"/>
       </Item6>
+      <Item7>
+        <Name Value="EZDatabaseError"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>

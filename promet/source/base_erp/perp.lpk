@@ -8,7 +8,7 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="7">
+    <Files Count="9">
       <Item1>
         <Filename Value="udetailpositionframe.lfm"/>
         <Type Value="LFM"/>
@@ -34,9 +34,17 @@
         <UnitName Value="ufinance"/>
       </Item6>
       <Item7>
+        <Filename Value="ucalcframe.pas"/>
+        <UnitName Value="ucalcframe"/>
+      </Item7>
+      <Item8>
         <Filename Value="udetailpositionframe.pas"/>
         <UnitName Value="uDetailPositionFrame"/>
-      </Item7>
+      </Item8>
+      <Item9>
+        <Filename Value="ucalcframe.lfm"/>
+        <Type Value="LFM"/>
+      </Item9>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">

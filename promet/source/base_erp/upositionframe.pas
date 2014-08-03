@@ -109,6 +109,7 @@ type
     procedure Datasource1StateChange(Sender: TObject);
     procedure DoAsyncInit(Data: PtrInt);
     procedure FDataSourceStateChange(Sender: TObject);
+    procedure FGridViewAutoFilterChanged(Sender: TObject);
     procedure FGridViewCellButtonClick(Sender: TObject; Cell: TPoint;
       Field: TColumn);
     procedure FGridViewCellChanging(Sender: TObject);
@@ -169,6 +170,12 @@ procedure TfPosition.FDataSourceStateChange(Sender: TObject);
 begin
   acDelPos.Enabled := acAddPos.Enabled and (FGridView.Count > 0);
 end;
+
+procedure TfPosition.FGridViewAutoFilterChanged(Sender: TObject);
+begin
+  FGridView.AutoFilter:=StringReplace(FGridView.AutoFilter,Data.QuoteField('TEXT'),Data.QuoteField('SHORTTEXT'),[rfReplaceAll]);
+end;
+
 procedure TfPosition.FGridViewCellButtonClick(Sender: TObject; Cell: TPoint;
   Field: TColumn);
 var
@@ -881,6 +888,7 @@ begin
   FGridView.FilterRow:=true;
   FGridView.WordWrap:=true;
   FGridView.OnSearchKey:=@FGridViewSearchKey;
+  FGridView.OnAutoFilterChanged:=@FGridViewAutoFilterChanged;
   FGridView.UseDefaultRowHeight := False;
   FGridView.gList.PopupMenu:=pmPosition;
 end;

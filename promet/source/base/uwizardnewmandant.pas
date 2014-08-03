@@ -615,10 +615,9 @@ begin
               DoCreateTable(TDocument);
               DoCreateTable(TWikiList);
               if Application.HasOption('c','config-path') then
-                sres := ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text,AppendPathDelim(Application.Location))+'"'
+                ExecProcess(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text+'"')
               else
-                sres := ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--mandant='+eMandantname.Text,AppendPathDelim(Application.Location))+'"';
-              debugln(sres);
+                ExecProcess(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--mandant='+eMandantname.Text+'"');
             end;
           iDatabaseUpdated.Visible:=True;
         end

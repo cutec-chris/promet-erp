@@ -1,4 +1,6 @@
-﻿Build 364
+﻿Build 365
+      - Wizardmandant:Hilfe wurde unter Windows nicht richtig synchronisiert
+Build 364
       - Gantt:erstellen und löschen von Aufgaben direkt in der Gantt Ansicht
       - Gantt:aktualisieren von Verknüpfungen wenn Aufgaben im Gantt bearbeitet wurden
       - Gantt:Verknüpfungen von Vorgängern und nachfolgern werden automatisch verbunden beim löschen von Aufgaben
