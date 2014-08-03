@@ -291,6 +291,7 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -368,6 +369,7 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -593,7 +595,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="27">
+    <Exceptions Count="28">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -686,6 +688,9 @@
       <Item27>
         <Name Value="EPropertyError"/>
       </Item27>
+      <Item28>
+        <Name Value="EDSError"/>
+      </Item28>
     </Exceptions>
   </Debugging>
 </CONFIG>

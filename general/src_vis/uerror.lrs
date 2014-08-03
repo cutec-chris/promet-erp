@@ -13,9 +13,9 @@ LazarusResources.Add('TfError','FORMDATA',[
   +'Default'#9#4'Kind'#7#4'bkOK'#11'ModalResult'#2#1#7'OnClick'#7#8'bOKClick'#8
   +'TabOrder'#2#1#0#0#7'TBitBtn'#10'bBacktrace'#4'Left'#3'U'#1#6'Height'#2#30#3
   +'Top'#2'S'#5'Width'#3#180#0#7'Anchors'#11#7'akRight'#8'akBottom'#0#7'Caption'
-  +#6#10'bBacktrace'#7'OnClick'#7#15'bBacktraceClick'#8'TabOrder'#2#2#0#0#7'TBi'
-  +'tBtn'#12'bSendToAdmin'#4'Left'#3'U'#1#6'Height'#2#29#3'Top'#2's'#5'Width'#3
-  +#180#0#7'Anchors'#11#7'akRight'#8'akBottom'#0#7'Caption'#6#23'an Administrat'
-  +'or melden'#7'Enabled'#8#7'OnClick'#7#15'bBacktraceClick'#8'TabOrder'#2#3#0#0
-  +#0
+  +#6#10'bBacktrace'#7'OnClick'#7#15'bBacktraceClick'#8'TabOrder'#2#2#7'Visible'
+  +#8#0#0#7'TBitBtn'#12'bSendToAdmin'#4'Left'#3'U'#1#6'Height'#2#29#3'Top'#2's'
+  +#5'Width'#3#180#0#7'Anchors'#11#7'akRight'#8'akBottom'#0#7'Caption'#6#23'an '
+  +'Administrator melden'#7'Enabled'#8#7'OnClick'#7#15'bBacktraceClick'#8'TabOr'
+  +'der'#2#3#0#0#0
 ]);
