@@ -473,6 +473,7 @@
         <ComponentName Value="fRepairOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uRepairOptions"/>
       </Unit28>
       <Unit29>
         <Filename Value="uphoneoptions.pas"/>

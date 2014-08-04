@@ -1,4 +1,4 @@
-msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten"
+msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)"
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
-msgid "(Menü)"
+msgid "wieder starten"
 msgstr ""
 
 #: tfaccountingframe.accombineitems.caption
