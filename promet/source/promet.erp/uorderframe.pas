@@ -950,6 +950,8 @@ begin
   FPosFrame.Align:=alClient;
   FPosFrame.Show;
   FPosFrame.InplaceFrames[0] := TfDetailPositionFrame.Create(FPosFrame);
+  FPosFrame.InplaceFrames[1] := TfDetailPositionFrame.Create(FPosFrame);
+  FPosFrame.InplaceFrames[2] := TfDetailPositionFrame.Create(FPosFrame);
   FPosFrame.InplaceFrames[3] := TfTextPositionFrame.Create(FPosFrame);
   FPosFrame.InplaceFrames[5] := TfRepairPositionFrame.Create(FPosFrame);
   FPosFrame.InplaceFrames[6] := TfQSPositionFrame.Create(FPosFrame);

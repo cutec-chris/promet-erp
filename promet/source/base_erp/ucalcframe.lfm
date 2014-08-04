@@ -26,7 +26,7 @@ inherited fCalcPositionFrame: TfCalcPositionFrame
     ParentColor = False
   end
   object lDiscont: TLabel[2]
-    Left = 439
+    Left = 423
     Height = 14
     Top = 8
     Width = 49
@@ -46,7 +46,7 @@ inherited fCalcPositionFrame: TfCalcPositionFrame
     ParentColor = False
   end
   object Label3: TLabel[4]
-    Left = 424
+    Left = 408
     Height = 13
     Top = 28
     Width = 8
@@ -55,12 +55,12 @@ inherited fCalcPositionFrame: TfCalcPositionFrame
     ParentColor = False
   end
   object Label4: TLabel[5]
-    Left = 498
+    Left = 478
     Height = 13
     Top = 28
-    Width = 8
+    Width = 28
     Anchors = [akTop, akRight]
-    Caption = '='
+    Caption = '%   ='
     ParentColor = False
   end
   object lAddVAT: TLabel[6]
@@ -84,7 +84,7 @@ inherited fCalcPositionFrame: TfCalcPositionFrame
     ParentColor = False
   end
   object Label6: TLabel[8]
-    Left = 344
+    Left = 328
     Height = 13
     Top = 28
     Width = 6
@@ -93,7 +93,7 @@ inherited fCalcPositionFrame: TfCalcPositionFrame
     ParentColor = False
   end
   object lQuantity: TLabel[9]
-    Left = 355
+    Left = 339
     Height = 14
     Top = 8
     Width = 60
@@ -133,7 +133,7 @@ inherited fCalcPositionFrame: TfCalcPositionFrame
     Left = 111
     Height = 21
     Top = 24
-    Width = 225
+    Width = 209
     DataField = 'SELLPRICE'
     DataSource = Position
     Anchors = [akTop, akLeft, akRight]
@@ -142,7 +142,7 @@ inherited fCalcPositionFrame: TfCalcPositionFrame
     TabOrder = 1
   end
   object eDiscont: TDBEdit[14]
-    Left = 439
+    Left = 423
     Height = 21
     Top = 24
     Width = 48
@@ -178,7 +178,7 @@ inherited fCalcPositionFrame: TfCalcPositionFrame
     TabOrder = 4
   end
   object eQuantity: TDBEdit[17]
-    Left = 355
+    Left = 339
     Height = 21
     Top = 24
     Width = 60

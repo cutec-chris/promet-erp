@@ -297,7 +297,7 @@ begin
               First;
               while not Eof do
                 begin
-                  FGridView.Columns[i].PickList.Add(Format('%-2s%s',[FieldByName('NAME').AsString,FieldByName('TEXT').AsString]));
+                  FGridView.Columns[i].PickList.Add(Format('%-3s %s',[FieldByName('NAME').AsString,FieldByName('TEXT').AsString]));
                   next;
                 end;
             end;
@@ -900,8 +900,7 @@ begin
   FGridView.OnSetupPosition:=@FGridViewSetupPosition;
   FGridView.OnDragOver:=@sgPositionsDragOver;
   FGridView.OnDragDrop:=@sgPositionsDragDrop;
-  //FGridView.DefaultRows:='GLOBALWIDTH:%;POSNO:32;POSTYP:47;IDENT:65;TEXT:301;QUANTITY:40;QUANTITYU:62;SELLPRICE:68;DISCOUNT:53;POSPRICE:74;VAT:49;GROSSPRICE:83;AVALIBLE:81;STORAGE:46;';
-  FGridView.DefaultRows:='GLOBALWIDTH:%;POSNO:32;TEXT:301;QUANTITY:40;QUANTITYU:62;SELLPRICE:68;VAT:49;GROSSPRICE:83;';
+  FGridView.DefaultRows:='GLOBALWIDTH:%;POSNO:32;TEXT:301;QUANTITY:40;QUANTITYU:62;SELLPRICE:68;VAT:49;GROSSPRICE:83;POSTYP:47;';
   FGridView.IdentField:='TEXT';
   FGridView.TextField:='TEXT';
   FGridView.NumberField:='POSNO';

@@ -1340,7 +1340,9 @@ begin
 end;
 function TOrderPos.GetAccountNo: string;
 begin
-  Result:=inherited GetAccountNo;
+  if Assigned(Order) and (Order.Address.Count>0) then
+    Result:=Order.Address.FieldByName('ACCOUNTNO').AsString
+  else inherited;
 end;
 procedure TOrderPos.PosPriceChanged(aPosDiff, aGrossDiff: Extended);
 begin
@@ -1578,4 +1580,4 @@ begin
 end;
 initialization
 end.
-
+
