@@ -1,0 +1,8 @@
+object fRepairImages: TfRepairImages
+  Left = 282
+  Height = 240
+  Top = 149
+  Width = 320
+  Caption = 'fRepairImages'
+  LCLVersion = '1.3'
+end
