@@ -402,7 +402,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="68"/>
-        <CursorPos X="52" Y="86"/>
+        <CursorPos X="5" Y="86"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit58>
@@ -500,7 +500,7 @@
     </JumpHistory>
   </ProjectSession>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="1">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -508,13 +508,6 @@
         <Source Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-image\src\fpimage.inc"/>
         <Line Value="177"/>
       </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="uordertest.pas"/>
-        <Line Value="83"/>
-      </Item2>
     </BreakPoints>
   </Debugging>
 </CONFIG>
