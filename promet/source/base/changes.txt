@@ -1,4 +1,8 @@
-﻿Build 365
+﻿Build 366
+      - Reparatur:erste Version Fehlerbilder
+      - Auftrag:Kundenspezifische Preise (war in v6 schon vorhanden in v7 noch nicht implementiert)
+      - Positionen:Tab Berechnung hinzugefügt (war in v6 schon vorhanden in v7 noch nicht implementiert)
+Build 365
       - Wizardmandant:Hilfe wurde unter Windows nicht richtig synchronisiert
 Build 364
       - Gantt:erstellen und löschen von Aufgaben direkt in der Gantt Ansicht
