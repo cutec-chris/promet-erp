@@ -8,7 +8,7 @@ interface
 
 uses
   uQSPositionFrame, uRawdata, uRepairOptions, urepairimageframe, 
-  uRepairPositionFrame, LazarusPackageIntf;
+  urepairimages, LazarusPackageIntf;
 
 implementation
 

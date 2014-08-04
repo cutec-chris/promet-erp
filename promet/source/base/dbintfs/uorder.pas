@@ -70,6 +70,9 @@ type
   TOrderRepairDetail = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+  TOrderRepairImages = class(TBaseDbDataSet)
+    procedure DefineFields(aDataSet : TDataSet);override;
+  end;
   TOrderRepair = class(TBaseDBDataSet)
   private
     FDetails: TOrderRepairDetail;
@@ -185,6 +188,23 @@ resourcestring
   strAlreadyPosted              = 'Der Vorgang ist bereits gebucht !';
   strDispatchTypenotfound       = 'Die gewählte Versandart existiert nicht !';
 
+{ TOrderRepairImages }
+
+procedure TOrderRepairImages.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'ORDERREPAIRIMAGE';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('NAME',ftString,100,True);
+            Add('DESC',ftMemo,0,False);
+            Add('SOLVE',ftMemo,0,False);
+          end;
+    end;
+end;
+
 procedure TOrderRepairDetail.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -212,6 +232,7 @@ begin
             Add('NOTES',ftMemo,0,False);
             Add('INTNOTES',ftMemo,0,False);
             Add('WARRENTY',ftString,1,True);
+            Add('ERRIMAGE',ftLargeint,0,False);
           end;
     end;
 end;
@@ -1578,4 +1599,4 @@ begin
 end;
 initialization
 end.
-
+

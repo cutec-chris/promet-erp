@@ -207,7 +207,7 @@ uses uData,uBaseVisualControls,uOrderAdditionalFrame,uOverviewFrame,
   uSelectReport,uNewStorage,uMainTreeFrame,uRepairPositionFrame,uQSPositionFrame,
   uDetailPositionFrame,uBaseVisualApplication,uPersonFrame,uPersonFinance,
   uAccountingTransfer,uPrometFramesInplace,Utils,uorderaddressframe,uMessageEdit,
-  uNRights,uBookSerial,uBaseApplication,utextpositionframe;
+  uNRights,uBookSerial,uBaseApplication,utextpositionframe,urepairimageframe;
 resourcestring
   strAdditional                       = 'Zusätzlich';
   strDates                            = 'Datum';
@@ -953,6 +953,7 @@ begin
   FPosFrame.InplaceFrames[3] := TfTextPositionFrame.Create(FPosFrame);
   FPosFrame.InplaceFrames[5] := TfRepairPositionFrame.Create(FPosFrame);
   FPosFrame.InplaceFrames[6] := TfQSPositionFrame.Create(FPosFrame);
+  FPosFrame.InplaceFrames[8] := TfRepairImageFrame.Create(FPosFrame);
   FPosFrame.FormName:='ORD';
   PreviewFrame := TfPreview.Create(Self);
   PreviewFrame.Parent := pPreviewT;

@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
-  DBGrids, uExtControls, db, uMasterdata, uPrometFramesInplace;
+  DBGrids, uExtControls, db, uMasterdata, uPrometFramesInplace,uIntfStrConsts;
 
 type
   TfRepairPositionFrame = class(TPrometInplaceFrame)
@@ -72,12 +72,6 @@ type
 implementation
 {$R *.lfm}
 uses uOrder,uPositionFrame,uData,Variants,uRowEditor,uBaseERPDBClasses;
-resourcestring
-  strRepaired                   = 'repariert';
-  strDiscarded                  = 'entsorgt';
-  strWaitingforCustomer         = 'wartet auf Kunden';
-  strAssemblyexchanged          = 'Baugruppentausch';
-  strIsNew                      = 'neuwertig';
 procedure TfRepairPositionFrame.FrameEnter(Sender: TObject);
 begin
   if TfPosition(Owner).Dataset is TOrderPos then

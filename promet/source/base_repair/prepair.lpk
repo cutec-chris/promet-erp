@@ -8,7 +8,7 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="11">
+    <Files Count="9">
       <Item1>
         <Filename Value="uqspositionframe.lfm"/>
         <Type Value="LFM"/>
@@ -34,25 +34,17 @@
         <UnitName Value="uRepairOptions"/>
       </Item6>
       <Item7>
-        <Filename Value="urepairpositionframe.lfm"/>
-        <Type Value="LFM"/>
-      </Item7>
-      <Item8>
         <Filename Value="urepairimageframe.pas"/>
         <UnitName Value="urepairimageframe"/>
-      </Item8>
-      <Item9>
-        <Filename Value="urepairpositionframe.pas"/>
-        <UnitName Value="uRepairPositionFrame"/>
-      </Item9>
-      <Item10>
+      </Item7>
+      <Item8>
         <Filename Value="urepairimageframe.lfm"/>
         <Type Value="LFM"/>
-      </Item10>
-      <Item11>
+      </Item8>
+      <Item9>
         <Filename Value="urepairimages.pas"/>
         <UnitName Value="urepairimages"/>
-      </Item11>
+      </Item9>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="3">
