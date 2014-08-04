@@ -130,10 +130,6 @@ begin
       Application.CreateForm(TfError,fError);
       Self := fError;
     end;
-  try
-    bBacktrace.Visible:=ExceptObject <> nil;
-  except
-  end;
   SetLanguage;
   mError.Lines.Clear;
   mError.Font.Color:=clred;
@@ -143,11 +139,14 @@ begin
   if ExceptObject <> nil then
     begin
       aMsg := aMsg+lineending+strOriginalException+Exception(ExceptObject).Message;
-      aMsg := aMsg+lineending+strExceptObjectclass+ExceptObject.ClassName;
       aMsg := aMsg+lineending+strDescription;
     end;
   Debugln(aMsg);
   mError.Lines.Text := trim(aMsg);
+  try
+    //bBacktrace.Visible:=ExceptObject <> nil;
+  except
+  end;
   Showmodal;
 end;
 

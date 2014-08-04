@@ -49,7 +49,7 @@ function GetMainIconHandle(Resourcename : string) : Cardinal;
 function CanWriteToProgramDir : Boolean;
 function HexToBin(h: STRING): dword;
 function RoundToSecond(aDate : TDateTime) : TDateTime;
-function RoundToMinute(T : TTime): TTime;
+function RoundToMinute(T : TDateTime): TDateTime;
 function RoundTo(const AValue : extended ; const ADigit : TRoundToRange) : extended ;
 function TimeTotext(Seconds : Integer) : string;
 function GetSystemLang : string;
@@ -124,7 +124,7 @@ function RoundToSecond(aDate : TDateTime) : TDateTime;
 begin
   Result := Round(aDate * SecsPerDay) / SecsPerDay;
 end;
-function RoundToMinute(T : TTime): TTime;
+function RoundToMinute(T : TDateTime): TDateTime;
 Var
    H,M,S,ms : Word;
 begin
@@ -820,4 +820,4 @@ begin
 end;
 END.
 
- 
+ 

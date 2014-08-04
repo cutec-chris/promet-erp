@@ -422,6 +422,7 @@ end;
 
 procedure TfFilter.gListTitleClick(Column: TColumn);
 begin
+  if not Assigned(Column.Field) then exit;
   if (Column.Field.DataType = ftMemo)
   or (Column.Field.DataType = ftWideMemo)
   or (Column.Field.DataType = ftBlob)

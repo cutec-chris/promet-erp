@@ -1224,6 +1224,7 @@ begin
   aWiki := TWikiList.Create(nil,Data);
   Result := aWiki.FindWikiPage(pageName);
   aWiki.Free;
+  pcPages.ActivePage := tsView;
   if Result then
     begin
       TWikiList(DataSet).FindWikiPage(PageName);

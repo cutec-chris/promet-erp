@@ -186,6 +186,7 @@ type
     FAddRow: TNotifyEvent;
     FAfterInsert: TNotifyEvent;
     FApplyAutoFilter: Boolean;
+    FAutoFilterChanged: TNotifyEvent;
     FbaseFilter: string;
     FBeforeInsert: TNotifyEvent;
     FBeforInsert: TNotifyEvent;
@@ -366,6 +367,8 @@ type
     property OnAddRow : TNotifyEvent read FAddRow write FAddRow;
     property ReadOnly : Boolean read FreadOnly write SetReadOnly;
     property OnDelete : TNotifyEvent read FDelete write fDelete;
+    property OnAutoFilterChanged : TNotifyEvent read FAutoFilterChanged write FAutoFilterChanged;
+    property AutoFilter : string read FAutoFilter write FAutoFilter;
   end;
 implementation
 uses uRowEditor,LCLType,LCLProc,LCLIntf,Themes,uIntfStrConsts,
@@ -536,6 +539,8 @@ end;
 procedure TfGridView.gHeaderEditingDone(Sender: TObject);
 begin
   FAutoFilter := BuildAutoFilter(dgFake,gHeader);
+  if Assigned(FAutoFilterChanged) then
+    FAutoFilterChanged(Self);
   acFilter.Execute;
 end;
 
@@ -562,6 +567,8 @@ begin
   or (Key = VK_DOWN) then
     begin
       FAutoFilter := BuildAutoFilter(dgFake,gHeader);
+      if Assigned(FAutoFilterChanged) then
+        FAutoFilterChanged(Self);
       acFilter.Execute;
       if gList.CanFocus then
         gList.SetFocus;
@@ -572,6 +579,8 @@ end;
 procedure TfGridView.gHeaderPickListSelect(Sender: TObject);
 begin
   FAutoFilter := BuildAutoFilter(dgFake,gHeader,FFilterCell);
+  if Assigned(FAutoFilterChanged) then
+    FAutoFilterChanged(Self);
   acFilter.Execute;
 end;
 
@@ -584,6 +593,8 @@ procedure TfGridView.gHeaderSetEditText(Sender: TObject; ACol, ARow: Integer;
   const Value: string);
 begin
   FAutoFilter := BuildAutoFilter(dgFake,gHeader,FFilterCell);
+  if Assigned(FAutoFilterChanged) then
+    FAutoFilterChanged(Self);
 end;
 
 procedure TfGridView.gListEnterEdit(Sender: TObject);
@@ -1823,6 +1834,8 @@ begin
       gHeader.Cells[a+1,1] := '';
     end;
   FAutoFilter := BuildAutofilter(dgFake,gHeader);
+  if Assigned(FAutoFilterChanged) then
+    FAutoFilterChanged(Self);
   acFilter.Execute;
 end;
 procedure TfGridView.SetHasChilds(aCol, aRow: Integer; Expanded: char);

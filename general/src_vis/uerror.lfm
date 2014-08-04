@@ -47,6 +47,7 @@ object fError: TfError
     Caption = 'bBacktrace'
     OnClick = bBacktraceClick
     TabOrder = 2
+    Visible = False
   end
   object bSendToAdmin: TBitBtn
     Left = 341

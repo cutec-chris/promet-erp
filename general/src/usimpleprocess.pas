@@ -23,7 +23,7 @@ var
   err : string = '';
 begin
   Process := TProcessUTF8.Create(nil);
-  Process.Options:= [poUsePipes, poWaitOnExit, poNoConsole, poStdErrToOutPut, poNewProcessGroup];
+  Process.Options:= [poUsePipes, poWaitOnExit, poStdErrToOutPut, poNewProcessGroup];
   Process.CommandLine := CommandLine;
   if CurDir <> '' then
     Process.CurrentDirectory := CurDir;

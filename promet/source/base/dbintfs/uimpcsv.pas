@@ -21,7 +21,7 @@ unit uImpCSV;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, db, FileUtil, uBaseDbInterface, lconvencoding;
+  Classes, SysUtils, db, FileUtil, uBaseDbInterface, lconvencoding,uBaseApplication;
 procedure CSVExport(Filename : string;Delemiter : char;DataSet : TDataSet);
 procedure CSVImport(Filename : string;Delemiter : char;DataSet : TDataSet);
 implementation
@@ -154,8 +154,10 @@ begin
   except
     on e : Exception do
       begin
-        //debugln('Zeile:'+tmp);
-        //debugln(e.Message);
+        with BaseApplication as IBaseApplication do
+          begin
+            debug('Zeile:'+tmp+' Fehler:'+e.Message);
+          end;
       end;
   end;
   DataSet.EnableControls;
