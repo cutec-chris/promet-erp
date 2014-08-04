@@ -633,7 +633,7 @@ begin
       with TfListFrame(Sender) do
         begin
           FList.FilterType:='MDPRICES';
-          FList.DefaultRows:='GLOBALWIDTH:%;PTYPE:60;PRICE:120;CURRENCY:70;CUSTOMER:70;MINCOUNT:70;MAXCOUNT:70;VALIDFROM:80;VALIDTO:80;';
+          FList.DefaultRows:='GLOBALWIDTH:%;PTYPE:60;PRICE:120;CURRENCY:70;CUSTOMER:70;MINCOUNT:70;MAXCOUNT:70;VALIDFROM:80;VALIDTO:80;NOTE:200;';
           FList.DestroyDataSet:=False;
           TMasterdata(DataSet).Prices.Open;
           FList.DataSet := TMasterdata(DataSet).Prices;

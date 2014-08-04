@@ -22,24 +22,20 @@ unit ucalcframe;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
-  DBGrids, Menus, db, uPrometFramesInplace;
+  DBGrids, Menus, db, uPrometFramesInplace,uBaseDbClasses;
 
 type
 
   { TfCalcPositionFrame }
 
   TfCalcPositionFrame = class(TPrometInplaceFrame)
-    cbPQuantityU2: TDBComboBox;
+    PosCalc: TDataSource;
     eCommonPrice: TDBEdit;
     eDiscont: TDBEdit;
-    eIdent2: TDBEdit;
-    ePosNo3: TDBEdit;
     ePosPrice: TDBEdit;
-    ePQuantity2: TDBEdit;
     ePurchase: TDBEdit;
     eQuantity: TDBEdit;
     eSellPrice: TDBEdit;
-    eShortText3: TDBEdit;
     eWholePrice: TDBEdit;
     gPrices: TDBGrid;
     Label3: TLabel;
@@ -49,37 +45,38 @@ type
     lBP: TLabel;
     lCommonPrice: TLabel;
     lDiscont: TLabel;
-    lIdent2: TLabel;
-    lPosNo3: TLabel;
     lPosPrice: TLabel;
-    lPQuantity2: TLabel;
     lQuantity: TLabel;
-    lQuantityUnit2: TLabel;
     lSEP: TLabel;
-    lShortText3: TLabel;
     lSP: TLabel;
     lWholePrice: TLabel;
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
     pmImage: TPopupMenu;
     Position: TDatasource;
-    procedure FrameEnter(Sender: TObject);
   private
+    FDataSet: TBaseDBDataset;
+    procedure SetDataSet(AValue: TBaseDBDataset);
     { private declarations }
   public
     { public declarations }
     procedure SetRights(Editable : Boolean);override;
+    property DataSet : TBaseDBDataset read FDataSet write SetDataSet;
   end; 
+
+resourcestring
+  strCalc                             = 'Berechnung';
 
 implementation
 {$R *.lfm}
 uses uPositionFrame,uBaseERPDBClasses;
-procedure TfCalcPositionFrame.FrameEnter(Sender: TObject);
+
+procedure TfCalcPositionFrame.SetDataSet(AValue: TBaseDBDataset);
 begin
-  with TfPosition(Owner).DataSet as TBaseDbPosition do
-    begin
-      Position.DataSet := DataSet;
-    end;
+  if FDataSet=AValue then Exit;
+  FDataSet:=AValue;
+  Position.DataSet := TBaseDBPosition(FDataSet).DataSet;
+  PosCalc.DataSet := TBaseDBPosition(FDataSet).PosCalc.DataSet;
 end;
 
 procedure TfCalcPositionFrame.SetRights(Editable: Boolean);

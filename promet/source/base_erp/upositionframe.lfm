@@ -141,7 +141,8 @@ object fPosition: TfPosition
         Caption = 'Position'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -401,7 +402,8 @@ object fPosition: TfPosition
         Caption = 'Zusätzlich'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -526,7 +528,8 @@ object fPosition: TfPosition
         Caption = 'Ansicht'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -742,13 +745,13 @@ object fPosition: TfPosition
       NewTabImageIndex = 59
       object tsDetails: TTabSheet
         Caption = 'Details'
-        ClientHeight = 199
+        ClientHeight = 208
         ClientWidth = 698
         ImageIndex = 40
         ParentFont = False
         object Panel1: TPanel
           Left = 0
-          Height = 199
+          Height = 208
           Top = 0
           Width = 698
           Align = alClient
@@ -785,16 +788,15 @@ object fPosition: TfPosition
     Visible = False
     object lbResults: TListBox
       Left = 0
-      Height = 68
+      Height = 72
       Top = 0
-      Width = 420
+      Width = 424
       Align = alClient
       ItemHeight = 0
       OnDblClick = lbResultsDblClick
       ScrollWidth = 418
       TabOrder = 0
       TabStop = False
-      TopIndex = -1
     end
   end
   object ActionList1: TActionList
@@ -1155,10 +1157,10 @@ object fPosition: TfPosition
       }
     end
   end
-  object Datasource1: TDatasource
+  object Datasource1: TDataSource
     OnStateChange = Datasource1StateChange
     OnDataChange = Datasource1DataChange
     left = 176
     top = 64
   end
-end
+end

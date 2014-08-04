@@ -103,6 +103,7 @@ type
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
       aStatus: string;aActive : Boolean; aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
     procedure acUnMakeSebPosExecute(Sender: TObject);
+    procedure AddCalcTab(Sender: TObject);
     procedure bDetailsVisibleClick(Sender: TObject);
     procedure bRowDetailsClick(Sender: TObject);
     procedure Datasource1DataChange(Sender: TObject; Field: TField);
@@ -164,7 +165,7 @@ type
   end;
 implementation
 uses uRowEditor, uSearch, uBaseDbInterface, uOrder, uDocumentFrame, uDocuments,
-  uData,uMasterdata,uBaseVisualApplication,uMainTreeFrame;
+  uData,uMasterdata,uBaseVisualApplication,uMainTreeFrame,ucalcframe;
 {$R *.lfm}
 procedure TfPosition.FDataSourceStateChange(Sender: TObject);
 begin
@@ -560,6 +561,12 @@ begin
   FGridView.UnSetChild;
 end;
 
+procedure TfPosition.AddCalcTab(Sender: TObject);
+begin
+  TfCalcPositionFrame(Sender).DataSet := FDataset;
+  TfCalcPositionFrame(Sender).TabCaption:=strCalc;
+end;
+
 procedure TfPosition.bDetailsVisibleClick(Sender: TObject);
 begin
   bDetailsVisible.Enabled:=False;
@@ -748,6 +755,7 @@ begin
   FFormName:=AValue;
   pcTabs.ClearTabClasses;
   pcTabs.AddTabClass(TfDocumentFrame,strFiles,@AddDocumentsTab);
+  pcTabs.AddTabClass(TfCalcPositionFrame,strCalc,@AddCalcTab);
   with Application as TBaseVisualApplication do
     AddTabClasses(FFormName,pcTabs);
 end;
@@ -765,6 +773,7 @@ begin
     begin
       with Application as TBaseVisualApplication do
         AddTabs(pcTabs);
+      //Documents
       aFrame := pcTabs.GetTab(TfDocumentFrame);
       if not Assigned(aFrame) then
         aDocuments := TDocuments.Create(Self,Data)
@@ -792,6 +801,21 @@ begin
           TfDocumentFrame(aFrame.Controls[0]).DataSet := aDocuments;
         end
       else TfDocumentFrame(aFrame.Controls[0]).DataSet := aDocuments;;
+      //PositionCalc
+      TBaseDBPosition(Dataset).PosCalc.Open;
+      aFrame := pcTabs.GetTab(TfCalcPositionFrame);
+      if (not Assigned(aFrame)) and (TBaseDBPosition(Dataset).PosCalc.Count>0) then
+        begin
+          pcTabs.AddTab(TfCalcPositionFrame.Create(Self),False);
+          aFrame := pcTabs.GetTab(TfCalcPositionFrame);
+          AddCalcTab(aFrame.Controls[0]);
+        end
+      else if Assigned(aFrame) and (TBaseDBPosition(Dataset).PosCalc.Count=0) then
+        begin
+          pcTabs.WillRemoveTab(aFrame);
+          aFrame.Free;
+          pcTabs.TabIndex:=0;
+        end;
     end;
 end;
 procedure TfPosition.AddDocumentsTab(Sender: TObject);
@@ -868,6 +892,7 @@ begin
   FPosTyp:=-1;
   FFirstShow:=True;
   pcTabs.AddTabClass(TfDocumentFrame,strFiles,@AddDocumentsTab);
+  pcTabs.AddTabClass(TfCalcPositionFrame,strCalc,@AddCalcTab);
   FGridView := TfGridView.Create(Self);
   FGridView.OnCellChanging:=@FGridViewCellChanging;
   FGridView.OnCellChanged:=@FGridViewCellChanged;
@@ -925,4 +950,4 @@ begin
 end;
 
 end.
-
+

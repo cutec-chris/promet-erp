@@ -313,6 +313,7 @@ begin
           begin
             Add('PTYPE',ftString,4,True);
             Add('PRICE',ftFloat,0,false);
+            Add('NOTE',ftString,500,False);
             Add('CURRENCY',ftString,3,true);
             Add('MINCOUNT',ftFloat,0,False);
             Add('MAXCOUNT',ftFloat,0,False);
@@ -987,4 +988,4 @@ begin
 end;
 initialization
 end.
-
+
