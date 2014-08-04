@@ -21,6 +21,11 @@ unit uIntfStrConsts;
 {$mode objfpc}{$H+}
 interface
 resourcestring
+  strRepaired                   = 'repariert';
+  strDiscarded                  = 'entsorgt';
+  strWaitingforCustomer         = 'wartet auf Kunden';
+  strAssemblyexchanged          = 'Baugruppentausch';
+  strIsNew                      = 'neuwertig';
   strSearchFromMailSelect       = 'Hier könenn Sie einen Benutzer oder Kontakt zum informieren suchen, wenn Sie die Suche abbrechen müssen Sie den zu Informierenden im e-Mail Programm suchen';
   strLocation                   = 'Ort';
   strImportExport               = 'Import/Export';

@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = 391
+  Left = 381
   Height = 600
-  Top = 163
+  Top = 131
   Width = 868
   ActiveControl = Panel1
   Caption = 'Promet-ERP'
@@ -305,7 +305,7 @@ object fMain: TfMain
       end
       object eContains: TEdit
         Left = 28
-        Height = 21
+        Height = 23
         Top = 15
         Width = 328
         Anchors = [akTop, akRight]

@@ -146,7 +146,7 @@ type
     procedure AddDocumentsTab(Sender: TObject);
   public
     { public declarations }
-    InplaceFrames : array[0..7] of TPrometInplaceFrame;
+    InplaceFrames : array[0..8] of TPrometInplaceFrame;
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy;override;
     property  Dataset : TBaseDBDataset read FDataset write SetDataSet;

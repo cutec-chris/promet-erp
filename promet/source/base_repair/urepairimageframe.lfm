@@ -1,0 +1,206 @@
+inherited fRepairImageFrame: TfRepairImageFrame
+  Left = 0
+  Height = 239
+  Top = 0
+  Width = 769
+  ClientHeight = 239
+  ClientWidth = 769
+  Color = clWindow
+  Constraints.MinHeight = 100
+  OnEnter = FrameEnter
+  ParentColor = False
+  DesignLeft = 367
+  DesignTop = 461
+  object Panel1: TPanel[0]
+    Left = 0
+    Height = 1
+    Top = 0
+    Width = 769
+    Align = alTop
+    BevelOuter = bvNone
+    Color = clSilver
+    ParentColor = False
+    TabOrder = 0
+  end
+  object Panel2: TPanel[1]
+    Left = 0
+    Height = 1
+    Top = 238
+    Width = 769
+    Align = alBottom
+    BevelOuter = bvNone
+    Color = clSilver
+    ParentColor = False
+    TabOrder = 1
+  end
+  object lVersion1: TLabel[2]
+    Left = 3
+    Height = 14
+    Top = 42
+    Width = 54
+    AutoSize = False
+    Caption = 'Version'
+    ParentColor = False
+  end
+  object lSerial1: TLabel[3]
+    Left = 4
+    Height = 14
+    Top = 2
+    Width = 57
+    AutoSize = False
+    Caption = 'Serienn.'
+    ParentColor = False
+  end
+  object lErrordescription: TLabel[4]
+    Left = 8
+    Height = 15
+    Top = 89
+    Width = 104
+    Caption = 'Fehlerbeschreibung'
+    ParentColor = False
+  end
+  object lNotesforCustomer: TLabel[5]
+    Left = 133
+    Height = 15
+    Top = 88
+    Width = 96
+    Caption = 'Notizen für Kunde'
+    ParentColor = False
+  end
+  object lInternalNotes: TLabel[6]
+    Left = 562
+    Height = 15
+    Top = 89
+    Width = 193
+    Anchors = [akTop, akLeft, akRight]
+    AutoSize = False
+    Caption = 'Interne Notizen'
+    ParentColor = False
+  end
+  object lOperation: TLabel[7]
+    Left = 631
+    Height = 14
+    Top = 2
+    Width = 122
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'Operation'
+    ParentColor = False
+  end
+  object eSerial1: TDBEdit[8]
+    Left = 4
+    Height = 23
+    Top = 19
+    Width = 76
+    DataField = 'SERIAL'
+    DataSource = Position
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 2
+  end
+  object cbVersion1: TDBComboBox[9]
+    Left = 3
+    Height = 23
+    Top = 58
+    Width = 77
+    DataField = 'VERSION'
+    DataSource = Position
+    ItemHeight = 15
+    MaxLength = 0
+    TabOrder = 3
+  end
+  object cbOperation: TDBComboBox[10]
+    Left = 631
+    Height = 23
+    Top = 19
+    Width = 124
+    Anchors = [akTop, akRight]
+    DataField = 'OPERATION'
+    DataSource = Repair
+    ItemHeight = 15
+    MaxLength = 0
+    TabOrder = 7
+  end
+  object mErrordesc: TDBMemo[11]
+    Left = 8
+    Height = 118
+    Top = 112
+    Width = 118
+    Anchors = [akTop, akLeft, akBottom]
+    DataField = 'ERRDESC'
+    DataSource = Repair
+    TabOrder = 4
+  end
+  object mNotes: TDBMemo[12]
+    Left = 132
+    Height = 118
+    Top = 112
+    Width = 420
+    Anchors = [akTop, akLeft, akBottom]
+    DataField = 'NOTES'
+    DataSource = Repair
+    TabOrder = 8
+    Tabstop = False
+  end
+  object mInternalNotes: TDBMemo[13]
+    Left = 559
+    Height = 118
+    Top = 112
+    Width = 196
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    DataField = 'INTNOTES'
+    DataSource = Repair
+    TabOrder = 6
+    Tabstop = False
+  end
+  object cbWarrenty: TDBCheckBox[14]
+    Left = 631
+    Height = 16
+    Top = 56
+    Width = 120
+    AllowGrayed = True
+    Anchors = [akTop, akRight]
+    Caption = 'Garantie'
+    DataField = 'WARRENTY'
+    DataSource = Repair
+    TabOrder = 9
+    ValueChecked = 'Y'
+    ValueUnchecked = 'N'
+  end
+  object cbImage: TComboBox[15]
+    Left = 96
+    Height = 23
+    Top = 19
+    Width = 461
+    Anchors = [akTop, akLeft, akRight]
+    ItemHeight = 15
+    OnKeyPress = cbImageKeyPress
+    OnSelect = cbImageSelect
+    TabOrder = 5
+  end
+  object Label1: TLabel[16]
+    Left = 96
+    Height = 15
+    Top = 2
+    Width = 52
+    Caption = 'Fehlerbild'
+    ParentColor = False
+  end
+  object SpeedButton1: TSpeedButton[17]
+    Left = 565
+    Height = 23
+    Top = 19
+    Width = 32
+    Anchors = [akTop, akRight]
+    Caption = '...'
+    OnClick = SpeedButton1Click
+  end
+  object Position: TDatasource[18]
+    left = 78
+    top = 37
+  end
+  object Repair: TDatasource[19]
+    left = 160
+    top = 37
+  end
+end

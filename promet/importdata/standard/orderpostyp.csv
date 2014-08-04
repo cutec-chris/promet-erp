@@ -5,5 +5,6 @@ NAME;TYPE;TEXT;
 "TX";"3";"Text";
 "ST";"4";"Zwischensumme";
 "RP";"5";"Reparatur";
+"RI";"8";"Fehlerbild";
 "DS";"6";"Versand";
-"DC";"7";"Rabatt";
+"DC";"7";"Rabatt";

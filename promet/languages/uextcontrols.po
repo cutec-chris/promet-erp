@@ -1,0 +1,15 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uextcontrols.strclose
+msgid "Schließen"
+msgstr ""
+
+#: uextcontrols.strnewcustompage
+msgid "Tab erzeugen"
+msgstr ""
+
+#: uextcontrols.strnewtab
+msgid "Neues Tab"
+msgstr ""
+
