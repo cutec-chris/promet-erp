@@ -192,7 +192,7 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     property Positions : TInventoryPos read FPos;
   end;
-  function InternalRound(Value: Extended): Extended;
+  function InternalRound(Value: Extended;nk : Integer = 4): Extended;
 implementation
 uses uBaseDBInterface,uMasterdata, uBaseApplication,Math,Variants,uRTFtoTXT,
   uDocuments,usync;
@@ -201,10 +201,9 @@ resourcestring
   strCreated                       = 'erstellt';
   strStorageTypes                  = 'Lagertypen';
   strSubTotal                      = 'Zwischensumme';
-function InternalRound(Value: Extended): Extended;
+function InternalRound(Value: Extended;nk : Integer = 4): Extended;
 var
   multi,nValue: Extended;
-  nk : integer = 4;
 begin
   multi := IntPower(10, nk);
   nValue := (Value*multi);

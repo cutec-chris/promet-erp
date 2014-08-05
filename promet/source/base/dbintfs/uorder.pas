@@ -149,6 +149,7 @@ type
     FOrderPos: TOrderPos;
     fOrigId : string;
     function GetCommission: TField;
+    function Round(Value: Extended): Extended;
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
@@ -166,12 +167,12 @@ type
     property OnGetStorage : TOnGetStorageEvent read FOnGetStorage write FOnGetStorage;
     property OnGetSerial : TOnGetSerialEvent read FOnGetSerial write FOnGetSerial;
     procedure Recalculate;
-    function DoPost: TPostResult;
-    function FailMessage : string;
     function ChangeStatus(aNewStatus : string) : Boolean;
     procedure ShippingOutput;
+    function DoPost: TPostResult;
     function PostArticle(aTyp, aID, aVersion, aLanguage: variant; Quantity: real; QuantityUnit, PosNo: string; var aStorage: string; var OrderDelivered: boolean) : Boolean;
     function DoBookPositionCalc(AccountingJournal : TAccountingJournal) : Boolean;
+    function FailMessage : string;
     function FormatCurrency(Value : real) : string;
     function CalcDispatchType : Boolean;
   end;
@@ -422,8 +423,13 @@ begin
             Add('ISDERIVATE',ftString,1,false);
             Add('DERIVATIVE',ftString,30,false);
             Add('NUMBERSET',ftString,30,false);
-            Add('DEFPOSTYP',ftString,3,False);
-            Add('TEXTTYP',ftInteger,0,False);
+            Add('DEFPOSTYP',ftString,3,False); //welcher positionstyp wird nach insert gesetzt?
+            Add('TEXTTYP',ftInteger,0,False);  //welcher text ist standardtext
+
+            Add('ROUNDPOS',ftString,1,False);  //Positionen werden gerundet
+            Add('ROUNDTO',ftInteger,0,False);  //auf wie viele Stellen wird gerundet ?
+            Add('ROUNDR',ftString,1,False);    //5-Rappen Rundung
+
             Add('SI_ORDER',ftString,1,false);  //im Auftrag anzeigen
             Add('SI_POS',ftString,1,false);    //in der Kasse anzeigen (Point of Sale)
             Add('SI_PROD',ftString,1,false);   //in der Produktion anzeigen
@@ -496,6 +502,21 @@ end;
 function TOrder.GetCommission: TField;
 begin
   result := FieldByName('COMMISSION');
+end;
+
+function TOrder.Round(Value: Extended): Extended;
+  function RoundToGranularity(aValue, aGranularity: Double): Double;
+  begin
+    Result := Trunc(aValue / aGranularity + 0.5 + 1E-10) * aGranularity
+  end;
+var
+  nk: Integer = 2;
+begin
+  if not OrderType.FieldByName('ROUNDTO').IsNull then
+    nk := OrderType.FieldByName('ROUNDTO').AsInteger;
+  if OrderType.FieldByName('ROUNDR').AsString='Y' then
+    Result := InternalRound(RoundToGranularity(Value,0.50),nk)
+  else Result := InternalRound(Value,nk);
 end;
 
 constructor TOrder.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
@@ -690,7 +711,7 @@ begin
   FieldByName('VATF').AsFloat:=aVatV;
   FieldByName('NETPRICE').AsFloat:=aPos;
   FieldByName('NETPRICE').AsFloat:=aPos;
-  FieldByName('GROSSPRICE').AsFloat:=InternalRound(aGrossPos);
+  FieldByName('GROSSPRICE').AsFloat:=Round(aGrossPos);
   if CanEdit then DataSet.Post;
 end;
 
@@ -1372,8 +1393,13 @@ begin
   Order.FieldByName('NETPRICE').AsFloat := Order.FieldByName('NETPRICE').AsFloat+aPosDiff;
   Data.PaymentTargets.Open;
   if Data.PaymentTargets.DataSet.Locate('ID',Order.FieldByName('PAYMENTTAR').AsString,[]) then
-    Order.FieldByName('DISCPRICE').AsFloat := InternalRound(Order.FieldByName('NETPRICE').AsFloat-((Order.FieldByName('NETPRICE').AsFloat/100)*Data.PaymentTargets.FieldByName('CASHDISC').AsFloat));
+    Order.FieldByName('DISCPRICE').AsFloat := Order.Round(Order.FieldByName('NETPRICE').AsFloat-((Order.FieldByName('NETPRICE').AsFloat/100)*Data.PaymentTargets.FieldByName('CASHDISC').AsFloat));
   Order.FieldByName('GROSSPRICE').AsFloat := Order.FieldByName('GROSSPRICE').AsFloat+aGrossDiff;
+  if Order.OrderType.FieldByName('ROUNDPOS').AsString='Y' then
+    begin
+      Edit;
+      FieldByName('');
+    end;
 end;
 procedure TOrderPos.PosWeightChanged(aPosDiff : Extended);
 begin
@@ -1601,4 +1627,4 @@ begin
 end;
 initialization
 end.
-
+

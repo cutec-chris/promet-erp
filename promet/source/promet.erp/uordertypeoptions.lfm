@@ -1,13 +1,13 @@
 inherited forderTypeOptions: TforderTypeOptions
-  Height = 437
+  Height = 496
   Width = 535
-  ClientHeight = 437
+  ClientHeight = 496
   ClientWidth = 535
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
   DesignLeft = 481
-  DesignTop = 248
+  DesignTop = 211
   object lType: TLabel[0]
     Left = 176
     Height = 13
@@ -44,7 +44,7 @@ inherited forderTypeOptions: TforderTypeOptions
   end
   object gOrderStatus: TDBGrid[4]
     Left = 8
-    Height = 379
+    Height = 438
     Top = 46
     Width = 160
     Anchors = [akTop, akLeft, akBottom]
@@ -333,8 +333,8 @@ inherited forderTypeOptions: TforderTypeOptions
     Left = 176
     Height = 40
     Top = 396
-    Width = 129
-    Caption = 'Kundenhistorie'
+    Width = 96
+    Caption = 'Kunden-Verlauf'
     Columns = 3
     DataField = 'B_CHIST'
     DataSource = OrderTypeDS
@@ -460,7 +460,7 @@ inherited forderTypeOptions: TforderTypeOptions
     TabOrder = 17
   end
   object lvImages: TListView[22]
-    Left = 484
+    Left = 480
     Height = 88
     Top = 120
     Width = 47
@@ -476,7 +476,7 @@ inherited forderTypeOptions: TforderTypeOptions
     OnSelectItem = lvImagesSelectItem
   end
   object Label1: TLabel[23]
-    Left = 484
+    Left = 480
     Height = 13
     Top = 104
     Width = 47
@@ -503,7 +503,61 @@ inherited forderTypeOptions: TforderTypeOptions
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object OrderTypeDS: TDatasource[26]
+  object DividerBevel2: TDividerBevel[26]
+    Left = 176
+    Height = 13
+    Top = 432
+    Width = 336
+    Caption = 'Runden'
+    BiDiMode = bdRightToLeft
+    Font.Style = [fsBold]
+    ParentBiDiMode = False
+    ParentFont = False
+  end
+  object eRoundTo: TDBEdit[27]
+    Left = 176
+    Height = 23
+    Top = 456
+    Width = 72
+    DataField = 'ROUNDTO'
+    DataSource = OrderTypeDS
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 19
+  end
+  object Label3: TLabel[28]
+    Left = 176
+    Height = 13
+    Top = 443
+    Width = 38
+    Caption = 'Stellen'
+    ParentColor = False
+  end
+  object CheckBox1: TDBCheckBox[29]
+    Left = 256
+    Height = 24
+    Top = 456
+    Width = 114
+    Caption = 'Position runden'
+    DataField = 'ROUNDPOS'
+    DataSource = OrderTypeDS
+    TabOrder = 20
+    ValueChecked = 'Y'
+    ValueUnchecked = 'N'
+  end
+  object CheckBox2: TDBCheckBox[30]
+    Left = 384
+    Height = 24
+    Top = 456
+    Width = 134
+    Caption = '5-Rappen Rundung'
+    DataField = 'ROUNDR'
+    DataSource = OrderTypeDS
+    TabOrder = 21
+    ValueChecked = 'Y'
+    ValueUnchecked = 'N'
+  end
+  object OrderTypeDS: TDatasource[31]
     left = 416
     top = 104
   end

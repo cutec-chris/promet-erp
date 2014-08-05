@@ -5632,8 +5632,20 @@ msgstr ""
 msgid "Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird"
 msgstr ""
 
+#: tfordertypeoptions.checkbox1.caption
+msgid "Position runden"
+msgstr ""
+
+#: tfordertypeoptions.checkbox2.caption
+msgid "5-Rappen Rundung"
+msgstr ""
+
 #: tfordertypeoptions.dividerbevel1.caption
 msgid "Buchen"
+msgstr ""
+
+#: tfordertypeoptions.dividerbevel2.caption
+msgid "Runden"
 msgstr ""
 
 #: tfordertypeoptions.edefaultpostyp.hint
@@ -5684,6 +5696,10 @@ msgstr ""
 msgid "Standard Texttyp"
 msgstr ""
 
+#: tfordertypeoptions.label3.caption
+msgid "Stellen"
+msgstr ""
+
 #: tfordertypeoptions.ldefaultpostyp.caption
 msgid "Positionstyp"
 msgstr ""
@@ -5705,7 +5721,7 @@ msgstr "Typ"
 
 #: tfordertypeoptions.rgaddchist.caption
 msgctxt "TFORDERTYPEOPTIONS.RGADDCHIST.CAPTION"
-msgid "Kundenhistorie"
+msgid "Kunden-Verlauf"
 msgstr ""
 
 #: tfordertypeoptions.rgadddunning.caption

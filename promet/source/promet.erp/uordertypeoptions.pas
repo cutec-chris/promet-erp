@@ -36,8 +36,12 @@ type
     cbSIPos: TDBCheckBox;
     cbSIProd: TDBCheckBox;
     cbTextTyp: TComboBox;
+    CheckBox1: TDBCheckBox;
+    CheckBox2: TDBCheckBox;
+    eRoundTo: TDBEdit;
     DBNavigator1: TDBNavigator;
     DividerBevel1: TDividerBevel;
+    DividerBevel2: TDividerBevel;
     eDefaultPosTyp: TDBEdit;
     eDerivates: TDBEdit;
     eNumberset: TDBEdit;
@@ -46,6 +50,7 @@ type
     gOrderStatus: TDBGrid;
     Label1: TLabel;
     Label2: TLabel;
+    Label3: TLabel;
     lDefaultPosTyp: TLabel;
     lDerivates: TLabel;
     lvImages: TListView;
