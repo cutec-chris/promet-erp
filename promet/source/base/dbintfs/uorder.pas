@@ -72,6 +72,13 @@ type
   end;
   TOrderRepairImages = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FHistory: TBaseHistory;
+  public
+    constructor Create(aOwner: TComponent; DM: TComponent;
+      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    destructor Destroy; override;
+    property History : TBaseHistory read FHistory;
   end;
   TOrderRepair = class(TBaseDBDataSet)
   private
@@ -136,9 +143,6 @@ type
   end;
   TOnGetStorageEvent = function(Sender : TOrder;aStorage : TStorage) : Boolean of object;
   TOnGetSerialEvent = function(Sender : TOrder;aMasterdata : TMasterdata;aQuantity : Integer) : Boolean of object;
-
-  { TOrder }
-
   TOrder = class(TOrderList,IPostableDataSet,IShipableDataSet)
   private
     FFailMessage: string;
@@ -199,10 +203,24 @@ begin
         with ManagedFieldDefs do
           begin
             Add('NAME',ftString,100,True);
+            Add('SYMTOMS',ftString,800,False);
             Add('DESC',ftMemo,0,False);
             Add('SOLVE',ftMemo,0,False);
           end;
     end;
+end;
+
+constructor TOrderRepairImages.Create(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
+end;
+
+destructor TOrderRepairImages.Destroy;
+begin
+  FHistory.Destroy;
+  inherited Destroy;
 end;
 
 procedure TOrderRepairDetail.DefineFields(aDataSet: TDataSet);
