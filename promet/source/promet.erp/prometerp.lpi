@@ -292,6 +292,7 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -355,7 +356,6 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uArticleFrame"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -463,7 +463,6 @@
         <ComponentName Value="fCurrencyOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uCurrencyOptions"/>
       </Unit26>
       <Unit27>
         <Filename Value="ulanguageoptions.pas"/>

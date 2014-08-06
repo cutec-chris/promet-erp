@@ -1,4 +1,7 @@
-﻿Build 366
+﻿Build 367
+      - Aufträge:Rundung und Währungsdarstellung überarbeitet. Es ist nun möglich pro Währung auf bestimmte Beträge
+        zu runden, z.b. die Rappen Rundung der Schweiz. In den Standarddaten wird das auch gleich berücksichtigt.
+Build 366
       - Reparatur:erste Version Fehlerbilder
       - Auftrag:Kundenspezifische Preise (war in v6 schon vorhanden in v7 noch nicht implementiert)
       - Positionen:Tab Berechnung hinzugefügt (war in v6 schon vorhanden in v7 noch nicht implementiert)
