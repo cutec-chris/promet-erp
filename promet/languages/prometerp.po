@@ -10,6 +10,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
+msgid "(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)"
+msgstr ""
+
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
 msgstr ""
@@ -1003,32 +1006,36 @@ msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[0].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[0].TITLE.CAPTION"
-msgid "SYMBOL"
+msgid "Symbol"
 msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[1].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[1].TITLE.CAPTION"
-msgid "NAME"
+msgid "Name"
 msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[2].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[2].TITLE.CAPTION"
-msgid "MASK"
+msgid "Maske"
 msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[3].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[3].TITLE.CAPTION"
-msgid "DECIMALPL"
+msgid "Faktor"
 msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[4].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[4].TITLE.CAPTION"
-msgid "FACTOR"
+msgid "Standard"
 msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[5].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[5].TITLE.CAPTION"
-msgid "DEFAULTCUR"
+msgid "Dezimalstellen"
+msgstr ""
+
+#: tfcurrencyoptions.dgcurrency.columns[6].title.caption
+msgid "Runden auf"
 msgstr ""
 
 #: tfcustomer.acactionmenue.caption
@@ -5664,14 +5671,6 @@ msgstr ""
 msgid "Der Typ des Auftrages hiermit wird entschieden ob Spezialeigenschaften gebucht werden"
 msgstr ""
 
-#: tfordertypeoptions.eroundto.hint
-msgid "auf wie viele Stellen soll im Vorgang gerundet werden ?"
-msgstr ""
-
-#: tfordertypeoptions.eroundto1.hint
-msgid "Soll auf einen bestimmten Wert gerundet werden ?"
-msgstr ""
-
 #: tfordertypeoptions.gbvisibility.caption
 msgctxt "TFORDERTYPEOPTIONS.GBVISIBILITY.CAPTION"
 msgid "Sichtbarkeit"
@@ -5702,14 +5701,6 @@ msgstr ""
 
 #: tfordertypeoptions.label2.caption
 msgid "Standard Texttyp"
-msgstr ""
-
-#: tfordertypeoptions.label3.caption
-msgid "Stellen"
-msgstr ""
-
-#: tfordertypeoptions.label4.caption
-msgid "Granularität"
 msgstr ""
 
 #: tfordertypeoptions.ldefaultpostyp.caption

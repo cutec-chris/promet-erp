@@ -1342,7 +1342,8 @@ begin
             Add('MASK',ftString,20,True);
             Add('DECIMALPL',ftSmallInt,0,True);
             Add('FACTOR',ftFloat,0,True);
-            Add('DEFAULTCUR',ftString,1,True);
+            Add('DEFAULTCUR',ftString,1,False);
+            Add('ROUNDGRAN',ftFloat,0,False);
           end;
     end;
 end;

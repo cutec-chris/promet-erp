@@ -514,60 +514,20 @@ inherited forderTypeOptions: TforderTypeOptions
     ParentBiDiMode = False
     ParentFont = False
   end
-  object eRoundTo: TDBEdit[27]
+  object CheckBox1: TDBCheckBox[27]
     Left = 184
-    Height = 21
-    Hint = 'auf wie viele Stellen soll im Vorgang gerundet werden ?'
-    Top = 423
-    Width = 72
-    DataField = 'ROUNDTO'
-    DataSource = OrderTypeDS
-    CharCase = ecNormal
-    MaxLength = 0
-    TabOrder = 19
-  end
-  object Label3: TLabel[28]
-    Left = 184
-    Height = 13
-    Top = 408
-    Width = 32
-    Caption = 'Stellen'
-    ParentColor = False
-  end
-  object CheckBox1: TDBCheckBox[29]
-    Left = 264
     Height = 24
     Hint = 'Soll schon der Bruttopreis in der Position gerundet werden ?'#13#10'(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)'
-    Top = 420
+    Top = 408
     Width = 114
     Caption = 'Position runden'
     DataField = 'ROUNDPOS'
     DataSource = OrderTypeDS
-    TabOrder = 20
+    TabOrder = 19
     ValueChecked = 'Y'
     ValueUnchecked = 'N'
   end
-  object Label4: TLabel[30]
-    Left = 392
-    Height = 13
-    Top = 408
-    Width = 57
-    Caption = 'Granularität'
-    ParentColor = False
-  end
-  object eRoundTo1: TDBEdit[31]
-    Left = 392
-    Height = 21
-    Hint = 'Soll auf einen bestimmten Wert gerundet werden ?'#13#10'z.b. 0.05 als 5-Rappen Rundung in der Schweiz'
-    Top = 423
-    Width = 72
-    DataField = 'ROUNDGRAN'
-    DataSource = OrderTypeDS
-    CharCase = ecNormal
-    MaxLength = 0
-    TabOrder = 21
-  end
-  object OrderTypeDS: TDataSource[32]
+  object OrderTypeDS: TDataSource[28]
     left = 416
     top = 104
   end

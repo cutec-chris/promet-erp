@@ -145,6 +145,7 @@ type
 
   TOrder = class(TOrderList,IPostableDataSet,IShipableDataSet)
   private
+    FCurrency: TCurrency;
     FFailMessage: string;
     FLinks: TOrderLinks;
     FOnGetSerial: TOnGetSerialEvent;
@@ -170,6 +171,8 @@ type
     property Links : TOrderLinks read FLinks;
     property OnGetStorage : TOnGetStorageEvent read FOnGetStorage write FOnGetStorage;
     property OnGetSerial : TOnGetSerialEvent read FOnGetSerial write FOnGetSerial;
+    property Currency : TCurrency read FCurrency;
+    function SelectCurrency : Boolean;
     procedure Recalculate;
     function ChangeStatus(aNewStatus : string) : Boolean;
     procedure ShippingOutput;
@@ -431,8 +434,6 @@ begin
             Add('TEXTTYP',ftInteger,0,False);  //welcher text ist standardtext
 
             Add('ROUNDPOS',ftString,1,False);  //Positionen werden gerundet
-            Add('ROUNDTO',ftInteger,0,False);  //auf wie viele Stellen wird gerundet ?
-            Add('ROUNDGRAN',ftFloat,0,False);  //Granularität z.b. 0.05 für 5-Rappen Rundung (runden auf)
 
             Add('SI_ORDER',ftString,1,false);  //im Auftrag anzeigen
             Add('SI_POS',ftString,1,false);    //in der Kasse anzeigen (Point of Sale)
@@ -516,10 +517,10 @@ function TOrder.Round(Value: Extended): Extended;
 var
   nk: Integer = 2;
 begin
-  if SelectOrderType and (not OrderType.FieldByName('ROUNDTO').IsNull) then
-    nk := OrderType.FieldByName('ROUNDTO').AsInteger;
-  if SelectOrderType and (OrderType.FieldByName('ROUNDGRAN').AsFloat>0) then
-    Result := InternalRound(RoundToGranularity(Value,OrderType.FieldByName('ROUNDGRAN').AsFloat),nk)
+  if SelectCurrency and (Currency.FieldByName('DECIMALPL').AsInteger>0) then
+    nk := Currency.FieldByName('DECIMALPL').AsInteger;
+  if SelectCurrency and (Currency.FieldByName('ROUNDGRAN').AsFloat>0) then
+    Result := InternalRound(RoundToGranularity(Value,Currency.FieldByName('ROUNDGRAN').AsFloat),nk)
   else Result := InternalRound(Value,nk);
 end;
 
@@ -543,9 +544,11 @@ begin
   FOrderPos := TOrderPos.Create(Self,DM,aConnection,DataSet);
   FOrderPos.Order:=Self;
   FLinks := TOrderLinks.Create(Self,DM,aConnection);
+  FCurrency := TCurrency.Create(Self,DM,aConnection);
 end;
 destructor TOrder.Destroy;
 begin
+  FCurrency.Free;
   FOrderAddress.Destroy;
   FOrderPos.Destroy;
   FreeAndnil(FLinks);
@@ -611,6 +614,7 @@ begin
   if not OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]) then Ordertype.Close;
   if FieldByName('ACTIVE').IsNull then
     RefreshActive;
+  SelectCurrency;
 end;
 
 procedure TOrder.RefreshActive;
@@ -668,6 +672,16 @@ begin
   FOrderPos.CascadicCancel;
   FLinks.CascadicCancel;
   inherited CascadicCancel;
+end;
+
+function TOrder.SelectCurrency: Boolean;
+begin
+  if not FCurrency.Locate('SYMBOL',FieldByName('CURRENCY').AsString,[]) then
+    begin
+      FCurrency.Filter(Data.QuoteField('SYMBOL')+'='+Data.QuoteValue(FieldByName('CURRENCY').AsString));
+      result := FCurrency.Locate('SYMBOL',FieldByName('CURRENCY').AsString,[]);
+    end
+  else Result := True;
 end;
 
 procedure TOrder.Recalculate;

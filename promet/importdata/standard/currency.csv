@@ -1,4 +1,4 @@
-"SYMBOL";"NAME";"MASK";"DECIMALPL";"FACTOR";"DEFAULTCUR"
+"SYMBOL";"NAME";"MASK";"DECIMALPL";"FACTOR";"DEFAULTCUR";"ROUNDGRAN"
 "AFN";"Afghanistan Afghanis";"________";2;66,48;"N"
 "ALL";"Albania Leke";"________";2;123,66;"N"
 "DZD";"Algeria Dinars";"________";2;95,02;"N"
@@ -71,7 +71,7 @@
 "LKR";"Sri Lanka Rupees";"________";2;149,51;"N"
 "SDD";"Sudan Dinars";"________";2;271,22;"N"
 "SEK";"Sweden Kronor";"________";2;9,31;"N"
-"CHF";"Switzerland Francs";"________";2;1,65;"N"
+"CHF";"Switzerland Francs";"________";2;1,65;"N";0,05
 "TWD";"Taiwan New Dollars";"________";2;44,66;"N"
 "THB";"Thailand Baht";"________";2;44,07;"N"
 "TTD";"Trinidad and Tobago Dollars";"________";2;8,41;"N"
