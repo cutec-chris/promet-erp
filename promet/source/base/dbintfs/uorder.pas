@@ -33,6 +33,7 @@ type
     FHistory : TBaseHistory;
     FOrderTyp: TOrdertyp;
     function GetHistory: TBaseHistory;
+    function GetOrderTyp: TOrdertyp;
   protected
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
@@ -47,7 +48,8 @@ type
     procedure Open; override;
     procedure DefineFields(aDataSet : TDataSet);override;
     property History : TBaseHistory read FHistory;
-    property OrderType : TOrdertyp read FOrderTyp;
+    property OrderType : TOrdertyp read GetOrderTyp;
+    function SelectOrderType : Boolean;
   end;
   TOrderQMTestDetails = class(TBaseDBDataSet)
   public
@@ -93,6 +95,8 @@ type
     function GetAccountNo : string;override;
     procedure PosPriceChanged(aPosDiff,aGrossDiff :Extended);override;
     procedure PosWeightChanged(aPosDiff : Extended);override;
+    function Round(aValue: Extended): Extended; override;
+    function RoundPos(aValue : Extended) : Extended;override;
     function GetCurrency : string;override;
     function GetOrderTyp : Integer;
   public
@@ -428,7 +432,7 @@ begin
 
             Add('ROUNDPOS',ftString,1,False);  //Positionen werden gerundet
             Add('ROUNDTO',ftInteger,0,False);  //auf wie viele Stellen wird gerundet ?
-            Add('ROUNDR',ftString,1,False);    //5-Rappen Rundung
+            Add('ROUNDGRAN',ftFloat,0,False);  //Granularität z.b. 0.05 für 5-Rappen Rundung (runden auf)
 
             Add('SI_ORDER',ftString,1,false);  //im Auftrag anzeigen
             Add('SI_POS',ftString,1,false);    //in der Kasse anzeigen (Point of Sale)
@@ -512,10 +516,10 @@ function TOrder.Round(Value: Extended): Extended;
 var
   nk: Integer = 2;
 begin
-  if not OrderType.FieldByName('ROUNDTO').IsNull then
+  if SelectOrderType and (not OrderType.FieldByName('ROUNDTO').IsNull) then
     nk := OrderType.FieldByName('ROUNDTO').AsInteger;
-  if OrderType.FieldByName('ROUNDR').AsString='Y' then
-    Result := InternalRound(RoundToGranularity(Value,0.50),nk)
+  if SelectOrderType and (OrderType.FieldByName('ROUNDGRAN').AsFloat>0) then
+    Result := InternalRound(RoundToGranularity(Value,OrderType.FieldByName('ROUNDGRAN').AsFloat),nk)
   else Result := InternalRound(Value,nk);
 end;
 
@@ -604,7 +608,7 @@ begin
   inherited Open;
   DataSet.Locate('ORDERNO',FOrigID,[]);
   OrderType.Open;
-  OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
+  if not OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]) then Ordertype.Close;
   if FieldByName('ACTIVE').IsNull then
     RefreshActive;
 end;
@@ -645,7 +649,7 @@ begin
     end;
   DataSet.GotoBookmark(aRec);
   DataSet.FreeBookmark(aRec);
-  OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
+  if not OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]) then OrderType.Close;
 end;
 
 procedure TOrder.CascadicPost;
@@ -701,16 +705,15 @@ begin
             begin
               Positions.Edit;
               Positions.FieldByName('POSPRICE').AsFloat := aPos;
-              Positions.FieldByName('GROSSPRICE').AsFloat := aGrossPos;
+              Positions.FieldByName('GROSSPRICE').AsFloat := Round(aGrossPos);
               Positions.Post;
             end;
       Positions.Next;
     end;
   if not CanEdit then DataSet.Edit;
-  FieldByName('VATH').AsFloat:=aVatH;
-  FieldByName('VATF').AsFloat:=aVatV;
-  FieldByName('NETPRICE').AsFloat:=aPos;
-  FieldByName('NETPRICE').AsFloat:=aPos;
+  FieldByName('VATH').AsFloat:=Round(aVatH);
+  FieldByName('VATF').AsFloat:=Round(aVatV);
+  FieldByName('NETPRICE').AsFloat:=Round(aPos);
   FieldByName('GROSSPRICE').AsFloat:=Round(aGrossPos);
   if CanEdit then DataSet.Post;
 end;
@@ -1324,13 +1327,13 @@ begin
         end;
       if Invert then
         begin
-          FieldByName('NETPRICE').AsFloat   := FieldByName('NETPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat;
-          FieldByName('GROSSPRICE').AsFloat := FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('GROSSPRICE').AsFloat;
+          FieldByName('NETPRICE').AsFloat   := Round(FieldByName('NETPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat);
+          FieldByName('GROSSPRICE').AsFloat := Round(FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('GROSSPRICE').AsFloat);
         end
       else
         begin
-          FieldByName('NETPRICE').AsFloat   := FieldByName('NETPRICE').AsFloat+Positions.FieldByName('POSPRICE').AsFloat;
-          FieldByName('GROSSPRICE').AsFloat := FieldByName('GROSSPRICE').AsFloat+Positions.FieldByName('GROSSPRICE').AsFloat;
+          FieldByName('NETPRICE').AsFloat   := Round(FieldByName('NETPRICE').AsFloat+Positions.FieldByName('POSPRICE').AsFloat);
+          FieldByName('GROSSPRICE').AsFloat := Round(FieldByName('GROSSPRICE').AsFloat+Positions.FieldByName('GROSSPRICE').AsFloat);
         end;
       Post;
     end;
@@ -1390,16 +1393,11 @@ procedure TOrderPos.PosPriceChanged(aPosDiff, aGrossDiff: Extended);
 begin
   if not ((Order.DataSet.State = dsEdit) or (Order.DataSet.State = dsInsert)) then
     Order.DataSet.Edit;
-  Order.FieldByName('NETPRICE').AsFloat := Order.FieldByName('NETPRICE').AsFloat+aPosDiff;
+  Order.FieldByName('NETPRICE').AsFloat := Round(Order.FieldByName('NETPRICE').AsFloat+aPosDiff);
   Data.PaymentTargets.Open;
   if Data.PaymentTargets.DataSet.Locate('ID',Order.FieldByName('PAYMENTTAR').AsString,[]) then
-    Order.FieldByName('DISCPRICE').AsFloat := Order.Round(Order.FieldByName('NETPRICE').AsFloat-((Order.FieldByName('NETPRICE').AsFloat/100)*Data.PaymentTargets.FieldByName('CASHDISC').AsFloat));
-  Order.FieldByName('GROSSPRICE').AsFloat := Order.FieldByName('GROSSPRICE').AsFloat+aGrossDiff;
-  if Order.OrderType.FieldByName('ROUNDPOS').AsString='Y' then
-    begin
-      Edit;
-      FieldByName('');
-    end;
+    Order.FieldByName('DISCPRICE').AsFloat := Round(Order.FieldByName('NETPRICE').AsFloat-((Order.FieldByName('NETPRICE').AsFloat/100)*Data.PaymentTargets.FieldByName('CASHDISC').AsFloat));
+  Order.FieldByName('GROSSPRICE').AsFloat := Round(Order.FieldByName('GROSSPRICE').AsFloat+aGrossDiff);
 end;
 procedure TOrderPos.PosWeightChanged(aPosDiff : Extended);
 begin
@@ -1407,6 +1405,20 @@ begin
     Order.DataSet.Edit;
   Order.FieldByName('WEIGHT').AsFloat := Order.FieldByName('WEIGHT').AsFloat+aPosDiff;
 end;
+
+function TOrderPos.Round(aValue: Extended): Extended;
+begin
+  if Assigned(Order) then
+    Result := Order.Round(aValue)
+  else Result:=inherited Round(aValue);
+end;
+function TOrderPos.RoundPos(aValue: Extended): Extended;
+begin
+  if Order.SelectOrderType and (Order.OrderType.FieldByName('ROUNDPOS').AsString='Y') then
+    Result := Round(aValue)
+  else result := aValue;
+end;
+
 function TOrderPos.GetCurrency: string;
 begin
   Result:=Order.FieldByName('CURRENCY').AsString;
@@ -1498,6 +1510,12 @@ function TOrderList.GetHistory: TBaseHistory;
 begin
   Result := FHistory;
 end;
+
+function TOrderList.GetOrderTyp: TOrdertyp;
+begin
+  Result := FOrderTyp;
+end;
+
 function TOrderList.GetTextFieldName: string;
 begin
   Result:='CUSTNAME';
@@ -1625,6 +1643,12 @@ begin
       DefineUserFields(aDataSet);
     end;
 end;
+
+function TOrderList.SelectOrderType: Boolean;
+begin
+  Result := FOrderTyp.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
+end;
+
 initialization
 end.
-
+

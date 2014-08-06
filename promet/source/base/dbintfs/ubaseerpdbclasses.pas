@@ -106,6 +106,8 @@ type
     FPosCalc: TPositionCalc;
     function GetAccountNo : string;virtual;
     procedure PosPriceChanged(aPosDiff,aGrossDiff :Extended);virtual;
+    function Round(aValue : Extended) : Extended;virtual;
+    function RoundPos(aValue : Extended) : Extended;virtual;
     procedure PosWeightChanged(aPosDiff :Extended);virtual;
     function IsOrderToSupplier : Boolean;virtual;
     function IsProductionOrder : Boolean;virtual;
@@ -767,7 +769,7 @@ begin
   DisableCalculation;
   try
     //Menge
-    tmp := InternalRound(DataSet.FieldByName('SELLPRICE').AsFloat*DataSet.FieldByName('QUANTITY').AsFloat);
+    tmp := DataSet.FieldByName('SELLPRICE').AsFloat*DataSet.FieldByName('QUANTITY').AsFloat;
     //+CommonPrice
     tmp := tmp+DataSet.FieldByName('COMPRICE').AsFloat;
     //*Discont
@@ -780,7 +782,7 @@ begin
     then
       DataSet.FieldByName('POSPRICE').AsFloat := 0
     else
-      DataSet.FieldByName('POSPRICE').AsFloat := InternalRound(tmp);
+      DataSet.FieldByName('POSPRICE').AsFloat := tmp;
     if DataSet.FieldByName('VAT').AsString <> '' then
       begin
         with BaseApplication as IBaseDbInterface do
@@ -788,7 +790,7 @@ begin
             if not Data.Vat.DataSet.Active then
               Data.Vat.Open;
             Data.Vat.DataSet.Locate('ID',VarArrayof([DataSet.FieldByName('VAT').AsString]),[]);
-            DataSet.FieldByName('GROSSPRICE').AsFloat := InternalRound(DataSet.FieldByName('POSPRICE').AsFloat*(1+(Data.Vat.FieldByName('VALUE').AsFloat/100)));
+            DataSet.FieldByName('GROSSPRICE').AsFloat := RoundPos(DataSet.FieldByName('POSPRICE').AsFloat*(1+(Data.Vat.FieldByName('VALUE').AsFloat/100)));
           end;
       end;
   finally
@@ -897,7 +899,7 @@ begin
         if CSPrice > 0 then
           begin
             if not SetPrice then
-              DataSet.FieldByName('SELLPRICE').AsFloat := InternalRound(CSPrice+AMPrice)
+              DataSet.FieldByName('SELLPRICE').AsFloat := CSPrice+AMPrice
             else if Data.GotoBookmark(PosCalc,CSRec) then
               begin
                 if (PosCalc.DataSet.State <> dsEdit) and (PosCalc.DataSet.State <> dsInsert) then
@@ -908,7 +910,7 @@ begin
         else if SPrice > 0 then
           begin
             if not SetPrice then
-              DataSet.FieldByName('SELLPRICE').AsFloat := InternalRound(SPrice+AMPrice)
+              DataSet.FieldByName('SELLPRICE').AsFloat := SPrice+AMPrice
             else if Data.GotoBookmark(PosCalc,SRec) then
               begin
                 if (PosCalc.DataSet.State <> dsEdit) and (PosCalc.DataSet.State <> dsInsert) then
@@ -919,7 +921,7 @@ begin
         else if CPrice > 0 then
           begin
             if not SetPrice then
-              DataSet.FieldByName('SELLPRICE').AsFloat := InternalRound(CPrice+AMPrice)
+              DataSet.FieldByName('SELLPRICE').AsFloat := CPrice+AMPrice
             else if Data.GotoBookmark(PosCalc,CRec) then
               begin
                 if (PosCalc.DataSet.State <> dsEdit) and (PosCalc.DataSet.State <> dsInsert) then
@@ -930,7 +932,7 @@ begin
         else
           begin
             if not SetPrice then
-              DataSet.FieldByName('SELLPRICE').AsFloat := Internalround(Price+AMPrice)
+              DataSet.FieldByName('SELLPRICE').AsFloat := Price+AMPrice
             else if Data.GotoBookmark(PosCalc,Rec) then
               begin
                 if (PosCalc.DataSet.State <> dsEdit) and (PosCalc.DataSet.State <> dsInsert) then
@@ -948,7 +950,7 @@ begin
                 PosCalc.FieldByName('PRICE').AsFloat := DataSet.FieldByName('SELLPRICE').AsFloat;
               end;
           end;
-        DataSet.FieldByName('COMPRICE').AsFloat := InternalRound(APrice);
+        DataSet.FieldByName('COMPRICE').AsFloat := APrice;
       end;
   finally
     EnableCalculation;
@@ -976,7 +978,7 @@ begin
             if not Data.Vat.DataSet.Active then
               Data.Vat.Open;
             Data.Vat.DataSet.Locate('ID',VarArrayof([DataSet.FieldByName('VAT').AsString]),[]);
-            tmp := InternalRound(DataSet.FieldByName('GROSSPRICE').AsFloat/(1+(Data.Vat.FieldByName('VALUE').AsFloat/100)));
+            tmp := DataSet.FieldByName('GROSSPRICE').AsFloat/(1+(Data.Vat.FieldByName('VALUE').AsFloat/100));
           end;
       end;
     if (GetPosTypDec = 1)
@@ -986,7 +988,7 @@ begin
         DataSet.FieldByName('GROSSPRICE').AsFloat := 0;
       end
     else
-      DataSet.FieldByName('POSPRICE').AsFloat := InternalRound(tmp);
+      DataSet.FieldByName('POSPRICE').AsFloat := tmp;
     // div Discont
     tmp := tmp+(tmp*DataSet.FieldByName('DISCOUNT').AsFloat/100);
     if not ((State = dsInsert) or (State = dsEdit)) then
@@ -994,7 +996,7 @@ begin
     //-CommonPrice
     tmp := tmp-DataSet.FieldByName('COMPRICE').AsFloat;
     // div Menge
-    DataSet.FieldByName('SELLPRICE').AsFloat := InternalRound(tmp/DataSet.FieldByName('QUANTITY').AsFloat);
+    DataSet.FieldByName('SELLPRICE').AsFloat := tmp/DataSet.FieldByName('QUANTITY').AsFloat;
 
   finally
     EnableCalculation;
@@ -1015,6 +1017,17 @@ end;
 procedure TBaseDBPosition.PosPriceChanged(aPosDiff, aGrossDiff: Extended);
 begin
 end;
+
+function TBaseDBPosition.Round(aValue: Extended): Extended;
+begin
+  Result := InternalRound(aValue);
+end;
+
+function TBaseDBPosition.RoundPos(aValue: Extended): Extended;
+begin
+  Result := aValue;
+end;
+
 procedure TBaseDBPosition.PosWeightChanged(aPosDiff: Extended);
 begin
 end;
@@ -1374,4 +1387,4 @@ begin
 end;
 initialization
 end.
-
+

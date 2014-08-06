@@ -1,4 +1,4 @@
-msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)"
+msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz"
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -5636,8 +5636,8 @@ msgstr ""
 msgid "Position runden"
 msgstr ""
 
-#: tfordertypeoptions.checkbox2.caption
-msgid "5-Rappen Rundung"
+#: tfordertypeoptions.checkbox1.hint
+msgid "Soll schon der Bruttopreis in der Position gerundet werden ?"
 msgstr ""
 
 #: tfordertypeoptions.dividerbevel1.caption
@@ -5662,6 +5662,14 @@ msgstr ""
 
 #: tfordertypeoptions.eordertype.hint
 msgid "Der Typ des Auftrages hiermit wird entschieden ob Spezialeigenschaften gebucht werden"
+msgstr ""
+
+#: tfordertypeoptions.eroundto.hint
+msgid "auf wie viele Stellen soll im Vorgang gerundet werden ?"
+msgstr ""
+
+#: tfordertypeoptions.eroundto1.hint
+msgid "Soll auf einen bestimmten Wert gerundet werden ?"
 msgstr ""
 
 #: tfordertypeoptions.gbvisibility.caption
@@ -5698,6 +5706,10 @@ msgstr ""
 
 #: tfordertypeoptions.label3.caption
 msgid "Stellen"
+msgstr ""
+
+#: tfordertypeoptions.label4.caption
+msgid "Granularität"
 msgstr ""
 
 #: tfordertypeoptions.ldefaultpostyp.caption
