@@ -28,6 +28,8 @@ type
     pCommon: TPanel;
     pcPages: TExtMenuPageControl;
     tsCommon: TTabSheet;
+    procedure AddDocuments(Sender: TObject);
+    procedure AddImages(Sender: TObject);
     procedure AddHistory(Sender: TObject);
     procedure DataSetDataSetAfterScroll(DataSet: TDataSet);
     procedure Datasource1StateChange(Sender: TObject);
@@ -49,7 +51,7 @@ var
   fRepairImages: TfRepairImages;
 
 implementation
-uses uData,uHistoryFrame,uIntfStrConsts;
+uses uData,uHistoryFrame,uImageFrame,uIntfStrConsts,uDocuments,uDocumentFrame;
 {$R *.lfm}
 
 { TfRepairImages }
@@ -66,12 +68,30 @@ begin
   if DataSet.State=dsInsert then
     eName.SetFocus;
 end;
+procedure TfRepairImages.AddImages(Sender: TObject);
+begin
+  TfImageFrame(Sender).DataSet := TOrderRepairImages(FDataSet).Images;
+  TOrderRepairImages(FDataSet).Images.Open;
+end;
 
 procedure TfRepairImages.AddHistory(Sender: TObject);
 begin
   TfHistoryFrame(Sender).BaseName:='REPI';
   TfHistoryFrame(Sender).DataSet := TOrderRepairImages(FDataSet).History;
   TfHistoryFrame(Sender).SetRights(True);
+end;
+
+procedure TfRepairImages.AddDocuments(Sender: TObject);
+var
+  aDocuments: TDocuments;
+begin
+  if not Assigned(TfDocumentFrame(Sender).DataSet) then
+    begin
+      aDocuments := TDocuments.Create(Self,Data);
+      TfDocumentFrame(Sender).DataSet := aDocuments;
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsInteger,'R');
+    end;
+  TfDocumentFrame(Sender).BaseElement := FDataSet;
 end;
 
 procedure TfRepairImages.DataSetDataSetAfterScroll(DataSet: TDataSet);
@@ -92,12 +112,40 @@ begin
 end;
 
 procedure TfRepairImages.DoOpen;
+var
+  aDocuments: TDocuments;
+  aDocFrame: TfDocumentFrame;
 begin
   pcPages.CloseAll;
   pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
   TOrderRepairImages(DataSet).History.Open;
   if TOrderRepairImages(DataSet).History.Count > 0 then
     pcPages.AddTab(TfHistoryFrame.Create(Self),False);
+  if not TOrderRepairImages(DataSet).Images.DataSet.Active then
+    TOrderRepairImages(DataSet).Images.DataSet.Open;
+  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
+  if (TOrderRepairImages(DataSet).Images.Count > 0) then
+    pcPages.AddTab(TfImageFrame.Create(Self),False);
+  TOrderRepairImages(DataSet).Images.DataSet.Close;
+
+  pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
+  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
+    begin
+      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments.CreateTable;
+      aDocuments.Select(DataSet.Id.AsLargeInt,'R');
+      aDocuments.Open;
+      if aDocuments.Count = 0 then
+        aDocuments.Free
+      else
+        begin
+          aDocFrame := TfDocumentFrame.Create(Self);
+          pcPages.AddTab(aDocFrame,False);
+          aDocFrame.DataSet := aDocuments;
+          aDocFrame.BaseElement := FDataSet;
+        end;
+    end;
+
 end;
 
 procedure TfRepairImages.SetLanguage;

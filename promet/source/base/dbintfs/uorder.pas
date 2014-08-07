@@ -76,11 +76,14 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
   private
     FHistory: TBaseHistory;
+    FImages: TImages;
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     property History : TBaseHistory read FHistory;
+    property Images : TImages read FImages;
+
   end;
   TOrderRepair = class(TBaseDBDataSet)
   private
@@ -223,10 +226,12 @@ constructor TOrderRepairImages.Create(aOwner: TComponent; DM: TComponent;
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
+  FImages := TImages.Create(Self,DM,aConnection,DataSet);
 end;
 
 destructor TOrderRepairImages.Destroy;
 begin
+  FImages.Destroy;
   FHistory.Destroy;
   inherited Destroy;
 end;

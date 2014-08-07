@@ -62,7 +62,7 @@ type
     procedure SelectByID(aID : LargeInt);
     procedure SelectByLink(aLink : string);
     procedure DefineFields(aDataSet : TDataSet);override;
-    procedure Select(aID : LargeInt;aType : string;aParent : LargeInt);overload;virtual;
+    procedure Select(aID : LargeInt;aType : string;aParent : LargeInt = 0);overload;virtual;
     procedure Select(aID : largeInt;aType : string;aTID : string;aVersion : Variant;aLanguage : Variant;aParent : LargeInt = 0);overload;virtual;
     procedure SelectByReference(aID : Variant);
     function OpenPath(aPath : string;aPathDelim : string = PathDelim) : Boolean;
