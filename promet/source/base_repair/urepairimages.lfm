@@ -1,74 +1,18 @@
 object fRepairImages: TfRepairImages
-  Left = 419
-  Height = 440
-  Top = 254
-  Width = 627
+  Left = 436
+  Height = 480
+  Top = 276
+  Width = 704
   ActiveControl = eFilter
   Caption = 'Fehlerbild'
-  ClientHeight = 440
-  ClientWidth = 627
+  ClientHeight = 480
+  ClientWidth = 704
   OnCreate = FormCreate
   Position = poMainFormCenter
   LCLVersion = '1.3'
-  object mErrordesc: TDBMemo
-    Left = 192
-    Height = 136
-    Top = 96
-    Width = 425
-    Anchors = [akTop, akLeft, akRight]
-    DataField = 'DESC'
-    DataSource = Datasource1
-    TabOrder = 0
-  end
-  object mSolve: TDBMemo
-    Left = 192
-    Height = 136
-    Top = 264
-    Width = 425
-    Anchors = [akTop, akLeft, akRight, akBottom]
-    DataField = 'SOLVE'
-    DataSource = Datasource1
-    TabOrder = 1
-  end
-  object Label1: TLabel
-    Left = 192
-    Height = 15
-    Top = 40
-    Width = 32
-    Caption = 'Name'
-    ParentColor = False
-  end
-  object Label2: TLabel
-    Left = 192
-    Height = 15
-    Top = 80
-    Width = 104
-    Caption = 'Fehlerbeschreibung'
-    ParentColor = False
-  end
-  object Label3: TLabel
-    Left = 192
-    Height = 15
-    Top = 240
-    Width = 86
-    Caption = 'Fehlerbehebung'
-    ParentColor = False
-  end
-  object eName: TDBEdit
-    Left = 192
-    Height = 23
-    Top = 56
-    Width = 425
-    DataField = 'NAME'
-    DataSource = Datasource1
-    Anchors = [akTop, akLeft, akRight]
-    CharCase = ecNormal
-    MaxLength = 0
-    TabOrder = 2
-  end
   object gList: TDBGrid
     Left = 8
-    Height = 352
+    Height = 392
     Top = 40
     Width = 176
     Anchors = [akTop, akLeft, akBottom]
@@ -81,7 +25,7 @@ object fRepairImages: TfRepairImages
         FieldName = 'NAME'
       end>
     DataSource = Datasource1
-    TabOrder = 3
+    TabOrder = 0
     TitleStyle = tsNative
   end
   object eFilter: TEdit
@@ -90,13 +34,13 @@ object fRepairImages: TfRepairImages
     Top = 8
     Width = 176
     OnChange = eFilterEnter
-    TabOrder = 4
+    TabOrder = 1
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
     Height = 34
-    Top = 400
-    Width = 615
+    Top = 440
+    Width = 692
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
     HelpButton.Name = 'HelpButton'
@@ -105,31 +49,116 @@ object fRepairImages: TfRepairImages
     CloseButton.DefaultCaption = True
     CancelButton.Name = 'CancelButton'
     CancelButton.DefaultCaption = True
-    TabOrder = 5
+    TabOrder = 2
     ShowButtons = [pbOK, pbCancel]
   end
-  object DBNavigator1: TDBNavigator
-    Left = 488
-    Height = 25
+  object pcPages: TExtMenuPageControl
+    Left = 192
+    Height = 424
     Top = 8
-    Width = 129
-    BevelOuter = bvNone
-    ChildSizing.EnlargeHorizontal = crsScaleChilds
-    ChildSizing.EnlargeVertical = crsScaleChilds
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 100
-    ClientHeight = 25
-    ClientWidth = 129
-    DataSource = Datasource1
-    Options = []
-    TabOrder = 6
-    VisibleButtons = [nbInsert, nbEdit, nbPost, nbCancel, nbRefresh]
+    Width = 510
+    ActivePage = tsCommon
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Images = fVisualControls.Images
+    TabIndex = 0
+    TabOrder = 3
+    NewTabImageIndex = 59
+    object tsCommon: TTabSheet
+      Caption = 'Allgemein'
+      ClientHeight = 396
+      ClientWidth = 502
+      ImageIndex = 14
+      object pCommon: TPanel
+        Left = 0
+        Height = 396
+        Top = 0
+        Width = 502
+        Align = alClient
+        BevelOuter = bvNone
+        ClientHeight = 396
+        ClientWidth = 502
+        TabOrder = 0
+        object mSolve: TDBMemo
+          Left = 8
+          Height = 144
+          Top = 240
+          Width = 488
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          DataField = 'SOLVE'
+          DataSource = Datasource1
+          TabOrder = 0
+        end
+        object Label3: TLabel
+          Left = 8
+          Height = 15
+          Top = 224
+          Width = 86
+          Caption = 'Fehlerbehebung'
+          ParentColor = False
+        end
+        object mErrordesc: TDBMemo
+          Left = 8
+          Height = 120
+          Top = 96
+          Width = 488
+          Anchors = [akTop, akLeft, akRight]
+          DataField = 'DESC'
+          DataSource = Datasource1
+          TabOrder = 1
+        end
+        object Label2: TLabel
+          Left = 8
+          Height = 15
+          Top = 80
+          Width = 104
+          Caption = 'Fehlerbeschreibung'
+          ParentColor = False
+        end
+        object eName: TDBEdit
+          Left = 8
+          Height = 23
+          Top = 48
+          Width = 489
+          DataField = 'NAME'
+          DataSource = Datasource1
+          Anchors = [akTop, akLeft, akRight]
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 2
+        end
+        object Label1: TLabel
+          Left = 8
+          Height = 15
+          Top = 32
+          Width = 32
+          Caption = 'Name'
+          ParentColor = False
+        end
+        object DBNavigator1: TDBNavigator
+          Left = 373
+          Height = 25
+          Top = 8
+          Width = 129
+          BevelOuter = bvNone
+          ChildSizing.EnlargeHorizontal = crsScaleChilds
+          ChildSizing.EnlargeVertical = crsScaleChilds
+          ChildSizing.ShrinkHorizontal = crsScaleChilds
+          ChildSizing.ShrinkVertical = crsScaleChilds
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 100
+          ClientHeight = 25
+          ClientWidth = 129
+          DataSource = Datasource1
+          Options = []
+          TabOrder = 3
+          VisibleButtons = [nbInsert, nbEdit, nbPost, nbCancel, nbRefresh]
+        end
+      end
+    end
   end
   object Datasource1: TDatasource
     OnStateChange = Datasource1StateChange
-    left = 24
+    left = 32
     top = 152
   end
 end

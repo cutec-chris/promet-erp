@@ -88,6 +88,7 @@ begin
 end;
 procedure TfImageFrame.AValueAfterScroll(aDataSet: TDataSet);
 begin
+  if iPreview.Picture.Width<=0 then exit;
   FScale := pImage.Width/iPreview.Picture.Width;
   DoScalePreview;
   iPreview.Top:=0;

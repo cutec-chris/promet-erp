@@ -25,11 +25,11 @@ inherited fImageFrame: TfImageFrame
       Height = 305
       Top = 1
       Width = 496
-      HorzScrollBar.Page = 478
-      VertScrollBar.Page = 287
+      HorzScrollBar.Page = 458
+      VertScrollBar.Page = 267
       Align = alClient
-      ClientHeight = 287
-      ClientWidth = 478
+      ClientHeight = 284
+      ClientWidth = 475
       TabOrder = 0
       object iPreview: TDBImage
         Left = 0
@@ -87,7 +87,8 @@ inherited fImageFrame: TfImageFrame
         Caption = 'Datei'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -169,7 +170,8 @@ inherited fImageFrame: TfImageFrame
         Caption = 'Navigation'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -224,7 +226,8 @@ inherited fImageFrame: TfImageFrame
         Caption = 'Zwischenablage'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
