@@ -1,4 +1,4 @@
-msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)"
+msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz"
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
-msgid "(aktive Version)"
+msgid "(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)"
 msgstr ""
 
 #: tfaccountingframe.accombineitems.caption
@@ -1006,32 +1006,36 @@ msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[0].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[0].TITLE.CAPTION"
-msgid "SYMBOL"
+msgid "Symbol"
 msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[1].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[1].TITLE.CAPTION"
-msgid "NAME"
+msgid "Name"
 msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[2].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[2].TITLE.CAPTION"
-msgid "MASK"
+msgid "Maske"
 msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[3].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[3].TITLE.CAPTION"
-msgid "DECIMALPL"
+msgid "Faktor"
 msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[4].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[4].TITLE.CAPTION"
-msgid "FACTOR"
+msgid "Standard"
 msgstr ""
 
 #: tfcurrencyoptions.dgcurrency.columns[5].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[5].TITLE.CAPTION"
-msgid "DEFAULTCUR"
+msgid "Dezimalstellen"
+msgstr ""
+
+#: tfcurrencyoptions.dgcurrency.columns[6].title.caption
+msgid "Runden auf"
 msgstr ""
 
 #: tfcustomer.acactionmenue.caption
@@ -5635,8 +5639,20 @@ msgstr ""
 msgid "Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird"
 msgstr ""
 
+#: tfordertypeoptions.checkbox1.caption
+msgid "Position runden"
+msgstr ""
+
+#: tfordertypeoptions.checkbox1.hint
+msgid "Soll schon der Bruttopreis in der Position gerundet werden ?"
+msgstr ""
+
 #: tfordertypeoptions.dividerbevel1.caption
 msgid "Buchen"
+msgstr ""
+
+#: tfordertypeoptions.dividerbevel2.caption
+msgid "Runden"
 msgstr ""
 
 #: tfordertypeoptions.edefaultpostyp.hint
@@ -5708,7 +5724,7 @@ msgstr "Typ"
 
 #: tfordertypeoptions.rgaddchist.caption
 msgctxt "TFORDERTYPEOPTIONS.RGADDCHIST.CAPTION"
-msgid "Kundenhistorie"
+msgid "Kunden-Verlauf"
 msgstr ""
 
 #: tfordertypeoptions.rgadddunning.caption

@@ -1,18 +1,18 @@
 inherited forderTypeOptions: TforderTypeOptions
-  Height = 437
+  Height = 463
   Width = 535
-  ClientHeight = 437
+  ClientHeight = 463
   ClientWidth = 535
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
   DesignLeft = 481
-  DesignTop = 248
+  DesignTop = 211
   object lType: TLabel[0]
     Left = 176
     Height = 13
     Top = 8
-    Width = 19
+    Width = 18
     Caption = 'Typ'
     ParentColor = False
   end
@@ -20,31 +20,31 @@ inherited forderTypeOptions: TforderTypeOptions
     Left = 176
     Height = 13
     Top = 52
-    Width = 65
+    Width = 54
     Caption = 'Ableitbar in'
     ParentColor = False
   end
   object lNumberset: TLabel[2]
-    Left = 324
+    Left = 340
     Height = 13
     Top = 52
-    Width = 83
+    Width = 67
     Anchors = [akTop, akRight]
     Caption = 'Nummernkreis'
     ParentColor = False
   end
   object lDefaultPosTyp: TLabel[3]
-    Left = 436
+    Left = 446
     Height = 13
     Top = 52
-    Width = 68
+    Width = 58
     Anchors = [akTop, akRight]
     Caption = 'Positionstyp'
     ParentColor = False
   end
   object gOrderStatus: TDBGrid[4]
     Left = 8
-    Height = 379
+    Height = 405
     Top = 46
     Width = 160
     Anchors = [akTop, akLeft, akBottom]
@@ -72,14 +72,14 @@ inherited forderTypeOptions: TforderTypeOptions
   end
   object eOrderType: TDBComboBox[5]
     Left = 176
-    Height = 27
+    Height = 21
     Hint = 'Der Typ des Auftrages hiermit wird entschieden ob Spezialeigenschaften gebucht werden'
     Top = 24
     Width = 221
     Anchors = [akTop, akLeft, akRight]
     DataField = 'TYPE'
     DataSource = OrderTypeDS
-    ItemHeight = 0
+    ItemHeight = 13
     Items.Strings = (
       '0 Offer'
       '1 Order'
@@ -96,7 +96,7 @@ inherited forderTypeOptions: TforderTypeOptions
   end
   object eDerivates: TDBEdit[6]
     Left = 176
-    Height = 23
+    Height = 21
     Hint = 'In welche Vorgangstypen ist der Vorgang wandelbar ?'
     Top = 68
     Width = 142
@@ -120,12 +120,12 @@ inherited forderTypeOptions: TforderTypeOptions
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 2
-    ClientHeight = 73
+    ClientHeight = 70
     ClientWidth = 293
     TabOrder = 3
     object cbSIOrder: TDBCheckBox
       Left = 0
-      Height = 25
+      Height = 24
       Top = 0
       Width = 144
       Caption = 'Vorgang'
@@ -137,7 +137,7 @@ inherited forderTypeOptions: TforderTypeOptions
     end
     object cbSIPos: TDBCheckBox
       Left = 147
-      Height = 25
+      Height = 24
       Top = 0
       Width = 146
       AutoSize = True
@@ -151,7 +151,7 @@ inherited forderTypeOptions: TforderTypeOptions
     object cbSIProd: TDBCheckBox
       Left = 0
       Height = 24
-      Top = 25
+      Top = 24
       Width = 144
       AutoSize = True
       Caption = 'Produktion'
@@ -164,7 +164,7 @@ inherited forderTypeOptions: TforderTypeOptions
     object cbSIAcc: TDBCheckBox
       Left = 147
       Height = 24
-      Top = 25
+      Top = 24
       Width = 146
       AutoSize = True
       Caption = 'Buchhaltung'
@@ -176,8 +176,8 @@ inherited forderTypeOptions: TforderTypeOptions
     end
     object cbSIINVR: TDBCheckBox
       Left = 0
-      Height = 24
-      Top = 49
+      Height = 22
+      Top = 48
       Width = 144
       AutoSize = True
       Caption = 'Rechnungseingang'
@@ -189,8 +189,8 @@ inherited forderTypeOptions: TforderTypeOptions
     end
     object cbSIINVO: TDBCheckBox
       Left = 147
-      Height = 24
-      Top = 49
+      Height = 22
+      Top = 48
       Width = 146
       AutoSize = True
       Caption = 'Rechnungsausgang'
@@ -267,10 +267,10 @@ inherited forderTypeOptions: TforderTypeOptions
     )
   end
   object rgAddINVR: TDBRadioGroup[11]
-    Left = 344
+    Left = 296
     Height = 40
-    Top = 354
-    Width = 168
+    Top = 352
+    Width = 112
     Caption = 'Rechnungseingang'
     Columns = 3
     DataField = 'B_INVR'
@@ -290,8 +290,8 @@ inherited forderTypeOptions: TforderTypeOptions
   object rgAddINVO: TDBRadioGroup[12]
     Left = 176
     Height = 40
-    Top = 354
-    Width = 161
+    Top = 352
+    Width = 112
     Caption = 'Rechnungsausgang'
     Columns = 3
     DataField = 'B_INVO'
@@ -330,11 +330,11 @@ inherited forderTypeOptions: TforderTypeOptions
     )
   end
   object rgAddCHist: TDBRadioGroup[14]
-    Left = 176
+    Left = 416
     Height = 40
-    Top = 396
-    Width = 129
-    Caption = 'Kundenhistorie'
+    Top = 352
+    Width = 96
+    Caption = 'Kunden-Verlauf'
     Columns = 3
     DataField = 'B_CHIST'
     DataSource = OrderTypeDS
@@ -350,7 +350,7 @@ inherited forderTypeOptions: TforderTypeOptions
   end
   object eNumberset: TDBEdit[15]
     Left = 325
-    Height = 23
+    Height = 21
     Hint = 'In welchen Nummernkreis werden die Nummern gebucht ?'
     Top = 68
     Width = 99
@@ -363,7 +363,7 @@ inherited forderTypeOptions: TforderTypeOptions
   end
   object eDefaultPosTyp: TDBEdit[16]
     Left = 436
-    Height = 23
+    Height = 21
     Hint = 'Welcher Positionstyp soll Standardmäßig verwendet werden ?'
     Top = 68
     Width = 95
@@ -450,17 +450,17 @@ inherited forderTypeOptions: TforderTypeOptions
   end
   object cbTextTyp: TComboBox[21]
     Left = 404
-    Height = 27
+    Height = 21
     Hint = 'Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird'
     Top = 24
     Width = 126
     Anchors = [akTop, akRight]
-    ItemHeight = 0
+    ItemHeight = 13
     OnChange = cbTextTypChange
     TabOrder = 17
   end
   object lvImages: TListView[22]
-    Left = 484
+    Left = 480
     Height = 88
     Top = 120
     Width = 47
@@ -476,7 +476,7 @@ inherited forderTypeOptions: TforderTypeOptions
     OnSelectItem = lvImagesSelectItem
   end
   object Label1: TLabel[23]
-    Left = 484
+    Left = 480
     Height = 13
     Top = 104
     Width = 47
@@ -486,10 +486,10 @@ inherited forderTypeOptions: TforderTypeOptions
     ParentColor = False
   end
   object Label2: TLabel[24]
-    Left = 404
+    Left = 415
     Height = 13
     Top = 8
-    Width = 96
+    Width = 85
     Anchors = [akTop, akRight]
     Caption = 'Standard Texttyp'
     ParentColor = False
@@ -503,7 +503,31 @@ inherited forderTypeOptions: TforderTypeOptions
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object OrderTypeDS: TDatasource[26]
+  object DividerBevel2: TDividerBevel[26]
+    Left = 176
+    Height = 13
+    Top = 392
+    Width = 336
+    Caption = 'Runden'
+    BiDiMode = bdRightToLeft
+    Font.Style = [fsBold]
+    ParentBiDiMode = False
+    ParentFont = False
+  end
+  object CheckBox1: TDBCheckBox[27]
+    Left = 184
+    Height = 24
+    Hint = 'Soll schon der Bruttopreis in der Position gerundet werden ?'#13#10'(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)'
+    Top = 408
+    Width = 114
+    Caption = 'Position runden'
+    DataField = 'ROUNDPOS'
+    DataSource = OrderTypeDS
+    TabOrder = 19
+    ValueChecked = 'Y'
+    ValueUnchecked = 'N'
+  end
+  object OrderTypeDS: TDataSource[28]
     left = 416
     top = 104
   end

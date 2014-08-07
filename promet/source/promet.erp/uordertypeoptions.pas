@@ -36,8 +36,10 @@ type
     cbSIPos: TDBCheckBox;
     cbSIProd: TDBCheckBox;
     cbTextTyp: TComboBox;
+    CheckBox1: TDBCheckBox;
     DBNavigator1: TDBNavigator;
     DividerBevel1: TDividerBevel;
+    DividerBevel2: TDividerBevel;
     eDefaultPosTyp: TDBEdit;
     eDerivates: TDBEdit;
     eNumberset: TDBEdit;

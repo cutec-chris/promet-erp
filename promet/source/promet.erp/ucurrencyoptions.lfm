@@ -16,38 +16,43 @@ inherited fCurrencyOptions: TfCurrencyOptions
     Color = clWindow
     Columns = <    
       item
-        Title.Caption = 'SYMBOL'
+        Title.Caption = 'Symbol'
         FieldName = 'SYMBOL'
       end    
       item
-        Title.Caption = 'NAME'
-        Width = 200
+        Title.Caption = 'Name'
+        Width = 150
         FieldName = 'NAME'
       end    
       item
-        Title.Caption = 'MASK'
+        Title.Caption = 'Maske'
         FieldName = 'MASK'
       end    
       item
-        Title.Caption = 'DECIMALPL'
-        FieldName = 'DECIMALPL'
-      end    
-      item
-        Title.Caption = 'FACTOR'
+        Title.Caption = 'Faktor'
         FieldName = 'FACTOR'
       end    
       item
         ButtonStyle = cbsCheckboxColumn
-        Title.Caption = 'DEFAULTCUR'
+        Title.Caption = 'Standard'
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
         FieldName = 'DEFAULTCUR'
+      end    
+      item
+        Title.Caption = 'Dezimalstellen'
+        FieldName = 'DECIMALPL'
+      end    
+      item
+        Title.Caption = 'Runden auf'
+        Width = 50
+        FieldName = 'ROUNDGRAN'
       end>
     DataSource = CurrencyDS
     TabOrder = 0
     TitleStyle = tsNative
   end
-  object CurrencyDS: TDatasource[1]
+  object CurrencyDS: TDataSource[1]
     left = 260
     top = 332
   end

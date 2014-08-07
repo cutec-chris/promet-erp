@@ -188,21 +188,17 @@ type
     property ChangedDuringSession : Boolean read FHChanged write FHChanged;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Change; override;
-    function AddItem(aObject: TDataSet; aAction: string; aLink: string='';
-      aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;
-  aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True;
-  DoChange: Boolean=False) : Boolean; virtual;
-    procedure AddParentedItem(aObject: TDataSet; aAction: string;aParent : Variant; aLink: string='';
-      aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;
-  aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True;
-  DoChange: Boolean=False); virtual;
+
     procedure SelectByParent(aParent: Variant);
     procedure SelectByRoot(aParent: Variant);
+
+    function AddItem(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    procedure AddParentedItem(aObject: TDataSet; aAction: string;aParent : Variant; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0; aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False); virtual;
     procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
-    procedure AddMessageItem(aObject: TDataSet; aMessage, aSubject,
-      aSource, aLink: string; aParent: LargeInt = 0);
-    procedure AddAnsweredMessageItem(aObject: TDataSet; aMessage, aSubject,
-      aSource, aLink: string; aParent: LargeInt = 0);
+
+    procedure AddMessageItem(aObject: TDataSet; aMessage, aSubject, aSource, aLink: string; aParent: LargeInt = 0);
+    procedure AddAnsweredMessageItem(aObject: TDataSet; aMessage, aSubject, aSource, aLink: string; aParent: LargeInt = 0);
+
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
   end;
@@ -1307,12 +1303,12 @@ begin
         with ManagedFieldDefs do
           begin
             Add('REF_ID',ftLargeInt,0,true);
-            Add('LINK',ftString,200,False);
-            Add('OBJECT',ftString,200,False);
             Add('ACTIONICON',ftInteger,0,False);
             Add('SUMMARY',ftString,120,False);
             Add('ACTION',ftMemo,0,True);
             Add('REFERENCE', ftString,150,False);
+            Add('LINK',ftString,200,False);
+            Add('OBJECT',ftString,200,False);
             Add('REFOBJECT',ftString,200,False);
             Add('COMMISSION',ftString,60,False);
             Add('SOURCE',ftString,60,False);

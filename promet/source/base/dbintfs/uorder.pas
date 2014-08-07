@@ -33,6 +33,7 @@ type
     FHistory : TBaseHistory;
     FOrderTyp: TOrdertyp;
     function GetHistory: TBaseHistory;
+    function GetOrderTyp: TOrdertyp;
   protected
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
@@ -47,7 +48,8 @@ type
     procedure Open; override;
     procedure DefineFields(aDataSet : TDataSet);override;
     property History : TBaseHistory read FHistory;
-    property OrderType : TOrdertyp read FOrderTyp;
+    property OrderType : TOrdertyp read GetOrderTyp;
+    function SelectOrderType : Boolean;
   end;
   TOrderQMTestDetails = class(TBaseDBDataSet)
   public
@@ -100,6 +102,8 @@ type
     function GetAccountNo : string;override;
     procedure PosPriceChanged(aPosDiff,aGrossDiff :Extended);override;
     procedure PosWeightChanged(aPosDiff : Extended);override;
+    function Round(aValue: Extended): Extended; override;
+    function RoundPos(aValue : Extended) : Extended;override;
     function GetCurrency : string;override;
     function GetOrderTyp : Integer;
   public
@@ -145,6 +149,7 @@ type
   TOnGetSerialEvent = function(Sender : TOrder;aMasterdata : TMasterdata;aQuantity : Integer) : Boolean of object;
   TOrder = class(TOrderList,IPostableDataSet,IShipableDataSet)
   private
+    FCurrency: TCurrency;
     FFailMessage: string;
     FLinks: TOrderLinks;
     FOnGetSerial: TOnGetSerialEvent;
@@ -153,6 +158,7 @@ type
     FOrderPos: TOrderPos;
     fOrigId : string;
     function GetCommission: TField;
+    function Round(Value: Extended): Extended;
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
@@ -169,13 +175,15 @@ type
     property Links : TOrderLinks read FLinks;
     property OnGetStorage : TOnGetStorageEvent read FOnGetStorage write FOnGetStorage;
     property OnGetSerial : TOnGetSerialEvent read FOnGetSerial write FOnGetSerial;
+    property Currency : TCurrency read FCurrency;
+    function SelectCurrency : Boolean;
     procedure Recalculate;
-    function DoPost: TPostResult;
-    function FailMessage : string;
     function ChangeStatus(aNewStatus : string) : Boolean;
     procedure ShippingOutput;
+    function DoPost: TPostResult;
     function PostArticle(aTyp, aID, aVersion, aLanguage: variant; Quantity: real; QuantityUnit, PosNo: string; var aStorage: string; var OrderDelivered: boolean) : Boolean;
     function DoBookPositionCalc(AccountingJournal : TAccountingJournal) : Boolean;
+    function FailMessage : string;
     function FormatCurrency(Value : real) : string;
     function CalcDispatchType : Boolean;
   end;
@@ -440,8 +448,11 @@ begin
             Add('ISDERIVATE',ftString,1,false);
             Add('DERIVATIVE',ftString,30,false);
             Add('NUMBERSET',ftString,30,false);
-            Add('DEFPOSTYP',ftString,3,False);
-            Add('TEXTTYP',ftInteger,0,False);
+            Add('DEFPOSTYP',ftString,3,False); //welcher positionstyp wird nach insert gesetzt?
+            Add('TEXTTYP',ftInteger,0,False);  //welcher text ist standardtext
+
+            Add('ROUNDPOS',ftString,1,False);  //Positionen werden gerundet
+
             Add('SI_ORDER',ftString,1,false);  //im Auftrag anzeigen
             Add('SI_POS',ftString,1,false);    //in der Kasse anzeigen (Point of Sale)
             Add('SI_PROD',ftString,1,false);   //in der Produktion anzeigen
@@ -516,6 +527,21 @@ begin
   result := FieldByName('COMMISSION');
 end;
 
+function TOrder.Round(Value: Extended): Extended;
+  function RoundToGranularity(aValue, aGranularity: Double): Double;
+  begin
+    Result := Trunc(aValue / aGranularity + 0.5 + 1E-10) * aGranularity
+  end;
+var
+  nk: Integer = 2;
+begin
+  if SelectCurrency and (Currency.FieldByName('DECIMALPL').AsInteger>0) then
+    nk := Currency.FieldByName('DECIMALPL').AsInteger;
+  if SelectCurrency and (Currency.FieldByName('ROUNDGRAN').AsFloat>0) then
+    Result := InternalRound(RoundToGranularity(Value,Currency.FieldByName('ROUNDGRAN').AsFloat),nk)
+  else Result := InternalRound(Value,nk);
+end;
+
 constructor TOrder.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
@@ -536,9 +562,11 @@ begin
   FOrderPos := TOrderPos.Create(Self,DM,aConnection,DataSet);
   FOrderPos.Order:=Self;
   FLinks := TOrderLinks.Create(Self,DM,aConnection);
+  FCurrency := TCurrency.Create(Self,DM,aConnection);
 end;
 destructor TOrder.Destroy;
 begin
+  FCurrency.Free;
   FOrderAddress.Destroy;
   FOrderPos.Destroy;
   FreeAndnil(FLinks);
@@ -601,9 +629,10 @@ begin
   inherited Open;
   DataSet.Locate('ORDERNO',FOrigID,[]);
   OrderType.Open;
-  OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
+  if not OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]) then Ordertype.Close;
   if FieldByName('ACTIVE').IsNull then
     RefreshActive;
+  SelectCurrency;
 end;
 
 procedure TOrder.RefreshActive;
@@ -642,7 +671,7 @@ begin
     end;
   DataSet.GotoBookmark(aRec);
   DataSet.FreeBookmark(aRec);
-  OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
+  if not OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]) then OrderType.Close;
 end;
 
 procedure TOrder.CascadicPost;
@@ -661,6 +690,16 @@ begin
   FOrderPos.CascadicCancel;
   FLinks.CascadicCancel;
   inherited CascadicCancel;
+end;
+
+function TOrder.SelectCurrency: Boolean;
+begin
+  if not FCurrency.Locate('SYMBOL',FieldByName('CURRENCY').AsString,[]) then
+    begin
+      FCurrency.Filter(Data.QuoteField('SYMBOL')+'='+Data.QuoteValue(FieldByName('CURRENCY').AsString));
+      result := FCurrency.Locate('SYMBOL',FieldByName('CURRENCY').AsString,[]);
+    end
+  else Result := True;
 end;
 
 procedure TOrder.Recalculate;
@@ -698,17 +737,16 @@ begin
             begin
               Positions.Edit;
               Positions.FieldByName('POSPRICE').AsFloat := aPos;
-              Positions.FieldByName('GROSSPRICE').AsFloat := aGrossPos;
+              Positions.FieldByName('GROSSPRICE').AsFloat := Round(aGrossPos);
               Positions.Post;
             end;
       Positions.Next;
     end;
   if not CanEdit then DataSet.Edit;
-  FieldByName('VATH').AsFloat:=aVatH;
-  FieldByName('VATF').AsFloat:=aVatV;
-  FieldByName('NETPRICE').AsFloat:=aPos;
-  FieldByName('NETPRICE').AsFloat:=aPos;
-  FieldByName('GROSSPRICE').AsFloat:=InternalRound(aGrossPos);
+  FieldByName('VATH').AsFloat:=Round(aVatH);
+  FieldByName('VATF').AsFloat:=Round(aVatV);
+  FieldByName('NETPRICE').AsFloat:=Round(aPos);
+  FieldByName('GROSSPRICE').AsFloat:=Round(aGrossPos);
   if CanEdit then DataSet.Post;
 end;
 
@@ -1321,13 +1359,13 @@ begin
         end;
       if Invert then
         begin
-          FieldByName('NETPRICE').AsFloat   := FieldByName('NETPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat;
-          FieldByName('GROSSPRICE').AsFloat := FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('GROSSPRICE').AsFloat;
+          FieldByName('NETPRICE').AsFloat   := Round(FieldByName('NETPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat);
+          FieldByName('GROSSPRICE').AsFloat := Round(FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('GROSSPRICE').AsFloat);
         end
       else
         begin
-          FieldByName('NETPRICE').AsFloat   := FieldByName('NETPRICE').AsFloat+Positions.FieldByName('POSPRICE').AsFloat;
-          FieldByName('GROSSPRICE').AsFloat := FieldByName('GROSSPRICE').AsFloat+Positions.FieldByName('GROSSPRICE').AsFloat;
+          FieldByName('NETPRICE').AsFloat   := Round(FieldByName('NETPRICE').AsFloat+Positions.FieldByName('POSPRICE').AsFloat);
+          FieldByName('GROSSPRICE').AsFloat := Round(FieldByName('GROSSPRICE').AsFloat+Positions.FieldByName('GROSSPRICE').AsFloat);
         end;
       Post;
     end;
@@ -1387,11 +1425,11 @@ procedure TOrderPos.PosPriceChanged(aPosDiff, aGrossDiff: Extended);
 begin
   if not ((Order.DataSet.State = dsEdit) or (Order.DataSet.State = dsInsert)) then
     Order.DataSet.Edit;
-  Order.FieldByName('NETPRICE').AsFloat := Order.FieldByName('NETPRICE').AsFloat+aPosDiff;
+  Order.FieldByName('NETPRICE').AsFloat := Round(Order.FieldByName('NETPRICE').AsFloat+aPosDiff);
   Data.PaymentTargets.Open;
   if Data.PaymentTargets.DataSet.Locate('ID',Order.FieldByName('PAYMENTTAR').AsString,[]) then
-    Order.FieldByName('DISCPRICE').AsFloat := InternalRound(Order.FieldByName('NETPRICE').AsFloat-((Order.FieldByName('NETPRICE').AsFloat/100)*Data.PaymentTargets.FieldByName('CASHDISC').AsFloat));
-  Order.FieldByName('GROSSPRICE').AsFloat := Order.FieldByName('GROSSPRICE').AsFloat+aGrossDiff;
+    Order.FieldByName('DISCPRICE').AsFloat := Round(Order.FieldByName('NETPRICE').AsFloat-((Order.FieldByName('NETPRICE').AsFloat/100)*Data.PaymentTargets.FieldByName('CASHDISC').AsFloat));
+  Order.FieldByName('GROSSPRICE').AsFloat := Round(Order.FieldByName('GROSSPRICE').AsFloat+aGrossDiff);
 end;
 procedure TOrderPos.PosWeightChanged(aPosDiff : Extended);
 begin
@@ -1399,6 +1437,20 @@ begin
     Order.DataSet.Edit;
   Order.FieldByName('WEIGHT').AsFloat := Order.FieldByName('WEIGHT').AsFloat+aPosDiff;
 end;
+
+function TOrderPos.Round(aValue: Extended): Extended;
+begin
+  if Assigned(Order) then
+    Result := Order.Round(aValue)
+  else Result:=inherited Round(aValue);
+end;
+function TOrderPos.RoundPos(aValue: Extended): Extended;
+begin
+  if Order.SelectOrderType and (Order.OrderType.FieldByName('ROUNDPOS').AsString='Y') then
+    Result := Round(aValue)
+  else result := aValue;
+end;
+
 function TOrderPos.GetCurrency: string;
 begin
   Result:=Order.FieldByName('CURRENCY').AsString;
@@ -1490,6 +1542,12 @@ function TOrderList.GetHistory: TBaseHistory;
 begin
   Result := FHistory;
 end;
+
+function TOrderList.GetOrderTyp: TOrdertyp;
+begin
+  Result := FOrderTyp;
+end;
+
 function TOrderList.GetTextFieldName: string;
 begin
   Result:='CUSTNAME';
@@ -1617,6 +1675,12 @@ begin
       DefineUserFields(aDataSet);
     end;
 end;
+
+function TOrderList.SelectOrderType: Boolean;
+begin
+  Result := FOrderTyp.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
+end;
+
 initialization
 end.
 
