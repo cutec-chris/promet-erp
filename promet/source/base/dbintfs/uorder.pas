@@ -634,7 +634,7 @@ begin
   inherited Open;
   DataSet.Locate('ORDERNO',FOrigID,[]);
   OrderType.Open;
-  if not OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]) then Ordertype.Close;
+  OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
   if FieldByName('ACTIVE').IsNull then
     RefreshActive;
   SelectCurrency;
@@ -676,7 +676,7 @@ begin
     end;
   DataSet.GotoBookmark(aRec);
   DataSet.FreeBookmark(aRec);
-  if not OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]) then OrderType.Close;
+  OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
 end;
 
 procedure TOrder.CascadicPost;
