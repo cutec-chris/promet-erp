@@ -28,34 +28,36 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="7">
       <Item1>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="pscripts"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="SynEdit"/>
       </Item2>
       <Item3>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="LCL"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="richmemopackage"/>
       </Item4>
       <Item5>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item5>
       <Item6>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
+      </Item6>
+      <Item7>
         <PackageName Value="pVisualPrometApp"/>
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
-      </Item6>
+      </Item7>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>
         <Filename Value="avacalc.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="avacalc"/>
       </Unit0>
       <Unit1>
         <Filename Value="ucalculator.pas"/>
@@ -71,7 +73,6 @@
         <ComponentName Value="fDataSet"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uDataSet"/>
       </Unit2>
     </Units>
   </ProjectOptions>
@@ -104,9 +105,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="5">

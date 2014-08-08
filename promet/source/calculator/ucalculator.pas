@@ -73,7 +73,7 @@ var
   fMain: TfMain;
 implementation
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uStatistic,LCLType,
-  MathParser,uDataSet;
+  MathParser,uDataSet,uScriptEditor;
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
@@ -82,6 +82,7 @@ begin
     end;
   with Application as IBaseDbInterface do
     LoadMandants;
+  fScriptEditor.Execute;
 end;
 procedure TfMain.acLoginExecute(Sender: TObject);
 begin

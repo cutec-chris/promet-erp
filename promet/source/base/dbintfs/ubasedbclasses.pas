@@ -265,9 +265,6 @@ type
     property WorkTime : Extended read GetWorktime;
     property IDCode : TField read GetIDCode;
   end;
-
-  { TActiveUsers }
-
   TActiveUsers = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -283,9 +280,6 @@ type
     function GetNewNumber(Numberset : string) : string;
     function HasNumberSet(Numberset : string) : Boolean;
   end;
-
-  { TPayGroups }
-
   TPayGroups = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -294,9 +288,6 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
-
-  { TRights }
-
   TRights = class(TBaseDBDataSet)
   private
     FCachedRights : TStringList;
