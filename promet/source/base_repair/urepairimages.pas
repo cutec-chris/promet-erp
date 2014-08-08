@@ -28,6 +28,7 @@ type
     pCommon: TPanel;
     pcPages: TExtMenuPageControl;
     tsCommon: TTabSheet;
+    procedure AddLinks(Sender: TObject);
     procedure AddDocuments(Sender: TObject);
     procedure AddImages(Sender: TObject);
     procedure AddHistory(Sender: TObject);
@@ -51,7 +52,7 @@ var
   fRepairImages: TfRepairImages;
 
 implementation
-uses uData,uHistoryFrame,uImageFrame,uIntfStrConsts,uDocuments,uDocumentFrame;
+uses uData,uHistoryFrame,uImageFrame,uIntfStrConsts,uDocuments,uDocumentFrame,uLinkFrame;
 {$R *.lfm}
 
 { TfRepairImages }
@@ -72,6 +73,12 @@ procedure TfRepairImages.AddImages(Sender: TObject);
 begin
   TfImageFrame(Sender).DataSet := TOrderRepairImages(FDataSet).Images;
   TOrderRepairImages(FDataSet).Images.Open;
+end;
+
+procedure TfRepairImages.AddLinks(Sender: TObject);
+begin
+  TfLinkFrame(Sender).BaseName:='REPI';
+  TfLinkFrame(Sender).DataSet := TOrderRepairImages(FDataSet).Links;
 end;
 
 procedure TfRepairImages.AddHistory(Sender: TObject);
@@ -123,11 +130,10 @@ begin
     pcPages.AddTab(TfHistoryFrame.Create(Self),False);
   if not TOrderRepairImages(DataSet).Images.DataSet.Active then
     TOrderRepairImages(DataSet).Images.DataSet.Open;
-  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
+   pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
   if (TOrderRepairImages(DataSet).Images.Count > 0) then
     pcPages.AddTab(TfImageFrame.Create(Self),False);
   TOrderRepairImages(DataSet).Images.DataSet.Close;
-
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
@@ -145,7 +151,10 @@ begin
           aDocFrame.BaseElement := FDataSet;
         end;
     end;
-
+   pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
+  TOrderRepairImages(DataSet).Links.Open;
+  if TOrderRepairImages(DataSet).Links.Count > 0 then
+    pcPages.AddTab(TfLinkFrame.Create(Self),False);
 end;
 
 procedure TfRepairImages.SetLanguage;

@@ -93,9 +93,6 @@ type
   public
     procedure FillDefaults(aDataSet : TDataSet);override;
   end;
-
-  { TMasterdataPrices }
-
   TMasterdataPrices = class(TBaseDbDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;

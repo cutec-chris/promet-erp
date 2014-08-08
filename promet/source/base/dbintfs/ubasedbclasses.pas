@@ -361,6 +361,8 @@ type
     procedure FillDefaults(aDataSet : TDataSet);override;
   end;
   TLinks = class(TBaseDBDataSet)
+  private
+    FOrigFilter : string;
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure Open;override;
@@ -689,20 +691,10 @@ begin
         begin
         if Assigned(FParent) then
           begin
-            if Filter <> '' then
-              begin
-                if not FParent.Id.IsNull then
-                  Filter := Filter+' AND '+Data.QuoteField('RREF_ID')+'='+Data.QuoteValue(FParent.Id.AsString)
-                else
-                  Filter := Filter+' AND '+Data.QuoteField('RREF_ID')+'= 0';
-              end
+            if not FParent.Id.IsNull then
+              BaseFilter := Data.QuoteField('RREF_ID')+'='+Data.QuoteValue(FParent.Id.AsString)
             else
-              begin
-              if not FParent.Id.IsNull then
-                Filter := Data.QuoteField('RREF_ID')+'='+Data.QuoteValue(FParent.Id.AsString)
-              else
-                Filter := Data.QuoteField('RREF_ID')+'= 0';
-              end;
+              BaseFilter := Data.QuoteField('RREF_ID')+'= 0';
           end;
         end;
     end;
