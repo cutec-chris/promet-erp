@@ -72,18 +72,27 @@ type
   TOrderRepairDetail = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+  TRepairImageLinks = class(TLinks)
+  public
+    procedure FillDefaults(aDataSet : TDataSet);override;
+  end;
+
+  { TOrderRepairImages }
+
   TOrderRepairImages = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   private
     FHistory: TBaseHistory;
     FImages: TImages;
+    FLinks: TRepairImageLinks;
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
+    function CreateTable: Boolean; override;
     property History : TBaseHistory read FHistory;
     property Images : TImages read FImages;
-
+    property Links : TRepairImageLinks read FLinks;
   end;
   TOrderRepair = class(TBaseDBDataSet)
   private
@@ -203,6 +212,14 @@ resourcestring
   strAlreadyPosted              = 'Der Vorgang ist bereits gebucht !';
   strDispatchTypenotfound       = 'Die gewählte Versandart existiert nicht !';
 
+{ TRepairImageLinks }
+
+procedure TRepairImageLinks.FillDefaults(aDataSet: TDataSet);
+begin
+  inherited FillDefaults(aDataSet);
+  aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TOrderRepairImages).Id.AsVariant;
+end;
+
 { TOrderRepairImages }
 
 procedure TOrderRepairImages.DefineFields(aDataSet: TDataSet);
@@ -227,13 +244,22 @@ begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
   FImages := TImages.Create(Self,DM,aConnection,DataSet);
+  FLinks := TRepairImageLinks.Create(Self,DM,aConnection);
 end;
 
 destructor TOrderRepairImages.Destroy;
 begin
+  FLinks.Destroy;
   FImages.Destroy;
   FHistory.Destroy;
   inherited Destroy;
+end;
+
+function TOrderRepairImages.CreateTable: Boolean;
+begin
+  Result:=inherited CreateTable;
+  FImages.CreateTable;
+  FHistory.CreateTable;
 end;
 
 procedure TOrderRepairDetail.DefineFields(aDataSet: TDataSet);
