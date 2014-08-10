@@ -28,7 +28,7 @@ uses
   uPSComponent_StdCtrls, uPSComponent_Forms,
   uPSComponent_Default, uPSComponent_Controls,
   uPSRuntime, uPSDisassembly, uPSUtils,
-  uPSComponent, uPSDebugger, SynEditRegexSearch, 
+  uPSComponent, uPSDebugger, uPSComponent_DB, SynEditRegexSearch, 
   SynEditSearch, SynEditMiscClasses, SynEditHighlighter, SynGutterBase, SynEditMarks,
   SynEditMarkupSpecialLine,uprometscripts;
 
@@ -63,6 +63,8 @@ type
     BreakPointMenu: TMenuItem;
     MainMenu1: TMainMenu;
     File1: TMenuItem;
+    PSCustomPlugin1: TPSCustomPlugin;
+    PSImport_DB1: TPSImport_DB;
     ReplaceDialog1: TReplaceDialog;
     Run1: TMenuItem;
     Splitter2: TSplitter;
@@ -562,17 +564,13 @@ function TfScriptEditor.DebuggerNeedFile(Sender: TObject; const OrginFileName: S
 var
   path: string;
 begin
-  if not Assigned(FDataSet) then
+  if not Assigned(Fuses) then
     begin
       Fuses := TBaseScript.Create(nil,Data);
       Fuses.Open;
-    end;
+    end
+  else Fuses.DataSet.Refresh;
   Result := Fuses.Locate('NAME',FileName,[loCaseInsensitive]);
-  if not Result then
-    begin
-      Fuses.DataSet.Refresh;
-      Result := Fuses.Locate('NAME',FileName,[loCaseInsensitive]);
-    end;
   if Result then
     Output:=Fuses.FieldByName('SCRIPT').AsString;
 end;
