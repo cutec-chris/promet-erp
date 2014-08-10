@@ -82,7 +82,6 @@ begin
     end;
   with Application as IBaseDbInterface do
     LoadMandants;
-  fScriptEditor.Execute;
 end;
 procedure TfMain.acLoginExecute(Sender: TObject);
 begin
@@ -191,6 +190,7 @@ begin
   with Application as IBaseApplication do
     RestoreConfig; //Must be called when Mainform is Visible
   acLogin.Execute;
+  fScriptEditor.Execute;
 end;
 
 procedure TfMain.FSynCompletionExecute(Sender: TObject);

@@ -24,11 +24,11 @@
         <UnitName Value="uScriptEditor"/>
       </Item3>
       <Item4>
-        <Filename Value="uFrmGotoLine.lfm"/>
+        <Filename Value="ufrmgotoline.lfm"/>
         <Type Value="LFM"/>
       </Item4>
       <Item5>
-        <Filename Value="uFrmGotoLine.pas"/>
+        <Filename Value="ufrmgotoline.pas"/>
         <UnitName Value="uFrmGotoLine"/>
       </Item5>
       <Item6>

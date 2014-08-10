@@ -29,9 +29,13 @@ uses
   uPSComponent_Default, uPSComponent_Controls,
   uPSRuntime, uPSDisassembly, uPSUtils,
   uPSComponent, uPSDebugger, SynEditRegexSearch, 
-  SynEditSearch, SynEditMiscClasses, SynEditHighlighter, SynGutterBase, SynEditMarks, SynEditMarkupSpecialLine;
+  SynEditSearch, SynEditMiscClasses, SynEditHighlighter, SynGutterBase, SynEditMarks,
+  SynEditMarkupSpecialLine,uprometscripts;
 
 type
+
+  { TfScriptEditor }
+
   TfScriptEditor = class(TForm)
     acNew: TAction;
     acRun: TAction;
@@ -104,9 +108,11 @@ type
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
     procedure acDecompileExecute(Sender: TObject);
+    procedure acNewExecute(Sender: TObject);
     procedure acPauseExecute(Sender: TObject);
     procedure acResetExecute(Sender: TObject);
     procedure acRunExecute(Sender: TObject);
+    procedure acSaveExecute(Sender: TObject);
     procedure acStepintoExecute(Sender: TObject);
     procedure acStepoverExecute(Sender: TObject);
     procedure acSyntaxcheckExecute(Sender: TObject);
@@ -120,14 +126,12 @@ type
     procedure DebuggerExecute(Sender: TPSScript);
     procedure DebuggerAfterExecute(Sender: TPSScript);
     procedure DebuggerCompile(Sender: TPSScript);
-    procedure New1Click(Sender: TObject);
-    procedure Open1Click(Sender: TObject);
-    procedure Save1Click(Sender: TObject);
+    procedure FDataSetDataSetAfterScroll(DataSet: TDataSet);
+    procedure FDataSetDataSetBeforeScroll(DataSet: TDataSet);
+    procedure FormCreate(Sender: TObject);
     procedure edStatusChange(Sender: TObject; Changes: TSynStatusChanges);
-    procedure Decompile1Click(Sender: TObject);
     function DebuggerNeedFile(Sender: TObject; const OrginFileName: String; var FileName, Output: String): Boolean;
     procedure DebuggerBreakpoint(Sender: TObject; const FileName: String; bPosition, Row, Col: Cardinal);
-    procedure Pause1Click(Sender: TObject);
     procedure messagesDblClick(Sender: TObject);
     procedure Gotolinenumber1Click(Sender: TObject);
     procedure Find1Click(Sender: TObject);
@@ -140,6 +144,8 @@ type
     FActiveLine: Longint;
     FResume: Boolean;
     FActiveFile: string;
+    FDataSet : TBaseScript;
+    Fuses : TBaseScript;
     function Compile: Boolean;
     function Execute: Boolean;
 
@@ -161,7 +167,7 @@ var
 implementation
 
 uses
-  uFrmGotoLine;
+  uFrmGotoLine,uData;
 
 {$R *.lfm}
 
@@ -185,14 +191,14 @@ var
 resourcestring
   STR_TEXT_NOTFOUND = 'Text not found';
   STR_UNNAMED = 'Unnamed';
-  STR_SUCCESSFULLY_COMPILED = 'Succesfully compiled';
-  STR_SUCCESSFULLY_EXECUTED = 'Succesfully executed';
-  STR_RUNTIME_ERROR='[Runtime error] %s(%d:%d), bytecode(%d:%d): %s'; //Birb
+  STR_SUCCESSFULLY_COMPILED = 'Erfolgreich kompiliert';
+  STR_COMPILE_ERROR = 'Fehler beim kompilieren !';
+  STR_SUCCESSFULLY_EXECUTED = 'Erfolgreich ausgeführt';
+  STR_RUNTIME_ERROR='[Laufzeitfehler] %s(%d:%d), bytecode(%d:%d): %s'; //Birb
   STR_FORM_TITLE = 'Editor';
   STR_FORM_TITLE_RUNNING = 'Editor - Running';
   STR_INPUTBOX_TITLE = 'Script';
-  STR_DEFAULT_PROGRAM = 'Program test;'#13#10'begin'#13#10'end.';
-  STR_NOTSAVED = 'File has not been saved, save now?';
+  STR_NOTSAVED = 'Script wurde noch nicht gespeichert, jetzt speichern?';
 
 procedure TfScriptEditor.DoSearchReplaceText(AReplace: boolean; ABackwards: boolean);
 var
@@ -273,9 +279,13 @@ begin
   begin
     Debugger.GetCompiled(s);
     IFPS3DataToText(s, s);
-    //debugoutput.output.Lines.Text := s;
-    //debugoutput.visible := true;
+    messages.AddItem(s,nil);
   end;
+end;
+
+procedure TfScriptEditor.acNewExecute(Sender: TObject);
+begin
+  FDataSet.Insert;
 end;
 
 procedure TfScriptEditor.acPauseExecute(Sender: TObject);
@@ -313,6 +323,15 @@ begin
   end;
   acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
   acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+end;
+
+procedure TfScriptEditor.acSaveExecute(Sender: TObject);
+begin
+  FDataSet.Edit;
+  FDataSet.FieldByName('SCRIPT').AsString:=ed.Lines.Text;
+  FDataSet.Post;
+  ed.Modified := False;
+  ed.MarkTextAsSaved;
 end;
 
 procedure TfScriptEditor.acStepintoExecute(Sender: TObject);
@@ -403,7 +422,9 @@ begin
     Messages.Items.Add(Debugger.CompilerMessages[i].MessageToString);
   end;
   if Result then
-    Messages.Items.Add(STR_SUCCESSFULLY_COMPILED);
+    Messages.Items.Add(STR_SUCCESSFULLY_COMPILED)
+  else
+    Messages.Items.Add(STR_COMPILE_ERROR);
 end;
 
 procedure TfScriptEditor.DebuggerIdle(Sender: TObject);
@@ -455,8 +476,9 @@ end;
 
 procedure TfScriptEditor.Writeln(const s: string);
 begin
-  //debugoutput.output.Lines.Add(S);
-  //debugoutput.Visible := True;
+  messages.AddItem(S,nil);
+  messages.ItemIndex:=messages.Items.Count-1;
+  messages.MakeCurrentVisible;
 end;
 
 procedure TfScriptEditor.DebuggerCompile(Sender: TPSScript);
@@ -467,54 +489,44 @@ begin
   Sender.AddRegisteredVariable('Application', 'TApplication');
 end;
 
+procedure TfScriptEditor.FDataSetDataSetAfterScroll(DataSet: TDataSet);
+begin
+ ed.Lines.Text:=FDataSet.FieldByName('SCRIPT').AsString;
+ aFile := FDataSet.FieldByName('NAME').AsString;
+end;
+
+procedure TfScriptEditor.FDataSetDataSetBeforeScroll(DataSet: TDataSet);
+begin
+  SaveCheck;
+end;
+
+procedure TfScriptEditor.FormCreate(Sender: TObject);
+begin
+  FDataSet:=nil;
+  Fuses := nil;
+end;
+
 procedure TfScriptEditor.Readln(var s: string);
 begin
   s := InputBox(STR_INPUTBOX_TITLE, '', '');
-end;
-
-procedure TfScriptEditor.New1Click(Sender: TObject);
-begin
-  if SaveCheck then //check if script changed and not yet saved
-  begin
-    ed.ClearAll;
-    ed.Lines.Text := STR_DEFAULT_PROGRAM;
-    ed.Modified := False;
-    aFile := '';
-  end;
-end;
-
-procedure TfScriptEditor.Open1Click(Sender: TObject);
-begin
-  if SaveCheck then //check if script changed and not yet saved
-    begin
-    end;
-end;
-
-procedure TfScriptEditor.Save1Click(Sender: TObject);
-begin
-  if aFile <> '' then
-  begin
-    ed.Lines.SaveToFile(aFile);
-    ed.Modified := False;
-  end else ;//SaveAs1Click(nil);
 end;
 
 //check if script changed and not yet saved//
 function TfScriptEditor.SaveCheck: Boolean;
 begin
   if ed.Modified then
-  begin
-    case MessageDlg(STR_NOTSAVED, mtConfirmation, mbYesNoCancel, 0) of
-      mrYes:
-        begin
-          Save1Click(nil);
-          Result := aFile <> '';
-        end;
-      mrNo: Result := True;
-      else
-        Result := False;
-    end;
-  end else Result := True;
+    begin
+      case MessageDlg(STR_NOTSAVED, mtConfirmation, mbYesNoCancel, 0) of
+        mrYes:
+          begin
+            acSave.Execute;
+            Result := aFile <> '';
+          end;
+        mrNo: Result := True;
+        else
+          Result := False;
+      end;
+    end else Result := True;
 end;
 
 function TfScriptEditor.Execute(aScript: string): Boolean;
@@ -524,44 +536,45 @@ begin
       Application.CreateForm(TfScriptEditor,fScriptEditor);
       Self := fScriptEditor;
     end;
+  if not Assigned(FDataSet) then
+    begin
+      FDataSet := TBaseScript.Create(nil,Data);
+      FDataSet.CreateTable;
+    end;
+  FDataSet.Open;
+  DataSource.DataSet := FDataSet.DataSet;
+  FDataSet.DataSet.BeforeScroll:=@FDataSetDataSetBeforeScroll;
+  FDataSet.DataSet.AfterScroll:=@FDataSetDataSetAfterScroll;
+  FDataSet.DataSet.AfterCancel:=@FDataSetDataSetAfterScroll;
+  FDataSetDataSetAfterScroll(FDataSet.DataSet);
   Result := Showmodal = mrOK;
 end;
 
 procedure TfScriptEditor.edStatusChange(Sender: TObject;
   Changes: TSynStatusChanges);
 begin
-  StatusBar.Panels[0].Text := IntToStr(ed.CaretY)+':'+IntToStr(ed.CaretX)
-end;
-
-procedure TfScriptEditor.Decompile1Click(Sender: TObject);
-begin
-
+  StatusBar.Panels[0].Text := IntToStr(ed.CaretY)+':'+IntToStr(ed.CaretX);
+  acSave.Enabled := ed.Modified or FDataSet.CanEdit;
 end;
 
 function TfScriptEditor.DebuggerNeedFile(Sender: TObject; const OrginFileName: String;
   var FileName, Output: String): Boolean;
 var
   path: string;
-  f: TFileStream;
 begin
-  if aFile <> '' then
-    Path := ExtractFilePath(aFile)
-  else
-    Path := ExtractFilePath(ParamStr(0));
-  Path := Path + FileName;
-  try
-    F := TFileStream.Create(Path, fmOpenRead or fmShareDenyWrite);
-  except
-    Result := false;
-    exit;
-  end;
-  try
-    SetLength(Output, f.Size);
-    f.Read(Output[1], Length(Output));
-  finally
-    f.Free;
-  end;
-  Result := True;
+  if not Assigned(FDataSet) then
+    begin
+      Fuses := TBaseScript.Create(nil,Data);
+      Fuses.Open;
+    end;
+  Result := Fuses.Locate('NAME',FileName,[loCaseInsensitive]);
+  if not Result then
+    begin
+      Fuses.DataSet.Refresh;
+      Result := Fuses.Locate('NAME',FileName,[loCaseInsensitive]);
+    end;
+  if Result then
+    Output:=Fuses.FieldByName('SCRIPT').AsString;
 end;
 
 procedure TfScriptEditor.DebuggerBreakpoint(Sender: TObject; const FileName: String; bPosition, Row,
@@ -580,11 +593,6 @@ begin
   ed.Refresh;
   acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
   acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
-end;
-
-procedure TfScriptEditor.Pause1Click(Sender: TObject);
-begin
-
 end;
 
 procedure TfScriptEditor.SetActiveFile(const Value: string);
@@ -660,12 +668,13 @@ procedure TfScriptEditor.edDropFiles(Sender: TObject; X, Y: Integer;
 begin
  if AFiles.Count>=1 then
   if SaveCheck then //check if script changed and not yet saved
-  begin
-    ed.ClearAll;
-    ed.Lines.LoadFromFile(AFiles[0]);
-    ed.Modified := False;
-    aFile := AFiles[0];
-  end;
+    begin
+      FDataSet.Insert;
+      ed.ClearAll;
+      ed.Lines.LoadFromFile(AFiles[0]);
+      ed.Modified := True;
+      aFile := AFiles[0];
+    end;
 end;
 
 end.

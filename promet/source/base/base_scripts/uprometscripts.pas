@@ -51,14 +51,15 @@ begin
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
-          Add('ACCOUNTNO','ACCOUNTNO',[ixUnique]);
+          Add('NAME','NAME',[ixUnique]);
     end;
 end;
 
 procedure TBaseScript.FillDefaults(aDataSet: TDataSet);
 begin
-  inherited FillDefaults(aDataSet);
   FieldByName('SYNTAX').AsString:='Pascal';
+  FieldByName('SCRIPT').AsString:='begin'+LineEnding+'  '+LineEnding+'end.';
+  inherited FillDefaults(aDataSet);
 end;
 
 end.
