@@ -497,7 +497,7 @@ begin
       for i := 0 to FSnapshots.IntervalCount-1 do
         if FSnapshots.Interval[i].Id = TInterval(Sender).Id then
           begin
-            if TInterval(Sender).IntervalCount=0 then
+            //if TInterval(Sender).IntervalCount=0 then
               begin
                 aInterval := FSnapshots.Interval[i];
                 if ((aInterval.StartDate>aStart) and (aInterval.StartDate<(aEnd)))
