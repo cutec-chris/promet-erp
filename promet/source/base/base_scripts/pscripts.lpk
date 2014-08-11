@@ -39,10 +39,10 @@
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
       <Item1>
-        <PackageName Value="pPrometDBIntfs"/>
+        <PackageName Value="PascalScriptLCL"/>
       </Item1>
       <Item2>
-        <PackageName Value="pascalscript"/>
+        <PackageName Value="pPrometDBIntfs"/>
       </Item2>
       <Item3>
         <PackageName Value="SynEdit"/>

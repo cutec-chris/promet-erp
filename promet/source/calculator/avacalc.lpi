@@ -73,7 +73,6 @@
         <ComponentName Value="fDataSet"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uDataSet"/>
       </Unit2>
     </Units>
   </ProjectOptions>

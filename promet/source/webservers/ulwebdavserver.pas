@@ -380,7 +380,14 @@ var
             else if pos(':',aFile.Properties.Names[a])=-1 then
               aPropC := aDocument.CreateElement(prefix+':'+aFile.Properties.Names[a])
             else
-              aPropC := aDocument.CreateElement(aFile.Properties.Names[a]);
+              begin
+                case copy(aFile.Properties.Names[a],0,pos(':',aFile.Properties.Names[a])-1) of
+                'C':aPropC := aDocument.CreateElementNS('C:',aFile.Properties.Names[a]);
+                'CS':aPropC := aDocument.CreateElementNS('CS:',aFile.Properties.Names[a]);
+                else
+                  aPropC := aDocument.CreateElement(aFile.Properties.Names[a]);
+                end;
+              end;
             aPropC.AppendChild(aDocument.CreateTextNode(aFile.Properties.ValueFromIndex[a]));
             aProp.AppendChild(aPropC);
           end;
@@ -404,6 +411,7 @@ var
     aStatus := aDocument.CreateElement('D:status');
     aPropStat.AppendChild(aStatus);
     aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsOK)));
+    {
     if aNotFoundProp.Count>0 then
       begin
         aPropStat := aDocument.CreateElement('D:propstat');
@@ -420,6 +428,7 @@ var
         aPropStat.AppendChild(aStatus);
           aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsNotFound)));
       end;
+      }
     aNotFoundProp.Free;
   end;
 

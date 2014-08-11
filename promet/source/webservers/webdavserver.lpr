@@ -182,7 +182,7 @@ begin
           aCal.SortFields:='TIMESTAMPD';
           aCal.SortDirection:=sdDescending;
           aCal.Open;
-          aItem.Properties.Values['cs:getctag'] := aCal.Id.AsString;
+          aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
           aCal.Free;
           aDirList.Add(aItem);
           while not aDirs.EOF do
