@@ -337,7 +337,8 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   usplash,ufavorites,uBaseVisualControls,uStatisticFrame,uwait,uprometipc,uMeetingFrame,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
-  uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts
+  uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts,
+  ufinancialoptions
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -555,7 +556,7 @@ begin
     begin
       TabCaption := strSalesList;
       FilterType:='S';
-      DefaultRows:='GLOBALWIDTH:%;PAYEDON:100;ORDERNO:100;STATUS:30;NUMBER:100;CUSTNO:70;CUSTNAME:100;NETPRICE:50;DISCOUNT:50;VATH:50;VATF:50;GROSSPRICE:100;';
+      DefaultRows:='GLOBALWIDTH:%;PAYEDON:100;ORDERNO:100;STATUS:30;NUMBER:100;CUSTNO:70;CUSTNAME:100;NETPRICE:50;DISCOUNT:50;VATH:50;VATF:50;GROSSPRICE:100;ACCOUNT:100;';
       ads := TAccountingJournal.Create(nil,Data);
       ads.CreateTable;
       Dataset := ads;
@@ -3585,6 +3586,7 @@ begin
           fOptions.RegisterOptionsFrame(TfSyncOptions.Create(fOptions),strSync,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfStateOptions.Create(fOptions),strStates,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfCategoryOptions.Create(fOptions),strCategory,strGeneralOptions);
+          fOptions.RegisterOptionsFrame(TfFinancialOptions.Create(fOptions),strFinance,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfOrderTypeOptions.Create(fOptions),strOrderType,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfUserOptions.Create(fOptions),strUsers,strGeneralOptions);
           fOptions.RegisterOptionsFrame(TfUserFieldOptions.Create(fOptions),strUserFieldDefs,strGeneralOptions);

@@ -2293,6 +2293,21 @@ msgctxt "TFFILTERTABS.MICLOSE.CAPTION"
 msgid "Schliessen"
 msgstr ""
 
+#: tffinancialoptions.gcategory.columns[0].title.caption
+msgctxt "TFFINANCIALOPTIONS.GCATEGORY.COLUMNS[0].TITLE.CAPTION"
+msgid "Konto"
+msgstr ""
+
+#: tffinancialoptions.gcategory.columns[1].title.caption
+msgctxt "TFFINANCIALOPTIONS.GCATEGORY.COLUMNS[1].TITLE.CAPTION"
+msgid "Name"
+msgstr "Name"
+
+#: tffinancialoptions.gcategory.columns[2].title.caption
+msgctxt "TFFINANCIALOPTIONS.GCATEGORY.COLUMNS[2].TITLE.CAPTION"
+msgid "Aktiv"
+msgstr ""
+
 #: tffindtransaction.caption
 msgid "Buchung zuordnen"
 msgstr ""
@@ -5762,6 +5777,14 @@ msgstr ""
 #: tfordertypeoptions.rgaddtomainorder.caption
 msgctxt "TFORDERTYPEOPTIONS.RGADDTOMAINORDER.CAPTION"
 msgid "Lagereintrag im Vorgang"
+msgstr ""
+
+#: tform1.button1.caption
+msgid "Button1"
+msgstr ""
+
+#: tform1.caption
+msgid "Form1"
 msgstr ""
 
 #: tfpassword.bok.caption

@@ -73,9 +73,6 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     property Position : TBaseDBPosition read FPosition;
   end;
-
-  { TBaseDBPosition }
-
   TBaseDBPosition = class(TBaseDbDataSet)
     procedure DataSetAfterCancel(aDataSet: TDataSet);
     procedure DataSetAfterDelete(aDataSet: TDataSet);
@@ -165,6 +162,12 @@ type
   TCategory = class(TBaseDBDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+
+  { TFinancialAccounts }
+
+  TFinancialAccounts = class(TBaseDBDataSet)
+    procedure DefineFields(aDataSet : TDataSet);override;
+  end;
   TUnits = class(TBaseDBDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
@@ -210,6 +213,23 @@ begin
   multi := IntPower(10, nk);
   nValue := (Value*multi);
   Result := (Trunc(nValue) + Trunc (Frac(nValue) * 2))/multi;
+end;
+
+{ TFinancialAccounts }
+
+procedure TFinancialAccounts.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'FACCOUNTS';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('ACCOUNTNO',ftString,10,true);
+            Add('NAME',ftString,60,True);
+            Add('ACTIVE',ftString,1,false);
+          end;
+    end;
 end;
 
 procedure TCategory.DefineFields(aDataSet: TDataSet);
@@ -1388,4 +1408,4 @@ begin
 end;
 initialization
 end.
-
+

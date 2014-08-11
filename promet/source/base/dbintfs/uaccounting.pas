@@ -87,6 +87,7 @@ begin
             Add('PAYPRICE',ftFloat,0,False);                //bereits bezahlt
             Add('PAYMENT',ftString,1,True);
             Add('PAYEDON',ftDate,0,False);
+            Add('ACCOUNT',ftString,10,False);
           end;
     end;
 end;
