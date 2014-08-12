@@ -3502,6 +3502,8 @@ begin
       WordWrap:=True;
       aText := Text;
       aClear := length(trim(aText))<2;
+      if copy(msg.Value,length(msg.Value)-1,1)<>' ' then
+        Msg.Value:=Msg.Value+' ';
       Text:=Msg.Value;
       if aClear then
         SelStart:=length(Msg.Value)+1;
