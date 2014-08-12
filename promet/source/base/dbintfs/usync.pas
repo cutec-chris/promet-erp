@@ -499,6 +499,7 @@ begin
                     DoSync := DoSync and ((RoundToMinute(aSyncTime)>RoundToMinute(aLastSyncedItemTime)) or (State=dsInsert))
                   else
                     DoSync := DoSync and ((RoundToMinute(aSyncTime)>RoundToMinute(SyncTime.AsDateTime)) or (State=dsInsert));
+                  DoSync := DoSync and ((aSyncTime>0) and (aLastSyncedItemTime>0));
                   if DoSync then
                     begin
                       if not CanEdit then Edit;
@@ -640,7 +641,7 @@ begin
                       aInternal.Open;
                       if aInternal.Count>0 then
                         begin
-                          if CanEdit then
+                          if CanEdit and (aInternal.TimeStamp.AsDateTime>0) and (SyncTime.AsDateTime>0) then
                             begin
                               if Supports(aInternal, IBaseHistory, Hist) then
                                 begin

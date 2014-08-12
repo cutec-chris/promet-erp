@@ -479,7 +479,8 @@
         <UnitName Value="usync"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="41" Y="14"/>
+        <TopLine Value="572"/>
+        <CursorPos X="23" Y="638"/>
         <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit68>
@@ -985,7 +986,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="6">
+    <BreakPoints Count="5">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsGlobal"/>
@@ -1021,13 +1022,6 @@
         <Source Value="sync_outlook_tasks.lpr"/>
         <Line Value="381"/>
       </Item5>
-      <Item6>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\base\dbintfs\usync.pas"/>
-        <Line Value="544"/>
-      </Item6>
     </BreakPoints>
     <Watches Count="2">
       <Item1>
