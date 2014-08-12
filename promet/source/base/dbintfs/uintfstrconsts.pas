@@ -34,6 +34,7 @@ resourcestring
   strClipboard                  = 'Zwischenablage';
   strCategoryChanged            = 'Kategorie geändetr auf %s';
   strDueDateChanged             = 'Zieldatum geändert zu %s';
+  strDueDateDeleted             = 'Zieldatum entfernt';
   strCantAccessFile             = 'Auf die Datei "%s" kann nicht zugegriffen werden,'+lineending+'kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle';
   strTimetools                  = 'Zeiterfassung';
   strCosts                      = 'Kosten';

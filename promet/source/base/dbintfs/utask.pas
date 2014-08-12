@@ -862,7 +862,10 @@ begin
         begin
           DataSet.DisableControls;
           if not History.DataSet.Active then History.Open;
-          History.AddItem(Self.DataSet,Format(strDueDateChanged,[DateToStr(trunc(FDS.DataSet.FieldByName('DUEDATE').AsDateTime))]),'','',nil,ACICON_DATECHANGED);
+          if FDS.DataSet.FieldByName('DUEDATE').AsDateTime>0 then
+            History.AddItem(Self.DataSet,Format(strDueDateChanged,[DateToStr(trunc(FDS.DataSet.FieldByName('DUEDATE').AsDateTime))]),'','',nil,ACICON_DATECHANGED)
+          else
+            History.AddItem(Self.DataSet,strDueDateDeleted,'','',nil,ACICON_DATECHANGED);
           if (DataSet.FieldByName('CLASS').AsString = 'M') then
             begin
               aProject := TProject.Create(Self,Data,Connection);
@@ -871,7 +874,10 @@ begin
               if aProject.Count>0 then
                 begin
                   aProject.History.Open;
-                  aProject.History.AddItem(aProject.DataSet,Format(strDueDateChanged,[DateToStr(trunc(FDS.DataSet.FieldByName('DUEDATE').AsDateTime))]),Data.BuildLink(aProject.DataSet),FDS.DataSet.FieldByName('SUMMARY').AsString,nil,ACICON_DATECHANGED);
+                  if FDS.DataSet.FieldByName('DUEDATE').AsDateTime>0 then
+                    aProject.History.AddItem(aProject.DataSet,Format(strDueDateChanged,[DateToStr(trunc(FDS.DataSet.FieldByName('DUEDATE').AsDateTime))]),Data.BuildLink(aProject.DataSet),FDS.DataSet.FieldByName('SUMMARY').AsString,nil,ACICON_DATECHANGED)
+                  else
+                    aProject.History.AddItem(aProject.DataSet,strDueDateDeleted,Data.BuildLink(aProject.DataSet),FDS.DataSet.FieldByName('SUMMARY').AsString,nil,ACICON_DATECHANGED);
                 end;
               aProject.Free;
             end;

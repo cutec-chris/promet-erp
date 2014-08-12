@@ -123,7 +123,10 @@ begin
     begin
       DataSet.DisableControls;
       if not History.DataSet.Active then History.Open;
-      History.AddItem(Self.DataSet,Format(strDueDateChanged,[Field.AsString]),'','',nil,ACICON_DATECHANGED);
+      if Field.AsDateTime>0 then
+        History.AddItem(Self.DataSet,Format(strDueDateChanged,[Field.AsString]),'','',nil,ACICON_DATECHANGED)
+      else
+        History.AddItem(Self.DataSet,strDueDateDeleted,'','',nil,ACICON_DATECHANGED);
       DataSet.EnableControls;
     end
   else if (Field.FieldName='CATEGORY') then
