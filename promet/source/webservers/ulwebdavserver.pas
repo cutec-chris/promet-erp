@@ -359,6 +359,10 @@ var
           aNotFoundProp.Delete(aNotFoundProp.IndexOf(prefix+':'+'resourcetype'));
         aPropC := aDocument.CreateElement(prefix+':'+'resourcetype');
         aProp.AppendChild(aPropC);
+        if aFile.IsCalendar then
+          begin
+            aPropC.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar'));
+          end;
         if aFile.IsDir then
           begin
             aPropC.AppendChild(aDocument.CreateElement('D:collection'));
@@ -368,14 +372,12 @@ var
               aPropC.AppendChild(aDocument.CreateTextNode('httpd/unix-directory'));
             aProp.AppendChild(apropC);
           end;
-        if aFile.IsCalendar then
-          begin
-            aPropC.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar'));
-          end;
         for a := 0 to aFile.Properties.Count-1 do
           begin
             while aNotFoundProp.IndexOf(prefix+':'+aFile.Properties.Names[a]) > -1 do
               aNotFoundProp.Delete(aNotFoundProp.IndexOf(prefix+':'+aFile.Properties.Names[a]));
+            while aNotFoundProp.IndexOf(aFile.Properties.Names[a]) > -1 do
+              aNotFoundProp.Delete(aNotFoundProp.IndexOf(aFile.Properties.Names[a]));
             if (aFile.Properties.Names[a] = 'getcontenttype')
             then
               aPropC := aDocument.CreateElement('D:'+aFile.Properties.Names[a])
@@ -464,16 +466,20 @@ begin
   Path := HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument);
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
 //  if Path = '/' then
-  Createresponse(Path,aMSres,aProperties,aNS,aPrefix);
   if Assigned(TLWebDAVServer(FSocket.Creator).OnGetDirectoryList) then
     Result := TLWebDAVServer(FSocket.Creator).OnGetDirectoryList(Path,aDirList)
   else Result:=True;
   if Assigned(aDirList) and (aDirList.Count > 0) then
     begin
+      Createresponse(Path,aMSres,aProperties,aNS,aPrefix);
       if copy(Path,length(Path),1) <> '/' then
         Path := Path+'/';
       for i := 0 to aDirList.Count-1 do
         Createresponse(Path+aDirList[i].Name,aMSres,aProperties,aNs,aPrefix,aDirList[i]);
+    end
+  else if Assigned(aDirList) and (aDirList is TLFile) then
+    begin
+      Createresponse(Path+TLFile(aDirList).Name,aMSres,aProperties,aNs,aPrefix,TLFile(aDirList));
     end;
   TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsMultiStatus;
   if Assigned(TLWebDAVServer(FSocket.Creator).OnReadAllowed) and (not TLWebDAVServer(FSocket.Creator).OnReadAllowed(Path)) then

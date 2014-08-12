@@ -151,47 +151,73 @@ begin
     end
   else if copy(aDir,0,10) = '/calendars' then
     begin
+      aDir := copy(aDir,12,length(aDir));
+      if copy(aDir,length(aDir),1) = '/' then
+        aDir := copy(aDir,0,length(aDir)-1);
       if Data.Users.DataSet.Active then
         begin
-          aDirList := TLDirectoryList.Create;
+          if aDir = '' then
+            aDirList := TLDirectoryList.Create
+          else aDirList:=nil;
           //Add ics file
           aItem := TLFile.Create('home.ics',False);
-          aItem.Properties.Values['getcontenttype'] := 'text/calendar';
-          aItem.Properties.Values['creationdate'] := BuildISODate(Now());
-          aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
-          sl := TStringList.Create;
-          aCal := TCalendar.Create(nil,Data);
-          aCal.SelectByUser(Data.Users.Accountno.AsString);
-          aCal.Open;
-          VCalExport(aCal,sl);
-          aCal.Free;
-          Stream := TMemoryStream.Create;
-          sl.SaveToStream(Stream);
-          aItem.Properties.Values['getcontentlength'] := IntToStr(Stream.Size);
-          Stream.Free;
-          sl.Free;
-          aDirList.Add(aItem);
+          if (aDir = aItem.Name) or (aDir = '') then
+            begin
+              aItem.Properties.Values['getcontenttype'] := 'text/calendar';
+              aItem.Properties.Values['creationdate'] := BuildISODate(Now());
+              aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
+              sl := TStringList.Create;
+              aCal := TCalendar.Create(nil,Data);
+              aCal.SelectByUser(Data.Users.Accountno.AsString);
+              aCal.Open;
+              VCalExport(aCal,sl);
+              aCal.Free;
+              Stream := TMemoryStream.Create;
+              sl.SaveToStream(Stream);
+              aItem.Properties.Values['getcontentlength'] := IntToStr(Stream.Size);
+              Stream.Free;
+              sl.Free;
+              if Assigned(aDirList) then
+                aDirList.Add(aItem)
+              else aDirList := aItem;
+            end
+          else aItem.Free;
           //Add CalDAV Calendars
           aDirs := TTree.Create(nil,Data);
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
-          aItem := TLFile.Create('home',False);
-          //Select last SQL_ID as ctag
-          aCal := TCalendar.Create(nil,Data);
-          aCal.SelectByUser(Data.Users.Accountno.AsString);
-          aCal.ActualLimit:=1;
-          aCal.SortFields:='TIMESTAMPD';
-          aCal.SortDirection:=sdDescending;
-          aCal.Open;
-          aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
-          aCal.Free;
-          aDirList.Add(aItem);
-          while not aDirs.EOF do
+          aItem := TLFile.Create('home',True);
+          if (aDir = aItem.Name) or (aDir = '') then
             begin
-              aItem := TLFile.Create(aDirs.Text.AsString,False);
+              aItem.IsCalendar:=True;
+              //Select last SQL_ID as ctag
               aCal := TCalendar.Create(nil,Data);
-              aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
+              aCal.SelectByUser(Data.Users.Accountno.AsString);
+              aCal.ActualLimit:=1;
+              aCal.SortFields:='TIMESTAMPD';
+              aCal.SortDirection:=sdDescending;
+              aCal.Open;
               aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
               aCal.Free;
+              if Assigned(aDirList) then
+                aDirList.Add(aItem)
+              else aDirList := aItem;
+            end
+          else aItem.Free;
+          while not aDirs.EOF do
+            begin
+              aItem := TLFile.Create(aDirs.Text.AsString,True);
+              if (aDir = aItem.Name) or (aDir = '') then
+                begin
+                  aItem.IsCalendar:=True;
+                  aCal := TCalendar.Create(nil,Data);
+                  aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
+                  aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
+                  aCal.Free;
+                  if Assigned(aDirList) then
+                    aDirList.Add(aItem)
+                  else aDirList := aItem;
+                end
+              else aItem.Free;
               aDirs.Next;
             end;
           aDirs.Free;
