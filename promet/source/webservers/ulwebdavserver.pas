@@ -288,9 +288,9 @@ begin
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   if pos('trunk',Path) > 0 then
     Path := StringReplace(Path,'trunk','!svn/act',[]);
-//  if Assigned(TLWebDAVServer(FSocket.Creator).OnGetDirectoryList) then
-//    Result := TLWebDAVServer(FSocket.Creator).OnGetDirectoryList(Path,aDirList)
-//  else Result:=True;
+  if Assigned(TLWebDAVServer(FSocket.Creator).OnGetDirectoryList) then
+    Result := TLWebDAVServer(FSocket.Creator).OnGetDirectoryList(Path,aDirList)
+  else Result:=True;
 
   aHRef.AppendChild(aDocument.CreateTextNode(Path));
   aActivityCollection.AppendChild(aHref);
@@ -411,7 +411,6 @@ var
     aStatus := aDocument.CreateElement('D:status');
     aPropStat.AppendChild(aStatus);
     aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsOK)));
-    {
     if aNotFoundProp.Count>0 then
       begin
         aPropStat := aDocument.CreateElement('D:propstat');
@@ -421,14 +420,18 @@ var
         aPropStat.AppendChild(aProp);
         for a := 0 to aNotFoundProp.Count-1 do
           begin
-            aPropC := aDocument.CreateElement(aNotFoundProp[a]);
+            case copy(aNotFoundProp[a],0,pos(':',aNotFoundProp[a])-1) of
+            'C':aPropC := aDocument.CreateElementNS('C:',aNotFoundProp[a]);
+            'CS':aPropC := aDocument.CreateElementNS('CS:',aNotFoundProp[a]);
+            else
+              aPropC := aDocument.CreateElement(aNotFoundProp[a]);
+            end;
             aProp.AppendChild(aPropC);
           end;
         aStatus := aDocument.CreateElement('D:status');
         aPropStat.AppendChild(aStatus);
           aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsNotFound)));
       end;
-      }
     aNotFoundProp.Free;
   end;
 
