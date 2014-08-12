@@ -355,24 +355,26 @@ var
     aPropStat.AppendChild(aProp);
     if Assigned(aFile) then
       begin
+        while aNotFoundProp.IndexOf(prefix+':'+'resourcetype') > -1 do
+          aNotFoundProp.Delete(aNotFoundProp.IndexOf(prefix+':'+'resourcetype'));
         aPropC := aDocument.CreateElement(prefix+':'+'resourcetype');
-//        RemoveProp(':resourcetype');
         aProp.AppendChild(aPropC);
         if aFile.IsDir then
           begin
             aPropC.AppendChild(aDocument.CreateElement('D:collection'));
             aPropC := aDocument.CreateElement('D:getcontenttype');
 //            RemoveProp(':getcontenttype');
-            aPropC.AppendChild(aDocument.CreateTextNode('httpd/unix-directory'));
+            if not aFile.IsCalendar then
+              aPropC.AppendChild(aDocument.CreateTextNode('httpd/unix-directory'));
             aProp.AppendChild(apropC);
           end;
         if aFile.IsCalendar then
           begin
-
+            aPropC.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar'));
           end;
         for a := 0 to aFile.Properties.Count-1 do
           begin
-            if aNotFoundProp.IndexOf(prefix+':'+aFile.Properties.Names[a]) > -1 then
+            while aNotFoundProp.IndexOf(prefix+':'+aFile.Properties.Names[a]) > -1 do
               aNotFoundProp.Delete(aNotFoundProp.IndexOf(prefix+':'+aFile.Properties.Names[a]));
             if (aFile.Properties.Names[a] = 'getcontenttype')
             then
@@ -382,8 +384,8 @@ var
             else
               begin
                 case copy(aFile.Properties.Names[a],0,pos(':',aFile.Properties.Names[a])-1) of
-                'C':aPropC := aDocument.CreateElementNS('C:',aFile.Properties.Names[a]);
-                'CS':aPropC := aDocument.CreateElementNS('CS:',aFile.Properties.Names[a]);
+                'C':aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aFile.Properties.Names[a]);
+                'CS':aPropC := aDocument.CreateElementNS('http://calendarserver.org/ns/',aFile.Properties.Names[a]);
                 else
                   aPropC := aDocument.CreateElement(aFile.Properties.Names[a]);
                 end;
@@ -404,9 +406,9 @@ var
       end;
     aLock := aDocument.CreateElement('D:supportedlock');
     aLockEntry := aDocument.CreateElement('D:lockentry');
-      aLock.AppendChild(aLockEntry);
-      aLockEntry.AppendChild(aDocument.CreateElement('D:lockscope').AppendChild(aDocument.CreateElement('D:exclusive')));
-      aLockEntry.AppendChild(aDocument.CreateElement('D:locktype').AppendChild(aDocument.CreateElement('D:write')));
+    aLock.AppendChild(aLockEntry);
+    aLockEntry.AppendChild(aDocument.CreateElement('D:lockscope').AppendChild(aDocument.CreateElement('D:exclusive')));
+    aLockEntry.AppendChild(aDocument.CreateElement('D:locktype').AppendChild(aDocument.CreateElement('D:write')));
     aProp.AppendChild(aLock);
     aStatus := aDocument.CreateElement('D:status');
     aPropStat.AppendChild(aStatus);
@@ -421,12 +423,13 @@ var
         for a := 0 to aNotFoundProp.Count-1 do
           begin
             case copy(aNotFoundProp[a],0,pos(':',aNotFoundProp[a])-1) of
-            'C':aPropC := aDocument.CreateElementNS('C:',aNotFoundProp[a]);
-            'CS':aPropC := aDocument.CreateElementNS('CS:',aNotFoundProp[a]);
+            'C':aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp[a]);
+            'CS':aPropC := aDocument.CreateElementNS('http://calendarserver.org/ns/',aNotFoundProp[a]);
             else
               aPropC := aDocument.CreateElement(aNotFoundProp[a]);
             end;
             aProp.AppendChild(aPropC);
+            writeln('Property not found:'+aNotFoundProp[a]);
           end;
         aStatus := aDocument.CreateElement('D:status');
         aPropStat.AppendChild(aStatus);
@@ -453,7 +456,6 @@ begin
       for i := 0 to aPropNode.ChildNodes.Count-1 do
         begin
           aProperties.Add(aPropNode.ChildNodes.Item[i].NodeName);
-          writeln('Property:'+aPropNode.ChildNodes.Item[i].NodeName);
         end;
       aDocument.DocumentElement.Free;
     end;
