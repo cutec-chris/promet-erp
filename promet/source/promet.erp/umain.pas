@@ -80,6 +80,7 @@ type
     acStartPage: TAction;
     acProjectOverview: TAction;
     acStatistics: TAction;
+    acSalesListBook: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -184,8 +185,8 @@ type
     procedure acProjectOverviewExecute(Sender: TObject);
     procedure acProjectsExecute(Sender: TObject);
     procedure acRefreshOrderListExecute(Sender: TObject);
-    procedure acRenameDirectoryExecute(Sender: TObject);
     procedure acRoughPlanningExecute(Sender: TObject);
+    procedure acSalesListBookExecute(Sender: TObject);
     procedure acSalesListExecute(Sender: TObject);
     procedure acSalesListPayExecute(Sender: TObject);
     procedure acShowTreeExecute(Sender: TObject);
@@ -338,7 +339,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
   uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts,
-  ufinancialoptions
+  ufinancialoptions,ubookfibuaccount
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -561,6 +562,7 @@ begin
       ads.CreateTable;
       Dataset := ads;
       //gList.OnDrawColumnCell:=nil;
+      AddToolbarAction(acSalesListBook);
       AddToolbarAction(acSalesListPay);
       OnViewDetails :=@SenderTfFilterViewDetails;
 //      AddToolbarAction(acCombineSaleItems);
@@ -1904,11 +1906,6 @@ begin
   aOrders.Free;
 end;
 
-procedure TfMain.acRenameDirectoryExecute(Sender: TObject);
-begin
-
-end;
-
 procedure TfMain.acRoughPlanningExecute(Sender: TObject);
 var
   RoughFrame: TfRoughPlanningFrame;
@@ -1916,6 +1913,37 @@ begin
   RoughFrame := TfRoughPlanningFrame.Create(Self);
   pcPages.AddTab(RoughFrame);
   RoughFrame.StartFilling;
+end;
+
+procedure TfMain.acSalesListBookExecute(Sender: TObject);
+var
+  aAccountingjournal: TAccountingJournal;
+begin
+  if fBookFibuAccount.Execute then
+    begin
+      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfFilter) and (TfFilter(pcPages.ActivePage.Controls[0]).DataSet is TAccountingJournal) then
+        begin
+          fBookAccounting.SetLanguage;
+          aAccountingjournal := TfFilter(pcPages.ActivePage.Controls[0]).DataSet as TAccountingjournal;
+          if fBookFibuAccount.cbWholeList.Checked then
+            begin
+              aAccountingjournal.First;
+              while not aAccountingjournal.EOF do
+                begin
+                  aAccountingjournal.Edit;
+                  aAccountingjournal.FieldByName('ACCOUNT').AsString:=fBookFibuAccount.DataSet.FieldByName('ACCOUNTNO').AsString;
+                  aAccountingjournal.Post;
+                  aAccountingjournal.Next;
+                end;
+            end
+          else
+            begin
+              aAccountingjournal.Edit;
+              aAccountingjournal.FieldByName('ACCOUNT').AsString:=fBookFibuAccount.DataSet.FieldByName('ACCOUNTNO').AsString;
+              aAccountingjournal.Post;
+            end;
+        end;
+    end;
 end;
 
 procedure TfMain.acSalesListExecute(Sender: TObject);
