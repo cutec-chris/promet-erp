@@ -197,6 +197,8 @@ begin
               aCal.SortDirection:=sdDescending;
               aCal.Open;
               aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
+              aItem.Properties.Values['D:getetag'] := Data.Users.Id.AsString;
+              aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
               aCal.Free;
               if Assigned(aDirList) then
                 aDirList.Add(aItem)
@@ -212,6 +214,8 @@ begin
                   aCal := TCalendar.Create(nil,Data);
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
                   aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
+                  aItem.Properties.Values['D:getetag'] := aDirs.Id.AsString;
+                  aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
                   aCal.Free;
                   if Assigned(aDirList) then
                     aDirList.Add(aItem)
@@ -455,6 +459,7 @@ begin
       aFile.Properties.Values['creationdate'] := BuildISODate(aDocuments.CreationDate);
       aFile.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(aDocuments.LastModified),WebFormatSettings)+' GMT';
       aFile.Properties.Values['getcontentlength'] := IntToStr(aDocuments.Size);
+      aFile.Properties.Values['getetag'] := aDocuments.Number.AsString;
     end;
   aFile.Properties.Values['creationdate'] := BuildISODate(aDocuments.CreationDate);
   aFileList.Add(aFile);

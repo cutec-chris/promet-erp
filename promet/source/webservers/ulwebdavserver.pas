@@ -121,6 +121,10 @@ type
   protected
     function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;override;
   end;
+  TDAVReportOutput = class(TXmlOutput)
+  protected
+    function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;override;
+  end;
   TDAVFindPropOutput = class(TXmlOutput)
   protected
     function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;override;
@@ -138,6 +142,12 @@ type
   end;
 implementation
 uses lHTTPUtil,lMimeTypes,Base64;
+
+function TDAVReportOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
+begin
+
+end;
+
 procedure TFileStreamOutput.DoneInput;
 var
   FModified : TDateTime;
@@ -366,8 +376,12 @@ var
         if aFile.IsDir then
           begin
             aPropC.AppendChild(aDocument.CreateElement('D:collection'));
-            aPropC := aDocument.CreateElement('D:getcontenttype');
-//            RemoveProp(':getcontenttype');
+            if not aFile.IsCalendar then
+              begin
+                aPropC := aDocument.CreateElement('D:getcontenttype');
+                while aNotFoundProp.IndexOf('D:getcontenttype') > -1 do
+                  aNotFoundProp.Delete(aNotFoundProp.IndexOf('D:getcontenttype'));
+              end;
             if not aFile.IsCalendar then
               aPropC.AppendChild(aDocument.CreateTextNode('httpd/unix-directory'));
             aProp.AppendChild(apropC);
@@ -479,7 +493,7 @@ begin
     end
   else if Assigned(aDirList) and (aDirList is TLFile) then
     begin
-      Createresponse(Path+TLFile(aDirList).Name,aMSres,aProperties,aNs,aPrefix,TLFile(aDirList));
+      Createresponse(Path,aMSres,aProperties,aNs,aPrefix,TLFile(aDirList));
     end;
   TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsMultiStatus;
   if Assigned(TLWebDAVServer(FSocket.Creator).OnReadAllowed) and (not TLWebDAVServer(FSocket.Creator).OnReadAllowed(Path)) then
@@ -556,11 +570,16 @@ begin
     begin
       AddDAVheaders;
       AppendString(ASocket.FHeaderOut.ExtraHeaders,'DAV: version-control,checkout,working-resource'+#13#10);
-//      AppendString(ASocket.FHeaderOut.ExtraHeaders,'DAV: http://subversion.tigris.org/xmlns/dav/svn/depth'+#13#10);
-//      AppendString(ASocket.FHeaderOut.ExtraHeaders,'DAV: http://subversion.tigris.org/xmlns/dav/svn/log-revprops'+#13#10);
-//      AppendString(ASocket.FHeaderOut.ExtraHeaders,'DAV: http://subversion.tigris.org/xmlns/dav/svn/partial-replay'+#13#10);
+      AppendString(ASocket.FHeaderOut.ExtraHeaders,'DAV: 1, calendar-access, calendar-schedule, calendar-proxy'+#13#10);
       AppendString(ASocket.FHeaderOut.ExtraHeaders,'allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL'+#13#10);
       Result := TDAVOptionsOutput.Create(ASocket);
+    end
+  else if ASocket.FRequestInfo.RequestType = hmReport then
+    begin
+      AddDAVheaders;
+      AppendString(ASocket.FHeaderOut.ExtraHeaders,'DAV: version-control,checkout,working-resource'+#13#10);
+      AppendString(ASocket.FHeaderOut.ExtraHeaders,'allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL'+#13#10);
+      Result := TDAVReportOutput.Create(ASocket);
     end
   else if ASocket.FRequestInfo.RequestType = hmPropFind then
     begin
