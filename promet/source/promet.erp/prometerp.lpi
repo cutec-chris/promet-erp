@@ -172,6 +172,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel --mandant=RepairPG"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -410,7 +411,6 @@
         <ComponentName Value="fBookAccounting"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uBookAccounting"/>
       </Unit19>
       <Unit20>
         <Filename Value="urepairpositionframe.pas"/>

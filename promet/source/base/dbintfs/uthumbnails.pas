@@ -52,6 +52,7 @@ var
   DelStream: Boolean;
 begin
   Result := '';
+  try
   aFilename := AppendPathDelim(GetThumbTempDir)+VarToStr(aDocument.Ref_ID);
   aFilename := aFilename+'_'+IntToStr(aWidth)+'x'+IntToStr(aHeight);
   aFilename:=aFilename+'.jpg';
@@ -81,6 +82,9 @@ begin
     end
   else
     Result := aFilename;
+  except
+    Result:='';
+  end;
 end;
 
 function GetThumbTempDir: string;
