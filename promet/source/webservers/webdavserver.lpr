@@ -160,7 +160,7 @@ begin
             aDirList := TLDirectoryList.Create
           else aDirList:=nil;
           //Add ics file
-          aItem := TLFile.Create('home.ics',False);
+          aItem := TLFile.Create(Data.Users.Text.AsString+'.ics',False);
           if (aDir = aItem.Name) or (aDir = '') then
             begin
               aItem.Properties.Values['getcontenttype'] := 'text/calendar';
@@ -270,7 +270,7 @@ var
   sl: TStringList;
   aCal: TCalendar;
 begin
-  if aDir = 'calendars/home.ics' then
+  if aDir = 'calendars/'+Data.Users.Text.AsString+'.ics' then
     begin
       sl := TStringList.Create;
       aCal := TCalendar.Create(nil,Data);
