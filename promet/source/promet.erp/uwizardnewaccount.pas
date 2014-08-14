@@ -36,21 +36,26 @@ type
     bAbort0: TButton;
     bAbort3: TButton;
     bAbort1: TButton;
+    bAbort4: TButton;
     bNext0: TButton;
     bNext3: TButton;
     bNext1: TButton;
+    bNext4: TButton;
     bPrev0: TButton;
     bPrev3: TButton;
     bPrev1: TButton;
+    bPrev4: TButton;
     bvleft: TBevel;
     bvRight0: TBevel;
     bvRight1: TBevel;
     bvRight2: TBevel;
+    bvRight3: TBevel;
     cbAccount: TComboBox;
     CheckBox1: TCheckBox;
     cbExisting: TComboBox;
     cbExistingUser: TComboBox;
     DividerBevel1: TDividerBevel;
+    eName1: TEdit;
     eUsername: TEdit;
     eAccountNo: TEdit;
     eCustomerID: TEdit;
@@ -59,7 +64,9 @@ type
     eName: TEdit;
     imDialog: TImage;
     lAccountNo1: TLabel;
+    lDescription3: TLabel;
     lFinTsName: TLabel;
+    lName1: TLabel;
     lSortcode: TLabel;
     lAccountNo: TLabel;
     lAccountName: TLabel;
@@ -72,11 +79,13 @@ type
     pButtons0: TPanel;
     pButtons1: TPanel;
     pButtons2: TPanel;
+    pButtons3: TPanel;
     pCont0: TPanel;
     pCont3: TPanel;
     pCont1: TPanel;
+    pCont4: TPanel;
     pLeft: TPanel;
-    RadioButton1: TRadioButton;
+    rbManualAccount: TRadioButton;
     rbMobileTan: TRadioButton;
     rbExistingUser: TRadioButton;
     rbHBCI: TRadioButton;
@@ -381,7 +390,9 @@ begin
       else if rbExistingUser.Checked then
         begin
           Result := 4;
-        end;
+        end
+      else if rbManualAccount.Checked then
+        Result := 5;
     end;
   1:
     begin
@@ -471,4 +482,4 @@ initialization
   {$I uwizardnewaccount.lrs}
 
 end.
-
+
