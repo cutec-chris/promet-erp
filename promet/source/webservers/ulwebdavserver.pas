@@ -37,6 +37,7 @@ type
   private
     FIsCal: Boolean;
     FIsDir: Boolean;
+    FIsTodo: Boolean;
     FName: string;
     FProperties: TStringList;
     procedure SetName(AValue: string);
@@ -47,6 +48,7 @@ type
     property Properties : TStringList read FProperties;
     property IsDir : Boolean read FIsDir;
     property IsCalendar : Boolean read FIsCal write FIsCal;
+    property IsTodoList : Boolean read FIsTodo write FIsTodo;
   end;
   TLGetDirectoryList = function(aDir : string;var aDirList : TLDirectoryList) : Boolean of object;
   TLGetCTag = function(aDir : string;var aCTag : Int64) : Boolean of object;
@@ -268,6 +270,8 @@ begin
   inherited Create;
   FName := aName;
   FIsDir := aIsDir;
+  FIsCal:=False;
+  FIsTodo:=False;
   FProperties := TStringList.Create;
 end;
 
@@ -335,6 +339,9 @@ var
     aLock: TDOMElement;
     aLockEntry: TDOMElement;
     aNotFoundProp : TStrings;
+    aPropD: TDOMNode;
+    aPropE: TDOMNode;
+    aPropF: TDOMNode;
     procedure RemoveProp(aProp : string);
     var
       b: Integer;
@@ -371,7 +378,38 @@ var
         aProp.AppendChild(aPropC);
         if aFile.IsCalendar then
           begin
+            aPropD := aDocument.CreateElement('D:current-user-principal');
+            aProp.AppendChild(apropD);
+            aHref := aDocument.CreateElement('D:href');
+            aPropD.AppendChild(aHref);
+            aHRef.AppendChild(aDocument.CreateTextNode(aPath));
             aPropC.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar'));
+            aPropD := aDocument.CreateElement('D:supported-report-set');
+            aProp.AppendChild(aPropD);
+            aPropE := aPropD.AppendChild(aDocument.CreateElement('D:report'));
+            aPropF := aPropE.AppendChild(aDocument.CreateElement('D:expand-property'));
+            aPropD := aDocument.CreateElement('D:supported-report-set');
+            aProp.AppendChild(aPropD);
+            aPropE := aPropD.AppendChild(aDocument.CreateElement('D:report'));
+            aPropF := aPropE.AppendChild(aDocument.CreateElement('D:principal-property-search'));
+            aPropD := aDocument.CreateElement('D:supported-report-set');
+            aProp.AppendChild(aPropD);
+            aPropE := aPropD.AppendChild(aDocument.CreateElement('D:report'));
+            aPropF := aPropE.AppendChild(aDocument.CreateElement('D:principal-search-property-set'));
+            while aNotFoundProp.IndexOf('D:supported-report-set') > -1 do
+              aNotFoundProp.Delete(aNotFoundProp.IndexOf('D:supported-report-set'));
+            //<C:supported-calendar-component-set><C:comp name="VEVENT"/></C:supported-calendar-component-set>
+            aPropD := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:supported-calendar-component-set');
+            aProp.AppendChild(aPropD);
+            aPropE := aPropD.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:comp'));
+            TDOMElement(aPropE).SetAttribute('name','VEVENT');
+            if aFile.IsTodoList then
+              begin
+                aPropE := aPropD.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:comp'));
+                TDOMElement(aPropd).SetAttribute('name','VTODO');
+              end;
+            while aNotFoundProp.IndexOf('C:supported-calendar-component-set') > -1 do
+              aNotFoundProp.Delete(aNotFoundProp.IndexOf('C:supported-calendar-component-set'));
           end;
         if aFile.IsDir then
           begin
@@ -381,9 +419,8 @@ var
                 aPropC := aDocument.CreateElement('D:getcontenttype');
                 while aNotFoundProp.IndexOf('D:getcontenttype') > -1 do
                   aNotFoundProp.Delete(aNotFoundProp.IndexOf('D:getcontenttype'));
+                aPropC.AppendChild(aDocument.CreateTextNode('httpd/unix-directory'));
               end;
-            if not aFile.IsCalendar then
-              aPropC.AppendChild(aDocument.CreateTextNode('httpd/unix-directory'));
             aProp.AppendChild(apropC);
           end;
         for a := 0 to aFile.Properties.Count-1 do
