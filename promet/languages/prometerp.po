@@ -7681,6 +7681,11 @@ msgctxt "TFWIZARDNEWACCOUNT.BABORT3.CAPTION"
 msgid "bAbort0"
 msgstr ""
 
+#: tfwizardnewaccount.babort4.caption
+msgctxt "TFWIZARDNEWACCOUNT.BABORT4.CAPTION"
+msgid "bAbort0"
+msgstr ""
+
 #: tfwizardnewaccount.bnext0.caption
 msgctxt "TFWIZARDNEWACCOUNT.BNEXT0.CAPTION"
 msgid "bNext0"
@@ -7696,6 +7701,11 @@ msgctxt "TFWIZARDNEWACCOUNT.BNEXT3.CAPTION"
 msgid "bNext0"
 msgstr ""
 
+#: tfwizardnewaccount.bnext4.caption
+msgctxt "TFWIZARDNEWACCOUNT.BNEXT4.CAPTION"
+msgid "bNext0"
+msgstr ""
+
 #: tfwizardnewaccount.bprev0.caption
 msgctxt "TFWIZARDNEWACCOUNT.BPREV0.CAPTION"
 msgid "bPrev0"
@@ -7708,6 +7718,11 @@ msgstr ""
 
 #: tfwizardnewaccount.bprev3.caption
 msgctxt "TFWIZARDNEWACCOUNT.BPREV3.CAPTION"
+msgid "bPrev0"
+msgstr ""
+
+#: tfwizardnewaccount.bprev4.caption
+msgctxt "TFWIZARDNEWACCOUNT.BPREV4.CAPTION"
 msgid "bPrev0"
 msgstr ""
 
@@ -7754,11 +7769,17 @@ msgid "wählen Sie hier den Typ des Zugangs zu ihrem Konto Sie benötigen für j
 msgstr ""
 
 #: tfwizardnewaccount.ldescription1.caption
+msgctxt "tfwizardnewaccount.ldescription1.caption"
 msgid "lDescription0"
 msgstr ""
 
 #: tfwizardnewaccount.ldescription2.caption
 msgid "geben Sie hier die Zugangsdaten die Sie von Ihrer Bank erhalten an"
+msgstr ""
+
+#: tfwizardnewaccount.ldescription3.caption
+msgctxt "TFWIZARDNEWACCOUNT.LDESCRIPTION3.CAPTION"
+msgid "lDescription0"
 msgstr ""
 
 #: tfwizardnewaccount.lfintsname.caption
@@ -7772,13 +7793,16 @@ msgctxt "TFWIZARDNEWACCOUNT.LNAME.CAPTION"
 msgid "lName"
 msgstr "Name"
 
+#: tfwizardnewaccount.lname1.caption
+#, fuzzy
+#| msgid "Name"
+msgctxt "TFWIZARDNEWACCOUNT.LNAME1.CAPTION"
+msgid "lName"
+msgstr "Name"
+
 #: tfwizardnewaccount.lsortcode.caption
 msgctxt "TFWIZARDNEWACCOUNT.LSORTCODE.CAPTION"
 msgid "Bankleitzahl"
-msgstr ""
-
-#: tfwizardnewaccount.radiobutton1.caption
-msgid "manuell geführtes Konto"
 msgstr ""
 
 #: tfwizardnewaccount.rbexistinguser.caption
@@ -7787,6 +7811,11 @@ msgstr ""
 
 #: tfwizardnewaccount.rbhbci.caption
 msgid "Chipkaten HBCI Konto"
+msgstr ""
+
+#: tfwizardnewaccount.rbmanualaccount.caption
+msgctxt "TFWIZARDNEWACCOUNT.RBMANUALACCOUNT.CAPTION"
+msgid "manuell geführtes Konto"
 msgstr ""
 
 #: tfwizardnewaccount.rbmobiletan.caption

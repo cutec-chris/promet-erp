@@ -544,6 +544,7 @@
         <ComponentName Value="fWizardNewAccount"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uWizardnewaccount"/>
       </Unit38>
       <Unit39>
         <Filename Value="ubookserial.pas"/>
