@@ -33,8 +33,12 @@ type
     property Files[Index: Integer]: TLFile read Get write Put; default;
     destructor Destroy;override;
   end;
+
+  { TLFile }
+
   TLFile = class(TLDirectoryList)
   private
+    FCHS: string;
     FIsCal: Boolean;
     FIsDir: Boolean;
     FIsTodo: Boolean;
@@ -49,6 +53,7 @@ type
     property IsDir : Boolean read FIsDir;
     property IsCalendar : Boolean read FIsCal write FIsCal;
     property IsTodoList : Boolean read FIsTodo write FIsTodo;
+    property CalendarHomeSet : string read FCHS write FCHS;
   end;
   TLGetDirectoryList = function(aDir : string;var aDirList : TLDirectoryList) : Boolean of object;
   TLGetCTag = function(aDir : string;var aCTag : Int64) : Boolean of object;
@@ -383,6 +388,11 @@ var
             aHref := aDocument.CreateElement('D:href');
             aPropD.AppendChild(aHref);
             aHRef.AppendChild(aDocument.CreateTextNode(aPath));
+            aPropD := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar-home-set');
+            aProp.AppendChild(apropD);
+            aHref := aDocument.CreateElement('D:href');
+            aPropD.AppendChild(aHref);
+            aHRef.AppendChild(aDocument.CreateTextNode(aFile.CalendarHomeSet));
             aPropC.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar'));
             aPropD := aDocument.CreateElement('D:supported-report-set');
             aProp.AppendChild(aPropD);
@@ -683,4 +693,4 @@ begin
   inherited Destroy;
 end;
 end.
-
+

@@ -199,6 +199,7 @@ begin
               aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
               aItem.Properties.Values['D:getetag'] := Data.Users.Id.AsString;
               aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
+              aItem.CalendarHomeSet:=aDir;
               aCal.Free;
               if Assigned(aDirList) then
                 aDirList.Add(aItem)
@@ -216,6 +217,7 @@ begin
                   aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
                   aItem.Properties.Values['D:getetag'] := aDirs.Id.AsString;
                   aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
+                  aItem.CalendarHomeSet:=aDir;
                   aCal.Free;
                   if Assigned(aDirList) then
                     aDirList.Add(aItem)
@@ -509,4 +511,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

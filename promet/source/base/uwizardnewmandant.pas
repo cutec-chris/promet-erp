@@ -590,6 +590,7 @@ begin
           DoImport(TUnits);
           DoImport(TDispatchTypes);
           DoImport(TCategory);
+          DoImport(TFinancialAccounts);
 
           DoImport(TProject);
           DoImport(TTaskList);
@@ -773,4 +774,4 @@ end;
 initialization
   {$I uwizardnewmandant.lrs}
 end.
-
+

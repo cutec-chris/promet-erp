@@ -786,6 +786,7 @@ object fWizardNewMandant: TfWizardNewMandant
       Top = 88
       Width = 150
       ItemHeight = 0
+      ItemIndex = 0
       Items.Strings = (
         'sqlite-3'
         'postgresql-8'

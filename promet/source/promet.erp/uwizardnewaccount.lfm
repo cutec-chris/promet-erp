@@ -439,7 +439,9 @@ object fWizardNewAccount: TfWizardNewAccount
       Top = 72
       Width = 164
       Caption = 'manuell geführtes Konto'
+      Checked = True
       TabOrder = 2
+      TabStop = True
     end
     object rbExistingUser: TRadioButton
       Left = 1
@@ -447,10 +449,8 @@ object fWizardNewAccount: TfWizardNewAccount
       Top = 104
       Width = 299
       Caption = 'Konto von bestehendem Online Banking Zugang'
-      Checked = True
       OnClick = rbExistingUserChange
       TabOrder = 3
-      TabStop = True
     end
     object cbExistingUser: TComboBox
       Left = 24
