@@ -134,6 +134,8 @@ var
   sl: TStringList;
   Stream: TMemoryStream;
   aDirs: TTree;
+  aFullDir: String;
+  IsCalendarUser: Boolean = false;
 begin
   Result := false;
   if aDir = '/' then
@@ -151,6 +153,7 @@ begin
     end
   else if copy(aDir,0,10) = '/calendars' then
     begin
+      aFullDir := aDir;
       aDir := copy(aDir,12,length(aDir));
       if copy(aDir,length(aDir),1) = '/' then
         aDir := copy(aDir,0,length(aDir)-1);
@@ -182,6 +185,11 @@ begin
               else aDirList := aItem;
             end
           else aItem.Free;
+          if (copy(aDir,RPos('/',aDir)+1,length(aDir)) = 'user') then
+            begin
+              IsCalendarUser := True;
+              aDir := copy(aDir,0,rpos('/',aDir)-1);
+            end;
           //Add CalDAV Calendars
           aDirs := TTree.Create(nil,Data);
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
@@ -189,6 +197,7 @@ begin
           if (aDir = aItem.Name) or (aDir = '') then
             begin
               aItem.IsCalendar:=True;
+              aItem.IsCalendarUser:=IsCalendarUser;
               //Select last SQL_ID as ctag
               aCal := TCalendar.Create(nil,Data);
               aCal.SelectByUser(Data.Users.Accountno.AsString);
@@ -198,8 +207,11 @@ begin
               aCal.Open;
               aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
               aItem.Properties.Values['D:getetag'] := Data.Users.Id.AsString;
-              aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
-              aItem.CalendarHomeSet:=aDir;
+              aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
+              if Data.Users.FieldByName('EMAIL').AsString<>'' then
+                aItem.UserAdressSet.Add('mailto:'+Data.Users.FieldByName('EMAIL').AsString);
+              aItem.UserAdressSet.Add('/calendars/');
+              aItem.CalendarHomeSet:='/calendars/';
               aCal.Free;
               if Assigned(aDirList) then
                 aDirList.Add(aItem)
@@ -212,11 +224,12 @@ begin
               if (aDir = aItem.Name) or (aDir = '') then
                 begin
                   aItem.IsCalendar:=True;
+                  aItem.IsCalendarUser:=IsCalendarUser;
                   aCal := TCalendar.Create(nil,Data);
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
                   aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
                   aItem.Properties.Values['D:getetag'] := aDirs.Id.AsString;
-                  aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
+                  aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
                   aItem.CalendarHomeSet:=aDir;
                   aCal.Free;
                   if Assigned(aDirList) then
@@ -511,4 +524,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

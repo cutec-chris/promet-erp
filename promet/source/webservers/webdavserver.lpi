@@ -37,7 +37,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
+        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -53,7 +53,7 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="5">
       <Unit0>
         <Filename Value="webdavserver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -72,6 +72,10 @@
         <Filename Value="README-WEBDAVSERVER.md"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="commtest.txt"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
