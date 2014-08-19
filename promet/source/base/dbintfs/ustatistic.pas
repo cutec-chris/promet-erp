@@ -89,7 +89,6 @@ begin
       Result := StringReplace(Result,'DAY(','EXTRACT(DAY FROM ',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'DAYOFWEEK(','EXTRACT(DOW FROM ',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'GETDATE()','CURRENT_DATE',[rfReplaceAll,rfIgnoreCase]);
-
     end
   else if Data.GetDBType='sqlite' then
     begin
@@ -629,4 +628,4 @@ begin
 end;
 
 end.
-
+

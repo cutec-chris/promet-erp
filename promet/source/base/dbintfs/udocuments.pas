@@ -1137,6 +1137,16 @@ begin
                 ForceDirectoriesUTF8(AppendPathDelim(Directory));
               with BaseApplication as IBaseDbInterface do
                 Data.BlobFieldToFile(DataSet,'DOCUMENT',aName);
+              //generate original Checksum if not there
+              if DataSet.FieldByName('CHECKSUM').AsString = '' then
+                begin
+                  with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                    begin
+                      Edit;
+                      FieldByName('CHECKSUM').AsString := MD5Print(MD5File(aName));
+                      Post;
+                    end;
+                end;
             end;
         end;
     end;
