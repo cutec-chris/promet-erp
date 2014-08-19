@@ -76,9 +76,6 @@ type
   public
     procedure FillDefaults(aDataSet : TDataSet);override;
   end;
-
-  { TOrderRepairImages }
-
   TOrderRepairImages = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   private
@@ -1714,4 +1711,4 @@ end;
 
 initialization
 end.
-
+

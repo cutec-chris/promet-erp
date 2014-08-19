@@ -45,9 +45,6 @@ type
   TPersonHistory = class(TBaseHistory)
   public
   end;
-
-  { TBaseDbAddress }
-
   TBaseDbAddress = class(TBaseDBList)
   private
     function GetAddress: TField;
@@ -70,9 +67,6 @@ type
     property Zip : TField read GetZip;
   end;
   TPerson = class;
-
-  { TPersonAddress }
-
   TPersonAddress = class(TBaseDBAddress)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -443,7 +437,10 @@ begin
         DataSet.Edit;
       aAddress := Source as TBaseDbAddress;
       DataSet.FieldByName('TITLE').AsString := aAddress.FieldByName('TITLE').AsString;
-      DataSet.FieldByName('NAME').AsString := aAddress.FieldByName('NAME').AsString;
+      if aAddress.FieldByName('CNAME').AsString<>'' then
+        DataSet.FieldByName('NAME').AsString := aAddress.FieldByName('CNAME').AsString+' '+aAddress.FieldByName('NAME').AsString
+      else
+        DataSet.FieldByName('NAME').AsString := aAddress.FieldByName('NAME').AsString;
       DataSet.FieldByName('ADDITIONAL').AsString := aAddress.FieldByName('ADDITIONAL').AsString;
       DataSet.FieldByName('ADDRESS').AsString := aAddress.FieldByName('ADDRESS').AsString;
       DataSet.FieldByName('CITY').AsString := aAddress.FieldByName('CITY').AsString;

@@ -1,6 +1,7 @@
 ﻿Build 368
       - Buchhaltung:Kontenrahmen einstellbar
       - Buchhaltung:nachkontieren von Rechnungen
+      - Vorname wird in Auftrag eingefügt
 Build 367
       - Aufträge:Rundung und Währungsdarstellung überarbeitet. Es ist nun möglich pro Währung auf bestimmte Beträge
         zu runden, z.b. die Rappen Rundung der Schweiz. In den Standarddaten wird das auch gleich berücksichtigt.
