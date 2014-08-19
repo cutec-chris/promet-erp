@@ -185,6 +185,7 @@ begin
             Add('BUSYTYPE',ftString,2,False);
             Add('CRDATE',ftDate,0,False);
             Add('CHDATE',ftDate,0,False);
+            Add('FILENAME',ftString,260,False);
             Add('CREATEDBY',ftString,4,False);
             Add('CHANGEDBY',ftString,4,False);
           end;

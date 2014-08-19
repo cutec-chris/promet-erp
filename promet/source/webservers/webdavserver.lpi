@@ -61,7 +61,6 @@
       <Unit1>
         <Filename Value="ulsvnserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ulsvnserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="ulwebdavserver.pas"/>

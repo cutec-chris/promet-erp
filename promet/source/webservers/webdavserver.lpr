@@ -26,14 +26,14 @@ uses
   lNet, uBaseDBInterface, md5,uData,
   pmimemessages,fileutil,lconvencoding,uBaseApplication,
   ulsvnserver, ulwebdavserver, uDocuments, Utils,lMimeTypes,lHTTPUtil,lCommon,
-  DateUtils,uimpvcal,uCalendar,uWiki,synautil,uBaseDbClasses;
+  DateUtils,uimpvcal,uCalendar,uWiki,synautil,uBaseDbClasses,Variants;
 type
   TSVNServer = class(TBaseCustomApplication)
     procedure ServerAccess(AMessage: string);
     function ServerDelete(aDir: string): Boolean;
-    function ServerGetDirectoryList(aDir: string; var aDirList: TLDirectoryList
+    function ServerGetDirectoryList(aDir: string;aDepth : Integer; var aDirList: TLDirectoryList
       ) : Boolean;
-    function ServerGetFile(aDir: string; Stream: TStream;var LastModified : TDateTime;var MimeType : string): Boolean;
+    function ServerGetFile(aDir: string; Stream: TStream;var LastModified : TDateTime;var MimeType : string;var eTag : string): Boolean;
     function ServerMkCol(aDir: string): Boolean;
     function ServerPutFile(aDir: string; Stream: TStream): Boolean;
     function ServerReadAllowed(aDir: string): Boolean;
@@ -124,8 +124,8 @@ begin
     end;
   aDocuments.Free;
 end;
-function TSVNServer.ServerGetDirectoryList(aDir: string;
-  var aDirList: TLDirectoryList) : Boolean;
+function TSVNServer.ServerGetDirectoryList(aDir: string; aDepth: Integer;
+  var aDirList: TLDirectoryList): Boolean;
 var
   aItem: TLFile;
   aDocuments: TDocuments;
@@ -206,16 +206,32 @@ begin
               aCal.SortDirection:=sdDescending;
               aCal.Open;
               aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
-              aItem.Properties.Values['D:getetag'] := Data.Users.Id.AsString;
+              //aItem.Properties.Values['D:getetag'] := Data.Users.Id.AsString;
               aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
               if Data.Users.FieldByName('EMAIL').AsString<>'' then
                 aItem.UserAdressSet.Add('mailto:'+Data.Users.FieldByName('EMAIL').AsString);
               aItem.UserAdressSet.Add('/calendars/');
               aItem.CalendarHomeSet:='/calendars/';
-              aCal.Free;
               if Assigned(aDirList) then
                 aDirList.Add(aItem)
               else aDirList := aItem;
+              if aDepth>0 then
+                begin
+                  aCal.SelectPlanedByUserAndTime(Data.Users.Accountno.AsString,Now(),Now()+90); //3 month in future
+                  aCal.Open;
+                  while not aCal.EOF do
+                    begin
+                      if aCal.FieldByName('FILENAME').AsString<>'' then
+                        aItem := TLFile.Create(aCal.FieldByName('FILENAME').AsString+'.ics')
+                      else
+                        aItem := TLFile.Create(aCal.Id.AsString+'.ics');
+                      aItem.Properties.Values['D:getetag'] := aCal.Id.AsString;
+                      aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
+                      aDirList.Add(aItem);
+                      aCal.Next;
+                    end;
+                end;
+              aCal.Free;
             end
           else aItem.Free;
           while not aDirs.EOF do
@@ -228,13 +244,29 @@ begin
                   aCal := TCalendar.Create(nil,Data);
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
                   aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
-                  aItem.Properties.Values['D:getetag'] := aDirs.Id.AsString;
+                  //aItem.Properties.Values['D:getetag'] := aDirs.Id.AsString;
                   aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
                   aItem.CalendarHomeSet:=aDir;
-                  aCal.Free;
                   if Assigned(aDirList) then
                     aDirList.Add(aItem)
                   else aDirList := aItem;
+                  if aDepth>0 then
+                    begin
+                      aCal.SelectPlanedByUserAndTime(Data.Users.Accountno.AsString,Now(),Now()+90); //3 month in future
+                      aCal.Open;
+                      while not aCal.EOF do
+                        begin
+                          if aCal.FieldByName('FILENAME').AsString<>'' then
+                            aItem := TLFile.Create(aCal.FieldByName('FILENAME').AsString+'.ics')
+                          else
+                            aItem := TLFile.Create(aCal.Id.AsString+'.ics');
+                          aItem.Properties.Values['D:getetag'] := aCal.Id.AsString;
+                          aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
+                          aDirList.Add(aItem);
+                          aCal.Next;
+                        end;
+                    end;
+                  aCal.Free;
                 end
               else aItem.Free;
               aDirs.Next;
@@ -276,7 +308,8 @@ begin
       aDocuments.Free;
     end;
 end;
-function TSVNServer.ServerGetFile(aDir: string; Stream: TStream;var LastModified : TDateTime;var MimeType : string): Boolean;
+function TSVNServer.ServerGetFile(aDir: string; Stream: TStream;
+  var LastModified: TDateTime; var MimeType: string; var eTag: string): Boolean;
 var
   aDocuments: TDocuments;
   aDocument: TDocument;
@@ -297,6 +330,47 @@ begin
       sl.Free;
       Result := True;
     end
+  else  if copy(aDir,0,10) = '/calendars' then
+    begin
+      aFullDir := aDir;
+      aDir := copy(aDir,12,length(aDir));
+      if copy(aDir,length(aDir),1) = '/' then
+        aDir := copy(aDir,0,length(aDir)-1);
+      aFile := StringReplace(copy(aDir,rpos('/',aDir)+1,length(aDir)),'.ics','',[]);
+      aDir := copy(aDir,0,rpos('/',aDir)-1);
+      if aDir = 'home' then
+        begin
+          aParent := Data.Users.Id.AsVariant;
+          result := True;
+        end
+      else
+        begin
+          aDirs := TTree.Create(nil,Data);
+          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
+          aDirPar := null;
+          Result := True;
+          while pos('/',aDir)>0 do
+            begin
+              if aDirs.Locate('PARENT;NAME',VarArrayOf([aDirPar,copy(aDir,0,pos('/',aDir)-1)]),[]) then
+                begin
+                  aDirPar := aDirs.FieldByName('PARENT').AsVariant;
+                  aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
+                end
+              else
+                begin
+                  Result := False;
+                  aDirs.Free;
+                  exit;
+                end;
+            end;
+          aParent := aDirs.Id.AsVariant;
+        end;
+      aCal := TCalendar.Create(nil,Data);
+      aCal.Select();
+      aCal.Free;
+      result := False;
+    end
+
   else
     begin
       Mimetype := '';
@@ -381,50 +455,95 @@ var
   aFStream: TFileStream;
   aFiles: TStrings;
   aDocuments2: TDocuments;
+  aFullDir: String;
+  aParent,aDirPar : Variant;
+  aDirs: TTree;
+  aFile: String;
 begin
-  aDocuments := TDocuments.Create(nil,Data);
-  aDocuments.Select(1,'D',0);
-  aDocuments.Open;
-  if rpos('/',aDir) > 1 then
-    Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)-1),'/')
-  else Result := True;
-  aDocuments2 := TDocuments.Create(nil,Data);
-  aDocuments2.Select(1,'D',0);
-  aDocuments2.Open;
-  if rpos('/',aDir) > 1 then
-    Result := aDocuments2.OpenPath(copy(aDir,0,rpos('/',aDir)),'/')
-  else Result := True;
-  if Result then
+  if copy(aDir,0,10) = '/calendars' then
     begin
-      Result := False;
-      aDocument := TDocument.Create(nil,Data);
-      aFileName := ExtractFileName(aDir);
-      if ADocuments2.SelectFile(aFileName) then //Checkin existing File
+      aFullDir := aDir;
+      aDir := copy(aDir,12,length(aDir));
+      if copy(aDir,length(aDir),1) = '/' then
+        aDir := copy(aDir,0,length(aDir)-1);
+      aFile := copy(aDir,rpos('/',aDir)+1,length(aDir));
+      aDir := copy(aDir,0,rpos('/',aDir)-1);
+      if aDir = 'home' then
         begin
-          aDocument.SelectByNumber(aDocuments2.DataSet.FieldByName('NUMBER').AsString);
-          aDocument.Open;
-          ForceDirectories(GetTempDir+'promettemp');
-          aFStream := TFileStream.Create(AppendPathDelim(GetTempDir+'promettemp')+aDocuments2.FileName,fmCreate);
-          Stream.Position:=0;
-          aFStream.CopyFrom(Stream,Stream.Size);
-          aFStream.Free;
-          aFiles := aDocument.CollectCheckInFiles(GetTempDir+'promettemp');
-          aDocument.CheckinFiles(aFiles,GetTempDir+'promettemp');
-          Result := True;
+          aParent := Data.Users.Id.AsVariant;
+          result := True;
         end
       else
-        begin //Create new file
-          aDocument.BaseParent := aDocuments;
-          if rpos('.',aFileName) > 0 then
-            aDocument.AddFromStream(copy(aFileName,0,rpos('.',aFileName)-1),copy(ExtractFileExt(aFileName),2,length(aFileName)),Stream)
-          else
-            aDocument.AddFromStream(aFileName,'',Stream);
+        begin
+          aDirs := TTree.Create(nil,Data);
+          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
+          aDirPar := null;
           Result := True;
+          while pos('/',aDir)>0 do
+            begin
+              if aDirs.Locate('PARENT;NAME',VarArrayOf([aDirPar,copy(aDir,0,pos('/',aDir)-1)]),[]) then
+                begin
+                  aDirPar := aDirs.FieldByName('PARENT').AsVariant;
+                  aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
+                end
+              else
+                begin
+                  Result := False;
+                  aDirs.Free;
+                  exit;
+                end;
+            end;
+          aParent := aDirs.Id.AsVariant;
         end;
-        aDocument.Free;
+
+      result := False;
+    end
+  else
+    begin
+      aDocuments := TDocuments.Create(nil,Data);
+      aDocuments.Select(1,'D',0);
+      aDocuments.Open;
+      if rpos('/',aDir) > 1 then
+        Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)-1),'/')
+      else Result := True;
+      aDocuments2 := TDocuments.Create(nil,Data);
+      aDocuments2.Select(1,'D',0);
+      aDocuments2.Open;
+      if rpos('/',aDir) > 1 then
+        Result := aDocuments2.OpenPath(copy(aDir,0,rpos('/',aDir)),'/')
+      else Result := True;
+      if Result then
+        begin
+          Result := False;
+          aDocument := TDocument.Create(nil,Data);
+          aFileName := ExtractFileName(aDir);
+          if ADocuments2.SelectFile(aFileName) then //Checkin existing File
+            begin
+              aDocument.SelectByNumber(aDocuments2.DataSet.FieldByName('NUMBER').AsString);
+              aDocument.Open;
+              ForceDirectories(GetTempDir+'promettemp');
+              aFStream := TFileStream.Create(AppendPathDelim(GetTempDir+'promettemp')+aDocuments2.FileName,fmCreate);
+              Stream.Position:=0;
+              aFStream.CopyFrom(Stream,Stream.Size);
+              aFStream.Free;
+              aFiles := aDocument.CollectCheckInFiles(GetTempDir+'promettemp');
+              aDocument.CheckinFiles(aFiles,GetTempDir+'promettemp');
+              Result := True;
+            end
+          else
+            begin //Create new file
+              aDocument.BaseParent := aDocuments;
+              if rpos('.',aFileName) > 0 then
+                aDocument.AddFromStream(copy(aFileName,0,rpos('.',aFileName)-1),copy(ExtractFileExt(aFileName),2,length(aFileName)),Stream)
+              else
+                aDocument.AddFromStream(aFileName,'',Stream);
+              Result := True;
+            end;
+            aDocument.Free;
+        end;
+      aDocuments.Free;
+      aDocuments2.Free;
     end;
-  aDocuments.Free;
-  aDocuments2.Free;
 end;
 function TSVNServer.ServerReadAllowed(aDir: string): Boolean;
 begin

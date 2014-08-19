@@ -37,7 +37,7 @@ type
   TLHTTPParameter = (hpConnection, hpContentLength, hpContentType,
     hpAccept, hpAcceptCharset, hpAcceptEncoding, hpAcceptLanguage, hpHost,
     hpFrom, hpReferer, hpUserAgent, hpRange, hpTransferEncoding,
-    hpIfModifiedSince, hpIfUnmodifiedSince, hpCookie, hpXRequestedWith, hpAuthorization);
+    hpIfModifiedSince, hpIfUnmodifiedSince, hpCookie, hpXRequestedWith, hpAuthorization,hpDepth);
   TLHTTPStatus = (hsUnknown, hsOK, hsNoContent, hsMultiStatus, hsMovedPermanently, hsFound, hsNotModified,
     hsBadRequest,hsUnauthorized, hsForbidden, hsNotFound, hsConflict, hsPreconditionFailed, hsRequestTooLong, hsLocked,
     hsInternalError, hsNotImplemented, hsBadGateway, hsInsufficientStorage, hsNotAllowed);
@@ -54,7 +54,7 @@ const
     ('CONNECTION', 'CONTENT-LENGTH', 'CONTENT-TYPE', 'ACCEPT', 
      'ACCEPT-CHARSET', 'ACCEPT-ENCODING', 'ACCEPT-LANGUAGE', 'HOST',
      'FROM', 'REFERER', 'USER-AGENT', 'RANGE', 'TRANSFER-ENCODING',
-     'IF-MODIFIED-SINCE', 'IF-UNMODIFIED-SINCE', 'COOKIE', 'X-REQUESTED-WITH', 'AUTHORIZATION');
+     'IF-MODIFIED-SINCE', 'IF-UNMODIFIED-SINCE', 'COOKIE', 'X-REQUESTED-WITH', 'AUTHORIZATION', 'DEPTH');
   HTTPStatusCodes: array[TLHTTPStatus] of dword =
     (0, 200, 204, 207, 301, 302, 304, 400, 401, 403, 404, 409, 412, 414, 423, 500, 501, 502, 507, 405);
   HTTPTexts: array[TLHTTPStatus] of string = 
@@ -2339,4 +2339,4 @@ begin
 end;
 
 end.
-
+

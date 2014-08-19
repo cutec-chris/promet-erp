@@ -59,11 +59,11 @@ type
     property CalendarHomeSet : string read FCHS write FCHS;
     property UserAdressSet : TStringList read FASet;
   end;
-  TLGetDirectoryList = function(aDir : string;var aDirList : TLDirectoryList) : Boolean of object;
+  TLGetDirectoryList = function(aDir : string;aDepth : Integer;var aDirList : TLDirectoryList) : Boolean of object;
   TLGetCTag = function(aDir : string;var aCTag : Int64) : Boolean of object;
   TLFileEvent = function(aDir : string) : Boolean of object;
   TLFileStreamEvent = function(aDir : string;Stream : TStream) : Boolean of object;
-  TLFileStreamDateEvent = function(aDir : string;Stream : TStream;var FLastModified : TDateTime;var MimeType : string) : Boolean of object;
+  TLFileStreamDateEvent = function(aDir : string;Stream : TStream;var FLastModified : TDateTime;var MimeType : string;var eTag : string) : Boolean of object;
   TLLoginEvent = function(aUser,aPassword : string) : Boolean of object;
   TLWebDAVServer = class(TLHTTPServer)
   private
@@ -155,18 +155,158 @@ implementation
 uses lHTTPUtil,lMimeTypes,Base64;
 
 function TDAVReportOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
-begin
+var
+  aProperties: TStringList;
+  aUser: string;
+  aPrefix: String;
+  aItems: TStringList;
+  aPropNode: TDOMElement;
+  i: Integer;
+  aMSRes: TDOMElement;
+  aDepth: Integer;
+  bProperties: TStringList;
 
+  procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D');
+  var
+    aResponse: TDOMElement;
+    aHref: TDOMElement;
+    aPropStat: TDOMElement;
+    aStatus: TDOMElement;
+    aPropC: TDOMElement;
+    aProp: TDOMElement;
+    a: Integer;
+    aLock: TDOMElement;
+    aLockEntry: TDOMElement;
+    aNotFoundProp : TStrings;
+    aPropD: TDOMNode;
+    aPropE: TDOMNode;
+    aPropF: TDOMNode;
+    b: Integer;
+    aPropG: TDOMNode;
+    aStream : TStringStream;
+    FLastModified : TDateTime;
+    FMimeType,FeTag : string;
+    procedure RemoveProp(aProp : string);
+    var
+      b: Integer;
+    begin
+      b := 0;
+      while b < aNotFoundProp.Count do
+        begin
+          if pos(aProp,aNotFoundProp[b]) > 0 then
+            aNotFoundProp.Delete(b)
+          else inc(b);
+        end;
+    end;
+  begin
+    aNotFoundProp := TStringList.Create;
+    aNotFoundProp.AddStrings(Properties);
+    aResponse := aDocument.CreateElement('D:response');
+    aParent.AppendChild(aResponse);
+    aHref := aDocument.CreateElement('D:href');
+    aResponse.AppendChild(aHref);
+    aHRef.AppendChild(aDocument.CreateTextNode(aPath));
+    aPropStat := aDocument.CreateElement('D:propstat');
+    aResponse.AppendChild(aPropStat);
+    aProp := aDocument.CreateElementNS(ns,prefix+':'+'prop');
+    aProp.Prefix:=prefix;
+    aPropStat.AppendChild(aProp);
+
+    aStream := TStringStream.Create('');
+    if Assigned(TLWebDAVServer(Socket.Creator).FGet) then
+      TLWebDAVServer(Socket.Creator).FGet(aPath,aStream,FLastModified,FMimeType,FeTag);
+    if (aNotFoundProp.IndexOf('D:getetag') > -1) and (FeTag<>'')  then
+      begin
+        aPropC := aDocument.CreateElement('D:getetag');
+        aPropC.AppendChild(aDocument.CreateTextNode(FeTag));
+        aProp.AppendChild(apropC);
+      end;
+    if (aNotFoundProp.IndexOf('C:calendar-data') > -1) and (aStream.DataString<>'')  then
+      begin
+        aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar-data');
+        aPropC.AppendChild(aDocument.CreateTextNode(aStream.DataString));
+        aProp.AppendChild(apropC);
+      end;
+
+    aStream.Free;
+    aStatus := aDocument.CreateElement('D:status');
+    aPropStat.AppendChild(aStatus);
+    aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsOK)));
+    if aNotFoundProp.Count>0 then
+      begin
+        aPropStat := aDocument.CreateElement('D:propstat');
+        aResponse.AppendChild(aPropStat);
+        aProp := aDocument.CreateElementNS(ns,prefix+':'+'prop');
+        aProp.Prefix:=prefix;
+        aPropStat.AppendChild(aProp);
+        for a := 0 to aNotFoundProp.Count-1 do
+          begin
+            case copy(aNotFoundProp[a],0,pos(':',aNotFoundProp[a])-1) of
+            'C':aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp[a]);
+            'CS':aPropC := aDocument.CreateElementNS('http://calendarserver.org/ns/',aNotFoundProp[a]);
+            else
+              aPropC := aDocument.CreateElement(aNotFoundProp[a]);
+            end;
+            aProp.AppendChild(aPropC);
+            writeln('Property not found:'+aNotFoundProp[a]);
+          end;
+        aStatus := aDocument.CreateElement('D:status');
+        aPropStat.AppendChild(aStatus);
+          aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsNotFound)));
+      end;
+    aNotFoundProp.Free;
+  end;
+
+begin
+  aProperties := TStringList.Create;
+  bProperties := TStringList.Create;
+  aItems := TStringList.Create;
+  if FSocket.Parameters[hpAuthorization] <> '' then
+    begin
+      aUser := FSocket.Parameters[hpAuthorization];
+      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+      if Assigned(TLWebDAVServer(FSocket.Creator).OnUserLogin) then
+        TLWebDAVServer(FSocket.Creator).OnUserLogin(copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
+    end;
+  if Assigned(aDocument.DocumentElement) then
+    begin
+      if trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1)) <> '' then
+        aPrefix := trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
+      aPropNode := TDOMElement(aDocument.DocumentElement.FindNode('D:prop'));
+      for i := 0 to aPropNode.ChildNodes.Count-1 do
+        begin
+          aProperties.Add(aPropNode.ChildNodes.Item[i].NodeName);
+        end;
+      aPropNode := TDOMElement(aDocument.DocumentElement);
+      for i := 0 to aPropNode.ChildNodes.Count-1 do
+        begin
+          if pos(':href',aPropNode.ChildNodes.Item[i].NodeName) > 0 then
+            aItems.Add(aPropNode.ChildNodes.Item[i].NodeValue);
+        end;
+      aDocument.DocumentElement.Free;
+    end;
+  aMSRes := aDocument.CreateElementNS('DAV:','D:multistatus');
+  aDocument.AppendChild(aMSRes);
+  aDepth := StrToIntDef(TLHTTPServerSocket(FSocket).Parameters[hpDepth],0);
+  for i := 0 to aItems.Count-1 do
+    begin
+      bProperties.Assign(aProperties);
+      CreateResponse(aItems[i],aMSRes,bProperties);
+    end;
+  aProperties.Free;
+  bProperties.Free;
+  aItems.Free;
+  Result:=True;
 end;
 
 procedure TFileStreamOutput.DoneInput;
 var
   FModified : TDateTime;
-  FMimeType : string;
+  FMimeType,FeTag : string;
 begin
   TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsNotFound;
   if Assigned(Event) then
-    if Event(HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument),FStream,FModified,FMimeType) then
+    if Event(HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument),FStream,FModified,FMimeType,FEtag) then
       begin
         TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsOK;
         TLHTTPServerSocket(FSocket).FHeaderOut.ContentLength := FStream.Size;
@@ -300,6 +440,7 @@ var
   aHref: TDOMElement;
   aDirList : TLDirectoryList;
   Path: string;
+  aDepth: Integer;
 begin
   Result := False;
   aOptionsRes := aDocument.CreateElementNS('DAV:','D:options-response');
@@ -313,8 +454,9 @@ begin
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   if pos('trunk',Path) > 0 then
     Path := StringReplace(Path,'trunk','!svn/act',[]);
+  aDepth := StrToIntDef(TLHTTPServerSocket(FSocket).Parameters[hpDepth],0);
   if Assigned(TLWebDAVServer(FSocket.Creator).OnGetDirectoryList) then
-    Result := TLWebDAVServer(FSocket.Creator).OnGetDirectoryList(Path,aDirList)
+    Result := TLWebDAVServer(FSocket.Creator).OnGetDirectoryList(Path,aDepth,aDirList)
   else Result:=True;
 
   aHRef.AppendChild(aDocument.CreateTextNode(Path));
@@ -337,6 +479,7 @@ var
   aProperties: TStringList;
   aPropNode: TDOMElement;
   aUser: String;
+  aDepth: Integer;
 
   procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D';aFile : TLFile = nil);
   var
@@ -457,6 +600,7 @@ var
                 if aNotFoundProp.IndexOf('D:supported-report-set') > -1 then
                   begin
                     aPropD := aDocument.CreateElement('D:supported-report-set');
+                    {
                     aProp.AppendChild(aPropD);
                     aPropE := aPropD.AppendChild(aDocument.CreateElement('D:supported-report'));
                     aPropF := aPropE.AppendChild(aDocument.CreateElement('D:report'));
@@ -466,6 +610,7 @@ var
                     aPropE := aPropD.AppendChild(aDocument.CreateElement('D:supported-report'));
                     aPropF := aPropE.AppendChild(aDocument.CreateElement('D:report'));
                     aPropG := aPropF.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar-query'));
+                    }
                     {
                     aPropD := aDocument.CreateElement('D:supported-report-set');
                     aProp.AppendChild(aPropD);
@@ -624,9 +769,9 @@ begin
   aDocument.AppendChild(aMSRes);
   Path := HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument);
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
-//  if Path = '/' then
+  aDepth := StrToIntDef(TLHTTPServerSocket(FSocket).Parameters[hpDepth],0);
   if Assigned(TLWebDAVServer(FSocket.Creator).OnGetDirectoryList) then
-    Result := TLWebDAVServer(FSocket.Creator).OnGetDirectoryList(Path,aDirList)
+    Result := TLWebDAVServer(FSocket.Creator).OnGetDirectoryList(Path,aDepth,aDirList)
   else Result:=True;
   if Assigned(aDirList) and (aDirList.Count > 0) then
     begin
@@ -769,7 +914,7 @@ begin
 end;
 constructor TLWebDAVURIHandler.Create;
 begin
-  Methods := [hmOptions,hmPropfind,hmLock,hmUnlock,hmMkCol,hmDelete];
+  Methods := [hmOptions,hmPropfind,hmLock,hmUnlock,hmMkCol,hmDelete,hmReport];
 end;
 procedure TLWebDAVServer.RegisterHandlers;
 begin
