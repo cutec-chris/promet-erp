@@ -273,7 +273,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="43">
+    <Units Count="42">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -439,6 +439,7 @@
         <ComponentName Value="fFinancialOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ufinancialoptions"/>
       </Unit23>
       <Unit24>
         <Filename Value="uordertypeoptions.pas"/>
@@ -565,14 +566,6 @@
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit41>
-      <Unit42>
-        <Filename Value="ubookfibuaccount.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fBookFibuAccount"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ubookfibuaccount"/>
-      </Unit42>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

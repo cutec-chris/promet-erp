@@ -24,17 +24,22 @@ interface
 
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, EditBtn, StdCtrls, DbCtrls,
-  uPrometFramesInplaceDB, uProjects,uBaseDbClasses;
+  Buttons, uPrometFramesInplaceDB, uProjects, uBaseDbClasses;
 
 type
+
+  { TfFinance }
+
   TfFinance = class(TPrometInplaceDBFrame)
+    cbAccount: TDBEdit;
+    cbCostcentre: TDBEdit;
     DataSource: TDataSource;
-    cbAccount: TDBComboBox;
-    cbCostcentre: TDBComboBox;
     DBMemo1: TDBMemo;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    SpeedButton1: TSpeedButton;
+    procedure cbAccountButtonClick(Sender: TObject);
   private
     { private declarations }
   public
@@ -45,7 +50,18 @@ type
 
 implementation
 
+uses ubookfibuaccount;
+
 {$R *.lfm}
+
+procedure TfFinance.cbAccountButtonClick(Sender: TObject);
+begin
+  if fBookFibuAccount.Execute then
+    begin
+      FDataSet.Edit;
+      cbAccount.Text:=fBookFibuAccount.DataSet.FieldByName('ACCOUNTNO').AsString;
+    end;
+end;
 
 procedure TfFinance.SetDataSet(const AValue: TBaseDBDataSet);
 begin

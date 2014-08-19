@@ -8,7 +8,7 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="9">
+    <Files Count="11">
       <Item1>
         <Filename Value="udetailpositionframe.lfm"/>
         <Type Value="LFM"/>
@@ -45,6 +45,14 @@
         <Filename Value="ucalcframe.lfm"/>
         <Type Value="LFM"/>
       </Item9>
+      <Item10>
+        <Filename Value="ubookfibuaccount.lfm"/>
+        <Type Value="LFM"/>
+      </Item10>
+      <Item11>
+        <Filename Value="ubookfibuaccount.pas"/>
+        <UnitName Value="ubookfibuaccount"/>
+      </Item11>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
