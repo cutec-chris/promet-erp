@@ -648,7 +648,7 @@ var
                     if aFile.IsTodoList then
                       begin
                         aPropE := aPropD.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:comp'));
-                        TDOMElement(aPropd).SetAttribute('name','VTODO');
+                        TDOMElement(aPropE).SetAttribute('name','VTODO');
                       end;
                     while aNotFoundProp.IndexOf('C:supported-calendar-component-set') > -1 do
                       aNotFoundProp.Delete(aNotFoundProp.IndexOf('C:supported-calendar-component-set'));

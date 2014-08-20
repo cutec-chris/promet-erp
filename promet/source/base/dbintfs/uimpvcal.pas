@@ -338,8 +338,6 @@ begin
                 FieldByName('SUMMARY').AsString := GetValue(tmp,IsUTF8)
               else if IsField('DESCRIPTION',tmp) then
                 FieldByName('DESC').AsString := GetValue(tmp,IsUTF8)
-              else if IsField('CREATED',tmp) then
-                FieldByName('CRDATE').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp,IsUTF8)))
               else //debugln('Field Unknown:'+tmp)
               ;
             end;

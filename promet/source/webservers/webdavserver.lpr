@@ -639,7 +639,7 @@ begin
         begin
           //todo ???
           aTasks := TTaskList.Create(nil,Data);
-          aTasks.Filter(Data.QuoteField('ORIGID')+'='+Data.QuoteValue(aFile));
+          aTasks.Filter(Data.QuoteField('ORIGIDS')+'='+Data.QuoteValue(aFile));
           if (aTasks.Count=0) and IsNumeric(aFile) then
             begin
               aTasks.Select(aFile);
@@ -652,16 +652,15 @@ begin
                   if not VTodoImport(aTasks,sl,True) then
                     Result := False;
                 end
-              else if pos(':vtodo',lowercase(sl.Text))>0 then //new task
-                begin
-                  Result := True;
-                  aTasks.Insert;
-                  aTasks.FieldByName('REF_ID_ID').AsVariant:=aParent;
-                  if not VTodoImport(aTasks,sl,True) then
-                    result := False;
-                  eTag:=aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
-                  FStatus:=hsCreated;
-                end;
+            end;
+          if (not Result) and (pos(':vtodo',lowercase(sl.Text))>0) then //new task
+            begin
+              Result := True;
+              aTasks.Insert;
+              if not VTodoImport(aTasks,sl,True) then
+                result := False;
+              eTag:=aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
+              FStatus:=hsCreated;
             end;
           atasks.Free;
           if not result then //New file
