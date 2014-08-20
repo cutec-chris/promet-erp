@@ -168,7 +168,8 @@ begin
           inc(i);
           if IsField('BEGIN',tmp) and (pos('VEVENT',Uppercase(tmp))>0) then
             begin
-              Append;
+              if not Calendar.CanEdit then
+                Append;
               InBody := True
             end
           else if IsField('END',tmp) and InBody then
@@ -240,7 +241,23 @@ begin
       vOut.Add('BEGIN:VCALENDAR');
       vOut.Add('VERSION:2.0');
       vOut.Add('PRODID:http://www.free-erp.de/');
-      First;
+      vOut.Add('BEGIN:VTIMEZONE');
+      vOut.Add('TZID:W. Europe Standard Time');
+      //Sommerzeit
+      vOut.Add('BEGIN:STANDARD');
+      vOut.Add('DTSTART:16011028T030000');
+      vOut.Add('RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10');
+      vOut.Add('TZOFFSETFROM:+0200');
+      vOut.Add('TZOFFSETTO:+0100');
+      vOut.Add('END:STANDARD');
+      //Winterzeit
+      vOut.Add('BEGIN:DAYLIGHT');
+      vOut.Add('DTSTART:16010325T020000');
+      vOut.Add('RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3');
+      vOut.Add('TZOFFSETFROM:+0100');
+      vOut.Add('TZOFFSETTO:+0200');
+      vOut.Add('END:DAYLIGHT');
+      vOut.Add('END:VTIMEZONE');      First;
       while not EOF do
         begin
           vOut.Add('BEGIN:VEVENT');

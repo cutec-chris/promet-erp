@@ -35,7 +35,8 @@ type
       ) : Boolean;
     function ServerGetFile(aDir: string; Stream: TStream;var LastModified : TDateTime;var MimeType : string;var eTag : string): Boolean;
     function ServerMkCol(aDir: string): Boolean;
-    function ServerPutFile(aDir: string; Stream: TStream): Boolean;
+    function ServerPutFile(aDir: string; Stream: TStream; var eTag: string
+      ): Boolean;
     function ServerReadAllowed(aDir: string): Boolean;
     function ServerUserLogin(aUser, aPassword: string): Boolean;
   private
@@ -317,6 +318,10 @@ var
   lIndex: Integer;
   sl: TStringList;
   aCal: TCalendar;
+  aFullDir: String;
+  aFile: String;
+  aParent,aDirPar : Variant;
+  aDirs: TTree;
 begin
   if aDir = 'calendars/'+Data.Users.Text.AsString+'.ics' then
     begin
@@ -366,9 +371,22 @@ begin
           aParent := aDirs.Id.AsVariant;
         end;
       aCal := TCalendar.Create(nil,Data);
-      aCal.Select();
+      aCal.Filter(Data.QuoteField('FILENAME')+'='+Data.QuoteValue(aFile));
+      if aCal.Count=0 then
+        begin
+          aCal.Select(aFile);
+          aCal.Open;
+        end;
+      Result := aCal.Count=1;
+      if Result then
+        begin
+          eTag:=aCal.Id.AsString;
+          sl := TStringList.Create;
+          VCalExport(aCal,sl);
+          sl.SaveToStream(Stream);
+          sl.Free;
+        end;
       aCal.Free;
-      result := False;
     end
 
   else
@@ -447,7 +465,7 @@ begin
     end;
   aDocuments.Free;
 end;
-function TSVNServer.ServerPutFile(aDir: string; Stream: TStream): Boolean;
+function TSVNServer.ServerPutFile(aDir: string; Stream: TStream;var eTag : string): Boolean;
 var
   aDocuments: TDocuments;
   aDocument: TDocument;
@@ -459,14 +477,18 @@ var
   aParent,aDirPar : Variant;
   aDirs: TTree;
   aFile: String;
+  aCal: TCalendar;
+  sl: TStringList;
 begin
+  if copy(aDir,0,1)<>'/' then
+    aDir := '/'+aDir;
   if copy(aDir,0,10) = '/calendars' then
     begin
       aFullDir := aDir;
       aDir := copy(aDir,12,length(aDir));
       if copy(aDir,length(aDir),1) = '/' then
         aDir := copy(aDir,0,length(aDir)-1);
-      aFile := copy(aDir,rpos('/',aDir)+1,length(aDir));
+      aFile := StringReplace(copy(aDir,rpos('/',aDir)+1,length(aDir)),'.ics','',[]);
       aDir := copy(aDir,0,rpos('/',aDir)-1);
       if aDir = 'home' then
         begin
@@ -495,8 +517,37 @@ begin
             end;
           aParent := aDirs.Id.AsVariant;
         end;
-
-      result := False;
+      aCal := TCalendar.Create(nil,Data);
+      aCal.Filter(Data.QuoteField('FILENAME')+'='+Data.QuoteValue(aFile));
+      if (aCal.Count=0) and IsNumeric(aFile) then
+        begin
+          aCal.Select(aFile);
+          aCal.Open;
+        end;
+      Result := aCal.Count=1;
+      if Result then
+        begin
+          eTag:=aCal.Id.AsString;
+          sl := TStringList.Create;
+          Stream.Position:=0;
+          sl.LoadFromStream(Stream);
+          aCal.Edit;
+          if not VCalImport(aCal,sl) then
+            Result := False;
+          sl.Free;
+        end
+      else //new file
+        begin
+          aCal.Insert;
+          sl := TStringList.Create;
+          Stream.Position:=0;
+          sl.LoadFromStream(Stream);
+          if not VCalImport(aCal,sl) then
+            result := False;
+          sl.Free;
+          eTag:=aCal.Id.AsString;
+        end;
+      aCal.Free;
     end
   else
     begin
@@ -625,6 +676,7 @@ begin
   Server.OnPutFile:=@ServerPutFile;
   Server.OnGetFile:=@ServerGetFile;
   Server.OnReadAllowed:=@ServerReadAllowed;
+  Server.OnWriteAllowed:=@ServerReadAllowed;
   Server.OnUserLogin:=@ServerUserLogin;
   Login;
   if not Server.Listen(8085) then raise Exception.Create('Cant bind to port !');

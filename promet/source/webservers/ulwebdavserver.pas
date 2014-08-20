@@ -62,7 +62,7 @@ type
   TLGetDirectoryList = function(aDir : string;aDepth : Integer;var aDirList : TLDirectoryList) : Boolean of object;
   TLGetCTag = function(aDir : string;var aCTag : Int64) : Boolean of object;
   TLFileEvent = function(aDir : string) : Boolean of object;
-  TLFileStreamEvent = function(aDir : string;Stream : TStream) : Boolean of object;
+  TLFileStreamEvent = function(aDir : string;Stream : TStream;var eTag : string) : Boolean of object;
   TLFileStreamDateEvent = function(aDir : string;Stream : TStream;var FLastModified : TDateTime;var MimeType : string;var eTag : string) : Boolean of object;
   TLLoginEvent = function(aUser,aPassword : string) : Boolean of object;
   TLWebDAVServer = class(TLHTTPServer)
@@ -220,12 +220,16 @@ var
         aPropC := aDocument.CreateElement('D:getetag');
         aPropC.AppendChild(aDocument.CreateTextNode(FeTag));
         aProp.AppendChild(apropC);
+        while aNotFoundProp.IndexOf('D:getetag') > -1 do
+          aNotFoundProp.Delete(aNotFoundProp.IndexOf('D:getetag'));
       end;
     if (aNotFoundProp.IndexOf('C:calendar-data') > -1) and (aStream.DataString<>'')  then
       begin
         aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar-data');
         aPropC.AppendChild(aDocument.CreateTextNode(aStream.DataString));
         aProp.AppendChild(apropC);
+        while aNotFoundProp.IndexOf('C:calendar-data') > -1 do
+          aNotFoundProp.Delete(aNotFoundProp.IndexOf('C:calendar-data'));
       end;
 
     aStream.Free;
@@ -281,7 +285,7 @@ begin
       for i := 0 to aPropNode.ChildNodes.Count-1 do
         begin
           if pos(':href',aPropNode.ChildNodes.Item[i].NodeName) > 0 then
-            aItems.Add(aPropNode.ChildNodes.Item[i].NodeValue);
+            aItems.Add(aPropNode.ChildNodes.Item[i].FirstChild.NodeValue);
         end;
       aDocument.DocumentElement.Free;
     end;
@@ -296,6 +300,7 @@ begin
   aProperties.Free;
   bProperties.Free;
   aItems.Free;
+  TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsMultiStatus;
   Result:=True;
 end;
 
@@ -322,10 +327,12 @@ begin
 end;
 
 procedure TFileStreamInput.DoneInput;
+var
+  FeTag : string;
 begin
   TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsNotAllowed;
   if Assigned(Event) then
-    if Event(HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument),FStream) then
+    if Event(HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument),FStream,FeTag) then
       TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsOK;
   TMemoryStream(FStream).Clear;
   TLHTTPServerSocket(FSocket).StartResponse(Self);
@@ -600,11 +607,11 @@ var
                 if aNotFoundProp.IndexOf('D:supported-report-set') > -1 then
                   begin
                     aPropD := aDocument.CreateElement('D:supported-report-set');
-                    {
                     aProp.AppendChild(aPropD);
                     aPropE := aPropD.AppendChild(aDocument.CreateElement('D:supported-report'));
                     aPropF := aPropE.AppendChild(aDocument.CreateElement('D:report'));
                     aPropG := aPropF.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar-multiget'));
+                    {
                     aPropD := aDocument.CreateElement('D:supported-report-set');
                     aProp.AppendChild(aPropD);
                     aPropE := aPropD.AppendChild(aDocument.CreateElement('D:supported-report'));
