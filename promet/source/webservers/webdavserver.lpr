@@ -25,7 +25,7 @@ uses
   Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication, lnetbase,
   lNet, uBaseDBInterface, md5,uData,
   pmimemessages,fileutil,lconvencoding,uBaseApplication,
-  ulsvnserver, ulwebdavserver, uDocuments, Utils,lMimeTypes,lHTTPUtil,lCommon,
+  ulsvnserver, ulwebdavserver, uDocuments, Utils,lMimeTypes,lHTTPUtil,lCommon,lexthttp,
   DateUtils,uimpvcal,uCalendar,uWiki,synautil,uBaseDbClasses,Variants;
 type
   TSVNServer = class(TBaseCustomApplication)
@@ -35,7 +35,7 @@ type
       ) : Boolean;
     function ServerGetFile(aDir: string; Stream: TStream;var LastModified : TDateTime;var MimeType : string;var eTag : string): Boolean;
     function ServerMkCol(aDir: string): Boolean;
-    function ServerPutFile(aDir: string; Stream: TStream; var eTag: string
+    function ServerPutFile(aDir: string; Stream: TStream; var eTag: string; var FStatus : TLHttpStatus
       ): Boolean;
     function ServerReadAllowed(aDir: string): Boolean;
     function ServerUserLogin(aUser, aPassword: string): Boolean;
@@ -97,33 +97,92 @@ function TSVNServer.ServerDelete(aDir: string): Boolean;
 var
   aDocuments: TDocuments;
   aDocument: TDocument;
+  aFullDir: String;
+  aFile: String;
+  aParent,aDirPar : Variant;
+  aDirs: TTree;
+  aCal: TCalendar;
 begin
-  aDocuments := TDocuments.Create(nil,Data);
-  aDocuments.Select(1,'D',0);
-  aDocuments.Open;
-  if copy(aDir,length(aDir),1) = '/' then
-    aDir := copy(aDir,0,length(aDir)-1);
-  if rpos('/',aDir) > 1 then
-    Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)),'/')
-  else Result := True;
-  if Result then
+  if copy(aDir,0,1)<>'/' then
+    aDir := '/'+aDir;
+  if copy(aDir,0,10) = '/calendars' then
     begin
-      Result := False;
-      aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
-      if aDocuments.SelectFile(aDir) then
+      aFullDir := aDir;
+      aDir := copy(aDir,12,length(aDir));
+      if copy(aDir,length(aDir),1) = '/' then
+        aDir := copy(aDir,0,length(aDir)-1);
+      aFile := StringReplace(copy(aDir,rpos('/',aDir)+1,length(aDir)),'.ics','',[]);
+      aDir := copy(aDir,0,rpos('/',aDir)-1);
+      if aDir = 'home' then
         begin
-          aDocument := TDocument.Create(nil,Data);
-          aDocument.SelectByNumber(aDocuments.DataSet.FieldByName('NUMBER').AsVariant);
-          aDocument.Open;
-          if aDocument.Count > 0 then
+          aParent := Data.Users.Id.AsVariant;
+          result := True;
+        end
+      else
+        begin
+          aDirs := TTree.Create(nil,Data);
+          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
+          aDirPar := null;
+          Result := True;
+          while pos('/',aDir)>0 do
             begin
-              aDocument.Delete;
-              Result := True;
+              if aDirs.Locate('PARENT;NAME',VarArrayOf([aDirPar,copy(aDir,0,pos('/',aDir)-1)]),[]) then
+                begin
+                  aDirPar := aDirs.FieldByName('PARENT').AsVariant;
+                  aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
+                end
+              else
+                begin
+                  Result := False;
+                  aDirs.Free;
+                  exit;
+                end;
             end;
-          aDocument.Free;
+          aParent := aDirs.Id.AsVariant;
         end;
+      aCal := TCalendar.Create(nil,Data);
+      aCal.Filter(Data.QuoteField('ORIGID')+'='+Data.QuoteValue(aFile));
+      if (aCal.Count=0) and IsNumeric(aFile) then
+        begin
+          aCal.Select(aFile);
+          aCal.Open;
+        end;
+      Result := aCal.Count=1;
+      if Result then
+        begin
+          aCal.Delete;
+        end;
+      aCal.Free;
+    end
+  else
+    begin
+      aDocuments := TDocuments.Create(nil,Data);
+      aDocuments.Select(1,'D',0);
+      aDocuments.Open;
+      if copy(aDir,length(aDir),1) = '/' then
+        aDir := copy(aDir,0,length(aDir)-1);
+      if rpos('/',aDir) > 1 then
+        Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)),'/')
+      else Result := True;
+      if Result then
+        begin
+          Result := False;
+          aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
+          if aDocuments.SelectFile(aDir) then
+            begin
+              aDocument := TDocument.Create(nil,Data);
+              aDocument.SelectByNumber(aDocuments.DataSet.FieldByName('NUMBER').AsVariant);
+              aDocument.Open;
+              if aDocument.Count > 0 then
+                begin
+                  aDocument.Delete;
+                  Result := True;
+                end;
+              aDocument.Free;
+            end;
+        end;
+      aDocuments.Free;
     end;
-  aDocuments.Free;
 end;
 function TSVNServer.ServerGetDirectoryList(aDir: string; aDepth: Integer;
   var aDirList: TLDirectoryList): Boolean;
@@ -218,15 +277,16 @@ begin
               else aDirList := aItem;
               if aDepth>0 then
                 begin
-                  aCal.SelectPlanedByUserAndTime(Data.Users.Accountno.AsString,Now(),Now()+90); //3 month in future
+                  aCal.SelectByIdAndTime(Data.Users.Id.AsVariant,Now(),Now()+90); //3 month in future
+                  aCal.ActualLimit:=100;
                   aCal.Open;
                   while not aCal.EOF do
                     begin
-                      if aCal.FieldByName('FILENAME').AsString<>'' then
-                        aItem := TLFile.Create(aCal.FieldByName('FILENAME').AsString+'.ics')
+                      if aCal.FieldByName('ORIGID').AsString<>'' then
+                        aItem := TLFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
                       else
                         aItem := TLFile.Create(aCal.Id.AsString+'.ics');
-                      aItem.Properties.Values['D:getetag'] := aCal.Id.AsString;
+                      aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                       aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
                       aDirList.Add(aItem);
                       aCal.Next;
@@ -253,15 +313,16 @@ begin
                   else aDirList := aItem;
                   if aDepth>0 then
                     begin
-                      aCal.SelectPlanedByUserAndTime(Data.Users.Accountno.AsString,Now(),Now()+90); //3 month in future
+                      aCal.SelectByIdAndTime(aDirs.Id.AsVariant,Now(),Now()+90); //3 month in future
+                      aCal.ActualLimit:=100;
                       aCal.Open;
                       while not aCal.EOF do
                         begin
-                          if aCal.FieldByName('FILENAME').AsString<>'' then
-                            aItem := TLFile.Create(aCal.FieldByName('FILENAME').AsString+'.ics')
+                          if aCal.FieldByName('ORIGID').AsString<>'' then
+                            aItem := TLFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
                           else
                             aItem := TLFile.Create(aCal.Id.AsString+'.ics');
-                          aItem.Properties.Values['D:getetag'] := aCal.Id.AsString;
+                          aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                           aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
                           aDirList.Add(aItem);
                           aCal.Next;
@@ -371,8 +432,8 @@ begin
           aParent := aDirs.Id.AsVariant;
         end;
       aCal := TCalendar.Create(nil,Data);
-      aCal.Filter(Data.QuoteField('FILENAME')+'='+Data.QuoteValue(aFile));
-      if aCal.Count=0 then
+      aCal.Filter(Data.QuoteField('ORIGID')+'='+Data.QuoteValue(aFile));
+      if (aCal.Count=0) and IsNumeric(aFile) then
         begin
           aCal.Select(aFile);
           aCal.Open;
@@ -380,7 +441,7 @@ begin
       Result := aCal.Count=1;
       if Result then
         begin
-          eTag:=aCal.Id.AsString;
+          eTag:=aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
           sl := TStringList.Create;
           VCalExport(aCal,sl);
           sl.SaveToStream(Stream);
@@ -465,7 +526,8 @@ begin
     end;
   aDocuments.Free;
 end;
-function TSVNServer.ServerPutFile(aDir: string; Stream: TStream;var eTag : string): Boolean;
+function TSVNServer.ServerPutFile(aDir: string; Stream: TStream;
+  var eTag: string; var FStatus: TLHttpStatus): Boolean;
 var
   aDocuments: TDocuments;
   aDocument: TDocument;
@@ -518,7 +580,7 @@ begin
           aParent := aDirs.Id.AsVariant;
         end;
       aCal := TCalendar.Create(nil,Data);
-      aCal.Filter(Data.QuoteField('FILENAME')+'='+Data.QuoteValue(aFile));
+      aCal.Filter(Data.QuoteField('ORIGID')+'='+Data.QuoteValue(aFile));
       if (aCal.Count=0) and IsNumeric(aFile) then
         begin
           aCal.Select(aFile);
@@ -527,25 +589,28 @@ begin
       Result := aCal.Count=1;
       if Result then
         begin
-          eTag:=aCal.Id.AsString;
+          eTag:=aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
           sl := TStringList.Create;
           Stream.Position:=0;
           sl.LoadFromStream(Stream);
           aCal.Edit;
-          if not VCalImport(aCal,sl) then
+          if not VCalImport(aCal,sl,True) then
             Result := False;
           sl.Free;
         end
       else //new file
         begin
+          Result := True;
           aCal.Insert;
+          aCal.FieldByName('REF_ID_ID').AsVariant:=aParent;
           sl := TStringList.Create;
           Stream.Position:=0;
           sl.LoadFromStream(Stream);
-          if not VCalImport(aCal,sl) then
+          if not VCalImport(aCal,sl,True) then
             result := False;
           sl.Free;
-          eTag:=aCal.Id.AsString;
+          eTag:=aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+          FStatus:=hsCreated;
         end;
       aCal.Free;
     end
@@ -644,7 +709,7 @@ begin
       aFile.Properties.Values['creationdate'] := BuildISODate(aDocuments.CreationDate);
       aFile.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(aDocuments.LastModified),WebFormatSettings)+' GMT';
       aFile.Properties.Values['getcontentlength'] := IntToStr(aDocuments.Size);
-      aFile.Properties.Values['getetag'] := aDocuments.Number.AsString;
+      aFile.Properties.Values['getetag'] := aDocuments.Number.AsString+IntToStr(trunc(frac(aDocuments.TimeStamp.AsDateTime)*1000));
     end;
   aFile.Properties.Values['creationdate'] := BuildISODate(aDocuments.CreationDate);
   aFileList.Add(aFile);

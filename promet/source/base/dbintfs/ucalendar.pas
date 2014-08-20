@@ -44,7 +44,8 @@ type
     procedure SelectByUser(AccountNo : string);
     procedure SelectPlanedByUser(AccountNo : string);
     procedure SelectPlanedByUserAndTime(AccountNo : string;aStart,aEnd : TDateTime);
-    procedure SelectPlanedByUseridAndTime(User : Variant;aStart,aEnd : TDateTime);
+    procedure SelectPlanedByIdAndTime(User : Variant;aStart,aEnd : TDateTime);
+    procedure SelectByIdAndTime(User : Variant;aStart,aEnd : TdateTime);
     function SelectFromLink(aLink: string): Boolean; override;
     property History : TBaseHistory read GetHistory;
     constructor Create(aOwner: TComponent; DM: TComponent;
@@ -185,7 +186,6 @@ begin
             Add('BUSYTYPE',ftString,2,False);
             Add('CRDATE',ftDate,0,False);
             Add('CHDATE',ftDate,0,False);
-            Add('FILENAME',ftString,260,False);
             Add('CREATEDBY',ftString,4,False);
             Add('CHANGEDBY',ftString,4,False);
           end;
@@ -281,7 +281,7 @@ begin
   aUser.Open;
   if aUser.Count>0 then
     begin
-      SelectPlanedByUseridAndTime(aUser.Id.AsVariant,aStart,aEnd);
+      SelectPlanedByIdAndTime(aUser.Id.AsVariant,aStart,aEnd);
     end
   else
     begin
@@ -291,12 +291,25 @@ begin
   aUser.Free;
 end;
 
-procedure TCalendar.SelectPlanedByUseridAndTime(User: Variant; aStart,
+procedure TCalendar.SelectPlanedByIdAndTime(User: Variant; aStart,
   aEnd: TDateTime);
 begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
       Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(User)+') and ('+QuoteField('ICATEGORY')+'='+QuoteValue('8')+')';
+      Filter := Filter+' AND (('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
+      Filter := Filter+' OR ('+Data.QuoteField('ENDDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
+      Filter := Filter+' OR ('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('STARTDATE')+' <= '+Data.DateToFilter(aEnd)+')';
+      Filter := Filter+' OR ('+Data.QuoteField('STARTDATE')+' < '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' > '+Data.DateToFilter(aEnd)+'))';
+      Filter := Filter+' OR (('+Data.QuoteField('ROTATION')+' > 0) AND ('+Data.QuoteField('STARTDATE')+' <= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ROTTO')+' >= '+Data.DateToFilter(aEnd)+'))';
+    end;
+end;
+
+procedure TCalendar.SelectByIdAndTime(User: Variant; aStart, aEnd: TdateTime);
+begin
+  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+    begin
+      Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(User)+')';
       Filter := Filter+' AND (('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('ENDDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('STARTDATE')+' <= '+Data.DateToFilter(aEnd)+')';

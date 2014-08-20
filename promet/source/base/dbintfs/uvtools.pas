@@ -2,9 +2,10 @@ unit uvtools;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils;
+  Classes, SysUtils,LazUTF8;
 function IsField(FName,Value: string): boolean;
-function GetValue(Value : string) : string;
+function GetValue(Value : string;IsUTF8 : Boolean = False) : string;
+function SetValue(Value : string) : string;
 function HasAttrib(Attrib,Value : string) : Boolean;
 function VEncodeString(s : string) : string;
 function VDecodeString(s : string) : string;
@@ -18,10 +19,19 @@ begin
   Result := (Pos(FName,Value) = 1) and ((i = j) or
     (Value[i+1] in [';',':']) or (FName[i] in [';',':']));
 end;
-function GetValue(Value : string) : string;
+function GetValue(Value : string;IsUTF8 : Boolean = False) : string;
 begin
-  Result := AnsiToUTF8(VDecodeString(copy(Value,pos(':',Value)+1,length(Value))));
+  if IsUTF8 then
+    result := VDecodeString(copy(Value,pos(':',Value)+1,length(Value)))
+  else
+    Result := SysToUTF8(VDecodeString(copy(Value,pos(':',Value)+1,length(Value))));
 end;
+
+function SetValue(Value: string): string;
+begin
+  Result := UTF8ToSys(Value);
+end;
+
 function HasAttrib(Attrib,Value : string) : Boolean;
 begin
   Result := pos(Attrib,Value) > 0;

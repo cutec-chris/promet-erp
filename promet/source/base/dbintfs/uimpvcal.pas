@@ -20,8 +20,9 @@ unit uimpvcal;
 {$mode objfpc}{$H+}
 interface
 uses
-  {$ifdef WINDOWS}Windows,{$else}UnixUtil,{$endif}Classes, SysUtils, uVTools, uCalendar;
-function VCalImport(Calendar : TCalendar;vIn : TStrings) : Boolean;
+  {$ifdef WINDOWS}Windows,{$else}UnixUtil,{$endif}Classes, SysUtils, uVTools, uCalendar,
+  lazutf8sysutils;
+function VCalImport(Calendar : TCalendar;vIn : TStrings;IsUTF8 : Boolean = False) : Boolean;
 function VCalExport(Calendar : TCalendar;vOut : TStrings) : Boolean;
 implementation
 const
@@ -49,32 +50,21 @@ const
     LongDayNames:  ('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
     TwoDigitYearCenturyWindow: 50;
   );
-{$ifdef WINDOWS}
-function TZSeconds: integer; inline;
-var
-  lInfo: Windows.TIME_ZONE_INFORMATION;
-begin
-  { lInfo.Bias is in minutes }
-  if Windows.GetTimeZoneInformation(@lInfo) <> $FFFFFFFF then
-    Result := lInfo.Bias * 60
-  else
-    Result := 0;
-end;
-{$else}
-function TZSeconds: Integer; inline;
-begin
-  Result := unixutil.TZSeconds;
-end;
-{$endif}
 function GMTToLocalTime(ADateTime: TDateTime): TDateTime;
+var
+  aDiff: Extended;
 begin
-  Result := ADateTime + (TZSeconds*1000/MSecsPerDay);
+  aDiff := (NowUTC()-Now());
+  Result := ADateTime - aDiff;
 end;
 function LocalTimeToGMT(ADateTime: TDateTime): TDateTime;
+var
+  aDiff: Extended;
 begin
-  Result := ADateTime - (TZSeconds*1000/MSecsPerDay);
+  aDiff := (NowUTC()-Now());
+  Result := ADateTime + aDiff;
 end;
-function VCalImport(Calendar: TCalendar; vIn: TStrings): Boolean;
+function VCalImport(Calendar: TCalendar; vIn: TStrings;IsUTF8 : Boolean = False): Boolean;
   function ConvertISODate(Str : string; ReturnUTC: Boolean = True) : TDateTime;
   var
     y, m, d: Word;
@@ -184,27 +174,27 @@ begin
               else if IsField('DTSTART',tmp) then
                 begin
                   FieldByName('STARTDATE').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp)));
-                  StartTimed := ConvertISODate(GetValue(tmp))=trunc(ConvertISODate(GetValue(tmp)));
+                  StartTimed := ConvertISODate(GetValue(tmp,IsUTF8))=trunc(ConvertISODate(GetValue(tmp)));
                 end
               else if IsField('DTEND',tmp) then
                 begin
                   FieldByName('ENDDATE').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp)));
-                  if StartTimed and (ConvertISODate(GetValue(tmp))=trunc(ConvertISODate(GetValue(tmp)))) then
+                  if StartTimed and (ConvertISODate(GetValue(tmp,IsUTF8))=trunc(ConvertISODate(GetValue(tmp)))) then
                     FieldByName('ALLDAY').AsString:='Y';
                 end
               else if IsField('SUMMARY',tmp) then
-                FieldByName('SUMMARY').AsString := GetValue(tmp)
+                FieldByName('SUMMARY').AsString := GetValue(tmp,IsUTF8)
               else if IsField('LOCATION',tmp) then
-                FieldByName('LOCATION').AsString := GetValue(tmp)
+                FieldByName('LOCATION').AsString := GetValue(tmp,IsUTF8)
               else if IsField('LOCATION',tmp) then
-                FieldByName('LOCATION').AsString := GetValue(tmp)
+                FieldByName('LOCATION').AsString := GetValue(tmp,IsUTF8)
               else if IsField('DESCRIPTION',tmp) then
-                FieldByName('DESCR').AsString := GetValue(tmp)
+                FieldByName('DESCR').AsString := GetValue(tmp,IsUTF8)
               else if IsField('CREATED',tmp) then
-                FieldByName('CRDATE').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp)))
+                FieldByName('CRDATE').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp,IsUTF8)))
               else if IsField('TRANSP',tmp) then
                 begin
-                  tmp := GetValue(tmp);
+                  tmp := GetValue(tmp,IsUTF8);
                   case tmp of
                   'TRANSPARENT':tmp := 'T';
                   'OPAQUE':tmp := 'O';
@@ -231,9 +221,12 @@ begin
   Result := True;
 end;
 function VCalExport(Calendar: TCalendar; vOut: TStrings): Boolean;
-  function BuildISODate(aDate : TDateTime) : string;
+  function BuildISODate(aDate : TDateTime;DateOnly : Boolean = False) : string;
   begin
-    Result := FormatDateTime('yyyy-mm-dd',aDate)+'T'+FormatDateTime('hh:nn:ss',LocalTimeToGMT(aDate),WebFormatSettings)+'Z';
+    if not DateOnly then
+      Result := FormatDateTime('yyyy-mm-dd',aDate)+'T'+FormatDateTime('hh:nn:ss',aDate,WebFormatSettings)+'Z'
+    else
+      Result := FormatDateTime('yyyy-mm-dd',aDate);
   end;
 begin
   with Calendar.DataSet do
@@ -241,6 +234,7 @@ begin
       vOut.Add('BEGIN:VCALENDAR');
       vOut.Add('VERSION:2.0');
       vOut.Add('PRODID:http://www.free-erp.de/');
+      {
       vOut.Add('BEGIN:VTIMEZONE');
       vOut.Add('TZID:W. Europe Standard Time');
       //Sommerzeit
@@ -257,7 +251,9 @@ begin
       vOut.Add('TZOFFSETFROM:+0100');
       vOut.Add('TZOFFSETTO:+0200');
       vOut.Add('END:DAYLIGHT');
-      vOut.Add('END:VTIMEZONE');      First;
+      vOut.Add('END:VTIMEZONE');
+      }
+      First;
       while not EOF do
         begin
           vOut.Add('BEGIN:VEVENT');
@@ -268,19 +264,19 @@ begin
           vOut.Add('DTSTAMP:'+BuildISODate(FieldByName('TIMESTAMPD').AsDateTime));
           if FieldByName('ALLDAY').AsString='Y' then
             begin
-              vOut.Add('DTSTART:'+BuildISODate(trunc(FieldByName('STARTDATE').AsDateTime)));
-              vOut.Add('DTEND:'+BuildISODate(trunc(FieldByName('ENDDATE').AsDateTime)));
+              vOut.Add('DTSTART;VALUE=DATE:'+BuildISODate(FieldByName('STARTDATE').AsDateTime,True));
+              vOut.Add('DTEND;VALUE=DATE:'+BuildISODate(FieldByName('ENDDATE').AsDateTime,True));
             end
           else
             begin
-              vOut.Add('DTSTART:'+BuildISODate(FieldByName('STARTDATE').AsDateTime));
-              vOut.Add('DTEND:'+BuildISODate(FieldByName('ENDDATE').AsDateTime));
+              vOut.Add('DTSTART:'+BuildISODate(LocalTimeToGMT(FieldByName('STARTDATE').AsDateTime)));
+              vOut.Add('DTEND:'+BuildISODate(LocalTimeToGMT(FieldByName('ENDDATE').AsDateTime)));
             end;
-          vOut.Add('SUMMARY:'+FieldByName('SUMMARY').AsString);
+          vOut.Add('SUMMARY:'+SetValue(FieldByName('SUMMARY').AsString));
           if FieldByName('LOCATION').AsString <> '' then
-            vOut.Add('LOCATION:'+FieldByName('LOCATION').AsString);
+            vOut.Add('LOCATION:'+SetValue(FieldByName('LOCATION').AsString));
           if FieldByName('DESCR').AsString <> '' then
-            vOut.Add('DESCRIPTION:'+FieldByName('DESCR').AsString);
+            vOut.Add('DESCRIPTION:'+SetValue(FieldByName('DESCR').AsString));
           case trim(FieldByName('BUSYTYPE').AsString) of
           'T':vOut.Add('TRANSP:TRANSPARENT');
           'O':vOut.Add('TRANSP:OPAQUE');

@@ -62,7 +62,7 @@ type
   TLGetDirectoryList = function(aDir : string;aDepth : Integer;var aDirList : TLDirectoryList) : Boolean of object;
   TLGetCTag = function(aDir : string;var aCTag : Int64) : Boolean of object;
   TLFileEvent = function(aDir : string) : Boolean of object;
-  TLFileStreamEvent = function(aDir : string;Stream : TStream;var eTag : string) : Boolean of object;
+  TLFileStreamEvent = function(aDir : string;Stream : TStream;var eTag : string;var Result : TLHTTPStatus) : Boolean of object;
   TLFileStreamDateEvent = function(aDir : string;Stream : TStream;var FLastModified : TDateTime;var MimeType : string;var eTag : string) : Boolean of object;
   TLLoginEvent = function(aUser,aPassword : string) : Boolean of object;
   TLWebDAVServer = class(TLHTTPServer)
@@ -329,11 +329,13 @@ end;
 procedure TFileStreamInput.DoneInput;
 var
   FeTag : string;
+  FStatus: TLHTTPStatus;
 begin
   TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsNotAllowed;
+  FStatus := hsOK;
   if Assigned(Event) then
-    if Event(HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument),FStream,FeTag) then
-      TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsOK;
+    if Event(HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument),FStream,FeTag,FStatus) then
+      TLHTTPServerSocket(FSocket).FResponseInfo.Status:=FStatus;
   TMemoryStream(FStream).Clear;
   TLHTTPServerSocket(FSocket).StartResponse(Self);
 end;
