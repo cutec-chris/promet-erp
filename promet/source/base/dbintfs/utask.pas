@@ -1295,6 +1295,7 @@ begin
             Add('PROJECT',ftString,260,False);
             Add('LINK',ftString,200,False);
             Add('ORIGID',ftLargeInt,0,False);
+            Add('ORIGIDS',ftString,200,False);
             Add('CLASS',ftString,1,True);
             Add('DEPDONE',ftString,1,True);
             Add('PRIORITY',ftString,1,True);

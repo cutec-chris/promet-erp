@@ -26,7 +26,7 @@ uses
   lNet, uBaseDBInterface, md5,uData,
   pmimemessages,fileutil,lconvencoding,uBaseApplication,
   ulsvnserver, ulwebdavserver, uDocuments, Utils,lMimeTypes,lHTTPUtil,lCommon,lexthttp,
-  DateUtils,uimpvcal,uCalendar,uWiki,synautil,uBaseDbClasses,Variants;
+  DateUtils,uimpvcal,uCalendar,uWiki,synautil,uBaseDbClasses,Variants,utask;
 type
   TSVNServer = class(TBaseCustomApplication)
     procedure ServerAccess(AMessage: string);
@@ -196,6 +196,7 @@ var
   aDirs: TTree;
   aFullDir: String;
   IsCalendarUser: Boolean = false;
+  aTasks: TTaskList;
 begin
   Result := false;
   if aDir = '/' then
@@ -257,6 +258,7 @@ begin
           if (aDir = aItem.Name) or (aDir = '') then
             begin
               aItem.IsCalendar:=True;
+              aItem.IsTodoList:=True;
               aItem.IsCalendarUser:=IsCalendarUser;
               //Select last SQL_ID as ctag
               aCal := TCalendar.Create(nil,Data);
@@ -267,7 +269,7 @@ begin
               aCal.Open;
               aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
               //aItem.Properties.Values['D:getetag'] := Data.Users.Id.AsString;
-              aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
+              aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
               if Data.Users.FieldByName('EMAIL').AsString<>'' then
                 aItem.UserAdressSet.Add('mailto:'+Data.Users.FieldByName('EMAIL').AsString);
               aItem.UserAdressSet.Add('/calendars/');
@@ -291,6 +293,21 @@ begin
                       aDirList.Add(aItem);
                       aCal.Next;
                     end;
+                  aTasks := TTaskList.Create(nil,Data);
+                  aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
+                  aTasks.Open;
+                  while not aTasks.EOF do
+                    begin
+                      if aTasks.FieldByName('ORIGID').AsString<>'' then
+                        aItem := TLFile.Create(aTasks.FieldByName('ORIGID').AsString+'.ics')
+                      else
+                        aItem := TLFile.Create(aTasks.Id.AsString+'.ics');
+                      aItem.Properties.Values['D:getetag'] := aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
+                      aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vtodo';
+                      aDirList.Add(aItem);
+                      aTasks.Next;
+                    end;
+                  aTasks.Free;
                 end;
               aCal.Free;
             end
@@ -306,7 +323,7 @@ begin
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
                   aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
                   //aItem.Properties.Values['D:getetag'] := aDirs.Id.AsString;
-                  aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
+                  aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
                   aItem.CalendarHomeSet:=aDir;
                   if Assigned(aDirList) then
                     aDirList.Add(aItem)
@@ -383,6 +400,7 @@ var
   aFile: String;
   aParent,aDirPar : Variant;
   aDirs: TTree;
+  aTasks: TTaskList;
 begin
   if aDir = 'calendars/'+Data.Users.Text.AsString+'.ics' then
     begin
@@ -448,6 +466,25 @@ begin
           sl.Free;
         end;
       aCal.Free;
+      if (not result) and (aDir = 'home') then //check for taks
+        begin
+          aTasks := TTaskList.Create(nil,Data);
+          if IsNumeric(aFile) then
+            begin
+              aTasks.Select(aFile);
+              aTasks.Open;
+              Result := aTasks.Count=1;
+              if Result then
+                begin
+                  eTag:=aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
+                  sl := TStringList.Create;
+                  VTodoExport(aTasks,sl);
+                  sl.SaveToStream(Stream);
+                  sl.Free;
+                end;
+            end;
+          aTasks.Free;
+        end;
     end
 
   else
@@ -541,6 +578,7 @@ var
   aFile: String;
   aCal: TCalendar;
   sl: TStringList;
+  aTasks: TTaskList;
 begin
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
@@ -579,6 +617,9 @@ begin
             end;
           aParent := aDirs.Id.AsVariant;
         end;
+      sl := TStringList.Create;
+      Stream.Position:=0;
+      sl.LoadFromStream(Stream);
       aCal := TCalendar.Create(nil,Data);
       aCal.Filter(Data.QuoteField('ORIGID')+'='+Data.QuoteValue(aFile));
       if (aCal.Count=0) and IsNumeric(aFile) then
@@ -590,29 +631,52 @@ begin
       if Result then
         begin
           eTag:=aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
-          sl := TStringList.Create;
-          Stream.Position:=0;
-          sl.LoadFromStream(Stream);
           aCal.Edit;
           if not VCalImport(aCal,sl,True) then
             Result := False;
-          sl.Free;
         end
-      else //new file
+      else
         begin
-          Result := True;
-          aCal.Insert;
-          aCal.FieldByName('REF_ID_ID').AsVariant:=aParent;
-          sl := TStringList.Create;
-          Stream.Position:=0;
-          sl.LoadFromStream(Stream);
-          if not VCalImport(aCal,sl,True) then
-            result := False;
-          sl.Free;
-          eTag:=aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
-          FStatus:=hsCreated;
+          //todo ???
+          aTasks := TTaskList.Create(nil,Data);
+          aTasks.Filter(Data.QuoteField('ORIGID')+'='+Data.QuoteValue(aFile));
+          if (aTasks.Count=0) and IsNumeric(aFile) then
+            begin
+              aTasks.Select(aFile);
+              aTasks.Open;
+              Result := aTasks.Count=1;
+              if Result then  //edit task
+                begin
+                  eTag:=aTasks.Id.AsString+IntToStr(trunc(frac(atasks.TimeStamp.AsDateTime)*1000));
+                  aTasks.Edit;
+                  if not VTodoImport(aTasks,sl,True) then
+                    Result := False;
+                end
+              else if pos(':vtodo',lowercase(sl.Text))>0 then //new task
+                begin
+                  Result := True;
+                  aTasks.Insert;
+                  aTasks.FieldByName('REF_ID_ID').AsVariant:=aParent;
+                  if not VTodoImport(aTasks,sl,True) then
+                    result := False;
+                  eTag:=aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
+                  FStatus:=hsCreated;
+                end;
+            end;
+          atasks.Free;
+          if not result then //New file
+            begin
+              Result := True;
+              aCal.Insert;
+              aCal.FieldByName('REF_ID_ID').AsVariant:=aParent;
+              if not VCalImport(aCal,sl,True) then
+                result := False;
+              eTag:=aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+              FStatus:=hsCreated;
+            end;
         end;
       aCal.Free;
+      sl.Free;
     end
   else
     begin
