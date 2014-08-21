@@ -165,6 +165,12 @@ var
   aMSRes: TDOMElement;
   aDepth: Integer;
   bProperties: TStringList;
+  tmp: DOMString;
+  tmp1: String;
+  a: Integer;
+  Attr: TDOMNode;
+  aAttrPrefix: String;
+  aLocalName: String;
 
   procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D');
   var
@@ -186,14 +192,30 @@ var
     aStream : TStringStream;
     FLastModified : TDateTime;
     FMimeType,FeTag : string;
-    procedure RemoveProp(aProp : string);
+    function FindProp(aprop : string) : Integer;
     var
-      b: Integer;
+      b : Integer;
     begin
       b := 0;
       while b < aNotFoundProp.Count do
         begin
-          if pos(aProp,aNotFoundProp[b]) > 0 then
+          if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
+            begin
+              Result := b;
+              exit;
+            end
+          else inc(b);
+        end;
+      Result := -1;
+    end;
+    procedure RemoveProp(aProp : string);
+    var
+      b : Integer;
+    begin
+      b := 0;
+      while b < aNotFoundProp.Count do
+        begin
+          if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
             aNotFoundProp.Delete(b)
           else inc(b);
         end;
@@ -215,21 +237,19 @@ var
     aStream := TStringStream.Create('');
     if Assigned(TLWebDAVServer(Socket.Creator).FGet) then
       TLWebDAVServer(Socket.Creator).FGet(aPath,aStream,FLastModified,FMimeType,FeTag);
-    if (aNotFoundProp.IndexOf('D:getetag') > -1) and (FeTag<>'')  then
+    if (FindProp(':getetag') > -1) and (FeTag<>'')  then
       begin
-        aPropC := aDocument.CreateElement('D:getetag');
+        aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':getetag')]);
         aPropC.AppendChild(aDocument.CreateTextNode(FeTag));
         aProp.AppendChild(apropC);
-        while aNotFoundProp.IndexOf('D:getetag') > -1 do
-          aNotFoundProp.Delete(aNotFoundProp.IndexOf('D:getetag'));
+        removeProp(':getetag');
       end;
-    if (aNotFoundProp.IndexOf('C:calendar-data') > -1) and (aStream.DataString<>'')  then
+    if (FindProp(':calendar-data') > -1) and (aStream.DataString<>'')  then
       begin
-        aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar-data');
+        aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(':calendar-data')]);
         aPropC.AppendChild(aDocument.CreateTextNode(aStream.DataString));
         aProp.AppendChild(apropC);
-        while aNotFoundProp.IndexOf('C:calendar-data') > -1 do
-          aNotFoundProp.Delete(aNotFoundProp.IndexOf('C:calendar-data'));
+        removeProp(':calendar-data');
       end;
 
     aStream.Free;
@@ -245,18 +265,18 @@ var
         aPropStat.AppendChild(aProp);
         for a := 0 to aNotFoundProp.Count-1 do
           begin
-            case copy(aNotFoundProp[a],0,pos(':',aNotFoundProp[a])-1) of
-            'C':aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp[a]);
-            'CS':aPropC := aDocument.CreateElementNS('http://calendarserver.org/ns/',aNotFoundProp[a]);
+            case copy(aNotFoundProp.ValueFromIndex[a],0,pos(':',aNotFoundProp.ValueFromIndex[a])-1) of
+            'C':aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[a]);
+            'CS':aPropC := aDocument.CreateElementNS('http://calendarserver.org/ns/',aNotFoundProp.ValueFromIndex[a]);
             else
-              aPropC := aDocument.CreateElement(aNotFoundProp[a]);
+              aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[a]);
             end;
             aProp.AppendChild(aPropC);
-            writeln('Property not found:'+aNotFoundProp[a]);
+            writeln('Property not found:'+aNotFoundProp.ValueFromIndex[a]);
           end;
         aStatus := aDocument.CreateElement('D:status');
         aPropStat.AppendChild(aStatus);
-          aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsNotFound)));
+        aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsNotFound)));
       end;
     aNotFoundProp.Free;
   end;
@@ -279,7 +299,32 @@ begin
       aPropNode := TDOMElement(aDocument.DocumentElement.FindNode('D:prop'));
       for i := 0 to aPropNode.ChildNodes.Count-1 do
         begin
-          aProperties.Add(aPropNode.ChildNodes.Item[i].NodeName);
+          tmp := aPropNode.ChildNodes.Item[i].NodeName;
+          tmp := copy(tmp,pos(':',tmp)+1,length(tmp));
+          tmp1 := copy(aPropNode.ChildNodes.Item[i].NodeName,0,pos(':',aPropNode.ChildNodes.Item[i].NodeName)-1);
+          if aPropNode.ChildNodes.Item[i].NamespaceURI<>'' then
+            tmp := aPropNode.ChildNodes.Item[i].NamespaceURI+':'+tmp
+          else
+            begin
+              for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
+                begin
+                  Attr := aDocument.DocumentElement.Attributes[a];
+                  aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
+                  aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
+                  if (aAttrPrefix = 'xmlns') and (aLocalName = tmp1) then
+                    begin
+                      case lowercase(Attr.NodeValue) of
+                      'dav:':tmp := 'D:'+tmp;
+                      'urn:ietf:params:xml:ns:caldav:':tmp := 'C:'+tmp;
+                      'http://calendarserver.org/ns/:':tmp := 'CS:'+tmp;
+                      end;
+                    end;
+                end;
+              if pos(':',tmp)=0 then
+                tmp := tmp1+':'+tmp;
+            end;
+          aProperties.Values[lowercase(tmp)]:=aPropNode.ChildNodes.Item[i].NodeName;
+          writeln('Wanted:'+tmp+'='+aPropNode.ChildNodes.Item[i].NodeName);
         end;
       aPropNode := TDOMElement(aDocument.DocumentElement);
       for i := 0 to aPropNode.ChildNodes.Count-1 do

@@ -21,7 +21,7 @@ unit uimpvcal;
 interface
 uses
   {$ifdef WINDOWS}Windows,{$else}UnixUtil,{$endif}Classes, SysUtils, uVTools, uCalendar,
-  lazutf8sysutils,utask;
+  lazutf8sysutils,utask,uBaseApplication;
 function VCalImport(Calendar : TCalendar;vIn : TStrings;IsUTF8 : Boolean = False) : Boolean;
 function VCalExport(Calendar : TCalendar;vOut : TStrings) : Boolean;
 function VTodoImport(Task : TTaskList;vIn : TStrings;IsUTF8 : Boolean = False) : Boolean;
@@ -338,8 +338,11 @@ begin
                 FieldByName('SUMMARY').AsString := GetValue(tmp,IsUTF8)
               else if IsField('DESCRIPTION',tmp) then
                 FieldByName('DESC').AsString := GetValue(tmp,IsUTF8)
-              else //debugln('Field Unknown:'+tmp)
-              ;
+              else
+                begin
+                  with BaseApplication as IbaseApplication do
+                    debug('Field Unknown:'+tmp)
+                end;
             end;
         end;
     end;
