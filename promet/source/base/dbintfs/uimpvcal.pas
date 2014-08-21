@@ -330,7 +330,7 @@ begin
                   FieldByName('STARTDATE').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp)));
                   StartTimed := ConvertISODate(GetValue(tmp,IsUTF8))=trunc(ConvertISODate(GetValue(tmp)));
                 end
-              else if IsField('DTEND',tmp) then
+              else if IsField('DUE',tmp) then
                 begin
                   FieldByName('DUEDATE').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp)));
                 end
@@ -338,6 +338,49 @@ begin
                 FieldByName('SUMMARY').AsString := GetValue(tmp,IsUTF8)
               else if IsField('DESCRIPTION',tmp) then
                 FieldByName('DESC').AsString := GetValue(tmp,IsUTF8)
+              else if IsField('CATEGORIES',tmp) then
+                FieldByName('CATEGORY').AsString := GetValue(tmp,IsUTF8)
+              else if IsField('PRIORITY',tmp) then
+                FieldByName('PRIORITY').AsString := GetValue(tmp,IsUTF8)
+              else if IsField('STATUS',tmp) then
+                begin
+                  case GetValue(tmp,IsUTF8) of
+                  'IN-PROCESS':
+                    begin
+                      if FieldByName('STARTEDAT').IsNull then
+                        FieldByName('STARTEDAT').AsDateTime:=Now();
+                      if FieldByName('COMPLETED').AsString='Y' then
+                        FieldByName('COMPLETED').AsString:='N';
+                      if FieldByName('NEEDSACTION').AsString<>'N' then
+                        FieldByName('NEEDSACTION').AsString:='N';
+                    end;
+                  'COMPLETED':
+                    begin
+                      if FieldByName('COMPLETED').AsString<>'Y' then
+                        FieldByName('COMPLETED').AsString:='Y';
+                      if FieldByName('NEEDSACTION').AsString<>'N' then
+                        FieldByName('NEEDSACTION').AsString:='N';
+                    end;
+                  'NEEDS-ACTION':
+                    begin
+                      if FieldByName('NEEDSACTION').AsString<>'Y' then
+                        FieldByName('NEEDSACTION').AsString:='Y';
+                    end;
+                  'CANCELLED':
+                    begin
+                      if FieldByName('COMPLETED').AsString<>'Y' then
+                        FieldByName('COMPLETED').AsString:='Y';
+                      if FieldByName('NEEDSACTION').AsString<>'N' then
+                        FieldByName('NEEDSACTION').AsString:='N';
+                    end;
+                  end;
+                end
+              else if IsField('PERCENT-COMPLETE',tmp) then
+                begin
+                  FieldByName('PERCENT').AsInteger := StrToIntDef(GetValue(tmp,IsUTF8),0);
+                  if FieldByName('STARTEDAT').IsNull then
+                    FieldByName('STARTEDAT').AsDateTime:=Now();
+                end
               else
                 begin
                   with BaseApplication as IbaseApplication do
@@ -381,10 +424,33 @@ begin
           if FieldByName('STARTDATE').AsString<>'' then
             vOut.Add('DTSTART:'+BuildISODate(LocalTimeToGMT(FieldByName('STARTDATE').AsDateTime)));
           if FieldByName('DUEDATE').AsString<>'' then
-            vOut.Add('DTEND:'+BuildISODate(LocalTimeToGMT(FieldByName('DUEDATE').AsDateTime)));
+            vOut.Add('DUE:'+BuildISODate(LocalTimeToGMT(FieldByName('DUEDATE').AsDateTime)));
           vOut.Add('SUMMARY:'+SetValue(FieldByName('SUMMARY').AsString));
           if FieldByName('DESC').AsString <> '' then
             vOut.Add('DESCRIPTION:'+SetValue(FieldByName('DESC').AsString));
+          if FieldByName('CATEGORY').AsString <> '' then
+            vOut.Add('CATEGORIES:'+SetValue(FieldByName('CATEGORY').AsString));
+          if (FieldByName('COMPLETED').AsString<>'Y') and FieldByName('STARTEDAT').IsNull then
+            begin
+              if FieldByName('NEEDSACTION').AsString='Y' then
+                vOut.Add('STATUS:'+SetValue('NEEDS-ACTION'));
+              vOut.Add('PERCENT-COMPLETE:'+SetValue(FieldByName('PERCENT').AsString));
+            end
+          else if FieldByName('COMPLETED').AsString<>'Y' then
+            begin
+              if FieldByName('NEEDSACTION').AsString='Y' then
+                vOut.Add('STATUS:'+SetValue('NEEDS-ACTION'))
+              else
+                vOut.Add('STATUS:'+SetValue('IN-PROCESS'));
+              vOut.Add('PERCENT-COMPLETE:'+SetValue(FieldByName('PERCENT').AsString));
+            end
+          else if FieldByName('COMPLETED').AsString='Y' then
+            begin
+              vOut.Add('STATUS:'+SetValue('COMPLETED'));
+              vOut.Add('PERCENT-COMPLETE:'+SetValue('100'));
+            end
+          else if FieldByName('NEEDSACTION').AsString='Y' then
+            vOut.Add('STATUS:'+SetValue('NEEDS-ACTION'));
           vOut.Add('END:VTODO');
           Next;
         end;

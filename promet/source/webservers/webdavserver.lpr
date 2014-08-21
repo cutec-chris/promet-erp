@@ -267,7 +267,7 @@ begin
               aCal.SortFields:='TIMESTAMPD';
               aCal.SortDirection:=sdDescending;
               aCal.Open;
-              aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
+              aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
               //aItem.Properties.Values['D:getetag'] := Data.Users.Id.AsString;
               aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
               if Data.Users.FieldByName('EMAIL').AsString<>'' then
@@ -321,7 +321,7 @@ begin
                   aItem.IsCalendarUser:=IsCalendarUser;
                   aCal := TCalendar.Create(nil,Data);
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
-                  aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString;
+                  aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                   //aItem.Properties.Values['D:getetag'] := aDirs.Id.AsString;
                   aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
                   aItem.CalendarHomeSet:=aDir;
