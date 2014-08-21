@@ -223,12 +223,12 @@ var
   begin
     aNotFoundProp := TStringList.Create;
     aNotFoundProp.AddStrings(Properties);
-    aResponse := aDocument.CreateElement('D:response');
+    aResponse := aDocument.CreateElement(prefix+':response');
     aParent.AppendChild(aResponse);
-    aHref := aDocument.CreateElement('D:href');
+    aHref := aDocument.CreateElement(prefix+':href');
     aResponse.AppendChild(aHref);
     aHRef.AppendChild(aDocument.CreateTextNode(aPath));
-    aPropStat := aDocument.CreateElement('D:propstat');
+    aPropStat := aDocument.CreateElement(prefix+':propstat');
     aResponse.AppendChild(aPropStat);
     aProp := aDocument.CreateElementNS(ns,prefix+':'+'prop');
     aProp.Prefix:=prefix;
@@ -253,12 +253,12 @@ var
       end;
 
     aStream.Free;
-    aStatus := aDocument.CreateElement('D:status');
+    aStatus := aDocument.CreateElement(prefix+':status');
     aPropStat.AppendChild(aStatus);
     aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsOK)));
     if aNotFoundProp.Count>0 then
       begin
-        aPropStat := aDocument.CreateElement('D:propstat');
+        aPropStat := aDocument.CreateElement(prefix+':propstat');
         aResponse.AppendChild(aPropStat);
         aProp := aDocument.CreateElementNS(ns,prefix+':'+'prop');
         aProp.Prefix:=prefix;
@@ -274,7 +274,7 @@ var
             aProp.AppendChild(aPropC);
             writeln('Property not found:'+aNotFoundProp.ValueFromIndex[a]);
           end;
-        aStatus := aDocument.CreateElement('D:status');
+        aStatus := aDocument.CreateElement(prefix+':status');
         aPropStat.AppendChild(aStatus);
         aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsNotFound)));
       end;
@@ -296,7 +296,7 @@ begin
     begin
       if trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1)) <> '' then
         aPrefix := trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
-      aPropNode := TDOMElement(aDocument.DocumentElement.FindNode('D:prop'));
+      aPropNode := TDOMElement(aDocument.DocumentElement.FindNode(aPrefix+':prop'));
       for i := 0 to aPropNode.ChildNodes.Count-1 do
         begin
           tmp := aPropNode.ChildNodes.Item[i].NodeName;
@@ -334,7 +334,7 @@ begin
         end;
       aDocument.DocumentElement.Free;
     end;
-  aMSRes := aDocument.CreateElementNS('DAV:','D:multistatus');
+  aMSRes := aDocument.CreateElementNS('DAV:',aPrefix+':multistatus');
   aDocument.AppendChild(aMSRes);
   aDepth := StrToIntDef(TLHTTPServerSocket(FSocket).Parameters[hpDepth],0);
   for i := 0 to aItems.Count-1 do
@@ -588,15 +588,15 @@ var
   begin
     aNotFoundProp := TStringList.Create;
     aNotFoundProp.AddStrings(Properties);
-    aResponse := aDocument.CreateElement('D:response');
+    aResponse := aDocument.CreateElement(prefix+':response');
     aParent.AppendChild(aResponse);
-    aHref := aDocument.CreateElement('D:href');
+    aHref := aDocument.CreateElement(prefix+':href');
     RemoveProp(':href');
     aResponse.AppendChild(aHref);
     if not (Assigned(aFile) and (not aFile.IsDir)) then
       if copy(aPath,length(aPath),1) <> '/' then aPath := aPath+'/';
     aHRef.AppendChild(aDocument.CreateTextNode(aPath));
-    aPropStat := aDocument.CreateElement('D:propstat');
+    aPropStat := aDocument.CreateElement(prefix+':propstat');
     aResponse.AppendChild(aPropStat);
     aProp := aDocument.CreateElementNS(ns,prefix+':'+'prop');
     aProp.Prefix:=prefix;
@@ -616,7 +616,7 @@ var
               begin
                 aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':owner')]);
                 aProp.AppendChild(apropD);
-                aHref := aDocument.CreateElement('D:href');
+                aHref := aDocument.CreateElement(prefix+':href');
                 aPropD.AppendChild(aHref);
                 aHRef.AppendChild(aDocument.CreateTextNode(aPath+'user/'));
                 RemoveProp(':owner');
@@ -625,7 +625,7 @@ var
               begin
                 aPropD := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(':calendar-home-set')]);
                 aProp.AppendChild(apropD);
-                aHref := aDocument.CreateElement('D:href');
+                aHref := aDocument.CreateElement(prefix+':href');
                 aPropD.AppendChild(aHref);
                 aHRef.AppendChild(aDocument.CreateTextNode(aFile.CalendarHomeSet));
                 RemoveProp(':calendar-home-set');
@@ -637,7 +637,7 @@ var
                 aProp.AppendChild(apropD);
                 for b := 0 to aFile.UserAdressSet.Count-1 do
                   begin
-                    aHref := aDocument.CreateElement('D:href');
+                    aHref := aDocument.CreateElement(prefix+':href');
                     aPropD.AppendChild(aHref);
                     aHRef.AppendChild(aDocument.CreateTextNode(aFile.UserAdressSet[b]));
                   end;
@@ -647,7 +647,7 @@ var
               begin
                 aPropD := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(':schedule-inbox-URL')]);
                 aProp.AppendChild(apropD);
-                aHref := aDocument.CreateElement('D:href');
+                aHref := aDocument.CreateElement(prefix+':href');
                 aPropD.AppendChild(aHref);
                 aHRef.AppendChild(aDocument.CreateTextNode(aPath+'outbox/'));
                 RemoveProp(':schedule-inbox-URL');
@@ -656,7 +656,7 @@ var
               begin
                 aPropD := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(':schedule-outbox-URL')]);
                 aProp.AppendChild(apropD);
-                aHref := aDocument.CreateElement('D:href');
+                aHref := aDocument.CreateElement(prefix+':href');
                 aPropD.AppendChild(aHref);
                 aHRef.AppendChild(aDocument.CreateTextNode(aPath+'inbox/'));
                 RemoveProp(':schedule-outbox-URL');
@@ -669,21 +669,23 @@ var
                 if FindProp(':supported-report-set') > -1 then
                   begin
                     aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':supported-report-set')]);
+                    aPrefix := copy(aPropD.NodeName,0,pos(':',aPropD.NodeName)-1);
                     aProp.AppendChild(aPropD);
-                    aPropE := aPropD.AppendChild(aDocument.CreateElement('D:supported-report'));
-                    aPropF := aPropE.AppendChild(aDocument.CreateElement('D:report'));
-                    aPropG := aPropF.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar-multiget'));
+                    aPropE := aPropD.AppendChild(aDocument.CreateElement(prefix+':supported-report'));
+                    aPropF := aPropE.AppendChild(aDocument.CreateElement(prefix+':report'));
+                    aPropG := aPropF.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aPrefix+':calendar-multiget'));
                     RemoveProp(':supported-report-set');
                   end;
                 if FindProp(':supported-calendar-component-set') > -1 then
                   begin
                     aPropD := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(':supported-calendar-component-set')]);
                     aProp.AppendChild(aPropD);
-                    aPropE := aPropD.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:comp'));
+                    aPrefix := copy(aPropD.NodeName,0,pos(':',aPropD.NodeName)-1);
+                    aPropE := aPropD.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aPrefix+':comp'));
                     TDOMElement(aPropE).SetAttribute('name','VEVENT');
                     if aFile.IsTodoList then
                       begin
-                        aPropE := aPropD.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:comp'));
+                        aPropE := aPropD.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aPrefix+':comp'));
                         TDOMElement(aPropE).SetAttribute('name','VTODO');
                       end;
                     RemoveProp(':supported-calendar-component-set');
@@ -693,7 +695,7 @@ var
         if aFile.IsDir then
           begin
             if Assigned(aPropC) then
-              aPropC.AppendChild(aDocument.CreateElement('D:collection'));
+              aPropC.AppendChild(aDocument.CreateElement(prefix+':collection'));
             if not aFile.IsCalendar then
               begin
                 if (FindProp('getcontenttype') > -1)  then
@@ -742,24 +744,24 @@ var
             aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp('resourcetype')]);
             RemoveProp('resourcetype');
             aProp.AppendChild(aPropC);
-            aPropC.AppendChild(aDocument.CreateElement('D:collection'));
+            aPropC.AppendChild(aDocument.CreateElement(prefix+':collection'));
           end;
       end;
     if (FindProp(':supportedlock') > -1)  then
       begin
         aLock := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':supportedlock')]);
-        aLockEntry := aDocument.CreateElement('D:lockentry');
+        aLockEntry := aDocument.CreateElement(prefix+':lockentry');
         aLock.AppendChild(aLockEntry);
-        aLockEntry.AppendChild(aDocument.CreateElement('D:lockscope').AppendChild(aDocument.CreateElement('D:exclusive')));
-        aLockEntry.AppendChild(aDocument.CreateElement('D:locktype').AppendChild(aDocument.CreateElement('D:write')));
+        aLockEntry.AppendChild(aDocument.CreateElement(prefix+':lockscope').AppendChild(aDocument.CreateElement(prefix+':exclusive')));
+        aLockEntry.AppendChild(aDocument.CreateElement(prefix+':locktype').AppendChild(aDocument.CreateElement(prefix+':write')));
         aProp.AppendChild(aLock);
       end;
-    aStatus := aDocument.CreateElement('D:status');
+    aStatus := aDocument.CreateElement(prefix+':status');
     aPropStat.AppendChild(aStatus);
     aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsOK)));
     if aNotFoundProp.Count>0 then
       begin
-        aPropStat := aDocument.CreateElement('D:propstat');
+        aPropStat := aDocument.CreateElement(prefix+':propstat');
         aResponse.AppendChild(aPropStat);
         aProp := aDocument.CreateElementNS(ns,prefix+':'+'prop');
         aProp.Prefix:=prefix;
@@ -775,7 +777,7 @@ var
             aProp.AppendChild(aPropC);
             writeln('Property not found:'+aNotFoundProp.ValueFromIndex[a]);
           end;
-        aStatus := aDocument.CreateElement('D:status');
+        aStatus := aDocument.CreateElement(prefix+':status');
         aPropStat.AppendChild(aStatus);
           aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsNotFound)));
       end;
@@ -814,7 +816,7 @@ begin
                   if (aAttrPrefix = 'xmlns') and (aLocalName = tmp1) then
                     begin
                       case lowercase(Attr.NodeValue) of
-                      'dav:':tmp := 'D:'+tmp;
+                      'dav:':tmp := aPrefix+':'+tmp;
                       'urn:ietf:params:xml:ns:caldav:':tmp := 'C:'+tmp;
                       'http://calendarserver.org/ns/:':tmp := 'CS:'+tmp;
                       end;
@@ -828,7 +830,7 @@ begin
         end;
       aDocument.DocumentElement.Free;
     end;
-  aMSRes := aDocument.CreateElementNS('DAV:','D:multistatus');
+  aMSRes := aDocument.CreateElementNS('DAV:',aPrefix+':multistatus');
   aDocument.AppendChild(aMSRes);
   Path := HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument);
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
@@ -999,4 +1001,4 @@ begin
   inherited Destroy;
 end;
 end.
-
+

@@ -221,7 +221,6 @@ begin
       Result := True;
       aDirList := TLDirectoryList.Create;
       aItem := TLFile.Create('calendars',True);
-      aItem.IsCalendar:=True;
       aDocuments := TDocuments.Create(nil,Data);
       aDocuments.Select(1,'D',0);
       aDocuments.Open;
@@ -285,8 +284,9 @@ begin
               aCal.SortDirection:=sdDescending;
               aCal.Open;
               aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
-              //aItem.Properties.Values['D:getetag'] := Data.Users.Id.AsString;
+              aItem.Properties.Values['D:getetag'] := Data.Users.Id.AsString;
               aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
+              aItem.Properties.Values['D:displayname'] := aItem.Name;
               if Data.Users.FieldByName('EMAIL').AsString<>'' then
                 aItem.UserAdressSet.Add('mailto:'+Data.Users.FieldByName('EMAIL').AsString);
               aItem.UserAdressSet.Add('/calendars/');
@@ -339,8 +339,9 @@ begin
                   aCal := TCalendar.Create(nil,Data);
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
                   aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
-                  //aItem.Properties.Values['D:getetag'] := aDirs.Id.AsString;
+                  aItem.Properties.Values['D:getetag'] := aDirs.Id.AsString;
                   aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
+                  aItem.Properties.Values['D:displayname'] := aItem.Name;
                   aItem.CalendarHomeSet:=aDir;
                   if Assigned(aDirList) then
                     aDirList.Add(aItem)
@@ -389,7 +390,7 @@ begin
           aDir := copy(aDir,0,length(aDir)-1);
           aFile := HTTPDecode(copy(aDir,rpos('/',aDir)+1,length(aDir)));
           aDir := copy(aDir,0,rpos('/',aDir));
-          if (aDir = '') or (aDir = '/') or aDocuments.OpenPath(aDir,'/') then
+          if ((aDir = '') or (aDir = '/') or aDocuments.OpenPath(aDir,'/')) and (aDocuments.Active) then
             begin
               aDocuments.DataSet.First;
               while not aDocuments.DataSet.EOF do
@@ -804,7 +805,7 @@ begin
   while not Terminated do
     begin
       Server.CallAction;
-      Sleep(10);
+      Sleep(1);
     end;
   // stop program loop
   Terminate;
@@ -840,4 +841,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+
