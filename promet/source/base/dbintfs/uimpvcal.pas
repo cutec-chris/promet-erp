@@ -342,6 +342,12 @@ begin
                 FieldByName('CATEGORY').AsString := GetValue(tmp,IsUTF8)
               else if IsField('PRIORITY',tmp) then
                 FieldByName('PRIORITY').AsString := GetValue(tmp,IsUTF8)
+              else if IsField('COMPLETED',tmp) then
+                begin
+                  if FieldByName('COMPLETED').AsString<>'Y' then
+                    FieldByName('COMPLETED').AsString:='Y';
+                  FieldByName('COMPLETEDAT').AsDateTime := GMTToLocalTime(ConvertISODate(GetValue(tmp)));
+                end
               else if IsField('STATUS',tmp) then
                 begin
                   case GetValue(tmp,IsUTF8) of

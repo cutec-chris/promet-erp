@@ -102,6 +102,7 @@ var
   aParent,aDirPar : Variant;
   aDirs: TTree;
   aCal: TCalendar;
+  aTasks: TTaskList;
 begin
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
@@ -151,6 +152,22 @@ begin
       if Result then
         begin
           aCal.Delete;
+        end
+      else
+        begin
+          aTasks := TTaskList.Create(nil,Data);
+          aTasks.Filter(Data.QuoteField('ORIGIDS')+'='+Data.QuoteValue(aFile));
+          if (aTasks.Count=0) and IsNumeric(aFile) then
+            begin
+              aTasks.Select(aFile);
+              aTasks.Open;
+              Result := aTasks.Count=1;
+              if Result then  //edit task
+                begin
+                  atasks.Delete;
+                end
+            end;
+          aTasks.Free;
         end;
       aCal.Free;
     end
