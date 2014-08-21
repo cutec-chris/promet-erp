@@ -215,7 +215,24 @@ begin
                   end;
                   FieldByName('STATUS').Asstring := tmp;
                 end
-              else //debugln('Field Unknown:'+tmp)
+              else if IsField('RRULE',tmp) then
+                begin
+                  //rtNone=0, rtDaily, rtWeekly, rtMonthlyByDay, rtMonthlyByDate,rtYearlyByDay, rtYearlyByDate, rtCustom
+                  if pos('FREQ=DAILY',tmp)>0 then
+                    FieldByName('ROTATION').AsInteger:=1
+                  else if pos('FREQ=WEEKLY',tmp)>0 then
+                    FieldByName('ROTATION').AsInteger:=2
+                  else if pos('FREQ=MONTHLY',tmp)>0 then
+                    FieldByName('ROTATION').AsInteger:=4
+                  else if pos('FREQ=YEARLY',tmp)>0 then
+                    FieldByName('ROTATION').AsInteger:=6
+                  else FieldByName('ROTATION').AsInteger:=0;
+                end
+              else
+                begin
+                  with BaseApplication as IbaseApplication do
+                    debug('Field Unknown:'+tmp)
+                end;
               ;
             end;
         end;
@@ -279,6 +296,15 @@ begin
             vOut.Add('LOCATION:'+SetValue(FieldByName('LOCATION').AsString));
           if FieldByName('DESCR').AsString <> '' then
             vOut.Add('DESCRIPTION:'+SetValue(FieldByName('DESCR').AsString));
+          if FieldByName('ROTATION').AsInteger <> 0 then
+            begin
+              case FieldByName('ROTATION').AsInteger of
+              1:vOut.Add('RRULE:FREQ=DAILY');
+              2:vOut.Add('RRULE:FREQ=WEEKLY');
+              4:vOut.Add('RRULE:FREQ=MONTHLY');
+              6:vOut.Add('RRULE:FREQ=YEARLY');
+              end;
+            end;
           case trim(FieldByName('BUSYTYPE').AsString) of
           'T':vOut.Add('TRANSP:TRANSPARENT');
           'O':vOut.Add('TRANSP:OPAQUE');
