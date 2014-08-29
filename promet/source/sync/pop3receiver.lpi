@@ -53,7 +53,6 @@
       <Unit0>
         <Filename Value="pop3receiver.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="pop3receiver"/>
       </Unit0>
     </Units>
   </ProjectOptions>
@@ -76,12 +75,6 @@
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="1">

@@ -41,7 +41,9 @@ begin
   if (domain = '') or (user = '') then
     exit;  //invalid address format
   smtp:=tsmtpsend.create;
-  smtp.Timeout:=1000;
+  smtp.Timeout:=300;
+  smtp.AutoTLS:=False;
+  smtp.FullSSL:=False;
   mailservers:=tstringlist.create;
   dnsservers:=tstringlist.create;
   try

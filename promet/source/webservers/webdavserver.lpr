@@ -106,10 +106,10 @@ var
 begin
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
-  if copy(aDir,0,10) = '/calendars' then
+  if copy(aDir,0,7) = '/caldav' then
     begin
       aFullDir := aDir;
-      aDir := copy(aDir,12,length(aDir));
+      aDir := copy(aDir,9,length(aDir));
       if copy(aDir,length(aDir),1) = '/' then
         aDir := copy(aDir,0,length(aDir)-1);
       aFile := StringReplace(copy(aDir,rpos('/',aDir)+1,length(aDir)),'.ics','',[]);
@@ -220,18 +220,23 @@ begin
     begin
       Result := True;
       aDirList := TLDirectoryList.Create;
-      aItem := TLFile.Create('calendars',True);
-      aDocuments := TDocuments.Create(nil,Data);
-      aDocuments.Select(1,'D',0);
-      aDocuments.Open;
-      AddDocumentsToFileList(aDirList,aDocuments);
-      aDocuments.Free;
-      aDirList.Add(aItem);
+      if aDepth>0 then
+        begin
+          aDocuments := TDocuments.Create(nil,Data);
+          aDocuments.Select(1,'D',0);
+          aDocuments.Open;
+          AddDocumentsToFileList(aDirList,aDocuments);
+          aDocuments.Free;
+          aItem := TLFile.Create('caldav',True);
+          aDirList.Add(aItem);
+          aItem := TLFile.Create('ical',True);
+          aDirList.Add(aItem);
+        end;
     end
-  else if copy(aDir,0,10) = '/calendars' then
+  else if copy(aDir,0,7) = '/caldav' then
     begin
       aFullDir := aDir;
-      aDir := copy(aDir,12,length(aDir));
+      aDir := copy(aDir,9,length(aDir));
       if copy(aDir,length(aDir),1) = '/' then
         aDir := copy(aDir,0,length(aDir)-1);
       if Data.Users.DataSet.Active then
@@ -239,29 +244,6 @@ begin
           if aDir = '' then
             aDirList := TLDirectoryList.Create
           else aDirList:=nil;
-          //Add ics file
-          aItem := TLFile.Create(Data.Users.Text.AsString+'.ics',False);
-          if (aDir = aItem.Name) or (aDir = '') then
-            begin
-              aItem.Properties.Values['getcontenttype'] := 'text/calendar';
-              aItem.Properties.Values['creationdate'] := BuildISODate(Now());
-              aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
-              sl := TStringList.Create;
-              aCal := TCalendar.Create(nil,Data);
-              aCal.SelectByUser(Data.Users.Accountno.AsString);
-              aCal.Open;
-              VCalExport(aCal,sl);
-              aCal.Free;
-              Stream := TMemoryStream.Create;
-              sl.SaveToStream(Stream);
-              aItem.Properties.Values['getcontentlength'] := IntToStr(Stream.Size);
-              Stream.Free;
-              sl.Free;
-              if Assigned(aDirList) then
-                aDirList.Add(aItem)
-              else aDirList := aItem;
-            end
-          else aItem.Free;
           if (copy(aDir,RPos('/',aDir)+1,length(aDir)) = 'user') then
             begin
               IsCalendarUser := True;
@@ -269,7 +251,7 @@ begin
             end;
           //Add CalDAV Calendars
           aDirs := TTree.Create(nil,Data);
-          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
+          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('A'));
           aItem := TLFile.Create('home',True);
           if (aDir = aItem.Name) or (aDir = '') then
             begin
@@ -289,8 +271,8 @@ begin
               aItem.Properties.Values['D:displayname'] := aItem.Name;
               if Data.Users.FieldByName('EMAIL').AsString<>'' then
                 aItem.UserAdressSet.Add('mailto:'+Data.Users.FieldByName('EMAIL').AsString);
-              aItem.UserAdressSet.Add('/calendars/');
-              aItem.CalendarHomeSet:='/calendars/';
+              aItem.UserAdressSet.Add('/caldav/');
+              aItem.CalendarHomeSet:='/caldav/';
               if Assigned(aDirList) then
                 aDirList.Add(aItem)
               else aDirList := aItem;
@@ -373,36 +355,67 @@ begin
         end
       else Result := False;
     end
+  else if copy(aDir,0,5) = '/ical' then
+    begin
+      aFullDir := aDir;
+      aDir := copy(aDir,7,length(aDir));
+      //Add ics file
+      aItem := TLFile.Create(Data.Users.Text.AsString+'.ics',False);
+      if (aDir = aItem.Name) or (aDir = '') then
+        begin
+          aItem.Properties.Values['getcontenttype'] := 'text/calendar';
+          aItem.Properties.Values['creationdate'] := BuildISODate(Now());
+          aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
+          sl := TStringList.Create;
+          aCal := TCalendar.Create(nil,Data);
+          aCal.SelectByUser(Data.Users.Accountno.AsString);
+          aCal.Open;
+          VCalExport(aCal,sl);
+          aCal.Free;
+          Stream := TMemoryStream.Create;
+          sl.SaveToStream(Stream);
+          aItem.Properties.Values['getcontentlength'] := IntToStr(Stream.Size);
+          Stream.Free;
+          sl.Free;
+          if Assigned(aDirList) then
+            aDirList.Add(aItem)
+          else aDirList := aItem;
+        end
+      else aItem.Free;
+    end
   else
     begin
       aDirList := TLDirectoryList.Create;
-      aDocuments := TDocuments.Create(nil,Data);
-      aDocuments.Select(1,'D',0);
-      if copy(aDir,length(aDir),1) <> '/' then
-        aDir := aDir+'/';
-      if aDocuments.OpenPath(aDir,'/') then
+      if aDepth>0 then
         begin
-          AddDocumentsToFileList(aDirList,aDocuments);
-          Result := True;
-        end
-      else
-        begin
-          aDir := copy(aDir,0,length(aDir)-1);
-          aFile := HTTPDecode(copy(aDir,rpos('/',aDir)+1,length(aDir)));
-          aDir := copy(aDir,0,rpos('/',aDir));
-          if ((aDir = '') or (aDir = '/') or aDocuments.OpenPath(aDir,'/')) and (aDocuments.Active) then
+          aDocuments := TDocuments.Create(nil,Data);
+          aDocuments.Select(1,'D',0);
+          if copy(aDir,length(aDir),1) <> '/' then
+            aDir := aDir+'/';
+          if aDocuments.OpenPath(aDir,'/') then
             begin
-              aDocuments.DataSet.First;
-              while not aDocuments.DataSet.EOF do
-                begin
-                  if aDocuments.FileName = aFile then
-                    AddDocumentToFileList(aDirList,aDocuments);
-                  aDocuments.DataSet.Next;
-                end;
+              AddDocumentsToFileList(aDirList,aDocuments);
               Result := True;
+            end
+          else
+            begin
+              aDir := copy(aDir,0,length(aDir)-1);
+              aFile := HTTPDecode(copy(aDir,rpos('/',aDir)+1,length(aDir)));
+              aDir := copy(aDir,0,rpos('/',aDir));
+              if ((aDir = '') or (aDir = '/') or aDocuments.OpenPath(aDir,'/')) and (aDocuments.Active) then
+                begin
+                  aDocuments.DataSet.First;
+                  while not aDocuments.DataSet.EOF do
+                    begin
+                      if aDocuments.FileName = aFile then
+                        AddDocumentToFileList(aDirList,aDocuments);
+                      aDocuments.DataSet.Next;
+                    end;
+                  Result := True;
+                end;
             end;
+          aDocuments.Free;
         end;
-      aDocuments.Free;
     end;
 end;
 function TSVNServer.ServerGetFile(aDir: string; Stream: TStream;
@@ -420,7 +433,7 @@ var
   aDirs: TTree;
   aTasks: TTaskList;
 begin
-  if aDir = 'calendars/'+Data.Users.Text.AsString+'.ics' then
+  if aDir = 'ical/'+Data.Users.Text.AsString+'.ics' then
     begin
       sl := TStringList.Create;
       aCal := TCalendar.Create(nil,Data);
@@ -432,10 +445,10 @@ begin
       sl.Free;
       Result := True;
     end
-  else  if copy(aDir,0,10) = '/calendars' then
+  else  if copy(aDir,0,7) = '/caldav' then
     begin
       aFullDir := aDir;
-      aDir := copy(aDir,12,length(aDir));
+      aDir := copy(aDir,9,length(aDir));
       if copy(aDir,length(aDir),1) = '/' then
         aDir := copy(aDir,0,length(aDir)-1);
       aFile := StringReplace(copy(aDir,rpos('/',aDir)+1,length(aDir)),'.ics','',[]);
@@ -600,10 +613,10 @@ var
 begin
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
-  if copy(aDir,0,10) = '/calendars' then
+  if copy(aDir,0,7) = '/caldav' then
     begin
       aFullDir := aDir;
-      aDir := copy(aDir,12,length(aDir));
+      aDir := copy(aDir,9,length(aDir));
       if copy(aDir,length(aDir),1) = '/' then
         aDir := copy(aDir,0,length(aDir)-1);
       aFile := StringReplace(copy(aDir,rpos('/',aDir)+1,length(aDir)),'.ics','',[]);

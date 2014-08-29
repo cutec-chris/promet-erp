@@ -70,6 +70,7 @@ begin
   atmp:=ConvertEncoding(getemailaddr(msg.Header.From),GuessEncoding(getemailaddr(msg.Header.From)),EncodingUTF8);
   try
     CustomerCont := TPersonContactData.Create(nil,Data);
+    atmp := StringReplace(atmp,'''','',[rfReplaceAll]);
     if Data.IsSQLDb then
       Data.SetFilter(CustomerCont,Data.ProcessTerm('UPPER("DATA")=UPPER('''+atmp+''')'))
     else
@@ -169,11 +170,11 @@ begin
         begin
           if (pos('>',atmp) > 0) and (pos('<',atmp) > 0) then
             atmp := getemailaddr(atmp);
-          aChk := mailcheck(atmp);
+          {aChk := mailcheck(atmp);
           case aChk of
           1,2,3: aChk := 0;
           end;
-          SpamPoints+=aChk;
+          SpamPoints+=aChk;}
         end;
       if SpamPoints > 5 then
         begin
@@ -224,6 +225,7 @@ begin
       aMessage.DecodeMessage(fullmsg);
       atmp:=ConvertEncoding(getemailaddr(fullmsg.Header.From),GuessEncoding(getemailaddr(fullmsg.Header.From)),EncodingUTF8);
       try
+        atmp := StringReplace(atmp,'''','',[rfReplaceAll]);
         CustomerCont := TPersonContactData.Create(nil,Data);
         if Data.IsSQLDb then
           Data.SetFilter(CustomerCont,Data.ProcessTerm('UPPER("DATA")=UPPER('''+atmp+''')'))

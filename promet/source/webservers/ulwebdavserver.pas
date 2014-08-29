@@ -171,6 +171,7 @@ var
   Attr: TDOMNode;
   aAttrPrefix: String;
   aLocalName: String;
+  Attr1: TDOMAttr;
 
   procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D');
   var
@@ -230,8 +231,7 @@ var
     aHRef.AppendChild(aDocument.CreateTextNode(aPath));
     aPropStat := aDocument.CreateElement(prefix+':propstat');
     aResponse.AppendChild(aPropStat);
-    aProp := aDocument.CreateElementNS(ns,prefix+':'+'prop');
-    aProp.Prefix:=prefix;
+    aProp := aDocument.CreateElement(prefix+':'+'prop');
     aPropStat.AppendChild(aProp);
 
     aStream := TStringStream.Create('');
@@ -246,7 +246,7 @@ var
       end;
     if (FindProp(':calendar-data') > -1) and (aStream.DataString<>'')  then
       begin
-        aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(':calendar-data')]);
+        aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-data')]);
         aPropC.AppendChild(aDocument.CreateTextNode(aStream.DataString));
         aProp.AppendChild(apropC);
         removeProp(':calendar-data');
@@ -260,17 +260,11 @@ var
       begin
         aPropStat := aDocument.CreateElement(prefix+':propstat');
         aResponse.AppendChild(aPropStat);
-        aProp := aDocument.CreateElementNS(ns,prefix+':'+'prop');
-        aProp.Prefix:=prefix;
+        aProp := aDocument.CreateElement(prefix+':'+'prop');
         aPropStat.AppendChild(aProp);
         for a := 0 to aNotFoundProp.Count-1 do
           begin
-            case copy(aNotFoundProp.ValueFromIndex[a],0,pos(':',aNotFoundProp.ValueFromIndex[a])-1) of
-            'C':aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[a]);
-            'CS':aPropC := aDocument.CreateElementNS('http://calendarserver.org/ns/',aNotFoundProp.ValueFromIndex[a]);
-            else
-              aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[a]);
-            end;
+            aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[a]);
             aProp.AppendChild(aPropC);
             writeln('Property not found:'+aNotFoundProp.ValueFromIndex[a]);
           end;
@@ -292,6 +286,7 @@ begin
       if Assigned(TLWebDAVServer(FSocket.Creator).OnUserLogin) then
         TLWebDAVServer(FSocket.Creator).OnUserLogin(copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
     end;
+  aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
   if Assigned(aDocument.DocumentElement) then
     begin
       if trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1)) <> '' then
@@ -315,9 +310,15 @@ begin
                     begin
                       case lowercase(Attr.NodeValue) of
                       'dav:':tmp := 'D:'+tmp;
-                      'urn:ietf:params:xml:ns:caldav:':tmp := 'C:'+tmp;
-                      'http://calendarserver.org/ns/:':tmp := 'CS:'+tmp;
+                      'urn:ietf:params:xml:ns:caldav':tmp := 'C:'+tmp;
+                      'http://calendarserver.org/ns/':tmp := 'CS:'+tmp;
                       end;
+                    end;
+                  if (aAttrPrefix = 'xmlns') then
+                    begin
+                      Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
+                      Attr1.Value:=Attr.NodeValue;
+                      aMSRes.Attributes.setNamedItemNS(Attr1);
                     end;
                 end;
               if pos(':',tmp)=0 then
@@ -334,7 +335,6 @@ begin
         end;
       aDocument.DocumentElement.Free;
     end;
-  aMSRes := aDocument.CreateElementNS('DAV:',aPrefix+':multistatus');
   aDocument.AppendChild(aMSRes);
   aDepth := StrToIntDef(TLHTTPServerSocket(FSocket).Parameters[hpDepth],0);
   for i := 0 to aItems.Count-1 do
@@ -538,8 +538,34 @@ var
   a: Integer;
   Attr: TDOMNode;
   aAttrPrefix: String;
-  aLocalName: String;
+  aLocalName,aNSName: String;
+  Attr1: TDOMAttr;
 
+  function AddNS(anPrefix,aNS : string) : string;
+  var
+    a : Integer;
+    aFound: Boolean;
+  begin
+    aFound:=False;
+    for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
+      begin
+        Attr := aDocument.DocumentElement.Attributes[a];
+        aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
+        aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
+        if (aAttrPrefix = 'xmlns') and (aLocalName=aNS) then
+          begin
+            aFound:=True;
+            Result := aAttrPrefix;
+          end;
+      end;
+    if not aFound then
+      begin
+        Attr := TDomElement(aDocument.DocumentElement).OwnerDocument.CreateAttribute('xmlns:'+anPrefix);
+        Attr.NodeValue:=aNS+':';
+        aDocument.DocumentElement.Attributes.setNamedItem(Attr);
+        Result := anPrefix;
+      end;
+  end;
   procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D';aFile : TLFile = nil);
   var
     aResponse: TDOMElement;
@@ -586,6 +612,7 @@ var
         end;
     end;
   begin
+    writeln('CreateResponse:'+aPath);
     aNotFoundProp := TStringList.Create;
     aNotFoundProp.AddStrings(Properties);
     aResponse := aDocument.CreateElement(prefix+':response');
@@ -598,8 +625,7 @@ var
     aHRef.AppendChild(aDocument.CreateTextNode(aPath));
     aPropStat := aDocument.CreateElement(prefix+':propstat');
     aResponse.AppendChild(aPropStat);
-    aProp := aDocument.CreateElementNS(ns,prefix+':'+'prop');
-    aProp.Prefix:=prefix;
+    aProp := aDocument.CreateElement(prefix+':'+'prop');
     aPropStat.AppendChild(aProp);
     if Assigned(aFile) then
       begin
@@ -621,9 +647,20 @@ var
                 aHRef.AppendChild(aDocument.CreateTextNode(aPath+'user/'));
                 RemoveProp(':owner');
               end;
+            if (FindProp(':current-user-principal') > -1)  then
+              begin
+                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':current-user-principal')]);
+                aProp.AppendChild(apropD);
+                aHref := aDocument.CreateElement(prefix+':href');
+                aPropD.AppendChild(aHref);
+                aHRef.AppendChild(aDocument.CreateTextNode(aPath+'user/'));
+                RemoveProp(':current-user-principal');
+              end;
             if (FindProp(':calendar-home-set') > -1) then
               begin
-                aPropD := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(':calendar-home-set')]);
+                tmp := aNotFoundProp.ValueFromIndex[FindProp(':calendar-home-set')];
+                AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
+                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-home-set')]);
                 aProp.AppendChild(apropD);
                 aHref := aDocument.CreateElement(prefix+':href');
                 aPropD.AppendChild(aHref);
@@ -633,7 +670,9 @@ var
 
             if (aFile.UserAdressSet.Count>0) and (FindProp(':calendar-user-address-set') > -1) then
               begin
-                aPropD := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(':calendar-user-address-set')]);
+                tmp := aNotFoundProp.ValueFromIndex[FindProp(':calendar-user-address-set')];
+                AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
+                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-user-address-set')]);
                 aProp.AppendChild(apropD);
                 for b := 0 to aFile.UserAdressSet.Count-1 do
                   begin
@@ -645,7 +684,9 @@ var
               end;
             if FindProp(':schedule-inbox-URL') > -1  then
               begin
-                aPropD := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(':schedule-inbox-URL')]);
+                tmp := aNotFoundProp.ValueFromIndex[FindProp(':schedule-inbox-URL')];
+                AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
+                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':schedule-inbox-URL')]);
                 aProp.AppendChild(apropD);
                 aHref := aDocument.CreateElement(prefix+':href');
                 aPropD.AppendChild(aHref);
@@ -654,7 +695,9 @@ var
               end;
             if FindProp(':schedule-outbox-URL') > -1  then
               begin
-                aPropD := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(':schedule-outbox-URL')]);
+                tmp := aNotFoundProp.ValueFromIndex[FindProp(':schedule-outbox-URL')];
+                AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
+                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':schedule-outbox-URL')]);
                 aProp.AppendChild(apropD);
                 aHref := aDocument.CreateElement(prefix+':href');
                 aPropD.AppendChild(aHref);
@@ -665,7 +708,7 @@ var
             if not aFile.IsCalendarUser then
               begin
                 if Assigned(aPropC) then
-                  aPropC.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav','C:calendar'));
+                  aPropC.AppendChild(aDocument.CreateElement(AddNS('C','urn:ietf:params:xml:ns:caldav')+':calendar'));
                 if FindProp(':supported-report-set') > -1 then
                   begin
                     aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':supported-report-set')]);
@@ -673,19 +716,21 @@ var
                     aProp.AppendChild(aPropD);
                     aPropE := aPropD.AppendChild(aDocument.CreateElement(prefix+':supported-report'));
                     aPropF := aPropE.AppendChild(aDocument.CreateElement(prefix+':report'));
-                    aPropG := aPropF.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aPrefix+':calendar-multiget'));
+                    aPropG := aPropF.AppendChild(aDocument.CreateElement(aPrefix+':calendar-multiget'));
                     RemoveProp(':supported-report-set');
                   end;
                 if FindProp(':supported-calendar-component-set') > -1 then
                   begin
-                    aPropD := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(':supported-calendar-component-set')]);
+                    tmp := aNotFoundProp.ValueFromIndex[FindProp(':supported-calendar-component-set')];
+                    AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
+                    aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':supported-calendar-component-set')]);
                     aProp.AppendChild(aPropD);
                     aPrefix := copy(aPropD.NodeName,0,pos(':',aPropD.NodeName)-1);
-                    aPropE := aPropD.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aPrefix+':comp'));
+                    aPropE := aPropD.AppendChild(aDocument.CreateElement(aPrefix+':comp'));
                     TDOMElement(aPropE).SetAttribute('name','VEVENT');
                     if aFile.IsTodoList then
                       begin
-                        aPropE := aPropD.AppendChild(aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aPrefix+':comp'));
+                        aPropE := aPropD.AppendChild(aDocument.CreateElement(aPrefix+':comp'));
                         TDOMElement(aPropE).SetAttribute('name','VTODO');
                       end;
                     RemoveProp(':supported-calendar-component-set');
@@ -718,9 +763,18 @@ var
                   aPropC := aDocument.CreateElement(prefix+':'+aFile.Properties.Names[a])
                 else
                   begin
+                    tmp := aNotFoundProp.ValueFromIndex[FindProp(aFile.Properties.Names[a])];
                     case copy(aFile.Properties.Names[a],0,pos(':',aFile.Properties.Names[a])-1) of
-                    'C':aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[FindProp(aFile.Properties.Names[a])]);
-                    'CS':aPropC := aDocument.CreateElementNS('http://calendarserver.org/ns/',aNotFoundProp.ValueFromIndex[FindProp(aFile.Properties.Names[a])]);
+                    'C':
+                      begin
+                        AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
+                        aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(aFile.Properties.Names[a])]);
+                      end;
+                    'CS':
+                      begin
+                        AddNS(copy(tmp,0,pos(':',tmp)-1),'http://calendarserver.org/ns/');
+                        aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(aFile.Properties.Names[a])]);
+                      end;
                     else
                       aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(aFile.Properties.Names[a])]);
                     end;
@@ -763,14 +817,24 @@ var
       begin
         aPropStat := aDocument.CreateElement(prefix+':propstat');
         aResponse.AppendChild(aPropStat);
-        aProp := aDocument.CreateElementNS(ns,prefix+':'+'prop');
-        aProp.Prefix:=prefix;
+        aProp := aDocument.CreateElement(prefix+':'+'prop');
         aPropStat.AppendChild(aProp);
         for a := 0 to aNotFoundProp.Count-1 do
           begin
+            if FindProp(aNotFoundProp.ValueFromIndex[a])>-1 then
+              tmp := aNotFoundProp.ValueFromIndex[FindProp(aNotFoundProp.ValueFromIndex[a])]
+            else tmp := '';
             case copy(aNotFoundProp.ValueFromIndex[a],0,pos(':',aNotFoundProp.ValueFromIndex[a])-1) of
-            'C':aPropC := aDocument.CreateElementNS('urn:ietf:params:xml:ns:caldav',aNotFoundProp.ValueFromIndex[a]);
-            'CS':aPropC := aDocument.CreateElementNS('http://calendarserver.org/ns/',aNotFoundProp.ValueFromIndex[a]);
+            'C':
+              begin
+                AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
+                aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(aNotFoundProp.ValueFromIndex[a])]);
+              end;
+            'CS':
+              begin
+                AddNS(copy(tmp,0,pos(':',tmp)-1),'http://calendarserver.org/ns/');
+                aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(aNotFoundProp.ValueFromIndex[a])]);
+              end;
             else
               aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[a]);
             end;
@@ -798,6 +862,7 @@ begin
     begin
       if trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1)) <> '' then
         aPrefix := trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
+      aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
       aPropNode := TDOMElement(aDocument.DocumentElement.FirstChild);
       for i := 0 to aPropNode.ChildNodes.Count-1 do
         begin
@@ -813,13 +878,20 @@ begin
                   Attr := aDocument.DocumentElement.Attributes[a];
                   aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
                   aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
+                  aNSName := lowercase(Attr.NodeValue);
                   if (aAttrPrefix = 'xmlns') and (aLocalName = tmp1) then
                     begin
-                      case lowercase(Attr.NodeValue) of
+                      case aNSName of
                       'dav:':tmp := aPrefix+':'+tmp;
-                      'urn:ietf:params:xml:ns:caldav:':tmp := 'C:'+tmp;
-                      'http://calendarserver.org/ns/:':tmp := 'CS:'+tmp;
+                      'urn:ietf:params:xml:ns:caldav':tmp := 'C:'+tmp;
+                      'http://calendarserver.org/ns/':tmp := 'CS:'+tmp;
                       end;
+                    end;
+                  if (aAttrPrefix = 'xmlns') then
+                    begin
+                      Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
+                      Attr1.NodeValue:=Attr.NodeValue;
+                      aMSRes.Attributes.setNamedItem(Attr1);
                     end;
                 end;
               if pos(':',tmp)=0 then
@@ -829,8 +901,9 @@ begin
           writeln('Wanted:'+tmp+'='+aPropNode.ChildNodes.Item[i].NodeName);
         end;
       aDocument.DocumentElement.Free;
-    end;
-  aMSRes := aDocument.CreateElementNS('DAV:',aPrefix+':multistatus');
+    end
+  else
+    aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
   aDocument.AppendChild(aMSRes);
   Path := HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument);
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
