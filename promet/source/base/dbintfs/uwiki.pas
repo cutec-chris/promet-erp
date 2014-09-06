@@ -161,7 +161,7 @@ begin
   FActiveTreeID := aParent;
   aTree := TTree.Create(Self,DataModule);
   aTree.Filter(TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W'));
-  if copy(PageName,0,7) = 'http://' then exit;
+  if pos('://',PageName) > 0 then exit;
   while pos('/',PageName) > 0 do
     begin
       aTree.Open;

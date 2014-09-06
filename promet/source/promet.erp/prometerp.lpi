@@ -355,6 +355,7 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticleFrame"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -369,6 +370,7 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -439,7 +441,6 @@
         <ComponentName Value="fFinancialOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="ufinancialoptions"/>
       </Unit23>
       <Unit24>
         <Filename Value="uordertypeoptions.pas"/>
@@ -545,7 +546,6 @@
         <ComponentName Value="fWizardNewAccount"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uWizardnewaccount"/>
       </Unit38>
       <Unit39>
         <Filename Value="ubookserial.pas"/>
