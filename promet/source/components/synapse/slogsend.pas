@@ -60,7 +60,7 @@ interface
 
 uses
   SysUtils, Classes,
-  blcksock, synautil;
+  blcksock, synautil, synaip;
 
 const
   cSysLogProtocol = '514';
@@ -169,6 +169,10 @@ end;
 procedure TSyslogMessage.SetPacketBuf(Value:String);
 var StrBuf:String;
     IntBuf,Pos:Integer;
+    OldPos: Integer;
+    y: word;
+    m: word;
+    d: word;
 begin
   if Length(Value) < 1 then exit;
   Pos := 1;
@@ -203,6 +207,7 @@ begin
       Inc(Pos);
     end;
     StrBuf := StrBuf + Value[Pos];
+  while Value[Pos] = ' ' do
     Inc(Pos);
     // Day
   while (Value[Pos] <> ' ')do
@@ -218,9 +223,10 @@ begin
       StrBuf := StrBuf + Value[Pos];
       Inc(Pos);
     end;
-  FDateTime := DecodeRFCDateTime(StrBuf);
+  DecodeDate(Now(),y,m,d);
+  FDateTime := DecodeRFCDateTime(IntToStr(y)+' '+StrBuf);
   Inc(Pos);
-
+  OldPos := Pos;
   // LocalIP
   StrBuf := '';
   while (Value[Pos] <> ' ')do
@@ -228,8 +234,12 @@ begin
       StrBuf := StrBuf + Value[Pos];
       Inc(Pos);
     end;
-  FLocalIP := StrBuf;
-  Inc(Pos);
+  if IsIP(StrBuf) or IsIP6(StrBuf) then
+    begin
+      FLocalIP := StrBuf;
+      Inc(Pos);
+    end
+  else Pos := OldPos;
   // Tag
   StrBuf := '';
   while (Value[Pos] <> ':')do
@@ -317,4 +327,4 @@ begin
     end;
 end;
 
-end.
+end.

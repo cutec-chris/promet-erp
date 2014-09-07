@@ -132,6 +132,9 @@ type
     property OnRemove : TNotifyEvent read FOnRemoved write FOnRemoved;
   end;
   TReplaceFieldFunc = procedure(aField : TField;aOldValue : string;var aNewValue : string);
+
+  { TBaseDbList }
+
   TBaseDbList = class(TBaseDBDataSet)
   private
     function GetBookNumber: TField;
@@ -172,12 +175,10 @@ type
     property Typ : string read GetTyp;
     property Matchcode : TField read GetMatchcode;
     function SelectFromLink(aLink : string) : Boolean;virtual;
+    function SelectFromNumber(aNumber : string) : Boolean;virtual;
   end;
   TBaseDBDatasetClass = class of TBaseDBDataset;
   TBaseDBListClass = class of TBaseDBList;
-
-  { TBaseHistory }
-
   TBaseHistory = class(TBaseDBList)
   private
     FHChanged: Boolean;
@@ -206,20 +207,13 @@ type
     function GetHistory: TBaseHistory;
     property History : TBaseHistory read GetHistory;
   end;
-
-  { TAccessHistory }
-
   TAccessHistory = class(TBaseHistory)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
-
   TOptions = class;
   TFollowers = class;
   TRights = class;
-
-  { TUser }
-
   TUser = class(TBaseDbList,IBaseHistory)
   private
     FFollows: TFollowers;
@@ -305,9 +299,6 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
-
-  { TTree }
-
   TTree = class(TBaseDBDataSet)
   private
     function GetText: TField;
@@ -327,17 +318,11 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
-
-  { TOptions }
-
   TOptions = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Open; override;
   end;
-
-  { TFollowers }
-
   TFollowers = class(TBaseDBDataSet)
   private
     function GetLink: TField;
@@ -379,15 +364,31 @@ type
     function GetNumberFieldName : string;override;
     property Entrys : TListEntrys read FEntrys;
   end;
-
-  { TImages }
-
   TImages = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     {$IFDEF LCL}
     function AddFromFile(aFile : string) : Boolean;
     {$ENDIF}
+  end;
+
+  { TObjects }
+
+  TObjects = class(TBaseDbList)
+  private
+    FHistory: TBaseHistory;
+  protected
+    function GetNumberFieldName: string; override;
+    function GetMatchcodeFieldName: string; override;
+    function GetTextFieldName: string; override;
+  public
+    constructor Create(aOwner: TComponent; DM: TComponent;
+      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    destructor Destroy; override;
+    function CreateTable: Boolean; override;
+    procedure DefineFields(aDataSet : TDataSet);override;
+    function SelectFromLink(aLink: string): Boolean; override;
+    property History : TBaseHistory read FHistory;
   end;
   TDeletedItems = class(TBaseDBDataSet)
   public
@@ -496,7 +497,57 @@ resourcestring
   strOwner                      = 'Eigentümer';
   strAvalible                   = 'Verfügbar';
 
-{ TAccessHistory }
+function TObjects.GetNumberFieldName: string;
+begin
+  Result := 'NUMBER';
+end;
+function TObjects.GetMatchcodeFieldName: string;
+begin
+  Result := 'MATCHCODE';
+end;
+function TObjects.GetTextFieldName: string;
+begin
+  Result := 'NAME';
+end;
+constructor TObjects.Create(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
+end;
+
+destructor TObjects.Destroy;
+begin
+  FHistory.Free;
+  inherited Destroy;
+end;
+
+function TObjects.CreateTable: Boolean;
+begin
+  Result:=inherited CreateTable;
+  Result := Result and FHistory.CreateTable;
+end;
+
+procedure TObjects.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'OBJECTS';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('NUMBER',ftString,60,False);
+            Add('NAME',ftString,200,False);
+            Add('MATCHCODE',ftString,200,False);
+            Add('LINK',ftString,200,False);
+          end;
+    end;
+end;
+
+function TObjects.SelectFromLink(aLink: string): Boolean;
+begin
+  Result:=inherited SelectFromLink(aLink);
+end;
 
 procedure TAccessHistory.DefineFields(aDataSet: TDataSet);
 begin
@@ -1134,6 +1185,16 @@ begin
         end;
     end;
 end;
+
+function TBaseDbList.SelectFromNumber(aNumber: string): Boolean;
+begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        Filter := Data.QuoteField('NUMBER')+'='+Data.QuoteValue(aNumber);
+      end;
+end;
+
 procedure TBaseDBDataset.Delete;
 begin
   Change;
@@ -1378,7 +1439,8 @@ begin
   if aLink <> '' then
     FieldByName('LINK').AsString      := aLink;
   with BaseApplication as IBaseDbInterface do
-    FieldByName('OBJECT').AsString := Data.BuildLink(aObject);
+    if Assigned(aObject) then
+      FieldByName('OBJECT').AsString := Data.BuildLink(aObject);
   FieldByName('ACTIONICON').AsInteger := aIcon;
   FieldByName('ACTION').AsString    := aAction;
   FieldByName('REFERENCE').AsString := aReference;
@@ -2786,4 +2848,4 @@ begin
 end;
 initialization
 end.
-
+

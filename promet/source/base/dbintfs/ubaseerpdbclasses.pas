@@ -162,9 +162,6 @@ type
   TCategory = class(TBaseDBDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
-
-  { TFinancialAccounts }
-
   TFinancialAccounts = class(TBaseDBDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
