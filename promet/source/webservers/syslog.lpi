@@ -37,6 +37,7 @@
       </Item1>
       <Item2>
         <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="general"/>
@@ -54,7 +55,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <OtherUnitFiles Value="..\base"/>
-      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\"/>
+      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
