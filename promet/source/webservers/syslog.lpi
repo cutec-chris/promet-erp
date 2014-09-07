@@ -46,7 +46,6 @@
       <Unit0>
         <Filename Value="syslog.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="syslog"/>
       </Unit0>
     </Units>
   </ProjectOptions>
@@ -55,7 +54,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <OtherUnitFiles Value="..\base"/>
-      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

@@ -1,4 +1,6 @@
-﻿Build 368
+﻿Build 369
+      - Syslog Server:initial Version
+Build 368
       - Buchhaltung:Kontenrahmen einstellbar
       - Buchhaltung:nachkontieren von Rechnungen
       - Vorname wird in Auftrag eingefügt

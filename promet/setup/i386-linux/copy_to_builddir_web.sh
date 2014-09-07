@@ -5,10 +5,11 @@ cp ../../output/$1-linux/tools/cmdwizardmandant $2/tools/
 cp ../../output/$1-linux/tools/processmanager $2/tools/
 cp ../../output/$1-linux/tools/processdaemon $2/tools/promet-process
 cp ../../output/$1-linux/tools/sync_* $2/tools/
+cp ../../output/$1-linux/tools/syslog $2/tools
+cp ../../output/$1-linux/tools/local_appbase $2/tools
 rm $2/tools/sync_*.dbg
 cp ../../output/$1-linux/tools/import_* $2/tools/
 rm $2/tools/import_*.dbg
-cp ../../output/$1-linux/web/local_appbase $2/tools
 cp ../../output/$1-linux/web/imapserver $2/tools
 cp ../../output/$1-linux/web/mta $2/tools
 cp ../../output/$1-linux/web/nntpserver $2/tools
@@ -25,6 +26,7 @@ cp $2/tools/nntpserver ../executables/$Version/$1
 cp $2/tools/webdavserver ../executables/$Version/$1
 cp $2/tools/processmanager ../executables/$Version/$1
 cp $2/tools/promet-process ../executables/$Version/$1
+cp $2/tools/syslog ../executables/$Version/$1
 cp $2/tools/cmdwizardmandant ../executables/$Version/$1
 cp $2/tools/*receiver ../executables/$Version/$1
 cp $2/tools/*sender ../executables/$Version/$1

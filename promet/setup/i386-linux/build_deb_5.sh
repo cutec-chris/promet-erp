@@ -28,11 +28,12 @@ echo "copy to builddir..."
 ./copy_to_builddir_web.sh $Archfpc $BuildDir/usr/lib/$Program
 cp debian/promet-process.sh $BuildDir/etc/init.d/promet-process
 chmod 666 $BuildDir/etc/init.d/promet-process
-ln -s /usr/lib/$Program/web/imapserver $BuildDir/usr/bin/promet-erp-imap
-ln -s /usr/lib/$Program/web/webdavserver $BuildDir/usr/bin/promet-erp-webdav
-ln -s /usr/lib/$Program/web/local_appbase $BuildDir/usr/bin/promet-erp-appbase
-ln -s /usr/lib/$Program/web/mta $BuildDir/usr/bin/promet-erp-mta
-ln -s /usr/lib/$Program/web/nntpserver $BuildDir/usr/bin/promet-erp-nntp
+ln -s /usr/lib/$Program/tools/imapserver $BuildDir/usr/bin/promet-erp-imap
+ln -s /usr/lib/$Program/tools/webdavserver $BuildDir/usr/bin/promet-erp-webdav
+ln -s /usr/lib/$Program/tools/local_appbase $BuildDir/usr/bin/promet-erp-appbase
+ln -s /usr/lib/$Program/tools/mta $BuildDir/usr/bin/promet-erp-mta
+ln -s /usr/lib/$Program/tools/nntpserver $BuildDir/usr/bin/promet-erp-nntp
+ln -s /usr/lib/$Program/tools/syslog $BuildDir/usr/bin/promet-erp-syslog
 chmod 666 $BuildDir/usr/bin/promet-erp-imap
 chmod 666 $BuildDir/usr/bin/promet-erp-webdav
 chmod 666 $BuildDir/usr/bin/promet-erp-appbase
