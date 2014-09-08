@@ -111,7 +111,9 @@ begin
       AppVersion:={$I ../base/version.inc};
       AppRevision:={$I ../base/revision.inc};
     end;
+  writeln('Login...');
   if not Login then Terminate;
+  writeln('Login ok');
   //Your logged in here on promet DB
 
   aType := GetOptionValue('t','type');
@@ -132,6 +134,7 @@ begin
   else
     begin
       aFolder :=GetOptionValue('f','folder');
+      writeln('importing folder '+aFolder);
       if aType = '' then aType := 'D';
       if aFolder<>'' then
         aFolder := AppendPathDelim(aFolder);
