@@ -172,7 +172,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel --mandant=RepairPG"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -448,6 +447,7 @@
         <ComponentName Value="forderTypeOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderTypeOptions"/>
       </Unit24>
       <Unit25>
         <Filename Value="ustoragetypeoptions.pas"/>

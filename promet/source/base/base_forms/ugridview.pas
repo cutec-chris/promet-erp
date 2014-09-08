@@ -2869,6 +2869,7 @@ var
   end;
 
 begin
+  gList.EditorMode:=False;
   if (not Assigned(FDataSource.DataSet))
   or (not FDataSource.DataSet.Active) then exit;
   {$ifndef slowdebug}
@@ -2949,7 +2950,8 @@ begin
   gList.EndUpdate;
   aOldCol := gList.Col;
   try
-    gList.Col := gList.ColCount-1;
+    if gList.ColCount>0 then
+      gList.Col := gList.ColCount-1;
   except
   end;
   gList.Col := aOldCol;
