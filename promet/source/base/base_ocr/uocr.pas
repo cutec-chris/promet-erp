@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, ProcessUtils, FileUtil, Graphics,
   FPImage, FPWritePNM, IntfGraphics, Utils, SynaUtil,
-  lconvencoding,uDocuments,uImaging,LCLProc,FPReadJPEG,FPReadPNG,
+  lconvencoding,uDocuments,uImaging,FPReadJPEG,FPReadPNG,
   dateutils,uBaseDbClasses;
 type
   TOCRPages = TList;
@@ -129,7 +129,10 @@ begin
       end;
   except
     on e : Exception do
-      debugln(e.Message);
+      begin
+        with BaseApplication as IBaseApplication do
+          Error(e.Message);
+      end;
   end;
   try
     aP := TTesseractProcess.Create(Pages,Image);
@@ -377,16 +380,16 @@ begin
       Result := ExtractSpecial(aLine,'Bill');
       if Result <> '' then
         begin
-          aStart:=UTF8Pos(Result,atext.Text)-1;
+          aStart:=Pos(Result,atext.Text)-1;
           aLen:=length(Result);
           exit;
         end;
     end;
   GetDateEx(aText,aStart,aLen);
   i := 0;
-  while aStart>UTF8Length(aText[i]) do
+  while aStart>Length(aText[i]) do
     begin
-      aStart := aStart-UTF8Length(aText[i]);
+      aStart := aStart-Length(aText[i]);
       inc(i);
     end;
   aBase := i;
@@ -405,7 +408,7 @@ begin
       if (WordsCount(aText[i])>0) and (WordsCount(aText[i])<5) then
         begin
           Result := aText[i];
-          aStart:=UTF8Pos(Result,atext.Text)-1;
+          aStart:=Pos(Result,atext.Text)-1;
           aLen:=length(Result);
         end;
     end;
@@ -417,7 +420,7 @@ begin
       if (WordsCount(aText[i])>0) and (WordsCount(aText[i])<5) then
         begin
           Result := aText[i];
-          aStart:=UTF8Pos(Result,atext.Text)-1;
+          aStart:=Pos(Result,atext.Text)-1;
           aLen:=length(Result);
         end;
     end;
@@ -471,7 +474,7 @@ begin
           Result := IsDate(aDate);
           if (Result<IncYear(Now,15)) and (Result>IncYear(Now,-15)) then
             begin
-              aStart := UTF8Pos(aDate,aText.Text)-1;
+              aStart := Pos(aDate,aText.Text)-1;
               aLen:=length(aDate);
               exit;
             end;
@@ -491,7 +494,7 @@ begin
           Result := IsDate(aDate);
           if (Result<IncYear(Now,15)) and (Result>IncYear(Now,-15)) then
             begin
-              aStart := UTF8Pos(aDate,aText.Text)-1;
+              aStart := Pos(aDate,aText.Text)-1;
               aLen:=length(aDate);
               exit;
             end;
