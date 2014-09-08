@@ -234,6 +234,7 @@ begin
           tmp := Lists[i].Caption;
           with Lists[i].DataSet as IBaseDbFilter do
             begin
+              Lists[i].DataSet.Close;
               for aType := low(TFullTextSearchTypes) to High(TFullTextSearchTypes) do
                 begin
                   aFilter := '';
