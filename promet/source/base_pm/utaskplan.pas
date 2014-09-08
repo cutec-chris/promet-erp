@@ -324,7 +324,7 @@ begin
       aCal := TEvent.Create(nil,Data,aConnection);
       if FUserID<>Null then
         begin
-          aCal.SelectPlanedByUserIdAndTime(FUserId,StartDate,FinishDate);
+          aCal.SelectPlanedByIdAndTime(FUserId,StartDate,FinishDate);
           aCal.Open;
           while not aCal.EOF do
             begin
