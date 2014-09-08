@@ -207,7 +207,7 @@ var
   tmp: TCaption;
 begin
   Result := False;
-  if Assigned(Field) and (((Field.FieldName='TEXT') and (FDataSet.FieldByName('IDENT').AsString = '')) or (Field.FieldName='IDENT')) then
+  if Assigned(Field) and (((Field.FieldName='TEXT') and ((FDataSet.FieldByName('IDENT').AsString = '') or (FDataSet.FieldByName('TEXT').AsString = ''))) or (Field.FieldName='IDENT')) then
     begin
       if SearchString = '' then
         begin
@@ -230,7 +230,7 @@ begin
               VK_NEXT,
               VK_DOWN:
                 begin
-                  if lbResults.ItemIndex = -1 then
+                  if (lbResults.ItemIndex = -1) and (lbResults.Count>0) then
                     lbResults.ItemIndex:=0
                   else
                   if lbResults.ItemIndex < lbResults.Count-1 then
@@ -262,6 +262,7 @@ begin
             ActiveSearch.Abort;
           SearchTypes := SearchTypes+[fsShortnames];
           SearchTypes := SearchTypes+[fsIdents];
+          SearchTypes := SearchTypes+[fsMatchcode];
           SetLength(SearchLocations,length(SearchLocations)+1);
           SearchLocations[length(SearchLocations)-1] := strMasterdata;
           for i := 0 to lbResults.Items.Count-1 do
