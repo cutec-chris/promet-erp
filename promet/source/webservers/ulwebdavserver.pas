@@ -172,6 +172,8 @@ var
   aAttrPrefix: String;
   aLocalName: String;
   Attr1: TDOMAttr;
+  aNSName: String;
+  tmp2: DOMString;
 
   procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D');
   var
@@ -286,12 +288,35 @@ begin
       if Assigned(TLWebDAVServer(FSocket.Creator).OnUserLogin) then
         TLWebDAVServer(FSocket.Creator).OnUserLogin(copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
     end;
-  aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
   if Assigned(aDocument.DocumentElement) then
     begin
-      if trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1)) <> '' then
-        aPrefix := trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
+      if trim(copy(aDocument.DocumentElement.FirstChild.NodeName,0,pos(':',aDocument.DocumentElement.FirstChild.NodeName)-1)) <> '' then
+        aPrefix := trim(copy(aDocument.DocumentElement.FirstChild.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
+      aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
+      for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
+        begin
+          Attr := aDocument.DocumentElement.Attributes[a];
+          aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
+          aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
+          aNSName := lowercase(Attr.NodeValue);
+          if (aAttrPrefix = 'xmlns') and (aLocalName = tmp1) then
+            begin
+              case aNSName of
+              'dav:':tmp := aPrefix+':'+tmp;
+              'urn:ietf:params:xml:ns:caldav':tmp := 'C:'+tmp;
+              'http://calendarserver.org/ns/':tmp := 'CS:'+tmp;
+              end;
+            end;
+          if (aAttrPrefix = 'xmlns') then
+            begin
+              Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
+              tmp2 := Attr.NodeValue;
+              Attr1.NodeValue:=tmp2;
+              aMSRes.Attributes.setNamedItem(Attr1);
+            end;
+        end;
       aPropNode := TDOMElement(aDocument.DocumentElement.FindNode(aPrefix+':prop'));
+      if Assigned(aPropNode) then
       for i := 0 to aPropNode.ChildNodes.Count-1 do
         begin
           tmp := aPropNode.ChildNodes.Item[i].NodeName;
@@ -334,7 +359,9 @@ begin
             aItems.Add(aPropNode.ChildNodes.Item[i].FirstChild.NodeValue);
         end;
       aDocument.DocumentElement.Free;
-    end;
+    end
+  else
+    aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
   aDocument.AppendChild(aMSRes);
   aDepth := StrToIntDef(TLHTTPServerSocket(FSocket).Parameters[hpDepth],0);
   for i := 0 to aItems.Count-1 do
@@ -540,6 +567,7 @@ var
   aAttrPrefix: String;
   aLocalName,aNSName: String;
   Attr1: TDOMAttr;
+  tmp2: DOMString;
 
   function AddNS(anPrefix,aNS : string) : string;
   var
@@ -561,7 +589,7 @@ var
     if not aFound then
       begin
         Attr := TDomElement(aDocument.DocumentElement).OwnerDocument.CreateAttribute('xmlns:'+anPrefix);
-        Attr.NodeValue:=aNS+':';
+        Attr.NodeValue:=aNS;
         aDocument.DocumentElement.Attributes.setNamedItem(Attr);
         Result := anPrefix;
       end;
@@ -890,7 +918,8 @@ begin
                   if (aAttrPrefix = 'xmlns') then
                     begin
                       Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
-                      Attr1.NodeValue:=Attr.NodeValue;
+                      tmp2 := Attr.NodeValue;
+                      Attr1.NodeValue:=tmp2;
                       aMSRes.Attributes.setNamedItem(Attr1);
                     end;
                 end;
@@ -1074,4 +1103,4 @@ begin
   inherited Destroy;
 end;
 end.
-
+
