@@ -856,12 +856,12 @@ var
             'C':
               begin
                 AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
-                aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(aNotFoundProp.ValueFromIndex[a])]);
+                aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[a]);
               end;
             'CS':
               begin
                 AddNS(copy(tmp,0,pos(':',tmp)-1),'http://calendarserver.org/ns/');
-                aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(aNotFoundProp.ValueFromIndex[a])]);
+                aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[a]);
               end;
             else
               aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[a]);
@@ -1103,4 +1103,4 @@ begin
   inherited Destroy;
 end;
 end.
-
+

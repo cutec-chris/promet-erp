@@ -186,7 +186,7 @@ begin
             end;
           Data.ProcessClient.Process;
         end;
-      sleep(10000);
+      sleep(1000);
     end;
   try
     Data.ProcessClient.DataSet.Edit;

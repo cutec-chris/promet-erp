@@ -308,6 +308,7 @@ begin
                           end;
                         if (aNow > bProcess.Timeout) {and (bProcess.Timeout > 0)} then
                           begin
+                            aLog.Clear;
                             DoLog(aprocess+':'+strStartingProcessTimeout+' '+DateTimeToStr(bProcess.Timeout)+'>'+DateTimeToStr(aNow),aLog);
                             bProcess.Timeout := aNow+(max(Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
                             DoLog(aProcess+':'+strStartingProcess+' ('+bProcess.CommandLine+')',aLog);

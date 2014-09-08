@@ -21,7 +21,7 @@ unit uOCR;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, ProcessUtils, Forms, FileUtil, Graphics,
+  Classes, SysUtils, ProcessUtils, FileUtil, Graphics,
   FPImage, FPWritePNM, IntfGraphics, Utils, SynaUtil,
   lconvencoding,uDocuments,uImaging,LCLProc,FPReadJPEG,FPReadPNG,
   dateutils,uBaseDbClasses;
@@ -542,7 +542,7 @@ constructor TTesseractProcess.Create(Pages: TOCRPages; Image: TPicture);
 var
   aPath: String;
 begin
-  aPath := 'tesseract'+ExtractFileExt(Application.ExeName);
+  aPath := 'tesseract'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
   aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'tesseract')+aPath;
   {$ENDIF}
@@ -583,7 +583,7 @@ var
   aImage: TLazIntfImage;
   Writer: TFPCustomImageWriter;
 begin
-  aPath := 'unpaper'+ExtractFileExt(Application.ExeName);
+  aPath := 'unpaper'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
   aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools')+aPath;
   {$ENDIF}
@@ -648,7 +648,7 @@ constructor TCuneIFormProcess.Create(Pages: TOCRPages; Image: TPicture);
 var
   aPath: String;
 begin
-  aPath := 'cuneiform'+ExtractFileExt(Application.ExeName);
+  aPath := 'cuneiform'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
   aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'cuneiform')+aPath;
   {$ENDIF}
@@ -704,7 +704,7 @@ var
   aImage: TLazIntfImage;
   Writer: TFPCustomImageWriter;
 begin
-  aPath := 'gocr'+ExtractFileExt(Application.ExeName);
+  aPath := 'gocr'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
   aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools')+aPath;
   {$ENDIF}
@@ -738,4 +738,4 @@ finalization
   Processes.Free;
 end.
 
-
+
