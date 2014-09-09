@@ -358,6 +358,10 @@ begin
           if pos(':href',aPropNode.ChildNodes.Item[i].NodeName) > 0 then
             aItems.Add(aPropNode.ChildNodes.Item[i].FirstChild.NodeValue);
         end;
+      if aItems.Count=0 then
+        begin //we report all ??!
+
+        end;
       aDocument.DocumentElement.Free;
     end
   else
@@ -1103,4 +1107,4 @@ begin
   inherited Destroy;
 end;
 end.
-
+
