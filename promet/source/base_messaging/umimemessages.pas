@@ -161,7 +161,7 @@ begin
                              copy(ExtractFileExt(atmp),2,length(ExtractFileExt(atmp))),
                              Sender.DecodedLines,
                              Sender.ContentID,
-                             Now());
+                             Now(),False);
       Document.Free;
     end;
 end;

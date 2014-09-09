@@ -376,6 +376,7 @@ var
   aUser: String;
 begin
   Result := False;
+  exit;
   if copy(aCommand,0,8) = 'Receive(' then
     begin
       aUser := copy(aCommand,9,length(aCommand));

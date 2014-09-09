@@ -118,7 +118,7 @@ type
     procedure Select(aID : LargeInt;aType : string;aTID : string;aVersion : Variant;aLanguage : Variant;aParent : LargeInt = 0);overload;override;
     procedure SelectByNumber(aNumber : Variant);override;
     procedure FillDefaults(aDataSet : TDataSet);override;
-    procedure AddFromStream(eName,Extension: string; Stream: TStream;aText : string = ''; AddDate: TDateTime = 0);
+    procedure AddFromStream(eName,Extension: string; Stream: TStream;aText : string = ''; AddDate: TDateTime = 0;SetText : Boolean = True);
     procedure AddFromFile(aFilename : string;aText : string = '';AddDate : TDateTime = 0);
     procedure AddFromDir(aFilename : string;aText : string = '';DoDelete : Boolean = False;AddDate : TDateTime = 0);
     procedure AddFromLink(aLink : string);
@@ -379,7 +379,7 @@ begin
     end;
 end;
 procedure TDocument.AddFromStream(eName, Extension: string; Stream: TStream;
-  aText: string = ''; AddDate: TDateTime = 0);
+  aText: string; AddDate: TDateTime; SetText: Boolean);
 var
   DocID: LargeInt;
   ss: TStringStream;
@@ -405,7 +405,8 @@ begin
           if (aText = '') then
             begin
               Stream.Position:=OldPos;
-              GetText(Stream,'.'+Extension,aText);
+              if SetText then
+                GetText(Stream,'.'+Extension,aText);
             end;
           if aText <> '' then
             begin

@@ -232,10 +232,11 @@ var
   a: Integer;
   aNow: TDateTime;
   NewProcess: TProcProcess;
-  procedure DoLog(aStr: string;bLog : TStringList);
+  procedure DoLog(aStr: string;bLog : TStringList;SysLog : Boolean);
   begin
     with BaseApplication as IBaseApplication do
-      Log(aStr);
+      if Syslog then
+        Log(aStr);
     bLog.Add(aStr);
   end;
   function BuildCmdLine : string;
@@ -281,7 +282,7 @@ begin
                         sl := TStringList.Create;
                         sl.LoadFromStream(bProcess.Output);
                         for a := 0 to sl.Count-1 do
-                          DoLog(aprocess+':'+sl[a],aLog);
+                          DoLog(aprocess+':'+sl[a],aLog,BaseApplication.HasOption('debug'));
                         sl.Free;
                       end
                     else
@@ -289,11 +290,11 @@ begin
                         sl := TStringList.Create;
                         sl.LoadFromStream(bProcess.Output);
                         for a := 0 to sl.Count-1 do
-                          DoLog(aprocess+':'+sl[a],aLog);
+                          DoLog(aprocess+':'+sl[a],aLog,BaseApplication.HasOption('debug'));
                         sl.Free;
                         if not bProcess.Informed then
                           begin
-                            DoLog(aprocess+':'+strExitted,aLog);
+                            DoLog(aprocess+':'+strExitted,aLog,BaseApplication.HasOption('debug'));
                             Processes.Edit;
                             Processes.DataSet.FieldByName('STOPPED').AsDateTime := Now();
                             Processes.Post;
@@ -309,12 +310,12 @@ begin
                         if (aNow > bProcess.Timeout) {and (bProcess.Timeout > 0)} then
                           begin
                             aLog.Clear;
-                            DoLog(aprocess+':'+strStartingProcessTimeout+' '+DateTimeToStr(bProcess.Timeout)+'>'+DateTimeToStr(aNow),aLog);
+                            DoLog(aprocess+':'+strStartingProcessTimeout+' '+DateTimeToStr(bProcess.Timeout)+'>'+DateTimeToStr(aNow),aLog,BaseApplication.HasOption('debug'));
                             bProcess.Timeout := aNow+(max(Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
-                            DoLog(aProcess+':'+strStartingProcess+' ('+bProcess.CommandLine+')',aLog);
+                            DoLog(aProcess+':'+strStartingProcess+' ('+bProcess.CommandLine+')',aLog,True);
                             bProcess.Execute;
                             bProcess.Informed := False;
-                            DoLog(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(bProcess.Timeout),aLog);
+                            DoLog(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(bProcess.Timeout),aLog,BaseApplication.HasOption('debug'));
                           end;
                         Found := True;
                       end;
@@ -324,7 +325,7 @@ begin
                   aLog.Clear;
                   cmd := AppendPathDelim(BaseApplication.Location)+aProcess+ExtractFileExt(BaseApplication.ExeName);
                   cmd := cmd+BuildCmdLine;
-                  DoLog(aProcess+':'+strStartingProcess+' ('+cmd+')',aLog);
+                  DoLog(aProcess+':'+strStartingProcess+' ('+cmd+')',aLog,True);
                   NewProcess := TProcProcess.Create(Self);
                   {$if FPC_FULLVERSION<20400}
                   NewProcess.InheritHandles := false;
@@ -338,7 +339,7 @@ begin
                   NewProcess.Options := [poNoConsole,poUsePipes];
                   NewProcess.Execute;
                   NewProcess.Timeout := aNow+(max(Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
-                  DoLog(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(ProcessData[i].Timeout),aLog);
+                  DoLog(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(ProcessData[i].Timeout),aLog,BaseApplication.HasOption('debug'));
                   Processes.Edit;
                   Processes.DataSet.FieldByName('STARTED').AsDateTime := Now();
                   Processes.DataSet.FieldByName('STOPPED').Clear;
@@ -349,7 +350,7 @@ begin
           else
             begin
               aLog.Clear;
-              DoLog(ExpandFileNameUTF8(aProcess+ExtractFileExt(BaseApplication.ExeName))+':'+'File dosend exists',aLog);
+              DoLog(ExpandFileNameUTF8(aProcess+ExtractFileExt(BaseApplication.ExeName))+':'+'File dosend exists',aLog,True);
             end;
           if Processes.DataSet.FieldByName('LOG').AsString<>aLog.Text then
             begin
