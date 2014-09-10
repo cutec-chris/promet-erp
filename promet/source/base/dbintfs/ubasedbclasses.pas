@@ -165,6 +165,7 @@ type
     procedure ImportFromXML(XML : string;OverrideFields : Boolean = False;ReplaceFieldFunc : TReplaceFieldFunc = nil);virtual;
 //    function  TableToXML(Doc : TXMLDocument;iDataSet : TDataSet) : TDOMElement;
 //    function  XMLToTable(iDataSet : TDataSet;Node : TDOMElement) : Boolean;
+    procedure OpenItem;
     property Text : TField read GetText;
     property Number : TField read GetNumber;
     property BookNumber : TField read GetBookNumber;
@@ -371,9 +372,6 @@ type
     function AddFromFile(aFile : string) : Boolean;
     {$ENDIF}
   end;
-
-  { TObjects }
-
   TObjects = class(TBaseDbList)
   private
     FHistory: TBaseHistory;
@@ -388,6 +386,7 @@ type
     function CreateTable: Boolean; override;
     procedure DefineFields(aDataSet : TDataSet);override;
     function SelectFromLink(aLink: string): Boolean; override;
+    procedure SelectByRefId(aId : Variant);
     property History : TBaseHistory read FHistory;
   end;
   TDeletedItems = class(TBaseDBDataSet)
@@ -496,6 +495,7 @@ resourcestring
   strNotes                      = 'Notizen';
   strOwner                      = 'Eigentümer';
   strAvalible                   = 'Verfügbar';
+  strItemOpened                 = 'Eintrag "%s" geöffnet';
 
 function TObjects.GetNumberFieldName: string;
 begin
@@ -536,9 +536,10 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('NUMBER',ftString,60,False);
+            Add('NUMBER',ftString,60,True);
             Add('NAME',ftString,200,False);
             Add('MATCHCODE',ftString,200,False);
+            Add('REF_ID_ID',ftLargeint,0,False);
             Add('LINK',ftString,200,False);
           end;
     end;
@@ -546,7 +547,26 @@ end;
 
 function TObjects.SelectFromLink(aLink: string): Boolean;
 begin
-  Result:=inherited SelectFromLink(aLink);
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        Filter := Data.QuoteField('LINK')+'='+Data.QuoteValue(aLink);
+      end;
+end;
+
+procedure TObjects.SelectByRefId(aId: Variant);
+begin
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with Self.DataSet as IBaseDBFilter do
+        begin
+          if aId <> Null then
+            Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(IntToStr(aId))
+          else
+            Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue('0');
+          Limit := 0;
+        end;
+    end;
 end;
 
 procedure TAccessHistory.DefineFields(aDataSet: TDataSet);
@@ -1157,6 +1177,50 @@ begin
   Stream.Free;
   Doc.Free;
 end;
+
+procedure TBaseDbList.OpenItem;
+var
+  aHistory: TAccessHistory;
+  aObj: TObjects;
+begin
+  try
+    try
+      aHistory := TAccessHistory.Create(nil,Data);
+      if DataSet.State<>dsInsert then
+        begin
+          if not Data.TableExists(aHistory.TableName) then
+            aHistory.CreateTable;
+          aHistory.Free;
+          aHistory := TAccessHistory.Create(nil,Data,nil,DataSet);
+          aHistory.AddItem(DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet))]),Data.BuildLink(DataSet));
+        end;
+      aObj := TObjects.Create(nil,Data);
+      if DataSet.State<>dsInsert then
+        begin
+          if not Data.TableExists(aObj.TableName) then
+            aObj.CreateTable;
+          aObj.Free;
+          aObj := TObjects.Create(nil,Data,nil,DataSet);
+          aObj.SelectByRefId(DataSet.FieldByName('SQL_ID').AsVariant);
+          if aObj.Count=0 then
+            begin
+              aObj.Insert;
+              aObj.Text.AsString := Self.Text.AsString;
+              aObj.FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
+              if Assigned(Self.Matchcode) then
+                aObj.Matchcode.AsString := Self.Matchcode.AsString;
+              aObj.Number.AsVariant:=Self.Number.AsVariant;
+              aObj.Post;
+            end;
+          aObj.Free;
+        end;
+    finally
+      aHistory.Free;
+    end;
+  except
+  end;
+end;
+
 function TBaseDbList.SelectFromLink(aLink: string): Boolean;
 begin
   Result := False;
@@ -2848,4 +2912,4 @@ begin
 end;
 initialization
 end.
-
+

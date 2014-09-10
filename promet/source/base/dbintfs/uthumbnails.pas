@@ -26,11 +26,19 @@ interface
 uses
   Classes, SysUtils, uDocuments,Utils,FileUtil,variants,
   FPImage,fpreadgif,FPReadPSD,FPReadPCX,FPReadTGA,FPReadJPEGintfd,fpthumbresize,
-  FPWriteJPEG,UTF8Process,FPReadBMP,process,uBaseDbClasses,FPCanvas,FPImgCanv
+  FPWriteJPEG,UTF8Process,FPReadBMP,process,uBaseDbClasses,FPCanvas,FPImgCanv,
+  uBaseDBInterface,db
   {$IFDEF LCL}
   ,Graphics
   {$ENDIF}
   ;
+
+type
+  TThumbnails = class(TBaseDBDataset)
+  public
+    procedure DefineFields(aDataSet: TDataSet); override;
+    procedure SelectByRefId(aId : Variant);
+  end;
 
 function GetThumbnailPath(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : string;
 function GetThumbTempDir : string;
@@ -287,6 +295,38 @@ begin
       wr.Free;
       Img.Free;
       Printer.Free;
+    end;
+end;
+
+procedure TThumbnails.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'THUMBNAILS';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('REF_ID_ID',ftLargeint,0,True);
+            Add('THUMBNAIL',ftBlob,0,False);
+          end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          Add('REF_ID_ID','REF_ID_ID',[ixUnique]);
+    end;
+end;
+
+procedure TThumbnails.SelectByRefId(aId: Variant);
+begin
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with Self.DataSet as IBaseDBFilter do
+        begin
+          if aId <> Null then
+            Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(IntToStr(aId))
+          else
+            Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue('0');
+          Limit := 0;
+        end;
     end;
 end;
 
