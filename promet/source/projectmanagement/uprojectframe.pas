@@ -221,7 +221,7 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uDocumentFrame,uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,uEditableTab,
   uFilterFrame,uBaseSearch,Utils,uprojectimport,uBaseERPDBClasses,uSelectReport,
   uNRights,uprojectpositions,uSearch,LCLProc,utask,uprojectoverview,uBaseVisualApplication,
-  uGanttView,uWikiFrame,uWiki,ufinance;
+  uGanttView,uWikiFrame,uWiki,ufinance,uthumbnails;
 {$R *.lfm}
 resourcestring
   strNoParent                     = '<kein Vorfahr>';
@@ -907,7 +907,10 @@ var
   aWikiIdx: Integer;
   aID: String;
   Inserted: Boolean;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
 begin
+  TProject(DataSet).OpenItem;
   SetRights;
   pcPages.ClearTabClasses;
   pcPages.CloseAll;
@@ -999,19 +1002,21 @@ begin
   pNav2.Visible := TProject(DataSet).FieldByName('TYPE').AsString = 'C';
   if not TProject(DataSet).Images.DataSet.Active then
     TProject(DataSet).Images.DataSet.Open;
-  s := TProject(DataSet).Images.DataSet.CreateBlobStream(TProject(DataSet).Images.FieldByName('IMAGE'),bmRead);
-  if (S=Nil) or (s.Size = 0) then
-    begin
-      iProject.Picture.Clear;
-    end
-  else
-    begin
-      GraphExt :=  s.ReadAnsiString;
-      iProject.Picture.LoadFromStreamWithFileExt(s,GraphExt);
-    end;
-  s.Free;
   if TProject(DataSet).Images.Count > 0 then
     pcPages.AddTab(TfImageFrame.Create(Self),False);
+  aThumbnails := TThumbnails.Create(nil,Data);
+  aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+  aThumbnails.Open;
+  if aThumbnails.Count>0 then
+    begin
+      aStream := TMemoryStream.Create;
+      Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+      aStream.Position:=0;
+      iProject.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+      aStream.Free;
+    end
+  else iProject.Picture.Clear;
+  aThumbnails.Free;
   TProject(DataSet).Images.DataSet.Close;
   pcPages.AddTabClass(TfProjectOverviewFrame,strOverview,@AddOverview);
   aSubProject := TProject.Create(nil,Data);
@@ -1106,6 +1111,7 @@ begin
         end;
       aWiki.Free;
     end;
+  if HasHelp then AddHelp(Self);
 end;
 function TfProjectFrame.SetRights: Boolean;
 begin

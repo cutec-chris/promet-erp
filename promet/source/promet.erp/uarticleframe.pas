@@ -166,7 +166,8 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uHistoryFrame,uImageFrame,uLinkFrame,uBaseDbInterface,uListFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
   uMainTreeFrame,uPrometFramesInplace,uBaseDBClasses,uarticlesupplierframe,
-  uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance;
+  uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
+  uthumbnails;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -426,8 +427,11 @@ var
   aWikiPage: TfWikiFrame;
   aWikiIdx: Integer;
   aID: String;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
 begin
   pcPages.CloseAll;
+  TMasterdata(DataSet).OpenItem;
   TabCaption := TMasterdata(FDataSet).Text.AsString;
   Masterdata.DataSet := DataSet.DataSet;
   SetRights;
@@ -536,21 +540,23 @@ begin
     pcPages.AddTab(TfHistoryFrame.Create(Self),False);
   if not TMasterdata(DataSet).Images.DataSet.Active then
     TMasterdata(DataSet).Images.DataSet.Open;
-  s := TMasterdata(DataSet).Images.DataSet.CreateBlobStream(TMasterdata(DataSet).Images.FieldByName('IMAGE'),bmRead);
-  if (S=Nil) or (s.Size = 0) then
-    begin
-      iArticle.Picture.Clear;
-    end
-  else
-    begin
-      GraphExt :=  s.ReadAnsiString;
-      iArticle.Picture.LoadFromStreamWithFileExt(s,GraphExt);
-    end;
-  s.Free;
   pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
   if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Images.Count > 0) then
     pcPages.AddTab(TfImageFrame.Create(Self),False);
   TMasterdata(DataSet).Images.DataSet.Close;
+  aThumbnails := TThumbnails.Create(nil,Data);
+  aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+  aThumbnails.Open;
+  if aThumbnails.Count>0 then
+    begin
+      aStream := TMemoryStream.Create;
+      Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+      aStream.Position:=0;
+      iArticle.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+      aStream.Free;
+    end
+  else iArticle.Picture.Clear;
+  aThumbnails.Free;
   pcPages.AddTabClass(TfArticleTextFrame,strTexts,@AddTexts);
   TMasterdata(DataSet).Texts.Open;
   if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Texts.Count > 0) then
@@ -606,7 +612,7 @@ begin
         end;
       aWiki.Free;
     end;
-  inherited DoOpen;
+  if HasHelp then AddHelp(Self);
 end;
 function TfArticleFrame.SetRights: Boolean;
 begin

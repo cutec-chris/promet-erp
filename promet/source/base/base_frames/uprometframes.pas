@@ -122,9 +122,7 @@ var
 begin
   if HasHelp then AddHelp(Self);
   if Assigned(DataSet) and (DataSet is TBaseDbList) then
-    begin
-      TBaseDbList(DataSet).OpenItem;
-    end;
+    TBaseDbList(DataSet).OpenItem;
 end;
 
 constructor TPrometMainFrame.Create(AOwner: TComponent);

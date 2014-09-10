@@ -717,6 +717,7 @@ var
   GraphExt: String;
   aStream: TMemoryStream;
 begin
+  if not Self.Active then Self.Open;
   if Self.Count>0 then
     begin
       aThumbnail.Insert;
@@ -727,7 +728,7 @@ begin
         begin
           GraphExt :=  s.ReadAnsiString;
           aStream := TMemoryStream.Create;
-          if uthumbnails.GenerateThumbNail(GraphExt,s,aStream,'') then
+          if uthumbnails.GenerateThumbNail('.'+GraphExt,s,aStream,'') then
             begin
               if aStream.Size>0 then
                 Data.StreamToBlobField(aStream,aThumbnail.DataSet,'THUMBNAIL');

@@ -129,8 +129,9 @@ begin
       aFilename := GetInternalTempDir+'rpv.'+e;
       aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+e,fmCreate);
     end;
-  aFullStream.Position:=0;
-  aFStream.CopyFrom(aFullStream,aFullStream.Size);
+  if aFullStream.Position=aFullStream.Size then
+    aFullStream.Position:=0;
+  aFStream.CopyFrom(aFullStream,aFullStream.Size-aFullStream.Position);
   aFStream.Free;
   Result := GenerateThumbNail(aName,aFilename,aStream,aText,aWidth,aHeight);
 end;
