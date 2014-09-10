@@ -547,7 +547,7 @@ var
 begin
   aPath := 'tesseract'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
-  aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'tesseract')+aPath;
+  aPath := AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools'+DirectorySeparator+'tesseract')+aPath;
   {$ENDIF}
   FNumber := Processes.Add(Self);
   with BaseApplication as IBaseApplication do
@@ -588,7 +588,7 @@ var
 begin
   aPath := 'unpaper'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
-  aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools')+aPath;
+  aPath := AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools')+aPath;
   {$ENDIF}
   aImage := TLazIntfImage.Create(1,1);
   aImage.LoadFromBitmap(Image.Bitmap.Handle,Image.Bitmap.MaskHandle);
@@ -653,7 +653,7 @@ var
 begin
   aPath := 'cuneiform'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
-  aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'cuneiform')+aPath;
+  aPath := AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools'+DirectorySeparator+'cuneiform')+aPath;
   {$ENDIF}
   FNumber := Processes.Add(Self);
   with BaseApplication as IBaseApplication do
@@ -709,7 +709,7 @@ var
 begin
   aPath := 'gocr'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
-  aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools')+aPath;
+  aPath := AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools')+aPath;
   {$ENDIF}
   aImage := TLazIntfImage.Create(1,1);
   aImage.LoadFromBitmap(Image.Bitmap.Handle,Image.Bitmap.MaskHandle);
@@ -741,4 +741,4 @@ finalization
   Processes.Free;
 end.
 
-
+
