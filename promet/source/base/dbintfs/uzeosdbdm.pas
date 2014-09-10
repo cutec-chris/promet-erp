@@ -25,8 +25,6 @@ uses
   ZAbstractRODataset, ZDataset, uBaseDbClasses, ZSequence,ZAbstractConnection,
   uModifiedDS,ZSqlMonitor;
 type
-
-  { TZeosDBDM }
   TUnprotectedDataSet = class(TDataSet);
   TZeosDBDM = class(TBaseDBModule)
     procedure MonitorTrace(Sender: TObject; Event: TZLoggingEvent;
@@ -81,9 +79,6 @@ type
     function FieldToSQL(aName : string;aType : TFieldType;aSize : Integer;aRequired : Boolean) : string;
     function GetColumns(TableName : string) : TStrings;override;
   end;
-
-  { TZeosDBDataSet }
-
   TZeosDBDataSet = class(TZQuery,IBaseDBFilter,IBaseManageDB,IBaseSubDatasets,IBaseModifiedDS)
   private
     FSubDataSets : Tlist;
@@ -912,17 +907,14 @@ begin
   FUseBaseSorting := AValue;
   SQL.text := BuildSQL;
 end;
-
 function TZeosDBDataSet.GetfetchRows: Integer;
 begin
   result := FetchRow;
 end;
-
 procedure TZeosDBDataSet.SetfetchRows(AValue: Integer);
 begin
   FetchRow:=AValue;
 end;
-
 function TZeosDBDataSet.GetManagedFieldDefs: TFieldDefs;
 begin
   Result := FManagedFieldDefs;
@@ -1961,4 +1953,4 @@ end;
 
 end.
 
-
+

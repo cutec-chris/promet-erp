@@ -132,9 +132,6 @@ type
     property OnRemove : TNotifyEvent read FOnRemoved write FOnRemoved;
   end;
   TReplaceFieldFunc = procedure(aField : TField;aOldValue : string;var aNewValue : string);
-
-  { TBaseDbList }
-
   TBaseDbList = class(TBaseDBDataSet)
   private
     function GetBookNumber: TField;
@@ -166,6 +163,7 @@ type
 //    function  TableToXML(Doc : TXMLDocument;iDataSet : TDataSet) : TDOMElement;
 //    function  XMLToTable(iDataSet : TDataSet;Node : TDOMElement) : Boolean;
     procedure OpenItem;
+    procedure GenerateThumbnail;virtual;
     property Text : TField read GetText;
     property Number : TField read GetNumber;
     property BookNumber : TField read GetBookNumber;
@@ -371,6 +369,7 @@ type
     {$IFDEF LCL}
     function AddFromFile(aFile : string) : Boolean;
     {$ENDIF}
+    procedure GenerateThumbnail(aThumbnail : TBaseDbDataSet);
   end;
   TObjects = class(TBaseDbList)
   private
@@ -396,7 +395,7 @@ type
 var ImportAble : TClassList;
 implementation
 uses uBaseDBInterface, uBaseApplication, uBaseSearch,XMLRead,XMLWrite,Utils,
-  md5,sha1,uData,FileUtil;
+  md5,sha1,uData,FileUtil,uthumbnails;
 resourcestring
   strNumbersetDontExists        = 'Nummernkreis "%s" existiert nicht !';
   strDeletedmessages            = 'gelöschte Narichten';
@@ -532,7 +531,7 @@ procedure TObjects.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
     begin
-      TableName := 'OBJECTS';
+      TableName := 'ALLOBJECTS';
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
@@ -709,6 +708,35 @@ begin
             Add('REF_ID',ftLargeInt,0,True);
             Add('IMAGE',ftBlob,0,False);
           end;
+    end;
+end;
+
+procedure TImages.GenerateThumbnail(aThumbnail: TBaseDBDataset);
+var
+  s: TStream;
+  GraphExt: String;
+  aStream: TMemoryStream;
+begin
+  if Self.Count>0 then
+    begin
+      aThumbnail.Insert;
+      aThumbnail.FieldByName('REF_ID_ID').AsVariant:=Self.FieldByName('REF_ID').AsVariant;
+      s := DataSet.CreateBlobStream(FieldByName('IMAGE'),bmRead);
+      if (S=Nil) or (s.Size = 0) then
+      else
+        begin
+          GraphExt :=  s.ReadAnsiString;
+          aStream := TMemoryStream.Create;
+          if uthumbnails.GenerateThumbNail(GraphExt,s,aStream,'') then
+            begin
+              if aStream.Size>0 then
+                Data.StreamToBlobField(aStream,aThumbnail.DataSet,'THUMBNAIL');
+              aThumbnail.Post;
+            end;
+          aStream.Free;
+        end;
+      if aThumbnail.State=dsInsert then
+        aThumbnail.Cancel;
     end;
 end;
 
@@ -1183,9 +1211,11 @@ var
   aHistory: TAccessHistory;
   aObj: TObjects;
 begin
+  if Self.Count=0 then exit;
   try
     try
       aHistory := TAccessHistory.Create(nil,Data);
+      aObj := TObjects.Create(nil,Data);
       if DataSet.State<>dsInsert then
         begin
           if not Data.TableExists(aHistory.TableName) then
@@ -1194,33 +1224,39 @@ begin
           aHistory := TAccessHistory.Create(nil,Data,nil,DataSet);
           aHistory.AddItem(DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet))]),Data.BuildLink(DataSet));
         end;
-      aObj := TObjects.Create(nil,Data);
       if DataSet.State<>dsInsert then
         begin
           if not Data.TableExists(aObj.TableName) then
-            aObj.CreateTable;
-          aObj.Free;
-          aObj := TObjects.Create(nil,Data,nil,DataSet);
+            begin
+              aObj.CreateTable;
+              aObj.Free;
+              aObj := TObjects.Create(nil,Data,nil,DataSet);
+            end;
           aObj.SelectByRefId(DataSet.FieldByName('SQL_ID').AsVariant);
+          aObj.Open;
           if aObj.Count=0 then
             begin
               aObj.Insert;
               aObj.Text.AsString := Self.Text.AsString;
-              aObj.FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
+              aObj.FieldByName('REF_ID_ID').AsVariant:=Self.Id.AsVariant;
               if Assigned(Self.Matchcode) then
                 aObj.Matchcode.AsString := Self.Matchcode.AsString;
               aObj.Number.AsVariant:=Self.Number.AsVariant;
+              aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
               aObj.Post;
+              Self.GenerateThumbnail;
             end;
-          aObj.Free;
         end;
     finally
+      aObj.Free;
       aHistory.Free;
     end;
   except
   end;
 end;
-
+procedure TBaseDbList.GenerateThumbnail;
+begin
+end;
 function TBaseDbList.SelectFromLink(aLink: string): Boolean;
 begin
   Result := False;

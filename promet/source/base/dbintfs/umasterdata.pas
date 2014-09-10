@@ -169,11 +169,12 @@ type
                                                                cTexts : Boolean = True;
                                                                cSupplier : Boolean = True) : Boolean;
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;override;
+    procedure GenerateThumbnail; override;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
   end;
 implementation
 uses uBaseDBInterface, uBaseSearch, uBaseApplication, uBaseApplicationTools,
-  uData, Utils,uOrder;
+  uData, Utils,uOrder,uthumbnails;
 procedure TSupplierPrices.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -817,6 +818,20 @@ begin
       Result := Count > 0;
     end;
 end;
+
+procedure TMasterdata.GenerateThumbnail;
+var
+  aThumbnail: TThumbnails;
+begin
+  aThumbnail := TThumbnails.Create(nil,DataModule);
+  aThumbnail.CreateTable;
+  aThumbnail.SelectByRefId(Self.Id.AsVariant);
+  aThumbnail.Open;
+  if aThumbnail.Count=0 then
+    Images.GenerateThumbnail(aThumbnail);
+  aThumbnail.Free;
+end;
+
 function TMDPos.GetCurrency: string;
 begin
   Result:=Masterdata.FieldByName('CURRENCY').AsString;
@@ -983,6 +998,7 @@ begin
       Result := True;
     end;
 end;
+
 initialization
 end.
 
