@@ -85,7 +85,7 @@ begin
         MailName[nRecipCount] := copy(tmpMail,0,pos(',',tmpMail)-1);
         if (RecepientName='') then
         begin
-          lpRecepient[nRecipCount].lpszName := PChar(MailName[nRecipCount])
+          lpRecepient[nRecipCount].lpszName := PChar(UTF8ToSys(MailName[nRecipCount]))
         end
         else
         begin

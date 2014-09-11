@@ -506,6 +506,13 @@ begin
   Result := StringReplace(Result,'&','',[rfReplaceAll]);
   Result := StringReplace(Result,'(','_',[rfReplaceAll]);
   Result := StringReplace(Result,')','_',[rfReplaceAll]);
+  Result := StringReplace(Result,'ö','oe',[rfReplaceAll]);
+  Result := StringReplace(Result,'ä','ae',[rfReplaceAll]);
+  Result := StringReplace(Result,'ü','ue',[rfReplaceAll]);
+  Result := StringReplace(Result,'Ö','Oe',[rfReplaceAll]);
+  Result := StringReplace(Result,'Ä','Ae',[rfReplaceAll]);
+  Result := StringReplace(Result,'Ü','Ue',[rfReplaceAll]);
+  Result := StringReplace(Result,'ß','ss',[rfReplaceAll]);
 end;
 function StripHTML(S: string): string;
 var
@@ -820,4 +827,4 @@ begin
 end;
 END.
 
- 
+ 
