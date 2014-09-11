@@ -146,8 +146,8 @@ type
     FActivating: Boolean;
     function GetDrawTextFlags: Cardinal;
   public
-    procedure ActivateHint(const AHint: String); override;
-    //procedure ActivateHint(ARect: TRect; const AHint: string); override;
+    //procedure ActivateHint(const AHint: String); override;
+    procedure ActivateHint(ARect: TRect; const AHint: string); override;
     procedure Paint; override;
   published
     property Caption;
@@ -852,14 +852,13 @@ begin
   Result := Result or DT_LEFT;
 end;
 
-procedure TSearchHintWindow.ActivateHint(const AHint: String);
+{procedure TSearchHintWindow.ActivateHint(const AHint: String);
 begin
   inherited ActivateHint(AHint);
   Caption := AHint;
   //AMonitor := Screen.MonitorFromPoint(ARect.TopLeft);
 end;
-
-{
+}
 procedure TSearchHintWindow.ActivateHint(ARect: TRect; const AHint: string);
 var
   AMonitor: TMonitor;
@@ -901,7 +900,7 @@ begin
     FActivating := False;
   end;
 end;
-}
+
 procedure TSearchHintWindow.Paint;
 var
   R: TRect;
