@@ -862,9 +862,9 @@ begin
           end;
     end;
   aFilter := aFilter+tmp;
-  aFilter := StringReplace(aFilter,'@PERMISSIONJOIN@','&PERMISSIONJOIN&',[rfReplaceAll]);
-  aFilter := StringReplace(aFilter,'@PERMISSIONWHERE@','&PERMISSIONWHERE&',[rfReplaceAll]);
-  aFilter := StringReplace(aFilter,'@DEFAULTORDER@','&DEFAULTORDER&',[rfReplaceAll]);
+  aFilter := StringReplace(aFilter,'&PERMISSIONJOIN&','@PERMISSIONJOIN@',[rfReplaceAll]);
+  aFilter := StringReplace(aFilter,'&PERMISSIONWHERE&','@PERMISSIONWHERE@',[rfReplaceAll]);
+  aFilter := StringReplace(aFilter,'&DEFAULTORDER&','@DEFAULTORDER@',[rfReplaceAll]);
   if lowercase(copy(trim(aFilter),0,6)) = 'select' then
     begin
       //TODO:Security Risk if eFilterEdit.Lines.Text changed !!!
@@ -1531,6 +1531,10 @@ begin
       aControl.Free;
     end;
   tmp := Filter;
+  tmp := StringReplace(tmp,'@PERMISSIONJOIN@','&PERMISSIONJOIN&',[rfReplaceAll]);
+  tmp := StringReplace(tmp,'@PERMISSIONWHERE@','&PERMISSIONWHERE&',[rfReplaceAll]);
+  tmp := StringReplace(tmp,'@DEFAULTORDER@','&DEFAULTORDER&',[rfReplaceAll]);
+  tmp := StringReplace(tmp,'@AUTOFILTER@','&AUTOFILTER&',[rfReplaceAll]);
   while pos('@',tmp) > 0 do
     begin
       tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
