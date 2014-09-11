@@ -412,8 +412,8 @@ begin
     begin
       Screen.Cursor := crHourglass;
       Application.ProcessMessages;
-      DataSet.Delete;
       FDataSet.CascadicCancel;
+      DataSet.Delete;
 //      Data.Commit(FConnection);
 //      Data.StartTransaction(FConnection);
       acClose.Execute;

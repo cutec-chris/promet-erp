@@ -833,14 +833,18 @@ begin
     Rec := DataSet.GetBookmark;
   aFilter := eFilterEdit.Lines.Text;
   tmp := aFilter;
+  tmp := StringReplace(tmp,'@PERMISSIONJOIN@','&PERMISSIONJOIN&',[rfReplaceAll]);
+  tmp := StringReplace(tmp,'@PERMISSIONWHERE@','&PERMISSIONWHERE&',[rfReplaceAll]);
+  tmp := StringReplace(tmp,'@DEFAULTORDER@','&DEFAULTORDER&',[rfReplaceAll]);
+  tmp := StringReplace(tmp,'@AUTOFILTER@','&AUTOFILTER&',[rfReplaceAll]);
   aFilter := '';
-  while pos('%',tmp) > 0 do
+  while pos('@',tmp) > 0 do
     begin
-      aFilter := aFilter+copy(tmp,0,pos('%',tmp)-1);
-      tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
-      adata := copy(tmp,0,pos('%',tmp)-1);
+      aFilter := aFilter+copy(tmp,0,pos('@',tmp)-1);
+      tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
+      adata := copy(tmp,0,pos('@',tmp)-1);
       if adata = '' then break;
-      tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
+      tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
       aname := copy(adata,0,pos(':',adata)-1);
       if aname = '' then
         aname := adata;
@@ -858,15 +862,18 @@ begin
           end;
     end;
   aFilter := aFilter+tmp;
+  aFilter := StringReplace(aFilter,'@PERMISSIONJOIN@','&PERMISSIONJOIN&',[rfReplaceAll]);
+  aFilter := StringReplace(aFilter,'@PERMISSIONWHERE@','&PERMISSIONWHERE&',[rfReplaceAll]);
+  aFilter := StringReplace(aFilter,'@DEFAULTORDER@','&DEFAULTORDER&',[rfReplaceAll]);
   if lowercase(copy(trim(aFilter),0,6)) = 'select' then
     begin
       //TODO:Security Risk if eFilterEdit.Lines.Text changed !!!
       with DataSet.DataSet as IBaseDBFilter do
         begin
           if FAutoFilter <> '' then
-            FullSQL:=StringReplace(aFilter,'@AUTOFILTER@',' AND ('+FAutoFilter+')',[])
+            FullSQL:=StringReplace(aFilter,'&AUTOFILTER&',' AND ('+FAutoFilter+')',[])
           else
-            FullSQL:=StringReplace(aFilter,'@AUTOFILTER@','',[]);
+            FullSQL:=StringReplace(aFilter,'&AUTOFILTER&','',[]);
           if cbMaxResults.Checked then
             Limit := seMaxResults.Value
           else Limit := 0;
@@ -1524,12 +1531,12 @@ begin
       aControl.Free;
     end;
   tmp := Filter;
-  while pos('%',tmp) > 0 do
+  while pos('@',tmp) > 0 do
     begin
-      tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
-      data := copy(tmp,0,pos('%',tmp)-1);
+      tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
+      data := copy(tmp,0,pos('@',tmp)-1);
       if data = '' then break;
-      tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
+      tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
       aname := copy(data,0,pos(':',data)-1);
       if aname = '' then
         aname := data

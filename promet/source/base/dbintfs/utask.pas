@@ -903,6 +903,7 @@ var
   aDeps: TDependencies;
   aTask: TTask;
 begin
+  if aDataSet.ControlsDisabled then exit;
   if trim(FDS.DataSet.FieldByName('SUMMARY').AsString)<>'' then
     begin
       //debugln('TasksBeforeDelete:'+FDS.DataSet.FieldByName('SUMMARY').AsString);

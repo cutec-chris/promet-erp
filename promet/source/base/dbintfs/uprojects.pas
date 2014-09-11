@@ -470,9 +470,11 @@ end;
 
 procedure TProject.Delete;
 begin
+  Tasks.DataSet.DisableControls;
   Tasks.Open;
   while Tasks.Count>0 do
     Tasks.Delete;
+  Tasks.DataSet.EnableControls;
   Links.Open;
   while Links.Count>0 do
     Links.Delete;
