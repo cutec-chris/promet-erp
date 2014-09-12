@@ -1002,8 +1002,6 @@ begin
   pNav2.Visible := TProject(DataSet).FieldByName('TYPE').AsString = 'C';
   if not TProject(DataSet).Images.DataSet.Active then
     TProject(DataSet).Images.DataSet.Open;
-  if TProject(DataSet).Images.Count > 0 then
-    pcPages.AddTab(TfImageFrame.Create(Self),False);
   aThumbnails := TThumbnails.Create(nil,Data);
   aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
   aThumbnails.Open;
@@ -1014,8 +1012,18 @@ begin
       aStream.Position:=0;
       iProject.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
       aStream.Free;
+      if TProject(DataSet).Images.Count > 0 then
+        pcPages.AddTab(TfImageFrame.Create(Self),False);
     end
-  else iProject.Picture.Clear;
+  else
+    begin
+      iProject.Picture.Clear;
+      if TProject(DataSet).Images.Count > 0 then
+        begin
+          pcPages.AddTab(TfImageFrame.Create(Self),False);
+          TProject(DataSet).GenerateThumbnail;
+        end;
+    end;
   aThumbnails.Free;
   TProject(DataSet).Images.DataSet.Close;
   pcPages.AddTabClass(TfProjectOverviewFrame,strOverview,@AddOverview);

@@ -113,9 +113,10 @@ type
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
     procedure Makesnapshot(aName : string);
     procedure Delete; override;
+    procedure GenerateThumbnail; override;
   end;
 implementation
-uses uBaseSearch,uBaseApplication,Utils;
+uses uBaseSearch,uBaseApplication,Utils,uthumbnails;
 resourcestring
   strTargetChanged              = 'Zieldatum geändert von %s zu %s';
   strManagerChanged             = 'Projektleiter geändert zu %s';
@@ -482,6 +483,19 @@ begin
   while Positions.Count>0 do
     Positions.Delete;
   inherited Delete;
+end;
+
+procedure TProject.GenerateThumbnail;
+var
+  aThumbnail: TThumbnails;
+begin
+  aThumbnail := TThumbnails.Create(nil,DataModule);
+  aThumbnail.CreateTable;
+  aThumbnail.SelectByRefId(Self.Id.AsVariant);
+  aThumbnail.Open;
+  if aThumbnail.Count=0 then
+    Images.GenerateThumbnail(aThumbnail);
+  aThumbnail.Free;
 end;
 
 procedure TProjectLinks.FillDefaults(aDataSet: TDataSet);
