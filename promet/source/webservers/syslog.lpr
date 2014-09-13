@@ -86,7 +86,7 @@ begin
                 end;
               aObject.History.AddItem(aObject.DataSet,aMsg.LogMessage,'',aMsg.Tag,nil,0,'',True,False,False);
               aObject.History.FieldByName('DATE').AsDateTime:=aMsg.DateTime;
-              aObject.History.FieldByName('SOURCE').AsString:=aIP;
+              aObject.History.FieldByName('SOURCE').AsString:='SysLog';
               aObject.History.Post;
               aMsg.Free;
             end;

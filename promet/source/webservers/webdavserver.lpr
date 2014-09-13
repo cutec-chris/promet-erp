@@ -265,10 +265,10 @@ begin
               aCal.SortFields:='TIMESTAMPD';
               aCal.SortDirection:=sdDescending;
               aCal.Open;
-              aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
-              aItem.Properties.Values['D:getetag'] := Data.Users.Id.AsString;
-              aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
-              aItem.Properties.Values['D:displayname'] := aItem.Name;
+              aItem.Properties.Values['getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+              aItem.Properties.Values['getetag'] := Data.Users.Id.AsString;
+              aItem.Properties.Values['getcontenttype'] := 'text/calendar';
+              aItem.Properties.Values['displayname'] := aItem.Name;
               if Data.Users.FieldByName('EMAIL').AsString<>'' then
                 aItem.UserAdressSet.Add('mailto:'+Data.Users.FieldByName('EMAIL').AsString);
               aItem.UserAdressSet.Add('/caldav/');
@@ -287,8 +287,8 @@ begin
                         aItem := TLFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
                       else
                         aItem := TLFile.Create(aCal.Id.AsString+'.ics');
-                      aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
-                      aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
+                      aItem.Properties.Values['getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+                      aItem.Properties.Values['getcontenttype'] := 'text/calendar; component=vevent';
                       aDirList.Add(aItem);
                       aCal.Next;
                     end;
@@ -301,8 +301,9 @@ begin
                         aItem := TLFile.Create(aTasks.FieldByName('ORIGID').AsString+'.ics')
                       else
                         aItem := TLFile.Create(aTasks.Id.AsString+'.ics');
-                      aItem.Properties.Values['D:getetag'] := aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
-                      aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vtodo';
+                      aItem.Path := aFullDir+'/home';
+                      aItem.Properties.Values['getetag'] := aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
+                      aItem.Properties.Values['getcontenttype'] := 'text/calendar; component=vtodo';
                       aDirList.Add(aItem);
                       aTasks.Next;
                     end;
@@ -320,10 +321,10 @@ begin
                   aItem.IsCalendarUser:=IsCalendarUser;
                   aCal := TCalendar.Create(nil,Data);
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
-                  aItem.Properties.Values['CS:getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
-                  aItem.Properties.Values['D:getetag'] := aDirs.Id.AsString;
-                  aItem.Properties.Values['D:getcontenttype'] := 'text/calendar';
-                  aItem.Properties.Values['D:displayname'] := aItem.Name;
+                  aItem.Properties.Values['getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+                  aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
+                  aItem.Properties.Values['getcontenttype'] := 'text/calendar';
+                  aItem.Properties.Values['displayname'] := aItem.Name;
                   aItem.CalendarHomeSet:=aDir;
                   if Assigned(aDirList) then
                     aDirList.Add(aItem)
@@ -341,6 +342,7 @@ begin
                             aItem := TLFile.Create(aCal.Id.AsString+'.ics');
                           aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                           aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
+                          aItem.Path := aFullDir+'/'+aDirs.Text.AsString;
                           aDirList.Add(aItem);
                           aCal.Next;
                         end;

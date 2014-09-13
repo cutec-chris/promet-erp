@@ -40,11 +40,13 @@ type
   private
     FASet: TStringList;
     FCHS: string;
+    FFath: string;
     FIsCal: Boolean;
     FIsCalU: Boolean;
     FIsDir: Boolean;
     FIsTodo: Boolean;
     FName: string;
+    FPath: string;
     FProperties: TStringList;
     procedure SetName(AValue: string);
   public
@@ -58,6 +60,7 @@ type
     property IsTodoList : Boolean read FIsTodo write FIsTodo;
     property CalendarHomeSet : string read FCHS write FCHS;
     property UserAdressSet : TStringList read FASet;
+    property Path : string read FFath write FPath;
   end;
   TLGetDirectoryList = function(aDir : string;aDepth : Integer;var aDirList : TLDirectoryList) : Boolean of object;
   TLGetCTag = function(aDir : string;var aCTag : Int64) : Boolean of object;
@@ -508,6 +511,7 @@ begin
   FIsTodo:=False;
   FProperties := TStringList.Create;
   FASet := TStringList.Create;
+  FPath := '';
 end;
 
 destructor TLFile.Destroy;
@@ -950,7 +954,12 @@ begin
       if copy(Path,length(Path),1) <> '/' then
         Path := Path+'/';
       for i := 0 to aDirList.Count-1 do
-        Createresponse(Path+aDirList[i].Name,aMSres,aProperties,aNs,aPrefix,aDirList[i]);
+        begin
+          if aDirList[i].Path='' then
+            Createresponse(Path+aDirList[i].Name,aMSres,aProperties,aNs,aPrefix,aDirList[i])
+          else
+            Createresponse(aDirList[i].Path+'/'+aDirList[i].Name,aMSres,aProperties,aNs,aPrefix,aDirList[i]);
+        end;
     end
   else if Assigned(aDirList) and (aDirList is TLFile) then
     begin
@@ -1107,4 +1116,4 @@ begin
   inherited Destroy;
 end;
 end.
-
+
