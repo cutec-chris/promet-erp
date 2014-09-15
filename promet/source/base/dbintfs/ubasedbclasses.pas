@@ -2221,7 +2221,7 @@ begin
 end;
 destructor TUser.Destroy;
 begin
-  FPayGroups.;
+  FPayGroups.Destroy;
   Options.Destroy;
   Rights.Destroy;
   FFollows.Destroy;
@@ -2301,6 +2301,7 @@ begin
   FOptions.CreateTable;
   FRights.CreateTable;
   FFollows.CreateTable;
+  FPayGroups.CreateTable;
 end;
 procedure TUser.SetPasswort(aPasswort: string);
 var

@@ -83,6 +83,7 @@ begin
   Result := Str;
   if Data.GetDBType='postgres' then
     begin
+      Result := StringReplace(Result,'JULIANDAY(','2415020.5+CONVERT(FLOAT,',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'CHARINDEX(','strpos(',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'MONTH(','EXTRACT(MONTH FROM ',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'YEAR(','EXTRACT(YEAR FROM ',[rfReplaceAll,rfIgnoreCase]);
@@ -90,15 +91,19 @@ begin
       Result := StringReplace(Result,'DAYOFWEEK(','EXTRACT(DOW FROM ',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'GETDATE()','CURRENT_DATE',[rfReplaceAll,rfIgnoreCase]);
     end
+  else if Data.GetDBType='mssql' then
+    begin
+      Result := StringReplace(Result,'JULIANDAY(','2415020.5+CONVERT(FLOAT,',[rfReplaceAll,rfIgnoreCase]);
+    end
   else if Data.GetDBType='sqlite' then
     begin
       Result := StringReplace(Result,'CHARINDEX(','instr(',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'MONTH(','strftime("%m",',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'YEAR(','strftime("%Y",',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Result,'DAY(','strftime("%d",',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,' DAY(','strftime("%d",',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,',DAY(','strftime("%d",',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'DAYOFWEEK(','strftime("%w",',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'GETDATE()','date("now")',[rfReplaceAll,rfIgnoreCase]);
-
     end;
 end;
 
@@ -628,4 +633,4 @@ begin
 end;
 
 end.
-
+
