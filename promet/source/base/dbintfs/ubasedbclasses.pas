@@ -213,12 +213,14 @@ type
   TOptions = class;
   TFollowers = class;
   TRights = class;
+  TPayGroups = class;
   TUser = class(TBaseDbList,IBaseHistory)
   private
     FFollows: TFollowers;
     FOptions: TOptions;
     FRights: TRights;
     FHistory: TBaseHistory;
+    FPayGroups: TPayGroups;
     function GetAcc: TField;
     function GetIDCode: TField;
     function GetLeaved: TField;
@@ -2208,6 +2210,7 @@ begin
   FFollows := TFollowers.Create(Owner,DM,aConnection,DataSet);
   FRights.Users := Self;
   FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
+  FPayGroups := TPayGroups.Create(Self,DM,aConnection);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -2218,6 +2221,7 @@ begin
 end;
 destructor TUser.Destroy;
 begin
+  FPayGroups.;
   Options.Destroy;
   Rights.Destroy;
   FFollows.Destroy;
