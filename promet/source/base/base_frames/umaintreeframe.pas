@@ -191,7 +191,7 @@ uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
   uBaseVisualApplication,uError;
 resourcestring
   strRestartNessesary                         = 'Starten Sie die Anwendung neu !';
-  strRealMove                                 = 'Verzeichnis wirklich verschieben ?';
+  strRealMove                                 = 'Verzeichnis wirklich nach "%s" verschieben ?';
 constructor TTreeEntry.Create;
 begin
   Action := nil;
@@ -1120,6 +1120,7 @@ var
   aNode: TTreeNode;
   tmp: String;
   aNode1: TTreeNode;
+  aTargetNode: TTreeNode;
 begin
   if Assigned(FDragDrop) then
     begin
@@ -1282,18 +1283,19 @@ begin
         end;
       etDir,etDocumentDir,etMessageDir,etMessageBoard:
         begin
-          if Assigned(tvMain.GetNodeAt(X,Y)) and Assigned(tvMain.GetNodeAt(X,Y).Data) then
-            if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir)
-            or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDocumentDir)
-            or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etMessageDir)
-            or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etMessageBoard)
+          aTargetNode := tvMain.GetNodeAt(X,Y);
+          DataT2 := TTreeEntry(aTargetNode.Data);
+          if Assigned(aTargetNode) and Assigned(aTargetNode.Data) then
+            if (TTreeEntry(aTargetNode.Data).Typ = etDir)
+            or (TTreeEntry(aTargetNode.Data).Typ = etDocumentDir)
+            or (TTreeEntry(aTargetNode.Data).Typ = etMessageDir)
+            or (TTreeEntry(aTargetNode.Data).Typ = etMessageBoard)
             then
               begin
-                if MessageDlg(strRealMove,mtInformation,[mbYes,mbNo],0) = mrYes then
+                Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
+                Data.Tree.GotoBookmark(DataT2.Rec);
+                if MessageDlg(Format(strRealMove,[Data.Tree.Text.AsString]),mtInformation,[mbYes,mbNo],0) = mrYes then
                   begin
-                    DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
-                    Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
-                    Data.Tree.GotoBookmark(DataT2.Rec);
                     if Data.Tree.FieldByName('TYPE').AsString <> 'F' then
                       begin
                         aNewParent := Data.Tree.id.AsVariant;
@@ -1302,12 +1304,12 @@ begin
                         with Data.Tree.DataSet do
                           begin
                             Edit;
-                            FieldByName('PARENT').AsInteger:=aNewParent;
+                            FieldByName('PARENT').AsVariant:=aNewParent;
                             Post;
                           end;
-                        tvMain.GetNodeAt(X,Y).Collapse(True);
-                        tvMain.GetNodeAt(X,Y).HasChildren:=True;
-                        tvMain.GetNodeAt(X,Y).Expand(False);
+                        aTargetNode.Collapse(True);
+                        aTargetNode.HasChildren:=True;
+                        aTargetNode.Expand(False);
                         try
                           tvMain.Selected.Delete;
                         except
