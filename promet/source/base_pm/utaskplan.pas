@@ -208,7 +208,7 @@ type
     procedure Execute; override;
     constructor Create(aPlan : TWinControl;aFrom,aTo : TDateTime;aResource : TRessource;asUser : string;aTasks,aCalendar,aProcessmessages : Boolean;AttatchTo : TInterval = nil);
   end;
-procedure ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False);
+function ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False) : Boolean;
 resourcestring
   strSaveTaskChanges                      = 'Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?';
   strChangeMilestones                     = 'Sollen Meilensteintermine auch geändert werden ?';
@@ -414,12 +414,14 @@ begin
   FUsage:=-1;
 end;
 
-procedure ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False);
+function ChangeTask(aTasks: TTaskList; aTask: TInterval;
+  DoChangeMilestones: Boolean): Boolean;
 var
   aTaskI: TTask;
   aTaskI2: TTask;
   i: Integer;
 begin
+  result := False;
   if aTasks.DataSet.Locate('SQL_ID',aTask.Id,[]) then
     begin
       //Add new Dependencies
@@ -442,6 +444,7 @@ begin
       //Change Task
       if ((aTasks.FieldByName('CLASS').AsString<>'M') or DoChangeMilestones) and (aTasks.FieldByName('COMPLETED').AsString<>'Y') then
         begin
+          Result := aTasks.FieldByName('CLASS').AsString='M';
           if not aTasks.CanEdit then
             aTasks.DataSet.Edit;
           if aTasks.FieldByName('SUMMARY').AsString <> aTask.Task then

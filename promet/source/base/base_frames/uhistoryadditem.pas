@@ -53,7 +53,8 @@ type
   public
     { public declarations }
     function Execute(aDataSet : TBaseDBDataSet = nil) : Boolean;
-  end; 
+    procedure ExecuteUnmodal(aDataSet : TBaseDBDataSet = nil);
+  end;
 var
   fHistoryAddItem: TfHistoryAddItem;
 implementation
@@ -128,5 +129,19 @@ begin
   else eAction.Text:=aDataSet.FieldByName('ACTION').AsString;
   Result := Showmodal = mrOK;
 end;
+
+procedure TfHistoryAddItem.ExecuteUnmodal(aDataSet: TBaseDBDataSet);
+begin
+  if not Assigned(Self) then
+    begin
+      Application.CreateForm(TfHistoryAddItem,fHistoryAddItem);
+      Self := fHistoryAddItem;
+    end;
+  if aDataSet = nil then
+    eAction.Clear
+  else eAction.Text:=aDataSet.FieldByName('ACTION').AsString;
+  Show;
+end;
+
 end.
 

@@ -911,7 +911,6 @@ var
   aStream: TMemoryStream;
 begin
   TProject(DataSet).OpenItem;
-  SetRights;
   pcPages.ClearTabClasses;
   pcPages.CloseAll;
   pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
@@ -1119,6 +1118,7 @@ begin
         end;
       aWiki.Free;
     end;
+  SetRights;
   if HasHelp then AddHelp(Self);
 end;
 function TfProjectFrame.SetRights: Boolean;
@@ -1135,7 +1135,6 @@ begin
   eName.Enabled:=FEditable;
 
   pComponents.Enabled := FEditable;
-  mInfo.ReadOnly:=not FEditable;
 end;
 procedure TfProjectFrame.SetDataSet(const AValue: TBaseDBDataset);
 begin

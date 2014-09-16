@@ -42,7 +42,9 @@ type
     acFindTimeSlot: TAction;
     acAddtask: TAction;
     acDeletetask: TAction;
+    acAddHistory: TAction;
     ActionList1: TActionList;
+    Bevel11: TBevel;
     bMakePossible: TSpeedButton;
     bCalculate2: TSpeedButton;
     Bevel10: TBevel;
@@ -60,10 +62,12 @@ type
     bShowTasks: TSpeedButton;
     bMoveFwd: TSpeedButton;
     bShowTasks1: TSpeedButton;
+    bHistory: TSpeedButton;
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
     cbSnapshot: TComboBox;
     iHourglass: TImage;
+    Label10: TLabel;
     Label4: TLabel;
     Label8: TLabel;
     Label9: TLabel;
@@ -79,6 +83,7 @@ type
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     Panel10: TPanel;
+    Panel11: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
     pCalc: TPanel;
@@ -95,6 +100,7 @@ type
     bSave: TSpeedButton;
     bCancel: TSpeedButton;
     bCSave: TSpeedButton;
+    procedure acAddHistoryExecute(Sender: TObject);
     procedure acAddSnapshotExecute(Sender: TObject);
     procedure acAddSubProjectsExecute(Sender: TObject);
     procedure acAddtaskExecute(Sender: TObject);
@@ -186,7 +192,7 @@ var
 implementation
 uses uData,LCLIntf,uTaskEdit,variants,LCLProc,uTaskPlan,
   uIntfStrConsts,uColors,uBaseDBInterface,Grids,uLogWait,uWiki,
-  uBaseApplication;
+  uBaseApplication,uhistoryadditem;
 {$R *.lfm}
 resourcestring
   strSnapshot                             = 'Snapshot';
@@ -973,6 +979,40 @@ begin
       cbSnapshot.Items.Add(aName);
     end;
 end;
+
+procedure TfGanttView.acAddHistoryExecute(Sender: TObject);
+var
+  i: Integer;
+  aClass: TBaseDBDatasetClass;
+  aObj: TBaseDBDataset;
+  aHist : IBaseHistory;
+begin
+  if fHistoryAddItem.Execute then
+    begin
+      FProject.History.AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,FProject.DataSet,ACICON_USEREDITED,'',True,True);
+      for i := 0 to fHistoryAddItem.lbAdditional.Count-1 do
+        if Data.ListDataSetFromLink(fHistoryAddItem.lbAdditional.Items[i],aClass) then
+          begin
+            aObj := aClass.Create(nil, Data);
+            if aObj is TBaseDbList then
+              begin
+                TBaseDBList(aObj).SelectFromLink(fHistoryAddItem.lbAdditional.Items[i]);
+                aObj.Open;
+                if aObj.Count>0 then
+                  begin
+                    if Supports(aObj,IBaseHistory,aHist) then
+                      begin
+                        aHist.History.AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
+                        aHist := nil;
+                      end;
+                  end;
+              end;
+            aObj.Destroy;
+          end;
+      fHistoryAddItem.lbAdditional.Clear;
+    end;
+end;
+
 procedure TfGanttView.acMakePossibleExecute(Sender: TObject);
   function DoMove(aInterval : TInterval) : Boolean;
   var
@@ -1442,7 +1482,8 @@ var
       begin
         if aParent.Interval[i].Changed then
           begin
-            ChangeTask(FProject.Tasks,aParent.Interval[i],aChangeMilestones);
+            if ChangeTask(FProject.Tasks,aParent.Interval[i],aChangeMilestones) then
+              ;//fHistoryAddItem.ExecuteUnmodal(FProject);
           end;
         if aParent.Interval[i].StartDate<aStart then
           aStart:=aParent.Interval[i].StartDate;
