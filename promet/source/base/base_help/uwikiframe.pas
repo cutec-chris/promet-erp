@@ -827,7 +827,7 @@ var
                       if aType=3 then
                         begin
                           if i>0 then Outp+=',';
-                          tmp := aRDS.Fields[i].AsString;
+                          tmp := HTMLEncode(aRDS.Fields[i].AsString);
                           Outp += tmp;
                           if TryStrToFloat(tmp,aTmpFloat) then
                             begin
