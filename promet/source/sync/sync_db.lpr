@@ -213,15 +213,15 @@ begin
       if BaseApplication.HasOption('w','wholeday') then
         begin
           aFilter := '(('+SourceDM.QuoteField('TIMESTAMPD')+'=';
-          aFilter := aFilter+SourceDM.DateToFilter(aTime);
+          aFilter := aFilter+DestDM.DateToFilter(aTime);
           aFilter := aFilter+')) or ('+SourceDM.QuoteField('TIMESTAMPD')+'>';
-          aFilter := aFilter+SourceDM.DateToFilter(aTime);
+          aFilter := aFilter+DestDM.DateToFilter(aTime);
           aFilter := aFilter+')';
         end
       else
         begin
-          aFilter := '('+SourceDM.QuoteField('TIMESTAMPD')+'>';
-          aFilter := aFilter+SourceDM.DateTimeToFilter(aTime);
+          aFilter := '('+DestDM.QuoteField('TIMESTAMPD')+'>';
+          aFilter := aFilter+DestDM.DateTimeToFilter(aTime);
           aFilter := aFilter+')';
         end;
     end;

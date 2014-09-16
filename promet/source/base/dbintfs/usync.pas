@@ -285,7 +285,6 @@ function TSyncItems.GetType: TField;
 begin
   Result := FieldByName('SYNCTYPE');
 end;
-
 procedure TSyncItems.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -305,7 +304,6 @@ begin
           end;
     end;
 end;
-
 procedure TSyncItems.SelectByReference(aID: Variant);
 var
   aField: String = '';
@@ -328,7 +326,6 @@ begin
           end;
       end;
 end;
-
 procedure TSyncItems.SelectByRemoteReference(aID: Variant);
 var
   aField: String = '';
@@ -339,7 +336,6 @@ begin
         Filter := Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(aID);
       end;
 end;
-
 function TSyncItems.GetField(aObject : TJSONData;aName : string) : TJSONData;
 begin
   Result := nil;
@@ -677,14 +673,12 @@ begin
         end;
     end;
 end;
-
 function TSyncItems.LastSync(SyncType, SyncTable: string): TDateTime;
 begin
   Filter(TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('SYNCTABLE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncTable),0,'SYNC_TIME');
   Last;
   Result := SyncTime.AsDateTime;
 end;
-
 constructor TSyncTable.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
