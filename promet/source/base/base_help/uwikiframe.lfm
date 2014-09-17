@@ -932,16 +932,19 @@ inherited fWikiFrame: TfWikiFrame
     top = 8
     object acBack: TAction
       Caption = 'acBack'
+      Hint = 'zur letzten Seite wechseln'
       ImageIndex = 84
       OnExecute = acBackExecute
     end
     object acForward: TAction
       Caption = 'acForward'
+      Hint = 'zur nächsten Seite wechseln'
       ImageIndex = 85
       OnExecute = acForwardExecute
     end
     object acIndex: TAction
       Caption = 'acIndex'
+      Hint = 'zum Index zurückspringen'
       ImageIndex = 86
       OnExecute = acIndexExecute
     end
@@ -966,6 +969,7 @@ inherited fWikiFrame: TfWikiFrame
       AutoCheck = True
       Caption = 'acEdit'
       GroupIndex = 111
+      Hint = 'in den Editiermodus wechseln'
       ImageIndex = 67
       OnExecute = acEditExecute
     end
