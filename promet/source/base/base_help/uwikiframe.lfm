@@ -233,11 +233,11 @@ inherited fWikiFrame: TfWikiFrame
     end
   end
   object pLeft: TPanel[1]
-    Left = 0
+    Left = 641
     Height = 487
     Top = 42
     Width = 44
-    Align = alLeft
+    Align = alRight
     BevelOuter = bvNone
     ClientHeight = 487
     ClientWidth = 44
@@ -397,7 +397,7 @@ inherited fWikiFrame: TfWikiFrame
     end
   end
   object pMiddle: TPanel[2]
-    Left = 44
+    Left = 0
     Height = 487
     Top = 42
     Width = 641
