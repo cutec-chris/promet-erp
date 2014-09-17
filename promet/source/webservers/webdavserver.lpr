@@ -276,7 +276,7 @@ begin
               if Assigned(aDirList) then
                 aDirList.Add(aItem)
               else aDirList := aItem;
-              if aDepth>0 then
+              if (aDepth>0) and (aDir <> '') then
                 begin
                   aCal.SelectByIdAndTime(Data.Users.Id.AsVariant,Now(),Now()+90); //3 month in future
                   aCal.ActualLimit:=100;
@@ -359,31 +359,35 @@ begin
     end
   else if copy(aDir,0,5) = '/ical' then
     begin
-      aFullDir := aDir;
-      aDir := copy(aDir,7,length(aDir));
-      //Add ics file
-      aItem := TLFile.Create(Data.Users.Text.AsString+'.ics',False);
-      if (aDir = aItem.Name) or (aDir = '') then
+      if Data.Users.DataSet.Active then
         begin
-          aItem.Properties.Values['getcontenttype'] := 'text/calendar';
-          aItem.Properties.Values['creationdate'] := BuildISODate(Now());
-          aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
-          sl := TStringList.Create;
-          aCal := TCalendar.Create(nil,Data);
-          aCal.SelectByUser(Data.Users.Accountno.AsString);
-          aCal.Open;
-          VCalExport(aCal,sl);
-          aCal.Free;
-          Stream := TMemoryStream.Create;
-          sl.SaveToStream(Stream);
-          aItem.Properties.Values['getcontentlength'] := IntToStr(Stream.Size);
-          Stream.Free;
-          sl.Free;
-          if Assigned(aDirList) then
-            aDirList.Add(aItem)
-          else aDirList := aItem;
+          aFullDir := aDir;
+          aDir := copy(aDir,7,length(aDir));
+          //Add ics file
+          aItem := TLFile.Create(Data.Users.Text.AsString+'.ics',False);
+          if (aDir = aItem.Name) or (aDir = '') then
+            begin
+              aItem.Properties.Values['getcontenttype'] := 'text/calendar';
+              aItem.Properties.Values['creationdate'] := BuildISODate(Now());
+              aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
+              sl := TStringList.Create;
+              aCal := TCalendar.Create(nil,Data);
+              aCal.SelectByUser(Data.Users.Accountno.AsString);
+              aCal.Open;
+              VCalExport(aCal,sl);
+              aCal.Free;
+              Stream := TMemoryStream.Create;
+              sl.SaveToStream(Stream);
+              aItem.Properties.Values['getcontentlength'] := IntToStr(Stream.Size);
+              Stream.Free;
+              sl.Free;
+              if Assigned(aDirList) then
+                aDirList.Add(aItem)
+              else aDirList := aItem;
+            end
+          else aItem.Free;
         end
-      else aItem.Free;
+      else Result:=False;
     end
   else
     begin
@@ -447,10 +451,12 @@ begin
       sl.Free;
       Result := True;
     end
-  else  if copy(aDir,0,7) = '/caldav' then
+  else if (copy(aDir,0,7) = 'caldav/') or (copy(aDir,0,7) = '/caldav') then
     begin
       aFullDir := aDir;
-      aDir := copy(aDir,9,length(aDir));
+      aDir := copy(aDir,8,length(aDir));
+      if copy(aDir,0,1) = '/' then
+        aDir := copy(aDir,2,length(aDir)-1);
       if copy(aDir,length(aDir),1) = '/' then
         aDir := copy(aDir,0,length(aDir)-1);
       aFile := StringReplace(copy(aDir,rpos('/',aDir)+1,length(aDir)),'.ics','',[]);
@@ -519,7 +525,6 @@ begin
           aTasks.Free;
         end;
     end
-
   else
     begin
       Mimetype := '';
@@ -856,4 +861,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

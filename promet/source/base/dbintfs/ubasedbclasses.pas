@@ -885,6 +885,9 @@ function TBaseDbList.GetDescription: TField;
 var
   aField: String;
 begin
+  Result := nil;
+  if not Assigned(Self) then exit;
+  if not Active then exit;
   aField := GetDescriptionFieldName;
   if aField <> '' then
     Result := DataSet.FieldByName(aField);
@@ -894,6 +897,8 @@ var
   aField: String;
 begin
   Result := nil;
+  if not Assigned(Self) then exit;
+  if not Active then exit;
   aField := GetStatusFieldName;
   if aField <> '' then
     Result := DataSet.FieldByName(aField);
@@ -902,8 +907,9 @@ function TBaseDbList.GetText: TField;
 var
   aField: String;
 begin
-  if not Assigned(Self) then exit;
   Result := nil;
+  if not Assigned(Self) then exit;
+  if not Active then exit;
   aField := GetTextFieldName;
   if aField <> '' then
     Result := DataSet.FieldByName(aField);
