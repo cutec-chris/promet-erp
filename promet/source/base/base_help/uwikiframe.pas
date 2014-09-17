@@ -54,10 +54,14 @@ type
     acImage: TAction;
     acSpellCheck: TAction;
     acExport: TAction;
+    acEdit: TAction;
     ActionList: TActionList;
     Bevel1: TBevel;
+    Bevel2: TBevel;
     bItalic: TSpeedButton;
+    bTransfer: TSpeedButton;
     ExtRotatedLabel1: TExtRotatedLabel;
+    ExtRotatedLabel2: TExtRotatedLabel;
     Keywords: TDatasource;
     DBGrid1: TDBGrid;
     DBText1: TDBText;
@@ -67,13 +71,17 @@ type
     Label1: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
     lTitle: TLabel;
     MenuItem1: TMenuItem;
     Panel1: TPanel;
+    pEdit2: TPanel;
+    pMiddle: TPanel;
     pLeft: TPanel;
     Panel3: TPanel;
     pmHistory: TPopupMenu;
     pToolbar1: TPanel;
+    pEdit1: TPanel;
     SaveDialog1: TSaveDialog;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
@@ -88,6 +96,7 @@ type
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
     ToolButton5: TSpeedButton;
+    ToolButton6: TSpeedButton;
     Wiki: TDatasource;
     ipHTML: TIpHtmlPanel;
     pTop: TPanel;
@@ -98,8 +107,8 @@ type
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
     tsEdit: TTabSheet;
-    tsView: TTabSheet;
     procedure acBackExecute(Sender: TObject);
+    procedure acEditExecute(Sender: TObject);
     procedure acExportExecute(Sender: TObject);
     procedure acForwardExecute(Sender: TObject);
     procedure acImageExecute(Sender: TObject);
@@ -135,6 +144,8 @@ type
     procedure SetLeftBar(AValue: Boolean);
     function Wiki2HTML(input: string): TIPHtml;
     procedure AddDocuments(Sender: TObject);
+    procedure DoView;
+    procedure DoEdit;
   public
     { public declarations }
     constructor Create(AOwner: TComponent); override;
@@ -294,7 +305,7 @@ end;
 procedure TfWikiFrame.WikiStateChange(Sender: TObject);
 begin
   if DataSet.DataSet.State = dsEdit then
-    tsEdit.Show;
+    DoEdit;
 end;
 procedure TfWikiFrame.ipHTMLHotClick(Sender: TObject);
 var
@@ -403,6 +414,13 @@ begin
   FHistory.GoBack;
 end;
 
+procedure TfWikiFrame.acEditExecute(Sender: TObject);
+begin
+  if acEdit.Checked then
+    DoEdit
+  else DoView;
+end;
+
 procedure TfWikiFrame.acExportExecute(Sender: TObject);
 var
   aFN: String;
@@ -484,10 +502,7 @@ begin
           aDocFrame := TfDocumentFrame.Create(Self);
           aDocFrame.DataSet := aDocuments;
           aPageIndex := pcPages.AddTab(aDocFrame,False);
-          pcPages.Visible:=False;
-          tsEdit.PageIndex:=1;
-          pcPages.ActivePage := tsView;
-          pcPages.Visible:=True;
+          DoView;
         end;
     end;
   if (DataSet.DataSet.State <> dsEdit)
@@ -1201,6 +1216,21 @@ begin
       TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
     end;
 end;
+
+procedure TfWikiFrame.DoView;
+begin
+  ipHTML.Visible:= True;
+  pcPages.Visible := False;
+  acEdit.Checked:=False;
+end;
+
+procedure TfWikiFrame.DoEdit;
+begin
+  ipHTML.Visible:= False;
+  pcPages.Visible := True;
+  acEdit.Checked:=True;
+end;
+
 procedure TfWikiFrame.New;
 begin
 end;
@@ -1210,7 +1240,8 @@ end;
 procedure TfWikiFrame.SetRights(Editable : Boolean);
 begin
   FEditable := Editable;
-  tsEdit.TabVisible := Editable;
+  pEdit1.Visible:=Editable;
+  pEdit2.Visible:=Editable;
 end;
 function TfWikiFrame.OpenWikiPage(PageName: string;CreateIfNotExists : Boolean = False) : Boolean;
 var
@@ -1224,7 +1255,7 @@ begin
   aWiki := TWikiList.Create(nil,Data);
   Result := aWiki.FindWikiPage(pageName);
   aWiki.Free;
-  pcPages.ActivePage := tsView;
+  DoView;
   if Result then
     begin
       TWikiList(DataSet).FindWikiPage(PageName);
@@ -1260,10 +1291,7 @@ begin
                       aDocFrame := TfDocumentFrame.Create(Self);
                       aDocFrame.DataSet := aDocuments;
                       aPageIndex := pcPages.AddTab(aDocFrame,False);
-                      pcPages.Visible:=False;
-                      tsEdit.PageIndex:=1;
-                      pcPages.ActivePage := tsView;
-                      pcPages.Visible:=True;
+                      DoView
                     end;
                 end;
             end;
@@ -1282,7 +1310,7 @@ begin
         aParent := TREE_ID_WIKI_UNSORTED;
       DataSet.FieldByName('TREEENTRY').AsVariant:= aParent;
       try
-        tsEdit.Show;
+        DoEdit;
       except
       end;
    end;
