@@ -19,18 +19,18 @@ inherited fWikiFrame: TfWikiFrame
       Left = 5
       Height = 42
       Top = 0
-      Width = 91
+      Width = 123
       Align = alLeft
       BorderSpacing.Left = 5
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 91
+      ClientWidth = 123
       TabOrder = 0
       object tbToolBar: TToolBar
         Left = 0
         Height = 27
         Top = 14
-        Width = 91
+        Width = 123
         BorderSpacing.Top = 14
         ButtonHeight = 26
         ButtonWidth = 26
@@ -57,12 +57,17 @@ inherited fWikiFrame: TfWikiFrame
           Top = 0
           Action = acForward
         end
+        object ToolButton7: TToolButton
+          Left = 91
+          Top = 0
+          Action = acRefresh
+        end
       end
       object Label3: TLabel
         Left = 0
         Height = 15
         Top = 0
-        Width = 91
+        Width = 123
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -88,7 +93,7 @@ inherited fWikiFrame: TfWikiFrame
       ParentFont = False
     end
     object pToolbar1: TPanel
-      Left = 101
+      Left = 133
       Height = 42
       Top = 0
       Width = 51
@@ -159,7 +164,7 @@ inherited fWikiFrame: TfWikiFrame
       end
     end
     object pEdit1: TPanel
-      Left = 157
+      Left = 189
       Height = 42
       Top = 0
       Width = 51
@@ -245,13 +250,13 @@ inherited fWikiFrame: TfWikiFrame
     Visible = False
     object Panel3: TPanel
       Left = 0
-      Height = 84
+      Height = 108
       Top = 20
       Width = 44
       Align = alTop
       BorderSpacing.Top = 20
       BevelOuter = bvNone
-      ClientHeight = 84
+      ClientHeight = 108
       ClientWidth = 44
       TabOrder = 0
       object Bevel1: TBevel
@@ -266,7 +271,7 @@ inherited fWikiFrame: TfWikiFrame
       end
       object ExtRotatedLabel1: TExtRotatedLabel
         Left = 0
-        Height = 80
+        Height = 104
         Top = 4
         Width = 14
         Align = alLeft
@@ -281,7 +286,7 @@ inherited fWikiFrame: TfWikiFrame
       end
       object tbToolBar1: TToolBar
         Left = 12
-        Height = 80
+        Height = 104
         Top = 1
         Width = 32
         Align = alNone
@@ -311,12 +316,17 @@ inherited fWikiFrame: TfWikiFrame
           Top = 52
           Action = acForward
         end
+        object ToolButton8: TToolButton
+          Left = 1
+          Top = 78
+          Action = acRefresh
+        end
       end
     end
     object pEdit2: TPanel
       Left = 0
       Height = 57
-      Top = 104
+      Top = 128
       Width = 44
       Align = alTop
       BevelOuter = bvNone
@@ -972,6 +982,12 @@ inherited fWikiFrame: TfWikiFrame
       Hint = 'in den Editiermodus wechseln'
       ImageIndex = 67
       OnExecute = acEditExecute
+    end
+    object acRefresh: TAction
+      Caption = 'Aktualisieren'
+      Hint = 'aktualisiert die Ansicht'
+      ImageIndex = 69
+      OnExecute = acRefreshExecute
     end
   end
   object Wiki: TDataSource[4]

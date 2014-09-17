@@ -55,6 +55,7 @@ type
     acSpellCheck: TAction;
     acExport: TAction;
     acEdit: TAction;
+    acRefresh: TAction;
     ActionList: TActionList;
     Bevel1: TBevel;
     Bevel2: TBevel;
@@ -97,6 +98,8 @@ type
     ToolButton4: TToolButton;
     ToolButton5: TSpeedButton;
     ToolButton6: TSpeedButton;
+    ToolButton7: TToolButton;
+    ToolButton8: TToolButton;
     Wiki: TDatasource;
     ipHTML: TIpHtmlPanel;
     pTop: TPanel;
@@ -113,6 +116,7 @@ type
     procedure acForwardExecute(Sender: TObject);
     procedure acImageExecute(Sender: TObject);
     procedure acIndexExecute(Sender: TObject);
+    procedure acRefreshExecute(Sender: TObject);
     procedure acScreenshotExecute(Sender: TObject);
     procedure acSpellCheckExecute(Sender: TObject);
     procedure bItalicClick(Sender: TObject);
@@ -451,6 +455,12 @@ procedure TfWikiFrame.acIndexExecute(Sender: TObject);
 begin
   OpenWikiPage('INDEX');
 end;
+
+procedure TfWikiFrame.acRefreshExecute(Sender: TObject);
+begin
+  Refresh;
+end;
+
 procedure TfWikiFrame.acScreenshotExecute(Sender: TObject);
 var
   aDocuments: TDocuments;
