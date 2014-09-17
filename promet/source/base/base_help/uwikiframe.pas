@@ -1232,6 +1232,7 @@ begin
   ipHTML.Visible:= True;
   pcPages.Visible := False;
   acEdit.Checked:=False;
+  Refresh;
 end;
 
 procedure TfWikiFrame.DoEdit;
