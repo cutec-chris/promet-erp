@@ -1139,8 +1139,9 @@ begin
       etStatistic,
       etWikiPage:
         begin
-          if Assigned(tvMain.GetNodeAt(X,Y)) and Assigned(tvMain.GetNodeAt(X,Y).Data) then
-            if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ=etDocumentDir) then
+          aTargetNode:=tvMain.GetNodeAt(X,Y);
+          if Assigned(aTargetNode) and Assigned(aTargetNode.Data) then
+            if (TTreeEntry(aTargetNode.Data).Typ = etDir) or (TTreeEntry(aTargetNode.Data).Typ=etDocumentDir) then
               begin
                 case DataT.Typ of
                 etCustomer,
@@ -1152,17 +1153,19 @@ begin
                 etStatistic,
                 etWikiPage:
                   begin
-                    DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
+                    DataT2 := TTreeEntry(aTargetNode.Data);
                     Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
                     Data.Tree.GotoBookmark(DataT2.Rec);
                     if (Data.Tree.FieldByName('TYPE').AsString <> 'F') then
                       begin
+                        aNewParent:=Data.Tree.Id.AsVariant;
                         acOpen.Execute;
                         aFrame := TPrometMainFrame(pcPages.ActivePage.Controls[0]);
                         with aFrame.DataSet.DataSet do
                           begin
                             Edit;
-                            FieldByName('TREEENTRY').AsVariant:=Data.Tree.Id.AsVariant;
+                            FieldByName('TREEENTRY').AsVariant:=aNewParent;
+                            Post;
                           end;
                         with TPrometMainFrame(pcPages.ActivePage.Controls[0]) do
                           begin
@@ -1177,7 +1180,7 @@ begin
                               end;
                           end;
                         tvMain.Selected.Delete;
-                        aNode1 := tvMain.GetNodeAt(X,Y);
+                        aNode1 := aTargetNode;
                         if Assigned(aNode1) then
                           begin
                             aNode1.Collapse(True);
@@ -1196,9 +1199,9 @@ begin
                             aDataSet.DataSet.Edit;
                             aDataSet.FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
                             aDataSet.DataSet.Post;
-                            tvMain.GetNodeAt(X,Y).Collapse(True);
-                            tvMain.GetNodeAt(X,Y).HasChildren:=True;
-                            tvMain.GetNodeAt(X,Y).Expand(False);
+                            aTargetNode.Collapse(True);
+                            aTargetNode.HasChildren:=True;
+                            aTargetNode.Expand(False);
                             tvMain.Selected.Delete;
                           end;
                         aDataSet.Free;
@@ -1225,9 +1228,9 @@ begin
                                 aLinks.Free;
                               end;
                             aDataSet.Free;
-                            tvMain.GetNodeAt(X,Y).Collapse(True);
-                            tvMain.GetNodeAt(X,Y).HasChildren:=True;
-                            tvMain.GetNodeAt(X,Y).Expand(False);
+                            aTargetNode.Collapse(True);
+                            aTargetNode.HasChildren:=True;
+                            aTargetNode.Expand(False);
                           end;
                       end;
                   end;
