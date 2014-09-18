@@ -401,7 +401,7 @@ inherited fWikiFrame: TfWikiFrame
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
-        GroupIndex = 112
+        GroupIndex = 111
         ShowCaption = False
       end
     end

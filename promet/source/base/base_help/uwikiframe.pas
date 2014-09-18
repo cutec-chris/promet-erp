@@ -317,19 +317,21 @@ var
   aParent : Integer = TREE_ID_WIKI_UNSORTED;
   ID: Integer;
   i: Integer;
+  aLink: String;
 begin
   if Assigned(IpHtml.HotNode) and (ipHTML.HotNode is TIpHtmlNodeA) then
     begin
-      PageName := StringReplace(TIpHtmlNodeA(IpHtml.HotNode).HRef,' ','_',[rfReplaceAll]);
+      aLink := TIpHtmlNodeA(IpHtml.HotNode).HRef;
+      PageName := StringReplace(aLink,' ','_',[rfReplaceAll]);
       for i := 0 to FVariables.Count-1 do
         pageName := StringReplace(PageName,'@VARIABLES.'+FVariables.Names[i]+'@',FVariables.ValueFromIndex[i],[rfReplaceAll,rfIgnoreCase]);
       if OpenWikiPage(PageName) or OpenWikiPage(lowercase(PageName)) then
       else if (pos('@',PageName)>0) and Data.GotoLink(PageName) then
         begin
         end
-      else if ((Pos('://', TIpHtmlNodeA(IpHtml.HotNode).HRef) > 0) or (pos('www',lowercase(TIpHtmlNodeA(IpHtml.HotNode).HRef)) > 0)) then
-        OpenURL(TIpHtmlNodeA(IpHtml.HotNode).HRef)
-      else if pos('@',PageName) = 0 then
+      else if ((Pos('://', aLink) > 0) or (pos('www',lowercase(aLink)) > 0)) then
+        OpenURL(aLink)
+      else if (pos('@',PageName) = 0) and FEditable then
         begin
           OpenWikiPage(PageName,True);
         end;

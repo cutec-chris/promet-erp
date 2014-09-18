@@ -10,6 +10,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
+msgid "(Menü)"
+msgstr ""
+
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
 msgstr ""
@@ -554,7 +557,7 @@ msgstr ""
 
 #: tfarticleframe.cbstatus.hint
 msgctxt "TFARTICLEFRAME.CBSTATUS.HINT"
-msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
+msgid "hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen"
 msgstr ""
 
 #: tfarticleframe.cbuseserial.caption
@@ -6211,7 +6214,7 @@ msgstr ""
 
 #: tfpersonframe.cbstatus.hint
 msgctxt "TFPERSONFRAME.CBSTATUS.HINT"
-msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
+msgid "hier können Sie den Status des Kontaktes ändern um ihn in neue Zustände zu überführen"
 msgstr ""
 
 #: tfpersonframe.cbsupplier.caption
