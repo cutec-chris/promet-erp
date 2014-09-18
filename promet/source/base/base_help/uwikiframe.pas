@@ -249,6 +249,7 @@ begin
   FVariables.Values['ACCOUNTNO'] := Data.Users.FieldByName('ACCOUNTNO').AsString;
   FVariables.Values['IDCODE'] := Data.Users.FieldByName('IDCODE').AsString;
   FVariables.Values['GROUPID'] := Data.Users.FieldByName('PARENT').AsString;
+  FEditable:=False;
   DataSet := TWikiList.Create(Self,Data);
   FHistory := THistory.Create;
   FHistory.FFFWdAction := acForward;
@@ -550,6 +551,7 @@ var
   aDocument: TDocument;
   Aspect: real;
   aNumber: integer;
+  tmp: String;
 begin
   Result := nil;
   NewPath := Path;
@@ -569,7 +571,8 @@ begin
     end
   else if copy(uppercase(Path),0,12)='HISTORYICON(' then
     begin
-      if TryStrToInt(copy(Path,12,length(Path)-11),aNumber) then
+      tmp := copy(Path,13,length(Path)-13);
+      if TryStrToInt(tmp,aNumber) then
         begin
           ms := TMemoryStream.Create;
           Picture := TPicture.Create;
