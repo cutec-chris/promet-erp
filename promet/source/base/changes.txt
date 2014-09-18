@@ -1,4 +1,9 @@
-﻿Build 369
+﻿Build 370
+      - Wiki:einige kleine Verbesserungen
+      - Sync DB:Datumsformatierung korrigiert
+      - Gantt: Verlaufseinträge aus Gantt Ansicht erstellen möglich
+      - Baumansicht: Verschieben von Einträgen korrigiert
+Build 369
       - Syslog Server:initial Version
 Build 368
       - Buchhaltung:Kontenrahmen einstellbar

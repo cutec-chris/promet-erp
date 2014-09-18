@@ -18,11 +18,8 @@
           <Identifier Value="general_nogui_macro1"/>
         </Item1>
       </BuildMacros>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
-    <Files Count="9">
+    <Files Count="10">
       <Item1>
         <Filename Value="src\Utils.pas"/>
         <UnitName Value="Utils"/>
@@ -59,6 +56,10 @@
         <Filename Value="src\usimpleprocess.pas"/>
         <UnitName Value="usimpleprocess"/>
       </Item9>
+      <Item10>
+        <Filename Value="src\usunrise.pas"/>
+        <UnitName Value="usunrise"/>
+      </Item10>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">
