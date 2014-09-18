@@ -1,4 +1,4 @@
-msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder startenwieder starten(aktive Version)(aktive Version)"
+msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder startenwieder starten(aktive Version)(aktive Version)(Menü)"
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -554,7 +554,7 @@ msgstr ""
 
 #: tfarticleframe.cbstatus.hint
 msgctxt "TFARTICLEFRAME.CBSTATUS.HINT"
-msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
+msgid "hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen"
 msgstr ""
 
 #: tfarticleframe.cbuseserial.caption
@@ -6211,7 +6211,7 @@ msgstr ""
 
 #: tfpersonframe.cbstatus.hint
 msgctxt "TFPERSONFRAME.CBSTATUS.HINT"
-msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
+msgid "hier können Sie den Status des Kontaktes ändern um ihn in neue Zustände zu überführen"
 msgstr ""
 
 #: tfpersonframe.cbsupplier.caption

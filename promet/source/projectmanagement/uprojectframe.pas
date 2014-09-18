@@ -913,6 +913,7 @@ begin
   TProject(DataSet).OpenItem;
   pcPages.ClearTabClasses;
   pcPages.CloseAll;
+  FEditable := ((Data.Users.Rights.Right('PROJECTS') > RIGHT_READ));
   pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
   TProject(DataSet).History.Open;
   if TProject(DataSet).History.Count > 0 then
@@ -1105,7 +1106,10 @@ begin
               if Assigned(TBaseDbList(DataSet).Status) then
                 aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
               if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
-                aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
+                begin
+                  aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString);
+                  aWikiPage.SetRights(FEditable);
+                end
               else aWikiPage.Free;
               if aWiki.FieldByName('CAPTION').AsString = strOverview then
                 begin

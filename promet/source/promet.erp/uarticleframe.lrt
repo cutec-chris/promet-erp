@@ -36,7 +36,7 @@ TFARTICLEFRAME.SBMENUE.HINT=zusätzliche Optionen
 TFARTICLEFRAME.LABEL4.CAPTION=Nummer
 TFARTICLEFRAME.BCHANGENUMBER.CAPTION=...
 TFARTICLEFRAME.LABEL5.CAPTION=Status
-TFARTICLEFRAME.CBSTATUS.HINT=hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen
+TFARTICLEFRAME.CBSTATUS.HINT=hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen
 TFARTICLEFRAME.LABEL6.CAPTION=Version
 TFARTICLEFRAME.CBVERSION.HINT=hier können Sie die zu bearbeitende Artikelversion auswählen.
 Wenn Sie eine neue version eingeben und das Feld verlassen,

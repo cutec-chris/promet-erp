@@ -173,7 +173,8 @@ type
 implementation
 uses uWiki,uData,WikiToHTML,uDocuments,Utils,LCLIntf,Variants,
   uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame,sqlparser,
-  sqlscanner, sqltree,uBaseVisualApplication,uStatistic,uspelling,uBaseApplication;
+  sqlscanner, sqltree,uBaseVisualApplication,uStatistic,uspelling,uBaseApplication,
+  uBaseVisualControls;
 procedure THistory.SetIndex(const AValue: Integer);
 begin
   Move(AValue,Count-1);
@@ -248,6 +249,7 @@ begin
   FVariables.Values['ACCOUNTNO'] := Data.Users.FieldByName('ACCOUNTNO').AsString;
   FVariables.Values['IDCODE'] := Data.Users.FieldByName('IDCODE').AsString;
   FVariables.Values['GROUPID'] := Data.Users.FieldByName('PARENT').AsString;
+  FEditable:=False;
   DataSet := TWikiList.Create(Self,Data);
   FHistory := THistory.Create;
   FHistory.FFFWdAction := acForward;
@@ -317,19 +319,21 @@ var
   aParent : Integer = TREE_ID_WIKI_UNSORTED;
   ID: Integer;
   i: Integer;
+  aLink: String;
 begin
   if Assigned(IpHtml.HotNode) and (ipHTML.HotNode is TIpHtmlNodeA) then
     begin
-      PageName := StringReplace(TIpHtmlNodeA(IpHtml.HotNode).HRef,' ','_',[rfReplaceAll]);
+      aLink := TIpHtmlNodeA(IpHtml.HotNode).HRef;
+      PageName := StringReplace(aLink,' ','_',[rfReplaceAll]);
       for i := 0 to FVariables.Count-1 do
         pageName := StringReplace(PageName,'@VARIABLES.'+FVariables.Names[i]+'@',FVariables.ValueFromIndex[i],[rfReplaceAll,rfIgnoreCase]);
       if OpenWikiPage(PageName) or OpenWikiPage(lowercase(PageName)) then
       else if (pos('@',PageName)>0) and Data.GotoLink(PageName) then
         begin
         end
-      else if ((Pos('://', TIpHtmlNodeA(IpHtml.HotNode).HRef) > 0) or (pos('www',lowercase(TIpHtmlNodeA(IpHtml.HotNode).HRef)) > 0)) then
-        OpenURL(TIpHtmlNodeA(IpHtml.HotNode).HRef)
-      else if pos('@',PageName) = 0 then
+      else if ((Pos('://', aLink) > 0) or (pos('www',lowercase(aLink)) > 0)) then
+        OpenURL(aLink)
+      else if (pos('@',PageName) = 0) and FEditable then
         begin
           OpenWikiPage(PageName,True);
         end;
@@ -546,47 +550,81 @@ var
   Picture: TPicture;
   aDocument: TDocument;
   Aspect: real;
+  aNumber: integer;
+  tmp: String;
 begin
   Result := nil;
   NewPath := Path;
-  aDocument := TDocument.Create(Self,Data);
-  Data.SetFilter(aDocument,Data.QuoteField('TYPE')+'=''W'' and '+Data.QuoteField('NAME')+'='+Data.QuoteValue(copy(ExtractFileName(Path),0,rpos('.',ExtractFileName(Path))-1)),1);
-  if aDocument.DataSet.RecordCount > 0 then
+  if copy(uppercase(Path),0,5)='ICON(' then
     begin
-      ms := TMemoryStream.Create;
-      Data.BlobFieldToStream(aDocument.DataSet,'DOCUMENT',ms);
-      ms.Position:=0;
-      if TIpHtmlNodeIMG(FActNode).Width.LengthType = hlAbsolute then
+      if TryStrToInt(copy(Path,6,length(Path)-6),aNumber) then
         begin
-          try
-            aPicture := TPicture.Create;
-            aPicture.LoadFromStreamWithFileExt(ms,aDocument.FieldByName('EXTENSION').AsString);
-            Picture := TPicture.Create;
-            Picture.Bitmap.Width := TIpHtmlNodeIMG(FActNode).Width.LengthValue;
-            Aspect := aPicture.Height/aPicture.Width;
-            Picture.Bitmap.Height := round(TIpHtmlNodeIMG(FActNode).Width.LengthValue*Aspect);
-            Picture.Bitmap.Canvas.AntialiasingMode:= amOn;
-            Picture.Bitmap.Canvas.StretchDraw(Rect(0,0,Picture.Width,Picture.Height),aPicture.Graphic);
-            aPicture.Free;
-            ms.Free;
-            ms := TMemoryStream.Create;
-            Picture.SaveToStreamWithFileExt(ms,'png');
-            NewPath := Copy(Path,0,length(path)-length(ExtractFileExt(Path)))+'.png';
-            ms.Position:=0;
-            Picture.Free;
-          except
-            on e : exception do
-              begin
+          ms := TMemoryStream.Create;
+          Picture := TPicture.Create;
+          fVisualControls.Images.GetBitmap(aNumber,Picture.Bitmap);
+          Picture.SaveToStreamWithFileExt(ms,'png');
+          NewPath := Copy(Path,0,length(path)-length(ExtractFileExt(Path)))+'.png';
+          ms.Position:=0;
+          Result := ms;
+          Picture.Free;
+        end;
+    end
+  else if copy(uppercase(Path),0,12)='HISTORYICON(' then
+    begin
+      tmp := copy(Path,13,length(Path)-13);
+      if TryStrToInt(tmp,aNumber) then
+        begin
+          ms := TMemoryStream.Create;
+          Picture := TPicture.Create;
+          fVisualControls.HistoryImages.GetBitmap(aNumber,Picture.Bitmap);
+          Picture.SaveToStreamWithFileExt(ms,'png');
+          NewPath := Copy(Path,0,length(path)-length(ExtractFileExt(Path)))+'.png';
+          ms.Position:=0;
+          Result := ms;
+          Picture.Free;
+        end;
+    end
+  else
+    begin
+      aDocument := TDocument.Create(Self,Data);
+      Data.SetFilter(aDocument,Data.QuoteField('TYPE')+'=''W'' and '+Data.QuoteField('NAME')+'='+Data.QuoteValue(copy(ExtractFileName(Path),0,rpos('.',ExtractFileName(Path))-1)),1);
+      if aDocument.DataSet.RecordCount > 0 then
+        begin
+          ms := TMemoryStream.Create;
+          Data.BlobFieldToStream(aDocument.DataSet,'DOCUMENT',ms);
+          ms.Position:=0;
+          if TIpHtmlNodeIMG(FActNode).Width.LengthType = hlAbsolute then
+            begin
+              try
+                aPicture := TPicture.Create;
+                aPicture.LoadFromStreamWithFileExt(ms,aDocument.FieldByName('EXTENSION').AsString);
+                Picture := TPicture.Create;
+                Picture.Bitmap.Width := TIpHtmlNodeIMG(FActNode).Width.LengthValue;
+                Aspect := aPicture.Height/aPicture.Width;
+                Picture.Bitmap.Height := round(TIpHtmlNodeIMG(FActNode).Width.LengthValue*Aspect);
+                Picture.Bitmap.Canvas.AntialiasingMode:= amOn;
+                Picture.Bitmap.Canvas.StretchDraw(Rect(0,0,Picture.Width,Picture.Height),aPicture.Graphic);
+                aPicture.Free;
                 ms.Free;
                 ms := TMemoryStream.Create;
-                Data.BlobFieldToStream(aDocument.DataSet,'DOCUMENT',ms);
+                Picture.SaveToStreamWithFileExt(ms,'png');
+                NewPath := Copy(Path,0,length(path)-length(ExtractFileExt(Path)))+'.png';
                 ms.Position:=0;
+                Picture.Free;
+              except
+                on e : exception do
+                  begin
+                    ms.Free;
+                    ms := TMemoryStream.Create;
+                    Data.BlobFieldToStream(aDocument.DataSet,'DOCUMENT',ms);
+                    ms.Position:=0;
+                  end;
               end;
-          end;
+            end;
+          Result := ms;
         end;
-      Result := ms;
+      aDocument.Free;
     end;
-  aDocument.Free;
 end;
 type
   TPlainProcedure = procedure;
@@ -669,6 +707,26 @@ var
                       aName := copy(aName,rpos('.',aName)+1,length(aName));
                     if (aBDS.FieldDefs.IndexOf(aName)>-1) then
                       Result+='<td><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</a></td>'
+                  end
+                else if copy(uppercase(aName),0,5)='ICON(' then
+                  begin
+                    aName := copy(aName,6,length(aName)-6);
+                    if pos('(',aName)>0 then
+                      begin
+                        aName := copy(aName,pos('(',aName)+1,length(aname));
+                        aName := copy(aName,0,length(aName)-1);
+                      end;
+                    Result+='<td><img src="ICON('+aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString+')"></img></td>';
+                  end
+                else if copy(uppercase(aName),0,12)='HISTORYICON(' then
+                  begin
+                    aName := copy(aName,12,length(aName)-11);
+                    if pos('(',aName)>0 then
+                      begin
+                        aName := copy(aName,pos('(',aName)+1,length(aname));
+                        aName := copy(aName,0,length(aName)-1);
+                      end;
+                    Result+='<td><img src="HISTORYICON('+aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString+')"></img></td>';
                   end
                 else if (aBDS.FieldDefs.IndexOf(copy(aName,rpos('.',aName)+1,length(aName)))>-1) then
                   begin
