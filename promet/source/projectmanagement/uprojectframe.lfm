@@ -135,8 +135,8 @@ inherited fprojectFrame: TfprojectFrame
     NewTabImageIndex = 59
     object tsInfo: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 1308
-      ClientWidth = 3200
+      ClientHeight = 327
+      ClientWidth = 800
       ImageIndex = 62
       object mInfo: TDBMemo
         Left = 8
@@ -837,7 +837,7 @@ inherited fprojectFrame: TfprojectFrame
       object cbStatus: TComboBox
         Left = 1
         Height = 21
-        Hint = 'hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen'
+        Hint = 'hier können Sie den Status des Projektes ändern um es in neue Zustände zu überführen'
         Top = 12
         Width = 143
         ItemHeight = 13
@@ -1225,8 +1225,8 @@ inherited fprojectFrame: TfprojectFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 68
-    ClientWidth = 84
+    ClientHeight = 64
+    ClientWidth = 80
     TabOrder = 4
     object iProject: TImage
       Left = 0
