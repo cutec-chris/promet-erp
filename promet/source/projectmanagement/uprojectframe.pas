@@ -49,6 +49,9 @@ type
     acInactiveGantt: TAction;
     acCalculatePlan: TAction;
     acMoveOldTasks: TAction;
+    acAddImage: TAction;
+    acPasteImage: TAction;
+    acAddScreenshot: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bDelegated2: TSpeedButton;
@@ -100,6 +103,9 @@ type
     pStatus: TPanel;
     PTasks: TfrDBDataSet;
     dExport: TSaveDialog;
+    sbAddImage: TSpeedButton;
+    sbClipboardToImage: TSpeedButton;
+    sbClipboardToImage1: TSpeedButton;
     sePriority: TSpinEdit;
     sARed: TShape;
     sAYellow: TShape;
@@ -151,6 +157,7 @@ type
     ToolButton2: TSpeedButton;
     tsInfo: TTabSheet;
     Users: TDatasource;
+    procedure acAddScreenshotExecute(Sender: TObject);
     procedure acCalculatePlanExecute(Sender: TObject);
     procedure acCancelExecute(Sender: TObject);
     procedure acCloseExecute(Sender: TObject);
@@ -161,6 +168,7 @@ type
     procedure acImportExecute(Sender: TObject);
     procedure acInactiveGanttExecute(Sender: TObject);
     procedure acMoveOldTasksExecute(Sender: TObject);
+    procedure acPasteImageExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRestartExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
@@ -221,7 +229,8 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uDocumentFrame,uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,uEditableTab,
   uFilterFrame,uBaseSearch,Utils,uprojectimport,uBaseERPDBClasses,uSelectReport,
   uNRights,uprojectpositions,uSearch,LCLProc,utask,uprojectoverview,uBaseVisualApplication,
-  uGanttView,uWikiFrame,uWiki,ufinance,uthumbnails;
+  uGanttView,uWikiFrame,uWiki,ufinance,uthumbnails,Clipbrd,uscreenshotmain,
+  uBaseApplication;
 {$R *.lfm}
 resourcestring
   strNoParent                     = '<kein Vorfahr>';
@@ -522,7 +531,51 @@ begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.EndUpdate;
 end;
-
+procedure TfProjectFrame.acPasteImageExecute(Sender: TObject);
+var
+  aSheet: TTabSheet;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
+begin
+  if Clipboard.HasPictureFormat then
+    begin
+      pcPages.AddTab(TfImageFrame.Create(Self),False);
+      aSheet := pcPages.GetTab(TfImageFrame);
+      if Assigned(aSheet) then
+        begin
+          Application.ProcessMessages;
+          TfImageFrame(aSheet.Controls[0]).acPaste.Execute;
+          TfImageFrame(aSheet.Controls[0]).DataSet.Post;
+          aThumbnails := TThumbnails.Create(nil,Data);
+          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+          aThumbnails.Open;
+          while aThumbnails.Count>0 do
+            aThumbnails.Delete;
+          TProject(DataSet).GenerateThumbnail;
+          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+          aThumbnails.Open;
+          if aThumbnails.Count>0 then
+            begin
+              aStream := TMemoryStream.Create;
+              Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+              aStream.Position:=0;
+              iProject.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+              aStream.Free;
+              acPasteImage.Visible:=False;
+              acAddImage.Visible:=False;
+              acAddScreenshot.Visible:=False;
+            end
+          else
+            begin
+              iProject.Picture.Clear;
+              acPasteImage.Visible:=True;
+              acAddImage.Visible:=True;
+              acAddScreenshot.Visible:=True;
+            end;
+          aThumbnails.Free;
+        end;
+    end;
+end;
 procedure TfProjectFrame.acPrintExecute(Sender: TObject);
 var
   Hist : IBaseHistory;
@@ -673,7 +726,71 @@ begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.EndUpdate;
 end;
+procedure TfProjectFrame.acAddScreenshotExecute(Sender: TObject);
+var
+  aSheet: TTabSheet;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
+begin
+  Application.ProcessMessages;
+  Application.MainForm.Hide;
+  Application.ProcessMessages;
+  Application.CreateForm(TfScreenshot,fScreenshot);
+  with BaseApplication as IBaseApplication do
+    fScreenshot.SaveTo:=AppendPathDelim(GetInternalTempDir)+'screenshot.jpg';
+  fScreenshot.Show;
+  while fScreenshot.Visible do Application.ProcessMessages;
+  fScreenshot.Destroy;
+  fScreenshot := nil;
+  if DataSet.State=dsInsert then
+    begin
+      DataSet.Post;
+      DataSet.Edit;
+    end;
+  pcPages.AddTab(TfImageFrame.Create(Self),False);
+  aSheet := pcPages.GetTab(TfImageFrame);
+  if Assigned(aSheet) then
+    begin
+      Application.ProcessMessages;
+      with TfImageFrame(aSheet.Controls[0]) do
+        begin
+          if not DataSet.CanEdit then
+            DataSet.Insert;
+          with BaseApplication as IBaseApplication do
+            iPreview.Picture.LoadFromFile(AppendPathDelim(GetInternalTempDir)+'screenshot.jpg');
+          DataSet.Post;
+        end;
+      aThumbnails := TThumbnails.Create(nil,Data);
+      aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+      aThumbnails.Open;
+      while aThumbnails.Count>0 do
+        aThumbnails.Delete;
+      TProject(DataSet).GenerateThumbnail;
+      aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+      aThumbnails.Open;
+      if aThumbnails.Count>0 then
+        begin
+          aStream := TMemoryStream.Create;
+          Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+          aStream.Position:=0;
+          iProject.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+          aStream.Free;
+          acPasteImage.Visible:=False;
+          acAddImage.Visible:=False;
+          acAddScreenshot.Visible:=False;
+        end
+      else
+        begin
+          iProject.Picture.Clear;
+          acPasteImage.Visible:=True;
+          acAddImage.Visible:=True;
+          acAddScreenshot.Visible:=True;
+        end;
+      aThumbnails.Free;
+    end;
 
+  Application.MainForm.Show;
+end;
 procedure TfProjectFrame.acSaveExecute(Sender: TObject);
 begin
   if Assigned(FConnection) then
@@ -1014,6 +1131,9 @@ begin
       aStream.Free;
       if TProject(DataSet).Images.Count > 0 then
         pcPages.AddTab(TfImageFrame.Create(Self),False);
+      acPasteImage.Visible:=False;
+      acAddImage.Visible:=False;
+      acAddScreenshot.Visible:=False;
     end
   else
     begin
@@ -1023,6 +1143,9 @@ begin
           pcPages.AddTab(TfImageFrame.Create(Self),False);
           TProject(DataSet).GenerateThumbnail;
         end;
+      acPasteImage.Visible:=True;
+      acAddImage.Visible:=True;
+      acAddScreenshot.Visible:=True;
     end;
   aThumbnails.Free;
   TProject(DataSet).Images.DataSet.Close;

@@ -416,6 +416,24 @@ inherited fWikiFrame: TfWikiFrame
     ClientHeight = 487
     ClientWidth = 641
     TabOrder = 2
+    object ipHTML: TIpHtmlPanel
+      Left = 0
+      Height = 487
+      Top = 0
+      Width = 641
+      Align = alClient
+      FixedTypeface = 'Courier New'
+      DefaultTypeFace = 'arial'
+      DefaultFontSize = 8
+      FlagErrors = False
+      PrintSettings.MarginLeft = 0.5
+      PrintSettings.MarginTop = 0.5
+      PrintSettings.MarginRight = 0.5
+      PrintSettings.MarginBottom = 0.5
+      ShowHints = False
+      TabOrder = 1
+      OnHotClick = ipHTMLHotClick
+    end
     object pcPages: TExtMenuPageControl
       Left = 0
       Height = 487
@@ -916,24 +934,6 @@ inherited fWikiFrame: TfWikiFrame
           end
         end
       end
-    end
-    object ipHTML: TIpHtmlPanel
-      Left = 0
-      Height = 487
-      Top = 0
-      Width = 641
-      Align = alClient
-      FixedTypeface = 'Courier New'
-      DefaultTypeFace = 'arial'
-      DefaultFontSize = 8
-      FlagErrors = False
-      PrintSettings.MarginLeft = 0.5
-      PrintSettings.MarginTop = 0.5
-      PrintSettings.MarginRight = 0.5
-      PrintSettings.MarginBottom = 0.5
-      ShowHints = False
-      TabOrder = 1
-      OnHotClick = ipHTMLHotClick
     end
   end
   object ActionList: TActionList[3]

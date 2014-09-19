@@ -1,4 +1,4 @@
-msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder startenwieder starten(aktive Version)(aktive Version)(Menü)"
+msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder startenwieder starten(aktive Version)(aktive Version)(Menü)wieder starten"
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -429,6 +429,10 @@ msgstr ""
 msgid "lArticle"
 msgstr ""
 
+#: tfarticleframe.acaddimage.caption
+msgid "acAddImage"
+msgstr ""
+
 #: tfarticleframe.accancel.caption
 msgctxt "TFARTICLEFRAME.ACCANCEL.CAPTION"
 msgid "Abbrechen"
@@ -459,6 +463,10 @@ msgctxt "TFARTICLEFRAME.ACPASTE.CAPTION"
 msgid "Einfügen"
 msgstr ""
 
+#: tfarticleframe.acpasteimage.caption
+msgid "acPasteImage"
+msgstr ""
+
 #: tfarticleframe.acprint.caption
 msgctxt "TFARTICLEFRAME.ACPRINT.CAPTION"
 msgid "acPrint"
@@ -477,6 +485,10 @@ msgstr ""
 #: tfarticleframe.acsave.hint
 msgctxt "tfarticleframe.acsave.hint"
 msgid "Speichert alle Änderungen in die Datenbank"
+msgstr ""
+
+#: tfarticleframe.acscreenshot.caption
+msgid "acScreenshot"
 msgstr ""
 
 #: tfarticleframe.acsettreedir.caption

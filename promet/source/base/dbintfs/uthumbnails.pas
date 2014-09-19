@@ -312,7 +312,7 @@ begin
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
-          Add('REF_ID_ID','REF_ID_ID',[ixUnique]);
+          Add('REF_ID_ID','REF_ID_ID',[]);
     end;
 end;
 
@@ -323,7 +323,7 @@ begin
       with Self.DataSet as IBaseDBFilter do
         begin
           if aId <> Null then
-            Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(IntToStr(aId))
+            Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(VarToStr(aId))
           else
             Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue('0');
           Limit := 0;
