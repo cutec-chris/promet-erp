@@ -213,15 +213,15 @@ begin
       if BaseApplication.HasOption('w','wholeday') then
         begin
           aFilter := '(('+SourceDM.QuoteField('TIMESTAMPD')+'=';
-          aFilter := aFilter+DestDM.DateToFilter(aTime);
+          aFilter := aFilter+SourceDM.DateToFilter(aTime);
           aFilter := aFilter+')) or ('+SourceDM.QuoteField('TIMESTAMPD')+'>';
-          aFilter := aFilter+DestDM.DateToFilter(aTime);
+          aFilter := aFilter+SourceDM.DateToFilter(aTime);
           aFilter := aFilter+')';
         end
       else
         begin
-          aFilter := '('+DestDM.QuoteField('TIMESTAMPD')+'>';
-          aFilter := aFilter+DestDM.DateTimeToFilter(aTime);
+          aFilter := '('+SourceDM.QuoteField('TIMESTAMPD')+'>';
+          aFilter := aFilter+SourceDM.DateTimeToFilter(aTime);
           aFilter := aFilter+')';
         end;
     end;
@@ -339,7 +339,7 @@ begin
         end;
       aSyncOut.Destroy;
     end;
-  aFilter := BuildFilter(SourceDM,DestDM,aSyncTime);
+  aFilter := BuildFilter(DestDM,SourceDM,aSyncTime);
   if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
     begin
       if (aSyncIn.RecordCount > 0) then
