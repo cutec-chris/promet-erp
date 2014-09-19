@@ -214,6 +214,8 @@ var
               tmp := '';
               OnWikiInclude(ImageFile,tmp,aLevel+1);
               ostr+=tmp;
+              if (tmp='') and (copy(istr,0,1)=#13) then
+                istr := copy(istr,2,length(istr));
             end;
         end;
   end;
