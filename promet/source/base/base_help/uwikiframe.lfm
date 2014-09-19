@@ -449,8 +449,8 @@ inherited fWikiFrame: TfWikiFrame
       object tsEdit: TTabSheet
         Tag = 1
         Caption = 'bearbeiten'
-        ClientHeight = 460
-        ClientWidth = 633
+        ClientHeight = 920
+        ClientWidth = 1266
         ImageIndex = 67
         object Panel1: TPanel
           Left = 0
@@ -870,7 +870,7 @@ inherited fWikiFrame: TfWikiFrame
             Columns = <            
               item
                 Title.Caption = 'Suchbegriff'
-                Width = 155
+                Width = 176
                 FieldName = 'KEYWORD'
               end>
             DataSource = Keywords

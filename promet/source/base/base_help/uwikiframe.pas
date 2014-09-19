@@ -174,7 +174,7 @@ implementation
 uses uWiki,uData,WikiToHTML,uDocuments,Utils,LCLIntf,Variants,
   uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame,sqlparser,
   sqlscanner, sqltree,uBaseVisualApplication,uStatistic,uspelling,uBaseApplication,
-  uBaseVisualControls;
+  uBaseVisualControls,uRTFtoTXT;
 procedure THistory.SetIndex(const AValue: Integer);
 begin
   Move(AValue,Count-1);
@@ -707,6 +707,16 @@ var
                       aName := copy(aName,rpos('.',aName)+1,length(aName));
                     if (aBDS.FieldDefs.IndexOf(aName)>-1) then
                       Result+='<td><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</a></td>'
+                  end
+                else if copy(uppercase(aName),0,4)='RTF(' then
+                  begin
+                    aName := copy(aName,5,length(aName)-5);
+                    if pos('(',aName)>0 then
+                      begin
+                        aName := copy(aName,pos('(',aName)+1,length(aname));
+                        aName := copy(aName,0,length(aName)-1);
+                      end;
+                    Result+='<td>'+HTMLEncode(RTF2Plain(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString))+'</td>';
                   end
                 else if copy(uppercase(aName),0,5)='ICON(' then
                   begin
