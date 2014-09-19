@@ -675,17 +675,14 @@ procedure TStarterThread.AddTimeReg;
 begin
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
     begin
-      if (not FileExistsUTF8(GetTempDir+'PMSTimeregistering')) or (RoundToMinute(FileDateToDateTime(FileAgeUTF8(GetTempDir+'PMSTimeregistering'))) < RoundToMinute(Now())) then
-        begin
-          fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
-          Application.CreateForm(TfEnterTime,fMain.FTimeReg);
-          fMain.FTimeReg.Node:=MainNode;
-          fMain.FTimeReg.PauseBtn := fMain.bPauseTime;
-          fMain.FTimeReg.DoSetup;
-          fMain.FTimeReg.SetupDB;
-          fMain.pTimes.Visible := True;
-          SendIPCMessage('noop',GetTempDir+'PMSTimeregistering');
-        end;
+      fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
+      Application.CreateForm(TfEnterTime,fMain.FTimeReg);
+      fMain.FTimeReg.Node:=MainNode;
+      fMain.FTimeReg.PauseBtn := fMain.bPauseTime;
+      fMain.FTimeReg.DoSetup;
+      fMain.FTimeReg.SetupDB;
+      fMain.pTimes.Visible := True;
+      SendIPCMessage('noop',GetTempDir+'PMSTimeregistering');
     end;
 end;
 

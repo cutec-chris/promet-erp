@@ -1,35 +1,35 @@
 inherited fImageFrame: TfImageFrame
   Left = 0
-  Height = 317
+  Height = 331
   Top = 0
-  Width = 552
-  ClientHeight = 317
-  ClientWidth = 552
+  Width = 588
+  ClientHeight = 331
+  ClientWidth = 588
   OnEnter = FrameEnter
   OnExit = FrameExit
   DesignLeft = 399
   DesignTop = 226
   object pImage: TPanel[0]
     Left = 48
-    Height = 307
+    Height = 321
     Top = 5
-    Width = 498
+    Width = 534
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvLowered
     Caption = 'kein Bild verfügbar'
-    ClientHeight = 307
-    ClientWidth = 498
+    ClientHeight = 321
+    ClientWidth = 534
     TabOrder = 0
     object sbImage: TScrollBox
       Left = 1
-      Height = 305
+      Height = 319
       Top = 1
-      Width = 496
-      HorzScrollBar.Page = 458
-      VertScrollBar.Page = 267
+      Width = 532
+      HorzScrollBar.Page = 512
+      VertScrollBar.Page = 305
       Align = alClient
-      ClientHeight = 284
-      ClientWidth = 475
+      ClientHeight = 315
+      ClientWidth = 528
       TabOrder = 0
       object iPreview: TDBImage
         Left = 0
@@ -49,12 +49,12 @@ inherited fImageFrame: TfImageFrame
   end
   object pPosControls: TPanel[1]
     Left = 0
-    Height = 317
+    Height = 331
     Top = 0
     Width = 44
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 317
+    ClientHeight = 331
     ClientWidth = 44
     TabOrder = 1
     object Panel2: TPanel
@@ -325,7 +325,7 @@ inherited fImageFrame: TfImageFrame
       end
     end
   end
-  object Images: TDatasource[2]
+  object Images: TDataSource[2]
     left = 64
     top = 16
   end

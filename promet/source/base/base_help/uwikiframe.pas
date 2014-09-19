@@ -174,7 +174,7 @@ implementation
 uses uWiki,uData,WikiToHTML,uDocuments,Utils,LCLIntf,Variants,
   uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame,sqlparser,
   sqlscanner, sqltree,uBaseVisualApplication,uStatistic,uspelling,uBaseApplication,
-  uBaseVisualControls;
+  uBaseVisualControls,uRTFtoTXT;
 procedure THistory.SetIndex(const AValue: Integer);
 begin
   Move(AValue,Count-1);
@@ -661,6 +661,7 @@ var
   IsForm: Boolean;
   aInclude: String;
   nInp: String;
+  ConvertRTF: Boolean = False;
   procedure BuildLinkRow(aBDS : TDataSet);
   var
     aLink: String;
@@ -707,6 +708,16 @@ var
                       aName := copy(aName,rpos('.',aName)+1,length(aName));
                     if (aBDS.FieldDefs.IndexOf(aName)>-1) then
                       Result+='<td><a href="'+aLink+'" title="'+Data.GetLinkDesc(aLink)+#10+Data.GetLinkLongDesc(aLink)+'">'+HTMLEncode(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString)+'</a></td>'
+                  end
+                else if copy(uppercase(aName),0,4)='RTF(' then
+                  begin
+                    aName := copy(aName,5,length(aName)-5);
+                    if pos('(',aName)>0 then
+                      begin
+                        aName := copy(aName,pos('(',aName)+1,length(aname));
+                        aName := copy(aName,0,length(aName)-1);
+                      end;
+                    Result+='<td>'+HTMLEncode(RTF2Plain(aBDS.Fields[aBDS.FieldDefs.IndexOf(aName)].AsString))+'</td>';
                   end
                 else if copy(uppercase(aName),0,5)='ICON(' then
                   begin
@@ -970,6 +981,11 @@ begin
         begin
           aConditionOK:=Data.Users.Rights.Right(copy(aCondition,7,length(aCondition)-7))>=RIGHT_READ;
         end;
+    end;
+  if copy(lowercase(Inp),0,4)='rtf(' then
+    begin
+      Inp := copy(Inp,5,length(Inp)-5);
+      ConvertRTF := True;
     end;
   if not aConditionOK then exit;
   for i := 0 to FVariables.Count-1 do
@@ -1244,7 +1260,12 @@ begin
     begin
       if not aDataThere then Outp := '';
     end;
+  if ConvertRTF then
+    begin
+      Outp:=RTF2Plain(OutP);
+    end;
 end;
+
 function TfWikiFrame.Wiki2HTML(input: string): TIPHtml;
 var
   ss: TStringStream;
