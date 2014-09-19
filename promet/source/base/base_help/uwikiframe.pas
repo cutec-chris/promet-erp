@@ -661,6 +661,7 @@ var
   IsForm: Boolean;
   aInclude: String;
   nInp: String;
+  ConvertRTF: Boolean = False;
   procedure BuildLinkRow(aBDS : TDataSet);
   var
     aLink: String;
@@ -981,6 +982,11 @@ begin
           aConditionOK:=Data.Users.Rights.Right(copy(aCondition,7,length(aCondition)-7))>=RIGHT_READ;
         end;
     end;
+  if copy(lowercase(Inp),0,4)='rtf(' then
+    begin
+      Inp := copy(Inp,5,length(Inp)-5);
+      ConvertRTF := True;
+    end;
   if not aConditionOK then exit;
   for i := 0 to FVariables.Count-1 do
     begin
@@ -1254,7 +1260,12 @@ begin
     begin
       if not aDataThere then Outp := '';
     end;
+  if ConvertRTF then
+    begin
+      Outp:=RTF2Plain(OutP);
+    end;
 end;
+
 function TfWikiFrame.Wiki2HTML(input: string): TIPHtml;
 var
   ss: TStringStream;
