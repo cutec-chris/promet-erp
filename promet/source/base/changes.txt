@@ -1,4 +1,7 @@
-﻿Build 370
+﻿Build 371
+      - Wiki:mehr Arbeit an den default Übersichten, icons in Wiki Seiten möglich
+      - Artikel,Projekte: Bilder aus Screenshot oder Zwischenablage direkt nutzbar
+Build 370
       - Wiki:einige kleine Verbesserungen
       - Sync DB:Datumsformatierung korrigiert
       - Gantt: Verlaufseinträge aus Gantt Ansicht erstellen möglich
