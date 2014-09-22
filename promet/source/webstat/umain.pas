@@ -58,7 +58,7 @@ var
   fMain: TfMain;
 
 implementation
-
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface;
 
 procedure TfMain.DoCreate;
@@ -134,6 +134,5 @@ begin
 end;
 
 initialization
-  {$I umain.lrs}
 
 end.

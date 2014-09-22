@@ -259,6 +259,7 @@ type
   end;
   function AddTab(aPage : TTabSheet;DataSet : TBaseDBDataset) : TfFilter;
 implementation
+{$R *.lfm}
 uses uRowEditor,uSearch, uBaseVisualApplicationTools, uBaseVisualApplication ,
   uFilterTabs,uFormAnimate,uData, uBaseVisualControls,uDataImport,
   uDataImportCSV,uSelectReport,uOrder,uBaseERPDBClasses,uNRights,LCLProc,
@@ -1808,7 +1809,6 @@ begin
 end;
 
 initialization
-  {$I ufilterframe.lrs}
 
 end.
 

@@ -53,6 +53,7 @@ var
   fMimeTypeEdit: TfMimeTypeEdit;
 
 implementation
+{$R *.lfm}
 procedure TfMimeTypeEdit.FormShow(Sender: TObject);
 begin
   SetupDB;
@@ -91,6 +92,5 @@ begin
     end;
 end;
 initialization
-  {$I umimetypeedit.lrs}
 end.
 

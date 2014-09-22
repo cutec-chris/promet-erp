@@ -96,6 +96,7 @@ resourcestring
   strTransfer                   = 'Überweisung';
 
 implementation
+{$R *.lfm}
 uses uLogWait,uData,uError,uBankingDialog,SecureUtils,uBaseApplication,uBaseDbClasses,
   usimpleprocess,ubaseconfig;
 
@@ -784,7 +785,6 @@ begin
   Item.SubItems.Add(Sortcode);
 end;
 initialization
-  {$I uaccountingque.lrs}
 
 end.
 

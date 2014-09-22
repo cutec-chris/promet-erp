@@ -56,7 +56,7 @@ var
   fDocumentAddOptions: TfDocumentAddOptions;
 
 implementation
-
+{$R *.lfm}
 { TfDocumentAddOptions }
 
 procedure TfDocumentAddOptions.FormKeyDown(Sender: TObject; var Key: Word;
@@ -105,7 +105,6 @@ begin
 end;
 
 initialization
-  {$I udocumentaddoptions.lrs}
 
 end.
 

@@ -32,6 +32,7 @@ var
   fProgramEnded: TfProgramEnded;
 
 implementation
+{$R *.lfm}
 
 { TfProgramEnded }
 
@@ -62,7 +63,6 @@ begin
 end;
 
 initialization
-  {$I uprogramended.lrs}
 
 end.
 

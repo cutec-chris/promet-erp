@@ -65,6 +65,7 @@ var
   fPassword: TfPassword;
 
 implementation
+{$R *.lfm}
 uses
   uMashineID,uData,UTF8Process,Process,ubaseconfig;
 { TfPassword }
@@ -319,6 +320,5 @@ begin
   Result := Showmodal = mrOK;
 end;
 initialization
-  {$I upassword.lrs}
 end.
-
+

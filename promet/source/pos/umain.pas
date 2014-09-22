@@ -106,7 +106,7 @@ var
   fMain: TfMain;
 
 implementation
-
+{$R *.lfm}
 uses uAppConsts,uPassword,uData,uError,uMashineID;
 
 resourcestring
@@ -366,7 +366,6 @@ begin
 end;
 
 initialization
-  {$I umain.lrs}
 
 end.
 

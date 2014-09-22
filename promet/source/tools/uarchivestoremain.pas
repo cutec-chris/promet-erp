@@ -52,6 +52,7 @@ type
 var
   fMain: TfMain;
 implementation
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uMessages;
 procedure TfMain.DoCreate;
 begin
@@ -130,6 +131,5 @@ begin
 end;
 
 initialization
-  {$I uarchivestoremain.lrs}
 
 end.

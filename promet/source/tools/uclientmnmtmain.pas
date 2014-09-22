@@ -53,6 +53,7 @@ type
 var
   fMain: TfMain;
 implementation
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface, uOrder;
 procedure TfMain.IdleTimer1Timer(Sender: TObject);
 begin
@@ -153,6 +154,5 @@ begin
 end;
 
 initialization
-  {$I uclientmnmtmain.lrs}
 
 end.

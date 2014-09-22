@@ -149,6 +149,7 @@ var
   fWizardNewMandant: TfWizardNewMandant;
 
 implementation
+{$R *.lfm}
 uses uError,uImpCSV, uBaseApplication, uBaseDbInterface, uBaseDbClasses,
   uBaseERPDBClasses, uOrder, uSync, uOptions, uMandantOptions, uuseroptions,
   uProcessOptions,uSyncOptions,uDocuments,uWiki,Utils,uProjects,uMasterdata,
@@ -772,6 +773,5 @@ begin
     end;
 end;
 initialization
-  {$I uwizardnewmandant.lrs}
 end.
 

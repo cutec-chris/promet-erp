@@ -124,6 +124,7 @@ type
     procedure OpenFromLink(aLink : string);
   end;
 implementation
+{$R *.lfm}
 uses uLogWait,uData,uBaseDbInterface,uBaseVisualApplication,
   uDocuments, lconvencoding, uOrder,uPrometFrames,uPerson,lMessages,uEditText,
   uMimeMessages,uHistoryFrame,uprometframesinplace,uMessageRoute;
@@ -1116,6 +1117,5 @@ begin
 end;
 
 initialization
-  {$I umessageedit.lrs}
 end.
 

@@ -67,6 +67,7 @@ var
   fRowEditor: TfRowEditor;
 
 implementation
+{$R *.lfm}
 uses uBaseDBInterface;
 procedure TfRowEditor.bAddRowClick(Sender: TObject);
 begin
@@ -379,6 +380,5 @@ begin
     end;
 end;
 initialization
-  {$I uroweditor.lrs}
 end.
 

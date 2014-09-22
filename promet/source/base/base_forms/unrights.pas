@@ -64,7 +64,7 @@ var
   fNRights: TfNRights;
 
 implementation
-
+{$R *.lfm}
 uses uError, uBaseDbInterface;
 
 resourcestring
@@ -225,7 +225,6 @@ begin
 end;
 
 initialization
-  {$I unrights.lrs}
 
 end.
 

@@ -10,7 +10,7 @@ object fSelectTemplate: TfSelectTemplate
   KeyPreview = True
   OnKeyDown = FormKeyDown
   Position = poMainFormCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object gTemplate: TDBGrid
     Left = 8
     Height = 258
@@ -78,10 +78,10 @@ object fSelectTemplate: TfSelectTemplate
     TabOrder = 1
   end
   object bAbort: TBitBtn
-    Left = 376
-    Height = 29
-    Top = 230
-    Width = 104
+    Left = 381
+    Height = 34
+    Top = 225
+    Width = 99
     Anchors = [akRight, akBottom]
     AutoSize = True
     Cancel = True
@@ -92,10 +92,10 @@ object fSelectTemplate: TfSelectTemplate
     TabOrder = 2
   end
   object bNew: TBitBtn
-    Left = 422
-    Height = 29
-    Top = 165
-    Width = 58
+    Left = 426
+    Height = 28
+    Top = 166
+    Width = 54
     Anchors = [akRight, akBottom]
     AutoSize = True
     Caption = 'Neu'
@@ -139,10 +139,10 @@ object fSelectTemplate: TfSelectTemplate
     TabOrder = 3
   end
   object bDelete: TBitBtn
-    Left = 398
-    Height = 29
-    Top = 197
-    Width = 82
+    Left = 405
+    Height = 28
+    Top = 198
+    Width = 75
     Anchors = [akRight, akBottom]
     AutoSize = True
     Caption = 'löschen'
@@ -186,10 +186,10 @@ object fSelectTemplate: TfSelectTemplate
     TabOrder = 4
   end
   object cbReplacePlaceholders: TCheckBox
-    Left = 326
+    Left = 348
     Height = 24
     Top = 56
-    Width = 161
+    Width = 139
     Anchors = [akTop, akRight]
     Caption = 'Platzhalter ersetzen'
     Checked = True

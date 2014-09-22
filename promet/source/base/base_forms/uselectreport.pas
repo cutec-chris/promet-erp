@@ -132,7 +132,7 @@ var
   DefaultPrinterTypes : Integer;
 
 implementation
-
+{$R *.lfm}
 uses
   uIntfStrConsts,uError,uData,
   uLogWait,uBaseDbInterface,uDocuments,uPerson,uSendMail,uEditText,umeeting,
@@ -934,7 +934,6 @@ begin
 end;
 
 initialization
-  {$I uselectreport.lrs}
 
 end.
 

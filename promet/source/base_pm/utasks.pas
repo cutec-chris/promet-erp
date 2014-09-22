@@ -298,6 +298,7 @@ resourcestring
   strUnterminatedDependencies              = 'Es gibt unterminierte Abhängigkeiten für diese Aufgabe:'+lineending+'%s';
   strFailed                                = 'Fehlgeschlagen';
 implementation
+{$R *.lfm}
 uses uRowEditor,uTask,ubasevisualapplicationtools,uData,uMainTreeFrame,
   uSearch,uProjects,uTaskEdit,uBaseApplication,LCLType,uBaseERPDBClasses,
   uSelectReport,uFormAnimate,md5,uNRights,uBaseVisualControls,
@@ -1841,6 +1842,5 @@ begin
   aDataSet.Free;
 end;
 initialization
-  {$I utasks.lrs}
 end.
 

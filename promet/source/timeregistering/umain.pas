@@ -106,6 +106,7 @@ type
 var
   fMain: TfMain;
 implementation
+{$R *.lfm}
 uses
   uPassword,uError,uMashineID,uEnterTime,uprometipc,
   uBaseDBInterface, uBaseApplication, uSearch, uOptions, uTimeOptions,
@@ -381,6 +382,5 @@ begin
   fEnterTime.SetupDB;
 end;
 initialization
-  {$I umain.lrs}
 
-end.
+end.

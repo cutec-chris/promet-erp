@@ -47,9 +47,7 @@ var
   Form1: TForm1; 
 
 implementation
-
-{ TForm1 }
-
+{$R *.lfm}
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   if not DirectoryExistsUTF8(GetConfigDir(vAppname)) then
@@ -173,7 +171,6 @@ begin
 end;
 
 initialization
-  {$I ubackupmain.lrs}
 
 end.
 

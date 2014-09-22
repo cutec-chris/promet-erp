@@ -155,6 +155,7 @@ type
 var
   fSearch: TfSearch;
 implementation
+{$R *.lfm}
 uses uBaseDBInterface,uBaseApplication,uBaseVisualControls,uFormAnimate,
   uBaseVisualApplication,uData,uBaseERPDBClasses,uMasterdata,LCLProc,uSendMail,
   uPerson,variants
@@ -932,6 +933,5 @@ begin
     Length(Caption), R, GetDrawTextFlags);
 end;
 initialization
-  {$I usearch.lrs}
 end.
 

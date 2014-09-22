@@ -52,6 +52,7 @@ type
   end;
 
 implementation
+{$R *.lfm}
 uses uBaseApplication, uSearch,uData,uIntfStrConsts,uBaseDbInterface;
 
 procedure TfTimeOptions.eProjectEditingDone(Sender: TObject);
@@ -140,7 +141,6 @@ begin
 end;
 
 initialization
-  {$I utimeoptions.lrs}
 
 end.
 

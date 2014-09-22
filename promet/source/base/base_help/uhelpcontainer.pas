@@ -27,6 +27,7 @@ var
   fHelpContainer: TfHelpContainer;
 
 implementation
+{$R *.lfm}
 uses uData,uBaseDBInterface;
 procedure TfHelpContainer.FormCreate(Sender: TObject);
 begin
@@ -51,7 +52,6 @@ begin
 end;
 
 initialization
-  {$I uhelpcontainer.lrs}
 
 end.
 

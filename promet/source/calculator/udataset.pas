@@ -30,9 +30,7 @@ var
   fDataSet: TfDataSet;
 
 implementation
-
-{ TfDataSet }
-
+{$R *.lfm}
 procedure TfDataSet.FormDestroy(Sender: TObject);
 begin
   FDataSet.Free;
@@ -46,7 +44,6 @@ begin
 end;
 
 initialization
-  {$I *.lrs}
 
 end.
 

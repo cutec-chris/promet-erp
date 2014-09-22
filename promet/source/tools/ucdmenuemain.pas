@@ -37,6 +37,7 @@ var
   fMain: TfMain;
 
 implementation
+{$R *.lfm}
 uses Process
   {$ifdef WINDOWS}
   ,Windows
@@ -212,7 +213,6 @@ begin
 end;
 
 initialization
-  {$I ucdmenuemain.lrs}
 
 end.
-
+

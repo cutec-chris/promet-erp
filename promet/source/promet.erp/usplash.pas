@@ -53,6 +53,7 @@ type
 var
   fSplash: TfSplash;
 implementation
+{$R *.lfm}
 procedure TfSplash.FormCreate(Sender: TObject);
 begin
   lregistered.Caption := '';
@@ -97,7 +98,6 @@ begin
 end;
 
 initialization
-  {$I usplash.lrs}
 
 end.
 

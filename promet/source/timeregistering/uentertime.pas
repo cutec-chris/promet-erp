@@ -213,6 +213,7 @@ function CorrectHouredTimeWithSpareTime(User : string;Day : TDateTime;Hours : In
 function GetFreeTime(User : string;Day : TDateTime;Hours : Integer) : Integer;
 function GetFreeDayTime(User : string;Day : TDateTime) : Integer;
 implementation
+{$R *.lfm}
 uses
   uRowEditor, uSearch, uBaseSearch, uSelectreport, uBaseApplication,variants,
   uBaseDBInterface,uProjects,uMasterdata,uPerson,uMainTreeFrame,uData,uBaseDbClasses,
@@ -1274,6 +1275,5 @@ begin
     Result := GetWorkTime(User);
 end;
 initialization
-  {$I uentertime.lrs}
 end.
-
+

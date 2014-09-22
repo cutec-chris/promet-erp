@@ -30,7 +30,7 @@ var
 function EnumProc(wnd: HWND; x : Longint): BOOL; stdcall;
 
 implementation
-
+{$R *.lfm}
 uses FileUtil;
 
 Const
@@ -191,7 +191,5 @@ begin
 end;
 
 initialization
-  {$I ustampit.lrs}
-
 end.
 

@@ -99,6 +99,7 @@ type
 var
   fAcquire: TfAcquire;
 implementation
+{$R *.lfm}
 uses ubaseconfig;
 resourcestring
   strScanNext                   = 'Nächstes Bild scannen';
@@ -475,6 +476,5 @@ begin
 {$ENDIF}
 end;
 initialization
-  {$I udocumentacquire.lrs}
 end.
 

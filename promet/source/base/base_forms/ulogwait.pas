@@ -46,9 +46,7 @@ var
   fLogWaitForm: TfLogWaitForm;
 
 implementation
-
-{ TfLogWaitForm }
-
+{$R *.lfm}
 procedure TfLogWaitForm.ShowInfo(Info: string);
 begin
   if not Assigned(Self) then
@@ -84,7 +82,6 @@ begin
 end;
 
 initialization
-  {$I ulogwait.lrs}
 
 end.
 

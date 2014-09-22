@@ -72,6 +72,7 @@ type
 var
   fMain: TfMain;
 implementation
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface,uWikiFrame,
   uDocuments,uProjectFrame,uFilterFrame,uIntfStrConsts,
   uProjects,uPrometFrames,uBaseDbClasses;
@@ -315,5 +316,4 @@ begin
 end;
 
 initialization
-  {$I umain.lrs}
-end.
+end.

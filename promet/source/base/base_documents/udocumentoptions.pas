@@ -45,6 +45,7 @@ type
   end;
 
 implementation
+{$R *.lfm}
 uses uBaseApplication,ubaseconfig;
 procedure TfDocumentOptions.StartTransaction;
 begin
@@ -84,7 +85,6 @@ begin
 end;
 
 initialization
-  {$I udocumentoptions.lrs}
 
 end.
 

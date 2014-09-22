@@ -371,6 +371,7 @@ type
     property AutoFilter : string read FAutoFilter write FAutoFilter;
   end;
 implementation
+{$R *.lfm}
 uses uRowEditor,LCLType,LCLProc,LCLIntf,Themes,uIntfStrConsts,
   uData,uBaseVisualApplication,Math;
 { TRowObject }
@@ -3556,6 +3557,5 @@ begin
 end;
 
 initialization
-  {$I ugridview.lrs}
 end.
 

@@ -65,7 +65,7 @@ var
   fSelectTemplate: TfSelectTemplate;
 
 implementation
-
+{$R *.lfm}
 uses uData;
 
 { TfSelectTemplate }
@@ -145,7 +145,6 @@ begin
 end;
 
 initialization
-  {$I uselecttemplate.lrs}
 
 end.
 

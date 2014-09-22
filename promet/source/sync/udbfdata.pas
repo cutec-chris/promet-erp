@@ -25,7 +25,7 @@ var
   aData: TaData;
 
 implementation
-
+{$R *.lfm}
 uses uData,uPerson;
 
 resourcestring
@@ -187,7 +187,6 @@ begin
 end;
 
 initialization
-  {$I udbfdata.lrs}
 
 end.
 

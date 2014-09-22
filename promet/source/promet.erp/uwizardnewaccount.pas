@@ -117,7 +117,7 @@ var
   fWizardNewAccount: TfWizardNewAccount;
 
 implementation
-
+{$R *.lfm}
 uses uData,uMain,uLogWait,LCLIntf,uAccountingque,uMainTreeFrame,usimpleprocess;
 resourcestring
   strAQBankingisnotinstalled                     = 'aqBanking ist nicht installiert ! aqBanking muss installiert sein um Online Banking zu bretreiben';
@@ -479,7 +479,6 @@ begin
 end;
 
 initialization
-  {$I uwizardnewaccount.lrs}
 
 end.
 

@@ -72,6 +72,7 @@ type
 var
   fMain: TfMain;
 implementation
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uStatistic,LCLType,
   MathParser,uDataSet,uScriptEditor;
 procedure TfMain.DoCreate;
@@ -301,5 +302,4 @@ begin
     end;
 end;
 initialization
-  {$I ucalculator.lrs}
 end.

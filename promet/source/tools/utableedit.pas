@@ -74,7 +74,7 @@ var
   fMain: TfMain;
 
 implementation
-
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface, uOrder, uDataImport,uDataImportCSV;
 resourcestring
   strTablenameMissing         = 'Sie müssen mit dem Kommandozielenparameter --tablename="TABELLENNAME" einen Tabellennamen zum Editieren angeben !';
@@ -172,6 +172,5 @@ begin
 end;
 
 initialization
-  {$I utableedit.lrs}
 
-end.
+end.

@@ -89,6 +89,7 @@ type
     property DataSet : TBaseDBDataSet read FDataSet write SetDataSet;
   end;
 implementation
+{$R *.lfm}
 uses uRowEditor,ubasevisualapplicationtools;
 constructor TDBTreeEntry.Create(aBM : LargeInt);
 begin
@@ -274,6 +275,5 @@ begin
   acFilter.Execute;
 end;
 initialization
-  {$I utreeview.lrs}
 end.
 

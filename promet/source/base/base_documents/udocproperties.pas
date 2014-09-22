@@ -64,7 +64,7 @@ var
   fDocProperties: TfDocProperties;
 
 implementation
-
+{$R *.lfm}
 { TfDocProperties }
 
 procedure TfDocProperties.miCheckoutToThisRevisionClick(Sender: TObject);
@@ -113,7 +113,6 @@ begin
 end;
 
 initialization
-  {$I udocproperties.lrs}
 
 end.
 

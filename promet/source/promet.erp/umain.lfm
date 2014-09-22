@@ -5,7 +5,7 @@ object fMain: TfMain
   Width = 868
   ActiveControl = Panel1
   Caption = 'Promet-ERP'
-  ClientHeight = 580
+  ClientHeight = 579
   ClientWidth = 868
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -20,7 +20,7 @@ object fMain: TfMain
   LCLVersion = '1.3'
   object spTree: TSplitter
     Left = 291
-    Height = 530
+    Height = 529
     Top = 50
     Width = 5
     Color = clBtnFace
@@ -29,13 +29,12 @@ object fMain: TfMain
   end
   object pcPages: TExtMenuPageControl
     Left = 296
-    Height = 530
+    Height = 529
     Top = 50
     Width = 572
     ActivePage = tsStartpage
     Align = alClient
     DragMode = dmAutomatic
-    Images = fVisualControls.Images
     TabIndex = 0
     TabOrder = 1
     NewTabImageIndex = 59
@@ -305,7 +304,7 @@ object fMain: TfMain
       end
       object eContains: TEdit
         Left = 28
-        Height = 21
+        Height = 23
         Top = 15
         Width = 328
         Anchors = [akTop, akRight]
@@ -846,7 +845,7 @@ object fMain: TfMain
   end
   object tvMain: TPanel
     Left = 0
-    Height = 530
+    Height = 529
     Top = 50
     Width = 291
     Align = alLeft
@@ -938,6 +937,7 @@ object fMain: TfMain
       Style = lbOwnerDrawFixed
       TabOrder = 0
       TabStop = False
+      TopIndex = -1
     end
   end
   object MainMenu1: TMainMenu

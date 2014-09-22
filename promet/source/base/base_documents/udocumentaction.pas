@@ -64,7 +64,7 @@ var
   fDocumentAction: TfDocumentAction;
 
 implementation
-
+{$R *.lfm}
 uses uData;
 
 resourcestring
@@ -189,7 +189,6 @@ begin
 end;
 
 initialization
-  {$I udocumentaction.lrs}
 
 end.
 

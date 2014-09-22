@@ -66,6 +66,7 @@ type
     property Done : Boolean read FDone;
   end;
 implementation
+{$R *.lfm}
 uses uDocuments,LCLProc,wikitohtml,uBaseDbClasses,uBaseApplication;
 resourcestring
   strMessagenotDownloaded       = 'Die Naricht wurde aus Sicherheitsgründen nicht heruntergeladen !';
@@ -409,7 +410,6 @@ begin
   end;
 end;
 initialization
-  {$I uviewmessage.lrs}
 
 end.
-
+

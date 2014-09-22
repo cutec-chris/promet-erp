@@ -44,6 +44,7 @@ type
 var
   fNewStorage: TfNewStorage;
 implementation
+{$R *.lfm}
 resourcestring
   strSelectanStorage            = 'wählen Sie ein Lager für Artikel %s Version %s Name %s';
 procedure TfNewStorage.FormKeyDown(Sender: TObject; var Key: Word;
@@ -117,6 +118,5 @@ begin
   FreeAndNil(fNewStorage);
 end;
 initialization
-  {$I unewstorage.lrs}
 end.
 

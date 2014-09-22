@@ -40,8 +40,8 @@ object fTreeView: TfTreeView
     object dgFake: TExtDBGrid
       Left = 0
       Height = 50
-      Top = 303
-      Width = 581
+      Top = 299
+      Width = 577
       Align = alBottom
       AlternateColor = 16770790
       BorderStyle = bsNone
@@ -57,13 +57,14 @@ object fTreeView: TfTreeView
       TitleStyle = tsNative
       Visible = False
       WantReturns = True
+      CachedEditing = True
     end
     object gHeader: TExtStringgrid
       Left = 0
       Height = 42
       Hint = 'hier können Sie die Liste einschränken, '#13#10'Sie können in jeder Spalte einen Wert eingeben '#13#10'den die Einträge haben müssen oder aber mit <>'#13#10'arbeiten. Oder mit Jokerzeichen (*,?)'#13#10'Beispiel: '#13#10'Wenn Sie in einer Spalte mit Nummern '#13#10'>100 eingeben, werden nur die Einträge angezeigt die '#13#10'als Wert in dieser Spalte > 100 haben.'
       Top = 0
-      Width = 581
+      Width = 577
       Align = alTop
       BorderStyle = bsNone
       ColCount = 2
@@ -84,6 +85,7 @@ object fTreeView: TfTreeView
       TitleStyle = tsNative
       OnColRowMoved = gHeaderColRowMoved
       OnHeaderSized = gHeaderHeaderSized
+      CachedEditing = True
     end
     object Panel1: TPanel
       Left = 0
@@ -97,9 +99,9 @@ object fTreeView: TfTreeView
       TabOrder = 2
       object FilterImage: TImage
         Left = 0
-        Height = 20
+        Height = 16
         Top = 0
-        Width = 12
+        Width = 8
         Align = alClient
         Picture.Data = {
           1754506F727461626C654E6574776F726B47726170686963FB01000089504E47
@@ -133,9 +135,9 @@ object fTreeView: TfTreeView
       TabOrder = 3
       object SpeedButton2: TSpeedButton
         Left = 0
-        Height = 18
+        Height = 14
         Top = 0
-        Width = 9
+        Width = 5
         Align = alClient
         Caption = '?'
         Flat = True
@@ -157,18 +159,18 @@ object fTreeView: TfTreeView
           A4FF0000000000000000
         }
         Layout = blGlyphRight
-        NumGlyphs = 0
         OnClick = bEditRowsClick
         ShowCaption = False
       end
     end
     object tvPositions: TTreeView
       Left = 0
-      Height = 261
+      Height = 257
       Top = 42
-      Width = 581
+      Width = 577
       Align = alClient
       BorderStyle = bsNone
+      DefaultItemHeight = 16
       ScrollBars = ssAutoBoth
       TabOrder = 4
       OnDeletion = tvPositionsDeletion

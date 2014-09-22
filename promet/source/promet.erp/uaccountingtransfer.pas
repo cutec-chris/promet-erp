@@ -59,6 +59,7 @@ var
   fTransfer: TfTransfer;
 
 implementation
+{$R *.lfm}
 uses uData,uError,uAccounting;
 resourcestring
   strAmountcannotbe0            = 'Bitte geben Sie einen Wert > 0 an';
@@ -146,6 +147,5 @@ begin
     end;
 end;
 initialization
-  {$I uaccountingtransfer.lrs}
 end.
 

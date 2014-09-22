@@ -30,6 +30,7 @@ type
 var
   fMain: TfMain;
 implementation
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface, uOrder;
 procedure TfMain.DoCreate;
 begin
@@ -76,5 +77,4 @@ begin
     end;
 end;
 initialization
-  {$I umain.lrs}
 end.

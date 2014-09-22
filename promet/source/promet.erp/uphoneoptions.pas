@@ -40,6 +40,7 @@ type
   end;
 
 implementation
+{$R *.lfm}
 uses uBaseApplication, uPhones;
 procedure TfPhoneOptions.StartTransaction;
 var
@@ -80,7 +81,6 @@ begin
 end;
 
 initialization
-  {$I uphoneoptions.lrs}
 
 end.
 

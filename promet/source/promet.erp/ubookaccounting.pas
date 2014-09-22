@@ -53,6 +53,7 @@ var
   fBookAccounting: TfBookAccounting;
 
 implementation
+{$R *.lfm}
 uses uData;
 procedure TfBookAccounting.meAmountChange(Sender: TObject);
 begin
@@ -116,6 +117,5 @@ begin
     end;
 end;
 initialization
-  {$I ubookaccounting.lrs}
 end.
 

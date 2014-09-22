@@ -624,4 +624,4 @@ object fMain: TfMain
     left = 184
     top = 152
   end
-end
+end

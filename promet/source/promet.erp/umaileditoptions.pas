@@ -73,7 +73,7 @@ var
   fMailOptions: TfMailOptions;
 
 implementation
-
+{$R *.lfm}
 resourcestring
   strFeed                       = 'Feed';
   strServiceNotInstalled        = 'Der Dienst %s ist derzeit nicht installiert !';
@@ -178,7 +178,6 @@ begin
 end;
 
 initialization
-  {$I umaileditoptions.lrs}
 
 end.
 

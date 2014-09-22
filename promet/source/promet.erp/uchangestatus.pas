@@ -50,9 +50,7 @@ var
   fChangeStatus: TfChangeStatus;
 
 implementation
-
-{ TfChangeStatus }
-
+{$R *.lfm}
 procedure TfChangeStatus.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -85,7 +83,6 @@ begin
 end;
 
 initialization
-  {$I uchangestatus.lrs}
 
 end.
 

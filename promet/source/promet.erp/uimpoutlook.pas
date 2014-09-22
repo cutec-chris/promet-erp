@@ -32,6 +32,7 @@ function ContOutlookImport : Boolean;
 function ContOutlookExport : Boolean;
 
 implementation
+{$R *.lfm}
 
 uses uData;
 
@@ -252,7 +253,6 @@ begin
 end;
 
 initialization
-  {$I uimpoutlook.lrs}
 
 end.
 
