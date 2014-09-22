@@ -104,6 +104,7 @@ begin
       Result := StringReplace(Result,',DAY(','strftime("%d",',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'DAYOFWEEK(','strftime("%w",',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'GETDATE()','date("now")',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,'SUBSTRING(','substr(',[rfReplaceAll,rfIgnoreCase]);
     end;
 end;
 
