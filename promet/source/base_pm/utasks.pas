@@ -1244,7 +1244,23 @@ begin
       DoFilterFocus;
 //      UpdateTitle;
 //      if (bFilter.Focused and bFilter.Visible) or (not bFilter.Visible) then
-        acFilter.Execute;
+      bOldTasks.Enabled:=cbFilter.ItemIndex=0;
+      bOldTasks1.Enabled:=cbFilter.ItemIndex=0;
+      bDependencies.Enabled:=cbFilter.ItemIndex=0;
+      bDependencies1.Enabled:=cbFilter.ItemIndex=0;
+      bDelegated.Enabled:=cbFilter.ItemIndex=0;
+      bDelegated1.Enabled:=cbFilter.ItemIndex=0;
+      bFuture.Enabled:=cbFilter.ItemIndex=0;
+      bFuture1.Enabled:=cbFilter.ItemIndex=0;
+      if not bOldTasks.Enabled then bOldTasks.Down:=False;
+      if not bOldTasks1.Enabled then bOldTasks1.Down:=False;
+      if not bDependencies.Enabled then bDependencies.Down:=False;
+      if not bDependencies1.Enabled then bDependencies1.Down:=False;
+      if not bDelegated.Enabled then bDelegated.Down:=False;
+      if not bDelegated1.Enabled then bDelegated1.Down:=False;
+      if not bFuture.Enabled then bFuture.Down:=False;
+      if not bFuture1.Enabled then bFuture1.Down:=False;
+      acFilter.Execute;
     end;
 end;
 procedure TfTaskFrame.ChangeVisibleRows(Sender: TObject);
