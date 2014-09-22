@@ -5,7 +5,7 @@ unit uDataSet;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil,  Forms, Controls, Graphics, Dialogs,
   DBGrids, DbCtrls, db;
 
 type

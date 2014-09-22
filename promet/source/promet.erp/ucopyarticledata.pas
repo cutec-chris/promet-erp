@@ -20,7 +20,7 @@ unit uCopyArticleData;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Buttons, ButtonPanel,uIntfStrConsts,uMasterdata;
 type
   TfCopyArticleData = class(TForm)

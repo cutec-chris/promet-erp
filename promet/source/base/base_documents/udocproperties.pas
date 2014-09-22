@@ -25,7 +25,7 @@ unit uDocProperties;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, ComCtrls, Grids, Menus, uIntfStrConsts,LCLType, ButtonPanel,
   uDocuments;
 

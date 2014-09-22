@@ -20,7 +20,7 @@ unit uBookAccounting;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil,  Forms, Controls, Graphics, Dialogs,
   StdCtrls, ButtonPanel, ExtCtrls, EditBtn, MaskEdit, ZVDateTimePicker,
   uBaseERPDBClasses, uAccounting, uOrder;
 type

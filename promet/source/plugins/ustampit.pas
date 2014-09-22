@@ -5,7 +5,7 @@ unit ustampit;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Dialogs, ProcessUtils, Process,
+  Classes, SysUtils,  Forms, Controls, Dialogs, ProcessUtils, Process,
   Windows,Strutils,Utils;
 
 type

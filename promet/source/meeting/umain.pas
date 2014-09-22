@@ -21,7 +21,7 @@ unit umain;
 {$mode objfpc}{$H+}
 interface
 uses
-  LResources, Forms, Controls, Buttons, Menus, ActnList, StdCtrls, uExtControls,
+   Forms, Controls, Buttons, Menus, ActnList, StdCtrls, uExtControls,
   ComCtrls, ExtCtrls,uMainTreeFrame, Classes;
 type
   TfMain = class(TForm)

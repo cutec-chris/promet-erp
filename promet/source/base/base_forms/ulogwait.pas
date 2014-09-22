@@ -23,7 +23,7 @@ unit uLogWait;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   Buttons, ButtonPanel, uIntfStrConsts;
 
 type

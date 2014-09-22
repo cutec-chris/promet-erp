@@ -5,7 +5,7 @@ unit uCDMenueMain;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil,  Forms, Controls, Graphics, Dialogs,
   Ipfilebroker, IpHtml,ProcessUtils,Utils,LCLIntf;
 
 type

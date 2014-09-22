@@ -24,7 +24,7 @@ unit uWizardnewaccount;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, ComCtrls, uIntfStrConsts, ProcessUtils, FileUtil,
   DividerBevel, uBaseERPDBClasses, uAccounting;
 

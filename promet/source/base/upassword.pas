@@ -21,7 +21,7 @@ unit uPassword;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Buttons,ComCtrls,LCLType, ButtonPanel, Menus, uBaseApplication,
   uBaseDBInterface,FileUtil;
 resourcestring

@@ -22,7 +22,7 @@ unit uViewMessage;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, ExtCtrls, StdCtrls, IpHtml,
+  Classes, SysUtils, FileUtil,  Forms, ExtCtrls, StdCtrls, IpHtml,
   uData, Graphics, Menus, uIntfStrConsts, DB, Variants, Utils, LCLIntf,
   uMessages, lconvencoding;
 type

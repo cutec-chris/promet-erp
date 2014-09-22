@@ -22,7 +22,7 @@ unit uDocumentAcquire;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs
   {$IFDEF WINDOWS}
   ,DelphiTwain,Windows
   {$ELSE}

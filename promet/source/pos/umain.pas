@@ -5,7 +5,7 @@ unit umain;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, dbf, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uIntfStrConsts,
   db, uBaseDatamodule,FileUtil, Translations,md5,
   ComCtrls, ExtCtrls;

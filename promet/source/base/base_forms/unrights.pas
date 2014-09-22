@@ -24,7 +24,7 @@ unit uNRights;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil,  Forms, Controls, Graphics, Dialogs,
   StdCtrls, ComCtrls, ButtonPanel, DBGrids, Variants, Grids, DbCtrls,
   uExtControls, db;
 

@@ -24,7 +24,7 @@ unit uDocumentOptions;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, EditBtn, StdCtrls,
+  Classes, SysUtils, FileUtil,  Forms, Controls, EditBtn, StdCtrls,
   uOptionsFrame;
 
 type

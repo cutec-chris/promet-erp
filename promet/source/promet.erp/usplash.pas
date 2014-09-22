@@ -24,7 +24,7 @@ unit usplash;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, ExtCtrls,
   uIntfStrConsts, StdCtrls, ComCtrls;
 
 type

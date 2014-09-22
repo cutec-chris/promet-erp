@@ -22,7 +22,7 @@ unit uFilterFrame;
 interface
 uses
   Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, LR_DBSet, LR_Class,
-  LResources, Forms, StdCtrls, ExtCtrls, Buttons, ComCtrls, DBGrids, Grids,
+   Forms, StdCtrls, ExtCtrls, Buttons, ComCtrls, DBGrids, Grids,
   Controls, EditBtn, Spin, Menus, ActnList, md5, db, Variants, uIntfStrConsts,
   Dialogs, uExtControls, Graphics, LCLType, uTimeLine, ClipBrd, DbCtrls, math,
   uBaseDbClasses, uBaseDBInterface, uPrometFrames, uBaseApplication,ugridview;

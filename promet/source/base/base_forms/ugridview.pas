@@ -26,7 +26,7 @@ unit ugridview;
 
 interface
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, DBGrids, ExtCtrls,
+  Classes, SysUtils, FileUtil,  Forms, Controls, DBGrids, ExtCtrls,
   Buttons, ComCtrls, uExtControls, db, Grids, ActnList, Menus, uBaseDBClasses,
   uBaseDbInterface, StdCtrls, Graphics, types, Clipbrd, LMessages,
   ubasevisualapplicationtools, Dialogs, DbCtrls;

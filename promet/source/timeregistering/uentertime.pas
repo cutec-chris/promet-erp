@@ -21,7 +21,7 @@ unit uEnterTime;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Dialogs, DBCtrls, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Dialogs, DBCtrls, StdCtrls,
   Buttons, uIntfStrConsts, db, ExtCtrls, Utils, LCLType, EditBtn,
   ActnList, Grids, Spin, DBGrids, Menus, ComCtrls, LR_Class, LR_DBSet,
   DateUtils, Math, uTimes, uGridView, uFilterFrame,

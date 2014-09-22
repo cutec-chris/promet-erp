@@ -21,7 +21,7 @@ unit uAccountingque;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Buttons,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, Buttons,
   Grids,ProcessUtils,Utils,FileUtil,uIntfStrConsts, ComCtrls, Variants, types,
   md5,db,StdCtrls,LCLtype, LCLProc, LCLIntf,uAccounting;
 type

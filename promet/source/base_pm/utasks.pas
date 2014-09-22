@@ -22,7 +22,7 @@ unit utasks;
 interface
 uses
   Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, LR_DBSet, LR_Class,
-  LResources, Forms, Controls, DBGrids, ValEdit, ExtCtrls, Buttons, ComCtrls,
+   Forms, Controls, DBGrids, ValEdit, ExtCtrls, Buttons, ComCtrls,
   uPrometFramesInplaceDB, uExtControls, db, Grids, ActnList, Menus, StdCtrls,
   uBaseDBClasses, uBaseDbInterface, uGridView, uIntfStrConsts,
   Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,Clipbrd;

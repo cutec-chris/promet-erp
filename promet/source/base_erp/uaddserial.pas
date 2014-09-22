@@ -25,7 +25,7 @@ unit uAddSerial;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons, ExtCtrls,
   uData,db,LCLtype, ButtonPanel;
 
 type

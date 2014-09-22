@@ -20,7 +20,7 @@ unit uNewStorage;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids, StdCtrls, ExtCtrls, Buttons,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids, StdCtrls, ExtCtrls, Buttons,
   uData, db,LCLType, ButtonPanel,uOrder,uMasterdata,uBaseERPDBClasses,LCLProc;
 type
   TfNewStorage = class(TForm)

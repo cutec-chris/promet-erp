@@ -5,7 +5,7 @@ unit uimpoutlook;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil,  Forms, Controls, Graphics, Dialogs,
   StdCtrls, Buttons, ButtonPanel, uIntfStrConsts, db
   {$IFDEF WINDOWS}
   ,ComObj

@@ -8,7 +8,7 @@ interface
 
 uses
   Classes, SysUtils, scrollingcontrol, ThreadedImageLoader, types,
-  Graphics, fpImage, FPReadJPEGthumb, fpthumbresize, LResources,
+  Graphics, fpImage, FPReadJPEGthumb, fpthumbresize,
   FileUtil, Dialogs, GraphType, LCLIntf,LCLProc,Messages;
 
 

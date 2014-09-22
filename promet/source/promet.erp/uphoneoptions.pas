@@ -23,7 +23,7 @@ unit uPhoneOptions;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, StdCtrls, CheckLst,
+  Classes, SysUtils, FileUtil,  Forms, Controls, StdCtrls, CheckLst,
   uOptionsFrame,ubaseconfig;
 
 type

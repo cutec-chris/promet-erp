@@ -25,7 +25,7 @@ unit uMailEditoptions;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Buttons, uIntfStrConsts,LCLType, ButtonPanel,FileUtil,
   ProcessUtils,uProcessManager,uLogWait;
 

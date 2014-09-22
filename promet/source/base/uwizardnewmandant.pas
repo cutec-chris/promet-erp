@@ -21,7 +21,7 @@ unit uWizardNewMandant;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, ComCtrls, uIntfStrConsts, EditBtn,
   {VirtualStringTree, }FileUtil,db, ZConnection, DbCtrls, uData, uEncrypt,
   ClipBrd, Spin,ProcessUtils,UTF8Process,process,lclproc;

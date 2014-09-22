@@ -20,7 +20,7 @@ unit utreeview;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, DBGrids,
+  Classes, SysUtils, FileUtil,  Forms, Controls, DBGrids,
   ExtCtrls, Buttons, ComCtrls, uExtControls, db, Grids, ActnList,
   Menus, uBaseDBClasses, uBaseDbInterface;
 type

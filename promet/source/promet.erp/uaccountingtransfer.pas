@@ -20,7 +20,7 @@ unit uAccountingTransfer;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   Buttons,Utils,uAccountingQue,uIntfStrConsts;
 type
   TfTransfer = class(TForm)

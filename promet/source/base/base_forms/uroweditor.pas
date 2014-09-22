@@ -21,7 +21,7 @@ unit uRowEditor;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons, ExtCtrls,
   db,dbgrids,uIntfStrConsts,Grids,Variants,LCLType, PairSplitter, ButtonPanel,
   uData, types;
 type

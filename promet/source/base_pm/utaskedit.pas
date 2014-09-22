@@ -21,7 +21,7 @@ info@cu-tec.de
 unit uTaskEdit;
 interface
 uses
-  LMessages, LCLProc, LCLType, LCLIntf, LResources, SysUtils, Classes, Graphics,
+  LMessages, LCLProc, LCLType, LCLIntf,  SysUtils, Classes, Graphics,
   Controls, Forms, Dialogs, StdCtrls, ExtCtrls, ComCtrls, ZVDateTimePicker,
   DBZVDateTimePicker, utask, uExtControls, Buttons, EditBtn, ButtonPanel, Spin,
   DbCtrls, db, uIntfStrConsts,DBGrids,Grids, ActnList,uHistoryFrame;

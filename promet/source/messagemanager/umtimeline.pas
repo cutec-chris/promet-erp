@@ -21,7 +21,7 @@ unit umtimeline;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, types, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, types,  Forms, Controls, Graphics, Dialogs,
   DBGrids, Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils,
   ZVDateTimePicker, uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, ugridview,

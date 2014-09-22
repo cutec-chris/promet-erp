@@ -2,7 +2,7 @@ unit umain;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils,
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage;

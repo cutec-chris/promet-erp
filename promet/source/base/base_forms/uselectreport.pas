@@ -25,7 +25,7 @@ unit uSelectReport;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   Buttons, DBGrids, db, Printers, LR_Class, LR_Desgn, LR_View, Spin, LR_DBSet,
   Process, LR_Prntr, LR_ChBox, LR_Shape, LR_RRect, LR_BarC, LR_E_TXT, LR_E_HTM,
   LR_E_CSV, lr_e_pdf, LR_DB_Zeos, LRDialogControls, Variants, UTF8process,

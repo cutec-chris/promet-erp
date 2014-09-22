@@ -5,7 +5,7 @@ unit uTimeOptions;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, StdCtrls, ExtCtrls,
+  Classes, SysUtils, FileUtil,  Forms, Controls, StdCtrls, ExtCtrls,
   EditBtn, Buttons, uOptionsFrame;
 
 type

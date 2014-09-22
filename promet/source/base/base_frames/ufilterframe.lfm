@@ -1481,7 +1481,7 @@ inherited fFilter: TfFilter
       TabOrder = 4
     end
   end
-  object List: TDataSource[4]
+  object List: TDatasource[4]
     left = 32
     top = 96
   end
@@ -1828,17 +1828,17 @@ inherited fFilter: TfFilter
     left = 128
     top = 96
   end
-  object MandantDetails: TDataSource[12]
+  object MandantDetails: TDatasource[12]
     AutoEdit = False
     left = 184
     top = 96
   end
-  object Users: TDataSource[13]
+  object Users: TDatasource[13]
     AutoEdit = False
     left = 256
     top = 96
   end
-  object History: TDataSource[14]
+  object History: TDatasource[14]
     left = 184
     top = 152
   end
@@ -1874,4 +1874,4 @@ inherited fFilter: TfFilter
     left = 83
     top = 144
   end
-end
+end

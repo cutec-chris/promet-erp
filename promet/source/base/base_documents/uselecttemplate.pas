@@ -26,7 +26,7 @@ unit uSelectTemplate;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   StdCtrls, Buttons, Utils, db, uIntfStrConsts,FileUtil,LCLType, uBaseDbClasses,
   uDocuments;
 

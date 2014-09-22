@@ -22,7 +22,7 @@ unit uMessageEdit;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Dialogs, Buttons, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Dialogs, Buttons, StdCtrls,
   ExtCtrls, ComCtrls, Utils, db, uIntfStrConsts, md5, mimepart, mimemess,
   Variants, uExtControls, uViewMessage, FileUtil, LCLType,
   ActnList, urichframe, RichMemo, LCLProc, ClipBrd, Menus, DbCtrls, EditBtn,

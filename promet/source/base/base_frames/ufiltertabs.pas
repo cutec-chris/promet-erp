@@ -25,7 +25,7 @@ unit uFilterTabs;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, ComCtrls, DBGrids, uFilterFrame,
+  Classes, SysUtils, FileUtil,  Forms, ComCtrls, DBGrids, uFilterFrame,
   db, Extctrls, Controls, Menus, uIntfStrConsts, uBaseDbClasses;
 
 type

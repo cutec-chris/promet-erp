@@ -5,7 +5,7 @@ unit ubackupmain;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, EditBtn,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, EditBtn,
   StdCtrls, ButtonPanel, XMLPropStorage, uAppconsts, Processutils,Utils,FileUtil,
   Clipbrd, ComCtrls;
 

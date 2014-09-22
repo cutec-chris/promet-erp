@@ -24,7 +24,7 @@ unit uDocumentAction;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, DBGrids, DbCtrls, Buttons, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls, DBGrids, DbCtrls, Buttons, ExtCtrls,
   uIntfStrConsts,db,LCLType, ButtonPanel, uDocuments,uBaseDBInterface;
 
 type

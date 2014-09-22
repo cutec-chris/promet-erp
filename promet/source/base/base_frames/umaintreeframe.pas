@@ -20,7 +20,7 @@ unit uMainTreeFrame;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, ComCtrls, ActnList,
+  Classes, SysUtils, FileUtil,  Forms, Controls, ComCtrls, ActnList,
   Menus, ExtCtrls, uBaseDBInterface, uBaseDbClasses,uExtControls, db;
 type
   TEntryTyp = (etNone,etAction,etDir,

@@ -21,7 +21,7 @@ unit uSearch;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs,
   StdCtrls, ComCtrls, Buttons, Grids, uIntfStrConsts, ExtCtrls, CheckLst, db,
   LMessages, Spin, LCLtype, ActnList, Menus, LCLIntf, Utils, FPCanvas,
   CustomTimer, Themes, uBaseSearch, uBaseDbClasses, Clipbrd;
