@@ -54,7 +54,7 @@ begin
           begin
             Add('START',ftDateTime,0,True);
             Add('END',ftDateTime,0,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('PROJECT',ftString,260,False);
             Add('PROJECTID',ftLargeint,0,False);
             Add('TASKID',ftLargeint,0,False);

@@ -541,7 +541,7 @@ begin
             Add('NAME',ftString,200,False);
             Add('MATCHCODE',ftString,200,False);
             Add('REF_ID_ID',ftLargeint,0,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
           end;
     end;
 end;
@@ -592,7 +592,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('LINK',ftString,200,True);
+            Add('LINK',ftString,400,True);
           end;
     end;
 end;
@@ -627,7 +627,7 @@ begin
           begin
             Add('ACTIVE',ftString,1,False);
             Add('NAME',ftString,60,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('ICON',ftInteger,0,False);
           end;
     end;
@@ -688,7 +688,7 @@ begin
         with ManagedFieldDefs do
           begin
             Add('REF_ID_ID',ftLargeInt,0,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
@@ -804,7 +804,7 @@ begin
         with ManagedFieldDefs do
           begin
             Add('RREF_ID',ftLargeInt,0,true);
-            Add('LINK',ftString,200,true);
+            Add('LINK',ftString,400,true);
             Add('LINK_REF_ID',ftLargeInt,0,false);
             Add('ICON',ftInteger,0,False);
             Add('NAME',ftString,80,True);
@@ -1460,7 +1460,7 @@ begin
             Add('SUMMARY',ftString,120,False);
             Add('ACTION',ftMemo,0,True);
             Add('REFERENCE', ftString,150,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('OBJECT',ftString,200,False);
             Add('REFOBJECT',ftString,200,False);
             Add('COMMISSION',ftString,60,False);

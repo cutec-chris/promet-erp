@@ -168,7 +168,7 @@ begin
             Add('ORIGDATE',ftDateTime,0,False);
             Add('DONE',ftString,1,False);
             Add('CHANGEDBY',ftString,4,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('TREEENTRY',ftLargeint,0,False);
             Add('FULLTEXT',ftMemo,0,False);
             Add('THUMBNAIL',ftBlob,0,False);

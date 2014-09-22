@@ -304,7 +304,7 @@ begin
             Add('DESCR',ftString,30,False);
             Add('TYPE',ftString,4,False);
             Add('DATA',ftString,80,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('ACTIVE',ftString,1,False);
           end;
        if Assigned(ManagedIndexdefs) then
@@ -976,4 +976,4 @@ begin
 end;
 
 initialization
-end.
+end.

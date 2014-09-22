@@ -114,7 +114,7 @@ begin
         with ManagedFieldDefs do
           begin
             Add('TEXT',ftString,200,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('CHANGEDBY',ftString,4,False);
           end;
       if Assigned(ManagedIndexdefs) then

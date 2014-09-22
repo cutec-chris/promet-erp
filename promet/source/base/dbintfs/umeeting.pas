@@ -191,7 +191,7 @@ begin
           begin
             Add('POSNO',ftInteger,0,True);
             Add('DESC',ftMemo,0,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('OWNER',ftString,20,False);
             Add('USER',ftString,20,False);
             Add('DUEDATE',ftDateTime,0,False);
