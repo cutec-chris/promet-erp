@@ -807,7 +807,7 @@ begin
             Add('LINK',ftString,400,true);
             Add('LINK_REF_ID',ftLargeInt,0,false);
             Add('ICON',ftInteger,0,False);
-            Add('NAME',ftString,80,True);
+            Add('NAME',ftString,400,True);
             Add('REFERENCE',ftString,30,False);
             Add('CHANGEDBY',ftString,4,False);
             Add('CREATEDBY',ftString,4,False);
