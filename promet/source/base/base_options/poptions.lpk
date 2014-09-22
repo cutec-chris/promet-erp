@@ -9,14 +9,8 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
-      <Other>
-        <CompilerMessages>
-          <MsgFileName Value=""/>
-        </CompilerMessages>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
-    <Files Count="16">
+    <Files Count="17">
       <Item1>
         <Filename Value="umandantoptions.lfm"/>
         <Type Value="LFM"/>
@@ -81,6 +75,10 @@
         <Filename Value="uimportoptions.pas"/>
         <UnitName Value="uimportoptions"/>
       </Item16>
+      <Item17>
+        <Filename Value="upaygroups.pas"/>
+        <UnitName Value="upaygroups"/>
+      </Item17>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">

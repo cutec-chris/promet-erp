@@ -53,6 +53,7 @@ type
     miRead: TMenuItem;
     pmRights: TPopupMenu;
     pUser: TPanel;
+    SpeedButton1: TSpeedButton;
     tvRights: TTreeView;
     tvUsers: TTreeView;
     UsersDS: TDatasource;
@@ -62,6 +63,7 @@ type
     procedure bSaveUserClick(Sender: TObject);
     procedure eUsernameChange(Sender: TObject);
     procedure miRightsClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
     procedure tvUsersDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure tvUsersDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
@@ -72,6 +74,7 @@ type
     { private declarations }
     aConnection : TComponent;
     aUsers : TUser;
+    aPaygroups: TPayGroups;
     procedure UpdateRights;
   public
     { public declarations }
@@ -83,7 +86,7 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uData,Variants;
+uses uData,Variants,upaygroups;
 procedure TfUserOptions.tvUsersSelectionChanged(Sender: TObject);
 begin
   if not Assigned(tvUsers.Selected) then exit;
@@ -182,6 +185,15 @@ begin
     end;
   UpdateRights;
 end;
+
+procedure TfUserOptions.SpeedButton1Click(Sender: TObject);
+begin
+  if not Assigned(fPaygroups) then
+    Application.CreateForm(TfPaygroups,fPaygroups);
+  fPaygroups.Paygroups.DataSet := Paygroups.DataSet;
+  fPaygroups.ShowModal;
+end;
+
 procedure TfUserOptions.tvUsersDragDrop(Sender, Source: TObject; X, Y: Integer);
 var
   SourceNode: TTreeNode;
@@ -257,10 +269,14 @@ begin
   aConnection := Data.GetNewConnection;
   aUsers := TUser.Create(Self,Data,aConnection);
   UsersDS.DataSet := aUsers.DataSet;
+  aPaygroups := TPayGroups.Create(nil,Data,aConnection);
+  aPaygroups.CreateTable;
+  Paygroups.DataSet := aPaygroups.DataSet;
 end;
 destructor TfUserOptions.Destroy;
 begin
   aUsers.Destroy;
+  aPaygroups.Destroy;
   try
     aConnection.Destroy;
   except
@@ -274,6 +290,7 @@ begin
   inherited;
   Data.StartTransaction(aConnection);
   aUsers.Open;
+  aPaygroups.Open;
   with aUsers.DataSet do
     begin
       First;
@@ -311,4 +328,4 @@ begin
   inherited;
 end;
 end.
-
+

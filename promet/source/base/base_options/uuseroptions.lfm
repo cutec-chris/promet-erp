@@ -427,7 +427,7 @@ inherited fUserOptions: TfUserOptions
       Left = 139
       Height = 21
       Top = 248
-      Width = 148
+      Width = 124
       Anchors = [akTop, akLeft, akRight]
       DataField = 'PAYGROUP'
       DataSource = UsersDS
@@ -547,6 +547,14 @@ inherited fUserOptions: TfUserOptions
       TimeDisplay = tdHMS
       DateMode = dmComboBox
       UseDefaultSeparators = True
+    end
+    object SpeedButton1: TSpeedButton
+      Left = 264
+      Height = 22
+      Top = 248
+      Width = 23
+      Caption = '...'
+      OnClick = SpeedButton1Click
     end
   end
   object UsersDS: TDataSource[2]
