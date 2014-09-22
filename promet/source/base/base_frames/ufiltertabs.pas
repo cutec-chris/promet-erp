@@ -81,6 +81,7 @@ type
   end;
 
 implementation
+{$R *.lfm}
 
 uses uData,uBaseVisualApplicationTools;
 
@@ -313,8 +314,6 @@ begin
 end;
 
 initialization
-  {$I ufiltertabs.lrs}
-
 end.
 
 
