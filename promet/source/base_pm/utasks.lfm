@@ -766,17 +766,17 @@ inherited fTaskFrame: TfTaskFrame
       Left = 80
       Height = 42
       Top = 0
-      Width = 184
+      Width = 208
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 184
+      ClientWidth = 208
       TabOrder = 0
       object Label3: TLabel
         Left = 4
         Height = 15
         Top = -2
-        Width = 176
+        Width = 200
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -833,7 +833,7 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object bDeletePos1: TSpeedButton
-        Left = 156
+        Left = 180
         Height = 24
         Top = 14
         Width = 24
@@ -878,7 +878,7 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object bDeletePos3: TSpeedButton
-        Left = 87
+        Left = 111
         Height = 24
         Top = 14
         Width = 24
@@ -923,7 +923,7 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object bDeletePos4: TSpeedButton
-        Left = 110
+        Left = 134
         Height = 24
         Top = 14
         Width = 24
@@ -968,7 +968,7 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object bDeletePos7: TSpeedButton
-        Left = 133
+        Left = 157
         Height = 24
         Top = 14
         Width = 24
@@ -1013,7 +1013,7 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object bDeletePos8: TSpeedButton
-        Left = 39
+        Left = 40
         Height = 24
         Top = 14
         Width = 25
@@ -1058,7 +1058,7 @@ inherited fTaskFrame: TfTaskFrame
         ShowCaption = False
       end
       object bDeletePos9: TSpeedButton
-        Left = 64
+        Left = 88
         Height = 24
         Top = 14
         Width = 24
@@ -1102,9 +1102,18 @@ inherited fTaskFrame: TfTaskFrame
         Layout = blGlyphTop
         ShowCaption = False
       end
+      object bDeletePos11: TSpeedButton
+        Left = 64
+        Height = 24
+        Top = 14
+        Width = 25
+        Action = acMarkSeen
+        Layout = blGlyphTop
+        ShowCaption = False
+      end
     end
     object Panel6: TPanel
-      Left = 264
+      Left = 288
       Height = 42
       Top = 0
       Width = 29
@@ -1185,7 +1194,7 @@ inherited fTaskFrame: TfTaskFrame
       end
     end
     object Panel7: TPanel
-      Left = 336
+      Left = 360
       Height = 42
       Top = 0
       Width = 127
@@ -1429,7 +1438,7 @@ inherited fTaskFrame: TfTaskFrame
       end
     end
     object pNav1: TPanel
-      Left = 293
+      Left = 317
       Height = 42
       Top = 0
       Width = 43
@@ -1493,14 +1502,14 @@ inherited fTaskFrame: TfTaskFrame
       end
     end
     object Panel5: TPanel
-      Left = 524
+      Left = 548
       Height = 42
       Top = 0
-      Width = 165
+      Width = 141
       Align = alClient
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 165
+      ClientWidth = 141
       Constraints.MaxWidth = 700
       TabOrder = 4
       object Bevel7: TBevel
@@ -1530,7 +1539,7 @@ inherited fTaskFrame: TfTaskFrame
         Height = 21
         Hint = 'hier können Sie einen Filter wählen um die Liste einzuschränken'
         Top = 12
-        Width = 114
+        Width = 90
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 8
         ItemHeight = 13
@@ -1538,7 +1547,7 @@ inherited fTaskFrame: TfTaskFrame
         TabOrder = 0
       end
       object bEditFilter: TSpeedButton
-        Left = 123
+        Left = 99
         Height = 21
         Hint = 'zeigt/verbirgt den Filtereditor'
         Top = 12
@@ -1586,7 +1595,7 @@ inherited fTaskFrame: TfTaskFrame
       end
     end
     object Panel8: TPanel
-      Left = 463
+      Left = 487
       Height = 42
       Top = 0
       Width = 61
@@ -2813,6 +2822,10 @@ inherited fTaskFrame: TfTaskFrame
       Hint = 'verwirft alle Änderungen'
       ImageIndex = 75
       OnExecute = acCancelExecute
+    end
+    object acMarkProblem: TAction
+      Caption = 'acMarkProblem'
+      ImageIndex = 117
     end
   end
   object Datasource: TDataSource[7]

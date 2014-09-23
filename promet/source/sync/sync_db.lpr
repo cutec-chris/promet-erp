@@ -56,6 +56,7 @@ var
   DoPost: Boolean = False;
   aSyncError: TSyncItems;
 begin
+  try
   Result := True;
   if Assigned(FTempDataSet) and (FTempDataSetName = SyncDB.Tables.DataSet.FieldByName('NAME').AsString) and FTempDataSet.Locate('SQL_ID',SyncTbl.FieldByName('SQL_ID').AsVariant,[]) and BaseApplication.HasOption('d','dontupdate') then
     exit
@@ -195,6 +196,9 @@ begin
     FreeAndNil(aSource);
     FreeAndNil(aDest);
     FreeAndNil(aDel);
+  end;
+
+  except
   end;
 end;
 procedure TSyncDBApp.SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule);

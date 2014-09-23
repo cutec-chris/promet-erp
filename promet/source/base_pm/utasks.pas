@@ -58,6 +58,7 @@ type
     acInformwithinternMail: TAction;
     acSave: TAction;
     acCancel: TAction;
+    acMarkProblem: TAction;
     acUnmakeSubTask: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
@@ -65,6 +66,7 @@ type
     bAddPos1: TSpeedButton;
     bDelegated2: TSpeedButton;
     bDeletePos10: TSpeedButton;
+    bDeletePos11: TSpeedButton;
     bDeletePos8: TSpeedButton;
     bDeletePos9: TSpeedButton;
     bEnterTime2: TSpeedButton;
