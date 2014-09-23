@@ -933,9 +933,13 @@ begin
              if not FDataSet.CanEdit then
                FDataSet.DataSet.Edit;
              if FDataSet.DataSet.FieldByName('NEEDSACTION').AsString<>'Y' then
-               FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='Y'
+               begin
+                 FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='Y'
+               end
              else
-               FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='N';
+               begin
+                 FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='N';
+               end;
              if FDataSet.CanEdit then
                FDataSet.DataSet.Post;
              if FDataSet.DataSet.FieldByName('PROJECTID').AsString<>'' then

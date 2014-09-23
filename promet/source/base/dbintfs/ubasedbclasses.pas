@@ -1467,6 +1467,7 @@ begin
             Add('COMMISSION',ftString,60,False);
             Add('SOURCE',ftString,60,False);
             Add('READ',ftString,1,False);
+            Add('IGNORE',ftString,1,False);//ignore item in reports
             Add('TAGS',ftString,200,False);
             Add('CHANGEDBY',ftString,4,False);
             Add('PARENT',ftLargeInt,0,False);

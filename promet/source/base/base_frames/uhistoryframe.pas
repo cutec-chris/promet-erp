@@ -31,6 +31,7 @@ type
     acAdd: TAction;
     acDelete: TAction;
     acAddLinked: TAction;
+    acIgnore: TAction;
     ActionList1: TActionList;
     Bevel1: TBevel;
     Bevel2: TBevel;
@@ -48,10 +49,12 @@ type
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
     procedure aButtonClick(Sender: TObject);
     procedure acAddExecute(Sender: TObject);
     procedure acAddLinkedExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
+    procedure acIgnoreExecute(Sender: TObject);
     procedure bRefresh1Click(Sender: TObject);
     function FContListDrawColumnCell(Sender: TObject; var aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
@@ -372,6 +375,16 @@ end;
 procedure TfHistoryFrame.acDeleteExecute(Sender: TObject);
 begin
   FTimeLine.Delete;
+end;
+
+procedure TfHistoryFrame.acIgnoreExecute(Sender: TObject);
+begin
+  if FTimeLine.GotoActiveRow then
+    begin
+      DataSet.Edit;
+      DataSet.FieldByName('IGNORE').AsString:='Y';
+      DataSet.Post;
+    end;
 end;
 
 procedure TfHistoryFrame.bRefresh1Click(Sender: TObject);

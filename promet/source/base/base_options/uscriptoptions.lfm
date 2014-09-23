@@ -1,0 +1,75 @@
+object fScriptOptions: TfScriptOptions
+  Left = 0
+  Height = 549
+  Top = 0
+  Width = 581
+  ClientHeight = 549
+  ClientWidth = 581
+  TabOrder = 0
+  DesignLeft = 524
+  DesignTop = 212
+  object DBNavigator2: TDBNavigator
+    AnchorSideTop.Control = lProcesses
+    Left = 446
+    Height = 21
+    Top = 4
+    Width = 127
+    Anchors = [akTop, akRight]
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 21
+    ClientWidth = 127
+    Options = []
+    TabOrder = 0
+    VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
+  end
+  object lProcesses: TLabel
+    Left = 4
+    Height = 13
+    Top = 4
+    Width = 573
+    Align = alTop
+    BorderSpacing.Around = 4
+    Caption = 'Scripte'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object gProcesses: TDBGrid
+    Left = 8
+    Height = 516
+    Top = 25
+    Width = 565
+    Align = alClient
+    BorderSpacing.Around = 8
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'Name'
+        Width = 200
+        FieldName = 'NAME'
+      end    
+      item
+        Title.Caption = 'Status'
+        Width = 50
+        FieldName = 'STATUS'
+      end    
+      item
+        Title.Caption = 'Start alle x min'
+        Width = 100
+        FieldName = 'RUNEVERY'
+      end    
+      item
+        Title.Caption = 'letzter Start'
+        Width = 100
+        FieldName = 'LASTRUN'
+      end>
+    TabOrder = 1
+    TitleStyle = tsNative
+  end
+end
