@@ -927,33 +927,29 @@ begin
     begin
       if FGridView.GotoRowNumber(aRow-1) then
         begin
-         if (DataSet.FieldByName('USER').AsString = aUsers.FieldByName('ACCOUNTNO').AsString)
-         or (DataSet.FieldByName('USER').IsNull) then
-           begin
-             if not FDataSet.CanEdit then
-               FDataSet.DataSet.Edit;
-             if FDataSet.DataSet.FieldByName('NEEDSACTION').AsString<>'Y' then
-               begin
-                 FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='Y'
-               end
-             else
-               begin
-                 FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='N';
-               end;
-             if FDataSet.CanEdit then
-               FDataSet.DataSet.Post;
-             if FDataSet.DataSet.FieldByName('PROJECTID').AsString<>'' then
-               begin
-                 aProject := TProject.Create(Self,Data,Connection);
-                 aProject.Select(FDataSet.DataSet.FieldByName('PROJECTID').AsVariant);
-                 aProject.Open;
-                 if (aProject.Count>0) then
-                   begin
-                     aProject.CheckNeedsAction;
-                   end;
-                 aProject.Free;
-               end;
-           end;
+          if not FDataSet.CanEdit then
+            FDataSet.DataSet.Edit;
+          if FDataSet.DataSet.FieldByName('NEEDSACTION').AsString<>'Y' then
+            begin
+              FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='Y'
+            end
+          else
+            begin
+              FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='N';
+            end;
+          if FDataSet.CanEdit then
+            FDataSet.DataSet.Post;
+          if FDataSet.DataSet.FieldByName('PROJECTID').AsString<>'' then
+            begin
+              aProject := TProject.Create(Self,Data,Connection);
+              aProject.Select(FDataSet.DataSet.FieldByName('PROJECTID').AsVariant);
+              aProject.Open;
+              if (aProject.Count>0) then
+                begin
+                  aProject.CheckNeedsAction;
+                end;
+              aProject.Free;
+            end;
         end
       else break;
     end;

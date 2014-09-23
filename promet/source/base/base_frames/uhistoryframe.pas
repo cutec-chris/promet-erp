@@ -381,9 +381,13 @@ procedure TfHistoryFrame.acIgnoreExecute(Sender: TObject);
 begin
   if FTimeLine.GotoActiveRow then
     begin
+      with DataSet.DataSet as IBaseManageDB do
+        UpdateStdFields := False;
       DataSet.Edit;
       DataSet.FieldByName('IGNORE').AsString:='Y';
       DataSet.Post;
+      with DataSet.DataSet as IBaseManageDB do
+        UpdateStdFields := True;
     end;
 end;
 
