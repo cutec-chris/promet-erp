@@ -1277,7 +1277,7 @@ begin
           begin
             Add('COMPLETED',ftString,1,True);
             Add('ACTIVE',ftString,1,True);
-            Add('NEEDSACTION',ftString,1,True);
+            Add('NEEDSACTION',ftString,1,False);
             Add('CHECKED',ftString,1,True);
             Add('HASCHILDS',ftString,1,True);
             Add('SEEN',ftString,1,False);

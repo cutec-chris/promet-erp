@@ -53,7 +53,7 @@ type
     procedure acAddLinkedExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
     procedure bRefresh1Click(Sender: TObject);
-    function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
+    function FContListDrawColumnCell(Sender: TObject; var aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
     procedure FContListViewDetails(Sender: TObject);
     procedure FTimeLineGetCellText(Sender: TObject; aCol: TColumn;
@@ -152,7 +152,7 @@ begin
   inherited Destroy;
 end;
 function TfHistoryFrame.FContListDrawColumnCell(Sender: TObject;
-  const aRect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
+  var aRect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
 var
   aColor: TColor;
   aMiddle: Integer;

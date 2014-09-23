@@ -67,6 +67,7 @@ type
     Seen : string;
     Dependencies : Boolean;
     ShouldStart : TDateTime;
+    NeedsAction : string;
     RefreshHeight : Boolean;
     Extends : TPoint;
     property StringRec : string read GetStringRec;
@@ -85,7 +86,7 @@ type
   TSetCellTextEvent = procedure(Sender : TObject;aCol : TColumn;aRow : Integer;var NewText : string) of object;
   TFieldEvent = procedure(Field : TColumn) of object;
   TSearchKey = function(Sender : TObject;X,Y : Integer;Field : TColumn;var Key : Word;Shift : TShiftState;SearchString : string) : Boolean of object;
-  TGridDrawColumnCellEvent = function(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean of object;
+  TGridDrawColumnCellEvent = function(Sender: TObject; var Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean of object;
   TCellFontEvent = function(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState;var aColor : TColor;var Style : TFontStyles) : Boolean of object;
 
   { TfGridView }
@@ -197,6 +198,7 @@ type
     FGetRowHeight: TGetRowHeightEvent;
     FInvertedDrawing: Boolean;
     FNumberField: string;
+    FOnDrawCellBack: TGridDrawColumnCellEvent;
     FOnGetFontCell: TCellFontEvent;
     FWordwrap: Boolean;
     FWorkStatus: string;
@@ -388,6 +390,7 @@ begin
   Childs:=' ';
   RefreshHeight := True;
   Dependencies:=False;
+  NeedsAction:='na';
 end;
 
 procedure TfGridView.bEditRowsClick(Sender: TObject);
@@ -1111,6 +1114,11 @@ begin
         end;
       if Assigned(FOnDrawCell) then
         begin
+          if (gdSelected in AState) then
+            begin
+              aColor := SelectedColor;
+              TStringGrid(Sender).Canvas.Font.Color:=clHighlightText;
+            end;
           TStringGrid(Sender).Canvas.Brush.Color:=aColor;
           TStringGrid(Sender).Canvas.FillRect(aRect);
           bRect :=aRect;
@@ -1137,8 +1145,11 @@ begin
             FOnGetFontCell(gList,aRect,aRow,dgFake.Columns[aCol-1],aState,aColor,aFontStyle);
           with TStringGrid(Sender).Canvas do
             begin
-              TStringGrid(Sender).Canvas.Brush.Color:=aColor;
-              TStringGrid(Sender).Canvas.FillRect(aRect);
+              if not Assigned(FOnDrawCell) then
+                begin
+                  TStringGrid(Sender).Canvas.Brush.Color:=aColor;
+                  TStringGrid(Sender).Canvas.FillRect(aRect);
+                end;
               bRect := aRect;
               for i := 0 to dgFake.Columns.Count-1 do
                 if dgFake.Columns[i].FieldName = IdentField then

@@ -114,6 +114,7 @@ type
     procedure Makesnapshot(aName : string);
     procedure Delete; override;
     procedure GenerateThumbnail; override;
+    procedure CheckNeedsAction;
   end;
 implementation
 uses uBaseSearch,uBaseApplication,Utils,uthumbnails;
@@ -498,6 +499,19 @@ begin
   aThumbnail.Free;
 end;
 
+procedure TProject.CheckNeedsAction;
+var
+  aTasks: TTaskList;
+begin
+  aTasks := TTaskList.Create(nil,DataModule,Connection);
+  aTasks.Filter(TBaseDBModule(DataModule).QuoteField('PROJECTID')+'='+TBaseDBModule(DataModule).QuoteValue(Self.Id.AsString)+' AND '+TBaseDBModule(DataModule).QuoteField('NEEDSACTION')+'='+TBaseDBModule(DataModule).QuoteValue('Y'));
+  Edit;
+  if aTasks.Count>0 then
+    FieldByName('NEEDSACTION').AsString:='Y'
+  else FieldByName('NEEDSACTION').AsString:='N';
+  Post;
+end;
+
 procedure TProjectLinks.FillDefaults(aDataSet: TDataSet);
 begin
   inherited FillDefaults(aDataSet);
@@ -575,6 +589,7 @@ begin
             Add('TYPE',ftString,1,False);
             Add('NAME',ftString,250,False);
             Add('STATUS',ftString,4,True);
+            Add('NEEDSACTION',ftString,1,False);
             Add('TREEENTRY',ftLargeInt,0,false);
             Add('START',ftDate,0,false);
             Add('END',ftDate,0,false);

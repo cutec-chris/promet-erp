@@ -497,6 +497,7 @@ resourcestring
   strOwner                      = 'Eigentümer';
   strAvalible                   = 'Verfügbar';
   strItemOpened                 = 'Eintrag "%s" geöffnet';
+  strNeedsAction                = 'benötigt Hilfe';
 
 function TObjects.GetNumberFieldName: string;
 begin
@@ -2871,6 +2872,7 @@ begin
   SetDisplayLabelName(aDataSet,'OWNER',strOwner);
   SetDisplayLabelName(aDataSet,'AVALIBLE',strAvalible);
   SetDisplayLabelName(aDataSet,'ICON',' ');
+  SetDisplayLabelName(aDataSet,'NEEDSACTION',strNeedsAction);
 end;
 function TBaseDBDataset.GetBookmark: LargeInt;
 begin

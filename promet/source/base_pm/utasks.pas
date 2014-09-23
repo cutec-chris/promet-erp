@@ -185,6 +185,7 @@ type
     procedure acInformwithexternMailExecute(Sender: TObject);
     procedure acLinkExecute(Sender: TObject);
     procedure acMAkeSubTaskExecute(Sender: TObject);
+    procedure acMarkProblemExecute(Sender: TObject);
     procedure acMarkSeenExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
@@ -217,7 +218,7 @@ type
     procedure FGridViewCheckBoxColumnToggle(Field: TColumn);
     procedure FGridViewDblClick(Sender: TObject);
     procedure FGridViewDelete(Sender: TObject);
-    function FGridViewDrawColumnCell(Sender: TObject; const Rect: TRect;
+    function FGridViewDrawColumnCell(Sender: TObject; var Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
     procedure FGridViewFilterCell(Sender: TObject; aCol: TColumn;
       aText: string; var NewText: string);
@@ -915,6 +916,45 @@ procedure TfTaskFrame.acMAkeSubTaskExecute(Sender: TObject);
 begin
   FGridView.SetChild;
 end;
+
+procedure TfTaskFrame.acMarkProblemExecute(Sender: TObject);
+var
+  aRow: Integer;
+  aProject: TProject;
+begin
+  for aRow := FGridView.gList.Selection.Bottom+1 downto FGridView.gList.Selection.Top+1 do
+    begin
+      if FGridView.GotoRowNumber(aRow-1) then
+        begin
+         if (DataSet.FieldByName('USER').AsString = aUsers.FieldByName('ACCOUNTNO').AsString)
+         or (DataSet.FieldByName('USER').IsNull) then
+           begin
+             if not FDataSet.CanEdit then
+               FDataSet.DataSet.Edit;
+             if FDataSet.DataSet.FieldByName('NEEDSACTION').AsString<>'Y' then
+               FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='Y'
+             else
+               FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='N';
+             if FDataSet.CanEdit then
+               FDataSet.DataSet.Post;
+             if FDataSet.DataSet.FieldByName('PROJECTID').AsString<>'' then
+               begin
+                 aProject := TProject.Create(Self,Data,Connection);
+                 aProject.Select(FDataSet.DataSet.FieldByName('PROJECTID').AsVariant);
+                 aProject.Open;
+                 if (aProject.Count>0) then
+                   begin
+                     aProject.CheckNeedsAction;
+                   end;
+                 aProject.Free;
+               end;
+           end;
+        end
+      else break;
+    end;
+  FGridView.Refresh;
+end;
+
 procedure TfTaskFrame.acMarkSeenExecute(Sender: TObject);
 var
   aRow: LongInt;
@@ -1406,14 +1446,14 @@ begin
   acDelPos.Execute;
 end;
 
-function TfTaskFrame.FGridViewDrawColumnCell(Sender: TObject;
-  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState
-  ): Boolean;
+function TfTaskFrame.FGridViewDrawColumnCell(Sender: TObject; var Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
 var
   oDate: TDateTime;
   i: Integer;
   aRect : TRect;
   aFont: TFont;
+  aColor: TColor;
 begin
   Result := False;
   TExtStringGrid(Sender).Canvas.Font.Style:=[];
@@ -1425,8 +1465,15 @@ begin
           TExtStringGrid(Sender).Objects[Column.Index,DataCol] := aFont;
           aRect := Rect;
           if Assigned(TExtStringGrid(Sender).Objects[0,DataCol]) and (TExtStringGrid(Sender).Objects[0,DataCol] is TRowObject) then
-            if (TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).ShouldStart > 0) and (Now() > TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).ShouldStart) then
-              aFont.Color := $0003C7A;
+            begin
+              if (TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).ShouldStart > 0) and (Now() > TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).ShouldStart) then
+                aFont.Color := $0003C7A;
+              if TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).NeedsAction='na' then
+                begin
+                  if FGridView.GotoRowNumber(DataCol) then
+                    TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).NeedsAction:=TExtDBGrid(Column.Grid).DataSource.DataSet.FieldByName('NEEDSACTION').AsString;
+                end;
+            end;
           for i := 1 to TExtStringGrid(Sender).ColCount-1 do
             begin
               if TExtDBGrid(Column.Grid).Columns[i-1].FieldName = 'DUEDATE' then
@@ -1468,6 +1515,13 @@ begin
         begin
           aFont := TFont(TExtStringGrid(Sender).Objects[Column.Index,DataCol]);
           TExtStringGrid(Sender).Canvas.Font.assign(aFont);
+        end;
+      if Assigned(TExtStringGrid(Sender).Objects[0,DataCol]) and (TExtStringGrid(Sender).Objects[0,DataCol] is TRowObject) then
+        begin
+          if TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).NeedsAction='Y' then
+            begin
+              fVisualControls.Images.Draw(TExtStringGrid(Sender).Canvas,Rect.Left-14,rect.Top,117);
+            end;
         end;
     end
 end;
