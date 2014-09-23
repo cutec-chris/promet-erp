@@ -1,14 +1,12 @@
-object fScriptOptions: TfScriptOptions
-  Left = 0
+inherited fScriptOptions: TfScriptOptions
   Height = 549
-  Top = 0
   Width = 581
   ClientHeight = 549
   ClientWidth = 581
   TabOrder = 0
   DesignLeft = 524
   DesignTop = 212
-  object DBNavigator2: TDBNavigator
+  object DBNavigator2: TDBNavigator[0]
     AnchorSideTop.Control = lProcesses
     Left = 446
     Height = 21
@@ -28,7 +26,7 @@ object fScriptOptions: TfScriptOptions
     TabOrder = 0
     VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
   end
-  object lProcesses: TLabel
+  object lProcesses: TLabel[1]
     Left = 4
     Height = 13
     Top = 4
@@ -40,7 +38,7 @@ object fScriptOptions: TfScriptOptions
     ParentColor = False
     ParentFont = False
   end
-  object gProcesses: TDBGrid
+  object gProcesses: TDBGrid[2]
     Left = 8
     Height = 516
     Top = 25
@@ -69,7 +67,12 @@ object fScriptOptions: TfScriptOptions
         Width = 100
         FieldName = 'LASTRUN'
       end>
+    DataSource = Scripts
     TabOrder = 1
     TitleStyle = tsNative
+  end
+  object Scripts: TDataSource[3]
+    left = 56
+    top = 132
   end
 end

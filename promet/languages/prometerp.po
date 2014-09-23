@@ -9145,6 +9145,10 @@ msgctxt "umain.strrepair"
 msgid "Reparatur"
 msgstr ""
 
+#: umain.strscripts
+msgid "Scripte"
+msgstr ""
+
 #: umain.strsearchtext
 msgctxt "umain.strsearchtext"
 msgid "<hier tippen um zu suchen>"
