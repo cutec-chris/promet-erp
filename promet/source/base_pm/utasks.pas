@@ -67,6 +67,7 @@ type
     bDelegated2: TSpeedButton;
     bDeletePos10: TSpeedButton;
     bDeletePos11: TSpeedButton;
+    bDeletePos12: TSpeedButton;
     bDeletePos8: TSpeedButton;
     bDeletePos9: TSpeedButton;
     bEnterTime2: TSpeedButton;

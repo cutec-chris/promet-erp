@@ -3792,6 +3792,11 @@ begin
           else
             fVisualControls.Images.Draw(Canvas,Rect.Left,Rect.Top,13)
         end
+      else if Column.FieldName = 'NEEDSACTION' then
+        begin
+          if TDBgrid(Sender).DataSource.DataSet.FieldByName('NEEDSACTION').AsString='Y' then
+            fVisualControls.Images.Draw(Canvas,Rect.Left,Rect.Top,117);
+        end
       else
         begin
           DefaultDrawColumnCell(Rect, DataCol, Column, State);
