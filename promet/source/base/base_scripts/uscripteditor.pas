@@ -49,14 +49,17 @@ type
     ActionList1: TActionList;
     cbSyntax: TDBComboBox;
     DataSource: TDataSource;
+    DBEdit1: TDBEdit;
     DBGrid1: TDBGrid;
     Debugger: TPSScriptDebugger;
     FindDialog: TFindDialog;
     IFPS3DllPlugin1: TPSDllPlugin;
     ilImageList: TImageList;
     Label1: TLabel;
-    Panel1: TPanel;
+    Label2: TLabel;
+    pLeft: TPanel;
     Panel2: TPanel;
+    Panel3: TPanel;
     pDetail: TPanel;
     pashighlighter: TSynPasSyn;
     PopupMenu1: TPopupMenu;
@@ -160,7 +163,7 @@ type
     property aFile: string read FActiveFile write SetActiveFile;
   public
     function SaveCheck: Boolean;
-    function Execute(aScript : string = '') : Boolean;
+    function Execute(aScript: string; aConnection: TComponent = nil): Boolean;
   end;
 
 var
@@ -531,7 +534,7 @@ begin
     end else Result := True;
 end;
 
-function TfScriptEditor.Execute(aScript: string): Boolean;
+function TfScriptEditor.Execute(aScript: string;aConnection : TComponent): Boolean;
 begin
   if not Assigned(Self) then
     begin
@@ -540,15 +543,18 @@ begin
     end;
   if not Assigned(FDataSet) then
     begin
-      FDataSet := TBaseScript.Create(nil,Data);
+      FDataSet := TBaseScript.Create(nil,Data,aConnection);
       FDataSet.CreateTable;
     end;
-  FDataSet.Open;
+  FDataSet.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aScript));
   DataSource.DataSet := FDataSet.DataSet;
   FDataSet.DataSet.BeforeScroll:=@FDataSetDataSetBeforeScroll;
   FDataSet.DataSet.AfterScroll:=@FDataSetDataSetAfterScroll;
   FDataSet.DataSet.AfterCancel:=@FDataSetDataSetAfterScroll;
-  FDataSetDataSetAfterScroll(FDataSet.DataSet);
+  if (FDataSet.Count=0) or (aScript='') then
+   FDataSet.Insert
+  else
+    FDataSetDataSetAfterScroll(FDataSet.DataSet);
   Result := Showmodal = mrOK;
 end;
 

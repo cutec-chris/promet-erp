@@ -25,14 +25,18 @@ interface
 
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, DbCtrls, StdCtrls, DBGrids,
-  uOptionsFrame,uprometscripts;
+  Buttons, ActnList, uOptionsFrame, uprometscripts;
 
 type
   TfScriptOptions = class(TOptionsFrame)
+    acEdit: TAction;
+    ActionList1: TActionList;
     Scripts: TDataSource;
     DBNavigator2: TDBNavigator;
     gProcesses: TDBGrid;
     lProcesses: TLabel;
+    SpeedButton1: TSpeedButton;
+    procedure acEditExecute(Sender: TObject);
   private
     { private declarations }
     aConnection: TComponent;
@@ -47,8 +51,13 @@ type
   end;
 
 implementation
-uses uData;
+uses uData,uScriptEditor;
 {$R *.lfm}
+
+procedure TfScriptOptions.acEditExecute(Sender: TObject);
+begin
+  fScriptEditor.Execute(FScripts.FieldByName('NAME').AsString,aConnection);
+end;
 
 constructor TfScriptOptions.Create(TheOwner: TComponent);
 begin
