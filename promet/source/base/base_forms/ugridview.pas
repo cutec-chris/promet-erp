@@ -86,7 +86,7 @@ type
   TSetCellTextEvent = procedure(Sender : TObject;aCol : TColumn;aRow : Integer;var NewText : string) of object;
   TFieldEvent = procedure(Field : TColumn) of object;
   TSearchKey = function(Sender : TObject;X,Y : Integer;Field : TColumn;var Key : Word;Shift : TShiftState;SearchString : string) : Boolean of object;
-  TGridDrawColumnCellEvent = function(Sender: TObject; var Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean of object;
+  TGridDrawColumnCellEvent = function(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean of object;
   TCellFontEvent = function(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState;var aColor : TColor;var Style : TFontStyles) : Boolean of object;
 
   { TfGridView }

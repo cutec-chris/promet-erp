@@ -2036,6 +2036,8 @@ var
   end;
 begin
   try
+    Result := -1;
+    if not Assigned(FCachedRights) then exit;
     if (FCachedRights.Values[Element] <> '') and UseCache then
       Result := StrToInt(FCachedRights.Values[Element])
     else
@@ -2963,4 +2965,4 @@ begin
 end;
 initialization
 end.
-
+

@@ -219,7 +219,7 @@ type
     procedure FGridViewCheckBoxColumnToggle(Field: TColumn);
     procedure FGridViewDblClick(Sender: TObject);
     procedure FGridViewDelete(Sender: TObject);
-    function FGridViewDrawColumnCell(Sender: TObject; var Rect: TRect;
+    function FGridViewDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
     procedure FGridViewFilterCell(Sender: TObject; aCol: TColumn;
       aText: string; var NewText: string);
@@ -1447,7 +1447,7 @@ begin
   acDelPos.Execute;
 end;
 
-function TfTaskFrame.FGridViewDrawColumnCell(Sender: TObject; var Rect: TRect;
+function TfTaskFrame.FGridViewDrawColumnCell(Sender: TObject; const Rect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
 var
   oDate: TDateTime;
