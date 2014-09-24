@@ -708,7 +708,7 @@ begin
               TimeNeeded:=TimeNeeded-aDayUseTime;
               if TimeNeeded<=0 then
                 begin
-                  aActEndDate := aNow+0.999;
+                  aActEndDate := aNow+0.99999;
                   break;
                 end;
               if aDayUseTime<0 then

@@ -58,15 +58,23 @@ uses uData,uScriptEditor;
 {$R *.lfm}
 
 procedure TfScriptOptions.acEditExecute(Sender: TObject);
+var
+  aRec: TBookmark;
 begin
   fScriptEditor.Execute(FScripts.FieldByName('NAME').AsString,aConnection);
+  aRec := Scripts.DataSet.GetBookmark;
   Scripts.DataSet.Refresh;
+  Scripts.DataSet.GotoBookmark(aRec);
 end;
 
 procedure TfScriptOptions.acExecuteExecute(Sender: TObject);
+var
+  aRec: TBookmark;
 begin
   FScripts.Execute;
+  aRec := Scripts.DataSet.GetBookmark;
   Scripts.DataSet.Refresh;
+  Scripts.DataSet.GotoBookmark(aRec);
 end;
 
 constructor TfScriptOptions.Create(TheOwner: TComponent);

@@ -186,7 +186,7 @@ begin
       if trunc(TodayStartTime) < trunc(Now()) then //First Event
         TodayStartTime := 0;
       if trunc(TodayEndTime) > trunc(Now()) then //Last Event
-        TodayEndTime := 0.9999;
+        TodayEndTime := 0.999999;
       TimeStr := FormatDateTime('hh:mm',TodayStartTime) + ' - ' + FormatDateTime('hh:mm', TodayEndTime) + ': ';
       if TVpEvent(List[i]).AllDayEvent then
         TimeStr := '';
