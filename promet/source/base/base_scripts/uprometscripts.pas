@@ -104,7 +104,7 @@ begin
   Edit;
   if Result then
     begin
-      FieldByName('STATUS').AsString:='N'
+      FieldByName('STATUS').AsString:='N';
       FieldByName('LASTRUN').AsDateTime:=Now();
     end
   else
