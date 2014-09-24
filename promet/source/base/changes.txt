@@ -1,4 +1,9 @@
-﻿Build 371
+﻿Build 372
+      - Aufgaben:markierung für "Hilfe benötigt" wenn Probleme an Aufgaben nicht sebst behoben werden können
+        wird auch aufs Projekt vererbt
+      - Verlauf:Einträge als "ignoriert" markierbar in Reports kann man diese Einträge dann gezielt ausblenden
+      - Optionen:Lohngruppen in Einstellungen editierbar
+Build 371
       - Wiki:mehr Arbeit an den default Übersichten, icons in Wiki Seiten möglich
       - Artikel,Projekte: Bilder aus Screenshot oder Zwischenablage direkt nutzbar
 Build 370
