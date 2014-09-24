@@ -3605,15 +3605,6 @@ begin
       fOptions.RegisterOptionsFrame(TfMessageOptions.Create(fOptions),strMessageAccounts,strPersonalOptions);
       fOptions.RegisterOptionsFrame(TfDocumentOptions.Create(fOptions),strFiles,strPersonalOptions);
       fOptions.RegisterOptionsFrame(TfPhoneOptions.Create(fOptions),strPhones,strPersonalOptions);
-      if Assigned(Data) and (Data.Users.Rights.Right('OPTIONS') > RIGHT_READ) then
-        begin
-          fOptions.RegisterOptionsFrame(TfProcessOptions.Create(fOptions),strProcesses,strAutomationOptions);
-          fOptions.RegisterOptionsFrame(TfScriptOptions.Create(fOptions),strScripts,strAutomationOptions);
-          fOptions.RegisterOptionsFrame(TfSyncOptions.Create(fOptions),strSync,strAutomationOptions);
-          fOptions.RegisterOptionsFrame(TfUserFieldOptions.Create(fOptions),strUserFieldDefs,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfImportOptions.Create(fOptions),strimportexport,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfRepairOptions.Create(fOptions),strRepair,strMasterdataOptions);
-        end;
       if Assigned(Data) and ((Data.Users.Rights.Right('OPTIONS') > RIGHT_READ) or (Data.Users.Rights.Right('MASTERDATAOPTIONS') > RIGHT_READ)) then
         begin
           fOptions.RegisterOptionsFrame(TfMandantOptions.Create(fOptions),strMandant,strMasterdataOptions);
@@ -3626,6 +3617,15 @@ begin
           fOptions.RegisterOptionsFrame(TfStorageTypeOptions.Create(fOptions),strStorageTypes,strMasterdataOptions);
           fOptions.RegisterOptionsFrame(TfCurrencyOptions.Create(fOptions),strCurrencies,strMasterdataOptions);
           fOptions.RegisterOptionsFrame(TfLanguageOptions.Create(fOptions),strLanguages,strMasterdataOptions);
+        end;
+      if Assigned(Data) and (Data.Users.Rights.Right('OPTIONS') > RIGHT_READ) then
+        begin
+          fOptions.RegisterOptionsFrame(TfProcessOptions.Create(fOptions),strProcesses,strAutomationOptions);
+          fOptions.RegisterOptionsFrame(TfScriptOptions.Create(fOptions),strScripts,strAutomationOptions);
+          fOptions.RegisterOptionsFrame(TfSyncOptions.Create(fOptions),strSync,strAutomationOptions);
+          fOptions.RegisterOptionsFrame(TfUserFieldOptions.Create(fOptions),strUserFieldDefs,strGeneralOptions);
+          fOptions.RegisterOptionsFrame(TfImportOptions.Create(fOptions),strimportexport,strGeneralOptions);
+          fOptions.RegisterOptionsFrame(TfRepairOptions.Create(fOptions),strRepair,strMasterdataOptions);
         end;
       miOptions.Tag:=1;
     end;

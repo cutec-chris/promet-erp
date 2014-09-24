@@ -1,4 +1,6 @@
-﻿Build 372
+﻿Build 373
+      - Optionen:Stammdatenoptionen mit separatem Recht belegt, so das Verwaltungsmitarbeiter auch ohne Optionsrecht Stammdaten ändern können
+Build 372
       - Aufgaben:markierung für "Hilfe benötigt" wenn Probleme an Aufgaben nicht sebst behoben werden können
         wird auch aufs Projekt vererbt
       - Verlauf:Einträge als "ignoriert" markierbar in Reports kann man diese Einträge dann gezielt ausblenden

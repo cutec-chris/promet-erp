@@ -272,7 +272,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="42">
+    <Units Count="43">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -563,6 +563,10 @@
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
       </Unit41>
+      <Unit42>
+        <Filename Value="../base/changes.txt"/>
+        <IsPartOfProject Value="True"/>
+      </Unit42>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
