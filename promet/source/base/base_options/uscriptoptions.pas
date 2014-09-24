@@ -57,6 +57,7 @@ uses uData,uScriptEditor;
 procedure TfScriptOptions.acEditExecute(Sender: TObject);
 begin
   fScriptEditor.Execute(FScripts.FieldByName('NAME').AsString,aConnection);
+  Scripts.DataSet.Refresh;
 end;
 
 constructor TfScriptOptions.Create(TheOwner: TComponent);

@@ -51,7 +51,7 @@ object fScriptEditor: TfScriptEditor
       Gutter.MouseActions = <>
       RightGutter.Width = 0
       RightGutter.MouseActions = <>
-      Highlighter = pashighlighter
+      Highlighter = HigPascal
       Keystrokes = <      
         item
           Command = ecUp
@@ -635,6 +635,7 @@ object fScriptEditor: TfScriptEditor
             'SQL'
           )
           MaxLength = 0
+          OnSelect = cbSyntaxSelect
           TabOrder = 0
         end
       end
@@ -703,6 +704,7 @@ object fScriptEditor: TfScriptEditor
     ClientHeight = 557
     ClientWidth = 280
     TabOrder = 2
+    Visible = False
     object DBGrid1: TDBGrid
       Left = 0
       Height = 557
@@ -768,7 +770,7 @@ object fScriptEditor: TfScriptEditor
     left = 456
     top = 312
   end
-  object pashighlighter: TSynPasSyn
+  object HigPascal: TSynPasSyn
     Enabled = False
     AsmAttri.FrameEdges = sfeAround
     CommentAttri.FrameEdges = sfeAround
@@ -2011,5 +2013,27 @@ object fScriptEditor: TfScriptEditor
   object PSCustomPlugin1: TPSCustomPlugin
     left = 504
     top = 208
+  end
+  object HigSQL: TSynSQLSyn
+    DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
+    Enabled = False
+    CommentAttri.FrameEdges = sfeAround
+    DataTypeAttri.FrameEdges = sfeAround
+    DefaultPackageAttri.FrameEdges = sfeAround
+    ExceptionAttri.FrameEdges = sfeAround
+    FunctionAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    KeyAttri.FrameEdges = sfeAround
+    NumberAttri.FrameEdges = sfeAround
+    PLSQLAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    SQLPlusAttri.FrameEdges = sfeAround
+    StringAttri.FrameEdges = sfeAround
+    SymbolAttri.FrameEdges = sfeAround
+    TableNameAttri.FrameEdges = sfeAround
+    VariableAttri.FrameEdges = sfeAround
+    SQLDialect = sqlSybase
+    left = 739
+    top = 96
   end
 end

@@ -27,14 +27,22 @@ uses
   Classes, SysUtils,uBaseDbClasses,uBaseDBInterface,db;
 
 type
+  TWritelnFunc = procedure(const s: string) of object;
+  TReadlnFunc = procedure(var s: string) of object;
   TBaseScript = class(TBaseDBDataset)
+  private
+    FRlFunc: TReadlnFunc;
+    FWrFunc: TWritelnFunc;
   public
     procedure DefineFields(aDataSet: TDataSet); override;
     procedure FillDefaults(aDataSet: TDataSet); override;
+    property Writeln : TWritelnFunc read FWrFunc write FWRFunc;
+    property Readln : TReadlnFunc read FRlFunc write FRlFunc;
+    function Execute : Boolean;
   end;
 
 implementation
-
+uses uStatistic;
 procedure TBaseScript.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -46,7 +54,10 @@ begin
             Add('TYPE',ftString,1,False);
             Add('PARENT',ftLargeint,0,False);
             Add('NAME',ftString,60,True);
+            Add('STATUS',ftString,3,false);
             Add('SYNTAX',ftString,15,True);
+            Add('RUNEVERY',ftInteger,0,False);
+            Add('LASTRUN',ftDateTime,0,False);
             Add('SCRIPT',ftMemo,0,false);
           end;
       if Assigned(ManagedIndexdefs) then
@@ -60,6 +71,33 @@ begin
   FieldByName('SYNTAX').AsString:='Pascal';
   FieldByName('SCRIPT').AsString:='begin'+LineEnding+'  '+LineEnding+'end.';
   inherited FillDefaults(aDataSet);
+end;
+
+function TBaseScript.Execute: Boolean;
+var
+  aDS: TDataSet;
+begin
+  result := False;
+  if lowercase(FieldByName('SYNTAX').AsString) = 'sql' then
+    begin
+      aDS := TBaseDBModule(DataModule).GetNewDataSet(ReplaceSQLFunctions(FieldByName('SCRIPT').AsString));
+      try
+        aDS.Open;
+        result := True;
+      except
+        on e : Exception do
+          begin
+            if pos('resultset',lowercase(e.Message))=0 then
+              if Assigned(Writeln) then Writeln(e.Message)
+            else
+              begin
+                if Assigned(Writeln) then Writeln('executed ok.');
+                result := True;
+              end;
+          end;
+      end;
+      aDS.Free;
+    end;
 end;
 
 end.

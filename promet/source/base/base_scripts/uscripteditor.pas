@@ -30,7 +30,7 @@ uses
   uPSRuntime, uPSDisassembly, uPSUtils,
   uPSComponent, uPSDebugger, uPSComponent_DB, SynEditRegexSearch, 
   SynEditSearch, SynEditMiscClasses, SynEditHighlighter, SynGutterBase, SynEditMarks,
-  SynEditMarkupSpecialLine,uprometscripts;
+  SynEditMarkupSpecialLine, SynHighlighterSQL,uprometscripts;
 
 type
 
@@ -61,7 +61,7 @@ type
     Panel2: TPanel;
     Panel3: TPanel;
     pDetail: TPanel;
-    pashighlighter: TSynPasSyn;
+    HigPascal: TSynPasSyn;
     PopupMenu1: TPopupMenu;
     BreakPointMenu: TMenuItem;
     MainMenu1: TMainMenu;
@@ -102,6 +102,7 @@ type
     Searchagain1: TMenuItem;
     N6: TMenuItem;
     Gotolinenumber1: TMenuItem;
+    HigSQL: TSynSQLSyn;
     Syntaxcheck1: TMenuItem;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
@@ -121,6 +122,7 @@ type
     procedure acStepintoExecute(Sender: TObject);
     procedure acStepoverExecute(Sender: TObject);
     procedure acSyntaxcheckExecute(Sender: TObject);
+    procedure cbSyntaxSelect(Sender: TObject);
     procedure edGutterClick(Sender: TObject; X, Y, Line: integer;
       mark: TSynEditMark);
     procedure edSpecialLineColors(Sender: TObject; Line: Integer; var Special: Boolean; var FG, BG: TColor);
@@ -276,6 +278,13 @@ begin
  Compile;
 end;
 
+procedure TfScriptEditor.cbSyntaxSelect(Sender: TObject);
+begin
+  ed.Highlighter := TSynCustomHighlighter(FindComponent('Hig'+cbSyntax.Text));
+  acStepinto.Enabled:=lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal';
+  acStepover.Enabled:=lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal';
+end;
+
 procedure TfScriptEditor.acDecompileExecute(Sender: TObject);
 var
   s: tbtstring;
@@ -295,39 +304,72 @@ end;
 
 procedure TfScriptEditor.acPauseExecute(Sender: TObject);
 begin
-  if Debugger.Exec.Status = isRunning then
+  if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal' then
     begin
-      Debugger.Pause;
-      Debugger.StepInto;
-      acRun.Enabled:=True;
+      if Debugger.Exec.Status = isRunning then
+        begin
+          Debugger.Pause;
+          Debugger.StepInto;
+          acRun.Enabled:=True;
+        end;
+      acStepinto.Enabled:=acPause.Enabled;
+      acStepover.Enabled:=acPause.Enabled;
+    end
+  else
+    begin
+      acStepinto.Enabled:=False;
+      acStepover.Enabled:=False;
     end;
-  acStepinto.Enabled:=acPause.Enabled;
-  acStepover.Enabled:=acPause.Enabled;
 end;
 
 procedure TfScriptEditor.acResetExecute(Sender: TObject);
 begin
-  if Debugger.Exec.Status in isRunningOrPaused then
-    Debugger.Stop;
-  acRun.Enabled:=True;
-  acPause.Enabled:=false;
-  acReset.Enabled:=false;
-  acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
-  acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+  if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal' then
+    begin
+      if Debugger.Exec.Status in isRunningOrPaused then
+        Debugger.Stop;
+      acRun.Enabled:=True;
+      acPause.Enabled:=false;
+      acReset.Enabled:=false;
+      acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
+      acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+    end
+  else
+    begin
+      acStepinto.Enabled:=False;
+      acStepover.Enabled:=False;
+    end;
 end;
 
 procedure TfScriptEditor.acRunExecute(Sender: TObject);
 begin
-  if Debugger.Running then
-  begin
-    FResume := True
-  end else
-  begin
-    if Compile then
-      Debugger.Execute;
-  end;
-  acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
-  acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+  if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal' then
+    begin
+      if Debugger.Running then
+      begin
+        FResume := True
+      end else
+      begin
+        if Compile then
+          Debugger.Execute;
+      end;
+      acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
+      acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+    end
+  else if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='sql' then
+    begin
+      messages.Clear;
+      FDataSet.writeln := @Writeln;
+      FDataSet.Readln := @Readln;
+      acSave.Execute;
+      if not FDataSet.Execute then
+        messages.AddItem('failed to executing',nil);
+    end
+  else
+    begin
+      acStepinto.Enabled:=False;
+      acStepover.Enabled:=False;
+    end;
 end;
 
 procedure TfScriptEditor.acSaveExecute(Sender: TObject);
@@ -392,20 +434,27 @@ end;
 procedure TfScriptEditor.DebuggerLineInfo(Sender: TObject; const FileName: String; aPosition, Row,
   Col: Cardinal);
 begin
-  if Debugger.Exec.DebugMode <> dmRun then
-  begin
-    FActiveLine := Row;
-    if (FActiveLine < ed.TopLine +2) or (FActiveLine > Ed.TopLine + Ed.LinesInWindow -2) then
+  if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal' then
     begin
-      Ed.TopLine := FActiveLine - (Ed.LinesInWindow div 2);
-    end;
-    ed.CaretY := FActiveLine;
-    ed.CaretX := 1;
-
-    ed.Refresh;
-  end
+      if Debugger.Exec.DebugMode <> dmRun then
+      begin
+        FActiveLine := Row;
+        if (FActiveLine < ed.TopLine +2) or (FActiveLine > Ed.TopLine + Ed.LinesInWindow -2) then
+        begin
+          Ed.TopLine := FActiveLine - (Ed.LinesInWindow div 2);
+        end;
+        ed.CaretY := FActiveLine;
+        ed.CaretX := 1;
+        ed.Refresh;
+      end
+      else
+        Application.ProcessMessages;
+    end
   else
-    Application.ProcessMessages;
+    begin
+      acStepinto.Enabled:=False;
+      acStepover.Enabled:=False;
+    end;
 end;
 
 procedure TfScriptEditor.Exit1Click(Sender: TObject);
@@ -498,6 +547,7 @@ procedure TfScriptEditor.FDataSetDataSetAfterScroll(DataSet: TDataSet);
 begin
  ed.Lines.Text:=FDataSet.FieldByName('SCRIPT').AsString;
  aFile := FDataSet.FieldByName('NAME').AsString;
+ cbSyntaxSelect(cbSyntax);
 end;
 
 procedure TfScriptEditor.FDataSetDataSetBeforeScroll(DataSet: TDataSet);
@@ -546,12 +596,12 @@ begin
       FDataSet := TBaseScript.Create(nil,Data,aConnection);
       FDataSet.CreateTable;
     end;
-  FDataSet.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aScript));
+  FDataSet.Open;
   DataSource.DataSet := FDataSet.DataSet;
   FDataSet.DataSet.BeforeScroll:=@FDataSetDataSetBeforeScroll;
   FDataSet.DataSet.AfterScroll:=@FDataSetDataSetAfterScroll;
   FDataSet.DataSet.AfterCancel:=@FDataSetDataSetAfterScroll;
-  if (FDataSet.Count=0) or (aScript='') then
+  if (not FDataSet.Locate('NAME',aScript,[loCaseInsensitive])) or (aScript='') then
    FDataSet.Insert
   else
     FDataSetDataSetAfterScroll(FDataSet.DataSet);

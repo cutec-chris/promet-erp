@@ -23,6 +23,7 @@ inherited fScriptOptions: TfScriptOptions
     ChildSizing.ControlsPerLine = 100
     ClientHeight = 21
     ClientWidth = 101
+    DataSource = Scripts
     Options = []
     TabOrder = 0
     VisibleButtons = [nbInsert, nbDelete, nbPost, nbCancel, nbRefresh]
