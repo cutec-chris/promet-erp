@@ -78,6 +78,9 @@ var
   aDS: TDataSet;
 begin
   result := False;
+  Edit;
+  FieldByName('STATUS').AsString:='R';
+  Post;
   if lowercase(FieldByName('SYNTAX').AsString) = 'sql' then
     begin
       aDS := TBaseDBModule(DataModule).GetNewDataSet(ReplaceSQLFunctions(FieldByName('SCRIPT').AsString));
@@ -98,6 +101,15 @@ begin
       end;
       aDS.Free;
     end;
+  Edit;
+  if Result then
+    begin
+      FieldByName('STATUS').AsString:='N'
+      FieldByName('LASTRUN').AsDateTime:=Now();
+    end
+  else
+    FieldByName('STATUS').AsString:='E';
+  Post;
 end;
 
 end.

@@ -30,13 +30,16 @@ uses
 type
   TfScriptOptions = class(TOptionsFrame)
     acEdit: TAction;
+    acExecute: TAction;
     ActionList1: TActionList;
     Scripts: TDataSource;
     DBNavigator2: TDBNavigator;
     gProcesses: TDBGrid;
     lProcesses: TLabel;
     SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
     procedure acEditExecute(Sender: TObject);
+    procedure acExecuteExecute(Sender: TObject);
   private
     { private declarations }
     aConnection: TComponent;
@@ -57,6 +60,12 @@ uses uData,uScriptEditor;
 procedure TfScriptOptions.acEditExecute(Sender: TObject);
 begin
   fScriptEditor.Execute(FScripts.FieldByName('NAME').AsString,aConnection);
+  Scripts.DataSet.Refresh;
+end;
+
+procedure TfScriptOptions.acExecuteExecute(Sender: TObject);
+begin
+  FScripts.Execute;
   Scripts.DataSet.Refresh;
 end;
 
