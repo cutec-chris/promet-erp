@@ -86,7 +86,8 @@ implementation
 uses {$ifdef WINDOWS}Windows,{$endif}
   uData,Utils,Forms,uBaseApplication,uIntfStrConsts,math,eventlog,uBaseDBInterface,
   umTimeLine,XMLPropStorage,LCLProc,uprometipc,wikitohtml,uMessages,uBaseSearch,
-  utask,uOrder,uPerson,uMasterdata,uProjects,uWiki,uDocuments,umeeting,uStatistic;
+  utask,uOrder,uPerson,uMasterdata,uProjects,uWiki,uDocuments,umeeting,uStatistic,
+  uprometscripts;
 {$R *.lfm}
 const
   RefreshAll = 30;//5 mins refresh
@@ -134,6 +135,8 @@ begin
             end;
         end;
     end;
+  //Execute Scripts
+  ProcessScripts;
   if acHistory.Enabled then
     begin
       //Show new History Entrys

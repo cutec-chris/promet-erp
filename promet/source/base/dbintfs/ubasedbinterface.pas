@@ -282,6 +282,8 @@ type
     procedure SetUsePermisions(const AValue: Boolean);
     function GetDistinct: Boolean;
     procedure SetDistinct(const AValue: Boolean);
+    procedure DoExecSQL;
+    function NumRowsAffected : Integer;
 
     property FullSQL : string read GetSQL write SetSQL;
     property Filter : string read GetFilter write SetFilter;
@@ -1719,4 +1721,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

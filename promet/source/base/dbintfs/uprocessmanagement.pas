@@ -262,6 +262,7 @@ begin
   if aNow>0 then
     begin
       aLog := TStringList.Create;
+      //Check processes
       Processes.DataSet.First;
       while not Processes.DataSet.EOF do
         begin

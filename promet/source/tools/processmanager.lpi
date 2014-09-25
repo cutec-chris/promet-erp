@@ -48,7 +48,6 @@
       <Unit0>
         <Filename Value="processmanager.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="processmanager"/>
       </Unit0>
     </Units>
   </ProjectOptions>
@@ -71,12 +70,6 @@
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
@@ -91,4 +84,4 @@
       </Item3>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

@@ -606,6 +606,9 @@ begin
   else
     FDataSetDataSetAfterScroll(FDataSet.DataSet);
   Result := Showmodal = mrOK;
+  if Result then
+    FDataSet.Post;
+  FDataSet.Close;
 end;
 
 procedure TfScriptEditor.edStatusChange(Sender: TObject;

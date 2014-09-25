@@ -185,6 +185,8 @@ type
     destructor Destroy;override;
     property MasterDataSource : TDataSource read FMDS write FMDS;
     property DefaultTableName : string read FDefaultTableName;
+    procedure DoExecSQL;
+    function NumRowsAffected: Integer;
   end;
 implementation
 uses ZDbcIntfs,uBaseApplication,uEncrypt;
@@ -610,6 +612,7 @@ begin
   except
     begin
       FOrigTable:=nil;
+      raise;
     end;
   end;
 end;
@@ -1035,6 +1038,17 @@ begin
   except
   end;
 end;
+
+procedure TZeosDBDataSet.DoExecSQL;
+begin
+  ExecSQL;
+end;
+
+function TZeosDBDataSet.NumRowsAffected: Integer;
+begin
+  Result := RowsAffected;
+end;
+
 procedure TZeosDBDM.MonitorTrace(Sender: TObject; Event: TZLoggingEvent;
   var LogTrace: Boolean);
 begin

@@ -26,7 +26,8 @@ uses
   Classes, SysUtils, CustApp, uBaseDBInterface,
   UTF8Process,uData,FileUtil,Process, db, uSystemMessage,
   uPowerState, pcmdprometapp,math,uBaseCustomApplication,
-  uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts;
+  uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts,
+  uprometscripts;
 type
   { TProcessManager }
 
@@ -66,6 +67,7 @@ var
   aInt: Integer;
   aNow: TDateTime;
   bProcess: TProcProcess;
+  aMin: Integer;
   procedure ProcessData(aProcess : TProcProcess);
   var
     aLine: String;
@@ -174,6 +176,7 @@ begin
     end;
   Data.ProcessClient.Processes.Open;
   Data.ProcessClient.Processes.Parameters.Open;
+  aMin := 0;
   while not Terminated do
     begin
       Data.ProcessClient.RefreshList;
@@ -186,7 +189,13 @@ begin
             end;
           Data.ProcessClient.Process;
         end;
+      if aMin>60 then
+        begin
+          aMin := 0;
+          ProcessScripts;
+        end;
       sleep(1000);
+      inc(aMin);
     end;
   try
     Data.ProcessClient.DataSet.Edit;

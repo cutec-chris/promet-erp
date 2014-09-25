@@ -10,7 +10,7 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="6">
+    <Files Count="5">
       <Item1>
         <Filename Value="uscripteditor.lfm"/>
         <Type Value="LFM"/>
@@ -31,10 +31,6 @@
         <Filename Value="ufrmgotoline.pas"/>
         <UnitName Value="uFrmGotoLine"/>
       </Item5>
-      <Item6>
-        <Filename Value="uprometscripts.pas"/>
-        <UnitName Value="uprometscripts"/>
-      </Item6>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">

@@ -41,8 +41,27 @@ type
     function Execute : Boolean;
   end;
 
+  function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
+
 implementation
-uses uStatistic;
+uses uStatistic,uData;
+
+function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
+var
+  aScript: TBaseScript;
+begin
+  aScript := TBaseScript.Create(nil,Data);
+  aScript.Filter(Data.QuoteField('RUNEVERY')+'>'+Data.QuoteField('0'));
+  while not aScript.EOF do
+    begin
+      if aScript.FieldByName('STATUS').AsString<>'E' then
+        if aScript.FieldByName('LASTRUN').AsDateTime+(aScript.FieldByName('RUNEVERY').AsInteger/MinsPerDay)<Now() then
+          aScript.Execute;
+      aScript.Next;
+    end;
+  aScript.Free;
+end;
+
 procedure TBaseScript.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -77,39 +96,41 @@ function TBaseScript.Execute: Boolean;
 var
   aDS: TDataSet;
 begin
-  result := False;
-  Edit;
-  FieldByName('STATUS').AsString:='R';
-  Post;
-  if lowercase(FieldByName('SYNTAX').AsString) = 'sql' then
-    begin
-      aDS := TBaseDBModule(DataModule).GetNewDataSet(ReplaceSQLFunctions(FieldByName('SCRIPT').AsString));
-      try
-        aDS.Open;
-        result := True;
-      except
-        on e : Exception do
-          begin
-            if pos('resultset',lowercase(e.Message))=0 then
-              if Assigned(Writeln) then Writeln(e.Message)
-            else
-              begin
-                if Assigned(Writeln) then Writeln('executed ok.');
-                result := True;
-              end;
-          end;
+  try
+    result := False;
+    Edit;
+    FieldByName('STATUS').AsString:='R';
+    Post;
+    if lowercase(FieldByName('SYNTAX').AsString) = 'sql' then
+      begin
+        aDS := TBaseDBModule(DataModule).GetNewDataSet(ReplaceSQLFunctions(FieldByName('SCRIPT').AsString));
+        try
+          with aDS as IBaseDbFilter do
+            DoExecSQL;
+          Result := True;
+          with aDS as IBaseDbFilter do
+          if Assigned(Writeln) then Writeln('Num Rows Affected: '+IntToStr(NumRowsAffected));
+        except
+          on e : Exception do
+            begin
+              if Assigned(Writeln) then Writeln(e.Message);
+              Result := False;
+            end;
+        end;
+        aDS.Free;
       end;
-      aDS.Free;
-    end;
-  Edit;
-  if Result then
-    begin
-      FieldByName('STATUS').AsString:='N';
-      FieldByName('LASTRUN').AsDateTime:=Now();
-    end
-  else
-    FieldByName('STATUS').AsString:='E';
-  Post;
+    Edit;
+    if Result then
+      begin
+        FieldByName('STATUS').AsString:='N';
+        FieldByName('LASTRUN').AsDateTime:=Now();
+      end
+    else
+      FieldByName('STATUS').AsString:='E';
+    Post;
+  except
+    result := False;
+  end;
 end;
 
 end.

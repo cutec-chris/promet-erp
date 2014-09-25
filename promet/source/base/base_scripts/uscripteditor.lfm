@@ -35,6 +35,7 @@ object fScriptEditor: TfScriptEditor
     ClientWidth = 676
     TabOrder = 1
     inline ed: TSynEdit
+      Cursor = crDefault
       Left = 0
       Height = 446
       Top = 26
