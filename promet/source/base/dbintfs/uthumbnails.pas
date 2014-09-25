@@ -98,7 +98,7 @@ end;
 function GetThumbTempDir: string;
 begin
   Result := GetTempDir+'promet_thumbs';
-  if not BaseApplication.ConsoleApplication then
+  if Assigned(BaseApplication) and (not BaseApplication.ConsoleApplication) then
     if Supports(BaseApplication,IBaseApplication) then
       with BaseApplication as IBaseApplication do
         Result := GetInternalTempDir+'promet_thumbs';

@@ -177,6 +177,7 @@ begin
     end;
   FDBInterface.Data.Free;
   FLogger.Free;
+  BaseApplication:=nil;
   inherited Destroy;
 end;
 
