@@ -51,7 +51,7 @@ var
   aScript: TBaseScript;
 begin
   aScript := TBaseScript.Create(nil,Data);
-  aScript.Filter(Data.QuoteField('RUNEVERY')+'>'+Data.QuoteField('0'));
+  aScript.Filter(Data.QuoteField('RUNEVERY')+'>'+Data.QuoteValue('0'));
   while not aScript.EOF do
     begin
       if aScript.FieldByName('STATUS').AsString<>'E' then
@@ -117,7 +117,7 @@ begin
               Result := False;
             end;
         end;
-        aDS.Free;
+        //aDS.Free;
       end;
     Edit;
     if Result then
