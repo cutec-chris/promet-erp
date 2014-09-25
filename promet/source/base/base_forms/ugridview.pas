@@ -2964,9 +2964,10 @@ begin
   try
     if gList.ColCount>0 then
       gList.Col := gList.ColCount-1;
+    gList.Col := aOldCol;
   except
+    debugln('Markedwrong');
   end;
-  gList.Col := aOldCol;
   {$else}
   debugln('SyncDataSourceEnd='+IntToStr(GetTickCount-aTime));
   {$endif}
