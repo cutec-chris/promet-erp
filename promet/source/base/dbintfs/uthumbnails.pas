@@ -97,13 +97,12 @@ end;
 
 function GetThumbTempDir: string;
 begin
-  {$IFDEF LCL}
   Result := GetTempDir+'promet_thumbs';
-  if Supports(BaseApplication,IBaseApplication) then
-    with BaseApplication as IBaseApplication do
-      Result := GetInternalTempDir+'promet_thumbs';
+  if not BaseApplication.ConsoleApplication then
+    if Supports(BaseApplication,IBaseApplication) then
+      with BaseApplication as IBaseApplication do
+        Result := GetInternalTempDir+'promet_thumbs';
   ForceDirectoriesUTF8(Result);
-  {$ENDIF}
 end;
 
 function ClearThumbDir: Boolean;
@@ -334,8 +333,6 @@ begin
 end;
 
 finalization
-  {$IFDEF LCL}
   DeleteDirectory(GetThumbTempDir,False);
-  {$ENDIF}
 end.
 
