@@ -1502,12 +1502,12 @@ var
   begin
     Result := False;
     tmp := Filter;
-    while pos('%',tmp) > 0 do
+    while pos('@',tmp) > 0 do
       begin
-        tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
-        data := copy(tmp,0,pos('%',tmp)-1);
+        tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
+        data := copy(tmp,0,pos('@',tmp)-1);
         if data = '' then break;
-        tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
+        tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
         aname := copy(data,0,pos(':',data)-1);
         if aname = '' then
           aname := data;
