@@ -1,5 +1,6 @@
 ﻿Build 374
-      -
+      - Filter:importdaten an neue Filterenstellungen angepasst, bei bestehenden Datenbanken muss % in den Filtern durch @ ersetzt werden
+        das verhindert Probleme beim SQL bauen und ist dann analog zu den Statistiken
 Build 373
       - Optionen:Stammdatenoptionen mit separatem Recht belegt, so das Verwaltungsmitarbeiter auch ohne Optionsrecht Stammdaten ändern können
 Build 372
