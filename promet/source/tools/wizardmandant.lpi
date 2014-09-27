@@ -29,7 +29,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--debug"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
         <WorkingDirectory Value="/media/Daten/Source/promet/promet/output/x86_64-linux/"/>
       </local>
     </RunParams>

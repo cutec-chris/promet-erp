@@ -1190,7 +1190,8 @@ var
 begin
   if ToolBar.ComponentCount > 0 then
     begin
-      aControl := ToolBar.Controls[0];
+      if ToolBar.ControlCount>0 then
+        aControl := ToolBar.Controls[0];
       for i := 0 to aControl.ComponentCount-1 do
         if (aControl.Components[i] is TEdit)
         or (aControl.Components[i] is TComboBox)

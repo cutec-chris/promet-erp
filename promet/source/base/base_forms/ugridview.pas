@@ -2966,6 +2966,7 @@ begin
       gList.Col := gList.ColCount-1;
     gList.Col := aOldCol;
   except
+    gList.Selection:=Rect(0,0,0,0);
     debugln('Markedwrong');
   end;
   {$else}
