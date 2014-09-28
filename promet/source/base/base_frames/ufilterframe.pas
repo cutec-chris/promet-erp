@@ -166,6 +166,7 @@ type
       var Editor: TWinControl);
     procedure gListTitleClick(Column: TColumn);
     procedure RefreshTimerTimer(Sender: TObject);
+    procedure ReportGetValue(const ParName: String; var ParValue: Variant);
     procedure sbGridsResize(Sender: TObject);
     procedure seMaxresultsChange(Sender: TObject);
     procedure tbMenueClick(Sender: TObject);
@@ -455,6 +456,15 @@ begin
   if Assigned(FDataSet) then
     DoRefresh;
 end;
+
+procedure TfFilter.ReportGetValue(const ParName: String; var ParValue: Variant);
+begin
+  if Uppercase(ParName)='FILTER' then
+    ParValue:=cbFilter.Text;
+  if Uppercase(ParName)='FILTERVAR' then
+    ParValue:=BuildAutofilter(gList,gHeader);
+end;
+
 procedure TfFilter.sbGridsResize(Sender: TObject);
 var
   aMult: Extended;

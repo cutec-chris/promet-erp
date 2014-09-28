@@ -1826,6 +1826,7 @@ inherited fFilter: TfFilter
     Options = []
     PreviewButtons = [pbZoom, pbSave, pbPrint, pbFind, pbExit]
     DataType = dtDataSource
+    OnGetValue = ReportGetValue
     left = 128
     top = 96
   end

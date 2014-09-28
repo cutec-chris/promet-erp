@@ -357,6 +357,72 @@ begin
         end
       else Result := False;
     end
+  else if copy(aDir,0,8) = '/carddav' then
+    begin
+      aFullDir := aDir;
+      aDir := copy(aDir,10,length(aDir));
+      if copy(aDir,length(aDir),1) = '/' then
+        aDir := copy(aDir,0,length(aDir)-1);
+      if Data.Users.DataSet.Active then
+        begin
+          if aDir = '' then
+            aDirList := TLDirectoryList.Create
+          else aDirList:=nil;
+          if (copy(aDir,RPos('/',aDir)+1,length(aDir)) = 'user') then
+            begin
+              IsCalendarUser := True;
+              aDir := copy(aDir,0,rpos('/',aDir)-1);
+            end;
+          //Add CardDAV Books
+          aDirs := TTree.Create(nil,Data);
+          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'));
+          while not aDirs.EOF do
+            begin
+
+
+              aItem := TLFile.Create(aDirs.Text.AsString,True);
+              if (aDir = aItem.Name) or (aDir = '') then
+                begin
+                  aItem.IsCalendar:=True;
+                  aItem.IsCalendarUser:=IsCalendarUser;
+                  aCal := TCalendar.Create(nil,Data);
+                  aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
+                  aItem.Properties.Values['getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+                  aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
+                  aItem.Properties.Values['getcontenttype'] := 'text/calendar';
+                  aItem.Properties.Values['displayname'] := aItem.Name;
+                  aItem.CalendarHomeSet:=aDir;
+                  if Assigned(aDirList) then
+                    aDirList.Add(aItem)
+                  else aDirList := aItem;
+                  if aDepth>0 then
+                    begin
+                      aCal.SelectByIdAndTime(aDirs.Id.AsVariant,Now(),Now()+90); //3 month in future
+                      aCal.ActualLimit:=100;
+                      aCal.Open;
+                      while not aCal.EOF do
+                        begin
+                          if aCal.FieldByName('ORIGID').AsString<>'' then
+                            aItem := TLFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
+                          else
+                            aItem := TLFile.Create(aCal.Id.AsString+'.ics');
+                          aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+                          aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
+                          aItem.Path := aFullDir+'/'+aDirs.Text.AsString;
+                          aDirList.Add(aItem);
+                          aCal.Next;
+                        end;
+                    end;
+                  aCal.Free;
+                end
+              else aItem.Free;
+              aDirs.Next;
+            end;
+          aDirs.Free;
+          Result:=True;
+        end
+      else Result := False;
+    end
   else if copy(aDir,0,5) = '/ical' then
     begin
       if Data.Users.DataSet.Active then
@@ -861,4 +927,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+
