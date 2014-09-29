@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 ### BEGIN INIT INFO
 # Provides:          promet-process
 # Required-Start:    $local_fs $remote_fs $network $syslog $named
