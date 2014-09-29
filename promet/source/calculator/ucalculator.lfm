@@ -5,7 +5,7 @@ object fMain: TfMain
   Width = 572
   ActiveControl = Input
   Caption = 'Der Rechner'
-  ClientHeight = 460
+  ClientHeight = 461
   ClientWidth = 572
   Color = clWindow
   Menu = MainMenu
@@ -18,7 +18,7 @@ object fMain: TfMain
   inline Output: TSynMemo
     Cursor = crIBeam
     Left = 0
-    Height = 306
+    Height = 353
     Top = 50
     Width = 572
     Align = alClient
@@ -493,8 +493,8 @@ object fMain: TfMain
   inline Input: TSynMemo
     Cursor = crIBeam
     Left = 0
-    Height = 75
-    Top = 385
+    Height = 29
+    Top = 432
     Width = 572
     Align = alBottom
     Font.Height = -13
@@ -968,17 +968,17 @@ object fMain: TfMain
     Left = 8
     Height = 13
     Top = 16
-    Width = 61
+    Width = 51
     Caption = 'Umgebung'
     ParentColor = False
   end
   object cbEnviroment: TComboBox
     Left = 80
-    Height = 27
+    Height = 21
     Top = 8
     Width = 456
     Anchors = [akTop, akLeft, akRight]
-    ItemHeight = 0
+    ItemHeight = 13
     OnExit = cbEnviromentExit
     OnSelect = cbEnviromentSelect
     TabOrder = 2
@@ -1032,7 +1032,7 @@ object fMain: TfMain
   object lInfo: TLabel
     Left = 8
     Height = 13
-    Top = 364
+    Top = 411
     Width = 556
     Align = alBottom
     BorderSpacing.Around = 8
@@ -1109,8 +1109,8 @@ object fMain: TfMain
     left = 16
     top = 400
   end
-  object Enviroment: TDatasource
+  object Enviroment: TDataSource
     left = 80
     top = 72
   end
-end
+end
