@@ -28,6 +28,7 @@ echo "copy to builddir..."
 ./copy_to_builddir_web.sh $Archfpc $BuildDir/usr/lib/$Program
 cp debian/promet-process.sh $BuildDir/etc/init.d/promet-process
 chmod 666 $BuildDir/etc/init.d/promet-process
+chmod +x $BuildDir/etc/init.d/promet-process
 ln -s /usr/lib/$Program/tools/imapserver $BuildDir/usr/bin/promet-erp-imap
 ln -s /usr/lib/$Program/tools/webdavserver $BuildDir/usr/bin/promet-erp-webdav
 ln -s /usr/lib/$Program/tools/local_appbase $BuildDir/usr/bin/promet-erp-appbase
