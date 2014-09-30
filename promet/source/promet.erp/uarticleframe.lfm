@@ -836,10 +836,10 @@ inherited fArticleFrame: TfArticleFrame
         Shape = bsLeftLine
       end
       object eArticleNumber: TDBEdit
-        Left = -712
+        Left = 4
         Height = 21
-        Top = -9
-        Width = 25
+        Top = 13
+        Width = 108
         DataField = 'ID'
         DataSource = Masterdata
         ReadOnly = True
@@ -895,11 +895,11 @@ inherited fArticleFrame: TfArticleFrame
         Shape = bsLeftLine
       end
       object cbStatus: TComboBox
-        Left = 1
+        Left = 4
         Height = 21
         Hint = 'hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen'
         Top = 12
-        Width = 137
+        Width = 134
         ItemHeight = 13
         OnSelect = cbStatusSelect
         Style = csDropDownList
