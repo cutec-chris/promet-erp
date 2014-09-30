@@ -2887,79 +2887,85 @@ begin
   {$ifndef slowdebug}
   gList.BeginUpdate;
   {$endif}
-  if UpdateHeader then
-    SetupHeader;
-  NotDone := TStringList.Create;
-  {$ifndef debug}
-  aTime := GetTickCount;
-//  Self.Visible:=False;
-  {$else}
-  debugln('SyncDataSource');
-  {$endif}
-  for i := 0 to dgFake.Columns.Count-1 do
-    if dgFake.Columns[i].FieldName = IdentField then
+  try
+    if UpdateHeader then
+      SetupHeader;
+    NotDone := TStringList.Create;
+    {$ifndef debug}
+    aTime := GetTickCount;
+  //  Self.Visible:=False;
+    {$else}
+    debugln('SyncDataSource');
+    {$endif}
+    for i := 0 to dgFake.Columns.Count-1 do
+      if dgFake.Columns[i].FieldName = IdentField then
+        begin
+          aCol := i+1;
+          break;
+        end;
+    with FDataSource.DataSet do
       begin
-        aCol := i+1;
-        break;
-      end;
-  with FDataSource.DataSet do
-    begin
-      {$ifndef debug}
-      DisableControls;
-      {$endif}
-      try
-        CleanList(0);
-        AllDone := True;
-        if DataSet.CanEdit then
-          begin
-            if not ReadOnly then
-              begin
-                try
-                  DataSet.Post;
-                except
-                  DataSet.Cancel;
-                end;
-              end
-            else DataSet.Cancel;
-          end;
-        if not FInvertedDrawing then
-          begin
-            First;
-            while not EOF do
-              begin
-                AddTasks;
-                Next;
-              end;
-          end
-        else
-          begin
-            Last;
-            while not BOF do
-              begin
-                AddTasks;
-                Prior;
-              end;
-          end;
-        if gList.RowCount = gList.FixedRows then
-          begin
-            gList.RowCount:=gList.FixedRows+1;
-            gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
-          end;
-        gListSelectCell(gList,0,1,CanSelect);
-        if Assigned(OnCellChanging) then
-          OnCellChanging(Self);
-      finally
         {$ifndef debug}
-        EnableControls;
+        DisableControls;
         {$endif}
+        try
+          CleanList(0);
+          AllDone := True;
+          if DataSet.CanEdit then
+            begin
+              if not ReadOnly then
+                begin
+                  try
+                    DataSet.Post;
+                  except
+                    DataSet.Cancel;
+                  end;
+                end
+              else DataSet.Cancel;
+            end;
+          if not FInvertedDrawing then
+            begin
+              First;
+              while not EOF do
+                begin
+                  AddTasks;
+                  Next;
+                end;
+            end
+          else
+            begin
+              Last;
+              while not BOF do
+                begin
+                  AddTasks;
+                  Prior;
+                end;
+            end;
+          if gList.RowCount = gList.FixedRows then
+            begin
+              gList.RowCount:=gList.FixedRows+1;
+              gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
+            end;
+          gListSelectCell(gList,0,1,CanSelect);
+          if Assigned(OnCellChanging) then
+            OnCellChanging(Self);
+        finally
+          {$ifndef debug}
+          begin
+            while ControlsDisabled do
+              EnableControls;
+          end;
+          {$endif}
+        end;
       end;
-    end;
-  NotDone.Free;
-  if not FEditable then
-    gList.Row:=gList.FixedRows;
-  OldRow := gList.Row;
+    NotDone.Free;
+    if not FEditable then
+      gList.Row:=gList.FixedRows;
+    OldRow := gList.Row;
   {$ifndef slowdebug}
-  gList.EndUpdate;
+  finally
+    gList.EndUpdate;
+  end;
   aOldCol := gList.Col;
   try
     if gList.ColCount>0 then
@@ -3378,21 +3384,24 @@ begin
   if not Assigned(FDataSet) then exit;
   if not FDataSet.DataSet.Active then exit;
   gList.BeginUpdate;
-  OldIgnore := FDisableEdit;
-  FDisableEdit:=True;
-  if gList.EditorMode then gList.EditorMode:=False;
-  if DataSet.State = dsInsert then exit;
-  aTopRow := gList.TopRow;
-  aCol := gList.Col;
-  GotoActiveRow;
-  aRec := FDataSet.GetBookmark;
-  if RefreshDS then
-    FDataSet.DataSet.Refresh;
-  SyncDataSource;
-  FDataSet.GotoBookmark(aRec);
-  GotoDataSetRow;
-  gList.TopRow := aTopRow;
-  gList.EndUpdate;
+  try
+    OldIgnore := FDisableEdit;
+    FDisableEdit:=True;
+    if gList.EditorMode then gList.EditorMode:=False;
+    if DataSet.State = dsInsert then exit;
+    aTopRow := gList.TopRow;
+    aCol := gList.Col;
+    GotoActiveRow;
+    aRec := FDataSet.GetBookmark;
+    if RefreshDS then
+      FDataSet.DataSet.Refresh;
+    SyncDataSource;
+    FDataSet.GotoBookmark(aRec);
+    GotoDataSetRow;
+    gList.TopRow := aTopRow;
+  finally
+    gList.EndUpdate;
+  end;
   FDisableEdit:=OldIgnore;
   if InvertedDrawing then
     begin
