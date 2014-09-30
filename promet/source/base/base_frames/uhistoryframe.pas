@@ -385,7 +385,10 @@ begin
       with DataSet.DataSet as IBaseManageDB do
         UpdateStdFields := False;
       DataSet.Edit;
-      DataSet.FieldByName('IGNORE').AsString:='Y';
+      if DataSet.FieldByName('IGNORE').AsString <> 'Y' then
+        DataSet.FieldByName('IGNORE').AsString:='Y'
+      else
+        DataSet.FieldByName('IGNORE').AsString:='N';
       DataSet.Post;
       with DataSet.DataSet as IBaseManageDB do
         UpdateStdFields := True;
