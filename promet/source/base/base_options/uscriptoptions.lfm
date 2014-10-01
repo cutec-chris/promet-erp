@@ -42,7 +42,7 @@ inherited fScriptOptions: TfScriptOptions
   end
   object gProcesses: TDBGrid[2]
     Left = 8
-    Height = 501
+    Height = 382
     Top = 40
     Width = 534
     Align = alClient
@@ -164,11 +164,32 @@ inherited fScriptOptions: TfScriptOptions
     }
     ShowCaption = False
   end
-  object Scripts: TDataSource[5]
+  object DBMemo1: TDBMemo[5]
+    Left = 8
+    Height = 90
+    Top = 451
+    Width = 534
+    Align = alBottom
+    BorderSpacing.Around = 8
+    DataField = 'LASTRESULT'
+    DataSource = Scripts
+    TabOrder = 2
+  end
+  object Label1: TLabel[6]
+    Left = 4
+    Height = 13
+    Top = 430
+    Width = 542
+    Align = alBottom
+    BorderSpacing.Around = 4
+    Caption = 'letzte Ergebnisse für ausgewähltes Script'
+    ParentColor = False
+  end
+  object Scripts: TDataSource[7]
     left = 56
     top = 132
   end
-  object ActionList1: TActionList[6]
+  object ActionList1: TActionList[8]
     Images = fVisualControls.Images
     left = 421
     top = 62

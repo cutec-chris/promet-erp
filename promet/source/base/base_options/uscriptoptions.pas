@@ -32,6 +32,8 @@ type
     acEdit: TAction;
     acExecute: TAction;
     ActionList1: TActionList;
+    DBMemo1: TDBMemo;
+    Label1: TLabel;
     Scripts: TDataSource;
     DBNavigator2: TDBNavigator;
     gProcesses: TDBGrid;
@@ -40,6 +42,8 @@ type
     SpeedButton2: TSpeedButton;
     procedure acEditExecute(Sender: TObject);
     procedure acExecuteExecute(Sender: TObject);
+    procedure FScriptsReadln(var s: string);
+    procedure FScriptsWriteln(const s: string);
   private
     { private declarations }
     aConnection: TComponent;
@@ -71,17 +75,28 @@ procedure TfScriptOptions.acExecuteExecute(Sender: TObject);
 var
   aRec: TBookmark;
 begin
+  FScripts.Writeln:=@FScriptsWriteln;
+  FScripts.Readln:=@FScriptsReadln;
   FScripts.Execute;
   aRec := Scripts.DataSet.GetBookmark;
   Scripts.DataSet.Refresh;
   Scripts.DataSet.GotoBookmark(aRec);
 end;
-
+procedure TfScriptOptions.FScriptsReadln(var s: string);
+begin
+end;
+procedure TfScriptOptions.FScriptsWriteln(const s: string);
+begin
+  FScripts.Edit;
+  FScripts.FieldByName('LASTRESULT').AsString:=FScripts.FieldByName('LASTRESULT').AsString+lineending+s;
+  FScripts.Post;
+end;
 constructor TfScriptOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
   FScripts := TBaseScript.Create(nil,Data,aConnection);
+  FScripts.CreateTable;
   Scripts.DataSet := FScripts.DataSet;
 end;
 
