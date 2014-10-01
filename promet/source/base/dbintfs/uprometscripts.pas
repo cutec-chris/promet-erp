@@ -37,6 +37,10 @@ type
     FRlFunc: TReadlnFunc;
     FWrFunc: TWritelnFunc;
     FWriFunc: TWriteFunc;
+  protected
+    procedure InternalWrite(const s: string);
+    procedure InternalWriteln(const s: string);
+    procedure Internalreadln(var s: string);
   public
     procedure DefineFields(aDataSet: TDataSet); override;
     procedure FillDefaults(aDataSet: TDataSet); override;
@@ -70,7 +74,7 @@ begin
   Result := True;
   try
     Sender.AddDelphiFunction('procedure Writeln(P1: string);');
-    Sender.AddDelphiFunction('procedure Write(P1: string);');
+    Sender.AddDelphiFunction('procedure Write(P1: Variant);');
   except
     Result := False; // will halt compilation
   end;
@@ -78,14 +82,27 @@ begin
 end;
 procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
 begin
-  if Assigned(Script.FWrFunc) then
-    Runtime.RegisterDelphiMethod(nil, @Script.Writeln, 'WRITELN', cdRegister);
-  if Assigned(Script.FWriFunc) then
-    Runtime.RegisterDelphiMethod(nil, @Script.Write, 'WRITE', cdRegister);
-  if Assigned(Script.FRlFunc) then
-    Runtime.RegisterDelphiMethod(nil, @Script.Readln, 'READLN', cdRegister);
+  Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalWriteln, 'WRITELN', cdRegister);
+  Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalWrite, 'WRITE', cdRegister);
+  Runtime.RegisterDelphiMethod(Script, @TBaseScript.Internalreadln, 'READLN', cdRegister);
   RegisterDLLRuntime(Runtime);
 end;
+
+procedure TBaseScript.InternalWrite(const s: string);
+begin
+  if Assigned(Write) then Write(s);
+end;
+
+procedure TBaseScript.InternalWriteln(const s: string);
+begin
+  if Assigned(Writeln) then Writeln(s);
+end;
+
+procedure TBaseScript.Internalreadln(var s: string);
+begin
+  if Assigned(Readln) then Readln(s);
+end;
+
 procedure TBaseScript.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do

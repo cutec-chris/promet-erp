@@ -537,9 +537,9 @@ end;
 
 procedure TfScriptEditor.DebuggerCompile(Sender: TPSScript);
 begin
-  Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure writeln(s: string)');
-  Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure write(s: string)');
-  Sender.AddMethod(Self, @TfScriptEditor.Readln, 'procedure readln(var s: string)');
+  Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure writeln(s: Variant)');
+  Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure write(s: Variant)');
+  Sender.AddMethod(Self, @TfScriptEditor.Readln, 'procedure readln(var s: Variant)');
   Sender.AddRegisteredVariable('Self', 'TForm');
   Sender.AddRegisteredVariable('Application', 'TApplication');
 end;

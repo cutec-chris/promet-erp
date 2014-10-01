@@ -42,7 +42,6 @@ type
     SpeedButton2: TSpeedButton;
     procedure acEditExecute(Sender: TObject);
     procedure acExecuteExecute(Sender: TObject);
-    procedure FScriptsReadln(var s: string);
     procedure FScriptsWriteln(const s: string);
   private
     { private declarations }
@@ -76,14 +75,10 @@ var
   aRec: TBookmark;
 begin
   FScripts.Writeln:=@FScriptsWriteln;
-  FScripts.Readln:=@FScriptsReadln;
   FScripts.Execute;
   aRec := Scripts.DataSet.GetBookmark;
   Scripts.DataSet.Refresh;
   Scripts.DataSet.GotoBookmark(aRec);
-end;
-procedure TfScriptOptions.FScriptsReadln(var s: string);
-begin
 end;
 procedure TfScriptOptions.FScriptsWriteln(const s: string);
 begin
