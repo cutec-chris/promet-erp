@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, uBaseDbClasses, uBaseDBInterface, db, uPSCompiler,
   uPSC_classes, uPSC_dateutils, uPSC_dll, uPSRuntime,
-  uPSR_classes, uPSR_DB, uPSR_dll, uPSUtils;
+  uPSR_classes, uPSR_DB, uPSR_dll, uPSUtils,Process,usimpleprocess;
 
 type
   TWritelnFunc = procedure(const s: string) of object;
@@ -50,10 +50,22 @@ type
     function Execute : Boolean;
   end;
 
+  TProcessThread = class(TThread)
+  private
+  public
+    constructor Create(cmd : string);
+    procedure Execute; override;
+  end;
+
   function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
+  procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
+  function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 
 implementation
 uses uStatistic,uData;
+var
+  FProcess : TProcess;
+  FRuntime : TPSExec;
 function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
 var
   aScript: TBaseScript;
@@ -69,23 +81,66 @@ begin
     end;
   aScript.Free;
 end;
+procedure InternalExec(cmd : string);
+begin
+  if not Assigned(Fprocess) then
+    FProcess := TProcess.Create(nil);
+  FProcess.CommandLine:=cmd;
+  FProcess.Options:=FProcess.Options+[poUsePipes];
+  FProcess.Execute;
+end;
 function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
+var
+  aRec: TPSType;
 begin
   Result := True;
   try
-    Sender.AddDelphiFunction('procedure Writeln(P1: string);');
-    Sender.AddDelphiFunction('procedure Write(P1: Variant);');
+    arec := Sender.FindType('TLineReceived');
+    if arec = nil then
+      begin
+        aRec := Sender.AddTypeS('TLineReceived','procedure(s:string)');
+        Sender.AddVariable('OnLineReceived',aRec);
+      end;
+    Sender.AddDelphiFunction('procedure Exec(cmd : string);');
   except
     Result := False; // will halt compilation
   end;
-  RegisterDll_Compiletime(Sender);
 end;
-procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
+function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
+var
+  aRec: TPSType;
+begin
+  result := False;
+  if Name = 'SYSTEM' then
+    begin
+      Result := True;
+      try
+        Sender.AddDelphiFunction('procedure Writeln(P1: string);');
+        Sender.AddDelphiFunction('procedure Write(P1: Variant);');
+      except
+        Result := False; // will halt compilation
+      end;
+      RegisterDll_Compiletime(Sender);
+    end
+  else
+    result := ExtendCompiler(Sender,Name);
+end;
+procedure ExtendIRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
 begin
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalWriteln, 'WRITELN', cdRegister);
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalWrite, 'WRITE', cdRegister);
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.Internalreadln, 'READLN', cdRegister);
   RegisterDLLRuntime(Runtime);
+  ExtendRuntime(Runtime,ClassImporter,Script);
+end;
+procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
+begin
+  Runtime.RegisterDelphiFunction(@InternalExec, 'EXEC', cdRegister);
+  FRuntime := Runtime;
+end;
+
+procedure TProcessThread.Execute;
+begin
 end;
 
 procedure TBaseScript.InternalWrite(const s: string);
@@ -137,7 +192,6 @@ var
   aDS: TDataSet;
   Compiler: TPSPascalCompiler;
   Messages: TbtString='';
-  Runtime: TPSExec;
   ClassImporter: TPSRuntimeClassImporter;
   Bytecode: tbtString;
   i: Integer;
@@ -177,7 +231,7 @@ begin
     else if lowercase(FieldByName('SYNTAX').AsString) = 'pascal' then
       begin
         Compiler:= TPSPascalCompiler.Create;
-        Compiler.OnUses:= @ExtendCompiler;
+        Compiler.OnUses:= @ExtendICompiler;
         try
           Result:= Compiler.Compile(FieldByName('SCRIPT').AsString) and Compiler.GetOutput(Bytecode);
           for i:= 0 to Compiler.MsgCount - 1 do
@@ -195,18 +249,18 @@ begin
         end;
         if Result then
           begin
-            Runtime:= TPSExec.Create;
-            ClassImporter:= TPSRuntimeClassImporter.CreateAndRegister(Runtime, false);
+            FRuntime:= TPSExec.Create;
+            ClassImporter:= TPSRuntimeClassImporter.CreateAndRegister(FRuntime, false);
             try
-              ExtendRuntime(Runtime, ClassImporter, Self);
-              Result:= Runtime.LoadData(Bytecode)
-                    and Runtime.RunScript
-                    and (Runtime.ExceptionCode = erNoError);
+              ExtendIRuntime(FRuntime, ClassImporter, Self);
+              Result:= FRuntime.LoadData(Bytecode)
+                    and FRuntime.RunScript
+                    and (FRuntime.ExceptionCode = erNoError);
               if not Result then
-                RuntimeErrors:= PSErrorToString(Runtime.LastEx, '');
+                RuntimeErrors:= PSErrorToString(FRuntime.LastEx, '');
             finally
               ClassImporter.Free;
-              Runtime.Free;
+              FreeAndNil(FRuntime);
             end;
             if RuntimeErrors<>'' then
               begin

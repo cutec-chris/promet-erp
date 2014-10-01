@@ -30,7 +30,7 @@ uses
   uPSRuntime, uPSDisassembly, uPSUtils,
   uPSComponent, uPSDebugger, uPSComponent_DB, SynEditRegexSearch, 
   SynEditSearch, SynEditMiscClasses, SynEditHighlighter, SynGutterBase, SynEditMarks,
-  SynEditMarkupSpecialLine, SynHighlighterSQL,uprometscripts;
+  SynEditMarkupSpecialLine, SynHighlighterSQL,uprometscripts,uPSCompiler;
 
 type
 
@@ -206,6 +206,11 @@ resourcestring
   STR_FORM_TITLE_RUNNING = 'Editor - Running';
   STR_INPUTBOX_TITLE = 'Script';
   STR_NOTSAVED = 'Script wurde noch nicht gespeichert, jetzt speichern?';
+
+function OnUses(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
+begin
+  uprometscripts.ExtendCompiler(Sender,Name);
+end;
 
 procedure TfScriptEditor.DoSearchReplaceText(AReplace: boolean; ABackwards: boolean);
 var
@@ -542,6 +547,8 @@ begin
   Sender.AddMethod(Self, @TfScriptEditor.Readln, 'procedure readln(var s: Variant)');
   Sender.AddRegisteredVariable('Self', 'TForm');
   Sender.AddRegisteredVariable('Application', 'TApplication');
+  Sender.Comp.OnUses:=@OnUses;
+  uprometscripts.ExtendRuntime(Sender.Exec,nil,nil);
 end;
 
 procedure TfScriptEditor.FDataSetDataSetAfterScroll(DataSet: TDataSet);
