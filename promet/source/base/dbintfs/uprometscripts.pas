@@ -50,17 +50,6 @@ type
     function Execute : Boolean;
   end;
 
-  { TProcessThread }
-
-  TProcessThread = class(TThread)
-  private
-    aLine : string;
-    procedure OutputLine;
-  public
-    constructor Create(cmd : string);
-    procedure Execute; override;
-  end;
-
   function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
   procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
   function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
@@ -71,7 +60,7 @@ uses uStatistic,uData;
 var
   FProcess : TProcess;
   FRuntime : TPSExec;
-  FThread: TProcessThread;
+  CompleteOutput : string = '';
 function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
 var
   aScript: TBaseScript;
@@ -89,11 +78,40 @@ begin
 end;
 procedure InternalExec(cmd : string);
 begin
-  FThread := TProcessThread.Create(cmd);
+  FProcess := TProcess.Create(nil);
+  FProcess.CommandLine:=cmd;
+  CompleteOutput:='';
+  FProcess.Options:=FProcess.Options+[poUsePipes,poNoConsole];
+  FProcess.Execute;
 end;
 function InternalExecActive : Boolean;
+var
+  ReadSize: DWord;
+  Buffer : string[127];
+  ReadCount: LongInt;
+  aLine: String;
 begin
   Result := Assigned(FProcess) and FProcess.Active;
+  if Assigned(FProcess) then
+    begin
+      ReadSize := FProcess.Output.NumBytesAvailable;
+      while ReadSize>0 do
+        begin
+          if ReadSize > SizeOf(Buffer) then
+            ReadSize := SizeOf(Buffer);
+          ReadCount := FProcess.Output.Read(Buffer[0], ReadSize);
+          CompleteOutput:=CompleteOutput+copy(Buffer,0,ReadCount);
+          ReadSize := FProcess.Output.NumBytesAvailable;
+        end;
+      while pos(#10,CompleteOutput)>0 do
+        begin
+          aLine := copy(CompleteOutput,0,pos(#10,CompleteOutput)-1);
+          FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
+          CompleteOutput:=copy(CompleteOutput,pos(#10,CompleteOutput)+1,length(CompleteOutput));
+        end;
+      if not FProcess.Active then
+        FreeAndNil(FProcess);
+    end;
 end;
 function InternalKill : Boolean;
 begin
@@ -101,7 +119,7 @@ begin
   if Result then
     begin
       FProcess.Terminate(0);
-      while Assigned(FProcess) do sleep(10);
+      while Assigned(FProcess) do InternalExecActive;
     end;
 end;
 procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
@@ -154,66 +172,6 @@ begin
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.Internalreadln, 'READLN', cdRegister);
   RegisterDLLRuntime(Runtime);
   ExtendRuntime(Runtime,ClassImporter,Script);
-end;
-
-procedure TProcessThread.OutputLine;
-begin
-  FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
-end;
-
-constructor TProcessThread.Create(cmd: string);
-begin
-  FProcess := TProcess.Create(nil);
-  FProcess.CommandLine:=cmd;
-  FProcess.Options:=FProcess.Options+[poUsePipes,poNoConsole];
-  inherited Create(false);
-end;
-
-procedure TProcessThread.Execute;
-var
-  aVars: TPSList;
-  procedure ProcessOutput;
-  var
-    ReadSize: DWord;
-    Buffer: array[0..127] of char;
-    ReadCount: LongInt;
-    CompleteOutput : string = '';
-    aProc: Cardinal;
-    aVar: TPSVariant;
-    aFunc: PIFVariant;
-    aSproc: TbtString;
-  begin
-    ReadSize := FProcess.Output.NumBytesAvailable;
-    while ReadSize>0 do
-      begin
-        if ReadSize > SizeOf(Buffer) then
-          ReadSize := SizeOf(Buffer);
-        ReadCount := FProcess.Output.Read(Buffer[0], ReadSize);
-        CompleteOutput:=CompleteOutput+copy(Buffer,0,ReadCount);
-        ReadSize := FProcess.Output.NumBytesAvailable;
-      end;
-    while pos(#10,CompleteOutput)>0 do
-      begin
-        aLine := copy(CompleteOutput,0,pos(#10,CompleteOutput)-1);
-        Self.Synchronize(@OutputLine);
-        CompleteOutput:=copy(CompleteOutput,pos(#10,CompleteOutput)+1,length(CompleteOutput));
-      end;
-  end;
-
-begin
-  FProcess.Execute;
-  aVars := TPSList.Create;
-  sleep(100);
-  while FProcess.Active and (not Terminated) do
-    begin
-      ProcessOutput;
-      sleep(100);
-    end;
-  ProcessOutput;
-  aVars.Free;
-  if FProcess.Active then
-    FProcess.Terminate(0);
-  FreeAndNil(FProcess);
 end;
 
 procedure TBaseScript.InternalWrite(const s: string);
