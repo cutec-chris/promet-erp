@@ -677,7 +677,7 @@ object fScriptEditor: TfScriptEditor
     object messages: TListBox
       Left = 0
       Height = 81
-      Top = 472
+      Top = 476
       Width = 676
       Align = alBottom
       ItemHeight = 0
@@ -689,7 +689,7 @@ object fScriptEditor: TfScriptEditor
       Cursor = crVSplit
       Left = 0
       Height = 4
-      Top = 553
+      Top = 472
       Width = 676
       Align = alBottom
       ResizeAnchor = akBottom

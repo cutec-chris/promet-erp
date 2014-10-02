@@ -153,6 +153,7 @@ type
     FActiveFile: string;
     FDataSet : TBaseScript;
     Fuses : TBaseScript;
+    FOldUses : TPSOnUses;
     function Compile: Boolean;
     function Execute: Boolean;
 
@@ -355,11 +356,11 @@ begin
         FResume := True
       end else
       begin
-        Debugger.Comp.OnUses:=nil;
         if Compile then
           begin
             Debugger.Execute;
           end;
+        Debugger.Comp.OnUses:=FOldUses;
       end;
       acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
       acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
@@ -399,12 +400,12 @@ begin
     end
   else
   begin
-    Debugger.Comp.OnUses:=nil;
     if Compile then
       begin
         Debugger.StepInto;
         Debugger.Execute;
       end;
+    Debugger.Comp.OnUses:=FOldUses;
   end;
   acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
   acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
@@ -425,6 +426,7 @@ begin
       Debugger.StepInto;
       Debugger.Execute;
     end;
+    Debugger.Comp.OnUses:=FOldUses;
   end;
 end;
 
@@ -516,12 +518,13 @@ end;
 
 procedure TfScriptEditor.DebuggerAfterExecute(Sender: TPSScript);
 begin
- acRun.Enabled:=True;
- acReset.Enabled:=False;
- acPause.Enabled:=false;
+  acRun.Enabled:=True;
+  acReset.Enabled:=False;
+  acPause.Enabled:=false;
   Caption := STR_FORM_TITLE;
   FActiveLine := 0;
   ed.Refresh;
+  ResetProcess;
 end;
 
 function TfScriptEditor.Execute: Boolean;
@@ -551,6 +554,7 @@ begin
   Sender.AddMethod(Self, @TfScriptEditor.Readln, 'procedure readln(var s: string)');
   Sender.AddRegisteredVariable('Self', 'TForm');
   Sender.AddRegisteredVariable('Application', 'TApplication');
+  FOldUses:=Sender.Comp.OnUses;
   Sender.Comp.OnUses:=@OnUses;
   uprometscripts.ExtendRuntime(Sender.Exec,nil,nil);
 end;

@@ -54,6 +54,8 @@ type
 
   TProcessThread = class(TThread)
   private
+    aLine : string;
+    procedure OutputLine;
   public
     constructor Create(cmd : string);
     procedure Execute; override;
@@ -62,6 +64,7 @@ type
   function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
   procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
   function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
+  procedure ResetProcess;
 
 implementation
 uses uStatistic,uData;
@@ -87,17 +90,44 @@ end;
 procedure InternalExec(cmd : string);
 begin
   FThread := TProcessThread.Create(cmd);
-  FThread.Execute;
+end;
+function InternalExecActive : Boolean;
+begin
+  Result := Assigned(FProcess) and FProcess.Active;
+end;
+function InternalKill : Boolean;
+begin
+  Result := Assigned(FProcess);
+  if Result then
+    begin
+      FProcess.Terminate(0);
+      while Assigned(FProcess) do sleep(10);
+    end;
+end;
+procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
+begin
+  Runtime.RegisterDelphiFunction(@InternalExec, 'EXEC', cdRegister);
+  Runtime.RegisterDelphiFunction(@InternalExecActive, 'EXECACTIVE', cdRegister);
+  Runtime.RegisterDelphiFunction(@InternalKill, 'KILL', cdRegister);
+  FRuntime := Runtime;
 end;
 function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 begin
   Result := True;
   try
     Sender.AddDelphiFunction('procedure Exec(cmd : string);');
+    Sender.AddDelphiFunction('function ExecActive : Boolean;');
+    Sender.AddDelphiFunction('function Kill : Boolean;');
   except
     Result := False; // will halt compilation
   end;
 end;
+
+procedure ResetProcess;
+begin
+  if Assigned(FProcess) then InternalKill;
+end;
+
 function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 var
   aRec: TPSType;
@@ -125,18 +155,18 @@ begin
   RegisterDLLRuntime(Runtime);
   ExtendRuntime(Runtime,ClassImporter,Script);
 end;
-procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
+
+procedure TProcessThread.OutputLine;
 begin
-  Runtime.RegisterDelphiFunction(@InternalExec, 'EXEC', cdRegister);
-  FRuntime := Runtime;
+  FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
 end;
 
 constructor TProcessThread.Create(cmd: string);
 begin
   FProcess := TProcess.Create(nil);
   FProcess.CommandLine:=cmd;
-  FProcess.Options:=FProcess.Options+[poUsePipes];
-  inherited Create(True);
+  FProcess.Options:=FProcess.Options+[poUsePipes,poNoConsole];
+  inherited Create(false);
 end;
 
 procedure TProcessThread.Execute;
@@ -150,7 +180,6 @@ var
     CompleteOutput : string = '';
     aProc: Cardinal;
     aVar: TPSVariant;
-    aLine: String;
     aFunc: PIFVariant;
     aSproc: TbtString;
   begin
@@ -166,7 +195,7 @@ var
     while pos(#10,CompleteOutput)>0 do
       begin
         aLine := copy(CompleteOutput,0,pos(#10,CompleteOutput)-1);
-        FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
+        OutputLine;
         CompleteOutput:=copy(CompleteOutput,pos(#10,CompleteOutput)+1,length(CompleteOutput));
       end;
   end;
@@ -174,6 +203,7 @@ var
 begin
   FProcess.Execute;
   aVars := TPSList.Create;
+  sleep(100);
   while FProcess.Active and (not Terminated) do
     begin
       ProcessOutput;
@@ -310,6 +340,7 @@ begin
                 Edit;
                 FieldByName('LASTRESULT').AsString:='Runtime Errors:'+RuntimeErrors;
               end;
+            ResetProcess;
           end;
       end;
     Edit;
