@@ -92,7 +92,7 @@ begin
               Data.SetFilter(aOrder,Data.QuoteField('ORDERNO')+'='+Data.QuoteValue(Accountingjournal.FieldByName('ORDERNO').AsString));
               if Data.Locate(aOrder,'ORDERNO',Accountingjournal.FieldByName('ORDERNO').AsString,[]) then
                 begin
-                  if FieldByName('PAYPRICE').AsFloat>=FieldByName('PAYPRICE').AsFloat then
+                  if FieldByName('PAYPRICE').AsFloat>=FieldByName('GROSSPRICE').AsFloat then
                     begin
                       aOrder.DataSet.Edit;
                       aOrder.FieldByName('PAYEDON').AsDateTime := dePayed.Date;
