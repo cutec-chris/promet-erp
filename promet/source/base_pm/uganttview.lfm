@@ -1359,6 +1359,16 @@ object fGanttView: TfGanttView
       ImageIndex = 59
       OnExecute = acAddHistoryExecute
     end
+    object acCalculatefromHere: TAction
+      Caption = 'ab hier aktualisieren'
+      ImageIndex = 95
+      OnExecute = acCalculatefromHereExecute
+    end
+    object acMoveTogetherFromHere: TAction
+      Caption = 'ab hier Plan zusammenschieben (kürzester durchlauf)'
+      ImageIndex = 24
+      OnExecute = acMoveTogetherFromHereExecute
+    end
   end
   object RecalcTimer: TTimer
     Enabled = False
@@ -1492,6 +1502,15 @@ object fGanttView: TfGanttView
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000
       }
+    end
+    object MenuItem7: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem8: TMenuItem
+      Action = acCalculatefromHere
+    end
+    object MenuItem9: TMenuItem
+      Action = acMoveTogetherFromHere
     end
   end
 end
