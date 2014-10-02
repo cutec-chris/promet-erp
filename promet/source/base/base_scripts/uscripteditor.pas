@@ -355,8 +355,11 @@ begin
         FResume := True
       end else
       begin
+        Debugger.Comp.OnUses:=nil;
         if Compile then
-          Debugger.Execute;
+          begin
+            Debugger.Execute;
+          end;
       end;
       acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
       acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
@@ -396,6 +399,7 @@ begin
     end
   else
   begin
+    Debugger.Comp.OnUses:=nil;
     if Compile then
       begin
         Debugger.StepInto;
@@ -535,16 +539,16 @@ end;
 
 procedure TfScriptEditor.Writeln(const s: string);
 begin
-  messages.AddItem(S,nil);
+  messages.Items.Add(S);
   messages.ItemIndex:=messages.Items.Count-1;
   messages.MakeCurrentVisible;
 end;
 
 procedure TfScriptEditor.DebuggerCompile(Sender: TPSScript);
 begin
-  Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure writeln(s: Variant)');
-  Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure write(s: Variant)');
-  Sender.AddMethod(Self, @TfScriptEditor.Readln, 'procedure readln(var s: Variant)');
+  Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure writeln(s: string)');
+  Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure write(s: string)');
+  Sender.AddMethod(Self, @TfScriptEditor.Readln, 'procedure readln(var s: string)');
   Sender.AddRegisteredVariable('Self', 'TForm');
   Sender.AddRegisteredVariable('Application', 'TApplication');
   Sender.Comp.OnUses:=@OnUses;

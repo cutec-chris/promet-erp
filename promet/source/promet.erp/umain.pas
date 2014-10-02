@@ -196,6 +196,7 @@ type
     procedure acTaskPlanExecute(Sender: TObject);
     procedure acTasksExecute(Sender: TObject);
     procedure acTimeRegisteringExecute(Sender: TObject);
+    procedure ActiveSearchEndHistorySearch(Sender: TObject);
     procedure acWikiExecute(Sender: TObject);
     procedure acWindowizeExecute(Sender: TObject);
     procedure aFrameTfFilterClose(Sender: TObject; var CloseAction: TCloseAction
@@ -2086,6 +2087,11 @@ begin
     end;
 end;
 
+procedure TfMain.ActiveSearchEndHistorySearch(Sender: TObject);
+begin
+  ActiveSearch.Start(eContains.Text);
+end;
+
 procedure TfMain.acWikiExecute(Sender: TObject);
 var
   i: Integer;
@@ -2247,7 +2253,8 @@ begin
   SearchText := eContains.Text;
   ActiveSearch := TSearch.Create(SearchTypes,SearchLocations,True,5);
   ActiveSearch.OnItemFound:=@DataSearchresultItem;
-  ActiveSearch.Start(eContains.Text);
+  ActiveSearch.OnEndHistorySearch:=@ActiveSearchEndHistorySearch;
+  ActiveSearch.StartHistorySearch(eContains.Text);
   while ActiveSearch.Active do Application.ProcessMessages;
   pSearch.Height := Max(2,Min(lbResults.Count,7))*25;
   pSearch.Left := Panel8.Left+33;

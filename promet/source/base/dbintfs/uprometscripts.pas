@@ -90,12 +90,9 @@ begin
   FThread.Execute;
 end;
 function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
-var
-  aRec: TPSType;
 begin
   Result := True;
   try
-    arec := Sender.FindType('TLineReceived');
     Sender.AddDelphiFunction('procedure Exec(cmd : string);');
   except
     Result := False; // will halt compilation
@@ -111,7 +108,7 @@ begin
       Result := True;
       try
         Sender.AddDelphiFunction('procedure Writeln(P1: string);');
-        Sender.AddDelphiFunction('procedure Write(P1: Variant);');
+        Sender.AddDelphiFunction('procedure Write(P1: string);');
       except
         Result := False; // will halt compilation
       end;
