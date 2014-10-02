@@ -195,7 +195,7 @@ var
     while pos(#10,CompleteOutput)>0 do
       begin
         aLine := copy(CompleteOutput,0,pos(#10,CompleteOutput)-1);
-        OutputLine;
+        Self.Synchronize(@OutputLine);
         CompleteOutput:=copy(CompleteOutput,pos(#10,CompleteOutput)+1,length(CompleteOutput));
       end;
   end;
