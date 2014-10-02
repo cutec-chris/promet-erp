@@ -269,6 +269,7 @@ var
   TagOpen: Integer;
 begin
   aOut := StringReplace(input,'<<','<',[rfReplaceAll]);
+  aOut := StringReplace(aOut,'</div>','</div>'+#10,[rfReplaceAll]);
   bOut := '';
   RemoveTag(aOut,bOut,'script');
   RemoveTag(aOut,bOut,'style');

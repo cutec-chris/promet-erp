@@ -1,6 +1,7 @@
 ﻿Build 374
       - Filter:importdaten an neue Filterenstellungen angepasst, bei bestehenden Datenbanken muss % in den Filtern durch @ ersetzt werden
         das verhindert Probleme beim SQL bauen und ist dann analog zu den Statistiken
+      - Aufträge:bei Zahlungen wird Auftrag nun erst als berechnet markiert wenn Zahlungssumme überschritten ist
 Build 373
       - Optionen:Stammdatenoptionen mit separatem Recht belegt, so das Verwaltungsmitarbeiter auch ohne Optionsrecht Stammdaten ändern können
 Build 372

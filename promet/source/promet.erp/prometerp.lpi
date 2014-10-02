@@ -369,6 +369,7 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -411,6 +412,7 @@
         <ComponentName Value="fBookAccounting"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uBookAccounting"/>
       </Unit19>
       <Unit20>
         <Filename Value="urepairpositionframe.pas"/>

@@ -92,23 +92,26 @@ begin
               Data.SetFilter(aOrder,Data.QuoteField('ORDERNO')+'='+Data.QuoteValue(Accountingjournal.FieldByName('ORDERNO').AsString));
               if Data.Locate(aOrder,'ORDERNO',Accountingjournal.FieldByName('ORDERNO').AsString,[]) then
                 begin
-                  aOrder.DataSet.Edit;
-                  aOrder.FieldByName('PAYEDON').AsDateTime := dePayed.Date;
-                  aOrder.DataSet.Post;
-                  if AccountingLink <> '' then
+                  if FieldByName('PAYPRICE').AsFloat>=FieldByName('PAYPRICE').AsFloat then
                     begin
-                      aOrder.Links.Open;
-                      aOrder.Links.DataSet.Insert;
-                      aOrder.Links.FieldByName('LINK').AsString := AccountingLink;
-                      aOrder.Links.FieldByName('NAME').AsString := Data.GetLinkDesc(AccountingLink);
-                      aOrder.Links.FieldByName('ICON').AsInteger := Data.GetLinkIcon(AccountingLink);
-                      aOrder.Links.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
-                      aOrder.Links.DataSet.Post;
-                      with AccountExchange.Dataset do
+                      aOrder.DataSet.Edit;
+                      aOrder.FieldByName('PAYEDON').AsDateTime := dePayed.Date;
+                      aOrder.DataSet.Post;
+                      if AccountingLink <> '' then
                         begin
-                          Edit;
-                          FieldByName('VOUCHER').AsString := Data.BuildLink(aOrder.DataSet);
-                          Post;
+                          aOrder.Links.Open;
+                          aOrder.Links.DataSet.Insert;
+                          aOrder.Links.FieldByName('LINK').AsString := AccountingLink;
+                          aOrder.Links.FieldByName('NAME').AsString := Data.GetLinkDesc(AccountingLink);
+                          aOrder.Links.FieldByName('ICON').AsInteger := Data.GetLinkIcon(AccountingLink);
+                          aOrder.Links.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+                          aOrder.Links.DataSet.Post;
+                          with AccountExchange.Dataset do
+                            begin
+                              Edit;
+                              FieldByName('VOUCHER').AsString := Data.BuildLink(aOrder.DataSet);
+                              Post;
+                            end;
                         end;
                     end;
                 end;
