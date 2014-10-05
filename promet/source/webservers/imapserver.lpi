@@ -63,7 +63,6 @@
       <Unit0>
         <Filename Value="imapserver.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="imapserver"/>
       </Unit0>
       <Unit1>
         <Filename Value="ulimap.pas"/>
@@ -108,7 +107,6 @@
       </CompilerMessages>
       <CustomOptions Value="-dHASREPORTS
 -dSTATISTICS"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

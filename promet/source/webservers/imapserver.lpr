@@ -243,6 +243,8 @@ begin
     SMTPServer.OnLog:=@ServerLog;
   SMTPServer.OnMailreceived:=@SMTPServerMailreceived;
   SMTPServer.OnAcceptMail:=@ServerAcceptMail;
+  if HasOption('server-log') then
+    SMTPServer.OnLog:=@ServerLog;
   try
     IMAPServer.Start;
   except

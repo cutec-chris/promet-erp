@@ -24,7 +24,7 @@ unit ulsmtpsrv;
 interface
 
 uses
-  Classes, SysUtils, lNet, lEvents;
+  Classes, SysUtils, lNet, lEvents,synacode;
 
 type
   TLSMTPSocket = class(TLSocket)
@@ -124,7 +124,8 @@ begin
       Setlength(aMessage,aSize);
       Move(aData,aMessage[1],aSize);
       Setlength(aMessage,aSize-2);
-      TLSMTPServer(Creator).OnLog(Self,True,aMessage);
+      if aMessage<>'' then
+        TLSMTPServer(Creator).OnLog(Self,True,aMessage);
     end;
   Result:=inherited Send(aData, aSize);
 end;
@@ -135,6 +136,8 @@ var
   aCommand: String;
   aParams: String;
   Result: Boolean;
+  aUser: AnsiString;
+  aPass: String;
 
   procedure Answer(aMsg : string);
   begin
@@ -210,6 +213,27 @@ begin
   else if aCommand = 'QUIT' then
     begin
       Answer('221 closing channel');
+    end
+  else if aCommand = 'AUTH' then
+    begin
+      if uppercase(copy(aParams,0,pos(' ',aParams)-1))='PLAIN' then
+        begin
+          aParams:=Copy(aParams,pos(' ',aParams)+1,length(aParams));
+          aUser:=copy(DecodeBase64(aParams),2,length(aParams));
+          aPass := copy(aUser,pos(#0,aUser)+1,length(aParams));
+          aUser := copy(aUser,0,pos(#0,aUser)-1);
+          if Assigned(TLSMTPServer(Creator).OnLogin) then
+            begin
+              if TLSMTPServer(Creator).OnLogin(Self,aUser,aPass) then
+                begin
+                  FUser := aUser;
+                  Answer('235 Authentication successful');
+                end
+              else Disconnect;
+            end;
+        end
+      else
+        Answer('502 Command not implemented');
     end
   else if aCommand = 'RSET' then
     begin
