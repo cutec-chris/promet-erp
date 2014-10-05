@@ -75,7 +75,7 @@ var
   aRec: TBookmark;
 begin
   FScripts.Writeln:=@FScriptsWriteln;
-  FScripts.Execute;
+  FScripts.Execute(Null);
   aRec := Scripts.DataSet.GetBookmark;
   Scripts.DataSet.Refresh;
   Scripts.DataSet.GotoBookmark(aRec);

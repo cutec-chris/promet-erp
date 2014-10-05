@@ -26,10 +26,10 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS-Times2"/>
+        <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="2">
       <Item1>
         <PackageName Value="pcmdprometapp"/>
       </Item1>
@@ -37,17 +37,15 @@
         <PackageName Value="FCL"/>
         <MinVersion Valid="True"/>
       </Item2>
-      <Item3>
-        <PackageName Value="LCL"/>
-      </Item3>
     </RequiredPackages>
     <Units Count="62">
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="16"/>
-        <CursorPos X="33" Y="18"/>
+        <TopLine Value="71"/>
+        <CursorPos X="3" Y="247"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -295,7 +293,6 @@
       <Unit38>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <TopLine Value="169"/>
         <CursorPos X="23" Y="180"/>

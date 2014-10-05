@@ -7,7 +7,6 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, CustApp,
-  Interfaces, // this includes the LCL widgetset
   pcmdprometapp, uData, db, uBaseDBInterface, uBaseApplication,
   uBaseCustomApplication, uBaseDbClasses, uSync, uOrder, uPerson, uMasterdata,
   LConvEncoding,uMessages;
@@ -601,4 +600,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

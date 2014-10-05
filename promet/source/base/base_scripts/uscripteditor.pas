@@ -154,6 +154,7 @@ type
     FDataSet : TBaseScript;
     Fuses : TBaseScript;
     FOldUses : TPSOnUses;
+    FEnviroment : TScriptThread;
     function Compile: Boolean;
     function Execute: Boolean;
 
@@ -371,7 +372,7 @@ begin
       FDataSet.writeln := @Writeln;
       FDataSet.Readln := @Readln;
       acSave.Execute;
-      if not FDataSet.Execute then
+      if not FDataSet.Execute(Null) then
         messages.AddItem('failed to executing',nil);
     end
   else
@@ -524,7 +525,6 @@ begin
   Caption := STR_FORM_TITLE;
   FActiveLine := 0;
   ed.Refresh;
-  ResetProcess;
 end;
 
 function TfScriptEditor.Execute: Boolean;
@@ -556,7 +556,7 @@ begin
   Sender.AddRegisteredVariable('Application', 'TApplication');
   FOldUses:=Sender.Comp.OnUses;
   Sender.Comp.OnUses:=@OnUses;
-  uprometscripts.ExtendRuntime(Sender.Exec,nil,nil);
+  uprometscripts.ExtendRuntime(Sender.Exec,nil,FEnviroment);
 end;
 
 procedure TfScriptEditor.FDataSetDataSetAfterScroll(DataSet: TDataSet);
@@ -612,6 +612,7 @@ begin
       FDataSet := TBaseScript.Create(nil,Data,aConnection);
       FDataSet.CreateTable;
     end;
+  FEnviroment := TScriptThread.Create(Null,nil);
   FDataSet.Open;
   DataSource.DataSet := FDataSet.DataSet;
   FDataSet.DataSet.BeforeScroll:=@FDataSetDataSetBeforeScroll;
@@ -625,6 +626,7 @@ begin
   if Result then
     FDataSet.Post;
   FDataSet.Close;
+  FEnviroment.Free;
 end;
 
 procedure TfScriptEditor.edStatusChange(Sender: TObject;
