@@ -6,36 +6,54 @@ interface
 
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  DbCtrls, StdCtrls, DBGrids, ButtonPanel, ComCtrls, ExtCtrls, uExtControls,
-  uOrder;
+  DbCtrls, StdCtrls, DBGrids, ButtonPanel, ComCtrls, ExtCtrls, Buttons,
+  uExtControls, uOrder, variants,ActnList;
 
 type
 
   { TfRepairImages }
 
   TfRepairImages = class(TForm)
+    acPasteImage: TAction;
+    acAddImage: TAction;
+    acScreenshot: TAction;
+    ActionList1: TActionList;
     ButtonPanel1: TButtonPanel;
+    cbStatus: TComboBox;
     Datasource1: TDatasource;
     DBNavigator1: TDBNavigator;
     eName: TDBEdit;
     gList: TDBGrid;
     eFilter: TEdit;
+    iArticle: TImage;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    Label6: TLabel;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     mErrordesc: TDBMemo;
     mSolve: TDBMemo;
     pCommon: TPanel;
     pcPages: TExtMenuPageControl;
+    pmImage: TPopupMenu;
+    pPreviewImage: TPanel;
+    sbAddImage: TSpeedButton;
+    sbClipboardToImage: TSpeedButton;
+    sbClipboardToImage1: TSpeedButton;
     tsCommon: TTabSheet;
     procedure AddLinks(Sender: TObject);
     procedure AddDocuments(Sender: TObject);
     procedure AddImages(Sender: TObject);
     procedure AddHistory(Sender: TObject);
+    procedure cbStatusSelect(Sender: TObject);
     procedure DataSetDataSetAfterScroll(DataSet: TDataSet);
     procedure Datasource1StateChange(Sender: TObject);
     procedure eFilterEnter(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure acScreenshotExecute(Sender: TObject);
+    //procedure acPasteImageExecute(Sender: TObject);
   private
     { private declarations }
     FDataSet: TOrderRepairImages;
@@ -52,7 +70,8 @@ var
   fRepairImages: TfRepairImages;
 
 implementation
-uses uData,uHistoryFrame,uImageFrame,uIntfStrConsts,uDocuments,uDocumentFrame,uLinkFrame;
+uses uData,uHistoryFrame,uImageFrame,uIntfStrConsts,uDocuments,uDocumentFrame,uLinkFrame,
+  uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication;
 {$R *.lfm}
 
 { TfRepairImages }
@@ -63,12 +82,119 @@ begin
   DataSet.CreateTable;
   DataSet.Open;
 end;
-
+{procedure TfRepairImages.acPasteImageExecute(Sender: TObject);
+var
+  aSheet: TTabSheet;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
+begin
+  if Clipboard.HasPictureFormat then
+    begin
+      pcPages.AddTab(TfImageFrame.Create(Self),False);
+      aSheet := pcPages.GetTab(TfImageFrame);
+      if Assigned(aSheet) then
+        begin
+          Application.ProcessMessages;
+          TfImageFrame(aSheet.Controls[0]).acPaste.Execute;
+          TfImageFrame(aSheet.Controls[0]).DataSet.Post;
+          aThumbnails := TThumbnails.Create(nil,Data);
+          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+          aThumbnails.Open;
+          while aThumbnails.Count>0 do
+            aThumbnails.Delete;
+          //TMasterdata(DataSet).GenerateThumbnail;
+          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+          aThumbnails.Open;
+          if aThumbnails.Count>0 then
+            begin
+              aStream := TMemoryStream.Create;
+              Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+              aStream.Position:=0;
+              iArticle.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+              aStream.Free;
+              acPasteImage.Visible:=False;
+              acAddImage.Visible:=False;
+              acScreenshot.Visible:=False;
+            end
+          else
+            begin
+              iArticle.Picture.Clear;
+              acPasteImage.Visible:=True;
+              acAddImage.Visible:=True;
+              acScreenshot.Visible:=True;
+            end;
+          aThumbnails.Free;
+        end;
+    end;
+end; }
+procedure TfRepairImages.acScreenshotExecute(Sender: TObject);
+var
+  aSheet: TTabSheet;
+  aThumbnails: TThumbnails;
+  aStream: TFileStream;
+  sThumb: TMemoryStream;
+begin
+  Application.ProcessMessages;
+  Application.MainForm.Hide;
+  Self.Hide;
+  Application.ProcessMessages;
+  Application.CreateForm(TfScreenshot,fScreenshot);
+  with BaseApplication as IBaseApplication do
+    fScreenshot.SaveTo:=AppendPathDelim(GetInternalTempDir)+'screenshot.jpg';
+  fScreenshot.Show;
+  while fScreenshot.Visible do Application.ProcessMessages;
+  fScreenshot.Destroy;
+  fScreenshot := nil;
+  if DataSet.State=dsInsert then
+    begin
+      DataSet.Post;
+      DataSet.Edit;
+    end;
+  aThumbnails := TThumbnails.Create(nil,Data);
+  aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+  aThumbnails.Open;
+  while aThumbnails.Count>0 do
+    aThumbnails.Delete;
+  with BaseApplication as IBaseApplication do
+    aStream := TFileStream.Create(AppendPathDelim(GetInternalTempDir)+'screenshot.jpg',fmOpenRead);
+  sThumb := TMemoryStream.Create;
+  if uthumbnails.GenerateThumbNail('.jpg',aStream,sThumb,'') then
+    begin
+      aThumbnails.Insert;
+      aThumbnails.FieldByName('REF_ID_ID').AsVariant:=DataSet.Id.AsVariant;
+      if sThumb.Size>0 then
+        Data.StreamToBlobField(sThumb,aThumbnails.DataSet,'THUMBNAIL');
+      aThumbnails.Post;
+    end;
+  aStream.Free;
+  if aThumbnails.Count>0 then
+    begin
+      sThumb  := TMemoryStream.Create;
+      Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',sThumb);
+      sThumb.Position:=0;
+      iArticle.Picture.LoadFromStreamWithFileExt(sThumb,'jpg');
+      sThumb.Free;
+      acPasteImage.Visible:=False;
+      acAddImage.Visible:=False;
+      acScreenshot.Visible:=False;
+    end
+  else
+    begin
+      iArticle.Picture.Clear;
+      acPasteImage.Visible:=True;
+      acAddImage.Visible:=True;
+      acScreenshot.Visible:=True;
+    end;
+  aThumbnails.Free;
+  Application.MainForm.Show;
+  Self.Show;
+end;
 procedure TfRepairImages.Datasource1StateChange(Sender: TObject);
 begin
   if DataSet.State=dsInsert then
     eName.SetFocus;
 end;
+
 procedure TfRepairImages.AddImages(Sender: TObject);
 begin
   TfImageFrame(Sender).DataSet := TOrderRepairImages(FDataSet).Images;
@@ -88,6 +214,18 @@ begin
   TfHistoryFrame(Sender).SetRights(True);
 end;
 
+procedure TfRepairImages.cbStatusSelect(Sender: TObject);
+var
+  tmp: String;
+begin
+  tmp := copy(cbStatus.text,pos('(',cbStatus.text)+1,length(cbStatus.text));
+  tmp := copy(tmp,0,pos(')',tmp)-1);
+  if not FDataSet.CanEdit then FDataSet.DataSet.Edit;
+  FDataSet.FieldByName('STATUS').AsString:=tmp;
+  FDataSet.Post;
+  DoOpen;
+end;
+
 procedure TfRepairImages.AddDocuments(Sender: TObject);
 var
   aDocuments: TDocuments;
@@ -103,6 +241,7 @@ end;
 
 procedure TfRepairImages.DataSetDataSetAfterScroll(DataSet: TDataSet);
 begin
+  Application.ProcessMessages;
   DoOpen;
 end;
 
@@ -122,6 +261,11 @@ procedure TfRepairImages.DoOpen;
 var
   aDocuments: TDocuments;
   aDocFrame: TfDocumentFrame;
+  aType: Char;
+  aFound: Boolean;
+  aThumbnails: TThumbnails;
+  tmp: String;
+  aStream: TMemoryStream;
 begin
   pcPages.CloseAll;
   pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
@@ -151,10 +295,74 @@ begin
           aDocFrame.BaseElement := FDataSet;
         end;
     end;
-   pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
-  TOrderRepairImages(DataSet).Links.Open;
-  if TOrderRepairImages(DataSet).Links.Count > 0 then
-    pcPages.AddTab(TfLinkFrame.Create(Self),False);
+
+  cbStatus.Items.Clear;
+  cbStatus.Text := '';
+  aType := 'R';
+  if not Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
+    begin
+      Data.SetFilter(Data.States,'');
+      aFound := Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]);
+    end
+  else aFound := True;
+  if aFound then
+    begin
+      cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+      cbStatus.Text := Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')';
+    end
+  else cbStatus.Text:=FDataSet.FieldByName('STATUS').AsString;
+  tmp := trim(Data.States.FieldByName('DERIVATIVE').AsString);
+  if (length(tmp) = 0) or (tmp[length(tmp)] <> ';') then
+    tmp := tmp+';';
+  if tmp <> ';' then
+    begin
+      while pos(';',tmp) > 0 do
+        begin
+          if Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,copy(tmp,0,pos(';',tmp)-1)]),[loCaseInsensitive]) then
+            cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+          tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+        end;
+    end
+  else
+    begin
+      Data.SetFilter(Data.States,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+      with Data.States.DataSet do
+        begin
+          First;
+          while not eof do
+            begin
+              if cbStatus.Items.IndexOf(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')') = -1 then
+                cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+              Next;
+            end;
+        end;
+    end;
+  aThumbnails := TThumbnails.Create(nil,Data);
+  aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+  aThumbnails.Open;
+  if aThumbnails.Count>0 then
+    begin
+      aStream := TMemoryStream.Create;
+      Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+      aStream.Position:=0;
+      iArticle.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+      aStream.Free;
+      acPasteImage.Visible:=False;
+      acAddImage.Visible:=False;
+      acScreenshot.Visible:=False;
+    end
+  else
+    begin
+      iArticle.Picture.Clear;
+      acPasteImage.Visible:=True;
+      acAddImage.Visible:=True;
+      acScreenshot.Visible:=True;
+    end;
+  aThumbnails.Free;
+//  pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
+//  TOrderRepairImages(DataSet).Links.Open;
+//  if TOrderRepairImages(DataSet).Links.Count > 0 then
+//    pcPages.AddTab(TfLinkFrame.Create(Self),False);
 end;
 
 procedure TfRepairImages.SetLanguage;

@@ -10,6 +10,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
+msgid "(aktive Version)"
+msgstr ""
+
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
 msgstr ""
@@ -430,7 +433,7 @@ msgid "lArticle"
 msgstr ""
 
 #: tfarticleframe.acaddimage.caption
-msgid "acAddImage"
+msgid "aus Bilddatei laden"
 msgstr ""
 
 #: tfarticleframe.accancel.caption
@@ -464,7 +467,7 @@ msgid "Einfügen"
 msgstr ""
 
 #: tfarticleframe.acpasteimage.caption
-msgid "acPasteImage"
+msgid "aus Zwischenablage einfügen"
 msgstr ""
 
 #: tfarticleframe.acprint.caption
@@ -488,7 +491,7 @@ msgid "Speichert alle Änderungen in die Datenbank"
 msgstr ""
 
 #: tfarticleframe.acscreenshot.caption
-msgid "acScreenshot"
+msgid "aus Bildschirmfoto erstellen"
 msgstr ""
 
 #: tfarticleframe.acsettreedir.caption

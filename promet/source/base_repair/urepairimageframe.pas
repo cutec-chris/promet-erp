@@ -149,6 +149,12 @@ begin
     with TfPosition(Owner).DataSet as TOrderPos do
       begin
         cbImage.Clear;
+        if Self.Repair.DataSet = Repair.DataSet then exit;
+        fRepairImages.SetLanguage;
+        Repair.Open;
+        FImages := TOrderRepairImages.Create(nil,Data);
+        Position.DataSet := DataSet;
+        Self.Repair.DataSet := Repair.DataSet;
         if Repair.Count>0 then
           begin
             FImages.Select(Repair.FieldByName('ERRIMAGE').AsVariant);
@@ -156,12 +162,6 @@ begin
             if FImages.Count>0 then
               cbImage.Text:=FImages.FieldByName('NAME').AsString;
           end;
-        if Self.Repair.DataSet = Repair.DataSet then exit;
-        fRepairImages.SetLanguage;
-        Repair.Open;
-        FImages := TOrderRepairImages.Create(nil,Data);
-        Position.DataSet := DataSet;
-        Self.Repair.DataSet := Repair.DataSet;
       end;
 end;
 

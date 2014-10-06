@@ -115,7 +115,7 @@ type
     FImages: TImages;
     FLinks: TPersonLinks;
     FPersonAddress: TPersonAddress;
-    FSTatus : string;
+    FStatus : string;
     FDS : TDataSource;
     FStateChange: TNotifyEvent;
     function GetAccountNo: TField;

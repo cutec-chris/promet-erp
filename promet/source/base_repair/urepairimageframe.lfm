@@ -119,7 +119,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
     DataSource = Repair
     ItemHeight = 15
     MaxLength = 0
-    TabOrder = 7
+    TabOrder = 8
   end
   object mErrordesc: TDBMemo[11]
     Left = 8
@@ -139,7 +139,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
     Anchors = [akTop, akLeft, akBottom]
     DataField = 'NOTES'
     DataSource = Repair
-    TabOrder = 8
+    TabOrder = 7
     Tabstop = False
   end
   object mInternalNotes: TDBMemo[13]
