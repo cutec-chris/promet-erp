@@ -107,7 +107,7 @@ end;
 procedure TfScriptOptions.FScriptsWriteln(const s: string);
 begin
   aScript.Edit;
-  aScript.FieldByName('LASTRESULT').AsString:=FScripts.FieldByName('LASTRESULT').AsString+lineending+s;
+  aScript.FieldByName('LASTRESULT').AsString:=aScript.FieldByName('LASTRESULT').AsString+lineending+s;
   aScript.Post;
 end;
 constructor TfScriptOptions.Create(TheOwner: TComponent);
