@@ -1026,6 +1026,7 @@ begin
   SortType := stIgnored;
   FUpStdFields := True;
   FUpChangedBy := True;
+  FUseIntegrity:=False;//disable for sync
 end;
 destructor TZeosDBDataSet.Destroy;
 begin

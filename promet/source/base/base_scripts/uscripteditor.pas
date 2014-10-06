@@ -139,6 +139,7 @@ type
     procedure edStatusChange(Sender: TObject; Changes: TSynStatusChanges);
     function DebuggerNeedFile(Sender: TObject; const OrginFileName: String; var FileName, Output: String): Boolean;
     procedure DebuggerBreakpoint(Sender: TObject; const FileName: String; bPosition, Row, Col: Cardinal);
+    procedure messagesClick(Sender: TObject);
     procedure messagesDblClick(Sender: TObject);
     procedure Gotolinenumber1Click(Sender: TObject);
     procedure Find1Click(Sender: TObject);
@@ -168,6 +169,11 @@ type
   public
     function SaveCheck: Boolean;
     function Execute(aScript: string; aConnection: TComponent = nil): Boolean;
+  end;
+  TMessageObject = class
+  public
+    X : Integer;
+    Y : Integer;
   end;
 
 var
@@ -479,14 +485,18 @@ end;
 function TfScriptEditor.Compile: Boolean;
 var
   i: Longint;
+  mo: TMessageObject;
 begin
   Debugger.Script.Assign(ed.Lines);
   Result := Debugger.Compile;
   messages.Clear;
   for i := 0 to Debugger.CompilerMessageCount -1 do
-  begin
-    Messages.Items.Add(Debugger.CompilerMessages[i].MessageToString);
-  end;
+    begin
+      mo := TMessageObject.Create;
+      mo.X:=Debugger.CompilerMessages[i].Col;
+      mo.Y:=Debugger.CompilerMessages[i].Row;
+      Messages.Items.AddObject('('+IntToStr(Debugger.CompilerMessages[i].Col)+','+IntToStr(Debugger.CompilerMessages[i].Row)+') '+Debugger.CompilerMessages[i].MessageToString,mo);
+    end;
   if Result then
     Messages.Items.Add(STR_SUCCESSFULLY_COMPILED)
   else
@@ -626,7 +636,7 @@ begin
   if Result then
     FDataSet.Post;
   FDataSet.Close;
-  FEnviroment.Free;
+  FreeAndNil(FEnviroment);
 end;
 
 procedure TfScriptEditor.edStatusChange(Sender: TObject;
@@ -668,6 +678,21 @@ begin
   ed.Refresh;
   acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
   acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+end;
+
+procedure TfScriptEditor.messagesClick(Sender: TObject);
+var
+  mo: TObject;
+begin
+  if messages.ItemIndex>-1 then
+    begin
+      mo := messages.Items.Objects[messages.ItemIndex];
+      if Assigned(mo) then
+        begin
+          ed.CaretY:=TMessageObject(mo).Y;
+          ed.CaretX:=TMessageObject(mo).X;
+        end;
+    end;
 end;
 
 procedure TfScriptEditor.SetActiveFile(const Value: string);

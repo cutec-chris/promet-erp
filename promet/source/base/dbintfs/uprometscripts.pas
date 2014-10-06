@@ -43,14 +43,16 @@ type
     Parent : TBaseScript;
     FStatus : string;
     FResults : string;
+    FScript : string;
+    FSyntax: String;
     aConnection: TComponent;
-    FRec: LargeInt;
     aDS: TDataSet;
     CompleteOutput : string;
     procedure SetStatus;
     procedure SetResults;
     procedure SQLConn;
     procedure SQLConnF;
+    procedure GetScript;
     procedure DoWriteln;
   public
     FProcess : TProcess;
@@ -60,11 +62,13 @@ type
     function InternalKill: Boolean;
     constructor Create(Parameters : Variant;aParent : TBaseScript);
     procedure Execute; override;
+    destructor Destroy; override;
   end;
 
   { TBaseScript }
 
   TBaseScript = class(TBaseDBDataset)
+    procedure FThreadTerminate(Sender: TObject);
   private
     CompleteOutput : string;
     FRlFunc: TReadlnFunc;
@@ -97,6 +101,7 @@ function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
 var
   aScript: TBaseScript;
   aHistory: TBaseHistory;
+  bScript: TBaseScript;
 begin
   aScript := TBaseScript.Create(nil,Data);
   aScript.Filter(Data.QuoteField('RUNEVERY')+'>'+Data.QuoteValue('0'));
@@ -104,7 +109,14 @@ begin
     begin
       if (aScript.FieldByName('STATUS').AsString<>'E') and ((aScript.FieldByName('RUNMASHINE').AsString='') or (pos(GetSystemName,aScript.FieldByName('RUNMASHINE').AsString)>0)) then
         if aScript.FieldByName('LASTRUN').AsDateTime+(aScript.FieldByName('RUNEVERY').AsInteger/MinsPerDay)<Now() then
-          aScript.Execute(Null);
+          begin
+            bScript := TBaseScript.Create(nil,aScript.DataModule,aScript.Connection);
+            bScript.Select(aScript.Id.AsVariant);
+            bScript.Open;
+            if bScript.Count=1 then
+              bScript.Execute(Null);
+            bScript.Free;
+          end;
       aScript.Next;
     end;
   aScript.Filter(Data.QuoteField('RUNONHISTORY')+'='+Data.QuoteValue('Y'));
@@ -121,7 +133,12 @@ begin
                 while not aHistory.DataSet.BOF do
                   begin
                     aHistory.Prior;
-                    aScript.Execute(VarArrayOf([aHistory.FieldByName('ACTION').AsString,aHistory.FieldByName('DATE').AsDateTime]));
+                    bScript := TBaseScript.Create(nil,aScript.DataModule,aScript.Connection);
+                    bScript.Select(aScript.Id.AsVariant);
+                    bScript.Open;
+                    if bScript.Count=1 then
+                      bScript.Execute(VarArrayOf([aHistory.FieldByName('ACTION').AsString,aHistory.FieldByName('DATE').AsDateTime]));
+                    bScript.Free;
                   end;
               end;
           aScript.Next;
@@ -160,7 +177,8 @@ begin
       while pos(#10,CompleteOutput)>0 do
         begin
           aLine := copy(CompleteOutput,0,pos(#10,CompleteOutput)-1);
-          FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
+          if Assigned(FRuntime) then
+            FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
           CompleteOutput:=copy(CompleteOutput,pos(#10,CompleteOutput)+1,length(CompleteOutput));
         end;
       if not FProcess.Active then
@@ -226,7 +244,6 @@ end;
 
 procedure TScriptThread.SetStatus;
 begin
-  Parent.GotoBookmark(FRec);
   Parent.Edit;
   Parent.FieldByName('STATUS').AsString:=FStatus;
   Parent.Post;
@@ -234,7 +251,6 @@ end;
 
 procedure TScriptThread.SetResults;
 begin
-  Parent.GotoBookmark(FRec);
   Parent.Edit;
   Parent.FieldByName('LASTRESULT').AsString:=FResults;
   Parent.Post;
@@ -244,7 +260,6 @@ procedure TScriptThread.SQLConn;
 var
   aSQL: String;
 begin
-  Parent.GotoBookmark(FRec);
   aConnection := TBaseDBModule(Parent.DataModule).GetNewConnection;
   aSQL := ReplaceSQLFunctions(Parent.FieldByName('SCRIPT').AsString);
   aDS := TBaseDBModule(Parent.DataModule).GetNewDataSet(aSQL);
@@ -253,6 +268,11 @@ end;
 procedure TScriptThread.SQLConnF;
 begin
   aConnection.Free;
+end;
+
+procedure TScriptThread.GetScript;
+begin
+  FScript:=Parent.FieldByName('SCRIPT').AsString;
 end;
 
 procedure TScriptThread.DoWriteln;
@@ -264,8 +284,8 @@ constructor TScriptThread.Create(Parameters: Variant; aParent: TBaseScript);
 begin
   Params := Parameters;
   Parent := aParent;
-  if Assigned(aParent) then
-    FRec := aParent.GetBookmark;
+  if Assigned(aParent) and (aParent.Active) then
+    FSyntax := Parent.FieldByName('SYNTAX').AsString;
   inherited Create(True)
 end;
 
@@ -282,7 +302,7 @@ begin
   FResults := '';
   Synchronize(@SetResults);
   try
-    if lowercase(Parent.FieldByName('SYNTAX').AsString) = 'sql' then
+    if lowercase(Fsyntax) = 'sql' then
       begin
         try
           Synchronize(@SQLConn);
@@ -302,12 +322,13 @@ begin
         end;
         Synchronize(@SQLConnF);
       end
-    else if lowercase(Parent.FieldByName('SYNTAX').AsString) = 'pascal' then
+    else if lowercase(FSyntax) = 'pascal' then
       begin
         Compiler:= TPSPascalCompiler.Create;
         Compiler.OnUses:= @ExtendICompiler;
         try
-          Result:= Compiler.Compile(Parent.FieldByName('SCRIPT').AsString) and Compiler.GetOutput(Bytecode);
+          Synchronize(@GetScript);
+          Result:= Compiler.Compile(FScript) and Compiler.GetOutput(Bytecode);
           FResults:='';
           for i:= 0 to Compiler.MsgCount - 1 do
             if Length(FResults) = 0 then
@@ -351,6 +372,25 @@ begin
       end;
   except
   end;
+end;
+
+destructor TScriptThread.Destroy;
+begin
+  if Assigned(FProcess) then
+    begin
+      if Assigned(FProcess) then
+        FProcess.Terminate(0);
+      if Assigned(FRuntime) then
+        FRuntime.Stop;
+      Self.Terminate;
+      Self.WaitFor;
+    end;
+  inherited Destroy;
+end;
+
+procedure TBaseScript.FThreadTerminate(Sender: TObject);
+begin
+  TScriptThread(Sender).Free;
 end;
 
 procedure TBaseScript.InternalWrite(const s: string);
@@ -410,6 +450,7 @@ function TBaseScript.Execute(Parameters: Variant): Boolean;
 begin
   Result := True;
   FThread := TScriptThread.Create(Parameters,Self);
+  FThread.OnTerminate:=@FThreadTerminate;
   FThread.Resume;
 end;
 

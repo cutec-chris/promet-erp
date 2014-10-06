@@ -42,6 +42,7 @@ type
     SpeedButton2: TSpeedButton;
     procedure acEditExecute(Sender: TObject);
     procedure acExecuteExecute(Sender: TObject);
+    procedure FScriptsDataSetBeforeScroll(DataSet: TDataSet);
     procedure FScriptsWriteln(const s: string);
   private
     { private declarations }
@@ -73,13 +74,35 @@ end;
 procedure TfScriptOptions.acExecuteExecute(Sender: TObject);
 var
   aRec: TBookmark;
+  aScript: TBaseScript;
 begin
-  FScripts.Writeln:=@FScriptsWriteln;
-  FScripts.Execute(Null);
-  aRec := Scripts.DataSet.GetBookmark;
-  Scripts.DataSet.Refresh;
-  Scripts.DataSet.GotoBookmark(aRec);
+  aScript := TBaseScript.Create(nil,Data);
+  aScript.Select(FScripts.Id.AsVariant);
+  aScript.Open;
+  aScript.Writeln:=@FScriptsWriteln;
+  aScript.Execute(Null);
+  aScript.DataSet.Refresh;
+  aRec := FScripts.DataSet.GetBookmark;
+  FScripts.DataSet.Refresh;
+  FScripts.DataSet.GotoBookmark(aRec);
+  while aScript.DataSet.FieldByName('STATUS').AsString='R' do
+    begin
+      Application.ProcessMessages;
+      aScript.DataSet.Refresh;
+    end;
+  aScript.Free;
+  aRec := FScripts.DataSet.GetBookmark;
+  FScripts.DataSet.Refresh;
+  FScripts.DataSet.GotoBookmark(aRec);
 end;
+
+procedure TfScriptOptions.FScriptsDataSetBeforeScroll(DataSet: TDataSet);
+var
+  aRec: TBookmark;
+begin
+  aRec := Scripts.DataSet.GetBookmark;
+end;
+
 procedure TfScriptOptions.FScriptsWriteln(const s: string);
 begin
   FScripts.Edit;
