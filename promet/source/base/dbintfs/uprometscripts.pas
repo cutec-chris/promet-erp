@@ -40,7 +40,7 @@ type
   TScriptThread = class(TThread)
   private
     Params : Variant;
-    Parent : TBaseScript;
+    FParent : TBaseScript;
     FStatus : string;
     FResults : string;
     FScript : string;
@@ -244,25 +244,26 @@ end;
 
 procedure TScriptThread.SetStatus;
 begin
-  Parent.Edit;
-  Parent.FieldByName('STATUS').AsString:=FStatus;
-  Parent.Post;
+  if not Assigned(FParent) then exit;
+  FParent.Edit;
+  FParent.FieldByName('STATUS').AsString:=FStatus;
+  FParent.Post;
 end;
 
 procedure TScriptThread.SetResults;
 begin
-  Parent.Edit;
-  Parent.FieldByName('LASTRESULT').AsString:=FResults;
-  Parent.Post;
+  FParent.Edit;
+  FParent.FieldByName('LASTRESULT').AsString:=FResults;
+  FParent.Post;
 end;
 
 procedure TScriptThread.SQLConn;
 var
   aSQL: String;
 begin
-  aConnection := TBaseDBModule(Parent.DataModule).GetNewConnection;
-  aSQL := ReplaceSQLFunctions(Parent.FieldByName('SCRIPT').AsString);
-  aDS := TBaseDBModule(Parent.DataModule).GetNewDataSet(aSQL);
+  aConnection := TBaseDBModule(FParent.DataModule).GetNewConnection;
+  aSQL := ReplaceSQLFunctions(FParent.FieldByName('SCRIPT').AsString);
+  aDS := TBaseDBModule(FParent.DataModule).GetNewDataSet(aSQL);
 end;
 
 procedure TScriptThread.SQLConnF;
@@ -272,20 +273,20 @@ end;
 
 procedure TScriptThread.GetScript;
 begin
-  FScript:=Parent.FieldByName('SCRIPT').AsString;
+  FScript:=FParent.FieldByName('SCRIPT').AsString;
 end;
 
 procedure TScriptThread.DoWriteln;
 begin
-  if Assigned(Parent.FWrFunc) then Parent.FWrFunc(FResults);
+  if Assigned(FParent.FWrFunc) then FParent.FWrFunc(FResults);
 end;
 
 constructor TScriptThread.Create(Parameters: Variant; aParent: TBaseScript);
 begin
   Params := Parameters;
-  Parent := aParent;
-  if Assigned(aParent) and (aParent.Active) then
-    FSyntax := Parent.FieldByName('SYNTAX').AsString;
+  FParent := aParent;
+  if Assigned(FParent) and (FParent.Active) then
+    FSyntax := FParent.FieldByName('SYNTAX').AsString;
   inherited Create(True)
 end;
 
@@ -345,7 +346,7 @@ begin
             FRuntime:= TPSExec.Create;
             ClassImporter:= TPSRuntimeClassImporter.CreateAndRegister(FRuntime, false);
             try
-              ExtendIRuntime(FRuntime, ClassImporter, Parent);
+              ExtendIRuntime(FRuntime, ClassImporter, FParent);
               Result:= FRuntime.LoadData(Bytecode)
                     and FRuntime.RunScript
                     and (FRuntime.ExceptionCode = erNoError);

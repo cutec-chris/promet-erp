@@ -692,6 +692,15 @@ var
                 aHRef.AppendChild(aDocument.CreateTextNode(aPath+'user/'));
                 RemoveProp(':current-user-principal');
               end;
+            if (FindProp(':calendar-user-address-set') > -1)  then
+              begin
+                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-user-address-set')]);
+                aProp.AppendChild(apropD);
+                aHref := aDocument.CreateElement(prefix+':href');
+                aPropD.AppendChild(aHref);
+                aHRef.AppendChild(aDocument.CreateTextNode(aPath+'user/'));
+                RemoveProp(':calendar-user-address-set');
+              end;
             if (FindProp(':calendar-home-set') > -1) then
               begin
                 tmp := aNotFoundProp.ValueFromIndex[FindProp(':calendar-home-set')];
@@ -754,6 +763,24 @@ var
                     aPropF := aPropE.AppendChild(aDocument.CreateElement(prefix+':report'));
                     aPropG := aPropF.AppendChild(aDocument.CreateElement(aPrefix+':calendar-multiget'));
                     RemoveProp(':supported-report-set');
+                  end;
+                if FindProp(':current-user-privilege-set') > -1 then
+                  begin
+                    tmp := aNotFoundProp.ValueFromIndex[FindProp(':current-user-privilege-set')];
+                    aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':current-user-privilege-set')]);
+                    aPrefix := copy(aPropD.NodeName,0,pos(':',aPropD.NodeName)-1);
+                    aProp.AppendChild(aPropD);
+                    aPropE := aPropD.AppendChild(aDocument.CreateElement(prefix+':privilege'));
+                    aPropF := aPropE.AppendChild(aDocument.CreateElement(prefix+':read'));
+                    aPropE := aPropD.AppendChild(aDocument.CreateElement(prefix+':privilege'));
+                    aPropF := aPropE.AppendChild(aDocument.CreateElement(prefix+':read-acl'));
+                    aPropE := aPropD.AppendChild(aDocument.CreateElement(prefix+':privilege'));
+                    aPropF := aPropE.AppendChild(aDocument.CreateElement(prefix+':read-current-user-privilege-set'));
+                    aPropE := aPropD.AppendChild(aDocument.CreateElement(prefix+':privilege'));
+                    aPropF := aPropE.AppendChild(aDocument.CreateElement(prefix+':write'));
+                    aPropE := aPropD.AppendChild(aDocument.CreateElement(prefix+':privilege'));
+                    aPropF := aPropE.AppendChild(aDocument.CreateElement(prefix+':write-acl'));
+                    RemoveProp(':current-user-privilege-set');
                   end;
                 if FindProp(':supported-calendar-component-set') > -1 then
                   begin

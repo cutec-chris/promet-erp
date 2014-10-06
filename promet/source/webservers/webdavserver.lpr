@@ -325,7 +325,7 @@ begin
                   aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
                   aItem.Properties.Values['getcontenttype'] := 'text/calendar';
                   aItem.Properties.Values['displayname'] := aItem.Name;
-                  aItem.CalendarHomeSet:=aDir;
+                  aItem.CalendarHomeSet:='/caldav/';
                   if Assigned(aDirList) then
                     aDirList.Add(aItem)
                   else aDirList := aItem;
@@ -391,7 +391,7 @@ begin
                   aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
                   aItem.Properties.Values['getcontenttype'] := 'text/calendar';
                   aItem.Properties.Values['displayname'] := aItem.Name;
-                  aItem.CalendarHomeSet:=aDir;
+                  aItem.CalendarHomeSet:='/caldav/';
                   if Assigned(aDirList) then
                     aDirList.Add(aItem)
                   else aDirList := aItem;
