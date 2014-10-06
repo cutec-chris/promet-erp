@@ -48,6 +48,7 @@ type
     { private declarations }
     aConnection: TComponent;
     FScripts: TBaseScript;
+    aScript: TBaseScript;
   public
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
@@ -74,7 +75,6 @@ end;
 procedure TfScriptOptions.acExecuteExecute(Sender: TObject);
 var
   aRec: TBookmark;
-  aScript: TBaseScript;
 begin
   aScript := TBaseScript.Create(nil,Data);
   aScript.Select(FScripts.Id.AsVariant);
@@ -90,6 +90,7 @@ begin
       Application.ProcessMessages;
       aScript.DataSet.Refresh;
     end;
+  aScript.Post;
   aScript.Free;
   aRec := FScripts.DataSet.GetBookmark;
   FScripts.DataSet.Refresh;
@@ -105,9 +106,9 @@ end;
 
 procedure TfScriptOptions.FScriptsWriteln(const s: string);
 begin
-  FScripts.Edit;
-  FScripts.FieldByName('LASTRESULT').AsString:=FScripts.FieldByName('LASTRESULT').AsString+lineending+s;
-  FScripts.Post;
+  aScript.Edit;
+  aScript.FieldByName('LASTRESULT').AsString:=FScripts.FieldByName('LASTRESULT').AsString+lineending+s;
+  aScript.Post;
 end;
 constructor TfScriptOptions.Create(TheOwner: TComponent);
 begin

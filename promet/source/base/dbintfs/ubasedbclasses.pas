@@ -1355,7 +1355,8 @@ end;
 
 procedure TBaseDBDataset.Post;
 begin
-  FDataSet.Post;
+  if CanEdit then
+    FDataSet.Post;
 end;
 
 procedure TBaseDBDataset.Edit;
@@ -2968,4 +2969,4 @@ begin
 end;
 initialization
 end.
-
+
