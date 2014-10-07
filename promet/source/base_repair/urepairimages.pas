@@ -53,7 +53,8 @@ type
     procedure eFilterEnter(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure acScreenshotExecute(Sender: TObject);
-    //procedure acPasteImageExecute(Sender: TObject);
+    procedure acPasteImageExecute(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { private declarations }
     FDataSet: TOrderRepairImages;
@@ -82,51 +83,63 @@ begin
   DataSet.CreateTable;
   DataSet.Open;
 end;
-{procedure TfRepairImages.acPasteImageExecute(Sender: TObject);
+procedure TfRepairImages.acPasteImageExecute(Sender: TObject);
 var
   aSheet: TTabSheet;
   aThumbnails: TThumbnails;
   aStream: TMemoryStream;
+  Bitmap : TBitmap;
+  sThumb: TMemoryStream;
 begin
   if Clipboard.HasPictureFormat then
     begin
-      pcPages.AddTab(TfImageFrame.Create(Self),False);
-      aSheet := pcPages.GetTab(TfImageFrame);
-      if Assigned(aSheet) then
+      Bitmap := TBitmap.Create;
+      Bitmap.LoadFromClipboardFormat(Clipboard.FindPictureFormatID);
+      aStream := TMemoryStream.Create;
+      Bitmap.SaveToStream(aStream);
+      aStream.Position:=0;
+      aThumbnails := TThumbnails.Create(nil,Data);
+      aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+      aThumbnails.Open;
+      while aThumbnails.Count>0 do
+        aThumbnails.Delete;
+      sThumb := TMemoryStream.Create;
+      if uthumbnails.GenerateThumbNail('.bmp',aStream,sThumb,'') then
         begin
-          Application.ProcessMessages;
-          TfImageFrame(aSheet.Controls[0]).acPaste.Execute;
-          TfImageFrame(aSheet.Controls[0]).DataSet.Post;
-          aThumbnails := TThumbnails.Create(nil,Data);
-          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
-          aThumbnails.Open;
-          while aThumbnails.Count>0 do
-            aThumbnails.Delete;
-          //TMasterdata(DataSet).GenerateThumbnail;
-          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
-          aThumbnails.Open;
-          if aThumbnails.Count>0 then
-            begin
-              aStream := TMemoryStream.Create;
-              Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
-              aStream.Position:=0;
-              iArticle.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
-              aStream.Free;
-              acPasteImage.Visible:=False;
-              acAddImage.Visible:=False;
-              acScreenshot.Visible:=False;
-            end
-          else
-            begin
-              iArticle.Picture.Clear;
-              acPasteImage.Visible:=True;
-              acAddImage.Visible:=True;
-              acScreenshot.Visible:=True;
-            end;
-          aThumbnails.Free;
+          aThumbnails.Insert;
+          aThumbnails.FieldByName('REF_ID_ID').AsVariant:=DataSet.Id.AsVariant;
+          if sThumb.Size>0 then
+            Data.StreamToBlobField(sThumb,aThumbnails.DataSet,'THUMBNAIL');
+          aThumbnails.Post;
         end;
+      aStream.Free;
+      if aThumbnails.Count>0 then
+        begin
+          sThumb  := TMemoryStream.Create;
+          Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',sThumb);
+          sThumb.Position:=0;
+          iArticle.Picture.LoadFromStreamWithFileExt(sThumb,'jpg');
+          sThumb.Free;
+          acPasteImage.Visible:=False;
+          acAddImage.Visible:=False;
+          acScreenshot.Visible:=False;
+        end
+      else
+        begin
+          iArticle.Picture.Clear;
+          acPasteImage.Visible:=True;
+          acAddImage.Visible:=True;
+          acScreenshot.Visible:=True;
+        end;
+      aThumbnails.Free;
     end;
-end; }
+end;
+
+procedure TfRepairImages.FormDestroy(Sender: TObject);
+begin
+  DataSet.Destroy;
+end;
+
 procedure TfRepairImages.acScreenshotExecute(Sender: TObject);
 var
   aSheet: TTabSheet;

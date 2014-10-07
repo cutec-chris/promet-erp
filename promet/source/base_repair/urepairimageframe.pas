@@ -52,6 +52,7 @@ type
     { public declarations }
     procedure SetRights(Editable: Boolean); override;
     procedure SetLanguage;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -179,6 +180,13 @@ begin
   cbOperation.Items.Add(strWaitingforCustomer);
   cbOperation.Items.Add(strAssemblyexchanged);
   cbOperation.Items.Add(strIsNew);
+end;
+
+destructor TfRepairImageFrame.Destroy;
+begin
+  if Assigned(fRepairImages) then
+    FreeAndNil(fRepairImages);
+  inherited Destroy;
 end;
 
 { TfRepairImageFrame }

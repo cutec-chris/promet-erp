@@ -8,6 +8,7 @@ object fRepairImages: TfRepairImages
   ClientHeight = 480
   ClientWidth = 719
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   Position = poMainFormCenter
   LCLVersion = '1.3'
   object gList: TDBGrid
@@ -356,6 +357,7 @@ object fRepairImages: TfRepairImages
     top = 96
     object acPasteImage: TAction
       Caption = 'aus Zwischenablage einfügen'
+      OnExecute = acPasteImageExecute
     end
     object acAddImage: TAction
       Caption = 'aus Bilddatei laden'
