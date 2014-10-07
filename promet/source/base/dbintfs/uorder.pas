@@ -76,16 +76,23 @@ type
   public
     procedure FillDefaults(aDataSet : TDataSet);override;
   end;
+
+  { TOrderRepairImages }
+
   TOrderRepairImages = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
+    procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FHistory: TBaseHistory;
+    FStatus : string;
     FImages: TImages;
     FLinks: TRepairImageLinks;
+    FDS : TDataSource;
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
+    procedure Open; override;
     function CreateTable: Boolean; override;
     property History : TBaseHistory read FHistory;
     property Images : TImages read FImages;
@@ -197,7 +204,8 @@ type
     function CalcDispatchType : Boolean;
   end;
 implementation
-uses uBaseDBInterface, uBaseSearch, uData, Process, UTF8Process,uRTFtoTXT;
+uses uBaseDBInterface, uBaseSearch, uData, Process, UTF8Process,uRTFtoTXT,
+  uIntfStrConsts;
 resourcestring
   strStatusnotfound             = 'Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator';
   strMainOrdernotfound          = 'Hauptvorgang nicht gefunden !';
@@ -228,10 +236,23 @@ begin
         with ManagedFieldDefs do
           begin
             Add('NAME',ftString,100,True);
+            Add('STATUS',ftString,4,false);
             Add('SYMTOMS',ftString,800,False);
             Add('DESC',ftMemo,0,False);
             Add('SOLVE',ftMemo,0,False);
           end;
+    end;
+end;
+
+procedure TOrderRepairImages.FDSDataChange(Sender: TObject; Field: TField);
+begin
+  if not Assigned(Field) then exit;
+  if DataSet.ControlsDisabled then exit;
+  if Field.FieldName = 'STATUS' then
+    begin
+      History.Open;
+      History.AddItem(Self.DataSet,Format(strStatusChanged,[FStatus,Field.AsString]),'','',nil,ACICON_STATUSCH);
+      FStatus := Field.AsString;
     end;
 end;
 
@@ -242,14 +263,24 @@ begin
   FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
   FImages := TImages.Create(Self,DM,aConnection,DataSet);
   FLinks := TRepairImageLinks.Create(Self,DM,aConnection);
+  FDS := TDataSource.Create(Self);
+  FDS.DataSet := DataSet;
+  FDS.OnDataChange:=@FDSDataChange;
 end;
 
 destructor TOrderRepairImages.Destroy;
 begin
+  FDS.Destroy;
   FLinks.Destroy;
   FImages.Destroy;
   FHistory.Destroy;
   inherited Destroy;
+end;
+
+procedure TOrderRepairImages.Open;
+begin
+  inherited Open;
+  FStatus := FieldByName('STATUS').AsString;
 end;
 
 function TOrderRepairImages.CreateTable: Boolean;
@@ -1711,4 +1742,4 @@ end;
 
 initialization
 end.
-
+
