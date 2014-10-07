@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   DbCtrls, StdCtrls, DBGrids, ButtonPanel, ComCtrls, ExtCtrls, Buttons,
-  uExtControls, uOrder, variants,ActnList;
+  uExtControls, uOrder, variants,ActnList,ExtDlgs;
 
 type
 
@@ -26,6 +26,7 @@ type
     gList: TDBGrid;
     eFilter: TEdit;
     iArticle: TImage;
+    iPreview: TDBImage;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -35,6 +36,7 @@ type
     MenuItem6: TMenuItem;
     mErrordesc: TDBMemo;
     mSolve: TDBMemo;
+    OpenPictureDialog1: TOpenPictureDialog;
     pCommon: TPanel;
     pcPages: TExtMenuPageControl;
     pmImage: TPopupMenu;
@@ -54,6 +56,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure acScreenshotExecute(Sender: TObject);
     procedure acPasteImageExecute(Sender: TObject);
+    procedure acAddImageExecute(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
     { private declarations }
@@ -82,6 +85,57 @@ begin
   DataSet := TOrderRepairImages.Create(nil,Data);
   DataSet.CreateTable;
   DataSet.Open;
+end;
+procedure TfRepairImages.acAddImageExecute(Sender: TObject);
+var
+  aThumbnails: TThumbnails;
+  aStream: TFileStream;
+  sThumb: TMemoryStream;
+begin
+  if OpenpictureDialog1.Execute then
+    begin
+      if DataSet.State=dsInsert then
+        begin
+          DataSet.Post;
+          DataSet.Edit;
+        end;
+      aThumbnails := TThumbnails.Create(nil,Data);
+      aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+      aThumbnails.Open;
+      while aThumbnails.Count>0 do
+        aThumbnails.Delete;
+      with BaseApplication as IBaseApplication do
+        aStream := TFileStream.Create(OpenPictureDialog1.FileName,fmOpenRead);
+      sThumb := TMemoryStream.Create;
+      if uthumbnails.GenerateThumbNail('.jpg',aStream,sThumb,'') then
+        begin
+          aThumbnails.Insert;
+          aThumbnails.FieldByName('REF_ID_ID').AsVariant:=DataSet.Id.AsVariant;
+          if sThumb.Size>0 then
+            Data.StreamToBlobField(sThumb,aThumbnails.DataSet,'THUMBNAIL');
+          aThumbnails.Post;
+        end;
+      aStream.Free;
+      if aThumbnails.Count>0 then
+        begin
+          sThumb  := TMemoryStream.Create;
+          Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',sThumb);
+          sThumb.Position:=0;
+          iArticle.Picture.LoadFromStreamWithFileExt(sThumb,'jpg');
+          sThumb.Free;
+          acPasteImage.Visible:=False;
+          acAddImage.Visible:=False;
+          acScreenshot.Visible:=False;
+        end
+      else
+        begin
+          iArticle.Picture.Clear;
+          acPasteImage.Visible:=True;
+          acAddImage.Visible:=True;
+          acScreenshot.Visible:=True;
+        end;
+      aThumbnails.Free;
+    end;
 end;
 procedure TfRepairImages.acPasteImageExecute(Sender: TObject);
 var

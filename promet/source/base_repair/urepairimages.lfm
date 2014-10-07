@@ -361,6 +361,7 @@ object fRepairImages: TfRepairImages
     end
     object acAddImage: TAction
       Caption = 'aus Bilddatei laden'
+      OnExecute = acAddImageExecute
     end
     object acScreenshot: TAction
       Caption = 'aus Bildschirmfoto erstellen'
@@ -380,5 +381,9 @@ object fRepairImages: TfRepairImages
     object MenuItem6: TMenuItem
       Action = acScreenshot
     end
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    left = 40
+    top = 208
   end
 end
