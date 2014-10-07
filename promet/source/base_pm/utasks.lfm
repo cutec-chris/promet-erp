@@ -2910,6 +2910,15 @@ inherited fTaskFrame: TfTaskFrame
       ImageIndex = 117
       OnExecute = acMarkProblemExecute
     end
+    object acMoveToProject: TAction
+      Caption = 'in Projekt verschieben'
+      ImageIndex = 13
+      OnExecute = acMoveToProjectExecute
+    end
+    object acAddTasksfromProject: TAction
+      Caption = 'Aufgaben aus Projekt/Prozess holen (dublizieren)'
+      ImageIndex = 13
+    end
   end
   object Datasource: TDataSource[7]
     OnStateChange = DatasourceStateChange
@@ -3337,6 +3346,15 @@ inherited fTaskFrame: TfTaskFrame
       }
     end
     object MenuItem9: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem15: TMenuItem
+      Action = acMoveToProject
+    end
+    object MenuItem16: TMenuItem
+      Action = acAddTasksfromProject
+    end
+    object MenuItem14: TMenuItem
       Caption = '-'
     end
     object MenuItem8: TMenuItem

@@ -2888,6 +2888,7 @@ begin
   gList.BeginUpdate;
   {$endif}
   try
+    gList.Selection:=Rect(-1,-1,-1,-1);
     if UpdateHeader then
       SetupHeader;
     NotDone := TStringList.Create;
@@ -2972,8 +2973,7 @@ begin
       gList.Col := gList.ColCount-1;
     gList.Col := aOldCol;
   except
-    gList.Selection:=Rect(0,0,0,0);
-    debugln('Markedwrong');
+    gList.Selection:=Rect(-1,-1,-1,-1);
   end;
   {$else}
   debugln('SyncDataSourceEnd='+IntToStr(GetTickCount-aTime));

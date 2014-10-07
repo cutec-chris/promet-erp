@@ -59,6 +59,8 @@ type
     acSave: TAction;
     acCancel: TAction;
     acMarkProblem: TAction;
+    acMoveToProject: TAction;
+    acAddTasksfromProject: TAction;
     acUnmakeSubTask: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
@@ -113,6 +115,9 @@ type
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
     MenuItem13: TMenuItem;
+    MenuItem14: TMenuItem;
+    MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem7: TMenuItem;
@@ -188,6 +193,7 @@ type
     procedure acMAkeSubTaskExecute(Sender: TObject);
     procedure acMarkProblemExecute(Sender: TObject);
     procedure acMarkSeenExecute(Sender: TObject);
+    procedure acMoveToProjectExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
@@ -231,6 +237,7 @@ type
       aRow: Integer; var NewText: string);
     procedure FGridViewSetupPosition(Sender: TObject;Columns : TGridColumns);
     function fSearchOpenItem(aLink: string): Boolean;
+    function fSearchOpenItemMulti(aLink: string): Boolean;
     function fSearchOpenOwnerItem(aLink: string): Boolean;
     function fSearchOpenUserItem(aLink: string): Boolean;
     function fSearchOpenUserMailItem(aLink: string): Boolean;
@@ -476,6 +483,38 @@ begin
     end;
   aProject.Free;
 end;
+
+function TfTaskFrame.fSearchOpenItemMulti(aLink: string): Boolean;
+var
+  aProject: TProject;
+  aRow: Integer;
+begin
+  Result := False;
+  aProject := TProject.Create(Self,Data);
+  aProject.SelectFromLink(aLink);
+  aProject.Open;
+  Result := aProject.Count>0;
+  if pSearch.Visible then
+    FGridView.EndUpdate;
+  pSearch.Visible:=False;
+  if Result then
+    for aRow := FGridView.gList.Selection.Bottom+1 downto FGridView.gList.Selection.Top+1 do
+      begin
+        if FGridView.GotoRowNumber(aRow-1) then
+          begin
+            if not FDataSet.CanEdit then
+              FDataSet.DataSet.Edit;
+            FDataSet.FieldByName('PROJECTID').AsString := aProject.Id.AsString;
+            if not FDataSet.CanEdit then
+              FDataSet.DataSet.Edit;
+            FDataSet.FieldByName('PROJECT').AsString := Data.GetLinkDesc(aLink);
+          end
+        else break;
+      end;
+  FGridView.Refresh;
+  aProject.Free;
+end;
+
 function TfTaskFrame.fSearchOpenOwnerItem(aLink: string): Boolean;
 var
   aCount: Integer;
@@ -978,6 +1017,27 @@ begin
     end;
   FGridView.Refresh;
 end;
+
+procedure TfTaskFrame.acMoveToProjectExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strProjects then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenItemMulti;
+  fSearch.Execute(True,'TASKSP',strSearchFromTasks);
+  fSearch.SetLanguage;
+end;
+
 procedure TfTaskFrame.acOpenExecute(Sender: TObject);
 var
   FTaskEdit: TfTaskEdit;
