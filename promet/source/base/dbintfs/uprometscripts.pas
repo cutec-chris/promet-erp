@@ -48,8 +48,8 @@ type
     aDS: TDataSet;
     CompleteOutput : string;
   protected
-    procedure SetStatus;
-    procedure SetResults;
+    procedure DoSetStatus;
+    procedure DoSetResults;
     procedure SQLConn;
     procedure SQLConnF;
     procedure GetScript;
@@ -246,7 +246,7 @@ end;
 
 { TScriptThread }
 
-procedure TScriptThread.SetStatus;
+procedure TScriptThread.DoSetStatus;
 begin
   if not Assigned(Self.FParentDS) then exit;
   Self.FParentDS.Edit;
@@ -254,7 +254,7 @@ begin
   Self.FParentDS.Post;
 end;
 
-procedure TScriptThread.SetResults;
+procedure TScriptThread.DoSetResults;
 begin
   Self.FParentDS.Edit;
   Self.FParentDS.FieldByName('LASTRESULT').AsString:=FResults;
@@ -298,11 +298,11 @@ end;
 
 constructor TScriptThread.Create(Parameters: Variant; aParent: TBaseScript);
 begin
-  inherited Create(True);
   Params := Parameters;
   FParentDS := aParent;
   if Assigned(FParentDS) and (FParentDS.Active) then
     FSyntax := FParentDS.FieldByName('SYNTAX').AsString;
+  inherited Create(True);
 end;
 
 procedure TScriptThread.Execute;
@@ -314,9 +314,9 @@ var
   ClassImporter: TPSRuntimeClassImporter;
 begin
   FStatus := 'R';
-  Self.Synchronize(@SetStatus);
+  Self.Synchronize(@Self.DoSetStatus);
   FResults := '';
-  Synchronize(@SetResults);
+  Synchronize(@Self.DoSetResults);
   try
     if lowercase(Fsyntax) = 'sql' then
       begin
@@ -327,13 +327,13 @@ begin
           with aDS as IBaseDbFilter do
             FResults:='Num Rows Affected: '+IntToStr(NumRowsAffected);
           Synchronize(@DoWriteln);
-          Synchronize(@SetResults);
+          Synchronize(@DoSetResults);
         except
           on e : Exception do
             begin
               FResults := e.Message;
               Synchronize(@DoWriteln);
-              Synchronize(@SetResults);
+              Synchronize(@DoSetResults);
             end;
         end;
         Synchronize(@SQLConnF);
@@ -352,7 +352,7 @@ begin
             else
               FResults:= FResults + #13#10 + Compiler.Msg[i].MessageToString;
           if FResults<>'' then
-            Synchronize(@SetResults);
+            Synchronize(@DoSetResults);
         finally
           Compiler.Free;
         end;
@@ -372,19 +372,19 @@ begin
               FreeAndNil(FRuntime);
             end;
             if FResults<>'' then
-              Synchronize(@SetResults);
+              Synchronize(@DoSetResults);
             if Assigned(FProcess) then InternalKill;
           end;
       end;
     if Result then
       begin
         FStatus:='N';
-        Synchronize(@SetStatus);
+        Synchronize(@DoSetStatus);
       end
     else
       begin
         FStatus:='E';
-        Synchronize(@SetStatus);
+        Synchronize(@DoSetStatus);
       end;
   except
   end;
@@ -472,7 +472,8 @@ begin
   Result := True;
   FThread := TScriptThread.Create(Parameters,Self);
   FThread.OnTerminate:=@FThreadTerminate;
-  FThread.Resume;
+  //FThread.Resume;
+  FThread.Execute;
 end;
 
 end.

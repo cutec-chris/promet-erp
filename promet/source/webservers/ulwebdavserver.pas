@@ -908,6 +908,7 @@ var
 
 begin
   Result := False;
+  writeln('***PROPFIND:'+HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument));
   aProperties := TStringList.Create;
   if FSocket.Parameters[hpAuthorization] <> '' then
     begin
@@ -921,6 +922,20 @@ begin
       if trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1)) <> '' then
         aPrefix := trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
       aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
+      for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
+        begin
+          Attr := aDocument.DocumentElement.Attributes[a];
+          aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
+          aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
+          aNSName := Attr.NodeValue;
+          if (aAttrPrefix = 'xmlns') and (aLocalName<>'') then
+            begin
+              Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
+              Attr1.NodeValue:=aNSName;
+              aMSRes.Attributes.setNamedItem(Attr1);
+              writeln('Old NS:'+aLocalName+'='+aNSName);
+            end;
+        end;
       aPropNode := TDOMElement(aDocument.DocumentElement.FirstChild);
       for i := 0 to aPropNode.ChildNodes.Count-1 do
         begin
@@ -931,20 +946,6 @@ begin
             tmp := aPropNode.ChildNodes.Item[i].NamespaceURI+':'+tmp
           else
             begin
-              for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
-                begin
-                  Attr := aDocument.DocumentElement.Attributes[a];
-                  aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
-                  aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
-                  aNSName := Attr.NodeValue;
-                  if (aAttrPrefix = 'xmlns') and (aLocalName<>'') then
-                    begin
-                      Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
-                      Attr1.NodeValue:=aNSName;
-                      aMSRes.Attributes.setNamedItem(Attr1);
-                      writeln('Old NS:'+aLocalName+'='+aNSName);
-                    end;
-                end;
               if pos(':',tmp)=0 then
                 tmp := tmp1+':'+tmp;
             end;
