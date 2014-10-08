@@ -1,5 +1,5 @@
 ﻿Build 375
-      -
+      - Scripte:asynchrone ausführung möglich (in separaten Threads)
 Build 374
       - Filter:importdaten an neue Filterenstellungen angepasst, bei bestehenden Datenbanken muss % in den Filtern durch @ ersetzt werden
         das verhindert Probleme beim SQL bauen und ist dann analog zu den Statistiken

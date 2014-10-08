@@ -1542,7 +1542,8 @@ begin
                   if (trim(TExtStringGrid(Sender).Cells[i,DataCol]) <> '') and TryStrToDateTime(TExtStringGrid(Sender).Cells[i,DataCol],oDate) then
                     if oDate < Now() then
                       begin
-                        aFont.Color := clred;
+                        if aFont.Color<>clGrayText then
+                          aFont.Color := clred;
                       end;
                 end;
               if TExtDBGrid(Column.Grid).Columns[i-1].FieldName = 'STARTDATE' then

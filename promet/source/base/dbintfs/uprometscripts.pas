@@ -313,7 +313,7 @@ var
   ClassImporter: TPSRuntimeClassImporter;
 begin
   FStatus := 'R';
-  Synchronize(@SetStatus);
+  Self.Synchronize(@SetStatus);
   FResults := '';
   Synchronize(@SetResults);
   try
