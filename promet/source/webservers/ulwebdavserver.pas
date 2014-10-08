@@ -301,20 +301,11 @@ begin
           Attr := aDocument.DocumentElement.Attributes[a];
           aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
           aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
-          aNSName := lowercase(Attr.NodeValue);
-          if (aAttrPrefix = 'xmlns') and (aLocalName = tmp1) then
-            begin
-              case aNSName of
-              'dav:':tmp := aPrefix+':'+tmp;
-              'urn:ietf:params:xml:ns:caldav':tmp := 'C:'+tmp;
-              'http://calendarserver.org/ns/':tmp := 'CS:'+tmp;
-              end;
-            end;
-          if (aAttrPrefix = 'xmlns') then
+          aNSName := Attr.NodeValue;
+          if (aAttrPrefix = 'xmlns') and (aLocalName<>'') then
             begin
               Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
-              tmp2 := Attr.NodeValue;
-              Attr1.NodeValue:=tmp2;
+              Attr1.NodeValue:=aNSName;
               aMSRes.Attributes.setNamedItem(Attr1);
             end;
         end;
@@ -588,10 +579,12 @@ var
         Attr := aDocument.DocumentElement.Attributes[a];
         aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
         aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
-        if (aAttrPrefix = 'xmlns') and (aLocalName=aNS) then
+        aNSName := Attr.NodeValue;
+        if (aAttrPrefix = 'xmlns') and (aNSName=aNS) then
           begin
             aFound:=True;
-            Result := aAttrPrefix;
+            Result := aLocalName;
+            exit;
           end;
       end;
     if not aFound then
@@ -600,6 +593,7 @@ var
         Attr.NodeValue:=aNS;
         aDocument.DocumentElement.Attributes.setNamedItem(Attr);
         Result := anPrefix;
+        writeln('New NS:'+anPrefix+'='+aNS);
       end;
   end;
   procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D';aFile : TLFile = nil);
@@ -668,7 +662,8 @@ var
         aPropC := nil;
         if (FindProp(':resourcetype') > -1)  then
           begin
-            aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':resourcetype')]);
+            tmp := aNotFoundProp.ValueFromIndex[FindProp(':resourcetype')];
+            aPropC := aDocument.CreateElement(tmp);
             RemoveProp(prefix+':resourcetype');
             aProp.AppendChild(aPropC);
           end;
@@ -941,21 +936,13 @@ begin
                   Attr := aDocument.DocumentElement.Attributes[a];
                   aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
                   aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
-                  aNSName := lowercase(Attr.NodeValue);
-                  if (aAttrPrefix = 'xmlns') and (aLocalName = tmp1) then
-                    begin
-                      case aNSName of
-                      'dav:':tmp := aPrefix+':'+tmp;
-                      'urn:ietf:params:xml:ns:caldav':tmp := 'C:'+tmp;
-                      'http://calendarserver.org/ns/':tmp := 'CS:'+tmp;
-                      end;
-                    end;
-                  if (aAttrPrefix = 'xmlns') then
+                  aNSName := Attr.NodeValue;
+                  if (aAttrPrefix = 'xmlns') and (aLocalName<>'') then
                     begin
                       Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
-                      tmp2 := Attr.NodeValue;
-                      Attr1.NodeValue:=tmp2;
+                      Attr1.NodeValue:=aNSName;
                       aMSRes.Attributes.setNamedItem(Attr1);
+                      writeln('Old NS:'+aLocalName+'='+aNSName);
                     end;
                 end;
               if pos(':',tmp)=0 then
