@@ -613,6 +613,7 @@ var
     aPropF: TDOMNode;
     b: Integer;
     aPropG: TDOMNode;
+    bPrefix: String;
     function FindProp(aprop : string) : Integer;
     var
       b : Integer;
@@ -642,7 +643,7 @@ var
         end;
     end;
   begin
-    writeln('CreateResponse:'+aPath);
+    writeln('CreateResponse:'+aPath+' '+prefix);
     aNotFoundProp := TStringList.Create;
     aNotFoundProp.AddStrings(Properties);
     aResponse := aDocument.CreateElement(prefix+':response');
@@ -752,18 +753,17 @@ var
                 if FindProp(':supported-report-set') > -1 then
                   begin
                     aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':supported-report-set')]);
-                    aPrefix := copy(aPropD.NodeName,0,pos(':',aPropD.NodeName)-1);
+                    bPrefix := copy(aPropD.NodeName,0,pos(':',aPropD.NodeName)-1);
                     aProp.AppendChild(aPropD);
                     aPropE := aPropD.AppendChild(aDocument.CreateElement(prefix+':supported-report'));
                     aPropF := aPropE.AppendChild(aDocument.CreateElement(prefix+':report'));
-                    aPropG := aPropF.AppendChild(aDocument.CreateElement(aPrefix+':calendar-multiget'));
+                    aPropG := aPropF.AppendChild(aDocument.CreateElement(bPrefix+':calendar-multiget'));
                     RemoveProp(':supported-report-set');
                   end;
                 if FindProp(':current-user-privilege-set') > -1 then
                   begin
                     tmp := aNotFoundProp.ValueFromIndex[FindProp(':current-user-privilege-set')];
                     aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':current-user-privilege-set')]);
-                    aPrefix := copy(aPropD.NodeName,0,pos(':',aPropD.NodeName)-1);
                     aProp.AppendChild(aPropD);
                     aPropE := aPropD.AppendChild(aDocument.CreateElement(prefix+':privilege'));
                     aPropF := aPropE.AppendChild(aDocument.CreateElement(prefix+':read'));
@@ -783,7 +783,6 @@ var
                     AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
                     aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':supported-calendar-component-set')]);
                     aProp.AppendChild(aPropD);
-                    aPrefix := copy(aPropD.NodeName,0,pos(':',aPropD.NodeName)-1);
                     aPropE := aPropD.AppendChild(aDocument.CreateElement(aPrefix+':comp'));
                     TDOMElement(aPropE).SetAttribute('name','VEVENT');
                     if aFile.IsTodoList then
