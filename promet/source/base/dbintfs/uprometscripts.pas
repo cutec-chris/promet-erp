@@ -59,7 +59,7 @@ type
     procedure DoWriteln;
     procedure DoWrite;
     procedure DoReadln;
-    property StrignVar : string read FResults write FResults;
+    property StringVar : string read FResults write FResults;
     procedure InternalExec(cmd : string);
     function InternalExecActive: Boolean;
     function InternalKill: Boolean;
