@@ -53,10 +53,13 @@ type
     procedure SQLConn;
     procedure SQLConnF;
     procedure GetScript;
-    procedure DoWriteln;
   public
     FProcess : TProcess;
     FRuntime : TPSExec;
+    procedure DoWriteln;
+    procedure DoWrite;
+    procedure DoReadln;
+    property StrignVar : string read FResults write FResults;
     procedure InternalExec(cmd : string);
     function InternalExecActive: Boolean;
     function InternalKill: Boolean;
@@ -281,6 +284,17 @@ begin
   if Assigned(FParentDS.FWrFunc) then FParentDS.FWrFunc(FResults);
 end;
 
+procedure TScriptThread.DoWrite;
+begin
+  if Assigned(FParentDS.FWriFunc) then FParentDS.FWriFunc(FResults);
+end;
+
+procedure TScriptThread.DoReadln;
+begin
+  FResults:='';
+  if Assigned(FParentDS.FRlFunc) then FParentDS.FRlFunc(FResults);
+end;
+
 constructor TScriptThread.Create(Parameters: Variant; aParent: TBaseScript);
 begin
   Params := Parameters;
@@ -396,17 +410,20 @@ end;
 
 procedure TBaseScript.InternalWrite(const s: string);
 begin
-  if Assigned(Write) then Write(s);
+  FThread.StringVar := s;
+  FThread.Synchronize(@FThread.DoWrite);
 end;
 
 procedure TBaseScript.InternalWriteln(const s: string);
 begin
-  if Assigned(Writeln) then Writeln(s);
+  FThread.StringVar := s;
+  FThread.Synchronize(@FThread.DoWriteln);
 end;
 
 procedure TBaseScript.InternalReadln(var s: string);
 begin
-  if Assigned(Readln) then Readln(s);
+  FThread.Synchronize(@FThread.DoReadln);
+  FThread.StringVar := s;
 end;
 
 constructor TBaseScript.Create(aOwner: TComponent; DM: TComponent;
