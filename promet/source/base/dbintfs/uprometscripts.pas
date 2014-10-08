@@ -40,7 +40,6 @@ type
   TScriptThread = class(TThread)
   private
     Params : Variant;
-    FParentDS : TBaseScript;
     FStatus : string;
     FResults : string;
     FScript : string;
@@ -48,6 +47,7 @@ type
     aConnection: TComponent;
     aDS: TDataSet;
     CompleteOutput : string;
+  protected
     procedure SetStatus;
     procedure SetResults;
     procedure SQLConn;
@@ -55,6 +55,7 @@ type
     procedure GetScript;
   public
     FProcess : TProcess;
+    FParentDS : TBaseScript;
     FRuntime : TPSExec;
     procedure DoWriteln;
     procedure DoWrite;
@@ -247,17 +248,17 @@ end;
 
 procedure TScriptThread.SetStatus;
 begin
-  if not Assigned(FParentDS) then exit;
-  FParentDS.Edit;
-  FParentDS.FieldByName('STATUS').AsString:=FStatus;
-  FParentDS.Post;
+  if not Assigned(Self.FParentDS) then exit;
+  Self.FParentDS.Edit;
+  Self.FParentDS.FieldByName('STATUS').AsString:=FStatus;
+  Self.FParentDS.Post;
 end;
 
 procedure TScriptThread.SetResults;
 begin
-  FParentDS.Edit;
-  FParentDS.FieldByName('LASTRESULT').AsString:=FResults;
-  FParentDS.Post;
+  Self.FParentDS.Edit;
+  Self.FParentDS.FieldByName('LASTRESULT').AsString:=FResults;
+  Self.FParentDS.Post;
 end;
 
 procedure TScriptThread.SQLConn;
@@ -297,11 +298,11 @@ end;
 
 constructor TScriptThread.Create(Parameters: Variant; aParent: TBaseScript);
 begin
+  inherited Create(True);
   Params := Parameters;
   FParentDS := aParent;
   if Assigned(FParentDS) and (FParentDS.Active) then
     FSyntax := FParentDS.FieldByName('SYNTAX').AsString;
-  inherited Create(True)
 end;
 
 procedure TScriptThread.Execute;
@@ -400,6 +401,8 @@ begin
       Self.Terminate;
       Self.WaitFor;
     end;
+  if Assigned(FParentDS) then
+    FParentDS.FThread := nil;
   inherited Destroy;
 end;
 
@@ -430,7 +433,7 @@ constructor TBaseScript.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FThread := TScriptThread.Create(Null,self);
+  FThread:=nil;
 end;
 
 procedure TBaseScript.DefineFields(aDataSet: TDataSet);
