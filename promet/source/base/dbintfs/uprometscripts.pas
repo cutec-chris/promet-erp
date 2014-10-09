@@ -257,7 +257,7 @@ end;
 procedure TScriptThread.DoSetResults;
 begin
   Self.FParentDS.Edit;
-  Self.FParentDS.FieldByName('LASTRESULT').AsString:=FResults;
+  Self.FParentDS.FieldByName('LASTRESULT').AsString:=Self.FParentDS.FieldByName('LASTRESULT').AsString+LineEnding+FResults;
   Self.FParentDS.Post;
 end;
 
@@ -301,7 +301,12 @@ begin
   Params := Parameters;
   FParentDS := aParent;
   if Assigned(FParentDS) and (FParentDS.Active) then
-    FSyntax := FParentDS.FieldByName('SYNTAX').AsString;
+    begin
+      FSyntax := FParentDS.FieldByName('SYNTAX').AsString;
+      FParentDS.Edit;
+      FParentDS.FieldByName('LASTRESULT').Clear;
+      FParentDS.Post;
+    end;
   inherited Create(True);
 end;
 
