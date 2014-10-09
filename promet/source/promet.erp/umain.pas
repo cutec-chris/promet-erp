@@ -1028,6 +1028,7 @@ var
   SomethingFound: Boolean;
   Node1: TTreeNode;
   aStartPagetext: String;
+  aUser: TUser;
   procedure NewNode;
   begin
     Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
@@ -1076,6 +1077,15 @@ begin
         WikiFrame.Align := alClient;
         try
           WikiFrame.SetRights(True);
+          aUser := TUser.Create(nil,Data);
+          aUser.Open;
+          aUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
+          while (not WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,False)) and (not aUser.FieldByName('PARENT').IsNull) do
+            begin
+              aUser.Locate('SQL_ID',aUser.FieldByName('PARENT').AsVariant,[]);
+            end;
+          if WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,false) then
+            aStartPagetext:=aWiki.FieldByName('DATA').AsString;
           if not WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,True) then
             begin
               WikiFrame.DataSet.Edit;
