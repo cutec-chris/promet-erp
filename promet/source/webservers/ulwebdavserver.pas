@@ -521,8 +521,16 @@ var
   aDirList : TLDirectoryList;
   Path: string;
   aDepth: Integer;
+  aUser: string;
 begin
   Result := False;
+  if FSocket.Parameters[hpAuthorization] <> '' then
+    begin
+      aUser := FSocket.Parameters[hpAuthorization];
+      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+      if Assigned(TLWebDAVServer(FSocket.Creator).OnUserLogin) then
+        TLWebDAVServer(FSocket.Creator).OnUserLogin(copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
+    end;
   aOptionsRes := aDocument.CreateElementNS('DAV:','D:options-response');
   if Assigned(aDocument.DocumentElement) then
     aActivityCollection := TDOMElement(aDocument.DocumentElement.FirstChild);
@@ -545,6 +553,12 @@ begin
     aDocument.DocumentElement.Free;
   aDocument.AppendChild(aOptionsRes);
   TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsOK;
+  if Assigned(TLWebDAVServer(FSocket.Creator).OnReadAllowed) and (not TLWebDAVServer(FSocket.Creator).OnReadAllowed(Path)) then
+    begin
+      TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsUnauthorized;
+      AppendString(TLHTTPServerSocket(FSocket).FHeaderOut.ExtraHeaders, 'WWW-Authenticate: Basic realm="Promet-ERP"'+#13#10);
+      Result := True;
+    end;
 end;
 function TDAVFindPropOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
 var
