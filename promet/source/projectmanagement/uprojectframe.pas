@@ -653,7 +653,7 @@ begin
                   if pos('{',aLink) > 0 then
                     aLink := copy(aLink,0,pos('{',aLink)-1);
                   aLink := copy(aLink,7,length(aLink));
-                  if aProject.Tasks.GotoBookmark(StrToIntDef(aLink,0)) then
+                  if aProject.Tasks.GotoBookmark(StrToInt64Def(aLink,0)) then
                     begin
                       if cProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS;PARENT',VarArrayOf([aProject.Tasks.FieldByName('SUMMARY').AsString,aProject.Tasks.FieldByName('WORKSTATUS').AsVariant,aProject.Tasks.FieldByName('PARENT').AsVariant]),[]) then
                         begin

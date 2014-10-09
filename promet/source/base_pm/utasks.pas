@@ -181,6 +181,7 @@ type
     ToolBar: TToolBar;
     tbTop: TPanel;
     procedure acAddPosExecute(Sender: TObject);
+    procedure acAddTasksfromProjectExecute(Sender: TObject);
     procedure acAppendLinkToDependenciesExecute(Sender: TObject);
     procedure acCancelExecute(Sender: TObject);
     procedure acDefaultFilterExecute(Sender: TObject);
@@ -236,6 +237,7 @@ type
     procedure FGridViewSetCellText(Sender: TObject; aCol: TColumn;
       aRow: Integer; var NewText: string);
     procedure FGridViewSetupPosition(Sender: TObject;Columns : TGridColumns);
+    function fSearchAddTasksToProject(aLink: string): Boolean;
     function fSearchOpenItem(aLink: string): Boolean;
     function fSearchOpenItemMulti(aLink: string): Boolean;
     function fSearchOpenOwnerItem(aLink: string): Boolean;
@@ -456,6 +458,26 @@ begin
       ;
     end;
 end;
+
+function TfTaskFrame.fSearchAddTasksToProject(aLink: string): Boolean;
+var
+  aProject: TProject;
+begin
+  aProject := TProject.Create(Self,Data);
+  aProject.SelectFromLink(aLink);
+  aProject.Open;
+  Result := aProject.Count>0;
+  if pSearch.Visible then
+    FGridView.EndUpdate;
+  pSearch.Visible:=False;
+  if Result and (Assigned(TTaskList(DataSet).Parent) and (TTaskList(DataSet).Parent is TProject)) then
+    begin
+      TProject(TTaskList(DataSet).Parent).DuplicateFromOtherProcess(aProject);
+      acRefresh.Execute;
+    end;
+  aProject.Free;
+end;
+
 function TfTaskFrame.fSearchOpenItem(aLink: string): Boolean;
 var
   aProject: TProject;
@@ -1742,6 +1764,26 @@ end;
 procedure TfTaskFrame.acAddPosExecute(Sender: TObject);
 begin
   FGridView.InsertAfter(True);
+end;
+
+procedure TfTaskFrame.acAddTasksfromProjectExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strProjects then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchAddTasksToProject;
+  fSearch.Execute(True,'TASKSP',strSearchFromTasks);
+  fSearch.SetLanguage;
 end;
 
 procedure TfTaskFrame.acAppendLinkToDependenciesExecute(Sender: TObject);

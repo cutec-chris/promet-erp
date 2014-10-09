@@ -113,7 +113,7 @@ begin
   Node1 := tvUsers.Items.AddChildObject(nil,'New Group',TUserTreeEntry.Create);
   tvRights.Selected := Node1;
   Node1.ImageIndex:=18;
-  Node1.SelectedIndex:=0;
+  Node1.SelectedIndex:=18;
   aUsers.DataSet.Append;
   aUsers.FieldByName('ACCOUNTNO').AsString := Data.Numbers.GetNewNumber('USERS');
   aUsers.FieldByName('TYPE').AsString := 'G';
@@ -249,7 +249,7 @@ begin
               if FieldByName('TYPE').AsString = 'G' then
                 begin
                   Node1.ImageIndex := 18;
-                  Node1.SelectedIndex := 0;
+                  Node1.SelectedIndex := 18;
                   Node1.HasChildren:=True;
                 end
               else
