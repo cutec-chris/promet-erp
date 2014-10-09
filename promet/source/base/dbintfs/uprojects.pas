@@ -569,20 +569,20 @@ begin
         end;
       Tasks.DataSet.Next;
     end;
-  bProject.Tasks.DataSet.First;
-  while not bProject.Tasks.DataSet.EOF do
+  Tasks.DataSet.First;
+  while not Tasks.DataSet.EOF do
     begin
-      if not bProject.Tasks.FieldByName('PARENT').IsNull then
+      if not Tasks.FieldByName('PARENT').IsNull then
         begin
-          if Tasks.GotoBookmark(bProject.Tasks.FieldByName('PARENT').AsVariant) then
-            if cProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS',VarArrayOf([Tasks.FieldByName('SUMMARY').AsString,Tasks.FieldByName('WORKSTATUS').AsVariant]),[]) then
+          if bProject.Tasks.GotoBookmark(Tasks.FieldByName('PARENT').AsVariant) then
+            if cProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS',VarArrayOf([bProject.Tasks.FieldByName('SUMMARY').AsString,bProject.Tasks.FieldByName('WORKSTATUS').AsVariant]),[]) then
               begin
-                if not bProject.Tasks.CanEdit then bProject.Tasks.DataSet.Edit;
-                bProject.Tasks.FieldByName('PARENT').AsVariant:=cProject.Tasks.Id.AsVariant;
-                bProject.Tasks.DataSet.Post;
+                if not Tasks.CanEdit then Tasks.DataSet.Edit;
+                Tasks.FieldByName('PARENT').AsVariant:=cProject.Tasks.Id.AsVariant;
+                Tasks.DataSet.Post;
               end;
         end;
-      bProject.Tasks.DataSet.Next;
+      Tasks.DataSet.Next;
     end;
   cProject.Free;
 end;

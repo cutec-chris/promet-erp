@@ -473,6 +473,7 @@ begin
   if Result and (Assigned(TTaskList(DataSet).Parent) and (TTaskList(DataSet).Parent is TProject)) then
     begin
       TProject(TTaskList(DataSet).Parent).DuplicateFromOtherProcess(aProject);
+      acRefresh.Execute;
     end;
   aProject.Free;
 end;
