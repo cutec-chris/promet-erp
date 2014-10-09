@@ -115,6 +115,7 @@ type
     procedure Delete; override;
     procedure GenerateThumbnail; override;
     procedure CheckNeedsAction;
+    function DuplicateFromOtherProcess(bProject: TProject): Boolean;
   end;
 implementation
 uses uBaseSearch,uBaseApplication,Utils,uthumbnails;
@@ -510,6 +511,80 @@ begin
     FieldByName('NEEDSACTION').AsString:='Y'
   else FieldByName('NEEDSACTION').AsString:='N';
   Post;
+end;
+
+function TProject.DuplicateFromOtherProcess(bProject: TProject): Boolean;
+var
+  cProject: TProject;
+  aTask: TTask;
+  aLink: String;
+  bTask: TTask;
+begin
+  bProject.Tasks.Open;
+  bProject.Tasks.First;
+  Tasks.ImportFromXML(bProject.Tasks.ExportToXML);
+  Tasks.First;
+  cProject := TProject.Create(nil,DataModule);
+  cProject.Select(Id.AsVariant);
+  cProject.Open;
+  cProject.Tasks.Open;
+  while not Tasks.DataSet.EOF do
+    begin
+      if bProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS',VarArrayOf([Tasks.FieldByName('SUMMARY').AsString,Tasks.FieldByName('WORKSTATUS').AsVariant]),[]) then
+        begin
+          Tasks.Dependencies.Open;
+          while Tasks.Dependencies.Count>0 do
+            Tasks.Dependencies.Delete;
+          aTask := TTask.Create(nil,DataModule); //Old Task
+          aTask.Select(bProject.Tasks.Id.AsVariant);
+          aTask.Open;
+          aTask.Dependencies.Open;
+          with aTask.Dependencies.DataSet do
+            begin
+              First;
+              while not EOF do
+                begin
+                  aLink := FieldByName('LINK').AsString;
+                  if pos('{',aLink) > 0 then
+                    aLink := copy(aLink,0,pos('{',aLink)-1);
+                  aLink := copy(aLink,7,length(aLink));
+                  if bProject.Tasks.GotoBookmark(StrToInt64Def(aLink,0)) then
+                    begin
+                      if cProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS;PARENT',VarArrayOf([bProject.Tasks.FieldByName('SUMMARY').AsString,bProject.Tasks.FieldByName('WORKSTATUS').AsVariant,bProject.Tasks.FieldByName('PARENT').AsVariant]),[]) then
+                        begin
+                          bTask := TTask.Create(nil,DataModule); //New Task
+                          bTask.Select(Tasks.Id.AsVariant);
+                          bTask.Open;
+                          bTask.Dependencies.Open;
+                          while bTask.Dependencies.Locate('LINK',FieldByName('LINK').AsString,[]) do
+                            bTask.Dependencies.Delete;
+                          bTask.Dependencies.Add(TBaseDBModule(DataModule).BuildLink(cProject.Tasks.DataSet));
+                          bTask.Free;
+                        end;
+                    end;
+                  Next;
+                end;
+            end;
+          aTask.Free;
+        end;
+      Tasks.DataSet.Next;
+    end;
+  bProject.Tasks.DataSet.First;
+  while not bProject.Tasks.DataSet.EOF do
+    begin
+      if not bProject.Tasks.FieldByName('PARENT').IsNull then
+        begin
+          if Tasks.GotoBookmark(bProject.Tasks.FieldByName('PARENT').AsVariant) then
+            if cProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS',VarArrayOf([Tasks.FieldByName('SUMMARY').AsString,Tasks.FieldByName('WORKSTATUS').AsVariant]),[]) then
+              begin
+                if not bProject.Tasks.CanEdit then bProject.Tasks.DataSet.Edit;
+                bProject.Tasks.FieldByName('PARENT').AsVariant:=cProject.Tasks.Id.AsVariant;
+                bProject.Tasks.DataSet.Post;
+              end;
+        end;
+      bProject.Tasks.DataSet.Next;
+    end;
+  cProject.Free;
 end;
 
 procedure TProjectLinks.FillDefaults(aDataSet: TDataSet);

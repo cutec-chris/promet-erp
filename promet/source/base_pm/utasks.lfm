@@ -2918,6 +2918,7 @@ inherited fTaskFrame: TfTaskFrame
     object acAddTasksfromProject: TAction
       Caption = 'Aufgaben aus Projekt/Prozess holen (dublizieren)'
       ImageIndex = 13
+      OnExecute = acAddTasksfromProjectExecute
     end
   end
   object Datasource: TDataSource[7]

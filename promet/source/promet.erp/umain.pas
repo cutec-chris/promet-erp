@@ -1068,7 +1068,7 @@ begin
         //debugln('BaseLogin: '+IntToStr(GetTickCount64-aTime));
         aWiki := TWikiList.Create(nil,Data);
         aWiki.CreateTable;
-        if aWiki.FindWikiPage('Promet-ERP-Help/users/administrator') then
+        if aWiki.FindWikiPage('Promet-ERP-Help/users/Administrator') then
           aStartPagetext := aWiki.FieldByName('DATA').AsString
         else aStartPagetext:='[[Include:Promet-ERP-Help/index]]';
         WikiFrame := TfWikiFrame.Create(Self);
