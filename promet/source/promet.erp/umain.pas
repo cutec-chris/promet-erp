@@ -1071,7 +1071,6 @@ begin
         if aWiki.FindWikiPage('Promet-ERP-Help/users/administrator') then
           aStartPagetext := aWiki.FieldByName('DATA').AsString
         else aStartPagetext:='[[Include:Promet-ERP-Help/index]]';
-        aWiki.Free;
         WikiFrame := TfWikiFrame.Create(Self);
         WikiFrame.Parent := tsStartpage;
         WikiFrame.Align := alClient;
@@ -1080,11 +1079,11 @@ begin
           aUser := TUser.Create(nil,Data);
           aUser.Open;
           aUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
-          while (not WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,False)) and (not aUser.FieldByName('PARENT').IsNull) do
+          while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString)) and (not aUser.FieldByName('PARENT').IsNull) do
             begin
               aUser.Locate('SQL_ID',aUser.FieldByName('PARENT').AsVariant,[]);
             end;
-          if WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,false) then
+          if aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,false) then
             aStartPagetext:=aWiki.FieldByName('DATA').AsString;
           if not WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,True) then
             begin
@@ -1095,6 +1094,7 @@ begin
             end;
         except
         end;
+        aWiki.Free;
         //debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
         aItems := TStringList.Create;
         aItems.Delimiter:=';';
