@@ -155,7 +155,6 @@ type
     FDataSet : TBaseScript;
     Fuses : TBaseScript;
     FOldUses : TPSOnUses;
-    FEnviroment : TScriptThread;
     function Compile: Boolean;
     function Execute: Boolean;
 
@@ -365,6 +364,7 @@ begin
       begin
         if Compile then
           begin
+            FDataSet.Runtime := Debugger.Exec;
             Debugger.Execute;
           end;
         Debugger.Comp.OnUses:=FOldUses;
@@ -488,7 +488,12 @@ var
   mo: TMessageObject;
 begin
   Debugger.Script.Assign(ed.Lines);
-  Result := Debugger.Compile;
+  try
+    Result := Debugger.Compile;
+  except
+    on e : Exception do
+      Messages.Items.Add(e.Message);
+  end;
   messages.Clear;
   for i := 0 to Debugger.CompilerMessageCount -1 do
     begin
@@ -505,7 +510,7 @@ end;
 
 procedure TfScriptEditor.DebuggerIdle(Sender: TObject);
 begin
-  Application.ProcessMessages; //Birb: don't use Application.HandleMessage here, else GUI will be unrensponsive if you have a tight loop and won't be able to use Run/Reset menu action
+  Application.ProcessMessages;
   if FResume then
   begin
     FResume := False;
@@ -566,7 +571,7 @@ begin
   Sender.AddRegisteredVariable('Application', 'TApplication');
   FOldUses:=Sender.Comp.OnUses;
   Sender.Comp.OnUses:=@OnUses;
-  uprometscripts.ExtendRuntime(Sender.Exec,nil,FEnviroment);
+  uprometscripts.ExtendRuntime(Sender.Exec,nil,FDataSet);
 end;
 
 procedure TfScriptEditor.FDataSetDataSetAfterScroll(DataSet: TDataSet);
@@ -622,7 +627,6 @@ begin
       FDataSet := TBaseScript.Create(nil,Data,aConnection);
       FDataSet.CreateTable;
     end;
-  FEnviroment := TScriptThread.Create(Null,nil);
   FDataSet.Open;
   DataSource.DataSet := FDataSet.DataSet;
   FDataSet.DataSet.BeforeScroll:=@FDataSetDataSetBeforeScroll;
@@ -636,7 +640,6 @@ begin
   if Result then
     FDataSet.Post;
   FDataSet.Close;
-  FreeAndNil(FEnviroment);
 end;
 
 procedure TfScriptEditor.edStatusChange(Sender: TObject;

@@ -35,43 +35,6 @@ type
   TReadlnFunc = procedure(var s: string) of object;
   TBaseScript = class;
 
-  { TScriptThread }
-
-  TScriptThread = class(TThread)
-  private
-    Params : Variant;
-    FStatus : string;
-    FResults : string;
-    FScript : string;
-    FSyntax: String;
-    aConnection: TComponent;
-    aDS: TDataSet;
-    CompleteOutput : string;
-  protected
-    procedure DoSetStatus;
-    procedure DoSetResults;
-    procedure SQLConn;
-    procedure SQLConnF;
-    procedure GetScript;
-  public
-    FProcess : TProcess;
-    FParentDS : TBaseScript;
-    FRuntime : TPSExec;
-    procedure DoWriteln;
-    procedure DoWrite;
-    procedure DoReadln;
-    property StringVar : string read FResults write FResults;
-    procedure InternalExec(cmd : string);
-    function InternalExecActive: Boolean;
-    function InternalKill: Boolean;
-    function InternalDataSet(SQL : string) : TDataSet;
-    procedure InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
-      ObjectLink: string=''; Reference: string='';Commission: string=''; Source: string='script');
-    constructor Create(Parameters : Variant;aParent : TBaseScript);
-    procedure Execute; override;
-    destructor Destroy; override;
-  end;
-
   { TBaseScript }
 
   TBaseScript = class(TBaseDBDataset)
@@ -81,11 +44,27 @@ type
     FRlFunc: TReadlnFunc;
     FWrFunc: TWritelnFunc;
     FWriFunc: TWriteFunc;
-    FThread: TScriptThread;
+    FProcess: TProcess;
+    FRuntime : TPSExec;
+    FResults : string;
+    aDS: TDataSet;
+    destructor Destroy;
+    procedure SQLConn;
+    procedure DoSetResults;
+    procedure DoSetStatus(s : string);
+    procedure DoWriteln;
   protected
     procedure InternalWrite(const s: string);
     procedure InternalWriteln(const s: string);
     procedure InternalReadln(var s: string);
+
+    procedure InternalExec(cmd : string);
+    function InternalExecActive: Boolean;
+    function InternalKill: Boolean;
+
+    function InternalDataSet(SQL : string) : TDataSet;
+    procedure InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
+      ObjectLink: string=''; Reference: string='';Commission: string=''; Source: string='script');
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
@@ -94,12 +73,12 @@ type
     property Write : TWriteFunc read FWriFunc write FWriFunc;
     property Writeln : TWritelnFunc read FWrFunc write FWRFunc;
     property Readln : TReadlnFunc read FRlFunc write FRlFunc;
-    property Thread : TScriptThread read FThread;
+    property Runtime : TPSExec read FRuntime write FRuntime;
     function Execute(Parameters : Variant) : Boolean;
   end;
 
   function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
-  procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;ScriptThread : TScriptThread);
+  procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
   function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 
 implementation
@@ -154,7 +133,7 @@ begin
     end;
   aScript.Free;
 end;
-procedure TScriptThread.InternalExec(cmd : string);
+procedure TBaseScript.InternalExec(cmd : string);
 begin
   FProcess := TProcess.Create(nil);
   FProcess.CommandLine:=cmd;
@@ -162,7 +141,7 @@ begin
   FProcess.Options:=FProcess.Options+[poUsePipes,poNoConsole];
   FProcess.Execute;
 end;
-function TScriptThread.InternalExecActive : Boolean;
+function TBaseScript.InternalExecActive : Boolean;
 var
   ReadSize: DWord;
   Buffer : string[127];
@@ -177,7 +156,7 @@ begin
         begin
           if ReadSize > SizeOf(Buffer) then
             ReadSize := SizeOf(Buffer);
-          ReadCount := FProcess.Output.Read(Buffer[0], ReadSize);
+          ReadCount := FProcess.Output.Read(Buffer[1], ReadSize);
           CompleteOutput:=CompleteOutput+copy(Buffer,0,ReadCount);
           ReadSize := FProcess.Output.NumBytesAvailable;
         end;
@@ -192,7 +171,7 @@ begin
         FreeAndNil(FProcess);
     end;
 end;
-function TScriptThread.InternalKill : Boolean;
+function TBaseScript.InternalKill : Boolean;
 begin
   Result := Assigned(FProcess);
   if Result then
@@ -202,12 +181,12 @@ begin
     end;
 end;
 
-function TScriptThread.InternalDataSet(SQL: string): TDataSet;
+function TBaseScript.InternalDataSet(SQL: string): TDataSet;
 begin
-  Result := TBaseDBModule(FParentDS.DataModule).GetNewDataSet(SQL,FParentDS.Connection);
+  Result := TBaseDBModule(DataModule).GetNewDataSet(SQL,Connection);
 end;
 
-procedure TScriptThread.InternalHistory(Action: string; ParentLink: string;
+procedure TBaseScript.InternalHistory(Action: string; ParentLink: string;
   Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
   Source: string);
 var
@@ -215,14 +194,14 @@ var
   aDataSetClass: TBaseDBDatasetClass;
   aDataSet: TBaseDBDataset;
 begin
-  if TBaseDBModule(FParentDS.DataModule).DataSetFromLink(ParentLink,aDataSetClass) then
+  if TBaseDBModule(DataModule).DataSetFromLink(ParentLink,aDataSetClass) then
     begin
-      aDataSet := aDataSetClass.Create(nil,FParentDS.DataModule,FParentDS.Connection);
+      aDataSet := aDataSetClass.Create(nil,DataModule,Connection);
       TBaseDbList(aDataSet).SelectFromLink(ParentLink);
       aDataSet.Open;
       if aDataSet.Count>0 then
         begin
-          aHistory := TBaseHistory.Create(nil,FParentDS.DataModule,FParentDS.Connection);
+          aHistory := TBaseHistory.Create(nil,DataModule,Connection);
           aHistory.AddItem(aDataSet.DataSet,Action,ObjectLink,Reference,nil,Icon,Commission);
           aHistory.Free;
         end;
@@ -230,14 +209,15 @@ begin
     end;
 end;
 
-procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;ScriptThread : TScriptThread);
+procedure ExtendRuntime(Runtime: TPSExec;
+  ClassImporter: TPSRuntimeClassImporter; Script: TBaseScript);
 begin
-  Runtime.RegisterDelphiMethod(ScriptThread,@TScriptThread.InternalExec, 'EXEC', cdRegister);
-  Runtime.RegisterDelphiMethod(ScriptThread,@TScriptThread.InternalExecActive, 'EXECACTIVE', cdRegister);
-  Runtime.RegisterDelphiMethod(ScriptThread,@TScriptThread.InternalKill, 'KILL', cdRegister);
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalExec, 'EXEC', cdRegister);
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalExecActive, 'EXECACTIVE', cdRegister);
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalKill, 'KILL', cdRegister);
 
-  Runtime.RegisterDelphiMethod(ScriptThread,@TScriptThread.InternalDataSet, 'DATASET', cdRegister);
-  Runtime.RegisterDelphiMethod(ScriptThread,@TScriptThread.InternalHistory, 'HISTORY', cdRegister);
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalDataSet, 'DATASET', cdRegister);
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalHistory, 'HISTORY', cdRegister);
 end;
 function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 begin
@@ -292,161 +272,23 @@ begin
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalWrite, 'WRITE', cdRegister);
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.Internalreadln, 'READLN', cdRegister);
   RegisterDLLRuntime(Runtime);
-  ExtendRuntime(Runtime,ClassImporter,Script.Thread);
+  ExtendRuntime(Runtime,ClassImporter,Script);
 end;
 
-{ TScriptThread }
-
-procedure TScriptThread.DoSetStatus;
-begin
-  if not Assigned(Self.FParentDS) then exit;
-  Self.FParentDS.Edit;
-  Self.FParentDS.FieldByName('STATUS').AsString:=FStatus;
-  Self.FParentDS.Post;
-end;
-
-procedure TScriptThread.DoSetResults;
-begin
-  Self.FParentDS.Edit;
-  Self.FParentDS.FieldByName('LASTRESULT').AsString:=Self.FParentDS.FieldByName('LASTRESULT').AsString+LineEnding+FResults;
-  Self.FParentDS.Post;
-end;
-
-procedure TScriptThread.SQLConn;
+procedure TBaseScript.SQLConn;
 var
   aSQL: String;
 begin
-  aConnection := TBaseDBModule(FParentDS.DataModule).GetNewConnection;
-  aSQL := ReplaceSQLFunctions(FParentDS.FieldByName('SCRIPT').AsString);
-  aDS := TBaseDBModule(FParentDS.DataModule).GetNewDataSet(aSQL);
+  aSQL := ReplaceSQLFunctions(FieldByName('SCRIPT').AsString);
+  aDS := TBaseDBModule(DataModule).GetNewDataSet(aSQL,Connection);
 end;
 
-procedure TScriptThread.SQLConnF;
+procedure TBaseScript.FThreadTerminate(Sender: TObject);
 begin
-  aConnection.Free;
+  InternalWriteln(FResults);
 end;
 
-procedure TScriptThread.GetScript;
-begin
-  FScript:=FParentDS.FieldByName('SCRIPT').AsString;
-end;
-
-procedure TScriptThread.DoWriteln;
-begin
-  if Assigned(FParentDS.FWrFunc) then FParentDS.FWrFunc(FResults);
-end;
-
-procedure TScriptThread.DoWrite;
-begin
-  if Assigned(FParentDS.FWriFunc) then FParentDS.FWriFunc(FResults);
-end;
-
-procedure TScriptThread.DoReadln;
-begin
-  FResults:='';
-  if Assigned(FParentDS.FRlFunc) then FParentDS.FRlFunc(FResults);
-end;
-
-constructor TScriptThread.Create(Parameters: Variant; aParent: TBaseScript);
-begin
-  Params := Parameters;
-  FParentDS := aParent;
-  if Assigned(FParentDS) and (FParentDS.Active) then
-    begin
-      FSyntax := FParentDS.FieldByName('SYNTAX').AsString;
-      FParentDS.Edit;
-      FParentDS.FieldByName('LASTRESULT').Clear;
-      FParentDS.Post;
-    end;
-  inherited Create(True);
-end;
-
-procedure TScriptThread.Execute;
-var
-  Compiler: TPSPascalCompiler;
-  Result: Boolean;
-  Bytecode: tbtString;
-  i: Integer;
-  ClassImporter: TPSRuntimeClassImporter;
-begin
-  FStatus := 'R';
-  Self.Synchronize(@Self.DoSetStatus);
-  FResults := '';
-  Synchronize(@Self.DoSetResults);
-  try
-    if lowercase(Fsyntax) = 'sql' then
-      begin
-        try
-          Synchronize(@SQLConn);
-          with aDS as IBaseDbFilter do
-            DoExecSQL;
-          with aDS as IBaseDbFilter do
-            FResults:='Num Rows Affected: '+IntToStr(NumRowsAffected);
-          Synchronize(@DoWriteln);
-          Synchronize(@DoSetResults);
-        except
-          on e : Exception do
-            begin
-              FResults := e.Message;
-              Synchronize(@DoWriteln);
-              Synchronize(@DoSetResults);
-            end;
-        end;
-        Synchronize(@SQLConnF);
-      end
-    else if lowercase(FSyntax) = 'pascal' then
-      begin
-        Compiler:= TPSPascalCompiler.Create;
-        Compiler.OnUses:= @ExtendICompiler;
-        try
-          Synchronize(@GetScript);
-          Result:= Compiler.Compile(FScript) and Compiler.GetOutput(Bytecode);
-          FResults:='';
-          for i:= 0 to Compiler.MsgCount - 1 do
-            if Length(FResults) = 0 then
-              FResults:= Compiler.Msg[i].MessageToString
-            else
-              FResults:= FResults + #13#10 + Compiler.Msg[i].MessageToString;
-          if FResults<>'' then
-            Synchronize(@DoSetResults);
-        finally
-          Compiler.Free;
-        end;
-        if Result then
-          begin
-            FRuntime:= TPSExec.Create;
-            ClassImporter:= TPSRuntimeClassImporter.CreateAndRegister(FRuntime, false);
-            try
-              ExtendIRuntime(FRuntime, ClassImporter, FParentDS);
-              Result:= FRuntime.LoadData(Bytecode)
-                    and FRuntime.RunScript
-                    and (FRuntime.ExceptionCode = erNoError);
-              if not Result then
-                FResults:= PSErrorToString(FRuntime.LastEx, '');
-            finally
-              ClassImporter.Free;
-              FreeAndNil(FRuntime);
-            end;
-            if FResults<>'' then
-              Synchronize(@DoSetResults);
-            if Assigned(FProcess) then InternalKill;
-          end;
-      end;
-    if Result then
-      begin
-        FStatus:='N';
-        Synchronize(@DoSetStatus);
-      end
-    else
-      begin
-        FStatus:='E';
-        Synchronize(@DoSetStatus);
-      end;
-  except
-  end;
-end;
-
-destructor TScriptThread.Destroy;
+destructor TBaseScript.Destroy;
 begin
   if Assigned(FProcess) then
     begin
@@ -454,42 +296,48 @@ begin
         FProcess.Terminate(0);
       if Assigned(FRuntime) then
         FRuntime.Stop;
-      Self.Terminate;
-      Self.WaitFor;
     end;
-  if Assigned(FParentDS) then
-    FParentDS.FThread := nil;
   inherited Destroy;
 end;
 
-procedure TBaseScript.FThreadTerminate(Sender: TObject);
+procedure TBaseScript.DoSetResults;
 begin
-  TScriptThread(Sender).Free;
+  Edit;
+  FieldByName('LASTRESULT').AsString:=FieldByName('LASTRESULT').AsString+lineending+FResults;
+  Post;
+end;
+
+procedure TBaseScript.DoSetStatus(s: string);
+begin
+  Edit;
+  FieldByName('STATUS').AsString:=s;
+  Post;
+end;
+
+procedure TBaseScript.DoWriteln;
+begin
+
 end;
 
 procedure TBaseScript.InternalWrite(const s: string);
 begin
-  FThread.StringVar := s;
-  FThread.Synchronize(@FThread.DoWrite);
+  if Assigned(FWriFunc) then FWriFunc(s);
 end;
 
 procedure TBaseScript.InternalWriteln(const s: string);
 begin
-  FThread.StringVar := s;
-  FThread.Synchronize(@FThread.DoWriteln);
+  if Assigned(FWrFunc) then FWrFunc(s);
 end;
 
 procedure TBaseScript.InternalReadln(var s: string);
 begin
-  FThread.Synchronize(@FThread.DoReadln);
-  FThread.StringVar := s;
+  if Assigned(FRlFunc) then FRlFunc(s);
 end;
 
 constructor TBaseScript.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FThread:=nil;
 end;
 
 procedure TBaseScript.DefineFields(aDataSet: TDataSet);
@@ -524,12 +372,87 @@ begin
   inherited FillDefaults(aDataSet);
 end;
 function TBaseScript.Execute(Parameters: Variant): Boolean;
+var
+  Compiler: TPSPascalCompiler;
+  Bytecode: tbtString;
+  i: Integer;
+  ClassImporter: TPSRuntimeClassImporter;
 begin
-  Result := True;
-  FThread := TScriptThread.Create(Parameters,Self);
-  FThread.OnTerminate:=@FThreadTerminate;
-  //FThread.Resume;
-  FThread.Execute;
+  DoSetStatus('R');
+  Edit;
+  FieldByName('LASTRESULT').Clear;
+  Post;
+  Result := False;
+  try
+    if lowercase(FieldByName('SYNTAX').AsString) = 'sql' then
+      begin
+        try
+          SQLConn;
+          with aDS as IBaseDbFilter do
+            DoExecSQL;
+          with aDS as IBaseDbFilter do
+            FResults:='Num Rows Affected: '+IntToStr(NumRowsAffected);
+          DoWriteln;
+          DoSetResults;
+          Result := True;
+        except
+          on e : Exception do
+            begin
+              FResults := e.Message;
+              DoWriteln;
+              DoSetResults;
+              Result := False;
+            end;
+        end;
+      end
+    else if lowercase(FieldByName('SYNTAX').AsString) = 'pascal' then
+      begin
+        Compiler:= TPSPascalCompiler.Create;
+        Compiler.OnUses:= @ExtendICompiler;
+        try
+          Result:= Compiler.Compile(FieldByName('SCRIPT').AsString) and Compiler.GetOutput(Bytecode);
+          FResults:='';
+          for i:= 0 to Compiler.MsgCount - 1 do
+            if Length(FResults) = 0 then
+              FResults:= Compiler.Msg[i].MessageToString
+            else
+              FResults:= FResults + #13#10 + Compiler.Msg[i].MessageToString;
+          if FResults<>'' then
+            DoSetResults;
+        finally
+          Compiler.Free;
+        end;
+        if Result then
+          begin
+            FRuntime:= TPSExec.Create;
+            ClassImporter:= TPSRuntimeClassImporter.CreateAndRegister(FRuntime, false);
+            try
+              ExtendIRuntime(FRuntime, ClassImporter, Self);
+              Result:= FRuntime.LoadData(Bytecode)
+                    and FRuntime.RunScript
+                    and (FRuntime.ExceptionCode = erNoError);
+              if not Result then
+                FResults:= PSErrorToString(FRuntime.LastEx, '');
+            finally
+              ClassImporter.Free;
+              FreeAndNil(FRuntime);
+            end;
+            if FResults<>'' then
+              DoSetResults;
+            if Assigned(FProcess) then InternalKill;
+            Result := True;
+          end;
+      end;
+    if Result then
+      begin
+        DoSetStatus('N');
+      end
+    else
+      begin
+        DoSetStatus('E');
+      end;
+  except
+  end;
 end;
 
 end.
