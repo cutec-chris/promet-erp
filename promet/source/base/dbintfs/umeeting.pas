@@ -306,6 +306,9 @@ var
   aLink: String;
   aDataSetClass: TBaseDBDatasetClass;
   aHist: TBaseHistory;
+  ObjectLink: String;
+  aListClass: TBaseDBDatasetClass;
+  aObject: TBaseDBList;
 begin
   aLink := '';
   FFailMessage:='';
@@ -326,8 +329,15 @@ begin
             if (copy(FieldByName('LINK').AsString,0,9) = 'PROJECTS@')
             or (copy(FieldByName('LINK').AsString,0,11) = 'PROJECTS.ID')
             then
-              ProjectLink := FieldByName('LINK').AsString
-            else ProjectLink:='';
+              begin
+                ProjectLink := FieldByName('LINK').AsString;
+                ObjectLink := '';
+              end
+            else
+              begin
+                ProjectLink:='';
+                ObjectLink := FieldByName('LINK').AsString;
+              end;
             if (FieldByName('LINK').AsString<>'') and (aLink <> FieldByName('LINK').AsString) then
               begin
                 FreeAndNil(aDataSet);
@@ -342,6 +352,15 @@ begin
                     aProject := TProject.Create(nil,DataModule,Connection);
                     aProject.SelectFromLink(ProjectLink);
                     aProject.Open;
+                  end;
+                if ObjectLink <> '' then
+                  begin
+                    if Data.ListDataSetFromLink(ObjectLink,aListClass) then
+                      begin
+                        aObject := TbaseDBList(aListClass.Create(nil,DataModule,Connection));
+                        aObject.SelectFromLink(ObjectLink);
+                        aObject.Open;
+                      end;
                   end;
               end
             else if aLink <> '' then
@@ -412,6 +431,10 @@ begin
                     Entrys.FieldByName('LINK').AsString:=Data.BuildLink(aTasks.DataSet);
                     if Entrys.CanEdit then
                       Entrys.DataSet.Post;
+                    if Assigned(aObject) then
+                      begin
+                        //TODO:add History Entry fro Task
+                      end;
                     Added := True;
                     aTasks.Free;
                   end;
