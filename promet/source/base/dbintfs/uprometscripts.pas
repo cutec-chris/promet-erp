@@ -48,6 +48,7 @@ type
     FRuntime : TPSExec;
     FResults : string;
     aDS: TDataSet;
+    FParameters: Variant;
     destructor Destroy;
     procedure SQLConn;
     procedure DoSetResults;
@@ -57,6 +58,8 @@ type
     procedure InternalWrite(const s: string);
     procedure InternalWriteln(const s: string);
     procedure InternalReadln(var s: string);
+    function InternalParamStr(Param : Integer) : String;
+    function InternalParamCount : Integer;
 
     procedure InternalExec(cmd : string);
     function InternalExecActive: Boolean;
@@ -258,6 +261,8 @@ begin
       try
         Sender.AddDelphiFunction('procedure Writeln(P1: string);');
         Sender.AddDelphiFunction('procedure Write(P1: string);');
+        Sender.AddDelphiFunction('function ParamStr(Param : Integer) : String;');
+        Sender.AddDelphiFunction('function ParamCount : Integer;');
       except
         Result := False; // will halt compilation
       end;
@@ -271,6 +276,8 @@ begin
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalWriteln, 'WRITELN', cdRegister);
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalWrite, 'WRITE', cdRegister);
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.Internalreadln, 'READLN', cdRegister);
+  Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalParamStr, 'PARAMSTR', cdRegister);
+  Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalParamCount, 'PARAMCOUNT', cdRegister);
   RegisterDLLRuntime(Runtime);
   ExtendRuntime(Runtime,ClassImporter,Script);
 end;
@@ -334,6 +341,18 @@ begin
   if Assigned(FRlFunc) then FRlFunc(s);
 end;
 
+function TBaseScript.InternalParamStr(Param: Integer): String;
+begin
+  Result:='';
+  if Param<VarArrayHighBound(FParameters,1) then
+    Result:=FParameters[Param];
+end;
+
+function TBaseScript.InternalParamCount: Integer;
+begin
+  Result := VarArrayHighBound(FParameters,1);
+end;
+
 constructor TBaseScript.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
@@ -378,6 +397,7 @@ var
   i: Integer;
   ClassImporter: TPSRuntimeClassImporter;
 begin
+  FParameters := Parameters;
   DoSetStatus('R');
   Edit;
   FieldByName('LASTRESULT').Clear;

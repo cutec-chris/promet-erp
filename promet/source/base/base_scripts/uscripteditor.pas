@@ -160,6 +160,8 @@ type
 
     procedure Writeln(const s: string);
     procedure Readln(var s: string);
+    function InternalParamStr(Param : Integer) : String;
+    function InternalParamCount : Integer;
     procedure SetActiveFile(const Value: string);
 
     procedure DoSearchReplaceText(AReplace: boolean; ABackwards: boolean);
@@ -567,6 +569,8 @@ begin
   Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure writeln(s: string)');
   Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure write(s: string)');
   Sender.AddMethod(Self, @TfScriptEditor.Readln, 'procedure readln(var s: string)');
+  Sender.AddMethod(Self, @TfScriptEditor.InternalParamStr,'function ParamStr(Param : Integer) : String;');
+  Sender.AddMethod(Self, @TfScriptEditor.InternalParamCount,'function ParamCount : Integer;');
   Sender.AddRegisteredVariable('Self', 'TForm');
   Sender.AddRegisteredVariable('Application', 'TApplication');
   FOldUses:=Sender.Comp.OnUses;
@@ -595,6 +599,16 @@ end;
 procedure TfScriptEditor.Readln(var s: string);
 begin
   s := InputBox(STR_INPUTBOX_TITLE, '', '');
+end;
+
+function TfScriptEditor.InternalParamStr(Param: Integer): String;
+begin
+  result := '';
+end;
+
+function TfScriptEditor.InternalParamCount: Integer;
+begin
+  Result := 0;
 end;
 
 //check if script changed and not yet saved//
