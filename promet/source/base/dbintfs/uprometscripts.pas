@@ -64,6 +64,9 @@ type
     procedure InternalExec(cmd : string);
     function InternalExecActive: Boolean;
     function InternalKill: Boolean;
+    function InternalDataSet(SQL : string) : TDataSet;
+    procedure InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
+      ObjectLink: string=''; Reference: string='';Commission: string=''; Source: string='script');
     constructor Create(Parameters : Variant;aParent : TBaseScript);
     procedure Execute; override;
     destructor Destroy; override;
@@ -198,19 +201,67 @@ begin
       while Assigned(FProcess) do InternalExecActive;
     end;
 end;
+
+function TScriptThread.InternalDataSet(SQL: string): TDataSet;
+begin
+  Result := TBaseDBModule(FParentDS.DataModule).GetNewDataSet(SQL,FParentDS.Connection);
+end;
+
+procedure TScriptThread.InternalHistory(Action: string; ParentLink: string;
+  Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
+  Source: string);
+var
+  aHistory: TBaseHistory;
+  aDataSetClass: TBaseDBDatasetClass;
+  aDataSet: TBaseDBDataset;
+begin
+  if TBaseDBModule(FParentDS.DataModule).DataSetFromLink(ParentLink,aDataSetClass) then
+    begin
+      aDataSet := aDataSetClass.Create(nil,FParentDS.DataModule,FParentDS.Connection);
+      TBaseDbList(aDataSet).SelectFromLink(ParentLink);
+      aDataSet.Open;
+      if aDataSet.Count>0 then
+        begin
+          aHistory := TBaseHistory.Create(nil,FParentDS.DataModule,FParentDS.Connection);
+          aHistory.AddItem(aDataSet.DataSet,Action,ObjectLink,Reference,nil,Icon,Commission);
+          aHistory.Free;
+        end;
+      aDataSet.Free;
+    end;
+end;
+
 procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;ScriptThread : TScriptThread);
 begin
   Runtime.RegisterDelphiMethod(ScriptThread,@TScriptThread.InternalExec, 'EXEC', cdRegister);
   Runtime.RegisterDelphiMethod(ScriptThread,@TScriptThread.InternalExecActive, 'EXECACTIVE', cdRegister);
   Runtime.RegisterDelphiMethod(ScriptThread,@TScriptThread.InternalKill, 'KILL', cdRegister);
+
+  Runtime.RegisterDelphiMethod(ScriptThread,@TScriptThread.InternalDataSet, 'DATASET', cdRegister);
+  Runtime.RegisterDelphiMethod(ScriptThread,@TScriptThread.InternalHistory, 'HISTORY', cdRegister);
 end;
 function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 begin
   Result := True;
   try
-    Sender.AddDelphiFunction('procedure Exec(cmd : string);');
-    Sender.AddDelphiFunction('function ExecActive : Boolean;');
-    Sender.AddDelphiFunction('function Kill : Boolean;');
+    if lowercase(Name)='exec' then
+      begin
+        Sender.AddDelphiFunction('procedure Exec(cmd : string);');
+        Sender.AddDelphiFunction('function ExecActive : Boolean;');
+        Sender.AddDelphiFunction('function Kill : Boolean;');
+      end
+    else if lowercase(Name)='promet' then
+      begin
+        Sender.AddDelphiFunction('function DataSet(SQL : string) : TDataSet;');
+        Sender.AddDelphiFunction('procedure History(Action : string;ParentLink : string;Icon : Integer = 0;ObjectLink : string = '''';Reference : string = '''';Commission: string='''';Source : string = '''';script'');');
+
+      end
+    else if lowercase(Name)='net' then
+      begin
+        Sender.AddDelphiFunction('function Get(URL : string) : string;');
+        Sender.AddDelphiFunction('function Post(URL,Content : string) : string;');
+
+      end
+    else Result := False;
   except
     Result := False; // will halt compilation
   end;
