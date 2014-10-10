@@ -177,6 +177,8 @@ var
   Attr1: TDOMAttr;
   aNSName: String;
   tmp2: DOMString;
+  Path: string;
+  aDirList : TLDirectoryList;
 
   procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D');
   var
@@ -291,6 +293,8 @@ begin
       if Assigned(TLWebDAVServer(FSocket.Creator).OnUserLogin) then
         TLWebDAVServer(FSocket.Creator).OnUserLogin(copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
     end;
+  Path := TLHTTPServerSocket(FSocket).FRequestInfo.Argument;
+  if copy(Path,0,1) <> '/' then Path := '/'+Path;
   if Assigned(aDocument.DocumentElement) then
     begin
       if trim(copy(aDocument.DocumentElement.FirstChild.NodeName,0,pos(':',aDocument.DocumentElement.FirstChild.NodeName)-1)) <> '' then
@@ -354,7 +358,13 @@ begin
         end;
       if aItems.Count=0 then
         begin //we report all ??!
-
+          aDirList := TLDirectoryList.Create;
+          if TLWebDAVServer(TLWebDAVServerSocket(FSocket).Creator).FGetDirList(Path,1,aDirList) then
+            for i := 0 to aDirList.Count-1 do
+              begin
+                aItems.Add(Path+'/'+aDirList[i].Name);
+              end;
+          aDirList.Free;
         end;
       aDocument.DocumentElement.Free;
     end
