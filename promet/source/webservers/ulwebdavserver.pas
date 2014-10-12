@@ -179,6 +179,8 @@ var
   tmp2: DOMString;
   Path: string;
   aDirList : TLDirectoryList;
+  aNode: TDOMNode;
+  aFilter : string = '';
 
   procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D');
   var
@@ -229,6 +231,7 @@ var
         end;
     end;
   begin
+    writeln('CreateResponse:'+aPath+' '+prefix);
     aNotFoundProp := TStringList.Create;
     aNotFoundProp.AddStrings(Properties);
     aResponse := aDocument.CreateElement(prefix+':response');
@@ -281,10 +284,18 @@ var
       end;
     aNotFoundProp.Free;
   end;
+  procedure RecourseFilter(aNode : TDOMNode);
+  begin
+    if pos(':vevent',lowercase(aNode.NodeName))>0 then
+
+    for b := 0 to aNode.ChildNodes.Count-1 do
+      RecourseFilter(aNode.ChildNodes[i]);
+  end;
 
 begin
   aProperties := TStringList.Create;
   bProperties := TStringList.Create;
+  writeln('***REPORT:'+HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument));
   aItems := TStringList.Create;
   if FSocket.Parameters[hpAuthorization] <> '' then
     begin
@@ -353,8 +364,13 @@ begin
       aPropNode := TDOMElement(aDocument.DocumentElement);
       for i := 0 to aPropNode.ChildNodes.Count-1 do
         begin
-          if pos(':href',aPropNode.ChildNodes.Item[i].NodeName) > 0 then
+          tmp := aPropNode.ChildNodes.Item[i].NodeName;
+          if pos(':href',lowercase(tmp)) > 0 then
             aItems.Add(aPropNode.ChildNodes.Item[i].FirstChild.NodeValue);
+          if pos(':filter',lowercase(tmp)) > 0 then
+            begin
+              RecourseFilter(aPropNode.ChildNodes.Item[i]);
+            end;
         end;
       if aItems.Count=0 then
         begin //we report all ??!
@@ -362,7 +378,7 @@ begin
           if TLWebDAVServer(TLWebDAVServerSocket(FSocket).Creator).FGetDirList(Path,1,aDirList) then
             for i := 0 to aDirList.Count-1 do
               begin
-                aItems.Add(Path+'/'+aDirList[i].Name);
+                aItems.Add(Path+aDirList[i].Name);
               end;
           aDirList.Free;
         end;
