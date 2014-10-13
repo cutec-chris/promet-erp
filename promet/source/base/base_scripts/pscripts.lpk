@@ -39,6 +39,7 @@
       </Item1>
       <Item2>
         <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="..\dbintfs\pprometdbintfs.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="SynEdit"/>
