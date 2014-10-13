@@ -254,28 +254,19 @@ procedure TExtCombobox.KeyDown(var Key: Word; Shift: TShiftState);
 begin
   inherited KeyDown(Key, Shift);
   case Key of
-    VK_RETURN:
-      if DroppedDown then
-        begin
-          if (FGrid=nil) then
-            Key := 0;
-          DroppedDown := False;
-          if Key<>0 then
-            begin
-              if FGrid<>nil then
-                FGrid.EditorkeyDown(Self, key, shift);
-              Key:=0;
-            end;
-        end
-      else
-        begin
-          if FGrid<>nil then
-            FGrid.EditorkeyDown(Self, key, shift);
-          FGrid.SetFocus;
-        end;
-    else if FGrid<>nil then
+  VK_LEFT,VK_RIGHT:
+    begin
+      DroppedDown := False;
+      FGrid.SetFocus;
       FGrid.EditorkeyDown(Self, key, shift);
+    end;
   end;
+  if (Key = VK_UP) and ItemIndex=0 then
+    begin
+      DroppedDown := False;
+      FGrid.SetFocus;
+      FGrid.EditorkeyDown(Self, key, shift);
+    end;
 end;
 
 procedure TExtCombobox.Select;
@@ -1155,4 +1146,4 @@ begin
   FCanvas.Free;
 end;
 end.
-
+

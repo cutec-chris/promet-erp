@@ -18,7 +18,7 @@ inherited fCategoryOptions: TfCategoryOptions
       item
         PickList.Strings = (
           'P   Projekt'
-          'PC  Projekt Klassifizierung'
+          'K  Projekt Klassifizierung'
           'T   Aufgaben'
           'M  Artikel'
           'B  Bank'

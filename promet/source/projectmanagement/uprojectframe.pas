@@ -1014,7 +1014,7 @@ var
   aDocFrame: TfDocumentFrame;
   aParent: TProject;
   aSubProject: TProject;
-  aType: Char;
+  aType: string;
   tmp: String;
   aFound: Boolean;
   aTasks: TfTaskFrame;
@@ -1071,7 +1071,7 @@ begin
       Data.Categories.DataSet.Next;
     end;
   cbClass.Items.Clear;
-  aType := 'PC';
+  aType := 'K';
   Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
   Data.Categories.First;
   while not Data.Categories.EOF do
