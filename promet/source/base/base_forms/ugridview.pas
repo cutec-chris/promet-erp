@@ -29,7 +29,7 @@ uses
   Classes, SysUtils, FileUtil,  Forms, Controls, DBGrids, ExtCtrls,
   Buttons, ComCtrls, uExtControls, db, Grids, ActnList, Menus, uBaseDBClasses,
   uBaseDbInterface, StdCtrls, Graphics, types, Clipbrd, LMessages,
-  ubasevisualapplicationtools, Dialogs, DbCtrls;
+  ubasevisualapplicationtools, ZVDateTimePicker, Dialogs, DbCtrls, EditBtn;
 type
   TUnprotectedGrid = class(TCustomGrid);
 
@@ -100,6 +100,7 @@ type
     ActionList: TActionList;
     ActionList1: TActionList;
     bRowEditor: TSpeedButton;
+    deDate: TDateEdit;
     dgFake: TDBGrid;
     FDataSource: TDatasource;
     FilterImage: TImage;
@@ -123,6 +124,9 @@ type
     procedure acOpenExecute(Sender: TObject);
     procedure acSearchExecute(Sender: TObject);
     procedure bEditRowsClick(Sender: TObject);
+    procedure deDateAcceptDate(Sender: TObject; var ADate: TDateTime;
+      var AcceptDate: Boolean);
+    procedure deDateKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure dgFakeTitleClick(Column: TColumn);
     procedure DoAsyncRefresh(Data: PtrInt);
     procedure FDataSourceDataChange(Sender: TObject; Field: TField);
@@ -398,6 +402,45 @@ begin
   fRowEditor.Execute(FBaseName,FDataSource,dgFake,FBaseName);
   Asyncrefresh;
 end;
+
+procedure TfGridView.deDateAcceptDate(Sender: TObject; var ADate: TDateTime;
+  var AcceptDate: Boolean);
+begin
+  TUnprotectedGrid(gList).SetEditText(gList.Col, gList.Row, DateToStr(ADate));
+end;
+
+procedure TfGridView.deDateKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  case Key of
+  VK_RIGHT:
+    begin
+      if deDate.SelStart>=length(deDate.Text) then
+        begin
+          THackGrid(gList).EditorKeyDown(gList,Key,Shift);
+          Key := 0;
+        end;
+    end;
+  VK_LEFT:
+    begin
+      if deDate.SelStart<=0 then
+        begin
+          THackGrid(gList).EditorKeyDown(gList,Key,Shift);
+          Key := 0;
+        end;
+    end;
+  VK_RETURN:
+    begin
+      if deDate.SelStart>=length(deDate.Text) then
+        begin
+          TUnprotectedGrid(gList).SetEditText(gList.Col, gList.Row, DateToStr(deDate.Date));
+          THackGrid(gList).EditorKeyDown(gList,Key,Shift);
+          Key := 0;
+        end;
+    end;
+  end;
+end;
+
 procedure TfGridView.dgFakeTitleClick(Column: TColumn);
 begin
   if (Column.Field.DataType = ftMemo)
@@ -1655,6 +1698,13 @@ begin
         Editor:=mInplace;
         exit;
       end;
+  if Assigned(dgFake.Columns[aCol-1].Field) and (dgFake.Columns[aCol-1].Field.DataType = ftDateTime) and (Editor <> deDate) then
+    begin
+      Editor:=deDate;
+      deDate.Date:=dgFake.Columns[aCol-1].Field.AsDateTime;
+      deDate.BoundsRect := gList.CellRect(aCol,aRow);
+      exit;
+    end;
 end;
 procedure TfGridView.gListSetEditText(Sender: TObject; ACol,
   ARow: Integer; const Value: string);

@@ -6,7 +6,6 @@ object fGridView: TfGridView
   ClientHeight = 354
   ClientWidth = 581
   Color = clBtnFace
-  LCLVersion = '1.3'
   OnResize = FrameResize
   ParentColor = False
   ParentShowHint = False
@@ -62,6 +61,23 @@ object fGridView: TfGridView
       OnSetEditText = gListSetEditText
       CachedEditing = True
       OnEnterEdit = gListEnterEdit
+    end
+    object deDate: TDateEdit
+      Left = 96
+      Height = 21
+      Top = 144
+      Width = 103
+      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      OnAcceptDate = deDateAcceptDate
+      OKCaption = 'OK'
+      CancelCaption = 'Cancel'
+      DateOrder = doNone
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      OnKeyDown = deDateKeyDown
+      TabOrder = 1
+      Visible = False
     end
   end
   object dgFake: TDBGrid
