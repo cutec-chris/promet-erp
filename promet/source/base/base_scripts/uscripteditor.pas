@@ -647,7 +647,10 @@ begin
   FDataSet.DataSet.AfterScroll:=@FDataSetDataSetAfterScroll;
   FDataSet.DataSet.AfterCancel:=@FDataSetDataSetAfterScroll;
   if (not FDataSet.Locate('NAME',aScript,[loCaseInsensitive])) or (aScript='') then
-   FDataSet.Insert
+    begin
+      FDataSet.Insert;
+      FDataSet.FieldByName('NAME').AsString:=aScript;
+    end
   else
     FDataSetDataSetAfterScroll(FDataSet.DataSet);
   Result := Showmodal = mrOK;
@@ -660,7 +663,7 @@ procedure TfScriptEditor.edStatusChange(Sender: TObject;
   Changes: TSynStatusChanges);
 begin
   StatusBar.Panels[0].Text := IntToStr(ed.CaretY)+':'+IntToStr(ed.CaretX);
-  acSave.Enabled := ed.Modified or FDataSet.CanEdit;
+  acSave.Enabled := ed.Modified or (Assigned(FDataset) and (FDataSet.CanEdit));
 end;
 
 function TfScriptEditor.DebuggerNeedFile(Sender: TObject; const OrginFileName: String;
