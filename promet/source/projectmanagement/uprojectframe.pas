@@ -67,6 +67,7 @@ type
     bExecute1: TSpeedButton;
     bExecute2: TToolButton;
     bShowTree: TSpeedButton;
+    cbCategory1: TExtDBCombobox;
     cbStatus: TComboBox;
     cbType: TExtDBCombobox;
     cbCategory: TExtDBCombobox;
@@ -87,6 +88,7 @@ type
     Label8: TLabel;
     Label9: TLabel;
     lVAT1: TLabel;
+    lVAT2: TLabel;
     MandantDetails: TDatasource;
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
@@ -113,13 +115,11 @@ type
     Shape4: TShape;
     Tasks: TDatasource;
     DBZVDateTimePicker1: TDBZVDateTimePicker;
-    DBZVDateTimePicker2: TDBZVDateTimePicker;
     DBZVDateTimePicker3: TDBZVDateTimePicker;
     dImport: TOpenDialog;
     eNumber: TDBEdit;
     History: TDatasource;
     Label1: TLabel;
-    Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;

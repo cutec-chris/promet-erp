@@ -685,6 +685,7 @@ begin
             Add('ACCOUNT',ftString,10,False); //Fibu Konto
             Add('ACCOUNTINGINFO',ftMemo,0,False); //Fibu Info
             Add('CATEGORY',ftString,60,False);
+            Add('CLASS',ftString,60,False);
             Add('CHANGEDBY',ftString,4,false);
             Add('CREATEDBY',ftString,4,false);
             Add('CREATEDAT',ftDate,0,false);
