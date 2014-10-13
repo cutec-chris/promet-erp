@@ -791,7 +791,6 @@ object fScriptEditor: TfScriptEditor
     top = 96
   end
   object PopupMenu1: TPopupMenu
-    Images = fVisualControls.Images
     left = 656
     top = 48
     object BreakPointMenu: TMenuItem
@@ -805,31 +804,26 @@ object fScriptEditor: TfScriptEditor
     left = 656
     top = 192
     object File1: TMenuItem
-      Caption = '&File'
+      Caption = '&Datei'
       object N3: TMenuItem
         Caption = '-'
       end
       object Open1: TMenuItem
-        Caption = '&Open...'
+        Caption = 'Öffnen'
         ShortCut = 16463
       end
       object Save1: TMenuItem
-        Caption = '&Save'
-        ShortCut = 16467
+        Action = acSave
       end
-      object Saveas1: TMenuItem
-        Caption = 'Save &as...'
-      end
-      object N4: TMenuItem
+      object MenuItem1: TMenuItem
         Caption = '-'
       end
-      object Exit1: TMenuItem
-        Caption = '&Exit'
-        OnClick = Exit1Click
+      object MenuItem2: TMenuItem
+        Action = acLogout
       end
     end
     object Search1: TMenuItem
-      Caption = '&Search'
+      Caption = '&Suche'
       object Find1: TMenuItem
         Caption = '&Find...'
         OnClick = Find1Click
@@ -1166,7 +1160,7 @@ object fScriptEditor: TfScriptEditor
       ShortCut = 16504
     end
     object acSave: TAction
-      Caption = 'acSave'
+      Caption = 'Speichern'
       ImageIndex = 20
       OnExecute = acSaveExecute
       ShortCut = 16467
@@ -1186,6 +1180,10 @@ object fScriptEditor: TfScriptEditor
       ImageIndex = 23
       OnExecute = acStepintoExecute
       ShortCut = 118
+    end
+    object acLogout: TAction
+      Caption = 'Abmelden'
+      OnExecute = acLogoutExecute
     end
   end
   object FindDialog: TFindDialog

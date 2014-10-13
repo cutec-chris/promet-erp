@@ -137,12 +137,23 @@ begin
   aScript.Free;
 end;
 procedure TBaseScript.InternalExec(cmd : string);
+var
+  aLine: String;
 begin
   FProcess := TProcess.Create(nil);
   FProcess.CommandLine:=cmd;
   CompleteOutput:='';
   FProcess.Options:=FProcess.Options+[poUsePipes,poNoConsole];
-  FProcess.Execute;
+  try
+    FProcess.Execute;
+  except
+    on e : exception do
+      begin
+        aLine := 'Error:'+e.Message;
+        if Assigned(FRuntime) then
+          FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
+      end;
+  end;
 end;
 function TBaseScript.InternalExecActive : Boolean;
 var

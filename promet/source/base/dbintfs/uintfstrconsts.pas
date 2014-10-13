@@ -234,4 +234,4 @@ resourcestring
                                 ;
 
 implementation
-end.
+end.

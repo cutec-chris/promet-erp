@@ -59,6 +59,7 @@ begin
   aScript.Readln:=@aScriptReadln;
   aScript.Write:=@aScriptWrite;
   aScript.Writeln:=@aScriptWriteln;
+  aScript.Open;
   if not aScript.Locate('NAME',ParamStr(ParamCount),[loCaseInsensitive]) then
     begin
       writeln('Script "'+ParamStr(ParamCount)+'" not found !');

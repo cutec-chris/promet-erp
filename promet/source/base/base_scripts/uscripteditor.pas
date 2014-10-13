@@ -46,6 +46,7 @@ type
     acDecompile: TAction;
     acStepover: TAction;
     acStepinto: TAction;
+    acLogout: TAction;
     ActionList1: TActionList;
     cbSyntax: TDBComboBox;
     DataSource: TDataSource;
@@ -57,6 +58,8 @@ type
     ilImageList: TImageList;
     Label1: TLabel;
     Label2: TLabel;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     pLeft: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
@@ -77,14 +80,11 @@ type
     Reset1: TMenuItem;
     N2: TMenuItem;
     Run2: TMenuItem;
-    Exit1: TMenuItem;
     messages: TListBox;
     Splitter1: TSplitter;
     N3: TMenuItem;
-    N4: TMenuItem;
     Open1: TMenuItem;
     Save1: TMenuItem;
-    Saveas1: TMenuItem;
     StatusBar: TStatusBar;
     Decompile1: TMenuItem;
     N5: TMenuItem;
@@ -114,6 +114,7 @@ type
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
     procedure acDecompileExecute(Sender: TObject);
+    procedure acLogoutExecute(Sender: TObject);
     procedure acNewExecute(Sender: TObject);
     procedure acPauseExecute(Sender: TObject);
     procedure acResetExecute(Sender: TObject);
@@ -183,7 +184,7 @@ var
 implementation
 
 uses
-  uFrmGotoLine,uData;
+  uFrmGotoLine,uData,uBaseApplication;
 
 {$R *.lfm}
 
@@ -309,6 +310,12 @@ begin
     IFPS3DataToText(s, s);
     messages.AddItem(s,nil);
   end;
+end;
+
+procedure TfScriptEditor.acLogoutExecute(Sender: TObject);
+begin
+  with Application as IBaseApplication do
+    Logout;
 end;
 
 procedure TfScriptEditor.acNewExecute(Sender: TObject);

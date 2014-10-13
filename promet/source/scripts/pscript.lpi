@@ -27,7 +27,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;TEST&quot;"/>
+        <CommandLineParams Value="--mandant=&quot;Stora&quot; whatsapp-yowsup"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
@@ -43,7 +43,6 @@
       <Unit0>
         <Filename Value="pscript.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="pscript"/>
       </Unit0>
     </Units>
   </ProjectOptions>
