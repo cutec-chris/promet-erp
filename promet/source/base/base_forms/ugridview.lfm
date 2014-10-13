@@ -62,23 +62,6 @@ object fGridView: TfGridView
       CachedEditing = True
       OnEnterEdit = gListEnterEdit
     end
-    object deDate: TDateEdit
-      Left = 96
-      Height = 21
-      Top = 144
-      Width = 103
-      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
-      OnAcceptDate = deDateAcceptDate
-      OKCaption = 'OK'
-      CancelCaption = 'Cancel'
-      DateOrder = doNone
-      ButtonWidth = 23
-      NumGlyphs = 1
-      MaxLength = 0
-      OnKeyDown = deDateKeyDown
-      TabOrder = 1
-      Visible = False
-    end
   end
   object dgFake: TDBGrid
     Left = 0

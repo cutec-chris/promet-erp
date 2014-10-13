@@ -3512,4 +3512,11 @@ inherited fTaskFrame: TfTaskFrame
       }
     end
   end
+  object CalendarDialog1: TCalendarDialog[17]
+    Date = 41925
+    OKCaption = '&Ok'
+    CancelCaption = 'Abbrechen'
+    left = 280
+    top = 184
+  end
 end

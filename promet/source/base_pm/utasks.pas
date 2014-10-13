@@ -25,7 +25,7 @@ uses
    Forms, Controls, DBGrids, ValEdit, ExtCtrls, Buttons, ComCtrls,
   uPrometFramesInplaceDB, uExtControls, db, Grids, ActnList, Menus, StdCtrls,
   uBaseDBClasses, uBaseDbInterface, uGridView, uIntfStrConsts,
-  Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,Clipbrd;
+  Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,Clipbrd, ExtDlgs;
 type
   TOnStartTime = procedure(Sender : TObject;aProject,aTask,aCategory : string) of object;
 
@@ -106,6 +106,7 @@ type
     Bevel4: TBevel;
     Bevel5: TBevel;
     bDelegated: TSpeedButton;
+    CalendarDialog1: TCalendarDialog;
     cbFilter: TComboBox;
     cbMaxResults: TCheckBox;
     Datasource: TDatasource;
@@ -452,6 +453,14 @@ begin
           FGridView.Columns[i].ButtonStyle:=cbsEllipsis;
         end
       else if TColumn(FGridView.Columns[i]).FieldName = 'OWNER' then
+        begin
+          FGridView.Columns[i].ButtonStyle:=cbsEllipsis;
+        end
+      else if TColumn(FGridView.Columns[i]).FieldName = 'STARTDATE' then
+        begin
+          FGridView.Columns[i].ButtonStyle:=cbsEllipsis;
+        end
+      else if TColumn(FGridView.Columns[i]).FieldName = 'DUEDATE' then
         begin
           FGridView.Columns[i].ButtonStyle:=cbsEllipsis;
         end
@@ -1483,6 +1492,36 @@ begin
   else if Field.FieldName = 'OWNER' then
     begin
       acSetOwner.Execute;
+    end
+  else if Field.FieldName = 'DUEDATE' then
+    begin
+      CalendarDialog1.Date:=Field.Field.AsDateTime;
+      if CalendarDialog1.Execute then
+        begin
+          FGridView.BeginUpdate;
+          if not DataSet.CanEdit then
+            DataSet.DataSet.Edit;
+          DataSet.FieldByName('DUEDATE').AsDateTime := CalendarDialog1.Date;
+          FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
+          FGridView.gList.EditorMode:=False;
+          FGridView.EndUpdate;
+          FGridView.SetEdited;
+        end;
+    end
+  else if Field.FieldName = 'STARTDATE' then
+    begin
+      CalendarDialog1.Date:=Field.Field.AsDateTime;
+      if CalendarDialog1.Execute then
+        begin
+          FGridView.BeginUpdate;
+          if not DataSet.CanEdit then
+            DataSet.DataSet.Edit;
+          DataSet.FieldByName('STARTDATE').AsDateTime := CalendarDialog1.Date;
+          FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
+          FGridView.gList.EditorMode:=False;
+          FGridView.EndUpdate;
+          FGridView.SetEdited;
+        end;
     end
   ;
 end;
