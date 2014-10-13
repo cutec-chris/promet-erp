@@ -31,8 +31,6 @@ type
     constructor Create(TheOwner: TComponent); override;
   end;
 
-  { TExtCombobox }
-
   TExtCombobox = class(TComboBox)
   private
     FCol,FRow : Integer;
@@ -259,13 +257,17 @@ begin
       DroppedDown := False;
       FGrid.SetFocus;
       FGrid.EditorkeyDown(Self, key, shift);
+      if FGrid<>nil then
+        FGrid.EditingDone;
     end;
   end;
-  if (Key = VK_UP) and ItemIndex=0 then
+  if (Key = VK_UP) and (ItemIndex=0) then
     begin
       DroppedDown := False;
       FGrid.SetFocus;
       FGrid.EditorkeyDown(Self, key, shift);
+      if FGrid<>nil then
+        FGrid.EditingDone;
     end;
 end;
 
@@ -280,6 +282,8 @@ begin
       else
         THackDBGrid(FGrid).SetEditText(FCol, FRow, Text);
       THackDBGrid(FGrid).PickListItemSelected(Self);
+      if FGrid<>nil then
+        FGrid.EditingDone;
     end;
   inherited Select;
 end;
