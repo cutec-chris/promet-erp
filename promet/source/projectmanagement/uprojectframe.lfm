@@ -484,7 +484,7 @@ inherited fprojectFrame: TfprojectFrame
         Caption = 'Klassifizierung'
         ParentColor = False
       end
-      object cbCategory1: TExtDBCombobox
+      object cbClass: TExtDBCombobox
         Left = 208
         Height = 21
         Top = 104

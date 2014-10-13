@@ -17,11 +17,12 @@ inherited fCategoryOptions: TfCategoryOptions
     Columns = <    
       item
         PickList.Strings = (
-          'P   Project'
-          'T   Task'
-          'M  Article'
-          'B  Banking'
-          'C  Calendar'
+          'P   Projekt'
+          'PC  Projekt Klassifizierung'
+          'T   Aufgaben'
+          'M  Artikel'
+          'B  Bank'
+          'C  Kalendar'
         )
         Title.Caption = 'Typ'
         Width = 40
@@ -52,7 +53,7 @@ inherited fCategoryOptions: TfCategoryOptions
     TitleStyle = tsNative
     OnCellClick = gCategoryCellClick
   end
-  object CategoryDS: TDatasource[1]
+  object CategoryDS: TDataSource[1]
     left = 444
     top = 412
   end

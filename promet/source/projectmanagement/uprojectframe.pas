@@ -67,7 +67,7 @@ type
     bExecute1: TSpeedButton;
     bExecute2: TToolButton;
     bShowTree: TSpeedButton;
-    cbCategory1: TExtDBCombobox;
+    cbClass: TExtDBCombobox;
     cbStatus: TComboBox;
     cbType: TExtDBCombobox;
     cbCategory: TExtDBCombobox;
@@ -1068,6 +1068,16 @@ begin
     begin
       if Data.Categories.FieldByName('ACTIVE').AsString<>'N' then
         cbCategory.Items.Add(Data.Categories.FieldByName('NAME').AsString);
+      Data.Categories.DataSet.Next;
+    end;
+  cbClass.Items.Clear;
+  aType := 'PC';
+  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.Categories.First;
+  while not Data.Categories.EOF do
+    begin
+      if Data.Categories.FieldByName('ACTIVE').AsString<>'N' then
+        cbClass.Items.Add(Data.Categories.FieldByName('NAME').AsString);
       Data.Categories.DataSet.Next;
     end;
 
