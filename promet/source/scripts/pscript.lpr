@@ -69,6 +69,7 @@ begin
     end;
   aScript.Execute(Null);
   aScript.Free;
+  readln;
   // stop program loop
   Terminate;
 end;

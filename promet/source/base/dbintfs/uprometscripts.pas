@@ -27,7 +27,7 @@ uses
   Classes, SysUtils, uBaseDbClasses, uBaseDBInterface, db, uPSCompiler,
   uPSC_classes, uPSC_dateutils, uPSC_dll, uPSRuntime,
   uPSR_classes, uPSR_DB, uPSR_dll, uPSUtils,Process,usimpleprocess,
-  Utils,variants;
+  Utils,variants,UTF8Process;
 
 type
   TWritelnFunc = procedure(const s: string) of object;
@@ -44,12 +44,11 @@ type
     FRlFunc: TReadlnFunc;
     FWrFunc: TWritelnFunc;
     FWriFunc: TWriteFunc;
-    FProcess: TProcess;
+    FProcess: TProcessUTF8;
     FRuntime : TPSExec;
     FResults : string;
     aDS: TDataSet;
     FParameters: Variant;
-    destructor Destroy;
     procedure SQLConn;
     procedure DoSetResults;
     procedure DoSetStatus(s : string);
@@ -61,7 +60,7 @@ type
     function InternalParamStr(Param : Integer) : String;
     function InternalParamCount : Integer;
 
-    procedure InternalExec(cmd : string);
+    procedure InternalExec(cmd : string;ShowConsole : Boolean = False);
     function InternalExecActive: Boolean;
     function InternalKill: Boolean;
 
@@ -78,6 +77,7 @@ type
     property Readln : TReadlnFunc read FRlFunc write FRlFunc;
     property Runtime : TPSExec read FRuntime write FRuntime;
     function Execute(Parameters : Variant) : Boolean;
+    destructor Destroy;override;
   end;
 
   function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
@@ -136,14 +136,16 @@ begin
     end;
   aScript.Free;
 end;
-procedure TBaseScript.InternalExec(cmd : string);
+procedure TBaseScript.InternalExec(cmd: string; ShowConsole: Boolean);
 var
   aLine: String;
 begin
-  FProcess := TProcess.Create(nil);
   FProcess.CommandLine:=cmd;
+  FProcess.Options:=[poUsePipes,poNoConsole];
+  if ShowConsole then
+    FProcess.Options:=[poUsePipes];
   CompleteOutput:='';
-  FProcess.Options:=FProcess.Options+[poUsePipes,poNoConsole];
+  FProcess.ShowWindow:=swoNone;
   try
     FProcess.Execute;
   except
@@ -157,32 +159,26 @@ begin
 end;
 function TBaseScript.InternalExecActive : Boolean;
 var
-  ReadSize: DWord;
-  Buffer : string[127];
+  ReadSize: LongInt;
+  Buffer : string;
   ReadCount: LongInt;
   aLine: String;
 begin
   Result := Assigned(FProcess) and FProcess.Active;
-  if Assigned(FProcess) then
+  ReadSize := FProcess.Output.NumBytesAvailable;
+  while ReadSize>0 do
     begin
+      Setlength(Buffer,ReadSize);
+      ReadCount := FProcess.Output.Read(Buffer[1], ReadSize);
+      CompleteOutput:=CompleteOutput+copy(Buffer,0,ReadCount);
       ReadSize := FProcess.Output.NumBytesAvailable;
-      while ReadSize>0 do
-        begin
-          if ReadSize > SizeOf(Buffer) then
-            ReadSize := SizeOf(Buffer);
-          ReadCount := FProcess.Output.Read(Buffer[1], ReadSize);
-          CompleteOutput:=CompleteOutput+copy(Buffer,0,ReadCount);
-          ReadSize := FProcess.Output.NumBytesAvailable;
-        end;
-      while pos(#10,CompleteOutput)>0 do
-        begin
-          aLine := copy(CompleteOutput,0,pos(#10,CompleteOutput)-1);
-          if Assigned(FRuntime) then
-            FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
-          CompleteOutput:=copy(CompleteOutput,pos(#10,CompleteOutput)+1,length(CompleteOutput));
-        end;
-      if not FProcess.Active then
-        FreeAndNil(FProcess);
+    end;
+  while pos(#10,CompleteOutput)>0 do
+    begin
+      aLine := copy(CompleteOutput,0,pos(#10,CompleteOutput)-1);
+      if Assigned(FRuntime) then
+        FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
+      CompleteOutput:=copy(CompleteOutput,pos(#10,CompleteOutput)+1,length(CompleteOutput));
     end;
 end;
 function TBaseScript.InternalKill : Boolean;
@@ -191,7 +187,8 @@ begin
   if Result then
     begin
       FProcess.Terminate(0);
-      while Assigned(FProcess) do InternalExecActive;
+      while FProcess.Running do InternalExecActive;
+      InternalExecActive;
     end;
 end;
 
@@ -239,7 +236,7 @@ begin
   try
     if lowercase(Name)='exec' then
       begin
-        Sender.AddDelphiFunction('procedure Exec(cmd : string);');
+        Sender.AddDelphiFunction('procedure Exec(cmd : string;ShowConsole : Boolean);');
         Sender.AddDelphiFunction('function ExecActive : Boolean;');
         Sender.AddDelphiFunction('function Kill : Boolean;');
       end
@@ -368,6 +365,8 @@ constructor TBaseScript.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
+  FProcess := TProcessUTF8.Create(nil);
+  FProcess.ShowWindow:=swoNone;
 end;
 
 procedure TBaseScript.DefineFields(aDataSet: TDataSet);

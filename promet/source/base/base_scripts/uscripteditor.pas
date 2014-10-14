@@ -316,6 +316,7 @@ procedure TfScriptEditor.acLogoutExecute(Sender: TObject);
 begin
   with Application as IBaseApplication do
     Logout;
+  Application.Terminate;
 end;
 
 procedure TfScriptEditor.acNewExecute(Sender: TObject);

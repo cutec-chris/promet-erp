@@ -9,6 +9,9 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
     </CompilerOptions>
     <Files Count="5">
       <Item1>
@@ -35,7 +38,7 @@
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
       <Item1>
-        <PackageName Value="pascalscript"/>
+        <PackageName Value="ppascalscriptlcl"/>
       </Item1>
       <Item2>
         <PackageName Value="pPrometDBIntfs"/>
