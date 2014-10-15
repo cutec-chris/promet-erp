@@ -25,8 +25,8 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbClasses, uBaseDBInterface, db, uPSCompiler,
-  uPSC_classes, uPSC_dateutils, uPSC_dll, uPSRuntime,
-  uPSR_classes, uPSR_DB, uPSR_dll, uPSUtils,Process,usimpleprocess,
+  uPSC_classes, uPSC_DB, uPSC_dateutils, uPSC_dll, uPSRuntime,
+  uPSR_classes, uPSR_DB, uPSR_dateutils, uPSR_dll, uPSUtils,Process,usimpleprocess,
   Utils,variants,UTF8Process;
 
 type
@@ -65,8 +65,11 @@ type
     function InternalKill: Boolean;
 
     function InternalDataSet(SQL : string) : TDataSet;
-    procedure InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
-      ObjectLink: string=''; Reference: string='';Commission: string=''; Source: string='script');
+    function InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
+      ObjectLink: string=''; Reference: string='';Commission: string='';Date:TDateTime = 0; Source: string='script') : Boolean;
+    function InternalUserHistory(Action: string;UserName: string; Icon: Integer; ObjectLink: string;
+      Reference: string; Commission: string; Date: TDateTime; Source: string
+  ): Boolean;
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
@@ -197,14 +200,15 @@ begin
   Result := TBaseDBModule(DataModule).GetNewDataSet(SQL,Connection);
 end;
 
-procedure TBaseScript.InternalHistory(Action: string; ParentLink: string;
+function TBaseScript.InternalHistory(Action: string; ParentLink: string;
   Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
-  Source: string);
+  Date: TDateTime; Source: string): Boolean;
 var
   aHistory: TBaseHistory;
   aDataSetClass: TBaseDBDatasetClass;
   aDataSet: TBaseDBDataset;
 begin
+  Result := False;
   if TBaseDBModule(DataModule).DataSetFromLink(ParentLink,aDataSetClass) then
     begin
       aDataSet := aDataSetClass.Create(nil,DataModule,Connection);
@@ -215,8 +219,19 @@ begin
           aHistory := TBaseHistory.Create(nil,DataModule,Connection);
           aHistory.AddItem(aDataSet.DataSet,Action,ObjectLink,Reference,nil,Icon,Commission);
           aHistory.Free;
+          result := True;
         end;
       aDataSet.Free;
+    end;
+end;
+
+function TBaseScript.InternalUserHistory(Action: string; UserName: string;
+  Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
+  Date: TDateTime; Source: string): Boolean;
+begin
+  if Data.Users.Locate('NAME',UserName,[loCaseInsensitive]) then
+    begin
+      Data.Users.History.AddItem(Data.Users.DataSet,Action,ObjectLink,Reference,nil,Icon,Commission);
     end;
 end;
 
@@ -229,6 +244,9 @@ begin
 
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalDataSet, 'DATASET', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalHistory, 'HISTORY', cdRegister);
+
+  uPSR_DB.RIRegister_DB(ClassImporter);
+  uPSR_dateutils.RegisterDateTimeLibrary_R(Runtime);
 end;
 function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 begin
@@ -243,18 +261,28 @@ begin
     else if lowercase(Name)='promet' then
       begin
         Sender.AddDelphiFunction('function DataSet(SQL : string) : TDataSet;');
-        Sender.AddDelphiFunction('procedure History(Action : string;ParentLink : string;Icon : Integer = 0;ObjectLink : string = '''';Reference : string = '''';Commission: string='''';Source : string = '''';script'');');
-
+        Sender.AddDelphiFunction('function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
+        Sender.AddDelphiFunction('function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
       end
     else if lowercase(Name)='net' then
       begin
         Sender.AddDelphiFunction('function Get(URL : string) : string;');
         Sender.AddDelphiFunction('function Post(URL,Content : string) : string;');
-
+      end
+    else if lowercase(Name)='db' then
+      begin
+        uPSC_DB.SIRegister_DB(Sender);
+      end
+    else if lowercase(Name)='dateutils' then
+      begin
+        uPSC_dateutils.RegisterDateTimeLibrary_C(Sender);
       end
     else Result := False;
   except
-    Result := False; // will halt compilation
+    begin
+      raise;
+      Result := False; // will halt compilation
+    end;
   end;
 end;
 

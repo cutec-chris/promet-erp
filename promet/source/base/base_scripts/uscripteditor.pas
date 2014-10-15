@@ -152,6 +152,7 @@ type
     FDataSet : TBaseScript;
     Fuses : TBaseScript;
     FOldUses : TPSOnUses;
+    ClassImporter: uPSRuntime.TPSRuntimeClassImporter;
     function Compile: Boolean;
     function Execute: Boolean;
 
@@ -511,7 +512,11 @@ begin
   if Result then
     Messages.Items.Add(STR_SUCCESSFULLY_COMPILED)
   else
-    Messages.Items.Add(STR_COMPILE_ERROR);
+    begin
+      if Debugger.CompilerMessageCount=0 then
+        messages.Items.Add(Debugger.ExecErrorToString);
+      Messages.Items.Add(STR_COMPILE_ERROR);
+    end;
 end;
 
 procedure TfScriptEditor.DebuggerIdle(Sender: TObject);
@@ -544,6 +549,7 @@ begin
   Caption := STR_FORM_TITLE;
   FActiveLine := 0;
   ed.Refresh;
+  ClassImporter.Free;
 end;
 
 function TfScriptEditor.Execute: Boolean;
@@ -575,7 +581,8 @@ begin
   Sender.AddMethod(Self, @TfScriptEditor.InternalParamCount,'function ParamCount : Integer;');
   FOldUses:=Sender.Comp.OnUses;
   Sender.Comp.OnUses:=@OnUses;
-  uprometscripts.ExtendRuntime(Sender.Exec,nil,FDataSet);
+  ClassImporter:= TPSRuntimeClassImporter.CreateAndRegister(Sender.Exec, false);
+  uprometscripts.ExtendRuntime(Sender.Exec,ClassImporter,FDataSet);
 end;
 
 procedure TfScriptEditor.FDataSetDataSetAfterScroll(DataSet: TDataSet);
