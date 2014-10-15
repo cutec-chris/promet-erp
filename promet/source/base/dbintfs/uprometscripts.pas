@@ -66,10 +66,9 @@ type
 
     function InternalDataSet(SQL : string) : TDataSet;
     function InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
-      ObjectLink: string=''; Reference: string='';Commission: string='';Date:TDateTime = 0; Source: string='script') : Boolean;
+      ObjectLink: string=''; Reference: string='';Commission: string='';Date:TDateTime = 0) : Boolean;
     function InternalUserHistory(Action: string;UserName: string; Icon: Integer; ObjectLink: string;
-      Reference: string; Commission: string; Date: TDateTime; Source: string
-  ): Boolean;
+      Reference: string; Commission: string; Date: TDateTime): Boolean;
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
@@ -202,7 +201,7 @@ end;
 
 function TBaseScript.InternalHistory(Action: string; ParentLink: string;
   Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
-  Date: TDateTime; Source: string): Boolean;
+  Date: TDateTime): Boolean;
 var
   aHistory: TBaseHistory;
   aDataSetClass: TBaseDBDatasetClass;
@@ -227,11 +226,13 @@ end;
 
 function TBaseScript.InternalUserHistory(Action: string; UserName: string;
   Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
-  Date: TDateTime; Source: string): Boolean;
+  Date: TDateTime): Boolean;
 begin
+  Result := False;
   if Data.Users.Locate('NAME',UserName,[loCaseInsensitive]) then
     begin
       Data.Users.History.AddItem(Data.Users.DataSet,Action,ObjectLink,Reference,nil,Icon,Commission);
+      Result := True;
     end;
 end;
 
@@ -244,6 +245,7 @@ begin
 
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalDataSet, 'DATASET', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalHistory, 'HISTORY', cdRegister);
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalUserHistory, 'USERHISTORY', cdRegister);
 
   uPSR_DB.RIRegister_DB(ClassImporter);
   uPSR_dateutils.RegisterDateTimeLibrary_R(Runtime);

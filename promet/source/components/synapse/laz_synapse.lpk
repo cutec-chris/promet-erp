@@ -9,7 +9,7 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="34">
+    <Files Count="33">
       <Item1>
         <Filename Value="asn1util.pas"/>
         <UnitName Value="asn1util"/>
@@ -129,25 +129,21 @@
         <UnitName Value="synamisc"/>
       </Item29>
       <Item30>
-        <Filename Value="synaser.pas"/>
-        <UnitName Value="synaser"/>
-      </Item30>
-      <Item31>
         <Filename Value="synautil.pas"/>
         <UnitName Value="synautil"/>
-      </Item31>
-      <Item32>
+      </Item30>
+      <Item31>
         <Filename Value="synsock.pas"/>
         <UnitName Value="synsock"/>
-      </Item32>
-      <Item33>
+      </Item31>
+      <Item32>
         <Filename Value="tlntsend.pas"/>
         <UnitName Value="tlntsend"/>
-      </Item33>
-      <Item34>
+      </Item32>
+      <Item33>
         <Filename Value="ssl_openssl.pas"/>
         <UnitName Value="ssl_openssl"/>
-      </Item34>
+      </Item33>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="1">

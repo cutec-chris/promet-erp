@@ -14,7 +14,7 @@ lazbuild --add-package $(pwd)/source/base/base_phone/pphones.lpk
 lazbuild --add-package $(pwd)/source/base/base_options/poptions.lpk
 lazbuild --add-package $(pwd)/source/components/richmemo/richmemopackage.lpk
 lazbuild --add-package $(pwd)/source/base/pcmdprometapp.lpk
-cd setup/i386-linux
+cd setup/arm-linux
 echo "compiling import/exporters..."
 echo "compiling sync_..." > scompile-$2-tools.log
 lazbuild $Params -q -B ../../source/sync/sync_db.lpi  >> scompile-$2-tools.log
