@@ -1241,7 +1241,7 @@ begin
       TimeStamp := MSecsToTimeStamp(System.Trunc(Int(TDateTime(Buffer^))));
       {$ELSE}
       {$IF defined(ARM) and defined(FPC)}
-        TimeStamp := TDateTime(Buffer^);
+        TimeStamp := MSecsToTimeStamp(System.Trunc(Int(TDateTime(Buffer^))));
       {$ELSE}
         TimeStamp := MSecsToTimeStamp(TDateTime(Buffer^));
       {$IFEND}
