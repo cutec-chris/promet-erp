@@ -2,7 +2,7 @@
 Program=promet-erp
 Widgetset=$2
 if [ "x$Widgetset" = "x" ]; then
-  Widgetset=gtk2
+  Widgetset=nogui
 fi
 Archfpc=$1
 if [ "x$Archfpc" = "x" ]; then
