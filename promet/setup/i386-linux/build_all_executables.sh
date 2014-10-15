@@ -71,5 +71,7 @@ echo "compiling nntpserver..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/nntpserver.lpi  >> scompile-$2-web.log
 echo "compiling httpserver..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/httpserver.lpi  >> scompile-$2-web.log
+echo "compiling webdavserver..."  >> scompile-$2-web.log
+lazbuild $Params -q ../../source/webservers/webdavserver.lpi  >> scompile-$2-web.log
 echo "compiling syslogserver..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/syslog.lpi  >> scompile-$2-web.log

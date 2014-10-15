@@ -528,8 +528,6 @@ end;
 
 procedure TfScriptEditor.DebuggerExecute(Sender: TPSScript);
 begin
-  Debugger.SetVarToInstance('SELF', Self);
-  Debugger.SetVarToInstance('APPLICATION', Application);
   Caption := STR_FORM_TITLE_RUNNING;
   acRun.Enabled:=False;
   acReset.Enabled:=True;
@@ -575,8 +573,6 @@ begin
   Sender.AddMethod(Self, @TfScriptEditor.Readln, 'procedure readln(var s: string)');
   Sender.AddMethod(Self, @TfScriptEditor.InternalParamStr,'function ParamStr(Param : Integer) : String;');
   Sender.AddMethod(Self, @TfScriptEditor.InternalParamCount,'function ParamCount : Integer;');
-  Sender.AddRegisteredVariable('Self', 'TForm');
-  Sender.AddRegisteredVariable('Application', 'TApplication');
   FOldUses:=Sender.Comp.OnUses;
   Sender.Comp.OnUses:=@OnUses;
   uprometscripts.ExtendRuntime(Sender.Exec,nil,FDataSet);

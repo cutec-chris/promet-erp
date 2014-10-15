@@ -761,7 +761,7 @@ object fScriptEditor: TfScriptEditor
   end
   object IFPS3DllPlugin1: TPSDllPlugin
     left = 456
-    top = 312
+    top = 208
   end
   object HigPascal: TSynPasSyn
     Enabled = False
