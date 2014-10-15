@@ -13,7 +13,6 @@
         <Verbosity>
           <ShowHints Value="False"/>
         </Verbosity>
-        <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
     <Description Value="RemObjects Pascal Script 
@@ -125,7 +124,7 @@ RemObjects Software
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">
       <Item1>
-        <PackageName Value="PascalScriptFCL"/>
+        <PackageName Value="ppascalscriptfcl"/>
       </Item1>
       <Item2>
         <PackageName Value="LCL"/>

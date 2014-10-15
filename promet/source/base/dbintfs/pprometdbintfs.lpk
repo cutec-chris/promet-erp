@@ -13,9 +13,6 @@
       <CodeGeneration>
         <SmartLinkUnit Value="True"/>
       </CodeGeneration>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Files Count="44">
       <Item1>
@@ -199,6 +196,7 @@
     <RequiredPkgs Count="8">
       <Item1>
         <PackageName Value="ppascalscriptfcl"/>
+        <DefaultFilename Value="..\..\components\pascalscript\ppascalscriptfcl.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="laz_fpspreadsheet"/>

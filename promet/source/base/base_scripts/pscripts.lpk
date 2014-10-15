@@ -7,11 +7,8 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Files Count="5">
       <Item1>
@@ -39,6 +36,7 @@
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="ppascalscriptlcl"/>
+        <DefaultFilename Value="..\..\components\pascalscript\ppascalscriptlcl.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pPrometDBIntfs"/>

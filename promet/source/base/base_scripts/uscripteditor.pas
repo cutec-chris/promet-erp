@@ -25,12 +25,11 @@ uses
   SysUtils, Classes, db, Graphics, Controls, Forms,
   Dialogs, Menus, ExtCtrls, StdCtrls, ComCtrls, ActnList, DbCtrls, DBGrids,
   SynEdit, SynEditTypes, SynHighlighterPas,
-  uPSComponent_StdCtrls, uPSComponent_Forms,
-  uPSComponent_Default, uPSComponent_Controls,
+  uPSComponent_Default,
   uPSRuntime, uPSDisassembly, uPSUtils,
   uPSComponent, uPSDebugger, uPSComponent_DB, SynEditRegexSearch, 
   SynEditSearch, SynEditMiscClasses, SynEditHighlighter, SynGutterBase, SynEditMarks,
-  SynEditMarkupSpecialLine, SynHighlighterSQL,uprometscripts,uPSCompiler;
+  SynEditMarkupSpecialLine, SynHighlighterSQL,uPSCompiler, uprometscripts;
 
 type
 
@@ -88,11 +87,8 @@ type
     StatusBar: TStatusBar;
     Decompile1: TMenuItem;
     N5: TMenuItem;
-    IFPS3CE_Controls1: TPSImport_Controls;
     IFPS3CE_DateUtils1: TPSImport_DateUtils;
     IFPS3CE_Std1: TPSImport_Classes;
-    IFPS3CE_Forms1: TPSImport_Forms;
-    IFPS3CE_StdCtrls1: TPSImport_StdCtrls;
     Pause1: TMenuItem;
     ed: TSynEdit;
     SynEditRegexSearch: TSynEditRegexSearch;
