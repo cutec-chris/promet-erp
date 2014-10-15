@@ -1,7 +1,7 @@
 #!/bin/bash
 mkdir $2/web
 mkdir $2/tools
-cp ../../output/$1-linux/tools/cmdwizardmandant $2/tools/
+cp ../../output/$1-linux/cmdwizardmandant $2/tools/
 cp ../../output/$1-linux/tools/processmanager $2/tools/
 cp ../../output/$1-linux/tools/processdaemon $2/tools/promet-process
 cp ../../output/$1-linux/tools/sync_* $2/tools/
