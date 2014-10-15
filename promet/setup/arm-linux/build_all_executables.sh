@@ -5,21 +5,12 @@ Params='--cpu='$2' --build-mode=Default'
 #fi
 echo "compiling for $1... $Params"
 cd ../../
-lazbuild --add-package $(pwd)/source/base/base_help/phelp.lpk
-lazbuild --add-package $(pwd)/source/base/base_frames/pvisualframes.lpk
-lazbuild --add-package $(pwd)/source/base/base_docmanage/pdocmanage.lpk
-lazbuild --add-package $(pwd)/source/base/base_forms/pvisualforms.lpk
-lazbuild --add-package $(pwd)/source/base/base_wiki/rtfconvert_pkg_vis.lpk
-lazbuild --add-package $(pwd)/source/base/base_phone/pphones.lpk
-lazbuild --add-package $(pwd)/source/base/base_options/poptions.lpk
-lazbuild --add-package $(pwd)/source/components/richmemo/richmemopackage.lpk
-lazbuild --add-package $(pwd)/source/base/pcmdprometapp.lpk
 cd setup/arm-linux
 echo "compiling import/exporters..."
 echo "compiling sync_..." > scompile-$2-tools.log
 lazbuild $Params -q -B ../../source/sync/sync_db.lpi  >> scompile-$2-tools.log
-lazbuild $Params -q -B ../../source/sync/sync_owncloud.lpi  >> scompile-$2-tools.log
-lazbuild $Params -q -B ../../source/sync/sync_redmine.lpi  >> scompile-$2-tools.log
+#lazbuild $Params -q -B ../../source/sync/sync_owncloud.lpi  >> scompile-$2-tools.log
+#lazbuild $Params -q -B ../../source/sync/sync_redmine.lpi  >> scompile-$2-tools.log
 lazbuild $Params -q -B ../../source/sync/import_document.lpi  >> scompile-$2-tools.log
 echo "compiling pop3receiver..." >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/sync/pop3receiver.lpi  >> scompile-$2-tools.log
@@ -35,7 +26,6 @@ lazbuild $Params -q OPT=" -va" ../../source/tools/cmdwizardmandant.lpi  >> scomp
 echo "compiling checkin/out..."  >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/tools/checkin.lpi  >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/tools/checkout.lpi  >> scompile-$2-tools.log
-lazbuild $Params -q ../../source/tools/tableedit.lpi  >> scompile-$2-tools.log
 echo "compiling processmanager..."  >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/tools/processmanager.lpi  >> scompile-$2-tools.log
 echo "compiling processdaemon..."  >> scompile-$2-tools.log
