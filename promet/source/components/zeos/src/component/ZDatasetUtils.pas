@@ -1240,7 +1240,7 @@ begin
       {$IF defined(WIN64) and defined(FPC)}
       TimeStamp := MSecsToTimeStamp(System.Trunc(Int(TDateTime(Buffer^))));
       {$ELSE}
-      {$IF defined(ARM) and defined(FPC)}
+      {$IF defined(CPUARM) and defined(FPC)}
         TimeStamp := MSecsToTimeStamp(System.Trunc(Int(TDateTime(Buffer^))));
       {$ELSE}
         TimeStamp := MSecsToTimeStamp(TDateTime(Buffer^));
