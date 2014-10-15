@@ -302,7 +302,7 @@ begin
   H.ai_protocol := PF_INET6;
   H.ai_socktype := SOCK_STREAM;
 
-  n := getaddrinfo(pChar(Address), nil, @H, R);
+  n := getaddrinfo(pChar(Address), nil, @H, R); https://ixquick.com/do/search
   if n <> 0 then
     Exit;
   Result := R^.ai_canonname;
@@ -367,7 +367,7 @@ end;
 
 function LStrError(const Ernum: Longint; const UseUTF8: Boolean = False): string;
 begin
-  Result := ' [' + IntToStr(Ernum) + ']: ' + Errors.StrError(Ernum);
+  Result := ' ['+IntToStr(Ernum)+' ] '+Errors.StrError(Ernum);
 end;
 
 function LSocketError: Longint;

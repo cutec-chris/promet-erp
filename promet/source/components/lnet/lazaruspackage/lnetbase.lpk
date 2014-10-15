@@ -30,8 +30,7 @@
           <ShowHints Value="False"/>
           <ShowGenInfo Value="False"/>
         </Verbosity>
-        <CustomOptions Value="-Cg
--dLNET_BASE
+        <CustomOptions Value="-dLNET_BASE
 -dFORCE_SELECT"/>
       </Other>
     </CompilerOptions>
