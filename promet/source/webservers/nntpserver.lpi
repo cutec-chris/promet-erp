@@ -63,11 +63,9 @@
           <Other>
             <CompilerMessages>
               <IgnoredMessages idx5024="True"/>
-              <UseMsgFile Value="True"/>
             </CompilerMessages>
             <CustomOptions Value="-dHASREPORTS
 -dSTATISTICS"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -100,6 +98,7 @@
       </Item3>
       <Item4>
         <PackageName Value="lnetbase"/>
+        <DefaultFilename Value="..\components\lnet\lazaruspackage\lnetbase.lpk"/>
       </Item4>
       <Item5>
         <PackageName Value="pcmdprometapp"/>
@@ -110,7 +109,6 @@
       <Unit0>
         <Filename Value="nntpserver.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="nntpserver"/>
       </Unit0>
       <Unit1>
         <Filename Value="ulnntp.pas"/>
@@ -125,7 +123,6 @@
       <Unit3>
         <Filename Value="ulsmtpsrv.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ulsmtpsrv"/>
       </Unit3>
     </Units>
   </ProjectOptions>
@@ -152,11 +149,9 @@
     <Other>
       <CompilerMessages>
         <IgnoredMessages idx5024="True"/>
-        <UseMsgFile Value="True"/>
       </CompilerMessages>
       <CustomOptions Value="-dHASREPORTS
 -dSTATISTICS"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

@@ -98,7 +98,7 @@
     </RunParams>
     <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="weblaz"/>
+        <PackageName Value="LCL"/>
       </Item1>
       <Item2>
         <PackageName Value="pfcgiprometapp"/>
@@ -112,7 +112,6 @@
       <Unit0>
         <Filename Value="local_appbase.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value=""/>
       </Unit0>
       <Unit1>
         <Filename Value="udataserver.pas"/>
@@ -120,7 +119,7 @@
         <ComponentName Value="AppDataServer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value=""/>
+        <UnitName Value="udataserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="uwebserver.pas"/>
@@ -128,6 +127,7 @@
         <ComponentName Value="TWebServer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uwebserver"/>
       </Unit2>
       <Unit3>
         <Filename Value="uloggedout.pas"/>
@@ -184,4 +184,4 @@
       </Item8>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

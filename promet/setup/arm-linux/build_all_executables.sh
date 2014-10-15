@@ -23,7 +23,7 @@ lazbuild $Params -q ../../source/sync/smtpsender.lpi  >> scompile-$2-tools.log
 grep -w "Error:" scompile-$2-tools.log
 echo "compiling tools..."
 echo "compiling cmdwizardmandant..."  >> scompile-$2-tools.log
-lazbuild $Params -q OPT=" -va" ../../source/tools/cmdwizardmandant.lpi  >> scompile-$2-tools.log
+lazbuild $Params -q ../../source/tools/cmdwizardmandant.lpi  >> scompile-$2-tools.log
 echo "compiling checkin/out..."  >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/tools/checkin.lpi  >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/tools/checkout.lpi  >> scompile-$2-tools.log
