@@ -342,6 +342,7 @@ begin
       if Assigned(FRuntime) then
         FRuntime.Stop;
     end;
+  FProcess.Free;
   inherited Destroy;
 end;
 
