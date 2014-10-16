@@ -570,10 +570,13 @@ begin
               tbAdd.Down:=True;
               tbAddClick(tbAdd);
             end;
+          try
+            mEntry.SetFocus;
+          except
+          end;
         end;
       FParentItem := fTimeline.DataSet.Id.AsVariant;
       MarkAsRead;
-      mEntry.SetFocus;
     end;
 end;
 

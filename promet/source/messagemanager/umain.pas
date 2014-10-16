@@ -116,6 +116,7 @@ var
 begin
   if not Assigned(Data) then exit;
   if not Data.Ping(Data.MainConnection) then exit;
+  if fmTimeline.Visible then exit;
   ProgTimer.Enabled:=False;
   //Call processes
   with Application as IBaseApplication do
