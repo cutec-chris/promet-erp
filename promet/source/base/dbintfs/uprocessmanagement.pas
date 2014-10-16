@@ -232,6 +232,8 @@ var
   a: Integer;
   aNow: TDateTime;
   NewProcess: TProcProcess;
+  aCount: DWord;
+  tmp: String;
   procedure DoLog(aStr: string;bLog : TStringList;SysLog : Boolean);
   begin
     with BaseApplication as IBaseApplication do
@@ -281,7 +283,10 @@ begin
                       begin
                         Found := True;
                         sl := TStringList.Create;
-                        sl.LoadFromStream(bProcess.Output);
+                        aCount :=  bProcess.Output.NumBytesAvailable;
+                        setlength(tmp,aCount);
+                        bProcess.Output.Read(tmp[1],aCount);
+                        sl.Text:=tmp;
                         for a := 0 to sl.Count-1 do
                           DoLog(aprocess+':'+sl[a],aLog,BaseApplication.HasOption('debug'));
                         sl.Free;
@@ -289,7 +294,9 @@ begin
                     else
                       begin
                         sl := TStringList.Create;
-                        sl.LoadFromStream(bProcess.Output);
+                        aCount :=  bProcess.Output.NumBytesAvailable;
+                        setlength(tmp,aCount);
+                        bProcess.Output.Read(tmp[1],aCount);
                         for a := 0 to sl.Count-1 do
                           DoLog(aprocess+':'+sl[a],aLog,BaseApplication.HasOption('debug'));
                         sl.Free;
