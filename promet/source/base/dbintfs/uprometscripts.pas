@@ -27,7 +27,7 @@ uses
   Classes, SysUtils, uBaseDbClasses, uBaseDBInterface, db, uPSCompiler,
   uPSC_classes, uPSC_DB, uPSC_dateutils, uPSC_dll, uPSRuntime,
   uPSR_classes, uPSR_DB, uPSR_dateutils, uPSR_dll, uPSUtils,Process,usimpleprocess,
-  Utils,variants,UTF8Process;
+  Utils,variants,UTF8Process,dynlibs;
 
 type
   TWritelnFunc = procedure(const s: string) of object;
@@ -86,6 +86,9 @@ type
   procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
   function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 
+var
+  UsesFunctions : string;
+
 implementation
 uses uStatistic,uData;
 function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
@@ -98,7 +101,7 @@ begin
   aScript.Filter(Data.QuoteField('RUNEVERY')+'>'+Data.QuoteValue('0'));
   while not aScript.EOF do
     begin
-      if (aScript.FieldByName('STATUS').AsString<>'E') and ((aScript.FieldByName('RUNMASHINE').AsString='') or (pos(GetSystemName,aScript.FieldByName('RUNMASHINE').AsString)>0)) then
+      if (aScript.FieldByName('STATUS').AsString<>'S') and ((aScript.FieldByName('RUNMASHINE').AsString='') or (pos(GetSystemName,aScript.FieldByName('RUNMASHINE').AsString)>0)) then
         if aScript.FieldByName('LASTRUN').AsDateTime+(aScript.FieldByName('RUNEVERY').AsInteger/MinsPerDay)<Now() then
           begin
             bScript := TBaseScript.Create(nil,aScript.DataModule,aScript.Connection);
@@ -236,6 +239,19 @@ begin
     end;
 end;
 
+function FixScript(aScript: string): string;
+begin
+  if pos('uses',lowercase(aScript))>0 then
+    begin
+      Result := copy(aScript,0,pos('uses',lowercase(aScript))+4);
+      aScript := copy(aScript,pos('uses',lowercase(aScript))+4,length(aScript));
+      Result := Result+copy(aScript,0,pos(';',aScript)+1);
+      aScript := copy(aScript,pos(';',aScript)+1,length(aScript));
+      Result := Result+'{$I uses.inc}'+aScript;
+    end;
+  UsesFunctions:='';
+end;
+
 procedure ExtendRuntime(Runtime: TPSExec;
   ClassImporter: TPSRuntimeClassImporter; Script: TBaseScript);
 begin
@@ -249,8 +265,20 @@ begin
 
   uPSR_DB.RIRegister_DB(ClassImporter);
   uPSR_dateutils.RegisterDateTimeLibrary_R(Runtime);
+  uPSR_dll.RegisterDLLRuntime(Runtime);
 end;
+type
+  aProcT = function : pchar;stdcall;
 function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
+var
+  aLib: TLibHandle;
+  aProc: aProcT;
+  Procs : TStringList;
+  sProc: String;
+  i: Integer;
+  aLibName: TbtString;
+  tmp: String;
+  newUnit: String;
 begin
   Result := True;
   try
@@ -279,7 +307,49 @@ begin
       begin
         uPSC_dateutils.RegisterDateTimeLibrary_C(Sender);
       end
-    else Result := False;
+    else
+      begin
+        Result := False;
+        if FileExists(ExtractFilePath(ParamStr(0))+Name+'.dll') then
+          aLibName := ExtractFilePath(ParamStr(0))+Name+'.dll';
+        if FileExists(ExtractFilePath(ParamStr(0))+Name+'.so') then
+          aLibName := ExtractFilePath(ParamStr(0))+Name+'.so';
+        if FileExists(ExtractFilePath(ParamStr(0))+Name+'.dylib') then
+          aLibName := ExtractFilePath(ParamStr(0))+Name+'.dylib';
+        if FileExists(aLibname) then
+          begin
+            uPSC_dll.RegisterDll_Compiletime(Sender);
+            aLib := LoadLibrary(ExtractFilePath(ParamStr(0))+DirectorySeparator+Name+'.dll');
+            if aLib <> dynlibs.NilHandle  then
+              begin
+                aProc := aprocT(dynlibs.GetProcAddress(aLib,'ScriptDefinition'));
+                if Assigned(aProc) then
+                  begin
+                    newUnit := '';//'unit tcsbus;'+LineEnding+'interface';
+                    Procs := TStringList.Create;
+                    sProc := aProc();
+                    Procs.text := sProc;
+                    for i := 0 to procs.Count-1 do
+                      begin
+                        sProc := trim(procs[i]);
+                        tmp := copy(sProc,pos(' ',sProc)+1,length(sProc));
+                        if pos('(',tmp)>0 then
+                          tmp := copy(tmp,0,pos('(',tmp)-1);
+                        if pos(':',tmp)>0 then
+                          tmp := trim(copy(tmp,0,pos(':',tmp)-1));
+                        tmp := StringReplace(sProc,'external','external '''''+tmp+'@'+ExtractFileName(aLibname)+'''''',[]);
+                        newUnit := newUnit+LineEnding+tmp;
+                      end;
+                    //newUnit := newUnit+LineEnding+'end.';
+
+                    Sender.Compile(newUnit);
+                    Procs.Free;
+                    Result := True;
+                  end;
+                FreeLibrary(aLib);
+              end;
+          end;
+      end;
   except
     begin
       raise;
@@ -442,6 +512,7 @@ begin
   DoSetStatus('R');
   Edit;
   FieldByName('LASTRESULT').Clear;
+  FieldByName('LASTRUN').AsDateTime:=Now();
   Post;
   Result := False;
   try

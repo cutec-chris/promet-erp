@@ -13,7 +13,7 @@
         <Verbosity>
           <ShowHints Value="False"/>
         </Verbosity>
-        <CompilerPath Value="$(CompPath)"/>
+        <CustomOptions Value="-dPS_USESSUPPORT"/>
       </Other>
     </CompilerOptions>
     <Description Value="RemObjects Pascal Script 
