@@ -823,10 +823,13 @@ end;
 
 constructor TStarterThread.Create(aSuspended: Boolean);
 begin
+  {$ifndef UNIX}
   FreeOnTerminate:=True;
   Priority:=tpLowest;
   inherited Create(aSuspended);
-  //Execute;
+  {$else}
+  Execute;
+  {$endif}
 end;
 
 procedure TStarterThread.Execute;

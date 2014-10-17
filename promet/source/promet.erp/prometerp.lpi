@@ -49,7 +49,6 @@
               <OverflowChecks Value="True"/>
               <StackChecks Value="True"/>
             </Checks>
-            <VerifyObjMethodCallValidity Value="True"/>
             <SmallerCode Value="True"/>
           </CodeGeneration>
           <Linking>
@@ -160,9 +159,10 @@
           </Other>
         </CompilerOptions>
       </Item5>
-      <SharedMatrixOptions Count="2">
+      <SharedMatrixOptions Count="3">
         <Item1 ID="724251795577" Modes="Win32,Win64" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="699350395536" Type="IDEMacro" MacroName="LCLWidgetType" Value="cocoa"/>
+        <Item3 ID="834953185030" Targets="linux" Modes="Default" Value="-dTHREADINGDISABLED"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
@@ -300,6 +300,7 @@
         <ComponentName Value="fAddressFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uAddressFrame"/>
       </Unit3>
       <Unit4>
         <Filename Value="upersonfinance.pas"/>
@@ -370,6 +371,7 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>

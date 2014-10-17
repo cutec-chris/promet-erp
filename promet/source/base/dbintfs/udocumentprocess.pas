@@ -153,8 +153,13 @@ begin
   FLanguage := 'de';
   FDocument := Document;
   ProcessList.Add(Self);
+  {$ifndef LINUX}
   inherited Create(False);
+  {$else}
+  Execute;
+  {$endif}
 end;
+
 procedure TDocExecuteThread.Execute;
 begin
   FExit := DoExecuteDocumentCommands(FCmd,FUseStarter);
@@ -165,4 +170,4 @@ initialization
 finalization
   ProcessList.Destroy;
 end.
-
+

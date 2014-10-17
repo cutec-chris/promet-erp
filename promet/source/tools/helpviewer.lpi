@@ -32,7 +32,7 @@
         <FormatVersion Value="1"/>
         <CommandLineParams Value="--edit"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
-        <WorkingDirectory Value="C:\Prometheus\TCS\paradoxtest1\promet\setup\help"/>
+        <WorkingDirectory Value="\media\Daten\Source\promet\promet\output\x86_64-linux\"/>
       </local>
     </RunParams>
     <RequiredPackages Count="4">
@@ -55,7 +55,6 @@
       <Unit0>
         <Filename Value="helpviewer.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="helpviewer"/>
       </Unit0>
       <Unit1>
         <Filename Value="uhelpviewer.pas"/>
@@ -99,11 +98,9 @@
     <Other>
       <CompilerMessages>
         <IgnoredMessages idx5024="True"/>
-        <UseMsgFile Value="True"/>
       </CompilerMessages>
       <CustomOptions Value="-dHASREPORTS
 -dSTATISTICS"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

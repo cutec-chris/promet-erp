@@ -36,7 +36,7 @@ var
   fError: TfError;
 
 implementation
-
+{$R *.lfm}
 { TfError }
 procedure TfError.bOKClick(Sender: TObject);
 begin
@@ -211,7 +211,6 @@ begin
 end;
 
 initialization
-  {$I uerror.lrs}
 
 end.
 

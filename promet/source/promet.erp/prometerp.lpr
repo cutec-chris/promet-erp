@@ -23,7 +23,9 @@ program prometerp;
 
 uses
   {$IFDEF UNIX}
+  {$ifndef linux}//problems on actual mint 64bit with threads
   cthreads,
+  {$endif}
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, sysutils, lazreport, turbopoweripro, uMain, pvisualprometapp,FileUtil,

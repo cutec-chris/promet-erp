@@ -128,7 +128,11 @@ begin
   SysMessages := TSystemMessages.Create(nil,Data,Connection);
   SysMessages.CreateTable;
   Data.SetFilter(SysMessages,Data.QuoteField('PROCESS_ID')+'='+Data.QuoteValue(IntToStr(Data.SessionID)),5);
+  {$ifndef LINUX}
   inherited Create(False);
+  {$else}
+  Execute;
+  {$endif}
 end;
 
 procedure TMessageHandler.Execute;

@@ -64,7 +64,6 @@
       <Unit0>
         <Filename Value="projectmanagement.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="projectmanagement"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -107,10 +106,7 @@
       </Options>
     </Linking>
     <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
+      <CustomOptions Value="-dUSE_GTK_MAIN_OLD_ITERATION"/>
     </Other>
   </CompilerOptions>
   <Debugging>

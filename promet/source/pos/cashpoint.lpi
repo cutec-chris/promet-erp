@@ -49,11 +49,10 @@
         <PackageName Value="LCL"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="3">
       <Unit0>
         <Filename Value="cashpoint.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="cashpoint"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -64,33 +63,13 @@
         <UnitName Value="umain"/>
       </Unit1>
       <Unit2>
-        <Filename Value="D:\general\src\uerror.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fError"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uError"/>
-      </Unit2>
-      <Unit3>
         <Filename Value="..\base\upassword.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fPassword"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPassword"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="..\base\uaddserial.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasResources Value="True"/>
-        <UnitName Value="uaddserial"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="..\base\udata.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasResources Value="True"/>
-        <UnitName Value="udata"/>
-      </Unit5>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -113,11 +92,5 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
 </CONFIG>

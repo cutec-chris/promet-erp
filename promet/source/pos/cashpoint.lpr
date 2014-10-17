@@ -16,7 +16,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uerror, umain, upassword, uaddserial, udata, DBFLaz,
+  Forms, umain, upassword, DBFLaz,
   lazreport, zcomponent, general;
 
 {$R *.res}
@@ -24,7 +24,6 @@ uses
 begin
   Application.Initialize;
   Application.CreateForm(TfMain, fMain);
-  Application.CreateForm(TfError, fError);
   fMain.DoCreate;
   Application.Run;
 end.

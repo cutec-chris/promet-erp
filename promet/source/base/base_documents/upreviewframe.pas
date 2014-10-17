@@ -268,8 +268,13 @@ begin
   FRev := aRevision;
   FFrame := aFrame;
   FreeOnTerminate:=True;
+  {$ifndef LINUX}
   inherited Create(False);
+  {$else}
+  Execute;
+  {$endif}
 end;
+
 {$R *.lfm}
 procedure TfPreview.bZoomInClick(Sender: TObject);
 begin
@@ -838,4 +843,4 @@ begin
 end;
 
 end.
-
+
