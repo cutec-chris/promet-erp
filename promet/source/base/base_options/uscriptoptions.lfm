@@ -56,6 +56,13 @@ inherited fScriptOptions: TfScriptOptions
         FieldName = 'NAME'
       end    
       item
+        PickList.Strings = (
+          'R läuft'
+          'N läuft nicht'
+          'S stillgelegt'
+          'd Debug anforderung'
+          'D Debug'
+        )
         Title.Caption = 'Status'
         Width = 50
         FieldName = 'STATUS'
@@ -69,6 +76,17 @@ inherited fScriptOptions: TfScriptOptions
         Title.Caption = 'letzter Start'
         Width = 100
         FieldName = 'LASTRUN'
+      end    
+      item
+        Title.Caption = 'Client'
+        FieldName = 'RUNMASHINE'
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = 'bei Verlaufseintrag'
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+        FieldName = 'RUNONHISTORY'
       end>
     DataSource = Scripts
     TabOrder = 1

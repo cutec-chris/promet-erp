@@ -507,7 +507,7 @@ begin
       mo := TMessageObject.Create;
       mo.X:=Debugger.CompilerMessages[i].Col;
       mo.Y:=Debugger.CompilerMessages[i].Row;
-      Messages.Items.AddObject('('+IntToStr(Debugger.CompilerMessages[i].Col)+','+IntToStr(Debugger.CompilerMessages[i].Row)+') '+Debugger.CompilerMessages[i].MessageToString,mo);
+      Messages.Items.AddObject(Debugger.CompilerMessages[i].MessageToString,mo);
     end;
   if Result then
     Messages.Items.Add(STR_SUCCESSFULLY_COMPILED)
