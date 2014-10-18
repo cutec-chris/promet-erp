@@ -268,11 +268,10 @@ begin
   FRev := aRevision;
   FFrame := aFrame;
   FreeOnTerminate:=True;
-  {$ifndef LINUX}
-  inherited Create(False);
-  {$else}
-  Execute;
-  {$endif}
+  if not BaseApplication.HasOption('--disablethreads') then
+    inherited Create(False)
+  else
+    Execute;
 end;
 
 {$R *.lfm}

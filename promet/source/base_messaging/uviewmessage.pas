@@ -389,8 +389,12 @@ begin
   ss := sss;
   FDone := False;
   FExcept := False;
-  inherited Create(false);
+  if not BaseApplication.HasOption('--disablethreads') then
+    inherited Create(false)
+  else
+    Execute;
 end;
+
 procedure TLoadHTMLProcess.Execute;
 var
   aBitmap : TBitmap;

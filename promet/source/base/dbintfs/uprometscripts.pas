@@ -408,11 +408,10 @@ begin
   if Assigned(FProcess) then
     begin
       if Assigned(FProcess) then
-        FProcess.Terminate(0);
+        FreeAndNil(FProcess);
       if Assigned(FRuntime) then
         FRuntime.Stop;
     end;
-  FProcess.Free;
   inherited Destroy;
 end;
 

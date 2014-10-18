@@ -1,10 +1,10 @@
 object fScriptEditor: TfScriptEditor
-  Left = 316
+  Left = 319
   Height = 600
-  Top = 140
+  Top = 164
   Width = 961
   Caption = 'Editor'
-  ClientHeight = 578
+  ClientHeight = 579
   ClientWidth = 961
   Color = clBtnFace
   Font.Color = clWindowText
@@ -16,8 +16,8 @@ object fScriptEditor: TfScriptEditor
   LCLVersion = '1.3'
   object StatusBar: TStatusBar
     Left = 0
-    Height = 21
-    Top = 557
+    Height = 23
+    Top = 556
     Width = 961
     Panels = <    
       item
@@ -26,17 +26,17 @@ object fScriptEditor: TfScriptEditor
   end
   object pDetail: TPanel
     Left = 285
-    Height = 557
+    Height = 556
     Top = 0
     Width = 676
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 557
+    ClientHeight = 556
     ClientWidth = 676
     TabOrder = 1
     inline ed: TSynEdit
       Left = 0
-      Height = 446
+      Height = 445
       Top = 26
       Width = 676
       Align = alClient
@@ -623,7 +623,7 @@ object fScriptEditor: TfScriptEditor
         end
         object cbSyntax: TDBComboBox
           Left = 56
-          Height = 28
+          Height = 29
           Top = 0
           Width = 122
           Anchors = [akTop, akLeft, akRight]
@@ -662,7 +662,7 @@ object fScriptEditor: TfScriptEditor
         end
         object DBEdit1: TDBEdit
           Left = 48
-          Height = 26
+          Height = 27
           Top = 0
           Width = 256
           DataField = 'NAME'
@@ -676,7 +676,7 @@ object fScriptEditor: TfScriptEditor
     object messages: TListBox
       Left = 0
       Height = 81
-      Top = 476
+      Top = 475
       Width = 676
       Align = alBottom
       ItemHeight = 0
@@ -690,7 +690,7 @@ object fScriptEditor: TfScriptEditor
       Cursor = crVSplit
       Left = 0
       Height = 4
-      Top = 472
+      Top = 471
       Width = 676
       Align = alBottom
       ResizeAnchor = akBottom
@@ -698,18 +698,18 @@ object fScriptEditor: TfScriptEditor
   end
   object pLeft: TPanel
     Left = 0
-    Height = 557
+    Height = 556
     Top = 0
     Width = 280
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 557
+    ClientHeight = 556
     ClientWidth = 280
     TabOrder = 2
     Visible = False
     object DBGrid1: TDBGrid
       Left = 0
-      Height = 557
+      Height = 556
       Top = 0
       Width = 280
       Align = alClient
@@ -718,7 +718,7 @@ object fScriptEditor: TfScriptEditor
       Columns = <      
         item
           Title.Caption = 'Name'
-          Width = 250
+          Width = 252
           FieldName = 'NAME'
         end>
       DataSource = DataSource
@@ -731,7 +731,7 @@ object fScriptEditor: TfScriptEditor
   end
   object Splitter2: TSplitter
     Left = 280
-    Height = 557
+    Height = 556
     Top = 0
     Width = 5
   end

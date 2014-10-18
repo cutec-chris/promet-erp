@@ -153,11 +153,10 @@ begin
   FLanguage := 'de';
   FDocument := Document;
   ProcessList.Add(Self);
-  {$ifndef LINUX}
-  inherited Create(False);
-  {$else}
-  Execute;
-  {$endif}
+  if not BaseApplication.HasOption('--disablethreads') then
+    inherited Create(False)
+  else
+    Execute;
 end;
 
 procedure TDocExecuteThread.Execute;

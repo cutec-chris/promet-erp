@@ -30,8 +30,8 @@ uses
   {$ENDIF}
   ;
 
-function StartMessageManager(Mandant : string;User : string = '') : TProcessUTF8;
-function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TProcessUTF8;
+function StartMessageManager(Mandant : string;User : string = '') : TProcess;
+function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TProcess;
 function ProcessExists(cmd,cmdln: string): Boolean;
 var
   ProcessMandant : string;
@@ -90,11 +90,11 @@ begin
   end;
 end;
 {$ENDIF}
-function StartMessageManager(Mandant : string;User : string = '') : TProcessUTF8;
+function StartMessageManager(Mandant : string;User : string = '') : TProcess;
 begin
   Result := StartProcessManager(Mandant,User,'messagemanager');
 end;
-function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TProcessUTF8;
+function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TProcess;
 var
   cmd: String;
   tmp: String;
@@ -104,7 +104,6 @@ begin
   ProcessMandant := Mandant;
   ProcessUser := User;
   Result := nil;
-  cmd := aProcess+ExtractFileExt(BaseApplication.ExeName);
   cmdln := ' "--mandant='+Mandant+'"';
   if User <> '' then
     cmdln := cmdln+' "--user='+User+'"';
@@ -122,7 +121,7 @@ begin
   cmd += cmdln;
   Result := TProcessUTF8.Create(nil);
   Result.Options:=[poUsePipes,poStderrToOutPut,poNoConsole];
-  Result.CommandLine:=aDir+cmd;
+  Result.CommandLine:=aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)+cmd;
   Result.Execute;
 end;
 

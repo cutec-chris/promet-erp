@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-erp-devel --mandant=RepairPG"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">

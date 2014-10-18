@@ -5,17 +5,17 @@ inherited fAddressFrame: TfAddressFrame
   Width = 699
   ClientHeight = 385
   ClientWidth = 699
-  DesignLeft = 389
-  DesignTop = 260
+  DesignLeft = 392
+  DesignTop = 284
   object pAddress: TGroupBox[0]
     Left = 44
     Height = 260
-    Top = 21
+    Top = 23
     Width = 360
     Align = alClient
     Caption = 'gewählte Adresse'
-    ClientHeight = 245
-    ClientWidth = 356
+    ClientHeight = 244
+    ClientWidth = 358
     Constraints.MaxHeight = 260
     Constraints.MaxWidth = 580
     TabOrder = 1
@@ -33,7 +33,7 @@ inherited fAddressFrame: TfAddressFrame
       ValueUnchecked = 'N'
     end
     object Image3: TImage
-      Left = 296
+      Left = 298
       Height = 49
       Top = 2
       Width = 52
@@ -201,9 +201,9 @@ inherited fAddressFrame: TfAddressFrame
     end
     object mAddress: TDBMemo
       Left = 10
-      Height = 38
+      Height = 37
       Top = 143
-      Width = 338
+      Width = 340
       Anchors = [akTop, akLeft, akRight, akBottom]
       DataField = 'ADDRESS'
       DataSource = Address
@@ -224,9 +224,9 @@ inherited fAddressFrame: TfAddressFrame
     end
     object eName: TDBEdit
       Left = 10
-      Height = 23
+      Height = 25
       Top = 65
-      Width = 92
+      Width = 94
       DataField = 'NAME'
       DataSource = Address
       Anchors = [akTop, akLeft, akRight]
@@ -235,8 +235,8 @@ inherited fAddressFrame: TfAddressFrame
       TabOrder = 1
     end
     object eCallingName: TDBEdit
-      Left = 108
-      Height = 23
+      Left = 110
+      Height = 25
       Top = 65
       Width = 240
       DataField = 'CNAME'
@@ -248,9 +248,9 @@ inherited fAddressFrame: TfAddressFrame
     end
     object eCity: TDBEdit
       Left = 202
-      Height = 23
-      Top = 211
-      Width = 146
+      Height = 25
+      Top = 208
+      Width = 148
       DataField = 'CITY'
       DataSource = Address
       Anchors = [akLeft, akRight, akBottom]
@@ -260,8 +260,8 @@ inherited fAddressFrame: TfAddressFrame
     end
     object eZip: TDBEdit
       Left = 106
-      Height = 23
-      Top = 211
+      Height = 25
+      Top = 208
       Width = 89
       DataField = 'ZIP'
       DataSource = Address
@@ -272,9 +272,9 @@ inherited fAddressFrame: TfAddressFrame
     end
     object eAdditional: TDBEdit
       Left = 10
-      Height = 23
+      Height = 25
       Top = 103
-      Width = 338
+      Width = 340
       DataField = 'ADDITIONAL'
       DataSource = Address
       Anchors = [akTop, akLeft, akRight]
@@ -284,30 +284,30 @@ inherited fAddressFrame: TfAddressFrame
     end
     object lTitle: TLabel
       Left = 11
-      Height = 13
+      Height = 15
       Top = 7
-      Width = 41
+      Width = 43
       Caption = 'Anrede'
       ParentColor = False
     end
     object lAdditional: TLabel
       Left = 10
-      Height = 13
+      Height = 15
       Top = 89
-      Width = 57
+      Width = 61
       Caption = 'Zusätzlich'
       ParentColor = False
     end
     object lName: TLabel
       Left = 10
-      Height = 13
+      Height = 15
       Top = 49
-      Width = 76
+      Width = 80
       Caption = 'Name / Firma'
       ParentColor = False
     end
     object lCallingName: TLabel
-      Left = 108
+      Left = 110
       Height = 14
       Top = 49
       Width = 175
@@ -318,43 +318,43 @@ inherited fAddressFrame: TfAddressFrame
     end
     object lCity: TLabel
       Left = 202
-      Height = 13
-      Top = 196
-      Width = 18
+      Height = 15
+      Top = 193
+      Width = 19
       Anchors = [akLeft, akBottom]
       Caption = 'Ort'
       ParentColor = False
     end
     object lPostalCode: TLabel
       Left = 106
-      Height = 13
-      Top = 196
-      Width = 64
+      Height = 15
+      Top = 193
+      Width = 67
       Anchors = [akLeft, akBottom]
       Caption = 'Postleitzahl'
       ParentColor = False
     end
     object lLand: TLabel
       Left = 10
-      Height = 13
-      Top = 196
-      Width = 27
+      Height = 15
+      Top = 193
+      Width = 30
       Anchors = [akLeft, akBottom]
       Caption = 'Land'
       ParentColor = False
     end
     object lStreet: TLabel
       Left = 10
-      Height = 13
+      Height = 15
       Top = 129
-      Width = 37
+      Width = 40
       Caption = 'Straße'
       ParentColor = False
     end
     object cbLand: TExtDBCombobox
       Left = 11
       Height = 27
-      Top = 207
+      Top = 206
       Width = 90
       Anchors = [akLeft, akBottom]
       DataField = 'COUNTRY'
@@ -369,12 +369,12 @@ inherited fAddressFrame: TfAddressFrame
   end
   object Panel1: TPanel[1]
     Left = 0
-    Height = 364
-    Top = 21
+    Height = 362
+    Top = 23
     Width = 44
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 364
+    ClientHeight = 362
     ClientWidth = 44
     TabOrder = 2
     object Panel2: TPanel
@@ -562,9 +562,9 @@ inherited fAddressFrame: TfAddressFrame
   end
   object gAdresses: TDBGrid[2]
     Left = 413
-    Height = 360
+    Height = 358
     Hint = 'wählen Sie hier eine Adresse'
-    Top = 21
+    Top = 23
     Width = 282
     Align = alRight
     BorderSpacing.Around = 4
@@ -595,7 +595,7 @@ inherited fAddressFrame: TfAddressFrame
   end
   object Label1: TLabel[3]
     Left = 4
-    Height = 13
+    Height = 15
     Top = 4
     Width = 691
     Align = alTop
@@ -605,8 +605,8 @@ inherited fAddressFrame: TfAddressFrame
   end
   object Splitter1: TSplitter[4]
     Left = 404
-    Height = 364
-    Top = 21
+    Height = 362
+    Top = 23
     Width = 5
     Align = alRight
     ResizeAnchor = akRight

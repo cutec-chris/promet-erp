@@ -59,7 +59,7 @@ type
     FDBInterface: IBaseDBInterface;
     FOnUserTabAdded: TNotifyEvent;
     Properties: TXMLPropStorage;
-    Processmanager: TProcessUTF8;
+    Processmanager: TProcess;
     FMessagehandler : TMessageHandler;
     FActualName : string;
     FProps : TStringList;
@@ -751,7 +751,6 @@ end;
 
 procedure TBaseVisualApplication.StartProcessManager(DoCloseIt: Boolean);
 begin
-  {$ifndef linux}
   FMessagehandler := TMessageHandler.Create(Data.Data);
   FMessageHandler.RegisterCommandHandler(@HandleSystemCommand);
   with Application as IBaseDBInterface do
@@ -766,7 +765,6 @@ begin
             end;
         end;
     end;
-  {$ENDIF}
 end;
 procedure TBaseVisualApplication.ReaderReferenceName(Reader: TReader;
   var aName: string);
