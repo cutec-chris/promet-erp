@@ -321,10 +321,13 @@ begin
   aProcess := TProcessUTF8.Create(Self);
   sl := TStringList.Create;
   try
+    try
     aProcess.CommandLine:='gphoto2 --auto-detect';
     aProcess.Options:=[poUsePipes,poWaitOnExit];
     aProcess.Execute;
     sl.LoadFromStream(aProcess.Output);
+    except
+    end;
   finally
     aProcess.Free;
   end;

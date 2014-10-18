@@ -287,7 +287,6 @@ begin
   inherited Create(false);
   {$else}
   Execute;
-  Free;
   {$endif}
 end;
 
