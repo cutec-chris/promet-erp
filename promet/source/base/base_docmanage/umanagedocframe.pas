@@ -283,11 +283,10 @@ constructor TImportCheckThread.Create(aDocFrame: TfManageDocFrame);
 begin
   FDoc := aDocFrame;
   FreeOnTerminate:=True;
-  {$ifdef dynpthreads}
-  inherited Create(false);
-  {$else}
-  Execute;
-  {$endif}
+  if not BaseApplication.HasOption('--disablethreads') then
+    inherited Create(false)
+  else
+    Execute;
 end;
 
 procedure TfManageDocFrame.ThumbControl1LoadFile(Sender: TObject; URL: string;
@@ -1475,9 +1474,8 @@ begin
   inherited Create(AOwner);
   FFilter := '';
   SelectedItem:=nil;
-  {$ifdef LINUX}
-  ThumbControl1.MultiThreaded:=False;
-  {$endif}
+  if BaseApplication.HasOption('--disablethreads') then
+    ThumbControl1.MultiThreaded:=False;
   DataSet := TDocPages.Create(nil,Data);
   FTempPath := uthumbnails.GetThumbTempDir;
   ForceDirectoriesUTF8(FtempPath);
