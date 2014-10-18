@@ -240,7 +240,7 @@ implementation
 uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
   ProcessUtils,uMainTreeFrame,ucameraimport,FPimage,FPReadJPEG,FPCanvas,
   FPWriteJPEG,LCLProc,uthumbnails,uBaseVisualControls,updfexport,uSearch,
-  usimpleprocess,uImaging;
+  usimpleprocess,uImaging,uBaseApplication;
 resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'durch Klick setzen';
