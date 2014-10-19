@@ -4,7 +4,7 @@ program scriptedit;
 
 uses
   {$IFDEF UNIX}
-  //cthreads,
+  cthreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, uerror, uScriptEditor, uBaseApplication,uData,uBaseDBInterface,

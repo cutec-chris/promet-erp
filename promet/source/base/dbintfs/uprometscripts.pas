@@ -91,22 +91,24 @@ var
 
 implementation
 uses uStatistic,uData;
-function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
+function ProcessScripts : Boolean;//process Scripts that must be runned cyclic Result shows that it should be runned faster (debug)
 var
   aScript: TBaseScript;
   aHistory: TBaseHistory;
   bScript: TBaseScript;
 begin
+  Result:=false;
   aScript := TBaseScript.Create(nil,Data);
-  aScript.Filter(Data.QuoteField('RUNEVERY')+'>'+Data.QuoteValue('0'));
+  aScript.Filter(Data.QuoteField('RUNEVERY')+'>'+Data.QuoteValue('0')+' OR '+Data.QuoteField('STATUS')+'='+Data.QuoteValue('d'));
   while not aScript.EOF do
     begin
       if (aScript.FieldByName('STATUS').AsString<>'S') and ((aScript.FieldByName('RUNMASHINE').AsString='') or (pos(GetSystemName,aScript.FieldByName('RUNMASHINE').AsString)>0)) then
-        if aScript.FieldByName('LASTRUN').AsDateTime+(aScript.FieldByName('RUNEVERY').AsInteger/MinsPerDay)<Now() then
+        if (aScript.FieldByName('LASTRUN').AsDateTime+(aScript.FieldByName('RUNEVERY').AsInteger/MinsPerDay)<Now()) or (aScript.FieldByName('STATUS').AsString='d') then
           begin
             bScript := TBaseScript.Create(nil,aScript.DataModule,aScript.Connection);
             bScript.Select(aScript.Id.AsVariant);
             bScript.Open;
+            Result := (aScript.FieldByName('STATUS').AsString='d');
             if bScript.Count=1 then
               bScript.Execute(Null);
             bScript.Free;

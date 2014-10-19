@@ -64,6 +64,7 @@ var
   a: Integer;
   tmp: String;
   aRefresh : Integer = 0;
+  aFasterExecute : Integer = 0;
   aInt: Integer;
   aNow: TDateTime;
   bProcess: TProcProcess;
@@ -189,10 +190,11 @@ begin
             end;
           Data.ProcessClient.Process;
         end;
-      if aMin>60 then
+      if (aMin>60) or (aFasterExecute>0) then
         begin
           aMin := 0;
-          ProcessScripts;
+          dec(aFasterExecute);
+          if ProcessScripts then aFasterExecute := 600;
         end;
       sleep(1000);
       inc(aMin);

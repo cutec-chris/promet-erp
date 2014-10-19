@@ -46,6 +46,7 @@ type
     acStepover: TAction;
     acStepinto: TAction;
     acLogout: TAction;
+    acRunRemote: TAction;
     ActionList1: TActionList;
     cbSyntax: TDBComboBox;
     DataSource: TDataSource;
@@ -100,8 +101,10 @@ type
     Gotolinenumber1: TMenuItem;
     HigSQL: TSynSQLSyn;
     Syntaxcheck1: TMenuItem;
+    tmDebug: TTimer;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
+    ToolButton10: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
@@ -109,12 +112,14 @@ type
     ToolButton6: TToolButton;
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
+    ToolButton9: TToolButton;
     procedure acDecompileExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
     procedure acNewExecute(Sender: TObject);
     procedure acPauseExecute(Sender: TObject);
     procedure acResetExecute(Sender: TObject);
     procedure acRunExecute(Sender: TObject);
+    procedure acRunRemoteExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acStepintoExecute(Sender: TObject);
     procedure acStepoverExecute(Sender: TObject);
@@ -144,8 +149,10 @@ type
     procedure Replace1Click(Sender: TObject);
     procedure edDropFiles(Sender: TObject; X, Y: Integer;
       AFiles: TStrings);
+    procedure tmDebugTimer(Sender: TObject);
   private
     FSearchFromCaret: boolean;
+    FOldStatus : string;
     FActiveLine: Longint;
     FResume: Boolean;
     FActiveFile: string;
@@ -393,6 +400,16 @@ begin
       acStepinto.Enabled:=False;
       acStepover.Enabled:=False;
     end;
+end;
+
+procedure TfScriptEditor.acRunRemoteExecute(Sender: TObject);
+begin
+ FDataSet.Edit;
+ FDataSet.FieldByName('STATUS').AsString:='d';
+ FDataSet.Post;
+ tmDebug.Enabled:=True;
+ FOldStatus:='d';
+ acRunRemote.Enabled:=false;
 end;
 
 procedure TfScriptEditor.acSaveExecute(Sender: TObject);
@@ -802,6 +819,37 @@ begin
       ed.Modified := True;
       aFile := AFiles[0];
     end;
+end;
+
+procedure TfScriptEditor.tmDebugTimer(Sender: TObject);
+var
+  sl: TStringList;
+begin
+ FDataSet.DataSet.Refresh;
+ if FDataSet.FieldByName('STATUS').AsString=FOldStatus then exit;
+ FOldStatus:=FDataSet.FieldByName('STATUS').AsString;
+ if FDataSet.FieldByName('STATUS').AsString='R' then
+   begin
+     acRun.Enabled:=False;
+     acStepinto.Enabled:=False;
+     acDecompile.Enabled:=false;
+     acStepover.Enabled:=FAlse;
+     acReset.Enabled:=True;
+     acPause.Enabled:=False;
+   end
+ else if (FDataSet.FieldByName('STATUS').AsString='N') then
+   begin
+     acRun.Enabled:=True;
+     acStepinto.Enabled:=True;
+     acDecompile.Enabled:=True;
+     acStepover.Enabled:=False;
+     acReset.Enabled:=False;
+     acPause.Enabled:=False;
+     tmDebug.Enabled:=False;
+     sl := TStringList.Create;
+     sl.Text:=FDataSet.FieldByName('LASTRESULT').AsString;
+     sl.Free;
+   end;
 end;
 
 end.
