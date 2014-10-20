@@ -14,7 +14,7 @@
         <SmartLinkUnit Value="True"/>
       </CodeGeneration>
     </CompilerOptions>
-    <Files Count="44">
+    <Files Count="42">
       <Item1>
         <Filename Value="ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
@@ -160,71 +160,67 @@
         <UnitName Value="uBaseDocPages"/>
       </Item36>
       <Item37>
-        <Filename Value="fpreadjpegintfd.pas"/>
-        <UnitName Value="FPReadJPEGintfd"/>
-      </Item37>
-      <Item38>
         <Filename Value="uthumbnails.pas"/>
         <UnitName Value="uthumbnails"/>
-      </Item38>
-      <Item39>
-        <Filename Value="fpthumbresize.pas"/>
-        <UnitName Value="fpthumbresize"/>
-      </Item39>
-      <Item40>
+      </Item37>
+      <Item38>
         <Filename Value="ucalc.pas"/>
         <UnitName Value="ucalc"/>
-      </Item40>
-      <Item41>
+      </Item38>
+      <Item39>
         <Filename Value="uimport.pas"/>
         <UnitName Value="uimport"/>
-      </Item41>
-      <Item42>
+      </Item39>
+      <Item40>
         <Filename Value="upasswordsave.pas"/>
         <UnitName Value="uPasswordSave"/>
-      </Item42>
-      <Item43>
+      </Item40>
+      <Item41>
         <Filename Value="uzugferd.pas"/>
         <UnitName Value="uzugferd"/>
-      </Item43>
-      <Item44>
+      </Item41>
+      <Item42>
         <Filename Value="uprometscripts.pas"/>
         <UnitName Value="uprometscripts"/>
-      </Item44>
+      </Item42>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="8">
+    <RequiredPkgs Count="9">
       <Item1>
-        <PackageName Value="ppascalscriptfcl"/>
-        <DefaultFilename Value="..\..\components\pascalscript\ppascalscriptfcl.lpk"/>
+        <PackageName Value="pthumbnails"/>
+        <DefaultFilename Value="..\pthumbnails.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="laz_fpspreadsheet"/>
+        <PackageName Value="ppascalscriptfcl"/>
+        <DefaultFilename Value="..\..\components\pascalscript\ppascalscriptfcl.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="zcomponent_nogui"/>
-        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent_nogui.lpk"/>
+        <PackageName Value="laz_fpspreadsheet"/>
       </Item3>
       <Item4>
-        <PackageName Value="wiki2html_pkg"/>
-        <DefaultFilename Value="..\base_wiki\wiki2html_pkg.lpk"/>
+        <PackageName Value="zcomponent_nogui"/>
+        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent_nogui.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="general_nogui"/>
-        <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
+        <PackageName Value="wiki2html_pkg"/>
+        <DefaultFilename Value="..\base_wiki\wiki2html_pkg.lpk"/>
       </Item5>
       <Item6>
-        <PackageName Value="sql_parser"/>
-        <DefaultFilename Value="..\..\components\sqlparser\sql_parser.lpk"/>
+        <PackageName Value="general_nogui"/>
+        <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
       </Item6>
       <Item7>
-        <PackageName Value="dexif_package"/>
-        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
+        <PackageName Value="sql_parser"/>
+        <DefaultFilename Value="..\..\components\sqlparser\sql_parser.lpk"/>
       </Item7>
       <Item8>
+        <PackageName Value="dexif_package"/>
+        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
+      </Item8>
+      <Item9>
         <PackageName Value="laz_synapse"/>
         <DefaultFilename Value="..\..\components\synapse\laz_synapse.lpk"/>
-      </Item8>
+      </Item9>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

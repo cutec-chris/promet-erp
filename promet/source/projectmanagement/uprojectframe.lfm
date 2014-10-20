@@ -28,9 +28,9 @@ inherited fprojectFrame: TfprojectFrame
     end
     object lname: TLabel
       Left = 9
-      Height = 13
+      Height = 15
       Top = -4
-      Width = 27
+      Width = 35
       Caption = 'Name'
       ParentColor = False
     end
@@ -41,8 +41,8 @@ inherited fprojectFrame: TfprojectFrame
       Width = 65
       Anchors = [akTop, akRight]
       Caption = 'Baum'
-      ClientHeight = 30
-      ClientWidth = 61
+      ClientHeight = 32
+      ClientWidth = 63
       TabOrder = 1
       object bAssignTree: TSpeedButton
         Left = 2
@@ -135,14 +135,14 @@ inherited fprojectFrame: TfprojectFrame
     NewTabImageIndex = 59
     object tsInfo: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 327
-      ClientWidth = 804
+      ClientHeight = 320
+      ClientWidth = 806
       ImageIndex = 62
       object mInfo: TDBMemo
         Left = 8
-        Height = 183
+        Height = 176
         Top = 136
-        Width = 788
+        Width = 790
         Align = alBottom
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
@@ -152,10 +152,10 @@ inherited fprojectFrame: TfprojectFrame
       end
       object DBZVDateTimePicker1: TDBZVDateTimePicker
         Left = 120
-        Height = 21
+        Height = 23
         Hint = 'Drücken Sie N um das Datum zu löschen'
         Top = 104
-        Width = 81
+        Width = 97
         DataField = 'END'
         DataSource = Projects
         ReadOnly = False
@@ -174,27 +174,27 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label1: TLabel
         Left = 8
-        Height = 13
+        Height = 15
         Top = -1
-        Width = 123
+        Width = 157
         Caption = 'Ziel /Fertigstellungsdatum'
         ParentColor = False
         WordWrap = True
       end
       object Label7: TLabel
         Left = 120
-        Height = 13
+        Height = 15
         Top = 88
-        Width = 48
+        Width = 64
         Caption = 'Enddatum'
         ParentColor = False
       end
       object DBZVDateTimePicker3: TDBZVDateTimePicker
         Left = 10
-        Height = 21
+        Height = 23
         Hint = 'Drücken Sie N um das Datum zu löschen'
         Top = 17
-        Width = 81
+        Width = 97
         DataField = 'TARGET'
         DataSource = Projects
         ReadOnly = False
@@ -213,19 +213,19 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label8: TLabel
         Left = 8
-        Height = 13
+        Height = 15
         Top = 42
-        Width = 68
+        Width = 89
         Caption = 'Wunschtermin'
         ParentColor = False
         WordWrap = True
       end
       object DBZVDateTimePicker4: TDBZVDateTimePicker
         Left = 10
-        Height = 21
+        Height = 23
         Hint = 'Drücken Sie N um das Datum zu löschen'
         Top = 60
-        Width = 81
+        Width = 97
         DataField = 'PLANTARGET'
         DataSource = Projects
         ReadOnly = False
@@ -244,7 +244,7 @@ inherited fprojectFrame: TfprojectFrame
       end
       object sePriority: TSpinEdit
         Left = 121
-        Height = 21
+        Height = 25
         Top = 60
         Width = 72
         MaxValue = 999999
@@ -254,14 +254,14 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label9: TLabel
         Left = 121
-        Height = 13
+        Height = 15
         Top = 42
-        Width = 38
+        Width = 47
         Caption = 'Priorität'
         ParentColor = False
       end
       object lVAT1: TLabel
-        Left = 208
+        Left = 224
         Height = 14
         Top = 41
         Width = 128
@@ -270,29 +270,29 @@ inherited fprojectFrame: TfprojectFrame
         ParentColor = False
       end
       object cbCategory: TExtDBCombobox
-        Left = 208
-        Height = 21
+        Left = 224
+        Height = 27
         Top = 59
         Width = 194
         DataField = 'CATEGORY'
         DataSource = Projects
-        ItemHeight = 13
+        ItemHeight = 0
         MaxLength = 0
         OnSelect = cbCategorySelect
         Sorted = True
         TabOrder = 5
       end
       object Label11: TLabel
-        Left = 208
-        Height = 13
+        Left = 224
+        Height = 15
         Top = -1
-        Width = 58
+        Width = 71
         Caption = 'Projektleiter'
         ParentColor = False
       end
       object eManager: TEditButton
-        Left = 208
-        Height = 21
+        Left = 224
+        Height = 25
         Hint = 'Der Projektleiter des Projetes/Prozesses'
         Top = 17
         Width = 194
@@ -342,10 +342,10 @@ inherited fprojectFrame: TfprojectFrame
       end
       object DBCheckBox1: TDBCheckBox
         Left = 432
-        Height = 17
+        Height = 22
         Hint = 'schickt eine Nachricht an den Vorgesetzten '#13#10'wenn Aufgaben erledigt oder wiedereröffnet werden'
         Top = 72
-        Width = 133
+        Width = 167
         AutoSize = True
         Caption = 'Vorgesetzte informieren'
         DataField = 'INFORMLEADER'
@@ -356,10 +356,10 @@ inherited fprojectFrame: TfprojectFrame
       end
       object DBCheckBox2: TDBCheckBox
         Left = 432
-        Height = 17
+        Height = 22
         Hint = 'schickt eine Nachricht an den Projektleiter'#13#10'wenn Aufgaben erledigt oder wiedereröffnet werde'
         Top = 96
-        Width = 133
+        Width = 168
         AutoSize = True
         Caption = 'Projektleiter informieren'
         DataField = 'INFORMPMANAGER'
@@ -403,9 +403,9 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label13: TLabel
         Left = 659
-        Height = 13
+        Height = 15
         Top = 1
-        Width = 29
+        Width = 38
         Caption = 'Ampel'
         ParentColor = False
         Visible = False
@@ -423,10 +423,10 @@ inherited fprojectFrame: TfprojectFrame
       end
       object DBCheckBox3: TDBCheckBox
         Left = 432
-        Height = 17
+        Height = 22
         Hint = 'Wenn abgehakt wird das Projekt aus der Projektübersicht und Grobplanung ausgeschlossen'#13#10'Wenn angehakt wird es in beiden angezeigt'#13#10'Standardmäßig wird es in der Projektübersicht angezeigt, in der Grobplanung nicht'
         Top = 48
-        Width = 179
+        Width = 230
         AutoSize = True
         Caption = 'anzeige in Grobplanung/Übersicht'
         DataField = 'GROSSPLANNING'
@@ -437,18 +437,18 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label14: TLabel
         Left = 10
-        Height = 13
+        Height = 15
         Top = 88
-        Width = 82
+        Width = 107
         Caption = 'Erstellungsdatum'
         ParentColor = False
       end
       object DBZVDateTimePicker5: TDBZVDateTimePicker
         Left = 10
-        Height = 21
+        Height = 23
         Hint = 'Drücken Sie N um das Datum zu löschen'
         Top = 104
-        Width = 81
+        Width = 97
         DataField = 'CREATEDAT'
         DataSource = Projects
         ReadOnly = False
@@ -476,7 +476,7 @@ inherited fprojectFrame: TfprojectFrame
         OnColorChanged = bProjectColorColorChanged
       end
       object lVAT2: TLabel
-        Left = 208
+        Left = 224
         Height = 14
         Top = 88
         Width = 128
@@ -485,13 +485,13 @@ inherited fprojectFrame: TfprojectFrame
         ParentColor = False
       end
       object cbClass: TExtDBCombobox
-        Left = 208
-        Height = 21
+        Left = 224
+        Height = 27
         Top = 104
         Width = 194
         DataField = 'CLASS'
         DataSource = Projects
-        ItemHeight = 13
+        ItemHeight = 0
         MaxLength = 0
         OnSelect = cbCategorySelect
         Sorted = True
@@ -780,7 +780,7 @@ inherited fprojectFrame: TfprojectFrame
       end
       object eNumber: TDBEdit
         Left = 4
-        Height = 21
+        Height = 25
         Hint = 'Die Projektnummer'
         Top = 12
         Width = 110
@@ -828,11 +828,11 @@ inherited fprojectFrame: TfprojectFrame
       end
       object cbStatus: TComboBox
         Left = 1
-        Height = 21
+        Height = 29
         Hint = 'hier können Sie den Status des Projektes ändern um es in neue Zustände zu überführen'
         Top = 12
         Width = 143
-        ItemHeight = 13
+        ItemHeight = 0
         OnSelect = cbStatusSelect
         Style = csDropDownList
         TabOrder = 0
@@ -938,13 +938,13 @@ inherited fprojectFrame: TfprojectFrame
       end
       object cbType: TExtDBCombobox
         Left = 4
-        Height = 21
+        Height = 27
         Top = 12
         Width = 69
         Anchors = [akTop, akLeft, akRight]
         DataField = 'TYPE'
         DataSource = Projects
-        ItemHeight = 13
+        ItemHeight = 0
         Items.Strings = (
           'C Prozess'
           'P Projekt'
@@ -1056,7 +1056,7 @@ inherited fprojectFrame: TfprojectFrame
       end
       object eParent: TEditButton
         Left = 9
-        Height = 21
+        Height = 25
         Hint = 'der Vohrfahr des Projektes/Prozesses'
         Top = 14
         Width = 130
@@ -1217,14 +1217,14 @@ inherited fprojectFrame: TfprojectFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 64
-    ClientWidth = 80
+    ClientHeight = 66
+    ClientWidth = 82
     TabOrder = 4
     object iProject: TImage
       Left = 0
-      Height = 64
+      Height = 66
       Top = 0
-      Width = 80
+      Width = 82
       Align = alClient
       AutoSize = True
       Proportional = True
@@ -1477,7 +1477,7 @@ inherited fprojectFrame: TfprojectFrame
       OnExecute = acAddScreenshotExecute
     end
   end
-  object Projects: TDataSource[6]
+  object Projects: TDatasource[6]
     OnStateChange = ProjectsStateChange
     left = 144
     top = 64
@@ -1527,7 +1527,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 144
     top = 224
   end
-  object History: TDataSource[10]
+  object History: TDatasource[10]
     left = 176
     top = 224
   end
@@ -1542,7 +1542,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 240
     top = 224
   end
-  object Users: TDataSource[12]
+  object Users: TDatasource[12]
     AutoEdit = False
     left = 368
     top = 224
@@ -1552,7 +1552,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 288
     top = 224
   end
-  object Tasks: TDataSource[14]
+  object Tasks: TDatasource[14]
     left = 176
     top = 256
   end
@@ -1730,7 +1730,7 @@ inherited fprojectFrame: TfprojectFrame
       }
     end
   end
-  object MandantDetails: TDataSource[18]
+  object MandantDetails: TDatasource[18]
     left = 368
     top = 283
   end
