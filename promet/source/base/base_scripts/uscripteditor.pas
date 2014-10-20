@@ -69,7 +69,6 @@ type
     BreakPointMenu: TMenuItem;
     MainMenu1: TMainMenu;
     File1: TMenuItem;
-    PSCustomPlugin1: TPSCustomPlugin;
     PSImport_DB1: TPSImport_DB;
     ReplaceDialog1: TReplaceDialog;
     Run1: TMenuItem;

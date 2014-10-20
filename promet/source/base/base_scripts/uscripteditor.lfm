@@ -2065,10 +2065,6 @@ object fScriptEditor: TfScriptEditor
     left = 504
     top = 160
   end
-  object PSCustomPlugin1: TPSCustomPlugin
-    left = 504
-    top = 208
-  end
   object HigSQL: TSynSQLSyn
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
     Enabled = False

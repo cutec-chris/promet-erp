@@ -61,6 +61,7 @@ type
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
+    Label14: TLabel;
     Panel11: TPanel;
     pHist: TPanel;
     bSetUser: TSpeedButton;
