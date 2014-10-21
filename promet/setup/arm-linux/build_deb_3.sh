@@ -26,14 +26,16 @@ install -m 644 general/clientmanagement.desktop $BuildDir/usr/share/applications
 echo "copy to builddir..."
 ./copy_to_builddir_tools.sh $Archfpc $BuildDir/usr/lib/$Program
 cp general/clientmanagement.starter $BuildDir/usr/lib/$Program/
-ln -s /usr/lib/$Program/clientmanagement.starter $BuildDir/usr/bin/promet-erp-clientmanagement
-chmod 666 $BuildDir/usr/bin/promet-erp-clientmanagement
 ln -s /usr/lib/$Program/cmdwizardmandant $BuildDir/usr/bin/promet-erp-cmdwizardmandant
 chmod 666 $BuildDir/usr/bin/promet-erp-cmdwizardmandant
 ln -s /usr/lib/$Program/checkin $BuildDir/usr/bin/promet-erp-checkin
 chmod 666 $BuildDir/usr/bin/promet-erp-checkin
 ln -s /usr/lib/$Program/checkin $BuildDir/usr/bin/promet-erp-checkout
 chmod 666 $BuildDir/usr/bin/promet-erp-checkout
+ln -s /usr/lib/$Program/pscript $BuildDir/usr/bin/pscript
+chmod 666 $BuildDir/usr/bin/pscript
+ln -s /usr/lib/$Program/pscript $BuildDir/usr/bin/promet-erp-script
+chmod 666 $BuildDir/usr/bin/promet-erp-script
 cp ../warnings.txt $BuildDir/usr/lib/$Program
 cp ../errors.txt $BuildDir/usr/lib/$Program
 DebSize=$(du -s $BuildDir | cut -f1)

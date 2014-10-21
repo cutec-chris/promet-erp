@@ -1,4 +1,8 @@
-﻿Build 376
+﻿Build 378
+      -
+Build 377
+      - rpm Builds korrigiert
+Build 376
       - Threading im Linux vermeiden da es bei neueren Distris zu Problemen führt (GTK2 Syncronize Fehler)
 Build 375
       - Scripte:asynchrone ausführung möglich

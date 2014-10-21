@@ -219,6 +219,7 @@ type
     procedure Open(aType : string);
     procedure OpenDir(aDir : Variant);
     property Typ : string read GetTyp write SetTyp;
+    procedure ShowFrame; override;
   end;
 
   { TImportCheckTherad }
@@ -1589,6 +1590,11 @@ begin
   ThumbControl1.Invalidate;
   bShowDetail.Enabled:=DataSet.Count>0;
   pSave.Enabled:=DataSet.Count>0;
+end;
+
+procedure TfManageDocFrame.ShowFrame;
+begin
+  inherited ShowFrame;
 end;
 
 end.

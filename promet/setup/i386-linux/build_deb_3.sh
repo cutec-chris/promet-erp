@@ -34,6 +34,10 @@ ln -s /usr/lib/$Program/checkin $BuildDir/usr/bin/promet-erp-checkin
 chmod 666 $BuildDir/usr/bin/promet-erp-checkin
 ln -s /usr/lib/$Program/checkin $BuildDir/usr/bin/promet-erp-checkout
 chmod 666 $BuildDir/usr/bin/promet-erp-checkout
+ln -s /usr/lib/$Program/pscript $BuildDir/usr/bin/pscript
+chmod 666 $BuildDir/usr/bin/pscript
+ln -s /usr/lib/$Program/pscript $BuildDir/usr/bin/promet-erp-script
+chmod 666 $BuildDir/usr/bin/promet-erp-script
 cp ../warnings.txt $BuildDir/usr/lib/$Program
 cp ../errors.txt $BuildDir/usr/lib/$Program
 DebSize=$(du -s $BuildDir | cut -f1)
