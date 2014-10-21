@@ -13,6 +13,7 @@ cp $2/checkin ../executables/$Version/$1
 cp $2/checkout ../executables/$Version/$1
 cp $2/tableedit ../executables/$Version/$1
 cp $2/archivestore ../executables/$Version/$1
+cp $2/pscript ../executables/$Version/$1
 if [ ! -f $2/wizardmandant ];
 then
     exit

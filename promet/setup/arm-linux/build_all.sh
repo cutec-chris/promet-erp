@@ -43,6 +43,7 @@ then
   exit
 fi
 
+sh build_deb_3.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir #tools
 sh build_deb_5.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir #web
 sh build_deb_7.sh $Widgetset $Program $Version $Arch $Archfpc $Date $BuildDir $TmpDir #ocr
 sudo -S rm /tmp/*.deb

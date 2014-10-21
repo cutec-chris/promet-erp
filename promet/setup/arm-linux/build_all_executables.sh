@@ -9,6 +9,7 @@ cd setup/arm-linux
 echo "compiling import/exporters..."
 echo "compiling sync_..." > scompile-$2-tools.log
 lazbuild $Params -q -B ../../source/sync/sync_db.lpi  >> scompile-$2-tools.log
+lazbuild $Params -q -B ../../source/scripts/pscript.lpi  >> scompile-$2-tools.log
 #lazbuild $Params -q -B ../../source/sync/sync_owncloud.lpi  >> scompile-$2-tools.log
 #lazbuild $Params -q -B ../../source/sync/sync_redmine.lpi  >> scompile-$2-tools.log
 lazbuild $Params -q -B ../../source/sync/import_document.lpi  >> scompile-$2-tools.log
