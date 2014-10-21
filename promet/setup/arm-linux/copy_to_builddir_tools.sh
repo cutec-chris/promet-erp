@@ -6,6 +6,7 @@ cp ../../output/$1-linux/checkout $2
 cp ../../output/$1-linux/tableedit $2
 cp ../../output/$1-linux/clientmanagement $2
 cp ../../output/$1-linux/archivestore $2
+cp ../../output/$1-linux/pscript $2
 Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
 cp $2/cmdwizardmandant ../executables/$Version/$1
