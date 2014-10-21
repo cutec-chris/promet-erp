@@ -26,8 +26,8 @@ interface
 uses
   Classes, SysUtils, uBaseDbClasses, uBaseDBInterface, db, uPSCompiler,
   uPSC_classes, uPSC_DB, uPSC_dateutils, uPSC_dll, uPSRuntime,
-  uPSR_classes, uPSR_DB, uPSR_dateutils, uPSR_dll, uPSUtils,Process,usimpleprocess,
-  Utils,variants,UTF8Process,dynlibs;
+  uPSR_classes, uPSR_DB, uPSR_dateutils, uPSR_dll, uPSUtils,
+  Process,usimpleprocess,Utils,variants,UTF8Process,dynlibs;
 
 type
   TWritelnFunc = procedure(const s: string) of object;
@@ -59,6 +59,8 @@ type
     procedure InternalReadln(var s: string);
     function InternalParamStr(Param : Integer) : String;
     function InternalParamCount : Integer;
+    procedure InternalChDir(Directory : string);
+    procedure InternalMkDir(Directory : string);
 
     procedure InternalExec(cmd : string;ShowConsole : Boolean = False);
     function InternalExecActive: Boolean;
@@ -261,6 +263,9 @@ begin
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalExecActive, 'EXECACTIVE', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalKill, 'KILL', cdRegister);
 
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalChDir, 'CHDIR', cdRegister);
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalMkDir, 'MKDIR', cdRegister);
+
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalDataSet, 'DATASET', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalHistory, 'HISTORY', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalUserHistory, 'USERHISTORY', cdRegister);
@@ -268,6 +273,7 @@ begin
   uPSR_DB.RIRegister_DB(ClassImporter);
   uPSR_dateutils.RegisterDateTimeLibrary_R(Runtime);
   uPSR_dll.RegisterDLLRuntime(Runtime);
+  uPSR_classes.RIRegister_Classes(ClassImporter,false);
 end;
 type
   aProcT = function : pchar;stdcall;
@@ -284,7 +290,12 @@ var
 begin
   Result := True;
   try
-    if lowercase(Name)='exec' then
+    if lowercase(Name)='system' then
+      begin
+        Sender.AddDelphiFunction('procedure ChDir(Dir : string);');
+        Sender.AddDelphiFunction('procedure MkDir(Dir : string);');
+      end
+    else if lowercase(Name)='exec' then
       begin
         Sender.AddDelphiFunction('procedure Exec(cmd : string;ShowConsole : Boolean);');
         Sender.AddDelphiFunction('function ExecActive : Boolean;');
@@ -308,6 +319,10 @@ begin
     else if lowercase(Name)='dateutils' then
       begin
         uPSC_dateutils.RegisterDateTimeLibrary_C(Sender);
+      end
+    else if lowercase(Name)='classes' then
+      begin
+        uPSC_classes.SIRegister_Classes(Sender,False);
       end
     else
       begin
@@ -377,6 +392,7 @@ begin
         Result := False; // will halt compilation
       end;
       RegisterDll_Compiletime(Sender);
+      ExtendCompiler(Sender,Name);
     end
   else
     result := ExtendCompiler(Sender,Name);
@@ -461,6 +477,16 @@ end;
 function TBaseScript.InternalParamCount: Integer;
 begin
   Result := VarArrayHighBound(FParameters,1);
+end;
+
+procedure TBaseScript.InternalChDir(Directory: string);
+begin
+  chdir(Directory);
+end;
+
+procedure TBaseScript.InternalMkDir(Directory: string);
+begin
+  mkdir(Directory);
 end;
 
 constructor TBaseScript.Create(aOwner: TComponent; DM: TComponent;
