@@ -10,6 +10,7 @@
 
 
 {$INCLUDE eDefines.inc}
+{$DEFINE PS_USESSUPPORT}
 
 {$IFDEF FPC}{$MODE DELPHI}{$H+}{$ENDIF}
 

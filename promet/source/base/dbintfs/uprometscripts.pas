@@ -70,7 +70,9 @@ type
 
     procedure InternalExec(cmd : string;ShowConsole : Boolean = False);
     function InternalExecActive: Boolean;
+    function InternalExecResult: Integer;
     function InternalKill: Boolean;
+    procedure InternalBeep;
 
     function InternalDataSet(SQL : string) : TDataSet;
     function InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
@@ -197,6 +199,12 @@ begin
       CompleteOutput:=copy(CompleteOutput,pos(#10,CompleteOutput)+1,length(CompleteOutput));
     end;
 end;
+
+function TBaseScript.InternalExecResult: Integer;
+begin
+  Result := FProcess.ExitStatus;
+end;
+
 function TBaseScript.InternalKill : Boolean;
 begin
   Result := Assigned(FProcess);
@@ -206,6 +214,11 @@ begin
       while FProcess.Running do InternalExecActive;
       InternalExecActive;
     end;
+end;
+
+procedure TBaseScript.InternalBeep;
+begin
+  Beep;
 end;
 
 function TBaseScript.InternalDataSet(SQL: string): TDataSet;
@@ -269,9 +282,12 @@ begin
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalExec, 'EXEC', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalExecActive, 'EXECACTIVE', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalKill, 'KILL', cdRegister);
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalExecResult, 'EXECRESULT', cdRegister);
 
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalChDir, 'CHDIR', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalMkDir, 'MKDIR', cdRegister);
+
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalBeep, 'BEEP', cdRegister);
 
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalDataSet, 'DATASET', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalHistory, 'HISTORY', cdRegister);
@@ -304,10 +320,15 @@ begin
         Sender.AddDelphiFunction('procedure ChDir(Dir : string);');
         Sender.AddDelphiFunction('procedure MkDir(Dir : string);');
       end
+    else if lowercase(Name)='sysutils' then
+      begin
+        Sender.AddDelphiFunction('procedure Beep;');
+      end
     else if lowercase(Name)='exec' then
       begin
         Sender.AddDelphiFunction('procedure Exec(cmd : string;ShowConsole : Boolean);');
         Sender.AddDelphiFunction('function ExecActive : Boolean;');
+        Sender.AddDelphiFunction('function ExecResult : Integer;');
         Sender.AddDelphiFunction('function Kill : Boolean;');
       end
     else if lowercase(Name)='promet' then

@@ -268,7 +268,7 @@ begin
   FRev := aRevision;
   FFrame := aFrame;
   FreeOnTerminate:=True;
-  if not BaseApplication.HasOption('--disablethreads') then
+  if not BaseApplication.HasOption('disablethreads') then
     inherited Create(False)
   else
     Execute;

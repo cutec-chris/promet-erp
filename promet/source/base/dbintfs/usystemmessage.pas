@@ -128,7 +128,7 @@ begin
   SysMessages := TSystemMessages.Create(nil,Data,Connection);
   SysMessages.CreateTable;
   Data.SetFilter(SysMessages,Data.QuoteField('PROCESS_ID')+'='+Data.QuoteValue(IntToStr(Data.SessionID)),5);
-  if not BaseApplication.HasOption('--disablethreads') then
+  if not BaseApplication.HasOption('disablethreads') then
     inherited Create(False)
   else
     Execute;

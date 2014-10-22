@@ -389,7 +389,7 @@ begin
   ss := sss;
   FDone := False;
   FExcept := False;
-  if not BaseApplication.HasOption('--disablethreads') then
+  if not BaseApplication.HasOption('disablethreads') then
     inherited Create(false)
   else
     Execute;

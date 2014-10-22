@@ -284,7 +284,7 @@ constructor TImportCheckThread.Create(aDocFrame: TfManageDocFrame);
 begin
   FDoc := aDocFrame;
   FreeOnTerminate:=True;
-  if not BaseApplication.HasOption('--disablethreads') then
+  if not BaseApplication.HasOption('disablethreads') then
     inherited Create(false)
   else
     Execute;
@@ -1475,7 +1475,7 @@ begin
   inherited Create(AOwner);
   FFilter := '';
   SelectedItem:=nil;
-  if BaseApplication.HasOption('--disablethreads') then
+  if BaseApplication.HasOption('disablethreads') then
     ThumbControl1.MultiThreaded:=False;
   DataSet := TDocPages.Create(nil,Data);
   FTempPath := uthumbnails.GetThumbTempDir;

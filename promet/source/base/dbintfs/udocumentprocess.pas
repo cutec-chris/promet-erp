@@ -153,7 +153,7 @@ begin
   FLanguage := 'de';
   FDocument := Document;
   ProcessList.Add(Self);
-  if not BaseApplication.HasOption('--disablethreads') then
+  if not BaseApplication.HasOption('disablethreads') then
     inherited Create(False)
   else
     Execute;
