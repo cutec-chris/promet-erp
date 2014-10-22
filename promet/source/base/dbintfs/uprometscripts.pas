@@ -35,6 +35,12 @@ type
   TReadlnFunc = procedure(var s: string) of object;
   TBaseScript = class;
 
+  TLoadedLib = class
+  public
+    Name : string;
+    Code : string;
+  end;
+
   { TBaseScript }
 
   TBaseScript = class(TBaseDBDataset)
@@ -90,6 +96,7 @@ type
 
 var
   UsesFunctions : string;
+  LoadedLibs : TList;
 
 implementation
 uses uStatistic,uData;
@@ -287,6 +294,8 @@ var
   aLibName: TbtString;
   tmp: String;
   newUnit: String;
+  tmp1: String;
+  NewLib: TLoadedLib;
 begin
   Result := True;
   try
@@ -335,14 +344,21 @@ begin
           aLibName := ExtractFilePath(ParamStr(0))+Name+'.dylib';
         if FileExists(aLibname) then
           begin
-            uPSC_dll.RegisterDll_Compiletime(Sender);
+            for i := 0 to LoadedLibs.Count-1 do
+              if TLoadedLib(LoadedLibs[i]).Name=Name then
+                begin
+                  Sender.Compile(TLoadedLib(LoadedLibs[i]).Code);
+                  Result := True;
+                end;
+            if not Assigned(Sender.OnExternalProc) then
+              uPSC_dll.RegisterDll_Compiletime(Sender);
             aLib := LoadLibrary(ExtractFilePath(ParamStr(0))+DirectorySeparator+Name+'.dll');
             if aLib <> dynlibs.NilHandle  then
               begin
                 aProc := aprocT(dynlibs.GetProcAddress(aLib,'ScriptDefinition'));
                 if Assigned(aProc) then
                   begin
-                    newUnit := '';//'unit tcsbus;'+LineEnding+'interface';
+                    newUnit := 'unit '+name+';'+LineEnding+'interface'+LineEnding+'type';
                     Procs := TStringList.Create;
                     sProc := aProc();
                     Procs.text := sProc;
@@ -354,17 +370,25 @@ begin
                           tmp := copy(tmp,0,pos('(',tmp)-1);
                         if pos(':',tmp)>0 then
                           tmp := trim(copy(tmp,0,pos(':',tmp)-1));
-                        tmp := StringReplace(sProc,'external','external '''''+tmp+'@'+ExtractFileName(aLibname)+'''''',[]);
+                        tmp1 := copy(sProc,0,pos(';',sProc));
+                        tmp := tmp1+'external '''+tmp+'@'+ExtractFileName(aLibname)+''';'+copy(sProc,pos(';',sProc)+1,length(sProc));
                         newUnit := newUnit+LineEnding+tmp;
                       end;
-                    //newUnit := newUnit+LineEnding+'end.';
-
+                    newUnit := newUnit+LineEnding+'implementation'+lineending+'end.';
+                    NewLib := TLoadedLib.Create;
+                    NewLib.Name:=Name;
+                    NewLib.Code:=newUnit;
+                    LoadedLibs.Add(NewLib);
                     Sender.Compile(newUnit);
                     Procs.Free;
                     Result := True;
                   end;
                 FreeLibrary(aLib);
               end;
+          end
+        else //unit uses
+          begin
+
           end;
       end;
   except
@@ -614,5 +638,10 @@ begin
   end;
 end;
 
+initialization
+  LoadedLibs := TList.Create;
+finalization
+  LoadedLibs.Clear;
+  LoadedLibs.Free;
 end.
 

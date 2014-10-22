@@ -595,6 +595,7 @@ begin
   Sender.AddMethod(Self, @TfScriptEditor.Readln, 'procedure readln(var s: string)');
   Sender.AddMethod(Self, @TfScriptEditor.InternalParamStr,'function ParamStr(Param : Integer) : String;');
   Sender.AddMethod(Self, @TfScriptEditor.InternalParamCount,'function ParamCount : Integer;');
+  uprometscripts.ExtendCompiler(Sender.Comp,'system');
   FOldUses:=Sender.Comp.OnUses;
   Sender.Comp.OnUses:=@OnUses;
   ClassImporter:= TPSRuntimeClassImporter.CreateAndRegister(Sender.Exec, false);
