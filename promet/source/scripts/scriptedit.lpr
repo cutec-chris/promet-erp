@@ -25,7 +25,10 @@ begin
       RestoreConfig;
       if Login then
         begin
-          fScriptEditor.Execute(ParamStr(Paramcount));
+          if copy(ParamStr(Paramcount),0,1)<>'-' then
+            fScriptEditor.Execute(ParamStr(Paramcount))
+          else
+            fScriptEditor.Execute('');
         end;
     end;
 end.
