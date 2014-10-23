@@ -77,6 +77,9 @@ type
     procedure InternalBeep;
     procedure InternalSleep(MiliSecValue: LongInt);
 
+    function InternalGet(URL : string) : string;
+    function InternalPost(URL,Content : string) : string;
+
     function InternalDataSet(SQL : string) : TDataSet;
     function InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
       ObjectLink: string=''; Reference: string='';Commission: string='';Date:TDateTime = 0) : Boolean;
@@ -105,7 +108,7 @@ var
   LoadedLibs : TList;
 
 implementation
-uses uStatistic,uData;
+uses uStatistic,uData,httpsend;
 function ProcessScripts : Boolean;//process Scripts that must be runned cyclic Result shows that it should be runned faster (debug)
 var
   aScript: TBaseScript;
@@ -230,6 +233,37 @@ begin
   sleep(MiliSecValue);
 end;
 
+function TBaseScript.InternalGet(URL: string): string;
+var
+  ahttp: THTTPSend;
+begin
+  ahttp := THTTPSend.Create;
+  ahttp.HTTPMethod('GET',URL);
+  if ahttp.ResultCode=200 then
+    begin
+      setlength(Result,ahttp.Document.Size);
+      ahttp.Document.Read(Result[1],ahttp.Document.Size);
+    end
+  else Result:='';
+  ahttp.Free;
+end;
+
+function TBaseScript.InternalPost(URL, Content: string): string;
+var
+  ahttp: THTTPSend;
+begin
+  ahttp := THTTPSend.Create;
+  ahttp.Document.Write(Content[1],length(Content));
+  ahttp.HTTPMethod('POST',URL);
+  if ahttp.ResultCode=200 then
+    begin
+      setlength(Result,ahttp.Document.Size);
+      ahttp.Document.Read(Result[1],ahttp.Document.Size);
+    end
+  else Result:='';
+  ahttp.Free;
+end;
+
 function TBaseScript.InternalDataSet(SQL: string): TDataSet;
 begin
   Result := TBaseDBModule(DataModule).GetNewDataSet(SQL,Connection);
@@ -301,6 +335,9 @@ begin
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalDataSet, 'DATASET', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalHistory, 'HISTORY', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalUserHistory, 'USERHISTORY', cdRegister);
+
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalGet, 'GET', cdRegister);
+  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalPost, 'POST', cdRegister);
 
   uPSR_DB.RIRegister_DB(ClassImporter);
   uPSR_dateutils.RegisterDateTimeLibrary_R(Runtime);
