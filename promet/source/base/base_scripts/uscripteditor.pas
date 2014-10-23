@@ -29,7 +29,7 @@ uses
   uPSRuntime, uPSDisassembly, uPSUtils,
   uPSComponent, uPSDebugger, uPSComponent_DB, SynEditRegexSearch, 
   SynEditSearch, SynEditMiscClasses, SynEditHighlighter, SynGutterBase, SynEditMarks,
-  SynEditMarkupSpecialLine, SynHighlighterSQL,uPSCompiler, uprometscripts;
+  SynEditMarkupSpecialLine, SynHighlighterSQL,uPSCompiler, uprometscripts,LCLIntf;
 
 type
 
@@ -166,6 +166,7 @@ type
     procedure Readln(var s: string);
     function InternalParamStr(Param : Integer) : String;
     function InternalParamCount : Integer;
+    procedure InternalSleep(MiliSecValue: LongInt);
     procedure SetActiveFile(const Value: string);
 
     procedure DoSearchReplaceText(AReplace: boolean; ABackwards: boolean);
@@ -595,6 +596,7 @@ begin
   Sender.AddMethod(Self, @TfScriptEditor.Readln, 'procedure readln(var s: string)');
   Sender.AddMethod(Self, @TfScriptEditor.InternalParamStr,'function ParamStr(Param : Integer) : String;');
   Sender.AddMethod(Self, @TfScriptEditor.InternalParamCount,'function ParamCount : Integer;');
+  Sender.AddMethod(Self, @TfScriptEditor.InternalSleep,'procedure Sleep(MiliSecValue : LongInt);');
   uprometscripts.ExtendCompiler(Sender.Comp,'system');
   FOldUses:=Sender.Comp.OnUses;
   Sender.Comp.OnUses:=@OnUses;
@@ -633,6 +635,15 @@ end;
 function TfScriptEditor.InternalParamCount: Integer;
 begin
   Result := 0;
+end;
+
+procedure TfScriptEditor.InternalSleep(MiliSecValue: LongInt);
+var
+  aTime: QWord;
+begin
+  aTime := GetTickCount64;
+  while GetTickCount64-aTime < MiliSecValue do
+    Application.ProcessMessages;
 end;
 
 //check if script changed and not yet saved//

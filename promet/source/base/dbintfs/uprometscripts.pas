@@ -33,6 +33,7 @@ type
   TWritelnFunc = procedure(const s: string) of object;
   TWriteFunc = procedure(const s: string) of object;
   TReadlnFunc = procedure(var s: string) of object;
+  TSleepFunc = procedure(MiliSecValue : cardinal);
   TBaseScript = class;
 
   TLoadedLib = class
@@ -48,6 +49,7 @@ type
   private
     CompleteOutput : string;
     FRlFunc: TReadlnFunc;
+    FSlFunc: TSleepFunc;
     FWrFunc: TWritelnFunc;
     FWriFunc: TWriteFunc;
     FProcess: TProcessUTF8;
@@ -73,6 +75,7 @@ type
     function InternalExecResult: Integer;
     function InternalKill: Boolean;
     procedure InternalBeep;
+    procedure InternalSleep(MiliSecValue: LongInt);
 
     function InternalDataSet(SQL : string) : TDataSet;
     function InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
@@ -87,6 +90,7 @@ type
     property Write : TWriteFunc read FWriFunc write FWriFunc;
     property Writeln : TWritelnFunc read FWrFunc write FWRFunc;
     property Readln : TReadlnFunc read FRlFunc write FRlFunc;
+    property Sleep : TSleepFunc read FSlFunc write FSlFunc;
     property Runtime : TPSExec read FRuntime write FRuntime;
     function Execute(Parameters : Variant) : Boolean;
     destructor Destroy;override;
@@ -221,6 +225,11 @@ begin
   Beep;
 end;
 
+procedure TBaseScript.InternalSleep(MiliSecValue: LongInt);
+begin
+  sleep(MiliSecValue);
+end;
+
 function TBaseScript.InternalDataSet(SQL: string): TDataSet;
 begin
   Result := TBaseDBModule(DataModule).GetNewDataSet(SQL,Connection);
@@ -323,6 +332,7 @@ begin
     else if lowercase(Name)='sysutils' then
       begin
         Sender.AddDelphiFunction('procedure Beep;');
+        Sender.AddDelphiFunction('procedure Sleep(MiliSecValue : LongInt);');
       end
     else if lowercase(Name)='exec' then
       begin
@@ -370,6 +380,7 @@ begin
                 begin
                   Sender.Compile(TLoadedLib(LoadedLibs[i]).Code);
                   Result := True;
+                  exit;
                 end;
             if not Assigned(Sender.OnExternalProc) then
               uPSC_dll.RegisterDll_Compiletime(Sender);
@@ -392,7 +403,7 @@ begin
                         if pos(':',tmp)>0 then
                           tmp := trim(copy(tmp,0,pos(':',tmp)-1));
                         tmp1 := copy(sProc,0,pos(';',sProc));
-                        tmp := tmp1+'external '''+tmp+'@'+ExtractFileName(aLibname)+''';'+copy(sProc,pos(';',sProc)+1,length(sProc));
+                        tmp := tmp1+'external '''+tmp+'@'+ExtractFileName(aLibname)+' '+copy(sProc,pos(';',sProc)+1,length(sProc)-pos(';',sProc)-1)+''';';
                         newUnit := newUnit+LineEnding+tmp;
                       end;
                     newUnit := newUnit+LineEnding+'implementation'+lineending+'end.';
@@ -409,7 +420,7 @@ begin
           end
         else //unit uses
           begin
-
+            Result := False;
           end;
       end;
   except
@@ -449,6 +460,7 @@ begin
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.Internalreadln, 'READLN', cdRegister);
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalParamStr, 'PARAMSTR', cdRegister);
   Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalParamCount, 'PARAMCOUNT', cdRegister);
+  Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalSleep, 'SLEEP', cdRegister);
   RegisterDLLRuntime(Runtime);
   ExtendRuntime(Runtime,ClassImporter,Script);
 end;

@@ -4,6 +4,8 @@ library tinkerforge;
 
 uses
   Classes,sysutils;
+var
+  aObj: TObject;
 
 function TinkerforgeEnumerate(AbortAfterFirst : Boolean) : Integer;stdcall;
 begin
@@ -19,5 +21,4 @@ end;
 exports
   TinkerforgeEnumerate,
   ScriptDefinition;
-
 end.
