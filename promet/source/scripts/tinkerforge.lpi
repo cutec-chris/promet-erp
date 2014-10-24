@@ -29,13 +29,34 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <HostApplicationFilename Value="C:\Prometheus\TCS\paradoxtest1\promet\output\i386-win32\scriptedit.exe"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; DLLt"/>
       </local>
     </RunParams>
-    <Units Count="1">
+    <Units Count="5">
       <Unit0>
         <Filename Value="tinkerforge.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="tinkerforge\IPConnection.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="IPConnection"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="tinkerforge\Device.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Device"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="tinkerforge\BrickletLCD20x4.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="BrickletLCD20x4"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="tinkerforge\BrickletLCD16x2.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -43,6 +64,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="tinkerforge"/>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
