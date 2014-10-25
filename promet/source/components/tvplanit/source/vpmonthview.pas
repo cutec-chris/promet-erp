@@ -706,7 +706,7 @@ var
                                  mvColWidth - (TextMargin * 2));
       end;
       StrL := RenderCanvas.TextWidth(Str);
-
+      RenderCanvas.Font.Size:=Self.Font.Size;
       TPSTextOut (RenderCanvas, Angle, RenderIn,
                   dhRect.Left + (dhRect.Right - dhRect.Left) div 2 -
                   (Strl div 2), dhRect.Top + TextMargin - 1, Str);

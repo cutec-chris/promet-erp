@@ -1,5 +1,6 @@
 ﻿Build 378
-      -
+      - Scripte:netzwerkfunktionen
+      - Scripte:dll erweiterungen voll funktionstüchtig
 Build 377
       - rpm Builds korrigiert
 Build 376
