@@ -1,6 +1,7 @@
 ﻿Build 378
       - Scripte:netzwerkfunktionen
       - Scripte:dll erweiterungen voll funktionstüchtig
+      - Kalendar:einige korrekturen am Zeichnen
 Build 377
       - rpm Builds korrigiert
 Build 376

@@ -590,6 +590,7 @@ begin
   DataSet.FieldByName('TITLE').Clear;
   if Addr.Count > 0 then
     if HasTitle('firm')
+    or HasTitle('firma')
     or HasTitle('herr')
     or HasTitle('frau')
     or HasTitle('mr')
@@ -976,4 +977,4 @@ begin
 end;
 
 initialization
-end.
+end.
