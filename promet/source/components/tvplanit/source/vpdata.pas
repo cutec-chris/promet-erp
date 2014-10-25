@@ -1311,6 +1311,23 @@ begin
     EventList.Clear
 
   else begin
+    { Add Allday Events. }
+    for I := 0 to pred(EventCount) do begin
+      Event := GetEvent(I);
+
+      { if this is a repeating event and it falls on "Date" then add it to }
+      { the list.                                                          }
+      if (Event.RepeatCode > rtNone)
+      and (RepeatsOn(Event, Date))
+      and Event.AllDayEvent then
+        EventList.Add(Event)
+      { otherwise if this event naturally falls on "Date" then add it to   }
+      { the list.                                                          }
+      else if ((trunc(Date) >= trunc(Event.StartTime))
+           and (trunc(Date) <= trunc(Event.EndTime)))
+           and Event.AllDayEvent then
+        EventList.Add(Event);
+    end;
     { Add this days events to the Event List. }
     for I := 0 to pred(EventCount) do begin
       Event := GetEvent(I);
@@ -1319,12 +1336,13 @@ begin
       { the list.                                                          }
       if (Event.RepeatCode > rtNone)
       and (RepeatsOn(Event, Date))
-      then
+      and (not Event.AllDayEvent) then
         EventList.Add(Event)
       { otherwise if this event naturally falls on "Date" then add it to   }
       { the list.                                                          }
       else if ((trunc(Date) >= trunc(Event.StartTime))
-           and (trunc(Date) <= trunc(Event.EndTime))) then
+           and (trunc(Date) <= trunc(Event.EndTime)))
+           and (not Event.AllDayEvent) then
         EventList.Add(Event);
     end;
   end;

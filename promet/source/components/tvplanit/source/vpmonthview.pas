@@ -743,6 +743,7 @@ var
     OldBrush      : TBrush;
     OldPen        : TPen;
     OldFont       : TFont;
+    TmpRect: TRect;
   begin
     { initialize the MonthDayArray }
     for I := 0 to Pred(Length(mvMonthDayArray)) do begin
@@ -1059,13 +1060,19 @@ var
 
               if TVpEvent(EventList.List^[j]).Color<>clNone then
                 begin
-                  RenderCanvas.Brush.Color := TVpEvent(EventList.List^[j]).Color;
-                  TPSFillRect(RenderCanvas,Angle,RenderIn,TextRect);
+                  TmpRect := TextRect;
+                  TmpRect.Top:=TmpRect.Top+3;
+                  TmpRect.Left:=TmpRect.Left+3;
+                  TmpRect.Right:=TmpRect.Right-24;
+                  RenderCanvas.GradientFill(TmpRect,TVpEvent(EventList.List^[j]).Color,RealColor,gdHorizontal);
                 end
               else if TVpEvent(EventList.List^[j]).AllDayEvent then
                 begin
-                  RenderCanvas.Brush.Color := clBtnFace;
-                  TPSFillRect(RenderCanvas,Angle,RenderIn,TextRect);
+                  TmpRect := TextRect;
+                  TmpRect.Top:=TmpRect.Top+3;
+                  TmpRect.Left:=TmpRect.Left+3;
+                  TmpRect.Right:=TmpRect.Right-24;
+                  RenderCanvas.GradientFill(TmpRect,clBtnFace,RealColor,gdHorizontal);
                 end;
 
               { shorten events that are next to the day number, in order }

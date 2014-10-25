@@ -745,6 +745,7 @@ var
                         ADEventRect.Top + TextMargin div 2,
                         ADEventRect.Right - TextMargin,
                         ADEventRect.Top + ADTextHeight + TextMargin div 2);
+          RenderCanvas.Font.Size:=Font.Size;
           TPSTextOut (RenderCanvas,Angle, RenderIn,
                       AdEventRect.Left + TextMargin * 2 + TextMargin div 2,
                       AdEventRect.Top + TextMargin,
