@@ -161,7 +161,7 @@ var
   x: Int64;
   y: Integer;
   LineHeight: Extended;
-  Printer: TFPImageCanvas;
+  aPrinter: TFPImageCanvas;
   aOldPos: Int64;
   function ConvertExec(aCmd,aExt : string) : Boolean;
   begin
@@ -266,26 +266,26 @@ begin
     begin
       Img := TFPMemoryImage.Create(aWidth, aHeight);
       Img.UsePalette := false;
-      Printer := TFPImageCanvas.create(Img);
+      aPrinter := TFPImageCanvas.create(Img);
       sl := TStringList.Create;
       sl.Text:=aText;
       while sl.Count>80 do sl.Delete(79);
-      Printer.Brush.FPColor:=FPColor(65535,65535,65535);//white
-      Printer.Rectangle(0,0,aWidth,aHeight);
+      aPrinter.Brush.FPColor:=FPColor(65535,65535,65535);//white
+      aPrinter.Rectangle(0,0,aWidth,aHeight);
       randlinks:=round(aWidth/100);
       randoben:=round(aHeight/100);
       //Schrift-Einstellungen:
-      Printer.Font.Name:='Courier New';
-      Printer.Font.Size:=1;
-      Printer.Font.FPColor:=FPColor(0,0,0);
+      aPrinter.Font.Name:='Courier New';
+      aPrinter.Font.Size:=1;
+      aPrinter.Font.FPColor:=FPColor(0,0,0);
       LineHeight := ((aHeight-(randoben*2))/80);
-      while Printer.TextHeight('Äg')< LineHeight do
-        Printer.Font.Size:=Printer.Font.Size+1;
+      while aPrinter.TextHeight('Äg')< LineHeight do
+        aPrinter.Font.Size:=aPrinter.Font.Size+1;
       x:=randlinks;
       y:=randoben+1;
       for zeile:=0 to sl.Count-1 do
         begin
-        Printer.TextOut(x, y, sl[zeile]);
+        aPrinter.TextOut(x, y, sl[zeile]);
         y:=round(randoben+(LineHeight*Zeile));
         end;
       sl.Free;
@@ -296,7 +296,7 @@ begin
       aStream.Position:=aOldPos;
       wr.Free;
       Img.Free;
-      Printer.Free;
+      aPrinter.Free;
     end;
 end;
 

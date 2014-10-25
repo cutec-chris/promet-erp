@@ -115,31 +115,14 @@ begin
   //Remove Temp Stuff
   if aDoDelete and Result then
     begin
-    with BaseApplication as IBaseApplication do
-      begin
-        if DirectoryExistsUTF8(filename) then
-          begin
-          {$IFDEF LCL}
-          DelRetry:
-            case Config.ReadInteger('DELETEMETHOD',0) of
-            0:DelOK := DeleteDirectory(filename,False);
-            1:DelOK := DeleteDirectorySecure(filename,False);
-            2:DelOK := DeleteDirectorySecure(filename,False,dmDoD522022);
-            3:DelOK := DeleteDirectorySecure(filename,False,dmOverride);
-            end;
-            if not DelOK then
-              if MessageDlg(strDelete,strCantDeleteTempDirectory,mtWarning,[mbRetry,mbAbort],0) = mrRetry then
-                goto DelRetry;
-          {$ELSE}
+      if DirectoryExistsUTF8(filename) then
+        begin
+        DelRetry:
           DelOK := DeleteDirectory(filename,False);
-          {$ENDIF}
-          end;
-      end;
+        end;
     end
   else if aDoDelete then
-    {$IFDEF LCL}
-    ShowMessage(strCheckinFailed)
-    {$ENDIF}
+    raise Exception.Create(strCheckinFailed)
     ;
 end;
 constructor TDocExecuteThread.Create(Document: TDocument; Cmd: string;

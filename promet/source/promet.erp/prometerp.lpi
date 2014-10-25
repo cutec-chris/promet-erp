@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -300,6 +300,7 @@
         <ComponentName Value="fAddressFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uAddressFrame"/>
       </Unit3>
       <Unit4>
         <Filename Value="upersonfinance.pas"/>

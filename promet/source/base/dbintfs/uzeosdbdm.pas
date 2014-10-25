@@ -1021,7 +1021,7 @@ begin
   FManagedIndexDefs := TIndexDefs.Create(Self);
   FSubDataSets := TList.Create;
   FUsePermissions := False;
-  Options:= [doCalcDefaults, doAlwaysDetailResync, doDontSortOnPost, doPreferPrepared, doPreferPreparedResolver];
+  Options:= [doCalcDefaults, doAlwaysDetailResync, doDontSortOnPost, doPreferPrepared{, doPreferPreparedResolver}];
   FOrigTable := nil;
   SortType := stIgnored;
   FUpStdFields := True;
@@ -1455,6 +1455,7 @@ var
   atime: Integer;
 begin
   Result := True;
+  exit;
   try
     Result := TZConnection(aConnection).Ping;
   except
@@ -1968,4 +1969,4 @@ end;
 
 end.
 
-
+
