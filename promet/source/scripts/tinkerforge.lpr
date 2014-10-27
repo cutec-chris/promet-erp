@@ -53,6 +53,10 @@ begin
         Devices.Add(Dev);
         TBrickletLCD16x2(Dev).ClearDisplay();
       end;
+      if (deviceIdentifier = BRICKLET_VOLTAGE_CURRENT_DEVICE_IDENTIFIER) then begin
+        Dev := TBrickletVoltageCurrent.Create(UID, ipcon);
+        Devices.Add(Dev);
+      end;
     end;
 end;
 constructor TStation.Create;
@@ -162,6 +166,162 @@ begin
           end;
     end;
 end;
+function TfLCDButtonPressed(Button : byte) : Boolean;
+var
+  i: Integer;
+begin
+  for i := 0 to Station.Devices.Count-1 do
+    begin
+      if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
+        with TBrickletLCD16x2(Station.Devices[i]) do
+          begin
+            Result := IsButtonPressed(Button);
+          end;
+      if TDevice(Station.Devices[i]) is TBrickletLCD20x4 then
+        with TBrickletLCD20x4(Station.Devices[i]) do
+          begin
+            Result := IsButtonPressed(Button);
+          end;
+    end;
+end;
+function TfGetVoltageById(id : Integer) : LongInt;stdcall;
+var
+  a: Integer;
+  i: Integer;
+begin
+  Result := -1;
+  a := 0;
+  for i := 0 to Station.Devices.Count-1 do
+    begin
+      if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
+        begin
+          if a=id then
+            begin
+              Result := TBrickletVoltageCurrent(Station.Devices[i]).GetVoltage;
+              exit;
+            end;
+          inc(a);
+        end;
+    end;
+end;
+function TfGetVoltage(position : char) : LongInt;stdcall;
+var
+  a: Integer;
+  i: Integer;
+  aDID: word;
+  aFWV: TVersionNumber;
+  aHWV: TVersionNumber;
+  aPosition: char;
+  aConUID: string;
+  aUid: string;
+begin
+  Result := -1;
+  for i := 0 to Station.Devices.Count-1 do
+    begin
+      if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
+        begin
+          TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
+          if lowercase(position)=lowercase(aPosition) then
+            begin
+              Result := TBrickletVoltageCurrent(Station.Devices[i]).GetVoltage;
+              exit;
+            end;
+          inc(a);
+        end;
+    end;
+end;
+function TfGetCurrentById(id : Integer) : LongInt;stdcall;
+var
+  a: Integer;
+  i: Integer;
+begin
+  Result := -1;
+  a := 0;
+  for i := 0 to Station.Devices.Count-1 do
+    begin
+      if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
+        begin
+          if a=id then
+            begin
+              Result := TBrickletVoltageCurrent(Station.Devices[i]).GetCurrent;
+              exit;
+            end;
+          inc(a);
+        end;
+    end;
+end;
+function TfGetCurrent(position : char) : LongInt;stdcall;
+var
+  a: Integer;
+  i: Integer;
+  aDID: word;
+  aFWV: TVersionNumber;
+  aHWV: TVersionNumber;
+  aPosition: char;
+  aConUID: string;
+  aUid: string;
+begin
+  Result := -1;
+  for i := 0 to Station.Devices.Count-1 do
+    begin
+      if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
+        begin
+          TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
+          if position=aPosition then
+            begin
+              Result := TBrickletVoltageCurrent(Station.Devices[i]).GetCurrent;
+              exit;
+            end;
+          inc(a);
+        end;
+    end;
+end;
+function TfGetPowerById(id : Integer) : LongInt;stdcall;
+var
+  a: Integer;
+  i: Integer;
+begin
+  Result := -1;
+  a := 0;
+  for i := 0 to Station.Devices.Count-1 do
+    begin
+      if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
+        begin
+          if a=id then
+            begin
+              Result := TBrickletVoltageCurrent(Station.Devices[i]).GetPower;
+              exit;
+            end;
+          inc(a);
+        end;
+    end;
+end;
+function TfGetPower(position : char) : LongInt;stdcall;
+var
+  a: Integer;
+  i: Integer;
+  aDID: word;
+  aFWV: TVersionNumber;
+  aHWV: TVersionNumber;
+  aPosition: char;
+  aConUID: string;
+  aUid: string;
+begin
+  Result := -1;
+  for i := 0 to Station.Devices.Count-1 do
+    begin
+      if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
+        begin
+          TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
+          if position=aPosition then
+            begin
+              Result := TBrickletVoltageCurrent(Station.Devices[i]).GetPower;
+              exit;
+            end;
+          inc(a);
+        end;
+    end;
+end;
 
 function ScriptDefinition : PChar;stdcall;
 begin
@@ -173,6 +333,15 @@ begin
        +#10+'procedure TfLCDBackLightOff;stdcall;'
        +#10+'procedure TfLCDWrite(x,y : Integer;text : string);stdcall;'
        +#10+'procedure TfLCDClear;stdcall;'
+       +#10+'function TfLCDButtonPressed(Button : byte) : Boolean;'
+
+       +#10+'function TfGetVoltageById(id : Integer) : LongInt;stdcall;'
+       +#10+'function TfGetVoltage(Position : char) : LongInt;stdcall;'
+       +#10+'function TfGetCurrentById(id : Integer) : LongInt;stdcall;'
+       +#10+'function TfGetCurrent(Position : char) : LongInt;stdcall;'
+       +#10+'function TfGetPowerById(id : Integer) : LongInt;stdcall;'
+       +#10+'function TfGetPower(Position : char) : LongInt;stdcall;'
+
             ;
 end;
 
@@ -185,6 +354,14 @@ exports
   TfLCDBackLightOff,
   TfLCDWrite,
   TfLCDClear,
+  TfLCDButtonPressed,
+
+  TfGetVoltage,
+  TfGetVoltageById,
+  TfGetCurrent,
+  TfGetCurrentById,
+  TfGetPower,
+  TfGetPowerById,
 
   ScriptDefinition;
 
