@@ -424,7 +424,7 @@ inherited fWikiFrame: TfWikiFrame
       Align = alClient
       FixedTypeface = 'Courier New'
       DefaultTypeFace = 'arial'
-      DefaultFontSize = 8
+      DefaultFontSize = 10
       FlagErrors = False
       PrintSettings.MarginLeft = 0.5
       PrintSettings.MarginTop = 0.5
@@ -449,8 +449,8 @@ inherited fWikiFrame: TfWikiFrame
       object tsEdit: TTabSheet
         Tag = 1
         Caption = 'bearbeiten'
-        ClientHeight = 920
-        ClientWidth = 1266
+        ClientHeight = 460
+        ClientWidth = 633
         ImageIndex = 67
         object Panel1: TPanel
           Left = 0
@@ -870,7 +870,7 @@ inherited fWikiFrame: TfWikiFrame
             Columns = <            
               item
                 Title.Caption = 'Suchbegriff'
-                Width = 176
+                Width = 155
                 FieldName = 'KEYWORD'
               end>
             DataSource = Keywords

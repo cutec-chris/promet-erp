@@ -510,7 +510,7 @@ begin
       istr := ReplaceRegExpr('\r====(.*?)====',istr,#13'<h4>$1</h4>',True);
       istr := ReplaceRegExpr('\r===(.*?)===',istr,#13'<h3>$1</h3>',True);
       istr := ReplaceRegExpr('\r==(.*?)==',istr,#13'<h2>$1</h2>',True);
-      istr := ReplaceRegExpr('\r=(.*?)=\r',istr,#13'<h1>$1</h1>',True);
+      istr := ReplaceRegExpr('\r=(.*?)=\r',istr,#13'<h2>$1</h2>',True);
     end
   else
     begin
