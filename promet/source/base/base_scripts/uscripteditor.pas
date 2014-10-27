@@ -22,7 +22,7 @@ unit uScriptEditor;
 interface
 
 uses
-  SysUtils, Classes, db, Graphics, Controls, Forms,
+  SysUtils, Classes, windows, types, db, Graphics, Controls, Forms,
   Dialogs, Menus, ExtCtrls, StdCtrls, ComCtrls, ActnList, DbCtrls, DBGrids,
   SynEdit, SynEditTypes, SynHighlighterPas,
   uPSComponent_Default,
@@ -126,6 +126,7 @@ type
     procedure cbSyntaxSelect(Sender: TObject);
     procedure edGutterClick(Sender: TObject; X, Y, Line: integer;
       mark: TSynEditMark);
+    procedure edShowHint(Sender: TObject; HintInfo: PHintInfo);
     procedure edSpecialLineColors(Sender: TObject; Line: Integer; var Special: Boolean; var FG, BG: TColor);
     procedure BreakPointMenuClick(Sender: TObject);
     procedure DebuggerLineInfo(Sender: TObject; const FileName: String; aPosition, Row, Col: Cardinal);
@@ -290,6 +291,38 @@ begin
   else
     Debugger.SetBreakPoint(Debugger.MainFileName, Line);
   ed.Refresh;
+end;
+
+procedure TfScriptEditor.edShowHint(Sender: TObject; HintInfo: PHintInfo);
+var
+  ASynEdit: TSynEdit;
+  EditPos: types.TPoint;
+  EditCaret: Classes.TPoint;
+  aWord: String;
+  i: Integer;
+  aCont: TbtString;
+begin
+ ASynEdit:=ed;
+ EditPos:=HintInfo^.CursorPos;
+ if not PtInRect(ASynEdit.ClientRect,EditPos) then exit;
+ EditCaret:=ASynEdit.PhysicalToLogicalPos(ASynEdit.PixelsToRowColumn(EditPos));
+ if (EditCaret.Y<1) then exit;
+ aWord := ASynEdit.GetWordAtRowCol(EditCaret);
+ for i := 0 to uprometscripts.LoadedLibs.Count-1 do
+   if lowercase(TLoadedLib(uprometscripts.LoadedLibs[i]).Name)=lowercase(aWord) then
+     begin
+       HintInfo^.HintStr:=TLoadedLib(uprometscripts.LoadedLibs[i]).Code;
+       HintInfo^.HideTimeout:=30000;
+     end;
+ if Debugger.Running then
+   begin
+     aCont := Debugger.GetVarContents(aWord);
+     if aCont<>'' then
+       begin
+         HintInfo^.HintStr:=aWord+':'+aCont;
+         HintInfo^.HideTimeout:=30000;
+       end;
+   end;
 end;
 
 procedure TfScriptEditor.acSyntaxcheckExecute(Sender: TObject);

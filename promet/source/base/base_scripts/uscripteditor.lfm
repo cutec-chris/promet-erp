@@ -46,6 +46,8 @@ object fScriptEditor: TfScriptEditor
       Font.Quality = fqNonAntialiased
       ParentColor = False
       ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
       Gutter.Width = 57
       Gutter.MouseActions = <>
@@ -509,6 +511,7 @@ object fScriptEditor: TfScriptEditor
       LineHighlightColor.FrameEdges = sfeAround
       OnDropFiles = edDropFiles
       OnGutterClick = edGutterClick
+      OnShowHint = edShowHint
       OnSpecialLineColors = edSpecialLineColors
       OnStatusChange = edStatusChange
       inline SynLeftGutterPartList1: TSynGutterPartList

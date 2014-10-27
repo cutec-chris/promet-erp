@@ -440,7 +440,9 @@ begin
                           tmp := copy(tmp,0,pos('(',tmp)-1);
                         if pos(':',tmp)>0 then
                           tmp := trim(copy(tmp,0,pos(':',tmp)-1));
-                        tmp1 := copy(sProc,0,pos(')',sProc)+1);
+                        if pos(')',sProc)>0 then
+                          tmp1 := copy(sProc,0,pos(')',sProc)+1)
+                        else tmp1 := '';
                         tmp3 := copy(sProc,length(tmp1),length(sProc));
                         tmp1 := tmp1+copy(tmp3,0,pos(';',tmp3));
                         tmp2 := copy(sProc,pos(')',sProc)+1,length(sProc));
@@ -448,7 +450,7 @@ begin
                         tmp2 := copy(tmp2,0,pos(';',tmp2)-1);
                         if tmp2<>'' then
                           tmp2 := ' '+tmp2;
-                        tmp := tmp1+'external '''+tmp+'@'+ExtractFileName(aLibname)+tmp2+''';';
+                        tmp := '  '+tmp1+'external '''+tmp+'@'+ExtractFileName(aLibname)+tmp2+''';';
                         newUnit := newUnit+LineEnding+tmp;
                       end;
                     newUnit := newUnit+LineEnding+'implementation'+lineending+'end.';

@@ -26,7 +26,7 @@ type
 var
   Station : TStation;
 
-function TinkerforgeConnect(Host : PChar;Port : Integer) : Boolean;stdcall;
+function TfConnect(Host : PChar;Port : Integer) : Boolean;stdcall;
 begin
   if not Assigned(Station) then
     Station := TStation.Create;
@@ -34,22 +34,74 @@ begin
   result := Station.Conn.IsConnected;
 end;
 
-function TinkerforgeEnumerate : Integer;stdcall;
+function TfDisconnect : Boolean;stdcall;
+begin
+  Result := True;
+  FreeAndNil(Station);
+end;
+
+function TfEnumerate : Integer;stdcall;
 begin
   Result :=0;
   Station.Conn.Enumerate;
 end;
 
+procedure TfLCDBackLightOn;stdcall;
+var
+  i: Integer;
+begin
+  for i := 0 to Station.Devices.Count-1 do
+    begin
+      if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
+        with TBrickletLCD16x2(Station.Devices[i]) do
+          begin
+            BacklightOn;
+          end;
+      if TDevice(Station.Devices[i]) is TBrickletLCD20x4 then
+        with TBrickletLCD20x4(Station.Devices[i]) do
+          begin
+            BacklightOn;
+          end;
+    end;
+end;
+procedure TfLCDBackLightOff;stdcall;
+var
+  i: Integer;
+begin
+  for i := 0 to Station.Devices.Count-1 do
+    begin
+      if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
+        with TBrickletLCD16x2(Station.Devices[i]) do
+          begin
+            BacklightOff;
+          end;
+      if TDevice(Station.Devices[i]) is TBrickletLCD20x4 then
+        with TBrickletLCD20x4(Station.Devices[i]) do
+          begin
+            BacklightOff;
+          end;
+    end;
+end;
+
 function ScriptDefinition : PChar;stdcall;
 begin
-  Result := 'function TinkerforgeEnumerate : Integer;stdcall;'
-       +#10+'function TinkerforgeConnect(Host : PChar;Port : Integer) : Boolean;stdcall;'
+  Result := 'function TfEnumerate : Integer;stdcall;'
+       +#10+'function TfConnect(Host : PChar;Port : Integer) : Boolean;stdcall;'
+       +#10+'function TfDisconnect : Boolean;stdcall;'
+
+       +#10+'procedure TfLCDBackLightOn;stdcall;'
+       +#10+'procedure TfLCDBackLightOff;stdcall;'
             ;
 end;
 
 exports
-  TinkerforgeConnect,
-  TinkerforgeEnumerate,
+  TfConnect,
+  TfEnumerate,
+  TfDisconnect,
+
+  TfLCDBackLightOn,
+  TfLCDBackLightOff,
+
   ScriptDefinition;
 
 procedure TStation.ipconConnected(sender: TIPConnection;
@@ -72,8 +124,13 @@ begin
     begin
       if (deviceIdentifier = BRICKLET_LCD_20X4_DEVICE_IDENTIFIER) then begin
         Dev := TBrickletLCD20x4.Create(UID, ipcon);
+        Devices.Add(Dev);
         TBrickletLCD20x4(Dev).ClearDisplay();
-        TBrickletLCD20x4(Dev).BacklightOn();
+      end;
+      if (deviceIdentifier = BRICKLET_LCD_16X2_DEVICE_IDENTIFIER) then begin
+        Dev := TBrickletLCD16x2.Create(UID, ipcon);
+        Devices.Add(Dev);
+        TBrickletLCD16x2(Dev).ClearDisplay();
       end;
     end;
 end;
