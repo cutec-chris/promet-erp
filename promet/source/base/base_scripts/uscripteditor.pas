@@ -320,7 +320,6 @@ begin
      if aCont<>'' then
        begin
          HintInfo^.HintStr:=aWord+':'+aCont;
-         HintInfo^.HideTimeout:=30000;
        end;
    end;
 end;

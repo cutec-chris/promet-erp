@@ -439,11 +439,13 @@ begin
                         if pos('(',tmp)>0 then
                           tmp := copy(tmp,0,pos('(',tmp)-1);
                         if pos(':',tmp)>0 then
-                          tmp := trim(copy(tmp,0,pos(':',tmp)-1));
+                          tmp := trim(copy(tmp,0,pos(':',tmp)-1))
+                        else if pos(';',tmp)>0 then
+                          tmp := trim(copy(tmp,0,pos(';',tmp)-1));
                         if pos(')',sProc)>0 then
-                          tmp1 := copy(sProc,0,pos(')',sProc)+1)
+                          tmp1 := copy(sProc,0,pos(')',sProc))
                         else tmp1 := '';
-                        tmp3 := copy(sProc,length(tmp1),length(sProc));
+                        tmp3 := copy(sProc,length(tmp1)+1,length(sProc));
                         tmp1 := tmp1+copy(tmp3,0,pos(';',tmp3));
                         tmp2 := copy(sProc,pos(')',sProc)+1,length(sProc));
                         tmp2 := copy(tmp2,pos(';',tmp2)+1,Length(sProc));
