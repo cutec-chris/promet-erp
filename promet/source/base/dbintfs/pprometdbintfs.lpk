@@ -185,42 +185,45 @@
       </Item42>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="9">
+    <RequiredPkgs Count="10">
       <Item1>
-        <PackageName Value="pthumbnails"/>
-        <DefaultFilename Value="..\pthumbnails.lpk"/>
+        <PackageName Value="general_pascal_script"/>
       </Item1>
       <Item2>
-        <PackageName Value="ppascalscriptfcl"/>
-        <DefaultFilename Value="..\..\components\pascalscript\ppascalscriptfcl.lpk"/>
+        <PackageName Value="pthumbnails"/>
+        <DefaultFilename Value="..\pthumbnails.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="laz_fpspreadsheet"/>
+        <PackageName Value="ppascalscriptfcl"/>
+        <DefaultFilename Value="..\..\components\pascalscript\ppascalscriptfcl.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="zcomponent_nogui"/>
-        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent_nogui.lpk"/>
+        <PackageName Value="laz_fpspreadsheet"/>
       </Item4>
       <Item5>
-        <PackageName Value="wiki2html_pkg"/>
-        <DefaultFilename Value="..\base_wiki\wiki2html_pkg.lpk"/>
+        <PackageName Value="zcomponent_nogui"/>
+        <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent_nogui.lpk"/>
       </Item5>
       <Item6>
-        <PackageName Value="general_nogui"/>
-        <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
+        <PackageName Value="wiki2html_pkg"/>
+        <DefaultFilename Value="..\base_wiki\wiki2html_pkg.lpk"/>
       </Item6>
       <Item7>
-        <PackageName Value="sql_parser"/>
-        <DefaultFilename Value="..\..\components\sqlparser\sql_parser.lpk"/>
+        <PackageName Value="general_nogui"/>
+        <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
       </Item7>
       <Item8>
-        <PackageName Value="dexif_package"/>
-        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
+        <PackageName Value="sql_parser"/>
+        <DefaultFilename Value="..\..\components\sqlparser\sql_parser.lpk"/>
       </Item8>
       <Item9>
+        <PackageName Value="dexif_package"/>
+        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
+      </Item9>
+      <Item10>
         <PackageName Value="laz_synapse"/>
         <DefaultFilename Value="..\..\components\synapse\laz_synapse.lpk"/>
-      </Item9>
+      </Item10>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
