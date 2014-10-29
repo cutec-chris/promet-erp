@@ -41,7 +41,6 @@ type
     procedure SQLConn;
     procedure DoSetResults;
     procedure DoSetStatus(s : string);
-    procedure DoWriteln;
   protected
     procedure InternalWrite(const s: string);
     procedure InternalWriteln(const s: string);
@@ -67,8 +66,8 @@ type
   end;
 
   function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
-  procedure ExtendRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
-  function ExtendCompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
+  procedure ExtendIRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
+  function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 
 implementation
 uses uStatistic,uData,httpsend,Utils,variants;
@@ -124,12 +123,10 @@ begin
     end;
   aScript.Free;
 end;
-
 function TBaseScript.InternalDataSet(SQL: string): TDataSet;
 begin
   Result := TBaseDBModule(DataModule).GetNewDataSet(SQL,Connection);
 end;
-
 function TBaseScript.InternalHistory(Action: string; ParentLink: string;
   Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
   Date: TDateTime): Boolean;
@@ -154,7 +151,6 @@ begin
       aDataSet.Free;
     end;
 end;
-
 function TBaseScript.InternalUserHistory(Action: string; UserName: string;
   Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
   Date: TDateTime): Boolean;
@@ -166,7 +162,6 @@ begin
       Result := True;
     end;
 end;
-
 function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 var
   aRec: TPSType;
@@ -180,13 +175,17 @@ begin
         Sender.AddDelphiFunction('procedure Write(P1: string);');
         Sender.AddDelphiFunction('function ParamStr(Param : Integer) : String;');
         Sender.AddDelphiFunction('function ParamCount : Integer;');
+
+        Sender.AddDelphiFunction('function DataSet(SQL : string) : TDataSet;');
+        Sender.AddDelphiFunction('function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
+        Sender.AddDelphiFunction('function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
       except
         Result := False; // will halt compilation
       end;
-      ExtendCompiler(Sender,Name);
+      ExtendICompiler(Sender,Name);
     end
   else
-    result := ExtendCompiler(Sender,Name);
+    result := ExtendICompiler(Sender,Name);
 end;
 procedure ExtendIRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
 begin
@@ -197,7 +196,6 @@ begin
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalDataSet, 'DATASET', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalHistory, 'HISTORY', cdRegister);
   Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalUserHistory, 'USERHISTORY', cdRegister);
-  ExtendRuntime(Runtime,ClassImporter,Script);
 end;
 
 procedure TBaseScript.SQLConn;
@@ -210,6 +208,7 @@ end;
 
 destructor TBaseScript.Destroy;
 begin
+  fScript.Free;
   inherited Destroy;
 end;
 
@@ -225,11 +224,6 @@ begin
   Edit;
   FieldByName('STATUS').AsString:=s;
   Post;
-end;
-
-procedure TBaseScript.DoWriteln;
-begin
-
 end;
 
 procedure TBaseScript.InternalWrite(const s: string);
@@ -251,6 +245,7 @@ constructor TBaseScript.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
+  FScript := TPascalScript.Create;
 end;
 
 procedure TBaseScript.DefineFields(aDataSet: TDataSet);
@@ -301,14 +296,12 @@ begin
             DoExecSQL;
           with aDS as IBaseDbFilter do
             Script.Results:='Num Rows Affected: '+IntToStr(NumRowsAffected);
-          DoWriteln;
           DoSetResults;
           Result := True;
         except
           on e : Exception do
             begin
               Script.Results := e.Message;
-              DoWriteln;
               DoSetResults;
               Result := False;
             end;

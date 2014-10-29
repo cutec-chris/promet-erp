@@ -901,6 +901,8 @@ type
 
 
   TPSPascalCompiler = class
+  private
+    FObject: TObject;
   protected
     FAnyString: TPSType;
     FUnitName: tbtString;
@@ -1187,6 +1189,8 @@ type
     {$WARNINGS OFF}
     property UnitName: tbtString read FUnitName;
     {$WARNINGS ON}
+
+    property Obj : TObject read FObject write FObject;
   end;
   TIFPSPascalCompiler = TPSPascalCompiler;
 
@@ -4289,7 +4293,8 @@ begin
   Exit;
 end;
 
-function TPSPascalCompiler.VarIsDuplicate(Proc: TPSInternalProcedure; const Varnames, s: tbtString): Boolean;
+function TPSPascalCompiler.VarIsDuplicate(Proc: TPSInternalProcedure;
+  const VarNames, s: tbtString): Boolean;
 var
   h, l: Longint;
   x: TPSProcedure;
@@ -13704,7 +13709,7 @@ begin
 end;
 
 {$IFDEF PS_USESSUPPORT}
-function TPSPascalCompiler.IsInLocalUnitList(s: tbtstring): Boolean;
+function TPSPascalCompiler.IsInLocalUnitList(s: tbtString): Boolean;
 begin
   s:=FastUpperCase(s);
   if (s = '') or (s=FastUpperCase(fModule)) or (s='SYSTEM') then

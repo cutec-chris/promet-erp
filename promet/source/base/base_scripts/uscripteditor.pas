@@ -189,7 +189,7 @@ var
 implementation
 
 uses
-  uFrmGotoLine,uData,uBaseApplication;
+  uFrmGotoLine,uData,uBaseApplication,genpascalscript;
 
 {$R *.lfm}
 
@@ -224,7 +224,7 @@ resourcestring
 
 function OnUses(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 begin
-  uprometscripts.ExtendCompiler(Sender,Name);
+  TPascalScript(fScriptEditor.FDataSet.Script).InternalUses(Sender,Name);
 end;
 
 procedure TfScriptEditor.DoSearchReplaceText(AReplace: boolean; ABackwards: boolean);
@@ -308,10 +308,10 @@ begin
  EditCaret:=ASynEdit.PhysicalToLogicalPos(ASynEdit.PixelsToRowColumn(EditPos));
  if (EditCaret.Y<1) then exit;
  aWord := ASynEdit.GetWordAtRowCol(EditCaret);
- for i := 0 to uprometscripts.LoadedLibs.Count-1 do
-   if lowercase(TLoadedLib(uprometscripts.LoadedLibs[i]).Name)=lowercase(aWord) then
+ for i := 0 to LoadedLibs.Count-1 do
+   if lowercase(TLoadedLib(LoadedLibs[i]).Name)=lowercase(aWord) then
      begin
-       HintInfo^.HintStr:=TLoadedLib(uprometscripts.LoadedLibs[i]).Code;
+       HintInfo^.HintStr:=TLoadedLib(LoadedLibs[i]).Code;
        HintInfo^.HideTimeout:=30000;
      end;
  if Debugger.Running then
@@ -410,10 +410,10 @@ begin
       begin
         if Compile then
           begin
-            FDataSet.Runtime := Debugger.Exec;
+            TPascalScript(FDataSet.Script).Runtime := Debugger.Exec;
+            TPascalScript(FDataSet.Script).Compiler := Debugger.Comp;
             Debugger.Execute;
           end;
-        Debugger.Comp.OnUses:=FOldUses;
       end;
       acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
       acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
@@ -599,6 +599,7 @@ begin
   FActiveLine := 0;
   ed.Refresh;
   ClassImporter.Free;
+  Debugger.Comp.OnUses:=FOldUses;
 end;
 
 function TfScriptEditor.Execute: Boolean;
@@ -629,11 +630,8 @@ begin
   Sender.AddMethod(Self, @TfScriptEditor.InternalParamStr,'function ParamStr(Param : Integer) : String;');
   Sender.AddMethod(Self, @TfScriptEditor.InternalParamCount,'function ParamCount : Integer;');
   Sender.AddMethod(Self, @TfScriptEditor.InternalSleep,'procedure Sleep(MiliSecValue : LongInt);');
-  uprometscripts.ExtendCompiler(Sender.Comp,'system');
   FOldUses:=Sender.Comp.OnUses;
   Sender.Comp.OnUses:=@OnUses;
-  ClassImporter:= TPSRuntimeClassImporter.CreateAndRegister(Sender.Exec, false);
-  uprometscripts.ExtendRuntime(Sender.Exec,ClassImporter,FDataSet);
 end;
 
 procedure TfScriptEditor.FDataSetDataSetAfterScroll(DataSet: TDataSet);
