@@ -52,7 +52,7 @@ inherited fScriptOptions: TfScriptOptions
     Columns = <    
       item
         Title.Caption = 'Name'
-        Width = 200
+        Width = 150
         FieldName = 'NAME'
       end    
       item
@@ -69,21 +69,23 @@ inherited fScriptOptions: TfScriptOptions
       end    
       item
         Title.Caption = 'Start alle x min'
-        Width = 100
+        Width = 50
         FieldName = 'RUNEVERY'
       end    
       item
         Title.Caption = 'letzter Start'
-        Width = 100
+        Width = 120
         FieldName = 'LASTRUN'
       end    
       item
         Title.Caption = 'Client'
+        Width = 80
         FieldName = 'RUNMASHINE'
       end    
       item
         ButtonStyle = cbsCheckboxColumn
         Title.Caption = 'bei Verlaufseintrag'
+        Width = 30
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
         FieldName = 'RUNONHISTORY'

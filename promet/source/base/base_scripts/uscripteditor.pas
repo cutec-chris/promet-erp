@@ -543,6 +543,8 @@ var
   i: Longint;
   mo: TMessageObject;
 begin
+  TPascalScript(FDataSet.Script).Compiler:=Debugger.Comp;
+  TPascalScript(FDataSet.Script).Runtime:=Debugger.Exec;
   Debugger.Script.Assign(ed.Lines);
   try
     Result := Debugger.Compile;
@@ -565,6 +567,7 @@ begin
       if Debugger.CompilerMessageCount=0 then
         messages.Items.Add(Debugger.ExecErrorToString);
       Messages.Items.Add(STR_COMPILE_ERROR);
+      Debugger.Comp.OnUses:=FOldUses;
     end;
 end;
 

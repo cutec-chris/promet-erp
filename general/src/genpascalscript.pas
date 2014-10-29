@@ -358,8 +358,8 @@ begin
       Result := False; // will halt compilation
     end;
   end;
-  if (not Result) and Assigned(OnUses) then
-    OnUses(Self,Name);
+  if Assigned(FOnUses) then
+    Result := FOnUses(Self,Name) or Result;
 end;
 
 procedure TPascalScript.SetCompiler(AValue: TPSPascalCompiler);
@@ -434,17 +434,13 @@ var
 begin
   Compiler.Obj := Self;
   Compiler.OnUses:= @ExtendICompiler;
-  try
-    Result:= Compiler.Compile(Source) and Compiler.GetOutput(Bytecode);
-    FResults:='';
-    for i:= 0 to Compiler.MsgCount - 1 do
-      if Length(FResults) = 0 then
-        FResults:= Compiler.Msg[i].MessageToString
-      else
-        FResults:= FResults + #13#10 + Compiler.Msg[i].MessageToString;
-  finally
-    Compiler.Free;
-  end;
+  Result:= Compiler.Compile(Source) and Compiler.GetOutput(Bytecode);
+  FResults:='';
+  for i:= 0 to Compiler.MsgCount - 1 do
+    if Length(FResults) = 0 then
+      FResults:= Compiler.Msg[i].MessageToString
+    else
+      FResults:= FResults + #13#10 + Compiler.Msg[i].MessageToString;
   if Result then
     begin
       //ExtendIRuntime(FRuntime, ClassImporter, Self);
@@ -453,7 +449,7 @@ begin
             and (FRuntime.ExceptionCode = erNoError);
       if not Result then
         FResults:= PSErrorToString(FRuntime.LastEx, '');
-      if Assigned(FProcess) then InternalKill;
+      if FProcess.Running then InternalKill;
       Result := True;
     end;
 end;
@@ -497,8 +493,10 @@ begin
       if Assigned(FRuntime) then
         FRuntime.Stop;
     end;
-  if FCompilerFree then FCompiler.Free;
-  if FRuntimeFree then FRuntime.Free;
+  if FCompilerFree then
+    FCompiler.Free;
+  if FRuntimeFree then
+    FRuntime.Free;
   inherited Destroy;
 end;
 

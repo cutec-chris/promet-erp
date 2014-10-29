@@ -31,6 +31,8 @@ type
   { TBaseScript }
 
   TBaseScript = class(TBaseDBDataset)
+    function TPascalScriptUses(Sender: TPascalScript; const aName: tbtString
+      ): Boolean;
   private
     aDS: TDataSet;
     FRlFunc: TReadlnFunc;
@@ -66,8 +68,6 @@ type
   end;
 
   function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
-  procedure ExtendIRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
-  function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 
 implementation
 uses uStatistic,uData,httpsend,Utils,variants;
@@ -162,40 +162,30 @@ begin
       Result := True;
     end;
 end;
-function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
-var
-  aRec: TPSType;
+function TBaseScript.TPascalScriptUses(Sender: TPascalScript;
+  const aName: tbtString): Boolean;
 begin
-  result := False;
-  if Name = 'SYSTEM' then
+  if aName = 'SYSTEM' then
     begin
       Result := True;
       try
-        Sender.AddDelphiFunction('procedure Writeln(P1: string);');
-        Sender.AddDelphiFunction('procedure Write(P1: string);');
-        Sender.AddDelphiFunction('function ParamStr(Param : Integer) : String;');
-        Sender.AddDelphiFunction('function ParamCount : Integer;');
-
-        Sender.AddDelphiFunction('function DataSet(SQL : string) : TDataSet;');
-        Sender.AddDelphiFunction('function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
-        Sender.AddDelphiFunction('function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
+        Sender.AddMethod(Self,@TBaseScript.InternalWriteln,'procedure Writeln(P1: string);');
+        Sender.AddMethod(Self,@TBaseScript.InternalWrite,'procedure Write(P1: string);');
       except
         Result := False; // will halt compilation
       end;
-      ExtendICompiler(Sender,Name);
     end
-  else
-    result := ExtendICompiler(Sender,Name);
-end;
-procedure ExtendIRuntime(Runtime: TPSExec; ClassImporter: TPSRuntimeClassImporter;Script : TBaseScript);
-begin
-  Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalWriteln, 'WRITELN', cdRegister);
-  Runtime.RegisterDelphiMethod(Script, @TBaseScript.InternalWrite, 'WRITE', cdRegister);
-  Runtime.RegisterDelphiMethod(Script, @TBaseScript.Internalreadln, 'READLN', cdRegister);
-
-  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalDataSet, 'DATASET', cdRegister);
-  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalHistory, 'HISTORY', cdRegister);
-  Runtime.RegisterDelphiMethod(Script,@TBaseScript.InternalUserHistory, 'USERHISTORY', cdRegister);
+  else if aName = 'PROMET' then
+    begin
+      Result := True;
+      try
+        Sender.AddMethod(Self,@TBaseScript.InternalDataSet,'function DataSet(SQL : string) : TDataSet;');
+        Sender.AddMethod(Self,@TBaseScript.InternalHistory,'function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
+        Sender.AddMethod(Self,@TBaseScript.InternalUserHistory,'function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
+      except
+        Result := False; // will halt compilation
+      end;
+    end;
 end;
 
 procedure TBaseScript.SQLConn;
@@ -309,8 +299,11 @@ begin
       end
     else if lowercase(FieldByName('SYNTAX').AsString) = 'pascal' then
       begin
+        TPascalScript(FScript).OnUses:=@TPascalScriptUses;
         FScript.Source:=FieldByName('SCRIPT').AsString;
         Result := FScript.Execute(Parameters);
+        if not Result then
+          DoSetResults;
       end;
     if Result then
       begin
