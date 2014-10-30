@@ -96,7 +96,6 @@ begin
 end;
 function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TProcess;
 var
-  cmd: String;
   tmp: String;
   aDir: String;
   cmdln: String;
@@ -111,19 +110,18 @@ begin
     cmdln := cmdln+' "--debug-log=msg.'+BaseApplication.GetOptionValue('debug-log')+'"';
   if BaseApplication.HasOption('config-path') then
     cmdln := cmdln+' "--config-path='+BaseApplication.GetOptionValue('config-path')+'"';
-  if ProcessExists(cmd,cmdln) then exit;
+  if ProcessExists(ExtractFileExt(BaseApplication.ExeName),cmdln) then exit;
   aDir := AppendPathDelim(AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools'));
-  if (not FileExistsUTF8(cmd)) and (not FileExistsUTF8(aDir+cmd)) then
+  if (not FileExistsUTF8(aProcess+ExtractFileExt(BaseApplication.ExeName))) and (not FileExistsUTF8(aDir+aProcess+ExtractFileExt(BaseApplication.ExeName))) then
     begin
       aDir := AppendPathDelim(AppendPathDelim(GetCurrentDirUTF8)+'tools');
-      if not FileExistsUTF8(aDir+cmd) then exit;
+      if not FileExistsUTF8(aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)) then exit;
     end;
-  cmd += cmdln;
   Result := TProcessUTF8.Create(nil);
   Result.Options:=[poUsePipes,poStderrToOutPut,poNoConsole];
-  Result.CommandLine:=aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)+cmd;
+  Result.CommandLine:=aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)+' '+cmdln;
   Result.Execute;
 end;
 
 end.
-
+
