@@ -120,7 +120,14 @@ begin
   Result := TProcessUTF8.Create(nil);
   Result.Options:=[poUsePipes,poStderrToOutPut,poNoConsole];
   Result.CommandLine:=aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)+' '+cmdln;
-  Result.Execute;
+  try
+    Result.Execute;
+  except
+    begin
+      Result.Free;
+      Result := nil;
+    end;
+  end;
 end;
 
 end.
