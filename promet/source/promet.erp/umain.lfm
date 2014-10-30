@@ -5,7 +5,7 @@ object fMain: TfMain
   Width = 868
   ActiveControl = Panel1
   Caption = 'Promet-ERP'
-  ClientHeight = 579
+  ClientHeight = 580
   ClientWidth = 868
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -20,7 +20,7 @@ object fMain: TfMain
   LCLVersion = '1.3'
   object spTree: TSplitter
     Left = 291
-    Height = 529
+    Height = 530
     Top = 50
     Width = 5
     Color = clBtnFace
@@ -29,7 +29,7 @@ object fMain: TfMain
   end
   object pcPages: TExtMenuPageControl
     Left = 296
-    Height = 529
+    Height = 530
     Top = 50
     Width = 572
     ActivePage = tsStartpage
@@ -304,7 +304,7 @@ object fMain: TfMain
       end
       object eContains: TEdit
         Left = 28
-        Height = 29
+        Height = 21
         Top = 15
         Width = 328
         Anchors = [akTop, akRight]
@@ -845,7 +845,7 @@ object fMain: TfMain
   end
   object tvMain: TPanel
     Left = 0
-    Height = 529
+    Height = 530
     Top = 50
     Width = 291
     Align = alLeft
@@ -937,7 +937,6 @@ object fMain: TfMain
       Style = lbOwnerDrawFixed
       TabOrder = 0
       TabStop = False
-      TopIndex = -1
     end
   end
   object MainMenu1: TMainMenu
@@ -966,6 +965,12 @@ object fMain: TfMain
       end
       object MenuItem3: TMenuItem
         Action = acChangePasswort
+      end
+    end
+    object Menuitem12: TMenuItem
+      Caption = 'Werkzeuge'
+      object MenuItem4: TMenuItem
+        Action = acCommandline
       end
     end
     object miHelp: TMenuItem
@@ -997,6 +1002,7 @@ object fMain: TfMain
       ShortCut = 49219
     end
     object acNewContact: TAction
+      Category = 'erfassung'
       Caption = 'Neuer Kontakt'
       Hint = 'erstellt einen neuen Kontakt'
       ImageIndex = 73
@@ -1041,6 +1047,7 @@ object fMain: TfMain
       ShortCut = 49230
     end
     object acTimeRegistering: TAction
+      Category = 'Zeit'
       Caption = 'Zeiterfassung'
       ImageIndex = 6
       OnExecute = acTimeRegisteringExecute
@@ -1056,6 +1063,7 @@ object fMain: TfMain
       OnExecute = acOpenExecute
     end
     object acNewTermin: TAction
+      Category = 'erfassung'
       Caption = 'Neuen Termin erfassen'
       Hint = 'Neuen Termin erfassen'
       ImageIndex = 90
@@ -1064,6 +1072,7 @@ object fMain: TfMain
       Visible = False
     end
     object acNewMasterdata: TAction
+      Category = 'erfassung'
       Caption = 'Neuer Artikel'
       Hint = 'erstellt einen neuen Artikel'
       ImageIndex = 88
@@ -1071,6 +1080,7 @@ object fMain: TfMain
       ShortCut = 24659
     end
     object acNewOrder: TAction
+      Category = 'erfassung'
       Caption = 'Neuer Auftrag'
       Hint = 'erstellt einen neuen Auftrag'
       ImageIndex = 89
@@ -1105,6 +1115,7 @@ object fMain: TfMain
       ShortCut = 24656
     end
     object acNewMessage: TAction
+      Category = 'erfassung'
       Caption = 'Neue Nachricht'
       Hint = 'Neue Nachricht schreiben'
       ImageIndex = 53
@@ -1124,6 +1135,7 @@ object fMain: TfMain
       ShortCut = 24660
     end
     object acShowTree: TAction
+      Category = 'Ansicht'
       AutoCheck = True
       Caption = 'Baum'
       Checked = True
@@ -1198,6 +1210,7 @@ object fMain: TfMain
       OnExecute = acNewStatisticsExecute
     end
     object acNewMeeting: TAction
+      Category = 'erfassung'
       Caption = 'neue Besprechung'
       ImageIndex = 88
       OnExecute = acNewMeetingExecute
@@ -1212,6 +1225,7 @@ object fMain: TfMain
       OnExecute = acTaskPlanExecute
     end
     object acPauseTime: TAction
+      Category = 'Zeit'
       Caption = 'acPauseTime'
       Hint = 'Zeiterfassung pausieren /'#10'wieder starten'
       ImageIndex = 63
@@ -1249,6 +1263,7 @@ object fMain: TfMain
       OnExecute = acWindowizeExecute
     end
     object acStartPage: TAction
+      Category = 'start'
       Caption = 'Startseite'
       ImageIndex = 12
       OnExecute = acStartPageExecute
@@ -1268,6 +1283,13 @@ object fMain: TfMain
       Hint = 'auf Fibu Konto buchen'
       ImageIndex = 22
       OnExecute = acSalesListBookExecute
+    end
+    object acCommandline: TAction
+      Category = 'Werkzeuge'
+      Caption = 'Kommandozeile'
+      ImageIndex = 115
+      OnExecute = acCommandlineExecute
+      ShortCut = 16459
     end
   end
   object ApplicationProperties1: TApplicationProperties

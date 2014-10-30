@@ -81,6 +81,7 @@ type
     acProjectOverview: TAction;
     acStatistics: TAction;
     acSalesListBook: TAction;
+    acCommandline: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -111,6 +112,8 @@ type
     Label7: TLabel;
     Label8: TLabel;
     MenuItem3: TMenuItem;
+    Menuitem12: TMenuItem;
+    MenuItem4: TMenuItem;
     Panel3: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
@@ -156,6 +159,7 @@ type
     procedure acCloseTabExecute(Sender: TObject);
     procedure acCollectInventoryExecute(Sender: TObject);
     procedure acCombineSaleItemsExecute(Sender: TObject);
+    procedure acCommandlineExecute(Sender: TObject);
     procedure acContactExecute(Sender: TObject);
     procedure acDeleteListeEntryExecute(Sender: TObject);
     procedure acDeleteWholeMessageDirExecute(Sender: TObject);
@@ -270,6 +274,7 @@ type
     procedure AddCustomerList(Sender: TObject);
     procedure AddMasterdataList(Sender: TObject);
     procedure AddOrderList(Sender: TObject);
+    procedure AddCommandline(Sender: TObject);
     procedure AddStatisticList(Sender: TObject);
     procedure AddListsList(Sender: TObject);
     procedure AddDocPages(Sender: TObject);
@@ -341,7 +346,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
   uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts,
-  ufinancialoptions,ubookfibuaccount
+  ufinancialoptions,ubookfibuaccount,ucommandline
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -499,6 +504,14 @@ begin
         AddToolbarAction(acNewOrder);
       if Data.Users.Rights.Right('ORDERS') >= RIGHT_PERMIT then
         AddContextAction(acRefreshOrderList);
+    end;
+end;
+
+procedure TfMain.AddCommandline(Sender: TObject);
+begin
+  with Sender as TfCommandline do
+    begin
+      TabCaption := strCommandline;
     end;
 end;
 
@@ -1510,6 +1523,28 @@ begin
     end;
   aAccounting.Free;
 end;
+
+procedure TfMain.acCommandlineExecute(Sender: TObject);
+var
+  i: Integer;
+  Found: Boolean = false;
+  aFrame: TfCommandline;
+begin
+  Application.ProcessMessages;
+  for i := 0 to pcPages.PageCount-2 do
+    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfCommandLine) then
+      begin
+        pcPages.PageIndex:=i;
+        Found := True;
+      end;
+  if not Found then
+    begin
+      aFrame := TfCommandline.Create(Self);
+      pcPages.AddTab(aFrame,True,'',115,False);
+      AddCommandline(aFrame);
+    end;
+end;
+
 procedure TfMain.acDeleteWholeMessageDirExecute(Sender: TObject);
 var
   ID: String;

@@ -21,6 +21,7 @@ unit uIntfStrConsts;
 {$mode objfpc}{$H+}
 interface
 resourcestring
+  strCommandline                = 'Komandozeile';
   strRepaired                   = 'repariert';
   strDiscarded                  = 'entsorgt';
   strWaitingforCustomer         = 'wartet auf Kunden';
@@ -234,4 +235,4 @@ resourcestring
                                 ;
 
 implementation
-end.
+end.
