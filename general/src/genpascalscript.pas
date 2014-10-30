@@ -273,14 +273,17 @@ begin
     else if lowercase(Name)='db' then
       begin
         uPSC_DB.SIRegister_DB(Comp);
+        uPSR_DB.RIRegister_DB(FClassImporter);
       end
     else if lowercase(Name)='dateutils' then
       begin
         uPSC_dateutils.RegisterDateTimeLibrary_C(Comp);
+        uPSR_dateutils.RegisterDateTimeLibrary_R(Runtime);
       end
     else if lowercase(Name)='classes' then
       begin
         uPSC_classes.SIRegister_Classes(Comp,False);
+        uPSR_classes.RIRegister_Classes(FClassImporter,false);
       end
     else
       begin
@@ -302,6 +305,7 @@ begin
                 end;
             if not Assigned(Comp.OnExternalProc) then
               uPSC_dll.RegisterDll_Compiletime(Comp);
+            uPSR_dll.RegisterDLLRuntime(Runtime);
             aLib := LoadLibrary(ExtractFilePath(ParamStr(0))+DirectorySeparator+Name+'.dll');
             if aLib <> dynlibs.NilHandle  then
               begin
@@ -402,31 +406,6 @@ begin
   mkdir(Directory);
 end;
 
-procedure ExtendRuntime(Runtime: TPSExec;
-  ClassImporter: TPSRuntimeClassImporter; Script: TPascalScript);
-begin
-  Runtime.RegisterDelphiMethod(Script, @TPascalScript.InternalParamStr, 'PARAMSTR', cdRegister);
-  Runtime.RegisterDelphiMethod(Script, @TPascalScript.InternalParamCount, 'PARAMCOUNT', cdRegister);
-  Runtime.RegisterDelphiMethod(Script, @TPascalScript.InternalSleep, 'SLEEP', cdRegister);
-
-  Runtime.RegisterDelphiMethod(Script,@TPascalScript.InternalExec, 'EXEC', cdRegister);
-  Runtime.RegisterDelphiMethod(Script,@TPascalScript.InternalExecActive, 'EXECACTIVE', cdRegister);
-  Runtime.RegisterDelphiMethod(Script,@TPascalScript.InternalKill, 'KILL', cdRegister);
-  Runtime.RegisterDelphiMethod(Script,@TPascalScript.InternalExecResult, 'EXECRESULT', cdRegister);
-
-  Runtime.RegisterDelphiMethod(Script,@TPascalScript.InternalChDir, 'CHDIR', cdRegister);
-  Runtime.RegisterDelphiMethod(Script,@TPascalScript.InternalMkDir, 'MKDIR', cdRegister);
-
-  Runtime.RegisterDelphiMethod(Script,@TPascalScript.InternalBeep, 'BEEP', cdRegister);
-
-  Runtime.RegisterDelphiMethod(Script,@TPascalScript.InternalGet, 'GET', cdRegister);
-  Runtime.RegisterDelphiMethod(Script,@TPascalScript.InternalPost, 'POST', cdRegister);
-
-  uPSR_DB.RIRegister_DB(ClassImporter);
-  uPSR_dateutils.RegisterDateTimeLibrary_R(Runtime);
-  uPSR_dll.RegisterDLLRuntime(Runtime);
-  uPSR_classes.RIRegister_Classes(ClassImporter,false);
-end;
 function TPascalScript.Execute(aParameters: Variant): Boolean;
 var
   Bytecode: tbtString;
