@@ -8,10 +8,20 @@ uses
 procedure RegisterDLLRuntime(Caller: TPSExec);
 procedure RegisterDLLRuntimeEx(Caller: TPSExec; AddDllProcImport, RegisterUnloadDLL: Boolean);
 
+type
+  PLoadedDll = ^TLoadedDll;
+  TLoadedDll = record
+    dllnamehash: Longint;
+    dllname: tbtstring;
+    dllhandle: THandle;
+  end;
+
 function ProcessDllImport(Caller: TPSExec; P: TPSExternalProcRec): Boolean;
 function ProcessDllImportEx(Caller: TPSExec; P: TPSExternalProcRec; ForceDelayLoad: Boolean): Boolean;
 procedure UnloadDLL(Caller: TPSExec; const sname: tbtstring);
 function UnloadProc(Caller: TPSExec; p: TPSExternalProcRec; Global, Stack: TPSStack): Boolean;
+function GetLastErrorProc(Caller: TPSExec; p: TPSExternalProcRec; Global, Stack: TPSStack): Boolean;
+procedure DllFree(Sender: TPSExec; P: PLoadedDll);
 
 implementation
 uses
@@ -28,12 +38,6 @@ p^.ExportDecl:
 }
 
 type
-  PLoadedDll = ^TLoadedDll;
-  TLoadedDll = record
-    dllnamehash: Longint;
-    dllname: tbtstring;
-    dllhandle: THandle;
-  end;
   TMyExec = class(TPSExec);
   PInteger = ^Integer;
 

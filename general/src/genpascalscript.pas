@@ -39,6 +39,8 @@ type
   public
     Name : string;
     Code : string;
+    Handle : THandle;
+    constructor Create;
   end;
 
   TScript = class
@@ -112,6 +114,11 @@ function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString
   ): Boolean;
 begin
   TPascalScript(Sender.Obj).InternalUses(Sender,Name);
+end;
+
+constructor TLoadedLib.Create;
+begin
+  Handle:=0;
 end;
 
 procedure TScript.SetStatus(AValue: char);
@@ -229,6 +236,38 @@ begin
   else Result:='';
   ahttp.Free;
 end;
+function IProcessDllImport(Sender: TPSExec; p: TPSExternalProcRec; Tag: Pointer
+  ): Boolean;
+var
+  i: LongInt;
+  pv: PIFProcRec;
+  h: LongInt;
+  aLib: String;
+  Caller: TPSExec;
+  a: Integer;
+  s: String;
+  ph: PLoadedDll;
+  aLibName: String;
+  actLib: TbtString;
+begin
+  Result := ProcessDllImport(Sender,p);
+
+  aLib := lowercase(copy(p.Decl,5,length(p.Decl)));
+  aLibName := lowercase(copy(aLib,0,rpos('.',aLib)-1));
+  for a := 0 to LoadedLibs.Count-1 do
+    if (aLibName = lowercase(TLoadedLib(LoadedLibs[a]).Name)) and (TLoadedLib(LoadedLibs[a]).Handle=0) then
+      begin
+        Caller := Sender;
+        i := 2147483647; // maxint
+        repeat
+          ph := Caller.FindProcResource2(@dllFree, i);
+          if (ph = nil) then break;
+          actLib := lowercase(ph^.dllname);
+          if (actLib = aLib) then
+            TLoadedLib(LoadedLibs[a]).Handle := ph^.dllhandle;
+        until false;
+      end;
+end;
 type
   aProcT = function : pchar;stdcall;
 function TPascalScript.InternalUses(Comp: TPSPascalCompiler; Name: string
@@ -298,7 +337,9 @@ begin
           begin
             if not Assigned(Comp.OnExternalProc) then
               uPSC_dll.RegisterDll_Compiletime(Comp);
-            uPSR_dll.RegisterDLLRuntime(Runtime);
+            Runtime.AddSpecialProcImport('dll', @IProcessDllImport, nil);
+            Runtime.RegisterFunctionName('UNLOADDLL', @UnloadProc, nil, nil);
+            Runtime.RegisterFunctionName('DLLGETLASTERROR', @GetLastErrorProc, nil, nil);
             for i := 0 to LoadedLibs.Count-1 do
               if TLoadedLib(LoadedLibs[i]).Name=Name then
                 begin
@@ -405,7 +446,6 @@ procedure TPascalScript.InternalMkDir(Directory: string);
 begin
   mkdir(Directory);
 end;
-
 function TPascalScript.Execute(aParameters: Variant): Boolean;
 var
   Bytecode: tbtString;
