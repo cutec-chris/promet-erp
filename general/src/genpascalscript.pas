@@ -296,6 +296,9 @@ begin
           aLibName := ExtractFilePath(ParamStr(0))+Name+'.dylib';
         if FileExists(aLibname) then
           begin
+            if not Assigned(Comp.OnExternalProc) then
+              uPSC_dll.RegisterDll_Compiletime(Comp);
+            uPSR_dll.RegisterDLLRuntime(Runtime);
             for i := 0 to LoadedLibs.Count-1 do
               if TLoadedLib(LoadedLibs[i]).Name=Name then
                 begin
@@ -303,9 +306,6 @@ begin
                   Result := True;
                   exit;
                 end;
-            if not Assigned(Comp.OnExternalProc) then
-              uPSC_dll.RegisterDll_Compiletime(Comp);
-            uPSR_dll.RegisterDLLRuntime(Runtime);
             aLib := LoadLibrary(ExtractFilePath(ParamStr(0))+DirectorySeparator+Name+'.dll');
             if aLib <> dynlibs.NilHandle  then
               begin

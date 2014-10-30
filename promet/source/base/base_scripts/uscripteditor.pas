@@ -69,7 +69,6 @@ type
     BreakPointMenu: TMenuItem;
     MainMenu1: TMainMenu;
     File1: TMenuItem;
-    PSImport_DB1: TPSImport_DB;
     ReplaceDialog1: TReplaceDialog;
     Run1: TMenuItem;
     Splitter2: TSplitter;
@@ -87,8 +86,6 @@ type
     StatusBar: TStatusBar;
     Decompile1: TMenuItem;
     N5: TMenuItem;
-    IFPS3CE_DateUtils1: TPSImport_DateUtils;
-    IFPS3CE_Std1: TPSImport_Classes;
     Pause1: TMenuItem;
     ed: TSynEdit;
     SynEditRegexSearch: TSynEditRegexSearch;

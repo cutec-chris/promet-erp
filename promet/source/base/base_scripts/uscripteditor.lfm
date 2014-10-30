@@ -752,16 +752,7 @@ object fScriptEditor: TfScriptEditor
     OnCompile = DebuggerCompile
     OnExecute = DebuggerExecute
     OnAfterExecute = DebuggerAfterExecute
-    Plugins = <    
-      item
-        Plugin = IFPS3CE_DateUtils1
-      end    
-      item
-        Plugin = IFPS3CE_Std1
-      end    
-      item
-        Plugin = IFPS3DllPlugin1
-      end>
+    Plugins = <>
     MainFileName = 'Unnamed'
     UsePreProcessor = True
     OnNeedFile = DebuggerNeedFile
@@ -770,10 +761,6 @@ object fScriptEditor: TfScriptEditor
     OnBreakpoint = DebuggerBreakpoint
     left = 392
     top = 64
-  end
-  object IFPS3DllPlugin1: TPSDllPlugin
-    left = 456
-    top = 208
   end
   object HigPascal: TSynPasSyn
     Enabled = False
@@ -1132,16 +1119,6 @@ object fScriptEditor: TfScriptEditor
         }
       end
     end
-  end
-  object IFPS3CE_DateUtils1: TPSImport_DateUtils
-    left = 456
-    top = 112
-  end
-  object IFPS3CE_Std1: TPSImport_Classes
-    EnableStreams = True
-    EnableClasses = True
-    left = 456
-    top = 160
   end
   object ActionList1: TActionList
     Images = ilImageList
@@ -2062,10 +2039,6 @@ object fScriptEditor: TfScriptEditor
   object DataSource: TDataSource
     left = 224
     top = 16
-  end
-  object PSImport_DB1: TPSImport_DB
-    left = 504
-    top = 160
   end
   object HigSQL: TSynSQLSyn
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
