@@ -22,7 +22,7 @@ unit uScriptEditor;
 interface
 
 uses
-  SysUtils, Classes, windows, types, db, Graphics, Controls, Forms,
+  SysUtils, Classes, types, db, Graphics, Controls, Forms,
   Dialogs, Menus, ExtCtrls, StdCtrls, ComCtrls, ActnList, DbCtrls, DBGrids,
   SynEdit, SynEditTypes, SynHighlighterPas,
   uPSComponent_Default,

@@ -83,7 +83,7 @@ begin
   while not aScript.EOF do
     begin
       if (aScript.FieldByName('STATUS').AsString<>'S') and ((aScript.FieldByName('RUNMASHINE').AsString='') or (pos(GetSystemName,aScript.FieldByName('RUNMASHINE').AsString)>0)) then
-        if (aScript.FieldByName('LASTRUN').AsDateTime+(aScript.FieldByName('RUNEVERY').AsInteger/MinsPerDay)<Now()) or (aScript.FieldByName('STATUS').AsString='d') then
+        if (aScript.FieldByName('LASTRUN').AsDateTime+(aScript.FieldByName('RUNEVERY').AsInteger/MinsPerDay)<Now()) or (aScript.FieldByName('STATUS').AsString='d') or (aScript.FieldByName('STATUS').AsString='r') then
           begin
             bScript := TBaseScript.Create(nil,aScript.DataModule,aScript.Connection);
             bScript.Select(aScript.Id.AsVariant);
@@ -271,50 +271,62 @@ begin
 end;
 function TBaseScript.Execute(Parameters: Variant): Boolean;
 begin
-  DoSetStatus('R');
-  Edit;
-  FieldByName('LASTRESULT').Clear;
-  FieldByName('LASTRUN').AsDateTime:=Now();
-  Post;
-  Result := False;
-  try
-    if lowercase(FieldByName('SYNTAX').AsString) = 'sql' then
-      begin
-        try
-          SQLConn;
-          with aDS as IBaseDbFilter do
-            DoExecSQL;
-          with aDS as IBaseDbFilter do
-            Script.Results:='Num Rows Affected: '+IntToStr(NumRowsAffected);
-          DoSetResults;
-          Result := True;
-        except
-          on e : Exception do
-            begin
-              Script.Results := e.Message;
+  if (pos(GetSystemName,FieldByName('RUNMASHINE').AsString)>0) or (trim(FieldByName('RUNMASHINE').AsString)='') then
+    begin
+      DoSetStatus('R');
+      Edit;
+      FieldByName('LASTRESULT').Clear;
+      FieldByName('LASTRUN').AsDateTime:=Now();
+      Post;
+      Result := False;
+      try
+        if lowercase(FieldByName('SYNTAX').AsString) = 'sql' then
+          begin
+            try
+              SQLConn;
+              with aDS as IBaseDbFilter do
+                DoExecSQL;
+              with aDS as IBaseDbFilter do
+                Script.Results:='Num Rows Affected: '+IntToStr(NumRowsAffected);
               DoSetResults;
-              Result := False;
+              Result := True;
+            except
+              on e : Exception do
+                begin
+                  Script.Results := e.Message;
+                  DoSetResults;
+                  Result := False;
+                end;
             end;
+          end
+        else if lowercase(FieldByName('SYNTAX').AsString) = 'pascal' then
+          begin
+            TPascalScript(FScript).OnUses:=@TPascalScriptUses;
+            FScript.Source:=FieldByName('SCRIPT').AsString;
+            Result := FScript.Execute(Parameters);
+            if not Result then
+              DoSetResults;
+          end;
+        if Result then
+          begin
+            DoSetStatus('N');
+          end
+        else
+          begin
+            DoSetStatus('E');
+          end;
+      except
+      end;
+    end
+  else
+    begin
+      DoSetStatus('r');
+      while FieldByName('STATUS').AsString='r' do
+        begin
+          sleep(500);
+          DataSet.Refresh;
         end;
-      end
-    else if lowercase(FieldByName('SYNTAX').AsString) = 'pascal' then
-      begin
-        TPascalScript(FScript).OnUses:=@TPascalScriptUses;
-        FScript.Source:=FieldByName('SCRIPT').AsString;
-        Result := FScript.Execute(Parameters);
-        if not Result then
-          DoSetResults;
-      end;
-    if Result then
-      begin
-        DoSetStatus('N');
-      end
-    else
-      begin
-        DoSetStatus('E');
-      end;
-  except
-  end;
+    end;
 end;
 
 initialization

@@ -30,7 +30,7 @@ inherited fScriptOptions: TfScriptOptions
   end
   object lProcesses: TLabel[1]
     Left = 4
-    Height = 13
+    Height = 15
     Top = 4
     Width = 542
     Align = alTop
@@ -42,8 +42,8 @@ inherited fScriptOptions: TfScriptOptions
   end
   object gProcesses: TDBGrid[2]
     Left = 8
-    Height = 382
-    Top = 40
+    Height = 378
+    Top = 42
     Width = 534
     Align = alClient
     BorderSpacing.Top = 15
@@ -57,6 +57,7 @@ inherited fScriptOptions: TfScriptOptions
       end    
       item
         PickList.Strings = (
+          'r soll laufen'
           'R läuft'
           'N läuft nicht'
           'S stillgelegt'
@@ -197,20 +198,19 @@ inherited fScriptOptions: TfScriptOptions
   end
   object Label1: TLabel[6]
     Left = 4
-    Height = 13
-    Top = 430
+    Height = 15
+    Top = 428
     Width = 542
     Align = alBottom
     BorderSpacing.Around = 4
     Caption = 'letzte Ergebnisse für ausgewähltes Script'
     ParentColor = False
   end
-  object Scripts: TDataSource[7]
+  object Scripts: TDatasource[7]
     left = 56
     top = 132
   end
   object ActionList1: TActionList[8]
-    Images = fVisualControls.Images
     left = 421
     top = 62
     object acEdit: TAction
