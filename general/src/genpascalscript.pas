@@ -39,6 +39,7 @@ type
   TLoadedLib = class
   public
     Name : string;
+    LibName : string;
     Code : string;
     Handle : THandle;
     constructor Create;
@@ -405,12 +406,14 @@ begin
     else
       begin
         Result := False;
-        if FileExists(ExtractFilePath(ParamStr(0))+Name+'.dll') then
-          aLibName := ExtractFilePath(ParamStr(0))+Name+'.dll';
-        if FileExists(ExtractFilePath(ParamStr(0))+Name+'.so') then
-          aLibName := ExtractFilePath(ParamStr(0))+Name+'.so';
-        if FileExists(ExtractFilePath(ParamStr(0))+Name+'.dylib') then
-          aLibName := ExtractFilePath(ParamStr(0))+Name+'.dylib';
+        if FileExists(ExtractFilePath(ParamStr(0))+lowercase(Name)+'.dll') then
+          aLibName := ExtractFilePath(ParamStr(0))+lowercase(Name)+'.dll';
+        if FileExists(ExtractFilePath(ParamStr(0))+lowercase(Name)+'.so') then
+          aLibName := ExtractFilePath(ParamStr(0))+lowercase(Name)+'.so';
+        if FileExists(ExtractFilePath(ParamStr(0))+'lib'+lowercase(Name)+'.so') then
+          aLibName := ExtractFilePath(ParamStr(0))+'lib'+lowercase(Name)+'.so';
+        if FileExists(ExtractFilePath(ParamStr(0))+lowercase(Name)+'.dylib') then
+          aLibName := ExtractFilePath(ParamStr(0))+lowercase(Name)+'.dylib';
         if FileExists(aLibname) then
           begin
             if not Assigned(Comp.OnExternalProc) then
@@ -425,7 +428,7 @@ begin
                   Result := True;
                   exit;
                 end;
-            aLib := LoadLibrary(ExtractFilePath(ParamStr(0))+DirectorySeparator+Name+'.dll');
+            aLib := LoadLibrary(aLibName);
             if aLib <> dynlibs.NilHandle  then
               begin
                 aProc := aprocT(dynlibs.GetProcAddress(aLib,'ScriptDefinition'));
@@ -438,24 +441,29 @@ begin
                     for i := 0 to procs.Count-1 do
                       begin
                         sProc := trim(procs[i]);
-                        tmp := copy(sProc,pos(' ',sProc)+1,length(sProc));
-                        if pos('(',tmp)>0 then
-                          tmp := copy(tmp,0,pos('(',tmp)-1);
-                        if pos(':',tmp)>0 then
-                          tmp := trim(copy(tmp,0,pos(':',tmp)-1))
-                        else if pos(';',tmp)>0 then
-                          tmp := trim(copy(tmp,0,pos(';',tmp)-1));
-                        if pos(')',sProc)>0 then
-                          tmp1 := copy(sProc,0,pos(')',sProc))
-                        else tmp1 := '';
-                        tmp3 := copy(sProc,length(tmp1)+1,length(sProc));
-                        tmp1 := tmp1+copy(tmp3,0,pos(';',tmp3));
-                        tmp2 := copy(sProc,pos(')',sProc)+1,length(sProc));
-                        tmp2 := copy(tmp2,pos(';',tmp2)+1,Length(sProc));
-                        tmp2 := copy(tmp2,0,pos(';',tmp2)-1);
-                        if tmp2<>'' then
-                          tmp2 := ' '+tmp2;
-                        tmp := '  '+tmp1+'external '''+tmp+'@'+ExtractFileName(aLibname)+tmp2+''';';
+                        if (copy(lowercase(trim(sProc)),0,8)='function')
+                        or (copy(lowercase(trim(sProc)),0,9)='procedure') then
+                          begin
+                            tmp := copy(sProc,pos(' ',sProc)+1,length(sProc));
+                            if pos('(',tmp)>0 then
+                              tmp := copy(tmp,0,pos('(',tmp)-1);
+                            if pos(':',tmp)>0 then
+                              tmp := trim(copy(tmp,0,pos(':',tmp)-1))
+                            else if pos(';',tmp)>0 then
+                              tmp := trim(copy(tmp,0,pos(';',tmp)-1));
+                            if pos(')',sProc)>0 then
+                              tmp1 := copy(sProc,0,pos(')',sProc))
+                            else tmp1 := '';
+                            tmp3 := copy(sProc,length(tmp1)+1,length(sProc));
+                            tmp1 := tmp1+copy(tmp3,0,pos(';',tmp3));
+                            tmp2 := copy(sProc,pos(')',sProc)+1,length(sProc));
+                            tmp2 := copy(tmp2,pos(';',tmp2)+1,Length(sProc));
+                            tmp2 := copy(tmp2,0,pos(';',tmp2)-1);
+                            if tmp2<>'' then
+                              tmp2 := ' '+tmp2;
+                            tmp := '  '+tmp1+'external '''+tmp+'@'+ExtractFileName(aLibname)+tmp2+''';';
+                          end
+                        else tmp := '  '+sProc;
                         newUnit := newUnit+LineEnding+tmp;
                       end;
                     newUnit := newUnit+LineEnding+'implementation'+lineending+'end.';

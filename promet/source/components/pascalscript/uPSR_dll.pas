@@ -3,7 +3,7 @@ unit uPSR_dll;
 {$I PascalScript.inc}
 interface
 uses
-  uPSRuntime, uPSUtils;
+  uPSRuntime, uPSUtils, sysutils;
 
 procedure RegisterDLLRuntime(Caller: TPSExec);
 procedure RegisterDLLRuntimeEx(Caller: TPSExec; AddDllProcImport, RegisterUnloadDLL: Boolean);
@@ -119,6 +119,8 @@ begin
 
       {$IFDEF UNIX_OR_KYLIX}
       dllhandle := LoadLibrary(PChar(s2));
+      if dllhandle=0 then
+        dllhandle := LoadLibrary(PChar(ExtractFilePath(ParamStr(0))+s2));
       {$ELSE}
       {$IFDEF UNICODE}
       if Copy(s2, 1, 6) = '<utf8>' then
