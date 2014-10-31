@@ -27,7 +27,8 @@ uses
   Classes, SysUtils, uPSCompiler,db,
   uPSC_classes, uPSC_DB, uPSC_dateutils, uPSC_dll, uPSRuntime,
   uPSR_classes, uPSR_DB, uPSR_dateutils, uPSR_dll, uPSUtils,
-  Process,usimpleprocess,Utils,variants,UTF8Process,dynlibs;
+  Process,usimpleprocess,Utils,variants,UTF8Process,dynlibs,
+  synamisc;
 
 type
   TWritelnFunc = procedure(const s: string) of object;
@@ -64,6 +65,8 @@ type
 
   TPascalOnUses = function(Sender: TPascalScript; const Name: tbtString): Boolean of object;
 
+  { TPascalScript }
+
   TPascalScript = class(TScript)
   private
     CompleteOutput : string;
@@ -91,6 +94,12 @@ type
 
     function InternalGet(URL : string) : string;
     function InternalPost(URL,Content : string) : string;
+    function InternalGetDNS: string;
+    function InternalGetLocalIPs: string;
+
+    function InternalRebootMashine : Boolean;
+    function InternalShutdownMashine : Boolean;
+    function InternalWakeMashine(Mac,Ip : string) : Boolean;
   public
     function InternalUses(Comp : TPSPascalCompiler;Name : string) : Boolean;
     function Execute(aParameters: Variant): Boolean; override;
@@ -108,7 +117,11 @@ var
 
 implementation
 
-uses httpsend;
+uses httpsend
+  {$ifdef WINDOWS}
+  ,Windows
+  {$endif}
+  ;
 
 function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString
   ): Boolean;
@@ -236,6 +249,64 @@ begin
   else Result:='';
   ahttp.Free;
 end;
+
+function TPascalScript.InternalGetDNS: string;
+begin
+  Result := GetDNS;
+end;
+
+function TPascalScript.InternalGetLocalIPs: string;
+begin
+  Result := GetLocalIPs;
+end;
+
+function TPascalScript.InternalRebootMashine: Boolean;
+{$ifdef Windows}
+var
+  hLib: Handle;
+  hProc: procedure;stdcall;
+{$endif}
+begin
+{$ifdef Windows}
+  WinExec('shutdown.exe -r -t 0', SW_NONE);
+{$else}
+  SysUtils.ExecuteProcess('/sbin/shutdown',['-r','now']);
+{$endif}
+end;
+
+function TPascalScript.InternalShutdownMashine: Boolean;
+{$ifdef Windows}
+var
+  hLib: Handle;
+  hProc: procedure;stdcall;
+{$endif}
+begin
+{$ifdef Windows}
+{ Windows NT or newer }
+  WinExec('shutdown.exe -s -t 0', SW_NONE);
+{ Earlier than Windows NT }
+  {$IFDEF UNICODE}
+  hLib:=LoadLibraryW('user.dll');
+  {$ELSE}
+  hLib:=LoadLibraryA('user.dll');
+  {$ENDIF}
+  if hLib<>0 then begin
+    Pointer(hProc):=GetProcAddress(hLib, 'ExitWindows');
+    if hProc<>0 then
+      hProc;
+    FreeLibrary(hLib);
+  end;
+{$else}
+  SysUtils.ExecuteProcess('/sbin/shutdown',['-h','now']);
+{$endif}
+end;
+
+function TPascalScript.InternalWakeMashine(Mac, Ip: string): Boolean;
+begin
+  Result := True;
+  WakeOnLan(Mac,Ip);
+end;
+
 function IProcessDllImport(Sender: TPSExec; p: TPSExternalProcRec; Tag: Pointer
   ): Boolean;
 var
@@ -308,6 +379,13 @@ begin
       begin
         AddMethod(Self,@TPascalScript.InternalGet,'function Get(URL : string) : string;');
         AddMethod(Self,@TPascalScript.InternalPost,'function Post(URL,Content : string) : string;');
+        AddMethod(Self,@TPascalScript.InternalGetDNS,'function GetDNS : string;');
+        AddMethod(Self,@TPascalScript.InternalGetLocalIPs,'function GetLocalIPs : string;');
+      end
+    else if lowercase(Name)='mashine' then
+      begin
+        AddMethod(Self,@TPascalScript.InternalRebootMashine,'function RebootMashine : Boolean;');
+        AddMethod(Self,@TPascalScript.InternalShutdownMashine,'function ShutdownMashine : Boolean;');
       end
     else if lowercase(Name)='db' then
       begin
