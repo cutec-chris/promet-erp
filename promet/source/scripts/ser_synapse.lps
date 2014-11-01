@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="20">
+      <Unit0>
+        <Filename Value="ser_synapse.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ser_synapse"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="22" Y="12"/>
+        <UsageCount Value="36"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="tinkerforge\IPConnection.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="579"/>
+        <CursorPos Y="601"/>
+        <UsageCount Value="22"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="tinkerforge\Device.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="19"/>
+        <CursorPos X="10" Y="29"/>
+        <UsageCount Value="21"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="tinkerforge\BrickletLCD20x4.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="67"/>
+        <CursorPos X="32" Y="18"/>
+        <UsageCount Value="21"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="tinkerforge\BrickletLCD16x2.pas"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="21"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbus.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="190"/>
+        <CursorPos X="14" Y="194"/>
+        <UsageCount Value="19"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbusinterfaces.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="184"/>
+        <CursorPos X="29" Y="8"/>
+        <UsageCount Value="19"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsinternbus.pas"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="19"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\D2XXUnit.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="393"/>
+        <CursorPos Y="409"/>
+        <UsageCount Value="19"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcswirelessintf.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="104"/>
+        <CursorPos X="34" Y="108"/>
+        <UsageCount Value="19"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\inc\systemh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="907"/>
+        <CursorPos X="11" Y="925"/>
+        <UsageCount Value="9"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\..\..\tcscmd_git\src\mypersistents.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="199"/>
+        <CursorPos X="15" Y="217"/>
+        <UsageCount Value="9"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="tinkerforge\LEConverter.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="7"/>
+        <CursorPos X="3" Y="16"/>
+        <UsageCount Value="9"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="serial_win.pp"/>
+        <UnitName Value="serial_win"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="148"/>
+        <CursorPos X="53" Y="19"/>
+        <UsageCount Value="16"/>
+        <Loaded Value="True"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\objpas\sysutils\sysutilh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="16"/>
+        <CursorPos X="24" Y="34"/>
+        <UsageCount Value="9"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\win\sysosh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="4"/>
+        <CursorPos X="7" Y="23"/>
+        <UsageCount Value="9"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="serial_osx.pp"/>
+        <UnitName Value="serial_osx"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="45" Y="21"/>
+        <UsageCount Value="16"/>
+        <Loaded Value="True"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\unix\unix.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="7"/>
+        <CursorPos X="5" Y="25"/>
+        <UsageCount Value="9"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\rtl-extra\src\unix\serial.pp"/>
+        <UnitName Value="Serial"/>
+        <EditorIndex Value="2"/>
+        <CursorPos Y="20"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\components\synapse\synaser.pas"/>
+        <UnitName Value="synaser"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="52"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit19>
+    </Units>
+    <JumpHistory Count="15" HistoryIndex="14">
+      <Position1>
+        <Filename Value="serial_win.pp"/>
+        <Caret Line="17" Column="22"/>
+      </Position1>
+      <Position2>
+        <Filename Value="serial_osx.pp"/>
+        <Caret Line="17" Column="23"/>
+      </Position2>
+      <Position3>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="6" Column="23"/>
+      </Position3>
+      <Position4>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="14" Column="8" TopLine="6"/>
+      </Position4>
+      <Position5>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="15" Column="15"/>
+      </Position5>
+      <Position6>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="39" Column="18" TopLine="13"/>
+      </Position6>
+      <Position7>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="52" Column="48" TopLine="41"/>
+      </Position7>
+      <Position8>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="78" Column="36" TopLine="54"/>
+      </Position8>
+      <Position9>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="79" Column="32" TopLine="60"/>
+      </Position9>
+      <Position10>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="28" Column="7" TopLine="11"/>
+      </Position10>
+      <Position11>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="32" Column="9" TopLine="16"/>
+      </Position11>
+      <Position12>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="43" Column="7" TopLine="26"/>
+      </Position12>
+      <Position13>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="55" Column="7" TopLine="38"/>
+      </Position13>
+      <Position14>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="72" Column="7" TopLine="56"/>
+      </Position14>
+      <Position15>
+        <Filename Value="ser_synapse.lpr"/>
+        <Caret Line="6" Column="26"/>
+      </Position15>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

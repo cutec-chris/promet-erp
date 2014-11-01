@@ -10,7 +10,7 @@ uses
   {$IFDEF MSWINDOWS}
   serial_win
   {$ELSE}
-  serial
+  serial,BaseUnix,termio,unix
   {$ENDIF}
   {$ENDIF}
   ;
@@ -26,17 +26,36 @@ var
   buffer : string = '';
   Rest: LongInt;
   aRead: Integer;
+  aRest: Integer;
+  i: Integer;
+  {$ifdef UNIX}
+  readSet: TFDSet;
+  selectTimeout: TTimeVal;
+  mSec : Integer = 150;
+  aSize: BaseUnix.cint;
+  {$endif}
 begin
   Rest := Count;
-  while Rest>0 do
+  for i := 0 to (aRest div 256)+1 do
     begin
+      if Rest>256 then
+        aRest := 256
+      else aRest := rest;
       {$IFDEF DARWIN}
-      aRead := serial_osx.SerRead(Handle,s[1],256);
+      aRead := serial_osx.SerRead(Handle,s[1],aRest);
       {$ELSE}
       {$IFDEF MSWINDOWS}
-      aRead := serial_win.SerRead(Handle,s[1],256);
+      aRead := serial_win.SerRead(Handle,s[1],aRest);
       {$ELSE}
-      aRead := serial.SerRead(Handle,s[1],256);
+      aRead := 0;
+      fpFD_ZERO(readSet);
+      fpFD_SET(Handle, readSet);
+      selectTimeout.tv_sec := mSec div 1000;
+      selectTimeout.tv_usec := (mSec mod 1000) * 1000;
+      aSize := fpSelect(Handle + 1, @readSet, nil, nil, @selectTimeout);
+      if aSize>aRest then aSize := aRest;
+      if aSize>0 then
+        aRead := fpRead(Handle, s[1], aSize);
       {$ENDIF}
       {$ENDIF}
       buffer := buffer+copy(s,0,aRead);

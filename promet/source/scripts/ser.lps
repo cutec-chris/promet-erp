@@ -4,14 +4,14 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="18">
+    <Units Count="20">
       <Unit0>
         <Filename Value="ser.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="22"/>
-        <CursorPos Y="42"/>
-        <UsageCount Value="36"/>
+        <TopLine Value="23"/>
+        <CursorPos Y="31"/>
+        <UsageCount Value="37"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -103,7 +103,8 @@
       <Unit13>
         <Filename Value="serial_win.pp"/>
         <UnitName Value="serial_win"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="148"/>
         <CursorPos X="53" Y="19"/>
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
@@ -125,7 +126,7 @@
       <Unit16>
         <Filename Value="serial_osx.pp"/>
         <UnitName Value="serial_osx"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="45" Y="21"/>
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
@@ -137,8 +138,24 @@
         <CursorPos X="5" Y="25"/>
         <UsageCount Value="9"/>
       </Unit17>
+      <Unit18>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\rtl-extra\src\unix\serial.pp"/>
+        <UnitName Value="Serial"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="301"/>
+        <CursorPos X="26" Y="13"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\..\..\..\..\fpc\trunk\rtl\linux\ostypes.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="25"/>
+        <CursorPos X="2" Y="198"/>
+        <UsageCount Value="10"/>
+      </Unit19>
     </Units>
-    <JumpHistory Count="13" HistoryIndex="12">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
         <Filename Value="ser.lpr"/>
         <Caret Line="11" Column="9"/>
@@ -191,6 +208,50 @@
         <Filename Value="ser.lpr"/>
         <Caret Line="33" Column="23" TopLine="22"/>
       </Position13>
+      <Position14>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="13" Column="8"/>
+      </Position14>
+      <Position15>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="34" Column="49" TopLine="22"/>
+      </Position15>
+      <Position16>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="39" Column="37" TopLine="25"/>
+      </Position16>
+      <Position17>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="55" TopLine="34"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\rtl-extra\src\unix\serial.pp"/>
+        <Caret Line="326" Column="21" TopLine="312"/>
+      </Position18>
+      <Position19>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="13" Column="30"/>
+      </Position19>
+      <Position20>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="33" Column="21" TopLine="16"/>
+      </Position20>
+      <Position21>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="57" TopLine="35"/>
+      </Position21>
+      <Position22>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="54" Column="7" TopLine="38"/>
+      </Position22>
+      <Position23>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="39" TopLine="35"/>
+      </Position23>
+      <Position24>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="38" Column="34" TopLine="22"/>
+      </Position24>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

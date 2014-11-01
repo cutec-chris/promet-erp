@@ -31,7 +31,6 @@
         <FormatVersion Value="1"/>
         <HostApplicationFilename Value="\media\Daten\Source\promet\promet\output\x86_64-linux\scriptedit"/>
         <CommandLineParams Value="&quot;--config-path=devel&quot; Serial"/>
-        <WorkingDirectory Value="\media\Daten\Source\promet\promet\output\x86_64-linux\"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">
