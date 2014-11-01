@@ -195,6 +195,7 @@ procedure TBaseVisualApplication.BaseVisualApplicationException(
 var
   err: String;
 begin
+  if e.Message='Invalid variant type cast' then exit;
   fError := TfError.Create(Self);
   fError.SetLanguage;
 //  if E is EDatabaseError then

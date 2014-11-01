@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug --debug-sql"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="26">
@@ -580,7 +580,6 @@
         <ComponentName Value="fCommandline"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="ucommandline"/>
       </Unit43>
     </Units>
   </ProjectOptions>
