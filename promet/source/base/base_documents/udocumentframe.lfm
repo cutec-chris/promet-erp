@@ -1,7 +1,5 @@
 inherited fDocumentFrame: TfDocumentFrame
-  Left = 0
   Height = 365
-  Top = 0
   Width = 500
   ClientHeight = 365
   ClientWidth = 500
@@ -9,7 +7,7 @@ inherited fDocumentFrame: TfDocumentFrame
   Constraints.MinWidth = 500
   DesignLeft = 709
   DesignTop = 341
-  object pLeft: TPanel[0]
+  object pToolbar: TPanel[0]
     Left = 0
     Height = 321
     Top = 44
@@ -700,8 +698,8 @@ inherited fDocumentFrame: TfDocumentFrame
       object Label5: TLabel
         Left = 4
         Height = 15
-        Top = -4
-        Width = 52
+        Top = -8
+        Width = 48
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -714,7 +712,7 @@ inherited fDocumentFrame: TfDocumentFrame
       end
       object Bevel5: TBevel
         Left = 0
-        Height = 32
+        Height = 28
         Top = 4
         Width = 8
         Align = alLeft
@@ -826,8 +824,8 @@ inherited fDocumentFrame: TfDocumentFrame
       object Label6: TLabel
         Left = 4
         Height = 15
-        Top = -4
-        Width = 48
+        Top = -8
+        Width = 44
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -840,7 +838,7 @@ inherited fDocumentFrame: TfDocumentFrame
       end
       object Bevel6: TBevel
         Left = 0
-        Height = 32
+        Height = 28
         Top = 4
         Width = 8
         Align = alLeft
@@ -950,8 +948,8 @@ inherited fDocumentFrame: TfDocumentFrame
       object Label7: TLabel
         Left = 4
         Height = 15
-        Top = -4
-        Width = 48
+        Top = -8
+        Width = 44
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -964,7 +962,7 @@ inherited fDocumentFrame: TfDocumentFrame
       end
       object Bevel7: TBevel
         Left = 0
-        Height = 32
+        Height = 28
         Top = 4
         Width = 8
         Align = alLeft
@@ -1079,8 +1077,8 @@ inherited fDocumentFrame: TfDocumentFrame
       object Label8: TLabel
         Left = 4
         Height = 15
-        Top = -4
-        Width = 56
+        Top = -8
+        Width = 52
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -1093,7 +1091,7 @@ inherited fDocumentFrame: TfDocumentFrame
       end
       object Bevel8: TBevel
         Left = 0
-        Height = 32
+        Height = 28
         Top = 4
         Width = 8
         Align = alLeft

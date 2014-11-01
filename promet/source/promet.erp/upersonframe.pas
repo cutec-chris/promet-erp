@@ -93,7 +93,7 @@ type
     miPaste: TMenuItem;
     miStartTimeregistering: TMenuItem;
     ImportDialog: TOpenDialog;
-    Panel1: TPanel;
+    pToolBar: TPanel;
     Panel2: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
@@ -1076,6 +1076,7 @@ begin
   pComponents.Enabled := FEditable;
   FContList.Editable := FEditable;
   dnNavigator.Enabled:=Feditable;
+  ArrangeToolBar(pToolbar,ActionList1,'Person');
 end;
 procedure TfPersonFrame.AddList(Sender: TObject);
 var

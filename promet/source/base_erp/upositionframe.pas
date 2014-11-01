@@ -31,7 +31,7 @@ type
   THackCustomGrid = class(TCustomGrid);
   { TfPosition }
 
-  TfPosition = class(TFrame)
+  TfPosition = class(TPrometInplaceFrame)
     acAddPos: TAction;
     acDelPos: TAction;
     acGotoArticle: TAction;
@@ -86,7 +86,7 @@ type
     TabTimer: TIdleTimer;
     pcTabs: TExtMenuPageControl;
     pDetail: TPanel;
-    pPosControls: TPanel;
+    pToolbar: TPanel;
     spDetails: TSplitter;
     tsDetails: TTabSheet;
     procedure acAddfromArticleExecute(Sender: TObject);
@@ -255,7 +255,7 @@ begin
         begin
           if not pSearch.Visible then
             begin
-              pSearch.Left:=pPosControls.Width+X;
+              pSearch.Left:=pToolbar.Width+X;
               pSearch.Top:=Y;
             end;
           if Assigned(ActiveSearch) then
@@ -861,6 +861,7 @@ begin
   for i := low(InplaceFrames) to High(InplaceFrames) do
     if Assigned(InplaceFrames[i]) then
       InplaceFrames[i].SetRights(Editable);
+  ArrangeToolBar(pToolbar,ActionList1,'Position');
 end;
 procedure TfPosition.AutoInsert;
 begin
@@ -950,4 +951,4 @@ begin
 end;
 
 end.
-
+

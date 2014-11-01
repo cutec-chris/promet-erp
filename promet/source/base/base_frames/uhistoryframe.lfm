@@ -1,7 +1,5 @@
 inherited fHistoryFrame: TfHistoryFrame
-  Left = 0
   Height = 580
-  Top = 0
   Width = 597
   ClientHeight = 580
   ClientWidth = 597
@@ -16,7 +14,7 @@ inherited fHistoryFrame: TfHistoryFrame
     BevelOuter = bvNone
     TabOrder = 0
   end
-  object Panel1: TPanel[1]
+  object pToolbar: TPanel[1]
     Left = 0
     Height = 580
     Top = 0
@@ -30,18 +28,18 @@ inherited fHistoryFrame: TfHistoryFrame
       Left = 0
       Height = 52
       Top = 20
-      Width = 44
+      Width = 40
       Align = alTop
       BorderSpacing.Top = 20
       BevelOuter = bvNone
       ClientHeight = 52
-      ClientWidth = 44
+      ClientWidth = 40
       TabOrder = 0
       object Bevel1: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 32
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -57,8 +55,7 @@ inherited fHistoryFrame: TfHistoryFrame
         Caption = 'Neu'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -155,18 +152,18 @@ inherited fHistoryFrame: TfHistoryFrame
       Left = 0
       Height = 48
       Top = 72
-      Width = 44
+      Width = 40
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 48
-      ClientWidth = 44
+      ClientWidth = 40
       TabOrder = 1
       Visible = False
       object Bevel2: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 32
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -182,8 +179,7 @@ inherited fHistoryFrame: TfHistoryFrame
         Caption = 'löschen'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -279,20 +275,20 @@ inherited fHistoryFrame: TfHistoryFrame
     end
     object Panel4: TPanel
       Left = 0
-      Height = 460
+      Height = 452
       Top = 120
-      Width = 44
+      Width = 40
       Align = alTop
       Anchors = [akTop, akLeft, akRight, akBottom]
       BevelOuter = bvNone
-      ClientHeight = 460
-      ClientWidth = 44
+      ClientHeight = 452
+      ClientWidth = 40
       TabOrder = 2
       object Bevel3: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 32
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -300,7 +296,7 @@ inherited fHistoryFrame: TfHistoryFrame
       end
       object ExtRotatedLabel3: TExtRotatedLabel
         Left = 0
-        Height = 456
+        Height = 448
         Top = 4
         Width = 14
         Align = alLeft
@@ -308,14 +304,13 @@ inherited fHistoryFrame: TfHistoryFrame
         Caption = 'Ansicht'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
       object pButtons: TPanel
         Left = 15
-        Height = 428
+        Height = 420
         Top = 32
         Width = 23
         Anchors = [akTop, akLeft, akBottom]
@@ -325,9 +320,9 @@ inherited fHistoryFrame: TfHistoryFrame
       object bRefresh1: TSpeedButton
         Left = 15
         Height = 24
-        Hint = 'Aktualisieren der Ansicht'
         Top = 4
         Width = 24
+        Action = acRefresh
         AllowAllUp = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
@@ -366,7 +361,6 @@ inherited fHistoryFrame: TfHistoryFrame
           3453A4653405FFFFFF00FFFFFF00FFFFFF00A4653479A4653410
         }
         Layout = blGlyphTop
-        OnClick = bRefresh1Click
         ShowCaption = False
       end
     end
@@ -376,26 +370,35 @@ inherited fHistoryFrame: TfHistoryFrame
     left = 56
     top = 104
     object acAdd: TAction
+      Category = 'Neu'
       Caption = 'acAdd'
       Hint = 'manuell neuen Verlaufseintrag erzeugen'
       ImageIndex = 59
       OnExecute = acAddExecute
     end
     object acDelete: TAction
+      Category = 'löschen'
       Caption = 'acDelete'
       ImageIndex = 60
       OnExecute = acDeleteExecute
     end
     object acAddLinked: TAction
+      Category = 'Neu'
       Caption = 'acAddLinked'
       Hint = 'manuell neuen Verlaufseintrag erzeugen'#10'und Verweis aus Zwischenablage anhängen'
       OnExecute = acAddLinkedExecute
     end
     object acIgnore: TAction
+      Category = 'löschen'
       Caption = 'acIgnore'
       Hint = 'Eintrag in Reports ignorieren'
       ImageIndex = 55
       OnExecute = acIgnoreExecute
+    end
+    object acRefresh: TAction
+      Category = 'Ansicht'
+      Caption = 'acRefresh'
+      ImageIndex = 69
     end
   end
 end

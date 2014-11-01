@@ -10,7 +10,7 @@ object fPosition: TfPosition
   TabOrder = 0
   DesignLeft = 393
   DesignTop = 217
-  object pPosControls: TPanel
+  object pToolbar: TPanel
     Left = 0
     Height = 230
     Top = 0
@@ -141,8 +141,7 @@ object fPosition: TfPosition
         Caption = 'Position'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -402,8 +401,7 @@ object fPosition: TfPosition
         Caption = 'Zusätzlich'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -528,8 +526,7 @@ object fPosition: TfPosition
         Caption = 'Ansicht'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -745,15 +742,15 @@ object fPosition: TfPosition
       NewTabImageIndex = 59
       object tsDetails: TTabSheet
         Caption = 'Details'
-        ClientHeight = 208
-        ClientWidth = 698
+        ClientHeight = 201
+        ClientWidth = 700
         ImageIndex = 40
         ParentFont = False
         object Panel1: TPanel
           Left = 0
-          Height = 208
+          Height = 201
           Top = 0
-          Width = 698
+          Width = 700
           Align = alClient
           BevelOuter = bvNone
           Caption = 'keine Detailansicht verfügbar'
@@ -788,15 +785,16 @@ object fPosition: TfPosition
     Visible = False
     object lbResults: TListBox
       Left = 0
-      Height = 72
+      Height = 68
       Top = 0
-      Width = 424
+      Width = 420
       Align = alClient
       ItemHeight = 0
       OnDblClick = lbResultsDblClick
       ScrollWidth = 418
       TabOrder = 0
       TabStop = False
+      TopIndex = -1
     end
   end
   object ActionList1: TActionList
@@ -1157,10 +1155,10 @@ object fPosition: TfPosition
       }
     end
   end
-  object Datasource1: TDataSource
+  object Datasource1: TDatasource
     OnStateChange = Datasource1StateChange
     OnDataChange = Datasource1DataChange
     left = 176
     top = 64
   end
-end
+end

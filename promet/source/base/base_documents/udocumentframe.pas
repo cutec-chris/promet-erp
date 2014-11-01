@@ -139,7 +139,7 @@ TfDocumentFrame = class(TPrometInplaceDBFrame{$IFDEF WINDOWS},IDropSource{$ENDIF
     Panel3: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
-    pLeft: TPanel;
+    pToolbar: TPanel;
     pmAddDocuments: TPopupMenu;
     pmDocumentAction: TPopupMenu;
     pmViewStyle: TPopupMenu;
@@ -1661,6 +1661,7 @@ begin
   acPasteAsLink.Enabled:=Editable;
   acCheckinFromDir.Enabled:=Editable;
   acRights.Enabled:=Data.Users.Rights.Right('DOCUMENTS') >= RIGHT_PERMIT;
+  ArrangeToolBar(pToolbar,ActionList1,'Document');
 end;
 procedure TfDocumentFrame.ShowFrame;
 var
@@ -1732,4 +1733,4 @@ begin
 end;
 
 end.
-
+

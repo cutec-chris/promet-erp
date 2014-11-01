@@ -21,16 +21,30 @@ unit uprometframesinplace;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, uPrometFrames, uExtControls;
+  Classes, SysUtils, FileUtil, Forms, Controls, ActnList, ExtCtrls,
+  uPrometFrames, uExtControls;
 type
+
+  { TPrometInplaceFrame }
+
   TPrometInplaceFrame = class(TExtControlFrame)
   public
     procedure SetRights(Editable : Boolean);virtual;abstract;
+    procedure ArrangeToolBar(Control: TPanel; ActionList: TActionList; aName: string
+      );
   published
     property OnEnter;
     property OnExit;
   end;
 implementation
 {$R *.lfm}
+
+{ TPrometInplaceFrame }
+
+procedure TPrometInplaceFrame.ArrangeToolBar(Control: TPanel;ActionList : TActionList;aName: string);
+begin
+  Control.Align:=alRight;
+end;
+
 end.
 

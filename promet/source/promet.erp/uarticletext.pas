@@ -23,14 +23,18 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, DbCtrls, ExtCtrls,
   Buttons, db, uFilterFrame, uMasterdata, uPrometFramesInplace, uExtControls;
 type
+
+  { TfArticleTextFrame }
+
   TfArticleTextFrame = class(TPrometInplaceFrame)
     Bevel1: TBevel;
     cbTextTyp: TComboBox;
     DBNavigator1: TDBNavigator;
     ExtRotatedLabel1: TExtRotatedLabel;
     mText: TMemo;
+    Panel1: TPanel;
     Panel2: TPanel;
-    pLeft: TPanel;
+    pToolbar: TPanel;
     TextTypes: TDatasource;
     Texts: TDatasource;
     lTexttyp: TLabel;
@@ -126,6 +130,7 @@ begin
   mText.ReadOnly:=not Editable;
   DBNavigator1.Enabled:=Editable;
   //cbTextTypSelect(nil);
+  ArrangeToolBar(pToolbar,nil,'Text');
 end;
 
 end.

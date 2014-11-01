@@ -92,36 +92,29 @@ type
     Bevel5: TBevel;
     Bevel6: TBevel;
     Bevel7: TBevel;
-    Bevel8: TBevel;
-    Bevel9: TBevel;
     bFfwd: TToolButton;
     bPauseTime: TSpeedButton;
     bPauseTime1: TSpeedButton;
     bPauseTime2: TSpeedButton;
     bPauseTime3: TSpeedButton;
-    bPauseTime4: TSpeedButton;
     bPauseTime5: TSpeedButton;
     bSearch: TSpeedButton;
     eContains: TEdit;
     IPCTimer: TIdleTimer;
     Image1: TImage;
     Label3: TLabel;
-    Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
-    Label8: TLabel;
     MenuItem3: TMenuItem;
     Menuitem12: TMenuItem;
     MenuItem4: TMenuItem;
     Panel3: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
-    Panel7: TPanel;
     Panel8: TPanel;
     pTimes: TPanel;
     pTimes1: TPanel;
-    pTimes2: TPanel;
     RefreshTimer: TIdleTimer;
     lbResults: TListBox;
     MenuItem1: TMenuItem;
@@ -147,6 +140,7 @@ type
     SearchTimer: TTimer;
     tbMenue: TToolButton;
     ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
     ToolButton2: TSpeedButton;
     tsStartpage: TTabSheet;
     tvMain: TPanel;
@@ -624,7 +618,7 @@ begin
           BaseFilter:=Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y');
           aDataSet.Open;
           tbTop.Visible:=True;
-          tbLeft.Visible:=False;
+          pToolbar.Visible:=False;
           TfMainTaskFrame(Sender).DataSet := aDataSet;
           SetRights(True);
           FTaskNode := Self.FTaskNode;
@@ -1340,6 +1334,7 @@ begin
             tvMain.Visible:=False;
             spTree.Visible:=False;
             acShowTree.Checked:=False;
+            acShowTreeExecute(nil);
           end
         else
           begin
@@ -2826,7 +2821,7 @@ begin
           begin
             TabCaption := strFiles;
             pHeader.Visible := True;
-            pLeft.Visible := False;
+            pToolbar.Visible := False;
             DataSet := TDocuments.Create(nil,Data);
             Refresh(1,'D','1',Null,Null);
           end;

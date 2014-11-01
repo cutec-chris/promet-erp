@@ -44,7 +44,7 @@ type
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     miOpen: TMenuItem;
-    Panel1: TPanel;
+    pToolbar: TPanel;
     Panel2: TPanel;
     pCont: TPanel;
     pmPopup: TPopupMenu;
@@ -497,6 +497,7 @@ begin
   FEditable := Editable;
   acPasteLinks.Enabled := Editable;
   dnContacts.Enabled:=Editable;
+  ArrangeToolBar(pToolbar,ActionList1,'Links');
 end;
 procedure TfLinkFrame.ShowFrame;
 begin

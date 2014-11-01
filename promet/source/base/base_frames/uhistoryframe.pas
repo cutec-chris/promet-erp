@@ -32,6 +32,7 @@ type
     acDelete: TAction;
     acAddLinked: TAction;
     acIgnore: TAction;
+    acRefresh: TAction;
     ActionList1: TActionList;
     Bevel1: TBevel;
     Bevel2: TBevel;
@@ -40,7 +41,7 @@ type
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel2: TExtRotatedLabel;
     ExtRotatedLabel3: TExtRotatedLabel;
-    Panel1: TPanel;
+    pToolbar: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
@@ -55,7 +56,6 @@ type
     procedure acAddLinkedExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
     procedure acIgnoreExecute(Sender: TObject);
-    procedure bRefresh1Click(Sender: TObject);
     function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
     procedure FContListViewDetails(Sender: TObject);
@@ -395,11 +395,6 @@ begin
     end;
 end;
 
-procedure TfHistoryFrame.bRefresh1Click(Sender: TObject);
-begin
-  FTimeLine.Refresh(True);
-end;
-
 procedure TfHistoryFrame.FContListViewDetails(Sender: TObject);
 begin
   if FTimeLine.GotoActiveRow then
@@ -596,6 +591,7 @@ begin
 end;
 procedure TfHistoryFrame.SetRights(Editable : Boolean);
 begin
+  ArrangeToolBar(pToolbar,ActionList1,'History');
 end;
 procedure TfHistoryFrame.ShowFrame;
 begin

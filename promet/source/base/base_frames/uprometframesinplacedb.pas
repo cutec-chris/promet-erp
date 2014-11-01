@@ -21,9 +21,12 @@ unit uPrometFramesInplaceDB;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, uPrometFrames, uPrometFramesInplace,
-  uBaseDBClasses;
+  Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, Buttons,
+  uPrometFrames, uPrometFramesInplace, uBaseDBClasses, uExtControls;
 type
+
+  { TPrometInplaceDBFrame }
+
   TPrometInplaceDBFrame = class(TPrometInplaceFrame)
   protected
     FConnection: TComponent;

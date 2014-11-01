@@ -1,14 +1,12 @@
 inherited fAddressFrame: TfAddressFrame
-  Left = 0
   Height = 385
-  Top = 0
   Width = 699
   ClientHeight = 385
   ClientWidth = 699
   DesignLeft = 392
   DesignTop = 284
   object pAddress: TGroupBox[0]
-    Left = 44
+    Left = 0
     Height = 260
     Top = 23
     Width = 360
@@ -367,12 +365,12 @@ inherited fAddressFrame: TfAddressFrame
       TabStop = False
     end
   end
-  object Panel1: TPanel[1]
-    Left = 0
+  object pToolbar: TPanel[1]
+    Left = 655
     Height = 362
     Top = 23
     Width = 44
-    Align = alLeft
+    Align = alRight
     BevelOuter = bvNone
     ClientHeight = 362
     ClientWidth = 44
@@ -472,6 +470,7 @@ inherited fAddressFrame: TfAddressFrame
         Height = 24
         Top = 4
         Width = 24
+        Action = EditCopy1
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -515,9 +514,9 @@ inherited fAddressFrame: TfAddressFrame
       object bPasteFromClipboard: TSpeedButton
         Left = 15
         Height = 24
-        Hint = 'Addresse aus Zwischenablage einfügen'
         Top = 28
         Width = 24
+        Action = EditPaste1
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -561,7 +560,7 @@ inherited fAddressFrame: TfAddressFrame
     end
   end
   object gAdresses: TDBGrid[2]
-    Left = 413
+    Left = 369
     Height = 358
     Hint = 'wählen Sie hier eine Adresse'
     Top = 23
@@ -604,7 +603,7 @@ inherited fAddressFrame: TfAddressFrame
     ParentColor = False
   end
   object Splitter1: TSplitter[4]
-    Left = 404
+    Left = 360
     Height = 362
     Top = 23
     Width = 5
@@ -615,5 +614,26 @@ inherited fAddressFrame: TfAddressFrame
     OnStateChange = AddressStateChange
     left = 576
     top = 24
+  end
+  object ActionList1: TActionList[6]
+    Images = fVisualControls.Images
+    left = 187
+    top = 284
+    object EditCopy1: TEditCopy
+      Category = 'Edit'
+      Caption = '&Kopieren'
+      Hint = 'Kopieren'
+      ImageIndex = 23
+      OnExecute = EditCopy1Execute
+      ShortCut = 16451
+    end
+    object EditPaste1: TEditPaste
+      Category = 'Edit'
+      Caption = '&Einfügen'
+      Hint = 'Einfügen'
+      ImageIndex = 80
+      OnExecute = EditPaste1Execute
+      ShortCut = 16470
+    end
   end
 end

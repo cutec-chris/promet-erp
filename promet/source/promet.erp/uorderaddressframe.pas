@@ -41,6 +41,8 @@ type
     cbType: TComboBox;
     Datasource: TDatasource;
     mAddress: TMemo;
+    Panel1: TPanel;
+    pToolbar: TPanel;
     SearchTimer: TTimer;
     procedure acDeleteAddressExecute(Sender: TObject);
     procedure acGotoAddressExecute(Sender: TObject);

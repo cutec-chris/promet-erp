@@ -30,22 +30,23 @@ type
   TfArticleSupplierFrame = class(TPrometInplaceFrame)
     Bevel1: TBevel;
     cbSupplierTransportCurrency: TDBComboBox;
-    lDelivertime1: TLabel;
-    Supplier: TDatasource;
-    SupplierPrices: TDatasource;
-    dnNavigator: TDBNavigator;
     eArticleNumberSupplier: TDBEdit;
     eDelivertime: TDBEdit;
     eSupplierTransportPrice: TDBEdit;
-    ExtRotatedLabel1: TExtRotatedLabel;
     gSupplier: TDBGrid;
     gSupplierPrices: TDBGrid;
     lArticleNumberSupplier: TLabel;
     lDelivertime: TLabel;
+    lDelivertime1: TLabel;
+    dnNavigator: TDBNavigator;
+    ExtRotatedLabel1: TExtRotatedLabel;
     lPrices: TLabel;
     lTransportSupplier: TLabel;
     Panel1: TPanel;
+    pToolbar: TPanel;
     Panel2: TPanel;
+    Supplier: TDatasource;
+    SupplierPrices: TDatasource;
     procedure gSupplierDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure gSupplierDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
@@ -121,6 +122,7 @@ end;
 procedure TfArticleSupplierFrame.SetRights(Editable: Boolean);
 begin
   Enabled := Editable;
+  ArrangeToolBar(pToolbar,nil,'Supplier');
 end;
 end.
 

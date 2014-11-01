@@ -22,7 +22,7 @@ unit uPrometFrames;
 interface
 uses
   Classes, SysUtils, Forms, uBaseDbInterface, uBaseDbClasses, uExtControls,
-  Dialogs, Controls, ExtCtrls,uQuickHelpFrame,LCLProc,db;
+  Dialogs, Controls, ExtCtrls,uQuickHelpFrame,LCLProc, ActnList,db;
 type
 
   { TPrometMainFrame }
@@ -58,6 +58,7 @@ type
     procedure Windowize;
     function ShowHint(var HintStr: string;var CanShow: Boolean; var HintInfo: THintInfo) : Boolean;virtual;
     function HasHelp : Boolean;
+    procedure ArrangeToolBar(Control: TPanel; ActionList: TActionList; aName: string);
     procedure AddHelp(aWindow : TWinControl);
     property HelpView : TfQuickHelpFrame read FQuickHelpFrame write FQuickHelpFrame;
     property UseTransactions : Boolean read FUseTransactions write FUseTransactions;
@@ -239,6 +240,12 @@ begin
   with BaseApplication as IBaseApplication do
     Result := aWiki.FindWikiPage(Appname+'-Help/workflows/'+lowercase(ClassName));
   aWiki.Free;
+end;
+
+procedure TPrometMainFrame.ArrangeToolBar(Control: TPanel;
+  ActionList: TActionList; aName: string);
+begin
+  Control.Align:=alRight;
 end;
 
 procedure TPrometMainFrame.AddHelp(aWindow: TWinControl);

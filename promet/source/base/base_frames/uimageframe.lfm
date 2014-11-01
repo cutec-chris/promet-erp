@@ -1,7 +1,5 @@
 inherited fImageFrame: TfImageFrame
-  Left = 0
   Height = 331
-  Top = 0
   Width = 588
   ClientHeight = 331
   ClientWidth = 588
@@ -10,26 +8,27 @@ inherited fImageFrame: TfImageFrame
   DesignLeft = 399
   DesignTop = 226
   object pImage: TPanel[0]
-    Left = 48
-    Height = 321
-    Top = 5
-    Width = 534
-    Anchors = [akTop, akLeft, akRight, akBottom]
+    Left = 52
+    Height = 315
+    Top = 8
+    Width = 528
+    Align = alClient
+    BorderSpacing.Around = 8
     BevelOuter = bvLowered
     Caption = 'kein Bild verfügbar'
-    ClientHeight = 321
-    ClientWidth = 534
+    ClientHeight = 315
+    ClientWidth = 528
     TabOrder = 0
     object sbImage: TScrollBox
       Left = 1
-      Height = 319
+      Height = 313
       Top = 1
-      Width = 532
+      Width = 526
       HorzScrollBar.Page = 512
       VertScrollBar.Page = 305
       Align = alClient
-      ClientHeight = 315
-      ClientWidth = 528
+      ClientHeight = 311
+      ClientWidth = 524
       TabOrder = 0
       object iPreview: TDBImage
         Left = 0
@@ -47,7 +46,7 @@ inherited fImageFrame: TfImageFrame
       end
     end
   end
-  object pPosControls: TPanel[1]
+  object pToolbar: TPanel[1]
     Left = 0
     Height = 331
     Top = 0
@@ -87,8 +86,7 @@ inherited fImageFrame: TfImageFrame
         Caption = 'Datei'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -170,8 +168,7 @@ inherited fImageFrame: TfImageFrame
         Caption = 'Navigation'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -226,8 +223,7 @@ inherited fImageFrame: TfImageFrame
         Caption = 'Zwischenablage'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -325,7 +321,7 @@ inherited fImageFrame: TfImageFrame
       end
     end
   end
-  object Images: TDataSource[2]
+  object Images: TDatasource[2]
     left = 64
     top = 16
   end

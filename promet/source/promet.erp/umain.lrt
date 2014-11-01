@@ -6,7 +6,6 @@ TFMAIN.TBMENUE.HINT=Zurück (zum letzten Eintrag) gehen
 mit der Liste können Sie auswählen
 zu welchem Eintrag Sie möchten
 TFMAIN.BFFWD.HINT=Vor (zum nächsten Eintrag) gehen
-TFMAIN.LABEL4.CAPTION=Ansicht
 TFMAIN.LABEL5.CAPTION=Suche
 TFMAIN.ECONTAINS.TEXT=<hier tippen um zu suchen>
 TFMAIN.LABEL6.CAPTION=Zeit
@@ -14,7 +13,6 @@ TFMAIN.BPAUSETIME.HINT=Zeiterfassung pausieren/
 wieder starten
 TFMAIN.BPAUSETIME.CAPTION=acPauseTime
 TFMAIN.LABEL7.CAPTION=erfassung
-TFMAIN.LABEL8.CAPTION=Start
 TFMAIN.PSEARCH.CAPTION=pSearch
 TFMAIN.MIMANDANT.CAPTION=Mandant
 TFMAIN.MIVIEW.CAPTION=Ansicht

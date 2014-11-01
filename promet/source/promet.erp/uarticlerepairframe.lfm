@@ -1,17 +1,15 @@
 inherited FArticlerepairFrame: TFArticlerepairFrame
-  Left = 0
   Height = 287
-  Top = 0
   Width = 617
   ClientHeight = 287
   ClientWidth = 617
   DesignLeft = 419
   DesignTop = 305
   object gAssemblys: TExtDBGrid[0]
-    Left = 35
+    Left = 8
     Height = 266
     Top = 8
-    Width = 197
+    Width = 224
     AlternateColor = 16770790
     Anchors = [akTop, akLeft, akBottom]
     BorderStyle = bsNone
@@ -30,7 +28,7 @@ inherited FArticlerepairFrame: TFArticlerepairFrame
     CachedEditing = True
   end
   object dnAssembly: TDBNavigator[1]
-    Left = 3
+    Left = 240
     Height = 120
     Top = 8
     Width = 24
@@ -72,10 +70,11 @@ inherited FArticlerepairFrame: TFArticlerepairFrame
     CachedEditing = True
   end
   object dnPart: TDBNavigator[3]
-    Left = 240
+    Left = 592
     Height = 120
     Top = 8
     Width = 24
+    Anchors = [akTop, akRight]
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds

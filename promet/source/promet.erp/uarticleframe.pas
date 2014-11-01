@@ -853,6 +853,7 @@ begin
   TfArticleSupplierFrame(Sender).Supplier.DataSet := TMasterdata(DataSet).Supplier.DataSet;
   TMasterdata(DataSet).Supplier.Prices.Open;
   TfArticleSupplierFrame(Sender).SupplierPrices.DataSet := TMasterdata(DataSet).Supplier.Prices.DataSet;
+  TfArticleSupplierFrame(Sender).SetRights(FEditable);
 end;
 procedure TfArticleFrame.AddRepair(Sender: TObject);
 begin

@@ -1,7 +1,5 @@
 inherited fLinkFrame: TfLinkFrame
-  Left = 0
   Height = 418
-  Top = 0
   Width = 597
   ClientHeight = 418
   ClientWidth = 597
@@ -16,7 +14,7 @@ inherited fLinkFrame: TfLinkFrame
     BevelOuter = bvNone
     TabOrder = 0
   end
-  object Panel1: TPanel[1]
+  object pToolbar: TPanel[1]
     Left = 0
     Height = 418
     Top = 0
@@ -30,18 +28,18 @@ inherited fLinkFrame: TfLinkFrame
       Left = 0
       Height = 156
       Top = 20
-      Width = 44
+      Width = 40
       Align = alTop
       BorderSpacing.Top = 20
       BevelOuter = bvNone
       ClientHeight = 156
-      ClientWidth = 44
+      ClientWidth = 40
       TabOrder = 0
       object Bevel1: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 32
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -57,8 +55,7 @@ inherited fLinkFrame: TfLinkFrame
         Caption = 'Eintrag'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -453,7 +450,7 @@ inherited fLinkFrame: TfLinkFrame
       OnExecute = acAddLinksExecute
     end
   end
-  object Datasource: TDataSource[4]
+  object Datasource: TDatasource[4]
     left = 96
     top = 40
   end

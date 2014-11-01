@@ -25,7 +25,7 @@ type
     Panel3: TPanel;
     Panel4: TPanel;
     pImage: TPanel;
-    pPosControls: TPanel;
+    pToolbar: TPanel;
     sbAddImage: TSpeedButton;
     sbClipboardToImage: TSpeedButton;
     sbImageToClipboard: TSpeedButton;
@@ -175,6 +175,7 @@ procedure TfImageFrame.SetRights(Editable: Boolean);
 begin
   acAddImage.Enabled := Editable;
   acPaste.Enabled:= Editable;
+  ArrangeToolBar(pToolbar,ActionList1,'Images');
 end;
 
 end.

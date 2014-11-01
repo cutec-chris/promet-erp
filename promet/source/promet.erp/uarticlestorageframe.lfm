@@ -1,13 +1,11 @@
 inherited fArticleStorageFrame: TfArticleStorageFrame
-  Left = 0
   Height = 422
-  Top = 0
   Width = 596
   ClientHeight = 422
   ClientWidth = 596
   DesignLeft = 437
   DesignTop = 275
-  object Panel1: TPanel[0]
+  object pToolbar: TPanel[0]
     Left = 0
     Height = 422
     Top = 0
@@ -21,18 +19,18 @@ inherited fArticleStorageFrame: TfArticleStorageFrame
       Left = 0
       Height = 156
       Top = 20
-      Width = 44
+      Width = 40
       Align = alTop
       BorderSpacing.Top = 20
       BevelOuter = bvNone
       ClientHeight = 156
-      ClientWidth = 44
+      ClientWidth = 40
       TabOrder = 0
       object Bevel1: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 32
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -75,7 +73,7 @@ inherited fArticleStorageFrame: TfArticleStorageFrame
     end
   end
   object Datasource: TDatasource[1]
-    left = 24
-    top = 165
+    left = 56
+    top = 192
   end
 end

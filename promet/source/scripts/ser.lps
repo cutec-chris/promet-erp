@@ -9,8 +9,8 @@
         <Filename Value="ser.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="23"/>
-        <CursorPos Y="31"/>
+        <TopLine Value="13"/>
+        <CursorPos X="59" Y="39"/>
         <UsageCount Value="37"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -155,7 +155,7 @@
         <UsageCount Value="10"/>
       </Unit19>
     </Units>
-    <JumpHistory Count="24" HistoryIndex="23">
+    <JumpHistory Count="25" HistoryIndex="24">
       <Position1>
         <Filename Value="ser.lpr"/>
         <Caret Line="11" Column="9"/>
@@ -252,6 +252,10 @@
         <Filename Value="ser.lpr"/>
         <Caret Line="38" Column="34" TopLine="22"/>
       </Position24>
+      <Position25>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="13" Column="9"/>
+      </Position25>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

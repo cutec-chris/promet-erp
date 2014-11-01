@@ -178,7 +178,7 @@ type
     sbSavePublic: TSpeedButton;
     seMaxresults: TSpinEdit;
     SynSQLSyn2: TSynSQLSyn;
-    tbLeft: TPanel;
+    pToolbar: TPanel;
     ToolBar: TToolBar;
     tbTop: TPanel;
     procedure acAddPosExecute(Sender: TObject);
@@ -1759,8 +1759,8 @@ begin
         begin
           if not pSearch.Visible then
             begin
-              if tbLeft.Visible then
-                pSearch.Left:=tbLeft.Width+X
+              if pToolbar.Visible then
+                pSearch.Left:=pToolbar.Width+X
               else pSearch.Left:=X;
               pSearch.Top:=Y;
               if tbTop.Visible then
@@ -1955,6 +1955,7 @@ begin
   FGridView.SetRights(Editable);
   acFilterRights.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_PERMIT;
   acDeleteFilter.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_DELETE;
+  ArrangeToolBar(pToolbar,ActionList1,'Tasks');
 end;
 procedure TfTaskFrame.ShowFrame;
 begin

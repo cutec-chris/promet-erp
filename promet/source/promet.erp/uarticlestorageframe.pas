@@ -28,7 +28,7 @@ type
     Datasource: TDatasource;
     dnNavigator: TDBNavigator;
     ExtRotatedLabel1: TExtRotatedLabel;
-    Panel1: TPanel;
+    pToolbar: TPanel;
     Panel2: TPanel;
     procedure FListFListFilterChanged(Sender: TObject);
   private
@@ -73,7 +73,8 @@ end;
 
 procedure TfArticleStorageFrame.SetRights(Editable: Boolean);
 begin
-  dnNavigator.Enabled := Editable
+  dnNavigator.Enabled := Editable;
+  ArrangeToolBar(pToolbar,nil,'Storage');
 end;
 
 end.

@@ -1,161 +1,21 @@
 inherited fArticleSupplierFrame: TfArticleSupplierFrame
-  Left = 0
   Height = 418
-  Top = 0
   Width = 581
   HelpType = htKeyword
   ClientHeight = 418
   ClientWidth = 581
   DesignLeft = 403
   DesignTop = 235
-  object lDelivertime: TLabel[0]
-    Left = 248
-    Height = 13
-    Top = 36
-    Width = 52
-    Caption = 'Lieferzeit'
-    ParentColor = False
-  end
-  object eDelivertime: TDBEdit[1]
-    Left = 439
-    Height = 23
-    Top = 30
-    Width = 72
-    DataField = 'DELIVERTM'
-    DataSource = Supplier
-    CharCase = ecNormal
-    MaxLength = 0
-    TabOrder = 0
-  end
-  object eArticleNumberSupplier: TDBEdit[2]
-    Left = 383
-    Height = 23
-    Top = 60
-    Width = 128
-    DataField = 'EID'
-    DataSource = Supplier
-    CharCase = ecNormal
-    MaxLength = 0
-    TabOrder = 1
-  end
-  object lArticleNumberSupplier: TLabel[3]
-    Left = 248
-    Height = 13
-    Top = 64
-    Width = 84
-    Caption = 'Artikelnummer'
-    ParentColor = False
-  end
-  object lTransportSupplier: TLabel[4]
-    Left = 248
-    Height = 13
-    Top = 96
-    Width = 83
-    Caption = 'Versandkosten'
-    ParentColor = False
-  end
-  object eSupplierTransportPrice: TDBEdit[5]
-    Left = 383
-    Height = 23
-    Top = 92
-    Width = 56
-    DataField = 'TRANSPORT'
-    DataSource = Supplier
-    CharCase = ecNormal
-    MaxLength = 0
-    TabOrder = 2
-  end
-  object cbSupplierTransportCurrency: TDBComboBox[6]
-    Left = 445
-    Height = 27
-    Top = 92
-    Width = 66
-    DataField = 'TRANSCUR'
-    DataSource = Supplier
-    ItemHeight = 0
-    MaxLength = 0
-    TabOrder = 3
-  end
-  object lPrices: TLabel[7]
-    Left = 248
-    Height = 13
-    Top = 136
-    Width = 35
-    Caption = 'Preise'
-    ParentColor = False
-  end
-  object gSupplierPrices: TDBGrid[8]
-    Left = 248
-    Height = 259
-    Top = 154
-    Width = 322
-    AlternateColor = 16770790
-    Anchors = [akTop, akLeft, akRight, akBottom]
-    BorderStyle = bsNone
-    Color = clWindow
-    Columns = <    
-      item
-        Title.Caption = 'von'
-        Width = 70
-        FieldName = 'FROMUNIT'
-      end    
-      item
-        Title.Caption = 'Mengeneinheit'
-        Width = 65
-        FieldName = 'QUANTITYU'
-      end    
-      item
-        Title.Caption = 'Rabatt'
-        Width = 50
-        FieldName = 'DISCOUNT'
-      end    
-      item
-        Title.Caption = 'Preis'
-        Width = 60
-        FieldName = 'PRICE'
-      end    
-      item
-        Title.Caption = 'Währung'
-        Width = 50
-        FieldName = 'CURRENCY'
-      end>
-    DataSource = SupplierPrices
-    TabOrder = 4
-    TitleStyle = tsNative
-  end
-  object gSupplier: TDBGrid[9]
-    Left = 52
-    Height = 381
-    Top = 29
-    Width = 184
-    Align = alLeft
-    AlternateColor = 16770790
-    BorderSpacing.Around = 8
-    BorderStyle = bsNone
-    Color = clWindow
-    Columns = <    
-      item
-        Title.Caption = 'Name'
-        Width = 150
-        FieldName = 'NAME'
-      end>
-    DataSource = Supplier
-    ReadOnly = True
-    TabOrder = 5
-    TitleStyle = tsNative
-    OnDragDrop = gSupplierDragDrop
-    OnDragOver = gSupplierDragOver
-  end
-  object Panel1: TPanel[10]
+  object pToolbar: TPanel[0]
     Left = 0
-    Height = 389
-    Top = 29
+    Height = 387
+    Top = 31
     Width = 44
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 389
+    ClientHeight = 387
     ClientWidth = 44
-    TabOrder = 6
+    TabOrder = 0
     object Panel2: TPanel
       Left = 0
       Height = 156
@@ -205,7 +65,6 @@ inherited fArticleSupplierFrame: TfArticleSupplierFrame
         ChildSizing.ControlsPerLine = 100
         ClientHeight = 139
         ClientWidth = 24
-        DataSource = Supplier
         Direction = nbdVertical
         Options = []
         TabOrder = 0
@@ -213,9 +72,9 @@ inherited fArticleSupplierFrame: TfArticleSupplierFrame
       end
     end
   end
-  object lDelivertime1: TLabel[11]
+  object lDelivertime1: TLabel[1]
     Left = 8
-    Height = 13
+    Height = 15
     Top = 8
     Width = 565
     Align = alTop
@@ -227,12 +86,161 @@ inherited fArticleSupplierFrame: TfArticleSupplierFrame
     ParentFont = False
     Transparent = False
   end
-  object Supplier: TDatasource[12]
-    left = 89
-    top = 87
+  object Panel1: TPanel[2]
+    Left = 44
+    Height = 387
+    Top = 31
+    Width = 537
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 387
+    ClientWidth = 537
+    TabOrder = 1
+    object gSupplier: TDBGrid
+      Left = 8
+      Height = 371
+      Top = 8
+      Width = 184
+      Align = alLeft
+      AlternateColor = 16770790
+      BorderSpacing.Around = 8
+      BorderStyle = bsNone
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'Name'
+          Width = 150
+          FieldName = 'NAME'
+        end>
+      DataSource = Supplier
+      ReadOnly = True
+      TabOrder = 0
+      TitleStyle = tsNative
+      OnDragDrop = gSupplierDragDrop
+      OnDragOver = gSupplierDragOver
+    end
+    object lDelivertime: TLabel
+      Left = 248
+      Height = 15
+      Top = 36
+      Width = 54
+      Caption = 'Lieferzeit'
+      ParentColor = False
+    end
+    object eDelivertime: TDBEdit
+      Left = 439
+      Height = 25
+      Top = 30
+      Width = 72
+      DataField = 'DELIVERTM'
+      DataSource = Supplier
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object eArticleNumberSupplier: TDBEdit
+      Left = 383
+      Height = 25
+      Top = 60
+      Width = 128
+      DataField = 'EID'
+      DataSource = Supplier
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 2
+    end
+    object lArticleNumberSupplier: TLabel
+      Left = 248
+      Height = 15
+      Top = 64
+      Width = 90
+      Caption = 'Artikelnummer'
+      ParentColor = False
+    end
+    object lTransportSupplier: TLabel
+      Left = 248
+      Height = 15
+      Top = 96
+      Width = 88
+      Caption = 'Versandkosten'
+      ParentColor = False
+    end
+    object eSupplierTransportPrice: TDBEdit
+      Left = 383
+      Height = 25
+      Top = 92
+      Width = 56
+      DataField = 'TRANSPORT'
+      DataSource = Supplier
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 3
+    end
+    object cbSupplierTransportCurrency: TDBComboBox
+      Left = 445
+      Height = 27
+      Top = 92
+      Width = 66
+      DataField = 'TRANSCUR'
+      DataSource = Supplier
+      ItemHeight = 0
+      MaxLength = 0
+      TabOrder = 4
+    end
+    object lPrices: TLabel
+      Left = 248
+      Height = 15
+      Top = 136
+      Width = 35
+      Caption = 'Preise'
+      ParentColor = False
+    end
+    object gSupplierPrices: TDBGrid
+      Left = 215
+      Height = 259
+      Top = 128
+      Width = 322
+      AlternateColor = 16770790
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      BorderStyle = bsNone
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'von'
+          Width = 70
+          FieldName = 'FROMUNIT'
+        end      
+        item
+          Title.Caption = 'Mengeneinheit'
+          Width = 65
+          FieldName = 'QUANTITYU'
+        end      
+        item
+          Title.Caption = 'Rabatt'
+          Width = 50
+          FieldName = 'DISCOUNT'
+        end      
+        item
+          Title.Caption = 'Preis'
+          Width = 60
+          FieldName = 'PRICE'
+        end      
+        item
+          Title.Caption = 'Währung'
+          Width = 50
+          FieldName = 'CURRENCY'
+        end>
+      DataSource = SupplierPrices
+      TabOrder = 5
+      TitleStyle = tsNative
+    end
   end
-  object SupplierPrices: TDatasource[13]
-    left = 322
-    top = 242
+  object Supplier: TDatasource[3]
+    left = 117
+    top = 115
+  end
+  object SupplierPrices: TDatasource[4]
+    left = 350
+    top = 270
   end
 end
