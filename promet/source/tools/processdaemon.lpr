@@ -360,12 +360,12 @@ begin
     Title := 'Processdaemon';
     EventLog.DefaultEventType := etDebug;
     EventLog.AppendContent := false;
-    {$ifndef unix}
     EventLog.LogType := ltFile;
+    {$ifndef unix}
     EventLog.FileName := ChangeFileExt(ParamStr(0), '.log');
     {$else}
     EventLog.LogType := ltSystem;
-    //EventLog.FileName := '/var/log/'+ExtractFileName(ChangeFileExt(ParamStr(0), '.log'));
+    EventLog.FileName := '/var/log/'+ExtractFileName(ChangeFileExt(ParamStr(0), '.log'));
     {$endif}
     Initialize;
     Run;

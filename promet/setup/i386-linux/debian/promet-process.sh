@@ -13,7 +13,7 @@
 # Promet Process Service
 
 SVC_START_OPTIONS="-r"
-SVC_STOP_OPTIONS="s"
+SVC_STOP_OPTIONS="-s"
 SVC_ALIAS="Service to execute Promet services"
 SVC_FILENAME="promet-process"
 SVC_DIR="/usr/lib/promet-erp/tools/"
