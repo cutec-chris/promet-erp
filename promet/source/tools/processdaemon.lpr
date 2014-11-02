@@ -190,7 +190,10 @@ begin
   aFileDir := GetGlobalConfigDir('prometerp',False);
   if (aFiledir='/')
   or (aFileDir='') then
-    aFileDir := '/root/.prometerp/';
+    begin
+      aFileDir := '/root/.prometerp/';
+      aPath := '/root/.prometerp/';
+    end;
   Application.Log(etDebug, 'Thread.FileDir:'+aFileDir);
   If FindFirst (aFileDir+'*.perml',faAnyFile,aInfo)=0 then
     begin
