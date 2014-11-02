@@ -23,7 +23,7 @@ object fOrderAddress: TfOrderAddress
       Left = 4
       Height = 29
       Top = 4
-      Width = 196
+      Width = 192
       Align = alTop
       BorderSpacing.Around = 4
       ItemHeight = 0
@@ -34,9 +34,9 @@ object fOrderAddress: TfOrderAddress
     end
     object mAddress: TMemo
       Left = 4
-      Height = 57
+      Height = 53
       Top = 37
-      Width = 196
+      Width = 192
       Align = alClient
       BorderSpacing.Around = 4
       Font.Color = clSilver

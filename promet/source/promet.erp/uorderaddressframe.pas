@@ -369,6 +369,10 @@ begin
   cbType.Enabled := Editable;
   bAdressNew1.Enabled:=Editable;
   bAddressDelete1.Enabled:=Editable;
+  with Application as IBaseDbInterface do
+    if DBConfig.ReadBoolean('TBLEFT',True) then
+      pToolbar.Align:=alLeft
+    else pToolbar.Align:=alRight;
 end;
 function TfOrderAddress.GotoAddress : Boolean;
 begin

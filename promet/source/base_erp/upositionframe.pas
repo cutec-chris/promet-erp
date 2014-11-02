@@ -259,7 +259,10 @@ begin
         begin
           if not pSearch.Visible then
             begin
-              pSearch.Left:=pToolbar.Width+X;
+              if pToolbar.Align=alLeft then
+                pSearch.Left:=pToolbar.Width+X
+              else
+                pSearch.Left:=X;
               pSearch.Top:=Y;
             end;
           if Assigned(ActiveSearch) then

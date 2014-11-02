@@ -70,6 +70,7 @@ inherited fPosition: TfPosition
           AutoSize = True
           Caption = 'tbPosition'
           EdgeBorders = []
+          Flat = False
           Images = fVisualControls.Images
           TabOrder = 0
           object ToolButton1: TToolButton
@@ -147,6 +148,7 @@ inherited fPosition: TfPosition
           AutoSize = True
           Caption = 'ToolBar1'
           EdgeBorders = []
+          Flat = False
           Images = fVisualControls.Images
           TabOrder = 0
           object ToolButton7: TToolButton
@@ -214,6 +216,7 @@ inherited fPosition: TfPosition
           AutoSize = True
           Caption = 'ToolBar1'
           EdgeBorders = []
+          Flat = False
           Images = fVisualControls.Images
           TabOrder = 0
           object ToolButton2: TToolButton
