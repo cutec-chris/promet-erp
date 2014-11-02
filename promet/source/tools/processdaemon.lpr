@@ -207,9 +207,9 @@ begin
   ChDir(Application.Location);
   aProcess.CurrentDirectory:=Application.Location;
   if aPath = '' then
-    aProcess.CommandLine:='processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant
+    aProcess.CommandLine:=Application.Location+'processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant
   else
-    aProcess.CommandLine:='processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant+' --config-path='+aPath;
+    aProcess.CommandLine:=Application.Location+'processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant+' --config-path='+aPath;
   aProcess.Options:=[poUsePipes,poNoConsole];
   Application.Log(etDebug, 'Executing:'+aProcess.CommandLine);
   while not Terminated do
