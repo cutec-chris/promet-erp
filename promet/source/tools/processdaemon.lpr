@@ -364,7 +364,6 @@ begin
     {$ifndef unix}
     EventLog.FileName := ChangeFileExt(ParamStr(0), '.log');
     {$else}
-    EventLog.LogType := ltSystem;
     EventLog.FileName := '/var/log/'+ExtractFileName(ChangeFileExt(ParamStr(0), '.log'));
     {$endif}
     Initialize;

@@ -285,6 +285,8 @@ var
     aNotFoundProp.Free;
   end;
   procedure RecourseFilter(aNode : TDOMNode);
+  var
+    b: Integer;
   begin
     if pos(':vevent',lowercase(aNode.NodeName))>0 then
 
