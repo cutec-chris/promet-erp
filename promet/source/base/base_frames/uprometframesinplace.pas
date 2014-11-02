@@ -38,12 +38,15 @@ type
   end;
 implementation
 {$R *.lfm}
-
+uses uBaseDBInterface;
 { TPrometInplaceFrame }
 
 procedure TPrometInplaceFrame.ArrangeToolBar(Control: TPanel;ActionList : TActionList;aName: string);
 begin
-  Control.Align:=alRight;
+  with Application as IBaseDbInterface do
+    if DBConfig.ReadBoolean('TBLEFT',True) then
+      Control.Align:=alLeft
+    else Control.Align:=alRight;
 end;
 
 end.

@@ -44,24 +44,13 @@ type
     acPermanentEditorMode: TAction;
     acSum: TAction;
     acDiscount: TAction;
+    acViewTexts: TAction;
+    acViewDetails: TAction;
     acUnMakeSebPos: TAction;
     ActionList1: TActionList;
-    bAddPos: TSpeedButton;
-    bAddPos1: TSpeedButton;
-    bDeletePos: TSpeedButton;
-    bDeletePos7: TSpeedButton;
-    bLvlDown: TSpeedButton;
-    bLvlUp: TSpeedButton;
-    bDeletePos6: TSpeedButton;
-    bDetailsVisible: TSpeedButton;
-    bEnterTime: TSpeedButton;
-    bGotoArticle: TSpeedButton;
     Bevel1: TBevel;
     Bevel2: TBevel;
     Bevel4: TBevel;
-    bRefresh1: TSpeedButton;
-    bPermanentEditor: TSpeedButton;
-    bRowDetails: TSpeedButton;
     Datasource1: TDatasource;
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel2: TExtRotatedLabel;
@@ -81,6 +70,9 @@ type
     Panel2: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
     pmPosition: TPopupMenu;
     pSearch: TPanel;
     TabTimer: TIdleTimer;
@@ -88,6 +80,18 @@ type
     pDetail: TPanel;
     pToolbar: TPanel;
     spDetails: TSplitter;
+    tbAnsicht1: TToolBar;
+    tbPosition: TToolBar;
+    tbAnsicht: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
+    ToolButton8: TToolButton;
+    ToolButton9: TToolButton;
     tsDetails: TTabSheet;
     procedure acAddfromArticleExecute(Sender: TObject);
     procedure acAddPosExecute(Sender: TObject);
@@ -103,9 +107,9 @@ type
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
       aStatus: string;aActive : Boolean; aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
     procedure acUnMakeSebPosExecute(Sender: TObject);
+    procedure acViewDetailsExecute(Sender: TObject);
+    procedure acViewTextsExecute(Sender: TObject);
     procedure AddCalcTab(Sender: TObject);
-    procedure bDetailsVisibleClick(Sender: TObject);
-    procedure bRowDetailsClick(Sender: TObject);
     procedure Datasource1DataChange(Sender: TObject; Field: TField);
     procedure Datasource1StateChange(Sender: TObject);
     procedure DoAsyncInit(Data: PtrInt);
@@ -190,7 +194,7 @@ begin
 end;
 procedure TfPosition.FGridViewCellChanging(Sender: TObject);
 begin
-  if bDetailsVisible.Down then
+  if acViewTexts.Checked then
     TabTimer.Enabled:=True;
 end;
 procedure TfPosition.FGridViewCellChanged(Sender: TObject; NewCell,
@@ -376,14 +380,14 @@ begin
       ;
     end;
   with Application as IBaseDBInterface do
-    bRowDetails.Down:= DBConfig.ReadString('RDET'+BaseName,'Y') = 'Y';
-  FGridView.UseDefaultRowHeight:=not bRowDetails.Down;
+    acViewTexts.Checked:= DBConfig.ReadString('RDET'+BaseName,'Y') = 'Y';
+  FGridView.UseDefaultRowHeight:=not acViewTexts.Checked;
   FGridView.CalculateRowHeights;
   with Application as IBaseDBInterface do
     begin
-      bDetailsVisible.Down:= DBConfig.ReadString('DVIS'+BaseName,'N') = 'Y';
+      acViewDetails.Checked:= DBConfig.ReadString('DVIS'+BaseName,'N') = 'Y';
     end;
-  bDetailsVisibleClick(nil);
+  acViewDetailsExecute(nil);
   acDelPos.Enabled := acAddPos.Enabled and (FGridView.Count > 0);
 end;
 function TfPosition.fSearchOpenItem(aLink: string): Boolean;
@@ -562,19 +566,13 @@ begin
   FGridView.UnSetChild;
 end;
 
-procedure TfPosition.AddCalcTab(Sender: TObject);
+procedure TfPosition.acViewDetailsExecute(Sender: TObject);
 begin
-  TfCalcPositionFrame(Sender).DataSet := FDataset;
-  TfCalcPositionFrame(Sender).TabCaption:=strCalc;
-end;
-
-procedure TfPosition.bDetailsVisibleClick(Sender: TObject);
-begin
-  bDetailsVisible.Enabled:=False;
+  acViewDetails.Enabled:=False;
   if Assigned(Sender) then
     Application.ProcessMessages;
-  pDetail.Visible:=bDetailsVisible.Down;
-  spDetails.Visible:=bDetailsVisible.Down;
+  pDetail.Visible:=acViewDetails.Checked;
+  spDetails.Visible:=acViewDetails.Checked;
   if spDetails.Visible then
     begin
       spDetails.Top:=pDetail.Top-1;
@@ -588,35 +586,42 @@ begin
   else
     with Application as IBaseDbInterface do
       DBConfig.WriteString('DVIS'+BaseName,'N');
-  bDetailsVisible.Enabled:=True;
+  acViewDetails.Enabled:=True;
 end;
-procedure TfPosition.bRowDetailsClick(Sender: TObject);
+
+procedure TfPosition.acViewTextsExecute(Sender: TObject);
 begin
-  bRowDetails.Enabled:=False;
+  acViewTexts.Enabled:=False;
   if Sender <> nil then
     Application.ProcessMessages;
-  FGridView.UseDefaultRowHeight := not bRowDetails.Down;
+  FGridView.UseDefaultRowHeight := not acViewTexts.Checked;
   with Application as IBaseDbInterface do
     begin
-      if bRowDetails.Down then
+      if acViewTexts.Checked then
         DBConfig.WriteString('RDET'+BaseName,'Y')
       else
         DBConfig.WriteString('RDET'+BaseName,'N');
     end;
-  bRowDetails.Enabled:=True;
+  acViewTexts.Enabled:=True;
+end;
+
+procedure TfPosition.AddCalcTab(Sender: TObject);
+begin
+  TfCalcPositionFrame(Sender).DataSet := FDataset;
+  TfCalcPositionFrame(Sender).TabCaption:=strCalc;
 end;
 
 procedure TfPosition.Datasource1DataChange(Sender: TObject; Field: TField);
 begin
   if not Assigned(Field) then exit;
   if Field.FieldName='POSTYP' then
-    if (bDetailsVisible.Down) and (not DataSet.DataSet.ControlsDisabled) then
+    if (acViewDetails.Checked) and (not DataSet.DataSet.ControlsDisabled) then
       TabTimer.Enabled:=True;
 end;
 
 procedure TfPosition.Datasource1StateChange(Sender: TObject);
 begin
-  if (bDetailsVisible.Down) and Assigned(FDataSet) and (not DataSet.DataSet.ControlsDisabled) and (FDataset.State=dsInsert) then
+  if (acViewDetails.Checked) and Assigned(FDataSet) and (not DataSet.DataSet.ControlsDisabled) and (FDataset.State=dsInsert) then
     TabTimer.Enabled:=True;
 end;
 
@@ -693,7 +698,7 @@ var
 begin
   if DataSet.DataSet.ControlsDisabled then exit;
   TabTimer.Enabled:=False;
-  if bDetailsVisible.Down then
+  if acViewDetails.Checked then
     begin
       NewVisible:=False;
       if FGridView.GotoActiveRow then
@@ -735,7 +740,6 @@ begin
   else Datasource1.DataSet := nil;
   with Application as IBaseDBInterface do
     acPermanentEditormode.Checked:= DBConfig.ReadString('EPOSVIS','N') = 'Y';
-  bPermanentEditor.Down:=acPermanentEditormode.Checked;
 end;
 procedure TfPosition.SetBaseName(AValue: string);
 begin

@@ -10,7 +10,7 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="18">
+    <Files Count="19">
       <Item1>
         <Filename Value="umandantoptions.lfm"/>
         <Type Value="LFM"/>
@@ -68,8 +68,8 @@
         <Type Value="LFM"/>
       </Item14>
       <Item15>
-        <Filename Value="uuserfielddefoptions.pas"/>
-        <UnitName Value="uUserfieldDefOptions"/>
+        <Filename Value="uvisualoptions.pas"/>
+        <UnitName Value="uvisualoptions"/>
       </Item15>
       <Item16>
         <Filename Value="uimportoptions.pas"/>
@@ -81,8 +81,12 @@
       </Item17>
       <Item18>
         <Filename Value="uscriptoptions.pas"/>
-        <UnitName Value="uscriptoptions"/>
+        <UnitName Value="uScriptOptions"/>
       </Item18>
+      <Item19>
+        <Filename Value="uuserfielddefoptions.pas"/>
+        <UnitName Value="uUserfieldDefOptions"/>
+      </Item19>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="3">

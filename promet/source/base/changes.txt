@@ -1,4 +1,6 @@
-﻿Build 378
+﻿Build 379
+      -
+Build 378
       - Scripte:netzwerkfunktionen
       - Scripte:dll erweiterungen voll funktionstüchtig
       - Kalendar:einige korrekturen am Zeichnen

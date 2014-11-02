@@ -8,8 +8,8 @@ interface
 
 uses
   uMandantOptions, uOptions, uOptionsFrame, uProcessOptions, uuseroptions, 
-  uSyncOptions, uUserfieldDefOptions, uimportoptions, upaygroups, 
-  uScriptOptions, LazarusPackageIntf;
+  uSyncOptions, uvisualoptions, uimportoptions, upaygroups, uScriptOptions, 
+  uUserfieldDefOptions, LazarusPackageIntf;
 
 implementation
 

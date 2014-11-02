@@ -245,7 +245,10 @@ end;
 procedure TPrometMainFrame.ArrangeToolBar(Control: TPanel;
   ActionList: TActionList; aName: string);
 begin
-  Control.Align:=alRight;
+  with Application as IBaseDbInterface do
+    if DBConfig.ReadBoolean('TBLEFT',True) then
+      Control.Align:=alLeft
+    else Control.Align:=alRight;
 end;
 
 procedure TPrometMainFrame.AddHelp(aWindow: TWinControl);

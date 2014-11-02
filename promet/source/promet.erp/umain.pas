@@ -332,7 +332,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   uOptions,uUserOptions,uMandantOptions,uSystemOptions,uStateOptions,uCategoryOptions,uOrderTypeOptions,
   uUserFieldDefOptions,uStorageTypeOptions,uCurrencyOptions,uLanguageOptions,
   uRepairOptions, uSyncOptions, uDocumentOptions, uPhoneOptions, uMailOptions,
-  uScriptOptions,
+  uScriptOptions,uvisualoptions,
   uHelpContainer,uProjects,uProjectFrame,Math,uSkypePhone,LCLIntf,uWiki,
   uTask,uDocumentProcess,uDocumentFrame,uPrometFramesInplaceDB,uInfo,
   uProcessOptions,Utils,uBaseERPDBClasses,umaintasks,utasks,uTaskEdit,LCLProc,
@@ -365,6 +365,7 @@ resourcestring
   strRepair                     = 'Reparatur';
   strPhones                     = 'Telefonie';
   strMessageAccounts            = 'Nachrichtenkonten';
+  strVisualOptions              = 'Ansichtsoptionen';
   strSearchText                 = '<hier tippen um zu suchen>';
   strProcessesOpen              = 'Es sind noch Dateien offen (Dateiverwaltung), wirklich schließen ?';
   strMessageOpen                = 'Es sind noch Nachrichten offen (e-Mail), wirklich schließen ?';
@@ -3652,6 +3653,7 @@ begin
   Application.ProcessMessages;
   if not (miOptions.Tag=1) then
     begin
+      fOptions.RegisterOptionsFrame(TfVisualOptions.Create(fOptions),strVisualOptions,strPersonalOptions);
       fOptions.RegisterOptionsFrame(TfMessageOptions.Create(fOptions),strMessageAccounts,strPersonalOptions);
       fOptions.RegisterOptionsFrame(TfDocumentOptions.Create(fOptions),strFiles,strPersonalOptions);
       fOptions.RegisterOptionsFrame(TfPhoneOptions.Create(fOptions),strPhones,strPersonalOptions);
