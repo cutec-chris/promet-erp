@@ -188,6 +188,9 @@ var
 begin
   Application.Log(etDebug, 'Thread.Execute');
   aFileDir := GetGlobalConfigDir('prometerp',False);
+  if (aFiledir='/')
+  or (aFileDir='') then
+    aFileDir := '/root/.prometerp/';
   Application.Log(etDebug, 'Thread.FileDir:'+aFileDir);
   If FindFirst (aFileDir+'*.perml',faAnyFile,aInfo)=0 then
     begin
