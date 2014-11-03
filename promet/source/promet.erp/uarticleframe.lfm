@@ -182,6 +182,7 @@ inherited fArticleFrame: TfArticleFrame
         Width = 24
         Action = acSetTreeDir
         BorderSpacing.InnerBorder = 2
+        Flat = True
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
           1800000000000003000064000000640000000000000000000000FFFFFFFFFFFF
@@ -220,6 +221,7 @@ inherited fArticleFrame: TfArticleFrame
         Width = 24
         Action = acShowTreeDir
         BorderSpacing.InnerBorder = 2
+        Flat = True
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
           1800000000000003000064000000640000000000000000000000FFFFFFFFFFFF
@@ -597,6 +599,7 @@ inherited fArticleFrame: TfArticleFrame
         Top = 12
         Width = 28
         Action = acSave
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -641,6 +644,7 @@ inherited fArticleFrame: TfArticleFrame
         Top = 12
         Width = 32
         Action = acCancel
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -721,6 +725,7 @@ inherited fArticleFrame: TfArticleFrame
         Hint = 'zusätzliche Optionen'#10'(Menü)'
         Top = 12
         Width = 32
+        Flat = True
         Glyph.Data = {
           36090000424D3609000000000000360000002800000018000000180000000100
           2000000000000009000064000000640000000000000000000000FFFFFF00FFFF
@@ -849,15 +854,14 @@ inherited fArticleFrame: TfArticleFrame
         TabOrder = 0
         TabStop = False
       end
-      object bChangeNumber: TButton
+      object bChangeNumber: TSpeedButton
         Left = 116
         Height = 22
-        Top = 12
+        Top = 16
         Width = 39
         Caption = '...'
+        Flat = True
         OnClick = bChangeNumberClick
-        TabOrder = 1
-        TabStop = False
       end
     end
     object Panel8: TPanel
@@ -993,6 +997,7 @@ inherited fArticleFrame: TfArticleFrame
         Top = 3
         Width = 36
         Action = acPrint
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF

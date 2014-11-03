@@ -52,18 +52,18 @@ inherited fMessageFrame: TfMessageFrame
           Left = 0
           Height = 60
           Top = 20
-          Width = 44
+          Width = 40
           Align = alTop
           BorderSpacing.Top = 20
           BevelOuter = bvNone
           ClientHeight = 60
-          ClientWidth = 44
+          ClientWidth = 40
           TabOrder = 0
           object Bevel1: TBevel
             Left = 4
             Height = 4
             Top = 0
-            Width = 36
+            Width = 32
             Align = alTop
             BorderSpacing.Left = 4
             BorderSpacing.Right = 4
@@ -91,6 +91,7 @@ inherited fMessageFrame: TfMessageFrame
             Width = 26
             Action = acAnswer
             BorderSpacing.InnerBorder = 2
+            Flat = True
             Glyph.Data = {
               36040000424D3604000000000000360000002800000010000000100000000100
               2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -140,6 +141,7 @@ inherited fMessageFrame: TfMessageFrame
             Width = 26
             Action = acForward
             BorderSpacing.InnerBorder = 2
+            Flat = True
             Glyph.Data = {
               36040000424D3604000000000000360000002800000010000000100000000100
               2000000000000004000064000000640000000000000000000000FFFFFFFFFFFF
@@ -186,17 +188,17 @@ inherited fMessageFrame: TfMessageFrame
           Left = 0
           Height = 52
           Top = 80
-          Width = 44
+          Width = 40
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 52
-          ClientWidth = 44
+          ClientWidth = 40
           TabOrder = 1
           object Bevel2: TBevel
             Left = 4
             Height = 4
             Top = 0
-            Width = 36
+            Width = 32
             Align = alTop
             BorderSpacing.Left = 4
             BorderSpacing.Right = 4
@@ -223,6 +225,7 @@ inherited fMessageFrame: TfMessageFrame
             Width = 26
             Action = acCreateContact
             BorderSpacing.InnerBorder = 2
+            Flat = True
             Glyph.Data = {
               36040000424D3604000000000000360000002800000010000000100000000100
               2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -269,17 +272,17 @@ inherited fMessageFrame: TfMessageFrame
           Left = 0
           Height = 60
           Top = 132
-          Width = 44
+          Width = 40
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 60
-          ClientWidth = 44
+          ClientWidth = 40
           TabOrder = 2
           object Bevel3: TBevel
             Left = 4
             Height = 4
             Top = 0
-            Width = 36
+            Width = 32
             Align = alTop
             BorderSpacing.Left = 4
             BorderSpacing.Right = 4
@@ -307,6 +310,7 @@ inherited fMessageFrame: TfMessageFrame
             Width = 26
             Action = acPrint
             BorderSpacing.InnerBorder = 2
+            Flat = True
             Glyph.Data = {
               36040000424D3604000000000000360000002800000010000000100000000100
               2000000000000004000064000000640000000000000000000000000000000000

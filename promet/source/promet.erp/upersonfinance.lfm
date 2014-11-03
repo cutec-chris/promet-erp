@@ -1,7 +1,5 @@
 inherited fPersonFinance: TfPersonFinance
-  Left = 0
   Height = 316
-  Top = 0
   Width = 602
   ClientHeight = 316
   ClientWidth = 602
@@ -9,36 +7,36 @@ inherited fPersonFinance: TfPersonFinance
   DesignTop = 250
   object lCurrency: TLabel[0]
     Left = 56
-    Height = 13
+    Height = 15
     Top = 10
-    Width = 44
+    Width = 55
     Caption = 'Währung'
     ParentColor = False
   end
   object cbCurrency: TExtDBCombobox[1]
     Left = 163
-    Height = 21
+    Height = 27
     Hint = 'setzt eine Standardwährung für den Kontakt mit der jeder Vorgang für den Kontakt vorbelegt wird'
     Top = 10
     Width = 80
     DataField = 'CURRENCY'
     DataSource = Customer
-    ItemHeight = 13
+    ItemHeight = 0
     MaxLength = 0
     Sorted = True
     TabOrder = 0
   end
   object lDiscont: TLabel[2]
     Left = 56
-    Height = 13
+    Height = 15
     Top = 46
-    Width = 33
+    Width = 40
     Caption = 'Rabatt'
     ParentColor = False
   end
   object eDiscont: TDBEdit[3]
     Left = 163
-    Height = 21
+    Height = 25
     Hint = 'setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden'
     Top = 46
     Width = 80
@@ -50,53 +48,53 @@ inherited fPersonFinance: TfPersonFinance
   end
   object lDiscontGroup: TLabel[4]
     Left = 56
-    Height = 13
+    Height = 15
     Top = 82
-    Width = 67
+    Width = 84
     Caption = 'Rabattgruppe'
     ParentColor = False
   end
   object cbDiscontGroup: TExtDBCombobox[5]
     Left = 163
-    Height = 21
+    Height = 27
     Hint = 'setzt eine Rabattgruppe für den Kontakt'
     Top = 82
     Width = 249
     Anchors = [akTop, akLeft, akRight]
     DataField = 'DISCOUNTGR'
     DataSource = Customer
-    ItemHeight = 13
+    ItemHeight = 0
     MaxLength = 0
     Sorted = True
     TabOrder = 2
   end
   object lPaymenttarget: TLabel[6]
     Left = 56
-    Height = 13
+    Height = 15
     Top = 118
-    Width = 58
+    Width = 75
     Caption = 'Zahlungsziel'
     ParentColor = False
   end
   object cbPaymenttarget: TExtDBCombobox[7]
     Left = 163
-    Height = 21
+    Height = 27
     Hint = 'setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden'
     Top = 118
     Width = 249
     Anchors = [akTop, akLeft, akRight]
     DataField = 'PAYMENTTAR'
     DataSource = Customer
-    ItemHeight = 13
+    ItemHeight = 0
     MaxLength = 0
     Sorted = True
     TabOrder = 3
   end
   object lBanking: TLabel[8]
     Left = 56
-    Height = 13
+    Height = 15
     Top = 154
-    Width = 89
+    Width = 115
     Caption = 'Bankverbindungen'
     ParentColor = False
   end
@@ -170,8 +168,7 @@ inherited fPersonFinance: TfPersonFinance
         Caption = 'Navigation'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -191,6 +188,7 @@ inherited fPersonFinance: TfPersonFinance
         ClientWidth = 24
         DataSource = Banking
         Direction = nbdVertical
+        Flat = True
         Options = []
         TabOrder = 0
         VisibleButtons = [nbInsert, nbDelete, nbPost]
@@ -227,8 +225,7 @@ inherited fPersonFinance: TfPersonFinance
         Caption = 'Bank'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -238,6 +235,7 @@ inherited fPersonFinance: TfPersonFinance
         Hint = 'erstellt eine Überweisung an die gewählte Bankverbindung / den Kontakt'
         Top = 4
         Width = 24
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -283,6 +281,7 @@ inherited fPersonFinance: TfPersonFinance
         Hint = 'prüft die Bankverbindung auf Gültigkeit'
         Top = 27
         Width = 24
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -324,11 +323,11 @@ inherited fPersonFinance: TfPersonFinance
       end
     end
   end
-  object Customer: TDataSource[11]
+  object Customer: TDatasource[11]
     left = 440
     top = 32
   end
-  object Banking: TDataSource[12]
+  object Banking: TDatasource[12]
     left = 440
     top = 88
   end

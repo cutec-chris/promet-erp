@@ -111,6 +111,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Width = 26
         AllowAllUp = True
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -189,6 +190,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Width = 24
         Action = acRefresh
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00A465
@@ -233,6 +235,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Height = 24
         Top = 15
         Width = 24
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -276,6 +279,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Height = 24
         Top = 15
         Width = 24
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -325,6 +329,7 @@ inherited fManageDocFrame: TfManageDocFrame
       BorderSpacing.Around = 4
       Caption = 'acShowDetail'
       Down = True
+      Flat = True
       Glyph.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
         2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -405,6 +410,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Width = 24
         AllowAllUp = True
         Caption = 'acSetTag'
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -454,6 +460,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Width = 24
         AllowAllUp = True
         Caption = 'acSetTag'
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF008484
@@ -592,6 +599,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Width = 24
         Action = acSaveAll
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -638,6 +646,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Width = 24
         Action = acSave
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000BA6A368FB969
@@ -716,6 +725,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Top = 15
         Width = 24
         Action = acImport
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -761,6 +771,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Top = 15
         Width = 24
         Action = acImageImport
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           20000000000000040000640000006400000000000000000000002C86D8702D88
@@ -806,6 +817,7 @@ inherited fManageDocFrame: TfManageDocFrame
         Top = 15
         Width = 24
         Action = acFileImport
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000

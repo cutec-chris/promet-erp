@@ -516,6 +516,7 @@ begin
     begin
       aButton := TSpeedButton.Create(pButtons);
       aButton.Glyph := nil;
+      aButton.Flat:=True;
       fVisualControls.HistoryImages.GetBitmap(i,AButton.Glyph);
       aButton.Tag:=i;
       aButton.GroupIndex:=100+i;

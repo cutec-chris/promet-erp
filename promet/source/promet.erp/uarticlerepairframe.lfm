@@ -43,6 +43,7 @@ inherited FArticlerepairFrame: TFArticlerepairFrame
     ClientWidth = 24
     DataSource = Assembly
     Direction = nbdVertical
+    Flat = True
     Options = []
     TabOrder = 1
     VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
@@ -86,6 +87,7 @@ inherited FArticlerepairFrame: TFArticlerepairFrame
     ClientWidth = 24
     DataSource = Part
     Direction = nbdVertical
+    Flat = True
     Options = []
     TabOrder = 3
     VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]

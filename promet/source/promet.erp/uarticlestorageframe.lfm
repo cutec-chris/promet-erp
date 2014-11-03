@@ -30,7 +30,7 @@ inherited fArticleStorageFrame: TfArticleStorageFrame
         Left = 4
         Height = 4
         Top = 0
-        Width = 32
+        Width = 28
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -38,7 +38,7 @@ inherited fArticleStorageFrame: TfArticleStorageFrame
       end
       object ExtRotatedLabel1: TExtRotatedLabel
         Left = 0
-        Height = 152
+        Height = 148
         Top = 4
         Width = 14
         Align = alLeft
@@ -66,6 +66,7 @@ inherited fArticleStorageFrame: TfArticleStorageFrame
         ClientWidth = 24
         DataSource = Datasource
         Direction = nbdVertical
+        Flat = True
         Options = []
         TabOrder = 0
         VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]

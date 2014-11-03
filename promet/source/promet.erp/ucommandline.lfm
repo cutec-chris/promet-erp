@@ -3,8 +3,8 @@ inherited fCommandline: TfCommandline
   Width = 678
   ClientHeight = 571
   ClientWidth = 678
-  DesignLeft = 446
-  DesignTop = 223
+  DesignLeft = 477
+  DesignTop = 163
   inline Output: TSynMemo[0]
     Cursor = crIBeam
     Left = 0

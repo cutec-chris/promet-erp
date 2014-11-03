@@ -44,7 +44,7 @@ type
     acScreenshot: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
-    bChangeNumber: TButton;
+    bChangeNumber: TSpeedButton;
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;

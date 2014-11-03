@@ -147,11 +147,12 @@ object fMain: TfMain
       object ToolButton2: TSpeedButton
         Left = 4
         Height = 36
-        Top = 8
-        Width = 36
+        Top = 9
+        Width = 35
         Action = acShowTree
         AllowAllUp = True
         Down = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -233,6 +234,7 @@ object fMain: TfMain
         Top = 15
         Width = 23
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -361,6 +363,7 @@ object fMain: TfMain
         Width = 29
         AllowAllUp = True
         Caption = 'acPauseTime'
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00A2A2
@@ -409,6 +412,7 @@ object fMain: TfMain
         Width = 29
         Action = acStandartTime
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00A2A2
@@ -491,6 +495,7 @@ object fMain: TfMain
         Width = 29
         Action = acNewOrder
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00BB6A
@@ -538,6 +543,7 @@ object fMain: TfMain
         Width = 29
         Action = acNewContact
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -585,6 +591,7 @@ object fMain: TfMain
         Width = 29
         Action = acNewMessage
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -632,6 +639,7 @@ object fMain: TfMain
         Width = 29
         Action = acNewTermin
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF008484

@@ -39,7 +39,7 @@ inherited fFilter: TfFilter
         TabOrder = 0
         object ExtRotatedLabel1: TLabel
           Left = 6
-          Height = 13
+          Height = 14
           Top = 0
           Width = 60
           Caption = 'Navigation'
@@ -64,6 +64,7 @@ inherited fFilter: TfFilter
           ClientHeight = 22
           ClientWidth = 71
           DataSource = List
+          Flat = True
           Options = []
           TabOrder = 0
           VisibleButtons = [nbFirst, nbLast, nbRefresh]
@@ -100,7 +101,7 @@ inherited fFilter: TfFilter
         end
         object ExtRotatedLabel2: TLabel
           Left = 6
-          Height = 13
+          Height = 14
           Top = 0
           Width = 72
           Caption = 'Ansicht/Filter'
@@ -113,7 +114,7 @@ inherited fFilter: TfFilter
         object cbFilter: TComboBox
           AnchorSideLeft.Side = asrBottom
           Left = 6
-          Height = 27
+          Height = 29
           Hint = 'hier können Sie eine vordefinierte Ansicht wählen'#10'Wenn Sie eine spezielle Ansicht/Sortierung benötigen wenden Sie sich an Ihren Administrator'
           Top = 12
           Width = 442
@@ -132,6 +133,7 @@ inherited fFilter: TfFilter
           Width = 26
           AllowAllUp = True
           Anchors = [akTop, akRight]
+          Flat = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -179,6 +181,7 @@ inherited fFilter: TfFilter
           Action = acCopyFilterLink
           AllowAllUp = True
           Anchors = [akTop, akRight]
+          Flat = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000000000000000
@@ -301,6 +304,7 @@ inherited fFilter: TfFilter
           Top = 4
           Width = 36
           Action = acPrint
+          Flat = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -354,9 +358,9 @@ inherited fFilter: TfFilter
       TabOrder = 1
       object cbMaxResults: TCheckBox
         Left = 9
-        Height = 24
+        Height = 22
         Top = 5
-        Width = 182
+        Width = 189
         Caption = 'Ergebnisse begrenzen auf  '
         Checked = True
         OnChange = seMaxresultsChange
@@ -380,6 +384,7 @@ inherited fFilter: TfFilter
         Width = 26
         Action = acSaveFilter
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -426,6 +431,7 @@ inherited fFilter: TfFilter
         Width = 26
         Action = acDeleteFilter
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -472,6 +478,7 @@ inherited fFilter: TfFilter
         Width = 26
         Action = acFilterRights
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00369D
@@ -512,9 +519,9 @@ inherited fFilter: TfFilter
       end
       object lFilterEdit: TLabel
         Left = 9
-        Height = 13
+        Height = 15
         Top = 33
-        Width = 86
+        Width = 95
         Caption = 'Filterbedingung'
         ParentColor = False
       end
@@ -530,7 +537,7 @@ inherited fFilter: TfFilter
       end
       object eFilterIn: TEdit
         Left = 421
-        Height = 23
+        Height = 25
         Hint = 'Wenn Sie über mehrere Tabellen Filtern '#13#10'möchten füllen Sie dieses Feld'#13#10'z.b.'#13#10'Orders,OrderPos'
         Top = 79
         Width = 127
@@ -548,8 +555,8 @@ inherited fFilter: TfFilter
       object seMaxresults: TSpinEdit
         AnchorSideLeft.Control = cbMaxResults
         AnchorSideLeft.Side = asrBottom
-        Left = 191
-        Height = 23
+        Left = 198
+        Height = 25
         Hint = 'hier können Sie die Zahl der maximalen Filterergebnisse angeben'
         Top = 5
         Width = 52
@@ -1058,6 +1065,7 @@ inherited fFilter: TfFilter
         Action = acDefaultFilter
         Anchors = [akTop, akRight]
         Caption = 'Standardansicht'
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1103,6 +1111,7 @@ inherited fFilter: TfFilter
         Width = 26
         Action = acFilter
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36090000424D3609000000000000360000002800000018000000180000000100
           2000000000000009000064000000640000000000000000000000000000000000

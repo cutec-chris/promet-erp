@@ -65,6 +65,7 @@ inherited fHistoryFrame: TfHistoryFrame
         Top = 4
         Width = 23
         Action = acAdd
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -109,6 +110,7 @@ inherited fHistoryFrame: TfHistoryFrame
         Top = 25
         Width = 23
         Action = acAddLinked
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -190,6 +192,7 @@ inherited fHistoryFrame: TfHistoryFrame
         Top = 4
         Width = 23
         Action = acDelete
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -234,6 +237,7 @@ inherited fHistoryFrame: TfHistoryFrame
         Top = 26
         Width = 23
         Action = acIgnore
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -275,13 +279,13 @@ inherited fHistoryFrame: TfHistoryFrame
     end
     object Panel4: TPanel
       Left = 0
-      Height = 452
+      Height = 448
       Top = 120
       Width = 40
       Align = alTop
       Anchors = [akTop, akLeft, akRight, akBottom]
       BevelOuter = bvNone
-      ClientHeight = 452
+      ClientHeight = 448
       ClientWidth = 40
       TabOrder = 2
       object Bevel3: TBevel
@@ -296,7 +300,7 @@ inherited fHistoryFrame: TfHistoryFrame
       end
       object ExtRotatedLabel3: TExtRotatedLabel
         Left = 0
-        Height = 448
+        Height = 444
         Top = 4
         Width = 14
         Align = alLeft
@@ -310,7 +314,7 @@ inherited fHistoryFrame: TfHistoryFrame
       end
       object pButtons: TPanel
         Left = 15
-        Height = 420
+        Height = 416
         Top = 32
         Width = 23
         Anchors = [akTop, akLeft, akBottom]
@@ -324,6 +328,7 @@ inherited fHistoryFrame: TfHistoryFrame
         Width = 24
         Action = acRefresh
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00A465

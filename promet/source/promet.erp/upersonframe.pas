@@ -48,7 +48,7 @@ type
     acCombineItems: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
-    bChangeNumber: TButton;
+    bChangeNumber: TSpeedButton;
     Bevel1: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;

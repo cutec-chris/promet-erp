@@ -13,8 +13,8 @@ object fHistoryAddItem: TfHistoryAddItem
   LCLVersion = '1.3'
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 34
-    Top = 203
+    Height = 42
+    Top = 195
     Width = 547
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -29,16 +29,16 @@ object fHistoryAddItem: TfHistoryAddItem
   end
   object lAction: TLabel
     Left = 8
-    Height = 13
+    Height = 15
     Top = 8
-    Width = 30
+    Width = 38
     Caption = 'Aktion'
     ParentColor = False
   end
   object lReference: TLabel
     Left = 8
-    Height = 13
-    Top = 146
+    Height = 15
+    Top = 144
     Width = 300
     Anchors = [akLeft, akRight, akBottom]
     Caption = 'Referenz'
@@ -46,8 +46,8 @@ object fHistoryAddItem: TfHistoryAddItem
   end
   object eReference: TEdit
     Left = 8
-    Height = 21
-    Top = 163
+    Height = 25
+    Top = 159
     Width = 383
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 1
@@ -71,8 +71,10 @@ object fHistoryAddItem: TfHistoryAddItem
     ItemHeight = 0
     OnDrawItem = lbAdditionalDrawItem
     OnSelectionChange = lbAdditionalSelectionChange
+    ScrollWidth = 155
     Style = lbOwnerDrawFixed
     TabOrder = 3
+    TopIndex = -1
   end
   object Label1: TLabel
     Left = 380
@@ -91,6 +93,7 @@ object fHistoryAddItem: TfHistoryAddItem
     Top = 136
     Width = 23
     Action = acDelete
+    Flat = True
     Glyph.Data = {
       36040000424D3604000000000000360000002800000010000000100000000100
       2000000000000004000064000000640000000000000000000000000000000000
@@ -135,6 +138,7 @@ object fHistoryAddItem: TfHistoryAddItem
     Top = 136
     Width = 23
     Action = acAdd
+    Flat = True
     Glyph.Data = {
       36040000424D3604000000000000360000002800000010000000100000000100
       2000000000000004000064000000640000000000000000000000000000000000

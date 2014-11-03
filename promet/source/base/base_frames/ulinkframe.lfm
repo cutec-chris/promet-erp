@@ -39,7 +39,7 @@ inherited fLinkFrame: TfLinkFrame
         Left = 4
         Height = 4
         Top = 0
-        Width = 32
+        Width = 28
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -47,7 +47,7 @@ inherited fLinkFrame: TfLinkFrame
       end
       object ExtRotatedLabel1: TExtRotatedLabel
         Left = 0
-        Height = 152
+        Height = 148
         Top = 4
         Width = 14
         Align = alLeft
@@ -75,6 +75,7 @@ inherited fLinkFrame: TfLinkFrame
         ClientWidth = 24
         DataSource = Datasource
         Direction = nbdVertical
+        Flat = True
         Options = []
         TabOrder = 0
         VisibleButtons = [nbDelete, nbRefresh]
@@ -85,6 +86,7 @@ inherited fLinkFrame: TfLinkFrame
         Top = 70
         Width = 24
         Action = acPasteLinks
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -129,6 +131,7 @@ inherited fLinkFrame: TfLinkFrame
         Top = 91
         Width = 24
         Action = acCopyToClipboard
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -173,6 +176,7 @@ inherited fLinkFrame: TfLinkFrame
         Top = 3
         Width = 24
         Action = acAddLinks
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000

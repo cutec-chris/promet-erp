@@ -426,6 +426,7 @@ inherited fAddressFrame: TfAddressFrame
         ClientWidth = 24
         DataSource = Address
         Direction = nbdVertical
+        Flat = True
         Options = []
         TabOrder = 0
         VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
@@ -471,6 +472,7 @@ inherited fAddressFrame: TfAddressFrame
         Top = 4
         Width = 24
         Action = EditCopy1
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -517,6 +519,7 @@ inherited fAddressFrame: TfAddressFrame
         Top = 28
         Width = 24
         Action = EditPaste1
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF

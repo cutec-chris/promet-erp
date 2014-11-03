@@ -224,9 +224,9 @@ inherited fOrderFrame: TfOrderFrame
             TabOrder = 0
             object tsFooter1: TPageControl
               Left = 213
-              Height = 102
+              Height = 98
               Top = 0
-              Width = 449
+              Width = 445
               TabStop = False
               ActivePage = tsNote1
               Align = alClient
@@ -234,13 +234,13 @@ inherited fOrderFrame: TfOrderFrame
               TabOrder = 0
               object tsNote1: TTabSheet
                 Caption = 'Notizen'
-                ClientHeight = 69
-                ClientWidth = 443
+                ClientHeight = 65
+                ClientWidth = 439
                 object mOrderNote3: TDBMemo
                   Left = 0
-                  Height = 69
+                  Height = 65
                   Top = 0
-                  Width = 443
+                  Width = 439
                   Align = alClient
                   DataField = 'NOTE'
                   DataSource = Orders
@@ -252,8 +252,8 @@ inherited fOrderFrame: TfOrderFrame
               end
               object tsHeader1: TTabSheet
                 Caption = 'Kopftext'
-                ClientHeight = 69
-                ClientWidth = 443
+                ClientHeight = 65
+                ClientWidth = 439
                 object mOrderNote4: TDBMemo
                   Left = 0
                   Height = 67
@@ -270,8 +270,8 @@ inherited fOrderFrame: TfOrderFrame
               end
               object TabSheet3: TTabSheet
                 Caption = 'Nachtext'
-                ClientHeight = 69
-                ClientWidth = 443
+                ClientHeight = 65
+                ClientWidth = 439
                 object mOrderNote5: TDBMemo
                   Left = 0
                   Height = 67
@@ -289,24 +289,24 @@ inherited fOrderFrame: TfOrderFrame
             end
             object Panel1: TPanel
               Left = 0
-              Height = 102
+              Height = 98
               Top = 0
               Width = 38
               Align = alLeft
               BevelOuter = bvNone
-              ClientHeight = 102
+              ClientHeight = 98
               ClientWidth = 38
               TabOrder = 1
               object Panel3: TPanel
                 Left = 0
-                Height = 83
+                Height = 79
                 Top = 17
                 Width = 38
                 Align = alTop
                 Anchors = [akTop, akLeft, akRight, akBottom]
                 BorderSpacing.Top = 17
                 BevelOuter = bvNone
-                ClientHeight = 83
+                ClientHeight = 79
                 ClientWidth = 38
                 TabOrder = 0
                 object Bevel1: TBevel
@@ -321,7 +321,7 @@ inherited fOrderFrame: TfOrderFrame
                 end
                 object ExtRotatedLabel1: TExtRotatedLabel
                   Left = 0
-                  Height = 79
+                  Height = 75
                   Top = 4
                   Width = 14
                   Align = alLeft
@@ -339,6 +339,7 @@ inherited fOrderFrame: TfOrderFrame
                   Top = 4
                   Width = 24
                   Action = acAddAddress
+                  Flat = True
                   Glyph.Data = {
                     36040000424D3604000000000000360000002800000010000000100000000100
                     2000000000000004000064000000640000000000000000000000000000000000
@@ -382,7 +383,7 @@ inherited fOrderFrame: TfOrderFrame
             end
             object pAddresses: TPanel
               Left = 38
-              Height = 102
+              Height = 98
               Top = 0
               Width = 170
               Align = alLeft
@@ -391,7 +392,7 @@ inherited fOrderFrame: TfOrderFrame
             end
             object Splitter1: TSplitter
               Left = 208
-              Height = 102
+              Height = 98
               Top = 0
               Width = 5
             end
@@ -461,6 +462,7 @@ inherited fOrderFrame: TfOrderFrame
         Top = 12
         Width = 28
         Action = acSave
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -505,6 +507,7 @@ inherited fOrderFrame: TfOrderFrame
         Top = 12
         Width = 32
         Action = acCancel
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -550,6 +553,7 @@ inherited fOrderFrame: TfOrderFrame
       Top = 3
       Width = 37
       Action = acPrint
+      Flat = True
       Glyph.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
         2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -629,6 +633,7 @@ inherited fOrderFrame: TfOrderFrame
         Hint = 'zusätzliche Optionen'#10'(Menü)'
         Top = 12
         Width = 32
+        Flat = True
         Glyph.Data = {
           36090000424D3609000000000000360000002800000018000000180000000100
           2000000000000009000064000000640000000000000000000000FFFFFF00FFFF
