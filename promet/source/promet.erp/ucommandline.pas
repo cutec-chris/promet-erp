@@ -1,4 +1,4 @@
-{*******************************************************************************
+ {*******************************************************************************
   Copyright (C) Christian Ulrich info@cu-tec.de
 
   This source is free software; you can redistribute it and/or modify it under
@@ -24,19 +24,32 @@ unit ucommandline;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, SynMemo, Forms, Controls,uPrometFrames,LCLType;
+  Classes, SysUtils, FileUtil, SynMemo, Forms, Controls, uPrometFrames, LCLType,
+  ExtCtrls, StdCtrls, Buttons, ComCtrls, ActnList;
 
 type
+
+  { TfCommandline }
+
   TfCommandline = class(TPrometMainFrame)
+    acNewScript: TAction;
+    acEditScript: TAction;
+    ActionList1: TActionList;
     Input: TSynMemo;
+    Label3: TLabel;
     Output: TSynMemo;
+    Panel1: TPanel;
+    Panel4: TPanel;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
     procedure InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { private declarations }
   public
     { public declarations }
     function CheckSentence(s : string) : Boolean;
-    procedure SetFocus; override;
+    procedure ShowFrame; override;
   end;
 
 implementation
@@ -60,9 +73,9 @@ begin
   Output.Append(s);
 end;
 
-procedure TfCommandline.SetFocus;
+procedure TfCommandline.ShowFrame;
 begin
-  inherited SetFocus;
+  inherited ShowFrame;
   Input.SetFocus;
 end;
 

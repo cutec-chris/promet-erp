@@ -51,6 +51,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 4
         Width = 24
         Action = acAddPos
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -96,6 +97,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 146
         Width = 24
         Action = acDelPos
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -165,6 +167,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 50
         Width = 24
         Action = acMAkeSubTask
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -210,6 +213,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 74
         Width = 24
         Action = acUnmakeSubTask
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -255,6 +259,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 98
         Width = 24
         Action = acLink
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -300,6 +305,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 27
         Width = 24
         Action = acTerminate
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -345,6 +351,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 122
         Width = 24
         Action = acMarkProblem
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -411,6 +418,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 4
         Width = 24
         Action = acStartTime
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00A2A2
@@ -506,6 +514,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 4
         Width = 24
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           42020000424D4202000000000000420000002800000010000000100000000100
           100003000000000200006400000064000000000000000000000000F80000E007
@@ -539,6 +548,7 @@ inherited fTaskFrame: TfTaskFrame
         Width = 24
         Action = acRefresh
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00A465
@@ -585,6 +595,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 52
         Width = 24
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000121700000806
@@ -633,6 +644,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 28
         Width = 24
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -681,6 +693,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 76
         Width = 24
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           42020000424D4202000000000000420000002800000010000000100000000100
           100003000000000200006400000064000000000000000000000000F80000E007
@@ -735,6 +748,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 4
         Width = 24
         Action = acGotoProject
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -832,6 +846,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 3
         Width = 36
         Action = acAddPos
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -877,6 +892,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 24
         Action = acDelPos
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -922,6 +938,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 24
         Action = acMAkeSubTask
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -967,6 +984,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 24
         Action = acUnmakeSubTask
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1012,6 +1030,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 24
         Action = acLink
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1057,6 +1076,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 25
         Action = acMarkSeen
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1102,6 +1122,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 24
         Action = acTerminate
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1147,6 +1168,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 25
         Action = acMarkProblem
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1228,6 +1250,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 24
         Action = acStartTime
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00A2A2
@@ -1310,6 +1333,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 24
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           42020000424D4202000000000000420000002800000010000000100000000100
           100003000000000200006400000064000000000000000000000000F80000E007
@@ -1343,6 +1367,7 @@ inherited fTaskFrame: TfTaskFrame
         Width = 24
         Action = acRefresh
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00A465
@@ -1389,6 +1414,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 24
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000121700000806
@@ -1437,6 +1463,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 24
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1485,6 +1512,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 14
         Width = 24
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           42020000424D4202000000000000420000002800000010000000100000000100
           100003000000000200006400000064000000000000000000000000F80000E007
@@ -1537,6 +1565,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 3
         Width = 36
         Action = acPrint
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1629,6 +1658,7 @@ inherited fTaskFrame: TfTaskFrame
         Width = 26
         AllowAllUp = True
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1711,6 +1741,7 @@ inherited fTaskFrame: TfTaskFrame
         Width = 24
         Action = acGotoProject
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -1782,6 +1813,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 12
         Width = 28
         Action = acSave
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1826,6 +1858,7 @@ inherited fTaskFrame: TfTaskFrame
         Top = 12
         Width = 32
         Action = acCancel
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1941,6 +1974,7 @@ inherited fTaskFrame: TfTaskFrame
         Width = 26
         Action = acSaveFilter
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1986,6 +2020,7 @@ inherited fTaskFrame: TfTaskFrame
         Width = 26
         Action = acDeleteFilter
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -2031,6 +2066,7 @@ inherited fTaskFrame: TfTaskFrame
         Width = 26
         Action = acFilterRights
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00369D
@@ -2615,6 +2651,7 @@ inherited fTaskFrame: TfTaskFrame
         Width = 26
         Action = acDefaultFilter
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -2660,6 +2697,7 @@ inherited fTaskFrame: TfTaskFrame
         Width = 26
         Action = acFilter
         Anchors = [akTop, akRight]
+        Flat = True
         Glyph.Data = {
           36090000424D3609000000000000360000002800000018000000180000000100
           2000000000000009000064000000640000000000000000000000000000000000
