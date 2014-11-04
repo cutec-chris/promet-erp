@@ -31,6 +31,7 @@ type
   { TBaseScript }
 
   TBaseScript = class(TBaseDBDataset)
+    procedure DataSetAfterScroll(ADataSet: TDataSet);
     function TPascalScriptUses(Sender: TPascalScript; const aName: tbtString
       ): Boolean;
   private
@@ -40,6 +41,7 @@ type
     FSlFunc: TSleepFunc;
     FWrFunc: TWritelnFunc;
     FWriFunc: TWriteFunc;
+    FDataSource: TDataSource;
     procedure SQLConn;
     procedure DoSetResults;
     procedure DoSetStatus(s : string);
@@ -162,6 +164,13 @@ begin
       Result := True;
     end;
 end;
+
+procedure TBaseScript.DataSetAfterScroll(ADataSet: TDataSet);
+begin
+  TPascalScript(FScript).OnUses:=@TPascalScriptUses;
+  FScript.Source:=FieldByName('SCRIPT').AsString;
+end;
+
 function TBaseScript.TPascalScriptUses(Sender: TPascalScript;
   const aName: tbtString): Boolean;
 begin
@@ -179,13 +188,15 @@ begin
     begin
       Result := True;
       try
+        Sender.InternalUses(Sender.Compiler,'db');
+        Sender.InternalUses(Sender.Compiler,'dateutils');
         Sender.AddMethod(Self,@TBaseScript.InternalDataSet,'function DataSet(SQL : string) : TDataSet;');
         Sender.AddMethod(Self,@TBaseScript.InternalHistory,'function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
         Sender.AddMethod(Self,@TBaseScript.InternalUserHistory,'function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
       except
         Result := False; // will halt compilation
       end;
-    end;
+    end
 end;
 
 procedure TBaseScript.SQLConn;
@@ -198,7 +209,8 @@ end;
 
 destructor TBaseScript.Destroy;
 begin
-  fScript.Free;
+  fScript.Destroy;
+  FDataSource.Destroy;
   inherited Destroy;
 end;
 
@@ -236,6 +248,9 @@ constructor TBaseScript.Create(aOwner: TComponent; DM: TComponent;
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   FScript := TPascalScript.Create;
+  FDataSource := TDataSource.Create(Self);
+  FDataSource.DataSet := DataSet;
+  DataSet.AfterScroll:=@DataSetAfterScroll;
 end;
 
 procedure TBaseScript.DefineFields(aDataSet: TDataSet);
@@ -301,8 +316,6 @@ begin
           end
         else if lowercase(FieldByName('SYNTAX').AsString) = 'pascal' then
           begin
-            TPascalScript(FScript).OnUses:=@TPascalScriptUses;
-            FScript.Source:=FieldByName('SCRIPT').AsString;
             Result := FScript.Execute(Parameters);
             if not Result then
               DoSetResults;

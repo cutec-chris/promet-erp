@@ -14,7 +14,7 @@
         <SmartLinkUnit Value="True"/>
       </CodeGeneration>
     </CompilerOptions>
-    <Files Count="42">
+    <Files Count="43">
       <Item1>
         <Filename Value="ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
@@ -183,6 +183,10 @@
         <Filename Value="uprometscripts.pas"/>
         <UnitName Value="uprometscripts"/>
       </Item42>
+      <Item43>
+        <Filename Value="uspeakinginterface.pas"/>
+        <UnitName Value="uspeakinginterface"/>
+      </Item43>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="10">

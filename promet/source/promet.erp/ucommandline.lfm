@@ -965,17 +965,17 @@ inherited fCommandline: TfCommandline
     TabOrder = 2
     object Panel4: TPanel
       Left = 0
-      Height = 42
+      Height = 38
       Top = 0
       Width = 104
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 42
+      ClientHeight = 38
       ClientWidth = 104
       TabOrder = 0
       object Label3: TLabel
         Left = 5
-        Height = 13
+        Height = 9
         Top = 0
         Width = 99
         Align = alTop
@@ -992,7 +992,7 @@ inherited fCommandline: TfCommandline
       object ToolBar1: TToolBar
         Left = 0
         Height = 29
-        Top = 13
+        Top = 9
         Width = 104
         Align = alClient
         AutoSize = True
@@ -1020,6 +1020,7 @@ inherited fCommandline: TfCommandline
     object acNewScript: TAction
       Caption = 'acNewScript'
       ImageIndex = 59
+      OnExecute = acNewScriptExecute
     end
     object acEditScript: TAction
       Caption = 'acEditScript'

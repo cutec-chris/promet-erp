@@ -62,13 +62,24 @@ type
     property OnStatusChanged : TNotifyEvent read FStatusChanged write FStatusChanged;
   end;
 
+  { TByteCodeScript }
+
+  TByteCodeScript = class(TScript)
+  private
+    FByteCode: string;
+  public
+    property ByteCode : string read FByteCode write FByteCode;
+    function Compile : Boolean;virtual;abstract;
+    constructor Create;virtual;
+  end;
+
   TPascalScript = class;
 
   TPascalOnUses = function(Sender: TPascalScript; const Name: tbtString): Boolean of object;
 
   { TPascalScript }
 
-  TPascalScript = class(TScript)
+  TPascalScript = class(TByteCodeScript)
   private
     CompleteOutput : string;
     FOnUses: TPascalOnUses;
@@ -109,7 +120,8 @@ type
     function AddMethodEx(Slf, Ptr: Pointer; const Decl: tbtstring; CallingConv: uPSRuntime.TPSCallingConvention): Boolean;
     function AddMethod(Slf, Ptr: Pointer; const Decl: tbtstring): Boolean;
     property OnUses : TPascalOnUses read FOnUses write FOnUses;
-    constructor Create;
+    function Compile: Boolean; override;
+    constructor Create;override;
     destructor Destroy; override;
   end;
 
@@ -128,6 +140,13 @@ function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString
   ): Boolean;
 begin
   TPascalScript(Sender.Obj).InternalUses(Sender,Name);
+end;
+
+{ TByteCodeScript }
+
+constructor TByteCodeScript.Create;
+begin
+  ByteCode := '';
 end;
 
 constructor TLoadedLib.Create;
@@ -534,12 +553,9 @@ begin
 end;
 function TPascalScript.Execute(aParameters: Variant): Boolean;
 var
-  Bytecode: tbtString;
   i: Integer;
 begin
-  Compiler.Obj := Self;
-  Compiler.OnUses:= @ExtendICompiler;
-  Result:= Compiler.Compile(Source) and Compiler.GetOutput(Bytecode);
+  if FByteCode='' then Result := Compile;
   FResults:='';
   for i:= 0 to Compiler.MsgCount - 1 do
     if Length(FResults) = 0 then
@@ -548,9 +564,7 @@ begin
       FResults:= FResults + #13#10 + Compiler.Msg[i].MessageToString;
   if Result then
     begin
-      //ExtendIRuntime(FRuntime, ClassImporter, Self);
-      Result:= FRuntime.LoadData(Bytecode)
-            and FRuntime.RunScript
+      Result := FRuntime.RunScript
             and (FRuntime.ExceptionCode = erNoError);
       if not Result then
         FResults:= PSErrorToString(FRuntime.LastEx, '');
@@ -578,8 +592,17 @@ begin
   Result := AddMethodEx(Slf, Ptr, Decl, cdRegister);
 end;
 
+function TPascalScript.Compile: Boolean;
+begin
+  Compiler.Obj := Self;
+  Compiler.OnUses:= @ExtendICompiler;
+  Result:= Compiler.Compile(Source) and Compiler.GetOutput(FBytecode);
+  Result:= Result and FRuntime.LoadData(Bytecode);
+end;
+
 constructor TPascalScript.Create;
 begin
+  inherited;
   FProcess := TProcessUTF8.Create(nil);
   FProcess.ShowWindow:=swoNone;
   FCompiler:= TPSPascalCompiler.Create;

@@ -172,7 +172,7 @@ type
     property aFile: string read FActiveFile write SetActiveFile;
   public
     function SaveCheck: Boolean;
-    function Execute(aScript: string; aConnection: TComponent = nil): Boolean;
+    function Execute(aScript: string; aConnection: TComponent = nil;DefScript : string=''): Boolean;
   end;
   TMessageObject = class
   public
@@ -694,7 +694,8 @@ begin
     end else Result := True;
 end;
 
-function TfScriptEditor.Execute(aScript: string;aConnection : TComponent): Boolean;
+function TfScriptEditor.Execute(aScript: string; aConnection: TComponent;
+  DefScript: string): Boolean;
 begin
   if not Assigned(Self) then
     begin
@@ -715,6 +716,8 @@ begin
     begin
       FDataSet.Insert;
       FDataSet.FieldByName('NAME').AsString:=aScript;
+      if DefScript<>'' then
+        FDataSet.FieldByName('SCRIPT').AsString:=DefScript;
     end
   else
     FDataSetDataSetAfterScroll(FDataSet.DataSet);

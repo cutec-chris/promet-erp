@@ -888,8 +888,8 @@ cl.addTypeS('TDATAACTION', '( DAFAIL, DAABORT, DARETRY )');
 cl.addTypeS('TBLOBSTREAMMODE', '( BMREAD, BMWRITE, BMREADWRITE )');
 cl.addTypeS('TDATAOPERATION', 'Procedure');
 cl.addTypeS('TDATASETNOTIFYEVENT', 'Procedure ( DATASET : TDATASET)');
-cl.addTypeS('TDATASETERROREVENT', 'Procedure ( DATASET : TDATASET; E : TObject'
-   +'; var ACTION : TDATAACTION)');
+//cl.addTypeS('TDATASETERROREVENT', 'Procedure ( DATASET : TDATASET; E : TObject'
+//   +'; var ACTION : TDATAACTION)');
 cl.addTypeS('TFILTERRECORDEVENT', 'Procedure ( DATASET : TDATASET; var ACCEP'
    +'T : BOOLEAN)');
 SIRegisterTDATASET(Cl);

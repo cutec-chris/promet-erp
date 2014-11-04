@@ -52,7 +52,7 @@ type
     Bevel7: TBevel;
     Bevel8: TBevel;
     bExecute: TSpeedButton;
-    bExecute1: TBitBtn;
+    bExecute1: TSpeedButton;
     bExecute2: TSpeedButton;
     BtZoomIn: TBitBtn;
     BtZoomOut: TBitBtn;

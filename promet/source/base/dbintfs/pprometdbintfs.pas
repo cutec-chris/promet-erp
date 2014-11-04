@@ -14,7 +14,8 @@ uses
   ubaseapplicationtools, uWiki, uEncrypt, usync, uSessionDBClasses, utask, 
   uvtools, uimpvcal, uDocumentProcess, uProcessManager, uProcessManagement, 
   uprometipc, umeeting, uBaseDocPages, uthumbnails, ucalc, uimport, 
-  uPasswordSave, uzugferd, uprometscripts, LazarusPackageIntf;
+  uPasswordSave, uzugferd, uprometscripts, uspeakinginterface, 
+  LazarusPackageIntf;
 
 implementation
 

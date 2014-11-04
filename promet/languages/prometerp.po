@@ -1027,6 +1027,23 @@ msgstr ""
 msgid "lSystemColors"
 msgstr ""
 
+#: tfcommandline.aceditscript.caption
+msgid "acEditScript"
+msgstr ""
+
+#: tfcommandline.acnewscript.caption
+msgid "acNewScript"
+msgstr ""
+
+#: tfcommandline.label3.caption
+msgid "Administration"
+msgstr ""
+
+#: tfcommandline.toolbar1.caption
+msgctxt "TFCOMMANDLINE.TOOLBAR1.CAPTION"
+msgid "ToolBar1"
+msgstr ""
+
 #: tfcopyarticledata.caption
 msgid "fCopyArticleData"
 msgstr ""
@@ -8707,6 +8724,10 @@ msgstr ""
 
 #: ucolorframe.strsystemcolors
 msgid "Systemfarben"
+msgstr ""
+
+#: ucommandline.strsentencenotvalid
+msgid "Das wurde leider nicht verstanden !"
 msgstr ""
 
 #: ucustomer.scbirthday

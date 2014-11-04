@@ -224,7 +224,7 @@ begin
         aProcess.Execute;
         while aProcess.Active and (not Terminated) do
           begin
-            sleep(100);
+            sleep(1000);
             ProcessData;
           end;
         ProcessData;

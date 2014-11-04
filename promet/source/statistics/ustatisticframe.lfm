@@ -4,7 +4,7 @@ inherited fStatisticFrame: TfStatisticFrame
   ClientHeight = 698
   ClientWidth = 864
   DesignLeft = 570
-  DesignTop = 154
+  DesignTop = 142
   object Splitter2: TSplitter[0]
     Cursor = crVSplit
     Left = 0
@@ -38,8 +38,8 @@ inherited fStatisticFrame: TfStatisticFrame
       TabOrder = 0
       object tsReport: TTabSheet
         Caption = 'Report'
-        ClientHeight = 303
-        ClientWidth = 840
+        ClientHeight = 305
+        ClientWidth = 842
         object Panel2: TPanel
           Left = 0
           Height = 27
@@ -207,8 +207,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsResults: TTabSheet
         Caption = 'Ergebnisliste'
-        ClientHeight = 303
-        ClientWidth = 840
+        ClientHeight = 305
+        ClientWidth = 842
         object Panel1: TPanel
           Left = 0
           Height = 283
@@ -375,13 +375,13 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsDescription: TTabSheet
         Caption = 'Beschreibung'
-        ClientHeight = 303
-        ClientWidth = 840
+        ClientHeight = 305
+        ClientWidth = 842
         object DBMemo1: TDBMemo
           Left = 0
-          Height = 303
+          Height = 305
           Top = 0
-          Width = 840
+          Width = 842
           Align = alClient
           DataField = 'DESCRIPTION'
           DataSource = Datasource
@@ -404,34 +404,34 @@ inherited fStatisticFrame: TfStatisticFrame
     TabOrder = 2
     object pTop: TPanel
       Left = 0
-      Height = 291
+      Height = 295
       Top = 44
-      Width = 860
+      Width = 864
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 291
-      ClientWidth = 860
+      ClientHeight = 295
+      ClientWidth = 864
       TabOrder = 0
       Visible = False
       object PageControl1: TPageControl
         Left = 0
-        Height = 291
+        Height = 295
         Top = 0
-        Width = 860
+        Width = 864
         ActivePage = tsMaster
         Align = alClient
         TabIndex = 0
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 256
-          ClientWidth = 852
+          ClientHeight = 262
+          ClientWidth = 858
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
-            Height = 204
+            Height = 210
             Top = 0
-            Width = 852
+            Width = 858
             Align = alClient
             Font.Height = -13
             Font.Name = 'Courier New'
@@ -1036,11 +1036,11 @@ inherited fStatisticFrame: TfStatisticFrame
           object lbErrors: TListBox
             Left = 0
             Height = 52
-            Top = 204
-            Width = 852
+            Top = 210
+            Width = 858
             Align = alBottom
             ItemHeight = 0
-            ScrollWidth = 850
+            ScrollWidth = 856
             TabOrder = 1
             TopIndex = -1
             Visible = False
@@ -1048,8 +1048,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsDetail: TTabSheet
           Caption = 'Detail'
-          ClientHeight = 256
-          ClientWidth = 852
+          ClientHeight = 262
+          ClientWidth = 858
           inline smQuerry1: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -1660,8 +1660,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsSubDetail: TTabSheet
           Caption = 'Sub Detail'
-          ClientHeight = 256
-          ClientWidth = 852
+          ClientHeight = 262
+          ClientWidth = 858
           inline smQuerry2: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -2276,11 +2276,11 @@ inherited fStatisticFrame: TfStatisticFrame
       Left = 0
       Height = 44
       Top = 0
-      Width = 860
+      Width = 864
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 860
+      ClientWidth = 864
       TabOrder = 1
       object Panel4: TPanel
         Left = 152
@@ -2293,10 +2293,11 @@ inherited fStatisticFrame: TfStatisticFrame
         ClientWidth = 98
         TabOrder = 0
         object Label3: TLabel
-          Left = 4
-          Height = 15
+          Left = 5
+          Height = 12
           Top = 0
-          Width = 90
+          Width = 93
+          Align = alTop
           Alignment = taCenter
           Anchors = [akLeft, akRight, akBottom]
           AutoSize = False
@@ -2313,6 +2314,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Top = 12
           Width = 28
           Action = acSave
+          Flat = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -2357,6 +2359,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Top = 12
           Width = 32
           Action = acCancel
+          Flat = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -2403,6 +2406,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Width = 32
           AllowAllUp = True
           BorderSpacing.Left = 8
+          Flat = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -2454,10 +2458,11 @@ inherited fStatisticFrame: TfStatisticFrame
         ClientWidth = 56
         TabOrder = 1
         object Label4: TLabel
-          Left = 4
+          Left = 5
           Height = 15
           Top = 0
-          Width = 48
+          Width = 51
+          Align = alTop
           Alignment = taCenter
           Anchors = [akLeft, akRight, akBottom]
           AutoSize = False
@@ -2470,8 +2475,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object Bevel3: TBevel
           Left = 0
-          Height = 36
-          Top = 4
+          Height = 21
+          Top = 19
           Width = 8
           Align = alLeft
           BorderSpacing.Top = 4
@@ -2483,6 +2488,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Height = 28
           Top = 12
           Width = 32
+          Flat = True
           Glyph.Data = {
             36090000424D3609000000000000360000002800000018000000180000000100
             2000000000000009000064000000640000000000000000000000FFFFFF00FFFF
@@ -2588,6 +2594,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Top = 4
           Width = 36
           Action = acPrint
+          Flat = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -2654,6 +2661,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Width = 36
           Action = acExport
           BorderSpacing.Left = 8
+          Flat = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000BA6A368FB969
@@ -2703,13 +2711,12 @@ inherited fStatisticFrame: TfStatisticFrame
         ClientHeight = 44
         ClientWidth = 152
         TabOrder = 4
-        object bExecute1: TBitBtn
+        object bExecute1: TSpeedButton
           Left = 3
           Height = 35
           Top = 4
           Width = 145
           Action = acExecute
-          Default = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -2746,25 +2753,25 @@ inherited fStatisticFrame: TfStatisticFrame
             FF00FFFFFF007FD28E0C79CE877E73C87FC66AC277FC63BC6FFC5BB567C655AD
             5E7D8CA76103E4A6710AFFFFFF00FFFFFF00FFFFFF00FFFFFF00
           }
-          TabOrder = 0
         end
       end
       object Panel7: TPanel
         Left = 490
         Height = 44
         Top = 0
-        Width = 358
+        Width = 362
         Align = alLeft
         Anchors = [akTop, akLeft, akRight, akBottom]
         BevelOuter = bvNone
         ClientHeight = 44
-        ClientWidth = 358
+        ClientWidth = 362
         TabOrder = 5
         object Label6: TLabel
-          Left = 8
+          Left = 5
           Height = 15
           Top = 0
-          Width = 100
+          Width = 357
+          Align = alTop
           Anchors = [akLeft, akBottom]
           AutoSize = False
           BorderSpacing.Left = 5
@@ -2776,8 +2783,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object Bevel4: TBevel
           Left = 0
-          Height = 36
-          Top = 4
+          Height = 21
+          Top = 19
           Width = 8
           Align = alLeft
           BorderSpacing.Top = 4
@@ -2786,9 +2793,9 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object eName: TDBEdit
           Left = 8
-          Height = 23
+          Height = 25
           Top = 16
-          Width = 350
+          Width = 354
           DataField = 'NAME'
           DataSource = Datasource
           Anchors = [akTop, akLeft, akRight]
@@ -2809,10 +2816,11 @@ inherited fStatisticFrame: TfStatisticFrame
         TabOrder = 6
         Visible = False
         object Label7: TLabel
-          Left = 4
+          Left = 5
           Height = 15
           Top = 0
-          Width = 90
+          Width = 93
+          Align = alTop
           Alignment = taCenter
           Anchors = [akLeft, akRight, akBottom]
           AutoSize = False
@@ -2829,6 +2837,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Top = 12
           Width = 28
           Action = acFormatSQL
+          Flat = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000905B3114905B
@@ -2873,6 +2882,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Top = 12
           Width = 28
           Action = acCopyToNewTable
+          Flat = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000000000000000

@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, SynMemo, Forms, Controls, uPrometFrames, LCLType,
-  ExtCtrls, StdCtrls, Buttons, ComCtrls, ActnList;
+  ExtCtrls, StdCtrls, Buttons, ComCtrls, ActnList,uspeakinginterface;
 
 type
 
@@ -43,19 +43,24 @@ type
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
+    procedure acNewScriptExecute(Sender: TObject);
+    procedure FSpeakingInterfacaceWriteln(const s: string);
     procedure InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { private declarations }
+    FSpeakingInterfacace : TSpeakingInterface;
   public
     { public declarations }
     function CheckSentence(s : string) : Boolean;
     procedure ShowFrame; override;
+    destructor Destroy; override;
   end;
 
 implementation
-
 {$R *.lfm}
-
+uses uData,uScriptEditor,Dialogs,uIntfStrConsts;
+resourcestring
+  strSentenceNotValid            = 'Das wurde leider nicht verstanden !';
 procedure TfCommandline.InputKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -68,15 +73,50 @@ begin
     end;
 end;
 
+procedure TfCommandline.FSpeakingInterfacaceWriteln(const s: string);
+begin
+  Output.Append('<'+s);
+end;
+
+procedure TfCommandline.acNewScriptExecute(Sender: TObject);
+var
+  aName: String;
+begin
+  if InputQuery(strName,strName,aName) then
+    begin
+      fScriptEditor.Execute('CmdLn.'+aName,nil,'uses promet;'+lineending
+                                              +'  function CheckSentence(Sentence : string) : Boolean;'+lineending
+                                              +'  begin'+lineending
+                                              +'  end;'+lineending
+                                              +'begin'+lineending
+                                              +'end.');
+    end;
+end;
+
 function TfCommandline.CheckSentence(s: string): Boolean;
 begin
-  Output.Append(s);
+  s := StringReplace(StringReplace(s,#10,'',[rfReplaceAll]),#13,'',[rfReplaceAll]);
+  Output.Append('>'+s);
+  if not FSpeakingInterfacace.CheckSentence(s) then
+    Output.Append('<'+strSentenceNotValid);
 end;
 
 procedure TfCommandline.ShowFrame;
 begin
   inherited ShowFrame;
   Input.SetFocus;
+  if not Assigned(FSpeakingInterfacace) then
+    begin
+      FSpeakingInterfacace := TSpeakingInterface.Create(nil,Data);
+      FSpeakingInterfacace.Writeln:=@FSpeakingInterfacaceWriteln;
+    end;
+end;
+
+destructor TfCommandline.Destroy;
+begin
+  if Assigned(FSpeakingInterfacace) then
+    FSpeakingInterfacace.Destroy;
+  inherited Destroy;
 end;
 
 end.
