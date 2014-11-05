@@ -50,6 +50,9 @@ type
     procedure InternalWriteln(const s: string);
     procedure InternalReadln(var s: string);
 
+    function InternalParamStr(Param : Integer) : String;
+    function InternalParamCount : Integer;
+
     function InternalDataSet(SQL : string) : TDataSet;
     function InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
       ObjectLink: string=''; Reference: string='';Commission: string='';Date:TDateTime = 0) : Boolean;
@@ -180,6 +183,8 @@ begin
       try
         Sender.AddMethod(Self,@TBaseScript.InternalWriteln,'procedure Writeln(P1: string);');
         Sender.AddMethod(Self,@TBaseScript.InternalWrite,'procedure Write(P1: string);');
+        Sender.AddMethod(Self, @TBaseScript.InternalParamStr,'function ParamStr(Param : Integer) : String;');
+        Sender.AddMethod(Self, @TBaseScript.InternalParamCount,'function ParamCount : Integer;');
       except
         Result := False; // will halt compilation
       end;
@@ -241,6 +246,20 @@ end;
 procedure TBaseScript.InternalReadln(var s: string);
 begin
   if Assigned(FRlFunc) then FRlFunc(s);
+end;
+
+function TBaseScript.InternalParamStr(Param: Integer): String;
+begin
+  Result:='';
+  if not VarIsArray(FScript.Parameters) then exit;
+  if Param<=VarArrayHighBound(FScript.Parameters,1) then
+    Result:=FScript.Parameters[Param];
+end;
+
+function TBaseScript.InternalParamCount: Integer;
+begin
+  if not VarIsArray(FScript.Parameters) then exit;
+  Result := VarArrayHighBound(FScript.Parameters,1)+1;
 end;
 
 constructor TBaseScript.Create(aOwner: TComponent; DM: TComponent;

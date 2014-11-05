@@ -52,8 +52,7 @@ begin
             if Assigned(Runtime) then
               if Runtime.RunProcPN([aSentence],'CHECKSENTENCE') = True then
                 begin
-                  Execute(VararrayOf([aSentence]));
-                  Result := True;
+                  Result := Self.Execute(VararrayOf([aSentence]));
                   exit;
                 end;
           end;

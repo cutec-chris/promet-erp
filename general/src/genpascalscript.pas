@@ -47,16 +47,15 @@ type
 
   TScript = class
   private
-    FParameters: Variant;
     FResults: string;
     FSource: string;
     FStatus: char;
     FStatusChanged: TNotifyEvent;
     procedure SetStatus(AValue: char);
   public
+    Parameters : Variant;
     function Execute(aParameters : Variant) : Boolean;virtual;
     property Source : string read FSource write FSource;
-    property Parameters : Variant read FParameters write FParameters;
     property Status : char read FStatus write SetStatus;
     property Results : string read FResults write FResults;
     property OnStatusChanged : TNotifyEvent read FStatusChanged write FStatusChanged;
@@ -92,8 +91,6 @@ type
     procedure SetCompiler(AValue: TPSPascalCompiler);
     procedure SetRuntime(AValue: TPSExec);
   protected
-    function InternalParamStr(Param : Integer) : String;
-    function InternalParamCount : Integer;
     procedure InternalChDir(Directory : string);
     procedure InternalMkDir(Directory : string);
 
@@ -164,7 +161,7 @@ end;
 
 function TScript.Execute(aParameters: Variant): Boolean;
 begin
-  FParameters:=aParameters;
+  Parameters:=aParameters;
 end;
 
 procedure TPascalScript.InternalExec(cmd: string; ShowConsole: Boolean);
@@ -530,18 +527,6 @@ begin
   FRuntimeFree:=False;
 end;
 
-function TPascalScript.InternalParamStr(Param: Integer): String;
-begin
-  Result:='';
-  if Param<VarArrayHighBound(FParameters,1) then
-    Result:=FParameters[Param];
-end;
-
-function TPascalScript.InternalParamCount: Integer;
-begin
-  Result := VarArrayHighBound(FParameters,1);
-end;
-
 procedure TPascalScript.InternalChDir(Directory: string);
 begin
   chdir(Directory);
@@ -555,6 +540,7 @@ function TPascalScript.Execute(aParameters: Variant): Boolean;
 var
   i: Integer;
 begin
+  Parameters:=aParameters;
   if FByteCode='' then Result := Compile
   else Result := True;
   FResults:='';
