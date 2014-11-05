@@ -1,4 +1,6 @@
-﻿Build 379
+﻿Build 380
+      - Kommandozeile kann Scripte verarbeiten (so werden Befehle definiert)
+Build 379
       - Option um vertikale Toolbars nach Rechts schieben zu können, Auftragsbuttons neu angeordnet
 Build 378
       - Scripte:netzwerkfunktionen

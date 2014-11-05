@@ -555,7 +555,8 @@ function TPascalScript.Execute(aParameters: Variant): Boolean;
 var
   i: Integer;
 begin
-  if FByteCode='' then Result := Compile;
+  if FByteCode='' then Result := Compile
+  else Result := True;
   FResults:='';
   for i:= 0 to Compiler.MsgCount - 1 do
     if Length(FResults) = 0 then

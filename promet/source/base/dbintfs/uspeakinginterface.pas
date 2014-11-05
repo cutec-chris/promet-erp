@@ -24,7 +24,7 @@ unit uspeakinginterface;
 interface
 
 uses
-  Classes, SysUtils,uprometscripts,uBaseDbDataSet;
+  Classes, SysUtils,uprometscripts,uBaseDbDataSet,variants;
 
 type
 
@@ -49,7 +49,13 @@ begin
       if (Script is TPascalScript) and TPascalScript(Script).Compile then
         with Script as TPascalScript do
           begin
-
+            if Assigned(Runtime) then
+              if Runtime.RunProcPN([aSentence],'CHECKSENTENCE') = True then
+                begin
+                  Execute(VararrayOf([aSentence]));
+                  Result := True;
+                  exit;
+                end;
           end;
       Next;
     end;
