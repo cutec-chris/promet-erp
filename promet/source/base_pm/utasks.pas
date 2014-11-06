@@ -1495,7 +1495,8 @@ begin
     end
   else if Field.FieldName = 'DUEDATE' then
     begin
-      CalendarDialog1.Date:=Field.Field.AsDateTime;
+      if not Field.Field.IsNull then
+        CalendarDialog1.Date:=Field.Field.AsDateTime;
       if CalendarDialog1.Execute then
         begin
           FGridView.BeginUpdate;
@@ -1510,7 +1511,8 @@ begin
     end
   else if Field.FieldName = 'STARTDATE' then
     begin
-      CalendarDialog1.Date:=Field.Field.AsDateTime;
+      if not Field.Field.IsNull then
+        CalendarDialog1.Date:=Field.Field.AsDateTime;
       if CalendarDialog1.Execute then
         begin
           FGridView.BeginUpdate;
@@ -1936,6 +1938,7 @@ begin
   FGridView.gList.PopupMenu := pmGrid;
   miCopyLink.Action := FGridView.acCopyLink;
   pFilterOptions.Height:=0;
+  CalendarDialog1.Date:=Now();
 end;
 destructor TfTaskFrame.Destroy;
 var

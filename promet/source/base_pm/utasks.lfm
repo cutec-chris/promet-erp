@@ -51,7 +51,6 @@ inherited fTaskFrame: TfTaskFrame
         Top = 4
         Width = 24
         Action = acAddPos
-        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -846,7 +845,6 @@ inherited fTaskFrame: TfTaskFrame
         Top = 3
         Width = 36
         Action = acAddPos
-        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -3547,6 +3545,7 @@ inherited fTaskFrame: TfTaskFrame
   end
   object CalendarDialog1: TCalendarDialog[17]
     Date = 41925
+    DisplaySettings = [dsShowHeadings, dsShowDayNames, dsShowWeekNumbers, dsStartMonday]
     OKCaption = '&Ok'
     CancelCaption = 'Abbrechen'
     left = 280
