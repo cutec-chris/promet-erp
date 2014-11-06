@@ -64,6 +64,7 @@
         <ComponentName Value="fWizardNewMandant"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uWizardNewMandant"/>
       </Unit1>
     </Units>
   </ProjectOptions>

@@ -531,6 +531,11 @@ begin
               aSyncDB.Tables.FieldByName('ACTIVE').AsString:='Y';
               aSyncDB.Tables.FieldByName('FILTERIN').AsString:=Data.QuoteField('TYPE')+'='+Data.QuoteValue('W');
               aSyncDB.Tables.DataSet.Post;
+              aSyncDB.Tables.Insert;
+              aSyncDB.Tables.FieldByName('NAME').AsString:='SCRIPTS';
+              aSyncDB.Tables.FieldByName('ACTIVE').AsString:='Y';
+              aSyncDB.Tables.FieldByName('FILTERIN').AsString:=Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('CmdLn.*'));
+              aSyncDB.Tables.DataSet.Post;
               aSyncDB.Free;
             end;
           DoImportTable(Data.Numbers);

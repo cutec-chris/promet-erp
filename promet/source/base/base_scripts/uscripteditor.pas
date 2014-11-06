@@ -816,11 +816,9 @@ end;
 
 procedure TfScriptEditor.messagesDblClick(Sender: TObject);
 begin
-  //if Copy(messages.Items[messages.ItemIndex],1,7)= '[Error]' then
-  //begin
-    ed.CaretXY := GetErrorRowCol(messages.Items[messages.ItemIndex]);
-    ed.SetFocus;
-  //end;
+  ed.CaretXY := GetErrorRowCol(messages.Items[messages.ItemIndex]);
+  SetFocus;
+  ActiveControl:=ed;
 end;
 
 procedure TfScriptEditor.Gotolinenumber1Click(Sender: TObject);

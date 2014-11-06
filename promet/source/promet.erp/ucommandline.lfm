@@ -963,7 +963,7 @@ inherited fCommandline: TfCommandline
     ClientHeight = 42
     ClientWidth = 678
     TabOrder = 2
-    object Panel4: TPanel
+    object pAdmin: TPanel
       Left = 0
       Height = 38
       Top = 0
@@ -1025,6 +1025,7 @@ inherited fCommandline: TfCommandline
     object acEditScript: TAction
       Caption = 'acEditScript'
       ImageIndex = 67
+      OnExecute = acEditScriptExecute
     end
   end
 end

@@ -252,7 +252,7 @@ begin
                                       if aRef<>'' then
                                         Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
                                       IsSubItem := (aRef='') or ((aHist.Count=0) and (nothingimported>5));
-                                      if (Customers.Count = 0) and (not IsSubItem) then
+                                      if (Customers.Count = 0) and (not IsSubItem) and (trim(author)<>'') then
                                         begin
                                           //Add Customer
                                           Customers.Insert;

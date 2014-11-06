@@ -39,10 +39,11 @@ type
     Label3: TLabel;
     Output: TSynMemo;
     Panel1: TPanel;
-    Panel4: TPanel;
+    pAdmin: TPanel;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
+    procedure acEditScriptExecute(Sender: TObject);
     procedure acNewScriptExecute(Sender: TObject);
     procedure FSpeakingInterfacaceWriteln(const s: string);
     procedure InputKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -53,12 +54,13 @@ type
     { public declarations }
     function CheckSentence(s : string) : Boolean;
     procedure ShowFrame; override;
+    procedure SetRights;
     destructor Destroy; override;
   end;
 
 implementation
 {$R *.lfm}
-uses uData,uScriptEditor,Dialogs,uIntfStrConsts;
+uses uData,uScriptEditor,Dialogs,uIntfStrConsts,uBaseDBInterface;
 resourcestring
   strSentenceNotValid            = 'Das wurde leider nicht verstanden !';
 procedure TfCommandline.InputKeyDown(Sender: TObject; var Key: Word;
@@ -87,9 +89,20 @@ begin
       fScriptEditor.Execute('CmdLn.'+aName,nil,'uses promet;'+lineending
                                               +'  function CheckSentence(Sentence : string) : Boolean;'+lineending
                                               +'  begin'+lineending
+                                              +'    Result := False;'+lineending
                                               +'  end;'+lineending
                                               +'begin'+lineending
                                               +'end.');
+      FSpeakingInterfacace.DataSet.Refresh;
+    end;
+end;
+
+procedure TfCommandline.acEditScriptExecute(Sender: TObject);
+begin
+  if FSpeakingInterfacace.Count>0 then
+    begin
+      fScriptEditor.Execute(FSpeakingInterfacace.FieldByName('NAME').AsString);
+      FSpeakingInterfacace.DataSet.Refresh;
     end;
 end;
 
@@ -110,6 +123,11 @@ begin
       FSpeakingInterfacace := TSpeakingInterface.Create(nil,Data);
       FSpeakingInterfacace.Writeln:=@FSpeakingInterfacaceWriteln;
     end;
+end;
+
+procedure TfCommandline.SetRights;
+begin
+  pAdmin.Visible:=Data.Users.Rights.Right('OPTIONS')>RIGHT_READ;
 end;
 
 destructor TfCommandline.Destroy;
