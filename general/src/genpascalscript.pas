@@ -27,6 +27,7 @@ uses
   Classes, SysUtils, uPSCompiler,db,
   uPSC_classes, uPSC_DB, uPSC_dateutils, uPSC_dll, uPSRuntime,
   uPSR_classes, uPSR_DB, uPSR_dateutils, uPSR_dll, uPSUtils,
+  uPSR_std,uPSC_std,
   Process,usimpleprocess,Utils,variants,UTF8Process,dynlibs,
   synamisc;
 
@@ -88,6 +89,7 @@ type
     FCompiler: TPSPascalCompiler;
     FCompilerFree: Boolean;
     FClassImporter: TPSRuntimeClassImporter;
+    procedure SetClassImporter(AValue: TPSRuntimeClassImporter);
     procedure SetCompiler(AValue: TPSPascalCompiler);
     procedure SetRuntime(AValue: TPSExec);
   protected
@@ -113,9 +115,13 @@ type
     function InternalUses(Comp : TPSPascalCompiler;Name : string) : Boolean;
     function Execute(aParameters: Variant): Boolean; override;
     property Runtime : TPSExec read FRuntime write SetRuntime;
+    property ClassImporter : TPSRuntimeClassImporter read FClassImporter write SetClassImporter;
     property Compiler : TPSPascalCompiler read FCompiler write SetCompiler;
     function AddMethodEx(Slf, Ptr: Pointer; const Decl: tbtstring; CallingConv: uPSRuntime.TPSCallingConvention): Boolean;
     function AddMethod(Slf, Ptr: Pointer; const Decl: tbtstring): Boolean;
+    function AddFunction(Ptr: Pointer; const Decl: tbtstring): Boolean;
+    function AddFunctionEx(Ptr: Pointer; const Decl: tbtstring;
+      CallingConv: uPSRuntime.TPSCallingConvention): Boolean;
     property OnUses : TPascalOnUses read FOnUses write FOnUses;
     function Compile: Boolean; override;
     constructor Create;override;
@@ -379,11 +385,19 @@ begin
       begin
         AddMethod(Self,@TPascalScript.InternalChDir,'procedure ChDir(Dir : string);');
         AddMethod(Self,@TPascalScript.InternalMkDir,'procedure MkDir(Dir : string);');
+        uPSC_std.SIRegister_Std(Comp);
+        uPSR_std.RIRegister_Std(FClassImporter);
+      end
+    else if lowercase(Name)='classes' then
+      begin
+        uPSC_classes.SIRegister_Classes(Comp,false);
+        uPSR_classes.RIRegister_Classes(FClassImporter,false);
       end
     else if lowercase(Name)='sysutils' then
       begin
         AddMethod(Self,@TPascalScript.InternalBeep,'procedure Beep;');
         AddMethod(Self,@TPascalScript.InternalSleep,'procedure Sleep(MiliSecValue : LongInt);');
+        AddFunction(@DirectoryExists,'function DirectoryExists(Const Directory : String) : Boolean;');
       end
     else if lowercase(Name)='exec' then
       begin
@@ -518,6 +532,14 @@ begin
   FCompilerFree := False;
 end;
 
+procedure TPascalScript.SetClassImporter(AValue: TPSRuntimeClassImporter);
+begin
+  if FClassImporter=AValue then Exit;
+  if Assigned(FClassImporter) then
+    FreeAndNil(FClassImporter);
+  FClassImporter:=AValue;
+end;
+
 procedure TPascalScript.SetRuntime(AValue: TPSExec);
 begin
   if FRuntime=AValue then Exit;
@@ -554,12 +576,20 @@ begin
       FResults:= FResults + #13#10 + Compiler.Msg[i].MessageToString;
   if Result then
     begin
-      Result := FRuntime.RunScript
-            and (FRuntime.ExceptionCode = erNoError);
-      if not Result then
-        FResults:= PSErrorToString(FRuntime.LastEx, '');
-      if FProcess.Running then InternalKill;
-      Result := True;
+      try
+        Result := FRuntime.RunScript
+              and (FRuntime.ExceptionCode = erNoError);
+        if not Result then
+          FResults:= PSErrorToString(FRuntime.LastEx, '');
+        if FProcess.Running then InternalKill;
+        Result := True;
+      except
+        on e : Exception do
+          begin
+            FResults:=e.Message;
+            Result := false;
+          end;
+      end;
     end;
   SetCurrentDir(aDir);
 end;
@@ -581,6 +611,25 @@ function TPascalScript.AddMethod(Slf, Ptr: Pointer; const Decl: tbtstring
   ): Boolean;
 begin
   Result := AddMethodEx(Slf, Ptr, Decl, cdRegister);
+end;
+
+function TPascalScript.AddFunction(Ptr: Pointer; const Decl: tbtstring
+  ): Boolean;
+begin
+  Result := AddFunctionEx(Ptr, Decl, cdRegister);
+end;
+
+function TPascalScript.AddFunctionEx(Ptr: Pointer; const Decl: tbtstring;
+  CallingConv: uPSRuntime.TPSCallingConvention): Boolean;
+var
+  P: TPSRegProc;
+begin
+  p := FCompiler.AddDelphiFunction(Decl);
+  if p <> nil then
+  begin
+    FRuntime.RegisterDelphiFunction(Ptr, p.Name, CallingConv);
+    Result := True;
+  end else Result := False;
 end;
 
 function TPascalScript.Compile: Boolean;

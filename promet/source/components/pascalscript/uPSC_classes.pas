@@ -81,6 +81,8 @@ begin
     RegisterMethod('procedure Move(CurIndex, NewIndex: Integer); ');
     if Streams then
       RegisterMethod('procedure SaveToStream(Stream: TStream); ');
+    RegisterMethod('procedure LoadFromFile(const FileName: string); ');
+    RegisterMethod('procedure SaveToFile(const FileName: string); ');
     RegisterMethod('procedure SetText(Text: PChar); ');
     RegisterProperty('Names', 'String Integer', iptr);
     RegisterProperty('Values', 'String String', iptRW);

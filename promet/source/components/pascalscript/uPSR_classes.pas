@@ -119,6 +119,8 @@ begin
     RegisterVirtualMethod(@TStrings.Move, 'MOVE');
     if Streams then
       RegisterVirtualMethod(@TStrings.SaveToStream, 'SAVETOSTREAM');
+    RegisterVirtualMethod(@TStrings.LoadFromFile, 'LOADFROMFILE');
+    RegisterVirtualMethod(@TStrings.SaveToFile, 'SAVETOFILE');
     RegisterVirtualMethod(@TStrings.SetText, 'SETTEXT');
     RegisterPropertyHelper(@TStringsNamesR, nil, 'NAMES');
     RegisterPropertyHelper(@TStringsValuesR, @TStringsValuesW, 'VALUES');

@@ -121,6 +121,8 @@ type
     procedure acStepoverExecute(Sender: TObject);
     procedure acSyntaxcheckExecute(Sender: TObject);
     procedure cbSyntaxSelect(Sender: TObject);
+    procedure DebuggerExecImport(Sender: TObject; se: TPSExec;
+      x: TPSRuntimeClassImporter);
     procedure edGutterClick(Sender: TObject; X, Y, Line: integer;
       mark: TSynEditMark);
     procedure edShowHint(Sender: TObject; HintInfo: PHintInfo);
@@ -186,7 +188,7 @@ var
 implementation
 
 uses
-  uFrmGotoLine,uData,uBaseApplication,genpascalscript;
+  uFrmGotoLine,uData,uBaseApplication,genpascalscript,Utils;
 
 {$R *.lfm}
 
@@ -333,6 +335,12 @@ begin
   acStepover.Enabled:=lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal';
 end;
 
+procedure TfScriptEditor.DebuggerExecImport(Sender: TObject; se: TPSExec;
+  x: TPSRuntimeClassImporter);
+begin
+  TPascalScript(FDataSet.Script).ClassImporter:=x;
+end;
+
 procedure TfScriptEditor.acDecompileExecute(Sender: TObject);
 var
   s: tbtstring;
@@ -407,6 +415,7 @@ begin
       begin
         if Compile then
           begin
+            SetCurrentDir(GetHomeDir);
             TPascalScript(FDataSet.Script).Runtime := Debugger.Exec;
             TPascalScript(FDataSet.Script).Compiler := Debugger.Comp;
             Debugger.Execute;
@@ -542,6 +551,7 @@ var
 begin
   TPascalScript(FDataSet.Script).Compiler:=Debugger.Comp;
   TPascalScript(FDataSet.Script).Runtime:=Debugger.Exec;
+  Debugger.OnExecImport:=@DebuggerExecImport;
   Debugger.Script.Assign(ed.Lines);
   try
     Result := Debugger.Compile;
@@ -632,6 +642,7 @@ begin
   Sender.AddMethod(Self, @TfScriptEditor.InternalSleep,'procedure Sleep(MiliSecValue : LongInt);');
   FOldUses:=Sender.Comp.OnUses;
   Sender.Comp.OnUses:=@OnUses;
+  OnUses(Sender.Comp,'system');
 end;
 
 procedure TfScriptEditor.FDataSetDataSetAfterScroll(DataSet: TDataSet);
