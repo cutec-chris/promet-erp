@@ -43,6 +43,7 @@ function GetTempPath : string;
 function GetConfigDir(app : string) : string;
 function GetProgramDir : string;
 function GetGlobalConfigDir(app : string;Global : Boolean = True) : string;
+function GetHomeDir : string;
 function SizeToText(size : Longint) : string;
 function GetMimeTypeforExtension(Extension : string) : string;
 function GetMainIconHandle(Resourcename : string) : Cardinal;
@@ -321,6 +322,57 @@ begin
   SysUtils.DeleteFile(ExtractFilePath(Paramstr(0))+'writetest.tmp');
   Result := True;
 end;
+
+function GetHomeDir: string;
+{$IFDEF MSWINDOWS}
+const
+  CSIDL_PERSONAL = $0005;
+var
+  Path: array [0..1024] of char;
+  P : Pointer;
+  SHGetFolderPath : PFNSHGetFolderPath = Nil;
+  CFGDLLHandle : THandle = 0;
+{$ENDIF}
+begin
+{$IFDEF MSWINDOWS}
+  CFGDLLHandle:=LoadLibrary('shell32.dll');
+  if (CFGDLLHandle<>0) then
+    begin
+    P:=GetProcAddress(CFGDLLHandle,'SHGetFolderPathA');
+    If (P=Nil) then
+      begin
+      FreeLibrary(CFGDLLHandle);
+      CFGDllHandle:=0;
+      end
+    else
+      SHGetFolderPath:=PFNSHGetFolderPath(P);
+    end;
+  If (P=Nil) then
+    begin
+    CFGDLLHandle:=LoadLibrary('shfolder.dll');
+    if (CFGDLLHandle<>0) then
+      begin
+      P:=GetProcAddress(CFGDLLHandle,'SHGetFolderPathA');
+      If (P=Nil) then
+        begin
+        FreeLibrary(CFGDLLHandle);
+        CFGDllHandle:=0;
+        end
+      else
+        ShGetFolderPath:=PFNSHGetFolderPath(P);
+      end;
+    end;
+  Result := ExtractFilePath(Paramstr(0));
+  If (@ShGetFolderPath<>Nil) then
+    begin
+      if SHGetFolderPath(0,CSIDL_PERSONAL or CSIDL_FLAG_CREATE,0,0,@PATH[0])=S_OK then
+        Result:=IncludeTrailingPathDelimiter(StrPas(@Path[0]))+app;
+    end;
+{$ELSE}
+  Result:=expandfilename('~/');
+{$ENDIF}
+end;
+
 function SizeToText(size : Longint) : string;
 begin
   if size > 1024*1024*1024 then
@@ -827,4 +879,4 @@ begin
 end;
 END.
 
- 
+ 

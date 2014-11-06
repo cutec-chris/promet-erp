@@ -539,7 +539,10 @@ end;
 function TPascalScript.Execute(aParameters: Variant): Boolean;
 var
   i: Integer;
+  aDir: String;
 begin
+  aDir := GetCurrentDir;
+  SetCurrentDir(GetHomeDir);
   Parameters:=aParameters;
   if FByteCode='' then Result := Compile
   else Result := True;
@@ -558,6 +561,7 @@ begin
       if FProcess.Running then InternalKill;
       Result := True;
     end;
+  SetCurrentDir(aDir);
 end;
 
 function TPascalScript.AddMethodEx(Slf, Ptr: Pointer; const Decl: tbtstring;
