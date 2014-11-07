@@ -40,11 +40,6 @@ type
     function CombineItems(aRemoteLink: string): Boolean; override;
   end;
 
-  { TPersonHistory }
-
-  TPersonHistory = class(TBaseHistory)
-  public
-  end;
   TBaseDbAddress = class(TBaseDBList)
   private
     function GetAddress: TField;
@@ -111,7 +106,7 @@ type
     FBanking: TPersonBanking;
     FCustomerCont: TPersonContactData;
     FEmployees: TPersonEmployees;
-    FHistory: TPersonHistory;
+    FHistory: TBaseHistory;
     FImages: TImages;
     FLinks: TPersonLinks;
     FPersonAddress: TPersonAddress;
@@ -132,7 +127,7 @@ type
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;override;
     property Address : TPersonAddress read FPersonAddress;
     property CustomerCont : TPersonContactData read FCustomerCont;
-    property History : TPersonHistory read FHistory;
+    property History : TBaseHistory read FHistory;
     property Images : TImages read FImages;
     property Banking : TPersonBanking read FBanking;
     property Links : TPersonLinks read FLinks;
@@ -697,7 +692,7 @@ begin
           UsePermissions:=False;
         end;
     end;
-  FHistory := TPersonHistory.Create(Self,DM,aConnection,DataSet);
+  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
   FPersonAddress := TPersonAddress.Create(Self,DM,aConnection,DataSet);
   FCustomerCont := TPersonContactData.Create(Self,DM,aConnection,DataSet);
   FImages := TImages.Create(Self,DM,aConnection,DataSet);

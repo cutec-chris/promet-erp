@@ -177,6 +177,7 @@ type
     procedure AppendUserToActiveList;
     procedure RefreshUsersFilter;
     procedure RemoveUserFromActiveList;
+    procedure RegisterLinkHandlers;
     property IgnoreOpenRequests : Boolean read FIgnoreOpenrequests write FIgnoreOpenrequests;
     property Tables : TStrings read FTables;
     property Triggers : TStrings read FTriggers;
@@ -413,7 +414,8 @@ resourcestring
   strEnterAnName                 = 'enter an Name';
   strProjectProcess              = 'Projekt/Prozess';
 implementation
-uses uZeosDBDM, uBaseApplication, uWiki, uMessages, uprocessmanager,uRTFtoTXT;
+uses uZeosDBDM, uBaseApplication, uWiki, uMessages, uprocessmanager,uRTFtoTXT,
+  utask,uPerson,uMasterdata,uProjects,umeeting,uStatistic;
 
 { TDBConfig }
 
@@ -1289,7 +1291,18 @@ end;
 procedure TBaseDBModule.RegisterLinkHandler(aLink: string;
   aOpenHandler: TOpenLinkEvent; DataSetClass: TBaseDBDatasetClass;
   DataSetListClass: TBaseDBDatasetClass);
+var
+  i: Integer;
 begin
+  for i := 0 to length(FLinkHandlers)-1 do
+    if FLinkHandlers[i].aLinkType=aLink then
+      with FLinkHandlers[i] do
+        begin
+          aEvent := aOpenHandler;
+          aClass := DatasetClass;
+          aListClass := DataSetListClass;
+          exit;
+        end;
   Setlength(FLinkHandlers,length(FLinkHandlers)+1);
   with FLinkHandlers[length(FLinkHandlers)-1] do
     begin
@@ -1440,6 +1453,7 @@ begin
   except
   end;
   ActiveUsers.DataSet.Close;
+  RegisterLinkHandlers;
 end;
 
 procedure TBaseDBModule.RefreshUsersFilter;
@@ -1486,6 +1500,140 @@ begin
   except
   end;
 end;
+
+procedure TBaseDBModule.RegisterLinkHandlers;
+begin
+  //Messages
+  RegisterLinkHandler('HISTORY',nil,TBaseHistory);
+  //Messages
+  if Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+    begin
+      try
+        RegisterLinkHandler('MESSAGEIDX',nil,TMessage);
+        AddSearchAbleDataSet(TMessageList);
+      except
+      end;
+    end;
+  //Tasks
+  if (Users.Rights.Right('TASKS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('TASKS',nil,TTask,TTaskList);
+      except
+      end;
+    end;
+  //Add PIM Entrys
+  if Users.Rights.Right('CALENDAR') > RIGHT_NONE then
+    begin
+      try
+        RegisterLinkHandler('CALENDAR',nil,TTask,TTaskList);
+      except
+      end;
+    end;
+  //Orders
+  if Users.Rights.Right('ORDERS') > RIGHT_NONE then
+    begin
+      try
+      RegisterLinkHandler('ORDERS',nil,Torder);
+      AddSearchAbleDataSet(TOrderList);
+      except
+      end;
+    end;
+  //Add Contacts
+  if Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
+    begin
+      try
+      RegisterLinkHandler('CUSTOMERS',nil,TPerson);
+      AddSearchAbleDataSet(TPersonList);
+      AddSearchAbleDataSet(TPersonContactData);
+      AddSearchAbleDataSet(TPersonAddress);
+      except
+      end;
+    end;
+  //Add Masterdata stuff
+  if (Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('MASTERDATA',nil,TMasterdata);
+      AddSearchAbleDataSet(TMasterdataList);
+      except
+      end;
+    end;
+  //Projects
+  if (Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('PROJECT',nil,TProject);
+      AddSearchAbleDataSet(TProjectList);
+      except
+      end;
+    end;
+  //Wiki
+  RegisterLinkHandler('WIKI',nil,TWikiList);
+  if (Users.Rights.Right('WIKI') > RIGHT_NONE) then
+    begin
+      try
+      AddSearchAbleDataSet(TWikiList);
+      except
+      end;
+    end;
+  //Documents
+  if (Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('DOCUMENTS',nil,TDocument);
+      //RegisterLinkHandler('DOCPAGES',nil,TDocPages);
+      except
+      end;
+    end;
+  //Lists
+  if (Users.Rights.Right('LISTS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('LISTS',nil,TLists);
+      AddSearchAbleDataSet(TLists);
+      except
+      end;
+    end;
+  //Meetings
+  if (Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('MEETINGS',nil,TMeetings);
+      AddSearchAbleDataSet(TMeetings);
+      except
+      end;
+    end;
+  //Inventory
+  if (Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('INVENTORY',nil,TInventorys);
+      except
+      end;
+    end;
+  //Statistics
+  if (Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('STATISTICS',nil,TStatistic);
+      AddSearchAbleDataSet(TStatistic);
+      except
+      end;
+    end;
+  //Timeregistering
+  AddSearchAbleDataSet(TUser);
+  //History
+  if Users.Rights.Right('DOCUMENTS') > RIGHT_NONE then
+    begin
+      try
+      AddSearchAbleDataSet(TBaseHistory);
+      RegisterLinkHandler('HISTORY',nil,TBaseHistory);
+      except
+      end;
+    end;
+end;
+
 function TBaseDBInterface.GetMandantPath: string;
 begin
   Result := FConfigPath
@@ -1721,4 +1869,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

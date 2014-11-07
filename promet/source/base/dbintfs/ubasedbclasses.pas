@@ -132,6 +132,9 @@ type
     property OnRemove : TNotifyEvent read FOnRemoved write FOnRemoved;
   end;
   TReplaceFieldFunc = procedure(aField : TField;aOldValue : string;var aNewValue : string);
+
+  { TBaseDbList }
+
   TBaseDbList = class(TBaseDBDataSet)
   private
     function GetBookNumber: TField;
@@ -146,6 +149,7 @@ type
     FStatusCache: TStringList;
   public
     constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor Create(aOwner : TComponent);override;
     destructor Destroy; override;
     function GetStatusIcon : Integer;virtual;
     function GetTyp: string;virtual;
@@ -178,6 +182,9 @@ type
   end;
   TBaseDBDatasetClass = class of TBaseDBDataset;
   TBaseDBListClass = class of TBaseDBList;
+
+  { TBaseHistory }
+
   TBaseHistory = class(TBaseDBList)
   private
     FHChanged: Boolean;
@@ -193,6 +200,7 @@ type
     procedure SelectByRoot(aParent: Variant);
 
     function AddItem(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    function AddItemSR(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: string=''; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
     procedure AddParentedItem(aObject: TDataSet; aAction: string;aParent : Variant; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0; aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False); virtual;
     procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
 
@@ -940,6 +948,11 @@ begin
   FStatusCache := TStringList.Create;
 end;
 
+constructor TBaseDbList.Create(aOwner: TComponent);
+begin
+  inherited Create(aOwner, Data, nil, nil);
+end;
+
 destructor TBaseDbList.Destroy;
 begin
   FStatusCache.Free;
@@ -1529,6 +1542,17 @@ end;
 function TBaseHistory.AddItem(aObject: TDataSet; aAction: string;
   aLink: string; aReference: string; aRefObject: TDataSet; aIcon: Integer;
   aComission: string; CheckDouble: Boolean; DoPost: Boolean; DoChange: Boolean) : Boolean;
+begin
+  if Assigned(aRefObject) then
+    Result := AddItemSR(aObject,aAction,aLink,aReference,Data.BuildLink(aRefObject),aIcon,aComission,CheckDouble,DoPost,DoChange)
+  else
+    Result := AddItemSR(aObject,aAction,aLink,aReference,'',aIcon,aComission,CheckDouble,DoPost,DoChange);
+end;
+
+function TBaseHistory.AddItemSR(aObject: TDataSet; aAction: string;
+  aLink: string; aReference: string; aRefObject: string; aIcon: Integer;
+  aComission: string; CheckDouble: Boolean; DoPost: Boolean; DoChange: Boolean
+  ): Boolean;
 var
   tmp: String;
 begin
@@ -1559,11 +1583,8 @@ begin
   FieldByName('ACTIONICON').AsInteger := aIcon;
   FieldByName('ACTION').AsString    := aAction;
   FieldByName('REFERENCE').AsString := aReference;
-  if Assigned(aRefObject) then
-    begin
-      with BaseApplication as IBaseDbInterface do
-        FieldByName('REFOBJECT').AsString := Data.BuildLink(aRefObject);
-    end;
+  if aRefObject<>'' then
+    FieldByName('REFOBJECT').AsString := aRefObject;
   with BaseApplication as IBaseDbInterface do
     FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
   DataSet.FieldByName('COMMISSION').AsString := aComission;
@@ -2969,4 +2990,4 @@ begin
 end;
 initialization
 end.
-
+

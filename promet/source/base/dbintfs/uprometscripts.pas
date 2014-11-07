@@ -55,9 +55,9 @@ type
 
     function InternalDataSet(SQL : string) : TDataSet;
     function InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
-      ObjectLink: string=''; Reference: string='';Commission: string='';Date:TDateTime = 0) : Boolean;
+      ObjectLink: string=''; Reference: string='';Commission: string='';Source : string='';Date:TDateTime = 0) : Boolean;
     function InternalUserHistory(Action: string;UserName: string; Icon: Integer; ObjectLink: string;
-      Reference: string; Commission: string; Date: TDateTime): Boolean;
+      Reference: string; Commission: string;Source : string; Date: TDateTime): Boolean;
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
@@ -75,7 +75,7 @@ type
   function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
 
 implementation
-uses uStatistic,uData,httpsend,Utils,variants;
+uses uStatistic,uData,httpsend,Utils,variants,uPerson,uMasterdata,uProjects,uOrder;
 function ProcessScripts : Boolean;//process Scripts that must be runned cyclic Result shows that it should be runned faster (debug)
 var
   aScript: TBaseScript;
@@ -134,7 +134,7 @@ begin
 end;
 function TBaseScript.InternalHistory(Action: string; ParentLink: string;
   Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
-  Date: TDateTime): Boolean;
+  Source: string; Date: TDateTime): Boolean;
 var
   aHistory: TBaseHistory;
   aDataSetClass: TBaseDBDatasetClass;
@@ -148,8 +148,8 @@ begin
       aDataSet.Open;
       if aDataSet.Count>0 then
         begin
-          aHistory := TBaseHistory.Create(nil,DataModule,Connection);
-          aHistory.AddItem(aDataSet.DataSet,Action,ObjectLink,Reference,nil,Icon,Commission);
+          aHistory := TBaseHistory.Create(nil,DataModule,Connection,aDataSet.DataSet);
+          aHistory.AddItemSR(aDataSet.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,Commission);
           aHistory.Free;
           result := True;
         end;
@@ -158,13 +158,12 @@ begin
 end;
 function TBaseScript.InternalUserHistory(Action: string; UserName: string;
   Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
-  Date: TDateTime): Boolean;
+  Source: string; Date: TDateTime): Boolean;
 begin
   Result := False;
   if Data.Users.Locate('NAME',UserName,[loCaseInsensitive]) then
     begin
-      Data.Users.History.AddItem(Data.Users.DataSet,Action,ObjectLink,Reference,nil,Icon,Commission);
-      Result := True;
+      Result := Data.Users.History.AddItemSR(Data.Users.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,Commission);
     end;
 end;
 
@@ -173,6 +172,19 @@ begin
   TPascalScript(FScript).OnUses:=@TPascalScriptUses;
   FScript.Source:=FieldByName('SCRIPT').AsString;
 end;
+
+procedure TBaseDbListPropertyTextR(Self: TBaseDbList; var T: TField); begin T := Self.Text; end;
+procedure TBaseDbListPropertyNumberR(Self: TBaseDbList; var T: TField); begin T := Self.Number; end;
+procedure TBaseDbListPropertyBookNumberR(Self: TBaseDbList; var T: TField); begin T := Self.BookNumber; end;
+procedure TBaseDbListPropertyBarcodeR(Self: TBaseDbList; var T: TField); begin T := Self.Barcode; end;
+procedure TBaseDbListPropertyTypR(Self: TBaseDbList; var T: string); begin T := Self.Typ; end;
+procedure TBaseDbListPropertyMatchCodeR(Self: TBaseDbList; var T: TField); begin T := Self.Matchcode; end;
+procedure TBaseDbListPropertyDescriptionR(Self: TBaseDbList; var T: TField); begin T := Self.Description; end;
+procedure TBaseDbListPropertyComissionR(Self: TBaseDbList; var T: TField); begin T := Self.Commission; end;
+procedure TBaseDbListPropertyStatusR(Self: TBaseDbList; var T: TField); begin T := Self.Status; end;
+procedure TPersonPropertyContR(Self: TPerson; var T: TPersonContactData); begin T := Self.CustomerCont; end;
+procedure TPersonPropertyAdressR(Self: TPerson; var T: TBaseDbAddress); begin T := Self.Address; end;
+procedure TBaseDbListPropertyHistoryR(Self: TBaseDBList; var T: TBaseHistory); var Hist : IBaseHistory; begin if Supports(Self, IBaseHistory, Hist) then T := Hist.GetHistory; end;
 
 function TBaseScript.TPascalScriptUses(Sender: TPascalScript;
   const aName: tbtString): Boolean;
@@ -196,8 +208,146 @@ begin
         Sender.InternalUses(Sender.Compiler,'db');
         Sender.InternalUses(Sender.Compiler,'dateutils');
         Sender.AddMethod(Self,@TBaseScript.InternalDataSet,'function DataSet(SQL : string) : TDataSet;');
-        Sender.AddMethod(Self,@TBaseScript.InternalHistory,'function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
-        Sender.AddMethod(Self,@TBaseScript.InternalUserHistory,'function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Date:TDateTime) : Boolean;');
+        Sender.AddMethod(Self,@TBaseScript.InternalHistory,'function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
+        Sender.AddMethod(Self,@TBaseScript.InternalUserHistory,'function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBDataset) do
+          begin
+            RegisterMethod('procedure Insert;');
+            RegisterMethod('procedure Append;');
+            RegisterMethod('procedure Delete;');
+            RegisterMethod('procedure First;');
+            RegisterMethod('procedure Last;');
+            RegisterMethod('procedure Next;');
+            RegisterMethod('procedure Prior;');
+            RegisterMethod('procedure Post;');
+            RegisterMethod('procedure Edit;');
+            RegisterMethod('procedure Cancel;');
+            RegisterMethod('function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean;');
+            RegisterMethod('function EOF : Boolean;');
+            RegisterMethod('function FieldByName(aFieldName : string) : TField;');
+            RegisterMethod('procedure Filter(aFilter : string;aLimit : Integer;aOrderBy : string;aSortDirection : string;aLocalSorting : Boolean;aGlobalFilter : Boolean;aUsePermissions : Boolean;aFilterIn : string);');
+            RegisterProperty('ActualFilter','String',iptRW);
+            RegisterProperty('ActualLimit','Integer',iptRW);
+          end;
+        with Sender.ClassImporter.Add(TBaseDBDataset) do
+          begin
+            RegisterVirtualMethod(@TBaseDBDataset.Insert, 'INSERT');
+            RegisterVirtualMethod(@TBaseDBDataset.Append, 'APPEND');
+            RegisterVirtualMethod(@TBaseDBDataset.Delete, 'DELETE');
+            RegisterVirtualMethod(@TBaseDBDataset.First, 'FIRST');
+            RegisterVirtualMethod(@TBaseDBDataset.Last, 'LAST');
+            RegisterVirtualMethod(@TBaseDBDataset.Next, 'NEXT');
+            RegisterVirtualMethod(@TBaseDBDataset.Prior, 'PRIOR');
+            RegisterVirtualMethod(@TBaseDBDataset.Post, 'POST');
+            RegisterVirtualMethod(@TBaseDBDataset.Edit, 'EDIT');
+            RegisterVirtualMethod(@TBaseDBDataset.Cancel, 'CANCEL');
+            RegisterVirtualMethod(@TBaseDBDataset.Locate, 'LOCATE');
+            RegisterVirtualMethod(@TBaseDBDataset.EOF, 'EOF');
+            RegisterVirtualMethod(@TBaseDBDataset.FieldByName, 'FIELDBYNAME');
+            RegisterVirtualMethod(@TBaseDBDataset.Filter, 'FILTER');
+          end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataSet'),TBaseDbList) do
+          begin
+            RegisterProperty('Text','TField',iptR);
+            RegisterProperty('Number','TField',iptR);
+            RegisterProperty('BookNumber','TField',iptR);
+            RegisterProperty('Barcode','TField',iptR);
+            RegisterProperty('Description','TField',iptR);
+            RegisterProperty('Commission','TField',iptR);
+            RegisterProperty('Status','TField',iptR);
+            RegisterProperty('Typ','string',iptR);
+            RegisterProperty('MatchCode','TField',iptR);
+            RegisterMethod('function SelectFromLink(aLink : string) : Boolean;');
+            RegisterMethod('function SelectFromNumber(aNumber : string) : Boolean;');
+          end;
+        with Sender.ClassImporter.Add(TBaseDbList) do
+          begin
+            RegisterVirtualMethod(@TBaseDbList.SelectFromLink,'SELECTFROMLINK');
+            RegisterVirtualMethod(@TBaseDbList.SelectFromNumber,'SELECTFROMNUMBER');
+            RegisterPropertyHelper(@TBaseDbListPropertyTextR,nil,'TEXT');
+            RegisterPropertyHelper(@TBaseDbListPropertyNumberR,nil,'NUMBER');
+            RegisterPropertyHelper(@TBaseDbListPropertyBookNumberR,nil,'BOOKNUMBER');
+            RegisterPropertyHelper(@TBaseDbListPropertyBarcodeR,nil,'BARCODE');
+            RegisterPropertyHelper(@TBaseDbListPropertyDescriptionR,nil,'DESCRIPTION');
+            RegisterPropertyHelper(@TBaseDbListPropertyComissionR,nil,'COMMISSION');
+            RegisterPropertyHelper(@TBaseDbListPropertyStatusR,nil,'STATUS');
+            RegisterPropertyHelper(@TBaseDbListPropertyTypR,nil,'TYP');
+            RegisterPropertyHelper(@TBaseDbListPropertyMatchCodeR,nil,'MATCHCODE');
+          end;
+        //Person
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TBaseDbAddress) do
+          begin
+            RegisterMethod('function ToString: ansistring;');
+            RegisterMethod('procedure FromString(aStr : AnsiString);');
+          end;
+        with Sender.ClassImporter.Add(TBaseDbAddress) do
+          begin
+            RegisterVirtualMethod(@TBaseDbAddress.ToString,'TOSTRING');
+            RegisterVirtualMethod(@TBaseDbAddress.FromString,'FROMSTRING');
+          end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDbList'),TPersonContactData) do
+          begin
+          end;
+        with Sender.ClassImporter.Add(TPersonContactData) do
+          begin
+          end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TPersonList) do
+          begin
+          end;
+        with Sender.ClassImporter.Add(TPersonList) do
+          begin
+          end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TPersonList'),TPerson) do
+          begin
+            RegisterProperty('Address','TPersonAddress',iptR);
+            RegisterProperty('CustomerCont','TPersonContactData',iptR);
+            RegisterProperty('History','TBaseHistory',iptR);
+          end;
+        with Sender.ClassImporter.Add(TPerson) do
+          begin
+            RegisterPropertyHelper(@TPersonPropertyAdressR,nil,'ADDRESS');
+            RegisterPropertyHelper(@TPersonPropertyContR,nil,'CUSTOMERCONT');
+            RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
+          end;
+        //Masterdata
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TMasterdataList) do
+          begin
+          end;
+        with Sender.ClassImporter.Add(TMasterdataList) do
+          begin
+          end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TMasterdataList'),TMasterdata) do
+          begin
+            RegisterProperty('History','TBaseHistory',iptR);
+          end;
+        with Sender.ClassImporter.Add(TMasterdata) do
+          begin
+            RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
+          end;
+        //Projects
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TProjectList'),TProject) do
+          begin
+            RegisterProperty('History','TBaseHistory',iptR);
+          end;
+        with Sender.ClassImporter.Add(TProject) do
+          begin
+            RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
+          end;
+        //Orders
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TOrderList) do
+          begin
+          end;
+        with Sender.ClassImporter.Add(TOrderList) do
+          begin
+          end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TOrderList'),TOrder) do
+          begin
+            RegisterProperty('History','TBaseHistory',iptR);
+          end;
+        with Sender.ClassImporter.Add(TOrder) do
+          begin
+            RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
+          end;
       except
         Result := False; // will halt compilation
       end;

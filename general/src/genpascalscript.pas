@@ -138,198 +138,6 @@ uses httpsend
   ,Windows
   {$endif}
   ;
-
-function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString
-  ): Boolean;
-begin
-  TPascalScript(Sender.Obj).InternalUses(Sender,Name);
-end;
-
-{ TByteCodeScript }
-
-constructor TByteCodeScript.Create;
-begin
-  ByteCode := '';
-end;
-
-constructor TLoadedLib.Create;
-begin
-  Handle:=0;
-end;
-
-procedure TScript.SetStatus(AValue: char);
-begin
-  if FStatus=AValue then Exit;
-  FStatus:=AValue;
-  if Assigned(FStatusChanged) then
-    FStatusChanged(Self);
-end;
-
-function TScript.Execute(aParameters: Variant): Boolean;
-begin
-  Parameters:=aParameters;
-end;
-
-procedure TPascalScript.InternalExec(cmd: string; ShowConsole: Boolean);
-var
-  aLine: String;
-begin
-  FProcess.CommandLine:=cmd;
-  FProcess.Options:=[poUsePipes,poNoConsole];
-  if ShowConsole then
-    FProcess.Options:=[poUsePipes];
-  CompleteOutput:='';
-  FProcess.ShowWindow:=swoNone;
-  try
-    FProcess.Execute;
-  except
-    on e : exception do
-      begin
-        aLine := 'Error:'+e.Message;
-        if Assigned(FRuntime) then
-          FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
-      end;
-  end;
-end;
-function TPascalScript.InternalExecActive : Boolean;
-var
-  ReadSize: LongInt;
-  Buffer : string;
-  ReadCount: LongInt;
-  aLine: String;
-begin
-  Result := Assigned(FProcess) and FProcess.Active;
-  ReadSize := FProcess.Output.NumBytesAvailable;
-  while ReadSize>0 do
-    begin
-      Setlength(Buffer,ReadSize);
-      ReadCount := FProcess.Output.Read(Buffer[1], ReadSize);
-      CompleteOutput:=CompleteOutput+copy(Buffer,0,ReadCount);
-      ReadSize := FProcess.Output.NumBytesAvailable;
-    end;
-  while pos(#10,CompleteOutput)>0 do
-    begin
-      aLine := copy(CompleteOutput,0,pos(#10,CompleteOutput)-1);
-      if Assigned(FRuntime) then
-        FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
-      CompleteOutput:=copy(CompleteOutput,pos(#10,CompleteOutput)+1,length(CompleteOutput));
-    end;
-end;
-
-function TPascalScript.InternalExecResult: Integer;
-begin
-  Result := FProcess.ExitStatus;
-end;
-
-function TPascalScript.InternalKill : Boolean;
-begin
-  Result := Assigned(FProcess);
-  if Result then
-    begin
-      FProcess.Terminate(0);
-      while FProcess.Running do InternalExecActive;
-      InternalExecActive;
-    end;
-end;
-
-procedure TPascalScript.InternalBeep;
-begin
-  Beep;
-end;
-
-procedure TPascalScript.InternalSleep(MiliSecValue: LongInt);
-begin
-  sleep(MiliSecValue);
-end;
-
-function TPascalScript.InternalGet(URL: string): string;
-var
-  ahttp: THTTPSend;
-begin
-  ahttp := THTTPSend.Create;
-  ahttp.HTTPMethod('GET',URL);
-  if ahttp.ResultCode=200 then
-    begin
-      setlength(Result,ahttp.Document.Size);
-      ahttp.Document.Read(Result[1],ahttp.Document.Size);
-    end
-  else Result:='';
-  ahttp.Free;
-end;
-
-function TPascalScript.InternalPost(URL, Content: string): string;
-var
-  ahttp: THTTPSend;
-begin
-  ahttp := THTTPSend.Create;
-  ahttp.Document.Write(Content[1],length(Content));
-  ahttp.HTTPMethod('POST',URL);
-  if ahttp.ResultCode=200 then
-    begin
-      setlength(Result,ahttp.Document.Size);
-      ahttp.Document.Read(Result[1],ahttp.Document.Size);
-    end
-  else Result:='';
-  ahttp.Free;
-end;
-
-function TPascalScript.InternalGetDNS: string;
-begin
-  Result := GetDNS;
-end;
-
-function TPascalScript.InternalGetLocalIPs: string;
-begin
-  Result := GetLocalIPs;
-end;
-
-function TPascalScript.InternalRebootMashine: Boolean;
-{$ifdef Windows}
-var
-  hLib: Handle;
-  hProc: procedure;stdcall;
-{$endif}
-begin
-{$ifdef Windows}
-  WinExec('shutdown.exe -r -t 0', SW_NONE);
-{$else}
-  SysUtils.ExecuteProcess('/sbin/shutdown',['-r','now']);
-{$endif}
-end;
-
-function TPascalScript.InternalShutdownMashine: Boolean;
-{$ifdef Windows}
-var
-  hLib: Handle;
-  hProc: procedure;stdcall;
-{$endif}
-begin
-{$ifdef Windows}
-{ Windows NT or newer }
-  WinExec('shutdown.exe -s -t 0', SW_NONE);
-{ Earlier than Windows NT }
-  {$IFDEF UNICODE}
-  hLib:=LoadLibraryW('user.dll');
-  {$ELSE}
-  hLib:=LoadLibraryA('user.dll');
-  {$ENDIF}
-  if hLib<>0 then begin
-    Pointer(hProc):=GetProcAddress(hLib, 'ExitWindows');
-    if hProc<>0 then
-      hProc;
-    FreeLibrary(hLib);
-  end;
-{$else}
-  SysUtils.ExecuteProcess('/sbin/shutdown',['-h','now']);
-{$endif}
-end;
-
-function TPascalScript.InternalWakeMashine(Mac, Ip: string): Boolean;
-begin
-  Result := True;
-  WakeOnLan(Mac,Ip);
-end;
-
 function IProcessDllImport(Sender: TPSExec; p: TPSExternalProcRec; Tag: Pointer
   ): Boolean;
 var
@@ -522,7 +330,179 @@ begin
   if Assigned(FOnUses) then
     Result := FOnUses(Self,Name) or Result;
 end;
-
+function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString
+  ): Boolean;
+begin
+  TPascalScript(Sender.Obj).InternalUses(Sender,Name);
+end;
+{ TByteCodeScript }
+constructor TByteCodeScript.Create;
+begin
+  ByteCode := '';
+end;
+constructor TLoadedLib.Create;
+begin
+  Handle:=0;
+end;
+procedure TScript.SetStatus(AValue: char);
+begin
+  if FStatus=AValue then Exit;
+  FStatus:=AValue;
+  if Assigned(FStatusChanged) then
+    FStatusChanged(Self);
+end;
+function TScript.Execute(aParameters: Variant): Boolean;
+begin
+  Parameters:=aParameters;
+end;
+procedure TPascalScript.InternalExec(cmd: string; ShowConsole: Boolean);
+var
+  aLine: String;
+begin
+  FProcess.CommandLine:=cmd;
+  FProcess.Options:=[poUsePipes,poNoConsole];
+  if ShowConsole then
+    FProcess.Options:=[poUsePipes];
+  CompleteOutput:='';
+  FProcess.ShowWindow:=swoNone;
+  try
+    FProcess.Execute;
+  except
+    on e : exception do
+      begin
+        aLine := 'Error:'+e.Message;
+        if Assigned(FRuntime) then
+          FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
+      end;
+  end;
+end;
+function TPascalScript.InternalExecActive : Boolean;
+var
+  ReadSize: LongInt;
+  Buffer : string;
+  ReadCount: LongInt;
+  aLine: String;
+begin
+  Result := Assigned(FProcess) and FProcess.Active;
+  ReadSize := FProcess.Output.NumBytesAvailable;
+  while ReadSize>0 do
+    begin
+      Setlength(Buffer,ReadSize);
+      ReadCount := FProcess.Output.Read(Buffer[1], ReadSize);
+      CompleteOutput:=CompleteOutput+copy(Buffer,0,ReadCount);
+      ReadSize := FProcess.Output.NumBytesAvailable;
+    end;
+  while pos(#10,CompleteOutput)>0 do
+    begin
+      aLine := copy(CompleteOutput,0,pos(#10,CompleteOutput)-1);
+      if Assigned(FRuntime) then
+        FRuntime.RunProcPN([aLine],'EXECLINERECEIVED');
+      CompleteOutput:=copy(CompleteOutput,pos(#10,CompleteOutput)+1,length(CompleteOutput));
+    end;
+end;
+function TPascalScript.InternalExecResult: Integer;
+begin
+  Result := FProcess.ExitStatus;
+end;
+function TPascalScript.InternalKill : Boolean;
+begin
+  Result := Assigned(FProcess);
+  if Result then
+    begin
+      FProcess.Terminate(0);
+      while FProcess.Running do InternalExecActive;
+      InternalExecActive;
+    end;
+end;
+procedure TPascalScript.InternalBeep;
+begin
+  Beep;
+end;
+procedure TPascalScript.InternalSleep(MiliSecValue: LongInt);
+begin
+  sleep(MiliSecValue);
+end;
+function TPascalScript.InternalGet(URL: string): string;
+var
+  ahttp: THTTPSend;
+begin
+  ahttp := THTTPSend.Create;
+  ahttp.HTTPMethod('GET',URL);
+  if ahttp.ResultCode=200 then
+    begin
+      setlength(Result,ahttp.Document.Size);
+      ahttp.Document.Read(Result[1],ahttp.Document.Size);
+    end
+  else Result:='';
+  ahttp.Free;
+end;
+function TPascalScript.InternalPost(URL, Content: string): string;
+var
+  ahttp: THTTPSend;
+begin
+  ahttp := THTTPSend.Create;
+  ahttp.Document.Write(Content[1],length(Content));
+  ahttp.HTTPMethod('POST',URL);
+  if ahttp.ResultCode=200 then
+    begin
+      setlength(Result,ahttp.Document.Size);
+      ahttp.Document.Read(Result[1],ahttp.Document.Size);
+    end
+  else Result:='';
+  ahttp.Free;
+end;
+function TPascalScript.InternalGetDNS: string;
+begin
+  Result := GetDNS;
+end;
+function TPascalScript.InternalGetLocalIPs: string;
+begin
+  Result := GetLocalIPs;
+end;
+function TPascalScript.InternalRebootMashine: Boolean;
+{$ifdef Windows}
+var
+  hLib: Handle;
+  hProc: procedure;stdcall;
+{$endif}
+begin
+{$ifdef Windows}
+  WinExec('shutdown.exe -r -t 0', SW_NONE);
+{$else}
+  SysUtils.ExecuteProcess('/sbin/shutdown',['-r','now']);
+{$endif}
+end;
+function TPascalScript.InternalShutdownMashine: Boolean;
+{$ifdef Windows}
+var
+  hLib: Handle;
+  hProc: procedure;stdcall;
+{$endif}
+begin
+{$ifdef Windows}
+{ Windows NT or newer }
+  WinExec('shutdown.exe -s -t 0', SW_NONE);
+{ Earlier than Windows NT }
+  {$IFDEF UNICODE}
+  hLib:=LoadLibraryW('user.dll');
+  {$ELSE}
+  hLib:=LoadLibraryA('user.dll');
+  {$ENDIF}
+  if hLib<>0 then begin
+    Pointer(hProc):=GetProcAddress(hLib, 'ExitWindows');
+    if hProc<>0 then
+      hProc;
+    FreeLibrary(hLib);
+  end;
+{$else}
+  SysUtils.ExecuteProcess('/sbin/shutdown',['-h','now']);
+{$endif}
+end;
+function TPascalScript.InternalWakeMashine(Mac, Ip: string): Boolean;
+begin
+  Result := True;
+  WakeOnLan(Mac,Ip);
+end;
 procedure TPascalScript.SetCompiler(AValue: TPSPascalCompiler);
 begin
   if FCompiler=AValue then Exit;
@@ -531,7 +511,6 @@ begin
   FCompiler:=AValue;
   FCompilerFree := False;
 end;
-
 procedure TPascalScript.SetClassImporter(AValue: TPSRuntimeClassImporter);
 begin
   if FClassImporter=AValue then Exit;
@@ -539,7 +518,6 @@ begin
     FreeAndNil(FClassImporter);
   FClassImporter:=AValue;
 end;
-
 procedure TPascalScript.SetRuntime(AValue: TPSExec);
 begin
   if FRuntime=AValue then Exit;
@@ -548,12 +526,10 @@ begin
   FRuntime:=AValue;
   FRuntimeFree:=False;
 end;
-
 procedure TPascalScript.InternalChDir(Directory: string);
 begin
   chdir(Directory);
 end;
-
 procedure TPascalScript.InternalMkDir(Directory: string);
 begin
   mkdir(Directory);
@@ -593,7 +569,6 @@ begin
     end;
   SetCurrentDir(aDir);
 end;
-
 function TPascalScript.AddMethodEx(Slf, Ptr: Pointer; const Decl: tbtstring;
   CallingConv: uPSRuntime.TPSCallingConvention): Boolean;
 var
@@ -606,19 +581,16 @@ begin
     Result := True;
   end else Result := False;
 end;
-
 function TPascalScript.AddMethod(Slf, Ptr: Pointer; const Decl: tbtstring
   ): Boolean;
 begin
   Result := AddMethodEx(Slf, Ptr, Decl, cdRegister);
 end;
-
 function TPascalScript.AddFunction(Ptr: Pointer; const Decl: tbtstring
   ): Boolean;
 begin
   Result := AddFunctionEx(Ptr, Decl, cdRegister);
 end;
-
 function TPascalScript.AddFunctionEx(Ptr: Pointer; const Decl: tbtstring;
   CallingConv: uPSRuntime.TPSCallingConvention): Boolean;
 var
@@ -631,7 +603,6 @@ begin
     Result := True;
   end else Result := False;
 end;
-
 function TPascalScript.Compile: Boolean;
 begin
   Compiler.Obj := Self;
@@ -639,7 +610,6 @@ begin
   Result:= Compiler.Compile(Source) and Compiler.GetOutput(FBytecode);
   Result:= Result and FRuntime.LoadData(Bytecode);
 end;
-
 constructor TPascalScript.Create;
 begin
   inherited;
@@ -651,7 +621,6 @@ begin
   FRuntimeFree := True;
   FClassImporter:= TPSRuntimeClassImporter.CreateAndRegister(FRuntime, false);
 end;
-
 destructor TPascalScript.Destroy;
 begin
   if Assigned(FProcess) then
@@ -667,6 +636,5 @@ begin
     FRuntime.Free;
   inherited Destroy;
 end;
-
 end.
 
