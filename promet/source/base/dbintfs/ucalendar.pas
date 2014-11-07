@@ -66,7 +66,7 @@ type
     function GetEnd: TDateTime;
     function GetStart: TDateTime;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure SelectById(aID : Integer);overload;
     property Links : TEventLinks read FLinks;

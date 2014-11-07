@@ -26,6 +26,9 @@ uses
   uModifiedDS,ZSqlMonitor;
 type
   TUnprotectedDataSet = class(TDataSet);
+
+  { TZeosDBDM }
+
   TZeosDBDM = class(TBaseDBModule)
     procedure MonitorTrace(Sender: TObject; Event: TZLoggingEvent;
       var LogTrace: Boolean);
@@ -50,7 +53,7 @@ type
     function SetProperties(aProp : string;Connection : TComponent = nil) : Boolean;override;
     function CreateDBFromProperties(aProp: string): Boolean; override;
     function IsSQLDB : Boolean;override;
-    function GetNewDataSet(aTable : TBaseDbDataSet;aConnection : TComponent = nil;MasterData : TDataSet = nil;aTables : string = '') : TDataSet;override;
+    function GetNewDataSet(aTable : TBaseDBCustomDataset;aConnection : TComponent = nil;MasterData : TDataSet = nil;aTables : string = '') : TDataSet;override;
     function GetNewDataSet(aSQL : string;aConnection : TComponent = nil;MasterData : TDataSet = nil;aOrigtable : TBaseDBDataSet = nil) : TDataSet;override;
     procedure DestroyDataSet(DataSet : TDataSet);override;
     function Ping(aConnection : TComponent) : Boolean;override;
@@ -79,6 +82,9 @@ type
     function FieldToSQL(aName : string;aType : TFieldType;aSize : Integer;aRequired : Boolean) : string;
     function GetColumns(TableName : string) : TStrings;override;
   end;
+
+  { TZeosDBDataSet }
+
   TZeosDBDataSet = class(TZQuery,IBaseDBFilter,IBaseManageDB,IBaseSubDatasets,IBaseModifiedDS)
   private
     FSubDataSets : Tlist;
@@ -92,7 +98,7 @@ type
     FDefaultTableName : string;
     FManagedFieldDefs : TFieldDefs;
     FManagedIndexDefs : TIndexDefs;
-    FOrigTable : TBaseDBDataSet;
+    FOrigTable : TBaseDBCustomDataset;
     FUsePermissions : Boolean;
     FTableCaption : string;
     FDistinct : Boolean;
@@ -174,10 +180,10 @@ type
     function GetUseIntegrity: Boolean;
     procedure SetUseIntegrity(AValue: Boolean);
     //IBaseSubDataSets
-    function GetSubDataSet(aName : string): TBaseDBDataset;
-    procedure RegisterSubDataSet(aDataSet : TBaseDBDataset);
+    function GetSubDataSet(aName : string): TBaseDBCustomDataset;
+    procedure RegisterSubDataSet(aDataSet : TBaseDBCustomDataset);
     function GetCount : Integer;
-    function GetSubDataSetIdx(aIdx : Integer): TBaseDBDataset;
+    function GetSubDataSetIdx(aIdx : Integer): TBaseDBCustomDataset;
     //IBaseModifiedDS
     function IsChanged: Boolean;
   public
@@ -980,7 +986,7 @@ begin
   if Assigned(FOrigTable) then
     FOrigTable.Change;
 end;
-function TZeosDBDataSet.GetSubDataSet(aName: string): TBaseDBDataset;
+function TZeosDBDataSet.GetSubDataSet(aName: string): TBaseDBCustomDataset;
 var
   i: Integer;
 begin
@@ -990,7 +996,7 @@ begin
       if TableName = aName then
         Result := TBaseDBDataSet(FSubDataSets[i]);
 end;
-procedure TZeosDBDataSet.RegisterSubDataSet(aDataSet: TBaseDBDataset);
+procedure TZeosDBDataSet.RegisterSubDataSet(aDataSet: TBaseDBCustomDataset);
 begin
   FSubDataSets.Add(aDataSet);
 end;
@@ -998,7 +1004,7 @@ function TZeosDBDataSet.GetCount: Integer;
 begin
   Result := FSubDataSets.Count;
 end;
-function TZeosDBDataSet.GetSubDataSetIdx(aIdx: Integer): TBaseDBDataset;
+function TZeosDBDataSet.GetSubDataSetIdx(aIdx: Integer): TBaseDBCustomDataset;
 begin
   Result := nil;
   if aIdx < FSubDataSets.Count then
@@ -1384,7 +1390,8 @@ function TZeosDBDM.IsSQLDB: Boolean;
 begin
   Result:=True;
 end;
-function TZeosDBDM.GetNewDataSet(aTable: TBaseDbDataSet;aConnection: TComponent = nil; MasterData: TDataSet = nil;aTables : string = ''): TDataSet;
+function TZeosDBDM.GetNewDataSet(aTable: TBaseDBCustomDataset;
+  aConnection: TComponent; MasterData: TDataSet; aTables: string): TDataSet;
 begin
   if IgnoreOpenrequests then exit;
   Result := FDataSetClass.Create(Self);

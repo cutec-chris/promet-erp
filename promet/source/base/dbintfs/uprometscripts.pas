@@ -212,6 +212,7 @@ begin
         Sender.AddMethod(Self,@TBaseScript.InternalUserHistory,'function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBDataset) do
           begin
+            RegisterMethod('constructor Create(Owner : TComponent)');
             RegisterMethod('procedure Insert;');
             RegisterMethod('procedure Append;');
             RegisterMethod('procedure Delete;');
@@ -231,6 +232,7 @@ begin
           end;
         with Sender.ClassImporter.Add(TBaseDBDataset) do
           begin
+            RegisterConstructor(@TBaseDBDataset.Create,'CREATE');
             RegisterVirtualMethod(@TBaseDBDataset.Insert, 'INSERT');
             RegisterVirtualMethod(@TBaseDBDataset.Append, 'APPEND');
             RegisterVirtualMethod(@TBaseDBDataset.Delete, 'DELETE');
@@ -348,6 +350,9 @@ begin
           begin
             RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
           end;
+        //Small Gneral Datasets
+        Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataSet'),TFollowers);
+        Sender.ClassImporter.Add(TFollowers);
       except
         Result := False; // will halt compilation
       end;

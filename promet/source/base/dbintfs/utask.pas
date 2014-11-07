@@ -75,7 +75,7 @@ type
     procedure SelectByDept(aDept : Variant);
     procedure SelectByParent(aParent : Variant);
     procedure SelectUncompletedByParent(aParent : Variant);
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
     procedure SetDisplayLabels(aDataSet: TDataSet); override;
     function CreateTable : Boolean;override;
@@ -137,7 +137,7 @@ type
   private
     FLinks: TTaskLinks;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure CheckDependencies(aLevel: Integer=0);
     property Links : TTaskLinks read FLinks;

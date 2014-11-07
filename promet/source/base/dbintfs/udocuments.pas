@@ -54,7 +54,7 @@ type
     property BaseVersion : Variant read FBaseVersion write FBaseVersion;
     property BaseLanguage : Variant read FBaseLanguage write FBaseLanguage;
     property ParentID : Variant read FParentID write SetParentID;
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     function GetUsedFields : string;
     function GetNumberFieldName : string;override;
     property FileName : string read GetFileName;

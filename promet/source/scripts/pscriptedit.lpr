@@ -8,10 +8,12 @@ uses
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, uerror, uScriptEditor, uBaseApplication,uData,uBaseDBInterface,
-  pvisualprometapp, uBaseVisualApplication;
+  pvisualprometapp, uBaseVisualApplication,uPerson;
 
 {$R *.res}
 
+var
+  aPerson: TPerson;
 begin
   Application.Free;
   Application := TBaseVisualApplication.Create(nil);

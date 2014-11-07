@@ -13,7 +13,7 @@ type
     FSubTable: TSubTable;
   published
     procedure DefineFields(aDataSet : TDataSet);override;
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     property SubTable : TSubTable read FSubTable;
   end;
