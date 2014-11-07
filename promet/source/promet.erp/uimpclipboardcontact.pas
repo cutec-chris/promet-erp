@@ -68,35 +68,35 @@ begin
     begin
       if (pos('tel',lowercase(Addr[i])) > 0) or (pos('phone',lowercase(Addr[i])) > 0) or (pos('mobile',lowercase(Addr[i])) > 0) then
         begin
-          Customers.CustomerCont.DataSet.Append;
-          Customers.CustomerCont.FieldByName('TYPE').AsString := 'TEL';
+          Customers.ContactData.DataSet.Append;
+          Customers.ContactData.FieldByName('TYPE').AsString := 'TEL';
           if pos(':',Addr[i]) > 0 then
-            Customers.CustomerCont.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
+            Customers.ContactData.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
           else
-            Customers.CustomerCont.FieldByName('DATA').AsString := Addr[i];
-          Customers.CustomerCont.DataSet.Post;
+            Customers.ContactData.FieldByName('DATA').AsString := Addr[i];
+          Customers.ContactData.DataSet.Post;
           Addr.Delete(i);
         end
       else if pos('fax',lowercase(Addr[i])) > 0 then
         begin
-          Customers.CustomerCont.DataSet.Append;
-          Customers.CustomerCont.FieldByName('TYPE').AsString := 'FAX';
+          Customers.ContactData.DataSet.Append;
+          Customers.ContactData.FieldByName('TYPE').AsString := 'FAX';
           if pos(':',Addr[i]) > 0 then
-            Customers.CustomerCont.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
+            Customers.ContactData.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
           else
-            Customers.CustomerCont.FieldByName('DATA').AsString := Addr[i];
-          Customers.CustomerCont.DataSet.Post;
+            Customers.ContactData.FieldByName('DATA').AsString := Addr[i];
+          Customers.ContactData.DataSet.Post;
           Addr.Delete(i);
         end
       else if pos('mail',lowercase(Addr[i])) > 0 then
         begin
-          Customers.CustomerCont.DataSet.Append;
-          Customers.CustomerCont.FieldByName('TYPE').AsString := 'MAIL';
+          Customers.ContactData.DataSet.Append;
+          Customers.ContactData.FieldByName('TYPE').AsString := 'MAIL';
           if pos(':',Addr[i]) > 0 then
-            Customers.CustomerCont.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
+            Customers.ContactData.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
           else
-            Customers.CustomerCont.FieldByName('DATA').AsString := Addr[i];
-          Customers.CustomerCont.DataSet.Post;
+            Customers.ContactData.FieldByName('DATA').AsString := Addr[i];
+          Customers.ContactData.DataSet.Post;
           Addr.Delete(i);
         end
       else

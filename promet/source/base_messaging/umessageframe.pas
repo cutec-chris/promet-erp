@@ -288,7 +288,7 @@ begin
               tmp := StringReplace(tmp,'-','',[rfReplaceAll]);
               bCustomer.FieldByName('MATCHCODE').AsString := tmp;
             end;
-          with bCustomer.CustomerCont.DataSet do
+          with bCustomer.ContactData.DataSet do
             begin
               Open;
               Append;

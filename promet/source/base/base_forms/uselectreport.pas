@@ -574,10 +574,10 @@ begin
             begin
               aCustomer.SelectByAccountNo(TOrder(FDS).Address.FieldByName('ACCOUNTNO').AsString);
               aCustomer.Open;
-              aCustomer.CustomerCont.Open;
-              if aCustomer.CustomerCont.DataSet.Locate('TYPE','MAIL',[]) then
+              aCustomer.ContactData.Open;
+              if aCustomer.ContactData.DataSet.Locate('TYPE','MAIL',[]) then
                 begin
-                  eMail := aCustomer.CustomerCont.FieldByName('DATA').AsString;
+                  eMail := aCustomer.ContactData.FieldByName('DATA').AsString;
                 end;
             end;
           aCustomer.Destroy;
@@ -595,10 +595,10 @@ begin
             begin
               aCustomer.SelectByAccountNo(TOrder(FDS).Address.FieldByName('ACCOUNTNO').AsString);
               aCustomer.Open;
-              aCustomer.CustomerCont.Open;
-              if aCustomer.CustomerCont.DataSet.Locate('TYPE','MAIL',[]) then
+              aCustomer.ContactData.Open;
+              if aCustomer.ContactData.DataSet.Locate('TYPE','MAIL',[]) then
                 begin
-                  eMail := aCustomer.CustomerCont.FieldByName('DATA').AsString;
+                  eMail := aCustomer.ContactData.FieldByName('DATA').AsString;
                 end;
             end;
           aCustomer.Destroy;
@@ -708,14 +708,14 @@ begin
                 begin
                   aCustomer.SelectByAccountNo(TOrder(FDS).Address.FieldByName('ACCOUNTNO').AsString);
                   aCustomer.Open;
-                  aCustomer.CustomerCont.Open;
-                  if aCustomer.CustomerCont.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
-                  or aCustomer.CustomerCont.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
+                  aCustomer.ContactData.Open;
+                  if aCustomer.ContactData.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
+                  or aCustomer.ContactData.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
                   then
                     begin
                       if Assigned(FOnSendMessage) then
                         begin
-                          FOnSendMessage(Report,aCustomer.CustomerCont.FieldByName('DATA').AsString,aName,Data.Reports.FieldByName('TEXT').AsString,isPrepared);
+                          FOnSendMessage(Report,aCustomer.ContactData.FieldByName('DATA').AsString,aName,Data.Reports.FieldByName('TEXT').AsString,isPrepared);
                           Res := True;
                         end;
                     end

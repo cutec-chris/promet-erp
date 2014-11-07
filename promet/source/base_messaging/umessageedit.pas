@@ -335,12 +335,12 @@ begin
                   aPerson := TPerson.Create(Self,Data);
                   aPerson.SelectFromLink(tmp);
                   aPerson.Open;
-                  aPerson.CustomerCont.Open;
-                  if aPerson.CustomerCont.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
-                  or aPerson.CustomerCont.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
+                  aPerson.ContactData.Open;
+                  if aPerson.ContactData.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
+                  or aPerson.ContactData.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
                   then
                     begin
-                      FieldbyName('RECEIVERS').AsString := aPerson.CustomerCont.FieldByName('DATA').AsString;
+                      FieldbyName('RECEIVERS').AsString := aPerson.ContactData.FieldByName('DATA').AsString;
                       with aLists.Entrys.DataSet do
                         begin
                           Edit;
@@ -394,12 +394,12 @@ begin
                       aPerson := TPerson.Create(Self,Data);
                       aPerson.SelectFromLink(tmp);
                       aPerson.Open;
-                      aPerson.CustomerCont.Open;
-                      if aPerson.CustomerCont.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
-                      or aPerson.CustomerCont.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
+                      aPerson.ContactData.Open;
+                      if aPerson.ContactData.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
+                      or aPerson.ContactData.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
                       then
                         begin
-                          SendMessageCopyTo(aPerson.Customercont.FieldByName('DATA').AsString);
+                          SendMessageCopyTo(aPerson.ContactData.FieldByName('DATA').AsString);
                           with aLists.Entrys.DataSet do
                             begin
                               Edit;
@@ -659,12 +659,12 @@ begin
   aPerson.Open;
   if aPerson.Count > 0 then
     begin
-      Data.SetFilter(aPerson.CustomerCont,Data.QuoteField('TYPE')+'='+Data.QuoteValue('MAIL'));
-      if aPerson.CustomerCont.Count > 0 then
+      Data.SetFilter(aPerson.ContactData,Data.QuoteField('TYPE')+'='+Data.QuoteValue('MAIL'));
+      if aPerson.ContactData.Count > 0 then
         begin
-          aPerson.CustomerCont.DataSet.Locate('ACTIVE','Y',[]);
-          if aPerson.CustomerCont.FieldByName('ACTIVE').AsString <> 'N' then
-            tmp := tmp+aPerson.CustomerCont.FieldByName('DATA').AsString;
+          aPerson.ContactData.DataSet.Locate('ACTIVE','Y',[]);
+          if aPerson.ContactData.FieldByName('ACTIVE').AsString <> 'N' then
+            tmp := tmp+aPerson.ContactData.FieldByName('DATA').AsString;
         end;
     end;
   aPerson.Free;

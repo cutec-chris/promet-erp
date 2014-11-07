@@ -182,7 +182,7 @@ procedure TBaseDbListPropertyMatchCodeR(Self: TBaseDbList; var T: TField); begin
 procedure TBaseDbListPropertyDescriptionR(Self: TBaseDbList; var T: TField); begin T := Self.Description; end;
 procedure TBaseDbListPropertyComissionR(Self: TBaseDbList; var T: TField); begin T := Self.Commission; end;
 procedure TBaseDbListPropertyStatusR(Self: TBaseDbList; var T: TField); begin T := Self.Status; end;
-procedure TPersonPropertyContR(Self: TPerson; var T: TPersonContactData); begin T := Self.CustomerCont; end;
+procedure TPersonPropertyContR(Self: TPerson; var T: TPersonContactData); begin T := Self.ContactData; end;
 procedure TPersonPropertyAdressR(Self: TPerson; var T: TBaseDbAddress); begin T := Self.Address; end;
 procedure TBaseDbListPropertyHistoryR(Self: TBaseDBList; var T: TBaseHistory); var Hist : IBaseHistory; begin if Supports(Self, IBaseHistory, Hist) then T := Hist.GetHistory; end;
 
@@ -300,13 +300,13 @@ begin
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TPersonList'),TPerson) do
           begin
             RegisterProperty('Address','TPersonAddress',iptR);
-            RegisterProperty('CustomerCont','TPersonContactData',iptR);
+            RegisterProperty('ContactData','TPersonContactData',iptR);
             RegisterProperty('History','TBaseHistory',iptR);
           end;
         with Sender.ClassImporter.Add(TPerson) do
           begin
             RegisterPropertyHelper(@TPersonPropertyAdressR,nil,'ADDRESS');
-            RegisterPropertyHelper(@TPersonPropertyContR,nil,'CUSTOMERCONT');
+            RegisterPropertyHelper(@TPersonPropertyContR,nil,'CONTACTDATA');
             RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
           end;
         //Masterdata

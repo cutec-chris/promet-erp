@@ -258,11 +258,11 @@ begin
                                           Customers.Insert;
                                           Customers.Text.AsString:=author;
                                           Customers.DataSet.Post;
-                                          Customers.CustomerCont.Insert;
-                                          Customers.CustomerCont.Typ.AsString:='SON';
-                                          Customers.CustomerCont.Data.AsString:=uid;
-                                          Customers.CustomerCont.Description.AsString:=asource;
-                                          Customers.CustomerCont.Post;
+                                          Customers.ContactData.Insert;
+                                          Customers.ContactData.Typ.AsString:='SON';
+                                          Customers.ContactData.Data.AsString:=uid;
+                                          Customers.ContactData.Description.AsString:=asource;
+                                          Customers.ContactData.Post;
                                           //Follow Customer
                                           if aRef = '' then
                                             begin

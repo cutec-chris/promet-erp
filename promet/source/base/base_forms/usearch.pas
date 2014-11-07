@@ -587,9 +587,9 @@ begin
       aCont.Open;
       if aCont.Count>0 then
         begin
-          aCont.CustomerCont.Open;
-          if aCont.CustomerCont.Locate('TYPE;ACTIVE',VarArrayOf(['EM','Y']),[loPartialKey]) then
-            FSearcheMail := aCont.CustomerCont.FieldByName('DATA').AsString;
+          aCont.ContactData.Open;
+          if aCont.ContactData.Locate('TYPE;ACTIVE',VarArrayOf(['EM','Y']),[loPartialKey]) then
+            FSearcheMail := aCont.ContactData.FieldByName('DATA').AsString;
         end;
       aCont.Free;
     end;

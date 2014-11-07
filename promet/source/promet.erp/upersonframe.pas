@@ -260,20 +260,20 @@ var
   fEditMail: TfMessageEdit;
 begin
   if not Assigned(FContList.gList.SelectedField) then exit;
-  if (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,3) = 'TEL')
-  or (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,3) = 'CEL') then
+  if (copy(TPerson(DataSet).ContactData.FieldByName('TYPE').AsString,0,3) = 'TEL')
+  or (copy(TPerson(DataSet).ContactData.FieldByName('TYPE').AsString,0,3) = 'CEL') then
     begin
-//      CallPhone(TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString);
+//      CallPhone(TPerson(DataSet).ContactData.FieldByName('DATA').AsString);
     end
-  else if (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,3) = 'INT') then
+  else if (copy(TPerson(DataSet).ContactData.FieldByName('TYPE').AsString,0,3) = 'INT') then
     begin
-      OpenURL(TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString);
+      OpenURL(TPerson(DataSet).ContactData.FieldByName('DATA').AsString);
     end
-  else if (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,4) = 'MAIL')
-       or (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,2) = 'ML') then
+  else if (copy(TPerson(DataSet).ContactData.FieldByName('TYPE').AsString,0,4) = 'MAIL')
+       or (copy(TPerson(DataSet).ContactData.FieldByName('TYPE').AsString,0,2) = 'ML') then
        begin
          fEditMail := TfMessageEdit.Create(nil);
-         fEditMail.SendMailTo('"'+TPerson(DataSet).FieldByName('NAME').AsString+'" <'+TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString+'>');
+         fEditMail.SendMailTo('"'+TPerson(DataSet).FieldByName('NAME').AsString+'" <'+TPerson(DataSet).ContactData.FieldByName('DATA').AsString+'>');
        end;
 end;
 
@@ -520,12 +520,12 @@ var
   aFrame: TfPersonFrame;
 begin
   aCust := DataSet.FieldByName('ACCOUNTNO').AsString;
-  if TPerson(DataSet).CustomerCont.DataSet.Locate('TYPE','TEL',[loCaseInsensitive, loPartialKey]) then
-    Tel := TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString;
+  if TPerson(DataSet).ContactData.DataSet.Locate('TYPE','TEL',[loCaseInsensitive, loPartialKey]) then
+    Tel := TPerson(DataSet).ContactData.FieldByName('DATA').AsString;
   if rpos('-',Tel) > 0 then
     Tel := copy(Tel,0,rpos('-',Tel));
-  if TPerson(DataSet).CustomerCont.DataSet.Locate('TYPE','MAIL',[loCaseInsensitive, loPartialKey]) then
-    Mail := TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString;
+  if TPerson(DataSet).ContactData.DataSet.Locate('TYPE','MAIL',[loCaseInsensitive, loPartialKey]) then
+    Mail := TPerson(DataSet).ContactData.FieldByName('DATA').AsString;
   Mail := copy(Mail,rpos('@',Mail),length(Mail));
   Application.ProcessMessages;
   aFrame := TfPersonFrame.Create(Self);
@@ -534,15 +534,15 @@ begin
   aFrame.New;
   if Tel <> '' then
     begin
-      TPerson(aFrame.DataSet).CustomerCont.DataSet.Append;
-      TPerson(aFrame.DataSet).CustomerCont.FieldByName('TYPE').AsString:='TEL';
-      TPerson(aFrame.DataSet).CustomerCont.FieldByName('DATA').AsString:=Tel;
+      TPerson(aFrame.DataSet).ContactData.DataSet.Append;
+      TPerson(aFrame.DataSet).ContactData.FieldByName('TYPE').AsString:='TEL';
+      TPerson(aFrame.DataSet).ContactData.FieldByName('DATA').AsString:=Tel;
     end;
   if Mail <> '' then
     begin
-      TPerson(aFrame.DataSet).CustomerCont.DataSet.Append;
-      TPerson(aFrame.DataSet).CustomerCont.FieldByName('TYPE').AsString:='MAIL';
-      TPerson(aFrame.DataSet).CustomerCont.FieldByName('DATA').AsString:=Mail;
+      TPerson(aFrame.DataSet).ContactData.DataSet.Append;
+      TPerson(aFrame.DataSet).ContactData.FieldByName('TYPE').AsString:='MAIL';
+      TPerson(aFrame.DataSet).ContactData.FieldByName('DATA').AsString:=Mail;
     end;
   aFrame.eName.SetFocus;
   aFrame.pcPages.PageIndex:=0;
@@ -879,7 +879,7 @@ var
 begin
   FContList.pTop.Hide;
   FContList.Editable:=True;
-  FContList.DataSet := TPerson(FDataSet).CustomerCont;
+  FContList.DataSet := TPerson(FDataSet).ContactData;
   dnNavigator.DataSource := FContList.List;
   SetRights;
   cbStatus.Items.Clear;
@@ -947,7 +947,7 @@ begin
       Columns[0].PickList.Add(scInternet);
       Columns[0].PickList.Add(scBirthday);
     end;
-  TPerson(FDataSet).CustomerCont.DataSet.AfterPost:=@TPersonCustomerContDataSetAfterPost;
+  TPerson(FDataSet).ContactData.DataSet.AfterPost:=@TPersonCustomerContDataSetAfterPost;
   TranslateNavigator(dnNavigator);
   pcPages.AddTabClass(TfAddressFrame,strAddress,@AddAddress);
   TPerson(DataSet).Address.Open;

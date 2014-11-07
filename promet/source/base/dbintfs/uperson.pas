@@ -126,7 +126,7 @@ type
     procedure FillDefaults(aDataSet : TDataSet);override;
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;override;
     property Address : TPersonAddress read FPersonAddress;
-    property CustomerCont : TPersonContactData read FCustomerCont;
+    property ContactData : TPersonContactData read FCustomerCont;
     property History : TBaseHistory read FHistory;
     property Images : TImages read FImages;
     property Banking : TPersonBanking read FBanking;
@@ -921,7 +921,7 @@ begin
                   Next;
                 end;
             end;
-          with TPerson(aObject).CustomerCont do
+          with TPerson(aObject).ContactData do
             begin
               Open;
               while not EOF do
