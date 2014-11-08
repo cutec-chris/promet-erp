@@ -28,6 +28,9 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+
+  { TOrderList }
+
   TOrderList = class(TBaseERPList,IBaseHistory)
   private
     FHistory : TBaseHistory;
@@ -43,6 +46,7 @@ type
   public
     constructor Create(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
       aMasterdata: TDataSet=nil); override;
+    constructor Create(aOwner : TComponent);override;
     destructor Destroy; override;
     function GetStatusIcon: Integer; override;
     procedure Open; override;
@@ -1641,6 +1645,12 @@ begin
         end;
     end;
 end;
+
+constructor TOrderList.Create(aOwner: TComponent);
+begin
+  Create(aOwner,Data,nil,nil);
+end;
+
 destructor TOrderList.Destroy;
 begin
   FHistory.Destroy;

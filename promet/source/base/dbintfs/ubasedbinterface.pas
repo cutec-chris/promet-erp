@@ -136,7 +136,7 @@ type
     function IsSQLDB : Boolean;virtual;abstract;
     function ProcessTerm(aTerm : string) : string;
     function GetUniID(aConnection : TComponent = nil;Generator : string = 'GEN_SQL_ID';AutoInc : Boolean = True) : Variant;virtual;abstract;
-    function GetNewDataSet(aTable : TBaseDBCustomDataset;aConnection : TComponent = nil;MasterData : TDataSet = nil;aTables : string = '') : TDataSet;virtual;abstract;
+    function GetNewDataSet(aTable : TBaseDBDataSet;aConnection : TComponent = nil;MasterData : TDataSet = nil;aTables : string = '') : TDataSet;virtual;abstract;
     function GetNewDataSet(aSQL : string;aConnection : TComponent = nil;MasterData : TDataSet = nil;aOrigtable : TBaseDBDataSet = nil) : TDataSet;virtual;
     procedure DestroyDataSet(DataSet : TDataSet);virtual;abstract;
     function Ping(aConnection : TComponent) : Boolean;virtual;abstract;
@@ -163,7 +163,7 @@ type
     function Locate(aDataSet : TBaseDbDataSet;const keyfields: string; const keyvalues: Variant; aoptions: TLocateOptions) : boolean;
     function GetErrorNum(e : EDatabaseError) : Integer;virtual;
     function RecordCount(aDataSet : TBaseDbDataSet) : Integer;
-    function DeleteItem(aDataSet : TBaseDBCustomDataset) : Boolean;
+    function DeleteItem(aDataSet : TBaseDBDataSet) : Boolean;
     function ShouldCheckTable(aTableName : string;SetChecked : Boolean = True) : Boolean;
     function RemoveCheckTable(aTableName : string) : Boolean;
     function TableExists(aTableName : string;aConnection : TComponent = nil;AllowLowercase: Boolean = False) : Boolean;virtual;abstract;
@@ -334,11 +334,11 @@ type
   { IBaseSubDataSets }
 
   IBaseSubDataSets = interface['{CB011ABE-E465-4BD4-AA49-D3A8852AA012}']
-    function GetSubDataSet(aName : string): TBaseDBCustomDataset;
+    function GetSubDataSet(aName : string): TBaseDBDataSet;
     function GetCount : Integer;
-    function GetSubDataSetIdx(aIdx : Integer): TBaseDBCustomDataset;
-    procedure RegisterSubDataSet(aDataSet : TBaseDBCustomDataset);
-    property SubDataSet[aIdx : Integer] : TBaseDBCustomDataset read GetSubDataSetIdx;
+    function GetSubDataSetIdx(aIdx : Integer): TBaseDBDataSet;
+    procedure RegisterSubDataSet(aDataSet : TBaseDBDataSet);
+    property SubDataSet[aIdx : Integer] : TBaseDBDataSet read GetSubDataSetIdx;
   end;
 const
   RIGHT_NONE  = 0;
@@ -1340,7 +1340,7 @@ function TBaseDBModule.RecordCount(aDataSet: TBaseDbDataSet): Integer;
 begin
   Result := aDataSet.Count;
 end;
-function TBaseDBModule.DeleteItem(aDataSet: TBaseDBCustomDataset): Boolean;
+function TBaseDBModule.DeleteItem(aDataSet: TBaseDBDataSet): Boolean;
 begin
   if not Assigned(aDataSet) then exit;
   if aDataSet.DataSet.FieldDefs.IndexOf('SQL_ID') > -1 then

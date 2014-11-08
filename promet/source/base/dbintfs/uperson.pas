@@ -28,6 +28,7 @@ type
 
   TPersonList = class(TBaseERPList)
   public
+    constructor Create(aOwner : TComponent);override;
     function GetMatchCodeFieldName: string;override;
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
@@ -807,6 +808,12 @@ begin
   FLinks.CascadicCancel;
   inherited CascadicCancel;
 end;
+
+constructor TPersonList.Create(aOwner: TComponent);
+begin
+  Create(aOwner,Data,nil,nil);
+end;
+
 function TPersonList.GetMatchCodeFieldName: string;
 begin
   Result:='MATCHCODE';

@@ -35,6 +35,7 @@ type
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    constructor Create(aOwner : TComponent);override;
     function GetTyp: string; override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Select(aID : string);overload;
@@ -888,6 +889,12 @@ begin
         end;
     end;
 end;
+
+constructor TMasterdataList.Create(aOwner: TComponent);
+begin
+  Create(aOwner,Data,nil,nil);
+end;
+
 procedure TMasterdataList.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do

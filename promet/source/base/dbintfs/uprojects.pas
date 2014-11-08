@@ -33,6 +33,7 @@ type
   public
     constructor Create(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
       aMasterdata: TDataSet=nil); override;
+    constructor Create(aOwner : TComponent);override;
     function GetTyp: string; override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure SetDisplayLabels(aDataSet : TDataSet);override;
@@ -118,7 +119,7 @@ type
     function DuplicateFromOtherProcess(bProject: TProject): Boolean;
   end;
 implementation
-uses uBaseSearch,uBaseApplication,Utils,uthumbnails;
+uses uBaseSearch,uBaseApplication,Utils,uthumbnails,uData;
 resourcestring
   strTargetChanged              = 'Zieldatum geändert von %s zu %s';
   strManagerChanged             = 'Projektleiter geändert zu %s';
@@ -650,6 +651,12 @@ begin
     end;
   UpdateFloatFields:=True;
 end;
+
+constructor TProjectList.Create(aOwner: TComponent);
+begin
+  Create(aOwner,Data,nil,nil);
+end;
+
 procedure TProjectList.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do

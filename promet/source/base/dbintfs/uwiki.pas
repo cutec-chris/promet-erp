@@ -45,7 +45,7 @@ type
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
     function GetDescriptionFieldName: string;override;
-    function FindWikiPage(PageName : string;Docreate : Boolean = False) : Boolean;
+    function FindWikiPage(PageName : string;aDocreate : Boolean = False) : Boolean;
     function FindWikiFolder(PageName : string) : Boolean;
     function GetFullPath : string;
     function isDynamic : Boolean;
@@ -147,7 +147,7 @@ begin
   Result:='DATA';
 end;
 
-function TWikiList.FindWikiPage(PageName: string;Docreate : Boolean = False): Boolean;
+function TWikiList.FindWikiPage(PageName: string;aDocreate : Boolean = False): Boolean;
 var
   aTree: TTree;
   aParent : LargeInt;

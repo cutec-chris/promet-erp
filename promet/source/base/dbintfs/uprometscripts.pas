@@ -185,6 +185,8 @@ procedure TBaseDbListPropertyStatusR(Self: TBaseDbList; var T: TField); begin T 
 procedure TPersonPropertyContR(Self: TPerson; var T: TPersonContactData); begin T := Self.ContactData; end;
 procedure TPersonPropertyAdressR(Self: TPerson; var T: TBaseDbAddress); begin T := Self.Address; end;
 procedure TBaseDbListPropertyHistoryR(Self: TBaseDBList; var T: TBaseHistory); var Hist : IBaseHistory; begin if Supports(Self, IBaseHistory, Hist) then T := Hist.GetHistory; end;
+procedure TUserPropertyFollowsR(Self: TUser; var T: TFollowers); begin T := Self.Follows; end;
+procedure TBaseDBDatasetPropertyDataSetR(Self: TBaseDBDataset; var T: TDataSet); begin T := Self.DataSet; end;
 
 function TBaseScript.TPascalScriptUses(Sender: TPascalScript;
   const aName: tbtString): Boolean;
@@ -212,7 +214,8 @@ begin
         Sender.AddMethod(Self,@TBaseScript.InternalUserHistory,'function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBDataset) do
           begin
-            RegisterMethod('constructor Create(Owner : TComponent)');
+            RegisterMethod('procedure Open;');
+            RegisterMethod('procedure Close;');
             RegisterMethod('procedure Insert;');
             RegisterMethod('procedure Append;');
             RegisterMethod('procedure Delete;');
@@ -225,14 +228,16 @@ begin
             RegisterMethod('procedure Cancel;');
             RegisterMethod('function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean;');
             RegisterMethod('function EOF : Boolean;');
-            RegisterMethod('function FieldByName(aFieldName : string) : TField;');
+            //RegisterMethod('function FieldByName(const aFieldName : string) : TField;');
             RegisterMethod('procedure Filter(aFilter : string;aLimit : Integer;aOrderBy : string;aSortDirection : string;aLocalSorting : Boolean;aGlobalFilter : Boolean;aUsePermissions : Boolean;aFilterIn : string);');
             RegisterProperty('ActualFilter','String',iptRW);
             RegisterProperty('ActualLimit','Integer',iptRW);
+            RegisterProperty('DataSet','TDataSet',iptRW);
           end;
         with Sender.ClassImporter.Add(TBaseDBDataset) do
           begin
-            RegisterConstructor(@TBaseDBDataset.Create,'CREATE');
+            RegisterVirtualMethod(@TBaseDBDataset.Open, 'OPEN');
+            RegisterVirtualMethod(@TBaseDBDataset.Close, 'CLOSE');
             RegisterVirtualMethod(@TBaseDBDataset.Insert, 'INSERT');
             RegisterVirtualMethod(@TBaseDBDataset.Append, 'APPEND');
             RegisterVirtualMethod(@TBaseDBDataset.Delete, 'DELETE');
@@ -245,8 +250,9 @@ begin
             RegisterVirtualMethod(@TBaseDBDataset.Cancel, 'CANCEL');
             RegisterVirtualMethod(@TBaseDBDataset.Locate, 'LOCATE');
             RegisterVirtualMethod(@TBaseDBDataset.EOF, 'EOF');
-            RegisterVirtualMethod(@TBaseDBDataset.FieldByName, 'FIELDBYNAME');
+            //RegisterVirtualMethod(@TBaseDBDataset.FieldByName, 'FIELDBYNAME'); error on execute
             RegisterVirtualMethod(@TBaseDBDataset.Filter, 'FILTER');
+            RegisterPropertyHelper(@TBaseDBDatasetPropertyDataSetR,nil,'DATASET');
           end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataSet'),TBaseDbList) do
           begin
@@ -295,9 +301,11 @@ begin
           end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TPersonList) do
           begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
           end;
         with Sender.ClassImporter.Add(TPersonList) do
           begin
+            RegisterConstructor(@TPersonList.Create,'CREATE');
           end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TPersonList'),TPerson) do
           begin
@@ -314,9 +322,11 @@ begin
         //Masterdata
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TMasterdataList) do
           begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
           end;
         with Sender.ClassImporter.Add(TMasterdataList) do
           begin
+            RegisterConstructor(@TMasterdataList.Create,'CREATE');
           end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TMasterdataList'),TMasterdata) do
           begin
@@ -327,8 +337,17 @@ begin
             RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
           end;
         //Projects
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TProjectList) do
+          begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
+          end;
+        with Sender.ClassImporter.Add(TProjectList) do
+          begin
+            RegisterConstructor(@TProjectList.Create,'CREATE');
+          end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TProjectList'),TProject) do
           begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
             RegisterProperty('History','TBaseHistory',iptR);
           end;
         with Sender.ClassImporter.Add(TProject) do
@@ -338,9 +357,11 @@ begin
         //Orders
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TOrderList) do
           begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
           end;
         with Sender.ClassImporter.Add(TOrderList) do
           begin
+            RegisterConstructor(@TOrderList.Create,'CREATE');
           end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TOrderList'),TOrder) do
           begin
@@ -353,6 +374,20 @@ begin
         //Small Gneral Datasets
         Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataSet'),TFollowers);
         Sender.ClassImporter.Add(TFollowers);
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDbList'),TUser) do
+          begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
+            RegisterProperty('History','TBaseHistory',iptR);
+            RegisterProperty('Follows','TFollowers',iptR);
+
+          end;
+        with Sender.ClassImporter.Add(TUser) do
+          begin
+            RegisterConstructor(@TUser.Create,'CREATE');
+            RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
+            RegisterPropertyHelper(@TUserPropertyFollowsR,nil,'FOLLOWS');
+          end;
+
       except
         Result := False; // will halt compilation
       end;
