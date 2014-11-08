@@ -80,10 +80,10 @@ inherited fWikiFrame: TfWikiFrame
       end
     end
     object DBText1: TDBText
-      Left = 585
+      Left = 576
       Height = 30
       Top = 6
-      Width = 94
+      Width = 103
       Align = alRight
       BorderSpacing.Around = 6
       DataField = 'CAPTION'
@@ -124,6 +124,7 @@ inherited fWikiFrame: TfWikiFrame
         Top = 14
         Width = 26
         Action = acExport
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000BA6A368FB969
@@ -196,6 +197,7 @@ inherited fWikiFrame: TfWikiFrame
         Width = 26
         Action = acEdit
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -279,8 +281,7 @@ inherited fWikiFrame: TfWikiFrame
         Caption = 'Navigation'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -353,8 +354,7 @@ inherited fWikiFrame: TfWikiFrame
         Caption = 'bearbeiten'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -365,6 +365,7 @@ inherited fWikiFrame: TfWikiFrame
         Width = 24
         Action = acEdit
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -449,18 +450,18 @@ inherited fWikiFrame: TfWikiFrame
       object tsEdit: TTabSheet
         Tag = 1
         Caption = 'bearbeiten'
-        ClientHeight = 460
-        ClientWidth = 633
+        ClientHeight = 453
+        ClientWidth = 635
         ImageIndex = 67
         object Panel1: TPanel
           Left = 0
-          Height = 460
+          Height = 453
           Top = 0
-          Width = 633
+          Width = 635
           Align = alClient
           BevelOuter = bvNone
-          ClientHeight = 460
-          ClientWidth = 633
+          ClientHeight = 453
+          ClientWidth = 635
           TabOrder = 0
           object dnEdit: TDBNavigator
             Left = 0
@@ -477,6 +478,7 @@ inherited fWikiFrame: TfWikiFrame
             ClientHeight = 25
             ClientWidth = 78
             DataSource = Wiki
+            Flat = True
             Options = []
             TabOrder = 0
             VisibleButtons = [nbDelete, nbPost, nbCancel]
@@ -487,6 +489,7 @@ inherited fWikiFrame: TfWikiFrame
             Hint = 'Setzt den markierten Text '#10'auf Kursiv'
             Top = 16
             Width = 25
+            Flat = True
             Glyph.Data = {
               36050000424D3605000000000000360400002800000010000000100000000100
               08000000000000010000130B0000130B00000001000000010000000000000101
@@ -540,6 +543,7 @@ inherited fWikiFrame: TfWikiFrame
             Hint = 'Setzt den markierten Text '#10'auf Fett'
             Top = 16
             Width = 25
+            Flat = True
             Glyph.Data = {
               36050000424D3605000000000000360400002800000010000000100000000100
               08000000000000010000130B0000130B00000001000000010000000000000101
@@ -593,6 +597,7 @@ inherited fWikiFrame: TfWikiFrame
             Hint = 'fügt einen Verweis ein'
             Top = 16
             Width = 25
+            Flat = True
             Glyph.Data = {
               36050000424D3605000000000000360400002800000010000000100000000100
               08000000000000010000130B0000130B00000001000000010000000000000101
@@ -646,6 +651,7 @@ inherited fWikiFrame: TfWikiFrame
             Hint = 'fügt einen externen Verweis ein'
             Top = 16
             Width = 25
+            Flat = True
             Glyph.Data = {
               36040000424D3604000000000000360000002800000010000000100000000100
               2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -692,6 +698,7 @@ inherited fWikiFrame: TfWikiFrame
             Top = 16
             Width = 23
             Action = acImage
+            Flat = True
             Glyph.Data = {
               36040000424D3604000000000000360000002800000010000000100000000100
               2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -736,6 +743,7 @@ inherited fWikiFrame: TfWikiFrame
             Top = 16
             Width = 25
             Action = acSpellCheck
+            Flat = True
             Glyph.Data = {
               36050000424D3605000000000000360400002800000010000000100000000100
               08000000000000010000130B0000130B00000001000000010000000000000101
@@ -784,9 +792,9 @@ inherited fWikiFrame: TfWikiFrame
           end
           object eTitle: TDBEdit
             Left = 326
-            Height = 21
+            Height = 25
             Top = 16
-            Width = 302
+            Width = 304
             DataField = 'CAPTION'
             DataSource = Wiki
             Anchors = [akTop, akLeft, akRight]
@@ -796,17 +804,17 @@ inherited fWikiFrame: TfWikiFrame
           end
           object lTitle: TLabel
             Left = 326
-            Height = 13
+            Height = 15
             Top = 1
-            Width = 48
+            Width = 61
             Caption = 'Seitentitel'
             ParentColor = False
           end
           object eWikiPage: TDBMemo
             Left = 6
-            Height = 394
+            Height = 387
             Top = 51
-            Width = 424
+            Width = 426
             Anchors = [akTop, akLeft, akRight, akBottom]
             DataField = 'DATA'
             DataSource = Wiki
@@ -821,6 +829,7 @@ inherited fWikiFrame: TfWikiFrame
             Top = 16
             Width = 23
             Action = acScreenshot
+            Flat = True
             Glyph.Data = {
               36040000424D3604000000000000360000002800000010000000100000000100
               2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -860,8 +869,8 @@ inherited fWikiFrame: TfWikiFrame
             ShowCaption = False
           end
           object DBGrid1: TDBGrid
-            Left = 440
-            Height = 378
+            Left = 442
+            Height = 371
             Top = 75
             Width = 188
             Anchors = [akTop, akRight, akBottom]
@@ -870,7 +879,7 @@ inherited fWikiFrame: TfWikiFrame
             Columns = <            
               item
                 Title.Caption = 'Suchbegriff'
-                Width = 155
+                Width = 160
                 FieldName = 'KEYWORD'
               end>
             DataSource = Keywords
@@ -878,7 +887,7 @@ inherited fWikiFrame: TfWikiFrame
             TitleStyle = tsNative
           end
           object Label1: TLabel
-            Left = 440
+            Left = 442
             Height = 17
             Top = 51
             Width = 188
@@ -893,6 +902,7 @@ inherited fWikiFrame: TfWikiFrame
             Hint = 'fügt einen Verweis auf ein Promet-Element ein'
             Top = 16
             Width = 25
+            Flat = True
             Glyph.Data = {
               36040000424D3604000000000000360000002800000010000000100000000100
               2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -990,7 +1000,7 @@ inherited fWikiFrame: TfWikiFrame
       OnExecute = acRefreshExecute
     end
   end
-  object Wiki: TDataSource[4]
+  object Wiki: TDatasource[4]
     OnStateChange = WikiStateChange
     OnDataChange = WikiDataChange
     left = 56
@@ -1004,7 +1014,7 @@ inherited fWikiFrame: TfWikiFrame
       Caption = 'New Item1'
     end
   end
-  object Keywords: TDataSource[6]
+  object Keywords: TDatasource[6]
     left = 88
     top = 152
   end

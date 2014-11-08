@@ -756,7 +756,7 @@ object fScriptEditor: TfScriptEditor
     OnAfterExecute = DebuggerAfterExecute
     Plugins = <>
     MainFileName = 'Unnamed'
-    UsePreProcessor = True
+    UsePreProcessor = False
     OnNeedFile = DebuggerNeedFile
     OnIdle = DebuggerIdle
     OnLineInfo = DebuggerLineInfo

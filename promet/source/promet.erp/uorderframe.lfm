@@ -299,21 +299,21 @@ inherited fOrderFrame: TfOrderFrame
               TabOrder = 1
               object Panel3: TPanel
                 Left = 0
-                Height = 79
+                Height = 75
                 Top = 17
-                Width = 38
+                Width = 34
                 Align = alTop
                 Anchors = [akTop, akLeft, akRight, akBottom]
                 BorderSpacing.Top = 17
                 BevelOuter = bvNone
-                ClientHeight = 79
-                ClientWidth = 38
+                ClientHeight = 75
+                ClientWidth = 34
                 TabOrder = 0
                 object Bevel1: TBevel
                   Left = 4
                   Height = 4
                   Top = 0
-                  Width = 30
+                  Width = 26
                   Align = alTop
                   BorderSpacing.Left = 4
                   BorderSpacing.Right = 4
@@ -321,7 +321,7 @@ inherited fOrderFrame: TfOrderFrame
                 end
                 object ExtRotatedLabel1: TExtRotatedLabel
                   Left = 0
-                  Height = 75
+                  Height = 71
                   Top = 4
                   Width = 14
                   Align = alLeft
@@ -462,7 +462,6 @@ inherited fOrderFrame: TfOrderFrame
         Top = 12
         Width = 28
         Action = acSave
-        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -553,7 +552,6 @@ inherited fOrderFrame: TfOrderFrame
       Top = 3
       Width = 37
       Action = acPrint
-      Flat = True
       Glyph.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
         2000000000000004000064000000640000000000000000000000FFFFFF00FFFF

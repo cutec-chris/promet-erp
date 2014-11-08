@@ -10,116 +10,116 @@
     </CompilerOptions>
     <Files Count="29">
       <Item1>
-        <Filename Value="udocproperties.lfm"/>
-        <Type Value="LFM"/>
-      </Item1>
-      <Item2>
         <Filename Value="udocproperties.pas"/>
         <UnitName Value="uDocProperties"/>
+      </Item1>
+      <Item2>
+        <Filename Value="udocproperties.lfm"/>
+        <Type Value="LFM"/>
       </Item2>
       <Item3>
-        <Filename Value="udocumentacquire.lfm"/>
-        <Type Value="LFM"/>
-      </Item3>
-      <Item4>
-        <Filename Value="udocumentacquire.lrs"/>
-        <Type Value="LRS"/>
-      </Item4>
-      <Item5>
         <Filename Value="udocumentacquire.pas"/>
         <UnitName Value="uDocumentAcquire"/>
+      </Item3>
+      <Item4>
+        <Filename Value="udocumentacquire.lfm"/>
+        <Type Value="LFM"/>
+      </Item4>
+      <Item5>
+        <Filename Value="udocumentacquire.lrs"/>
+        <Type Value="LRS"/>
       </Item5>
       <Item6>
-        <Filename Value="udocumentaction.lfm"/>
-        <Type Value="LFM"/>
-      </Item6>
-      <Item7>
-        <Filename Value="udocumentaction.lrs"/>
-        <Type Value="LRS"/>
-      </Item7>
-      <Item8>
         <Filename Value="udocumentaction.pas"/>
         <UnitName Value="uDocumentAction"/>
+      </Item6>
+      <Item7>
+        <Filename Value="udocumentaction.lfm"/>
+        <Type Value="LFM"/>
+      </Item7>
+      <Item8>
+        <Filename Value="udocumentaction.lrs"/>
+        <Type Value="LRS"/>
       </Item8>
       <Item9>
-        <Filename Value="udocumentaddoptions.lfm"/>
-        <Type Value="LFM"/>
-      </Item9>
-      <Item10>
-        <Filename Value="udocumentaddoptions.lrs"/>
-        <Type Value="LRS"/>
-      </Item10>
-      <Item11>
         <Filename Value="udocumentaddoptions.pas"/>
         <UnitName Value="uDocumentAddOptions"/>
+      </Item9>
+      <Item10>
+        <Filename Value="udocumentaddoptions.lfm"/>
+        <Type Value="LFM"/>
+      </Item10>
+      <Item11>
+        <Filename Value="udocumentaddoptions.lrs"/>
+        <Type Value="LRS"/>
       </Item11>
       <Item12>
-        <Filename Value="udocumentcheckin.lfm"/>
-        <Type Value="LFM"/>
-      </Item12>
-      <Item13>
         <Filename Value="udocumentcheckin.pas"/>
         <UnitName Value="uDocumentCheckin"/>
+      </Item12>
+      <Item13>
+        <Filename Value="udocumentcheckin.lfm"/>
+        <Type Value="LFM"/>
       </Item13>
       <Item14>
-        <Filename Value="udocumentframe.lfm"/>
-        <Type Value="LFM"/>
-      </Item14>
-      <Item15>
         <Filename Value="udocumentframe.pas"/>
         <UnitName Value="uDocumentFrame"/>
+      </Item14>
+      <Item15>
+        <Filename Value="udocumentframe.lfm"/>
+        <Type Value="LFM"/>
       </Item15>
       <Item16>
-        <Filename Value="udocumentoptions.lfm"/>
-        <Type Value="LFM"/>
-      </Item16>
-      <Item17>
-        <Filename Value="udocumentoptions.lrs"/>
-        <Type Value="LRS"/>
-      </Item17>
-      <Item18>
         <Filename Value="udocumentoptions.pas"/>
         <UnitName Value="uDocumentOptions"/>
+      </Item16>
+      <Item17>
+        <Filename Value="udocumentoptions.lfm"/>
+        <Type Value="LFM"/>
+      </Item17>
+      <Item18>
+        <Filename Value="udocumentoptions.lrs"/>
+        <Type Value="LRS"/>
       </Item18>
       <Item19>
-        <Filename Value="umimetypeedit.lfm"/>
-        <Type Value="LFM"/>
+        <Filename Value="ueditor.pas"/>
+        <UnitName Value="ueditor"/>
       </Item19>
       <Item20>
-        <Filename Value="umimetypeedit.lrs"/>
-        <Type Value="LRS"/>
+        <Filename Value="ueditor.lfm"/>
+        <Type Value="LFM"/>
       </Item20>
       <Item21>
         <Filename Value="umimetypeedit.pas"/>
         <UnitName Value="uMimeTypeEdit"/>
       </Item21>
       <Item22>
-        <Filename Value="upreviewframe.lfm"/>
+        <Filename Value="umimetypeedit.lfm"/>
         <Type Value="LFM"/>
       </Item22>
       <Item23>
-        <Filename Value="upreviewframe.pas"/>
-        <UnitName Value="uPreviewFrame"/>
+        <Filename Value="umimetypeedit.lrs"/>
+        <Type Value="LRS"/>
       </Item23>
       <Item24>
-        <Filename Value="uselecttemplate.lfm"/>
-        <Type Value="LFM"/>
+        <Filename Value="upreviewframe.pas"/>
+        <UnitName Value="uPreviewFrame"/>
       </Item24>
       <Item25>
-        <Filename Value="uselecttemplate.lrs"/>
-        <Type Value="LRS"/>
+        <Filename Value="upreviewframe.lfm"/>
+        <Type Value="LFM"/>
       </Item25>
       <Item26>
         <Filename Value="uselecttemplate.pas"/>
         <UnitName Value="uSelectTemplate"/>
       </Item26>
       <Item27>
-        <Filename Value="ueditor.lfm"/>
+        <Filename Value="uselecttemplate.lfm"/>
         <Type Value="LFM"/>
       </Item27>
       <Item28>
-        <Filename Value="ueditor.pas"/>
-        <UnitName Value="ueditor"/>
+        <Filename Value="uselecttemplate.lrs"/>
+        <Type Value="LRS"/>
       </Item28>
       <Item29>
         <Filename Value="usyneditfiler.pas"/>

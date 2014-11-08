@@ -3,8 +3,8 @@ inherited fStatisticFrame: TfStatisticFrame
   Width = 864
   ClientHeight = 698
   ClientWidth = 864
-  DesignLeft = 570
-  DesignTop = 142
+  DesignLeft = 415
+  DesignTop = 108
   object Splitter2: TSplitter[0]
     Cursor = crVSplit
     Left = 0
@@ -404,34 +404,34 @@ inherited fStatisticFrame: TfStatisticFrame
     TabOrder = 2
     object pTop: TPanel
       Left = 0
-      Height = 295
+      Height = 291
       Top = 44
-      Width = 864
+      Width = 860
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 295
-      ClientWidth = 864
+      ClientHeight = 291
+      ClientWidth = 860
       TabOrder = 0
       Visible = False
       object PageControl1: TPageControl
         Left = 0
-        Height = 295
+        Height = 291
         Top = 0
-        Width = 864
+        Width = 860
         ActivePage = tsMaster
         Align = alClient
         TabIndex = 0
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 262
-          ClientWidth = 858
+          ClientHeight = 258
+          ClientWidth = 854
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
-            Height = 210
+            Height = 206
             Top = 0
-            Width = 858
+            Width = 854
             Align = alClient
             Font.Height = -13
             Font.Name = 'Courier New'
@@ -1036,11 +1036,11 @@ inherited fStatisticFrame: TfStatisticFrame
           object lbErrors: TListBox
             Left = 0
             Height = 52
-            Top = 210
-            Width = 858
+            Top = 206
+            Width = 854
             Align = alBottom
             ItemHeight = 0
-            ScrollWidth = 856
+            ScrollWidth = 852
             TabOrder = 1
             TopIndex = -1
             Visible = False
@@ -1048,8 +1048,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsDetail: TTabSheet
           Caption = 'Detail'
-          ClientHeight = 262
-          ClientWidth = 858
+          ClientHeight = 258
+          ClientWidth = 854
           inline smQuerry1: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -1660,8 +1660,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsSubDetail: TTabSheet
           Caption = 'Sub Detail'
-          ClientHeight = 262
-          ClientWidth = 858
+          ClientHeight = 258
+          ClientWidth = 854
           inline smQuerry2: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -2276,11 +2276,11 @@ inherited fStatisticFrame: TfStatisticFrame
       Left = 0
       Height = 44
       Top = 0
-      Width = 864
+      Width = 860
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 864
+      ClientWidth = 860
       TabOrder = 1
       object Panel4: TPanel
         Left = 152
@@ -2759,18 +2759,18 @@ inherited fStatisticFrame: TfStatisticFrame
         Left = 490
         Height = 44
         Top = 0
-        Width = 362
+        Width = 358
         Align = alLeft
         Anchors = [akTop, akLeft, akRight, akBottom]
         BevelOuter = bvNone
         ClientHeight = 44
-        ClientWidth = 362
+        ClientWidth = 358
         TabOrder = 5
         object Label6: TLabel
           Left = 5
           Height = 15
           Top = 0
-          Width = 357
+          Width = 353
           Align = alTop
           Anchors = [akLeft, akBottom]
           AutoSize = False
@@ -2795,7 +2795,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Left = 8
           Height = 25
           Top = 16
-          Width = 354
+          Width = 350
           DataField = 'NAME'
           DataSource = Datasource
           Anchors = [akTop, akLeft, akRight]

@@ -584,6 +584,7 @@ inherited fprojectFrame: TfprojectFrame
         Top = 12
         Width = 32
         Action = acCancel
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -664,6 +665,7 @@ inherited fprojectFrame: TfprojectFrame
         Hint = 'zusätzliche Optionen'#10'(Menü)'
         Top = 12
         Width = 32
+        Flat = True
         Glyph.Data = {
           36090000424D3609000000000000360000002800000018000000180000000100
           2000000000000009000064000000640000000000000000000000FFFFFF00FFFF
@@ -863,6 +865,7 @@ inherited fprojectFrame: TfprojectFrame
         Top = 4
         Width = 36
         Action = acPrint
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -981,6 +984,7 @@ inherited fprojectFrame: TfprojectFrame
         Top = 4
         Width = 36
         Action = acRestart
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1061,6 +1065,7 @@ inherited fprojectFrame: TfprojectFrame
         Top = 14
         Width = 130
         ButtonWidth = 23
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -1111,6 +1116,7 @@ inherited fprojectFrame: TfprojectFrame
         Width = 28
         Action = acGotoParent
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -1182,7 +1188,6 @@ inherited fprojectFrame: TfprojectFrame
         EdgeBorders = []
         EdgeInner = esNone
         EdgeOuter = esNone
-        Flat = False
         Images = fVisualControls.Images
         TabOrder = 0
         Transparent = True

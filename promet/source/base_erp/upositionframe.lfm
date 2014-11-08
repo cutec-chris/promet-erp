@@ -433,6 +433,7 @@ inherited fPosition: TfPosition
     top = 64
   end
   object pmPosition: TPopupMenu[6]
+    Images = fVisualControls.Images
     left = 144
     top = 64
     object MenuItem6: TMenuItem

@@ -505,7 +505,6 @@ inherited fPersonFrame: TfPersonFrame
         Top = 12
         Width = 28
         Action = acSave
-        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -753,7 +752,6 @@ inherited fPersonFrame: TfPersonFrame
         Top = 12
         Width = 32
         Action = acNewOrder
-        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000000000000000
@@ -1007,13 +1005,13 @@ inherited fPersonFrame: TfPersonFrame
   object Customers: TDatasource[5]
     OnStateChange = CustomersStateChange
     OnDataChange = CustomersDataChange
-    left = 80
-    top = 32
+    left = 120
+    top = 72
   end
   object ActionList1: TActionList[6]
     Images = fVisualControls.Images
-    left = 168
-    top = 32
+    left = 208
+    top = 72
     object acSave: TAction
       Caption = 'Speichern'
       Hint = 'Speichert alle Änderungen in die Datenbank'
@@ -1096,8 +1094,8 @@ inherited fPersonFrame: TfPersonFrame
     end
   end
   object pmAction: TPopupMenu[7]
-    left = 204
-    top = 32
+    left = 248
+    top = 72
     object miStartTimeregistering: TMenuItem
       Action = acStartTimeRegistering
     end
@@ -1167,7 +1165,7 @@ inherited fPersonFrame: TfPersonFrame
     top = 169
   end
   object MandantDetails: TDatasource[14]
-    left = 232
-    top = 96
+    left = 120
+    top = 112
   end
 end

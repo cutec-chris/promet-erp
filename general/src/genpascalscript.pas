@@ -97,6 +97,7 @@ type
     procedure InternalMkDir(Directory : string);
 
     procedure InternalExec(cmd : string;ShowConsole : Boolean = False);
+    procedure InternalExecWrite(cmd : string);
     function InternalExecActive: Boolean;
     function InternalExecResult: Integer;
     function InternalKill: Boolean;
@@ -136,6 +137,9 @@ implementation
 uses httpsend
   {$ifdef WINDOWS}
   ,Windows
+  {$endif}
+  {$ifdef UNIX}
+  ,BaseUnix
   {$endif}
   ;
 function IProcessDllImport(Sender: TPSExec; p: TPSExternalProcRec; Tag: Pointer
@@ -210,6 +214,7 @@ begin
     else if lowercase(Name)='exec' then
       begin
         AddMethod(Self,@TPascalScript.InternalExec,'procedure Exec(cmd : string;ShowConsole : Boolean);');
+        AddMethod(Self,@TPascalScript.InternalExecWrite,'procedure ExecWrite(cmd : string);');
         AddMethod(Self,@TPascalScript.InternalExecActive,'function ExecActive : Boolean;');
         AddMethod(Self,@TPascalScript.InternalExecResult,'function ExecResult : Integer;');
         AddMethod(Self,@TPascalScript.InternalKill,'function Kill : Boolean;');
@@ -360,9 +365,10 @@ var
   aLine: String;
 begin
   FProcess.CommandLine:=cmd;
-  FProcess.Options:=[poUsePipes,poNoConsole];
+  FProcess.Options:=[poUsePipes,poNoConsole,poStderrToOutPut];
   if ShowConsole then
-    FProcess.Options:=[poUsePipes];
+    FProcess.Options:=[poUsePipes,poStderrToOutPut];
+  FProcess.PipeBufferSize:=1;
   CompleteOutput:='';
   FProcess.ShowWindow:=swoNone;
   try
@@ -376,6 +382,13 @@ begin
       end;
   end;
 end;
+
+procedure TPascalScript.InternalExecWrite(cmd: string);
+begin
+  if Assigned(FProcess) and FProcess.Active then
+    FProcess.Input.WriteAnsiString(cmd);
+end;
+
 function TPascalScript.InternalExecActive : Boolean;
 var
   ReadSize: LongInt;
@@ -409,7 +422,12 @@ begin
   Result := Assigned(FProcess);
   if Result then
     begin
-      FProcess.Terminate(0);
+      {$ifdef UNIX}
+      FpKill(FProcess.ProcessID,SIGINT);
+      sleep(100);
+      {$endif}
+      if FProcess.Running then
+        FProcess.Terminate(0);
       while FProcess.Running do InternalExecActive;
       InternalExecActive;
     end;
