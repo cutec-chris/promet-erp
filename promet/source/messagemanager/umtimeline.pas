@@ -1407,7 +1407,7 @@ procedure TfmTimeline.MarkAsRead;
 var
   i: Integer;
 begin
-  if fTimeline.DataSet.FieldByName('CHANGEDBY').AsString <> Data.Users.FieldByName('IDCODE').AsString then
+  if (not ((fTimeline.DataSet.FieldByName('CHANGEDBY').AsString=Data.Users.FieldByName('IDCODE').AsString) and (fTimeline.DataSet.FieldByName('ACTIONICON').AsInteger=8))) then
     begin
       with fTimeline.DataSet.DataSet as IBaseManageDB do
         UpdateStdFields:=False;
