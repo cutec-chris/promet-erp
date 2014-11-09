@@ -1,7 +1,7 @@
 object fScriptEditor: TfScriptEditor
-  Left = 214
+  Left = 146
   Height = 600
-  Top = 157
+  Top = 162
   Width = 961
   Caption = 'Editor'
   ClientHeight = 579

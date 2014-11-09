@@ -454,6 +454,7 @@ procedure TfScriptEditor.acSaveExecute(Sender: TObject);
 begin
   FDataSet.Edit;
   FDataSet.FieldByName('SCRIPT').AsString:=ed.Lines.Text;
+  FDataSet.FieldByName('FOLDSTATE').AsString:=ed.FoldState;
   FDataSet.Post;
   ed.Modified := False;
   ed.MarkTextAsSaved;
@@ -649,6 +650,8 @@ procedure TfScriptEditor.FDataSetDataSetAfterScroll(DataSet: TDataSet);
 begin
  ed.Lines.Text:=FDataSet.FieldByName('SCRIPT').AsString;
  aFile := FDataSet.FieldByName('NAME').AsString;
+ ed.FoldState := FDataSet.FieldByName('FOLDSTATE').AsString;
+
  cbSyntaxSelect(cbSyntax);
 end;
 

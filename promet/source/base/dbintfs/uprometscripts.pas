@@ -486,6 +486,7 @@ begin
             Add('RUNONHISTORY',ftString,1,False);
             Add('LASTRUN',ftDateTime,0,False);
             Add('SCRIPT',ftMemo,0,false);
+            Add('FOLDSTATE',ftString,200,false);
             Add('LASTRESULT',ftMemo,0,false);
           end;
       if Assigned(ManagedIndexdefs) then

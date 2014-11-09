@@ -210,6 +210,9 @@ begin
         AddMethod(Self,@TPascalScript.InternalBeep,'procedure Beep;');
         AddMethod(Self,@TPascalScript.InternalSleep,'procedure Sleep(MiliSecValue : LongInt);');
         AddFunction(@DirectoryExists,'function DirectoryExists(Const Directory : String) : Boolean;');
+        Comp.AddTypeS('TReplaceFlag','(rfReplaceAll, rfIgnoreCase)');
+        Comp.AddTypeS('TReplaceFlags','set of TReplaceFlag');
+        AddFunction(@StringReplace,'function StringReplace(const S, OldPattern, NewPattern: string;  Flags: TReplaceFlags): string;');
       end
     else if lowercase(Name)='exec' then
       begin

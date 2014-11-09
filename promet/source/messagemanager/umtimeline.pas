@@ -1407,25 +1407,28 @@ procedure TfmTimeline.MarkAsRead;
 var
   i: Integer;
 begin
-  with fTimeline.DataSet.DataSet as IBaseManageDB do
-    UpdateStdFields:=False;
-  if not fTimeline.DataSet.CanEdit then
-    fTimeline.DataSet.DataSet.Edit;
-  fTimeline.DataSet.FieldByName('READ').AsString:='Y';
-  fTimeline.DataSet.post;
-  with fTimeline.DataSet.DataSet as IBaseManageDB do
-    UpdateStdFields:=True;
-  for i := 0 to fTimeline.dgFake.Columns.Count-1 do
-    if fTimeline.dgFake.Columns[i].FieldName='ACTION' then
-      begin
-        if Assigned(fTimeline.gList.Objects[i+1,fTimeline.gList.Row]) then
+  if fTimeline.DataSet.FieldByName('CHANGEDBY').AsString <> Data.Users.FieldByName('IDCODE').AsString then
+    begin
+      with fTimeline.DataSet.DataSet as IBaseManageDB do
+        UpdateStdFields:=False;
+      if not fTimeline.DataSet.CanEdit then
+        fTimeline.DataSet.DataSet.Edit;
+      fTimeline.DataSet.FieldByName('READ').AsString:='Y';
+      fTimeline.DataSet.post;
+      with fTimeline.DataSet.DataSet as IBaseManageDB do
+        UpdateStdFields:=True;
+      for i := 0 to fTimeline.dgFake.Columns.Count-1 do
+        if fTimeline.dgFake.Columns[i].FieldName='ACTION' then
           begin
-            TMGridObject(fTimeline.gList.Objects[i+1,fTimeline.gList.Row]).Bold:=False;
-            if Assigned(fTimeline.gList.Objects[i+1,0]) then
-              TRowObject(fTimeline.gList.Objects[i+1,0]).RefreshHeight:=True;
+            if Assigned(fTimeline.gList.Objects[i+1,fTimeline.gList.Row]) then
+              begin
+                TMGridObject(fTimeline.gList.Objects[i+1,fTimeline.gList.Row]).Bold:=False;
+                if Assigned(fTimeline.gList.Objects[i+1,0]) then
+                  TRowObject(fTimeline.gList.Objects[i+1,0]).RefreshHeight:=True;
+              end;
           end;
-      end;
-  fTimeline.gList.Invalidate;
+      fTimeline.gList.Invalidate;
+    end;
 end;
 
 procedure TfmTimeline.AddTag(aTag: string);
