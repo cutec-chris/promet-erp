@@ -563,6 +563,7 @@ begin
           tmp := fTimeline.DataSet.FieldByName('REFERENCE').AsString;
           if trim(tmp)='' then
             tmp := fTimeline.DataSet.FieldByName('CHANGEDBY').AsString;
+          tmp := StringReplace(trim(tmp),' ','_',[rfReplaceAll]);
           mEntry.Lines.Text:='@'+tmp+' ';
           mEntry.SelStart:=length(mEntry.Lines.Text);
           if tbAdd.Visible then
@@ -715,6 +716,9 @@ var
   AddTask: Boolean = False;
   aTask: TTask;
   aTag: String;
+  aSource: String;
+  aObject: String;
+  bHistory: TBaseHistory;
 begin
   tmp := trim(mEntry.Lines.Text);
   if lowercase(copy(tmp,0,4)) = 'task' then
@@ -770,6 +774,22 @@ begin
             end;
         end;
       aUser.Free;
+      if (not Found) and (FParentItem<>Null) then
+        begin
+          bHistory := TBaseHistory.Create(nil,Data);
+          bHistory.Select(FParentItem);
+          bHistory.Open;
+          if bHistory.Count>0 then
+            begin
+              aSource := bHistory.FieldByName('SOURCE').AsString;
+              aObject := bHistory.FieldByName('OBJECT').AsString;
+              Data.Users.History.AddParentedItemPlain(aObject,tmp,FParentItem,'',Data.Users.IDCode.AsString,'',ACICON_USEREDITED,'',True,False,True);
+              Data.Users.History.FieldByName('SOURCE').AsString:=aSource;
+              Data.Users.History.Post;
+              Found:=True;
+            end;
+          bHistory.Free;
+        end;
     end
   else if (not AddTask) then
     begin

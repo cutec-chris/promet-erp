@@ -29,7 +29,7 @@ object fmTimeline: TfmTimeline
       Left = 29
       Height = 92
       Top = 9
-      Width = 480
+      Width = 482
       Align = alClient
       BorderSpacing.Left = 20
       BorderSpacing.Around = 8
@@ -39,10 +39,10 @@ object fmTimeline: TfmTimeline
       WantReturns = False
     end
     object bSend: TBitBtn
-      Left = 517
+      Left = 519
       Height = 92
       Top = 9
-      Width = 28
+      Width = 26
       Action = acSend
       Align = alRight
       AutoSize = True
@@ -567,10 +567,10 @@ object fmTimeline: TfmTimeline
       TabOrder = 1
       Visible = False
       object cbEnviroment: TComboBox
-        Left = 75
+        Left = 88
         Height = 27
         Top = 3
-        Width = 192
+        Width = 179
         ItemHeight = 0
         TabOrder = 0
         Text = '<keine>'

@@ -201,7 +201,9 @@ type
 
     function AddItem(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
     function AddItemSR(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: string=''; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    function AddItemPlain(aObject: string; aAction: string; aLink: string=''; aReference: string=''; aRefObject: string=''; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
     procedure AddParentedItem(aObject: TDataSet; aAction: string;aParent : Variant; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0; aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False); virtual;
+    procedure AddParentedItemPlain(aObject: string; aAction: string;aParent: Variant; aLink: string; aReference: string; aRefObject: string;aIcon: Integer; aComission: string; CheckDouble: Boolean; DoPost: Boolean;DoChange: Boolean); virtual;
     procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
 
     procedure AddMessageItem(aObject: TDataSet; aMessage, aSubject, aSource, aLink: string; aParent: LargeInt = 0);
@@ -1561,6 +1563,16 @@ function TBaseHistory.AddItemSR(aObject: TDataSet; aAction: string;
   aLink: string; aReference: string; aRefObject: string; aIcon: Integer;
   aComission: string; CheckDouble: Boolean; DoPost: Boolean; DoChange: Boolean
   ): Boolean;
+begin
+  with BaseApplication as IBaseDbInterface do
+    if Assigned(aObject) then
+      Result := AddItemPlain(Data.BuildLink(aObject),aAction,aLink,aReference,aRefObject,aIcon,aComission,CheckDouble,DoPost,DoChange);
+end;
+
+function TBaseHistory.AddItemPlain(aObject: string; aAction: string;
+  aLink: string; aReference: string; aRefObject: string; aIcon: Integer;
+  aComission: string; CheckDouble: Boolean; DoPost: Boolean; DoChange: Boolean
+  ): Boolean;
 var
   tmp: String;
 begin
@@ -1585,9 +1597,8 @@ begin
   Append;
   if aLink <> '' then
     FieldByName('LINK').AsString      := aLink;
-  with BaseApplication as IBaseDbInterface do
-    if Assigned(aObject) then
-      FieldByName('OBJECT').AsString := Data.BuildLink(aObject);
+  if aObject<>'' then
+    FieldByName('OBJECT').AsString := aObject;
   FieldByName('ACTIONICON').AsInteger := aIcon;
   FieldByName('ACTION').AsString    := aAction;
   FieldByName('REFERENCE').AsString := aReference;
@@ -1631,6 +1642,38 @@ procedure TBaseHistory.AddParentedItem(aObject: TDataSet; aAction: string;
 
 begin
   if AddItem(aObject,aAction,aLink,aReference,aRefObject,aIcon,aComission,CheckDouble,False,DoChange) then
+    begin
+      DataSet.FieldByName('PARENT').AsVariant := aParent;
+      DataSet.FieldByName('ROOT').AsVariant := GetRoot(aParent);
+      if DoPost then
+        Post;
+    end;
+end;
+
+procedure TBaseHistory.AddParentedItemPlain(aObject: string; aAction: string;
+  aParent: Variant; aLink: string; aReference: string; aRefObject: string;
+  aIcon: Integer; aComission: string; CheckDouble: Boolean; DoPost: Boolean;
+  DoChange: Boolean);
+function GetRoot(bParent : Variant) : Variant;
+var
+  aFind: TBaseHistory;
+begin
+  Result := Null;
+  aFind := TBaseHistory.Create(nil,DataModule);
+  aFind.Select(bParent);
+  aFind.Open;
+  if aFind.Count>0 then
+    begin
+      if (not aFind.FieldByName('PARENT').IsNull) and (aFind.FieldByName('PARENT').AsVariant<>bParent) then
+        Result := GetRoot(aFind.FieldByName('PARENT').AsVariant)
+      else
+        Result := aFind.Id.AsVariant;
+    end;
+  aFind.Free;
+end;
+
+begin
+  if AddItemPlain(aObject,aAction,aLink,aReference,aRefObject,aIcon,aComission,CheckDouble,False,DoChange) then
     begin
       DataSet.FieldByName('PARENT').AsVariant := aParent;
       DataSet.FieldByName('ROOT').AsVariant := GetRoot(aParent);

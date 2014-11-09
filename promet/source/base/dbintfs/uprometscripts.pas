@@ -149,7 +149,10 @@ begin
       if aDataSet.Count>0 then
         begin
           aHistory := TBaseHistory.Create(nil,DataModule,Connection,aDataSet.DataSet);
-          aHistory.AddItemSR(aDataSet.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,Commission);
+          aHistory.AddItemSR(aDataSet.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,Commission,True,False);
+          if Source<>'' then
+            aHistory.FieldByName('SOURCE').AsString:=Source;
+          aHistory.Post;
           aHistory.Free;
           result := True;
         end;
@@ -163,7 +166,10 @@ begin
   Result := False;
   if Data.Users.Locate('NAME',UserName,[loCaseInsensitive]) then
     begin
-      Result := Data.Users.History.AddItemSR(Data.Users.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,Commission);
+      Result := Data.Users.History.AddItemSR(Data.Users.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,Commission,True,False);
+      if Source<>'' then
+        Data.Users.History.FieldByName('SOURCE').AsString:=Source;
+      Data.Users.History.Post;
     end;
 end;
 
