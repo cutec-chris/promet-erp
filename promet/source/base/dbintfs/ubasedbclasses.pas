@@ -220,13 +220,36 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+  TObjects = class(TBaseDbList)
+  private
+    FHistory: TBaseHistory;
+  protected
+    function GetNumberFieldName: string; override;
+    function GetMatchcodeFieldName: string; override;
+    function GetTextFieldName: string; override;
+  public
+    constructor Create(aOwner: TComponent; DM: TComponent;
+      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    destructor Destroy; override;
+    function CreateTable: Boolean; override;
+    procedure DefineFields(aDataSet : TDataSet);override;
+    function SelectFromLink(aLink: string): Boolean; override;
+    procedure SelectByRefId(aId : Variant);
+    property History : TBaseHistory read FHistory;
+  end;
+
+  { TVariables }
+
+  TVariables = class(TBaseDBDataset)
+  protected
+  public
+    procedure DefineFields(aDataSet : TDataSet);override;
+    procedure Add(aName : string;aValue : Double);
+  end;
   TOptions = class;
   TFollowers = class;
   TRights = class;
   TPayGroups = class;
-
-  { TUser }
-
   TUser = class(TBaseDbList,IBaseHistory)
   private
     FFollows: TFollowers;
@@ -338,9 +361,6 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Open; override;
   end;
-
-  { TFollowers }
-
   TFollowers = class(TBaseDBDataSet)
   private
     function GetLink: TField;
@@ -390,23 +410,6 @@ type
     function AddFromFile(aFile : string) : Boolean;
     {$ENDIF}
     procedure GenerateThumbnail(aThumbnail : TBaseDbDataSet);
-  end;
-  TObjects = class(TBaseDbList)
-  private
-    FHistory: TBaseHistory;
-  protected
-    function GetNumberFieldName: string; override;
-    function GetMatchcodeFieldName: string; override;
-    function GetTextFieldName: string; override;
-  public
-    constructor Create(aOwner: TComponent; DM: TComponent;
-      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
-    destructor Destroy; override;
-    function CreateTable: Boolean; override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    function SelectFromLink(aLink: string): Boolean; override;
-    procedure SelectByRefId(aId : Variant);
-    property History : TBaseHistory read FHistory;
   end;
   TDeletedItems = class(TBaseDBDataSet)
   public
@@ -516,6 +519,36 @@ resourcestring
   strAvalible                   = 'Verfügbar';
   strItemOpened                 = 'Eintrag "%s" geöffnet';
   strNeedsAction                = 'benötigt Hilfe';
+
+{ TVariables }
+
+procedure TVariables.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'VARIABLES';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('NAME',ftString,100,True);
+            Add('VALUE',ftFloat,0,True);
+          end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          begin
+            Add('NAME','NAME',[]);
+            Add('TIMESTAMPD','TIMESTAMPD',[]);
+          end;
+    end;
+end;
+
+procedure TVariables.Add(aName: string; aValue: Double);
+begin
+  Insert;
+  FieldByName('NAME').AsString:=aName;
+  FieldByName('VALUE').AsFloat := aValue;
+  Post;
+end;
 
 function TObjects.GetNumberFieldName: string;
 begin

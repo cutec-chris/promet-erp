@@ -277,7 +277,7 @@
         <PackageName Value="LCL"/>
       </Item26>
     </RequiredPackages>
-    <Units Count="44">
+    <Units Count="45">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -288,7 +288,6 @@
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uMain"/>
       </Unit1>
       <Unit2>
         <Filename Value="upersonframe.pas"/>
@@ -582,6 +581,14 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ucommandline"/>
       </Unit43>
+      <Unit44>
+        <Filename Value="ustoredpasswords.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fPasswords"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ustoredpasswords"/>
+      </Unit44>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

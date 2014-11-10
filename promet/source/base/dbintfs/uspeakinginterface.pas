@@ -24,7 +24,7 @@ unit uspeakinginterface;
 interface
 
 uses
-  Classes, SysUtils,uprometscripts,uBaseDbDataSet,variants;
+  Classes, SysUtils,uprometscripts,uBaseDbDataSet,variants,uBaseDbClasses;
 
 type
 
@@ -51,10 +51,7 @@ begin
           begin
             if Assigned(Runtime) then
               if Runtime.RunProcPN([aSentence],'CHECKSENTENCE') = True then
-                begin
-                  Result := Self.Execute(VararrayOf([aSentence]));
-                  exit;
-                end;
+                exit;
           end;
       Next;
     end;
