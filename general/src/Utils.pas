@@ -327,6 +327,7 @@ function GetHomeDir: string;
 {$IFDEF MSWINDOWS}
 const
   CSIDL_PERSONAL = $0005;
+  CSIDL_FLAG_CREATE     = $8000; { (force creation of requested folder if it doesn't exist yet)     }
 var
   Path: array [0..1024] of char;
   P : Pointer;
@@ -366,7 +367,7 @@ begin
   If (@ShGetFolderPath<>Nil) then
     begin
       if SHGetFolderPath(0,CSIDL_PERSONAL or CSIDL_FLAG_CREATE,0,0,@PATH[0])=S_OK then
-        Result:=IncludeTrailingPathDelimiter(StrPas(@Path[0]))+app;
+        Result:=IncludeTrailingPathDelimiter(StrPas(@Path[0]));
     end;
 {$ELSE}
   Result:=expandfilename('~/');
@@ -879,4 +880,4 @@ begin
 end;
 END.
 
- 
+ 

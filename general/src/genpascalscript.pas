@@ -274,7 +274,7 @@ begin
                   Result := True;
                   exit;
                 end;
-            aLib := LoadLibrary(aLibName);
+            aLib := LoadLibrary(PChar(aLibName));
             if aLib <> dynlibs.NilHandle  then
               begin
                 aProc := aprocT(dynlibs.GetProcAddress(aLib,'ScriptDefinition'));
@@ -437,7 +437,7 @@ begin
 end;
 procedure TPascalScript.InternalBeep;
 begin
-  Beep;
+  SysUtils.Beep;
 end;
 procedure TPascalScript.InternalSleep(MiliSecValue: LongInt);
 begin
@@ -488,7 +488,7 @@ var
 {$endif}
 begin
 {$ifdef Windows}
-  WinExec('shutdown.exe -r -t 0', SW_NONE);
+  WinExec('shutdown.exe -r -t 0', 0);
 {$else}
   SysUtils.ExecuteProcess('/sbin/shutdown',['-r','now']);
 {$endif}
@@ -502,7 +502,7 @@ var
 begin
 {$ifdef Windows}
 { Windows NT or newer }
-  WinExec('shutdown.exe -s -t 0', SW_NONE);
+  WinExec('shutdown.exe -s -t 0', 0);
 { Earlier than Windows NT }
   {$IFDEF UNICODE}
   hLib:=LoadLibraryW('user.dll');
@@ -510,11 +510,13 @@ begin
   hLib:=LoadLibraryA('user.dll');
   {$ENDIF}
   if hLib<>0 then begin
-    Pointer(hProc):=GetProcAddress(hLib, 'ExitWindows');
-    if hProc<>0 then
-      hProc;
-    FreeLibrary(hLib);
-  end;
+    if GetProcAddress(hLib, 'ExitWindows')<>Pointer(0) then
+      begin
+        Pointer(hProc):=GetProcAddress(hLib, 'ExitWindows');
+        hProc;
+        FreeLibrary(hLib);
+      end;
+    end;
 {$else}
   SysUtils.ExecuteProcess('/sbin/shutdown',['-h','now']);
 {$endif}
