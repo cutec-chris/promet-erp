@@ -5,7 +5,7 @@ object fMain: TfMain
   Width = 868
   ActiveControl = Panel1
   Caption = 'Promet-ERP'
-  ClientHeight = 579
+  ClientHeight = 580
   ClientWidth = 868
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -20,7 +20,7 @@ object fMain: TfMain
   LCLVersion = '1.3'
   object spTree: TSplitter
     Left = 291
-    Height = 529
+    Height = 530
     Top = 50
     Width = 5
     Color = clBtnFace
@@ -29,7 +29,7 @@ object fMain: TfMain
   end
   object pcPages: TExtMenuPageControl
     Left = 296
-    Height = 529
+    Height = 530
     Top = 50
     Width = 572
     ActivePage = tsStartpage
@@ -70,17 +70,17 @@ object fMain: TfMain
       Left = 0
       Height = 45
       Top = 0
-      Width = 203
+      Width = 218
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 45
-      ClientWidth = 203
+      ClientWidth = 218
       TabOrder = 1
       object Label3: TLabel
         Left = 4
         Height = 15
         Top = 0
-        Width = 195
+        Width = 210
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -93,8 +93,8 @@ object fMain: TfMain
       end
       object Bevel3: TBevel
         Left = 0
-        Height = 37
-        Top = 4
+        Height = 0
+        Top = 45
         Width = 8
         Align = alLeft
         BorderSpacing.Top = 4
@@ -105,16 +105,14 @@ object fMain: TfMain
         Left = 39
         Height = 29
         Top = 16
-        Width = 164
-        Align = alRight
-        BorderSpacing.Left = 1
+        Width = 179
+        BorderSpacing.Left = 39
         BorderSpacing.Top = 16
-        ButtonHeight = 32
+        ButtonHeight = 30
         ButtonWidth = 55
         Caption = 'ToolBar1'
         Color = clBtnFace
         EdgeBorders = []
-        Flat = False
         Images = fVisualControls.Images
         ParentColor = False
         TabOrder = 0
@@ -129,7 +127,7 @@ object fMain: TfMain
           Style = tbsDropDown
         end
         object bFfwd: TToolButton
-          Left = 56
+          Left = 68
           Hint = 'Vor (zum nächsten Eintrag) gehen'
           Top = 0
           Action = acForward
@@ -139,7 +137,7 @@ object fMain: TfMain
           ShowHint = True
         end
         object ToolButton1: TToolButton
-          Left = 111
+          Left = 123
           Top = 0
           Action = acStartPage
         end
@@ -277,7 +275,7 @@ object fMain: TfMain
       end
       object eContains: TEdit
         Left = 28
-        Height = 25
+        Height = 21
         Top = 15
         Width = 328
         Anchors = [akTop, akRight]
@@ -320,7 +318,7 @@ object fMain: TfMain
       end
     end
     object pTimes: TPanel
-      Left = 203
+      Left = 218
       Height = 45
       Top = 0
       Width = 63
@@ -454,7 +452,7 @@ object fMain: TfMain
       end
     end
     object pTimes1: TPanel
-      Left = 266
+      Left = 281
       Height = 45
       Top = 0
       Width = 120
@@ -741,7 +739,7 @@ object fMain: TfMain
   end
   object tvMain: TPanel
     Left = 0
-    Height = 529
+    Height = 530
     Top = 50
     Width = 291
     Align = alLeft
@@ -834,7 +832,6 @@ object fMain: TfMain
       Style = lbOwnerDrawFixed
       TabOrder = 0
       TabStop = False
-      TopIndex = -1
     end
   end
   object MainMenu1: TMainMenu
