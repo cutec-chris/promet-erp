@@ -88,6 +88,7 @@ type
     ApplicationProperties1: TApplicationProperties;
     bBack: TSpeedButton;
     bDependencies: TSpeedButton;
+    Bevel1: TBevel;
     Bevel3: TBevel;
     Bevel5: TBevel;
     Bevel6: TBevel;
@@ -125,7 +126,6 @@ type
     miLanguage: TMenuItem;
     miSettings: TMenuItem;
     Panel1: TPanel;
-    Panel2: TPanel;
     pmHistory: TPopupMenu;
     pSearch: TPanel;
     pcPages: TExtMenuPageControl;
@@ -141,7 +141,7 @@ type
     tbMenue: TToolButton;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
-    ToolButton2: TSpeedButton;
+    tbTreeVisible: TSpeedButton;
     tsStartpage: TTabSheet;
     tvMain: TPanel;
     procedure acAttPlanExecute(Sender: TObject);
@@ -2615,6 +2615,9 @@ begin
     exit;
   Screen.Cursor:=crHourglass;
   Application.ProcessMessages;
+  with Application as IBaseDbInterface do
+    if DBConfig.ReadBoolean('HIDETREE',false) and acShowTree.Checked then
+      acShowTree.Execute;
   case aEntry.Typ of
   etSalesList:
     begin
@@ -3131,43 +3134,53 @@ var
   aIFrame: TPrometInplaceDBFrame;
   New: TMenuItem;
   tmp: Char;
+  Result : Boolean = false;
 begin
   case aEntry.Typ of
   etCustomerList,etCustomers:
     begin
       acContact.Execute;
+      result := True;
     end;
   etMasterdata,etArticleList:
     begin
       acMasterdata.Execute;
+      result := True;
     end;
   etOrders,etOrderList:
     begin
       acOrders.Execute;
+      result := True;
     end;
   etStatistics:
     begin
       acStatistics.Execute;
+      result := True;
     end;
   etTasks,etMyTasks:
     begin
       acTasks.Execute;
+      result := True;
     end;
   etProjects:
     begin
       acProjects.Execute;
+      result := True;
     end;
   etCalendar:
     begin
       acCalendar.Execute;
+      result := True;
     end;
   etMessages:
     begin
       acMessages.Execute;
+      result := True;
     end;
   etWiki:
     begin
       acWiki.Execute;
+      result := True;
     end;
   etDocuments,etImages:
     begin
@@ -3203,6 +3216,7 @@ begin
           AddDocPages(aFrame);
           if Assigned(aFrame) then
             TfManageDocFrame(aFrame).OpenDir(Null);
+          result := True;
         end;
     end;
   etLists:
@@ -3220,6 +3234,7 @@ begin
           pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('LISTS@'),False);
           AddListsList(aFrame);
           TfFilter(aFrame).Open;
+          result := True;
         end;
     end;
   etInventory:
@@ -3237,17 +3252,23 @@ begin
           pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('INVENTORY@'),False);
           AddInventoryList(aFrame);
           TfFilter(aFrame).Open;
+          result := True;
         end;
     end;
   etMeetings,etMeetingList:
     begin
       acMeetings.Execute;
+      result := True;
     end;
   etTimeRegistering:
     begin
       acTimeRegistering.Execute;
+      result := True;
     end;
   end;
+  with Application as IBaseDbInterface do
+    if Result and DBConfig.ReadBoolean('HIDETREE',false) and acShowTree.Checked then
+      acShowTree.Execute;
 end;
 
 procedure TfMain.fMainTreeFrametvMainExpanding(Sender: TObject;

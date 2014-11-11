@@ -55,31 +55,20 @@ object fMain: TfMain
     Color = clBtnFace
     ParentColor = False
     TabOrder = 2
-    object Panel2: TPanel
-      Left = 0
-      Height = 5
-      Top = 45
-      Width = 868
-      Align = alBottom
-      BevelOuter = bvNone
-      Color = clBtnFace
-      ParentColor = False
-      TabOrder = 0
-    end
     object Panel6: TPanel
       Left = 0
-      Height = 45
+      Height = 50
       Top = 0
       Width = 218
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 45
+      ClientHeight = 50
       ClientWidth = 218
-      TabOrder = 1
+      TabOrder = 0
       object Label3: TLabel
         Left = 4
         Height = 15
-        Top = 0
+        Top = 5
         Width = 210
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -94,7 +83,7 @@ object fMain: TfMain
       object Bevel3: TBevel
         Left = 0
         Height = 0
-        Top = 45
+        Top = 47
         Width = 8
         Align = alLeft
         BorderSpacing.Top = 4
@@ -142,13 +131,14 @@ object fMain: TfMain
           Action = acStartPage
         end
       end
-      object ToolButton2: TSpeedButton
-        Left = 4
-        Height = 36
+      object tbTreeVisible: TSpeedButton
+        Left = -1
+        Height = 44
         Top = 9
-        Width = 35
+        Width = 37
         Action = acShowTree
         AllowAllUp = True
+        Color = clWindow
         Down = True
         Flat = True
         Glyph.Data = {
@@ -193,18 +183,18 @@ object fMain: TfMain
     end
     object Panel8: TPanel
       Left = 488
-      Height = 45
+      Height = 50
       Top = 0
       Width = 380
       Align = alRight
       BevelOuter = bvNone
-      ClientHeight = 45
+      ClientHeight = 50
       ClientWidth = 380
-      TabOrder = 2
+      TabOrder = 1
       object Label5: TLabel
         Left = 4
         Height = 15
-        Top = 0
+        Top = 5
         Width = 372
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -218,7 +208,7 @@ object fMain: TfMain
       end
       object Bevel5: TBevel
         Left = 0
-        Height = 37
+        Height = 42
         Top = 4
         Width = 8
         Align = alLeft
@@ -319,19 +309,19 @@ object fMain: TfMain
     end
     object pTimes: TPanel
       Left = 218
-      Height = 45
+      Height = 50
       Top = 0
       Width = 63
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 45
+      ClientHeight = 50
       ClientWidth = 63
-      TabOrder = 3
+      TabOrder = 2
       Visible = False
       object Label6: TLabel
         Left = 4
         Height = 15
-        Top = 1
+        Top = 6
         Width = 55
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -345,7 +335,7 @@ object fMain: TfMain
       end
       object Bevel6: TBevel
         Left = 0
-        Height = 37
+        Height = 42
         Top = 4
         Width = 8
         Align = alLeft
@@ -453,18 +443,18 @@ object fMain: TfMain
     end
     object pTimes1: TPanel
       Left = 281
-      Height = 45
+      Height = 50
       Top = 0
       Width = 120
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 45
+      ClientHeight = 50
       ClientWidth = 120
-      TabOrder = 4
+      TabOrder = 3
       object Label7: TLabel
         Left = 4
         Height = 15
-        Top = 1
+        Top = 6
         Width = 112
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -478,7 +468,7 @@ object fMain: TfMain
       end
       object Bevel7: TBevel
         Left = 0
-        Height = 37
+        Height = 42
         Top = 4
         Width = 8
         Align = alLeft
@@ -744,9 +734,22 @@ object fMain: TfMain
     Width = 291
     Align = alLeft
     BevelOuter = bvNone
+    ClientHeight = 530
+    ClientWidth = 291
+    Color = clWindow
     DragMode = dmAutomatic
+    ParentColor = False
     TabOrder = 4
     Visible = False
+    object Bevel1: TBevel
+      Left = 35
+      Height = 1
+      Top = 0
+      Width = 256
+      Align = alTop
+      BorderSpacing.Left = 35
+      Shape = bsTopLine
+    end
   end
   object Panel4: TPanel
     Left = 826
@@ -835,8 +838,8 @@ object fMain: TfMain
     end
   end
   object MainMenu1: TMainMenu
-    left = 32
-    top = 48
+    left = 128
+    top = 88
     object miMandant: TMenuItem
       Caption = 'Mandant'
       object miLogin: TMenuItem

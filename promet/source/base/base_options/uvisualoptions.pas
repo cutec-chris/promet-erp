@@ -32,8 +32,10 @@ type
   { TfVisualOptions }
 
   TfVisualOptions = class(TOptionsFrame)
+    cbHideTree: TCheckBox;
     rbLeft: TRadioButton;
     rbRight: TRadioButton;
+    procedure cbHideTreeChange(Sender: TObject);
     procedure rbLeftChange(Sender: TObject);
   private
     { private declarations }
@@ -59,10 +61,20 @@ begin
     DBConfig.WriteBoolean('TBLEFT',rbLeft.Checked);
 end;
 
+procedure TfVisualOptions.cbHideTreeChange(Sender: TObject);
+begin
+  with Application as IBaseDbInterface do
+    DBConfig.WriteBoolean('HIDETREE',cbHideTree.Checked);
+end;
+
 constructor TfVisualOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
+  with Application as IBaseDbInterface do
+    cbHideTree.Checked := DBConfig.ReadBoolean('HIDETREE',false);
+  with Application as IBaseDbInterface do
+    rbLeft.Checked := DBConfig.ReadBoolean('TBLEFT',true);
 end;
 
 destructor TfVisualOptions.Destroy;

@@ -110,7 +110,7 @@ begin
     cmdln := cmdln+' "--debug-log=msg.'+BaseApplication.GetOptionValue('debug-log')+'"';
   if BaseApplication.HasOption('config-path') then
     cmdln := cmdln+' "--config-path='+BaseApplication.GetOptionValue('config-path')+'"';
-  if ProcessExists(ExtractFileExt(BaseApplication.ExeName),cmdln) then exit;
+  if ProcessExists(aProcess+ExtractFileExt(BaseApplication.ExeName),cmdln) then exit;
   aDir := AppendPathDelim(AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools'));
   if (not FileExistsUTF8(aProcess+ExtractFileExt(BaseApplication.ExeName))) and (not FileExistsUTF8(aDir+aProcess+ExtractFileExt(BaseApplication.ExeName))) then
     begin
