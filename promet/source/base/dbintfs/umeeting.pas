@@ -401,43 +401,6 @@ begin
                         Added := True;
                       end;
                   end;
-                if (not Added) and ((FieldByName('OWNER').AsString <> '') or (FieldByName('USER').AsString <> '')) then
-                  begin //Task
-                    aTasks := TTask.Create(nil,Data);
-                    aTasks.Append;
-                    asl := TStringList.Create;
-                    asl.Text:=FieldByName('DESC').AsString;
-                    if asl.Count>0 then
-                      begin
-                        aTasks.FieldByName('SUMMARY').AsString:=asl[0];
-                        asl.Delete(0);
-                      end;
-                    aTasks.FieldByName('DESC').AsString:=asl.Text;
-                    asl.Free;
-                    aTasks.FieldByName('OWNER').AsString:=FieldByName('OWNER').AsString;
-                    aTasks.FieldByName('USER').AsVariant:=FieldByName('USER').AsVariant;
-                    if FieldByName('USER').IsNull then
-                      aTasks.FieldByName('USER').AsVariant:=FieldByName('OWNER').AsVariant;
-                    if FieldByName('OWNER').IsNull then
-                      aTasks.FieldByName('OWNER').AsVariant:=FieldByName('USER').AsVariant;
-                    if not FieldByName('DUEDATE').IsNull then
-                      aTasks.FieldByName('DUEDATE').AsVariant:=FieldByName('DUEDATE').AsVariant;
-                    aTasks.DataSet.Post;
-                    arec := aTasks.GetBookmark;
-                    aTasks.DataSet.Refresh;
-                    aTasks.GotoBookmark(arec);
-                    if not Entrys.CanEdit then
-                      Entrys.DataSet.Edit;
-                    Entrys.FieldByName('LINK').AsString:=Data.BuildLink(aTasks.DataSet);
-                    if Entrys.CanEdit then
-                      Entrys.DataSet.Post;
-                    if Assigned(aObject) then
-                      begin
-                        //TODO:add History Entry fro Task
-                      end;
-                    Added := True;
-                    aTasks.Free;
-                  end;
                 if (not Added) and Assigned(aDataSet) and (aDataSet.Count>0) then
                   begin
                     Added := True;
@@ -448,6 +411,43 @@ begin
                      if Assigned(aHist) then
                       aHist.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(Self.DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True)
                   end;
+              end;
+            if (not Added) and ((FieldByName('OWNER').AsString <> '') or (FieldByName('USER').AsString <> '')) and (Entrys.FieldByName('LINK').AsString='') then
+              begin //Task
+                aTasks := TTask.Create(nil,Data);
+                aTasks.Append;
+                asl := TStringList.Create;
+                asl.Text:=FieldByName('DESC').AsString;
+                if asl.Count>0 then
+                  begin
+                    aTasks.FieldByName('SUMMARY').AsString:=asl[0];
+                    asl.Delete(0);
+                  end;
+                aTasks.FieldByName('DESC').AsString:=asl.Text;
+                asl.Free;
+                aTasks.FieldByName('OWNER').AsString:=FieldByName('OWNER').AsString;
+                aTasks.FieldByName('USER').AsVariant:=FieldByName('USER').AsVariant;
+                if FieldByName('USER').IsNull then
+                  aTasks.FieldByName('USER').AsVariant:=FieldByName('OWNER').AsVariant;
+                if FieldByName('OWNER').IsNull then
+                  aTasks.FieldByName('OWNER').AsVariant:=FieldByName('USER').AsVariant;
+                if not FieldByName('DUEDATE').IsNull then
+                  aTasks.FieldByName('DUEDATE').AsVariant:=FieldByName('DUEDATE').AsVariant;
+                aTasks.DataSet.Post;
+                arec := aTasks.GetBookmark;
+                aTasks.DataSet.Refresh;
+                aTasks.GotoBookmark(arec);
+                if not Entrys.CanEdit then
+                  Entrys.DataSet.Edit;
+                Entrys.FieldByName('LINK').AsString:=Data.BuildLink(aTasks.DataSet);
+                if Entrys.CanEdit then
+                  Entrys.DataSet.Post;
+                if Assigned(aObject) then
+                  begin
+                    //TODO:add History Entry fro Task
+                  end;
+                Added := True;
+                aTasks.Free;
               end;
             Next;
           end;
