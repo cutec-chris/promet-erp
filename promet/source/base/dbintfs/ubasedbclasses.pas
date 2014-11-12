@@ -244,7 +244,7 @@ type
   protected
   public
     procedure DefineFields(aDataSet : TDataSet);override;
-    procedure Add(aName : string;aValue : Double);
+    procedure Add(aName,aId : string;aValue : Double);
   end;
   TOptions = class;
   TFollowers = class;
@@ -531,6 +531,7 @@ begin
         with ManagedFieldDefs do
           begin
             Add('NAME',ftString,100,True);
+            Add('ID',ftString,100,False);
             Add('VALUE',ftFloat,0,True);
           end;
       if Assigned(ManagedIndexdefs) then
@@ -542,10 +543,11 @@ begin
     end;
 end;
 
-procedure TVariables.Add(aName: string; aValue: Double);
+procedure TVariables.Add(aName, aId: string; aValue: Double);
 begin
   Insert;
   FieldByName('NAME').AsString:=aName;
+  FieldByName('ID').AsString:=aId;
   FieldByName('VALUE').AsFloat := aValue;
   Post;
 end;

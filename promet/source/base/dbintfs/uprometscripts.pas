@@ -58,7 +58,7 @@ type
       ObjectLink: string=''; Reference: string='';Commission: string='';Source : string='';Date:TDateTime = 0) : Boolean;
     function InternalUserHistory(Action: string;UserName: string; Icon: Integer; ObjectLink: string;
       Reference: string; Commission: string;Source : string; Date: TDateTime): Boolean;
-    procedure InternalStorValue(aName : string;aValue : Double);
+    procedure InternalStorValue(aName,aId : string;aValue : Double);
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
@@ -174,13 +174,13 @@ begin
     end;
 end;
 
-procedure TBaseScript.InternalStorValue(aName: string; aValue: Double);
+procedure TBaseScript.InternalStorValue(aName, aId: string; aValue: Double);
 var
   aVariable: TVariables;
 begin
   aVariable := TVariables.Create(nil,Data);
   aVariable.CreateTable;
-  aVariable.Add(aName,aValue);
+  aVariable.Add(aName,aId,aValue);
   aVariable.Free;
 end;
 
@@ -229,7 +229,7 @@ begin
         Sender.AddMethod(Self,@TBaseScript.InternalDataSet,'function DataSet(SQL : string) : TDataSet;');
         Sender.AddMethod(Self,@TBaseScript.InternalHistory,'function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
         Sender.AddMethod(Self,@TBaseScript.InternalUserHistory,'function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
-        Sender.AddMethod(Self,@TBaseScript.InternalStorValue,'function StorValue(Name : string;Value : Double);');
+        Sender.AddMethod(Self,@TBaseScript.InternalStorValue,'procedure StorValue(Name,Id : string;Value : Double);');
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBDataset) do
           begin
             RegisterMethod('procedure Open;');
