@@ -234,7 +234,6 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
 {$R *.lfm}
 resourcestring
   strNoParent                     = '<kein Vorfahr>';
-  strSearchFromProjects           = 'Mit Öffnen wird das gewählte Projekt als Vohrfahr übernommen';
   strEnterProcessName             = 'geben Sie einen neuen Namen für den Prozess an';
   strProcessName                  = 'Prozessname';
   strInactiveStatus               = 'Der gewähte Status ist kein aktiver Status, sollen alle aktiven Aufgaben deaktiviert werden ?';

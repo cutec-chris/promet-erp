@@ -34,13 +34,15 @@ type
     acSave: TAction;
     acAbort: TAction;
     ActionList1: TActionList;
+    bDelegated2: TSpeedButton;
     Bevel10: TBevel;
+    Bevel11: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
-    Bevel6: TBevel;
     Bevel7: TBevel;
     Bevel8: TBevel;
-    Bevel9: TBevel;
+    bSetUser: TSpeedButton;
+    cbCategory: TDBComboBox;
     cbChecked: TDBCheckBox;
     cbChecked1: TDBCheckBox;
     cbClass: TExtDBCombobox;
@@ -48,13 +50,15 @@ type
     cbCompleted1: TDBCheckBox;
     cbPriority: TDBComboBox;
     cbState: TExtDBCombobox;
-    cbCategory: TDBComboBox;
-    eOrder: TDBEdit;
     EarlystDate: TDBZVDateTimePicker;
-    EndTimeLbl2: TLabel;
-    eTime: TEdit;
+    EndDate: TDBZVDateTimePicker;
     EndDate1: TDBZVDateTimePicker;
+    EndTimeLbl: TLabel;
     EndTimeLbl1: TLabel;
+    EndTimeLbl2: TLabel;
+    eOrder: TDBEdit;
+    eProject: TEditButton;
+    eTime: TEdit;
     eBuffer: TEdit;
     Label1: TLabel;
     Label10: TLabel;
@@ -62,24 +66,25 @@ type
     Label12: TLabel;
     Label13: TLabel;
     Label14: TLabel;
+    Label15: TLabel;
+    Label3: TLabel;
+    mNotes: TDBMemo;
+    Panel1: TPanel;
     Panel11: TPanel;
+    Panel12: TPanel;
     pHist: TPanel;
-    bSetUser: TSpeedButton;
     Splitter1: TSplitter;
+    StartDate: TDBZVDateTimePicker;
+    StartTimeLbl: TLabel;
+    tsAdditional: TTabSheet;
     Task: TDatasource;
     eSummary: TDBEdit;
-    EndDate: TDBZVDateTimePicker;
-    eProject: TDBEdit;
-    EndTimeLbl: TLabel;
     pcPages: TExtMenuPageControl;
     Label2: TLabel;
     Label4: TLabel;
     Label5: TLabel;
     Label7: TLabel;
     Label8: TLabel;
-    Label9: TLabel;
-    mNotes: TDBMemo;
-    Panel1: TPanel;
     Panel10: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
@@ -87,26 +92,24 @@ type
     lMessage: TLabel;
     FileDialog: TOpenDialog;
     Panel8: TPanel;
-    Panel9: TPanel;
-    pbStatus: TProgressBar;
     pgEvent: TPageControl;
-    StartDate: TDBZVDateTimePicker;
-    StartTimeLbl: TLabel;
     tabEvent: TTabSheet;
     ToolButton1: TBitBtn;
-    ToolButton2: TBitBtn;
+    ToolButton2: TSpeedButton;
     tsNotes: TTabSheet;
     ToolBar1: TPanel;
-    ToolBar2: TPanel;
     procedure acAbortExecute(Sender: TObject);
     procedure acPasteLinkExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure bDelegated2Click(Sender: TObject);
     procedure bSetUserClick(Sender: TObject);
     procedure cbStateSelect(Sender: TObject);
     procedure eBufferExit(Sender: TObject);
+    procedure eProjectButtonClick(Sender: TObject);
     procedure eTimeExit(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    function fSearchOpenItem(aLink: string): Boolean;
     function fSearchOpenUserItem(aLink: string): Boolean;
     procedure TfHistoryFrameAddUserMessage(Sender: TObject);
     procedure TfListFrameFListgListDrawColumnCell(Sender: TObject;
@@ -134,7 +137,8 @@ type
 implementation
 uses uData,uDocumentFrame,uDocuments,uLinkFrame,uprometframesinplace,
   uListFrame,uBaseVisualControls,ClipBrd,uBaseVisualApplication,
-  uError,utasks,uSearch,uBaseDbClasses,uhistoryadditem,uBaseDBInterface;
+  uError,utasks,uSearch,uBaseDbClasses,uhistoryadditem,uBaseDBInterface,
+  uProjects;
 resourcestring
   strDependencies               = 'Abhängigkeiten';
   strClassTask                  = 'T Aufgabe';
@@ -152,6 +156,23 @@ procedure TfTaskEdit.FormShow(Sender: TObject);
 begin
   FHistoryFrame.DataSet := TTask(FDataSet).History;
   FHistoryFrame.SetRights(FEditable);
+end;
+
+function TfTaskEdit.fSearchOpenItem(aLink: string): Boolean;
+var
+  aParent: TProject;
+begin
+  aParent := TProject.Create(nil,Data);
+  aParent.SelectFromLink(aLink);
+  aParent.Open;
+  if aParent.Count>0 then
+    begin
+      FDataSet.Edit;
+      FDataSet.FieldByName('PROJECT').AsString:=Data.GetLinkDesc(aLink);
+      eProject.Text:=Data.GetLinkDesc(aLink);
+      FDataSet.FieldByName('PROJECTID').AsVariant:=aParent.Id.AsVariant;
+    end;
+  aParent.free;
 end;
 
 function TfTaskEdit.fSearchOpenUserItem(aLink: string): Boolean;
@@ -233,6 +254,18 @@ begin
   Close;
 end;
 
+procedure TfTaskEdit.bDelegated2Click(Sender: TObject);
+var
+  aProject: TProject;
+begin
+  aProject := TProject.Create(nil,Data);
+  aProject.Select(FDataSet.FieldByName('PROJECTID').AsVariant);
+  aProject.Open;
+  if aProject.Count > 0 then
+    Data.GotoLink(Data.BuildLink(aProject.DataSet));
+  aProject.Free;
+end;
+
 procedure TfTaskEdit.bSetUserClick(Sender: TObject);
 var
   i :Integer = 0;
@@ -289,6 +322,25 @@ begin
   if eBuffer.Text<>'' then
     FDataSet.FieldByName('BUFFERTIME').AsString:=FloatToStr(StrToDayTime(eBuffer.Text))
   else FDataSet.FieldByName('BUFFERTIME').Clear;
+end;
+
+procedure TfTaskEdit.eProjectButtonClick(Sender: TObject);
+var
+  i : Integer = 0;
+begin
+  fSearch.SetLanguage;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strProjects then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenItem;
+  fSearch.Execute(True,'TASKSP',strSearchFromProjects);
+  fSearch.SetLanguage;
 end;
 
 procedure TfTaskEdit.eTimeExit(Sender: TObject);
@@ -481,6 +533,7 @@ begin
       if FDataSet.FieldByName('SUMMARY').IsNull then
         eSummary.SetFocus
       else mNotes.SetFocus;
+      eProject.Text:=FDataSet.FieldByName('PROJECT').AsString;
       while Visible do
         begin
           Application.ProcessMessages;
