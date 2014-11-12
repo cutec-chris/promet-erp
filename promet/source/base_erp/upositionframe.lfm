@@ -433,7 +433,7 @@ inherited fPosition: TfPosition
   end
   object pmPosition: TPopupMenu[6]
     Images = fVisualControls.Images
-    left = 144
+    left = 160
     top = 64
     object MenuItem6: TMenuItem
       Action = acSearchArticle
@@ -850,10 +850,14 @@ inherited fPosition: TfPosition
       }
     end
   end
-  object Datasource1: TDataSource[7]
-    OnStateChange = Datasource1StateChange
-    OnDataChange = Datasource1DataChange
-    left = 176
+  object Position: TDataSource[7]
+    OnStateChange = PositionStateChange
+    OnDataChange = PositionDataChange
+    left = 232
+    top = 64
+  end
+  object OrderPos: TDataSource[8]
+    left = 304
     top = 64
   end
 end

@@ -801,10 +801,11 @@ var
   Reader: TReader;
   i: Integer;
   tmp : string;
-  aComponent: TDBEdit;
+  aComponent: TComponent;
   aDS: TDataSource;
   aOld: TWinControl;
   aTab: TWinControl;
+  aDST: String;
 begin
   with Sender as TFrame do
     begin
@@ -837,58 +838,61 @@ begin
                     for i := 0 to Reader.Root.ComponentCount-1 do
                       begin
                         Randomize;
-                        Reader.Root.Components[i].Name:=Reader.Root.Components[i].Name+IntToStr(random(5000));
-                        if (Reader.Root.Components[i] is TDBEdit) and (FProps.Count > 0) and (FFields.Count > 0) then
+                        aComponent := Reader.Root.Components[i];
+                        aComponent.Name:=aComponent.Name+IntToStr(random(5000));
+                        if (aComponent is TDBEdit) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
-                            aDS := TDataSource(aParent.FindComponent(FProps[0]));
+                            aDST := FProps[0];
+                            aDS := TDataSource(aParent.FindComponent(aDST));
                             if Assigned(aDS) and Assigned(aDS.DataSet) and (aDS.DataSet.Active) and (aDS.DataSet.FieldDefs.IndexOf(FFields[0]) <> -1) then
                               begin
-                                TDBEdit(Reader.Root.Components[i]).DataField := FFields[0];
-                                TDBEdit(Reader.Root.Components[i]).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
+                                TDBEdit(aComponent).DataField := FFields[0];
+                                TDBEdit(aComponent).DataSource := TDataSource(aParent.FindComponent(aDST));
                               end;
                             FProps.Delete(0);
                             FFields.Delete(0);
                           end
-                        else if (Reader.Root.Components[i] is TDBMemo) and (FProps.Count > 0) and (FFields.Count > 0) then
+                        else if (aComponent is TDBMemo) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
-                            aDS := TDataSource(aParent.FindComponent(FProps[0]));
+                            aDST := FProps[0];
+                            aDS := TDataSource(aParent.FindComponent(aDST));
                             if Assigned(aDS) and Assigned(aDS.DataSet) and (aDS.DataSet.Active) and (aDS.DataSet.FieldDefs.IndexOf(FFields[0]) <> -1) then
                               begin
-                                TDBMemo(Reader.Root.Components[i]).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
-                                TDBMemo(Reader.Root.Components[i]).DataField := FFields[0];
+                                TDBMemo(aComponent).DataSource := TDataSource(aParent.FindComponent(aDST));
+                                TDBMemo(aComponent).DataField := FFields[0];
                               end;
                             FProps.Delete(0);
                             FFields.Delete(0);
                           end
-                        else if (Reader.Root.Components[i] is TDBCombobox) and (FProps.Count > 0) and (FFields.Count > 0) then
+                        else if (aComponent is TDBCombobox) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
                             aDS := TDataSource(aParent.FindComponent(FProps[0]));
                             if Assigned(aDS) and Assigned(aDS.DataSet) and (aDS.DataSet.Active) and (aDS.DataSet.FieldDefs.IndexOf(FFields[0]) <> -1) then
                               begin
-                                TDBCombobox(Reader.Root.Components[i]).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
-                                TDBComboBox(Reader.Root.Components[i]).DataField := FFields[0];
+                                TDBCombobox(aComponent).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
+                                TDBComboBox(aComponent).DataField := FFields[0];
                               end;
                             FProps.Delete(0);
                             FFields.Delete(0);
                           end
-                        else if (Reader.Root.Components[i] is TDBCheckBox) and (FProps.Count > 0) and (FFields.Count > 0) then
+                        else if (aComponent is TDBCheckBox) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
                             aDS := TDataSource(aParent.FindComponent(FProps[0]));
                             if Assigned(aDS) and Assigned(aDS.DataSet) and (aDS.DataSet.Active) and (aDS.DataSet.FieldDefs.IndexOf(FFields[0]) <> -1) then
                               begin
-                                TDBCheckBox(Reader.Root.Components[i]).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
-                                TDBCheckBox(Reader.Root.Components[i]).DataField := FFields[0];
+                                TDBCheckBox(aComponent).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
+                                TDBCheckBox(aComponent).DataField := FFields[0];
                               end;
                             FProps.Delete(0);
                             FFields.Delete(0);
                           end
-                        else if (Reader.Root.Components[i] is TDBZVDateTimePicker) and (FProps.Count > 0) and (FFields.Count > 0) then
+                        else if (aComponent is TDBZVDateTimePicker) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
                             aDS := TDataSource(aParent.FindComponent(FProps[0]));
                             if Assigned(aDS) and Assigned(aDS.DataSet) and (aDS.DataSet.Active) and (aDS.DataSet.FieldDefs.IndexOf(FFields[0]) <> -1) then
                               begin
-                                TDBZVDateTimePicker(Reader.Root.Components[i]).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
-                                TDBZVDateTimePicker(Reader.Root.Components[i]).DataField := FFields[0];
+                                TDBZVDateTimePicker(aComponent).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
+                                TDBZVDateTimePicker(aComponent).DataField := FFields[0];
                               end;
                             FProps.Delete(0);
                             FFields.Delete(0);
@@ -903,6 +907,7 @@ begin
               FFields.Destroy;
               Stream.Free;
             except
+              raise;
             end;
             if Assigned(FOnUserTabAdded) then
               FOnUserTabAdded(aTab);
@@ -1098,4 +1103,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

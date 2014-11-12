@@ -51,7 +51,7 @@ type
     Bevel1: TBevel;
     Bevel2: TBevel;
     Bevel4: TBevel;
-    Datasource1: TDatasource;
+    Position: TDatasource;
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel2: TExtRotatedLabel;
     ExtRotatedLabel3: TExtRotatedLabel;
@@ -66,6 +66,7 @@ type
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
+    OrderPos: TDataSource;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
@@ -110,8 +111,8 @@ type
     procedure acViewDetailsExecute(Sender: TObject);
     procedure acViewTextsExecute(Sender: TObject);
     procedure AddCalcTab(Sender: TObject);
-    procedure Datasource1DataChange(Sender: TObject; Field: TField);
-    procedure Datasource1StateChange(Sender: TObject);
+    procedure PositionDataChange(Sender: TObject; Field: TField);
+    procedure PositionStateChange(Sender: TObject);
     procedure DoAsyncInit(Data: PtrInt);
     procedure FDataSourceStateChange(Sender: TObject);
     procedure FGridViewAutoFilterChanged(Sender: TObject);
@@ -194,7 +195,7 @@ begin
 end;
 procedure TfPosition.FGridViewCellChanging(Sender: TObject);
 begin
-  if acViewTexts.Checked then
+  if acViewDetails.Checked then
     TabTimer.Enabled:=True;
 end;
 procedure TfPosition.FGridViewCellChanged(Sender: TObject; NewCell,
@@ -614,7 +615,7 @@ begin
   TfCalcPositionFrame(Sender).TabCaption:=strCalc;
 end;
 
-procedure TfPosition.Datasource1DataChange(Sender: TObject; Field: TField);
+procedure TfPosition.PositionDataChange(Sender: TObject; Field: TField);
 begin
   if not Assigned(Field) then exit;
   if Field.FieldName='POSTYP' then
@@ -622,7 +623,7 @@ begin
       TabTimer.Enabled:=True;
 end;
 
-procedure TfPosition.Datasource1StateChange(Sender: TObject);
+procedure TfPosition.PositionStateChange(Sender: TObject);
 begin
   if (acViewDetails.Checked) and Assigned(FDataSet) and (not DataSet.DataSet.ControlsDisabled) and (FDataset.State=dsInsert) then
     TabTimer.Enabled:=True;
@@ -736,11 +737,12 @@ begin
   FGridView.DataSet := AValue;
   if Assigned(AValue) then
     begin
-      Datasource1.DataSet := FGridView.DataSet.DataSet;
+      Position.DataSet := FGridView.DataSet.DataSet;
+      Orderpos.DataSet := FGridView.DataSet.DataSet;
       if SetLabels then
         DataSet.SetDisplayLabels(DataSet.DataSet);
     end
-  else Datasource1.DataSet := nil;
+  else Position.DataSet := nil;
   with Application as IBaseDBInterface do
     acPermanentEditormode.Checked:= DBConfig.ReadString('EPOSVIS','N') = 'Y';
 end;
@@ -958,4 +960,4 @@ begin
 end;
 
 end.
-
+

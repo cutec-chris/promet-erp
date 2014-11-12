@@ -1,4 +1,6 @@
-﻿Build 380
+﻿Build 381
+      - Aufgabeneditor überarbeitet
+Build 380
       - Kommandozeile kann Scripte verarbeiten (so werden Befehle definiert)
       - Gui an vielen Stellen Buttons zu flachen gewechselt um Oberfläche einheitlicher und aufgeräumter
         zu gestalten, vorbereitung um Funktionen in Toolbars konfigurierbar zu machen
