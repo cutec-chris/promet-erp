@@ -1,0 +1,3289 @@
+  ***************************
+  * v2.1.6
+  ***************************
+
+    * Bugfix CORE-4327
+        Error in QLI when copying NULL blobs between databases
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-4323
+        FB 2.1.5 64bits Windows zip kit misses fbsvcmgr.exe
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-4302
+        Lookup (or scan) in descending index could be very inefficient for some keys
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-4298
+        fbsvcmgr doesn't recognise sts_record_versions and other sts switches
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-4214
+        GTT should not reference permanent relation
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-4144
+        Error "context already in use (BLR error)" when preparing a query with UNION
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-4127
+        Server crashes instead of reporting the error "key size exceeds implementation restriction"
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-4123
+        Server crashes when executing a stored procedure called by a trigger
+        that converts string to uppercase
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-4117
+        COMPUTED BY field is evaluated as NULL if used as an exception parameter directly
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-4093
+        Server crashes while converting an overscaled numeric to a string
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-4058
+        Remote stack buffer overflow in Firebird SQL Server
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-4051
+        Memory leak when sorting records larger than 32 KB
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-4036
+        Bugcheck or database corruption when attempting to store
+        long incompressible data into a table
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-4011
+        start stop status undetected for SuperClassic and SuperServer under RH and Mageia
+      Contributor(s):
+        Philippe Makowski <pmakowski at ibphoenix.fr>
+
+    * Bugfix CORE-4002
+        Error message "index unexpectedly deleted" in database trigger on commit transaction
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3940
+        I/O error during "GetFileSize" operation for file XXXX
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3895
+        High memory usage when PSQL code selects from a stored procedure that modified some data
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3875
+        GBAK does not check correctly parameters and backups random database with -B ":"
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3859
+        Too many different dynamic events crash the server
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3855
+        Blobs, inserted into GLOBAL TEMPORARY TABLE ON COMMIT DELETE ROWS, could be placed
+        into newly allocated pages even if there is enough free place on some existing data page
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3360
+        UPDATE ... RETURNING ... raises -551 (no perm to update) for a column
+        present only in the RETURNING clause
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2966
+        Wrong results or unexpected errors while sorting a large data set
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2912
+        Exception when upper casing string with lowercase y trema (code 0xFF in ISO8859_1)
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2648
+        Nbackup's delta file ignored Forced Writes database setting
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2349
+        False "Invalid SQLDA" error
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2165
+        Unnecessary 1 index read may occur when using strict inequality condition
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Improvement CORE-4386
+        Report more details for "object in use" errors 
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-3881
+        Extend the error reported for index/constraint violations to include the problematic key value
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * New feature CORE-4438
+        Add support for UPDATE OR INSERT statement to Embedded SQL
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * New feature CORE-4437
+        Add support for the RETURNING clause to Embedded SQL
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+
+  ***************************
+  * v2.1.5
+  ***************************
+
+    * Bugfix CORE-3844
+        Validation doesn't detect one specific case of index corruption
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3841
+        Corrupted database after inserting rows
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3834
+        Usage of a NATURAL JOIN with a derived table crashes the server
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3807
+        Error "Invalid expression in the select list" can be unexpectedly raised
+        if a string literal is used inside a GROUP BY clause in a multi-byte connection
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-3791
+        Performance degrades when actively working with databases bigger than the available RAM amount
+      Contributor(s):
+        Nickolay Samofatov <skidder at users.sourceforge.net>
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3761
+        Conversion error when using a blob as an argument for the EXCEPTION statement
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3736
+        WITH LOCK clause is allowed for users with read-only rights on some table,
+        thus blocking others from updating this table
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3733
+        GBAK fails to fix system generators while restoring
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3730
+        isc_dsql_exec_immed2() loses input parameter value with RETURNING clause
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3724
+        Server hangs when working with events
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3722
+        IS NOT DISTINCT FROM NULL doesn't use index
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3721
+        Multiuser server startup (/etc/init.d) script picks up the ISC_ variables if set
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3697
+        String truncation error when selecting from a VIEW with UNION inside
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3691
+        Missing constraint name in foreign key error message in FB 2.1.4
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3690
+        Wrong warning message for ambiguous query
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3677
+        Stop utilities to export entrypoints
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3658
+        FBSVCMGR connects to server as OS user name rather than value of ISC_USER environment variable
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3631
+        Duplicate records with NULLs are checked incorrectly
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3625
+        MON$IO_STATS doesn't report page writes performed asynchronously (at the AST level)
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3579
+        Can't drop table when computed field depends on later created another field
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3569
+        CHAR(32767) present in XSQLVAR with length 32765
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3557
+        Server crashes while preparing a query against the table being dropped
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3554
+        Server crashes during prepare or throws incorrect parsing error
+        if the remotely passed SQL query is empty
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3553
+        Nested loop plan is chosen instead of the sort merge for joining independent streams
+        using keys of different types
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3549
+        Database corruption after end of session: "page xxx is of wrong type expected 4 found 7"
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3524
+        Server crashes while compiling a stored procedure being in use
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3521
+        Delta file contents is not flushed to disk
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3517
+        Server crash with built in function LPAD with string as second parameter
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-3515
+        Index corruption. Validation puts the "missing entries" message into firebird.log
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3510
+        gds_drop utility prints an error when trying to shutdown missing lock manager process
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3479
+        ASCII_VAL raises error instead of return 0 for empty strings
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-3468
+        Attempt to read after the end of file when nbackup state is stalled
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3464
+        Dirty page could be written without releasing (or downgrading) page lock.
+        It results in "lock denied" or "lock conversion denied" bugcheck.
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3461
+        DDL operations fail after backup/restore
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3447
+        Collation is not installed with ICU > 4.2
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-3440
+        Server crashes if isc_que_events() has queued 0 events
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3418
+        Database trigger created as INACTIVE is really active
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3409
+        Segmentation Fault after upgrade 2.1.3 -> 2.1.4
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3397
+        Unresolved symbols in intl and trace libraries
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3394
+        Failed attempt to violate unique constraint could leave unneeded "lock conflict" error in status-vector
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3388
+        Firebird does not build on Fedore Core
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3374
+        Server may crash or corrupt data if SELECT WITH LOCK is issued
+        against records not in the latest format
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3355
+        Wrong comparsion of DATE and TIMESTAMP if index is used
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3353
+        Predicate (blob_field LIKE ?) describes the parameter as VARCHAR(30) rather than as BLOB
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3351
+        Windows client could put 10054 error messages into firebird.log at connection time
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3335
+        Wrong results (internal wrapping occured) for the multi-byte blob SUBSTRING function
+        and its boundary arguments
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3320
+        Some MERGE syntax can crash the server
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-3296
+        Error "context already in use" for the simple case function with a sub-select operand
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3245
+        SUBSTRING on long blobs truncates result to 32767 if third argument not present
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3233
+        LIKE, STARTING and CONTAINING fail if second operand >= 32K
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3231
+        OVERLAY() fails when used with text BLOBs containing multi-byte chars
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-3138
+        Internal error or crash occurs when accessing any MON$ table after altering its structure
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3092
+        ROW_COUNT is not cleared before the singleton INSERT statement
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2422
+        Server doesn't switch between multiple entries configured in TempDirectories
+        when some of them is out of free space
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2286
+        Selecting from MON$CALL_STACK within a trigger or SP sometimes return 0 rows
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1992
+        Bad BLR -- invalid stream for union select
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1782
+        ISQL crashes when fetching data for a column having alias longer than 30 characters
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-3457
+        Optimize the temporary space manager regarding small chunk allocations
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-3433
+        Improve GBAK restore performance (records insertion)
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+
+  ***************************
+  * v2.1.4
+  ***************************
+
+    * Bugfix CORE-3285
+        100% CPU usage (endless loop) inside the lock manager
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3262
+        LIST() function may overwrite last part of output with zero characters
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-3244
+        Function POSITION: wrong result with '' if third argument present
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-3228
+        Function RIGHT() fails with multibyte text blobs > 1024 chars
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-3227
+        Function ASCII_VAL() fails if argument contains multi-byte character anywhere
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-3220
+        isc_info_svc_get_users returns error message in the result cluster
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3218
+        Statement cancellation request might be silently ignored by the currently running SQL code
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3208
+        Significant memory leaks with recursive queries
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3205
+        isc_dsql_exec_immed2() doesn't return error codes isc_stream_eof and isc_sing_select_err
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3202
+        execute_immediate API call family may crash the remote server
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3188
+        Page 0 is of wrong type (expected 6, found 1)
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3148
+        Dangerous code in SQZ_apply_differences
+      Contributor(s):
+        Dmitry Kovalenko <dmitry.lipetsk at gmail.com>
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3137
+        Partial rollback is possible for a selectable procedure modifying data
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3131
+        WIN1257_LV (Latvian) collation is wrong for 4 letters: A E I U. 
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3119
+        100% CPU USAGE (endless loop) in the remote protocol code related to events processing
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3115
+        Bugs in the internal record compression routines
+      Contributor(s):
+       Dmitry Kovalenko <dmitry.lipetsk at gmail.com>
+       Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3091
+        Built-in function POWER(X, Y) does not work when the X argument is negative
+        and the Y value is scaled numeric but integral
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-3079
+        Strong slowing down inserts with EVENT-s in a single transaction.
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3067
+        Objects are not unmapped when shared memory is closed
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3064
+        Using both the procedure name and alias inside an explicit plan crashes the server
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3050
+        Race condition in LocksCache::get() could lead to AV in the engine
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3041
+        Engine could hang when working with read-only database
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3034
+        Bugcheck 300 (can't find shared latch)
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3022
+        gpre C++ compiler warnings with GCC 4.4.1
+      Contributor(s):
+        Daniel Dodson <zabbit at yahoo.com> 
+
+    * Bugfix CORE-3019
+        Startup failure of SS and SC on linux gentoo
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-3016
+        On disconnect it is possible to see "Fatal lock manager error:
+        invalid lock id (0), errno: 0" in firebird.log
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3015
+        Various "Cannot initialize the shared memory region" errors
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-3011
+        Server hangs or crashes while monitoring connections repeatedly attaching and detaching
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3003
+        Procedure suspend check may cause restore to fail
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-3001
+        Install fails to create user & group "firebird"
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2999
+        Message "SCH_validate -- not entered" is logged in firebird.log
+        when the Classic Server connection where events were used is finished
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2995
+        Same error in the status vector is reported twice
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2993
+        Fatal lock manager error "Invalid lock id (NNN)" while working with monitoring tables
+        on a highly loaded system
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2977
+        Server works with indexed fields of type DATE incorrectly in pre-ODS10 databases
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2969
+        RDB$SET_CONTEXT does not allow to overwrite any vars after encountering limit of them
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2956
+        Problems with requests of procedure	parameters
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2943
+        Error while parsing a recursive query with two recursive parts
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2936
+        Wrong page type (expected 7 found N) error
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2928
+        Buffer overflow in GSEC
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2919
+        Installation script ignores non-standard ports
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2916
+        Broken error handling in the case of a conversion error happened during index creation
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2914
+        Server crashes while restoring a database having an expression index referencing a non-existent UDF
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2908
+        Engine could crash or raise not expected errors working with ODS 8.x database
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2900
+        Server crashes evaluating aggregate distinct
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2888
+        A memory corruption cause incorrect query evaluation and may crash the server
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2879
+        Sweep could raise error: page 0 is of wrong type (expected 6, found 1)
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2871
+        Outer ORDER BY clause has no effect
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2865
+        Segmentation fault when SuperServer binary is restarted
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2858
+        Possible memory trashing when raising some exceptions to signal failed security checks
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-2856
+        Non-NULL key in unique index could be not found when key is removed
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2846
+        Cannot connect to the database if GFIX -shut <mode> -attach <timeout>
+        fails after the specified timeout (because of connections being still active)
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2845
+        Solaris 10 no longer requires SFIO
+      Contributor(s):
+        Paul Beach <pbeach at ibphoenix.com>
+
+    * Bugfix CORE-2833
+        Changing data that affects an expression index that contains references to null date fields fails
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2831
+        ISQL shouldn't display database and user names when extracting a script
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-2827
+        Very slow prepare for complex interrelated metadata with many triggers indirectly involved
+        in the operation being prepared
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2826
+        Join condition fails for UTF-8 databases
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2822
+        Error "no current row for fetch operation" when subquery includes a non-trivial derived table
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2820
+        Small memory leak in query with PLAN ORDER
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2815
+        PIP page could be marked after it was really changed
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2814
+        Bus error while sorting/merging on SPARC
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2793
+        Binary representation of the backup file is inconsistent among subsequent backup/restore cycles
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2785
+        BLOB transliteration problem in a specific case
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2783
+        Access violation using recursive query as subquery in select list and ordering by it
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2741
+        Naive metadata extraction code in isql is defeated by "check" keyword typed in mixed case
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-2720
+        Wrong evaluation result with divide and unary plus\minus operations
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2698
+        Infinite wait in LocksCache::get 
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2684
+        Error page NNN is of wrong type (expected 7, found N)
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2679
+        Applications using the embedded server may hang while exiting
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2675
+        Small memory leak per every blob transliteration
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2648
+        NBackup's delta file ignores the "Forced Writes" database setting
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2640
+        A regular deadlock may not be detected by the lock manager under some conditions,
+        thus resulting in a hang
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2635
+        Unique index with a lot of NULL keys can be corrupted at level 1
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2634
+        Performance regression when restoring database with big metadata
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2632
+        "Invalid BLOB ID" error when working with the monitoring tables
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2616
+        Error "page <N> is of wrong type (expected 7, found 5)"
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2591
+        High mutex wait ratio and degraded performance after some time of performing normally
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2578
+        select rdb$db_key from a view with more than one table joined results in a conversion error
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2572
+        Locks of type LCK_page_space are processed incorrectly (big-endian machines)
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2539
+        Delta file is not deleted after backup is completed
+      Contributor(s):
+        Roman Simakov <roman.simakov at red-soft.biz>
+
+    * Bugfix CORE-2532
+        Incorrect size of volumes in multi volume database
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2519
+        GSTAT output is incorrect for tables with more than 2 billion records
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2507
+        Intermittent CreateFile failure
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2356
+        On Windows listener process of Classic Server can't create necessary resources after restart
+        if any worker process was present
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2301
+        select list(xxx, ';') from table into :xxx cause a memory leak
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2289
+        Wrong (primary) constraint name is reported for the foreign key violation during FK creation
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2215
+        GROUP BY concatenation with empty string
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2122
+        Translation of large text BLOB between UNICODE_FSS (UTF8) and other charsets
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2107
+        Failed to establish TCP/IP connection with Windows Classic Server under high load
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2084
+        Services API security problem
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1752
+        Results of a join with different collations depend on the execution plan
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1346
+        LPAD and RPAD with two columns not working
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1274
+        Wrong results when PLAN MERGE is chosen and datatypes
+        of the equality predicate arguments are different
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1089
+        Wrong ordering with views, distinct, left join and order by
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-195
+        Bugcheck 291 (cannot find record back version)
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Improvement CORE-3295
+        Estimate the actual record compression ratio in the optimizer
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-2769
+        Make XNET_CONNECT_TIMEOUT in xnet.h user configurable
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-1658
+        Avoid memory consumption of <page size> bytes per every temporary blob
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1234
+        More information about table that belongs to column when checking privileges
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * New feature CORE-2655
+        Add support for Linux/sh4 (Renesas SH) platform
+      Contributor(s):
+        Nobuhiro Iwamatsu <iwamatsu at nigauri.org>
+        Alex Peshkov <peshkoff at mail.ru>
+
+
+  ***************************
+  * v2.1.3
+  ***************************
+
+    * Bugfix CORE-2564
+        Bus error when working with the monitoring tables on RISC machines
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2563
+        Possible DoS attack using the malformed packet sent into the connection port
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2550
+        Bus error when working with DB_KEY on big-endian machines
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2531
+        The famous "cannot transliterate" error may be thrown when selecting data from the monitoring tables
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2483
+        Database permanent pool may get corrupted when working with monitoring tables
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2482
+        Monitoring tables data collection is unstable when attaching or detaching database
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2475
+        External table data not visible to other sessions in Classic
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2449
+        Unexpected "lock conflict" error can be thrown instead of other (expected) exception
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2444
+        The engine could hang when multiple attachments register their interest in events simultaneously
+        and free space in the events table is exhausted
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2441
+        Server crashes on UPDATE OR INSERT statement
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2437
+        Buffer overflow on client when delivering events
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2416
+        AV preparing a query with aggregate over derived table
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2415
+        Firebird crashes when out of temporary space
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2411
+        Optimizer chooses slower plan in v2.0.5/v2.1.2 as compared to v2.0.4/v2.1.1
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2397
+        Database corruption may happen after dropping two different indexes within the same transaction
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2368
+        Access violation after the isc_cancel_events() call if event was not found
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2355
+        Incorrect handling of LOWER/UPPER when result string shrinks in terms of byte length
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2354
+        "fb_lock_print -ia" output is not flushed to a file between iterations
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2348 
+        More problems with transaction numbers overflowing 32-bit signed integer and corrupting database
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2340
+        Bugcheck 258 (page slot not empty) could occurs under high concurrent load
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2320
+        Complex recursive query may produce not all rows
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2313
+        INF_* functions may invalidate the whole output buffer
+        with isc_info_truncated at the beginning due to a boundary condition
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-2311
+        Possible memory leak in WITH RECURSIVE query
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2306
+        fbserver terminates abnormally when thread start failed
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2291
+        Bugcheck 284 (cannot restore singleton select data)
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2282
+        *truncate UDFs are broken for numbers below -1
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-2281
+        *round UDFs are broken for negative numbers
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-2272
+        Server starts returning garbage when killing events connection attempt
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2270
+        ISQL consumes all memory and crashes when running in zlogin console
+      Contributor(s):
+        Jaroslaw Swierczynski <swiergot at gmail.com>
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2249
+        Error while building Firebird 2.1 on FreeBSD 7.0
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2247
+        Message and descriptor buffers are not aligned properly (RISC machines only)
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2245
+        Error on restoring a database with long exception texts from backup
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1961
+        Bugcheck 210 (page in use during flush) is thrown during database validation
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+        Roman Simakov <roman.simakov at red-soft.biz>
+
+    * Bugfix CORE-1923
+        "instsvc remove" returns 1 when succefully executed
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1690
+        Arithmetic exception, numeric overflow, or string truncation in UTF8 tables
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1647
+        Close external table's file even if it used by some cached (inactive) requests
+      Contributor(s):
+        Vlad Khorsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1607
+        Correlated subquery is optimized badly if it depends on the union stream
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-2376
+        Change default value for the authentication method configuration parameter
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Improvement CORE-2316
+        Throttling NBackup on large databases
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+
+  ***************************
+  * v2.1.2
+  ***************************
+
+    * Fixed unregistered bug
+        Issue with @prefix@ in aliases.conf on MacOS
+      Contributor(s):
+        Paul Beach <pbeach at ibphoenix.com>
+
+    * Bugfix CORE-2329
+        Significant performance degradation in v2.1.2 RC1
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2326
+        Access violation when committing a new view while trigger on rdb$relations is in place
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2271
+        GFIX reports the database ownership error way too late
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2266
+        NBACKUP database locking not working correctly
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2242
+        The engine incorrectly fills BPB
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2241
+        Wrong number of records fetched when using index
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2234
+        Sometimes terminated worker processes in Classic are still considered being alive
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2227
+        Problem with column names with accents and triggers
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2223
+        Multiple bugs in GBAK when working with ACLs
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2222
+        AV in the engine when storing text blob with transliteration blob filter
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2221
+        Attach to any DB fails after modification of access rights
+        of security2.fdb from 0660 to 0666
+      Contributor(s):
+        Paul Beach <pbeach at ibphoenix.com>
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2209
+        Very slow processing of the monitoring requests under high load
+        and blocking other activity during that time
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2184
+        Superserver hangs when multiple clients create tables simultaneously
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2182
+        It's impossible to drop an existing UDF which name overlaps with a new built-in function name
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2173
+        Server crashes after abnormal disconnect with open ExecuteStatement
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2171
+        Column MON$CALLER_ID of table MON$CALL_STACK reports invalid IDs
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2157
+        fbclient does not have the libpthread dependency
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2151
+        Temporary directory path with spaces in the middle is wrongly truncated
+        from the rightmost space
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2137
+        Database restore may crash the server when DummyPacketInterval is set
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2118
+        UPDATE OR INSERT with subquery used in the MATCHING part doesn't insert record
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2117
+        Incorrect ROW_COUNT value with indexed retrieval and subquery
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2108
+        Error "get_free_slot() failed" reported
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2098
+        View over global temporary table
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2093
+        Superserver startup fails on Solaris 64-bit
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2087
+        RemoteBindAddress = hostname instead of IP address is silently ignored
+        and server binds to all interfaces (nothing in either firebird.log or syslog)
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2084
+        Services API security problem
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2078
+        Suboptimal join plan if there are selective non-indexed predicates involved
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2077
+        Signal TERM in Classic Server 2.1 for Linux
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2073
+        Expression indices bug: incorrect result for the inverted boolean
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2065
+        Client library is not in default dynamic loader search paths
+      Contributor(s):
+        Paul Beach <pbeach at ibphoenix.com>
+
+    * Bugfix CORE-2055
+        Buffer overflow in fbclient
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2053
+        Computed expressions may be optimized badly if used
+        inside the RETURNING clause of the INSERT statement
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2050
+        Performance regression: too many semop() system calls
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2049
+        Performance regression: too many sigprocmask() system calls
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2045
+        References to non-existent system fields with blr_field are not resolved to NULL
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2039
+        Domain-level CHECK constraints wrongly process NULL values
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2033
+        Unresolved symbol _Unwind_GetIP in the client library
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-2031
+        NULL in the first record in a condition on RDB$DB_KEY
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2026
+        Problem with a read-only marked database and Firebird 2.1
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-2017
+        I/O statistics for stored procedures is not accounted in monitoring tables
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-2008
+        NOT NULL procedure parameters
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-2000
+        Lock manager may report false deadlocks under high load
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1984
+        Lock manager may report false deadlocks if one of deadlock participants
+        waits with permitted timeout
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1983
+        Out of memory condition in OS causes SEGV
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1982
+        Simultaneous backups or restores could interfere each with other using the Services API
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1972
+        Non-SYSDBA user can change FW mode of a database
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1970
+        Lock conversion denied (215) error may occur
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1963
+        Possible server crash on commit when granting/revoking privileges
+        from multiple connections simultaneously
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1962
+        Incorrect extraction of MILLISECONDs
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1958
+        Bugcheck 179 (decompression overran buffer) when attempting to update
+        the same record multiple times
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1957
+        Long ACLs truncated
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1944
+        Monitoring tables contain wrong data on big-endian machines
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1930
+        Possible AV in engine if procedure was altered to have no outputs
+        and dependent procedures was not recompiled
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1926
+        MON$DATABASE returns outdated transaction counters
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1922
+        Trusted authentication doesn't work with the Services API
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1919
+        Memory corruptions in EXECUTE STATEMENT may crash the server
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1909
+        Garbage in firebird.log on linux/amd64
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1843
+        GBAK with service manager doesn't allow path with space
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1596
+        Bug in CsConvert::convert
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1506
+        Server crash with isc_dsql_execute_immediate and zero length string
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Improvement CORE-2243
+        Make Firebird distribution on Windows easier 
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Improvement CORE-2233
+        Allow non-SYSDBA users to monitor not only their current attachment
+        but other their attachments as well
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-2200
+        Extremely slow executing a cross join of 3 tables in Firebird 2.x
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+
+  ***************************
+  * v2.1.1
+  ***************************
+
+    * Bugfix CORE-1890
+        Database monitoring process may hang under high load
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1887
+        Newly created databases have wrong access rights
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1885
+        Server crashes after CREATE COLLATION statement on Posix 64-bit
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1884
+        Random crashes using stored procedures with expressions as default values of input parameters
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1881
+        Database monitoring may crash the server or badly affect its page locking logic
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1876
+        Incremental backups with NBACKUP are broken
+      Contributor(s):
+        Nickolay Samofatov <skidder at users.sourceforge.net>
+
+    * Bugfix CORE-1875
+        Error/crash on script with CURRENT_DATE
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1868
+        Server crashes in isc_dsql_free_statement()
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1864
+        SELECT operator does not work in ISQL (big-endian hosts only)
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+        Paul Beach <pbeach at ibphoenix.com>
+
+    * Bugfix CORE-1859
+        Arithmetic overflow or division by zero has occurred in MAX function
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1854
+        Value of CURRENT_USER may be not in upper case when using Unix OS authentication
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1851
+        Applications using fbembed hang during the process termination if there are open connections left
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1845
+        Some standard calls show server installation directory to regular users
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1844
+        Valgrind often reports "Conditional jump or move depends on uninitialised value(s)" in check_status_vector()
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1841
+        If some VIEW used derived tables and long table names\aliases,
+        it is possible to overflow RDB$VIEW_RELATIONS.RDB$CONTEXT_NAME
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1840
+        Small memory leak per every DDL execution
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1839
+        Server crashes sorting by field, calculated using a recursive CTE
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1838
+        SET STATISTICS INDEX on index of GTT may wrongly change index id
+        by maximum available number for the database page size
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1830
+        Possible index corruption with multiply updates of the same record in the same transaction
+        and usage of savepoints
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1826
+        changeRunUser.sh and restoreRootRunUser.sh scripts does not change run user in init.d scripts
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1819
+        More efficient solution for CORE-1300 (Lower level index pages is missed from parent page)
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1817
+        The RelaxedAliasChecking parameter has no effect concerning RDB$DB_KEY
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1812
+        Index is not used for some date/time expressions in dialect 1
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1810
+        Issue with usernames containing the '.' character
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1807
+        fbserver is assigned to a non-canonical port after abnormal termination
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1802
+        Wrong maximum key size using PXW_CSY collation
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1798
+        RDB$DB_KEY evaluates to NULL in INSERT ... RETURNING
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1793
+        Server crashes preparing a query with unused parametrized CTE
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1781
+        LIKE, STARTING WITH and CONTAINING may incorrectly return true
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1775
+        Bad performance of the security checking during prepare
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1731
+        Sometimes engine may "hang" using 100% CPU load and no IO activity for the few minutes
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1421
+        SuperServer can't shutdown immediately after shutdown request after failed login attempt
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1357
+        DummyPacketInterval mechanism broken
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-1889
+        Security database has FW mode OFF, making it corrupted under some circumstances
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+
+  ***************************
+  * v2.1 Final
+  ***************************
+
+    * Bugfix CORE-1820
+        Setup program doesn't detect a running server
+      Contributor(s):
+        Paul Reeves <preeves at ibphoenix.com>
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+ 
+    * Bugfix CORE-1818
+        Temporary files used for temporary page spaces are not deleted after use on Posix platform
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+ 
+    * Bugfix CORE-1680
+        "gsec display" only shows some first users when there are many users (>50) in the security database  
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+
+  ***************************
+  * v2.1 Release Candidate 2
+  ***************************
+
+    * Bugfix CORE-1746
+        Expression index can be created while doing inserts into table
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1729
+        Server process terminates when attempting to select the MON$ data
+        against a heavily loaded system (many concurrent connections)
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1728
+        Monitoring tables do not work after fresh linux install
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1726
+        Failure in isc_service_start()
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1724
+        Common table expressions cannot be used in computed columns and quantified predicates (IN / ANY / ALL)
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1716
+        Wrong variable initialization in recursive procedures
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1715
+        Incorrect "key size exceeds implementation restriction for index" error
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1713
+        Distinct with blob fields
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+      Note(s):
+        This change restores the legacy behavior of DISTINCT / UNION / GROUP BY and ORDER BY operations.
+        Please beware that they may produce incorrect result set, because the ordering / distinct
+        is performed using blob IDs instead of the blob contents.
+        It implies that changes CORE-859 and CORE-1530 are rolled back.
+
+    * Bugfix CORE-1694
+        Bug in create/alter database trigger (with Russian comment)
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+
+  ***************************
+  * v2.1 Release Candidate 1
+  ***************************
+
+    * Performance optimizations
+        A number of internal optimizations were done in order to minimize
+        the performance degradation introduced along with the new features
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1681
+        Garbage data in the incoming remote packet may crash the server
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1680
+        "gsec display" only shows some first users when there are many users (>50) in security database
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1679
+        Garbage bytes in isc_service_query() output
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1677
+        Floor & ceiling functions return wrong results with exact numeric arguments
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1657
+        AV with long inactive read-only read-commited transaction
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1651
+        False isc_req_sync error may be reported by fbclient to the client application
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1649
+        AV when recursive query used MERGE JOIN in execution plan
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1648
+        RDB$TYPES doesn't list types for database triggers
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1644
+        Compilation error on GCC 4.1.1
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1642
+        Non-privileged monitoring reports wrong attachment data
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1641
+        CREATE TRIGGER causes two trigger object copies to exist in the metadata cache
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1637
+        Problem in GSEC
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1624
+        MERGE works incorrectly with parameters in MATCHING clause
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1610
+        Full shutdown causes database corruption
+        if it happens when SuperServer is running a query modifying data
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1603
+        Possible buffer overflow with long user name
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1602
+        Domain admins are not mapped to SYSDBA by the trusted authentication
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1601
+        Server crashes inside the page validation routine
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1599
+        RPM libstdc++ version dependency
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1597
+        GLOBAL TEMPORARY TABLEs allowed to be created in ODS less than 11.1
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1594
+        Bug in CsConvert::convert()
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+        Dmitry Kovalenko <dmitry.lipetsk at gmail.com>
+
+    * Bugfix CORE-1593
+        Full domain user name can be longer than 31 char(for trusted authentication)
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1589
+        Start-stop script for SuperServer on Linux does not always stop service
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+        Emil Totev <emilt at tot-consult.com>
+
+    * Bugfix CORE-1584
+        Server crashes or bugchecks when inserting into monitoring tables
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1582
+        ABS() rounds NUMERIC values
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1579
+        Corrupt BLOB in UDF if followed by a char* that is a timestamp
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1574
+        Multi-file database problems
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1567
+        Selecting from MON$STATEMENTS yields an error and an exit() call
+        with Firebird Embedded 2.1 Beta 2
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1562
+        Shutdown does not kill high load query connections
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1561
+        select from mon$statements lockup
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1560
+        NULLIF crashes when first parameter is constant empty string
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1551
+        AV when all statements are cancelled
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1549
+        Subquery-based predicates are not evaluated early in the join order
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1548
+        Incorrect error code in GFIX
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1543
+        Security bug in trusted authentication
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1540
+        Fatal lock manager error restoring backup
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1539
+        select * from rdb$triggers where rdb$trigger_source like 'CHECK%'
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1537
+        NBackup creates difference file in bad place
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1533
+        JOIN on first record of ordered derived table returns wrong record
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1530
+        UNION DISTINCT accept BLOB fields
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1528
+        Functions DATEDIFF, ABS(integer const) don't work in dialect 1
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1522
+        Inconsistent DATEDIFF() behaviour
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1519
+        AV in isc_dsql_fetch()
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1514
+        Many new 2.1 built-in functions have incorrect NULL semantics
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1510
+        Bad XSQLVAR [NULL flags] for (2*COALESCE(NULL,NULL))
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+		Dmitry Kovalenko <dmitry.lipetsk at gmail.com>
+
+    * Bugfix CORE-1509
+        Conversion from double to varchar inserts trailing spaces
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1501
+        Wrong access to SLONG data in dsql_nod
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1500
+        Data in EXECUTE STATEMENT internal buffer is not aligned correctly
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1493
+        ISQL doesn't mangle blob filter and udf information with embedded quotes
+        when extracting a script
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1492
+        BLOB isn't compatible with [VAR]CHAR in COALESCE
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1489
+        DATEADD works with NULL arguments wrongly
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1481
+        GFIX may report false errors when using in-memory metadata
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1375
+        Wrong mapping for 0x212C in cs_gb2312.h
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1199
+        Internal GDS software consistency check (CCH_precedence: block marked (212))
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-374
+        Restore with SPs in 'COMPUTED BY' fields fails
+      Contributor(s):
+        Nickolay Samofatov <skidder at users.sourceforge.net>
+
+    * Improvement CORE-1623
+        Improve memory consumption of HASH(blob)
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1581
+        Support physical backups when database is located on raw device
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Improvement CORE-1569
+        Make the second parameter of the ROUND function optional
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1558
+        Help people get core files in case of abort() on BUGCHECK
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Improvement CORE-1546
+        Improve random number quality of builtin RAND
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+        Nickolay Samofatov <skidder at users.sourceforge.net>
+
+    * Improvements CORE-1490, CORE-1497
+        Change keywords used in DATEADD/DATEDIFF functions (expanded syntax)
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-548
+        Help on Firebird setup command line switches
+      Contributor(s):
+        Paul Reeves <preeves at ibphoenix.com>
+
+    * New feature CORE-1625
+        Implement new setting to relax strict SQL standard's alias checking rules
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * New feature CORE-1511
+        POSITION(<string_expr_1>, <string_expr_2> [, <start_pos>])
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+
+  **************
+  * v2.1 Beta 2
+  **************
+
+    * Bugfix CORE-1485
+        AV when loading messages in msg.fdb
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1484
+        AV in fbintl
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1476
+        Forced writes do not work on Linux
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1470
+        Server crashes with secondary file name > 127 characters
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1468
+        Database corruption possible when database file extension and read\write activity
+        are performed simultaneously
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1467
+        Error 'database shutdown' after canceling statement via MON$STATEMENTS
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1466
+        Substring of multi-byte BLOBs can fail
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1465
+        ISQL ignores explicit constraint name when it's confused with an internal, automatic name
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1457
+        Server crashes attempting to deliver events for the just disconnected session
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1456
+        Wrong events delivery in the case of concurrent XNET connections
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1455
+        Crash in fbclient after unsuccessful user management API call
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1452
+        Client library crashes when attempting to process an event received just prior to disconnection
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1451
+        Using RDB$DB_KEY in SQL's WHERE section while selecting from a procedure crashes the server
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1447
+        Buffer overrun when querying for database info on very long path
+        through isc_database_info() API call
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1446
+        Problem with UNICODE collations from fbintl when using system ICU
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1443
+        Embedded engine may hang application on exit if no database access was performed
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1441
+        Query cancellation feature cannot interrupt a long fetch
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1440
+        Dangerous lack of validation for transaction options
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1436
+        Outer joins don't work properly with the MON$ tables
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1434
+        Incorrect result with EXECUTE STATEMENT and VARCHAR columns
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1431
+        Greek characters in cp1251 vs uppercasing
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1430
+        Access Violation in fbclient.dll if statement prepared and executed right after events was registered
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1428
+        Incorrect timestamp substraction in 3 dialect when result is negative number
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1419
+        Wrong current timestamp evaluation for selectable procedures
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1418
+        Races when starting and quickly shutting down blocking AST thread
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1417
+        Error "Invalid BLOB ID" in IBX insert operation
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1416
+        Incorrect transaction params order in TPB is accepted without returning an error
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1408
+        UDF names using reserved words are extracted without double quotes
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1403
+        Server crashes if a few events are being registered simultaneously
+        by the client connected via XNET
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1401
+        Global temporary table instance may pick up not all indices
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1400
+        GSTAT doesn't support port number in connection string
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1399
+        GSTAT does not use RemoteServicePort option in firebird.conf
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1398
+        GSTAT: 'localhost' is case-sensitive in Windows
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1397
+        Possible vulnerability in the remote server
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1395
+        Few problems with domains's check constraints
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1388
+        Cannot attach to remote service manager if remote engine version is less than 2.0
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1384
+        LIKE doesn't work correctly with collations using SPECIALS-FIRST=1
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1380
+        I/O errors after changing FW for the already attached database
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1379
+        Invalid parameter type when using it in CHAR_LENGTH function
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1378
+        Domain names and charset issues
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1373
+        Incorrect result of recursive CTE query when recursive member's SELECT list
+        contains expression using self-referenced fields
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1372
+        isc_dsql_fetch() called after isc_commit_transaction() doesn't raise an error
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1371
+        Execute block fails within execute statement
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1370
+        Memory leak when using CTE within procedure
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1369
+        Downgrade from ODS11.1 misses default values of procedure parameters
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1361
+        Index operations for global temporary tables are not visible for the active connection
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1359
+        Server crashes at the first operation with the monitoring tables
+        if the file system lacks the necessary permissions for the shared-memory file
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1358
+        Operations with MON$STATEMENTS throw "cannot transliterate" error
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1349
+        Remote interface doesn't validate the client supplied message length against the message format length
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1347
+        Unexpected "cannot transliterate" error
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1344
+        Error "request depth exceeded" when restoring complex metadata
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1339
+        Metadata charset upgrade script generates garbage in descriptions
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1338
+        Error 335544721 when selecting view with round
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1334
+        Joins with NULL RDB$DB_KEY crash the server
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1332
+        Put the connection charset in sqlscale of blobs when appropriate
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1331
+        Charset transliterations don't work with EXECUTE STATEMENT
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1330
+        Double semaphore locking when query the monitoring tables during long fetches
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1312
+        A remote attacker can check, if a file is present in the system, running firebird server
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1261
+        ISQL ignore index and ordering in UNIQUE CONSTRAINT for generate metadate script
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Improvement CORE-1389
+        Indexed MIN/MAX aggregates produce three index reads instead of the expected one indexed read
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-1387
+        Add MILLISECONDS handling to EXTRACT, DATEADD and DATEDIFF functions
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1386
+        Generated columns
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-1340
+        Add a scale parameter to the TRUNC function
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * New feature CORE-1381, CORE-1480
+        Allow Firebird to bypass filesystem cache for database files
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * New feature CORE-1366
+        French insensitive collation FR_FR_CI_AI
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * New feature CORE-1324
+        Japanese character set CP943C
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * New feature CORE-663
+        EXTRACT(WEEK FROM DATE)
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+  **************
+  * v2.1 Beta 1
+  **************
+
+    * Bugfix CORE-1318
+        Error "Identifier ... is too long using multiple (nested) derived tables
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1315
+        Data type unknown
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1306
+        Indices not used for views
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1303
+		Infinite loop in SS remote listener
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1300
+		Lower level index pages is missed from parent page
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1299
+		Wrong index entries order at non-leaf b-tree pages
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1298
+		BTR\garbage_collect code can make a deadlock in a page cache
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1292
+        Can't create table using long username and UTF8 as attachment charset
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1291
+		Can't transliterate character set when look at procedure text in database 
+		just created from script (and thus in ODS 11.1)
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+		
+    * Bugfix CORE-1286
+        Bug with COMPUTED BY fields
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1276
+		Sometime INET error reported as 0 in firebird.log instead of real error code
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+		
+    * Bugfix CORE-1271
+        Creation of invalid procedures/triggers allowed
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1267
+        Small bug with default value for domains in PSQL
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1256
+        Table columns hide destination variables of RETURNING INTO
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1253
+        LIST(DISTINCT) concatenate VARCHAR values as CHAR
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1249
+        Full shutdown mode doesn't work on Classic if there are other connections to the database
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1248
+        Incorrect timestamp arithmetics when one of the operands is negative number
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1244
+        Server crash on "select * from <recursive CTE>"
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1240
+        Any task, using libfbclient, hangs on exit (Darwin PPC)
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1237
+        GBAK does not create backup in service_mgr mode if there is no space on disk, no error reported
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1228
+        Database often became corrupted after an out of disk space condition
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1227
+        LIST() function seems not work if used twice or more in a query  
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1223
+        Wrong message in firebird.log on Open SuSe Linux 10.2 : Open file limit increased from 1024 to 0
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1218
+        isc_dsql_info(isc_info_sql_stmt_type) doesn't set isc_info_end at the end of the passed user's buffer
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1215
+        Wrong SELECT query results using index to evaluate >= condition
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1207
+        FB embedded requires extra OS privileges
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1205
+        v2.1 GBAK crashes the v2.0.x server when attempting to backup a database  
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1196
+        Long SQL statements break TCP/IP connection
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+        Alex Peshkov <peshkoff at mail.ru>
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1183
+        View cannot be created if its WHERE clause contains IN <subquery> with a procedure reference  
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1175
+        Error "Data type unknown" when any UDF argument is a built-in function
+        containing a DSQL parameter reference
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1174
+        GBAK restores NULL rdb$description in rdb$functions as blob (0, 0)
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1167
+        CHARACTER SET GBK is not installed
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1165
+        WHEN <list of exceptions> tracks only the dependency on the first exception in PSQL
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1162
+        Problem altering numeric field type
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1153
+        Activating index change "STARTING" working as "LIKE" in join condition
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1151
+        Error "database file not available" when running NBackup
+      Contributor(s):
+        Nickolay Samofatov <skidder at users.sourceforge.net>
+
+    * Bugfix CORE-981
+        x86_64 RPM package missing "provides"  
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-949
+        Restore with UDF in 'COMPUTED BY' fields fails  
+      Contributor(s):
+        Dimitry Sibiryakov <sd at ibphoenix.com>
+
+    * Bugfix CORE-885
+        It is impossible to take away rights on update of a column
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-856
+        Unable to set FName, MName, LName fields in the security database to blank
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-703
+        Using DEL-Key in isql under Linux gives "~"
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-132
+        Restore fails on external table  
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-107
+        Instance of fb_lock_mgr runs after build
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Improvement CORE-1280
+        Verify well-formedness of text blobs
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1277
+        Automatic transliteration of text blobs
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1232
+        Wrong behaviour of services manager during backup/restore operations
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Improvement CORE-1229
+        Allocate disk space by more than one page at a time
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Improvement CORE-1226
+        Allow RETURNING in INSERT...SELECT, UPDATE and DELETE
+      See also:
+        /doc/README.returning
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1213
+        CURRENT OF is now allowed for views
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-1179
+        "CH" and "LL" are not separate spanish alphabet letters since 1994
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1178
+        Standarize ES_ES_CI_AI collation
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1170
+        Conversion of DDL source from client charset to metadata charset  
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1169
+        Conversion of temporary blobs to the destination blob type when materializing  
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-961
+        Free external tables as soon as they're no longer in use by user requests
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Improvement CORE-867
+        GBAK should change param0 to not show username/password in ps axf
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Improvement CORE-787
+        Optionally disable non-SYSDBA use of Services API
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Feature CORE-1235
+        NATURAL JOIN and JOIN...USING
+      See also:
+        /doc/README.joins.txt
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Added a wide set of new built-in functions
+        ABS, ACOS, ASCII_CHAR, ASCII_VAL, ASIN, ATAN, ATAN2,
+        BIN_AND, BIN_OR, BIN_SHL, BIN_SHR, BIN_XOR,
+        CEIL, COS, COSH, COT, DATEADD, DATEDIFF, DECODE,
+        EXP, FLOOR, GEN_UUID, HASH, LEFT, LN, LOG, LOG10, LPAD,
+        MAXVALUE, MINVALUE, MOD, OVERLAY, PI, POSITION, POWER,
+        RAND, REPLACE, REVERSE, RIGHT, ROUND, RPAD,
+        SIGN, SIN, SINH, SQRT, TAN, TANH, TRUNC
+      See also:
+        /doc/README.builtin_functions.txt
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+        Oleg Loa <loa at mail.ru>
+        Alexey Karyakin <aleksey.karyakin at mail.ru>
+
+
+  **************
+  * v2.1 Alpha 1
+  **************
+
+    * Bugfix CORE-1149
+        DoS attack on server using services API
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1145
+        Server locks up while attempting to commit a deletion of an expression index
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1142
+        Cannot alter generator's comment to the same value
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-1120
+        Conversion from string to number is not standard compliant
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1112
+        Crash when dealing with a string literal longer than 32K
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1098
+        Races in cch.cpp, leading to AV during cache_writer startup
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-1073
+        SINGULAR buggy when NULLs present
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1058
+        ALTER DOMAIN and ALTER TABLE don't allow to change character set
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1056
+        A query could produce different results, depending on the presence of an index
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-1039
+        Memory statistics does not include the buffer cache size
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-1031
+        fb_lock_print.exe fails on Windows 2003 R2 / XP SP2
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-1009
+        Restoring RDB$BASE_FIELD for expression
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-995
+        SELECT with FIRST and LEFT JOIN needs excess SORT in plan
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-986
+        Non-ASCII quoted identifiers are not converted to metadata (UNICODE_FSS) charset
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-968
+        Lost connection with Firebird Server
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-967
+        SQL with incorrect characters (outside the ASCII range) may be processed wrongly
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-965
+        Many aggregate functions within a single select list may cause a server crash
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-954
+        Server crashes while grouping by PSQL variable
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-945
+        Bad error message when tring to create a foreign key to a non-existent table
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-929
+        Bug in a DSQL parameter being casted and used in arithmetics
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-925
+        ALL predicate works incorrectly for some subqueries
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-908
+        Garbage in plan output of complex statement
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Bugfix CORE-900
+        Deadlock when attaching simultaneously with services and standard APIs
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfix CORE-899
+        Problems with explicit PSQL cursors in unwanted states
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-896
+        SUBSTRING with NULL offset or length doesn't return NULL
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-881
+        Singleton is not respected in COMPUTED BY expressions
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-880
+        Malformed characters are accepted in character set GB2312
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-878
+        Problem when dropping column that is a primary key
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-871
+        Incorrect handling of NULL within views - returns 0
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-870
+        Engine crashes while trying to backup a logically corrupt database
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-866
+        Removing a NOT NULL constraint is not visible until reconnect
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-859
+        Sorting is allowed for blobs
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-851
+        Field can be used multiple times in multi-segment index definition
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-850
+        DYN layer allows to set defaults for computed fields when altering a field
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-847
+        Computed field cannot be changed to non-computed using ALTER TABLE ALTER COLUMN TYPE <datatype>
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-842
+        Specific query crashing the server
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-833
+        Connection issues with very long hostname
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-347
+        Input of invalid dates through DSQL parameters
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-202
+        ORDER BY works wrong with collate PT_PT
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Bugfix CORE-200
+        Empty column names with aggregate functions
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-152
+        Sqlsubtype incorrect on timestamp difference
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Bugfix CORE-104
+        Dropping and recreating a table in the same transaction disables the primary key
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-91
+        Recreate and self-referencing indexes
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-87
+        Bug in libfbclient under Linux with SA_SIGINFO
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Bugfixes CORE-86, CORE-88 and CORE-99
+        Select/join on different datatypes produces undesired results
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Bugfix CORE-84
+        NBACKUP and security
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * QLI crash (unregistered)
+        Fix problem with QLI where a crash occurs using the following SQL:
+        INSERT INTO relationx SELECT * FROM relationy
+      Contributor(s):
+        Paul Beach <pbeach at ibphoenix.com>
+
+    * More dependencies (unregistered)
+        Fixed untracked collation dependencies in PSQL
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Security fix (unregistered)
+        Tricky paths can allow a directory traversal attack bypassing config file
+        settings for DB creation dir, for example.
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+    * Various BOF fixes (unregistered)
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+        Alex Peshkov <peshkoff at mail.ru>
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1266
+        Using blob filters in dynamic SQL
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-1148
+        Regular users are prevented from retrieving the server log
+        using Services API. This is now allowed for SYSDBA only.
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Improvement CORE-1091
+        isc_service_query() should return an alias name instead of
+        a full database file name in the case of configured "DatabaseAccess = None"
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Improvement CORE-1071
+        Background garbage collector doesn't need to read backversion of active record
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Improvement CORE-1070
+        Optimize sparse bitmap operations (set, test and clear) with mostly consecutive values
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Improvement CORE-1069
+        Optimize index scan when more than one index scanned and ANDed
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Improvement CORE-979
+        Make RDB$DB_KEY in outer joins returns NULL when appropriate
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-978
+        Extend ISQL SHOW SYSTEM command
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-977
+        Put blob charset in XSQLVAR::sqlscale
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-976
+        Synchronization of DSQL metadata cache objects in classic-server
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-972
+        Case-insensitive collation for UTF-8
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-971
+        Improve network protocol performance
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Improvement CORE-970
+        Show line/column numbers in PSQL error stack trace
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Improvement CORE-969
+        Deprecate page sizes of 1K and 2K as being inefficient
+      Note(s):
+        This applies to new databases only. Old ones can be attached
+        regardless of their page size.
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-958
+        Increase the maximum number of hash slots for the Lock Manager.
+      Note(s):
+        The new limit is 64K slots (the old one was 2048).
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-937
+        Change default lock manager settings -- increase table memory and number of slots.
+      Note(s):
+        The default lock table size has been increased to 1MB on all platforms,
+        the new default number of hash slots is 1009.
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-863
+        INSERT without values
+      Example(s):
+        INSERT INTO <table> DEFAULT VALUES [RETURNING <values>]
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-831
+        Column aliases are processed as column names in the view definition
+      Example(s):
+        CREATE VIEW V_TEST AS
+          SELECT ID, COL1 AS CODE, COL2 AS NAME FROM TAB;
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-779
+        Introduced a type flag for stored procedures
+      Note(s):
+        Column RDB$PROCEDURE_TYPE has been added to the table RDB$PROCEDURES.
+        Possible values are:
+          - 0 or NULL - legacy procedure (no validation checks are performed)
+          - 1 - selectable procedure (the one that contains a SUSPEND statement)
+          - 2 - executable procedure (no SUSPEND statement, cannot be selected from)
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Improvement CORE-711
+        Make syntax for "CREATE TRIGGER" compliant with SQL2003
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Improvement CORE-673
+        instsvc.exe now supports multi-instance installations
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * GBAK improvement (unregistered)
+        Now it's possible to use v2.1's GBAK to restore on any FB version
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>
+
+     * INTL improvements (unregistered)
+        1) Ability to use ICU charsets through fbintl
+        2) UNICODE collation (charset_UNICODE) is available for all fbintl charsets
+        3) Collation attributes
+        4) CREATE/DROP COLLATION statements
+        5) SHOW COLLATION and collation extraction in ISQL
+      See also:
+        /doc/README.intl.txt
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Feature CORE-1018
+        Provide mechanism to get engine version without needing to call API function
+      Example(s):
+        SELECT RDB$GET_CONTEXT('SYSTEM', 'ENGINE_VERSION')
+        FROM RDB$DATABASE
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Feature CORE-975
+        Thai character set TIS620
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Feature CORE-964
+        Aggregate function LIST (string concatenation)
+      See also:
+        /doc/sql.extensions/README.list
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Feature CORE-963
+        Common table expressions and recursive queries
+      See also:
+        /doc/README.common_table_expressions
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Feature CORE-962
+        Global temporary tables
+      See also:
+        /doc/README.global_temporary_tables
+      Contributor(s):
+        Vlad Horsun <hvlad at users.sourceforge.net>
+
+    * Feature CORE-864
+        Chinese character set GBK
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Feature CORE-815
+        UPDATE OR INSERT and MERGE statements
+      See also:
+        /doc/sql.extensions/README.update_or_insert.txt
+        /doc/sql.extensions/README.merge.txt
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Feature CORE-795
+        Unicode collations
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Feature CORE-794
+        Kill a query on client request
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Features CORE-746, CORE-774 and CORE-1019
+        Runtime database monitoring via SQL
+      See also:
+        /doc/README.monitoring_tables
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Feature CORE-704
+        Ctrl-C to be used to cancel interactive ISQL output
+      Contributor(s):
+        Michal Kubecek <mike at mk-sys.cz>
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Feature CORE-684
+        Collations allowed in PSQL parameters and variables
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Features CORE-682 and CORE-819
+        Port to Windows 64-bit platform (AMD64 and Intel EM64T)
+      Contributor(s):
+        Dmitry Yemanov <dimitr at firebirdsql.org>
+
+    * Feature CORE-660
+        Domains allowed to be used in PSQL parameters and variables
+      See also:
+        /doc/sql.extensions/README.domains_psql.txt
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+   * Feature CORE-655
+        BLOB SUB_TYPE TEXT datatype fully compatible with VAR[CHAR]
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Features CORE-645 and CORE-745
+        Database triggers
+      See also:
+        /doc/sql.extensions/README.db_triggers.txt
+      Contributor(s):
+        Adriano dos Santos Fernandes <adrianosf at uol.com.br>
+
+    * Generic cleanup
+        STL is removed in favor of the internal class library
+      Contributor(s):
+        Alex Peshkov <peshkoff at mail.ru>
+
+    * Generic cleanup
+        Large amount of ongoing code cleanup and style standardization
+      Contributor(s):
+        Claudio Valderrama <cvalde at usa.net>

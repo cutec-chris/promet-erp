@@ -751,7 +751,6 @@ begin
         with ManagedIndexDefs do
           begin
             Add('REF_ID_ID','REF_ID_ID',[]);
-            Add('LINK','LINK',[]);
           end;
     end;
 end;
@@ -1542,7 +1541,6 @@ begin
             Add('SUMMARY','SUMMARY',[]);
             Add('REFERENCE','REFERENCE',[]);
             Add('COMMISSION','COMMISSION',[]);
-            Add('LINK','LINK',[]);
             Add('READ','READ',[]);
             Add('SOURCE','SOURCE',[]);
             Add('TAGS','TAGS',[]);
@@ -3084,4 +3082,4 @@ end;
 
 initialization
 end.
-
+
