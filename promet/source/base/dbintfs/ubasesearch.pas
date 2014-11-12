@@ -120,7 +120,6 @@ begin
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
           begin
-            Add('LINK','LINK',[]);
             Add('TEXT','TEXT',[]);
             Add('CHANGEDBY','CHANGEDBY',[]);
             Add('TIMESTAMPD','TIMESTAMPD',[]);

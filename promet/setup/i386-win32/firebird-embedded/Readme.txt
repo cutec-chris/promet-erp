@@ -1,6 +1,6 @@
 
 ====================================
-Firebird 2.5.3    (Windows Build)
+Firebird 2.1.6    (Windows Build)
 ====================================
 
 
@@ -15,13 +15,13 @@ o Reporting Bugs
 Introduction
 ============
 
-Welcome to Firebird 2.5.
+Welcome to Firebird 2.1.
 
 
 Intended Users
 ==============
 
-Firebird 2.5 has undergone extensive testing and is
+Firebird 2.1 has undergone extensive testing and is
 intended for widespread production use. However, users
 are recommended to follow standard practices before
 deploying this release on a production server. ie:

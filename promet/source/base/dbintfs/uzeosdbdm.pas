@@ -1346,7 +1346,6 @@ begin
   if (copy(FConnection.Protocol,0,8) = 'postgres')
   then
     begin
-//      FConnection.Properties.Add('CreateNewDatabase=CREATE DATABASE "'+aDatabase+'" WITH OWNER = "'+aUser+'" ENCODING = ''UTF8'' CONNECTION LIMIT = -1;');
       FConnection.Database:='postgres';
     end
     else if (copy(FConnection.Protocol,0,5) = 'mssql') then

@@ -584,7 +584,7 @@ begin
             end;
           if (aID <> 0) and DoSync then
             begin
-              aContact.CustomerCont.Open;
+              aContact.ContactData.Open;
               SyncProperty(aItem,PR_SUBJECT,ptString,aContact.DataSet.FieldByName('NAME'),SyncOut,Collect);
               Info('Syncing '+aContact.DataSet.FieldByName('NAME').AsString+' ... ');
               if Syncout and (not Collect) then
@@ -632,19 +632,19 @@ begin
                               PR_HOME_ADDRESS_POSTAL_CODE,'PAD','');
               //Contact Items
               SetLength(MAPISynced,0);
-              SyncContactItem(aContact.CustomerCont,(PT_TSTRING) or ($8029 shl 16),ptString,'MAIL','MLB');
-              SyncContactItem(aContact.CustomerCont,(PT_TSTRING) or ($8028 shl 16),ptString,'MAIL','MLB');
-              SyncContactItem(aContact.CustomerCont,(PT_TSTRING) or ($8027 shl 16),ptString,'MAIL','MLB');
-              SyncContactItem(aContact.CustomerCont,PR_HOME_TELEPHONE_NUMBER,ptString,'TELP','TEL');
-              SyncContactItem(aContact.CustomerCont,PR_HOME2_TELEPHONE_NUMBER,ptString,'TELP','TEL');
-              SyncContactItem(aContact.CustomerCont,PR_BUSINESS_TELEPHONE_NUMBER,ptString,'TELB');
-              SyncContactItem(aContact.CustomerCont,PR_BUSINESS2_TELEPHONE_NUMBER,ptString,'TELB');
-              SyncContactItem(aContact.CustomerCont,PR_MOBILE_TELEPHONE_NUMBER,ptString,'CEL');
-              SyncContactItem(aContact.CustomerCont,PR_OTHER_TELEPHONE_NUMBER,ptString,'TEL');
-              SyncContactItem(aContact.CustomerCont,PR_NICKNAME,ptString,'NICK');
-              SyncContactItem(aContact.CustomerCont,PR_BIRTHDAY,ptTime,'BIR');
-              SyncContactItem(aContact.CustomerCont,PR_BUSINESS_HOME_PAGE,ptString,'INT');
-              SyncContactItem(aContact.CustomerCont,PR_PERSONAL_HOME_PAGE,ptString,'INT');
+              SyncContactItem(aContact.ContactData,(PT_TSTRING) or ($8029 shl 16),ptString,'MAIL','MLB');
+              SyncContactItem(aContact.ContactData,(PT_TSTRING) or ($8028 shl 16),ptString,'MAIL','MLB');
+              SyncContactItem(aContact.ContactData,(PT_TSTRING) or ($8027 shl 16),ptString,'MAIL','MLB');
+              SyncContactItem(aContact.ContactData,PR_HOME_TELEPHONE_NUMBER,ptString,'TELP','TEL');
+              SyncContactItem(aContact.ContactData,PR_HOME2_TELEPHONE_NUMBER,ptString,'TELP','TEL');
+              SyncContactItem(aContact.ContactData,PR_BUSINESS_TELEPHONE_NUMBER,ptString,'TELB');
+              SyncContactItem(aContact.ContactData,PR_BUSINESS2_TELEPHONE_NUMBER,ptString,'TELB');
+              SyncContactItem(aContact.ContactData,PR_MOBILE_TELEPHONE_NUMBER,ptString,'CEL');
+              SyncContactItem(aContact.ContactData,PR_OTHER_TELEPHONE_NUMBER,ptString,'TEL');
+              SyncContactItem(aContact.ContactData,PR_NICKNAME,ptString,'NICK');
+              SyncContactItem(aContact.ContactData,PR_BIRTHDAY,ptTime,'BIR');
+              SyncContactItem(aContact.ContactData,PR_BUSINESS_HOME_PAGE,ptString,'INT');
+              SyncContactItem(aContact.ContactData,PR_PERSONAL_HOME_PAGE,ptString,'INT');
 
               if SyncOut or Collect then
                 begin

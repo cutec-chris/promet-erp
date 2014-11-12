@@ -1,5 +1,5 @@
 -----------------------------------------------------------
-Firebird 2.5 Embedded Server notes
+Firebird 2.1 Embedded Server notes
 -----------------------------------------------------------
 
 1. GENERIC INFORMATION
@@ -19,21 +19,20 @@ Firebird 2.5 Embedded Server notes
 
   2.2. Database access
 
-    Client access can be only via the local protocol,
-    i.e. NOT a TCP/IP connection string that includes
-    the server name "localhost" or IP address 127.0.0.1.
+    Client access can be only via the local protocol, 
+    i.e. NOT a TCP/IP connection string that includes 
+    the server name "localhost" or IP address 127.0.0.1. 
 
-    The embedded server supports only the local connection
-    to a database file path without a server name.
-
-    The database file can be accessed by multiple client
-    programs. The database consistency in this case is
-    guaranteed internally (by the shared lock table).
+    The embedded server supports only the local connect
+    to a database file path without a server name. The
+    client program gets an exclusive access to the
+    database file after successful connect.
 
     The embedded server acts as a true local server for a single
-    client accessing databases on a local machine. It can also
+    client accessing databases on a local machine.  It can also
     act as a remote gateway that redirects all network calls to
-    other hosts, just as the regular client library does.
+    other hosts, just as the regular client library
+    does.
 
   2.3. Authentication and security
 
@@ -51,6 +50,11 @@ Firebird 2.5 Embedded Server notes
     You may run any number of applications with the embedded
     server without any conflicts. Having IB/FB server running
     is not a problem either.
+
+    But you should be aware that you cannot access single
+    database from a number of the embedded servers
+    simultaneously, because they have SuperServer architecture
+    and hence exclusively lock attached databases.
 
 3. USAGE
 

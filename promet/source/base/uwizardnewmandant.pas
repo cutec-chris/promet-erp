@@ -127,6 +127,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure cbLanguageSelect(Sender: TObject);
     procedure cbSQLTypeChange(Sender: TObject);
+    procedure cbSQLTypeSelect(Sender: TObject);
     procedure DirectoryEdit1AcceptFileName(Sender: TObject; var Value: String);
     procedure eMandantnameSelect(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -249,6 +250,30 @@ end;
 procedure TfWizardNewMandant.cbSQLTypeChange(Sender: TObject);
 begin
   eSQLdatabase.Text:='promet';
+end;
+
+procedure TfWizardNewMandant.cbSQLTypeSelect(Sender: TObject);
+begin
+  if (eSQLServer.Text = '') or (eSQLServer.Text = 'localhost') then
+    eSQLServer.Text := 'localhost';
+  if pos('promet-erp',eSQLdatabase.Text)=0 then exit;
+  if Application.HasOption('database') then
+    eSQLDatabase.Text:=Application.GetOptionValue('database')
+  else
+    eSQLDatabase.Text:=GetUserDir+'promet-erp.db';
+  if cbSQLType.Text <> 'sqlite-3' then
+    begin
+      eSQLDatabase.Text:='promet-erp';
+    end;
+  if pos('firebird',cbSQLType.Text)>0 then
+    begin
+      eSQLDatabase.Text:='promet-erp.fdb';
+    end;
+  if pos('firebirdd',cbSQLType.Text)>0 then
+    begin
+      eSQLServer.Text:='';
+    end
+
 end;
 
 procedure TfWizardNewMandant.DirectoryEdit1AcceptFileName(Sender: TObject;
@@ -757,10 +782,7 @@ begin
   ade := tvProfile.Items.FindNodeWithText('Warenwirtschaft (alles)');
   if Assigned(ade) and Assigned(aDe.Items[0]) then
     tvProfile.Selected := aDe.FindNode('Deutschland');
-  if Application.HasOption('database') then
-    eSQLDatabase.Text:=Application.GetOptionValue('database')
-  else
-    eSQLDatabase.Text:=GetUserDir+'promet-erp.db';
+  cbSQLTypeSelect(nil);
   with Application as IBaseDBInterface do
     LoadMandants;
   //Wizard finished, use the made settings
@@ -779,4 +801,4 @@ begin
 end;
 initialization
 end.
-
+

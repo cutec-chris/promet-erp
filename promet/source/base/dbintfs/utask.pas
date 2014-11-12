@@ -249,7 +249,6 @@ begin
         with ManagedIndexDefs do
           begin
             Add('REF_ID_ID','REF_ID_ID',[]);
-            Add('LINK','LINK',[]);
           end;
     end;
 end;
