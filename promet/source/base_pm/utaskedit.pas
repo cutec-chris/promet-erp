@@ -36,12 +36,10 @@ type
     ActionList1: TActionList;
     bDelegated2: TSpeedButton;
     Bevel10: TBevel;
-    Bevel11: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
     Bevel7: TBevel;
     Bevel8: TBevel;
-    bSetUser: TSpeedButton;
     cbCategory: TDBComboBox;
     cbChecked: TDBCheckBox;
     cbChecked1: TDBCheckBox;
@@ -51,6 +49,8 @@ type
     cbPriority: TDBComboBox;
     cbState: TExtDBCombobox;
     EarlystDate: TDBZVDateTimePicker;
+    eUser: TEditButton;
+    eOwner: TEditButton;
     EndDate: TDBZVDateTimePicker;
     EndDate1: TDBZVDateTimePicker;
     EndTimeLbl: TLabel;
@@ -60,18 +60,22 @@ type
     eProject: TEditButton;
     eTime: TEdit;
     eBuffer: TEdit;
+    GroupBox1: TGroupBox;
+    GroupBox2: TGroupBox;
+    GroupBox3: TGroupBox;
+    GroupBox4: TGroupBox;
     Label1: TLabel;
     Label10: TLabel;
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
     Label14: TLabel;
-    Label15: TLabel;
     Label3: TLabel;
+    Label6: TLabel;
+    Label9: TLabel;
     mNotes: TDBMemo;
     Panel1: TPanel;
     Panel11: TPanel;
-    Panel12: TPanel;
     pHist: TPanel;
     Splitter1: TSplitter;
     StartDate: TDBZVDateTimePicker;
@@ -107,9 +111,11 @@ type
     procedure eBufferExit(Sender: TObject);
     procedure eProjectButtonClick(Sender: TObject);
     procedure eTimeExit(Sender: TObject);
+    procedure eUserButtonClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     function fSearchOpenItem(aLink: string): Boolean;
+    function fSearchOpenOwnerItem(aLink: string): Boolean;
     function fSearchOpenUserItem(aLink: string): Boolean;
     procedure TfHistoryFrameAddUserMessage(Sender: TObject);
     procedure TfListFrameFListgListDrawColumnCell(Sender: TObject;
@@ -143,6 +149,7 @@ resourcestring
   strDependencies               = 'Abhängigkeiten';
   strClassTask                  = 'T Aufgabe';
   strClassMilestone             = 'M Meilenstein';
+  strEditTask                   = 'Aufgabe bearbeiten';
 procedure TfTaskEdit.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -173,6 +180,31 @@ begin
       FDataSet.FieldByName('PROJECTID').AsVariant:=aParent.Id.AsVariant;
     end;
   aParent.free;
+end;
+
+function TfTaskEdit.fSearchOpenOwnerItem(aLink: string): Boolean;
+var
+  aCount: Integer;
+  aUser: TUser;
+begin
+  Result := False;
+  aUser := TUser.Create(Self,Data);
+  aUser.SelectFromLink(aLink);
+  aUser.Open;
+  Result := aUser.Count>0;
+  if Result then
+    begin
+      if not FDataSet.CanEdit then
+        FDataSet.DataSet.Edit;
+      FDataSet.FieldByName('OWNER').AsString := aUser.FieldByName('ACCOUNTNO').AsString;
+    end
+  else
+    begin
+      if not FDataSet.CanEdit then
+        FDataSet.DataSet.Edit;
+      FDataSet.FieldByName('OWNER').Clear;
+    end;
+  aUSer.Free;
 end;
 
 function TfTaskEdit.fSearchOpenUserItem(aLink: string): Boolean;
@@ -267,22 +299,8 @@ begin
 end;
 
 procedure TfTaskEdit.bSetUserClick(Sender: TObject);
-var
-  i :Integer = 0;
 begin
-  fSearch.SetLanguage;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strUsers then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
-  fSearch.eContains.Clear;
-  fSearch.sgResults.RowCount:=1;
-  fSearch.OnOpenItem:=@fSearchOpenUserItem;
-  fSearch.Execute(True,'TASKSU',strSearchFromTasks);
-  fSearch.SetLanguage;
+
 end;
 
 procedure TfTaskEdit.cbStateSelect(Sender: TObject);
@@ -352,6 +370,28 @@ begin
   else FDataSet.FieldByName('PLANTIME').Clear;
 end;
 
+procedure TfTaskEdit.eUserButtonClick(Sender: TObject);
+var
+  i :Integer = 0;
+begin
+  fSearch.SetLanguage;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strUsers then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  if Sender = eUser then
+    fSearch.OnOpenItem:=@fSearchOpenUserItem
+  else
+    fSearch.OnOpenItem:=@fSearchOpenOwnerItem;
+  fSearch.Execute(True,'TASKSU',strSearchFromTasks);
+  fSearch.SetLanguage;
+end;
+
 procedure TfTaskEdit.TfListFrameFListgListDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
@@ -386,6 +426,8 @@ var
   aDocFrame: TfDocumentFrame;
   nF: Extended;
   aType: Char;
+  OldPageIdx: Integer;
+  aUser: TUser;
 begin
   cbCategory.Items.Clear;
   aType := 'T';
@@ -398,7 +440,7 @@ begin
         cbCategory.Items.Add(Data.Categories.FieldByName('NAME').AsString);
       Data.Categories.DataSet.Next;
     end;
-
+  OldPageIdx := pcPages.ActivePageIndex;
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
@@ -439,6 +481,17 @@ begin
     eBuffer.Text := DayTimeToStr(nF)
   else
     eBuffer.Text := FDataSet.FieldByName('BUFFERTIME').AsString;
+  if OldPageIdx<pcPages.PageCount-1 then
+    pcPages.PageIndex:=OldPageIdx;
+  aUser := TUser.Create(nil,Data);
+  aUser.SelectByAccountno(FDataSet.FieldByName('USER').AsString);
+  aUser.Open;
+  eUser.Text:=aUser.FieldByName('NAME').AsString;
+
+  aUser.SelectByAccountno(FDataSet.FieldByName('OWNER').AsString);
+  aUser.Open;
+  eOwner.Text:=aUser.FieldByName('NAME').AsString;
+  aUser.Free;
 end;
 procedure TfTaskEdit.AddDocuments(Sender: TObject);
 var
@@ -533,6 +586,7 @@ begin
       if FDataSet.FieldByName('SUMMARY').IsNull then
         eSummary.SetFocus
       else mNotes.SetFocus;
+      Caption:=strEditTask+' - '+FDataSet.FieldByName('SUMMARY').AsString;
       eProject.Text:=FDataSet.FieldByName('PROJECT').AsString;
       while Visible do
         begin
