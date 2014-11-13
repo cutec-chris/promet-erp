@@ -56,6 +56,7 @@ type
     procedure JvDesignPanel1Paint(Sender: TObject);
     procedure JvDesignPanel1SelectionChange(Sender: TObject);
     procedure bCloseClick(Sender: TObject);
+    procedure JvDesignPanel1SurfaceBeforeClearSelection(Sender: TObject);
     procedure WriterFindAncestor(Writer: TWriter; Component: TComponent;
       const aName: string; var Ancestor, RootAncestor: TComponent);
   private
@@ -176,6 +177,7 @@ var
   Selection: TPersistentSelectionList;
   i: Integer;
 begin
+  JvDesignSurface.BeforeClearSelection:=@JvDesignPanel1SurfaceBeforeClearSelection;
   Selection:=TPersistentSelectionList.Create;
   for i := low(JvDesignSurface.Selected) to high(JvDesignSurface.Selected) do
     Selection.Add(TWincontrol(JvDesignSurface.Selected[i]));
@@ -192,6 +194,13 @@ var
 begin
   randomize;
   fTab.Name:=copy(fTab.Name,0,50)+IntToStr(Random(255));
+  i := 0;
+  while i < FTab.ComponentCount do
+    begin
+      if (FTab.Components[i] is TWinControl) and (not TWinControl(FTab.Components[i]).Visible) then
+        FTab.Components[i].Free
+      else inc(i);
+    end;
   for i := 0 to FTab.ComponentCount-1 do
     begin
       try
@@ -232,6 +241,12 @@ begin
   FEnterButton.Parent.Parent := FTab;
 end;
 
+procedure TEditableFrame.JvDesignPanel1SurfaceBeforeClearSelection(
+  Sender: TObject);
+begin
+  PropertyGrid.Selection:=nil;
+end;
+
 procedure TEditableFrame.WriterFindAncestor(Writer: TWriter;
   Component: TComponent; const aName: string; var Ancestor,
   RootAncestor: TComponent);
@@ -256,6 +271,7 @@ begin
     Align:=alClient;
   end;
   ThePropertyEditorHook.LookupRoot:=JvDesignPanel1;
+  JvDesignSurface.BeforeClearSelection:=@JvDesignPanel1SurfaceBeforeClearSelection;
 end;
 
 destructor TEditableFrame.Destroy;

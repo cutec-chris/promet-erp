@@ -1295,7 +1295,8 @@ begin
 end;
 destructor TfProjectFrame.Destroy;
 begin
-  FOwners.Destroy;
+  if Assigned(FOwners) then
+    FOwners.Destroy;
   if Assigned(FConnection) then
     begin
       CloseConnection(acSave.Enabled);
