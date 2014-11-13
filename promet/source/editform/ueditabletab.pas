@@ -177,7 +177,6 @@ var
   Selection: TPersistentSelectionList;
   i: Integer;
 begin
-  JvDesignSurface.BeforeClearSelection:=@JvDesignPanel1SurfaceBeforeClearSelection;
   Selection:=TPersistentSelectionList.Create;
   for i := low(JvDesignSurface.Selected) to high(JvDesignSurface.Selected) do
     Selection.Add(TWincontrol(JvDesignSurface.Selected[i]));
@@ -271,7 +270,6 @@ begin
     Align:=alClient;
   end;
   ThePropertyEditorHook.LookupRoot:=JvDesignPanel1;
-  JvDesignSurface.BeforeClearSelection:=@JvDesignPanel1SurfaceBeforeClearSelection;
 end;
 
 destructor TEditableFrame.Destroy;
