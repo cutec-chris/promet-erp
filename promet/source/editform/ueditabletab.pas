@@ -190,6 +190,18 @@ var
   Writer: TWriter;
   aControl: TControl;
 begin
+  randomize;
+  fTab.Name:=copy(fTab.Name,0,50)+IntToStr(Random(255));
+  for i := 0 to FTab.ComponentCount-1 do
+    begin
+      try
+        if copy(fTab.Components[i].Name,0,50)='' then
+          fTab.Components[i].Name:='C'+copy(fTab.Components[i].Name,0,50)+IntToStr(Random(255))
+        else
+          fTab.Components[i].Name:=copy(fTab.Components[i].Name,0,50)+IntToStr(Random(255));
+      except
+      end;
+    end;
   JvDesignSurface.Active:=False;
   //Self := TEditableFrame(FTab);
   i := 0;

@@ -797,7 +797,7 @@ begin
 end;
 procedure TBaseVisualApplication.UserTabAdded(Sender: TObject);
 var
-  Stream: TMemoryStream;
+  Stream: TStringStream;
   Reader: TReader;
   i: Integer;
   tmp : string;
@@ -817,7 +817,7 @@ begin
           begin
             aTab := TFrame(Sender).Parent;
             try
-              Stream := TMemoryStream.Create;
+              Stream := TStringStream.Create('');
               Data.Data.BlobFieldToStream(Data.Data.Forms.DataSet,'FORM',Stream);
               Stream.Position := 0;
               Reader := TReader.Create(Stream, 4096);

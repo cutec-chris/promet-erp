@@ -345,12 +345,19 @@ procedure TfScriptEditor.acDecompileExecute(Sender: TObject);
 var
   s: tbtstring;
 begin
-  if Compile then
-  begin
-    Debugger.GetCompiled(s);
-    IFPS3DataToText(s, s);
-    messages.AddItem(s,nil);
-  end;
+ if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal' then
+   begin
+      if Compile then
+        begin
+          Debugger.GetCompiled(s);
+          IFPS3DataToText(s, s);
+          messages.AddItem(s,nil);
+        end;
+   end
+ else
+   begin
+
+   end;
 end;
 
 procedure TfScriptEditor.acLogoutExecute(Sender: TObject);
