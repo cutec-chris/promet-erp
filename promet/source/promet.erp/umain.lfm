@@ -1163,6 +1163,7 @@ object fMain: TfMain
     object acStartPage: TAction
       Category = 'start'
       Caption = 'Startseite'
+      Hint = 'wechselt zur Startseite'
       ImageIndex = 12
       OnExecute = acStartPageExecute
     end
