@@ -551,6 +551,7 @@ begin
               aFrame.Parent := aTab;
               aTab.Visible:=False;
               aTab.PageControl := pcPages;
+              aTab.Tag := 999;
               try
                 UserTabAdded(aFrame);
                 if ShouldRemoveTab(aTab) then
@@ -817,6 +818,7 @@ begin
         if Data.Data.Forms.DataSet.Locate('NAME',TTabSheet(TFrame(Sender).Parent).Caption,[]) then
           begin
             aTab := TFrame(Sender).Parent;
+            aTab.Tag:=999;
             try
               Stream := TStringStream.Create('');
               Data.Data.BlobFieldToStream(Data.Data.Forms.DataSet,'FORM',Stream);
