@@ -1274,7 +1274,7 @@ msgid ""
 "setzt eine Standartwährung für den Kontakt mit der jeder Vorgang für den "
 "Kontakt vorbelegt wird"
 msgstr ""
-"setzt eine Standartwährung für den Kontakt mit der jeder Vorgang für den "
+"setzt eine Standardwährung für den Kontakt mit der jeder Vorgang für den "
 "Kontakt vorbelegt wird"
 
 #: tfcustomer.cbdiscontgroup.hint
@@ -1791,7 +1791,7 @@ msgstr "Befehl"
 
 #: tfdocumentaction.lstandartactions.caption
 msgid "Standart Aktionen"
-msgstr "Standart Aktionen"
+msgstr "Standard Aktionen"
 
 #: tfdocumentaction.rbusespecialaction.caption
 msgid "Spezialaktion verwenden"

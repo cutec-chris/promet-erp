@@ -60,7 +60,7 @@ Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\shipping_*.exe"; DestDir:
 Source: "website.url"; DestDir: "{app}"
 
 [Run]
-Filename: "{app}\wizardmandant.exe"; Parameters: "--silent"; Flags: postinstall shellexec skipifsilent; Description: "Standartdatenbank erstellen"; Components: main
+Filename: "{app}\wizardmandant.exe"; Parameters: "--silent"; Flags: postinstall shellexec skipifsilent; Description: "Standarddatenbank erstellen"; Components: main
 
 [Components]
 Name: "main"; Description: "Main Program Components"; Types: full compact custom; Flags: fixed; Languages: en
