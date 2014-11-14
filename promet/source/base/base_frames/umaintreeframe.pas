@@ -105,7 +105,6 @@ type
     acAddBoard: TAction;
     acRights: TAction;
     acDeleteLink: TAction;
-    acHideEntry: TAction;
     acRestoreStandard: TAction;
     acCopyAsLink: TAction;
     acPasteLink: TAction;
@@ -350,9 +349,11 @@ begin
           New := TMenuItem.Create(pmTree);
           New.Caption:='-';
         end;
+      {
       New := TMenuItem.Create(pmTree);
       New.Action := acHideEntry;
       pmTree.Items.Add(New);
+      }
     end;
 end;
 constructor TfMainTree.Create(AOwner: TComponent);
@@ -1566,8 +1567,8 @@ begin
                   Accept:=True;
         end;
       end;
-      if (tvMain.Selected.Level=0) and Assigned(tvMain.GetNodeAt(X,Y)) and (tvMain.GetNodeAt(X,Y).Level=0) then
-        Accept := True;
+      //if (tvMain.Selected.Level=0) and Assigned(tvMain.GetNodeAt(X,Y)) and (tvMain.GetNodeAt(X,Y).Level=0) then
+      //  Accept := True;
     end
   else if Source = pcPages then
     begin
