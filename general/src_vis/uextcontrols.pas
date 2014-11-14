@@ -164,6 +164,7 @@ type
     procedure CloseFrameClick(Sender: TObject);
     procedure ExtMenuPageControlContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
+    procedure FCloseMenuPopup(Sender: TObject);
     procedure FFrameClassesMenuItemClick(Sender: TObject);
     procedure FMenuClose(Sender: TObject);
   private
@@ -372,6 +373,7 @@ begin
   Self.Visible:=False;
   aNewPage.PageControl := Self;
   aNewPage.Parent := Self;
+  aNewPage.Tag:=999;
   aFrameClass := FFrameClasses[TMenuItem(Sender).Tag];
   aNewPage.ImageIndex:=TMenuItem(Sender).ImageIndex;
   aNewPage.Caption := aFrameClass.Name;
@@ -414,6 +416,7 @@ begin
   except
     exit;
   end;
+  if aPage.Tag<>999 then exit;//user Tab
   for i := 0 to FMenu.Items.Count-1 do
      if Fmenu.Items[i].Caption = aPage.Caption then
        FMenu.Items[i].Enabled := True;
@@ -450,6 +453,25 @@ begin
   if TH= 0 then TH := 25;
   Handled := not (Y <= TH);
 end;
+
+procedure TExtMenuPageControl.FCloseMenuPopup(Sender: TObject);
+var
+  aPage: TTabSheet;
+begin
+  FCloseMenu.Items[0].Enabled:=False;
+  if Sender = nil then exit; //Bug with ActionLists
+  try
+    if Sender is TTabSheet then
+      aPage := Sender as TTabSheet
+    else
+      aPage := Self.ActivePage;
+  except
+    exit;
+  end;
+  if aPage.Tag<>999 then exit;//user Tab
+  FCloseMenu.Items[0].Enabled:=True;
+end;
+
 procedure TExtMenuPageControl.FMenuClose(Sender: TObject);
 begin
   Self.PageIndex:=0;
@@ -539,6 +561,7 @@ begin
   FNewPage.Caption:=strNewTab;
 
   FCloseMenu := TPopupMenu.Create(Self);
+  FCloseMenu.OnPopup:=@FCloseMenuPopup;
   aNewItem := TMenuItem.Create(FCloseMenu);
   aNewItem.Caption:=strClose;
   aNewItem.OnClick:=@CloseFrameClick;
@@ -564,6 +587,7 @@ begin
     Visible := False;
   OldIndex := Self.PageIndex;
   aNewPage := TTabSheet.Create(Self);
+  aNewPage.Tag:=999;
   aNewPage.PageControl := Self;
   aNewPage.ImageIndex := aImageIndex;
   FDontChange := True;

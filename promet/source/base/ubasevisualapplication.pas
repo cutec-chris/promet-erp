@@ -604,6 +604,7 @@ begin
       aFrame.Parent := aTab;
       aTab.Visible:=False;
       aTab.PageControl := PC;
+      aTab.Tag:=999;
       try
         UserTabAdded(aFrame);
         aTab.PageIndex:=PC.PageCount-2;
