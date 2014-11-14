@@ -216,6 +216,10 @@ type
     function GetHistory: TBaseHistory;
     property History : TBaseHistory read GetHistory;
   end;
+  IBaseStructure = interface['{5CC59C2C-3A70-48F1-82BB-68A358017938}']
+    function GetParentField : string;
+    function GetStructureElements(aIndex : Integer) : TBaseDbDataSet;
+  end;
   TAccessHistory = class(TBaseHistory)
   public
     procedure DefineFields(aDataSet : TDataSet);override;

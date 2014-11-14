@@ -703,18 +703,22 @@ var
 begin
   Fmenu.Items.Clear;
   TabIndex:=0;
-  i := 1;
+  i := 0;
   while i < Self.PageCount-1 do
     begin
-      try
-        if Pages[i].ControlCount > 0 then
-          Pages[i].Controls[0].Free;
-      except
-        on e : exception do
-          debugln('Error during Page.Close: '+e.Message);
-      end;
-      aPage := Pages[i];
-      aPage.Free;
+      if Pages[i].Tag=999 then
+        begin
+          try
+            if Pages[i].ControlCount > 0 then
+              Pages[i].Controls[0].Free;
+          except
+            on e : exception do
+              debugln('Error during Page.Close: '+e.Message);
+          end;
+          aPage := Pages[i];
+          aPage.Free;
+        end
+      else inc(i);
     end;
 end;
 procedure TExtMenuPageControl.WillRemoveTab(aPage: TTabSheet);

@@ -21,6 +21,7 @@ unit uIntfStrConsts;
 {$mode objfpc}{$H+}
 interface
 resourcestring
+  strStructure                  = 'Struktur';
   strSearchFromProjects         = 'Mit Öffnen wird das gewählte Projekt als Vohrfahr übernommen';
   strCommandline                = 'Komandozeile';
   strRepaired                   = 'repariert';

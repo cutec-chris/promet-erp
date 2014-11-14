@@ -1,7 +1,5 @@
-inherited fProjectOverviewFrame: TfProjectOverviewFrame
-  Left = 0
+inherited fObjectStructureFrame: TfObjectStructureFrame
   Height = 460
-  Top = 0
   Width = 730
   OnEnter = FrameEnter
   DesignLeft = 397

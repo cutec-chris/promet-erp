@@ -84,7 +84,7 @@ type
     property Project : TProjectList read FProject;
   end;
   TProjectQuestionEvent = function(Sender : TProjectList) : Boolean;
-  TProject = class(TProjectList,IBaseHistory)
+  TProject = class(TProjectList,IBaseHistory,IBaseStructure)
     procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FHistory: TProjectHistory;
@@ -97,6 +97,8 @@ type
     FStatus : string;
     FTarget: String;
     function GetHistory: TBaseHistory;
+    function GetParentField: string;
+    function GetStructureElements(aIndex : Integer) : TBaseDbDataSet;
   public
     constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
@@ -338,6 +340,16 @@ end;
 function TProject.GetHistory: TBaseHistory;
 begin
   Result := History;
+end;
+
+function TProject.GetParentField: string;
+begin
+  Result := 'PARENT';
+end;
+
+function TProject.GetStructureElements(aIndex: Integer): TBaseDbDataSet;
+begin
+  Result := nil;
 end;
 
 function TProjectList.GetTyp: string;

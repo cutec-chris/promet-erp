@@ -844,7 +844,7 @@ end;
 
 procedure TfProjectFrame.AddOverview(Sender: TObject);
 begin
-  TfProjectOverviewFrame(Sender).ParentProject:=TProject(fDataSet);
+  TfObjectStructureFrame(Sender).ParentObject:=TBaseDbList(fDataSet);
 end;
 
 procedure TfProjectFrame.AddFinance(Sender: TObject);
@@ -1158,13 +1158,13 @@ begin
     end;
   aThumbnails.Free;
   TProject(DataSet).Images.DataSet.Close;
-  pcPages.AddTabClass(TfProjectOverviewFrame,strOverview,@AddOverview);
+  pcPages.AddTabClass(TfObjectStructureFrame,strStructure,@AddOverview);
   aSubProject := TProject.Create(nil,Data);
   aSubProject.SelectFromParent(fDataSet.Id.AsVariant);
   aSubProject.Open;
   if aSubProject.Count>0 then
     begin
-      pcPages.AddTab(TfProjectOverviewFrame.Create(Self),True)
+      pcPages.AddTab(TfObjectStructureFrame.Create(Self),True)
     end;
   aSubProject.Free;
   pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
