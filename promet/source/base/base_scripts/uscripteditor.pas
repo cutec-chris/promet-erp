@@ -650,7 +650,7 @@ begin
   Sender.AddMethod(Self, @TfScriptEditor.InternalSleep,'procedure Sleep(MiliSecValue : LongInt);');
   FOldUses:=Sender.Comp.OnUses;
   Sender.Comp.OnUses:=@OnUses;
-  OnUses(Sender.Comp,'system');
+  OnUses(Sender.Comp,'SYSTEM');
 end;
 
 procedure TfScriptEditor.FDataSetDataSetAfterScroll(DataSet: TDataSet);

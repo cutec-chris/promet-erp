@@ -51,7 +51,10 @@ begin
           begin
             if Assigned(Runtime) then
               if Runtime.RunProcPN([aSentence],'CHECKSENTENCE') = True then
-                exit;
+                begin
+                  Result := True;
+                  exit;
+                end;
           end;
       Next;
     end;

@@ -1,5 +1,9 @@
 ﻿Build 381
 ﻿      - Aufgabeneditor überarbeitet
+       - Benutzerdefinierte Tabs: werden nun korrekt hinzugefügt (jedes nach dem ersten wurde leer hinzugefügt)
+       - Benutzerdefinierte Tabs: Controls löschbar
+       - nur hinzufügbare Tabs schliessbar
+       - Beim neuöffnen von Elementen werden nur hinzufügbare Tabs geschlossen
 ﻿Build 380
 ﻿      - Kommandozeile kann Scripte verarbeiten (so werden Befehle definiert)
 ﻿      - Gui an vielen Stellen Buttons zu flachen gewechselt um Oberfläche einheitlicher und aufgeräumter

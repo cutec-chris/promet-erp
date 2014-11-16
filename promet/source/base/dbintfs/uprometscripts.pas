@@ -207,7 +207,10 @@ procedure TBaseDBDatasetPropertyDataSetR(Self: TBaseDBDataset; var T: TDataSet);
 
 function TBaseScript.TPascalScriptUses(Sender: TPascalScript;
   const aName: tbtString): Boolean;
+var
+  aScript: TBaseScript;
 begin
+  Result:=False;
   if aName = 'SYSTEM' then
     begin
       Result := True;
@@ -224,8 +227,8 @@ begin
     begin
       Result := True;
       try
-        Sender.InternalUses(Sender.Compiler,'db');
-        Sender.InternalUses(Sender.Compiler,'dateutils');
+        Sender.InternalUses(Sender.Compiler,'DB');
+        Sender.InternalUses(Sender.Compiler,'DATEUTILS');
         Sender.AddMethod(Self,@TBaseScript.InternalDataSet,'function DataSet(SQL : string) : TDataSet;');
         Sender.AddMethod(Self,@TBaseScript.InternalHistory,'function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
         Sender.AddMethod(Self,@TBaseScript.InternalUserHistory,'function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
@@ -410,6 +413,15 @@ begin
         Result := False; // will halt compilation
       end;
     end
+  else
+    begin
+      aScript := TBaseScript.Create(nil,DataModule);
+      aScript.Filter(Data.ProcessTerm('UPPER('+Data.QuoteField('NAME')+')=UPPER('+Data.QuoteValue(aName)+')'));
+      if aScript.Count>0 then
+        if aScript.Locate('NAME',aName,[loCaseInsensitive]) then
+          Result := Sender.Compiler.Compile(aScript.FieldByName('SCRIPT').AsString);
+      aScript.Free;
+    end;
 end;
 
 procedure TBaseScript.SQLConn;

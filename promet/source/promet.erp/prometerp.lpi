@@ -288,7 +288,6 @@
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uMain"/>
       </Unit1>
       <Unit2>
         <Filename Value="upersonframe.pas"/>
@@ -580,6 +579,7 @@
         <ComponentName Value="fCommandline"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ucommandline"/>
       </Unit43>
       <Unit44>
         <Filename Value="ustoredpasswords.pas"/>
