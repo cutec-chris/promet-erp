@@ -213,6 +213,7 @@ begin
         Comp.AddTypeS('TReplaceFlag','(rfReplaceAll, rfIgnoreCase)');
         Comp.AddTypeS('TReplaceFlags','set of TReplaceFlag');
         AddFunction(@StringReplace,'function StringReplace(const S, OldPattern, NewPattern: string;  Flags: TReplaceFlags): string;');
+        AddFunction(@TimeToStr,'function TimeToStr(Time: TDateTime): string;');
       end
     else if lowercase(Name)='exec' then
       begin
