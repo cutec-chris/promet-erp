@@ -1105,6 +1105,9 @@ procedure TfTaskPlan.bRefreshClick(Sender: TObject);
 var
   i: Integer;
 begin
+  if acUse.Enabled then
+    if (MessageDlg(strTaskPlan,strItemnotSaved,mtInformation,[mbYes,mbNo],0) = mrYes) then
+      acUse.Execute;
   FCollectedFrom:=Now();
   FCollectedTo:=FGantt.Calendar.VisibleFinish;
   for i := 0 to FGantt.IntervalCount-1 do
