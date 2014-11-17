@@ -197,12 +197,14 @@ begin
       if not FDataSet.CanEdit then
         FDataSet.DataSet.Edit;
       FDataSet.FieldByName('OWNER').AsString := aUser.FieldByName('ACCOUNTNO').AsString;
+      eOwner.Text:=aUser.Text.AsString;
     end
   else
     begin
       if not FDataSet.CanEdit then
         FDataSet.DataSet.Edit;
       FDataSet.FieldByName('OWNER').Clear;
+      eOwner.Text:='';
     end;
   aUSer.Free;
 end;
@@ -222,12 +224,14 @@ begin
       if not FDataSet.CanEdit then
         FDataSet.DataSet.Edit;
       FDataSet.FieldByName('USER').AsString := aUser.FieldByName('ACCOUNTNO').AsString;
+      eUser.Text:=aUser.Text.AsString;
     end
   else
     begin
       if not FDataSet.CanEdit then
         FDataSet.DataSet.Edit;
       FDataSet.FieldByName('USER').Clear;
+      eUser.Text:='';
     end;
   aUSer.Free;
 end;
