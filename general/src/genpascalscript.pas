@@ -29,7 +29,7 @@ uses
   uPSR_classes, uPSR_DB, uPSR_dateutils, uPSR_dll, uPSUtils,
   uPSR_std,uPSC_std,
   Process,usimpleprocess,Utils,variants,UTF8Process,dynlibs,
-  synamisc;
+  synamisc,RegExpr;
 
 type
   TWritelnFunc = procedure(const s: string) of object;
@@ -112,6 +112,9 @@ type
     function InternalRebootMashine : Boolean;
     function InternalShutdownMashine : Boolean;
     function InternalWakeMashine(Mac,Ip : string) : Boolean;
+
+    function InternalTimeToStr(Time: TDateTime): string;
+    function InternalDateTimeToStr(Time: TDateTime): string;
   public
     function InternalUses(Comp : TPSPascalCompiler;Name : string) : Boolean;
     function Execute(aParameters: Variant): Boolean; override;
@@ -213,7 +216,8 @@ begin
         Comp.AddTypeS('TReplaceFlag','(rfReplaceAll, rfIgnoreCase)');
         Comp.AddTypeS('TReplaceFlags','set of TReplaceFlag');
         AddFunction(@StringReplace,'function StringReplace(const S, OldPattern, NewPattern: string;  Flags: TReplaceFlags): string;');
-        AddFunction(@TimeToStr,'function TimeToStr(Time: TDateTime): string;');
+        AddMethod(Self,@TPascalScript.InternalTimeToStr,'function TimeToStr(Time: TDateTime): string;');
+        AddMethod(Self,@TPascalScript.InternalDateTimeToStr,'function DateTimeToStr(DateTime: TDateTime): string;');
       end
     else if lowercase(Name)='exec' then
       begin
@@ -249,6 +253,11 @@ begin
       begin
         uPSC_classes.SIRegister_Classes(Comp,False);
         uPSR_classes.RIRegister_Classes(FClassImporter,false);
+      end
+    else if lowercase(Name)='regexpr' then
+      begin
+        AddFunction(@ExecRegExpr,'function ExecRegExpr (const ARegExpr, AInputStr : String) : boolean;');
+        AddFunction(@SplitRegExpr,'procedure SplitRegExpr (const ARegExpr, AInputStr : String; APieces : TStrings);');
       end
     else
       begin
@@ -527,6 +536,17 @@ begin
   Result := True;
   WakeOnLan(Mac,Ip);
 end;
+
+function TPascalScript.InternalTimeToStr(Time: TDateTime): string;
+begin
+  Result := TimeToStr(Time);
+end;
+
+function TPascalScript.InternalDateTimeToStr(Time: TDateTime): string;
+begin
+  Result := DateTimeToStr(Time);
+end;
+
 procedure TPascalScript.SetCompiler(AValue: TPSPascalCompiler);
 begin
   if FCompiler=AValue then Exit;
