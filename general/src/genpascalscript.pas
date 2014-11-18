@@ -210,6 +210,7 @@ begin
       end
     else if lowercase(Name)='sysutils' then
       begin
+        InternalUses(Comp,'DATEUTILS');
         AddMethod(Self,@TPascalScript.InternalBeep,'procedure Beep;');
         AddMethod(Self,@TPascalScript.InternalSleep,'procedure Sleep(MiliSecValue : LongInt);');
         AddFunction(@DirectoryExists,'function DirectoryExists(Const Directory : String) : Boolean;');
@@ -249,14 +250,10 @@ begin
         uPSC_dateutils.RegisterDateTimeLibrary_C(Comp);
         uPSR_dateutils.RegisterDateTimeLibrary_R(Runtime);
       end
-    else if lowercase(Name)='classes' then
-      begin
-        uPSC_classes.SIRegister_Classes(Comp,False);
-        uPSR_classes.RIRegister_Classes(FClassImporter,false);
-      end
     else if lowercase(Name)='regexpr' then
       begin
         AddFunction(@ExecRegExpr,'function ExecRegExpr (const ARegExpr, AInputStr : String) : boolean;');
+        AddFunction(@ReplaceRegExpr,'function ReplaceRegExpr (const ARegExpr, AInputStr, AReplaceStr : String; AUseSubstitution : boolean) : String;');
         AddFunction(@SplitRegExpr,'procedure SplitRegExpr (const ARegExpr, AInputStr : String; APieces : TStrings);');
       end
     else
