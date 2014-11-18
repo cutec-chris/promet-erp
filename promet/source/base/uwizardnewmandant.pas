@@ -343,6 +343,11 @@ end;
 
 procedure TfWizardNewMandant.FormShow(Sender: TObject);
 begin
+  if Application.HasOption('firebird') then
+    begin
+      cbSQLType.Text:='firebirdd-2.1';
+      cbSQLTypeSelect(nil);
+    end;
   if Application.HasOption('silent') then
     begin
       SilentTimer.Enabled := True;
@@ -801,4 +806,4 @@ begin
 end;
 initialization
 end.
-
+

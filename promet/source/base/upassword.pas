@@ -231,6 +231,10 @@ begin
       aProcess.CommandLine:=aProcess.CommandLine+' "--database='+Application.GetOptionValue('database')+'"';
       aProcess.CommandLine:=aProcess.CommandLine+' --silent';
     end;
+  if Application.HasOption('firebird') then
+    begin
+      aProcess.CommandLine:=aProcess.CommandLine+' --firebird';
+    end;
   aProcess.CommandLine:=aProcess.CommandLine+' "--execute='+Application.ExeName+'"';
   aProcess.Options := [poNoConsole];
   try
