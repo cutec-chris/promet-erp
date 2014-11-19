@@ -136,6 +136,7 @@ type
     procedure DebuggerCompile(Sender: TPSScript);
     procedure FDataSetDataSetAfterScroll(DataSet: TDataSet);
     procedure FDataSetDataSetBeforeScroll(DataSet: TDataSet);
+    procedure FDataSetWriteln(const s: string);
     procedure FormCreate(Sender: TObject);
     procedure edStatusChange(Sender: TObject; Changes: TSynStatusChanges);
     function DebuggerNeedFile(Sender: TObject; const OrginFileName: String; var FileName, Output: String): Boolean;
@@ -162,8 +163,6 @@ type
     function Compile: Boolean;
     function Execute: Boolean;
 
-    procedure Writeln(const s: string);
-    procedure Readln(var s: string);
     function InternalParamStr(Param : Integer) : String;
     function InternalParamCount : Integer;
     procedure InternalSleep(MiliSecValue: LongInt);
@@ -434,8 +433,7 @@ begin
   else if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='sql' then
     begin
       messages.Clear;
-      FDataSet.writeln := @Writeln;
-      FDataSet.Readln := @Readln;
+      FDataSet.writeln := @FDataSetWriteln;
       acSave.Execute;
       if not FDataSet.Execute(Null) then
         messages.AddItem('failed to executing',nil);
@@ -633,22 +631,10 @@ begin
   end;
 end;
 
-procedure TfScriptEditor.Writeln(const s: string);
-begin
-  messages.Items.Add(S);
-  messages.ItemIndex:=messages.Items.Count-1;
-  messages.MakeCurrentVisible;
-end;
-
 procedure TfScriptEditor.DebuggerCompile(Sender: TPSScript);
 begin
-  Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure writeln(s: string)');
-  Sender.AddMethod(Self, @TfScriptEditor.Writeln, 'procedure write(s: string)');
-  Sender.AddMethod(Self, @TfScriptEditor.Readln, 'procedure readln(var s: string)');
-  Sender.AddMethod(Self, @TfScriptEditor.InternalParamStr,'function ParamStr(Param : Integer) : String;');
-  Sender.AddMethod(Self, @TfScriptEditor.InternalParamCount,'function ParamCount : Integer;');
-  Sender.AddMethod(Self, @TfScriptEditor.InternalSleep,'procedure Sleep(MiliSecValue : LongInt);');
   FOldUses:=Sender.Comp.OnUses;
+  FDataSet.Writeln:=@FDataSetWriteln;
   Sender.Comp.OnUses:=@OnUses;
   OnUses(Sender.Comp,'SYSTEM');
 end;
@@ -667,15 +653,17 @@ begin
   SaveCheck;
 end;
 
+procedure TfScriptEditor.FDataSetWriteln(const s: string);
+begin
+ messages.Items.Add(S);
+ messages.ItemIndex:=messages.Items.Count-1;
+ messages.MakeCurrentVisible;
+end;
+
 procedure TfScriptEditor.FormCreate(Sender: TObject);
 begin
   FDataSet:=nil;
   Fuses := nil;
-end;
-
-procedure TfScriptEditor.Readln(var s: string);
-begin
-  s := InputBox(STR_INPUTBOX_TITLE, '', '');
 end;
 
 function TfScriptEditor.InternalParamStr(Param: Integer): String;
