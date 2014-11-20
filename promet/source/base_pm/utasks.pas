@@ -1233,12 +1233,13 @@ begin
         aProject := TProject.Create(nil,Data);
         aProject.Select(DataSet.FieldByName('PROJECTID').AsVariant);
         aProject.Open;
+        {
         if FileExists(GetTempDir+'PMSTimeregistering') and (not Assigned(OnStartTime)) then
           begin
             tmp := 'Time.enter('+Data.BuildLink(aProject.DataSet)+';'+Data.BuildLink(DataSet.DataSet)+';)';
             SendIPCMessage(tmp,GetTempDir+'PMSTimeregistering');
             SendIPCMessage('Time.start',GetTempDir+'PMSTimeregistering');
-          end;
+          end;}
         if Assigned(OnStartTime) then
           OnStartTime(Self,Data.BuildLink(aProject.DataSet),Data.BuildLink(DataSet.DataSet),DataSet.FieldByName('CATEGORY').AsString);
         aProject.Free;
