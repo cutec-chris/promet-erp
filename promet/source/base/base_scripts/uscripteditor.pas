@@ -60,6 +60,9 @@ type
     Label2: TLabel;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
     pLeft: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
@@ -80,7 +83,6 @@ type
     Run2: TMenuItem;
     messages: TListBox;
     Splitter1: TSplitter;
-    N3: TMenuItem;
     Open1: TMenuItem;
     Save1: TMenuItem;
     StatusBar: TStatusBar;
@@ -99,7 +101,6 @@ type
     Syntaxcheck1: TMenuItem;
     tmDebug: TTimer;
     ToolBar1: TToolBar;
-    ToolButton1: TToolButton;
     ToolButton10: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;

@@ -33,28 +33,31 @@
       </Item5>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="6">
+    <RequiredPkgs Count="7">
       <Item1>
-        <PackageName Value="general_pascal_script"/>
-        <DefaultFilename Value="..\..\..\..\general\general_pascal_script.lpk"/>
+        <PackageName Value="pascalscript"/>
       </Item1>
       <Item2>
-        <PackageName Value="ppascalscriptlcl"/>
-        <DefaultFilename Value="..\..\components\pascalscript\ppascalscriptlcl.lpk"/>
+        <PackageName Value="general_pascal_script"/>
+        <DefaultFilename Value="..\..\..\..\general\general_pascal_script.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="pPrometDBIntfs"/>
-        <DefaultFilename Value="..\dbintfs\pprometdbintfs.lpk"/>
+        <PackageName Value="ppascalscriptlcl"/>
+        <DefaultFilename Value="..\..\components\pascalscript\ppascalscriptlcl.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="..\dbintfs\pprometdbintfs.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="LCL"/>
+        <PackageName Value="SynEdit"/>
       </Item5>
       <Item6>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCL"/>
       </Item6>
+      <Item7>
+        <PackageName Value="FCL"/>
+      </Item7>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
