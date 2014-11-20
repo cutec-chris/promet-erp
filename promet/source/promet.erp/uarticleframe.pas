@@ -69,6 +69,7 @@ type
     eBarcode: TDBEdit;
     eManufacturerNR: TDBEdit;
     eMatchCode: TDBEdit;
+    eRepairTime: TDBEdit;
     eUnit: TDBEdit;
     eWeight: TExtDBEdit;
     gbTree: TGroupBox;
@@ -85,6 +86,7 @@ type
     lManufacturerNr: TLabel;
     lMatchCode: TLabel;
     lQuantityUnit: TLabel;
+    lRepairtime: TLabel;
     lShortText: TLabel;
     lUnit: TLabel;
     lVAT: TLabel;

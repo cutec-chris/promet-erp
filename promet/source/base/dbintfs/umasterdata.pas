@@ -922,6 +922,7 @@ begin
             Add('NOSTORAGE',ftString,1,False);
             Add('PTYPE',ftString,1,False);
             Add('WEIGHT',ftFloat,0,False);
+            Add('REPAIRTIME',ftInteger,0,False);     //max. Reparaturzeit
             Add('UNIT',ftInteger,0,False);     //Verpackungseinheit
             Add('WARRENTY',ftString,10,False);
             Add('MANUFACNR',ftString,40,False);
@@ -1008,4 +1009,4 @@ end;
 
 initialization
 end.
-
+

@@ -29,6 +29,21 @@ TFARTICLEFRAME.LBARCODE.CAPTION=Barcode / EAN
 TFARTICLEFRAME.LVAT1.CAPTION=Kategorie
 TFARTICLEFRAME.CBNOSTORAGE1.HINT=Der Eintrag erzeugt Chargen oder entnimmt aus Chargen
 TFARTICLEFRAME.CBNOSTORAGE1.CAPTION=Chargenpflicht
+TFARTICLEFRAME.EREPAIRTIME.HINT=Wenn dieses Feld befüllt ist, findet diese Zeit 
+(in Minuten) bei der Reparatur dieses Artikels 
+Verwendung.
+
+Sobald der Artikel im Reparaturauftrag 
+ausgewählt wird, startet die 
+Zeiterfassung und ein Timer läuft ab.
+TFARTICLEFRAME.LREPAIRTIME.HINT=Wenn dieses Feld befüllt ist, findet diese Zeit 
+(in Minuten) bei der Reparatur dieses Artikels 
+Verwendung.
+
+Sobald der Artikel im Reparaturauftrag 
+ausgewählt wird, startet die 
+Zeiterfassung und ein Timer läuft ab.
+TFARTICLEFRAME.LREPAIRTIME.CAPTION=max. Reparaturzeit
 TFARTICLEFRAME.LABEL2.CAPTION=Eintrag
 TFARTICLEFRAME.LABEL3.CAPTION=Erweitert
 TFARTICLEFRAME.SBMENUE.HINT=zusätzliche Optionen
