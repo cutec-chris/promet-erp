@@ -7,3 +7,5 @@
 *.dbg
 *.exe
 lib*/
+promet/output/i386-win32/importdata/*
+promet/output/*

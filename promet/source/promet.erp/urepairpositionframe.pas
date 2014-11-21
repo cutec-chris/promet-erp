@@ -98,6 +98,7 @@ begin
     begin
       aStorageJournal := TStorageJournal.Create(nil,Data);
       aStorageJournal.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(Position.DataSet.FieldByName('IDENT').AsString)+' AND '+Data.QuoteField('SERIAL')+'='+Data.QuoteValue(trim(eSerial1.Text))+' AND NOT '+Data.ProcessTerm(Data.QuoteField('NOTE')+'='+Data.QuoteValue('')));
+      //Wenn Notiz zu Artikel mit dieser Serienummer im Lagerjournal vorhanden, zeigen wir sie an
       if aStorageJournal.Count>0 then
         begin
           lInfo.Caption:=aStorageJournal.FieldByName('NOTE').AsString;
