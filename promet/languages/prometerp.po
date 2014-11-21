@@ -1,4 +1,4 @@
-msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder startenwieder starten(aktive Version)(aktive Version)(Menü)wieder startenwieder starten(aktive Version)wieder starten(aktive Version)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)beim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommen(Menü)(Menü)(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder starten"
+msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder startenwieder starten(aktive Version)(aktive Version)(Menü)wieder startenwieder starten(aktive Version)wieder starten(aktive Version)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)beim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommen(Menü)(Menü)(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder starten(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)"
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -604,6 +604,11 @@ msgctxt "TFARTICLEFRAME.EMATCHCODE.HINT"
 msgid "Hier können Sie einen Suchbegriff angeben, "
 msgstr ""
 
+#: tfarticleframe.erepairtime.hint
+msgctxt "tfarticleframe.erepairtime.hint"
+msgid "Wenn dieses Feld befüllt ist, findet diese Zeit "
+msgstr ""
+
 #: tfarticleframe.gbtree.caption
 msgctxt "TFARTICLEFRAME.GBTREE.CAPTION"
 msgid "Baum"
@@ -657,6 +662,15 @@ msgstr ""
 #: tfarticleframe.lquantityunit.caption
 msgctxt "TFARTICLEFRAME.LQUANTITYUNIT.CAPTION"
 msgid "Mengeneinheit"
+msgstr ""
+
+#: tfarticleframe.lrepairtime.caption
+msgid "max. Reparaturzeit"
+msgstr ""
+
+#: tfarticleframe.lrepairtime.hint
+msgctxt "TFARTICLEFRAME.LREPAIRTIME.HINT"
+msgid "Wenn dieses Feld befüllt ist, findet diese Zeit "
 msgstr ""
 
 #: tfarticleframe.lshorttext.caption
