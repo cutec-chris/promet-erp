@@ -1,16 +1,14 @@
 inherited fRepairImageFrame: TfRepairImageFrame
-  Left = 0
-  Height = 239
-  Top = 0
+  Height = 236
   Width = 769
-  ClientHeight = 239
+  ClientHeight = 236
   ClientWidth = 769
   Color = clWindow
   Constraints.MinHeight = 100
   OnEnter = FrameEnter
   ParentColor = False
   DesignLeft = 367
-  DesignTop = 461
+  DesignTop = 464
   object Panel1: TPanel[0]
     Left = 0
     Height = 1
@@ -25,7 +23,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
   object Panel2: TPanel[1]
     Left = 0
     Height = 1
-    Top = 238
+    Top = 235
     Width = 769
     Align = alBottom
     BevelOuter = bvNone
@@ -123,7 +121,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
   end
   object mErrordesc: TDBMemo[11]
     Left = 8
-    Height = 118
+    Height = 115
     Top = 112
     Width = 118
     Anchors = [akTop, akLeft, akBottom]
@@ -133,7 +131,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
   end
   object mNotes: TDBMemo[12]
     Left = 132
-    Height = 118
+    Height = 115
     Top = 112
     Width = 420
     Anchors = [akTop, akLeft, akBottom]
@@ -144,7 +142,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
   end
   object mInternalNotes: TDBMemo[13]
     Left = 559
-    Height = 118
+    Height = 115
     Top = 112
     Width = 196
     Anchors = [akTop, akLeft, akRight, akBottom]
