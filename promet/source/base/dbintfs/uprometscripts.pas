@@ -268,7 +268,7 @@ begin
             RegisterVirtualMethod(@TBaseDBModule.GetLinkLongDesc, 'GETLINKLONGDESC');
             RegisterVirtualMethod(@TBaseDBModule.GetLinkIcon, 'GETLINKICON');
 
-            RegisterPropertyHelper(@TBaseDBModulePropertyUsersR,nil,'TEXT');
+            RegisterPropertyHelper(@TBaseDBModulePropertyUsersR,nil,'USERS');
           end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBDataset) do
           begin
