@@ -49,12 +49,17 @@ begin
       if (Script is TPascalScript) and TPascalScript(Script).Compile then
         with Script as TPascalScript do
           begin
+            try
             if Assigned(Runtime) then
               if Runtime.RunProcPN([aSentence],'CHECKSENTENCE') = True then
                 begin
                   Result := True;
                   exit;
                 end;
+
+            except
+              Result := false;
+            end;
           end;
       Next;
     end;

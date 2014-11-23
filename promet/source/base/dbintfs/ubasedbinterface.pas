@@ -82,7 +82,6 @@ type
     FIgnoreOpenRequests : Boolean;
   protected
     FDataSetClass : TDataSetClass;
-    function GetConnection: TComponent;virtual;abstract;
     function GetSyncOffset: Integer;virtual;abstract;
     procedure SetSyncOffset(const AValue: Integer);virtual;abstract;
     function GetLimitAfterSelect: Boolean;virtual;
@@ -120,6 +119,7 @@ type
     ProcessClient : TProcessClient;
     constructor Create(AOwner : TComponent);virtual;
     destructor Destroy;override;
+    function GetConnection: TComponent;virtual;abstract;
     property SessionID : LargeInt read FSessionID write FSessionID;
     property MainConnection : TComponent read GetConnection;
     property UsersFilter : string read FUsersFilter;

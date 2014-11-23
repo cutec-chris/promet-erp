@@ -104,8 +104,8 @@ type
     procedure InternalBeep;
     procedure InternalSleep(MiliSecValue: LongInt);
 
-    function InternalGet(URL : string) : string;
-    function InternalPost(URL,Content : string) : string;
+    function InternalGet(aURL: string): string;
+    function InternalPost(aURL,Content : string) : string;
     function InternalGetDNS: string;
     function InternalGetLocalIPs: string;
 
@@ -451,12 +451,14 @@ procedure TPascalScript.InternalSleep(MiliSecValue: LongInt);
 begin
   sleep(MiliSecValue);
 end;
-function TPascalScript.InternalGet(URL: string): string;
+function TPascalScript.InternalGet(aURL: string): string;
 var
   ahttp: THTTPSend;
 begin
   ahttp := THTTPSend.Create;
-  ahttp.HTTPMethod('GET',URL);
+  ahttp.Timeout:=100;
+  ahttp.KeepAlive:=false;
+  ahttp.HTTPMethod('GET',aURL);
   if ahttp.ResultCode=200 then
     begin
       setlength(Result,ahttp.Document.Size);
@@ -465,13 +467,14 @@ begin
   else Result:='';
   ahttp.Free;
 end;
-function TPascalScript.InternalPost(URL, Content: string): string;
+function TPascalScript.InternalPost(aURL, Content: string): string;
 var
   ahttp: THTTPSend;
 begin
   ahttp := THTTPSend.Create;
+  ahttp.Timeout:=100;
   ahttp.Document.Write(Content[1],length(Content));
-  ahttp.HTTPMethod('POST',URL);
+  ahttp.HTTPMethod('POST',aURL);
   if ahttp.ResultCode=200 then
     begin
       setlength(Result,ahttp.Document.Size);

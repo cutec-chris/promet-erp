@@ -54,6 +54,7 @@ type
     function InternalParamCount : Integer;
 
     function InternalDataSet(SQL : string) : TDataSet;
+    function InternalData : TBaseDBModule;
     function InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
       ObjectLink: string=''; Reference: string='';Commission: string='';Source : string='';Date:TDateTime = 0) : Boolean;
     function InternalUserHistory(Action: string;UserName: string; Icon: Integer; ObjectLink: string;
@@ -133,6 +134,12 @@ function TBaseScript.InternalDataSet(SQL: string): TDataSet;
 begin
   Result := TBaseDBModule(DataModule).GetNewDataSet(SQL,Connection);
 end;
+
+function TBaseScript.InternalData: TBaseDBModule;
+begin
+  Result := uData.Data;
+end;
+
 function TBaseScript.InternalHistory(Action: string; ParentLink: string;
   Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
   Source: string; Date: TDateTime): Boolean;
@@ -203,7 +210,9 @@ procedure TPersonPropertyContR(Self: TPerson; var T: TPersonContactData); begin 
 procedure TPersonPropertyAdressR(Self: TPerson; var T: TBaseDbAddress); begin T := Self.Address; end;
 procedure TBaseDbListPropertyHistoryR(Self: TBaseDBList; var T: TBaseHistory); var Hist : IBaseHistory; begin if Supports(Self, IBaseHistory, Hist) then T := Hist.GetHistory; end;
 procedure TUserPropertyFollowsR(Self: TUser; var T: TFollowers); begin T := Self.Follows; end;
+procedure TUserPropertyOptionsR(Self: TUser; var T: TOptions); begin T := Self.Options; end;
 procedure TBaseDBDatasetPropertyDataSetR(Self: TBaseDBDataset; var T: TDataSet); begin T := Self.DataSet; end;
+procedure TBaseDBModulePropertyUsersR(Self: TBaseDBModule; var T: TUser); begin T := Self.Users; end;
 
 function TBaseScript.TPascalScriptUses(Sender: TPascalScript;
   const aName: tbtString): Boolean;
@@ -233,6 +242,34 @@ begin
         Sender.AddMethod(Self,@TBaseScript.InternalHistory,'function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
         Sender.AddMethod(Self,@TBaseScript.InternalUserHistory,'function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
         Sender.AddMethod(Self,@TBaseScript.InternalStorValue,'procedure StorValue(Name,Id : string;Value : Double);');
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBModule) do
+          begin
+            RegisterMethod('function GetConnection: TComponent;');
+            //RegisterMethod('function GetSyncOffset: Integer;');
+            //RegisterMethod('procedure SetSyncOffset(const AValue: Integer);');
+            //RegisterMethod('function GetLimitAfterSelect: Boolean;');
+            //RegisterMethod('function GetLimitSTMT: string;');
+
+            RegisterMethod('function BuildLink(aDataSet : TDataSet) : string;');
+            RegisterMethod('function GotoLink(aLink : string) : Boolean;');
+            RegisterMethod('function GetLinkDesc(aLink : string) : string;');
+            RegisterMethod('function GetLinkLongDesc(aLink : string) : string;');
+            RegisterMethod('function GetLinkIcon(aLink : string) : Integer;');
+
+            RegisterProperty('Users','TUsers',iptRW);
+          end;
+        Sender.AddMethod(Self,@TBaseScript.InternalData,'function Data : TBaseDBModule');
+        with Sender.ClassImporter.Add(TBaseDBModule) do
+          begin
+            //RegisterVirtualMethod(@TBaseDBModule.GetConnection, 'GETCONNECTION');
+            RegisterVirtualMethod(@TBaseDBModule.BuildLink, 'BUILDLINK');
+            RegisterVirtualMethod(@TBaseDBModule.GotoLink, 'GOTOLINK');
+            RegisterVirtualMethod(@TBaseDBModule.GetLinkDesc, 'GETLINKDESC');
+            RegisterVirtualMethod(@TBaseDBModule.GetLinkLongDesc, 'GETLINKLONGDESC');
+            RegisterVirtualMethod(@TBaseDBModule.GetLinkIcon, 'GETLINKICON');
+
+            RegisterPropertyHelper(@TBaseDBModulePropertyUsersR,nil,'TEXT');
+          end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBDataset) do
           begin
             RegisterMethod('procedure Open;');
@@ -395,18 +432,21 @@ begin
         //Small Gneral Datasets
         Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataSet'),TFollowers);
         Sender.ClassImporter.Add(TFollowers);
+        Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataSet'),TOptions);
+        Sender.ClassImporter.Add(TOptions);
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDbList'),TUser) do
           begin
             RegisterMethod('constructor Create(aOwner : TComponent);');
             RegisterProperty('History','TBaseHistory',iptR);
             RegisterProperty('Follows','TFollowers',iptR);
-
+            RegisterProperty('Options','TOptions',iptR);
           end;
         with Sender.ClassImporter.Add(TUser) do
           begin
             RegisterConstructor(@TUser.Create,'CREATE');
             RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
             RegisterPropertyHelper(@TUserPropertyFollowsR,nil,'FOLLOWS');
+            RegisterPropertyHelper(@TUserPropertyOptionsR,nil,'OPTIONS');
           end;
 
       except

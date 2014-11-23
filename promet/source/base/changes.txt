@@ -1,4 +1,6 @@
-﻿Build 381
+﻿Build 382
+      - Firebird embedded portable Version
+Build 381
 ﻿      - Aufgabeneditor überarbeitet
        - Benutzerdefinierte Tabs: werden nun korrekt hinzugefügt (jedes nach dem ersten wurde leer hinzugefügt)
        - Benutzerdefinierte Tabs: Controls löschbar
