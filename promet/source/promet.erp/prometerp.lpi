@@ -288,6 +288,7 @@
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uMain"/>
       </Unit1>
       <Unit2>
         <Filename Value="upersonframe.pas"/>
@@ -358,6 +359,7 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticleFrame"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -372,6 +374,7 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -421,6 +424,7 @@
         <ComponentName Value="fRepairPositionFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uRepairPositionFrame"/>
       </Unit20>
       <Unit21>
         <Filename Value="uarticlerepairframe.pas"/>
@@ -540,6 +544,7 @@
         <ComponentName Value="fTimeFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uTimeFrame"/>
       </Unit37>
       <Unit38>
         <Filename Value="uwizardnewaccount.pas"/>

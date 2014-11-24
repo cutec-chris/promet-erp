@@ -7,20 +7,19 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ExtCtrls, DBGrids,
   uPositionFrame, Grids, DbCtrls, ExtDlgs, Menus, EditBtn, Buttons,
-  uExtControls, db,uprometframesinplace,uOrder;
+  uExtControls, db,uprometframesinplace,uOrder,uMasterdata,Graphics;
 
 type
  { TfRepairImageFrame }
 
   TfRepairImageFrame = class(TPrometInplaceFrame)
+    cbImage: TComboBox;
     cbOperation: TDBComboBox;
     cbVersion1: TDBComboBox;
     cbWarrenty: TDBCheckBox;
-    cbImage: TComboBox;
-    Position: TDatasource;
-    Repair: TDatasource;
     eSerial1: TDBEdit;
     Label1: TLabel;
+    Timer: TLabel;
     lErrordescription: TLabel;
     lInternalNotes: TLabel;
     lNotesforCustomer: TLabel;
@@ -32,15 +31,22 @@ type
     mErrordesc: TDBMemo;
     mInternalNotes: TDBMemo;
     mNotes: TDBMemo;
-    Panel1: TPanel;
-    Panel2: TPanel;
+    Panel3: TPanel;
+    Position: TDatasource;
+    Repair: TDatasource;
     SpeedButton1: TSpeedButton;
+    Timer1: TTimer;
+    Timer2: TTimer;
     procedure cbImageChange(Sender: TObject);
     procedure cbImageKeyPress(Sender: TObject; var Key: char);
     procedure cbImageSelect(Sender: TObject);
     procedure ComboSearch(Data: PtrInt);
     procedure FrameEnter(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure Timer1StartTimer(Sender: TObject);
+    procedure Timer2StartTimer(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
   private
     { private declarations }
     FGrid: TCustomGrid;
@@ -48,11 +54,13 @@ type
     FOldRowHeight : Integer;
     gProblemsColumn: TRECT;
     FImages : TOrderRepairImages;
+    Repairtime: Integer;
   public
     { public declarations }
     procedure SetRights(Editable: Boolean); override;
     procedure SetLanguage;
     destructor Destroy; override;
+    procedure SetArticle(aMasterdata: TMasterdata); override;
   end;
 
 implementation
@@ -60,6 +68,45 @@ uses uData,uRowEditor,urepairimages,uIntfStrConsts;
 {$R *.lfm}
 
 { TfRepairImageFrame }
+
+procedure TfRepairImageFrame.Timer1StartTimer(Sender: TObject);
+begin
+  //Repairtime := 2;
+  Timer1.Interval := 60000;
+  //Timer1.Enabled := True;
+  Timer.Visible := True;
+  Timer2.Enabled := False;
+  Timer.Font.Color := clGreen;
+  Timer.Color := clInfoBk;
+  Timer.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
+end;
+
+procedure TfRepairImageFrame.Timer2StartTimer(Sender: TObject);
+begin
+  Timer2.Interval := 1000;
+end;
+
+procedure TfRepairImageFrame.Timer1Timer(Sender: TObject);
+begin
+  Timer.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
+  Dec(Repairtime);
+  if (Repairtime < 0) then
+    begin
+      Timer1.Enabled := False;
+      Timer.Font.Color :=  clRed;
+      Timer.Caption := 'Reparaturzeit überschritten';
+      Timer2.Enabled := True;
+    end;
+end;
+
+procedure TfRepairImageFrame.Timer2Timer(Sender: TObject);
+begin
+  if Timer.Font.Color = clRed then
+    begin
+      Timer.Font.Color := clInfoBk;
+    end
+  else Timer.Font.Color := clRed;
+end;
 
 procedure TfRepairImageFrame.SpeedButton1Click(Sender: TObject);
 begin
@@ -146,6 +193,7 @@ end;
 
 procedure TfRepairImageFrame.FrameEnter(Sender: TObject);
 begin
+  Timer.Visible := False;
   if TfPosition(Owner).Dataset is TOrderPos then
     with TfPosition(Owner).DataSet as TOrderPos do
       begin
@@ -180,6 +228,21 @@ begin
   cbOperation.Items.Add(strWaitingforCustomer);
   cbOperation.Items.Add(strAssemblyexchanged);
   cbOperation.Items.Add(strIsNew);
+end;
+
+procedure TfRepairImageFrame.SetArticle(aMasterdata: TMasterdata);
+begin
+  if not aMasterdata.FieldByName('REPAIRTIME').IsNull then
+    begin
+      Repairtime := aMasterdata.FieldByName('REPAIRTIME').value;
+      Timer1.Enabled := True;
+      Timer.Visible := True;
+      Timer2.Enabled := False;
+      Timer.Font.Color := clGreen;
+      Timer.Color := clInfoBk;
+      Timer.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
+    end
+  else Timer.Visible := False;
 end;
 
 destructor TfRepairImageFrame.Destroy;
