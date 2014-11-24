@@ -72,7 +72,7 @@ uses uData,uRowEditor,urepairimages,uIntfStrConsts;
 procedure TfRepairImageFrame.Timer1StartTimer(Sender: TObject);
 begin
   //Repairtime := 2;
-  Timer1.Interval := 3000;
+  Timer1.Interval := 60000;
   //Timer1.Enabled := True;
   Timer.Visible := True;
   Timer2.Enabled := False;
@@ -193,6 +193,7 @@ end;
 
 procedure TfRepairImageFrame.FrameEnter(Sender: TObject);
 begin
+  Timer.Visible := False;
   if TfPosition(Owner).Dataset is TOrderPos then
     with TfPosition(Owner).DataSet as TOrderPos do
       begin
@@ -235,6 +236,11 @@ begin
     begin
       Repairtime := aMasterdata.FieldByName('REPAIRTIME').value;
       Timer1.Enabled := True;
+      Timer.Visible := True;
+      Timer2.Enabled := False;
+      Timer.Font.Color := clGreen;
+      Timer.Color := clInfoBk;
+      Timer.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
     end
   else Timer.Visible := False;
 end;

@@ -105,7 +105,7 @@ end;
 procedure TfRepairPositionFrame.Timer1StartTimer(Sender: TObject);
 begin
   //Repairtime := 2;
-  Timer1.Interval := 3000;
+  Timer1.Interval := 60000;
   //Timer1.Enabled := True;
   Timer.Visible := True;
   Timer2.Enabled := False;
@@ -281,6 +281,11 @@ begin
     begin
       Repairtime := aMasterdata.FieldByName('REPAIRTIME').value;
       Timer1.Enabled := True;
+      Timer.Visible := True;
+      Timer2.Enabled := False;
+      Timer.Font.Color := clGreen;
+      Timer.Color := clInfoBk;
+      Timer.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
     end
   else Timer.Visible := False;
 end;
