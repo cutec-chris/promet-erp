@@ -556,7 +556,7 @@ inherited fArticleFrame: TfArticleFrame
           ValueUnchecked = 'N'
         end
         object eRepairTime: TDBEdit
-          Left = 394
+          Left = 392
           Height = 23
           Hint = 'Wenn dieses Feld befüllt ist, findet diese Zeit '#13#10'(in Minuten) bei der Reparatur dieses Artikels '#13#10'Verwendung.'#13#10#13#10'Sobald der Artikel im Reparaturauftrag '#13#10'ausgewählt wird, startet die '#13#10'Zeiterfassung und ein Timer läuft ab.'
           Top = 267

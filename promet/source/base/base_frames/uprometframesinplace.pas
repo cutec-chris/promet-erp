@@ -22,7 +22,7 @@ unit uprometframesinplace;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ActnList, ExtCtrls,
-  uPrometFrames, uExtControls;
+  uPrometFrames, uExtControls,uMasterdata;
 type
 
   { TPrometInplaceFrame }
@@ -35,6 +35,7 @@ type
   published
     property OnEnter;
     property OnExit;
+    procedure SetArticle(aMasterdata : TMasterdata);virtual;
   end;
 implementation
 {$R *.lfm}
@@ -49,5 +50,10 @@ begin
     else Control.Align:=alRight;
 end;
 
+procedure TPrometInplaceFrame.SetArticle(aMasterdata: TMasterdata);
+begin
+
+end;
+
 end.
-
+
