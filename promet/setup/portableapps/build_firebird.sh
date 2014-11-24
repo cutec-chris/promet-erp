@@ -58,8 +58,8 @@ mkdir -p $BuildDir/Promet-ERP/App/promet/languages
 cp -r ../../languages/*.en.po $BuildDir/Promet-ERP/App/promet/languages
 cp -r ../../languages/*.de.po $BuildDir/Promet-ERP/App/promet/languages
 cp -r ../../languages/languages.txt $BuildDir/Promet-ERP/App/promet/languages
+cp -r ../i386-win32/firebird-embedded/* $BuildDir/Promet-ERP/App/promet
 
-cp erp.db $BuildDir/Promet-ERP/Data/Database/promet-erp.db
 echo "compressing..."
 FULL_NAME=$(cd `dirname $0` && pwd)
 WIN_DIR=$(echo $FULL_NAME | sed 's/\//\\/g')
