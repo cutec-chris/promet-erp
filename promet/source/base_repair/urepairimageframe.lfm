@@ -1,25 +1,23 @@
 inherited fRepairImageFrame: TfRepairImageFrame
   Height = 258
-  Width = 769
-  Anchors = [akTop, akLeft, akRight]
-  BorderSpacing.Around = 8
+  Width = 868
   ClientHeight = 258
-  ClientWidth = 769
+  ClientWidth = 868
   Color = clWindow
   Constraints.MinHeight = 100
   OnEnter = FrameEnter
   ParentColor = False
-  DesignLeft = 434
-  DesignTop = 503
+  DesignLeft = 405
+  DesignTop = 385
   object Panel3: TPanel[0]
     Left = 0
     Height = 227
     Top = 31
-    Width = 769
+    Width = 868
     Align = alClient
     BevelOuter = bvNone
     ClientHeight = 227
-    ClientWidth = 769
+    ClientWidth = 868
     TabOrder = 0
     object lVersion1: TLabel
       Left = 3
@@ -59,14 +57,14 @@ inherited fRepairImageFrame: TfRepairImageFrame
       Left = 562
       Height = 15
       Top = 89
-      Width = 193
+      Width = 292
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
       Caption = 'Interne Notizen'
       ParentColor = False
     end
     object lOperation: TLabel
-      Left = 631
+      Left = 730
       Height = 14
       Top = 2
       Width = 122
@@ -98,7 +96,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
       TabOrder = 1
     end
     object cbOperation: TDBComboBox
-      Left = 631
+      Left = 730
       Height = 23
       Top = 19
       Width = 124
@@ -134,7 +132,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
       Left = 559
       Height = 108
       Top = 112
-      Width = 196
+      Width = 295
       Anchors = [akTop, akLeft, akRight, akBottom]
       DataField = 'INTNOTES'
       DataSource = Repair
@@ -142,7 +140,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
       Tabstop = False
     end
     object cbWarrenty: TDBCheckBox
-      Left = 631
+      Left = 730
       Height = 16
       Top = 56
       Width = 120
@@ -159,7 +157,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
       Left = 96
       Height = 23
       Top = 19
-      Width = 461
+      Width = 560
       Anchors = [akTop, akLeft, akRight]
       ItemHeight = 15
       OnKeyPress = cbImageKeyPress
@@ -175,7 +173,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
       ParentColor = False
     end
     object SpeedButton1: TSpeedButton
-      Left = 565
+      Left = 664
       Height = 23
       Top = 19
       Width = 32
@@ -188,7 +186,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
     Left = 8
     Height = 15
     Top = 8
-    Width = 753
+    Width = 852
     Align = alTop
     Alignment = taCenter
     BorderSpacing.Around = 8
