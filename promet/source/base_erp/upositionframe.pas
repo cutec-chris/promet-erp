@@ -409,6 +409,10 @@ begin
         DataSet.DataSet.Edit;
       aCount := DataSet.Count;
       DataSet.Assign(aMasterdata);
+      if (GetPostyp <> -1) and Assigned(InplaceFrames[GetPosTyp]) then
+        begin
+          InplaceFrames[GetPosTyp].SetArticle(aMasterdata);
+        end;
       if DataSet.CanEdit then DataSet.Post;
       FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
       Result := True;

@@ -25,9 +25,13 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
-  DBGrids, uExtControls, db, uMasterdata, uPrometFramesInplace,uIntfStrConsts;
+  DBGrids, uExtControls, db, uMasterdata, uPrometFramesInplace,uIntfStrConsts,
+  Graphics;
 
 type
+
+  { TfRepairPositionFrame }
+
   TfRepairPositionFrame = class(TPrometInplaceFrame)
     cbOperation: TDBComboBox;
     cbVersion1: TDBComboBox;
@@ -38,6 +42,7 @@ type
     lInfo: TLabel;
     lErrordescription: TLabel;
     lFoundProblems: TLabel;
+    Timer: TLabel;
     lInternalNotes: TLabel;
     lNotesforCustomer: TLabel;
     lOperation: TLabel;
@@ -50,6 +55,12 @@ type
     Position: TDatasource;
     Repair: TDatasource;
     RepairDetail: TDatasource;
+    Timer1: TTimer;
+    Timer2: TTimer;
+    procedure Timer1StartTimer(Sender: TObject);
+    procedure Timer2StartTimer(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
     procedure eSerial1Exit(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
     procedure gProblemsColExit(Sender: TObject);
@@ -57,16 +68,18 @@ type
       );
     procedure gProblemsColumnSized(Sender: TObject);
     procedure gProblemsSelectEditor(Sender: TObject; Column: TColumn;
-      var Editor: TWinControl);
+    var Editor: TWinControl);
   private
     { private declarations }
     FMasterdata : TMasterdata;
+    Repairtime:Integer;
   public
     { public declarations }
     constructor Create(AOwner: TComponent); override;
     destructor Destroy;override;
     procedure SetLanguage;
     procedure SetRights(Editable : Boolean);override;
+    procedure SetArticle(aMasterdata: TMasterdata); override;
   end;
 
 implementation
@@ -87,6 +100,44 @@ begin
         RepairDetail.DataSet := Repair.Details.DataSet;
         fRowEditor.GetGridSizes('REPAIR',gProblems.DataSource,gProblems);
       end;
+end;
+
+procedure TfRepairPositionFrame.Timer1StartTimer(Sender: TObject);
+begin
+  //Repairtime := 2;
+  Timer1.Interval := 60000;
+  //Timer1.Enabled := True;
+  Timer.Visible := True;
+  Timer2.Enabled := False;
+  Timer.Font.Color := clGreen;
+  Timer.Color := clInfoBk;
+  Timer.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
+end;
+
+procedure TfRepairPositionFrame.Timer2StartTimer(Sender: TObject);
+begin
+  Timer2.Interval := 1000;
+end;
+
+procedure TfRepairPositionFrame.Timer1Timer(Sender: TObject);
+begin
+  Timer.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
+  Dec(Repairtime);
+  if (Repairtime < 0) then begin
+    Timer1.Enabled := False;
+    Timer.Font.Color :=  clRed;
+    Timer.Caption := 'Reparaturzeit überschritten';
+    Timer2.Enabled := True;
+    end;
+end;
+
+procedure TfRepairPositionFrame.Timer2Timer(Sender: TObject);
+begin
+  if Timer.Font.Color = clRed then
+    begin
+      Timer.Font.Color := clInfoBk;
+    end
+  else Timer.Font.Color := clRed;
 end;
 
 procedure TfRepairPositionFrame.eSerial1Exit(Sender: TObject);
@@ -223,5 +274,21 @@ procedure TfRepairPositionFrame.SetRights(Editable: Boolean);
 begin
   Enabled := Editable;
 end;
+
+procedure TfRepairPositionFrame.SetArticle(aMasterdata: TMasterdata);
+begin
+  if not aMasterdata.FieldByName('REPAIRTIME').IsNull then
+    begin
+      Repairtime := aMasterdata.FieldByName('REPAIRTIME').value;
+      Timer1.Enabled := True;
+      Timer.Visible := True;
+      Timer2.Enabled := False;
+      Timer.Font.Color := clGreen;
+      Timer.Color := clInfoBk;
+      Timer.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
+    end
+  else Timer.Visible := False;
+end;
+
 end.
 
