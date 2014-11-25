@@ -1365,7 +1365,7 @@ begin
   with BaseApplication as IBaseDBInterface do
     with DataSet as IBaseDBFilter do
       begin
-        Filter := Data.QuoteField('NUMBER')+'='+Data.QuoteValue(aNumber);
+        Filter := Data.QuoteField(GetNumberFieldName)+'='+Data.QuoteValue(aNumber);
       end;
 end;
 

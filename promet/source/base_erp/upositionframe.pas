@@ -522,6 +522,7 @@ var
 begin
   FGridView.SelectCol('TEXT');
   fSearch.SetLanguage;
+  i := 0;
   while i < fSearch.cbSearchType.Count do
     begin
       if fSearch.cbSearchType.Items[i] <> strMasterdata then
