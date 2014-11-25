@@ -95,14 +95,23 @@ function GetSearchAbleItems: TSearchLocations;
 var
   aSearchAble: TBaseDbList;
   i: Integer;
+  DontAdd: Boolean;
+  a: Integer;
 begin
   for i := 0 to length(SearchAble)-1 do
     begin
       with BaseApplication as IBaseDBInterface do
         aSearchAble := SearchAble[i].Create(nil,Data);
-      Setlength(Result,length(Result)+1);
-      Result[length(Result)-1] := aSearchAble.Caption;
-      aSearchAble.Free;
+      DontAdd := False;
+      for a := 0 to length(Result)-1 do
+        if Result[a] = aSearchAble.Caption then
+          DontAdd := True;
+      if not DontAdd then
+        begin
+          Setlength(Result,length(Result)+1);
+          Result[length(Result)-1] := aSearchAble.Caption;
+          aSearchAble.Free;
+        end;
     end;
 end;
 procedure TSearchHistory.DefineFields(aDataSet: TDataSet);
