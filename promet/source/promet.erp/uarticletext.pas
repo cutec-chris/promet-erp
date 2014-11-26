@@ -106,6 +106,7 @@ begin
     cbTextTyp.Text := '';
   if Fmasterdata.DataSet.Active and (not Masterdata.Texts.DataSet.Active) then
     FMasterdata.Texts.Open;
+  cbTextTypSelect(nil);
 end;
 constructor TfArticleTextFrame.Create(AOwner: TComponent);
 begin

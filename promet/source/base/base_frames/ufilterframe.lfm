@@ -39,9 +39,9 @@ inherited fFilter: TfFilter
         TabOrder = 0
         object ExtRotatedLabel1: TLabel
           Left = 6
-          Height = 14
+          Height = 11
           Top = 0
-          Width = 60
+          Width = 45
           Caption = 'Navigation'
           Font.Color = clMedGray
           Font.Height = 11
@@ -101,9 +101,9 @@ inherited fFilter: TfFilter
         end
         object ExtRotatedLabel2: TLabel
           Left = 6
-          Height = 14
+          Height = 11
           Top = 0
-          Width = 72
+          Width = 54
           Caption = 'Ansicht/Filter'
           Font.Color = clMedGray
           Font.Height = 11
@@ -114,13 +114,13 @@ inherited fFilter: TfFilter
         object cbFilter: TComboBox
           AnchorSideLeft.Side = asrBottom
           Left = 6
-          Height = 29
+          Height = 21
           Hint = 'hier können Sie eine vordefinierte Ansicht wählen'#10'Wenn Sie eine spezielle Ansicht/Sortierung benötigen wenden Sie sich an Ihren Administrator'
           Top = 12
           Width = 442
           Anchors = [akTop, akLeft, akRight]
           BorderSpacing.Left = 8
-          ItemHeight = 0
+          ItemHeight = 13
           OnSelect = cbFilterSelect
           Style = csDropDownList
           TabOrder = 0
@@ -358,9 +358,9 @@ inherited fFilter: TfFilter
       TabOrder = 1
       object cbMaxResults: TCheckBox
         Left = 9
-        Height = 22
+        Height = 17
         Top = 5
-        Width = 189
+        Width = 149
         Caption = 'Ergebnisse begrenzen auf  '
         Checked = True
         OnChange = seMaxresultsChange
@@ -519,9 +519,9 @@ inherited fFilter: TfFilter
       end
       object lFilterEdit: TLabel
         Left = 9
-        Height = 15
+        Height = 13
         Top = 33
-        Width = 95
+        Width = 74
         Caption = 'Filterbedingung'
         ParentColor = False
       end
@@ -537,7 +537,7 @@ inherited fFilter: TfFilter
       end
       object eFilterIn: TEdit
         Left = 421
-        Height = 25
+        Height = 21
         Hint = 'Wenn Sie über mehrere Tabellen Filtern '#13#10'möchten füllen Sie dieses Feld'#13#10'z.b.'#13#10'Orders,OrderPos'
         Top = 79
         Width = 127
@@ -555,8 +555,8 @@ inherited fFilter: TfFilter
       object seMaxresults: TSpinEdit
         AnchorSideLeft.Control = cbMaxResults
         AnchorSideLeft.Side = asrBottom
-        Left = 198
-        Height = 25
+        Left = 158
+        Height = 21
         Hint = 'hier können Sie die Zahl der maximalen Filterergebnisse angeben'
         Top = 5
         Width = 52
@@ -1491,7 +1491,7 @@ inherited fFilter: TfFilter
       TabOrder = 4
     end
   end
-  object List: TDatasource[4]
+  object List: TDataSource[4]
     left = 32
     top = 96
   end
@@ -1839,17 +1839,17 @@ inherited fFilter: TfFilter
     left = 128
     top = 96
   end
-  object MandantDetails: TDatasource[12]
+  object MandantDetails: TDataSource[12]
     AutoEdit = False
     left = 184
     top = 96
   end
-  object Users: TDatasource[13]
+  object Users: TDataSource[13]
     AutoEdit = False
     left = 256
     top = 96
   end
-  object History: TDatasource[14]
+  object History: TDataSource[14]
     left = 184
     top = 152
   end
@@ -1885,4 +1885,4 @@ inherited fFilter: TfFilter
     left = 83
     top = 144
   end
-end
+end

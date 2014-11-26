@@ -222,6 +222,7 @@ type
   public
     { public declarations }
     FAutoFilter : string;
+    FExtPickListEditor: TExtCombobox;
     TimeLine : TTimeLine;
     ColumnWidthHelper : TColumnWidthHelper;
     constructor Create(AOwner: TComponent); override;
@@ -419,6 +420,14 @@ procedure TfFilter.gListSelectEditor(Sender: TObject; Column: TColumn;
 begin
   if Editor is TCustomComboBox then
     begin
+      if Assigned(Editor) and (Editor is TPickListCellEditor) then
+        Editor := FExtPickListEditor;
+      if Assigned(FExtPickListEditor) and (Editor = FExtPickListEditor) then
+        begin
+          FExtPickListEditor.Items.Assign(Column.PickList);
+          //Editor.BoundsRect := gList.CellRect(gList.Col,gList.Row);
+          //FExtPickListEditor.Text := gList.Cells[gList.Col,gList.Row];
+        end;
       TCustomComboBox(Editor).OnEnter:=@TCustomComboBoxEnter;
     end;
 end;
@@ -1342,6 +1351,9 @@ begin
   tbToolbar.Images := fVisualControls.Images;
   gList.UseExtPicklist:=False;
   gHeader.CachedEditing:=False;
+  FExtPickListEditor := TExtComboBox.Create(Self);
+  FExtPickListEditor.Visible:=False;
+  FExtPickListEditor.Sorted:=False;
   SetRights;
 end;
 destructor TfFilter.Destroy;
