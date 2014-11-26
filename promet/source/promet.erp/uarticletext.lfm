@@ -119,7 +119,6 @@ inherited fArticleTextFrame: TfArticleTextFrame
     top = 41
   end
   object Texts: TDataSource[3]
-    OnStateChange = TextsStateChange
     left = 88
     top = 104
   end

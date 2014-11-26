@@ -40,7 +40,6 @@ type
     lTexttyp: TLabel;
     procedure cbTextTypSelect(Sender: TObject);
     procedure mTextChange(Sender: TObject);
-    procedure TextsStateChange(Sender: TObject);
   private
     FMasterdata: TMasterdata;
     DontUpdate: Boolean;
@@ -88,11 +87,6 @@ begin
   if not ((Texts.DataSet.State=dsEdit) or (Texts.DataSet.State=dsInsert)) then
     Texts.DataSet.Edit;
   Texts.DataSet.FieldByName('TEXT').AsString := mText.Lines.Text;
-end;
-
-procedure TfArticleTextFrame.TextsStateChange(Sender: TObject);
-begin
-  cbTextTypSelect(nil);
 end;
 
 procedure TfArticleTextFrame.SetMasterdata(const AValue: TMasterdata);
