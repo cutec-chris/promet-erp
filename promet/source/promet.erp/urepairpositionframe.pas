@@ -42,7 +42,6 @@ type
     lInfo: TLabel;
     lErrordescription: TLabel;
     lFoundProblems: TLabel;
-    Timer: TLabel;
     lInternalNotes: TLabel;
     lNotesforCustomer: TLabel;
     lOperation: TLabel;
@@ -56,11 +55,8 @@ type
     Repair: TDatasource;
     RepairDetail: TDatasource;
     Timer1: TTimer;
-    Timer2: TTimer;
     procedure Timer1StartTimer(Sender: TObject);
-    procedure Timer2StartTimer(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-    procedure Timer2Timer(Sender: TObject);
     procedure eSerial1Exit(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
     procedure gProblemsColExit(Sender: TObject);
@@ -104,40 +100,28 @@ end;
 
 procedure TfRepairPositionFrame.Timer1StartTimer(Sender: TObject);
 begin
-  //Repairtime := 2;
-  Timer1.Interval := 60000;
-  //Timer1.Enabled := True;
-  Timer.Visible := True;
-  Timer2.Enabled := False;
-  Timer.Font.Color := clGreen;
-  Timer.Color := clInfoBk;
-  Timer.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
-end;
-
-procedure TfRepairPositionFrame.Timer2StartTimer(Sender: TObject);
-begin
-  Timer2.Interval := 1000;
+  lInfo.Font.Color := clGreen;
+  lInfo.Color := clInfoBk;
+  lInfo.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
 end;
 
 procedure TfRepairPositionFrame.Timer1Timer(Sender: TObject);
 begin
-  Timer.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
+  lInfo.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
   Dec(Repairtime);
-  if (Repairtime < 0) then begin
-    Timer1.Enabled := False;
-    Timer.Font.Color :=  clRed;
-    Timer.Caption := 'Reparaturzeit überschritten';
-    Timer2.Enabled := True;
-    end;
-end;
-
-procedure TfRepairPositionFrame.Timer2Timer(Sender: TObject);
-begin
-  if Timer.Font.Color = clRed then
+  if (Repairtime < 0) then
     begin
-      Timer.Font.Color := clInfoBk;
-    end
-  else Timer.Font.Color := clRed;
+      if lInfo.Caption <> 'Reparaturzeit überschritten' then
+        begin
+          lInfo.Font.Color :=  clRed;
+          lInfo.Caption := 'Reparaturzeit überschritten';
+        end;
+      if lInfo.Font.Color = clRed then
+        begin
+          lInfo.Font.Color := clInfoBk;
+        end
+      else lInfo.Font.Color := clRed;
+    end;
 end;
 
 procedure TfRepairPositionFrame.eSerial1Exit(Sender: TObject);
@@ -281,13 +265,9 @@ begin
     begin
       Repairtime := aMasterdata.FieldByName('REPAIRTIME').value;
       Timer1.Enabled := True;
-      Timer.Visible := True;
-      Timer2.Enabled := False;
-      Timer.Font.Color := clGreen;
-      Timer.Color := clInfoBk;
-      Timer.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
+      lInfo.Visible := True;
     end
-  else Timer.Visible := False;
+  else lInfo.Visible := False;
 end;
 
 end.

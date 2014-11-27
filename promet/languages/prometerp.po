@@ -6945,10 +6945,6 @@ msgctxt "TFREPAIRPOSITIONFRAME.LVERSION1.CAPTION"
 msgid "Version"
 msgstr ""
 
-#: tfrepairpositionframe.timer.caption
-msgid "Timer"
-msgstr ""
-
 #: tfrichframe.acbold.caption
 msgid "acBold"
 msgstr ""

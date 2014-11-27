@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug --debug-sql"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="26">
@@ -424,6 +424,7 @@
         <ComponentName Value="fRepairPositionFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uRepairPositionFrame"/>
       </Unit20>
       <Unit21>
         <Filename Value="uarticlerepairframe.pas"/>

@@ -652,15 +652,18 @@ begin
 end;
 
 procedure TfMain.AddElementList(Sender: TObject);
+var
+  aObj: TObjects;
 begin
   with Sender as TfFilter do
     begin
       TabCaption := strObjectList;
       FilterType:='E';
       DefaultRows:='GLOBALWIDTH:%;NUMBER:70;NAME:100;STATUS:60;';
-      Dataset := TObjects.Create(nil,Data);
-      with DataSet.DataSet as IBaseDbFilter do
+      aObj := TObjects.Create(nil,Data);
+      with aObj.DataSet as IBaseDbFilter do
         UsePermissions := True;
+      TfFilter(Sender).Dataset := aObj;
       AddToolbarAction(acNewObject);
     end;
 end;

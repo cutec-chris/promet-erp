@@ -1492,6 +1492,7 @@ inherited fFilter: TfFilter
     end
   end
   object List: TDataSource[4]
+    OnStateChange = ListStateChange
     left = 32
     top = 96
   end

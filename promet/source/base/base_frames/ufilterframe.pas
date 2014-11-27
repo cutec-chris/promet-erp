@@ -165,6 +165,7 @@ type
     procedure gListSelectEditor(Sender: TObject; Column: TColumn;
       var Editor: TWinControl);
     procedure gListTitleClick(Column: TColumn);
+    procedure ListStateChange(Sender: TObject);
     procedure RefreshTimerTimer(Sender: TObject);
     procedure ReportGetValue(const ParName: String; var ParValue: Variant);
     procedure sbGridsResize(Sender: TObject);
@@ -460,6 +461,11 @@ begin
   acFilter.Execute;
   DoUpdateTimeLine;
 end;
+
+procedure TfFilter.ListStateChange(Sender: TObject);
+begin
+end;
+
 procedure TfFilter.RefreshTimerTimer(Sender: TObject);
 begin
   if Assigned(FDataSet) then
@@ -688,7 +694,7 @@ begin
 end;
 procedure TfFilter.bEditRowsClick(Sender: TObject);
 begin
-  fRowEditor.Execute     ('FILTER'+FFilterType,gList.DataSource,gList,cbFilter.Text);
+  fRowEditor.Execute     ('FILTER'+FFilterType,List,gList,cbFilter.Text);
   fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
   SetupHeader;
   UpdateTitle;
@@ -1321,9 +1327,9 @@ var
 begin
   aFullCount := DataSet.FullCount;
   if aFullCount > DataSet.Count then
-    pBottom.Caption:=Format(strFullRecordCount,[aFullCount,DataSet.Count])
+    pBottom.Caption:=Format(strFullRecordCount,[aFullCount,List.DataSet.RecordCount])
   else
-    pBottom.Caption:=Format(strRecordCount,[DataSet.Count]);
+    pBottom.Caption:=Format(strRecordCount,[List.DataSet.RecordCount]);
 end;
 
 procedure TfFilter.Asyncrefresh;
