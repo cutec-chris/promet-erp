@@ -657,7 +657,7 @@ begin
     begin
       TabCaption := strObjectList;
       FilterType:='E';
-      DefaultRows:='GLOBALWIDTH:%;ID:70;NAME:100;STATUS:60;';
+      DefaultRows:='GLOBALWIDTH:%;NUMBER:70;NAME:100;STATUS:60;';
       Dataset := TObjects.Create(nil,Data);
       with DataSet.DataSet as IBaseDbFilter do
         UsePermissions := True;

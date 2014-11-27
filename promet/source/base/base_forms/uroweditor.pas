@@ -329,7 +329,7 @@ begin
           FullWidth := FullWidth+StrToIntDef(copy(s,0,pos(';',s)-1),64);
           s := copy(s,pos(';',s)+1,length(s));
         end;
-      if Percentage then
+      if Percentage and (FullWidth>0) then
         Factor := Factor+(((Grid.Width-SBWidth)/FullWidth)-1);
       if Factor < 0.2 then Factor := 1;
       s := s1;
