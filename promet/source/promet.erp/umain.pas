@@ -82,6 +82,8 @@ type
     acStatistics: TAction;
     acSalesListBook: TAction;
     acCommandline: TAction;
+    acElements: TAction;
+    acNewObject: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -157,6 +159,7 @@ type
     procedure acContactExecute(Sender: TObject);
     procedure acDeleteListeEntryExecute(Sender: TObject);
     procedure acDeleteWholeMessageDirExecute(Sender: TObject);
+    procedure acElementsExecute(Sender: TObject);
     procedure acForwardExecute(Sender: TObject);
     procedure acHelpIndexExecute(Sender: TObject);
     procedure acInfoExecute(Sender: TObject);
@@ -279,6 +282,7 @@ type
     procedure AddTaskList(Sender: TObject);
     procedure AddMeetingList(Sender : TObject);
     procedure AddWiki(Sender: TObject);
+    procedure AddElementList(Sender: TObject);
     function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
     procedure RefreshCalendar;
     procedure RefreshMessages;
@@ -588,8 +592,6 @@ begin
     end;
 end;
 procedure TfMain.AddProjectList(Sender: TObject);
-var
-  fProjectFrame : TfProjectFrame;
 begin
   with Sender as TfFilter do
     begin
@@ -648,6 +650,21 @@ begin
       OpenFromLink('WIKI@INDEX');
     end;
 end;
+
+procedure TfMain.AddElementList(Sender: TObject);
+begin
+  with Sender as TfFilter do
+    begin
+      TabCaption := strObjectList;
+      FilterType:='E';
+      DefaultRows:='GLOBALWIDTH:%;ID:70;NAME:100;STATUS:60;';
+      Dataset := TObjects.Create(nil,Data);
+      with DataSet.DataSet as IBaseDbFilter do
+        UsePermissions := True;
+      AddToolbarAction(acNewObject);
+    end;
+end;
+
 { TStaarterThread }
 
 procedure TStarterThread.NewNode;
@@ -854,6 +871,8 @@ begin
   miNew.Action := fMainTreeFrame.acSearch;
   //Timeregistering
   Synchronize(@AddTimeReg);
+  //All Objects
+  fMain.pcPages.AddTabClass(TfFilter,strObjectList,@fMain.AddElementList,Data.GetLinkIcon('ALLOBJECTS@'),True);
   //Expand Tree
   Synchronize(@Expand);
   //Documents
@@ -1602,6 +1621,29 @@ begin
       RefreshMessages;
     end;
 end;
+
+procedure TfMain.acElementsExecute(Sender: TObject);
+var
+  i: Integer;
+  Found: Boolean;
+  aFrame: TfFilter;
+begin
+  Application.ProcessMessages;
+  for i := 0 to pcPages.PageCount-2 do
+    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TObjects) then
+      begin
+        pcPages.PageIndex:=i;
+        Found := True;
+      end;
+  if not Found then
+    begin
+      aFrame := TfFilter.Create(Self);
+      pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('ALLOBJECTS@'),False);
+      AddElementList(aFrame);
+      aFrame.Open;
+    end;
+end;
+
 procedure TfMain.acForwardExecute(Sender: TObject);
 begin
   FHistory.GoFwd;
@@ -1628,7 +1670,7 @@ begin
      fInfo.Revision:=AppRevision;
      fInfo.ProgramName:=Appname;
      fInfo.InfoText:=vInfo;
-     fInfo.Copyright:='2006-2012 C. Ulrich';
+     fInfo.Copyright:='2006-2014 C. Ulrich';
     end;
   fInfo.SetLanguage;
   fInfo.Execute;

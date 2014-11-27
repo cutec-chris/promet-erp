@@ -8,9 +8,6 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Files Count="12">
       <Item1>
@@ -18,48 +15,48 @@
         <Type Value="LFM"/>
       </Item1>
       <Item2>
-        <Filename Value="udataimport.pas"/>
-        <UnitName Value="uDataImport"/>
-      </Item2>
-      <Item3>
         <Filename Value="udataimportconfig.lfm"/>
         <Type Value="LFM"/>
-      </Item3>
-      <Item4>
+      </Item2>
+      <Item3>
         <Filename Value="udataimportconfig.pas"/>
         <UnitName Value="uDataImportConfig"/>
-      </Item4>
-      <Item5>
+      </Item3>
+      <Item4>
         <Filename Value="udataimportcsv.lfm"/>
         <Type Value="LFM"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <Filename Value="udataimportcsv.pas"/>
         <UnitName Value="uDataimportCSV"/>
-      </Item6>
-      <Item7>
+      </Item5>
+      <Item6>
         <Filename Value="udataimportdbf.lfm"/>
         <Type Value="LFM"/>
-      </Item7>
-      <Item8>
+      </Item6>
+      <Item7>
         <Filename Value="udataimportdbf.pas"/>
         <UnitName Value="uDataImportDBF"/>
-      </Item8>
-      <Item9>
+      </Item7>
+      <Item8>
         <Filename Value="udataimportfixedlength.lfm"/>
         <Type Value="LFM"/>
-      </Item9>
-      <Item10>
+      </Item8>
+      <Item9>
         <Filename Value="udataimportfixedlength.pas"/>
         <UnitName Value="uDataImportFixedLength"/>
-      </Item10>
-      <Item11>
+      </Item9>
+      <Item10>
         <Filename Value="udataimportoffice.lfm"/>
         <Type Value="LFM"/>
-      </Item11>
-      <Item12>
+      </Item10>
+      <Item11>
         <Filename Value="udataimportoffice.pas"/>
         <UnitName Value="uDataImportOffice"/>
+      </Item11>
+      <Item12>
+        <Filename Value="udataimport.pas"/>
+        <UnitName Value="uDataImport"/>
       </Item12>
     </Files>
     <Type Value="RunAndDesignTime"/>

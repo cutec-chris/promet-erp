@@ -114,6 +114,7 @@ resourcestring
   strDestinationnotSelected     = 'kein Zielmandant gewählt (--destination) !';
   strLoginFailed                = 'Login fehlgeschlagen';
   strProjectList                = 'Projektliste';
+  strObjectList                 = 'Elementliste';
   strStatisticList              = 'Statistikliste';
   strSalesList                  = 'Zahlungsliste';
   strVoucher                    = 'Beleg';
@@ -237,4 +238,4 @@ resourcestring
                                 ;
 
 implementation
-end.
+end.

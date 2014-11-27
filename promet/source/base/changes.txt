@@ -1,5 +1,7 @@
 ﻿Build 382
       - Firebird embedded portable Version
+      - Preise:bessere Inplace Combobox
+      - Texte:korrekten Text nach öffnen des Tabs anzeigen
 Build 381
 ﻿      - Aufgabeneditor überarbeitet
        - Benutzerdefinierte Tabs: werden nun korrekt hinzugefügt (jedes nach dem ersten wurde leer hinzugefügt)

@@ -2,20 +2,20 @@
   This source is only used to compile and install the package.
  }
 
-unit pImportExport; 
+unit pImportExport;
 
 interface
 
 uses
-  uDataImport, uDataImportConfig, uDataimportCSV, uDataImportDBF, 
-  uDataImportFixedLength, uDataImportOffice, LazarusPackageIntf;
+  uDataImportConfig, uDataimportCSV, uDataImportDBF, uDataImportFixedLength, 
+  uDataImportOffice, uDataImport, LazarusPackageIntf;
 
 implementation
 
-procedure Register; 
+procedure Register;
 begin
-end; 
+end;
 
 initialization
-  RegisterPackage('pImportExport', @Register); 
+  RegisterPackage('pImportExport', @Register);
 end.
