@@ -1198,6 +1198,7 @@ object fMain: TfMain
     object acNewObject: TAction
       Caption = 'neues Element'
       ImageIndex = 88
+      OnExecute = acNewObjectExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties

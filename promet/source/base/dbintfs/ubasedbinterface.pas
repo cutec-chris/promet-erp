@@ -1037,6 +1037,8 @@ begin
     Result := IMAGE_WEBSITE
   else if copy(aLink, 0, pos('@', aLink) - 1) = 'MASTERDATA' then
     Result := IMAGE_MASTERDATA
+  else if copy(aLink, 0, pos('@', aLink) - 1) = 'ALLOBJECTS' then
+    Result := 121
   else if (copy(aLink, 0, pos('@', aLink) - 1) = 'CUSTOMERS')
        or (copy(aLink, 0, pos('@', aLink) - 1) = 'CUSTOMERS.ID') then
     Result := IMAGE_PERSON
@@ -1059,6 +1061,10 @@ begin
     Result := IMAGE_TASK
   else if (copy(aLink, 0, pos('@', aLink) - 1) = 'WIKI') then
     Result := IMAGE_WIKI
+  else if (copy(aLink, 0, pos('@', aLink) - 1) = 'STATISTICS') then
+    Result := IMAGE_STATISTIC
+  else if (copy(aLink, 0, pos('@', aLink) - 1) = 'SCRIPTS') then
+    Result := 62
   ;
 end;
 function TBaseDBModule.BuildLink(aDataSet: TDataSet): string;
@@ -1506,6 +1512,7 @@ end;
 
 procedure TBaseDBModule.RegisterLinkHandlers;
 begin
+  RegisterLinkHandler('ALLOBJECTS',nil,TObjects);
   //Messages
   RegisterLinkHandler('HISTORY',nil,TBaseHistory);
   //Messages

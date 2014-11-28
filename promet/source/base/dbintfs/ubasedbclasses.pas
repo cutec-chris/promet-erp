@@ -225,22 +225,33 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+  TImages = class;
+  TLinks = class;
+
+  { TObjects }
+
   TObjects = class(TBaseDbList)
   private
     FHistory: TBaseHistory;
+    FImages: TImages;
+    FLinks: TLinks;
   protected
     function GetNumberFieldName: string; override;
     function GetMatchcodeFieldName: string; override;
     function GetTextFieldName: string; override;
+    function GetStatusFieldName: string; override;
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     function CreateTable: Boolean; override;
     procedure DefineFields(aDataSet : TDataSet);override;
-    function SelectFromLink(aLink: string): Boolean; override;
+    procedure FillDefaults(aDataSet: TDataSet); override;
+    function SelectByLink(aLink: string): Boolean;
     procedure SelectByRefId(aId : Variant);
     property History : TBaseHistory read FHistory;
+    property Images : TImages read FImages;
+    property Links : TLinks read FLinks;
   end;
 
   { TVariables }
@@ -569,15 +580,25 @@ function TObjects.GetTextFieldName: string;
 begin
   Result := 'NAME';
 end;
+
+function TObjects.GetStatusFieldName: string;
+begin
+  Result:='STATUS';
+end;
+
 constructor TObjects.Create(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited Create(aOwner, DM, aConnection, aMasterdata);
   FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
+  FImages := TImages.Create(Self,DM,aConnection,DataSet);
+  FLinks := TLinks.Create(Self,DM,aConnection);
 end;
 
 destructor TObjects.Destroy;
 begin
+  FImages.Free;
+  FLinks.Free;
   FHistory.Free;
   inherited Destroy;
 end;
@@ -600,12 +621,20 @@ begin
             Add('NAME',ftString,200,False);
             Add('MATCHCODE',ftString,200,False);
             Add('LINK',ftString,400,False);
+            Add('STATUS',ftString,4,False);
             Add('ICON',ftInteger,0,False);
+            Add('NOTICE',ftMemo,0,False);
           end;
     end;
 end;
 
-function TObjects.SelectFromLink(aLink: string): Boolean;
+procedure TObjects.FillDefaults(aDataSet: TDataSet);
+begin
+  inherited FillDefaults(aDataSet);
+  FieldByName('ICON').AsInteger:=Data.GetLinkIcon('ALLOBJECTS@');
+end;
+
+function TObjects.SelectByLink(aLink: string): Boolean;
 begin
   with BaseApplication as IBaseDBInterface do
     with DataSet as IBaseDBFilter do
@@ -1316,6 +1345,8 @@ begin
               aObj.FieldByName('SQL_ID').AsVariant:=Self.Id.AsVariant;
               if Assigned(Self.Matchcode) then
                 aObj.Matchcode.AsString := Self.Matchcode.AsString;
+              if Assigned(Self.Status) then
+                aObj.Status.AsString := Self.Status.AsString;
               aObj.Number.AsVariant:=Self.Number.AsVariant;
               aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
               aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet));
@@ -1333,6 +1364,11 @@ begin
                 begin
                   aObj.Edit;
                   aObj.Number.AsString := Self.Number.AsString;
+                end;
+              if Assigned(Self.Status) and (aObj.Status.AsString<>Self.Status.AsString) then
+                begin
+                  aObj.Edit;
+                  aObj.Status.AsString := Self.Status.AsString;
                 end;
               if aObj.CanEdit then
                 aObj.Post;

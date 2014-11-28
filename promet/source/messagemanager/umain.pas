@@ -458,6 +458,7 @@ begin
       Data.ProcessClient.Processes.Open;
       Data.ProcessClient.Processes.Parameters.Open;
 
+      Data.RegisterLinkHandler('ALLOBJECTS',@OpenLink,TObjects);
       //Messages
       Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
       //Messages

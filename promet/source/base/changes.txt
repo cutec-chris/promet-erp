@@ -1,4 +1,6 @@
-﻿Build 382
+﻿Build 383
+      - Elemente:Editor für generelles Element und verfeinerung Elementliste (Alle Objekte)
+Build 382
       - Firebird embedded portable Version
       - Preise:bessere Inplace Combobox
       - Texte:korrekten Text nach öffnen des Tabs anzeigen

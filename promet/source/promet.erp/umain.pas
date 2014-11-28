@@ -175,6 +175,7 @@ type
     procedure acNewMasterdataExecute(Sender: TObject);
     procedure acNewMeetingExecute(Sender: TObject);
     procedure acNewMessageExecute(Sender: TObject);
+    procedure acNewObjectExecute(Sender: TObject);
     procedure acNewOrderExecute(Sender: TObject);
     procedure acNewProjectExecute(Sender: TObject);
     procedure acNewStatisticsExecute(Sender: TObject);
@@ -253,6 +254,7 @@ type
       const Rect: TRect; DataCol: Integer; Column: TColumn;
       State: TGridDrawState);
     procedure SenderTfFilterViewDetails(Sender: TObject);
+    procedure SenderTfFilterViewElementDetails(Sender: TObject);
 
       procedure SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime
         (Sender: TObject; aProject, aTask, aCategory: string);
@@ -346,7 +348,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
   uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts,
-  ufinancialoptions,ubookfibuaccount,ucommandline
+  ufinancialoptions,ubookfibuaccount,ucommandline,uobjectframe
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -668,6 +670,7 @@ begin
       TfFilter(Sender).Dataset := aObj;
       AddToolbarAction(acNewObject);
       OnDrawColumnCell:=@SenderTfFilterDrawColumnCell;
+      OnViewDetails:=@SenderTfFilterViewElementDetails;
     end;
 end;
 
@@ -884,6 +887,7 @@ begin
   //Documents
   DataSetType:=TDocuments;
   Synchronize(@DoCreate);
+  Data.RegisterLinkHandler('ALLOBJECTS',@fMainTreeFrame.OpenLink,TObjects);
   //Messages
   if GetRight('MESSAGES') > RIGHT_NONE then
     begin
@@ -1838,6 +1842,18 @@ begin
   fMessageEdit := TfMessageEdit.Create(nil);
   fMessageEdit.SendMailTo('');
 end;
+
+procedure TfMain.acNewObjectExecute(Sender: TObject);
+var
+  aFrame: TfObjectFrame;
+begin
+  Application.ProcessMessages;
+  aFrame := TfObjectFrame.Create(Self);
+  pcPages.AddTab(aFrame);
+  aFrame.SetLanguage;
+  aFrame.New;
+end;
+
 procedure TfMain.acNewOrderExecute(Sender: TObject);
 var
   aFrame: TfOrderFrame;
@@ -2940,6 +2956,17 @@ begin
         end
       else aFrame.Free;
     end
+  else if copy(aLink,0,10) = 'ALLOBJECTS' then
+    begin
+      aFrame := TfObjectFrame.Create(Self);
+      aFrame.SetLanguage;
+      if aFrame.OpenFromLink(aLink) then
+        begin
+          pcPages.AddTab(aFrame);
+          Result := True;
+        end
+      else aFrame.Free;
+    end
   else if copy(aLink,0,7) = 'ORDERS@' then
     begin
       aFrame := TfOrderFrame.Create(Self);
@@ -3955,6 +3982,14 @@ end;
 procedure TfMain.SenderTfFilterViewDetails(Sender: TObject);
 begin
   Data.GotoLink('ORDERS@'+TfFilter(Sender).DataSet.FieldByName('ORDERNO').AsString);
+end;
+
+procedure TfMain.SenderTfFilterViewElementDetails(Sender: TObject);
+begin
+  if TfFilter(Sender).DataSet.FieldByName('LINK').AsString<>'' then
+    Data.GotoLink(TfFilter(Sender).DataSet.FieldByName('LINK').AsString)
+  else
+    Data.GotoLink('ALLOBJECTS@'+TfFilter(Sender).DataSet.Id.AsString);
 end;
 
 procedure TfMain.SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime

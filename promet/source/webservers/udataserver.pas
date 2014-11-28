@@ -510,6 +510,7 @@ end;
 
 procedure TAppDataServer.RegisterContent;
 begin
+  Data.RegisterLinkHandler('ALLOBJECTS',@OpenLink,TObjects);
   //Messages
   Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
   //Messages
