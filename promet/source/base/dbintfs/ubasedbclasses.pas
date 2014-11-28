@@ -167,6 +167,7 @@ type
 //    function  TableToXML(Doc : TXMLDocument;iDataSet : TDataSet) : TDOMElement;
 //    function  XMLToTable(iDataSet : TDataSet;Node : TDOMElement) : Boolean;
     procedure OpenItem;
+    procedure CascadicPost; override;
     procedure GenerateThumbnail;virtual;
     property Text : TField read GetText;
     property Number : TField read GetNumber;
@@ -598,8 +599,8 @@ begin
             Add('NUMBER',ftString,60,True);
             Add('NAME',ftString,200,False);
             Add('MATCHCODE',ftString,200,False);
-            Add('REF_ID_ID',ftLargeint,0,False);
             Add('LINK',ftString,400,False);
+            Add('ICON',ftInteger,0,False);
           end;
     end;
 end;
@@ -620,9 +621,9 @@ begin
       with Self.DataSet as IBaseDBFilter do
         begin
           if aId <> Null then
-            Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(IntToStr(aId))
+            Filter := Data.QuoteField('SQL_ID')+'='+TBaseDBModule(DataModule).QuoteValue(Format('%d',[Int64(aID)]))
           else
-            Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue('0');
+            Filter := Data.QuoteField('SQL_ID')+'='+Data.QuoteValue('0');
           Limit := 0;
         end;
     end;
@@ -1306,19 +1307,35 @@ begin
               aObj.Free;
               aObj := TObjects.Create(nil,Data,nil,DataSet);
             end;
-          aObj.SelectByRefId(DataSet.FieldByName('SQL_ID').AsVariant);
+          aObj.SelectByRefId(Id.AsVariant);
           aObj.Open;
           if aObj.Count=0 then
             begin
               aObj.Insert;
               aObj.Text.AsString := Self.Text.AsString;
-              aObj.FieldByName('REF_ID_ID').AsVariant:=Self.Id.AsVariant;
+              aObj.FieldByName('SQL_ID').AsVariant:=Self.Id.AsVariant;
               if Assigned(Self.Matchcode) then
                 aObj.Matchcode.AsString := Self.Matchcode.AsString;
               aObj.Number.AsVariant:=Self.Number.AsVariant;
               aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
+              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet));
               aObj.Post;
               Self.GenerateThumbnail;
+            end
+          else //Modify existing
+            begin
+              if aObj.Text.AsString<>Self.Text.AsString then
+                begin
+                  aObj.Edit;
+                  aObj.Text.AsString := Self.Text.AsString;
+                end;
+              if aObj.Number.AsString<>Self.Number.AsString then
+                begin
+                  aObj.Edit;
+                  aObj.Number.AsString := Self.Number.AsString;
+                end;
+              if aObj.CanEdit then
+                aObj.Post;
             end;
         end;
     finally
@@ -1328,6 +1345,13 @@ begin
   except
   end;
 end;
+
+procedure TBaseDbList.CascadicPost;
+begin
+  OpenItem;//modify object properties
+  inherited CascadicPost;
+end;
+
 procedure TBaseDbList.GenerateThumbnail;
 begin
 end;
@@ -3088,4 +3112,4 @@ end;
 
 initialization
 end.
-
+

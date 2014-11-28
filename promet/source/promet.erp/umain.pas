@@ -247,6 +247,8 @@ type
     procedure pmHistoryPopup(Sender: TObject);
     procedure DoRefreshActiveTab(Sender: TObject);
     procedure SearchTimerTimer(Sender: TObject);
+    procedure SenderTfFilterDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure SenderTfFiltergListDrawColumnCell(Sender: TObject;
       const Rect: TRect; DataCol: Integer; Column: TColumn;
       State: TGridDrawState);
@@ -665,6 +667,7 @@ begin
         UsePermissions := True;
       TfFilter(Sender).Dataset := aObj;
       AddToolbarAction(acNewObject);
+      OnDrawColumnCell:=@SenderTfFilterDrawColumnCell;
     end;
 end;
 
@@ -3890,6 +3893,28 @@ begin
   SearchTimer.Enabled:=False;
   bSearchClick(nil);
 end;
+
+procedure TfMain.SenderTfFilterDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  if ((not Assigned(TDBgrid(Sender).DataSource))
+  or (not Assigned(TDBgrid(Sender).DataSource.DataSet))
+  or (not TDBgrid(Sender).DataSource.DataSet.Active)
+  ) then exit;
+  with (Sender as TDBGrid), Canvas do
+    begin
+      Canvas.FillRect(Rect);
+      if Column.FieldName = 'ICON' then
+        begin
+          fVisualControls.Images.Draw(Canvas,Rect.Left,Rect.Top,Column.Field.AsInteger);
+        end
+      else
+        begin
+          DefaultDrawColumnCell(Rect, DataCol, Column, State);
+        end;
+      end;
+end;
+
 procedure TfMain.SenderTfFiltergListDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin

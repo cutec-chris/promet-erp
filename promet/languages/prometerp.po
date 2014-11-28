@@ -1,4 +1,4 @@
-msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder startenwieder starten(aktive Version)(aktive Version)(Menü)wieder startenwieder starten(aktive Version)wieder starten(aktive Version)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)beim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommen(Menü)(Menü)(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder starten(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder starten(aktive Version)wieder startenwieder starten"
+msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder startenwieder starten(aktive Version)(aktive Version)(Menü)wieder startenwieder starten(aktive Version)wieder starten(aktive Version)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)beim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommen(Menü)(Menü)(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder starten(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder starten(aktive Version)wieder startenwieder starten(Menü)"
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -9,6 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
+
+msgid "wieder starten"
+msgstr ""
 
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
@@ -444,6 +447,7 @@ msgid "lArticle"
 msgstr ""
 
 #: tfarticleframe.acaddimage.caption
+msgctxt "tfarticleframe.acaddimage.caption"
 msgid "aus Bilddatei laden"
 msgstr ""
 
@@ -503,6 +507,7 @@ msgid "Speichert alle Änderungen in die Datenbank"
 msgstr ""
 
 #: tfarticleframe.acscreenshot.caption
+msgctxt "tfarticleframe.acscreenshot.caption"
 msgid "aus Bildschirmfoto erstellen"
 msgstr ""
 
@@ -3817,6 +3822,162 @@ msgstr ""
 
 #: tfnewstorage.larticlewithoutstorage.caption
 msgid "lArticlewithoutStorage"
+msgstr ""
+
+#: tfobjectframe.acaddimage.caption
+msgctxt "TFOBJECTFRAME.ACADDIMAGE.CAPTION"
+msgid "aus Bilddatei laden"
+msgstr ""
+
+#: tfobjectframe.accancel.caption
+msgctxt "TFOBJECTFRAME.ACCANCEL.CAPTION"
+msgid "Abbrechen"
+msgstr ""
+
+#: tfobjectframe.accancel.hint
+msgctxt "TFOBJECTFRAME.ACCANCEL.HINT"
+msgid "verwirft alle Änderungen"
+msgstr ""
+
+#: tfobjectframe.acclose.caption
+msgctxt "TFOBJECTFRAME.ACCLOSE.CAPTION"
+msgid "acClose"
+msgstr ""
+
+#: tfobjectframe.accopy.caption
+msgctxt "TFOBJECTFRAME.ACCOPY.CAPTION"
+msgid "Kopieren"
+msgstr ""
+
+#: tfobjectframe.acdelete.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACDELETE.CAPTION"
+msgid "Löschen"
+msgstr "Delete"
+
+#: tfobjectframe.acpaste.caption
+msgctxt "TFOBJECTFRAME.ACPASTE.CAPTION"
+msgid "Einfügen"
+msgstr ""
+
+#: tfobjectframe.acpasteimage.caption
+msgctxt "TFOBJECTFRAME.ACPASTEIMAGE.CAPTION"
+msgid "aus Zwischenablage einfügen"
+msgstr ""
+
+#: tfobjectframe.acprint.caption
+msgctxt "TFOBJECTFRAME.ACPRINT.CAPTION"
+msgid "acPrint"
+msgstr ""
+
+#: tfobjectframe.acrights.caption
+msgctxt "TFOBJECTFRAME.ACRIGHTS.CAPTION"
+msgid "Rechte"
+msgstr ""
+
+#: tfobjectframe.acsave.caption
+msgctxt "TFOBJECTFRAME.ACSAVE.CAPTION"
+msgid "Speichern"
+msgstr ""
+
+#: tfobjectframe.acsave.hint
+msgctxt "TFOBJECTFRAME.ACSAVE.HINT"
+msgid "Speichert alle Änderungen in die Datenbank"
+msgstr ""
+
+#: tfobjectframe.acscreenshot.caption
+msgctxt "TFOBJECTFRAME.ACSCREENSHOT.CAPTION"
+msgid "aus Bildschirmfoto erstellen"
+msgstr ""
+
+#: tfobjectframe.acsettreedir.caption
+msgctxt "TFOBJECTFRAME.ACSETTREEDIR.CAPTION"
+msgid "acSetTreeDir"
+msgstr ""
+
+#: tfobjectframe.acshowtreedir.caption
+msgctxt "TFOBJECTFRAME.ACSHOWTREEDIR.CAPTION"
+msgid "acShowTreeDir"
+msgstr ""
+
+#: tfobjectframe.bchangenumber.caption
+msgctxt "TFOBJECTFRAME.BCHANGENUMBER.CAPTION"
+msgid "..."
+msgstr ""
+
+#: tfobjectframe.cbstatus.hint
+msgctxt "TFOBJECTFRAME.CBSTATUS.HINT"
+msgid "hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen"
+msgstr ""
+
+#: tfobjectframe.ematchcode.hint
+msgctxt "TFOBJECTFRAME.EMATCHCODE.HINT"
+msgid "Hier können Sie einen Suchbegriff angeben, "
+msgstr ""
+
+#: tfobjectframe.gbtree.caption
+msgctxt "TFOBJECTFRAME.GBTREE.CAPTION"
+msgid "Baum"
+msgstr ""
+
+#: tfobjectframe.label2.caption
+msgctxt "TFOBJECTFRAME.LABEL2.CAPTION"
+msgid "Eintrag"
+msgstr ""
+
+#: tfobjectframe.label3.caption
+msgctxt "TFOBJECTFRAME.LABEL3.CAPTION"
+msgid "Erweitert"
+msgstr ""
+
+#: tfobjectframe.label4.caption
+msgctxt "TFOBJECTFRAME.LABEL4.CAPTION"
+msgid "Nummer"
+msgstr ""
+
+#: tfobjectframe.label5.caption
+msgctxt "TFOBJECTFRAME.LABEL5.CAPTION"
+msgid "Status"
+msgstr ""
+
+#: tfobjectframe.lmatchcode.caption
+msgctxt "TFOBJECTFRAME.LMATCHCODE.CAPTION"
+msgid "Suchbegriff"
+msgstr ""
+
+#: tfobjectframe.lshorttext.caption
+msgctxt "TFOBJECTFRAME.LSHORTTEXT.CAPTION"
+msgid "Kurztext"
+msgstr ""
+
+#: tfobjectframe.menuitem1.caption
+msgctxt "TFOBJECTFRAME.MENUITEM1.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfobjectframe.menuitem2.caption
+msgctxt "TFOBJECTFRAME.MENUITEM2.CAPTION"
+msgid "-"
+msgstr ""
+
+#: tfobjectframe.mistarttimeregistering.caption
+msgctxt "TFOBJECTFRAME.MISTARTTIMEREGISTERING.CAPTION"
+msgid "Zeiterfassung starten"
+msgstr ""
+
+#: tfobjectframe.mshorttext.hint
+msgctxt "TFOBJECTFRAME.MSHORTTEXT.HINT"
+msgid "Der Kurztext des Eintrags"
+msgstr ""
+
+#: tfobjectframe.ppreviewimage.caption
+msgctxt "TFOBJECTFRAME.PPREVIEWIMAGE.CAPTION"
+msgid "kein Bild"
+msgstr ""
+
+#: tfobjectframe.sbmenue.hint
+msgctxt "TFOBJECTFRAME.SBMENUE.HINT"
+msgid "zusätzliche Optionen"
 msgstr ""
 
 #: tfofficeoptions.cancelbutton.caption

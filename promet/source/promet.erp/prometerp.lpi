@@ -277,7 +277,7 @@
         <PackageName Value="LCL"/>
       </Item26>
     </RequiredPackages>
-    <Units Count="45">
+    <Units Count="46">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -296,6 +296,7 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -354,11 +355,12 @@
         <ResourceBaseClass Value="Frame"/>
       </Unit10>
       <Unit11>
-        <Filename Value="uarticleframe.pas"/>
+        <Filename Value="uobjectframe.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fArticleFrame"/>
+        <ComponentName Value="fObjectFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uobjectframe"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -588,6 +590,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
       </Unit44>
+      <Unit45>
+        <Filename Value="uarticleframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+      </Unit45>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
