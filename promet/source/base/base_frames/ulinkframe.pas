@@ -237,10 +237,23 @@ begin
 end;
 procedure TfLinkFrame.acCopyToClipboardExecute(Sender: TObject);
 var
-  aLinks : string;
+  aLinks : string = '';
   Stream: TStringStream;
+  i: Integer;
 begin
-  aLinks := Datasource.DataSet.FieldByName('LINK').AsString+';';
+  if gList.SelectedRows.Count > 0 then
+    begin
+      for i := 0 to gList.SelectedRows.Count-1 do
+        begin
+          gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
+          with Application as IBaseDbInterface do
+            aLinks := aLinks+Datasource.DataSet.FieldByName('LINK').AsString+';';
+        end;
+      gList.SelectedRows.Clear;
+    end
+  else
+    with Application as IBaseDbInterface do
+      aLinks := aLinks+Datasource.DataSet.FieldByName('LINK').AsString+';';
   Stream := TStringStream.Create(aLinks);
   Clipboard.AddFormat(LinkClipboardFormat,Stream);
   Stream.Free;

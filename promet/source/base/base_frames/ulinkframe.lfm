@@ -28,18 +28,18 @@ inherited fLinkFrame: TfLinkFrame
       Left = 0
       Height = 156
       Top = 20
-      Width = 40
+      Width = 44
       Align = alTop
       BorderSpacing.Top = 20
       BevelOuter = bvNone
       ClientHeight = 156
-      ClientWidth = 40
+      ClientWidth = 44
       TabOrder = 0
       object Bevel1: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 28
+        Width = 36
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -47,7 +47,7 @@ inherited fLinkFrame: TfLinkFrame
       end
       object ExtRotatedLabel1: TExtRotatedLabel
         Left = 0
-        Height = 148
+        Height = 152
         Top = 4
         Width = 14
         Align = alLeft
@@ -55,7 +55,8 @@ inherited fLinkFrame: TfLinkFrame
         Caption = 'Eintrag'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -454,7 +455,7 @@ inherited fLinkFrame: TfLinkFrame
       OnExecute = acAddLinksExecute
     end
   end
-  object Datasource: TDatasource[4]
+  object Datasource: TDataSource[4]
     left = 96
     top = 40
   end
