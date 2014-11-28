@@ -265,8 +265,8 @@ type
 implementation
 {$R *.lfm}
 uses uRowEditor,uSearch, uBaseVisualApplicationTools, uBaseVisualApplication ,
-  uFilterTabs,uFormAnimate,uData, uBaseVisualControls,uDataImport,
-  uDataImportCSV,uSelectReport,uOrder,uBaseERPDBClasses,uNRights,LCLProc,
+  uFilterTabs,uFormAnimate,uData, uBaseVisualControls,uscriptimport,
+  uSelectReport,uOrder,uBaseERPDBClasses,uNRights,LCLProc,
   uPerson,uSendMail,Utils;
 resourcestring
   strRecordCount                            = '%d Einträge';
@@ -797,11 +797,7 @@ begin
 end;
 procedure TfFilter.acExportExecute(Sender: TObject);
 begin
-  with Application as IBaseApplication do
-    fDataImport.ConfigDir:=GetOurConfigDir;
-  fDataImport.BaseDir:='ACCEXP';
-  fDataImport.Target := List;
-  fDataImport.Execute(icExport);
+  fScriptImport.Execute(icExport,FilterType);
 end;
 procedure TfFilter.acCopyLinkExecute(Sender: TObject);
 var
@@ -978,11 +974,7 @@ begin
 end;
 procedure TfFilter.acImportExecute(Sender: TObject);
 begin
-  with Application as IBaseApplication do
-    fDataImport.ConfigDir:=GetOurConfigDir;
-  fDataImport.BaseDir:='ACCIMP';
-  fDataImport.Target := List;
-  fDataImport.Execute(icImport);
+  fScriptImport.Execute(icImport,FilterType);
   List.DataSet.Refresh;
 end;
 

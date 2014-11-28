@@ -29,32 +29,35 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="5">
+    <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="pvisualbaseframes"/>
-        <DefaultFilename Value="..\base_frames\pvisualbaseframes.lpk"/>
+        <PackageName Value="pImportExport"/>
+        <DefaultFilename Value="..\import\pimportexport.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="pvisualbaseframes"/>
+        <DefaultFilename Value="..\base_frames\pvisualbaseframes.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="richmemopackage"/>
-        <DefaultFilename Value="..\..\..\..\LKomponenten\richmemo\richmemopackage.lpk"/>
+        <PackageName Value="LCL"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="richmemopackage"/>
+        <DefaultFilename Value="..\..\..\..\LKomponenten\richmemo\richmemopackage.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item5>
+      <Item6>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
+      </Item6>
     </RequiredPackages>
     <Units Count="4">
       <Unit0>
         <Filename Value="tableedit.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="tableedit"/>
       </Unit0>
       <Unit1>
         <Filename Value="utableedit.pas"/>
@@ -78,7 +81,6 @@
         <ComponentName Value="Data"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="uData"/>
       </Unit3>
     </Units>
   </ProjectOptions>
@@ -112,12 +114,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

@@ -7,7 +7,7 @@ unit pscripts;
 interface
 
 uses
-  uScriptEditor, uFrmGotoLine, LazarusPackageIntf;
+  uScriptEditor, uFrmGotoLine, uscriptimport, LazarusPackageIntf;
 
 implementation
 

@@ -7,7 +7,6 @@ object fScriptImport: TfScriptImport
   ClientHeight = 238
   ClientWidth = 357
   OnCreate = FormCreate
-  OnShow = FormShow
   Position = poMainFormCenter
   LCLVersion = '1.3'
   object Panel1: TPanel
@@ -28,7 +27,6 @@ object fScriptImport: TfScriptImport
       Width = 343
       Anchors = [akTop, akLeft, akRight]
       ItemHeight = 0
-      OnSelect = cbFormatChange
       TabOrder = 0
     end
     object Label2: TLabel

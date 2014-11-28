@@ -42,57 +42,22 @@ type
     lInfo: TLabel;
     Panel1: TPanel;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
-    procedure bChangeFormatClick(Sender: TObject);
-    procedure bSourceOptionsClick(Sender: TObject);
-    procedure cbDataSourceChange(Sender: TObject);
-    procedure cbFormatChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure FormShow(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
   private
     FAppend: Boolean;
     FConfigDir: string;
     FFilter: string;
     FTraget: TDataSource;
     FTyp : TImporterCapability;
-    procedure SetAppend(const AValue: Boolean);
-    procedure SetConfigDir(AValue: string);
-    procedure SetFilter(const AValue: string);
-    procedure SetTarget(const AValue: TDataSource);
     procedure CheckAll;
     { private declarations }
   public
     { public declarations }
-    property Target : TDataSource read FTraget write SetTarget;
-    property BaseDir : string read FFilter write SetFilter;
-    property ConfigDir : string read FConfigDir write SetConfigDir;
-    property AppendonExport : Boolean read FAppend write SetAppend;
     function Execute(Typ : TImporterCapability;DefaultFormat : string = '') : Boolean;
-  end;
-
-  { TImporter }
-
-  TImporter = class(TObject)
-  private
-  protected
-    FDataSet: TDataSet;
-    function GetCapablities: TImporterCapabilities;virtual;abstract;
-  public
-    function Execute(Typ : TImporterCapability;Typ : string) : Boolean;
-  end;
-  TImporterClass = class of TImporter;
-
-  TImporterTyp = class
-  public
-    ImporterClass : TImporterClass;
-    Name : string;
   end;
 
 var
   fScriptImport: TfScriptImport;
-  ImportSources : TList = nil;
-
-procedure RegisterImportSource(aClass : TImporterClass;aName : string);
 
 resourcestring
   strPleaseenteranFormatName            = 'Bitte geben Sie einen Namen für das Format an !';
@@ -110,195 +75,25 @@ resourcestring
 
 implementation
 
-uses uDataImportConfig;
-
-procedure RegisterImportSource(aClass: TImporterClass; aName: string);
-var
-  aTyp: TImporterTyp;
-begin
-  if not Assigned(ImportSources) then
-    ImportSources := TList.Create;
-  aTyp := TImporterTyp.Create;
-  aTyp.ImporterClass:=aClass;
-  aTyp.Name:=aName;
-  ImportSources.Add(aTyp);
-end;
-
-procedure UnregisterImportSources;
-var
-  i: Integer;
-begin
-  for i := 0 to ImportSources.Count-1 do
-    TImporterTyp(ImportSources[i]).Free;
-end;
-
 {$R *.lfm}
 
 { TfScriptImport }
 
-procedure TfScriptImport.SetTarget(const AValue: TDataSource);
+procedure TfScriptImport.FormCreate(Sender: TObject);
 begin
-  if not Assigned(Self) then
-    begin
-      Application.CreateForm(TfScriptImport,fScriptImport);
-      Self := fScriptImport;
-    end;
-  if FTraget=AValue then exit;
-  FTraget:=AValue;
+
 end;
 
 procedure TfScriptImport.CheckAll;
-var
-  ShowInfo: Boolean;
 begin
-  bpButtons.OKButton.Enabled:=False;
-  ShowInfo := false;
-  if (cbFormat.ItemIndex = -1) then
-    begin
-      if cbFormat.Items.Count = 0 then
-        begin
-          lInfo.Caption:=strCreateAnFormat;
-          bChangeFormat.SetFocus;
-        end
-      else
-        begin
-          lInfo.Caption:=strSelectAnFormat;
-          cbFormat.SetFocus;
-        end;
-      ShowInfo := True;
-    end
-  else if not ShowInfo then
-    begin
-      lInfo.Caption:=strConfigureDataSource;
-      ShowInfo := True;
-      bSourceOptions.SetFocus;
-      bpButtons.OKButton.Enabled:=True;
-    end;
-  lInfo.Visible := ShowInfo;
+
 end;
 
-function TImporter.Execute(Typ: TImporterCapability; Typ: string): Boolean;
-var
-  i: Integer;
+function TfScriptImport.Execute(Typ: TImporterCapability; DefaultFormat: string
+  ): Boolean;
 begin
-  if Typ = icImport then
-    begin
-      Caption := strDataImport;
-      lDesteny.Caption:=strDataSource;
-    end
-  else
-    begin
-      Caption := strDataExport;
-      lDesteny.Caption:=strDataDestination;
-    end;
-  cbFormat.Items.Assign(fDataInput.Configs);
-  FTyp := Typ;
-  if cbFormat.Items.IndexOf(cbFormat.Text) = -1 then
-    cbFormat.ItemIndex := -1;
-  if cbFormat.Items.Count = 1 then
-    cbFormat.ItemIndex := 0;
-  Result := Showmodal = mrOK;
-  if Result then
-    begin
-      Screen.Cursor:=crHourGlass;
-      fDataInput.DestDataSet := Target.DataSet;
-      fDataInput.ActiveFormat := cbFormat.Text;
-      if (Typ = icImport) and fDataInput.DoImport then
-        Result := True;
-      if (Typ = icExport) and fDataInput.DoExport then
-        Result := True;
-      Screen.Cursor:=crDefault;
-    end;
-end;
 
-procedure TfScriptImport.bChangeFormatClick(Sender: TObject);
-var
-  i: Integer;
-  aImporter: TImporter;
-begin
-  if cbFormat.Text = '' then
-    begin
-      Showmessage(strPleaseenteranFormatName);
-      exit;
-    end;
-  fDataInput.DestDataSet := Target.DataSet;
-  if fDataInput.Execute(FTyp,cbFormat.Text) then
-    cbFormat.Items.Assign(fDataInput.Configs);
-  CheckAll;
 end;
-
-procedure TfScriptImport.bSourceOptionsClick(Sender: TObject);
-begin
-  fDataInput.ConfigDataSource(FTyp,cbFormat.Text,True);
-  CheckAll;
-end;
-
-procedure TfScriptImport.cbDataSourceChange(Sender: TObject);
-begin
-  CheckAll;
-end;
-
-procedure TfScriptImport.cbFormatChange(Sender: TObject);
-begin
-  CheckAll;
-end;
-
-procedure TfScriptImport.FormCreate(Sender: TObject);
-begin
-  FAppend := True;
-end;
-
-procedure TfScriptImport.FormShow(Sender: TObject);
-begin
-  CheckAll;
-end;
-
-procedure TfScriptImport.SpeedButton1Click(Sender: TObject);
-begin
-  if cbFormat.ItemIndex = -1 then exit;
-  if MessageDlg(strRealDelete,mtConfirmation,[mbYes,mbNo],0) = mrYes then
-    begin
-      if DeleteFile(AppendPathDelim(AppendPathDelim(Application.Location+'importconfig')+FFilter)+cbFormat.Text+'.cfg') then
-        cbFormat.Items.Delete(cbFormat.ItemIndex);
-    end;
-end;
-
-procedure TfScriptImport.SetFilter(const AValue: string);
-begin
-  if not Assigned(Self) then
-    begin
-      Application.CreateForm(TfScriptImport,fScriptImport);
-      Self := fScriptImport;
-    end;
-  if FFilter=AValue then exit;
-  FFilter:=AValue;
-  fDataInput.BaseDir:=AValue;
-end;
-
-procedure TfScriptImport.SetAppend(const AValue: Boolean);
-begin
-  if not Assigned(Self) then
-    begin
-      Application.CreateForm(TfScriptImport,fScriptImport);
-      Self := fScriptImport;
-    end;
-  if FAppend=AValue then exit;
-  FAppend:=AValue;
-  fDataInput.AppendonExport:=AValue;
-end;
-
-procedure TfScriptImport.SetConfigDir(AValue: string);
-begin
-  if not Assigned(fDataInput) then
-    begin
-      Application.CreateForm(TfDataInput,fDataInput);
-    end;
-  fDataInput.ConfigDir:=AValue;
-end;
-
-finalization
-  UnregisterImportSources;
-  ImportSources.Destroy;
 
 end.
 
