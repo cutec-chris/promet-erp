@@ -157,6 +157,7 @@ resourcestring
   strProjectChanged         = 'Project geändert';
   strDelegated              = 'an %s delegiert';
   strPlantime               = 'Planzeit';
+  strActtime                = 'Istzeit';
   strBuffertime             = 'Wartezeit';
   strCompletedAt            = 'fertiggestellt';
   strCompleted              = 'fertig';
@@ -1283,9 +1284,10 @@ begin
             Add('SUMMARY',ftString,220,False);
             Add('GPRIORITY',ftLargeint,0,False);
             Add('LPRIORITY',ftInteger,0,False);
-            Add('PLANTIME',ftFloat,0,False);
+            Add('PLANTIME',ftFloat,0,False); //geplante Zeit
+            Add('TIME',ftFloat,0,False);     //benötigte Zeit
             Add('PLANTASK',ftString,1,False);
-            Add('BUFFERTIME',ftFloat,0,False);
+            Add('BUFFERTIME',ftFloat,0,False);//Wartezeit (wann darf nächste Aufgabe frühestens starten)
             Add('CATEGORY',ftString,60,False);
             Add('PERCENT',ftInteger,0,False);
             Add('OWNER',ftString,20,True);
@@ -1521,6 +1523,7 @@ begin
   inherited SetDisplayLabels(aDataSet);
   SetDisplayLabelName(aDataSet,'STARTDATE',strStart);
   SetDisplayLabelName(aDataSet,'PLANTIME',strPlantime);
+  SetDisplayLabelName(aDataSet,'TIME',strActtime);
   SetDisplayLabelName(aDataSet,'COMPLETEDAT',strCompletedAt);
   SetDisplayLabelName(aDataSet,'COMPLETED',strCompleted);
   SetDisplayLabelName(aDataSet,'STARTEDAT',strStarted);
