@@ -272,7 +272,21 @@ end;
 procedure TfLinkFrame.acDeleteExecute(Sender: TObject);
 begin
   if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
-    DataSet.Delete;
+    with FContList do
+      begin
+        if gList.SelectedRows.Count > 0 then
+          begin
+            for i := 0 to gList.SelectedRows.Count-1 do
+              begin
+                gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
+                gList.DataSource.DataSet.Delete;
+              end;
+            gList.SelectedRows.Clear;
+          end
+        else
+          with Application as IBaseDbInterface do
+            gList.DataSource.DataSet.Delete;
+      end;
 end;
 
 procedure TfLinkFrame.FContListDragDrop(Sender, Source: TObject; X, Y: Integer);

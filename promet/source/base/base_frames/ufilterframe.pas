@@ -47,6 +47,7 @@ type
     acCopyFilterLink: TAction;
     acInformwithexternMail: TAction;
     acInformwithinternMail: TAction;
+    acDelete: TAction;
     ActionList: TActionList;
     bEditFilter: TSpeedButton;
     bEditFilter1: TSpeedButton;
@@ -116,6 +117,7 @@ type
     procedure acCopyFilterLinkExecute(Sender: TObject);
     procedure acCopyLinkExecute(Sender: TObject);
     procedure acDefaultFilterExecute(Sender: TObject);
+    procedure acDeleteExecute(Sender: TObject);
     procedure acDeleteFilterExecute(Sender: TObject);
     procedure acExportExecute(Sender: TObject);
     procedure acFilterExecute(Sender: TObject);
@@ -850,6 +852,30 @@ begin
       DBConfig.WriteString('DEFAULTFILTER'+FFilterType,cbFilter.Text);
     end;
 end;
+
+procedure TfFilter.acDeleteExecute(Sender: TObject);
+var
+  aLinks : string = '';
+  Stream: TStringStream;
+  i: Integer;
+begin
+  if gList.SelectedRows.Count > 0 then
+    begin
+      for i := 0 to gList.SelectedRows.Count-1 do
+        begin
+          gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
+
+        end;
+      gList.SelectedRows.Clear;
+    end
+  else
+    with Application as IBaseDbInterface do
+      begin
+        aLinks := aLinks+Data.BuildLink(gList.DataSource.DataSet)+';';
+
+      end;
+end;
+
 procedure TfFilter.acFilterExecute(Sender: TObject);
 var
   aFilter: String;
