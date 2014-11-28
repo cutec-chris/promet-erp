@@ -270,6 +270,8 @@ begin
 end;
 
 procedure TfLinkFrame.acDeleteExecute(Sender: TObject);
+var
+  i: Integer;
 begin
   if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
     with FContList do
