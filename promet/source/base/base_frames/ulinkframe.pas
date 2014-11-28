@@ -241,22 +241,25 @@ var
   Stream: TStringStream;
   i: Integer;
 begin
-  if gList.SelectedRows.Count > 0 then
+  with FContList do
     begin
-      for i := 0 to gList.SelectedRows.Count-1 do
+      if gList.SelectedRows.Count > 0 then
         begin
-          gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
-          with Application as IBaseDbInterface do
-            aLinks := aLinks+Datasource.DataSet.FieldByName('LINK').AsString+';';
-        end;
-      gList.SelectedRows.Clear;
-    end
-  else
-    with Application as IBaseDbInterface do
-      aLinks := aLinks+Datasource.DataSet.FieldByName('LINK').AsString+';';
-  Stream := TStringStream.Create(aLinks);
-  Clipboard.AddFormat(LinkClipboardFormat,Stream);
-  Stream.Free;
+          for i := 0 to gList.SelectedRows.Count-1 do
+            begin
+              gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
+              with Application as IBaseDbInterface do
+                aLinks := aLinks+Datasource.DataSet.FieldByName('LINK').AsString+';';
+            end;
+          gList.SelectedRows.Clear;
+        end
+      else
+        with Application as IBaseDbInterface do
+          aLinks := aLinks+Datasource.DataSet.FieldByName('LINK').AsString+';';
+      Stream := TStringStream.Create(aLinks);
+      Clipboard.AddFormat(LinkClipboardFormat,Stream);
+      Stream.Free;
+    end;
 end;
 
 procedure TfLinkFrame.acAddLinksExecute(Sender: TObject);
@@ -483,6 +486,7 @@ begin
   miOpen.Action := FContList.acOpen;
   FContList.gList.OnDragOver:=@FContListDragOver;
   FContList.gList.OnDragDrop:=@FContListDragDrop;
+  FContList.gList.Options:=FContList.gList.Options+[dgMultiselect,dgPersistentMultiSelect];
 end;
 destructor TfLinkFrame.Destroy;
 begin
