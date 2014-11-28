@@ -1729,7 +1729,6 @@ inherited fFilter: TfFilter
     end
     object miAdmin: TMenuItem
       Caption = 'Administration'
-      ImageIndex = 60
       Visible = False
       object MenuItem5: TMenuItem
         Action = acDelete

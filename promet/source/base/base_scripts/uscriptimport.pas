@@ -71,7 +71,6 @@ resourcestring
   strDataExport                         = 'Datenexport';
   strDataSource                         = 'Datenquelle';
   strDataDestination                    = 'Datenausgabe';
-  strRealDelete                         = 'Möchten Sie das Profil wirklich löschen ?';
 
 implementation
 
