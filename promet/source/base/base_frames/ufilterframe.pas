@@ -63,6 +63,8 @@ type
     cbMaxResults: TCheckBox;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    miAdmin: TMenuItem;
+    MenuItem5: TMenuItem;
     pBottom: TPanel;
     PHistory: TfrDBDataSet;
     History: TDatasource;
@@ -861,19 +863,22 @@ var
 begin
   if gList.SelectedRows.Count > 0 then
     begin
-      for i := 0 to gList.SelectedRows.Count-1 do
+      if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
         begin
-          gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
-
+          for i := 0 to gList.SelectedRows.Count-1 do
+            begin
+              gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
+              gList.DataSource.DataSet.Delete;
+            end;
+          gList.SelectedRows.Clear;
         end;
-      gList.SelectedRows.Clear;
     end
   else
     with Application as IBaseDbInterface do
-      begin
-        aLinks := aLinks+Data.BuildLink(gList.DataSource.DataSet)+';';
-
-      end;
+      if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
+        begin
+          gList.DataSource.DataSet.Delete;
+        end;
 end;
 
 procedure TfFilter.acFilterExecute(Sender: TObject);
@@ -1843,6 +1848,8 @@ begin
   if not Assigned(Data) then exit;
   acFilterRights.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_PERMIT;
   acDeleteFilter.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_DELETE;
+  miAdmin.Visible:=Data.Users.Rights.Right('OPTIONS')>=RIGHT_DELETE;
+  acDelete.Visible:=Data.Users.Rights.Right('OPTIONS')>=RIGHT_DELETE;
 end;
 function TfFilter.GetLink(onlyOne : Boolean = True): string;
 var

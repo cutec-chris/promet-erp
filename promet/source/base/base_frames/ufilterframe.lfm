@@ -1727,6 +1727,14 @@ inherited fFilter: TfFilter
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
     end
+    object miAdmin: TMenuItem
+      Caption = 'Administration'
+      ImageIndex = 60
+      Visible = False
+      object MenuItem5: TMenuItem
+        Action = acDelete
+      end
+    end
   end
   object ActionList: TActionList[7]
     Images = fVisualControls.Images
