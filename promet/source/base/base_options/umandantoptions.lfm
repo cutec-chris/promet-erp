@@ -20,31 +20,31 @@ inherited fMandantOptions: TfMandantOptions
     TabOrder = 0
     object lName: TLabel
       Left = 12
-      Height = 13
+      Height = 15
       Top = 96
-      Width = 33
+      Width = 35
       Caption = 'Name'
       ParentColor = False
     end
     object lAdress: TLabel
       Left = 12
-      Height = 13
+      Height = 15
       Top = 144
-      Width = 46
+      Width = 47
       Caption = 'Adresse'
       ParentColor = False
     end
     object lFax: TLabel
       Left = 180
-      Height = 13
+      Height = 15
       Top = 174
-      Width = 19
+      Width = 20
       Caption = 'Fax'
       ParentColor = False
     end
     object lMandantDetails: TLabel
       Left = 8
-      Height = 52
+      Height = 60
       Top = 8
       Width = 412
       Align = alTop
@@ -57,7 +57,7 @@ inherited fMandantOptions: TfMandantOptions
     end
     object eName: TDBEdit
       Left = 12
-      Height = 23
+      Height = 25
       Top = 112
       Width = 292
       DataField = 'NAME'
@@ -79,10 +79,10 @@ inherited fMandantOptions: TfMandantOptions
       TabOrder = 1
     end
     object Label1: TLabel
-      Left = 326
-      Height = 13
+      Left = 323
+      Height = 15
       Top = 96
-      Width = 52
+      Width = 55
       Anchors = [akTop, akRight]
       Caption = 'Bild/Logo'
       ParentColor = False
@@ -170,83 +170,83 @@ inherited fMandantOptions: TfMandantOptions
       TabOrder = 3
       object TabSheet1: TTabSheet
         Caption = 'Allgemein'
-        ClientHeight = 188
-        ClientWidth = 420
+        ClientHeight = 190
+        ClientWidth = 422
         object lTel1: TLabel
           Left = 4
-          Height = 13
+          Height = 15
           Top = 3
-          Width = 51
+          Width = 53
           Caption = 'Telefon 1'
           ParentColor = False
         end
         object lTel2: TLabel
           Left = 4
-          Height = 13
+          Height = 15
           Top = 51
-          Width = 51
+          Width = 53
           Caption = 'Telefon 2'
           ParentColor = False
         end
         object lTel3: TLabel
           Left = 4
-          Height = 13
+          Height = 15
           Top = 99
-          Width = 51
+          Width = 53
           Caption = 'Telefon 3'
           ParentColor = False
         end
         object lTel4: TLabel
           Left = 4
-          Height = 13
+          Height = 15
           Top = 147
-          Width = 51
+          Width = 53
           Caption = 'Telefon 4'
           ParentColor = False
         end
         object lMail: TLabel
           Left = 128
-          Height = 13
+          Height = 15
           Top = 51
-          Width = 33
+          Width = 34
           Caption = 'e-Mail'
           ParentColor = False
         end
         object lInternet: TLabel
           Left = 128
-          Height = 13
+          Height = 15
           Top = 99
-          Width = 44
+          Width = 49
           Caption = 'Internet'
           ParentColor = False
         end
         object lInstitute: TLabel
           Left = 256
-          Height = 13
+          Height = 15
           Top = 3
-          Width = 71
+          Width = 79
           Caption = 'Kreditinstitut'
           ParentColor = False
         end
         object lSortCode: TLabel
           Left = 256
-          Height = 13
+          Height = 15
           Top = 51
-          Width = 91
+          Width = 96
           Caption = 'BIC/Bankleitzahl'
           ParentColor = False
         end
         object lAccount: TLabel
           Left = 256
-          Height = 13
+          Height = 15
           Top = 99
-          Width = 110
+          Width = 119
           Caption = 'IBAN/Kontonummer'
           ParentColor = False
         end
         object eTel1: TDBEdit
           Left = 4
-          Height = 23
+          Height = 25
           Top = 19
           Width = 116
           DataField = 'TEL1'
@@ -257,7 +257,7 @@ inherited fMandantOptions: TfMandantOptions
         end
         object eTel2: TDBEdit
           Left = 4
-          Height = 23
+          Height = 25
           Top = 67
           Width = 116
           DataField = 'TEL2'
@@ -268,7 +268,7 @@ inherited fMandantOptions: TfMandantOptions
         end
         object eTel3: TDBEdit
           Left = 4
-          Height = 23
+          Height = 25
           Top = 115
           Width = 116
           DataField = 'TEL3'
@@ -279,7 +279,7 @@ inherited fMandantOptions: TfMandantOptions
         end
         object eTel4: TDBEdit
           Left = 4
-          Height = 23
+          Height = 25
           Top = 163
           Width = 116
           DataField = 'TEL4'
@@ -290,7 +290,7 @@ inherited fMandantOptions: TfMandantOptions
         end
         object eFax: TDBEdit
           Left = 128
-          Height = 23
+          Height = 25
           Top = 19
           Width = 120
           DataField = 'FAX'
@@ -301,7 +301,7 @@ inherited fMandantOptions: TfMandantOptions
         end
         object eMail: TDBEdit
           Left = 128
-          Height = 23
+          Height = 25
           Top = 67
           Width = 120
           DataField = 'MAIL'
@@ -312,7 +312,7 @@ inherited fMandantOptions: TfMandantOptions
         end
         object eInternet: TDBEdit
           Left = 128
-          Height = 23
+          Height = 25
           Top = 115
           Width = 120
           DataField = 'INTERNET'
@@ -323,7 +323,7 @@ inherited fMandantOptions: TfMandantOptions
         end
         object eInstitute: TDBEdit
           Left = 256
-          Height = 23
+          Height = 25
           Top = 19
           Width = 144
           DataField = 'INSTITUTE'
@@ -334,7 +334,7 @@ inherited fMandantOptions: TfMandantOptions
         end
         object eSortcode: TDBEdit
           Left = 256
-          Height = 23
+          Height = 25
           Top = 67
           Width = 144
           DataField = 'SORTCODE'
@@ -345,7 +345,7 @@ inherited fMandantOptions: TfMandantOptions
         end
         object eAccount: TDBEdit
           Left = 256
-          Height = 23
+          Height = 25
           Top = 115
           Width = 144
           DataField = 'ACCOUNT'
@@ -376,17 +376,17 @@ inherited fMandantOptions: TfMandantOptions
         end
         object lTel5: TLabel
           Left = 128
-          Height = 13
+          Height = 15
           Top = 3
-          Width = 19
+          Width = 20
           Caption = 'Fax'
           ParentColor = False
         end
       end
       object TabSheet2: TTabSheet
         Caption = 'Zusätzlich'
-        ClientHeight = 188
-        ClientWidth = 420
+        ClientHeight = 190
+        ClientWidth = 422
         object lTel6: TLabel
           Left = 4
           Height = 13

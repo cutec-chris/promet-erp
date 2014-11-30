@@ -105,12 +105,13 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uData,uImpCSV,uOrder;
+uses uData,uImpCSV,uOrder,uDocuments;
 
 procedure TfMandantOptions.bExportConfigurationClick(Sender: TObject);
 var
   OutputDir: String;
   aOrder: TOrder;
+  aTemplates: TDocumentTemplates;
 begin
   if SelectDirectoryDialog.Execute then
     begin
@@ -134,10 +135,9 @@ begin
       CSVExport(OutputDir+DirectorySeparator+'numbers.csv',';',Data.Numbers.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'pricetypes.csv',';',Data.Pricetypes.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'reports.csv',';',Data.Reports.DataSet);
-      try
-        //CSVExport(OutputDir+DirectorySeparator+'templates.csv',';',Data.Templates.DataSet);
-      except
-      end;
+      aTemplates := TDocumentTemplates.Create(nil,Data);
+      CSVExport(OutputDir+DirectorySeparator+'templates.csv',';',aTemplates.DataSet);
+      aTemplates.Free;
       CSVExport(OutputDir+DirectorySeparator+'texttyp.csv',';',Data.Texttyp.DataSet);
       try
         CSVExport(OutputDir+DirectorySeparator+'userfielddefs.csv',';',Data.Userfielddefs.DataSet);

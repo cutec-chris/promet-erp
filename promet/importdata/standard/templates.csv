@@ -1,3 +1,9 @@
 TYPE;NAME;EXTENSION;DOCUMENT;
 "C";"Brief Open Office";"odt";"TEMPLATES_DOCUMENT0.dat";
-"C";"Brief Word";"dot";"TEMPLATES_DOCUMENT1.dat";
+"C";"Brief MS Office";"dot";"TEMPLATES_DOCUMENT1.dat";
+"P";"Leerseite OpenOffice";"odt";"_DOCUMENT0.dat";
+"P";"Leerseite MS Office";"doc";"_DOCUMENT1.dat";
+"M";"Leerseite OpenOffice";"odt";"_DOCUMENT2.dat";
+"M";"Leerseite MS Office";"doc";"_DOCUMENT3.dat";
+"C";"Leerseite OpenOffice";"odt";"_DOCUMENT4.dat";
+"C";"Leerseite MS Office";"doc";"_DOCUMENT5.dat";
