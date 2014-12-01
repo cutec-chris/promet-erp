@@ -35,7 +35,7 @@ resourcestring
   strCheckinFailed              = 'Holen der Dateien fehlgeschlagen, das Temporäre Verzeichnis wurde nicht gelöscht !';
 procedure TDocExecuteThread.DoReturn;
 begin
-  if not DoAfterExecutedCommands(FDoDelete,FExit,FTempID) then
+  DoAfterExecutedCommands(FDoDelete,FExit,FTempID);
   ProcessList.Remove(Self);
   FDocument.Destroy;
 end;
