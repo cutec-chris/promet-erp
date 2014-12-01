@@ -23,9 +23,9 @@ object fProgramEnded: TfProgramEnded
   end
   object cbDontShowthisDialogAgain: TCheckBox
     Left = 4
-    Height = 24
-    Top = 113
-    Width = 319
+    Height = 17
+    Top = 120
+    Width = 265
     Anchors = [akLeft, akBottom]
     Caption = 'diese Meldung für diesen Typ nicht wieder anzeigen'
     TabOrder = 0
@@ -47,4 +47,4 @@ object fProgramEnded: TfProgramEnded
     TabOrder = 1
     ShowButtons = [pbOK]
   end
-end
+end

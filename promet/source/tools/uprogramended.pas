@@ -48,6 +48,10 @@ end;
 
 procedure TfProgramEnded.OKButtonClick(Sender: TObject);
 begin
+  if cbDontShowthisDialogAgain.Checked then
+    ExitCode:=1
+  else
+    ExitCode:=0;
   Close;
 end;
 
@@ -65,4 +69,4 @@ end;
 initialization
 
 end.
-
+

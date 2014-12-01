@@ -46,7 +46,6 @@
       <Unit0>
         <Filename Value="pstarter.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="pstarter"/>
       </Unit0>
       <Unit1>
         <Filename Value="uprogramended.pas"/>
@@ -81,11 +80,5 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
 </CONFIG>
