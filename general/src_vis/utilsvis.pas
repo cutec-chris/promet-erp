@@ -62,6 +62,7 @@ begin
     end;
   end;
   Reg.Free;
+  if (Result = '') and (lowercase(Extension)='lnk') then  result := 'explorer';
 {$ELSE}
   apps := '';
   mime := GetMimeTypeforExtension(Extension);

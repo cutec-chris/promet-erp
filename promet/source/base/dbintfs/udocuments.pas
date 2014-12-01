@@ -210,6 +210,7 @@ begin
             Add('VIEW',ftString,255,False);
             Add('EDIT',ftString,255,False);
             Add('PRINT',ftString,255,False);
+            Add('USESTARTER',ftString,1,False);
             Add('TIMESTAMP',ftDate,0,False);
           end;
     end;

@@ -13,19 +13,21 @@ type
     FTempID: String;
     FDocument : TDocument;
     FExit : Integer;
+    FDocActionId : Variant;
+    FMimeId : Variant;
     procedure DoReturn;
   public
     property OwnCmd : string read FCmd;
     property Language : string read FLanguage write fLanguage;
     function DoExecuteDocumentCommands(bCmd: string; UseStarter: Boolean): Integer;
     function DoAfterExecutedCommands(aDoDelete: Boolean; ExStatus: Integer; TempId: string) : Boolean;
-    constructor Create(Document : TDocument;Cmd : string;DoDelete : Boolean;UseStarter : Boolean;TempID : string);
+    constructor Create(Document : TDocument;Cmd : string;DoDelete : Boolean;UseStarter : Boolean;TempID : string;aDocActionId : Variant;aMimeId : Variant);
     procedure Execute;override;
   end;
 var
   ProcessList : TList;
 implementation
-uses FileUtil, uBaseApplication, SecureUtils, uIntfStrConsts;
+uses FileUtil, uBaseApplication, SecureUtils, uIntfStrConsts,uData;
 resourcestring
   strFailedExecuteProcess       = 'Möglicherweise ist das auführen von "%s" fehlgeschlagen, Rückgabewert: %d';
   strNoValidCommand             = 'Sie haben einen ungültigen befehl in den Dateiaktionen angegeben. Gültige Befehle müssen mit exec: oder mkdir: beginnen.';
@@ -34,8 +36,6 @@ resourcestring
 procedure TDocExecuteThread.DoReturn;
 begin
   if not DoAfterExecutedCommands(FDoDelete,FExit,FTempID) then
-//    fError.ShowWarning(strCheckinFailed);
-    ;//TODO:Do Something ;)
   ProcessList.Remove(Self);
   FDocument.Destroy;
 end;
@@ -99,6 +99,8 @@ var
   DelOK: Boolean;
   aRec: String;
   FileList: TStrings;
+  aDocAction: TDocumentActions;
+  aMime: TMimeTypes;
 label DelRetry;
 begin
   FileName := FDocument.GetIDCheckoutPath('',TempId);
@@ -124,10 +126,39 @@ begin
   else if aDoDelete then
     raise Exception.Create(strCheckinFailed)
     ;
+  if FUseStarter and (ExStatus=1) then //Dont Use Starter again
+    begin
+      aDocAction := TDocumentActions.Create(nil,Data);
+      aDocAction.Select(FDocActionId);
+      aDocAction.Open;
+      if aDocAction.Count>0 then
+        begin
+          aDocAction.Edit;
+          aDocAction.FieldByName('USESTARTER').AsString:='N';
+          aDocAction.Post;
+        end
+      else
+        begin
+          aMime := TMimeTypes.Create(nil,data);
+          aMime.Select(FMimeId);
+          aMime.Open;
+          if aMime.Count>0 then
+            begin
+              aMime.Edit;
+              aMime.FieldByName('USESTARTER').AsString:='N';
+              aMime.Post;
+            end;
+          aMime.Free;
+        end;
+      aDocAction.Free;
+    end;
 end;
 constructor TDocExecuteThread.Create(Document: TDocument; Cmd: string;
-  DoDelete: Boolean; UseStarter: Boolean; TempID: string);
+  DoDelete: Boolean; UseStarter: Boolean; TempID: string;
+  aDocActionId: Variant; aMimeId: Variant);
 begin
+  FDocActionId := aDocActionId;
+  FMimeId := aMimeId;
   FCmd := Cmd;
   FDoDelete := DoDelete;
   FUseStarter := UseStarter;
@@ -152,4 +183,4 @@ initialization
 finalization
   ProcessList.Destroy;
 end.
-
+

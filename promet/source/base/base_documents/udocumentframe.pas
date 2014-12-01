@@ -1376,7 +1376,7 @@ begin
           if bDocument.DocumentActions.FieldByName('ACTION').AsString = 'S' then
             begin //Special Action
               aDocument.OnCheckCheckinFiles:=@aDocumentCheckCheckinFiles;
-              TDocExecuteThread.Create(aDocument,StringReplace(bDocument.DocumentActions.FieldByName('ACTIONCMD').AsString,'%NAME%',aDocument.GetCheckoutPath('',TempID),[rfReplaceAll]),DoDelete,UseStarter,TempID);
+              TDocExecuteThread.Create(aDocument,StringReplace(bDocument.DocumentActions.FieldByName('ACTIONCMD').AsString,'%NAME%',aDocument.GetCheckoutPath('',TempID),[rfReplaceAll]),DoDelete,UseStarter,TempID,bDocument.DocumentActions.Id.AsVariant,Null);
               Screen.Cursor := crDefault;
               exit;
             end
@@ -1401,55 +1401,44 @@ begin
   if (pos(Uppercase(DataSet.FieldByName('EXTENSION').AsString),UpperCase(bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString)) = 0)
   or (bDocument.MimeTypes.FieldByName(Method).AsString = '') then
     begin
-      {
-      if (pos(UpperCase(DataSet.FieldByName('EXTENSION').AsString),UpperCase(Data.MimeTypes.FieldByName('EXTENSIONS').AsString)) = 0) and (GetMimeTypeForExtension(DataSet.FieldByName('EXTENSION').AsString) <> ''){ and (Data.MimeTypes.DataSet.Locate('MIME',VarArrayOf([GetMimeTypeForExtension(DataSet.FieldByName('EXTENSION').AsString)]),[]))} then
+      //add extension
+      fMimeTypeEdit.SetLanguage;
+      fMimeTypeEdit.SetupDB;
+      fMimeTypeEdit.eOpenWith.DataField := Method;
+      if (pos(DataSet.FieldByName('EXTENSION').AsString,bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString) = 0) then
         begin
-          Data.MimeTypes.DataSet.Edit;
-          Data.MimeTypes.FieldByName('EXTENSIONS').AsString := Data.MimeTypes.FieldByName('EXTENSIONS').AsString+DataSet.FieldByName('EXTENSION').AsString+',';
-          Data.MimeTypes.DataSet.Post;
-        end
-      else
-      }
-        begin
-          //add extension
-          fMimeTypeEdit.SetLanguage;
-          fMimeTypeEdit.SetupDB;
-          fMimeTypeEdit.eOpenWith.DataField := Method;
-          if (pos(DataSet.FieldByName('EXTENSION').AsString,bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString) = 0) then
-            begin
-              bDocument.MimeTypes.DataSet.Insert;
-              bDocument.MimeTypes.FieldByName('MIME').AsString := GetMimeTypeForExtension(DataSet.FieldByName('EXTENSION').AsString);
-            end;
-          bDocument.MimeTypes.DataSet.Edit;
-          if (Method = 'EDIT') or (Method = 'VIEW') then
-            bDocument.MimeTypes.FieldByName(Method).AsString := GetProcessforExtension(piOpen,DataSet.FieldByName('EXTENSION').AsString)
-          else if Method = 'PRINT' then
-            bDocument.MimeTypes.FieldByName(Method).AsString := GetProcessforExtension(piPrint,DataSet.FieldByName('EXTENSION').AsString);
-          if pos('%s',bDocument.MimeTypes.FieldByName(Method).AsString) = 0 then
-            bDocument.MimeTypes.FieldByName(Method).AsString := bDocument.MimeTypes.FieldByName(Method).AsString+' "%s"';
-          if not fMimeTypeEdit.Execute(bDocument) then
-            begin
-              if bDocument.MimeTypes.DataSet.State = dsInsert then
-                bDocument.MimeTypes.DataSet.Cancel;
-              exit;
-            end;
-          if bDocument.MimeTypes.FieldByName(Method).AsString = '' then
-            begin
-              if bDocument.MimeTypes.DataSet.State = dsInsert then
-                bDocument.MimeTypes.DataSet.Cancel
-              else
-                bDocument.MimeTypes.DataSet.Delete;
-              exit;
-            end;
-          if pos(UpperCase(DataSet.FieldByName('EXTENSION').AsString),UpperCase(bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString)) = 0 then
-            begin
-              bDocument.MimeTypes.DataSet.Edit;
-              bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString := bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString+DataSet.FieldByName('EXTENSION').AsString+',';
-              bDocument.MimeTypes.DataSet.Post;
-            end;
-          if bDocument.MimeTypes.DataSet.State = dsEdit then
-            bDocument.MimeTypes.DataSet.Post;
+          bDocument.MimeTypes.DataSet.Insert;
+          bDocument.MimeTypes.FieldByName('MIME').AsString := GetMimeTypeForExtension(DataSet.FieldByName('EXTENSION').AsString);
         end;
+      bDocument.MimeTypes.DataSet.Edit;
+      if (Method = 'EDIT') or (Method = 'VIEW') then
+        bDocument.MimeTypes.FieldByName(Method).AsString := GetProcessforExtension(piOpen,DataSet.FieldByName('EXTENSION').AsString)
+      else if Method = 'PRINT' then
+        bDocument.MimeTypes.FieldByName(Method).AsString := GetProcessforExtension(piPrint,DataSet.FieldByName('EXTENSION').AsString);
+      if pos('%s',bDocument.MimeTypes.FieldByName(Method).AsString) = 0 then
+        bDocument.MimeTypes.FieldByName(Method).AsString := bDocument.MimeTypes.FieldByName(Method).AsString+' "%s"';
+      if not fMimeTypeEdit.Execute(bDocument) then
+        begin
+          if bDocument.MimeTypes.DataSet.State = dsInsert then
+            bDocument.MimeTypes.DataSet.Cancel;
+          exit;
+        end;
+      if bDocument.MimeTypes.FieldByName(Method).AsString = '' then
+        begin
+          if bDocument.MimeTypes.DataSet.State = dsInsert then
+            bDocument.MimeTypes.DataSet.Cancel
+          else
+            bDocument.MimeTypes.DataSet.Delete;
+          exit;
+        end;
+      if pos(UpperCase(DataSet.FieldByName('EXTENSION').AsString),UpperCase(bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString)) = 0 then
+        begin
+          bDocument.MimeTypes.DataSet.Edit;
+          bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString := bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString+DataSet.FieldByName('EXTENSION').AsString+',';
+          bDocument.MimeTypes.DataSet.Post;
+        end;
+      if bDocument.MimeTypes.DataSet.State = dsEdit then
+        bDocument.MimeTypes.DataSet.Post;
     end;
   fWaitForm.SetLanguage;
   fWaitForm.lStep.Caption := '';
@@ -1465,7 +1454,7 @@ begin
   UseStarter := FileExistsUTF8(ExtractFilePath(Application.Exename)+'pstarter'+ExtractFileExt(Application.Exename));
   aDocument.AftercheckInFiles:=FAfterCheckinFiles;
   aDocument.OnCheckCheckinFiles:=@aDocumentCheckCheckinFiles;
-  TDocExecuteThread.Create(aDocument,'exec:'+StringReplace(bDocument.MimeTypes.FieldByName(Method).AsString,'%s',filename,[rfReplaceAll]),DoDelete,UseStarter,TempID);
+  TDocExecuteThread.Create(aDocument,'exec:'+StringReplace(bDocument.MimeTypes.FieldByName(Method).AsString,'%s',filename,[rfReplaceAll]),DoDelete,UseStarter and (bDocument.MimeTypes.FieldByName('USESTARTER').AsString<>'N'),TempID,Null,bDocument.MimeTypes.Id.AsVariant);
   bDocument.Free;
 end;
 
@@ -1733,4 +1722,4 @@ begin
 end;
 
 end.
-
+
