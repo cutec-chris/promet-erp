@@ -1342,6 +1342,8 @@ var
   aDocPage: TTabSheet;
   aWiki: TWikiList;
 begin
+  with BaseApplication as IBaseApplication do
+    Debug('OpenWikiPage:'+PageName);
   aWiki := TWikiList.Create(nil,Data);
   Result := aWiki.FindWikiPage(pageName);
   aWiki.Free;
@@ -1404,6 +1406,8 @@ begin
       except
       end;
    end;
+  with BaseApplication as IBaseApplication do
+    Debug('OpenWikiPage:'+PageName+' -> done');
 end;
 
 procedure TfWikiFrame.Refresh;

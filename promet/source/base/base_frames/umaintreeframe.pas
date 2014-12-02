@@ -187,7 +187,7 @@ implementation
 uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
   uBaseVisualControls, Graphics, Utils,UtilsVis, LCLProc, uPerson,uMasterdata,uProjects,
   uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic,uClipp,Clipbrd,
-  uBaseVisualApplication,uError;
+  uBaseVisualApplication,uError,uBaseApplication;
 resourcestring
   strRestartNessesary                         = 'Starten Sie die Anwendung neu !';
   strRealMove                                 = 'Verzeichnis wirklich nach "%s" verschieben ?';
@@ -371,6 +371,8 @@ end;
 
 function TfMainTree.OpenLink(aLink: string; Sender: TObject): Boolean;
 begin
+  with BaseApplication as IBaseApplication do
+    Info('OpenLink:'+aLink);
   Result := False;
   if Assigned(FLinkOpen) then
     Result := FLinkOpen(aLink,Sender);
@@ -378,6 +380,8 @@ end;
 function TfMainTree.NewFromLink(aLink: string; Sender: TObject
   ): TBaseDBdataSet;
 begin
+  with BaseApplication as IBaseApplication do
+    Info('NewFromLink:'+aLink);
   result := nil;
   if Assigned(FLinkNew) then
     Result := FLinkNew(aLink,Sender);
@@ -397,11 +401,25 @@ begin
   if not Assigned(tvMain.Selected) then exit;
   DataT := TTreeEntry(tvMain.Selected.Data);
   case DataT.Typ of
-  etAction:DataT.Action.Execute;
-  etSearch:acSearch.Execute;
+  etAction:
+    begin
+      DataT.Action.Execute;
+      with BaseApplication as IBaseApplication do
+        Info('Action Open:'+DataT.Action.Name);
+    end;
+  etSearch:
+    begin
+      acSearch.Execute;
+      with BaseApplication as IBaseApplication do
+        Info('Action Open:'+acSearch.Name);
+    end
   else
-    if Assigned(FOpen) then
-      FOpen(DataT);
+    begin
+      if Assigned(FOpen) then
+        FOpen(DataT);
+      with BaseApplication as IBaseApplication do
+        Info('Open:'+DataT.Link);
+    end;
   end;
   Screen.Cursor:=crDefault;
 end;

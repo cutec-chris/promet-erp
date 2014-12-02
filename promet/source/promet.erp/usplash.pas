@@ -53,6 +53,7 @@ type
 var
   fSplash: TfSplash;
 implementation
+uses uBaseApplication;
 {$R *.lfm}
 procedure TfSplash.FormCreate(Sender: TObject);
 begin
@@ -75,6 +76,8 @@ procedure TfSplash.AddText(AText: string);
 begin
   lStartup.Caption := lStartUp.Caption+lineending+AText;
   Update;
+  with Application as IBaseApplication do
+    Info(AText);
   Application.Processmessages;
 end;
 

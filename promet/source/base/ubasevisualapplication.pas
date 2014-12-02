@@ -131,7 +131,7 @@ var
   LinkClipboardFormat : TClipboardFormat;
 implementation
 uses uPassword,uMashineID,uError,ComCtrls,StdCtrls,ExtCtrls,
-  DBCtrls, LMessages, LCLIntf,LazLogger,Buttons,uLanguageUtils;
+  DBCtrls, LMessages, LCLIntf,LazLogger,Buttons,uLanguageUtils,dbugintf;
 resourcestring
   strWrongPasswort            = 'Falsches Passwort !';
   strUsernotFound             = 'Benutzer nicht gefunden !';
@@ -639,13 +639,14 @@ procedure TBaseVisualApplication.Log(aMsg: string);
 begin
   try
     Log('INFO',aMsg);
+    SendDebugEx(aMsg,dlInformation);
   except
   end;
 end;
 procedure TBaseVisualApplication.Info(aMsg: string);
 begin
   try
-    Log(aMsg)
+    Log(aMsg);
   except
   end;
 end;
@@ -653,6 +654,7 @@ procedure TBaseVisualApplication.Warning(aMsg: string);
 begin
   try
     Log('WARNING',aMsg);
+    SendDebugEx(aMsg,dlWarning);
   except
   end;
 end;
@@ -660,6 +662,7 @@ procedure TBaseVisualApplication.Error(aMsg: string);
 begin
   try
     Log('ERROR',aMsg);
+    SendDebugEx(aMsg,dlError);
   except
   end;
 end;
@@ -667,6 +670,7 @@ procedure TBaseVisualApplication.Debug(aMsg: string);
 begin
   if HasOption('debug') then
     debugln('DEBUG:'+aMsg);
+  SendDebug('DEBUG:'+aMsg);
 end;
 function TBaseVisualApplication.GetLog: TEventLog;
 begin

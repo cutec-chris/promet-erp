@@ -304,6 +304,7 @@ type
     aConn: TComponent;
     aRightIn : string;
     aRightOut : Integer;
+    FInfo : string;
     DataSetType : TBaseDBDatasetClass;
     procedure NewNode;
     procedure NewNode1;
@@ -324,6 +325,8 @@ type
     procedure AddSearch;
     procedure RegisterPhoneLines;
     function GetRight(aRight : string) : Integer;
+    procedure DoRealInfo;
+    procedure DoInfo(aMsg : string);
   public
     constructor Create(aSuspended : Boolean = False);
     procedure Execute; override;
@@ -725,6 +728,7 @@ end;
 
 procedure TStarterThread.AddTimeReg2;
 begin
+  try
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
     begin
       if Assigned(fMain.FTimeReg) then
@@ -736,6 +740,9 @@ begin
           fMain.FTimeReg.RefreshNode;
         end;
     end;
+
+  finally
+  end;
 end;
 
 procedure TStarterThread.NewConn;
@@ -855,6 +862,18 @@ begin
   Result := aRightOut;
 end;
 
+procedure TStarterThread.DoRealInfo;
+begin
+  with Application as IBaseApplication do
+    Info('StarterThread:'+FInfo);
+end;
+
+procedure TStarterThread.DoInfo(aMsg: string);
+begin
+  FInfo := aMsg;
+  Synchronize(@DorealInfo);
+end;
+
 constructor TStarterThread.Create(aSuspended: Boolean);
 begin
   {$ifndef UNIX}
@@ -873,22 +892,26 @@ var
   aCal: TCalendar;
   aDS: TMeetings;
 begin
+  DoInfo('start');
   //Synchronize(@NewConn);
   aConn := nil;
   Synchronize(@NewMenu);
   Synchronize(@DoStartupType);
   miNew.Action := fMainTreeFrame.acSearch;
-  //Timeregistering
+  DoInfo('Timeregistering');
   Synchronize(@AddTimeReg);
   //All Objects
   fMain.pcPages.AddTabClass(TfFilter,strObjectList,@fMain.AddElementList,Data.GetLinkIcon('ALLOBJECTS@'),True);
   //Expand Tree
+  DoInfo('ExpandTree');
   Synchronize(@Expand);
   //Documents
+  DoInfo('Documents');
   DataSetType:=TDocuments;
   Synchronize(@DoCreate);
   Data.RegisterLinkHandler('ALLOBJECTS',@fMainTreeFrame.OpenLink,TObjects);
   //Messages
+  DoInfo('Messages');
   if GetRight('MESSAGES') > RIGHT_NONE then
     begin
       try
@@ -902,6 +925,7 @@ begin
     end;
   Synchronize(@StartReceive);
   //Tasks
+  DoInfo('Tasks');
   if (GetRight('TASKS') > RIGHT_NONE) then
     begin
       try
@@ -911,6 +935,7 @@ begin
       end;
     end;
   //Add PIM Entrys
+  DoInfo('PIM');
   if GetRight('CALENDAR') > RIGHT_NONE then
     begin
       try
@@ -922,6 +947,7 @@ begin
       end;
     end;
   //Orders
+  DoInfo('Orders');
   if GetRight('ORDERS') > RIGHT_NONE then
     begin
       try
@@ -934,6 +960,7 @@ begin
       end;
     end;
   //Add Contacts
+  DoInfo('Contacts');
   if GetRight('CUSTOMERS') > RIGHT_NONE then
     begin
       try
@@ -950,6 +977,7 @@ begin
       end;
     end;
   //Add Masterdata stuff
+  DoInfo('Masterdata');
   if (GetRight('MASTERDATA') > RIGHT_NONE) then
     begin
       try
@@ -962,6 +990,7 @@ begin
       end;
     end;
   //Projects
+  DoInfo('Projects');
   if (GetRight('PROJECTS') > RIGHT_NONE) then
     begin
       try
@@ -974,6 +1003,7 @@ begin
       end;
     end;
   //Wiki
+  DoInfo('Wiki');
   Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,TWikiList);
   if (GetRight('WIKI') > RIGHT_NONE) then
     begin
@@ -985,6 +1015,7 @@ begin
     end;
   Synchronize(@RefreshWiki);
   //Documents
+  DoInfo('Documents');
   if (GetRight('DOCUMENTS') > RIGHT_NONE) then
     begin
       try
@@ -996,6 +1027,7 @@ begin
       end;
     end;
   //Lists
+  DoInfo('Lists');
   if (GetRight('LISTS') > RIGHT_NONE) then
     begin
       try
@@ -1007,6 +1039,7 @@ begin
       end;
     end;
   //Meetings
+  DoInfo('Meetings');
   if (GetRight('MEETINGS') > RIGHT_NONE) then
     begin
       try
@@ -1019,6 +1052,7 @@ begin
       end;
     end;
   //Inventory
+  DoInfo('Inventory');
   if (GetRight('INVENTORY') > RIGHT_NONE) then
     begin
       try
@@ -1029,6 +1063,7 @@ begin
       end;
     end;
   //Statistics
+  DoInfo('Statistics');
   if (GetRight('STATISTICS') > RIGHT_NONE) then
     begin
       try
@@ -1039,10 +1074,12 @@ begin
       end;
     end;
   //Timeregistering
+  DoInfo('Timeregistering');
   Synchronize(@AddTimeReg2);
   AddSearchAbleDataSet(TUser);
   Data.RegisterLinkHandler('USERS',@fMainTreeFrame.OpenLink,TUser);
   //History
+  DoInfo('History');
   if GetRight('DOCUMENTS') > RIGHT_NONE then
     begin
       try
@@ -1051,8 +1088,10 @@ begin
       except
       end;
     end;
+  DoInfo('Phonelines');
   Synchronize(@RegisterPhoneLines);
   //aConn.Free;
+  DoInfo('Search');
   Synchronize(@AddSearch);
 end;
 
@@ -1088,7 +1127,7 @@ begin
     with Application as IBaseApplication do
       fSplash.lVersion.Caption:= strVersion+' '+StringReplace(FormatFloat('0.0', AppVersion),',','.',[])+'.'+IntToStr(AppRevision);
     fSplash.Show;
-    fSplash.AddText(strLogin);;
+    fSplash.AddText(strLogin);
     Application.ProcessMessages;
     with Application as IBaseApplication do
       if not Login then
@@ -1105,7 +1144,8 @@ begin
           Caption := MandantName+' - Promet-ERP';
         if Assigned(TBaseVisualApplication(Application).MessageHandler) then
           TBaseVisualApplication(Application).MessageHandler.RegisterCommandHandler(@CommandReceived);
-        //debugln('BaseLogin: '+IntToStr(GetTickCount64-aTime));
+        with BaseApplication as IBaseApplication do
+          debug('BaseLogin: '+IntToStr(GetTickCount64-aTime));
         aWiki := TWikiList.Create(nil,Data);
         aWiki.CreateTable;
         if aWiki.FindWikiPage('Promet-ERP-Help/users/Administrator') then
@@ -1135,7 +1175,8 @@ begin
         except
         end;
         aWiki.Free;
-        //debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
+        with BaseApplication as IBaseApplication do
+          debug('Wiki: '+IntToStr(GetTickCount64-aTime));
         aItems := TStringList.Create;
         aItems.Delimiter:=';';
         aItems.DelimitedText := DBConfig.ReadString('TREEENTRYS:'+ApplicationName,fMainTreeFrame.GetBigIconTexts);
@@ -1373,7 +1414,8 @@ begin
             acShowTreeExecute(nil);
           end;
       end;
-    //debugln('LoginTime: '+IntToStr(GetTickCount64-aTime));
+    with BaseApplication as IBaseApplication do
+      debug('LoginTime: '+IntToStr(GetTickCount64-aTime));
   finally
     fSplash.Hide;
     fMain.Visible:=True;
