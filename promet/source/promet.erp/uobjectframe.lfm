@@ -164,8 +164,8 @@ inherited fObjectFrame: TfObjectFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Notizen'
-      ClientHeight = 335
-      ClientWidth = 650
+      ClientHeight = 704
+      ClientWidth = 1306
       object Memo1: TDBMemo
         Left = 0
         Height = 335
@@ -614,8 +614,8 @@ inherited fObjectFrame: TfObjectFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 78
-    ClientWidth = 88
+    ClientHeight = 80
+    ClientWidth = 90
     TabOrder = 0
     object iArticle: TImage
       Left = 0

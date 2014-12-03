@@ -115,7 +115,7 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uHistoryFrame,uImageFrame,uLinkFrame,uBaseDbInterface,uListFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
   uMainTreeFrame,uPrometFramesInplace,uarticlesupplierframe,
-  uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
+  uNRights,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
   uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uprometscripts;
 resourcestring
   strPrices                                  = 'Preise';

@@ -1,0 +1,87 @@
+inherited fMeasurementFrame: TfMeasurementFrame
+  Height = 385
+  Width = 699
+  ClientHeight = 385
+  ClientWidth = 699
+  DesignLeft = 392
+  DesignTop = 284
+  object PageControl1: TPageControl[0]
+    Left = 0
+    Height = 385
+    Top = 0
+    Width = 699
+    ActivePage = tsData
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 0
+    object tsData: TTabSheet
+      Caption = 'Daten'
+      ClientHeight = 352
+      ClientWidth = 693
+      object gAdresses: TDBGrid
+        Left = 4
+        Height = 344
+        Hint = 'wählen Sie hier eine Adresse'
+        Top = 4
+        Width = 399
+        Align = alClient
+        BorderSpacing.Around = 4
+        BorderStyle = bsNone
+        Color = clWindow
+        Columns = <        
+          item
+            Title.Caption = 'Name'
+            Width = 250
+            FieldName = 'NAME'
+          end        
+          item
+            Title.Caption = 'Typ'
+            Width = 150
+            FieldName = 'TYPE'
+          end>
+        DataSource = Measurements
+        DefaultRowHeight = 22
+        Scrollbars = ssAutoBoth
+        TabOrder = 0
+        TabStop = False
+        TitleStyle = tsNative
+      end
+      object gAdresses1: TDBGrid
+        Left = 407
+        Height = 344
+        Hint = 'wählen Sie hier eine Adresse'
+        Top = 4
+        Width = 282
+        Align = alRight
+        BorderSpacing.Around = 4
+        BorderStyle = bsNone
+        Color = clWindow
+        Columns = <        
+          item
+            Title.Caption = 'Wert'
+            Width = 150
+            FieldName = 'DATA'
+          end        
+          item
+            Title.Caption = 'Datum'
+            Width = 100
+            FieldName = 'DATE'
+          end>
+        DataSource = MeasurementData
+        DefaultRowHeight = 22
+        Scrollbars = ssAutoBoth
+        TabOrder = 1
+        TabStop = False
+        TitleStyle = tsNative
+      end
+    end
+  end
+  object Measurements: TDatasource[1]
+    left = 16
+    top = 120
+  end
+  object MeasurementData: TDatasource[2]
+    left = 16
+    top = 176
+  end
+end

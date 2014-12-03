@@ -52,6 +52,7 @@ type
     FCheckedChanged : Boolean;
     FAddSummaryOnPost : Boolean;
     FDueDateChanged: Boolean;
+    FStartDateChanged : Boolean;
     FHistory: TBaseHistory;
     FSnapshots: TTaskSnapshots;
     FTempUsers : TUser;
@@ -887,6 +888,20 @@ begin
         end;
       FDueDateChanged:=False;
     end;
+  if FStartDateChanged then
+    begin
+      if not (DataSet.FieldByName('DUEDATE').AsString='') then
+        begin
+          if ((DataSet.FieldByName('DUEDATE').AsDateTime-StrToFloatDef(DataSet.FieldByName('PLANTIME').AsString,0)) < DataSet.FieldByName('STARTDATE').AsDateTime) then
+            begin
+              DataSet.DisableControls;
+              if not Canedit then DataSet.Edit;
+                DataSet.FieldByName('DUEDATE').AsDateTime := DataSet.FieldByName('STARTDATE').AsDateTime+Max(StrToFloatDef(DataSet.FieldByName('PLANTIME').AsString,0),1);
+              DataSet.EnableControls;
+            end;
+        end;
+      FStartDateChanged:=False;
+    end;
   FCheckedChanged:=False;
   FCompletedChanged:=False;
   FAddProjectOnPost:=False;
@@ -1227,14 +1242,7 @@ begin
     end
   else if (Field.FieldName='STARTDATE') then
     begin
-      if not DataSet.FieldByName('DUEDATE').IsNull then
-        begin
-          if ((DataSet.FieldByName('DUEDATE').AsDateTime-Max(StrToFloatDef(DataSet.FieldByName('PLANTIME').AsString,0)+StrToFloatDef(DataSet.FieldByName('BUFFERTIME').AsString,0),1)) < DataSet.FieldByName('STARTDATE').AsDateTime) then
-            begin
-              if not Canedit then DataSet.Edit;
-                DataSet.FieldByName('DUEDATE').AsDateTime := DataSet.FieldByName('STARTDATE').AsDateTime+Max(StrToFloatDef(DataSet.FieldByName('PLANTIME').AsString,0)+StrToFloatDef(DataSet.FieldByName('BUFFERTIME').AsString,0),1);
-            end;
-        end;
+      FStartDateChanged := True;
     end
   else if (Field.FieldName <> 'SEEN') and (Field.FieldName <> 'TIMESTAMPD') and (Field.FieldName <> 'CHANGEDBY') then
     begin
@@ -1480,6 +1488,7 @@ begin
   FAddProjectOnPost := false;
   FAddSummaryOnPost:=false;
   FDueDateChanged:=False;
+  FStartDateChanged := False;
   DoCheckTask:=False;
   FCheckedChanged:=False;
   FCompletedChanged:=False;

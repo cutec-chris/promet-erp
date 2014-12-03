@@ -22,7 +22,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ExtCtrls,
   ActnList, ComCtrls, StdCtrls, DbCtrls, Buttons, Menus, db, uPrometFrames,
-  uExtControls, uFilterFrame, uIntfStrConsts, Utils, Dialogs, variants;
+  uExtControls, uFilterFrame, uIntfStrConsts, Utils, Dialogs, variants,
+  uMeasurement;
 type
 
   { TfObjectFrame }
@@ -119,6 +120,8 @@ type
   private
     { private declarations }
     FEditable : Boolean;
+    FMeasurement: TMeasurement;
+    procedure AddMeasurement(Sender: TObject);
     procedure AddDocuments(Sender: TObject);
     procedure AddHistory(Sender: TObject);
     procedure AddImages(Sender: TObject);
@@ -141,7 +144,7 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
   uMainTreeFrame,uPrometFramesInplace,uBaseDBClasses,uarticlesupplierframe,
   uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
-  uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication;
+  uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,umeasurements;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -305,6 +308,13 @@ procedure TfObjectFrame.sbMenueClick(Sender: TObject);
 begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
 end;
+
+procedure TfObjectFrame.AddMeasurement(Sender: TObject);
+begin
+  TfMeasurementFrame(Sender).DataSet := FMeasurement;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
 procedure TfObjectFrame.AddDocuments(Sender: TObject);
 var
   aDocuments: TDocuments;
@@ -461,6 +471,7 @@ var
   aID: String;
   aThumbnails: TThumbnails;
   aStream: TMemoryStream;
+  aMeasurement: TMeasurement;
 begin
   pcPages.CloseAll;
   TObjects(DataSet).OpenItem;
@@ -507,7 +518,13 @@ begin
             end;
         end;
     end;
-
+  pcPages.AddTabClass(TfMeasurementFrame,strMeasurement,@AddMeasurement);
+  FreeAndNil(FMeasurement);
+  FMeasurement := TMeasurement.Create(nil,Data,DataSet.Connection,DataSet.DataSet);
+  FMeasurement.CreateTable;
+  FMeasurement.Open;
+  if FMeasurement.Count>0 then
+    pcPages.AddTab(TfMeasurementFrame.Create(Self),False);
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin

@@ -42,6 +42,7 @@ type
     lInfo: TLabel;
     Panel1: TPanel;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
+    SpeedButton1: TSpeedButton;
     procedure FormCreate(Sender: TObject);
   private
     FAppend: Boolean;
