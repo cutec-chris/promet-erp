@@ -22,24 +22,24 @@ object fScriptImport: TfScriptImport
     TabOrder = 0
     object cbFormat: TComboBox
       Left = 6
-      Height = 27
+      Height = 21
       Top = 93
-      Width = 343
+      Width = 322
       Anchors = [akTop, akLeft, akRight]
-      ItemHeight = 0
+      ItemHeight = 13
       TabOrder = 0
     end
     object Label2: TLabel
       Left = 6
-      Height = 15
+      Height = 13
       Top = 72
-      Width = 76
+      Width = 61
       Caption = 'Datenformat'
       ParentColor = False
     end
     object lInfo: TLabel
       Left = 8
-      Height = 15
+      Height = 13
       Top = 8
       Width = 341
       Align = alTop
@@ -55,8 +55,8 @@ object fScriptImport: TfScriptImport
     end
     object bpButtons: TButtonPanel
       Left = 6
-      Height = 42
-      Top = 190
+      Height = 34
+      Top = 198
       Width = 345
       OKButton.Name = 'OKButton'
       OKButton.DefaultCaption = True
@@ -73,15 +73,15 @@ object fScriptImport: TfScriptImport
     end
     object Label1: TLabel
       Left = 8
-      Height = 15
+      Height = 13
       Top = 128
-      Width = 72
+      Width = 57
       Caption = 'Datenquelle'
       ParentColor = False
     end
     object EditButton1: TEditButton
       Left = 8
-      Height = 25
+      Height = 21
       Top = 145
       Width = 341
       ButtonCaption = '...'
@@ -91,9 +91,16 @@ object fScriptImport: TfScriptImport
       PasswordChar = #0
       TabOrder = 2
     end
+    object SpeedButton1: TSpeedButton
+      Left = 328
+      Height = 22
+      Top = 93
+      Width = 23
+      Visible = False
+    end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     left = 256
     top = 128
   end
-end
+end

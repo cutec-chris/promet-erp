@@ -34,18 +34,18 @@ inherited fScriptFrame: TfScriptFrame
     TabOrder = 1
     object Panel4: TPanel
       Left = 0
-      Height = 40
+      Height = 44
       Top = 0
       Width = 68
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 40
+      ClientHeight = 44
       ClientWidth = 68
       TabOrder = 0
       object Label2: TLabel
         Left = 4
         Height = 15
-        Top = -4
+        Top = 0
         Width = 60
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -149,18 +149,18 @@ inherited fScriptFrame: TfScriptFrame
     end
     object Panel6: TPanel
       Left = 68
-      Height = 40
+      Height = 44
       Top = 0
       Width = 56
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 40
+      ClientHeight = 44
       ClientWidth = 56
       TabOrder = 1
       object Label3: TLabel
         Left = 4
         Height = 15
-        Top = -4
+        Top = 0
         Width = 48
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -174,7 +174,7 @@ inherited fScriptFrame: TfScriptFrame
       end
       object Bevel3: TBevel
         Left = 0
-        Height = 32
+        Height = 36
         Top = 4
         Width = 8
         Align = alLeft
@@ -271,18 +271,18 @@ inherited fScriptFrame: TfScriptFrame
     end
     object Panel7: TPanel
       Left = 124
-      Height = 40
+      Height = 44
       Top = 0
       Width = 332
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 40
+      ClientHeight = 44
       ClientWidth = 332
       TabOrder = 2
       object Label4: TLabel
         Left = 4
         Height = 15
-        Top = -4
+        Top = 0
         Width = 324
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -295,7 +295,7 @@ inherited fScriptFrame: TfScriptFrame
       end
       object Bevel4: TBevel
         Left = 0
-        Height = 32
+        Height = 36
         Top = 4
         Width = 8
         Align = alLeft
@@ -305,7 +305,7 @@ inherited fScriptFrame: TfScriptFrame
       end
       object eArticleNumber: TDBEdit
         Left = 4
-        Height = 25
+        Height = 21
         Top = 13
         Width = 324
         DataField = 'NAME'
@@ -318,17 +318,17 @@ inherited fScriptFrame: TfScriptFrame
     end
     object Panel9: TPanel
       Left = 456
-      Height = 40
+      Height = 44
       Top = 0
       Width = 139
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 40
+      ClientHeight = 44
       ClientWidth = 139
       TabOrder = 3
       object Bevel6: TBevel
         Left = 0
-        Height = 32
+        Height = 36
         Top = 4
         Width = 8
         Align = alLeft
@@ -338,7 +338,7 @@ inherited fScriptFrame: TfScriptFrame
       end
     end
   end
-  object Script: TDatasource[2]
+  object Script: TDataSource[2]
     OnStateChange = ScriptStateChange
     left = 16
     top = 88
@@ -475,7 +475,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 172
     top = 252
   end
-  object History: TDatasource[6]
+  object History: TDataSource[6]
     left = 204
     top = 252
   end
@@ -493,7 +493,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 220
     top = 169
   end
-  object MandantDetails: TDatasource[9]
+  object MandantDetails: TDataSource[9]
     left = 256
     top = 232
   end
