@@ -412,7 +412,7 @@ begin
     begin
       aDocuments := TDocuments.Create(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsInteger,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
     end;
   TfDocumentFrame(Sender).BaseElement := FDataSet;
   TPrometInplaceFrame(Sender).SetRights(FEditable);

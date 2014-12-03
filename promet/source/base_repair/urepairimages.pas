@@ -301,7 +301,7 @@ begin
     begin
       aDocuments := TDocuments.Create(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsInteger,'R');
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'R');
     end;
   TfDocumentFrame(Sender).BaseElement := FDataSet;
 end;

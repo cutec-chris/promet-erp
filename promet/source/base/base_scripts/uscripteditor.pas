@@ -50,14 +50,14 @@ type
     ActionList1: TActionList;
     cbSyntax: TDBComboBox;
     DataSource: TDataSource;
-    DBEdit1: TDBEdit;
+    eName: TDBEdit;
     DBGrid1: TDBGrid;
     Debugger: TPSScriptDebugger;
     FindDialog: TFindDialog;
     IFPS3DllPlugin1: TPSDllPlugin;
     ilImageList: TImageList;
     Label1: TLabel;
-    Label2: TLabel;
+    lName: TLabel;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
@@ -170,9 +170,11 @@ type
     procedure SetActiveFile(const Value: string);
 
     procedure DoSearchReplaceText(AReplace: boolean; ABackwards: boolean);
+    procedure SetDataSet(AValue: TBaseScript);
 
     property aFile: string read FActiveFile write SetActiveFile;
   public
+    property DataSet : TBaseScript read FDataSet write SetDataSet;
     function SaveCheck: Boolean;
     function Execute(aScript: string; aConnection: TComponent = nil;DefScript : string=''): Boolean;
   end;
@@ -256,6 +258,17 @@ begin
     ed.CaretXY := ed.BlockBegin;
   end;
 
+end;
+
+procedure TfScriptEditor.SetDataSet(AValue: TBaseScript);
+begin
+  if FDataSet=AValue then Exit;
+  FDataSet:=AValue;
+  if AValue = nil then exit;
+  DataSource.DataSet := FDataSet.DataSet;
+  FDataSet.DataSet.BeforeScroll:=@FDataSetDataSetBeforeScroll;
+  FDataSet.DataSet.AfterScroll:=@FDataSetDataSetAfterScroll;
+  FDataSet.DataSet.AfterCancel:=@FDataSetDataSetAfterScroll;
 end;
 
 procedure TfScriptEditor.edSpecialLineColors(Sender: TObject; Line: Integer;

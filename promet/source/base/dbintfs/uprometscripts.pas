@@ -30,12 +30,14 @@ uses
 type
   { TBaseScript }
 
-  TBaseScript = class(TBaseDBDataset)
+  TBaseScript = class(TBaseDbList)
     procedure DataSetAfterScroll(ADataSet: TDataSet);
     function TPascalScriptUses(Sender: TPascalScript; const aName: tbtString
       ): Boolean;
   private
     aDS: TDataSet;
+    FHistory: TBaseHistory;
+    FLinks: TLinks;
     FRlFunc: TReadlnFunc;
     FScript: TScript;
     FSlFunc: TSleepFunc;
@@ -46,6 +48,9 @@ type
     procedure DoSetResults;
     procedure DoSetStatus(s : string);
   protected
+    function GetTextFieldName: string;override;
+    function GetNumberFieldName : string;override;
+
     procedure InternalWrite(const s: string);
     procedure InternalWriteln(const s: string);
     procedure InternalReadln(var s: string);
@@ -56,9 +61,10 @@ type
     function InternalDataSet(SQL : string) : TDataSet;
     function InternalData : TBaseDBModule;
     function InternalHistory(Action: string; ParentLink: string; Icon: Integer=0;
-      ObjectLink: string=''; Reference: string='';Commission: string='';Source : string='';Date:TDateTime = 0) : Boolean;
-    function InternalUserHistory(Action: string;UserName: string; Icon: Integer; ObjectLink: string;
-      Reference: string; Commission: string;Source : string; Date: TDateTime): Boolean;
+      ObjectLink: string=''; Reference: string='';aCommission: string='';Source : string='';Date:TDateTime = 0) : Boolean;
+    function InternalUserHistory(Action: string; UserName: string; Icon: Integer;
+      ObjectLink: string; Reference: string; aCommission: string;
+  Source: string; Date: TDateTime): Boolean;
     procedure InternalStorValue(aName,aId : string;aValue : Double);
   public
     constructor Create(aOwner: TComponent; DM: TComponent;
@@ -71,6 +77,8 @@ type
     property Sleep : TSleepFunc read FSlFunc write FSlFunc;
     property Script : TScript read FScript;
     function Execute(Parameters : Variant) : Boolean;
+    property History : TBaseHistory read FHistory;
+    property Links : TLinks read FLinks;
     destructor Destroy;override;
   end;
 
@@ -141,7 +149,7 @@ begin
 end;
 
 function TBaseScript.InternalHistory(Action: string; ParentLink: string;
-  Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
+  Icon: Integer; ObjectLink: string; Reference: string; aCommission: string;
   Source: string; Date: TDateTime): Boolean;
 var
   aHistory: TBaseHistory;
@@ -157,7 +165,7 @@ begin
       if aDataSet.Count>0 then
         begin
           aHistory := TBaseHistory.Create(nil,DataModule,Connection,aDataSet.DataSet);
-          aHistory.AddItemSR(aDataSet.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,Commission,True,False);
+          aHistory.AddItemSR(aDataSet.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,aCommission,True,False);
           if Source<>'' then
             aHistory.FieldByName('SOURCE').AsString:=Source;
           aHistory.Post;
@@ -168,13 +176,13 @@ begin
     end;
 end;
 function TBaseScript.InternalUserHistory(Action: string; UserName: string;
-  Icon: Integer; ObjectLink: string; Reference: string; Commission: string;
+  Icon: Integer; ObjectLink: string; Reference: string; aCommission: string;
   Source: string; Date: TDateTime): Boolean;
 begin
   Result := False;
   if Data.Users.Locate('NAME',UserName,[loCaseInsensitive]) then
     begin
-      Result := Data.Users.History.AddItemSR(Data.Users.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,Commission,True,False);
+      Result := Data.Users.History.AddItemSR(Data.Users.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,aCommission,True,False);
       if Source<>'' then
         Data.Users.History.FieldByName('SOURCE').AsString:=Source;
       Data.Users.History.Post;
@@ -474,6 +482,8 @@ end;
 
 destructor TBaseScript.Destroy;
 begin
+  FLinks.Free;
+  FHistory.Free;
   fScript.Destroy;
   FDataSource.Destroy;
   inherited Destroy;
@@ -491,6 +501,16 @@ begin
   Edit;
   FieldByName('STATUS').AsString:=s;
   Post;
+end;
+
+function TBaseScript.GetTextFieldName: string;
+begin
+  Result := 'NAME';
+end;
+
+function TBaseScript.GetNumberFieldName: string;
+begin
+  Result := 'SQL_ID';
 end;
 
 procedure TBaseScript.InternalWrite(const s: string);
@@ -530,6 +550,8 @@ begin
   FDataSource := TDataSource.Create(Self);
   FDataSource.DataSet := DataSet;
   DataSet.AfterScroll:=@DataSetAfterScroll;
+  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
+  FLinks := TLinks.Create(Self,DM,aConnection);
 end;
 
 procedure TBaseScript.DefineFields(aDataSet: TDataSet);
@@ -566,6 +588,7 @@ begin
 end;
 function TBaseScript.Execute(Parameters: Variant): Boolean;
 begin
+  OpenItem;
   if (pos(GetSystemName,FieldByName('RUNMASHINE').AsString)>0) or (trim(FieldByName('RUNMASHINE').AsString)='') then
     begin
       DoSetStatus('R');

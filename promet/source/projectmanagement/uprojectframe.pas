@@ -391,7 +391,7 @@ begin
     begin
       aDocuments := TDocuments.Create(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsInteger,'P',DataSet.FieldByName('SQL_ID').AsString,Null,Null);
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'P',DataSet.FieldByName('SQL_ID').AsString,Null,Null);
     end;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;

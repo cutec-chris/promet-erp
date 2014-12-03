@@ -351,7 +351,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
   uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts,
-  ufinancialoptions,ubookfibuaccount,ucommandline,uobjectframe
+  ufinancialoptions,ubookfibuaccount,ucommandline,uobjectframe,uscriptframe,uprometscripts
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -910,6 +910,7 @@ begin
   DataSetType:=TDocuments;
   Synchronize(@DoCreate);
   Data.RegisterLinkHandler('ALLOBJECTS',@fMainTreeFrame.OpenLink,TObjects);
+  Data.RegisterLinkHandler('SCRIPTS',@fMainTreeFrame.OpenLink,TBaseScript);
   //Messages
   DoInfo('Messages');
   if GetRight('MESSAGES') > RIGHT_NONE then
@@ -3001,6 +3002,17 @@ begin
   else if copy(aLink,0,10) = 'ALLOBJECTS' then
     begin
       aFrame := TfObjectFrame.Create(Self);
+      aFrame.SetLanguage;
+      if aFrame.OpenFromLink(aLink) then
+        begin
+          pcPages.AddTab(aFrame);
+          Result := True;
+        end
+      else aFrame.Free;
+    end
+  else if copy(aLink,0,7) = 'SCRIPTS' then
+    begin
+      aFrame := TfScriptFrame.Create(Self);
       aFrame.SetLanguage;
       if aFrame.OpenFromLink(aLink) then
         begin

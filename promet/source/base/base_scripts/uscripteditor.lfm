@@ -4,7 +4,7 @@ object fScriptEditor: TfScriptEditor
   Top = 159
   Width = 961
   Caption = 'Editor'
-  ClientHeight = 580
+  ClientHeight = 579
   ClientWidth = 961
   Color = clBtnFace
   Font.Color = clWindowText
@@ -18,7 +18,7 @@ object fScriptEditor: TfScriptEditor
   object StatusBar: TStatusBar
     Left = 0
     Height = 23
-    Top = 557
+    Top = 556
     Width = 961
     Panels = <    
       item
@@ -27,17 +27,17 @@ object fScriptEditor: TfScriptEditor
   end
   object pDetail: TPanel
     Left = 285
-    Height = 557
+    Height = 556
     Top = 0
     Width = 676
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 557
+    ClientHeight = 556
     ClientWidth = 676
     TabOrder = 1
     inline ed: TSynEdit
       Left = 0
-      Height = 446
+      Height = 445
       Top = 26
       Width = 676
       Align = alClient
@@ -612,7 +612,7 @@ object fScriptEditor: TfScriptEditor
           Left = 3
           Height = 19
           Top = 3
-          Width = 40
+          Width = 48
           Align = alLeft
           BorderSpacing.Left = 3
           BorderSpacing.Top = 3
@@ -622,13 +622,13 @@ object fScriptEditor: TfScriptEditor
         end
         object cbSyntax: TDBComboBox
           Left = 56
-          Height = 24
+          Height = 29
           Top = 0
           Width = 122
           Anchors = [akTop, akLeft, akRight]
           DataField = 'SYNTAX'
           DataSource = DataSource
-          ItemHeight = 16
+          ItemHeight = 0
           Items.Strings = (
             'Pascal'
             'SQL'
@@ -647,11 +647,11 @@ object fScriptEditor: TfScriptEditor
         ClientHeight = 22
         ClientWidth = 312
         TabOrder = 1
-        object Label2: TLabel
+        object lName: TLabel
           Left = 3
           Height = 19
           Top = 3
-          Width = 37
+          Width = 42
           Align = alLeft
           BorderSpacing.Left = 3
           BorderSpacing.Top = 3
@@ -659,9 +659,9 @@ object fScriptEditor: TfScriptEditor
           Caption = 'Name'
           ParentColor = False
         end
-        object DBEdit1: TDBEdit
+        object eName: TDBEdit
           Left = 48
-          Height = 24
+          Height = 27
           Top = 0
           Width = 256
           DataField = 'NAME'
@@ -680,7 +680,7 @@ object fScriptEditor: TfScriptEditor
     object messages: TListBox
       Left = 0
       Height = 81
-      Top = 476
+      Top = 475
       Width = 676
       Align = alBottom
       ItemHeight = 0
@@ -688,12 +688,13 @@ object fScriptEditor: TfScriptEditor
       OnDblClick = messagesDblClick
       ScrollWidth = 674
       TabOrder = 2
+      TopIndex = -1
     end
     object Splitter1: TSplitter
       Cursor = crVSplit
       Left = 0
       Height = 4
-      Top = 472
+      Top = 471
       Width = 676
       Align = alBottom
       ResizeAnchor = akBottom
@@ -701,18 +702,18 @@ object fScriptEditor: TfScriptEditor
   end
   object pLeft: TPanel
     Left = 0
-    Height = 557
+    Height = 556
     Top = 0
     Width = 280
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 557
+    ClientHeight = 556
     ClientWidth = 280
     TabOrder = 2
     Visible = False
     object DBGrid1: TDBGrid
       Left = 0
-      Height = 557
+      Height = 556
       Top = 0
       Width = 280
       Align = alClient
@@ -721,7 +722,7 @@ object fScriptEditor: TfScriptEditor
       Columns = <      
         item
           Title.Caption = 'Name'
-          Width = 247
+          Width = 252
           FieldName = 'NAME'
         end>
       DataSource = DataSource
@@ -734,7 +735,7 @@ object fScriptEditor: TfScriptEditor
   end
   object Splitter2: TSplitter
     Left = 280
-    Height = 557
+    Height = 556
     Top = 0
     Width = 5
   end
@@ -2038,7 +2039,7 @@ object fScriptEditor: TfScriptEditor
       4FFF4E4F4FFF4E4F4FFFFFFFFF00
     }
   end
-  object DataSource: TDataSource
+  object DataSource: TDatasource
     left = 224
     top = 16
   end
