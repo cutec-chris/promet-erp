@@ -3,10 +3,9 @@ object fScriptImport: TfScriptImport
   Height = 238
   Top = 331
   Width = 357
-  Caption = 'Datenimport'
+  Caption = 'Datenim/export'
   ClientHeight = 238
   ClientWidth = 357
-  OnCreate = FormCreate
   Position = poMainFormCenter
   LCLVersion = '1.3'
   object Panel1: TPanel
@@ -27,6 +26,7 @@ object fScriptImport: TfScriptImport
       Width = 322
       Anchors = [akTop, akLeft, akRight]
       ItemHeight = 13
+      OnSelect = cbFormatSelect
       TabOrder = 0
     end
     object Label2: TLabel
@@ -50,7 +50,6 @@ object fScriptImport: TfScriptImport
       ParentColor = False
       ParentFont = False
       Transparent = False
-      Visible = False
       WordWrap = True
     end
     object bpButtons: TButtonPanel
@@ -79,7 +78,7 @@ object fScriptImport: TfScriptImport
       Caption = 'Datenquelle'
       ParentColor = False
     end
-    object EditButton1: TEditButton
+    object eDataSource: TEditButton
       Left = 8
       Height = 21
       Top = 145
@@ -96,11 +95,20 @@ object fScriptImport: TfScriptImport
       Height = 22
       Top = 93
       Width = 23
-      Visible = False
+      Action = acConfig
+      ShowCaption = False
     end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     left = 256
     top = 128
+  end
+  object ActionList1: TActionList
+    left = 256
+    top = 48
+    object acConfig: TAction
+      Caption = 'acConfig'
+      OnExecute = acConfigExecute
+    end
   end
 end

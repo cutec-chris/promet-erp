@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ButtonPanel, ExtCtrls, Buttons, EditBtn, db;
+  ButtonPanel, ExtCtrls, Buttons, EditBtn, ActnList, db,uprometscripts;
 
 type
   TImporterCapability = (icImport,icExport);
@@ -34,22 +34,23 @@ type
   { TfScriptImport }
 
   TfScriptImport = class(TForm)
+    acConfig: TAction;
+    ActionList1: TActionList;
     bpButtons: TButtonPanel;
     cbFormat: TComboBox;
-    EditButton1: TEditButton;
+    eDataSource: TEditButton;
     Label1: TLabel;
     Label2: TLabel;
     lInfo: TLabel;
     Panel1: TPanel;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     SpeedButton1: TSpeedButton;
-    procedure FormCreate(Sender: TObject);
+    procedure acConfigExecute(Sender: TObject);
+    procedure cbFormatSelect(Sender: TObject);
   private
-    FAppend: Boolean;
-    FConfigDir: string;
-    FFilter: string;
-    FTraget: TDataSource;
     FTyp : TImporterCapability;
+    FFormat : string;
+    aScripts: TBaseScript;
     procedure CheckAll;
     { private declarations }
   public
@@ -72,16 +73,61 @@ resourcestring
   strDataExport                         = 'Datenexport';
   strDataSource                         = 'Datenquelle';
   strDataDestination                    = 'Datenausgabe';
+  strErrorCompiling                     = 'Fehlerhafters Importscript';
 
 implementation
+
+uses uScriptEditor,uData,genpascalscript,variants;
 
 {$R *.lfm}
 
 { TfScriptImport }
 
-procedure TfScriptImport.FormCreate(Sender: TObject);
+procedure TfScriptImport.acConfigExecute(Sender: TObject);
 begin
+  if cbFormat.Text='' then
+    Showmessage(strPleaseenteranFormatName)
+  else
+    begin
+      if FTyp=icImport then
+        fScriptEditor.Execute('Import.'+FFormat+'.'+cbFormat.Text)
+      else
+        fScriptEditor.Execute('Export.'+FFormat+'.'+cbFormat.Text);
+    end;
+end;
 
+procedure TfScriptImport.cbFormatSelect(Sender: TObject);
+var
+  aRes: Boolean;
+  aResults: string = '';
+  i: Integer;
+begin
+  if FTyp = icImport then
+    aRes := aScripts.Locate('NAME','Import.'+FFormat+'.'+cbFormat.Text,[loCaseInsensitive])
+  else
+    aRes := aScripts.Locate('NAME','Export.'+FFormat+'.'+cbFormat.Text,[loCaseInsensitive]);
+  if aRes then
+    begin
+      lInfo.Caption:=strConfigureDataSource;
+      if (aScripts.Script is  TPascalScript) then
+        with aScripts.Script as TPascalScript do
+          begin
+            if not TPascalScript(aScripts.Script).Compile then
+              begin
+                for i:= 0 to Compiler.MsgCount - 1 do
+                  if Length(aResults) = 0 then
+                    aResults:= Compiler.Msg[i].MessageToString
+                  else
+                    aResults:= aResults + #13#10 + Compiler.Msg[i].MessageToString;
+                lInfo.Caption:=strErrorCompiling+' ('+aResults+')';
+              end;
+            try
+              lInfo.Caption:=Runtime.RunProcPN([],'SOURCEDESCRIPTION');
+            except
+            end;
+          end;
+    end
+  else lInfo.Caption:=strSelectAnFormat;
 end;
 
 procedure TfScriptImport.CheckAll;
@@ -91,8 +137,45 @@ end;
 
 function TfScriptImport.Execute(Typ: TImporterCapability; DefaultFormat: string
   ): Boolean;
+var
+  tmp: String;
 begin
-
+  if not Assigned(Self) then
+    begin
+      Application.CreateForm(TfScriptImport,fScriptImport);
+      Self := fScriptImport;
+    end;
+  Ftyp := Typ;
+  fFormat := DefaultFormat;
+  aScripts := TBaseScript.Create(nil,Data);
+  if FTyp=icImport then
+    aScripts.Filter(Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('Import.'+FFormat+'.*')))
+  else
+    aScripts.Filter(Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('Export.'+FFormat+'.*')));
+  aScripts.First;
+  cbFormat.Items.Clear;
+  cbFormat.Text:='';
+  lInfo.Caption:=strSelectAnFormat;
+  while not aScripts.EOF do
+    begin
+      tmp := copy(aScripts.Text.AsString,pos('.',aScripts.Text.AsString)+1,length(aScripts.Text.AsString));
+      tmp := copy(tmp,pos('.',tmp)+1,length(tmp));
+      cbFormat.Items.Add(tmp);
+      aScripts.Next;
+    end;
+  Result := ShowModal = mrOK;
+  if Result then
+    begin
+      if FTyp = icImport then
+        Result := aScripts.Locate('NAME','Import.'+FFormat+'.'+cbFormat.Text,[loCaseInsensitive])
+      else
+        Result := aScripts.Locate('NAME','Export.'+FFormat+'.'+cbFormat.Text,[loCaseInsensitive]);
+      if Result then
+        begin
+          aScripts.Execute(VarArrayOf([eDataSource.Text]));
+        end
+    end;
+  aScripts.Free;
 end;
 
 end.
