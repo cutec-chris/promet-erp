@@ -108,6 +108,7 @@ type
     procedure SetDataSet(const AValue: TBaseDBDataset); override;
     procedure New;override;
     procedure SetLanguage;override;
+    procedure FrameAdded; override;
   end;
 implementation
 {$R *.lfm}
@@ -336,9 +337,9 @@ constructor TfScriptFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FEditor:=TfScriptEditor.Create(Self);
+  FEditor.BorderStyle:=bsNone;
   FEditor.Parent:=tsScript;
   FEditor.Align:=alClient;
-  FEditor.Show;
 end;
 destructor TfScriptFrame.Destroy;
 begin
@@ -394,4 +395,11 @@ end;
 procedure TfScriptFrame.SetLanguage;
 begin
 end;
+
+procedure TfScriptFrame.FrameAdded;
+begin
+  inherited FrameAdded;
+  FEditor.Show;
+end;
+
 end.

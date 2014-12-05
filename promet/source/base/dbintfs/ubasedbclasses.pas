@@ -166,7 +166,7 @@ type
     procedure ImportFromXML(XML : string;OverrideFields : Boolean = False;ReplaceFieldFunc : TReplaceFieldFunc = nil);virtual;
 //    function  TableToXML(Doc : TXMLDocument;iDataSet : TDataSet) : TDOMElement;
 //    function  XMLToTable(iDataSet : TDataSet;Node : TDOMElement) : Boolean;
-    procedure OpenItem;
+    procedure OpenItem(AccHistory: Boolean=True);
     procedure CascadicPost; override;
     procedure GenerateThumbnail;virtual;
     property Text : TField read GetText;
@@ -1311,7 +1311,7 @@ begin
   Doc.Free;
 end;
 
-procedure TBaseDbList.OpenItem;
+procedure TBaseDbList.OpenItem(AccHistory : Boolean = True);
 var
   aHistory: TAccessHistory;
   aObj: TObjects;
@@ -1321,13 +1321,16 @@ begin
     try
       aHistory := TAccessHistory.Create(nil,Data);
       aObj := TObjects.Create(nil,Data);
-      if DataSet.State<>dsInsert then
+      if AccHistory then
         begin
-          if not Data.TableExists(aHistory.TableName) then
-            aHistory.CreateTable;
-          aHistory.Free;
-          aHistory := TAccessHistory.Create(nil,Data,nil,DataSet);
-          aHistory.AddItem(DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet))]),Data.BuildLink(DataSet));
+          if DataSet.State<>dsInsert then
+            begin
+              if not Data.TableExists(aHistory.TableName) then
+                aHistory.CreateTable;
+              aHistory.Free;
+              aHistory := TAccessHistory.Create(nil,Data,nil,DataSet);
+              aHistory.AddItem(DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet))]),Data.BuildLink(DataSet));
+            end;
         end;
       if DataSet.State<>dsInsert then
         begin
@@ -1385,7 +1388,7 @@ end;
 
 procedure TBaseDbList.CascadicPost;
 begin
-  OpenItem;//modify object properties
+  OpenItem(False);//modify object properties
   inherited CascadicPost;
 end;
 
@@ -3149,4 +3152,4 @@ end;
 
 initialization
 end.
-
+

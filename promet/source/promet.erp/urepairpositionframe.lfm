@@ -252,7 +252,7 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
     Enabled = False
     OnTimer = Timer1Timer
     OnStartTimer = Timer1StartTimer
-    left = 536
-    top = 16
+    left = 488
+    top = 80
   end
 end
