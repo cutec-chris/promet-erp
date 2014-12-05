@@ -57,6 +57,7 @@ type
     gProblemsColumn: TRECT;
     FImages : TOrderRepairImages;
     Repairtime: Integer;
+    PosrepairTime : Integer;
   public
     { public declarations }
     procedure SetRights(Editable: Boolean); override;

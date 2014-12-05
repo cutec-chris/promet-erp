@@ -31,6 +31,7 @@ type
   { TBaseScript }
 
   TBaseScript = class(TBaseDbList)
+    procedure DataSetAfterOpen(aDataSet: TDataSet);
     procedure DataSetAfterScroll(ADataSet: TDataSet);
     function TPascalScriptUses(Sender: TPascalScript; const aName: tbtString
       ): Boolean;
@@ -199,9 +200,13 @@ begin
   aVariable.Free;
 end;
 
-procedure TBaseScript.DataSetAfterScroll(ADataSet: TDataSet);
+procedure TBaseScript.DataSetAfterOpen(aDataSet: TDataSet);
 begin
   TPascalScript(FScript).OnUses:=@TPascalScriptUses;
+end;
+
+procedure TBaseScript.DataSetAfterScroll(ADataSet: TDataSet);
+begin
   FScript.Source:=FieldByName('SCRIPT').AsString;
 end;
 
@@ -484,7 +489,8 @@ destructor TBaseScript.Destroy;
 begin
   FLinks.Free;
   FHistory.Free;
-  fScript.Destroy;
+  if Assigned(FScript) then
+    fScript.Destroy;
   FDataSource.Destroy;
   inherited Destroy;
 end;
@@ -550,6 +556,7 @@ begin
   FDataSource := TDataSource.Create(Self);
   FDataSource.DataSet := DataSet;
   DataSet.AfterScroll:=@DataSetAfterScroll;
+  dataSet.AfterOpen:=@DataSetAfterOpen;
   FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
   FLinks := TLinks.Create(Self,DM,aConnection);
 end;

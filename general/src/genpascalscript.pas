@@ -672,8 +672,11 @@ begin
     begin
       if Assigned(FProcess) then
         FreeAndNil(FProcess);
-      if Assigned(FRuntime) then
-        FRuntime.Stop;
+      try
+        if Assigned(FRuntime) then
+          FRuntime.Stop;
+      except
+      end;
     end;
   if FCompilerFree then
     FCompiler.Free;

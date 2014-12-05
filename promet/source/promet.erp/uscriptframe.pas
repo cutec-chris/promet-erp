@@ -132,6 +132,7 @@ begin
   if Assigned(FConnection) then
     begin
       FDataSet.CascadicPost;
+      fScriptEditor.acSave.Execute;
       if UseTransactions then
         begin
           Data.CommitTransaction(FConnection);
@@ -340,6 +341,9 @@ begin
   FEditor.BorderStyle:=bsNone;
   FEditor.Parent:=tsScript;
   FEditor.Align:=alClient;
+  FEditor.acSave.Visible:=False;
+  fEditor.lName.Visible:=false;
+  fEditor.eName.Visible:=false;
 end;
 destructor TfScriptFrame.Destroy;
 begin

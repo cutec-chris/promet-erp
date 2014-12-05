@@ -510,6 +510,7 @@ object fScriptEditor: TfScriptEditor
       LineHighlightColor.Background = clNone
       LineHighlightColor.Foreground = clNone
       LineHighlightColor.FrameEdges = sfeAround
+      OnChange = edChange
       OnDropFiles = edDropFiles
       OnGutterClick = edGutterClick
       OnShowHint = edShowHint

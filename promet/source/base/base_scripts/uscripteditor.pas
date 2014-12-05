@@ -124,6 +124,7 @@ type
     procedure cbSyntaxSelect(Sender: TObject);
     procedure DebuggerExecImport(Sender: TObject; se: TPSExec;
       x: TPSRuntimeClassImporter);
+    procedure edChange(Sender: TObject);
     procedure edGutterClick(Sender: TObject; X, Y, Line: integer;
       mark: TSynEditMark);
     procedure edShowHint(Sender: TObject; HintInfo: PHintInfo);
@@ -358,6 +359,13 @@ begin
   TPascalScript(FDataSet.Script).ClassImporter:=x;
 end;
 
+procedure TfScriptEditor.edChange(Sender: TObject);
+begin
+ FDataSet.Edit;
+ FDataSet.FieldByName('SCRIPT').AsString:=ed.Lines.Text;
+ FDataSet.FieldByName('FOLDSTATE').AsString:=ed.FoldState;
+end;
+
 procedure TfScriptEditor.acDecompileExecute(Sender: TObject);
 var
   s: tbtstring;
@@ -476,9 +484,6 @@ end;
 
 procedure TfScriptEditor.acSaveExecute(Sender: TObject);
 begin
-  FDataSet.Edit;
-  FDataSet.FieldByName('SCRIPT').AsString:=ed.Lines.Text;
-  FDataSet.FieldByName('FOLDSTATE').AsString:=ed.FoldState;
   FDataSet.Post;
   ed.Modified := False;
   ed.MarkTextAsSaved;
