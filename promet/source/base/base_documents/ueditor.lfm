@@ -63,7 +63,7 @@ object fEditor: TfEditor
     Align = alClient
     Anchors = [akTop]
     Font.Color = clBlack
-    Font.Height = 13
+    Font.Height = -13
     Font.Name = 'Courier 10 Pitch'
     Font.Pitch = fpFixed
     Font.Quality = fqNonAntialiased
@@ -75,7 +75,7 @@ object fEditor: TfEditor
     OnKeyPress = EditorKeyPress
     BookMarkOptions.Xoffset = 48
     Gutter.Visible = False
-    Gutter.Width = 53
+    Gutter.Width = 57
     Gutter.MouseActions = <    
       item
         ClickCount = ccAny
@@ -521,7 +521,7 @@ object fEditor: TfEditor
         MouseActions = <>
       end
       object SynGutterLineNumber1: TSynGutterLineNumber
-        Width = 13
+        Width = 17
         MouseActions = <>
         MarkupInfo.Background = clBtnFace
         MarkupInfo.Foreground = clNone

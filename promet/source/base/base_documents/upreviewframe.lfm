@@ -13,12 +13,12 @@ inherited fPreview: TfPreview
     Caption = 'ToolBar2'
     TabOrder = 0
     object cbRevision: TComboBox
-      Left = 129
-      Height = 30
+      Left = 121
+      Height = 21
       Top = 2
       Width = 245
       Align = alLeft
-      ItemHeight = 0
+      ItemHeight = 13
       OnSelect = cbRevisionSelect
       TabOrder = 0
     end
@@ -26,7 +26,7 @@ inherited fPreview: TfPreview
       Left = 73
       Height = 14
       Top = 10
-      Width = 48
+      Width = 40
       Align = alLeft
       BorderSpacing.Around = 8
       Caption = 'Revision'
@@ -201,26 +201,26 @@ inherited fPreview: TfPreview
     TabOrder = 1
     object tsImage: TTabSheet
       Caption = 'Inhalt'
-      ClientHeight = 491
-      ClientWidth = 752
+      ClientHeight = 498
+      ClientWidth = 750
       OnShow = tsImageShow
       object pfrPreview: TPanel
         Left = 0
-        Height = 491
+        Height = 498
         Top = 0
-        Width = 752
+        Width = 750
         Align = alClient
         BevelOuter = bvNone
         Caption = 'pfrPreview'
-        ClientHeight = 491
-        ClientWidth = 752
+        ClientHeight = 498
+        ClientWidth = 750
         TabOrder = 0
         Visible = False
         object frPreview: TfrPreview
           Left = 0
-          Height = 491
+          Height = 498
           Top = 0
-          Width = 752
+          Width = 750
           Align = alClient
           BevelOuter = bvNone
           Caption = 'keine Vorschau'
@@ -230,19 +230,19 @@ inherited fPreview: TfPreview
       end
       object sbImage: TPanel
         Left = 0
-        Height = 491
+        Height = 498
         Top = 0
-        Width = 752
+        Width = 750
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 491
-        ClientWidth = 752
+        ClientHeight = 498
+        ClientWidth = 750
         TabOrder = 1
         object PaintBox1: TPaintBox
           Left = 0
-          Height = 477
+          Height = 484
           Top = 0
-          Width = 738
+          Width = 736
           Align = alClient
           OnMouseDown = frPreviewMouseDown
           OnMouseMove = frPreviewMouseMove
@@ -252,8 +252,8 @@ inherited fPreview: TfPreview
           OnPaint = PaintBox1Paint
         end
         object ScrollBar2: TScrollBar
-          Left = 738
-          Height = 477
+          Left = 736
+          Height = 484
           Top = 0
           Width = 14
           Align = alRight
@@ -265,8 +265,8 @@ inherited fPreview: TfPreview
         object ScrollBar1: TScrollBar
           Left = 0
           Height = 14
-          Top = 477
-          Width = 737
+          Top = 484
+          Width = 735
           Align = alBottom
           BorderSpacing.Right = 15
           PageSize = 0
@@ -277,28 +277,30 @@ inherited fPreview: TfPreview
     end
     object tsText: TTabSheet
       Caption = 'Text'
-      ClientHeight = 491
-      ClientWidth = 752
+      ClientHeight = 498
+      ClientWidth = 750
       object mText: TMemo
         Left = 44
-        Height = 488
+        Height = 498
         Top = 0
         Width = 706
         Align = alClient
+        Font.Height = -12
         Lines.Strings = (
           'mText'
         )
+        ParentFont = False
         ScrollBars = ssAutoBoth
         TabOrder = 0
       end
       object pLeft: TPanel
         Left = 0
-        Height = 488
+        Height = 498
         Top = 0
         Width = 44
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 488
+        ClientHeight = 498
         ClientWidth = 44
         ParentShowHint = False
         ShowHint = True
@@ -333,7 +335,8 @@ inherited fPreview: TfPreview
             Caption = 'Text'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = -900
+            Font.Orientation = 900
+            Layout = tlBottom
             ParentColor = False
             ParentFont = False
           end
@@ -512,4 +515,4 @@ inherited fPreview: TfPreview
       OnExecute = acFindDateExecute
     end
   end
-end
+end
