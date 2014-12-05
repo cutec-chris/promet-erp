@@ -186,6 +186,7 @@ type
 
 var
   fScriptEditor: TfScriptEditor;
+  fLastScriptEditor: TfScriptEditor;
 
 implementation
 
@@ -225,7 +226,10 @@ resourcestring
 
 function OnUses(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 begin
-  TPascalScript(fScriptEditor.FDataSet.Script).InternalUses(Sender,Name);
+  if Assigned(fScriptEditor) then
+    TPascalScript(fScriptEditor.FDataSet.Script).InternalUses(Sender,Name)
+  else if Assigned(flastScriptEditor) then
+    TPascalScript(fLastScriptEditor.FDataSet.Script).InternalUses(Sender,Name)
 end;
 
 procedure TfScriptEditor.DoSearchReplaceText(AReplace: boolean; ABackwards: boolean);
@@ -426,6 +430,7 @@ end;
 
 procedure TfScriptEditor.acRunExecute(Sender: TObject);
 begin
+  fLastScriptEditor := Self;
   if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal' then
     begin
       if Debugger.Running then

@@ -200,7 +200,7 @@ begin
     with TfPosition(Owner).DataSet as TOrderPos do
       begin
         cbImage.Clear;
-        if Self.Repair.DataSet = Repair.DataSet then exit;
+        //if Self.Repair.DataSet = Repair.DataSet then exit;
         fRepairImages.SetLanguage;
         Repair.Open;
         FImages := TOrderRepairImages.Create(nil,Data);
