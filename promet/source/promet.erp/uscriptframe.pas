@@ -351,7 +351,6 @@ begin
   if Assigned(FConnection) then
     begin
       CloseConnection(acSave.Enabled);
-      DataSet.Destroy;
       DataSet := nil;
       FreeAndNil(FConnection);
     end;

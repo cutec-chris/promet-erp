@@ -489,8 +489,7 @@ destructor TBaseScript.Destroy;
 begin
   FLinks.Free;
   FHistory.Free;
-  if Assigned(FScript) then
-    fScript.Destroy;
+  fScript.Destroy;
   FDataSource.Destroy;
   inherited Destroy;
 end;

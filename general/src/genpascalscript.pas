@@ -56,6 +56,7 @@ type
   public
     Parameters : Variant;
     function Execute(aParameters : Variant) : Boolean;virtual;
+    destructor Destroy; override;
     property Source : string read FSource write FSource;
     property Status : char read FStatus write SetStatus;
     property Results : string read FResults write FResults;
@@ -371,6 +372,12 @@ function TScript.Execute(aParameters: Variant): Boolean;
 begin
   Parameters:=aParameters;
 end;
+
+destructor TScript.Destroy;
+begin
+  inherited Destroy;
+end;
+
 procedure TPascalScript.InternalExec(cmd: string; ShowConsole: Boolean);
 var
   aLine: String;
@@ -672,11 +679,8 @@ begin
     begin
       if Assigned(FProcess) then
         FreeAndNil(FProcess);
-      try
-        if Assigned(FRuntime) then
-          FRuntime.Stop;
-      except
-      end;
+      if Assigned(FRuntime) and FRuntimeFree then
+        FRuntime.Stop;
     end;
   if FCompilerFree then
     FCompiler.Free;

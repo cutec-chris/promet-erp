@@ -850,7 +850,6 @@ end;
 procedure TfScriptEditor.messagesDblClick(Sender: TObject);
 begin
   ed.CaretXY := GetErrorRowCol(messages.Items[messages.ItemIndex]);
-  SetFocus;
   ActiveControl:=ed;
 end;
 
