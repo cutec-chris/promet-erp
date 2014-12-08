@@ -33,6 +33,7 @@ type
   TPasswordSave = class(TBaseDBDataset)
   public
     procedure DefineFields(aDataSet: TDataSet); override;
+    procedure Generate(aLen : Integer);
   end;
 
 implementation
@@ -47,7 +48,6 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('REF_ID',ftLargeInt,0,true);
             Add('NAME',ftString,200,False);
             Add('SITE',ftString,500,False);
             Add('USERNAME',ftString,400,False);
@@ -55,6 +55,11 @@ begin
             Add('DATE',ftDateTime,0,False);
           end;
     end;
+end;
+
+procedure TPasswordSave.Generate(aLen: Integer);
+begin
+
 end;
 
 end.

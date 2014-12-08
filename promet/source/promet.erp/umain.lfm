@@ -871,6 +871,9 @@ object fMain: TfMain
       object MenuItem4: TMenuItem
         Action = acCommandline
       end
+      object MenuItem5: TMenuItem
+        Action = acPasswords
+      end
     end
     object miHelp: TMenuItem
       Caption = 'Hilfe'
@@ -1199,6 +1202,11 @@ object fMain: TfMain
       Caption = 'neues Element'
       ImageIndex = 88
       OnExecute = acNewObjectExecute
+    end
+    object acPasswords: TAction
+      Caption = 'Passwörter'
+      ImageIndex = 100
+      OnExecute = acPasswordsExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties

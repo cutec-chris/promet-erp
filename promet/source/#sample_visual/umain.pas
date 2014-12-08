@@ -42,6 +42,8 @@ begin
     LoadMandants;
 end;
 procedure TfMain.acLoginExecute(Sender: TObject);
+var
+  a: TOrder;
 begin
   with Application as IBaseApplication do
     if not Login then
@@ -51,6 +53,13 @@ begin
       end;
   acLogin.Enabled:=False;
   acLogout.Enabled:=True;
+
+  a := TOrder.Create(nil,Data);
+  a.Insert;
+  a.Positions.Insert;
+  a.Address.Insert;
+
+
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
@@ -77,4 +86,4 @@ begin
     end;
 end;
 initialization
-end.
+end.
