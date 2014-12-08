@@ -435,46 +435,13 @@ begin
   with BaseApplication as IBaseDBInterface do
     begin
       if not Data.Users.DataSet.Active then Data.Users.Open;
-      if not Data.Users.Options.DataSet.Active then Data.Users.Options.Open;
-      if not Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
-        begin
-          with Data.Users.Options.DataSet as IBaseDBFilter do
-            begin
-              Data.SetFilter(Data.Users.Options,'');
-              if not Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
-                Data.SetFilter(Data.Users.Options,Data.QuoteField('OPTION')+'='+Data.QuoteValue(Ident));
-              if not Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
-                Data.SetFilter(Data.Users.Options,'');
-            end;
-        end;
-      if Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
-        Result := Data.Users.Options.FieldByName('VALUE').AsString;
+      Result := Data.Users.Options.GetOption(ASection,Ident,DefaultValue);
     end;
 end;
 procedure TDBConfig.WriteString(const ASection, Ident, Value: string);
 begin
   with BaseApplication as IBaseDBInterface do
-    begin
-      if not Data.Users.Options.Locate('OPTION',Ident,[]) then
-        Data.SetFilter(Data.Users.Options,'',0);
-      if not Data.Users.Options.Locate('OPTION',Ident,[]) then
-        begin
-          if Value <> '' then
-            begin
-              Data.Users.Options.Insert;
-              Data.Users.Options.FieldByName('OPTION').AsString:=Ident;
-            end;
-        end
-      else if Value <> '' then
-        Data.Users.Options.Edit
-      else if Value = '' then
-        Data.Users.Options.Delete;
-      if Value <> '' then
-        begin
-          Data.Users.Options.FieldByName('VALUE').AsString := Value;
-          Data.Users.Options.DataSet.Post;
-        end;
-    end;
+    Data.Users.Options.SetOption(ASection, Ident, Value);
 end;
 
 function TDBConfig.ReadString(Ident, DefaultValue: string): string;

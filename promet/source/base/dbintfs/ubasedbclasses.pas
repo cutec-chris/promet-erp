@@ -372,10 +372,15 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+
+  { TOptions }
+
   TOptions = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Open; override;
+    function GetOption(aSection, aIdent, DefaultValue: string): string;
+    procedure SetOption(aSection,aIdent, Value : string);
   end;
   TFollowers = class(TBaseDBDataSet)
   private
@@ -2138,6 +2143,50 @@ begin
   inherited Open;
 end;
 
+function TOptions.GetOption(aSection, aIdent, DefaultValue: string): string;
+begin
+  if not DataSet.Active then Open;
+  if not DataSet.Locate('OPTION',aIdent,[]) then
+    begin
+      with DataSet as IBaseDBFilter do
+        begin
+          SetFilter('');
+          if not DataSet.Locate('OPTION',aIdent,[]) then
+            SetFilter(Data.QuoteField('OPTION')+'='+Data.QuoteValue(aIdent));
+          if not DataSet.Locate('OPTION',aIdent,[]) then
+            SetFilter('');
+        end;
+    end;
+  if Locate('OPTION',aIdent,[]) then
+    Result := FieldByName('VALUE').AsString;
+end;
+
+procedure TOptions.SetOption(aSection, aIdent, Value: string);
+begin
+  with BaseApplication as IBaseDBInterface do
+    begin
+      if not Locate('OPTION',aIdent,[]) then
+        Data.SetFilter(Self,'',0);
+      if not Locate('OPTION',aIdent,[]) then
+        begin
+          if Value <> '' then
+            begin
+              Insert;
+              FieldByName('OPTION').AsString:=aIdent;
+            end;
+        end
+      else if Value <> '' then
+        Edit
+      else if Value = '' then
+        Delete;
+      if Value <> '' then
+        begin
+          FieldByName('VALUE').AsString := Value;
+          Post;
+        end;
+    end;
+end;
+
 constructor TRights.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
@@ -3152,4 +3201,4 @@ end;
 
 initialization
 end.
-
+

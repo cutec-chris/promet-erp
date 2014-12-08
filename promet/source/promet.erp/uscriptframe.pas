@@ -132,7 +132,7 @@ begin
   if Assigned(FConnection) then
     begin
       FDataSet.CascadicPost;
-      fScriptEditor.acSave.Execute;
+      fEditor.acSave.Execute;
       if UseTransactions then
         begin
           Data.CommitTransaction(FConnection);

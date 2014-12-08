@@ -338,7 +338,7 @@ inherited fScriptFrame: TfScriptFrame
       end
     end
   end
-  object Script: TDataSource[2]
+  object Script: TDatasource[2]
     OnStateChange = ScriptStateChange
     left = 16
     top = 88
@@ -475,7 +475,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 172
     top = 252
   end
-  object History: TDataSource[6]
+  object History: TDatasource[6]
     left = 204
     top = 252
   end
@@ -493,7 +493,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 220
     top = 169
   end
-  object MandantDetails: TDataSource[9]
+  object MandantDetails: TDatasource[9]
     left = 256
     top = 232
   end
