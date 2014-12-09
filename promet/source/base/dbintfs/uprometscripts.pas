@@ -255,34 +255,6 @@ begin
         Sender.AddMethod(Self,@TBaseScript.InternalHistory,'function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
         Sender.AddMethod(Self,@TBaseScript.InternalUserHistory,'function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
         Sender.AddMethod(Self,@TBaseScript.InternalStorValue,'procedure StorValue(Name,Id : string;Value : Double);');
-        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBModule) do
-          begin
-            RegisterMethod('function GetConnection: TComponent;');
-            //RegisterMethod('function GetSyncOffset: Integer;');
-            //RegisterMethod('procedure SetSyncOffset(const AValue: Integer);');
-            //RegisterMethod('function GetLimitAfterSelect: Boolean;');
-            //RegisterMethod('function GetLimitSTMT: string;');
-
-            RegisterMethod('function BuildLink(aDataSet : TDataSet) : string;');
-            RegisterMethod('function GotoLink(aLink : string) : Boolean;');
-            RegisterMethod('function GetLinkDesc(aLink : string) : string;');
-            RegisterMethod('function GetLinkLongDesc(aLink : string) : string;');
-            RegisterMethod('function GetLinkIcon(aLink : string) : Integer;');
-
-            RegisterProperty('Users','TUsers',iptRW);
-          end;
-        with Sender.ClassImporter.Add(TBaseDBModule) do
-          begin
-            //RegisterVirtualMethod(@TBaseDBModule.GetConnection, 'GETCONNECTION');
-            RegisterVirtualMethod(@TBaseDBModule.BuildLink, 'BUILDLINK');
-            RegisterVirtualMethod(@TBaseDBModule.GotoLink, 'GOTOLINK');
-            RegisterVirtualMethod(@TBaseDBModule.GetLinkDesc, 'GETLINKDESC');
-            RegisterVirtualMethod(@TBaseDBModule.GetLinkLongDesc, 'GETLINKLONGDESC');
-            RegisterVirtualMethod(@TBaseDBModule.GetLinkIcon, 'GETLINKICON');
-
-            RegisterPropertyHelper(@TBaseDBModulePropertyUsersR,nil,'USERS');
-          end;
-        Sender.AddMethod(Self,@TBaseScript.InternalData,'function Data : TBaseDBModule');
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBDataset) do
           begin
             RegisterMethod('procedure Open;');
@@ -462,6 +434,34 @@ begin
             RegisterPropertyHelper(@TUserPropertyOptionsR,nil,'OPTIONS');
           end;
 
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBModule) do
+          begin
+            RegisterMethod('function GetConnection: TComponent;');
+            //RegisterMethod('function GetSyncOffset: Integer;');
+            //RegisterMethod('procedure SetSyncOffset(const AValue: Integer);');
+            //RegisterMethod('function GetLimitAfterSelect: Boolean;');
+            //RegisterMethod('function GetLimitSTMT: string;');
+
+            RegisterMethod('function BuildLink(aDataSet : TDataSet) : string;');
+            RegisterMethod('function GotoLink(aLink : string) : Boolean;');
+            RegisterMethod('function GetLinkDesc(aLink : string) : string;');
+            RegisterMethod('function GetLinkLongDesc(aLink : string) : string;');
+            RegisterMethod('function GetLinkIcon(aLink : string) : Integer;');
+
+            RegisterProperty('Users','TUser',iptRW);
+          end;
+        with Sender.ClassImporter.Add(TBaseDBModule) do
+          begin
+            //RegisterVirtualMethod(@TBaseDBModule.GetConnection, 'GETCONNECTION');
+            RegisterVirtualMethod(@TBaseDBModule.BuildLink, 'BUILDLINK');
+            RegisterVirtualMethod(@TBaseDBModule.GotoLink, 'GOTOLINK');
+            RegisterVirtualMethod(@TBaseDBModule.GetLinkDesc, 'GETLINKDESC');
+            RegisterVirtualMethod(@TBaseDBModule.GetLinkLongDesc, 'GETLINKLONGDESC');
+            RegisterVirtualMethod(@TBaseDBModule.GetLinkIcon, 'GETLINKICON');
+
+            RegisterPropertyHelper(@TBaseDBModulePropertyUsersR,nil,'USERS');
+          end;
+        Sender.AddMethod(Self,@TBaseScript.InternalData,'function Data : TBaseDBModule');
       except
         Result := False; // will halt compilation
       end;
