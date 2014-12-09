@@ -271,7 +271,6 @@ begin
 
             RegisterProperty('Users','TUsers',iptRW);
           end;
-        Sender.AddMethod(Self,@TBaseScript.InternalData,'function Data : TBaseDBModule');
         with Sender.ClassImporter.Add(TBaseDBModule) do
           begin
             //RegisterVirtualMethod(@TBaseDBModule.GetConnection, 'GETCONNECTION');
@@ -283,6 +282,7 @@ begin
 
             RegisterPropertyHelper(@TBaseDBModulePropertyUsersR,nil,'USERS');
           end;
+        Sender.AddMethod(Self,@TBaseScript.InternalData,'function Data : TBaseDBModule');
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBDataset) do
           begin
             RegisterMethod('procedure Open;');
