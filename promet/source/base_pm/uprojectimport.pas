@@ -118,7 +118,7 @@ var
                   end;
                 if Tasks.CanEdit then
                   Tasks.DataSet.Post;
-                bTask := TTask.Create(nil,Data,Tasks.Connection);
+                bTask := TTask.CreateEx(nil,Data,Tasks.Connection);
                 bTask.Select(Tasks.Id.AsVariant);
                 bTask.Open;
                 if bTask.Count > 0 then
@@ -154,7 +154,7 @@ var
                       aLink := Data.BuildLink(Tasks.DataSet);
                     if Tasks.DataSet.Locate('ORIGID',aTask.ChildNodes[b].Attributes.GetNamedItem('id').NodeValue,[]) then
                       begin
-                        bTask := TTask.Create(nil,Data,Tasks.Connection);
+                        bTask := TTask.CreateEx(nil,Data,Tasks.Connection);
                         bTask.Select(Tasks.Id.AsVariant);
                         bTask.Open;
                         if bTask.Count > 0 then
@@ -277,7 +277,7 @@ var
     if aStart>aDue then aStart := aDue-max(aTask.FieldByName('PLANTIME').AsFloat,1);
     TDOMElement(result).SetAttribute('start',FormatDateTime('YYYY-MM-DD',aStart));
     TDOMElement(result).SetAttribute('duration',IntToStr(trunc(aDue-aStart)));
-    aIDep := TDependencies.Create(nil,Data);
+    aIDep := TDependencies.Create(nil);
     aIDep.SelectByLink(Data.BuildLink(aTask.DataSet));
     aIDep.Open;
     with aIDep.DataSet do
@@ -308,7 +308,7 @@ var
   auNode: TDOMElement;
   aProject: TProject;
 begin
-  aProject := TProject.Create(nil,Data);
+  aProject := TProject.Create(nil);
   aProject.Select(bProject.Id.AsVariant);
   with aProject.DataSet as IBaseDBFilter do
     begin

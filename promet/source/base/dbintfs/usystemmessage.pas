@@ -122,10 +122,10 @@ begin
   Data := aData;
   Connection := Data.GetNewConnection;
   aSleepTime := 12000;
-  SysCommands := TSystemCommands.Create(nil,Data,Connection);
+  SysCommands := TSystemCommands.CreateEx(nil,Data,Connection);
   SysCommands.CreateTable;
   Data.SetFilter(SysCommands,Data.QuoteField('PROCESS_ID')+'='+Data.QuoteValue(IntToStr(Data.SessionID)),5);
-  SysMessages := TSystemMessages.Create(nil,Data,Connection);
+  SysMessages := TSystemMessages.CreateEx(nil,Data,Connection);
   SysMessages.CreateTable;
   Data.SetFilter(SysMessages,Data.QuoteField('PROCESS_ID')+'='+Data.QuoteValue(IntToStr(Data.SessionID)),5);
   if not BaseApplication.HasOption('disablethreads') then
@@ -202,8 +202,8 @@ var
   Procs: TActiveUsers;
 begin
   if not Assigned(Self) then exit;
-  Procs := TActiveUsers.Create(nil,Data);
-  SysCmd := TSystemCommands.Create(nil,Data);
+  Procs := TActiveUsers.Create(nil);
+  SysCmd := TSystemCommands.Create(nil);
   try
     with Procs.DataSet as IBaseDbFilter do
       Data.SetFilter(Procs,Data.ProcessTerm(Data.QuoteField('CLIENT')+'='+Data.QuoteValue(Target)));

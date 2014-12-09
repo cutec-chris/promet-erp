@@ -248,7 +248,7 @@ begin
               Stream := TmemoryStream.Create;
               Report.EMFPages.SaveToStream(Stream);
               Stream.Position:=0;
-              aDocument := TDocument.Create(Self,Data);
+              aDocument := TDocument.CreateEx(Self,Data);
               aDocument.Select(0);
               aDocument.Open;
               aDocument.Ref_ID:=FDS.Id.AsVariant;
@@ -512,7 +512,7 @@ begin
                   Stream := TmemoryStream.Create;
                   Report.EMFPages.SaveToStream(Stream);
                   Stream.Position:=0;
-                  aDocument := TDocument.Create(Self,Data);
+                  aDocument := TDocument.CreateEx(Self,Data);
                   aDocument.Select(0);
                   aDocument.Open;
                   aDocument.Ref_ID:=FDS.Id.AsVariant;
@@ -569,7 +569,7 @@ begin
         begin
           eMail := '';
           fLogWaitform.ShowInfo('e-Mail wird generiert...');
-          aCustomer := TPerson.Create(Self,Data);
+          aCustomer := TPerson.CreateEx(Self,Data);
           if (FDS is TOrder) and (TOrder(FDS).Address.Count > 0) then
             begin
               aCustomer.SelectByAccountNo(TOrder(FDS).Address.FieldByName('ACCOUNTNO').AsString);
@@ -590,7 +590,7 @@ begin
       else if cbPrinter.Text = '<'+strExterneMail+'>' then
         begin
           eMail:='';
-          aCustomer := TPerson.Create(Self,Data);
+          aCustomer := TPerson.CreateEx(Self,Data);
           if (FDS is TOrder) and (TOrder(FDS).Address.Count > 0) then
             begin
               aCustomer.SelectByAccountNo(TOrder(FDS).Address.FieldByName('ACCOUNTNO').AsString);
@@ -611,7 +611,7 @@ begin
               with TMeetings(FDS).Users do
                 begin
                   First;
-                  aUser := TUser.Create(nil,Data);
+                  aUser := TUser.Create(nil);
                   while not EOF do
                     begin
                       aUser.Select(FieldbyName('USER_ID').AsVariant);
@@ -703,7 +703,7 @@ begin
           if cbInfo.Text = '<'+streMail+'>' then
             begin
               fLogWaitform.ShowInfo('e-Mail wird generiert...');
-              aCustomer := TPerson.Create(Self,Data);
+              aCustomer := TPerson.CreateEx(Self,Data);
               if (FDS is TOrder) and (TOrder(FDS).Address.Count > 0) then
                 begin
                   aCustomer.SelectByAccountNo(TOrder(FDS).Address.FieldByName('ACCOUNTNO').AsString);

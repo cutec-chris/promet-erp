@@ -68,7 +68,7 @@ type
   Source: string; Date: TDateTime): Boolean;
     procedure InternalStorValue(aName,aId : string;aValue : Double);
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure DefineFields(aDataSet: TDataSet); override;
     procedure FillDefaults(aDataSet: TDataSet); override;
@@ -94,14 +94,14 @@ var
   bScript: TBaseScript;
 begin
   Result:=false;
-  aScript := TBaseScript.Create(nil,Data);
+  aScript := TBaseScript.Create(nil);
   aScript.Filter(Data.QuoteField('RUNEVERY')+'>'+Data.QuoteValue('0')+' OR '+Data.QuoteField('STATUS')+'='+Data.QuoteValue('d'));
   while not aScript.EOF do
     begin
       if (aScript.FieldByName('STATUS').AsString<>'S') and ((aScript.FieldByName('RUNMASHINE').AsString='') or (pos(GetSystemName,aScript.FieldByName('RUNMASHINE').AsString)>0)) then
         if (aScript.FieldByName('LASTRUN').AsDateTime+(aScript.FieldByName('RUNEVERY').AsInteger/MinsPerDay)<Now()) or (aScript.FieldByName('STATUS').AsString='d') or (aScript.FieldByName('STATUS').AsString='r') then
           begin
-            bScript := TBaseScript.Create(nil,aScript.DataModule,aScript.Connection);
+            bScript := TBaseScript.CreateEx(nil,aScript.DataModule,aScript.Connection);
             bScript.Select(aScript.Id.AsVariant);
             bScript.Open;
             Result := (aScript.FieldByName('STATUS').AsString='d');
@@ -114,7 +114,7 @@ begin
   aScript.Filter(Data.QuoteField('RUNONHISTORY')+'='+Data.QuoteValue('Y'));
   if (not aScript.EOF) then
     begin
-      aHistory := TBaseHistory.Create(nil,Data);
+      aHistory := TBaseHistory.Create(nil);
       while not aScript.EOF do
         begin
           if aScript.FieldByName('STATUS').AsString<>'E' then
@@ -125,7 +125,7 @@ begin
                 while not aHistory.DataSet.BOF do
                   begin
                     aHistory.Prior;
-                    bScript := TBaseScript.Create(nil,aScript.DataModule,aScript.Connection);
+                    bScript := TBaseScript.CreateEx(nil,aScript.DataModule,aScript.Connection);
                     bScript.Select(aScript.Id.AsVariant);
                     bScript.Open;
                     if bScript.Count=1 then
@@ -160,12 +160,12 @@ begin
   Result := False;
   if TBaseDBModule(DataModule).DataSetFromLink(ParentLink,aDataSetClass) then
     begin
-      aDataSet := aDataSetClass.Create(nil,DataModule,Connection);
+      aDataSet := aDataSetClass.CreateEx(nil,DataModule,Connection);
       TBaseDbList(aDataSet).SelectFromLink(ParentLink);
       aDataSet.Open;
       if aDataSet.Count>0 then
         begin
-          aHistory := TBaseHistory.Create(nil,DataModule,Connection,aDataSet.DataSet);
+          aHistory := TBaseHistory.CreateEx(nil,DataModule,Connection,aDataSet.DataSet);
           aHistory.AddItemSR(aDataSet.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,aCommission,True,False);
           if Source<>'' then
             aHistory.FieldByName('SOURCE').AsString:=Source;
@@ -194,7 +194,7 @@ procedure TBaseScript.InternalStorValue(aName, aId: string; aValue: Double);
 var
   aVariable: TVariables;
 begin
-  aVariable := TVariables.Create(nil,Data);
+  aVariable := TVariables.Create(nil);
   aVariable.CreateTable;
   aVariable.Add(aName,aId,aValue);
   aVariable.Free;
@@ -468,7 +468,7 @@ begin
     end
   else
     begin
-      aScript := TBaseScript.Create(nil,DataModule);
+      aScript := TBaseScript.CreateEx(nil,DataModule);
       aScript.Filter(Data.ProcessTerm('UPPER('+Data.QuoteField('NAME')+')=UPPER('+Data.QuoteValue(aName)+')'));
       if aScript.Count>0 then
         if aScript.Locate('NAME',aName,[loCaseInsensitive]) then
@@ -547,17 +547,17 @@ begin
   Result := VarArrayHighBound(FScript.Parameters,1)+1;
 end;
 
-constructor TBaseScript.Create(aOwner: TComponent; DM: TComponent;
+constructor TBaseScript.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FScript := TPascalScript.Create;
   FDataSource := TDataSource.Create(Self);
   FDataSource.DataSet := DataSet;
   DataSet.AfterScroll:=@DataSetAfterScroll;
   dataSet.AfterOpen:=@DataSetAfterOpen;
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
-  FLinks := TLinks.Create(Self,DM,aConnection);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FLinks := TLinks.CreateEx(Self,DM,aConnection);
 end;
 
 procedure TBaseScript.DefineFields(aDataSet: TDataSet);

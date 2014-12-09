@@ -92,8 +92,8 @@ resourcestring
 {$R *.lfm}
 procedure TfmWikiPage.DataModuleCreate(Sender: TObject);
 begin
-  Wiki := TWikiList.Create(nil,Data);
-  Documents := TDocument.Create(nil,Data);
+  Wiki := TWikiList.Create(nil);
+  Documents := TDocument.Create(nil);
   MainMenue := TStringList.Create;
   SearchItems := TStringList.Create;
   IgnoreLinks := TStringList.Create;
@@ -234,13 +234,13 @@ begin
           Inp := copy(Inp,0,pos(')',Inp)-1);
           if not  TryStrToInt(Inp,aCount) then aCount := 30;
           try
-            aList := TMessageList.Create(nil,Data);
+            aList := TMessageList.Create(nil);
             Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(VarToStr(Data.Tree.Id.AsVariant)),aCount,'SENDDATE','DESC');
             while not aList.DataSet.EOF do
               begin
                 if aCount <= 0 then break;
                 try
-                  aMessage := TMessage.Create(Self,Data);
+                  aMessage := TMessage.CreateEx(Self,Data);
                   aMessage.Select(aList.Id.AsVariant);
                   aMessage.Open;
                   if aMessage.Count > 0 then
@@ -281,7 +281,7 @@ begin
   else
     begin
       try
-        FDataSet := TWikiList.Create(Self,Data);
+        FDataSet := TWikiList.CreateEx(Self,Data);
         if pos('|',Inp) > 0 then
           Inp := copy(Inp,0,pos('|',Inp)-1);
         if TWikiList(FDataSet).FindWikiPage(Inp) then
@@ -356,7 +356,7 @@ begin
         parentNode.Appendchild(nofilho);
         RootNode.ChildNodes.Item[0].AppendChild(parentNode);
 
-        aWiki := TWikiList.Create(Self,Data);
+        aWiki := TWikiList.CreateEx(Self,Data);
         try
           Data.SetFilter(aWiki,'',LAST_CHANGES_COUNT,'TIMESTAMPD','DESC');
           while not aWiki.DataSet.EOF do
@@ -764,7 +764,7 @@ begin
     begin
       ReplaceText := TagParams.Values['CHANGHEADER'];
       aRow := TagParams.Values['CHANGONEROW'];
-      aWiki := TWikiList.Create(Self,Data);
+      aWiki := TWikiList.CreateEx(Self,Data);
       Data.SetFilter(aWiki,'',LAST_CHANGES_COUNT,'TIMESTAMPD','DESC');
       while not aWiki.DataSet.EOF do
         begin

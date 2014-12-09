@@ -125,7 +125,7 @@ begin
       CSVExport(OutputDir+DirectorySeparator+'languages.csv',';',Data.Languages.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'numbers.csv',';',Data.Numbers.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'orderpostyp.csv',';',Data.orderPosTyp.DataSet);
-      aOrder := TOrder.Create(Self,Data);
+      aOrder := TOrder.CreateEx(Self,Data);
       aOrder.Select(0);
       aOrder.Open;
       aOrder.OrderType.Open;
@@ -135,7 +135,7 @@ begin
       CSVExport(OutputDir+DirectorySeparator+'numbers.csv',';',Data.Numbers.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'pricetypes.csv',';',Data.Pricetypes.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'reports.csv',';',Data.Reports.DataSet);
-      aTemplates := TDocumentTemplates.Create(nil,Data);
+      aTemplates := TDocumentTemplates.Create(nil);
       CSVExport(OutputDir+DirectorySeparator+'templates.csv',';',aTemplates.DataSet);
       aTemplates.Free;
       CSVExport(OutputDir+DirectorySeparator+'texttyp.csv',';',Data.Texttyp.DataSet);
@@ -158,7 +158,7 @@ procedure TfMandantOptions.bTreeEntrysClick(Sender: TObject);
 var
   aTree: TTree;
 begin
-  aTree := TTree.Create(nil,Data);
+  aTree := TTree.Create(nil);
   with aTree.DataSet as IBaseDBFilter do
     begin
       UsePermissions:=False;
@@ -182,7 +182,7 @@ constructor TfMandantOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aMandant := TMandantDetails.Create(Self,Data,aConnection);
+  aMandant := TMandantDetails.CreateEx(Self,Data,aConnection);
   MandantDetailDS.DataSet := aMandant.DataSet;
 end;
 

@@ -72,7 +72,7 @@ procedure TfQuickHelpFrame.fQuickHelpFrameWikiInclude(Inp: string;
 var
   aNewList: TWikiList;
 begin
-  aNewList := TWikiList.Create(Self,Data);
+  aNewList := TWikiList.CreateEx(Self,Data);
   if pos('|',Inp) > 0 then Inp := copy(Inp,0,pos('|',Inp)-1);
   if aNewList.FindWikiPage(Inp) then
     begin
@@ -117,7 +117,7 @@ var
 begin
   with Application as IBaseDbInterface do
     DBConfig.WriteString(UseID,'NO');
-  aWiki := TWikiList.Create(nil,Data);
+  aWiki := TWikiList.Create(nil);
   aWiki.Select(FRootPage);
   aWiki.Open;
   if OpenWikiPage(aWiki) then
@@ -154,7 +154,7 @@ var
 begin
   Result := nil;
   NewPath := Path;
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   Data.SetFilter(aDocument,Data.QuoteField('TYPE')+'=''W'' and '+Data.QuoteField('NAME')+'='+Data.QuoteValue(copy(ExtractFileName(Path),0,rpos('.',ExtractFileName(Path))-1)),1);
   if aDocument.DataSet.RecordCount > 0 then
     begin
@@ -248,7 +248,7 @@ begin
           PageName:=copy(PageName,0,pos(']]',PageName)-1);
           if pos('|',PageName)>0 then
             PageName:=copy(PageName,0,pos('|',PageName)-1);
-          aWiki := TWikiList.Create(nil,Data);
+          aWiki := TWikiList.Create(nil);
           if aWiki.FindWikiPage(PageName) then
             if OpenWikiPage(aWiki) then
               begin

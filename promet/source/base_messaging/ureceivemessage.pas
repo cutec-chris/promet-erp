@@ -69,7 +69,7 @@ begin
   aSubject := ConvertEncoding(msg.Header.Subject,GuessEncoding(msg.Header.Subject),EncodingUTF8);
   atmp:=ConvertEncoding(getemailaddr(msg.Header.From),GuessEncoding(getemailaddr(msg.Header.From)),EncodingUTF8);
   try
-    CustomerCont := TPersonContactData.Create(nil,Data);
+    CustomerCont := TPersonContactData.Create(nil);
     atmp := StringReplace(atmp,'''','',[rfReplaceAll]);
     if Data.IsSQLDb then
       Data.SetFilter(CustomerCont,Data.ProcessTerm('UPPER("DATA")=UPPER('''+atmp+''')'))
@@ -77,7 +77,7 @@ begin
       Data.SetFilter(CustomerCont,Data.ProcessTerm('"DATA"='''+atmp+''''));
   except
   end;
-  Customers := TPerson.Create(nil,Data);
+  Customers := TPerson.Create(nil);
   Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
   CustomerCont.Free;
   if Customers.Count > 0 then
@@ -188,7 +188,7 @@ var
   ArchiveMsg: TArchivedMessage;
   ss: TStringStream;
 begin
-  ArchiveMsg := TArchivedMessage.Create(nil,Data);
+  ArchiveMsg := TArchivedMessage.Create(nil);
   ArchiveMsg.CreateTable;
   ArchiveMsg.Insert;
   ArchiveMsg.DataSet.FieldByName('ID').AsString:=mID;
@@ -226,14 +226,14 @@ begin
       atmp:=ConvertEncoding(getemailaddr(fullmsg.Header.From),GuessEncoding(getemailaddr(fullmsg.Header.From)),EncodingUTF8);
       try
         atmp := StringReplace(atmp,'''','',[rfReplaceAll]);
-        CustomerCont := TPersonContactData.Create(nil,Data);
+        CustomerCont := TPersonContactData.Create(nil);
         if Data.IsSQLDb then
           Data.SetFilter(CustomerCont,Data.ProcessTerm('UPPER("DATA")=UPPER('''+atmp+''')'))
         else
           Data.SetFilter(CustomerCont,Data.ProcessTerm('"DATA"='''+atmp+''''));
       except
       end;
-      Customers := TPerson.Create(nil,Data);
+      Customers := TPerson.Create(nil);
       Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
       CustomerCont.Free;
       fullmsg.Free;
@@ -243,12 +243,12 @@ begin
         begin
           if FieldByName('PARENT').AsString<>'' then
             begin
-              aMessageL := TMessageList.Create(nil,aMessage.DataModule);
+              aMessageL := TMessageList.CreateEx(nil,aMessage.DataModule);
               aMessageL.SelectByMsgID(FieldByName('PARENT').AsVariant);
               aMessageL.Open;
               if aMessageL.Count>0 then
                 begin
-                  aHist := TBaseHistory.Create(nil,aMessageL.DataModule);
+                  aHist := TBaseHistory.CreateEx(nil,aMessageL.DataModule);
                   aHist.Filter(Data.ProcessTerm(Data.QuoteField('LINK')+'='+Data.QuoteValue('MESSAGEIDX@'+aMessageL.FieldByName('ID').AsString+'*')));
                   if aHist.Count>0 then
                     Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}',aHist.Id.AsVariant)

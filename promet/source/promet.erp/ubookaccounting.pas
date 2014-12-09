@@ -88,7 +88,7 @@ begin
               FieldByName('PAYMENT').AsString := 'Y';
               FieldByName('PAYEDON').AsDateTime := dePayed.Date;
               Post;
-              aOrder := TOrder.Create(nil,Data);
+              aOrder := TOrder.Create(nil);
               Data.SetFilter(aOrder,Data.QuoteField('ORDERNO')+'='+Data.QuoteValue(Accountingjournal.FieldByName('ORDERNO').AsString));
               if Data.Locate(aOrder,'ORDERNO',Accountingjournal.FieldByName('ORDERNO').AsString,[]) then
                 begin

@@ -91,7 +91,7 @@ begin
     end
   else if Data.DataSetFromLink(lowercase(FieldByName('CLASS').AsString)+'@',aDataSetClass) then
     begin
-      aDataSet := aDataSetClass.Create(nil,Data);
+      aDataSet := aDataSetClass.Create(nil);
       aDataSet.Filter(FieldByName('FILTER').AsString,0);
       aData := aDataSet.DataSet;
     end

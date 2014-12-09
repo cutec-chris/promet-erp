@@ -33,7 +33,7 @@ type
     function GetNumberFieldName : string;override;
     function GetStatusFieldName : string;override;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     constructor Create(aOwner : TComponent);override;
     function GetTyp: string; override;
@@ -53,7 +53,7 @@ type
     procedure PosPriceChanged(aPosDiff,aGrossDiff :Extended);override;
     procedure PosWeightChanged(aPosDiff :Extended);override;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure DefineFields(aDataSet : TDataSet);override;
     property Masterdata : TMasterdata read FMasterdata write FMasterdata;
   end;
@@ -66,7 +66,7 @@ type
     FJournal: TStorageJournal;
     function GetJournal: TStorageJournal;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
     function CreateTable : Boolean;override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -84,7 +84,7 @@ type
   private
     FPrices: TSupplierPrices;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
     function CreateTable : Boolean;override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -117,7 +117,7 @@ type
   private
     FParts: TRepairParts;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure DefineFields(aDataSet : TDataSet);override;
     function CreateTable : Boolean;override;
@@ -144,7 +144,7 @@ type
     function GetLanguage: TField;
     function GetVersion: TField;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure Open;override;
     function CreateTable : Boolean;override;
@@ -193,11 +193,11 @@ begin
           end;
     end;
 end;
-constructor TSupplier.Create(aOwner: TComponent; DM: TComponent;
+constructor TSupplier.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FPrices := TSupplierPrices.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FPrices := TSupplierPrices.CreateEx(Owner,DM,aConnection,DataSet);
 end;
 destructor TSupplier.Destroy;
 begin
@@ -240,11 +240,11 @@ begin
           end;
     end;
 end;
-constructor TRepairAssembly.Create(aOwner: TComponent; DM: TComponent;
+constructor TRepairAssembly.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FParts := TRepairParts.Create(Self,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FParts := TRepairParts.CreateEx(Self,DM,aConnection,DataSet);
 end;
 destructor TRepairAssembly.Destroy;
 begin
@@ -366,16 +366,16 @@ function TStorage.GetJournal: TStorageJournal;
 begin
   if not Assigned(FJournal) then
     begin
-      FJournal := TStorageJournal.Create(Self,DataModule,Connection);
+      FJournal := TStorageJournal.CreateEx(Self,DataModule,Connection);
       FJournal.CreateTable;
     end;
   Result := FJournal;
 end;
 
-constructor TStorage.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
+constructor TStorage.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM,aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
 end;
 
 destructor TStorage.Destroy;
@@ -650,10 +650,10 @@ function TMasterdata.GetLanguage: TField;
 begin
   Result := DataSet.FieldByName('LANGUAGE');
 end;
-constructor TMasterdata.Create(aOwner: TComponent;DM : TComponent; aConnection: TComponent;
+constructor TMasterdata.CreateEx(aOwner: TComponent;DM : TComponent; aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -661,18 +661,18 @@ begin
           UsePermissions:=False;
         end;
     end;
-  FPosition := TMDPos.Create(Self, DM,aConnection,DataSet);
+  FPosition := TMDPos.CreateEx(Self, DM,aConnection,DataSet);
   FPosition.Masterdata:=Self;
-  FStorage := TStorage.Create(Self,DM,aConnection,DataSet);
-  FHistory := TMasterdataHistory.Create(Self,DM,aConnection,DataSet);
-  FImages := TImages.Create(Self,DM,aConnection,DataSet);
-  FLinks := TMasterdataLinks.Create(Self,DM,aConnection);
-  FTexts := TMasterdataTexts.Create(Self,DM,aConnection,DataSet);
-  FPrices := TMasterdataPrices.Create(Self,DM,aConnection,DataSet);
-  FProperties := TMdProperties.Create(Self,DM,aConnection,DataSet);
-  FAssembly := TRepairAssembly.Create(Self,DM,aConnection,DataSet);
-  FSupplier := TSupplier.Create(Self,DM,aConnection,DataSet);
-  FSerials := TSerials.Create(Self,DM,aConnection,DataSet);
+  FStorage := TStorage.CreateEx(Self,DM,aConnection,DataSet);
+  FHistory := TMasterdataHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
+  FLinks := TMasterdataLinks.CreateEx(Self,DM,aConnection);
+  FTexts := TMasterdataTexts.CreateEx(Self,DM,aConnection,DataSet);
+  FPrices := TMasterdataPrices.CreateEx(Self,DM,aConnection,DataSet);
+  FProperties := TMdProperties.CreateEx(Self,DM,aConnection,DataSet);
+  FAssembly := TRepairAssembly.CreateEx(Self,DM,aConnection,DataSet);
+  FSupplier := TSupplier.CreateEx(Self,DM,aConnection,DataSet);
+  FSerials := TSerials.CreateEx(Self,DM,aConnection,DataSet);
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
   FDS.OnDataChange:=@FDSDataChange;
@@ -715,7 +715,7 @@ begin
   FSerials.CreateTable;
   FAssembly.CreateTable;
   FSupplier.CreateTable;
-  aUnits := TUnits.Create(nil,DataModule,Connection);
+  aUnits := TUnits.CreateEx(nil,DataModule,Connection);
   aUnits.CreateTable;
   aUnits.Free;
 end;
@@ -779,7 +779,7 @@ var
   bMasterdata: TMasterdata;
 begin
   Result := True;
-  bMasterdata := TMasterdata.Create(Self,DataModule,Self.Connection);
+  bMasterdata := TMasterdata.CreateEx(Self,DataModule,Self.Connection);
   try
     try
       bMasterdata.Select(Id.AsVariant);
@@ -824,7 +824,7 @@ procedure TMasterdata.GenerateThumbnail;
 var
   aThumbnail: TThumbnails;
 begin
-  aThumbnail := TThumbnails.Create(nil,DataModule);
+  aThumbnail := TThumbnails.CreateEx(nil,DataModule);
   aThumbnail.CreateTable;
   aThumbnail.SelectByRefId(Self.Id.AsVariant);
   aThumbnail.Open;
@@ -848,10 +848,10 @@ begin
     Masterdata.DataSet.Edit;
   Masterdata.FieldByName('WEIGHT').AsFloat := Masterdata.FieldByName('WEIGHT').AsFloat+aPosDiff;
 end;
-constructor TMDPos.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
-  aMasterdata: TDataSet);
+constructor TMDPos.CreateEx(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM,aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
 end;
 procedure TMDPos.DefineFields(aDataSet: TDataSet);
 begin
@@ -877,10 +877,10 @@ function TMasterdataList.GetStatusFieldName: string;
 begin
   Result:='STATUS';
 end;
-constructor TMasterdataList.Create(aOwner: TComponent; DM: TComponent;
+constructor TMasterdataList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -892,7 +892,7 @@ end;
 
 constructor TMasterdataList.Create(aOwner: TComponent);
 begin
-  Create(aOwner,Data,nil,nil);
+  CreateEx(aOwner,Data,nil,nil);
 end;
 
 procedure TMasterdataList.DefineFields(aDataSet: TDataSet);

@@ -301,7 +301,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
       aDocuments.Select(FDataSet.Id.AsInteger,'T',0);
       aDocuments.Open;
@@ -330,7 +330,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(FDataSet.Id.AsInteger,'T',0);
     end;
@@ -357,7 +357,7 @@ var
 begin
   FEditable := True;
   Event := aEvent;
-  FDataSet := TEvent.Create(nil,Data);
+  FDataSet := TEvent.Create(nil);
   FDataSet.SelectById(aEvent.RecordID);
   FDataSet.Open;
   FDataStore := aDataStore;

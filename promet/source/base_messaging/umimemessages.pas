@@ -80,7 +80,7 @@ begin
                           Content.DataSet.Post;
                           Content.DataSet.Edit;
                         end;
-                      Document := TDocument.Create(Self,Data);
+                      Document := TDocument.CreateEx(Self,Data);
                       Document.Select(0);
                       Document.Open;
                       Document.Ref_ID := Content.Id.AsVariant;
@@ -147,7 +147,7 @@ begin
           Content.DataSet.Post;
           Content.DataSet.Edit;
         end;
-      Document := TDocument.Create(Self,Data);
+      Document := TDocument.CreateEx(Self,Data);
       Document.Select(0);
       Document.Open;
       Document.Ref_ID := Content.Id.AsVariant;
@@ -205,7 +205,7 @@ begin
     aMessage.Header.ReplyTo:=DataSet.FieldByName('REPLYTO').AsString;
   if not DataSet.FieldByName('PARENT').IsNull then
     begin
-      aParent := TMessageList.Create(nil,DataModule);
+      aParent := TMessageList.CreateEx(nil,DataModule);
       aParent.SelectByMsgID(DataSet.FieldByName('PARENT').AsVariant);
       aParent.Open;
       if aParent.Count>0 then
@@ -256,7 +256,7 @@ begin
             begin
               if Documents.DataSet.FieldByName('ISDIR').AsString <> 'Y' then
                 begin
-                  aDocument := TDocument.Create(Self,Data);
+                  aDocument := TDocument.CreateEx(Self,Data);
                   aDocument.SelectByNumber(Documents.DataSet.FieldByName('NUMBER').AsInteger);
                   aDocument.Open;
                   if aDocument.Count>0 then
@@ -341,7 +341,7 @@ begin
       FieldbyName('SIZE').AsInteger := length(msg.Lines.text);
       if msg.Header.FindHeader('Newsgroups') <> '' then
         begin
-          aTree := TTree.Create(Self,Data,Connection);
+          aTree := TTree.CreateEx(Self,Data,Connection);
           aTree.Open;
           atmp := trim(msg.Header.FindHeader('Newsgroups'));
           if aTree.DataSet.Locate('TYPE;NAME',VarArrayOf(['B',atmp]),[loCaseInsensitive]) then
@@ -356,7 +356,7 @@ begin
         end;
       if msg.Header.FindHeader('References') <> '' then
         begin
-          aMsgList := TMessageList.Create(Self,Data,Connection);
+          aMsgList := TMessageList.CreateEx(Self,Data,Connection);
           atmp := msg.Header.FindHeader('References');
           while pos('<',atmp) > 0 do
             begin
@@ -401,4 +401,4 @@ begin
 end;
 
 end.
-
+

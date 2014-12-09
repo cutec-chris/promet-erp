@@ -128,7 +128,7 @@ var
   Accounts: TAccounts;
 begin
   cbAccount.Items.Clear;
-  Accounts := TAccounts.Create(Self,Data);
+  Accounts := TAccounts.CreateEx(Self,Data);
   Accounts.Open;
   Accounts.DataSet.First;
   while not Accounts.DataSet.EOF do

@@ -55,7 +55,7 @@ function TPNNTPGroup.GenerateMessage: TMimeMess;
 var
 aMessage: TMimeMessage;
 begin
-  aMessage := TMimeMessage.Create(Self,Data);
+  aMessage := TMimeMessage.CreateEx(Self,Data);
   aMessage.Select(FMessages.Id.AsVariant);
   aMessage.Open;
   Result := aMessage.EncodeMessage;
@@ -164,7 +164,7 @@ var
     bParent : Variant;
   begin
     Result := '';
-    FMsg := TMessageList.Create(Self,Data);
+    FMsg := TMessageList.CreateEx(Self,Data);
     FMsg.SelectByMsgID(aParent);
     FMsg.Open;
     if FMsg.Count > 0 then
@@ -220,7 +220,7 @@ begin
         aID := aID+aChr;
     end;
   aMsg.Header.MessageID := aID;
-  aMessage := TMimeMessage.Create(Self,Data);
+  aMessage := TMimeMessage.CreateEx(Self,Data);
   aMessage.Select(0);
   aMessage.Open;
   aMessage.DataSet.Insert;
@@ -248,7 +248,7 @@ begin
 end;
 constructor TPNNTPGroup.Create(aName: string;cFirstID : LargeInt);
 begin
-  FMessages := TMessageList.Create(Self,Data);
+  FMessages := TMessageList.CreateEx(Self,Data);
   if Data.Tree.DataSet.Locate('NAME',aName,[loCaseInsensitive]) then
     FTreeEntry := Data.Tree.Id.AsString
   else if Data.Tree.DataSet.Locate('NAME',StringReplace(aName,'_',' ',[rfReplaceAll]),[loCaseInsensitive]) then

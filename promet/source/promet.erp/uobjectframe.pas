@@ -200,7 +200,7 @@ begin
             iPreview.Picture.LoadFromFile(AppendPathDelim(GetInternalTempDir)+'screenshot.jpg');
           DataSet.Post;
         end;
-      aThumbnails := TThumbnails.Create(nil,Data);
+      aThumbnails := TThumbnails.Create(nil);
       aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
       aThumbnails.Open;
       while aThumbnails.Count>0 do
@@ -321,7 +321,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'E',DataSet.FieldByName('NUMBER').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
     end;
@@ -401,7 +401,7 @@ begin
           Application.ProcessMessages;
           TfImageFrame(aSheet.Controls[0]).acPaste.Execute;
           TfImageFrame(aSheet.Controls[0]).DataSet.Post;
-          aThumbnails := TThumbnails.Create(nil,Data);
+          aThumbnails := TThumbnails.Create(nil);
           aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
           aThumbnails.Open;
           while aThumbnails.Count>0 do
@@ -520,7 +520,7 @@ begin
     end;
   pcPages.AddTabClass(TfMeasurementFrame,strMeasurement,@AddMeasurement);
   FreeAndNil(FMeasurement);
-  FMeasurement := TMeasurement.Create(nil,Data,DataSet.Connection,DataSet.DataSet);
+  FMeasurement := TMeasurement.CreateEx(nil,Data,DataSet.Connection,DataSet.DataSet);
   FMeasurement.CreateTable;
   FMeasurement.Open;
   if FMeasurement.Count>0 then
@@ -528,7 +528,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsLargeInt,'E',DataSet.Id.AsVariant);
       aDocuments.Open;
@@ -552,7 +552,7 @@ begin
   if (FDataSet.State = dsInsert) or (TObjects(DataSet).Images.Count > 0) then
     pcPages.AddTab(TfImageFrame.Create(Self),False);
   TObjects(DataSet).Images.DataSet.Close;
-  aThumbnails := TThumbnails.Create(nil,Data);
+  aThumbnails := TThumbnails.Create(nil);
   aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
   aThumbnails.Open;
   if aThumbnails.Count>0 then
@@ -585,7 +585,7 @@ begin
     AddTabs(pcPages);
   if DataSet.State<> dsInsert then
     begin
-      aWiki := TWikiList.Create(nil,Data);
+      aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
         begin
           while not aWiki.EOF do
@@ -653,7 +653,7 @@ begin
     FConnection := Data.GetNewConnection;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TObjects.Create(Self,Data,FConnection);
+  DataSet := TObjects.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ElementStateChange;
   TBaseDbList(DataSet).SelectFromLink(aLink);
   Dataset.Open;
@@ -668,7 +668,7 @@ begin
   TabCaption := strNewArticle;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TObjects.Create(Self,Data,FConnection);
+  DataSet := TObjects.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ElementStateChange;
   DataSet.Select(0);
   DataSet.Open;

@@ -437,7 +437,7 @@ begin
           if DataSet.FieldByName('ISDIR').AsString = 'Y' then
             begin
               DragDropFile := AppendPathDelim(TempPath)+TDocuments(DataSet).FileName;
-              aDocument := TDocument.Create(Self,Data);
+              aDocument := TDocument.CreateEx(Self,Data);
               aID := DataSet.FieldByName('NUMBER').AsInteger;
               aDocument.SelectByNumber(aId);
               aDocument.Open;
@@ -451,7 +451,7 @@ begin
             begin
               DragDropFile := AppendPathDelim(TempPath)+UTF8ToSys(TDocuments(DataSet).FileName);
               aID := DataSet.FieldByName('NUMBER').AsInteger;
-              aDocument := TDocument.Create(Self,Data);
+              aDocument := TDocument.CreateEx(Self,Data);
               aDocument.SelectByNumber(aId);
               aDocument.Open;
               aDocument.DoCheckout(AppendPathDelim(TempPath));
@@ -537,7 +537,7 @@ begin
       if grfKeyState = 0 then
         begin
           //Dropped File to Desktop/Explorer
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aID := DataSet.FieldByName('NUMBER').AsInteger;
           aDocument.SelectByNumber(aId);
           aDocument.Open;
@@ -575,7 +575,7 @@ begin
       Screen.Cursor := crHourglass;
       for i := 0 to DocumentDialog.Files.Count-1 do
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.Select(0);
           aDocument.Open;
           aDocument.Ref_ID:=FRefID;
@@ -626,7 +626,7 @@ begin
       fDocumentAddOptions.eName.Enabled := False;
       fDocumentAddOptions.ccCalendar.Date:=Now();
       if not fDocumentAddOptions.Execute then exit;
-      aDocument := TDocument.Create(Self,Data);
+      aDocument := TDocument.CreateEx(Self,Data);
       aDocument.Select(0);
       aDocument.Open;
       aDocument.Ref_ID:=FRefID;
@@ -725,7 +725,7 @@ begin
       fDocumentAddOptions.cbDeletefromFilesystem.Enabled := False;
       fDocumentAddOptions.eName.Text := strNewImage;
       fDocumentAddOptions.eName.Enabled := True;
-      aPerson := TPerson.Create(Self,Data,FConnection);
+      aPerson := TPerson.CreateEx(Self,Data,FConnection);
       Data.SetFilter(aPerson,'('+Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(FID)+') OR ('+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(FRefID))+')',1);
       if aPerson.Count > 0 then
         begin
@@ -754,7 +754,7 @@ begin
       if aDate <> 0 then
         fDocumentAddOptions.ccCalendar.Date := aDate;
       if not fDocumentAddOptions.Execute then exit;
-      aDocument := TDocument.Create(Self,Data);
+      aDocument := TDocument.CreateEx(Self,Data);
       aDocument.Select(0);
       aDocument.Open;
       aDocument.Ref_ID:=FRefID;
@@ -776,7 +776,7 @@ begin
         begin
           if fDocumentAddOptions.cbAddToMessages.Checked then
             begin
-              aMessage := TMessage.Create(Self,Data);
+              aMessage := TMessage.CreateEx(Self,Data);
               aMessage.Select(0);
               aMessage.Open;
               with aMessage.DataSet do
@@ -831,7 +831,7 @@ begin
       if GotoSelected then
         begin
           Screen.Cursor := crHourglass;
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aID := DataSet.FieldByName('NUMBER').AsInteger;
           aDocument.SelectByNumber(aID);
           aDocument.Open;
@@ -876,7 +876,7 @@ begin
       if GotoSelected then
         begin
           Screen.Cursor := crHourglass;
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aID := DataSet.FieldByName('NUMBER').AsInteger;
           aDocument.SelectByNumber(aID);
           aDocument.Open;
@@ -913,7 +913,7 @@ begin
         begin
           if FolderDialog.Execute then
             begin
-              aDocument := TDocument.Create(Self,Data);
+              aDocument := TDocument.CreateEx(Self,Data);
               aID := DataSet.FieldByName('NUMBER').AsInteger;
               aDocument.SelectByNumber(aId);
               aDocument.Open;
@@ -930,7 +930,7 @@ begin
           if DocumentSaveDialog.Execute then
             begin
               aID := DataSet.FieldByName('NUMBER').AsInteger;
-              aDocument := TDocument.Create(Self,Data);
+              aDocument := TDocument.CreateEx(Self,Data);
               aDocument.SelectByNumber(aId);
               aDocument.Open;
               aDocument.DoCheckout(ExtractFileDir(DocumentSaveDialog.Filename),arev);
@@ -962,7 +962,7 @@ var
   DocID: Int64;
 begin
   DocID := Data.GetUniID(Connection);
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   aDocument.Select(0);
   aDocument.Open;
   aDocument.Ref_ID:=FRefID;
@@ -985,9 +985,9 @@ var
   tmp: string;
   aDocument: TDocument;
 begin
-  FSelectTemplate.DataSet := TDocumentTemplates.Create(nil,Data);
+  FSelectTemplate.DataSet := TDocumentTemplates.Create(nil);
   FSelectTemplate.DataSet.CreateTable;
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   aDocument.Select(0);
   if fSelectTemplate.Execute(FTyp,aDocument) then
     begin
@@ -1015,7 +1015,7 @@ begin
           SysUtils.DeleteFile(GetInternalTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
         end;
 }
-      aDocument := TDocument.Create(Self,Data);
+      aDocument := TDocument.CreateEx(Self,Data);
       aDocument.Select(0);
       aDocument.Open;
       aDocument.Ref_ID:=FRefID;
@@ -1047,7 +1047,7 @@ var
   aDocument: TDocument;
 begin
   fDocumentAction.SetLanguage;
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   if GotoSelected then
     begin
       aDocument.SelectByNumber(FDataSet.FieldByName('NUMBER').AsVariant);
@@ -1065,7 +1065,7 @@ begin
   if GotoSelected then
     begin
       aID := DataSet.FieldByName('NUMBER').AsInteger;
-      aDocument := TDocument.Create(Self,Data);
+      aDocument := TDocument.CreateEx(Self,Data);
       aDocument.SelectByNumber(aId);
       aDocument.Open;
       fDocProperties.Execute(aDocument);
@@ -1091,7 +1091,7 @@ begin
       Stream := TStringstream.Create('');
       if Clipboard.GetFormat(LinkClipboardFormat,Stream) then
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.SelectByLink(Stream.DataString);
           aDocument.Open;
           aDocument.MoveTo(FRefID,FTyp,FID,FVersion,FLanguage,aDirectoryID);
@@ -1112,7 +1112,7 @@ begin
       Stream := TStringstream.Create('');
       if Clipboard.GetFormat(LinkClipboardFormat,Stream) then
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.Select(0);
           aDocument.Open;
           aDocument.Ref_ID:=FRefID;
@@ -1170,7 +1170,7 @@ begin
     begin
       if FolderDialog.Execute then
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aID := DataSet.FieldByName('NUMBER').AsInteger;
           aDocument.SelectByNumber(aId);
           aDocument.Open;
@@ -1188,7 +1188,7 @@ begin
       if DocumentSaveDialog.Execute then
         begin
           aID := DataSet.FieldByName('NUMBER').AsInteger;
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.SelectByNumber(aId);
           aDocument.Open;
           aDocument.OnCheckCheckOutFile:=@aDocumentCheckCheckOutFile;
@@ -1340,7 +1340,7 @@ begin
   TempID := StringReplace(TempID,'{','_',[rfReplaceAll]);
   TempID := StringReplace(TempID,'}','_',[rfReplaceAll]);
   aID := DataSet.FieldByName('NUMBER').AsInteger;
-  bDocument := TDocument.Create(Self,Data);
+  bDocument := TDocument.CreateEx(Self,Data);
   bDocument.SelectByNumber(aId);
   bDocument.Open;
   Data.SetFilter(bDocument.DocumentActions,Data.QuoteField('NUMBER')+'='+Data.QuoteValue(DataSet.FieldByName('NUMBER').AsString));
@@ -1358,7 +1358,7 @@ begin
               fWaitForm.lStep.Caption := '';
               fWaitForm.Show;
               Application.ProcessMessages;
-              aDocument := TDocument.Create(nil,Data);
+              aDocument := TDocument.Create(nil);
               aDocument.SelectByNumber(DataSet.FieldByName('NUMBER').AsInteger);
               aDocument.Open;
               aDocument.DoCheckout(copy(aDocument.GetCheckOutPath('',TempID),0,rpos(DirectorySeparator,aDocument.GetCheckOutPath('',TempID))-1));
@@ -1366,7 +1366,7 @@ begin
             end
           else
             begin
-              aDocument := TDocument.Create(nil,Data);
+              aDocument := TDocument.Create(nil);
               aDocument.SelectByNumber(DataSet.FieldByName('NUMBER').AsInteger);
               aDocument.Open;
               aDocument.DoCheckout(copy(aDocument.GetCheckOutPath('',TempID),0,rpos(DirectorySeparator,aDocument.GetCheckOutPath('',TempID))-1));
@@ -1444,7 +1444,7 @@ begin
   fWaitForm.lStep.Caption := '';
   fWaitForm.Show;
   Application.ProcessMessages;
-  aDocument := TDocument.Create(nil,Data);
+  aDocument := TDocument.Create(nil);
   aDocument.SelectByNumber(DataSet.FieldByName('NUMBER').AsInteger);
   aDocument.Open;
   Filename := aDocument.GetCheckoutPath('',TempID);
@@ -1523,7 +1523,7 @@ var
 begin
   if not GotoSelected then exit;
   aID := DataSet.FieldByName('NUMBER').AsInteger;
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   aDocument.SelectByNumber(aId);
   aDocument.Open;
   aDocument.OnCheckCheckOutFile:=@aDocumentCheckCheckOutFile;
@@ -1585,7 +1585,7 @@ begin
     begin
       if DirectoryExists(Filenames[i]) then
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.Select(0);
           aDocument.Open;
           aDocument.Ref_ID:=FRefID;
@@ -1602,7 +1602,7 @@ begin
         end
       else
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.Select(0);
           aDocument.Open;
           aDocument.Ref_ID:=FRefID;
@@ -1694,7 +1694,7 @@ begin
     aLink := copy(aLink,0,rpos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
     aLink := copy(aLink,0,rpos('(',aLink)-1);
-  aDoc := TDocuments.Create(Self,Data);
+  aDoc := TDocuments.CreateEx(Self,Data);
   aDoc.SelectByLink(aLink);
   aDoc.Open;
   if aDoc.Count > 0 then

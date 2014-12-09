@@ -32,7 +32,7 @@ var
   aOrder : TOrder;
 procedure OrderTest.CreateOrder;
 begin
-  aOrder := TOrder.Create(nil,Data);
+  aOrder := TOrder.Create(nil);
   aOrder.Insert;
 end;
 

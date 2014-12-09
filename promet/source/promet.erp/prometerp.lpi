@@ -423,6 +423,7 @@
         <ComponentName Value="fRepairPositionFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uRepairPositionFrame"/>
       </Unit20>
       <Unit21>
         <Filename Value="uarticlerepairframe.pas"/>
@@ -563,7 +564,6 @@
         <ComponentName Value="fPasswords"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uPasswords"/>
       </Unit40>
       <Unit41>
         <Filename Value="ucategoryoptions.pas"/>
@@ -582,6 +582,7 @@
         <ComponentName Value="fCommandline"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ucommandline"/>
       </Unit43>
       <Unit44>
         <Filename Value="ustoredpasswords.pas"/>

@@ -216,7 +216,7 @@ var
   aWiki: TWikiList;
 begin
   if Assigned(FQuickHelpFrame) then exit;
-  aWiki := TWikiList.Create(nil,Data);
+  aWiki := TWikiList.Create(nil);
   with BaseApplication as IBaseApplication do
   if aWiki.FindWikiPage('Promet-ERP-Help/workflows/tfganttview') then
     begin
@@ -383,7 +383,7 @@ begin
       while (Assigned(aDep) and (aDep.ConnectionCount>0)) do
         aDep.DeleteConnection(0);
     end;
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.Select(aInt.Id);
   aTask.Open;
   if aTask.Count>0 then
@@ -801,7 +801,7 @@ var
   i: Integer;
 begin
   if not Assigned(FSelectedInterval) then exit;
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.Select(FSelectedInterval.Id);
   aTask.Open;
   if aTask.Count>0 then
@@ -880,7 +880,7 @@ begin
   Screen.Cursor:=crHourGlass;
   Application.ProcessMessages;
   aStart := now();
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.Select(FSelectedInterval.Id);
   aTask.Open;
   if aTask.Count>0 then
@@ -907,12 +907,12 @@ begin
   Application.ProcessMessages;
   if bCalculate2.Down then
     begin
-      aProjects := TProjectList.Create(nil,Data);
+      aProjects := TProjectList.Create(nil);
       aProjects.SelectFromParent(Fproject.Id.AsVariant);
       aProjects.Open;
       while not aProjects.EOF do
         begin
-          aProject := TProject.Create(nil,Data);
+          aProject := TProject.Create(nil);
           aProject.Select(aProjects.Id.AsVariant);
           aProject.Open;
           if aProject.Count>0 then
@@ -939,13 +939,13 @@ var
   aInterval: TPInterval;
 begin
   aActInt := TP.GetTaskIntervalFromCoordinates(FGantt,0,aClickPoint.y,0,True);
-  aParent := TTask.Create(nil,Data);
+  aParent := TTask.Create(nil);
   if Assigned(aActInt) then
     begin
       aParent.Select(aActInt.Id);
       aParent.Open;
     end;
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.Insert;
   aTask.FieldByName('PROJECT').AsString:=FTasks.FieldByName('PROJECT').AsString;
   aTask.FieldByName('PROJECTID').AsVariant:=FTasks.FieldByName('PROJECTID').AsVariant;
@@ -1023,7 +1023,7 @@ begin
       for i := 0 to fHistoryAddItem.lbAdditional.Count-1 do
         if Data.ListDataSetFromLink(fHistoryAddItem.lbAdditional.Items[i],aClass) then
           begin
-            aObj := aClass.Create(nil, Data);
+            aObj := aClass.Create(nil);
             if aObj is TBaseDbList then
               begin
                 TBaseDBList(aObj).SelectFromLink(fHistoryAddItem.lbAdditional.Items[i]);
@@ -1131,7 +1131,7 @@ begin
               aEdit :=TfTaskEdit.Create(Self);
               if aEdit.Execute(aLink) then
                 begin
-                  aTask := TTask.Create(nil,Data);
+                  aTask := TTask.Create(nil);
                   aTask.SelectFromLink(aLink);
                   aTask.Open;
                   FillInterval(TPInterval(aInt),aTask);
@@ -1697,7 +1697,7 @@ begin
     aInterval.NetTime:=aTasks.FieldByName('PLANTIME').AsFloat;
   if not Assigned(aUser) then
     begin
-      aUser := TUser.Create(nil,Data);
+      aUser := TUser.Create(nil);
       DestrUser := True;
     end;
   if not aUser.Locate('ACCOUNTNO',aTasks.FieldByName('USER').AsString,[]) then
@@ -1745,7 +1745,7 @@ var
   aStart: TDateTime;
   aEnd: TDateTime;
 begin
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.SelectFromLink(aLink);
   aTask.Open;
   if aTask.Count>0 then

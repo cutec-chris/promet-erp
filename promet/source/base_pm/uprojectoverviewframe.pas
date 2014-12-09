@@ -215,9 +215,9 @@ var
 begin
   debugln('*increment Prioritys');
   if not Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then exit;
-  aState := TStates.Create(nil,Data);
+  aState := TStates.Create(nil);
   aState.Open;
-  aProjects := TProjectList.Create(nil,Data);
+  aProjects := TProjectList.Create(nil);
   with aProjects.DataSet as IBaseDbFilter do
     Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('STATUS')+'<>'+Data.QuoteValue('I'))+' AND ('+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'<>'+Data.QuoteValue('N'))+' OR '+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'='+Data.QuoteValue(''))+')',0,'GPRIORITY','ASC');
   if aProjects.Locate('SQL_ID',TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id,[]) then
@@ -266,9 +266,9 @@ var
 begin
   debugln('*decrement Prioritys');
   if not Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then exit;
-  aState := TStates.Create(nil,Data);
+  aState := TStates.Create(nil);
   aState.Open;
-  aProjects := TProjectList.Create(nil,Data);
+  aProjects := TProjectList.Create(nil);
   with aProjects.DataSet as IBaseDbFilter do
     Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('STATUS')+'<>'+Data.QuoteValue('I'))+' AND ('+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'<>'+Data.QuoteValue('N'))+' OR '+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'='+Data.QuoteValue(''))+')',0,'GPRIORITY','ASC');
   if aProjects.Locate('SQL_ID',TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id,[]) then
@@ -314,7 +314,7 @@ var
 begin
   if Assigned(FRough.Tree.Objects[0,FRough.Tree.Row]) then
     begin
-      aProject := TProject.Create(nil,Data);
+      aProject := TProject.Create(nil);
       aLink := 'PROJECTS@'+IntToStr(TInterval(FRough.Tree.Objects[0,FRough.Tree.Row]).Id);
       aProject.SelectFromLink(aLink);
       aProject.Open;
@@ -558,7 +558,7 @@ procedure TfProjectOVFrame.StartFilling;
       aParent.AddInterval(aInt)
     else
       begin
-        aParents := TProjectList.Create(nil,Data);
+        aParents := TProjectList.Create(nil);
         aParents.Select(aProjects.FieldByName('PARENT').AsVariant);
         aParents.Open;
         if (bParentProjects.Down) and (aParents.Count>0) and (aProjects.FieldByName('PARENT').AsVariant<>aProjects.Id.AsVariant) and (lvl<20) then
@@ -580,10 +580,10 @@ var
   aState: TStates;
   aParent: TInterval;
 begin
-  aProjects :=  TProjectList.Create(nil,Data);
+  aProjects :=  TProjectList.Create(nil);
   with aProjects.DataSet as IBaseDbFilter do
     Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('STATUS')+'<>'+Data.QuoteValue('I'))+' AND ('+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'<>'+Data.QuoteValue('N'))+' OR '+Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'='+Data.QuoteValue(''))+')',0,'GPRIORITY','ASC');
-  aState := TStates.Create(nil,Data);
+  aState := TStates.Create(nil);
   aState.Open;
   FRough.BeginUpdate;
   aProjects.First;

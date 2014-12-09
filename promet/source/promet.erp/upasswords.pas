@@ -101,7 +101,7 @@ begin
       Self := fPasswords;
     end;
   SetLanguage;
-  DataSet := TPasswordSave.Create(nil,Data,nil,Data.Users.DataSet);
+  DataSet := TPasswordSave.CreateEx(nil,Data,nil,Data.Users.DataSet);
   DataSet.CreateTable;
   DataSet.Open;
   PwSave.DataSet := DataSet.DataSet;

@@ -51,7 +51,7 @@ constructor TfCurrencyOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aCurrency := TCurrency.Create(Self,Data,aConnection);
+  aCurrency := TCurrency.CreateEx(Self,Data,aConnection);
   CurrencyDS.DataSet := aCurrency.DataSet;
 end;
 

@@ -89,7 +89,7 @@ var
   aSessions: TSessions;
   aFilter: String;
 begin
-  aSessions := TSessions.Create(Self,Data);
+  aSessions := TSessions.CreateEx(Self,Data);
   aSessions.CreateTable;
   aFilter := Data.DateTimeToFilter(Now()-(DefaultTimeOutMinutes/(24*60)));
   aFilter := Data.QuoteField('LASTACCESS')+' < '+aFilter;
@@ -152,7 +152,7 @@ end;
 constructor TBaseWebSession.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FSession := TSessions.Create(Self,Data);
+  FSession := TSessions.CreateEx(Self,Data);
   TimeOutMinutes := 25;
 end;
 destructor TBaseWebSession.Destroy;

@@ -542,10 +542,10 @@ var
     tmpRes: TRessource;
     aActive: TActiveUsers;
   begin
-    aUsers := TUser.Create(nil,Data);
+    aUsers := TUser.Create(nil);
     Data.SetFilter(aUsers,Data.QuoteField('PARENT')+'='+Data.QuoteValue(bParent));
     aUsers.First;
-    aActive := TActiveUsers.Create(nil,Data);
+    aActive := TActiveUsers.Create(nil);
     while not aUsers.EOF do
       begin
         if aUsers.FieldByName('TYPE').AsString='G' then
@@ -603,7 +603,7 @@ begin
   else ColorUser := Data.Users.Id.AsVariant;
   while FGantt.IntervalCount>0 do
     FGantt.DeleteInterval(0);
-  aRoot := TUser.Create(nil,Data);
+  aRoot := TUser.Create(nil);
   aRoot.SelectByParent(Null);
   aRoot.Open;
   Application.ProcessMessages;
@@ -643,13 +643,13 @@ var
   gView : TfGanttView;
   aCat: TCategory;
 begin
-  aUser := TUser.Create(nil,Data,aConnection);
+  aUser := TUser.CreateEx(nil,Data,aConnection);
   aUser.SelectByAccountno(asUser);
   aUser.Open;
   aResource.Resource := aUser.Text.AsString;
   aUser.Free;
   aResource.Accountno := asUSer;
-  aCalendar := TCalendar.Create(nil,Data,aConnection);
+  aCalendar := TCalendar.CreateEx(nil,Data,aConnection);
   aCalendar.SelectPlanedByUserAndTime(asUser,aFrom,aTo);
   aCalendar.Open;
   with aCalendar.DataSet do
@@ -667,7 +667,7 @@ begin
             end;
           if Colorized then
             begin
-              aCat := TCategory.Create(nil,Data);
+              aCat := TCategory.Create(nil);
               Data.SetFilter(aCat,Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+' AND '+Data.QuoteField('NAME')+'='+Data.QuoteValue(aCalendar.FieldByName('CATEGORY').AsString));
               if aCat.Count>0 then
                 bInterval.Color:=StringToColor(aCat.FieldByName('COLOR').AsString);

@@ -115,7 +115,7 @@ begin
       FFilter.Parent:=Self;
       FFilter.Align := alClient;
       FFIlter.FilterType:='TABLE:'+Data.QuoteField(Application.GetOptionValue('t','tablename'));
-      aDataSet := TOwnDataSet.Create(nil,Data);
+      aDataSet := TOwnDataSet.Create(nil);
       DataSource.DataSet := Data.GetNewDataSet('select * from '+Data.QuoteField(Application.GetOptionValue('t','tablename')),nil,nil,aDataSet);
       aDataSet.DataSet := DataSource.DataSet;
       DataSource.DataSet.Open;

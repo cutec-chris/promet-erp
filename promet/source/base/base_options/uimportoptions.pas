@@ -103,7 +103,7 @@ end;
 procedure TfImportOptions.StartTransaction;
 begin
   inherited StartTransaction;
-  FImport := TImportTypes.Create(nil,Data);
+  FImport := TImportTypes.Create(nil);
   FImport.CreateTable;
   FImport.DataSet.AfterScroll:=@FImportDataSetAfterScroll;
   FImport.DataSet.AfterInsert:=@FImportDataSetAfterInsert;

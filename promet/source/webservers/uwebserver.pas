@@ -53,7 +53,7 @@ uses uData,uBaseApplication,uBaseDbClasses,FileUtil;
 
 procedure TTWebServer.DataModuleCreate(Sender: TObject);
 begin
-  FDocuments := TDocument.Create(nil,Data);
+  FDocuments := TDocument.Create(nil);
   FDocuments.Select(1,'D',0);
   FDocuments.OpenPath('apps/','/');
   with BaseApplication as IBaseApplication do

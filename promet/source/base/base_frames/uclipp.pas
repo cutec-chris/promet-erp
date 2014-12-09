@@ -58,7 +58,7 @@ var
   Clipp: TClipp;
   Node1: TTreeNode;
 begin
-  Clipp := TClipp.Create(nil,Data);
+  Clipp := TClipp.Create(nil);
   Clipp.CreateTable;
   Clipp.Free;
   //Clipboard

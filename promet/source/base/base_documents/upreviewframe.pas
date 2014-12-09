@@ -222,7 +222,7 @@ var
 label aExit;
 begin
   Synchronize(@getConnection);
-  aDocument := TDocument.Create(nil,Data,aTransaction);
+  aDocument := TDocument.CreateEx(nil,Data,aTransaction);
   aDocument.SelectByID(FID);
   aDocument.Open;
   if aDocument.Count > 0 then
@@ -295,7 +295,7 @@ var
   aText: TStringList;
   i: Integer;
 begin
-  aDoc := TDocument.Create(nil,Data);
+  aDoc := TDocument.Create(nil);
   aDoc.SelectByID(FID);
   aDoc.Open;
   if aDoc.Count>0 then
@@ -842,4 +842,4 @@ begin
 end;
 
 end.
-
+

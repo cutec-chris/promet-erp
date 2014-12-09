@@ -204,7 +204,7 @@ begin
         //if Self.Repair.DataSet = Repair.DataSet then exit;
         fRepairImages.SetLanguage;
         Repair.Open;
-        FImages := TOrderRepairImages.Create(nil,Data);
+        FImages := TOrderRepairImages.Create(nil);
         Position.DataSet := DataSet;
         Self.Repair.DataSet := Repair.DataSet;
         if Repair.Count>0 then

@@ -434,7 +434,7 @@ begin
   if Data.Tree.Count > 0 then
     begin
       aList := GetFavorites;
-      aLinks := TLinks.Create(nil,Data);
+      aLinks := TLinks.Create(nil);
       Data.SetFilter(aLinks,Data.QuoteField('REFERENCE')+'='+Data.QuoteValue('BROWSERIMPORT'));
       for i := aList.Count-1 downto 0 do
         begin
@@ -480,7 +480,7 @@ begin
       TabCaption := strCustomerList;
       FilterType:='C';
       DefaultRows:='GLOBALWIDTH:%;ACCOUNTNO:100;NAME:400;MATCHCODE:200;';
-      Dataset := TPersonList.Create(nil,Data);
+      Dataset := TPersonList.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_READ then
         AddToolbarAction(acNewContact);
@@ -493,7 +493,7 @@ begin
       TabCaption := strArticleList;
       FilterType:='M';
       DefaultRows:='GLOBALWIDTH:%;ID:150;VERSION:100;LANGUAGE:60;MATCHCODE:200;SHORTTEXT:400;';
-      Dataset := TMasterdataList.Create(nil,Data);
+      Dataset := TMasterdataList.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_READ) or (Data.Users.Rights.Right('ARTICLES') > RIGHT_READ) or (Data.Users.Rights.Right('BENEFITS') > RIGHT_READ) or (Data.Users.Rights.Right('PARTSLIST') > RIGHT_READ) then
         AddToolbarAction(acNewMasterdata);
@@ -508,7 +508,7 @@ begin
       TabCaption := strOrderList;
       FilterType:='O';
       DefaultRows:='GLOBALWIDTH:%;STATUS:50;NUMBER:100;CUSTNO:100;CUSTNAME:300;PAYEDON:28;DELIVERED:28;DONE:28;';
-      Dataset := TOrderList.Create(nil,Data);
+      Dataset := TOrderList.Create(nil);
       OnDrawColumnCell:=@fOrderFrame.gListDrawColumnCell;
       if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
         AddToolbarAction(acNewOrder);
@@ -532,7 +532,7 @@ begin
       TabCaption := strStatisticList;
       FilterType:='U';
       DefaultRows:='GLOBALWIDTH:%;NAME:100;CHANGEDBY:30;TIMESTAMPD:50;';
-      Dataset := TStatistic.Create(nil,Data);
+      Dataset := TStatistic.Create(nil);
       if Data.Users.Rights.Right('STATISTICS') > RIGHT_READ then
         AddToolbarAction(acNewStatistics);
     end;
@@ -545,7 +545,7 @@ begin
       TabCaption := strLists;
       FilterType:='L';
       DefaultRows:='GLOBALWIDTH:%;NAME:100;';
-      Dataset := TLists.Create(nil,Data);
+      Dataset := TLists.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       Editable:=True;
       AddToolbarAction(acNewList);
@@ -569,7 +569,7 @@ begin
       TabCaption := strInventory;
       FilterType:='INV';
       DefaultRows:='GLOBALWIDTH:%;INVNO:40;DESC:100;DATE:70;CREATEDBY:30;';
-      Dataset := TInventorys.Create(nil,Data);
+      Dataset := TInventorys.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       Editable:=True;
       AddToolbarAction(acNewInventory);
@@ -584,7 +584,7 @@ begin
       TabCaption := strSalesList;
       FilterType:='S';
       DefaultRows:='GLOBALWIDTH:%;PAYEDON:100;ORDERNO:100;STATUS:30;NUMBER:100;CUSTNO:70;CUSTNAME:100;NETPRICE:50;DISCOUNT:50;VATH:50;VATF:50;GROSSPRICE:100;ACCOUNT:100;';
-      ads := TAccountingJournal.Create(nil,Data);
+      ads := TAccountingJournal.Create(nil);
       ads.CreateTable;
       Dataset := ads;
       //gList.OnDrawColumnCell:=nil;
@@ -609,7 +609,7 @@ begin
       TabCaption := strProjectList;
       FilterType:='P';
       DefaultRows:='GLOBALWIDTH:%;TYPE:30;ID:70;NAME:100;STATUS:60;';
-      Dataset := TProjectList.Create(nil,Data);
+      Dataset := TProjectList.Create(nil);
       with DataSet.DataSet as IBaseDbFilter do
         UsePermissions := True;
       OnDrawColumnCell:=@SenderTfFiltergListDrawColumnCell;
@@ -628,7 +628,7 @@ begin
           GridView.NumberField:='LPRIORITY';
           GridView.SortField:='LPRIORITY';
           TfMainTaskFrame(Sender).Connection := Data.GetNewConnection;
-          aDataset := TTaskList.Create(nil,Data,Connection);
+          aDataset := TTaskList.CreateEx(nil,Data,Connection);
           BaseFilter:=Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y');
           aDataSet.Open;
           tbTop.Visible:=True;
@@ -647,7 +647,7 @@ begin
       TabCaption := strMeetingList;
       FilterType:='E';
       DefaultRows:='GLOBALWIDTH:%;NAME:100;STATUS:60;';
-      Dataset := TMeetings.Create(nil,Data);
+      Dataset := TMeetings.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       AddToolbarAction(acNewMeeting);
     end;
@@ -671,7 +671,7 @@ begin
       TabCaption := strObjectList;
       FilterType:='E';
       DefaultRows:='GLOBALWIDTH:%;NUMBER:70;NAME:100;STATUS:60;';
-      aObj := TObjects.Create(nil,Data);
+      aObj := TObjects.Create(nil);
       with aObj.DataSet as IBaseDbFilter do
         UsePermissions := True;
       TfFilter(Sender).Dataset := aObj;
@@ -809,7 +809,7 @@ procedure TStarterThread.DoCreate;
 var
   aDataSet: TBaseDBDataset;
 begin
-  aDataSet := DataSetType.Create(nil,Data,aConn);
+  aDataSet := DataSetType.CreateEx(nil,Data,aConn);
   aDataSet.CreateTable;
   aDataSet.Destroy;
   Application.ProcessMessages;
@@ -1152,7 +1152,7 @@ begin
           TBaseVisualApplication(Application).MessageHandler.RegisterCommandHandler(@CommandReceived);
         with BaseApplication as IBaseApplication do
           debug('BaseLogin: '+IntToStr(GetTickCount64-aTime));
-        aWiki := TWikiList.Create(nil,Data);
+        aWiki := TWikiList.Create(nil);
         aWiki.CreateTable;
         if aWiki.FindWikiPage('Promet-ERP-Help/users/Administrator') then
           aStartPagetext := aWiki.FieldByName('DATA').AsString
@@ -1162,7 +1162,7 @@ begin
         WikiFrame.Align := alClient;
         try
           WikiFrame.SetRights(True);
-          aUser := TUser.Create(nil,Data);
+          aUser := TUser.Create(nil);
           aUser.Open;
           aUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
           while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString)) and (not aUser.FieldByName('PARENT').IsNull) do
@@ -1562,7 +1562,7 @@ var
   aOrderNo: String;
   aFilter: String;
 begin
-  aAccounting := TAccountingJournal.Create(Self,Data);
+  aAccounting := TAccountingJournal.CreateEx(Self,Data);
   with TToolbar(TAction(Sender).ActionComponent.Owner).Owner as TfFilter do
     begin
       DataSet.DataSet.First;
@@ -1646,7 +1646,7 @@ begin
       aConn := Data.GetNewConnection;
       Data.StartTransaction(aConn);
       ID := Data.Tree.Id.AsString;
-      aMessages := TMessageList.Create(Self,Data);
+      aMessages := TMessageList.CreateEx(Self,Data);
       Data.SetFilter(aMessages,Data.QuoteField('TREEENTRY')+'='+ID);
       Data.DeletedItems.DataSet.Open;
       a := aMessages.Count;
@@ -1667,7 +1667,7 @@ begin
                   fWaitForm.ShowInfo(Format(strDeletingMessages,[a]));
                   aTime := GetTickCount;
                 end;
-              aMessage := uMessages.TMessage.Create(Self,Data,aConn);
+              aMessage := uMessages.TMessage.CreateEx(Self,Data,aConn);
               aMessage.Select(aMessages.Id.AsInteger);
               aMessage.Open;
               aMessage.Delete;
@@ -1862,7 +1862,7 @@ var
   aList: TLists;
 begin
   aName := InputBox(strName,strNewList,strNewList);
-  aList := TLists.Create(Self,Data);
+  aList := TLists.CreateEx(Self,Data);
   aList.Append;
   aList.FieldByName('NAME').AsString:=aName;
   aList.DataSet.Post;
@@ -1951,7 +1951,7 @@ var
 begin
   if Data.Users.Rights.Right('TASKS') < RIGHT_WRITE then exit;
   Application.ProcessMessages;
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.Insert;
   aTask.FieldByName('USER').AsString := Data.Users.FieldByName('ACCOUNTNO').AsString;
   aTask.Post;
@@ -2063,11 +2063,11 @@ var
   aOrders: TOrderList;
   aOrder: TOrder;
 begin
-  aOrders := TOrderList.Create(nil,Data);
+  aOrders := TOrderList.Create(nil);
   Data.SetFilter(aOrders,Data.ProcessTerm(Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('')),0);
   while not aOrders.EOF do
     begin
-      aOrder:=TOrder.Create(nil,Data);
+      aOrder:=TOrder.Create(nil);
       aOrder.Select(aOrders.FieldByName('ORDERNO').AsString);
       aOrder.Open;
       aOrder.Free;
@@ -2325,7 +2325,7 @@ begin
       if Source = uMainTreeFrame.fMainTreeFrame.tvMain then
         begin
           nData := TTreeEntry(uMainTreeFrame.fMainTreeFrame.tvMain.Selected.Data);
-          aDS := nData.DataSourceType.Create(Self,Data);
+          aDS := nData.DataSourceType.CreateEx(Self,Data);
           Data.SetFilter(aDS,nData.Filter);
           Data.GotoBookmark(aDS,nData.Rec);
           aLink := Data.BuildLink(aDS.DataSet);
@@ -2516,7 +2516,7 @@ begin
           or (aTreeEntry.Typ = etImages)
           then
             begin
-              aPages := TDocPages.Create(nil,Data);
+              aPages := TDocPages.Create(nil);
               if (aTreeEntry.Typ = etDocuments) then
                 aPages.Typ:='D'
               else
@@ -2561,7 +2561,7 @@ begin
                 begin
                   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
                   Data.Tree.GotoBookmark(aTreeEntry.Rec);
-                  aMessage := uMessages.TMessage.Create(Self,Data);
+                  aMessage := uMessages.TMessage.CreateEx(Self,Data);
                   while pos(';',aLinks)>0 do
                     begin
                       aLink := copy(aLinks,0,pos(';',aLinks)-1);
@@ -2580,7 +2580,7 @@ begin
                 end
               else if (aTreeEntry.Typ = etTasks) then
                 begin
-                  aMessage := uMessages.TMessage.Create(Self,Data);
+                  aMessage := uMessages.TMessage.CreateEx(Self,Data);
                   aMessage.SelectFromLink(aLink);
                   aMessage.Open;
                   if aMessage.Count > 0 then
@@ -2588,7 +2588,7 @@ begin
                       aMessage.DataSet.Edit;
                       aMessage.FieldByName('READ').AsString := 'Y';
                       aMessage.DataSet.Post;
-                      aTask := TTask.Create(nil,Data);
+                      aTask := TTask.Create(nil);
                       aTask.Insert;
                       aTask.FieldByName('SUMMARY').AsString:=aMessage.Text.AsString;
                       aTask.FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
@@ -2757,7 +2757,7 @@ begin
     end;
   etCustomer,etEmployee,etSupplier,etArticle,etProject,etProcess,etStatistic:
     begin
-      aDataSet := aEntry.DataSourceType.Create(Self,Data);
+      aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
         Filter := aEntry.Filter;
       aDataSet.Open;
@@ -2824,7 +2824,7 @@ begin
       aFrame := TfOrderFrame.Create(Self);
       pcPages.AddTab(aFrame);
       aFrame.SetLanguage;
-      aDataSet := aEntry.DataSourceType.Create(Self,Data);
+      aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
       aDataSet.Open;
       aDataSet.GotoBookmark(aEntry.Rec);
       aFrame.New(aDataSet.FieldByName('STATUS').AsString);
@@ -2840,7 +2840,7 @@ begin
     end;
   etWikiPage:
     begin
-      aDataSet := aEntry.DataSourceType.Create(Self,Data);
+      aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
         Filter := aEntry.Filter;
       aDataSet.Open;
@@ -2952,7 +2952,7 @@ begin
             TabCaption := strFiles;
             pHeader.Visible := True;
             pToolbar.Visible := False;
-            DataSet := TDocuments.Create(nil,Data);
+            DataSet := TDocuments.Create(nil);
             Refresh(1,'D','1',Null,Null);
           end;
     end;
@@ -3133,7 +3133,7 @@ begin
     end
   else if (copy(aLink,0,6) = 'LISTS@') then
     begin
-      aList := TLists.Create(Self,Data);
+      aList := TLists.CreateEx(Self,Data);
       aList.SelectFromLink(aLink);
       aList.Open;
       aList.Entrys.Open;
@@ -3158,7 +3158,7 @@ begin
     end
   else if (copy(aLink,0,8) = 'HISTORY@') then
     begin
-      aBaseHist := TBaseHistory.Create(nil,Data);
+      aBaseHist := TBaseHistory.Create(nil);
       aBaseHist.SelectFromLink(aLink);
       abaseHist.Open;
       aLink := aBaseHist.FieldByName('OBJECT').AsString;
@@ -3167,7 +3167,7 @@ begin
     end
   else if (copy(aLink,0,9) = 'DOCUMENTS') then
     begin
-      aDoc:=TDocuments.Create(Self,Data);
+      aDoc:=TDocuments.CreateEx(Self,Data);
       aDoc.SelectByLink(aLink);
       aDoc.Open;
       if aDoc.Count > 0 then
@@ -3237,7 +3237,7 @@ begin
     end
   else if (copy(aLink,0,10) = 'INVENTORY@') then
     begin
-      aInv := TInventorys.Create(Self,Data);
+      aInv := TInventorys.CreateEx(Self,Data);
       aInv.SelectFromLink(aLink);
       aInv.Open;
       aInv.Positions.Open;
@@ -3462,7 +3462,7 @@ begin
         begin
           Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
           Data.Tree.DataSet.First;
-          bTree := TTree.Create(nil,Data);
+          bTree := TTree.Create(nil);
           while not Data.Tree.dataSet.EOF do
             begin
               Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
@@ -3504,7 +3504,7 @@ begin
           TTreeEntry(Node1.Data).Typ := etOrderList;
           if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
             begin
-              aOrderType := TOrderTyp.Create(nil,Data);
+              aOrderType := TOrderTyp.Create(nil);
               aOrderType.Open;
               Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
               aOrderType.DataSet.First;
@@ -3629,7 +3629,7 @@ begin
               TTreeEntry(Node2.Data).Typ := etAccounts;
               Node3 := fMainTreeFrame.tvMain.Items.AddChildObject(Node2,'',TTreeEntry.Create);
               TTreeEntry(Node3.Data).Typ := etNewAccount;
-              Accounts := TAccounts.Create(nil,Data);
+              Accounts := TAccounts.Create(nil);
               Accounts.CreateTable;
               Accounts.Open;
               Accounts.DataSet.First;
@@ -3794,7 +3794,7 @@ begin
   pSearch.Visible:=False;
   if (eContains.Text<>strSearchText) and (trim(eContains.Text)<>'') then
     begin
-      aSearchHist := TSearchHistory.Create(nil,Data);
+      aSearchHist := TSearchHistory.Create(nil);
       aSearchHist.Add(eContains.Text,SearchLinks[lbresults.ItemIndex]);
       aSearchHist.Free;
     end;

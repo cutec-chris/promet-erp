@@ -54,7 +54,7 @@ type
     property BaseVersion : Variant read FBaseVersion write FBaseVersion;
     property BaseLanguage : Variant read FBaseLanguage write FBaseLanguage;
     property ParentID : Variant read FParentID write SetParentID;
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     function GetUsedFields : string;
     function GetNumberFieldName : string;override;
     property FileName : string read GetFileName;
@@ -110,7 +110,7 @@ type
     procedure SetbaseParent(AValue: TDocuments);
   protected
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     function CreateTable : Boolean;override;
@@ -247,10 +247,10 @@ begin
   if FBaseParent.Count > 0 then
     ParentID:=FBaseParent.FieldByName('NUMBER').AsVariant;
 end;
-constructor TDocument.Create(aOwner: TComponent; DM: TComponent;
+constructor TDocument.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -259,8 +259,8 @@ begin
           UsePermissions:=False;
         end;
     end;
-  FMimeTypes := TMimeTypes.Create(Self,DM,aConnection,nil);
-  FDocumentActions := TDocumentActions.Create(Self,DM,aConnection,nil);
+  FMimeTypes := TMimeTypes.CreateEx(Self,DM,aConnection,nil);
+  FDocumentActions := TDocumentActions.CreateEx(Self,DM,aConnection,nil);
 end;
 
 destructor TDocument.Destroy;
@@ -467,7 +467,7 @@ begin
             repeat
               if (FindRec.Name <> '.') AND (FindRec.Name <> '..') THEN
                 begin
-                  aDocument := TDocument.Create(Self,Data,Connection);
+                  aDocument := TDocument.CreateEx(Self,Data,Connection);
                   aDocument.Select(0);
                   aDocument.Open;
                   aDocument.Ref_ID:=FRefID;
@@ -496,7 +496,7 @@ begin
   if copy(aLink,0,9) <> 'DOCUMENTS' then exit;
   with BaseApplication as IBaseDbInterface do
     begin
-      aDocument := TDocument.Create(Self,Data,Connection);
+      aDocument := TDocument.CreateEx(Self,Data,Connection);
       aDocument.SelectByLink(aLink);
       aDocument.Open;
       if aDocument.Count > 0 then
@@ -677,10 +677,10 @@ begin
     ParentID := 0;
 end;
 
-constructor TDocuments.Create(aOwner: TComponent; DM: TComponent;
+constructor TDocuments.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -892,7 +892,7 @@ var
   aDocument: TDocument;
   {%H-}tmp: String;
 begin
-  aDocument := TDocument.Create(Self,DataModule,Connection);
+  aDocument := TDocument.CreateEx(Self,DataModule,Connection);
   aDocument.SelectByNumber(DataSet.FieldByName('NUMBER').AsVariant);
   aDocument.Open;
   aDocument.Delete;
@@ -991,7 +991,7 @@ function TDocuments.OpenPath(aPath: string; aPathDelim: string): Boolean;
 var
   tmpDocs: TDocuments;
 begin
-  tmpDocs := TDocuments.Create(nil,DataModule,Connection);
+  tmpDocs := TDocuments.CreateEx(nil,DataModule,Connection);
   tmpDocs.Select(Self.Ref_ID,BaseTyp,BaseID,BaseVersion,BaseLanguage,0);
   tmpDocs.Open;
   while copy(aPath,0,1) = aPathDelim do
@@ -1060,7 +1060,7 @@ var
 begin
   if IsDir then
     begin
-      aDocuments := TDocuments.Create(Self,DataModule,Connection);
+      aDocuments := TDocuments.CreateEx(Self,DataModule,Connection);
       if  (DataSet.FieldByName('ISLINK').AsString <> 'Y') then
         begin
           aDocuments.Select(FRefID,FBaseTyp,FBaseID,FBaseVersion,FBaseLanguage,DataSet.FieldByName('NUMBER').AsVariant);
@@ -1069,7 +1069,7 @@ begin
             begin
               while not EOF do
                 begin
-                  aDocument := TDocument.Create(Self,DataModule,Connection);
+                  aDocument := TDocument.CreateEx(Self,DataModule,Connection);
                   aDocument.OnCheckCheckOutFile:=Self.OnCheckCheckOutFile;
                   aDocument.SelectByNumber(FieldByName('NUMBER').AsVariant);
                   aDocument.Open;
@@ -1091,7 +1091,7 @@ begin
             begin
               while not EOF do
                 begin
-                  aDocument := TDocument.Create(Self,DataModule,Connection);
+                  aDocument := TDocument.CreateEx(Self,DataModule,Connection);
                   aDocument.OnCheckCheckOutFile:=Self.OnCheckCheckOutFile;
                   aDocument.SelectByNumber(FieldByName('NUMBER').AsVariant);
                   aDocument.Open;
@@ -1116,7 +1116,7 @@ begin
           ss := TStringStream.Create('');
           with BaseApplication as IBaseDbInterface do
             Data.BlobFieldToStream(DataSet,'DOCUMENT',ss);
-          aDocument := TDocument.Create(Self,DataModule,Connection);
+          aDocument := TDocument.CreateEx(Self,DataModule,Connection);
           aDocument.SelectByLink(ss.DataString);
           ss.Free;
           aDocument.Open;
@@ -1168,7 +1168,7 @@ begin
           ss := TStringStream.Create('');
           with BaseApplication as IBaseDbInterface do
             Data.BlobFieldToStream(DataSet,'DOCUMENT',ss);
-          aDocument := TDocument.Create(Self,DataModule,Connection);
+          aDocument := TDocument.CreateEx(Self,DataModule,Connection);
           aDocument.SelectByLink(ss.DataString);
           ss.Free;
           aDocument.Open;
@@ -1362,14 +1362,14 @@ function TDocument.CollectCheckInFiles(Directory: string): TStrings;
   begin
     if aDoc.IsDir and (not aDoc.IsLink) then
       begin
-        aDocuments := TDocuments.Create(Self,DataModule,Connection);
+        aDocuments := TDocuments.CreateEx(Self,DataModule,Connection);
         aDocuments.Select(aDoc.Ref_ID,aDoc.BaseTyp,aDoc.BaseID,aDoc.BaseVersion,aDoc.BaseLanguage,aDoc.FieldByName('NUMBER').AsVariant);
         aDocuments.Open;
         with aDocuments.DataSet do
           begin
             while not EOF do
               begin
-                aDocument := TDocument.Create(Self,DataModule,Connection);
+                aDocument := TDocument.CreateEx(Self,DataModule,Connection);
                 aDocument.SelectByNumber(FieldByName('NUMBER').AsVariant);
                 aDocument.Open;
                 if aDocument.FieldByName('EXTENSION').AsString <> '' then
@@ -1390,7 +1390,7 @@ function TDocument.CollectCheckInFiles(Directory: string): TStrings;
             ss := TStringStream.Create('');
             with BaseApplication as IBaseDbInterface do
               Data.BlobFieldToStream(aDoc.DataSet,'DOCUMENT',ss);
-            aDocument := TDocument.Create(Self,DataModule,Connection);
+            aDocument := TDocument.CreateEx(Self,DataModule,Connection);
             aDocument.SelectByLink(ss.DataString);
             ss.Free;
             aDocument.Open;
@@ -1476,7 +1476,7 @@ var
         ss := TStringStream.Create('');
         with BaseApplication as IBaseDbInterface do
           Data.BlobFieldToStream(aDoc.DataSet,'DOCUMENT',ss);
-        aDocument := TDocument.Create(Self,DataModule,Connection);
+        aDocument := TDocument.CreateEx(Self,DataModule,Connection);
         aDocument.SelectByLink(ss.DataString);
         ss.Free;
         aDocument.Open;
@@ -1496,14 +1496,14 @@ var
       end
     else if aDoc.IsDir then
       begin
-        aDocuments := TDocuments.Create(Self,DataModule,Connection);
+        aDocuments := TDocuments.CreateEx(Self,DataModule,Connection);
         aDocuments.Select(aDoc.Ref_ID,aDoc.BaseTyp,aDoc.BaseID,aDoc.BaseVersion,aDoc.BaseLanguage,aDoc.FieldByName('NUMBER').AsVariant);
         aDocuments.Open;
         with aDocuments.DataSet do
           begin
             while not EOF do
               begin
-                aDocument := TDocument.Create(Self,DataModule,Connection);
+                aDocument := TDocument.CreateEx(Self,DataModule,Connection);
                 aDocument.SelectByNumber(FieldByName('NUMBER').AsVariant);
                 aDocument.Open;
                 if aDocument.FieldByName('EXTENSION').AsString <> '' then
@@ -1699,12 +1699,12 @@ begin
           if copy(tmp,0,pos(DirectorySeparator,tmp)-1) = Self.FieldByName('NAME').AsString then
             tmp := copy(tmp,pos(DirectorySeparator,tmp)+length(DirectorySeparator),length(tmp));
           if copy(tmp,0,1) = DirectorySeparator then tmp := copy(tmp,length(DirectorySeparator)+1,length(tmp));
-          aBaseDir := TDocuments.Create(Self,DataModule,Connection);
+          aBaseDir := TDocuments.CreateEx(Self,DataModule,Connection);
           aBaseDir.Select(Id.AsVariant);
           aBaseDir.Open;
           while pos(DirectorySeparator,tmp) > 0 do
             begin
-              aDocuments := TDocuments.Create(Self,dataModule,Connection);
+              aDocuments := TDocuments.CreateEx(Self,DataModule,Connection);
               aDocuments.Select(Ref_ID,BaseTyp,BaseID,BaseVersion,BaseLanguage,aBaseDir.FieldByName('NUMBER').AsVariant);
               aDocuments.Open;
               if aDocuments.DataSet.Locate('NAME;ISDIR',VarArrayOf([copy(tmp,0,pos(DirectorySeparator,tmp)-1),'Y']),[]) then
@@ -1714,7 +1714,7 @@ begin
                 end
               else //New Dir
                 begin
-                  aDocument := TDocument.Create(Self,DataModule,Connection);
+                  aDocument := TDocument.CreateEx(Self,DataModule,Connection);
                   aDocument.Select(0);
                   aDocument.Open;
                   aDocument.Ref_ID:=Ref_ID;
@@ -1744,7 +1744,7 @@ begin
           //Create new File
           if aBaseDir.Count > 0 then
             begin
-              aDocument := TDocument.Create(Self,DataModule,Connection);
+              aDocument := TDocument.CreateEx(Self,DataModule,Connection);
               aDocument.Select(0);
               aDocument.Open;
               aDocument.Ref_ID:=Ref_ID;
@@ -1908,7 +1908,7 @@ begin
   DataSet.Refresh;
   if IsDir then
     begin
-      aDocuments := TDocuments.Create(Self,DataModule,Connection);
+      aDocuments := TDocuments.CreateEx(Self,DataModule,Connection);
       aDocuments.Select(Ref_ID,BaseTyp,BaseID,BaseVersion,BaseLanguage,DataSet.FieldByName('NUMBER').AsVariant);
       aDocuments.Open;
       while aDocuments.Count > 0 do

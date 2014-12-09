@@ -106,7 +106,7 @@ var
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aStates := TOrderTyp.Create(Self,Data,aConnection);
+  aStates := TOrderTyp.CreateEx(Self,Data,aConnection);
   OrderTypeDS.DataSet := aStates.DataSet;
   Data.TextTyp.CreateTable;
   Data.Texttyp.Open;

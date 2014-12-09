@@ -214,7 +214,7 @@ begin
   inherited Create(TheOwner);
   FInTableAdd := False;
   aConnection := Data.GetNewConnection;
-  aSyncDb := TSyncDB.Create(Self,Data,aConnection);
+  aSyncDb := TSyncDB.CreateEx(Self,Data,aConnection);
   aSyncDb.DataSet.BeforePost:=@aSyncDbDataSetBeforePost;
   dsDatabases.DataSet := aSyncDB.DataSet;
   dsTables.DataSet := aSyncDB.Tables.DataSet;

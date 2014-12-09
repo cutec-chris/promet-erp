@@ -268,7 +268,7 @@ begin
           fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
           Data.Tree.DataSet.Next;
         end;
-      aList := TStatistic.Create(nil,Data);
+      aList := TStatistic.Create(nil);
       aList.CreateTable;
       try
         Data.SetFilter(aList,Data.ProcessTerm(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue('')),0,'','ASC',False,True,True);
@@ -1178,7 +1178,7 @@ begin
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
 //  Data.StartTransaction(FConnection);
-  DataSet := TStatistic.Create(Self,Data,FConnection);
+  DataSet := TStatistic.CreateEx(Self,Data,FConnection);
   Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
   if FDataSet.Count > 0 then
     begin
@@ -1216,7 +1216,7 @@ begin
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
 //  Data.StartTransaction(FConnection);
-  DataSet := TStatistic.Create(Self,Data,FConnection);
+  DataSet := TStatistic.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   DataSet.Select(0);
   DataSet.Open;

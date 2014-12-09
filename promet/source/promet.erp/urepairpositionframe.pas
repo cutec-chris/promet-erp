@@ -131,7 +131,7 @@ begin
   lInfo.Visible:=False;
   if trim(eSerial1.Text)<>'' then
     begin
-      aStorageJournal := TStorageJournal.Create(nil,Data);
+      aStorageJournal := TStorageJournal.Create(nil);
       aStorageJournal.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(Position.DataSet.FieldByName('IDENT').AsString)+' AND '+Data.QuoteField('SERIAL')+'='+Data.QuoteValue(trim(eSerial1.Text))+' AND NOT '+Data.ProcessTerm(Data.QuoteField('NOTE')+'='+Data.QuoteValue('')));
       //Wenn Notiz zu Artikel mit dieser Serienummer im Lagerjournal vorhanden, zeigen wir sie an
       if aStorageJournal.Count>0 then
@@ -193,7 +193,7 @@ begin
     begin
       Column.PickList.Clear;
       if not Assigned(FMasterdata) then
-        aMasterdata := TMasterdata.Create(Self,Data)
+        aMasterdata := TMasterdata.CreateEx(Self,Data)
       else aMasterdata := FMasterdata;
       FMasterdata := aMasterdata;
       aMasterdata.Select(Position.DataSet.FieldByName('IDENT').AsString);

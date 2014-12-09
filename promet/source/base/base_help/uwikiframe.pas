@@ -250,7 +250,7 @@ begin
   FVariables.Values['IDCODE'] := Data.Users.FieldByName('IDCODE').AsString;
   FVariables.Values['GROUPID'] := Data.Users.FieldByName('PARENT').AsString;
   FEditable:=False;
-  DataSet := TWikiList.Create(Self,Data);
+  DataSet := TWikiList.CreateEx(Self,Data);
   FHistory := THistory.Create;
   FHistory.FFFWdAction := acForward;
   FHistory.RewAction := acBack;
@@ -492,12 +492,12 @@ begin
       DataSet.Post;
       DataSet.Edit;
     end;
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   aDocument.Select(DataSet.Id.AsVariant ,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
   with BaseApplication as IBaseApplication do
     aDocument.AddFromFile(AppendPathDelim(GetInternalTempDir)+aName);
   aDocument.Free;
-  aDocuments := TDocuments.Create(Self,Data);
+  aDocuments := TDocuments.CreateEx(Self,Data);
   aDocuments.CreateTable;
   aDocuments.Select(DataSet.Id.AsVariant ,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
   aDocuments.Open;
@@ -586,7 +586,7 @@ begin
     end
   else
     begin
-      aDocument := TDocument.Create(Self,Data);
+      aDocument := TDocument.CreateEx(Self,Data);
       Data.SetFilter(aDocument,Data.QuoteField('TYPE')+'=''W'' and '+Data.QuoteField('NAME')+'='+Data.QuoteValue(copy(ExtractFileName(Path),0,rpos('.',ExtractFileName(Path))-1)),1);
       if aDocument.DataSet.RecordCount > 0 then
         begin
@@ -823,7 +823,7 @@ var
               if IncHeader then
                 AddHeader(aStmt);
               if aType=1 then Outp+='<tbody align="left" valign="top">';
-              aDs := TBaseDBDataset(aClass.Create(nil,Data));
+              aDs := TBaseDBDataset(aClass.Create(nil));
               if Assigned(TSQLSelectStatement(aStmt).Where) then
                 aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
               if Assigned(TSQLSelectStatement(aStmt).Orderby) and (TSQLSelectStatement(aStmt).Orderby.Count>0) then
@@ -940,7 +940,7 @@ var
                 end;
               if aType = 4 then
                 begin
-                  aNewList := TWikiList.Create(Self,Data);
+                  aNewList := TWikiList.CreateEx(Self,Data);
                   if aNewList.FindWikiPage(aInclude) then
                     begin
                       Inp := aNewList.FieldByName('DATA').AsString;
@@ -1002,12 +1002,12 @@ begin
           Inp := copy(Inp,pos(',',Inp)+1,length(Inp));
           Inp := copy(Inp,0,pos(')',Inp)-1);
           if not  TryStrToInt(Inp,aCount) then aCount := 30;
-          aList := TMessageList.Create(nil,Data);
+          aList := TMessageList.Create(nil);
           Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(VarToStr(Data.Tree.Id.AsVariant)));
           while not aList.DataSet.EOF do
             begin
               if aCount <= 0 then break;
-              aMessage := TMessage.Create(Self,Data);
+              aMessage := TMessage.CreateEx(Self,Data);
               aMessage.Select(aList.Id.AsVariant);
               aMessage.Open;
               if aMessage.Count > 0 then
@@ -1111,7 +1111,7 @@ begin
       try
         aFilter:='';
         bStmt := FSQLParser.Parse;
-        aStatistic := TStatistic.Create(nil,Data);
+        aStatistic := TStatistic.Create(nil);
         if pos('(',Inp)>0 then
           begin
             tmp := copy(Inp,pos('(',Inp)+1,length(Inp)-1);
@@ -1182,7 +1182,7 @@ begin
       try
         aFilter:='';
         bStmt := FSQLParser.Parse;
-        aStatistic := TStatistic.Create(nil,Data);
+        aStatistic := TStatistic.Create(nil);
         aStatistic.SelectFromLink(Inp);
         aStatistic.Open;
         if aStatistic.Count>0 then
@@ -1246,7 +1246,7 @@ begin
     end
   else
     begin
-      aNewList := TWikiList.Create(Self,Data);
+      aNewList := TWikiList.CreateEx(Self,Data);
       nInp := Inp;
       if pos('|',nInp) > 0 then nInp := copy(nInp,0,pos('|',nInp)-1);
       nInp := StringReplace(nInp,'%username%',Data.Users.Text.AsString,[]);
@@ -1300,7 +1300,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
     end;
@@ -1344,7 +1344,7 @@ var
 begin
   with BaseApplication as IBaseApplication do
     Debug('OpenWikiPage:'+PageName);
-  aWiki := TWikiList.Create(nil,Data);
+  aWiki := TWikiList.Create(nil);
   Result := aWiki.FindWikiPage(pageName);
   aWiki.Free;
   DoView;
@@ -1362,7 +1362,7 @@ begin
         pcPages.Pages[2].Destroy;
       if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
         begin
-          aDocuments := TDocuments.Create(Self,Data);
+          aDocuments := TDocuments.CreateEx(Self,Data);
 //          aDocuments.CreateTable;
           aDocuments.Select(DataSet.Id.AsVariant,'W',DataSet.FieldByName('NAME').AsString,Null,Null);
           aDocuments.Open;

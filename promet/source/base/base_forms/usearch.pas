@@ -204,7 +204,7 @@ begin
     end;
   if (trim(eContains.Text)<>'') then
     begin
-      aSearchHist := TSearchHistory.Create(nil,Data);
+      aSearchHist := TSearchHistory.Create(nil);
       aSearchHist.Add(eContains.Text,GetLink);
       aSearchHist.Free;
     end;
@@ -251,20 +251,20 @@ var
   aMS: TMasterdata;
   aActive: Boolean;
 begin
-  aMS := TMasterdata.Create(nil,data);
+  aMS := TMasterdata.Create(nil);
   aMS.SelectFromLink(GetLink());
   aMS.Open;
   if aMS.Count>0 then
     begin
       sgResults.RowCount:=sgResults.FixedRows;
-      aPos := TMDPos.Create(nil,Data);
+      aPos := TMDPos.Create(nil);
       Data.SetFilter(aPos,Data.QuoteField('IDENT')+'='+Data.QuoteValue(aMS.Number.AsString));
       with aPos do
         begin
           First;
           while not EOF do
             begin
-              aMS := TMasterdata.Create(nil,data);
+              aMS := TMasterdata.Create(nil);
               aMS.Select(aPos.FieldByName('REF_ID').AsVariant);
               aMS.Open;
               if aMS.Count>0 then
@@ -571,7 +571,7 @@ var
 begin
   if pos('USERS',aLink)>0 then
     begin
-      aUser := TUser.Create(nil,Data);
+      aUser := TUser.Create(nil);
       aUser.SelectFromLink(aLink);
       aUser.Open;
       if aUser.Count>0 then
@@ -582,7 +582,7 @@ begin
     end
   else
     begin
-      aCont := TPerson.Create(nil,Data);
+      aCont := TPerson.Create(nil);
       aCont.SelectFromLink(aLink);
       aCont.Open;
       if aCont.Count>0 then

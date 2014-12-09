@@ -74,7 +74,7 @@ begin
             begin
               Data.StartTransaction(aConnection);
               try
-              aPerson := TPerson.Create(Self,Data,aConnection);
+              aPerson := TPerson.CreateEx(Self,Data,aConnection);
               aKey := trim(dbase.FieldByName('KEY5').Text);
               Data.SetFilter(aPerson,'"ACCOUNTNO"='+Data.QuoteValue(aKey));
               if aPerson.Count = 0 then

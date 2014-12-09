@@ -178,7 +178,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'S');
     end;
@@ -266,7 +266,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsLargeInt,'E',DataSet.Id.AsVariant);
       aDocuments.Open;
@@ -294,7 +294,7 @@ begin
     AddTabs(pcPages);
   if DataSet.State<> dsInsert then
     begin
-      aWiki := TWikiList.Create(nil,Data);
+      aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
         begin
           while not aWiki.EOF do
@@ -364,7 +364,7 @@ begin
     FConnection := Data.GetNewConnection;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TBaseScript.Create(Self,Data,FConnection);
+  DataSet := TBaseScript.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ScriptStateChange;
   TBaseDbList(DataSet).SelectFromLink(aLink);
   Dataset.Open;
@@ -386,7 +386,7 @@ begin
   TabCaption := strNewArticle;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TBaseScript.Create(Self,Data,FConnection);
+  DataSet := TBaseScript.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ScriptStateChange;
   DataSet.Select(0);
   DataSet.Open;

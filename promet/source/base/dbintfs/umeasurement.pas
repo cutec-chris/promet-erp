@@ -38,7 +38,7 @@ type
   private
     FMesdata: TMeasurementData;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     procedure DefineFields(aDataSet: TDataSet); override;
     function CreateTable: Boolean; override;
@@ -49,11 +49,11 @@ implementation
 
 { TMeasurement }
 
-constructor TMeasurement.Create(aOwner: TComponent; DM: TComponent;
+constructor TMeasurement.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FMesdata := TMeasurementData.Create(Self,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FMesdata := TMeasurementData.CreateEx(Self,DM,aConnection,DataSet);
 end;
 
 destructor TMeasurement.Destroy;

@@ -595,7 +595,7 @@ var
 begin
   if pos('USERS',aLink)>0 then
     begin
-      aUser := TUser.Create(nil,Data);
+      aUser := TUser.Create(nil);
       aUser.SelectFromLink(aLink);
       aUser.Open;
       if aUser.Count>0 then
@@ -606,7 +606,7 @@ begin
     end
   else
     begin
-      aCont := TPerson.Create(nil,Data);
+      aCont := TPerson.Create(nil);
       aCont.SelectFromLink(aLink);
       aCont.Open;
       if aCont.Count>0 then

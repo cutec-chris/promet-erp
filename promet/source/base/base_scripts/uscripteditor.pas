@@ -737,7 +737,7 @@ begin
     end;
   if not Assigned(FDataSet) then
     begin
-      FDataSet := TBaseScript.Create(nil,Data,aConnection);
+      FDataSet := TBaseScript.CreateEx(nil,Data,aConnection);
       FDataSet.CreateTable;
     end;
   FDataSet.Open;
@@ -774,7 +774,7 @@ var
 begin
   if not Assigned(Fuses) then
     begin
-      Fuses := TBaseScript.Create(nil,Data);
+      Fuses := TBaseScript.Create(nil);
       Fuses.Open;
     end
   else Fuses.DataSet.Refresh;

@@ -327,7 +327,7 @@ begin
   FDataSet.DataSet.Close;
   FGridView.DataSet := AValue;
   Datasource.DataSet := FDataSet.DataSet;
-  aUsers := TUser.Create(nil,Data);
+  aUsers := TUser.Create(nil);
   aUsers.Select(FUserID);
   aUsers.Open;
   if not FIgnoreUser then
@@ -352,7 +352,7 @@ begin
     end
   else
     ChangeVisibleRows(bOldTasks);
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.Select(fUserID);
   aUser.Open;
   if aUser.Count>0 then
@@ -472,7 +472,7 @@ function TfTaskFrame.fSearchAddTasksToProject(aLink: string): Boolean;
 var
   aProject: TProject;
 begin
-  aProject := TProject.Create(Self,Data);
+  aProject := TProject.CreateEx(Self,Data);
   aProject.SelectFromLink(aLink);
   aProject.Open;
   Result := aProject.Count>0;
@@ -493,7 +493,7 @@ var
   aCount: Integer;
 begin
   Result := False;
-  aProject := TProject.Create(Self,Data);
+  aProject := TProject.CreateEx(Self,Data);
   aProject.SelectFromLink(aLink);
   aProject.Open;
   Result := aProject.Count>0;
@@ -521,7 +521,7 @@ var
   aRow: Integer;
 begin
   Result := False;
-  aProject := TProject.Create(Self,Data);
+  aProject := TProject.CreateEx(Self,Data);
   aProject.SelectFromLink(aLink);
   aProject.Open;
   Result := aProject.Count>0;
@@ -552,7 +552,7 @@ var
   aUser: TUser;
 begin
   Result := False;
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
@@ -587,7 +587,7 @@ var
   aSel: TGridRect;
 begin
   Result := False;
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
@@ -626,7 +626,7 @@ var
 begin
   if pos('USERS',aLink)>0 then
     begin
-      aUser := TUser.Create(nil,Data);
+      aUser := TUser.Create(nil);
       aUser.SelectFromLink(aLink);
       aUser.Open;
       if aUser.Count>0 then
@@ -637,7 +637,7 @@ begin
     end
   else
     begin
-      aCont := TPerson.Create(nil,Data);
+      aCont := TPerson.Create(nil);
       aCont.SelectFromLink(aLink);
       aCont.Open;
       if aCont.Count>0 then
@@ -870,7 +870,7 @@ var
   aProject: TProject;
 begin
   if not FGridView.GotoActiveRow then exit;
-  aProject := TProject.Create(nil,Data);
+  aProject := TProject.Create(nil);
   aProject.Select(DataSet.FieldByName('PROJECTID').AsVariant);
   aProject.Open;
   if aProject.Count > 0 then
@@ -905,7 +905,7 @@ begin
     aLink := FGridView.DataSet.GetLink;
   if FGridView.DataSet.FieldByName('USER').AsString<>'' then
     begin
-      aUser := TUser.Create(nil,Data);
+      aUser := TUser.Create(nil);
       aUser.SelectByAccountno(FGridView.DataSet.FieldByName('USER').AsString);
       aUser.Open;
       if aUser.Count>0 then;
@@ -927,7 +927,7 @@ begin
         aDesc := strDescription+':'+LineEnding+Data.GetLinkLongDesc(aLink);
       if FGridView.DataSet.FieldByName('OWNER').AsString<>'' then
         begin
-          aUser := TUser.Create(nil,Data);
+          aUser := TUser.Create(nil);
           aUser.SelectByAccountno(FGridView.DataSet.FieldByName('OWNER').AsString);
           aUser.Open;
           if aUser.Count>0 then;
@@ -936,7 +936,7 @@ begin
         end;
       if FGridView.DataSet.FieldByName('USER').AsString<>'' then
         begin
-          aUser := TUser.Create(nil,Data);
+          aUser := TUser.Create(nil);
           aUser.SelectByAccountno(FGridView.DataSet.FieldByName('USER').AsString);
           aUser.Open;
           if aUser.Count>0 then;
@@ -968,7 +968,7 @@ begin
           aLink := Data.BuildLink(FGridView.DataSet.DataSet);
           if FGridView.GotoRowNumber(aRow) then
             begin
-             aTask := TTask.Create(nil,Data);
+             aTask := TTask.Create(nil);
              aTask.Select(FGridView.DataSet.Id.AsVariant);
              aTask.Open;
              if aTask.Count > 0 then
@@ -1011,7 +1011,7 @@ begin
             FDataSet.DataSet.Post;
           if FDataSet.DataSet.FieldByName('PROJECTID').AsString<>'' then
             begin
-              aProject := TProject.Create(Self,Data,Connection);
+              aProject := TProject.CreateEx(Self,Data,Connection);
               aProject.Select(FDataSet.DataSet.FieldByName('PROJECTID').AsVariant);
               aProject.Open;
               if (aProject.Count>0) then
@@ -1230,7 +1230,7 @@ begin
   if FGridView.GotoActiveRow then
     begin
       try
-        aProject := TProject.Create(nil,Data);
+        aProject := TProject.Create(nil);
         aProject.Select(DataSet.FieldByName('PROJECTID').AsVariant);
         aProject.Open;
         {
@@ -1991,7 +1991,7 @@ var
     bParent : Variant;
   begin
     if aParent = Null then exit;
-    aUsers := TUser.Create(nil,Data);
+    aUsers := TUser.Create(nil);
     with aUsers.DataSet as IBaseDbFilter do
       begin
         SortFields := 'NAME';
@@ -2050,7 +2050,7 @@ begin
   if Assigned(TTreeEntry(FNode.Data).SubText) then
     TTreeEntry(FNode.Data).SubText.Free;
   TTreeEntry(FNode.Data).SubText := TStringlist.Create;
-  aDataSet := TTaskList.Create(nil,Data);
+  aDataSet := TTaskList.Create(nil);
   aDataSet.CreateTable;
   aDataSet.SelectActiveByUser(Data.Users.FieldByName('ACCOUNTNO').AsString);
   aDataSet.Open;

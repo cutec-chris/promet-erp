@@ -361,7 +361,7 @@ procedure TfOrderFrame.acGotoAddressExecute(Sender: TObject);
 var
   aPerson: TPerson;
 begin
-  aPerson := TPerson.Create(Self,Data);
+  aPerson := TPerson.CreateEx(Self,Data);
   aPerson.SelectByAccountNo(TOrder(DataSet).Address.FieldByName('ACCOUNTNO').AsString);
   aPerson.Open;
   if aPerson.Count > 0 then
@@ -571,7 +571,7 @@ begin
     begin
       if lbResults.ItemIndex < 0 then exit;
       pSearch.Visible:=False;
-      aPerson := TPerson.Create(nil,Data);
+      aPerson := TPerson.Create(nil);
       aPerson.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
       aPerson.Open;
       aPerson.Address.Open;
@@ -652,7 +652,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'O',DataSet.FieldByName('ORDERNO').AsString,Null,Null);
       TPrometInplaceFrame(Sender).SetRights(FEditable);
@@ -783,7 +783,7 @@ begin
   pcHeader.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsVariant,'O',DataSet.FieldByName('ORDERNO').AsString,Null,Null);
       aDocuments.Open;
@@ -998,7 +998,7 @@ begin
   if UseTransactions then
     Data.StartTransaction(FConnection);
   FreeAndNil(FDataSet);
-  DataSet := TOrder.Create(Self,Data,FConnection);
+  DataSet := TOrder.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@OrdersStateChange;
   TOrder(DataSet).Select(copy(aLink,pos('@',aLink)+1,length(aLink)));
   DoOpen;
@@ -1016,7 +1016,7 @@ begin
   if UseTransactions then
     Data.StartTransaction(FConnection);
   FreeAndNil(FDataSet);
-  DataSet := TOrder.Create(Self,Data,FConnection);
+  DataSet := TOrder.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@OrdersStateChange;
   DataSet.Select(0);
   DataSet.Open;

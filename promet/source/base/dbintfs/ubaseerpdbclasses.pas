@@ -37,7 +37,7 @@ type
   protected
     property UpdateHistory : Boolean read FUpdateHistory write FUpdateHistory;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
       aMasterdata: TDataSet=nil); override;
     procedure CascadicPost;override;
     procedure CascadicCancel; override;
@@ -118,7 +118,7 @@ type
     procedure DoInsert;virtual;
     procedure DoEdit;virtual;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     function CreateTable : Boolean;override;
     procedure Open;override;
@@ -188,7 +188,7 @@ type
   private
     FPos: TInventoryPos;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
     function CreateTable : Boolean;override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -269,11 +269,11 @@ begin
           end;
     end;
 end;
-constructor TInventorys.Create(aOwner: TComponent; DM: TComponent;
+constructor TInventorys.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(AOwner,DM,aConnection,aMasterdata);
-  FPos := TInventoryPos.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(AOwner,DM,aConnection,aMasterdata);
+  FPos := TInventoryPos.CreateEx(Owner,DM,aConnection,DataSet);
   FPos.FInv := Self;
 end;
 destructor TInventorys.Destroy;
@@ -307,10 +307,10 @@ begin
           end;
     end;
 end;
-constructor TBaseERPList.Create(aOwner: TComponent; DM: TComponent;
+constructor TBaseERPList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FUpdateHistory:=True;
 end;
 procedure TBaseERPList.CascadicPost;
@@ -359,7 +359,7 @@ var
 begin
   if TBaseDBModule(DataModule).DataSetFromLink(aRemoteLink,aClass) then
     begin
-      aObject := aClass.Create(nil,DataModule);
+      aObject := aClass.CreateEx(nil,DataModule);
       TBaseDbList(aObject).SelectFromLink(aRemoteLink);
       aObject.Open;
       if aObject.Count>0 then
@@ -383,7 +383,7 @@ begin
                 end;
             end;
           //Combine Documents
-          aDoc := TDocuments.Create(nil,DataModule);
+          aDoc := TDocuments.CreateEx(nil,DataModule);
           aDoc.SelectByReference(aObject.Id.AsVariant);
           aDoc.Open;
           while not aDoc.EOF do
@@ -395,7 +395,7 @@ begin
             end;
           aDoc.Free;
           //Combine SyncItems
-          aSync:= TSyncItems.Create(nil,DataModule);
+          aSync:= TSyncItems.CreateEx(nil,DataModule);
           aSync.SelectByReference(aObject.Id.AsVariant);
           aSync.Open;
           while not aDoc.EOF do
@@ -1060,14 +1060,14 @@ function TBaseDBPosition.GetOrderTyp: Integer;
 begin
   Result := 0;
 end;
-constructor TBaseDBPosition.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
+constructor TBaseDBPosition.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM,aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
   FUseRTF:=False;
   UpdateFloatFields:=True;
   FPosFormat := '%d';
-  FPosTyp := TPositionTyp.Create(Owner,DM,aConnection);
+  FPosTyp := TPositionTyp.CreateEx(Owner,DM,aConnection);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -1077,7 +1077,7 @@ begin
           SortDirection:=sdAscending;
         end;
     end;
-  FPosCalc := TPositionCalc.Create(Self,DM,False,aConnection,DataSet);
+  FPosCalc := TPositionCalc.CreateExIntegrity(Self,DM,False,aConnection,DataSet);
   FIntDataSource := TDataSource.Create(Self);
   FIntDataSource.DataSet := DataSet;
   FIntDataSource.OnDataChange:=@FIntDataSourceDataChange;
@@ -1104,7 +1104,7 @@ begin
     with BaseApplication as IBaseDbInterface do
       if not Data.TableExists(TableName) then
         begin
-          aPosCalc := TPositionCalc.Create(Self,DataModule,False,Connection);
+          aPosCalc := TPositionCalc.CreateExIntegrity(Self,DataModule,False,Connection);
           aPosCalc.CreateTable;
           aPosCalc.Free;
         end;
@@ -1270,7 +1270,7 @@ begin
               while not EOF do
                 begin
                   with BaseApplication as IBaseDbInterface do
-                    bMasterdata := TMasterdata.Create(Self,Data);
+                    bMasterdata := TMasterdata.CreateEx(Self,Data);
                   bMasterdata.Select(FieldByName('IDENT').AsString,FieldByName('VERSION').AsVariant,FieldByName('LANGUAGE').AsVariant);
                   bMasterdata.Open;
                   if bMasterdata.Count = 0 then
@@ -1313,7 +1313,7 @@ procedure TBaseDBPosition.AppendSubTotal;
 var
   aPos: TPositionTyp;
 begin
-  aPos := TPositionTyp.Create(nil,DataModule,Connection);
+  aPos := TPositionTyp.CreateEx(nil,DataModule,Connection);
   aPos.Open;
   if aPos.DataSet.Locate('TYPE',4,[loCaseInsensitive]) then
     begin
@@ -1405,4 +1405,4 @@ begin
 end;
 initialization
 end.
-
+

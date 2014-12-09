@@ -68,7 +68,7 @@ begin
     begin
       Application.CreateForm(TfBookFibuAccount,fBookFibuAccount);
       Self := fBookFibuAccount;
-      FDataSet := TFinancialAccounts.Create(Data,Data);
+      FDataSet := TFinancialAccounts.CreateEx(Data,Data);
       Datasource1.DataSet := FDataSet.DataSet;
     end;
   FDataSet.Open;

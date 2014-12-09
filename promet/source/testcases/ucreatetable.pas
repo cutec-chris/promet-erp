@@ -13,7 +13,7 @@ type
     FSubTable: TSubTable;
   published
     procedure DefineFields(aDataSet : TDataSet);override;
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     property SubTable : TSubTable read FSubTable;
   end;
@@ -83,7 +83,7 @@ begin
 end;
 procedure TableCreate.CreateTable;
 begin
-  aTable := TTable.Create(nil,Data);
+  aTable := TTable.Create(nil);
   aTable.CreateTable;
 end;
 procedure TableCreate.OpenTable;
@@ -114,7 +114,7 @@ begin
 end;
 procedure TableCreate.CreateTableInTransaction;
 begin
-  aTable := TTable.Create(nil,Data,aTransaction);
+  aTable := TTable.CreateEx(nil,Data,aTransaction);
   aTable.CreateTable;
   aTable.SubTable.CreateTable;
 end;
@@ -153,4 +153,4 @@ end;
 initialization
   RegisterTest(TableCreate);
 end.
-
+

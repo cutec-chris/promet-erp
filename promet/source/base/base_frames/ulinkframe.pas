@@ -176,7 +176,7 @@ begin
               bLink := Data.BuildLink(DataSet.Parent.DataSet);
               if Data.ListDataSetFromLink(aLink,aClass) then
                 begin
-                  aDS := TBaseDBList(aClass.Create(nil,Data));
+                  aDS := TBaseDBList(aClass.Create(nil));
                 end;
               if Assigned(aDS) then
                 begin
@@ -211,7 +211,7 @@ begin
               tmp1 := copy(aLink, 0, pos('&&', aLink) - 1);
               aLink   := copy(aLink, pos('&&', aLink) + 2, length(aLink));
               tmp2 := aLink;
-              Accounts := TAccounts.Create(Self,Data);
+              Accounts := TAccounts.CreateEx(Self,Data);
               Accounts.Open;
               if Accounts.DataSet.Locate('SQL_ID',tmp1,[]) then
                 begin
@@ -329,7 +329,7 @@ begin
                   bLink := Data.BuildLink(DataSet.Parent.DataSet);
                   if Data.ListDataSetFromLink(aLink,aClass) then
                     begin
-                      aDS := TBaseDbList(aClass.Create(nil,Data));
+                      aDS := TBaseDbList(aClass.Create(nil));
                     end;
                   if Assigned(aDS) then
                     begin
@@ -436,7 +436,7 @@ begin
               bLink := Data.BuildLink(DataSet.Parent.DataSet);
               if Data.ListDataSetFromLink(aLink,aClass) then
                 begin
-                  aDS := aClass.Create(nil,Data);
+                  aDS := aClass.Create(nil);
                 end;
               if Assigned(aDS) then
                 begin

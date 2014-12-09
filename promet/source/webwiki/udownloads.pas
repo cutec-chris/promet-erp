@@ -59,7 +59,7 @@ begin
     end;
   if not FileExists(aPath) then
     begin
-      Documents := TDocument.Create(Self,Data);
+      Documents := TDocument.CreateEx(Self,Data);
       Data.SetFilter(Documents,'"TYPE"=''W'' and "NAME"='+Data.QuoteValue(ValidateFileName(copy(ExtractFileName(aPath),0,rpos('.',ExtractFileName(aPath))-1))),1);
       if Documents.DataSet.RecordCount > 0 then
         begin

@@ -267,9 +267,9 @@ constructor TfUserOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aUsers := TUser.Create(Self,Data,aConnection);
+  aUsers := TUser.CreateEx(Self,Data,aConnection);
   UsersDS.DataSet := aUsers.DataSet;
-  aPaygroups := TPayGroups.Create(nil,Data,aConnection);
+  aPaygroups := TPayGroups.CreateEx(nil,Data,aConnection);
   aPaygroups.CreateTable;
   Paygroups.DataSet := aPaygroups.DataSet;
 end;

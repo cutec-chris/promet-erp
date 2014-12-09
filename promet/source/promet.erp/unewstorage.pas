@@ -82,7 +82,7 @@ begin
       Self := fNewStorage;
     end;
   fStorage := aStorage;
-  aStorageType := TStorageTyp.Create(Self,Data,aStorage.Connection);
+  aStorageType := TStorageTyp.CreateEx(Self,Data,aStorage.Connection);
   StorageType.DataSet := aStorageType.DataSet;
   aStorageType.DataSet.AfterScroll:=@aStorageTypeDataSetAfterScroll;
   CtrDisabled := aStorageType.DataSet.ControlsDisabled;

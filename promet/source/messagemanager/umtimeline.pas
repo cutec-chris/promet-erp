@@ -242,7 +242,7 @@ var
 begin
   mTime:=GetTickCount;
   if not assigned(Data) then exit;
-  aDocument := TDocument.Create(nil,Data);
+  aDocument := TDocument.Create(nil);
   aDocument.Select(FId,'H',0);
   aDocument.ActualLimit:=1;
   aDocument.Open;
@@ -297,7 +297,7 @@ begin
       fTimeline.ReadOnly:=True;
       fTimeline.OnDrawColumnCell:=@FContListDrawColumnCell;
       fTimeline.OnGetCellText:=@fTimelineGetCellText;
-      fTimeline.DataSet := TBaseHistory.Create(nil,Data);
+      fTimeline.DataSet := TBaseHistory.Create(nil);
       fTimeline.DataSet.CreateTable;
       fTimeline.gList.OnKeyDown:=@fTimelinegListKeyDown;
       fTimeline.gList.OnDblClick:=@fTimelinegListDblClick;
@@ -347,7 +347,7 @@ var
   aWiki: TWikiList;
 begin
   if Assigned(FQuickHelpFrame) then exit;
-  aWiki := TWikiList.Create(nil,Data);
+  aWiki := TWikiList.Create(nil);
   with BaseApplication as IBaseApplication do
   if aWiki.FindWikiPage('Promet-ERP-Help/workflows/tftimeline') then
     begin
@@ -610,7 +610,7 @@ begin
   mEntry.SelStart:=mEntry.SelStart+length(mEntry.SelText);
   tmp := mEntry.Lines.Text;
   aUsers := GetUsersFromString(tmp);
-  FUserHist := TUser.Create(nil,Data);
+  FUserHist := TUser.Create(nil);
   for i := 0 to aUsers.Count-1 do
     begin
       Data.SetFilter(FUserHist,Data.QuoteField('IDCODE')+'='+Data.QuoteValue(aUsers[i]));
@@ -651,7 +651,7 @@ begin
   while fScreenshot.Visible do Application.ProcessMessages;
   fScreenshot.Destroy;
   fScreenshot := nil;
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   aDocument.Select(aId,'H',0);
   with BaseApplication as IBaseApplication do
     aDocument.AddFromFile(AppendPathDelim(GetInternalTempDir)+aName);
@@ -736,7 +736,7 @@ begin
       Found := False;
       tmp := copy(tmp,2,length(tmp));
       aUsers := GetUsersFromString(tmp);
-      aUser := TUser.Create(nil,Data);
+      aUser := TUser.Create(nil);
       for i := 0 to aUsers.Count-1 do
         begin
           Data.SetFilter(aUser,Data.QuoteField('IDCODE')+'='+Data.QuoteValue(aUsers[i]));
@@ -763,7 +763,7 @@ begin
                 end
               else
                 begin
-                  aTask := TTask.Create(nil,Data);
+                  aTask := TTask.Create(nil);
                   aTask.Insert;
                   aTask.FieldByName('SUMMARY').AsString:=tmp;
                   aTask.FieldByName('USER').AsString:=aUser.FieldByName('ACCOUNTNO').AsString;
@@ -776,7 +776,7 @@ begin
       aUser.Free;
       if (not Found) and (FParentItem<>Null) then
         begin
-          bHistory := TBaseHistory.Create(nil,Data);
+          bHistory := TBaseHistory.Create(nil);
           bHistory.Select(FParentItem);
           bHistory.Open;
           if bHistory.Count>0 then
@@ -806,7 +806,7 @@ begin
     end
   else
     begin
-      aTask := TTask.Create(nil,Data);
+      aTask := TTask.Create(nil);
       aTask.Insert;
       aTask.FieldByName('SUMMARY').AsString:=tmp;
       aTag := '';
@@ -855,10 +855,10 @@ begin
   if fTimeline.GotoActiveRow then
     if FileExistsUTF8(GetTempDir+'PMSTimeregistering') then
       begin
-        aTask := TTask.Create(nil,Data);
+        aTask := TTask.Create(nil);
         aTask.SelectFromLink(fTimeline.DataSet.FieldByName('LINK').AsString);
         aTask.Open;
-        aProject := TProject.Create(nil,Data);
+        aProject := TProject.Create(nil);
         aProject.Select(aTask.FieldByName('PROJECTID').AsString);
         aProject.Open;
         if aProject.Count>0 then
@@ -945,7 +945,7 @@ begin
       mEntry.Text:=tmp+' '+mEntry.Text;
       tmp := '@';
     end;
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   if aUser.Count>0 then
@@ -1092,7 +1092,7 @@ var
   aText: TCaption;
 begin
   if lbResults.ItemIndex = -1 then exit;
-  aUser := TUser.Create(nil,data);
+  aUser := TUser.Create(nil);
   aUser.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
   aUser.Open;
   aText := mEntry.Text;

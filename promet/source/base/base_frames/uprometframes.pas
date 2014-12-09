@@ -236,7 +236,7 @@ begin
         Result := False;
         exit;
       end;
-  aWiki := TWikiList.Create(nil,Data);
+  aWiki := TWikiList.Create(nil);
   with BaseApplication as IBaseApplication do
     Result := aWiki.FindWikiPage(Appname+'-Help/workflows/'+lowercase(ClassName));
   aWiki.Free;
@@ -256,7 +256,7 @@ var
   aWiki: TWikiList;
 begin
   if Assigned(FQuickHelpFrame) then exit;
-  aWiki := TWikiList.Create(nil,Data);
+  aWiki := TWikiList.Create(nil);
   with BaseApplication as IBaseApplication do
   if aWiki.FindWikiPage(Appname+'-Help/workflows/'+lowercase(ClassName)) then
     begin

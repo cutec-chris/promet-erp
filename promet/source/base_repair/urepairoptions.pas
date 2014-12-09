@@ -33,7 +33,7 @@ constructor TfRepairOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aRepair := TRepairProblems.Create(Self,Data,aConnection);
+  aRepair := TRepairProblems.CreateEx(Self,Data,aConnection);
   RepairDS.DataSet := aRepair.DataSet;
 end;
 

@@ -46,8 +46,8 @@ end;
 
 procedure TTransactionTest.CreateOrders;
 begin
-  aOrder := TOrder.Create(nil,Data,aTransaction);
-  bOrder := TOrder.Create(nil,Data,bTransaction);
+  aOrder := TOrder.CreateEx(nil,Data,aTransaction);
+  bOrder := TOrder.CreateEx(nil,Data,bTransaction);
 end;
 
 procedure TTransactionTest.Fill1Order;
@@ -66,7 +66,7 @@ end;
 
 procedure TTransactionTest.GetOrderList;//Blocking Test
 begin
-  aOrderList := TOrderList.Create(nil,Data);
+  aOrderList := TOrderList.Create(nil);
   aOrderList.Open;
 end;
 

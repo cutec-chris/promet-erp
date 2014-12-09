@@ -54,7 +54,7 @@ begin
   acLogin.Enabled:=False;
   acLogout.Enabled:=True;
 
-  a := TOrder.Create(nil,Data);
+  a := TOrder.Create(nil);
   a.Insert;
   a.Positions.Insert;
   a.Address.Insert;

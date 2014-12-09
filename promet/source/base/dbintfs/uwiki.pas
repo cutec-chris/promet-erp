@@ -51,7 +51,7 @@ type
     function isDynamic : Boolean;
     function PageAsText : string;
     property ActiveTreeID : Variant read FActiveTreeID;
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     function CreateTable: Boolean; override;
@@ -159,7 +159,7 @@ begin
     Filter := '';
   aParent := 0;
   FActiveTreeID := aParent;
-  aTree := TTree.Create(Self,DataModule);
+  aTree := TTree.CreateEx(Self,DataModule);
   aTree.Filter(TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W'));
   if pos('://',PageName) > 0 then exit;
   while pos('/',PageName) > 0 do
@@ -222,7 +222,7 @@ var
 begin
   Result := False;
   aParent := 0;
-  aTree := TTree.Create(Self,TBaseDBModule(DataModule));
+  aTree := TTree.CreateEx(Self,TBaseDBModule(DataModule));
   if copy(PageName,0,7) = 'http://' then exit;
   while pos('/',PageName) > 0 do
     begin
@@ -259,7 +259,7 @@ function TWikiList.GetFullPath: string;
 var
   aTree: TTree;
 begin
-  aTree := TTree.Create(Self,DataModule);
+  aTree := TTree.CreateEx(Self,DataModule);
   Result := FieldByName('NAME').AsString;
   aTree.Filter(TBaseDBModule(DataModule).QuoteField('SQL_ID')+'='+TBaseDBModule(DataModule).QuoteValue(DataSet.FieldByName('TREEENTRY').AsString));
   while aTree.Count>0 do
@@ -282,11 +282,11 @@ begin
   Result := StripHTML(WikiText2HTML(DataSet.FieldByName('DATA').AsString,'',''));
 end;
 
-constructor TWikiList.Create(aOwner: TComponent; DM: TComponent;
+constructor TWikiList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FKeywords := TKeywords.Create(Self,DM,aConnection);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FKeywords := TKeywords.CreateEx(Self,DM,aConnection);
   FKeywords.DataSet.AfterInsert:=@FKeywordsDataSetAfterInsert;
 end;
 
@@ -345,7 +345,7 @@ begin
   sl.Free;
   while FOutTodo.Count>0 do
     begin
-      aPage := TWikiList.Create(nil,DataModule,Connection);
+      aPage := TWikiList.CreateEx(nil,DataModule,Connection);
       Outp := FOutSub+'/'+FOutTodo.Names[0]+FOutExt;
       aFN := StringReplace(StringReplace(FOutDir+'/'+Outp,'/',DirectorySeparator,[rfReplaceAll]),'//','/',[rfReplaceAll]);
       if (not FileExists(aFN)) and aPage.FindWikiPage(FOutTodo.Names[0]) then

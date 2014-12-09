@@ -47,7 +47,7 @@ type
   private
     FProcessParameters: TProcessParameters;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     function CreateTable : Boolean;override;
@@ -63,7 +63,7 @@ type
     FProcesses: TProcesses;
     ProcessData : array of TProcProcess;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     function CreateTable : Boolean;override;
@@ -86,7 +86,7 @@ procedure TProcProcess.Execute;
 var
   aProc: TProcesses;
 begin
-  aProc := uProcessManagement.TProcesses.Create(nil,Data);
+  aProc := uProcessManagement.TProcesses.CreateEx(nil,Data);
   aProc.Select(Id);
   aProc.Open;
   if aProc.Count > 0 then
@@ -103,7 +103,7 @@ procedure TProcProcess.DoExit;
 var
   aProc: TProcesses;
 begin
-  aProc := uProcessManagement.TProcesses.Create(nil,Data);
+  aProc := uProcessManagement.TProcesses.Create(nil);
   aProc.Select(Id);
   aProc.Open;
   if aProc.Count > 0 then
@@ -128,11 +128,11 @@ begin
     end;
 end;
 
-constructor TProcesses.Create(aOwner: TComponent; DM: TComponent;
-      aConnection: TComponent=nil; aMasterdata: TDataSet=nil);
+constructor TProcesses.CreateEx(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited;
-  FProcessParameters := TProcessParameters.Create(Self, DM,aConnection,DataSet);
+  FProcessParameters := TProcessParameters.CreateEx(Self, DM,aConnection,DataSet);
 end;
 
 destructor TProcesses.Destroy;
@@ -165,11 +165,11 @@ begin
     end;
 end;
 
-constructor TProcessClient.Create(aOwner: TComponent; DM: TComponent;
+constructor TProcessClient.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited;
-  FProcesses := TProcesses.Create(Self, DM,aConnection,DataSet);
+  FProcesses := TProcesses.CreateEx(Self, DM,aConnection,DataSet);
 end;
 
 destructor TProcessClient.Destroy;

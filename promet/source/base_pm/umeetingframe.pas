@@ -367,7 +367,7 @@ begin
       nData := TTreeEntry(uMainTreeFrame.fMainTreeFrame.tvMain.Selected.Data);
       if nData.Typ=etProject then
         begin
-          aProjects := TProject.Create(Self,Data);
+          aProjects := TProject.CreateEx(Self,Data);
           aProjects.CreateTable;
           Data.SetFilter(aProjects,nData.Filter);
           Data.GotoBookmark(aProjects,nData.Rec);
@@ -581,7 +581,7 @@ var
   aUser: TUser;
 begin
   Result := False;
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
@@ -627,7 +627,7 @@ var
   aUser: TUser;
 begin
   Result := False;
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
@@ -863,7 +863,7 @@ var
 begin
   aMeeting := DataSet as TMeetings;
   aNewName := InputBox(strMeetingName,strEnterMeetingName,aMeeting.Text.AsString);
-  bMeeting := TMeetings.Create(nil,Data);
+  bMeeting := TMeetings.Create(nil);
   bMeeting.ImportFromXML(aMeeting.ExportToXML,False,@ReplaceField);
   bMeeting.Edit;
   bMeeting.FieldByName('DATE').Clear;
@@ -965,7 +965,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsInteger,'E',DataSet.Id.AsString,Null,Null);
       aDocuments.Open;
@@ -1018,7 +1018,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'E',DataSet.Id.AsString,Null,Null);
     end;
@@ -1060,7 +1060,7 @@ begin
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
   //Data.StartTransaction(FConnection);
-  DataSet := TMeetings.Create(Self,Data,FConnection);
+  DataSet := TMeetings.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@DataSetChange;
   Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
   if FDataSet.Count > 0 then
@@ -1079,7 +1079,7 @@ begin
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
   //Data.StartTransaction(FConnection);
-  DataSet := TMeetings.Create(Self,Data,FConnection);
+  DataSet := TMeetings.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@DataSetChange;
   DataSet.Select(0);
   DataSet.Open;

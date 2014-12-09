@@ -48,7 +48,7 @@ type
     procedure SelectByIdAndTime(User : Variant;aStart,aEnd : TdateTime);
     function SelectFromLink(aLink: string): Boolean; override;
     property History : TBaseHistory read GetHistory;
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     property RefId : Variant read FRefID write FRefID;
@@ -66,7 +66,7 @@ type
     function GetEnd: TDateTime;
     function GetStart: TDateTime;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure SelectById(aID : Integer);overload;
     property Links : TEventLinks read FLinks;
@@ -88,11 +88,11 @@ begin
   Result := FieldByName('STARTDATE').AsDateTime;
 end;
 
-constructor TEvent.Create(aOwner: TComponent; DM: TComponent;
+constructor TEvent.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FLinks := TEventLinks.Create(Self,DM,aConnection);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FLinks := TEventLinks.CreateEx(Self,DM,aConnection);
 end;
 destructor TEvent.Destroy;
 begin
@@ -221,7 +221,7 @@ procedure TCalendar.SelectByUser(AccountNo: string);
 var
   aUser: TUser;
 begin
-  aUser := TUser.Create(nil,DataModule);
+  aUser := TUser.CreateEx(nil,DataModule);
   aUser.SelectByAccountno(AccountNo);
   aUser.Open;
   if aUser.Count>0 then
@@ -248,7 +248,7 @@ procedure TCalendar.SelectPlanedByUser(AccountNo: string);
 var
   aUser: TUser;
 begin
-  aUser := TUser.Create(nil,DataModule);
+  aUser := TUser.CreateEx(nil,DataModule);
   aUser.SelectByAccountno(AccountNo);
   aUser.Open;
   if aUser.Count>0 then
@@ -276,7 +276,7 @@ procedure TCalendar.SelectPlanedByUserAndTime(AccountNo: string; aStart,
 var
   aUser: TUser;
 begin
-  aUser := TUser.Create(nil,DataModule);
+  aUser := TUser.CreateEx(nil,DataModule);
   aUser.SelectByAccountno(AccountNo);
   aUser.Open;
   if aUser.Count>0 then
@@ -336,11 +336,11 @@ begin
     end;
 end;
 
-constructor TCalendar.Create(aOwner: TComponent; DM: TComponent;
+constructor TCalendar.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
   FDS.OnDataChange:=@FDSDataChange;

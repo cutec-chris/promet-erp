@@ -130,7 +130,7 @@ begin
   if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True) then
     begin
       AResponse.Code:=500;
-      aStatistic := TStatistic.Create(nil,Data);
+      aStatistic := TStatistic.Create(nil);
       aStatistic.Open;
       aStat := ARequest.QueryFields.Values['name'];
       if aStatistic.DataSet.Locate('NAME',aStat,[loCaseInsensitive]) then
@@ -205,9 +205,9 @@ begin
             if Data.DataSetFromLink(aList+'@',aClass) then
               begin
                 if aClass = TBaseHistory then
-                  aDs := TBaseDbList(aClass.Create(nil,Data,nil,Data.Users.DataSet)) //Use User History when History
+                  aDs := TBaseDbList(aClass.CreateEx(nil,Data,nil,Data.Users.DataSet)) //Use User History when History
                 else
-                  aDs := TBaseDbList(aClass.Create(nil,Data));
+                  aDs := TBaseDbList(aClass.Create(nil));
                 aRight := UpperCase(aList);
                 if Assigned(TSQLSelectStatement(aStmt).Where) then
                   aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
@@ -303,7 +303,7 @@ begin
       aList := lowercase(ARequest.QueryFields.Values['name']);
       if Data.DataSetFromLink(aList+'@',aClass) then
         begin
-          aDs := TBaseDBDataset(aClass.Create(nil,Data));
+          aDs := TBaseDBDataset(aClass.Create(nil));
           aRight := UpperCase(aList);
           if (data.Users.Rights.Right(aRight)>RIGHT_READ) and (Assigned(aDS)) then
             begin
@@ -351,7 +351,7 @@ begin
       aRight := UpperCase(aList);
       if Data.DataSetFromLink(aList+'@',aClass) then
         begin
-          aDs := TBaseDBDataset(aClass.Create(nil,Data));
+          aDs := TBaseDBDataset(aClass.Create(nil));
           if (data.Users.Rights.Right(aRight)>RIGHT_WRITE) and (Assigned(aDS)) then
             begin
             end
@@ -414,9 +414,9 @@ begin
             if Data.DataSetFromLink(aList+'@',aClass) then
               begin
                 if aClass = TBaseHistory then
-                  aDs := TBaseDbList(aClass.Create(nil,Data,nil,Data.Users.DataSet)) //Use User History when History
+                  aDs := TBaseDbList(aClass.CreateEx(nil,Data,nil,Data.Users.DataSet)) //Use User History when History
                 else
-                  aDs := TBaseDbList(aClass.Create(nil,Data));
+                  aDs := TBaseDbList(aClass.Create(nil));
                 aRight := UpperCase(aList);
                 if Assigned(TSQLSelectStatement(aStmt).Where) then
                   aFilter:=TSQLSelectStatement(aStmt).Where.GetAsSQL([sfoDoubleQuoteIdentifier]);
@@ -428,7 +428,7 @@ begin
                       aDs.Filter(ARequest.QueryFields.Values['filter'])
                     else
                       aDs.Open;
-                    Sync := TSyncItems.Create(nil,Data);
+                    Sync := TSyncItems.Create(nil);
                     aSyncType := ARequest.QueryFields.Values['synctype'];
                     aInpData := ARequest.QueryFields.Values['data'];
                     aParser := TJSONParser.Create(aInpData);

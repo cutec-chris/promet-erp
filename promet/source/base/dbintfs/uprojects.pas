@@ -31,7 +31,7 @@ type
     function GetNumberFieldName: string;override;
     function GetStatusFieldName: string;override;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
       aMasterdata: TDataSet=nil); override;
     constructor Create(aOwner : TComponent);override;
     function GetTyp: string; override;
@@ -52,7 +52,7 @@ type
   private
     FProject: TProjectList;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure FillDefaults(aDataSet : TDataSet);override;
     procedure Open;override;
@@ -100,7 +100,7 @@ type
     function GetParentField: string;
     function GetStructureElements(aIndex : Integer) : TBaseDbDataSet;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure Open; override;
     procedure Recalculate;
@@ -242,10 +242,10 @@ begin
   SetDisplayLabelName(aDataSet,'ORIGDATE',strInvoiceDate);
 end;
 
-constructor TProjectTasks.Create(aOwner: TComponent; DM: TComponent;
+constructor TProjectTasks.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   ActualFilter:='';
 end;
 
@@ -326,7 +326,7 @@ begin
         end;
       if (Field.FieldName = 'PMANAGER') then
         begin
-          aUsers := TUser.Create(nil,DataModule);
+          aUsers := TUser.CreateEx(nil,DataModule);
           aUsers.SelectByAccountno(Field.AsString);
           aUsers.Open;
           if aUsers.Count>0 then
@@ -357,10 +357,10 @@ begin
   Result := 'P';
 end;
 
-constructor TProject.Create(aOwner: TComponent; DM: TComponent;
+constructor TProject.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -372,14 +372,14 @@ begin
           UpdateFloatFields:=True;
         end;
     end;
-  FHistory := TProjectHistory.Create(Self,DM,aConnection,DataSet);
-  FPositions := TProjectPositions.Create(Self,DM,aConnection,DataSet);
+  FHistory := TProjectHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FPositions := TProjectPositions.CreateEx(Self,DM,aConnection,DataSet);
   FPositions.FProject := Self;
-  FImages := TImages.Create(Self,DM,aConnection,DataSet);
-  FLinks := TProjectLinks.Create(Self,DM,aConnection);
+  FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
+  FLinks := TProjectLinks.CreateEx(Self,DM,aConnection);
   with Self.DataSet as IBaseSubDataSets do
     RegisterSubDataSet(FLinks);
-  FTasks := TProjectTasks.Create(Self,DM,aConnection);
+  FTasks := TProjectTasks.CreateEx(Self,DM,aConnection);
   with Self.DataSet as IBaseSubDataSets do
     RegisterSubDataSet(FTasks);
   FTasks.FProject := Self;
@@ -504,7 +504,7 @@ procedure TProject.GenerateThumbnail;
 var
   aThumbnail: TThumbnails;
 begin
-  aThumbnail := TThumbnails.Create(nil,DataModule);
+  aThumbnail := TThumbnails.CreateEx(nil,DataModule);
   aThumbnail.CreateTable;
   aThumbnail.SelectByRefId(Self.Id.AsVariant);
   aThumbnail.Open;
@@ -517,7 +517,7 @@ procedure TProject.CheckNeedsAction;
 var
   aTasks: TTaskList;
 begin
-  aTasks := TTaskList.Create(nil,DataModule,Connection);
+  aTasks := TTaskList.CreateEx(nil,DataModule,Connection);
   aTasks.Filter(TBaseDBModule(DataModule).QuoteField('PROJECTID')+'='+TBaseDBModule(DataModule).QuoteValue(Self.Id.AsString)+' AND '+TBaseDBModule(DataModule).QuoteField('NEEDSACTION')+'='+TBaseDBModule(DataModule).QuoteValue('Y'));
   Edit;
   if aTasks.Count>0 then
@@ -537,7 +537,7 @@ begin
   bProject.Tasks.First;
   Tasks.ImportFromXML(bProject.Tasks.ExportToXML);
   Tasks.First;
-  cProject := TProject.Create(nil,DataModule);
+  cProject := TProject.CreateEx(nil,DataModule);
   cProject.Select(Id.AsVariant);
   cProject.Open;
   cProject.Tasks.Open;
@@ -548,7 +548,7 @@ begin
           Tasks.Dependencies.Open;
           while Tasks.Dependencies.Count>0 do
             Tasks.Dependencies.Delete;
-          aTask := TTask.Create(nil,DataModule); //Old Task
+          aTask := TTask.CreateEx(nil,DataModule); //Old Task
           aTask.Select(bProject.Tasks.Id.AsVariant);
           aTask.Open;
           aTask.Dependencies.Open;
@@ -565,7 +565,7 @@ begin
                     begin
                       if cProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS;PARENT',VarArrayOf([bProject.Tasks.FieldByName('SUMMARY').AsString,bProject.Tasks.FieldByName('WORKSTATUS').AsVariant,bProject.Tasks.FieldByName('PARENT').AsVariant]),[]) then
                         begin
-                          bTask := TTask.Create(nil,DataModule); //New Task
+                          bTask := TTask.CreateEx(nil,DataModule); //New Task
                           bTask.Select(Tasks.Id.AsVariant);
                           bTask.Open;
                           bTask.Dependencies.Open;
@@ -648,10 +648,10 @@ function TProjectList.GetStatusFieldName: string;
 begin
   Result:='STATUS';
 end;
-constructor TProjectList.Create(aOwner: TComponent; DM: TComponent;
+constructor TProjectList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -666,7 +666,7 @@ end;
 
 constructor TProjectList.Create(aOwner: TComponent);
 begin
-  Create(aOwner,Data,nil,nil);
+  CreateEx(aOwner,Data,nil,nil);
 end;
 
 procedure TProjectList.DefineFields(aDataSet: TDataSet);

@@ -76,7 +76,7 @@ procedure TfScriptOptions.acExecuteExecute(Sender: TObject);
 var
   aRec: TBookmark;
 begin
-  aScript := TBaseScript.Create(nil,Data);
+  aScript := TBaseScript.Create(nil);
   aScript.Select(FScripts.Id.AsVariant);
   aScript.Open;
   aScript.Writeln:=@FScriptsWriteln;
@@ -114,7 +114,7 @@ constructor TfScriptOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  FScripts := TBaseScript.Create(nil,Data,aConnection);
+  FScripts := TBaseScript.CreateEx(nil,Data,aConnection);
   FScripts.CreateTable;
   Scripts.DataSet := FScripts.DataSet;
 end;

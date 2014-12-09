@@ -287,8 +287,8 @@ var
   aDS2: TDeletedItems;
 begin
   Button2.Enabled := False;
-  aDS := TDocPages.Create(nil,Data);
-  aDS2 := TDeletedItems.Create(nil,Data);
+  aDS := TDocPages.Create(nil);
+  aDS2 := TDeletedItems.Create(nil);
   for i := 0 to lvPhotos.Items.Count-1 do
     begin
       if lvPhotos.Items[i].Checked then

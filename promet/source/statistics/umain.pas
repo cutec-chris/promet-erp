@@ -103,7 +103,7 @@ begin
   WikiFrame.OpenWikiPage('Promet-ERP-Help/index',True);
   WikiFrame.SetRights(Data.Users.Rights.Right('WIKI')>RIGHT_READ);
   //Add Search Node
-  aDocuments := TDocuments.Create(Self,Data);
+  aDocuments := TDocuments.CreateEx(Self,Data);
   aDocuments.CreateTable;
   aDocuments.Destroy;
   //Projects
@@ -184,7 +184,7 @@ begin
     end;
   etCustomer,etEmployee,etProject,etStatistic:
     begin
-      aDataSet := aEntry.DataSourceType.Create(Self,Data);
+      aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
         Filter := aEntry.Filter;
       aDataSet.Open;
@@ -194,7 +194,7 @@ begin
     end;
   etWikiPage:
     begin
-      aDataSet := aEntry.DataSourceType.Create(Self,Data);
+      aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
         Filter := aEntry.Filter;
       aDataSet.Open;
@@ -317,7 +317,7 @@ begin
       Caption := strProjectList;
       FilterType:='P';
       DefaultRows:='GLOBALWIDTH:%;ID:70;NAME:100;STATUS:60;';
-      Dataset := TProjectList.Create(nil,Data);
+      Dataset := TProjectList.Create(nil);
       gList.OnDrawColumnCell:=nil;
       AddToolbarAction(acNewStatistic);
     end;

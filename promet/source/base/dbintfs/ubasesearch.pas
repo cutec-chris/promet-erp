@@ -101,7 +101,7 @@ begin
   for i := 0 to length(SearchAble)-1 do
     begin
       with BaseApplication as IBaseDBInterface do
-        aSearchAble := SearchAble[i].Create(nil,Data);
+        aSearchAble := SearchAble[i].Create(nil);
       DontAdd := False;
       for a := 0 to length(Result)-1 do
         if Result[a] = aSearchAble.Caption then
@@ -157,7 +157,7 @@ var
   Found: Boolean;
 begin
   SetLength(Lists,0);
-  FSearchHist := TSearchHistory.Create(nil,Data);
+  FSearchHist := TSearchHistory.Create(nil);
   FSearchHist.CreateTable;
   FSearchTypes := aSearchTypes;
   FSearchLocations := aSearchLocations;
@@ -167,7 +167,7 @@ begin
     begin
       for i := 0 to length(SearchAble)-1 do
         begin
-          aSearchAble := SearchAble[i].Create(nil,Data);
+          aSearchAble := SearchAble[i].Create(nil);
           Found := False;
           for a := 0 to length(FSearchLocations)-1 do
             begin
@@ -313,12 +313,12 @@ begin
       //Search for Serial Number
       if fsSerial in FSearchTypes then
         begin
-          aPos := TOrderPos.Create(nil,Data);
+          aPos := TOrderPos.Create(nil);
           try
             Data.SetFilter(aPos,Data.QuoteField('SERIAL')+'='+Data.QuoteValue(SearchText),FMaxResults);
             while not aPos.EOF do
               begin
-                aOrder := Torder.Create(nil,Data);
+                aOrder := Torder.Create(nil);
                 aOrder.Select(aPos.FieldByName('REF_ID').AsVariant);
                 aOrder.Open;
                 if aOrder.Count>0 then
@@ -357,7 +357,7 @@ begin
             begin
               for i := 0 to length(FSearchLocations)-1 do
                 begin
-                  aLinkDs := TBaseDBList(aDSClass.Create(nil,Data));
+                  aLinkDs := TBaseDBList(aDSClass.Create(nil));
                   if FSearchLocations[i] = aLinkDs.Caption then
                     begin
                       if aLinkDs is TBaseDbList then

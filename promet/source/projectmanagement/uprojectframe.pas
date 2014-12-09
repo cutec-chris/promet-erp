@@ -310,7 +310,7 @@ var
 begin
   if Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf(['P',DataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
     begin
-      bProject := Tproject.Create(nil,Data);
+      bProject := Tproject.Create(nil);
       bProject.Select(TProject(DataSet).Id.AsVariant);
       bproject.Open;
       bProject.Tasks.Open;
@@ -389,7 +389,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'P',DataSet.FieldByName('SQL_ID').AsString,Null,Null);
     end;
@@ -478,7 +478,7 @@ procedure TfProjectFrame.acGotoParentExecute(Sender: TObject);
 var
   aParent: TProject;
 begin
-  aParent := TProject.Create(nil,Data);
+  aParent := TProject.Create(nil);
   aParent.Select(TProject(DataSet).FieldByName('PARENT').AsVariant);
   aParent.Open;
   if aParent.Count>0 then
@@ -545,7 +545,7 @@ begin
           Application.ProcessMessages;
           TfImageFrame(aSheet.Controls[0]).acPaste.Execute;
           TfImageFrame(aSheet.Controls[0]).DataSet.Post;
-          aThumbnails := TThumbnails.Create(nil,Data);
+          aThumbnails := TThumbnails.Create(nil);
           aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
           aThumbnails.Open;
           while aThumbnails.Count>0 do
@@ -626,9 +626,9 @@ begin
   Screen.Cursor:=crHourGlass;
   Application.ProcessMessages;
   Data.SetFilter(aProject.Tasks,Data.QuoteField('PROJECTID')+'='+Data.QuoteValue(aProject.Id.AsString));
-  bProject := TProject.Create(nil,Data);
+  bProject := TProject.Create(nil);
   bProject.ImportFromXML(aProject.ExportToXML,False,@ReplaceField);
-  cProject := TProject.Create(nil,Data);
+  cProject := TProject.Create(nil);
   cProject.Select(bProject.Id.AsVariant);
   cProject.Open;
   cProject.Tasks.Open;
@@ -639,7 +639,7 @@ begin
     begin
       if aProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS',VarArrayOf([bProject.Tasks.FieldByName('SUMMARY').AsString,bProject.Tasks.FieldByName('WORKSTATUS').AsVariant]),[]) then
         begin
-          aTask := TTask.Create(nil,Data);
+          aTask := TTask.Create(nil);
           aTask.Select(aProject.Tasks.Id.AsVariant);
           aTask.Open;
           aTask.Dependencies.Open;
@@ -656,7 +656,7 @@ begin
                     begin
                       if cProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS;PARENT',VarArrayOf([aProject.Tasks.FieldByName('SUMMARY').AsString,aProject.Tasks.FieldByName('WORKSTATUS').AsVariant,aProject.Tasks.FieldByName('PARENT').AsVariant]),[]) then
                         begin
-                          bTask := TTask.Create(nil,Data);
+                          bTask := TTask.Create(nil);
                           bTask.Select(bProject.Tasks.Id.AsVariant);
                           bTask.Open;
                           bTask.Dependencies.Open;
@@ -759,7 +759,7 @@ begin
             iPreview.Picture.LoadFromFile(AppendPathDelim(GetInternalTempDir)+'screenshot.jpg');
           DataSet.Post;
         end;
-      aThumbnails := TThumbnails.Create(nil,Data);
+      aThumbnails := TThumbnails.Create(nil);
       aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
       aThumbnails.Open;
       while aThumbnails.Count>0 do
@@ -864,7 +864,7 @@ begin
   pStatus.Visible:=False;
   pcPages.Top:=96;
   exit;
-  aProj := TProject.Create(nil,Data);
+  aProj := TProject.Create(nil);
   aProj.Select(DataSet.Id.AsVariant);
   aProj.Open;
   Data.SetFilter(aProj.Tasks,Data.QuoteField('CLASS')+'='+Data.QuoteValue('M'),0,'DUEDATE','ASC');
@@ -972,7 +972,7 @@ function TfProjectFrame.fSearchOpenItem(aLink: string): Boolean;
 var
   aParent: TProject;
 begin
-  aParent := TProject.Create(nil,Data);
+  aParent := TProject.Create(nil);
   aParent.SelectFromLink(aLink);
   aParent.Open;
   if aParent.Count>0 then
@@ -988,7 +988,7 @@ function TfProjectFrame.fSearchOpenItemL(aLink: string): Boolean;
 var
   aParent: TUser;
 begin
-  aParent := TUser.Create(nil,Data);
+  aParent := TUser.Create(nil);
   aParent.SelectFromLink(aLink);
   aParent.Open;
   if aParent.Count>0 then
@@ -1039,7 +1039,7 @@ begin
     eParent.Text:=strNoParent
   else
     begin
-      aParent := TProject.Create(nil,Data);
+      aParent := TProject.Create(nil);
       aParent.Select(TProject(DataSet).FieldByName('PARENT').AsVariant);
       aParent.Open;
       if aParent.Count>0 then
@@ -1050,7 +1050,7 @@ begin
     eManager.Text:=''
   else
     begin
-      aParentU := TUser.Create(nil,Data);
+      aParentU := TUser.Create(nil);
       aParentU.SelectByAccountno(dataSet.FieldByName('PMANAGER').AsString);
       aParentU.Open;
       if aParentU.Count>0 then
@@ -1128,7 +1128,7 @@ begin
   pNav2.Visible := TProject(DataSet).FieldByName('TYPE').AsString = 'C';
   if not TProject(DataSet).Images.DataSet.Active then
     TProject(DataSet).Images.DataSet.Open;
-  aThumbnails := TThumbnails.Create(nil,Data);
+  aThumbnails := TThumbnails.Create(nil);
   aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
   aThumbnails.Open;
   if aThumbnails.Count>0 then
@@ -1159,7 +1159,7 @@ begin
   aThumbnails.Free;
   TProject(DataSet).Images.DataSet.Close;
   pcPages.AddTabClass(TfObjectStructureFrame,strStructure,@AddOverview);
-  aSubProject := TProject.Create(nil,Data);
+  aSubProject := TProject.Create(nil);
   aSubProject.SelectFromParent(fDataSet.Id.AsVariant);
   aSubProject.Open;
   if aSubProject.Count>0 then
@@ -1174,7 +1174,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data,DataSet.Connection);
+      aDocuments := TDocuments.CreateEx(Self,Data,DataSet.Connection);
       aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsInteger,'P',DataSet.FieldByName('SQL_ID').AsString,Null,Null);
       aDocuments.Open;
@@ -1224,7 +1224,7 @@ begin
     pcPages.PageIndex:=0;
   if DataSet.State<> dsInsert then
     begin
-      aWiki := TWikiList.Create(nil,Data);
+      aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
         begin
           while not aWiki.EOF do
@@ -1320,7 +1320,7 @@ begin
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
 //  Data.StartTransaction(FConnection);
-  DataSet := TProject.Create(Self,Data,FConnection);
+  DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   if copy(aLink,0,pos('@',aLink)-1) = 'PROJECTS.ID' then
     Data.SetFilter(FDataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1)
@@ -1340,7 +1340,7 @@ begin
     FConnection := Data.GetNewConnection;
 //  Data.StartTransaction(FConnection);
   TabCaption := strNewProject;
-  DataSet := TProject.Create(Self,Data,FConnection);
+  DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   DataSet.Select(0);
   DataSet.Open;
@@ -1368,7 +1368,7 @@ procedure TfProjectFrame.GotoTask(aLink: string);
 var
   aTask: TTask;
 begin
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.SelectFromLink(aLink);
   aTask.Open;
   if aTask.Count>0 then

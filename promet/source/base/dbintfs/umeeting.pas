@@ -41,7 +41,7 @@ type
   protected
     FMeeting : TMeetings;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     procedure Open; override;
@@ -73,7 +73,7 @@ type
     FLinks: TMeetingLinks;
     FUsers: TMeetingUsers;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     function CreateTable: Boolean; override;
     destructor Destroy; override;
@@ -130,10 +130,10 @@ begin
   SetDisplayLabelName(aDataSet,'ACTIVE',strPresent);
 end;
 
-constructor TMeetingEntrys.Create(aOwner: TComponent; DM: TComponent;
+constructor TMeetingEntrys.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FIntDataSource := TDataSource.Create(Self);
   FIntDataSource.DataSet := DataSet;
   DataSet.AfterCancel:=@DataSetAfterCancel;
@@ -147,7 +147,7 @@ begin
           SortDirection:=sdAscending;
         end;
     end;
-  FTempUsers := TUser.Create(aOwner,DM);
+  FTempUsers := TUser.CreateEx(aOwner,DM);
 end;
 
 destructor TMeetingEntrys.Destroy;
@@ -249,15 +249,15 @@ begin
     Result := FTempUsers.FieldByName('NAME').AsString;
 end;
 
-constructor TMeetings.Create(aOwner: TComponent; DM: TComponent;
+constructor TMeetings.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FEntrys := TMeetingEntrys.Create(aOwner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FEntrys := TMeetingEntrys.CreateEx(aOwner,DM,aConnection,DataSet);
   FEntrys.FMeeting := Self;
-  FUsers := TMeetingUsers.Create(aOwner,DM,aConnection,DataSet);
+  FUsers := TMeetingUsers.CreateEx(aOwner,DM,aConnection,DataSet);
   FUsers.FMeeting := Self;
-  FLinks := TMeetingLinks.Create(Self,DM,aConnection);
+  FLinks := TMeetingLinks.CreateEx(Self,DM,aConnection);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -344,12 +344,12 @@ begin
                 FreeAndNil(aProject);
                 aLink := FieldByName('LINK').AsString;
                 TBaseDBModule(DataModule).DataSetFromLink(aLink,aDataSetClass);
-                aDataSet := aDataSetClass.Create(nil,DataModule,Connection);
+                aDataSet := aDataSetClass.CreateEx(nil,DataModule,Connection);
                 TBaseDbList(aDataSet).SelectFromLink(aLink);
                 aDataSet.Open;
                 if ProjectLink <> '' then
                   begin
-                    aProject := TProject.Create(nil,DataModule,Connection);
+                    aProject := TProject.CreateEx(nil,DataModule,Connection);
                     aProject.SelectFromLink(ProjectLink);
                     aProject.Open;
                   end;
@@ -357,7 +357,7 @@ begin
                   begin
                     if Data.ListDataSetFromLink(ObjectLink,aListClass) then
                       begin
-                        aObject := TbaseDBList(aListClass.Create(nil,DataModule,Connection));
+                        aObject := TbaseDBList(aListClass.CreateEx(nil,DataModule,Connection));
                         aObject.SelectFromLink(ObjectLink);
                         aObject.Open;
                       end;
@@ -414,7 +414,7 @@ begin
               end;
             if (not Added) and ((FieldByName('OWNER').AsString <> '') or (FieldByName('USER').AsString <> '')) and (Entrys.FieldByName('LINK').AsString='') then
               begin //Task
-                aTasks := TTask.Create(nil,Data);
+                aTasks := TTask.CreateEx(nil,Data);
                 aTasks.Append;
                 asl := TStringList.Create;
                 asl.Text:=FieldByName('DESC').AsString;

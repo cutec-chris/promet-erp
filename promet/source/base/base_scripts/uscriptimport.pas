@@ -147,7 +147,7 @@ begin
     end;
   Ftyp := Typ;
   fFormat := DefaultFormat;
-  aScripts := TBaseScript.Create(nil,Data);
+  aScripts := TBaseScript.Create(nil);
   if FTyp=icImport then
     aScripts.Filter(Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('Import.'+FFormat+'.*')))
   else

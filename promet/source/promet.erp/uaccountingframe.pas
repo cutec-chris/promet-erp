@@ -256,7 +256,7 @@ var
   tmp: TBitmap;
 begin
   inherited Create(AOwner);
-  Dataset := TAccounts.Create(nil,Data);
+  Dataset := TAccounts.Create(nil);
   FList := TfFilter.Create(Self);
   with FList do
     begin

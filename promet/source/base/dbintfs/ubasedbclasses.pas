@@ -67,8 +67,9 @@ type
     procedure SetSortDirection(AValue: TSortDirection);
     procedure SetSortFields(AValue: string);
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aUseIntegrity : Boolean;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
+    constructor CreateExIntegrity(aOwner : TComponent;DM : TComponent;aUseIntegrity : Boolean;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
+    constructor Create(aOwner : TComponent);override;
     destructor Destroy;override;
     property DataSet : TDataSet read FDataSet write FDataSet;
     property DataModule : TComponent read FDataModule;
@@ -149,7 +150,7 @@ type
   protected
     FStatusCache: TStringList;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
     function GetStatusIcon : Integer;virtual;
     function GetTyp: string;virtual;
@@ -191,7 +192,7 @@ type
     FHChanged: Boolean;
     FShouldChange : Boolean;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure SetDisplayLabels(aDataSet: TDataSet); override;
     property ChangedDuringSession : Boolean read FHChanged write FHChanged;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -241,7 +242,7 @@ type
     function GetTextFieldName: string; override;
     function GetStatusFieldName: string; override;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     function CreateTable: Boolean; override;
@@ -285,8 +286,7 @@ type
     function MergeSalt(apasswort,aSalt : string) : string;
     function GetHistory: TBaseHistory;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);overload;override;
-    constructor Create(aOwner : TComponent);overload;override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);overload;override;
     destructor Destroy;override;
     procedure Open; override;
     function GetTyp: string; override;
@@ -341,7 +341,7 @@ type
     FCachedRights : TStringList;
     UserTable: TUser;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure Open; override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -357,7 +357,7 @@ type
   private
     function GetText: TField;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure Open;override;
     procedure ImportStandartEntrys;
@@ -386,7 +386,6 @@ type
   private
     function GetLink: TField;
   public
-    constructor Create(aOwner : TComponent);overload;override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Open; override;
     property Link : TField read GetLink;
@@ -400,7 +399,7 @@ type
   private
     FOrigFilter : string;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure Open;override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Add(aLink : string);
@@ -416,7 +415,7 @@ type
   private
     FEntrys: TListEntrys;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure DefineFields(aDataSet : TDataSet);override;
     function CreateTable : Boolean;override;
@@ -591,13 +590,13 @@ begin
   Result:='STATUS';
 end;
 
-constructor TObjects.Create(aOwner: TComponent; DM: TComponent;
+constructor TObjects.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
-  FImages := TImages.Create(Self,DM,aConnection,DataSet);
-  FLinks := TLinks.Create(Self,DM,aConnection);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
+  FLinks := TLinks.CreateEx(Self,DM,aConnection);
 end;
 
 destructor TObjects.Destroy;
@@ -678,11 +677,6 @@ begin
   result := FieldByName('LINK');
 end;
 
-constructor TFollowers.Create(aOwner: TComponent);
-begin
-  inherited Create(aOwner,Data,nil,nil);
-end;
-
 procedure TFollowers.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -731,11 +725,11 @@ begin
           end;
     end;
 end;
-constructor TLists.Create(aOwner: TComponent; DM: TComponent;
+constructor TLists.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FEntrys := TListEntrys.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FEntrys := TListEntrys.CreateEx(Owner,DM,aConnection,DataSet);
   FEntrys.List := Self;
   with BaseApplication as IBaseDbInterface do
     begin
@@ -868,10 +862,10 @@ begin
   Post;
 end;
 {$endif}
-constructor TLinks.Create(aOwner: TComponent; DM: TComponent;
+constructor TLinks.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
 end;
 
 procedure TLinks.Open;
@@ -1021,10 +1015,10 @@ begin
   if aField <> '' then
     Result := DataSet.FieldByName(aField);
 end;
-constructor TBaseDbList.Create(aOwner: TComponent; DM: TComponent;
+constructor TBaseDbList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with FDataSet as IBaseDBFilter do
@@ -1094,7 +1088,7 @@ function TBaseDbList.GetBookNumberFieldName: string;
 begin
   Result := '';
 end;
-procedure TBaseDBDataSet.Select(aID: Variant);
+procedure TBaseDBDataset.Select(aID: Variant);
 var
   aField: String = '';
 begin
@@ -1120,7 +1114,7 @@ begin
       end;
 end;
 
-procedure TBaseDBDataSet.SelectChangedSince(aDate: TDateTime);
+procedure TBaseDBDataset.SelectChangedSince(aDate: TDateTime);
 var
   aFilter: String;
 begin
@@ -1324,8 +1318,8 @@ begin
   if Self.Count=0 then exit;
   try
     try
-      aHistory := TAccessHistory.Create(nil,Data);
-      aObj := TObjects.Create(nil,Data);
+      aHistory := TAccessHistory.Create(nil);
+      aObj := TObjects.Create(nil);
       if AccHistory then
         begin
           if DataSet.State<>dsInsert then
@@ -1333,7 +1327,7 @@ begin
               if not Data.TableExists(aHistory.TableName) then
                 aHistory.CreateTable;
               aHistory.Free;
-              aHistory := TAccessHistory.Create(nil,Data,nil,DataSet);
+              aHistory := TAccessHistory.CreateEx(nil,Data,nil,DataSet);
               aHistory.AddItem(DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet))]),Data.BuildLink(DataSet));
             end;
         end;
@@ -1343,7 +1337,7 @@ begin
             begin
               aObj.CreateTable;
               aObj.Free;
-              aObj := TObjects.Create(nil,Data,nil,DataSet);
+              aObj := TObjects.CreateEx(nil,Data,nil,DataSet);
             end;
           aObj.SelectByRefId(Id.AsVariant);
           aObj.Open;
@@ -1438,14 +1432,14 @@ begin
       end;
 end;
 
-procedure TBaseDBDataSet.Delete;
+procedure TBaseDBDataset.Delete;
 begin
   Change;
   if FDataSet.Active and (Count > 0) then
     FDataSet.Delete;
 end;
 
-procedure TBaseDBDataSet.Insert;
+procedure TBaseDBDataset.Insert;
 begin
   if not DataSet.Active then
     begin
@@ -1454,7 +1448,7 @@ begin
     end;
   DataSet.Insert;
 end;
-procedure TBaseDBDataSet.Append;
+procedure TBaseDBDataset.Append;
 begin
   if not DataSet.Active then
     begin
@@ -1464,44 +1458,44 @@ begin
   DataSet.Append;
 end;
 
-procedure TBaseDBDataSet.First;
+procedure TBaseDBDataset.First;
 begin
   DataSet.First;
 end;
 
-procedure TBaseDBDataSet.Last;
+procedure TBaseDBDataset.Last;
 begin
   DataSet.Last;
 end;
 
-procedure TBaseDBDataSet.Next;
+procedure TBaseDBDataset.Next;
 begin
   DataSet.Next;
 end;
-procedure TBaseDBDataSet.Prior;
+procedure TBaseDBDataset.Prior;
 begin
   DataSet.Prior;
 end;
 
-procedure TBaseDBDataSet.Post;
+procedure TBaseDBDataset.Post;
 begin
   if CanEdit then
     FDataSet.Post;
 end;
 
-procedure TBaseDBDataSet.Edit;
+procedure TBaseDBDataset.Edit;
 begin
   if not CanEdit then
     DataSet.Edit;
 end;
 
-procedure TBaseDBDataSet.Cancel;
+procedure TBaseDBDataset.Cancel;
 begin
   if Assigned(FDataSet) and (FDataSet.Active) then
     FDataSet.Cancel;
 end;
 
-function TBaseDBDataSet.Locate(const keyfields: string;
+function TBaseDBDataset.Locate(const keyfields: string;
   const keyvalues: Variant; options: TLocateOptions): boolean;
 begin
   Result := False;
@@ -1509,28 +1503,28 @@ begin
     Result := DataSet.Locate(keyfields,keyvalues,options);
 end;
 
-function TBaseDBDataSet.EOF: Boolean;
+function TBaseDBDataset.EOF: Boolean;
 begin
   Result := True;
   if Assigned(FDataSet) and (FDataSet.Active) then
     Result := FDataSet.EOF;
 end;
 
-function TBaseDBDataSet.FieldByName(const aFieldName : string): TField;
+function TBaseDBDataset.FieldByName(const aFieldName: string): TField;
 begin
   Result := nil;
   if Assigned(DataSet) and DataSet.Active then
     if DataSet.FieldDefs.IndexOf(aFieldName)>=0 then
       Result := DataSet.FieldByName(aFieldname);
 end;
-procedure TBaseDBDataSet.Assign(Source: TPersistent);
+procedure TBaseDBDataset.Assign(Source: TPersistent);
 begin
   if Source is Self.ClassType then
     DirectAssign(Source)
   else
     inherited Assign(Source);
 end;
-procedure TBaseDBDataSet.DirectAssign(Source: TPersistent);
+procedure TBaseDBDataset.DirectAssign(Source: TPersistent);
 var
   i: Integer;
 begin
@@ -1545,10 +1539,9 @@ begin
         DataSet.FieldByName(TBaseDBDataSet(Source).DataSet.Fields[i].FieldName).AsVariant:=TBaseDBDataSet(Source).DataSet.Fields[i].AsVariant;
 end;
 
-procedure TBaseDBDataSet.Filter(aFilter: string;
-  aLimit: Integer; aOrderBy: string; aSortDirection: string;
-  aLocalSorting: Boolean; aGlobalFilter: Boolean; aUsePermissions: Boolean;
-  aFilterIn: string);
+procedure TBaseDBDataset.Filter(aFilter: string; aLimit: Integer;
+  aOrderBy: string; aSortDirection: string; aLocalSorting: Boolean;
+  aGlobalFilter: Boolean; aUsePermissions: Boolean; aFilterIn: string);
 begin
   with DataSet as IBaseDbFilter do
     begin
@@ -1567,10 +1560,10 @@ begin
   Open;
 end;
 
-constructor TBaseHistory.Create(aOwner: TComponent; DM: TComponent;
+constructor TBaseHistory.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FHChanged := False;
   FShouldChange:=False;
 end;
@@ -1733,7 +1726,7 @@ procedure TBaseHistory.AddParentedItem(aObject: TDataSet; aAction: string;
     aFind: TBaseHistory;
   begin
     Result := Null;
-    aFind := TBaseHistory.Create(nil,DataModule);
+    aFind := TBaseHistory.CreateEx(nil,DataModule);
     aFind.Select(bParent);
     aFind.Open;
     if aFind.Count>0 then
@@ -1765,7 +1758,7 @@ var
   aFind: TBaseHistory;
 begin
   Result := Null;
-  aFind := TBaseHistory.Create(nil,DataModule);
+  aFind := TBaseHistory.CreateEx(nil,DataModule);
   aFind.Select(bParent);
   aFind.Open;
   if aFind.Count>0 then
@@ -1970,10 +1963,10 @@ begin
   Result := FieldByName('NAME');
 end;
 
-constructor TTree.Create(aOwner: TComponent; DM: TComponent;
+constructor TTree.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -2187,10 +2180,10 @@ begin
     end;
 end;
 
-constructor TRights.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
-  aMasterdata: TDataSet);
+constructor TRights.CreateEx(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner,DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner,DM, aConnection, aMasterdata);
   FCachedRights := TStringList.Create;
 end;
 destructor TRights.Destroy;
@@ -2437,16 +2430,16 @@ function TUser.GetTyp: string;
 begin
   Result := 'U';
 end;
-constructor TUser.Create(aOwner: TComponent; DM: TComponent;
+constructor TUser.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FOptions := TOptions.Create(Owner,DM,aConnection,DataSet);
-  FRights := TRights.Create(Owner,DM,aConnection,DataSet);
-  FFollows := TFollowers.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FOptions := TOptions.CreateEx(Owner,DM,aConnection,DataSet);
+  FRights := TRights.CreateEx(Owner,DM,aConnection,DataSet);
+  FFollows := TFollowers.CreateEx(Owner,DM,aConnection,DataSet);
   FRights.Users := Self;
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
-  FPayGroups := TPayGroups.Create(Self,DM,aConnection);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FPayGroups := TPayGroups.CreateEx(Self,DM,aConnection);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -2454,11 +2447,6 @@ begin
           Limit := 0;
         end;
     end;
-end;
-
-constructor TUser.Create(aOwner: TComponent);
-begin
-  Create(aOwner,Data,nil,nil);
 end;
 
 destructor TUser.Destroy;
@@ -2627,7 +2615,7 @@ var
   aUsers: TUser;
 begin
   Result := '';
-  aUsers := Tuser.Create(nil,DataModule);
+  aUsers := Tuser.CreateEx(nil,DataModule);
   aUsers.SelectByParent(FieldbyName('PARENT').AsVariant);
   aUsers.Open;
   if aUsers.DataSet.Locate('POSITION','LEADER',[loCaseInsensitive]) then
@@ -2635,14 +2623,14 @@ begin
   aUsers.Free;
 end;
 
-function TBaseDBDataSet.GetID: TField;
+function TBaseDBDataset.GetID: TField;
 begin
   Result := nil;
   if DataSet.Active and (DataSet.FieldDefs.IndexOf('SQL_ID')>-1) then
     Result := DataSet.FieldByName('SQL_ID');
 end;
 
-function TBaseDBDataSet.GetLimit: Integer;
+function TBaseDBDataset.GetLimit: Integer;
 begin
   result := -1;
   if not Assigned(DataSet) then exit;
@@ -2650,55 +2638,55 @@ begin
     Result := Limit;
 end;
 
-function TBaseDBDataSet.GetSortDirection: TSortDirection;
+function TBaseDBDataset.GetSortDirection: TSortDirection;
 begin
   if not Assigned(DataSet) then exit;
   with DataSet as IBaseDbFilter do
     Result := GetSortDirection;
 end;
 
-function TBaseDBDataSet.GetSortFields: string;
+function TBaseDBDataset.GetSortFields: string;
 begin
   if not Assigned(DataSet) then exit;
   with DataSet as IBaseDbFilter do
     Result := GetSortFields;
 end;
 
-function TBaseDBDataSet.GetState: TDataSetState;
+function TBaseDBDataset.GetState: TDataSetState;
 begin
   if Assigned(FDataSet) then
     Result := FDataSet.State;
 end;
 
-function TBaseDBDataSet.GetTableName: string;
+function TBaseDBDataset.GetTableName: string;
 begin
   with FDataSet as IBaseManageDB do
     Result := GetTableName;
 end;
 
-function TBaseDBDataSet.GetConnection: TComponent;
+function TBaseDBDataset.GetConnection: TComponent;
 begin
   with FDataSet as IBaseManageDB do
     Result := GetConnection;
 end;
-function TBaseDBDataSet.GetCaption: string;
+function TBaseDBDataset.GetCaption: string;
 begin
   with FDataSet as IBaseManageDB do
     Result := GetTableCaption;
 end;
-function TBaseDBDataSet.GetCanEdit: Boolean;
+function TBaseDBDataset.GetCanEdit: Boolean;
 begin
   Result := Assigned(Self) and (Self is TBaseDBDataSet) and Assigned(fdataSet) and (FDataSet.State = dsEdit) or (FDataSet.State = dsInsert);
 end;
 
-function TBaseDBDataSet.GetActive: Boolean;
+function TBaseDBDataset.GetActive: Boolean;
 begin
   Result := False;
   if Assigned(FDataSet) then
     Result := FDataSet.Active;
 end;
 
-function TBaseDBDataSet.GetCount: Integer;
+function TBaseDBDataset.GetCount: Integer;
 begin
   if DataSet.Active then
     Result := DataSet.RecordCount
@@ -2706,21 +2694,21 @@ begin
     Result := -1;
 end;
 
-function TBaseDBDataSet.GetFilter: string;
+function TBaseDBDataset.GetFilter: string;
 begin
   result := '';
   if not Assigned(DataSet) then exit;
   with DataSet as IBaseDbFilter do
     Result := Filter;
 end;
-function TBaseDBDataSet.GetFRows: Integer;
+function TBaseDBDataset.GetFRows: Integer;
 begin
   result := -1;
   if not Assigned(DataSet) then exit;
   with DataSet as IBaseDbFilter do
     Result := FetchRows;
 end;
-function TBaseDBDataSet.GetFullCount: Integer;
+function TBaseDBDataset.GetFullCount: Integer;
 var
   aDS: TDataSet;
   aFilter: String;
@@ -2743,50 +2731,50 @@ begin
   else
     Result := Count;
 end;
-function TBaseDBDataSet.GetTimestamp: TField;
+function TBaseDBDataset.GetTimestamp: TField;
 begin
   Result := DataSet.FieldByName('TIMESTAMPD');
 end;
 
-procedure TBaseDBDataSet.SetActive(AValue: Boolean);
+procedure TBaseDBDataset.SetActive(AValue: Boolean);
 begin
   if (not AValue) and Active then
     Close
   else if AValue and (not Active) then
     Open;
 end;
-procedure TBaseDBDataSet.SetFilter(AValue: string);
+procedure TBaseDBDataset.SetFilter(AValue: string);
 begin
   with DataSet as IBaseDbFilter do
     Filter := AValue;
 end;
-procedure TBaseDBDataSet.SetFRows(AValue: Integer);
+procedure TBaseDBDataset.SetFRows(AValue: Integer);
 begin
   with DataSet as IBaseDbFilter do
     FetchRows := aValue;
 end;
-procedure TBaseDBDataSet.SetLimit(AValue: Integer);
+procedure TBaseDBDataset.SetLimit(AValue: Integer);
 begin
   with DataSet as IBaseDbFilter do
     Limit := aValue;
 end;
 
-procedure TBaseDBDataSet.SetSortDirection(AValue: TSortDirection);
+procedure TBaseDBDataset.SetSortDirection(AValue: TSortDirection);
 begin
   if not Assigned(DataSet) then exit;
   with DataSet as IBaseDbFilter do
     SetSortDirection(AValue);
 end;
 
-procedure TBaseDBDataSet.SetSortFields(AValue: string);
+procedure TBaseDBDataset.SetSortFields(AValue: string);
 begin
   if not Assigned(DataSet) then exit;
   with DataSet as IBaseDbFilter do
     SetSortFields(AValue);
 end;
 
-constructor TBaseDBDataSet.Create(aOwner: TComponent; DM: TComponent; aUseIntegrity: Boolean;
-  aConnection: TComponent; aMasterdata: TDataSet);
+constructor TBaseDBDataset.CreateExIntegrity(aOwner: TComponent; DM: TComponent;
+  aUseIntegrity: Boolean; aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited Create(aOwner);
   FUpdateFloatFields := false;
@@ -2810,13 +2798,18 @@ begin
         Limit := 100;
     end;
 end;
-constructor TBaseDBDataSet.Create(aOwner: TComponent; DM: TComponent;
+constructor TBaseDBDataset.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  Create(aOwner,DM,True,aConnection,aMasterdata);
+  CreateExIntegrity(aOwner,DM,True,aConnection,aMasterdata);
 end;
 
-destructor TBaseDBDataSet.Destroy;
+constructor TBaseDBDataset.Create(aOwner: TComponent);
+begin
+  CreateEx(aOwner,Data,nil,nil);
+end;
+
+destructor TBaseDBDataset.Destroy;
 begin
   if not TBaseDBModule(DataModule).IgnoreOpenRequests then
     begin
@@ -2827,7 +2820,7 @@ begin
       inherited Destroy;
     end;
 end;
-procedure TBaseDBDataSet.Open;
+procedure TBaseDBDataset.Open;
 var
   Retry: Boolean = False;
   aCreated: Boolean = False;
@@ -2874,13 +2867,13 @@ begin
     SetDisplayLabels(DataSet);
 end;
 
-procedure TBaseDBDataSet.Close;
+procedure TBaseDBDataset.Close;
 begin
   if not Assigned(FDataSet) then exit;
   FDataSet.Close;
 end;
 
-function TBaseDBDataSet.CreateTable : Boolean;
+function TBaseDBDataset.CreateTable: Boolean;
 var
   aOldFilter: String;
   aOldLimit: Integer;
@@ -2920,7 +2913,8 @@ begin
         end;
     end;
 end;
-procedure TBaseDBDataSet.DefineDefaultFields(aDataSet: TDataSet;HasMasterSource : Boolean);
+procedure TBaseDBDataset.DefineDefaultFields(aDataSet: TDataSet;
+  HasMasterSource: Boolean);
 begin
   with aDataSet as IBaseManageDB do
     begin
@@ -2932,7 +2926,7 @@ begin
         end;
     end;
 end;
-procedure TBaseDBDataSet.DefineUserFields(aDataSet: TDataSet);
+procedure TBaseDBDataset.DefineUserFields(aDataSet: TDataSet);
 var
   UserFields: TUserfielddefs;
 begin
@@ -2967,7 +2961,7 @@ begin
         end;
     end;
 end;
-procedure TBaseDBDataSet.FillDefaults(aDataSet: TDataSet);
+procedure TBaseDBDataset.FillDefaults(aDataSet: TDataSet);
 begin
   with BaseApplication as IBaseDbInterface do
     begin
@@ -2975,7 +2969,7 @@ begin
         aDataSet.FieldByName('TIMESTAMPT').AsFloat:=frac(Now());
     end;
 end;
-procedure TBaseDBDataSet.SetDisplayLabelName(aDataSet: TDataSet; aField,
+procedure TBaseDBDataset.SetDisplayLabelName(aDataSet: TDataSet; aField,
   aName: string);
 var
   Idx: LongInt;
@@ -2986,7 +2980,7 @@ begin
   else if (Idx <> -1) then
     aDataSet.FieldDefs[Idx].DisplayName:=aName;
 end;
-procedure TBaseDBDataSet.SetDisplayLabels(aDataSet: TDataSet);
+procedure TBaseDBDataset.SetDisplayLabels(aDataSet: TDataSet);
 begin
   FDisplayLabelsWasSet := True;
   SetDisplayLabelName(aDataSet,'LOCATION',strLocation);
@@ -3112,14 +3106,14 @@ begin
   SetDisplayLabelName(aDataSet,'ICON',' ');
   SetDisplayLabelName(aDataSet,'NEEDSACTION',strNeedsAction);
 end;
-function TBaseDBDataSet.GetBookmark: LargeInt;
+function TBaseDBDataset.GetBookmark: LargeInt;
 begin
   if (not Assigned(Id)) or Id.IsNull then
     Result := 0
   else
     Result := Id.AsVariant;
 end;
-function TBaseDBDataSet.GotoBookmark(aRec: Variant): Boolean;
+function TBaseDBDataset.GotoBookmark(aRec: Variant): Boolean;
 begin
   Result := DataSet.Active;
   if Result then
@@ -3130,15 +3124,15 @@ begin
     end;
 end;
 
-function TBaseDBDataSet.GetLink: string;
+function TBaseDBDataset.GetLink: string;
 begin
   Result := TBaseDBModule(DataModule).BuildLink(FDataSet);
 end;
 
-procedure TBaseDBDataSet.FreeBookmark(aRec: Variant);
+procedure TBaseDBDataset.FreeBookmark(aRec: Variant);
 begin
 end;
-procedure TBaseDBDataSet.DuplicateRecord(DoPost : Boolean);
+procedure TBaseDBDataset.DuplicateRecord(DoPost: Boolean);
 var
   Data : array of string;
   i : integer;
@@ -3161,16 +3155,16 @@ begin
   if DoPost then
     DataSet.Post;
 end;
-procedure TBaseDBDataSet.DisableChanges;
+procedure TBaseDBDataset.DisableChanges;
 begin
   inc(FDoChange);
 end;
-procedure TBaseDBDataSet.EnableChanges;
+procedure TBaseDBDataset.EnableChanges;
 begin
   if FDoChange > 0 then
     dec(FDoChange);
 end;
-procedure TBaseDBDataSet.Change;
+procedure TBaseDBDataset.Change;
 begin
   if FDoChange > 0 then exit;
   FChanged := True;
@@ -3178,11 +3172,11 @@ begin
   if Assigned(FOnChanged) then
     FOnChanged(Self);
 end;
-procedure TBaseDBDataSet.UnChange;
+procedure TBaseDBDataset.UnChange;
 begin
   fChanged:=False;
 end;
-procedure TBaseDBDataSet.CascadicPost;
+procedure TBaseDBDataset.CascadicPost;
 begin
   if CanEdit then
     Post;
@@ -3190,7 +3184,7 @@ begin
   if Assigned(FOnChanged) then
     FOnChanged(Self);
 end;
-procedure TBaseDBDataSet.CascadicCancel;
+procedure TBaseDBDataset.CascadicCancel;
 begin
   if (FDataSet.State = dsEdit) or (FDataSet.State = dsInsert) then
     FDataSet.Cancel;
@@ -3201,4 +3195,4 @@ end;
 
 initialization
 end.
-
+

@@ -440,7 +440,7 @@ begin
   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
   if Data.Tree.GotoBookmark(DataT2.Rec) then
     begin
-      aDS := TLinks.Create(nil,Data);
+      aDS := TLinks.Create(nil);
       Stream := TStringStream.Create('');
       if (pos('://',ClipBoard.AsText) > 0) then
         begin
@@ -505,7 +505,7 @@ begin
   if Data.GotoBookmark(Data.Tree,DataT.Rec) then
     begin
       s := InputBox(strRename,strNewName,Data.Tree.FieldByName('NAME').AsString);
-      aTree := TTree.Create(Self,Data);
+      aTree := TTree.CreateEx(Self,Data);
       Data.SetFilter(aTree,'');
       aTree.DataSet.Edit;
       aTree.FieldByName('NAME').AsString := S;
@@ -543,7 +543,7 @@ begin
   else if (DataT.Typ = etStatistic)
   then
     begin
-      aDataSet := DataT.DataSourceType.Create(Self,Data);
+      aDataSet := DataT.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
         Filter := DataT.Filter;
       aDataSet.Open;
@@ -665,7 +665,7 @@ begin
       Data.Permissions.Open;
       if ParentID <> '0' then
         begin
-          aRights := TPermissions.Create(Self,Data);
+          aRights := TPermissions.CreateEx(Self,Data);
           Data.SetFilter(aRights,Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(ParentID));
           with aRights.DataSet do
             begin
@@ -705,7 +705,7 @@ begin
   if not Assigned(DataT) then exit;
   if DataT.Typ = etLink then
     begin
-      aLinks := TLinks.Create(nil,Data);
+      aLinks := TLinks.Create(nil);
       aLinks.Select(DataT.Rec);
       aLinks.Open;
       if aLinks.Count>0 then
@@ -718,7 +718,7 @@ begin
     end
   else
     begin
-      aDataSet := DataT.DataSourceType.Create(Self,Data);
+      aDataSet := DataT.DataSourceType.CreateEx(Self,Data);
       aDataSet.ActualFilter := DataT.Filter;
       aDataSet.Open;
       if aDataSet.Count > 0 then
@@ -786,7 +786,7 @@ begin
   if not Assigned(DataT) then exit;
   if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
     begin
-      aTree := TTree.Create(Self,Data);
+      aTree := TTree.CreateEx(Self,Data);
       Data.SetFilter(aTree,'');
       if Data.GotoBookmark(aTree,DataT.Rec) then
         begin
@@ -808,7 +808,7 @@ begin
   if not Assigned(DataT) then exit;
   if (DataT.Typ <> etLink)
   then exit;
-  aLinks := TLinks.Create(nil,Data);
+  aLinks := TLinks.Create(nil);
   aLinks.Select(DataT.Rec);
   aLinks.Open;
   if aLinks.Count>0 then
@@ -1210,7 +1210,7 @@ begin
                       end
                     else if  (DataT.Typ = etLink) then
                       begin
-                        aDataSet := DataT.DataSourceType.Create(Self,Data);
+                        aDataSet := DataT.DataSourceType.CreateEx(Self,Data);
                         with aDataSet.DataSet as IBaseDBFilter do
                           Filter := DataT.Filter;
                         aDataSet.Open;
@@ -1230,13 +1230,13 @@ begin
                       begin
                         if DataT.Link = '' then
                           begin
-                            aDataSet := DataT.DataSourceType.Create(Self,Data);
+                            aDataSet := DataT.DataSourceType.CreateEx(Self,Data);
                             with aDataSet.DataSet as IBaseDBFilter do
                               Filter := DataT.Filter;
                             aDataSet.Open;
                             if aDataSet.Count > 0 then
                               begin
-                                aLinks := TLinks.Create(Self,Data);
+                                aLinks := TLinks.CreateEx(Self,Data);
                                 aLinks.Append;
                                 aLinks.FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
                                 aLink := Data.BuildLink(aDataSet.DataSet);
@@ -1259,7 +1259,7 @@ begin
           if Assigned(tvMain.GetNodeAt(X,Y)) and Assigned(tvMain.GetNodeAt(X,Y).Data) then
             if TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etProject then
               begin
-                aPProject := TProject.Create(nil,Data);
+                aPProject := TProject.Create(nil);
                 DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
                 aPProject.Select(DataT2.Rec);
                 aPProject.Open;
@@ -1388,7 +1388,7 @@ begin
                       end
                     else //Favourite
                       begin
-                        aLinks := TLinks.Create(Self,Data);
+                        aLinks := TLinks.CreateEx(Self,Data);
                         aLinks.Append;
                         aLinks.FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
                         aLink := Data.BuildLink(TPrometMainFrame(pcPages.ActivePage.Controls[0]).DataSet.DataSet);
@@ -1422,7 +1422,7 @@ begin
                 begin
                   try
                     DataSourceType:=TBaseDBDataSetClass(TfFilter(TExtDBGrid(Source).Owner).DataSet.ClassType);
-                    aNewDS := DataSourceType.Create(nil,Data);
+                    aNewDS := DataSourceType.Create(nil);
                     with aNewDS.DataSet as IBaseDBFilter do
                       begin
                         UsePermissions:=False;
@@ -1444,7 +1444,7 @@ begin
                 end
               else //Favourite
                 begin
-                  aLinks := TLinks.Create(Self,Data);
+                  aLinks := TLinks.CreateEx(Self,Data);
                   aLinks.Append;
                   aLinks.FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
                   aLink := Data.BuildLink(TfFilter(TExtDBGrid(Source).Owner).DataSet.DataSet);
@@ -1464,14 +1464,14 @@ begin
         begin
           if (TfFilter(TExtDBGrid(Source).Owner).DataSet is TProjectList) then
             begin
-              aPProject := TProject.Create(nil,Data);
+              aPProject := TProject.Create(nil);
               DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
               aPProject.Select(DataT2.Rec);
               aPProject.Open;
               if aPProject.Count>0 then
                 begin
                   DataSourceType:=TBaseDBDataSetClass(TfFilter(TExtDBGrid(Source).Owner).DataSet.ClassType);
-                  aNewDS := DataSourceType.Create(nil,Data);
+                  aNewDS := DataSourceType.Create(nil);
                   with aNewDS.DataSet as IBaseDBFilter do
                     begin
                       UsePermissions:=False;
@@ -1515,7 +1515,7 @@ begin
             if Data.Tree.FieldByName('TYPE').AsString = 'F' then
 //              if DataT.Link = '' then
                 begin
-                  aLinks := TLinks.Create(Self,Data);
+                  aLinks := TLinks.CreateEx(Self,Data);
                   aLinks.Append;
                   aLinks.FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
                   aLink := fSearch.GetLink;
@@ -1650,7 +1650,7 @@ begin
   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
   if (DataT.Typ = etDir) then
     begin
-      aTree := TTree.Create(Self,Data);
+      aTree := TTree.CreateEx(Self,Data);
       Data.SetFilter(aTree,'');
       Data.GotoBookmark(aTree,DataT.Rec);
       aTree.DataSet.Edit;
@@ -1663,7 +1663,7 @@ begin
   else if (DataT.Typ = etWikiPage) or (DataT.Typ = etLink) or (DataT.Typ = etStatistic) then
     begin
       Data.GotoBookmark(Data.Tree,DataT.Rec);
-      aDataSet := DataT.DataSourceType.Create(Self,Data);
+      aDataSet := DataT.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
         Filter := DataT.Filter;
       aDataSet.Open;
@@ -1719,7 +1719,7 @@ var
     Result := False;
     if (TTreeEntry(Node1.Data).Typ=etProject) or (TTreeEntry(Node1.Data).Typ=etProcess) then
       begin
-        aProject := TProject.Create(nil,Data);
+        aProject := TProject.Create(nil);
         aProject.SelectFromParent(aList.Id.AsVariant);
         aProject.Open;
         Result := aProject.Count>0;
@@ -1770,7 +1770,7 @@ begin
       Node.DeleteChildren;
       try
       //Add directories
-      bTree := TTree.Create(nil,Data);
+      bTree := TTree.Create(nil);
       while not Data.Tree.DataSet.EOF do
         begin
           Node1 := tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
@@ -1816,11 +1816,11 @@ begin
       //Add Entrys
       if (Typ = 'C') and (Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE) then //Contacts
         begin
-          aList := TPersonList.Create(Self,Data);
+          aList := TPersonList.CreateEx(Self,Data);
           aTyp := etCustomer;
           Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+ID,0,'','ASC',False,True,True);
           aList.DataSet.First;
-          aPerson := TPerson.Create(Self,Data);
+          aPerson := TPerson.CreateEx(Self,Data);
           while not aList.DataSet.EOF do
             begin
               AddEntry;
@@ -1864,7 +1864,7 @@ begin
         end
       else if (Typ = 'M') and ((Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE)) then //Masterdata
         begin
-          aList := TMasterdataList.Create(Self,Data);
+          aList := TMasterdataList.CreateEx(Self,Data);
           aTyp := etArticle;
           Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID)+' AND '+Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y'),0,'','ASC',False,True,True);
           aList.DataSet.First;
@@ -1877,7 +1877,7 @@ begin
         end
       else if (Typ = 'P') and ((Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE)) then //Projekte
         begin
-          aList := TProjectList.Create(Self,Data);
+          aList := TProjectList.CreateEx(Self,Data);
           aTyp := etProject;
           with aList.DataSet as IBaseDBFilter do
             Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID)+' AND '+Data.ProcessTerm(Data.QuoteField('PARENT')+'='+Data.QuoteValue('')),0,'','ASC',False,True,True);
@@ -1893,7 +1893,7 @@ begin
         end
       else if (Typ = 'W') and (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then //Wiki
         begin
-          aList := TWikiList.Create(Self,Data);
+          aList := TWikiList.CreateEx(Self,Data);
           aTyp := etWikiPage;
           Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID),0,'','ASC',False,True,True);
           aList.DataSet.First;
@@ -1906,7 +1906,7 @@ begin
         end
       else if (Typ = 'S') and (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then //Statistics
         begin
-          aList := TStatistic.Create(Self,Data);
+          aList := TStatistic.CreateEx(Self,Data);
           aTyp := etStatistic;
           Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID),0,'','ASC',False,True,True);
           aList.DataSet.First;
@@ -1919,7 +1919,7 @@ begin
         end
       else if (Typ = 'F') then //Favorites
         begin
-          aListL := TLinks.Create(Self,Data);
+          aListL := TLinks.CreateEx(Self,Data);
           aTyp := etLink;
           Data.SetFilter(aListL,Data.QuoteField('RREF_ID')+'='+Data.QuoteValue(ID),0,'','ASC',False,True,True);
           aListL.DataSet.First;
@@ -1941,7 +1941,7 @@ begin
         end
       else if (Typ = 'Z') then //Clipboard
         begin
-          aList := TClipp.Create(Self,Data);
+          aList := TClipp.CreateEx(Self,Data);
           aTyp := etClipboardItem;
           with aList.DataSet as IBaseDBFilter do
             Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID),0,'','ASC',False,True,True);
@@ -1961,7 +1961,7 @@ begin
     begin
       aTyp := etProject;
       Node.DeleteChildren;
-      aProject := TProject.Create(nil,Data);
+      aProject := TProject.Create(nil);
       aProject.SelectFromParent(DataT.Rec);
       aProject.Open;
       aProject.DataSet.First;

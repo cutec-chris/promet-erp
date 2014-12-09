@@ -539,34 +539,34 @@ begin
   FCheckedTables := TStringList.Create;
   FTables := TStringList.Create;
   FTriggers := TStringList.Create;
-  Users := TUser.Create(nil,Self);
-  Numbers := TNumberSets.Create(nil,Self);
-  MandantDetails := TMandantDetails.Create(nil,Self);
-  Tree := TTree.Create(nil,Self);
-  Forms := TForms.Create(nil,Self);
-  UserFieldDefs := TUserFieldDefs.Create(nil,Self);
-  Filters := TFilters.Create(nil,Self);
-  Reports := TReports.Create(nil,Self);
-  ActiveUsers := TActiveUsers.Create(nil,Self);
-  Permissions := TPermissions.Create(nil,Self);
-  StorageTypes := TStorageTypes.Create(nil,Self);
-  Currency := TCurrency.Create(nil,Self);
-  PaymentTargets := TPaymentTargets.Create(nil,Self);
-  StorageType := TStorageTyp.Create(nil,Self);
-  StorageJournal := TStorageJournal.Create(nil,Self);
-  Countries := TCountries.Create(nil,Self);
-  Languages := TLanguages.Create(nil,Self);
-  Vat := TVat.Create(nil,Self);
-  Units := TUnits.Create(nil,Self);
-  States := TStates.Create(nil,Self);
-  Categories := TCategory.Create(nil,Self);
-  PriceTypes := TPriceTypes.Create(nil,Self);
-  OrderPosTyp := TOrderPosTyp.Create(nil,Self);
-  TextTyp := TTextTypes.Create(nil,Self);
-  DeletedItems := TDeletedItems.Create(nil,Self);
-  DispatchTypes := TDispatchTypes.Create(nil,Self);
-  RepairProblems := TRepairProblems.Create(nil,Self);
-  ProcessClient := TProcessClient.Create(nil,Self);
+  Users := TUser.CreateEx(nil,Self);
+  Numbers := TNumberSets.CreateEx(nil,Self);
+  MandantDetails := TMandantDetails.CreateEx(nil,Self);
+  Tree := TTree.CreateEx(nil,Self);
+  Forms := TForms.CreateEx(nil,Self);
+  UserFieldDefs := TUserFieldDefs.CreateEx(nil,Self);
+  Filters := TFilters.CreateEx(nil,Self);
+  Reports := TReports.CreateEx(nil,Self);
+  ActiveUsers := TActiveUsers.CreateEx(nil,Self);
+  Permissions := TPermissions.CreateEx(nil,Self);
+  StorageTypes := TStorageTypes.CreateEx(nil,Self);
+  Currency := TCurrency.CreateEx(nil,Self);
+  PaymentTargets := TPaymentTargets.CreateEx(nil,Self);
+  StorageType := TStorageTyp.CreateEx(nil,Self);
+  StorageJournal := TStorageJournal.CreateEx(nil,Self);
+  Countries := TCountries.CreateEx(nil,Self);
+  Languages := TLanguages.CreateEx(nil,Self);
+  Vat := TVat.CreateEx(nil,Self);
+  Units := TUnits.CreateEx(nil,Self);
+  States := TStates.CreateEx(nil,Self);
+  Categories := TCategory.CreateEx(nil,Self);
+  PriceTypes := TPriceTypes.CreateEx(nil,Self);
+  OrderPosTyp := TOrderPosTyp.CreateEx(nil,Self);
+  TextTyp := TTextTypes.CreateEx(nil,Self);
+  DeletedItems := TDeletedItems.CreateEx(nil,Self);
+  DispatchTypes := TDispatchTypes.CreateEx(nil,Self);
+  RepairProblems := TRepairProblems.CreateEx(nil,Self);
+  ProcessClient := TProcessClient.CreateEx(nil,Self);
   _DocumentActions := TInternalDBDataSet.Create;
   _MimeTypes := TInternalDBDataSet.Create;
 end;
@@ -978,7 +978,7 @@ begin
           else
             begin
               aTable := nil;
-              aWiki := TWikiList.Create(Self,Data);
+              aWiki := TWikiList.CreateEx(Self,Data);
               if aWiki.FindWikiPage(copy(aLink, pos('@', aLink) + 1, length(aLink))) then
                 Result := aWiki.PageAsText;
               aWiki.Free;
@@ -987,7 +987,7 @@ begin
         end
       else if copy(aLink, 0, pos('@', aLink) - 1) = 'HISTORY' then
         begin
-          aBaseHist := TBaseHistory.Create(nil,Data);
+          aBaseHist := TBaseHistory.CreateEx(nil,Data);
           aBaseHist.SelectFromLink(aLink);
           aBaseHist.Open;
           Result := GetLinkLongDesc(aBaseHist.FieldByName('OBJECT').AsString);
@@ -1738,19 +1738,19 @@ begin
           FDB.ActiveUsers.Delete;
       end;
 
-  FCategory := TCategory.Create(nil,FDB,FDB.MainConnection);
+  FCategory := TCategory.CreateEx(nil,FDB,FDB.MainConnection);
   FCategory.CreateTable;
   FCategory.Free;
-  FImages := TImages.Create(nil,FDB,FDB.MainConnection);
+  FImages := TImages.CreateEx(nil,FDB,FDB.MainConnection);
   FImages.CreateTable;
   FImages.Free;
-  FLinks := TLinks.Create(nil,FDB,FDB.MainConnection);
+  FLinks := TLinks.CreateEx(nil,FDB,FDB.MainConnection);
   FLinks.CreateTable;
   FLinks.Free;
-  FHistory := TBaseHistory.Create(nil,FDB,FDB.MainConnection);
+  FHistory := TBaseHistory.CreateEx(nil,FDB,FDB.MainConnection);
   FHistory.CreateTable;
   FHistory.Free;
-  FArchiveStore := TArchivedMessage.Create(nil,FDB,FDB.MainConnection);
+  FArchiveStore := TArchivedMessage.CreateEx(nil,FDB,FDB.MainConnection);
   FArchiveStore.CreateTable;
   FArchiveStore.Free;
   FDB.Permissions.CreateTable;
@@ -1846,4 +1846,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

@@ -53,7 +53,7 @@ constructor TfUserFieldOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aUserFieldDefs := TUserFieldDefs.Create(Self,Data,aConnection);
+  aUserFieldDefs := TUserFieldDefs.CreateEx(Self,Data,aConnection);
   UserFieldDefsDS.DataSet := aUserFieldDefs.DataSet;
 end;
 

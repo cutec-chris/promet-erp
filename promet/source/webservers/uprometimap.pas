@@ -91,7 +91,7 @@ uses uData,Variants,SynaUtil,uSessionDBClasses,uBaseDBInterface,Utils,
 constructor TPIMAPSocket.Create;
 begin
   inherited Create;
-  FUser := TUser.Create(nil,Data);
+  FUser := TUser.Create(nil);
 end;
 
 destructor TPIMAPSocket.Destroy;
@@ -219,7 +219,7 @@ function TPIMAPFolder.GenerateMessage: TMimeMess;
 var
 aMessage: TMimeMessage;
 begin
-  aMessage := TMimeMessage.Create(Self,Data);
+  aMessage := TMimeMessage.CreateEx(Self,Data);
   aMessage.Select(FMessages.Id.AsVariant);
   aMessage.Open;
   Result := aMessage.EncodeMessage;
@@ -347,7 +347,7 @@ begin
         end;
       aMsg.Header.MessageID := aID;
     end;
-  aMessage := TMimeMessage.Create(Self,Data);
+  aMessage := TMimeMessage.CreateEx(Self,Data);
   amessage.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(aMsg.Header.MessageID)+' and '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry));
   if aMessage.Count=0 then
     begin
@@ -362,7 +362,7 @@ begin
         aMessage.FieldByName('SENDDATE').AsDateTime:=DecodeRfcDateTime(FPostDateTime);
       aSubject := ConvertEncoding(amsg.Header.Subject,GuessEncoding(amsg.Header.Subject),EncodingUTF8);
       atmp:=ConvertEncoding(getemailaddr(aMsg.Header.From),GuessEncoding(getemailaddr(aMsg.Header.From)),EncodingUTF8);
-      CustomerCont := TPersonContactData.Create(Self,Data);
+      CustomerCont := TPersonContactData.CreateEx(Self,Data);
       if Data.IsSQLDb then
         Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
       else
@@ -384,7 +384,7 @@ begin
                 Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
             end;
         end;
-      Customers := TPerson.Create(Self,Data);
+      Customers := TPerson.CreateEx(Self,Data);
       Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
       CustomerCont.Free;
       if Customers.Count > 0 then
@@ -553,7 +553,7 @@ begin
             begin
               if not Assigned(aMessage) then
                 begin
-                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage := TMimeMessage.CreateEx(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
@@ -570,7 +570,7 @@ begin
               if not Assigned(aMessage) then
                 begin
                   Socket.Creator.CallAction;
-                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage := TMimeMessage.CreateEx(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
@@ -591,7 +591,7 @@ begin
               if not Assigned(aMessage) then
                 begin
                   Socket.Creator.CallAction;
-                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage := TMimeMessage.CreateEx(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
@@ -617,7 +617,7 @@ begin
               {
               if not Assigned(aMessage) then
                 begin
-                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage := TMimeMessage.CreateEx(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
@@ -631,7 +631,7 @@ begin
               if not Assigned(aMessage) then
                 begin
                   Socket.Creator.CallAction;
-                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage := TMimeMessage.CreateEx(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
@@ -834,7 +834,7 @@ begin
         end;
     end;
   Result := TStringList.Create;
-  //aNewMessage := TMessageList.Create(nil,Data);
+  //aNewMessage := TMessageList.Create(nil);
   if not FMessages.DataSet.BOF then
     begin
       if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
@@ -1014,7 +1014,7 @@ constructor TPIMAPFolder.Create(aParent: TIMAPFolders; aName, aSubname: string;
 begin
   FSequenceNumbers := TStringList.Create;
   FetchSequence := 1;
-  FMessages := TMessageList.Create(Self,Data);
+  FMessages := TMessageList.CreateEx(Self,Data);
   if Data.Tree.DataSet.Locate('SQL_ID',aUID,[loCaseInsensitive]) then
     FTreeEntry := Data.Tree.Id.AsString
   else if Data.Tree.DataSet.Locate('NAME',aName,[loCaseInsensitive]) then

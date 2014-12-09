@@ -169,7 +169,7 @@ function TfTaskEdit.fSearchOpenItem(aLink: string): Boolean;
 var
   aParent: TProject;
 begin
-  aParent := TProject.Create(nil,Data);
+  aParent := TProject.Create(nil);
   aParent.SelectFromLink(aLink);
   aParent.Open;
   if aParent.Count>0 then
@@ -188,7 +188,7 @@ var
   aUser: TUser;
 begin
   Result := False;
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
@@ -215,7 +215,7 @@ var
   aUser: TUser;
 begin
   Result := False;
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
@@ -241,7 +241,7 @@ var
   aOwner: String;
   aUser: TUser;
 begin
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   aUser.SelectByAccountno(FDataSet.FieldByName('OWNER').AsString);
   aUser.Open;
   if aUser.Count>0 then
@@ -294,7 +294,7 @@ procedure TfTaskEdit.bDelegated2Click(Sender: TObject);
 var
   aProject: TProject;
 begin
-  aProject := TProject.Create(nil,Data);
+  aProject := TProject.Create(nil);
   aProject.Select(FDataSet.FieldByName('PROJECTID').AsVariant);
   aProject.Open;
   if aProject.Count > 0 then
@@ -313,7 +313,7 @@ procedure TfTaskEdit.cbStateSelect(Sender: TObject);
     aTasks: TTaskList;
   begin
     if (aId = Null) or (aId = 0) then exit;
-    aTasks := TTaskList.Create(Self,Data,aConnection);
+    aTasks := TTaskList.CreateEx(Self,Data,aConnection);
     aTasks.SelectByParent(aId);
     aTasks.Open;
     with aTasks.DataSet do
@@ -448,7 +448,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
       aDocuments.Select(FDataSet.Id.AsInteger,'T',0);
       aDocuments.Open;
@@ -487,7 +487,7 @@ begin
     eBuffer.Text := FDataSet.FieldByName('BUFFERTIME').AsString;
   if OldPageIdx<pcPages.PageCount-1 then
     pcPages.PageIndex:=OldPageIdx;
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   aUser.SelectByAccountno(FDataSet.FieldByName('USER').AsString);
   aUser.Open;
   eUser.Text:=aUser.FieldByName('NAME').AsString;
@@ -503,7 +503,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(FDataSet.Id.AsInteger,'T',0);
     end;
@@ -554,7 +554,7 @@ begin
       aConnection := Data.GetNewConnection
     end
   else aConnection := TheConnection;
-  FDataSet := TTask.Create(nil,Data,aConnection);
+  FDataSet := TTask.CreateEx(nil,Data,aConnection);
   FDataSet.CreateTable;
   FHistoryFrame := TfHistoryFrame.Create(Self);
   FHistoryFrame.Parent := pHist;

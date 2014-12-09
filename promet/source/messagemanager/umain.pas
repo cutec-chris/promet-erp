@@ -591,7 +591,7 @@ begin
         end;
     end;
   acHistory.Enabled:=aUser <> '';
-  FHistory := TBaseHistory.Create(Self,Data);
+  FHistory := TBaseHistory.CreateEx(Self,Data);
   FHistory.CreateTable;
   try
     with Application as IBaseDBInterface do
@@ -605,7 +605,7 @@ begin
         FFilter := '('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.IDCode.AsString)+')'
       else
         FFilter := '('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue('BLDS')+')';
-      aUsers := TUser.Create(nil,Data);
+      aUsers := TUser.Create(nil);
       aUsers.Select(Data.Users.Id.AsString);
       aUsers.Open;
       while aUsers.Count>0 do

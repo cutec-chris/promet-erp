@@ -88,7 +88,7 @@ begin
   if (Source = fMainTreeFrame.tvMain) then
     begin
       nData := TTreeEntry(fMainTreeFrame.tvMain.Selected.Data);
-      aPersons := TPersonList.Create(Self,Data);
+      aPersons := TPersonList.CreateEx(Self,Data);
       Data.SetFilter(aPersons,nData.Filter);
       aAccountno := aPersons.FieldByName('ACCOUNTNO').AsString;
       aName := aPersons.FieldByName('NAME').AsString;
@@ -96,7 +96,7 @@ begin
     end
   else if (Source = fSearch.sgResults) then
     begin
-      aPersons := TPersonList.Create(Self,Data);
+      aPersons := TPersonList.CreateEx(Self,Data);
       Data.SetFilter(aPersons,Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(fSearch.sgResults.Cells[1,fSearch.sgResults.Row]));
       if aPersons.DataSet.Locate('ACCOUNTNO',fSearch.sgResults.Cells[1,fSearch.sgResults.Row],[loCaseInsensitive,loPartialKey]) then
         begin

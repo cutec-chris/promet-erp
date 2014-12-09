@@ -38,7 +38,7 @@ begin
   case aEntry.Typ of
   etCustomer,etEmployee,etArticle,etProject,etProcess:
     begin
-      aDataSet := aEntry.DataSourceType.Create(Self,Data);
+      aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
         Filter := aEntry.Filter;
       aDataSet.Open;

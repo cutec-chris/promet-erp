@@ -27,14 +27,14 @@ uses
 type
   TSyncTable = class(TBaseDBDataSet)
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
   TSyncDB = class(TBaseDBDataSet)
   private
     FTables: TSyncTable;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure DefineFields(aDataSet : TDataSet);override;
     function CreateTable : Boolean;override;
@@ -464,7 +464,7 @@ begin
                           if Count = 0 then
                             begin
                               //check if same item has another user now ...
-                              aOtherUserItems := TSyncItems.Create(nil,DataModule,Connection);
+                              aOtherUserItems := TSyncItems.CreateEx(nil,DataModule,Connection);
                               aOtherUserItems.SelectByRemoteReference(aID.AsString);
                               aOtherUserItems.Open;
                               //if not insert
@@ -610,7 +610,7 @@ begin
                               if Count = 0 then
                                 begin
                                   //check if same item has another user now ...
-                                  aOtherUserItems := TSyncItems.Create(nil,DataModule,Connection);
+                                  aOtherUserItems := TSyncItems.CreateEx(nil,DataModule,Connection);
                                   aOtherUserItems.SelectByRemoteReference(aID.AsString);
                                   aOtherUserItems.Open;
                                   //if not insert
@@ -679,10 +679,10 @@ begin
   Last;
   Result := SyncTime.AsDateTime;
 end;
-constructor TSyncTable.Create(aOwner: TComponent; DM: TComponent;
+constructor TSyncTable.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -709,11 +709,11 @@ begin
           end;
     end;
 end;
-constructor TSyncDB.Create(aOwner: TComponent; DM: TComponent;
+constructor TSyncDB.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FTables := TSyncTable.Create(Self,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FTables := TSyncTable.CreateEx(Self,DM,aConnection,DataSet);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -752,4 +752,4 @@ begin
 end;
 
 end.
-
+

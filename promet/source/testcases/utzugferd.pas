@@ -34,7 +34,7 @@ end;
 
 procedure TZugferdTest.CreateOrder;
 begin
-  aOrder := TOrder.Create(nil,Data);
+  aOrder := TOrder.Create(nil);
 end;
 
 procedure TZugferdTest.ImportDocument;

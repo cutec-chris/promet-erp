@@ -82,7 +82,7 @@ begin
   IdleTimer1.Enabled:=True;
   acLogin.Enabled:=False;
   acLogout.Enabled:=True;
-  Sessions := TSessions.Create(Self,Data);
+  Sessions := TSessions.CreateEx(Self,Data);
   Sessions.Open;
   Sessions.History.Open;
   Sessions.Variables.Open;

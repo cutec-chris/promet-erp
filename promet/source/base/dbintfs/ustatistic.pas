@@ -64,7 +64,7 @@ type
     function GetNumberFieldName : string;override;
     function GetDescriptionFieldName: string; override;
     procedure DefineFields(aDataSet : TDataSet);override;
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     function BuildQuerry(aVariables : TStrings) : string;
   end;
@@ -545,10 +545,10 @@ begin
     end;
 end;
 
-constructor TStatistic.Create(aOwner: TComponent; DM: TComponent;
+constructor TStatistic.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do

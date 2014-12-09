@@ -120,7 +120,7 @@ begin
   Input.SetFocus;
   if not Assigned(FSpeakingInterfacace) then
     begin
-      FSpeakingInterfacace := TSpeakingInterface.Create(nil,Data);
+      FSpeakingInterfacace := TSpeakingInterface.Create(nil);
       FSpeakingInterfacace.Writeln:=@FSpeakingInterfacaceWriteln;
     end;
 end;

@@ -63,7 +63,7 @@ var
 begin
   DataSet.DataSet.Append;
   DataSet.DataSet.FieldByName('NAME').AsString:=Data.GetLinkDesc(aLink);
-  aUsers := TUser.Create(nil,Data);
+  aUsers := TUser.Create(nil);
   aUsers.SelectFromLink(aLink);
   aUsers.Open;
   if aUsers.Count>0 then
@@ -94,7 +94,7 @@ begin
         begin
           Insert;
           FieldByName('NAME').AsString := aLinkDesc;
-          aUsers := TUser.Create(nil,Data);
+          aUsers := TUser.Create(nil);
           aUsers.SelectFromLink(aLink);
           aUsers.Open;
           if aUsers.Count>0 then

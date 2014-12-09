@@ -44,9 +44,8 @@ type
     function GetStatusFieldName : string;override;
     function GetCommissionFieldName: string;override;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
       aMasterdata: TDataSet=nil); override;
-    constructor Create(aOwner : TComponent);override;
     destructor Destroy; override;
     function GetStatusIcon: Integer; override;
     procedure Open; override;
@@ -63,7 +62,7 @@ type
   private
     FDetails: TOrderQMtestDetails;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     function CreateTable : Boolean;override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -93,7 +92,7 @@ type
     FLinks: TRepairImageLinks;
     FDS : TDataSource;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     procedure Open; override;
@@ -108,7 +107,7 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FillDefaults(aDataSet : TDataSet);override;
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     function CreateTable : Boolean;override;
     property Details : TOrderRepairDetail read FDetails;
@@ -127,7 +126,7 @@ type
     function GetCurrency : string;override;
     function GetOrderTyp : Integer;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     function CreateTable : Boolean;override;
     procedure Assign(aSource : TPersistent);override;
@@ -141,7 +140,7 @@ type
   private
     FOrder: TOrder;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure CascadicPost; override;
@@ -180,7 +179,7 @@ type
     function GetCommission: TField;
     function Round(Value: Extended): Extended;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     function CreateTable : Boolean;override;
     procedure FillDefaults(aDataSet : TDataSet);override;
@@ -260,13 +259,13 @@ begin
     end;
 end;
 
-constructor TOrderRepairImages.Create(aOwner: TComponent; DM: TComponent;
+constructor TOrderRepairImages.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
-  FImages := TImages.Create(Self,DM,aConnection,DataSet);
-  FLinks := TRepairImageLinks.Create(Self,DM,aConnection);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
+  FLinks := TRepairImageLinks.CreateEx(Self,DM,aConnection);
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
   FDS.OnDataChange:=@FDSDataChange;
@@ -333,11 +332,11 @@ begin
     end;
   inherited FillDefaults(aDataSet);
 end;
-constructor TOrderRepair.Create(aOwner: TComponent; DM: TComponent;
+constructor TOrderRepair.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FDetails := TOrderRepairDetail.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FDetails := TOrderRepairDetail.CreateEx(Owner,DM,aConnection,DataSet);
 end;
 destructor TOrderRepair.Destroy;
 begin
@@ -368,10 +367,10 @@ begin
   aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TOrder).Id.AsVariant;
 end;
 
-constructor TOrderAddress.Create(aOwner: TComponent; DM: TComponent;
+constructor TOrderAddress.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
 end;
 
 procedure TOrderAddress.DefineFields(aDataSet: TDataSet);
@@ -550,11 +549,11 @@ begin
           end;
     end;
 end;
-constructor TOrderQMTest.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
+constructor TOrderQMTest.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FDetails := TOrderQMTestDetails.Create(aOwner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FDetails := TOrderQMTestDetails.CreateEx(aOwner,DM,aConnection,DataSet);
 end;
 destructor TOrderQMTest.Destroy;
 begin
@@ -605,10 +604,10 @@ begin
   else Result := InternalRound(Value,nk);
 end;
 
-constructor TOrder.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
+constructor TOrder.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner,DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner,DM, aConnection, aMasterdata);
   UpdateFloatFields:=True;
   with BaseApplication as IBaseDbInterface do
     begin
@@ -620,12 +619,12 @@ begin
           UsePermissions:=False;
         end;
     end;
-  FOrderAddress := TOrderAddress.Create(Self,DM,aConnection,DataSet);
+  FOrderAddress := TOrderAddress.CreateEx(Self,DM,aConnection,DataSet);
   FOrderAddress.Order := Self;
-  FOrderPos := TOrderPos.Create(Self,DM,aConnection,DataSet);
+  FOrderPos := TOrderPos.CreateEx(Self,DM,aConnection,DataSet);
   FOrderPos.Order:=Self;
-  FLinks := TOrderLinks.Create(Self,DM,aConnection);
-  FCurrency := TCurrency.Create(Self,DM,aConnection);
+  FLinks := TOrderLinks.CreateEx(Self,DM,aConnection);
+  FCurrency := TCurrency.CreateEx(Self,DM,aConnection);
 end;
 destructor TOrder.Destroy;
 begin
@@ -837,9 +836,9 @@ begin
   Result := prFailed;
   CascadicPost;
   Recalculate;
-  Orders := TOrderList.Create(Owner,DataModule,Connection);
-  MasterdataList := TMasterdataList.Create(Owner,DataModule,Connection);
-  MainOrder := TOrder.Create(Owner,DataModule,Connection);
+  Orders := TOrderList.CreateEx(Owner,DataModule,Connection);
+  MasterdataList := TMasterdataList.CreateEx(Owner,DataModule,Connection);
+  MainOrder := TOrder.CreateEx(Owner,DataModule,Connection);
   MainOrder.Select(Self.FieldByName('ORDERNO').AsString);
   MainOrder.Open;
   Data.StorageType.Open;
@@ -877,7 +876,7 @@ begin
       Data.Numbers.Open;
       if Data.Numbers.Count = 0 then
         raise Exception.Create(strNumbersetnotfound);
-      Accountingjournal := TAccountingjournal.Create(Owner,DataModule,Connection);
+      Accountingjournal := TAccountingjournal.CreateEx(Owner,DataModule,Connection);
       Accountingjournal.CreateTable;
       Data.StartTransaction(Connection,True);
       try
@@ -896,7 +895,7 @@ begin
           end;
         //Belegnummer und Datum vergeben
         DataSet.Edit;
-        aNumbers := TNumberSets.Create(Owner,Data,Connection);
+        aNumbers := TNumberSets.CreateEx(Owner,Data,Connection);
         with aNumbers.DataSet as IBaseDBFilter do
           Filter := Data.QuoteField('TABLENAME')+'='+Data.QuoteValue(OrderType.FieldByName('NUMBERSET').AsString);
         aNumbers.Open;
@@ -1041,7 +1040,7 @@ begin
               end;
           end;
         //Kundenhistorie buchen
-        Person := TPerson.Create(Owner,DataModule,Connection);
+        Person := TPerson.CreateEx(Owner,DataModule,Connection);
         with Person.DataSet as IBaseDBFilter do
           Filter := Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(Address.FieldByName('ACCOUNTNO').AsString);
         Person.Open;
@@ -1264,7 +1263,7 @@ begin
       try
         Result := True;
         OrderTyp := StrToIntDef(trim(copy(OrderType.FieldByName('TYPE').AsString, 0, 2)), 0);
-        Masterdata := TMasterdata.Create(Owner,DataModule,Connection);
+        Masterdata := TMasterdata.CreateEx(Owner,DataModule,Connection);
         Masterdata.CreateTable;
         Masterdata.Select(aID,aVersion,aLanguage);
         Masterdata.Open;
@@ -1443,12 +1442,12 @@ var
   aMasterdata: TMasterdata;
   aPosTyp: TPositionTyp;
 begin
-  aPosTyp := TPositionTyp.Create(Self,DataModule,Connection);
+  aPosTyp := TPositionTyp.CreateEx(Self,DataModule,Connection);
   aPosTyp.Open;
   if aPosTyp.DataSet.Locate('TYPE',6,[loCaseInsensitive]) then
     begin
       //Find new Dispatchtype
-      aDisp := TDispatchTypes.Create(Self,DataModule,Connection);
+      aDisp := TDispatchTypes.CreateEx(Self,DataModule,Connection);
       if not Address.DataSet.Active then Address.Open;
       if Address.Count > 0 then
         begin
@@ -1462,7 +1461,7 @@ begin
         begin
           while (not aDisp.DataSet.EOF) and (aDisp.FieldByName('ARTICLE').AsString = '') do
             aDisp.DataSet.Next;
-          aMasterdata := TMasterdata.Create(Self,DataModule,Connection);
+          aMasterdata := TMasterdata.CreateEx(Self,DataModule,Connection);
           aMasterdata.Select(aDisp.FieldByName('ARTICLE').AsString);
           aMasterdata.Open;
           if aMasterdata.Count > 0 then
@@ -1524,12 +1523,12 @@ begin
   if Order.OrderType.DataSet.Locate('STATUS', Order.FieldByName('STATUS').AsString, [loCaseInsensitive]) then
     Result := StrToIntDef(trim(copy(Order.OrderType.FieldByName('TYPE').AsString, 0, 2)), 0);
 end;
-constructor TOrderPos.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
+constructor TOrderPos.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM,aConnection, aMasterdata);
-  FQMTest := TOrderQMTest.Create(Owner,DM,aConnection,DataSet);
-  FOrderRepair := TOrderRepair.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
+  FQMTest := TOrderQMTest.CreateEx(Owner,DM,aConnection,DataSet);
+  FOrderRepair := TOrderRepair.CreateEx(Owner,DM,aConnection,DataSet);
 end;
 destructor TOrderPos.Destroy;
 begin
@@ -1631,12 +1630,12 @@ function TOrderList.GetCommissionFieldName: string;
 begin
   Result:='COMMISSION';
 end;
-constructor TOrderList.Create(aOwner: TComponent; DM: TComponent;
+constructor TOrderList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
-  FOrderTyp := TOrderTyp.Create(Self,DM,aConnection);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FOrderTyp := TOrderTyp.CreateEx(Self,DM,aConnection);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -1644,11 +1643,6 @@ begin
           UsePermissions:=True;
         end;
     end;
-end;
-
-constructor TOrderList.Create(aOwner: TComponent);
-begin
-  Create(aOwner,Data,nil,nil);
 end;
 
 destructor TOrderList.Destroy;
@@ -1752,4 +1746,4 @@ end;
 
 initialization
 end.
-
+

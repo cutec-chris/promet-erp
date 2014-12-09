@@ -69,7 +69,7 @@ type
     function GetSubMessages: TMessageList;
     function GetHistory: TBaseHistory;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure Select(aID : Variant);override;
     procedure Open;override;
@@ -195,7 +195,7 @@ function TMessage.GetSubMessages: TMessageList;
 begin
   if not Assigned(FSubMessages) then
     begin
-      FSubMessages := TMessageList.Create(Owner,DataModule,Connection);
+      FSubMessages := TMessageList.CreateEx(Owner,DataModule,Connection);
       FSubmessages.SelectByParent(Self.Id.AsVariant);
     end;
   Result := FSubMessages;
@@ -206,14 +206,14 @@ begin
   Result := FHistory;
 end;
 
-constructor TMessage.Create(aOwner: TComponent; DM: TComponent;
+constructor TMessage.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
-  FMessageContent := TMessageContent.Create(Owner,DM,aConnection);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FMessageContent := TMessageContent.CreateEx(Owner,DM,aConnection);
   FMessageContent.Message := Self;
-  FDocuments := TDocuments.Create(Owner,DM,aConnection);
+  FDocuments := TDocuments.CreateEx(Owner,DM,aConnection);
   FSubMessages := nil;
 end;
 destructor TMessage.Destroy;
@@ -246,7 +246,7 @@ begin
     Documents.Open;
     while Documents.Count > 0 do
       begin
-        aDocument := TDocument.Create(Self,Data);
+        aDocument := TDocument.CreateEx(Self,Data);
         aDocument.SelectByNumber(Documents.FieldByName('NUMBER').AsInteger);
         aDocument.Open;
         Found := False;

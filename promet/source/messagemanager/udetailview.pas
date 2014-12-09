@@ -64,7 +64,7 @@ var
   aDocument: TDocument;
   ms: TMemoryStream;
 begin
-  aDocument := TDocument.Create(nil,data);
+  aDocument := TDocument.Create(nil);
   aDocument.Select(FDataSet.Id.AsVariant,'H',0);
   aDocument.Open;
   if aDocument.DataSet.RecordCount > 0 then

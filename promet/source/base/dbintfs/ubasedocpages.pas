@@ -186,7 +186,7 @@ var
   bDocument: TDocument;
   aSStream: TStringStream;
 begin
-  aDocument := TDocument.Create(nil,Data);
+  aDocument := TDocument.Create(nil);
   aDocument.SelectByID(aDocuments.Id.AsVariant);
   aDocument.Open;
   if aDocument.Count>0 then
@@ -212,7 +212,7 @@ begin
       Post;
       if aStream.Size>0 then
         Data.StreamToBlobField(aStream,Self.DataSet,'THUMBNAIL');
-      bDocument := TDocument.Create(nil,Data);
+      bDocument := TDocument.Create(nil);
       bdocument.Ref_ID:=Id.AsVariant;
       bDocument.BaseTyp:='S';
       bDocument.AddFromLink(Data.BuildLink(aDocument.DataSet));
@@ -243,7 +243,7 @@ begin
         FieldByName('TYPE').AsString:=FTyp;
       Post;
       DataSet.Edit;
-      aDocument := TDocument.Create(nil,Data);
+      aDocument := TDocument.Create(nil);
       adocument.Ref_ID:=Id.AsVariant;
       aDocument.BaseTyp:='S';
       aDocument.AddFromFile(aFile);
@@ -297,7 +297,7 @@ begin
           if aSecFile <> '' then
             begin
               aDocument.Free;
-              aDocument := TDocument.Create(nil,Data);
+              aDocument := TDocument.Create(nil);
               adocument.Ref_ID:=Id.AsVariant;
               aDocument.BaseTyp:='S';
               aDocument.AddFromFile(aSecFile);

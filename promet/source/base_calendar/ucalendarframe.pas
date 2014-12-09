@@ -161,7 +161,7 @@ begin
   if Assigned(TTreeEntry(FNode.Data).SubText) then
     TTreeEntry(FNode.Data).SubText.Free;
   TTreeEntry(FNode.Data).SubText := TStringlist.Create;
-  Cal := TCalendar.Create(nil,Data);
+  Cal := TCalendar.Create(nil);
   Cal.CreateTable;
   aDataStore := TCustomPrometheusDataStore.Create(Application);
   Data.SetFilter(Cal,Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Now())+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Now())-1)+' OR "ROTATION" > 0)');
@@ -246,7 +246,7 @@ var
     bParent : Variant;
   begin
     if aParent = Null then exit;
-    aUsers := TUser.Create(nil,Data);
+    aUsers := TUser.Create(nil);
     with aUsers.DataSet as IBaseDbFilter do
       begin
         SortFields := 'NAME';
@@ -518,7 +518,7 @@ end;
 constructor TfCalendarFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  DataSet := TCalendar.Create(Self,Data);
+  DataSet := TCalendar.CreateEx(Self,Data);
   DataSet.CreateTable;
   DataStore := TCustomPrometheusDataStore.Create(Self);
   DataStore.DataSet := TCalendar(DataSet);

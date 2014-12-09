@@ -400,7 +400,7 @@ var
   aMasterdata: TMasterdata;
 begin
   Result := False;
-  aMasterdata := TMasterdata.Create(Self,Data);
+  aMasterdata := TMasterdata.CreateEx(Self,Data);
   aMasterdata.CreateTable;
   Data.SetFilter(aMasterdata,'('+Data.QuoteField('ID')+'='+Data.QuoteValue(fSearch.sgResults.Cells[1,fSearch.sgResults.Row])+')'+' AND '+Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y'));
   if Data.Locate(aMasterdata,'ID',fSearch.sgResults.Cells[1,fSearch.sgResults.Row],[loCaseInsensitive,loPartialKey]) then
@@ -430,7 +430,7 @@ begin
   FFound := False;
   if lbResults.ItemIndex < 0 then exit;
   pSearch.Visible:=False;
-  aMD := TMasterdata.Create(nil,Data);
+  aMD := TMasterdata.Create(nil);
   aMD.CreateTable;
   aMD.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
   aMD.Open;
@@ -470,7 +470,7 @@ procedure TfPosition.acGotoArticleExecute(Sender: TObject);
 var
   aMasterdata: TMasterdataList;
 begin
-  aMasterdata := TMasterdata.Create(Self,Data);
+  aMasterdata := TMasterdata.CreateEx(Self,Data);
   aMasterdata.CreateTable;
   FGridView.GotoActiveRow;
   aMasterdata.Select(DataSet.FieldByName('IDENT').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
@@ -649,7 +649,7 @@ begin
   if Source = uMainTreeFrame.fMainTreeFrame.tvMain then
     begin
       nData := TTreeEntry(uMainTreeFrame.fMainTreeFrame.tvMain.Selected.Data);
-      aMasterdata := TMasterdata.Create(Self,Data);
+      aMasterdata := TMasterdata.CreateEx(Self,Data);
       aMasterdata.CreateTable;
       Data.SetFilter(aMasterdata,nData.Filter);
       Data.GotoBookmark(aMasterdata,nData.Rec);
@@ -664,7 +664,7 @@ begin
   else
   if (Source = fSearch.sgResults) then
     begin
-      aMasterdata := TMasterdata.Create(Self,Data);
+      aMasterdata := TMasterdata.CreateEx(Self,Data);
       aMasterdata.CreateTable;
       aMasterdata.SelectFromLink(fSearch.GetLink);
       aMasterdata.Open;
@@ -791,7 +791,7 @@ begin
       //Documents
       aFrame := pcTabs.GetTab(TfDocumentFrame);
       if not Assigned(aFrame) then
-        aDocuments := TDocuments.Create(Self,Data)
+        aDocuments := TDocuments.CreateEx(Self,Data)
       else aDocuments := TDocuments(TfDocumentFrame(aFrame.Controls[0]).DataSet);
       if DataSet.DataSet.FieldDefs.IndexOf('ORDERNO') <> -1 then
         aPosID := DataSet.FieldByName('ORDERNO').AsString+DataSet.FieldByName('POSNO').AsString
@@ -839,7 +839,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      TfDocumentFrame(Sender).DataSet := TDocuments.Create(Self,Data);
+      TfDocumentFrame(Sender).DataSet := TDocuments.CreateEx(Self,Data);
     end;
   if not TfDocumentFrame(Sender).DataSet.DataSet.Active then
     begin

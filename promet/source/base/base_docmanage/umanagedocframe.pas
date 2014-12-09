@@ -599,14 +599,14 @@ begin
     begin
       if MessageDlg(strMakeLinkToDocuments,mtInformation,[mbYes,mbNo],0) = mrYes then
         begin
-          aEntry := aEntryClass.Create(nil,Data);
+          aEntry := aEntryClass.Create(nil);
           if aEntry is TBaseDbList then
             begin
               TBaseDbList(aEntry).SelectFromLink(aLink);
               TBaseDbList(aEntry).Open;
               if TBaseDbList(aEntry).Count>0 then
                 begin
-                  aDocument := TDocument.Create(Self,Data);
+                  aDocument := TDocument.CreateEx(Self,Data);
                   aDocument.Select(0);
                   aDocument.Open;
                   aDocument.Ref_ID:=aEntry.Id.AsVariant;
@@ -649,7 +649,7 @@ procedure TfManageDocFrame.ThumbControl1AfterDraw(Sender: TObject;
   Item: TThreadedImage;aRect : Trect);
 begin
   if not Assigned(FDoc) then
-    FDoc := TDocPages.Create(nil,Data);
+    FDoc := TDocPages.Create(nil);
   if not Assigned(Item.Pointer) then
     begin
       FDoc.Select(copy(Item.URL,0,pos('.',Item.URL)-1));
@@ -956,7 +956,7 @@ var
   aText: TStringList;
   i: Integer;
 begin
-  aDoc := TDocument.Create(nil,Data);
+  aDoc := TDocument.Create(nil);
   aDoc.SelectByReference(TDocPages(DataSet).Id.AsVariant);
   aDoc.Open;
   if aDoc.Count>0 then
@@ -1024,7 +1024,7 @@ begin
             reader := TFPReaderJPEG.Create;
             try
               aFullStream := TMemoryStream.Create;
-              aDoc := TDocument.Create(nil,Data);
+              aDoc := TDocument.Create(nil);
               aDoc.SelectByID(TDocuments(FDocFrame.DataSet).Id.AsVariant);
               aDoc.Open;
               aDoc.CheckoutToStream(aFullStream);
@@ -1134,7 +1134,7 @@ begin
             reader := TFPReaderJPEG.Create;
             try
               aFullStream := TMemoryStream.Create;
-              aDoc := TDocument.Create(nil,Data);
+              aDoc := TDocument.Create(nil);
               aDoc.SelectByID(TDocuments(FDocFrame.DataSet).Id.AsVariant);
               aDoc.Open;
               aDoc.CheckoutToStream(aFullStream);
@@ -1231,7 +1231,7 @@ begin
           then
           if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
             begin
-              aDocument := TDocument.Create(nil,Data);
+              aDocument := TDocument.Create(nil);
               aDocument.SelectByID(FDocFrame.DataSet.Id.AsVariant);
               aDocument.Open;
               aNumber := aDocument.FieldByName('NUMBER').AsString;
@@ -1409,7 +1409,7 @@ begin
     begin
       if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
         begin
-          aDocument := TDocument.Create(nil,Data);
+          aDocument := TDocument.Create(nil);
           aDocument.SelectByID(FDocFrame.DataSet.Id.AsVariant);
           aDocument.Open;
           aNumber := aDocument.FieldByName('NUMBER').AsString;
@@ -1482,12 +1482,12 @@ begin
   SelectedItem:=nil;
   if BaseApplication.HasOption('disablethreads') then
     ThumbControl1.MultiThreaded:=False;
-  DataSet := TDocPages.Create(nil,Data);
+  DataSet := TDocPages.Create(nil);
   FTempPath := uthumbnails.GetThumbTempDir;
   ForceDirectoriesUTF8(FtempPath);
   FtempPath := AppendPathDelim(FtempPath);
   FDocFrame := TfDocumentFrame.Create(Self);
-  FDocFrame.DataSet := TDocuments.Create(nil,Data);
+  FDocFrame.DataSet := TDocuments.Create(nil);
   FDocFrame.Parent := pDocFrame;
   FDocFrame.Align:=alClient;
   FDocFrame.HasPreview:=False;
@@ -1564,7 +1564,7 @@ begin
   else
     FFilter := '('+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(aDir)+') AND ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(FTyp)+')';
   if not Assigned(FFullDataSet) then
-    FFullDataSet := TDocPages.Create(nil,Data);
+    FFullDataSet := TDocPages.Create(nil);
   with FFullDataSet.DataSet as IBaseDbFilter do
     begin
       SortFields := 'ORIGDATE';

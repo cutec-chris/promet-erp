@@ -276,7 +276,7 @@ begin
   FList.gList.SelectedColumn.Field.Text:=aLink;
   if FList.gList.SelectedColumn.FieldName='PROEJCT' then
     begin
-      aProject := TProject.Create(nil,Data);
+      aProject := TProject.Create(nil);
       aProject.SelectFromLink(aLink);
       aProject.Open;
       if aProject.Count>0 then
@@ -525,7 +525,7 @@ begin
       Times.DataSet.Insert;
       Times.FieldByName('LINK').AsString := FLink;
       Times.FieldByName('PROJECT').AsString := FProject;
-      aProject := TProject.Create(nil,Data);
+      aProject := TProject.Create(nil);
       aProject.SelectFromLink(FProject);
       aProject.Open;
       if aProject.Count>0 then
@@ -664,10 +664,10 @@ var
   aTask: TTask;
   aProject: TProject;
 begin
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.Insert;
   aTask.Text.AsString:=eJob.Text;
-  aProject := TProject.Create(nil,Data);
+  aProject := TProject.Create(nil);
   aProject.SelectFromLink(Project);
   aProject.Open;
   if aProject.Count>0 then
@@ -694,7 +694,7 @@ procedure TfEnterTime.bTaskDoneClick(Sender: TObject);
 var
   aTask: TTask;
 begin
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.SelectFromLink(Task);
   aTask.Open;
   if aTask.Count>0 then
@@ -754,7 +754,7 @@ procedure TfEnterTime.eJobGetItems(Sender: TObject);
 var
   aTasks: TTask;
 begin
-  aTasks := TTask.Create(nil,Data);
+  aTasks := TTask.Create(nil);
   aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
   aTasks.Open;
   eJob.Items.Clear;
@@ -771,12 +771,12 @@ var
   aTasks: TTask;
   aProject: TProject;
 begin
-  aTasks := TTask.Create(nil,Data);
+  aTasks := TTask.Create(nil);
   aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
   aTasks.Open;
   if aTasks.Locate('SUMMARY;PROJECT',VarArrayof([copy(eJob.Text,0,pos(' - ',eJob.Text)-1),copy(eJob.Text,pos(' - ',eJob.Text)+3,length(eJob.Text))]),[loCaseInsensitive]) then
     begin
-      aProject := TProject.Create(nil,Data);
+      aProject := TProject.Create(nil);
       aProject.Select(aTasks.FieldByName('PROJECTID').AsVariant);
       aProject.Open;
       if aProject.Count>0 then
@@ -1145,8 +1145,8 @@ begin
     begin
       with Application as IBaseDbInterface do
         begin
-          FTimes := TTimes.Create(nil,Data,nil,Data.Users.DataSet);
-          FIntTimes := TTimes.Create(nil,Data,nil,Data.Users.DataSet);
+          FTimes := TTimes.CreateEx(nil,Data,nil,Data.Users.DataSet);
+          FIntTimes := TTimes.CreateEx(nil,Data,nil,Data.Users.DataSet);
           FTimes.CreateTable;
         end;
       Times.Open;
@@ -1276,4 +1276,4 @@ begin
 end;
 initialization
 end.
-
+

@@ -70,7 +70,7 @@ constructor TfCategoryOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aCategory := TCategory.Create(Self,Data,aConnection);
+  aCategory := TCategory.CreateEx(Self,Data,aConnection);
   CategoryDS.DataSet := aCategory.DataSet;
 end;
 

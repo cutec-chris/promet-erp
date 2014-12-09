@@ -24,7 +24,7 @@ type
     FHistory: TSessionHistory;
     FVariables: TSessionVariables;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     function CreateTable : Boolean;override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -72,12 +72,12 @@ begin
         end;
     end;
 end;
-constructor TSessions.Create(aOwner: TComponent; DM: TComponent;
+constructor TSessions.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FHistory := TSessionHistory.Create(Owner,DM,aConnection,DataSet);
-  FVariables := TSessionVariables.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TSessionHistory.CreateEx(Owner,DM,aConnection,DataSet);
+  FVariables := TSessionVariables.CreateEx(Owner,DM,aConnection,DataSet);
   with DataSet as IBaseDBFilter do
     begin
       SortFields := 'AUTO_ID';

@@ -52,8 +52,8 @@ begin
       RestoreConfig;
       Login;
     end;
-  Wiki := TWikiList.Create(nil,Data);
-  Documents := TDocument.Create(nil,Data);
+  Wiki := TWikiList.Create(nil);
+  Documents := TDocument.Create(nil);
   Data.Tree.Open;
 end;
 procedure TWikiPage.DataModuleDestroy(Sender: TObject);

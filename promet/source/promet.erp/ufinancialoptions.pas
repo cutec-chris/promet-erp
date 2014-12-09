@@ -57,7 +57,7 @@ constructor TfFinancialOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aCategory := TFinancialAccounts.Create(Self,Data,aConnection);
+  aCategory := TFinancialAccounts.CreateEx(Self,Data,aConnection);
   DataSet.DataSet := aCategory.DataSet;
 end;
 

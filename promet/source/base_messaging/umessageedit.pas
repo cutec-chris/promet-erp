@@ -200,7 +200,7 @@ constructor TfMessageEdit.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FConnection := Data.GetNewConnection;
-  FDataSet := TMessage.Create(Self,Data,FConnection);
+  FDataSet := TMessage.CreateEx(Self,Data,FConnection);
 end;
 destructor TfMessageEdit.Destroy;
 begin
@@ -232,7 +232,7 @@ var
   var a : Integer;
     aGUID : TGuid;
   begin
-    bDataSet := TMessage.Create(Self,Data);
+    bDataSet := TMessage.CreateEx(Self,Data);
     Randomize;
     bDataSet.Insert;
     tmpID := '';
@@ -275,7 +275,7 @@ var
       end;
     bDataSet.Content.DataSet.Post;
     bDataSet.CascadicPost;
-    aDocuments := TDocuments.Create(Self,Data);
+    aDocuments := TDocuments.CreateEx(Self,Data);
     aDocuments.Select(FDataSet.Content.Id.AsVariant,'N',tmpID,Null,Null);
     aDocuments.Open;
     if aDocuments.Count > 0 then
@@ -284,7 +284,7 @@ var
           begin
             while not EOF do
               begin
-                bDocument := TDocument.Create(Self,Data);
+                bDocument := TDocument.CreateEx(Self,Data);
                 bDocument.Select(bDataSet.Content.Id.AsVariant,'N',tmpID,Null,Null);
                 bDocument.AddFromLink(Data.BuildLink(aDocuments.DataSet));
                 bDocument.Free;
@@ -298,7 +298,7 @@ var
 begin
   if lowercase(copy(cbTo.text,length(cbTo.Text)-5,6)) = '@lists' then
     begin
-      aLists := TLists.Create(Self,Data);
+      aLists := TLists.CreateEx(Self,Data);
       aLists.Open;
       if not aLists.DataSet.Locate('NAME',copy(cbTo.Text,0,length(cbTo.Text)-6),[loCaseInsensitive]) then
         FreeAndNil(aLists)
@@ -332,7 +332,7 @@ begin
                 end;
               if (copy(tmp,0,pos('@',tmp)-1) = 'CUSTOMERS') then
                 begin
-                  aPerson := TPerson.Create(Self,Data);
+                  aPerson := TPerson.CreateEx(Self,Data);
                   aPerson.SelectFromLink(tmp);
                   aPerson.Open;
                   aPerson.ContactData.Open;
@@ -391,7 +391,7 @@ begin
                     end;
                   if (copy(tmp,0,pos('@',tmp)-1) = 'CUSTOMERS') then
                     begin
-                      aPerson := TPerson.Create(Self,Data);
+                      aPerson := TPerson.CreateEx(Self,Data);
                       aPerson.SelectFromLink(tmp);
                       aPerson.Open;
                       aPerson.ContactData.Open;
@@ -533,7 +533,7 @@ var
   aLinkIndex: Integer;
   i: Integer;
 begin
-  aOrderType := TOrderTyp.Create(Self,Data);
+  aOrderType := TOrderTyp.CreateEx(Self,Data);
   Data.SetFilter(aOrderType,Data.QuoteField('STATUSNAME')+'='+Data.QuoteValue(copy(TMenuItem(Sender).Caption,length(strNewOrder)+1,length(TMenuItem(Sender).Caption))));
   if (aOrderType.Count > 0) and Assigned(FDocumentFrame) then
     begin
@@ -654,7 +654,7 @@ begin
   tmp := copy(tmp,0,pos(',',tmp));
   if lbResults.ItemIndex < 0 then exit;
   pSearch.Visible:=False;
-  aPerson := TPerson.Create(nil,Data);
+  aPerson := TPerson.Create(nil);
   aPerson.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
   aPerson.Open;
   if aPerson.Count > 0 then
@@ -674,7 +674,7 @@ begin
     TComboBox(ActiveSearch.Sender).Text := tmp+',';
   if copy(tmp,0,pos('@',tmp)-1) = 'LISTS' then
     begin
-      aList := TLists.Create(Self,Data);
+      aList := TLists.CreateEx(Self,Data);
       aList.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
       aList.Open;
       TComboBox(ActiveSearch.Sender).Text := aList.FieldByName('NAME').AsString+'@lists';
@@ -750,7 +750,7 @@ begin
   MarkReadOnly;
   IsModified := False;
   pcTabs.AddTabClass(TfDocumentFrame,strAttatchments,@AddDocuments);
-  aDocuments := TDocuments.Create(Self,Data);
+  aDocuments := TDocuments.CreateEx(Self,Data);
   if FDataSet.Content.Count > 0 then
     begin
       aDocuments.Select(FDataSet.Content.Id.AsVariant,'N',DataSet.FieldByName('ID').AsString,Null,Null);
@@ -921,7 +921,7 @@ begin
   eCC.Text:='';
   eSubject.Text := '';
 
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   aDocument.Select(0);
   aDocument.Open;
   aDocument.Ref_ID:=FDataSet.Content.Id.AsVariant;
@@ -936,7 +936,7 @@ begin
   aDocument.Free;
 
   pcTabs.AddTabClass(TfDocumentFrame,strAttatchments,@AddDocuments);
-  aDocuments := TDocuments.Create(Self,Data);
+  aDocuments := TDocuments.CreateEx(Self,Data);
   aDocuments.Select(FDataSet.Content.Id.AsVariant,'N',DataSet.FieldByName('ID').AsString,Null,Null);
   aDocuments.Open;
   pcTabs.AddTab(TfDocumentFrame.Create(Self),False);
@@ -1079,7 +1079,7 @@ begin
     end;
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
 //      aDocuments.Select(DataSet.Id.AsVariant,'N',DataSet.FieldByName('ID').AsString,Null,Null);
 //      aDocuments.Open;
@@ -1089,7 +1089,7 @@ begin
   aItem := TMenuItem.Create(TfDocumentFrame(Sender).pmDocumentAction);
   aItem.Caption:=strNewVoucher;
   TfDocumentFrame(Sender).pmDocumentAction.Items.Add(aItem);
-  aOrderType := TOrderTyp.Create(Self,Data);
+  aOrderType := TOrderTyp.CreateEx(Self,Data);
   aOrderType.Open;
   Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
   aOrderType.DataSet.First;

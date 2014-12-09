@@ -292,7 +292,7 @@ procedure TfPersonFrame.lFirmNameClick(Sender: TObject);
 var
   aPerson: TPerson;
 begin
-  aPerson := TPerson.Create(Self,Data);
+  aPerson := TPerson.CreateEx(Self,Data);
   Data.SetFilter(aPerson,Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(copy(lFirmName.Caption,pos(' (',lFirmName.Caption)+2,length(lFirmName.Caption)-(pos(' (',lFirmName.Caption))-2)));
   if aPerson.Count > 0 then
     Data.GotoLink(Data.BuildLink(aPerson.DataSet));
@@ -314,7 +314,7 @@ begin
   if (Source = fMainTreeFrame.tvMain) then
     begin
       nData := TTreeEntry(fMainTreeFrame.tvMain.Selected.Data);
-      aPersons := TPersonList.Create(Self,Data);
+      aPersons := TPersonList.CreateEx(Self,Data);
       Data.SetFilter(aPersons,nData.Filter);
       aEmployee := aPersons.FieldByName('ACCOUNTNO').AsString;
       aName := aPersons.FieldByName('NAME').AsString;
@@ -322,7 +322,7 @@ begin
     end
   else if (Source = fSearch.sgResults) then
     begin
-      aPersons := TPersonList.Create(Self,Data);
+      aPersons := TPersonList.CreateEx(Self,Data);
       Data.SetFilter(aPersons,Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(fSearch.sgResults.Cells[1,fSearch.sgResults.Row]));
       if aPersons.DataSet.Locate('ACCOUNTNO',fSearch.sgResults.Cells[1,fSearch.sgResults.Row],[loCaseInsensitive,loPartialKey]) then
         begin
@@ -356,7 +356,7 @@ procedure TfPersonFrame.TfListFrameFListViewDetails(Sender: TObject);
 var
   aPersonList: TPersonList;
 begin
-  aPersonList := TPersonList.Create(Self,Data);
+  aPersonList := TPersonList.CreateEx(Self,Data);
   Data.SetFilter(aPersonList,'"ACCOUNTNO"='+Data.QuoteValue(TPerson(DataSet).Employees.FieldByName('EMPLOYEE').AsString));
   fMainTreeFrame.OpenLink(Data.BuildLink(aPersonList.DataSet),Self);
   aPersonList.Free;
@@ -571,7 +571,7 @@ var
   i: Integer;
 begin
   Application.ProcessMessages;
-  aOrderType := TOrderTyp.Create(Self,Data);
+  aOrderType := TOrderTyp.CreateEx(Self,Data);
   Data.SetFilter(aOrderType,Data.QuoteField('STATUSNAME')+'='+Data.QuoteValue(copy(TMenuItem(Sender).Caption,length(strNewOrder)+1,length(TMenuItem(Sender).Caption))));
   if (aOrderType.Count > 0) and Assigned(FDocumentFrame) then
     begin
@@ -762,7 +762,7 @@ begin
     FConnection := Data.GetNewConnection;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TPerson.Create(Self,Data,FConnection);
+  DataSet := TPerson.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@CustomersStateChange;
   TPerson(DataSet).SelectFromLink(aLink);
   DataSet.Open;
@@ -780,7 +780,7 @@ begin
     FConnection := Data.GetNewConnection;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TPerson.Create(Self,Data,FConnection);
+  DataSet := TPerson.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@CustomersStateChange;
   DataSet.Select(0);
   DataSet.Open;
@@ -829,7 +829,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'C',DataSet.FieldByName('ACCOUNTNO').AsString,Null,Null);
     end;
@@ -837,7 +837,7 @@ begin
   aItem := TMenuItem.Create(TfDocumentFrame(Sender).pmDocumentAction);
   aItem.Caption:=strNewVoucher;
   TfDocumentFrame(Sender).pmDocumentAction.Items.Add(aItem);
-  aOrderType := TOrderTyp.Create(Self,Data);
+  aOrderType := TOrderTyp.CreateEx(Self,Data);
   aOrderType.Open;
   Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
   aOrderType.DataSet.First;
@@ -988,7 +988,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data,DataSet.Connection);
+      aDocuments := TDocuments.CreateEx(Self,Data,DataSet.Connection);
       aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsInteger,'C',DataSet.FieldByName('ACCOUNTNO').AsString,Null,Null);
       aDocuments.Open;
@@ -1029,7 +1029,7 @@ begin
     pcPages.PageIndex:=0;
   if DataSet.State<> dsInsert then
     begin
-      aWiki := TWikiList.Create(nil,Data);
+      aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
         begin
           while not aWiki.EOF do

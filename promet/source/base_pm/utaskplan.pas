@@ -305,7 +305,7 @@ var
 begin
   if FUsage = -1 then
     begin
-      aUser := TUser.Create(nil,Data,aConnection);
+      aUser := TUser.CreateEx(nil,Data,aConnection);
       aUser.SelectByAccountno(FUser);
       aUser.Open;
       FUsage := aUser.FieldByName('USEWORKTIME').AsInteger/100;
@@ -321,7 +321,7 @@ begin
   if FCalcUsage=0 then exit;
   if FUser <> '' then
     begin
-      aCal := TEvent.Create(nil,Data,aConnection);
+      aCal := TEvent.CreateEx(nil,Data,aConnection);
       if FUserID<>Null then
         begin
           aCal.SelectPlanedByIdAndTime(FUserId,StartDate,FinishDate);
@@ -427,13 +427,13 @@ begin
       //Add new Dependencies
       for i := 0 to aTask.ConnectionCount-1 do
         begin
-          aTaskI2 := TTask.Create(nil,Data);
+          aTaskI2 := TTask.Create(nil);
           aTaskI2.Select(aTask.Connection[i].Id);
           aTaskI2.Open;
           aTaskI2.Dependencies.Open;
           if not aTaskI2.Dependencies.DataSet.Locate('REF_ID_ID',aTasks.Id.AsVariant,[]) then
             begin
-              aTaskI := TTask.Create(nil,Data);
+              aTaskI := TTask.Create(nil);
               aTaskI.Select(aTasks.Id.AsVariant);
               aTaskI.Open;
               aTaskI2.Dependencies.Add(Data.BuildLink(aTaskI.DataSet));
@@ -498,7 +498,7 @@ var
   aUser: TUser;
   CurrInterval: TInterval;
 begin
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   CurrInterval := TInterval(FGantt.Tree.Objects[0, FGantt.Tree.Row]);
   if Assigned(CurrInterval) and (CurrInterval is TPInterval) and (TPInterval(CurrInterval).User<>'') then
     begin
@@ -867,12 +867,12 @@ var
   aLink: String;
 begin
   aLink := GetTaskFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,TMenuItem(Sender).Tag);
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.SelectFromLink(aLink);
   aTask.Open;
   if aTask.Count>0 then
     begin
-      aProject := TProject.Create(nil,Data);
+      aProject := TProject.Create(nil);
       aProject.Select(aTask.FieldByName('PROJECTID').AsVariant);
       aProject.Open;
       if aProject.Count>0 then
@@ -901,7 +901,7 @@ var
           begin
             if TRessource(aParent.Pointer).Interval[i].Changed then
               begin
-                aTasks := TTask.Create(nil,Data);
+                aTasks := TTask.Create(nil);
                 aTasks.Select(TRessource(aParent.Pointer).Interval[i].Id);
                 aTasks.Open;
                 debugln('changing '+TRessource(aParent.Pointer).Interval[i].Task);
@@ -1024,12 +1024,12 @@ var
   aLink: String;
 begin
   aLink := GetTaskFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,TMenuItem(Sender).Tag);
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.SelectFromLink(aLink);
   aTask.Open;
   if aTask.Count>0 then
     begin
-      aProject := TProject.Create(nil,Data);
+      aProject := TProject.Create(nil);
       aProject.Select(aTask.FieldByName('PROJECTID').AsVariant);
       aProject.Open;
       if aProject.Count>0 then
@@ -1485,7 +1485,7 @@ var
     tmpRes: TRessource;
     aIsub: TInterval;
   begin
-    aUsers := TUser.Create(nil,Data);
+    aUsers := TUser.Create(nil);
     Data.SetFilter(aUsers,Data.QuoteField('PARENT')+'='+Data.QuoteValue(bParent));
     aUsers.First;
     while not aUsers.EOF do
@@ -1534,7 +1534,7 @@ begin
     begin
       if not Assigned(FDataSet) then
         begin
-          FDataSet := TTaskList.Create(nil,Data);
+          FDataSet := TTaskList.Create(nil);
           TTaskList(FDataSet).SelectByDept(Data.Users.FieldByName('PARENT').AsVariant);
           TTaskList(FDataSet).ActualFilter := '('+TTaskList(FDataSet).ActualFilter+') AND ('+Data.ProcessTerm(Data.QuoteField('UNPLANNED')+'='+Data.QuoteValue(''))+')';
           FDataSet.Open;
@@ -1556,7 +1556,7 @@ begin
     FGantt.DeleteInterval(0);
   aIRoot := TInterval.Create(FGantt);
   aIRoot.Style:=isNone;
-  aRoot := TUser.Create(nil,Data);
+  aRoot := TUser.Create(nil);
   aRoot.Open;
   FGantt.BeginUpdate;
   if aRoot.DataSet.Locate('SQL_ID',aParent,[]) then
@@ -1592,7 +1592,7 @@ var
   aCalendar: TCalendar;
   gView : TfGanttView;
 begin
-  aUser := TUser.Create(nil,Data,aConnection);
+  aUser := TUser.CreateEx(nil,Data,aConnection);
   aUser.SelectByAccountno(asUser);
   aUser.Open;
   aResource.Resource := aUser.Text.AsString;
@@ -1603,7 +1603,7 @@ begin
         begin
           if Processmessages then
             Application.ProcessMessages;
-          bTasks := TTaskList.Create(nil,Data,aConnection);
+          bTasks := TTaskList.CreateEx(nil,Data,aConnection);
           bTasks.SelectUncompletedByUser(asUser);
           bTasks.Open;
           with bTasks.DataSet do
@@ -1636,7 +1636,7 @@ begin
         begin
           if Processmessages then
             Application.ProcessMessages;
-          aCalendar := TCalendar.Create(nil,Data,aConnection);
+          aCalendar := TCalendar.CreateEx(nil,Data,aConnection);
           aCalendar.SelectPlanedByUserAndTime(asUser,aFrom,aTo);
           aCalendar.Open;
           with aCalendar.DataSet do

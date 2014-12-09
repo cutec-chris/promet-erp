@@ -89,7 +89,7 @@ var
 begin
   if SelectDirectoryDialog1.Execute then
     begin
-      aStore := TArchivedMessage.Create(Self,Data);
+      aStore := TArchivedMessage.CreateEx(Self,Data);
       Data.SetFilter(aStore,Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(ZVDateTimePicker1.Date)+' AND '+Data.QuoteField('TIMESTAMPD')+'<'+Data.DateTimeToFilter(ZVDateTimePicker2.Date));
       with aStore.DataSet do
         begin

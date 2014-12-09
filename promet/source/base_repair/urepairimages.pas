@@ -82,7 +82,7 @@ uses uData,uHistoryFrame,uImageFrame,uIntfStrConsts,uDocuments,uDocumentFrame,uL
 
 procedure TfRepairImages.FormCreate(Sender: TObject);
 begin
-  DataSet := TOrderRepairImages.Create(nil,Data);
+  DataSet := TOrderRepairImages.Create(nil);
   DataSet.CreateTable;
   DataSet.Open;
 end;
@@ -99,7 +99,7 @@ begin
           DataSet.Post;
           DataSet.Edit;
         end;
-      aThumbnails := TThumbnails.Create(nil,Data);
+      aThumbnails := TThumbnails.Create(nil);
       aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
       aThumbnails.Open;
       while aThumbnails.Count>0 do
@@ -152,7 +152,7 @@ begin
       aStream := TMemoryStream.Create;
       Bitmap.SaveToStream(aStream);
       aStream.Position:=0;
-      aThumbnails := TThumbnails.Create(nil,Data);
+      aThumbnails := TThumbnails.Create(nil);
       aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
       aThumbnails.Open;
       while aThumbnails.Count>0 do
@@ -217,7 +217,7 @@ begin
       DataSet.Post;
       DataSet.Edit;
     end;
-  aThumbnails := TThumbnails.Create(nil,Data);
+  aThumbnails := TThumbnails.Create(nil);
   aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
   aThumbnails.Open;
   while aThumbnails.Count>0 do
@@ -299,7 +299,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'R');
     end;
@@ -348,7 +348,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsLargeInt,'R');
       aDocuments.Open;
@@ -404,7 +404,7 @@ begin
             end;
         end;
     end;
-  aThumbnails := TThumbnails.Create(nil,Data);
+  aThumbnails := TThumbnails.Create(nil);
   aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
   aThumbnails.Open;
   if aThumbnails.Count>0 then

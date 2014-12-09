@@ -141,7 +141,7 @@ var
   aPerson: TPerson;
 begin
   if TOrderAddress(DataSet).FieldByName('ACCOUNTNO').IsNull then exit;
-  aPerson := TPerson.Create(Self,Data);
+  aPerson := TPerson.CreateEx(Self,Data);
   aPerson.SelectByAccountNo(DataSet.FieldByName('ACCOUNTNO').AsString);
   aPerson.Open;
   if aPerson.Count > 0 then
@@ -199,7 +199,7 @@ function TfOrderAddress.fSearchOpenItem(aLink: string): Boolean;
 var
   aPerson: TPerson;
 begin
-  aPerson := TPerson.Create(Self,Data);
+  aPerson := TPerson.CreateEx(Self,Data);
   aPerson.SelectFromLink(fSearch.GetLink);
   aPerson.Open;
   if aPerson.Count > 0 then
@@ -250,7 +250,7 @@ begin
   if Source = uMainTreeFrame.fMainTreeFrame.tvMain then
     begin
       nData := TTreeEntry(uMainTreeFrame.fMainTreeFrame.tvMain.Selected.Data);
-      aPerson := TPerson.Create(Self,Data);
+      aPerson := TPerson.CreateEx(Self,Data);
       Data.SetFilter(aPerson,nData.Filter);
       Data.GotoBookmark(aPerson,nData.Rec);
       aPerson.Address.Open;
@@ -260,7 +260,7 @@ begin
   else
   if (Source = fSearch.sgResults) then
     begin
-      aPerson := TPerson.Create(Self,Data);
+      aPerson := TPerson.CreateEx(Self,Data);
       aPerson.SelectFromLink(fSearch.GetLink);
       aPerson.Open;
       if aPerson.Count > 0 then

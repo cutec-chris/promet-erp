@@ -90,7 +90,7 @@ begin
       end;
   IdleTimer1.Enabled:=True;
   Data.SetFilter(Data.ActiveUsers,'',1000,'TIMESTAMPD','DESC');
-  SysCommands := TSystemCommands.Create(Self,Data);
+  SysCommands := TSystemCommands.CreateEx(Self,Data);
   Data.ActiveUsers.DataSet.AfterScroll:=@UserScroll;
   Commands.DataSet := SysCommands.DataSet;
   acLogin.Enabled:=False;

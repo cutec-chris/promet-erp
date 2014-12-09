@@ -204,10 +204,10 @@ begin
   uClipp.AddToMainTree;
   if fMainTreeFrame.tvMain.Items.Count>0 then
     fMainTreeFrame.tvMain.Items[0].Expanded:=True;
-  DataSet := TClipp.Create(nil,Data);
-  TempDataSet := TClipp.Create(nil,Data);
+  DataSet := TClipp.Create(nil);
+  TempDataSet := TClipp.Create(nil);
   Datasource.DataSet := DataSet.DataSet;
-  SearchDS := TClipp.Create(nil,Data);
+  SearchDS := TClipp.Create(nil);
   tRefreshTempsTimer(nil);
   tRefreshTemps.Enabled:=True;
 end;

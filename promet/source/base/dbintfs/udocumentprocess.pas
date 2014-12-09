@@ -128,7 +128,7 @@ begin
     ;
   if FUseStarter and (ExStatus=1) then //Dont Use Starter again
     begin
-      aDocAction := TDocumentActions.Create(nil,Data);
+      aDocAction := TDocumentActions.Create(nil);
       aDocAction.Select(FDocActionId);
       aDocAction.Open;
       if aDocAction.Count>0 then
@@ -139,7 +139,7 @@ begin
         end
       else
         begin
-          aMime := TMimeTypes.Create(nil,data);
+          aMime := TMimeTypes.Create(nil);
           aMime.Select(FMimeId);
           aMime.Open;
           if aMime.Count>0 then

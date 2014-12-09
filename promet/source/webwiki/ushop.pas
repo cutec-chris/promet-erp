@@ -78,7 +78,7 @@ begin
     begin
       fmWikiPage.SetTemplateParams(TFPWebAction(Sender).Template);
       SelectedArticle := ARequest.QueryFields.Values['Id'];
-      aMasterdata := TMasterdata.Create(Self,Data);
+      aMasterdata := TMasterdata.CreateEx(Self,Data);
       if copy(SelectedArticle,pos('_',SelectedArticle)+1,length(SelectedArticle)) = '' then
         aMasterdata.Select(copy(SelectedArticle,0,pos('_',SelectedArticle)-1),Null,'de')
       else
@@ -187,7 +187,7 @@ var
   var
     aTree : TTree;
   begin
-    aTree := TTree.Create(Self,Data);
+    aTree := TTree.CreateEx(Self,Data);
     Data.SetFilter(aTree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('M')+' AND '+Data.QuoteField('PARENT')+'='+Data.QuoteValue(bParent));
     with aTree.DataSet do
       begin
@@ -205,8 +205,8 @@ var
 
 begin
   AddSearchAbleDataSet(TMasterdataList);
-  Masterdata := TMasterdataList.Create(Self,Data);
-  aOrder := TOrder.Create(Self,Data);
+  Masterdata := TMasterdataList.CreateEx(Self,Data);
+  aOrder := TOrder.CreateEx(Self,Data);
   Menue := TStringlist.Create;
   aParent := 0;
   with BaseApplication as IBaseConfig do
@@ -731,7 +731,7 @@ begin
               aTmpRow := aRow;
               aTmpRow := StringReplace(aTmpRow,'~ProductId',FieldByName('ID').AsString+'_'+FieldByName('VERSION').AsString,[rfReplaceAll]);
               aTmpRow := StringReplace(aTmpRow,'~ProductName',FieldByName('SHORTTEXT').AsString,[rfReplaceAll]);
-              aMasterdata := TMasterdata.Create(Self,Data);
+              aMasterdata := TMasterdata.CreateEx(Self,Data);
               aMasterdata.Select(FieldByName('SQL_ID').AsInteger);
               aMasterdata.Open;
               with BaseApplication as IBaseConfig do
@@ -830,7 +830,7 @@ var
   aCanvas: TFPImageCanvas;
   aImageText: String;
 begin
-  aMd := TMasterdata.Create(Self,Data);
+  aMd := TMasterdata.CreateEx(Self,Data);
   if AnsiCompareText(TagString, 'CONTENT') = 0 then
     begin
       ReplaceText := TagParams.Values['CHEADER'];
@@ -949,7 +949,7 @@ begin
       fmWikiPage.SetTemplateParams(TFPWebAction(Sender).Template);
       TFPWebAction(Sender).Template.OnReplaceTag := @ReplaceShopDetailTags;
       SelectedArticle := ARequest.QueryFields.Values['Id'];
-      aMasterdata := TMasterdata.Create(Self,Data);
+      aMasterdata := TMasterdata.CreateEx(Self,Data);
       if copy(SelectedArticle,pos('_',SelectedArticle)+1,length(SelectedArticle)) = '' then
         aMasterdata.Select(copy(SelectedArticle,0,pos('_',SelectedArticle)-1),Null,'de')
       else

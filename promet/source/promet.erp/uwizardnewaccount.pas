@@ -162,7 +162,7 @@ procedure TfWizardNewAccount.cbExistingSelect(Sender: TObject);
 var
   aAcc: TAccounts;
 begin
-  aAcc := TAccounts.Create(nil,Data);
+  aAcc := TAccounts.Create(nil);
   aAcc.Open;
   if aAcc.DataSet.Locate('NAME',cbExisting.Text,[]) then
     begin
@@ -180,7 +180,7 @@ begin
   if cbExisting.Enabled then
     begin
       cbExisting.Clear;
-      aAcc := TAccounts.Create(nil,Data);
+      aAcc := TAccounts.Create(nil);
       aAcc.Open;
       with aAcc.DataSet do
         begin
@@ -324,7 +324,7 @@ var
   aName: String;
 begin
   //Wizard finished, use the made settings
-  aAccounts := TAccounts.Create(nil,Data);
+  aAccounts := TAccounts.Create(nil);
   aAccounts.CreateTable;
   if Steps[length(Steps)-2] = 1 then
     begin

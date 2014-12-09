@@ -28,13 +28,12 @@ type
 
   TPersonList = class(TBaseERPList)
   public
-    constructor Create(aOwner : TComponent);override;
     function GetMatchCodeFieldName: string;override;
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
     function GetStatusFieldName : string;override;
     function GetTyp: string; override;
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure SelectByAccountNo(aAccountNo : string);overload;
@@ -118,7 +117,7 @@ type
     function GetHistory: TBaseHistory;
     function GetInfo: TField;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure Open; override;
     function CreateTable : Boolean;override;
@@ -682,10 +681,10 @@ function TPerson.GetAccountNo: TField;
 begin
   Result := DataSet.FieldByName('ACCOUNTNO');
 end;
-constructor TPerson.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
-  aMasterdata: TDataSet);
+constructor TPerson.CreateEx(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM,aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -693,13 +692,13 @@ begin
           UsePermissions:=False;
         end;
     end;
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
-  FPersonAddress := TPersonAddress.Create(Self,DM,aConnection,DataSet);
-  FCustomerCont := TPersonContactData.Create(Self,DM,aConnection,DataSet);
-  FImages := TImages.Create(Self,DM,aConnection,DataSet);
-  FBanking := TPersonBanking.Create(Self,DM,aConnection,DataSet);
-  FLinks := TPersonLinks.Create(Self,DM,aConnection);
-  FEmployees := TPersonEmployees.Create(Self,DM,aConnection,DataSet);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FPersonAddress := TPersonAddress.CreateEx(Self,DM,aConnection,DataSet);
+  FCustomerCont := TPersonContactData.CreateEx(Self,DM,aConnection,DataSet);
+  FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
+  FBanking := TPersonBanking.CreateEx(Self,DM,aConnection,DataSet);
+  FLinks := TPersonLinks.CreateEx(Self,DM,aConnection);
+  FEmployees := TPersonEmployees.CreateEx(Self,DM,aConnection,DataSet);
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
   FDS.OnDataChange:=@FDSDataChange;
@@ -809,11 +808,6 @@ begin
   inherited CascadicCancel;
 end;
 
-constructor TPersonList.Create(aOwner: TComponent);
-begin
-  Create(aOwner,Data,nil,nil);
-end;
-
 function TPersonList.GetMatchCodeFieldName: string;
 begin
   Result:='MATCHCODE';
@@ -836,10 +830,10 @@ begin
   Result := 'C';
 end;
 
-constructor TPersonList.Create(aOwner: TComponent; DM: TComponent;
+constructor TPersonList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -907,7 +901,7 @@ begin
   Result := True;
   if TBaseDBModule(DataModule).DataSetFromLink(aRemoteLink,aClass) then
     begin
-      aObject := aClass.Create(nil,DataModule);
+      aObject := aClass.CreateEx(nil,DataModule);
       if not (aObject is TPersonList) then
         begin
           aObject.Free;
@@ -979,4 +973,4 @@ begin
 end;
 
 initialization
-end.
+end.

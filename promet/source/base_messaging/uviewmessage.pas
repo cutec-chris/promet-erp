@@ -87,7 +87,7 @@ begin
     begin
       try
         try
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           Data.SetFilter(aDocument,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' and '+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(Messages.Content.Id.AsString));
           if aDocument.DataSet.Locate('TYPE;REF_ID_ID',VarArrayOf(['N',Messages.Content.id.AsString]),[loPartialKey]) then
             begin
@@ -126,7 +126,7 @@ begin
     begin
       try
         try
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           Data.SetFilter(aDocument,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' and '+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(Messages.Content.Id.AsString));
           if aDocument.Count>0 then
             begin
@@ -163,7 +163,7 @@ end;
 constructor TfViewMessage.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  Messages := TSpecialMessage.Create(Self,Data);
+  Messages := TSpecialMessage.CreateEx(Self,Data);
 end;
 destructor TfViewMessage.Destroy;
 begin

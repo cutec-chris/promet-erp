@@ -540,7 +540,7 @@ begin
 
           if cbSyncHelp.Checked then
             begin
-              aSyncDB := TSyncDB.Create(Self,Data);
+              aSyncDB := TSyncDB.CreateEx(Self,Data);
               aSyncDB.CreateTable;
               aSyncDB.Insert;
               aSyncDB.FieldByName('NAME').AsString:='Help';
@@ -806,4 +806,4 @@ begin
 end;
 initialization
 end.
-
+

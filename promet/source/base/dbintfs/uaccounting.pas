@@ -35,7 +35,7 @@ type
   private
     FExchange: TAccountExchange;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure Open;override;
     destructor Destroy;override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -46,7 +46,7 @@ type
   private
     FirstOpen: Boolean;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Open;override;
   end;
@@ -54,11 +54,11 @@ implementation
 uses uBaseDBInterface;
 resourcestring
   strSender                 = 'Absender';
-constructor TAccountingJournal.Create(aOwner: TComponent; DM: TComponent;
+constructor TAccountingJournal.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   FirstOpen := True;
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   UpdateFloatFields:=True;
 end;
 
@@ -150,11 +150,11 @@ begin
     end;
   inherited Open;
 end;
-constructor TAccounts.Create(aOwner: TComponent; DM: TComponent;
+constructor TAccounts.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FExchange := TAccountExchange.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FExchange := TAccountExchange.CreateEx(Owner,DM,aConnection,DataSet);
 end;
 procedure TAccounts.Open;
 begin

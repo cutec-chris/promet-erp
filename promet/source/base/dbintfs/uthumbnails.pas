@@ -67,7 +67,7 @@ begin
   if not FileExists(aFilename) then
     begin
       aNumber := aDocument.FieldByName('NUMBER').AsString;
-      bDocument := TDocument.Create(nil,aDocument.DataModule);
+      bDocument := TDocument.CreateEx(nil,aDocument.DataModule);
       bDocument.SelectByNumber(aNumber);
       bDocument.Open;
       aFullStream := TMemoryStream.Create;

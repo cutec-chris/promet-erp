@@ -214,7 +214,7 @@ begin
   i := 0;
   aRec := 0;
   Output.Clear;
-  Accounts := TAccounts.Create(nil,Data);
+  Accounts := TAccounts.Create(nil);
   Accounts.Open;
   while i < fAccountingQue.lvQue.Items.Count do
     begin
@@ -584,7 +584,7 @@ begin
   fLogWaitform.ShowInfo(strAddingJobs);
   i := 0;
   aRec := 0;
-  Accounts := TAccounts.Create(nil,Data);
+  Accounts := TAccounts.Create(nil);
   Accounts.Open;
   while i < fAccountingQue.lvQue.Items.Count do
     begin

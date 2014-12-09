@@ -94,7 +94,7 @@ begin
       end;
   acLogin.Enabled:=False;
   acLogout.Enabled:=True;
-  CalcEnviroment := TCalcEnviroments.Create(nil,Data);
+  CalcEnviroment := TCalcEnviroments.Create(nil);
   CalcEnviroment.CreateTable;
   CalcEnviroment.Typ := 'CALC';
   CalcEnviroment.Open;

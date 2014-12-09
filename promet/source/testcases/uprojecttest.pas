@@ -24,7 +24,7 @@ var
   aPrj : TProject;
 procedure ProjectTest.Create;
 begin
-  aPrj := Tproject.Create(nil,Data);
+  aPrj := Tproject.Create(nil);
   aPrj.CreateTable;//get sure that the table is there
   aPrj.Insert;
   aPrj.Text.AsString := 'Testarticle';
