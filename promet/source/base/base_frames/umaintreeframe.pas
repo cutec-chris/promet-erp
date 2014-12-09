@@ -71,7 +71,8 @@ type
                etWiki,
                  etWikiPage,
                etClipboard,
-                 etClipboardItem
+                 etClipboardItem,
+               etAllObjects
                );
   TTreeEntry = class
   public
@@ -2011,6 +2012,7 @@ begin
   Result := Result+GetEntryText(etInventory)+';';
   Result := Result+GetEntryText(etFinancial)+';';
   Result := Result+GetEntryText(etStatistics)+';';
+  Result := Result+GetEntryText(etAllObjects)+';';
 end;
 
 procedure TfMainTree.SaveTreeOptions;
@@ -2110,6 +2112,7 @@ begin
     etInventory:CellText := strInventory;
 //    etWebshop:Celltext := fWebshop.Caption;
 //    etDisposition:Celltext := fDisposition.Caption;
+    etAllObjects:CellText := strAllElements;
     etAction:CellText := 'ACTION';
   end;
   Result := Celltext;

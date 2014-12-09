@@ -1109,6 +1109,7 @@ var
   Node1: TTreeNode;
   aStartPagetext: String;
   aUser: TUser;
+  tmp: String;
   procedure NewNode;
   begin
     Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
@@ -1193,7 +1194,8 @@ begin
             while aItems.Count>0 do
               with fMainTreeFrame do
               begin
-                if aItems[0] = GetEntryText(etSearch) then
+                tmp := aItems[0];
+                if tmp = GetEntryText(etSearch) then
                   begin
                     //Add Search Node
                     Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
@@ -1203,14 +1205,14 @@ begin
                     Node.Visible:=False;
                     FSearchNode := Node;
                   end;
-                if aItems[0] = GetEntryText(etFavourites) then
+                if tmp = GetEntryText(etFavourites) then
                   begin
                     NewNode;
                     Node.Height := 34;
                     TTreeEntry(Node.Data).Typ := etFavourites;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etMessages) then
+                if tmp = GetEntryText(etMessages) then
                   begin
                     //Messages
                     if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
@@ -1226,7 +1228,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etTasks) then
+                if tmp = GetEntryText(etTasks) then
                   begin
                     //Tasks
                     if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
@@ -1239,7 +1241,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etCalendar) then
+                if tmp = GetEntryText(etCalendar) then
                   begin
                     //PIM
                     if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
@@ -1254,7 +1256,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etOrders) then
+                if tmp = GetEntryText(etOrders) then
                   begin
                     //Orders,Production,...
                     if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
@@ -1268,7 +1270,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etCustomers) then
+                if tmp = GetEntryText(etCustomers) then
                   begin
                     //Contacts
                     if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
@@ -1282,7 +1284,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etMasterdata) then
+                if tmp = GetEntryText(etMasterdata) then
                   begin
                     //Add Masterdata stuff
                     if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
@@ -1296,7 +1298,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etProjects) then
+                if tmp = GetEntryText(etProjects) then
                   begin
                     //Projects
                     if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
@@ -1308,7 +1310,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etWiki) then
+                if tmp = GetEntryText(etWiki) then
                   begin
                     //Wiki
                     if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
@@ -1319,7 +1321,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etDocuments) then
+                if tmp = GetEntryText(etDocuments) then
                   begin
                     //Documents
                     if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
@@ -1335,7 +1337,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etLists) then
+                if tmp = GetEntryText(etLists) then
                   begin
                     //Lists
                     if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
@@ -1345,7 +1347,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etMeetings) then
+                if tmp = GetEntryText(etMeetings) then
                   begin
                     //Meetings
                     if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
@@ -1355,7 +1357,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etInventory) then
+                if tmp = GetEntryText(etInventory) then
                   begin
                     //Inventory
                     if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
@@ -1365,7 +1367,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etFinancial) then
+                if tmp = GetEntryText(etFinancial) then
                   begin
                     //Financial
                     if (Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE)
@@ -1377,7 +1379,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etStatistics) then
+                if tmp = GetEntryText(etStatistics) then
                   begin
                     //Statistics
                     if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
@@ -1388,6 +1390,14 @@ begin
                         Node.Height := 34;
                         TTreeEntry(Node.Data).Typ := etStatistics;
                       end;
+                    SomethingFound:=True;
+                  end;
+                if tmp = GetEntryText(etAllObjects) then
+                  begin
+                    NewMenu;
+                    miNew.Action := fMain.acElements;
+                    NewNode;
+                    TTreeEntry(Node.Data).Typ := etAllObjects;
                     SomethingFound:=True;
                   end;
                 aItems.Delete(0);
@@ -3392,6 +3402,11 @@ begin
   etTimeRegistering:
     begin
       acTimeRegistering.Execute;
+      result := True;
+    end;
+  etAllObjects:
+    begin
+      acElements.Execute;
       result := True;
     end;
   end;

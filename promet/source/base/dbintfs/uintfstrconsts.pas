@@ -21,6 +21,7 @@ unit uIntfStrConsts;
 {$mode objfpc}{$H+}
 interface
 resourcestring
+  strAllElements                = 'Elemente';
   strMeasurement                = 'Messungen';
   strStructure                  = 'Struktur';
   strSearchFromProjects         = 'Mit Öffnen wird das gewählte Projekt als Vohrfahr übernommen';
@@ -239,4 +240,4 @@ resourcestring
                                 ;
 
 implementation
-end.
+end.
