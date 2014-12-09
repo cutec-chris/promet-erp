@@ -84,6 +84,7 @@ type
     acCommandline: TAction;
     acElements: TAction;
     acNewObject: TAction;
+    acPasswords: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -112,6 +113,7 @@ type
     MenuItem3: TMenuItem;
     Menuitem12: TMenuItem;
     MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
     Panel3: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
@@ -183,6 +185,7 @@ type
     procedure acNewTerminExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acOrdersExecute(Sender: TObject);
+    procedure acPasswordsExecute(Sender: TObject);
     procedure acPauseTimeExecute(Sender: TObject);
     procedure acProjectOverviewExecute(Sender: TObject);
     procedure acProjectsExecute(Sender: TObject);
@@ -351,7 +354,8 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
   uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts,
-  ufinancialoptions,ubookfibuaccount,ucommandline,uobjectframe,uscriptframe,uprometscripts
+  ufinancialoptions,ubookfibuaccount,ucommandline,uobjectframe,uscriptframe,uprometscripts,
+  uPasswords
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -2004,6 +2008,11 @@ begin
       AddOrderList(aFrame);
       aFrame.Open;
     end;
+end;
+
+procedure TfMain.acPasswordsExecute(Sender: TObject);
+begin
+  fPasswords.Execute;
 end;
 
 procedure TfMain.acPauseTimeExecute(Sender: TObject);

@@ -25,16 +25,33 @@ interface
 
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, DBGrids,
-  ComCtrls,uPasswordSave;
+  ComCtrls, ActnList, DBActns,uPasswordSave, Grids;
 
 type
 
   { TfPasswords }
 
   TfPasswords = class(TForm)
-    Datasource1: TDatasource;
+    acCopy: TAction;
+    acGenerate: TAction;
+    ActionList1: TActionList;
+    DataSetCancel1: TDataSetCancel;
+    DataSetDelete1: TDataSetDelete;
+    DataSetInsert1: TDataSetInsert;
+    DataSetPost1: TDataSetPost;
+    DataSetRefresh1: TDataSetRefresh;
+    PwSave: TDatasource;
     DBGrid1: TDBGrid;
     ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
+    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormDestroy(Sender: TObject);
   private
@@ -64,6 +81,18 @@ begin
   DataSet.Free;
 end;
 
+procedure TfPasswords.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  if Column.FieldName='PASSWORD' then
+    begin
+      Canvas.FillRect(Rect);
+      Canvas.TextOut(Rect.Left+2, Rect.Top+2, '***********');
+    end
+  else
+    DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+end;
+
 function TfPasswords.Execute: Boolean;
 begin
   if not Assigned(Self) then
@@ -75,7 +104,7 @@ begin
   DataSet := TPasswordSave.Create(nil,Data,nil,Data.Users.DataSet);
   DataSet.CreateTable;
   DataSet.Open;
-  Datasource1.DataSet := DataSet.DataSet;
+  PwSave.DataSet := DataSet.DataSet;
   Show;
 end;
 
