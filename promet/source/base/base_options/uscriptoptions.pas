@@ -76,11 +76,13 @@ procedure TfScriptOptions.acExecuteExecute(Sender: TObject);
 var
   aRec: TBookmark;
 begin
+  FScripts.Post;
   aScript := TBaseScript.Create(nil);
   aScript.Select(FScripts.Id.AsVariant);
   aScript.Open;
   aScript.Writeln:=@FScriptsWriteln;
-  aScript.Execute(Null);
+  if aScript.Count>0 then
+    aScript.Execute(Null);
   aScript.DataSet.Refresh;
   aRec := FScripts.DataSet.GetBookmark;
   FScripts.DataSet.Refresh;
@@ -129,20 +131,20 @@ end;
 procedure TfScriptOptions.StartTransaction;
 begin
   inherited StartTransaction;
-  Data.StartTransaction(aConnection);
+  //Data.StartTransaction(aConnection);
   FScripts.Open;
 end;
 
 procedure TfScriptOptions.CommitTransaction;
 begin
   inherited CommitTransaction;
-  Data.CommitTransaction(aConnection);
+  //Data.CommitTransaction(aConnection);
 end;
 
 procedure TfScriptOptions.RollbackTransaction;
 begin
   inherited RollbackTransaction;
-  Data.RollbackTransaction(aConnection);
+  //Data.RollbackTransaction(aConnection);
 end;
 
 end.

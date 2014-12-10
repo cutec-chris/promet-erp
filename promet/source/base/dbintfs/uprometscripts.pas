@@ -594,6 +594,8 @@ begin
 end;
 function TBaseScript.Execute(Parameters: Variant): Boolean;
 begin
+  Result := False;
+  if Count=0 then exit;
   OpenItem;
   if (pos(GetSystemName,FieldByName('RUNMASHINE').AsString)>0) or (trim(FieldByName('RUNMASHINE').AsString)='') then
     begin

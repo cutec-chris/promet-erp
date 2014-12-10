@@ -1,4 +1,6 @@
-﻿Build 383
+﻿Build 384
+      - Scripts:Promet Objekte direkt aus Scripten nutzbar
+Build 383
       - Elemente:Editor für generelles Element und verfeinerung Elementliste (Alle Objekte)
 Build 382
       - Firebird embedded portable Version
