@@ -22,7 +22,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="340"/>
+      <BuildNr Value="341"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -173,7 +173,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="26">
@@ -288,7 +287,6 @@
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uMain"/>
       </Unit1>
       <Unit2>
         <Filename Value="upersonframe.pas"/>
@@ -296,6 +294,7 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -359,7 +358,6 @@
         <ComponentName Value="fScriptFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uscriptframe"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -563,7 +561,6 @@
         <ComponentName Value="fPasswords"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uPasswords"/>
       </Unit40>
       <Unit41>
         <Filename Value="ucategoryoptions.pas"/>

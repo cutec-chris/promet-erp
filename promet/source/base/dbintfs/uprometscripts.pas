@@ -448,7 +448,7 @@ begin
             RegisterMethod('function GetLinkLongDesc(aLink : string) : string;');
             RegisterMethod('function GetLinkIcon(aLink : string) : Integer;');
 
-            RegisterProperty('Users','TUser',iptRW);
+            RegisterProperty('Users','TUser',iptR);
           end;
         with Sender.ClassImporter.Add(TBaseDBModule) do
           begin
