@@ -50,6 +50,8 @@ type
     ActionList1: TActionList;
     cbSyntax: TDBComboBox;
     DataSource: TDataSource;
+    SelectData: TDatasource;
+    gResults: TDBGrid;
     eName: TDBEdit;
     DBGrid1: TDBGrid;
     Debugger: TPSScriptDebugger;
@@ -63,6 +65,8 @@ type
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
+    messages: TListBox;
+    Panel1: TPanel;
     pLeft: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
@@ -81,7 +85,6 @@ type
     Reset1: TMenuItem;
     N2: TMenuItem;
     Run2: TMenuItem;
-    messages: TListBox;
     Splitter1: TSplitter;
     Open1: TMenuItem;
     Save1: TMenuItem;
@@ -438,7 +441,14 @@ end;
 
 procedure TfScriptEditor.acRunExecute(Sender: TObject);
 begin
+  gResults.Visible := False;
+  messages.Visible := True;
   fLastScriptEditor := Self;
+  if Assigned(SelectData.DataSet) then
+    begin
+      SelectData.DataSet.Free;
+      SelectData.DataSet := nil;
+    end;
   if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal' then
     begin
       if Debugger.Running then
@@ -456,6 +466,13 @@ begin
       end;
       acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
       acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+    end
+  else if (lowercase(FDataSet.FieldByName('SYNTAX').AsString)='sql') and (copy(lowercase(trim(FDataSet.FieldByName('SCRIPT').AsString)),0,7)='select ') then
+    begin
+      gResults.Visible := True;
+      messages.Visible := False;
+      SelectData.DataSet := Data.GetNewDataSet(FDataSet.FieldByName('SCRIPT').AsString);
+      SelectData.DataSet.Open;
     end
   else if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='sql' then
     begin
