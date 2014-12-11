@@ -669,7 +669,7 @@ begin
   with Sender as TfFilter do
     begin
       TabCaption := strObjectList;
-      FilterType:='L';
+      FilterType:='B';
       DefaultRows:='GLOBALWIDTH:%;ICON:70;NUMBER:70;NAME:100;STATUS:60;';
       aObj := TObjects.Create(nil);
       with aObj.DataSet as IBaseDbFilter do
@@ -3947,7 +3947,7 @@ begin
               aFrame.cbFilter.Text:=aName;
               aFrame.cbFilterSelect(nil);
             end;
-          'L':
+          'B':
             begin
               aFrame := TfFilter.Create(Self);
               pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('ALLOBJECTS@'),False);
