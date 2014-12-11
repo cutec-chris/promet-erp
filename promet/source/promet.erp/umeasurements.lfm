@@ -38,6 +38,16 @@ inherited fMeasurementFrame: TfMeasurementFrame
             Title.Caption = 'Typ'
             Width = 150
             FieldName = 'TYPE'
+          end        
+          item
+            Title.Caption = 'ID'
+            Width = 90
+            FieldName = 'ID'
+          end        
+          item
+            Title.Caption = 'CHART'
+            Width = 20
+            FieldName = 'CHART'
           end>
         DataSource = Measurements
         DefaultRowHeight = 22
@@ -59,12 +69,12 @@ inherited fMeasurementFrame: TfMeasurementFrame
         Columns = <        
           item
             Title.Caption = 'Wert'
-            Width = 150
+            Width = 100
             FieldName = 'DATA'
           end        
           item
             Title.Caption = 'Datum'
-            Width = 100
+            Width = 150
             FieldName = 'DATE'
           end>
         DataSource = MeasurementData
