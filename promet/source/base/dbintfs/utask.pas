@@ -64,6 +64,8 @@ type
     function GetProject: TField;
     function GetUserName: string;
     function GetHistory: TBaseHistory;
+  protected
+    procedure OpenItem(AccHistory: Boolean=True); override;
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FillDefaults(aDataSet : TDataSet);override;
@@ -1275,6 +1277,12 @@ function TTaskList.GetHistory: TBaseHistory;
 begin
   Result := FHistory;
 end;
+
+procedure TTaskList.OpenItem(AccHistory: Boolean);
+begin
+  //dont add Element
+end;
+
 procedure TTaskList.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do

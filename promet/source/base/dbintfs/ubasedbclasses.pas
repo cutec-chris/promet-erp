@@ -167,7 +167,7 @@ type
     procedure ImportFromXML(XML : string;OverrideFields : Boolean = False;ReplaceFieldFunc : TReplaceFieldFunc = nil);virtual;
 //    function  TableToXML(Doc : TXMLDocument;iDataSet : TDataSet) : TDOMElement;
 //    function  XMLToTable(iDataSet : TDataSet;Node : TDOMElement) : Boolean;
-    procedure OpenItem(AccHistory: Boolean=True);
+    procedure OpenItem(AccHistory: Boolean=True);virtual;
     procedure CascadicPost; override;
     procedure GenerateThumbnail;virtual;
     property Text : TField read GetText;
@@ -191,6 +191,8 @@ type
   private
     FHChanged: Boolean;
     FShouldChange : Boolean;
+  protected
+    procedure OpenItem(AccHistory: Boolean=True); override;
   public
     constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure SetDisplayLabels(aDataSet: TDataSet); override;
@@ -1558,6 +1560,11 @@ begin
       Filter := aFilter;
     end;
   Open;
+end;
+
+procedure TBaseHistory.OpenItem(AccHistory: Boolean);
+begin
+  //Dont add Item
 end;
 
 constructor TBaseHistory.CreateEx(aOwner: TComponent; DM: TComponent;

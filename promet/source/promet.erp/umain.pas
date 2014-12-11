@@ -669,8 +669,8 @@ begin
   with Sender as TfFilter do
     begin
       TabCaption := strObjectList;
-      FilterType:='B';
-      DefaultRows:='GLOBALWIDTH:%;ICON:70;NUMBER:70;NAME:100;STATUS:60;';
+      FilterType:='D';
+      DefaultRows:='GLOBALWIDTH:%;ICON:10;NAME:100;NUMBER:70;STATUS:60;';
       aObj := TObjects.Create(nil);
       with aObj.DataSet as IBaseDbFilter do
         UsePermissions := True;
@@ -3947,7 +3947,7 @@ begin
               aFrame.cbFilter.Text:=aName;
               aFrame.cbFilterSelect(nil);
             end;
-          'B':
+          'D':
             begin
               aFrame := TfFilter.Create(Self);
               pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('ALLOBJECTS@'),False);
