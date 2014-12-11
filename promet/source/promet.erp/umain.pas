@@ -646,7 +646,7 @@ begin
     begin
       TabCaption := strMeetingList;
       FilterType:='E';
-      DefaultRows:='GLOBALWIDTH:%;NAME:100;STATUS:60;';
+      DefaultRows:='GLOBALWIDTH:%;NAME:200;STATUS:60;DATE:100;CREATEDBY:60;';
       Dataset := TMeetings.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       AddToolbarAction(acNewMeeting);
@@ -669,8 +669,8 @@ begin
   with Sender as TfFilter do
     begin
       TabCaption := strObjectList;
-      FilterType:='E';
-      DefaultRows:='GLOBALWIDTH:%;NUMBER:70;NAME:100;STATUS:60;';
+      FilterType:='L';
+      DefaultRows:='GLOBALWIDTH:%;ICON:70;NUMBER:70;NAME:100;STATUS:60;';
       aObj := TObjects.Create(nil);
       with aObj.DataSet as IBaseDbFilter do
         UsePermissions := True;
@@ -3936,6 +3936,22 @@ begin
               aFrame := TfFilter.Create(Self);
               pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('STATISTICS@'),False);
               AddStatisticList(aFrame);
+              aFrame.cbFilter.Text:=aName;
+              aFrame.cbFilterSelect(nil);
+            end;
+          'E':
+            begin
+              aFrame := TfFilter.Create(Self);
+              pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('MEETINGS@'),False);
+              AddMeetingList(aFrame);
+              aFrame.cbFilter.Text:=aName;
+              aFrame.cbFilterSelect(nil);
+            end;
+          'L':
+            begin
+              aFrame := TfFilter.Create(Self);
+              pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('ALLOBJECTS@'),False);
+              AddElementList(aFrame);
               aFrame.cbFilter.Text:=aName;
               aFrame.cbFilterSelect(nil);
             end;
