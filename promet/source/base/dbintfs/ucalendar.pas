@@ -42,6 +42,7 @@ type
     procedure FillDefaults(aDataSet: TDataSet); override;
     procedure SetDisplayLabels(aDataSet : TDataSet);override;
     procedure SelectByUser(AccountNo : string);
+    procedure OpenItem(AccHistory: Boolean=True); override;
     procedure SelectPlanedByUser(AccountNo : string);
     procedure SelectPlanedByUserAndTime(AccountNo : string;aStart,aEnd : TDateTime);
     procedure SelectPlanedByIdAndTime(User : Variant;aStart,aEnd : TDateTime);
@@ -242,6 +243,11 @@ begin
       SortDirection:=sdDescending;
     end;
   aUser.Free;
+end;
+
+procedure TCalendar.OpenItem(AccHistory: Boolean);
+begin
+  //dont add to elements
 end;
 
 procedure TCalendar.SelectPlanedByUser(AccountNo: string);
