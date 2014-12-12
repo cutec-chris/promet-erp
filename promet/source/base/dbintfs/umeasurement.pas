@@ -27,9 +27,14 @@ uses
 
 
 type
+
+  { TMeasurementData }
+
   TMeasurementData = class(TBaseDBDataset)
   public
     procedure DefineFields(aDataSet: TDataSet); override;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
+      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
   end;
 
   { TMeasurement }
@@ -71,7 +76,14 @@ begin
         with ManagedFieldDefs do
           begin
             Add('NAME',ftString,100,True);
+            Add('ID',ftString,100,False);
             Add('TYPE',ftString,100,False);
+            Add('CHART',ftString,1,False);
+          end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          begin
+            Add('ID','ID',[]);
           end;
     end;
 end;
@@ -95,6 +107,24 @@ begin
             Add('DATA',ftFloat,0,True);
             Add('DATE',ftDate,0,True);
           end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          begin
+            Add('DATE','DATE',[]);
+          end;
+    end;
+end;
+
+constructor TMeasurementData.CreateEx(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited;
+  with DataSet as IBaseDBFilter do
+    begin
+      SortFields := 'DATE';
+      SortDirection := sdDescending;
+      UpdateFloatFields:=True;
+      Limit:=5000;
     end;
 end;
 

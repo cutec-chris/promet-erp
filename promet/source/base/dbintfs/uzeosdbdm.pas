@@ -742,7 +742,7 @@ begin
   inherited DoBeforeCancel;
   if State = dsInsert then
     begin
-      if Assigned(FOrigTable.OnRemove) then FOrigTable.OnRemove(FOrigTable);
+      if Assigned(FOrigTable) and Assigned(FOrigTable.OnRemove) then FOrigTable.OnRemove(FOrigTable);
     end;
 end;
 
