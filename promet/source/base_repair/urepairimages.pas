@@ -20,30 +20,38 @@ type
     ActionList1: TActionList;
     ButtonPanel1: TButtonPanel;
     cbStatus: TComboBox;
-    Datasource1: TDatasource;
+    RepairImage: TDatasource;
     DBNavigator1: TDBNavigator;
     eName: TDBEdit;
     gList: TDBGrid;
     eFilter: TEdit;
+    gProblems: TExtDBGrid;
     iArticle: TImage;
     iPreview: TDBImage;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label6: TLabel;
+    lInternalNotes: TLabel;
+    lNotesforCustomer: TLabel;
+    lNotesforCustomer1: TLabel;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     mErrordesc: TDBMemo;
+    mInternalNotes: TDBMemo;
+    mNotes: TDBMemo;
     mSolve: TDBMemo;
     OpenPictureDialog1: TOpenPictureDialog;
     pCommon: TPanel;
     pcPages: TExtMenuPageControl;
     pmImage: TPopupMenu;
     pPreviewImage: TPanel;
+    RepairDetail: TDataSource;
     sbAddImage: TSpeedButton;
     sbClipboardToImage: TSpeedButton;
     sbClipboardToImage1: TSpeedButton;
+    tsAdditional: TTabSheet;
     tsCommon: TTabSheet;
     procedure AddLinks(Sender: TObject);
     procedure AddDocuments(Sender: TObject);
@@ -51,7 +59,7 @@ type
     procedure AddHistory(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
     procedure DataSetDataSetAfterScroll(DataSet: TDataSet);
-    procedure Datasource1StateChange(Sender: TObject);
+    procedure RepairImageStateChange(Sender: TObject);
     procedure eFilterEnter(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure acScreenshotExecute(Sender: TObject);
@@ -68,6 +76,7 @@ type
     procedure SetLanguage;
     function Execute : Boolean;
     property DataSet : TOrderRepairImages read FDataSet write SetDataSet;
+    constructor Create(TheOwner: TComponent); override;
   end;
 
 var
@@ -256,7 +265,7 @@ begin
   Application.MainForm.Show;
   Self.Show;
 end;
-procedure TfRepairImages.Datasource1StateChange(Sender: TObject);
+procedure TfRepairImages.RepairImageStateChange(Sender: TObject);
 begin
   if DataSet.State=dsInsert then
     eName.SetFocus;
@@ -321,7 +330,8 @@ procedure TfRepairImages.SetDataSet(AValue: TOrderRepairImages);
 begin
   if FDataSet=AValue then Exit;
   FDataSet:=AValue;
-  Datasource1.DataSet := AValue.DataSet;
+  RepairImage.DataSet := AValue.DataSet;
+  RepairDetail.DataSet := AValue.RepairDetail.DataSet;
 end;
 
 procedure TfRepairImages.DoOpen;
@@ -345,6 +355,7 @@ begin
   if (TOrderRepairImages(DataSet).Images.Count > 0) then
     pcPages.AddTab(TfImageFrame.Create(Self),False);
   TOrderRepairImages(DataSet).Images.DataSet.Close;
+  TOrderRepairImages(DataSet).RepairDetail.Open;
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
@@ -454,6 +465,29 @@ begin
   Result := fRepairImages.ShowModal = mrOK;
   if Result and DataSet.CanEdit then
     DataSet.Post;
+end;
+
+constructor TfRepairImages.Create(TheOwner: TComponent);
+var
+  i: Integer;
+begin
+  inherited Create(TheOwner);
+  for i := 0 to gproblems.Columns.Count-1 do
+    if TColumn(gProblems.Columns[i]).FieldName = 'ERROR' then
+      begin
+        Data.RepairProblems.CreateTable;
+        Data.RepairProblems.Open;
+        with Data.RepairProblems.DataSet do
+          begin
+            First;
+            TColumn(gProblems.Columns[i]).PickList.Clear;
+            while not EOF do
+              begin
+                TColumn(gProblems.Columns[i]).PickList.Add(FieldByName('PROBLEM').AsString);
+                next;
+              end;
+          end;
+      end;
 end;
 
 end.

@@ -48,15 +48,15 @@ inherited fRepairImageFrame: TfRepairImageFrame
     object lNotesforCustomer: TLabel
       Left = 133
       Height = 13
-      Top = 88
+      Top = 112
       Width = 86
       Caption = 'Notizen für Kunde'
       ParentColor = False
     end
     object lInternalNotes: TLabel
-      Left = 562
+      Left = 559
       Height = 15
-      Top = 89
+      Top = 112
       Width = 292
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
@@ -83,6 +83,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
       CharCase = ecNormal
       MaxLength = 0
       TabOrder = 0
+      OnExit = eSerial1Exit
     end
     object cbVersion1: TDBComboBox
       Left = 3
@@ -119,8 +120,8 @@ inherited fRepairImageFrame: TfRepairImageFrame
     end
     object mNotes: TDBMemo
       Left = 132
-      Height = 110
-      Top = 112
+      Height = 94
+      Top = 128
       Width = 420
       Anchors = [akTop, akLeft, akBottom]
       DataField = 'NOTES'
@@ -130,8 +131,8 @@ inherited fRepairImageFrame: TfRepairImageFrame
     end
     object mInternalNotes: TDBMemo
       Left = 559
-      Height = 110
-      Top = 112
+      Height = 94
+      Top = 128
       Width = 295
       Anchors = [akTop, akLeft, akRight, akBottom]
       DataField = 'INTNOTES'
@@ -181,8 +182,72 @@ inherited fRepairImageFrame: TfRepairImageFrame
       Caption = '...'
       OnClick = SpeedButton1Click
     end
+    object gProblems: TExtDBGrid
+      Left = 224
+      Height = 57
+      Top = 56
+      Width = 472
+      Anchors = [akTop, akLeft, akRight]
+      AutoFillColumns = True
+      BorderStyle = bsNone
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'Baugruppe'
+          Width = 153
+          FieldName = 'ASSEMBLY'
+        end      
+        item
+          Title.Caption = 'Bauteil'
+          Width = 153
+          FieldName = 'PART'
+        end      
+        item
+          Title.Caption = 'Fehler'
+          Width = 154
+          FieldName = 'ERROR'
+        end>
+      DataSource = RepairDetail
+      DefaultRowHeight = 21
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete]
+      Scrollbars = ssAutoBoth
+      TabOrder = 8
+      TitleStyle = tsNative
+      WantReturns = False
+      CachedEditing = True
+    end
+    object dnRepairPos: TDBNavigator
+      Left = 696
+      Height = 77
+      Top = 48
+      Width = 24
+      Anchors = [akTop, akRight]
+      BevelOuter = bvNone
+      ChildSizing.EnlargeHorizontal = crsScaleChilds
+      ChildSizing.EnlargeVertical = crsScaleChilds
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 100
+      ClientHeight = 77
+      ClientWidth = 24
+      DataSource = RepairDetail
+      Direction = nbdVertical
+      Flat = True
+      Options = []
+      TabOrder = 9
+      VisibleButtons = [nbInsert, nbDelete, nbPost, nbCancel]
+    end
+    object lNotesforCustomer1: TLabel
+      Left = 224
+      Height = 13
+      Top = 43
+      Width = 93
+      Caption = 'betroffene Bauteile'
+      ParentColor = False
+    end
   end
-  object Timer: TLabel[1]
+  object lInfo: TLabel[1]
     Left = 8
     Height = 13
     Top = 8
@@ -196,23 +261,27 @@ inherited fRepairImageFrame: TfRepairImageFrame
     Transparent = False
   end
   object Position: TDataSource[2]
-    left = 106
-    top = 65
+    left = 136
+    top = 192
   end
   object Repair: TDataSource[3]
-    left = 188
-    top = 65
+    left = 216
+    top = 192
   end
   object Timer1: TTimer[4]
     OnTimer = Timer1Timer
     OnStartTimer = Timer1StartTimer
-    left = 264
-    top = 65
+    left = 318
+    top = 33
   end
   object Timer2: TTimer[5]
     OnTimer = Timer2Timer
     OnStartTimer = Timer2StartTimer
-    left = 335
-    top = 64
+    left = 389
+    top = 32
+  end
+  object RepairDetail: TDataSource[6]
+    left = 304
+    top = 192
   end
 end

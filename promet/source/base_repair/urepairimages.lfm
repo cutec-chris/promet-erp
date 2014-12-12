@@ -1,19 +1,19 @@
 object fRepairImages: TfRepairImages
   Left = 665
-  Height = 480
-  Top = 385
-  Width = 719
+  Height = 486
+  Top = 379
+  Width = 701
   ActiveControl = eFilter
   Caption = 'Fehlerbild'
-  ClientHeight = 480
-  ClientWidth = 719
+  ClientHeight = 486
+  ClientWidth = 701
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poMainFormCenter
   LCLVersion = '1.3'
   object gList: TDBGrid
     Left = 8
-    Height = 392
+    Height = 398
     Top = 40
     Width = 176
     Anchors = [akTop, akLeft, akBottom]
@@ -25,13 +25,13 @@ object fRepairImages: TfRepairImages
         Width = 143
         FieldName = 'NAME'
       end>
-    DataSource = Datasource1
+    DataSource = RepairImage
     TabOrder = 0
     TitleStyle = tsNative
   end
   object eFilter: TEdit
     Left = 8
-    Height = 23
+    Height = 21
     Top = 8
     Width = 176
     OnChange = eFilterEnter
@@ -40,8 +40,8 @@ object fRepairImages: TfRepairImages
   object ButtonPanel1: TButtonPanel
     Left = 6
     Height = 34
-    Top = 440
-    Width = 707
+    Top = 446
+    Width = 689
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
     HelpButton.Name = 'HelpButton'
@@ -54,46 +54,46 @@ object fRepairImages: TfRepairImages
     ShowButtons = [pbOK, pbCancel]
   end
   object pcPages: TExtMenuPageControl
-    Left = 192
-    Height = 424
+    Left = 188
+    Height = 430
     Top = 8
-    Width = 525
-    ActivePage = tsCommon
+    Width = 507
+    ActivePage = tsAdditional
     Anchors = [akTop, akLeft, akRight, akBottom]
     Images = fVisualControls.Images
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 3
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 396
-      ClientWidth = 517
+      ClientHeight = 403
+      ClientWidth = 499
       ImageIndex = 14
       object pCommon: TPanel
         Left = 0
-        Height = 396
+        Height = 403
         Top = 0
-        Width = 517
+        Width = 499
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 396
-        ClientWidth = 517
+        ClientHeight = 403
+        ClientWidth = 499
         TabOrder = 0
         object mSolve: TDBMemo
           Left = 8
-          Height = 168
+          Height = 175
           Top = 216
-          Width = 503
+          Width = 485
           Anchors = [akTop, akLeft, akRight, akBottom]
           DataField = 'SOLVE'
-          DataSource = Datasource1
+          DataSource = RepairImage
           TabOrder = 0
         end
         object Label3: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 192
-          Width = 86
+          Width = 78
           Caption = 'Fehlerbehebung'
           ParentColor = False
         end
@@ -101,27 +101,27 @@ object fRepairImages: TfRepairImages
           Left = 8
           Height = 120
           Top = 64
-          Width = 337
+          Width = 319
           Anchors = [akTop, akLeft, akRight]
           DataField = 'SYMTOMS'
-          DataSource = Datasource1
+          DataSource = RepairImage
           TabOrder = 1
         end
         object Label2: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 48
-          Width = 51
+          Width = 44
           Caption = 'Symtome'
           ParentColor = False
         end
         object eName: TDBEdit
           Left = 8
-          Height = 23
+          Height = 21
           Top = 16
-          Width = 225
+          Width = 207
           DataField = 'NAME'
-          DataSource = Datasource1
+          DataSource = RepairImage
           Anchors = [akTop, akLeft, akRight]
           CharCase = ecNormal
           MaxLength = 0
@@ -129,14 +129,14 @@ object fRepairImages: TfRepairImages
         end
         object Label1: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 0
-          Width = 32
+          Width = 27
           Caption = 'Name'
           ParentColor = False
         end
         object DBNavigator1: TDBNavigator
-          Left = 382
+          Left = 364
           Height = 25
           Top = 14
           Width = 129
@@ -150,25 +150,25 @@ object fRepairImages: TfRepairImages
           ChildSizing.ControlsPerLine = 100
           ClientHeight = 25
           ClientWidth = 129
-          DataSource = Datasource1
+          DataSource = RepairImage
           Options = []
           TabOrder = 3
           VisibleButtons = [nbInsert, nbEdit, nbPost, nbCancel, nbRefresh]
         end
         object cbStatus: TComboBox
-          Left = 239
-          Height = 23
+          Left = 221
+          Height = 21
           Hint = 'hier können Sie den Status des Kontaktes ändern um ihn in neue Zustände zu überführen'
           Top = 16
           Width = 128
           Anchors = [akTop, akRight]
-          ItemHeight = 15
+          ItemHeight = 13
           OnSelect = cbStatusSelect
           Style = csDropDownList
           TabOrder = 4
         end
         object Label6: TLabel
-          Left = 242
+          Left = 224
           Height = 15
           Top = 4
           Width = 124
@@ -182,7 +182,7 @@ object fRepairImages: TfRepairImages
           ParentFont = False
         end
         object pPreviewImage: TPanel
-          Left = 360
+          Left = 342
           Height = 136
           Top = 48
           Width = 151
@@ -345,9 +345,96 @@ object fRepairImages: TfRepairImages
         end
       end
     end
+    object tsAdditional: TTabSheet
+      Caption = 'Zusätzlich'
+      ClientHeight = 403
+      ClientWidth = 499
+      object lNotesforCustomer1: TLabel
+        Left = 8
+        Height = 13
+        Top = 8
+        Width = 93
+        Caption = 'betroffene Bauteile'
+        ParentColor = False
+      end
+      object gProblems: TExtDBGrid
+        Left = 8
+        Height = 110
+        Top = 24
+        Width = 482
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        AutoFillColumns = True
+        BorderStyle = bsNone
+        Color = clWindow
+        Columns = <        
+          item
+            Title.Caption = 'Baugruppe'
+            Width = 156
+            FieldName = 'ASSEMBLY'
+          end        
+          item
+            Title.Caption = 'Bauteil'
+            Width = 156
+            FieldName = 'PART'
+          end        
+          item
+            Title.Caption = 'Fehler'
+            Width = 158
+            FieldName = 'ERROR'
+          end>
+        DataSource = RepairDetail
+        DefaultRowHeight = 21
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete]
+        Scrollbars = ssAutoBoth
+        TabOrder = 0
+        TitleStyle = tsNative
+        WantReturns = False
+        CachedEditing = True
+      end
+      object mInternalNotes: TDBMemo
+        Left = 8
+        Height = 126
+        Top = 272
+        Width = 482
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        DataField = 'INTNOTES'
+        DataSource = RepairImage
+        TabOrder = 1
+        Tabstop = False
+      end
+      object lInternalNotes: TLabel
+        Left = 8
+        Height = 15
+        Top = 256
+        Width = 274
+        Anchors = [akTop, akLeft, akRight]
+        AutoSize = False
+        Caption = 'Interne Notizen'
+        ParentColor = False
+      end
+      object mNotes: TDBMemo
+        Left = 8
+        Height = 94
+        Top = 152
+        Width = 482
+        Anchors = [akTop, akLeft, akRight]
+        DataField = 'NOTES'
+        DataSource = RepairImage
+        TabOrder = 2
+        Tabstop = False
+      end
+      object lNotesforCustomer: TLabel
+        Left = 8
+        Height = 13
+        Top = 136
+        Width = 86
+        Caption = 'Notizen für Kunde'
+        ParentColor = False
+      end
+    end
   end
-  object Datasource1: TDatasource
-    OnStateChange = Datasource1StateChange
+  object RepairImage: TDataSource
+    OnStateChange = RepairImageStateChange
     left = 40
     top = 152
   end
@@ -385,5 +472,9 @@ object fRepairImages: TfRepairImages
   object OpenPictureDialog1: TOpenPictureDialog
     left = 40
     top = 208
+  end
+  object RepairDetail: TDataSource
+    left = 120
+    top = 152
   end
 end

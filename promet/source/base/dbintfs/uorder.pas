@@ -86,6 +86,7 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FDSDataChange(Sender: TObject; Field: TField);
   private
+    FDetail: TOrderRepairDetail;
     FHistory: TBaseHistory;
     FStatus : string;
     FImages: TImages;
@@ -97,6 +98,7 @@ type
     destructor Destroy; override;
     procedure Open; override;
     function CreateTable: Boolean; override;
+    property RepairDetail : TOrderRepairDetail read FDetail;
     property History : TBaseHistory read FHistory;
     property Images : TImages read FImages;
     property Links : TRepairImageLinks read FLinks;
@@ -243,6 +245,9 @@ begin
             Add('SYMTOMS',ftString,800,False);
             Add('DESC',ftMemo,0,False);
             Add('SOLVE',ftMemo,0,False);
+            Add('NOTES',ftMemo,0,False);
+            Add('INTNOTES',ftMemo,0,False);
+            Add('COUNTER',ftInteger,0,False);
           end;
     end;
 end;
@@ -266,6 +271,7 @@ begin
   FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
   FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
   FLinks := TRepairImageLinks.CreateEx(Self,DM,aConnection);
+  FDetail := TOrderRepairDetail.CreateExIntegrity(Self,DM,False,aConnection,DataSet);
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
   FDS.OnDataChange:=@FDSDataChange;
@@ -274,6 +280,7 @@ end;
 destructor TOrderRepairImages.Destroy;
 begin
   FDS.Destroy;
+  FDetail.Free;
   FLinks.Destroy;
   FImages.Destroy;
   FHistory.Destroy;

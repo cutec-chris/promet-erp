@@ -1154,6 +1154,7 @@ begin
             Add('COMPRICE',ftFloat,0,False);                //Common Price
             Add('DISCOUNT',ftFloat,0,False);                //Rabatt
             Add('VAT',ftSmallInt,0,False);                  //MwSt Typ
+            Add('REPAIRTIME',ftFloat,0,False);              //reparaturzeit
             Add('POSPRICE',ftFloat,0,False);                //Gesamtpreis
             Add('GROSSPRICE',ftFloat,0,False);              //Bruttoprice
             Add('PARENT',ftLargeInt,0,False);
