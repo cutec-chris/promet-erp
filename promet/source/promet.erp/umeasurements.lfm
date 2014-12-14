@@ -10,9 +10,9 @@ inherited fMeasurementFrame: TfMeasurementFrame
     Height = 385
     Top = 0
     Width = 699
-    ActivePage = tsData
+    ActivePage = Diagramm
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object tsData: TTabSheet
       Caption = 'Daten'
@@ -45,8 +45,11 @@ inherited fMeasurementFrame: TfMeasurementFrame
             FieldName = 'ID'
           end        
           item
+            ButtonStyle = cbsCheckboxColumn
             Title.Caption = 'CHART'
             Width = 20
+            ValueChecked = 'Y'
+            ValueUnchecked = 'N'
             FieldName = 'CHART'
           end>
         DataSource = Measurements
@@ -85,6 +88,98 @@ inherited fMeasurementFrame: TfMeasurementFrame
         TitleStyle = tsNative
       end
     end
+    object Diagramm: TTabSheet
+      Caption = 'Diagramm'
+      ClientHeight = 352
+      ClientWidth = 693
+      object Chart1: TChart
+        Left = 0
+        Height = 312
+        Top = 26
+        Width = 693
+        AxisList = <        
+          item
+            Grid.Color = clSilver
+            Minors = <>
+            Title.LabelFont.Orientation = 900
+          end        
+          item
+            Grid.Color = clSilver
+            Alignment = calBottom
+            Minors = <>
+          end        
+          item
+            Visible = False
+            Alignment = calRight
+            Minors = <>
+          end>
+        BackColor = clWindow
+        Foot.Brush.Color = clBtnFace
+        Foot.Font.Color = clBlue
+        Title.Brush.Color = clBtnFace
+        Title.Font.Color = clBlue
+        Title.Text.Strings = (
+          'TAChart'
+        )
+        Align = alClient
+        DoubleBuffered = True
+        ParentColor = False
+        object Chart1LineSeries1: TLineSeries
+        end
+      end
+      object ChartNavScrollBar1: TChartNavScrollBar
+        Left = 0
+        Height = 14
+        Top = 338
+        Width = 693
+        Chart = Chart1
+        Align = alBottom
+        PageSize = 0
+        TabOrder = 1
+      end
+      object ToolBar1: TToolBar
+        Left = 0
+        Height = 26
+        Top = 0
+        Width = 693
+        Caption = 'ToolBar1'
+        EdgeBorders = []
+        ShowCaptions = True
+        TabOrder = 2
+        object ToolButton1: TToolButton
+          Left = 86
+          Top = 0
+          Action = DataSetPrior1
+        end
+        object ToolButton2: TToolButton
+          Left = 137
+          Top = 0
+          Action = DataSetNext1
+        end
+        object ToolButton3: TToolButton
+          Left = 164
+          Top = 0
+          Width = 10
+          Caption = 'ToolButton3'
+          Style = tbsSeparator
+        end
+        object ToolButton4: TToolButton
+          Left = 174
+          Top = 0
+          Action = acZoomOut
+        end
+        object ToolButton5: TToolButton
+          Left = 224
+          Top = 0
+          Action = acZoomIn
+        end
+        object ToolButton6: TToolButton
+          Left = 1
+          Top = 0
+          Action = acRefresh
+        end
+      end
+    end
   end
   object Measurements: TDatasource[1]
     left = 16
@@ -93,5 +188,37 @@ inherited fMeasurementFrame: TfMeasurementFrame
   object MeasurementData: TDatasource[2]
     left = 16
     top = 176
+  end
+  object DateTimeIntervalChartSource1: TDateTimeIntervalChartSource[3]
+    Params.Count = 10
+    Params.MaxLength = 150
+    Params.MinLength = 20
+    Params.Options = [aipUseCount, aipUseMaxLength, aipUseMinLength, aipUseNiceSteps]
+    left = 72
+    top = 176
+  end
+  object ActionList1: TActionList[4]
+    left = 72
+    top = 120
+    object DataSetPrior1: TDataSetPrior
+      Category = 'Database'
+      Caption = '&Zurück'
+      Hint = 'Prior'
+    end
+    object DataSetNext1: TDataSetNext
+      Category = 'Database'
+      Caption = '&Vor'
+      Hint = 'Next'
+    end
+    object acZoomOut: TAction
+      Caption = 'Zoom -'
+    end
+    object acZoomIn: TAction
+      Caption = 'Zoom +'
+    end
+    object acRefresh: TAction
+      Caption = 'Aktualisieren'
+      OnExecute = acRefreshExecute
+    end
   end
 end

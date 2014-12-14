@@ -20,14 +20,26 @@ unit umeasurements;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, DbCtrls, DBGrids,
-  Buttons, StdCtrls, db, uPrometFramesInplaceDB, uExtControls, uBaseDbClasses,
-  Clipbrd, ActnList, StdActns, ComCtrls,uMeasurement, types;
+  Classes, SysUtils, FileUtil, TAGraph, TASources, TAStyles, TALegendPanel,
+  TANavigation, TAIntervalSources, TASeries, TADbSource, Forms, Controls,
+  ExtCtrls, DbCtrls, DBGrids, Buttons, StdCtrls, db, uPrometFramesInplaceDB,
+  uExtControls, uBaseDbClasses, Clipbrd, ActnList, StdActns, ComCtrls, DBActns,
+  uMeasurement, types, uBaseVisualControls,TACustomSeries;
 type
 
   { TfMeasurementFrame }
 
   TfMeasurementFrame = class(TPrometInplaceDBFrame)
+    acRefresh: TAction;
+    acZoomIn: TAction;
+    acZoomOut: TAction;
+    ActionList1: TActionList;
+    Chart1: TChart;
+    Chart1LineSeries1: TLineSeries;
+    ChartNavScrollBar1: TChartNavScrollBar;
+    DataSetNext1: TDataSetNext;
+    DataSetPrior1: TDataSetPrior;
+    DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
     MeasurementData: TDatasource;
     Measurements: TDatasource;
     EditCopy1: TEditCopy;
@@ -35,9 +47,19 @@ type
     gAdresses: TDBGrid;
     gAdresses1: TDBGrid;
     PageControl1: TPageControl;
+    Diagramm: TTabSheet;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
     tsData: TTabSheet;
+    procedure acRefreshExecute(Sender: TObject);
   private
     { private declarations }
+    Zoom : TDateTime;
   public
     { public declarations }
     constructor Create(AOwner : TComponent);override;
@@ -50,9 +72,36 @@ implementation
 {$R *.lfm}
 uses uData,Utils;
 
+procedure TfMeasurementFrame.acRefreshExecute(Sender: TObject);
+var
+  aSeries: TLineSeries;
+begin
+  with FDataSet as TMeasurement do
+    begin
+      First;
+      Chart1.Series.Clear;
+      while not EOF do
+        begin
+          if FieldByName('CHART').AsString='Y' then
+            begin
+              aSeries := TLineSeries.Create(Chart1);
+              Data.First;
+              while not Data.EOF do
+                begin
+                  aSeries.AddXY(Data.FieldByName('DATE').AsFloat,Data.FieldByName('DATA').AsFloat);
+                  Data.Next;
+                end;
+              Chart1.AddSeries(aSeries);
+            end;
+          Next;
+        end;
+    end;
+end;
+
 constructor TfMeasurementFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  Zoom := 1;
 end;
 
 destructor TfMeasurementFrame.Destroy;
