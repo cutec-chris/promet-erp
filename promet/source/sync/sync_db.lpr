@@ -143,7 +143,7 @@ begin
             (BaseApplication as IBaseApplication).Warning(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]))
           else
             (BaseApplication as IBaseApplication).Error(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]));
-          aSyncError := TSyncItems.Create(nil,SyncDB.DataModule);
+          aSyncError := TSyncItems.CreateEx(nil,SyncDB.DataModule);
           aSyncError.Insert;
           aSyncError.FieldByName('LOCAL_ID').AsVariant:=SyncTbl.FieldByName('SQL_ID').AsVariant;
           aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
@@ -179,7 +179,7 @@ begin
               (BaseApplication as IBaseApplication).Info(Format(strRowDeleteFailed,[aDelTable,aSource.FieldByName('REF_ID_ID').AsString,e.Message]));
             end
           else (BaseApplication as IBaseApplication).Info(Format(strRowDeleteFailed,[aDelTable,aSource.FieldByName('REF_ID_ID').AsString,e.Message]));
-          aSyncError := TSyncItems.Create(nil,SyncDB.DataModule);
+          aSyncError := TSyncItems.CreateEx(nil,SyncDB.DataModule);
           aSyncError.Insert;
           aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
           aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
@@ -201,7 +201,7 @@ begin
   end;
 end;
 procedure TSyncDBApp.SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule);
-function BuildFilter(SourceDM,DestDM : TBaseDBModule;aTime : TDateTime = 0) : string;
+function BuildFilter(aSourceDM,aDestDM : TBaseDBModule;aTime : TDateTime = 0) : string;
 var
   aFilter: String;
 begin
@@ -215,16 +215,16 @@ begin
         aTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
       if BaseApplication.HasOption('w','wholeday') then
         begin
-          aFilter := '(('+SourceDM.QuoteField('TIMESTAMPD')+'=';
-          aFilter := aFilter+SourceDM.DateToFilter(aTime);
-          aFilter := aFilter+')) or ('+SourceDM.QuoteField('TIMESTAMPD')+'>';
-          aFilter := aFilter+SourceDM.DateToFilter(aTime);
+          aFilter := '(('+aSourceDM.QuoteField('TIMESTAMPD')+'=';
+          aFilter := aFilter+aSourceDM.DateToFilter(aTime);
+          aFilter := aFilter+')) or ('+aSourceDM.QuoteField('TIMESTAMPD')+'>';
+          aFilter := aFilter+aSourceDM.DateToFilter(aTime);
           aFilter := aFilter+')';
         end
       else
         begin
-          aFilter := '('+SourceDM.QuoteField('TIMESTAMPD')+'>';
-          aFilter := aFilter+SourceDM.DateTimeToFilter(aTime);
+          aFilter := '('+aSourceDM.QuoteField('TIMESTAMPD')+'>';
+          aFilter := aFilter+aSourceDM.DateTimeToFilter(aTime);
           aFilter := aFilter+')';
         end;
     end;
@@ -256,7 +256,7 @@ begin
         (BaseApplication as IBaseApplication).Warning(Format(strTableNotExists,[SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
       exit;
     end;
-  aSyncStamps := TSyncStamps.Create(Self,DestDM);
+  aSyncStamps := TSyncStamps.CreateEx(Self,DestDM);
   aSyncStamps.CreateTable;
   aFilter := BuildFilter(SourceDM,DestDM);
   bFilter := Data.QuoteField('NAME')+'='+Data.QuoteValue(aTableName);
@@ -300,6 +300,7 @@ begin
       aSyncOut := SourceDM.GetNewDataSet(aSQL);
       aSyncOut.Open;
     end;
+  aFilter := BuildFilter(DestDM,SourceDM,aSyncTime);
   if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
     begin
       if trim(SyncDB.Tables.DataSet.FieldByName('FILTERIN').AsString) <> '' then
@@ -431,10 +432,10 @@ begin
   Info('login ok.');
   DecodeDate(Now(),y,m,d);
   DecodeTime(Now(),h,mm,s,ss);
-  SyncDB := TSyncDB.Create(Self,Data);
+  SyncDB := TSyncDB.CreateEx(Self,Data);
   SyncDB.CreateTable;
   SyncDB.Open;
-  aSyncError := TSyncItems.Create(nil,SyncDB.DataModule);
+  aSyncError := TSyncItems.CreateEx(nil,SyncDB.DataModule);
   aSyncError.CreateTable;
   aSyncError.Free;
   while not SyncDB.DataSet.EOF do
@@ -484,22 +485,22 @@ begin
                                       if SyncDB.Tables.DataSet.Locate('NAME','USERFIELDDEFS',[loCaseInSensitive]) then
                                         begin
                                           SyncTable(SyncDB,uData.Data,FDest.GetDB);
-                                          aTable := TDeletedItems.Create(Self,FDest.GetDB);
+                                          aTable := TDeletedItems.CreateEx(Self,FDest.GetDB);
                                           aTable.CreateTable;
                                           aTable.Free;
-                                          aTable := TSyncStamps.Create(Self,uData.Data);
+                                          aTable := TSyncStamps.CreateEx(Self,uData.Data);
                                           aTable.CreateTable;
                                           aTable.Free;
-                                          aTable := TOrder.Create(Self,uData.Data);
+                                          aTable := TOrder.CreateEx(Self,uData.Data);
                                           aTable.CreateTable;
                                           aTable.Open;
                                           TOrder(aTable).Positions.Open;
                                           aTable.Free;
-                                          aTable := TPerson.Create(Self,uData.Data);
+                                          aTable := TPerson.CreateEx(Self,uData.Data);
                                           aTable.CreateTable;
                                           aTable.Open;
                                           aTable.Free;
-                                          aTable := TMasterdata.Create(Self,uData.Data);
+                                          aTable := TMasterdata.CreateEx(Self,uData.Data);
                                           aTable.CreateTable;
                                           aTable.Open;
                                           aTable.Free;
@@ -528,28 +529,7 @@ begin
                         end;
                     if FAddLog then
                       begin
-      //                  FDest.GetDB.Tree.ImportStandartEntrys;
-                        aMessage := TMessage.Create(Self,FDest.GetDB);
-                        aMessage.CreateTable;
-                        aMessage.Insert;
-                        aMessage.DataSet.FieldByName('SQL_ID').AsVariant := Data.GetUniID;
-                        aMessage.DataSet.FieldByName('SUBJECT').AsString:='Synclog '+DateTimeToStr(Now());
-                        aMessage.DataSet.FieldByName('TREEENTRY').AsInteger:=TREE_ID_LOG_MESSAGES;
-                        aMessage.DataSet.FieldByName('USER').AsString := Data.Users.DataSet.FieldByName('ACCOUNTNO').AsString;
-                        aMessage.DataSet.FieldByName('MSG_ID').AsVariant :=  aMessage.DataSet.FieldByName('SQL_ID').AsVariant;
-                        aMessage.DataSet.FieldByName('TYPE').AsString := 'LOG';
-                        aMessage.DataSet.FieldByName('SENDER').AsString := 'SyncDB';
-                        aMessage.DataSet.FieldByName('SENDDATE').AsDateTime := Now();
-                        aMessage.DataSet.FieldByName('READ').AsString := 'N';
-                        aMessage.DataSet.Post;
-                        aMessage.Content.Insert;
-                        aMessage.Content.DataSet.FieldByName('DATATYP').AsString:='TEXT';
-                        aMessage.Content.DataSet.FieldByName('DATA').AsString:=FLog.Text;
-                        aMessage.Content.DataSet.Post;
-                        aMessage.Free;
-
-      //                  Data.Tree.ImportStandartEntrys;
-                        aMessage := TMessage.Create(Self,Data);
+                        aMessage := TMessage.CreateEx(Self,Data);
                         aMessage.CreateTable;
                         aMessage.Insert;
                         aMessage.DataSet.FieldByName('SQL_ID').AsVariant := Data.GetUniID;
@@ -600,4 +580,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+
