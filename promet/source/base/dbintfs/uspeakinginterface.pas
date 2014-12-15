@@ -42,7 +42,7 @@ uses uData,genpascalscript;
 function TSpeakingInterface.CheckSentence(aSentence: string): Boolean;
 begin
   Result:=False;
-  Filter(Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('CmdLn.*')),0,'TIMESTAMPD','DESC');
+  FilterEx(Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('CmdLn.*')),0,'TIMESTAMPD','DESC');
   First;
   while not EOF do
     begin

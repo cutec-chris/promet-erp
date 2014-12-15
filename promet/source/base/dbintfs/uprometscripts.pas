@@ -272,7 +272,7 @@ begin
             RegisterMethod('function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean;');
             RegisterMethod('function EOF : Boolean;');
             //RegisterMethod('function FieldByName(const aFieldName : string) : TField;');
-            RegisterMethod('procedure Filter(aFilter : string;aLimit : Integer;aOrderBy : string;aSortDirection : string;aLocalSorting : Boolean;aGlobalFilter : Boolean;aUsePermissions : Boolean;aFilterIn : string);');
+            RegisterMethod('procedure Filter(aFilter : string;aLimit : Integer);');
             RegisterProperty('ActualFilter','String',iptRW);
             RegisterProperty('ActualLimit','Integer',iptRW);
             RegisterProperty('DataSet','TDataSet',iptRW);
@@ -454,6 +454,12 @@ begin
             RegisterMethod('function GetLinkLongDesc(aLink : string) : string;');
             RegisterMethod('function GetLinkIcon(aLink : string) : Integer;');
 
+            RegisterMethod('function QuoteField(aField : string) : string;');
+            RegisterMethod('function QuoteValue(aValue : string) : string;');
+            RegisterMethod('function EscapeString(aValue : string) : string;');
+            RegisterMethod('function DateToFilter(aValue : TDateTime) : string;');
+            RegisterMethod('function DateTimeToFilter(aValue : TDateTime) : string;');
+
             RegisterProperty('Users','TUser',iptR);
           end;
         with Sender.ClassImporter.Add(TBaseDBModule) do
@@ -464,6 +470,12 @@ begin
             RegisterVirtualMethod(@TBaseDBModule.GetLinkDesc, 'GETLINKDESC');
             RegisterVirtualMethod(@TBaseDBModule.GetLinkLongDesc, 'GETLINKLONGDESC');
             RegisterVirtualMethod(@TBaseDBModule.GetLinkIcon, 'GETLINKICON');
+
+            RegisterVirtualMethod(@TBaseDBModule.QuoteField, 'QUOTEFIELD');
+            RegisterVirtualMethod(@TBaseDBModule.QuoteValue, 'QUOTEVALUE');
+            RegisterVirtualMethod(@TBaseDBModule.EscapeString, 'ESCAPESTRING');
+            RegisterVirtualMethod(@TBaseDBModule.DateToFilter, 'DATETOFILTER');
+            RegisterVirtualMethod(@TBaseDBModule.DateTimeToFilter, 'DATETIMETOFILTER');
 
             RegisterPropertyHelper(@TBaseDBModulePropertyUsersR,nil,'USERS');
           end;

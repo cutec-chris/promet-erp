@@ -842,9 +842,9 @@ var
                   if (aDs.ActualFilter<>'') and (aFilter<>'') then
                     aDs.Filter('('+aDs.ActualFilter+') AND ('+aFilter+')',aLimit)
                   else if (aFilter = '') and (aDs.ActualFilter<>'') then
-                    aDs.Filter('('+aDs.ActualFilter+')',aLimit,aOrder,aOrderDirStr)
+                    aDs.FilterEx('('+aDs.ActualFilter+')',aLimit,aOrder,aOrderDirStr)
                   else
-                    aDs.Filter(aFilter,aLimit,aOrder,aOrderDirStr);
+                    aDs.FilterEx(aFilter,aLimit,aOrder,aOrderDirStr);
                   while not aDS.EOF do
                     begin
                       case aType of

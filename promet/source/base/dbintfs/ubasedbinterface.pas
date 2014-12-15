@@ -1382,7 +1382,7 @@ procedure TBaseDBModule.SetFilter(DataSet: TbaseDBDataSet; aFilter: string;
   aFilterIn: string);
 begin
   if CheckForInjection(aFilter) then exit;
-  DataSet.Filter(aFilter,aLimit,aOrderBy,aSortDirection,aLocalSorting,aGlobalFilter,aUsePermissions,aFilterIn);
+  DataSet.FilterEx(aFilter,aLimit,aOrderBy,aSortDirection,aLocalSorting,aGlobalFilter,aUsePermissions,aFilterIn);
 end;
 procedure TBaseDBModule.AppendUserToActiveList;
 begin

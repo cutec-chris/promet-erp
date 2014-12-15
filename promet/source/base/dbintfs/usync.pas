@@ -377,7 +377,7 @@ begin
           Result := TJSONArray.Create;
           //Find Last Sync Time
           aSyncFilter := TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('USER_ID')+'='+TBaseDBModule(DataModule).QuoteValue(TBaseDBModule(DataModule).Users.ID.AsString)+' AND '+TBaseDBModule(DataModule).QuoteField('SYNCTABLE')+'='+TBaseDBModule(DataModule).QuoteValue(aInternal.TableName);
-          Filter(aSyncFilter,0,'SYNC_TIME');
+          FilterEx(aSyncFilter,0,'SYNC_TIME');
           Last;
           //add all items to aInternal that are synced ever
           aIntFilter := aInternal.ActualFilter;
@@ -675,7 +675,7 @@ begin
 end;
 function TSyncItems.LastSync(SyncType, SyncTable: string): TDateTime;
 begin
-  Filter(TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('SYNCTABLE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncTable),0,'SYNC_TIME');
+  FilterEx(TBaseDBModule(DataModule).QuoteField('SYNCTYPE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncType)+' AND '+TBaseDBModule(DataModule).QuoteField('SYNCTABLE')+'='+TBaseDBModule(DataModule).QuoteValue(SyncTable),0,'SYNC_TIME');
   Last;
   Result := SyncTime.AsDateTime;
 end;

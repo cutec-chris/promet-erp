@@ -119,7 +119,8 @@ type
     function FieldByName(const aFieldName : string) : TField;
     procedure Assign(Source: TPersistent); override;
     procedure DirectAssign(Source : TPersistent);
-    procedure Filter(aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');virtual;
+    procedure Filter(aFilter : string;aLimit : Integer = 0);virtual;
+    procedure FilterEx(aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');virtual;
     property ActualFilter : string read GetFilter write SetFilter;
     property ActualLimit : Integer read GetLimit write SetLimit;
     property SortFields : string read GetSortFields write SetSortFields;
@@ -1541,7 +1542,7 @@ begin
         DataSet.FieldByName(TBaseDBDataSet(Source).DataSet.Fields[i].FieldName).AsVariant:=TBaseDBDataSet(Source).DataSet.Fields[i].AsVariant;
 end;
 
-procedure TBaseDBDataset.Filter(aFilter: string; aLimit: Integer;
+procedure TBaseDBDataset.FilterEx(aFilter: string; aLimit: Integer;
   aOrderBy: string; aSortDirection: string; aLocalSorting: Boolean;
   aGlobalFilter: Boolean; aUsePermissions: Boolean; aFilterIn: string);
 begin
@@ -1560,6 +1561,11 @@ begin
       Filter := aFilter;
     end;
   Open;
+end;
+
+procedure TBaseDBDataset.Filter(aFilter: string; aLimit: Integer);
+begin
+  FilterEx(aFilter,aLimit);
 end;
 
 procedure TBaseHistory.OpenItem(AccHistory: Boolean);

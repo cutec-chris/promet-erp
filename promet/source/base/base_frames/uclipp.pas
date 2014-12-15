@@ -35,7 +35,7 @@ type
     procedure DefineFields(aDataSet: TDataSet); override;
   public
     procedure Select(aID: Variant); override;
-    procedure Filter(aFilter: string; aLimit: Integer=0; aOrderBy: string='';
+    procedure FilterEx(aFilter: string; aLimit: Integer=0; aOrderBy: string='';
       aSortDirection: string='ASC'; aLocalSorting: Boolean=False;
       aGlobalFilter: Boolean=True; aUsePermissions: Boolean=False;
       aFilterIn: string='');override;
@@ -107,7 +107,7 @@ begin
     Fields := tmpFields;
 end;
 
-procedure TClipp.Filter(aFilter: string; aLimit: Integer; aOrderBy: string;
+procedure TClipp.FilterEx(aFilter: string; aLimit: Integer; aOrderBy: string;
   aSortDirection: string; aLocalSorting: Boolean; aGlobalFilter: Boolean;
   aUsePermissions: Boolean; aFilterIn: string);
 var
@@ -116,7 +116,7 @@ begin
   tmpfields := GetUsedFields;
   with Self.DataSet as IBaseDBFilter do
     Fields := tmpFields;
-  inherited Filter(aFilter, aLimit, aOrderBy, aSortDirection, aLocalSorting,
+  inherited FilterEx(aFilter, aLimit, aOrderBy, aSortDirection, aLocalSorting,
     aGlobalFilter, aUsePermissions, aFilterIn);
 end;
 
