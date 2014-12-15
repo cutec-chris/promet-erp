@@ -433,6 +433,12 @@ begin
             RegisterPropertyHelper(@TUserPropertyFollowsR,nil,'FOLLOWS');
             RegisterPropertyHelper(@TUserPropertyOptionsR,nil,'OPTIONS');
           end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDbDataSet'),TActiveUsers) do
+          begin
+          end;
+        with Sender.ClassImporter.Add(TActiveUsers) do
+          begin
+          end;
 
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBModule) do
           begin
