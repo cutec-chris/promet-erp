@@ -226,6 +226,7 @@ procedure TUserPropertyFollowsR(Self: TUser; var T: TFollowers); begin T := Self
 procedure TUserPropertyOptionsR(Self: TUser; var T: TOptions); begin T := Self.Options; end;
 procedure TBaseDBDatasetPropertyDataSetR(Self: TBaseDBDataset; var T: TDataSet); begin T := Self.DataSet; end;
 procedure TBaseDBModulePropertyUsersR(Self: TBaseDBModule; var T: TUser); begin T := Self.Users; end;
+procedure TBaseDBDatasetPropertyCountR(Self: TBaseDBDataSet; var T: Integer); begin T := Self.Count; end;
 
 function TBaseScript.TPascalScriptUses(Sender: TPascalScript;
   const aName: tbtString): Boolean;
@@ -276,6 +277,7 @@ begin
             RegisterProperty('ActualFilter','String',iptRW);
             RegisterProperty('ActualLimit','Integer',iptRW);
             RegisterProperty('DataSet','TDataSet',iptRW);
+            RegisterProperty('Count','Integer',iptRW);
           end;
         with Sender.ClassImporter.Add(TBaseDBDataset) do
           begin
@@ -296,6 +298,7 @@ begin
             //RegisterVirtualMethod(@TBaseDBDataset.FieldByName, 'FIELDBYNAME'); error on execute
             RegisterVirtualMethod(@TBaseDBDataset.Filter, 'FILTER');
             RegisterPropertyHelper(@TBaseDBDatasetPropertyDataSetR,nil,'DATASET');
+            RegisterPropertyHelper(@TBaseDBDatasetPropertyCountR,nil,'COUNT');
           end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataSet'),TBaseDbList) do
           begin
