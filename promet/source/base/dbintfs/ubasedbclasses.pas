@@ -2850,32 +2850,8 @@ begin
   with FDataSet as IBaseManageDB do
     if (Assigned(Data)) and (Data.ShouldCheckTable(TableName,False)) then
       Self.CreateTable;
-  try
-    with DataSet as IBaseManageDB do
-      begin
-        FDataSet.Open
-      end;
-  except
-    on e : Exception do
-      begin
-        aErr := e.Message;
-        //debugln(e.Message);
-        Retry := True;
-      end;
-  end;
-  if Retry then
-    begin
-      while FDataSet.ControlsDisabled do
-        FDataSet.EnableControls;
-      try
-        FDataSet.Open;
-      except
-        begin
-          raise Exception.Create(aErr);
-          exit;
-        end;
-      end;
-    end;
+  with DataSet as IBaseManageDB do
+    FDataSet.Open;
   if DataSet.Active and FDisplayLabelsWasSet then
     SetDisplayLabels(DataSet);
 end;

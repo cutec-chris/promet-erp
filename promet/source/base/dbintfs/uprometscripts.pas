@@ -462,6 +462,7 @@ begin
             RegisterMethod('function EscapeString(aValue : string) : string;');
             RegisterMethod('function DateToFilter(aValue : TDateTime) : string;');
             RegisterMethod('function DateTimeToFilter(aValue : TDateTime) : string;');
+            RegisterMethod('function ProcessTerm(aTerm : string) : string;');
 
             RegisterProperty('Users','TUser',iptR);
           end;
@@ -479,6 +480,7 @@ begin
             RegisterVirtualMethod(@TBaseDBModule.EscapeString, 'ESCAPESTRING');
             RegisterVirtualMethod(@TBaseDBModule.DateToFilter, 'DATETOFILTER');
             RegisterVirtualMethod(@TBaseDBModule.DateTimeToFilter, 'DATETIMETOFILTER');
+            RegisterVirtualMethod(@TBaseDBModule.ProcessTerm, 'PROCESSTERM');
 
             RegisterPropertyHelper(@TBaseDBModulePropertyUsersR,nil,'USERS');
           end;
