@@ -39,7 +39,7 @@ type
     ChartNavScrollBar1: TChartNavScrollBar;
     DataSetNext1: TDataSetNext;
     DataSetPrior1: TDataSetPrior;
-    DateTimeIntervalChartSource1: TDateTimeIntervalChartSource;
+    DateTimeIntervalChartSource2: TDateTimeIntervalChartSource;
     MeasurementData: TDatasource;
     Measurements: TDatasource;
     EditCopy1: TEditCopy;
@@ -70,7 +70,7 @@ type
 
 implementation
 {$R *.lfm}
-uses uData,Utils;
+uses uData,Utils,Graphics;
 
 procedure TfMeasurementFrame.acRefreshExecute(Sender: TObject);
 var
@@ -85,6 +85,7 @@ begin
           if FieldByName('CHART').AsString='Y' then
             begin
               aSeries := TLineSeries.Create(Chart1);
+              aSeries.LinePen.Color:=StringToColorDef(FieldByName('COLOR').AsString,clRed);
               Data.First;
               while not Data.EOF do
                 begin
@@ -92,6 +93,11 @@ begin
                   Data.Next;
                 end;
               Chart1.AddSeries(aSeries);
+              if FieldByName('POSITION').AsString='R' then
+                begin
+                  Chart1.AxisList[2].Visible:=True;
+                  aSeries.AxisIndexY:=2;
+                end;
             end;
           Next;
         end;

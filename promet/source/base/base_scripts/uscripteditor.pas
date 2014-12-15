@@ -440,10 +440,22 @@ begin
 end;
 
 procedure TfScriptEditor.acRunExecute(Sender: TObject);
+var
+  sl: TStringList;
+  i: Integer;
 begin
   gResults.Visible := False;
   messages.Visible := True;
   fLastScriptEditor := Self;
+  sl := TStringList.Create;
+  sl.Text:=FDataSet.FieldByName('SCRIPT').AsString;
+  i := 0;
+  while i<sl.Count do
+    begin
+      if copy(sl[i],0,2)='--' then
+        sl.Delete(i)
+      else inc(i);
+    end;
   if Assigned(SelectData.DataSet) then
     begin
       SelectData.DataSet.Free;
@@ -467,7 +479,7 @@ begin
       acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
       acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
     end
-  else if (lowercase(FDataSet.FieldByName('SYNTAX').AsString)='sql') and (copy(lowercase(trim(FDataSet.FieldByName('SCRIPT').AsString)),0,7)='select ') then
+  else if (lowercase(FDataSet.FieldByName('SYNTAX').AsString)='sql') and (copy(lowercase(sl.Text),0,7)='select ') then
     begin
       gResults.Visible := True;
       messages.Visible := False;
@@ -487,6 +499,7 @@ begin
       acStepinto.Enabled:=False;
       acStepover.Enabled:=False;
     end;
+  sl.Free;
 end;
 
 procedure TfScriptEditor.acRunRemoteExecute(Sender: TObject);

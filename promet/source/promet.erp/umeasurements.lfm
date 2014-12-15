@@ -46,11 +46,30 @@ inherited fMeasurementFrame: TfMeasurementFrame
           end        
           item
             ButtonStyle = cbsCheckboxColumn
-            Title.Caption = 'CHART'
+            Title.Caption = 'Diagramm'
             Width = 20
             ValueChecked = 'Y'
             ValueUnchecked = 'N'
             FieldName = 'CHART'
+          end        
+          item
+            Title.Caption = 'Farbe'
+            Width = 50
+            FieldName = 'COLOR'
+          end        
+          item
+            Title.Caption = 'Bereich'
+            Width = 50
+            FieldName = 'RANGE'
+          end        
+          item
+            PickList.Strings = (
+              'L Links'
+              'R Rechts'
+            )
+            Title.Caption = 'Position'
+            Width = 40
+            FieldName = 'POSITION'
           end>
         DataSource = Measurements
         DefaultRowHeight = 22
@@ -106,6 +125,9 @@ inherited fMeasurementFrame: TfMeasurementFrame
           item
             Grid.Color = clSilver
             Alignment = calBottom
+            Marks.Format = '%2:s'
+            Marks.Source = DateTimeIntervalChartSource2
+            Marks.Style = smsLabel
             Minors = <>
           end        
           item
@@ -189,15 +211,7 @@ inherited fMeasurementFrame: TfMeasurementFrame
     left = 16
     top = 176
   end
-  object DateTimeIntervalChartSource1: TDateTimeIntervalChartSource[3]
-    Params.Count = 10
-    Params.MaxLength = 150
-    Params.MinLength = 20
-    Params.Options = [aipUseCount, aipUseMaxLength, aipUseMinLength, aipUseNiceSteps]
-    left = 72
-    top = 176
-  end
-  object ActionList1: TActionList[4]
+  object ActionList1: TActionList[3]
     left = 72
     top = 120
     object DataSetPrior1: TDataSetPrior
@@ -220,5 +234,12 @@ inherited fMeasurementFrame: TfMeasurementFrame
       Caption = 'Aktualisieren'
       OnExecute = acRefreshExecute
     end
+  end
+  object DateTimeIntervalChartSource2: TDateTimeIntervalChartSource[4]
+    Params.MaxLength = 150
+    Params.MinLength = 20
+    Params.Options = [aipUseCount, aipUseMaxLength, aipUseMinLength, aipUseNiceSteps]
+    left = 72
+    top = 176
   end
 end
