@@ -60,7 +60,7 @@ begin
     end;
   if not Login then Terminate;
   //Your logged in here on promet DB
-  aObject := TObjects.Create(nil,Data);
+  aObject := TObjects.Create(nil);
   Server.Bind(cAnyHost,'1514');
   if Server.LastError = 0 then
     begin
