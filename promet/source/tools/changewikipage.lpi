@@ -50,7 +50,6 @@
       <Unit0>
         <Filename Value="changewikipage.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="changewikipage"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\..\output\x86_64-linux\downloads.txt"/>
@@ -78,11 +77,9 @@
     <Other>
       <CompilerMessages>
         <IgnoredMessages idx5024="True"/>
-        <UseMsgFile Value="True"/>
       </CompilerMessages>
       <CustomOptions Value="-dHASREPORTS
 -dSTATISTICS"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>
