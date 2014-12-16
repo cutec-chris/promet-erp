@@ -4,7 +4,7 @@ object fMain: TfMain
   Top = 321
   Width = 340
   Caption = 'Archivestore'
-  ClientHeight = 130
+  ClientHeight = 131
   ClientWidth = 340
   Color = clWindow
   Menu = MainMenu
@@ -14,9 +14,9 @@ object fMain: TfMain
   LCLVersion = '1.3'
   object ZVDateTimePicker1: TZVDateTimePicker
     Left = 16
-    Height = 22
+    Height = 23
     Top = 32
-    Width = 89
+    Width = 97
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
@@ -34,7 +34,7 @@ object fMain: TfMain
   end
   object Label1: TLabel
     Left = 16
-    Height = 14
+    Height = 15
     Top = 8
     Width = 22
     Caption = 'Von'
@@ -42,7 +42,7 @@ object fMain: TfMain
   end
   object Label2: TLabel
     Left = 16
-    Height = 14
+    Height = 15
     Top = 72
     Width = 17
     Caption = 'Bis'
@@ -50,9 +50,9 @@ object fMain: TfMain
   end
   object ZVDateTimePicker2: TZVDateTimePicker
     Left = 16
-    Height = 22
+    Height = 23
     Top = 96
-    Width = 89
+    Width = 97
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780

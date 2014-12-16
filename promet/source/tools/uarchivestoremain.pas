@@ -5,7 +5,7 @@ uses
   Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, ZVDateTimePicker,
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
-  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage;
+  ComCtrls, ExtCtrls, DbCtrls, Grids, Interfaces, uSystemMessage;
 type
 
   { TfMain }
