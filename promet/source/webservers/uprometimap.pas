@@ -231,7 +231,7 @@ var
   aTime: TDateTime;
 begin
   aTime := Now();
-  FMessages.Filter(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
+  FMessages.FilterEx(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
   FMessages.Last;
   if FMessages.Count > 0 then
     FFirstID := FMessages.Id.AsVariant;
@@ -989,7 +989,7 @@ begin
             end;
           end;
         end;
-      FMessages.Filter(copy(aSQL,0,length(aSQL)-5),0,'SENDDATE','DESC');
+      FMessages.FilterEx(copy(aSQL,0,length(aSQL)-5),0,'SENDDATE','DESC');
       FMessages.DataSet.Last;
     end;
   while (FSelectCount>0) and (not FMessages.DataSet.BOF) do

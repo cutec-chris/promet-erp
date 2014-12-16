@@ -59,7 +59,7 @@ var
   aUser: TUser;
   i: Integer;
 begin
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   for i := 0 to aTo.Count-1 do
     begin
       if Data.IsSQLDb then
@@ -136,7 +136,7 @@ var
   aUID: String;
   aMessage: TMimeMessage;
 begin
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   //mail to an User
   for i := 0 to aTo.Count-1 do
     begin
@@ -147,7 +147,7 @@ begin
       if aUser.Count>0 then
         begin
           Data.Users.GotoBookmark(aUser.GetBookmark);
-          aMessage := TMimeMessage.Create(nil,Data);
+          aMessage := TMimeMessage.Create(nil);
           msg := TMimeMess.Create;
           msg.Lines.Text := aMail.Text;
           msg.DecodeMessage;
@@ -172,7 +172,7 @@ begin
         Data.SetFilter(aUser,'"EMAIL"='''+GetmailAddr(lowercase(afrom))+'''');
       if aUser.Count>0 then
         begin
-          aMessage := TMimeMessage.Create(nil,Data);
+          aMessage := TMimeMessage.Create(nil);
           msg := TMimeMess.Create;
           msg.Lines.Text := aMail.Text;
           msg.DecodeMessage;
