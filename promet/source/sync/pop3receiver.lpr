@@ -72,7 +72,7 @@ begin
   Info('login ok');
   RegisterMessageHandler;
   MessageHandler.RegisterCommandHandler(@Commandreceived);
-  ArchiveMsg := TArchivedMessage.Create(nil,Data);
+  ArchiveMsg := TArchivedMessage.Create(nil);
   ArchiveMsg.CreateTable;
   ArchiveMsg.Free;
   StartTime := Now();
@@ -129,7 +129,7 @@ var
     Messages: TMessageList;
   begin
     Result := -1;
-    Messages := TMessageList.Create(Self,Data,nil);
+    Messages := TMessageList.Create(Self);
     for b := MList.Count-1 downto 0 do
       begin
         Data.SetFilter(Messages,'"ID"='''+trim(copy(MList[b],pos(' ',MList[b])+1,length(MList[b])))+'''');
@@ -145,11 +145,11 @@ var
   end;
 begin
   aConnection := Data.GetNewConnection;
-  MessageIndex := TMessageList.Create(Self,Data,aConnection);
+  MessageIndex := TMessageList.CreateEx(Self,Data,aConnection);
   MessageIndex.CreateTable;
-  DeletedItems := TDeletedItems.Create(Self,Data,aConnection);
+  DeletedItems := TDeletedItems.CreateEx(Self,Data,aConnection);
   DeletedItems.CreateTable;
-  Message := TMimeMessage.Create(Self,Data,aConnection);
+  Message := TMimeMessage.CreateEx(Self,Data,aConnection);
   omailaccounts := '';
   mailaccounts := '';
   with Self as IBaseDbInterface do
