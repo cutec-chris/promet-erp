@@ -73,7 +73,7 @@ var
   var
     a: Integer;
   begin
-    aDoc := TDocument.Create(nil,Data);
+    aDoc := TDocument.Create(nil);
     aDoc.SelectByReference(aDocPage.Id.AsVariant);
     aDoc.Open;
     if aDoc.Count>0 then
@@ -119,7 +119,7 @@ begin
   aType := GetOptionValue('t','type');
   if HasOption('doocr') then
     begin
-      aDocPage := TDocPages.Create(nil,Data);
+      aDocPage := TDocPages.Create(nil);
       aDocPage.Typ:='D';
       aDocPage.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('D')+' AND '+Data.ProcessTerm(Data.QuoteField('FULLTEXT')+'='+Data.QuoteValue('')));
 
@@ -142,7 +142,7 @@ begin
         begin
           writeln('importing File '+AInfo.Name);
           try
-            aDocPage := TDocPages.Create(nil,Data);
+            aDocPage := TDocPages.Create(nil);
             aDocPage.AddFromFile(aFolder+AInfo.Name);
             aDocPage.Edit;
             aDocPage.FieldByName('TYPE').AsString:=aType;
