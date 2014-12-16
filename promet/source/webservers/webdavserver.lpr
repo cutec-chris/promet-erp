@@ -121,7 +121,7 @@ begin
         end
       else
         begin
-          aDirs := TTree.Create(nil,Data);
+          aDirs := TTree.Create(nil);
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
           aDirPar := null;
           Result := True;
@@ -141,7 +141,7 @@ begin
             end;
           aParent := aDirs.Id.AsVariant;
         end;
-      aCal := TCalendar.Create(nil,Data);
+      aCal := TCalendar.Create(nil);
       aCal.Filter(Data.QuoteField('ORIGID')+'='+Data.QuoteValue(aFile));
       if (aCal.Count=0) and IsNumeric(aFile) then
         begin
@@ -155,7 +155,7 @@ begin
         end
       else
         begin
-          aTasks := TTaskList.Create(nil,Data);
+          aTasks := TTaskList.Create(nil);
           aTasks.Filter(Data.QuoteField('ORIGIDS')+'='+Data.QuoteValue(aFile));
           if (aTasks.Count=0) and IsNumeric(aFile) then
             begin
@@ -173,7 +173,7 @@ begin
     end
   else
     begin
-      aDocuments := TDocuments.Create(nil,Data);
+      aDocuments := TDocuments.Create(nil);
       aDocuments.Select(1,'D',0);
       aDocuments.Open;
       if copy(aDir,length(aDir),1) = '/' then
@@ -187,7 +187,7 @@ begin
           aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
           if aDocuments.SelectFile(aDir) then
             begin
-              aDocument := TDocument.Create(nil,Data);
+              aDocument := TDocument.Create(nil);
               aDocument.SelectByNumber(aDocuments.DataSet.FieldByName('NUMBER').AsVariant);
               aDocument.Open;
               if aDocument.Count > 0 then
@@ -222,7 +222,7 @@ begin
       aDirList := TLDirectoryList.Create;
       if aDepth>0 then
         begin
-          aDocuments := TDocuments.Create(nil,Data);
+          aDocuments := TDocuments.Create(nil);
           aDocuments.Select(1,'D',0);
           aDocuments.Open;
           AddDocumentsToFileList(aDirList,aDocuments);
@@ -250,7 +250,7 @@ begin
               aDir := copy(aDir,0,rpos('/',aDir)-1);
             end;
           //Add CalDAV Calendars
-          aDirs := TTree.Create(nil,Data);
+          aDirs := TTree.Create(nil);
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('A'));
           aItem := TLFile.Create('home',True);
           if (aDir = aItem.Name) or (aDir = '') then
@@ -259,7 +259,7 @@ begin
               aItem.IsTodoList:=True;
               aItem.IsCalendarUser:=IsCalendarUser;
               //Select last SQL_ID as ctag
-              aCal := TCalendar.Create(nil,Data);
+              aCal := TCalendar.Create(nil);
               aCal.SelectByUser(Data.Users.Accountno.AsString);
               aCal.ActualLimit:=1;
               aCal.SortFields:='TIMESTAMPD';
@@ -292,7 +292,7 @@ begin
                       aDirList.Add(aItem);
                       aCal.Next;
                     end;
-                  aTasks := TTaskList.Create(nil,Data);
+                  aTasks := TTaskList.Create(nil);
                   aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
                   aTasks.Open;
                   while not aTasks.EOF do
@@ -319,7 +319,7 @@ begin
                 begin
                   aItem.IsCalendar:=True;
                   aItem.IsCalendarUser:=IsCalendarUser;
-                  aCal := TCalendar.Create(nil,Data);
+                  aCal := TCalendar.Create(nil);
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
                   aItem.Properties.Values['getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                   aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
@@ -374,7 +374,7 @@ begin
               aDir := copy(aDir,0,rpos('/',aDir)-1);
             end;
           //Add CardDAV Books
-          aDirs := TTree.Create(nil,Data);
+          aDirs := TTree.Create(nil);
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'));
           while not aDirs.EOF do
             begin
@@ -385,7 +385,7 @@ begin
                 begin
                   aItem.IsCalendar:=True;
                   aItem.IsCalendarUser:=IsCalendarUser;
-                  aCal := TCalendar.Create(nil,Data);
+                  aCal := TCalendar.Create(nil);
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
                   aItem.Properties.Values['getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                   aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
@@ -437,7 +437,7 @@ begin
               aItem.Properties.Values['creationdate'] := BuildISODate(Now());
               aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
               sl := TStringList.Create;
-              aCal := TCalendar.Create(nil,Data);
+              aCal := TCalendar.Create(nil);
               aCal.SelectByUser(Data.Users.Accountno.AsString);
               aCal.Open;
               VCalExport(aCal,sl);
@@ -460,7 +460,7 @@ begin
       aDirList := TLDirectoryList.Create;
       if aDepth>0 then
         begin
-          aDocuments := TDocuments.Create(nil,Data);
+          aDocuments := TDocuments.Create(nil);
           aDocuments.Select(1,'D',0);
           if copy(aDir,length(aDir),1) <> '/' then
             aDir := aDir+'/';
@@ -508,7 +508,7 @@ begin
   if aDir = 'ical/'+Data.Users.Text.AsString+'.ics' then
     begin
       sl := TStringList.Create;
-      aCal := TCalendar.Create(nil,Data);
+      aCal := TCalendar.Create(nil);
       aCal.SelectByUser(Data.Users.Accountno.AsString);
       aCal.Open;
       VCalExport(aCal,sl);
@@ -534,7 +534,7 @@ begin
         end
       else
         begin
-          aDirs := TTree.Create(nil,Data);
+          aDirs := TTree.Create(nil);
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
           aDirPar := null;
           Result := True;
@@ -554,7 +554,7 @@ begin
             end;
           aParent := aDirs.Id.AsVariant;
         end;
-      aCal := TCalendar.Create(nil,Data);
+      aCal := TCalendar.Create(nil);
       aCal.Filter(Data.QuoteField('ORIGID')+'='+Data.QuoteValue(aFile));
       if (aCal.Count=0) and IsNumeric(aFile) then
         begin
@@ -573,7 +573,7 @@ begin
       aCal.Free;
       if (not result) and (aDir = 'home') then //check for taks
         begin
-          aTasks := TTaskList.Create(nil,Data);
+          aTasks := TTaskList.Create(nil);
           if IsNumeric(aFile) then
             begin
               aTasks.Select(aFile);
@@ -594,7 +594,7 @@ begin
   else
     begin
       Mimetype := '';
-      aDocuments := TDocuments.Create(nil,Data);
+      aDocuments := TDocuments.Create(nil);
       aDocuments.Select(1,'D',0);
       aDocuments.Open;
       if rpos('/',aDir) > 1 then
@@ -606,7 +606,7 @@ begin
           aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
           if aDocuments.SelectFile(aDir) then
             begin
-              aDocument := TDocument.Create(nil,Data);
+              aDocument := TDocument.Create(nil);
               aDocument.SelectByNumber(aDocuments.DataSet.FieldByName('NUMBER').AsVariant);
               aDocument.Open;
               if aDocument.Count > 0 then
@@ -634,7 +634,7 @@ var
   aDocument: TDocument;
   Subfolder: Boolean = False;
 begin
-  aDocuments := TDocuments.Create(nil,Data);
+  aDocuments := TDocuments.Create(nil);
   aDocuments.Select(1,'D',0);
   aDocuments.Open;
   if copy(aDir,length(aDir),1)='/' then
@@ -649,7 +649,7 @@ begin
     begin
       Result := False;
       aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
-      aDocument := TDocument.Create(nil,Data);
+      aDocument := TDocument.Create(nil);
       if SubFolder then
         aDocument.BaseParent := aDocuments
       else
@@ -701,7 +701,7 @@ begin
         end
       else
         begin
-          aDirs := TTree.Create(nil,Data);
+          aDirs := TTree.Create(nil);
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
           aDirPar := null;
           Result := True;
@@ -724,7 +724,7 @@ begin
       sl := TStringList.Create;
       Stream.Position:=0;
       sl.LoadFromStream(Stream);
-      aCal := TCalendar.Create(nil,Data);
+      aCal := TCalendar.Create(nil);
       aCal.Filter(Data.QuoteField('ORIGID')+'='+Data.QuoteValue(aFile));
       if (aCal.Count=0) and IsNumeric(aFile) then
         begin
@@ -742,7 +742,7 @@ begin
       else
         begin
           //todo ???
-          aTasks := TTaskList.Create(nil,Data);
+          aTasks := TTaskList.Create(nil);
           aTasks.Filter(Data.QuoteField('ORIGIDS')+'='+Data.QuoteValue(aFile));
           if (aTasks.Count=0) and IsNumeric(aFile) then
             begin
@@ -783,13 +783,13 @@ begin
     end
   else
     begin
-      aDocuments := TDocuments.Create(nil,Data);
+      aDocuments := TDocuments.Create(nil);
       aDocuments.Select(1,'D',0);
       aDocuments.Open;
       if rpos('/',aDir) > 1 then
         Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)-1),'/')
       else Result := True;
-      aDocuments2 := TDocuments.Create(nil,Data);
+      aDocuments2 := TDocuments.Create(nil);
       aDocuments2.Select(1,'D',0);
       aDocuments2.Open;
       if rpos('/',aDir) > 1 then
@@ -798,7 +798,7 @@ begin
       if Result then
         begin
           Result := False;
-          aDocument := TDocument.Create(nil,Data);
+          aDocument := TDocument.Create(nil);
           aFileName := ExtractFileName(aDir);
           if ADocuments2.SelectFile(aFileName) then //Checkin existing File
             begin
