@@ -59,7 +59,7 @@ begin
   if not Login then Terminate;
   //Your logged in here on promet DB
   aProfile := BaseApplication.GetOptionValue('p','profile');
-  aImportProfile := TImportTypes.Create(nil,Data);
+  aImportProfile := TImportTypes.Create(nil);
   aImportProfile.SelectByName(aProfile);
   aImportProfile.Open;
   if aImportProfile.Count>0 then
