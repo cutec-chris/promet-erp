@@ -100,9 +100,9 @@ var
   aMessageL: TMessageList;
   aHist: TBaseHistory;
 begin
-  MessageIndex := TMessageList.Create(Self,Data);
+  MessageIndex := TMessageList.Create(Self);
   MessageIndex.CreateTable;
-  aMessage := TMimeMessage.Create(Self,Data);
+  aMessage := TMimeMessage.Create(Self);
   mailaccounts := '';
   with Self as IBaseDbInterface do
     mailaccounts := DBConfig.ReadString('MAILACCOUNTS','');
@@ -165,7 +165,7 @@ begin
                                   Post;
                                   if SMTP.MailData(Mime.Lines) then
                                     begin
-                                      ArchiveMsg := TArchivedMessage.Create(nil,Data);
+                                      ArchiveMsg := TArchivedMessage.Create(nil);
                                       ArchiveMsg.CreateTable;
                                       ArchiveMsg.Insert;
                                       ArchiveMsg.DataSet.FieldByName('ID').AsString:=Mime.Header.MessageID;
@@ -176,12 +176,12 @@ begin
                                       ArchiveMsg.Free;
                                       for i := 0 to Mime.Header.ToList.Count-1 do
                                         begin
-                                          CustomerCont := TPersonContactData.Create(Self,Data);
+                                          CustomerCont := TPersonContactData.Create(Self);
                                           if Data.IsSQLDb then
                                             Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+getemailaddr(Mime.Header.ToList[i])+''')')
                                           else
                                             Data.SetFilter(CustomerCont,'"DATA"='''+getemailaddr(Mime.Header.ToList[i])+'''');
-                                          Customers := TPerson.Create(Self,Data);
+                                          Customers := TPerson.Create(Self);
                                           Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
                                           CustomerCont.Free;
                                           if Customers.Count > 0 then
@@ -197,12 +197,12 @@ begin
 
                                           if FieldByName('PARENT').AsString<>'' then
                                             begin
-                                              aMessageL := TMessageList.Create(nil,aMessage.DataModule);
+                                              aMessageL := TMessageList.CreateEx(nil,aMessage.DataModule);
                                               aMessageL.SelectByMsgID(FieldByName('PARENT').AsVariant);
                                               aMessageL.Open;
                                               if aMessageL.Count>0 then
                                                 begin
-                                                  aHist := TBaseHistory.Create(nil,aMessageL.DataModule);
+                                                  aHist := TBaseHistory.CreateEx(nil,aMessageL.DataModule);
                                                   aHist.Filter(Data.ProcessTerm(Data.QuoteField('LINK')+'='+Data.QuoteValue('MESSAGEIDX@'+aMessageL.FieldByName('ID').AsString+'*')));
                                                   if aHist.Count>0 then
                                                     Data.Users.History.AddAnsweredMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail',Data.BuildLink(MessageIndex.DataSet),aHist.Id.AsVariant)

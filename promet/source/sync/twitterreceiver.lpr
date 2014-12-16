@@ -101,7 +101,7 @@ begin
   http.HTTPMethod('GET',OutFile);
   if http.ResultCode=200 then
     begin
-      Document := TDocument.Create(Self,Data);
+      Document := TDocument.Create(Self);
       Document.Select(0);
       Document.Open;
       Document.Ref_ID := Customers.History.Id.AsVariant;
@@ -157,7 +157,7 @@ begin
   with Self as IBaseDbInterface do
     mailaccounts := DBConfig.ReadString('MAILACCOUNTS','');
   ReplaceOmailaccounts := false;
-  aHist := TBaseHistory.Create(nil,Data);
+  aHist := TBaseHistory.Create(nil);
   htmltowiki.OnConvertImage:=@PrometCmdAppConvertImage;
   with aHist.DataSet as IBaseManageDB do
     UpdateStdFields := False;
@@ -239,14 +239,14 @@ begin
                                   if aHist.Count=0 then
                                     begin
                                       try
-                                        CustomerCont := TPersonContactData.Create(Self,Data);
+                                        CustomerCont := TPersonContactData.Create(Self);
                                         if Data.IsSQLDb then
                                           Data.SetFilter(CustomerCont,'"TYPE"=''SON'' AND UPPER("DATA")=UPPER('''+uid+''')')
                                         else
                                           Data.SetFilter(CustomerCont,'"TYPE"=''SON'' AND "DATA"='''+uid+'''');
                                       except
                                       end;
-                                      Customers := TPerson.Create(Self,Data);
+                                      Customers := TPerson.Create(Self);
                                       Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
                                       CustomerCont.Free;
                                       if aRef<>'' then

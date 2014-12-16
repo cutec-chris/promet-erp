@@ -55,7 +55,6 @@
       <Unit0>
         <Filename Value="smtpsender.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="smtpsender"/>
       </Unit0>
     </Units>
   </ProjectOptions>
@@ -73,12 +72,6 @@
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

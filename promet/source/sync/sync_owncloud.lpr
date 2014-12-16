@@ -100,7 +100,7 @@ begin
   rmUser.Connection:=rmConn;
   rmQuerryE := TZQuery.Create(Self);
   rmQuerryE.Connection:=rmConn;
-  SyncItems := TSyncItems.Create(nil,Data);
+  SyncItems := TSyncItems.Create(nil);
   rmConn.Protocol:=aConfig.ReadString('database','protocol','sqlite-3');
   rmConn.HostName:=aConfig.ReadString('database','host','localhost');
   rmConn.Database:=aConfig.ReadString('database','database','owncloud.db');
@@ -113,7 +113,7 @@ begin
   WriteMessage('Connection successful');
   rmUser.SQL.Text:='select * from oc_users';
   rmUser.Open;
-  aUsers := TUser.Create(nil,Data);
+  aUsers := TUser.Create(nil);
   aUsers.Open;
   while not aUsers.EOF do
     begin
@@ -155,7 +155,7 @@ begin
                           DoSync := True;
                           aID := 0;
                           Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue('OWNCLOUD')+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(rmQuerryE.FieldByName('uri').AsString));
-                          aCalendar := TCalendar.Create(nil,Data);
+                          aCalendar := TCalendar.Create(nil);
                           aCalendar.RefId:=aUsers.Id.AsVariant;
                           if SyncItems.Count > 0 then
                             begin
@@ -244,7 +244,7 @@ begin
                       LastModified := ((rmQuerryE.FieldByName('lastmodified').AsInteger + 7200) / 86400) + 25569;
                       aID := 0;
                       Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue('OWNCLOUD')+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(rmQuerryE.FieldByName('uri').AsString));
-                      aContact := TPerson.Create(nil,Data);
+                      aContact := TPerson.Create(nil);
                       if SyncItems.Count > 0 then
                         begin
                           DoSync := (not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull) and (not SyncItems.DataSet.FieldByName('LOCAL_ID').AsInteger = 0);
