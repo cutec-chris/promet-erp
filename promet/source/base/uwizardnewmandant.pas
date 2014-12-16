@@ -424,7 +424,7 @@ var
     aTable : TBaseDBDataset;
   begin
     try
-      aTable := TBaseDbDataSetClass(aTableC).Create(nil,uData.Data);
+      aTable := TBaseDbDataSetClass(aTableC).Create(nil);
       with aTable.DataSet as IBaseManageDB do
         aTableName := TableName;
       aTable.CreateTable;
@@ -463,7 +463,7 @@ var
   var
     aImportTable: TBaseDBDataset;
   begin
-    aImportTable := TBaseDbDataSetClass(aTable).Create(nil,uData.Data);
+    aImportTable := TBaseDbDataSetClass(aTable).Create(nil);
     DoImportTable(aImportTable);
     aImportTable.Destroy;
   end;
@@ -806,4 +806,4 @@ begin
 end;
 initialization
 end.
-
+
