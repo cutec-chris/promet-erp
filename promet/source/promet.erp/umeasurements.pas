@@ -60,6 +60,7 @@ type
   private
     { private declarations }
     Zoom : TDateTime;
+    Position : TDateTime;
   public
     { public declarations }
     constructor Create(AOwner : TComponent);override;
@@ -101,6 +102,8 @@ begin
             end;
           Next;
         end;
+      //Chart1.LogicalExtent AxisList[1].Range.Min:=Position;
+      //Chart1.AxisList[1].Range.Max:=Position+Zoom;
     end;
 end;
 
@@ -108,6 +111,7 @@ constructor TfMeasurementFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   Zoom := 1;
+  Position := trunc(Now());
 end;
 
 destructor TfMeasurementFrame.Destroy;
