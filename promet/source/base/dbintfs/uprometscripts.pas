@@ -86,7 +86,7 @@ type
   function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
 
 implementation
-uses uStatistic,uData,httpsend,Utils,variants,uPerson,uMasterdata,uProjects,uOrder;
+uses uStatistic,uData,httpsend,Utils,variants,uPerson,uMasterdata,uProjects,uOrder,uBaseERPDBClasses;
 function ProcessScripts : Boolean;//process Scripts that must be runned cyclic Result shows that it should be runned faster (debug)
 var
   aScript: TBaseScript;
@@ -227,6 +227,8 @@ procedure TUserPropertyOptionsR(Self: TUser; var T: TOptions); begin T := Self.O
 procedure TBaseDBDatasetPropertyDataSetR(Self: TBaseDBDataset; var T: TDataSet); begin T := Self.DataSet; end;
 procedure TBaseDBModulePropertyUsersR(Self: TBaseDBModule; var T: TUser); begin T := Self.Users; end;
 procedure TBaseDBDatasetPropertyCountR(Self: TBaseDBDataSet; var T: Integer); begin T := Self.Count; end;
+procedure TStoragePropertyJournalR(Self: TStorage; var T: TStorageJournal); begin T := Self.Journal; end;
+procedure TMasterdataPropertyStorageR(Self: TMasterdata; var T: TStorage); begin T := Self.Storage; end;
 
 function TBaseScript.TPascalScriptUses(Sender: TPascalScript;
   const aName: tbtString): Boolean;
@@ -366,6 +368,21 @@ begin
             RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
           end;
         //Masterdata
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataSet'),TStorageJournal) do
+          begin
+          end;
+        with Sender.ClassImporter.Add(TStorageJournal) do
+          begin
+          end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataSet'),TStorage) do
+          begin
+            RegisterProperty('Journal','TStorageJournal',iptR);
+          end;
+        with Sender.ClassImporter.Add(TStorage) do
+          begin
+            RegisterPropertyHelper(@TStoragePropertyJournalR,nil,'JOURNAL');
+          end;
+
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TMasterdataList) do
           begin
             RegisterMethod('constructor Create(aOwner : TComponent);');
@@ -377,10 +394,12 @@ begin
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TMasterdataList'),TMasterdata) do
           begin
             RegisterProperty('History','TBaseHistory',iptR);
+            RegisterProperty('Storage','TStorage',iptR);
           end;
         with Sender.ClassImporter.Add(TMasterdata) do
           begin
             RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
+            RegisterPropertyHelper(@TMasterdataPropertyStorageR,nil,'STORAGE');
           end;
         //Projects
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TProjectList) do
@@ -462,7 +481,7 @@ begin
             RegisterMethod('function EscapeString(aValue : string) : string;');
             RegisterMethod('function DateToFilter(aValue : TDateTime) : string;');
             RegisterMethod('function DateTimeToFilter(aValue : TDateTime) : string;');
-            RegisterMethod('function ProcessTerm(aTerm : string) : string;');
+            //RegisterMethod('function ProcessTerm(aTerm : string) : string;');
 
             RegisterProperty('Users','TUser',iptR);
           end;
@@ -480,7 +499,7 @@ begin
             RegisterVirtualMethod(@TBaseDBModule.EscapeString, 'ESCAPESTRING');
             RegisterVirtualMethod(@TBaseDBModule.DateToFilter, 'DATETOFILTER');
             RegisterVirtualMethod(@TBaseDBModule.DateTimeToFilter, 'DATETIMETOFILTER');
-            RegisterVirtualMethod(@TBaseDBModule.ProcessTerm, 'PROCESSTERM');
+            //RegisterVirtualMethod(@TBaseDBModule.ProcessTerm, 'PROCESSTERM');
 
             RegisterPropertyHelper(@TBaseDBModulePropertyUsersR,nil,'USERS');
           end;
