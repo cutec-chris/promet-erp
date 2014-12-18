@@ -7,7 +7,7 @@ unit pcalendar;
 interface
 
 uses
-  uCalendarFrame, uEventEdit, LazarusPackageIntf;
+  uCalendarFrame, uEventEdit, umeetingusers, LazarusPackageIntf;
 
 implementation
 

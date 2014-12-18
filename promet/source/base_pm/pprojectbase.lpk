@@ -7,14 +7,8 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
-      <Other>
-        <CompilerMessages>
-          <MsgFileName Value=""/>
-        </CompilerMessages>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
-    <Files Count="26">
+    <Files Count="25">
       <Item1>
         <Filename Value="gsGantt.res"/>
         <Type Value="Binary"/>
@@ -52,73 +46,69 @@
         <Type Value="LFM"/>
       </Item9>
       <Item10>
-        <Filename Value="umeetingusers.pas"/>
-        <UnitName Value="umeetingusers"/>
-      </Item10>
-      <Item11>
         <Filename Value="uprojectflow.pas"/>
         <UnitName Value="uProjectFlow"/>
-      </Item11>
-      <Item12>
+      </Item10>
+      <Item11>
         <Filename Value="uprojectimport.pas"/>
         <UnitName Value="uprojectimport"/>
-      </Item12>
-      <Item13>
+      </Item11>
+      <Item12>
         <Filename Value="uprojectoverviewframe.pas"/>
         <UnitName Value="uprojectoverviewframe"/>
-      </Item13>
-      <Item14>
+      </Item12>
+      <Item13>
         <Filename Value="uprojectoverviewframe.lfm"/>
         <Type Value="LFM"/>
-      </Item14>
-      <Item15>
+      </Item13>
+      <Item14>
         <Filename Value="uprojectpositions.pas"/>
         <UnitName Value="uprojectpositions"/>
-      </Item15>
-      <Item16>
+      </Item14>
+      <Item15>
         <Filename Value="uprojectpositions.lfm"/>
         <Type Value="LFM"/>
-      </Item16>
-      <Item17>
+      </Item15>
+      <Item16>
         <Filename Value="uroughpklanningframe.pas"/>
         <UnitName Value="uroughpklanningframe"/>
-      </Item17>
-      <Item18>
+      </Item16>
+      <Item17>
         <Filename Value="uroughpklanningframe.lfm"/>
         <Type Value="LFM"/>
-      </Item18>
-      <Item19>
+      </Item17>
+      <Item18>
         <Filename Value="utaskedit.pas"/>
         <UnitName Value="uTaskEdit"/>
-      </Item19>
-      <Item20>
+      </Item18>
+      <Item19>
         <Filename Value="utaskedit.lfm"/>
         <Type Value="LFM"/>
-      </Item20>
-      <Item21>
+      </Item19>
+      <Item20>
         <Filename Value="utaskplan.pas"/>
         <UnitName Value="uTaskPlan"/>
-      </Item21>
-      <Item22>
+      </Item20>
+      <Item21>
         <Filename Value="utaskplan.lfm"/>
         <Type Value="LFM"/>
-      </Item22>
-      <Item23>
+      </Item21>
+      <Item22>
         <Filename Value="utaskplanoptions.pas"/>
         <UnitName Value="uTaskPlanOptions"/>
-      </Item23>
-      <Item24>
+      </Item22>
+      <Item23>
         <Filename Value="utasks.pas"/>
         <UnitName Value="utasks"/>
-      </Item24>
-      <Item25>
+      </Item23>
+      <Item24>
         <Filename Value="utasks.lfm"/>
         <Type Value="LFM"/>
-      </Item25>
-      <Item26>
+      </Item24>
+      <Item25>
         <Filename Value="utasks.lrs"/>
         <Type Value="LRS"/>
-      </Item26>
+      </Item25>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
