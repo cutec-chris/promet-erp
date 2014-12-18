@@ -4,7 +4,7 @@ object fCopyArticleData: TfCopyArticleData
   Top = 336
   Width = 280
   ActiveControl = cbCopyPrices
-  Caption = 'fCopyArticleData'
+  Caption = 'Artikel kopieren'
   ClientHeight = 245
   ClientWidth = 280
   KeyPreview = True
@@ -24,40 +24,40 @@ object fCopyArticleData: TfCopyArticleData
   end
   object cbCopyPrices: TCheckBox
     Left = 16
-    Height = 24
+    Height = 17
     Top = 124
-    Width = 61
+    Width = 47
     Caption = 'Preise'
     TabOrder = 0
   end
   object cbCopyProperties: TCheckBox
     Left = 16
-    Height = 24
+    Height = 17
     Top = 98
-    Width = 105
+    Width = 86
     Caption = 'Eigenschaften'
     TabOrder = 1
   end
   object cbCopyTexts: TCheckBox
     Left = 16
-    Height = 24
+    Height = 17
     Top = 72
-    Width = 56
+    Width = 46
     Caption = 'Texte'
     TabOrder = 2
   end
   object cbCopySupplier: TCheckBox
     Left = 16
-    Height = 24
+    Height = 17
     Top = 150
-    Width = 90
+    Width = 73
     Caption = 'Lieferanten'
     TabOrder = 3
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 42
-    Top = 197
+    Height = 34
+    Top = 205
     Width = 268
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -70,4 +70,4 @@ object fCopyArticleData: TfCopyArticleData
     TabOrder = 4
     ShowButtons = [pbOK, pbCancel]
   end
-end
+end

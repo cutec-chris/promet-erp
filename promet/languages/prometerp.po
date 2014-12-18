@@ -1061,7 +1061,7 @@ msgid "ToolBar1"
 msgstr ""
 
 #: tfcopyarticledata.caption
-msgid "fCopyArticleData"
+msgid "Artikel kopieren"
 msgstr ""
 
 #: tfcopyarticledata.cbcopyprices.caption

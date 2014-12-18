@@ -1531,7 +1531,7 @@ procedure TBaseDBDataset.DirectAssign(Source: TPersistent);
 var
   i: Integer;
 begin
-  if (not DataSet.Active) or (DataSet.RecordCount = 0) then exit;
+  if (not DataSet.Active) or ((DataSet.RecordCount = 0) and (DataSet.State<>dsInsert)) then exit;
   if not (Source is TBaseDBDataSet) then exit;
   if (not TBaseDBDataSet(Source).DataSet.Active) or (TBaseDBDataSet(Source).DataSet.RecordCount = 0) then exit;
   for i := 0 to TBaseDBDataSet(Source).DataSet.Fields.Count-1 do
