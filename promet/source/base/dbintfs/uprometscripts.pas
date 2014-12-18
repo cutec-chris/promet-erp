@@ -662,6 +662,7 @@ begin
               on e : Exception do
                 begin
                   Script.Results := e.Message;
+                  InternalWriteln('Error:'+e.Message);
                   DoSetResults;
                   Result := False;
                 end;

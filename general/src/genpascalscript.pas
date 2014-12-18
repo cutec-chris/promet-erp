@@ -29,7 +29,7 @@ uses
   uPSR_classes, uPSR_DB, uPSR_dateutils, uPSR_dll, uPSUtils,
   uPSR_std,uPSC_std,
   Process,usimpleprocess,Utils,variants,UTF8Process,dynlibs,
-  synamisc,RegExpr;
+  synamisc,RegExpr,MathParser;
 
 type
   TWritelnFunc = procedure(const s: string) of object;
@@ -116,6 +116,8 @@ type
 
     function InternalTimeToStr(Time: TDateTime): string;
     function InternalDateTimeToStr(Time: TDateTime): string;
+
+    function InternalMathParse(Input: string): string;
   public
     function InternalUses(Comp : TPSPascalCompiler;Name : string) : Boolean;
     function Execute(aParameters: Variant): Boolean; override;
@@ -257,6 +259,11 @@ begin
         AddFunction(@ExecRegExpr,'function ExecRegExpr (const ARegExpr, AInputStr : String) : boolean;');
         AddFunction(@ReplaceRegExpr,'function ReplaceRegExpr (const ARegExpr, AInputStr, AReplaceStr : String; AUseSubstitution : boolean) : String;');
         AddFunction(@SplitRegExpr,'procedure SplitRegExpr (const ARegExpr, AInputStr : String; APieces : TStrings);');
+      end
+    else if lowercase(Name)='mathparser' then
+      begin
+        InternalUses(Comp,'CLASSES');
+        AddMethod(Self,@TPascalScript.InternalMathParse,'function MathParse(Input : string) : string;');
       end
     else
       begin
@@ -553,6 +560,23 @@ end;
 function TPascalScript.InternalDateTimeToStr(Time: TDateTime): string;
 begin
   Result := DateTimeToStr(Time);
+end;
+
+function TPascalScript.InternalMathParse(Input: string): string;
+var
+  aParser: TMathParser;
+  aTree: PTTermTreeNode;
+begin
+  Result := '';
+  aParser := TMathParser.Create;
+  try
+    aTree := aParser.ParseTerm(Input);
+    Result := FloatToStr(aParser.CalcTree(aTree))
+  except
+    on e : Exception do
+      Result := e.message;
+  end;
+  aParser.Free;
 end;
 
 procedure TPascalScript.SetCompiler(AValue: TPSPascalCompiler);
