@@ -1,7 +1,7 @@
 object fTaskEdit: TfTaskEdit
-  Left = 392
+  Left = 444
   Height = 430
-  Top = 203
+  Top = 221
   Width = 681
   Caption = 'Aufgabe bearbeiten'
   ClientHeight = 430
