@@ -263,7 +263,7 @@ begin
   if cbPlanrel.Checked then
     Event.Category := 8
   else
-    Event.Category := 0;
+    Event.Category :=  0;
   Event.AlarmWavPath := AlarmWavPath;
   Event.Location:=eLocation.Text;
 end;
