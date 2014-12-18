@@ -21,6 +21,7 @@ unit uIntfStrConsts;
 {$mode objfpc}{$H+}
 interface
 resourcestring
+  strMeetingUsers               = 'Teilnehmer';
   strAllElements                = 'Elemente';
   strMeasurement                = 'Messungen';
   strStructure                  = 'Struktur';

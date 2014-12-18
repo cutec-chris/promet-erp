@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,
-  uBaseERPDBClasses,utask;
+  uBaseERPDBClasses,utask,uCalendar;
 type
   TMeetings = class;
   TMeetingEntrys = class(TBaseDBDataSet)
@@ -39,8 +39,8 @@ type
     function GetPosNo: TField;
     function GetUserName: string;
   protected
-    FMeeting : TMeetings;
   public
+    FMeeting : TMeetings;
     constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
@@ -53,14 +53,6 @@ type
     property UserName : string read GetUserName;
     //Fields
     property PosNo : TField read GetPosNo;
-  end;
-  TMeetingUsers = class(TBaseDBDataSet)
-  protected
-    FMeeting : TMeetings;
-  public
-    procedure Change; override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure SetDisplayLabels(aDataSet: TDataSet); override;
   end;
   TMeetingLinks = class(TLinks)
   public
@@ -93,41 +85,10 @@ type
 
 implementation
 uses uBaseApplication,uProjects,uData,uMasterdata;
-resourcestring
-  strPresent                            = 'Anwesend';
 procedure TMeetingLinks.FillDefaults(aDataSet: TDataSet);
 begin
   inherited FillDefaults(aDataSet);
   aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TMeetings).Id.AsVariant;
-end;
-
-procedure TMeetingUsers.Change;
-begin
-  inherited Change;
-  if Assigned(FMeeting) then FMeeting.Change;
-end;
-
-procedure TMeetingUsers.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'MEETINGUSERS';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('USER_ID',ftLargeint,0,False);
-            Add('NAME',ftString,150,False);
-            Add('IDCODE',ftString,4,False);
-            Add('ACTIVE',ftString,1,False);
-            Add('NOTE',ftString,200,False);
-          end;
-    end;
-end;
-
-procedure TMeetingUsers.SetDisplayLabels(aDataSet: TDataSet);
-begin
-  inherited SetDisplayLabels(aDataSet);
-  SetDisplayLabelName(aDataSet,'ACTIVE',strPresent);
 end;
 
 constructor TMeetingEntrys.CreateEx(aOwner: TComponent; DM: TComponent;
@@ -255,7 +216,7 @@ begin
   inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FEntrys := TMeetingEntrys.CreateEx(aOwner,DM,aConnection,DataSet);
   FEntrys.FMeeting := Self;
-  FUsers := TMeetingUsers.CreateEx(aOwner,DM,aConnection,DataSet);
+  FUsers := TMeetingUsers.CreateExIntegrity(aOwner,DM,False,aConnection,DataSet);
   FUsers.FMeeting := Self;
   FLinks := TMeetingLinks.CreateEx(Self,DM,aConnection);
   with BaseApplication as IBaseDbInterface do

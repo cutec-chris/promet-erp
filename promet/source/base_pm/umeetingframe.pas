@@ -198,7 +198,6 @@ uses uMainTreeFrame,Utils,uData,umeeting,uBaseDBInterface,uSearch,
 resourcestring
   strSearchFromUsers                       = 'Mit Öffnen wird der gewählte Nutzer in die Liste übernommen';
   strSearchFromMeetings                    = 'Mit Öffnen wird das gewählte Projekt in die Liste übernommen';
-  strMeetingUsers                          = 'Teilnehmer';
   strNewMeeting                            = 'neue Besprechung';
   strEnterMeetingName                      = 'geben Sie einen neuen Namen für die Besprechung an';
   strMeetingName                           = 'Besprechungsname';

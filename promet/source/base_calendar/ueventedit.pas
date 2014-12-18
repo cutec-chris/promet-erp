@@ -126,6 +126,7 @@ type
     procedure AddDocuments(Sender: TObject);
     procedure AddLinks(Sender: TObject);
     procedure AddHistory(Sender: TObject);
+    procedure Addusers(Sender: TObject);
   public { Public declarations }
     Event: TVpEvent;
     CatColorMap: TVpCategoryColorMap;
@@ -142,7 +143,7 @@ type
 implementation
 uses
   VpSR,uDocuments,uDocumentFrame,uData,uLinkFrame,uprometframesinplace,
-  uSelectReport,uBaseDBInterface,uHistoryFrame,uNRights;
+  uSelectReport,uBaseDBInterface,uHistoryFrame,uNRights,umeetingusers;
 resourcestring
   strEventinPast                = 'Das Ereignis liegt in der Vergangenheit';
 procedure TfEventEdit.FormCreate(Sender: TObject);
@@ -325,6 +326,10 @@ begin
   TEvent(FDataSet).History.Open;
   if TEvent(FDataSet).History.Count > 0 then
     pcPages.AddTab(TfHistoryFrame.Create(Self),False);
+  pcPages.AddTabClass(TfMeetingUsers,strMeetingUsers,@AddUsers);
+  TEvent(FDataSet).Users.Open;
+  if TEvent(FDataSet).Users.Count > 0 then
+    pcPages.AddTab(TfMeetingUsers.Create(Self),False);
   SetRights;
 end;
 procedure TfEventEdit.AddDocuments(Sender: TObject);
@@ -350,6 +355,12 @@ procedure TfEventEdit.AddHistory(Sender: TObject);
 begin
   TfHistoryFrame(Sender).BaseName:='CA';
   TfHistoryFrame(Sender).DataSet := TEvent(FDataSet).History;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
+procedure TfEventEdit.Addusers(Sender: TObject);
+begin
+  TfLinkFrame(Sender).DataSet := TEvent(FDataSet).Users;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
 

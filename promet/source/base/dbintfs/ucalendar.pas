@@ -58,12 +58,18 @@ type
   public
     procedure FillDefaults(aDataSet : TDataSet);override;
   end;
-
-  { TEvent }
-
+  TMeetingUsers = class(TBaseDBDataSet)
+  protected
+  public
+    FMeeting : TBaseDbDataSet;
+    procedure Change; override;
+    procedure DefineFields(aDataSet : TDataSet);override;
+    procedure SetDisplayLabels(aDataSet: TDataSet); override;
+  end;
   TEvent = class(TCalendar)
   private
     FLinks: TEventLinks;
+    FUsers: TMeetingUsers;
     function GetEnd: TDateTime;
     function GetStart: TDateTime;
   public
@@ -71,6 +77,7 @@ type
     destructor Destroy;override;
     procedure SelectById(aID : Integer);overload;
     property Links : TEventLinks read FLinks;
+    property Users : TMeetingUsers read FUsers;
     function GetTimeInRange(aStart,aEnd : TDateTime) : Extended;
     property StartDate : TDateTime read GetStart;
     property EndDate : TDateTime read GetEnd;
@@ -78,6 +85,36 @@ type
   function TimeRangeOverlap(Range1Start, Range1Finish, Range2Start, Range2Finish : TDateTime) : TDateTime;
 implementation
 uses uBaseApplication,uData,math,uBaseERPDBClasses,Utils;
+resourcestring
+  strPresent                            = 'Anwesend';
+procedure TMeetingUsers.Change;
+begin
+  inherited Change;
+  if Assigned(FMeeting) then FMeeting.Change;
+end;
+
+procedure TMeetingUsers.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'MEETINGUSERS';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('USER_ID',ftLargeint,0,False);
+            Add('NAME',ftString,150,False);
+            Add('IDCODE',ftString,4,False);
+            Add('ACTIVE',ftString,1,False);
+            Add('NOTE',ftString,200,False);
+          end;
+    end;
+end;
+
+procedure TMeetingUsers.SetDisplayLabels(aDataSet: TDataSet);
+begin
+  inherited SetDisplayLabels(aDataSet);
+  SetDisplayLabelName(aDataSet,'ACTIVE',strPresent);
+end;
 
 function TEvent.GetEnd: TDateTime;
 begin
@@ -94,9 +131,12 @@ constructor TEvent.CreateEx(aOwner: TComponent; DM: TComponent;
 begin
   inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FLinks := TEventLinks.CreateEx(Self,DM,aConnection);
+  FUsers := TMeetingUsers.CreateExIntegrity(aOwner,DM,False,aConnection,DataSet);
+  FUsers.FMeeting := Self;
 end;
 destructor TEvent.Destroy;
 begin
+  FUsers.Free;
   FLinks.Free;
   inherited Destroy;
 end;
