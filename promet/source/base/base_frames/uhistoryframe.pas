@@ -56,6 +56,7 @@ type
     procedure acAddLinkedExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
     procedure acIgnoreExecute(Sender: TObject);
+    procedure acRefreshExecute(Sender: TObject);
     function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
     procedure FContListViewDetails(Sender: TObject);
@@ -322,7 +323,7 @@ begin
               end;
             aObj.Destroy;
           end;
-      FTimeLine.Refresh;
+      FTimeLine.Refresh(True);
       if Assigned(FOnAddUserMessage) then
         FOnAddUserMessage(fHistoryAddItem);
       fHistoryAddItem.lbAdditional.Clear;
@@ -395,6 +396,11 @@ begin
     end;
 end;
 
+procedure TfHistoryFrame.acRefreshExecute(Sender: TObject);
+begin
+  FTimeLine.Refresh(True);
+end;
+
 procedure TfHistoryFrame.FContListViewDetails(Sender: TObject);
 begin
   if FTimeLine.GotoActiveRow then
@@ -409,9 +415,11 @@ begin
                   if not FDataSet.CanEdit then
                     FDataSet.DataSet.Edit;
                   FDataSet.DataSet.FieldByName('ACTION').AsString:=fHistoryAddItem.eAction.Text;
+                  FDataSet.DataSet.FieldByName('REFERENCE').AsString:=fHistoryAddItem.eReference.Text;
                   if FDataSet.CanEdit then
                     FDataSet.DataSet.Post;
                 end;
+              FTimeLine.Refresh(True);
             end;
         end
       else
