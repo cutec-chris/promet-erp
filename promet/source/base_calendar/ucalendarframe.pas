@@ -698,14 +698,20 @@ begin
                     { RecordID fields, then  don't overwrite them here. }
                     if (Event.RecordID <> -1) and (Event.RecordID <> FieldByName('ID').AsInteger) then
                       FieldByName('ID').AsInteger := Event.RecordID;
-                    FieldByName('REF_ID_ID').AsInteger := FDirectory;
+                    if FieldByName('REF_ID_ID').AsInteger <> FDirectory then
+                      FieldByName('REF_ID_ID').AsInteger := FDirectory;
                     if FieldDefs.IndexOf('USER') <> -1 then
                       FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
-                    FieldByName('STARTDATE').AsDateTime := Event.StartTime;
-                    FieldByName('ENDDATE').AsDateTime := Event.EndTime;
-                    FieldByName('SUMMARY').AsString := Event.Description;
-                    FieldByName('DESCR').AsString := Event.Note;
-                    FieldByName('ICATEGORY').AsInteger := Event.Category;
+                    if FieldByName('STARTDATE').AsDateTime <> Event.StartTime then
+                      FieldByName('STARTDATE').AsDateTime := Event.StartTime;
+                    if FieldByName('ENDDATE').AsDateTime <> Event.EndTime then
+                      FieldByName('ENDDATE').AsDateTime := Event.EndTime;
+                    if FieldByName('SUMMARY').AsString <> Event.Description then
+                      FieldByName('SUMMARY').AsString := Event.Description;
+                    if FieldByName('DESCR').AsString <> Event.Note then
+                      FieldByName('DESCR').AsString := Event.Note;
+                    if FieldByName('ICATEGORY').AsInteger <> Event.Category then
+                      FieldByName('ICATEGORY').AsInteger := Event.Category;
     //                FieldByName('DingPath').AsString := Event.AlarmWavPath;
                     if Event.AllDayEvent then
                       FieldByName('ALLDAY').AsString := 'Y'
@@ -721,8 +727,10 @@ begin
                     FieldByName('ROTATION').AsInteger := Ord(Event.RepeatCode);
                     FieldByName('ROTTO').AsDateTime := Event.RepeatRangeEnd;
                     FieldByName('ROTCUS').AsInteger := Event.CustInterval;
-                    FieldByName('LOCATION').AsString := Event.Location;
-                    FieldByName('CATEGORY').AsString:=Event.StrCategory;
+                    if FieldByName('LOCATION').AsString <> Event.Location then
+                      FieldByName('LOCATION').AsString := Event.Location;
+                    if FieldByName('CATEGORY').AsString<>Event.StrCategory then
+                      FieldByName('CATEGORY').AsString:=Event.StrCategory;
                     if Data.Categories.Locate('NAME',Event.StrCategory,[]) and (Data.Categories.FieldByName('COLOR').AsString<>'') then
                       Event.Color:=StringToColor(Data.Categories.FieldByName('COLOR').AsString)
                     else Event.Color:=clNone;

@@ -266,6 +266,7 @@ begin
     Event.Category :=  0;
   Event.AlarmWavPath := AlarmWavPath;
   Event.Location:=eLocation.Text;
+  FDataSet.Edit;
 end;
 
 procedure TfEventEdit.SetRights;
@@ -356,6 +357,7 @@ function TfEventEdit.Execute(aEvent: TVpEvent; aResource: TVpResource;
   aDir: Variant; aDataStore: TVpCustomDataStore): Boolean;
 var
   ActControl: TWinControl;
+  aInserted: Boolean = False;
 begin
   FEditable := True;
   Event := aEvent;
@@ -368,6 +370,8 @@ begin
       FDataSet.Insert;
       FDataSet.FieldByName('ID').AsVariant:=aEvent.RecordID;
       FDataSet.FieldByName('REF_ID_ID').AsVariant:=aDir;
+      FDataSet.Post;
+      aInserted := True;
     end;
   Resource := aResource;
   PopulateDialog;
@@ -391,8 +395,9 @@ begin
       DePopulateDialog;
       if FDataSet.CanEdit then
         FDataSet.Post;
-      aDataStore.PostEvents;
-    end;
+    end
+  else if aInserted and (FDataSet.Count>0) then
+    FDataSet.Delete;
   FDataSet.Free;
 end;
 procedure TfEventEdit.AlarmAdvanceChange(Sender: TObject);
