@@ -110,12 +110,12 @@ const
                              RightToLeft:False);
   aTextStyleW : TTextStyle = (Alignment:taLeftJustify;
                              Layout : tlTop;
-                             SingleLine : false;
-                             Clipping  : false;
+                             SingleLine : False;
+                             Clipping  : True;
                              ExpandTabs:False;
                              ShowPrefix:False;
-                             Wordbreak:true;
-                             Opaque:false;
+                             Wordbreak:True;
+                             Opaque:True;
                              SystemFont:False;
                              RightToLeft:False);
 implementation

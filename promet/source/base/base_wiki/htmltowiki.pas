@@ -270,6 +270,7 @@ var
 begin
   aOut := StringReplace(input,'<<','<',[rfReplaceAll]);
   aOut := StringReplace(aOut,'</div>','</div>'+#10,[rfReplaceAll]);
+  aOut := StringReplace(aOut,'<br>',#10,[rfReplaceAll]);
   bOut := '';
   RemoveTag(aOut,bOut,'script');
   RemoveTag(aOut,bOut,'style');

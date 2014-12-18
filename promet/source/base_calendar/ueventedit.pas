@@ -261,7 +261,9 @@ begin
   Event.AllDayEvent := CBAllDay.Checked;
   Event.StrCategory := cbCategory.Text;
   if cbPlanrel.Checked then
-    Event.Category := 8;
+    Event.Category := 8
+  else
+    Event.Category := 0;
   Event.AlarmWavPath := AlarmWavPath;
   Event.Location:=eLocation.Text;
 end;

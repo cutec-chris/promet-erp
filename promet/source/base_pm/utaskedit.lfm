@@ -710,7 +710,7 @@ object fTaskEdit: TfTaskEdit
         object EndDate: TDBZVDateTimePicker
           Left = 160
           Height = 21
-          Hint = 'Der Termin an dem die Aufgabe erledigt sein soll'#13#10'(nicht der spätest mögliche !)'
+          Hint = 'Der Termin, an dem die Aufgabe erledigt sein soll'#13#10'(nicht der spätest mögliche !)'
           Top = 24
           Width = 137
           DataField = 'DUEDATE'

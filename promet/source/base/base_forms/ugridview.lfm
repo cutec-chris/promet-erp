@@ -142,7 +142,7 @@ object fGridView: TfGridView
     Columns = <    
       item
         Title.Caption = 'Title'
-        Width = 13
+        Width = 568
       end>
     DefaultColWidth = 13
     DefaultDrawing = False
@@ -167,6 +167,10 @@ object fGridView: TfGridView
     OnSetEditText = gHeaderSetEditText
     OnGetCellWidth = gHeaderGetCellWidth
     CachedEditing = True
+    ColWidths = (
+      13
+      568
+    )
   end
   object pFilter: TPanel
     Left = 0
