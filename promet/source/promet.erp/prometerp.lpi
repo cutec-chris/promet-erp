@@ -629,7 +629,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="29">
+    <Exceptions Count="30">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -717,6 +717,9 @@
       <Item29>
         <Name Value="RunError(211)"/>
       </Item29>
+      <Item30>
+        <Name Value="EMathParserException"/>
+      </Item30>
     </Exceptions>
   </Debugging>
 </CONFIG>
