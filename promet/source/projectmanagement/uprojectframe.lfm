@@ -148,6 +148,7 @@ inherited fprojectFrame: TfprojectFrame
         BorderSpacing.Around = 8
         DataField = 'DESCRIPTION'
         DataSource = Projects
+        ScrollBars = ssAutoBoth
         TabOrder = 0
       end
       object DBZVDateTimePicker1: TDBZVDateTimePicker

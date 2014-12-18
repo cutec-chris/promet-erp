@@ -571,6 +571,7 @@ begin
       TextField:='ACTION';
       ReadOnly:=True;
       FTimeLine.FilterRow:=True;
+      WordWrap:=True;
       Show;
     end;
   FTimeLine.OnDrawColumnCell:=@FContListDrawColumnCell;

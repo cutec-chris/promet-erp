@@ -768,6 +768,7 @@ begin
   else
     begin
       TRowObject(gList.Objects[0,gList.Row]).Extends := GetRowHeight(gList.Row);
+      TRowObject(gList.Objects[0,gList.Row]).Extends.y:=TRowObject(gList.Objects[0,gList.Row]).Extends.y+(gList.DefaultRowHeight);
       gList.RowHeights[gList.Row] := TRowObject(gList.Objects[0,gList.Row]).Extends.Y;
       TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
       TryToMakeEditorVisible;
@@ -3578,6 +3579,7 @@ constructor TInplaceMemo.Create(AOwner: TComponent);
 begin
   FSetValue:=True;
   inherited Create(AOwner);
+  WordWrap:=True;
 end;
 
 procedure TInplaceMemo.EditingDone;
