@@ -330,6 +330,15 @@ begin
             RegisterPropertyHelper(@TBaseDbListPropertyTypR,nil,'TYP');
             RegisterPropertyHelper(@TBaseDbListPropertyMatchCodeR,nil,'MATCHCODE');
           end;
+        //Object (Element)
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataList'),TObjects) do
+          begin
+
+          end;
+        with Sender.ClassImporter.Add(TObjects) do
+          begin
+
+          end;
         //Person
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TBaseDbAddress) do
           begin
