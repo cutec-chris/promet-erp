@@ -285,18 +285,18 @@ begin
           begin
             RegisterVirtualMethod(@TBaseDBDataset.Open, 'OPEN');
             RegisterVirtualMethod(@TBaseDBDataset.Close, 'CLOSE');
-            RegisterVirtualMethod(@TBaseDBDataset.Insert, 'INSERT');
-            RegisterVirtualMethod(@TBaseDBDataset.Append, 'APPEND');
-            RegisterVirtualMethod(@TBaseDBDataset.Delete, 'DELETE');
-            RegisterVirtualMethod(@TBaseDBDataset.First, 'FIRST');
-            RegisterVirtualMethod(@TBaseDBDataset.Last, 'LAST');
-            RegisterVirtualMethod(@TBaseDBDataset.Next, 'NEXT');
-            RegisterVirtualMethod(@TBaseDBDataset.Prior, 'PRIOR');
-            RegisterVirtualMethod(@TBaseDBDataset.Post, 'POST');
-            RegisterVirtualMethod(@TBaseDBDataset.Edit, 'EDIT');
-            RegisterVirtualMethod(@TBaseDBDataset.Cancel, 'CANCEL');
-            RegisterVirtualMethod(@TBaseDBDataset.Locate, 'LOCATE');
-            RegisterVirtualMethod(@TBaseDBDataset.EOF, 'EOF');
+            //RegisterVirtualMethod(@TBaseDBDataset.Insert, 'INSERT');
+            //RegisterVirtualMethod(@TBaseDBDataset.Append, 'APPEND');
+            //RegisterVirtualMethod(@TBaseDBDataset.Delete, 'DELETE');
+            //RegisterVirtualMethod(@TBaseDBDataset.First, 'FIRST');
+            //RegisterVirtualMethod(@TBaseDBDataset.Last, 'LAST');
+            //RegisterVirtualMethod(@TBaseDBDataset.Next, 'NEXT');
+            //RegisterVirtualMethod(@TBaseDBDataset.Prior, 'PRIOR');
+            //RegisterVirtualMethod(@TBaseDBDataset.Post, 'POST');
+            //RegisterVirtualMethod(@TBaseDBDataset.Edit, 'EDIT');
+            //RegisterVirtualMethod(@TBaseDBDataset.Cancel, 'CANCEL');
+            //RegisterVirtualMethod(@TBaseDBDataset.Locate, 'LOCATE');
+            //RegisterVirtualMethod(@TBaseDBDataset.EOF, 'EOF');
             //RegisterVirtualMethod(@TBaseDBDataset.FieldByName, 'FIELDBYNAME'); error on execute
             RegisterVirtualMethod(@TBaseDBDataset.Filter, 'FILTER');
             RegisterPropertyHelper(@TBaseDBDatasetPropertyDataSetR,nil,'DATASET');
@@ -333,11 +333,11 @@ begin
         //Object (Element)
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataList'),TObjects) do
           begin
-
+            RegisterMethod('constructor Create(aOwner : TComponent);');
           end;
         with Sender.ClassImporter.Add(TObjects) do
           begin
-
+            RegisterConstructor(@TObjects.Create,'CREATE');
           end;
         //Person
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TBaseDbAddress) do
