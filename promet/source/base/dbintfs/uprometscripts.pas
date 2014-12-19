@@ -265,15 +265,15 @@ begin
             RegisterMethod('procedure Insert;');
             RegisterMethod('procedure Append;');
             RegisterMethod('procedure Delete;');
-            RegisterMethod('procedure First;');
-            RegisterMethod('procedure Last;');
-            RegisterMethod('procedure Next;');
-            RegisterMethod('procedure Prior;');
+            //RegisterMethod('procedure First;');
+            //RegisterMethod('procedure Last;');
+            //RegisterMethod('procedure Next;');
+            //RegisterMethod('procedure Prior;');
             RegisterMethod('procedure Post;');
             RegisterMethod('procedure Edit;');
             RegisterMethod('procedure Cancel;');
-            RegisterMethod('function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean;');
-            RegisterMethod('function EOF : Boolean;');
+            //RegisterMethod('function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean;');
+            //RegisterMethod('function EOF : Boolean;');
             //RegisterMethod('function FieldByName(const aFieldName : string) : TField;');
             RegisterMethod('procedure Filter(aFilter : string;aLimit : Integer);');
             RegisterProperty('ActualFilter','String',iptRW);
@@ -285,16 +285,16 @@ begin
           begin
             RegisterVirtualMethod(@TBaseDBDataset.Open, 'OPEN');
             RegisterVirtualMethod(@TBaseDBDataset.Close, 'CLOSE');
-            //RegisterVirtualMethod(@TBaseDBDataset.Insert, 'INSERT');
-            //RegisterVirtualMethod(@TBaseDBDataset.Append, 'APPEND');
-            //RegisterVirtualMethod(@TBaseDBDataset.Delete, 'DELETE');
+            RegisterVirtualMethod(@TBaseDBDataset.Insert, 'INSERT');
+            RegisterVirtualMethod(@TBaseDBDataset.Append, 'APPEND');
+            RegisterVirtualMethod(@TBaseDBDataset.Delete, 'DELETE');
             //RegisterVirtualMethod(@TBaseDBDataset.First, 'FIRST');
             //RegisterVirtualMethod(@TBaseDBDataset.Last, 'LAST');
             //RegisterVirtualMethod(@TBaseDBDataset.Next, 'NEXT');
             //RegisterVirtualMethod(@TBaseDBDataset.Prior, 'PRIOR');
-            //RegisterVirtualMethod(@TBaseDBDataset.Post, 'POST');
-            //RegisterVirtualMethod(@TBaseDBDataset.Edit, 'EDIT');
-            //RegisterVirtualMethod(@TBaseDBDataset.Cancel, 'CANCEL');
+            RegisterVirtualMethod(@TBaseDBDataset.Post, 'POST');
+            RegisterVirtualMethod(@TBaseDBDataset.Edit, 'EDIT');
+            RegisterVirtualMethod(@TBaseDBDataset.Cancel, 'CANCEL');
             //RegisterVirtualMethod(@TBaseDBDataset.Locate, 'LOCATE');
             //RegisterVirtualMethod(@TBaseDBDataset.EOF, 'EOF');
             //RegisterVirtualMethod(@TBaseDBDataset.FieldByName, 'FIELDBYNAME'); error on execute
