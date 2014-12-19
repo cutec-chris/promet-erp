@@ -180,6 +180,18 @@ begin
         until false;
       end;
 end;
+function ReplaceRegExprIfMatch(const ARegExpr, AInputStr, AReplaceStr : RegExprString;
+      AUseSubstitution : boolean = False) : RegExprString;
+begin
+  Result := '';
+  with TRegExpr.Create do try
+    Expression := ARegExpr;
+    if Exec(AInputStr) then
+      Result := Replace (AInputStr, AReplaceStr, AUseSubstitution);
+    finally Free;
+   end;
+end;
+
 type
   aProcT = function : pchar;stdcall;
 function TPascalScript.InternalUses(Comp: TPSPascalCompiler; Name: string
@@ -259,6 +271,7 @@ begin
         AddFunction(@ExecRegExpr,'function ExecRegExpr (const ARegExpr, AInputStr : String) : boolean;');
         AddFunction(@ReplaceRegExpr,'function ReplaceRegExpr (const ARegExpr, AInputStr, AReplaceStr : String; AUseSubstitution : boolean) : String;');
         AddFunction(@SplitRegExpr,'procedure SplitRegExpr (const ARegExpr, AInputStr : String; APieces : TStrings);');
+        AddFunction(@ReplaceRegExprIfMatch,'function ReplaceRegExprIfMatch (const ARegExpr, AInputStr, AReplaceStr : String; AUseSubstitution : boolean) : String;');
       end
     else if lowercase(Name)='mathparser' then
       begin
