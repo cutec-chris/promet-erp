@@ -331,7 +331,7 @@ begin
             RegisterPropertyHelper(@TBaseDbListPropertyMatchCodeR,nil,'MATCHCODE');
           end;
         //Object (Element)
-        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataList'),TObjects) do
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TObjects) do
           begin
             RegisterMethod('constructor Create(aOwner : TComponent);');
           end;
