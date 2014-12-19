@@ -4,7 +4,7 @@ object fScriptEditor: TfScriptEditor
   Top = 159
   Width = 961
   Caption = 'Editor'
-  ClientHeight = 579
+  ClientHeight = 580
   ClientWidth = 961
   Color = clBtnFace
   Font.Color = clWindowText
@@ -18,7 +18,7 @@ object fScriptEditor: TfScriptEditor
   object StatusBar: TStatusBar
     Left = 0
     Height = 23
-    Top = 556
+    Top = 557
     Width = 961
     Panels = <    
       item
@@ -27,17 +27,17 @@ object fScriptEditor: TfScriptEditor
   end
   object pDetail: TPanel
     Left = 285
-    Height = 556
+    Height = 557
     Top = 0
     Width = 676
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 556
+    ClientHeight = 557
     ClientWidth = 676
     TabOrder = 1
     inline ed: TSynEdit
       Left = 0
-      Height = 442
+      Height = 443
       Top = 26
       Width = 676
       Align = alClient
@@ -580,6 +580,7 @@ object fScriptEditor: TfScriptEditor
       end
       object ToolButton5: TToolButton
         Left = 24
+        Height = 22
         Top = 2
         Width = 10
         Caption = 'ToolButton5'
@@ -613,7 +614,7 @@ object fScriptEditor: TfScriptEditor
           Left = 3
           Height = 19
           Top = 3
-          Width = 48
+          Width = 40
           Align = alLeft
           BorderSpacing.Left = 3
           BorderSpacing.Top = 3
@@ -623,13 +624,13 @@ object fScriptEditor: TfScriptEditor
         end
         object cbSyntax: TDBComboBox
           Left = 56
-          Height = 29
+          Height = 24
           Top = 0
           Width = 122
           Anchors = [akTop, akLeft, akRight]
           DataField = 'SYNTAX'
           DataSource = DataSource
-          ItemHeight = 0
+          ItemHeight = 16
           Items.Strings = (
             'Pascal'
             'SQL'
@@ -652,7 +653,7 @@ object fScriptEditor: TfScriptEditor
           Left = 3
           Height = 19
           Top = 3
-          Width = 42
+          Width = 37
           Align = alLeft
           BorderSpacing.Left = 3
           BorderSpacing.Top = 3
@@ -662,7 +663,7 @@ object fScriptEditor: TfScriptEditor
         end
         object eName: TDBEdit
           Left = 48
-          Height = 27
+          Height = 24
           Top = 0
           Width = 256
           DataField = 'NAME'
@@ -682,7 +683,7 @@ object fScriptEditor: TfScriptEditor
       Cursor = crVSplit
       Left = 0
       Height = 4
-      Top = 468
+      Top = 469
       Width = 676
       Align = alBottom
       ResizeAnchor = akBottom
@@ -690,7 +691,7 @@ object fScriptEditor: TfScriptEditor
     object Panel1: TPanel
       Left = 0
       Height = 84
-      Top = 472
+      Top = 473
       Width = 676
       Align = alBottom
       BevelOuter = bvNone
@@ -708,7 +709,6 @@ object fScriptEditor: TfScriptEditor
         OnDblClick = messagesDblClick
         ScrollWidth = 674
         TabOrder = 0
-        TopIndex = -1
       end
       object gResults: TDBGrid
         Left = 0
@@ -730,18 +730,18 @@ object fScriptEditor: TfScriptEditor
   end
   object pLeft: TPanel
     Left = 0
-    Height = 556
+    Height = 557
     Top = 0
     Width = 280
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 556
+    ClientHeight = 557
     ClientWidth = 280
     TabOrder = 2
     Visible = False
     object DBGrid1: TDBGrid
       Left = 0
-      Height = 556
+      Height = 557
       Top = 0
       Width = 280
       Align = alClient
@@ -750,7 +750,7 @@ object fScriptEditor: TfScriptEditor
       Columns = <      
         item
           Title.Caption = 'Name'
-          Width = 252
+          Width = 247
           FieldName = 'NAME'
         end>
       DataSource = DataSource
@@ -763,7 +763,7 @@ object fScriptEditor: TfScriptEditor
   end
   object Splitter2: TSplitter
     Left = 280
-    Height = 556
+    Height = 557
     Top = 0
     Width = 5
   end
@@ -2067,7 +2067,7 @@ object fScriptEditor: TfScriptEditor
       4FFF4E4F4FFF4E4F4FFFFFFFFF00
     }
   end
-  object DataSource: TDatasource
+  object DataSource: TDataSource
     left = 224
     top = 16
   end
@@ -2100,7 +2100,7 @@ object fScriptEditor: TfScriptEditor
     left = 392
     top = 112
   end
-  object SelectData: TDatasource
+  object SelectData: TDataSource
     left = 288
     top = 520
   end

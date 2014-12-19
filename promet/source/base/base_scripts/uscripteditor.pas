@@ -24,8 +24,8 @@ interface
 uses
   SysUtils, Classes, types, db, Graphics, Controls, Forms,
   Dialogs, Menus, ExtCtrls, StdCtrls, ComCtrls, ActnList, DbCtrls, DBGrids,
-  SynEdit, SynEditTypes, SynHighlighterPas,
-  uPSComponent_Default,
+  SynEdit, SynEditTypes, SynHighlighterPas, SynCompletion,LCLType,
+  uPSComponent_Default,RegExpr,
   uPSRuntime, uPSDisassembly, uPSUtils,
   uPSComponent, uPSDebugger, uPSComponent_DB, SynEditRegexSearch, 
   SynEditSearch, SynEditMiscClasses, SynEditHighlighter, SynGutterBase, SynEditMarks,
@@ -146,6 +146,10 @@ type
     procedure edStatusChange(Sender: TObject; Changes: TSynStatusChanges);
     function DebuggerNeedFile(Sender: TObject; const OrginFileName: String; var FileName, Output: String): Boolean;
     procedure DebuggerBreakpoint(Sender: TObject; const FileName: String; bPosition, Row, Col: Cardinal);
+    procedure FSynCompletionExecute(Sender: TObject);
+    procedure FSynCompletionSearchPosition(var APosition: integer);
+    procedure FSynCompletionUTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char
+      );
     procedure messagesClick(Sender: TObject);
     procedure messagesDblClick(Sender: TObject);
     procedure Gotolinenumber1Click(Sender: TObject);
@@ -160,6 +164,7 @@ type
     FOldStatus : string;
     FActiveLine: Longint;
     FResume: Boolean;
+    FSynCompletion: TSynCompletion;
     FActiveFile: string;
     FDataSet : TBaseScript;
     Fuses : TBaseScript;
@@ -178,6 +183,7 @@ type
 
     property aFile: string read FActiveFile write SetActiveFile;
   public
+    constructor Create(TheOwner: TComponent); override;
     property DataSet : TBaseScript read FDataSet write SetDataSet;
     function SaveCheck: Boolean;
     function Execute(aScript: string; aConnection: TComponent = nil;DefScript : string=''): Boolean;
@@ -277,6 +283,17 @@ begin
   FDataSet.DataSet.BeforeScroll:=@FDataSetDataSetBeforeScroll;
   FDataSet.DataSet.AfterScroll:=@FDataSetDataSetAfterScroll;
   FDataSet.DataSet.AfterCancel:=@FDataSetDataSetAfterScroll;
+end;
+
+constructor TfScriptEditor.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+  FSynCompletion := TSynCompletion.Create(Self);
+  FSynCompletion.CaseSensitive := False;
+  FSynCompletion.AddEditor(ed);
+  FSynCompletion.OnExecute:=@FSynCompletionExecute;
+  FSynCompletion.OnUTF8KeyPress:=@FSynCompletionUTF8KeyPress;
+  FSynCompletion.OnSearchPosition:=@FSynCompletionSearchPosition;
 end;
 
 procedure TfScriptEditor.edSpecialLineColors(Sender: TObject; Line: Integer;
@@ -829,6 +846,95 @@ begin
   ed.Refresh;
   acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
   acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+end;
+
+procedure TfScriptEditor.FSynCompletionExecute(Sender: TObject);
+function GetCurWord:string;
+var
+  S:string;
+  i,j:integer;
+begin
+  Result:='';
+  with TSynCompletion(Sender).Editor do
+    begin
+      S:=Trim(Copy(LineText, 1, CaretX));
+      I:=Length(S);
+      while (i>0) and (S[i]<>'.') do Dec(I);
+      if (I>0) then
+      begin
+        J:=i-1;
+        //Get table name
+        while (j>0) and (S[j] in ['A'..'z','"']) do Dec(j);
+        Result:=trim(Copy(S, j+1, i-j-1));
+      end;
+    end;
+end;
+var
+  i: Integer;
+  aStatement: String;
+  s: String;
+  aStrings: TStrings;
+  ps : PChar;
+  aTp: TPSTypeRec;
+  aTyp: TPSType;
+  a: Integer;
+  aVar: PIFVariant;
+  sl: TStringList;
+begin
+  with FSynCompletion.ItemList do
+    begin
+      Clear;
+      s := GetCurWord;
+      if cbSyntax.Text='SQL' then
+        begin
+          if s = '' then
+            begin
+              for i := 0 to Data.Tables.Count-1 do
+                Add(Data.Tables[i]);
+              Add('select');
+              Add('insert');
+              Add('update');
+              Add('delete');
+              Add('from');
+              Add('where');
+              Add('into');
+              Add('order by');
+              Add('group by');
+            end;
+        end
+      else if cbSyntax.Text='Pascal' then
+        begin
+          sl := TStringList.Create;
+          SplitRegExpr('(.*):(.*);',Fuses.FieldByName('SCRIPT').AsString,sl);
+          for a := 0 to sl.Count-1 do
+            Add(sl[a]);
+          sl.Free;
+        end;
+    end;
+end;
+
+procedure TfScriptEditor.FSynCompletionSearchPosition(var APosition: integer);
+var
+  i: Integer;
+begin
+  for i := 0 to FSynCompletion.ItemList.Count-1 do
+    if Uppercase(copy(FSynCompletion.ItemList[i],0,length(FSynCompletion.CurrentString))) = Uppercase(FSynCompletion.CurrentString) then
+      begin
+        aPosition := i;
+        FSynCompletion.TheForm.Position:=i-1;
+        FSynCompletion.TheForm.Position:=i;
+        exit;
+      end;
+end;
+
+procedure TfScriptEditor.FSynCompletionUTF8KeyPress(Sender: TObject;
+  var UTF8Key: TUTF8Char);
+begin
+  if (length(UTF8Key)=1) and (System.Pos(UTF8Key[1],FSynCompletion.EndOfTokenChr)>0) then
+    begin
+      FSynCompletion.TheForm.OnValidate(Sender,UTF8Key,[]);
+      UTF8Key:='';
+    end
 end;
 
 procedure TfScriptEditor.messagesClick(Sender: TObject);
