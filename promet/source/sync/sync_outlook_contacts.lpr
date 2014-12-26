@@ -470,7 +470,7 @@ begin
     if not Login then raise Exception.Create('Login failed !');
     Info('Datamodule open...');
     Info('Connecting to MAPI...');
-    SyncItems := TSyncItems.Create(nil,Data);
+    SyncItems := TSyncItems.Create(nil);
     SyncItems.CreateTable;
     SyncItems.Open;
     aConnection := TMapiConnection.Create('',True);
@@ -515,7 +515,7 @@ begin
           DoSync := True;
           aID := 0;
           Data.SetFilter(SyncItems,Data.QuoteField('SYNCTYPE')+'='+Data.QuoteValue(Synctype)+' AND '+Data.QuoteField('REMOTE_ID')+'='+Data.QuoteValue(EntryIdToString(aItem.EntryID)));
-          aContact := TPerson.Create(nil,Data);
+          aContact := TPerson.Create(nil);
           while SyncItems.Count > 0 do
             begin
               DoSync := (not SyncItems.DataSet.FieldByName('LOCAL_ID').IsNull) and (not SyncItems.DataSet.FieldByName('LOCAL_ID').AsInteger = 0);

@@ -86,7 +86,7 @@ begin
     if not Login then raise Exception.Create('Login failed !');
     Info('Datamodule open...');
     Info('Connecting to MAPI...');
-    SyncItems := TSyncItems.Create(nil,Data);
+    SyncItems := TSyncItems.Create(nil);
     SyncItems.CreateTable;
     SyncItems.Open;
     aConnection := TMapiConnection.Create('',True);
@@ -215,7 +215,7 @@ begin
               aItem := aFolder.GetNext;
              end;
 
-          aCalendar := TCalendar.Create(nil,Data);
+          aCalendar := TCalendar.Create(nil);
           aLastSync := SyncItems.LastSync(SyncType,aCalendar.TableName);
           aCalendar.SelectByUser(Data.Users.Accountno.AsString);
           aCalendar.Open;

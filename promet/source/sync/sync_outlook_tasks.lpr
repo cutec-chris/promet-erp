@@ -113,7 +113,7 @@ begin
     if not Login then raise Exception.Create('Login failed !');
     Info('Datamodule open...');
     Info('Connecting to MAPI...');
-    SyncItems := TSyncItems.Create(nil,Data);
+    SyncItems := TSyncItems.Create(nil);
     SyncItems.CreateTable;
     SyncItems.Open;
     aConnection := TMapiConnection.Create('',True);
@@ -216,7 +216,7 @@ begin
               aItem := aFolder.GetNext;
              end;
 
-          aTasks := TTaskList.Create(nil,Data);
+          aTasks := TTaskList.Create(nil);
           aLastSync := SyncItems.LastSync(SyncType,aTasks.TableName);
           if aLastSync>0 then
             aTasks.SelectActiveByUserChangedSince(Data.Users.Accountno.AsString,aLastSync-1)

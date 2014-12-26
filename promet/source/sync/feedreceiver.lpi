@@ -50,7 +50,6 @@
       <Unit0>
         <Filename Value="feedreceiver.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="feedreceiver"/>
       </Unit0>
     </Units>
   </ProjectOptions>
@@ -74,12 +73,6 @@
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="2">

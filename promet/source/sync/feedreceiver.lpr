@@ -103,8 +103,8 @@ var
   end;
 
 begin
-  MessageIndex := TMessageList.Create(Self,Data,aConnection);
-  Message := TMessage.Create(Self,Data,aConnection);
+  MessageIndex := TMessageList.CreateEx(Self,Data,aConnection);
+  Message := TMessage.CreateEx(Self,Data,aConnection);
   Data.DeletedItems.DataSet.Open;
   Info('Importing for User '+Data.Users.DataSet.FieldByName('NAME').AsString);
   with Self as IBaseDbInterface do
@@ -346,4 +346,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+
