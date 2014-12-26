@@ -77,6 +77,7 @@ type
     procedure SetAppVersion(AValue: real);virtual;
     function GetQuickHelp: Boolean;
     procedure SetQuickhelp(AValue: Boolean);
+    function GetMessageManager : TThread;
 
     procedure Log(aType : string;aMsg : string);virtual;
     procedure Log(aMsg : string);
@@ -97,6 +98,7 @@ type
   end;
 
 implementation
+uses uprometscripts,variants;
 procedure TBaseCustomApplication.BaseCustomApplicationException(
   Sender: TObject; E: Exception);
 var
@@ -126,6 +128,7 @@ function TBaseCustomApplication.HandleSystemCommand(Sender: TObject;
 var
   bCommand: String;
   cCommand: String;
+  aScript: TBaseScript;
 begin
   Result := False;
   bCommand := copy(aCommand,0,pos('(',aCommand)-1);
@@ -139,6 +142,17 @@ begin
     end
   else if bCommand = 'Ping' then
     begin
+      Result := True;
+    end
+  else if bCommand = 'ExecuteScript' then
+    begin
+      aScript := TBaseScript.Create(nil);
+      aScript.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(cCommand));
+      if aScript.Count>0 then
+        begin
+          aScript.Execute(VarArrayOf([]));
+        end;
+      aScript.Free;
       Result := True;
     end
   ;
@@ -268,6 +282,11 @@ end;
 procedure TBaseCustomApplication.SetQuickhelp(AValue: Boolean);
 begin
 
+end;
+
+function TBaseCustomApplication.GetMessageManager: TThread;
+begin
+  Result := FMessageHandler;
 end;
 
 procedure TBaseCustomApplication.Log(aType: string; aMsg: string);

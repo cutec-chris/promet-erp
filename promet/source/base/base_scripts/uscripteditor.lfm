@@ -2,10 +2,10 @@ object fScriptEditor: TfScriptEditor
   Left = 273
   Height = 600
   Top = 159
-  Width = 961
+  Width = 1039
   Caption = 'Editor'
-  ClientHeight = 580
-  ClientWidth = 961
+  ClientHeight = 579
+  ClientWidth = 1039
   Color = clBtnFace
   Font.Color = clWindowText
   Font.Height = -14
@@ -18,8 +18,8 @@ object fScriptEditor: TfScriptEditor
   object StatusBar: TStatusBar
     Left = 0
     Height = 23
-    Top = 557
-    Width = 961
+    Top = 556
+    Width = 1039
     Panels = <    
       item
         Width = 50
@@ -27,19 +27,19 @@ object fScriptEditor: TfScriptEditor
   end
   object pDetail: TPanel
     Left = 285
-    Height = 557
+    Height = 556
     Top = 0
-    Width = 676
+    Width = 754
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 557
-    ClientWidth = 676
+    ClientHeight = 556
+    ClientWidth = 754
     TabOrder = 1
     inline ed: TSynEdit
       Left = 0
-      Height = 443
-      Top = 26
-      Width = 676
+      Height = 436
+      Top = 32
+      Width = 754
       Align = alClient
       Font.Height = -13
       Font.Name = 'Courier New'
@@ -557,9 +557,9 @@ object fScriptEditor: TfScriptEditor
     end
     object ToolBar1: TToolBar
       Left = 0
-      Height = 26
       Top = 0
-      Width = 676
+      Width = 754
+      ButtonHeight = 30
       Caption = 'ToolBar1'
       Images = ilImageList
       TabOrder = 1
@@ -569,18 +569,17 @@ object fScriptEditor: TfScriptEditor
         Action = acRun
       end
       object ToolButton3: TToolButton
-        Left = 80
+        Left = 57
         Top = 2
         Action = acPause
       end
       object ToolButton4: TToolButton
-        Left = 149
+        Left = 126
         Top = 2
         Action = acReset
       end
       object ToolButton5: TToolButton
         Left = 24
-        Height = 22
         Top = 2
         Width = 10
         Caption = 'ToolButton5'
@@ -592,29 +591,29 @@ object fScriptEditor: TfScriptEditor
         Action = acSave
       end
       object ToolButton7: TToolButton
-        Left = 103
+        Left = 80
         Top = 2
         Action = acStepinto
       end
       object ToolButton8: TToolButton
-        Left = 126
+        Left = 103
         Top = 2
         Action = acStepover
       end
       object Panel2: TPanel
-        Left = 172
-        Height = 22
+        Left = 149
+        Height = 30
         Top = 2
         Width = 180
         BevelOuter = bvNone
-        ClientHeight = 22
+        ClientHeight = 30
         ClientWidth = 180
         TabOrder = 0
         object Label1: TLabel
           Left = 3
-          Height = 19
+          Height = 27
           Top = 3
-          Width = 40
+          Width = 48
           Align = alLeft
           BorderSpacing.Left = 3
           BorderSpacing.Top = 3
@@ -624,13 +623,13 @@ object fScriptEditor: TfScriptEditor
         end
         object cbSyntax: TDBComboBox
           Left = 56
-          Height = 24
+          Height = 29
           Top = 0
           Width = 122
           Anchors = [akTop, akLeft, akRight]
           DataField = 'SYNTAX'
           DataSource = DataSource
-          ItemHeight = 16
+          ItemHeight = 0
           Items.Strings = (
             'Pascal'
             'SQL'
@@ -641,19 +640,19 @@ object fScriptEditor: TfScriptEditor
         end
       end
       object Panel3: TPanel
-        Left = 352
-        Height = 22
+        Left = 329
+        Height = 30
         Top = 2
-        Width = 312
+        Width = 398
         BevelOuter = bvNone
-        ClientHeight = 22
-        ClientWidth = 312
+        ClientHeight = 30
+        ClientWidth = 398
         TabOrder = 1
         object lName: TLabel
           Left = 3
-          Height = 19
+          Height = 27
           Top = 3
-          Width = 37
+          Width = 42
           Align = alLeft
           BorderSpacing.Left = 3
           BorderSpacing.Top = 3
@@ -663,18 +662,42 @@ object fScriptEditor: TfScriptEditor
         end
         object eName: TDBEdit
           Left = 48
-          Height = 24
+          Height = 27
           Top = 0
-          Width = 256
+          Width = 150
           DataField = 'NAME'
           DataSource = DataSource
           CharCase = ecNormal
           MaxLength = 0
           TabOrder = 0
         end
+        object lName1: TLabel
+          Left = 207
+          Height = 27
+          Top = 3
+          Width = 41
+          Align = alRight
+          BorderSpacing.Left = 3
+          BorderSpacing.Top = 3
+          BorderSpacing.Right = 150
+          Caption = 'Client'
+          ParentColor = False
+        end
+        object cbClient: TDBComboBox
+          Left = 256
+          Height = 29
+          Top = 0
+          Width = 142
+          DataField = 'CLIENT'
+          DataSource = DataSource
+          ItemHeight = 0
+          MaxLength = 0
+          OnSelect = cbSyntaxSelect
+          TabOrder = 1
+        end
       end
       object ToolButton10: TToolButton
-        Left = 57
+        Left = 727
         Top = 2
         Action = acRunRemote
       end
@@ -683,38 +706,39 @@ object fScriptEditor: TfScriptEditor
       Cursor = crVSplit
       Left = 0
       Height = 4
-      Top = 469
-      Width = 676
+      Top = 468
+      Width = 754
       Align = alBottom
       ResizeAnchor = akBottom
     end
     object Panel1: TPanel
       Left = 0
       Height = 84
-      Top = 473
-      Width = 676
+      Top = 472
+      Width = 754
       Align = alBottom
       BevelOuter = bvNone
       ClientHeight = 84
-      ClientWidth = 676
+      ClientWidth = 754
       TabOrder = 3
       object messages: TListBox
         Left = 0
         Height = 84
         Top = 0
-        Width = 676
+        Width = 754
         Align = alClient
         ItemHeight = 0
         OnClick = messagesClick
         OnDblClick = messagesDblClick
-        ScrollWidth = 674
+        ScrollWidth = 752
         TabOrder = 0
+        TopIndex = -1
       end
       object gResults: TDBGrid
         Left = 0
         Height = 84
         Top = 0
-        Width = 676
+        Width = 754
         Align = alClient
         Color = clWindow
         Columns = <>
@@ -730,18 +754,18 @@ object fScriptEditor: TfScriptEditor
   end
   object pLeft: TPanel
     Left = 0
-    Height = 557
+    Height = 556
     Top = 0
     Width = 280
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 557
+    ClientHeight = 556
     ClientWidth = 280
     TabOrder = 2
     Visible = False
     object DBGrid1: TDBGrid
       Left = 0
-      Height = 557
+      Height = 556
       Top = 0
       Width = 280
       Align = alClient
@@ -750,7 +774,7 @@ object fScriptEditor: TfScriptEditor
       Columns = <      
         item
           Title.Caption = 'Name'
-          Width = 247
+          Width = 252
           FieldName = 'NAME'
         end>
       DataSource = DataSource
@@ -763,7 +787,7 @@ object fScriptEditor: TfScriptEditor
   end
   object Splitter2: TSplitter
     Left = 280
-    Height = 557
+    Height = 556
     Top = 0
     Width = 5
   end
@@ -2067,7 +2091,7 @@ object fScriptEditor: TfScriptEditor
       4FFF4E4F4FFF4E4F4FFFFFFFFF00
     }
   end
-  object DataSource: TDataSource
+  object DataSource: TDatasource
     left = 224
     top = 16
   end
@@ -2095,12 +2119,12 @@ object fScriptEditor: TfScriptEditor
   end
   object tmDebug: TTimer
     Enabled = False
-    Interval = 500
+    Interval = 300
     OnTimer = tmDebugTimer
     left = 392
     top = 112
   end
-  object SelectData: TDataSource
+  object SelectData: TDatasource
     left = 288
     top = 520
   end

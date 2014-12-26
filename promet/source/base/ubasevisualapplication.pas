@@ -99,6 +99,7 @@ type
     procedure AddTabs(pcPages : TExtMenuPageControl);
     procedure OnAddCustomTab(Sender: TObject);
     function GetInternalTempDir: string;
+    function GetMessageManager : TThread;
 
     procedure Log(aType : string;aMsg : string);
     procedure Log(aMsg : string);
@@ -181,6 +182,11 @@ begin
   if TempPath = '' then
     TempPath := GetTempDir;
   Result := AppendPathDelim(TempPath);
+end;
+
+function TBaseVisualApplication.GetMessageManager: TThread;
+begin
+  Result := FMessagehandler;
 end;
 
 procedure TBaseVisualApplication.BaseVisualApplicationDebugLn(Sender: TObject;
@@ -1110,4 +1116,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

@@ -82,6 +82,7 @@ begin
             Add('COLOR',ftString,30,False);
             Add('RANGE',ftString,20,False);
             Add('POSITION',ftString,1,False);
+            Add('INTERPOLATE',ftString,1,False);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do

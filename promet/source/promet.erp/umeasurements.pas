@@ -24,7 +24,7 @@ uses
   TANavigation, TAIntervalSources, TASeries, TADbSource, Forms, Controls,
   ExtCtrls, DbCtrls, DBGrids, Buttons, StdCtrls, db, uPrometFramesInplaceDB,
   uExtControls, uBaseDbClasses, Clipbrd, ActnList, StdActns, ComCtrls, DBActns,
-  uMeasurement, types, uBaseVisualControls,TACustomSeries;
+  uMeasurement, types, uBaseVisualControls,TACustomSeries, TAChartUtils;
 type
 
   { TfMeasurementFrame }
@@ -37,8 +37,8 @@ type
     Chart1: TChart;
     Chart1LineSeries1: TLineSeries;
     ChartNavScrollBar1: TChartNavScrollBar;
-    DataSetNext1: TDataSetNext;
-    DataSetPrior1: TDataSetPrior;
+    DataSetNext1: TAction;
+    DataSetPrior1: TAction;
     DateTimeIntervalChartSource2: TDateTimeIntervalChartSource;
     MeasurementData: TDatasource;
     Measurements: TDatasource;
@@ -57,10 +57,15 @@ type
     ToolButton6: TToolButton;
     tsData: TTabSheet;
     procedure acRefreshExecute(Sender: TObject);
+    procedure DataSetNext1Execute(Sender: TObject);
+    procedure DataSetPrior1Execute(Sender: TObject);
+    procedure DiagrammShow(Sender: TObject);
   private
     { private declarations }
     Zoom : TDateTime;
     Position : TDateTime;
+    IsFirstShow: Boolean;
+    procedure AddData(aSeries : TBasicPointSeries;aStart,aEnd : TDateTime);
   public
     { public declarations }
     constructor Create(AOwner : TComponent);override;
@@ -76,6 +81,7 @@ uses uData,Utils,Graphics;
 procedure TfMeasurementFrame.acRefreshExecute(Sender: TObject);
 var
   aSeries: TLineSeries;
+  aExtent: TDoubleRect;
 begin
   with FDataSet as TMeasurement do
     begin
@@ -87,12 +93,7 @@ begin
             begin
               aSeries := TLineSeries.Create(Chart1);
               aSeries.LinePen.Color:=StringToColorDef(FieldByName('COLOR').AsString,clRed);
-              Data.First;
-              while not Data.EOF do
-                begin
-                  aSeries.AddXY(Data.FieldByName('DATE').AsFloat,Data.FieldByName('DATA').AsFloat);
-                  Data.Next;
-                end;
+              AddData(aSeries,trunc(Now()),trunc(Now())+Zoom);
               Chart1.AddSeries(aSeries);
               if FieldByName('POSITION').AsString='R' then
                 begin
@@ -102,8 +103,90 @@ begin
             end;
           Next;
         end;
-      //Chart1.LogicalExtent AxisList[1].Range.Min:=Position;
-      //Chart1.AxisList[1].Range.Max:=Position+Zoom;
+      aExtent := Chart1.GetFullExtent;
+      aExtent.b.X:=Position+Zoom;
+      aExtent.a.X:=Position;
+      Chart1.LogicalExtent:=aExtent;
+    end;
+end;
+
+procedure TfMeasurementFrame.DataSetNext1Execute(Sender: TObject);
+var
+  i: Integer;
+  aExtent: TDoubleRect;
+begin
+  Position:=Position+Zoom;
+  with FDataSet as TMeasurement do
+    begin
+      First;
+      i := 0;
+      while not EOF do
+        begin
+          if FieldByName('CHART').AsString='Y' then
+            begin
+              AddData(TBasicPointSeries(Chart1.Series[i]),Position,Position+Zoom);
+              inc(i);
+            end;
+          Next;
+        end;
+      aExtent := Chart1.GetFullExtent;
+      aExtent.b.X:=Position+Zoom;
+      aExtent.a.X:=Position;
+      Chart1.LogicalExtent:=aExtent;
+    end;
+end;
+
+procedure TfMeasurementFrame.DataSetPrior1Execute(Sender: TObject);
+var
+  i: Integer;
+  aExtent: TDoubleRect;
+begin
+  Position:=Position-Zoom;
+  with FDataSet as TMeasurement do
+    begin
+      First;
+      i := 0;
+      while not EOF do
+        begin
+          if FieldByName('CHART').AsString='Y' then
+            begin
+              AddData(TBasicPointSeries(Chart1.Series[i]),Position,Position+Zoom);
+              inc(i);
+            end;
+          Next;
+        end;
+      aExtent := Chart1.GetFullExtent;
+      aExtent.b.X:=Position+Zoom;
+      aExtent.a.X:=Position;
+      Chart1.LogicalExtent:=aExtent;
+    end;
+end;
+
+procedure TfMeasurementFrame.DiagrammShow(Sender: TObject);
+begin
+  if IsFirstShow then
+    acRefresh.Execute;
+  IsFirstShow := False;
+end;
+
+procedure TfMeasurementFrame.AddData(aSeries: TBasicPointSeries; aStart,
+  aEnd: TDateTime);
+var
+  aLastEntry : Double = -99999;
+begin
+  if (aStart>aSeries.GetXMin) and (aStart<aSeries.GetXMax) then
+    aStart := aSeries.GetXMax;
+  if (aEnd>aSeries.GetXMin) and (aEnd<aSeries.GetXMax) then
+    aEnd := aSeries.GetXMin;
+  TMeasurement(FDataSet).Data.Filter(Data.QuoteField('DATE')+'>'+Data.DateTimeToFilter(aStart)+' AND '+Data.QuoteField('DATE')+'<'+Data.DateTimeToFilter(aEnd));
+  TMeasurement(FDataSet).Data.First;
+  while (not TMeasurement(FDataSet).Data.EOF) do
+    begin
+      if (aLastEntry<> -99999) and (TMeasurement(FDataSet).FieldByName('INTERPOLATE').AsString='N') then
+        aSeries.AddXY(TMeasurement(FDataSet).Data.FieldByName('DATE').AsFloat,aLastEntry);
+      aSeries.AddXY(TMeasurement(FDataSet).Data.FieldByName('DATE').AsFloat,TMeasurement(FDataSet).Data.FieldByName('DATA').AsFloat);
+      aLastEntry:=TMeasurement(FDataSet).Data.FieldByName('DATA').AsFloat;
+      TMeasurement(FDataSet).Data.Next;
     end;
 end;
 
@@ -112,6 +195,7 @@ begin
   inherited Create(AOwner);
   Zoom := 1;
   Position := trunc(Now());
+  IsFirstShow := True;
 end;
 
 destructor TfMeasurementFrame.Destroy;

@@ -27,7 +27,7 @@ uses
   Classes, SysUtils, uPSCompiler,db,
   uPSC_classes, uPSC_DB, uPSC_dateutils, uPSC_dll, uPSRuntime,
   uPSR_classes, uPSR_DB, uPSR_dateutils, uPSR_dll, uPSUtils,
-  uPSR_std,uPSC_std,
+  uPSR_std,uPSC_std,uPSDebugger,
   Process,usimpleprocess,Utils,variants,UTF8Process,dynlibs,
   synamisc,RegExpr,MathParser;
 
@@ -83,6 +83,7 @@ type
   TPascalScript = class(TByteCodeScript)
   private
     CompleteOutput : string;
+    FExecStep: TNotifyEvent;
     FOnUses: TPascalOnUses;
     FProcess: TProcessUTF8;
     FRuntime : TPSExec;
@@ -133,10 +134,12 @@ type
     function Compile: Boolean; override;
     constructor Create;override;
     destructor Destroy; override;
+    property OnExecuteStep : TNotifyEvent read FExecStep write FExecStep;
   end;
 
 var
   LoadedLibs : TList;
+  ActRuntime : TPSExec;
 
 implementation
 
@@ -194,6 +197,13 @@ end;
 
 type
   aProcT = function : pchar;stdcall;
+
+procedure OnRunLine(Sender: TPSExec);
+begin
+  if Assigned(ActRuntime) and Assigned(ActRuntime.OnRunLine) then
+    ActRuntime.OnRunLine(ActRuntime);
+end;
+
 function TPascalScript.InternalUses(Comp: TPSPascalCompiler; Name: string
   ): Boolean;
 var
@@ -642,6 +652,8 @@ begin
   if Result then
     begin
       try
+        ActRuntime := Fruntime;
+        FRuntime.OnRunLine:=@OnRunLine;
         Result := FRuntime.RunScript
               and (FRuntime.ExceptionCode = erNoError);
         if not Result then

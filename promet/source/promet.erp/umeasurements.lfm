@@ -1,15 +1,15 @@
 inherited fMeasurementFrame: TfMeasurementFrame
   Height = 385
-  Width = 699
+  Width = 964
   ClientHeight = 385
-  ClientWidth = 699
+  ClientWidth = 964
   DesignLeft = 392
   DesignTop = 284
   object PageControl1: TPageControl[0]
     Left = 0
     Height = 385
     Top = 0
-    Width = 699
+    Width = 964
     ActivePage = Diagramm
     Align = alClient
     TabIndex = 1
@@ -17,35 +17,37 @@ inherited fMeasurementFrame: TfMeasurementFrame
     object tsData: TTabSheet
       Caption = 'Daten'
       ClientHeight = 352
-      ClientWidth = 693
+      ClientWidth = 958
       object gAdresses: TDBGrid
         Left = 4
         Height = 344
         Hint = 'wählen Sie hier eine Adresse'
         Top = 4
-        Width = 399
+        Width = 664
         Align = alClient
+        AutoFillColumns = True
         BorderSpacing.Around = 4
         BorderStyle = bsNone
         Color = clWindow
         Columns = <        
           item
             Title.Caption = 'Name'
-            Width = 250
+            Width = 137
             FieldName = 'NAME'
           end        
           item
             Title.Caption = 'Typ'
-            Width = 150
+            Width = 137
             FieldName = 'TYPE'
           end        
           item
             Title.Caption = 'ID'
-            Width = 90
+            Width = 137
             FieldName = 'ID'
           end        
           item
             ButtonStyle = cbsCheckboxColumn
+            SizePriority = 0
             Title.Caption = 'Diagramm'
             Width = 20
             ValueChecked = 'Y'
@@ -53,13 +55,15 @@ inherited fMeasurementFrame: TfMeasurementFrame
             FieldName = 'CHART'
           end        
           item
+            SizePriority = 0
             Title.Caption = 'Farbe'
-            Width = 50
+            Width = 80
             FieldName = 'COLOR'
           end        
           item
+            SizePriority = 0
             Title.Caption = 'Bereich'
-            Width = 50
+            Width = 60
             FieldName = 'RANGE'
           end        
           item
@@ -67,9 +71,19 @@ inherited fMeasurementFrame: TfMeasurementFrame
               'L Links'
               'R Rechts'
             )
+            SizePriority = 0
             Title.Caption = 'Position'
-            Width = 40
+            Width = 50
             FieldName = 'POSITION'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            SizePriority = 0
+            Title.Caption = 'Interpolieren'
+            Width = 30
+            ValueChecked = 'Y'
+            ValueUnchecked = 'N'
+            FieldName = 'INTERPOLATE'
           end>
         DataSource = Measurements
         DefaultRowHeight = 22
@@ -79,24 +93,25 @@ inherited fMeasurementFrame: TfMeasurementFrame
         TitleStyle = tsNative
       end
       object gAdresses1: TDBGrid
-        Left = 407
+        Left = 672
         Height = 344
         Hint = 'wählen Sie hier eine Adresse'
         Top = 4
         Width = 282
         Align = alRight
+        AutoFillColumns = True
         BorderSpacing.Around = 4
         BorderStyle = bsNone
         Color = clWindow
         Columns = <        
           item
             Title.Caption = 'Wert'
-            Width = 100
+            Width = 135
             FieldName = 'DATA'
           end        
           item
             Title.Caption = 'Datum'
-            Width = 150
+            Width = 135
             FieldName = 'DATE'
           end>
         DataSource = MeasurementData
@@ -110,12 +125,13 @@ inherited fMeasurementFrame: TfMeasurementFrame
     object Diagramm: TTabSheet
       Caption = 'Diagramm'
       ClientHeight = 352
-      ClientWidth = 693
+      ClientWidth = 958
+      OnShow = DiagrammShow
       object Chart1: TChart
         Left = 0
         Height = 312
         Top = 26
-        Width = 693
+        Width = 958
         AxisList = <        
           item
             Grid.Color = clSilver
@@ -153,7 +169,7 @@ inherited fMeasurementFrame: TfMeasurementFrame
         Left = 0
         Height = 14
         Top = 338
-        Width = 693
+        Width = 958
         Chart = Chart1
         Align = alBottom
         PageSize = 0
@@ -163,7 +179,7 @@ inherited fMeasurementFrame: TfMeasurementFrame
         Left = 0
         Height = 26
         Top = 0
-        Width = 693
+        Width = 958
         Caption = 'ToolBar1'
         EdgeBorders = []
         ShowCaptions = True
@@ -214,15 +230,17 @@ inherited fMeasurementFrame: TfMeasurementFrame
   object ActionList1: TActionList[3]
     left = 72
     top = 120
-    object DataSetPrior1: TDataSetPrior
+    object DataSetPrior1: TAction
       Category = 'Database'
       Caption = '&Zurück'
       Hint = 'Prior'
+      OnExecute = DataSetPrior1Execute
     end
-    object DataSetNext1: TDataSetNext
+    object DataSetNext1: TAction
       Category = 'Database'
       Caption = '&Vor'
       Hint = 'Next'
+      OnExecute = DataSetNext1Execute
     end
     object acZoomOut: TAction
       Caption = 'Zoom -'

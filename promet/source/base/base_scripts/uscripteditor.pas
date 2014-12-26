@@ -50,6 +50,8 @@ type
     ActionList1: TActionList;
     cbSyntax: TDBComboBox;
     DataSource: TDataSource;
+    cbClient: TDBComboBox;
+    lName1: TLabel;
     SelectData: TDatasource;
     gResults: TDBGrid;
     eName: TDBEdit;
@@ -169,6 +171,7 @@ type
     FDataSet : TBaseScript;
     Fuses : TBaseScript;
     FOldUses : TPSOnUses;
+    FWasRunning: Boolean;
     ClassImporter: uPSRuntime.TPSRuntimeClassImporter;
     function Compile: Boolean;
     function Execute: Boolean;
@@ -201,7 +204,7 @@ var
 implementation
 
 uses
-  uFrmGotoLine,uData,uBaseApplication,genpascalscript,Utils;
+  uFrmGotoLine,uData,uBaseApplication,genpascalscript,Utils,uSystemMessage;
 
 {$R *.lfm}
 
@@ -233,7 +236,7 @@ resourcestring
   STR_FORM_TITLE_RUNNING = 'Editor - Running';
   STR_INPUTBOX_TITLE = 'Script';
   STR_NOTSAVED = 'Script wurde noch nicht gespeichert, jetzt speichern?';
-
+  strScriptRunning       = 'Das Script wurde gestartet';
 function OnUses(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 begin
   if Assigned(fScriptEditor) then
@@ -323,10 +326,18 @@ end;
 procedure TfScriptEditor.edGutterClick(Sender: TObject; X, Y, Line: integer;
   mark: TSynEditMark);
 begin
-  if Debugger.HasBreakPoint(Debugger.MainFileName, Line) then
-    Debugger.ClearBreakPoint(Debugger.MainFileName, Line)
+  if (lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal') and (cbClient.Text='') then
+    begin
+      if Debugger.HasBreakPoint(Debugger.MainFileName, Line) then
+        Debugger.ClearBreakPoint(Debugger.MainFileName, Line)
+      else
+        Debugger.SetBreakPoint(Debugger.MainFileName, Line);
+    end
   else
-    Debugger.SetBreakPoint(Debugger.MainFileName, Line);
+    begin
+      if Debugger.HasBreakPoint(Debugger.MainFileName, Line) then
+        Debugger.ClearBreakPoint(Debugger.MainFileName, Line);
+    end;
   ed.Refresh;
 end;
 
@@ -369,8 +380,8 @@ end;
 procedure TfScriptEditor.cbSyntaxSelect(Sender: TObject);
 begin
   ed.Highlighter := TSynCustomHighlighter(FindComponent('Hig'+cbSyntax.Text));
-  acStepinto.Enabled:=lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal';
-  acStepover.Enabled:=lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal';
+  acStepinto.Enabled:=(lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal') and (cbClient.Text='');
+  acStepover.Enabled:=(lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal') and (cbClient.Text='');
 end;
 
 procedure TfScriptEditor.DebuggerExecImport(Sender: TObject; se: TPSExec;
@@ -492,9 +503,9 @@ begin
             TPascalScript(FDataSet.Script).Compiler := Debugger.Comp;
             Debugger.Execute;
           end;
-      end;
-      acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
-      acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+          acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
+          acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+        end;
     end
   else if (lowercase(FDataSet.FieldByName('SYNTAX').AsString)='sql') and (copy(lowercase(sl.Text),0,7)='select ') then
     begin
@@ -521,12 +532,14 @@ end;
 
 procedure TfScriptEditor.acRunRemoteExecute(Sender: TObject);
 begin
- FDataSet.Edit;
- FDataSet.FieldByName('STATUS').AsString:='d';
- FDataSet.Post;
- tmDebug.Enabled:=True;
- FOldStatus:='d';
- acRunRemote.Enabled:=false;
+  acSave.Execute;
+  with BaseApplication as IBaseApplication do
+    TMessageHandler(GetMessageManager).SendCommand(cbClient.Text,'ExecuteScript('+eName.Text+')');
+  acRunRemote.Enabled:=false;
+  FDataSet.DataSet.Refresh;
+  FOldStatus := FDataSet.FieldByName('STATUS').AsString;
+  FWasRunning:=False;
+  tmDebug.Enabled:=True;
 end;
 
 procedure TfScriptEditor.acSaveExecute(Sender: TObject);
@@ -1034,30 +1047,24 @@ end;
 procedure TfScriptEditor.tmDebugTimer(Sender: TObject);
 var
   sl: TStringList;
+  i: Integer;
 begin
  FDataSet.DataSet.Refresh;
  if FDataSet.FieldByName('STATUS').AsString=FOldStatus then exit;
  FOldStatus:=FDataSet.FieldByName('STATUS').AsString;
  if FDataSet.FieldByName('STATUS').AsString='R' then
    begin
-     acRun.Enabled:=False;
-     acStepinto.Enabled:=False;
-     acDecompile.Enabled:=false;
-     acStepover.Enabled:=FAlse;
-     acReset.Enabled:=True;
-     acPause.Enabled:=False;
+     messages.AddItem(strScriptRunning,nil);
+     FWasRunning := True;
    end
- else if (FDataSet.FieldByName('STATUS').AsString='N') then
+ else if FWasRunning then
    begin
-     acRun.Enabled:=True;
-     acStepinto.Enabled:=True;
-     acDecompile.Enabled:=True;
-     acStepover.Enabled:=False;
-     acReset.Enabled:=False;
-     acPause.Enabled:=False;
+     acRunRemote.Enabled:=True;
      tmDebug.Enabled:=False;
      sl := TStringList.Create;
      sl.Text:=FDataSet.FieldByName('LASTRESULT').AsString;
+     for i := 0 to sl.Count-1 do
+       messages.AddItem(sl[i],nil);
      sl.Free;
    end;
 end;

@@ -38,6 +38,7 @@ type
     function GetLog: TEventLog;
     function GetSingleInstance : Boolean;
     function GetLanguage: string;
+    function GetMessageManager : TThread;
     procedure SetAppname(AValue: string);
     procedure SetAppRevision(AValue: Integer);
     procedure SetAppVersion(AValue: real);
@@ -73,4 +74,4 @@ implementation
 initialization
   BaseApplication := nil;
 end.
-
+

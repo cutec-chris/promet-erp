@@ -67,6 +67,7 @@ type
       ObjectLink: string; Reference: string; aCommission: string;
   Source: string; Date: TDateTime): Boolean;
     procedure InternalStorValue(aName,aId : string;aValue : Double);
+    procedure InternalExecuteScript(aCommand, aClient: string);
   public
     constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
@@ -85,8 +86,12 @@ type
 
   function ProcessScripts : Boolean;//process Scripts that must be runned cyclic
 
+var
+  Historyrun : Boolean;
+
 implementation
-uses uStatistic,uData,httpsend,Utils,variants,uPerson,uMasterdata,uProjects,uOrder,uBaseERPDBClasses;
+uses uStatistic,uData,httpsend,Utils,variants,uPerson,uMasterdata,uProjects,uOrder,uBaseERPDBClasses,
+  uBaseApplication,uSystemMessage;
 function ProcessScripts : Boolean;//process Scripts that must be runned cyclic Result shows that it should be runned faster (debug)
 var
   aScript: TBaseScript;
@@ -111,31 +116,38 @@ begin
           end;
       aScript.Next;
     end;
-  aScript.Filter(Data.QuoteField('RUNONHISTORY')+'='+Data.QuoteValue('Y'));
-  if (not aScript.EOF) then
+  if Historyrun then
     begin
-      aHistory := TBaseHistory.Create(nil);
-      while not aScript.EOF do
+      aScript.Filter(Data.QuoteField('RUNONHISTORY')+'='+Data.QuoteValue('Y'));
+      if (not aScript.EOF) then
         begin
-          if aScript.FieldByName('STATUS').AsString<>'E' then
-            if aScript.FieldByName('LASTRUN').AsDateTime+(aScript.FieldByName('RUNEVERY').AsInteger/MinsPerDay)<Now() then
-              begin
-                aHistory.Filter(Data.QuoteField('DATE')+'>'+Data.DateTimeToFilter(aScript.FieldByName('LASTRUN').AsDateTime));
-                aHistory.Last;
-                while not aHistory.DataSet.BOF do
-                  begin
-                    aHistory.Prior;
-                    bScript := TBaseScript.CreateEx(nil,aScript.DataModule,aScript.Connection);
-                    bScript.Select(aScript.Id.AsVariant);
-                    bScript.Open;
-                    if bScript.Count=1 then
-                      bScript.Execute(VarArrayOf([aHistory.FieldByName('ACTION').AsString,aHistory.FieldByName('DATE').AsDateTime]));
-                    bScript.Free;
-                  end;
-              end;
-          aScript.Next;
-        end;
-      aHistory.Free;
+          if aHistory.Count>0 then
+            begin
+              aHistory := TBaseHistory.Create(nil);
+              while not aScript.EOF do
+                begin
+                  if aScript.FieldByName('STATUS').AsString<>'E' then
+                    if aScript.FieldByName('LASTRUN').AsDateTime+(aScript.FieldByName('RUNEVERY').AsInteger/MinsPerDay)<Now() then
+                      begin
+                        aHistory.Filter(Data.QuoteField('DATE')+'>'+Data.DateTimeToFilter(aScript.FieldByName('LASTRUN').AsDateTime));
+                        aHistory.Last;
+                        while not aHistory.DataSet.BOF do
+                          begin
+                            aHistory.Prior;
+                            bScript := TBaseScript.CreateEx(nil,aScript.DataModule,aScript.Connection);
+                            bScript.Select(aScript.Id.AsVariant);
+                            bScript.Open;
+                            if bScript.Count=1 then
+                              bScript.Execute(VarArrayOf([aHistory.FieldByName('ACTION').AsString,aHistory.FieldByName('DATE').AsDateTime]));
+                            bScript.Free;
+                          end;
+                      end;
+                  aScript.Next;
+                end;
+              aHistory.Free;
+            end;
+        end
+      else Historyrun:=False;
     end;
   aScript.Free;
 end;
@@ -200,6 +212,13 @@ begin
   aVariable.Free;
 end;
 
+procedure TBaseScript.InternalExecuteScript(aCommand, aClient: string);
+begin
+  if Assigned(BaseApplication) then
+    with BaseApplication as IBaseApplication do
+      TMessageHandler(GetMessageManager).SendCommand(aClient,aCommand);
+end;
+
 procedure TBaseScript.DataSetAfterOpen(aDataSet: TDataSet);
 begin
   TPascalScript(FScript).OnUses:=@TPascalScriptUses;
@@ -258,6 +277,7 @@ begin
         Sender.AddMethod(Self,@TBaseScript.InternalHistory,'function History(Action : string;ParentLink : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
         Sender.AddMethod(Self,@TBaseScript.InternalUserHistory,'function UserHistory(Action : string;User   : string;Icon : Integer;ObjectLink : string;Reference : string;Commission: string;Source : string;Date:TDateTime) : Boolean;');
         Sender.AddMethod(Self,@TBaseScript.InternalStorValue,'procedure StorValue(Name,Id : string;Value : Double);');
+        Sender.AddMethod(Self,@TBaseScript.InternalExecuteScript,'procedure ExecuteScript(Name,Client : string);');
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBDataset) do
           begin
             RegisterMethod('procedure Open;');
@@ -707,6 +727,7 @@ end;
 
 initialization
   LoadedLibs := TList.Create;
+  Historyrun:=True;
 finalization
   LoadedLibs.Clear;
   LoadedLibs.Free;

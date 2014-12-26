@@ -36,7 +36,6 @@ type
   private
     PowerStateMonitor: TPowerStateMonitor;
   protected
-    SysCommands: TSystemCommands;
     Processes : array of TProcProcess;
     procedure DoRun; override;
   public
@@ -125,7 +124,6 @@ var
   end;
 
 begin
-  SysCommands := nil;
   if CanWriteToProgramDir then
     begin
       GetLog.FileName:='processmanager.log';
@@ -177,7 +175,6 @@ begin
     end;
   Data.ProcessClient.Processes.Open;
   Data.ProcessClient.Processes.Parameters.Open;
-  aMin := 0;
   while not Terminated do
     begin
       Data.ProcessClient.RefreshList;
@@ -190,14 +187,7 @@ begin
             end;
           Data.ProcessClient.Process;
         end;
-      if (aMin>60) or (aFasterExecute>0) then
-        begin
-          aMin := 0;
-          dec(aFasterExecute);
-          if ProcessScripts then aFasterExecute := 600;
-        end;
       sleep(1000);
-      inc(aMin);
     end;
   try
     Data.ProcessClient.DataSet.Edit;
@@ -212,7 +202,6 @@ constructor TProcessManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   StopOnException:=True;
-  OnException:=@ProcessManagerException;
   PowerStateMonitor := TPowerStateMonitor.Create;
 end;
 destructor TProcessManager.Destroy;
