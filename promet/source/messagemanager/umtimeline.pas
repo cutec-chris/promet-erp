@@ -170,7 +170,7 @@ type
   public
     { public declarations }
     fTimeline : TfGridView;
-    procedure Execute;
+    procedure Execute(aHist : TBaseHistory);
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
     procedure AddHelp;
@@ -276,10 +276,14 @@ begin
   Synchronize(@AddThumb);
   Synchronize(@DoRefresh);
 end;
-procedure TfmTimeline.Execute;
+procedure TfmTimeline.Execute(aHist: TBaseHistory);
 var
   aBoundsRect: TRect;
+  aTime: DWORD;
 begin
+  with BaseApplication as IBaseApplication do
+    Debug('Execute:Enter');
+  aTime:=GetTickCount;
   if not Assigned(Self) then
     begin
       Application.CreateForm(TfmTimeline,fmTimeline);
@@ -297,8 +301,6 @@ begin
       fTimeline.ReadOnly:=True;
       fTimeline.OnDrawColumnCell:=@FContListDrawColumnCell;
       fTimeline.OnGetCellText:=@fTimelineGetCellText;
-      fTimeline.DataSet := TBaseHistory.Create(nil);
-      fTimeline.DataSet.CreateTable;
       fTimeline.gList.OnKeyDown:=@fTimelinegListKeyDown;
       fTimeline.gList.OnDblClick:=@fTimelinegListDblClick;
       fTimeline.gList.Options:=fTimeline.gList.Options-[goVertLine];
@@ -307,7 +309,7 @@ begin
       fTimeline.OnGetCellText:=@fTimelineGetCellText;
       fTimeline.OngetRowHeight:=@fTimelinegetRowHeight;
       fTimeline.WordWrap:=True;
-      Data.SetFilter(fTimeline.DataSet,trim(fMain.Filter+' '+fMain.Filter2),300);
+      fTimeline.DataSet := aHist;
       with Application as IBaseConfig,Application as IBaseApplication do
         begin
           RestoreConfig;
@@ -328,6 +330,8 @@ begin
   IdleTimer1.Enabled:=True;
   fTimeline.SetActive;
   Application.QueueAsyncCall(@AsyncScrollTop,0);
+  with BaseApplication as IBaseApplication do
+    Debug('Execute:Exit - '+IntToStr(GetTickCount-aTime));
 end;
 constructor TfmTimeline.Create(TheOwner: TComponent);
 begin
@@ -363,6 +367,7 @@ begin
     end;
   aWiki.Free;
 end;
+
 function TfmTimeline.FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
 var
@@ -380,7 +385,7 @@ var
   aWidth: Integer;
   mTime: DWORD;
 begin
-//  mTime := GetTickCount;
+  mTime := GetTickCount;
   with (Sender as TCustomGrid), Canvas do
     begin
       Result := True;
@@ -506,9 +511,10 @@ begin
           Result := False;
         end;
     end;
-//  mTime := GetTickCount-mTime;
-//  if mTime>0 then
-//    debugln('DrawColumnCellEnd:'+IntToStr(mTime)+'ms');
+  mTime := GetTickCount-mTime;
+  if mTime>0 then
+    with Application as IBaseApplication do
+      Debug('DrawColumnCellEnd:'+IntToStr(mTime)+'ms');
 end;
 procedure TfmTimeline.acRefreshExecute(Sender: TObject);
 begin
@@ -895,7 +901,9 @@ end;
 procedure TfmTimeline.AsyncScrollTop(Data: PtrInt);
 var
   aMsg : TLMVScroll;
+  aTime: DWORD;
 begin
+  aTime := GetTickCount;
   if fTimeline.InvertedDrawing then
     begin
       fTimeline.gList.TopRow:=fTimeline.gList.RowCount-fTimeline.gList.VisibleRowCount;
@@ -905,6 +913,8 @@ begin
     end
   else
     fTimeline.gList.TopRow:=0;
+  with BaseApplication as IBaseApplication do
+    Debug('AsyncScrollTop:'+IntToStr(GetTickCount-aTime));
 end;
 
 procedure TfmTimeline.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -1223,7 +1233,7 @@ begin
   pInput.Visible:=minewestDown.Checked;
   pInput.Height:=110;
   fTimeline.InvertedDrawing := minewestDown.Checked;
-  fTimeline.Refresh;
+  //fTimeline.Refresh;
   fTimeline.DataSet.First;
   fTimeline.GotoDataSetRow;
 end;

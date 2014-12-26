@@ -24,7 +24,7 @@ unit umain;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, ExtCtrls, Menus, Controls, ActnList,
+  Classes, SysUtils, types, FileUtil, ExtCtrls, Menus, Controls, ActnList,
   uProcessManagement,process, XMLConf,uSystemMessage,uBaseDbClasses,uBaseERPDBClasses,
   Graphics, LCLType, db,umashineid,uBaseVisualApplication;
 
@@ -66,6 +66,7 @@ type
     FFilter2: string;
     InformRecTime : TDateTime;
     FHistory : TBaseHistory;
+    fTimelineDataSet: TBaseHistory;
     function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
     procedure SetBaseref(AValue: LargeInt);
     procedure SetFilter(AValue: string);
@@ -87,7 +88,7 @@ uses {$ifdef WINDOWS}Windows,{$endif}
   uData,Utils,Forms,uBaseApplication,uIntfStrConsts,math,eventlog,uBaseDBInterface,
   umTimeLine,XMLPropStorage,LCLProc,uprometipc,wikitohtml,uMessages,uBaseSearch,
   utask,uOrder,uPerson,uMasterdata,uProjects,uWiki,uDocuments,umeeting,uStatistic,
-  uprometscripts;
+  uprometscripts,LCLIntf;
 {$R *.lfm}
 const
   RefreshAll = 30;//5 mins refresh
@@ -113,10 +114,14 @@ var
   Process: TProcProcess;
   aLog: TStringList;
   aRec: LargeInt;
+  aTime: types.DWORD;
 begin
   if not Assigned(Data) then exit;
   if not Data.Ping(Data.MainConnection) then exit;
   if Assigned(fmTimeline) and fmTimeline.Visible then exit;
+  with BaseApplication as IBaseApplication do
+    Debug('ProgTimer:Enter');
+  aTime:=GetTickCount;
   ProgTimer.Enabled:=False;
   //Call processes
   with Application as IBaseApplication do
@@ -206,12 +211,14 @@ begin
   //TrayIcon.Visible:=True;
   {$ENDIF}
   ProgTimer.Enabled:=True;
+  with BaseApplication as IBaseApplication do
+    Debug('ProgTimer:Exit - '+IntToStr(GetTickCount-aTime));
 end;
 procedure TfMain.TrayIconClick(Sender: TObject);
 begin
   if (not Assigned(fmTimeline)) or (not fmTimeline.Visible) then
     begin
-      fmTimeline.Execute;
+      fmTimeline.Execute(fTimelineDataSet);
       SwitchAnimationOff;
     end
   else fmTimeline.Close;
@@ -620,10 +627,13 @@ begin
     end;
   ProgTimer.Enabled:=True;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
+  fTimelineDataSet := TBaseHistory.Create(nil);
+  fTimelineDataSet.CreateTable;
+  Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),300);
 end;
 procedure TfMain.acHistoryExecute(Sender: TObject);
 begin
-  fmTimeline.Execute;
+  fmTimeline.Execute(fTimelineDataSet);
   SwitchAnimationOff;
 end;
 
