@@ -85,6 +85,7 @@ type
     acElements: TAction;
     acNewObject: TAction;
     acPasswords: TAction;
+    acNewScript: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -180,6 +181,7 @@ type
     procedure acNewObjectExecute(Sender: TObject);
     procedure acNewOrderExecute(Sender: TObject);
     procedure acNewProjectExecute(Sender: TObject);
+    procedure acNewScriptExecute(Sender: TObject);
     procedure acNewStatisticsExecute(Sender: TObject);
     procedure acNewTaskExecute(Sender: TObject);
     procedure acNewTerminExecute(Sender: TObject);
@@ -665,6 +667,8 @@ end;
 procedure TfMain.AddElementList(Sender: TObject);
 var
   aObj: TObjects;
+  aBtn: TToolButton;
+  aItem: TMenuItem;
 begin
   with Sender as TfFilter do
     begin
@@ -675,9 +679,39 @@ begin
       with aObj.DataSet as IBaseDbFilter do
         UsePermissions := True;
       TfFilter(Sender).Dataset := aObj;
-      AddToolbarAction(acNewObject);
+      aBtn := AddToolbarAction(acNewObject);
       OnDrawColumnCell:=@SenderTfFilterDrawColumnCell;
       OnViewDetails:=@SenderTfFilterViewElementDetails;
+      aBtn.DropdownMenu := TPopupMenu.Create(aBtn);
+      aBtn.Style:=tbsDropDown;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewObject;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewContact;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewOrder;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewMasterdata;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewTermin;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewMeeting;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewScript;
     end;
 end;
 
@@ -1930,6 +1964,17 @@ begin
   pcPages.AddTab(aFrame);
   aFrame.SetLanguage;
   aFrame.OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;
+  aFrame.New;
+end;
+
+procedure TfMain.acNewScriptExecute(Sender: TObject);
+var
+  aFrame: TfScriptFrame;
+begin
+  Application.ProcessMessages;
+  aFrame := TfScriptFrame.Create(Self);
+  pcPages.AddTab(aFrame);
+  aFrame.SetLanguage;
   aFrame.New;
 end;
 

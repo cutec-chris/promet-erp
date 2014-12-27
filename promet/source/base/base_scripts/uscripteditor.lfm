@@ -664,7 +664,7 @@ object fScriptEditor: TfScriptEditor
           Left = 48
           Height = 27
           Top = 0
-          Width = 150
+          Width = 152
           DataField = 'NAME'
           DataSource = DataSource
           CharCase = ecNormal
@@ -688,7 +688,7 @@ object fScriptEditor: TfScriptEditor
           Height = 29
           Top = 0
           Width = 142
-          DataField = 'CLIENT'
+          DataField = 'RUNMASHINE'
           DataSource = DataSource
           ItemHeight = 0
           MaxLength = 0

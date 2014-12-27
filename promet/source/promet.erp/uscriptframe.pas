@@ -46,11 +46,20 @@ type
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel6: TBevel;
+    DBComboBox1: TDBComboBox;
+    DBEdit1: TDBEdit;
+    DBMemo1: TDBMemo;
+    DBMemo2: TDBMemo;
     eArticleNumber: TDBEdit;
     History: TDatasource;
+    Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
     MandantDetails: TDatasource;
     Script: TDatasource;
     MenuItem1: TMenuItem;
@@ -74,6 +83,7 @@ type
     pmImage: TPopupMenu;
     Report: TfrReport;
     sbMenue: TSpeedButton;
+    tsCommon: TTabSheet;
     tsScript: TTabSheet;
     ToolBar1: TPanel;
     ToolButton1: TSpeedButton;

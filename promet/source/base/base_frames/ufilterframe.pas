@@ -253,7 +253,7 @@ type
     property OnGetCellText : TOnGetCellTextEvent read FOnGetCellText write FOnGetCellText;
     property OnDrawColumnCell : TDrawColumnCellEvent read FOnDrawColumnCell write FOnDrawColumnCell;
     property AutoFiltered : Boolean read GetAutoFiltered;
-    procedure AddToolbarAction(aAction : TAction);
+    function AddToolbarAction(aAction: TAction): TToolButton;
     procedure AddToolbarToggle(aAction : TAction);
     procedure AddContextAction(aAction : TAction);
     function AddFilter(FieldName,Value : string) : Boolean;
@@ -1767,7 +1767,7 @@ begin
       HintInfo.HideTimeout:=15000;
     end;
 end;
-procedure TfFilter.AddToolbarAction(aAction: TAction);
+function TfFilter.AddToolbarAction(aAction: TAction) : TToolButton;
 var
   Toolbutton: TToolButton;
 begin
@@ -1776,6 +1776,7 @@ begin
   Toolbutton :=TToolButton.Create(tbToolBar);
   Toolbutton.Parent  := tbToolBar;
   ToolButton.Action := aAction;
+  Result := Toolbutton;
 end;
 procedure TfFilter.AddToolbarToggle(aAction: TAction);
 var

@@ -12,12 +12,98 @@ inherited fScriptFrame: TfScriptFrame
     Height = 448
     Top = 44
     Width = 650
-    ActivePage = tsScript
+    ActivePage = tsCommon
     Align = alClient
     Images = fVisualControls.Images
     TabIndex = 0
     TabOrder = 0
     NewTabImageIndex = 59
+    object tsCommon: TTabSheet
+      Caption = 'Allgemein'
+      ClientHeight = 414
+      ClientWidth = 644
+      object Label1: TLabel
+        Left = 8
+        Height = 15
+        Top = 8
+        Width = 83
+        Caption = 'Beschreibung'
+        ParentColor = False
+      end
+      object DBMemo1: TDBMemo
+        Left = 8
+        Height = 248
+        Top = 32
+        Width = 630
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        DataField = 'NOTE'
+        DataSource = Script
+        TabOrder = 0
+      end
+      object DBComboBox1: TDBComboBox
+        Left = 152
+        Height = 27
+        Top = 304
+        Width = 132
+        DataField = 'RUNMASHINE'
+        DataSource = Script
+        ItemHeight = 0
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object Label5: TLabel
+        Left = 152
+        Height = 15
+        Top = 288
+        Width = 110
+        Caption = 'läuft auf Mashiene'
+        ParentColor = False
+      end
+      object Label6: TLabel
+        Left = 8
+        Height = 15
+        Top = 288
+        Width = 51
+        Caption = 'läuft alle'
+        ParentColor = False
+      end
+      object DBEdit1: TDBEdit
+        Left = 8
+        Height = 25
+        Top = 304
+        Width = 80
+        DataField = 'RUNEVERY'
+        DataSource = Script
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 2
+      end
+      object Label7: TLabel
+        Left = 96
+        Height = 15
+        Top = 309
+        Width = 23
+        Caption = 'min'
+        ParentColor = False
+      end
+      object DBMemo2: TDBMemo
+        Left = 8
+        Height = 58
+        Top = 352
+        Width = 630
+        Anchors = [akLeft, akRight, akBottom]
+        TabOrder = 3
+      end
+      object Label8: TLabel
+        Left = 8
+        Height = 15
+        Top = 333
+        Width = 96
+        Anchors = [akLeft, akBottom]
+        Caption = 'letztes Ergebnis'
+        ParentColor = False
+      end
+    end
     object tsScript: TTabSheet
       Caption = 'Script'
     end
@@ -305,7 +391,7 @@ inherited fScriptFrame: TfScriptFrame
       end
       object eArticleNumber: TDBEdit
         Left = 4
-        Height = 21
+        Height = 25
         Top = 13
         Width = 324
         DataField = 'NAME'
@@ -338,7 +424,7 @@ inherited fScriptFrame: TfScriptFrame
       end
     end
   end
-  object Script: TDataSource[2]
+  object Script: TDatasource[2]
     OnStateChange = ScriptStateChange
     left = 16
     top = 88
@@ -475,7 +561,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 172
     top = 252
   end
-  object History: TDataSource[6]
+  object History: TDatasource[6]
     left = 204
     top = 252
   end
@@ -493,7 +579,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 220
     top = 169
   end
-  object MandantDetails: TDataSource[9]
+  object MandantDetails: TDatasource[9]
     left = 256
     top = 232
   end
