@@ -50,6 +50,7 @@ type
     DBEdit1: TDBEdit;
     DBMemo1: TDBMemo;
     DBMemo2: TDBMemo;
+    DBText1: TDBText;
     eArticleNumber: TDBEdit;
     History: TDatasource;
     Label1: TLabel;
@@ -60,6 +61,7 @@ type
     Label6: TLabel;
     Label7: TLabel;
     Label8: TLabel;
+    Label9: TLabel;
     MandantDetails: TDatasource;
     Script: TDatasource;
     MenuItem1: TMenuItem;

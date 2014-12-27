@@ -1,4 +1,4 @@
-msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder startenwieder starten(aktive Version)(aktive Version)(Menü)wieder startenwieder starten(aktive Version)wieder starten(aktive Version)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)beim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommen(Menü)(Menü)(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder starten(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder starten(aktive Version)wieder startenwieder starten(Menü)wieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)wieder starten(Menü)wieder startenwieder starten(Menü)(Menü)(Menü)(Menü)wieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)wieder startenwieder starten(Menü)wieder startenwieder startenwieder starten"
+msgid "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder startenwieder starten(aktive Version)(aktive Version)(Menü)wieder startenwieder starten(aktive Version)wieder starten(aktive Version)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)beim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommen(Menü)(Menü)(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder starten(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)wieder starten(aktive Version)wieder startenwieder starten(Menü)wieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)wieder starten(Menü)wieder startenwieder starten(Menü)(Menü)(Menü)(Menü)wieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)wieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)"
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
-msgid "wieder starten"
+msgid "(Menü)"
 msgstr ""
 
 #: tfaccountingframe.accombineitems.caption
@@ -7332,6 +7332,11 @@ msgctxt "TFSCRIPTFRAME.ACSHOWTREEDIR.CAPTION"
 msgid "acShowTreeDir"
 msgstr ""
 
+#: tfscriptframe.label1.caption
+msgctxt "TFSCRIPTFRAME.LABEL1.CAPTION"
+msgid "Beschreibung"
+msgstr ""
+
 #: tfscriptframe.label2.caption
 msgctxt "TFSCRIPTFRAME.LABEL2.CAPTION"
 msgid "Eintrag"
@@ -7347,6 +7352,26 @@ msgstr ""
 msgctxt "TFSCRIPTFRAME.LABEL4.CAPTION"
 msgid "Name"
 msgstr "Name"
+
+#: tfscriptframe.label5.caption
+msgid "läuft auf Mashiene"
+msgstr ""
+
+#: tfscriptframe.label6.caption
+msgid "läuft alle"
+msgstr ""
+
+#: tfscriptframe.label7.caption
+msgid "min"
+msgstr ""
+
+#: tfscriptframe.label8.caption
+msgid "letztes Ergebnis"
+msgstr ""
+
+#: tfscriptframe.label9.caption
+msgid "ist zuletzt gelaufen"
+msgstr ""
 
 #: tfscriptframe.menuitem1.caption
 msgctxt "TFSCRIPTFRAME.MENUITEM1.CAPTION"
@@ -7366,6 +7391,11 @@ msgstr ""
 #: tfscriptframe.sbmenue.hint
 msgctxt "TFSCRIPTFRAME.SBMENUE.HINT"
 msgid "zusätzliche Optionen"
+msgstr ""
+
+#: tfscriptframe.tscommon.caption
+msgctxt "TFSCRIPTFRAME.TSCOMMON.CAPTION"
+msgid "Allgemein"
 msgstr ""
 
 #: tfscriptframe.tsscript.caption
