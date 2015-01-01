@@ -179,7 +179,8 @@ var
     except
       on e : Exception do
         begin
-          //debugln(e.Message);
+          with BaseApplication as IBaseApplication do
+            Error('Convert Error:'+e.Message);
           result := False;
         end;
     end;
@@ -199,6 +200,8 @@ var
   end;
 begin
   Result := False;
+  with BaseApplication as IBaseApplication do
+    Debug('Generate Thumbnail:Enter');
   try
     e := lowercase (ExtractFileExt(aName));
     if (e <> '') and (e[1] = '.') then
@@ -244,6 +247,8 @@ begin
         Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']),'.bmp');
         if not Result then
           Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'ffmpeg -i "%s" -qscale 0 -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
+        if not Result then
+          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'avconv -i "%s" -qscale 0 -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
       end;
     SysUtils.DeleteFile(aFileName);
     if Assigned(Img) then
@@ -298,6 +303,8 @@ begin
       Img.Free;
       aPrinter.Free;
     end;
+  with BaseApplication as IBaseApplication do
+    Debug('Generate Thumbnail:Exit');
 end;
 
 procedure TThumbnails.DefineFields(aDataSet: TDataSet);

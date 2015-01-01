@@ -117,6 +117,7 @@ type
 
     function InternalTimeToStr(Time: TDateTime): string;
     function InternalDateTimeToStr(Time: TDateTime): string;
+    function InternalFormat(Fmt: string; Args: array of const): string;
 
     function InternalMathParse(Input: string): string;
   public
@@ -244,6 +245,7 @@ begin
         AddFunction(@StringReplace,'function StringReplace(const S, OldPattern, NewPattern: string;  Flags: TReplaceFlags): string;');
         AddMethod(Self,@TPascalScript.InternalTimeToStr,'function TimeToStr(Time: TDateTime): string;');
         AddMethod(Self,@TPascalScript.InternalDateTimeToStr,'function DateTimeToStr(DateTime: TDateTime): string;');
+        AddMethod(Self,@TPascalScript.InternalFormat,'function Format(Fmt: string;Args: array of const):string;');
       end
     else if lowercase(Name)='exec' then
       begin
@@ -583,6 +585,11 @@ end;
 function TPascalScript.InternalDateTimeToStr(Time: TDateTime): string;
 begin
   Result := DateTimeToStr(Time);
+end;
+
+function TPascalScript.InternalFormat(Fmt: string; Args: array of const): string;
+begin
+  Result := Format(Fmt,Args);
 end;
 
 function TPascalScript.InternalMathParse(Input: string): string;

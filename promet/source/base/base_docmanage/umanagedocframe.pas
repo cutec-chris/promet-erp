@@ -1382,18 +1382,16 @@ var
   aTime: DWORD;
 begin
   URL := FURL;
-  {$ifdef DEBUG}
-  debugln('WaitForImage   :'+URL);
-  {$endif}
+  with BaseApplication as IBaseApplication do
+    Debug('WaitForImage   :'+URL);
   aTime := GetTickCount;
   while (not FileExists(FtempPath+URL)) do
     begin
       if GetTickCount-aTime>1000 then break;
       Application.ProcessMessages;
     end;
-  {$ifdef DEBUG}
-  debugln('WaitForImageEnd:'+URL);
-  {$endif}
+  with BaseApplication as IBaseApplication do
+    Debug('WaitForImageEnd:'+URL);
 end;
 procedure TfManageDocFrame.RebuidThumb;
 var
@@ -1405,6 +1403,7 @@ var
   aSStream: TStringStream;
 begin
   Screen.Cursor:=crHourGlass;
+  Application.ProcessMessages;
   for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
     begin
       if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then

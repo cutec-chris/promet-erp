@@ -163,11 +163,10 @@ type
     function GetTextFieldName: string;virtual;abstract;
     function GetNumberFieldName : string;virtual;abstract;
     function GetBookNumberFieldName : string;virtual;
+    procedure Delete; override;
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;virtual;
     function  ExportToXML : string;virtual;
     procedure ImportFromXML(XML : string;OverrideFields : Boolean = False;ReplaceFieldFunc : TReplaceFieldFunc = nil);virtual;
-//    function  TableToXML(Doc : TXMLDocument;iDataSet : TDataSet) : TDOMElement;
-//    function  XMLToTable(iDataSet : TDataSet;Node : TDOMElement) : Boolean;
     procedure OpenItem(AccHistory: Boolean=True);virtual;
     procedure CascadicPost; override;
     procedure GenerateThumbnail;virtual;
@@ -1091,6 +1090,28 @@ function TBaseDbList.GetBookNumberFieldName: string;
 begin
   Result := '';
 end;
+
+procedure TBaseDbList.Delete;
+var
+  aObj: TObjects;
+begin
+  inherited Delete;
+  aObj := TObjects.Create(nil);
+  if not Data.TableExists(aObj.TableName) then
+    begin
+      aObj.CreateTable;
+      aObj.Free;
+      aObj := TObjects.CreateEx(nil,Data,nil,DataSet);
+    end;
+  aObj.SelectByRefId(Id.AsVariant);
+  aObj.Open;
+  while aObj.Count>0 do
+    begin
+      aObj.DataSet.Delete;
+    end;
+  aObj.Free;
+end;
+
 procedure TBaseDBDataset.Select(aID: Variant);
 var
   aField: String = '';
@@ -3184,4 +3205,4 @@ end;
 
 initialization
 end.
-
+
