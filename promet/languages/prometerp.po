@@ -1051,8 +1051,20 @@ msgstr ""
 msgid "acNewScript"
 msgstr ""
 
+#: tfcommandline.input.hint
+msgid "geben Sie hier Ihre Frage oder Befehl ein"
+msgstr ""
+
+#: tfcommandline.label1.caption
+msgid ">"
+msgstr ""
+
 #: tfcommandline.label3.caption
 msgid "Administration"
+msgstr ""
+
+#: tfcommandline.panel2.caption
+msgid "Panel2"
 msgstr ""
 
 #: tfcommandline.toolbar1.caption

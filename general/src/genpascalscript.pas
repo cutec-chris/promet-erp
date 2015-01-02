@@ -261,6 +261,7 @@ begin
         AddMethod(Self,@TPascalScript.InternalPost,'function Post(URL,Content : string) : string;');
         AddMethod(Self,@TPascalScript.InternalGetDNS,'function GetDNS : string;');
         AddMethod(Self,@TPascalScript.InternalGetLocalIPs,'function GetLocalIPs : string;');
+        AddFunction(@HTTPEncode,'function HTTPEncode(const str : String) : string;');
       end
     else if lowercase(Name)='mashine' then
       begin
@@ -495,7 +496,7 @@ var
   ahttp: THTTPSend;
 begin
   ahttp := THTTPSend.Create;
-  ahttp.Timeout:=100;
+  ahttp.Timeout:=300;
   ahttp.KeepAlive:=false;
   ahttp.HTTPMethod('GET',aURL);
   if ahttp.ResultCode=200 then

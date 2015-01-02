@@ -35,11 +35,13 @@ type
     acNewScript: TAction;
     acEditScript: TAction;
     ActionList1: TActionList;
-    Input: TSynMemo;
+    Input: TMemo;
+    Label1: TLabel;
     Label3: TLabel;
     Output: TSynMemo;
     Panel1: TPanel;
     pAdmin: TPanel;
+    Panel2: TPanel;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
