@@ -318,7 +318,7 @@ var
   aTree: TTree;
   aMessages: TMessageList;
 begin
-  atmp := SysToUTF8(msg.Header.From);
+  atmp := SysToUni(msg.Header.From);
   if not CanEdit then
     DataSet.Edit;
   with DataSet do

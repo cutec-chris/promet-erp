@@ -188,7 +188,7 @@ begin
                 end;
               if tmp <> '' then
                 begin
-                  TrayIcon.BalloonHint:=UTF8ToSys(tmp);
+                  TrayIcon.BalloonHint:=UniToSys(tmp);
                   TrayIcon.ShowBalloonHint;
                   TrayIcon.Icons := ImageList2;
                   TrayIcon.Animate:=True;

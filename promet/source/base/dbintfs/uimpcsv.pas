@@ -21,7 +21,7 @@ unit uImpCSV;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, db, FileUtil, uBaseDbInterface, lconvencoding,uBaseApplication;
+  Classes, SysUtils, db, Utils, uBaseDbInterface, lconvencoding,uBaseApplication;
 procedure CSVExport(Filename : string;Delemiter : char;DataSet : TDataSet);
 procedure CSVImport(Filename : string;Delemiter : char;DataSet : TDataSet);
 implementation
@@ -64,7 +64,7 @@ begin
             write(f,'"'+StringReplace(DataSet.Fields[i].AsString,#13,'',[rfReplaceAll])+'"')
           else
             begin
-              Data.BlobFieldToFile(DataSet,DataSet.FieldDefs[i].Name,AppendPathDelim(ExtractFileDir(Filename))+DataSet.Name+'_'+DataSet.FieldDefs[i].name+IntToStr(a)+'.dat');
+              Data.BlobFieldToFile(DataSet,DataSet.FieldDefs[i].Name,ExtractFileDir(Filename)+DataSet.Name+'_'+DataSet.FieldDefs[i].name+IntToStr(a)+'.dat');
               write(f,'"'+DataSet.Name+'_'+DataSet.FieldDefs[i].name+IntToStr(a)+'.dat'+'"')
             end;
           write(f,Delemiter);
@@ -104,7 +104,7 @@ begin
       if (c=#13) or ((lc<>#13) and (c=#10)) then
         begin
           if (idx < header.Count) and (DataSet.FieldDefs.IndexOf(header[idx]) <> -1) then
-            DataSet.FieldByName(header[idx]).AsString := SysToUTF8(tmp);
+            DataSet.FieldByName(header[idx]).AsString := SysToUni(tmp);
           tmp := '';
           idx := 0;
           intextseparator := false;
@@ -127,12 +127,12 @@ begin
               if tmp <> '' then
                 begin
                   try
-                    if (FileExistsUTF8(AppendPathDelim(ExtractFileDir(Filename))+tmp)) then
+                    if (FileExists(UniToSys(ExtractFileDir(Filename)+tmp))) then
                       begin
-                        Data.FileToBlobField(AppendPathDelim(ExtractFileDir(Filename))+tmp,DataSet,header[idx]);
+                        Data.FileToBlobField(ExtractFileDir(Filename)+tmp,DataSet,header[idx]);
                       end
                     else
-                      DataSet.FieldByName(header[idx]).AsString := tmp;//SysToUTF8(ConvertEncoding(tmp,GuessEncoding(tmp),EncodingUTF8));
+                      DataSet.FieldByName(header[idx]).AsString := tmp;//SysToUni(ConvertEncoding(tmp,GuessEncoding(tmp),EncodingUTF8));
                   except
                   end;
                 end;

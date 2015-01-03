@@ -444,12 +444,12 @@ begin
               aDocument.DoCheckout(AppendPathDelim(TempPath));
               aDocument.Free;
               ForceDirectoriesUTF8(DragDropFile);
-              fl.Add(UTF8ToSys(TDocuments(DataSet).FileName));
+              fl.Add(UniToSys(TDocuments(DataSet).FileName));
               DoDragDrop(GetFileDataObject(TempPath,TDocuments(DataSet).FileName), Self, DROPEFFECT_MOVE, @Effect);
             end
           else
             begin
-              DragDropFile := AppendPathDelim(TempPath)+UTF8ToSys(TDocuments(DataSet).FileName);
+              DragDropFile := AppendPathDelim(TempPath)+UniToSys(TDocuments(DataSet).FileName);
               aID := DataSet.FieldByName('NUMBER').AsInteger;
               aDocument := TDocument.CreateEx(Self,Data);
               aDocument.SelectByNumber(aId);
@@ -924,9 +924,9 @@ begin
       else
         begin
           if DataSet.FieldByName('EXTENSION').AsString <> '' then
-            DocumentSaveDialog.FileName := UTF8ToSys(DataSet.FieldByName('NAME').AsString+'.'+DataSet.FieldByName('EXTENSION').AsString)
+            DocumentSaveDialog.FileName := UniToSys(DataSet.FieldByName('NAME').AsString+'.'+DataSet.FieldByName('EXTENSION').AsString)
           else
-            DocumentSaveDialog.FileName := UTF8ToSys(DataSet.FieldByName('NAME').AsString);
+            DocumentSaveDialog.FileName := UniToSys(DataSet.FieldByName('NAME').AsString);
           if DocumentSaveDialog.Execute then
             begin
               aID := DataSet.FieldByName('NUMBER').AsInteger;
@@ -1182,9 +1182,9 @@ begin
   else
     begin
       if DataSet.FieldByName('EXTENSION').AsString <> '' then
-        DocumentSaveDialog.FileName := UTF8ToSys(DataSet.FieldByName('NAME').AsString+'.'+DataSet.FieldByName('EXTENSION').AsString)
+        DocumentSaveDialog.FileName := UniToSys(DataSet.FieldByName('NAME').AsString+'.'+DataSet.FieldByName('EXTENSION').AsString)
       else
-        DocumentSaveDialog.FileName := UTF8ToSys(DataSet.FieldByName('NAME').AsString);
+        DocumentSaveDialog.FileName := UniToSys(DataSet.FieldByName('NAME').AsString);
       if DocumentSaveDialog.Execute then
         begin
           aID := DataSet.FieldByName('NUMBER').AsInteger;

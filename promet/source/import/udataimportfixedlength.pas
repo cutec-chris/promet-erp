@@ -143,7 +143,7 @@ begin
   if FTyp = icImport then
     begin
       sl := TStringList.Create;
-      sl.LoadFromFile(UTF8ToSys(Value));
+      sl.LoadFromFile(UniToSys(Value));
       i := 0;
       //Delete Comments
       while i < sl.Count do
@@ -163,7 +163,7 @@ begin
     begin
       FLDataSet.ReadOnly:=False;
       FLDataSet.FileMustExist:=False;
-      FLDataSet.FileName:=UTF8ToSys(Value);
+      FLDataSet.FileName:=UniToSys(Value);
     end;
   FLDataSet.Schema.Assign(mRows.Lines);
   try

@@ -625,7 +625,7 @@ begin
       TagParams.Values['BASELOCATION'] := 'wiki';
       ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
     end;
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TfmWikiPage.SearchTagreplace(Sender: TObject;
   const TagString: String; TagParams: TStringList; out ReplaceText: String);
@@ -676,7 +676,7 @@ begin
     end
   else
     ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TfmWikiPage.showlastchangesRequest(Sender: TObject;
   ARequest: TRequest; AResponse: TResponse; var Handled: Boolean);
@@ -809,7 +809,7 @@ begin
     end
   else
     ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TfmWikiPage.SettemplateParams(aTemplate : TFPTemplate);
 var

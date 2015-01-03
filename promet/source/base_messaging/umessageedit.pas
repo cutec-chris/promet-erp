@@ -959,7 +959,7 @@ begin
                      '',
                      Null,
                      copy(ExtractFileName(Document),0,rpos('.',ExtractFileName(Document))-1),
-                            UTF8ToSys(Document),
+                            UniToSys(Document),
                             DeleteFile,
                             Now());
   frDocuments.Refresh(tmpMID,'N',FDataSet.FieldByName('ID').AsString,Null,Null);

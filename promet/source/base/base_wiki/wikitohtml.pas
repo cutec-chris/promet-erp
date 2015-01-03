@@ -92,7 +92,7 @@ var
           istr := copy(istr,pos('[['+ImageTagName+':',istr)+length(ImageTagname)+3,length(istr));
           if (pos('|',istr) > 0) and (pos('|',istr) < pos(']]',istr)) then
             begin
-              ImageFile := UTF8ToSys(HTMLDecode(copy(istr,0,pos('|',istr)-1)));
+              ImageFile := UniToSys(HTMLDecode(copy(istr,0,pos('|',istr)-1)));
               ostr := ostr+'<a~LINKTAGS href="~HREF"><img~ATAGS src="~IMAGEFILE"';
               while (pos('|',istr) > 0) and (pos('|',istr) < pos(']]',istr)) do
                 begin
@@ -151,7 +151,7 @@ var
             begin
               if Assigned(OnConvertImage) then
                 OnConvertImage(copy(istr,0,pos(']]',istr)-1),ImageFile,aLinkTags,aHref,aTags,aWidth)
-              else ImageFile := UTF8ToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
+              else ImageFile := UniToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
               NewAlt := copy(istr,0,pos(']]',istr)-1);
               NewAlt := copy(NewAlt,0,rpos('.',NewAlt)-1);
               if aHRef = '' then
@@ -176,7 +176,7 @@ var
           istr := copy(istr,pos('[['+ImageTagName+':',istr)+length(ImageTagname)+3,length(istr));
           if (pos('|',istr) > 0) and (pos('|',istr) < pos(']]',istr)) then
             begin
-              ImageFile := UTF8ToSys(HTMLDecode(copy(istr,0,pos('|',istr)-1)));
+              ImageFile := UniToSys(HTMLDecode(copy(istr,0,pos('|',istr)-1)));
               ostr := ostr+'<a href="'+'/downloads/'+ImageFile+'"';
               while (pos('|',istr) > 0) and (pos('|',istr) < pos(']]',istr)) do
                 begin
@@ -189,7 +189,7 @@ var
             end
           else
             begin
-              ImageFile := UTF8ToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
+              ImageFile := UniToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
               ostr := ostr+'<a'+aLinkTags+' href="'+'/downloads/'+ImageFile+'">'+ImageFile+'</a>';
               istr := copy(istr,pos(']]',istr)+2,length(istr));
             end;
@@ -207,7 +207,7 @@ var
         begin
           ostr := ostr+copy(istr,0,pos('[['+ImageTagName+':',istr)-1);
           istr := copy(istr,pos('[['+ImageTagName+':',istr)+length(ImageTagname)+3,length(istr));
-          ImageFile := UTF8ToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
+          ImageFile := UniToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
           istr := copy(istr,pos(']]',istr)+2,length(istr));
           if Assigned(OnWikiInclude) then
             begin
@@ -450,7 +450,7 @@ begin
       if (pos('|',istr) > 0) and (pos('|',istr) < pos(']]',istr)) then
         begin
           linkcontent := copy(istr,0,pos('|',istr)-1);
-              aLink := linkoffset+UTF8ToSys(HTMLDecode(linkcontent));
+              aLink := linkoffset+UniToSys(HTMLDecode(linkcontent));
               if copy(aLink,0,length(RemoveLinkOffset)) = RemoveLinkOffset then
                 aLink := copy(aLink,length(RemoveLinkOffset),length(aLink));
               if Assigned(OnWikiLink) then
@@ -551,7 +551,7 @@ begin
       ostr := StringReplace(ostr,'</h4><br>','</h4>',[rfReplaceAll]);
       ostr := StringReplace(ostr,'</h5><br>','</h5>',[rfReplaceAll]);
       ostr := StringReplace(ostr,'</h6><br>','</h6>',[rfReplaceAll]);
-      Result := UTF8ToSys(ostr);
+      Result := UniToSys(ostr);
     end
   else
     Result := ostr;

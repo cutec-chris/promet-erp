@@ -738,16 +738,16 @@ begin
       else if SaveDialog.FilterIndex = 8 then
         begin
           StatisticResults.DataSet.DisableControls;
-          AssignFile(f,UTF8ToSys(SaveDialog.FileName));
+          AssignFile(f,UniToSys(SaveDialog.FileName));
           Rewrite(f);
           for x := 0 to StatisticResults.DataSet.FieldCount-1 do
-            write(f,UTF8ToSys(StatisticResults.DataSet.FieldDefs[x].DisplayName)+';');
+            write(f,UniToSys(StatisticResults.DataSet.FieldDefs[x].DisplayName)+';');
           writeln(f);
           StatisticResults.DataSet.First;
           while not StatisticResults.DataSet.EOF do
             begin
               for x := 0 to StatisticResults.DataSet.FieldCount-1 do
-                write(f,UTF8ToSys(StatisticResults.DataSet.Fields[x].AsString)+';');
+                write(f,UniToSys(StatisticResults.DataSet.Fields[x].AsString)+';');
               writeln(f);
               StatisticResults.DataSet.Next;
             end;

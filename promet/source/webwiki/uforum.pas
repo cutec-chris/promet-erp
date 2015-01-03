@@ -351,7 +351,7 @@ procedure TfmForum.ReplaceMainTags(Sender: TObject; const TagString: String;
   TagParams: TStringList; out ReplaceText: String);
 begin
   ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TfmForum.SettemplateParams(aTemplate: TFPTemplate);
 var

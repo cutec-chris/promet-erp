@@ -617,7 +617,7 @@ procedure TBaseDBModule.BlobFieldToFile(DataSet: TDataSet; Fieldname: string;
 var
   fstream: TFileStream;
 begin
-  fstream := TFileStream.Create(UTF8ToSys(Filename),fmCreate);
+  fstream := TFileStream.Create(UniToSys(Filename),fmCreate);
   try
     BlobFieldToStream(DataSet,Fieldname,fstream);
   except
@@ -631,7 +631,7 @@ procedure TBaseDBModule.FileToBlobField(Filename: string; DataSet: TDataSet;
 var
   fstream: TFileStream;
 begin
-  fstream := TFileStream.Create(UTF8ToSys(Filename),fmOpenRead);
+  fstream := TFileStream.Create(UniToSys(Filename),fmOpenRead);
   try
     StreamToBlobField(fstream,DataSet,Fieldname);
   except
@@ -1684,7 +1684,7 @@ begin
       end;
   mSettings := TStringList.Create;
   FMandantFile:=AppendPathDelim(FConfigPath)+aMandant+MandantExtension;
-  mSettings.LoadFromFile(UTF8ToSys(FMandantFile));
+  mSettings.LoadFromFile(UniToSys(FMandantFile));
   if (mSettings.Count <> 2) or (not OpenMandant(mSettings[0],mSettings[1])) then
     begin
       exit;
@@ -1798,9 +1798,9 @@ begin
   end;
   if not FindFirst(AppendPathDelim(FilePath)+'*'+MandantExtension,faAnyFile and faDirectory,aInfo)=0 then
     begin
-      if FindFirstUTF8(AppendPathDelim(SysToUTF8(BaseApplication.Location))+'*'+MandantExtension,faAnyFile and faDirectory,bInfo)=0 then
+      if FindFirstUTF8(AppendPathDelim(SysToUni(BaseApplication.Location))+'*'+MandantExtension,faAnyFile and faDirectory,bInfo)=0 then
         begin
-          CopyFile(AppendPathDelim(SysToUTF8(BaseApplication.Location))+bInfo.Name,AppendPathDelim(FilePath)+bInfo.Name);
+          CopyFile(AppendPathDelim(SysToUni(BaseApplication.Location))+bInfo.Name,AppendPathDelim(FilePath)+bInfo.Name);
           FindClose(bInfo);
         end;
     end
@@ -1846,4 +1846,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

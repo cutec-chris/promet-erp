@@ -81,7 +81,7 @@ var
     if FileExistsUTF8(aMandantPath) then
       begin
         mSettings := TStringList.Create;
-        mSettings.LoadFromFile(UTF8ToSys(aMandantPath));
+        mSettings.LoadFromFile(UniToSys(aMandantPath));
         if mSettings.Count = 2 then
           begin
             aUser := cbUser.Text;

@@ -5,7 +5,7 @@ unit usimpleprocess;
 interface
 
 uses
-  Classes, SysUtils,UTF8Process,process,FileUtil
+  Classes, SysUtils,process,Utils
   {$IFDEF MSWINDOWS}
   ,Windows
   {$ENDIF}
@@ -18,11 +18,11 @@ implementation
 
 function ExecProcessEx(CommandLine : string;CurDir : string = '') : string;
 var
-  process : TProcessUTF8;
+  process : TProcess;
   tmps: tstringlist;
   err : string = '';
 begin
-  Process := TProcessUTF8.Create(nil);
+  Process := TProcess.Create(nil);
   Process.Options:= [poUsePipes, poWaitOnExit, poStdErrToOutPut, poNewProcessGroup];
   Process.CommandLine := CommandLine;
   if CurDir <> '' then
@@ -48,11 +48,11 @@ var
   ProcInfo: TProcessInformation;
   Res: Boolean;
 {$ELSE}
-  process : TProcessUTF8;
+  process : TProcess;
 {$ENDIF}
   aDir: String;
 begin
-  aDir := GetCurrentDirUTF8;
+  aDir := GetCurrentDir;
   if CurDir <> '' then
     ChDir(CurDir);
 {$IFDEF MSWINDOWS}
@@ -72,7 +72,7 @@ begin
   if Res and Waitfor then
     WaitForSingleObject(ProcInfo.hProcess, INFINITE);
 {$ELSE}
-  Process := TProcessUTF8.Create(nil);
+  Process := TProcess.Create(nil);
   if CurDir <> '' then
     Process.CurrentDirectory := CurDir;
   Process.CommandLine := CommandLine;

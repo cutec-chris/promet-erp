@@ -72,7 +72,7 @@ begin
   if FileExistsUTF8(aPath) and not DirectoryExistsUTF8(aPath) then
     begin
       writeln('udownloads:started:'+aPath);
-      aFile := TFileStream.Create(UTF8ToSys(aPath),fmOpenRead,fmShareDenyNone);
+      aFile := TFileStream.Create(UniToSys(aPath),fmOpenRead,fmShareDenyNone);
       AResponse.ContentType := 'application/'+copy(aExt,2,length(aExt));
       AResponse.Code := 200;
       AResponse.ContentStream := aFile;

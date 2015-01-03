@@ -493,7 +493,7 @@ begin
   Screen.Cursor:=crHourGlass;
   if dImport.Execute then
     begin
-      aStream := TFileStream.Create(UTF8ToSys(dImport.FileName),fmOpenRead);
+      aStream := TFileStream.Create(UniToSys(dImport.FileName),fmOpenRead);
       case dImport.FilterIndex of
       1:ImportGAN(aStream,TProject(DataSet));
       end;

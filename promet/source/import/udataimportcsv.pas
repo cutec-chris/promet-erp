@@ -141,7 +141,7 @@ begin
   if FTyp = icImport then
     begin
       sl := TStringList.Create;
-      sl.LoadFromFile(UTF8ToSys(Value));
+      sl.LoadFromFile(UniToSys(Value));
       i := 0;
       //Delete Comments
       while i < sl.Count do
@@ -161,7 +161,7 @@ begin
     begin
       SDFDataSet.ReadOnly:=False;
       SDFDataSet.FileMustExist:=False;
-      SDFDataSet.FileName:=UTF8ToSys(Value);
+      SDFDataSet.FileName:=UniToSys(Value);
     end;
   try
 //    if FTyp = icImport then

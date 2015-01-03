@@ -1272,7 +1272,7 @@ var
 begin
   aDataThere:=False;
   WikiToHTML.OnWikiInclude:=@fWikiFrameWikiInclude;
-  ss:=TStringStream.Create(UTF8ToSys('<html><head><title>'+DataSet.FieldByName('CAPTION').AsString+'</title></head><body>'+WikiText2HTML(input,'','',True)+'<br><br><br></body></html>'));
+  ss:=TStringStream.Create(UniToSys('<html><head><title>'+DataSet.FieldByName('CAPTION').AsString+'</title></head><body>'+WikiText2HTML(input,'','',True)+'<br><br><br></body></html>'));
   ss.Position := 0;
   try
     Result:=TSimpleIPHtml.Create;

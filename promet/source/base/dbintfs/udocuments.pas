@@ -21,7 +21,7 @@ unit uDocuments;
 {$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDBClasses, Utils, fpolebasic,LConvEncoding,
+  Classes, SysUtils, db, uBaseDBClasses, Utils,LConvEncoding,
   usimpleprocess
   {$IFDEF LCL}
   ,Graphics
@@ -133,7 +133,7 @@ type
     function CheckCheckInFiles(aFiles : TStrings;Directory: string) : Boolean;
     function CheckinFiles(aFiles : TStrings;Directory: string;Desc : string = '') : Boolean;
     function GetText(aStream : TStream;aExt : string;var aText : string) : Boolean;
-    function GetWordText(aStream : TStream;aExt : string;var aText : string) : Boolean;
+    //function GetWordText(aStream : TStream;aExt : string;var aText : string) : Boolean;
     property BaseParent : TDocuments read FBaseParent write SetbaseParent;
     property OnCheckCheckinFiles : TCheckCheckinFilesEvent read FOnCheckCheckinFiles write FOnCheckCheckinFiles;
     property AftercheckInFiles : TNotifyEvent read FAfterCheckinFiles write FAfterCheckInFiles;
@@ -429,7 +429,7 @@ procedure TDocument.AddFromFile(aFilename: string; aText: string;
 var
   aStream: TFileStream;
 begin
-  aStream := TFileStream.Create(UTF8ToSys(aFilename),fmOpenRead);
+  aStream := TFileStream.Create(UniToSys(aFilename),fmOpenRead);
   try
     if rpos('.',ExtractFileName(aFileName)) > 0 then
       AddFromStream(copy(ExtractFileName(aFileName),0,rpos('.',ExtractFileName(aFileName))-1),copy(ExtractFileExt(aFileName),2,length(aFileName)),aStream,aText,AddDate)
@@ -1420,7 +1420,7 @@ function TDocument.CollectCheckInFiles(Directory: string): TStrings;
             if FileExistsUTF8(aDir) then
               begin
                 try
-                  if MD5Print(MD5File(UTF8ToSys(aDir))) <> aDoc.FieldByName('CHECKSUM').AsString then
+                  if MD5Print(MD5File(UniToSys(aDir))) <> aDoc.FieldByName('CHECKSUM').AsString then
                     Result.Values[aDir] := 'C'
                   else if Result.IndexOfName(aDir) > -1 then
                     Result.Delete(Result.IndexOfName(aDir));
@@ -1779,7 +1779,7 @@ var
 begin
   if Uppercase(aExt) = '.DOC' then
     begin
-      Result := GetWordText(aStream,aExt,aText);
+      //Result := GetWordText(aStream,aExt,aText);
     end
   else if Uppercase(aExt) = '.RTF' then
     begin
@@ -1845,7 +1845,7 @@ begin
     end;
   aText := ConvertEncoding(aText,GuessEncoding(aText),EncodingUTF8);
 end;
-
+{
 function TDocument.GetWordText(aStream: TStream; aExt: string; var aText: string
   ): Boolean;
 var
@@ -1899,7 +1899,7 @@ begin
     OLEStorage.Free;
   end;
 end;
-
+}
 procedure TDocument.Delete;
 var
   aDocuments: TDocuments;

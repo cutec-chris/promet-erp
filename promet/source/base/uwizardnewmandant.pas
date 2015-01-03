@@ -202,7 +202,7 @@ begin
     end;
   else
     begin
-      Clipboard.AsText :='SQL:'+cbSQLType.text+';'+eSQLServer.text+';'+UTF8ToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
+      Clipboard.AsText :='SQL:'+cbSQLType.text+';'+eSQLServer.text+';'+UniToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
     end;
   end;
 end;
@@ -487,7 +487,7 @@ begin
         begin
           aType := 'SQL';
           mSettings.Add('SQL');
-          aSettings := cbSQLType.text+';'+eSQLServer.text+';'+UTF8ToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
+          aSettings := cbSQLType.text+';'+eSQLServer.text+';'+UniToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
           mSettings.Add(aSettings);
           mSettings.SaveToFile(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension);
         end;
@@ -727,7 +727,7 @@ begin
                   result := 0;
                   exit;
                 end;
-              if CopyFile(UTF8ToSys(DirectoryEdit1.FileName),UTF8ToSys(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension)) then
+              if CopyFile(UniToSys(DirectoryEdit1.FileName),UniToSys(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension)) then
                 ShowMessage(strSuccess)
               else
                 begin

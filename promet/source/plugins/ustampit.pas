@@ -139,27 +139,27 @@ begin
   SetLength(tmp, fs.Size);
   fs.ReadBuffer(tmp[1], fs.Size);
   if Address.Count > 0 then
-    tmp := StringReplace(tmp,'%ADDRESS1%',UTF8ToSys(Address[0]),[rfReplaceAll])
+    tmp := StringReplace(tmp,'%ADDRESS1%',UniToSys(Address[0]),[rfReplaceAll])
   else
     tmp := StringReplace(tmp,'%ADDRESS1%','',[rfReplaceAll]);
   if Address.Count > 1 then
-    tmp := StringReplace(tmp,'%ADDRESS2%',UTF8ToSys(Address[1]),[rfReplaceAll])
+    tmp := StringReplace(tmp,'%ADDRESS2%',UniToSys(Address[1]),[rfReplaceAll])
   else
     tmp := StringReplace(tmp,'%ADDRESS2%','',[rfReplaceAll]);
   if Address.Count > 2 then
-    tmp := StringReplace(tmp,'%ADDRESS3%',UTF8ToSys(Address[2]),[rfReplaceAll])
+    tmp := StringReplace(tmp,'%ADDRESS3%',UniToSys(Address[2]),[rfReplaceAll])
   else
     tmp := StringReplace(tmp,'%ADDRESS3%','',[rfReplaceAll]);
   if Address.Count > 3 then
-    tmp := StringReplace(tmp,'%ADDRESS4%',UTF8ToSys(Address[3]),[rfReplaceAll])
+    tmp := StringReplace(tmp,'%ADDRESS4%',UniToSys(Address[3]),[rfReplaceAll])
   else
     tmp := StringReplace(tmp,'%ADDRESS4%','',[rfReplaceAll]);
   if Address.Count > 4 then
-    tmp := StringReplace(tmp,'%ADDRESS5%',UTF8ToSys(Address[4]),[rfReplaceAll])
+    tmp := StringReplace(tmp,'%ADDRESS5%',UniToSys(Address[4]),[rfReplaceAll])
   else
     tmp := StringReplace(tmp,'%ADDRESS5%','',[rfReplaceAll]);
   if Address.Count > 5 then
-    tmp := StringReplace(tmp,'%ADDRESS6%',UTF8ToSys(Address[5]),[rfReplaceAll])
+    tmp := StringReplace(tmp,'%ADDRESS6%',UniToSys(Address[5]),[rfReplaceAll])
   else
     tmp := StringReplace(tmp,'%ADDRESS6%','',[rfReplaceAll]);
   ss := TStringStream.Create(tmp);

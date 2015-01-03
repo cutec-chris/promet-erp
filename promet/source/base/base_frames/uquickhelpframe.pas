@@ -219,7 +219,7 @@ var
   ss: TStringStream;
 begin
   WikiToHTML.OnWikiInclude:=@fQuickHelpFrameWikiInclude;
-  ss:=TStringStream.Create(UTF8ToSys('<html><head></head><body bgcolor=#ffffcc>'+WikiText2HTML(input,'','',True)+'<br><br><br></body></html>'));
+  ss:=TStringStream.Create(UniToSys('<html><head></head><body bgcolor=#ffffcc>'+WikiText2HTML(input,'','',True)+'<br><br><br></body></html>'));
   ss.Position := 0;
   try
     Result:=TSimpleIPHtml.Create;

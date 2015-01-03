@@ -2002,7 +2002,7 @@ begin
                     aStyle := gList.Canvas.Font.Style;
                     gList.Canvas.Font.Style:=[fsBold];
                     DrawText(gList.Canvas.Handle,
-                      PChar(UTF8ToSys(aText)),
+                      PChar(UniToSys(aText)),
                       Length(aText),
                       r,
                       DT_LEFT or DT_WORDBREAK or DT_CALCRECT);

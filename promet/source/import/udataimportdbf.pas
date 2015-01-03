@@ -121,8 +121,8 @@ var
   i: Integer;
 begin
   Dbf1.Active:=False;
-  Dbf1.FilePathFull:=UTF8ToSys(ExtractFilePath(Value));
-  Dbf1.TableName:=UTF8ToSys(ExtractFileName(Value));
+  Dbf1.FilePathFull:=UniToSys(ExtractFilePath(Value));
+  Dbf1.TableName:=UniToSys(ExtractFileName(Value));
   try
     Dbf1.Active:=True;
   except

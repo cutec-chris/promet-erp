@@ -59,6 +59,8 @@ function DateTimeToIndustrialTime(dateTime : TDateTime) : string;
 function ConvertUnknownStringdate(input : string) : TDateTime;
 function HTMLEncode(s : string)  : string;
 function HTMLDecode(s : string)  : string;
+function UniToSys(const s: string): string; inline;// as UTF8ToAnsi but more independent of widestringmanager
+function SysToUni(const s: string): string; inline;// as AnsiToUTF8 but more independent of widestringmanager
 IMPLEMENTATION
 function GetMimeTypeforExtension(Extension : string) : string;
 var
@@ -307,6 +309,81 @@ begin
   Result := StringReplace(Result, '&Uuml;' ,'Ü', [rfreplaceall]);
   Result := StringReplace(Result, '&szlig;','ß', [rfreplaceall]);
 end;
+
+var
+  FNeedRTLAnsi: boolean = false;
+  FNeedRTLAnsiValid: boolean = false;
+
+function NeedRTLAnsi: boolean;
+{$IFDEF WinCE}
+// CP_UTF8 is missing in the windows unit of the Windows CE RTL
+const
+  CP_UTF8 = 65001;
+{$ENDIF}
+{$IFNDEF Windows}
+var
+  Lang: String;
+  i: LongInt;
+  Encoding: String;
+{$ENDIF}
+begin
+  if FNeedRTLAnsiValid then
+    exit(FNeedRTLAnsi);
+  {$IFDEF Windows}
+  FNeedRTLAnsi:=GetACP<>CP_UTF8;
+  {$ELSE}
+  FNeedRTLAnsi:=false;
+  Lang := SysUtils.GetEnvironmentVariable('LC_ALL');
+  if lang = '' then
+  begin
+    Lang := SysUtils.GetEnvironmentVariable('LC_MESSAGES');
+    if Lang = '' then
+    begin
+      Lang := SysUtils.GetEnvironmentVariable('LANG');
+    end;
+  end;
+  i:=System.Pos('.',Lang);
+  if (i>0) then begin
+    Encoding:=copy(Lang,i+1,length(Lang)-i);
+    FNeedRTLAnsi:=(SysUtils.CompareText(Encoding,'UTF-8')<>0)
+              and (SysUtils.CompareText(Encoding,'UTF8')<>0);
+  end;
+  {$ENDIF}
+  FNeedRTLAnsiValid:=true;
+  Result:=FNeedRTLAnsi;
+end;
+
+function IsASCII(const s: string): boolean; inline;
+var
+  i: Integer;
+begin
+  for i:=1 to length(s) do if ord(s[i])>127 then exit(false);
+  Result:=true;
+end;
+
+function UniToSys(const s: string): string;
+begin
+  if NeedRTLAnsi and (not IsASCII(s)) then
+    Result:=UTF8ToAnsi(s)
+  else
+    Result:=s;
+end;
+
+function SysToUni(const s: string): string;
+begin
+  if NeedRTLAnsi and (not IsASCII(s)) then
+  begin
+    Result:=AnsiToUTF8(s);
+    {$ifdef FPC_HAS_CPSTRING}
+    // prevent UTF8 codepage appear in the strings - we don't need codepage
+    // conversion magic in LCL code
+    SetCodePage(RawByteString(Result), StringCodePage(s), False);
+    {$endif}
+  end
+  else
+    Result:=s;
+end;
+
 function CanWriteToProgramDir : Boolean;
 var
   f : TextFile;
@@ -880,4 +957,4 @@ begin
 end;
 END.
 
- 
+ 

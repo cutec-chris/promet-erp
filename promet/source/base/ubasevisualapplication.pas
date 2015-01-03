@@ -400,7 +400,7 @@ begin
 end;
 procedure TBaseVisualApplication.SetConfigName(aName: string);
 begin
-  Properties.FileName := UTF8ToSys(GetOurConfigDir+aName+'.xml');
+  Properties.FileName := UniToSys(GetOurConfigDir+aName+'.xml');
 end;
 procedure TBaseVisualApplication.RestoreConfig;
 var
@@ -745,7 +745,7 @@ begin
   miLanguage.Clear;
   sl := TStringList.Create;
   if FileExistsUTF8(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt') then
-    sl.LoadFromFile(UTF8ToSys(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt'));
+    sl.LoadFromFile(UniToSys(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt'));
   for i := 0 to sl.Count-1 do
     begin
       aNewItem := TMenuItem.Create(miLanguage);

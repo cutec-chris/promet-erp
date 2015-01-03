@@ -28,7 +28,7 @@ uses
   uPSC_classes, uPSC_DB, uPSC_dateutils, uPSC_dll, uPSRuntime,
   uPSR_classes, uPSR_DB, uPSR_dateutils, uPSR_dll, uPSUtils,
   uPSR_std,uPSC_std,uPSDebugger,
-  Process,usimpleprocess,Utils,variants,UTF8Process,dynlibs,
+  Process,usimpleprocess,Utils,variants,dynlibs,
   synamisc,RegExpr,MathParser;
 
 type
@@ -85,7 +85,7 @@ type
     CompleteOutput : string;
     FExecStep: TNotifyEvent;
     FOnUses: TPascalOnUses;
-    FProcess: TProcessUTF8;
+    FProcess: TProcess;
     FRuntime : TPSExec;
     FRuntimeFree: Boolean;
     FCompiler: TPSPascalCompiler;
@@ -722,7 +722,7 @@ end;
 constructor TPascalScript.Create;
 begin
   inherited;
-  FProcess := TProcessUTF8.Create(nil);
+  FProcess := TProcess.Create(nil);
   FProcess.ShowWindow:=swoNone;
   FCompiler:= TPSPascalCompiler.Create;
   FCompilerFree:=True;

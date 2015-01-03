@@ -221,7 +221,7 @@ begin
          ss := TStringStream.Create('');
          Data.BlobFieldToStream(Messages.Content.DataSet,'DATA',ss);
          sl := TStringList.Create;
-         sl.Text:=SysToUTF8(ConvertEncoding(ss.DataString,GuessEncoding(ss.DataString),EncodingUTF8));
+         sl.Text:=SysToUni(ConvertEncoding(ss.DataString,GuessEncoding(ss.DataString),EncodingUTF8));
          sl.TextLineBreakStyle := tlbsCRLF;
          mContent.Lines.Assign(sl);
          sl.Free;
@@ -238,7 +238,7 @@ begin
            tmp := ss.DataString;
            aEncoding := GuessEncoding(tmp);
            if pos('ENCODING',Uppercase(tmp)) = 0 then
-             tmp := char($EF)+char($BB)+char($BF)+SysToUTF8(ConvertEncoding(tmp,aEncoding,EncodingUTF8));
+             tmp := char($EF)+char($BB)+char($BF)+SysToUni(ConvertEncoding(tmp,aEncoding,EncodingUTF8));
            ss.Free;
            ss:=TStringStream.Create(tmp);
            NewHTML:=TSimpleIpHtml.Create; // Beware:Will be freed automatically by IpHtmlPanel1
@@ -305,7 +305,7 @@ begin
 
            aEncoding := GuessEncoding(tmp);
            if pos('ENCODING',Uppercase(tmp)) = 0 then
-             tmp := char($EF)+char($BB)+char($BF)+SysToUTF8(ConvertEncoding(tmp,aEncoding,EncodingUTF8));
+             tmp := char($EF)+char($BB)+char($BF)+SysToUni(ConvertEncoding(tmp,aEncoding,EncodingUTF8));
            ss.Free;
            ss:=TStringStream.Create(tmp);
            NewHTML:=TSimpleIpHtml.Create; // Beware:Will be freed automatically by IpHtmlPanel1

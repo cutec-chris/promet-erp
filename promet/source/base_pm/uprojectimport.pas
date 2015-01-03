@@ -266,7 +266,7 @@ var
     if not Assigned(aParent) then aParent := aOParent;
     Result := aDoc.CreateElement('task');
     TDOMElement(result).SetAttribute('id',aTask.Id.AsVariant);
-    TDOMElement(result).SetAttribute('name', UTF8ToSys(aTask.FieldByName('SUMMARY').AsString));
+    TDOMElement(result).SetAttribute('name', UniToSys(aTask.FieldByName('SUMMARY').AsString));
     TDOMElement(result).SetAttribute('meeting','false');
     aStart := aTask.FieldByName('STARTDATE').AsDateTime;
     if aStart = 0 then
@@ -320,7 +320,7 @@ begin
   aDoc := TXMLDocument.Create;
   aProjectNode := aDoc.CreateElement('project');
   aDoc.AppendChild(aProjectNode);
-  TDOMElement(aProjectNode).SetAttribute('name',UTF8ToSys(aProject.FieldByName('NAME').AsString));
+  TDOMElement(aProjectNode).SetAttribute('name',UniToSys(aProject.FieldByName('NAME').AsString));
   TDOMElement(aProjectNode).SetAttribute('version','2.0');
   aTasksNode := aDoc.CreateElement('tasks');
   aProjectNode.AppendChild(aTasksNode);

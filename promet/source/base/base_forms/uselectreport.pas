@@ -558,7 +558,7 @@ begin
                   if isPrepared or Report.PrepareReport then
                     begin
                       isPrepared := True;
-                      Report.ExportTo(frFilters[FilterIndex - 1].ClassRef, Utf8ToSys(ChangeFileExt(FileName, Copy(frFilters[FilterIndex - 1].FilterExt, 2, 255))));
+                      Report.ExportTo(frFilters[FilterIndex - 1].ClassRef, UniToSys(ChangeFileExt(FileName, Copy(frFilters[FilterIndex - 1].FilterExt, 2, 255))));
                       Res := True;
                     end
                   else fError.ShowWarning(strCantPrepareReport);

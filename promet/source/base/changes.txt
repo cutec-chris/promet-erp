@@ -1,5 +1,7 @@
 ﻿Build 385
       - Format funktion für Scripte
+      - HTTPEncode funktion für Scripte
+      - Kommandozeile ausgebaut
 Build 384
       - Scripte:Promet Objekte direkt aus Scripten nutzbar
       - Kalendar:Planungsrelevant wurde im Ereigniseditor nicht gespeichert

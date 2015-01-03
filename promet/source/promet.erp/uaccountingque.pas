@@ -529,12 +529,12 @@ var
 begin
   if trim(line) = '' then exit;
   if (pos(';',line) = -1) then
-    fLogWaitForm.ShowInfo(SysToUTF8(Line))
+    fLogWaitForm.ShowInfo(SysToUni(Line))
   else if CountPos(';',Line) = 2 then
     begin
       tmp := copy(Line,pos(';',Line)+1,length(Line));
       tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-      fLogWaitForm.ShowInfo(SysToUTF8(tmp));
+      fLogWaitForm.ShowInfo(SysToUni(tmp));
     end
   else if ((pos('TAN',Line) > 0) or (pos('Index',Line) > 0)) and (Pos(':',Line) > 0) then
     begin
@@ -546,15 +546,15 @@ begin
   else
     Output.Add(line);
   debugln(Line);
-  if pos('nicht möglich',SysToUTF8(tmp)) > 0 then
+  if pos('nicht möglich',SysToUni(tmp)) > 0 then
     DontHide := True;
-  if pos('ungültig',SysToUTF8(tmp)) > 0 then
+  if pos('ungültig',SysToUni(tmp)) > 0 then
     DontHide := True;
-  if pos('zu lang',SysToUTF8(tmp)) > 0 then
+  if pos('zu lang',SysToUni(tmp)) > 0 then
     DontHide := True;
-  if pos('Error',SysToUTF8(tmp)) > 0 then
+  if pos('Error',SysToUni(tmp)) > 0 then
     DontHide := True;
-  if pos('error',SysToUTF8(tmp)) > 0 then
+  if pos('error',SysToUni(tmp)) > 0 then
     DontHide := True;
 end;
 constructor TAccountingFinTSCmdInterface.Create;
@@ -673,7 +673,7 @@ begin
           fLogWaitform.ShowInfo(strImportingData);
           while Output.Count > 0 do
             begin
-              tmp := SysToUTF8(Output[0]);
+              tmp := SysToUni(Output[0]);
               chksum := MD5Print(MD5String(tmp));
               Output.Delete(0);
               if not Accounts.Exchange.DataSet.Locate('CHECKSUM',chksum,[loCaseInsensitive]) then

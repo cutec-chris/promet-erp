@@ -929,7 +929,7 @@ begin
       fmWikiPage.ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
     end;
   aMd.Free;
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TfmShop.showbasketRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);

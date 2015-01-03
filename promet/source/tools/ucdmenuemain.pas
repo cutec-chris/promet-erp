@@ -198,9 +198,9 @@ var
   NewHTML: TSimpleIpHtml;
 begin
   try
-    fs:=TFileStream.Create(UTF8ToSys(Filename),fmOpenRead);
+    fs:=TFileStream.Create(UniToSys(Filename),fmOpenRead);
     try
-      HTMLPath := ExtractFilePath(UTF8ToSys(Filename));
+      HTMLPath := ExtractFilePath(UniToSys(Filename));
       NewHTML:=TSimpleIpHtml.Create; // Beware: Will be freed automatically by IpHtmlPanel1
       NewHTML.OnGetImageX:=@HTMLGetImageX;
       NewHTML.LoadFromStream(fs);

@@ -80,7 +80,7 @@ begin exit;
     DataSet.EnableControls;
   except
   end;
-  MyWorkBook.WriteToFile(UTF8ToSys(fOfficeOptions.feFile.FileName),TsSpreadsheetFormat(fOfficeOptions.feFile.FilterIndex-1));
+  MyWorkBook.WriteToFile(UniToSys(fOfficeOptions.feFile.FileName),TsSpreadsheetFormat(fOfficeOptions.feFile.FilterIndex-1));
   MyWorkBook.Free;
 end;
 
@@ -165,7 +165,7 @@ begin
     begin
       MyWorkBook := TsWorkBook.Create;
       try
-        MyWorkbook.ReadFromFile(UTF8ToSys(Value),TsSpreadsheetFormat(feFile.FilterIndex-1));
+        MyWorkbook.ReadFromFile(UniToSys(Value),TsSpreadsheetFormat(feFile.FilterIndex-1));
         if MyWorkBook.GetWorksheetCount > 0 then
           begin
             Sheet := MyWorkBook.GetFirstWorksheet;
@@ -184,7 +184,7 @@ begin
             begin
               Append;
               for x := 0 to Sheet.GetLastColNumber do
-                Fields[x].AsString:=UTF8ToSys(Sheet.ReadAsUTF8Text(y,x));
+                Fields[x].AsString:=UniToSys(Sheet.ReadAsUTF8Text(y,x));
               Post;
             end;
         MemDataSet1.EnableControls;
