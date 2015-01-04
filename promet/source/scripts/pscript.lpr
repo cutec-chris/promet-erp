@@ -55,7 +55,7 @@ begin
     end;
   if not Login then Terminate;
   //Your logged in here on promet DB
-  aScript := TBaseScript.Create(nil,Data);
+  aScript := TBaseScript.Create(nil);
   aScript.Readln:=@aScriptReadln;
   aScript.Write:=@aScriptWrite;
   aScript.Writeln:=@aScriptWriteln;

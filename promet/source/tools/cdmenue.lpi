@@ -34,6 +34,7 @@
     <RequiredPackages Count="3">
       <Item1>
         <PackageName Value="general"/>
+        <DefaultFilename Value="..\..\..\general\general.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="TurboPowerIPro"/>
@@ -47,7 +48,6 @@
       <Unit0>
         <Filename Value="cdmenue.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="cdmenue"/>
       </Unit0>
       <Unit1>
         <Filename Value="ucdmenuemain.pas"/>
@@ -83,11 +83,5 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
 </CONFIG>
