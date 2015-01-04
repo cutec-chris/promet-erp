@@ -420,7 +420,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="276"/>
-        <CursorPos X="41" Y="287"/>
+        <CursorPos X="14" Y="291"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit58>
@@ -712,7 +712,6 @@
       </Unit97>
       <Unit98>
         <Filename Value="..\..\..\..\..\fpc\trunk\packages\fcl-image\src\fpcanvas.pp"/>
-        <UnitName Value="FPCanvas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="299"/>
         <CursorPos X="26" Y="314"/>

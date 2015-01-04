@@ -281,11 +281,13 @@ begin
       randoben:=round(aHeight/100);
       //Schrift-Einstellungen:
       aPrinter.Font.Name:='Courier New';
-      aPrinter.Font.Size:=1;
-      aPrinter.Font.FPColor:=FPColor(0,0,0);
       LineHeight := ((aHeight-(randoben*2))/80);
+      aPrinter.Font.FPColor:=FPColor(0,0,0);
+      {$ifndef CPUARM}
+      aPrinter.Font.Size:=1;
       while aPrinter.TextExtent('Äg').cy< LineHeight do
         aPrinter.Font.Size:=aPrinter.Font.Size+1;
+      {$endif}
       x:=randlinks;
       y:=randoben+1;
       for zeile:=0 to sl.Count-1 do
