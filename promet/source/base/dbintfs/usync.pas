@@ -23,7 +23,7 @@ unit usync;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uBaseApplication,
-  fpjson,fpsqltree,LConvEncoding,synautil,Utils;
+  fpjson,fpsqltree,synautil,Utils;
 type
   TSyncTable = class(TBaseDBDataSet)
   public
@@ -146,7 +146,7 @@ begin
         else if (VField.DataType = ftInteger) or (VField.DataType = ftLargeint) then
           AJSON.Add(lowercase(VFieldName), VField.AsInteger)
         else
-          AJSON.Add(lowercase(VFieldName), ConvertEncoding(VField.AsString,guessEncoding(VField.AsString),EncodingUTF8))
+          AJSON.Add(lowercase(VFieldName), SysToUni(VField.AsString))
       end;
   end;
 end;
@@ -752,4 +752,4 @@ begin
 end;
 
 end.
-
+

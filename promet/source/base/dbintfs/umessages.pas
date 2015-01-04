@@ -21,7 +21,7 @@ unit uMessages;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDBInterface, uDocuments,
-  uBaseApplication, uBaseSearch, uIntfStrConsts,LConvEncoding;
+  uBaseApplication, uBaseSearch, uIntfStrConsts;
 type
 
   { TMessageList }
@@ -126,7 +126,7 @@ begin
     begin
       ss := TStringStream.Create('');
       Data.BlobFieldToStream(DataSet,'DATA',ss);
-      sl.Text:=HTMLDecode(ConvertEncoding(ss.DataString,GuessEncoding(ss.DataString),EncodingUTF8));
+      sl.Text:=HTMLDecode(ss.DataString{ConvertEncoding(ss.DataString,GuessEncoding(ss.DataString),EncodingUTF8)});
       sl.TextLineBreakStyle := tlbsCRLF;
       ss.Free;
     end
@@ -137,7 +137,7 @@ begin
       ss.Position:=0;
       tmp := ss.DataString;
       tmp := StripHTML(tmp);
-      tmp := ConvertEncoding(tmp,GuessEncoding(tmp),EncodingUTF8);
+      //tmp := ConvertEncoding(tmp,GuessEncoding(tmp),EncodingUTF8);
       tmp := HTMLDecode(tmp);
       sl.Text:=tmp;
       ss.Free;

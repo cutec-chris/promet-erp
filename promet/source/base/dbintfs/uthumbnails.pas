@@ -24,9 +24,9 @@ unit uthumbnails;
 interface
 
 uses
-  Classes, SysUtils, uDocuments,Utils,FileUtil,variants,
+  Classes, SysUtils, uDocuments,Utils,variants,
   FPImage,fpreadgif,FPReadPSD,FPReadPCX,FPReadTGA,FPReadJPEGintfd,fpthumbresize,
-  FPWriteJPEG,UTF8Process,FPReadBMP,process,uBaseDbClasses,FPCanvas,FPImgCanv,
+  FPWriteJPEG,FPReadBMP,process,uBaseDbClasses,FPCanvas,FPImgCanv,
   uBaseDBInterface,db
   {$IFDEF LCL}
   ,Graphics
@@ -61,7 +61,7 @@ var
 begin
   Result := '';
   try
-  aFilename := AppendPathDelim(GetThumbTempDir)+VarToStr(aDocument.Ref_ID);
+  aFilename := GetThumbTempDir+VarToStr(aDocument.Ref_ID);
   aFilename := aFilename+'_'+IntToStr(aWidth)+'x'+IntToStr(aHeight);
   aFilename:=aFilename+'.jpg';
   if not FileExists(aFilename) then
@@ -83,7 +83,7 @@ begin
       end;
       try
         if DelStream then
-          DeleteFileUTF8(aFilename)
+          DeleteFile(UniToSys(aFilename))
         else Result := aFilename;
       except
       end;
@@ -102,12 +102,12 @@ begin
     if Supports(BaseApplication,IBaseApplication) then
       with BaseApplication as IBaseApplication do
         Result := GetInternalTempDir+'promet_thumbs';
-  ForceDirectoriesUTF8(Result);
+  ForceDirectories(UniToSys(Result));
 end;
 
 function ClearThumbDir: Boolean;
 begin
-  Result := RemoveDirUTF8(GetThumbTempDir);
+  Result := RemoveDir(UniToSys(GetThumbTempDir));
 end;
 
 function GenerateThumbNail(aName: string; aFullStream, aStream: TStream;
@@ -149,7 +149,7 @@ var
   iOut: TFPMemoryImage;
   wr: TFPWriterJPEG;
   area: TRect;
-  aProcess: TProcessUTF8;
+  aProcess: TProcess;
   i: Integer;
   sl: TStringList;
   {$IFDEF LCL}
@@ -165,7 +165,7 @@ var
   aOldPos: Int64;
   function ConvertExec(aCmd,aExt : string) : Boolean;
   begin
-    aProcess := TProcessUTF8.Create(nil);
+    aProcess := TProcess.Create(nil);
     {$IFDEF WINDOWS}
     aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
     {$ELSE}
@@ -173,7 +173,7 @@ var
     {$ENDIF}
     aProcess.ShowWindow := swoHide;
     aProcess.CommandLine := aCmd;
-    aProcess.CurrentDirectory := AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools';
+    aProcess.CurrentDirectory := ExtractFileDir(ParamStr(0))+'tools';
     try
       aProcess.Execute;
     except
@@ -340,6 +340,6 @@ begin
 end;
 
 finalization
-  DeleteDirectory(GetThumbTempDir,False);
+  RemoveDir(GetThumbTempDir);
 end.
 

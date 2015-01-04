@@ -5,7 +5,7 @@ unit SecureUtils;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Utils
+  Classes, SysUtils, Utils
   {$IFDEF WINDOWS}
   , Windows,RtlConsts
   {$ENDIF}
@@ -25,11 +25,11 @@ TFlagFileStream = Class(THandleStream)
 {$ENDIF}
   
 function DeleteSecure(Filename : string;Method : TSecureDeleteMethod = dmSecure) : Boolean;
-function DeleteDirectorySecure(const DirectoryName: string;OnlyChilds: boolean;Method : TSecureDeleteMethod = dmSecure): boolean;
+//function DeleteDirectorySecure(const DirectoryName: string;OnlyChilds: boolean;Method : TSecureDeleteMethod = dmSecure): boolean;
 
 implementation
 
-
+{
 function DeleteDirectorySecure(const DirectoryName: string;OnlyChilds: boolean;Method : TSecureDeleteMethod): boolean;
 var
   FileInfo: TSearchRec;
@@ -56,7 +56,7 @@ begin
   if (not OnlyChilds) and (not RemoveDirUTF8(DirectoryName)) then exit;
   Result:=true;
 end;
-
+}
 function WriteData(Filename : string;Data : byte) : Boolean;
 const buffersize = 1024;
 var
@@ -147,18 +147,18 @@ begin
   case Method of
   dmDoD522022:
     begin
-      Result := WriteData(UTF8ToSys(Filename),0);
-      Result := Result and WriteData(UTF8ToSys(Filename),$FF);
+      Result := WriteData(UniToSys(Filename),0);
+      Result := Result and WriteData(UniToSys(Filename),$FF);
       Randomize;
-      Result := Result and WriteData(UTF8ToSys(Filename),Random($FF));
+      Result := Result and WriteData(UniToSys(Filename),Random($FF));
     end;
   dmOverride:
     begin
-      Result := WriteData(UTF8ToSys(Filename),0);
+      Result := WriteData(UniToSys(Filename),0);
     end;
   dmSecure:
     begin
-      ZeroFillDelete(UTF8ToSys(Filename));
+      ZeroFillDelete(UniToSys(Filename));
       Result := True;
     end;
   end;
@@ -169,10 +169,10 @@ begin
       for a := 0 to 15 do
         newFilename := newFilename+chr($30+Random(26));
       newFilename := ValidateFilename(newFilename);
-      if RenameFileUTF8(aFilename,newFilename) then
+      if RenameFile(aFilename,newFilename) then
         aFilename := newFilename;
     end;
-  DeleteFileUTF8(aFilename);
+  DeleteFile(aFilename);
 end;
 
 {$IFDEF WINDOWS}
@@ -205,4 +205,4 @@ end;
 {$ENDIF}
 
 end.
-
+

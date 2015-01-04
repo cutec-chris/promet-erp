@@ -47,7 +47,7 @@ type
   end;
 
 implementation
-uses uData,uBaseApplication,dEXIF,UTF8Process,process,
+uses uData,uBaseApplication,dEXIF,Process,
   uthumbnails;
 
 procedure TDocPages.SetParamsFromExif(extn: string; aFullStream: TStream);

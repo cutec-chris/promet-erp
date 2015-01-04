@@ -21,7 +21,7 @@ unit uimpvcal;
 interface
 uses
   {$ifdef WINDOWS}Windows,{$else}UnixUtil,{$endif}Classes, SysUtils, uVTools, uCalendar,
-  lazutf8sysutils,utask,uBaseApplication;
+  utilsDate,utask,uBaseApplication;
 function VCalImport(Calendar : TCalendar;vIn : TStrings;IsUTF8 : Boolean = False) : Boolean;
 function VCalExport(Calendar : TCalendar;vOut : TStrings) : Boolean;
 function VTodoImport(Task : TTaskList;vIn : TStrings;IsUTF8 : Boolean = False) : Boolean;
@@ -52,20 +52,6 @@ const
     LongDayNames:  ('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
     TwoDigitYearCenturyWindow: 50;
   );
-function GMTToLocalTime(ADateTime: TDateTime): TDateTime;
-var
-  aDiff: Extended;
-begin
-  aDiff := (NowUTC()-Now());
-  Result := ADateTime - aDiff;
-end;
-function LocalTimeToGMT(ADateTime: TDateTime): TDateTime;
-var
-  aDiff: Extended;
-begin
-  aDiff := (NowUTC()-Now());
-  Result := ADateTime + aDiff;
-end;
 function ConvertISODate(Str : string; ReturnUTC: Boolean = True) : TDateTime;
 var
   y, m, d: Word;

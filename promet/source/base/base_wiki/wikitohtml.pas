@@ -24,7 +24,7 @@ unit wikitohtml;
 interface
 
 uses
-  Classes, SysUtils, Utils, FileUtil,RegExpr,htmltowiki,LConvEncoding;
+  Classes, SysUtils, Utils,RegExpr,htmltowiki;
 
 function WikiText2HTML(input: string;LinkOffset : string = '';RemoveLinkOffset : string = '';IproChanges : Boolean = False;aLevel : Integer = 0): string;
 function StripWikiText(input : string) : string;
@@ -240,7 +240,7 @@ var
       end;
   end;
 begin
-  istr := ConvertEncoding(input,GuessEncoding(Input),EncodingUTF8);
+  istr := input;//ConvertEncoding(input,GuessEncoding(Input),EncodingUTF8);
   ostr := '';
   open_uls := 0;
   act_uls := 0;
@@ -564,4 +564,4 @@ end;
 
 
 end.
-
+

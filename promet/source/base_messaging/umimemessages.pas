@@ -40,7 +40,7 @@ type
   end;
   function GetmailAddr(aIn : string) : string;
 implementation
-uses uData, FileUtil, synautil,uBaseDbInterface,uBaseApplication;
+uses uData, Utils, synautil,uBaseDbInterface,uBaseApplication;
 function GetmailAddr(aIn : string) : string;
 begin
   Result := GetEmailAddr(aIn);
@@ -401,4 +401,4 @@ begin
 end;
 
 end.
-
+

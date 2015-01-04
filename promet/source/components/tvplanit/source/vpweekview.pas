@@ -815,7 +815,7 @@ var
       if FDayHeadAttributes.Bordered then
         TPSRectangle (RenderCanvas, Angle, RenderIn, TextRect);
       { Fix Header String }
-      DayStr := SysToUni(FormatDateTime(FDayHeadAttributes.DateFormat, StartDate + I));
+      DayStr := SysToUtf8(FormatDateTime(FDayHeadAttributes.DateFormat, StartDate + I));
       SL := RenderCanvas.TextWidth(DayStr);
       if SL > TextRect.Right - TextRect.Left then begin
         DayStr := GetDisplayString(RenderCanvas, DayStr, 0, TextRect.Right -

@@ -22,7 +22,7 @@ unit uBaseCustomApplication;
 interface
 uses
   {$ifdef UNIX}cwstring,{$endif}Classes, SysUtils, CustApp, uBaseApplication, uBaseDBInterface,
-  uData, uSystemMessage, lConvEncoding, eventlog,Utils,FileUtil;
+  uData, uSystemMessage, eventlog,Utils;
 resourcestring
   strFailedtoLoadMandants    = 'Mandanten konnten nicht gelanden werden !';
   strMandantnotSelected      = 'kein Mandant gewählt (--mandant) !';
@@ -172,7 +172,7 @@ begin
       FLogger.Active:=True;
     end;
   Self.OnException:=@BaseCustomApplicationException;
-  GetConsoleTextEncoding;
+  //GetConsoleTextEncoding;
   DoDestroy := False;
   BaseApplication := Self;
   FMessageHandler := nil;

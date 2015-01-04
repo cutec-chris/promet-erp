@@ -5,7 +5,7 @@ unit uprometipc;
 interface
 
 uses
-  Classes, SysUtils,Utils,uBaseDbClasses,FileUtil;
+  Classes, SysUtils,Utils,uBaseDbClasses;
 type
   TMessageFunction = function(aMessage : string) : Boolean;
 
@@ -58,7 +58,7 @@ begin
     try
       with BaseApplication as IBaseApplication do
         begin
-          if FileExistsUTF8(aIPCFile) then
+          if FileExists(UniToSys(aIPCFile)) then
             begin
               fs := TFileStream.Create(aIPCFile,fmShareCompat);
               sl.LoadFromStream(fs);
@@ -91,6 +91,6 @@ initialization
   IPCFile := GetTempDir+'PMSMessagemenager';
 
 finalization
-  DeleteFileUTF8(IPCFile);
+  DeleteFile(IPCFile);
 end.
 

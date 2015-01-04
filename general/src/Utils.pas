@@ -59,8 +59,19 @@ function DateTimeToIndustrialTime(dateTime : TDateTime) : string;
 function ConvertUnknownStringdate(input : string) : TDateTime;
 function HTMLEncode(s : string)  : string;
 function HTMLDecode(s : string)  : string;
-function UniToSys(const s: string): string; inline;// as UTF8ToAnsi but more independent of widestringmanager
-function SysToUni(const s: string): string; inline;// as AnsiToUTF8 but more independent of widestringmanager
+function UniToSys(const s: string): string; inline;
+function SysToUni(const s: string): string; inline;
+function AppendPathDelim(const Path: string): string; inline;
+function FileSize(aFile : string) : Int64;
+type
+  TCopyFileFlag = (
+    cffOverwriteFile,
+    cffCreateDestDirectory,
+    cffPreserveTime
+    );
+  TCopyFileFlags = set of TCopyFileFlag;
+function CopyFile(const SrcFilename, DestFilename: string;
+                  Flags: TCopyFileFlags=[cffOverwriteFile]): boolean;
 IMPLEMENTATION
 function GetMimeTypeforExtension(Extension : string) : string;
 var
@@ -382,6 +393,78 @@ begin
   end
   else
     Result:=s;
+end;
+
+function AppendPathDelim(const Path: string): string;
+begin
+  if (Path<>'') and not (Path[length(Path)] in AllowDirectorySeparators) then
+    Result:=Path+PathDelim
+  else
+    Result:=Path;
+end;
+
+function FileSize(aFile: string): Int64;
+var
+  SR: TSearchRec;
+begin
+  Result := -1;
+  if FindFirst(aFile,faAnyFile,SR)=0 then
+    Result := sr.Size;
+  FindClose(SR);
+end;
+
+function CopyFile(const SrcFilename, DestFilename: string; Flags: TCopyFileFlags
+  ): boolean;
+var
+  SrcHandle: THandle;
+  DestHandle: THandle;
+  Buffer: array[1..4096] of byte;
+  ReadCount, WriteCount, TryCount: LongInt;
+begin
+  Result := False;
+  // check overwrite
+  if (not (cffOverwriteFile in Flags)) and FileExists(UniToSys(DestFileName)) then
+    exit;
+  // check directory
+  if (cffCreateDestDirectory in Flags)
+  and (not DirectoryExists(UniToSys(ExtractFilePath(DestFileName))))
+  and (not ForceDirectories(UniToSys(ExtractFilePath(DestFileName)))) then
+    exit;
+  TryCount := 0;
+  While TryCount <> 3 Do Begin
+    SrcHandle := FileOpen(UniToSys(SrcFilename), fmOpenRead or fmShareDenyWrite);
+    if (THandle(SrcHandle)=feInvalidHandle) then Begin
+      Inc(TryCount);
+      Sleep(10);
+    End
+    Else Begin
+      TryCount := 0;
+      Break;
+    End;
+  End;
+  If TryCount > 0 Then
+    raise EFOpenError.Createfmt({SFOpenError}'Unable to open file "%s"', [SrcFilename]);
+  try
+    DestHandle := FileCreate(UniToSys(DestFileName));
+    if (THandle(DestHandle)=feInvalidHandle) then
+      raise EFCreateError.createfmt({SFCreateError}'Unable to create file "%s"',[DestFileName]);
+    try
+      repeat
+        ReadCount:=FileRead(SrcHandle,Buffer[1],High(Buffer));
+        if ReadCount<=0 then break;
+        WriteCount:=FileWrite(DestHandle,Buffer[1],ReadCount);
+        if WriteCount<ReadCount then
+          raise EWriteError.createfmt({SFCreateError}'Unable to write to file "%s"',[DestFileName])
+      until false;
+    finally
+      FileClose(DestHandle);
+    end;
+    if (cffPreserveTime in Flags) then
+      FileSetDate(UnitoSys(DestFilename), FileGetDate(SrcHandle));
+    Result := True;
+  finally
+    FileClose(SrcHandle);
+  end;
 end;
 
 function CanWriteToProgramDir : Boolean;

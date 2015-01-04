@@ -9,7 +9,7 @@ uses
   Classes, SysUtils, CustApp,
   pcmdprometapp, uData, db, uBaseDBInterface, uBaseApplication,
   uBaseCustomApplication, uBaseDbClasses, uSync, uOrder, uPerson, uMasterdata,
-  LConvEncoding,uMessages;
+  uMessages,Utils;
 type
 
   { TSyncDBApp }
@@ -54,6 +54,7 @@ var
   aDelTable: String;
   DoPost: Boolean = False;
   aSyncError: TSyncItems;
+  tmp: String;
 begin
   try
   Result := True;
@@ -111,10 +112,12 @@ begin
             begin
               if (not aSource.FieldByName(aFieldName).IsNull) then
                 begin
+                  //tmp := ConvertEncoding(aSource.FieldByName(aFieldName).AsString,GuessEncoding(aSource.FieldByName(aFieldName).AsString),EncodingUTF8);
+                  tmp := SysToUni(aSource.FieldByName(aFieldName).AsString);
                   if (aDest.FieldByName(aFieldName).DataType = ftString)
-                  and (aDest.FieldByName(aFieldName).AsString <> ConvertEncoding(aSource.FieldByName(aFieldName).AsString,GuessEncoding(aSource.FieldByName(aFieldName).AsString),EncodingUTF8)) then
+                  and (aDest.FieldByName(aFieldName).AsString <> tmp) then
                     begin
-                      aDest.FieldByName(aFieldName).AsString := ConvertEncoding(aSource.FieldByName(aFieldName).AsString,GuessEncoding(aSource.FieldByName(aFieldName).AsString),EncodingUTF8);
+                      aDest.FieldByName(aFieldName).AsString := tmp;
                       DoPost := True;
                     end
                   else if (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant) then
@@ -580,4 +583,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

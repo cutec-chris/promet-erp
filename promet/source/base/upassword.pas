@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Buttons,ComCtrls,LCLType, ButtonPanel, Menus, uBaseApplication,
-  uBaseDBInterface,FileUtil;
+  uBaseDBInterface,Utils;
 resourcestring
   strNoMandants         = 'keine Mandanten gefunden !';
   strStartmandantWizard = 'Es wurde kein Mandant gefunden.'+lineending+'Möchten Sie jetzt einen anlegen ?';
@@ -78,7 +78,7 @@ var
     mSettings: TStringList;
   begin
     Result := False;
-    if FileExistsUTF8(aMandantPath) then
+    if FileExists(UniToSys(aMandantPath)) then
       begin
         mSettings := TStringList.Create;
         mSettings.LoadFromFile(UniToSys(aMandantPath));
@@ -124,11 +124,11 @@ begin
   lFirstLogin.Visible:=False;
   with Application as IBaseDBInterface do
     begin
-      if not DirectoryExistsUTF8(MandantPath) then
+      if not DirectoryExists(UniToSys(MandantPath)) then
         begin
           if not DoOpenMandant(MandantPath) then exit;
         end
-      else if DirectoryExistsUTF8(MandantPath) then
+      else if DirectoryExists(UniToSys(MandantPath)) then
         begin
           if not DoOpenMandant(AppendPathDelim(MandantPath)+cbMandant.Text+MandantExtension) then exit;
         end;
@@ -266,7 +266,7 @@ begin
         begin
           with Application as IBaseDbInterface do
             begin
-              If FindFirstUTF8(AppendPathDelim(MandantPath)+'*'+MandantExtension,faAnyFile,AInfo)=0 then
+              If FindFirst(UniToSys(AppendPathDelim(MandantPath)+'*'+MandantExtension),faAnyFile,AInfo)=0 then
                 Repeat
                   With aInfo do
                     begin
@@ -277,7 +277,7 @@ begin
               FindClose(aInfo);
               if cbMandant.Items.Count = 0 then
                 begin
-                  if FileExistsUTF8(AppendPathDelim(Application.Location)+'wizardmandant'+ExtractFileExt(Application.ExeName)) then
+                  if FileExists(UniToSys(AppendPathDelim(Application.Location)+'wizardmandant'+ExtractFileExt(Application.ExeName))) then
                     begin
                       if MessageDlg(strStartmandantWizard,mtInformation,[mbYes,mbNo],0) = mrYes then
                         begin

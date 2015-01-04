@@ -341,7 +341,7 @@ var
   fMain: TfMain;
 implementation
 {$R *.lfm}
-uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
+uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,lazutf8sysutils,
   uPersonFrame, uPrometFrames, uMessageFrame, uMessageEdit, LCLType, uCalendarFrame,
   uAccounting,uAccountingFrame,uAccountingQue,uAccountingTransfer,uMessages,uDocuments,
   uOrder,uArticleFrame,uMasterdata,uOrderFrame,uBookAccounting,

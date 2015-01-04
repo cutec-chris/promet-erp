@@ -21,7 +21,7 @@ unit uDocuments;
 {$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDBClasses, Utils,LConvEncoding,
+  Classes, SysUtils, db, uBaseDBClasses, Utils,
   usimpleprocess
   {$IFDEF LCL}
   ,Graphics
@@ -143,8 +143,8 @@ type
     property DocumentActions : TDocumentActions read FDocumentActions;
   end;
 implementation
-uses uBaseDBInterface,uBaseApplication, uBaseApplicationTools, FileUtil,md5,
-  Variants,UTF8Process,process,uRTFtoTXT;
+uses uBaseDBInterface,uBaseApplication, uBaseApplicationTools,md5,
+  Variants,Process,uRTFtoTXT;
 resourcestring
   strFailedCreatingDiff         = 'konnte Differenzdatei von Datei %s nicht erstellen';
   strInvalidLink                = 'Dieser Link ist auf dieser Datenbank ungültig !';
@@ -463,7 +463,7 @@ begin
           else
             FieldByName('DATE').AsFloat := AddDate;
           Post;
-          if FindFirstUTF8(AppendPathDelim(aFileName)+'*', faAnyFile, FindRec) = 0 THEN
+          if SysUtils.FindFirst(UniToSys(AppendPathDelim(aFileName)+'*'), faAnyFile, FindRec) = 0 THEN
             repeat
               if (FindRec.Name <> '.') AND (FindRec.Name <> '..') THEN
                 begin
@@ -483,7 +483,7 @@ begin
                   Change;
                   aDocument.Free;
                 end
-            until FindNextUTF8(FindRec) <> 0;
+            until SysUtils.FindNext(FindRec) <> 0;
         end;
     end;
 end;
@@ -1131,12 +1131,12 @@ begin
       else
         begin
           DataSet.Last;
-          if not FileExistsUTF8(aName) or (DataSet.FieldByName('CHECKSUM').AsString <> MD5Print(MD5File(aName))) then
+          if not FileExists(UniToSys(aName)) or (DataSet.FieldByName('CHECKSUM').AsString <> MD5Print(MD5File(aName))) then
             begin
               if Assigned(FOnCheckCheckOutFile) then
                 FOnCheckCheckOutFile(aName);
               if (Directory <> '') then
-                ForceDirectoriesUTF8(AppendPathDelim(Directory));
+                ForceDirectories(UniToSys(AppendPathDelim(Directory)));
               with BaseApplication as IBaseDbInterface do
                 Data.BlobFieldToFile(DataSet,'DOCUMENT',aName);
               //generate original Checksum if not there
@@ -1413,11 +1413,11 @@ function TDocument.CollectCheckInFiles(Directory: string): TStrings;
                     aDoc.DataSet.Edit;
                     aDoc.FieldByName('CHECKSUM').AsString := MD5Print(MD5File(GetInternalTempDir+'prometheusfile.tmp'));
                     aDoc.DataSet.Post;
-                    DeleteFileUTF8(GetInternalTempDir+'prometheusfile.tmp');
+                    DeleteFile(UniToSys(GetInternalTempDir+'prometheusfile.tmp'));
                   end;
               end;
             //if File isnt there then we have to do nothing
-            if FileExistsUTF8(aDir) then
+            if FileExists(UniToSys(aDir)) then
               begin
                 try
                   if MD5Print(MD5File(UniToSys(aDir))) <> aDoc.FieldByName('CHECKSUM').AsString then
@@ -1519,7 +1519,7 @@ var
     else
       begin
         //if File isnt there then we have to do nothing
-        if FileExistsUTF8(aDir) then
+        if FileExists(UniToSys(aDir)) then
           begin
             if aFiles.IndexOfName(aDir) <> -1 then
               begin
@@ -1563,12 +1563,12 @@ var
                     UseFullFile := True;
                     with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
                       begin
-                        if (not FileExistsUTF8(GetInternalTempDir+'prometheusfile1.tmp')) or UseFullfile then
+                        if (not FileExists(UniToSys(GetInternalTempDir+'prometheusfile1.tmp'))) or UseFullfile then
                           begin
                             UseFullfile := True;
-                            DeleteFileUTF8(GetInternalTempDir+'prometheusfile1.tmp');
+                            DeleteFile(UniToSys(GetInternalTempDir+'prometheusfile1.tmp'));
                             //Use Full File if no diff is possible
-                            if not CopyFile(aDir,GetInternalTempDir+'prometheusfile1.tmp') then
+                            if not CopyFile(aDir,UniToSys(GetInternalTempDir+'prometheusfile1.tmp')) then
                               begin
                                 Result := False;
                                 raise Exception.Create(Format(strFailedCreatingDiff,[aDir]));
@@ -1625,8 +1625,8 @@ var
                     //delete diff
                     with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
                       begin
-                        DeleteFileUTF8(GetInternalTempDir+'prometheusfile.tmp');
-                        DeleteFileUTF8(GetInternalTempDir+'prometheusfile1.tmp');
+                        DeleteFile(UniToSys(GetInternalTempDir+'prometheusfile.tmp'));
+                        DeleteFile(UniToSys(GetInternalTempDir+'prometheusfile1.tmp'));
                       end;
                     //add the complete file
                     Append;
@@ -1773,7 +1773,7 @@ var
   i: Integer;
   aFilename: String;
   aFStream: TFileStream;
-  aProcess: TProcessUTF8;
+  aProcess: TProcess;
   aStringStream : TStringStream;
   aLines: TStringList;
 begin
@@ -1800,7 +1800,7 @@ begin
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
-        aProcess := TProcessUTF8.Create(Self);
+        aProcess := TProcess.Create(Self);
         {$IFDEF WINDOWS}
         aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
         {$ELSE}
@@ -1843,7 +1843,7 @@ begin
           aText := copy(aText,0,1500);
         end
     end;
-  aText := ConvertEncoding(aText,GuessEncoding(aText),EncodingUTF8);
+  aText := SysToUni(aText);//ConvertEncoding(aText,GuessEncoding(aText),EncodingUTF8);
 end;
 {
 function TDocument.GetWordText(aStream: TStream; aExt: string; var aText: string

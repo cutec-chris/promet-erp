@@ -24,7 +24,7 @@ unit uTimeLine;
 interface
 
 uses
-  Classes, SysUtils, Controls, Graphics, FileUtil;
+  Classes, SysUtils, Controls, Graphics, Utils;
 
 type
   TTLOrientation = (toHorizontal,toVertical);

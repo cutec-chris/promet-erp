@@ -22,7 +22,7 @@ unit uBaseDBInterface;
 interface
 uses
   Classes, SysUtils, DB, Typinfo, CustApp, Utils , memds,
-  {uAppconsts, }FileUtil, uBaseDbClasses, uIntfStrConsts,
+  uBaseDbClasses, uIntfStrConsts,
   uBaseSearch,uBaseERPDbClasses,uDocuments,uOrder,Variants,uProcessManagement,
   rttiutils
   {$IFDEF LCL}
@@ -1677,7 +1677,7 @@ begin
   Result := False;
   //Check if FDB already is our Mandant
   if FMandantFile <> AppendPathDelim(FConfigPath)+aMandant+MandantExtension then
-    if not FileExistsUTF8(AppendPathDelim(FConfigPath)+aMandant+MandantExtension) then
+    if not FileExists(UniToSys(AppendPathDelim(FConfigPath)+aMandant+MandantExtension)) then
       begin
         FLastError := 'Not such Mandant ('+aMandant+',Config:'+ExtractFilePath(FConfigPath)+') !';
         exit;
@@ -1771,6 +1771,7 @@ var
   mSettings: TStringList;
   aInfo: TSearchRec;
   bInfo: TSearchRec;
+  sl: TStringList;
 begin
   Result := False;
   try
@@ -1785,8 +1786,9 @@ begin
           end
         else FilePath := GetConfigDir(StringReplace(lowercase('prometerp'),'-','',[rfReplaceAll]));
       end;
-    FilePath := CleanAndExpandDirectory(FilePath);
-    if not DirectoryExistsUTF8(FilePath) then ForceDirectoriesUTF8(FilePath);
+    //TODO:fix this ?!
+    //FilePath := CleanAndExpandDirectory(FilePath);
+    if not DirectoryExists(FilePath) then ForceDirectories(FilePath);
     FConfigPath:=FilePath;
     Result := True;
   except
@@ -1798,9 +1800,12 @@ begin
   end;
   if not FindFirst(AppendPathDelim(FilePath)+'*'+MandantExtension,faAnyFile and faDirectory,aInfo)=0 then
     begin
-      if FindFirstUTF8(AppendPathDelim(SysToUni(BaseApplication.Location))+'*'+MandantExtension,faAnyFile and faDirectory,bInfo)=0 then
+      if FindFirst(UniToSys(AppendPathDelim(SysToUni(BaseApplication.Location))+'*'+MandantExtension),faAnyFile and faDirectory,bInfo)=0 then
         begin
-          CopyFile(AppendPathDelim(SysToUni(BaseApplication.Location))+bInfo.Name,AppendPathDelim(FilePath)+bInfo.Name);
+          sl := TStringList.Create;
+          sl.LoadFromFile(AppendPathDelim(SysToUni(BaseApplication.Location))+bInfo.Name);
+          sl.SaveToFile(AppendPathDelim(FilePath)+bInfo.Name);
+          sl.Free;
           FindClose(bInfo);
         end;
     end

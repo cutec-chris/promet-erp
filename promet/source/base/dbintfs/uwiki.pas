@@ -59,7 +59,7 @@ type
     function ExportToHTML(aFile: string; aInclude: TWikiIncludeFunc): Boolean;
   end;
 implementation
-uses Variants,htmltowiki,Utils,FileUtil;
+uses Variants,htmltowiki,Utils;
 
 procedure TKeywords.DefineFields(aDataSet: TDataSet);
 begin
@@ -335,7 +335,7 @@ var
 begin
   WikiToHtml.OnWikiLink:=@WikiListWikiLink;
   WikiToHtml.OnWikiInclude:=aInclude;
-  FOutDir := AppendPathDelim(ExtractFileDir(aFile));
+  FOutDir := ExtractFileDir(aFile);
   FOutSub := copy(ExtractFileName(aFile),0,rpos('.',ExtractFileName(aFile))-1);
   FOutExt := ExtractFileExt(aFile);
   FOutTodo := TStringList.Create;
@@ -350,7 +350,7 @@ begin
       aFN := StringReplace(StringReplace(FOutDir+'/'+Outp,'/',DirectorySeparator,[rfReplaceAll]),'//','/',[rfReplaceAll]);
       if (not FileExists(aFN)) and aPage.FindWikiPage(FOutTodo.Names[0]) then
         begin
-          aRelPath := StringReplace(FileUtil.CreateRelativePath(FOutTodo.Names[0],FOutTodo.ValueFromIndex[0]),DirectorySeparator,'/',[rfReplaceAll]);
+          //aRelPath := StringReplace(FileUtil.CreateRelativePath(FOutTodo.Names[0],FOutTodo.ValueFromIndex[0]),DirectorySeparator,'/',[rfReplaceAll]);
           tmp := Outp;
           tmp := copy(tmp,pos('/',tmp)+1,length(tmp));
           aLinkOffs := '';

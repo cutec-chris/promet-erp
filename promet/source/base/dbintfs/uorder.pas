@@ -209,7 +209,7 @@ type
     function CalcDispatchType : Boolean;
   end;
 implementation
-uses uBaseDBInterface, uBaseSearch, uData, Process, UTF8Process,uRTFtoTXT,
+uses uBaseDBInterface, uBaseSearch, uData, Process,uRTFtoTXT,
   uIntfStrConsts;
 resourcestring
   strStatusnotfound             = 'Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator';
@@ -1201,7 +1201,7 @@ end;
 procedure TOrder.ShippingOutput;
 var
   OrderTyp: Integer;
-  aProcess: TProcessUTF8;
+  aProcess: TProcess;
   CommaCount: Integer;
   tmp: String;
 begin
@@ -1225,7 +1225,7 @@ begin
   or   (OrderTyp = 3)) //Rechnung
   then
     begin
-      aProcess := TProcessUTF8.Create(Self);
+      aProcess := TProcess.Create(Self);
       aProcess.ShowWindow := swoHide;
       aProcess.Options:= [poNoConsole,poWaitOnExit];
       aProcess.CommandLine := '"'+ExtractFileDir(ParamStr(0))+DirectorySeparator+'plugins'+DirectorySeparator;
@@ -1753,4 +1753,4 @@ end;
 
 initialization
 end.
-
+

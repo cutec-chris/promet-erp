@@ -24,7 +24,7 @@ unit uProcessManager;
 interface
 
 uses
-  Classes, SysUtils, Process, UTF8Process, FileUtil, uBaseApplication,usimpleprocess
+  Classes, SysUtils, Process, Utils, uBaseApplication,usimpleprocess
   {$IFDEF WINDOWS}
   ,Windows,jwatlhelp32
   {$ENDIF}
@@ -111,13 +111,13 @@ begin
   if BaseApplication.HasOption('config-path') then
     cmdln := cmdln+' "--config-path='+BaseApplication.GetOptionValue('config-path')+'"';
   if ProcessExists(aProcess+ExtractFileExt(BaseApplication.ExeName),cmdln) then exit;
-  aDir := AppendPathDelim(AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools'));
-  if (not FileExistsUTF8(aProcess+ExtractFileExt(BaseApplication.ExeName))) and (not FileExistsUTF8(aDir+aProcess+ExtractFileExt(BaseApplication.ExeName))) then
+  aDir := BaseApplication.Location+'tools'+DirectorySeparator;
+  if (not FileExists(UniToSys(aProcess+ExtractFileExt(BaseApplication.ExeName)))) and (not FileExists(UniToSys(aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)))) then
     begin
-      aDir := AppendPathDelim(AppendPathDelim(GetCurrentDirUTF8)+'tools');
-      if not FileExistsUTF8(aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)) then exit;
+      aDir := GetCurrentDir+'tools'+DirectorySeparator;
+      if not FileExists(UniToSys(aDir+aProcess+ExtractFileExt(BaseApplication.ExeName))) then exit;
     end;
-  Result := TProcessUTF8.Create(nil);
+  Result := TProcess.Create(nil);
   Result.Options:=[poUsePipes,poStderrToOutPut,poNoConsole];
   Result.CommandLine:=aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)+' '+cmdln;
   try
@@ -131,4 +131,4 @@ begin
 end;
 
 end.
-
+

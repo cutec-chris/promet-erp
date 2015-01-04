@@ -419,7 +419,9 @@ begin
   FProcess.Options:=[poUsePipes,poNoConsole,poStderrToOutPut];
   if ShowConsole then
     FProcess.Options:=[poUsePipes,poStderrToOutPut];
+  {$ifdef lcl}
   FProcess.PipeBufferSize:=1;
+  {$endif}
   CompleteOutput:='';
   FProcess.ShowWindow:=swoNone;
   try

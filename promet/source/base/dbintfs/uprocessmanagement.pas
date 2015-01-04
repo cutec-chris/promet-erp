@@ -20,9 +20,9 @@ unit uProcessManagement;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils,uBaseDbClasses,db,UTF8Process;
+  Classes, SysUtils,uBaseDbClasses,db,Process;
 type
-  TProcProcess = class(TProcessUTF8)
+  TProcProcess = class(TProcess)
   private
     FId: Variant;
     FInformed: Boolean;
@@ -75,8 +75,7 @@ type
   end;
 
 implementation
-uses uBaseDBInterface,uData,FileUtil,uBaseApplication,uIntfStrConsts,math,
-  process;
+uses uBaseDBInterface,uData,Utils,uBaseApplication,uIntfStrConsts,math;
 procedure TProcProcess.SetTimeout(AValue: TDateTime);
 begin
   if FTimeout=AValue then Exit;
@@ -220,6 +219,11 @@ begin
     end;
 end;
 
+function ExpandFileName(aDir : string) : string;
+begin
+  Result := aDir;
+end;
+
 function TProcessClient.Process: Boolean;
 var
   aLog: TStringList;
@@ -270,7 +274,7 @@ begin
         begin
           aLog.Text := Processes.DataSet.FieldByName('LOG').AsString;
           aProcess := Processes.FieldByName('NAME').AsString;
-          if FileExistsUTF8(ExpandFileNameUTF8(AppendPathDelim(BaseApplication.Location)+aProcess+ExtractFileExt(BaseApplication.ExeName))) then
+          if FileExists(ExpandFileName(AppendPathDelim(BaseApplication.Location)+aProcess+ExtractFileExt(BaseApplication.ExeName))) then
             begin
               Found := False;
               cmd := AppendPathDelim(BaseApplication.Location)+aProcess+ExtractFileExt(BaseApplication.ExeName);
@@ -343,7 +347,7 @@ begin
                   Setlength(ProcessData,length(ProcessData)+1);
                   ProcessData[length(ProcessData)-1] := NewProcess;
                   NewProcess.CommandLine:=cmd;
-                  NewProcess.CurrentDirectory:= CleanAndExpandDirectory(BaseApplication.Location+DirectorySeparator+'..'+DirectorySeparator);
+                  NewProcess.CurrentDirectory:= copy(BaseApplication.Location,0,rpos(DirectorySeparator,BaseApplication.Location)-1);
                   NewProcess.Options := [poNoConsole,poUsePipes];
                   NewProcess.Execute;
                   NewProcess.Timeout := aNow+(max(Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
@@ -358,7 +362,7 @@ begin
           else
             begin
               aLog.Clear;
-              DoLog(ExpandFileNameUTF8(aProcess+ExtractFileExt(BaseApplication.ExeName))+':'+'File dosend exists',aLog,True);
+              DoLog(ExpandFileName(aProcess+ExtractFileExt(BaseApplication.ExeName))+':'+'File dosend exists',aLog,True);
             end;
           if Processes.DataSet.FieldByName('LOG').AsString<>aLog.Text then
             begin

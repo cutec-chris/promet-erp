@@ -581,7 +581,7 @@ var
     end;
 
     { Acquire startdate and end date }
-    HeadStr := SysToUni(FormatDateTime(DateLabelFormat, DisplayDate));
+    HeadStr := SysToUtf8(FormatDateTime(DateLabelFormat, DisplayDate));
 
     { draw the text }
     if (DisplayOnly) and

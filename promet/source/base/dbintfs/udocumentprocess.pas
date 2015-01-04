@@ -2,7 +2,7 @@ unit uDocumentProcess;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uDocuments, UTF8Process, Process;
+  Classes, SysUtils, uDocuments, Process;
 type
   TDocExecuteThread = class(TThread)
   private
@@ -27,7 +27,7 @@ type
 var
   ProcessList : TList;
 implementation
-uses FileUtil, uBaseApplication, SecureUtils, uIntfStrConsts,uData;
+uses uBaseApplication, SecureUtils, uIntfStrConsts,uData,Utils;
 resourcestring
   strFailedExecuteProcess       = 'Möglicherweise ist das auführen von "%s" fehlgeschlagen, Rückgabewert: %d';
   strNoValidCommand             = 'Sie haben einen ungültigen befehl in den Dateiaktionen angegeben. Gültige Befehle müssen mit exec: oder mkdir: beginnen.';
@@ -41,7 +41,7 @@ begin
 end;
 function TDocExecuteThread.DoExecuteDocumentCommands(bCmd : string;UseStarter : Boolean) : Integer;
 var
-  Proc: TProcessUTF8;
+  Proc: TProcess;
   ACmd: String;
 begin
   while bCmd <> '' do
@@ -60,7 +60,7 @@ begin
         begin
           ACmd := StringReplace(copy(ACmd,6,length(ACmd)),#13,'',[rfReplaceAll]);
           ACmd := StringReplace(ACmd,#10,'',[rfReplaceAll]);
-          Proc := TProcessUTF8.Create(BaseApplication);
+          Proc := TProcess.Create(BaseApplication);
           if UseStarter then
             {$IFNDEF DARWIN}
             Proc.CommandLine := AppendPathDelim(ExtractFilePath(BaseApplication.Exename))+'pstarter'+ExtractFileExt(BaseApplication.Exename)+' '+Language+' '+ACmd
@@ -86,7 +86,7 @@ begin
       else if copy(Uppercase(ACmd),0,6) = 'MKDIR:' then
         begin
           ACmd := StringReplace(copy(ACmd,7,length(ACmd)),#13,'',[rfReplaceAll]);
-          ForceDirectoriesUTF8(ACmd);
+          ForceDirectories(uniToSys(ACmd));
         end
       else raise Exception.Create(strNoValidCommand);
     end;
@@ -117,10 +117,10 @@ begin
   //Remove Temp Stuff
   if aDoDelete and Result then
     begin
-      if DirectoryExistsUTF8(filename) then
+      if DirectoryExists(UniToSys(filename)) then
         begin
         DelRetry:
-          DelOK := DeleteDirectory(filename,False);
+          DelOK := RemoveDir(filename);
         end;
     end
   else if aDoDelete then
@@ -183,4 +183,4 @@ initialization
 finalization
   ProcessList.Destroy;
 end.
-
+

@@ -1,7 +1,7 @@
 unit Aspell;
 interface
 
-uses SysUtils, Classes, ProcessLineTalk, Contnrs,FileUtil;
+uses SysUtils, Classes, ProcessLineTalk, Contnrs,Utils;
 
 type
   TMessageType = (mtPlainText, mtInformation, mtWarning, mtError);
@@ -177,4 +177,4 @@ begin
     FOnMessage(MessageType, AMessage, AVerbosity);
 end;
 
-end.
+end.

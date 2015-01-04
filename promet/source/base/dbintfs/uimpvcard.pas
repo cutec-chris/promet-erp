@@ -21,7 +21,7 @@ unit uImpVCard;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, uPerson, synacode,db,lConvEncoding,
+  Classes, SysUtils, Utils, uPerson, synacode,db,
   uVTools
   {$IFDEF LCL}
   , Graphics
