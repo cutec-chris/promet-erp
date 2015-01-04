@@ -449,7 +449,11 @@ var
   Y: LongInt;
 begin
   Y := Self.ScreenToControl(Mouse.CursorPos).Y;
+  {$IF FPC_FULLVERSION<20602}
+  TH := 0;
+  {$ELSE}
   TH := Self.TabHeight;
+  {$ENDIF}
   if TH= 0 then TH := 25;
   Handled := not (Y <= TH);
 end;
@@ -1178,4 +1182,4 @@ begin
   FCanvas.Free;
 end;
 end.
-
+
