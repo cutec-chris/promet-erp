@@ -18,7 +18,7 @@
         </SyntaxOptions>
       </Parsing>
     </CompilerOptions>
-    <Files Count="16">
+    <Files Count="17">
       <Item1>
         <Filename Value="src_vis\ubenchmark.pas"/>
         <UnitName Value="ubenchmark"/>
@@ -84,6 +84,10 @@
         <Filename Value="src_vis\ucolors.pas"/>
         <UnitName Value="uColors"/>
       </Item16>
+      <Item17>
+        <Filename Value="src_vis\uimaging.pas"/>
+        <UnitName Value="uImaging"/>
+      </Item17>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

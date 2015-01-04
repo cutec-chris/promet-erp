@@ -9,7 +9,7 @@ uses
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils,
   FileUtil,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
-  uBaseApplication,uprometscripts;
+  uBaseApplication,uprometscripts, uImaging;
 
 type
 

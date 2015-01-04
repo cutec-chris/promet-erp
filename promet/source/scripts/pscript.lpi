@@ -39,11 +39,16 @@
         <PackageName Value="general"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="1">
+    <Units Count="2">
       <Unit0>
         <Filename Value="pscript.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="..\..\..\general\src_vis\uimaging.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uImaging"/>
+      </Unit1>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
