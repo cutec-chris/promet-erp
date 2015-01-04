@@ -49,7 +49,11 @@ Begin
       units := TStringList.Create;
       for i := 0 to po.Items.Count-1 do
         begin
+          {$IF FPC_FULLVERSION>=20601}
           id := copy(TPoFileItem(po.Items[i]).IdentifierLow,0,pos('.',TPoFileItem(po.Items[i]).IdentifierLow)-1);
+          {$ELSE}
+          id := lowercase(copy(TPoFileItem(po.Items[i]).Identifier,0,pos('.',TPoFileItem(po.Items[i]).Identifier)-1));
+          {$ENDIF}
           if units.IndexOf(id) = -1 then
             units.Add(id);
         end;
@@ -58,11 +62,19 @@ Begin
       units.Free;
       for i := 0 to po.Items.Count-1 do
         begin
+          {$IF FPC_FULLVERSION>=20601}
           id := copy(TPoFileItem(po.Items[i]).IdentifierLow,0,pos('.',TPoFileItem(po.Items[i]).IdentifierLow)-1);
+          {$ELSE}
+          id := lowercase(copy(TPoFileItem(po.Items[i]).Identifier,0,pos('.',TPoFileItem(po.Items[i]).Identifier)-1));
+          {$ENDIF}
           for a := 0 to Screen.FormCount-1 do
             if UTF8UpperCase(Screen.Forms[a].ClassName) = UTF8UpperCase(id) then
               begin
-                id := copy(TPoFileItem(po.Items[i]).IdentifierLow,pos('.',TPoFileItem(po.Items[i]).IdentifierLow)+1,length(TPoFileItem(po.Items[i]).IdentifierLow));
+                {$IF FPC_FULLVERSION>=20601}
+                id := copy(TPoFileItem(po.Items[i]).IdentifierLow,0,pos('.',TPoFileItem(po.Items[i]).IdentifierLow)-1);
+                {$ELSE}
+                id := lowercase(copy(TPoFileItem(po.Items[i]).Identifier,0,pos('.',TPoFileItem(po.Items[i]).Identifier)-1));
+                {$ENDIF}
                 if Assigned(Screen.Forms[a].FindComponent(copy(id,0,pos('.',id)-1))) then
                   begin
                     try
