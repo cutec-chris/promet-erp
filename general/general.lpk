@@ -18,7 +18,7 @@
         </SyntaxOptions>
       </Parsing>
     </CompilerOptions>
-    <Files Count="17">
+    <Files Count="16">
       <Item1>
         <Filename Value="src_vis\ubenchmark.pas"/>
         <UnitName Value="ubenchmark"/>
@@ -69,25 +69,21 @@
         <UnitName Value="ProcessUtils"/>
       </Item12>
       <Item13>
-        <Filename Value="src_vis\uimaging.pas"/>
-        <UnitName Value="uImaging"/>
-      </Item13>
-      <Item14>
         <Filename Value="src_vis\ulanguageutils.pas"/>
         <UnitName Value="uLanguageUtils"/>
-      </Item14>
-      <Item15>
+      </Item13>
+      <Item14>
         <Filename Value="src_vis\potranslator.pas"/>
         <UnitName Value="PoTranslator"/>
-      </Item15>
-      <Item16>
+      </Item14>
+      <Item15>
         <Filename Value="src_vis\utilsvis.pas"/>
         <UnitName Value="UtilsVis"/>
-      </Item16>
-      <Item17>
+      </Item15>
+      <Item16>
         <Filename Value="src_vis\ucolors.pas"/>
         <UnitName Value="uColors"/>
-      </Item17>
+      </Item16>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>
