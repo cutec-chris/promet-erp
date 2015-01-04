@@ -51,6 +51,7 @@ var
   TabScanlineFinalBmp: array of PRGBTripleArray;
   FinalBmp: TLazIntfImage;
 begin
+  {$IF FPC_FULLVERSION>=20601}
   for I := 0 to High(Filter) do
     if I in [0, 2, 6, 8] then
       Filter[I] := -Correction
@@ -133,6 +134,7 @@ begin
     Finalize(TabScanlineBmp);
     Finalize(TabScanlineFinalBmp);
   end;
+  {$ENDIF}
 end;
 
 procedure Delight(Input: TFPCustomImage);
