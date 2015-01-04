@@ -11,7 +11,6 @@ function GMTToLocalTime(ADateTime: TDateTime): TDateTime;
 function LocalTimeToGMT(ADateTime: TDateTime): TDateTime;
 
 function NowUTC: TDateTime;
-function GetTickCount64: QWord;
 
 implementation
 
@@ -48,12 +47,6 @@ var
 begin
   windows.GetSystemTime(SystemTime);
   result := systemTimeToDateTime(SystemTime);
-end;
-
-function GetTickCount64: QWord;
-begin
-  // GetTickCount64 is better, but we need to check the Windows version to use it
-  Result := Windows.GetTickCount();
 end;
 
 {$else}
@@ -113,34 +106,11 @@ begin
   result := systemTimeToDateTime(SystemTime);
 end;
 
-{$IF defined(Linux) and not defined(GetTickCountTimeOfDay)}
-function GetTickCount64: QWord;
-var
-  tp: timespec;
-begin
-  clock_gettime(CLOCK_MONOTONIC, @tp); // exists since Linux Kernel 2.6
-  Result := (Int64(tp.tv_sec) * 1000) + (tp.tv_nsec div 1000000);
-end;
-{$ELSE}
-function GetTickCount64: QWord;
-var
-  tp: TTimeVal;
-begin
-  fpgettimeofday(@tp, nil);
-  Result := (Int64(tp.tv_sec) * 1000) + (tp.tv_usec div 1000);
-end;
-{$ENDIF}
-
 {$else}
 // Not Windows and not UNIX, so just write the most trivial code until we have something besser:
 function NowUTC: TDateTime;
 begin
   Result := Now;
-end;
-
-function GetTickCount64: QWord;
-begin
-  Result := Trunc(Now * 24 * 60 * 60 * 1000);
 end;
 {$endif}
 {$endif}

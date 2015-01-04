@@ -284,7 +284,7 @@ begin
       aPrinter.Font.Size:=1;
       aPrinter.Font.FPColor:=FPColor(0,0,0);
       LineHeight := ((aHeight-(randoben*2))/80);
-      while aPrinter.TextHeight('Äg')< LineHeight do
+      while aPrinter.TextExtent('Äg').cy< LineHeight do
         aPrinter.Font.Size:=aPrinter.Font.Size+1;
       x:=randlinks;
       y:=randoben+1;
