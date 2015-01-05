@@ -49,6 +49,7 @@ type
   TScript = class
   private
     FResults: string;
+    FRunLine: TNotifyEvent;
     FSource: string;
     FStatus: char;
     FStatusChanged: TNotifyEvent;
@@ -61,6 +62,7 @@ type
     property Status : char read FStatus write SetStatus;
     property Results : string read FResults write FResults;
     property OnStatusChanged : TNotifyEvent read FStatusChanged write FStatusChanged;
+    property OnRunLine : TNotifyEvent read FRunLine write FRunLine;
   end;
 
   { TByteCodeScript }
@@ -140,7 +142,7 @@ type
 
 var
   LoadedLibs : TList;
-  ActRuntime : TPSExec;
+  ActRuntime : TScript;
 
 implementation
 
@@ -199,7 +201,7 @@ end;
 type
   aProcT = function : pchar;stdcall;
 
-procedure OnRunLine(Sender: TPSExec);
+procedure OnRunActLine(Sender: TPSExec);
 begin
   if Assigned(ActRuntime) and Assigned(ActRuntime.OnRunLine) then
     ActRuntime.OnRunLine(ActRuntime);
@@ -662,8 +664,8 @@ begin
   if Result then
     begin
       try
-        ActRuntime := Fruntime;
-        FRuntime.OnRunLine:=@OnRunLine;
+        ActRuntime := Self;
+        FRuntime.OnRunLine:=@OnRunActLine;
         Result := FRuntime.RunScript
               and (FRuntime.ExceptionCode = erNoError);
         if not Result then
