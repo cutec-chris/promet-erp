@@ -503,7 +503,7 @@ var
   ahttp: THTTPSend;
 begin
   ahttp := THTTPSend.Create;
-  ahttp.Timeout:=300;
+  ahttp.Timeout:=600;
   ahttp.KeepAlive:=false;
   ahttp.HTTPMethod('GET',aURL);
   if ahttp.ResultCode=200 then
@@ -519,7 +519,7 @@ var
   ahttp: THTTPSend;
 begin
   ahttp := THTTPSend.Create;
-  ahttp.Timeout:=100;
+  ahttp.Timeout:=600;
   ahttp.Document.Write(Content[1],length(Content));
   ahttp.HTTPMethod('POST',aURL);
   if ahttp.ResultCode=200 then
