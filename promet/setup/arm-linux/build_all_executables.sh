@@ -22,6 +22,7 @@ lazbuild $Params ../../source/sync/twitterreceiver.lpi  >> scompile-$2-tools.log
 echo "compiling smtpsender..." >> scompile-$2-tools.log
 lazbuild $Params ../../source/sync/smtpsender.lpi  >> scompile-$2-tools.log
 grep -w "Error:" scompile-$2-tools.log
+grep -w "ERROR:" scompile-$2-tools.log
 echo "compiling tools..."
 echo "compiling cmdwizardmandant..."  >> scompile-$2-tools.log
 lazbuild $Params ../../source/tools/cmdwizardmandant.lpi  >> scompile-$2-tools.log
@@ -33,6 +34,7 @@ lazbuild $Params ../../source/tools/processmanager.lpi  >> scompile-$2-tools.log
 echo "compiling processdaemon..."  >> scompile-$2-tools.log
 lazbuild $Params ../../source/tools/processdaemon.lpi  >> scompile-$2-tools.log
 grep -w "Error:" scompile-$2-tools.log
+grep -w "ERROR:" scompile-$2-tools.log
 echo "compiling webservices..."
 echo "compiling local_appbase..."  > scompile-$2-web.log
 lazbuild $Params ../../source/webservers/local_appbase.lpi  >> scompile-$2-web.log
@@ -49,3 +51,4 @@ lazbuild $Params ../../source/webservers/webdavserver.lpi  >> scompile-$2-web.lo
 echo "compiling syslogserver..."  >> scompile-$2-web.log
 lazbuild $Params ../../source/webservers/syslog.lpi  >> scompile-$2-web.log
 grep -w "Error:" scompile-$2-web.log
+grep -w "ERROR:" scompile-$2-web.log
