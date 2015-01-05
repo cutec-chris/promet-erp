@@ -8,8 +8,8 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils,
-  FileUtil,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
-  uBaseApplication,uprometscripts, uImaging;
+  uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
+  uBaseApplication,uprometscripts;
 
 type
 
