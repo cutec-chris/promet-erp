@@ -226,8 +226,11 @@ begin
   try
     if lowercase(Name)='system' then
       begin
-        AddMethod(Self,@TPascalScript.InternalChDir,'procedure ChDir(Dir : string);');
-        AddMethod(Self,@TPascalScript.InternalMkDir,'procedure MkDir(Dir : string);');
+        try
+          AddMethod(Self,@TPascalScript.InternalChDir,'procedure ChDir(Dir : string);');
+          AddMethod(Self,@TPascalScript.InternalMkDir,'procedure MkDir(Dir : string);');
+        except
+        end;
         uPSC_std.SIRegister_Std(Comp);
         uPSR_std.RIRegister_Std(FClassImporter);
       end

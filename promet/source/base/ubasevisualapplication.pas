@@ -425,6 +425,7 @@ begin
 end;
 procedure TBaseVisualApplication.SaveConfig;
 begin
+  try
   with Self as IBaseConfig do
     begin
       if Assigned(MainForm) then
@@ -435,6 +436,10 @@ begin
         end;
       Properties.Save;
     end;
+  except
+    on e : Exception do
+      Error('failed to save Config:'+e.Message);
+  end;
 end;
 function TBaseVisualApplication.GetConfig: TCustomPropertyStorage;
 begin
@@ -1116,4 +1121,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

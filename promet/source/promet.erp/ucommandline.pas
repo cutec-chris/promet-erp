@@ -24,7 +24,7 @@ unit ucommandline;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, SynMemo, Forms, Controls, uPrometFrames, LCLType,
+  Classes, SysUtils, FileUtil, Forms, Controls, uPrometFrames, LCLType,
   ExtCtrls, StdCtrls, Buttons, ComCtrls, ActnList,uspeakinginterface;
 
 type
@@ -36,9 +36,9 @@ type
     acEditScript: TAction;
     ActionList1: TActionList;
     Input: TMemo;
+    Output: TMemo;
     Label1: TLabel;
     Label3: TLabel;
-    Output: TSynMemo;
     Panel1: TPanel;
     pAdmin: TPanel;
     Panel2: TPanel;
