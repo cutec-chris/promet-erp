@@ -3025,6 +3025,7 @@ begin
     end;
   sl.Free;
   UpdateTitle;
+  gHeader.AutoFillColumns:=gList.AutoFillColumns;
 end;
 procedure TfGridView.SetEdited;
 begin

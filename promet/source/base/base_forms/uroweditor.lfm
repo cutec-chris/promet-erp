@@ -130,9 +130,9 @@ object fRowEditor: TfRowEditor
     end
     object lTableRows: TLabel
       Left = 6
-      Height = 13
+      Height = 15
       Top = 4
-      Width = 111
+      Width = 121
       Caption = 'Spalten in Tabelle'
       Font.Style = [fsBold]
       ParentColor = False
@@ -165,9 +165,9 @@ object fRowEditor: TfRowEditor
     ShowButtons = [pbOK, pbCancel]
     object cbProcent: TCheckBox
       Left = 10
-      Height = 24
+      Height = 22
       Top = 10
-      Width = 172
+      Width = 180
       BorderSpacing.Around = 10
       Caption = 'prozentuale Spaltenbreite'
       TabOrder = 4
@@ -200,9 +200,9 @@ object fRowEditor: TfRowEditor
     end
     object lViewRows: TLabel
       Left = 9
-      Height = 13
+      Height = 15
       Top = 4
-      Width = 110
+      Width = 123
       Caption = 'Sichtbare Spalten'
       Font.Style = [fsBold]
       ParentColor = False

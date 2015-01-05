@@ -237,6 +237,7 @@ var
   IsReadOnly: Boolean = True;
   a: Integer;
 begin
+  Grid.AutoFillColumns:=False;
   if not Assigned(DataSource) then exit;
   if not Assigned(Grid) then exit;
   tmp := aConfigName;
@@ -282,6 +283,7 @@ var
   s1: String;
   GridWidth: Integer;
   Percentage: Boolean;
+  sl: String;
 begin
   Result := False;
   if not Assigned(DataSource) then exit;
@@ -311,6 +313,7 @@ begin
       tmpCols.Assign(Grid.Columns);
       Grid.Columns.Clear;
       GridWidth := Grid.Width;
+      sl := s;
       if copy(s,0,12) = 'GLOBALWIDTH:' then
         begin
           s := copy(s,pos(':',s)+1,length(s));
@@ -337,6 +340,7 @@ begin
       while pos(';',s) > 0 do
         begin
           cl := Grid.Columns.Add;
+          TColumn(cl).SizePriority:=0;
           TColumn(cl).ReadOnly := MakeReadOnly;
           TColumn(cl).FieldName := copy(s,0,pos(':',s)-1);
           s := copy(s,pos(':',s)+1,length(s));
@@ -377,6 +381,8 @@ begin
       tmpCols.Free;
       Result := True;
       Grid.ReadOnly := IsReadOnly;
+      //Grid.AutoFillColumns:=copy(sl,0,12) = 'GLOBALWIDTH:';
+      Grid.AutoSizeColumns;
     end;
 end;
 initialization

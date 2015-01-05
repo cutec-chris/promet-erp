@@ -486,9 +486,11 @@ begin
           end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDbDataSet'),TActiveUsers) do
           begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
           end;
         with Sender.ClassImporter.Add(TActiveUsers) do
           begin
+            RegisterConstructor(@TActiveUsers.Create,'CREATE');
           end;
 
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TComponent'),TBaseDBModule) do
