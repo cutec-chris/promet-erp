@@ -238,17 +238,17 @@ begin
       end
     else if (s = 'pdf;') then
       begin
-        Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]),'.bmp');
+        Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(SysToUni(ParamStr(0))))+'tools')+'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]),'.bmp');
         if not Result then
-          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'pdftopng -l 1 %s %s',[aFileName,aFilename]),'-000001.png');
+          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(SysToUni(ParamStr(0))))+'tools')+{$ENDIF}'pdftopng -l 1 %s %s',[aFileName,aFilename]),'-000001.png');
       end
     else
       begin
-        Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']),'.bmp');
+        Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(SysToUni(ParamStr(0))))+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']),'.bmp');
         if not Result then
-          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'ffmpeg -i "%s" -qscale 0 -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
+          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(SysToUni(ParamStr(0))))+'tools')+{$ENDIF}'ffmpeg -i "%s" -qscale 0 -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
         if not Result then
-          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'avconv -i "%s" -qscale 0 -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
+          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(SysToUni(ParamStr(0))))+'tools')+{$ENDIF}'avconv -i "%s" -qscale 0 -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
       end;
     SysUtils.DeleteFile(aFileName);
     if Assigned(Img) then

@@ -62,10 +62,10 @@ begin
     dwFlags := STARTF_USESHOWWINDOW;
     wShowWindow := SW_HIDE
   end;
-  Res := CreateProcess(NIL, PChar(UTF8ToSys(CommandLine)), NIL, NIL, FALSE,
+  Res := CreateProcess(NIL, PChar(UniToSys(CommandLine)), NIL, NIL, FALSE,
                           CREATE_NEW_CONSOLE or
                           NORMAL_PRIORITY_CLASS, NIL,
-                          PChar(UTF8ToSys(CurDir)),
+                          PChar(UniToSys(CurDir)),
                           SUInfo, ProcInfo);
   { Wait for it to finish. }
 //  Clipboard.AsText:=CommandLine;

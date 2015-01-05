@@ -5,7 +5,7 @@ unit oledropfiles;
 interface
 
 uses
-  Classes, SysUtils, ActiveX, ShlObj, ComObj, Windows, FileUtil;
+  Classes, SysUtils, ActiveX, ShlObj, ComObj, Windows, Utils;
 
 function GetFileDataObject(const Directory: string; Filename: String):IDataObject;
 

@@ -8,7 +8,7 @@ interface
 
 uses
   ubenchmark, ucomport, uError, uExtControls, uInfo, ProcessUtils, 
-  uLanguageUtils, PoTranslator, UtilsVis, uColors, LazarusPackageIntf;
+  uLanguageUtils, PoTranslator, UtilsVis, uColors, uImaging, LazarusPackageIntf;
 
 implementation
 

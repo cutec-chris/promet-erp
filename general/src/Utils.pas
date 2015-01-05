@@ -408,9 +408,9 @@ var
   SR: TSearchRec;
 begin
   Result := -1;
-  if FindFirst(aFile,faAnyFile,SR)=0 then
+  if SysUtils.FindFirst(aFile,faAnyFile,SR)=0 then
     Result := sr.Size;
-  FindClose(SR);
+  SysUtils.FindClose(SR);
 end;
 
 function CopyFile(const SrcFilename, DestFilename: string; Flags: TCopyFileFlags
@@ -1040,4 +1040,4 @@ begin
 end;
 END.
 
- 
+ 

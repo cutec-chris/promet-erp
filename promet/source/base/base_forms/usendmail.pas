@@ -20,7 +20,7 @@ unit uSendMail;
 {$mode delphi}{$H+}
 interface
 uses
-  Classes, SysUtils,UTF8Process,process,Dialogs,FileUtil
+  Classes, SysUtils,UTF8Process,process,Dialogs,Utils
   {$IFDEF WINDOWS}
   ,MAPI,windows,Forms
   {$ENDIF}

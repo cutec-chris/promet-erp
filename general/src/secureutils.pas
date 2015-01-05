@@ -172,7 +172,7 @@ begin
       if RenameFile(aFilename,newFilename) then
         aFilename := newFilename;
     end;
-  DeleteFile(aFilename);
+  SysUtils.DeleteFile(aFilename);
 end;
 
 {$IFDEF WINDOWS}
@@ -205,4 +205,4 @@ end;
 {$ENDIF}
 
 end.
-
+
