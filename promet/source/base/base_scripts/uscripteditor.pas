@@ -604,6 +604,8 @@ end;
 procedure TfScriptEditor.DebuggerLineInfo(Sender: TObject; const FileName: String; aPosition, Row,
   Col: Cardinal);
 begin
+  try
+  if not FDataSet.Active then exit;
   if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal' then
     begin
       if Debugger.Exec.DebugMode <> dmRun then
@@ -625,6 +627,8 @@ begin
       acStepinto.Enabled:=False;
       acStepover.Enabled:=False;
     end;
+  except
+  end;
 end;
 
 procedure TfScriptEditor.Exit1Click(Sender: TObject);
@@ -918,9 +922,12 @@ begin
       else if cbSyntax.Text='Pascal' then
         begin
           sl := TStringList.Create;
-          SplitRegExpr('(.*):(.*);',Fuses.FieldByName('SCRIPT').AsString,sl);
-          for a := 0 to sl.Count-1 do
-            Add(sl[a]);
+          try
+            SplitRegExpr('(.*):(.*);',FDataSet.FieldByName('SCRIPT').AsString,sl);
+            for a := 0 to sl.Count-1 do
+              Add(sl[a]);
+          except
+          end;
           sl.Free;
         end;
     end;

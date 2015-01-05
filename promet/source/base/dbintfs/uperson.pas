@@ -53,7 +53,7 @@ type
     procedure Assign(Source: TPersistent); override;
     procedure FillDefaults(aDataSet : TDataSet);override;
     function ToString: ansistring;override;
-    procedure FromString(aStr : AnsiString);
+    procedure FromString(aStr : AnsiString);virtual;
     property Title : TField read GetTitle;
     property AdressName : TField read GetName;
     property Address : TField read GetAddress;

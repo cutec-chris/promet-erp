@@ -308,16 +308,16 @@ begin
             RegisterVirtualMethod(@TBaseDBDataset.Insert, 'INSERT');
             RegisterVirtualMethod(@TBaseDBDataset.Append, 'APPEND');
             RegisterVirtualMethod(@TBaseDBDataset.Delete, 'DELETE');
-            //RegisterVirtualMethod(@TBaseDBDataset.First, 'FIRST');
-            //RegisterVirtualMethod(@TBaseDBDataset.Last, 'LAST');
-            //RegisterVirtualMethod(@TBaseDBDataset.Next, 'NEXT');
-            //RegisterVirtualMethod(@TBaseDBDataset.Prior, 'PRIOR');
+            RegisterVirtualMethod(@TBaseDBDataset.First, 'FIRST');
+            RegisterVirtualMethod(@TBaseDBDataset.Last, 'LAST');
+            RegisterVirtualMethod(@TBaseDBDataset.Next, 'NEXT');
+            RegisterVirtualMethod(@TBaseDBDataset.Prior, 'PRIOR');
             RegisterVirtualMethod(@TBaseDBDataset.Post, 'POST');
             RegisterVirtualMethod(@TBaseDBDataset.Edit, 'EDIT');
             RegisterVirtualMethod(@TBaseDBDataset.Cancel, 'CANCEL');
-            //RegisterVirtualMethod(@TBaseDBDataset.Locate, 'LOCATE');
-            //RegisterVirtualMethod(@TBaseDBDataset.EOF, 'EOF');
-            //RegisterVirtualMethod(@TBaseDBDataset.FieldByName, 'FIELDBYNAME'); error on execute
+            RegisterVirtualMethod(@TBaseDBDataset.Locate, 'LOCATE');
+            RegisterVirtualMethod(@TBaseDBDataset.EOF, 'EOF');
+            RegisterVirtualMethod(@TBaseDBDataset.FieldByName, 'FIELDBYNAME');
             RegisterVirtualMethod(@TBaseDBDataset.Filter, 'FILTER');
             RegisterPropertyHelper(@TBaseDBDatasetPropertyDataSetR,nil,'DATASET');
             RegisterPropertyHelper(@TBaseDBDatasetPropertyCountR,nil,'COUNT');
@@ -500,7 +500,7 @@ begin
             //RegisterMethod('function GetLimitSTMT: string;');
 
             RegisterMethod('function BuildLink(aDataSet : TDataSet) : string;');
-            RegisterMethod('function GotoLink(aLink : string) : Boolean;');
+            RegisterMethod('function GotoLink(const aLink : string) : Boolean;');
             RegisterMethod('function GetLinkDesc(aLink : string) : string;');
             RegisterMethod('function GetLinkLongDesc(aLink : string) : string;');
             RegisterMethod('function GetLinkIcon(aLink : string) : Integer;');
@@ -528,7 +528,7 @@ begin
             RegisterVirtualMethod(@TBaseDBModule.EscapeString, 'ESCAPESTRING');
             RegisterVirtualMethod(@TBaseDBModule.DateToFilter, 'DATETOFILTER');
             RegisterVirtualMethod(@TBaseDBModule.DateTimeToFilter, 'DATETIMETOFILTER');
-            //RegisterVirtualMethod(@TBaseDBModule.ProcessTerm, 'PROCESSTERM');
+            RegisterVirtualMethod(@TBaseDBModule.ProcessTerm, 'PROCESSTERM');
 
             RegisterPropertyHelper(@TBaseDBModulePropertyUsersR,nil,'USERS');
           end;

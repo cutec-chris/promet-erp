@@ -115,8 +115,8 @@ type
     procedure Edit;virtual;
     procedure Cancel;virtual;
     function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean; virtual;
-    function EOF : Boolean;
-    function FieldByName(const aFieldName : string) : TField;
+    function EOF : Boolean;virtual;
+    function FieldByName(const aFieldName : string) : TField;virtual;
     procedure Assign(Source: TPersistent); override;
     procedure DirectAssign(Source : TPersistent);
     procedure Filter(aFilter : string;aLimit : Integer = 0);virtual;
@@ -603,9 +603,9 @@ end;
 
 destructor TObjects.Destroy;
 begin
-  FImages.Free;
-  FLinks.Free;
-  FHistory.Free;
+  FImages.Destroy;
+  FLinks.Destroy;
+  FHistory.Destroy;
   inherited Destroy;
 end;
 
@@ -3205,4 +3205,4 @@ end;
 
 initialization
 end.
-
+

@@ -134,7 +134,7 @@ type
     function CreateDBFromProperties(aProp : string) : Boolean;virtual;
     property LastStatement : string read FLastStmt write FLastStmt;
     function IsSQLDB : Boolean;virtual;abstract;
-    function ProcessTerm(aTerm : string) : string;
+    function ProcessTerm(aTerm : string) : string;virtual;
     function GetUniID(aConnection : TComponent = nil;Generator : string = 'GEN_SQL_ID';AutoInc : Boolean = True) : Variant;virtual;abstract;
     function GetNewDataSet(aTable : TBaseDBDataSet;aConnection : TComponent = nil;MasterData : TDataSet = nil;aTables : string = '') : TDataSet;virtual;abstract;
     function GetNewDataSet(aSQL : string;aConnection : TComponent = nil;MasterData : TDataSet = nil;aOrigtable : TBaseDBDataSet = nil) : TDataSet;virtual;
@@ -150,11 +150,11 @@ type
     function EscapeString(aValue : string) : string;virtual;
     function DateToFilter(aValue : TDateTime) : string;virtual;
     function DateTimeToFilter(aValue : TDateTime) : string;virtual;
-    function GetLinkDesc(aLink : string) : string;
-    function GetLinkLongDesc(aLink : string) : string;
-    function GetLinkIcon(aLink : string) : Integer;
-    function BuildLink(aDataSet : TDataSet) : string;
-    function GotoLink(aLink : string) : Boolean;
+    function GetLinkDesc(aLink : string) : string;virtual;
+    function GetLinkLongDesc(aLink : string) : string;virtual;
+    function GetLinkIcon(aLink : string) : Integer;virtual;
+    function BuildLink(aDataSet : TDataSet) : string;virtual;
+    function GotoLink(const aLink : string) : Boolean;virtual;
     function DataSetFromLink(aLink: string;var aClass : TBaseDBDatasetClass): Boolean;
     function ListDataSetFromLink(aLink: string;var aClass : TBaseDBDatasetClass): Boolean;
     procedure RegisterLinkHandler(aLink : string;aOpenHandler : TOpenLinkEvent;DataSetClass : TBaseDBDatasetClass;DataSetListClass : TBaseDBDatasetClass = nil);
@@ -1198,7 +1198,7 @@ begin
   if copy(Result,length(Result),1)='@' then
     Result := '';
 end;
-function TBaseDBModule.GotoLink(aLink: string): Boolean;
+function TBaseDBModule.GotoLink(const aLink: string): Boolean;
 var
   i: Integer;
 begin
@@ -1851,4 +1851,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+
