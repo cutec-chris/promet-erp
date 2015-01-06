@@ -108,8 +108,8 @@ type
     procedure InternalBeep;
     procedure InternalSleep(MiliSecValue: LongInt);
 
-    function InternalGet(aURL: string): string;
-    function InternalPost(aURL,Content : string) : string;
+    function InternalGet(aURL: string;aTimeout : Integer): string;
+    function InternalPost(aURL,Content : string;aTimeout : Integer) : string;
     function InternalGetDNS: string;
     function InternalGetLocalIPs: string;
 
@@ -262,8 +262,8 @@ begin
       end
     else if lowercase(Name)='net' then
       begin
-        AddMethod(Self,@TPascalScript.InternalGet,'function Get(URL : string) : string;');
-        AddMethod(Self,@TPascalScript.InternalPost,'function Post(URL,Content : string) : string;');
+        AddMethod(Self,@TPascalScript.InternalGet,'function Get(URL : string;aTimeout : Integer) : string;');
+        AddMethod(Self,@TPascalScript.InternalPost,'function Post(URL,Content : string;aTimeout : Integer) : string;');
         AddMethod(Self,@TPascalScript.InternalGetDNS,'function GetDNS : string;');
         AddMethod(Self,@TPascalScript.InternalGetLocalIPs,'function GetLocalIPs : string;');
         AddFunction(@HTTPEncode,'function HTTPEncode(const str : String) : string;');
@@ -498,12 +498,12 @@ procedure TPascalScript.InternalSleep(MiliSecValue: LongInt);
 begin
   sleep(MiliSecValue);
 end;
-function TPascalScript.InternalGet(aURL: string): string;
+function TPascalScript.InternalGet(aURL: string; aTimeout: Integer): string;
 var
   ahttp: THTTPSend;
 begin
   ahttp := THTTPSend.Create;
-  ahttp.Timeout:=600;
+  ahttp.Timeout:=aTimeout;
   ahttp.KeepAlive:=false;
   ahttp.HTTPMethod('GET',aURL);
   if ahttp.ResultCode=200 then
@@ -514,12 +514,13 @@ begin
   else Result:='';
   ahttp.Free;
 end;
-function TPascalScript.InternalPost(aURL, Content: string): string;
+function TPascalScript.InternalPost(aURL, Content: string; aTimeout: Integer
+  ): string;
 var
   ahttp: THTTPSend;
 begin
   ahttp := THTTPSend.Create;
-  ahttp.Timeout:=600;
+  ahttp.Timeout:=aTimeout;
   ahttp.Document.Write(Content[1],length(Content));
   ahttp.HTTPMethod('POST',aURL);
   if ahttp.ResultCode=200 then
