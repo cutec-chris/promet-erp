@@ -539,7 +539,6 @@ resourcestring
   strNotes                      = 'Notizen';
   strOwner                      = 'Eigentümer';
   strAvalible                   = 'Verfügbar';
-  strItemOpened                 = 'Eintrag "%s" geöffnet';
   strNeedsAction                = 'benötigt Hilfe';
 
 { TVariables }

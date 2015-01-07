@@ -35,6 +35,7 @@ type
   private
     FHistory : TBaseHistory;
     FOrderTyp: TOrdertyp;
+    FOrigID: String;
     function GetHistory: TBaseHistory;
     function GetOrderTyp: TOrdertyp;
   protected
@@ -179,7 +180,6 @@ type
     FOnGetStorage: TOnGetStorageEvent;
     FOrderAddress: TOrderAddress;
     FOrderPos: TOrderPos;
-    fOrigId : string;
     function GetCommission: TField;
     function Round(Value: Extended): Extended;
   public
@@ -1726,7 +1726,7 @@ begin
                   aFilter := aFilter+'('+Data.QuoteField('NUMBER')+'<='+Data.QuoteValue(copy(aID,0,length(aID)-2)+'99')+')';
                 end
               else
-                aFilter :=  QuoteField('NUMBER')+'='+QuoteValue(aID);
+                aFilter :=  Data.QuoteField('NUMBER')+'='+Data.QuoteValue(aID);
               Filter := aFilter;
               Limit := 0;
             end;

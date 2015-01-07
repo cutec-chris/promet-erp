@@ -21,6 +21,7 @@ unit uIntfStrConsts;
 {$mode objfpc}{$H+}
 interface
 resourcestring
+  strItemOpened                 = 'Eintrag "%s" geöffnet';
   strMeetingUsers               = 'Teilnehmer';
   strAllElements                = 'Elemente';
   strMeasurement                = 'Messungen';
