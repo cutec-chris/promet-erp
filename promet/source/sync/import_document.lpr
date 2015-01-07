@@ -26,10 +26,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, CustApp,
-  Interfaces
-  { you can add units after this },db, Utils, FileUtil, Forms, uData,
+  { you can add units after this }db, Utils, FileUtil, Forms, uData,
   uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, uBaseApplication,
-  uDocuments, uBaseDocPages,uOCR, pocr,Graphics;
+  uDocuments, uBaseDocPages,uOCR, pocr,Graphics, Interfaces;
 
 type
 

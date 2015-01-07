@@ -57,8 +57,8 @@ function GetSystemLang : string;
 function DateTimeToHourString(DateTime : TDateTime) : string;
 function DateTimeToIndustrialTime(dateTime : TDateTime) : string;
 function ConvertUnknownStringdate(input : string) : TDateTime;
-function HTMLEncode(s : string)  : string;
-function HTMLDecode(s : string)  : string;
+function HTMLEncode(const s : string)  : string;
+function HTMLDecode(const AStr : string)  : string;
 function UniToSys(const s: string): string; inline;
 function SysToUni(const s: string): string; inline;
 function AppendPathDelim(const Path: string): string; inline;
@@ -240,7 +240,7 @@ begin
   DecodeTime(DateTime,Hour,Minute,Second,Millisecond);
   Result := Format('%.2d:%.2d',[Trunc(DateTime)*HoursPerDay+Hour,Minute]);
 end;
-function DateTimeToIndustrialTime(DateTime: TDateTime): string;
+function DateTimeToIndustrialTime(dateTime: TDateTime): string;
 var
   Hour,Minute,Second,Millisecond: word;
 begin
@@ -289,7 +289,7 @@ begin
         end;
       end;
 end;
-function HTMLEncode(s: string): string;
+function HTMLEncode(const s: string): string;
 begin
   Result := StringReplace(s, '&', '&amp;', [rfreplaceall]);
   Result := StringReplace(Result, '"', '&quot;', [rfreplaceall]);
@@ -304,23 +304,74 @@ begin
   Result := StringReplace(result, 'Ü', '&Uuml;', [rfreplaceall]);
   Result := StringReplace(result, 'ß', '&szlig;', [rfreplaceall]);
 end;
-function HTMLDecode(s: string): string;
+function HTMLDecode(const AStr: string): string;
+var
+  Sp, Rp, Cp, Tp: PChar;
+  S: String;
+  I, Code: Integer;
 begin
-  Result := s;
-  Result := StringReplace(Result, '&amp;'  ,'&', [rfreplaceall]);
-  Result := StringReplace(Result, '&quot;' ,'"', [rfreplaceall]);
-  Result := StringReplace(Result, '&lt;'   ,'<', [rfreplaceall]);
-  Result := StringReplace(Result, '&gt;'   ,'>', [rfreplaceall]);
-  Result := StringReplace(Result, '&nbsp;' ,' ', [rfreplaceall]);
-  Result := StringReplace(Result, '&auml;' ,'ä', [rfreplaceall]);
-  Result := StringReplace(Result, '&ouml;' ,'ö', [rfreplaceall]);
-  Result := StringReplace(Result, '&uuml;' ,'ü', [rfreplaceall]);
-  Result := StringReplace(Result, '&Auml;' ,'Ä', [rfreplaceall]);
-  Result := StringReplace(Result, '&Ouml;' ,'Ö', [rfreplaceall]);
-  Result := StringReplace(Result, '&Uuml;' ,'Ü', [rfreplaceall]);
-  Result := StringReplace(Result, '&szlig;','ß', [rfreplaceall]);
+  SetLength(Result, Length(AStr));
+  Sp := PChar(AStr);
+  Rp := PChar(Result);
+  Cp := Sp;
+  try
+    while Sp^ <> #0 do
+    begin
+      case Sp^ of
+        '&': begin
+               Cp := Sp;
+               Inc(Sp);
+               case Sp^ of
+                 'a': if AnsiStrPos(Sp, 'amp;') = Sp then  { do not localize }
+                      begin
+                        Inc(Sp, 3);
+                        Rp^ := '&';
+                      end;
+                 'l',
+                 'g': if (AnsiStrPos(Sp, 'lt;') = Sp) or (AnsiStrPos(Sp, 'gt;') = Sp) then { do not localize }
+                      begin
+                        Cp := Sp;
+                        Inc(Sp, 2);
+                        while (Sp^ <> ';') and (Sp^ <> #0) do
+                          Inc(Sp);
+                        if Cp^ = 'l' then
+                          Rp^ := '<'
+                        else
+                          Rp^ := '>';
+                      end;
+                 'n': if AnsiStrPos(Sp, 'nbsp;') = Sp then  { do not localize }
+                      begin
+                        Inc(Sp, 4);
+                        Rp^ := ' ';
+                      end;
+                 'q': if AnsiStrPos(Sp, 'quot;') = Sp then  { do not localize }
+                      begin
+                        Inc(Sp,4);
+                        Rp^ := '"';
+                      end;
+                 '#': begin
+                        Tp := Sp;
+                        Inc(Tp);
+                        while (Sp^ <> ';') and (Sp^ <> #0) do
+                          Inc(Sp);
+                        SetString(S, Tp, Sp - Tp);
+                        Val(S, I, Code);
+                        Rp^ := Chr((I));
+                      end;
+                 else
+                   Exit;
+               end;
+           end
+      else
+        Rp^ := Sp^;
+      end;
+      Inc(Rp);
+      Inc(Sp);
+    end;
+  except
+  end;
+  SetLength(Result, Rp - PChar(Result));
 end;
-
 var
   FNeedRTLAnsi: boolean = false;
   FNeedRTLAnsiValid: boolean = false;
@@ -938,7 +989,7 @@ begin
 {$ENDIF}
     end;
 end;
-FUNCTION StrTimeToValue(val : string) : LongInt;
+function StrTimeToValue(val: string): LongInt;
 var
   i : Integer;
   un : string;
@@ -965,7 +1016,7 @@ begin
   else
     Result := -1;
 end;
-FUNCTION IsNumeric(s: STRING): boolean;
+function IsNumeric(s: STRING): boolean;
 var
   i : integer;
 begin
@@ -1040,4 +1091,4 @@ begin
 end;
 END.
 
- 
+ 
