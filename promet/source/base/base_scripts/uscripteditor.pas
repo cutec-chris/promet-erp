@@ -52,6 +52,8 @@ type
     DataSource: TDataSource;
     cbClient: TDBComboBox;
     lName1: TLabel;
+    MenuItem6: TMenuItem;
+    PopupMenu2: TPopupMenu;
     SelectData: TDatasource;
     gResults: TDBGrid;
     eName: TDBEdit;
@@ -152,6 +154,7 @@ type
     procedure FSynCompletionSearchPosition(var APosition: integer);
     procedure FSynCompletionUTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char
       );
+    procedure MenuItem6Click(Sender: TObject);
     procedure messagesClick(Sender: TObject);
     procedure messagesDblClick(Sender: TObject);
     procedure Gotolinenumber1Click(Sender: TObject);
@@ -204,7 +207,8 @@ var
 implementation
 
 uses
-  uFrmGotoLine,uData,uBaseApplication,genpascalscript,Utils,uSystemMessage;
+  uFrmGotoLine,uData,uBaseApplication,genpascalscript,Utils,uSystemMessage,uStatistic,
+  Clipbrd;
 
 {$R *.lfm}
 
@@ -410,9 +414,9 @@ begin
           messages.AddItem(s,nil);
         end;
    end
- else
+ else if (lowercase(FDataSet.FieldByName('SYNTAX').AsString)='sql') then
    begin
-
+     messages.AddItem(ReplaceSQLFunctions(ed.Lines.Text),nil);
    end;
 end;
 
@@ -955,6 +959,12 @@ begin
       FSynCompletion.TheForm.OnValidate(Sender,UTF8Key,[]);
       UTF8Key:='';
     end
+end;
+
+procedure TfScriptEditor.MenuItem6Click(Sender: TObject);
+begin
+  if messages.ItemIndex>-1 then
+    Clipboard.AsText:=messages.Items[messages.ItemIndex];
 end;
 
 procedure TfScriptEditor.messagesClick(Sender: TObject);

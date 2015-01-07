@@ -49,6 +49,8 @@ type
     destructor Destroy; override;
     function GetStatusIcon: Integer; override;
     procedure Open; override;
+    procedure Select(aID : string);overload;
+    procedure OpenItem(AccHistory: Boolean=True); override;
     procedure DefineFields(aDataSet : TDataSet);override;
     property History : TBaseHistory read FHistory;
     property OrderType : TOrdertyp read GetOrderTyp;
@@ -185,7 +187,6 @@ type
     destructor Destroy;override;
     function CreateTable : Boolean;override;
     procedure FillDefaults(aDataSet : TDataSet);override;
-    procedure Select(aID : string);overload;
     procedure Open;override;
     procedure RefreshActive;
     procedure CascadicPost;override;
@@ -673,7 +674,7 @@ begin
       FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
     end;
 end;
-procedure TOrder.Select(aID : string);
+procedure TOrderList.Select(aID : string);
 var
   aFilter: String;
 begin
@@ -1685,6 +1686,102 @@ begin
   inherited Open;
 end;
 
+procedure TOrderList.OpenItem(AccHistory: Boolean);
+var
+  aHistory: TAccessHistory;
+  aObj: TObjects;
+  aID: String;
+  aFilter: String;
+begin
+  if Self.Count=0 then exit;
+  try
+    try
+      aHistory := TAccessHistory.Create(nil);
+      aObj := TObjects.Create(nil);
+      if AccHistory then
+        begin
+          if DataSet.State<>dsInsert then
+            begin
+              if not Data.TableExists(aHistory.TableName) then
+                aHistory.CreateTable;
+              aHistory.Free;
+              aHistory := TAccessHistory.CreateEx(nil,Data,nil,DataSet);
+              aHistory.AddItem(DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet))]),Data.BuildLink(DataSet));
+            end;
+        end;
+      if DataSet.State<>dsInsert then
+        begin
+          if not Data.TableExists(aObj.TableName) then
+            begin
+              aObj.CreateTable;
+              aObj.Free;
+              aObj := TObjects.CreateEx(nil,Data,nil,DataSet);
+            end;
+          with aObj.DataSet as IBaseDBFilter do
+            begin
+              aID := FieldByName('ORDERNO').AsString;
+              if length(aID) > 4 then
+                begin
+                  aFilter :=         '('+Data.QuoteField('NUMBER')+'>='+Data.QuoteValue(copy(aID,0,length(aID)-2)+'00')+') and ';
+                  aFilter := aFilter+'('+Data.QuoteField('NUMBER')+'<='+Data.QuoteValue(copy(aID,0,length(aID)-2)+'99')+')';
+                end
+              else
+                aFilter :=  QuoteField('NUMBER')+'='+QuoteValue(aID);
+              Filter := aFilter;
+              Limit := 0;
+            end;
+          aObj.Open;
+          if aObj.Count=0 then
+            begin
+              aObj.Insert;
+              aObj.Text.AsString := Self.Text.AsString;
+              aObj.FieldByName('SQL_ID').AsVariant:=Self.Id.AsVariant;
+              if Assigned(Self.Matchcode) then
+                aObj.Matchcode.AsString := Self.Matchcode.AsString;
+              if Assigned(Self.Status) then
+                aObj.Status.AsString := Self.Status.AsString;
+              aObj.Number.AsVariant:=Self.Number.AsVariant;
+              aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
+              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet));
+              aObj.Post;
+              Self.GenerateThumbnail;
+            end
+          else //Modify existing
+            begin
+              while aObj.Count>1 do
+                aObj.Delete;
+              if aObj.Text.AsString<>Self.Text.AsString then
+                begin
+                  aObj.Edit;
+                  aObj.Text.AsString := Self.Text.AsString;
+                end;
+              if aObj.Number.AsString<>Self.Number.AsString then
+                begin
+                  aObj.Edit;
+                  aObj.Number.AsString := Self.Number.AsString;
+                end;
+              if Assigned(Self.Status) and (aObj.Status.AsString<>Self.Status.AsString) then
+                begin
+                  aObj.Edit;
+                  aObj.Status.AsString := Self.Status.AsString;
+                end;
+              if aObj.FieldByName('LINK').AsString<>Data.BuildLink(Self.DataSet) then
+                begin
+                  aObj.Edit;
+                  aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
+                end;
+              if aObj.CanEdit then
+                aObj.Post;
+            end;
+        end;
+    finally
+      aObj.Free;
+      aHistory.Free;
+    end;
+  except
+  end;
+end;
+
 procedure TOrderList.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -1753,4 +1850,4 @@ end;
 
 initialization
 end.
-
+

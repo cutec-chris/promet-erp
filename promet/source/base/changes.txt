@@ -2,6 +2,7 @@
       - Format funktion für Scripte
       - HTTPEncode funktion für Scripte
       - Kommandozeile ausgebaut
+      - Nur noch ein Eintrag in AllObjects für Artikel oder Auftrag (nicht einen pro Status/Version)
 Build 384
       - Scripte:Promet Objekte direkt aus Scripten nutzbar
       - Kalendar:Planungsrelevant wurde im Ereigniseditor nicht gespeichert

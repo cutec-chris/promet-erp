@@ -73,7 +73,7 @@ type
   function AddSQLLimit(Str : string;aLimit : Integer) : string;
 
 implementation
-uses uBaseApplication,uData,usync;
+uses uBaseApplication,uData,usync,RegExpr;
 resourcestring
   strYQLFail                = 'YQL Abfrage fehlgeschlagen:';
 { TSQLStatement }
