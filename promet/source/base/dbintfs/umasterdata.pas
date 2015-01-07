@@ -907,7 +907,7 @@ begin
           begin
             Add('TYPE',ftString,1,True);
             Add('ID',ftString,40,True);
-            Add('VERSION',ftString,8,False);
+            Add('VERSION',ftString,20,False);
             Add('LANGUAGE',ftString,3,False);
             Add('STATUS',ftString,4,false);
             Add('BARCODE',ftString,20,False);
@@ -977,7 +977,7 @@ begin
               aHistory.AddItem(DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet))]),Data.BuildLink(DataSet));
             end;
         end;
-      if DataSet.State<>dsInsert then
+      if (DataSet.State<>dsInsert) and (Self.FieldByName('ACTIVE').AsString='Y') then
         begin
           if not Data.TableExists(aObj.TableName) then
             begin
@@ -988,7 +988,7 @@ begin
           with aObj.DataSet as IBaseDBFilter do
             begin
               aID := FieldByName('ID').AsString;
-              aFilter :=  Data.QuoteField('NUMBER')+'='+Data.QuoteValue(aID)+' AND '+Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y');
+              aFilter :=  Data.QuoteField('NUMBER')+'='+Data.QuoteValue(aID);
               Filter := aFilter;
               Limit := 0;
             end;
@@ -1027,6 +1027,11 @@ begin
                 begin
                   aObj.Edit;
                   aObj.Status.AsString := Self.Status.AsString;
+                end;
+              if Assigned(Self.Matchcode) and (aObj.Matchcode.AsString<>Self.Matchcode.AsString) then
+                begin
+                  aObj.Edit;
+                  aObj.Matchcode.AsString := Self.Matchcode.AsString;
                 end;
               if aObj.FieldByName('LINK').AsString<>Data.BuildLink(Self.DataSet) then
                 begin
