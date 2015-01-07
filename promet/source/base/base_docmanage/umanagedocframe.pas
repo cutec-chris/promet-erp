@@ -680,6 +680,8 @@ var
   extn: String;
   aSecFile: String;
 begin
+  Screen.Cursor:=crHourGlass;
+  Application.ProcessMessages;
   if fPicImport.Execute then
     begin
       if Assigned(fWaitform) then
@@ -789,6 +791,7 @@ begin
         end;
       acRefresh.Execute;
     end;
+  Screen.Cursor:=crDefault;
 end;
 procedure TfManageDocFrame.eSearchChange(Sender: TObject);
 begin
@@ -1382,6 +1385,7 @@ var
   aTime: DWORD;
 begin
   URL := FURL;
+  try
   with BaseApplication as IBaseApplication do
     Debug('WaitForImage   :'+URL);
   aTime := GetTickCount;
@@ -1390,6 +1394,8 @@ begin
       if GetTickCount-aTime>1000 then break;
       Application.ProcessMessages;
     end;
+  except
+  end;
   with BaseApplication as IBaseApplication do
     Debug('WaitForImageEnd:'+URL);
 end;
