@@ -280,7 +280,7 @@ begin
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
-      aDocuments.Select(DataSet.Id.AsLargeInt,'E',DataSet.Id.AsVariant);
+      aDocuments.Select(DataSet.Id.AsLargeInt,'E');
       aDocuments.Open;
       if aDocuments.Count = 0 then
         aDocuments.Free

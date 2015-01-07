@@ -68,9 +68,9 @@ inherited fCommandline: TfCommandline
   object Panel2: TPanel[1]
     Left = 0
     Height = 22
-    Top = 549
+    Top = 42
     Width = 678
-    Align = alBottom
+    Align = alTop
     BevelOuter = bvNone
     Caption = 'Panel2'
     ClientHeight = 22
@@ -108,7 +108,7 @@ inherited fCommandline: TfCommandline
     Cursor = crIBeam
     Left = 0
     Height = 507
-    Top = 42
+    Top = 64
     Width = 678
     Align = alClient
     Font.Height = -15
