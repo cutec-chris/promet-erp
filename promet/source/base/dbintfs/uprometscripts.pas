@@ -667,6 +667,8 @@ begin
   inherited FillDefaults(aDataSet);
 end;
 function TBaseScript.Execute(Parameters: Variant): Boolean;
+var
+  aStartTime: TDateTime;
 begin
   Result := False;
   if Count=0 then exit;
@@ -676,7 +678,7 @@ begin
       DoSetStatus('R');
       Edit;
       FieldByName('LASTRESULT').Clear;
-      FieldByName('LASTRUN').AsDateTime:=Now();
+      aStartTime:=Now();
       Post;
       Result := False;
       try
@@ -709,6 +711,9 @@ begin
         if Result then
           begin
             DoSetStatus('N');
+            Edit;
+            FieldByName('LASTRUN').AsDateTime:=aStartTime;
+            Post;
           end
         else
           begin
