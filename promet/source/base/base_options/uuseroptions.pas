@@ -129,7 +129,6 @@ var
   Node1: TTreeNode;
 begin
   Node1 := tvUsers.Items.AddChildObject(nil,'New User',TUserTreeEntry.Create);
-  tvRights.Selected := Node1;
   Node1.ImageIndex:=21;
   Node1.SelectedIndex:=21;
   aUsers.DataSet.Append;
@@ -139,6 +138,10 @@ begin
   aUsers.DataSet.Post;
   TUserTreeEntry(Node1.Data).Rec := aUsers.GetBookmark;
   TUserTreeEntry(Node1.Data).DataSource := UsersDS;
+  try
+    tvRights.Selected := Node1;
+  except
+  end;
   UpdateRights;
 end;
 procedure TfUserOptions.bResetPasswordClick(Sender: TObject);

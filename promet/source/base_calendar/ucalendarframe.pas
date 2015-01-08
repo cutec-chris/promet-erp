@@ -120,6 +120,7 @@ type
   private
     { private declarations }
     FList : TfFilter;
+    procedure RefreshUsers;
     procedure DoOpen;override;
     procedure ParseForms(Filter : string);
   public
@@ -132,14 +133,16 @@ type
     function OpenFromLink(aLink : string) : Boolean;override;
     procedure New;override;
     procedure SetLanguage;override;
-    procedure OpenDir(Directory : LongInt);
+    procedure OpenDir(Directory : Variant);
     procedure DoRefresh;
   end;
 procedure RefreshCalendar(FNode :TTreeNode);
 procedure AddToMainTree(aAction : TAction;var FCalendarNode : TTreeNode);
 implementation
 uses uData, uMainTreeFrame, Math, uEventEdit, VpConst,uBaseDbClasses,Graphics,
-  uFormAnimate;
+  uFormAnimate,uBaseApplication;
+var
+  Fusers : string;
 resourcestring
   strEventsThisWeek             = 'diese Woche: %d';
 procedure RefreshCalendar(FNode: TTreeNode);
@@ -164,7 +167,7 @@ begin
   Cal := TCalendar.Create(nil);
   Cal.CreateTable;
   aDataStore := TCustomPrometheusDataStore.Create(Application);
-  Data.SetFilter(Cal,Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Now())+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Now())-1)+' OR "ROTATION" > 0)');
+  Data.SetFilter(Cal,FUsers+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Now())+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Now())-1)+' OR "ROTATION" > 0)');
   aDataStore.DataSet := Cal;
   aDataStore.Resource := TVpResource.Create(aDataStore.Resources);
   aDataStore.Resource.Description:='';
@@ -320,15 +323,19 @@ const
 var
   aFilter: String;
   cFilter: String;
+  aUsers: String;
 begin
+  aUsers := ' OR '+FUsers;
+  if aDirectory<>Data.Users.Id.AsString then
+    aUsers := '';
   if pDayView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(Date+NumDays)+') AND (("ENDDATE" > '+Data.DateToFilter(Date-NumDays)+') OR ("ROTATION" > 0))'
+    aFilter := '('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+aUsers+') AND ("STARTDATE" < '+Data.DateToFilter(Date+NumDays)+') AND (("ENDDATE" > '+Data.DateToFilter(Date-NumDays)+') OR ("ROTATION" > 0))'
   else if MonthView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheMonth(Date)+7)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheMonth(Date)-7)+') OR ("ROTATION" > 0))'
+    aFilter := '('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+aUsers+') AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheMonth(Date)+7)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheMonth(Date)-7)+') OR ("ROTATION" > 0))'
   else if WeekView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)'
+    aFilter := '('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+aUsers+') AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)'
   else if pWeekDayView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+8)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-8)+') OR ("ROTATION" > 0))';
+    aFilter := '('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+aUsers+') AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+8)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-8)+') OR ("ROTATION" > 0))';
   with DataSet.DataSet as IBaseDbFilter do
     cFilter := Filter;
   if aFilter <> cFilter then
@@ -383,6 +390,24 @@ begin
     WeekView.Date:=DataStore.Date
   else if Sender = MonthView then
     MonthView.Date:=DataStore.Date
+end;
+
+procedure TfCalendarFrame.RefreshUsers;
+var
+  aUser: TUser;
+begin
+  if FUsers<>'' then exit;
+  aUser := TUser.Create(nil);
+  aUser.Select(Data.Users.Id.AsString);
+  aUser.Open;
+  while aUser.Count>0 do
+    begin
+      FUsers := FUsers+' OR '+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aUser.Id.AsString);
+      aUser.Select(aUser.FieldByName('PARENT').AsVariant);
+      aUser.Open;
+    end;
+  FUsers := copy(FUsers,5,length(FUSers));
+  aUser.Free;
 end;
 
 procedure TfCalendarFrame.DoOpen;
@@ -518,6 +543,7 @@ end;
 constructor TfCalendarFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  FUsers := '';
   DataSet := TCalendar.CreateEx(Self,Data);
   DataSet.CreateTable;
   DataStore := TCustomPrometheusDataStore.Create(Self);
@@ -579,8 +605,11 @@ begin
   WeekView.LoadLanguage;
   DayView.LoadLanguage;
 end;
-procedure TfCalendarFrame.OpenDir(Directory: LongInt);
+procedure TfCalendarFrame.OpenDir(Directory: Variant);
 begin
+  with Application as IBaseApplication do
+    Debug('Open Dir '+IntToStr(Directory));
+  RefreshUsers;
   aDirectory := IntToStr(Directory);
   DataStore.Directory:=Directory;
   DataStoreDateChanged(DataStore,DataStore.Date);
@@ -604,6 +633,8 @@ procedure TCustomPrometheusDataStore.LoadEvents;
 var
   Event: TVpEvent;
 begin
+  with Application as IBaseApplication do
+    Debug('Load Events');
   if not DataSet.DataSet.Active then exit;
   Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
   DataSet.History.Close;
@@ -651,6 +682,8 @@ begin
           Next;
         end;
     end;
+  with Application as IBaseApplication do
+    Debug('Load Events End');
 end;
 procedure TCustomPrometheusDataStore.RefreshEvents;
 begin
@@ -664,6 +697,8 @@ var
   UpdateNode: Boolean = False;
   OldFilter: String;
 begin
+  with Application as IBaseApplication do
+    Debug('Post Events');
   if not DataSet.DataSet.Active then exit;
   with DataSet.DataSet as IBaseDbFilter do
     OldFilter := Filter;
@@ -675,9 +710,11 @@ begin
           Event := Resource.Schedule.GetEvent(J);
           { if the delete flag is set then delete it from the database }
           { and free the event instance }
-          Data.SetFilter(DataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(intToStr(Event.RecordID)));
+          Data.SetFilter(DataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(Format('%d',[Int64(Event.RecordID)])));
           if Event.Deleted then
             begin
+              with Application as IBaseApplication do
+                Debug('Delete Event '+Format('%d',[Int64(Event.RecordID)]));
               if DataSet.DataSet.Locate('ID', Event.RecordID, [loCaseInsensitive]) then
                 DataSet.DataSet.Delete;
               Event.Free;
@@ -689,10 +726,18 @@ begin
               with DataSet.DataSet do
                 begin
                   if Locate('ID', Event.RecordID, [loCaseInsensitive]) then
-                    { this event already exists in the database so update it }
-                    Edit
+                    begin
+                      { this event already exists in the database so update it }
+                      Edit;
+                      with Application as IBaseApplication do
+                        Debug('Edit Event '+Format('%d',[Int64(Event.RecordID)]));
+                    end
                   else
-                    Append;
+                    begin
+                      Append;
+                      with Application as IBaseApplication do
+                        Debug('Append Event '+Format('%d',[Int64(Event.RecordID)]));
+                    end;
                   try
                     { if a particular descendant datastore uses autoincrementing }
                     { RecordID fields, then  don't overwrite them here. }
@@ -742,7 +787,7 @@ begin
                   { RecordID fields then the RecordID is assigned by the database }
                   { and needs to be assigned here...}
                   if Event.RecordID = -1 then
-                    Event.RecordID := FieldByName('ID').AsInteger;
+                    Event.RecordID := FieldByName('ID').AsLargeInt;
                   Event.Changed := false;
                   UpdateNode := True;
                 end;
@@ -758,6 +803,8 @@ begin
       Data.SetFilter(DataSet,OldFilter);
 //      fCalendar.CalendarNode := fCalendar.CalendarNode;
     end;
+  with Application as IBaseApplication do
+    Debug('Post Events end');
 end;
 {$R *.lfm}
 end.
