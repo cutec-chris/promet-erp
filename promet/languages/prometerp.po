@@ -382,11 +382,6 @@ msgctxt "TFADDRESSFRAME.GADRESSES.HINT"
 msgid "wählen Sie hier eine Adresse"
 msgstr ""
 
-#: tfaddressframe.label1.caption
-msgctxt "TFADDRESSFRAME.LABEL1.CAPTION"
-msgid "Adressen"
-msgstr ""
-
 #: tfaddressframe.ladditional.caption
 msgctxt "TFADDRESSFRAME.LADDITIONAL.CAPTION"
 msgid "Zusätzlich"
