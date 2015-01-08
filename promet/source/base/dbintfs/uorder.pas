@@ -1755,7 +1755,7 @@ begin
               if aObj.Text.AsString<>Data.GetLinkDesc(Data.BuildLink(Self.DataSet)) then
                 begin
                   aObj.Edit;
-                  aObj.Text.AsString := Data.GetLinkDesc(Data.BuildLink(Self.DataSet);
+                  aObj.Text.AsString := Data.GetLinkDesc(Data.BuildLink(Self.DataSet));
                 end;
               if aObj.Number.AsString<>Self.Number.AsString then
                 begin
