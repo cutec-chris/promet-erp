@@ -427,10 +427,6 @@ msgctxt "TFADDRESSFRAME.LTITLE.CAPTION"
 msgid "Anrede"
 msgstr ""
 
-#: tfaddressframe.paddress.caption
-msgid "gewählte Adresse"
-msgstr ""
-
 #: tfaddserial.caption
 msgid "Serienummer hinzufügen"
 msgstr ""

@@ -49,7 +49,6 @@ type
     eZip: TDBEdit;
     gAdresses: TDBGrid;
     Image3: TImage;
-    Label1: TLabel;
     lAdditional: TLabel;
     lCallingName: TLabel;
     lCity: TLabel;
@@ -59,7 +58,7 @@ type
     lStreet: TLabel;
     lTitle: TLabel;
     mAddress: TDBMemo;
-    pAddress: TGroupBox;
+    pAddress: TPanel;
     pToolbar: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
