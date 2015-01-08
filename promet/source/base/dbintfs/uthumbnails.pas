@@ -173,7 +173,7 @@ var
     {$ENDIF}
     aProcess.ShowWindow := swoHide;
     aProcess.CommandLine := aCmd;
-    aProcess.CurrentDirectory := ExtractFileDir(ParamStr(0))+'tools';
+    aProcess.CurrentDirectory := AppendPathDelim(ExtractFileDir(ParamStr(0)))+'tools';
     try
       aProcess.Execute;
     except

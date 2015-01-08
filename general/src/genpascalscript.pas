@@ -267,6 +267,8 @@ begin
         AddMethod(Self,@TPascalScript.InternalGetDNS,'function GetDNS : string;');
         AddMethod(Self,@TPascalScript.InternalGetLocalIPs,'function GetLocalIPs : string;');
         AddFunction(@HTTPEncode,'function HTTPEncode(const str : String) : string;');
+        AddFunction(@HTMLEncode,'function HTMLEncode(const str : String) : string;');
+        AddFunction(@HTMLDecode,'function HTMLDecode(const str : String) : string;');
       end
     else if lowercase(Name)='mashine' then
       begin
