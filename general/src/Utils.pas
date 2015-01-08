@@ -58,7 +58,7 @@ function DateTimeToHourString(DateTime : TDateTime) : string;
 function DateTimeToIndustrialTime(dateTime : TDateTime) : string;
 function ConvertUnknownStringdate(input : string) : TDateTime;
 function HTMLEncode(const s : string)  : string;
-function HTMLDecode(const AStr : string)  : string;
+function HTMLDecode(const si : string)  : string;
 function UniToSys(const s: string): string; inline;
 function SysToUni(const s: string): string; inline;
 function AppendPathDelim(const Path: string): string; inline;
@@ -304,12 +304,27 @@ begin
   Result := StringReplace(result, 'Ü', '&Uuml;', [rfreplaceall]);
   Result := StringReplace(result, 'ß', '&szlig;', [rfreplaceall]);
 end;
-function HTMLDecode(const AStr: string): string;
+function HTMLDecode(const si: string): string;
 var
   Sp, Rp, Cp, Tp: PChar;
   S: String;
   I, Code: Integer;
+  AStr: String;
 begin
+  Result := si;
+  Result := StringReplace(Result, '&amp;' ,'&', [rfreplaceall]);
+  Result := StringReplace(Result, '&quot;' ,'"', [rfreplaceall]);
+  Result := StringReplace(Result, '&lt;' ,'<', [rfreplaceall]);
+  Result := StringReplace(Result, '&gt;' ,'>', [rfreplaceall]);
+  Result := StringReplace(Result, '&nbsp;' ,' ', [rfreplaceall]);
+  Result := StringReplace(Result, '&auml;' ,'ä', [rfreplaceall]);
+  Result := StringReplace(Result, '&ouml;' ,'ö', [rfreplaceall]);
+  Result := StringReplace(Result, '&uuml;' ,'ü', [rfreplaceall]);
+  Result := StringReplace(Result, '&Auml;' ,'Ä', [rfreplaceall]);
+  Result := StringReplace(Result, '&Ouml;' ,'Ö', [rfreplaceall]);
+  Result := StringReplace(Result, '&Uuml;' ,'Ü', [rfreplaceall]);
+  Result := StringReplace(Result, '&szlig;','ß', [rfreplaceall]);
+  AStr := UniToSys(Result);
   SetLength(Result, Length(AStr));
   Sp := PChar(AStr);
   Rp := PChar(Result);
@@ -322,33 +337,6 @@ begin
                Cp := Sp;
                Inc(Sp);
                case Sp^ of
-                 'a': if AnsiStrPos(Sp, 'amp;') = Sp then  { do not localize }
-                      begin
-                        Inc(Sp, 3);
-                        Rp^ := '&';
-                      end;
-                 'l',
-                 'g': if (AnsiStrPos(Sp, 'lt;') = Sp) or (AnsiStrPos(Sp, 'gt;') = Sp) then { do not localize }
-                      begin
-                        Cp := Sp;
-                        Inc(Sp, 2);
-                        while (Sp^ <> ';') and (Sp^ <> #0) do
-                          Inc(Sp);
-                        if Cp^ = 'l' then
-                          Rp^ := '<'
-                        else
-                          Rp^ := '>';
-                      end;
-                 'n': if AnsiStrPos(Sp, 'nbsp;') = Sp then  { do not localize }
-                      begin
-                        Inc(Sp, 4);
-                        Rp^ := ' ';
-                      end;
-                 'q': if AnsiStrPos(Sp, 'quot;') = Sp then  { do not localize }
-                      begin
-                        Inc(Sp,4);
-                        Rp^ := '"';
-                      end;
                  '#': begin
                         Tp := Sp;
                         Inc(Tp);
@@ -371,6 +359,7 @@ begin
   except
   end;
   SetLength(Result, Rp - PChar(Result));
+  Result := SysToUni(Result);
 end;
 var
   FNeedRTLAnsi: boolean = false;
@@ -1091,4 +1080,4 @@ begin
 end;
 END.
 
- 
+ 
