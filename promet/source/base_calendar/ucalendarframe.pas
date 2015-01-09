@@ -326,7 +326,7 @@ var
   aUsers: String;
 begin
   aUsers := ' OR '+FUsers;
-  if aDirectory<>Data.Users.Id.AsString then
+  if aDirectory<>Format('%d',[Data.Users.Id.AsLargeInt]) then
     aUsers := '';
   if pDayView.Visible then
     aFilter := '('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+aUsers+') AND ("STARTDATE" < '+Data.DateToFilter(Date+NumDays)+') AND (("ENDDATE" > '+Data.DateToFilter(Date-NumDays)+') OR ("ROTATION" > 0))'
@@ -607,10 +607,10 @@ begin
 end;
 procedure TfCalendarFrame.OpenDir(Directory: Variant);
 begin
-  with Application as IBaseApplication do
-    Debug('Open Dir '+IntToStr(Directory));
   RefreshUsers;
-  aDirectory := IntToStr(Directory);
+  aDirectory := Format('%d',[Int64(Data.Users.Id.AsLargeInt)]);
+  with Application as IBaseApplication do
+    Debug('Open Dir '+aDirectory);
   DataStore.Directory:=Directory;
   DataStoreDateChanged(DataStore,DataStore.Date);
   DoOpen;
