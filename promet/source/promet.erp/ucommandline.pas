@@ -25,7 +25,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, uPrometFrames, LCLType,
-  ExtCtrls, StdCtrls, Buttons, ComCtrls, ActnList,uspeakinginterface;
+  ExtCtrls, StdCtrls, Buttons, ComCtrls, ActnList,uspeakinginterface,
+  uBaseDbClasses;
 
 type
 
@@ -52,12 +53,14 @@ type
   private
     { private declarations }
     FSpeakingInterfacace : TSpeakingInterface;
+    aHistory: TAccessHistory;
   public
     { public declarations }
     function CheckSentence(s : string) : Boolean;
     procedure ShowFrame; override;
     procedure SetRights;
     destructor Destroy; override;
+    constructor Create(AOwner: TComponent); override;
   end;
 
 implementation
@@ -68,12 +71,30 @@ resourcestring
 procedure TfCommandline.InputKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
+  if not aHistory.Active then
+    begin
+      aHistory.Filter(Data.QuoteField('LINK')+'='+Data.QuoteValue('CMDLN'));
+      aHistory.Last;
+    end;
   if Key = VK_RETURN then
     begin
       Key := 0;
-      CheckSentence(Input.Text);
+      if not CheckSentence(Input.Text) then
+        aHistory.AddItem(Data.Users.DataSet,Input.Text,'CMDLNFAIL')
+      else
+        aHistory.AddItem(Data.Users.DataSet,Input.Text,'CMDLN');
       Input.text := '';
       Output.ScrollBy(0,-100);
+    end
+  else if Key = VK_UP then
+    begin
+      aHistory.Prior;
+      Input.Text:=aHistory.FieldByName('ACTION').AsString;
+    end
+  else if Key = VK_DOWN then
+    begin
+      aHistory.Next;
+      Input.Text:=aHistory.FieldByName('ACTION').AsString;
     end;
 end;
 
@@ -136,7 +157,14 @@ destructor TfCommandline.Destroy;
 begin
   if Assigned(FSpeakingInterfacace) then
     FSpeakingInterfacace.Destroy;
+  aHistory.Destroy;
   inherited Destroy;
+end;
+
+constructor TfCommandline.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  aHistory := TAccessHistory.CreateEx(nil,Data,nil,Data.Users.DataSet);
 end;
 
 end.
