@@ -125,6 +125,7 @@ begin
       if FieldByName('ERRIMAGE').AsVariant=fRepairImages.DataSet.Id.AsVariant then exit;
       Edit;
       FieldByName('ERRIMAGE').AsVariant:=fRepairImages.DataSet.Id.AsVariant;
+      FieldByName('IMAGENAME').AsString:=fRepairImages.DataSet.FieldByName('NAME').AsString;
       if FieldByName('NOTES').IsNull then
         FieldByName('NOTES').AsString:=fRepairImages.DataSet.FieldByName('NOTES').AsString;
       if FieldByName('INTNOTES').IsNull then

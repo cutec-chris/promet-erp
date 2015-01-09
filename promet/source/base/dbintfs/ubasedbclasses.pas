@@ -598,6 +598,13 @@ begin
   FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
   FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
   FLinks := TLinks.CreateEx(Self,DM,aConnection);
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with DataSet as IBaseDBFilter do
+        begin
+          UsePermissions:=True;
+        end;
+    end;
 end;
 
 destructor TObjects.Destroy;

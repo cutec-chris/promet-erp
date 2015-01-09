@@ -329,6 +329,7 @@ begin
             Add('INTNOTES',ftMemo,0,False);
             Add('WARRENTY',ftString,1,True);
             Add('ERRIMAGE',ftLargeint,0,False);
+            Add('IMAGENAME',ftString,100,False);
           end;
     end;
 end;
