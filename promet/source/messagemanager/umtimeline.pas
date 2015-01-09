@@ -94,7 +94,6 @@ type
     tbRootEntrys: TSpeedButton;
     tbThread: TSpeedButton;
     tbUser: TSpeedButton;
-    Timer1: TTimer;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     tbAdd: TSpeedButton;
@@ -126,7 +125,6 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure FormShow(Sender: TObject);
     function fSearchOpenUser(aLink: string): Boolean;
     procedure fTimelineGetCellText(Sender: TObject; aCol: TColumn;
       aRow: Integer; var NewText: string; aFont: TFont);
@@ -144,7 +142,6 @@ type
     function SetLinkfromSearch(aLink: string): Boolean;
     procedure tbThreadClick(Sender: TObject);
     procedure tbUserClick(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
     procedure tbAddClick(Sender: TObject);
     procedure tbRootEntrysClick(Sender: TObject);
   private
@@ -514,7 +511,8 @@ begin
   mTime := GetTickCount-mTime;
   if mTime>0 then
     with Application as IBaseApplication do
-      Debug('DrawColumnCellEnd:'+IntToStr(mTime)+'ms');
+      if mTime>100 then
+        Debug('DrawColumnCellEnd:'+IntToStr(mTime)+'ms');
 end;
 procedure TfmTimeline.acRefreshExecute(Sender: TObject);
 begin
@@ -934,10 +932,6 @@ begin
       Close;
     end;
 end;
-procedure TfmTimeline.FormShow(Sender: TObject);
-begin
-  Timer1.Enabled:=True;
-end;
 function TfmTimeline.fSearchOpenUser(aLink: string): Boolean;
 var
   tmp: String;
@@ -986,6 +980,7 @@ begin
         if fTimeline.dgFake.Columns[i].FieldName='OBJECT' then
           FHasObject := True;
       NewText := StripWikiText(NewText);
+      if pos('data:im',NewText)>0 then NewText := copy(NewText,0,pos('data:im',NewText)-1);
       if (not fHasObject) and (aRow>=fTimeLine.gList.FixedRows) then
         begin
           aObj := fTimeline.gList.Objects[aCol.Index+1,aRow];
@@ -1346,12 +1341,6 @@ begin
     end;
   acMarkAllasRead.Visible:=tbThread.Down or tbUser.Down;
   Screen.Cursor:=crDefault;
-end;
-procedure TfmTimeline.Timer1Timer(Sender: TObject);
-begin
-  //debugln('Refresh Timeline Timer');
-  Timer1.Enabled:=False;
-  acRefresh.Execute;
 end;
 procedure TfmTimeline.tbAddClick(Sender: TObject);
 var

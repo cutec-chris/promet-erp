@@ -676,7 +676,7 @@ var
 begin
   Result := False;
   if Count=0 then exit;
-  OpenItem;
+  OpenItem(False);
   if (pos(GetSystemName,FieldByName('RUNMASHINE').AsString)>0) or (trim(FieldByName('RUNMASHINE').AsString)='') then
     begin
       DoSetStatus('R');

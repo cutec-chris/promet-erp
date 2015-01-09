@@ -11,7 +11,6 @@ object fmTimeline: TfmTimeline
   Menu = MainMenu1
   OnClose = FormClose
   OnKeyDown = FormKeyDown
-  OnShow = FormShow
   Position = poDefault
   ShowHint = True
   LCLVersion = '1.3'
@@ -529,6 +528,7 @@ object fmTimeline: TfmTimeline
       end
       object ToolButton4: TToolButton
         Left = 62
+        Height = 30
         Top = 0
         Width = 10
         Caption = 'ToolButton4'
@@ -536,6 +536,7 @@ object fmTimeline: TfmTimeline
       end
       object ToolButton5: TToolButton
         Left = 102
+        Height = 30
         Top = 0
         Width = 10
         Caption = 'ToolButton5'
@@ -543,6 +544,7 @@ object fmTimeline: TfmTimeline
       end
       object ToolButton6: TToolButton
         Left = 202
+        Height = 30
         Top = 0
         Width = 10
         Caption = 'ToolButton6'
@@ -723,13 +725,6 @@ object fmTimeline: TfmTimeline
     OnTimer = IdleTimer1Timer
     left = 392
     top = 128
-  end
-  object Timer1: TTimer
-    Enabled = False
-    Interval = 400
-    OnTimer = Timer1Timer
-    left = 392
-    top = 176
   end
   object PopupMenu1: TPopupMenu
     OnPopup = PopupMenu1Popup
