@@ -191,15 +191,19 @@ end;
 function TBaseScript.InternalUserHistory(Action: string; UserName: string;
   Icon: Integer; ObjectLink: string; Reference: string; aCommission: string;
   Source: string; Date: TDateTime): Boolean;
+var
+  aUsers: TUser;
 begin
   Result := False;
-  if Data.Users.Locate('NAME',UserName,[loCaseInsensitive]) then
+  aUsers := TUser.Create(nil);
+  if aUsers.Locate('NAME',UserName,[loCaseInsensitive]) then
     begin
-      Result := Data.Users.History.AddItemSR(Data.Users.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,aCommission,True,False);
+      Result := aUsers.History.AddItemSR(aUsers.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,aCommission,True,False);
       if Source<>'' then
-        Data.Users.History.FieldByName('SOURCE').AsString:=Source;
-      Data.Users.History.Post;
+        aUsers.History.FieldByName('SOURCE').AsString:=Source;
+      aUsers.History.Post;
     end;
+  aUsers.Free;
 end;
 
 procedure TBaseScript.InternalStorValue(aName, aId: string; aValue: Double);

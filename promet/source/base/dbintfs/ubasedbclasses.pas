@@ -2270,7 +2270,7 @@ end;
 
 function TRights.Right(Element: string; Recursive: Boolean; UseCache: Boolean): Integer;
 var
-  aUser : LongInt;
+  aUser : Int64;
 
   procedure RecursiveGetRight(aRec : Integer = 0);
   begin

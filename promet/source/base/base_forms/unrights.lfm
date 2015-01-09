@@ -14,14 +14,14 @@ object fNRights: TfNRights
     Left = 8
     Height = 13
     Top = 24
-    Width = 51
+    Width = 43
     Caption = 'Benutzer'
     ParentColor = False
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 42
-    Top = 198
+    Height = 34
+    Top = 206
     Width = 350
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -38,10 +38,10 @@ object fNRights: TfNRights
   end
   object cbUser: TComboBox
     Left = 85
-    Height = 27
+    Height = 21
     Top = 78
     Width = 100
-    ItemHeight = 0
+    ItemHeight = 13
     OnSelect = cbUserSelect
     Sorted = True
     TabOrder = 1
@@ -50,10 +50,10 @@ object fNRights: TfNRights
   end
   object cbRight: TComboBox
     Left = 231
-    Height = 27
+    Height = 21
     Top = 78
     Width = 100
-    ItemHeight = 0
+    ItemHeight = 13
     Items.Strings = (
       'keins'
       'lesen'
@@ -115,8 +115,8 @@ object fNRights: TfNRights
     WantReturns = False
     CachedEditing = True
   end
-  object Permissions: TDatasource
+  object Permissions: TDataSource
     left = 40
     top = 112
   end
-end
+end

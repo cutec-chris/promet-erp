@@ -167,7 +167,7 @@ begin
   Cal := TCalendar.Create(nil);
   Cal.CreateTable;
   aDataStore := TCustomPrometheusDataStore.Create(Application);
-  Data.SetFilter(Cal,FUsers+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Now())+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Now())-1)+' OR "ROTATION" > 0)');
+  Data.SetFilter(Cal,Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Now())+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Now())-1)+' OR "ROTATION" > 0)');
   aDataStore.DataSet := Cal;
   aDataStore.Resource := TVpResource.Create(aDataStore.Resources);
   aDataStore.Resource.Description:='';
