@@ -1733,6 +1733,7 @@ begin
       and (trunc(FieldByName('TIMESTAMPD').AsDatetime) = trunc(Now()))
       and (FieldByName('CHANGEDBY').AsString = Data.Users.Idcode.AsString)
       and ((FieldByName('REFERENCE').AsString = aReference) or (FieldByName('REFERENCE').AsString=Data.Users.IDCode.Asstring))
+      and ((aIcon=11{Termin}))
       and (CheckDouble)
       then
         Delete;

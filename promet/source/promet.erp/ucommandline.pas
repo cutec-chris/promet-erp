@@ -133,7 +133,8 @@ function TfCommandline.CheckSentence(s: string): Boolean;
 begin
   s := StringReplace(StringReplace(s,#10,'',[rfReplaceAll]),#13,'',[rfReplaceAll]);
   Output.Append('>'+s);
-  if not FSpeakingInterfacace.CheckSentence(s) then
+  Result := FSpeakingInterfacace.CheckSentence(s);
+  if not Result then
     Output.Append('<'+strSentenceNotValid);
 end;
 
