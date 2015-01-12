@@ -24,15 +24,21 @@ interface
 uses
   Classes, SysUtils,uBaseDbClasses,uBaseDbInterface,db,uIntfStrConsts,variants;
 type
-
-  { TCalendar }
-
+  TMeetingUsers = class(TBaseDBDataSet)
+  protected
+  public
+    FMeeting : TBaseDbDataSet;
+    procedure Change; override;
+    procedure DefineFields(aDataSet : TDataSet);override;
+    procedure SetDisplayLabels(aDataSet: TDataSet); override;
+  end;
   TCalendar = class(TBaseDbList,IBaseHistory)
     procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FHistory: TBaseHistory;
     FDS: TDataSource;
     FRefID: Variant;
+    FUsers: TMeetingUsers;
     function GetHistory: TBaseHistory;
   protected
     function GetTextFieldName: string;override;
@@ -49,6 +55,7 @@ type
     procedure SelectByIdAndTime(User : Variant;aStart,aEnd : TdateTime);
     function SelectFromLink(aLink: string): Boolean; override;
     property History : TBaseHistory read GetHistory;
+    property Users : TMeetingUsers read FUsers;
     constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
@@ -58,18 +65,9 @@ type
   public
     procedure FillDefaults(aDataSet : TDataSet);override;
   end;
-  TMeetingUsers = class(TBaseDBDataSet)
-  protected
-  public
-    FMeeting : TBaseDbDataSet;
-    procedure Change; override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure SetDisplayLabels(aDataSet: TDataSet); override;
-  end;
   TEvent = class(TCalendar)
   private
     FLinks: TEventLinks;
-    FUsers: TMeetingUsers;
     function GetEnd: TDateTime;
     function GetStart: TDateTime;
   public
@@ -77,7 +75,6 @@ type
     destructor Destroy;override;
     procedure SelectById(aID : Integer);overload;
     property Links : TEventLinks read FLinks;
-    property Users : TMeetingUsers read FUsers;
     function GetTimeInRange(aStart,aEnd : TDateTime) : Extended;
     property StartDate : TDateTime read GetStart;
     property EndDate : TDateTime read GetEnd;
@@ -131,12 +128,9 @@ constructor TEvent.CreateEx(aOwner: TComponent; DM: TComponent;
 begin
   inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FLinks := TEventLinks.CreateEx(Self,DM,aConnection);
-  FUsers := TMeetingUsers.CreateExIntegrity(aOwner,DM,False,aConnection,DataSet);
-  FUsers.FMeeting := Self;
 end;
 destructor TEvent.Destroy;
 begin
-  FUsers.Free;
   FLinks.Free;
   inherited Destroy;
 end;
@@ -390,12 +384,15 @@ begin
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
   FDS.OnDataChange:=@FDSDataChange;
+  FUsers := TMeetingUsers.CreateExIntegrity(aOwner,DM,False,aConnection,DataSet);
+  FUsers.FMeeting := Self;
 end;
 
 destructor TCalendar.Destroy;
 begin
-  FDS.Free;
-  FHistory.Free;
+  FUsers.Destroy;
+  FDS.Destroy;
+  FHistory.Destroy;
   inherited Destroy;
 end;
 

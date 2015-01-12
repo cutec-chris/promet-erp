@@ -336,13 +336,24 @@ begin
     aFilter := '('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+aUsers+') AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)'
   else if pWeekDayView.Visible then
     aFilter := '('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+aUsers+') AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+8)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-8)+') OR ("ROTATION" > 0))';
-  with DataSet.DataSet as IBaseDbFilter do
-    cFilter := Filter;
-  if aFilter <> cFilter then
+  with DataSet.DataSet as IBaseDbFilter,DataSet.DataSet as IBaseManageDB do
     begin
-      Data.SetFilter(DataSet,aFilter);
-      DataStore.Resource.Schedule.ClearEvents;
-      DataStore.LoadEvents;
+      cFilter := Filter;
+      if aFilter <> cFilter then
+        begin
+          //Data.SetFilter(DataSet,aFilter);
+          Filter := aFilter;
+          if Data.IsSQLDB then
+            begin
+              aUsers := StringReplace(aUsers,Data.QuoteField('REF_ID_ID'),Data.QuoteField(TEvent(DataSet).Users.TableName)+'.'+Data.QuoteField('USER_ID'),[rfReplaceAll]);
+              aUsers := copy(ausers,5,length(aUsers));
+              aFilter := '('+aUsers+') OR '+aFilter;
+              FullSQL := 'select * from '+Data.QuoteField(TableName)+' left join '+Data.QuoteField(TEvent(DataSet).Users.TableName)+' on '+Data.QuoteField(TEvent(DataSet).Users.TableName)+'.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+' where '+aFilter;
+            end;
+          DataSet.Open;
+          DataStore.Resource.Schedule.ClearEvents;
+          DataStore.LoadEvents;
+        end;
     end;
 end;
 procedure TfCalendarFrame.DayViewOwnerEditEvent(Sender: TObject;
