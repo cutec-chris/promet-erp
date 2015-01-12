@@ -73,6 +73,7 @@ type
     FConnectionLost: TNotifyEvent;
     FKeepAlive: TNotifyEvent;
     FLastStmt: string;
+    FLastTime: TDateTime;
     FSessionID: LargeInt;
     FTables: TStrings;
     FTriggers: TStrings;
@@ -133,6 +134,7 @@ type
     function SetProperties(aProp : string;Connection : TComponent = nil) : Boolean;virtual;
     function CreateDBFromProperties(aProp : string) : Boolean;virtual;
     property LastStatement : string read FLastStmt write FLastStmt;
+    property LastTime : TDateTime read FLastTime write FLastTime;
     function IsSQLDB : Boolean;virtual;abstract;
     function ProcessTerm(aTerm : string) : string;virtual;
     function GetUniID(aConnection : TComponent = nil;Generator : string = 'GEN_SQL_ID';AutoInc : Boolean = True) : Variant;virtual;abstract;
@@ -1856,4 +1858,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

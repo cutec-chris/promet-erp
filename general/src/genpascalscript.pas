@@ -282,6 +282,10 @@ begin
         uPSC_DB.SIRegister_DB(Comp);
         uPSR_DB.RIRegister_DB(FClassImporter);
       end
+    else if lowercase(Name)='variants' then
+      begin
+        AddFunction(@VarArrayOf,'function VarArrayOf(const Values: array of Variant): Variant;');
+      end
     else if lowercase(Name)='dateutils' then
       begin
         uPSC_dateutils.RegisterDateTimeLibrary_C(Comp);
