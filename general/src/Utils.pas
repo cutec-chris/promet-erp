@@ -72,6 +72,7 @@ type
   TCopyFileFlags = set of TCopyFileFlag;
 function CopyFile(const SrcFilename, DestFilename: string;
                   Flags: TCopyFileFlags=[cffOverwriteFile]): boolean;
+function GetTicks : Int64;
 IMPLEMENTATION
 function GetMimeTypeforExtension(Extension : string) : string;
 var
@@ -505,6 +506,21 @@ begin
   finally
     FileClose(SrcHandle);
   end;
+end;
+
+function GetTicks: Int64;
+{$IFDEF UNIX}
+var
+  tv: timeval;
+{$ENDIF}
+begin
+{$IFDEF UNIX}
+  fpgettimeofday(@tv, nil);
+  Result := int64(tv.tv_sec) * 1000 + tv.tv_usec div 1000;
+{$ENDIF}
+{$IFDEF WINDOWS}
+  Result := GetTickCount;
+{$ENDIF}
 end;
 
 function CanWriteToProgramDir : Boolean;
@@ -1080,4 +1096,4 @@ begin
 end;
 END.
 
- 
+ 

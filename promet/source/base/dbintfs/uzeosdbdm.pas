@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, db, uBaseDBInterface,ZConnection, ZSqlMetadata,
   ZAbstractRODataset, ZDataset, uBaseDbClasses, ZSequence,ZAbstractConnection,
-  uModifiedDS,ZSqlMonitor;
+  uModifiedDS,ZSqlMonitor,Utils;
 type
   TUnprotectedDataSet = class(TDataSet);
 
@@ -343,7 +343,6 @@ begin
   else
     Result := SQL.text;
   if Assigned(FOrigTable) then TBaseDBModule(ForigTable.DataModule).LastStatement := Result;
-  if Assigned(FOrigTable) then TBaseDBModule(ForigTable.DataModule).LastTime := Now();
 end;
 function TZeosDBDataSet.IndexExists(IndexName: string): Boolean;
 var
@@ -573,6 +572,8 @@ procedure TZeosDBDataSet.InternalOpen;
 var
   a: Integer;
 begin
+  if Assigned(FOrigTable) then
+    TBaseDBModule(ForigTable.DataModule).LastTime := GetTicks;
   if TZeosDBDM(Owner).IgnoreOpenRequests then exit;
   try
     inherited InternalOpen;
@@ -622,6 +623,8 @@ begin
       raise;
     end;
   end;
+  if Assigned(FOrigTable) then
+    TBaseDBModule(ForigTable.DataModule).LastTime := GetTicks-TBaseDBModule(ForigTable.DataModule).LastTime;
 end;
 
 procedure TZeosDBDataSet.InternalRefresh;
@@ -1063,13 +1066,14 @@ begin
   if Assigned(BaseApplication) then
     with BaseApplication as IBaseApplication do
       begin
-        LastTime := Now()-LastTime;
         if Event.Error<>'' then
           Error(Event.AsString+'('+LastStatement+')')
         else if BaseApplication.HasOption('debug-sql') then
           Debug(Event.AsString)
-        else if (LastTime*MSecsPerDay)>50 then
-          Debug('Long running Query:'+IntToStr(round(LastTime*MSecsPerDay))+' '+Event.AsString);
+        else if (LastTime)>50 then
+          Debug('Long running Query:'+IntToStr(round(LastTime))+' '+Event.AsString);
+        LastTime:=0;
+        LastStatement:='';
       end;
 end;
 function TZeosDBDM.GetConnection: TComponent;
