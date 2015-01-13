@@ -623,8 +623,6 @@ begin
       raise;
     end;
   end;
-  if Assigned(FOrigTable) then
-    TBaseDBModule(ForigTable.DataModule).LastTime := GetTicks-TBaseDBModule(ForigTable.DataModule).LastTime;
 end;
 
 procedure TZeosDBDataSet.InternalRefresh;
@@ -1063,6 +1061,9 @@ end;
 procedure TZeosDBDM.MonitorTrace(Sender: TObject; Event: TZLoggingEvent;
   var LogTrace: Boolean);
 begin
+  if LastTime>0 then
+    LastTime := GetTicks-LastTime;
+  if LastTime<0 then LastTime := 0;
   if Assigned(BaseApplication) then
     with BaseApplication as IBaseApplication do
       begin
@@ -1983,4 +1984,4 @@ end;
 
 end.
 
-
+
