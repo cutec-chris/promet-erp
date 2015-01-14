@@ -752,10 +752,10 @@ begin
                   try
                     { if a particular descendant datastore uses autoincrementing }
                     { RecordID fields, then  don't overwrite them here. }
-                    if (Event.RecordID <> -1) and (Event.RecordID <> FieldByName('ID').AsInteger) then
-                      FieldByName('ID').AsInteger := Event.RecordID;
-                    if FieldByName('REF_ID_ID').AsInteger <> FDirectory then
-                      FieldByName('REF_ID_ID').AsInteger := FDirectory;
+                    if (Event.RecordID <> -1) and (Event.RecordID <> FieldByName('ID').AsLargeInt) then
+                      FieldByName('ID').AsLargeInt := Event.RecordID;
+                    if FieldByName('REF_ID_ID').AsVariant <> FDirectory then
+                      FieldByName('REF_ID_ID').AsVariant := FDirectory;
                     if FieldDefs.IndexOf('USER') <> -1 then
                       FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
                     if FieldByName('STARTDATE').AsDateTime <> Event.StartTime then
@@ -798,7 +798,7 @@ begin
                   { RecordID fields then the RecordID is assigned by the database }
                   { and needs to be assigned here...}
                   if Event.RecordID = -1 then
-                    Event.RecordID := FieldByName('ID').AsLargeInt;
+                    Event.RecordID := FieldByName('ID').AsVariant;
                   Event.Changed := false;
                   UpdateNode := True;
                 end;
