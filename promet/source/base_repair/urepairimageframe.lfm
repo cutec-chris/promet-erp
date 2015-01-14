@@ -20,7 +20,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
     ClientWidth = 868
     TabOrder = 0
     object lVersion1: TLabel
-      Left = 3
+      Left = 104
       Height = 14
       Top = 42
       Width = 54
@@ -29,7 +29,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
       ParentColor = False
     end
     object lSerial1: TLabel
-      Left = 4
+      Left = 105
       Height = 14
       Top = 2
       Width = 57
@@ -38,17 +38,17 @@ inherited fRepairImageFrame: TfRepairImageFrame
       ParentColor = False
     end
     object lErrordescription: TLabel
-      Left = 8
+      Left = 105
       Height = 13
-      Top = 89
+      Top = 115
       Width = 94
       Caption = 'Fehlerbeschreibung'
       ParentColor = False
     end
     object lNotesforCustomer: TLabel
-      Left = 133
+      Left = 240
       Height = 13
-      Top = 112
+      Top = 136
       Width = 86
       Caption = 'Notizen für Kunde'
       ParentColor = False
@@ -56,7 +56,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
     object lInternalNotes: TLabel
       Left = 559
       Height = 15
-      Top = 112
+      Top = 134
       Width = 292
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
@@ -74,7 +74,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
       ParentColor = False
     end
     object eSerial1: TDBEdit
-      Left = 4
+      Left = 105
       Height = 21
       Top = 19
       Width = 76
@@ -86,7 +86,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
       OnExit = eSerial1Exit
     end
     object cbVersion1: TDBComboBox
-      Left = 3
+      Left = 104
       Height = 21
       Top = 58
       Width = 77
@@ -109,9 +109,9 @@ inherited fRepairImageFrame: TfRepairImageFrame
       TabOrder = 2
     end
     object mErrordesc: TDBMemo
-      Left = 8
-      Height = 110
-      Top = 112
+      Left = 104
+      Height = 88
+      Top = 134
       Width = 118
       Anchors = [akTop, akLeft, akBottom]
       DataField = 'ERRDESC'
@@ -119,10 +119,10 @@ inherited fRepairImageFrame: TfRepairImageFrame
       TabOrder = 3
     end
     object mNotes: TDBMemo
-      Left = 132
-      Height = 94
-      Top = 128
-      Width = 420
+      Left = 240
+      Height = 70
+      Top = 152
+      Width = 312
       Anchors = [akTop, akLeft, akBottom]
       DataField = 'NOTES'
       DataSource = Repair
@@ -131,8 +131,8 @@ inherited fRepairImageFrame: TfRepairImageFrame
     end
     object mInternalNotes: TDBMemo
       Left = 559
-      Height = 94
-      Top = 128
+      Height = 70
+      Top = 152
       Width = 295
       Anchors = [akTop, akLeft, akRight, akBottom]
       DataField = 'INTNOTES'
@@ -155,10 +155,10 @@ inherited fRepairImageFrame: TfRepairImageFrame
       ValueUnchecked = 'N'
     end
     object cbImage: TComboBox
-      Left = 96
+      Left = 192
       Height = 21
       Top = 19
-      Width = 560
+      Width = 464
       Anchors = [akTop, akLeft, akRight]
       ItemHeight = 13
       OnKeyPress = cbImageKeyPress
@@ -166,9 +166,9 @@ inherited fRepairImageFrame: TfRepairImageFrame
       TabOrder = 7
     end
     object Label1: TLabel
-      Left = 96
+      Left = 192
       Height = 13
-      Top = 2
+      Top = 3
       Width = 46
       Caption = 'Fehlerbild'
       ParentColor = False
@@ -184,7 +184,7 @@ inherited fRepairImageFrame: TfRepairImageFrame
     end
     object gProblems: TExtDBGrid
       Left = 224
-      Height = 57
+      Height = 72
       Top = 56
       Width = 472
       Anchors = [akTop, akLeft, akRight]
@@ -246,6 +246,26 @@ inherited fRepairImageFrame: TfRepairImageFrame
       Caption = 'betroffene Bauteile'
       ParentColor = False
     end
+    object DBNavigator1: TDBNavigator
+      Left = 8
+      Height = 125
+      Top = 19
+      Width = 22
+      BevelOuter = bvNone
+      ChildSizing.EnlargeHorizontal = crsScaleChilds
+      ChildSizing.EnlargeVertical = crsScaleChilds
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 100
+      ClientHeight = 125
+      ClientWidth = 22
+      DataSource = Repair
+      Direction = nbdVertical
+      Options = []
+      TabOrder = 10
+      VisibleButtons = [nbPrior, nbNext, nbInsert, nbDelete, nbPost, nbRefresh]
+    end
   end
   object lInfo: TLabel[1]
     Left = 8
@@ -260,27 +280,54 @@ inherited fRepairImageFrame: TfRepairImageFrame
     ParentColor = False
     Transparent = False
   end
-  object Position: TDataSource[2]
+  object Label2: TLabel[2]
+    Left = 8
+    Height = 13
+    Top = 32
+    Width = 30
+    Caption = 'Fehler'
+    ParentColor = False
+  end
+  object DBGrid1: TDBGrid[3]
+    Left = 32
+    Height = 203
+    Top = 48
+    Width = 66
+    Anchors = [akTop, akLeft, akBottom]
+    AutoFillColumns = True
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'ID'
+        Width = 50
+        FieldName = 'ID'
+      end>
+    DataSource = Repair
+    Scrollbars = ssAutoBoth
+    TabOrder = 1
+    TitleStyle = tsNative
+  end
+  object Position: TDataSource[4]
     left = 136
     top = 192
   end
-  object Repair: TDataSource[3]
+  object Repair: TDataSource[5]
     left = 216
     top = 192
   end
-  object Timer1: TTimer[4]
+  object Timer1: TTimer[6]
     OnTimer = Timer1Timer
     OnStartTimer = Timer1StartTimer
     left = 318
     top = 33
   end
-  object Timer2: TTimer[5]
+  object Timer2: TTimer[7]
     OnTimer = Timer2Timer
     OnStartTimer = Timer2StartTimer
     left = 389
     top = 32
   end
-  object RepairDetail: TDataSource[6]
+  object RepairDetail: TDataSource[8]
     left = 304
     top = 192
   end

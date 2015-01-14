@@ -39,7 +39,10 @@ type
     FDS: TDataSource;
     FRefID: Variant;
     FUsers: TMeetingUsers;
+    FUserSel : string;
+    FUserId : Variant;
     function GetHistory: TBaseHistory;
+    procedure RefreshUsers(UserId : Variant);
   protected
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
@@ -179,6 +182,25 @@ begin
   Result := FHistory;
 end;
 
+procedure TCalendar.RefreshUsers(UserId: Variant);
+var
+  aUser: TUser;
+begin
+  if FUserId=UserId then exit;
+  aUser := TUser.Create(nil);
+  aUser.Select(UserId);
+  aUser.Open;
+  while aUser.Count>0 do
+    begin
+      FUserSel := FUserSel+' OR '+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aUser.Id.AsString);
+      aUser.Select(aUser.FieldByName('PARENT').AsVariant);
+      aUser.Open;
+    end;
+  FUserSel := copy(FUserSel,5,length(FUserSel));
+  FUserId:=UserId;
+  aUser.Free;
+end;
+
 function TCalendar.GetTextFieldName: string;
 begin
   Result:='SUMMARY';
@@ -255,15 +277,18 @@ end;
 procedure TCalendar.SelectByUser(AccountNo: string);
 var
   aUser: TUser;
+  aUsers: String;
 begin
   aUser := TUser.CreateEx(nil,DataModule);
   aUser.SelectByAccountno(AccountNo);
   aUser.Open;
   if aUser.Count>0 then
     begin
+      RefreshUsers(aUser.Id.AsLargeInt);
+      aUsers := ' OR '+FUserSel;
       with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
         begin
-          Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(aUser.Id.AsString)+')';
+          Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(aUser.Id.AsString)+aUsers+')';
         end;
     end
   else
@@ -287,15 +312,18 @@ end;
 procedure TCalendar.SelectPlanedByUser(AccountNo: string);
 var
   aUser: TUser;
+  aUsers: String;
 begin
   aUser := TUser.CreateEx(nil,DataModule);
   aUser.SelectByAccountno(AccountNo);
   aUser.Open;
   if aUser.Count>0 then
     begin
+      RefreshUsers(aUser.Id.AsLargeInt);
+      aUsers := ' OR '+FUserSel;
       with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
         begin
-          Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(aUser.Id.AsString)+') and ('+QuoteField('ICATEGORY')+'='+QuoteValue('8')+')';
+          Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(aUser.Id.AsString)+aUsers+') and ('+QuoteField('ICATEGORY')+'='+QuoteValue('8')+')';
         end;
     end
   else
@@ -336,7 +364,8 @@ procedure TCalendar.SelectPlanedByIdAndTime(User: Variant; aStart,
 begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
-      Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(User)+') and ('+QuoteField('ICATEGORY')+'='+QuoteValue('8')+')';
+      RefreshUsers(User);
+      Filter := '('+FUserSel+') and ('+QuoteField('ICATEGORY')+'='+QuoteValue('8')+')';
       Filter := Filter+' AND (('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('ENDDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('STARTDATE')+' <= '+Data.DateToFilter(aEnd)+')';
@@ -349,7 +378,8 @@ procedure TCalendar.SelectByIdAndTime(User: Variant; aStart, aEnd: TdateTime);
 begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
-      Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(User)+')';
+      RefreshUsers(User);
+      Filter := '('+FUserSel+')';
       Filter := Filter+' AND ((('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('ENDDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('STARTDATE')+' <= '+Data.DateToFilter(aEnd)+')';

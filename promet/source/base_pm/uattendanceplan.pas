@@ -571,6 +571,7 @@ var
                 CollectUsers(aINew,aUsers.Id.AsVariant,(aUsers.Id.AsVariant=ColorUser) or Colorized);
                 aINew.Visible:=False;
               end;
+            aINew.OnDrawBackground:=@aINewDrawBackground;
           end
         else if not ((aUsers.FieldByName('LEAVED').AsString<>'') and (aUsers.FieldByName('LEAVED').AsDateTime<Now())) then
           begin
@@ -618,6 +619,7 @@ begin
       FGantt.AddInterval(aIRoot);
       CollectUsers(aIRoot,aRoot.Id.AsVariant,aRoot.Id.AsVariant=aUser);
       aRoot.DataSet.Next;
+      aIRoot.OnDrawBackground:=@aINewDrawBackground;
     end;
   while Assigned(HighestInterval) do
     begin

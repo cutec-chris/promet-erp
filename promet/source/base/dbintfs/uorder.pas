@@ -323,6 +323,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
+            Add('ID',ftInteger,0,False);
             Add('OPERATION',ftString,20,False);
             Add('ERRDESC',ftMemo,0,False);
             Add('NOTES',ftMemo,0,False);
@@ -338,6 +339,7 @@ begin
   with aDataSet,BaseApplication as IBaseDbInterface do
     begin
       FieldByName('WARRENTY').AsString := 'U';
+      FieldByName('ID').AsInteger:=Self.Count+1;
     end;
   inherited FillDefaults(aDataSet);
 end;
