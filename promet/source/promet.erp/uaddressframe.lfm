@@ -620,7 +620,6 @@ inherited fAddressFrame: TfAddressFrame
       Hint = 'Kopieren'
       ImageIndex = 23
       OnExecute = EditCopy1Execute
-      ShortCut = 16451
     end
     object EditPaste1: TEditPaste
       Category = 'Edit'
@@ -628,7 +627,6 @@ inherited fAddressFrame: TfAddressFrame
       Hint = 'Einfügen'
       ImageIndex = 80
       OnExecute = EditPaste1Execute
-      ShortCut = 16470
     end
   end
 end
