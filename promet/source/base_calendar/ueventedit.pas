@@ -406,6 +406,7 @@ begin
       DePopulateDialog;
       if FDataSet.CanEdit then
         FDataSet.Post;
+      aDataStore.PostEvents;
     end
   else if aInserted and (FDataSet.Count>0) then
     FDataSet.Delete;

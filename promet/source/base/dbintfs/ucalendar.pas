@@ -187,6 +187,7 @@ var
   aUser: TUser;
 begin
   if FUserId=UserId then exit;
+  FUserSel := '';
   aUser := TUser.Create(nil);
   aUser.Select(UserId);
   aUser.Open;
@@ -198,6 +199,8 @@ begin
     end;
   FUserSel := copy(FUserSel,5,length(FUserSel));
   FUserId:=UserId;
+  if FUserSel='' then
+    FUserSel := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(UserId);
   aUser.Free;
 end;
 
@@ -375,6 +378,9 @@ begin
 end;
 
 procedure TCalendar.SelectByIdAndTime(User: Variant; aStart, aEnd: TdateTime);
+var
+  aUsers: String;
+  aFilter: String;
 begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
@@ -385,6 +391,12 @@ begin
       Filter := Filter+' OR ('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('STARTDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('STARTDATE')+' < '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' > '+Data.DateToFilter(aEnd)+'))';
       Filter := Filter+' OR (('+Data.QuoteField('ROTATION')+' > 0) AND ('+Data.QuoteField('STARTDATE')+' <= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ROTTO')+' >= '+Data.DateToFilter(aEnd)+')))';
+      if TBaseDBModule(DataModule).IsSQLDB then
+        begin
+          aUsers := StringReplace(FUserSel,Data.QuoteField('REF_ID_ID'),Data.QuoteField(TEvent(Self).Users.TableName)+'.'+Data.QuoteField('USER_ID'),[rfReplaceAll]);
+          aFilter := '('+aUsers+') OR '+Filter;
+          FullSQL := 'select * from '+Data.QuoteField(TableName)+' left join '+Data.QuoteField(TEvent(Self).Users.TableName)+' on '+Data.QuoteField(TEvent(Self).Users.TableName)+'.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+' where '+aFilter;
+        end;
     end;
 end;
 

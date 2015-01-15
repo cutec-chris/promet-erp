@@ -120,7 +120,8 @@ type
   private
     { private declarations }
     FList : TfFilter;
-    procedure RefreshUsers;
+    FUserId : Variant;
+    procedure RefreshUsers(UserId: Variant);
     procedure DoOpen;override;
     procedure ParseForms(Filter : string);
   public
@@ -325,31 +326,19 @@ var
   cFilter: String;
   aUsers: String;
 begin
-  aUsers := ' OR '+FUsers;
-  if aDirectory<>Format('%d',[Data.Users.Id.AsLargeInt]) then
-    aUsers := '';
-  if pDayView.Visible then
-    aFilter := '('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+aUsers+') AND ("STARTDATE" < '+Data.DateToFilter(Date+NumDays)+') AND (("ENDDATE" > '+Data.DateToFilter(Date-NumDays)+') OR ("ROTATION" > 0))'
-  else if MonthView.Visible then
-    aFilter := '('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+aUsers+') AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheMonth(Date)+7)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheMonth(Date)-7)+') OR ("ROTATION" > 0))'
-  else if WeekView.Visible then
-    aFilter := '('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+aUsers+') AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)'
-  else if pWeekDayView.Visible then
-    aFilter := '('+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+aUsers+') AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+8)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-8)+') OR ("ROTATION" > 0))';
   with DataSet.DataSet as IBaseDbFilter,DataSet.DataSet as IBaseManageDB do
     begin
       cFilter := Filter;
-      if aFilter <> cFilter then
+      if pDayView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,Date-NumDays,Date+NumDays)
+      else if MonthView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,StartOfTheMonth(Date)-7,EndOfTheMonth(Date)+7)
+      else if WeekView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,StartOfTheWeek(Date)-1,EndOfTheWeek(Date)+1)
+      else if pWeekDayView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,StartOfTheWeek(Date)-8,EndOfTheWeek(Date)+8);
+      if cFilter <> Filter then
         begin
-          //Data.SetFilter(DataSet,aFilter);
-          Filter := aFilter;
-          if Data.IsSQLDB then
-            begin
-              aUsers := StringReplace(aUsers,Data.QuoteField('REF_ID_ID'),Data.QuoteField(TEvent(DataSet).Users.TableName)+'.'+Data.QuoteField('USER_ID'),[rfReplaceAll]);
-              aUsers := copy(ausers,5,length(aUsers));
-              aFilter := '('+aUsers+') OR '+aFilter;
-              FullSQL := 'select * from '+Data.QuoteField(TableName)+' left join '+Data.QuoteField(TEvent(DataSet).Users.TableName)+' on '+Data.QuoteField(TEvent(DataSet).Users.TableName)+'.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+' where '+aFilter;
-            end;
           DataSet.Open;
           DataStore.Resource.Schedule.ClearEvents;
           DataStore.LoadEvents;
@@ -403,13 +392,14 @@ begin
     MonthView.Date:=DataStore.Date
 end;
 
-procedure TfCalendarFrame.RefreshUsers;
+procedure TfCalendarFrame.RefreshUsers(UserId : Variant);
 var
   aUser: TUser;
 begin
-  if FUsers<>'' then exit;
+  if FUserid=UserId then exit;
+  FUsers := '';
   aUser := TUser.Create(nil);
-  aUser.Select(Data.Users.Id.AsString);
+  aUser.Select(UserId);
   aUser.Open;
   while aUser.Count>0 do
     begin
@@ -418,6 +408,7 @@ begin
       aUser.Open;
     end;
   FUsers := copy(FUsers,5,length(FUSers));
+  FUserId := UserId;
   aUser.Free;
 end;
 
@@ -618,8 +609,8 @@ begin
 end;
 procedure TfCalendarFrame.OpenDir(Directory: Variant);
 begin
-  RefreshUsers;
-  aDirectory := Format('%d',[Int64(Data.Users.Id.AsLargeInt)]);
+  RefreshUsers(Directory);
+  aDirectory := Format('%d',[Int64(Directory)]);
   with Application as IBaseApplication do
     Debug('Open Dir '+aDirectory);
   DataStore.Directory:=Directory;
