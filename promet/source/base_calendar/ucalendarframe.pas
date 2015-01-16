@@ -701,7 +701,8 @@ var
 begin
   with Application as IBaseApplication do
     Debug('Post Events');
-  if not DataSet.DataSet.Active then exit;
+  if not DataSet.DataSet.Active then
+    DataSet.Open;
   with DataSet.DataSet as IBaseDbFilter do
     OldFilter := Filter;
   if (Resource <> nil) and Resource.EventsDirty then
