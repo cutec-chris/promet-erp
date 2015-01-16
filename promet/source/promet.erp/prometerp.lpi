@@ -297,6 +297,7 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -304,6 +305,7 @@
         <ComponentName Value="fAddressFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uAddressFrame"/>
       </Unit3>
       <Unit4>
         <Filename Value="upersonfinance.pas"/>
@@ -381,6 +383,7 @@
         <ComponentName Value="fOrderAdditionalFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderAdditionalFrame"/>
       </Unit14>
       <Unit15>
         <Filename Value="uoverviewframe.pas"/>

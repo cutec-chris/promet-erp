@@ -63,14 +63,14 @@ type
     Panel2: TPanel;
     Panel3: TPanel;
     Splitter1: TSplitter;
+    Timer1: TTimer;
     procedure AddressStateChange(Sender: TObject);
-    procedure bCopyToClipboardClick(Sender: TObject);
-    procedure bPasteFromClipboardClick(Sender: TObject);
     procedure cbLandChange(Sender: TObject);
     procedure cbTitleEnter(Sender: TObject);
     procedure EditCopy1Execute(Sender: TObject);
     procedure EditPaste1Execute(Sender: TObject);
     procedure mAddressExit(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { private declarations }
     FPerson : TPerson;
@@ -90,17 +90,7 @@ uses uImpClipboardContact,uData,Utils;
 
 procedure TfAddressFrame.AddressStateChange(Sender: TObject);
 begin
-  cbLandChange(nil);
-end;
-
-procedure TfAddressFrame.bCopyToClipboardClick(Sender: TObject);
-begin
-
-end;
-
-procedure TfAddressFrame.bPasteFromClipboardClick(Sender: TObject);
-begin
-
+  Timer1.Enabled:=True;
 end;
 
 procedure TfAddressFrame.cbLandChange(Sender: TObject);
@@ -167,6 +157,12 @@ procedure TfAddressFrame.mAddressExit(Sender: TObject);
 begin
   if eZip.CanFocus then
     eZip.SetFocus;
+end;
+
+procedure TfAddressFrame.Timer1Timer(Sender: TObject);
+begin
+  Timer1.Enabled:=False;
+  cbLandChange(nil);
 end;
 
 procedure TfAddressFrame.SetPerson(const AValue: TPerson);
