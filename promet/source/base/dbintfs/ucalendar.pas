@@ -76,7 +76,7 @@ type
   public
     constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
-    procedure SelectById(aID : Integer);overload;
+    procedure SelectById(aID : Variant);overload;
     property Links : TEventLinks read FLinks;
     function GetTimeInRange(aStart,aEnd : TDateTime) : Extended;
     property StartDate : TDateTime read GetStart;
@@ -137,13 +137,13 @@ begin
   FLinks.Free;
   inherited Destroy;
 end;
-procedure TEvent.SelectById(aID: Integer);
+procedure TEvent.SelectById(aID: Variant);
 begin
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
         begin
-          Filter := Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(IntToStr(aID)));
+          Filter := Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(Format('%d',[Int64(aId)])));
         end;
     end;
 end;

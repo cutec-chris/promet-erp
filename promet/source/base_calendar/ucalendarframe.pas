@@ -698,11 +698,13 @@ var
   Event: TVpEvent;
   UpdateNode: Boolean = False;
   OldFilter: String;
+  iDataSet : TEvent;
 begin
   with Application as IBaseApplication do
     Debug('Post Events');
   if not DataSet.DataSet.Active then
     DataSet.Open;
+  iDataSet := TEvent.Create(Self);
   with DataSet.DataSet as IBaseDbFilter do
     OldFilter := Filter;
   if (Resource <> nil) and Resource.EventsDirty then
@@ -713,86 +715,94 @@ begin
           Event := Resource.Schedule.GetEvent(J);
           { if the delete flag is set then delete it from the database }
           { and free the event instance }
-          Data.SetFilter(DataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(Format('%d',[Int64(Event.RecordID)])));
-          if Event.Deleted then
+          if not DataSet.DataSet.Locate('ID', Event.RecordID, [loCaseInsensitive]) then
+            Data.SetFilter(DataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(Format('%d',[Int64(Event.RecordID)])));
+          iDataSet.SelectById(Event.RecordID);
+          iDataSet.Open;
+          if iDataSet.Count>0 then
             begin
-              with Application as IBaseApplication do
-                Debug('Delete Event '+Format('%d',[Int64(Event.RecordID)]));
-              if DataSet.DataSet.Locate('ID', Event.RecordID, [loCaseInsensitive]) then
-                DataSet.DataSet.Delete;
-              Event.Free;
-              UpdateNode := True;
-              Continue;
-            end;
-          if Event.Changed then
-            begin
-              with DataSet.DataSet do
+              if Event.Deleted then
                 begin
-                  if Locate('ID', Event.RecordID, [loCaseInsensitive]) then
-                    begin
-                      { this event already exists in the database so update it }
-                      Edit;
-                      with Application as IBaseApplication do
-                        Debug('Edit Event '+Format('%d',[Int64(Event.RecordID)]));
-                    end
+                  with Application as IBaseApplication do
+                    Debug('Delete Event '+Format('%d',[Int64(Event.RecordID)]));
+                  if iDataSet.DataSet.Locate('ID', Event.RecordID, [loCaseInsensitive]) then
+                    iDataSet.DataSet.Delete
                   else
-                    begin
-                      Append;
-                      with Application as IBaseApplication do
-                        Debug('Append Event '+Format('%d',[Int64(Event.RecordID)]));
-                    end;
-                  try
-                    { if a particular descendant datastore uses autoincrementing }
-                    { RecordID fields, then  don't overwrite them here. }
-                    if (Event.RecordID <> -1) and (Event.RecordID <> FieldByName('ID').AsLargeInt) then
-                      FieldByName('ID').AsLargeInt := Event.RecordID;
-                    if FieldByName('REF_ID_ID').AsVariant <> FDirectory then
-                      FieldByName('REF_ID_ID').AsVariant := FDirectory;
-                    if FieldDefs.IndexOf('USER') <> -1 then
-                      FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
-                    if FieldByName('STARTDATE').AsDateTime <> Event.StartTime then
-                      FieldByName('STARTDATE').AsDateTime := Event.StartTime;
-                    if FieldByName('ENDDATE').AsDateTime <> Event.EndTime then
-                      FieldByName('ENDDATE').AsDateTime := Event.EndTime;
-                    if FieldByName('SUMMARY').AsString <> Event.Description then
-                      FieldByName('SUMMARY').AsString := Event.Description;
-                    if FieldByName('DESCR').AsString <> Event.Note then
-                      FieldByName('DESCR').AsString := Event.Note;
-                    if FieldByName('ICATEGORY').AsInteger <> Event.Category then
-                      FieldByName('ICATEGORY').AsInteger := Event.Category;
-    //                FieldByName('DingPath').AsString := Event.AlarmWavPath;
-                    if Event.AllDayEvent then
-                      FieldByName('ALLDAY').AsString := 'Y'
-                    else
-                      FieldByName('ALLDAY').AsString := 'N';
-                    if Event.AlarmSet then
-                      FieldByName('ALARM').AsString := 'Y'
-                    else
-                      FieldByName('ALARM').AsString := 'N';
-                    FieldByName('ALARMADV').AsInteger := Event.AlarmAdv;
-                    FieldByName('ALARMADVTP').AsInteger := Ord(Event.AlarmAdvType);
-                    FieldByName('SNOOZE').AsFloat := Event.SnoozeTime;
-                    FieldByName('ROTATION').AsInteger := Ord(Event.RepeatCode);
-                    FieldByName('ROTTO').AsDateTime := Event.RepeatRangeEnd;
-                    FieldByName('ROTCUS').AsInteger := Event.CustInterval;
-                    if FieldByName('LOCATION').AsString <> Event.Location then
-                      FieldByName('LOCATION').AsString := Event.Location;
-                    if FieldByName('CATEGORY').AsString<>Event.StrCategory then
-                      FieldByName('CATEGORY').AsString:=Event.StrCategory;
-                    if Data.Categories.Locate('NAME',Event.StrCategory,[]) and (Data.Categories.FieldByName('COLOR').AsString<>'') then
-                      Event.Color:=StringToColor(Data.Categories.FieldByName('COLOR').AsString)
-                    else Event.Color:=clNone;
-                    Post;
-                  except
-                    Cancel;
-                  end;
-                  { if a particular descendant datastore uses autoincrementing    }
-                  { RecordID fields then the RecordID is assigned by the database }
-                  { and needs to be assigned here...}
-                  if Event.RecordID = -1 then
-                    Event.RecordID := FieldByName('ID').AsVariant;
-                  Event.Changed := false;
+                    raise Exception.Create('Event with ID '+IntToStr(Event.RecordID)+' not found !');
+                  Event.Free;
                   UpdateNode := True;
+                  Continue;
+                end;
+              if Event.Changed then
+                begin
+                  with iDataSet.DataSet do
+                    begin
+                      if Locate('ID', Event.RecordID, [loCaseInsensitive]) then
+                        begin
+                          { this event already exists in the database so update it }
+                          Edit;
+                          with Application as IBaseApplication do
+                            Debug('Edit Event '+Format('%d',[Int64(iDataSet.Id.AsVariant)]));
+                        end
+                      else
+                        begin
+                          Append;
+                          with Application as IBaseApplication do
+                            Debug('Append Event '+Format('%d',[Int64(Event.RecordID)]));
+                        end;
+                      try
+                        { if a particular descendant datastore uses autoincrementing }
+                        { RecordID fields, then  don't overwrite them here. }
+                        if (Event.RecordID <> -1) and (Event.RecordID <> FieldByName('ID').AsLargeInt) then
+                          FieldByName('ID').AsLargeInt := Event.RecordID;
+                        if FieldByName('REF_ID_ID').AsVariant <> FDirectory then
+                          FieldByName('REF_ID_ID').AsVariant := FDirectory;
+                        if FieldDefs.IndexOf('USER') <> -1 then
+                          FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
+                        if FieldByName('STARTDATE').AsDateTime <> Event.StartTime then
+                          FieldByName('STARTDATE').AsDateTime := Event.StartTime;
+                        if FieldByName('ENDDATE').AsDateTime <> Event.EndTime then
+                          FieldByName('ENDDATE').AsDateTime := Event.EndTime;
+                        if FieldByName('SUMMARY').AsString <> Event.Description then
+                          FieldByName('SUMMARY').AsString := Event.Description;
+                        if FieldByName('DESCR').AsString <> Event.Note then
+                          FieldByName('DESCR').AsString := Event.Note;
+                        if FieldByName('ICATEGORY').AsInteger <> Event.Category then
+                          FieldByName('ICATEGORY').AsInteger := Event.Category;
+        //                FieldByName('DingPath').AsString := Event.AlarmWavPath;
+                        if Event.AllDayEvent then
+                          FieldByName('ALLDAY').AsString := 'Y'
+                        else
+                          FieldByName('ALLDAY').AsString := 'N';
+                        if Event.AlarmSet then
+                          FieldByName('ALARM').AsString := 'Y'
+                        else
+                          FieldByName('ALARM').AsString := 'N';
+                        FieldByName('ALARMADV').AsInteger := Event.AlarmAdv;
+                        FieldByName('ALARMADVTP').AsInteger := Ord(Event.AlarmAdvType);
+                        FieldByName('SNOOZE').AsFloat := Event.SnoozeTime;
+                        FieldByName('ROTATION').AsInteger := Ord(Event.RepeatCode);
+                        FieldByName('ROTTO').AsDateTime := Event.RepeatRangeEnd;
+                        FieldByName('ROTCUS').AsInteger := Event.CustInterval;
+                        if FieldByName('LOCATION').AsString <> Event.Location then
+                          FieldByName('LOCATION').AsString := Event.Location;
+                        if FieldByName('CATEGORY').AsString<>Event.StrCategory then
+                          FieldByName('CATEGORY').AsString:=Event.StrCategory;
+                        if Data.Categories.Locate('NAME',Event.StrCategory,[]) and (Data.Categories.FieldByName('COLOR').AsString<>'') then
+                          Event.Color:=StringToColor(Data.Categories.FieldByName('COLOR').AsString)
+                        else Event.Color:=clNone;
+                        Post;
+                      except
+                        Cancel;
+                      end;
+                      { if a particular descendant datastore uses autoincrementing    }
+                      { RecordID fields then the RecordID is assigned by the database }
+                      { and needs to be assigned here...}
+                      if Event.RecordID = -1 then
+                        Event.RecordID := FieldByName('ID').AsVariant;
+                      Event.Changed := false;
+                      UpdateNode := True;
+                    end;
                 end;
             end;
         end;
@@ -806,6 +816,7 @@ begin
       Data.SetFilter(DataSet,OldFilter);
 //      fCalendar.CalendarNode := fCalendar.CalendarNode;
     end;
+  iDataSet.Free;
   with Application as IBaseApplication do
     Debug('Post Events end');
 end;
