@@ -166,8 +166,6 @@ type
       );
     procedure gListMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure gListSelectEditor(Sender: TObject; Column: TColumn;
-      var Editor: TWinControl);
     procedure gListTitleClick(Column: TColumn);
     procedure ListStateChange(Sender: TObject);
     procedure RefreshTimerTimer(Sender: TObject);
@@ -227,7 +225,6 @@ type
   public
     { public declarations }
     FAutoFilter : string;
-    FExtPickListEditor: TExtCombobox;
     TimeLine : TTimeLine;
     ColumnWidthHelper : TColumnWidthHelper;
     constructor Create(AOwner: TComponent); override;
@@ -418,23 +415,6 @@ procedure TfFilter.gListMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   aSelectedIndex:=gList.MouseCoord(0,Y+1).Y;
-end;
-
-procedure TfFilter.gListSelectEditor(Sender: TObject; Column: TColumn;
-  var Editor: TWinControl);
-begin
-  if Editor is TCustomComboBox then
-    begin
-      if Assigned(Editor) and (Editor is TPickListCellEditor) then
-        Editor := FExtPickListEditor;
-      if Assigned(FExtPickListEditor) and (Editor = FExtPickListEditor) then
-        begin
-          FExtPickListEditor.Items.Assign(Column.PickList);
-          //Editor.BoundsRect := gList.CellRect(gList.Col,gList.Row);
-          //FExtPickListEditor.Text := gList.Cells[gList.Col,gList.Row];
-        end;
-      TCustomComboBox(Editor).OnEnter:=@TCustomComboBoxEnter;
-    end;
 end;
 
 procedure TfFilter.gListTitleClick(Column: TColumn);
@@ -1378,11 +1358,8 @@ begin
   FEditable := False;
   gList.ScrollSyncControl := gHeader;
   tbToolbar.Images := fVisualControls.Images;
-  gList.UseExtPicklist:=False;
+  gList.UseExtPicklist:=true;
   gHeader.CachedEditing:=False;
-  FExtPickListEditor := TExtComboBox.Create(Self);
-  FExtPickListEditor.Visible:=False;
-  FExtPickListEditor.Sorted:=False;
   SetRights;
 end;
 destructor TfFilter.Destroy;
