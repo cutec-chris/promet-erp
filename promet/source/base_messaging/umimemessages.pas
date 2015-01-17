@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, MimeMess, mimepart, uMessages,
-  uDocuments, uBaseDbClasses, Variants, db, synacode, synachar, LConvEncoding,
+  uDocuments, uBaseDbClasses, Variants, db, synacode, synachar,
   zipper;
 type
   TMimeMessage = class(TMessage)
@@ -156,7 +156,7 @@ begin
       Document.BaseVersion := Null;
       Document.BaseLanguage := Null;
       atmp := Sender.Filename;
-      atmp := ConvertEncoding(atmp,GuessEncoding(atmp),EncodingUTF8);
+      atmp := SysToUni(atmp);
       Document.AddFromStream(copy(ExtractFileName(atmp),0,rpos('.',ExtractFileName(atmp))-1),
                              copy(ExtractFileExt(atmp),2,length(ExtractFileExt(atmp))),
                              Sender.DecodedLines,
@@ -330,12 +330,12 @@ begin
         end;
       if FieldByName('ID').IsNull then
         FieldByName('ID').AsString := msg.Header.MessageID;
-      FieldByName('SENDER').AsString := ConvertEncoding(atmp,GuessEncoding(atmp),EncodingUTF8);;
-      FieldByName('REPLYTO').AsString := ConvertEncoding(msg.Header.ReplyTo,GuessEncoding(msg.Header.ReplyTo),EncodingUTF8);;
+      FieldByName('SENDER').AsString := SysToUni(atmp);
+      FieldByName('REPLYTO').AsString := SysToUni(msg.Header.ReplyTo);
       FieldByName('SENDDATE').AsDateTime := msg.Header.Date;
       if FieldDefs.IndexOf('SENDTIME') <> -1 then
         FieldByName('SENDTIME').AsFloat := Frac(msg.Header.Date);
-      atmp := ConvertEncoding(msg.Header.Subject,GuessEncoding(msg.Header.Subject),EncodingUTF8);
+      atmp := SysToUni(msg.Header.Subject);
       FieldbyName('SUBJECT').AsString := atmp;
       FieldbyName('LINES').AsInteger := msg.Lines.Count;
       FieldbyName('SIZE').AsInteger := length(msg.Lines.text);

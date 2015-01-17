@@ -24,8 +24,9 @@ unit ureceivemessage;
 interface
 
 uses
-  Classes, SysUtils,mimemess,uPerson,LConvEncoding,synautil,uData,uIntfStrConsts,
-  uBaseDBInterface,mailchck,uMessages,uMimeMessages,db,uBaseDbClasses;
+  Classes, SysUtils,mimemess,uPerson,synautil,uData,uIntfStrConsts,
+  uBaseDBInterface,mailchck,uMessages,uMimeMessages,db,uBaseDbClasses,
+  Utils;
 
 var
   Spampoints : real;
@@ -65,9 +66,9 @@ var
   i: Integer;
 begin
   Result := True;
-  aSender :=  ConvertEncoding(msg.Header.From,GuessEncoding(msg.Header.From),EncodingUTF8);
-  aSubject := ConvertEncoding(msg.Header.Subject,GuessEncoding(msg.Header.Subject),EncodingUTF8);
-  atmp:=ConvertEncoding(getemailaddr(msg.Header.From),GuessEncoding(getemailaddr(msg.Header.From)),EncodingUTF8);
+  aSender :=  SysToUni(msg.Header.From);
+  aSubject := SysToUni(msg.Header.Subject);
+  atmp:=SysToUni(getemailaddr(msg.Header.From));
   try
     CustomerCont := TPersonContactData.Create(nil);
     atmp := StringReplace(atmp,'''','',[rfReplaceAll]);
@@ -223,7 +224,7 @@ begin
       fullmsg.Lines.Text:=aMSG.Text;
       fullmsg.DecodeMessage;
       aMessage.DecodeMessage(fullmsg);
-      atmp:=ConvertEncoding(getemailaddr(fullmsg.Header.From),GuessEncoding(getemailaddr(fullmsg.Header.From)),EncodingUTF8);
+      atmp:=SysToUni(getemailaddr(fullmsg.Header.From));
       try
         atmp := StringReplace(atmp,'''','',[rfReplaceAll]);
         CustomerCont := TPersonContactData.Create(nil);
