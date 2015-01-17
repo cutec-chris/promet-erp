@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, SdfData, FileUtil, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls, EditBtn, ButtonPanel, ComCtrls, uDataImport;
+  StdCtrls, ExtCtrls, EditBtn, ButtonPanel, ComCtrls, uDataImport,Utils;
 
 type
 
