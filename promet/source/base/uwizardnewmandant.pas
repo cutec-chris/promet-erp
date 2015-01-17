@@ -35,18 +35,22 @@ type
   TfWizardNewMandant = class(TForm)
     bAbort0: TButton;
     bAbort1: TButton;
+    bAbort6: TButton;
     bAbort5: TButton;
     BitBtn1: TBitBtn;
     bNext0: TButton;
     bNext1: TButton;
+    bNext4: TButton;
     bPrev0: TButton;
     bPrev1: TButton;
+    bPrev5: TButton;
     Button1: TButton;
     bvImage: TPanel;
     bvleft: TBevel;
     bvleft1: TBevel;
     bvRight0: TBevel;
     bvRight1: TBevel;
+    bvRight5: TBevel;
     cbExistingdatabase: TRadioButton;
     cbLanguage: TComboBox;
     cbNewdatabase: TRadioButton;
@@ -54,21 +58,38 @@ type
     cbSyncHelp: TCheckBox;
     DirectoryEdit1: TFileNameEdit;
     eMandantname: TComboBox;
+    eSQLdatabase1: TFileNameEdit;
+    eDBServer: TEdit;
     eSQLPassword: TEdit;
+    eSQLDatabase2: TEdit;
+    eSQLPassword1: TEdit;
     eSQLUser: TEdit;
     eSQLServer: TEdit;
     eSQLdatabase: TFileNameEdit;
+    eSQLUser1: TEdit;
     iDatabaseCreated: TImage;
     iDatabaseFilled: TImage;
     iDatabaseUpdated: TImage;
     imDialog: TImage;
     Label1: TLabel;
     Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
     lDefaultValue: TLabel;
     lDescription0: TLabel;
     lDescription1: TLabel;
+    lDescription10: TLabel;
+    lDescription11: TLabel;
+    lDescription12: TLabel;
+    lDescription13: TLabel;
+    lDescription5: TLabel;
+    lDescription6: TLabel;
+    lDescription7: TLabel;
+    lDescription8: TLabel;
+    lDescription9: TLabel;
     lLanguage: TLabel;
     lMandantname: TLabel;
+    lPassword1: TLabel;
     lProfile: TLabel;
     lUsername: TLabel;
     lPassword: TLabel;
@@ -78,9 +99,12 @@ type
     lUpdatingDatabase: TLabel;
     lFillingDefaultValues: TLabel;
     lCreatingDatabase: TLabel;
+    lUsername1: TLabel;
     md: TDatasource;
     pButtons0: TPanel;
+    pButtons5: TPanel;
     pCont0: TPanel;
+    pCont4: TPanel;
     pDetails: TPanel;
     pButtons1: TPanel;
     pCont1: TPanel;
@@ -100,22 +124,25 @@ type
     bNext3: TButton;
     bPrev3: TButton;
     bAbort3: TButton;
-    Datenbanktyp: TLabel;
-    cbDatabaseType: TComboBox;
-    lDatabaseDirectory: TLabel;
-    eDatabasedirectory: TDirectoryEdit;
-    pCont4: TPanel;
+    pCont5: TPanel;
     lDescription4: TLabel;
     lDatabaseDirectory1: TLabel;
     pButtons4: TPanel;
     bvRight4: TBevel;
-    bNext4: TButton;
+    bNext5: TButton;
     bPrev4: TButton;
     bAbort4: TButton;
     DirectoryEdit2: TDirectoryEdit;
     bCopyConnectionString: TSpeedButton;
+    rbFB: TRadioButton;
+    rbPersonal: TRadioButton;
+    RadioButton2: TRadioButton;
+    rbSqlite: TRadioButton;
+    rbFBE: TRadioButton;
     rbDelete: TRadioButton;
     rbFromFile: TRadioButton;
+    rbPQ: TRadioButton;
+    rbMS: TRadioButton;
     seSyncID: TSpinEdit;
     SilentTimer: TTimer;
     tvProfile: TTreeView;
@@ -134,6 +161,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure rbPQChange(Sender: TObject);
+    procedure rbSqliteChange(Sender: TObject);
     procedure SilentTimerTimer(Sender: TObject);
   private
     { private declarations }
@@ -195,16 +224,7 @@ end;
 
 procedure TfWizardNewMandant.bCopyConnectionStringClick(Sender: TObject);
 begin
-  case cbDatabasetype.ItemIndex of
-  1:
-    begin
-      Clipboard.AsText := 'SLT:'+eDatabasedirectory.Text;
-    end;
-  else
-    begin
-      Clipboard.AsText :='SQL:'+cbSQLType.text+';'+eSQLServer.text+';'+UniToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
-    end;
-  end;
+  Clipboard.AsText :='SQL:'+cbSQLType.text+';'+eSQLServer.text+';'+UniToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
 end;
 procedure TfWizardNewMandant.BitBtn1Click(Sender: TObject);
 begin
@@ -272,8 +292,8 @@ begin
   if pos('firebirdd',cbSQLType.Text)>0 then
     begin
       eSQLServer.Text:='';
-    end
-
+    end;
+  eSQLdatabase1.Text:=eSQLdatabase.Text;
 end;
 
 procedure TfWizardNewMandant.DirectoryEdit1AcceptFileName(Sender: TObject;
@@ -354,6 +374,46 @@ begin
     end;
 end;
 
+{
+sqlite-3
+postgresql-8
+postgresql-7
+mssql
+mysql
+mysql-4.1
+mysql-5
+firebird-2.5
+firebird-2.1
+firebird-2.0
+firebird-1.5
+firebird-1.0
+firebirdd-2.5
+firebirdd-2.1
+firebirdd-2.0
+firebirdd-1.5
+interbase-6
+}
+procedure TfWizardNewMandant.rbPQChange(Sender: TObject);
+begin
+  if rbPQ.Checked then
+    cbSQLType.Text:='postgresql-8'
+  else if rbMS.Checked then
+    cbSQLType.Text:='mssql'
+  else if rbFB.Checked then
+    cbSQLType.Text:='firebird-2.1'
+  ;
+  cbSQLTypeSelect(cbSQLType);
+end;
+procedure TfWizardNewMandant.rbSqliteChange(Sender: TObject);
+begin
+  if rbFBE.Checked then
+    cbSQLType.Text:='firebirdd-2.1'
+  else if rbSqlite.Checked then
+    cbSQLType.Text:='sqlite-3';
+  cbSQLTypeSelect(cbSQLType);
+  eSQLdatabase1.Text:=eSQLdatabase.Text;
+end;
+
 procedure TfWizardNewMandant.SilentTimerTimer(Sender: TObject);
 begin
   SilentTimer.Enabled:=False;
@@ -399,13 +459,8 @@ begin
       inc(i);
     end;
   NextButton.Caption := strFinish;
+  bAbort5.Caption:=strAbort;
   //Application depend Language strings
-  cbDatabasetype.Items.Clear;
-  cbdatabasetype.Items.Add(strSQLDataBASE);
-//  cbdatabasetype.Items.Add(strSQLiteDataBASE);
-//  cbDatabaseType.Items.Add(strdBase);
-  bNext3.Caption := strFinish;
-  cbDatabaseType.ItemIndex:=0;
 end;
 function TfWizardNewMandant.DoSave : Boolean;
 var
@@ -474,28 +529,15 @@ begin
   with Application as IBaseDBInterface do
     begin
       mSettings := TStringList.Create;
-      case cbDatabasetype.ItemIndex of
-      1:
-        begin
-          aType := 'SLT';
-          mSettings.Add('SLT');
-          aSettings := eDatabasedirectory.Text;
-          mSettings.Add(aSettings);
-          mSettings.SaveToFile(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension);
-        end;
-      else
-        begin
-          aType := 'SQL';
-          mSettings.Add('SQL');
-          aSettings := cbSQLType.text+';'+eSQLServer.text+';'+UniToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
-          mSettings.Add(aSettings);
-          mSettings.SaveToFile(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension);
-        end;
-      end;
+      aType := 'SQL';
+      mSettings.Add('SQL');
+      aSettings := cbSQLType.text+';'+eSQLServer.text+';'+UniToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
+      mSettings.Add(aSettings);
+      mSettings.SaveToFile(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension);
       mSettings.Free;
     end;
   pCont0.Visible := False;
-  pCont4.Visible := False;
+  pCont5.Visible := False;
   pResult.Visible := True;
   Application.ProcessMessages;
   with Application as IBaseDBInterface do
@@ -695,13 +737,6 @@ begin
       else
         begin
           Result := 2;
-          if (cbDatabasetype.Items.Count > 1) then
-            Result := 2
-          else
-            begin
-              cbDatabasetype.ItemIndex := 0;
-              Result := DoExecStep(2);
-            end;
         end;
       if rbDelete.Checked then
         begin
@@ -747,22 +782,31 @@ begin
           result := 1;
           exit;
         end;
-      if (cbDatabasetype.Items.Count > 1) then
-        Result := 2
-      else
-        begin
-          cbDatabasetype.ItemIndex := 0;
-          Result := DoExecStep(2);
-        end;
+      Result := 2;
       if Application.HasOption('silent') then
         Result := 5;
     end;
   2:
     begin
-      if (cbDatabasetype.ItemIndex > 0) then
+      if rbPersonal.Checked then
         Result := 3
       else
         Result := 4;
+    end;
+  3:
+    begin
+      rbSqliteChange(rbSqlite);
+      eSQLdatabase.Text:=eSQLdatabase1.Text;
+      Result := 5;
+    end;
+  4:
+    begin
+      eSQLdatabase.Text:=eSQLdatabase2.Text;
+      eSQLServer.Text:=eDBServer.Text;
+      eSQLUser.Text:=eSQLUser1.Text;
+      eSQLPassword.Text:=eSQLPassword1.Text;
+      rbPQChange(rbPQ);
+      Result := 5;
     end;
   end;
 end;
@@ -787,6 +831,7 @@ begin
   ade := tvProfile.Items.FindNodeWithText('Warenwirtschaft (alles)');
   if Assigned(ade) and Assigned(aDe.Items[0]) then
     tvProfile.Selected := aDe.FindNode('Deutschland');
+  eSQLDatabase.Text:=GetUserDir+'promet-erp.db';
   cbSQLTypeSelect(nil);
   with Application as IBaseDBInterface do
     LoadMandants;
