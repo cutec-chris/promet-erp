@@ -29,4 +29,4 @@ cat ../promet_erp_portable_clean.xml | \
       -e "s/MONTH/$Month/g" \
       -e "s/DAY/$Day/g" \
   > promet_erp_portable.xml
-scp promet_erp_portable.xml autoupload@ullihome.de:promet_upload_target
+scp -P 232 promet_erp_portable.xml autoupload@ullihome.de:promet_upload_target
