@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
-  StdCtrls, ButtonPanel, ExtCtrls, ComCtrls, uDataImport, SdfData, dbf;
+  StdCtrls, ButtonPanel, ExtCtrls, ComCtrls, uDataImport, SdfData, dbf,
+  Utils;
 
 type
 
@@ -133,4 +134,4 @@ initialization
   RegisterImportSource(TDbfImport,strDBFName);
 
 end.
-
+

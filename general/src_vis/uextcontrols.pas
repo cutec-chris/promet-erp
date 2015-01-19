@@ -44,6 +44,7 @@ type
     procedure msg_SetGrid(var Msg: TGridMessage); message GM_SETGRID;
   published
     constructor Create(TheOwner: TComponent); override;
+    property Grid : TCustomGrid read FGrid write fGrid;
   end;
 
   { TExtDBGrid }
@@ -837,8 +838,11 @@ begin
 end;
 procedure TExtDBGrid.FExtEditorExit(Sender: TObject);
 begin
+  if Sender is TCustomComboBox then
+    begin
+
+    end;
   UpdateData;
-//  EditorMode := false;
   if Sender is TCustomEdit then
     TCustomEdit(Sender).MaxLength:=0;
   TWinControl(Sender).OnExit:=nil;
@@ -1182,4 +1186,4 @@ begin
   FCanvas.Free;
 end;
 end.
-
+

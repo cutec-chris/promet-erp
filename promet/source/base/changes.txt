@@ -1,13 +1,18 @@
-﻿Build 385
+﻿Build 386
+      -
+Build 385
       - Format funktion für Scripte
       - HTTPEncode funktion für Scripte
       - Kommandozeile ausgebaut
       - Nur noch ein Eintrag in AllObjects für Artikel oder Auftrag (nicht einen pro Status/Version)
+      - HTMLEncode und Decode funktion für Scripte
+      - Reparatur:mehrere Fehlerbilder pro Gerät
+      - Kalenmdar:Teilnehmer für Termine nun möglich, auch ganze Gruppen können einem Termin zugewiesen werden (Feiertage,Schulungen o.ä.)
 Build 384
       - Scripte:Promet Objekte direkt aus Scripten nutzbar
       - Kalendar:Planungsrelevant wurde im Ereigniseditor nicht gespeichert
       - Scripte:eigener Typ, von Elementliste aus erstellbar
-      - Messungen:implementierung in Element gestartet, mit Messunhgen soll man Daten über mehrere Methoden (HTTP regexpr,SQL,...) zyklisch erfassen und darstellen können
+      - Messungen:implementierung in Element gestartet, mit Messungen soll man Daten über mehrere Methoden (HTTP regexpr,SQL,...) zyklisch erfassen und darstellen können
 Build 383
       - Elemente:Editor für generelles Element und verfeinerung Elementliste (Alle Objekte)
 Build 382

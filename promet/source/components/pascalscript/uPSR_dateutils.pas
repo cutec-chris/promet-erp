@@ -41,6 +41,22 @@ begin
   Result := U / 86400 + 25569;
 end;
 
+function IDate : TDateTime;
+begin
+  Result := Date();
+end;
+
+function ITime : TDateTime;
+begin
+  Result := Time();
+end;
+
+function INow : TDateTime;
+begin
+  Result := Now();
+end;
+
+
 procedure RegisterDateTimeLibrary_R(S: TPSExec);
 begin
   S.RegisterDelphiFunction(@EncodeDate, 'ENCODEDATE', cdRegister);
@@ -50,9 +66,9 @@ begin
   S.RegisterDelphiFunction(@DecodeDate, 'DECODEDATE', cdRegister);
   S.RegisterDelphiFunction(@DecodeTime, 'DECODETIME', cdRegister);
   S.RegisterDelphiFunction(@DayOfWeek, 'DAYOFWEEK', cdRegister);
-  S.RegisterDelphiFunction(@Date, 'DATE', cdRegister);
-  S.RegisterDelphiFunction(@Time, 'TIME', cdRegister);
-  S.RegisterDelphiFunction(@Now, 'NOW', cdRegister);
+  S.RegisterDelphiFunction(@IDate, 'DATE', cdRegister);
+  S.RegisterDelphiFunction(@ITime, 'TIME', cdRegister);
+  S.RegisterDelphiFunction(@INow, 'NOW', cdRegister);
   S.RegisterDelphiFunction(@DateTimeToUnix, 'DATETIMETOUNIX', cdRegister);
   S.RegisterDelphiFunction(@UnixToDateTime, 'UNIXTODATETIME', cdRegister);
   S.RegisterDelphiFunction(@DateToStr, 'DATETOSTR', cdRegister);

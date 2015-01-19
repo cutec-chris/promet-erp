@@ -8,10 +8,10 @@ uses
   {$ENDIF}
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils,
-  FileUtil,uData, uBaseCustomApplication,uBaseDbClasses,
+  uData, uBaseCustomApplication,uBaseDbClasses,
   synautil,httpsend, laz_synapse,uMessages,uDocuments,uBaseDbInterface,
   dom,xmlread,md5, uIntfStrConsts, pcmdprometapp,Variants,
-  uBaseApplication,LConvEncoding;
+  uBaseApplication;
 
 type
   TRSSReceiver = class(TBaseCustomApplication)
@@ -99,7 +99,7 @@ var
   aDir: String;
   function DoDecode(aIn : string) : string;
   begin
-    Result := ConvertEncoding(aIn,GuessEncoding(aIn),EncodingUTF8);
+    Result := SysToUni(aIn);
   end;
 
 begin

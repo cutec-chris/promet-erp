@@ -7,8 +7,8 @@ uses
   Classes, SysUtils, CustApp, uBaseCustomApplication, pcmdprometapp,
   pmimemessages, synautil, smtpsend, mimemess, mimepart, uMessages,
   uData, uBaseDBInterface, uPerson, ssl_openssl, laz_synapse,
-  uDocuments,uMimeMessages,uBaseApplication,LConvEncoding,uBaseDbClasses,
-  blcksock;
+  uDocuments,uMimeMessages,uBaseApplication,uBaseDbClasses,
+  blcksock,Utils;
 resourcestring
   strActionMessageSend             = '%s - gesendet';
   strActionMessageSend2            = 'Nachricht gesendet';
@@ -187,7 +187,7 @@ begin
                                           if Customers.Count > 0 then
                                             begin
                                               Customers.History.Open;
-                                              atmp := ConvertEncoding(Mime.Header.Subject,GuessEncoding(Mime.Header.Subject),EncodingUTF8);
+                                              atmp := SysToUni(Mime.Header.Subject);
                                               Customers.History.AddItem(Customers.DataSet,Format(strActionMessageSend,[atmp]),
                                                                         Data.BuildLink(MessageIndex.DataSet),
                                                                         '',

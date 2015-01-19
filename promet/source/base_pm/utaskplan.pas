@@ -742,13 +742,15 @@ begin
       for i := 0 to aResource.IntervalCount-1 do
         if not (aResource.Interval[i] is TBackInterval) then
           aResource.Interval[i].ClearDrawRect;
-
-      for i := 0 to round(aEnd-aStart) do
+    end;
+  for i := 0 to round(aEnd-aStart) do
+    begin
+      aDay := aStart+i;
+      if not ((DayOfWeek(aDay) = 1) or (DayOfWeek(aDay) = 7)) then
         begin
-          aDay := aStart+i;
-          if not ((DayOfWeek(aDay) = 1) or (DayOfWeek(aDay) = 7)) then
+          WholeUsage := 0;
+          if Assigned(TInterval(Sender).Pointer) then
             begin
-              WholeUsage := 0;
               for a := 0 to aResource.IntervalCount-1 do
                 if not (aResource.Interval[a] is TBackInterval) then
                   begin
@@ -779,15 +781,15 @@ begin
                 aCanvas.Brush.Color:=ProbemColor
               else
                 aCanvas.Brush.Color:=FillColor;
-              if trunc(aDay)=trunc(HighlightDay) then
-                aCanvas.Brush.Color:=Ligthen(aCanvas.Brush.Color,0.9);
-              cRect := rect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
-              cHeight := cRect.Bottom-cRect.Top;
-              if WholeUsage<1 then
-                cHeight := round(cHeight*WholeUsage);
-              cRect.Top := cRect.Bottom-cHeight;
-              aCanvas.FillRect(crect);
             end;
+          if trunc(aDay)=trunc(HighlightDay) then
+            aCanvas.Brush.Color:=Ligthen(aCanvas.Brush.Color,0.9);
+          cRect := rect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
+          cHeight := cRect.Bottom-cRect.Top;
+          if WholeUsage<1 then
+            cHeight := round(cHeight*WholeUsage);
+          cRect.Top := cRect.Bottom-cHeight;
+          aCanvas.FillRect(crect);
         end;
     end;
 end;
@@ -856,7 +858,6 @@ begin
                 aCanvas.FillRect(aResource.Interval[i].DrawRect);
               end;
           end;
-
     end;
 end;
 

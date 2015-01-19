@@ -598,6 +598,13 @@ begin
   FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
   FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
   FLinks := TLinks.CreateEx(Self,DM,aConnection);
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with DataSet as IBaseDBFilter do
+        begin
+          UsePermissions:=True;
+        end;
+    end;
 end;
 
 destructor TObjects.Destroy;
@@ -657,9 +664,9 @@ begin
       with Self.DataSet as IBaseDBFilter do
         begin
           if aId <> Null then
-            Filter := Data.QuoteField('SQL_ID')+'='+TBaseDBModule(DataModule).QuoteValue(Format('%d',[Int64(aID)]))
+            Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+TBaseDBModule(DataModule).QuoteValue(Format('%d',[Int64(aID)]))
           else
-            Filter := Data.QuoteField('SQL_ID')+'='+Data.QuoteValue('0');
+            Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue('0');
           Limit := 0;
         end;
     end;
@@ -1096,20 +1103,23 @@ var
   aObj: TObjects;
 begin
   inherited Delete;
-  aObj := TObjects.Create(nil);
-  if not Data.TableExists(aObj.TableName) then
-    begin
-      aObj.CreateTable;
-      aObj.Free;
-      aObj := TObjects.CreateEx(nil,Data,nil,DataSet);
-    end;
-  aObj.SelectByRefId(Id.AsVariant);
-  aObj.Open;
-  while aObj.Count>0 do
-    begin
-      aObj.DataSet.Delete;
-    end;
-  aObj.Free;
+  try
+    aObj := TObjects.Create(nil);
+    if not Data.TableExists(aObj.TableName) then
+      begin
+        aObj.CreateTable;
+        aObj.Free;
+        aObj := TObjects.CreateEx(nil,Data,nil,DataSet);
+      end;
+    aObj.SelectByRefId(Id.AsVariant);
+    aObj.Open;
+    while aObj.Count>0 do
+      begin
+        aObj.DataSet.Delete;
+      end;
+    aObj.Free;
+  except
+  end;
 end;
 
 procedure TBaseDBDataset.Select(aID: Variant);
@@ -1723,6 +1733,7 @@ begin
       and (trunc(FieldByName('TIMESTAMPD').AsDatetime) = trunc(Now()))
       and (FieldByName('CHANGEDBY').AsString = Data.Users.Idcode.AsString)
       and ((FieldByName('REFERENCE').AsString = aReference) or (FieldByName('REFERENCE').AsString=Data.Users.IDCode.Asstring))
+      and ((aIcon=11{Termin}))
       and (CheckDouble)
       then
         Delete;
@@ -2260,7 +2271,7 @@ end;
 
 function TRights.Right(Element: string; Recursive: Boolean; UseCache: Boolean): Integer;
 var
-  aUser : LongInt;
+  aUser : Int64;
 
   procedure RecursiveGetRight(aRec : Integer = 0);
   begin

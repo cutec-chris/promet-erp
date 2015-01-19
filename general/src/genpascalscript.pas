@@ -108,8 +108,9 @@ type
     procedure InternalBeep;
     procedure InternalSleep(MiliSecValue: LongInt);
 
-    function InternalGet(aURL: string;aTimeout : Integer): string;
-    function InternalPost(aURL,Content : string;aTimeout : Integer) : string;
+    function InternalHttpGet(aURL: string;aTimeout : Integer): string;
+    function InternalHttpPost(aURL,Content : string;aTimeout : Integer) : string;
+    function InternalTcpRaw(aURL,Content : string;aTimeout : Integer) : string;
     function InternalGetDNS: string;
     function InternalGetLocalIPs: string;
 
@@ -262,8 +263,9 @@ begin
       end
     else if lowercase(Name)='net' then
       begin
-        AddMethod(Self,@TPascalScript.InternalGet,'function Get(URL : string;aTimeout : Integer) : string;');
-        AddMethod(Self,@TPascalScript.InternalPost,'function Post(URL,Content : string;aTimeout : Integer) : string;');
+        AddMethod(Self,@TPascalScript.InternalHttpGet,'function HttpGet(URL : string;aTimeout : Integer) : string;');
+        AddMethod(Self,@TPascalScript.InternalHttpPost,'function HttpPost(URL,Content : string;aTimeout : Integer) : string;');
+        AddMethod(Self,@TPascalScript.InternalTcpRaw,'function TcpRaw(URL : string;Content : string;aTimeout : Integer) : string;');
         AddMethod(Self,@TPascalScript.InternalGetDNS,'function GetDNS : string;');
         AddMethod(Self,@TPascalScript.InternalGetLocalIPs,'function GetLocalIPs : string;');
         AddFunction(@HTTPEncode,'function HTTPEncode(const str : String) : string;');
@@ -279,6 +281,10 @@ begin
       begin
         uPSC_DB.SIRegister_DB(Comp);
         uPSR_DB.RIRegister_DB(FClassImporter);
+      end
+    else if lowercase(Name)='variants' then
+      begin
+        AddFunction(@VarArrayOf,'function VarArrayOf(const Values: array of Variant): Variant;');
       end
     else if lowercase(Name)='dateutils' then
       begin
@@ -500,7 +506,7 @@ procedure TPascalScript.InternalSleep(MiliSecValue: LongInt);
 begin
   sleep(MiliSecValue);
 end;
-function TPascalScript.InternalGet(aURL: string; aTimeout: Integer): string;
+function TPascalScript.InternalHttpGet(aURL: string; aTimeout: Integer): string;
 var
   ahttp: THTTPSend;
 begin
@@ -516,7 +522,7 @@ begin
   else Result:='';
   ahttp.Free;
 end;
-function TPascalScript.InternalPost(aURL, Content: string; aTimeout: Integer
+function TPascalScript.InternalHttpPost(aURL, Content: string; aTimeout: Integer
   ): string;
 var
   ahttp: THTTPSend;
@@ -533,6 +539,13 @@ begin
   else Result:='';
   ahttp.Free;
 end;
+
+function TPascalScript.InternalTcpRaw(aURL, Content: string; aTimeout: Integer
+  ): string;
+begin
+
+end;
+
 function TPascalScript.InternalGetDNS: string;
 begin
   Result := GetDNS;

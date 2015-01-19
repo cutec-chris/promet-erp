@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, db, uBaseDBInterface,ZConnection, ZSqlMetadata,
   ZAbstractRODataset, ZDataset, uBaseDbClasses, ZSequence,ZAbstractConnection,
-  uModifiedDS,ZSqlMonitor;
+  uModifiedDS,ZSqlMonitor,Utils;
 type
   TUnprotectedDataSet = class(TDataSet);
 
@@ -572,6 +572,8 @@ procedure TZeosDBDataSet.InternalOpen;
 var
   a: Integer;
 begin
+  if Assigned(FOrigTable) then
+    TBaseDBModule(ForigTable.DataModule).LastTime := GetTicks;
   if TZeosDBDM(Owner).IgnoreOpenRequests then exit;
   try
     inherited InternalOpen;
@@ -1059,13 +1061,20 @@ end;
 procedure TZeosDBDM.MonitorTrace(Sender: TObject; Event: TZLoggingEvent;
   var LogTrace: Boolean);
 begin
+  if LastTime>0 then
+    LastTime := GetTicks-LastTime;
+  if LastTime<0 then LastTime := 0;
   if Assigned(BaseApplication) then
     with BaseApplication as IBaseApplication do
       begin
         if Event.Error<>'' then
           Error(Event.AsString+'('+LastStatement+')')
         else if BaseApplication.HasOption('debug-sql') then
-          Debug(Event.AsString);
+          Debug(Event.AsString)
+        else if (LastTime)>50 then
+          Debug('Long running Query:'+IntToStr(round(LastTime))+' '+Event.AsString);
+        LastTime:=0;
+        LastStatement:='';
       end;
 end;
 function TZeosDBDM.GetConnection: TComponent;
@@ -1975,4 +1984,4 @@ end;
 
 end.
 
-
+

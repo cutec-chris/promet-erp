@@ -314,6 +314,7 @@ begin
           if Assigned(FStateChange) then
             FStateChange(Self);
           Makesnapshot(FStatus+' '+DateToStr(Now()));
+          OpenItem(False);
         end;
       if (Field.FieldName = 'ID') then
         begin

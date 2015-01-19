@@ -19,8 +19,8 @@ uses
   {$ENDIF}
   Classes, SysUtils, CustApp, uBaseCustomApplication, pmimemessages, mimemess,
   pop3send, mimepart, uData, uBaseDBInterface, Utils, uMessages, uBaseDBClasses,
-  uPerson, synautil, uIntfStrConsts, FileUtil, db, uDocuments, ssl_openssl,
-  uMimeMessages,synaip, laz_synapse,uBaseApplication,LConvEncoding,RegExpr,
+  uPerson, synautil, uIntfStrConsts, db, uDocuments, ssl_openssl,
+  uMimeMessages,synaip, laz_synapse,uBaseApplication,RegExpr,
   blcksock,ureceivemessage;
 
 type
@@ -269,8 +269,8 @@ begin
                           msg := TMimeMess.Create;
                           msg.Lines.Text:=pop.FullResult.Text;
                           msg.DecodeMessage;
-                          aSender :=  ConvertEncoding(msg.Header.From,GuessEncoding(msg.Header.From),EncodingUTF8);
-                          aSubject := ConvertEncoding(msg.Header.Subject,GuessEncoding(msg.Header.Subject),EncodingUTF8);
+                          aSender :=  SysToUni(msg.Header.From);
+                          aSubject := SysToUni(msg.Header.Subject);
                           DoDownload := AskForBigMail;
                           msg.Free;
                         end;

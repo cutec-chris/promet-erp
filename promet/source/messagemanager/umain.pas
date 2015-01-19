@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, types, FileUtil, ExtCtrls, Menus, Controls, ActnList,
   uProcessManagement,process, XMLConf,uSystemMessage,uBaseDbClasses,uBaseERPDBClasses,
-  Graphics, LCLType, db,umashineid,uBaseVisualApplication;
+  Graphics, LCLType, ImgList, db,umashineid,uBaseVisualApplication;
 
 type
 
@@ -630,6 +630,7 @@ begin
   fTimelineDataSet := TBaseHistory.Create(nil);
   fTimelineDataSet.CreateTable;
   Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),300);
+  SwitchAnimationOff;
 end;
 procedure TfMain.acHistoryExecute(Sender: TObject);
 begin

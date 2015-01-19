@@ -26,10 +26,10 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, CustApp
-  { you can add units after this },db, Utils, FileUtil, uData,
+  { you can add units after this },db, Utils, uData,
   uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, wiki2html_pkg,
   uBaseApplication, httpsend, jsonparser, jsonscanner, fpjson, uBaseDBInterface,
-  ssl_openssl, synautil, uBaseDbClasses, LConvEncoding,htmltowiki,uDocuments,
+  ssl_openssl, synautil, uBaseDbClasses,htmltowiki,uDocuments,
   uPerson;
 
 type
@@ -212,13 +212,13 @@ begin
                               if Assigned(aText) and (not aText.IsNull) then
                                 text := atext.AsString
                               else text := '';
-                              text := ConvertEncoding(text,GuessEncoding(text),encodingUTF8);
+                              text := SysToUni(text);
                               html := TJSONObject(aData).Find('statusnet_html');
                               if Assigned(TJSONObject(TJSONObject(aData).Elements['user'])) and Assigned(TJSONObject(TJSONObject(aData).Elements['user']).Elements['name']) then
                                 author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString
                               else author := '';
-                              author := ConvertEncoding(author,GuessEncoding(author),encodingUTF8);
-                              if trim(text) <> '' then
+                              author := SysToUni(author);
+                              if (trim(text) <> '') and (trim(author) <> '') then
                                 begin
                                   if Assigned(TJSONObject(aData).Elements['id']) then
                                     aCat := TJSONObject(aData).Elements['id'].AsString

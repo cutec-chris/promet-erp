@@ -24,7 +24,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, CustApp, uBaseDBInterface,
-  UTF8Process,uData,FileUtil,Process, db, uSystemMessage,
+  uData,Process, db, uSystemMessage,
   uPowerState, pcmdprometapp,math,uBaseCustomApplication,
   uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts,
   uprometscripts;

@@ -44,6 +44,9 @@ type
     procedure DataDataConnect(Sender: TObject);
     procedure DataDataConnectionLost(Sender: TObject);
     procedure DataDataDisconnectKeepAlive(Sender: TObject);
+
+      procedure IBaseApplicationIBaseConfigIBaseApplicationIBaseDBInterfaceDataUsersDataSetBeforeScroll
+      (DataSet: TDataSet);
     procedure LanguageItemClick(Sender: TObject);
     procedure MessageHandlerExit(Sender: TObject);
     procedure ReaderReferenceName(Reader: TReader; var aName: string);
@@ -251,6 +254,11 @@ end;
 procedure TBaseVisualApplication.DataDataDisconnectKeepAlive(Sender: TObject);
 begin
   Application.ProcessMessages;
+end;
+
+procedure TBaseVisualApplication.IBaseApplicationIBaseConfigIBaseApplicationIBaseDBInterfaceDataUsersDataSetBeforeScroll
+  (DataSet: TDataSet);
+begin
 end;
 
 procedure TBaseVisualApplication.LanguageItemClick(Sender: TObject);
@@ -938,6 +946,7 @@ var
   rMandant: String;
   rUser: String;
   rAutoLogin: String;
+  aRec: LargeInt;
   function IsAutoLogin : Boolean;
   begin
     result := (rMandant='Standard') and (rUser='Administrator') and ((rAutoLogin='0') or (rAutoLogin=''));
@@ -1019,6 +1028,8 @@ begin
                     Result := False;
                     exit;
                   end;
+                Debug('User: '+Data.Users.Id.AsString);
+                aRec := Data.Users.GetBookmark;
                 with Self as IBaseDBInterface do
                   if not DBLogin(Config.ReadString('LOGINMANDANT',''),Config.ReadString('LOGINUSER',''),True,True) then
                     begin
@@ -1027,6 +1038,10 @@ begin
                       Result := False;
                       exit;
                     end;
+                Data.Users.GotoBookmark(arec);
+                data.Users.DataSet.BeforeScroll:=
+  @IBaseApplicationIBaseConfigIBaseApplicationIBaseDBInterfaceDataUsersDataSetBeforeScroll;
+                Debug('Logged in with User '+Data.Users.Id.AsString);
                 Data.DeleteExpiredSessions;
                 uData.Data := Data;
                 StartProcessManager;

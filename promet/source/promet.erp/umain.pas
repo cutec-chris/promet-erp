@@ -601,7 +601,7 @@ begin
   with Sender as TfCalendarFrame do
     begin
       Caption := strCalendar;
-      OpenDir(Data.Users.Id.AsInteger);
+      OpenDir(Data.Users.Id.AsVariant);
     end;
 end;
 procedure TfMain.AddProjectList(Sender: TObject);

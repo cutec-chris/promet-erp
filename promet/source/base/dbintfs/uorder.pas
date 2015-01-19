@@ -323,12 +323,14 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
+            Add('ID',ftInteger,0,False);
             Add('OPERATION',ftString,20,False);
             Add('ERRDESC',ftMemo,0,False);
             Add('NOTES',ftMemo,0,False);
             Add('INTNOTES',ftMemo,0,False);
             Add('WARRENTY',ftString,1,True);
             Add('ERRIMAGE',ftLargeint,0,False);
+            Add('IMAGENAME',ftString,100,False);
           end;
     end;
 end;
@@ -337,6 +339,7 @@ begin
   with aDataSet,BaseApplication as IBaseDbInterface do
     begin
       FieldByName('WARRENTY').AsString := 'U';
+      FieldByName('ID').AsInteger:=Self.Count+1;
     end;
   inherited FillDefaults(aDataSet);
 end;
@@ -906,6 +909,7 @@ begin
         aNumbers := TNumberSets.CreateEx(Owner,Data,Connection);
         with aNumbers.DataSet as IBaseDBFilter do
           Filter := Data.QuoteField('TABLENAME')+'='+Data.QuoteValue(OrderType.FieldByName('NUMBERSET').AsString);
+        OpenItem(False);
         aNumbers.Open;
         if Result <> pralreadyPosted then
           begin
@@ -1198,6 +1202,7 @@ begin
         end;
       RefreshActive;
     end;
+  OpenItem(False);
 end;
 procedure TOrder.ShippingOutput;
 var
@@ -1709,7 +1714,7 @@ begin
               aHistory.AddItem(DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet))]),Data.BuildLink(DataSet));
             end;
         end;
-      if DataSet.State<>dsInsert then
+      if (DataSet.State<>dsInsert) and (DataSet.FieldByName('NUMBER').IsNull) then
         begin
           if not Data.TableExists(aObj.TableName) then
             begin
@@ -1734,7 +1739,7 @@ begin
           if aObj.Count=0 then
             begin
               aObj.Insert;
-              aObj.Text.AsString := Self.Text.AsString;
+              aObj.Text.AsString := Data.GetLinkDesc(Data.BuildLink(Self.DataSet));
               aObj.FieldByName('SQL_ID').AsVariant:=Self.Id.AsVariant;
               if Assigned(Self.Matchcode) then
                 aObj.Matchcode.AsString := Self.Matchcode.AsString;
@@ -1750,10 +1755,10 @@ begin
             begin
               while aObj.Count>1 do
                 aObj.Delete;
-              if aObj.Text.AsString<>Self.Text.AsString then
+              if aObj.Text.AsString<>Data.GetLinkDesc(Data.BuildLink(Self.DataSet)) then
                 begin
                   aObj.Edit;
-                  aObj.Text.AsString := Self.Text.AsString;
+                  aObj.Text.AsString := Data.GetLinkDesc(Data.BuildLink(Self.DataSet));
                 end;
               if aObj.Number.AsString<>Self.Number.AsString then
                 begin

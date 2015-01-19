@@ -78,11 +78,11 @@ inherited fCommandline: TfCommandline
     TabOrder = 1
     inline Input: TMemo
       Cursor = crIBeam
-      Left = 8
-      Height = 22
+      Left = 10
+      Height = 34
       Hint = 'geben Sie hier Ihre Frage oder Befehl ein'
       Top = 0
-      Width = 670
+      Width = 668
       Align = alClient
       Font.Height = -15
       Font.Name = 'Courier New'
@@ -97,7 +97,7 @@ inherited fCommandline: TfCommandline
       Left = 0
       Height = 19
       Top = 3
-      Width = 8
+      Width = 10
       Align = alLeft
       BorderSpacing.Top = 3
       Caption = '>'

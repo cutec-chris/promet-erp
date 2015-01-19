@@ -1,3 +1,22 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+Created 08.08.2014
+*******************************************************************************}
  program pscript;
 
 {$mode objfpc}{$H+}
@@ -9,7 +28,7 @@ uses
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils,
   uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
-  uBaseApplication,uprometscripts;
+  uBaseApplication,uprometscripts,genpascalscript;
 
 type
 
@@ -47,29 +66,69 @@ end;
 procedure PrometCmdApp.DoRun;
 var
   aScript: TBaseScript;
+  bScript: TScript;
+  sl: TStringList;
 begin
   with BaseApplication as IBaseApplication do
     begin
       AppVersion:={$I ../base/version.inc};
       AppRevision:={$I ../base/revision.inc};
     end;
-  if not Login then Terminate;
-  //Your logged in here on promet DB
-  aScript := TBaseScript.Create(nil);
-  aScript.Readln:=@aScriptReadln;
-  aScript.Write:=@aScriptWrite;
-  aScript.Writeln:=@aScriptWriteln;
-  aScript.Open;
-  if not aScript.Locate('NAME',ParamStr(ParamCount),[loCaseInsensitive]) then
+  if HasOption('m','mandant') then
     begin
-      writeln('Script "'+ParamStr(ParamCount)+'" not found !');
+      if not Login then Terminate;
+      //Your logged in here on promet DB
+      aScript := TBaseScript.Create(nil);
+      aScript.Readln:=@aScriptReadln;
+      aScript.Write:=@aScriptWrite;
+      aScript.Writeln:=@aScriptWriteln;
+      aScript.SelectByName(ParamStr(ParamCount));
+      aScript.Open;
+      if not aScript.Locate('NAME',ParamStr(ParamCount),[loCaseInsensitive]) then
+        begin
+          if not FileExists(ParamStr(ParamCount)) then
+            begin
+              writeln('Script "'+ParamStr(ParamCount)+'" not found !');
+              aScript.Free;
+              Terminate;
+              exit;
+            end
+          else //Load file from Directory
+            begin
+              writeln('not implemented !!');
+            end;
+        end;
+      aScript.Execute(Null);
       aScript.Free;
-      Terminate;
-      exit;
-    end;
-  aScript.Execute(Null);
-  aScript.Free;
-  readln;
+    end
+  else if FileExists(ParamStr(ParamCount)) then//no database access
+    begin
+      bScript := TPascalScript.Create;
+      sl := TStringList.Create;
+      sl.LoadFromFile(ParamStr(ParamCount));
+      sl.Free;
+      bScript.Source:=sl.Text;
+      if bScript is TByteCodeScript then
+        if not (bScript as TByteCodeScript).Compile then
+          begin
+            writeln('Compilation failed:'+bScript.Results);
+            Terminate;
+            exit;
+          end;
+      if not bScript.Execute(Null) then
+        begin
+          writeln('Execute failed:'+bScript.Results);
+          Terminate;
+          exit;
+        end
+      else
+        begin
+          writeln('Execute successful:'+bScript.Results);
+        end;
+      bScript.Free;
+    end
+  else
+    writeln('Sytanx: [Params] Scriptname');
   // stop program loop
   Terminate;
 end;

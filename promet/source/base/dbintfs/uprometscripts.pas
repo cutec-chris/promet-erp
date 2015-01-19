@@ -73,6 +73,7 @@ type
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure DefineFields(aDataSet: TDataSet); override;
     procedure FillDefaults(aDataSet: TDataSet); override;
+    function SelectByName(aName: string): Boolean;
     property Write : TWriteFunc read FWriFunc write FWriFunc;
     property Writeln : TWritelnFunc read FWrFunc write FWRFunc;
     property Readln : TReadlnFunc read FRlFunc write FRlFunc;
@@ -191,15 +192,19 @@ end;
 function TBaseScript.InternalUserHistory(Action: string; UserName: string;
   Icon: Integer; ObjectLink: string; Reference: string; aCommission: string;
   Source: string; Date: TDateTime): Boolean;
+var
+  aUsers: TUser;
 begin
   Result := False;
-  if Data.Users.Locate('NAME',UserName,[loCaseInsensitive]) then
+  aUsers := TUser.Create(nil);
+  if aUsers.Locate('NAME',UserName,[loCaseInsensitive]) then
     begin
-      Result := Data.Users.History.AddItemSR(Data.Users.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,aCommission,True,False);
+      Result := aUsers.History.AddItemSR(aUsers.DataSet,Action,ObjectLink,Reference,ObjectLink,Icon,aCommission,True,False);
       if Source<>'' then
-        Data.Users.History.FieldByName('SOURCE').AsString:=Source;
-      Data.Users.History.Post;
+        aUsers.History.FieldByName('SOURCE').AsString:=Source;
+      aUsers.History.Post;
     end;
+  aUsers.Free;
 end;
 
 procedure TBaseScript.InternalStorValue(aName, aId: string; aValue: Double);
@@ -666,13 +671,23 @@ begin
   FieldByName('SCRIPT').AsString:='begin'+LineEnding+'  '+LineEnding+'end.';
   inherited FillDefaults(aDataSet);
 end;
+
+function TBaseScript.SelectByName(aName: string): Boolean;
+begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        Filter := Data.QuoteField('NAME')+'='+Data.QuoteValue(aName);
+      end;
+end;
+
 function TBaseScript.Execute(Parameters: Variant): Boolean;
 var
   aStartTime: TDateTime;
 begin
   Result := False;
   if Count=0 then exit;
-  OpenItem;
+  OpenItem(False);
   if (pos(GetSystemName,FieldByName('RUNMASHINE').AsString)>0) or (trim(FieldByName('RUNMASHINE').AsString)='') then
     begin
       DoSetStatus('R');

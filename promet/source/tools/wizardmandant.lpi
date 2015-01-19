@@ -99,7 +99,7 @@ if TargetOS='darwin' then
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="7">
+    <Exceptions Count="8">
       <Item1>
         <Name Value="EStringListError"/>
       </Item1>
@@ -121,6 +121,9 @@ if TargetOS='darwin' then
       <Item7>
         <Name Value="EZDatabaseError"/>
       </Item7>
+      <Item8>
+        <Name Value="EProcess"/>
+      </Item8>
     </Exceptions>
   </Debugging>
 </CONFIG>

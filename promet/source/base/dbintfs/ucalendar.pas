@@ -24,16 +24,25 @@ interface
 uses
   Classes, SysUtils,uBaseDbClasses,uBaseDbInterface,db,uIntfStrConsts,variants;
 type
-
-  { TCalendar }
-
+  TMeetingUsers = class(TBaseDBDataSet)
+  protected
+  public
+    FMeeting : TBaseDbDataSet;
+    procedure Change; override;
+    procedure DefineFields(aDataSet : TDataSet);override;
+    procedure SetDisplayLabels(aDataSet: TDataSet); override;
+  end;
   TCalendar = class(TBaseDbList,IBaseHistory)
     procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FHistory: TBaseHistory;
     FDS: TDataSource;
     FRefID: Variant;
+    FUsers: TMeetingUsers;
+    FUserSel : string;
+    FUserId : Variant;
     function GetHistory: TBaseHistory;
+    procedure RefreshUsers(UserId : Variant);
   protected
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
@@ -49,6 +58,7 @@ type
     procedure SelectByIdAndTime(User : Variant;aStart,aEnd : TdateTime);
     function SelectFromLink(aLink: string): Boolean; override;
     property History : TBaseHistory read GetHistory;
+    property Users : TMeetingUsers read FUsers;
     constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
@@ -58,26 +68,16 @@ type
   public
     procedure FillDefaults(aDataSet : TDataSet);override;
   end;
-  TMeetingUsers = class(TBaseDBDataSet)
-  protected
-  public
-    FMeeting : TBaseDbDataSet;
-    procedure Change; override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure SetDisplayLabels(aDataSet: TDataSet); override;
-  end;
   TEvent = class(TCalendar)
   private
     FLinks: TEventLinks;
-    FUsers: TMeetingUsers;
     function GetEnd: TDateTime;
     function GetStart: TDateTime;
   public
     constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
-    procedure SelectById(aID : Integer);overload;
+    procedure SelectById(aID : Variant);overload;
     property Links : TEventLinks read FLinks;
-    property Users : TMeetingUsers read FUsers;
     function GetTimeInRange(aStart,aEnd : TDateTime) : Extended;
     property StartDate : TDateTime read GetStart;
     property EndDate : TDateTime read GetEnd;
@@ -131,22 +131,19 @@ constructor TEvent.CreateEx(aOwner: TComponent; DM: TComponent;
 begin
   inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FLinks := TEventLinks.CreateEx(Self,DM,aConnection);
-  FUsers := TMeetingUsers.CreateExIntegrity(aOwner,DM,False,aConnection,DataSet);
-  FUsers.FMeeting := Self;
 end;
 destructor TEvent.Destroy;
 begin
-  FUsers.Free;
   FLinks.Free;
   inherited Destroy;
 end;
-procedure TEvent.SelectById(aID: Integer);
+procedure TEvent.SelectById(aID: Variant);
 begin
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
         begin
-          Filter := Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(IntToStr(aID)));
+          Filter := Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(Format('%d',[Int64(aId)])));
         end;
     end;
 end;
@@ -183,6 +180,28 @@ end;
 function TCalendar.GetHistory: TBaseHistory;
 begin
   Result := FHistory;
+end;
+
+procedure TCalendar.RefreshUsers(UserId: Variant);
+var
+  aUser: TUser;
+begin
+  if FUserId=UserId then exit;
+  FUserSel := '';
+  aUser := TUser.Create(nil);
+  aUser.Select(UserId);
+  aUser.Open;
+  while aUser.Count>0 do
+    begin
+      FUserSel := FUserSel+' OR '+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aUser.Id.AsString);
+      aUser.Select(aUser.FieldByName('PARENT').AsVariant);
+      aUser.Open;
+    end;
+  FUserSel := copy(FUserSel,5,length(FUserSel));
+  FUserId:=UserId;
+  if FUserSel='' then
+    FUserSel := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(UserId);
+  aUser.Free;
 end;
 
 function TCalendar.GetTextFieldName: string;
@@ -261,15 +280,18 @@ end;
 procedure TCalendar.SelectByUser(AccountNo: string);
 var
   aUser: TUser;
+  aUsers: String;
 begin
   aUser := TUser.CreateEx(nil,DataModule);
   aUser.SelectByAccountno(AccountNo);
   aUser.Open;
   if aUser.Count>0 then
     begin
+      RefreshUsers(aUser.Id.AsLargeInt);
+      aUsers := ' OR '+FUserSel;
       with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
         begin
-          Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(aUser.Id.AsString)+')';
+          Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(aUser.Id.AsString)+aUsers+')';
         end;
     end
   else
@@ -293,15 +315,18 @@ end;
 procedure TCalendar.SelectPlanedByUser(AccountNo: string);
 var
   aUser: TUser;
+  aUsers: String;
 begin
   aUser := TUser.CreateEx(nil,DataModule);
   aUser.SelectByAccountno(AccountNo);
   aUser.Open;
   if aUser.Count>0 then
     begin
+      RefreshUsers(aUser.Id.AsLargeInt);
+      aUsers := ' OR '+FUserSel;
       with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
         begin
-          Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(aUser.Id.AsString)+') and ('+QuoteField('ICATEGORY')+'='+QuoteValue('8')+')';
+          Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(aUser.Id.AsString)+aUsers+') and ('+QuoteField('ICATEGORY')+'='+QuoteValue('8')+')';
         end;
     end
   else
@@ -339,28 +364,48 @@ end;
 
 procedure TCalendar.SelectPlanedByIdAndTime(User: Variant; aStart,
   aEnd: TDateTime);
+var
+  aUsers: String;
+  aFilter: String;
 begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
-      Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(User)+') and ('+QuoteField('ICATEGORY')+'='+QuoteValue('8')+')';
+      RefreshUsers(User);
+      Filter := '('+FUserSel+') and ('+QuoteField('ICATEGORY')+'='+QuoteValue('8')+')';
       Filter := Filter+' AND (('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('ENDDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('STARTDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('STARTDATE')+' < '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' > '+Data.DateToFilter(aEnd)+'))';
       Filter := Filter+' OR (('+Data.QuoteField('ROTATION')+' > 0) AND ('+Data.QuoteField('STARTDATE')+' <= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ROTTO')+' >= '+Data.DateToFilter(aEnd)+'))';
+      if TBaseDBModule(DataModule).IsSQLDB then
+        begin
+          aUsers := StringReplace(FUserSel,Data.QuoteField('REF_ID_ID'),Data.QuoteField(TEvent(Self).Users.TableName)+'.'+Data.QuoteField('USER_ID'),[rfReplaceAll]);
+          aFilter := '('+aUsers+') OR '+Filter;
+          FullSQL := 'select * from '+Data.QuoteField(TableName)+' left join '+Data.QuoteField(TEvent(Self).Users.TableName)+' on '+Data.QuoteField(TEvent(Self).Users.TableName)+'.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+' where '+aFilter;
+        end;
     end;
 end;
 
 procedure TCalendar.SelectByIdAndTime(User: Variant; aStart, aEnd: TdateTime);
+var
+  aUsers: String;
+  aFilter: String;
 begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
-      Filter := '('+QuoteField('REF_ID_ID')+'='+QuoteValue(User)+')';
+      RefreshUsers(User);
+      Filter := '('+FUserSel+')';
       Filter := Filter+' AND ((('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('ENDDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('STARTDATE')+' >= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('STARTDATE')+' <= '+Data.DateToFilter(aEnd)+')';
       Filter := Filter+' OR ('+Data.QuoteField('STARTDATE')+' < '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ENDDATE')+' > '+Data.DateToFilter(aEnd)+'))';
       Filter := Filter+' OR (('+Data.QuoteField('ROTATION')+' > 0) AND ('+Data.QuoteField('STARTDATE')+' <= '+Data.DateToFilter(aStart)+') AND ('+Data.QuoteField('ROTTO')+' >= '+Data.DateToFilter(aEnd)+')))';
+      if TBaseDBModule(DataModule).IsSQLDB then
+        begin
+          aUsers := StringReplace(FUserSel,Data.QuoteField('REF_ID_ID'),Data.QuoteField(TEvent(Self).Users.TableName)+'.'+Data.QuoteField('USER_ID'),[rfReplaceAll]);
+          aFilter := '('+aUsers+') OR '+Filter;
+          FullSQL := 'select * from '+Data.QuoteField(TableName)+' left join '+Data.QuoteField(TEvent(Self).Users.TableName)+' on '+Data.QuoteField(TEvent(Self).Users.TableName)+'.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+' where '+aFilter;
+        end;
     end;
 end;
 
@@ -390,12 +435,15 @@ begin
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
   FDS.OnDataChange:=@FDSDataChange;
+  FUsers := TMeetingUsers.CreateExIntegrity(aOwner,DM,False,aConnection,DataSet);
+  FUsers.FMeeting := Self;
 end;
 
 destructor TCalendar.Destroy;
 begin
-  FDS.Free;
-  FHistory.Free;
+  FUsers.Destroy;
+  FDS.Destroy;
+  FHistory.Destroy;
   inherited Destroy;
 end;
 

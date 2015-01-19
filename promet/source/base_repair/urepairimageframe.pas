@@ -17,10 +17,13 @@ type
     cbOperation: TDBComboBox;
     cbVersion1: TDBComboBox;
     cbWarrenty: TDBCheckBox;
+    DBGrid1: TDBGrid;
+    DBNavigator1: TDBNavigator;
     dnRepairPos: TDBNavigator;
     eSerial1: TDBEdit;
     gProblems: TExtDBGrid;
     Label1: TLabel;
+    Label2: TLabel;
     lNotesforCustomer1: TLabel;
     RepairDetail: TDataSource;
     lInfo: TLabel;
@@ -41,7 +44,6 @@ type
     SpeedButton1: TSpeedButton;
     Timer1: TTimer;
     Timer2: TTimer;
-    procedure cbImageChange(Sender: TObject);
     procedure cbImageKeyPress(Sender: TObject; var Key: char);
     procedure cbImageSelect(Sender: TObject);
     procedure ComboSearch(Data: PtrInt);
@@ -50,6 +52,8 @@ type
     procedure PositionDataChange(Sender: TObject; Field: TField);
     procedure PositionDataSetBeforePost(DataSet: TDataSet);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure TfPositionDatasetTOrderPosRepairDetailsDataSetAfterScroll(
+      DataSet: TDataSet);
     procedure Timer1StartTimer(Sender: TObject);
     procedure Timer2StartTimer(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -125,6 +129,7 @@ begin
       if FieldByName('ERRIMAGE').AsVariant=fRepairImages.DataSet.Id.AsVariant then exit;
       Edit;
       FieldByName('ERRIMAGE').AsVariant:=fRepairImages.DataSet.Id.AsVariant;
+      FieldByName('IMAGENAME').AsString:=fRepairImages.DataSet.FieldByName('NAME').AsString;
       if FieldByName('NOTES').IsNull then
         FieldByName('NOTES').AsString:=fRepairImages.DataSet.FieldByName('NOTES').AsString;
       if FieldByName('INTNOTES').IsNull then
@@ -160,9 +165,24 @@ begin
     end;
 end;
 
-procedure TfRepairImageFrame.cbImageChange(Sender: TObject);
+procedure TfRepairImageFrame.TfPositionDatasetTOrderPosRepairDetailsDataSetAfterScroll
+  (DataSet: TDataSet);
 begin
-
+  if not Assigned(Owner) then exit;
+  if not Assigned(TfPosition(Owner).Dataset) then exit;
+  if not TfPosition(Owner).Dataset.Active then exit;
+  if TfPosition(Owner).Dataset is TOrderPos then
+    with TfPosition(Owner).DataSet as TOrderPos do
+      begin
+        if Repair.Count>0 then
+          begin
+            FImages.Select(Repair.FieldByName('ERRIMAGE').AsVariant);
+            FImages.Open;
+            if FImages.Count>0 then
+              cbImage.Text:=FImages.FieldByName('NAME').AsString
+            else cbImage.Text:='';
+          end;
+      end;
 end;
 
 procedure TfRepairImageFrame.cbImageKeyPress(Sender: TObject; var Key: char);
@@ -254,6 +274,7 @@ begin
         FImages := TOrderRepairImages.Create(nil);
         Position.DataSet := DataSet;
         RepairDetail.DataSet := Repair.Details.DataSet;
+        Repair.Details.DataSet.AfterScroll:=@TfPositionDatasetTOrderPosRepairDetailsDataSetAfterScroll;
         Repair.Details.Open;
         Self.Repair.DataSet := Repair.DataSet;
         if Repair.Count>0 then
@@ -261,7 +282,8 @@ begin
             FImages.Select(Repair.FieldByName('ERRIMAGE').AsVariant);
             FImages.Open;
             if FImages.Count>0 then
-              cbImage.Text:=FImages.FieldByName('NAME').AsString;
+              cbImage.Text:=FImages.FieldByName('NAME').AsString
+            else cbImage.Text:='';
           end;
       end;
 end;
@@ -292,7 +314,8 @@ end;
 procedure TfRepairImageFrame.SetRights(Editable: Boolean);
 begin
   SetLanguage;
-  Enabled:=Editable;
+  Panel3.Enabled:=Editable;
+  DBGrid1.ReadOnly:=not Editable;
 end;
 
 procedure TfRepairImageFrame.SetLanguage;

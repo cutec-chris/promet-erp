@@ -73,6 +73,7 @@ type
     FConnectionLost: TNotifyEvent;
     FKeepAlive: TNotifyEvent;
     FLastStmt: string;
+    FLastTime: Int64;
     FSessionID: LargeInt;
     FTables: TStrings;
     FTriggers: TStrings;
@@ -133,6 +134,7 @@ type
     function SetProperties(aProp : string;Connection : TComponent = nil) : Boolean;virtual;
     function CreateDBFromProperties(aProp : string) : Boolean;virtual;
     property LastStatement : string read FLastStmt write FLastStmt;
+    property LastTime : Int64 read FLastTime write FLastTime;
     function IsSQLDB : Boolean;virtual;abstract;
     function ProcessTerm(aTerm : string) : string;virtual;
     function GetUniID(aConnection : TComponent = nil;Generator : string = 'GEN_SQL_ID';AutoInc : Boolean = True) : Variant;virtual;abstract;
@@ -416,6 +418,7 @@ resourcestring
   strScreenshotName              = 'Screenshot Name';
   strEnterAnName                 = 'enter an Name';
   strProjectProcess              = 'Projekt/Prozess';
+  strFor                         = 'für';
 implementation
 uses uZeosDBDM, uBaseApplication, uWiki, uMessages, uprocessmanager,uRTFtoTXT,
   utask,uPerson,uMasterdata,uProjects,umeeting,uStatistic;
@@ -745,6 +748,7 @@ var
   aTable: TDataSet;
   aTmp: String;
   aTmp1: String;
+  aTmp2: String;
 begin
   if (pos('@',aLink) = 0) and (pos('://',aLink) = 0) then
     begin
@@ -803,14 +807,17 @@ begin
     begin
       if IsSQLDB then
         begin
-          aTable := GetNewDataSet('select "SQL_ID","STATUS" from "ORDERS" where "ORDERNO"='+QuoteValue(copy(aLink, pos('@', aLink) + 1, length(aLink))));
+          aTable := GetNewDataSet('select "SQL_ID","STATUS","CUSTNAME" from "ORDERS" where "ORDERNO"='+QuoteValue(copy(aLink, pos('@', aLink) + 1, length(aLink))));
           aTable.Open;
           aTmp := aTable.FieldByName('SQL_ID').AsString;
           aTmp1 := aTable.FieldByName('STATUS').AsString;
+          aTmp2 := trim(aTable.FieldByName('CUSTNAME').AsString);
           FreeAndNil(aTable);
           aTable := GetNewDataSet('select "STATUSNAME" from "ORDERTYPE" where "STATUS"='+QuoteValue(aTmp1));
           aTable.Open;
           Result := aTable.FieldByName('STATUSNAME').AsString+' '+copy(aLink, pos('@', aLink) + 1, length(aLink));
+          if aTmp2<>'' then
+            result := result+' '+strFor+' '+aTmp2;
           FreeAndNil(aTable);
         end
       else
@@ -1851,4 +1858,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

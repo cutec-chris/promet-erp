@@ -637,6 +637,7 @@ begin
       FStatus := Field.AsString;
       if Assigned(FStateChange) then
         FStateChange(Self);
+      OpenItem(False);
     end;
   if (Field.FieldName = 'ID') then
     begin

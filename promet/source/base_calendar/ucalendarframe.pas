@@ -120,6 +120,8 @@ type
   private
     { private declarations }
     FList : TfFilter;
+    FUserId : Variant;
+    procedure RefreshUsers(UserId: Variant);
     procedure DoOpen;override;
     procedure ParseForms(Filter : string);
   public
@@ -132,14 +134,16 @@ type
     function OpenFromLink(aLink : string) : Boolean;override;
     procedure New;override;
     procedure SetLanguage;override;
-    procedure OpenDir(Directory : LongInt);
+    procedure OpenDir(Directory : Variant);
     procedure DoRefresh;
   end;
 procedure RefreshCalendar(FNode :TTreeNode);
 procedure AddToMainTree(aAction : TAction;var FCalendarNode : TTreeNode);
 implementation
 uses uData, uMainTreeFrame, Math, uEventEdit, VpConst,uBaseDbClasses,Graphics,
-  uFormAnimate;
+  uFormAnimate,uBaseApplication;
+var
+  Fusers : string;
 resourcestring
   strEventsThisWeek             = 'diese Woche: %d';
 procedure RefreshCalendar(FNode: TTreeNode);
@@ -320,22 +324,25 @@ const
 var
   aFilter: String;
   cFilter: String;
+  aUsers: String;
 begin
-  if pDayView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(Date+NumDays)+') AND (("ENDDATE" > '+Data.DateToFilter(Date-NumDays)+') OR ("ROTATION" > 0))'
-  else if MonthView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheMonth(Date)+7)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheMonth(Date)-7)+') OR ("ROTATION" > 0))'
-  else if WeekView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)'
-  else if pWeekDayView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+8)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-8)+') OR ("ROTATION" > 0))';
-  with DataSet.DataSet as IBaseDbFilter do
-    cFilter := Filter;
-  if aFilter <> cFilter then
+  with DataSet.DataSet as IBaseDbFilter,DataSet.DataSet as IBaseManageDB do
     begin
-      Data.SetFilter(DataSet,aFilter);
-      DataStore.Resource.Schedule.ClearEvents;
-      DataStore.LoadEvents;
+      cFilter := Filter;
+      if pDayView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,Date-NumDays,Date+NumDays)
+      else if MonthView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,StartOfTheMonth(Date)-7,EndOfTheMonth(Date)+7)
+      else if WeekView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,StartOfTheWeek(Date)-1,EndOfTheWeek(Date)+1)
+      else if pWeekDayView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,StartOfTheWeek(Date)-8,EndOfTheWeek(Date)+8);
+      if cFilter <> Filter then
+        begin
+          DataSet.Open;
+          DataStore.Resource.Schedule.ClearEvents;
+          DataStore.LoadEvents;
+        end;
     end;
 end;
 procedure TfCalendarFrame.DayViewOwnerEditEvent(Sender: TObject;
@@ -383,6 +390,26 @@ begin
     WeekView.Date:=DataStore.Date
   else if Sender = MonthView then
     MonthView.Date:=DataStore.Date
+end;
+
+procedure TfCalendarFrame.RefreshUsers(UserId : Variant);
+var
+  aUser: TUser;
+begin
+  if FUserid=UserId then exit;
+  FUsers := '';
+  aUser := TUser.Create(nil);
+  aUser.Select(UserId);
+  aUser.Open;
+  while aUser.Count>0 do
+    begin
+      FUsers := FUsers+' OR '+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aUser.Id.AsString);
+      aUser.Select(aUser.FieldByName('PARENT').AsVariant);
+      aUser.Open;
+    end;
+  FUsers := copy(FUsers,5,length(FUSers));
+  FUserId := UserId;
+  aUser.Free;
 end;
 
 procedure TfCalendarFrame.DoOpen;
@@ -518,6 +545,7 @@ end;
 constructor TfCalendarFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  FUsers := '';
   DataSet := TCalendar.CreateEx(Self,Data);
   DataSet.CreateTable;
   DataStore := TCustomPrometheusDataStore.Create(Self);
@@ -579,9 +607,12 @@ begin
   WeekView.LoadLanguage;
   DayView.LoadLanguage;
 end;
-procedure TfCalendarFrame.OpenDir(Directory: LongInt);
+procedure TfCalendarFrame.OpenDir(Directory: Variant);
 begin
-  aDirectory := IntToStr(Directory);
+  RefreshUsers(Directory);
+  aDirectory := Format('%d',[Int64(Directory)]);
+  with Application as IBaseApplication do
+    Debug('Open Dir '+aDirectory);
   DataStore.Directory:=Directory;
   DataStoreDateChanged(DataStore,DataStore.Date);
   DoOpen;
@@ -604,6 +635,8 @@ procedure TCustomPrometheusDataStore.LoadEvents;
 var
   Event: TVpEvent;
 begin
+  with Application as IBaseApplication do
+    Debug('Load Events');
   if not DataSet.DataSet.Active then exit;
   Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
   DataSet.History.Close;
@@ -651,6 +684,8 @@ begin
           Next;
         end;
     end;
+  with Application as IBaseApplication do
+    Debug('Load Events End');
 end;
 procedure TCustomPrometheusDataStore.RefreshEvents;
 begin
@@ -663,8 +698,13 @@ var
   Event: TVpEvent;
   UpdateNode: Boolean = False;
   OldFilter: String;
+  iDataSet : TEvent;
 begin
-  if not DataSet.DataSet.Active then exit;
+  with Application as IBaseApplication do
+    Debug('Post Events');
+  if not DataSet.DataSet.Active then
+    DataSet.Open;
+  iDataSet := TEvent.Create(Self);
   with DataSet.DataSet as IBaseDbFilter do
     OldFilter := Filter;
   if (Resource <> nil) and Resource.EventsDirty then
@@ -675,76 +715,94 @@ begin
           Event := Resource.Schedule.GetEvent(J);
           { if the delete flag is set then delete it from the database }
           { and free the event instance }
-          Data.SetFilter(DataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(intToStr(Event.RecordID)));
-          if Event.Deleted then
+          if not DataSet.DataSet.Locate('ID', Event.RecordID, [loCaseInsensitive]) then
+            Data.SetFilter(DataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(Format('%d',[Int64(Event.RecordID)])));
+          iDataSet.SelectById(Event.RecordID);
+          iDataSet.Open;
+          if iDataSet.Count>0 then
             begin
-              if DataSet.DataSet.Locate('ID', Event.RecordID, [loCaseInsensitive]) then
-                DataSet.DataSet.Delete;
-              Event.Free;
-              UpdateNode := True;
-              Continue;
-            end;
-          if Event.Changed then
-            begin
-              with DataSet.DataSet do
+              if Event.Deleted then
                 begin
-                  if Locate('ID', Event.RecordID, [loCaseInsensitive]) then
-                    { this event already exists in the database so update it }
-                    Edit
+                  with Application as IBaseApplication do
+                    Debug('Delete Event '+Format('%d',[Int64(Event.RecordID)]));
+                  if iDataSet.DataSet.Locate('ID', Event.RecordID, [loCaseInsensitive]) then
+                    iDataSet.DataSet.Delete
                   else
-                    Append;
-                  try
-                    { if a particular descendant datastore uses autoincrementing }
-                    { RecordID fields, then  don't overwrite them here. }
-                    if (Event.RecordID <> -1) and (Event.RecordID <> FieldByName('ID').AsInteger) then
-                      FieldByName('ID').AsInteger := Event.RecordID;
-                    if FieldByName('REF_ID_ID').AsInteger <> FDirectory then
-                      FieldByName('REF_ID_ID').AsInteger := FDirectory;
-                    if FieldDefs.IndexOf('USER') <> -1 then
-                      FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
-                    if FieldByName('STARTDATE').AsDateTime <> Event.StartTime then
-                      FieldByName('STARTDATE').AsDateTime := Event.StartTime;
-                    if FieldByName('ENDDATE').AsDateTime <> Event.EndTime then
-                      FieldByName('ENDDATE').AsDateTime := Event.EndTime;
-                    if FieldByName('SUMMARY').AsString <> Event.Description then
-                      FieldByName('SUMMARY').AsString := Event.Description;
-                    if FieldByName('DESCR').AsString <> Event.Note then
-                      FieldByName('DESCR').AsString := Event.Note;
-                    if FieldByName('ICATEGORY').AsInteger <> Event.Category then
-                      FieldByName('ICATEGORY').AsInteger := Event.Category;
-    //                FieldByName('DingPath').AsString := Event.AlarmWavPath;
-                    if Event.AllDayEvent then
-                      FieldByName('ALLDAY').AsString := 'Y'
-                    else
-                      FieldByName('ALLDAY').AsString := 'N';
-                    if Event.AlarmSet then
-                      FieldByName('ALARM').AsString := 'Y'
-                    else
-                      FieldByName('ALARM').AsString := 'N';
-                    FieldByName('ALARMADV').AsInteger := Event.AlarmAdv;
-                    FieldByName('ALARMADVTP').AsInteger := Ord(Event.AlarmAdvType);
-                    FieldByName('SNOOZE').AsFloat := Event.SnoozeTime;
-                    FieldByName('ROTATION').AsInteger := Ord(Event.RepeatCode);
-                    FieldByName('ROTTO').AsDateTime := Event.RepeatRangeEnd;
-                    FieldByName('ROTCUS').AsInteger := Event.CustInterval;
-                    if FieldByName('LOCATION').AsString <> Event.Location then
-                      FieldByName('LOCATION').AsString := Event.Location;
-                    if FieldByName('CATEGORY').AsString<>Event.StrCategory then
-                      FieldByName('CATEGORY').AsString:=Event.StrCategory;
-                    if Data.Categories.Locate('NAME',Event.StrCategory,[]) and (Data.Categories.FieldByName('COLOR').AsString<>'') then
-                      Event.Color:=StringToColor(Data.Categories.FieldByName('COLOR').AsString)
-                    else Event.Color:=clNone;
-                    Post;
-                  except
-                    Cancel;
-                  end;
-                  { if a particular descendant datastore uses autoincrementing    }
-                  { RecordID fields then the RecordID is assigned by the database }
-                  { and needs to be assigned here...}
-                  if Event.RecordID = -1 then
-                    Event.RecordID := FieldByName('ID').AsInteger;
-                  Event.Changed := false;
+                    raise Exception.Create('Event with ID '+IntToStr(Event.RecordID)+' not found !');
+                  Event.Free;
                   UpdateNode := True;
+                  Continue;
+                end;
+              if Event.Changed then
+                begin
+                  with iDataSet.DataSet do
+                    begin
+                      if Locate('ID', Event.RecordID, [loCaseInsensitive]) then
+                        begin
+                          { this event already exists in the database so update it }
+                          Edit;
+                          with Application as IBaseApplication do
+                            Debug('Edit Event '+Format('%d',[Int64(iDataSet.Id.AsVariant)]));
+                        end
+                      else
+                        begin
+                          Append;
+                          with Application as IBaseApplication do
+                            Debug('Append Event '+Format('%d',[Int64(Event.RecordID)]));
+                        end;
+                      try
+                        { if a particular descendant datastore uses autoincrementing }
+                        { RecordID fields, then  don't overwrite them here. }
+                        if (Event.RecordID <> -1) and (Event.RecordID <> FieldByName('ID').AsLargeInt) then
+                          FieldByName('ID').AsLargeInt := Event.RecordID;
+                        if FieldByName('REF_ID_ID').AsVariant <> FDirectory then
+                          FieldByName('REF_ID_ID').AsVariant := FDirectory;
+                        if FieldDefs.IndexOf('USER') <> -1 then
+                          FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
+                        if FieldByName('STARTDATE').AsDateTime <> Event.StartTime then
+                          FieldByName('STARTDATE').AsDateTime := Event.StartTime;
+                        if FieldByName('ENDDATE').AsDateTime <> Event.EndTime then
+                          FieldByName('ENDDATE').AsDateTime := Event.EndTime;
+                        if FieldByName('SUMMARY').AsString <> Event.Description then
+                          FieldByName('SUMMARY').AsString := Event.Description;
+                        if FieldByName('DESCR').AsString <> Event.Note then
+                          FieldByName('DESCR').AsString := Event.Note;
+                        if FieldByName('ICATEGORY').AsInteger <> Event.Category then
+                          FieldByName('ICATEGORY').AsInteger := Event.Category;
+        //                FieldByName('DingPath').AsString := Event.AlarmWavPath;
+                        if Event.AllDayEvent then
+                          FieldByName('ALLDAY').AsString := 'Y'
+                        else
+                          FieldByName('ALLDAY').AsString := 'N';
+                        if Event.AlarmSet then
+                          FieldByName('ALARM').AsString := 'Y'
+                        else
+                          FieldByName('ALARM').AsString := 'N';
+                        FieldByName('ALARMADV').AsInteger := Event.AlarmAdv;
+                        FieldByName('ALARMADVTP').AsInteger := Ord(Event.AlarmAdvType);
+                        FieldByName('SNOOZE').AsFloat := Event.SnoozeTime;
+                        FieldByName('ROTATION').AsInteger := Ord(Event.RepeatCode);
+                        FieldByName('ROTTO').AsDateTime := Event.RepeatRangeEnd;
+                        FieldByName('ROTCUS').AsInteger := Event.CustInterval;
+                        if FieldByName('LOCATION').AsString <> Event.Location then
+                          FieldByName('LOCATION').AsString := Event.Location;
+                        if FieldByName('CATEGORY').AsString<>Event.StrCategory then
+                          FieldByName('CATEGORY').AsString:=Event.StrCategory;
+                        if Data.Categories.Locate('NAME',Event.StrCategory,[]) and (Data.Categories.FieldByName('COLOR').AsString<>'') then
+                          Event.Color:=StringToColor(Data.Categories.FieldByName('COLOR').AsString)
+                        else Event.Color:=clNone;
+                        Post;
+                      except
+                        Cancel;
+                      end;
+                      { if a particular descendant datastore uses autoincrementing    }
+                      { RecordID fields then the RecordID is assigned by the database }
+                      { and needs to be assigned here...}
+                      if Event.RecordID = -1 then
+                        Event.RecordID := FieldByName('ID').AsVariant;
+                      Event.Changed := false;
+                      UpdateNode := True;
+                    end;
                 end;
             end;
         end;
@@ -758,6 +816,9 @@ begin
       Data.SetFilter(DataSet,OldFilter);
 //      fCalendar.CalendarNode := fCalendar.CalendarNode;
     end;
+  iDataSet.Free;
+  with Application as IBaseApplication do
+    Debug('Post Events end');
 end;
 {$R *.lfm}
 end.
