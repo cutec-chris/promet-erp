@@ -73,6 +73,7 @@ type
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure DefineFields(aDataSet: TDataSet); override;
     procedure FillDefaults(aDataSet: TDataSet); override;
+    function SelectByName(aName: string): Boolean;
     property Write : TWriteFunc read FWriFunc write FWriFunc;
     property Writeln : TWritelnFunc read FWrFunc write FWRFunc;
     property Readln : TReadlnFunc read FRlFunc write FRlFunc;
@@ -670,6 +671,16 @@ begin
   FieldByName('SCRIPT').AsString:='begin'+LineEnding+'  '+LineEnding+'end.';
   inherited FillDefaults(aDataSet);
 end;
+
+function TBaseScript.SelectByName(aName: string): Boolean;
+begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        Filter := Data.QuoteField('NAME')+'='+Data.QuoteValue(aName);
+      end;
+end;
+
 function TBaseScript.Execute(Parameters: Variant): Boolean;
 var
   aStartTime: TDateTime;

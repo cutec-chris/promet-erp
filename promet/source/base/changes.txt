@@ -1,4 +1,6 @@
-﻿Build 385
+﻿Build 386
+      -
+Build 385
       - Format funktion für Scripte
       - HTTPEncode funktion für Scripte
       - Kommandozeile ausgebaut
