@@ -6,9 +6,8 @@ uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
-  Interfaces,
   Classes, SysUtils, pcmdprometapp, CustApp ,uBaseCustomApplication,
-  uBaseDBInterface,FileUtil,uBaseApplication
+  uBaseDBInterface,uBaseApplication,Utils
   { you can add units after this };
 
 resourcestring
@@ -93,7 +92,7 @@ begin
         begin
           with BaseApplication as IBaseDBInterface do
             if FileExists(AppendPathDelim(MandantPath)+GetOptionValue('n','name')+MandantExtension) then
-              DeleteFileUTF8(AppendPathDelim(MandantPath)+GetOptionValue('n','name')+MandantExtension);
+              DeleteFile(AppendPathDelim(MandantPath)+GetOptionValue('n','name')+MandantExtension);
         end;
     end
   else WriteHelp;
