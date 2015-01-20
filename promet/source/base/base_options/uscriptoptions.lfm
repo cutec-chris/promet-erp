@@ -30,7 +30,7 @@ inherited fScriptOptions: TfScriptOptions
   end
   object lProcesses: TLabel[1]
     Left = 4
-    Height = 15
+    Height = 13
     Top = 4
     Width = 542
     Align = alTop
@@ -42,8 +42,8 @@ inherited fScriptOptions: TfScriptOptions
   end
   object gProcesses: TDBGrid[2]
     Left = 8
-    Height = 378
-    Top = 42
+    Height = 382
+    Top = 40
     Width = 534
     Align = alClient
     BorderSpacing.Top = 15
@@ -52,7 +52,7 @@ inherited fScriptOptions: TfScriptOptions
     Columns = <    
       item
         Title.Caption = 'Name'
-        Width = 150
+        Width = 300
         FieldName = 'NAME'
       end    
       item
@@ -69,27 +69,9 @@ inherited fScriptOptions: TfScriptOptions
         FieldName = 'STATUS'
       end    
       item
-        Title.Caption = 'Start alle x min'
-        Width = 50
-        FieldName = 'RUNEVERY'
-      end    
-      item
         Title.Caption = 'letzter Start'
         Width = 120
         FieldName = 'LASTRUN'
-      end    
-      item
-        Title.Caption = 'Client'
-        Width = 80
-        FieldName = 'RUNMASHINE'
-      end    
-      item
-        ButtonStyle = cbsCheckboxColumn
-        Title.Caption = 'bei Verlaufseintrag'
-        Width = 30
-        ValueChecked = 'Y'
-        ValueUnchecked = 'N'
-        FieldName = 'RUNONHISTORY'
       end>
     DataSource = Scripts
     TabOrder = 1
@@ -198,15 +180,15 @@ inherited fScriptOptions: TfScriptOptions
   end
   object Label1: TLabel[6]
     Left = 4
-    Height = 15
-    Top = 428
+    Height = 13
+    Top = 430
     Width = 542
     Align = alBottom
     BorderSpacing.Around = 4
     Caption = 'letzte Ergebnisse für ausgewähltes Script'
     ParentColor = False
   end
-  object Scripts: TDatasource[7]
+  object Scripts: TDataSource[7]
     left = 56
     top = 132
   end
