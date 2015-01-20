@@ -110,7 +110,10 @@ begin
   if aProc.Count > 0 then
     begin
       aProc.DataSet.Edit;
-      aProc.FieldByName('STATUS').AsString:='N';
+      if ExitStatus=0 then
+        aProc.FieldByName('STATUS').AsString:='N'
+      else
+        aProc.FieldByName('STATUS').AsString:='E';
       aProc.DataSet.Post;
     end;
   aProc.Free;
@@ -276,6 +279,7 @@ var
     i: Integer;
     a: Integer;
   begin
+    Found := False;
     for i := 0 to length(ProcessData)-1 do
       if ProcessData[i].CommandLine = cmd then
         begin
@@ -332,8 +336,6 @@ var
     if not Found then
       begin
         aLog.Clear;
-        cmd := AppendPathDelim(BaseApplication.Location)+aProcess+ExtractFileExt(BaseApplication.ExeName);
-        cmd := cmd+BuildCmdLine;
         DoLog(aProcess+':'+strStartingProcess+' ('+cmd+')',aLog,True);
         NewProcess := TProcProcess.Create(Self);
         {$if FPC_FULLVERSION<20400}

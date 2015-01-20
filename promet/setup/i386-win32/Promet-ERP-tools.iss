@@ -30,9 +30,11 @@ AppContact=http://www.free-erp.de
 [Files]
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\cmdwizardmandant.exe"; DestDir: "{app}\tools"; Components: admin
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\clientmanagement.exe"; DestDir: "{app}"; Components: admin
+Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\messagemanager.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*receiver.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*sender.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\sync_*.exe"; DestDir: "{app}\tools"; Components: main
+Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\pscript.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\checkout.exe"; DestDir: "{app}"; Components: admin
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\checkin.exe"; DestDir: "{app}"; Components: admin
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\statistics.exe"; DestDir: "{app}"; Components: statistics
