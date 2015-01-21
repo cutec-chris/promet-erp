@@ -44,8 +44,6 @@ type
   end;
 const
   RefreshAll = 15;//5 mins refresh
-resourcestring
-  strRunsOnEveryMashine           = 'läuft auf allen Maschienen';
 
 { TProcProcess }
 procedure TProcessManager.ProcessManagerException(Sender: TObject; E: Exception

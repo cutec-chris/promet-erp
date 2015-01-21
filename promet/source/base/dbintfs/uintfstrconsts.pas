@@ -21,6 +21,7 @@ unit uIntfStrConsts;
 {$mode objfpc}{$H+}
 interface
 resourcestring
+  strRunsOnEveryMashine         = 'läuft auf allen Maschienen';
   strItemOpened                 = 'Eintrag "%s" geöffnet';
   strMeetingUsers               = 'Teilnehmer';
   strAllElements                = 'Elemente';
@@ -242,4 +243,4 @@ resourcestring
                                 ;
 
 implementation
-end.
+end.
