@@ -67,8 +67,6 @@ type
     procedure SetThumbWidth(const AValue: integer);
     procedure AsyncFocus(Data: PtrInt);
     procedure SetURLList(const AValue: UTF8String);
-    procedure VScroll(var Msg: TLMScroll); override;
-    procedure HScroll(var Msg: TLMScroll); override;
   protected
     class function GetControlClassDefaultSize: TSize; override;
     procedure BoundsChanged; override;
@@ -257,21 +255,6 @@ begin
   if fAutoSort then fMngr.Sort(0);
   Arrange;
 end;
-
-procedure TThumbControl.VScroll(var Msg: TLMScroll);
-begin
-  inherited VScroll(Msg);
-  if Assigned(FOnScrolled) then
-    FOnScrolled(Self);
-end;
-
-procedure TThumbControl.HScroll(var Msg: TLMScroll);
-begin
-  inherited HScroll(Msg);
-  if Assigned(FOnScrolled) then
-    FOnScrolled(Self);
-end;
-
 
 function TThumbControl.GetMultiThreaded: boolean;
 begin
@@ -952,4 +935,4 @@ finalization
   frame.free;
 
 end.
-
+
