@@ -219,6 +219,24 @@ begin
   RegisterComponents('Additional',[TExtRotatedLabel]);
   RegisterComponents('Common Controls',[TExtMenuPageControl]);
 end;
+
+function CheckCBText(aText : string) : string;
+begin
+  if (pos(' ',aText) > 0) and (copy(aText,0,pos(' ',aText)-1) = UpperCase(copy(aText,0,pos(' ',aText)-1)))
+  and (pos('1',copy(atext,0,4))=0)
+  and (pos('2',copy(atext,0,4))=0)
+  and (pos('3',copy(atext,0,4))=0)
+  and (pos('4',copy(atext,0,4))=0)
+  and (pos('5',copy(atext,0,4))=0)
+  and (pos('6',copy(atext,0,4))=0)
+  and (pos('7',copy(atext,0,4))=0)
+  and (pos('8',copy(atext,0,4))=0)
+  and (pos('9',copy(atext,0,4))=0)
+  then
+    Result := copy(aText,0,pos(' ',aText)-1)
+  else Result := aText;
+end;
+
 procedure AutoSizeComboboxList(Targetbox: TCustomComboBox);
 var temp, max, itemscounter: integer;
     bmp : Graphics.TBitmap;
@@ -279,10 +297,7 @@ begin
     begin
       if THackDBGrid(FGrid).EditorIsReadOnly then
         exit;
-      if (pos(' ',Text) > 0) and (copy(Text,0,pos(' ',Text)-1) = UpperCase(copy(Text,0,pos(' ',Text)-1))) then
-        THackDBGrid(FGrid).SetEditText(FCol, FRow, copy(Text,0,pos(' ',text)-1))
-      else
-        THackDBGrid(FGrid).SetEditText(FCol, FRow, Text);
+      THackDBGrid(FGrid).SetEditText(FCol, FRow, CheckCBText(Text));
       THackDBGrid(FGrid).PickListItemSelected(Self);
       if FGrid<>nil then
         FGrid.EditingDone;
@@ -773,8 +788,7 @@ begin
 end;
 procedure TExtDBCombobox.UpdateData(Sender: TObject);
 begin
-  if (pos(' ',Text) > 0) and (copy(Text,0,pos(' ',Text)-1) = UpperCase(copy(Text,0,pos(' ',Text)-1))) then
-    Text := copy(Text,0,pos(' ',Text)-1);
+  Text := CheckCBText(Text);
   inherited UpdateData(Sender);
   DataChange(Sender);
 end;
@@ -796,10 +810,7 @@ begin
         exit;
       if Assigned(Field) then
         begin
-          if (pos(' ',Text) > 0) and (copy(Text,0,pos(' ',Text)-1) = UpperCase(copy(Text,0,pos(' ',Text)-1))) then
-            THackDBGrid(FGrid).SetEditText(FCol, FRow, copy(Text,0,pos(' ',text)-1))
-          else
-            THackDBGrid(FGrid).SetEditText(FCol, FRow, Text);
+          THackDBGrid(FGrid).SetEditText(FCol, FRow, CheckCBText(Text));
         end;
       THackDBGrid(FGrid).PickListItemSelected(Self);
     end;
