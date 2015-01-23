@@ -186,6 +186,7 @@ var
   aUsers: TUser;
 begin
   aUsers :=  TUser.Create(nil);
+  aUsers.Open;
   if not Assigned(Self) then
     begin
       Screen.Cursor := crHourGlass;
