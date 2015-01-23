@@ -92,7 +92,7 @@ var
 
 implementation
 uses uStatistic,uData,httpsend,Utils,variants,uPerson,uMasterdata,uProjects,uOrder,uBaseERPDBClasses,
-  uBaseApplication,uSystemMessage;
+  uBaseApplication,uSystemMessage,utask;
 function ProcessScripts : Boolean;//process Scripts that must be runned cyclic Result shows that it should be runned faster (debug)
 var
   aScript: TBaseScript;
@@ -253,6 +253,7 @@ procedure TBaseDBModulePropertyUsersR(Self: TBaseDBModule; var T: TUser); begin 
 procedure TBaseDBDatasetPropertyCountR(Self: TBaseDBDataSet; var T: Integer); begin T := Self.Count; end;
 procedure TStoragePropertyJournalR(Self: TStorage; var T: TStorageJournal); begin T := Self.Journal; end;
 procedure TMasterdataPropertyStorageR(Self: TMasterdata; var T: TStorage); begin T := Self.Storage; end;
+procedure TProjectsTasksR(Self: TProject; var T: TProjectTasks); begin T := Self.Tasks; end;
 
 function TBaseScript.TPascalScriptUses(Sender: TPascalScript;
   const aName: tbtString): Boolean;
@@ -436,6 +437,24 @@ begin
             RegisterPropertyHelper(@TMasterdataPropertyStorageR,nil,'STORAGE');
           end;
         //Projects
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TTaskList) do
+          begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
+            RegisterProperty('History','TBaseHistory',iptR);
+          end;
+        with Sender.ClassImporter.Add(TTaskList) do
+          begin
+            RegisterConstructor(@TTaskList.Create,'CREATE');
+            RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
+          end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TTaskList'),TTask) do
+          begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
+          end;
+        with Sender.ClassImporter.Add(TTask) do
+          begin
+            RegisterConstructor(@TTask.Create,'CREATE');
+          end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TProjectList) do
           begin
             RegisterMethod('constructor Create(aOwner : TComponent);');
@@ -444,14 +463,22 @@ begin
           begin
             RegisterConstructor(@TProjectList.Create,'CREATE');
           end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TTaskList'),TProjectTasks) do
+          begin
+          end;
+        with Sender.ClassImporter.Add(TProjectTasks) do
+          begin
+          end;
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TProjectList'),TProject) do
           begin
             RegisterMethod('constructor Create(aOwner : TComponent);');
             RegisterProperty('History','TBaseHistory',iptR);
+            RegisterProperty('Tasks','TProjectTasks',iptR);
           end;
         with Sender.ClassImporter.Add(TProject) do
           begin
             RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
+            RegisterPropertyHelper(@TProjectsTasksR,nil,'TASKS');
           end;
         //Orders
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TOrderList) do
