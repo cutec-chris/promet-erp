@@ -55,7 +55,7 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uData,uRTFtoTXT;
+uses uData,uRTFtoTXT,uBaseERPDBClasses;
 procedure TfArticleTextFrame.cbTextTypSelect(Sender: TObject);
 begin
   if DontUpdate then exit;
@@ -105,13 +105,15 @@ end;
 constructor TfArticleTextFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  Data.Texttyp.Open;
-  TextTypes.DataSet := Data.TextTyp.DataSet;
-  Data.TextTyp.DataSet.First;
-  while not Data.TextTyp.DataSet.EOF do
+  if not Assigned(uBaseERPDBClasses.TextTyp) then
+    uBaseERPDBClasses.TextTyp := TTextTypes.Create(nil);
+  Texttyp.Open;
+  TextTypes.DataSet := TextTyp.DataSet;
+  TextTyp.DataSet.First;
+  while not TextTyp.DataSet.EOF do
     begin
-      cbTextTyp.Items.Add(Data.TextTyp.FieldByName('NAME').AsString);
-      Data.TextTyp.DataSet.Next;
+      cbTextTyp.Items.Add(TextTyp.FieldByName('NAME').AsString);
+      TextTyp.DataSet.Next;
     end;
 end;
 destructor TfArticleTextFrame.Destroy;

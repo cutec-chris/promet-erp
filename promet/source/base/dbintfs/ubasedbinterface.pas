@@ -102,21 +102,14 @@ type
     PaymentTargets : TPaymentTargets;
     StorageType : TStorageTyp;
     StorageJournal : TStorageJournal;
-    //Countries : TCountries;
-    //Languages : TLanguages;
-    //Vat : TVat;
+    Countries : TCountries;
+    Languages : TLanguages;
     Userfielddefs : TUserFielddefs;
-    //Units : TUnits;
-    //States : TStates;
+    States : TStates;
     Categories : TCategory;
-    //OrderPosTyp : TOrderPosTyp;
-    //TextTyp : TTextTypes;
     DeletedItems : TDeletedItems;
-    //DispatchTypes : TDispatchTypes;
-    //PriceTypes : TPriceTypes;
     //_DocumentActions : TInternalDBDataSet;
-    _MimeTypes : TInternalDBDataSet;
-    //RepairProblems : TRepairProblems;
+    //_MimeTypes : TInternalDBDataSet;
     ProcessClient : TProcessClient;
     constructor Create(AOwner : TComponent);virtual;
     destructor Destroy;override;
@@ -557,11 +550,11 @@ begin
   PaymentTargets := TPaymentTargets.CreateEx(nil,Self);
   StorageType := TStorageTyp.CreateEx(nil,Self);
   StorageJournal := TStorageJournal.CreateEx(nil,Self);
-  //Countries := TCountries.CreateEx(nil,Self);
-  //Languages := TLanguages.CreateEx(nil,Self);
+  Countries := TCountries.CreateEx(nil,Self);
+  Languages := TLanguages.CreateEx(nil,Self);
   //Vat := TVat.CreateEx(nil,Self);
   //Units := TUnits.CreateEx(nil,Self);
-  //States := TStates.CreateEx(nil,Self);
+  States := TStates.CreateEx(nil,Self);
   Categories := TCategory.CreateEx(nil,Self);
   //PriceTypes := TPriceTypes.CreateEx(nil,Self);
   //OrderPosTyp := TOrderPosTyp.CreateEx(nil,Self);
@@ -594,15 +587,15 @@ begin
   StorageType.Destroy;
   StorageJournal.Destroy;
   //Vat.Destroy;
-  //States.Destroy;
+  States.Destroy;
   Categories.Destroy;
   DeletedItems.Destroy;
   //Dispatchtypes.Destroy;
   //RepairProblems.Destroy;
   //Units.Destroy;
-  //Languages.Destroy;
+  Languages.Destroy;
   //PriceTypes.Destroy;
-  //Countries.Destroy;
+  Countries.Destroy;
   //OrderPosTyp.Destroy;
   //TextTyp.Destroy;
   PaymentTargets.Destroy;
@@ -1856,4 +1849,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

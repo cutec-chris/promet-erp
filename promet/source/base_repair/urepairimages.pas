@@ -470,14 +470,16 @@ end;
 constructor TfRepairImages.Create(TheOwner: TComponent);
 var
   i: Integer;
+  aRepairProblems: TRepairProblems;
 begin
   inherited Create(TheOwner);
   for i := 0 to gproblems.Columns.Count-1 do
     if TColumn(gProblems.Columns[i]).FieldName = 'ERROR' then
       begin
-        Data.RepairProblems.CreateTable;
-        Data.RepairProblems.Open;
-        with Data.RepairProblems.DataSet do
+        aRepairProblems := TRepairProblems.Create(nil);
+        aRepairProblems.CreateTable;
+        aRepairProblems.Open;
+        with aRepairProblems.DataSet do
           begin
             First;
             TColumn(gProblems.Columns[i]).PickList.Clear;
@@ -487,6 +489,7 @@ begin
                 next;
               end;
           end;
+        aRepairproblems.Free;
       end;
 end;
 

@@ -732,7 +732,11 @@ begin
   FEmployees.CreateTable;
 end;
 procedure TPerson.FillDefaults(aDataSet: TDataSet);
+var
+  Languages: TLanguages;
 begin
+  Languages := TLanguages.CreateEx(Self,DataModule,Connection);
+  Languages.Open;
   with aDataSet,BaseApplication as IBaseDBInterface do
     begin
       aDataSet.DisableControls;
@@ -745,10 +749,11 @@ begin
       FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
       if Data.Currency.DataSet.Active and Data.Currency.DataSet.Locate('DEFAULTCUR', 'Y', []) then
         FieldByName('CURRENCY').AsString := Data.Currency.FieldByName('SYMBOL').AsString;
-      if Data.Languages.DataSet.Active and Data.Languages.DataSet.Locate('DEFAULTLNG', 'Y', []) then
-        FieldByName('LANGUAGE').AsString := Data.Languages.FieldByName('ISO6391').AsString;
+      if Languages.DataSet.Active and Languages.DataSet.Locate('DEFAULTLNG', 'Y', []) then
+        FieldByName('LANGUAGE').AsString := Languages.FieldByName('ISO6391').AsString;
       aDataSet.EnableControls;
     end;
+  Languages.Free;
 end;
 function TPerson.Find(aIdent: string;Unsharp : Boolean = False): Boolean;
 begin

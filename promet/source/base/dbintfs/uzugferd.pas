@@ -173,8 +173,8 @@ begin
               begin
                 if Assigned(aTmp1.FindNode('ApplicablePercent')) then
                   begin
-                    if Data.Vat.Locate('VALUE',aTmp1.FindNode('ApplicablePercent').FirstChild.NodeValue,[]) then
-                      aOrder.Positions.FieldByName('VAT').AsInteger:=Data.Vat.FieldByName('ID').AsInteger;
+                    if aOrder.Positions.Vat.Locate('VALUE',aTmp1.FindNode('ApplicablePercent').FirstChild.NodeValue,[]) then
+                      aOrder.Positions.FieldByName('VAT').AsInteger:=aOrder.Positions.Vat.FieldByName('ID').AsInteger;
                   end;
               end;
           end;
