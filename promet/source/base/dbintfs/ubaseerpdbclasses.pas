@@ -65,6 +65,9 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
     function Get(aSymbol : string) : Integer;
   end;
+  TVat = class(TBaseDBDataSet)
+    procedure DefineFields(aDataSet : TDataSet);override;
+  end;
   TBaseDBPosition = class;
   TPositionCalc = class(TbaseDBDataSet)
   private
@@ -92,6 +95,8 @@ type
     OldGrossPrice : real;
     OldPosWeight : real;
     FOldPosNo: Integer;
+    FVat: TVat;
+    PriceTypes : TPriceTypes;
     function GetIdent: TField;
     function GetPosNo: TField;
     function GetPosTyp: TPositionTyp;
@@ -128,6 +133,7 @@ type
     property PosTyp : TPositionTyp read GetPosTyp;
     property PosTypDec : Integer read GetPosTypDec;
     property PosCalc : TPositionCalc read FPosCalc;
+    property Vat : TVat read FVat;
     property Ident : TField read GetIdent;
     property PosFormat : string read FPosFormat write FPosFormat;
     property CanHandleRTF : Boolean read FUseRTF write FUseRTF;
@@ -151,9 +157,6 @@ type
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
   TLanguages = class(TBaseDbDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
-  end;
-  TVat = class(TBaseDBDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
   TStates = class(TBaseDBDataSet)
@@ -195,6 +198,14 @@ type
     property Positions : TInventoryPos read FPos;
   end;
   function InternalRound(Value: Extended;nk : Integer = 4): Extended;
+//Often used and not often changed global Tables
+var
+  TextTyp : TTextTypes;
+  Vat : TVat;
+  Units : TUnits;
+  DispatchTypes : TDispatchTypes;
+  PriceTypes : TPriceTypes;
+  RepairProblems : TRepairProblems;
 implementation
 uses uBaseDBInterface,uMasterdata, uBaseApplication,Math,Variants,uRTFtoTXT,
   uDocuments,usync;
@@ -804,10 +815,10 @@ begin
       begin
         with BaseApplication as IBaseDbInterface do
           begin
-            if not Data.Vat.DataSet.Active then
-              Data.Vat.Open;
-            Data.Vat.DataSet.Locate('ID',VarArrayof([DataSet.FieldByName('VAT').AsString]),[]);
-            DataSet.FieldByName('GROSSPRICE').AsFloat := RoundPos(DataSet.FieldByName('POSPRICE').AsFloat*(1+(Data.Vat.FieldByName('VALUE').AsFloat/100)));
+            if not Vat.DataSet.Active then
+              Vat.Open;
+            Vat.DataSet.Locate('ID',VarArrayof([DataSet.FieldByName('VAT').AsString]),[]);
+            DataSet.FieldByName('GROSSPRICE').AsFloat := RoundPos(DataSet.FieldByName('POSPRICE').AsFloat*(1+(Vat.FieldByName('VALUE').AsFloat/100)));
           end;
       end;
   finally
@@ -863,22 +874,22 @@ begin
     PosCalc.Open;
     with BaseApplication as IBaseDbInterface do
       begin
-        Data.PriceTypes.Open;
+        PriceTypes.Open;
         if Assigned(PosCalc) then
           begin
             PosCalc.DataSet.First;
             while not PosCalc.DataSet.EOF do
               begin
                 //Allgemeinpreis mengenunabhängig
-                if Data.PriceTypes.Get(PosCalc.FieldByName('TYPE').AsString) = 6 then
+                if PriceTypes.Get(PosCalc.FieldByName('TYPE').AsString) = 6 then
                   APrice := APrice+PosCalc.FieldByName('PRICE').AsFloat
                 //Allgemeinpreis mengenabhängig
-                else if  (Data.PriceTypes.Get(PosCalc.FieldByName('TYPE').AsString) = 5)
+                else if  (PriceTypes.Get(PosCalc.FieldByName('TYPE').AsString) = 5)
                      and (DataSet.FieldByName('QUANTITY').AsFloat >= PosCalc.FieldByName('MINCOUNT').AsFloat)
                      and (DataSet.FieldByName('QUANTITY').AsFloat <= PosCalc.FieldByName('MAXCOUNT').AsFloat) then
                   AMPrice := AMPrice+PosCalc.FieldByName('PRICE').AsFloat
                 //Verkaufspreis
-                else if (Data.PriceTypes.Get(PosCalc.FieldByName('TYPE').AsString) = 4) then
+                else if (PriceTypes.Get(PosCalc.FieldByName('TYPE').AsString) = 4) then
                   begin
                     if  (PosCalc.FieldByName('CUSTOMER').AsString = GetAccountNo)
                     and (not PosCalc.FieldByName('MINCOUNT').IsNULL)
@@ -962,8 +973,8 @@ begin
                   PosCalc.DataSet.Append
                 else if not PosCalc.CanEdit then
                   PosCalc.DataSet.Edit;
-                Data.PriceTypes.DataSet.Locate('TYPE',4,[]);
-                PosCalc.FieldByName('TYPE').AsString := Data.Pricetypes.FieldByName('SYMBOL').AsString;
+                PriceTypes.DataSet.Locate('TYPE',4,[]);
+                PosCalc.FieldByName('TYPE').AsString := Pricetypes.FieldByName('SYMBOL').AsString;
                 PosCalc.FieldByName('PRICE').AsFloat := DataSet.FieldByName('SELLPRICE').AsFloat;
               end;
           end;
@@ -992,10 +1003,10 @@ begin
       begin
         with BaseApplication as IBaseDbInterface do
           begin
-            if not Data.Vat.DataSet.Active then
-              Data.Vat.Open;
-            Data.Vat.DataSet.Locate('ID',VarArrayof([DataSet.FieldByName('VAT').AsString]),[]);
-            tmp := DataSet.FieldByName('GROSSPRICE').AsFloat/(1+(Data.Vat.FieldByName('VALUE').AsFloat/100));
+            if not Vat.DataSet.Active then
+              Vat.Open;
+            Vat.DataSet.Locate('ID',VarArrayof([DataSet.FieldByName('VAT').AsString]),[]);
+            tmp := DataSet.FieldByName('GROSSPRICE').AsFloat/(1+(Vat.FieldByName('VALUE').AsFloat/100));
           end;
       end;
     if (GetPosTypDec = 1)
@@ -1087,9 +1098,13 @@ begin
   DataSet.AfterDelete:=@DataSetAfterDelete;
   DataSet.AfterCancel:=@DataSetAfterCancel;
   DataSet.BeforeCancel:=@DataSetBeforeCancel;
+  FVat := TVat.CreateEx(Self,DataModule,Connection);
+  PriceTypes := TPriceTypes.CreateEx(Self,DataModule,Connection);
 end;
 destructor TBaseDBPosition.Destroy;
 begin
+  PriceTypes.Destroy;
+  Vat.Destroy;
   FPosCalc.Destroy;
   FPosTyp.Destroy;
   FIntDataSource.Destroy;
@@ -1405,5 +1420,11 @@ begin
     end;
 end;
 initialization
+  TextTyp:=nil;
+  Vat := nil;
+  Units := nil;
+  DispatchTypes := nil;
+  PriceTypes := nil;
+  RepairProblems := nil;
 end.
 

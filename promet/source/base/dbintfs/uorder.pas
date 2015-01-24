@@ -781,7 +781,9 @@ var
   aGrossPos: Double = 0;
   aVatH : Double = 0;
   aVatV : Double = 0;
+  Vat: TVat;
 begin
+  Vat := TVat.Create(nil);
   Positions.Open;
   Positions.First;
   while not Positions.EOF do
@@ -797,10 +799,10 @@ begin
           aGrossPos += Positions.FieldByName('GROSSPRICE').AsFloat;
           with BaseApplication as IBaseDbInterface do
             begin
-              if not Data.Vat.DataSet.Active then
-                Data.Vat.Open;
-              Data.Vat.DataSet.Locate('ID',VarArrayof([Positions.FieldByName('VAT').AsString]),[]);
-              if Data.Vat.FieldByName('ID').AsInteger=1 then
+              if not Vat.DataSet.Active then
+                Vat.Open;
+              Vat.DataSet.Locate('ID',VarArrayof([Positions.FieldByName('VAT').AsString]),[]);
+              if Vat.FieldByName('ID').AsInteger=1 then
                 aVatV += Positions.FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat
               else
                 aVatH += Positions.FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat;
@@ -821,6 +823,7 @@ begin
   FieldByName('NETPRICE').AsFloat:=Round(aPos);
   FieldByName('GROSSPRICE').AsFloat:=Round(aGrossPos);
   if CanEdit then DataSet.Post;
+  Vat.Free;
 end;
 
 function TOrder.DoPost: TPostResult;
@@ -1210,7 +1213,9 @@ var
   aProcess: TProcess;
   CommaCount: Integer;
   tmp: String;
+  Dispatchtypes: TDispatchTypes;
 begin
+  Dispatchtypes := TDispatchTypes.Create(nil);
   if not OrderType.DataSet.Locate('STATUS', DataSet.FieldByName('STATUS').AsString, [loCaseInsensitive]) then
     raise Exception.Create(strStatusnotfound);
   OrderTyp := StrToIntDef(trim(copy(OrderType.FieldByName('TYPE').AsString, 0, 2)), 0);
@@ -1219,8 +1224,8 @@ begin
   or  (OrderTyp = 3)) //Rechnung
   then
     begin
-      Data.SetFilter(Data.Dispatchtypes,Data.QuoteField('ID')+'='+Data.QuoteValue(trim(copy(DataSet.FieldByName('SHIPPING').AsString,0,3))));
-      if not Data.Locate(Data.Dispatchtypes,'ID',copy(DataSet.FieldByName('SHIPPING').AsString,0,3),[loPartialKey]) then
+      Data.SetFilter(Dispatchtypes,Data.QuoteField('ID')+'='+Data.QuoteValue(trim(copy(DataSet.FieldByName('SHIPPING').AsString,0,3))));
+      if not Data.Locate(Dispatchtypes,'ID',copy(DataSet.FieldByName('SHIPPING').AsString,0,3),[loPartialKey]) then
         begin
           raise Exception.Create(strDispatchTypenotfound);
           exit;
@@ -1235,12 +1240,12 @@ begin
       aProcess.ShowWindow := swoHide;
       aProcess.Options:= [poNoConsole,poWaitOnExit];
       aProcess.CommandLine := '"'+ExtractFileDir(ParamStr(0))+DirectorySeparator+'plugins'+DirectorySeparator;
-      if pos(' ',Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString) > 0 then
+      if pos(' ',Dispatchtypes.FieldByName('OUTPUTDRV').AsString) > 0 then
         begin
-          aProcess.CommandLine := aProcess.Commandline+copy(Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString,0,pos(' ',Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString)-1)+ExtractFileExt(Paramstr(0))+'"';
-          aProcess.Commandline := aProcess.Commandline+copy(Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString,pos(' ',Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString)+1,length(Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString));
+          aProcess.CommandLine := aProcess.Commandline+copy(Dispatchtypes.FieldByName('OUTPUTDRV').AsString,0,pos(' ',Dispatchtypes.FieldByName('OUTPUTDRV').AsString)-1)+ExtractFileExt(Paramstr(0))+'"';
+          aProcess.Commandline := aProcess.Commandline+copy(Dispatchtypes.FieldByName('OUTPUTDRV').AsString,pos(' ',Dispatchtypes.FieldByName('OUTPUTDRV').AsString)+1,length(Dispatchtypes.FieldByName('OUTPUTDRV').AsString));
         end
-      else aProcess.CommandLine := aProcess.Commandline+Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString+ExtractFileExt(Paramstr(0))+'"';
+      else aProcess.CommandLine := aProcess.Commandline+Dispatchtypes.FieldByName('OUTPUTDRV').AsString+ExtractFileExt(Paramstr(0))+'"';
       CommaCount := 0;
       Address.Open;
       with Address.DataSet do
@@ -1258,6 +1263,7 @@ begin
       aProcess.Execute;
       aProcess.Free;
     end;
+  Dispatchtypes.Free;
 end;
 function TOrder.PostArticle(aTyp, aID, aVersion, aLanguage: variant;
   Quantity: real; QuantityUnit, PosNo: string; var aStorage: string;
@@ -1855,4 +1861,4 @@ end;
 
 initialization
 end.
-
+

@@ -104,19 +104,12 @@ type
     StorageJournal : TStorageJournal;
     Countries : TCountries;
     Languages : TLanguages;
-    Vat : TVat;
     Userfielddefs : TUserFielddefs;
-    Units : TUnits;
     States : TStates;
     Categories : TCategory;
-    OrderPosTyp : TOrderPosTyp;
-    TextTyp : TTextTypes;
     DeletedItems : TDeletedItems;
-    DispatchTypes : TDispatchTypes;
-    PriceTypes : TPriceTypes;
-    _DocumentActions : TInternalDBDataSet;
-    _MimeTypes : TInternalDBDataSet;
-    RepairProblems : TRepairProblems;
+    //_DocumentActions : TInternalDBDataSet;
+    //_MimeTypes : TInternalDBDataSet;
     ProcessClient : TProcessClient;
     constructor Create(AOwner : TComponent);virtual;
     destructor Destroy;override;
@@ -559,27 +552,27 @@ begin
   StorageJournal := TStorageJournal.CreateEx(nil,Self);
   Countries := TCountries.CreateEx(nil,Self);
   Languages := TLanguages.CreateEx(nil,Self);
-  Vat := TVat.CreateEx(nil,Self);
-  Units := TUnits.CreateEx(nil,Self);
+  //Vat := TVat.CreateEx(nil,Self);
+  //Units := TUnits.CreateEx(nil,Self);
   States := TStates.CreateEx(nil,Self);
   Categories := TCategory.CreateEx(nil,Self);
-  PriceTypes := TPriceTypes.CreateEx(nil,Self);
-  OrderPosTyp := TOrderPosTyp.CreateEx(nil,Self);
-  TextTyp := TTextTypes.CreateEx(nil,Self);
+  //PriceTypes := TPriceTypes.CreateEx(nil,Self);
+  //OrderPosTyp := TOrderPosTyp.CreateEx(nil,Self);
+  //TextTyp := TTextTypes.CreateEx(nil,Self);
   DeletedItems := TDeletedItems.CreateEx(nil,Self);
-  DispatchTypes := TDispatchTypes.CreateEx(nil,Self);
-  RepairProblems := TRepairProblems.CreateEx(nil,Self);
+  //DispatchTypes := TDispatchTypes.CreateEx(nil,Self);
+  //RepairProblems := TRepairProblems.CreateEx(nil,Self);
   ProcessClient := TProcessClient.CreateEx(nil,Self);
-  _DocumentActions := TInternalDBDataSet.Create;
-  _MimeTypes := TInternalDBDataSet.Create;
+  //_DocumentActions := TInternalDBDataSet.Create;
+  //_MimeTypes := TInternalDBDataSet.Create;
 end;
 destructor TBaseDBModule.Destroy;
 begin
   FCheckedTables.Destroy;
   FTables.Free;
   FTriggers.Free;
-  _DocumentActions.Destroy;
-  _MimeTypes.Destroy;
+  //_DocumentActions.Destroy;
+  //_MimeTypes.Destroy;
   Users.Destroy;
   Numbers.Destroy;
   MandantDetails.Destroy;
@@ -593,18 +586,18 @@ begin
   Currency.Destroy;
   StorageType.Destroy;
   StorageJournal.Destroy;
-  Vat.Destroy;
+  //Vat.Destroy;
   States.Destroy;
   Categories.Destroy;
   DeletedItems.Destroy;
-  Dispatchtypes.Destroy;
-  RepairProblems.Destroy;
-  Units.Destroy;
+  //Dispatchtypes.Destroy;
+  //RepairProblems.Destroy;
+  //Units.Destroy;
   Languages.Destroy;
-  PriceTypes.Destroy;
+  //PriceTypes.Destroy;
   Countries.Destroy;
-  OrderPosTyp.Destroy;
-  TextTyp.Destroy;
+  //OrderPosTyp.Destroy;
+  //TextTyp.Destroy;
   PaymentTargets.Destroy;
   ProcessClient.Destroy;
   ActiveUsers.Destroy;
@@ -1762,7 +1755,7 @@ begin
   FArchiveStore.Free;
   FDB.Permissions.CreateTable;
   FDB.DeletedItems.CreateTable;
-  FDB.Languages.CreateTable;
+  //FDB.Languages.CreateTable;
   FDB.Forms.CreateTable;
   FDB.Tree.CreateTable;
   FDB.StorageType.CreateTable;
@@ -1793,8 +1786,6 @@ begin
           end
         else FilePath := GetConfigDir(StringReplace(lowercase('prometerp'),'-','',[rfReplaceAll]));
       end;
-    //TODO:fix this ?!
-    //FilePath := CleanAndExpandDirectory(FilePath);
     if not DirectoryExists(FilePath) then ForceDirectories(FilePath);
     FConfigPath:=FilePath;
     Result := True;
@@ -1858,4 +1849,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

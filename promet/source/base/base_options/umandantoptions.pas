@@ -105,26 +105,46 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uData,uImpCSV,uOrder,uDocuments;
+uses uData,uImpCSV,uOrder,uDocuments,uBaseERPDBClasses;
 
 procedure TfMandantOptions.bExportConfigurationClick(Sender: TObject);
 var
   OutputDir: String;
   aOrder: TOrder;
   aTemplates: TDocumentTemplates;
+  aCurrency: TCurrency;
+  aCountries: TCountries;
+  aDispatchtypes: TDispatchTypes;
+  aOrderPosTyp: TOrderPosTyp;
+  aPricetypes: TPriceTypes;
+  aTexttyp: TTextTypes;
+  aVat: TVat;
+  aUnits: TUnits;
 begin
   if SelectDirectoryDialog.Execute then
     begin
       OutputDir := SelectDirectoryDialog.FileName;
       ForceDirectoriesUTF8(OutputDir);
-      CSVExport(OutputDir+DirectorySeparator+'countries.csv',';',Data.Countries.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'currency.csv',';',Data.Currency.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'dispatchtypes.csv',';',Data.Dispatchtypes.DataSet);
+      aCountries := TCountries.Create(nil);
+      aCountries.Open;
+      CSVExport(OutputDir+DirectorySeparator+'countries.csv',';',aCountries.DataSet);
+      aCountries.Free;
+      aCurrency := TCurrency.Create(nil);
+      aCurrency.Open;
+      CSVExport(OutputDir+DirectorySeparator+'currency.csv',';',aCurrency.DataSet);
+      aCurrency.Free;
+      aDispatchtypes := TDispatchTypes.Create(nil);
+      aDispatchtypes.Open;
+      CSVExport(OutputDir+DirectorySeparator+'dispatchtypes.csv',';',aDispatchtypes.DataSet);
+      aDispatchtypes.Free;
       CSVExport(OutputDir+DirectorySeparator+'filters.csv',';',Data.Filters.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'forms.csv',';',Data.Forms.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'languages.csv',';',Data.Languages.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'numbers.csv',';',Data.Numbers.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'orderpostyp.csv',';',Data.orderPosTyp.DataSet);
+      aOrderPosTyp := TOrderPosTyp.Create(nil);
+      aOrderPosTyp.Open;
+      CSVExport(OutputDir+DirectorySeparator+'orderpostyp.csv',';',aOrderPosTyp.DataSet);
+      aOrderPosTyp.Free;
       aOrder := TOrder.CreateEx(Self,Data);
       aOrder.Select(0);
       aOrder.Open;
@@ -133,23 +153,35 @@ begin
       aOrder.Free;
       CSVExport(OutputDir+DirectorySeparator+'paymenttargets.csv',';',Data.PaymentTargets.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'numbers.csv',';',Data.Numbers.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'pricetypes.csv',';',Data.Pricetypes.DataSet);
+      aPricetypes := TPriceTypes.Create(nil);
+      aPricetypes.Open;
+      CSVExport(OutputDir+DirectorySeparator+'pricetypes.csv',';',aPricetypes.DataSet);
+      aPricetypes.Free;
       CSVExport(OutputDir+DirectorySeparator+'reports.csv',';',Data.Reports.DataSet);
       aTemplates := TDocumentTemplates.Create(nil);
       CSVExport(OutputDir+DirectorySeparator+'templates.csv',';',aTemplates.DataSet);
       aTemplates.Free;
-      CSVExport(OutputDir+DirectorySeparator+'texttyp.csv',';',Data.Texttyp.DataSet);
+      aTexttyp := TTextTypes.Create(nil);
+      aTexttyp.Open;
+      CSVExport(OutputDir+DirectorySeparator+'texttyp.csv',';',aTexttyp.DataSet);
+      aTexttyp.Free;
       try
         CSVExport(OutputDir+DirectorySeparator+'userfielddefs.csv',';',Data.Userfielddefs.DataSet);
       except
       end;
-      CSVExport(OutputDir+DirectorySeparator+'vat.csv',';',Data.Vat.DataSet);
+      aVat := TVat.Create(nil);
+      aVat.Open;
+      CSVExport(OutputDir+DirectorySeparator+'vat.csv',';',aVat.DataSet);
+      aVat.Free;
       try
         //CSVExport(OutputDir+DirectorySeparator+'statistic.csv',';',Data.Statistic.DataSet);
       except
       end;
       CSVExport(OutputDir+DirectorySeparator+'states.csv',';',Data.States.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'units.csv',';',Data.Units.DataSet);
+      aUnits := TUnits.Create(nil);
+      aUnits.Open;
+      CSVExport(OutputDir+DirectorySeparator+'units.csv',';',aUnits.DataSet);
+      aUnits.Free;
       CSVExport(OutputDir+DirectorySeparator+'storagetype.csv',';',Data.StorageType.DataSet);
     end;
 end;

@@ -638,6 +638,7 @@ begin
             Add('ICON',ftInteger,0,False);
             Add('NOTICE',ftMemo,0,False);
             Add('TREEENTRY',ftLargeint,0,False);
+            Add('CHANGEDBY',ftString,4,False);
           end;
     end;
 end;

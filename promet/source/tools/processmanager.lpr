@@ -44,8 +44,8 @@ type
   end;
 const
   RefreshAll = 15;//5 mins refresh
-{ TProcProcess }
 
+{ TProcProcess }
 procedure TProcessManager.ProcessManagerException(Sender: TObject; E: Exception
   );
 begin
@@ -178,6 +178,16 @@ begin
   while not Terminated do
     begin
       Data.ProcessClient.RefreshList;
+      if Data.ProcessClient.DataSet.Locate('NAME','*',[]) then
+        Data.ProcessClient.Process
+      else
+        begin
+          Data.ProcessClient.Insert;
+          Data.ProcessClient.FieldByName('NAME').AsString:='*';
+          Data.ProcessClient.FieldByName('STATUS').AsString:='N';
+          Data.ProcessClient.FieldByName('NOTES').AsString:=strRunsOnEveryMashine;
+          Data.ProcessClient.Post;
+        end;
       if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
         begin
           if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
@@ -187,7 +197,7 @@ begin
             end;
           Data.ProcessClient.Process;
         end;
-      sleep(1000);
+      sleep(3000);
     end;
   try
     Data.ProcessClient.DataSet.Edit;

@@ -333,11 +333,18 @@ begin
 end;
 
 function TMasterdataPrices.GetPriceType: Integer;
+var
+  PriceType: TPriceTypes;
 begin
   Result := 0;
-  Data.PriceTypes.Open;
-  if Data.PriceTypes.DataSet.Locate('SYMBOL', trim(DataSet.FieldByName('PTYPE').AsString), []) then
-    Result := StrToIntDef(copy(Data.Pricetypes.FieldByName('TYPE').AsString, 0, 2), 0);
+  try
+    PriceType := TPriceTypes.CreateEx(Self,DataModule,Connection);
+    PriceType.Open;
+    if PriceType.DataSet.Locate('SYMBOL', trim(DataSet.FieldByName('PTYPE').AsString), []) then
+      Result := StrToIntDef(copy(Pricetype.FieldByName('TYPE').AsString, 0, 2), 0);
+  finally
+    PriceType.Free;
+  end;
 end;
 function TMasterdataPrices.FormatCurrency(Value: real): string;
 begin
@@ -728,7 +735,11 @@ begin
     BaseFilter := '';
 end;
 procedure TMasterdata.FillDefaults(aDataSet: TDataSet);
+var
+  Vat: TVat;
 begin
+  Vat := TVat.CreateEx(Self,DataModule,Connection);
+  Vat.Open;
   with aDataSet,BaseApplication as IBaseDBInterface do
     begin
       aDataSet.DisableControls;
@@ -742,13 +753,12 @@ begin
       FieldByName('LANGUAGE').AsString := 'de'; //TODO:find default language
       FieldByName('CRDATE').AsDateTime := Date;
       FieldByName('ACTIVE').AsString  := 'Y';
-      if not Data.Vat.DataSet.Active then
-        Data.Vat.Open;
-      FieldByName('VAT').AsString     := Data.Vat.FieldByName('ID').AsString;
+      FieldByName('VAT').AsString     := Vat.FieldByName('ID').AsString;
       FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
       FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
       aDataSet.EnableControls;
     end;
+  Vat.Free;
 end;
 procedure TMasterdata.CascadicPost;
 begin

@@ -114,7 +114,7 @@ inherited fArticleTextFrame: TfArticleTextFrame
       Text = 'cbTextTyp'
     end
   end
-  object TextTypes: TDataSource[2]
+  object dsTextTypes: TDataSource[2]
     left = 89
     top = 41
   end

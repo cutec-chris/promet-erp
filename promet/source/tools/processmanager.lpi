@@ -35,7 +35,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --user=&quot;Christian&quot;"/>
+        <CommandLineParams Value="--mandant=TCS-Times2"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">
@@ -72,7 +72,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="3">
+    <Exceptions Count="4">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -82,6 +82,9 @@
       <Item3>
         <Name Value="EFOpenError"/>
       </Item3>
+      <Item4>
+        <Name Value="EProcess"/>
+      </Item4>
     </Exceptions>
   </Debugging>
 </CONFIG>

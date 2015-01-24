@@ -51,6 +51,7 @@ type
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
     procedure acAddLinksExecute(Sender: TObject);
     procedure acCopyToClipboardExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
@@ -90,6 +91,7 @@ resourcestring
   strDoAppendToAccount            = 'Der eingefuegte Verweis ist eine Kontobuchung,'+lineending+'moechten Sie diesen Vorgang als Beleg einfuegen ?';
   strEntryNotFound                = 'Eintrag konnte nicht gefundne werden !';
   strAddEntryToLinkedItem         = 'Soll der zu verlinkende Eintrag auch einen Link auf diesen Eintrag erhalten ?';
+  strDeleteBack                   = 'Es existieren Links von den verlinkten Objekten zurück auf dieses Objekt, sollen diese auch gelöscht werden ?';
 procedure TfLinkFrame.FContListDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
@@ -272,6 +274,46 @@ end;
 procedure TfLinkFrame.acDeleteExecute(Sender: TObject);
 var
   i: Integer;
+  bLink: String;
+  aLink: String;
+  aClass: TBaseDBDatasetClass;
+  aLinks: TLinks;
+  aDS: TBaseDbList;
+  DeleteBack : Boolean = False;
+  procedure DeleteBackLink;
+  begin
+    with FContList do
+      begin
+        //Rückverweis löschen ?!
+        bLink := Data.BuildLink(DataSet.Parent.DataSet);
+        aLink := gList.DataSource.DataSet.FieldByName('LINK').AsString;
+        if Data.ListDataSetFromLink(aLink,aClass) then
+          begin
+            aDS := TBaseDbList(aClass.Create(nil));
+          end;
+        if Assigned(aDS) then
+          begin
+            tBaseDbList(aDS).SelectFromLink(aLink);
+            aDS.Open;
+            if aDS.Count>0 then
+              begin
+                aLinks := TLinks.Create(nil);
+                aLinks.Filter(Data.QuoteField('RREF_ID')+'='+Data.QuoteValue(aDS.Id.AsString));
+                if aLinks.Locate('LINK',bLink,[]) then
+                  begin
+                    if DeleteBack or (MessageDlg(strDeleteBack,mtInformation,[mbYes,mbNo],0) = mrYes) then
+                      begin
+                        DeleteBack := True;
+                        while aLinks.Locate('LINK',bLink,[]) do
+                          aLinks.Delete;
+                      end;
+                  end;
+                aLinks.Free;
+              end;
+          end;
+      end;
+  end;
+
 begin
   if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
     with FContList do
@@ -281,13 +323,17 @@ begin
             for i := 0 to gList.SelectedRows.Count-1 do
               begin
                 gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
+                DeleteBackLink;
                 gList.DataSource.DataSet.Delete;
               end;
             gList.SelectedRows.Clear;
           end
         else
           with Application as IBaseDbInterface do
-            gList.DataSource.DataSet.Delete;
+            begin
+              DeleteBackLink;
+              gList.DataSource.DataSet.Delete;
+            end;
       end;
 end;
 

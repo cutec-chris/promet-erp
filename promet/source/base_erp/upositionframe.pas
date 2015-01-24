@@ -294,14 +294,16 @@ procedure TfPosition.FGridViewSetupPosition(Sender: TObject;Columns : TGridColum
 var
   i: Integer;
   a: Integer;
+  aTextTyp: TTextTypes;
+  aUnits: TUnits;
 begin
   for i := 0 to FGridView.Columns.Count-1 do
     begin
       if TColumn(FGridView.Columns[i]).Fieldname = 'POSTYP' then
         begin
           FGridView.Columns[i].PickList.Clear;
-          Data.OrderPosTyp.Open;
-          with Data.Orderpostyp.DataSet do
+          TBaseDBPosition(Dataset).PosTyp.Open;
+          with TBaseDBPosition(Dataset).PosTyp.DataSet do
             begin
               First;
               while not Eof do
@@ -314,8 +316,9 @@ begin
       else if TColumn(FGridView.Columns[i]).Fieldname = 'TEXTTYPE' then
         begin
           FGridView.Columns[i].PickList.Clear;
-          Data.TextTyp.Open;
-          with Data.Texttyp.DataSet do
+          aTextTyp := TTextTypes.Create(nil);
+          aTextTyp.Open;
+          with aTexttyp.DataSet do
             begin
               First;
               a := 0;
@@ -326,6 +329,7 @@ begin
                   next;
                 end;
             end;
+          aTextTyp.Free;
         end
       else if TColumn(FGridView.Columns[i]).Fieldname = 'STORAGE' then
         begin
@@ -344,8 +348,9 @@ begin
       else if TColumn(FGridView.Columns[i]).FieldName = 'QUANTITYU' then
         begin
           FGridView.Columns[i].PickList.Clear;
-          Data.Units.Open;
-          with Data.Units.DataSet do
+          aUnits := TUnits.Create(nil);
+          aUnits.Open;
+          with aUnits.DataSet do
             begin
               First;
               while not eof do
@@ -355,6 +360,7 @@ begin
                 end;
             end;
 //          cbPQuantityU.Items.Assign(FGridView.Columns[i].PickList);
+          aUnits.Free;
         end
       else if TColumn(FGridView.Columns[i]).FieldName = 'IDENT' then
         begin
@@ -370,8 +376,8 @@ begin
       else if TColumn(FGridView.Columns[i]).FieldName = 'VAT' then
         begin
           FGridView.Columns[i].PickList.Clear;
-          Data.Vat.Open;
-          with Data.Vat.DataSet do
+          TBaseDBPosition(Dataset).Vat.Open;
+          with TBaseDBPosition(Dataset).Vat.DataSet do
             begin
               First;
               while not eof do

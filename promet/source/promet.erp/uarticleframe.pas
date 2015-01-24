@@ -181,7 +181,7 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
   uMainTreeFrame,uPrometFramesInplace,uBaseDBClasses,uarticlesupplierframe,
   uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
-  uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication;
+  uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uBaseERPDBClasses;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -786,10 +786,12 @@ begin
             begin
               if FList.gList.Columns[i].FieldName = 'PTYPE' then
                 begin
-                  if not Data.Pricetypes.DataSet.Active then
-                    Data.Pricetypes.Open;
+                  if not Assigned(PriceTypes) then
+                    PriceTypes := TPriceTypes.Create(nil);
+                  if not Pricetypes.DataSet.Active then
+                    Pricetypes.Open;
                   FList.gList.Columns[i].PickList.Clear;
-                  with Data.Pricetypes.DataSet do
+                  with Pricetypes.DataSet do
                     begin
                       First;
                       while not Eof do
@@ -886,8 +888,10 @@ var
 begin
   inherited Create(AOwner);
   mShortText.WantTabs:=False;
-  Data.Units.Open;
-  with Data.Units.DataSet do
+  if not Assigned(Units) then
+    Units := TUnits.Create(nil);
+  Units.Open;
+  with Units.DataSet do
     begin
       First;
       while not Eof do
@@ -906,8 +910,9 @@ begin
           next;
         end;
     end;
-  Data.Vat.Open;
-  with Data.Vat.DataSet do
+  if not Assigned(Vat) then Vat := TVat.Create(Data);
+  Vat.Open;
+  with Vat.DataSet do
     begin
       First;
       while not eof do

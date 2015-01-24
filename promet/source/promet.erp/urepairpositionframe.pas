@@ -218,15 +218,17 @@ end;
 constructor TfRepairPositionFrame.Create(AOwner: TComponent);
 var
   i: Integer;
+  aRepairProblems: TRepairProblems;
 begin
   inherited Create(AOwner);
   FMasterdata := nil;
+  aRepairProblems := TRepairProblems.Create(nil);
   for i := 0 to gproblems.Columns.Count-1 do
     if TColumn(gProblems.Columns[i]).FieldName = 'ERROR' then
       begin
-        Data.RepairProblems.CreateTable;
-        Data.RepairProblems.Open;
-        with Data.RepairProblems.DataSet do
+        aRepairProblems.CreateTable;
+        aRepairProblems.Open;
+        with aRepairProblems.DataSet do
           begin
             First;
             TColumn(gProblems.Columns[i]).PickList.Clear;
@@ -237,6 +239,7 @@ begin
               end;
           end;
       end;
+  aRepairProblems.Free;
   SetLanguage;
 end;
 destructor TfRepairPositionFrame.Destroy;

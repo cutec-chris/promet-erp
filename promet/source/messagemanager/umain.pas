@@ -130,6 +130,16 @@ begin
       if aNow > 0 then
         begin
           Data.ProcessClient.RefreshList;
+          if Data.ProcessClient.DataSet.Locate('NAME','*',[]) then
+            Data.ProcessClient.Process
+          else
+            begin
+              Data.ProcessClient.Insert;
+              Data.ProcessClient.FieldByName('NAME').AsString:='*';
+              Data.ProcessClient.FieldByName('STATUS').AsString:='N';
+              Data.ProcessClient.FieldByName('NOTES').AsString:=strRunsOnEveryMashine;
+              Data.ProcessClient.Post;
+            end;
           if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
             begin
               if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
@@ -141,8 +151,6 @@ begin
             end;
         end;
     end;
-  //Execute Scripts
-  ProcessScripts;
   if acHistory.Enabled then
     begin
       //Show new History Entrys

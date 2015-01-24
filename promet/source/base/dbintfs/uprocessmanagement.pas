@@ -38,7 +38,6 @@ type
     procedure Execute; override;
     procedure DoExit;
   end;
-
   TProcessParameters = class(TBaseDBDataset)
   public
     procedure DefineFields(aDataSet: TDataSet); override;
@@ -46,13 +45,16 @@ type
   TProcesses = class(TBaseDBDataset)
   private
     FProcessParameters: TProcessParameters;
+    FScripts: TBaseDBDataset;
   public
     constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    procedure Open; override;
     destructor Destroy; override;
     function CreateTable : Boolean;override;
     procedure DefineFields(aDataSet: TDataSet); override;
     property Parameters : TProcessParameters read FProcessParameters;
+    property Scripts : TBaseDBDataset read FScripts;
   end;
 
   { TProcessClient }
@@ -75,7 +77,7 @@ type
   end;
 
 implementation
-uses uBaseDBInterface,uData,Utils,uBaseApplication,uIntfStrConsts,math;
+uses uBaseDBInterface,uData,Utils,uBaseApplication,uIntfStrConsts,math,uprometscripts;
 procedure TProcProcess.SetTimeout(AValue: TDateTime);
 begin
   if FTimeout=AValue then Exit;
@@ -108,7 +110,10 @@ begin
   if aProc.Count > 0 then
     begin
       aProc.DataSet.Edit;
-      aProc.FieldByName('STATUS').AsString:='N';
+      if ExitStatus=0 then
+        aProc.FieldByName('STATUS').AsString:='N'
+      else
+        aProc.FieldByName('STATUS').AsString:='E';
       aProc.DataSet.Post;
     end;
   aProc.Free;
@@ -132,10 +137,18 @@ constructor TProcesses.CreateEx(aOwner: TComponent; DM: TComponent;
 begin
   inherited;
   FProcessParameters := TProcessParameters.CreateEx(Self, DM,aConnection,DataSet);
+  FScripts := TBaseScript.CreateEx(Self,DM,aConnection);
+end;
+
+procedure TProcesses.Open;
+begin
+  inherited Open;
+  FScripts.Open;
 end;
 
 destructor TProcesses.Destroy;
 begin
+  FScripts.Free;
   FProcessParameters.Destroy;
   inherited Destroy;
 end;
@@ -230,10 +243,8 @@ var
   aProcess: String;
   Found: Boolean;
   cmd: String;
-  i: Integer;
   bProcess: TProcProcess;
   sl: TStringList;
-  a: Integer;
   aNow: TDateTime;
   NewProcess: TProcProcess;
   aCount: DWord;
@@ -263,6 +274,91 @@ var
     if BaseApplication.HasOption('c','config-path') then
       cmd := cmd+' "--config-path='+BaseApplication.GetOptionValue('c','config-path')+'"';
   end;
+  procedure ExecCommand;
+  var
+    i: Integer;
+    a: Integer;
+  begin
+    Found := False;
+    for i := 0 to length(ProcessData)-1 do
+      if ProcessData[i].CommandLine = cmd then
+        begin
+          bProcess := ProcessData[i];
+          if bProcess.Active then
+            begin
+              Found := True;
+              sl := TStringList.Create;
+              aCount :=  bProcess.Output.NumBytesAvailable;
+              setlength(tmp,aCount);
+              bProcess.Output.Read(tmp[1],aCount);
+              sl.Text:=tmp;
+              for a := 0 to sl.Count-1 do
+                DoLog(aprocess+':'+sl[a],aLog,BaseApplication.HasOption('debug'));
+              sl.Free;
+            end
+          else
+            begin
+              sl := TStringList.Create;
+              aCount :=  bProcess.Output.NumBytesAvailable;
+              setlength(tmp,aCount);
+              bProcess.Output.Read(tmp[1],aCount);
+              for a := 0 to sl.Count-1 do
+                DoLog(aprocess+':'+sl[a],aLog,BaseApplication.HasOption('debug'));
+              sl.Free;
+              if not bProcess.Informed then
+                begin
+                  DoLog(aprocess+':'+strExitted,aLog,BaseApplication.HasOption('debug'));
+                  Processes.Edit;
+                  Processes.DataSet.FieldByName('STOPPED').AsDateTime := Now();
+                  Processes.Post;
+                  if Processes.DataSet.FieldByName('LOG').AsString<>aLog.Text then
+                    begin
+                      if not Processes.CanEdit then Processes.DataSet.Edit;
+                      Processes.DataSet.FieldByName('LOG').AsString:=aLog.Text;
+                      Processes.DataSet.Post;
+                    end;
+                  bProcess.DoExit;
+                  bProcess.Informed := True;
+                end;
+              if (aNow > bProcess.Timeout) {and (bProcess.Timeout > 0)} then
+                begin
+                  aLog.Clear;
+                  DoLog(aprocess+':'+strStartingProcessTimeout+' '+DateTimeToStr(bProcess.Timeout)+'>'+DateTimeToStr(aNow),aLog,BaseApplication.HasOption('debug'));
+                  bProcess.Timeout := aNow+(max(Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
+                  DoLog(aProcess+':'+strStartingProcess+' ('+bProcess.CommandLine+')',aLog,True);
+                  bProcess.Execute;
+                  bProcess.Informed := False;
+                  DoLog(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(bProcess.Timeout),aLog,BaseApplication.HasOption('debug'));
+                end;
+              Found := True;
+            end;
+        end;
+    if not Found then
+      begin
+        aLog.Clear;
+        DoLog(aProcess+':'+strStartingProcess+' ('+cmd+')',aLog,True);
+        NewProcess := TProcProcess.Create(Self);
+        {$if FPC_FULLVERSION<20400}
+        NewProcess.InheritHandles := false;
+        {$endif}
+        NewProcess.Id := Processes.Id.AsVariant;
+        NewProcess.Informed:=False;
+        Setlength(ProcessData,length(ProcessData)+1);
+        ProcessData[length(ProcessData)-1] := NewProcess;
+        NewProcess.CommandLine:=cmd;
+        NewProcess.CurrentDirectory:= copy(BaseApplication.Location,0,rpos(DirectorySeparator,BaseApplication.Location)-1);
+        NewProcess.Options := [poNoConsole,poUsePipes];
+        NewProcess.Execute;
+        NewProcess.Timeout := aNow+(max(Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
+        DoLog(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(ProcessData[i].Timeout),aLog,BaseApplication.HasOption('debug'));
+        Processes.Edit;
+        Processes.DataSet.FieldByName('STARTED').AsDateTime := Now();
+        Processes.DataSet.FieldByName('STOPPED').Clear;
+        Processes.DataSet.FieldByName('LOG').AsString := aLog.Text;
+        Processes.Post;
+      end;
+  end;
+
 begin
   aNow := Now();
   if aNow>0 then
@@ -279,85 +375,14 @@ begin
               Found := False;
               cmd := AppendPathDelim(BaseApplication.Location)+aProcess+ExtractFileExt(BaseApplication.ExeName);
               cmd := cmd+BuildCmdLine;
-              for i := 0 to length(ProcessData)-1 do
-                if ProcessData[i].CommandLine = cmd then
-                  begin
-                    bProcess := ProcessData[i];
-                    if bProcess.Active then
-                      begin
-                        Found := True;
-                        sl := TStringList.Create;
-                        aCount :=  bProcess.Output.NumBytesAvailable;
-                        setlength(tmp,aCount);
-                        bProcess.Output.Read(tmp[1],aCount);
-                        sl.Text:=tmp;
-                        for a := 0 to sl.Count-1 do
-                          DoLog(aprocess+':'+sl[a],aLog,BaseApplication.HasOption('debug'));
-                        sl.Free;
-                      end
-                    else
-                      begin
-                        sl := TStringList.Create;
-                        aCount :=  bProcess.Output.NumBytesAvailable;
-                        setlength(tmp,aCount);
-                        bProcess.Output.Read(tmp[1],aCount);
-                        for a := 0 to sl.Count-1 do
-                          DoLog(aprocess+':'+sl[a],aLog,BaseApplication.HasOption('debug'));
-                        sl.Free;
-                        if not bProcess.Informed then
-                          begin
-                            DoLog(aprocess+':'+strExitted,aLog,BaseApplication.HasOption('debug'));
-                            Processes.Edit;
-                            Processes.DataSet.FieldByName('STOPPED').AsDateTime := Now();
-                            Processes.Post;
-                            if Processes.DataSet.FieldByName('LOG').AsString<>aLog.Text then
-                              begin
-                                if not Processes.CanEdit then Processes.DataSet.Edit;
-                                Processes.DataSet.FieldByName('LOG').AsString:=aLog.Text;
-                                Processes.DataSet.Post;
-                              end;
-                            bProcess.DoExit;
-                            bProcess.Informed := True;
-                          end;
-                        if (aNow > bProcess.Timeout) {and (bProcess.Timeout > 0)} then
-                          begin
-                            aLog.Clear;
-                            DoLog(aprocess+':'+strStartingProcessTimeout+' '+DateTimeToStr(bProcess.Timeout)+'>'+DateTimeToStr(aNow),aLog,BaseApplication.HasOption('debug'));
-                            bProcess.Timeout := aNow+(max(Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
-                            DoLog(aProcess+':'+strStartingProcess+' ('+bProcess.CommandLine+')',aLog,True);
-                            bProcess.Execute;
-                            bProcess.Informed := False;
-                            DoLog(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(bProcess.Timeout),aLog,BaseApplication.HasOption('debug'));
-                          end;
-                        Found := True;
-                      end;
-                  end;
-              if not Found then
-                begin
-                  aLog.Clear;
-                  cmd := AppendPathDelim(BaseApplication.Location)+aProcess+ExtractFileExt(BaseApplication.ExeName);
-                  cmd := cmd+BuildCmdLine;
-                  DoLog(aProcess+':'+strStartingProcess+' ('+cmd+')',aLog,True);
-                  NewProcess := TProcProcess.Create(Self);
-                  {$if FPC_FULLVERSION<20400}
-                  NewProcess.InheritHandles := false;
-                  {$endif}
-                  NewProcess.Id := Processes.Id.AsVariant;
-                  NewProcess.Informed:=False;
-                  Setlength(ProcessData,length(ProcessData)+1);
-                  ProcessData[length(ProcessData)-1] := NewProcess;
-                  NewProcess.CommandLine:=cmd;
-                  NewProcess.CurrentDirectory:= copy(BaseApplication.Location,0,rpos(DirectorySeparator,BaseApplication.Location)-1);
-                  NewProcess.Options := [poNoConsole,poUsePipes];
-                  NewProcess.Execute;
-                  NewProcess.Timeout := aNow+(max(Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
-                  DoLog(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(ProcessData[i].Timeout),aLog,BaseApplication.HasOption('debug'));
-                  Processes.Edit;
-                  Processes.DataSet.FieldByName('STARTED').AsDateTime := Now();
-                  Processes.DataSet.FieldByName('STOPPED').Clear;
-                  Processes.DataSet.FieldByName('LOG').AsString := aLog.Text;
-                  Processes.Post;
-                end;
+              ExecCommand;
+            end
+          else if Processes.Scripts.Locate('NAME',aProcess,[loCaseInsensitive]) then
+            begin
+              cmd := AppendPathDelim(BaseApplication.Location)+'pscript'+ExtractFileExt(BaseApplication.ExeName);
+              cmd := cmd+BuildCmdLine;
+              cmd := cmd+' '+aProcess;
+              ExecCommand;
             end
           else
             begin
