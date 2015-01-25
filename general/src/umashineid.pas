@@ -160,7 +160,8 @@ begin
      (GUID1.D4[7] = GUID2.D4[7]) then
     Result := Result+AddStringToLong(GUID1.D4[2], 6);
   {$IFDEF DARWIN}
-  tmp := ExecProcessEx('system_profiler -detailLevel minimal');
+  {TODO:fix}
+  //tmp := ExecuteProcess('system_profiler -detailLevel minimal');
   tmp := copy(tmp,pos('Serial Number',tmp)+13,length(tmp));
   tmp := copy(tmp,pos(':',tmp)+1,length(tmp));
   tmp := copy(tmp,0,pos(lineending,tmp)-1);
@@ -172,5 +173,3 @@ end;
 
 
 end.
-
-
