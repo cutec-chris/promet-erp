@@ -1690,6 +1690,8 @@ begin
       exit;
     end;
   mSettings.Free;
+  FDB.MandantDetails.CreateTable;
+  FDB.MandantDetails.Open;
   FDB.Users.CreateTable;
   FDB.Numbers.CreateTable;
   FDB.ActiveUsers.CreateTable;
@@ -1849,4 +1851,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

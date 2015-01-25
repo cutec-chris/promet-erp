@@ -2351,6 +2351,7 @@ begin
             Add('ADDITION6',ftString,200,False);
             Add('ADDITION7',ftString,200,False);
             Add('ADDITION8',ftString,200,False);
+            Add('DBVERSION',ftInteger,0,False);
             Add('STAMP',ftLargeInt,0,False);
             Add('IMAGE',ftBlob,0,False);
           end;
@@ -2904,6 +2905,8 @@ var
 begin
   with FDataSet as IBaseManageDB do
     begin
+      if TBaseDBModule(DataModule).MandantDetails.Active then
+        if TBaseDBModule(DataModule).MandantDetails.FieldByName('DBVERSION').AsInteger<;
       Result := CreateTable;
       if not Result then
         begin
@@ -3217,4 +3220,4 @@ end;
 
 initialization
 end.
-
+
