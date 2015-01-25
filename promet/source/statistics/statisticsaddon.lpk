@@ -7,6 +7,9 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
     </CompilerOptions>
     <Files Count="2">
       <Item1>
@@ -22,6 +25,7 @@
     <RequiredPkgs Count="7">
       <Item1>
         <PackageName Value="laz_fpspreadsheet"/>
+        <DefaultFilename Value="../components/fpspreadsheet/laz_fpspreadsheet.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pvisualframes"/>

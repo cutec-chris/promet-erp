@@ -865,7 +865,7 @@ begin
                       begin
                         Randomize;
                         aComponent := Reader.Root.Components[i];
-                        aComponent.Name:=aComponent.Name+IntToStr(random(5000));
+                        aComponent.Name:=aComponent.Name+IntToStr(System.Random(5000));
                         if (aComponent is TDBEdit) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
                             aDST := FProps[0];
@@ -1136,4 +1136,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+
