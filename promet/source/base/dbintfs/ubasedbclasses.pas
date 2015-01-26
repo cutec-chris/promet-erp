@@ -2905,8 +2905,6 @@ var
 begin
   with FDataSet as IBaseManageDB do
     begin
-      if TBaseDBModule(DataModule).MandantDetails.Active then
-        if TBaseDBModule(DataModule).MandantDetails.FieldByName('DBVERSION').AsInteger<;
       Result := CreateTable;
       if not Result then
         begin
