@@ -544,13 +544,13 @@ begin
             RegisterMethod('function EscapeString(aValue : string) : string;');
             RegisterMethod('function DateToFilter(aValue : TDateTime) : string;');
             RegisterMethod('function DateTimeToFilter(aValue : TDateTime) : string;');
-            //RegisterMethod('function ProcessTerm(aTerm : string) : string;');
+            RegisterMethod('function ProcessTerm(aTerm : string) : string;');
 
             RegisterProperty('Users','TUser',iptR);
           end;
         with Sender.ClassImporter.Add(TBaseDBModule) do
           begin
-            //RegisterVirtualMethod(@TBaseDBModule.GetConnection, 'GETCONNECTION');
+            RegisterVirtualMethod(@TBaseDBModule.GetConnection, 'GETCONNECTION');
             RegisterVirtualMethod(@TBaseDBModule.BuildLink, 'BUILDLINK');
             RegisterVirtualMethod(@TBaseDBModule.GotoLink, 'GOTOLINK');
             RegisterVirtualMethod(@TBaseDBModule.GetLinkDesc, 'GETLINKDESC');
