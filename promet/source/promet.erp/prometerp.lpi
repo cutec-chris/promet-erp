@@ -62,6 +62,7 @@
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
             <CustomOptions Value="-dDebugLR"/>
+            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -92,6 +93,9 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Win64">
@@ -121,6 +125,9 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
         </CompilerOptions>
       </Item4>
       <Item5 Name="DebugOSX">
@@ -157,6 +164,7 @@
           </Linking>
           <Other>
             <CustomOptions Value="-dHASMESSAGING"/>
+            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item5>
@@ -174,7 +182,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="26">
@@ -629,6 +637,7 @@
     </Linking>
     <Other>
       <CustomOptions Value="-dHASMESSAGING"/>
+      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>
