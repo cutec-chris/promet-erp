@@ -92,7 +92,7 @@ var
 
 implementation
 uses uStatistic,uData,httpsend,Utils,variants,uPerson,uMasterdata,uProjects,uOrder,uBaseERPDBClasses,
-  uBaseApplication,uSystemMessage,utask;
+  uBaseApplication,uSystemMessage,utask,uMessages;
 function ProcessScripts : Boolean;//process Scripts that must be runned cyclic Result shows that it should be runned faster (debug)
 var
   aScript: TBaseScript;
@@ -365,6 +365,15 @@ begin
           begin
             RegisterConstructor(@TObjects.Create,'CREATE');
           end;
+        //Messages
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TObjects) do
+          begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
+          end;
+        with Sender.ClassImporter.Add(TObjects) do
+          begin
+            RegisterConstructor(@TObjects.Create,'CREATE');
+          end;
         //Person
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TBaseDbAddress) do
           begin
@@ -550,7 +559,7 @@ begin
           end;
         with Sender.ClassImporter.Add(TBaseDBModule) do
           begin
-            RegisterVirtualMethod(@TBaseDBModule.GetConnection, 'GETCONNECTION');
+            //RegisterVirtualMethod(@TBaseDBModule.GetConnection, 'GETCONNECTION');
             RegisterVirtualMethod(@TBaseDBModule.BuildLink, 'BUILDLINK');
             RegisterVirtualMethod(@TBaseDBModule.GotoLink, 'GOTOLINK');
             RegisterVirtualMethod(@TBaseDBModule.GetLinkDesc, 'GETLINKDESC');
