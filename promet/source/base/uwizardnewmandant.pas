@@ -473,6 +473,7 @@ var
   aType: String;
   aProcess: TProcessUTF8;
   sres: String;
+  aTexttyp: TTextTypes;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
@@ -616,7 +617,9 @@ begin
           DoImportTable(Data.Tree);
           DoImportTable(Data.Reports);
           DoImportTable(Data.Filters);
-          DoImportTable(Data.TextTyp);
+          aTexttyp := TTextTypes.Create(nil);
+          DoImportTable(aTextTyp);
+          aTexttyp.Free;
           DoImportTable(Data.MandantDetails);
           Data.ProcessClient.CreateTable;
           Data.ProcessClient.Open;

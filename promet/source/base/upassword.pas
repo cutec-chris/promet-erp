@@ -285,7 +285,8 @@ begin
                         end
                       else  raise Exception.Create(strNoMandants);
                     end
-                  else raise Exception.Create(strNoMandants);
+                  else
+                    raise Exception.Create(strNoMandants);
                   exit;
                 end;
             end;
