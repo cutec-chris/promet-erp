@@ -336,6 +336,7 @@ begin
         end;
       aWiki.Free;
     end;
+  tsScript.PageIndex:=1;
   if HasHelp then AddHelp(Self);
 end;
 function TfScriptFrame.SetRights: Boolean;

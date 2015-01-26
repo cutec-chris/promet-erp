@@ -20,21 +20,21 @@ inherited fScriptFrame: TfScriptFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 414
-      ClientWidth = 644
+      ClientHeight = 421
+      ClientWidth = 642
       object Label1: TLabel
         Left = 8
-        Height = 15
+        Height = 13
         Top = 8
-        Width = 83
+        Width = 64
         Caption = 'Beschreibung'
         ParentColor = False
       end
       object DBMemo1: TDBMemo
         Left = 8
-        Height = 248
+        Height = 255
         Top = 32
-        Width = 630
+        Width = 628
         Anchors = [akTop, akLeft, akRight, akBottom]
         DataField = 'NOTE'
         DataSource = Script
@@ -44,38 +44,38 @@ inherited fScriptFrame: TfScriptFrame
       end
       object DBComboBox1: TDBComboBox
         Left = 152
-        Height = 27
-        Top = 304
+        Height = 21
+        Top = 317
         Width = 132
         Anchors = [akLeft, akBottom]
         DataField = 'RUNMASHINE'
         DataSource = Script
-        ItemHeight = 0
+        ItemHeight = 13
         MaxLength = 0
         TabOrder = 1
       end
       object Label5: TLabel
         Left = 152
-        Height = 15
-        Top = 288
-        Width = 110
+        Height = 13
+        Top = 297
+        Width = 89
         Anchors = [akLeft, akBottom]
         Caption = 'läuft auf Mashiene'
         ParentColor = False
       end
       object Label6: TLabel
         Left = 8
-        Height = 15
-        Top = 288
-        Width = 51
+        Height = 13
+        Top = 297
+        Width = 41
         Anchors = [akLeft, akBottom]
         Caption = 'läuft alle'
         ParentColor = False
       end
       object DBEdit1: TDBEdit
         Left = 8
-        Height = 25
-        Top = 304
+        Height = 21
+        Top = 315
         Width = 80
         DataField = 'RUNEVERY'
         DataSource = Script
@@ -86,9 +86,9 @@ inherited fScriptFrame: TfScriptFrame
       end
       object Label7: TLabel
         Left = 96
-        Height = 15
-        Top = 309
-        Width = 23
+        Height = 13
+        Top = 318
+        Width = 16
         Anchors = [akLeft, akBottom]
         Caption = 'min'
         ParentColor = False
@@ -96,8 +96,8 @@ inherited fScriptFrame: TfScriptFrame
       object DBMemo2: TDBMemo
         Left = 8
         Height = 58
-        Top = 352
-        Width = 630
+        Top = 359
+        Width = 628
         Anchors = [akLeft, akRight, akBottom]
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -105,27 +105,27 @@ inherited fScriptFrame: TfScriptFrame
       end
       object Label8: TLabel
         Left = 8
-        Height = 15
-        Top = 333
-        Width = 96
+        Height = 13
+        Top = 342
+        Width = 76
         Anchors = [akLeft, akBottom]
         Caption = 'letztes Ergebnis'
         ParentColor = False
       end
       object Label9: TLabel
         Left = 320
-        Height = 15
-        Top = 288
-        Width = 114
+        Height = 13
+        Top = 297
+        Width = 91
         Anchors = [akLeft, akBottom]
         Caption = 'ist zuletzt gelaufen'
         ParentColor = False
       end
       object DBText1: TDBText
         Left = 320
-        Height = 15
-        Top = 309
-        Width = 49
+        Height = 13
+        Top = 318
+        Width = 41
         Anchors = [akLeft, akBottom]
         DataField = 'LASTRUN'
         DataSource = Script
@@ -419,7 +419,7 @@ inherited fScriptFrame: TfScriptFrame
       end
       object eArticleNumber: TDBEdit
         Left = 4
-        Height = 25
+        Height = 21
         Top = 13
         Width = 324
         DataField = 'NAME'
@@ -452,7 +452,7 @@ inherited fScriptFrame: TfScriptFrame
       end
     end
   end
-  object Script: TDatasource[2]
+  object Script: TDataSource[2]
     OnStateChange = ScriptStateChange
     left = 16
     top = 88
@@ -589,7 +589,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 172
     top = 252
   end
-  object History: TDatasource[6]
+  object History: TDataSource[6]
     left = 204
     top = 252
   end
@@ -607,7 +607,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 220
     top = 169
   end
-  object MandantDetails: TDatasource[9]
+  object MandantDetails: TDataSource[9]
     left = 256
     top = 232
   end
