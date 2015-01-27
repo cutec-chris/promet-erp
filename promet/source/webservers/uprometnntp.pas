@@ -22,7 +22,7 @@ unit uprometnntp;
 interface
 uses
   Classes, SysUtils, uLNNTP, uMessages, MimeMess, uMimeMessages, db,
-  LConvEncoding;
+  Utils;
 type
   TPNNTPGroup = class(TNNTPGroup)
   private
@@ -182,7 +182,7 @@ begin
   Result := '';
   if not FMessages.DataSet.EOF then
     begin
-      Result:=FMessages.FieldByName('GRP_ID').AsString+#9+ConvertEncoding(FMessages.Text.AsString,GuessEncoding(FMessages.Text.AsString),EncodingUTF8)+#9+FMessages.DataSet.FieldbyName('SENDER').AsString+#9+Rfc822DateTime(FMessages.DataSet.FieldbyName('SENDDATE').AsDateTime)+#9+'<'+FMessages.DataSet.FieldbyName('ID').AsString+'>'+#9;
+      Result:=FMessages.FieldByName('GRP_ID').AsString+#9+SysToUni(FMessages.Text.AsString)+#9+FMessages.DataSet.FieldbyName('SENDER').AsString+#9+Rfc822DateTime(FMessages.DataSet.FieldbyName('SENDDATE').AsDateTime)+#9+'<'+FMessages.DataSet.FieldbyName('ID').AsString+'>'+#9;
       if not FMessages.DataSet.FieldByName('PARENT').IsNull then
         begin
           Result := Result+FindParentRecursive(FMessages.DataSet.FieldByName('PARENT').AsInteger)+#9;
@@ -267,4 +267,4 @@ begin
   inherited Destroy;
 end;
 end.
-
+

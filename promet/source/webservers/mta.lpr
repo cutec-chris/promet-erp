@@ -6,7 +6,7 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication, lnetbase,
   lNet, uBaseDBInterface, md5,uData,eventlog,
-  pmimemessages, fileutil,lconvencoding,uBaseApplication, ulsmtpsrv,
+  pmimemessages, uBaseApplication, ulsmtpsrv,
   dnssend,smtpsend,synamisc,uBaseDbClasses,uMimeMessages,mimemess,laz_synapse,
   synautil,uPerson,db,Utils,variants, types,uMessages;
 resourcestring
@@ -188,8 +188,8 @@ begin
           msg.Lines.Text:=aMail.Text;
           msg.DecodeMessage;
           aMessage.DecodeMessage(msg);
-          atmp:=ConvertEncoding(getemailaddr(msg.Header.From),GuessEncoding(getemailaddr(msg.Header.From)),EncodingUTF8);
-          aSubject :=ConvertEncoding(getemailaddr(msg.Header.Subject),GuessEncoding(getemailaddr(msg.Header.Subject)),EncodingUTF8);
+          atmp:=SysToUni(getemailaddr(msg.Header.From));
+          aSubject :=SysToUni(getemailaddr(msg.Header.Subject));
           CustomerCont := TPersonContactData.Create(Self);
           if Data.IsSQLDb then
             Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')

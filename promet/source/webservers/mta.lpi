@@ -87,25 +87,22 @@
         <CommandLineParams Value="--mandant=ForumPG --port=5087"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="5">
+    <RequiredPackages Count="4">
       <Item1>
         <PackageName Value="laz_synapse"/>
       </Item1>
       <Item2>
-        <PackageName Value="LazUtils"/>
-      </Item2>
-      <Item3>
         <PackageName Value="pmimemessages"/>
         <DefaultFilename Value="..\base_messaging\pmimemessages.lpk"/>
-      </Item3>
-      <Item4>
+      </Item2>
+      <Item3>
         <PackageName Value="lnetbase"/>
         <DefaultFilename Value="..\components\lnet\lazaruspackage\lnetbase.lpk"/>
-      </Item4>
-      <Item5>
+      </Item3>
+      <Item4>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
-      </Item5>
+      </Item4>
     </RequiredPackages>
     <Units Count="4">
       <Unit0>

@@ -96,17 +96,14 @@
         <CommandLineParams Value="--mandant=TCS-Times2"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="LCL"/>
-      </Item1>
-      <Item2>
         <PackageName Value="pfcgiprometapp"/>
         <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
-      </Item2>
-      <Item3>
+      </Item1>
+      <Item2>
         <PackageName Value="FCL"/>
-      </Item3>
+      </Item2>
     </RequiredPackages>
     <Units Count="4">
       <Unit0>
