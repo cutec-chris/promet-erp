@@ -26,7 +26,7 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
   lnetbase, lNet, laz_synapse, ulimap, uBaseDBInterface, md5, uData, eventlog,
-  uprometimap, ulsmtpsrv, pmimemessages, fileutil, lconvencoding,
+  uprometimap, ulsmtpsrv, pmimemessages,
   uBaseApplication, uBaseDbClasses, synautil, ureceivemessage,
   uMimeMessages, mimemess;
 type

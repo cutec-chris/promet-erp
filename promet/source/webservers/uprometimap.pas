@@ -84,7 +84,7 @@ type
 
 implementation
 uses uData,Variants,SynaUtil,uSessionDBClasses,uBaseDBInterface,Utils,
-  uPerson,LConvEncoding,uIntfStrConsts;
+  uPerson,uIntfStrConsts;
 
 { TPIMAPSocket }
 
@@ -360,8 +360,8 @@ begin
       aMessage.FieldbyName('TREEENTRY').AsString := FTreeEntry;
       if FPostDateTime<>'' then
         aMessage.FieldByName('SENDDATE').AsDateTime:=DecodeRfcDateTime(FPostDateTime);
-      aSubject := ConvertEncoding(amsg.Header.Subject,GuessEncoding(amsg.Header.Subject),EncodingUTF8);
-      atmp:=ConvertEncoding(getemailaddr(aMsg.Header.From),GuessEncoding(getemailaddr(aMsg.Header.From)),EncodingUTF8);
+      aSubject := SysToUni(amsg.Header.Subject);
+      atmp:=SysToUni(getemailaddr(aMsg.Header.From));
       CustomerCont := TPersonContactData.CreateEx(Self,Data);
       if Data.IsSQLDb then
         Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')

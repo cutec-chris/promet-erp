@@ -25,7 +25,7 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
   lnetbase, lNet, uLNNTP, uBaseDBInterface, md5, uData, eventlog, pmimemessages,
-  uprometnntp, fileutil, lconvencoding, uBaseApplication, ulsmtpsrv,
+  uprometnntp, uBaseApplication, ulsmtpsrv,
   laz_synapse;
 type
   TPNNTPServer = class(TBaseCustomApplication)
@@ -154,4 +154,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

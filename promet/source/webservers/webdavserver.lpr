@@ -24,7 +24,7 @@ uses
   {$ENDIF}
   Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication, lnetbase,
   lNet, uBaseDBInterface, md5,uData,
-  pmimemessages,fileutil,lconvencoding,uBaseApplication,
+  pmimemessages,uBaseApplication,
   ulsvnserver, ulwebdavserver, uDocuments, Utils,lMimeTypes,lHTTPUtil,lCommon,lexthttp,
   DateUtils,uimpvcal,uCalendar,uWiki,synautil,uBaseDbClasses,Variants,utask;
 type
