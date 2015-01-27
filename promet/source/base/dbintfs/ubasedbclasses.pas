@@ -1611,6 +1611,11 @@ begin
   inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FHChanged := False;
   FShouldChange:=False;
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with FDataSet as IBaseDBFilter do
+        Limit := 50;
+    end;
 end;
 procedure TBaseHistory.SetDisplayLabels(aDataSet: TDataSet);
 begin
@@ -1693,6 +1698,7 @@ begin
       FShouldCHange := False;
     end;
 end;
+
 function TBaseHistory.AddItem(aObject: TDataSet; aAction: string;
   aLink: string; aReference: string; aRefObject: TDataSet; aIcon: Integer;
   aComission: string; CheckDouble: Boolean; DoPost: Boolean; DoChange: Boolean) : Boolean;
@@ -3218,4 +3224,4 @@ end;
 
 initialization
 end.
-
+

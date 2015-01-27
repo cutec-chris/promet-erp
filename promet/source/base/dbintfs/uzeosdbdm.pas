@@ -794,6 +794,7 @@ begin
 end;
 procedure TZeosDBDataSet.SetFilter(const AValue: string);
 begin
+  if (FFilter=AValue) and (SQL.text<>'') then exit;
   if TZeosDBDM(Owner).CheckForInjection(AValue) then exit;
   FFilter := AValue;
   FSQL := '';
@@ -818,6 +819,7 @@ begin
 end;
 procedure TZeosDBDataSet.Setlimit(const AValue: Integer);
 begin
+  if FLimit = AValue then exit;
   FLimit := AValue;
   Close;
   SQL.text := BuildSQL;

@@ -708,7 +708,7 @@ begin
   with Application as IBaseDbInterface do
     begin
       with Data.Filters.DataSet as IBaseDBFilter,Data.Filters.DataSet as IbaseManageDB do
-        Data.SetFilter(Data.Filters,Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType)),0,'','ASC',False,True,True);
+        Data.SetFilter(Data.Filters,'',0,'','ASC',False,True,True);
       if Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive,loPartialKey]) then
         Data.Filters.DataSet.Edit
       else
@@ -770,7 +770,7 @@ begin
   with Application as IBaseDbInterface do
     begin
       with Data.Filters.DataSet as IBaseDBFilter,Data.Filters.DataSet as IbaseManageDB do
-        Data.SetFilter(Data.Filters,Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType)),0,'','ASC',False,True,True);
+        Data.SetFilter(Data.Filters,'',0,'','ASC',False,True,True);
       if Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive,loPartialKey]) then
         if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
           begin
@@ -1161,7 +1161,7 @@ begin
       with Data.Filters.DataSet do
         begin
           with Data.Filters.DataSet as IBaseDBFilter,Data.Filters.DataSet as IbaseManageDB do
-            Data.SetFilter(Data.Filters,Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType)),0,'','ASC',False,True,True);
+            Data.SetFilter(Data.Filters,'',0,'','ASC',False,True,True);
           First;
           while not EOF do
             begin

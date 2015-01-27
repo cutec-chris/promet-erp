@@ -1766,7 +1766,8 @@ begin
       Data.Tree.GotoBookmark(DataT.Rec);
       ID := IntToStr(Int64(Data.Tree.Id.AsVariant));
       Typ := Data.Tree.FieldByName('TYPE').AsString;
-      Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'='+ID,0,'','ASC',False,True,True);
+      Data.Tree.DataSet.Filter:=Data.QuoteField('PARENT')+'='+Data.QuoteValue(ID);
+      Data.Tree.DataSet.Filtered:=True;
       Node.DeleteChildren;
       try
       //Add directories
@@ -1813,6 +1814,7 @@ begin
           Data.Tree.DataSet.Next;
         end;
       bTree.Free;
+      Data.Tree.DataSet.Filtered:=False;
       //Add Entrys
       if (Typ = 'C') and (Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE) then //Contacts
         begin
