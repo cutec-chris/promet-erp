@@ -108,6 +108,7 @@ type
     States : TStates;
     Categories : TCategory;
     DeletedItems : TDeletedItems;
+    TableVersions : TBaseDBDataset;
     //_DocumentActions : TInternalDBDataSet;
     //_MimeTypes : TInternalDBDataSet;
     ProcessClient : TProcessClient;
@@ -414,7 +415,7 @@ resourcestring
   strFor                         = 'für';
 implementation
 uses uZeosDBDM, uBaseApplication, uWiki, uMessages, uprocessmanager,uRTFtoTXT,
-  utask,uPerson,uMasterdata,uProjects,umeeting,uStatistic;
+  utask,uPerson,uMasterdata,uProjects,umeeting,uStatistic,usync;
 
 { TDBConfig }
 
@@ -552,27 +553,18 @@ begin
   StorageJournal := TStorageJournal.CreateEx(nil,Self);
   Countries := TCountries.CreateEx(nil,Self);
   Languages := TLanguages.CreateEx(nil,Self);
-  //Vat := TVat.CreateEx(nil,Self);
-  //Units := TUnits.CreateEx(nil,Self);
   States := TStates.CreateEx(nil,Self);
   Categories := TCategory.CreateEx(nil,Self);
-  //PriceTypes := TPriceTypes.CreateEx(nil,Self);
-  //OrderPosTyp := TOrderPosTyp.CreateEx(nil,Self);
-  //TextTyp := TTextTypes.CreateEx(nil,Self);
   DeletedItems := TDeletedItems.CreateEx(nil,Self);
-  //DispatchTypes := TDispatchTypes.CreateEx(nil,Self);
-  //RepairProblems := TRepairProblems.CreateEx(nil,Self);
   ProcessClient := TProcessClient.CreateEx(nil,Self);
-  //_DocumentActions := TInternalDBDataSet.Create;
-  //_MimeTypes := TInternalDBDataSet.Create;
+  TableVersions := TTableVersions.CreateEx(nil,Self);
 end;
 destructor TBaseDBModule.Destroy;
 begin
+  TableVersions.Destroy;
   FCheckedTables.Destroy;
   FTables.Free;
   FTriggers.Free;
-  //_DocumentActions.Destroy;
-  //_MimeTypes.Destroy;
   Users.Destroy;
   Numbers.Destroy;
   MandantDetails.Destroy;
@@ -586,18 +578,11 @@ begin
   Currency.Destroy;
   StorageType.Destroy;
   StorageJournal.Destroy;
-  //Vat.Destroy;
   States.Destroy;
   Categories.Destroy;
   DeletedItems.Destroy;
-  //Dispatchtypes.Destroy;
-  //RepairProblems.Destroy;
-  //Units.Destroy;
   Languages.Destroy;
-  //PriceTypes.Destroy;
   Countries.Destroy;
-  //OrderPosTyp.Destroy;
-  //TextTyp.Destroy;
   PaymentTargets.Destroy;
   ProcessClient.Destroy;
   ActiveUsers.Destroy;
@@ -1333,6 +1318,21 @@ end;
 function TBaseDBModule.ShouldCheckTable(aTableName : string;SetChecked : Boolean = True): Boolean;
 begin
   Result := FCheckedTables.IndexOf(aTableName) = -1;
+  try
+  if Result then
+    begin
+      if not TableVersions.Active then TableVersions.Open;
+      TableVersions.DataSet.Filter:=QuoteField('NAME')+'='+QuoteValue(aTableName);
+      TableVersions.DataSet.Filtered:=True;
+      with BaseApplication as IBaseApplication do
+        begin
+          if TableVersions.Count>0 then
+            if TableVersions.FieldByName('DBVERSION').AsInteger>=round(AppVersion*100)+AppRevision then
+              Result := False;
+        end;
+    end;
+  except
+  end;
   if Result and SetChecked then
     FCheckedTables.Add(aTableName);
 end;
@@ -1690,6 +1690,7 @@ begin
       exit;
     end;
   mSettings.Free;
+  FDB.TableVersions.CreateTable;
   FDB.MandantDetails.CreateTable;
   FDB.MandantDetails.Open;
   FDB.Users.CreateTable;
@@ -1851,4 +1852,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

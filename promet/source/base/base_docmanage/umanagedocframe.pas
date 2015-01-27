@@ -254,7 +254,8 @@ var
   Node1: TTreeNode;
 begin
   TTreeEntry(Node.Data).Typ := etDocuments;
-  Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType)+'))',0,'','ASC',False,True,True);
+  Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType)+'))';
+  Data.Tree.DataSet.Filtered:=True;
   Data.Tree.DataSet.First;
   while not Data.Tree.dataSet.EOF do
     begin
@@ -266,6 +267,7 @@ begin
       fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
       Data.Tree.DataSet.Next;
     end;
+  Data.Tree.DataSet.Filtered:=False;
 end;
 
 { TImportCheckTherad }

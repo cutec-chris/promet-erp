@@ -432,7 +432,8 @@ var
   i: Integer;
   aLink: String;
 begin
-  Data.SetFilter(Data.Tree,Data.QuoteField('NAME')+'='+Data.QuoteValue(strBrowserFavourites)+' and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'),0,'','ASC',False,True,True);
+  Data.Tree.DataSet.Filter:=Data.QuoteField('NAME')+'='+Data.QuoteValue(strBrowserFavourites)+' and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F');
+  Data.Tree.DataSet.Filtered:=True;
   if Data.Tree.Count > 0 then
     begin
       aList := GetFavorites;
@@ -457,6 +458,7 @@ begin
       aLinks.Free;
       aList.Free;
     end;
+  Data.Tree.DataSet.Filtered:=false;
 end;
 function TfMain.DoCreate : Boolean;
 begin
@@ -3490,7 +3492,8 @@ begin
       case DataT.Typ of
       etFavourites:
         begin
-          Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'),0,'','ASC',False,True,True);
+          Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F')+'))';
+          Data.Tree.DataSet.Filtered:=True;
           Data.Tree.DataSet.First;
           while not Data.Tree.dataSet.EOF do
             begin
@@ -3502,10 +3505,12 @@ begin
               Node1.HasChildren:=True;
               Data.Tree.DataSet.Next;
             end;
+          Data.Tree.DataSet.Filtered:=False;
         end;
       etMessages:
         begin
-          Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
+          Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B')+'))';
+          Data.Tree.DataSet.Filtered:=True;
           Data.Tree.DataSet.First;
           bTree := TTree.Create(nil);
           while not Data.Tree.dataSet.EOF do
@@ -3531,6 +3536,7 @@ begin
               Data.Tree.DataSet.Next;
             end;
           bTree.Free;
+          Data.Tree.DataSet.Filtered:=False;
         end;
       etTasks:
         begin
@@ -3600,7 +3606,8 @@ begin
           Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
           TTreeEntry(Node1.Data).Typ := etAction;
           TTreeEntry(Node1.Data).Action := fMain.acNewContact;
-          Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+'))',0,'','ASC',False,True,True);
+          Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+'))';
+          Data.Tree.DataSet.Filtered:=True;
           Data.Tree.DataSet.First;
           while not Data.Tree.dataSet.EOF do
             begin
@@ -3612,6 +3619,7 @@ begin
               fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'1',TTreeEntry.Create);
               Data.Tree.DataSet.Next;
             end;
+          Data.Tree.DataSet.Filtered:=False;
         end;
       etMasterdata:
         begin
@@ -3620,7 +3628,8 @@ begin
           Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
           TTreeEntry(Node1.Data).Typ := etAction;
           TTreeEntry(Node1.Data).Action := fMain.acNewMasterdata;
-          Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('M')+'))',0,'','ASC',False,True,True);
+          Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('M')+'))';
+          Data.Tree.DataSet.Filtered:=True;
           Data.Tree.DataSet.First;
           while not Data.Tree.dataSet.EOF do
             begin
@@ -3632,6 +3641,7 @@ begin
               fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
               Data.Tree.DataSet.Next;
             end;
+          Data.Tree.DataSet.Filtered:=False;
         end;
       etProjects:
         begin
@@ -3641,7 +3651,8 @@ begin
         end;
       etWiki:
         begin
-          Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('W')+'))',0,'','ASC',False,True,True);
+          Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('W')+'))';
+          Data.Tree.DataSet.Filtered:=True;
           Data.Tree.DataSet.First;
           while not Data.Tree.dataSet.EOF do
             begin
@@ -3653,6 +3664,7 @@ begin
               fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
               Data.Tree.DataSet.Next;
             end;
+          Data.Tree.DataSet.Filtered:=False;
         end;
       etDocuments,etImages:
         begin

@@ -1039,8 +1039,7 @@ begin
                       exit;
                     end;
                 Data.Users.GotoBookmark(arec);
-                data.Users.DataSet.BeforeScroll:=
-  @IBaseApplicationIBaseConfigIBaseApplicationIBaseDBInterfaceDataUsersDataSetBeforeScroll;
+                data.Users.DataSet.BeforeScroll:=@IBaseApplicationIBaseConfigIBaseApplicationIBaseDBInterfaceDataUsersDataSetBeforeScroll;
                 Debug('Logged in with User '+Data.Users.Id.AsString);
                 Data.DeleteExpiredSessions;
                 uData.Data := Data;
@@ -1136,4 +1135,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

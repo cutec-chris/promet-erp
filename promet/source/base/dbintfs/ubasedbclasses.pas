@@ -1611,6 +1611,11 @@ begin
   inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FHChanged := False;
   FShouldChange:=False;
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with FDataSet as IBaseDBFilter do
+        Limit := 50;
+    end;
 end;
 procedure TBaseHistory.SetDisplayLabels(aDataSet: TDataSet);
 begin
@@ -1693,6 +1698,7 @@ begin
       FShouldCHange := False;
     end;
 end;
+
 function TBaseHistory.AddItem(aObject: TDataSet; aAction: string;
   aLink: string; aReference: string; aRefObject: TDataSet; aIcon: Integer;
   aComission: string; CheckDouble: Boolean; DoPost: Boolean; DoChange: Boolean) : Boolean;
@@ -2925,8 +2931,30 @@ begin
               FDataSet.Open;
               if CheckTable then
                 if not AlterTable then
-                  //debugln('Altering Table "'+TableName+'" failed !')
-                  ;
+                  begin
+                    with BaseApplication as IBaseApplication do
+                      Warning('Altering Table "'+TableName+'" failed !')
+                  end
+                else
+                  begin
+                    try
+                      if not  TBaseDBModule(DataModule).TableVersions.Active then  TBaseDBModule(DataModule).TableVersions.Open;
+                       TBaseDBModule(DataModule).TableVersions.DataSet.Filter:=TBaseDBModule(DataModule).QuoteField('NAME')+'='+TBaseDBModule(DataModule).QuoteValue(TableName);
+                       TBaseDBModule(DataModule).TableVersions.DataSet.Filtered:=True;
+                      with BaseApplication as IBaseApplication do
+                        begin
+                          if TBaseDBModule(DataModule).TableVersions.Count=0 then
+                            begin
+                              TBaseDBModule(DataModule).TableVersions.Insert;
+                              TBaseDBModule(DataModule).TableVersions.FieldByName('NAME').AsString:=TableName;
+                            end;
+                          TBaseDBModule(DataModule).TableVersions.Edit;
+                          TBaseDBModule(DataModule).TableVersions.FieldByName('DBVERSION').AsInteger:=round(AppVersion*100)+AppRevision;
+                          TBaseDBModule(DataModule).TableVersions.Post;
+                        end;
+                    except
+                    end;
+                  end;
               with DataSet as IBaseDbFilter do
                 begin
                   Limit := aOldLimit;
@@ -3218,4 +3246,4 @@ end;
 
 initialization
 end.
-
+

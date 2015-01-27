@@ -108,7 +108,6 @@ begin
   if not Assigned(uBaseERPDBClasses.TextTyp) then
     uBaseERPDBClasses.TextTyp := TTextTypes.Create(nil);
   Texttyp.Open;
-  TextTypes.DataSet := TextTyp.DataSet;
   TextTyp.DataSet.First;
   while not TextTyp.DataSet.EOF do
     begin
