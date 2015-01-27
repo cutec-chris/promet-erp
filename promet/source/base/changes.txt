@@ -4,6 +4,7 @@
       - Rechtedialog:Fehler beim Aufruf behoben
       - Scripte: Aufgaben und Projektaufgaben nutzbar
       - Scripte: Nachrichten und Dokumente nutzbar
+      - Startzeit auf langsamen Datenbanken nahezu halbiert
 Build 385
       - Format funktion für Scripte
       - HTTPEncode funktion für Scripte

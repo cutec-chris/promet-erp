@@ -441,54 +441,77 @@ begin
           if FFields = '' then
             DoCheck := True;
           bConnection := Connection;
-          if not TableExists(Self.FDefaultTableName,Connection) then
+          if ShouldCheckTable(Self.FDefaultTableName) then
             begin
-              Tables.Clear;
-              Result := True;
-              aSQL := 'CREATE TABLE '+QuoteField(Uppercase(Self.FDefaultTableName))+' ('+lineending;
-              if FManagedFieldDefs.IndexOf('AUTO_ID') = -1 then
-                aSQL += TZeosDBDM(Self.Owner).FieldToSQL('SQL_ID',ftLargeInt,0,True)+' PRIMARY KEY,'+lineending
+              if not TableExists(Self.FDefaultTableName,Connection) then
+                begin
+                  Tables.Clear;
+                  Result := True;
+                  aSQL := 'CREATE TABLE '+QuoteField(Uppercase(Self.FDefaultTableName))+' ('+lineending;
+                  if FManagedFieldDefs.IndexOf('AUTO_ID') = -1 then
+                    aSQL += TZeosDBDM(Self.Owner).FieldToSQL('SQL_ID',ftLargeInt,0,True)+' PRIMARY KEY,'+lineending
+                  else
+                    begin
+                      aSQL += TZeosDBDM(Self.Owner).FieldToSQL('AUTO_ID',ftLargeInt,0,True)+' PRIMARY KEY,'+lineending;
+                    end;
+                  if Assigned(MasterSource) then
+                    begin
+                      aSQL += TZeosDBDM(Self.Owner).FieldToSQL('REF_ID',ftLargeInt,0,True);
+                      if FUseIntegrity then
+                        begin
+                          with MasterSource.DataSet as IBaseManageDB do
+                            begin
+                              if ManagedFieldDefs.IndexOf('AUTO_ID') = -1 then
+                                aSQL += ' REFERENCES '+QuoteField(TZeosDBDataSet(MasterSource.DataSet).DefaultTableName)+'('+QuoteField('SQL_ID')+') ON DELETE CASCADE'
+                              else
+                                aSQL += ' REFERENCES '+QuoteField(TZeosDBDataSet(MasterSource.DataSet).DefaultTableName)+'('+QuoteField('AUTO_ID')+') ON DELETE CASCADE';
+                            end;
+                          if (copy(TZConnection(TBaseDBModule(Self.Owner).MainConnection).Protocol,0,6) = 'sqlite') then
+                            aSQL += ' DEFERRABLE INITIALLY DEFERRED';
+                        end;
+                      aSQL+=','+lineending;
+                    end;
+                  for i := 0 to FManagedFieldDefs.Count-1 do
+                    if FManagedFieldDefs[i].Name <> 'AUTO_ID' then
+                      aSQL += TZeosDBDM(Self.Owner).FieldToSQL(FManagedFieldDefs[i].Name,FManagedFieldDefs[i].DataType,FManagedFieldDefs[i].Size,FManagedFieldDefs[i].Required)+','+lineending;
+                  aSQL += TZeosDBDM(Self.Owner).FieldToSQL('TIMESTAMPD',ftDateTime,0,True)+');';
+                  try
+                    try
+                      GeneralQuery := TZQuery.Create(Self);
+                      GeneralQuery.Connection := bConnection;
+                      GeneralQuery.SQL.Text := aSQL;
+                      GeneralQuery.ExecSQL;
+                      if bConnection.InTransaction then
+                        begin
+                          TZeosDBDM(Self.Owner).CommitTransaction(bConnection);
+                          TZeosDBDM(Self.Owner).StartTransaction(bConnection);
+                        end;
+                    except
+                    end;
+                  finally
+                    GeneralQuery.Destroy;
+                  end;
+                end
               else
                 begin
-                  aSQL += TZeosDBDM(Self.Owner).FieldToSQL('AUTO_ID',ftLargeInt,0,True)+' PRIMARY KEY,'+lineending;
+                  try
+                    if not TBaseDBModule(Self.Owner).TableVersions.Active then  TBaseDBModule(Self.Owner).TableVersions.Open;
+                     TBaseDBModule(Self.Owner).TableVersions.DataSet.Filter:=TBaseDBModule(Self.Owner).QuoteField('NAME')+'='+TBaseDBModule(Self.Owner).QuoteValue(Self.FDefaultTableName);
+                     TBaseDBModule(Self.Owner).TableVersions.DataSet.Filtered:=True;
+                    with BaseApplication as IBaseApplication do
+                      begin
+                        if TBaseDBModule(Self.Owner).TableVersions.Count=0 then
+                          begin
+                            TBaseDBModule(Self.Owner).TableVersions.Insert;
+                            TBaseDBModule(Self.Owner).TableVersions.FieldByName('NAME').AsString:=Self.FDefaultTableName;
+                          end;
+                        TBaseDBModule(Self.Owner).TableVersions.Edit;
+                        TBaseDBModule(Self.Owner).TableVersions.FieldByName('DBVERSION').AsInteger:=round(AppVersion*100)+AppRevision;
+                        TBaseDBModule(Self.Owner).TableVersions.Post;
+                      end;
+                  except
+                  end;
                 end;
-              if Assigned(MasterSource) then
-                begin
-                  aSQL += TZeosDBDM(Self.Owner).FieldToSQL('REF_ID',ftLargeInt,0,True);
-                  if FUseIntegrity then
-                    begin
-                      with MasterSource.DataSet as IBaseManageDB do
-                        begin
-                          if ManagedFieldDefs.IndexOf('AUTO_ID') = -1 then
-                            aSQL += ' REFERENCES '+QuoteField(TZeosDBDataSet(MasterSource.DataSet).DefaultTableName)+'('+QuoteField('SQL_ID')+') ON DELETE CASCADE'
-                          else
-                            aSQL += ' REFERENCES '+QuoteField(TZeosDBDataSet(MasterSource.DataSet).DefaultTableName)+'('+QuoteField('AUTO_ID')+') ON DELETE CASCADE';
-                        end;
-                      if (copy(TZConnection(TBaseDBModule(Self.Owner).MainConnection).Protocol,0,6) = 'sqlite') then
-                        aSQL += ' DEFERRABLE INITIALLY DEFERRED';
-                    end;
-                  aSQL+=','+lineending;
-                end;
-              for i := 0 to FManagedFieldDefs.Count-1 do
-                if FManagedFieldDefs[i].Name <> 'AUTO_ID' then
-                  aSQL += TZeosDBDM(Self.Owner).FieldToSQL(FManagedFieldDefs[i].Name,FManagedFieldDefs[i].DataType,FManagedFieldDefs[i].Size,FManagedFieldDefs[i].Required)+','+lineending;
-              aSQL += TZeosDBDM(Self.Owner).FieldToSQL('TIMESTAMPD',ftDateTime,0,True)+');';
-              try
-                try
-                  GeneralQuery := TZQuery.Create(Self);
-                  GeneralQuery.Connection := bConnection;
-                  GeneralQuery.SQL.Text := aSQL;
-                  GeneralQuery.ExecSQL;
-                  if bConnection.InTransaction then
-                    begin
-                      TZeosDBDM(Self.Owner).CommitTransaction(bConnection);
-                      TZeosDBDM(Self.Owner).StartTransaction(bConnection);
-                    end;
-                except
-                end;
-              finally
-                GeneralQuery.Destroy;
-              end;
             end;
         end;
     end;

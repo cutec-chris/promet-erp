@@ -507,6 +507,7 @@
         <ComponentName Value="fArticleTextFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticleText"/>
       </Unit32>
       <Unit33>
         <Filename Value="ucopyarticledata.pas"/>
@@ -595,6 +596,7 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticleFrame"/>
       </Unit45>
     </Units>
   </ProjectOptions>
