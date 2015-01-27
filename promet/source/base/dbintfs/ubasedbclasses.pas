@@ -2351,6 +2351,7 @@ begin
             Add('ADDITION6',ftString,200,False);
             Add('ADDITION7',ftString,200,False);
             Add('ADDITION8',ftString,200,False);
+            Add('DBVERSION',ftInteger,0,False);
             Add('STAMP',ftLargeInt,0,False);
             Add('IMAGE',ftBlob,0,False);
           end;
@@ -3217,4 +3218,4 @@ end;
 
 initialization
 end.
-
+

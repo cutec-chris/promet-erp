@@ -92,7 +92,7 @@ var
 
 implementation
 uses uStatistic,uData,httpsend,Utils,variants,uPerson,uMasterdata,uProjects,uOrder,uBaseERPDBClasses,
-  uBaseApplication,uSystemMessage,utask;
+  uBaseApplication,uSystemMessage,utask,uMessages,uDocuments;
 function ProcessScripts : Boolean;//process Scripts that must be runned cyclic Result shows that it should be runned faster (debug)
 var
   aScript: TBaseScript;
@@ -254,6 +254,8 @@ procedure TBaseDBDatasetPropertyCountR(Self: TBaseDBDataSet; var T: Integer); be
 procedure TStoragePropertyJournalR(Self: TStorage; var T: TStorageJournal); begin T := Self.Journal; end;
 procedure TMasterdataPropertyStorageR(Self: TMasterdata; var T: TStorage); begin T := Self.Storage; end;
 procedure TProjectsTasksR(Self: TProject; var T: TProjectTasks); begin T := Self.Tasks; end;
+procedure TMessagePropertyContentR(Self : TMessage;var T : TMessageContent);begin T := Self.Content; end;
+procedure TMessagePropertyDocumentsR(Self : TMessage;var T : TDocuments);begin T := Self.Documents; end;
 
 function TBaseScript.TPascalScriptUses(Sender: TPascalScript;
   const aName: tbtString): Boolean;
@@ -291,16 +293,16 @@ begin
             RegisterMethod('procedure Insert;');
             RegisterMethod('procedure Append;');
             RegisterMethod('procedure Delete;');
-            //RegisterMethod('procedure First;');
-            //RegisterMethod('procedure Last;');
-            //RegisterMethod('procedure Next;');
-            //RegisterMethod('procedure Prior;');
+            RegisterMethod('procedure First;');
+            RegisterMethod('procedure Last;');
+            RegisterMethod('procedure Next;');
+            RegisterMethod('procedure Prior;');
             RegisterMethod('procedure Post;');
             RegisterMethod('procedure Edit;');
             RegisterMethod('procedure Cancel;');
-            //RegisterMethod('function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean;');
-            //RegisterMethod('function EOF : Boolean;');
-            //RegisterMethod('function FieldByName(const aFieldName : string) : TField;');
+            RegisterMethod('function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean;');
+            RegisterMethod('function EOF : Boolean;');
+            RegisterMethod('function FieldByName(const aFieldName : string) : TField;');
             RegisterMethod('procedure Filter(aFilter : string;aLimit : Integer);');
             RegisterProperty('ActualFilter','String',iptRW);
             RegisterProperty('ActualLimit','Integer',iptRW);
@@ -364,6 +366,52 @@ begin
         with Sender.ClassImporter.Add(TObjects) do
           begin
             RegisterConstructor(@TObjects.Create,'CREATE');
+          end;
+        //Document
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TDocuments) do
+          begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
+          end;
+        with Sender.ClassImporter.Add(TDocuments) do
+          begin
+            RegisterConstructor(@TDocuments.Create,'CREATE');
+          end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TDocuments'),TDocument) do
+          begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
+          end;
+        with Sender.ClassImporter.Add(TDocument) do
+          begin
+            RegisterConstructor(@TDocument.Create,'CREATE');
+          end;
+        //Messages
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBDataSet'),TMessageContent) do
+          begin
+          end;
+        with Sender.ClassImporter.Add(TMessageContent) do
+          begin
+          end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TMessageList) do
+          begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
+          end;
+        with Sender.ClassImporter.Add(TMessageList) do
+          begin
+            RegisterConstructor(@TMessageList.Create,'CREATE');
+          end;
+        with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TMessageList'),TMessage) do
+          begin
+            RegisterMethod('constructor Create(aOwner : TComponent);');
+            RegisterProperty('Content','TMessageContent',iptR);
+            RegisterProperty('Documents','TDocuments',iptR);
+            RegisterProperty('History','TBaseHistory',iptR);
+          end;
+        with Sender.ClassImporter.Add(TMessage) do
+          begin
+            RegisterConstructor(@TMessageList.Create,'CREATE');
+            RegisterPropertyHelper(@TMessagePropertyContentR,nil,'CONTENT');
+            RegisterPropertyHelper(@TMessagePropertyDocumentsR,nil,'DOCUMENTS');
+            RegisterPropertyHelper(@TBaseDbListPropertyHistoryR,nil,'HISTORY');
           end;
         //Person
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TBaseDbAddress) do
@@ -544,7 +592,7 @@ begin
             RegisterMethod('function EscapeString(aValue : string) : string;');
             RegisterMethod('function DateToFilter(aValue : TDateTime) : string;');
             RegisterMethod('function DateTimeToFilter(aValue : TDateTime) : string;');
-            //RegisterMethod('function ProcessTerm(aTerm : string) : string;');
+            RegisterMethod('function ProcessTerm(aTerm : string) : string;');
 
             RegisterProperty('Users','TUser',iptR);
           end;

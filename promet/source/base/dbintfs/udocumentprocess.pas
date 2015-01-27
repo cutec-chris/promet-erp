@@ -43,6 +43,7 @@ function TDocExecuteThread.DoExecuteDocumentCommands(bCmd : string;UseStarter : 
 var
   Proc: TProcess;
   ACmd: String;
+  tmp: String;
 begin
   while bCmd <> '' do
     begin
@@ -66,7 +67,8 @@ begin
             Proc.CommandLine := AppendPathDelim(ExtractFilePath(BaseApplication.Exename))+'pstarter'+ExtractFileExt(BaseApplication.Exename)+' '+Language+' '+ACmd
             {$ELSE}
             //TODO:add Language
-            Proc.CommandLine := FileUtil.CleanAndExpandDirectory(BaseApplication.Location+'..'+DirectorySeparator+'..'+DirectorySeparator+'..'+DirectorySeparator)+'pstarter.app/Contents/MacOS/pstarter '+'de'+' '+ACmd
+            tmp := BaseApplication.Location
+            //Proc.CommandLine := FileUtil.CleanAndExpandDirectory(BaseApplication.Location+'..'+DirectorySeparator+'..'+DirectorySeparator+'..'+DirectorySeparator)+'pstarter.app/Contents/MacOS/pstarter '+'de'+' '+ACmd
             {$ENDIF}
           else
             Proc.CommandLine := ACmd;

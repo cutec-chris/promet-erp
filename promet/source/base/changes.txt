@@ -2,6 +2,8 @@
       - Scripte: können wie Prozesse in den Optionen zentral gesteuert werden
       - Links: beim löschen von Links wird überprüft ob Rückverweise vorhanden sind und gefragt ob diese auch gelöscht werden sollen
       - Rechtedialog:Fehler beim Aufruf behoben
+      - Scripte: Aufgaben und Projektaufgaben nutzbar
+      - Scripte: Nachrichten und Dokumente nutzbar
 Build 385
       - Format funktion für Scripte
       - HTTPEncode funktion für Scripte
