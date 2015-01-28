@@ -734,6 +734,9 @@ begin
           next;
         end;
     end;
+  {$ifdef DARWIN}
+  cbStatus.Style:=csDropdown;
+  {$endif}
 end;
 destructor TfPersonFrame.Destroy;
 begin

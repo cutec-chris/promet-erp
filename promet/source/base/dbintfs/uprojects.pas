@@ -309,6 +309,7 @@ begin
         History.Open;
       if (Field.FieldName = 'STATUS') then
         begin
+          if FStatus=Field.AsString then exit;
           History.AddItem(Self.DataSet,Format(strStatusChanged,[FStatus,Field.AsString]),'','',DataSet,ACICON_STATUSCH);
           FStatus := Field.AsString;
           if Assigned(FStateChange) then
