@@ -136,6 +136,7 @@ type
       CallingConv: uPSRuntime.TPSCallingConvention): Boolean;
     property OnUses : TPascalOnUses read FOnUses write FOnUses;
     function Compile: Boolean; override;
+    property Output : string read CompleteOutput;
     constructor Create;override;
     destructor Destroy; override;
     property OnExecuteStep : TNotifyEvent read FExecStep write FExecStep;
@@ -736,10 +737,15 @@ begin
   end else Result := False;
 end;
 function TPascalScript.Compile: Boolean;
+var
+  i: Integer;
 begin
+  CompleteOutput:='';
   Compiler.Obj := Self;
   Compiler.OnUses:= @ExtendICompiler;
   Result:= Compiler.Compile(Source) and Compiler.GetOutput(FBytecode);
+  for i := 0 to Compiler.MsgCount-1 do
+    CompleteOutput:=CompleteOutput+Compiler.Msg[i].MessageToString+LineEnding;
   Result:= Result and FRuntime.LoadData(Bytecode);
 end;
 constructor TPascalScript.Create;
