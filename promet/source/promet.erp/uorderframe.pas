@@ -961,6 +961,9 @@ begin
   PreviewFrame.Parent := pPreviewT;
   PreviewFrame.Align := alClient;
   PreviewFrame.Show;
+  {$ifdef DARWIN}
+  cbStatus.Style:=csDropdown;
+  {$endif}
 end;
 destructor TfOrderFrame.Destroy;
 begin

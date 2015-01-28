@@ -932,6 +932,9 @@ begin
         cbCategory.Items.Add(Data.Categories.FieldByName('NAME').AsString);
       Data.Categories.DataSet.Next;
     end;
+  {$ifdef DARWIN}
+  cbStatus.Style:=csDropdown;
+  {$endif}
 end;
 destructor TfArticleFrame.Destroy;
 begin

@@ -1028,6 +1028,8 @@ var
   aThumbnails: TThumbnails;
   aStream: TMemoryStream;
 begin
+  DataSet.DataSet.DisableControls;
+  try
   TProject(DataSet).OpenItem;
   pcPages.ClearTabClasses;
   pcPages.CloseAll;
@@ -1062,7 +1064,6 @@ begin
 
   cbCategory.Items.Clear;
   aType := 'P';
-  Data.Categories.CreateTable;
   Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
   Data.Categories.First;
   while not Data.Categories.EOF do
@@ -1258,6 +1259,9 @@ begin
     end;
   SetRights;
   if HasHelp then AddHelp(Self);
+  finally
+    DataSet.DataSet.EnableControls;
+  end;
 end;
 function TfProjectFrame.SetRights: Boolean;
 begin
@@ -1294,6 +1298,9 @@ begin
   FProjectFlow.Font.Height:=8;
   }
   FProjectFlow := nil;
+  {$ifdef DARWIN}
+  cbStatus.Style:=csDropdown;
+  {$endif}
 end;
 destructor TfProjectFrame.Destroy;
 begin

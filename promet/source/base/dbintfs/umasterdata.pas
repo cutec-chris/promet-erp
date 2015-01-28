@@ -639,6 +639,7 @@ begin
   if DataSet.ControlsDisabled then exit;
   if Field.FieldName = 'STATUS' then
     begin
+      if FStatus=Field.AsString then exit;
       History.Open;
       History.AddItem(Self.DataSet,Format(strStatusChanged,[FStatus,Field.AsString]),'','',nil,ACICON_STATUSCH);
       FStatus := Field.AsString;
@@ -1123,4 +1124,4 @@ end;
 
 initialization
 end.
-
+
