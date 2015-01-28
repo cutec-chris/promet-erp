@@ -1189,6 +1189,7 @@ inherited fprojectFrame: TfprojectFrame
         EdgeBorders = []
         EdgeInner = esNone
         EdgeOuter = esNone
+        Images = fVisualControls.Images
         TabOrder = 0
         Transparent = True
         object bExecute2: TToolButton
@@ -1375,6 +1376,7 @@ inherited fprojectFrame: TfprojectFrame
     end
   end
   object ActionList1: TActionList[5]
+    Images = fVisualControls.Images
     left = 196
     top = 64
     object acSave: TAction

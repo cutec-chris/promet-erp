@@ -256,6 +256,9 @@ begin
   FHistory.RewAction := acBack;
   Wiki.DataSet := DataSet.DataSet;
   Keywords.DataSet := TWikiList(DataSet).Keywords.DataSet;
+  {$ifdef DARWIN}
+  ipHTML.DefaultFontSize:=14;
+  {$endif}
 end;
 destructor TfWikiFrame.Destroy;
 begin
