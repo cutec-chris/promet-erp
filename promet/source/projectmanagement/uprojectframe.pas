@@ -823,7 +823,9 @@ end;
 
 procedure TfProjectFrame.cbCategorySelect(Sender: TObject);
 begin
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue('P'));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue('P');
+  Data.Categories.DataSet.Filtered:=True;
   if Data.Categories.Locate('NAME',cbCategory.Text,[loCaseInsensitive]) then
     if not Data.Categories.FieldByName('COLOR').IsNull then
       begin
@@ -1064,7 +1066,9 @@ begin
 
   cbCategory.Items.Clear;
   aType := 'P';
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+  Data.Categories.DataSet.Filtered:=True;
   Data.Categories.First;
   while not Data.Categories.EOF do
     begin
@@ -1074,7 +1078,9 @@ begin
     end;
   cbClass.Items.Clear;
   aType := 'K';
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+  Data.Categories.DataSet.Filtered:=True;
   Data.Categories.First;
   while not Data.Categories.EOF do
     begin
