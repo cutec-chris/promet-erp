@@ -5,6 +5,7 @@
       - Scripte: Aufgaben und Projektaufgaben nutzbar
       - Scripte: Nachrichten und Dokumente nutzbar
       - Startzeit auf langsamen Datenbanken nahezu halbiert
+      - kompatibilität für MacOS(X) wiederhergestellt
 Build 385
       - Format funktion für Scripte
       - HTTPEncode funktion für Scripte

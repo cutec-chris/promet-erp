@@ -2196,10 +2196,6 @@ begin
       with DataSet as IBaseDBFilter do
         begin
           SetFilter('');
-          if not DataSet.Locate('OPTION',aIdent,[]) then
-            SetFilter(Data.QuoteField('OPTION')+'='+Data.QuoteValue(aIdent));
-          if not DataSet.Locate('OPTION',aIdent,[]) then
-            SetFilter('');
         end;
     end;
   if Locate('OPTION',aIdent,[]) then
