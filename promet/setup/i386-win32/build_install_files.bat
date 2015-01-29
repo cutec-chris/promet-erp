@@ -21,6 +21,8 @@ If errorlevel 1 lazbuild -q -B ..\..\source\tools\cmdwizardmandant.lpi
 If errorlevel 1 goto end
 lazbuild --build-mode=Default -q ..\..\source\tools\pstarter.lpi
 If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\tools\pstarter.lpi
+lazbuild --build-mode=Default -q ..\..\source\scripts\pscript.lpi
+If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\scripts\pscript.lpi
 If errorlevel 1 goto end
 lazbuild --build-mode=Default -q ..\..\source\tools\linksender.lpi
 If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\tools\linksender.lpi
