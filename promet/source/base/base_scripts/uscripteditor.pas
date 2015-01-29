@@ -727,7 +727,6 @@ procedure TfScriptEditor.DebuggerCompile(Sender: TPSScript);
 begin
   FOldUses:=Sender.Comp.OnUses;
   FDataSet.Writeln:=@FDataSetWriteln;
-  FDataSet.Sleep:=;
   Sender.Comp.OnUses:=@OnUses;
   OnUses(Sender.Comp,'SYSTEM');
 end;
