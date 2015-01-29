@@ -10,6 +10,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
+msgid "(aktive Version)"
+msgstr ""
+
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
 msgstr ""
@@ -590,6 +593,14 @@ msgstr ""
 #: tfarticleframe.cbversion.hint
 msgctxt "TFARTICLEFRAME.CBVERSION.HINT"
 msgid "hier können Sie die zu bearbeitende Artikelversion auswählen."
+msgstr ""
+
+#: tfarticleframe.dbcheckbox4.caption
+msgid "ist Vorlage"
+msgstr ""
+
+#: tfarticleframe.dbcheckbox4.hint
+msgid "schickt eine Nachricht an den Projektleiter"
 msgstr ""
 
 #: tfarticleframe.ematchcode.hint
