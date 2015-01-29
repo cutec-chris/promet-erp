@@ -44,6 +44,9 @@ Sobald der Artikel im Reparaturauftrag
 ausgewählt wird, startet die 
 Zeiterfassung und ein Timer läuft ab.
 TFARTICLEFRAME.LREPAIRTIME.CAPTION=max. Reparaturzeit
+TFARTICLEFRAME.DBCHECKBOX4.HINT=schickt eine Nachricht an den Projektleiter
+wenn Aufgaben erledigt oder wiedereröffnet werde
+TFARTICLEFRAME.DBCHECKBOX4.CAPTION=ist Vorlage
 TFARTICLEFRAME.LABEL2.CAPTION=Eintrag
 TFARTICLEFRAME.LABEL3.CAPTION=Erweitert
 TFARTICLEFRAME.SBMENUE.HINT=zusätzliche Optionen

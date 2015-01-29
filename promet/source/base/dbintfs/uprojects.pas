@@ -702,6 +702,7 @@ begin
             Add('INFORMLEADER',ftString,1,False);
             Add('INFORMPMANAGER',ftString,1,False);
             Add('GROSSPLANNING',ftString,1,False);
+            Add('ISTEMPLATE',ftString,1,False);
             Add('COSTCENTRE',ftString,10,False);//Kostenstelle
             Add('ACCOUNT',ftString,10,False); //Fibu Konto
             Add('ACCOUNTINGINFO',ftMemo,0,False); //Fibu Info

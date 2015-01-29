@@ -946,6 +946,7 @@ begin
             Add('ACCOUNT',ftString,10,False); //Fibu Konto
             Add('ACCOUNTINGINFO',ftMemo,0,False); //Fibu Info
             Add('CATEGORY',ftString,60,False);
+            Add('ISTEMPLATE',ftString,1,False);
             Add('CURRENCY',ftString,5,False);
             Add('CRDATE',ftDate,0,False);
             Add('CHDATE',ftDate,0,False);
@@ -1124,4 +1125,4 @@ end;
 
 initialization
 end.
-
+

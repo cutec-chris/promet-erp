@@ -579,6 +579,20 @@ inherited fArticleFrame: TfArticleFrame
           Caption = 'max. Reparaturzeit'
           ParentColor = False
         end
+        object DBCheckBox4: TDBCheckBox
+          Left = 156
+          Height = 17
+          Hint = 'schickt eine Nachricht an den Projektleiter'#13#10'wenn Aufgaben erledigt oder wiedereröffnet werde'
+          Top = 49
+          Width = 68
+          AutoSize = True
+          Caption = 'ist Vorlage'
+          DataField = 'ISTEMPLATE'
+          DataSource = Masterdata
+          TabOrder = 14
+          ValueChecked = 'Y'
+          ValueUnchecked = 'N'
+        end
       end
     end
   end
@@ -1376,12 +1390,12 @@ inherited fArticleFrame: TfArticleFrame
     Options = []
     PreviewButtons = [pbZoom, pbSave, pbPrint, pbFind, pbExit]
     DataType = dtDataSource
-    left = 172
-    top = 169
+    left = 264
+    top = 160
   end
   object PList: TfrDBDataSet[10]
-    left = 220
-    top = 169
+    left = 304
+    top = 160
   end
   object MandantDetails: TDataSource[11]
     left = 256

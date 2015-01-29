@@ -65,6 +65,7 @@ type
     cbCategory: TExtDBCombobox;
     cbVersion: TComboBox;
     cbWarrenty: TDBComboBox;
+    DBCheckBox4: TDBCheckBox;
     eArticleNumber: TDBEdit;
     eBarcode: TDBEdit;
     eManufacturerNR: TDBEdit;

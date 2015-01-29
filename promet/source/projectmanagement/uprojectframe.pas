@@ -75,6 +75,7 @@ type
     DBCheckBox1: TDBCheckBox;
     DBCheckBox2: TDBCheckBox;
     DBCheckBox3: TDBCheckBox;
+    DBCheckBox4: TDBCheckBox;
     DBZVDateTimePicker4: TDBZVDateTimePicker;
     DBZVDateTimePicker5: TDBZVDateTimePicker;
     eParent: TEditButton;
