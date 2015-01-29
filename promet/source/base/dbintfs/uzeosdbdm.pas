@@ -504,10 +504,10 @@ begin
                           begin
                             TBaseDBModule(Self.Owner).TableVersions.Insert;
                             TBaseDBModule(Self.Owner).TableVersions.FieldByName('NAME').AsString:=Self.FDefaultTableName;
+                            TBaseDBModule(Self.Owner).TableVersions.Edit;
+                            TBaseDBModule(Self.Owner).TableVersions.FieldByName('DBVERSION').AsInteger:=round(AppVersion*100)+AppRevision-1;
+                            TBaseDBModule(Self.Owner).TableVersions.Post;
                           end;
-                        TBaseDBModule(Self.Owner).TableVersions.Edit;
-                        TBaseDBModule(Self.Owner).TableVersions.FieldByName('DBVERSION').AsInteger:=round(AppVersion*100)+AppRevision;
-                        TBaseDBModule(Self.Owner).TableVersions.Post;
                       end;
                   except
                   end;

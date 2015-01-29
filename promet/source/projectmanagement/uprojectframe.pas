@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ComCtrls,
   Buttons, ActnList, Menus, ExtCtrls, DbCtrls, StdCtrls, uExtControls,
   DBZVDateTimePicker, db, uPrometFrames, uPrometFramesInplace, uBaseDBClasses,
-  Dialogs, Spin, EditBtn,variants,uProjectFlow,uTasks,Graphics;
+  Dialogs, Spin, EditBtn,variants,uProjectFlow,uTasks,Graphics,uMeasurement;
 type
 
   { TfProjectFrame }
@@ -197,6 +197,8 @@ type
     FOwners : TStringList;
     FOnStartTime: TOnStartTime;
     FProjectFlow: TProjectFlow;
+    FMeasurement: TMeasurement;
+    procedure AddMeasurement(Sender: TObject);
     procedure AddHistory(Sender: TObject);
     procedure AddPositions(Sender: TObject);
     procedure AddImages(Sender: TObject);
@@ -231,7 +233,7 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uFilterFrame,uBaseSearch,Utils,uprojectimport,uBaseERPDBClasses,uSelectReport,
   uNRights,uprojectpositions,uSearch,LCLProc,utask,uprojectoverview,uBaseVisualApplication,
   uGanttView,uWikiFrame,uWiki,ufinance,uthumbnails,Clipbrd,uscreenshotmain,
-  uBaseApplication;
+  uBaseApplication,umeasurements;
 {$R *.lfm}
 resourcestring
   strNoParent                     = '<kein Vorfahr>';
@@ -359,6 +361,12 @@ begin
         end;
       bProject.Free;
     end;
+end;
+
+procedure TfProjectFrame.AddMeasurement(Sender: TObject);
+begin
+  TfMeasurementFrame(Sender).DataSet := FMeasurement;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
 
 procedure TfProjectFrame.AddHistory(Sender: TObject);
@@ -1230,6 +1238,12 @@ begin
       pcPages.AddTab(aTasks,True);
       aTasks.GridView.GotoRowNumber(aTasks.GridView.gList.FixedRows);
     end;
+  FMeasurement := TMeasurement.CreateEx(nil,Data,DataSet.Connection,DataSet.DataSet);
+  FMeasurement.CreateTable;
+  FMeasurement.Open;
+  if FMeasurement.Count>0 then
+    pcPages.AddTab(TfMeasurementFrame.Create(Self),False)
+  else FMeasurement.Free;
   if Inserted or (TProject(DataSet).Tasks.Count = 0) then
     pcPages.PageIndex:=0;
   if DataSet.State<> dsInsert then
