@@ -525,7 +525,7 @@ begin
   with TBaseDBModule(Owner) do
     begin
       if DoCheck or (FFields = '') then
-        if ShouldCheckTable(Self.FDefaultTableName) then
+        if ShouldCheckTable(Self.FDefaultTableName,False) then
           begin
             for i := 0 to FManagedFieldDefs.Count-1 do
               if (FieldDefs.IndexOf(FManagedFieldDefs[i].Name) = -1) and (FManagedFieldDefs[i].Name <> 'AUTO_ID') then
@@ -589,6 +589,26 @@ begin
                 end;
               Result := True;
             end;
+      if Changed then
+        begin
+          try
+            if not TBaseDBModule(Self.Owner).TableVersions.Active then  TBaseDBModule(Self.Owner).TableVersions.Open;
+             TBaseDBModule(Self.Owner).TableVersions.DataSet.Filter:=TBaseDBModule(Self.Owner).QuoteField('NAME')+'='+TBaseDBModule(Self.Owner).QuoteValue(Self.FDefaultTableName);
+             TBaseDBModule(Self.Owner).TableVersions.DataSet.Filtered:=True;
+            with BaseApplication as IBaseApplication do
+              begin
+                if TBaseDBModule(Self.Owner).TableVersions.Count=0 then
+                  begin
+                    TBaseDBModule(Self.Owner).TableVersions.Insert;
+                    TBaseDBModule(Self.Owner).TableVersions.FieldByName('NAME').AsString:=Self.FDefaultTableName;
+                  end;
+                TBaseDBModule(Self.Owner).TableVersions.Edit;
+                TBaseDBModule(Self.Owner).TableVersions.FieldByName('DBVERSION').AsInteger:=round(AppVersion*100)+AppRevision-1;
+                TBaseDBModule(Self.Owner).TableVersions.Post;
+              end;
+          except
+          end;
+        end;
     end;
 end;
 procedure TZeosDBDataSet.InternalOpen;

@@ -501,7 +501,6 @@ inherited fprojectFrame: TfprojectFrame
       object DBCheckBox4: TDBCheckBox
         Left = 432
         Height = 17
-        Hint = 'schickt eine Nachricht an den Projektleiter'#13#10'wenn Aufgaben erledigt oder wiedereröffnet werde'
         Top = 108
         Width = 68
         AutoSize = True
