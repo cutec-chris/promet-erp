@@ -255,7 +255,7 @@ begin
   inherited FillDefaults(aDataSet);
   aID := (Parent as TProject).Id.AsVariant;
   aDataSet.FieldByName('PROJECTID').AsVariant:=aID;
-  aDataSet.FieldByName('PROJECT').AsVariant:=(Parent as TProject).Text.AsVariant;
+  aDataSet.FieldByName('PROJECT').AsVariant:=TBaseDBModule(DataModule).GetLinkDesc(TBaseDBModule(DataModule).BuildLink((Parent as TProject).DataSet));
 end;
 procedure TProjectTasks.Open;
 begin
