@@ -1631,7 +1631,7 @@ inherited fTaskFrame: TfTaskFrame
         Left = 6
         Height = 11
         Top = 0
-        Width = 18
+        Width = 21
         Caption = 'Filter'
         Font.Color = clMedGray
         Font.Height = 11
@@ -1642,13 +1642,13 @@ inherited fTaskFrame: TfTaskFrame
       object cbFilter: TComboBox
         AnchorSideLeft.Side = asrBottom
         Left = 6
-        Height = 23
+        Height = 21
         Hint = 'hier können Sie einen Filter wählen um die Liste einzuschränken'
         Top = 12
         Width = 90
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 8
-        ItemHeight = 15
+        ItemHeight = 13
         OnSelect = cbFilterSelect
         TabOrder = 0
       end
@@ -1950,9 +1950,9 @@ inherited fTaskFrame: TfTaskFrame
       TabOrder = 0
       object cbMaxResults: TCheckBox
         Left = 9
-        Height = 19
+        Height = 17
         Top = 5
-        Width = 186
+        Width = 173
         Caption = 'Filterergebnisse begrenzen auf  '
         Checked = True
         OnChange = seMaxresultsChange
@@ -2108,9 +2108,9 @@ inherited fTaskFrame: TfTaskFrame
       end
       object lFilterEdit: TLabel
         Left = 9
-        Height = 15
+        Height = 13
         Top = 33
-        Width = 84
+        Width = 74
         Caption = 'Filterbedingung'
         ParentColor = False
       end
@@ -2126,7 +2126,7 @@ inherited fTaskFrame: TfTaskFrame
       end
       object eFilterIn: TEdit
         Left = 417
-        Height = 23
+        Height = 21
         Hint = 'Wenn Sie über mehrere Tabellen Filtern '#13#10'möchten füllen Sie dieses Feld'#13#10'z.b.'#13#10'Orders,OrderPos'
         Top = 80
         Width = 152
@@ -2144,8 +2144,8 @@ inherited fTaskFrame: TfTaskFrame
       object seMaxresults: TSpinEdit
         AnchorSideLeft.Control = cbMaxResults
         AnchorSideLeft.Side = asrBottom
-        Left = 195
-        Height = 23
+        Left = 182
+        Height = 21
         Hint = 'hier können Sie die Zahl der maximalen Filterergebnisse angeben'
         Top = 5
         Width = 52
@@ -2955,7 +2955,7 @@ inherited fTaskFrame: TfTaskFrame
       OnExecute = acAddTasksfromProjectExecute
     end
   end
-  object Datasource: TDatasource[7]
+  object Datasource: TDataSource[7]
     OnStateChange = DatasourceStateChange
     OnDataChange = DatasourceDataChange
     left = 208
@@ -2966,7 +2966,7 @@ inherited fTaskFrame: TfTaskFrame
     left = 156
     top = 180
   end
-  object History: TDatasource[9]
+  object History: TDataSource[9]
     left = 212
     top = 180
   end
@@ -2986,7 +2986,7 @@ inherited fTaskFrame: TfTaskFrame
     left = 156
     top = 136
   end
-  object MandantDetails: TDatasource[12]
+  object MandantDetails: TDataSource[12]
     AutoEdit = False
     left = 12344
   end
@@ -3012,7 +3012,7 @@ inherited fTaskFrame: TfTaskFrame
     left = 368
     top = 128
   end
-  object Users: TDatasource[14]
+  object Users: TDataSource[14]
     left = 212
     top = 216
   end

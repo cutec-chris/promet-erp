@@ -924,14 +924,14 @@ begin
       sl.SaveToFile(aFile);
       sl.Free;
       if Data.GetLinkLongDesc(aLink)<>'' then
-        aDesc := strDescription+':'+LineEnding+Data.GetLinkLongDesc(aLink);
+        aDesc := strDescription+':'+#9#9#9+LineEnding+Data.GetLinkLongDesc(aLink);
       if FGridView.DataSet.FieldByName('OWNER').AsString<>'' then
         begin
           aUser := TUser.Create(nil);
           aUser.SelectByAccountno(FGridView.DataSet.FieldByName('OWNER').AsString);
           aUser.Open;
           if aUser.Count>0 then;
-            aDesc := strResponsable+':'+aUser.FieldByName('NAME').AsString+LineEnding+aDesc;
+            aDesc := strResponsable+':'+#9#9+aUser.FieldByName('NAME').AsString+LineEnding+aDesc;
           aUser.Free;
         end;
       if FGridView.DataSet.FieldByName('USER').AsString<>'' then
@@ -940,16 +940,16 @@ begin
           aUser.SelectByAccountno(FGridView.DataSet.FieldByName('USER').AsString);
           aUser.Open;
           if aUser.Count>0 then;
-            aDesc := strWorker+':'+aUser.FieldByName('NAME').AsString+LineEnding+aDesc;
+            aDesc := strWorker+':'+#9#9#9+aUser.FieldByName('NAME').AsString+LineEnding+aDesc;
           aUser.Free;
         end;
       if FGridView.DataSet.FieldByName('PROJECT').AsString<>'' then
-        aDesc := strProject+':'+FGridView.DataSet.FieldByName('PROJECT').AsString+LineEnding+aDesc;
+        aDesc := strProject+':'+#9#9#9+FGridView.DataSet.FieldByName('PROJECT').AsString+LineEnding+aDesc;
       if FGridView.DataSet.FieldByName('STARTDATE').AsString<>'' then
-        aDesc := strStart+':'+FGridView.DataSet.FieldByName('STARTDATE').AsString+LineEnding+aDesc;
+        aDesc := strStart+':'+#9#9#9+FGridView.DataSet.FieldByName('STARTDATE').AsString+LineEnding+aDesc;
       if FGridView.DataSet.FieldByName('DUEDATE').AsString<>'' then
-        aDesc := strDue+':'+FGridView.DataSet.FieldByName('DUEDATE').AsString+LineEnding+aDesc;
-      aDesc := strTask+':'+FGridView.DataSet.FieldByName('SUMMARY').AsString+LineEnding+aDesc;
+        aDesc := strDue+':'+#9#9#9#9+FGridView.DataSet.FieldByName('DUEDATE').AsString+LineEnding+aDesc;
+      aDesc := strTask+':'+#9#9#9+FGridView.DataSet.FieldByName('SUMMARY').AsString+LineEnding+aDesc;
       DoSendMail(strTask+':'+Data.GetLinkDesc(aLink),aDesc, aFile,'','','',FSearcheMail);
     end;
 end;
