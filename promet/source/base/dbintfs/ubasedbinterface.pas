@@ -1328,13 +1328,24 @@ begin
         begin
           if TableVersions.Count>0 then
             if TableVersions.FieldByName('DBVERSION').AsInteger>=round(AppVersion*100)+AppRevision then
-              Result := False;
+              begin
+                Result := False;
+              end
+            else
+              begin
+                with BaseApplication as IBaseApplication do
+                  Info('Table "'+aTableName+'" DBVersion '+TableVersions.FieldByName('DBVERSION').AsString+'<'+IntToStr(round(AppVersion*100)+AppRevision));
+              end;
         end;
     end;
   except
   end;
   if Result and SetChecked then
-    FCheckedTables.Add(aTableName);
+    begin
+      FCheckedTables.Add(aTableName);
+      with BaseApplication as IBaseApplication do
+        Info('Table "'+aTableName+'" should be checked');
+    end;
 end;
 function TBaseDBModule.RemoveCheckTable(aTableName: string): Boolean;
 begin
@@ -1795,7 +1806,8 @@ begin
   except
     on e : Exception do
       begin
-        //debugln(e.Message);
+        with BaseApplication as IBaseApplication do
+          Warning('LoadMandants:'+e.Message);
         Result := False;
       end;
   end;

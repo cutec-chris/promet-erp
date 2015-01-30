@@ -2888,6 +2888,8 @@ begin
       begin
         if not Self.CreateTable then
           begin
+            with BaseApplication as IBaseApplication do
+              Info('Table "'+TableName+'" will be altered');
             with DataSet as IBaseManageDB do
               FDataSet.Open;
             AlterTable;
