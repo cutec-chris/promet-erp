@@ -651,7 +651,9 @@ begin
                       TFloatField(Fields[a]).Precision:=5;
                     end;
                 end;
-              if Fields[a] is TDateTimeField then
+              if (Fields[a] is TDateTimeField)
+              or (Fields[a] is TDateField)
+              then
                 TDateTimeField(Fields[a]).DisplayFormat := ShortDateFormat+' '+ShortTimeFormat;
             end;
           EnableControls;

@@ -8,10 +8,10 @@ inherited fTimeOptions: TfTimeOptions
   DesignTop = 240
   object cbMinimizeonStartTime: TCheckBox[0]
     Left = 11
-    Height = 24
+    Height = 17
     Hint = 'beim beginnen eines neuen'#13#10'Zeiteintrages, wird die Anwendung minimiert'
     Top = 8
-    Width = 177
+    Width = 140
     Caption = 'Minimieren beim Beginnen'
     Checked = True
     State = cbChecked
@@ -19,9 +19,9 @@ inherited fTimeOptions: TfTimeOptions
   end
   object cbStartwithStandart: TCheckBox[1]
     Left = 11
-    Height = 24
+    Height = 17
     Top = 40
-    Width = 183
+    Width = 151
     Caption = 'mit Standardeintrag starten'
     Checked = True
     State = cbChecked
@@ -31,7 +31,7 @@ inherited fTimeOptions: TfTimeOptions
     Left = 4
     Height = 13
     Top = 68
-    Width = 100
+    Width = 93
     Caption = 'Standardeintrag'
     Font.Style = [fsBold]
     ParentColor = False
@@ -44,7 +44,7 @@ inherited fTimeOptions: TfTimeOptions
     Width = 525
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.InnerBorder = 2
-    ClientHeight = 194
+    ClientHeight = 180
     ClientWidth = 521
     TabOrder = 2
     object Panel1: TPanel
@@ -61,13 +61,13 @@ inherited fTimeOptions: TfTimeOptions
         Left = 4
         Height = 13
         Top = 3
-        Width = 39
+        Width = 34
         Caption = 'Projekt'
         ParentColor = False
       end
       object eProject: TEditButton
         Left = 80
-        Height = 23
+        Height = 21
         Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
         Top = 0
         Width = 413
@@ -129,7 +129,7 @@ inherited fTimeOptions: TfTimeOptions
       TabOrder = 1
       object eLink: TEditButton
         Left = 80
-        Height = 23
+        Height = 21
         Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
         Top = 0
         Width = 413
@@ -190,7 +190,7 @@ inherited fTimeOptions: TfTimeOptions
         Left = 4
         Height = 13
         Top = 6
-        Width = 40
+        Width = 34
         Caption = 'Eintrag'
         ParentColor = False
       end
@@ -205,21 +205,20 @@ inherited fTimeOptions: TfTimeOptions
       ClientHeight = 28
       ClientWidth = 521
       TabOrder = 2
-      Visible = False
       object cbCategory: TComboBox
         Left = 80
-        Height = 27
+        Height = 21
         Top = 0
         Width = 437
         Anchors = [akTop, akLeft, akRight]
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 0
       end
       object Label1: TLabel
         Left = 4
         Height = 13
         Top = 3
-        Width = 54
+        Width = 46
         Caption = 'Kategorie'
         ParentColor = False
       end
@@ -238,18 +237,18 @@ inherited fTimeOptions: TfTimeOptions
         Left = 4
         Height = 13
         Top = 3
-        Width = 47
+        Width = 41
         Caption = 'Aufgabe'
         ParentColor = False
         ParentFont = False
       end
       object eJob: TComboBox
         Left = 80
-        Height = 27
+        Height = 21
         Top = 0
         Width = 389
         Anchors = [akTop, akLeft, akRight]
-        ItemHeight = 0
+        ItemHeight = 13
         ParentFont = False
         Sorted = True
         TabOrder = 0
@@ -345,25 +344,25 @@ inherited fTimeOptions: TfTimeOptions
     end
     object Panel5: TPanel
       Left = 0
-      Height = 84
+      Height = 70
       Top = 110
       Width = 521
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 84
+      ClientHeight = 70
       ClientWidth = 521
       TabOrder = 4
       object lNotes: TLabel
         Left = 4
         Height = 13
         Top = 3
-        Width = 42
+        Width = 36
         Caption = 'Notizen'
         ParentColor = False
       end
       object mNotes: TMemo
         Left = 80
-        Height = 80
+        Height = 66
         Top = 2
         Width = 439
         Align = alRight
@@ -375,9 +374,9 @@ inherited fTimeOptions: TfTimeOptions
   end
   object cbWorkTimeMessage: TCheckBox[4]
     Left = 232
-    Height = 24
+    Height = 17
     Top = 8
-    Width = 243
+    Width = 201
     Caption = 'Meldung bei Arbeitszeitüberschreitung'
     TabOrder = 3
   end

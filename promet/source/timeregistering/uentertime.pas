@@ -562,8 +562,8 @@ begin
     begin
       Link := DBConfig.ReadString('TIMELINK','');
       Project := DBConfig.ReadString('TIMEPROJECT','');
-      cbCategory.Text := DBConfig.ReadString('TIMECATEGORY','');
-      cbCategory.Text:=DBConfig.ReadString('TIMEJOB','');
+      cbCategory.Text := DBConfig.ReadString('TIMECAT','');
+      eJob.Text:=DBConfig.ReadString('TIMEJOB','');
       mNotes.Lines.Text:=DBConfig.ReadString('TIMENOTES','');
     end;
   acStartExecute(nil);

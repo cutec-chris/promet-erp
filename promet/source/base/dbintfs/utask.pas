@@ -1347,6 +1347,7 @@ begin
             Add('DUEDATE','DUEDATE',[]);
           end;
       UpdateChangedBy:=False;
+      UpdateFloatFields:=True;
     end;
 end;
 procedure TTaskList.FillDefaults(aDataSet: TDataSet);
