@@ -10,6 +10,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
+msgid "wieder starten"
+msgstr ""
+
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
 msgstr ""
@@ -3079,19 +3082,9 @@ msgctxt "TFMAIN.CAPTION"
 msgid "Promet-ERP"
 msgstr ""
 
-#: tfmain.econtains.text
-msgctxt "TFMAIN.ECONTAINS.TEXT"
-msgid "<hier tippen um zu suchen>"
-msgstr ""
-
 #: tfmain.label3.caption
 msgctxt "TFMAIN.LABEL3.CAPTION"
 msgid "Navigation"
-msgstr ""
-
-#: tfmain.label5.caption
-msgctxt "TFMAIN.LABEL5.CAPTION"
-msgid "Suche"
 msgstr ""
 
 #: tfmain.label6.caption
@@ -3139,10 +3132,6 @@ msgstr ""
 #: tfmain.miview.caption
 msgctxt "tfmain.miview.caption"
 msgid "Ansicht"
-msgstr ""
-
-#: tfmain.psearch.caption
-msgid "pSearch"
 msgstr ""
 
 #: tfmain.tbmenue.hint

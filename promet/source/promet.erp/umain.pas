@@ -94,7 +94,6 @@ type
     bDependencies: TSpeedButton;
     Bevel1: TBevel;
     Bevel3: TBevel;
-    Bevel5: TBevel;
     Bevel6: TBevel;
     Bevel7: TBevel;
     bFfwd: TToolButton;
@@ -103,12 +102,8 @@ type
     bPauseTime2: TSpeedButton;
     bPauseTime3: TSpeedButton;
     bPauseTime5: TSpeedButton;
-    bSearch: TSpeedButton;
-    eContains: TEdit;
     IPCTimer: TIdleTimer;
-    Image1: TImage;
     Label3: TLabel;
-    Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
     MenuItem3: TMenuItem;
@@ -118,11 +113,9 @@ type
     Panel3: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
-    Panel8: TPanel;
     pTimes: TPanel;
     pTimes1: TPanel;
     RefreshTimer: TIdleTimer;
-    lbResults: TListBox;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     miHelpIndex: TMenuItem;
@@ -132,7 +125,6 @@ type
     miSettings: TMenuItem;
     Panel1: TPanel;
     pmHistory: TPopupMenu;
-    pSearch: TPanel;
     pcPages: TExtMenuPageControl;
     MainMenu1: TMainMenu;
     miView: TMenuItem;
@@ -142,7 +134,6 @@ type
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     spTree: TSplitter;
-    SearchTimer: TTimer;
     tbMenue: TToolButton;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
@@ -203,7 +194,6 @@ type
     procedure acTaskPlanExecute(Sender: TObject);
     procedure acTasksExecute(Sender: TObject);
     procedure acTimeRegisteringExecute(Sender: TObject);
-    procedure ActiveSearchEndHistorySearch(Sender: TObject);
     procedure acWikiExecute(Sender: TObject);
     procedure acWindowizeExecute(Sender: TObject);
     procedure aFrameTfFilterClose(Sender: TObject; var CloseAction: TCloseAction
@@ -216,14 +206,6 @@ type
     procedure ApplicationProperties1ShowHint(var HintStr: string;
       var CanShow: Boolean; var HintInfo: THintInfo);
     procedure ApplicationTBaseVisualApplicationUserTabAdded(Sender: TObject);
-    procedure bSearchClick(Sender: TObject);
-    procedure DataSearchresultItem(aIdent: string; aName: string;
-      aStatus: string;aActive : Boolean; aLink: string;aPrio :Integer; aItem: TBaseDBList=nil);
-    procedure eContainsEnter(Sender: TObject);
-    procedure eContainsExit(Sender: TObject);
-    procedure eContainsKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
-    procedure eContainsKeyPress(Sender: TObject; var Key: char);
     procedure fMainTreeFrameDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure fMainTreeFrameDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
@@ -241,18 +223,12 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure IPCTimerTimer(Sender: TObject);
-    procedure lbResultsDblClick(Sender: TObject);
-    procedure lbResultsDrawItem(Control: TWinControl; Index: Integer;
-      ARect: TRect; State: TOwnerDrawState);
-    procedure lbResultsExit(Sender: TObject);
-    procedure lbResultsKeyPress(Sender: TObject; var Key: char);
     procedure miOptionsClick(Sender: TObject);
     function OpenAction(aLink: string; Sender: TObject): Boolean;
     function OpenFilter(aLink: string; Sender: TObject): Boolean;
     function OpenOption(aLink: string; Sender: TObject): Boolean;
     procedure pmHistoryPopup(Sender: TObject);
     procedure DoRefreshActiveTab(Sender: TObject);
-    procedure SearchTimerTimer(Sender: TObject);
     procedure SenderTfFilterDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure SenderTfFiltergListDrawColumnCell(Sender: TObject;
@@ -2304,11 +2280,6 @@ begin
     end;
 end;
 
-procedure TfMain.ActiveSearchEndHistorySearch(Sender: TObject);
-begin
-  ActiveSearch.Start(eContains.Text);
-end;
-
 procedure TfMain.acWikiExecute(Sender: TObject);
 var
   i: Integer;
@@ -2430,114 +2401,6 @@ var
 begin
   if Data.Users.Rights.Right('OPTIONS') > RIGHT_READ then
     aFrame.SetupTabEditor(TTabSheet(Sender));
-end;
-procedure TfMain.bSearchClick(Sender: TObject);
-var
-  SearchTypes : TFullTextSearchTypes = [];
-  SearchLocations : TSearchLocations;
-  i: Integer;
-begin
-  if bSearch.Caption = strAbort then
-    begin
-      SearchText := '';
-      if Assigned(ActiveSearch) then
-        ActiveSearch.Abort;
-      bSearch.Caption := strSearch;
-      {$IFDEF MAINAPP}
-      if (fsSerial in SearchTypes) then
-        fOrders.acViewList.Execute;
-      {$ENDIF}
-      exit;
-    end;
-  SearchTypes := SearchTypes+[fsShortnames];
-  SearchTypes := SearchTypes+[fsIdents];
-  SearchTypes := SearchTypes+[fsSerial];
-  SearchTypes := SearchTypes+[fsBarcode];
-  SearchTypes := SearchTypes+[fsCommission];
-  SearchTypes := SearchTypes+[fsDescription];
-  fSearch.SetLanguage;
-  fSearch.LoadOptions('MAIN');
-  for i := 0 to fSearch.cbSearchtype.Count-1 do
-    if fSearch.cbSearchtype.Checked[i] then
-      begin
-        SetLength(SearchLocations,length(SearchLocations)+1);
-        SearchLocations[length(SearchLocations)-1] := fSearch.cbSearchType.Items[i];
-      end;
-
-  lbResults.Clear;
-  SearchLinks.Clear;
-  bSearch.Caption := strAbort;
-  SearchText := eContains.Text;
-  ActiveSearch := TSearch.Create(SearchTypes,SearchLocations,True,5);
-  ActiveSearch.OnItemFound:=@DataSearchresultItem;
-  ActiveSearch.OnEndHistorySearch:=@ActiveSearchEndHistorySearch;
-  ActiveSearch.StartHistorySearch(eContains.Text);
-  while ActiveSearch.Active do Application.ProcessMessages;
-  pSearch.Height := Max(2,Min(lbResults.Count,7))*25;
-  pSearch.Left := Panel8.Left+33;
-  bSearch.Caption:=strSearch;
-end;
-procedure TfMain.DataSearchresultItem(aIdent: string; aName: string;
-  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
-  aItem: TBaseDBList);
-begin
-  if aActive then
-    begin
-      lbResults.AddItem(Data.GetLinkDesc(aLink),nil);
-      SearchLinks.Add(aLink);
-      pSearch.Visible:=True;
-    end;
-end;
-procedure TfMain.eContainsEnter(Sender: TObject);
-begin
-  TEdit(Sender).Font.Color:=clWindowText;
-  TEdit(Sender).Clear;
-end;
-procedure TfMain.eContainsExit(Sender: TObject);
-begin
-  TEdit(Sender).Text:=strSearchText;
-  TEdit(Sender).Font.Color:=clGrayText;
-  if fMain.ActiveControl <> lbResults then
-    begin
-      pSearch.Visible:=False;
-    end;
-end;
-procedure TfMain.eContainsKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-  case Key of
-  VK_PRIOR,
-  VK_UP:
-    begin
-      if lbResults.ItemIndex = -1 then
-        lbResults.ItemIndex:=0;
-      lbResults.ItemIndex:=lbResults.ItemIndex-1;
-    end;
-  VK_NEXT,
-  VK_DOWN:
-    begin
-      if lbResults.ItemIndex = -1 then
-        lbResults.ItemIndex:=0
-      else
-      if lbResults.ItemIndex < lbResults.Count-1 then
-        lbResults.ItemIndex:=lbResults.ItemIndex+1;
-      Key := 0;
-    end;
-  VK_RETURN:
-    begin
-      lbResultsDblClick(nil);
-      Key := 0;
-    end;
-  end;
-end;
-procedure TfMain.eContainsKeyPress(Sender: TObject; var Key: char);
-begin
-  if Key = #27 then
-    pSearch.Visible:=False
-  else
-    begin
-      SearchTimer.Enabled:=True;
-    end;
 end;
 procedure TfMain.fMainTreeFrameDragDrop(Sender, Source: TObject; X, Y: Integer);
 var
@@ -3807,7 +3670,6 @@ begin
   FHistory := THistory.Create;
   FHistory.FwdAction := acForward;
   FHistory.RewAction := acBack;
-  bSearch.Caption:=strSearch;
   SearchLinks := TStringList.Create;
   uMainTreeFrame.fMainTreeFrame := TfMainTree.Create(Self);
   fMainTreeFrame.pcPages := pcPages;
@@ -3842,42 +3704,6 @@ begin
   IPCTimer.Enabled:=True;
 end;
 
-procedure TfMain.lbResultsDblClick(Sender: TObject);
-var
-  aSearchHist: TSearchHistory;
-begin
-  if lbResults.ItemIndex < 0 then exit;
-  eContains.SelectNext(eContains,True,True);
-  pSearch.Visible:=False;
-  if (eContains.Text<>strSearchText) and (trim(eContains.Text)<>'') then
-    begin
-      aSearchHist := TSearchHistory.Create(nil);
-      aSearchHist.Add(eContains.Text,SearchLinks[lbresults.ItemIndex]);
-      aSearchHist.Free;
-    end;
-  Data.GotoLink(SearchLinks[lbresults.ItemIndex]);
-end;
-procedure TfMain.lbResultsDrawItem(Control: TWinControl; Index: Integer;
-  ARect: TRect; State: TOwnerDrawState);
-begin
-  with Control as TListBox do
-    begin
-      canvas.fillrect(arect);
-      if (Index > -1) and (Data.GetLinkIcon(SearchLinks[Index]) > -1) then
-        uBaseVisualControls.fVisualControls.Images.Draw(Canvas,aRect.left,aRect.top,Data.GetLinkIcon(SearchLinks[Index]));
-      canvas.textout(aRect.left+16+2,aRect.top,
-                     items[index]);
-    end;
-end;
-procedure TfMain.lbResultsExit(Sender: TObject);
-begin
-  pSearch.Visible:=False;
-end;
-procedure TfMain.lbResultsKeyPress(Sender: TObject; var Key: char);
-begin
-  if Key = #27 then
-    pSearch.Visible:=false;
-end;
 procedure TfMain.miOptionsClick(Sender: TObject);
 begin
   Screen.Cursor:=crHourGlass;
@@ -4066,12 +3892,6 @@ begin
   except
   end;
 end;
-procedure TfMain.SearchTimerTimer(Sender: TObject);
-begin
-  SearchTimer.Enabled:=False;
-  bSearchClick(nil);
-end;
-
 procedure TfMain.SenderTfFilterDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
