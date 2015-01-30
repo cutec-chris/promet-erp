@@ -973,6 +973,8 @@ var
     FSQLStream.Free;
   end;
 begin
+  with BaseApplication as IBaseApplication do
+    Debug('WikiInclude:'+Inp);
   if pos('datathere(',lowercase(Inp))>0 then
     aDataThere:=False;
   if copy(lowercase(Inp),0,3)='if(' then
