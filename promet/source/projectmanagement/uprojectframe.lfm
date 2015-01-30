@@ -1075,7 +1075,7 @@ inherited fprojectFrame: TfprojectFrame
       object eParent: TEditButton
         Left = 9
         Height = 21
-        Hint = 'der Vohrfahr des Projektes/Prozesses'
+        Hint = 'der Vorfahr des Projektes/Prozesses'
         Top = 14
         Width = 130
         ButtonWidth = 23
