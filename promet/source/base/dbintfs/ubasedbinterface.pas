@@ -1769,13 +1769,12 @@ begin
   FArchiveStore.Free;
   FDB.Permissions.CreateTable;
   FDB.DeletedItems.CreateTable;
-  //FDB.Languages.CreateTable;
   FDB.Forms.CreateTable;
-  FDB.Tree.CreateTable;
   FDB.StorageType.CreateTable;
   FDB.Users.Options.Open;
   if AppendToActiveList then
     FDB.AppendUserToActiveList;
+  FDB.Tree.CreateTable;
   FDB.Users.LoginWasOK;
   Result := True;
 end;
@@ -1864,4 +1863,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

@@ -174,7 +174,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="26">
@@ -563,7 +562,6 @@
         <ComponentName Value="fPasswords"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uPasswords"/>
       </Unit40>
       <Unit41>
         <Filename Value="ucategoryoptions.pas"/>
