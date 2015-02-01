@@ -3372,29 +3372,35 @@ begin
         end;
       etMessages:
         begin
-          Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B')+'))';
-          Data.Tree.DataSet.Filtered:=True;
+          Data.Tree.DataSet.Filter:=Data.QuoteField('PARENT')+'='+Data.QuoteValue('0');
+          Data.Tree.DataSet.Filtered:=False;
           Data.Tree.DataSet.First;
           bTree := TTree.Create(nil);
           while not Data.Tree.dataSet.EOF do
             begin
-              Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-              TTreeEntry(Node1.Data).Rec := Data.Tree.GetBookmark;
-              TTreeEntry(Node1.Data).DataSource := Data.Tree;
-              TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
-              if Data.Tree.FieldByName('TYPE').AsString = 'N' then
+              if (Data.Tree.FieldByName('PARENT').AsString='0') and
+                ((Data.Tree.FieldByName('TYPE').AsString='N')
+              or (Data.Tree.FieldByName('TYPE').AsString='B'))
+              then
                 begin
-                  TTreeEntry(Node1.Data).Typ := etMessageDir;
-                  bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
-                  if bTree.Count>0 then
-                    fMainTreeFrame.tvMain.Items.AddChild(Node1,'');
-                end
-              else if Data.Tree.FieldByName('TYPE').AsString = 'B' then
-                begin
-                  TTreeEntry(Node1.Data).Typ := etMessageBoard;
-                  bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
-                  if bTree.Count>0 then
-                    fMainTreeFrame.tvMain.Items.AddChild(Node1,'');
+                  Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+                  TTreeEntry(Node1.Data).Rec := Data.Tree.GetBookmark;
+                  TTreeEntry(Node1.Data).DataSource := Data.Tree;
+                  TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+                  if Data.Tree.FieldByName('TYPE').AsString = 'N' then
+                    begin
+                      TTreeEntry(Node1.Data).Typ := etMessageDir;
+                      bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
+                      if bTree.Count>0 then
+                        fMainTreeFrame.tvMain.Items.AddChild(Node1,'');
+                    end
+                  else if Data.Tree.FieldByName('TYPE').AsString = 'B' then
+                    begin
+                      TTreeEntry(Node1.Data).Typ := etMessageBoard;
+                      bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
+                      if bTree.Count>0 then
+                        fMainTreeFrame.tvMain.Items.AddChild(Node1,'');
+                    end;
                 end;
               Data.Tree.DataSet.Next;
             end;
