@@ -1334,7 +1334,7 @@ begin
             else
               begin
                 with BaseApplication as IBaseApplication do
-                  Info('Table "'+aTableName+'" DBVersion '+TableVersions.FieldByName('DBVERSION').AsString+'<'+IntToStr(round(AppVersion*100)+AppRevision));
+                  Debug('Table "'+aTableName+'" DBVersion '+TableVersions.FieldByName('DBVERSION').AsString+'<'+IntToStr(round(AppVersion*100)+AppRevision));
               end;
         end;
     end;
@@ -1344,7 +1344,7 @@ begin
     begin
       FCheckedTables.Add(aTableName);
       with BaseApplication as IBaseApplication do
-        Info('Table "'+aTableName+'" should be checked');
+        Debug('Table "'+aTableName+'" should be checked');
     end;
 end;
 function TBaseDBModule.RemoveCheckTable(aTableName: string): Boolean;
