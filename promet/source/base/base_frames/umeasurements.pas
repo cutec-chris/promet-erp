@@ -83,8 +83,10 @@ var
   aSeries: TLineSeries;
   aExtent: TDoubleRect;
 begin
+  if not Assigned(FDataSet) then exit;
   with FDataSet as TMeasurement do
     begin
+      Open;
       First;
       Chart1.Series.Clear;
       while not EOF do
