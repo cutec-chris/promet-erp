@@ -824,10 +824,6 @@ begin
 end;
 
 initialization
-  LoadedLibs := TList.Create;
   Historyrun:=True;
-finalization
-  LoadedLibs.Clear;
-  LoadedLibs.Free;
 end.
 

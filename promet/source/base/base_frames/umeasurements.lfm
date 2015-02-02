@@ -10,20 +10,20 @@ inherited fMeasurementFrame: TfMeasurementFrame
     Height = 385
     Top = 0
     Width = 964
-    ActivePage = Diagramm
+    ActivePage = tsChart
     Align = alClient
     TabIndex = 1
     TabOrder = 0
     object tsData: TTabSheet
       Caption = 'Daten'
-      ClientHeight = 352
-      ClientWidth = 958
+      ClientHeight = 359
+      ClientWidth = 956
       object gAdresses: TDBGrid
         Left = 4
-        Height = 344
+        Height = 351
         Hint = 'wählen Sie hier eine Adresse'
         Top = 4
-        Width = 664
+        Width = 662
         Align = alClient
         AutoFillColumns = True
         BorderSpacing.Around = 4
@@ -32,17 +32,17 @@ inherited fMeasurementFrame: TfMeasurementFrame
         Columns = <        
           item
             Title.Caption = 'Name'
-            Width = 137
+            Width = 136
             FieldName = 'NAME'
           end        
           item
             Title.Caption = 'Typ'
-            Width = 137
+            Width = 136
             FieldName = 'TYPE'
           end        
           item
             Title.Caption = 'ID'
-            Width = 137
+            Width = 136
             FieldName = 'ID'
           end        
           item
@@ -93,8 +93,8 @@ inherited fMeasurementFrame: TfMeasurementFrame
         TitleStyle = tsNative
       end
       object gAdresses1: TDBGrid
-        Left = 672
-        Height = 344
+        Left = 670
+        Height = 351
         Hint = 'wählen Sie hier eine Adresse'
         Top = 4
         Width = 282
@@ -122,16 +122,16 @@ inherited fMeasurementFrame: TfMeasurementFrame
         TitleStyle = tsNative
       end
     end
-    object Diagramm: TTabSheet
+    object tsChart: TTabSheet
       Caption = 'Diagramm'
-      ClientHeight = 352
-      ClientWidth = 958
-      OnShow = DiagrammShow
+      ClientHeight = 359
+      ClientWidth = 956
+      OnShow = tsChartShow
       object Chart1: TChart
         Left = 0
-        Height = 312
+        Height = 319
         Top = 26
-        Width = 958
+        Width = 956
         AxisList = <        
           item
             Grid.Color = clSilver
@@ -168,8 +168,8 @@ inherited fMeasurementFrame: TfMeasurementFrame
       object ChartNavScrollBar1: TChartNavScrollBar
         Left = 0
         Height = 14
-        Top = 338
-        Width = 958
+        Top = 345
+        Width = 956
         Chart = Chart1
         Align = alBottom
         PageSize = 0
@@ -179,35 +179,36 @@ inherited fMeasurementFrame: TfMeasurementFrame
         Left = 0
         Height = 26
         Top = 0
-        Width = 958
+        Width = 956
         Caption = 'ToolBar1'
         EdgeBorders = []
         ShowCaptions = True
         TabOrder = 2
         object ToolButton1: TToolButton
-          Left = 86
+          Left = 70
           Top = 0
           Action = DataSetPrior1
         end
         object ToolButton2: TToolButton
-          Left = 137
+          Left = 110
           Top = 0
           Action = DataSetNext1
         end
         object ToolButton3: TToolButton
-          Left = 164
+          Left = 134
+          Height = 22
           Top = 0
           Width = 10
           Caption = 'ToolButton3'
           Style = tbsSeparator
         end
         object ToolButton4: TToolButton
-          Left = 174
+          Left = 144
           Top = 0
           Action = acZoomOut
         end
         object ToolButton5: TToolButton
-          Left = 224
+          Left = 185
           Top = 0
           Action = acZoomIn
         end
@@ -219,11 +220,11 @@ inherited fMeasurementFrame: TfMeasurementFrame
       end
     end
   end
-  object Measurements: TDatasource[1]
+  object Measurements: TDataSource[1]
     left = 16
     top = 120
   end
-  object MeasurementData: TDatasource[2]
+  object MeasurementData: TDataSource[2]
     left = 16
     top = 176
   end

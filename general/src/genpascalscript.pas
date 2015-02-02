@@ -774,5 +774,10 @@ begin
     FRuntime.Free;
   inherited Destroy;
 end;
+initialization
+  LoadedLibs := TList.Create;
+finalization
+  LoadedLibs.Clear;
+  LoadedLibs.Free;
 end.
 
