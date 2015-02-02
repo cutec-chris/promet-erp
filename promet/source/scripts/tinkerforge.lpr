@@ -267,7 +267,7 @@ begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
         begin
           TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
-          if position=aPosition then
+          if lowercase(position)=lowercase(aPosition) then
             begin
               Result := TBrickletVoltageCurrent(Station.Devices[i]).GetCurrent;
               exit;
@@ -313,7 +313,7 @@ begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
         begin
           TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
-          if position=aPosition then
+          if lowercase(position)=lowercase(aPosition) then
             begin
               Result := TBrickletVoltageCurrent(Station.Devices[i]).GetPower;
               exit;
