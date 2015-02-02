@@ -724,12 +724,7 @@ begin
   or (not DataSet.FieldByName('ACCOUNT').IsNull)
   or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull) then
     pcPages.AddTab(TfFinance.Create(Self),False);
-  FMeasurement := TMeasurement.CreateEx(nil,Data,DataSet.Connection,DataSet.DataSet);
-  FMeasurement.CreateTable;
-  FMeasurement.Open;
-  if FMeasurement.Count>0 then
-    pcPages.AddTab(TfMeasurementFrame.Create(Self),False)
-  else FMeasurement.Free;
+
   mShorttext.SetFocus;
   with Application as TBaseVisualApplication do
     AddTabClasses('ART',pcPages);

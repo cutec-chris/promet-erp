@@ -41,8 +41,8 @@ inherited fprojectFrame: TfprojectFrame
       Width = 65
       Anchors = [akTop, akRight]
       Caption = 'Baum'
-      ClientHeight = 30
-      ClientWidth = 61
+      ClientHeight = 32
+      ClientWidth = 63
       TabOrder = 1
       object bAssignTree: TSpeedButton
         Left = 2
@@ -135,8 +135,8 @@ inherited fprojectFrame: TfprojectFrame
     NewTabImageIndex = 59
     object tsInfo: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 327
-      ClientWidth = 804
+      ClientHeight = 680
+      ClientWidth = 1616
       ImageIndex = 62
       object mInfo: TDBMemo
         Left = 8
@@ -1236,8 +1236,8 @@ inherited fprojectFrame: TfprojectFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 64
-    ClientWidth = 80
+    ClientHeight = 68
+    ClientWidth = 84
     TabOrder = 4
     object iProject: TImage
       Left = 0
@@ -1496,7 +1496,7 @@ inherited fprojectFrame: TfprojectFrame
       OnExecute = acAddScreenshotExecute
     end
   end
-  object Projects: TDataSource[6]
+  object Projects: TDatasource[6]
     OnStateChange = ProjectsStateChange
     left = 144
     top = 64
@@ -1546,7 +1546,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 144
     top = 224
   end
-  object History: TDataSource[10]
+  object History: TDatasource[10]
     left = 176
     top = 224
   end
@@ -1561,7 +1561,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 240
     top = 224
   end
-  object Users: TDataSource[12]
+  object Users: TDatasource[12]
     AutoEdit = False
     left = 368
     top = 224
@@ -1571,7 +1571,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 288
     top = 224
   end
-  object Tasks: TDataSource[14]
+  object Tasks: TDatasource[14]
     left = 176
     top = 256
   end
@@ -1748,7 +1748,7 @@ inherited fprojectFrame: TfprojectFrame
       }
     end
   end
-  object MandantDetails: TDataSource[18]
+  object MandantDetails: TDatasource[18]
     left = 368
     top = 283
   end

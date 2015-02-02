@@ -1238,12 +1238,6 @@ begin
       pcPages.AddTab(aTasks,True);
       aTasks.GridView.GotoRowNumber(aTasks.GridView.gList.FixedRows);
     end;
-  FMeasurement := TMeasurement.CreateEx(nil,Data,DataSet.Connection,DataSet.DataSet);
-  FMeasurement.CreateTable;
-  FMeasurement.Open;
-  if FMeasurement.Count>0 then
-    pcPages.AddTab(TfMeasurementFrame.Create(Self),False)
-  else FMeasurement.Free;
   if Inserted or (TProject(DataSet).Tasks.Count = 0) then
     pcPages.PageIndex:=0;
   if DataSet.State<> dsInsert then
