@@ -323,6 +323,11 @@ begin
     end;
 end;
 
+procedure ScriptCleanup;
+begin
+  TfDisconnect;
+end;
+
 function ScriptDefinition : PChar;stdcall;
 begin
   Result := 'function TfEnumerate : Integer;stdcall;'
@@ -363,6 +368,7 @@ exports
   TfGetPower,
   TfGetPowerById,
 
+  ScriptCleanup,
   ScriptDefinition;
 
 end.
