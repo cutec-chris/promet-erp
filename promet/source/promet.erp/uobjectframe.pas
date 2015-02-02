@@ -524,7 +524,8 @@ begin
   FMeasurement.CreateTable;
   FMeasurement.Open;
   if FMeasurement.Count>0 then
-    pcPages.AddTab(TfMeasurementFrame.Create(Self),False);
+    pcPages.AddTab(TfMeasurementFrame.Create(Self),False)
+  else FMeasurement.Free;
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin

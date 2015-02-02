@@ -640,7 +640,9 @@ begin
   with Application as IBaseApplication do
     Debug('Load Events');
   if not DataSet.DataSet.Active then exit;
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue('C');
+  Data.Categories.DataSet.Filtered:=True;
   DataSet.History.Close;
   with Dataset.DataSet do
     begin

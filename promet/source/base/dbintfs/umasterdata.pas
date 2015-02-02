@@ -639,6 +639,7 @@ begin
   if DataSet.ControlsDisabled then exit;
   if Field.FieldName = 'STATUS' then
     begin
+      if FStatus=Field.AsString then exit;
       History.Open;
       History.AddItem(Self.DataSet,Format(strStatusChanged,[FStatus,Field.AsString]),'','',nil,ACICON_STATUSCH);
       FStatus := Field.AsString;
@@ -945,6 +946,7 @@ begin
             Add('ACCOUNT',ftString,10,False); //Fibu Konto
             Add('ACCOUNTINGINFO',ftMemo,0,False); //Fibu Info
             Add('CATEGORY',ftString,60,False);
+            Add('ISTEMPLATE',ftString,1,False);
             Add('CURRENCY',ftString,5,False);
             Add('CRDATE',ftDate,0,False);
             Add('CHDATE',ftDate,0,False);

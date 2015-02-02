@@ -79,10 +79,10 @@ inherited fWikiFrame: TfWikiFrame
       end
     end
     object DBText1: TDBText
-      Left = 585
+      Left = 576
       Height = 30
       Top = 6
-      Width = 94
+      Width = 103
       Align = alRight
       BorderSpacing.Around = 6
       DataField = 'CAPTION'
@@ -280,8 +280,7 @@ inherited fWikiFrame: TfWikiFrame
         Caption = 'Navigation'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -353,8 +352,7 @@ inherited fWikiFrame: TfWikiFrame
         Caption = 'bearbeiten'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -450,18 +448,18 @@ inherited fWikiFrame: TfWikiFrame
       object tsEdit: TTabSheet
         Tag = 1
         Caption = 'bearbeiten'
-        ClientHeight = 460
-        ClientWidth = 633
+        ClientHeight = 448
+        ClientWidth = 635
         ImageIndex = 67
         object Panel1: TPanel
           Left = 0
-          Height = 460
+          Height = 448
           Top = 0
-          Width = 633
+          Width = 635
           Align = alClient
           BevelOuter = bvNone
-          ClientHeight = 460
-          ClientWidth = 633
+          ClientHeight = 448
+          ClientWidth = 635
           TabOrder = 0
           object dnEdit: TDBNavigator
             Left = 0
@@ -792,9 +790,9 @@ inherited fWikiFrame: TfWikiFrame
           end
           object eTitle: TDBEdit
             Left = 326
-            Height = 21
+            Height = 22
             Top = 16
-            Width = 302
+            Width = 304
             DataField = 'CAPTION'
             DataSource = Wiki
             Anchors = [akTop, akLeft, akRight]
@@ -804,17 +802,17 @@ inherited fWikiFrame: TfWikiFrame
           end
           object lTitle: TLabel
             Left = 326
-            Height = 13
+            Height = 16
             Top = 1
-            Width = 48
+            Width = 63
             Caption = 'Seitentitel'
             ParentColor = False
           end
           object eWikiPage: TDBMemo
             Left = 6
-            Height = 394
+            Height = 382
             Top = 51
-            Width = 424
+            Width = 426
             Anchors = [akTop, akLeft, akRight, akBottom]
             DataField = 'DATA'
             DataSource = Wiki
@@ -869,8 +867,8 @@ inherited fWikiFrame: TfWikiFrame
             ShowCaption = False
           end
           object DBGrid1: TDBGrid
-            Left = 440
-            Height = 378
+            Left = 442
+            Height = 366
             Top = 75
             Width = 188
             Anchors = [akTop, akRight, akBottom]
@@ -879,7 +877,7 @@ inherited fWikiFrame: TfWikiFrame
             Columns = <            
               item
                 Title.Caption = 'Suchbegriff'
-                Width = 155
+                Width = 176
                 FieldName = 'KEYWORD'
               end>
             DataSource = Keywords
@@ -887,7 +885,7 @@ inherited fWikiFrame: TfWikiFrame
             TitleStyle = tsNative
           end
           object Label1: TLabel
-            Left = 440
+            Left = 442
             Height = 17
             Top = 51
             Width = 188

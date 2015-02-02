@@ -27,7 +27,7 @@ resourcestring
   strAllElements                = 'Elemente';
   strMeasurement                = 'Messungen';
   strStructure                  = 'Struktur';
-  strSearchFromProjects         = 'Mit Öffnen wird das gewählte Projekt als Vohrfahr übernommen';
+  strSearchFromProjects         = 'Mit Öffnen wird das gewählte Projekt als Vorfahr übernommen';
   strCommandline                = 'Komandozeile';
   strRepaired                   = 'repariert';
   strDiscarded                  = 'entsorgt';
@@ -243,4 +243,4 @@ resourcestring
                                 ;
 
 implementation
-end.
+end.

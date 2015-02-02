@@ -256,6 +256,9 @@ begin
   FHistory.RewAction := acBack;
   Wiki.DataSet := DataSet.DataSet;
   Keywords.DataSet := TWikiList(DataSet).Keywords.DataSet;
+  {$ifdef DARWIN}
+  ipHTML.DefaultFontSize:=14;
+  {$endif}
 end;
 destructor TfWikiFrame.Destroy;
 begin
@@ -970,6 +973,8 @@ var
     FSQLStream.Free;
   end;
 begin
+  with BaseApplication as IBaseApplication do
+    Debug('WikiInclude:'+Inp);
   if pos('datathere(',lowercase(Inp))>0 then
     aDataThere:=False;
   if copy(lowercase(Inp),0,3)='if(' then

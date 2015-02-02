@@ -108,6 +108,7 @@ begin
       FStandartLink := DBConfig.ReadString('TIMELINK','');
       eJob.Text:=DBConfig.ReadString('TIMEJOB','');
       mNotes.Text:=DBConfig.ReadString('TIMENOTES','');
+      cbCategory.Text:=DBConfig.ReadString('TIMECAT','');
     end;
 end;
 
@@ -131,6 +132,7 @@ begin
       DBConfig.WriteString('TIMELINK',FStandartLink);
       DBConfig.WriteString('TIMEJOB',eJob.Text);
       DBConfig.WriteString('TIMENOTES',mNotes.Text);
+      DBConfig.WriteString('TIMECAT',cbCategory.Text);
     end;
   inherited CommitTransaction;
 end;

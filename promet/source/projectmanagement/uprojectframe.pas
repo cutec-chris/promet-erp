@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ComCtrls,
   Buttons, ActnList, Menus, ExtCtrls, DbCtrls, StdCtrls, uExtControls,
   DBZVDateTimePicker, db, uPrometFrames, uPrometFramesInplace, uBaseDBClasses,
-  Dialogs, Spin, EditBtn,variants,uProjectFlow,uTasks,Graphics;
+  Dialogs, Spin, EditBtn,variants,uProjectFlow,uTasks,Graphics,uMeasurement;
 type
 
   { TfProjectFrame }
@@ -75,6 +75,7 @@ type
     DBCheckBox1: TDBCheckBox;
     DBCheckBox2: TDBCheckBox;
     DBCheckBox3: TDBCheckBox;
+    DBCheckBox4: TDBCheckBox;
     DBZVDateTimePicker4: TDBZVDateTimePicker;
     DBZVDateTimePicker5: TDBZVDateTimePicker;
     eParent: TEditButton;
@@ -196,6 +197,8 @@ type
     FOwners : TStringList;
     FOnStartTime: TOnStartTime;
     FProjectFlow: TProjectFlow;
+    FMeasurement: TMeasurement;
+    procedure AddMeasurement(Sender: TObject);
     procedure AddHistory(Sender: TObject);
     procedure AddPositions(Sender: TObject);
     procedure AddImages(Sender: TObject);
@@ -230,7 +233,7 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uFilterFrame,uBaseSearch,Utils,uprojectimport,uBaseERPDBClasses,uSelectReport,
   uNRights,uprojectpositions,uSearch,LCLProc,utask,uprojectoverview,uBaseVisualApplication,
   uGanttView,uWikiFrame,uWiki,ufinance,uthumbnails,Clipbrd,uscreenshotmain,
-  uBaseApplication;
+  uBaseApplication,umeasurements;
 {$R *.lfm}
 resourcestring
   strNoParent                     = '<kein Vorfahr>';
@@ -358,6 +361,12 @@ begin
         end;
       bProject.Free;
     end;
+end;
+
+procedure TfProjectFrame.AddMeasurement(Sender: TObject);
+begin
+  TfMeasurementFrame(Sender).DataSet := FMeasurement;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
 
 procedure TfProjectFrame.AddHistory(Sender: TObject);
@@ -823,7 +832,9 @@ end;
 
 procedure TfProjectFrame.cbCategorySelect(Sender: TObject);
 begin
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue('P'));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue('P');
+  Data.Categories.DataSet.Filtered:=True;
   if Data.Categories.Locate('NAME',cbCategory.Text,[loCaseInsensitive]) then
     if not Data.Categories.FieldByName('COLOR').IsNull then
       begin
@@ -1028,6 +1039,8 @@ var
   aThumbnails: TThumbnails;
   aStream: TMemoryStream;
 begin
+  DataSet.DataSet.DisableControls;
+  try
   TProject(DataSet).OpenItem;
   pcPages.ClearTabClasses;
   pcPages.CloseAll;
@@ -1062,8 +1075,9 @@ begin
 
   cbCategory.Items.Clear;
   aType := 'P';
-  Data.Categories.CreateTable;
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+  Data.Categories.DataSet.Filtered:=True;
   Data.Categories.First;
   while not Data.Categories.EOF do
     begin
@@ -1073,7 +1087,9 @@ begin
     end;
   cbClass.Items.Clear;
   aType := 'K';
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+  Data.Categories.DataSet.Filtered:=True;
   Data.Categories.First;
   while not Data.Categories.EOF do
     begin
@@ -1258,6 +1274,9 @@ begin
     end;
   SetRights;
   if HasHelp then AddHelp(Self);
+  finally
+    DataSet.DataSet.EnableControls;
+  end;
 end;
 function TfProjectFrame.SetRights: Boolean;
 begin
@@ -1294,6 +1313,9 @@ begin
   FProjectFlow.Font.Height:=8;
   }
   FProjectFlow := nil;
+  {$ifdef DARWIN}
+  cbStatus.Style:=csDropdown;
+  {$endif}
 end;
 destructor TfProjectFrame.Destroy;
 begin

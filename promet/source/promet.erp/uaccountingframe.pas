@@ -147,7 +147,9 @@ begin
           FList.gList.Columns[i].ReadOnly:=False;
           FList.gList.Columns[i].PickList.Clear;
           aType := 'B';
-          Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+          Data.Categories.Open;
+          Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+          Data.Categories.DataSet.Filtered:=True;
           Data.Categories.First;
           while not Data.Categories.EOF do
             begin

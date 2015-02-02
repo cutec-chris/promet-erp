@@ -47,7 +47,7 @@ type
     gAdresses: TDBGrid;
     gAdresses1: TDBGrid;
     PageControl1: TPageControl;
-    Diagramm: TTabSheet;
+    tsChart: TTabSheet;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
@@ -59,7 +59,7 @@ type
     procedure acRefreshExecute(Sender: TObject);
     procedure DataSetNext1Execute(Sender: TObject);
     procedure DataSetPrior1Execute(Sender: TObject);
-    procedure DiagrammShow(Sender: TObject);
+    procedure tsChartShow(Sender: TObject);
   private
     { private declarations }
     Zoom : TDateTime;
@@ -82,9 +82,14 @@ procedure TfMeasurementFrame.acRefreshExecute(Sender: TObject);
 var
   aSeries: TLineSeries;
   aExtent: TDoubleRect;
+  Found: Boolean;
 begin
+  Found := False;
+  PageControl1.ActivePage:=tsData;
+  if not Assigned(FDataSet) then exit;
   with FDataSet as TMeasurement do
     begin
+      Open;
       First;
       Chart1.Series.Clear;
       while not EOF do
@@ -100,6 +105,7 @@ begin
                   Chart1.AxisList[2].Visible:=True;
                   aSeries.AxisIndexY:=2;
                 end;
+              Found := True;
             end;
           Next;
         end;
@@ -108,6 +114,8 @@ begin
       aExtent.a.X:=Position;
       Chart1.LogicalExtent:=aExtent;
     end;
+  if Found then
+    PageControl1.ActivePage:=tsChart;
 end;
 
 procedure TfMeasurementFrame.DataSetNext1Execute(Sender: TObject);
@@ -162,7 +170,7 @@ begin
     end;
 end;
 
-procedure TfMeasurementFrame.DiagrammShow(Sender: TObject);
+procedure TfMeasurementFrame.tsChartShow(Sender: TObject);
 begin
   if IsFirstShow then
     acRefresh.Execute;

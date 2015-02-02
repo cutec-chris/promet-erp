@@ -1199,7 +1199,7 @@ begin
           aProject.History.Open;
           if (FDS.DataSet.FieldByName('SUMMARY').AsString<>'') and (DataSet.Tag<>111) then
             aProject.History.AddItem(aProject.DataSet,Format(strTaskAdded,[FDS.DataSet.FieldByName('SUMMARY').AsString]),Data.BuildLink(FDS.DataSet),'',aProject.DataSet,ACICON_TASKADDED);
-          History.AddItem(Self.DataSet,strProjectChanged,Data.BuildLink(aProject.DataSet),Field.AsString,aProject.DataSet,ACICON_EDITED);
+          History.AddItem(Self.DataSet,strProjectChanged,Data.BuildLink(aProject.DataSet),Data.GetLinkDesc(Data.BuildLink(aProject.DataSet)),aProject.DataSet,ACICON_EDITED);
         end;
       aProject.Free;
       DataSet.FieldByName('SEEN').AsString:='N';
@@ -1347,6 +1347,7 @@ begin
             Add('DUEDATE','DUEDATE',[]);
           end;
       UpdateChangedBy:=False;
+      UpdateFloatFields:=True;
     end;
 end;
 procedure TTaskList.FillDefaults(aDataSet: TDataSet);

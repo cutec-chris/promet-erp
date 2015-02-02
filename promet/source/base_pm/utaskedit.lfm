@@ -125,7 +125,7 @@ object fTaskEdit: TfTaskEdit
       object eProject: TEditButton
         Left = 6
         Height = 21
-        Hint = 'der Vohrfahr des Projektes/Prozesses'
+        Hint = 'der Vorfahr des Projektes/Prozesses'
         Top = 12
         Width = 106
         ButtonWidth = 23

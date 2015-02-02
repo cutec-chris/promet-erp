@@ -1322,7 +1322,7 @@ begin
                     if Data.Tree.FieldByName('TYPE').AsString <> 'F' then
                       begin
                         aNewParent := Data.Tree.id.AsVariant;
-                        Data.SetFilter(Data.Tree,'',0,'','ASC');
+                        Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
                         Data.Tree.GotoBookmark(DataT.Rec);
                         with Data.Tree.DataSet do
                           begin

@@ -1,10 +1,13 @@
-﻿Build 386
+﻿Build 387
+      - Wizardmandant:layout überarbeitte um auf allen Plattformen gut auszusehn
+Build 386
       - Scripte: können wie Prozesse in den Optionen zentral gesteuert werden
       - Links: beim löschen von Links wird überprüft ob Rückverweise vorhanden sind und gefragt ob diese auch gelöscht werden sollen
       - Rechtedialog:Fehler beim Aufruf behoben
       - Scripte: Aufgaben und Projektaufgaben nutzbar
       - Scripte: Nachrichten und Dokumente nutzbar
       - Startzeit auf langsamen Datenbanken nahezu halbiert
+      - kompatibilität für MacOS(X) wiederhergestellt
 Build 385
       - Format funktion für Scripte
       - HTTPEncode funktion für Scripte

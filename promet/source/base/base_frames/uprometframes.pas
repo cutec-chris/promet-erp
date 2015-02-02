@@ -159,6 +159,7 @@ begin
 end;
 procedure TPrometMainFrame.CloseConnection(Ask : Boolean = True);
 begin
+  try
   if not Assigned(FConnection) then exit;
   if Assigned(DataSet) and DataSet.Changed then
     begin
@@ -190,6 +191,8 @@ begin
   with Application as IBaseDbInterface do
     Data.Disconnect(FConnection);
 //  FreeAndNil(FConnection);
+  except
+  end;
 end;
 function TPrometMainFrame.OpenFromLink(aLink: string): Boolean;
 begin

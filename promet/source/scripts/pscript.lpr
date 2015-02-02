@@ -48,6 +48,11 @@ type
 
 { PrometCmdApp }
 
+procedure aSleep(MiliSecValue: cardinal);
+begin
+  sleep(MiliSecValue);
+end;
+
 procedure PrometCmdApp.aScriptReadln(var s: string);
 begin
   readln(s);
@@ -82,6 +87,7 @@ begin
       aScript.Readln:=@aScriptReadln;
       aScript.Write:=@aScriptWrite;
       aScript.Writeln:=@aScriptWriteln;
+      aScript.Sleep:=@aSleep;
       aScript.SelectByName(ParamStr(ParamCount));
       aScript.Open;
       if not aScript.Locate('NAME',ParamStr(ParamCount),[loCaseInsensitive]) then

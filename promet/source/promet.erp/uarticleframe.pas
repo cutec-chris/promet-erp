@@ -22,7 +22,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ExtCtrls,
   ActnList, ComCtrls, StdCtrls, DbCtrls, Buttons, Menus, db, uPrometFrames,
-  uExtControls, uFilterFrame, uIntfStrConsts, Utils, Dialogs, variants;
+  uExtControls, uFilterFrame, uIntfStrConsts, Utils, Dialogs, variants,
+  uMeasurement;
 type
 
   { TfArticleFrame }
@@ -65,6 +66,7 @@ type
     cbCategory: TExtDBCombobox;
     cbVersion: TComboBox;
     cbWarrenty: TDBComboBox;
+    DBCheckBox4: TDBCheckBox;
     eArticleNumber: TDBEdit;
     eBarcode: TDBEdit;
     eManufacturerNR: TDBEdit;
@@ -152,6 +154,8 @@ type
   private
     { private declarations }
     FEditable : Boolean;
+    FMeasurement: TMeasurement;
+    procedure AddMeasurement(Sender: TObject);
     procedure AddDocuments(Sender: TObject);
     procedure AddHistory(Sender: TObject);
     procedure AddImages(Sender: TObject);
@@ -181,7 +185,8 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
   uMainTreeFrame,uPrometFramesInplace,uBaseDBClasses,uarticlesupplierframe,
   uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
-  uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uBaseERPDBClasses;
+  uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uBaseERPDBClasses,
+  umeasurements;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -404,6 +409,13 @@ procedure TfArticleFrame.sbMenueClick(Sender: TObject);
 begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
 end;
+
+procedure TfArticleFrame.AddMeasurement(Sender: TObject);
+begin
+  TfMeasurementFrame(Sender).DataSet := FMeasurement;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
 procedure TfArticleFrame.AddDocuments(Sender: TObject);
 var
   aDocuments: TDocuments;
@@ -712,6 +724,7 @@ begin
   or (not DataSet.FieldByName('ACCOUNT').IsNull)
   or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull) then
     pcPages.AddTab(TfFinance.Create(Self),False);
+
   mShorttext.SetFocus;
   with Application as TBaseVisualApplication do
     AddTabClasses('ART',pcPages);
@@ -924,7 +937,9 @@ begin
   cbCategory.Items.Clear;
   aType := 'M';
   Data.Categories.CreateTable;
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+  Data.Categories.DataSet.Filtered:=True;
   Data.Categories.First;
   while not Data.Categories.EOF do
     begin
@@ -932,6 +947,9 @@ begin
         cbCategory.Items.Add(Data.Categories.FieldByName('NAME').AsString);
       Data.Categories.DataSet.Next;
     end;
+  {$ifdef DARWIN}
+  cbStatus.Style:=csDropdown;
+  {$endif}
 end;
 destructor TfArticleFrame.Destroy;
 begin

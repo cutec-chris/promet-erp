@@ -136,6 +136,7 @@ type
       CallingConv: uPSRuntime.TPSCallingConvention): Boolean;
     property OnUses : TPascalOnUses read FOnUses write FOnUses;
     function Compile: Boolean; override;
+    property Output : string read CompleteOutput;
     constructor Create;override;
     destructor Destroy; override;
     property OnExecuteStep : TNotifyEvent read FExecStep write FExecStep;
@@ -167,7 +168,7 @@ var
   s: String;
   ph: PLoadedDll;
   aLibName: String;
-  actLib: TbtString;
+  actLib: String;
 begin
   Result := ProcessDllImport(Sender,p);
 
@@ -181,8 +182,8 @@ begin
         repeat
           ph := Caller.FindProcResource2(@dllFree, i);
           if (ph = nil) then break;
-          actLib := lowercase(ph^.dllname);
-          if (actLib = aLib) then
+          actLib := lowercase(copy(ph^.dllname,0,rpos('.',ph^.dllname)-1));
+          if (actLib = aLibName) then
             TLoadedLib(LoadedLibs[a]).Handle := ph^.dllhandle;
         until false;
       end;
@@ -201,6 +202,7 @@ end;
 
 type
   aProcT = function : pchar;stdcall;
+  aProcT2 = procedure;stdcall;
 
 procedure OnRunActLine(Sender: TPSExec);
 begin
@@ -668,6 +670,7 @@ function TPascalScript.Execute(aParameters: Variant): Boolean;
 var
   i: Integer;
   aDir: String;
+  aProc: aProcT2;
 begin
   aDir := GetCurrentDir;
   SetCurrentDir(GetHomeDir);
@@ -691,6 +694,12 @@ begin
           FResults:= PSErrorToString(FRuntime.LastEx, '');
         if FProcess.Running then InternalKill;
         Result := True;
+        for i := 0 to LoadedLibs.Count-1 do
+          begin
+            aProc := aprocT2(dynlibs.GetProcAddress(TLoadedLib(LoadedLibs[i]).Handle,'ScriptCleanup'));
+            if Assigned(aProc) then
+              aProc;
+          end;
       except
         on e : Exception do
           begin
@@ -736,10 +745,15 @@ begin
   end else Result := False;
 end;
 function TPascalScript.Compile: Boolean;
+var
+  i: Integer;
 begin
+  CompleteOutput:='';
   Compiler.Obj := Self;
   Compiler.OnUses:= @ExtendICompiler;
   Result:= Compiler.Compile(Source) and Compiler.GetOutput(FBytecode);
+  for i := 0 to Compiler.MsgCount-1 do
+    CompleteOutput:=CompleteOutput+Compiler.Msg[i].MessageToString+LineEnding;
   Result:= Result and FRuntime.LoadData(Bytecode);
 end;
 constructor TPascalScript.Create;
@@ -768,5 +782,10 @@ begin
     FRuntime.Free;
   inherited Destroy;
 end;
+initialization
+  LoadedLibs := TList.Create;
+finalization
+  LoadedLibs.Clear;
+  LoadedLibs.Free;
 end.
 

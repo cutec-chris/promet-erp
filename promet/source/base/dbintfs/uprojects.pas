@@ -255,7 +255,7 @@ begin
   inherited FillDefaults(aDataSet);
   aID := (Parent as TProject).Id.AsVariant;
   aDataSet.FieldByName('PROJECTID').AsVariant:=aID;
-  aDataSet.FieldByName('PROJECT').AsVariant:=(Parent as TProject).Text.AsVariant;
+  aDataSet.FieldByName('PROJECT').AsVariant:=TBaseDBModule(DataModule).GetLinkDesc(TBaseDBModule(DataModule).BuildLink((Parent as TProject).DataSet));
 end;
 procedure TProjectTasks.Open;
 begin
@@ -309,6 +309,7 @@ begin
         History.Open;
       if (Field.FieldName = 'STATUS') then
         begin
+          if FStatus=Field.AsString then exit;
           History.AddItem(Self.DataSet,Format(strStatusChanged,[FStatus,Field.AsString]),'','',DataSet,ACICON_STATUSCH);
           FStatus := Field.AsString;
           if Assigned(FStateChange) then
@@ -701,6 +702,7 @@ begin
             Add('INFORMLEADER',ftString,1,False);
             Add('INFORMPMANAGER',ftString,1,False);
             Add('GROSSPLANNING',ftString,1,False);
+            Add('ISTEMPLATE',ftString,1,False);
             Add('COSTCENTRE',ftString,10,False);//Kostenstelle
             Add('ACCOUNT',ftString,10,False); //Fibu Konto
             Add('ACCOUNTINGINFO',ftMemo,0,False); //Fibu Info

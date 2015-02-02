@@ -41,8 +41,8 @@ inherited fprojectFrame: TfprojectFrame
       Width = 65
       Anchors = [akTop, akRight]
       Caption = 'Baum'
-      ClientHeight = 30
-      ClientWidth = 61
+      ClientHeight = 32
+      ClientWidth = 63
       TabOrder = 1
       object bAssignTree: TSpeedButton
         Left = 2
@@ -135,8 +135,8 @@ inherited fprojectFrame: TfprojectFrame
     NewTabImageIndex = 59
     object tsInfo: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 327
-      ClientWidth = 804
+      ClientHeight = 680
+      ClientWidth = 1616
       ImageIndex = 62
       object mInfo: TDBMemo
         Left = 8
@@ -345,7 +345,7 @@ inherited fprojectFrame: TfprojectFrame
         Left = 432
         Height = 17
         Hint = 'schickt eine Nachricht an den Vorgesetzten '#13#10'wenn Aufgaben erledigt oder wiedereröffnet werden'
-        Top = 72
+        Top = 68
         Width = 133
         AutoSize = True
         Caption = 'Vorgesetzte informieren'
@@ -359,7 +359,7 @@ inherited fprojectFrame: TfprojectFrame
         Left = 432
         Height = 17
         Hint = 'schickt eine Nachricht an den Projektleiter'#13#10'wenn Aufgaben erledigt oder wiedereröffnet werde'
-        Top = 96
+        Top = 88
         Width = 133
         AutoSize = True
         Caption = 'Projektleiter informieren'
@@ -467,7 +467,7 @@ inherited fprojectFrame: TfprojectFrame
         UseDefaultSeparators = True
       end
       object bProjectColor: TColorButton
-        Left = 432
+        Left = 440
         Height = 25
         Top = 13
         Width = 24
@@ -497,6 +497,19 @@ inherited fprojectFrame: TfprojectFrame
         OnSelect = cbCategorySelect
         Sorted = True
         TabOrder = 11
+      end
+      object DBCheckBox4: TDBCheckBox
+        Left = 432
+        Height = 17
+        Top = 108
+        Width = 68
+        AutoSize = True
+        Caption = 'ist Vorlage'
+        DataField = 'ISTEMPLATE'
+        DataSource = Projects
+        TabOrder = 12
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
       end
     end
   end
@@ -1062,7 +1075,7 @@ inherited fprojectFrame: TfprojectFrame
       object eParent: TEditButton
         Left = 9
         Height = 21
-        Hint = 'der Vohrfahr des Projektes/Prozesses'
+        Hint = 'der Vorfahr des Projektes/Prozesses'
         Top = 14
         Width = 130
         ButtonWidth = 23
@@ -1223,8 +1236,8 @@ inherited fprojectFrame: TfprojectFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 64
-    ClientWidth = 80
+    ClientHeight = 68
+    ClientWidth = 84
     TabOrder = 4
     object iProject: TImage
       Left = 0
@@ -1483,7 +1496,7 @@ inherited fprojectFrame: TfprojectFrame
       OnExecute = acAddScreenshotExecute
     end
   end
-  object Projects: TDataSource[6]
+  object Projects: TDatasource[6]
     OnStateChange = ProjectsStateChange
     left = 144
     top = 64
@@ -1533,7 +1546,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 144
     top = 224
   end
-  object History: TDataSource[10]
+  object History: TDatasource[10]
     left = 176
     top = 224
   end
@@ -1548,7 +1561,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 240
     top = 224
   end
-  object Users: TDataSource[12]
+  object Users: TDatasource[12]
     AutoEdit = False
     left = 368
     top = 224
@@ -1558,7 +1571,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 288
     top = 224
   end
-  object Tasks: TDataSource[14]
+  object Tasks: TDatasource[14]
     left = 176
     top = 256
   end
@@ -1573,7 +1586,6 @@ inherited fprojectFrame: TfprojectFrame
     top = 64
   end
   object PopupMenu1: TPopupMenu[17]
-    Images = fVisualControls.Images
     left = 272
     top = 24
     object MenuItem7: TMenuItem
@@ -1736,7 +1748,7 @@ inherited fprojectFrame: TfprojectFrame
       }
     end
   end
-  object MandantDetails: TDataSource[18]
+  object MandantDetails: TDatasource[18]
     left = 368
     top = 283
   end

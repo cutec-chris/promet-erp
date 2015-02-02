@@ -2196,10 +2196,6 @@ begin
       with DataSet as IBaseDBFilter do
         begin
           SetFilter('');
-          if not DataSet.Locate('OPTION',aIdent,[]) then
-            SetFilter(Data.QuoteField('OPTION')+'='+Data.QuoteValue(aIdent));
-          if not DataSet.Locate('OPTION',aIdent,[]) then
-            SetFilter('');
         end;
     end;
   if Locate('OPTION',aIdent,[]) then
@@ -2889,7 +2885,17 @@ begin
     end;
   with FDataSet as IBaseManageDB do
     if (Assigned(Data)) and (Data.ShouldCheckTable(TableName,False)) then
-      Self.CreateTable;
+      begin
+        if not Self.CreateTable then
+          begin
+            with BaseApplication as IBaseApplication do
+              Info('Table "'+TableName+'" will be altered');
+            with DataSet as IBaseManageDB do
+              FDataSet.Open;
+            AlterTable;
+            FDataSet.Close;
+          end;
+      end;
   with DataSet as IBaseManageDB do
     FDataSet.Open;
   if DataSet.Active and FDisplayLabelsWasSet then
@@ -2915,7 +2921,7 @@ begin
       if not Result then
         begin
           aTableName:=TableName;
-          if (not Assigned(Data)) or (Data.ShouldCheckTable(aTableName,False)) then
+          if (not Assigned(Data)) or (Data.ShouldCheckTable(aTableName,True)) then
             begin
               with DataSet as IBaseDbFilter do
                 begin

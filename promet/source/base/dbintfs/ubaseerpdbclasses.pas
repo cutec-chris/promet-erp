@@ -164,6 +164,8 @@ type
   end;
   TCategory = class(TBaseDBDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent; aConnection: TComponent
+  =nil; aMasterdata: TDataSet=nil); override;
   end;
   TFinancialAccounts = class(TBaseDBDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -253,6 +255,19 @@ begin
             Add('COLOR',ftString,30,False);
             Add('ACTIVE',ftString,1,false);
           end;
+    end;
+end;
+
+constructor TCategory.CreateEx(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited;
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with DataSet as IBaseDBFilter do
+        begin
+          Limit := 0;
+        end;
     end;
 end;
 
