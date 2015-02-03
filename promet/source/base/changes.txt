@@ -1,4 +1,6 @@
-﻿Build 387
+﻿Build 388
+      - Filter:Alle Filter wurden immer angezeigt
+Build 387
       - Wizardmandant:layout überarbeitte um auf allen Plattformen gut auszusehn
 Build 386
       - Scripte: können wie Prozesse in den Optionen zentral gesteuert werden
