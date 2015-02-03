@@ -1165,7 +1165,8 @@ begin
           First;
           while not EOF do
             begin
-              cbFilter.Items.Add(FieldbyName('NAME').AsString);
+              if Data.Filters.DataSet.FieldByName('TYPE').AsString=AValue then
+                cbFilter.Items.Add(FieldbyName('NAME').AsString);
               Next;
             end;
         end;
