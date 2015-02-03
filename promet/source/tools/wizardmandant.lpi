@@ -29,7 +29,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
+        <CommandLineParams Value="--firebird --silent"/>
       </local>
     </RunParams>
     <RequiredPackages Count="5">

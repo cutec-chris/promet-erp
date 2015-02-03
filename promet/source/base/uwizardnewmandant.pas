@@ -250,8 +250,13 @@ begin
     end;
 end;
 procedure TfWizardNewMandant.bPrev0Click(Sender: TObject);
+var
+  tmp: String;
 begin
-  TPanel(FindComponent('pCont'+IntToStr(Steps[length(Steps)-1]))).Visible := false;
+  if length(Steps)<2 then exit;
+  tmp := 'pCont'+IntToStr(Steps[length(Steps)-1]);
+  if FindComponent(tmp)<>nil then
+    TPanel(FindComponent(tmp)).Visible := false;
   if FindComponent('pCont'+IntToStr(Steps[length(Steps)-2])) <> nil then
     TPanel(FindComponent('pCont'+IntToStr(Steps[length(Steps)-2]))).Visible := True;
   Setlength(Steps,length(Steps)-1);
@@ -787,7 +792,7 @@ begin
         end;
       Result := 2;
       if Application.HasOption('silent') then
-        Result := 5;
+        Result := 6;
     end;
   2:
     begin
