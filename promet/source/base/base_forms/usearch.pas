@@ -820,6 +820,7 @@ begin
     end;
   with Application as IBaseDbInterface do
     Options := DBConfig.ReadString('SEARCHIN:'+OptionSet,Options);
+  if Options = '' then Options := strMasterdata+';'+strCustomers+';'+strProjects+';';
   while pos(';',Options) > 0 do
     begin
       if cbSearchin.Items.IndexOf(copy(Options,0,pos(';',Options)-1)) <> -1 then
