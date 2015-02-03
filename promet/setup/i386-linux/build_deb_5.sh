@@ -35,6 +35,7 @@ ln -s /usr/lib/$Program/tools/local_appbase $BuildDir/usr/bin/promet-erp-appbase
 ln -s /usr/lib/$Program/tools/mta $BuildDir/usr/bin/promet-erp-mta
 ln -s /usr/lib/$Program/tools/nntpserver $BuildDir/usr/bin/promet-erp-nntp
 ln -s /usr/lib/$Program/tools/syslog $BuildDir/usr/bin/promet-erp-syslog
+ln -s /usr/lib/$Program/tools/pscript $BuildDir/usr/bin/promet-script
 chmod 666 $BuildDir/usr/bin/promet-erp-imap
 chmod 666 $BuildDir/usr/bin/promet-erp-webdav
 chmod 666 $BuildDir/usr/bin/promet-erp-appbase
