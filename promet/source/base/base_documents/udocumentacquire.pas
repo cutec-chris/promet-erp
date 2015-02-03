@@ -22,14 +22,14 @@ unit uDocumentAcquire;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs
   {$IFDEF WINDOWS}
   ,DelphiTwain,Windows
   {$ELSE}
   ,sanescanner,sanetool
   {$ENDIF}
   ,ExtCtrls, Buttons, ComCtrls, StdCtrls,uIntfStrConsts,uOCR,LCLType,
-  uBaseApplication;
+  uBaseApplication,uBaseDbClasses;
 type
 
   { TfAcquire }
@@ -99,6 +99,8 @@ type
 var
   fAcquire: TfAcquire;
 implementation
+{$R *.lfm}
+uses ubaseconfig;
 resourcestring
   strScanNext                   = 'Nächstes Bild scannen';
   strScan                       = 'Scannen';
@@ -176,7 +178,7 @@ begin
 end;
 procedure TfAcquire.cbSourceChange(Sender: TObject);
 begin
-with Application as IBaseApplication do
+with Application as IBaseConfig do
   begin
     Config.WriteString('SCANNERSOURCE',cbSource.Text);
   end;
@@ -207,7 +209,7 @@ begin
   if lbDevices.ItemIndex = -1 then
     if lbDevices.Items.Count = 1 then
       lbDevices.ItemIndex := 0;
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     begin
       if Config.ReadString('SCANNER','') <> '' then
         lbDevices.ItemIndex := lbDevices.Items.IndexOf(Config.ReadString('SCANNER',''));
@@ -228,7 +230,7 @@ end;
 procedure TfAcquire.FormCreate(Sender: TObject);
 begin
   Texts := TOCRPages.Create;
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     tbResolution.Position := Config.ReadInteger('SCANNERRES',200);
 {$IFDEF WINDOWS}
   Scanner := TDelphiTwain.Create(Self);
@@ -287,7 +289,7 @@ var
   opt: TSaneOption;
 {$ENDIF}
 begin
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     Config.WriteString('SCANNER',lbDevices.Items[lbDevices.ItemIndex]);
   {$IFDEF LINUX}
   Scanner.Open(Scanner.DeviceList[lbDevices.ItemIndex]);
@@ -298,7 +300,7 @@ begin
         cbSource.Items.Assign(opt.StringItems);
         cbSource.Hint := opt.Description;
         cbSource.Text:=opt.ReadString;
-        with Application as IBaseApplication do
+        with Application as IBaseConfig do
           begin
             if Config.ReadString('SCANNERSOURCE','') <> '' then
               cbSource.Text := Config.ReadString('SCANNERSOURCE',cbSource.Text);
@@ -366,27 +368,30 @@ begin
   bScan.Enabled := True;
   bScan.Caption := strScan;
   bPreviewScan.Enabled := True;
-  Bitmap.SaveToFile(GetTempdir+DirectorySeparator+'test.bmp');
-  Image.Picture.LoadFromFile(GetTempdir+DirectorySeparator+'test.bmp');
-  if not Preview then
+  with BaseApplication as IBaseApplication do
     begin
-      Setlength(Images,length(Images)+1);
-      Images[length(Images)-1] := TPicture.Create;
-      Images[length(Images)-1].LoadFromFile(GetTempdir+DirectorySeparator+'test.bmp');
-      try
-        Unpaper := TUnPaperProcess.Create(Images[length(Images)-1]);
-        while Unpaper.Running do Application.ProcessMessages;
-      except
-      end;
-      if cbOCR.Checked then
+      Bitmap.SaveToFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
+      Image.Picture.LoadFromFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
+      if not Preview then
         begin
-          uOCR.OnallprocessDone := @OCRDone;
-          StartOCR(Texts,Images[length(Images)-1]);
-        end
-      else
-        bCloseAndUse.Enabled := True;
+          Setlength(Images,length(Images)+1);
+          Images[length(Images)-1] := TPicture.Create;
+          Images[length(Images)-1].LoadFromFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
+          try
+            Unpaper := TUnPaperProcess.Create(Images[length(Images)-1]);
+            while Unpaper.Running do Application.ProcessMessages;
+          except
+          end;
+          if cbOCR.Checked then
+            begin
+              uOCR.OnallprocessDone := @OCRDone;
+              StartOCR(Texts,Images[length(Images)-1]);
+            end
+          else
+            bCloseAndUse.Enabled := True;
+        end;
+      DeleteFile(GetInternalTempDir+DirectorySeparator+'test.bmp');
     end;
-  DeleteFile(GetTempdir+DirectorySeparator+'test.bmp');
   EndScan;
   Scanner.Close;
 end;
@@ -402,7 +407,7 @@ end;
 procedure TfAcquire.tbResolutionChange(Sender: TObject);
 begin
   lresolution.Caption := strResolution+' '+IntToStr(tbResolution.Position)+' dpi';
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     Config.WriteInteger('SCANNERRES',tbResolution.Position);
 end;
 procedure TfAcquire.udPageChanging(Sender: TObject; var AllowChange: Boolean);
@@ -471,6 +476,5 @@ begin
 {$ENDIF}
 end;
 initialization
-  {$I udocumentacquire.lrs}
 end.
 

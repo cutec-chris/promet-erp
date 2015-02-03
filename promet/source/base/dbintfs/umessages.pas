@@ -21,7 +21,7 @@ unit uMessages;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDBInterface, uDocuments,
-  uBaseApplication, uBaseSearch, uIntfStrConsts,LConvEncoding;
+  uBaseApplication, uBaseSearch, uIntfStrConsts;
 type
 
   { TMessageList }
@@ -45,6 +45,9 @@ type
     property MsgID : TField read GetMsgID;
     property Subject : TField read GetSubject;
   end;
+
+  { TMessageContent }
+
   TMessageContent = class(TBaseDBDataSet)
   private
     FMessage: TMessageList;
@@ -55,6 +58,7 @@ type
     procedure Select(aId : string);overload;
     property Message : TMessageList read FMessage write FMessage;
     property AsString : string read GetText;
+    function ToString: ansistring; override;
   end;
   TMessage = class(TMessageList,IBaseHistory)
   private
@@ -65,7 +69,7 @@ type
     function GetSubMessages: TMessageList;
     function GetHistory: TBaseHistory;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure Select(aID : Variant);override;
     procedure Open;override;
@@ -80,6 +84,7 @@ type
     property History : TBaseHistory read FHistory;
     procedure Next; override;
     procedure Prior; override;
+    function ToString: ansistring; override;
   end;
   TSpecialMessage = class(TMessage)
   public
@@ -121,7 +126,7 @@ begin
     begin
       ss := TStringStream.Create('');
       Data.BlobFieldToStream(DataSet,'DATA',ss);
-      sl.Text:=HTMLDecode(ConvertEncoding(ss.DataString,GuessEncoding(ss.DataString),EncodingUTF8));
+      sl.Text:=HTMLDecode(ss.DataString{ConvertEncoding(ss.DataString,GuessEncoding(ss.DataString),EncodingUTF8)});
       sl.TextLineBreakStyle := tlbsCRLF;
       ss.Free;
     end
@@ -132,7 +137,7 @@ begin
       ss.Position:=0;
       tmp := ss.DataString;
       tmp := StripHTML(tmp);
-      tmp := ConvertEncoding(tmp,GuessEncoding(tmp),EncodingUTF8);
+      //tmp := ConvertEncoding(tmp,GuessEncoding(tmp),EncodingUTF8);
       tmp := HTMLDecode(tmp);
       sl.Text:=tmp;
       ss.Free;
@@ -180,11 +185,17 @@ begin
         Limit := 1;
       end;
 end;
+
+function TMessageContent.ToString: ansistring;
+begin
+  Result:=AsString;
+end;
+
 function TMessage.GetSubMessages: TMessageList;
 begin
   if not Assigned(FSubMessages) then
     begin
-      FSubMessages := TMessageList.Create(Owner,DataModule,Connection);
+      FSubMessages := TMessageList.CreateEx(Owner,DataModule,Connection);
       FSubmessages.SelectByParent(Self.Id.AsVariant);
     end;
   Result := FSubMessages;
@@ -195,14 +206,14 @@ begin
   Result := FHistory;
 end;
 
-constructor TMessage.Create(aOwner: TComponent; DM: TComponent;
+constructor TMessage.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
-  FMessageContent := TMessageContent.Create(Owner,DM,aConnection);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FMessageContent := TMessageContent.CreateEx(Owner,DM,aConnection);
   FMessageContent.Message := Self;
-  FDocuments := TDocuments.Create(Owner,DM,aConnection);
+  FDocuments := TDocuments.CreateEx(Owner,DM,aConnection);
   FSubMessages := nil;
 end;
 destructor TMessage.Destroy;
@@ -235,7 +246,7 @@ begin
     Documents.Open;
     while Documents.Count > 0 do
       begin
-        aDocument := TDocument.Create(Self,Data);
+        aDocument := TDocument.CreateEx(Self,Data);
         aDocument.SelectByNumber(Documents.FieldByName('NUMBER').AsInteger);
         aDocument.Open;
         Found := False;
@@ -302,6 +313,11 @@ procedure TMessage.Prior;
 begin
   inherited Prior;
   Content.Select(DataSet.FieldbyName('ID').AsString);
+end;
+
+function TMessage.ToString: ansistring;
+begin
+  Result := Content.ToString;
 end;
 
 function TMessageList.GetMsgID: TField;

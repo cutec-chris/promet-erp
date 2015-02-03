@@ -1,0 +1,60 @@
+object frmGotoLine: TfrmGotoLine
+  Left = 429
+  Height = 100
+  Top = 293
+  Width = 320
+  Caption = 'zu Zeile springen'
+  ClientHeight = 100
+  ClientWidth = 320
+  LCLVersion = '1.3'
+  object lblLineNumber: TLabel
+    Left = 20
+    Height = 13
+    Top = 17
+    Width = 22
+    Caption = 'Zeile'
+    ParentColor = False
+  end
+  object lblCharNumber: TLabel
+    Left = 20
+    Height = 13
+    Top = 58
+    Width = 37
+    Caption = 'Zeichen'
+    ParentColor = False
+  end
+  object edtCharNumber: TEdit
+    Left = 148
+    Height = 21
+    Top = 53
+    Width = 149
+    TabOrder = 1
+  end
+  object edtLineNumber: TEdit
+    Left = 148
+    Height = 21
+    Top = 12
+    Width = 149
+    TabOrder = 0
+  end
+  object Button1: TButton
+    Left = 335
+    Height = 31
+    Top = 50
+    Width = 92
+    Cancel = True
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 3
+  end
+  object btnGoto: TButton
+    Left = 335
+    Height = 31
+    Top = 9
+    Width = 92
+    Caption = 'Go to'
+    Default = True
+    ModalResult = 1
+    TabOrder = 2
+  end
+end

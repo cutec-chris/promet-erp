@@ -1,16 +1,16 @@
 object fbankingDialog: TfbankingDialog
-  Left = 411
+  Left = 425
   Height = 68
-  Top = 287
+  Top = 288
   Width = 440
   AutoSize = True
   Caption = 'fbankingDialog'
   ClientHeight = 68
   ClientWidth = 440
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.3'
   object Label1: TLabel
     Left = 0
-    Height = 17
+    Height = 13
     Top = 0
     Width = 440
     Align = alTop
@@ -31,8 +31,8 @@ object fbankingDialog: TfbankingDialog
     AnchorSideTop.Control = Label1
     AnchorSideTop.Side = asrBottom
     Left = 4
-    Height = 9
-    Top = 21
+    Height = 13
+    Top = 17
     Width = 432
     Align = alBottom
     Anchors = [akTop, akLeft, akRight, akBottom]

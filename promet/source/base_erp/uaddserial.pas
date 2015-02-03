@@ -25,7 +25,7 @@ unit uAddSerial;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons, ExtCtrls,
   uData,db,LCLtype, ButtonPanel;
 
 type
@@ -51,7 +51,7 @@ var
   fAddSerial: TfAddSerial;
 
 implementation
-
+{$R *.lfm}
 resourcestring
   strAddSerialToArticle         = 'Please select Serial for %s Version %s Name %s';
 
@@ -152,7 +152,6 @@ begin
 end;
 
 initialization
-  {$I uaddserial.lrs}
 
 end.
 

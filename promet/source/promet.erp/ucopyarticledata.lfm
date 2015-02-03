@@ -1,18 +1,18 @@
 object fCopyArticleData: TfCopyArticleData
-  Left = 433
-  Height = 227
-  Top = 297
+  Left = 488
+  Height = 245
+  Top = 336
   Width = 280
   ActiveControl = cbCopyPrices
-  Caption = 'fCopyArticleData'
-  ClientHeight = 227
+  Caption = 'Artikel kopieren'
+  ClientHeight = 245
   ClientWidth = 280
   KeyPreview = True
   Position = poMainFormCenter
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.3'
   object lFeaturesforNewArticleversion: TLabel
     Left = 0
-    Height = 38
+    Height = 26
     Top = 0
     Width = 280
     Align = alTop
@@ -24,40 +24,40 @@ object fCopyArticleData: TfCopyArticleData
   end
   object cbCopyPrices: TCheckBox
     Left = 16
-    Height = 24
+    Height = 17
     Top = 124
-    Width = 68
+    Width = 47
     Caption = 'Preise'
     TabOrder = 0
   end
   object cbCopyProperties: TCheckBox
     Left = 16
-    Height = 24
+    Height = 17
     Top = 98
-    Width = 120
+    Width = 86
     Caption = 'Eigenschaften'
     TabOrder = 1
   end
   object cbCopyTexts: TCheckBox
     Left = 16
-    Height = 24
+    Height = 17
     Top = 72
-    Width = 63
+    Width = 46
     Caption = 'Texte'
     TabOrder = 2
   end
   object cbCopySupplier: TCheckBox
     Left = 16
-    Height = 24
+    Height = 17
     Top = 150
-    Width = 104
+    Width = 73
     Caption = 'Lieferanten'
     TabOrder = 3
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 37
-    Top = 184
+    Height = 34
+    Top = 205
     Width = 268
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -70,4 +70,4 @@ object fCopyArticleData: TfCopyArticleData
     TabOrder = 4
     ShowButtons = [pbOK, pbCancel]
   end
-end
+end

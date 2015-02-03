@@ -22,7 +22,7 @@ unit uMessageEdit;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Dialogs, Buttons, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Dialogs, Buttons, StdCtrls,
   ExtCtrls, ComCtrls, Utils, db, uIntfStrConsts, md5, mimepart, mimemess,
   Variants, uExtControls, uViewMessage, FileUtil, LCLType,
   ActnList, urichframe, RichMemo, LCLProc, ClipBrd, Menus, DbCtrls, EditBtn,
@@ -93,7 +93,7 @@ type
     procedure lbResultsDblClick(Sender: TObject);
     procedure MessageEditChange(Sender: TObject);
     procedure SenderTComboBoxActiveSearchItemFound(aIdent: string;
-      aName: string; aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aName: string; aStatus: string;aActive : Boolean; aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
   private
     FConnection: TComponent;
     FDataSet: TMessage;
@@ -124,6 +124,7 @@ type
     procedure OpenFromLink(aLink : string);
   end;
 implementation
+{$R *.lfm}
 uses uLogWait,uData,uBaseDbInterface,uBaseVisualApplication,
   uDocuments, lconvencoding, uOrder,uPrometFrames,uPerson,lMessages,uEditText,
   uMimeMessages,uHistoryFrame,uprometframesinplace,uMessageRoute;
@@ -199,7 +200,7 @@ constructor TfMessageEdit.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FConnection := Data.GetNewConnection;
-  FDataSet := TMessage.Create(Self,Data,FConnection);
+  FDataSet := TMessage.CreateEx(Self,Data,FConnection);
 end;
 destructor TfMessageEdit.Destroy;
 begin
@@ -231,7 +232,7 @@ var
   var a : Integer;
     aGUID : TGuid;
   begin
-    bDataSet := TMessage.Create(Self,Data);
+    bDataSet := TMessage.CreateEx(Self,Data);
     Randomize;
     bDataSet.Insert;
     tmpID := '';
@@ -274,7 +275,7 @@ var
       end;
     bDataSet.Content.DataSet.Post;
     bDataSet.CascadicPost;
-    aDocuments := TDocuments.Create(Self,Data);
+    aDocuments := TDocuments.CreateEx(Self,Data);
     aDocuments.Select(FDataSet.Content.Id.AsVariant,'N',tmpID,Null,Null);
     aDocuments.Open;
     if aDocuments.Count > 0 then
@@ -283,7 +284,7 @@ var
           begin
             while not EOF do
               begin
-                bDocument := TDocument.Create(Self,Data);
+                bDocument := TDocument.CreateEx(Self,Data);
                 bDocument.Select(bDataSet.Content.Id.AsVariant,'N',tmpID,Null,Null);
                 bDocument.AddFromLink(Data.BuildLink(aDocuments.DataSet));
                 bDocument.Free;
@@ -297,7 +298,7 @@ var
 begin
   if lowercase(copy(cbTo.text,length(cbTo.Text)-5,6)) = '@lists' then
     begin
-      aLists := TLists.Create(Self,Data);
+      aLists := TLists.CreateEx(Self,Data);
       aLists.Open;
       if not aLists.DataSet.Locate('NAME',copy(cbTo.Text,0,length(cbTo.Text)-6),[loCaseInsensitive]) then
         FreeAndNil(aLists)
@@ -331,15 +332,15 @@ begin
                 end;
               if (copy(tmp,0,pos('@',tmp)-1) = 'CUSTOMERS') then
                 begin
-                  aPerson := TPerson.Create(Self,Data);
+                  aPerson := TPerson.CreateEx(Self,Data);
                   aPerson.SelectFromLink(tmp);
                   aPerson.Open;
-                  aPerson.CustomerCont.Open;
-                  if aPerson.CustomerCont.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
-                  or aPerson.CustomerCont.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
+                  aPerson.ContactData.Open;
+                  if aPerson.ContactData.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
+                  or aPerson.ContactData.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
                   then
                     begin
-                      FieldbyName('RECEIVERS').AsString := aPerson.CustomerCont.FieldByName('DATA').AsString;
+                      FieldbyName('RECEIVERS').AsString := aPerson.ContactData.FieldByName('DATA').AsString;
                       with aLists.Entrys.DataSet do
                         begin
                           Edit;
@@ -390,15 +391,15 @@ begin
                     end;
                   if (copy(tmp,0,pos('@',tmp)-1) = 'CUSTOMERS') then
                     begin
-                      aPerson := TPerson.Create(Self,Data);
+                      aPerson := TPerson.CreateEx(Self,Data);
                       aPerson.SelectFromLink(tmp);
                       aPerson.Open;
-                      aPerson.CustomerCont.Open;
-                      if aPerson.CustomerCont.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
-                      or aPerson.CustomerCont.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
+                      aPerson.ContactData.Open;
+                      if aPerson.ContactData.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
+                      or aPerson.ContactData.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
                       then
                         begin
-                          SendMessageCopyTo(aPerson.Customercont.FieldByName('DATA').AsString);
+                          SendMessageCopyTo(aPerson.ContactData.FieldByName('DATA').AsString);
                           with aLists.Entrys.DataSet do
                             begin
                               Edit;
@@ -532,7 +533,7 @@ var
   aLinkIndex: Integer;
   i: Integer;
 begin
-  aOrderType := TOrderTyp.Create(Self,Data);
+  aOrderType := TOrderTyp.CreateEx(Self,Data);
   Data.SetFilter(aOrderType,Data.QuoteField('STATUSNAME')+'='+Data.QuoteValue(copy(TMenuItem(Sender).Caption,length(strNewOrder)+1,length(TMenuItem(Sender).Caption))));
   if (aOrderType.Count > 0) and Assigned(FDocumentFrame) then
     begin
@@ -653,17 +654,17 @@ begin
   tmp := copy(tmp,0,pos(',',tmp));
   if lbResults.ItemIndex < 0 then exit;
   pSearch.Visible:=False;
-  aPerson := TPerson.Create(nil,Data);
+  aPerson := TPerson.Create(nil);
   aPerson.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
   aPerson.Open;
   if aPerson.Count > 0 then
     begin
-      Data.SetFilter(aPerson.CustomerCont,Data.QuoteField('TYPE')+'='+Data.QuoteValue('MAIL'));
-      if aPerson.CustomerCont.Count > 0 then
+      Data.SetFilter(aPerson.ContactData,Data.QuoteField('TYPE')+'='+Data.QuoteValue('MAIL'));
+      if aPerson.ContactData.Count > 0 then
         begin
-          aPerson.CustomerCont.DataSet.Locate('ACTIVE','Y',[]);
-          if aPerson.CustomerCont.FieldByName('ACTIVE').AsString <> 'N' then
-            tmp := tmp+aPerson.CustomerCont.FieldByName('DATA').AsString;
+          aPerson.ContactData.DataSet.Locate('ACTIVE','Y',[]);
+          if aPerson.ContactData.FieldByName('ACTIVE').AsString <> 'N' then
+            tmp := tmp+aPerson.ContactData.FieldByName('DATA').AsString;
         end;
     end;
   aPerson.Free;
@@ -673,7 +674,7 @@ begin
     TComboBox(ActiveSearch.Sender).Text := tmp+',';
   if copy(tmp,0,pos('@',tmp)-1) = 'LISTS' then
     begin
-      aList := TLists.Create(Self,Data);
+      aList := TLists.CreateEx(Self,Data);
       aList.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
       aList.Open;
       TComboBox(ActiveSearch.Sender).Text := aList.FieldByName('NAME').AsString+'@lists';
@@ -686,7 +687,8 @@ begin
   IsModified := True;
 end;
 procedure TfMessageEdit.SenderTComboBoxActiveSearchItemFound(aIdent: string;
-  aName: string; aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aName: string; aStatus: string; aActive: Boolean; aLink: string;
+  aPrio: Integer; aItem: TBaseDBList);
 begin
   with pSearch do
     begin
@@ -748,7 +750,7 @@ begin
   MarkReadOnly;
   IsModified := False;
   pcTabs.AddTabClass(TfDocumentFrame,strAttatchments,@AddDocuments);
-  aDocuments := TDocuments.Create(Self,Data);
+  aDocuments := TDocuments.CreateEx(Self,Data);
   if FDataSet.Content.Count > 0 then
     begin
       aDocuments.Select(FDataSet.Content.Id.AsVariant,'N',DataSet.FieldByName('ID').AsString,Null,Null);
@@ -821,6 +823,7 @@ begin
       inc(i);
   fRichEdit.AsText:=sl.Text;
   sl.Free;
+  FDataSet.FieldByName('PARENT').AsVariant:=AnswerMessage.Number.AsVariant;
   AddSignature;
   MarkReadWrite;
   pcTabs.AddTabClass(TfDocumentFrame,strAttatchments,@AddDocuments);
@@ -918,7 +921,7 @@ begin
   eCC.Text:='';
   eSubject.Text := '';
 
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   aDocument.Select(0);
   aDocument.Open;
   aDocument.Ref_ID:=FDataSet.Content.Id.AsVariant;
@@ -933,7 +936,7 @@ begin
   aDocument.Free;
 
   pcTabs.AddTabClass(TfDocumentFrame,strAttatchments,@AddDocuments);
-  aDocuments := TDocuments.Create(Self,Data);
+  aDocuments := TDocuments.CreateEx(Self,Data);
   aDocuments.Select(FDataSet.Content.Id.AsVariant,'N',DataSet.FieldByName('ID').AsString,Null,Null);
   aDocuments.Open;
   pcTabs.AddTab(TfDocumentFrame.Create(Self),False);
@@ -956,7 +959,7 @@ begin
                      '',
                      Null,
                      copy(ExtractFileName(Document),0,rpos('.',ExtractFileName(Document))-1),
-                            UTF8ToSys(Document),
+                            UniToSys(Document),
                             DeleteFile,
                             Now());
   frDocuments.Refresh(tmpMID,'N',FDataSet.FieldByName('ID').AsString,Null,Null);
@@ -1076,7 +1079,7 @@ begin
     end;
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
 //      aDocuments.Select(DataSet.Id.AsVariant,'N',DataSet.FieldByName('ID').AsString,Null,Null);
 //      aDocuments.Open;
@@ -1084,9 +1087,9 @@ begin
     end;
   FDocumentFrame := TfDocumentFrame(Sender);
   aItem := TMenuItem.Create(TfDocumentFrame(Sender).pmDocumentAction);
-  aItem.Caption:=strVoucher;
+  aItem.Caption:=strNewVoucher;
   TfDocumentFrame(Sender).pmDocumentAction.Items.Add(aItem);
-  aOrderType := TOrderTyp.Create(Self,Data);
+  aOrderType := TOrderTyp.CreateEx(Self,Data);
   aOrderType.Open;
   Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
   aOrderType.DataSet.First;
@@ -1114,6 +1117,5 @@ begin
 end;
 
 initialization
-  {$I umessageedit.lrs}
 end.
 

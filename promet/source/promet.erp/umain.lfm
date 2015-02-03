@@ -1,11 +1,11 @@
 object fMain: TfMain
-  Left = 451
+  Left = 381
   Height = 600
-  Top = 162
+  Top = 131
   Width = 868
   ActiveControl = Panel1
   Caption = 'Promet-ERP'
-  ClientHeight = 578
+  ClientHeight = 579
   ClientWidth = 868
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -20,7 +20,7 @@ object fMain: TfMain
   LCLVersion = '1.3'
   object spTree: TSplitter
     Left = 291
-    Height = 528
+    Height = 529
     Top = 50
     Width = 5
     Color = clBtnFace
@@ -29,13 +29,12 @@ object fMain: TfMain
   end
   object pcPages: TExtMenuPageControl
     Left = 296
-    Height = 528
+    Height = 529
     Top = 50
     Width = 572
     ActivePage = tsStartpage
     Align = alClient
     DragMode = dmAutomatic
-    Images = fVisualControls.Images
     TabIndex = 0
     TabOrder = 1
     NewTabImageIndex = 59
@@ -56,32 +55,21 @@ object fMain: TfMain
     Color = clBtnFace
     ParentColor = False
     TabOrder = 2
-    object Panel2: TPanel
-      Left = 0
-      Height = 5
-      Top = 45
-      Width = 868
-      Align = alBottom
-      BevelOuter = bvNone
-      Color = clBtnFace
-      ParentColor = False
-      TabOrder = 0
-    end
     object Panel6: TPanel
       Left = 0
-      Height = 45
+      Height = 50
       Top = 0
-      Width = 128
+      Width = 218
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 45
-      ClientWidth = 128
-      TabOrder = 1
+      ClientHeight = 50
+      ClientWidth = 218
+      TabOrder = 0
       object Label3: TLabel
         Left = 4
         Height = 15
-        Top = 0
-        Width = 120
+        Top = 5
+        Width = 210
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -94,8 +82,8 @@ object fMain: TfMain
       end
       object Bevel3: TBevel
         Left = 0
-        Height = 37
-        Top = 4
+        Height = 0
+        Top = 47
         Width = 8
         Align = alLeft
         BorderSpacing.Top = 4
@@ -103,17 +91,17 @@ object fMain: TfMain
         Shape = bsLeftLine
       end
       object ToolBar1: TToolBar
-        Left = 1
-        Top = 12
-        Width = 124
-        Align = alNone
-        BorderSpacing.Left = 1
-        ButtonHeight = 32
+        Left = 39
+        Height = 29
+        Top = 16
+        Width = 179
+        BorderSpacing.Left = 39
+        BorderSpacing.Top = 16
+        ButtonHeight = 30
         ButtonWidth = 55
         Caption = 'ToolBar1'
         Color = clBtnFace
         EdgeBorders = []
-        Flat = False
         Images = fVisualControls.Images
         ParentColor = False
         TabOrder = 0
@@ -137,41 +125,22 @@ object fMain: TfMain
           ShowCaption = False
           ShowHint = True
         end
+        object ToolButton1: TToolButton
+          Left = 123
+          Top = 0
+          Action = acStartPage
+        end
       end
-    end
-    object Panel7: TPanel
-      Left = 227
-      Height = 45
-      Top = 0
-      Width = 41
-      Align = alLeft
-      BevelOuter = bvNone
-      ClientHeight = 45
-      ClientWidth = 41
-      TabOrder = 2
-      object Label4: TLabel
-        Left = 4
-        Height = 15
-        Top = 1
-        Width = 33
-        Alignment = taCenter
-        Anchors = [akLeft, akRight, akBottom]
-        AutoSize = False
-        BorderSpacing.Left = 5
-        Caption = 'Ansicht'
-        Font.Color = clMedGray
-        Font.Height = 11
-        ParentColor = False
-        ParentFont = False
-      end
-      object ToolButton2: TSpeedButton
-        Left = 4
-        Height = 29
-        Top = 15
-        Width = 29
+      object tbTreeVisible: TSpeedButton
+        Left = -1
+        Height = 44
+        Top = 9
+        Width = 37
         Action = acShowTree
         AllowAllUp = True
+        Color = clWindow
         Down = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -211,157 +180,22 @@ object fMain: TfMain
         GroupIndex = 1234
         ShowCaption = False
       end
-      object Bevel9: TBevel
-        Left = 0
-        Height = 37
-        Top = 4
-        Width = 8
-        Align = alLeft
-        BorderSpacing.Top = 4
-        BorderSpacing.Bottom = 4
-        Shape = bsLeftLine
-      end
-    end
-    object Panel8: TPanel
-      Left = 488
-      Height = 45
-      Top = 0
-      Width = 380
-      Align = alRight
-      BevelOuter = bvNone
-      ClientHeight = 45
-      ClientWidth = 380
-      TabOrder = 3
-      object Label5: TLabel
-        Left = 4
-        Height = 15
-        Top = 0
-        Width = 372
-        Alignment = taCenter
-        Anchors = [akLeft, akRight, akBottom]
-        AutoSize = False
-        BorderSpacing.Left = 5
-        Caption = 'Suche'
-        Font.Color = clMedGray
-        Font.Height = 11
-        ParentColor = False
-        ParentFont = False
-      end
-      object Bevel5: TBevel
-        Left = 0
-        Height = 37
-        Top = 4
-        Width = 8
-        Align = alLeft
-        BorderSpacing.Top = 4
-        BorderSpacing.Bottom = 4
-        Shape = bsLeftLine
-      end
-      object bSearch: TSpeedButton
-        Left = 356
-        Height = 22
-        Top = 15
-        Width = 23
-        Anchors = [akTop, akRight]
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00145D9503105A921AFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF0022669E061B629AAD22679DFF115B9387FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF003272
-          AA062B6DA5AD558DBCFF89B5DDFF185F97FFFFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00447FB7063C79
-          B1AD6497C5FF9DC1E4FF6699C7FF1F659DEBFFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00DDB28F02D9AE8A97D6A985E3D3A57FFDD0A07BFDCD9C76E4A2938ADE75A2
-          CCFFABCBE8FF76A4CEFF3070A8EB286BA327FFFFFF00FFFFFF00FFFFFF00E4BD
-          9B02E1B896C0E8C9AEFFF5E1CDFFF7E5D3FFF7E5D1FFF3DDC8FFDFBA9CFFC7A8
-          91FF86AED5FF417DB5EB3977AF27FFFFFF00FFFFFF00FFFFFF00FFFFFF00E8C3
-          A297EDD0B7FFF8E8D9FFF5DEC8FFF3D8BDFFF3D6BBFFF4DBC2FFF7E4D2FFDFBB
-          9DFF9D9492F74B84BC27FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00ECC8
-          A8E3F7E7D7FFF6E1CCFFF4DBC2FFF4DAC0FFF3D8BDFFF3D7BBFFF4DBC2FFF3DE
-          C9FFCD9F7BE7FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F0CE
-          AEFDF9ECDFFFF5DFC8FFF5DDC6FFF4DCC3FFF4DAC1FFF3D9BEFFF3D7BDFFF8E6
-          D3FFD3A57FFDFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F4D3
-          B4FDF9EDE1FFF6E1CCFFF5DFC9FFF5DEC7FFF4DCC4FFF4DBC2FFF4DAC0FFF8E7
-          D6FFD7AA86FDFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F7D7
-          B9E3F9EBDEFFF7E7D6FFF6E1CCFFF5E0CAFFF5DEC8FFF5DDC5FFF6E1CBFFF5E2
-          D0FFDBB08CE3FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FADB
-          BD97F8E2CCFFFAEEE3FFF7E7D6FFF6E2CEFFF6E1CBFFF6E3D0FFF9EADDFFECCF
-          B5FFDFB69397FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FCDE
-          C002FADBBEC0F9E2CDFFFAECDEFFF9EEE2FFF9EDE2FFF8E9DAFFF0D5BDFFE7C0
-          9FC0E3BC9A02FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FCDEC102FADCBF97F9D9BBE3F6D6B8FDF4D3B4FDF1CFAFE3EECBAB97EBC6
-          A602FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
-        }
-        Visible = False
-        OnClick = bSearchClick
-        ShowCaption = False
-      end
-      object eContains: TEdit
-        Left = 28
-        Height = 24
-        Top = 15
-        Width = 328
-        Anchors = [akTop, akRight]
-        Font.Color = clGrayText
-        OnEnter = eContainsEnter
-        OnExit = eContainsExit
-        OnKeyDown = eContainsKeyDown
-        OnKeyPress = eContainsKeyPress
-        ParentFont = False
-        TabStop = False
-        TabOrder = 0
-        Text = '<hier tippen um zu suchen>'
-      end
-      object Image1: TImage
-        Left = 7
-        Height = 19
-        Top = 15
-        Width = 17
-        Picture.Data = {
-          1754506F727461626C654E6574776F726B477261706869633902000089504E47
-          0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000002
-          0049444154789CA5903F6813511CC74B84CC0A0EA283D025828BB8092E829BB3
-          8B2282681D4410C18A14E9A2158B2236EA61ED598956624B521563AB49EAC5DA
-          26317F1A0D4D4CD3BB3377D1442F0D95CBE5FEE0F1F55DAA2ECD89D5E1F3786F
-          F87CDEFBBD0E001DFFC3EF4D84FBEE78B56850C1822E4EE69AE6B36CC31C9FFB
-          268E25EAD4C359C9F1C70043E4A9A2C1A4041D5CCD8050D7212CE958F8A2213C
-          BF8C61A6C20C86C4B691D6122E1A5452D020D60DE42A2AD2421389521319B109
-          F6AB8EC05C0DEEE73C651B789157454ED25B7292886F3F2A88710A6658652524
-          28B8F2B828DA06AC794BE4C9961CE7154489FC66B181D7C506988506096BE81B
-          CD9BB6017F7AD9E46B3A62449E25B74E133942C4A9828C705E46F6B386DE91AC
-          7DC01BAB89F99FCFFF756BF8838C2091AD739C93D1339CAAD8063CD3556A22B3
-          8442556BCDDE92732BF2FBB20A3AC863E006AD862EEC73B50DDC09971DB7264B
-          8C3F5E45AAA420FB49C53B428C9531F492C7756F14F3FE3E04CEEF91C6CFEE72
-          AD0A585C7BCA3AFAFD05EAE2A39C68CDDB732F63760FA5CAFD6E0F97F49C4135
-          3186F4836E784FED90EE9FD8E65A15B063A277AFF3C9B9DDBE19EA28CA111AD1
-          DB5DA08F6D95FE3A60317A7AA773E4E4765FE8EA7EB081CBA00E6FC29A021677
-          BB3A9D8347B6F8E8E39D701FDC7069CD018B9B8736AE1B38B07E73DB4FFC577E
-          00F1E80A7857A271350000000049454E44AE426082
-        }
-      end
     end
     object pTimes: TPanel
-      Left = 164
-      Height = 45
+      Left = 218
+      Height = 50
       Top = 0
       Width = 63
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 45
+      ClientHeight = 50
       ClientWidth = 63
-      TabOrder = 4
+      TabOrder = 1
       Visible = False
       object Label6: TLabel
         Left = 4
         Height = 15
-        Top = 1
+        Top = 6
         Width = 55
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -375,7 +209,7 @@ object fMain: TfMain
       end
       object Bevel6: TBevel
         Left = 0
-        Height = 37
+        Height = 42
         Top = 4
         Width = 8
         Align = alLeft
@@ -391,6 +225,7 @@ object fMain: TfMain
         Width = 29
         AllowAllUp = True
         Caption = 'acPauseTime'
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00A2A2
@@ -439,6 +274,7 @@ object fMain: TfMain
         Width = 29
         Action = acStandartTime
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00A2A2
@@ -480,19 +316,19 @@ object fMain: TfMain
       end
     end
     object pTimes1: TPanel
-      Left = 268
-      Height = 45
+      Left = 281
+      Height = 50
       Top = 0
       Width = 120
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 45
+      ClientHeight = 50
       ClientWidth = 120
-      TabOrder = 5
+      TabOrder = 2
       object Label7: TLabel
         Left = 4
         Height = 15
-        Top = 1
+        Top = 6
         Width = 112
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -506,7 +342,7 @@ object fMain: TfMain
       end
       object Bevel7: TBevel
         Left = 0
-        Height = 37
+        Height = 42
         Top = 4
         Width = 8
         Align = alLeft
@@ -521,6 +357,7 @@ object fMain: TfMain
         Width = 29
         Action = acNewOrder
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00BB6A
@@ -568,6 +405,7 @@ object fMain: TfMain
         Width = 29
         Action = acNewContact
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -615,6 +453,7 @@ object fMain: TfMain
         Width = 29
         Action = acNewMessage
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -662,6 +501,7 @@ object fMain: TfMain
         Width = 29
         Action = acNewTermin
         AllowAllUp = True
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF008484
@@ -703,89 +543,6 @@ object fMain: TfMain
         ShowCaption = False
       end
     end
-    object pTimes2: TPanel
-      Left = 128
-      Height = 45
-      Top = 0
-      Width = 36
-      Align = alLeft
-      BevelOuter = bvNone
-      ClientHeight = 45
-      ClientWidth = 36
-      TabOrder = 6
-      object Label8: TLabel
-        Left = 4
-        Height = 15
-        Top = 1
-        Width = 28
-        Alignment = taCenter
-        Anchors = [akLeft, akRight, akBottom]
-        AutoSize = False
-        BorderSpacing.Left = 5
-        Caption = 'Start'
-        Font.Color = clMedGray
-        Font.Height = 11
-        ParentColor = False
-        ParentFont = False
-      end
-      object Bevel8: TBevel
-        Left = 0
-        Height = 37
-        Top = 4
-        Width = 8
-        Align = alLeft
-        BorderSpacing.Top = 4
-        BorderSpacing.Bottom = 4
-        Shape = bsLeftLine
-      end
-      object bPauseTime4: TSpeedButton
-        Left = 4
-        Height = 29
-        Top = 15
-        Width = 29
-        Action = acStartPage
-        AllowAllUp = True
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          2000000000000004000064000000640000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          00000000000000000000105A96FF0D5A94FF135E96FF0C578FFF9D9D9DFF7373
-          73FF565656FF535353FF4F4F4FFF4E4E4EFF4A4A4AFF474747FF474747FF2567
-          9DFF3377ADFF3D7FAFFF4784B5FF4E8EBFFF3F7FADFF0C578FFF000000000000
-          00005A5A5AFFA7A7A7FFA7A7A7FFA7A7A7FFA5A5A5FFA5A5A5FFA5A5A5FF2F6F
-          A5FF7BAFD6FF7BAFD7FF73A7D7FF6BA5CFFF427FAFFF0F5B95FF000000000000
-          00005E5E5EFFA5A5A5FFA5A5A5FFA7A7A7FFA7A7A7FFA7A7A7FFA5A5A5FF3777
-          AFFF7FAFD6FF5B9ECFFF5695C7FF5A96CEFF4384AFFF135E94FF000000000000
-          0000636363FFA5A5A5FFA5A5A5FFA5A5A5FFA7A7A7FFA7A7A7FFA7A7A7FF3D7B
-          B5FF86B7D7FF639FCEFF5A9ECFFF5E9FCEFF4385AFFF19639CFF000000000000
-          0000676767FF9F9F9FFF9F9F9FFFA5A5A5FFA5A5A5FFA5A5A5FFA7A7A7FF477F
-          B5FF8CB7DFFF67A7CFFF639ECEFF639FCEFF4787B5FF1F679CFF000000000000
-          00006B6B6BFF9E9E9EFF9F9F9FFF9F9F9FFFA5A5A5FFA5A5A5FFA5A5A5FF4E84
-          BFFF8DBFDFFF6FADD7FF67A7D7FF5FB5DFFF4785B5FF256BA5FF000000000000
-          00006F6F6FFF9D9D9DFF9E9E9EFF9E9E9EFF9F9F9FFF9F9F9FFFA5A5A5FF568D
-          BFFF94BFDFFF77ADD6FF63BDE7FF4BD6FFFF428FBDFF2D6FA7FF000000000000
-          0000737373FF9C9C9CFF9D9D9DFF9D9D9DFF9E9E9EFF9F9F9FFF9F9F9FFF5A8E
-          C6FF9CC7E7FF7FB7D7FF77AFD6FF5EC6EFFF4B8CB7FF3573AFFF000000000000
-          0000737373FF9F9F9FFF9C9C9CFF9C9C9CFF9D9D9DFF9E9E9EFF9E9E9EFF6396
-          CFFF9EC7E7FF87BDDEFF7FB5D7FF7FB7D7FF4F8DB5FF3B7BB5FF000000000000
-          0000777777FF9E9E9EFF9F9F9FFF9F9F9FFF9C9C9CFF9D9D9DFF9D9D9DFF6796
-          CEFFA7CFE7FF8DBDDEFF87BDDEFF84BDDEFF538FB5FF437FB7FF000000000000
-          00007B7B7BFF9D9D9DFF9E9E9EFF9E9E9EFF9F9F9FFF9C9C9CFF9C9C9CFF6F9E
-          D6FFA7CEE7FF8FC7DFFF8DBDDEFF8FBDDEFF538DB7FF4B84BDFF000000000000
-          00007F7F7FFF9D9D9DFF9D9D9DFF9E9E9EFF9E9E9EFF9F9F9FFF9F9F9FFF6F9D
-          D7FFAFD7E7FFAFD7E7FF9CC7E7FF95C6DEFF568FB7FF528DC7FF000000000000
-          0000848484FF7F7F7FFF7F7F7FFF7B7B7BFF777777FF777777FF737373FF739E
-          D6FF6F9ED6FF87B7DEFFAFD7EFFFADD6E7FF5A94BDFF5B8EC6FF000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          000000000000739ED6FF6F9CD6FF85B5DEFF5A95BDFF6397CFFF000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          00000000000000000000000000006F9CD6FF6B9ED6FF6797CFFF
-        }
-        Layout = blGlyphTop
-        OnClick = acPauseTimeExecute
-        ShowCaption = False
-      end
-    end
   end
   object Panel3: TPanel
     Left = 846
@@ -796,7 +553,7 @@ object fMain: TfMain
     BevelOuter = bvNone
     ClientHeight = 21
     ClientWidth = 21
-    TabOrder = 5
+    TabOrder = 4
     object SpeedButton1: TSpeedButton
       Left = 0
       Height = 21
@@ -846,13 +603,27 @@ object fMain: TfMain
   end
   object tvMain: TPanel
     Left = 0
-    Height = 528
+    Height = 529
     Top = 50
     Width = 291
     Align = alLeft
     BevelOuter = bvNone
+    ClientHeight = 529
+    ClientWidth = 291
+    Color = clWindow
     DragMode = dmAutomatic
-    TabOrder = 4
+    ParentColor = False
+    TabOrder = 3
+    Visible = False
+    object Bevel1: TBevel
+      Left = 35
+      Height = 1
+      Top = 0
+      Width = 256
+      Align = alTop
+      BorderSpacing.Left = 35
+      Shape = bsTopLine
+    end
   end
   object Panel4: TPanel
     Left = 826
@@ -863,7 +634,7 @@ object fMain: TfMain
     BevelOuter = bvNone
     ClientHeight = 21
     ClientWidth = 21
-    TabOrder = 6
+    TabOrder = 5
     object SpeedButton2: TSpeedButton
       Left = 0
       Height = 21
@@ -911,39 +682,9 @@ object fMain: TfMain
       ShowCaption = False
     end
   end
-  object pSearch: TPanel
-    Left = 521
-    Height = 136
-    Top = 41
-    Width = 315
-    Anchors = [akTop, akRight]
-    BevelOuter = bvNone
-    Caption = 'pSearch'
-    ClientHeight = 136
-    ClientWidth = 315
-    TabOrder = 3
-    Visible = False
-    object lbResults: TListBox
-      Left = 0
-      Height = 136
-      Top = 0
-      Width = 315
-      Align = alClient
-      ItemHeight = 0
-      OnDblClick = lbResultsDblClick
-      OnDrawItem = lbResultsDrawItem
-      OnExit = lbResultsExit
-      OnKeyPress = lbResultsKeyPress
-      ScrollWidth = 313
-      Style = lbOwnerDrawFixed
-      TabOrder = 0
-      TabStop = False
-      TopIndex = -1
-    end
-  end
   object MainMenu1: TMainMenu
-    left = 32
-    top = 40
+    left = 128
+    top = 88
     object miMandant: TMenuItem
       Caption = 'Mandant'
       object miLogin: TMenuItem
@@ -967,6 +708,15 @@ object fMain: TfMain
       end
       object MenuItem3: TMenuItem
         Action = acChangePasswort
+      end
+    end
+    object Menuitem12: TMenuItem
+      Caption = 'Werkzeuge'
+      object MenuItem4: TMenuItem
+        Action = acCommandline
+      end
+      object MenuItem5: TMenuItem
+        Action = acPasswords
       end
     end
     object miHelp: TMenuItem
@@ -998,6 +748,7 @@ object fMain: TfMain
       ShortCut = 49219
     end
     object acNewContact: TAction
+      Category = 'erfassung'
       Caption = 'Neuer Kontakt'
       Hint = 'erstellt einen neuen Kontakt'
       ImageIndex = 73
@@ -1042,6 +793,7 @@ object fMain: TfMain
       ShortCut = 49230
     end
     object acTimeRegistering: TAction
+      Category = 'Zeit'
       Caption = 'Zeiterfassung'
       ImageIndex = 6
       OnExecute = acTimeRegisteringExecute
@@ -1057,6 +809,7 @@ object fMain: TfMain
       OnExecute = acOpenExecute
     end
     object acNewTermin: TAction
+      Category = 'erfassung'
       Caption = 'Neuen Termin erfassen'
       Hint = 'Neuen Termin erfassen'
       ImageIndex = 90
@@ -1065,6 +818,7 @@ object fMain: TfMain
       Visible = False
     end
     object acNewMasterdata: TAction
+      Category = 'erfassung'
       Caption = 'Neuer Artikel'
       Hint = 'erstellt einen neuen Artikel'
       ImageIndex = 88
@@ -1072,6 +826,7 @@ object fMain: TfMain
       ShortCut = 24659
     end
     object acNewOrder: TAction
+      Category = 'erfassung'
       Caption = 'Neuer Auftrag'
       Hint = 'erstellt einen neuen Auftrag'
       ImageIndex = 89
@@ -1106,6 +861,7 @@ object fMain: TfMain
       ShortCut = 24656
     end
     object acNewMessage: TAction
+      Category = 'erfassung'
       Caption = 'Neue Nachricht'
       Hint = 'Neue Nachricht schreiben'
       ImageIndex = 53
@@ -1125,6 +881,7 @@ object fMain: TfMain
       ShortCut = 24660
     end
     object acShowTree: TAction
+      Category = 'Ansicht'
       AutoCheck = True
       Caption = 'Baum'
       Checked = True
@@ -1199,6 +956,7 @@ object fMain: TfMain
       OnExecute = acNewStatisticsExecute
     end
     object acNewMeeting: TAction
+      Category = 'erfassung'
       Caption = 'neue Besprechung'
       ImageIndex = 88
       OnExecute = acNewMeetingExecute
@@ -1213,6 +971,7 @@ object fMain: TfMain
       OnExecute = acTaskPlanExecute
     end
     object acPauseTime: TAction
+      Category = 'Zeit'
       Caption = 'acPauseTime'
       Hint = 'Zeiterfassung pausieren /'#10'wieder starten'
       ImageIndex = 63
@@ -1250,9 +1009,53 @@ object fMain: TfMain
       OnExecute = acWindowizeExecute
     end
     object acStartPage: TAction
+      Category = 'start'
       Caption = 'Startseite'
+      Hint = 'wechselt zur Startseite'
       ImageIndex = 12
       OnExecute = acStartPageExecute
+    end
+    object acProjectOverview: TAction
+      Caption = 'Projektübersicht'
+      ImageIndex = 104
+      OnExecute = acProjectOverviewExecute
+    end
+    object acStatistics: TAction
+      Caption = 'Statistiken'
+      ImageIndex = 58
+      OnExecute = acStatisticsExecute
+    end
+    object acSalesListBook: TAction
+      Caption = 'auf Fibu Konto buchen'
+      Hint = 'auf Fibu Konto buchen'
+      ImageIndex = 22
+      OnExecute = acSalesListBookExecute
+    end
+    object acCommandline: TAction
+      Category = 'Werkzeuge'
+      Caption = 'Kommandozeile'
+      ImageIndex = 115
+      OnExecute = acCommandlineExecute
+      ShortCut = 16459
+    end
+    object acElements: TAction
+      Caption = 'Alle Elemente'
+      OnExecute = acElementsExecute
+    end
+    object acNewObject: TAction
+      Caption = 'neues Element'
+      ImageIndex = 88
+      OnExecute = acNewObjectExecute
+    end
+    object acPasswords: TAction
+      Caption = 'Passwörter'
+      ImageIndex = 100
+      OnExecute = acPasswordsExecute
+    end
+    object acNewScript: TAction
+      Caption = 'neues Script'
+      ImageIndex = 88
+      OnExecute = acNewScriptExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties
@@ -1275,23 +1078,11 @@ object fMain: TfMain
     left = 72
     top = 136
   end
-  object SearchTimer: TTimer
-    Enabled = False
-    Interval = 10
-    OnTimer = SearchTimerTimer
-    left = 704
-  end
   object IPCTimer: TIdleTimer
     Enabled = False
     Interval = 500
     OnTimer = IPCTimerTimer
     left = 32
     top = 176
-  end
-  object IPC: TSimpleIPCClient
-    Active = False
-    ServerID = 'PMSTimeregistering'
-    left = 80
-    top = 40
   end
 end

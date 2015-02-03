@@ -25,7 +25,7 @@ unit uFilterTabs;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, ComCtrls, DBGrids, uFilterFrame,
+  Classes, SysUtils, FileUtil,  Forms, ComCtrls, DBGrids, uFilterFrame,
   db, Extctrls, Controls, Menus, uIntfStrConsts, uBaseDbClasses;
 
 type
@@ -81,6 +81,7 @@ type
   end;
 
 implementation
+{$R *.lfm}
 
 uses uData,uBaseVisualApplicationTools;
 
@@ -313,8 +314,6 @@ begin
 end;
 
 initialization
-  {$I ufiltertabs.lrs}
-
 end.
 
 

@@ -56,7 +56,7 @@ begin
       aMsg := TMimeMess.Create;
       aMsg.Lines.LoadFromFile(FileNames[i]);
       aMsg.DecodeMessage;
-      aMessage := TMimeMessage.Create(Self,Data);
+      aMessage := TMimeMessage.CreateEx(Self,Data);
       aMessage.Select(0);
       aMessage.Open;
       aMessage.DataSet.Insert;

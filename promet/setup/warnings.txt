@@ -1,7 +1,7 @@
-SQL Error: @FIELD@ may not be NULL=Das Feld @FIELD@ muss ausgefüllt sein !
-SQL Error: ERROR:  null value in column "@FIELD@" violates not-null constraint=Das Feld @FIELD@ muss ausgefüllt sein !
 SQL Error: ERROR:  current transaction is aborted, commands ignored until end of transaction block=Die aktuelle Transaktion wurde vom Datenbankserver abgebrochen bitte schliessen Sie den aktuellen Eintrag.
 DBError : [10007] : General SQL Server error: Check messages from the SQL Server.Zeichenfolgen- oder Bin@@rdaten w@@rden abgeschnitten.=Ein eingegebener Text oder Feldinhalt ist zu lang und müsste abgeschnitten werden. Bitte korrigieren Sie den Inhalt.
 DBError : [10007] : General SQL Server error: Check messages from the SQL Server.Der Wert NULL kann in die '@FIELD@'-Spalte, '@TABLE@'-Tabelle nicht eingef@@gt werden. Die Spalte l@@sst NULL-Werte nicht zu. Fehler bei @@.=Das Feld @FIELD@ muss ausgefüllt sein !
 SQL Error: ERROR:  duplicate key value violates unique constraint "CUSTOMERS_ACCOUNTNO"@@DETAIL:  Key ("@KEY@")=(@KEYVALUE@) already exists.=Ein Eintrag mit der Nummer @KEYVALUE@ existiert bereits ! Sie können keinen doppelten Eintrag speichern !
 SQL Error: column @KEY@ is not unique=Ein Eintrag mit dieser Nummer existiert bereits ! Sie können keinen doppelten Eintrag speichern !
+SQL Error: @FIELD@ may not be NULL=Das Feld @FIELD@ muss ausgefüllt sein !
+SQL Error: ERROR:  null value in column "@FIELD@" violates not-null constraint=Das Feld @FIELD@ muss ausgefüllt sein !

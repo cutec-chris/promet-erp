@@ -20,7 +20,7 @@ unit uAccountingTransfer;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   Buttons,Utils,uAccountingQue,uIntfStrConsts;
 type
   TfTransfer = class(TForm)
@@ -59,6 +59,7 @@ var
   fTransfer: TfTransfer;
 
 implementation
+{$R *.lfm}
 uses uData,uError,uAccounting;
 resourcestring
   strAmountcannotbe0            = 'Bitte geben Sie einen Wert > 0 an';
@@ -127,7 +128,7 @@ var
   Accounts: TAccounts;
 begin
   cbAccount.Items.Clear;
-  Accounts := TAccounts.Create(Self,Data);
+  Accounts := TAccounts.CreateEx(Self,Data);
   Accounts.Open;
   Accounts.DataSet.First;
   while not Accounts.DataSet.EOF do
@@ -146,6 +147,5 @@ begin
     end;
 end;
 initialization
-  {$I uaccountingtransfer.lrs}
 end.
 

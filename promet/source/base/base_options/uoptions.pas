@@ -29,6 +29,8 @@ uses
 
 resourcestring
   strGeneralOptions                             = 'Globale Einstellungen';
+  strAutomationOptions                          = 'Automation/Synchronisation';
+  strMasterdataOptions                          = 'Stammdaten';
   strPersonalOptions                            = 'Persönliche Einstellungen';
 
 type
@@ -158,4 +160,4 @@ begin
 end;
 
 end.
-
+

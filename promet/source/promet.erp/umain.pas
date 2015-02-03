@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ComCtrls, ExtCtrls, ActnList, Buttons, StdCtrls, uBaseApplication,
   uBaseDBClasses, uExtControls, uBaseVisualApplication,db,uBaseSearch,uMainTreeFrame,
-  uWikiFrame,DBGrids,Grids, types, simpleipc,uEnterTime;
+  uWikiFrame,DBGrids,Grids, types,uEnterTime;
 type
   THackListBox = class(TListBox);
 
@@ -78,47 +78,44 @@ type
     acNewAccount: TAction;
     acRoughPlanning: TAction;
     acStartPage: TAction;
+    acProjectOverview: TAction;
+    acStatistics: TAction;
+    acSalesListBook: TAction;
+    acCommandline: TAction;
+    acElements: TAction;
+    acNewObject: TAction;
+    acPasswords: TAction;
+    acNewScript: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
     ApplicationProperties1: TApplicationProperties;
     bBack: TSpeedButton;
     bDependencies: TSpeedButton;
+    Bevel1: TBevel;
     Bevel3: TBevel;
-    Bevel5: TBevel;
     Bevel6: TBevel;
     Bevel7: TBevel;
-    Bevel8: TBevel;
-    Bevel9: TBevel;
     bFfwd: TToolButton;
     bPauseTime: TSpeedButton;
     bPauseTime1: TSpeedButton;
     bPauseTime2: TSpeedButton;
     bPauseTime3: TSpeedButton;
-    bPauseTime4: TSpeedButton;
     bPauseTime5: TSpeedButton;
-    bSearch: TSpeedButton;
-    eContains: TEdit;
-    IPC: TSimpleIPCClient;
     IPCTimer: TIdleTimer;
-    Image1: TImage;
     Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
-    Label8: TLabel;
     MenuItem3: TMenuItem;
+    Menuitem12: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
     Panel3: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
-    Panel7: TPanel;
-    Panel8: TPanel;
     pTimes: TPanel;
     pTimes1: TPanel;
-    pTimes2: TPanel;
     RefreshTimer: TIdleTimer;
-    lbResults: TListBox;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     miHelpIndex: TMenuItem;
@@ -127,9 +124,7 @@ type
     miLanguage: TMenuItem;
     miSettings: TMenuItem;
     Panel1: TPanel;
-    Panel2: TPanel;
     pmHistory: TPopupMenu;
-    pSearch: TPanel;
     pcPages: TExtMenuPageControl;
     MainMenu1: TMainMenu;
     miView: TMenuItem;
@@ -139,10 +134,10 @@ type
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     spTree: TSplitter;
-    SearchTimer: TTimer;
     tbMenue: TToolButton;
     ToolBar1: TToolBar;
-    ToolButton2: TSpeedButton;
+    ToolButton1: TToolButton;
+    tbTreeVisible: TSpeedButton;
     tsStartpage: TTabSheet;
     tvMain: TPanel;
     procedure acAttPlanExecute(Sender: TObject);
@@ -154,9 +149,11 @@ type
     procedure acCloseTabExecute(Sender: TObject);
     procedure acCollectInventoryExecute(Sender: TObject);
     procedure acCombineSaleItemsExecute(Sender: TObject);
+    procedure acCommandlineExecute(Sender: TObject);
     procedure acContactExecute(Sender: TObject);
     procedure acDeleteListeEntryExecute(Sender: TObject);
     procedure acDeleteWholeMessageDirExecute(Sender: TObject);
+    procedure acElementsExecute(Sender: TObject);
     procedure acForwardExecute(Sender: TObject);
     procedure acHelpIndexExecute(Sender: TObject);
     procedure acInfoExecute(Sender: TObject);
@@ -172,23 +169,28 @@ type
     procedure acNewMasterdataExecute(Sender: TObject);
     procedure acNewMeetingExecute(Sender: TObject);
     procedure acNewMessageExecute(Sender: TObject);
+    procedure acNewObjectExecute(Sender: TObject);
     procedure acNewOrderExecute(Sender: TObject);
     procedure acNewProjectExecute(Sender: TObject);
+    procedure acNewScriptExecute(Sender: TObject);
     procedure acNewStatisticsExecute(Sender: TObject);
     procedure acNewTaskExecute(Sender: TObject);
     procedure acNewTerminExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acOrdersExecute(Sender: TObject);
+    procedure acPasswordsExecute(Sender: TObject);
     procedure acPauseTimeExecute(Sender: TObject);
+    procedure acProjectOverviewExecute(Sender: TObject);
     procedure acProjectsExecute(Sender: TObject);
     procedure acRefreshOrderListExecute(Sender: TObject);
-    procedure acRenameDirectoryExecute(Sender: TObject);
     procedure acRoughPlanningExecute(Sender: TObject);
+    procedure acSalesListBookExecute(Sender: TObject);
     procedure acSalesListExecute(Sender: TObject);
     procedure acSalesListPayExecute(Sender: TObject);
     procedure acShowTreeExecute(Sender: TObject);
     procedure acStandartTimeExecute(Sender: TObject);
     procedure acStartPageExecute(Sender: TObject);
+    procedure acStatisticsExecute(Sender: TObject);
     procedure acTaskPlanExecute(Sender: TObject);
     procedure acTasksExecute(Sender: TObject);
     procedure acTimeRegisteringExecute(Sender: TObject);
@@ -204,14 +206,6 @@ type
     procedure ApplicationProperties1ShowHint(var HintStr: string;
       var CanShow: Boolean; var HintInfo: THintInfo);
     procedure ApplicationTBaseVisualApplicationUserTabAdded(Sender: TObject);
-    procedure bSearchClick(Sender: TObject);
-    procedure DataSearchresultItem(aIdent: string; aName: string;
-      aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
-    procedure eContainsEnter(Sender: TObject);
-    procedure eContainsExit(Sender: TObject);
-    procedure eContainsKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
-    procedure eContainsKeyPress(Sender: TObject; var Key: char);
     procedure fMainTreeFrameDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure fMainTreeFrameDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
@@ -229,26 +223,22 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure IPCTimerTimer(Sender: TObject);
-    procedure LanguageItemClick(Sender: TObject);
-    procedure lbResultsDblClick(Sender: TObject);
-    procedure lbResultsDrawItem(Control: TWinControl; Index: Integer;
-      ARect: TRect; State: TOwnerDrawState);
-    procedure lbResultsExit(Sender: TObject);
-    procedure lbResultsKeyPress(Sender: TObject; var Key: char);
     procedure miOptionsClick(Sender: TObject);
     function OpenAction(aLink: string; Sender: TObject): Boolean;
     function OpenFilter(aLink: string; Sender: TObject): Boolean;
     function OpenOption(aLink: string; Sender: TObject): Boolean;
     procedure pmHistoryPopup(Sender: TObject);
     procedure DoRefreshActiveTab(Sender: TObject);
-    procedure SearchTimerTimer(Sender: TObject);
+    procedure SenderTfFilterDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure SenderTfFiltergListDrawColumnCell(Sender: TObject;
       const Rect: TRect; DataCol: Integer; Column: TColumn;
       State: TGridDrawState);
     procedure SenderTfFilterViewDetails(Sender: TObject);
+    procedure SenderTfFilterViewElementDetails(Sender: TObject);
 
       procedure SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime
-      (Sender: TObject; aProject, aTask: string);
+        (Sender: TObject; aProject, aTask, aCategory: string);
     procedure TfFilteracOpenExecute(Sender: TObject);
   private
     { private declarations }
@@ -261,10 +251,13 @@ type
     FCalendarNode : TTreeNode;
     FTaskNode : TTreeNode;
     FTimeReg : TfEnterTime;
+    FSearchNode: TTreeNode;
     aTime : Int64;
     procedure AddCustomerList(Sender: TObject);
     procedure AddMasterdataList(Sender: TObject);
     procedure AddOrderList(Sender: TObject);
+    procedure AddCommandline(Sender: TObject);
+    procedure AddStatisticList(Sender: TObject);
     procedure AddListsList(Sender: TObject);
     procedure AddDocPages(Sender: TObject);
     procedure AddInventoryList(Sender: TObject);
@@ -274,11 +267,11 @@ type
     procedure AddTaskList(Sender: TObject);
     procedure AddMeetingList(Sender : TObject);
     procedure AddWiki(Sender: TObject);
+    procedure AddElementList(Sender: TObject);
     function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
     procedure RefreshCalendar;
     procedure RefreshMessages;
     procedure RefreshTasks;
-    procedure IntSetLanguage(aLang : string);
     procedure ImportFavorites;
   public
     { public declarations }
@@ -292,6 +285,7 @@ type
     aConn: TComponent;
     aRightIn : string;
     aRightOut : Integer;
+    FInfo : string;
     DataSetType : TBaseDBDatasetClass;
     procedure NewNode;
     procedure NewNode1;
@@ -309,7 +303,11 @@ type
     procedure Expand;
     procedure RefreshWiki;
     procedure DoGetRight;
+    procedure AddSearch;
+    procedure RegisterPhoneLines;
     function GetRight(aRight : string) : Integer;
+    procedure DoRealInfo;
+    procedure DoInfo(aMsg : string);
   public
     constructor Create(aSuspended : Boolean = False);
     procedure Execute; override;
@@ -319,20 +317,23 @@ var
   fMain: TfMain;
 implementation
 {$R *.lfm}
-uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,
+uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,lazutf8sysutils,
   uPersonFrame, uPrometFrames, uMessageFrame, uMessageEdit, LCLType, uCalendarFrame,
   uAccounting,uAccountingFrame,uAccountingQue,uAccountingTransfer,uMessages,uDocuments,
   uOrder,uArticleFrame,uMasterdata,uOrderFrame,uBookAccounting,
   uOptions,uUserOptions,uMandantOptions,uSystemOptions,uStateOptions,uCategoryOptions,uOrderTypeOptions,
   uUserFieldDefOptions,uStorageTypeOptions,uCurrencyOptions,uLanguageOptions,
   uRepairOptions, uSyncOptions, uDocumentOptions, uPhoneOptions, uMailOptions,
+  uScriptOptions,uvisualoptions,
   uHelpContainer,uProjects,uProjectFrame,Math,uSkypePhone,LCLIntf,uWiki,
   uTask,uDocumentProcess,uDocumentFrame,uPrometFramesInplaceDB,uInfo,
   uProcessOptions,Utils,uBaseERPDBClasses,umaintasks,utasks,uTaskEdit,LCLProc,
   usplash,ufavorites,uBaseVisualControls,uStatisticFrame,uwait,uprometipc,uMeetingFrame,
   umeeting,uEditableTab,umanagedocframe,uBaseDocPages,uTaskPlan,uattendanceplan,
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
-  uOptionsFrame
+  uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts,
+  ufinancialoptions,ubookfibuaccount,ucommandline,uobjectframe,uscriptframe,uprometscripts,
+  uPasswords
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -346,6 +347,7 @@ resourcestring
   strNewOrder                   = '%s erstellen';
   strWIki                       = 'Wiki';
   strSystem                     = 'System';
+  strScripts                    = 'Scripte';
   strStates                     = 'Status';
   strCategory                   = 'Kategorie';
   strOrdertype                  = 'Auftragstypen';
@@ -356,8 +358,10 @@ resourcestring
   strRepair                     = 'Reparatur';
   strPhones                     = 'Telefonie';
   strMessageAccounts            = 'Nachrichtenkonten';
+  strVisualOptions              = 'Ansichtsoptionen';
   strSearchText                 = '<hier tippen um zu suchen>';
   strProcessesOpen              = 'Es sind noch Dateien offen (Dateiverwaltung), wirklich schließen ?';
+  strMessageOpen                = 'Es sind noch Nachrichten offen (e-Mail), wirklich schließen ?';
   strNewInventory               = 'Neue Inventur';
   strInventory                  = 'Inventur';
   strDeletingMessages           = 'lösche Nachrichten, noch %d Nachichten';
@@ -370,11 +374,16 @@ begin
   Result := False;
   if copy(aMessage,0,9) = 'OpenLink(' then
     begin
+      if fMain.WindowState=wsMinimized then
+        fMain.WindowState:=wsNormal;
+      fMain.BringToFront;
       tmp := copy(aMessage,10,length(aMessage));
       tmp := copy(tmp,0,length(tmp)-1);
       Data.GotoLink(tmp);
       Result := True;
-    end;
+    end
+  else
+    fMain.CommandReceived(fMain,aMessage);
 end;
 
 procedure TfMain.RefreshMessages;
@@ -392,14 +401,6 @@ procedure TfMain.RefreshTasks;
 begin
   uTasks.RefreshTasks(FTaskNode);
 end;
-procedure TfMain.IntSetLanguage(aLang: string);
-begin
-  try
-    LoadLanguage(aLang);
-    fOptions.SetLanguage;
-  except
-  end;
-end;
 procedure TfMain.ImportFavorites;
 var
   aList : TStrings;
@@ -407,11 +408,12 @@ var
   i: Integer;
   aLink: String;
 begin
-  Data.SetFilter(Data.Tree,Data.QuoteField('NAME')+'='+Data.QuoteValue(strBrowserFavourites)+' and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'),0,'','ASC',False,True,True);
+  Data.Tree.DataSet.Filter:=Data.QuoteField('NAME')+'='+Data.QuoteValue(strBrowserFavourites)+' and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F');
+  Data.Tree.DataSet.Filtered:=True;
   if Data.Tree.Count > 0 then
     begin
       aList := GetFavorites;
-      aLinks := TLinks.Create(nil,Data);
+      aLinks := TLinks.Create(nil);
       Data.SetFilter(aLinks,Data.QuoteField('REFERENCE')+'='+Data.QuoteValue('BROWSERIMPORT'));
       for i := aList.Count-1 downto 0 do
         begin
@@ -432,6 +434,7 @@ begin
       aLinks.Free;
       aList.Free;
     end;
+  Data.Tree.DataSet.Filtered:=false;
 end;
 function TfMain.DoCreate : Boolean;
 begin
@@ -446,7 +449,9 @@ begin
     begin
       RefreshMessages;
       Result := True;
-    end;
+    end
+  else if Assigned(FTimeReg) then
+    Result :=FTimeReg.CommandReceived(Sender,aCommand);
 end;
 procedure TfMain.AddCustomerList(Sender : TObject);
 begin
@@ -455,7 +460,7 @@ begin
       TabCaption := strCustomerList;
       FilterType:='C';
       DefaultRows:='GLOBALWIDTH:%;ACCOUNTNO:100;NAME:400;MATCHCODE:200;';
-      Dataset := TPersonList.Create(nil,Data);
+      Dataset := TPersonList.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_READ then
         AddToolbarAction(acNewContact);
@@ -468,7 +473,7 @@ begin
       TabCaption := strArticleList;
       FilterType:='M';
       DefaultRows:='GLOBALWIDTH:%;ID:150;VERSION:100;LANGUAGE:60;MATCHCODE:200;SHORTTEXT:400;';
-      Dataset := TMasterdataList.Create(nil,Data);
+      Dataset := TMasterdataList.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_READ) or (Data.Users.Rights.Right('ARTICLES') > RIGHT_READ) or (Data.Users.Rights.Right('BENEFITS') > RIGHT_READ) or (Data.Users.Rights.Right('PARTSLIST') > RIGHT_READ) then
         AddToolbarAction(acNewMasterdata);
@@ -483,7 +488,7 @@ begin
       TabCaption := strOrderList;
       FilterType:='O';
       DefaultRows:='GLOBALWIDTH:%;STATUS:50;NUMBER:100;CUSTNO:100;CUSTNAME:300;PAYEDON:28;DELIVERED:28;DONE:28;';
-      Dataset := TOrderList.Create(nil,Data);
+      Dataset := TOrderList.Create(nil);
       OnDrawColumnCell:=@fOrderFrame.gListDrawColumnCell;
       if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
         AddToolbarAction(acNewOrder);
@@ -491,6 +496,28 @@ begin
         AddContextAction(acRefreshOrderList);
     end;
 end;
+
+procedure TfMain.AddCommandline(Sender: TObject);
+begin
+  with Sender as TfCommandline do
+    begin
+      TabCaption := strCommandline;
+    end;
+end;
+
+procedure TfMain.AddStatisticList(Sender: TObject);
+begin
+  with Sender as TfFilter do
+    begin
+      TabCaption := strStatisticList;
+      FilterType:='U';
+      DefaultRows:='GLOBALWIDTH:%;NAME:100;CHANGEDBY:30;TIMESTAMPD:50;';
+      Dataset := TStatistic.Create(nil);
+      if Data.Users.Rights.Right('STATISTICS') > RIGHT_READ then
+        AddToolbarAction(acNewStatistics);
+    end;
+end;
+
 procedure TfMain.AddListsList(Sender: TObject);
 begin
   with Sender as TfFilter do
@@ -498,7 +525,7 @@ begin
       TabCaption := strLists;
       FilterType:='L';
       DefaultRows:='GLOBALWIDTH:%;NAME:100;';
-      Dataset := TLists.Create(nil,Data);
+      Dataset := TLists.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       Editable:=True;
       AddToolbarAction(acNewList);
@@ -509,7 +536,6 @@ procedure TfMain.AddDocPages(Sender: TObject);
 begin
   with Sender as TfManageDocFrame do
     begin
-      TabCaption := strDocuments;
       Open(TfManageDocFrame(Sender).Typ);
       if Assigned(TFrame(Sender).OnEnter) then
         TFrame(Sender).OnEnter(Sender);
@@ -520,10 +546,10 @@ procedure TfMain.AddInventoryList(Sender: TObject);
 begin
   with Sender as TfFilter do
     begin
-      TabCaption := strInventorys;
+      TabCaption := strInventory;
       FilterType:='INV';
       DefaultRows:='GLOBALWIDTH:%;INVNO:40;DESC:100;DATE:70;CREATEDBY:30;';
-      Dataset := TInventorys.Create(nil,Data);
+      Dataset := TInventorys.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       Editable:=True;
       AddToolbarAction(acNewInventory);
@@ -537,11 +563,12 @@ begin
     begin
       TabCaption := strSalesList;
       FilterType:='S';
-      DefaultRows:='GLOBALWIDTH:%;PAYEDON:100;ORDERNO:100;STATUS:30;NUMBER:100;CUSTNO:70;CUSTNAME:100;NETPRICE:50;DISCOUNT:50;VATH:50;VATF:50;GROSSPRICE:100;';
-      ads := TAccountingJournal.Create(nil,Data);
+      DefaultRows:='GLOBALWIDTH:%;PAYEDON:100;ORDERNO:100;STATUS:30;NUMBER:100;CUSTNO:70;CUSTNAME:100;NETPRICE:50;DISCOUNT:50;VATH:50;VATF:50;GROSSPRICE:100;ACCOUNT:100;';
+      ads := TAccountingJournal.Create(nil);
       ads.CreateTable;
       Dataset := ads;
       //gList.OnDrawColumnCell:=nil;
+      AddToolbarAction(acSalesListBook);
       AddToolbarAction(acSalesListPay);
       OnViewDetails :=@SenderTfFilterViewDetails;
 //      AddToolbarAction(acCombineSaleItems);
@@ -552,19 +579,19 @@ begin
   with Sender as TfCalendarFrame do
     begin
       Caption := strCalendar;
-      OpenDir(Data.Users.Id.AsInteger);
+      OpenDir(Data.Users.Id.AsVariant);
     end;
 end;
 procedure TfMain.AddProjectList(Sender: TObject);
-var
-  fProjectFrame : TfProjectFrame;
 begin
   with Sender as TfFilter do
     begin
       TabCaption := strProjectList;
       FilterType:='P';
       DefaultRows:='GLOBALWIDTH:%;TYPE:30;ID:70;NAME:100;STATUS:60;';
-      Dataset := TProjectList.Create(nil,Data);
+      Dataset := TProjectList.Create(nil);
+      with DataSet.DataSet as IBaseDbFilter do
+        UsePermissions := True;
       OnDrawColumnCell:=@SenderTfFiltergListDrawColumnCell;
       if Data.Users.Rights.Right('PROJECTS') > RIGHT_READ then
         AddToolbarAction(acNewProject);
@@ -580,12 +607,13 @@ begin
         begin
           GridView.NumberField:='LPRIORITY';
           GridView.SortField:='LPRIORITY';
-          aDataset := TTaskList.Create(nil,Data);
+          TfMainTaskFrame(Sender).Connection := Data.GetNewConnection;
+          aDataset := TTaskList.CreateEx(nil,Data,Connection);
           BaseFilter:=Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y');
           aDataSet.Open;
           tbTop.Visible:=True;
-          tbLeft.Visible:=False;
-          DataSet := aDataSet;
+          pToolbar.Visible:=False;
+          TfMainTaskFrame(Sender).DataSet := aDataSet;
           SetRights(True);
           FTaskNode := Self.FTaskNode;
           OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;
@@ -598,8 +626,8 @@ begin
     begin
       TabCaption := strMeetingList;
       FilterType:='E';
-      DefaultRows:='GLOBALWIDTH:%;NAME:100;STATUS:60;';
-      Dataset := TMeetings.Create(nil,Data);
+      DefaultRows:='GLOBALWIDTH:%;NAME:200;STATUS:60;DATE:100;CREATEDBY:60;';
+      Dataset := TMeetings.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       AddToolbarAction(acNewMeeting);
     end;
@@ -613,6 +641,58 @@ begin
       OpenFromLink('WIKI@INDEX');
     end;
 end;
+
+procedure TfMain.AddElementList(Sender: TObject);
+var
+  aObj: TObjects;
+  aBtn: TToolButton;
+  aItem: TMenuItem;
+begin
+  with Sender as TfFilter do
+    begin
+      TabCaption := strObjectList;
+      FilterType:='D';
+      DefaultRows:='GLOBALWIDTH:%;ICON:10;NAME:100;NUMBER:70;STATUS:60;';
+      aObj := TObjects.Create(nil);
+      with aObj.DataSet as IBaseDbFilter do
+        UsePermissions := True;
+      TfFilter(Sender).Dataset := aObj;
+      aBtn := AddToolbarAction(acNewObject);
+      OnDrawColumnCell:=@SenderTfFilterDrawColumnCell;
+      OnViewDetails:=@SenderTfFilterViewElementDetails;
+      aBtn.DropdownMenu := TPopupMenu.Create(aBtn);
+      aBtn.Style:=tbsDropDown;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewObject;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewContact;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewOrder;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewMasterdata;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewTermin;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewMeeting;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewScript;
+    end;
+end;
+
 { TStaarterThread }
 
 procedure TStarterThread.NewNode;
@@ -651,24 +731,23 @@ procedure TStarterThread.AddTimeReg;
 begin
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
     begin
-      if not fMain.IPC.ServerRunning then
-        begin
-          fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
-          Application.CreateForm(TfEnterTime,fMain.FTimeReg);
-          fMain.FTimeReg.Node:=MainNode;
-          fMain.FTimeReg.PauseBtn := fMain.bPauseTime;
-          fMain.FTimeReg.DoSetup;
-          fMain.FTimeReg.SetupDB;
-          fMain.pTimes.Visible := True;
-        end;
+      fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
+      Application.CreateForm(TfEnterTime,fMain.FTimeReg);
+      fMain.FTimeReg.Node:=MainNode;
+      fMain.FTimeReg.PauseBtn := fMain.bPauseTime;
+      fMain.FTimeReg.DoSetup;
+      fMain.FTimeReg.SetupDB;
+      fMain.pTimes.Visible := True;
+      SendIPCMessage('noop',GetTempDir+'PMSTimeregistering');
     end;
 end;
 
 procedure TStarterThread.AddTimeReg2;
 begin
+  try
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
     begin
-      if not fMain.IPC.ServerRunning then
+      if Assigned(fMain.FTimeReg) then
         begin
           MainNode := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
           MainNode.Height := 34;
@@ -677,6 +756,9 @@ begin
           fMain.FTimeReg.RefreshNode;
         end;
     end;
+
+  finally
+  end;
 end;
 
 procedure TStarterThread.NewConn;
@@ -739,7 +821,7 @@ procedure TStarterThread.DoCreate;
 var
   aDataSet: TBaseDBDataset;
 begin
-  aDataSet := DataSetType.Create(nil,Data,aConn);
+  aDataSet := DataSetType.CreateEx(nil,Data,aConn);
   aDataSet.CreateTable;
   aDataSet.Destroy;
   Application.ProcessMessages;
@@ -765,6 +847,30 @@ begin
   aRightOut := Data.Users.Rights.Right(aRightIN)
 end;
 
+procedure TStarterThread.AddSearch;
+begin
+  if Assigned(fMain.FSearchNode) then
+    fMain.FSearchNode.Visible:=True;
+end;
+
+procedure TStarterThread.RegisterPhoneLines;
+begin
+  {$IFDEF CPU32}
+  try
+    uSkypePhone.RegisterPhoneLines;
+  except
+  end;
+  {$ENDIF}
+  {$IFDEF WINDOWS}
+  {$IFDEF CPU32}
+  try
+  uTAPIPhone.RegisterPhoneLines;
+  except
+  end;
+  {$ENDIF}
+  {$ENDIF}
+end;
+
 function TStarterThread.GetRight(aRight: string): Integer;
 begin
   aRightIn := aRight;
@@ -772,12 +878,27 @@ begin
   Result := aRightOut;
 end;
 
+procedure TStarterThread.DoRealInfo;
+begin
+  with Application as IBaseApplication do
+    Info('StarterThread:'+FInfo);
+end;
+
+procedure TStarterThread.DoInfo(aMsg: string);
+begin
+  FInfo := aMsg;
+  Synchronize(@DorealInfo);
+end;
+
 constructor TStarterThread.Create(aSuspended: Boolean);
 begin
+  {$ifndef UNIX}
   FreeOnTerminate:=True;
   Priority:=tpLowest;
   inherited Create(aSuspended);
-  //Execute;
+  {$else}
+  Execute;
+  {$endif}
 end;
 
 procedure TStarterThread.Execute;
@@ -787,31 +908,41 @@ var
   aCal: TCalendar;
   aDS: TMeetings;
 begin
-  Synchronize(@NewConn);
+  DoInfo('start');
+  //Synchronize(@NewConn);
+  aConn := nil;
   Synchronize(@NewMenu);
   Synchronize(@DoStartupType);
   miNew.Action := fMainTreeFrame.acSearch;
-  //Timeregistering
+  DoInfo('Timeregistering');
   Synchronize(@AddTimeReg);
+  //All Objects
+  fMain.pcPages.AddTabClass(TfFilter,strObjectList,@fMain.AddElementList,Data.GetLinkIcon('ALLOBJECTS@'),True);
   //Expand Tree
+  DoInfo('ExpandTree');
   Synchronize(@Expand);
   //Documents
+  DoInfo('Documents');
   DataSetType:=TDocuments;
   Synchronize(@DoCreate);
+  Data.RegisterLinkHandler('ALLOBJECTS',@fMainTreeFrame.OpenLink,TObjects);
+  Data.RegisterLinkHandler('SCRIPTS',@fMainTreeFrame.OpenLink,TBaseScript);
   //Messages
+  DoInfo('Messages');
   if GetRight('MESSAGES') > RIGHT_NONE then
     begin
       try
         DataSetType:=TMessageList;
         Synchronize(@DoCreate);
         fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
-        Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,TMessage);
+        Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,uMessages.TMessage);
         AddSearchAbleDataSet(TMessageList);
       except
       end;
     end;
   Synchronize(@StartReceive);
   //Tasks
+  DoInfo('Tasks');
   if (GetRight('TASKS') > RIGHT_NONE) then
     begin
       try
@@ -821,6 +952,7 @@ begin
       end;
     end;
   //Add PIM Entrys
+  DoInfo('PIM');
   if GetRight('CALENDAR') > RIGHT_NONE then
     begin
       try
@@ -832,6 +964,7 @@ begin
       end;
     end;
   //Orders
+  DoInfo('Orders');
   if GetRight('ORDERS') > RIGHT_NONE then
     begin
       try
@@ -844,6 +977,7 @@ begin
       end;
     end;
   //Add Contacts
+  DoInfo('Contacts');
   if GetRight('CUSTOMERS') > RIGHT_NONE then
     begin
       try
@@ -860,6 +994,7 @@ begin
       end;
     end;
   //Add Masterdata stuff
+  DoInfo('Masterdata');
   if (GetRight('MASTERDATA') > RIGHT_NONE) then
     begin
       try
@@ -872,6 +1007,7 @@ begin
       end;
     end;
   //Projects
+  DoInfo('Projects');
   if (GetRight('PROJECTS') > RIGHT_NONE) then
     begin
       try
@@ -884,6 +1020,7 @@ begin
       end;
     end;
   //Wiki
+  DoInfo('Wiki');
   Data.RegisterLinkHandler('WIKI',@fMainTreeFrame.OpenLink,TWikiList);
   if (GetRight('WIKI') > RIGHT_NONE) then
     begin
@@ -895,6 +1032,7 @@ begin
     end;
   Synchronize(@RefreshWiki);
   //Documents
+  DoInfo('Documents');
   if (GetRight('DOCUMENTS') > RIGHT_NONE) then
     begin
       try
@@ -906,6 +1044,7 @@ begin
       end;
     end;
   //Lists
+  DoInfo('Lists');
   if (GetRight('LISTS') > RIGHT_NONE) then
     begin
       try
@@ -917,6 +1056,7 @@ begin
       end;
     end;
   //Meetings
+  DoInfo('Meetings');
   if (GetRight('MEETINGS') > RIGHT_NONE) then
     begin
       try
@@ -929,6 +1069,7 @@ begin
       end;
     end;
   //Inventory
+  DoInfo('Inventory');
   if (GetRight('INVENTORY') > RIGHT_NONE) then
     begin
       try
@@ -939,18 +1080,23 @@ begin
       end;
     end;
   //Statistics
+  DoInfo('Statistics');
   if (GetRight('STATISTICS') > RIGHT_NONE) then
     begin
       try
       Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,TStatistic);
+      fMain.pcPages.AddTabClass(TfFilter,strStatisticList,@fMain.AddStatisticList,Data.GetLinkIcon('STATISTICS@'),True);
       AddSearchAbleDataSet(TStatistic);
       except
       end;
     end;
   //Timeregistering
+  DoInfo('Timeregistering');
   Synchronize(@AddTimeReg2);
   AddSearchAbleDataSet(TUser);
+  Data.RegisterLinkHandler('USERS',@fMainTreeFrame.OpenLink,TUser);
   //History
+  DoInfo('History');
   if GetRight('DOCUMENTS') > RIGHT_NONE then
     begin
       try
@@ -959,15 +1105,11 @@ begin
       except
       end;
     end;
-  {$IFDEF CPU32}
-  uSkypePhone.RegisterPhoneLines;
-  {$ENDIF}
-  {$IFDEF WINDOWS}
-  {$IFDEF CPU32}
-  uTAPIPhone.RegisterPhoneLines;
-  {$ENDIF}
-  {$ENDIF}
-  aConn.Free;
+  DoInfo('Phonelines');
+  Synchronize(@RegisterPhoneLines);
+  //aConn.Free;
+  DoInfo('Search');
+  Synchronize(@AddSearch);
 end;
 
 procedure TfMain.acLoginExecute(Sender: TObject);
@@ -982,6 +1124,8 @@ var
   SomethingFound: Boolean;
   Node1: TTreeNode;
   aStartPagetext: String;
+  aUser: TUser;
+  tmp: String;
   procedure NewNode;
   begin
     Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
@@ -1001,7 +1145,7 @@ begin
     with Application as IBaseApplication do
       fSplash.lVersion.Caption:= strVersion+' '+StringReplace(FormatFloat('0.0', AppVersion),',','.',[])+'.'+IntToStr(AppRevision);
     fSplash.Show;
-    fSplash.AddText(strLogin);;
+    fSplash.AddText(strLogin);
     Application.ProcessMessages;
     with Application as IBaseApplication do
       if not Login then
@@ -1018,18 +1162,27 @@ begin
           Caption := MandantName+' - Promet-ERP';
         if Assigned(TBaseVisualApplication(Application).MessageHandler) then
           TBaseVisualApplication(Application).MessageHandler.RegisterCommandHandler(@CommandReceived);
-        //debugln('BaseLogin: '+IntToStr(GetTickCount64-aTime));
-        aWiki := TWikiList.Create(nil,Data);
+        with BaseApplication as IBaseApplication do
+          debug('BaseLogin: '+IntToStr(GetTickCount64-aTime));
+        aWiki := TWikiList.Create(nil);
         aWiki.CreateTable;
-        if aWiki.FindWikiPage('Promet-ERP-Help/users/administrator') then
+        if aWiki.FindWikiPage('Promet-ERP-Help/users/Administrator') then
           aStartPagetext := aWiki.FieldByName('DATA').AsString
         else aStartPagetext:='[[Include:Promet-ERP-Help/index]]';
-        aWiki.Free;
         WikiFrame := TfWikiFrame.Create(Self);
         WikiFrame.Parent := tsStartpage;
         WikiFrame.Align := alClient;
         try
           WikiFrame.SetRights(True);
+          aUser := TUser.Create(nil);
+          aUser.Open;
+          aUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
+          while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString)) and (not aUser.FieldByName('PARENT').IsNull) do
+            begin
+              aUser.Locate('SQL_ID',aUser.FieldByName('PARENT').AsVariant,[]);
+            end;
+          if aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,false) then
+            aStartPagetext:=aWiki.FieldByName('DATA').AsString;
           if not WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,True) then
             begin
               WikiFrame.DataSet.Edit;
@@ -1039,7 +1192,9 @@ begin
             end;
         except
         end;
-        //debugln('Wiki: '+IntToStr(GetTickCount64-aTime));
+        aWiki.Free;
+        with BaseApplication as IBaseApplication do
+          debug('Wiki: '+IntToStr(GetTickCount64-aTime));
         aItems := TStringList.Create;
         aItems.Delimiter:=';';
         aItems.DelimitedText := DBConfig.ReadString('TREEENTRYS:'+ApplicationName,fMainTreeFrame.GetBigIconTexts);
@@ -1055,22 +1210,25 @@ begin
             while aItems.Count>0 do
               with fMainTreeFrame do
               begin
-                if aItems[0] = GetEntryText(etSearch) then
+                tmp := aItems[0];
+                if tmp = GetEntryText(etSearch) then
                   begin
                     //Add Search Node
                     Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
                     Node.Height := 34;
                     TTreeEntry(Node.Data).Typ := etSearch;
                     SomethingFound:=True;
+                    Node.Visible:=False;
+                    FSearchNode := Node;
                   end;
-                if aItems[0] = GetEntryText(etFavourites) then
+                if tmp = GetEntryText(etFavourites) then
                   begin
                     NewNode;
                     Node.Height := 34;
                     TTreeEntry(Node.Data).Typ := etFavourites;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etMessages) then
+                if tmp = GetEntryText(etMessages) then
                   begin
                     //Messages
                     if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
@@ -1086,7 +1244,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etTasks) then
+                if tmp = GetEntryText(etTasks) then
                   begin
                     //Tasks
                     if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
@@ -1099,7 +1257,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etCalendar) then
+                if tmp = GetEntryText(etCalendar) then
                   begin
                     //PIM
                     if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
@@ -1114,7 +1272,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etOrders) then
+                if tmp = GetEntryText(etOrders) then
                   begin
                     //Orders,Production,...
                     if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
@@ -1128,7 +1286,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etCustomers) then
+                if tmp = GetEntryText(etCustomers) then
                   begin
                     //Contacts
                     if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
@@ -1142,7 +1300,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etMasterdata) then
+                if tmp = GetEntryText(etMasterdata) then
                   begin
                     //Add Masterdata stuff
                     if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
@@ -1156,7 +1314,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etProjects) then
+                if tmp = GetEntryText(etProjects) then
                   begin
                     //Projects
                     if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
@@ -1168,7 +1326,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etWiki) then
+                if tmp = GetEntryText(etWiki) then
                   begin
                     //Wiki
                     if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
@@ -1179,23 +1337,23 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etDocuments) then
+                if tmp = GetEntryText(etDocuments) then
                   begin
                     //Documents
                     if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
                       begin
                         Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+                        Node.Height := 34;
                         TTreeEntry(Node.Data).Typ := etDocuments;
                         Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                        TTreeEntry(Node1.Data).Typ := etDocumentsOnly;
-                        Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-                        TTreeEntry(Node1.Data).Typ := etImages;
-                        Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
                         TTreeEntry(Node1.Data).Typ := etFiles;
+                        Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+                        TTreeEntry(Node.Data).Typ := etImages;
+                        Node.Height := 34;
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etLists) then
+                if tmp = GetEntryText(etLists) then
                   begin
                     //Lists
                     if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
@@ -1205,7 +1363,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etMeetings) then
+                if tmp = GetEntryText(etMeetings) then
                   begin
                     //Meetings
                     if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
@@ -1215,7 +1373,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etInventory) then
+                if tmp = GetEntryText(etInventory) then
                   begin
                     //Inventory
                     if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
@@ -1225,7 +1383,7 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etFinancial) then
+                if tmp = GetEntryText(etFinancial) then
                   begin
                     //Financial
                     if (Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE)
@@ -1237,15 +1395,25 @@ begin
                       end;
                     SomethingFound:=True;
                   end;
-                if aItems[0] = GetEntryText(etStatistics) then
+                if tmp = GetEntryText(etStatistics) then
                   begin
                     //Statistics
                     if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
                       begin
+                        NewMenu;
+                        miNew.Action := fMain.acStatistics;
                         NewNode;
                         Node.Height := 34;
                         TTreeEntry(Node.Data).Typ := etStatistics;
                       end;
+                    SomethingFound:=True;
+                  end;
+                if tmp = GetEntryText(etAllObjects) then
+                  begin
+                    NewMenu;
+                    miNew.Action := fMain.acElements;
+                    NewNode;
+                    TTreeEntry(Node.Data).Typ := etAllObjects;
                     SomethingFound:=True;
                   end;
                 aItems.Delete(0);
@@ -1264,6 +1432,7 @@ begin
             tvMain.Visible:=False;
             spTree.Visible:=False;
             acShowTree.Checked:=False;
+            acShowTreeExecute(nil);
           end
         else
           begin
@@ -1272,7 +1441,8 @@ begin
             acShowTreeExecute(nil);
           end;
       end;
-    //debugln('LoginTime: '+IntToStr(GetTickCount64-aTime));
+    with BaseApplication as IBaseApplication do
+      debug('LoginTime: '+IntToStr(GetTickCount64-aTime));
   finally
     fSplash.Hide;
     fMain.Visible:=True;
@@ -1404,7 +1574,7 @@ var
   aOrderNo: String;
   aFilter: String;
 begin
-  aAccounting := TAccountingJournal.Create(Self,Data);
+  aAccounting := TAccountingJournal.CreateEx(Self,Data);
   with TToolbar(TAction(Sender).ActionComponent.Owner).Owner as TfFilter do
     begin
       DataSet.DataSet.First;
@@ -1447,12 +1617,34 @@ begin
     end;
   aAccounting.Free;
 end;
+
+procedure TfMain.acCommandlineExecute(Sender: TObject);
+var
+  i: Integer;
+  Found: Boolean = false;
+  aFrame: TfCommandline;
+begin
+  Application.ProcessMessages;
+  for i := 0 to pcPages.PageCount-2 do
+    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfCommandLine) then
+      begin
+        pcPages.PageIndex:=i;
+        Found := True;
+      end;
+  if not Found then
+    begin
+      aFrame := TfCommandline.Create(Self);
+      pcPages.AddTab(aFrame,True,'',115,False);
+      AddCommandline(aFrame);
+    end;
+end;
+
 procedure TfMain.acDeleteWholeMessageDirExecute(Sender: TObject);
 var
   ID: String;
   nData : TTreeEntry;
   aMessages: TMessageList;
-  aMessage: TMessage;
+  aMessage: uMessages.TMessage;
   aFrame: TTabSheet;
   aConn: TComponent;
   a: Integer;
@@ -1466,7 +1658,7 @@ begin
       aConn := Data.GetNewConnection;
       Data.StartTransaction(aConn);
       ID := Data.Tree.Id.AsString;
-      aMessages := TMessageList.Create(Self,Data);
+      aMessages := TMessageList.CreateEx(Self,Data);
       Data.SetFilter(aMessages,Data.QuoteField('TREEENTRY')+'='+ID);
       Data.DeletedItems.DataSet.Open;
       a := aMessages.Count;
@@ -1487,7 +1679,7 @@ begin
                   fWaitForm.ShowInfo(Format(strDeletingMessages,[a]));
                   aTime := GetTickCount;
                 end;
-              aMessage := TMessage.Create(Self,Data,aConn);
+              aMessage := uMessages.TMessage.CreateEx(Self,Data,aConn);
               aMessage.Select(aMessages.Id.AsInteger);
               aMessage.Open;
               aMessage.Delete;
@@ -1508,6 +1700,29 @@ begin
       RefreshMessages;
     end;
 end;
+
+procedure TfMain.acElementsExecute(Sender: TObject);
+var
+  i: Integer;
+  Found: Boolean;
+  aFrame: TfFilter;
+begin
+  Application.ProcessMessages;
+  for i := 0 to pcPages.PageCount-2 do
+    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TObjects) then
+      begin
+        pcPages.PageIndex:=i;
+        Found := True;
+      end;
+  if not Found then
+    begin
+      aFrame := TfFilter.Create(Self);
+      pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('ALLOBJECTS@'),False);
+      AddElementList(aFrame);
+      aFrame.Open;
+    end;
+end;
+
 procedure TfMain.acForwardExecute(Sender: TObject);
 begin
   FHistory.GoFwd;
@@ -1534,7 +1749,7 @@ begin
      fInfo.Revision:=AppRevision;
      fInfo.ProgramName:=Appname;
      fInfo.InfoText:=vInfo;
-     fInfo.Copyright:='2006-2012 C. Ulrich';
+     fInfo.Copyright:='2006-2014 C. Ulrich';
     end;
   fInfo.SetLanguage;
   fInfo.Execute;
@@ -1659,7 +1874,7 @@ var
   aList: TLists;
 begin
   aName := InputBox(strName,strNewList,strNewList);
-  aList := TLists.Create(Self,Data);
+  aList := TLists.CreateEx(Self,Data);
   aList.Append;
   aList.FieldByName('NAME').AsString:=aName;
   aList.DataSet.Post;
@@ -1693,9 +1908,21 @@ var
   fMessageEdit: TfMessageEdit;
 begin
   if Data.Users.Rights.Right('MESSAGES') < RIGHT_WRITE then exit;
-  fMessageEdit := TfMessageEdit.Create(Self);
+  fMessageEdit := TfMessageEdit.Create(nil);
   fMessageEdit.SendMailTo('');
 end;
+
+procedure TfMain.acNewObjectExecute(Sender: TObject);
+var
+  aFrame: TfObjectFrame;
+begin
+  Application.ProcessMessages;
+  aFrame := TfObjectFrame.Create(Self);
+  pcPages.AddTab(aFrame);
+  aFrame.SetLanguage;
+  aFrame.New;
+end;
+
 procedure TfMain.acNewOrderExecute(Sender: TObject);
 var
   aFrame: TfOrderFrame;
@@ -1718,6 +1945,17 @@ begin
   aFrame.New;
 end;
 
+procedure TfMain.acNewScriptExecute(Sender: TObject);
+var
+  aFrame: TfScriptFrame;
+begin
+  Application.ProcessMessages;
+  aFrame := TfScriptFrame.Create(Self);
+  pcPages.AddTab(aFrame);
+  aFrame.SetLanguage;
+  aFrame.New;
+end;
+
 procedure TfMain.acNewStatisticsExecute(Sender: TObject);
 var
   aFrame: TfStatisticFrame;
@@ -1736,7 +1974,7 @@ var
 begin
   if Data.Users.Rights.Right('TASKS') < RIGHT_WRITE then exit;
   Application.ProcessMessages;
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.Insert;
   aTask.FieldByName('USER').AsString := Data.Users.FieldByName('ACCOUNTNO').AsString;
   aTask.Post;
@@ -1795,6 +2033,11 @@ begin
     end;
 end;
 
+procedure TfMain.acPasswordsExecute(Sender: TObject);
+begin
+  fPasswords.Execute;
+end;
+
 procedure TfMain.acPauseTimeExecute(Sender: TObject);
 begin
   if Assigned(FTimeReg) then
@@ -1804,6 +2047,15 @@ begin
       else
         FTimeReg.acPause.Execute;
     end;
+end;
+
+procedure TfMain.acProjectOverviewExecute(Sender: TObject);
+var
+  RoughFrame: TfProjectOVFrame;
+begin
+  RoughFrame := TfProjectOVFrame.Create(Self);
+  pcPages.AddTab(RoughFrame);
+  RoughFrame.StartFilling;
 end;
 
 procedure TfMain.acProjectsExecute(Sender: TObject);
@@ -1834,22 +2086,17 @@ var
   aOrders: TOrderList;
   aOrder: TOrder;
 begin
-  aOrders := TOrderList.Create(nil,Data);
+  aOrders := TOrderList.Create(nil);
   Data.SetFilter(aOrders,Data.ProcessTerm(Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('')),0);
   while not aOrders.EOF do
     begin
-      aOrder:=TOrder.Create(nil,Data);
+      aOrder:=TOrder.Create(nil);
       aOrder.Select(aOrders.FieldByName('ORDERNO').AsString);
       aOrder.Open;
       aOrder.Free;
       aOrders.DataSet.Refresh;
     end;
   aOrders.Free;
-end;
-
-procedure TfMain.acRenameDirectoryExecute(Sender: TObject);
-begin
-
 end;
 
 procedure TfMain.acRoughPlanningExecute(Sender: TObject);
@@ -1859,6 +2106,37 @@ begin
   RoughFrame := TfRoughPlanningFrame.Create(Self);
   pcPages.AddTab(RoughFrame);
   RoughFrame.StartFilling;
+end;
+
+procedure TfMain.acSalesListBookExecute(Sender: TObject);
+var
+  aAccountingjournal: TAccountingJournal;
+begin
+  if fBookFibuAccount.Execute then
+    begin
+      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfFilter) and (TfFilter(pcPages.ActivePage.Controls[0]).DataSet is TAccountingJournal) then
+        begin
+          fBookAccounting.SetLanguage;
+          aAccountingjournal := TfFilter(pcPages.ActivePage.Controls[0]).DataSet as TAccountingjournal;
+          if fBookFibuAccount.cbWholeList.Checked then
+            begin
+              aAccountingjournal.First;
+              while not aAccountingjournal.EOF do
+                begin
+                  aAccountingjournal.Edit;
+                  aAccountingjournal.FieldByName('ACCOUNT').AsString:=fBookFibuAccount.DataSet.FieldByName('ACCOUNTNO').AsString;
+                  aAccountingjournal.Post;
+                  aAccountingjournal.Next;
+                end;
+            end
+          else
+            begin
+              aAccountingjournal.Edit;
+              aAccountingjournal.FieldByName('ACCOUNT').AsString:=fBookFibuAccount.DataSet.FieldByName('ACCOUNTNO').AsString;
+              aAccountingjournal.Post;
+            end;
+        end;
+    end;
 end;
 
 procedure TfMain.acSalesListExecute(Sender: TObject);
@@ -1910,6 +2188,28 @@ end;
 procedure TfMain.acStartPageExecute(Sender: TObject);
 begin
   pcPages.TabIndex:=0;
+end;
+
+procedure TfMain.acStatisticsExecute(Sender: TObject);
+var
+  i: Integer;
+  Found: Boolean = false;
+  aFrame: TfFilter;
+begin
+  Application.ProcessMessages;
+  for i := 0 to pcPages.PageCount-2 do
+    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TStatistic) then
+      begin
+        pcPages.PageIndex:=i;
+        Found := True;
+      end;
+  if not Found then
+    begin
+      aFrame := TfFilter.Create(Self);
+      pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('STATISTICS@'),False);
+      AddStatisticList(aFrame);
+      aFrame.Open;
+    end;
 end;
 
 procedure TfMain.acTaskPlanExecute(Sender: TObject);
@@ -2043,7 +2343,7 @@ begin
       if Source = uMainTreeFrame.fMainTreeFrame.tvMain then
         begin
           nData := TTreeEntry(uMainTreeFrame.fMainTreeFrame.tvMain.Selected.Data);
-          aDS := nData.DataSourceType.Create(Self,Data);
+          aDS := nData.DataSourceType.CreateEx(Self,Data);
           Data.SetFilter(aDS,nData.Filter);
           Data.GotoBookmark(aDS,nData.Rec);
           aLink := Data.BuildLink(aDS.DataSet);
@@ -2102,118 +2402,12 @@ begin
   if Data.Users.Rights.Right('OPTIONS') > RIGHT_READ then
     aFrame.SetupTabEditor(TTabSheet(Sender));
 end;
-procedure TfMain.bSearchClick(Sender: TObject);
-var
-  SearchTypes : TFullTextSearchTypes = [];
-  SearchLocations : TSearchLocations;
-  i: Integer;
-begin
-  if bSearch.Caption = strAbort then
-    begin
-      SearchText := '';
-      if Assigned(ActiveSearch) then
-        ActiveSearch.Abort;
-      bSearch.Caption := strSearch;
-      {$IFDEF MAINAPP}
-      if (fsSerial in SearchTypes) then
-        fOrders.acViewList.Execute;
-      {$ENDIF}
-      exit;
-    end;
-  SearchTypes := SearchTypes+[fsShortnames];
-  SearchTypes := SearchTypes+[fsIdents];
-  SearchTypes := SearchTypes+[fsSerial];
-  SearchTypes := SearchTypes+[fsBarcode];
-  SearchTypes := SearchTypes+[fsCommission];
-  SearchTypes := SearchTypes+[fsDescription];
-  fSearch.SetLanguage;
-  fSearch.LoadOptions('MAIN');
-  for i := 0 to fSearch.cbSearchtype.Count-1 do
-    if fSearch.cbSearchtype.Checked[i] then
-      begin
-        SetLength(SearchLocations,length(SearchLocations)+1);
-        SearchLocations[length(SearchLocations)-1] := fSearch.cbSearchType.Items[i];
-      end;
-
-  lbResults.Clear;
-  SearchLinks.Clear;
-  bSearch.Caption := strAbort;
-  SearchText := eContains.Text;
-  ActiveSearch := TSearch.Create(SearchTypes,SearchLocations,True,5);
-  ActiveSearch.OnItemFound:=@DataSearchresultItem;
-  ActiveSearch.Start(eContains.Text);
-  while ActiveSearch.Active do Application.ProcessMessages;
-  pSearch.Height := Max(2,Min(lbResults.Count,7))*25;
-  pSearch.Left := Panel8.Left+33;
-  bSearch.Caption:=strSearch;
-end;
-procedure TfMain.DataSearchresultItem(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
-begin
-  if aActive then
-    begin
-      lbResults.AddItem(Data.GetLinkDesc(aLink),nil);
-      SearchLinks.Add(aLink);
-      pSearch.Visible:=True;
-    end;
-end;
-procedure TfMain.eContainsEnter(Sender: TObject);
-begin
-  TEdit(Sender).Font.Color:=clWindowText;
-  TEdit(Sender).Clear;
-end;
-procedure TfMain.eContainsExit(Sender: TObject);
-begin
-  TEdit(Sender).Text:=strSearchText;
-  TEdit(Sender).Font.Color:=clGrayText;
-  if fMain.ActiveControl <> lbResults then
-    begin
-      pSearch.Visible:=False;
-    end;
-end;
-procedure TfMain.eContainsKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-  case Key of
-  VK_PRIOR,
-  VK_UP:
-    begin
-      if lbResults.ItemIndex = -1 then
-        lbResults.ItemIndex:=0;
-      lbResults.ItemIndex:=lbResults.ItemIndex-1;
-    end;
-  VK_NEXT,
-  VK_DOWN:
-    begin
-      if lbResults.ItemIndex = -1 then
-        lbResults.ItemIndex:=0
-      else
-      if lbResults.ItemIndex < lbResults.Count-1 then
-        lbResults.ItemIndex:=lbResults.ItemIndex+1;
-      Key := 0;
-    end;
-  VK_RETURN:
-    begin
-      lbResultsDblClick(nil);
-      Key := 0;
-    end;
-  end;
-end;
-procedure TfMain.eContainsKeyPress(Sender: TObject; var Key: char);
-begin
-  if Key = #27 then
-    pSearch.Visible:=False
-  else
-    begin
-      SearchTimer.Enabled:=True;
-    end;
-end;
 procedure TfMain.fMainTreeFrameDragDrop(Sender, Source: TObject; X, Y: Integer);
 var
   aLink: String;
   aFilter: TfFilter;
   aTNode: TTreeNode;
-  aMessage: TMessage;
+  aMessage: uMessages.TMessage;
   aTreeEntry: TTreeEntry;
   aTask: TTask;
   ls: TListItem;
@@ -2228,12 +2422,12 @@ begin
       if Assigned(aTNode) then
         begin
           aTreeEntry := TTreeEntry(aTNode.Data);
-          if (aTreeEntry.Typ = etDocumentsOnly)
+          if (aTreeEntry.Typ = etDocuments)
           or (aTreeEntry.Typ = etImages)
           then
             begin
-              aPages := TDocPages.Create(nil,Data);
-              if (aTreeEntry.Typ = etDocumentsOnly) then
+              aPages := TDocPages.Create(nil);
+              if (aTreeEntry.Typ = etDocuments) then
                 aPages.Typ:='D'
               else
                 aPages.Typ:='I';
@@ -2277,7 +2471,7 @@ begin
                 begin
                   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
                   Data.Tree.GotoBookmark(aTreeEntry.Rec);
-                  aMessage := TMessage.Create(Self,Data);
+                  aMessage := uMessages.TMessage.CreateEx(Self,Data);
                   while pos(';',aLinks)>0 do
                     begin
                       aLink := copy(aLinks,0,pos(';',aLinks)-1);
@@ -2296,7 +2490,7 @@ begin
                 end
               else if (aTreeEntry.Typ = etTasks) then
                 begin
-                  aMessage := TMessage.Create(Self,Data);
+                  aMessage := uMessages.TMessage.CreateEx(Self,Data);
                   aMessage.SelectFromLink(aLink);
                   aMessage.Open;
                   if aMessage.Count > 0 then
@@ -2304,7 +2498,7 @@ begin
                       aMessage.DataSet.Edit;
                       aMessage.FieldByName('READ').AsString := 'Y';
                       aMessage.DataSet.Post;
-                      aTask := TTask.Create(nil,Data);
+                      aTask := TTask.Create(nil);
                       aTask.Insert;
                       aTask.FieldByName('SUMMARY').AsString:=aMessage.Text.AsString;
                       aTask.FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
@@ -2336,6 +2530,28 @@ begin
                   TfManageDocFrame(TComponent(Source).Owner).DataSet.Post;
                   TfManageDocFrame(TComponent(Source).Owner).acRefresh.Execute;
                 end;
+            end
+          else if (aTreeEntry.Typ = etDocuments) then
+            begin
+              if TfManageDocFrame(TComponent(Source).Owner).GotoCurrentItem then
+                begin
+                  if not TfManageDocFrame(TComponent(Source).Owner).DataSet.CanEdit then
+                    TfManageDocFrame(TComponent(Source).Owner).DataSet.DataSet.Edit;
+                  TfManageDocFrame(TComponent(Source).Owner).DataSet.FieldByName('TYPE').AsString:='D';
+                  TfManageDocFrame(TComponent(Source).Owner).DataSet.Post;
+                  TfManageDocFrame(TComponent(Source).Owner).acRefresh.Execute;
+                end;
+            end
+          else if (aTreeEntry.Typ = etImages) then
+            begin
+              if TfManageDocFrame(TComponent(Source).Owner).GotoCurrentItem then
+                begin
+                  if not TfManageDocFrame(TComponent(Source).Owner).DataSet.CanEdit then
+                    TfManageDocFrame(TComponent(Source).Owner).DataSet.DataSet.Edit;
+                  TfManageDocFrame(TComponent(Source).Owner).DataSet.FieldByName('TYPE').AsString:='I';
+                  TfManageDocFrame(TComponent(Source).Owner).DataSet.Post;
+                  TfManageDocFrame(TComponent(Source).Owner).acRefresh.Execute;
+                end;
             end;
         end;
     end;
@@ -2359,7 +2575,7 @@ begin
       if Assigned(aTNode) then
         begin
           aTreeEntry := TTreeEntry(aTNode.Data);
-          if (aTreeEntry.Typ = etDocumentsOnly)
+          if (aTreeEntry.Typ = etDocuments)
           or (aTreeEntry.Typ = etImages)
           then
             Accept := True;
@@ -2390,6 +2606,12 @@ begin
         begin
           aTreeEntry := TTreeEntry(aTNode.Data);
           if (aTreeEntry.Typ = etDocumentDir)
+          then
+            Accept := True;
+          if (aTreeEntry.Typ = etDocuments)
+          then
+            Accept := True;
+          if (aTreeEntry.Typ = etImages)
           then
             Accept := True;
         end;
@@ -2429,20 +2651,23 @@ begin
     exit;
   Screen.Cursor:=crHourglass;
   Application.ProcessMessages;
+  with Application as IBaseDbInterface do
+    if DBConfig.ReadBoolean('HIDETREE',false) and acShowTree.Checked then
+      acShowTree.Execute;
   case aEntry.Typ of
   etSalesList:
     begin
       aEntry.Action.Execute;
     end;
   etCustomerList,etCustomers,etArticleList,etOrderList,
-  etTasks,etMyTasks,etProjects,etCalendar,etMyCalendar,
+  etTasks,etMyTasks,etProjects,
   etLink:
     begin
       fMainTreeFrame.OpenLink(aEntry.Link,Self);
     end;
   etCustomer,etEmployee,etSupplier,etArticle,etProject,etProcess,etStatistic:
     begin
-      aDataSet := aEntry.DataSourceType.Create(Self,Data);
+      aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
         Filter := aEntry.Filter;
       aDataSet.Open;
@@ -2469,7 +2694,8 @@ begin
           AddTaskList(aFrame1);
         end;
     end;
-  etCalendarUser:
+  etMyCalendar:acCalendar.Execute;
+  etCalendarUser,etCalendarDir:
     begin
       for i := 0 to pcPages.PageCount-2 do
         if (pcPages.Pages[i].ControlCount > 0)
@@ -2508,7 +2734,7 @@ begin
       aFrame := TfOrderFrame.Create(Self);
       pcPages.AddTab(aFrame);
       aFrame.SetLanguage;
-      aDataSet := aEntry.DataSourceType.Create(Self,Data);
+      aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
       aDataSet.Open;
       aDataSet.GotoBookmark(aEntry.Rec);
       aFrame.New(aDataSet.FieldByName('STATUS').AsString);
@@ -2524,7 +2750,7 @@ begin
     end;
   etWikiPage:
     begin
-      aDataSet := aEntry.DataSourceType.Create(Self,Data);
+      aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
         Filter := aEntry.Filter;
       aDataSet.Open;
@@ -2635,8 +2861,8 @@ begin
           begin
             TabCaption := strFiles;
             pHeader.Visible := True;
-            pLeft.Visible := False;
-            DataSet := TDocuments.Create(nil,Data);
+            pToolbar.Visible := False;
+            DataSet := TDocuments.Create(nil);
             Refresh(1,'D','1',Null,Null);
           end;
     end;
@@ -2657,6 +2883,8 @@ var
   aDocs: TTabSheet;
   FTaskEdit: TfTaskEdit;
   aBaseHist: TBaseHistory;
+  aCalFrame: TfCalendarFrame;
+  aEventEdit: TfEventEdit;
 begin
   Result := False;
   Screen.Cursor:=crHourGlass;
@@ -2686,12 +2914,34 @@ begin
     end
   else if copy(aLink,0,11) = 'MESSAGEIDX@' then
     begin
-      aMessageEdit := TfMessageEdit.Create(Self);
+      aMessageEdit := TfMessageEdit.Create(nil);
       aMessageEdit.OpenFromLink(aLink);
     end
   else if copy(aLink,0,10) = 'MASTERDATA' then
     begin
       aFrame := TfArticleFrame.Create(Self);
+      aFrame.SetLanguage;
+      if aFrame.OpenFromLink(aLink) then
+        begin
+          pcPages.AddTab(aFrame);
+          Result := True;
+        end
+      else aFrame.Free;
+    end
+  else if copy(aLink,0,10) = 'ALLOBJECTS' then
+    begin
+      aFrame := TfObjectFrame.Create(Self);
+      aFrame.SetLanguage;
+      if aFrame.OpenFromLink(aLink) then
+        begin
+          pcPages.AddTab(aFrame);
+          Result := True;
+        end
+      else aFrame.Free;
+    end
+  else if copy(aLink,0,7) = 'SCRIPTS' then
+    begin
+      aFrame := TfScriptFrame.Create(Self);
       aFrame.SetLanguage;
       if aFrame.OpenFromLink(aLink) then
         begin
@@ -2755,6 +3005,20 @@ begin
       FTaskEdit.Free;
       Result := True;
     end
+  else if (copy(aLink,0,9) = 'CALENDAR@') then
+    begin
+      Screen.Cursor:=crDefault;
+      aCalFrame := TfCalendarFrame.Create(nil);
+      TCalendar(aCalFrame.DataSet).SelectFromLink(aLink);
+      aCalFrame.DataSet.Open;
+      aCalFrame.DataStore.LoadEvents;
+      aEventEdit := TfEventEdit.Create(Self);
+      if aCalFrame.DataStore.Resource.Schedule.EventCount>0 then
+        aEventEdit.Execute(aCalFrame.DataStore.Resource.Schedule.GetEvent(0),aCalFrame.DataStore.Resource,aCalFrame.DataStore.Directory,aCalFrame.DataStore);
+      aEventEdit.Free;
+      aCalFrame.Free;
+      Result := True;
+    end
   else if (copy(aLink,0,16) = 'ACCOUNTEXCHANGE@') then
     begin
       tmp := aLink;
@@ -2779,7 +3043,7 @@ begin
     end
   else if (copy(aLink,0,6) = 'LISTS@') then
     begin
-      aList := TLists.Create(Self,Data);
+      aList := TLists.CreateEx(Self,Data);
       aList.SelectFromLink(aLink);
       aList.Open;
       aList.Entrys.Open;
@@ -2804,7 +3068,7 @@ begin
     end
   else if (copy(aLink,0,8) = 'HISTORY@') then
     begin
-      aBaseHist := TBaseHistory.Create(nil,Data);
+      aBaseHist := TBaseHistory.Create(nil);
       aBaseHist.SelectFromLink(aLink);
       abaseHist.Open;
       aLink := aBaseHist.FieldByName('OBJECT').AsString;
@@ -2813,7 +3077,7 @@ begin
     end
   else if (copy(aLink,0,9) = 'DOCUMENTS') then
     begin
-      aDoc:=TDocuments.Create(Self,Data);
+      aDoc:=TDocuments.CreateEx(Self,Data);
       aDoc.SelectByLink(aLink);
       aDoc.Open;
       if aDoc.Count > 0 then
@@ -2883,7 +3147,7 @@ begin
     end
   else if (copy(aLink,0,10) = 'INVENTORY@') then
     begin
-      aInv := TInventorys.Create(Self,Data);
+      aInv := TInventorys.CreateEx(Self,Data);
       aInv.SelectFromLink(aLink);
       aInv.Open;
       aInv.Positions.Open;
@@ -2913,7 +3177,8 @@ begin
       aFrame.SetLanguage;
       Result := True;
     end
-  else Data.GotoLink(aLink)
+  //else
+  //  Result := Data.GotoLink(aLink)
   ;
   if Result then
     FHistory.Add(aLink);
@@ -2927,41 +3192,55 @@ var
   aIFrame: TPrometInplaceDBFrame;
   New: TMenuItem;
   tmp: Char;
+  Result : Boolean = false;
 begin
   case aEntry.Typ of
   etCustomerList,etCustomers:
     begin
       acContact.Execute;
+      result := True;
     end;
   etMasterdata,etArticleList:
     begin
       acMasterdata.Execute;
+      result := True;
     end;
   etOrders,etOrderList:
     begin
       acOrders.Execute;
+      result := True;
+    end;
+  etStatistics:
+    begin
+      acStatistics.Execute;
+      result := True;
     end;
   etTasks,etMyTasks:
     begin
       acTasks.Execute;
+      result := True;
     end;
   etProjects:
     begin
       acProjects.Execute;
+      result := True;
     end;
-  etCalendar,etMyCalendar:
+  etCalendar:
     begin
       acCalendar.Execute;
+      result := True;
     end;
   etMessages:
     begin
       acMessages.Execute;
+      result := True;
     end;
   etWiki:
     begin
       acWiki.Execute;
+      result := True;
     end;
-  etDocumentsOnly,etImages:
+  etDocuments,etImages:
     begin
       Application.ProcessMessages;
       if aEntry.Typ=etImages then
@@ -2969,7 +3248,10 @@ begin
       else tmp := 'D';
       aFrame := nil;
       for i := 0 to pcPages.PageCount-2 do
-        if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfManageDocFrame)  and (TfManageDocFrame(pcPages.ActivePage.Controls[0]).Typ=tmp) then
+        if (pcPages.Pages[i].ControlCount > 0)
+        and (pcPages.Pages[i].Controls[0] is TfManageDocFrame)
+        and (TfManageDocFrame(pcPages.Pages[i].Controls[0]).Typ=tmp)
+        then
           begin
             aFrame := TPrometmainFrame(pcPages.Pages[i].Controls[0]);
             pcPages.PageIndex:=i;
@@ -2979,14 +3261,21 @@ begin
         begin
           aFrame := TfManageDocFrame.Create(Self);
           if aEntry.Typ=etImages then
-            TfManageDocFrame(aFrame).Typ:='I'
+            begin
+              TfManageDocFrame(aFrame).Typ:='I';
+              TfManageDocFrame(aFrame).TabCaption:=strImages;
+            end
           else
-            TfManageDocFrame(aFrame).Typ:='D';
+            begin
+              TfManageDocFrame(aFrame).Typ:='D';
+              TfManageDocFrame(aFrame).TabCaption:=strDocumentsOnly;
+            end;
           pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('DOCPAGES@'),False);
           AddDocPages(aFrame);
+          if Assigned(aFrame) then
+            TfManageDocFrame(aFrame).OpenDir(Null);
+          result := True;
         end;
-      if Assigned(aFrame) then
-        TfManageDocFrame(aFrame).OpenDir(Null);
     end;
   etLists:
     begin
@@ -3003,6 +3292,7 @@ begin
           pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('LISTS@'),False);
           AddListsList(aFrame);
           TfFilter(aFrame).Open;
+          result := True;
         end;
     end;
   etInventory:
@@ -3020,17 +3310,28 @@ begin
           pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('INVENTORY@'),False);
           AddInventoryList(aFrame);
           TfFilter(aFrame).Open;
+          result := True;
         end;
     end;
   etMeetings,etMeetingList:
     begin
       acMeetings.Execute;
+      result := True;
     end;
   etTimeRegistering:
     begin
       acTimeRegistering.Execute;
+      result := True;
+    end;
+  etAllObjects:
+    begin
+      acElements.Execute;
+      result := True;
     end;
   end;
+  with Application as IBaseDbInterface do
+    if Result and DBConfig.ReadBoolean('HIDETREE',false) and acShowTree.Checked then
+      acShowTree.Execute;
 end;
 
 procedure TfMain.fMainTreeFrametvMainExpanding(Sender: TObject;
@@ -3054,7 +3355,8 @@ begin
       case DataT.Typ of
       etFavourites:
         begin
-          Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'),0,'','ASC',False,True,True);
+          Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('F')+'))';
+          Data.Tree.DataSet.Filtered:=True;
           Data.Tree.DataSet.First;
           while not Data.Tree.dataSet.EOF do
             begin
@@ -3066,35 +3368,44 @@ begin
               Node1.HasChildren:=True;
               Data.Tree.DataSet.Next;
             end;
+          Data.Tree.DataSet.Filtered:=False;
         end;
       etMessages:
         begin
-          Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
+          Data.Tree.DataSet.Filter:=Data.QuoteField('PARENT')+'='+Data.QuoteValue('0');
+          Data.Tree.DataSet.Filtered:=False;
           Data.Tree.DataSet.First;
-          bTree := TTree.Create(nil,Data);
+          bTree := TTree.Create(nil);
           while not Data.Tree.dataSet.EOF do
             begin
-              Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-              TTreeEntry(Node1.Data).Rec := Data.Tree.GetBookmark;
-              TTreeEntry(Node1.Data).DataSource := Data.Tree;
-              TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
-              if Data.Tree.FieldByName('TYPE').AsString = 'N' then
+              if (Data.Tree.FieldByName('PARENT').AsString='0') and
+                ((Data.Tree.FieldByName('TYPE').AsString='N')
+              or (Data.Tree.FieldByName('TYPE').AsString='B'))
+              then
                 begin
-                  TTreeEntry(Node1.Data).Typ := etMessageDir;
-                  bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
-                  if bTree.Count>0 then
-                    fMainTreeFrame.tvMain.Items.AddChild(Node1,'');
-                end
-              else if Data.Tree.FieldByName('TYPE').AsString = 'B' then
-                begin
-                  TTreeEntry(Node1.Data).Typ := etMessageBoard;
-                  bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
-                  if bTree.Count>0 then
-                    fMainTreeFrame.tvMain.Items.AddChild(Node1,'');
+                  Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+                  TTreeEntry(Node1.Data).Rec := Data.Tree.GetBookmark;
+                  TTreeEntry(Node1.Data).DataSource := Data.Tree;
+                  TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+                  if Data.Tree.FieldByName('TYPE').AsString = 'N' then
+                    begin
+                      TTreeEntry(Node1.Data).Typ := etMessageDir;
+                      bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
+                      if bTree.Count>0 then
+                        fMainTreeFrame.tvMain.Items.AddChild(Node1,'');
+                    end
+                  else if Data.Tree.FieldByName('TYPE').AsString = 'B' then
+                    begin
+                      TTreeEntry(Node1.Data).Typ := etMessageBoard;
+                      bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
+                      if bTree.Count>0 then
+                        fMainTreeFrame.tvMain.Items.AddChild(Node1,'');
+                    end;
                 end;
               Data.Tree.DataSet.Next;
             end;
           bTree.Free;
+          Data.Tree.DataSet.Filtered:=False;
         end;
       etTasks:
         begin
@@ -3113,7 +3424,7 @@ begin
           TTreeEntry(Node1.Data).Typ := etOrderList;
           if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
             begin
-              aOrderType := TOrderTyp.Create(nil,Data);
+              aOrderType := TOrderTyp.Create(nil);
               aOrderType.Open;
               Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
               aOrderType.DataSet.First;
@@ -3164,7 +3475,8 @@ begin
           Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
           TTreeEntry(Node1.Data).Typ := etAction;
           TTreeEntry(Node1.Data).Action := fMain.acNewContact;
-          Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+'))',0,'','ASC',False,True,True);
+          Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('C')+'))';
+          Data.Tree.DataSet.Filtered:=True;
           Data.Tree.DataSet.First;
           while not Data.Tree.dataSet.EOF do
             begin
@@ -3176,6 +3488,7 @@ begin
               fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'1',TTreeEntry.Create);
               Data.Tree.DataSet.Next;
             end;
+          Data.Tree.DataSet.Filtered:=False;
         end;
       etMasterdata:
         begin
@@ -3184,7 +3497,8 @@ begin
           Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
           TTreeEntry(Node1.Data).Typ := etAction;
           TTreeEntry(Node1.Data).Action := fMain.acNewMasterdata;
-          Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('M')+'))',0,'','ASC',False,True,True);
+          Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('M')+'))';
+          Data.Tree.DataSet.Filtered:=True;
           Data.Tree.DataSet.First;
           while not Data.Tree.dataSet.EOF do
             begin
@@ -3196,15 +3510,18 @@ begin
               fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
               Data.Tree.DataSet.Next;
             end;
+          Data.Tree.DataSet.Filtered:=False;
         end;
       etProjects:
         begin
+          uprojectoverviewframe.AddToMainTree(fMain.acProjectOverview,Node);
           uProjectFrame.AddToMainTree(fMain.acNewProject,Node);
           uRoughpklanningframe.AddToMainTree(fMain.acRoughPlanning,Node);
         end;
       etWiki:
         begin
-          Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('W')+'))',0,'','ASC',False,True,True);
+          Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('W')+'))';
+          Data.Tree.DataSet.Filtered:=True;
           Data.Tree.DataSet.First;
           while not Data.Tree.dataSet.EOF do
             begin
@@ -3216,8 +3533,9 @@ begin
               fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
               Data.Tree.DataSet.Next;
             end;
+          Data.Tree.DataSet.Filtered:=False;
         end;
-      etDocumentsOnly,etImages:
+      etDocuments,etImages:
         begin
           umanagedocframe.AddToMainTree(Node);
         end;
@@ -3237,7 +3555,7 @@ begin
               TTreeEntry(Node2.Data).Typ := etAccounts;
               Node3 := fMainTreeFrame.tvMain.Items.AddChildObject(Node2,'',TTreeEntry.Create);
               TTreeEntry(Node3.Data).Typ := etNewAccount;
-              Accounts := TAccounts.Create(nil,Data);
+              Accounts := TAccounts.Create(nil);
               Accounts.CreateTable;
               Accounts.Open;
               Accounts.DataSet.First;
@@ -3274,6 +3592,8 @@ end;
 
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  with BaseApplication as IBaseApplication do
+    Debug('fMain:FormClose enter');
   fMain.Hide;
   IPCTimer.Enabled:=False;
   RefreshTimer.Enabled:=False;
@@ -3285,6 +3605,7 @@ begin
     begin
       FTimereg.StopActualTime;
       FTimeReg.Destroy;
+      DeleteFileUTF8(GetTempDir+'PMSTimeregistering');
     end;
   while FHistory.Count>15 do FHistory.Delete(0);
   with Application as IBaseDbInterface do
@@ -3307,13 +3628,24 @@ begin
       SaveConfig;
       DoExit;
     end;
+  with BaseApplication as IBaseApplication do
+    Debug('fMain:FormClose exit');
 end;
 procedure TfMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+var
+  i: Integer;
 begin
   CanClose := True;
   if (uDocumentProcess.ProcessList.Count > 0)
   and (MessageDlg(strProcessesOpen,mtInformation,[mbNo,mbYes],0) = mrNo) then
     CanClose := False;
+  for i := 0 to Screen.FormCount-1 do
+    if Screen.Forms[i] is TfMessageEdit then
+      begin
+        if (MessageDlg(strMessageOpen,mtInformation,[mbNo,mbYes],0) = mrNo) then
+          CanClose := False;
+        break;
+      end;
 end;
 procedure TfMain.FormCreate(Sender: TObject);
 var
@@ -3330,6 +3662,10 @@ begin
     end;
   with Application as TBaseVisualApplication do
     OnUserTabAdded:=@ApplicationTBaseVisualApplicationUserTabAdded;
+  with BaseApplication as TBaseVisualApplication do
+    begin
+      LoadLanguageMenu(miLanguage);
+    end;
   with Application as IBaseDbInterface do
     if not LoadMandants then
       begin
@@ -3340,7 +3676,6 @@ begin
   FHistory := THistory.Create;
   FHistory.FwdAction := acForward;
   FHistory.RewAction := acBack;
-  bSearch.Caption:=strSearch;
   SearchLinks := TStringList.Create;
   uMainTreeFrame.fMainTreeFrame := TfMainTree.Create(Self);
   fMainTreeFrame.pcPages := pcPages;
@@ -3352,30 +3687,6 @@ begin
   fMainTreeFrame.OnSelectionChanged:=@fMainTreeFrameSelectionChanged;
   fMainTreeFrame.OnDragOver:=@fMainTreeFrameDragOver;
   fMainTreeFrame.OnDragDrop:=@fMainTreeFrameDragDrop;
-  with BaseApplication as IBaseApplication do
-    begin
-      if Language = '' then
-        Language := 'Deutsch';
-      IntSetLanguage(Language);
-      miLanguage.Clear;
-      sl := TStringList.Create;
-      if FileExistsUTF8(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt') then
-        sl.LoadFromFile(UTF8ToSys(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt'));
-      for i := 0 to sl.Count-1 do
-        begin
-          aNewItem := TMenuItem.Create(miLanguage);
-          aNewItem.Caption := sl[i];
-          aNewItem.AutoCheck := True;
-          aNewItem.OnClick :=@LanguageItemClick;
-          aNewItem.GroupIndex := 11;
-          miLanguage.Add(aNewItem);
-          if UpperCase(aNewItem.Caption) = UpperCase(Language) then
-            begin
-              aNewItem.Checked := True;
-            end;
-        end;
-      sl.Free;
-    end;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
 end;
 procedure TfMain.FormDestroy(Sender: TObject);
@@ -3394,76 +3705,42 @@ procedure TfMain.IPCTimerTimer(Sender: TObject);
 begin
   IPCTimer.Enabled:=False;
   PeekIPCMessages;
+  if Assigned(FTimeReg) then
+    PeekIPCMessages(GetTempDir+'PMSTimeregistering');
   IPCTimer.Enabled:=True;
 end;
 
-procedure TfMain.LanguageItemClick(Sender: TObject);
-var
-  i: Integer;
-begin
-  with BaseApplication as IBaseApplication do
-    begin
-      for i := 0 to miLanguage.Count-1 do
-        if miLanguage[i].Caption = Language then
-          miLanguage[i].Checked := false;
-      TmenuItem(Sender).Checked := True;
-      Language := TmenuItem(Sender).Caption;
-      IntSetLanguage(Language);
-    end;
-  tvMain.Invalidate;
-end;
-procedure TfMain.lbResultsDblClick(Sender: TObject);
-begin
-  if lbResults.ItemIndex < 0 then exit;
-  eContains.SelectNext(eContains,True,True);
-  pSearch.Visible:=False;
-  Data.GotoLink(SearchLinks[lbresults.ItemIndex]);
-end;
-procedure TfMain.lbResultsDrawItem(Control: TWinControl; Index: Integer;
-  ARect: TRect; State: TOwnerDrawState);
-begin
-  with Control as TListBox do
-    begin
-      canvas.fillrect(arect);
-      if (Index > -1) and (Data.GetLinkIcon(SearchLinks[Index]) > -1) then
-        uBaseVisualControls.fVisualControls.Images.Draw(Canvas,aRect.left,aRect.top,Data.GetLinkIcon(SearchLinks[Index]));
-      canvas.textout(aRect.left+16+2,aRect.top,
-                     items[index]);
-    end;
-end;
-procedure TfMain.lbResultsExit(Sender: TObject);
-begin
-  pSearch.Visible:=False;
-end;
-procedure TfMain.lbResultsKeyPress(Sender: TObject; var Key: char);
-begin
-  if Key = #27 then
-    pSearch.Visible:=false;
-end;
 procedure TfMain.miOptionsClick(Sender: TObject);
 begin
   Screen.Cursor:=crHourGlass;
   Application.ProcessMessages;
   if not (miOptions.Tag=1) then
     begin
+      fOptions.RegisterOptionsFrame(TfVisualOptions.Create(fOptions),strVisualOptions,strPersonalOptions);
       fOptions.RegisterOptionsFrame(TfMessageOptions.Create(fOptions),strMessageAccounts,strPersonalOptions);
       fOptions.RegisterOptionsFrame(TfDocumentOptions.Create(fOptions),strFiles,strPersonalOptions);
       fOptions.RegisterOptionsFrame(TfPhoneOptions.Create(fOptions),strPhones,strPersonalOptions);
+      if Assigned(Data) and ((Data.Users.Rights.Right('OPTIONS') > RIGHT_READ) or (Data.Users.Rights.Right('MASTERDATAOPTIONS') > RIGHT_READ)) then
+        begin
+          fOptions.RegisterOptionsFrame(TfMandantOptions.Create(fOptions),strMandant,strMasterdataOptions);
+          fOptions.RegisterOptionsFrame(TfUserOptions.Create(fOptions),strUsers,strMasterdataOptions);
+          fOptions.RegisterOptionsFrame(TfSystemOptions.Create(fOptions),strSystem,strMasterdataOptions);
+          fOptions.RegisterOptionsFrame(TfStateOptions.Create(fOptions),strStates,strMasterdataOptions);
+          fOptions.RegisterOptionsFrame(TfCategoryOptions.Create(fOptions),strCategory,strMasterdataOptions);
+          fOptions.RegisterOptionsFrame(TfFinancialOptions.Create(fOptions),strFinance,strMasterdataOptions);
+          fOptions.RegisterOptionsFrame(TfOrderTypeOptions.Create(fOptions),strOrderType,strMasterdataOptions);
+          fOptions.RegisterOptionsFrame(TfStorageTypeOptions.Create(fOptions),strStorageTypes,strMasterdataOptions);
+          fOptions.RegisterOptionsFrame(TfCurrencyOptions.Create(fOptions),strCurrencies,strMasterdataOptions);
+          fOptions.RegisterOptionsFrame(TfLanguageOptions.Create(fOptions),strLanguages,strMasterdataOptions);
+        end;
       if Assigned(Data) and (Data.Users.Rights.Right('OPTIONS') > RIGHT_READ) then
         begin
-          fOptions.RegisterOptionsFrame(TfMandantOptions.Create(fOptions),strMandant,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfProcessOptions.Create(fOptions),strProcesses,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfSystemOptions.Create(fOptions),strSystem,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfSyncOptions.Create(fOptions),strSync,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfStateOptions.Create(fOptions),strStates,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfCategoryOptions.Create(fOptions),strCategory,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfOrderTypeOptions.Create(fOptions),strOrderType,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfUserOptions.Create(fOptions),strUsers,strGeneralOptions);
+          fOptions.RegisterOptionsFrame(TfProcessOptions.Create(fOptions),strProcesses,strAutomationOptions);
+          fOptions.RegisterOptionsFrame(TfScriptOptions.Create(fOptions),strScripts,strAutomationOptions);
+          fOptions.RegisterOptionsFrame(TfSyncOptions.Create(fOptions),strSync,strAutomationOptions);
           fOptions.RegisterOptionsFrame(TfUserFieldOptions.Create(fOptions),strUserFieldDefs,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfStorageTypeOptions.Create(fOptions),strStorageTypes,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfCurrencyOptions.Create(fOptions),strCurrencies,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfLanguageOptions.Create(fOptions),strLanguages,strGeneralOptions);
-          fOptions.RegisterOptionsFrame(TfRepairOptions.Create(fOptions),strRepair,strGeneralOptions);
+          fOptions.RegisterOptionsFrame(TfImportOptions.Create(fOptions),strimportexport,strGeneralOptions);
+          fOptions.RegisterOptionsFrame(TfRepairOptions.Create(fOptions),strRepair,strMasterdataOptions);
         end;
       miOptions.Tag:=1;
     end;
@@ -3543,6 +3820,30 @@ begin
               aFrame.cbFilter.Text:=aName;
               aFrame.cbFilterSelect(nil);
             end;
+          'U':
+            begin
+              aFrame := TfFilter.Create(Self);
+              pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('STATISTICS@'),False);
+              AddStatisticList(aFrame);
+              aFrame.cbFilter.Text:=aName;
+              aFrame.cbFilterSelect(nil);
+            end;
+          'E':
+            begin
+              aFrame := TfFilter.Create(Self);
+              pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('MEETINGS@'),False);
+              AddMeetingList(aFrame);
+              aFrame.cbFilter.Text:=aName;
+              aFrame.cbFilterSelect(nil);
+            end;
+          'D':
+            begin
+              aFrame := TfFilter.Create(Self);
+              pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('ALLOBJECTS@'),False);
+              AddElementList(aFrame);
+              aFrame.cbFilter.Text:=aName;
+              aFrame.cbFilterSelect(nil);
+            end;
           end;
         end;
     end;
@@ -3589,16 +3890,35 @@ procedure TfMain.DoRefreshActiveTab(Sender: TObject);
 begin
   if WindowState = wsMinimized then exit;
   if not Visible then exit;
+  try
   if Assigned(pcPages.ActivePage) then
     if pcPages.ActivePage.ControlCount > 0 then
       if pcPages.ActivePage.Controls[0] is TExtControlFrame then
         TExtControlFrame(pcPages.ActivePage.Controls[0]).DoRefresh;
+  except
+  end;
 end;
-procedure TfMain.SearchTimerTimer(Sender: TObject);
+procedure TfMain.SenderTfFilterDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
-  SearchTimer.Enabled:=False;
-  bSearchClick(nil);
+  if ((not Assigned(TDBgrid(Sender).DataSource))
+  or (not Assigned(TDBgrid(Sender).DataSource.DataSet))
+  or (not TDBgrid(Sender).DataSource.DataSet.Active)
+  ) then exit;
+  with (Sender as TDBGrid), Canvas do
+    begin
+      Canvas.FillRect(Rect);
+      if Column.FieldName = 'ICON' then
+        begin
+          fVisualControls.Images.Draw(Canvas,Rect.Left,Rect.Top,Column.Field.AsInteger);
+        end
+      else
+        begin
+          DefaultDrawColumnCell(Rect, DataCol, Column, State);
+        end;
+      end;
 end;
+
 procedure TfMain.SenderTfFiltergListDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
@@ -3625,6 +3945,11 @@ begin
           else
             fVisualControls.Images.Draw(Canvas,Rect.Left,Rect.Top,13)
         end
+      else if Column.FieldName = 'NEEDSACTION' then
+        begin
+          if TDBgrid(Sender).DataSource.DataSet.FieldByName('NEEDSACTION').AsString='Y' then
+            fVisualControls.Images.Draw(Canvas,Rect.Left,Rect.Top,117);
+        end
       else
         begin
           DefaultDrawColumnCell(Rect, DataCol, Column, State);
@@ -3636,16 +3961,25 @@ begin
   Data.GotoLink('ORDERS@'+TfFilter(Sender).DataSet.FieldByName('ORDERNO').AsString);
 end;
 
+procedure TfMain.SenderTfFilterViewElementDetails(Sender: TObject);
+begin
+  if TfFilter(Sender).DataSet.FieldByName('LINK').AsString<>'' then
+    Data.GotoLink(TfFilter(Sender).DataSet.FieldByName('LINK').AsString)
+  else
+    Data.GotoLink('ALLOBJECTS@'+TfFilter(Sender).DataSet.Id.AsString);
+end;
+
 procedure TfMain.SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime
-  (Sender: TObject; aProject, aTask: string);
+  (Sender: TObject; aProject, aTask,aCategory: string);
 begin
   if Assigned(FTimeReg) then
     begin
       FTimeReg.Project:=aProject;
       FTimeReg.Task:=aTask;
       FTimeReg.Link:='';
+      FTimeReg.cbCategory.Text:=aCategory;
       FTimereg.mNotes.Clear;
-      FTimereg.acStartExecute(nil);
+      FTimereg.StartTimereg;
     end;
 end;
 

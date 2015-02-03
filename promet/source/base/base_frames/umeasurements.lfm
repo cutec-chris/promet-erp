@@ -1,0 +1,264 @@
+inherited fMeasurementFrame: TfMeasurementFrame
+  Height = 385
+  Width = 964
+  ClientHeight = 385
+  ClientWidth = 964
+  DesignLeft = 392
+  DesignTop = 284
+  object PageControl1: TPageControl[0]
+    Left = 0
+    Height = 385
+    Top = 0
+    Width = 964
+    ActivePage = tsChart
+    Align = alClient
+    TabIndex = 1
+    TabOrder = 0
+    object tsData: TTabSheet
+      Caption = 'Daten'
+      ClientHeight = 359
+      ClientWidth = 956
+      object gAdresses: TDBGrid
+        Left = 4
+        Height = 351
+        Hint = 'wählen Sie hier eine Adresse'
+        Top = 4
+        Width = 662
+        Align = alClient
+        AutoFillColumns = True
+        BorderSpacing.Around = 4
+        BorderStyle = bsNone
+        Color = clWindow
+        Columns = <        
+          item
+            Title.Caption = 'Name'
+            Width = 136
+            FieldName = 'NAME'
+          end        
+          item
+            Title.Caption = 'Typ'
+            Width = 136
+            FieldName = 'TYPE'
+          end        
+          item
+            Title.Caption = 'ID'
+            Width = 136
+            FieldName = 'ID'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            SizePriority = 0
+            Title.Caption = 'Diagramm'
+            Width = 20
+            ValueChecked = 'Y'
+            ValueUnchecked = 'N'
+            FieldName = 'CHART'
+          end        
+          item
+            SizePriority = 0
+            Title.Caption = 'Farbe'
+            Width = 80
+            FieldName = 'COLOR'
+          end        
+          item
+            SizePriority = 0
+            Title.Caption = 'Bereich'
+            Width = 60
+            FieldName = 'RANGE'
+          end        
+          item
+            PickList.Strings = (
+              'L Links'
+              'R Rechts'
+            )
+            SizePriority = 0
+            Title.Caption = 'Position'
+            Width = 50
+            FieldName = 'POSITION'
+          end        
+          item
+            ButtonStyle = cbsCheckboxColumn
+            SizePriority = 0
+            Title.Caption = 'Interpolieren'
+            Width = 30
+            ValueChecked = 'Y'
+            ValueUnchecked = 'N'
+            FieldName = 'INTERPOLATE'
+          end>
+        DataSource = Measurements
+        DefaultRowHeight = 22
+        Scrollbars = ssAutoBoth
+        TabOrder = 0
+        TabStop = False
+        TitleStyle = tsNative
+      end
+      object gAdresses1: TDBGrid
+        Left = 670
+        Height = 351
+        Hint = 'wählen Sie hier eine Adresse'
+        Top = 4
+        Width = 282
+        Align = alRight
+        AutoFillColumns = True
+        BorderSpacing.Around = 4
+        BorderStyle = bsNone
+        Color = clWindow
+        Columns = <        
+          item
+            Title.Caption = 'Wert'
+            Width = 135
+            FieldName = 'DATA'
+          end        
+          item
+            Title.Caption = 'Datum'
+            Width = 135
+            FieldName = 'DATE'
+          end>
+        DataSource = MeasurementData
+        DefaultRowHeight = 22
+        Scrollbars = ssAutoBoth
+        TabOrder = 1
+        TabStop = False
+        TitleStyle = tsNative
+      end
+    end
+    object tsChart: TTabSheet
+      Caption = 'Diagramm'
+      ClientHeight = 359
+      ClientWidth = 956
+      OnShow = tsChartShow
+      object Chart1: TChart
+        Left = 0
+        Height = 319
+        Top = 26
+        Width = 956
+        AxisList = <        
+          item
+            Grid.Color = clSilver
+            Minors = <>
+            Title.LabelFont.Orientation = 900
+          end        
+          item
+            Grid.Color = clSilver
+            Alignment = calBottom
+            Marks.Format = '%2:s'
+            Marks.Source = DateTimeIntervalChartSource2
+            Marks.Style = smsLabel
+            Minors = <>
+          end        
+          item
+            Visible = False
+            Alignment = calRight
+            Minors = <>
+          end>
+        BackColor = clWindow
+        Foot.Brush.Color = clBtnFace
+        Foot.Font.Color = clBlue
+        Title.Brush.Color = clBtnFace
+        Title.Font.Color = clBlue
+        Title.Text.Strings = (
+          'TAChart'
+        )
+        Align = alClient
+        DoubleBuffered = True
+        ParentColor = False
+        object Chart1LineSeries1: TLineSeries
+        end
+      end
+      object ChartNavScrollBar1: TChartNavScrollBar
+        Left = 0
+        Height = 14
+        Top = 345
+        Width = 956
+        Chart = Chart1
+        Align = alBottom
+        PageSize = 0
+        TabOrder = 1
+      end
+      object ToolBar1: TToolBar
+        Left = 0
+        Height = 26
+        Top = 0
+        Width = 956
+        Caption = 'ToolBar1'
+        EdgeBorders = []
+        ShowCaptions = True
+        TabOrder = 2
+        object ToolButton1: TToolButton
+          Left = 70
+          Top = 0
+          Action = DataSetPrior1
+        end
+        object ToolButton2: TToolButton
+          Left = 110
+          Top = 0
+          Action = DataSetNext1
+        end
+        object ToolButton3: TToolButton
+          Left = 134
+          Height = 22
+          Top = 0
+          Width = 10
+          Caption = 'ToolButton3'
+          Style = tbsSeparator
+        end
+        object ToolButton4: TToolButton
+          Left = 144
+          Top = 0
+          Action = acZoomOut
+        end
+        object ToolButton5: TToolButton
+          Left = 185
+          Top = 0
+          Action = acZoomIn
+        end
+        object ToolButton6: TToolButton
+          Left = 1
+          Top = 0
+          Action = acRefresh
+        end
+      end
+    end
+  end
+  object Measurements: TDataSource[1]
+    left = 16
+    top = 120
+  end
+  object MeasurementData: TDataSource[2]
+    left = 16
+    top = 176
+  end
+  object ActionList1: TActionList[3]
+    left = 72
+    top = 120
+    object DataSetPrior1: TAction
+      Category = 'Database'
+      Caption = '&Zurück'
+      Hint = 'Prior'
+      OnExecute = DataSetPrior1Execute
+    end
+    object DataSetNext1: TAction
+      Category = 'Database'
+      Caption = '&Vor'
+      Hint = 'Next'
+      OnExecute = DataSetNext1Execute
+    end
+    object acZoomOut: TAction
+      Caption = 'Zoom -'
+    end
+    object acZoomIn: TAction
+      Caption = 'Zoom +'
+    end
+    object acRefresh: TAction
+      Caption = 'Aktualisieren'
+      OnExecute = acRefreshExecute
+    end
+  end
+  object DateTimeIntervalChartSource2: TDateTimeIntervalChartSource[4]
+    Params.MaxLength = 150
+    Params.MinLength = 20
+    Params.Options = [aipUseCount, aipUseMaxLength, aipUseMinLength, aipUseNiceSteps]
+    left = 72
+    top = 176
+  end
+end

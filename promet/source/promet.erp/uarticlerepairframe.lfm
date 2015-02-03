@@ -1,16 +1,15 @@
-object FArticlerepairFrame: TFArticlerepairFrame
-  Left = 471
+inherited FArticlerepairFrame: TFArticlerepairFrame
   Height = 287
-  Top = 234
   Width = 617
   ClientHeight = 287
   ClientWidth = 617
-  LCLVersion = '0.9.31'
-  object gAssemblys: TExtDBGrid
-    Left = 35
+  DesignLeft = 419
+  DesignTop = 305
+  object gAssemblys: TExtDBGrid[0]
+    Left = 8
     Height = 266
     Top = 8
-    Width = 197
+    Width = 224
     AlternateColor = 16770790
     Anchors = [akTop, akLeft, akBottom]
     BorderStyle = bsNone
@@ -26,9 +25,10 @@ object FArticlerepairFrame: TFArticlerepairFrame
     TabOrder = 0
     TitleStyle = tsNative
     WantReturns = False
+    CachedEditing = True
   end
-  object dnAssembly: TDBNavigator
-    Left = 3
+  object dnAssembly: TDBNavigator[1]
+    Left = 240
     Height = 120
     Top = 8
     Width = 24
@@ -43,11 +43,12 @@ object FArticlerepairFrame: TFArticlerepairFrame
     ClientWidth = 24
     DataSource = Assembly
     Direction = nbdVertical
+    Flat = True
     Options = []
     TabOrder = 1
     VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
   end
-  object gParts: TExtDBGrid
+  object gParts: TExtDBGrid[2]
     Left = 272
     Height = 266
     Top = 8
@@ -67,12 +68,14 @@ object FArticlerepairFrame: TFArticlerepairFrame
     TabOrder = 2
     TitleStyle = tsNative
     WantReturns = False
+    CachedEditing = True
   end
-  object dnPart: TDBNavigator
-    Left = 240
+  object dnPart: TDBNavigator[3]
+    Left = 592
     Height = 120
     Top = 8
     Width = 24
+    Anchors = [akTop, akRight]
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
@@ -84,15 +87,16 @@ object FArticlerepairFrame: TFArticlerepairFrame
     ClientWidth = 24
     DataSource = Part
     Direction = nbdVertical
+    Flat = True
     Options = []
     TabOrder = 3
     VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
   end
-  object Assembly: TDatasource
+  object Assembly: TDatasource[4]
     left = 37
     top = 120
   end
-  object Part: TDatasource
+  object Part: TDatasource[5]
     left = 277
     top = 106
   end

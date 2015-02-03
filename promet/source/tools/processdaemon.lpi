@@ -4,10 +4,11 @@
     <Version Value="9"/>
     <General>
       <Flags>
+        <SaveClosedFiles Value="False"/>
         <MainUnitHasCreateFormStatements Value="False"/>
         <MainUnitHasTitleStatement Value="False"/>
       </Flags>
-      <SessionStorage Value="InProjectDir"/>
+      <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
       <Title Value="processdaemon"/>
       <UseAppBundle Value="False"/>
@@ -36,7 +37,6 @@
       <Unit0>
         <Filename Value="processdaemon.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="processdaemon"/>
       </Unit0>
     </Units>
   </ProjectOptions>
@@ -49,12 +49,6 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="../../output/$(TargetCPU)-$(TargetOS)/tools"/>
     </SearchPaths>
-    <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

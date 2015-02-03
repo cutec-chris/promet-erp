@@ -3,8 +3,8 @@ inherited fAccountingFrame: TfAccountingFrame
   Width = 636
   ClientHeight = 450
   ClientWidth = 636
-  DesignLeft = 471
-  DesignTop = 222
+  DesignLeft = 460
+  DesignTop = 215
   object Panel4: TPanel[0]
     Left = 0
     Height = 84
@@ -27,9 +27,9 @@ inherited fAccountingFrame: TfAccountingFrame
       TabOrder = 0
       object ExtRotatedLabel1: TLabel
         Left = 6
-        Height = 14
+        Height = 13
         Top = 0
-        Width = 32
+        Width = 31
         Caption = 'Konto'
         Font.Color = clMedGray
         Font.Height = 11
@@ -48,9 +48,9 @@ inherited fAccountingFrame: TfAccountingFrame
       end
       object Label1: TLabel
         Left = 6
-        Height = 14
+        Height = 13
         Top = 44
-        Width = 80
+        Width = 79
         Caption = 'Kontonummer'
         ParentColor = False
       end
@@ -78,15 +78,15 @@ inherited fAccountingFrame: TfAccountingFrame
       end
       object Label2: TLabel
         Left = 128
-        Height = 14
+        Height = 13
         Top = 44
-        Width = 29
+        Width = 28
         Caption = 'Bank'
         ParentColor = False
       end
       object eSearch: TDBEdit
         Left = 6
-        Height = 24
+        Height = 23
         Top = 12
         Width = 218
         DataField = 'NAME'
@@ -106,7 +106,7 @@ inherited fAccountingFrame: TfAccountingFrame
       end
       object ExtRotatedLabel2: TLabel
         Left = 232
-        Height = 14
+        Height = 13
         Top = 0
         Width = 42
         Caption = 'Notizen'

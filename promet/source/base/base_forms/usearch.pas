@@ -21,7 +21,7 @@ unit uSearch;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs,
   StdCtrls, ComCtrls, Buttons, Grids, uIntfStrConsts, ExtCtrls, CheckLst, db,
   LMessages, Spin, LCLtype, ActnList, Menus, LCLIntf, Utils, FPCanvas,
   CustomTimer, Themes, uBaseSearch, uBaseDbClasses, Clipbrd;
@@ -33,6 +33,8 @@ type
     acCopyLink: TAction;
     acSaveToLink: TAction;
     acSearchContained: TAction;
+    acInformwithexternMail: TAction;
+    acInformwithinternMail: TAction;
     ActionList1: TActionList;
     bClose: TBitBtn;
     bEditFilter: TSpeedButton;
@@ -58,6 +60,7 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
     Panel1: TPanel;
     Panel5: TPanel;
     pTop: TPanel;
@@ -71,11 +74,14 @@ type
     sgResults: TStringGrid;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
+    HistorySearchTimer: TTimer;
     procedure acCopyLinkExecute(Sender: TObject);
+    procedure acInformwithexternMailExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acSaveToLinkExecute(Sender: TObject);
     procedure acSearchContainedExecute(Sender: TObject);
     procedure ActiveSearchBeginItemSearch(Sender: TObject);
+    procedure ActiveSearchEndHistorySearch(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure bCloseClick(Sender: TObject);
@@ -86,7 +92,7 @@ type
     procedure cbAutomaticsearchChange(Sender: TObject);
     procedure cbWildgardsChange(Sender: TObject);
     procedure DataSearchresultItem(aIdent: string; aName: string;
-      aStatus: string;aActive : Boolean; aLink: string;aItem : TBaseDBList = nil);
+      aStatus: string;aActive : Boolean; aLink: string;aPrio : Integer;aItem : TBaseDBList = nil);
     procedure eContainsChange(Sender: TObject);
     procedure eContainsKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -95,6 +101,8 @@ type
     procedure FormHide(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    function fSearchOpenUserItem(aLink: string): Boolean;
+    procedure HistorySearchTimerTimer(Sender: TObject);
     procedure IdleTimer1Timer(Sender: TObject);
     procedure IdleTimerTimer(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
@@ -109,6 +117,7 @@ type
       Y: Integer);
     procedure sgResultsResize(Sender: TObject);
   private
+    FSearcheMail : string;
     FOpenItem: TOpenItemEvent;
     FValidItem: TOpenItemEvent;
     { private declarations }
@@ -129,11 +138,15 @@ type
     property OnOpenItem : TOpenItemEvent read FOpenItem write FOpenItem;
     property OnValidateItem : TOpenItemEvent read FValidItem write FValidItem;
   end;
+
+  { TSearchHintWindow }
+
   TSearchHintWindow = class(THintWindow)
   private
     FActivating: Boolean;
     function GetDrawTextFlags: Cardinal;
   public
+    //procedure ActivateHint(const AHint: String); override;
     procedure ActivateHint(ARect: TRect; const AHint: string); override;
     procedure Paint; override;
   published
@@ -142,11 +155,13 @@ type
 var
   fSearch: TfSearch;
 implementation
+{$R *.lfm}
 uses uBaseDBInterface,uBaseApplication,uBaseVisualControls,uFormAnimate,
-  uBaseVisualApplication,uData,uBaseERPDBClasses,uMasterdata,LCLProc
+  uBaseVisualApplication,uData,uBaseERPDBClasses,uMasterdata,LCLProc,uSendMail,
+  uPerson,variants
   ;
 resourcestring
-  strSearchfromOrderMode        = 'Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in den aktuellen Vorgang übernommen.';
+  strSearchfromOrderMode        = 'Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag öffnen wird dieser automatisch in den aktuellen Vorgang übernommen.';
   strDoSearch                   = 'suchen';
 procedure TfSearch.bCloseClick(Sender: TObject);
 begin
@@ -178,12 +193,20 @@ begin
 end;
 
 procedure TfSearch.acOpenExecute(Sender: TObject);
+var
+  aSearchHist: TSearchHistory;
 begin
   SearchText := '';
   if Assigned(ActiveSearch) and ActiveSearch.Active then
     begin
       ActiveSearch.Abort;
       while ActiveSearch.Active do Application.ProcessMessages;
+    end;
+  if (trim(eContains.Text)<>'') then
+    begin
+      aSearchHist := TSearchHistory.Create(nil);
+      aSearchHist.Add(eContains.Text,GetLink);
+      aSearchHist.Free;
     end;
  if Assigned(FOpenItem) then
    begin
@@ -228,20 +251,20 @@ var
   aMS: TMasterdata;
   aActive: Boolean;
 begin
-  aMS := TMasterdata.Create(nil,data);
+  aMS := TMasterdata.Create(nil);
   aMS.SelectFromLink(GetLink());
   aMS.Open;
   if aMS.Count>0 then
     begin
       sgResults.RowCount:=sgResults.FixedRows;
-      aPos := TMDPos.Create(nil,Data);
+      aPos := TMDPos.Create(nil);
       Data.SetFilter(aPos,Data.QuoteField('IDENT')+'='+Data.QuoteValue(aMS.Number.AsString));
       with aPos do
         begin
           First;
           while not EOF do
             begin
-              aMS := TMasterdata.Create(nil,data);
+              aMS := TMasterdata.Create(nil);
               aMS.Select(aPos.FieldByName('REF_ID').AsVariant);
               aMS.Open;
               if aMS.Count>0 then
@@ -249,7 +272,7 @@ begin
                   aActive := Data.States.DataSet.Locate('STATUS',aMS.Status.AsString,[loCaseInsensitive]);
                   if aActive then
                     aActive := aActive and (Data.States.FieldByName('ACTIVE').AsString='Y');
-                  DataSearchresultItem(aMS.FieldByName('ID').AsString,aMS.FieldByName('SHORTTEXT').AsString,aMs.Status.AsString,aActive,Data.BuildLink(aMS.DataSet),aMS);
+                  DataSearchresultItem(aMS.FieldByName('ID').AsString,aMS.FieldByName('SHORTTEXT').AsString,aMs.Status.AsString,aActive,Data.BuildLink(aMS.DataSet),0,aMS);
                 end;
               Next;
             end;
@@ -262,6 +285,11 @@ end;
 procedure TfSearch.ActiveSearchBeginItemSearch(Sender: TObject);
 begin
   sgResults.BeginUpdate;
+end;
+
+procedure TfSearch.ActiveSearchEndHistorySearch(Sender: TObject);
+begin
+  HistorySearchTimer.Enabled:=True;
 end;
 
 procedure TfSearch.ActiveSearchEndItemSearch(Sender: TObject);
@@ -287,6 +315,43 @@ begin
   Clipboard.AddFormat(LinkClipboardFormat,Stream);
   Stream.Free;
 end;
+
+procedure TfSearch.acInformwithexternMailExecute(Sender: TObject);
+var
+  i: Integer;
+  aLink: String;
+  aFile: String;
+  sl: TStringList;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if  (fSearch.cbSearchType.Items[i] <> strUsers)
+      and (fSearch.cbSearchType.Items[i] <> strCustomers) then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenUserItem;
+  FSearcheMail:='';
+  fSearch.Execute(True,'LISTU',strSearchFromMailSelect);
+  fSearch.SetLanguage;
+  aLink := GetLink;
+  if (aLink<>'') then
+    begin
+      with BaseApplication as IBaseApplication do
+        aFile := GetInternalTempDir+ValidateFileName(Data.GetLinkDesc(aLink))+'.plink';
+      sl := TStringList.Create;
+      sl.Add(aLink);
+      sl.SaveToFile(aFile);
+      sl.Free;
+      DoSendMail(Data.GetLinkDesc(aLink),Data.GetLinkLongDesc(aLink), aFile,'','','',FSearcheMail);
+    end;
+end;
+
 procedure TfSearch.DoSearch(Sender: TObject);
 var
   SearchTypes : TFullTextSearchTypes = [];
@@ -331,18 +396,19 @@ begin
   ActiveSearch.OnBeginItemSearch:=@ActiveSearchBeginItemSearch;
   ActiveSearch.OnEndItemSearch:=@ActiveSearchEndItemSearch;
   ActiveSearch.OnEndSearch:=@FastSearchEnd;
-  ActiveSearch.Start(eContains.Text,False);
+  ActiveSearch.OnEndHistorySearch:=@ActiveSearchEndHistorySearch;
+  ActiveSearch.StartHistorySearch(eContains.Text);
 end;
 procedure TfSearch.cbAutomaticsearchChange(Sender: TObject);
 begin
 //  bSearch.Visible:=not cbAutomaticsearch.Checked;
-  with Application as IBaseApplication do
+  with Application as IBaseDBInterface do
     begin
       if cbAutomaticsearch.Checked then
-        Config.WriteString('SEARCHWHILETYPING','YES')
+        DBConfig.WriteString('SEARCHWHILETYPING','YES')
       else
         begin
-          Config.WriteString('SEARCHWHILETYPING','NO');
+          DBConfig.WriteString('SEARCHWHILETYPING','NO');
           bSearch.Default:=True;
           bOpen.Default:=True;
         end;
@@ -350,18 +416,19 @@ begin
 end;
 procedure TfSearch.cbWildgardsChange(Sender: TObject);
 begin
-  with Application as IBaseApplication do
+  with Application as IBaseDBInterface do
     begin
       if cbWildgards.Checked then
-        Config.WriteString('WILDGARDSEARCH','YES')
+        DBConfig.WriteString('WILDGARDSEARCH','YES')
       else
-        Config.WriteString('WILDGARDSEARCH','NO');
+        DBConfig.WriteString('WILDGARDSEARCH','NO');
       if cbWildgards.Checked then
         cbAutomaticSearch.Checked:=False;
     end;
 end;
 procedure TfSearch.DataSearchresultItem(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string;aItem : TBaseDBList = nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 var
   i: Integer;
   aRec: String;
@@ -380,6 +447,7 @@ begin
     end
   else
     i := sgResults.RowCount;
+  i := i+1;
   if i<1 then i := 1;
   if i>sgResults.RowCount then
     i := sgResults.RowCount;
@@ -392,16 +460,18 @@ begin
     sgResults.Cells[5,i] := 'Y'
   else
     sgResults.Cells[5,i] := 'N';
+  sgResults.Cells[6,i] := IntToStr(aPrio);
 end;
 procedure TfSearch.eContainsChange(Sender: TObject);
 begin
+  HistorySearchTimer.Enabled:=False;
+  IdleTimer.Enabled:=False;
   if Assigned(ActiveSearch) then
     begin
       ActiveSearch.Abort;
       if bSearch.Caption=strAbort then
         bSearch.Click;
     end;
-  IdleTimer.Enabled:=False;
   IdleTimer.Enabled:=True;
 end;
 procedure TfSearch.eContainsKeyDown(Sender: TObject; var Key: Word;
@@ -458,6 +528,7 @@ begin
     DBConfig.WriteString('SEARCHIN:'+FOptionSet,Options);
   CloseAction:=caHide;
 end;
+
 procedure TfSearch.FormHide(Sender: TObject);
 begin
   IdleTimer.Enabled:=False;
@@ -474,21 +545,60 @@ begin
 end;
 procedure TfSearch.FormShow(Sender: TObject);
 begin
-  with Application as IBaseApplication do
+  with Application as IBaseDBInterface do
     begin
-      cbAutomaticSearch.Checked:=Config.ReadString('SEARCHWHILETYPING','YES') <> 'NO';
+      cbAutomaticSearch.Checked:=DBConfig.ReadString('SEARCHWHILETYPING','YES') <> 'NO';
       cbAutomaticSearch.OnChange(Self);
-      if Config.ReadString('SEARCHMAXRESULTS','ON') = 'OFF' then
+      if DBConfig.ReadString('SEARCHMAXRESULTS','ON') = 'OFF' then
         cbMaxresults.Checked := False
       else
         begin
           cbMaxresults.Checked := true;
-          seMaxResults.Value:=Config.ReadInteger('SEARCHMAXRESULTS',10);
+          seMaxResults.Value:=DBConfig.ReadInteger('SEARCHMAXRESULTS',10);
         end;
-      cbWildgards.Checked:=Config.ReadString('WILDGARDSEARCH','NO') = 'YES';
+      cbWildgards.Checked:=DBConfig.ReadString('WILDGARDSEARCH','NO') = 'YES';
       eContains.SetFocus;
       eContains.SelectAll;
     end;
+end;
+
+function TfSearch.fSearchOpenUserItem(aLink: string): Boolean;
+var
+  aUser: TUser;
+  aCont: TPerson;
+  aFile: String;
+  sl: TStringList;
+begin
+  if pos('USERS',aLink)>0 then
+    begin
+      aUser := TUser.Create(nil);
+      aUser.SelectFromLink(aLink);
+      aUser.Open;
+      if aUser.Count>0 then
+        begin
+          FSearcheMail := trim(aUser.FieldByName('EMAIL').AsString);
+        end;
+      aUser.Free;
+    end
+  else
+    begin
+      aCont := TPerson.Create(nil);
+      aCont.SelectFromLink(aLink);
+      aCont.Open;
+      if aCont.Count>0 then
+        begin
+          aCont.ContactData.Open;
+          if aCont.ContactData.Locate('TYPE;ACTIVE',VarArrayOf(['EM','Y']),[loPartialKey]) then
+            FSearcheMail := aCont.ContactData.FieldByName('DATA').AsString;
+        end;
+      aCont.Free;
+    end;
+end;
+
+procedure TfSearch.HistorySearchTimerTimer(Sender: TObject);
+begin
+  HistorySearchTimer.Enabled:=False;
+  ActiveSearch.Start(eContains.Text,False);
 end;
 
 procedure TfSearch.IdleTimer1Timer(Sender: TObject);
@@ -520,12 +630,12 @@ end;
 
 procedure TfSearch.seMaxresultsChange(Sender: TObject);
 begin
-  with Application as IBaseApplication do
+  with Application as IBaseDBInterface do
     begin
       if cbMaxresults.Checked then
-        Config.WriteInteger('SEARCHMAXRESULTS',seMaxResults.Value)
+        DBConfig.WriteInteger('SEARCHMAXRESULTS',seMaxResults.Value)
       else
-        Config.WriteString('SEARCHMAXRESULTS','10');
+        DBConfig.WriteString('SEARCHMAXRESULTS','10');
     end;
   DoSearch(nil);
 end;
@@ -675,7 +785,10 @@ begin
   for i := 0 to length(aLocations)-1 do
     begin
       cbSearchType.Items.Add(aLocations[i]);
-      cbSearchType.Checked[cbSearchType.Items.Count-1] := True;
+      if (cbSearchType.Items[cbSearchType.Items.Count-1]<>strHistory)
+      and (cbSearchType.Items[cbSearchType.Items.Count-1]<>strUsers)
+      then
+        cbSearchType.Checked[cbSearchType.Items.Count-1] := True;
     end;
   OnValidateItem:=nil;
 end;
@@ -739,6 +852,14 @@ begin
   end;
   Result := Result or DT_LEFT;
 end;
+
+{procedure TSearchHintWindow.ActivateHint(const AHint: String);
+begin
+  inherited ActivateHint(AHint);
+  Caption := AHint;
+  //AMonitor := Screen.MonitorFromPoint(ARect.TopLeft);
+end;
+}
 procedure TSearchHintWindow.ActivateHint(ARect: TRect; const AHint: string);
 var
   AMonitor: TMonitor;
@@ -780,6 +901,7 @@ begin
     FActivating := False;
   end;
 end;
+
 procedure TSearchHintWindow.Paint;
 var
   R: TRect;
@@ -811,6 +933,5 @@ begin
     Length(Caption), R, GetDrawTextFlags);
 end;
 initialization
-  {$I usearch.lrs}
 end.
 

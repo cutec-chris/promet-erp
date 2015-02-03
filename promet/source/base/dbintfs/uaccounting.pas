@@ -20,18 +20,22 @@ unit uAccounting;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDBClasses, uBaseApplication;
+  Classes, SysUtils, db, uBaseDBClasses, uBaseApplication,uIntfStrConsts;
 type
+
+  { TAccountExchange }
+
   TAccountExchange = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
+    procedure SetDisplayLabels(aDataSet: TDataSet); override;
     procedure Open;override;
   end;
   TAccounts = class(TBaseDBDataSet)
   private
     FExchange: TAccountExchange;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure Open;override;
     destructor Destroy;override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -42,18 +46,19 @@ type
   private
     FirstOpen: Boolean;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Open;override;
   end;
 implementation
 uses uBaseDBInterface;
-
-constructor TAccountingJournal.Create(aOwner: TComponent; DM: TComponent;
+resourcestring
+  strSender                 = 'Absender';
+constructor TAccountingJournal.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
   FirstOpen := True;
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   UpdateFloatFields:=True;
 end;
 
@@ -82,6 +87,7 @@ begin
             Add('PAYPRICE',ftFloat,0,False);                //bereits bezahlt
             Add('PAYMENT',ftString,1,True);
             Add('PAYEDON',ftDate,0,False);
+            Add('ACCOUNT',ftString,10,False);
           end;
     end;
 end;
@@ -127,6 +133,14 @@ begin
     end;
 end;
 
+procedure TAccountExchange.SetDisplayLabels(aDataSet: TDataSet);
+begin
+  inherited SetDisplayLabels(aDataSet);
+  SetDisplayLabelName(aDataSet,'RSORTCODE',strSender+' '+strSortCode);
+  SetDisplayLabelName(aDataSet,'RACCOUNTNO',strSender+' '+strAccount);
+  SetDisplayLabelName(aDataSet,'VOUCHER',strVoucher);
+end;
+
 procedure TAccountExchange.Open;
 begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
@@ -136,11 +150,11 @@ begin
     end;
   inherited Open;
 end;
-constructor TAccounts.Create(aOwner: TComponent; DM: TComponent;
+constructor TAccounts.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FExchange := TAccountExchange.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FExchange := TAccountExchange.CreateEx(Owner,DM,aConnection,DataSet);
 end;
 procedure TAccounts.Open;
 begin
@@ -163,7 +177,7 @@ begin
             Add('TYPE',ftString,3,True);
             Add('SORTCODE',ftString,20,True);
             Add('ACCOUNTNO',ftString,200,True);
-            Add('NAME',ftString,30,False);
+            Add('NAME',ftString,60,False);
             Add('NOTES',ftMemo,0,False);
             Add('FTSNAME',ftString,30,False);
           end;

@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ComCtrls,
   Buttons, ActnList, Menus, ExtCtrls, DbCtrls, StdCtrls, uExtControls,
   DBZVDateTimePicker, db, uPrometFrames, uPrometFramesInplace, uBaseDBClasses,
-  Dialogs, Spin, EditBtn,variants,uProjectFlow,uTasks,Graphics;
+  Dialogs, Spin, EditBtn,variants,uProjectFlow,uTasks,Graphics,uMeasurement;
 type
 
   { TfProjectFrame }
@@ -49,6 +49,9 @@ type
     acInactiveGantt: TAction;
     acCalculatePlan: TAction;
     acMoveOldTasks: TAction;
+    acAddImage: TAction;
+    acPasteImage: TAction;
+    acAddScreenshot: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bDelegated2: TSpeedButton;
@@ -64,24 +67,30 @@ type
     bExecute1: TSpeedButton;
     bExecute2: TToolButton;
     bShowTree: TSpeedButton;
+    cbClass: TExtDBCombobox;
     cbStatus: TComboBox;
     cbType: TExtDBCombobox;
     cbCategory: TExtDBCombobox;
+    bProjectColor: TColorButton;
     DBCheckBox1: TDBCheckBox;
     DBCheckBox2: TDBCheckBox;
     DBCheckBox3: TDBCheckBox;
+    DBCheckBox4: TDBCheckBox;
     DBZVDateTimePicker4: TDBZVDateTimePicker;
+    DBZVDateTimePicker5: TDBZVDateTimePicker;
     eParent: TEditButton;
     eManager: TEditButton;
-    GroupBox1: TGroupBox;
     iProject: TImage;
     Label10: TLabel;
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
+    Label14: TLabel;
     Label8: TLabel;
     Label9: TLabel;
     lVAT1: TLabel;
+    lVAT2: TLabel;
+    MandantDetails: TDatasource;
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
     MenuItem6: TMenuItem;
@@ -97,20 +106,21 @@ type
     pStatus: TPanel;
     PTasks: TfrDBDataSet;
     dExport: TSaveDialog;
+    sbAddImage: TSpeedButton;
+    sbClipboardToImage: TSpeedButton;
+    sbClipboardToImage1: TSpeedButton;
     sePriority: TSpinEdit;
-    Shape1: TShape;
-    Shape2: TShape;
-    Shape3: TShape;
+    sARed: TShape;
+    sAYellow: TShape;
+    sAGreen: TShape;
     Shape4: TShape;
     Tasks: TDatasource;
     DBZVDateTimePicker1: TDBZVDateTimePicker;
-    DBZVDateTimePicker2: TDBZVDateTimePicker;
     DBZVDateTimePicker3: TDBZVDateTimePicker;
     dImport: TOpenDialog;
     eNumber: TDBEdit;
     History: TDatasource;
     Label1: TLabel;
-    Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
@@ -148,6 +158,7 @@ type
     ToolButton2: TSpeedButton;
     tsInfo: TTabSheet;
     Users: TDatasource;
+    procedure acAddScreenshotExecute(Sender: TObject);
     procedure acCalculatePlanExecute(Sender: TObject);
     procedure acCancelExecute(Sender: TObject);
     procedure acCloseExecute(Sender: TObject);
@@ -158,11 +169,14 @@ type
     procedure acImportExecute(Sender: TObject);
     procedure acInactiveGanttExecute(Sender: TObject);
     procedure acMoveOldTasksExecute(Sender: TObject);
+    procedure acPasteImageExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRestartExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
+    procedure bProjectColorColorChanged(Sender: TObject);
+    procedure cbCategorySelect(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
     procedure eNameChange(Sender: TObject);
     procedure eManagerButtonClick(Sender: TObject);
@@ -173,14 +187,18 @@ type
     function fSearchOpenItemL(aLink: string): Boolean;
     procedure pcPagesChange(Sender: TObject);
     procedure ProjectsStateChange(Sender: TObject);
+    procedure ReportGetValue(const ParName: String; var ParValue: Variant);
     procedure sbMenueClick(Sender: TObject);
     procedure sePriorityChange(Sender: TObject);
     procedure TProjectStateChange(Sender: TObject);
   private
     { private declarations }
     FEditable : Boolean;
+    FOwners : TStringList;
     FOnStartTime: TOnStartTime;
     FProjectFlow: TProjectFlow;
+    FMeasurement: TMeasurement;
+    procedure AddMeasurement(Sender: TObject);
     procedure AddHistory(Sender: TObject);
     procedure AddPositions(Sender: TObject);
     procedure AddImages(Sender: TObject);
@@ -188,6 +206,7 @@ type
     procedure AddDocuments(Sender: TObject);
     procedure AddTasks(Sender: TObject);
     procedure AddOverview(Sender: TObject);
+    procedure AddFinance(Sender: TObject);
     procedure RefreshFlow;
   protected
     procedure SetDataSet(const AValue: TBaseDBDataset);override;
@@ -213,11 +232,11 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uDocumentFrame,uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,uEditableTab,
   uFilterFrame,uBaseSearch,Utils,uprojectimport,uBaseERPDBClasses,uSelectReport,
   uNRights,uprojectpositions,uSearch,LCLProc,utask,uprojectoverview,uBaseVisualApplication,
-  uGanttView,uWikiFrame,uWiki;
+  uGanttView,uWikiFrame,uWiki,ufinance,uthumbnails,Clipbrd,uscreenshotmain,
+  uBaseApplication,umeasurements;
 {$R *.lfm}
 resourcestring
   strNoParent                     = '<kein Vorfahr>';
-  strSearchFromProjects           = 'Mit Öffnen wird das gewählte Projekt als Vohrfahr übernommen';
   strEnterProcessName             = 'geben Sie einen neuen Namen für den Prozess an';
   strProcessName                  = 'Prozessname';
   strInactiveStatus               = 'Der gewähte Status ist kein aktiver Status, sollen alle aktiven Aufgaben deaktiviert werden ?';
@@ -233,7 +252,8 @@ begin
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etAction;
       TTreeEntry(Node1.Data).Action := aAction;
-      Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('P')+'))',0,'','ASC',False,True,True);
+      Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('P')+'))';
+      Data.Tree.DataSet.Filtered:=True;
       Data.Tree.DataSet.First;
       while not Data.Tree.dataSet.EOF do
         begin
@@ -245,6 +265,7 @@ begin
           fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
           Data.Tree.DataSet.Next;
         end;
+      Data.Tree.DataSet.Filtered:=False;
     end;
 end;
 procedure TfProjectFrame.ProjectsStateChange(Sender: TObject);
@@ -255,6 +276,28 @@ begin
   acSave.Enabled := aEnabled;
   acCancel.Enabled:= aEnabled;
 end;
+
+procedure TfProjectFrame.ReportGetValue(const ParName: String;
+  var ParValue: Variant);
+var
+  aKey: String;
+begin
+  if Uppercase(ParName) = 'USER' then
+    begin
+      aKey := StringReplace(TProject(FDataSet).Tasks.FieldByName('USER').AsString,'=','',[rfReplaceAll]);
+      if trim(FOwners.Values[aKey]) = '' then
+        FOwners.Values[aKey] := TProject(FDataSet).Tasks.UserName;
+      ParValue := FOwners.Values[aKey]
+    end
+  else if Uppercase(ParName) = 'OWNER' then
+    begin
+      aKey := StringReplace(TProject(FDataSet).Tasks.FieldByName('OWNER').AsString,'=','',[rfReplaceAll]);
+      if trim(FOwners.Values[aKey]) = '' then
+        FOwners.Values[aKey] := TProject(FDataSet).Tasks.OwnerName;
+      ParValue := FOwners.Values[aKey]
+    end;
+end;
+
 procedure TfProjectFrame.sbMenueClick(Sender: TObject);
 begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
@@ -272,7 +315,7 @@ var
 begin
   if Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf(['P',DataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
     begin
-      bProject := Tproject.Create(nil,Data);
+      bProject := Tproject.Create(nil);
       bProject.Select(TProject(DataSet).Id.AsVariant);
       bproject.Open;
       bProject.Tasks.Open;
@@ -320,6 +363,12 @@ begin
     end;
 end;
 
+procedure TfProjectFrame.AddMeasurement(Sender: TObject);
+begin
+  TfMeasurementFrame(Sender).DataSet := FMeasurement;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
 procedure TfProjectFrame.AddHistory(Sender: TObject);
 begin
   TfHistoryFrame(Sender).BaseName:='PROJECT';
@@ -351,9 +400,9 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsInteger,'P',DataSet.FieldByName('SQL_ID').AsString,Null,Null);
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'P',DataSet.FieldByName('SQL_ID').AsString,Null,Null);
     end;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
@@ -382,8 +431,8 @@ begin
     begin
       Screen.Cursor := crHourglass;
       Application.ProcessMessages;
-      DataSet.Delete;
       FDataSet.CascadicCancel;
+      DataSet.Delete;
 //      Data.Commit(FConnection);
 //      Data.StartTransaction(FConnection);
       acClose.Execute;
@@ -440,7 +489,7 @@ procedure TfProjectFrame.acGotoParentExecute(Sender: TObject);
 var
   aParent: TProject;
 begin
-  aParent := TProject.Create(nil,Data);
+  aParent := TProject.Create(nil);
   aParent.Select(TProject(DataSet).FieldByName('PARENT').AsVariant);
   aParent.Open;
   if aParent.Count>0 then
@@ -455,7 +504,7 @@ begin
   Screen.Cursor:=crHourGlass;
   if dImport.Execute then
     begin
-      aStream := TFileStream.Create(UTF8ToSys(dImport.FileName),fmOpenRead);
+      aStream := TFileStream.Create(UniToSys(dImport.FileName),fmOpenRead);
       case dImport.FilterIndex of
       1:ImportGAN(aStream,TProject(DataSet));
       end;
@@ -492,7 +541,51 @@ begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.EndUpdate;
 end;
-
+procedure TfProjectFrame.acPasteImageExecute(Sender: TObject);
+var
+  aSheet: TTabSheet;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
+begin
+  if Clipboard.HasPictureFormat then
+    begin
+      pcPages.AddTab(TfImageFrame.Create(Self),False);
+      aSheet := pcPages.GetTab(TfImageFrame);
+      if Assigned(aSheet) then
+        begin
+          Application.ProcessMessages;
+          TfImageFrame(aSheet.Controls[0]).acPaste.Execute;
+          TfImageFrame(aSheet.Controls[0]).DataSet.Post;
+          aThumbnails := TThumbnails.Create(nil);
+          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+          aThumbnails.Open;
+          while aThumbnails.Count>0 do
+            aThumbnails.Delete;
+          TProject(DataSet).GenerateThumbnail;
+          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+          aThumbnails.Open;
+          if aThumbnails.Count>0 then
+            begin
+              aStream := TMemoryStream.Create;
+              Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+              aStream.Position:=0;
+              iProject.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+              aStream.Free;
+              acPasteImage.Visible:=False;
+              acAddImage.Visible:=False;
+              acAddScreenshot.Visible:=False;
+            end
+          else
+            begin
+              iProject.Picture.Clear;
+              acPasteImage.Visible:=True;
+              acAddImage.Visible:=True;
+              acAddScreenshot.Visible:=True;
+            end;
+          aThumbnails.Free;
+        end;
+    end;
+end;
 procedure TfProjectFrame.acPrintExecute(Sender: TObject);
 var
   Hist : IBaseHistory;
@@ -503,6 +596,8 @@ begin
     History.DataSet := Hist.GetHistory.DataSet;
   Users.DataSet := Data.Users.DataSet;
   Tasks.DataSet := TProject(DataSet).Tasks.DataSet;
+  MandantDetails.DataSet := Data.MandantDetails.DataSet;
+  Data.MandantDetails.Open;
   PList.DataSet := DataSet.DataSet;
   with FDataSet.DataSet as IBaseManageDB do
     begin
@@ -542,9 +637,9 @@ begin
   Screen.Cursor:=crHourGlass;
   Application.ProcessMessages;
   Data.SetFilter(aProject.Tasks,Data.QuoteField('PROJECTID')+'='+Data.QuoteValue(aProject.Id.AsString));
-  bProject := TProject.Create(nil,Data);
+  bProject := TProject.Create(nil);
   bProject.ImportFromXML(aProject.ExportToXML,False,@ReplaceField);
-  cProject := TProject.Create(nil,Data);
+  cProject := TProject.Create(nil);
   cProject.Select(bProject.Id.AsVariant);
   cProject.Open;
   cProject.Tasks.Open;
@@ -555,7 +650,7 @@ begin
     begin
       if aProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS',VarArrayOf([bProject.Tasks.FieldByName('SUMMARY').AsString,bProject.Tasks.FieldByName('WORKSTATUS').AsVariant]),[]) then
         begin
-          aTask := TTask.Create(nil,Data);
+          aTask := TTask.Create(nil);
           aTask.Select(aProject.Tasks.Id.AsVariant);
           aTask.Open;
           aTask.Dependencies.Open;
@@ -568,11 +663,11 @@ begin
                   if pos('{',aLink) > 0 then
                     aLink := copy(aLink,0,pos('{',aLink)-1);
                   aLink := copy(aLink,7,length(aLink));
-                  if aProject.Tasks.GotoBookmark(StrToIntDef(aLink,0)) then
+                  if aProject.Tasks.GotoBookmark(StrToInt64Def(aLink,0)) then
                     begin
                       if cProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS;PARENT',VarArrayOf([aProject.Tasks.FieldByName('SUMMARY').AsString,aProject.Tasks.FieldByName('WORKSTATUS').AsVariant,aProject.Tasks.FieldByName('PARENT').AsVariant]),[]) then
                         begin
-                          bTask := TTask.Create(nil,Data);
+                          bTask := TTask.Create(nil);
                           bTask.Select(bProject.Tasks.Id.AsVariant);
                           bTask.Open;
                           bTask.Dependencies.Open;
@@ -641,7 +736,71 @@ begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.EndUpdate;
 end;
+procedure TfProjectFrame.acAddScreenshotExecute(Sender: TObject);
+var
+  aSheet: TTabSheet;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
+begin
+  Application.ProcessMessages;
+  Application.MainForm.Hide;
+  Application.ProcessMessages;
+  Application.CreateForm(TfScreenshot,fScreenshot);
+  with BaseApplication as IBaseApplication do
+    fScreenshot.SaveTo:=AppendPathDelim(GetInternalTempDir)+'screenshot.jpg';
+  fScreenshot.Show;
+  while fScreenshot.Visible do Application.ProcessMessages;
+  fScreenshot.Destroy;
+  fScreenshot := nil;
+  if DataSet.State=dsInsert then
+    begin
+      DataSet.Post;
+      DataSet.Edit;
+    end;
+  pcPages.AddTab(TfImageFrame.Create(Self),False);
+  aSheet := pcPages.GetTab(TfImageFrame);
+  if Assigned(aSheet) then
+    begin
+      Application.ProcessMessages;
+      with TfImageFrame(aSheet.Controls[0]) do
+        begin
+          if not DataSet.CanEdit then
+            DataSet.Insert;
+          with BaseApplication as IBaseApplication do
+            iPreview.Picture.LoadFromFile(AppendPathDelim(GetInternalTempDir)+'screenshot.jpg');
+          DataSet.Post;
+        end;
+      aThumbnails := TThumbnails.Create(nil);
+      aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+      aThumbnails.Open;
+      while aThumbnails.Count>0 do
+        aThumbnails.Delete;
+      TProject(DataSet).GenerateThumbnail;
+      aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+      aThumbnails.Open;
+      if aThumbnails.Count>0 then
+        begin
+          aStream := TMemoryStream.Create;
+          Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+          aStream.Position:=0;
+          iProject.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+          aStream.Free;
+          acPasteImage.Visible:=False;
+          acAddImage.Visible:=False;
+          acAddScreenshot.Visible:=False;
+        end
+      else
+        begin
+          iProject.Picture.Clear;
+          acPasteImage.Visible:=True;
+          acAddImage.Visible:=True;
+          acAddScreenshot.Visible:=True;
+        end;
+      aThumbnails.Free;
+    end;
 
+  Application.MainForm.Show;
+end;
 procedure TfProjectFrame.acSaveExecute(Sender: TObject);
 begin
   if Assigned(FConnection) then
@@ -665,6 +824,25 @@ begin
     end;
 end;
 
+procedure TfProjectFrame.bProjectColorColorChanged(Sender: TObject);
+begin
+  DataSet.Edit;
+  DataSet.FieldByName('COLOR').AsString:=ColorToString(bProjectColor.ButtonColor);
+end;
+
+procedure TfProjectFrame.cbCategorySelect(Sender: TObject);
+begin
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue('P');
+  Data.Categories.DataSet.Filtered:=True;
+  if Data.Categories.Locate('NAME',cbCategory.Text,[loCaseInsensitive]) then
+    if not Data.Categories.FieldByName('COLOR').IsNull then
+      begin
+        DataSet.Edit;
+        DataSet.FieldByName('COLOR').AsString:=Data.Categories.FieldByName('COLOR').AsString;
+      end;
+end;
+
 procedure TfProjectFrame.cbStatusSelect(Sender: TObject);
 var
   tmp: String;
@@ -679,8 +857,15 @@ end;
 
 procedure TfProjectFrame.AddOverview(Sender: TObject);
 begin
-  TfProjectOverviewFrame(Sender).ParentProject:=TProject(fDataSet);
+  TfObjectStructureFrame(Sender).ParentObject:=TBaseDbList(fDataSet);
 end;
+
+procedure TfProjectFrame.AddFinance(Sender: TObject);
+begin
+  TfFinance(Sender).DataSet := FDataSet;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
 procedure TfProjectFrame.RefreshFlow;
 var
   aProj: TProject;
@@ -692,7 +877,7 @@ begin
   pStatus.Visible:=False;
   pcPages.Top:=96;
   exit;
-  aProj := TProject.Create(nil,Data);
+  aProj := TProject.Create(nil);
   aProj.Select(DataSet.Id.AsVariant);
   aProj.Open;
   Data.SetFilter(aProj.Tasks,Data.QuoteField('CLASS')+'='+Data.QuoteValue('M'),0,'DUEDATE','ASC');
@@ -800,7 +985,7 @@ function TfProjectFrame.fSearchOpenItem(aLink: string): Boolean;
 var
   aParent: TProject;
 begin
-  aParent := TProject.Create(nil,Data);
+  aParent := TProject.Create(nil);
   aParent.SelectFromLink(aLink);
   aParent.Open;
   if aParent.Count>0 then
@@ -816,7 +1001,7 @@ function TfProjectFrame.fSearchOpenItemL(aLink: string): Boolean;
 var
   aParent: TUser;
 begin
-  aParent := TUser.Create(nil,Data);
+  aParent := TUser.Create(nil);
   aParent.SelectFromLink(aLink);
   aParent.Open;
   if aParent.Count>0 then
@@ -841,7 +1026,7 @@ var
   aDocFrame: TfDocumentFrame;
   aParent: TProject;
   aSubProject: TProject;
-  aType: Char;
+  aType: string;
   tmp: String;
   aFound: Boolean;
   aTasks: TfTaskFrame;
@@ -850,10 +1035,16 @@ var
   aWikiPage: TfWikiFrame;
   aWikiIdx: Integer;
   aID: String;
+  Inserted: Boolean;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
 begin
-  SetRights;
+  DataSet.DataSet.DisableControls;
+  try
+  TProject(DataSet).OpenItem;
   pcPages.ClearTabClasses;
   pcPages.CloseAll;
+  FEditable := ((Data.Users.Rights.Right('PROJECTS') > RIGHT_READ));
   pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
   TProject(DataSet).History.Open;
   if TProject(DataSet).History.Count > 0 then
@@ -863,7 +1054,7 @@ begin
     eParent.Text:=strNoParent
   else
     begin
-      aParent := TProject.Create(nil,Data);
+      aParent := TProject.Create(nil);
       aParent.Select(TProject(DataSet).FieldByName('PARENT').AsVariant);
       aParent.Open;
       if aParent.Count>0 then
@@ -874,7 +1065,7 @@ begin
     eManager.Text:=''
   else
     begin
-      aParentU := TUser.Create(nil,Data);
+      aParentU := TUser.Create(nil);
       aParentU.SelectByAccountno(dataSet.FieldByName('PMANAGER').AsString);
       aParentU.Open;
       if aParentU.Count>0 then
@@ -884,8 +1075,9 @@ begin
 
   cbCategory.Items.Clear;
   aType := 'P';
-  Data.Categories.CreateTable;
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+  Data.Categories.DataSet.Filtered:=True;
   Data.Categories.First;
   while not Data.Categories.EOF do
     begin
@@ -893,9 +1085,24 @@ begin
         cbCategory.Items.Add(Data.Categories.FieldByName('NAME').AsString);
       Data.Categories.DataSet.Next;
     end;
+  cbClass.Items.Clear;
+  aType := 'K';
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+  Data.Categories.DataSet.Filtered:=True;
+  Data.Categories.First;
+  while not Data.Categories.EOF do
+    begin
+      if Data.Categories.FieldByName('ACTIVE').AsString<>'N' then
+        cbClass.Items.Add(Data.Categories.FieldByName('NAME').AsString);
+      Data.Categories.DataSet.Next;
+    end;
 
   cbStatus.Items.Clear;
   cbStatus.Text := '';
+  if DataSet.FieldByName('COLOR').IsNull then
+    bProjectColor.ButtonColor:=clBlue
+  else bProjectColor.ButtonColor:=StringToColor(DataSet.FieldByName('COLOR').AsString);
   aType := 'P';
   if not Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
     begin
@@ -939,27 +1146,43 @@ begin
   pNav2.Visible := TProject(DataSet).FieldByName('TYPE').AsString = 'C';
   if not TProject(DataSet).Images.DataSet.Active then
     TProject(DataSet).Images.DataSet.Open;
-  s := TProject(DataSet).Images.DataSet.CreateBlobStream(TProject(DataSet).Images.FieldByName('IMAGE'),bmRead);
-  if (S=Nil) or (s.Size = 0) then
+  aThumbnails := TThumbnails.Create(nil);
+  aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+  aThumbnails.Open;
+  if aThumbnails.Count>0 then
     begin
-      iProject.Picture.Clear;
+      aStream := TMemoryStream.Create;
+      Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+      aStream.Position:=0;
+      iProject.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+      aStream.Free;
+      if TProject(DataSet).Images.Count > 0 then
+        pcPages.AddTab(TfImageFrame.Create(Self),False);
+      acPasteImage.Visible:=False;
+      acAddImage.Visible:=False;
+      acAddScreenshot.Visible:=False;
     end
   else
     begin
-      GraphExt :=  s.ReadAnsiString;
-      iProject.Picture.LoadFromStreamWithFileExt(s,GraphExt);
+      iProject.Picture.Clear;
+      if TProject(DataSet).Images.Count > 0 then
+        begin
+          pcPages.AddTab(TfImageFrame.Create(Self),False);
+          TProject(DataSet).GenerateThumbnail;
+        end;
+      acPasteImage.Visible:=True;
+      acAddImage.Visible:=True;
+      acAddScreenshot.Visible:=True;
     end;
-  s.Free;
-  if TProject(DataSet).Images.Count > 0 then
-    pcPages.AddTab(TfImageFrame.Create(Self),False);
+  aThumbnails.Free;
   TProject(DataSet).Images.DataSet.Close;
-  pcPages.AddTabClass(TfProjectOverviewFrame,strOverview,@AddOverview);
-  aSubProject := TProject.Create(nil,Data);
+  pcPages.AddTabClass(TfObjectStructureFrame,strStructure,@AddOverview);
+  aSubProject := TProject.Create(nil);
   aSubProject.SelectFromParent(fDataSet.Id.AsVariant);
   aSubProject.Open;
   if aSubProject.Count>0 then
     begin
-      pcPages.AddTab(TfProjectOverviewFrame.Create(Self),True)
+      pcPages.AddTab(TfObjectStructureFrame.Create(Self),True)
     end;
   aSubProject.Free;
   pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
@@ -969,7 +1192,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data,DataSet.Connection);
+      aDocuments := TDocuments.CreateEx(Self,Data,DataSet.Connection);
       aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsInteger,'P',DataSet.FieldByName('SQL_ID').AsString,Null,Null);
       aDocuments.Open;
@@ -987,12 +1210,19 @@ begin
   TProject(DataSet).Positions.Open;
   if TProject(DataSet).Positions.Count > 0 then
     pcPages.AddTab(TfProjectPositions.Create(Self),False);
+  sePriority.OnChange:=nil;
   sePriority.Value:=DataSet.FieldByName('GPRIORITY').AsInteger;
+  sePriority.OnChange:=@sePriorityChange;
   eName.SetFocus;
   if Data.Users.Rights.Right('OPTIONS') > RIGHT_READ then
     begin
       pcPages.CanHaveCustomTabs(@TBaseVisualApplication(Application).OnAddCustomTab);
     end;
+  pcPages.AddTabClass(TfFinance,strFinance,@AddFinance);
+  if (not DataSet.FieldByName('COSTCENTRE').IsNull)
+  or (not DataSet.FieldByName('ACCOUNT').IsNull)
+  or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull) then
+    pcPages.AddTab(TfFinance.Create(Self),False);
   with Application as TBaseVisualApplication do
     AddTabClasses('PRJ',pcPages);
   with Application as TBaseVisualApplication do
@@ -1000,18 +1230,19 @@ begin
   SetRights;
   RefreshFlow;
   pcPages.AddTabClass(TfTaskFrame,strTasks,@AddTasks);
+  Inserted := DataSet.State=dsInsert;
   TProject(DataSet).Tasks.Open;
-  if TProject(DataSet).Tasks.Count > 0 then
+  if (TProject(DataSet).Tasks.Count > 0) or Inserted then
     begin
       aTasks := TfTaskFrame.Create(Self);
       pcPages.AddTab(aTasks,True);
       aTasks.GridView.GotoRowNumber(aTasks.GridView.gList.FixedRows);
-    end
-  else
+    end;
+  if Inserted or (TProject(DataSet).Tasks.Count = 0) then
     pcPages.PageIndex:=0;
   if DataSet.State<> dsInsert then
     begin
-      aWiki := TWikiList.Create(nil,Data);
+      aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
         begin
           while not aWiki.EOF do
@@ -1025,7 +1256,10 @@ begin
               if Assigned(TBaseDbList(DataSet).Status) then
                 aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
               if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
-                aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
+                begin
+                  aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString);
+                  aWikiPage.SetRights(FEditable);
+                end
               else aWikiPage.Free;
               if aWiki.FieldByName('CAPTION').AsString = strOverview then
                 begin
@@ -1038,6 +1272,11 @@ begin
         end;
       aWiki.Free;
     end;
+  SetRights;
+  if HasHelp then AddHelp(Self);
+  finally
+    DataSet.DataSet.EnableControls;
+  end;
 end;
 function TfProjectFrame.SetRights: Boolean;
 begin
@@ -1053,7 +1292,6 @@ begin
   eName.Enabled:=FEditable;
 
   pComponents.Enabled := FEditable;
-  mInfo.ReadOnly:=not FEditable;
 end;
 procedure TfProjectFrame.SetDataSet(const AValue: TBaseDBDataset);
 begin
@@ -1067,6 +1305,7 @@ end;
 constructor TfProjectFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  FOwners := TStringList.Create;
   {
   FProjectFlow := TProjectFlow.Create(Self);
   FprojectFlow.Parent:=pStatus;
@@ -1074,9 +1313,14 @@ begin
   FProjectFlow.Font.Height:=8;
   }
   FProjectFlow := nil;
+  {$ifdef DARWIN}
+  cbStatus.Style:=csDropdown;
+  {$endif}
 end;
 destructor TfProjectFrame.Destroy;
 begin
+  if Assigned(FOwners) then
+    FOwners.Destroy;
   if Assigned(FConnection) then
     begin
       CloseConnection(acSave.Enabled);
@@ -1100,7 +1344,7 @@ begin
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
 //  Data.StartTransaction(FConnection);
-  DataSet := TProject.Create(Self,Data,FConnection);
+  DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   if copy(aLink,0,pos('@',aLink)-1) = 'PROJECTS.ID' then
     Data.SetFilter(FDataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1)
@@ -1120,16 +1364,12 @@ begin
     FConnection := Data.GetNewConnection;
 //  Data.StartTransaction(FConnection);
   TabCaption := strNewProject;
-  DataSet := TProject.Create(Self,Data,FConnection);
+  DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   DataSet.Select(0);
   DataSet.Open;
   DataSet.DataSet.Insert;
   DoOpen;
-  TProject(DataSet).Tasks.Open;
-  pcPages.AddTab(TfTaskFrame.Create(Self),True);
-  acSave.Enabled := False;
-  acCancel.Enabled:= False;
 end;
 procedure TfProjectFrame.SetLanguage;
 begin
@@ -1152,7 +1392,7 @@ procedure TfProjectFrame.GotoTask(aLink: string);
 var
   aTask: TTask;
 begin
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.SelectFromLink(aLink);
   aTask.Open;
   if aTask.Count>0 then

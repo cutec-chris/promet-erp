@@ -21,7 +21,7 @@ unit uRowEditor;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons, ExtCtrls,
   db,dbgrids,uIntfStrConsts,Grids,Variants,LCLType, PairSplitter, ButtonPanel,
   uData, types;
 type
@@ -67,6 +67,7 @@ var
   fRowEditor: TfRowEditor;
 
 implementation
+{$R *.lfm}
 uses uBaseDBInterface;
 procedure TfRowEditor.bAddRowClick(Sender: TObject);
 begin
@@ -236,6 +237,7 @@ var
   IsReadOnly: Boolean = True;
   a: Integer;
 begin
+  Grid.AutoFillColumns:=False;
   if not Assigned(DataSource) then exit;
   if not Assigned(Grid) then exit;
   tmp := aConfigName;
@@ -281,6 +283,7 @@ var
   s1: String;
   GridWidth: Integer;
   Percentage: Boolean;
+  sl: String;
 begin
   Result := False;
   if not Assigned(DataSource) then exit;
@@ -310,6 +313,7 @@ begin
       tmpCols.Assign(Grid.Columns);
       Grid.Columns.Clear;
       GridWidth := Grid.Width;
+      sl := s;
       if copy(s,0,12) = 'GLOBALWIDTH:' then
         begin
           s := copy(s,pos(':',s)+1,length(s));
@@ -328,7 +332,7 @@ begin
           FullWidth := FullWidth+StrToIntDef(copy(s,0,pos(';',s)-1),64);
           s := copy(s,pos(';',s)+1,length(s));
         end;
-      if Percentage then
+      if Percentage and (FullWidth>0) then
         Factor := Factor+(((Grid.Width-SBWidth)/FullWidth)-1);
       if Factor < 0.2 then Factor := 1;
       s := s1;
@@ -336,6 +340,7 @@ begin
       while pos(';',s) > 0 do
         begin
           cl := Grid.Columns.Add;
+          TColumn(cl).SizePriority:=0;
           TColumn(cl).ReadOnly := MakeReadOnly;
           TColumn(cl).FieldName := copy(s,0,pos(':',s)-1);
           s := copy(s,pos(':',s)+1,length(s));
@@ -376,9 +381,10 @@ begin
       tmpCols.Free;
       Result := True;
       Grid.ReadOnly := IsReadOnly;
+      //Grid.AutoFillColumns:=copy(sl,0,12) = 'GLOBALWIDTH:';
+      Grid.AutoSizeColumns;
     end;
 end;
 initialization
-  {$I uroweditor.lrs}
 end.
 

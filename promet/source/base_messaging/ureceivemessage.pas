@@ -24,8 +24,9 @@ unit ureceivemessage;
 interface
 
 uses
-  Classes, SysUtils,mimemess,uPerson,LConvEncoding,synautil,uData,uIntfStrConsts,
-  uBaseDBInterface,mailchck,uMessages,uMimeMessages,db;
+  Classes, SysUtils,mimemess,uPerson,synautil,uData,uIntfStrConsts,
+  uBaseDBInterface,mailchck,uMessages,uMimeMessages,db,uBaseDbClasses,
+  Utils;
 
 var
   Spampoints : real;
@@ -65,18 +66,19 @@ var
   i: Integer;
 begin
   Result := True;
-  aSender :=  ConvertEncoding(msg.Header.From,GuessEncoding(msg.Header.From),EncodingUTF8);
-  aSubject := ConvertEncoding(msg.Header.Subject,GuessEncoding(msg.Header.Subject),EncodingUTF8);
-  atmp:=ConvertEncoding(getemailaddr(msg.Header.From),GuessEncoding(getemailaddr(msg.Header.From)),EncodingUTF8);
+  aSender :=  SysToUni(msg.Header.From);
+  aSubject := SysToUni(msg.Header.Subject);
+  atmp:=SysToUni(getemailaddr(msg.Header.From));
   try
-    CustomerCont := TPersonContactData.Create(nil,Data);
+    CustomerCont := TPersonContactData.Create(nil);
+    atmp := StringReplace(atmp,'''','',[rfReplaceAll]);
     if Data.IsSQLDb then
-      Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
+      Data.SetFilter(CustomerCont,Data.ProcessTerm('UPPER("DATA")=UPPER('''+atmp+''')'))
     else
-      Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
+      Data.SetFilter(CustomerCont,Data.ProcessTerm('"DATA"='''+atmp+''''));
   except
   end;
-  Customers := TPerson.Create(nil,Data);
+  Customers := TPerson.Create(nil);
   Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
   CustomerCont.Free;
   if Customers.Count > 0 then
@@ -88,11 +90,6 @@ begin
                                 nil,
                                 ACICON_MAILNEW);
       aTreeEntry := TREE_ID_MESSAGES;
-      Data.Users.History.AddItemWithoutUser(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
-                                    'MESSAGEIDX@'+mID+'{'+aSubject+'}',
-                                    '',
-                                    nil,
-                                    ACICON_MAILNEW);
     end
   else
     begin
@@ -174,11 +171,11 @@ begin
         begin
           if (pos('>',atmp) > 0) and (pos('<',atmp) > 0) then
             atmp := getemailaddr(atmp);
-          aChk := mailcheck(atmp);
+          {aChk := mailcheck(atmp);
           case aChk of
           1,2,3: aChk := 0;
           end;
-          SpamPoints+=aChk;
+          SpamPoints+=aChk;}
         end;
       if SpamPoints > 5 then
         begin
@@ -192,7 +189,7 @@ var
   ArchiveMsg: TArchivedMessage;
   ss: TStringStream;
 begin
-  ArchiveMsg := TArchivedMessage.Create(nil,Data);
+  ArchiveMsg := TArchivedMessage.Create(nil);
   ArchiveMsg.CreateTable;
   ArchiveMsg.Insert;
   ArchiveMsg.DataSet.FieldByName('ID').AsString:=mID;
@@ -206,6 +203,11 @@ procedure ReceiveMessage(aMID: string; aMSG: TStrings; aMessage: TMimeMessage);
 var
   BMID: LargeInt;
   fullmsg: TMimeMess;
+  Customers: TPerson;
+  CustomerCont: TPersonContactData;
+  atmp: String;
+  aMessageL: TMessageList;
+  aHist: TBaseHistory;
 begin
   aMessage.Select(0);
   aMessage.Open;
@@ -222,23 +224,58 @@ begin
       fullmsg.Lines.Text:=aMSG.Text;
       fullmsg.DecodeMessage;
       aMessage.DecodeMessage(fullmsg);
+      atmp:=SysToUni(getemailaddr(fullmsg.Header.From));
+      try
+        atmp := StringReplace(atmp,'''','',[rfReplaceAll]);
+        CustomerCont := TPersonContactData.Create(nil);
+        if Data.IsSQLDb then
+          Data.SetFilter(CustomerCont,Data.ProcessTerm('UPPER("DATA")=UPPER('''+atmp+''')'))
+        else
+          Data.SetFilter(CustomerCont,Data.ProcessTerm('"DATA"='''+atmp+''''));
+      except
+      end;
+      Customers := TPerson.Create(nil);
+      Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
+      CustomerCont.Free;
       fullmsg.Free;
       FieldByName('TREEENTRY').AsInteger := aTreeEntry;
+      if (aTreeEntry = TREE_ID_MESSAGES)
+      then
+        begin
+          if FieldByName('PARENT').AsString<>'' then
+            begin
+              aMessageL := TMessageList.CreateEx(nil,aMessage.DataModule);
+              aMessageL.SelectByMsgID(FieldByName('PARENT').AsVariant);
+              aMessageL.Open;
+              if aMessageL.Count>0 then
+                begin
+                  aHist := TBaseHistory.CreateEx(nil,aMessageL.DataModule);
+                  aHist.Filter(Data.ProcessTerm(Data.QuoteField('LINK')+'='+Data.QuoteValue('MESSAGEIDX@'+aMessageL.FieldByName('ID').AsString+'*')));
+                  if aHist.Count>0 then
+                    Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}',aHist.Id.AsVariant)
+                  else
+                    Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}');
+                end;
+            end
+          else
+            Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}');
+        end;
       if aTreeEntry = TREE_ID_SPAM_MESSAGES then
         FieldByName('READ').AsString := 'Y';
       Post;
       aMessage.History.Open;
       aMessage.History.AddItem(aMessage.DataSet,Format(strActionMessageReceived,[DateTimeToStr(Now())]),
-                                'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
+                                '',
                                 '',
                                 nil,
                                 ACICON_MAILNEW);
       if SpamPoints>0 then
         aMessage.History.AddItem(aMessage.DataSet,strMessageSpamPoints+' '+FloatToStr(SpamPoints),
-                                  'MESSAGEIDX@'+aMID+'{'+aSubject+'}',
+                                  '',
                                   '',
                                   nil,
                                   ACICON_MAILNEW);
+      Customers.Free;
     end;
 end;
 

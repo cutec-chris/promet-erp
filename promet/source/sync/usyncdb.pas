@@ -289,7 +289,7 @@ begin
   DecodeTime(Now(),h,mm,s,ss);
   EventLog.FileName := Format('sync_log_%.4d-%.2d-%.2d %.2d_%.2d_%.2d_%.4d.log',[y,m,d,h,mm,s,ss]);
   EventLog.Active:=True;
-  SyncDB := TSyncDB.Create(Self,Data);
+  SyncDB := TSyncDB.CreateEx(Self,Data);
   SyncDB.Open;
   while not SyncDB.DataSet.EOF do
     begin

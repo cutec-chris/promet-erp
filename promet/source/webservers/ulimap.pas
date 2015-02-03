@@ -21,8 +21,7 @@ unit ulimap;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, lNet, lEvents, mimemess, db, dateutils, types,base64,
-  LCLProc;
+  Classes, SysUtils, lNet, lEvents, mimemess, db, dateutils, types,base64;
 type
   TIMAPFolders = class;
 
@@ -147,7 +146,7 @@ type
    procedure CallAction; override;
   end;
 implementation
-  uses lHTTPUtil,LCLIntf;
+  uses lHTTPUtil;
 const
   CRLF=#13#10;
 function TIMAPFolders.Get(Idx : Integer): TIMAPFolder;
@@ -267,6 +266,7 @@ var
   aTag: String;
   aGUID: TGUID;
   aParam: String;
+  aPar2: String;
   procedure Answer(aMsg : string;UseTag : Boolean = True;DoLog : Boolean = True);
   begin
     if UseTag then
@@ -339,7 +339,7 @@ var
     aFCount: Integer;
     tmp : String;
     bRange: String;
-    aTime: types.DWORD;
+    aTime: TDateTime;
   begin
     FStopFetching := False;
     aCmd := Uppercase(copy(bParams,0,pos(' ',bParams)-1));
@@ -358,7 +358,7 @@ var
         if aUseUID and (pos('UID',bParams)=0) then
           bParams:='UID '+bParams;
         aFCount := 0;
-        aTime:=GetTickCount;
+        aTime:=Now();
         if FGroup.SelectMessages(aRange,aUseUID) then
           begin
             aRes := FGroup.FetchOneEntry(bParams);
@@ -383,7 +383,7 @@ var
             DontLog:=False;
             if length(FSendBuffer)>0 then
             Creator.CallAction;
-            Answer('OK Success '+IntToStr(aFCount)+' results in '+IntToStr(GettickCount-aTime)+' ms.');
+            Answer('OK Success '+IntToStr(aFCount)+' results in '+IntToStr(round((Now()-aTime)*MSecsPerDay))+' ms.');
           end
         else
           begin
@@ -693,6 +693,33 @@ begin
       DontLog:=False;
       Answer('OK LIST completed.');
     end
+{  else if aCommand = 'RENAME' then
+    begin
+      if not SelectUser then
+        begin
+          Answer('NO Authentication required');
+          exit;
+        end;
+      if copy(tmp,0,1)='"' then
+        begin
+          tmp := copy(tmp,2,length(tmp)-2);
+          aPar2 := copy(tmp,pos('"',tmp)+1,length(tmp));
+          aPar2 := copy(aPar2,pos('"',aPar2)+1,length(aPar2));
+        end
+      else aPar2 := trim(copy(tmp,pos(' ',tmp)+1,length(tmp)));
+      aParams:=copy(aParams,pos(' ',aParams)+1,length(aParams));
+      if copy(aParams,0,1)='"' then
+        aParams := copy(aParams,2,length(aParams)-2);
+      for i := 0 to Folders.Count-1 do
+        begin
+          if (Folders.Folder[i].Name = aParams) or ((Folders.Folder[i].SubName<>'') and (Folders.Folder[i].SubName=aParams)) then
+            begin
+              aGroup := Folders.Folder[i];
+
+            end;
+        end;
+      Answer('OK LIST completed.');
+    end}
   else if aCommand = 'LSUB' then
     begin
       if not SelectUser then

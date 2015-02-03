@@ -5,7 +5,7 @@ object fEditor: TfEditor
   Width = 760
   ActiveControl = Editor
   Caption = 'Editor'
-  ClientHeight = 480
+  ClientHeight = 460
   ClientWidth = 760
   Icon.Data = {
     7E04000000000100010010100000010020006804000016000000280000001000
@@ -54,16 +54,16 @@ object fEditor: TfEditor
   Position = poDefault
   SessionProperties = 'Height;Width;WindowState;Left;Top'
   ShowInTaskBar = stAlways
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   inline Editor: TSynEdit
     Left = 0
-    Height = 454
+    Height = 434
     Top = 26
     Width = 760
     Align = alClient
     Anchors = [akTop]
     Font.Color = clBlack
-    Font.Height = 13
+    Font.Height = -13
     Font.Name = 'Courier 10 Pitch'
     Font.Pitch = fpFixed
     Font.Quality = fqNonAntialiased
@@ -481,29 +481,38 @@ object fEditor: TfEditor
         ShiftMask = [ssShift, ssAlt, ssCtrl]
         Command = emcMouseLink
       end>
+    MouseTextActions = <>
     MouseSelActions = <    
       item
         ClickDir = cdDown
         Command = emcStartDragMove
       end>
     VisibleSpecialChars = [vscSpace, vscTabAtLast]
+    SelectedColor.FrameEdges = sfeAround
     SelectedColor.BackPriority = 50
     SelectedColor.ForePriority = 50
     SelectedColor.FramePriority = 50
     SelectedColor.BoldPriority = 50
     SelectedColor.ItalicPriority = 50
     SelectedColor.UnderlinePriority = 50
+    SelectedColor.StrikeOutPriority = 50
+    IncrementColor.FrameEdges = sfeAround
+    HighlightAllColor.FrameEdges = sfeAround
     BracketHighlightStyle = sbhsBoth
     BracketMatchColor.Background = clNone
     BracketMatchColor.Foreground = clNone
+    BracketMatchColor.FrameEdges = sfeAround
     BracketMatchColor.Style = [fsBold]
     FoldedCodeColor.Background = clNone
     FoldedCodeColor.Foreground = clGray
     FoldedCodeColor.FrameColor = clGray
+    FoldedCodeColor.FrameEdges = sfeAround
     MouseLinkColor.Background = clNone
     MouseLinkColor.Foreground = clBlue
+    MouseLinkColor.FrameEdges = sfeAround
     LineHighlightColor.Background = clNone
     LineHighlightColor.Foreground = clNone
+    LineHighlightColor.FrameEdges = sfeAround
     OnChange = EditorChange
     OnStatusChange = EditorStatusChange
     inline SynLeftGutterPartList1: TSynGutterPartList
@@ -516,6 +525,7 @@ object fEditor: TfEditor
         MouseActions = <>
         MarkupInfo.Background = clBtnFace
         MarkupInfo.Foreground = clNone
+        MarkupInfo.FrameEdges = sfeAround
         DigitCount = 2
         ShowOnlyLineNumbersMultiplesOf = 1
         ZeroStart = False
@@ -530,6 +540,9 @@ object fEditor: TfEditor
       object SynGutterSeparator1: TSynGutterSeparator
         Width = 2
         MouseActions = <>
+        MarkupInfo.Background = clWhite
+        MarkupInfo.Foreground = clGray
+        MarkupInfo.FrameEdges = sfeAround
       end
       object SynGutterCodeFolding1: TSynGutterCodeFolding
         MouseActions = <        
@@ -560,6 +573,7 @@ object fEditor: TfEditor
           end>
         MarkupInfo.Background = clNone
         MarkupInfo.Foreground = clGray
+        MarkupInfo.FrameEdges = sfeAround
         MouseActionsExpanded = <        
           item
             ClickCount = ccAny
@@ -2086,7 +2100,7 @@ object fEditor: TfEditor
     CompilerMode = pcmFPC
     NestedComments = True
     left = 8
-    top = 64
+    top = 88
   end
   object SynCppSyn1: TSynCppSyn
     Tag = 1
@@ -2111,11 +2125,12 @@ object fEditor: TfEditor
     SymbolAttri.Foreground = clRed
     SymbolAttri.FrameEdges = sfeAround
     left = 72
-    top = 64
+    top = 88
   end
   object SynJavaSyn1: TSynJavaSyn
     DefaultFilter = 'Java Files (*.java)|*.java'
     Enabled = False
+    AnnotationAttri.FrameEdges = sfeAround
     CommentAttri.Foreground = clBlue
     CommentAttri.FrameEdges = sfeAround
     CommentAttri.Style = [fsBold]
@@ -2133,7 +2148,7 @@ object fEditor: TfEditor
     SymbolAttri.Foreground = clRed
     SymbolAttri.FrameEdges = sfeAround
     left = 104
-    top = 64
+    top = 88
   end
   object SynHTMLSyn1: TSynHTMLSyn
     Tag = 1
@@ -2142,6 +2157,7 @@ object fEditor: TfEditor
     AndAttri.FrameEdges = sfeAround
     ASPAttri.FrameEdges = sfeAround
     CDATAAttri.FrameEdges = sfeAround
+    DOCTYPEAttri.FrameEdges = sfeAround
     CommentAttri.FrameEdges = sfeAround
     IdentifierAttri.FrameEdges = sfeAround
     KeyAttri.FrameEdges = sfeAround
@@ -2151,7 +2167,7 @@ object fEditor: TfEditor
     UndefKeyAttri.FrameEdges = sfeAround
     ValueAttri.FrameEdges = sfeAround
     left = 200
-    top = 64
+    top = 88
   end
   object SynXMLSyn1: TSynXMLSyn
     Tag = 1
@@ -2172,7 +2188,7 @@ object fEditor: TfEditor
     SymbolAttri.FrameEdges = sfeAround
     WantBracesParsed = False
     left = 232
-    top = 64
+    top = 88
   end
   object SynLFMSyn1: TSynLFMSyn
     Tag = 1
@@ -2189,7 +2205,7 @@ object fEditor: TfEditor
     StringAttri.Foreground = clBlue
     StringAttri.FrameEdges = sfeAround
     left = 264
-    top = 64
+    top = 88
   end
   object SynUNIXShellScriptSyn1: TSynUNIXShellScriptSyn
     Tag = 1
@@ -2205,7 +2221,7 @@ object fEditor: TfEditor
     SymbolAttri.FrameEdges = sfeAround
     VarAttri.FrameEdges = sfeAround
     left = 328
-    top = 64
+    top = 88
   end
   object SynPHPSyn1: TSynPHPSyn
     Tag = 1
@@ -2226,7 +2242,7 @@ object fEditor: TfEditor
     SymbolAttri.FrameEdges = sfeAround
     VariableAttri.FrameEdges = sfeAround
     left = 392
-    top = 64
+    top = 88
   end
   object SynTeXSyn1: TSynTeXSyn
     Tag = 1
@@ -2240,7 +2256,7 @@ object fEditor: TfEditor
     BraceAttri.FrameEdges = sfeAround
     BracketAttri.FrameEdges = sfeAround
     left = 424
-    top = 64
+    top = 88
   end
   object SynSQLSyn1: TSynSQLSyn
     Tag = 1
@@ -2268,7 +2284,7 @@ object fEditor: TfEditor
     VariableAttri.FrameEdges = sfeAround
     SQLDialect = sqlSybase
     left = 456
-    top = 64
+    top = 88
   end
   object SynPerlSyn1: TSynPerlSyn
     Tag = 1
@@ -2291,7 +2307,7 @@ object fEditor: TfEditor
     SymbolAttri.FrameEdges = sfeAround
     VariableAttri.FrameEdges = sfeAround
     left = 168
-    top = 64
+    top = 88
   end
   object SynCssSyn1: TSynCssSyn
     Tag = 1
@@ -2310,7 +2326,7 @@ object fEditor: TfEditor
     SymbolAttri.Foreground = clRed
     SymbolAttri.FrameEdges = sfeAround
     left = 360
-    top = 64
+    top = 88
   end
   object SynPythonSyn1: TSynPythonSyn
     Tag = 1
@@ -2331,7 +2347,7 @@ object fEditor: TfEditor
     SymbolAttri.FrameEdges = sfeAround
     ErrorAttri.FrameEdges = sfeAround
     left = 488
-    top = 64
+    top = 88
   end
   object SynDiffSyn1: TSynDiffSyn
     Tag = 1
@@ -2349,7 +2365,7 @@ object fEditor: TfEditor
     LineChangedAttri.FrameEdges = sfeAround
     LineContextAttri.FrameEdges = sfeAround
     left = 296
-    top = 64
+    top = 88
   end
   object SynVBSyn1: TSynVBSyn
     Tag = 1
@@ -2367,7 +2383,7 @@ object fEditor: TfEditor
     SymbolAttri.Foreground = clRed
     SymbolAttri.FrameEdges = sfeAround
     left = 520
-    top = 64
+    top = 88
   end
   object SynBatSyn1: TSynBatSyn
     Tag = 1
@@ -2383,7 +2399,7 @@ object fEditor: TfEditor
     SpaceAttri.FrameEdges = sfeAround
     VariableAttri.FrameEdges = sfeAround
     left = 552
-    top = 64
+    top = 88
   end
   object SynIniSyn1: TSynIniSyn
     Tag = 1
@@ -2398,7 +2414,7 @@ object fEditor: TfEditor
     StringAttri.FrameEdges = sfeAround
     SymbolAttri.FrameEdges = sfeAround
     left = 584
-    top = 64
+    top = 88
   end
   object SynJScriptSyn1: TSynJScriptSyn
     Enabled = False
@@ -2412,7 +2428,7 @@ object fEditor: TfEditor
     StringAttri.FrameEdges = sfeAround
     SymbolAttri.FrameEdges = sfeAround
     left = 136
-    top = 64
+    top = 88
   end
   object SynFreePascalSyn1: TSynFreePascalSyn
     Enabled = False
@@ -2430,7 +2446,7 @@ object fEditor: TfEditor
     CompilerMode = pcmObjFPC
     NestedComments = True
     left = 40
-    top = 64
+    top = 88
   end
   object SynPoSyn1: TSynPoSyn
     DefaultFilter = 'po-Dateien (*.po)|*.po'
@@ -2440,6 +2456,6 @@ object fEditor: TfEditor
     KeyAttri.FrameEdges = sfeAround
     SpaceAttri.FrameEdges = sfeAround
     left = 616
-    top = 64
+    top = 88
   end
-end
+end

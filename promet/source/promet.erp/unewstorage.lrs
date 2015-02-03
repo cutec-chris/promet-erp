@@ -1,8 +1,6 @@
-{ This is an automatically generated lazarus resource file }
-
 LazarusResources.Add('TfNewStorage','FORMDATA',[
-  'TPF0'#12'TfNewStorage'#11'fNewStorage'#4'Left'#3#26#2#6'Height'#3#139#1#3'To'
-  +'p'#3'$'#1#5'Width'#3#237#1#13'ActiveControl'#7#8'gStorage'#7'Caption'#6#16
+  'TPF0'#12'TfNewStorage'#11'fNewStorage'#4'Left'#3#251#1#6'Height'#3#139#1#3'T'
+  +'op'#3#16#1#5'Width'#3#237#1#13'ActiveControl'#7#8'gStorage'#7'Caption'#6#16
   +'Lager ausw'#195#164'hlen'#12'ClientHeight'#3#139#1#11'ClientWidth'#3#237#1
   +#10'KeyPreview'#9#9'OnKeyDown'#7#11'FormKeyDown'#8'Position'#7#16'poMainForm'
   +'Center'#10'LCLVersion'#6#3'1.3'#0#6'TLabel'#22'lArticlewithoutStorage'#4'Le'
@@ -14,7 +12,7 @@ LazarusResources.Add('TfNewStorage','FORMDATA',[
   +#2'ID'#5'Width'#2'<'#9'FieldName'#6#2'ID'#0#1#13'Title.Caption'#6#4'Name'#5
   +'Width'#3#200#0#9'FieldName'#6#4'NAME'#0#0#10'DataSource'#7#11'StorageType'#8
   +'ReadOnly'#9#8'TabOrder'#2#0#10'TitleStyle'#7#8'tsNative'#0#0#12'TButtonPane'
-  +'l'#12'ButtonPanel1'#4'Left'#2#6#6'Height'#2'"'#3'Top'#3'c'#1#5'Width'#3#225
+  +'l'#12'ButtonPanel1'#4'Left'#2#6#6'Height'#2'*'#3'Top'#3'['#1#5'Width'#3#225
   +#1#13'OKButton.Name'#6#8'OKButton'#23'OKButton.DefaultCaption'#9#15'HelpButt'
   +'on.Name'#6#10'HelpButton'#25'HelpButton.DefaultCaption'#9#16'CloseButton.Na'
   +'me'#6#11'CloseButton'#26'CloseButton.DefaultCaption'#9#17'CancelButton.Name'
@@ -30,8 +28,8 @@ LazarusResources.Add('TfNewStorage','FORMDATA',[
   +'itle.Caption'#6#10'reserviert'#5'Width'#2'<'#9'FieldName'#6#8'RESERVED'#0#0
   +#10'DataSource'#7#7'Storage'#8'ReadOnly'#9#8'TabOrder'#2#2#10'TitleStyle'#7#8
   +'tsNative'#0#0#6'TLabel'#6'Label1'#4'Left'#2#6#6'Height'#2#13#3'Top'#3#227#0
-  +#5'Width'#2'\'#7'Caption'#6#14'Bestand/Charge'#10'Font.Style'#11#6'fsBold'#0
+  +#5'Width'#2'a'#7'Caption'#6#14'Bestand/Charge'#10'Font.Style'#11#6'fsBold'#0
   +#11'ParentColor'#8#10'ParentFont'#8#0#0#11'TDatasource'#11'StorageType'#4'le'
   +'ft'#2' '#3'top'#2'&'#0#0#11'TDatasource'#7'Storage'#4'left'#2' '#3'top'#3#8
   +#1#0#0#0
-]);
+]);

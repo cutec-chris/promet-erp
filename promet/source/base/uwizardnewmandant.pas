@@ -21,7 +21,7 @@ unit uWizardNewMandant;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, Buttons, ComCtrls, uIntfStrConsts, EditBtn,
   {VirtualStringTree, }FileUtil,db, ZConnection, DbCtrls, uData, uEncrypt,
   ClipBrd, Spin,ProcessUtils,UTF8Process,process,lclproc;
@@ -35,36 +35,61 @@ type
   TfWizardNewMandant = class(TForm)
     bAbort0: TButton;
     bAbort1: TButton;
+    bAbort6: TButton;
     bAbort5: TButton;
     BitBtn1: TBitBtn;
     bNext0: TButton;
     bNext1: TButton;
+    bNext4: TButton;
     bPrev0: TButton;
     bPrev1: TButton;
+    bPrev5: TButton;
     Button1: TButton;
     bvImage: TPanel;
     bvleft: TBevel;
     bvleft1: TBevel;
     bvRight0: TBevel;
     bvRight1: TBevel;
-    cbSQLType: TComboBox;
+    bvRight5: TBevel;
+    cbExistingdatabase: TRadioButton;
     cbLanguage: TComboBox;
+    cbNewdatabase: TRadioButton;
+    cbSQLType: TComboBox;
     cbSyncHelp: TCheckBox;
     DirectoryEdit1: TFileNameEdit;
     eMandantname: TComboBox;
+    eSQLdatabase1: TFileNameEdit;
+    eDBServer: TEdit;
     eSQLPassword: TEdit;
+    eSQLDatabase2: TEdit;
+    eSQLPassword1: TEdit;
     eSQLUser: TEdit;
     eSQLServer: TEdit;
     eSQLdatabase: TFileNameEdit;
+    eSQLUser1: TEdit;
     iDatabaseCreated: TImage;
     iDatabaseFilled: TImage;
     iDatabaseUpdated: TImage;
     imDialog: TImage;
     Label1: TLabel;
     Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
     lDefaultValue: TLabel;
+    lDescription0: TLabel;
     lDescription1: TLabel;
+    lDescription10: TLabel;
+    lDescription11: TLabel;
+    lDescription12: TLabel;
+    lDescription13: TLabel;
+    lDescription5: TLabel;
+    lDescription6: TLabel;
+    lDescription7: TLabel;
+    lDescription8: TLabel;
+    lDescription9: TLabel;
     lLanguage: TLabel;
+    lMandantname: TLabel;
+    lPassword1: TLabel;
     lProfile: TLabel;
     lUsername: TLabel;
     lPassword: TLabel;
@@ -74,14 +99,16 @@ type
     lUpdatingDatabase: TLabel;
     lFillingDefaultValues: TLabel;
     lCreatingDatabase: TLabel;
-    lDescription0: TLabel;
+    lUsername1: TLabel;
     md: TDatasource;
+    pButtons0: TPanel;
+    pButtons5: TPanel;
+    pCont0: TPanel;
+    pCont4: TPanel;
     pDetails: TPanel;
     pButtons1: TPanel;
     pCont1: TPanel;
     pResult: TPanel;
-    pButtons0: TPanel;
-    pCont0: TPanel;
     pLeft: TPanel;
     pCont2: TPanel;
     lDescription2: TLabel;
@@ -97,25 +124,25 @@ type
     bNext3: TButton;
     bPrev3: TButton;
     bAbort3: TButton;
-    lMandantname: TLabel;
-    Datenbanktyp: TLabel;
-    cbDatabaseType: TComboBox;
-    lDatabaseDirectory: TLabel;
-    eDatabasedirectory: TDirectoryEdit;
-    pCont4: TPanel;
+    pCont5: TPanel;
     lDescription4: TLabel;
     lDatabaseDirectory1: TLabel;
     pButtons4: TPanel;
     bvRight4: TBevel;
-    bNext4: TButton;
+    bNext5: TButton;
     bPrev4: TButton;
     bAbort4: TButton;
     DirectoryEdit2: TDirectoryEdit;
-    cbNewdatabase: TRadioButton;
-    cbExistingdatabase: TRadioButton;
     bCopyConnectionString: TSpeedButton;
-    rbFromFile: TRadioButton;
+    rbFB: TRadioButton;
+    rbPersonal: TRadioButton;
+    RadioButton2: TRadioButton;
+    rbSqlite: TRadioButton;
+    rbFBE: TRadioButton;
     rbDelete: TRadioButton;
+    rbFromFile: TRadioButton;
+    rbPQ: TRadioButton;
+    rbMS: TRadioButton;
     seSyncID: TSpinEdit;
     SilentTimer: TTimer;
     tvProfile: TTreeView;
@@ -126,12 +153,16 @@ type
     procedure bPrev0Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure cbLanguageSelect(Sender: TObject);
+    procedure cbSQLTypeChange(Sender: TObject);
+    procedure cbSQLTypeSelect(Sender: TObject);
     procedure DirectoryEdit1AcceptFileName(Sender: TObject; var Value: String);
     procedure eMandantnameSelect(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure rbPQChange(Sender: TObject);
+    procedure rbSqliteChange(Sender: TObject);
     procedure SilentTimerTimer(Sender: TObject);
   private
     { private declarations }
@@ -148,10 +179,11 @@ var
   fWizardNewMandant: TfWizardNewMandant;
 
 implementation
+{$R *.lfm}
 uses uError,uImpCSV, uBaseApplication, uBaseDbInterface, uBaseDbClasses,
   uBaseERPDBClasses, uOrder, uSync, uOptions, uMandantOptions, uuseroptions,
   uProcessOptions,uSyncOptions,uDocuments,uWiki,Utils,uProjects,uMasterdata,
-  uPerson,utask;
+  uPerson,utask,usimpleprocess;
 resourcestring
   strdBase                      = 'DBase Datenbank';
   strSQLDatabase                = 'SQL basierte Datenbank';
@@ -164,7 +196,6 @@ resourcestring
   strSyncIDChanged              = 'SyncID wurde geändert!';
   strSuccess                    = 'erfolgreich durchgeführt!';
   strImporting                  = 'Importiere ';
-  strPersonal                   = 'Standard';
 { TfWizardNewMandant }
 
 procedure TfWizardNewMandant.bAbort0Click(Sender: TObject);
@@ -193,16 +224,7 @@ end;
 
 procedure TfWizardNewMandant.bCopyConnectionStringClick(Sender: TObject);
 begin
-  case cbDatabasetype.ItemIndex of
-  1:
-    begin
-      Clipboard.AsText := 'SLT:'+eDatabasedirectory.Text;
-    end;
-  else
-    begin
-      Clipboard.AsText :='SQL:'+cbSQLType.text+';'+eSQLServer.text+';'+UTF8ToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
-    end;
-  end;
+  Clipboard.AsText :='SQL:'+cbSQLType.text+';'+eSQLServer.text+';'+UniToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
 end;
 procedure TfWizardNewMandant.BitBtn1Click(Sender: TObject);
 begin
@@ -243,6 +265,35 @@ procedure TfWizardNewMandant.cbLanguageSelect(Sender: TObject);
 begin
   with Application as IBaseApplication do
     Language := cbLanguage.Text;
+end;
+
+procedure TfWizardNewMandant.cbSQLTypeChange(Sender: TObject);
+begin
+  eSQLdatabase.Text:='promet';
+end;
+
+procedure TfWizardNewMandant.cbSQLTypeSelect(Sender: TObject);
+begin
+  if (eSQLServer.Text = '') or (eSQLServer.Text = 'localhost') then
+    eSQLServer.Text := 'localhost';
+  if pos('promet-erp',eSQLdatabase.Text)=0 then exit;
+  if Application.HasOption('database') then
+    eSQLDatabase.Text:=Application.GetOptionValue('database')
+  else
+    eSQLDatabase.Text:=GetUserDir+'promet-erp.db';
+  if cbSQLType.Text <> 'sqlite-3' then
+    begin
+      eSQLDatabase.Text:='promet-erp';
+    end;
+  if pos('firebird',cbSQLType.Text)>0 then
+    begin
+      eSQLDatabase.Text:='promet-erp.fdb';
+    end;
+  if pos('firebirdd',cbSQLType.Text)>0 then
+    begin
+      eSQLServer.Text:='';
+    end;
+  eSQLdatabase1.Text:=eSQLdatabase.Text;
 end;
 
 procedure TfWizardNewMandant.DirectoryEdit1AcceptFileName(Sender: TObject;
@@ -312,17 +363,62 @@ end;
 
 procedure TfWizardNewMandant.FormShow(Sender: TObject);
 begin
+  if Application.HasOption('firebird') then
+    begin
+      cbSQLType.Text:='firebirdd-2.1';
+      cbSQLTypeSelect(nil);
+    end;
   if Application.HasOption('silent') then
     begin
       SilentTimer.Enabled := True;
     end;
 end;
 
+{
+sqlite-3
+postgresql-8
+postgresql-7
+mssql
+mysql
+mysql-4.1
+mysql-5
+firebird-2.5
+firebird-2.1
+firebird-2.0
+firebird-1.5
+firebird-1.0
+firebirdd-2.5
+firebirdd-2.1
+firebirdd-2.0
+firebirdd-1.5
+interbase-6
+}
+procedure TfWizardNewMandant.rbPQChange(Sender: TObject);
+begin
+  if rbPQ.Checked then
+    cbSQLType.Text:='postgresql-8'
+  else if rbMS.Checked then
+    cbSQLType.Text:='mssql'
+  else if rbFB.Checked then
+    cbSQLType.Text:='firebird-2.1'
+  ;
+  cbSQLTypeSelect(cbSQLType);
+end;
+procedure TfWizardNewMandant.rbSqliteChange(Sender: TObject);
+begin
+  if rbFBE.Checked then
+    cbSQLType.Text:='firebirdd-2.1'
+  else if rbSqlite.Checked then
+    cbSQLType.Text:='sqlite-3';
+  cbSQLTypeSelect(cbSQLType);
+  eSQLdatabase1.Text:=eSQLdatabase.Text;
+end;
+
 procedure TfWizardNewMandant.SilentTimerTimer(Sender: TObject);
 begin
   SilentTimer.Enabled:=False;
   Application.ProcessMessages;
-  eMandantname.Text:=strPersonal;
+  eMandantname.Text:='Standard';
   bNext0Click(bNext0);
 end;
 
@@ -363,13 +459,8 @@ begin
       inc(i);
     end;
   NextButton.Caption := strFinish;
+  bAbort5.Caption:=strAbort;
   //Application depend Language strings
-  cbDatabasetype.Items.Clear;
-  cbdatabasetype.Items.Add(strSQLDataBASE);
-//  cbdatabasetype.Items.Add(strSQLiteDataBASE);
-//  cbDatabaseType.Items.Add(strdBase);
-  bNext3.Caption := strFinish;
-  cbDatabaseType.ItemIndex:=0;
 end;
 function TfWizardNewMandant.DoSave : Boolean;
 var
@@ -382,13 +473,14 @@ var
   aType: String;
   aProcess: TProcessUTF8;
   sres: String;
+  aTexttyp: TTextTypes;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
     aTable : TBaseDBDataset;
   begin
     try
-      aTable := TBaseDbDataSetClass(aTableC).Create(nil,uData.Data);
+      aTable := TBaseDbDataSetClass(aTableC).Create(nil);
       with aTable.DataSet as IBaseManageDB do
         aTableName := TableName;
       aTable.CreateTable;
@@ -427,7 +519,7 @@ var
   var
     aImportTable: TBaseDBDataset;
   begin
-    aImportTable := TBaseDbDataSetClass(aTable).Create(nil,uData.Data);
+    aImportTable := TBaseDbDataSetClass(aTable).Create(nil);
     DoImportTable(aImportTable);
     aImportTable.Destroy;
   end;
@@ -438,28 +530,15 @@ begin
   with Application as IBaseDBInterface do
     begin
       mSettings := TStringList.Create;
-      case cbDatabasetype.ItemIndex of
-      1:
-        begin
-          aType := 'SLT';
-          mSettings.Add('SLT');
-          aSettings := eDatabasedirectory.Text;
-          mSettings.Add(aSettings);
-          mSettings.SaveToFile(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension);
-        end;
-      else
-        begin
-          aType := 'SQL';
-          mSettings.Add('SQL');
-          aSettings := cbSQLType.text+';'+eSQLServer.text+';'+UTF8ToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
-          mSettings.Add(aSettings);
-          mSettings.SaveToFile(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension);
-        end;
-      end;
+      aType := 'SQL';
+      mSettings.Add('SQL');
+      aSettings := cbSQLType.text+';'+eSQLServer.text+';'+UniToSys(eSQLDatabase.text)+';'+eSQLUser.text+';x'+Encrypt(eSQLPassword.Text,99998);
+      mSettings.Add(aSettings);
+      mSettings.SaveToFile(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension);
       mSettings.Free;
     end;
   pCont0.Visible := False;
-  pCont4.Visible := False;
+  pCont5.Visible := False;
   pResult.Visible := True;
   Application.ProcessMessages;
   with Application as IBaseDBInterface do
@@ -504,11 +583,11 @@ begin
 
           if cbSyncHelp.Checked then
             begin
-              aSyncDB := TSyncDB.Create(Self,Data);
+              aSyncDB := TSyncDB.CreateEx(Self,Data);
               aSyncDB.CreateTable;
               aSyncDB.Insert;
               aSyncDB.FieldByName('NAME').AsString:='Help';
-              aSyncDB.FieldByName('PROPERTIES').AsString:='SQL:sqlite-3;localhost;'+AppendPathDelim(Application.Location)+'help.db;;x';
+              aSyncDB.FieldByName('PROPERTIES').AsString:='SQL:sqlite-3;localhost;help.db;;x';
               aSyncDB.FieldByName('ACTIVE').AsString:='Y';
               aSyncDB.DataSet.Post;
               aSyncDB.Tables.Insert;
@@ -525,6 +604,11 @@ begin
               aSyncDB.Tables.FieldByName('ACTIVE').AsString:='Y';
               aSyncDB.Tables.FieldByName('FILTERIN').AsString:=Data.QuoteField('TYPE')+'='+Data.QuoteValue('W');
               aSyncDB.Tables.DataSet.Post;
+              aSyncDB.Tables.Insert;
+              aSyncDB.Tables.FieldByName('NAME').AsString:='SCRIPTS';
+              aSyncDB.Tables.FieldByName('ACTIVE').AsString:='Y';
+              aSyncDB.Tables.FieldByName('FILTERIN').AsString:=Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('CmdLn.*'));
+              aSyncDB.Tables.DataSet.Post;
               aSyncDB.Free;
             end;
           DoImportTable(Data.Numbers);
@@ -533,7 +617,9 @@ begin
           DoImportTable(Data.Tree);
           DoImportTable(Data.Reports);
           DoImportTable(Data.Filters);
-          DoImportTable(Data.TextTyp);
+          aTexttyp := TTextTypes.Create(nil);
+          DoImportTable(aTextTyp);
+          aTexttyp.Free;
           DoImportTable(Data.MandantDetails);
           Data.ProcessClient.CreateTable;
           Data.ProcessClient.Open;
@@ -560,6 +646,9 @@ begin
               Insert;
               FieldByName('NAME').AsString:='twitterreceiver';
               FieldByName('INTERVAL').AsInteger:=10;
+              Insert;
+              FieldByName('NAME').AsString:='sync_db';
+              FieldByName('INTERVAL').AsInteger:=1000;
               Post;
             end;
 
@@ -582,6 +671,7 @@ begin
           DoImport(TUnits);
           DoImport(TDispatchTypes);
           DoImport(TCategory);
+          DoImport(TFinancialAccounts);
 
           DoImport(TProject);
           DoImport(TTaskList);
@@ -607,10 +697,9 @@ begin
               DoCreateTable(TDocument);
               DoCreateTable(TWikiList);
               if Application.HasOption('c','config-path') then
-                sres := ProcessUtils.ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' --config-path='+Application.GetOptionValue('c','config-path')+' --mandant='+eMandantname.Text,AppendPathDelim(Application.Location))
+                ExecProcess(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text+'"')
               else
-                sres := ProcessUtils.ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' --mandant='+eMandantname.Text,AppendPathDelim(Application.Location));
-              debugln(sres);
+                ExecProcess(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--mandant='+eMandantname.Text+'"');
             end;
           iDatabaseUpdated.Visible:=True;
         end
@@ -651,13 +740,6 @@ begin
       else
         begin
           Result := 2;
-          if (cbDatabasetype.Items.Count > 1) then
-            Result := 2
-          else
-            begin
-              cbDatabasetype.ItemIndex := 0;
-              Result := DoExecStep(2);
-            end;
         end;
       if rbDelete.Checked then
         begin
@@ -683,7 +765,7 @@ begin
                   result := 0;
                   exit;
                 end;
-              if CopyFile(UTF8ToSys(DirectoryEdit1.FileName),UTF8ToSys(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension)) then
+              if CopyFile(UniToSys(DirectoryEdit1.FileName),UniToSys(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension)) then
                 ShowMessage(strSuccess)
               else
                 begin
@@ -703,22 +785,31 @@ begin
           result := 1;
           exit;
         end;
-      if (cbDatabasetype.Items.Count > 1) then
-        Result := 2
-      else
-        begin
-          cbDatabasetype.ItemIndex := 0;
-          Result := DoExecStep(2);
-        end;
+      Result := 2;
       if Application.HasOption('silent') then
         Result := 5;
     end;
   2:
     begin
-      if (cbDatabasetype.ItemIndex > 0) then
+      if rbPersonal.Checked then
         Result := 3
       else
         Result := 4;
+    end;
+  3:
+    begin
+      rbSqliteChange(rbSqlite);
+      eSQLdatabase.Text:=eSQLdatabase1.Text;
+      Result := 5;
+    end;
+  4:
+    begin
+      eSQLdatabase.Text:=eSQLdatabase2.Text;
+      eSQLServer.Text:=eDBServer.Text;
+      eSQLUser.Text:=eSQLUser1.Text;
+      eSQLPassword.Text:=eSQLPassword1.Text;
+      rbPQChange(rbPQ);
+      Result := 5;
     end;
   end;
 end;
@@ -744,6 +835,7 @@ begin
   if Assigned(ade) and Assigned(aDe.Items[0]) then
     tvProfile.Selected := aDe.FindNode('Deutschland');
   eSQLDatabase.Text:=GetUserDir+'promet-erp.db';
+  cbSQLTypeSelect(nil);
   with Application as IBaseDBInterface do
     LoadMandants;
   //Wizard finished, use the made settings
@@ -761,6 +853,5 @@ begin
     end;
 end;
 initialization
-  {$I uwizardnewmandant.lrs}
 end.
 

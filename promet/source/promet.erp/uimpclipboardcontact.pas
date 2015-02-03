@@ -68,92 +68,47 @@ begin
     begin
       if (pos('tel',lowercase(Addr[i])) > 0) or (pos('phone',lowercase(Addr[i])) > 0) or (pos('mobile',lowercase(Addr[i])) > 0) then
         begin
-          Customers.CustomerCont.DataSet.Append;
-          Customers.CustomerCont.FieldByName('TYPE').AsString := 'TEL';
+          Customers.ContactData.DataSet.Append;
+          Customers.ContactData.FieldByName('TYPE').AsString := 'TEL';
           if pos(':',Addr[i]) > 0 then
-            Customers.CustomerCont.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
+            Customers.ContactData.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
           else
-            Customers.CustomerCont.FieldByName('DATA').AsString := Addr[i];
-          Customers.CustomerCont.DataSet.Post;
+            Customers.ContactData.FieldByName('DATA').AsString := Addr[i];
+          Customers.ContactData.DataSet.Post;
           Addr.Delete(i);
         end
       else if pos('fax',lowercase(Addr[i])) > 0 then
         begin
-          Customers.CustomerCont.DataSet.Append;
-          Customers.CustomerCont.FieldByName('TYPE').AsString := 'FAX';
+          Customers.ContactData.DataSet.Append;
+          Customers.ContactData.FieldByName('TYPE').AsString := 'FAX';
           if pos(':',Addr[i]) > 0 then
-            Customers.CustomerCont.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
+            Customers.ContactData.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
           else
-            Customers.CustomerCont.FieldByName('DATA').AsString := Addr[i];
-          Customers.CustomerCont.DataSet.Post;
+            Customers.ContactData.FieldByName('DATA').AsString := Addr[i];
+          Customers.ContactData.DataSet.Post;
           Addr.Delete(i);
         end
       else if pos('mail',lowercase(Addr[i])) > 0 then
         begin
-          Customers.CustomerCont.DataSet.Append;
-          Customers.CustomerCont.FieldByName('TYPE').AsString := 'MAIL';
+          Customers.ContactData.DataSet.Append;
+          Customers.ContactData.FieldByName('TYPE').AsString := 'MAIL';
           if pos(':',Addr[i]) > 0 then
-            Customers.CustomerCont.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
+            Customers.ContactData.FieldByName('DATA').AsString := copy(Addr[i],pos(':',Addr[i])+1,length(Addr[i]))
           else
-            Customers.CustomerCont.FieldByName('DATA').AsString := Addr[i];
-          Customers.CustomerCont.DataSet.Post;
+            Customers.ContactData.FieldByName('DATA').AsString := Addr[i];
+          Customers.ContactData.DataSet.Post;
           Addr.Delete(i);
         end
       else
         inc(i);
     end;
   //The rest should be the adress
-  if Customers.DataSet.State=dsInsert then
-    begin
-      Customers.FieldByName('NAME').AsString := trim(Addr[0]);
-      tmp := StringReplace(UpperCase(StringReplace(ValidateFileName(Customers.FieldByName('NAME').AsString),'_','',[rfReplaceAll])),' ','',[rfReplaceAll]);
-      tmp := StringReplace(tmp,'-','',[rfReplaceAll]);
-      Customers.FieldByName('MATCHCODE').AsString := tmp;
-    end;
   if Customers.Address.DataSet.State <> dsInsert then
     Customers.Address.DataSet.Append;
-  Customers.Address.FieldByName('NAME').AsString := trim(Addr[0]);
-  Addr.Delete(0);
-  i := Addr.Count-1;
-  if Addr.Count = 0 then exit;
-  while i > 0 do
-    begin
-      tmp := Addr[i];
-      if IsNumeric(copy(trim(tmp),0,pos(' ',trim(tmp))-1)) then
-        begin
-          Customers.Address.FieldByName('ZIP').AsString := copy(trim(tmp),0,pos(' ',trim(tmp))-1);
-          Customers.Address.FieldByName('CITY').AsString := copy(trim(tmp),pos(' ',trim(tmp))+1,length(trim(tmp)));
-          Addr.Delete(i);
-          break;
-        end
-      else if IsNumeric(copy(copy(trim(tmp),pos(' ',trim(tmp))+1,length(trim(tmp))),pos(' ',copy(trim(tmp),pos(' ',trim(tmp))+1,length(trim(tmp))))+1,length(copy(trim(tmp),pos(' ',trim(tmp))+1,length(trim(tmp))))))
-           or IsNumeric(copy(copy(trim(tmp),pos('-',trim(tmp))+1,length(trim(tmp))),pos('-',copy(trim(tmp),pos('-',trim(tmp))+1,length(trim(tmp))))+1,length(copy(trim(tmp),pos('-',trim(tmp))+1,length(trim(tmp)))))) then
-        begin
-          Customers.Address.FieldByName('ZIP').AsString := copy(copy(trim(tmp),pos(' ',trim(tmp))+1,length(trim(tmp))),pos(' ',copy(trim(tmp),pos(' ',trim(tmp))+1,length(trim(tmp))))+1,length(copy(trim(tmp),pos(' ',trim(tmp))+1,length(trim(tmp)))));
-          tmp := copy(tmp,pos(Customers.Address.FieldByName('ZIP').AsString,tmp)+length(Customers.Address.FieldByName('ZIP').AsString),length(tmp));
-          Customers.Address.FieldByName('CITY').AsString := tmp;
-          Addr.Delete(i);
-          break;
-        end
-      else if IsNumeric(copy(copy(trim(tmp),pos('-',trim(tmp))+1,length(trim(tmp))),pos('-',copy(trim(tmp),pos('-',trim(tmp))+1,length(trim(tmp))))+1,length(copy(trim(tmp),pos('-',trim(tmp))+1,length(trim(tmp)))))) then
-        begin
-          Customers.Address.FieldByName('ZIP').AsString := copy(copy(trim(tmp),pos('-',trim(tmp))+1,length(trim(tmp))),pos('-',copy(trim(tmp),pos('-',trim(tmp))+1,length(trim(tmp))))+1,length(copy(trim(tmp),pos('-',trim(tmp))+1,length(trim(tmp)))));
-          tmp := copy(tmp,pos(Customers.Address.FieldByName('ZIP').AsString,tmp)+length(Customers.Address.FieldByName('ZIP').AsString),length(tmp));
-          Customers.Address.FieldByName('CITY').AsString := tmp;
-          Addr.Delete(i);
-          break;
-        end;
-      dec(i);
-    end;
-  i := Addr.Count-1;
-  if i > -1 then
-    begin
-      Customers.Address.FieldByName('ADDRESS').AsString := Addr[i];
-      Addr.Delete(i);
-    end;
-  if Addr.Count > 0 then
-    Customers.Address.FieldByName('ADDITIONAL').AsString := Addr[0];
+  Customers.Address.FromString(Addr.Text);
   Addr.Free;
+  Customers.Edit;
+  Customers.FieldByName('NAME').AsString:=Customers.Address.DataSet.FieldByName('NAME').AsString;
 end;
 
 end.

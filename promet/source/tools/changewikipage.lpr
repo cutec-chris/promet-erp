@@ -45,7 +45,7 @@ begin
   end;
   StopOnException := True;
   if not Login then raise Exception.Create('Login failed !');
-  aWiki := TWikiList.Create(Self,Data);
+  aWiki := TWikiList.Create(Self);
   aPage := TStringList.Create;
   try
     aPage.LoadFromFile(Params[ParamCount]);

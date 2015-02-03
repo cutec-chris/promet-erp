@@ -43,7 +43,7 @@ type
     FVariables: TCalcVariables;
     procedure Settype(AValue: string);
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
     function CreateTable: Boolean; override;
     procedure DefineFields(aDataSet: TDataSet); override;
@@ -207,11 +207,11 @@ begin
     end;
 end;
 
-constructor TCalcEnviroments.Create(aOwner: TComponent; DM: TComponent;
+constructor TCalcEnviroments.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FVariables := TCalcVariables.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FVariables := TCalcVariables.CreateEx(Owner,DM,aConnection,DataSet);
 end;
 
 destructor TCalcEnviroments.Destroy;
@@ -292,11 +292,10 @@ begin
         end;
       exit;
     end;
-  if (Pos('=',aIn)>0)
-  and ((pos('select',lowercase(aIn))>Pos('=',aIn)) or (pos('select',lowercase(aIn))=0))
+  if (Pos('=',aIn)>0) and ((pos('select',lowercase(aIn))>Pos('=',aIn)) or (pos('select',lowercase(aIn))=0))
   then
     begin
-      aVar := copy(aIn,0,RPos('=',aIn)-1);
+      aVar := copy(aIn,0,Pos('=',aIn)-1);
       aVar := StringReplace(aVar,#10,'',[rfReplaceAll]);
       aVar := trim(StringReplace(aVar,#13,'',[rfReplaceAll]));
       aVar := StringReplace(aVar,'.','_',[rfReplaceAll]);

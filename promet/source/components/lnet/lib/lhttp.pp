@@ -595,8 +595,9 @@ end;
 
 destructor TOutputItem.Destroy;
 begin
-  if FSocket.FCurrentInput = Self then
-    FSocket.FCurrentInput := nil;
+  if FSocket.FCurrentInput = Self then begin
+    FreeAndNil(FSocket.FCurrentInput);
+  end;
     
   if FPrevDelayFree = nil then
     FSocket.FDelayFreeItems := FNextDelayFree

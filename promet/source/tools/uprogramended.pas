@@ -5,7 +5,7 @@ unit uProgramEnded;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   Buttons, ButtonPanel;
 
 type
@@ -32,6 +32,7 @@ var
   fProgramEnded: TfProgramEnded;
 
 implementation
+{$R *.lfm}
 
 { TfProgramEnded }
 
@@ -47,6 +48,10 @@ end;
 
 procedure TfProgramEnded.OKButtonClick(Sender: TObject);
 begin
+  if cbDontShowthisDialogAgain.Checked then
+    ExitCode:=1
+  else
+    ExitCode:=0;
   Close;
 end;
 
@@ -62,7 +67,6 @@ begin
 end;
 
 initialization
-  {$I uprogramended.lrs}
 
 end.
-
+

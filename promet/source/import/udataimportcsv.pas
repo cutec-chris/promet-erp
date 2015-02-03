@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, SdfData, FileUtil, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls, EditBtn, ButtonPanel, ComCtrls, uDataImport;
+  StdCtrls, ExtCtrls, EditBtn, ButtonPanel, ComCtrls, uDataImport,Utils;
 
 type
 
@@ -141,7 +141,7 @@ begin
   if FTyp = icImport then
     begin
       sl := TStringList.Create;
-      sl.LoadFromFile(UTF8ToSys(Value));
+      sl.LoadFromFile(UniToSys(Value));
       i := 0;
       //Delete Comments
       while i < sl.Count do
@@ -161,7 +161,7 @@ begin
     begin
       SDFDataSet.ReadOnly:=False;
       SDFDataSet.FileMustExist:=False;
-      SDFDataSet.FileName:=UTF8ToSys(Value);
+      SDFDataSet.FileName:=UniToSys(Value);
     end;
   try
 //    if FTyp = icImport then
@@ -232,4 +232,4 @@ initialization
   RegisterImportSource(TCSVImport,strCSVName);
 
 end.
-
+

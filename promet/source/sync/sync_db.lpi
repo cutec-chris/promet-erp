@@ -8,7 +8,6 @@
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
-      <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <i18n>
       <EnableI18N LFM="False"/>
@@ -27,32 +26,27 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --onerun"/>
+        <CommandLineParams Value="--config-path=\home\chris\.promet-tcs --mandant=ForumPG --debug-sql --debug"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="2">
       <Item1>
         <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="FCL"/>
         <MinVersion Valid="True"/>
       </Item2>
-      <Item3>
-        <PackageName Value="LCL"/>
-      </Item3>
     </RequiredPackages>
-    <Units Count="56">
+    <Units Count="104">
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="sync_db"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="435"/>
-        <CursorPos X="1" Y="572"/>
-        <FoldState Value=" T3pY031?"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="417"/>
+        <CursorPos Y="431"/>
+        <FoldState Value=" T3i20{)112F"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -61,8 +55,6 @@
         <ComponentName Value="dmSync"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="usyncdb"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="189"/>
         <CursorPos X="12" Y="207"/>
         <UsageCount Value="211"/>
@@ -70,142 +62,112 @@
       <Unit2>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="7"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1314"/>
-        <CursorPos X="1" Y="1335"/>
+        <EditorIndex Value="8"/>
+        <TopLine Value="1678"/>
+        <CursorPos X="20" Y="1695"/>
         <UsageCount Value="111"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="8"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="746"/>
-        <CursorPos X="1" Y="771"/>
+        <EditorIndex Value="14"/>
+        <TopLine Value="1460"/>
+        <CursorPos Y="1484"/>
         <UsageCount Value="107"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\base\dbintfs\udata.pas"/>
-        <UnitName Value="uData"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="10"/>
-        <CursorPos X="1" Y="46"/>
+        <CursorPos Y="46"/>
         <UsageCount Value="65"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\dbsync\dbsync.lpr"/>
-        <UnitName Value="dbsync"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="363"/>
         <CursorPos X="33" Y="388"/>
         <UsageCount Value="65"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <UnitName Value="usync"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="57"/>
-        <CursorPos X="27" Y="66"/>
-        <UsageCount Value="95"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="120"/>
+        <CursorPos X="69" Y="149"/>
+        <UsageCount Value="98"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="4"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1891"/>
-        <CursorPos X="1" Y="1910"/>
-        <UsageCount Value="90"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="2905"/>
+        <CursorPos X="88" Y="2909"/>
+        <UsageCount Value="95"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\base\uuseroptions.pas"/>
-        <UnitName Value="uuseroptions"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="11"/>
         <CursorPos X="21" Y="11"/>
         <UsageCount Value="65"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractDataset.pas"/>
-        <UnitName Value="ZAbstractDataset"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="401"/>
         <CursorPos X="28" Y="420"/>
         <UsageCount Value="43"/>
       </Unit9>
       <Unit10>
         <Filename Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-db\src\base\db.pas"/>
-        <UnitName Value="db"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="195"/>
         <CursorPos X="15" Y="214"/>
         <UsageCount Value="5"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\base\dbintfs\umasterdata.pas"/>
-        <UnitName Value="uMasterdata"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="390"/>
-        <CursorPos X="1" Y="419"/>
+        <CursorPos Y="419"/>
         <UsageCount Value="5"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZAbstractRODataset.pas"/>
-        <UnitName Value="ZAbstractRODataset"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="2763"/>
-        <CursorPos X="1" Y="2781"/>
+        <CursorPos Y="2781"/>
         <UsageCount Value="39"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <UnitName Value="uBaseVisualApplication"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="242"/>
-        <CursorPos X="1" Y="260"/>
+        <CursorPos Y="260"/>
         <UsageCount Value="64"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\base\dbintfs\usystemmessage.pas"/>
-        <UnitName Value="uSystemMessage"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="121"/>
         <CursorPos X="19" Y="121"/>
         <UsageCount Value="90"/>
       </Unit14>
       <Unit15>
         <Filename Value="C:\Programme\lazarus\lcl\lresources.pp"/>
-        <UnitName Value="LResources"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="3072"/>
-        <CursorPos X="1" Y="3090"/>
+        <CursorPos Y="3090"/>
         <UsageCount Value="8"/>
       </Unit15>
       <Unit16>
         <Filename Value="usyncdb.lfm"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="9"/>
+        <CursorPos Y="9"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\..\..\general\src\uerror.pas"/>
-        <UnitName Value="uError"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="47"/>
-        <CursorPos X="1" Y="79"/>
+        <CursorPos Y="79"/>
         <UsageCount Value="86"/>
       </Unit17>
       <Unit18>
         <Filename Value="..\..\..\LKomponenten\z-push\z-push-2.0alpha2-777\lib\wbxml.php"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="4"/>
         <CursorPos X="31" Y="7"/>
         <UsageCount Value="8"/>
@@ -213,64 +175,48 @@
       </Unit18>
       <Unit19>
         <Filename Value="..\..\..\LKomponenten\z-push\z-push-2.0alpha2-777\backend\zarafa\icalparser.php"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="139"/>
-        <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="PHP"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\..\..\LKomponenten\z-push\z-push-2.0alpha2-777\include\z_RFC822.php"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="103"/>
-        <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="PHP"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\..\..\LKomponenten\z-push\z-push-2.0alpha2-777\lib\syncobjects.php"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="97"/>
-        <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="PHP"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\..\LKomponenten\z-push\z-push-2.0alpha2-777\lib\zpush.php"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="542"/>
-        <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="PHP"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\..\LKomponenten\z-push\z-push-2.0alpha2-777\lib\diffbackend.php"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="148"/>
-        <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="PHP"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\..\..\LKomponenten\z-push\z-push-2.0alpha2-777\lib\device.php"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="519"/>
-        <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="PHP"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\..\LKomponenten\z-push\z-push-2.0alpha2-777\backend\vcarddir.php"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="305"/>
-        <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="PHP"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\components\zeos\src\dbc\ZDbcPostgreSqlUtils.pas"/>
-        <UnitName Value="ZDbcPostgreSqlUtils"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="813"/>
         <CursorPos X="16" Y="830"/>
         <UsageCount Value="8"/>
@@ -278,218 +224,167 @@
       </Unit26>
       <Unit27>
         <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZConnection.pas"/>
-        <UnitName Value="ZConnection"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="706"/>
         <CursorPos X="55" Y="711"/>
         <UsageCount Value="8"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcConnection.pas"/>
-        <UnitName Value="ZDbcConnection"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="450"/>
-        <CursorPos X="1" Y="468"/>
+        <CursorPos Y="468"/>
         <UsageCount Value="8"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcIntfs.pas"/>
-        <UnitName Value="ZDbcIntfs"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="234"/>
         <CursorPos X="14" Y="240"/>
         <UsageCount Value="8"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\base\usysmonitor.pas"/>
-        <UnitName Value="uSysMonitor"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="8"/>
         <CursorPos X="3" Y="39"/>
         <UsageCount Value="8"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
-        <UnitName Value="uIntfStrConsts"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="19" Y="20"/>
         <UsageCount Value="5"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
-        <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="6"/>
-        <WindowIndex Value="0"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="17"/>
         <CursorPos X="19" Y="41"/>
-        <UsageCount Value="44"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="45"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="13"/>
-        <CursorPos X="20" Y="18"/>
-        <UsageCount Value="27"/>
+        <EditorIndex Value="9"/>
+        <TopLine Value="1831"/>
+        <CursorPos X="26" Y="1846"/>
+        <UsageCount Value="31"/>
+        <Loaded Value="True"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\components\thumbs\thumbcontrol.pas"/>
-        <UnitName Value="thumbcontrol"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="877"/>
         <CursorPos X="2" Y="905"/>
         <UsageCount Value="8"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\tools\processmanager.lpr"/>
-        <UnitName Value="processmanager"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="10"/>
+        <CursorPos Y="10"/>
         <UsageCount Value="8"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\#sample_cmdln\traceimport.lpr"/>
-        <UnitName Value="traceimport"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="61"/>
         <CursorPos X="34" Y="21"/>
         <UsageCount Value="8"/>
       </Unit36>
       <Unit37>
         <Filename Value="..\traceimport\traceimport.lpr"/>
-        <UnitName Value="traceimport"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="95"/>
-        <CursorPos X="1" Y="129"/>
+        <CursorPos Y="129"/>
         <UsageCount Value="9"/>
       </Unit37>
       <Unit38>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="5"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="165"/>
-        <CursorPos X="1" Y="189"/>
-        <UsageCount Value="27"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="160"/>
+        <CursorPos X="5" Y="175"/>
+        <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit38>
       <Unit39>
         <Filename Value="C:\Programme\lazarus\components\lazutils\lconvencoding.pas"/>
-        <UnitName Value="LConvEncoding"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="27"/>
         <CursorPos X="10" Y="45"/>
         <UsageCount Value="8"/>
       </Unit39>
       <Unit40>
         <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcCache.pas"/>
-        <UnitName Value="ZDbcCache"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="1142"/>
         <CursorPos X="20" Y="1157"/>
         <UsageCount Value="8"/>
       </Unit40>
       <Unit41>
         <Filename Value="..\..\..\LKomponenten\zeos\src\core\ZTokenizer.pas"/>
-        <UnitName Value="ZTokenizer"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="782"/>
-        <CursorPos X="1" Y="800"/>
+        <CursorPos Y="800"/>
         <UsageCount Value="9"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\..\..\..\lazarus\lcl\customdrawn_common.pas"/>
-        <UnitName Value="customdrawn_common"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
       </Unit42>
       <Unit43>
         <Filename Value="..\..\..\..\lazarus\fpc\packages\fcl-base\src\eventlog.pp"/>
-        <UnitName Value="eventlog"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="57"/>
         <CursorPos X="36" Y="73"/>
         <UsageCount Value="8"/>
       </Unit43>
       <Unit44>
         <Filename Value="..\..\..\..\lazarus\fpc\packages\fcl-base\src\unix\eventlog.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="92"/>
         <CursorPos X="3" Y="95"/>
         <UsageCount Value="8"/>
       </Unit44>
       <Unit45>
         <Filename Value="..\..\..\..\lazarus\fpc\packages\fcl-base\src\custapp.pp"/>
-        <UnitName Value="CustApp"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="28"/>
         <CursorPos X="3" Y="26"/>
         <UsageCount Value="8"/>
       </Unit45>
       <Unit46>
         <Filename Value="..\..\..\..\lazarus\fpc\rtl\objpas\sysutils\osutilsh.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="31"/>
         <CursorPos X="3" Y="56"/>
         <UsageCount Value="8"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\base\dbintfs\umessages.pas"/>
-        <UnitName Value="uMessages"/>
-        <EditorIndex Value="3"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="227"/>
-        <CursorPos X="3" Y="229"/>
-        <UsageCount Value="24"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="126"/>
+        <CursorPos X="9" Y="140"/>
+        <UsageCount Value="25"/>
       </Unit47>
       <Unit48>
         <Filename Value="..\base\old_units\ubasedatamodule.pas"/>
-        <UnitName Value="uBaseDataModule"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="3319"/>
         <CursorPos X="50" Y="3334"/>
         <UsageCount Value="8"/>
       </Unit48>
       <Unit49>
         <Filename Value="..\..\..\..\lazarus\fpc\packages\fcl-db\src\base\db.pas"/>
-        <UnitName Value="db"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="1306"/>
         <CursorPos X="14" Y="1322"/>
         <UsageCount Value="8"/>
       </Unit49>
       <Unit50>
         <Filename Value="..\..\..\..\lazarus\components\lazutils\fileutil.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="298"/>
-        <CursorPos X="1" Y="321"/>
+        <CursorPos Y="321"/>
         <UsageCount Value="10"/>
       </Unit50>
       <Unit51>
         <Filename Value="..\..\..\..\lazarus\lcl\include\messagedialogs.inc"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="264"/>
         <CursorPos X="20" Y="298"/>
         <UsageCount Value="10"/>
       </Unit51>
       <Unit52>
         <Filename Value="..\..\..\..\lazarus\lcl\lazcanvas.pas"/>
-        <UnitName Value="lazcanvas"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="746"/>
         <CursorPos X="8" Y="765"/>
         <UsageCount Value="10"/>
       </Unit52>
       <Unit53>
         <Filename Value="..\components\zeos\src\plain\ZPlainSqLiteDriver.pas"/>
-        <UnitName Value="ZPlainSqLiteDriver"/>
-        <WindowIndex Value="0"/>
         <TopLine Value="871"/>
         <CursorPos X="24" Y="888"/>
         <UsageCount Value="10"/>
@@ -497,143 +392,488 @@
       </Unit53>
       <Unit54>
         <Filename Value="..\base\changes.txt"/>
-        <EditorIndex Value="0"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="79" Y="1"/>
-        <UsageCount Value="15"/>
+        <CursorPos X="33" Y="4"/>
+        <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit54>
       <Unit55>
         <Filename Value="C:\home\chris\.prometerp\ForumPG.perml"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
         <CursorPos X="28" Y="2"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit55>
+      <Unit56>
+        <Filename Value="..\base\pcmdprometapp.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="10"/>
+        <UsageCount Value="11"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="..\base\revision.inc"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="4"/>
+        <UsageCount Value="15"/>
+        <Loaded Value="True"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="..\base\dbintfs\uthumbnails.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="276"/>
+        <CursorPos X="41" Y="289"/>
+        <UsageCount Value="12"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcDbLib.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="394"/>
+        <CursorPos Y="419"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcLogging.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="110"/>
+        <CursorPos X="39" Y="136"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="C:\Programme\lazarus\components\lazutils\fileutil.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="56"/>
+        <CursorPos X="10" Y="75"/>
+        <UsageCount Value="10"/>
+      </Unit61>
+      <Unit62>
+        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\fileutil.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="74"/>
+        <CursorPos X="23" Y="92"/>
+        <UsageCount Value="10"/>
+      </Unit62>
+      <Unit63>
+        <Filename Value="..\..\..\general\src\Utils.pas"/>
+        <UnitName Value="Utils"/>
+        <EditorIndex Value="12"/>
+        <TopLine Value="442"/>
+        <CursorPos X="41" Y="463"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit63>
+      <Unit64>
+        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\fileutil.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="301"/>
+        <CursorPos X="32" Y="303"/>
+        <UsageCount Value="10"/>
+      </Unit64>
+      <Unit65>
+        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\lazutf8.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="197"/>
+        <CursorPos Y="210"/>
+        <UsageCount Value="10"/>
+      </Unit65>
+      <Unit66>
+        <Filename Value="..\..\..\..\..\fpc\trunk\rtl\inc\ustringh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="116"/>
+        <CursorPos X="10" Y="131"/>
+        <UsageCount Value="10"/>
+      </Unit66>
+      <Unit67>
+        <Filename Value="..\..\..\general\src\usimpleprocess.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="34" Y="8"/>
+        <UsageCount Value="10"/>
+      </Unit67>
+      <Unit68>
+        <Filename Value="..\..\..\general\src\genpascalscript.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="359"/>
+        <CursorPos X="10" Y="424"/>
+        <UsageCount Value="10"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="..\statistics\ustatisticframe.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="726"/>
+        <CursorPos X="33" Y="750"/>
+        <UsageCount Value="10"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="..\webwiki\uerror.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="201"/>
+        <CursorPos X="43" Y="216"/>
+        <UsageCount Value="10"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="..\webwiki\uwebwiki.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="797"/>
+        <CursorPos X="26" Y="812"/>
+        <UsageCount Value="10"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="..\webwiki\udownloads.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="60"/>
+        <CursorPos X="43" Y="75"/>
+        <UsageCount Value="10"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="..\webwiki\ushop.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="917"/>
+        <CursorPos X="26" Y="932"/>
+        <UsageCount Value="10"/>
+      </Unit73>
+      <Unit74>
+        <Filename Value="..\webwiki\uforum.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="338"/>
+        <CursorPos X="26" Y="354"/>
+        <UsageCount Value="10"/>
+      </Unit74>
+      <Unit75>
+        <Filename Value="..\webwiki\umain.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="230"/>
+        <CursorPos X="26" Y="260"/>
+        <UsageCount Value="10"/>
+      </Unit75>
+      <Unit76>
+        <Filename Value="..\base\dbintfs\uvtools.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="26" Y="5"/>
+        <UsageCount Value="10"/>
+      </Unit76>
+      <Unit77>
+        <Filename Value="..\base\dbintfs\uimpcsv.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="9"/>
+        <CursorPos X="51" Y="24"/>
+        <UsageCount Value="10"/>
+      </Unit77>
+      <Unit78>
+        <Filename Value="..\..\..\general\src\secureutils.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="7"/>
+        <CursorPos X="13" Y="175"/>
+        <UsageCount Value="10"/>
+      </Unit78>
+      <Unit79>
+        <Filename Value="..\..\..\general\src\urtftotxt.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="92"/>
+        <CursorPos X="98" Y="107"/>
+        <UsageCount Value="10"/>
+      </Unit79>
+      <Unit80>
+        <Filename Value="..\..\..\general\src\aspell.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="55" Y="4"/>
+        <UsageCount Value="10"/>
+      </Unit80>
+      <Unit81>
+        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="228"/>
+        <CursorPos X="17" Y="243"/>
+        <UsageCount Value="10"/>
+      </Unit81>
+      <Unit82>
+        <Filename Value="..\base\base_wiki\htmltowiki.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="273"/>
+        <CursorPos X="5" Y="298"/>
+        <UsageCount Value="10"/>
+      </Unit82>
+      <Unit83>
+        <Filename Value="..\base\dbintfs\uprocessmanagement.pas"/>
+        <UnitName Value="uProcessManagement"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="335"/>
+        <CursorPos Y="350"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit83>
+      <Unit84>
+        <Filename Value="..\base\dbintfs\uwiki.pas"/>
+        <UnitName Value="uWiki"/>
+        <EditorIndex Value="13"/>
+        <TopLine Value="338"/>
+        <CursorPos X="13" Y="353"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit84>
+      <Unit85>
+        <Filename Value="..\base\dbintfs\uprocessmanager.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="100"/>
+        <CursorPos X="21" Y="120"/>
+        <UsageCount Value="10"/>
+      </Unit85>
+      <Unit86>
+        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\lazfileutils.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="75" Y="76"/>
+        <UsageCount Value="12"/>
+      </Unit86>
+      <Unit87>
+        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\unixlazfileutils.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="218"/>
+        <CursorPos X="19" Y="239"/>
+        <UsageCount Value="11"/>
+      </Unit87>
+      <Unit88>
+        <Filename Value="..\base\dbintfs\uorder.pas"/>
+        <UnitName Value="uOrder"/>
+        <EditorIndex Value="11"/>
+        <TopLine Value="1222"/>
+        <CursorPos X="110" Y="1238"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit88>
+      <Unit89>
+        <Filename Value="..\..\..\..\..\fpc\trunk\rtl\objpas\sysutils\filutilh.inc"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="10"/>
+        <UsageCount Value="10"/>
+      </Unit89>
+      <Unit90>
+        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\lazfileutils.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="4"/>
+        <CursorPos X="10" Y="4"/>
+        <UsageCount Value="10"/>
+      </Unit90>
+      <Unit91>
+        <Filename Value="..\base\dbintfs\uimpvcard.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="9"/>
+        <CursorPos X="49" Y="24"/>
+        <UsageCount Value="10"/>
+      </Unit91>
+      <Unit92>
+        <Filename Value="..\base\dbintfs\uimpvcal.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="42"/>
+        <CursorPos Y="55"/>
+        <UsageCount Value="10"/>
+      </Unit92>
+      <Unit93>
+        <Filename Value="..\..\..\general\src\utilsdate.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="89"/>
+        <CursorPos Y="115"/>
+        <UsageCount Value="10"/>
+      </Unit93>
+      <Unit94>
+        <Filename Value="..\base\dbintfs\udocumentprocess.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="108"/>
+        <CursorPos X="38" Y="123"/>
+        <UsageCount Value="12"/>
+      </Unit94>
+      <Unit95>
+        <Filename Value="..\base\dbintfs\uprometipc.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="66"/>
+        <CursorPos X="13" Y="94"/>
+        <UsageCount Value="12"/>
+      </Unit95>
+      <Unit96>
+        <Filename Value="..\base\dbintfs\ubasedocpages.pas"/>
+        <UnitName Value="uBaseDocPages"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="34"/>
+        <CursorPos X="42" Y="50"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit96>
+      <Unit97>
+        <Filename Value="..\base\dbintfs\uprometscripts.pas"/>
+        <UnitName Value="uprometscripts"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="11"/>
+        <CursorPos X="60" Y="27"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit97>
+      <Unit98>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\fcl-image\src\fpcanvas.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="299"/>
+        <CursorPos X="26" Y="314"/>
+        <UsageCount Value="10"/>
+      </Unit98>
+      <Unit99>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\fcl-image\src\fpcanvas.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="340"/>
+        <CursorPos X="24" Y="345"/>
+        <UsageCount Value="10"/>
+      </Unit99>
+      <Unit100>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\lclversion.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="15"/>
+        <CursorPos X="14" Y="40"/>
+        <UsageCount Value="10"/>
+      </Unit100>
+      <Unit101>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\intfgraphics.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="6256"/>
+        <CursorPos X="71" Y="6272"/>
+        <UsageCount Value="10"/>
+      </Unit101>
+      <Unit102>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\interfaces\gtk2\gtk2callback.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="495"/>
+        <CursorPos Y="511"/>
+        <UsageCount Value="10"/>
+      </Unit102>
+      <Unit103>
+        <Filename Value="..\..\..\general\src_vis\uextcontrols.pas"/>
+        <ComponentName Value="ExtControlFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uExtControls"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="386"/>
+        <CursorPos X="84" Y="396"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit103>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="361" Column="1" TopLine="332"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1682" Column="36" TopLine="1676"/>
       </Position1>
       <Position2>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="363" Column="1" TopLine="347"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1693" TopLine="1676"/>
       </Position2>
       <Position3>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="369" Column="1" TopLine="347"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1681" Column="25" TopLine="1676"/>
       </Position3>
       <Position4>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="377" Column="1" TopLine="344"/>
+        <Caret Line="431" TopLine="417"/>
       </Position4>
       <Position5>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="378" Column="1" TopLine="347"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1693" TopLine="1676"/>
       </Position5>
       <Position6>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="512" Column="1" TopLine="493"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2576" TopLine="2561"/>
       </Position6>
       <Position7>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="505" Column="1" TopLine="493"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2577" TopLine="2561"/>
       </Position7>
       <Position8>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="506" Column="1" TopLine="493"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1693" TopLine="1676"/>
       </Position8>
       <Position9>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="507" Column="1" TopLine="493"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2576" TopLine="2561"/>
       </Position9>
       <Position10>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1305" Column="1" TopLine="1286"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2904" TopLine="2889"/>
       </Position10>
       <Position11>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1306" Column="1" TopLine="1286"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2905" TopLine="2889"/>
       </Position11>
       <Position12>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="512" Column="1" TopLine="493"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2907" TopLine="2889"/>
       </Position12>
       <Position13>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="505" Column="1" TopLine="493"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2908" TopLine="2889"/>
       </Position13>
       <Position14>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="506" Column="1" TopLine="493"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2910" TopLine="2889"/>
       </Position14>
       <Position15>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="507" Column="1" TopLine="493"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2911" TopLine="2889"/>
       </Position15>
       <Position16>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="512" Column="1" TopLine="493"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2913" TopLine="2889"/>
       </Position16>
       <Position17>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="515" Column="1" TopLine="493"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2915" TopLine="2890"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1333" Column="1" TopLine="1314"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2916" TopLine="2891"/>
       </Position18>
       <Position19>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1334" Column="1" TopLine="1314"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2917" TopLine="2892"/>
       </Position19>
       <Position20>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1335" Column="1" TopLine="1314"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2919" TopLine="2894"/>
       </Position20>
       <Position21>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="439" Column="1" TopLine="420"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2920" TopLine="2895"/>
       </Position21>
       <Position22>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="441" Column="1" TopLine="420"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2921" TopLine="2896"/>
       </Position22>
       <Position23>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="442" Column="1" TopLine="420"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2922" TopLine="2897"/>
       </Position23>
       <Position24>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="443" Column="1" TopLine="420"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2906" Column="32" TopLine="2903"/>
       </Position24>
       <Position25>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="439" Column="1" TopLine="420"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2914" Column="39" TopLine="2903"/>
       </Position25>
       <Position26>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="441" Column="1" TopLine="420"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2907" Column="21" TopLine="2892"/>
       </Position26>
       <Position27>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="442" Column="1" TopLine="420"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1693" Column="16" TopLine="1675"/>
       </Position27>
       <Position28>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="443" Column="1" TopLine="420"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="94" Column="28" TopLine="80"/>
       </Position28>
       <Position29>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="444" Column="1" TopLine="420"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1695" Column="20" TopLine="1678"/>
       </Position29>
       <Position30>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="445" Column="1" TopLine="420"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2577" Column="29" TopLine="2574"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -656,23 +896,32 @@
       <Debugging>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
-      <Options>
-        <Win32>
-          <GraphicApplication Value="True"/>
-        </Win32>
-      </Options>
     </Linking>
     <Other>
       <CompilerMessages>
         <IgnoredMessages idx5024="True"/>
-        <UseMsgFile Value="True"/>
       </CompilerMessages>
       <CustomOptions Value="-dHASREPORTS
 -dSTATISTICS"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="2">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_db.lpr"/>
+        <Line Value="455"/>
+      </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_db.lpr"/>
+        <Line Value="514"/>
+      </Item2>
+    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="aTableName"/>
@@ -705,5 +954,4 @@
       </Item8>
     </Exceptions>
   </Debugging>
-  <EditorMacros Count="0"/>
 </CONFIG>

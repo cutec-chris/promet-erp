@@ -2,15 +2,15 @@
 
 LazarusResources.Add('TfMain','FORMDATA',[
   'TPF0'#6'TfMain'#5'fMain'#4'Left'#3'F'#1#6'Height'#3#202#2#3'Top'#2'w'#5'Widt'
-  +'h'#3#202#3#7'Caption'#6#15'Meeting Minutes'#12'ClientHeight'#3#180#2#11'Cli'
+  +'h'#3#202#3#7'Caption'#6#15'Meeting Minutes'#12'ClientHeight'#3#182#2#11'Cli'
   +'entWidth'#3#202#3#5'Color'#7#8'clWindow'#4'Menu'#7#8'MainMenu'#7'OnClose'#7
   +#9'FormClose'#8'OnCreate'#7#10'FormCreate'#9'OnDestroy'#7#11'FormDestroy'#6
   +'OnShow'#7#8'FormShow'#8'Position'#7#14'poScreenCenter'#10'LCLVersion'#6#3'1'
-  +'.3'#0#6'TPanel'#6'tvMain'#4'Left'#2#0#6'Height'#3#180#2#3'Top'#2#0#5'Width'
+  +'.3'#0#6'TPanel'#6'tvMain'#4'Left'#2#0#6'Height'#3#182#2#3'Top'#2#0#5'Width'
   +#3'H'#1#5'Align'#7#6'alLeft'#10'BevelOuter'#7#6'bvNone'#8'TabOrder'#2#0#0#0#9
-  +'TSplitter'#9'Splitter2'#4'Left'#3'H'#1#6'Height'#3#180#2#3'Top'#2#0#5'Width'
+  +'TSplitter'#9'Splitter2'#4'Left'#3'H'#1#6'Height'#3#182#2#3'Top'#2#0#5'Width'
   +#2#5#11'ResizeStyle'#7#6'rsLine'#0#0#19'TExtMenuPageControl'#7'pcPages'#4'Le'
-  +'ft'#3'M'#1#6'Height'#3#180#2#3'Top'#2#0#5'Width'#3'}'#2#10'ActivePage'#7#6
+  +'ft'#3'M'#1#6'Height'#3#182#2#3'Top'#2#0#5'Width'#3'}'#2#10'ActivePage'#7#6
   +'tsHelp'#5'Align'#7#8'alClient'#6'Images'#7#22'fVisualControls.Images'#8'Tab'
   +'Index'#2#0#8'TabOrder'#2#2#16'NewTabImageIndex'#2';'#0#9'TTabSheet'#6'tsHel'
   +'p'#7'Caption'#6#5'Hilfe'#10'ImageIndex'#2'6'#0#0#0#6'TPanel'#6'Panel3'#4'Le'
@@ -78,4 +78,4 @@ LazarusResources.Add('TfMain','FORMDATA',[
   +'OnClick'#7#15'acLogoutExecute'#0#0#0#9'TMenuItem'#6'miView'#7'Caption'#6#7
   +'Ansicht'#0#0#9'TMenuItem'#9'miOptions'#7'Caption'#6#8'Optionen'#0#9'TMenuIt'
   +'em'#10'miLanguage'#7'Caption'#6#7'Sprache'#0#0#0#0#0
-]);
+]);

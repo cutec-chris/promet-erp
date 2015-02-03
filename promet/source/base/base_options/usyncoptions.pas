@@ -9,7 +9,8 @@ type
   { TfSyncOptions }
 
   TfSyncOptions = class(TOptionsFrame)
-    DBMemo1: TDBMemo;
+    bCheckConnection: TButton;
+    eConnString: TDBMemo;
     DBNavigator1: TDBNavigator;
     dsTables: TDatasource;
     dsDatabases: TDatasource;
@@ -22,15 +23,18 @@ type
     lD: TLabel;
     smIn: TSynMemo;
     smOut: TSynMemo;
-    SpeedButton1: TSpeedButton;
+    sbStandardTables: TSpeedButton;
     SynSQLSyn1: TSynSQLSyn;
+    procedure aSyncDbDataSetBeforePost(DataSet: TDataSet);
     procedure aSyncDbTablesDataSetAfterScroll(DataSet: TDataSet);
+    procedure bCheckConnectionClick(Sender: TObject);
     procedure smInChange(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure sbStandardTablesClick(Sender: TObject);
   private
     { private declarations }
     aConnection: TComponent;
     aSyncDb: TSyncDB;
+    FInTableAdd : Boolean;
   public
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
@@ -41,12 +45,64 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uData;
+uses uData,uBaseDBInterface,uBaseApplication,Dialogs;
+resourcestring
+  strSetPropertysFailed                    = 'Der Datenbankverbindungsstring beinhaltet Fehler';
+  strFailedtoLoadMandants                  = 'Laden der Mandanten fehlgeschlagen';
+  strConnectionSuccesful                   = 'Verbindungstest erfolgreich !';
+  strSyncIddontMatch                       = 'Die SyncID der entfernten Datenbank stimmt nicht mit der eingestellten überein, soll die SyncID übernommen werden ?';
+  strInsertTables                          = 'Sollen zum Synchronisieren die Standardtabellen als Vorgabe eingefügt werden ?'+LineEnding+'(Sie müssen alle zu synchronisierenden Tabellen angeben und könenn dann pro tabelle einsetllen in welche Richtungen und unter welchen Umständen synchronisiert werden soll)';
 procedure TfSyncOptions.aSyncDbTablesDataSetAfterScroll(DataSet: TDataSet);
 begin
   smIn.Lines.Text := dsTables.DataSet.FieldByName('FILTERIN').AsString;
   smOut.Lines.Text := dsTables.DataSet.FieldByName('FILTEROUT').AsString;
 end;
+
+procedure TfSyncOptions.aSyncDbDataSetBeforePost(DataSet: TDataSet);
+begin
+  if FInTableAdd then exit;
+  FInTableAdd := True;
+  if dsTables.DataSet.RecordCount=0 then
+    if MessageDlg('Tabellen',strInsertTables,mtConfirmation,[mbYes,mbNo],0)=mrYes then
+      begin
+        sbStandardTables.Click;
+      end;
+  FInTableAdd := False;
+end;
+
+procedure TfSyncOptions.bCheckConnectionClick(Sender: TObject);
+var
+  FDest: TBaseDBInterface;
+  LoggedIn: Boolean;
+  aOffs: Integer;
+begin
+  FDest := TBaseDBInterface.Create;
+  FDest.SetOwner(BaseApplication);
+  if not FDest.LoadMandants then
+    raise Exception.Create(strFailedtoLoadMandants);
+  with FDest as IBaseDBInterface do
+    begin
+      LoggedIn := OpenMandant(copy(eConnString.Text,0,pos(':',eConnString.Text)-1),
+                         copy(eConnString.Text,pos(':',eConnString.Text)+1,length(eConnString.Text)));
+      if LoggedIn then
+        begin
+          Showmessage(strConnectionSuccesful);
+          aOffs := FDest.GetDB.SyncOffset;
+          if dsDatabases.DataSet.FieldByName('SYNCOFFS').AsInteger<>aOffs then
+            if MessageDlg('SyncID',strSyncIddontMatch,mtWarning,[mbYes,mbNo],0)=mrYes then
+              begin
+                if dsDatabases.DataSet.State=dsBrowse then
+                  dsDatabases.DataSet.Edit;
+                dsDatabases.DataSet.FieldByName('SYNCOFFS').AsInteger:=aOffs;
+                if dsDatabases.DataSet.State<>dsBrowse then
+                  dsDatabases.DataSet.Post;
+              end;
+          DBLogout;
+        end
+      else Showmessage(strSetPropertysFailed);
+    end;
+end;
+
 procedure TfSyncOptions.smInChange(Sender: TObject);
 begin
   if not aSyncDB.Tables.CanEdit then
@@ -55,7 +111,7 @@ begin
   dsTables.DataSet.FieldByName('FILTEROUT').AsString := smOut.Lines.Text;
 end;
 
-procedure TfSyncOptions.SpeedButton1Click(Sender: TObject);
+procedure TfSyncOptions.sbStandardTablesClick(Sender: TObject);
   procedure AddTable(aName : string;Active : Boolean = True;ActiveOut : Boolean = True);
   begin
     with dsTables.DataSet do
@@ -156,8 +212,10 @@ end;
 constructor TfSyncOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+  FInTableAdd := False;
   aConnection := Data.GetNewConnection;
-  aSyncDb := TSyncDB.Create(Self,Data,aConnection);
+  aSyncDb := TSyncDB.CreateEx(Self,Data,aConnection);
+  aSyncDb.DataSet.BeforePost:=@aSyncDbDataSetBeforePost;
   dsDatabases.DataSet := aSyncDB.DataSet;
   dsTables.DataSet := aSyncDB.Tables.DataSet;
   aSyncDB.Tables.DataSet.AfterScroll:=@aSyncDbTablesDataSetAfterScroll;

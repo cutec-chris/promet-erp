@@ -9,10 +9,9 @@
         <Filename Value="checkout.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="checkout"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="49"/>
+        <TopLine Value="67"/>
         <CursorPos X="1" Y="74"/>
         <UsageCount Value="25"/>
         <Loaded Value="True"/>
@@ -45,7 +44,7 @@
       <Unit4>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1329"/>
         <CursorPos X="14" Y="1269"/>
@@ -111,7 +110,7 @@
       <Unit12>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="883"/>
         <CursorPos X="1" Y="845"/>
@@ -121,7 +120,7 @@
       <Unit13>
         <Filename Value="..\base\dbintfs\uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="23" Y="46"/>
@@ -131,10 +130,13 @@
       <Unit14>
         <Filename Value="..\base\pcmdprometapp.pas"/>
         <UnitName Value="pcmdprometapp"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <CursorPos X="3" Y="10"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="C:\Programme\lazarus\lcl\include\tiffimage.inc"/>
@@ -193,7 +195,7 @@
       <Unit22>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1387"/>
         <CursorPos X="1" Y="1409"/>
@@ -212,7 +214,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="27" HistoryIndex="26">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <Caret Line="865" Column="1" TopLine="835"/>
@@ -321,6 +323,10 @@
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <Caret Line="934" Column="1" TopLine="904"/>
       </Position27>
+      <Position28>
+        <Filename Value="..\base\pcmdprometapp.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position28>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>

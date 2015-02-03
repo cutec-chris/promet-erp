@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, XMLPropStorage, HTTPDefs, fpHTTP,
   fpWeb, fphtml, uData, db, fpTemplate, Utils, uWiki, uDocuments,uBaseSearch,
-  uBaseDBClasses,uIntfStrConsts;
+  uBaseDBClasses,uIntfStrConsts,ubaseconfig;
 type
 
   { TfmWikiPage }
@@ -35,9 +35,9 @@ type
       var ActionName: String);
     procedure exitRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
-    procedure fmWikiPageWikiInclude(Inp: string; var Outp: string);
+    procedure fmWikiPageWikiInclude(Inp: string; var Outp: string;aLevel : Integer = 0);
     procedure FSearchItemFound(aIdent: string; aName: string; aStatus: string;aActive : Boolean;
-      aLink: string; aItem: TBaseDBList=nil);
+      aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
     procedure lastchangesrssRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
     procedure ReplaceMainTags(Sender: TObject; const TagString: String;
@@ -84,7 +84,7 @@ const
   LAST_CHANGES_COUNT = 20;
 implementation
 uses WikitoHTML, uBaseApplication,uBaseDbInterface,Variants,
-  uBaseFCGIApplication, htmlconvert, uError, fpImage, FPReadJPEGintfd,
+  uBaseFCGIApplication, htmltowiki, uError, fpImage, FPReadJPEGintfd,
   fpCanvas,fpImgCanv,ushop,uMessages,DOM,XMLWrite,synautil,uBaseWebSession;
 resourcestring
   strLastChanges                     = 'Letzte Änderungen';
@@ -92,20 +92,20 @@ resourcestring
 {$R *.lfm}
 procedure TfmWikiPage.DataModuleCreate(Sender: TObject);
 begin
-  Wiki := TWikiList.Create(nil,Data);
-  Documents := TDocument.Create(nil,Data);
+  Wiki := TWikiList.Create(nil);
+  Documents := TDocument.Create(nil);
   MainMenue := TStringList.Create;
   SearchItems := TStringList.Create;
   IgnoreLinks := TStringList.Create;
   MetaData := TStringList.Create;
   if FileExists('metadata.inc') then
     MetaData.LoadFromFile('metadata.inc');
-  with BaseApplication as IBaseApplication do
-    Config.ReadStrings('MainMenue',MainMenue);
-  with BaseApplication as IBaseApplication do
-    Config.ReadStrings('SearchItems',SearchItems);
-  with BaseApplication as IBaseApplication do
-    Config.ReadStrings('IgnoreLinks',IgnoreLinks);
+  with BaseApplication as IBaseConfig do
+    begin
+      Config.ReadStrings('MainMenue',MainMenue);
+      Config.ReadStrings('SearchItems',SearchItems);
+      Config.ReadStrings('IgnoreLinks',IgnoreLinks);
+    end;
   FTemplate := TStringList.Create;
   uBaseSearch.AddSearchAbleDataSet(TWikiList);
 end;
@@ -116,6 +116,8 @@ begin
   SearchItems.Free;
   MainMenue.Free;
   FTemplate.Free;
+  Documents.Free;
+  Wiki.Free;
 end;
 procedure TfmWikiPage.DataModuleGetAction(Sender: TObject; ARequest: TRequest;
   var ActionName: String);
@@ -144,7 +146,7 @@ begin
       Path := copy(Path,pos('/',Path)+1,length(Path));
       if Path = '' then
         begin
-          with BaseApplication as IBaseApplication do
+          with BaseApplication as IBaseConfig do
             Path := Config.ReadString('INDEX','INDEX');
           IsMainPage:=True;
         end;
@@ -207,7 +209,8 @@ begin
   Application.Terminate;
   Handled := True;
 end;
-procedure TfmWikiPage.fmWikiPageWikiInclude(Inp: string; var Outp: string);
+procedure TfmWikiPage.fmWikiPageWikiInclude(Inp: string; var Outp: string;
+  aLevel: Integer);
 var
   aCount : Integer;
   aList: TMessageList;
@@ -231,13 +234,13 @@ begin
           Inp := copy(Inp,0,pos(')',Inp)-1);
           if not  TryStrToInt(Inp,aCount) then aCount := 30;
           try
-            aList := TMessageList.Create(nil,Data);
+            aList := TMessageList.Create(nil);
             Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(VarToStr(Data.Tree.Id.AsVariant)),aCount,'SENDDATE','DESC');
             while not aList.DataSet.EOF do
               begin
                 if aCount <= 0 then break;
                 try
-                  aMessage := TMessage.Create(Self,Data);
+                  aMessage := TMessage.CreateEx(Self,Data);
                   aMessage.Select(aList.Id.AsVariant);
                   aMessage.Open;
                   if aMessage.Count > 0 then
@@ -278,7 +281,7 @@ begin
   else
     begin
       try
-        FDataSet := TWikiList.Create(Self,Data);
+        FDataSet := TWikiList.CreateEx(Self,Data);
         if pos('|',Inp) > 0 then
           Inp := copy(Inp,0,pos('|',Inp)-1);
         if TWikiList(FDataSet).FindWikiPage(Inp) then
@@ -291,7 +294,8 @@ begin
     end;
 end;
 procedure TfmWikiPage.FSearchItemFound(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 var
   LinkValue: String;
   aOffset: String;
@@ -337,7 +341,7 @@ begin
         parentNode := Doc.CreateElement('pubDate');
         nofilho := Doc.CreateTextNode(Rfc822DateTime((Now())));
         parentNode.Appendchild(nofilho);
-        with BaseApplication as IBaseApplication do
+        with BaseApplication as IBaseConfig do
           begin
             LinkBase := Config.ReadString('WebsiteCompleteURL','');
           end;
@@ -352,7 +356,7 @@ begin
         parentNode.Appendchild(nofilho);
         RootNode.ChildNodes.Item[0].AppendChild(parentNode);
 
-        aWiki := TWikiList.Create(Self,Data);
+        aWiki := TWikiList.CreateEx(Self,Data);
         try
           Data.SetFilter(aWiki,'',LAST_CHANGES_COUNT,'TIMESTAMPD','DESC');
           while not aWiki.DataSet.EOF do
@@ -513,7 +517,7 @@ var
   aCanvas: TFPImageCanvas;
 begin
   try
-    with BaseApplication as IBaseApplication do
+    with BaseApplication as IBaseConfig do
       begin
         ImageFile := AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'images')+ValidateFileName(Image);
         ForceDirectoriesUTF8(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'images');
@@ -581,13 +585,13 @@ begin
     begin
       ReplaceText := TagParams.Values['CHEADER'];
       WikiToHTML.OnConvertImage:=@ConvertImage;
-      with BaseApplication as IBaseApplication do
+      with BaseApplication as IBaseConfig do
         ReplaceText := Replacetext+Stringreplace(Tagparams.Values['CCONTENT'],'~Content',WikiText2HTML(Wiki.FieldByName('DATA').AsString,'/cgi-bin/wiki.cgi/wiki/',Config.ReadString('REMOVELINKOFFSET','')),[rfReplaceAll]);
       ReplaceText := ReplaceText+TagParams.Values['CFOOTER'];
     end
   else if AnsiCompareText(TagString, 'DESCRIPTION') = 0 then
     begin
-      ReplaceText := HTMLEncode(copy(HTMLToTXT(WikiText2HTML(Wiki.FieldByName('DATA').AsString)),0,200));
+      ReplaceText := HTMLEncode(copy(StripWikiText(Wiki.FieldByName('DATA').AsString),0,200));
       if rpos('.',ReplaceText) > 100 then
         ReplaceText := copy(ReplaceText,0,rpos('.',ReplaceText))
       else if rpos(' ',ReplaceText) > 100 then
@@ -621,7 +625,7 @@ begin
       TagParams.Values['BASELOCATION'] := 'wiki';
       ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
     end;
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TfmWikiPage.SearchTagreplace(Sender: TObject;
   const TagString: String; TagParams: TStringList; out ReplaceText: String);
@@ -672,7 +676,7 @@ begin
     end
   else
     ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TfmWikiPage.showlastchangesRequest(Sender: TObject;
   ARequest: TRequest; AResponse: TResponse; var Handled: Boolean);
@@ -760,7 +764,7 @@ begin
     begin
       ReplaceText := TagParams.Values['CHANGHEADER'];
       aRow := TagParams.Values['CHANGONEROW'];
-      aWiki := TWikiList.Create(Self,Data);
+      aWiki := TWikiList.CreateEx(Self,Data);
       Data.SetFilter(aWiki,'',LAST_CHANGES_COUNT,'TIMESTAMPD','DESC');
       while not aWiki.DataSet.EOF do
         begin
@@ -801,10 +805,11 @@ begin
           aWiki.DataSet.Next;
         end;
       ReplaceText := ReplaceText+TagParams.Values['CHANGFOOTER'];
+      aWiki.Free;
     end
   else
     ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TfmWikiPage.SettemplateParams(aTemplate : TFPTemplate);
 var
@@ -820,14 +825,14 @@ begin
   aTemplate.EndDelimiter := '+}';
 //  if FTemplate.Count = 0 then
     begin
-      with BaseApplication as IBaseApplication do
+      with BaseApplication as IBaseConfig do
         FTemplate.LoadFromFile(AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'templates')+'maintemplate.html');
       sl := TStringList.Create;
       try
-        with BaseApplication as IBaseApplication do
+        with BaseApplication as IBaseConfig do
           sl.LoadFromFile(AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'templates')+'ajaxtemplate.html');
         FTemplate.Text:=StringReplace(FTemplate.text,'~MainTemplateContent',sl.Text,[]);
-        with BaseApplication as IBaseApplication do
+        with BaseApplication as IBaseConfig do
           begin
             FTemplate.Text:=StringReplace(FTemplate.text,'~WebsiteTitle',Config.ReadString('WebsiteTitle',''),[rfReplaceAll]);
             FTemplate.Text:=StringReplace(FTemplate.text,'~WebsiteURL',Config.ReadString('WebsiteURL',''),[rfReplaceAll]);

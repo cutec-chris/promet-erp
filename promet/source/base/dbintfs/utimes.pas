@@ -24,7 +24,7 @@ uses
 type
   TTimes = class(TBaseDBDataSet)
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FillDefaults(aDataSet : TDataSet);override;
     procedure SetDisplayLabels(aDataSet : TDataSet);override;
@@ -32,10 +32,10 @@ type
 implementation
 resourcestring
   strEntry                              = 'Eintrag';
-constructor TTimes.Create(aOwner: TComponent;DM : TComponent; aConnection: TComponent;
+constructor TTimes.CreateEx(aOwner: TComponent;DM : TComponent; aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner,DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner,DM, aConnection, aMasterdata);
   with DataSet as IBaseDBFilter do
     begin
       SortFields := 'START';
@@ -54,9 +54,10 @@ begin
           begin
             Add('START',ftDateTime,0,True);
             Add('END',ftDateTime,0,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('PROJECT',ftString,260,False);
             Add('PROJECTID',ftLargeint,0,False);
+            Add('TASKID',ftLargeint,0,False);
             Add('CATEGORY',ftString,60,False);
             Add('JOB',ftString,150,False);
             Add('NOTE',ftMemo,0,False);

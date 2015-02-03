@@ -24,7 +24,7 @@ unit uNRights;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil,  Forms, Controls, Graphics, Dialogs,
   StdCtrls, ComCtrls, ButtonPanel, DBGrids, Variants, Grids, DbCtrls,
   uExtControls, db;
 
@@ -64,8 +64,8 @@ var
   fNRights: TfNRights;
 
 implementation
-
-uses uError, uBaseDbInterface;
+{$R *.lfm}
+uses uError, uBaseDbInterface,uBaseDbClasses;
 
 resourcestring
   strYoumustselectanUserFirst        = 'Sie müssen zuerst einen Benutzer auswählen';
@@ -183,7 +183,10 @@ function TfNRights.Execute(Id: Variant): Boolean;
 var
   i: Integer;
   aUser: LongInt;
+  aUsers: TUser;
 begin
+  aUsers :=  TUser.Create(nil);
+  aUsers.Open;
   if not Assigned(Self) then
     begin
       Screen.Cursor := crHourGlass;
@@ -191,16 +194,16 @@ begin
       Self := fNRights;
       with Application as IBaseDBInterface do
         begin
-          aUser := Data.Users.GetBookmark;
-          Data.Users.DataSet.First;
+          aUser := aUsers.GetBookmark;
+          aUsers.DataSet.First;
           Users.Clear;
-          while not Data.Users.DataSet.EOF do
+          while not aUsers.DataSet.EOF do
             begin
-              if Data.Users.Leaved.IsNull then
-                Users.Values[Data.Users.FieldByName('NAME').AsString] := Data.Users.FieldByName('SQL_ID').AsString;
-              Data.Users.DataSet.Next;
+              if aUsers.Leaved.IsNull then
+                Users.Values[aUsers.FieldByName('NAME').AsString] := aUsers.FieldByName('SQL_ID').AsString;
+              aUsers.DataSet.Next;
             end;
-          Data.Users.GotoBookmark(aUser);
+          aUsers.GotoBookmark(aUser);
         end;
       Screen.Cursor := crDefault;
     end;
@@ -214,7 +217,7 @@ begin
           for i := 0 to Users.Count-1 do
             Items.Add(Users.Names[i]);
         end;
-      Data.Users.GotoBookmark(aUser);
+      aUsers.GotoBookmark(aUser);
       SetupDB;
       cbUser.Visible:=False;
       cbRight.Visible:=False;
@@ -222,10 +225,10 @@ begin
       Result := Showmodal = mrOK;
       Data.Permissions.DataSet.AfterInsert:=nil;
     end;
+  aUsers.Free;
 end;
 
 initialization
-  {$I unrights.lrs}
 
 end.
 

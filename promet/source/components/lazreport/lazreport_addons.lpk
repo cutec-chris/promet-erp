@@ -44,24 +44,28 @@
       </Item6>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="5">
+    <RequiredPkgs Count="6">
       <Item1>
-        <PackageName Value="lazbarcodes"/>
-        <DefaultFilename Value="../lazbarcodes/packages/lazbarcodes.lpk"/>
+        <PackageName Value="richmemopackage"/>
+        <DefaultFilename Value="../richmemo/richmemopackage.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="TAChartLazarusPkg"/>
+        <PackageName Value="lazbarcodes"/>
+        <DefaultFilename Value="../lazbarcodes/packages/lazbarcodes.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="TAChartLazarusPkg"/>
       </Item3>
       <Item4>
-        <PackageName Value="lazreport"/>
-        <MinVersion Minor="9" Release="9" Valid="True"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item4>
       <Item5>
-        <PackageName Value="FCL"/>
+        <PackageName Value="lazreport"/>
+        <MinVersion Minor="9" Release="9"/>
       </Item5>
+      <Item6>
+        <PackageName Value="FCL"/>
+      </Item6>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

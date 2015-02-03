@@ -1,11 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
     <Name Value="lnetbase"/>
     <AddToProjectUsesSection Value="True"/>
     <Author Value="Aleš Katona, Micha Nelissen"/>
     <CompilerOptions>
-      <Version Value="10"/>
+      <Version Value="11"/>
       <SearchPaths>
         <IncludeFiles Value="../lib/sys"/>
         <OtherUnitFiles Value="../lib"/>
@@ -30,11 +30,8 @@
           <ShowHints Value="False"/>
           <ShowGenInfo Value="False"/>
         </Verbosity>
-        <CompilerMessages>
-          <UseMsgFile Value="True"/>
-        </CompilerMessages>
-        <CustomOptions Value="-dLNET_BASE -Cg"/>
-        <CompilerPath Value="$(CompPath)"/>
+        <CustomOptions Value="-dLNET_BASE
+-dFORCE_SELECT"/>
       </Other>
     </CompilerOptions>
     <Description Value="Lightweight Networking Library, or lNet is a networking suite  providing simple and effective means to use TCP, UDP, FTP, SMTP, Telnet and HTTP protocols over the net.

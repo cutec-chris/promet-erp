@@ -26,9 +26,9 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
   lnetbase, lNet, laz_synapse, ulimap, uBaseDBInterface, md5, uData, eventlog,
-  uprometimap, ulsmtpsrv, pmimemessages, fileutil, lconvencoding,
-  uBaseApplication, LCLProc, uBaseDbClasses, synautil, ureceivemessage,
-  uMimeMessages, mimemess, LCLIntf;
+  uprometimap, ulsmtpsrv, pmimemessages,
+  uBaseApplication, uBaseDbClasses, synautil, ureceivemessage,
+  uMimeMessages, mimemess;
 type
 
   { TPIMAPServer }
@@ -59,7 +59,7 @@ var
   aUser: TUser;
   i: Integer;
 begin
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   for i := 0 to aTo.Count-1 do
     begin
       if Data.IsSQLDb then
@@ -136,7 +136,7 @@ var
   aUID: String;
   aMessage: TMimeMessage;
 begin
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   //mail to an User
   for i := 0 to aTo.Count-1 do
     begin
@@ -147,13 +147,13 @@ begin
       if aUser.Count>0 then
         begin
           Data.Users.GotoBookmark(aUser.GetBookmark);
-          aMessage := TMimeMessage.Create(nil,Data);
+          aMessage := TMimeMessage.Create(nil);
           msg := TMimeMess.Create;
           msg.Lines.Text := aMail.Text;
           msg.DecodeMessage;
           aUID := msg.Header.MessageID;
           ureceivemessage.Init;
-          if ureceivemessage.CheckHeader(aUID,msg) then
+          if ureceivemessage.CheckHeader(aUID,msg,aUser.Accountno.AsString) then
             begin
               ureceivemessage.aTreeEntry:=TREE_ID_MESSAGES;
               ureceivemessage.ReceiveMessage(aUID,aMail,aMessage);
@@ -172,7 +172,7 @@ begin
         Data.SetFilter(aUser,'"EMAIL"='''+GetmailAddr(lowercase(afrom))+'''');
       if aUser.Count>0 then
         begin
-          aMessage := TMimeMessage.Create(nil,Data);
+          aMessage := TMimeMessage.Create(nil);
           msg := TMimeMess.Create;
           msg.Lines.Text := aMail.Text;
           msg.DecodeMessage;
@@ -192,7 +192,7 @@ procedure TPIMAPServer.DoRun;
 var
   y,m,d,h,mm,s,ss: word;
   aGroup: TIMAPFolder;
-  aTime: types.DWORD;
+  aTime: TDateTime;
 begin
   with Self as IBaseDBInterface do
     begin
@@ -204,13 +204,13 @@ begin
   if HasOption('server-log') then
     IMAPServer.OnDebug:=@ServerLog;
   IMAPServer.SocketClass:=TPIMAPSocket;
-  aTime := GetTickCount;
+  aTime := Now();
   while not Terminated do
     begin
       IMAPServer.CallAction;
       SMTPServer.CallAction;
       sleep(100);
-      if aTime > (60*60*1000) then break;
+      if (Now()-aTime) > (1/HoursPerDay) then break;
     end;
   // stop program loop
   Terminate;
@@ -231,28 +231,30 @@ begin
     begin
       //IMAPServer.ListenInterface := GetOptionValue('i','interface');
       SMTPServer.ListenInterface := GetOptionValue('i','interface');
-      debugln('using interface:'+GetOptionValue('i','interface'));
+      Info('using interface:'+GetOptionValue('i','interface'));
     end;
   SMTPServer.ListenPort := StrToIntDef(GetOptionValue('smtpport'),587);
   if GetOptionValue('smtpport')<>'' then
     begin
-      debugln('using port for smtp:'+GetOptionValue('smtpport'));
+      Info('using port for smtp:'+GetOptionValue('smtpport'));
     end;
   SMTPServer.OnLogin :=@ServerLogin;
   if HasOption('server-log') then
     SMTPServer.OnLog:=@ServerLog;
   SMTPServer.OnMailreceived:=@SMTPServerMailreceived;
   SMTPServer.OnAcceptMail:=@ServerAcceptMail;
+  if HasOption('server-log') then
+    SMTPServer.OnLog:=@ServerLog;
   try
     IMAPServer.Start;
   except
-    debugln('failed to open IMAP Port '+IntToStr(IMAPServer.Port));
+    Error('failed to open IMAP Port '+IntToStr(IMAPServer.Port));
     raise;
   end;
   try
     SMTPServer.Start;
   except
-    debugln('failed to open SMTP Port '+IntToStr(SMTPServer.ListenPort));
+    Error('failed to open SMTP Port '+IntToStr(SMTPServer.ListenPort));
     raise;
   end;
 end;

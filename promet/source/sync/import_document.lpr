@@ -26,10 +26,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, CustApp,
-  Interfaces
-  { you can add units after this },db, Utils, FileUtil, Forms, uData,
+  { you can add units after this }db, Utils, FileUtil, Forms, uData,
   uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, uBaseApplication,
-  uDocuments, uBaseDocPages,uOCR, pocr,Graphics;
+  uDocuments, uBaseDocPages,uOCR, pocr,Graphics, Interfaces;
 
 type
 
@@ -73,7 +72,7 @@ var
   var
     a: Integer;
   begin
-    aDoc := TDocument.Create(nil,Data);
+    aDoc := TDocument.Create(nil);
     aDoc.SelectByReference(aDocPage.Id.AsVariant);
     aDoc.Open;
     if aDoc.Count>0 then
@@ -111,13 +110,15 @@ begin
       AppVersion:={$I ../base/version.inc};
       AppRevision:={$I ../base/revision.inc};
     end;
+  writeln('Login...');
   if not Login then Terminate;
+  writeln('Login ok');
   //Your logged in here on promet DB
 
   aType := GetOptionValue('t','type');
   if HasOption('doocr') then
     begin
-      aDocPage := TDocPages.Create(nil,Data);
+      aDocPage := TDocPages.Create(nil);
       aDocPage.Typ:='D';
       aDocPage.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('D')+' AND '+Data.ProcessTerm(Data.QuoteField('FULLTEXT')+'='+Data.QuoteValue('')));
 
@@ -132,6 +133,7 @@ begin
   else
     begin
       aFolder :=GetOptionValue('f','folder');
+      writeln('importing folder '+aFolder);
       if aType = '' then aType := 'D';
       if aFolder<>'' then
         aFolder := AppendPathDelim(aFolder);
@@ -139,7 +141,7 @@ begin
         begin
           writeln('importing File '+AInfo.Name);
           try
-            aDocPage := TDocPages.Create(nil,Data);
+            aDocPage := TDocPages.Create(nil);
             aDocPage.AddFromFile(aFolder+AInfo.Name);
             aDocPage.Edit;
             aDocPage.FieldByName('TYPE').AsString:=aType;
@@ -156,7 +158,13 @@ begin
           DoOCRonActualDoc;
 
           aDocPage.Free;
-          DeleteFileUTF8(aFolder+AInfo.Name);
+          writeln('deleting File '+AInfo.Name);
+          if not DeleteFileUTF8(aFolder+AInfo.Name) then
+            begin
+              writeln('error deleting File '+AInfo.Name);
+              Terminate;
+              exit;
+            end;
           FindCloseUTF8(AInfo);
         end;
     end;

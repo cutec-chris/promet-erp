@@ -31,8 +31,6 @@ type
     constructor Create(TheOwner: TComponent); override;
   end;
 
-  { TExtCombobox }
-
   TExtCombobox = class(TComboBox)
   private
     FCol,FRow : Integer;
@@ -46,6 +44,7 @@ type
     procedure msg_SetGrid(var Msg: TGridMessage); message GM_SETGRID;
   published
     constructor Create(TheOwner: TComponent); override;
+    property Grid : TCustomGrid read FGrid write fGrid;
   end;
 
   { TExtDBGrid }
@@ -166,6 +165,7 @@ type
     procedure CloseFrameClick(Sender: TObject);
     procedure ExtMenuPageControlContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
+    procedure FCloseMenuPopup(Sender: TObject);
     procedure FFrameClassesMenuItemClick(Sender: TObject);
     procedure FMenuClose(Sender: TObject);
   private
@@ -219,6 +219,24 @@ begin
   RegisterComponents('Additional',[TExtRotatedLabel]);
   RegisterComponents('Common Controls',[TExtMenuPageControl]);
 end;
+
+function CheckCBText(aText : string) : string;
+begin
+  if (pos(' ',aText) > 0) and (copy(aText,0,pos(' ',aText)-1) = UpperCase(copy(aText,0,pos(' ',aText)-1)))
+  and (pos('1',copy(atext,0,4))=0)
+  and (pos('2',copy(atext,0,4))=0)
+  and (pos('3',copy(atext,0,4))=0)
+  and (pos('4',copy(atext,0,4))=0)
+  and (pos('5',copy(atext,0,4))=0)
+  and (pos('6',copy(atext,0,4))=0)
+  and (pos('7',copy(atext,0,4))=0)
+  and (pos('8',copy(atext,0,4))=0)
+  and (pos('9',copy(atext,0,4))=0)
+  then
+    Result := copy(aText,0,pos(' ',aText)-1)
+  else Result := aText;
+end;
+
 procedure AutoSizeComboboxList(Targetbox: TCustomComboBox);
 var temp, max, itemscounter: integer;
     bmp : Graphics.TBitmap;
@@ -254,28 +272,23 @@ procedure TExtCombobox.KeyDown(var Key: Word; Shift: TShiftState);
 begin
   inherited KeyDown(Key, Shift);
   case Key of
-    VK_RETURN:
-      if DroppedDown then
-        begin
-          if (FGrid=nil) then
-            Key := 0;
-          DroppedDown := False;
-          if Key<>0 then
-            begin
-              if FGrid<>nil then
-                FGrid.EditorkeyDown(Self, key, shift);
-              Key:=0;
-            end;
-        end
-      else
-        begin
-          if FGrid<>nil then
-            FGrid.EditorkeyDown(Self, key, shift);
-          FGrid.SetFocus;
-        end;
-    else if FGrid<>nil then
+  VK_LEFT,VK_RIGHT:
+    begin
+      DroppedDown := False;
+      FGrid.SetFocus;
       FGrid.EditorkeyDown(Self, key, shift);
+      if FGrid<>nil then
+        FGrid.EditingDone;
+    end;
   end;
+  if (Key = VK_UP) and (ItemIndex=0) then
+    begin
+      DroppedDown := False;
+      FGrid.SetFocus;
+      FGrid.EditorkeyDown(Self, key, shift);
+      if FGrid<>nil then
+        FGrid.EditingDone;
+    end;
 end;
 
 procedure TExtCombobox.Select;
@@ -284,11 +297,10 @@ begin
     begin
       if THackDBGrid(FGrid).EditorIsReadOnly then
         exit;
-      if (pos(' ',Text) > 0) and (copy(Text,0,pos(' ',Text)-1) = UpperCase(copy(Text,0,pos(' ',Text)-1))) then
-        THackDBGrid(FGrid).SetEditText(FCol, FRow, copy(Text,0,pos(' ',text)-1))
-      else
-        THackDBGrid(FGrid).SetEditText(FCol, FRow, Text);
+      THackDBGrid(FGrid).SetEditText(FCol, FRow, CheckCBText(Text));
       THackDBGrid(FGrid).PickListItemSelected(Self);
+      if FGrid<>nil then
+        FGrid.EditingDone;
     end;
   inherited Select;
 end;
@@ -349,7 +361,14 @@ begin
   Name := '';
 end;
 procedure TExtControlFrame.ShowFrame;
+var
+  aPages: TComponent;
 begin
+  aPages := FindComponent('pcPages');
+  if Assigned(aPages) and (aPages is TExtMenuPageControl) then
+    if Assigned(TExtMenuPageControl(aPages).ActivePage) then
+      if (TExtMenuPageControl(aPages).ActivePage.ControlCount>0) and (TExtMenuPageControl(aPages).ActivePage.Controls[0] is TExtControlFrame) then
+        TExtControlFrame(TExtMenuPageControl(aPages).ActivePage.Controls[0]).ShowFrame;
 end;
 
 procedure TExtControlFrame.FrameAdded;
@@ -370,6 +389,7 @@ begin
   Self.Visible:=False;
   aNewPage.PageControl := Self;
   aNewPage.Parent := Self;
+  aNewPage.Tag:=999;
   aFrameClass := FFrameClasses[TMenuItem(Sender).Tag];
   aNewPage.ImageIndex:=TMenuItem(Sender).ImageIndex;
   aNewPage.Caption := aFrameClass.Name;
@@ -412,16 +432,20 @@ begin
   except
     exit;
   end;
+  if aPage.Tag<>999 then exit;//user Tab
   for i := 0 to FMenu.Items.Count-1 do
      if Fmenu.Items[i].Caption = aPage.Caption then
        FMenu.Items[i].Enabled := True;
   Self.TabIndex:=Self.TabIndex-1;
   if (aPage.ControlCount > 0) and (aPage.Controls[0] is TFrame) then
     begin
-      aCont := aPage.Controls[0];
-      aCont.Hide;
-      aCont.Parent := nil;
-      FreeAndNil(aCont);
+      try
+        aCont := aPage.Controls[0];
+        aCont.Hide;
+        aCont.Parent := nil;
+        FreeAndNil(aCont);
+      except
+      end;
     end;
   FreeAndNil(aPage);
   if not Assigned(ActivePage) then exit;
@@ -441,10 +465,33 @@ var
   Y: LongInt;
 begin
   Y := Self.ScreenToControl(Mouse.CursorPos).Y;
+  {$IF FPC_FULLVERSION<20602}
+  TH := 0;
+  {$ELSE}
   TH := Self.TabHeight;
+  {$ENDIF}
   if TH= 0 then TH := 25;
   Handled := not (Y <= TH);
 end;
+
+procedure TExtMenuPageControl.FCloseMenuPopup(Sender: TObject);
+var
+  aPage: TTabSheet;
+begin
+  FCloseMenu.Items[0].Enabled:=False;
+  if Sender = nil then exit; //Bug with ActionLists
+  try
+    if Sender is TTabSheet then
+      aPage := Sender as TTabSheet
+    else
+      aPage := Self.ActivePage;
+  except
+    exit;
+  end;
+  if aPage.Tag<>999 then exit;//user Tab
+  FCloseMenu.Items[0].Enabled:=True;
+end;
+
 procedure TExtMenuPageControl.FMenuClose(Sender: TObject);
 begin
   Self.PageIndex:=0;
@@ -534,6 +581,7 @@ begin
   FNewPage.Caption:=strNewTab;
 
   FCloseMenu := TPopupMenu.Create(Self);
+  FCloseMenu.OnPopup:=@FCloseMenuPopup;
   aNewItem := TMenuItem.Create(FCloseMenu);
   aNewItem.Caption:=strClose;
   aNewItem.OnClick:=@CloseFrameClick;
@@ -559,6 +607,7 @@ begin
     Visible := False;
   OldIndex := Self.PageIndex;
   aNewPage := TTabSheet.Create(Self);
+  aNewPage.Tag:=999;
   aNewPage.PageControl := Self;
   aNewPage.ImageIndex := aImageIndex;
   FDontChange := True;
@@ -674,18 +723,22 @@ var
 begin
   Fmenu.Items.Clear;
   TabIndex:=0;
-  i := 1;
+  i := 0;
   while i < Self.PageCount-1 do
     begin
-      try
-        if Pages[i].ControlCount > 0 then
-          Pages[i].Controls[0].Free;
-      except
-        on e : exception do
-          debugln('Error during Page.Close: '+e.Message);
-      end;
-      aPage := Pages[i];
-      aPage.Free;
+      if Pages[i].Tag=999 then
+        begin
+          try
+            if Pages[i].ControlCount > 0 then
+              Pages[i].Controls[0].Free;
+          except
+            on e : exception do
+              debugln('Error during Page.Close: '+e.Message);
+          end;
+          aPage := Pages[i];
+          aPage.Free;
+        end
+      else inc(i);
     end;
 end;
 procedure TExtMenuPageControl.WillRemoveTab(aPage: TTabSheet);
@@ -735,8 +788,7 @@ begin
 end;
 procedure TExtDBCombobox.UpdateData(Sender: TObject);
 begin
-  if (pos(' ',Text) > 0) and (copy(Text,0,pos(' ',Text)-1) = UpperCase(copy(Text,0,pos(' ',Text)-1))) then
-    Text := copy(Text,0,pos(' ',Text)-1);
+  Text := CheckCBText(Text);
   inherited UpdateData(Sender);
   DataChange(Sender);
 end;
@@ -758,10 +810,7 @@ begin
         exit;
       if Assigned(Field) then
         begin
-          if (pos(' ',Text) > 0) and (copy(Text,0,pos(' ',Text)-1) = UpperCase(copy(Text,0,pos(' ',Text)-1))) then
-            THackDBGrid(FGrid).SetEditText(FCol, FRow, copy(Text,0,pos(' ',text)-1))
-          else
-            THackDBGrid(FGrid).SetEditText(FCol, FRow, Text);
+          THackDBGrid(FGrid).SetEditText(FCol, FRow, CheckCBText(Text));
         end;
       THackDBGrid(FGrid).PickListItemSelected(Self);
     end;
@@ -800,8 +849,11 @@ begin
 end;
 procedure TExtDBGrid.FExtEditorExit(Sender: TObject);
 begin
+  if Sender is TCustomComboBox then
+    begin
+
+    end;
   UpdateData;
-//  EditorMode := false;
   if Sender is TCustomEdit then
     TCustomEdit(Sender).MaxLength:=0;
   TWinControl(Sender).OnExit:=nil;
@@ -1145,4 +1197,4 @@ begin
   FCanvas.Free;
 end;
 end.
-
+

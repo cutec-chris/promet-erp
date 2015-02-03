@@ -24,7 +24,7 @@ unit htmltowiki;
 interface
 
 uses
-  Classes, SysUtils,Utils,LConvEncoding;
+  Classes, SysUtils,Utils;
 
 function HTML2WikiText(input: string;RemoveLinkOffset : string = ''): string;
 function StripHTML(input : string) : string;
@@ -269,6 +269,8 @@ var
   TagOpen: Integer;
 begin
   aOut := StringReplace(input,'<<','<',[rfReplaceAll]);
+  aOut := StringReplace(aOut,'</div>','</div>'+#10,[rfReplaceAll]);
+  aOut := StringReplace(aOut,'<br>',#10,[rfReplaceAll]);
   bOut := '';
   RemoveTag(aOut,bOut,'script');
   RemoveTag(aOut,bOut,'style');
@@ -293,7 +295,7 @@ begin
         end;
     end;
   Result := HTMLDecode(bOut);
-  Result:=ConvertEncoding(Result,GuessEncoding(Result),EncodingUTF8);
+  //Result:=ConvertEncoding(Result,GuessEncoding(Result),EncodingUTF8);
 end;
 
 end.

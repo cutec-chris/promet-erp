@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, ComCtrls, Buttons,
   ActnList, StdCtrls, LR_View, LR_Class, uPrometFrames, uDocuments, db, uEditor,
-  uExtControls, Graphics, types;
+  uExtControls, Graphics, types,uBaseDbClasses;
 type
 
   { TfPreview }
@@ -137,7 +137,7 @@ type
     property DoAbort : Boolean read FAbort write SetAbort;
   end;
 implementation
-uses uData, UTF8Process, Process,uOCR;
+uses uData, UTF8Process, Process,uOCR,Utils,Dialogs,uBaseApplication;
 procedure TLoadThread.StartLoading;
 begin
   FFrame.iHourglass.Visible:=True;
@@ -222,7 +222,7 @@ var
 label aExit;
 begin
   Synchronize(@getConnection);
-  aDocument := TDocument.Create(nil,Data,aTransaction);
+  aDocument := TDocument.CreateEx(nil,Data,aTransaction);
   aDocument.SelectByID(FID);
   aDocument.Open;
   if aDocument.Count > 0 then
@@ -268,8 +268,12 @@ begin
   FRev := aRevision;
   FFrame := aFrame;
   FreeOnTerminate:=True;
-  inherited Create(False);
+  if not BaseApplication.HasOption('disablethreads') then
+    inherited Create(False)
+  else
+    Execute;
 end;
+
 {$R *.lfm}
 procedure TfPreview.bZoomInClick(Sender: TObject);
 begin
@@ -291,7 +295,7 @@ var
   aText: TStringList;
   i: Integer;
 begin
-  aDoc := TDocument.Create(nil,Data);
+  aDoc := TDocument.Create(nil);
   aDoc.SelectByID(FID);
   aDoc.Open;
   if aDoc.Count>0 then
@@ -477,10 +481,10 @@ begin
   iHourglass.Visible:=True;
   FScaled := False;
   ScaleTimer.Enabled:=True;
-  amax := round(FImage.Width-1-PaintBox1.Width*FScale);
+  amax := abs(round(FImage.Width-1-PaintBox1.Width*FScale));
   if aMax >0 then
     ScrollBar1.Max:=aMax;
-  amax := round(FImage.Height-1-PaintBox1.Height*FScale);
+  amax := abs(round(FImage.Height-1-PaintBox1.Height*FScale));
   if aMax > 0 then
     ScrollBar2.Max:=aMax;
   PaintBox1.Invalidate;
@@ -615,8 +619,11 @@ begin
   else if (Uppercase(aExtension) = 'PDF') then
     begin
       try
-        aFilename := getTempDir+'rpv.'+aExtension;
-        aFStream := TFileStream.Create(getTempDir+'rpv.'+aExtension,fmCreate);
+        with BaseApplication as IBaseApplication do
+          begin
+            aFilename := GetInternalTempDir+'rpv.'+aExtension;
+            aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
+          end;
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
@@ -627,13 +634,16 @@ begin
         aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
         {$ENDIF}
         aProcess.ShowWindow := swoHide;
-        aProcess.CommandLine := Format({$IFDEF WINDOWS}AppendPathDelim(Application.Location+'tools')+'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -r100 -sPAPERSIZE=a4 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]);
-        aProcess.CurrentDirectory := Application.Location+'tools';
+        aProcess.CommandLine := Format('pdftopng'+ExtractFileExt(Application.ExeName)+' -l 1 %s %s',[aFileName,aFilename]);
+        aProcess.CurrentDirectory := AppendPathDelim(AppendPathDelim(Application.Location)+'tools');
+        {$IFDEF WINDOWS}
+        aProcess.CommandLine := aProcess.CurrentDirectory+aProcess.CommandLine;
+        {$ENDIF}
         aProcess.Execute;
         aProcess.Free;
         SysUtils.DeleteFile(aFileName);
         aPic := TPicture.Create;
-        aPic.LoadFromFile(aFileName+'.bmp');
+        aPic.LoadFromFile(aFileName+'-000001.png');
         if FResetZoom then
           begin
             if (APic.Width > aPic.Height) or FZoomW then
@@ -644,15 +654,60 @@ begin
         FImage.Assign(aPic.Bitmap);
         aPic.Free;
         pImageControls.Visible:=True;
-        SysUtils.DeleteFile(aFileName+'.bmp');
+        SysUtils.DeleteFile(aFileName+'-000001.png');
         Result := True;
         sbImage.Visible:=True;
         FEditor.Hide;
         pfrPreview.Visible:=False;
       except
-        SysUtils.DeleteFile(aFileName);
-        SysUtils.DeleteFile(aFileName+'.bmp');
+        on e : Exception do
+          begin
+            SysUtils.DeleteFile(aFileName+'-000001.png');
+          end;
       end;
+      if not Result then
+        begin
+          try
+            aProcess := TProcessUTF8.Create(Self);
+            {$IFDEF WINDOWS}
+            aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
+            {$ELSE}
+            aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
+            {$ENDIF}
+            aProcess.ShowWindow := swoHide;
+            aProcess.CommandLine := Format({$IFDEF WINDOWS}'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -r100 -sPAPERSIZE=a4 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]);
+            aProcess.CurrentDirectory := AppendPathDelim(AppendPathDelim(Application.Location)+'tools');
+            {$IFDEF WINDOWS}
+            aProcess.CommandLine := aProcess.CurrentDirectory+aProcess.CommandLine;
+            {$ENDIF}
+            aProcess.Execute;
+            aProcess.Free;
+            SysUtils.DeleteFile(aFileName);
+            aPic := TPicture.Create;
+            aPic.LoadFromFile(aFilename+'.bmp');
+            if FResetZoom then
+              begin
+                if (APic.Width > aPic.Height) or FZoomW then
+                  FScale := Width/aPic.Width
+                else
+                  FScale := Height/aPic.Height;
+              end;
+            FImage.Assign(aPic.Bitmap);
+            aPic.Free;
+            pImageControls.Visible:=True;
+            SysUtils.DeleteFile(aFileName+'.bmp');
+            Result := True;
+            sbImage.Visible:=True;
+            FEditor.Hide;
+            pfrPreview.Visible:=False;
+          except
+            on e : Exception do
+              begin
+                SysUtils.DeleteFile(aFileName);
+                SysUtils.DeleteFile(aFileName+'.bmp');
+              end;
+          end;
+        end;
     end
   else if FEditor.CanHandleFile('.'+aExtension) then
     begin
@@ -674,8 +729,11 @@ begin
   else //Try to Use Imagemagick to determinate the file typ and render it
     begin
       try
-        aFilename := getTempDir+'rpv.'+aExtension;
-        aFStream := TFileStream.Create(getTempDir+'rpv.'+aExtension,fmCreate);
+        with BaseApplication as IBaseApplication do
+          begin
+            aFilename := GetInternalTempDir+'rpv.'+aExtension;
+            aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
+          end;
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
@@ -686,8 +744,11 @@ begin
         aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
         {$ENDIF}
         aProcess.ShowWindow := swoHide;
-        aProcess.CommandLine := Format({$IFDEF WINDOWS}AppendPathDelim(Application.Location+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']);
+        aProcess.CommandLine := Format('convert'+ExtractFileExt(Application.ExeName)+' %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']);
         aProcess.CurrentDirectory := Application.Location+'tools';
+        {$IFDEF WINDOWS}
+        aProcess.CommandLine := aProcess.CurrentDirectory+aProcess.CommandLine;
+        {$ENDIF}
         aProcess.Execute;
         aProcess.Free;
         SysUtils.DeleteFile(aFileName);
@@ -733,8 +794,11 @@ begin
   if (Uppercase(aExtension) = 'PDF') then
     begin
       try
-        aFilename := getTempDir+'rpv.'+aExtension;
-        aFStream := TFileStream.Create(getTempDir+'rpv.'+aExtension,fmCreate);
+        with BaseApplication as IBaseApplication do
+          begin
+            aFilename := GetInternalTempDir+'rpv.'+aExtension;
+            aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+aExtension,fmCreate);
+          end;
         aStream.Position:=0;
         aFStream.CopyFrom(aStream,aStream.Size);
         aFStream.Free;
@@ -778,4 +842,4 @@ begin
 end;
 
 end.
-
+

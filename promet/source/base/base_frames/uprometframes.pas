@@ -22,7 +22,7 @@ unit uPrometFrames;
 interface
 uses
   Classes, SysUtils, Forms, uBaseDbInterface, uBaseDbClasses, uExtControls,
-  Dialogs, Controls, ExtCtrls,uQuickHelpFrame,LCLProc;
+  Dialogs, Controls, ExtCtrls,uQuickHelpFrame,LCLProc, ActnList,db;
 type
 
   { TPrometMainFrame }
@@ -39,6 +39,7 @@ type
     Fwindow : TForm;
     FQuickHelpFrame: TfQuickHelpFrame;
     procedure SetDataSet(const AValue: TBaseDBDataset);virtual;
+    procedure SetConnection(AValue: TComponent);virtual;
     procedure DoCloseFrame(Data : PtrInt);
     procedure DoWindowize(Data : PtrInt);
     procedure DoExit; override;
@@ -46,7 +47,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy;override;
-    property Connection : TComponent read FConnection;
+    property Connection : TComponent read FConnection write SetConnection;
     property DataSet : TBaseDBDataSet read FDataSet write SetDataSet;
     procedure CloseConnection(Ask : Boolean = True);virtual;
     function OpenFromLink(aLink : string) : Boolean;virtual;
@@ -57,19 +58,25 @@ type
     procedure Windowize;
     function ShowHint(var HintStr: string;var CanShow: Boolean; var HintInfo: THintInfo) : Boolean;virtual;
     function HasHelp : Boolean;
+    procedure ArrangeToolBar(Control: TPanel; ActionList: TActionList; aName: string);
     procedure AddHelp(aWindow : TWinControl);
     property HelpView : TfQuickHelpFrame read FQuickHelpFrame write FQuickHelpFrame;
     property UseTransactions : Boolean read FUseTransactions write FUseTransactions;
   end;
 implementation
 uses ComCtrls, uIntfStrConsts,LCLType,LCLIntf,uWiki,uData,uBaseApplication;
-
 procedure TPrometMainFrame.FwindowClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
   with Application as IBaseDbInterface do
     DBConfig.WriteRect('WNDPOS:'+ClassName,Fwindow.BoundsRect);
   CloseAction:=caFree;
+end;
+
+procedure TPrometMainFrame.SetConnection(AValue: TComponent);
+begin
+  if FConnection=AValue then Exit;
+  FConnection:=AValue;
 end;
 
 procedure TPrometMainFrame.SetDataSet(const AValue: TBaseDBDataset);
@@ -111,8 +118,12 @@ begin
 end;
 
 procedure TPrometMainFrame.DoOpen;
+var
+  aHistory: TAccessHistory;
 begin
   if HasHelp then AddHelp(Self);
+  if Assigned(DataSet) and (DataSet is TBaseDbList) then
+    TBaseDbList(DataSet).OpenItem;
 end;
 
 constructor TPrometMainFrame.Create(AOwner: TComponent);
@@ -131,8 +142,8 @@ begin
     end;
   if Assigned(FDataSet) then
     begin
-      debugln('DataSet Assigned !'+Self.ClassName);
-      FreeAndNil(FDataSet);
+      with BaseApplication as IBaseApplication do
+        Debug('DataSet Assigned !'+Self.ClassName);
     end;
   inherited Destroy;
 end;
@@ -148,6 +159,7 @@ begin
 end;
 procedure TPrometMainFrame.CloseConnection(Ask : Boolean = True);
 begin
+  try
   if not Assigned(FConnection) then exit;
   if Assigned(DataSet) and DataSet.Changed then
     begin
@@ -179,6 +191,8 @@ begin
   with Application as IBaseDbInterface do
     Data.Disconnect(FConnection);
 //  FreeAndNil(FConnection);
+  except
+  end;
 end;
 function TPrometMainFrame.OpenFromLink(aLink: string): Boolean;
 begin
@@ -225,10 +239,19 @@ begin
         Result := False;
         exit;
       end;
-  aWiki := TWikiList.Create(nil,Data);
+  aWiki := TWikiList.Create(nil);
   with BaseApplication as IBaseApplication do
     Result := aWiki.FindWikiPage(Appname+'-Help/workflows/'+lowercase(ClassName));
   aWiki.Free;
+end;
+
+procedure TPrometMainFrame.ArrangeToolBar(Control: TPanel;
+  ActionList: TActionList; aName: string);
+begin
+  with Application as IBaseDbInterface do
+    if DBConfig.ReadBoolean('TBLEFT',True) then
+      Control.Align:=alLeft
+    else Control.Align:=alRight;
 end;
 
 procedure TPrometMainFrame.AddHelp(aWindow: TWinControl);
@@ -236,7 +259,7 @@ var
   aWiki: TWikiList;
 begin
   if Assigned(FQuickHelpFrame) then exit;
-  aWiki := TWikiList.Create(nil,Data);
+  aWiki := TWikiList.Create(nil);
   with BaseApplication as IBaseApplication do
   if aWiki.FindWikiPage(Appname+'-Help/workflows/'+lowercase(ClassName)) then
     begin

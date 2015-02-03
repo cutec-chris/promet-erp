@@ -5,7 +5,7 @@ unit uTimeOptions;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, StdCtrls, ExtCtrls,
+  Classes, SysUtils, FileUtil,  Forms, Controls, StdCtrls, ExtCtrls,
   EditBtn, Buttons, uOptionsFrame;
 
 type
@@ -52,6 +52,7 @@ type
   end;
 
 implementation
+{$R *.lfm}
 uses uBaseApplication, uSearch,uData,uIntfStrConsts,uBaseDbInterface;
 
 procedure TfTimeOptions.eProjectEditingDone(Sender: TObject);
@@ -107,6 +108,7 @@ begin
       FStandartLink := DBConfig.ReadString('TIMELINK','');
       eJob.Text:=DBConfig.ReadString('TIMEJOB','');
       mNotes.Text:=DBConfig.ReadString('TIMENOTES','');
+      cbCategory.Text:=DBConfig.ReadString('TIMECAT','');
     end;
 end;
 
@@ -130,6 +132,7 @@ begin
       DBConfig.WriteString('TIMELINK',FStandartLink);
       DBConfig.WriteString('TIMEJOB',eJob.Text);
       DBConfig.WriteString('TIMENOTES',mNotes.Text);
+      DBConfig.WriteString('TIMECAT',cbCategory.Text);
     end;
   inherited CommitTransaction;
 end;
@@ -140,7 +143,6 @@ begin
 end;
 
 initialization
-  {$I utimeoptions.lrs}
 
 end.
 

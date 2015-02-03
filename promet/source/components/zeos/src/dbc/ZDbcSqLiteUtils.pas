@@ -253,7 +253,7 @@ begin
     Error := Trim(StrPas(ErrorMessage));
     {$ENDIF}
   {$ENDIF}
-    PlainDriver.FreeMem(ErrorMessage);
+    //PlainDriver.FreeMem(ErrorMessage);
     ErrorMessage:=nil;
   end
   else

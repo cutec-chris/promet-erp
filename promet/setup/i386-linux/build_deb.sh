@@ -42,6 +42,8 @@ cp -r ../../importdata/* $BuildDir/usr/lib/$Program/importdata
 sudo -S chmod -R 644 $BuildDir/usr/lib/$Program/importdata/
 cp ../../languages/*.po $BuildDir/usr/lib/$Program/languages
 cp ../../languages/*.txt $BuildDir/usr/lib/$Program/languages
+cp ../warnings.txt $BuildDir/usr/lib/$Program
+cp ../errors.txt $BuildDir/usr/lib/$Program
 cp add-systray-icon.sh $BuildDir/usr/lib/$Program
 sudo -S chmod -R 644 $BuildDir/usr/lib/$Program/languages/
 ./copy_to_builddir_sync.sh $Archfpc $BuildDir/usr/lib/$Program

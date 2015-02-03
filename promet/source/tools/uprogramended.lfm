@@ -9,7 +9,7 @@ object fProgramEnded: TfProgramEnded
   ClientHeight = 139
   ClientWidth = 497
   OnCreate = FormCreate
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.3'
   object lMessage: TLabel
     Left = 4
     Height = 106
@@ -23,9 +23,9 @@ object fProgramEnded: TfProgramEnded
   end
   object cbDontShowthisDialogAgain: TCheckBox
     Left = 4
-    Height = 24
-    Top = 113
-    Width = 367
+    Height = 17
+    Top = 120
+    Width = 265
     Anchors = [akLeft, akBottom]
     Caption = 'diese Meldung für diesen Typ nicht wieder anzeigen'
     TabOrder = 0
@@ -37,14 +37,14 @@ object fProgramEnded: TfProgramEnded
     Width = 83
     Align = alRight
     OKButton.Name = 'OKButton'
-    OKButton.Caption = '&Ok'
+    OKButton.DefaultCaption = True
     HelpButton.Name = 'HelpButton'
-    HelpButton.Caption = '&Hilfe'
+    HelpButton.DefaultCaption = True
     CloseButton.Name = 'CloseButton'
-    CloseButton.Caption = '&Schließen'
+    CloseButton.DefaultCaption = True
     CancelButton.Name = 'CancelButton'
-    CancelButton.Caption = 'Abbrechen'
+    CancelButton.DefaultCaption = True
     TabOrder = 1
     ShowButtons = [pbOK]
   end
-end
+end

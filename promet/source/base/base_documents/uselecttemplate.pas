@@ -26,7 +26,7 @@ unit uSelectTemplate;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   StdCtrls, Buttons, Utils, db, uIntfStrConsts,FileUtil,LCLType, uBaseDbClasses,
   uDocuments;
 
@@ -65,7 +65,7 @@ var
   fSelectTemplate: TfSelectTemplate;
 
 implementation
-
+{$R *.lfm}
 uses uData;
 
 { TfSelectTemplate }
@@ -93,7 +93,7 @@ begin
         FieldByName('NAME').AsString := ExtractFileName(copy(ExtractFileName(OpenDialog.Filename),0,rpos('.',ExtractFileName(OpenDialog.Filename))-1));
         FieldByName('EXTENSION').AsString := copy(ExtractFileName(OpenDialog.Filename),rpos('.',ExtractFileName(OpenDialog.Filename))+1,length(ExtractFileName(OpenDialog.Filename)));
         if Data.IsSQLDb then Post;
-        Stream := TFileStream.Create(UTF8ToSys(Opendialog.Filename),fmOpenread);
+        Stream := TFileStream.Create(UniToSys(Opendialog.Filename),fmOpenread);
         Data.StreamToBlobField(Stream,DataSet.DataSet,'DOCUMENT');
         Stream.Free;
       end;
@@ -145,7 +145,6 @@ begin
 end;
 
 initialization
-  {$I uselecttemplate.lrs}
 
 end.
 

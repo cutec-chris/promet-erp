@@ -32,15 +32,15 @@ uses
   classes, sysutils, lnet, lnetssl, levents, lhttputil, lstrbuffer;
 
 type
-  TLHTTPMethod = (hmHead, hmGet, hmPost, hmPut, hmDelete, hmTrace, hmConnect, hmOptions, hmPropfind, hmPropPatch, hmMkCol, hmCopy, hmMove, hmLock, hmUnlock, hmUnknown);
+  TLHTTPMethod = (hmHead, hmGet, hmPost, hmPut, hmDelete, hmTrace, hmConnect, hmOptions, hmPropfind, hmPropPatch, hmMkCol, hmCopy, hmMove, hmLock, hmUnlock, hmReport, hmMkCalendar, hmAcl, hmUnknown);
   TLHTTPMethods = set of TLHTTPMethod;
   TLHTTPParameter = (hpConnection, hpContentLength, hpContentType,
     hpAccept, hpAcceptCharset, hpAcceptEncoding, hpAcceptLanguage, hpHost,
     hpFrom, hpReferer, hpUserAgent, hpRange, hpTransferEncoding,
-    hpIfModifiedSince, hpIfUnmodifiedSince, hpCookie, hpXRequestedWith, hpAuthorization);
+    hpIfModifiedSince, hpIfUnmodifiedSince, hpCookie, hpXRequestedWith, hpAuthorization,hpDepth);
   TLHTTPStatus = (hsUnknown, hsOK, hsNoContent, hsMultiStatus, hsMovedPermanently, hsFound, hsNotModified,
     hsBadRequest,hsUnauthorized, hsForbidden, hsNotFound, hsConflict, hsPreconditionFailed, hsRequestTooLong, hsLocked,
-    hsInternalError, hsNotImplemented, hsBadGateway, hsInsufficientStorage, hsNotAllowed);
+    hsInternalError, hsNotImplemented, hsBadGateway, hsInsufficientStorage, hsNotAllowed, hsCreated);
   TLHTTPTransferEncoding = (teIdentity, teChunked);
   TLHTTPClientError = (ceNone, ceMalformedStatusLine, ceVersionNotSupported,
     ceUnsupportedEncoding);
@@ -49,18 +49,18 @@ const
   HTTPDisconnectStatuses = [hsBadRequest, hsRequestTooLong, hsForbidden, 
     hsInternalError, hsNotAllowed];
   HTTPMethodStrings: array[TLHTTPMethod] of string =
-    ('HEAD', 'GET', 'POST', 'PUT', 'DELETE', 'TRACE', 'CONNECT', 'OPTIONS', 'PROPFIND', 'PROPPATCH', 'MKCOL', 'COPY', 'MOVE', 'LOCK', 'UNLOCK', '');
+    ('HEAD', 'GET', 'POST', 'PUT', 'DELETE', 'TRACE', 'CONNECT', 'OPTIONS', 'PROPFIND', 'PROPPATCH', 'MKCOL', 'COPY', 'MOVE', 'LOCK', 'UNLOCK', 'REPORT', 'MKCALENDAR', 'ACL', '');
   HTTPParameterStrings: array[TLHTTPParameter] of string =
     ('CONNECTION', 'CONTENT-LENGTH', 'CONTENT-TYPE', 'ACCEPT', 
      'ACCEPT-CHARSET', 'ACCEPT-ENCODING', 'ACCEPT-LANGUAGE', 'HOST',
      'FROM', 'REFERER', 'USER-AGENT', 'RANGE', 'TRANSFER-ENCODING',
-     'IF-MODIFIED-SINCE', 'IF-UNMODIFIED-SINCE', 'COOKIE', 'X-REQUESTED-WITH', 'AUTHORIZATION');
+     'IF-MODIFIED-SINCE', 'IF-UNMODIFIED-SINCE', 'COOKIE', 'X-REQUESTED-WITH', 'AUTHORIZATION', 'DEPTH');
   HTTPStatusCodes: array[TLHTTPStatus] of dword =
-    (0, 200, 204, 207, 301, 302, 304, 400, 401, 403, 404, 409, 412, 414, 423, 500, 501, 502, 507, 405);
+    (0, 200, 204, 207, 301, 302, 304, 400, 401, 403, 404, 409, 412, 414, 423, 500, 501, 502, 507, 405, 201);
   HTTPTexts: array[TLHTTPStatus] of string = 
     ('', 'OK', 'No Content', 'Multi Status', 'Moved Permanently', 'Found', 'Not Modified', 'Bad Request','Unauthorized' , 'Forbidden',
      'Not Found', 'Conflict', 'Precondition Failed', 'Request Too Long', 'Locked', 'Internal Error',
-     'Method Not Implemented', 'Bad Gateway', 'Insufficient Storage', 'Method Not Allowed');
+     'Method Not Implemented', 'Bad Gateway', 'Insufficient Storage', 'Method Not Allowed', 'Created');
 
   HTTPDescriptions: array[TLHTTPStatus] of string = (
       { hsUnknown }
@@ -129,6 +129,10 @@ const
     '<html><head><title>405 Method Not Allowed</title></head><body>'+#10+
     '<h1>Method Not Allowed</h1>'+#10+
     '<p>The method used in the request is not allowed on the resource specified in the URL.</p>'+#10+
+    '</body></html>'+#10,
+      { hsCreated }
+    '<html><head><title>201 Created</title></head><body>'+#10+
+    '<h1>Element Created</h1>'+#10+
     '</body></html>'+#10);
 
 
@@ -505,8 +509,8 @@ uses
   lCommon;
 
 const
-  RequestBufferSize = 1024;
-  DataBufferSize = 16*1024;
+  RequestBufferSize = 4*1024;
+  DataBufferSize = 32*1024;
 
   BufferEmptyToWriteStatus: array[boolean] of TWriteBlockStatus =
     (wsPendingData, wsDone);
@@ -2339,4 +2343,4 @@ begin
 end;
 
 end.
-
+

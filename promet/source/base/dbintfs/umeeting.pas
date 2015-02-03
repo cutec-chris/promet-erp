@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,
-  uBaseERPDBClasses,utask,LCLProc;
+  uBaseERPDBClasses,utask,uCalendar;
 type
   TMeetings = class;
   TMeetingEntrys = class(TBaseDBDataSet)
@@ -39,9 +39,9 @@ type
     function GetPosNo: TField;
     function GetUserName: string;
   protected
-    FMeeting : TMeetings;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    FMeeting : TMeetings;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     procedure Open; override;
@@ -54,14 +54,6 @@ type
     //Fields
     property PosNo : TField read GetPosNo;
   end;
-  TMeetingUsers = class(TBaseDBDataSet)
-  protected
-    FMeeting : TMeetings;
-  public
-    procedure Change; override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure SetDisplayLabels(aDataSet: TDataSet); override;
-  end;
   TMeetingLinks = class(TLinks)
   public
     procedure FillDefaults(aDataSet : TDataSet);override;
@@ -73,7 +65,7 @@ type
     FLinks: TMeetingLinks;
     FUsers: TMeetingUsers;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     function CreateTable: Boolean; override;
     destructor Destroy; override;
@@ -93,47 +85,16 @@ type
 
 implementation
 uses uBaseApplication,uProjects,uData,uMasterdata;
-resourcestring
-  strPresent                            = 'Anwesend';
 procedure TMeetingLinks.FillDefaults(aDataSet: TDataSet);
 begin
   inherited FillDefaults(aDataSet);
   aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TMeetings).Id.AsVariant;
 end;
 
-procedure TMeetingUsers.Change;
-begin
-  inherited Change;
-  if Assigned(FMeeting) then FMeeting.Change;
-end;
-
-procedure TMeetingUsers.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'MEETINGUSERS';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('USER_ID',ftLargeint,0,False);
-            Add('NAME',ftString,150,False);
-            Add('IDCODE',ftString,4,False);
-            Add('ACTIVE',ftString,1,False);
-            Add('NOTE',ftString,200,False);
-          end;
-    end;
-end;
-
-procedure TMeetingUsers.SetDisplayLabels(aDataSet: TDataSet);
-begin
-  inherited SetDisplayLabels(aDataSet);
-  SetDisplayLabelName(aDataSet,'ACTIVE',strPresent);
-end;
-
-constructor TMeetingEntrys.Create(aOwner: TComponent; DM: TComponent;
+constructor TMeetingEntrys.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FIntDataSource := TDataSource.Create(Self);
   FIntDataSource.DataSet := DataSet;
   DataSet.AfterCancel:=@DataSetAfterCancel;
@@ -147,7 +108,7 @@ begin
           SortDirection:=sdAscending;
         end;
     end;
-  FTempUsers := TUser.Create(aOwner,DM);
+  FTempUsers := TUser.CreateEx(aOwner,DM);
 end;
 
 destructor TMeetingEntrys.Destroy;
@@ -191,7 +152,7 @@ begin
           begin
             Add('POSNO',ftInteger,0,True);
             Add('DESC',ftMemo,0,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('OWNER',ftString,20,False);
             Add('USER',ftString,20,False);
             Add('DUEDATE',ftDateTime,0,False);
@@ -228,7 +189,7 @@ begin
   if FieldByName('OWNER').AsString='' then exit;
   if not FTempUsers.DataSet.Active then
     Data.SetFilter(FTempUsers,'',0);
-  debugln(FieldByName('OWNER').AsString);
+  //debugln(FieldByName('OWNER').AsString);
   if FTempUsers.DataSet.Locate('ACCOUNTNO',FieldByName('OWNER').AsString,[loCaseInsensitive]) then
     Result := FTempUsers.FieldByName('NAME').AsString;
 end;
@@ -244,20 +205,27 @@ begin
   if FieldByName('USER').AsString='' then exit;
   if not FTempUsers.DataSet.Active then
     Data.SetFilter(FTempUsers,'',0);
-  debugln(FieldByName('USER').AsString);
+  //debugln(FieldByName('USER').AsString);
   if FTempUsers.DataSet.Locate('ACCOUNTNO',FieldByName('USER').AsString,[loCaseInsensitive]) then
     Result := FTempUsers.FieldByName('NAME').AsString;
 end;
 
-constructor TMeetings.Create(aOwner: TComponent; DM: TComponent;
+constructor TMeetings.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FEntrys := TMeetingEntrys.Create(aOwner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FEntrys := TMeetingEntrys.CreateEx(aOwner,DM,aConnection,DataSet);
   FEntrys.FMeeting := Self;
-  FUsers := TMeetingUsers.Create(aOwner,DM,aConnection,DataSet);
+  FUsers := TMeetingUsers.CreateExIntegrity(aOwner,DM,False,aConnection,DataSet);
   FUsers.FMeeting := Self;
-  FLinks := TMeetingLinks.Create(Self,DM,aConnection);
+  FLinks := TMeetingLinks.CreateEx(Self,DM,aConnection);
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with DataSet as IBaseDBFilter do
+        begin
+          UsePermissions:=True;
+        end;
+    end;
 end;
 
 function TMeetings.CreateTable: Boolean;
@@ -299,6 +267,9 @@ var
   aLink: String;
   aDataSetClass: TBaseDBDatasetClass;
   aHist: TBaseHistory;
+  ObjectLink: String;
+  aListClass: TBaseDBDatasetClass;
+  aObject: TBaseDBList;
 begin
   aLink := '';
   FFailMessage:='';
@@ -319,22 +290,38 @@ begin
             if (copy(FieldByName('LINK').AsString,0,9) = 'PROJECTS@')
             or (copy(FieldByName('LINK').AsString,0,11) = 'PROJECTS.ID')
             then
-              ProjectLink := FieldByName('LINK').AsString
-            else ProjectLink:='';
+              begin
+                ProjectLink := FieldByName('LINK').AsString;
+                ObjectLink := '';
+              end
+            else
+              begin
+                ProjectLink:='';
+                ObjectLink := FieldByName('LINK').AsString;
+              end;
             if (FieldByName('LINK').AsString<>'') and (aLink <> FieldByName('LINK').AsString) then
               begin
                 FreeAndNil(aDataSet);
                 FreeAndNil(aProject);
                 aLink := FieldByName('LINK').AsString;
                 TBaseDBModule(DataModule).DataSetFromLink(aLink,aDataSetClass);
-                aDataSet := aDataSetClass.Create(nil,DataModule,Connection);
+                aDataSet := aDataSetClass.CreateEx(nil,DataModule,Connection);
                 TBaseDbList(aDataSet).SelectFromLink(aLink);
                 aDataSet.Open;
                 if ProjectLink <> '' then
                   begin
-                    aProject := TProject.Create(nil,DataModule,Connection);
+                    aProject := TProject.CreateEx(nil,DataModule,Connection);
                     aProject.SelectFromLink(ProjectLink);
                     aProject.Open;
+                  end;
+                if ObjectLink <> '' then
+                  begin
+                    if Data.ListDataSetFromLink(ObjectLink,aListClass) then
+                      begin
+                        aObject := TbaseDBList(aListClass.CreateEx(nil,DataModule,Connection));
+                        aObject.SelectFromLink(ObjectLink);
+                        aObject.Open;
+                      end;
                   end;
               end
             else if aLink <> '' then
@@ -369,42 +356,11 @@ begin
                         aProject.Tasks.GotoBookmark(arec);
                         if not Entrys.CanEdit then
                           Entrys.DataSet.Edit;
-                        Entrys.FieldByName('LINK').AsString:=Data.BuildLink(aProject.Tasks.DataSet);
+                        Entrys.FieldByName('LINK').AsString:=copy(Data.BuildLink(aProject.Tasks.DataSet),0,190);
                         if Entrys.CanEdit then
                           Entrys.DataSet.Post;
                         Added := True;
                       end;
-                  end;
-                if (not Added) and (FieldByName('OWNER').AsString <> '') then
-                  begin //Task
-                    aTasks := TTask.Create(nil,Data);
-                    aTasks.Append;
-                    asl := TStringList.Create;
-                    asl.Text:=FieldByName('DESC').AsString;
-                    if asl.Count>0 then
-                      begin
-                        aTasks.FieldByName('SUMMARY').AsString:=asl[0];
-                        asl.Delete(0);
-                      end;
-                    aTasks.FieldByName('DESC').AsString:=asl.Text;
-                    asl.Free;
-                    aTasks.FieldByName('OWNER').AsString:=FieldByName('OWNER').AsString;
-                    aTasks.FieldByName('USER').AsVariant:=FieldByName('USER').AsVariant;
-                    if FieldByName('USER').IsNull then
-                      aTasks.FieldByName('USER').AsVariant:=FieldByName('OWNER').AsVariant;
-                    if not FieldByName('DUEDATE').IsNull then
-                      aTasks.FieldByName('DUEDATE').AsVariant:=FieldByName('DUEDATE').AsVariant;
-                    aTasks.DataSet.Post;
-                    arec := aTasks.GetBookmark;
-                    aTasks.DataSet.Refresh;
-                    aTasks.GotoBookmark(arec);
-                    if not Entrys.CanEdit then
-                      Entrys.DataSet.Edit;
-                    Entrys.FieldByName('LINK').AsString:=Data.BuildLink(aTasks.DataSet);
-                    if Entrys.CanEdit then
-                      Entrys.DataSet.Post;
-                    Added := True;
-                    aTasks.Free;
                   end;
                 if (not Added) and Assigned(aDataSet) and (aDataSet.Count>0) then
                   begin
@@ -416,6 +372,43 @@ begin
                      if Assigned(aHist) then
                       aHist.AddItem(Data.Users.DataSet,FieldByName('DESC').AsString,Data.BuildLink(Self.DataSet),Self.DataSet.FieldByName('NAME').AsString,nil,ACICON_USEREDITED,'',True,True)
                   end;
+              end;
+            if (not Added) and ((FieldByName('OWNER').AsString <> '') or (FieldByName('USER').AsString <> '')) and (Entrys.FieldByName('LINK').AsString='') then
+              begin //Task
+                aTasks := TTask.CreateEx(nil,Data);
+                aTasks.Append;
+                asl := TStringList.Create;
+                asl.Text:=FieldByName('DESC').AsString;
+                if asl.Count>0 then
+                  begin
+                    aTasks.FieldByName('SUMMARY').AsString:=asl[0];
+                    asl.Delete(0);
+                  end;
+                aTasks.FieldByName('DESC').AsString:=asl.Text;
+                asl.Free;
+                aTasks.FieldByName('OWNER').AsString:=FieldByName('OWNER').AsString;
+                aTasks.FieldByName('USER').AsVariant:=FieldByName('USER').AsVariant;
+                if FieldByName('USER').IsNull then
+                  aTasks.FieldByName('USER').AsVariant:=FieldByName('OWNER').AsVariant;
+                if FieldByName('OWNER').IsNull then
+                  aTasks.FieldByName('OWNER').AsVariant:=FieldByName('USER').AsVariant;
+                if not FieldByName('DUEDATE').IsNull then
+                  aTasks.FieldByName('DUEDATE').AsVariant:=FieldByName('DUEDATE').AsVariant;
+                aTasks.DataSet.Post;
+                arec := aTasks.GetBookmark;
+                aTasks.DataSet.Refresh;
+                aTasks.GotoBookmark(arec);
+                if not Entrys.CanEdit then
+                  Entrys.DataSet.Edit;
+                Entrys.FieldByName('LINK').AsString:=Data.BuildLink(aTasks.DataSet);
+                if Entrys.CanEdit then
+                  Entrys.DataSet.Post;
+                if Assigned(aObject) then
+                  begin
+                    //TODO:add History Entry fro Task
+                  end;
+                Added := True;
+                aTasks.Free;
               end;
             Next;
           end;
@@ -434,7 +427,7 @@ begin
           FFailMessage:=e.Message;
           Result := prFailed;
           Data.RollbackTransaction(Connection);
-          debugln(e.Message);
+          //debugln(e.Message);
         end;
     end;
 end;

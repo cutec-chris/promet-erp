@@ -61,7 +61,7 @@ begin
   end;
   StopOnException := True;
   if not Login then raise Exception.Create('Login failed !');
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.Create(Self);
   if pos('@',Params[ParamCount-1]) > 0 then
     begin
       aDocument.SelectByLink(Params[ParamCount-1]);

@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, Buttons, ComCtrls,
   ActnList, Menus, Dialogs, uPrometFramesInplaceDB, Graphics, StdCtrls,
-  uBaseDBClasses, db, uIntfStrConsts, Utils, uExtControls, uWait, Variants,
+  uBaseDBClasses, db, uIntfStrConsts,uGeneralStrConsts, Utils,UtilsVis, uExtControls, uWait, Variants,
   uPreviewFrame
   {$IFDEF WINDOWS}
   ,ActiveX,Windows,OleDropFiles
@@ -139,7 +139,7 @@ TfDocumentFrame = class(TPrometInplaceDBFrame{$IFDEF WINDOWS},IDropSource{$ENDIF
     Panel3: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
-    pLeft: TPanel;
+    pToolbar: TPanel;
     pmAddDocuments: TPopupMenu;
     pmDocumentAction: TPopupMenu;
     pmViewStyle: TPopupMenu;
@@ -245,7 +245,7 @@ uses uDocuments, uData, uDocumentAddOptions, uBaseApplication, SecureUtils,
   uDocumentAcquire,PdfDoc,PdfImages,uOCR,uMessages,
   uPerson, uMimeTypeEdit, uDocumentProcess, uDocumentAction,uDocumentCheckin,
   uOrder,uBaseDBInterface,ClipBrd,uBaseVisualApplication,uSelectTemplate,
-  uNRights,uDocProperties;
+  uNRights,uDocProperties,ubaseconfig;
 resourcestring
   strFileExtDesc                             = '%s Datei';
   strCheckingOutFile                         = 'Hole %s';
@@ -421,11 +421,12 @@ var
   {$ENDIF}
 begin
   {$IFDEF WINDOWS}
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     if Assigned(Config) then
       TempPath := Config.ReadString('TEMPPATH','');
   if TempPath = '' then
-    TempPath := GetTempDir;
+    with BaseApplication as IBaseApplication do
+      TempPath := GetInternalTempDir;
   if (ssLeft in Shift) and ((Abs(X - FDragStartPos.x) >= Threshold) or (Abs(Y - FDragStartPos.y) >= Threshold)) then
     begin
       Perform(WM_LBUTTONUP, 0, MakeLong(X, Y));
@@ -436,21 +437,21 @@ begin
           if DataSet.FieldByName('ISDIR').AsString = 'Y' then
             begin
               DragDropFile := AppendPathDelim(TempPath)+TDocuments(DataSet).FileName;
-              aDocument := TDocument.Create(Self,Data);
+              aDocument := TDocument.CreateEx(Self,Data);
               aID := DataSet.FieldByName('NUMBER').AsInteger;
               aDocument.SelectByNumber(aId);
               aDocument.Open;
               aDocument.DoCheckout(AppendPathDelim(TempPath));
               aDocument.Free;
               ForceDirectoriesUTF8(DragDropFile);
-              fl.Add(UTF8ToSys(TDocuments(DataSet).FileName));
+              fl.Add(UniToSys(TDocuments(DataSet).FileName));
               DoDragDrop(GetFileDataObject(TempPath,TDocuments(DataSet).FileName), Self, DROPEFFECT_MOVE, @Effect);
             end
           else
             begin
-              DragDropFile := AppendPathDelim(TempPath)+UTF8ToSys(TDocuments(DataSet).FileName);
+              DragDropFile := AppendPathDelim(TempPath)+UniToSys(TDocuments(DataSet).FileName);
               aID := DataSet.FieldByName('NUMBER').AsInteger;
-              aDocument := TDocument.Create(Self,Data);
+              aDocument := TDocument.CreateEx(Self,Data);
               aDocument.SelectByNumber(aId);
               aDocument.Open;
               aDocument.DoCheckout(AppendPathDelim(TempPath));
@@ -536,7 +537,7 @@ begin
       if grfKeyState = 0 then
         begin
           //Dropped File to Desktop/Explorer
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aID := DataSet.FieldByName('NUMBER').AsInteger;
           aDocument.SelectByNumber(aId);
           aDocument.Open;
@@ -574,7 +575,7 @@ begin
       Screen.Cursor := crHourglass;
       for i := 0 to DocumentDialog.Files.Count-1 do
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.Select(0);
           aDocument.Open;
           aDocument.Ref_ID:=FRefID;
@@ -586,7 +587,7 @@ begin
           aDocument.AddFromFile(DocumentDialog.Files[i],'',fDocumentAddOptions.ccCalendar.Date);
           if fDocumentAddOptions.cbDeletefromFilesystem.Checked then
             begin
-              with BaseApplication as IBaseApplication do
+              with BaseApplication as IBaseConfig do
                 begin
                   DelRetry:
                     case Config.ReadInteger('DELETEMETHOD',0) of
@@ -625,7 +626,7 @@ begin
       fDocumentAddOptions.eName.Enabled := False;
       fDocumentAddOptions.ccCalendar.Date:=Now();
       if not fDocumentAddOptions.Execute then exit;
-      aDocument := TDocument.Create(Self,Data);
+      aDocument := TDocument.CreateEx(Self,Data);
       aDocument.Select(0);
       aDocument.Open;
       aDocument.Ref_ID:=FRefID;
@@ -724,7 +725,7 @@ begin
       fDocumentAddOptions.cbDeletefromFilesystem.Enabled := False;
       fDocumentAddOptions.eName.Text := strNewImage;
       fDocumentAddOptions.eName.Enabled := True;
-      aPerson := TPerson.Create(Self,Data,FConnection);
+      aPerson := TPerson.CreateEx(Self,Data,FConnection);
       Data.SetFilter(aPerson,'('+Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(FID)+') OR ('+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(FRefID))+')',1);
       if aPerson.Count > 0 then
         begin
@@ -753,7 +754,7 @@ begin
       if aDate <> 0 then
         fDocumentAddOptions.ccCalendar.Date := aDate;
       if not fDocumentAddOptions.Execute then exit;
-      aDocument := TDocument.Create(Self,Data);
+      aDocument := TDocument.CreateEx(Self,Data);
       aDocument.Select(0);
       aDocument.Open;
       aDocument.Ref_ID:=FRefID;
@@ -775,7 +776,7 @@ begin
         begin
           if fDocumentAddOptions.cbAddToMessages.Checked then
             begin
-              aMessage := TMessage.Create(Self,Data);
+              aMessage := TMessage.CreateEx(Self,Data);
               aMessage.Select(0);
               aMessage.Open;
               with aMessage.DataSet do
@@ -830,7 +831,7 @@ begin
       if GotoSelected then
         begin
           Screen.Cursor := crHourglass;
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aID := DataSet.FieldByName('NUMBER').AsInteger;
           aDocument.SelectByNumber(aID);
           aDocument.Open;
@@ -875,7 +876,7 @@ begin
       if GotoSelected then
         begin
           Screen.Cursor := crHourglass;
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aID := DataSet.FieldByName('NUMBER').AsInteger;
           aDocument.SelectByNumber(aID);
           aDocument.Open;
@@ -912,7 +913,7 @@ begin
         begin
           if FolderDialog.Execute then
             begin
-              aDocument := TDocument.Create(Self,Data);
+              aDocument := TDocument.CreateEx(Self,Data);
               aID := DataSet.FieldByName('NUMBER').AsInteger;
               aDocument.SelectByNumber(aId);
               aDocument.Open;
@@ -923,13 +924,13 @@ begin
       else
         begin
           if DataSet.FieldByName('EXTENSION').AsString <> '' then
-            DocumentSaveDialog.FileName := UTF8ToSys(DataSet.FieldByName('NAME').AsString+'.'+DataSet.FieldByName('EXTENSION').AsString)
+            DocumentSaveDialog.FileName := UniToSys(DataSet.FieldByName('NAME').AsString+'.'+DataSet.FieldByName('EXTENSION').AsString)
           else
-            DocumentSaveDialog.FileName := UTF8ToSys(DataSet.FieldByName('NAME').AsString);
+            DocumentSaveDialog.FileName := UniToSys(DataSet.FieldByName('NAME').AsString);
           if DocumentSaveDialog.Execute then
             begin
               aID := DataSet.FieldByName('NUMBER').AsInteger;
-              aDocument := TDocument.Create(Self,Data);
+              aDocument := TDocument.CreateEx(Self,Data);
               aDocument.SelectByNumber(aId);
               aDocument.Open;
               aDocument.DoCheckout(ExtractFileDir(DocumentSaveDialog.Filename),arev);
@@ -961,7 +962,7 @@ var
   DocID: Int64;
 begin
   DocID := Data.GetUniID(Connection);
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   aDocument.Select(0);
   aDocument.Open;
   aDocument.Ref_ID:=FRefID;
@@ -984,9 +985,9 @@ var
   tmp: string;
   aDocument: TDocument;
 begin
-  FSelectTemplate.DataSet := TDocumentTemplates.Create(nil,Data);
+  FSelectTemplate.DataSet := TDocumentTemplates.Create(nil);
   FSelectTemplate.DataSet.CreateTable;
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   aDocument.Select(0);
   if fSelectTemplate.Execute(FTyp,aDocument) then
     begin
@@ -996,8 +997,8 @@ begin
 {      if fSelectTemplate.cbReplacePlaceholders.Checked then
       if (copy(Uppercase(Data.Templates.FieldByName('EXTENSION').AsString),0,2) = 'OD') then
         begin
-          Stream.SaveToFile(GetTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
-          Doc := TODFDocument.Create(GetTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
+          Stream.SaveToFile(GetInternalTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
+          Doc := TODFDocument.Create(GetInternalTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
           for i := 0 to Doc.Count-1 do
             begin
               tmp := copy(Doc.Values[i],2,length(Doc.Values[i])-2);
@@ -1010,11 +1011,11 @@ begin
             end;
           Doc.Save;
           Doc.Free;
-          Stream.LoadFromFile(GetTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
-          SysUtils.DeleteFile(GetTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
+          Stream.LoadFromFile(GetInternalTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
+          SysUtils.DeleteFile(GetInternalTempDir+Data.Templates.FieldByName('NAME').AsString+'.'+Data.Templates.FieldByName('EXTENSION').AsString);
         end;
 }
-      aDocument := TDocument.Create(Self,Data);
+      aDocument := TDocument.CreateEx(Self,Data);
       aDocument.Select(0);
       aDocument.Open;
       aDocument.Ref_ID:=FRefID;
@@ -1046,7 +1047,7 @@ var
   aDocument: TDocument;
 begin
   fDocumentAction.SetLanguage;
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   if GotoSelected then
     begin
       aDocument.SelectByNumber(FDataSet.FieldByName('NUMBER').AsVariant);
@@ -1064,7 +1065,7 @@ begin
   if GotoSelected then
     begin
       aID := DataSet.FieldByName('NUMBER').AsInteger;
-      aDocument := TDocument.Create(Self,Data);
+      aDocument := TDocument.CreateEx(Self,Data);
       aDocument.SelectByNumber(aId);
       aDocument.Open;
       fDocProperties.Execute(aDocument);
@@ -1090,7 +1091,7 @@ begin
       Stream := TStringstream.Create('');
       if Clipboard.GetFormat(LinkClipboardFormat,Stream) then
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.SelectByLink(Stream.DataString);
           aDocument.Open;
           aDocument.MoveTo(FRefID,FTyp,FID,FVersion,FLanguage,aDirectoryID);
@@ -1111,7 +1112,7 @@ begin
       Stream := TStringstream.Create('');
       if Clipboard.GetFormat(LinkClipboardFormat,Stream) then
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.Select(0);
           aDocument.Open;
           aDocument.Ref_ID:=FRefID;
@@ -1169,7 +1170,7 @@ begin
     begin
       if FolderDialog.Execute then
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aID := DataSet.FieldByName('NUMBER').AsInteger;
           aDocument.SelectByNumber(aId);
           aDocument.Open;
@@ -1181,13 +1182,13 @@ begin
   else
     begin
       if DataSet.FieldByName('EXTENSION').AsString <> '' then
-        DocumentSaveDialog.FileName := UTF8ToSys(DataSet.FieldByName('NAME').AsString+'.'+DataSet.FieldByName('EXTENSION').AsString)
+        DocumentSaveDialog.FileName := UniToSys(DataSet.FieldByName('NAME').AsString+'.'+DataSet.FieldByName('EXTENSION').AsString)
       else
-        DocumentSaveDialog.FileName := UTF8ToSys(DataSet.FieldByName('NAME').AsString);
+        DocumentSaveDialog.FileName := UniToSys(DataSet.FieldByName('NAME').AsString);
       if DocumentSaveDialog.Execute then
         begin
           aID := DataSet.FieldByName('NUMBER').AsInteger;
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.SelectByNumber(aId);
           aDocument.Open;
           aDocument.OnCheckCheckOutFile:=@aDocumentCheckCheckOutFile;
@@ -1339,7 +1340,7 @@ begin
   TempID := StringReplace(TempID,'{','_',[rfReplaceAll]);
   TempID := StringReplace(TempID,'}','_',[rfReplaceAll]);
   aID := DataSet.FieldByName('NUMBER').AsInteger;
-  bDocument := TDocument.Create(Self,Data);
+  bDocument := TDocument.CreateEx(Self,Data);
   bDocument.SelectByNumber(aId);
   bDocument.Open;
   Data.SetFilter(bDocument.DocumentActions,Data.QuoteField('NUMBER')+'='+Data.QuoteValue(DataSet.FieldByName('NUMBER').AsString));
@@ -1357,7 +1358,7 @@ begin
               fWaitForm.lStep.Caption := '';
               fWaitForm.Show;
               Application.ProcessMessages;
-              aDocument := TDocument.Create(nil,Data);
+              aDocument := TDocument.Create(nil);
               aDocument.SelectByNumber(DataSet.FieldByName('NUMBER').AsInteger);
               aDocument.Open;
               aDocument.DoCheckout(copy(aDocument.GetCheckOutPath('',TempID),0,rpos(DirectorySeparator,aDocument.GetCheckOutPath('',TempID))-1));
@@ -1365,7 +1366,7 @@ begin
             end
           else
             begin
-              aDocument := TDocument.Create(nil,Data);
+              aDocument := TDocument.Create(nil);
               aDocument.SelectByNumber(DataSet.FieldByName('NUMBER').AsInteger);
               aDocument.Open;
               aDocument.DoCheckout(copy(aDocument.GetCheckOutPath('',TempID),0,rpos(DirectorySeparator,aDocument.GetCheckOutPath('',TempID))-1));
@@ -1375,7 +1376,7 @@ begin
           if bDocument.DocumentActions.FieldByName('ACTION').AsString = 'S' then
             begin //Special Action
               aDocument.OnCheckCheckinFiles:=@aDocumentCheckCheckinFiles;
-              TDocExecuteThread.Create(aDocument,StringReplace(bDocument.DocumentActions.FieldByName('ACTIONCMD').AsString,'%NAME%',aDocument.GetCheckoutPath('',TempID),[rfReplaceAll]),DoDelete,UseStarter,TempID);
+              TDocExecuteThread.Create(aDocument,StringReplace(bDocument.DocumentActions.FieldByName('ACTIONCMD').AsString,'%NAME%',aDocument.GetCheckoutPath('',TempID),[rfReplaceAll]),DoDelete,UseStarter,TempID,bDocument.DocumentActions.Id.AsVariant,Null);
               Screen.Cursor := crDefault;
               exit;
             end
@@ -1400,61 +1401,50 @@ begin
   if (pos(Uppercase(DataSet.FieldByName('EXTENSION').AsString),UpperCase(bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString)) = 0)
   or (bDocument.MimeTypes.FieldByName(Method).AsString = '') then
     begin
-      {
-      if (pos(UpperCase(DataSet.FieldByName('EXTENSION').AsString),UpperCase(Data.MimeTypes.FieldByName('EXTENSIONS').AsString)) = 0) and (GetMimeTypeForExtension(DataSet.FieldByName('EXTENSION').AsString) <> ''){ and (Data.MimeTypes.DataSet.Locate('MIME',VarArrayOf([GetMimeTypeForExtension(DataSet.FieldByName('EXTENSION').AsString)]),[]))} then
+      //add extension
+      fMimeTypeEdit.SetLanguage;
+      fMimeTypeEdit.SetupDB;
+      fMimeTypeEdit.eOpenWith.DataField := Method;
+      if (pos(DataSet.FieldByName('EXTENSION').AsString,bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString) = 0) then
         begin
-          Data.MimeTypes.DataSet.Edit;
-          Data.MimeTypes.FieldByName('EXTENSIONS').AsString := Data.MimeTypes.FieldByName('EXTENSIONS').AsString+DataSet.FieldByName('EXTENSION').AsString+',';
-          Data.MimeTypes.DataSet.Post;
-        end
-      else
-      }
-        begin
-          //add extension
-          fMimeTypeEdit.SetLanguage;
-          fMimeTypeEdit.SetupDB;
-          fMimeTypeEdit.eOpenWith.DataField := Method;
-          if (pos(DataSet.FieldByName('EXTENSION').AsString,bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString) = 0) then
-            begin
-              bDocument.MimeTypes.DataSet.Insert;
-              bDocument.MimeTypes.FieldByName('MIME').AsString := GetMimeTypeForExtension(DataSet.FieldByName('EXTENSION').AsString);
-            end;
-          bDocument.MimeTypes.DataSet.Edit;
-          if (Method = 'EDIT') or (Method = 'VIEW') then
-            bDocument.MimeTypes.FieldByName(Method).AsString := GetProcessforExtension(piOpen,DataSet.FieldByName('EXTENSION').AsString)
-          else if Method = 'PRINT' then
-            bDocument.MimeTypes.FieldByName(Method).AsString := GetProcessforExtension(piPrint,DataSet.FieldByName('EXTENSION').AsString);
-          if pos('%s',bDocument.MimeTypes.FieldByName(Method).AsString) = 0 then
-            bDocument.MimeTypes.FieldByName(Method).AsString := bDocument.MimeTypes.FieldByName(Method).AsString+' "%s"';
-          if not fMimeTypeEdit.Execute(bDocument) then
-            begin
-              if bDocument.MimeTypes.DataSet.State = dsInsert then
-                bDocument.MimeTypes.DataSet.Cancel;
-              exit;
-            end;
-          if bDocument.MimeTypes.FieldByName(Method).AsString = '' then
-            begin
-              if bDocument.MimeTypes.DataSet.State = dsInsert then
-                bDocument.MimeTypes.DataSet.Cancel
-              else
-                bDocument.MimeTypes.DataSet.Delete;
-              exit;
-            end;
-          if pos(UpperCase(DataSet.FieldByName('EXTENSION').AsString),UpperCase(bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString)) = 0 then
-            begin
-              bDocument.MimeTypes.DataSet.Edit;
-              bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString := bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString+DataSet.FieldByName('EXTENSION').AsString+',';
-              bDocument.MimeTypes.DataSet.Post;
-            end;
-          if bDocument.MimeTypes.DataSet.State = dsEdit then
-            bDocument.MimeTypes.DataSet.Post;
+          bDocument.MimeTypes.DataSet.Insert;
+          bDocument.MimeTypes.FieldByName('MIME').AsString := GetMimeTypeForExtension(DataSet.FieldByName('EXTENSION').AsString);
         end;
+      bDocument.MimeTypes.DataSet.Edit;
+      if (Method = 'EDIT') or (Method = 'VIEW') then
+        bDocument.MimeTypes.FieldByName(Method).AsString := GetProcessforExtension(piOpen,DataSet.FieldByName('EXTENSION').AsString)
+      else if Method = 'PRINT' then
+        bDocument.MimeTypes.FieldByName(Method).AsString := GetProcessforExtension(piPrint,DataSet.FieldByName('EXTENSION').AsString);
+      if pos('%s',bDocument.MimeTypes.FieldByName(Method).AsString) = 0 then
+        bDocument.MimeTypes.FieldByName(Method).AsString := bDocument.MimeTypes.FieldByName(Method).AsString+' "%s"';
+      if not fMimeTypeEdit.Execute(bDocument) then
+        begin
+          if bDocument.MimeTypes.DataSet.State = dsInsert then
+            bDocument.MimeTypes.DataSet.Cancel;
+          exit;
+        end;
+      if bDocument.MimeTypes.FieldByName(Method).AsString = '' then
+        begin
+          if bDocument.MimeTypes.DataSet.State = dsInsert then
+            bDocument.MimeTypes.DataSet.Cancel
+          else
+            bDocument.MimeTypes.DataSet.Delete;
+          exit;
+        end;
+      if pos(UpperCase(DataSet.FieldByName('EXTENSION').AsString),UpperCase(bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString)) = 0 then
+        begin
+          bDocument.MimeTypes.DataSet.Edit;
+          bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString := bDocument.MimeTypes.FieldByName('EXTENSIONS').AsString+DataSet.FieldByName('EXTENSION').AsString+',';
+          bDocument.MimeTypes.DataSet.Post;
+        end;
+      if bDocument.MimeTypes.DataSet.State = dsEdit then
+        bDocument.MimeTypes.DataSet.Post;
     end;
   fWaitForm.SetLanguage;
   fWaitForm.lStep.Caption := '';
   fWaitForm.Show;
   Application.ProcessMessages;
-  aDocument := TDocument.Create(nil,Data);
+  aDocument := TDocument.Create(nil);
   aDocument.SelectByNumber(DataSet.FieldByName('NUMBER').AsInteger);
   aDocument.Open;
   Filename := aDocument.GetCheckoutPath('',TempID);
@@ -1464,7 +1454,7 @@ begin
   UseStarter := FileExistsUTF8(ExtractFilePath(Application.Exename)+'pstarter'+ExtractFileExt(Application.Exename));
   aDocument.AftercheckInFiles:=FAfterCheckinFiles;
   aDocument.OnCheckCheckinFiles:=@aDocumentCheckCheckinFiles;
-  TDocExecuteThread.Create(aDocument,'exec:'+StringReplace(bDocument.MimeTypes.FieldByName(Method).AsString,'%s',filename,[rfReplaceAll]),DoDelete,UseStarter,TempID);
+  TDocExecuteThread.Create(aDocument,'exec:'+StringReplace(bDocument.MimeTypes.FieldByName(Method).AsString,'%s',filename,[rfReplaceAll]),DoDelete,UseStarter and (bDocument.MimeTypes.FieldByName('USESTARTER').AsString<>'N'),TempID,Null,bDocument.MimeTypes.Id.AsVariant);
   bDocument.Free;
 end;
 
@@ -1533,7 +1523,7 @@ var
 begin
   if not GotoSelected then exit;
   aID := DataSet.FieldByName('NUMBER').AsInteger;
-  aDocument := TDocument.Create(Self,Data);
+  aDocument := TDocument.CreateEx(Self,Data);
   aDocument.SelectByNumber(aId);
   aDocument.Open;
   aDocument.OnCheckCheckOutFile:=@aDocumentCheckCheckOutFile;
@@ -1595,7 +1585,7 @@ begin
     begin
       if DirectoryExists(Filenames[i]) then
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.Select(0);
           aDocument.Open;
           aDocument.Ref_ID:=FRefID;
@@ -1612,7 +1602,7 @@ begin
         end
       else
         begin
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           aDocument.Select(0);
           aDocument.Open;
           aDocument.Ref_ID:=FRefID;
@@ -1624,7 +1614,7 @@ begin
           aDocument.AddFromFile(FileNames[i],'',fDocumentAddOptions.ccCalendar.Date);
           if fDocumentAddOptions.cbDeletefromFilesystem.Checked then
             begin
-              with BaseApplication as IBaseApplication do
+              with BaseApplication as IBaseConfig do
                 begin
                   DelRetry:
                     case Config.ReadInteger('DELETEMETHOD',0) of
@@ -1660,6 +1650,7 @@ begin
   acPasteAsLink.Enabled:=Editable;
   acCheckinFromDir.Enabled:=Editable;
   acRights.Enabled:=Data.Users.Rights.Right('DOCUMENTS') >= RIGHT_PERMIT;
+  ArrangeToolBar(pToolbar,ActionList1,'Document');
 end;
 procedure TfDocumentFrame.ShowFrame;
 var
@@ -1703,7 +1694,7 @@ begin
     aLink := copy(aLink,0,rpos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
     aLink := copy(aLink,0,rpos('(',aLink)-1);
-  aDoc := TDocuments.Create(Self,Data);
+  aDoc := TDocuments.CreateEx(Self,Data);
   aDoc.SelectByLink(aLink);
   aDoc.Open;
   if aDoc.Count > 0 then
@@ -1731,4 +1722,4 @@ begin
 end;
 
 end.
-
+

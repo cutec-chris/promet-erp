@@ -1,23 +1,23 @@
 inherited fPersonFrame: TfPersonFrame
   Height = 492
-  Width = 614
+  Width = 627
   ClientHeight = 492
-  ClientWidth = 614
-  DesignLeft = 488
-  DesignTop = 189
+  ClientWidth = 627
+  DesignLeft = 497
+  DesignTop = 193
   object pComponents: TPanel[0]
     Left = 0
     Height = 84
-    Top = 44
-    Width = 614
+    Top = 75
+    Width = 627
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 84
-    ClientWidth = 614
+    ClientWidth = 627
     TabOrder = 1
     TabStop = True
     object lMatchCode: TLabel
-      Left = 297
+      Left = 310
       Height = 18
       Top = 4
       Width = 128
@@ -27,8 +27,8 @@ inherited fPersonFrame: TfPersonFrame
       ParentColor = False
     end
     object eMatchCode: TExtDBEdit
-      Left = 297
-      Height = 24
+      Left = 310
+      Height = 25
       Hint = 'Hier können Sie einen Suchbegriff angeben, '#13#10'um den Eintrag besser zu finden'
       Top = 20
       Width = 128
@@ -41,7 +41,7 @@ inherited fPersonFrame: TfPersonFrame
       TabStop = False
     end
     object cbLanguage: TExtDBCombobox
-      Left = 297
+      Left = 310
       Height = 27
       Hint = 'wählen Sie hier die Sprache des Kontaktes'
       Top = 52
@@ -56,11 +56,11 @@ inherited fPersonFrame: TfPersonFrame
       TabStop = False
     end
     object cbSupplier: TDBCheckBox
-      Left = 422
-      Height = 24
+      Left = 434
+      Height = 22
       Hint = 'setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist'
       Top = 52
-      Width = 76
+      Width = 77
       Anchors = [akTop, akRight]
       AutoSize = True
       Caption = 'Lieferant'
@@ -71,14 +71,14 @@ inherited fPersonFrame: TfPersonFrame
       ValueUnchecked = 'C'
     end
     object gbTree: TGroupBox
-      Left = 433
+      Left = 446
       Height = 48
       Top = 0
       Width = 65
       Anchors = [akTop, akRight]
       Caption = 'Baum'
       ClientHeight = 32
-      ClientWidth = 61
+      ClientWidth = 63
       TabOrder = 2
       object bAssignTree: TSpeedButton
         Left = 2
@@ -87,6 +87,7 @@ inherited fPersonFrame: TfPersonFrame
         Width = 24
         Action = acSetTreeDir
         BorderSpacing.InnerBorder = 2
+        Flat = True
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
           1800000000000003000064000000640000000000000000000000FFFFFFFFFFFF
@@ -125,6 +126,7 @@ inherited fPersonFrame: TfPersonFrame
         Width = 24
         Action = acShowTreeDir
         BorderSpacing.InnerBorder = 2
+        Flat = True
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
           1800000000000003000064000000640000000000000000000000FFFFFFFFFFFF
@@ -162,7 +164,7 @@ inherited fPersonFrame: TfPersonFrame
       Height = 48
       Hint = 'geben Sie hier den namen des Kontaktes an'
       Top = 20
-      Width = 225
+      Width = 238
       Anchors = [akTop, akLeft, akRight]
       DataField = 'NAME'
       DataSource = Customers
@@ -172,9 +174,9 @@ inherited fPersonFrame: TfPersonFrame
     end
     object lCustomerName: TLabel
       Left = 64
-      Height = 14
+      Height = 15
       Top = 4
-      Width = 75
+      Width = 80
       Caption = 'Kontaktname'
       ParentColor = False
     end
@@ -344,9 +346,9 @@ inherited fPersonFrame: TfPersonFrame
     end
     object lCustomerof: TLabel
       Left = 4
-      Height = 14
+      Height = 15
       Top = 68
-      Width = 135
+      Width = 142
       Caption = 'Mitglied/Mitarbeiter von'
       ParentColor = False
       Visible = False
@@ -355,10 +357,10 @@ inherited fPersonFrame: TfPersonFrame
       AnchorSideLeft.Control = lCustomerof
       AnchorSideLeft.Side = asrBottom
       Cursor = crHandPoint
-      Left = 143
-      Height = 14
+      Left = 150
+      Height = 15
       Top = 68
-      Width = 62
+      Width = 64
       BorderSpacing.Left = 4
       Caption = 'lFirmName'
       Font.Color = clHighlight
@@ -370,37 +372,36 @@ inherited fPersonFrame: TfPersonFrame
   end
   object pcPages: TExtMenuPageControl[1]
     Left = 0
-    Height = 364
-    Top = 128
-    Width = 614
+    Height = 333
+    Top = 159
+    Width = 627
     ActivePage = tsCustomerCont
     Align = alClient
-    Images = fVisualControls.Images
     TabIndex = 0
     TabOrder = 2
     NewTabImageIndex = 59
     object tsCustomerCont: TTabSheet
       Caption = 'Kontaktdaten'
-      ClientHeight = 1054
-      ClientWidth = 1834
+      ClientHeight = 598
+      ClientWidth = 1242
       ImageIndex = 51
       object pCont: TPanel
         Left = 44
-        Height = 326
+        Height = 299
         Top = 0
-        Width = 562
+        Width = 577
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
       end
-      object Panel1: TPanel
+      object pToolBar: TPanel
         Left = 0
-        Height = 326
+        Height = 299
         Top = 0
         Width = 44
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 326
+        ClientHeight = 299
         ClientWidth = 44
         TabOrder = 1
         object Panel2: TPanel
@@ -453,6 +454,7 @@ inherited fPersonFrame: TfPersonFrame
             ClientHeight = 139
             ClientWidth = 24
             Direction = nbdVertical
+            Flat = True
             Options = []
             TabOrder = 0
             VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
@@ -464,12 +466,12 @@ inherited fPersonFrame: TfPersonFrame
   object ToolBar1: TPanel[2]
     Left = 0
     Height = 44
-    Top = 0
-    Width = 614
+    Top = 31
+    Width = 627
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 44
-    ClientWidth = 614
+    ClientWidth = 627
     TabOrder = 3
     object Panel4: TPanel
       Left = 0
@@ -546,6 +548,7 @@ inherited fPersonFrame: TfPersonFrame
         Top = 12
         Width = 32
         Action = acCancel
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -626,6 +629,7 @@ inherited fPersonFrame: TfPersonFrame
         Hint = 'zusätzliche Optionen'#10'(Menü)'
         Top = 12
         Width = 32
+        Flat = True
         Glyph.Data = {
           36090000424D3609000000000000360000002800000018000000180000000100
           2000000000000009000064000000640000000000000000000000FFFFFF00FFFF
@@ -823,7 +827,7 @@ inherited fPersonFrame: TfPersonFrame
       end
       object eCustomerNumber: TDBEdit
         Left = 4
-        Height = 24
+        Height = 25
         Top = 12
         Width = 88
         DataField = 'ACCOUNTNO'
@@ -834,14 +838,14 @@ inherited fPersonFrame: TfPersonFrame
         MaxLength = 0
         TabOrder = 0
       end
-      object bChangeNumber: TButton
+      object bChangeNumber: TSpeedButton
         Left = 92
         Height = 20
-        Top = 12
+        Top = 16
         Width = 36
         Caption = '...'
+        Flat = True
         OnClick = bChangeNumberClick
-        TabOrder = 1
       end
     end
     object Panel9: TPanel
@@ -880,8 +884,8 @@ inherited fPersonFrame: TfPersonFrame
       end
       object cbStatus: TComboBox
         Left = 1
-        Height = 28
-        Hint = 'hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen'
+        Height = 29
+        Hint = 'hier können Sie den Status des Kontaktes ändern um ihn in neue Zustände zu überführen'
         Top = 12
         Width = 128
         ItemHeight = 0
@@ -915,6 +919,7 @@ inherited fPersonFrame: TfPersonFrame
         Top = 4
         Width = 36
         Action = acPrint
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -956,9 +961,11 @@ inherited fPersonFrame: TfPersonFrame
     end
   end
   object pPreviewImage: TPanel[3]
-    Left = 505
+    AnchorSideTop.Control = lHint
+    AnchorSideTop.Side = asrBottom
+    Left = 518
     Height = 122
-    Top = 8
+    Top = 31
     Width = 98
     Anchors = [akTop, akRight]
     BevelOuter = bvNone
@@ -978,16 +985,31 @@ inherited fPersonFrame: TfPersonFrame
       Stretch = True
     end
   end
-  object Customers: TDatasource[4]
+  object lHint: TLabel[4]
+    Left = 8
+    Height = 15
+    Top = 8
+    Width = 611
+    Align = alTop
+    BorderSpacing.Around = 8
+    Caption = 'lHint'
+    Color = clInfoBk
+    Font.Color = clInfoText
+    ParentColor = False
+    ParentFont = False
+    Transparent = False
+    Visible = False
+    WordWrap = True
+  end
+  object Customers: TDataSource[5]
     OnStateChange = CustomersStateChange
     OnDataChange = CustomersDataChange
-    left = 80
-    top = 32
+    left = 120
+    top = 72
   end
-  object ActionList1: TActionList[5]
-    Images = fVisualControls.Images
-    left = 168
-    top = 32
+  object ActionList1: TActionList[6]
+    left = 208
+    top = 72
     object acSave: TAction
       Caption = 'Speichern'
       Hint = 'Speichert alle Änderungen in die Datenbank'
@@ -1053,6 +1075,7 @@ inherited fPersonFrame: TfPersonFrame
     end
     object acRights: TAction
       Caption = 'Rechte'
+      Hint = 'Ansicht auf bestimmte Nutzer begrenzen'
       ImageIndex = 100
       OnExecute = acRightsExecute
     end
@@ -1068,9 +1091,9 @@ inherited fPersonFrame: TfPersonFrame
       OnExecute = acCombineItemsExecute
     end
   end
-  object pmAction: TPopupMenu[6]
-    left = 204
-    top = 32
+  object pmAction: TPopupMenu[7]
+    left = 248
+    top = 72
     object miStartTimeregistering: TMenuItem
       Action = acStartTimeRegistering
     end
@@ -1105,27 +1128,27 @@ inherited fPersonFrame: TfPersonFrame
       Action = acRights
     end
   end
-  object ExportDialog: TSaveDialog[7]
+  object ExportDialog: TSaveDialog[8]
     Width = 940
     Height = 630
     Filter = 'VCard (*.vcf)|*.vcf'
     left = 168
     top = 72
   end
-  object ImportDialog: TOpenDialog[8]
+  object ImportDialog: TOpenDialog[9]
     left = 80
     top = 72
   end
-  object PHistory: TfrDBDataSet[9]
+  object PHistory: TfrDBDataSet[10]
     DataSource = History
     left = 172
     top = 252
   end
-  object History: TDatasource[10]
+  object History: TDataSource[11]
     left = 204
     top = 252
   end
-  object Report: TfrReport[11]
+  object Report: TfrReport[12]
     Dataset = PList
     DefaultCopies = 0
     InitialZoom = pzDefault
@@ -1135,8 +1158,12 @@ inherited fPersonFrame: TfPersonFrame
     left = 172
     top = 169
   end
-  object PList: TfrDBDataSet[12]
+  object PList: TfrDBDataSet[13]
     left = 220
     top = 169
+  end
+  object MandantDetails: TDataSource[14]
+    left = 120
+    top = 112
   end
 end

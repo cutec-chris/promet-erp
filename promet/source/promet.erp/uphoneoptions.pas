@@ -23,8 +23,8 @@ unit uPhoneOptions;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, StdCtrls, CheckLst,
-  uOptionsFrame;
+  Classes, SysUtils, FileUtil,  Forms, Controls, StdCtrls, CheckLst,
+  uOptionsFrame,ubaseconfig;
 
 type
   TfPhoneOptions = class(TOptionsFrame)
@@ -40,6 +40,7 @@ type
   end;
 
 implementation
+{$R *.lfm}
 uses uBaseApplication, uPhones;
 procedure TfPhoneOptions.StartTransaction;
 var
@@ -50,7 +51,7 @@ begin
   clbAllowedPhoneLines.Clear;
   for i := 0 to uPhones.Phones.Count-1 do
     clbAllowedPhoneLines.Checked[clbAllowedPhoneLines.Items.Add(uPhones.Phones.Phones[i].Name)] := True;
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     tmp := Config.ReadString('PHONELINES','');
   while pos(';',tmp) > 0 do
     begin
@@ -69,7 +70,7 @@ begin
   for i := 0 to clbAllowedPhoneLines.Count-1 do
     if not clbAllowedPhoneLines.Checked[i] then
       tmp := tmp+clbAllowedPhoneLines.Items[i]+';';
-  with Application as IBaseApplication do
+  with Application as IBaseConfig do
     Config.WriteString('PHONELINES',tmp);
   inherited CommitTransaction;
 end;
@@ -80,7 +81,6 @@ begin
 end;
 
 initialization
-  {$I uphoneoptions.lrs}
 
 end.
 

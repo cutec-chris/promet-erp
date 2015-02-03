@@ -24,9 +24,10 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, CustApp, uBaseDBInterface,
-  UTF8Process,uData,FileUtil,Process, db, uSystemMessage,
-  uPowerState, pcmdprometapp,LCLProc,math,uBaseCustomApplication,
-  uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts;
+  uData,Process, db, uSystemMessage,
+  uPowerState, pcmdprometapp,math,uBaseCustomApplication,
+  uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts,
+  uprometscripts;
 type
   { TProcessManager }
 
@@ -35,7 +36,6 @@ type
   private
     PowerStateMonitor: TPowerStateMonitor;
   protected
-    SysCommands: TSystemCommands;
     Processes : array of TProcProcess;
     procedure DoRun; override;
   public
@@ -44,8 +44,8 @@ type
   end;
 const
   RefreshAll = 15;//5 mins refresh
-{ TProcProcess }
 
+{ TProcProcess }
 procedure TProcessManager.ProcessManagerException(Sender: TObject; E: Exception
   );
 begin
@@ -63,9 +63,11 @@ var
   a: Integer;
   tmp: String;
   aRefresh : Integer = 0;
+  aFasterExecute : Integer = 0;
   aInt: Integer;
   aNow: TDateTime;
   bProcess: TProcProcess;
+  aMin: Integer;
   procedure ProcessData(aProcess : TProcProcess);
   var
     aLine: String;
@@ -122,7 +124,6 @@ var
   end;
 
 begin
-  SysCommands := nil;
   if CanWriteToProgramDir then
     begin
       GetLog.FileName:='processmanager.log';
@@ -176,92 +177,27 @@ begin
   Data.ProcessClient.Processes.Parameters.Open;
   while not Terminated do
     begin
-      aNow := Now();
-      if aNow > 0 then
+      Data.ProcessClient.RefreshList;
+      if Data.ProcessClient.DataSet.Locate('NAME','*',[]) then
+        Data.ProcessClient.Process
+      else
         begin
-          if aRefresh = 0 then
-            begin
-              Data.ProcessClient.DataSet.Refresh;
-              Data.ProcessClient.Processes.DataSet.Refresh;
-              aRefresh:=RefreshAll;
-            end;
-          if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
-            begin
-              if Data.ProcessClient.DataSet.FieldByName('STATUS').AsString = 'N' then
-                begin
-                  Terminate;
-                  break;
-                end
-              else if Data.ProcessClient.DataSet.FieldByName('STATUS').AsString <> 'R' then
-                begin
-                  Data.ProcessClient.DataSet.Edit;
-                  Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='R';
-                  Data.ProcessClient.DataSet.Post;
-                end;
-            end;
-          Data.ProcessClient.Processes.DataSet.First;
-          while not Data.ProcessClient.Processes.DataSet.EOF do
-            begin
-              aProcess := Data.ProcessClient.Processes.DataSet.FieldByName('NAME').AsString;
-              if FileExists(aProcess+ExtractFileExt(ExeName)) then
-                begin
-                  Found := False;
-                  cmd := aProcess+ExtractFileExt(ExeName);
-                  cmd := cmd+BuildCmdLine;
-                  for i := 0 to length(Processes)-1 do
-                    if Processes[i].CommandLine = cmd then
-                      begin
-                        bProcess := Processes[i];
-                        if bProcess.Active then
-                          begin
-                            Found := True;
-                            ProcessData(bProcess);
-                          end
-                        else
-                          begin
-                            ProcessData(bProcess);
-                            if not bProcess.Informed then
-                              begin
-                                Log(aprocess+':'+strExitted);
-                                bProcess.DoExit;
-                                bProcess.Informed := True;
-                              end;
-                            if (aNow > bProcess.Timeout) {and (bProcess.Timeout > 0)} then
-                              begin
-                                Log(aprocess+':'+strStartingProcessTimeout+' '+DateTimeToStr(bProcess.Timeout)+'>'+DateTimeToStr(aNow));
-                                bProcess.Timeout := aNow+(max(Data.ProcessClient.Processes.DataSet.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
-                                Log(aProcess+':'+strStartingProcess+' ('+bProcess.CommandLine+')');
-                                bProcess.Execute;
-                                bProcess.Informed := False;
-                                Log(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(bProcess.Timeout));
-                              end;
-                            Found := True;
-                          end;
-                      end;
-                  if not Found then
-                    begin
-                      cmd := aProcess+ExtractFileExt(ExeName);
-                      cmd := cmd+BuildCmdLine;
-                      Log(aProcess+':'+strStartingProcess+' ('+cmd+')');
-                      Process := TProcProcess.Create(Self);
-                      Process.Id := Data.ProcessClient.Processes.Id.AsVariant;
-                      Process.Name:=aProcess;
-                      Process.Informed:=False;
-                      Setlength(Processes,length(Processes)+1);
-                      Processes[length(Processes)-1] := Process;
-                      Process.CommandLine:=cmd;
-                      Process.CurrentDirectory:=Location;
-                      Process.Options := [poNoConsole,poUsePipes];
-                      Process.Execute;
-                      Process.Timeout := aNow+(max(Data.ProcessClient.Processes.DataSet.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
-                      Log(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(Processes[i].Timeout));
-                    end;
-                end
-              else Log(aProcess+ExtractFileExt(ExeName)+':'+'File dosend exists');
-              Data.ProcessClient.Processes.DataSet.Next;
-            end;
+          Data.ProcessClient.Insert;
+          Data.ProcessClient.FieldByName('NAME').AsString:='*';
+          Data.ProcessClient.FieldByName('STATUS').AsString:='N';
+          Data.ProcessClient.FieldByName('NOTES').AsString:=strRunsOnEveryMashine;
+          Data.ProcessClient.Post;
         end;
-      sleep(1000);
+      if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
+        begin
+          if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
+            begin
+              Terminate;
+              exit;
+            end;
+          Data.ProcessClient.Process;
+        end;
+      sleep(3000);
     end;
   try
     Data.ProcessClient.DataSet.Edit;
@@ -276,7 +212,6 @@ constructor TProcessManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   StopOnException:=True;
-  OnException:=@ProcessManagerException;
   PowerStateMonitor := TPowerStateMonitor.Create;
 end;
 destructor TProcessManager.Destroy;

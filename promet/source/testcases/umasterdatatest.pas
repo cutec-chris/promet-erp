@@ -24,7 +24,7 @@ var
   aMD : TMasterdata;
 procedure MasterdataTest.Create;
 begin
-  aMD := TMasterdata.Create(nil,Data);
+  aMD := TMasterdata.Create(nil);
   aMD.CreateTable;//get sure that the table is there
   aMD.Insert;
   aMD.Text.AsString := 'Testarticle';

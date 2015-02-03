@@ -6,9 +6,9 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication, lnetbase,
   lNet, uBaseDBInterface, md5,uData,eventlog,
-  pmimemessages, fileutil,lconvencoding,uBaseApplication, ulsmtpsrv,
+  pmimemessages, uBaseApplication, ulsmtpsrv,
   dnssend,smtpsend,synamisc,uBaseDbClasses,uMimeMessages,mimemess,laz_synapse,
-  synautil,uPerson,db,Utils,variants, types,uMessages,LCLProc,LCLIntf;
+  synautil,uPerson,db,Utils,variants, types,uMessages;
 resourcestring
   strActionMessageReceived                   = '%s';
 type
@@ -129,7 +129,7 @@ var
   tmp: String;
 begin
   aRes := aTo.Count>0;
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   for i := 0 to aTo.Count-1 do
     begin
       if Data.IsSQLDb then
@@ -172,14 +172,14 @@ begin
   aRes := aTo.Count>0;
   for i := 0 to aTo.Count-1 do
     begin
-      aUser := TUser.Create(nil,Data);
+      aUser := TUser.Create(nil);
       if Data.IsSQLDb then
         Data.SetFilter(aUser,'UPPER("EMAIL")=UPPER('''+GetEmailAddr(aTo[i])+''')')
       else
         Data.SetFilter(aUser,'"EMAIL"='''+GetEmailAddr(aTo[i])+'''');
       if aUser.Count>0 then
         begin
-          aMessage := TMimeMessage.Create(nil,Data);
+          aMessage := TMimeMessage.Create(nil);
           aMessage.Insert;
           aMessage.FieldByName('USER').AsString := aUser.DataSet.FieldByName('ACCOUNTNO').AsString;
           aMessage.FieldByName('TYPE').AsString := 'EMAIL';
@@ -188,14 +188,14 @@ begin
           msg.Lines.Text:=aMail.Text;
           msg.DecodeMessage;
           aMessage.DecodeMessage(msg);
-          atmp:=ConvertEncoding(getemailaddr(msg.Header.From),GuessEncoding(getemailaddr(msg.Header.From)),EncodingUTF8);
-          aSubject :=ConvertEncoding(getemailaddr(msg.Header.Subject),GuessEncoding(getemailaddr(msg.Header.Subject)),EncodingUTF8);
-          CustomerCont := TPersonContactData.Create(Self,Data);
+          atmp:=SysToUni(getemailaddr(msg.Header.From));
+          aSubject :=SysToUni(getemailaddr(msg.Header.Subject));
+          CustomerCont := TPersonContactData.Create(Self);
           if Data.IsSQLDb then
             Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
           else
             Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
-          Customers := TPerson.Create(Self,Data);
+          Customers := TPerson.Create(Self);
           Customers.SelectByAccountNo(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString);
           Customers.Open;
           CustomerCont.Free;
@@ -291,7 +291,7 @@ begin
                     aRes := False
                   else
                     begin
-                      aMessage := TMimeMessage.Create(nil,Data);
+                      aMessage := TMimeMessage.Create(nil);
                       aMessage.Insert;
                       aMessage.FieldByName('TYPE').AsString := 'EMAIL';
                       aMessage.FieldByName('READ').AsString := 'N';
@@ -337,8 +337,8 @@ begin
   if NextCollectTime>Now() then exit;
   Result := True;
   NextCollectTime:=Now+((1/MinsPerDay)*0.5);
-  aMessage := TMessage.Create(nil,Data);
-  bMessages := TMessageList.Create(nil,Data);
+  aMessage := TMessage.Create(nil);
+  bMessages := TMessageList.Create(nil);
   try
     with Data.Tree.DataSet do
       begin
@@ -411,7 +411,7 @@ begin
   Result := True;
   aServers := tStringList.Create;
   DNSServers := TStringList.Create;
-  MessageIndex := TmessageList.Create(nil,data);
+  MessageIndex := TmessageList.Create(nil);
   try
     Data.SetFilter(MessageIndex,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(IntToStr(TREE_ID_SEND_MESSAGES))+' AND '+Data.QuoteField('READ')+'='+Data.QuoteValue('N'));
     if MessageIndex.Count>0 then
@@ -419,7 +419,7 @@ begin
         DNSServers.CommaText:=GetDNS;
         while not MessageIndex.DataSet.EOF do
           begin
-            aMessage := TMimeMessage.Create(nil,Data);
+            aMessage := TMimeMessage.Create(nil);
             try
               aMessage.Select(MessageIndex.ID.AsVariant);
               aMessage.Open;
@@ -486,7 +486,7 @@ var
   atxt: TStringList;
   aStrm: TStringStream;
 begin
-  aMessage := TMessage.Create(nil,Data);
+  aMessage := TMessage.Create(nil);
   aMessage.Append;
   Randomize;
   tmpID := '';
@@ -524,19 +524,19 @@ var
   smtp: TSMTPSend;
   DNSServers: TStringList;
   i: Integer;
-  aTime: types.DWORD;
+  aTime: TDateTime;
 begin
-  debugln('starting...');
+  Info('starting...');
   with Self as IBaseDBInterface do
     begin
       DBLogout;
       if not Login then
         begin
-          debugln('login failed');
+          Info('login failed');
           exit;
         end;
     end;
-  debugln('login ok');
+  Info('login ok');
   with Self as IBaseApplication do
     begin
       DecodeDate(Now(),y,m,d);
@@ -547,19 +547,19 @@ begin
       GetLog.Active:=True;
     end;
   DefaultDomain := GetOptionValue('d','domain');
-  Subscribers :=  TMessageSubscribings.Create(nil,Data);
+  Subscribers :=  TMessageSubscribings.Create(nil);
   Subscribers.CreateTable;
   Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'));
   Server.OnLogin :=@ServerLogin;
   Server.OnLog:=@ServerLog;
   Server.OnMailreceived:=@ServerMailreceived;
   Server.OnAcceptMail:=@ServerAcceptMail;
-  debugln('server running...');
+  Info('server running...');
   NextCollectTime := Now();
   NextSendTime := Now();
   Server.Start;
   i := 0;
-  aTime := GetTickCount64();
+  aTime := Now();
   while not Terminated do
     begin
       inc(i);
@@ -572,7 +572,7 @@ begin
           sleep(100);
           i := 0;
         end;
-      if (GetTickCount64()-aTime)>(60*60*MSecsPerSec) then break;
+      if (Now()-aTime)>(1/HoursPerDay) then break;
     end;
   // stop program loop
   Subscribers.Free;
@@ -587,12 +587,12 @@ begin
   if GetOptionValue('i','interface')<>'' then
     begin
       Server.ListenInterface := GetOptionValue('i','interface');
-      debugln('using interface:'+GetOptionValue('i','interface'));
+      Info('using interface:'+GetOptionValue('i','interface'));
     end;
   if GetOptionValue('p','port')<>'' then
     begin
       Server.ListenPort := StrToIntDef(GetOptionValue('p','port'),25);
-      debugln('using port:'+GetOptionValue('p','port'));
+      Info('using port:'+GetOptionValue('p','port'));
     end;
 end;
 
@@ -611,4 +611,4 @@ begin
   Application:=TPMTAServer.Create(nil);
   Application.Run;
   Application.Free;
-end.
+end.

@@ -24,7 +24,7 @@ interface
 
 uses
   Classes,SysUtils,uDocuments,uBaseDbClasses,uBaseDBInterface,db,uIntfStrConsts,
-  Utils;
+  Utils,usimpleprocess;
 type
 
   { TDocPages }
@@ -47,7 +47,7 @@ type
   end;
 
 implementation
-uses uData,uBaseApplication,dEXIF,UTF8Process,process,LCLProc,ProcessUtils,
+uses uData,uBaseApplication,dEXIF,Process,
   uthumbnails;
 
 procedure TDocPages.SetParamsFromExif(extn: string; aFullStream: TStream);
@@ -168,7 +168,7 @@ begin
             Add('ORIGDATE',ftDateTime,0,False);
             Add('DONE',ftString,1,False);
             Add('CHANGEDBY',ftString,4,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('TREEENTRY',ftLargeint,0,False);
             Add('FULLTEXT',ftMemo,0,False);
             Add('THUMBNAIL',ftBlob,0,False);
@@ -184,8 +184,9 @@ var
   extn: String;
   aTime: TDateTime;
   bDocument: TDocument;
+  aSStream: TStringStream;
 begin
-  aDocument := TDocument.Create(nil,Data);
+  aDocument := TDocument.Create(nil);
   aDocument.SelectByID(aDocuments.Id.AsVariant);
   aDocument.Open;
   if aDocument.Count>0 then
@@ -200,7 +201,10 @@ begin
       extn :=  AnsiString(AnsiLowerCase(ExtractFileExt(aDocuments.filename)));
       aFullStream.Position:=0;
       SetParamsFromExif(extn,aFullStream);
-      GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream);
+      aSStream := TStringStream.Create('');
+      Data.BlobFieldToStream(aDocument.DataSet,'FULLTEXT',aSStream);
+      GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream,aSStream.DataString);
+      aSStream.Free;
       if FieldByName('ORIGDATE').IsNull then
         FieldByName('ORIGDATE').AsDateTime:=aDocument.FieldByName('DATE').AsDateTime;
       if FieldByName('ORIGDATE').IsNull then
@@ -208,7 +212,7 @@ begin
       Post;
       if aStream.Size>0 then
         Data.StreamToBlobField(aStream,Self.DataSet,'THUMBNAIL');
-      bDocument := TDocument.Create(nil,Data);
+      bDocument := TDocument.Create(nil);
       bdocument.Ref_ID:=Id.AsVariant;
       bDocument.BaseTyp:='S';
       bDocument.AddFromLink(Data.BuildLink(aDocument.DataSet));
@@ -218,7 +222,6 @@ begin
     end;
   aDocument.Free;
 end;
-
 procedure TDocPages.AddFromFile(aFile: UTF8String);
 var
   aDocument: TDocument;
@@ -229,6 +232,8 @@ var
   aSecFile: String = '';
   aProc: TProcess;
   aSL: TStringList;
+  aText: string;
+  ss: TStringStream;
 begin
   if FileExists(aFile) then
     begin
@@ -238,7 +243,7 @@ begin
         FieldByName('TYPE').AsString:=FTyp;
       Post;
       DataSet.Edit;
-      aDocument := TDocument.Create(nil,Data);
+      aDocument := TDocument.Create(nil);
       adocument.Ref_ID:=Id.AsVariant;
       aDocument.BaseTyp:='S';
       aDocument.AddFromFile(aFile);
@@ -292,7 +297,7 @@ begin
           if aSecFile <> '' then
             begin
               aDocument.Free;
-              aDocument := TDocument.Create(nil,Data);
+              aDocument := TDocument.Create(nil);
               adocument.Ref_ID:=Id.AsVariant;
               aDocument.BaseTyp:='S';
               aDocument.AddFromFile(aSecFile);
@@ -302,13 +307,21 @@ begin
         end;
       if aFullStream.Size=0 then
         aDocument.CheckoutToStream(aFullStream);
+      aFullStream.Position:=0;
       SetParamsFromExif(extn,aFullStream);
       if FieldByName('ORIGDATE').IsNull then
         FieldByName('ORIGDATE').AsDateTime:=aDocument.FieldByName('DATE').AsDateTime;
       if FieldByName('ORIGDATE').IsNull then
         FieldByName('ORIGDATE').AsDateTime:=Now();
-      GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream);
-      Post;
+      aDocument.GetText(aFullStream,extn,aText);
+      GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream,aText);
+      Self.Post;
+      if aText<>'' then
+        begin
+          ss := TStringStream.Create(aText);
+          Data.StreamToBlobField(ss,Self.DataSet,'FULLTEXT');
+          ss.Free;
+        end;
       if aStream.Size>0 then
         Data.StreamToBlobField(aStream,Self.DataSet,'THUMBNAIL');
       aStream.Free;

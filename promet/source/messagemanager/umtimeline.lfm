@@ -4,13 +4,13 @@ object fmTimeline: TfmTimeline
   Top = 257
   Width = 554
   Caption = 'Nachrichtenzentrale'
-  ClientHeight = 465
+  ClientHeight = 444
   ClientWidth = 554
   Color = clWindow
   KeyPreview = True
+  Menu = MainMenu1
   OnClose = FormClose
   OnKeyDown = FormKeyDown
-  OnShow = FormShow
   Position = poDefault
   ShowHint = True
   LCLVersion = '1.3'
@@ -28,7 +28,7 @@ object fmTimeline: TfmTimeline
       Left = 29
       Height = 92
       Top = 9
-      Width = 462
+      Width = 482
       Align = alClient
       BorderSpacing.Left = 20
       BorderSpacing.Around = 8
@@ -38,10 +38,10 @@ object fmTimeline: TfmTimeline
       WantReturns = False
     end
     object bSend: TBitBtn
-      Left = 499
+      Left = 519
       Height = 92
       Top = 9
-      Width = 46
+      Width = 26
       Action = acSend
       Align = alRight
       AutoSize = True
@@ -287,12 +287,13 @@ object fmTimeline: TfmTimeline
         ScrollWidth = 342
         TabOrder = 0
         TabStop = False
+        TopIndex = -1
       end
     end
   end
   object pMessages: TPanel
     Left = 0
-    Height = 322
+    Height = 301
     Top = 143
     Width = 554
     Align = alClient
@@ -312,7 +313,7 @@ object fmTimeline: TfmTimeline
     object ToolBar1: TToolBar
       Left = 0
       Top = 0
-      Width = 256
+      Width = 280
       Align = alNone
       ButtonHeight = 30
       ButtonWidth = 30
@@ -325,7 +326,7 @@ object fmTimeline: TfmTimeline
         Top = 0
         Action = acRefresh
       end
-      object ToolButton2: TSpeedButton
+      object tbAdd: TSpeedButton
         Left = 1
         Height = 32
         Hint = 'eine Nachricht,Screenshot oder Datei senden,'#10'oder eine Notiz erstellen'
@@ -371,7 +372,7 @@ object fmTimeline: TfmTimeline
           0000000000000000000000000000000000000000000000000000
         }
         GroupIndex = 11
-        OnClick = ToolButton2Click
+        OnClick = tbAddClick
       end
       object ToolButton3: TToolButton
         Left = 72
@@ -527,6 +528,7 @@ object fmTimeline: TfmTimeline
       end
       object ToolButton4: TToolButton
         Left = 62
+        Height = 30
         Top = 0
         Width = 10
         Caption = 'ToolButton4'
@@ -534,6 +536,7 @@ object fmTimeline: TfmTimeline
       end
       object ToolButton5: TToolButton
         Left = 102
+        Height = 30
         Top = 0
         Width = 10
         Caption = 'ToolButton5'
@@ -541,6 +544,7 @@ object fmTimeline: TfmTimeline
       end
       object ToolButton6: TToolButton
         Left = 202
+        Height = 30
         Top = 0
         Width = 10
         Caption = 'ToolButton6'
@@ -553,22 +557,23 @@ object fmTimeline: TfmTimeline
       end
     end
     object pEnviroment: TPanel
-      Left = 246
+      Left = 254
       Height = 30
       Top = 2
-      Width = 308
+      Width = 300
       Alignment = taLeftJustify
       BevelOuter = bvNone
       Caption = '  Umgebung'
       ClientHeight = 30
-      ClientWidth = 308
+      ClientWidth = 300
       TabOrder = 1
+      Visible = False
       object cbEnviroment: TComboBox
-        Left = 75
-        Height = 21
+        Left = 88
+        Height = 27
         Top = 3
-        Width = 192
-        ItemHeight = 13
+        Width = 179
+        ItemHeight = 0
         TabOrder = 0
         Text = '<keine>'
       end
@@ -699,6 +704,16 @@ object fmTimeline: TfmTimeline
       ImageIndex = 70
       OnExecute = acSetLinkExecute
     end
+    object acStartTimeRegistering: TAction
+      Caption = 'Zeiterfassung starten'
+      Hint = 'Zeiterfassung starten'
+      ImageIndex = 64
+      OnExecute = acStartTimeRegisteringExecute
+    end
+    object acAddTag: TAction
+      Caption = 'Stichwort/Tag hinzufügen'
+      OnExecute = acAddTagExecute
+    end
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     left = 392
@@ -706,19 +721,13 @@ object fmTimeline: TfmTimeline
   end
   object IdleTimer1: TIdleTimer
     Enabled = False
-    Interval = 5000
+    Interval = 10000
     OnTimer = IdleTimer1Timer
     left = 392
     top = 128
   end
-  object Timer1: TTimer
-    Enabled = False
-    Interval = 400
-    OnTimer = Timer1Timer
-    left = 392
-    top = 176
-  end
   object PopupMenu1: TPopupMenu
+    OnPopup = PopupMenu1Popup
     left = 448
     top = 128
     object MenuItem2: TMenuItem
@@ -730,6 +739,9 @@ object fmTimeline: TfmTimeline
     object MenuItem4: TMenuItem
       Action = acMarkasRead
     end
+    object MenuItem9: TMenuItem
+      Action = acStartTimeRegistering
+    end
     object MenuItem6: TMenuItem
       Action = acCopyToClipboard
     end
@@ -739,6 +751,9 @@ object fmTimeline: TfmTimeline
     object MenuItem8: TMenuItem
       Caption = '-'
     end
+    object MenuItem10: TMenuItem
+      Action = acAddTag
+    end
     object MenuItem7: TMenuItem
       Action = acSetLink
     end
@@ -746,4 +761,31 @@ object fmTimeline: TfmTimeline
       Action = acDelete
     end
   end
-end
+  object MainMenu1: TMainMenu
+    left = 328
+    top = 136
+    object MenuItem12: TMenuItem
+      Caption = 'Eintrag'
+      object MenuItem13: TMenuItem
+        Action = acAnswer
+      end
+      object MenuItem14: TMenuItem
+        Action = acCopyToClipboard
+      end
+      object MenuItem15: TMenuItem
+        Action = acDetailView
+      end
+      object MenuItem16: TMenuItem
+        Action = acStartTimeRegistering
+      end
+    end
+    object MenuItem11: TMenuItem
+      Caption = 'Optionen'
+      object minewestDown: TMenuItem
+        AutoCheck = True
+        Caption = 'nuester Eintrag unten'
+        OnClick = minewestDownClick
+      end
+    end
+  end
+end

@@ -21,7 +21,7 @@ unit uMimeTypeEdit;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   EditBtn, ExtCtrls, Buttons, uIntfStrConsts, DBGrids, DBCtrls, uData, LCLType,
   ButtonPanel, db,uDocuments;
 type
@@ -53,6 +53,7 @@ var
   fMimeTypeEdit: TfMimeTypeEdit;
 
 implementation
+{$R *.lfm}
 procedure TfMimeTypeEdit.FormShow(Sender: TObject);
 begin
   SetupDB;
@@ -91,6 +92,5 @@ begin
     end;
 end;
 initialization
-  {$I umimetypeedit.lrs}
 end.
 

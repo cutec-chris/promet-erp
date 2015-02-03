@@ -154,7 +154,7 @@ type
     procedure OrdersStateChange(Sender: TObject);
     procedure sbMenueClick(Sender: TObject);
     procedure SenderTComboBoxActiveSearchItemFound(aIdent: string;
-      aName: string; aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aName: string; aStatus: string;aActive : Boolean; aLink: string;aPrio :Integer; aItem: TBaseDBList=nil);
     procedure spPreviewMoved(Sender: TObject);
     function TOrderGetSerial(Sender: TOrder; aMasterdata: TMasterdata;
       aQuantity: Integer): Boolean;
@@ -168,6 +168,7 @@ type
     FOpenLink : string;
     procedure DoOpenLink(Data : PtrInt);
     procedure AddAdditional(Sender : TObject);
+    procedure AddDates(Sender: TObject);
     procedure AddOverview(Sender : TObject);
     procedure AddHistory(Sender : TObject);
     procedure AddDocuments(Sender : TObject);
@@ -195,6 +196,7 @@ type
     procedure DoSelect;
     procedure ShowPreview(DocID : Int64);
     procedure ShowFrame; override;
+    procedure SetFocus; override;
     procedure RefreshAddress;
   end;
 implementation
@@ -205,7 +207,7 @@ uses uData,uBaseVisualControls,uOrderAdditionalFrame,uOverviewFrame,
   uSelectReport,uNewStorage,uMainTreeFrame,uRepairPositionFrame,uQSPositionFrame,
   uDetailPositionFrame,uBaseVisualApplication,uPersonFrame,uPersonFinance,
   uAccountingTransfer,uPrometFramesInplace,Utils,uorderaddressframe,uMessageEdit,
-  uNRights,uBookSerial;
+  uNRights,uBookSerial,uBaseApplication,utextpositionframe,urepairimageframe;
 resourcestring
   strAdditional                       = 'Zusätzlich';
   strDates                            = 'Datum';
@@ -229,9 +231,12 @@ begin
       if aReport.PrepareReport then
         begin
           isPrepared := True;
-          aReport.ExportTo(frFilters[i].ClassRef,GetTempDir+aSubject+'.pdf');
-          fMessageEdit := TfMessageEdit.Create(Self);
-          fMessageEdit.SendMailToWithDoc(aMail,aSubject,aText,GetTempDir+aSubject+'.pdf',True);
+          with BaseApplication as IBaseApplication do
+            begin
+              aReport.ExportTo(frFilters[i].ClassRef,GetInternalTempDir+aSubject+'.pdf');
+              fMessageEdit := TfMessageEdit.Create(nil);
+              fMessageEdit.SendMailToWithDoc(aMail,aSubject,aText,GetInternalTempDir+aSubject+'.pdf',True);
+            end;
         end;
 end;
 procedure TfOrderFrame.OnSearchKey(Sender: TObject; X, Y: Integer; var Key: Word;
@@ -356,7 +361,7 @@ procedure TfOrderFrame.acGotoAddressExecute(Sender: TObject);
 var
   aPerson: TPerson;
 begin
-  aPerson := TPerson.Create(Self,Data);
+  aPerson := TPerson.CreateEx(Self,Data);
   aPerson.SelectByAccountNo(TOrder(DataSet).Address.FieldByName('ACCOUNTNO').AsString);
   aPerson.Open;
   if aPerson.Count > 0 then
@@ -472,12 +477,22 @@ begin
 end;
 procedure TfOrderFrame.ActiveSearchEndItemSearch(Sender: TObject);
 begin
-  if not ActiveSearch.Active then
+  //if not ActiveSearch.Active then
     begin
       if ActiveSearch.Count=0 then
         pSearch.Visible:=False;
     end;
 end;
+
+procedure TfOrderFrame.AddDates(Sender: TObject);
+begin
+  with Sender as TfOrderDateFrame do
+    begin
+      IsNeeded(FDataSet.DataSet);
+      SetRights(FEditable);
+    end;
+end;
+
 procedure TfOrderFrame.cbPaymentTargetSelect(Sender: TObject);
 begin
   if Data.PaymentTargets.DataSet.Locate('TEXT',cbPaymentTarget.Text,[]) then
@@ -556,7 +571,7 @@ begin
     begin
       if lbResults.ItemIndex < 0 then exit;
       pSearch.Visible:=False;
-      aPerson := TPerson.Create(nil,Data);
+      aPerson := TPerson.Create(nil);
       aPerson.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
       aPerson.Open;
       aPerson.Address.Open;
@@ -576,7 +591,8 @@ begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
 end;
 procedure TfOrderFrame.SenderTComboBoxActiveSearchItemFound(aIdent: string;
-  aName: string; aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aName: string; aStatus: string; aActive: Boolean; aLink: string;
+  aPrio: Integer; aItem: TBaseDBList);
 begin
   with pSearch do
     begin
@@ -636,9 +652,9 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsInteger,'O',DataSet.FieldByName('ORDERNO').AsString,Null,Null);
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'O',DataSet.FieldByName('ORDERNO').AsString,Null,Null);
       TPrometInplaceFrame(Sender).SetRights(FEditable);
     end;
 end;
@@ -752,9 +768,9 @@ begin
   pcHeader.AddTabClass(TfOrderOverviewFrame,strOverview,@AddOverview);
   if FDataSet.Count > 1 then
     pcHeader.AddTab(TfOrderOverviewFrame.Create(Self),False);
-  pcHeader.AddTabClass(TfOrderDateFrame,strDates);
+  pcHeader.AddTabClass(TfOrderDateFrame,strDates,@AddDates);
   aFrame := TfOrderDateFrame.Create(Self);
-  if TfOrderDateFrame(aFrame).IsNeeded(FDataSet.DataSet) then
+  if TfOrderDateFrame(aFrame).IsNeeded(FDataSet.DataSet) or (DataSet.State=dsInsert) then
     begin
       pcHeader.AddTab(aFrame,False);
       TfOrderDateFrame(aFrame).SetRights(FEditable);
@@ -767,7 +783,7 @@ begin
   pcHeader.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsVariant,'O',DataSet.FieldByName('ORDERNO').AsString,Null,Null);
       aDocuments.Open;
@@ -813,6 +829,7 @@ begin
         TfOrderAddress(pAddresses.Controls[0]).SetFocus;
       exit;
     end;
+  FPosFrame.SetFocus;
   //All what not depends on new order
   if TOrder(DataSet).Address.Count > 0 then
     TOrder(DataSet).Address.DataSet.Locate('TYPE','DAD',[loPartialKey]);
@@ -874,8 +891,15 @@ end;
 procedure TfOrderFrame.ShowFrame;
 begin
   inherited ShowFrame;
+  //FPosFrame.GridView.SetupHeader;
+end;
+
+procedure TfOrderFrame.SetFocus;
+begin
+  inherited SetFocus;
   FPosFrame.SetFocus;
 end;
+
 procedure TfOrderFrame.GotoPosition;
 begin
   FPosFrame.SetFocus;
@@ -926,13 +950,20 @@ begin
   FPosFrame.Align:=alClient;
   FPosFrame.Show;
   FPosFrame.InplaceFrames[0] := TfDetailPositionFrame.Create(FPosFrame);
+  FPosFrame.InplaceFrames[1] := TfDetailPositionFrame.Create(FPosFrame);
+  FPosFrame.InplaceFrames[2] := TfDetailPositionFrame.Create(FPosFrame);
+  FPosFrame.InplaceFrames[3] := TfTextPositionFrame.Create(FPosFrame);
   FPosFrame.InplaceFrames[5] := TfRepairPositionFrame.Create(FPosFrame);
   FPosFrame.InplaceFrames[6] := TfQSPositionFrame.Create(FPosFrame);
+  FPosFrame.InplaceFrames[8] := TfRepairImageFrame.Create(FPosFrame);
   FPosFrame.FormName:='ORD';
   PreviewFrame := TfPreview.Create(Self);
   PreviewFrame.Parent := pPreviewT;
   PreviewFrame.Align := alClient;
   PreviewFrame.Show;
+  {$ifdef DARWIN}
+  cbStatus.Style:=csDropdown;
+  {$endif}
 end;
 destructor TfOrderFrame.Destroy;
 begin
@@ -970,7 +1001,7 @@ begin
   if UseTransactions then
     Data.StartTransaction(FConnection);
   FreeAndNil(FDataSet);
-  DataSet := TOrder.Create(Self,Data,FConnection);
+  DataSet := TOrder.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@OrdersStateChange;
   TOrder(DataSet).Select(copy(aLink,pos('@',aLink)+1,length(aLink)));
   DoOpen;
@@ -988,7 +1019,7 @@ begin
   if UseTransactions then
     Data.StartTransaction(FConnection);
   FreeAndNil(FDataSet);
-  DataSet := TOrder.Create(Self,Data,FConnection);
+  DataSet := TOrder.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@OrdersStateChange;
   DataSet.Select(0);
   DataSet.Open;

@@ -3,7 +3,10 @@
   <ProjectOptions>
     <Version Value="9"/>
     <General>
-      <SessionStorage Value="InProjectDir"/>
+      <Flags>
+        <SaveClosedFiles Value="False"/>
+      </Flags>
+      <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
       <Title Value="messagemanager"/>
       <ResourceType Value="res"/>
@@ -27,6 +30,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--mandant=&quot;TCS-Times2&quot; --user=&quot;Christian Ulrich&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="9">
@@ -67,7 +71,6 @@
       <Unit0>
         <Filename Value="messagemanager.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="messagemanager"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -91,7 +94,6 @@
         <ComponentName Value="fFollow"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ufollow"/>
       </Unit3>
       <Unit4>
         <Filename Value="udetailview.pas"/>
@@ -99,7 +101,6 @@
         <ComponentName Value="fDetailView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="udetailview"/>
       </Unit4>
     </Units>
   </ProjectOptions>
@@ -122,15 +123,9 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="12">
+    <Exceptions Count="14">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -167,6 +162,12 @@
       <Item12>
         <Name Value="EGridException"/>
       </Item12>
+      <Item13>
+        <Name Value="RunError(216)"/>
+      </Item13>
+      <Item14>
+        <Name Value="EAccessViolation"/>
+      </Item14>
     </Exceptions>
   </Debugging>
 </CONFIG>

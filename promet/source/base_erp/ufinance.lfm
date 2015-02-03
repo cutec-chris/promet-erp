@@ -1,0 +1,77 @@
+inherited fFinance: TfFinance
+  Left = 0
+  Height = 319
+  Top = 0
+  Width = 528
+  ClientHeight = 319
+  ClientWidth = 528
+  DesignLeft = 439
+  DesignTop = 351
+  object Label1: TLabel[0]
+    Left = 16
+    Height = 13
+    Top = 16
+    Width = 31
+    Caption = 'Konto'
+    ParentColor = False
+  end
+  object Label2: TLabel[1]
+    Left = 264
+    Height = 13
+    Top = 16
+    Width = 67
+    Caption = 'Kostenstelle'
+    ParentColor = False
+  end
+  object Label3: TLabel[2]
+    Left = 16
+    Height = 13
+    Top = 72
+    Width = 90
+    Caption = 'Hinweis/Infotext'
+    ParentColor = False
+  end
+  object DBMemo1: TDBMemo[3]
+    Left = 16
+    Height = 216
+    Top = 88
+    Width = 495
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    DataSource = DataSource
+    TabOrder = 0
+  end
+  object cbAccount: TDBEdit[4]
+    Left = 16
+    Height = 23
+    Top = 32
+    Width = 200
+    DataField = 'ACCOUNT'
+    DataSource = DataSource
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 1
+  end
+  object cbCostcentre: TDBEdit[5]
+    Left = 264
+    Height = 23
+    Top = 32
+    Width = 200
+    DataField = 'COSTCENTRE'
+    DataSource = DataSource
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 2
+  end
+  object SpeedButton1: TSpeedButton[6]
+    Left = 216
+    Height = 22
+    Top = 32
+    Width = 23
+    Caption = '...'
+    OnClick = cbAccountButtonClick
+  end
+  object DataSource: TDatasource[7]
+    left = 136
+    top = 64
+  end
+end

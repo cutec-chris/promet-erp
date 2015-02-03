@@ -21,7 +21,11 @@ unit uDocuments;
 {$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDBClasses, Utils, Graphics, fpolebasic,LConvEncoding;
+  Classes, SysUtils, db, uBaseDBClasses, Utils,
+  usimpleprocess
+  {$IFDEF LCL}
+  ,Graphics
+  {$ENDIF};
 type
 
   { TDocuments }
@@ -50,7 +54,7 @@ type
     property BaseVersion : Variant read FBaseVersion write FBaseVersion;
     property BaseLanguage : Variant read FBaseLanguage write FBaseLanguage;
     property ParentID : Variant read FParentID write SetParentID;
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     function GetUsedFields : string;
     function GetNumberFieldName : string;override;
     property FileName : string read GetFileName;
@@ -58,7 +62,7 @@ type
     procedure SelectByID(aID : LargeInt);
     procedure SelectByLink(aLink : string);
     procedure DefineFields(aDataSet : TDataSet);override;
-    procedure Select(aID : LargeInt;aType : string;aParent : LargeInt);overload;virtual;
+    procedure Select(aID : LargeInt;aType : string;aParent : LargeInt = 0);overload;virtual;
     procedure Select(aID : largeInt;aType : string;aTID : string;aVersion : Variant;aLanguage : Variant;aParent : LargeInt = 0);overload;virtual;
     procedure SelectByReference(aID : Variant);
     function OpenPath(aPath : string;aPathDelim : string = PathDelim) : Boolean;
@@ -106,7 +110,7 @@ type
     procedure SetbaseParent(AValue: TDocuments);
   protected
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     function CreateTable : Boolean;override;
@@ -114,7 +118,7 @@ type
     procedure Select(aID : LargeInt;aType : string;aTID : string;aVersion : Variant;aLanguage : Variant;aParent : LargeInt = 0);overload;override;
     procedure SelectByNumber(aNumber : Variant);override;
     procedure FillDefaults(aDataSet : TDataSet);override;
-    procedure AddFromStream(eName,Extension: string; Stream: TStream;aText : string = ''; AddDate: TDateTime = 0);
+    procedure AddFromStream(eName,Extension: string; Stream: TStream;aText : string = ''; AddDate: TDateTime = 0;SetText : Boolean = True);
     procedure AddFromFile(aFilename : string;aText : string = '';AddDate : TDateTime = 0);
     procedure AddFromDir(aFilename : string;aText : string = '';DoDelete : Boolean = False;AddDate : TDateTime = 0);
     procedure AddFromLink(aLink : string);
@@ -128,8 +132,8 @@ type
     function CollectCheckInFiles(Directory : string) : TStrings;
     function CheckCheckInFiles(aFiles : TStrings;Directory: string) : Boolean;
     function CheckinFiles(aFiles : TStrings;Directory: string;Desc : string = '') : Boolean;
-    function GetText(aStream : TStream;aExt : string;aText : string) : Boolean;
-    function GetWordText(aStream : TStream;aExt : string;aText : string) : Boolean;
+    function GetText(aStream : TStream;aExt : string;var aText : string) : Boolean;
+    //function GetWordText(aStream : TStream;aExt : string;var aText : string) : Boolean;
     property BaseParent : TDocuments read FBaseParent write SetbaseParent;
     property OnCheckCheckinFiles : TCheckCheckinFilesEvent read FOnCheckCheckinFiles write FOnCheckCheckinFiles;
     property AftercheckInFiles : TNotifyEvent read FAfterCheckinFiles write FAfterCheckInFiles;
@@ -139,8 +143,8 @@ type
     property DocumentActions : TDocumentActions read FDocumentActions;
   end;
 implementation
-uses uBaseDBInterface,uBaseApplication, uBaseApplicationTools, FileUtil,md5,
-  processUtils,Variants,LCLProc;
+uses uBaseDBInterface,uBaseApplication, uBaseApplicationTools,md5,
+  Variants,Process,uRTFtoTXT;
 resourcestring
   strFailedCreatingDiff         = 'konnte Differenzdatei von Datei %s nicht erstellen';
   strInvalidLink                = 'Dieser Link ist auf dieser Datenbank ungültig !';
@@ -206,6 +210,7 @@ begin
             Add('VIEW',ftString,255,False);
             Add('EDIT',ftString,255,False);
             Add('PRINT',ftString,255,False);
+            Add('USESTARTER',ftString,1,False);
             Add('TIMESTAMP',ftDate,0,False);
           end;
     end;
@@ -242,10 +247,10 @@ begin
   if FBaseParent.Count > 0 then
     ParentID:=FBaseParent.FieldByName('NUMBER').AsVariant;
 end;
-constructor TDocument.Create(aOwner: TComponent; DM: TComponent;
+constructor TDocument.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -254,8 +259,8 @@ begin
           UsePermissions:=False;
         end;
     end;
-  FMimeTypes := TMimeTypes.Create(Self,DM,aConnection,nil);
-  FDocumentActions := TDocumentActions.Create(Self,DM,aConnection,nil);
+  FMimeTypes := TMimeTypes.CreateEx(Self,DM,aConnection,nil);
+  FDocumentActions := TDocumentActions.CreateEx(Self,DM,aConnection,nil);
 end;
 
 destructor TDocument.Destroy;
@@ -375,10 +380,11 @@ begin
     end;
 end;
 procedure TDocument.AddFromStream(eName, Extension: string; Stream: TStream;
-  aText: string = ''; AddDate: TDateTime = 0);
+  aText: string; AddDate: TDateTime; SetText: Boolean);
 var
   DocID: LargeInt;
   ss: TStringStream;
+  OldPos: Int64;
 begin
   with BaseApplication as IBaseDbInterface do
     begin
@@ -395,9 +401,14 @@ begin
           FieldByName('EXTENSION').AsString := Extension;
           FieldByName('SIZE').AsInteger := Stream.Size;
           FieldByName('FULL').AsString:='Y';
+          OldPos := Stream.Position;
           Data.StreamToBlobField(Stream,DataSet,'DOCUMENT');
           if (aText = '') then
-            GetText(Stream,Extension,aText);
+            begin
+              Stream.Position:=OldPos;
+              if SetText then
+                GetText(Stream,'.'+Extension,aText);
+            end;
           if aText <> '' then
             begin
               ss := TStringStream.Create(aText);
@@ -418,7 +429,7 @@ procedure TDocument.AddFromFile(aFilename: string; aText: string;
 var
   aStream: TFileStream;
 begin
-  aStream := TFileStream.Create(UTF8ToSys(aFilename),fmOpenRead);
+  aStream := TFileStream.Create(UniToSys(aFilename),fmOpenRead);
   try
     if rpos('.',ExtractFileName(aFileName)) > 0 then
       AddFromStream(copy(ExtractFileName(aFileName),0,rpos('.',ExtractFileName(aFileName))-1),copy(ExtractFileExt(aFileName),2,length(aFileName)),aStream,aText,AddDate)
@@ -452,11 +463,11 @@ begin
           else
             FieldByName('DATE').AsFloat := AddDate;
           Post;
-          if FindFirstUTF8(AppendPathDelim(aFileName)+'*', faAnyFile, FindRec) = 0 THEN
+          if SysUtils.FindFirst(UniToSys(AppendPathDelim(aFileName)+'*'), faAnyFile, FindRec) = 0 THEN
             repeat
               if (FindRec.Name <> '.') AND (FindRec.Name <> '..') THEN
                 begin
-                  aDocument := TDocument.Create(Self,Data,Connection);
+                  aDocument := TDocument.CreateEx(Self,Data,Connection);
                   aDocument.Select(0);
                   aDocument.Open;
                   aDocument.Ref_ID:=FRefID;
@@ -472,7 +483,7 @@ begin
                   Change;
                   aDocument.Free;
                 end
-            until FindNextUTF8(FindRec) <> 0;
+            until SysUtils.FindNext(FindRec) <> 0;
         end;
     end;
 end;
@@ -485,7 +496,7 @@ begin
   if copy(aLink,0,9) <> 'DOCUMENTS' then exit;
   with BaseApplication as IBaseDbInterface do
     begin
-      aDocument := TDocument.Create(Self,Data,Connection);
+      aDocument := TDocument.CreateEx(Self,Data,Connection);
       aDocument.SelectByLink(aLink);
       aDocument.Open;
       if aDocument.Count > 0 then
@@ -666,10 +677,10 @@ begin
     ParentID := 0;
 end;
 
-constructor TDocuments.Create(aOwner: TComponent; DM: TComponent;
+constructor TDocuments.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -881,7 +892,7 @@ var
   aDocument: TDocument;
   {%H-}tmp: String;
 begin
-  aDocument := TDocument.Create(Self,DataModule,Connection);
+  aDocument := TDocument.CreateEx(Self,DataModule,Connection);
   aDocument.SelectByNumber(DataSet.FieldByName('NUMBER').AsVariant);
   aDocument.Open;
   aDocument.Delete;
@@ -980,13 +991,13 @@ function TDocuments.OpenPath(aPath: string; aPathDelim: string): Boolean;
 var
   tmpDocs: TDocuments;
 begin
-  tmpDocs := TDocuments.Create(nil,DataModule,Connection);
+  tmpDocs := TDocuments.CreateEx(nil,DataModule,Connection);
   tmpDocs.Select(Self.Ref_ID,BaseTyp,BaseID,BaseVersion,BaseLanguage,0);
   tmpDocs.Open;
   while copy(aPath,0,1) = aPathDelim do
     aPath := copy(aPath,2,length(aPath));
   Result := False;
-  if pos(aPathDelim,aPath) > 0 then
+  if (pos(aPathDelim,aPath) > 0) then
     Result := RecourseDirs(tmpDocs,aPath);
   aPath := copy(aPath,rpos(aPathDelim,aPath)+1,length(aPath));
   if Result then
@@ -997,8 +1008,7 @@ begin
     end
   else
     begin
-      if not DataSet.Active then Open;
-      Result := DataSet.Locate('NAME',aPath,[]);
+      Result := DataSet.Active and DataSet.Locate('NAME',aPath,[]);
     end;
   tmpDocs.Free;
 end;
@@ -1035,10 +1045,7 @@ var
   TempPath: String;
 begin
   with BaseApplication as IBaseApplication do
-    if Assigned(Config) then
-      TempPath := Config.ReadString('TEMPPATH','');
-  if TempPath = '' then
-    TempPath := GetTempDir;
+    TempPath:=GetInternalTempDir;
   TempPath := AppendPathDelim(TempPath)+TempID+DirectorySeparator;
   if Directory <> '' then
     TempPath := TempPath+Directory+DirectorySeparator;
@@ -1053,7 +1060,7 @@ var
 begin
   if IsDir then
     begin
-      aDocuments := TDocuments.Create(Self,DataModule,Connection);
+      aDocuments := TDocuments.CreateEx(Self,DataModule,Connection);
       if  (DataSet.FieldByName('ISLINK').AsString <> 'Y') then
         begin
           aDocuments.Select(FRefID,FBaseTyp,FBaseID,FBaseVersion,FBaseLanguage,DataSet.FieldByName('NUMBER').AsVariant);
@@ -1062,7 +1069,7 @@ begin
             begin
               while not EOF do
                 begin
-                  aDocument := TDocument.Create(Self,DataModule,Connection);
+                  aDocument := TDocument.CreateEx(Self,DataModule,Connection);
                   aDocument.OnCheckCheckOutFile:=Self.OnCheckCheckOutFile;
                   aDocument.SelectByNumber(FieldByName('NUMBER').AsVariant);
                   aDocument.Open;
@@ -1084,7 +1091,7 @@ begin
             begin
               while not EOF do
                 begin
-                  aDocument := TDocument.Create(Self,DataModule,Connection);
+                  aDocument := TDocument.CreateEx(Self,DataModule,Connection);
                   aDocument.OnCheckCheckOutFile:=Self.OnCheckCheckOutFile;
                   aDocument.SelectByNumber(FieldByName('NUMBER').AsVariant);
                   aDocument.Open;
@@ -1109,7 +1116,7 @@ begin
           ss := TStringStream.Create('');
           with BaseApplication as IBaseDbInterface do
             Data.BlobFieldToStream(DataSet,'DOCUMENT',ss);
-          aDocument := TDocument.Create(Self,DataModule,Connection);
+          aDocument := TDocument.CreateEx(Self,DataModule,Connection);
           aDocument.SelectByLink(ss.DataString);
           ss.Free;
           aDocument.Open;
@@ -1124,14 +1131,24 @@ begin
       else
         begin
           DataSet.Last;
-          if not FileExistsUTF8(aName) or (DataSet.FieldByName('CHECKSUM').AsString <> MD5Print(MD5File(aName))) then
+          if not FileExists(UniToSys(aName)) or (DataSet.FieldByName('CHECKSUM').AsString <> MD5Print(MD5File(aName))) then
             begin
               if Assigned(FOnCheckCheckOutFile) then
                 FOnCheckCheckOutFile(aName);
               if (Directory <> '') then
-                ForceDirectoriesUTF8(AppendPathDelim(Directory));
+                ForceDirectories(UniToSys(AppendPathDelim(Directory)));
               with BaseApplication as IBaseDbInterface do
                 Data.BlobFieldToFile(DataSet,'DOCUMENT',aName);
+              //generate original Checksum if not there
+              if DataSet.FieldByName('CHECKSUM').AsString = '' then
+                begin
+                  with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                    begin
+                      Edit;
+                      FieldByName('CHECKSUM').AsString := MD5Print(MD5File(aName));
+                      Post;
+                    end;
+                end;
             end;
         end;
     end;
@@ -1151,7 +1168,7 @@ begin
           ss := TStringStream.Create('');
           with BaseApplication as IBaseDbInterface do
             Data.BlobFieldToStream(DataSet,'DOCUMENT',ss);
-          aDocument := TDocument.Create(Self,DataModule,Connection);
+          aDocument := TDocument.CreateEx(Self,DataModule,Connection);
           aDocument.SelectByLink(ss.DataString);
           ss.Free;
           aDocument.Open;
@@ -1174,27 +1191,33 @@ begin
               while (DataSet.FieldByName('FULL').AsString <> 'Y') and (not DataSet.BOF) do
                 DataSet.Prior;
               //patch revision by revision till the target rev
-              with BaseApplication as IBaseDbInterface do
-                Data.BlobFieldToFile(DataSet,'DOCUMENT',GetTempDir+'prometheusfile.tmp');//full file
+              with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                Data.BlobFieldToFile(DataSet,'DOCUMENT',GetInternalTempDir+'prometheusfile.tmp');//full file
               aRev := DataSet.FieldByName('REVISION').AsInteger;
               while (aRev<aRevision) and (not DataSet.EOF)  do
                 begin
                   DataSet.Next;
                   aRev := DataSet.FieldByName('REVISION').AsInteger;
                   //diff it
-                  with BaseApplication as IBaseDbInterface do
-                    Data.BlobFieldToFile(DataSet,'DOCUMENT',GetTempDir+'prometheusfile1.tmp');//full file
-                  {$IFDEF WINDOWS}
-                  ExecProcessEx('"'+AppendPathDelim(AppendPathDelim(ExtractFilePath(Paramstr(0)))+'tools')+'bspatch'+ExtractFileExt(ParamStr(0))+'" "'+GetTempDir+'prometheusfile.tmp" "prometheusfile.tmp" "'+GetTempDir+'prometheusfile1.tmp"');
-                  {$ELSE}
-                  ExecProcess('"'+'bspatch'+ExtractFileExt(ParamStr(0))+'" "'+GetTempDir+'prometheusfile.tmp" "'+GetTempDir+'prometheusfile.tmp" "'+GetTempDir+'prometheusfile1.tmp"','',True);
-                  {$ENDIF}
+                  with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                    begin
+                      Data.BlobFieldToFile(DataSet,'DOCUMENT',GetInternalTempDir+'prometheusfile1.tmp');//full file
+                      {$IFDEF WINDOWS}
+                      ExecProcessEx('"'+AppendPathDelim(AppendPathDelim(ExtractFilePath(Paramstr(0)))+'tools')+'bspatch'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "prometheusfile.tmp" "'+GetInternalTempDir+'prometheusfile1.tmp"');
+                      {$ELSE}
+                      ExecProcess('"'+'bspatch'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "'+GetInternalTempDir+'prometheusfile.tmp" "'+GetInternalTempDir+'prometheusfile1.tmp"','',True);
+                      {$ENDIF}
+                    end;
                 end;
-              aFS := TFileStream.Create(GetTempDir+'prometheusfile.tmp',fmOpenRead);
+              with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                aFS := TFileStream.Create(GetInternalTempDir+'prometheusfile.tmp',fmOpenRead);
               aStream.CopyFrom(aFS,0);
               aFS.Free;
-              DeleteFile(GetTempDir+'prometheusfile.tmp');
-              DeleteFile(GetTempDir+'prometheusfile1.tmp');
+              with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                begin
+                  DeleteFile(GetInternalTempDir+'prometheusfile.tmp');
+                  DeleteFile(GetInternalTempDir+'prometheusfile1.tmp');
+                end;
             end
           else
             with BaseApplication as IBaseDbInterface do
@@ -1339,14 +1362,14 @@ function TDocument.CollectCheckInFiles(Directory: string): TStrings;
   begin
     if aDoc.IsDir and (not aDoc.IsLink) then
       begin
-        aDocuments := TDocuments.Create(Self,DataModule,Connection);
+        aDocuments := TDocuments.CreateEx(Self,DataModule,Connection);
         aDocuments.Select(aDoc.Ref_ID,aDoc.BaseTyp,aDoc.BaseID,aDoc.BaseVersion,aDoc.BaseLanguage,aDoc.FieldByName('NUMBER').AsVariant);
         aDocuments.Open;
         with aDocuments.DataSet do
           begin
             while not EOF do
               begin
-                aDocument := TDocument.Create(Self,DataModule,Connection);
+                aDocument := TDocument.CreateEx(Self,DataModule,Connection);
                 aDocument.SelectByNumber(FieldByName('NUMBER').AsVariant);
                 aDocument.Open;
                 if aDocument.FieldByName('EXTENSION').AsString <> '' then
@@ -1367,7 +1390,7 @@ function TDocument.CollectCheckInFiles(Directory: string): TStrings;
             ss := TStringStream.Create('');
             with BaseApplication as IBaseDbInterface do
               Data.BlobFieldToStream(aDoc.DataSet,'DOCUMENT',ss);
-            aDocument := TDocument.Create(Self,DataModule,Connection);
+            aDocument := TDocument.CreateEx(Self,DataModule,Connection);
             aDocument.SelectByLink(ss.DataString);
             ss.Free;
             aDocument.Open;
@@ -1384,20 +1407,20 @@ function TDocument.CollectCheckInFiles(Directory: string): TStrings;
             //generate original Checksum if not there
             if aDoc.FieldByName('CHECKSUM').AsString = '' then
               begin
-                with BaseApplication as IBaseDbInterface do
+                with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
                   begin
-                    Data.BlobFieldToFile(aDoc.DataSet,'DOCUMENT',GetTempDir+'prometheusfile.tmp');
+                    Data.BlobFieldToFile(aDoc.DataSet,'DOCUMENT',GetInternalTempDir+'prometheusfile.tmp');
                     aDoc.DataSet.Edit;
-                    aDoc.FieldByName('CHECKSUM').AsString := MD5Print(MD5File(GetTempDir+'prometheusfile.tmp'));
+                    aDoc.FieldByName('CHECKSUM').AsString := MD5Print(MD5File(GetInternalTempDir+'prometheusfile.tmp'));
                     aDoc.DataSet.Post;
-                    DeleteFileUTF8(GetTempDir+'prometheusfile.tmp');
+                    DeleteFile(UniToSys(GetInternalTempDir+'prometheusfile.tmp'));
                   end;
               end;
             //if File isnt there then we have to do nothing
-            if FileExistsUTF8(aDir) then
+            if FileExists(UniToSys(aDir)) then
               begin
                 try
-                  if MD5Print(MD5File(UTF8ToSys(aDir))) <> aDoc.FieldByName('CHECKSUM').AsString then
+                  if MD5Print(MD5File(UniToSys(aDir))) <> aDoc.FieldByName('CHECKSUM').AsString then
                     Result.Values[aDir] := 'C'
                   else if Result.IndexOfName(aDir) > -1 then
                     Result.Delete(Result.IndexOfName(aDir));
@@ -1453,7 +1476,7 @@ var
         ss := TStringStream.Create('');
         with BaseApplication as IBaseDbInterface do
           Data.BlobFieldToStream(aDoc.DataSet,'DOCUMENT',ss);
-        aDocument := TDocument.Create(Self,DataModule,Connection);
+        aDocument := TDocument.CreateEx(Self,DataModule,Connection);
         aDocument.SelectByLink(ss.DataString);
         ss.Free;
         aDocument.Open;
@@ -1473,14 +1496,14 @@ var
       end
     else if aDoc.IsDir then
       begin
-        aDocuments := TDocuments.Create(Self,DataModule,Connection);
+        aDocuments := TDocuments.CreateEx(Self,DataModule,Connection);
         aDocuments.Select(aDoc.Ref_ID,aDoc.BaseTyp,aDoc.BaseID,aDoc.BaseVersion,aDoc.BaseLanguage,aDoc.FieldByName('NUMBER').AsVariant);
         aDocuments.Open;
         with aDocuments.DataSet do
           begin
             while not EOF do
               begin
-                aDocument := TDocument.Create(Self,DataModule,Connection);
+                aDocument := TDocument.CreateEx(Self,DataModule,Connection);
                 aDocument.SelectByNumber(FieldByName('NUMBER').AsVariant);
                 aDocument.Open;
                 if aDocument.FieldByName('EXTENSION').AsString <> '' then
@@ -1496,7 +1519,7 @@ var
     else
       begin
         //if File isnt there then we have to do nothing
-        if FileExistsUTF8(aDir) then
+        if FileExists(UniToSys(aDir)) then
           begin
             if aFiles.IndexOfName(aDir) <> -1 then
               begin
@@ -1504,8 +1527,8 @@ var
                 OldRec := aDoc.GetBookmark;
                 aDoc.DataSet.Last;
                 //Save old File
-                with BaseApplication as IBaseDbInterface do
-                  Data.BlobFieldToFile(aDoc.DataSet,'DOCUMENT',GetTempDir+'prometheusfile.tmp');
+                with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                  Data.BlobFieldToFile(aDoc.DataSet,'DOCUMENT',GetInternalTempDir+'prometheusfile.tmp');
                 aDoc.GotoBookmark(OldRec);
                 //Store all needed values
                 with aDoc.DataSet do
@@ -1527,24 +1550,30 @@ var
                       Edit;
                     FieldByName('SIZE').AsInteger:=FileSize(aDir);
                     Post;
-                    //diff it
-                    {$IFDEF WINDOWS}
-                    ExecProcessEx('"'+AppendPathDelim(AppendPathDelim(ExtractFilePath(Paramstr(0)))+'tools')+'bsdiff'+ExtractFileExt(ParamStr(0))+'" "'+GetTempDir+'prometheusfile.tmp" "'+aDir+'" "'+GetTempDir+'prometheusfile1.tmp"');
-                    {$ELSE}
-                    ExecProcess('"'+'bsdiff'+ExtractFileExt(ParamStr(0))+'" "'+GetTempDir+'prometheusfile.tmp" "'+aDir+'" "'+GetTempDir+'prometheusfile1.tmp"','',True);
-                    {$ENDIF}
+                    with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                      begin
+                        //diff it
+                        {$IFDEF WINDOWS}
+                        ExecProcessEx('"'+AppendPathDelim(AppendPathDelim(ExtractFilePath(Paramstr(0)))+'tools')+'bsdiff'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "'+aDir+'" "'+GetInternalTempDir+'prometheusfile1.tmp"');
+                        {$ELSE}
+                        ExecProcess('"'+'bsdiff'+ExtractFileExt(ParamStr(0))+'" "'+GetInternalTempDir+'prometheusfile.tmp" "'+aDir+'" "'+GetInternalTempDir+'prometheusfile1.tmp"','',True);
+                        {$ENDIF}
+                      end;
                     //TODO: use a better logic to not always use full files but for now its the save way
                     UseFullFile := True;
-                    if (not FileExistsUTF8(GetTempDir+'prometheusfile1.tmp')) or UseFullfile then
+                    with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
                       begin
-                        UseFullfile := True;
-                        DeleteFileUTF8(GetTempDir+'prometheusfile1.tmp');
-                        //Use Full File if no diff is possible
-                        if not CopyFile(aDir,GetTempDir+'prometheusfile1.tmp') then
+                        if (not FileExists(UniToSys(GetInternalTempDir+'prometheusfile1.tmp'))) or UseFullfile then
                           begin
-                            Result := False;
-                            raise Exception.Create(Format(strFailedCreatingDiff,[aDir]));
-                            exit;
+                            UseFullfile := True;
+                            DeleteFile(UniToSys(GetInternalTempDir+'prometheusfile1.tmp'));
+                            //Use Full File if no diff is possible
+                            if not CopyFile(aDir,UniToSys(GetInternalTempDir+'prometheusfile1.tmp')) then
+                              begin
+                                Result := False;
+                                raise Exception.Create(Format(strFailedCreatingDiff,[aDir]));
+                                exit;
+                              end;
                           end;
                       end;
                     //delete this revision when its not revision 0
@@ -1586,16 +1615,19 @@ var
                       FieldByName('FULL').AsString := 'Y';
                     FieldByName('NAME').AsString := aEName;
                     FieldByName('EXTENSION').AsString := aExtension;
-                    with BaseApplication as IBaseDbInterface do
-                      Data.FileToBlobField(GetTempDir+'prometheusfile1.tmp',aDoc.DataSet,'DOCUMENT');
+                    with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                      Data.FileToBlobField(GetInternalTempDir+'prometheusfile1.tmp',aDoc.DataSet,'DOCUMENT');
                     FieldByName('DATE').AsFloat := Now();
                     FieldByName('TIMESTAMPD').AsdateTime := Now();
                     if FieldDefs.IndexOf('TIMESTAMPT') <> -1 then
                       FieldByName('TIMESTAMPT').AsFloat := Frac(Now());
                     Post;
                     //delete diff
-                    DeleteFileUTF8(GetTempDir+'prometheusfile.tmp');
-                    DeleteFileUTF8(GetTempDir+'prometheusfile1.tmp');
+                    with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+                      begin
+                        DeleteFile(UniToSys(GetInternalTempDir+'prometheusfile.tmp'));
+                        DeleteFile(UniToSys(GetInternalTempDir+'prometheusfile1.tmp'));
+                      end;
                     //add the complete file
                     Append;
                     FieldByName('TYPE').AsString := aTyp;
@@ -1667,12 +1699,12 @@ begin
           if copy(tmp,0,pos(DirectorySeparator,tmp)-1) = Self.FieldByName('NAME').AsString then
             tmp := copy(tmp,pos(DirectorySeparator,tmp)+length(DirectorySeparator),length(tmp));
           if copy(tmp,0,1) = DirectorySeparator then tmp := copy(tmp,length(DirectorySeparator)+1,length(tmp));
-          aBaseDir := TDocuments.Create(Self,DataModule,Connection);
+          aBaseDir := TDocuments.CreateEx(Self,DataModule,Connection);
           aBaseDir.Select(Id.AsVariant);
           aBaseDir.Open;
           while pos(DirectorySeparator,tmp) > 0 do
             begin
-              aDocuments := TDocuments.Create(Self,dataModule,Connection);
+              aDocuments := TDocuments.CreateEx(Self,DataModule,Connection);
               aDocuments.Select(Ref_ID,BaseTyp,BaseID,BaseVersion,BaseLanguage,aBaseDir.FieldByName('NUMBER').AsVariant);
               aDocuments.Open;
               if aDocuments.DataSet.Locate('NAME;ISDIR',VarArrayOf([copy(tmp,0,pos(DirectorySeparator,tmp)-1),'Y']),[]) then
@@ -1682,7 +1714,7 @@ begin
                 end
               else //New Dir
                 begin
-                  aDocument := TDocument.Create(Self,DataModule,Connection);
+                  aDocument := TDocument.CreateEx(Self,DataModule,Connection);
                   aDocument.Select(0);
                   aDocument.Open;
                   aDocument.Ref_ID:=Ref_ID;
@@ -1712,7 +1744,7 @@ begin
           //Create new File
           if aBaseDir.Count > 0 then
             begin
-              aDocument := TDocument.Create(Self,DataModule,Connection);
+              aDocument := TDocument.CreateEx(Self,DataModule,Connection);
               aDocument.Select(0);
               aDocument.Open;
               aDocument.Ref_ID:=Ref_ID;
@@ -1735,29 +1767,86 @@ begin
       FAfterCheckinFiles(Self);
 end;
 
-function TDocument.GetText(aStream: TStream; aExt: string; aText: string
+function TDocument.GetText(aStream: TStream; aExt: string;var aText: string
   ): Boolean;
 var
   i: Integer;
+  aFilename: String;
+  aFStream: TFileStream;
+  aProcess: TProcess;
+  aStringStream : TStringStream;
+  aLines: TStringList;
 begin
-  Result := True;
-  for i := 0 to 1500 do
-    if (length(copy(aText,i,1))>0) and (ord(copy(aText,i,1)[1]) > 127) then
-      begin
-        Result := False;
-        break;
-      end;
-  if Result then
+  if Uppercase(aExt) = '.DOC' then
     begin
-      aText := copy(aText,0,1500);
+      //Result := GetWordText(aStream,aExt,aText);
     end
-  else if aExt = '.doc' then
+  else if Uppercase(aExt) = '.RTF' then
     begin
-      Result := GetWordText(aStream,aExt,aText);
+      aStringStream:=TStringStream.Create('');
+      aStringStream.CopyFrom(aStream,aStream.Size);
+      aText := RTF2Plain(aStringStream.DataString);
+      aStringStream.Free;
+      result := True;
+    end
+  else if (Uppercase(aExt) = '.PDF') then
+    begin
+      try
+        with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+          begin
+            aFilename := GetInternalTempDir+'rpv'+aExt;
+            aFStream := TFileStream.Create(GetInternalTempDir+'rpv'+aExt,fmCreate);
+          end;
+        aStream.Position:=0;
+        aFStream.CopyFrom(aStream,aStream.Size);
+        aFStream.Free;
+        aProcess := TProcess.Create(Self);
+        {$IFDEF WINDOWS}
+        aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
+        {$ELSE}
+        aProcess.Options:= [poWaitonExit,poStdErrToOutPut];
+        {$ENDIF}
+        aProcess.ShowWindow := swoHide;
+        aProcess.CommandLine := Format('pdftotext'+ExtractFileExt(BaseApplication.ExeName)+' %s %s',[aFileName,aFileName+'.txt']);
+        aProcess.CurrentDirectory := AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools');
+        {$IFDEF WINDOWS}
+        aProcess.CommandLine := aProcess.CurrentDirectory+aProcess.CommandLine;
+        {$ENDIF}
+        aProcess.Execute;
+        aProcess.Free;
+        SysUtils.DeleteFile(aFileName);
+        if FileExists(aFileName+'.txt') then
+          begin
+            aLines := TStringList.Create;
+            aLines.LoadFromFile(aFileName+'.txt');
+            aText := aLines.Text;
+            Result := True;
+            aLines.Free;
+          end;
+        SysUtils.DeleteFile(aFileName+'.txt');
+      except
+        SysUtils.DeleteFile(aFileName);
+        SysUtils.DeleteFile(aFileName+'.txt');
+      end;
+    end
+  else
+    begin
+      Result := length(aText)>0;
+      for i := 0 to 1500 do
+        if (length(copy(aText,i,1))>0) and (ord(copy(aText,i,1)[1]) > 127) then
+          begin
+            Result := False;
+            break;
+          end;
+      if Result then
+        begin
+          aText := copy(aText,0,1500);
+        end
     end;
+  aText := SysToUni(aText);//ConvertEncoding(aText,GuessEncoding(aText),EncodingUTF8);
 end;
-
-function TDocument.GetWordText(aStream: TStream; aExt: string; aText: string
+{
+function TDocument.GetWordText(aStream: TStream; aExt: string; var aText: string
   ): Boolean;
 var
   MemStream: TMemoryStream;
@@ -1791,9 +1880,11 @@ begin
   try
     // Only one stream is necessary for any number of worksheets
     OLEDocument.Stream := MemStream;
-    aFileName := GetTempDir+'wf.tmp';
+    with BaseApplication as IBaseDbInterface,BaseApplication as IBaseApplication do
+      aFileName := GetInternalTempDir+'wf.tmp';
     aFile := TFileStream.Create(aFileName,fmCreate);
     aFile.CopyFrom(aStream,aStream.Size);
+    aStream.Position:=0;
     aFile.Free;
     OLEStorage.ReadOLEFile(aFileName, OLEDocument,'WordDocument');
     if MemStream.Seek($800,soFromBeginning) = $800 then
@@ -1808,7 +1899,7 @@ begin
     OLEStorage.Free;
   end;
 end;
-
+}
 procedure TDocument.Delete;
 var
   aDocuments: TDocuments;
@@ -1817,7 +1908,7 @@ begin
   DataSet.Refresh;
   if IsDir then
     begin
-      aDocuments := TDocuments.Create(Self,DataModule,Connection);
+      aDocuments := TDocuments.CreateEx(Self,DataModule,Connection);
       aDocuments.Select(Ref_ID,BaseTyp,BaseID,BaseVersion,BaseLanguage,DataSet.FieldByName('NUMBER').AsVariant);
       aDocuments.Open;
       while aDocuments.Count > 0 do

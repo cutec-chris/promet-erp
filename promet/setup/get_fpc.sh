@@ -7,14 +7,15 @@
 #SYSTEM_FPC_COMPILER="/usr/local/lib/fpc/2.7.1/ppcx64"
 
 #get bootstrap compiler to build final compiler
-SYSTEM_FPC_COMPILER=/media/Daten/fpc/2.6_fixes/x86_64-linux-ppcx64
-#wget ftp://freepascal.stack.nl/pub/fpc/dist/2.6.0/bootstrap/x86_64-linux-ppcx64.bz2
+#SYSTEM_FPC_COMPILER=/media/Daten/fpc/2.6_fixes/x86_64-linux-ppcx64
+wget ftp://freepascal.stack.nl/pub/fpc/dist/2.6.4/bootstrap/x86_64-linux-ppcx64.bz2
 #svn co http://svn.freepascal.org/svn/fpc/branches/fixes_2_6 fpc/2.6_fixes
-#mkdir fpc/2.6.1
-#cd fpc/2.6.1
-#svn co http://svn.freepascal.org/svn/fpc/2_6_1 fpc/2.6.1
+svn co http://svn.freepascal.org/svn/fpc/2_6_4 fpc/2.6.4
+mkdir fpc/2.6.4
+cd fpc/2.6.4
+
 #svn co http://svn.freepascal.org/svn/fpc/trunk fpc/trunk
-cd fpc/trunk
+#cd fpc/trunk
 
 #sudo apt-get install ia32-libs,wine
 cd utils/fpcm

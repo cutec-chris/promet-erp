@@ -22,10 +22,13 @@ unit ubasefcgiapplication;
 interface
 uses
   Classes, SysUtils, CustFCGI, uBaseApplication, uBaseDBInterface,
-  PropertyStorage, uData, uSystemMessage, XMLPropStorage,HTTPDefs,fpHTTP,
-  uBaseDbClasses,db,md5,fastcgi,eventlog;
+  uData, uSystemMessage, HTTPDefs,fpHTTP,
+  uBaseDbClasses,db,md5,fastcgi,eventlog,ubaseconfig,PropertyStorage,XMLPropStorage;
 type
-  TBaseFCGIApplication = class(TCustomFCGIApplication, IBaseApplication, IBaseDbInterface)
+
+  { TBaseFCGIApplication }
+
+  TBaseFCGIApplication = class(TCustomFCGIApplication, IBaseApplication, IBaseDbInterface,IBaseConfig)
     procedure BaseFCGIApplicationException(Sender: TObject; E: Exception);
     procedure BaseFCGIApplicationGetModule(Sender: TObject; ARequest: TRequest;
       var ModuleClass: TCustomHTTPModuleClass);
@@ -35,11 +38,11 @@ type
     FDBInterface: IBaseDbInterface;
     FDefaultModule: string;
     FMessageHandler: TMessageHandler;
-    Properties: TXMLPropStorage;
     FLogger : TEventLog;
     FAppName : string;
     FAppRevsion : Integer;
     FAppVersion : Real;
+    FConfig: TXMLPropStorage;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -59,6 +62,7 @@ type
     procedure SetAppVersion(AValue: real);virtual;
     function GetQuickHelp: Boolean;
     procedure SetQuickhelp(AValue: Boolean);
+    function GetInternalTempDir: string;
 
     function GetLog: TEventLog;
     procedure Log(aType : string;aMsg : string);virtual;
@@ -80,7 +84,7 @@ type
 Var
   Application : TBaseFCGIApplication;
 implementation
-uses FileUtil,Utils, uUserAgents, LCLProc,uBaseWebSession;
+uses FileUtil,Utils, uUserAgents, uBaseWebSession;
 resourcestring
   strFailedtoLoadMandants    = 'Mandanten konnten nicht gelanden werden !';
   strLoginFailed             = 'Anmeldung fehlgeschlagen !';
@@ -136,13 +140,13 @@ begin
       FLogger.FileName := GetOptionValue('l','logfile');
       FLogger.Active:=True;
     end;
+  FConfig:=TXMLPropStorage.Create(Self);
+  FConfig.FileName := GetOurConfigDir+'config.xml';
+  FConfig.RootNodePath := 'Config';
   {.$Warnings Off}
   FDBInterface := TBaseDBInterface.Create;
   FDBInterface.SetOwner(Self);
   {.$Warnings On}
-  Properties := TXMLPropStorage.Create(AOwner);
-  Properties.FileName := GetOurConfigDir+'config.xml';
-  Properties.RootNodePath := 'Config';
   AllowDefaultModule := True;
   Self.OnGetModule:=@BaseFCGIApplicationGetModule;
   Self.OnException:=@BaseFCGIApplicationException;
@@ -150,7 +154,6 @@ begin
 end;
 destructor TBaseFCGIApplication.Destroy;
 begin
-  Properties.Free;
   DoExit;
   if Assigned(FmessageHandler) then
     begin
@@ -162,6 +165,7 @@ begin
   except
   end;
   FLogger.Free;
+  FreeAndNil(FConfig);
   inherited Destroy;
 end;
 function TBaseFCGIApplication.GetOurConfigDir: string;
@@ -185,28 +189,31 @@ var
   aDir: String;
 begin
   aDir := GetOurConfigDir;
-//  aDir := Application.Location;
+  aDir := Application.Location;
   if aDir <> '' then
     begin
       if not DirectoryExistsUTF8(aDir) then
         ForceDirectoriesUTF8(aDir);
     end;
-  Properties.FileName := aDir+aName+'.xml';
-  Properties.RootNodePath := 'Config';
+  FConfig.FileName := aDir+aName+'.xml';
+  FConfig.RootNodePath := 'Config';
+  writeln('Config:'+FConfig.FileName);
 end;
 procedure TBaseFCGIApplication.RestoreConfig;
 begin
-  Properties.Restore;
-  DefaultModule := Properties.ReadString('DEFAULTMODULE',DefaultModule);
+  FConfig.Restore;
+  DefaultModule := FConfig.ReadString('DEFAULTMODULE',DefaultModule);
 end;
 procedure TBaseFCGIApplication.SaveConfig;
 begin
-  Properties.Save;
+  FConfig.Save;
 end;
+
 function TBaseFCGIApplication.GetConfig: TCustomPropertyStorage;
 begin
-  Result := Properties;
+  Result := FConfig;
 end;
+
 function TBaseFCGIApplication.GetLanguage: string;
 begin
 
@@ -237,6 +244,11 @@ begin
 
 end;
 
+function TBaseFCGIApplication.GetInternalTempDir: string;
+begin
+  Result := AppendPathDelim(GetTempPath);
+end;
+
 function TBaseFCGIApplication.GetLog: TEventLog;
 begin
   Result := FLogger;
@@ -264,7 +276,8 @@ end;
 procedure TBaseFCGIApplication.Debug(aMsg: string);
 begin
   if HasOption('debug') then
-    debugln('DEBUG:'+aMsg);
+    //debugln('DEBUG:'+aMsg)
+    ;
 end;
 function TBaseFCGIApplication.ChangePasswort: Boolean;
 begin
@@ -286,7 +299,7 @@ begin
         raise Exception.Create(strFailedtoLoadMandants);
       aMandant := GetOptionValue('m','mandant');
       if aMandant = '' then
-        aMandant := Properties.ReadString('MANDANT','');
+        aMandant := FConfig.ReadString('MANDANT','');
       if not DBLogin(aMandant,'') then
         begin
           raise Exception.Create(strLoginFailed+':'+LastError);
@@ -294,8 +307,7 @@ begin
       uData.Data := Data;
     end;
   SessionFactory.CleanupSessions;
-  if Properties.ReadInteger('PORT',-1) <> -1 then
-    Port:=Properties.ReadInteger('PORT',9998);
+  Port:=9998;
   Result := True;
 end;
 procedure TBaseFCGIApplication.Logout;

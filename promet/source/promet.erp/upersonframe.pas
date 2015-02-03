@@ -48,7 +48,7 @@ type
     acCombineItems: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
-    bChangeNumber: TButton;
+    bChangeNumber: TSpeedButton;
     Bevel1: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;
@@ -78,7 +78,9 @@ type
     lCustomerName: TLabel;
     lCustomerof: TLabel;
     lFirmName: TLabel;
+    lHint: TLabel;
     lMatchCode: TLabel;
+    MandantDetails: TDatasource;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
@@ -91,7 +93,7 @@ type
     miPaste: TMenuItem;
     miStartTimeregistering: TMenuItem;
     ImportDialog: TOpenDialog;
-    Panel1: TPanel;
+    pToolBar: TPanel;
     Panel2: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
@@ -179,7 +181,8 @@ uses uData, uPerson, uBaseVisualControls, uBaseDBInterface, uAddressFrame,
   uHistoryFrame, uImageFrame, uPersonFinance, uLinkFrame, uMessageEdit,
   LCLIntf,uDocuments,uListFrame,uTextFrame,uMainTreeFrame,uSearch,
   uOrderFrame,uOrder,VpData,uCalendarFrame, uImpVCard,uPrometFramesInplace,
-  uNRights,uSelectReport,uBaseVisualApplication,uWiki,uWikiFrame;
+  uNRights,uSelectReport,uBaseVisualApplication,uWiki,uWikiFrame,
+  uLanguageUtils;
 {$R *.lfm}
 resourcestring
   strAddress                    = 'Adresse';
@@ -188,7 +191,8 @@ resourcestring
   strInfo                       = 'Info';
   strInsertEventForBirthday     = 'Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?';
   strBirthdayFrom               = 'Geburtstag von %s';
-  strNewPerson                  = 'neue Person';
+  strNewPerson                  = 'neuer Kontakt';
+  strAddedFromEmployees         = 'Dies ist ein neuer Mitarbeiter/Mitglied das aus einem Kontakt erstellt wurde. Sobald Sie speichern, wird zum ursprünglichen Kontakt zurückgesprungen und ein Eintrag in dessen Mitarbeitern gemacht.';
 
   scTelephone                   = 'TEL  Telefon';
   scBusinessPhone               = 'TELB Telefon Geschäftlich';
@@ -256,20 +260,20 @@ var
   fEditMail: TfMessageEdit;
 begin
   if not Assigned(FContList.gList.SelectedField) then exit;
-  if (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,3) = 'TEL')
-  or (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,3) = 'CEL') then
+  if (copy(TPerson(DataSet).ContactData.FieldByName('TYPE').AsString,0,3) = 'TEL')
+  or (copy(TPerson(DataSet).ContactData.FieldByName('TYPE').AsString,0,3) = 'CEL') then
     begin
-//      CallPhone(TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString);
+//      CallPhone(TPerson(DataSet).ContactData.FieldByName('DATA').AsString);
     end
-  else if (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,3) = 'INT') then
+  else if (copy(TPerson(DataSet).ContactData.FieldByName('TYPE').AsString,0,3) = 'INT') then
     begin
-      OpenURL(TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString);
+      OpenURL(TPerson(DataSet).ContactData.FieldByName('DATA').AsString);
     end
-  else if (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,4) = 'MAIL')
-       or (copy(TPerson(DataSet).CustomerCont.FieldByName('TYPE').AsString,0,2) = 'ML') then
+  else if (copy(TPerson(DataSet).ContactData.FieldByName('TYPE').AsString,0,4) = 'MAIL')
+       or (copy(TPerson(DataSet).ContactData.FieldByName('TYPE').AsString,0,2) = 'ML') then
        begin
-         fEditMail := TfMessageEdit.Create(Self);
-         fEditMail.SendMailTo('"'+TPerson(DataSet).FieldByName('NAME').AsString+'" <'+TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString+'>');
+         fEditMail := TfMessageEdit.Create(nil);
+         fEditMail.SendMailTo('"'+TPerson(DataSet).FieldByName('NAME').AsString+'" <'+TPerson(DataSet).ContactData.FieldByName('DATA').AsString+'>');
        end;
 end;
 
@@ -288,7 +292,7 @@ procedure TfPersonFrame.lFirmNameClick(Sender: TObject);
 var
   aPerson: TPerson;
 begin
-  aPerson := TPerson.Create(Self,Data);
+  aPerson := TPerson.CreateEx(Self,Data);
   Data.SetFilter(aPerson,Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(copy(lFirmName.Caption,pos(' (',lFirmName.Caption)+2,length(lFirmName.Caption)-(pos(' (',lFirmName.Caption))-2)));
   if aPerson.Count > 0 then
     Data.GotoLink(Data.BuildLink(aPerson.DataSet));
@@ -310,7 +314,7 @@ begin
   if (Source = fMainTreeFrame.tvMain) then
     begin
       nData := TTreeEntry(fMainTreeFrame.tvMain.Selected.Data);
-      aPersons := TPersonList.Create(Self,Data);
+      aPersons := TPersonList.CreateEx(Self,Data);
       Data.SetFilter(aPersons,nData.Filter);
       aEmployee := aPersons.FieldByName('ACCOUNTNO').AsString;
       aName := aPersons.FieldByName('NAME').AsString;
@@ -318,7 +322,7 @@ begin
     end
   else if (Source = fSearch.sgResults) then
     begin
-      aPersons := TPersonList.Create(Self,Data);
+      aPersons := TPersonList.CreateEx(Self,Data);
       Data.SetFilter(aPersons,Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(fSearch.sgResults.Cells[1,fSearch.sgResults.Row]));
       if aPersons.DataSet.Locate('ACCOUNTNO',fSearch.sgResults.Cells[1,fSearch.sgResults.Row],[loCaseInsensitive,loPartialKey]) then
         begin
@@ -352,7 +356,7 @@ procedure TfPersonFrame.TfListFrameFListViewDetails(Sender: TObject);
 var
   aPersonList: TPersonList;
 begin
-  aPersonList := TPersonList.Create(Self,Data);
+  aPersonList := TPersonList.CreateEx(Self,Data);
   Data.SetFilter(aPersonList,'"ACCOUNTNO"='+Data.QuoteValue(TPerson(DataSet).Employees.FieldByName('EMPLOYEE').AsString));
   fMainTreeFrame.OpenLink(Data.BuildLink(aPersonList.DataSet),Self);
   aPersonList.Free;
@@ -516,12 +520,12 @@ var
   aFrame: TfPersonFrame;
 begin
   aCust := DataSet.FieldByName('ACCOUNTNO').AsString;
-  if TPerson(DataSet).CustomerCont.DataSet.Locate('TYPE','TEL',[loCaseInsensitive, loPartialKey]) then
-    Tel := TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString;
+  if TPerson(DataSet).ContactData.DataSet.Locate('TYPE','TEL',[loCaseInsensitive, loPartialKey]) then
+    Tel := TPerson(DataSet).ContactData.FieldByName('DATA').AsString;
   if rpos('-',Tel) > 0 then
     Tel := copy(Tel,0,rpos('-',Tel));
-  if TPerson(DataSet).CustomerCont.DataSet.Locate('TYPE','MAIL',[loCaseInsensitive, loPartialKey]) then
-    Mail := TPerson(DataSet).CustomerCont.FieldByName('DATA').AsString;
+  if TPerson(DataSet).ContactData.DataSet.Locate('TYPE','MAIL',[loCaseInsensitive, loPartialKey]) then
+    Mail := TPerson(DataSet).ContactData.FieldByName('DATA').AsString;
   Mail := copy(Mail,rpos('@',Mail),length(Mail));
   Application.ProcessMessages;
   aFrame := TfPersonFrame.Create(Self);
@@ -530,18 +534,20 @@ begin
   aFrame.New;
   if Tel <> '' then
     begin
-      TPerson(aFrame.DataSet).CustomerCont.DataSet.Append;
-      TPerson(aFrame.DataSet).CustomerCont.FieldByName('TYPE').AsString:='TEL';
-      TPerson(aFrame.DataSet).CustomerCont.FieldByName('DATA').AsString:=Tel;
+      TPerson(aFrame.DataSet).ContactData.DataSet.Append;
+      TPerson(aFrame.DataSet).ContactData.FieldByName('TYPE').AsString:='TEL';
+      TPerson(aFrame.DataSet).ContactData.FieldByName('DATA').AsString:=Tel;
     end;
   if Mail <> '' then
     begin
-      TPerson(aFrame.DataSet).CustomerCont.DataSet.Append;
-      TPerson(aFrame.DataSet).CustomerCont.FieldByName('TYPE').AsString:='MAIL';
-      TPerson(aFrame.DataSet).CustomerCont.FieldByName('DATA').AsString:=Mail;
+      TPerson(aFrame.DataSet).ContactData.DataSet.Append;
+      TPerson(aFrame.DataSet).ContactData.FieldByName('TYPE').AsString:='MAIL';
+      TPerson(aFrame.DataSet).ContactData.FieldByName('DATA').AsString:=Mail;
     end;
   aFrame.eName.SetFocus;
   aFrame.pcPages.PageIndex:=0;
+  aFrame.lHint.Caption:=strAddedFromEmployees;
+  aFrame.lHint.Visible:=True;
   aFrame.EmployeeOf := aCust;
 end;
 procedure TfPersonFrame.acCancelExecute(Sender: TObject);
@@ -565,7 +571,7 @@ var
   i: Integer;
 begin
   Application.ProcessMessages;
-  aOrderType := TOrderTyp.Create(Self,Data);
+  aOrderType := TOrderTyp.CreateEx(Self,Data);
   Data.SetFilter(aOrderType,Data.QuoteField('STATUSNAME')+'='+Data.QuoteValue(copy(TMenuItem(Sender).Caption,length(strNewOrder)+1,length(TMenuItem(Sender).Caption))));
   if (aOrderType.Count > 0) and Assigned(FDocumentFrame) then
     begin
@@ -684,6 +690,8 @@ begin
   fSelectReport.SetLanguage;
   if Supports(FDataSet, IBaseHistory, Hist) then
     History.DataSet := Hist.GetHistory.DataSet;
+  MandantDetails.DataSet:=Data.MandantDetails.DataSet;
+  Data.MandantDetails.Open;
   PList.DataSet := DataSet.DataSet;
   with FDataSet.DataSet as IBaseManageDB do
     begin
@@ -726,6 +734,9 @@ begin
           next;
         end;
     end;
+  {$ifdef DARWIN}
+  cbStatus.Style:=csDropdown;
+  {$endif}
 end;
 destructor TfPersonFrame.Destroy;
 begin
@@ -754,7 +765,7 @@ begin
     FConnection := Data.GetNewConnection;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TPerson.Create(Self,Data,FConnection);
+  DataSet := TPerson.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@CustomersStateChange;
   TPerson(DataSet).SelectFromLink(aLink);
   DataSet.Open;
@@ -772,7 +783,7 @@ begin
     FConnection := Data.GetNewConnection;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TPerson.Create(Self,Data,FConnection);
+  DataSet := TPerson.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@CustomersStateChange;
   DataSet.Select(0);
   DataSet.Open;
@@ -821,15 +832,15 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsInteger,'C',DataSet.FieldByName('ACCOUNTNO').AsString,Null,Null);
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'C',DataSet.FieldByName('ACCOUNTNO').AsString,Null,Null);
     end;
   FDocumentFrame := TfDocumentFrame(Sender);
   aItem := TMenuItem.Create(TfDocumentFrame(Sender).pmDocumentAction);
-  aItem.Caption:=strVoucher;
+  aItem.Caption:=strNewVoucher;
   TfDocumentFrame(Sender).pmDocumentAction.Items.Add(aItem);
-  aOrderType := TOrderTyp.Create(Self,Data);
+  aOrderType := TOrderTyp.CreateEx(Self,Data);
   aOrderType.Open;
   Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_ORDER')+' = ''Y'')');
   aOrderType.DataSet.First;
@@ -871,7 +882,7 @@ var
 begin
   FContList.pTop.Hide;
   FContList.Editable:=True;
-  FContList.DataSet := TPerson(FDataSet).CustomerCont;
+  FContList.DataSet := TPerson(FDataSet).ContactData;
   dnNavigator.DataSource := FContList.List;
   SetRights;
   cbStatus.Items.Clear;
@@ -885,8 +896,8 @@ begin
   else aFound := True;
   if aFound then
     begin
-  cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
-  cbStatus.Text := Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')';
+      cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+      cbStatus.Text := Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')';
     end
   else cbStatus.Text:=FDataSet.FieldByName('STATUS').AsString;
   tmp := trim(Data.States.FieldByName('DERIVATIVE').AsString);
@@ -939,7 +950,7 @@ begin
       Columns[0].PickList.Add(scInternet);
       Columns[0].PickList.Add(scBirthday);
     end;
-  TPerson(FDataSet).CustomerCont.DataSet.AfterPost:=@TPersonCustomerContDataSetAfterPost;
+  TPerson(FDataSet).ContactData.DataSet.AfterPost:=@TPersonCustomerContDataSetAfterPost;
   TranslateNavigator(dnNavigator);
   pcPages.AddTabClass(TfAddressFrame,strAddress,@AddAddress);
   TPerson(DataSet).Address.Open;
@@ -980,7 +991,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data,DataSet.Connection);
+      aDocuments := TDocuments.CreateEx(Self,Data,DataSet.Connection);
       aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsInteger,'C',DataSet.FieldByName('ACCOUNTNO').AsString,Null,Null);
       aDocuments.Open;
@@ -1021,7 +1032,7 @@ begin
     pcPages.PageIndex:=0;
   if DataSet.State<> dsInsert then
     begin
-      aWiki := TWikiList.Create(nil,Data);
+      aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
         begin
           while not aWiki.EOF do
@@ -1035,7 +1046,10 @@ begin
               if Assigned(TBaseDbList(DataSet).Status) then
                 aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
               if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
-                aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
+                begin
+                  aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString);
+                  aWikiPage.SetRights(FEditable);
+                end
               else FreeAndNil(aWikiPage);
               if Assigned(aWikiPage) then
                 begin
@@ -1065,6 +1079,7 @@ begin
   pComponents.Enabled := FEditable;
   FContList.Editable := FEditable;
   dnNavigator.Enabled:=Feditable;
+  ArrangeToolBar(pToolbar,ActionList1,'Person');
 end;
 procedure TfPersonFrame.AddList(Sender: TObject);
 var

@@ -61,13 +61,13 @@ constructor TfSystemOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aVat := TVat.Create(Self,Data,aConnection);
+  aVat := TVat.CreateEx(Self,Data,aConnection);
   VatDS.DataSet := aVat.DataSet;
-  aNumbers := TNumbersets.Create(Self,Data,aConnection);
+  aNumbers := TNumbersets.CreateEx(Self,Data,aConnection);
   NumbersDS.DataSet := aNumbers.DataSet;
-  aUnits := TUnits.Create(Self,Data,aConnection);
+  aUnits := TUnits.CreateEx(Self,Data,aConnection);
   UnitsDS.DataSet := aUnits.DataSet;
-  aPaymentTargets := TPaymentTargets.Create(Self,Data,aConnection);
+  aPaymentTargets := TPaymentTargets.CreateEx(Self,Data,aConnection);
   PaymentTargetsDS.DataSet := aPaymentTargets.DataSet;
 end;
 destructor TfSystemOptions.Destroy;

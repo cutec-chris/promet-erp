@@ -25,7 +25,7 @@ unit uDocProperties;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls, ComCtrls, Grids, Menus, uIntfStrConsts,LCLType, ButtonPanel,
   uDocuments;
 
@@ -64,7 +64,7 @@ var
   fDocProperties: TfDocProperties;
 
 implementation
-
+{$R *.lfm}
 { TfDocProperties }
 
 procedure TfDocProperties.miCheckoutToThisRevisionClick(Sender: TObject);
@@ -113,7 +113,6 @@ begin
 end;
 
 initialization
-  {$I udocproperties.lrs}
 
 end.
 

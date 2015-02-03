@@ -26,10 +26,10 @@ unit ugridview;
 
 interface
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, DBGrids, ExtCtrls,
+  Classes, SysUtils, Utils,  Forms, Controls, DBGrids, ExtCtrls,
   Buttons, ComCtrls, uExtControls, db, Grids, ActnList, Menus, uBaseDBClasses,
-  uBaseDbInterface, StdCtrls, Graphics, types, Clipbrd,
-  ubasevisualapplicationtools, Dialogs, EditBtn, DbCtrls, Calendar;
+  uBaseDbInterface, StdCtrls, Graphics, types, Clipbrd, LMessages,
+  ubasevisualapplicationtools, ZVDateTimePicker, Dialogs, DbCtrls, EditBtn;
 type
   TUnprotectedGrid = class(TCustomGrid);
 
@@ -51,27 +51,11 @@ type
     procedure msg_SetValue(var Msg: TGridMessage); message GM_SETVALUE;
     procedure msg_SetPos(var Msg: TGridMessage); message GM_SETPOS;
     procedure msg_SelectAll(var Msg: TGridMessage); message GM_SELECTALL;
+    procedure WMPaste(var Message: TLMPaste); message LM_PASTE;
   public
     constructor Create(AOwner: TComponent); override;
     procedure EditingDone; override;
     property SetValue : Boolean read FSetValue write FSetValue;
-  end;
-  TInplaceDateEdit = class(TDateEdit)
-  private
-    FGrid: TCustomGrid;
-    FCol,FRow: Integer;
-  protected
-    {$IF (FPC_FULLVERSION>20604)}
-    procedure EditChange;override;
-    {$ELSE}
-    procedure Change;override;
-    {$ENDIF}
-    procedure msg_SetGrid(var Msg: TGridMessage); message GM_SETGRID;
-    procedure msg_SetBounds(var Msg: TGridMessage); message GM_SETBOUNDS;
-    procedure msg_SetValue(var Msg: TGridMessage); message GM_SETVALUE;
-    procedure msg_SetPos(var Msg: TGridMessage); message GM_SETPOS;
-  public
-    procedure EditingDone; override;
   end;
   TRowObject = class
   private
@@ -83,6 +67,7 @@ type
     Seen : string;
     Dependencies : Boolean;
     ShouldStart : TDateTime;
+    NeedsAction : string;
     RefreshHeight : Boolean;
     Extends : TPoint;
     property StringRec : string read GetStringRec;
@@ -138,9 +123,8 @@ type
     procedure acOpenExecute(Sender: TObject);
     procedure acSearchExecute(Sender: TObject);
     procedure bEditRowsClick(Sender: TObject);
-    procedure deInplaceEditingDone(Sender: TObject);
-    procedure deInplaceKeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure deDateAcceptDate(Sender: TObject; var ADate: TDateTime;
+      var AcceptDate: Boolean);
     procedure dgFakeTitleClick(Column: TColumn);
     procedure DoAsyncRefresh(Data: PtrInt);
     procedure FDataSourceDataChange(Sender: TObject; Field: TField);
@@ -151,11 +135,13 @@ type
       tIndex: Integer);
     procedure gHeaderDrawCell(Sender: TObject; aCol, aRow: Integer;
       aRect: TRect; aState: TGridDrawState);
+    procedure gHeaderEditingDone(Sender: TObject);
     procedure gHeaderGetCellWidth(aCol: Integer; var aNewWidth: Integer);
     procedure gHeaderHeaderClick(Sender: TObject; IsColumn: Boolean;
       Index: Integer);
     procedure gHeaderKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState
       );
+    procedure gHeaderPickListSelect(Sender: TObject);
     procedure gHeaderSelectCell(Sender: TObject; aCol, aRow: Integer;
       var CanSelect: Boolean);
     procedure gHeaderSetEditText(Sender: TObject; ACol, ARow: Integer;
@@ -203,6 +189,7 @@ type
     FAddRow: TNotifyEvent;
     FAfterInsert: TNotifyEvent;
     FApplyAutoFilter: Boolean;
+    FAutoFilterChanged: TNotifyEvent;
     FbaseFilter: string;
     FBeforeInsert: TNotifyEvent;
     FBeforInsert: TNotifyEvent;
@@ -211,7 +198,9 @@ type
     FDelete: TNotifyEvent;
     FFilterCell: TFilterCellTextEvent;
     FGetRowHeight: TGetRowHeightEvent;
+    FInvertedDrawing: Boolean;
     FNumberField: string;
+    FOnDrawCellBack: TGridDrawColumnCellEvent;
     FOnGetFontCell: TCellFontEvent;
     FWordwrap: Boolean;
     FWorkStatus: string;
@@ -247,7 +236,6 @@ type
     FInpStringList : TStringList;
     FDataSet : TBaseDBDataSet;
     FSTextField: string;
-    aFirstFilter: String;
     FTextField: string;
     FTreeField: string;
     OldRow : Integer;
@@ -257,7 +245,6 @@ type
     InEdit: Boolean;
     FDontUpdate : Integer;
     FEditable : Boolean;
-    FEditText : string;
     FirstFocused : Boolean;
     aOldSize : Integer;
     FSearchKeyCol: TColumn;
@@ -265,7 +252,7 @@ type
     FSearchKeyVal: String;
     FSearchKeyRect: TRect;
     SearchKeyTimer : TTimer;
-    deInplace : TInplaceDateEdit;
+    FDisableEdit : Boolean;
     procedure ClearFilters;
     function GetFilterRow: Boolean;
     procedure SetExpField(AValue: string);
@@ -348,6 +335,7 @@ type
     property DefaultRows : string read fDefaultRows write SetDefaultRows;
     property SortDirection : TSortDirection read FSortDirection write SetSortDirecion;
     property WordWrap : Boolean read FWordwrap write FWordwrap;
+    property InvertedDrawing : Boolean read FInvertedDrawing write FInvertedDrawing;
 
     property SortField : string read FSortField write SetSortField;
     property NumberField : string read FNumberField write SetNumberField;
@@ -383,12 +371,13 @@ type
     property OnAddRow : TNotifyEvent read FAddRow write FAddRow;
     property ReadOnly : Boolean read FreadOnly write SetReadOnly;
     property OnDelete : TNotifyEvent read FDelete write fDelete;
+    property OnAutoFilterChanged : TNotifyEvent read FAutoFilterChanged write FAutoFilterChanged;
+    property AutoFilter : string read FAutoFilter write FAutoFilter;
   end;
 implementation
+{$R *.lfm}
 uses uRowEditor,LCLType,LCLProc,LCLIntf,Themes,uIntfStrConsts,
   uData,uBaseVisualApplication,Math;
-const
-  INVALID_ROW_HEIGHT = 9;
 { TRowObject }
 
 function TRowObject.GetStringRec: string;
@@ -403,50 +392,7 @@ begin
   Childs:=' ';
   RefreshHeight := True;
   Dependencies:=False;
-end;
-
-{$IF (FPC_FULLVERSION>20604)}
-procedure TInplaceDateEdit.EditChange;
-{$ELSE}
-procedure TInplaceDateEdit.Change;
-{$ENDIF}
-begin
-  inherited;
-  if (FGrid<>nil) and Visible then
-    begin
-      TUnprotectedGrid(FGrid).SetEditText(FCol, FRow, Text);
-    end;
-end;
-
-procedure TInplaceDateEdit.msg_SetGrid(var Msg: TGridMessage);
-begin
-  FGrid:=Msg.Grid;
-  Msg.Options:=EO_AUTOSIZE or EO_SELECTALL or EO_IMPLEMENTED;
-end;
-
-procedure TInplaceDateEdit.msg_SetBounds(var Msg: TGridMessage);
-begin
-  with Msg.CellRect do
-    SetBounds(Left, Top, (Right-Left)-1, Bottom-Top);
-end;
-
-procedure TInplaceDateEdit.msg_SetValue(var Msg: TGridMessage);
-begin
-  Text:=Msg.Value;
-  SelStart := UTF8Length(Msg.Value)+1;
-end;
-
-procedure TInplaceDateEdit.msg_SetPos(var Msg: TGridMessage);
-begin
-  FCol := Msg.Col;
-  FRow := Msg.Row;
-end;
-
-procedure TInplaceDateEdit.EditingDone;
-begin
-  inherited EditingDone;
-  if FGrid<>nil then
-    FGrid.EditingDone;
+  NeedsAction:='na';
 end;
 
 procedure TfGridView.bEditRowsClick(Sender: TObject);
@@ -454,42 +400,11 @@ begin
   fRowEditor.Execute(FBaseName,FDataSource,dgFake,FBaseName);
   Asyncrefresh;
 end;
-procedure TfGridView.deInplaceEditingDone(Sender: TObject);
+
+procedure TfGridView.deDateAcceptDate(Sender: TObject; var ADate: TDateTime;
+  var AcceptDate: Boolean);
 begin
-  gList.Cells[gList.Col,gList.Row]:=deInplace.Text;
-  gListSetEditText(gList,gList.Col,gList.Row,deInplace.Text);
-end;
-procedure TfGridView.deInplaceKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-var
-  aLeave: Boolean = False;
-  aLength: PtrInt;
-begin
-  if (Key = VK_TAB) then
-    aLeave := True
-  else if (Key = VK_LEFT) and (deInplace.SelStart = 0) then
-    aLeave := True
-  else if (Key = VK_UP) and (deInplace.SelStart <= length(deInplace.Text)) then
-    aLeave := True
-  else if (Key = VK_DOWN) or (Key = VK_RIGHT) then
-    begin
-      aLength := UTF8Length(deInplace.Text);
-      if ((Key = VK_DOWN) and (deInplace.SelStart >= aLength))
-      or ((Key = VK_RIGHT) and (deInplace.SelStart >= aLength))
-      then
-        aLeave := True;
-    end
-  else if (Key = VK_ESCAPE) then
-    begin
-      TUnprotectedGrid(gList).KeyDown(Key,Shift);
-    end;
-  if aLeave then
-    begin
-      deInplace.Visible:=False;
-      gList.EditorMode:=False;
-      TUnprotectedGrid(gList).KeyDown(Key,Shift);
-      gList.SetFocus;
-    end;
+  TUnprotectedGrid(gList).SetEditText(gList.Col, gList.Row, DateToStr(ADate));
 end;
 
 procedure TfGridView.dgFakeTitleClick(Column: TColumn);
@@ -498,6 +413,7 @@ begin
   or (Column.Field.DataType = ftWideMemo)
   or (Column.Field.DataType = ftBlob)
   then exit;
+  FDisableEdit:=True;
   Post;
   if SortField = Column.FieldName then
     begin
@@ -518,6 +434,7 @@ begin
     end;
   UpdateTitle;
   acFilter.Execute;
+  FDisableEdit:=False;
 end;
 
 procedure TfGridView.DoAsyncRefresh(Data: PtrInt);
@@ -632,12 +549,20 @@ begin
     end;
 end;
 
+procedure TfGridView.gHeaderEditingDone(Sender: TObject);
+begin
+  FAutoFilter := BuildAutoFilter(dgFake,gHeader);
+  if Assigned(FAutoFilterChanged) then
+    FAutoFilterChanged(Self);
+  acFilter.Execute;
+end;
+
 procedure TfGridView.gHeaderGetCellWidth(aCol: Integer; var aNewWidth: Integer);
 begin
   ColumnWidthHelper.Index := aCol-1;
   if ColumnWidthHelper.Index < 0 then Exit;
   ColumnWidthHelper.MaxWidth := -1;
-  TDBGrid(gList).Repaint;
+  gList.Repaint;
   aNewWidth := 8 + ColumnWidthHelper.MaxWidth;
 end;
 
@@ -655,12 +580,23 @@ begin
   or (Key = VK_DOWN) then
     begin
       FAutoFilter := BuildAutoFilter(dgFake,gHeader);
+      if Assigned(FAutoFilterChanged) then
+        FAutoFilterChanged(Self);
       acFilter.Execute;
       if gList.CanFocus then
         gList.SetFocus;
       Key := 0;
     end;
 end;
+
+procedure TfGridView.gHeaderPickListSelect(Sender: TObject);
+begin
+  FAutoFilter := BuildAutoFilter(dgFake,gHeader,FFilterCell);
+  if Assigned(FAutoFilterChanged) then
+    FAutoFilterChanged(Self);
+  acFilter.Execute;
+end;
+
 procedure TfGridView.gHeaderSelectCell(Sender: TObject; aCol, aRow: Integer;
   var CanSelect: Boolean);
 begin
@@ -670,11 +606,18 @@ procedure TfGridView.gHeaderSetEditText(Sender: TObject; ACol, ARow: Integer;
   const Value: string);
 begin
   FAutoFilter := BuildAutoFilter(dgFake,gHeader,FFilterCell);
+  if Assigned(FAutoFilterChanged) then
+    FAutoFilterChanged(Self);
 end;
 
 procedure TfGridView.gListEnterEdit(Sender: TObject);
 begin
-  GotoActiveRow;
+  if gList.Editor is TCustomComboBox then
+    begin
+      Application.ProcessMessages;
+      if not (goAlwaysShowEditor in gList.Options) then
+        TCustomComboBox(gList.Editor).DroppedDown:=True;
+    end;
 end;
 
 procedure TfGridView.gListExit(Sender: TObject);
@@ -684,7 +627,9 @@ begin
   if DataSet.CanEdit and gList.EditorMode then
     begin
       if DataSet.Changed then
-        Post
+        begin
+          Post
+        end
       else if (FDataSource.DataSet.State = dsInsert) and (not FDataSet.Changed) then
         begin
           CleanRow(gList.RowCount-1,-2);
@@ -709,8 +654,8 @@ end;
 
 procedure TfGridView.mInplaceEditingDone(Sender: TObject);
 begin
-  gList.Cells[gList.Col,gList.Row]:=mInplace.Lines.Text;
   TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
+  mInplaceResize(Sender);
 end;
 procedure TfGridView.mInplaceKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
@@ -770,8 +715,8 @@ begin
       for i := 0 to mInplace.Lines.Count-1 do
         inc(aLength,UTF8length(mInplace.Lines[i])+UTF8length(lineending));
       dec(aLength,UTF8length(lineending));
-      if ((Key = VK_DOWN) and (mInplace.SelStart >= aLength-length(mInplace.Lines[mInplace.Lines.Count-1])))
-      or ((Key = VK_RIGHT) and (mInplace.SelStart >= aLength))
+      if ((Key = VK_DOWN) and (mInplace.SelStart >= aLength-(length(mInplace.Lines[mInplace.Lines.Count-1])-1)))
+      or ((Key = VK_RIGHT) and (mInplace.SelStart >= aLength-1))
       then
         aLeave := True;
     end
@@ -816,12 +761,14 @@ begin
           aCur := mInplace.SelStart;
           mInplace.ScrollBars:=ssAutoVertical;
           mInplace.SelStart:=aCur;
-          mInplace.SetFocus;
+          if mInplace.Visible then
+            mInplace.SetFocus;
         end;
     end
   else
     begin
       TRowObject(gList.Objects[0,gList.Row]).Extends := GetRowHeight(gList.Row);
+      TRowObject(gList.Objects[0,gList.Row]).Extends.y:=TRowObject(gList.Objects[0,gList.Row]).Extends.y+(gList.DefaultRowHeight);
       gList.RowHeights[gList.Row] := TRowObject(gList.Objects[0,gList.Row]).Extends.Y;
       TRowObject(gList.Objects[0,gList.Row]).RefreshHeight:=True;
       TryToMakeEditorVisible;
@@ -875,16 +822,12 @@ procedure TfGridView.gListColRowMoved(Sender: TObject; IsColumn: Boolean;
   sIndex, tIndex: Integer);
 var
   i: Integer;
-  aParent,aAheadParent : Variant;
-  OneRowBelowID: Int64 = 0;
-  aCol: Integer;
-  aLevel: Integer;
-  aLevelOld: Integer;
-  aPosno: Integer;
   aIndex: Integer;
+  aCol: Integer;
 begin
   if FDataSource.DataSet.ControlsDisabled then exit;
   if not FEditable then exit;
+  FDisableEdit:=True;
   if IsColumn then
     begin
       dgFake.Columns[sIndex-1].Index:=tIndex-1;
@@ -917,6 +860,8 @@ begin
           RenumberRows(aIndex);
         end;
     end;
+  FDisableEdit:=False;
+  Refresh;
 end;
 procedure TfGridView.gListDblClick(Sender: TObject);
 begin
@@ -1179,6 +1124,11 @@ begin
         end;
       if Assigned(FOnDrawCell) then
         begin
+          if (gdSelected in AState) then
+            begin
+              aColor := SelectedColor;
+              TStringGrid(Sender).Canvas.Font.Color:=clHighlightText;
+            end;
           TStringGrid(Sender).Canvas.Brush.Color:=aColor;
           TStringGrid(Sender).Canvas.FillRect(aRect);
           bRect :=aRect;
@@ -1205,8 +1155,11 @@ begin
             FOnGetFontCell(gList,aRect,aRow,dgFake.Columns[aCol-1],aState,aColor,aFontStyle);
           with TStringGrid(Sender).Canvas do
             begin
-              TStringGrid(Sender).Canvas.Brush.Color:=aColor;
-              TStringGrid(Sender).Canvas.FillRect(aRect);
+              if not Assigned(FOnDrawCell) then
+                begin
+                  TStringGrid(Sender).Canvas.Brush.Color:=aColor;
+                  TStringGrid(Sender).Canvas.FillRect(aRect);
+                end;
               bRect := aRect;
               for i := 0 to dgFake.Columns.Count-1 do
                 if dgFake.Columns[i].FieldName = IdentField then
@@ -1290,7 +1243,7 @@ begin
                                 if not ((dgFake.DataSource.DataSet.State = dsEdit) or (dgFake.DataSource.DataSet.State = dsInsert)) then
                                   dgFake.DataSource.DataSet.Edit;
                                 if ((pos('END',dgFake.Columns[gList.Col-1].Field.FieldName)>0) or (pos('DUE',dgFake.Columns[gList.Col-1].Field.FieldName)>0)) and (Trunc(oDate) = oDate) then
-                                  oDate := oDate+0.999;
+                                  oDate := oDate+0.99999;
                                 dgFake.Columns[gList.Col-1].Field.AsDateTime:=oDate;
                               end
                           end
@@ -1559,11 +1512,14 @@ begin
             Application.QueueAsyncCall(@DoSetEdit,0);
         end;
     end
-  else if Key in [VK_DELETE] then
+  else if (Key in [VK_DELETE]) and (ssCtrl in Shift) then
     begin
       if not gList.EditorMode then
-        if Assigned(OnDelete) then
-          OnDelete(Self);
+        begin
+          if Assigned(OnDelete) then
+            OnDelete(Self);
+          Key := 0;
+        end;
     end
   {$IFDEF WINDOWS}
   else if Key in [VK_A..VK_Z,VK_0..VK_9] then
@@ -1709,13 +1665,6 @@ begin
         Editor:=mInplace;
         exit;
       end;
-  if Assigned(dgFake.Columns[aCol-1].Field) and (dgFake.Columns[aCol-1].Field is TDateTimeField) then
-    begin
-      Editor := deInplace;
-      deInplace.BoundsRect := gList.CellRect(aCol,aRow);
-      deInplace.Width:=deInplace.Width-deInplace.Button.Width;
-      deInplace.Text:=dgFake.Columns[aCol-1].Field.AsString;
-    end;
 end;
 procedure TfGridView.gListSetEditText(Sender: TObject; ACol,
   ARow: Integer; const Value: string);
@@ -1726,6 +1675,7 @@ var
   aKey : Word = 0;
   oDate: TDateTime;
 begin
+  if FDisableEdit then exit;
   if FIgnoreSettext then
     begin
       FIgnoreSettext := False;
@@ -1798,7 +1748,7 @@ begin
                     if TryStrToDateTime(tmp,oDate) then
                       begin
                         if ((pos('END',dgFake.Columns[gList.Col-1].Field.FieldName)>0) or (pos('DUE',dgFake.Columns[gList.Col-1].Field.FieldName)>0)) and (Trunc(oDate) = oDate) then
-                          oDate := oDate+0.999;
+                          oDate := oDate+0.99999;
                         dgFake.Columns[aCol-1].Field.AsDateTime:=oDate;
                       end;
                     {$ifdef DEBUG}
@@ -1817,7 +1767,8 @@ begin
               begin
                 if (FDataSource.State <> dsEdit) and (FDataSource.State <> dsInsert) then
                   FDataSource.DataSet.Edit;
-                dgFake.Columns[aCol-1].Field.Clear;
+                if not (dgFake.Columns[aCol-1].Field.AsString='') then
+                  dgFake.Columns[aCol-1].Field.Clear;
               end;
             if Assigned(FSearchKey) then
               begin
@@ -1905,6 +1856,8 @@ begin
       gHeader.Cells[a+1,1] := '';
     end;
   FAutoFilter := BuildAutofilter(dgFake,gHeader);
+  if Assigned(FAutoFilterChanged) then
+    FAutoFilterChanged(Self);
   acFilter.Execute;
 end;
 procedure TfGridView.SetHasChilds(aCol, aRow: Integer; Expanded: char);
@@ -2040,7 +1993,7 @@ begin
                 if Assigned(FGetRowHeight) then
                   begin
                     FGetRowHeight(Self,dgFake.Columns[i],aRow,Result.Y,TextWidth);
-                    //DontCall := True;
+                    DontCall := True;
                   end;
                 if gList.Canvas.HandleAllocated then
                   begin
@@ -2049,7 +2002,7 @@ begin
                     aStyle := gList.Canvas.Font.Style;
                     gList.Canvas.Font.Style:=[fsBold];
                     DrawText(gList.Canvas.Handle,
-                      PChar(UTF8ToSys(aText)),
+                      PChar(UniToSys(aText)),
                       Length(aText),
                       r,
                       DT_LEFT or DT_WORDBREAK or DT_CALCRECT);
@@ -2109,6 +2062,11 @@ begin
           System.Delete(aFilter,pos(') AND ('+FActAutoFilter+')',aFilter),length(aFilter));
           System.Delete(aFilter,1,1);
           FActAutoFilter:='';
+        end
+      else if pos('('+FActAutoFilter+')',aFilter) > 0 then
+        begin
+          System.Delete(aFilter,pos('('+FActAutoFilter+')',aFilter),length(aFilter));
+          FActAutoFilter:='';
         end;
       if pos(') AND ('+FbaseFilter+')',aFilter) > 0 then
         begin
@@ -2133,6 +2091,7 @@ begin
       aFilter := '('+aFilter+') AND ('+FAutoFilter+')';
       FActAutoFilter:=FAutoFilter;
     end;
+  aFilter := StringReplace(aFilter,'() AND ','',[rfReplaceAll]);
   with FDataSet.DataSet as IBaseDBFilter do
     begin
       Filter := aFilter;
@@ -2668,7 +2627,10 @@ begin
     gList.Objects[0,aRow].Free;
   for i := 1 to gList.ColCount-1 do
     if Assigned(gList.Objects[i,aRow]) then
-      gList.Objects[i,aRow].Free;
+      begin
+        gList.Objects[i,aRow].Free;
+        gList.Objects[i,aRow] := nil;
+      end;
 end;
 
 procedure TfGridView.Asyncrefresh;
@@ -2682,27 +2644,26 @@ var
 begin
   inherited Create(AOwner);
   InEdit := False;
+  FDisableEdit:=False;
   FApplyAutoFilter := True;
   FreadOnly:=False;
   FWordwrap:=False;
   FEntered := False;
   FDataSet := nil;
   FDontUpdate := 0;
+  FInvertedDrawing:=False;
   FSortDirection:=sdIgnored;
   FInpStringList := TStringList.Create;
   FDefaultRowHeight := False;
   mInplace := TInplaceMemo.Create(Self);
   mInplace.ScrollBars:=ssAutoVertical;
-  //mInplace.OnEditingDone:=@mInplaceEditingDone;
+  mInplace.OnEditingDone:=@mInplaceEditingDone;
   mInplace.OnKeyDown:=@mInplaceKeyDown;
   mInplace.BorderStyle:=bsNone;
   mInplace.OnResize:=@mInplaceResize;
   mInplace.WordWrap:=False;
   FIgnoreSettext := False;
   Self.OnEnter:=@fGridViewEnter;
-  deInplace:=TInplaceDateEdit.Create(Self);
-  deInplace.OnKeyDown:=@deInplaceKeyDown;
-  deInplace.CalendarDisplaySettings:=[dsShowHeadings,dsShowDayNames,dsShowWeekNumbers];
   {$ifdef gridvisible}
   dgFake.Visible := True;
   {$endif}
@@ -2930,63 +2891,100 @@ var
   end;
 
 begin
+  gList.EditorMode:=False;
   if (not Assigned(FDataSource.DataSet))
   or (not FDataSource.DataSet.Active) then exit;
   {$ifndef slowdebug}
   gList.BeginUpdate;
   {$endif}
-  if UpdateHeader then
-    SetupHeader;
-  NotDone := TStringList.Create;
-  {$ifndef debug}
-  aTime := GetTickCount;
-//  Self.Visible:=False;
-  {$else}
-  debugln('SyncDataSource');
-  {$endif}
-  for i := 0 to dgFake.Columns.Count-1 do
-    if dgFake.Columns[i].FieldName = IdentField then
+  try
+    gList.Selection:=Rect(-1,-1,-1,-1);
+    if UpdateHeader then
+      SetupHeader;
+    NotDone := TStringList.Create;
+    {$ifndef debug}
+    aTime := GetTickCount;
+  //  Self.Visible:=False;
+    {$else}
+    debugln('SyncDataSource');
+    {$endif}
+    for i := 0 to dgFake.Columns.Count-1 do
+      if dgFake.Columns[i].FieldName = IdentField then
+        begin
+          aCol := i+1;
+          break;
+        end;
+    with FDataSource.DataSet do
       begin
-        aCol := i+1;
-        break;
-      end;
-  with FDataSource.DataSet do
-    begin
-      {$ifndef debug}
-      DisableControls;
-      {$endif}
-      try
-        CleanList(0);
-        AllDone := True;
-        First;
-        while not EOF do
-          begin
-            AddTasks;
-            Next;
-          end;
-        if gList.RowCount = gList.FixedRows then
-          begin
-            gList.RowCount:=gList.FixedRows+1;
-            gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
-          end;
-        gListSelectCell(gList,0,1,CanSelect);
-        if Assigned(OnCellChanging) then
-          OnCellChanging(Self);
-      finally
         {$ifndef debug}
-        EnableControls;
+        DisableControls;
         {$endif}
+        try
+          CleanList(0);
+          AllDone := True;
+          if DataSet.CanEdit then
+            begin
+              if not ReadOnly then
+                begin
+                  try
+                    DataSet.Post;
+                  except
+                    DataSet.Cancel;
+                  end;
+                end
+              else DataSet.Cancel;
+            end;
+          if not FInvertedDrawing then
+            begin
+              First;
+              while not EOF do
+                begin
+                  AddTasks;
+                  Next;
+                end;
+            end
+          else
+            begin
+              Last;
+              while not BOF do
+                begin
+                  AddTasks;
+                  Prior;
+                end;
+            end;
+          if gList.RowCount = gList.FixedRows then
+            begin
+              gList.RowCount:=gList.FixedRows+1;
+              gList.Objects[0,gList.RowCount-1] := TRowObject.Create;
+            end;
+          gListSelectCell(gList,0,1,CanSelect);
+          if Assigned(OnCellChanging) then
+            OnCellChanging(Self);
+        finally
+          {$ifndef debug}
+          begin
+            while ControlsDisabled do
+              EnableControls;
+          end;
+          {$endif}
+        end;
       end;
-    end;
-  NotDone.Free;
-  if not FEditable then
-    gList.Row:=gList.FixedRows;
-  OldRow := gList.Row;
+    NotDone.Free;
+    if not FEditable then
+      gList.Row:=gList.FixedRows;
+    OldRow := gList.Row;
   {$ifndef slowdebug}
-  gList.EndUpdate;
+  finally
+    gList.EndUpdate;
+  end;
   aOldCol := gList.Col;
-  gList.Col := gList.ColCount-1;
-  gList.Col := aOldCol;
+  try
+    if gList.ColCount>0 then
+      gList.Col := gList.ColCount-1;
+    gList.Col := aOldCol;
+  except
+    gList.Selection:=Rect(-1,-1,-1,-1);
+  end;
   {$else}
   debugln('SyncDataSourceEnd='+IntToStr(GetTickCount-aTime));
   {$endif}
@@ -2994,7 +2992,15 @@ end;
 procedure TfGridView.SetupHeader;
 var
   i: Integer;
+  sl : TStringList;
 begin
+  sl := TStringList.Create;
+  for i := 0 to dgFake.Columns.Count-1 do
+    begin
+      if gHeader.Columns.Count>i then
+        if gHeader.Cells[i,1] <> '' then
+          sl.Values[dgFake.Columns[i].FieldName]:=gHeader.Cells[i,1];
+    end;
   fRowEditor.GetGridSizes(FBaseName,dgFake.DataSource,dgFake,FDefaultRows,False,FBaseName);
   if Assigned(FSetupPosition) then FSetupPosition(Self,gList.Columns);
   gList.Columns.Assign(dgFake.Columns);
@@ -3008,7 +3014,18 @@ begin
       ;
     end;
   gHeader.Columns.Assign(gList.Columns);
+  for i := 0 to dgFake.Columns.Count-1 do
+    begin
+      if gHeader.Columns.Count>i then
+        begin
+          gHeader.Cells[i,1]:=sl.Values[dgFake.Columns[i].FieldName];
+          if gHeader.Columns[i].PickList.Count>0 then
+            gHeader.OnPickListSelect:=@gHeaderPickListSelect;
+        end;
+    end;
+  sl.Free;
   UpdateTitle;
+  gHeader.AutoFillColumns:=gList.AutoFillColumns;
 end;
 procedure TfGridView.SetEdited;
 begin
@@ -3091,6 +3108,7 @@ begin
     end;
   if gList.CanFocus then
     gList.SetFocus;
+  gList.EditorMode:=True;
 end;
 
 procedure TfGridView.BeginUpdate;
@@ -3346,8 +3364,8 @@ begin
     gList.Clean(gList.Selection,[]);
   except
   end;
-  SyncDataSource;
   gList.Row:=aOldRow;
+  Refresh;
   GotoActiveRow;
 end;
 procedure TfGridView.First;
@@ -3372,21 +3390,35 @@ var
   aRec: LargeInt;
   aTopRow: Integer;
   aCol: Integer;
+  OldIgnore: Boolean;
 begin
   if not Assigned(FDataSet) then exit;
   if not FDataSet.DataSet.Active then exit;
-  if gList.EditorMode then gList.EditorMode:=False;
-  if DataSet.State = dsInsert then exit;
-  aTopRow := gList.TopRow;
-  aCol := gList.Col;
-  GotoActiveRow;
-  aRec := FDataSet.GetBookmark;
-  if RefreshDS then
-    FDataSet.DataSet.Refresh;
-  SyncDataSource;
-  FDataSet.GotoBookmark(aRec);
-  GotoDataSetRow;
-  gList.TopRow := aTopRow;
+  gList.BeginUpdate;
+  try
+    OldIgnore := FDisableEdit;
+    FDisableEdit:=True;
+    if gList.EditorMode then gList.EditorMode:=False;
+    if DataSet.State = dsInsert then exit;
+    aTopRow := gList.TopRow;
+    aCol := gList.Col;
+    GotoActiveRow;
+    aRec := FDataSet.GetBookmark;
+    if RefreshDS then
+      FDataSet.DataSet.Refresh;
+    SyncDataSource;
+    FDataSet.GotoBookmark(aRec);
+    GotoDataSetRow;
+    gList.TopRow := aTopRow;
+  finally
+    gList.EndUpdate;
+  end;
+  FDisableEdit:=OldIgnore;
+  if InvertedDrawing then
+    begin
+      while (not glist.IsCellVisible(0,gList.RowCount-1)) and (glist.IsCellVisible(0,gList.Row)) do
+        gList.TopRow:=gList.TopRow+1;
+    end;
   try
     gList.Col:=aCol;
   except
@@ -3482,13 +3514,13 @@ end;
 procedure TInplaceMemo.msg_SetGrid(var Msg: TGridMessage);
 begin
   FGrid:=Msg.Grid;
-  Msg.Options:=EO_AUTOSIZE or EO_SELECTALL or EO_IMPLEMENTED;
+  Msg.Options:=EO_AUTOSIZE or EO_IMPLEMENTED;
 end;
 
 procedure TInplaceMemo.msg_GetGrid(var Msg: TGridMessage);
 begin
   Msg.Grid:=FGrid;
-  //Msg.Options:=EO_AUTOSIZE or EO_SELECTALL or EO_IMPLEMENTED;
+  Msg.Options:=EO_AUTOSIZE or EO_IMPLEMENTED;
 end;
 
 procedure TInplaceMemo.msg_SetBounds(var Msg: TGridMessage);
@@ -3503,6 +3535,7 @@ var
 begin
   if FSetValue then
     begin
+      WordWrap:=True;
       aText := Text;
       aClear := length(trim(aText))<2;
       Text:=Msg.Value;
@@ -3520,10 +3553,34 @@ begin
   SelectAll;
 end;
 
+procedure TInplaceMemo.WMPaste(var Message: TLMPaste);
+var
+  SaveClipboard: string;
+  tabPos: SizeInt;
+  OldText: String;
+begin
+  SaveClipboard := Clipboard.AsText;
+  OldText := SaveClipboard;
+  SaveClipboard:=trim(SaveClipboard);
+  while (copy(SaveClipboard,length(SaveClipboard)-1,1) = #10)
+     or (copy(SaveClipboard,length(SaveClipboard)-1,1) = #13)
+     or (copy(SaveClipboard,length(SaveClipboard)-1,1) = ' ') do
+   SaveClipboard:=copy(SaveClipboard,0,length(SaveClipboard)-2);
+  tabPos := pos(#9,Saveclipboard);
+  if tabPos <= 4 then
+    SaveClipboard:=copy(SaveClipboard,pos(#9,Saveclipboard)+1,length(SaveClipboard));
+  SaveClipboard:=trim(SaveClipboard);
+  Clipboard.AsText := SaveClipboard;
+  Text := StringReplace(Text,OldText,SaveClipboard,[]);
+  inherited;
+  EditingDone;
+end;
+
 constructor TInplaceMemo.Create(AOwner: TComponent);
 begin
   FSetValue:=True;
   inherited Create(AOwner);
+  WordWrap:=True;
 end;
 
 procedure TInplaceMemo.EditingDone;
@@ -3534,6 +3591,5 @@ begin
 end;
 
 initialization
-  {$I ugridview.lrs}
 end.
 

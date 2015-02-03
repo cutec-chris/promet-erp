@@ -542,9 +542,10 @@ object fMain: TfMain
   }
   Menu = MainMenu
   OnClose = FormClose
+  OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object ActionList1: TActionList
     left = 16
     top = 120
@@ -574,7 +575,6 @@ object fMain: TfMain
     end
   end
   object MainMenu: TMainMenu
-    Images = fVisualControls.Images
     left = 72
     top = 64
     object miMandant: TMenuItem
@@ -609,25 +609,15 @@ object fMain: TfMain
     end
   end
   object pmTray: TPopupMenu
-    Images = fVisualControls.Images
     left = 72
     top = 176
     object MenuItem2: TMenuItem
-      Action = fEnterTime.acStartstandartEntry
     end
   end
   object ApplicationProperties1: TApplicationProperties
     OnShowHint = ApplicationProperties1ShowHint
     left = 184
     top = 64
-  end
-  object SimpleIPCServer1: TSimpleIPCServer
-    Active = False
-    ServerID = 'PMSTimeregistering'
-    Global = True
-    OnMessage = SimpleIPCServer1Message
-    left = 184
-    top = 120
   end
   object IdleTimer1: TIdleTimer
     OnTimer = IdleTimer1Timer

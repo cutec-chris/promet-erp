@@ -5,7 +5,7 @@ unit uDataSet;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil,  Forms, Controls, Graphics, Dialogs,
   DBGrids, DbCtrls, db;
 
 type
@@ -30,9 +30,7 @@ var
   fDataSet: TfDataSet;
 
 implementation
-
-{ TfDataSet }
-
+{$R *.lfm}
 procedure TfDataSet.FormDestroy(Sender: TObject);
 begin
   FDataSet.Free;
@@ -46,7 +44,6 @@ begin
 end;
 
 initialization
-  {$I *.lrs}
 
 end.
 

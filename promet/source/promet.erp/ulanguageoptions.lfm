@@ -4,8 +4,8 @@ inherited fLanguageOptions: TfLanguageOptions
   ClientHeight = 452
   ClientWidth = 544
   TabOrder = 0
-  DesignLeft = 486
-  DesignTop = 200
+  DesignLeft = 386
+  DesignTop = 212
   object Panel3: TPanel[0]
     Left = 0
     Height = 452
@@ -70,7 +70,7 @@ inherited fLanguageOptions: TfLanguageOptions
       Left = 4
       Height = 24
       Top = 154
-      Width = 50
+      Width = 42
       Anchors = [akTop, akLeft, akBottom]
       Caption = 'Länder'
       Font.Style = [fsBold]
@@ -79,9 +79,9 @@ inherited fLanguageOptions: TfLanguageOptions
     end
     object lShipping: TLabel
       Left = 4
-      Height = 18
+      Height = 13
       Top = 288
-      Width = 98
+      Width = 82
       Caption = 'Versandarten'
       Font.Style = [fsBold]
       ParentColor = False
@@ -135,7 +135,7 @@ inherited fLanguageOptions: TfLanguageOptions
     end
     object eDateformat: TDBEdit
       Left = 314
-      Height = 27
+      Height = 23
       Top = 30
       Width = 81
       DataField = 'DATEFORMAT'
@@ -147,7 +147,7 @@ inherited fLanguageOptions: TfLanguageOptions
     end
     object eTimeformat: TDBEdit
       Left = 314
-      Height = 27
+      Height = 23
       Top = 74
       Width = 81
       DataField = 'TIMEFORMAT'
@@ -202,6 +202,10 @@ inherited fLanguageOptions: TfLanguageOptions
         item
           Title.Caption = 'NAME'
           FieldName = 'NAME'
+        end      
+        item
+          Title.Caption = 'Sprache'
+          FieldName = 'LANGUAGE'
         end>
       DataSource = CountriesDS
       TabOrder = 6
@@ -251,7 +255,7 @@ inherited fLanguageOptions: TfLanguageOptions
     end
     object dcCurrency: TDBComboBox
       Left = 313
-      Height = 29
+      Height = 27
       Top = 254
       Width = 224
       Anchors = [akTop, akRight]
@@ -263,9 +267,9 @@ inherited fLanguageOptions: TfLanguageOptions
     end
     object lLanguages: TLabel
       Left = 4
-      Height = 18
+      Height = 13
       Top = 8
-      Width = 67
+      Width = 58
       Caption = 'Sprachen'
       Font.Style = [fsBold]
       ParentColor = False

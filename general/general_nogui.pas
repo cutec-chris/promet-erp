@@ -7,9 +7,8 @@ unit general_nogui;
 interface
 
 uses
-  Utils, uGeneralStrConsts, SecureUtils, ProcessUtils, umashineid, 
-  uModifiedDS, uColors, uRTFtoTXT, MathParser, uImaging, Aspell, 
-  LazarusPackageIntf;
+  Utils, uGeneralStrConsts, SecureUtils, umashineid, uModifiedDS, uRTFtoTXT, 
+  MathParser, Aspell, usimpleprocess, uSunRise, UtilsDate, LazarusPackageIntf;
 
 implementation
 

@@ -2,7 +2,7 @@ unit umain;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils,
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage;
@@ -30,6 +30,7 @@ type
 var
   fMain: TfMain;
 implementation
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface, uOrder;
 procedure TfMain.DoCreate;
 begin
@@ -41,6 +42,8 @@ begin
     LoadMandants;
 end;
 procedure TfMain.acLoginExecute(Sender: TObject);
+var
+  a: TOrder;
 begin
   with Application as IBaseApplication do
     if not Login then
@@ -50,6 +53,13 @@ begin
       end;
   acLogin.Enabled:=False;
   acLogout.Enabled:=True;
+
+  a := TOrder.Create(nil);
+  a.Insert;
+  a.Positions.Insert;
+  a.Address.Insert;
+
+
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
@@ -76,5 +86,4 @@ begin
     end;
 end;
 initialization
-  {$I umain.lrs}
-end.
+end.

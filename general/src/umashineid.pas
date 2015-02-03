@@ -8,9 +8,9 @@ uses
   {$IFDEF MSWINDOWS}
   Windows,
   {$ELSE}
-  BaseUnix,
+  BaseUnix,process,
   {$ENDIF}
-  Classes, SysUtils, LCLProc, ProcessUtils;
+  Classes, SysUtils;
 
 function CreateUserID : LongInt;
 function CreateMachineID : LongInt;
@@ -135,6 +135,8 @@ var
   Buf     : array [0..2047] of Byte;
   iFileHandle : LongInt;
   tmp: String;
+  aProcess: TProcess;
+  sl: TStringList;
 begin
   Result := 0;
   {include system specific information}
@@ -160,7 +162,14 @@ begin
      (GUID1.D4[7] = GUID2.D4[7]) then
     Result := Result+AddStringToLong(GUID1.D4[2], 6);
   {$IFDEF DARWIN}
-  tmp := ExecProcessEx('system_profiler -detailLevel minimal');
+  aProcess := TProcess.Create(nil);
+  aProcess.CommandLine:='system_profiler -detailLevel minimal';
+  aProcess.Options:=[poWaitOnExit,poUsePipes];
+  aProcess.Execute;
+  sl := TStringList.Create;
+  sl.LoadFromStream(aProcess.Output);
+  tmp := sl.Text;
+  sl.Free;
   tmp := copy(tmp,pos('Serial Number',tmp)+13,length(tmp));
   tmp := copy(tmp,pos(':',tmp)+1,length(tmp));
   tmp := copy(tmp,0,pos(lineending,tmp)-1);
@@ -172,5 +181,3 @@ end;
 
 
 end.
-
-

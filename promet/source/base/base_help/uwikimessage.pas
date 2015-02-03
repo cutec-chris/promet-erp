@@ -90,7 +90,7 @@ constructor TfWikiMessage.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FConnection := Data.GetNewConnection;
-  FDataSet := TMessage.Create(Self,Data,FConnection);
+  FDataSet := TMessage.CreateEx(Self,Data,FConnection);
 end;
 destructor TfWikiMessage.Destroy;
 begin

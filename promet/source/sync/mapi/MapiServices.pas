@@ -586,18 +586,19 @@ end;
 
 function ClearMapiProperty(const MapiProp: IMapiProp; PropertyId: ULONG
   ): Boolean;
-var NewProperty: TSPropValue;
+var
     Problems: PSPropProblemArray;
     SetPropResult: HRESULT;
+var Properties: TSPropTagArray;
 begin
   Problems := nil;
 
-  // Initialise and set the details of the property we want to modify
-  FillChar(NewProperty, SizeOf(TSPropValue), 0);
-  NewProperty.ulPropTag := PropertyId;
+  // Get the actual property value
+  Properties.cValues := 1;
+  Properties.aulPropTag[0] := PropertyId;
 
   // Update said property
-  SetPropResult := MapiProp.DeleteProps(@NewProperty, Problems);
+  SetPropResult := MapiProp.DeleteProps(@Properties, Problems);
   try
     // Check for errors
     if SetPropResult <> S_OK then

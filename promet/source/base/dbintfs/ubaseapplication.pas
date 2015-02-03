@@ -21,21 +21,24 @@ unit uBaseApplication;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, CustApp, PropertyStorage, eventLog;
+  Classes, SysUtils, CustApp, eventLog
+  {$IFDEF LCL}
+  ,PropertyStorage
+  {$ENDIF}
+  ;
 type
   TBaseApplicationClass = class of TCustomApplication;
 
   { IBaseApplication }
-
   IBaseApplication = interface['{F8CB41DF-69F1-40C2-ADAA-C8BDCCB28CDD}']
     function GetAppName: string;
     function GetApprevision: Integer;
     function GetAppVersion: real;
     function GetOurConfigDir : string;
-    function GetConfig: TCustomPropertyStorage;
     function GetLog: TEventLog;
     function GetSingleInstance : Boolean;
     function GetLanguage: string;
+    function GetMessageManager : TThread;
     procedure SetAppname(AValue: string);
     procedure SetAppRevision(AValue: Integer);
     procedure SetAppVersion(AValue: real);
@@ -56,13 +59,13 @@ type
     procedure Debug(aMsg : string);
     procedure DoExit;
     property Language : string read GetLanguage write SetLanguage;
-    property Config : TCustomPropertyStorage read GetConfig;
     property SingleInstance : Boolean read GetSingleInstance;
     property Appname : string read GetAppName write SetAppname;
     property AppVersion : real read GetAppVersion write SetAppVersion;
     property AppRevision : Integer read GetApprevision write SetAppRevision;
     property EventLog : TEventLog read GetLog;
     property QuickHelp : Boolean read GetQuickHelp write SetQuickhelp;
+    function GetInternalTempDir : string;
   end;
 var
   TBaseApplicationType : TBaseApplicationClass;

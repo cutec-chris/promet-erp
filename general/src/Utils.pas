@@ -4,7 +4,7 @@ INTERFACE
 uses Classes,SysUtils
      {$IFDEF LCL}
      {$IFNDEF LCLnogui}
-     ,Forms,Dialogs,Clipbrd,Translations,TypInfo,LCLProc,Graphics
+     ,Forms,Dialogs,Clipbrd,Translations,LCLProc,Graphics,LResources
      {$ENDIF}
      ,FileUtil,UTF8Process
      {$ENDIF}
@@ -21,7 +21,6 @@ CONST
 
 type
  TRoundToRange = -37..37;
- TProcessinfoTyp = (piOpen,piPrint);
  {$ifdef WINDOWS}
  PFNSHGetFolderPath = Function(Ahwnd: HWND; Csidl: Integer; Token: THandle; Flags: DWord; Path: PChar): HRESULT; stdcall;
  {$endif}
@@ -31,15 +30,8 @@ function RPos(const Substr: string; const S: string): Integer;
 FUNCTION IsNumeric(s: STRING): boolean;
 FUNCTION StrTimeToValue(val : string) : LongInt;
 {$IFDEF LCL}
- {$IFNDEF LCLnogui}
- procedure LoadLanguage(lang : string);
- function GetProcessforExtension(InfoTyp : TProcessinfoTyp;Extension : string) : string;
- function TextCut(aCanvas: TCanvas; Len: Integer; Text: String): String;
- {$ELSE}
- function TextCut(Len: Integer; Text: String): String;
- {$ENDIF}
+function TextCut(Len: Integer; Text: String): String;
 {$ENDIF}
-function GetMimeTypeforExtension(Extension : string) : string;
 function InstallExt(Extension, ExtDescription, FileDescription,OpenWith, ParamString: string; IconIndex: Integer = 0): Boolean;
 function SystemUserName : string;
 function GetSystemName : string;
@@ -51,19 +43,75 @@ function GetTempPath : string;
 function GetConfigDir(app : string) : string;
 function GetProgramDir : string;
 function GetGlobalConfigDir(app : string;Global : Boolean = True) : string;
+function GetHomeDir : string;
 function SizeToText(size : Longint) : string;
+function GetMimeTypeforExtension(Extension : string) : string;
 function GetMainIconHandle(Resourcename : string) : Cardinal;
 function CanWriteToProgramDir : Boolean;
 function HexToBin(h: STRING): dword;
+function RoundToSecond(aDate : TDateTime) : TDateTime;
+function RoundToMinute(T : TDateTime): TDateTime;
 function RoundTo(const AValue : extended ; const ADigit : TRoundToRange) : extended ;
 function TimeTotext(Seconds : Integer) : string;
 function GetSystemLang : string;
 function DateTimeToHourString(DateTime : TDateTime) : string;
 function DateTimeToIndustrialTime(dateTime : TDateTime) : string;
 function ConvertUnknownStringdate(input : string) : TDateTime;
-function HTMLEncode(s : string)  : string;
-function HTMLDecode(s : string)  : string;
+function HTMLEncode(const s : string)  : string;
+function HTMLDecode(const si : string)  : string;
+function UniToSys(const s: string): string; inline;
+function SysToUni(const s: string): string; inline;
+function AppendPathDelim(const Path: string): string; inline;
+function FileSize(aFile : string) : Int64;
+type
+  TCopyFileFlag = (
+    cffOverwriteFile,
+    cffCreateDestDirectory,
+    cffPreserveTime
+    );
+  TCopyFileFlags = set of TCopyFileFlag;
+function CopyFile(const SrcFilename, DestFilename: string;
+                  Flags: TCopyFileFlags=[cffOverwriteFile]): boolean;
+function GetTicks : Int64;
 IMPLEMENTATION
+function GetMimeTypeforExtension(Extension : string) : string;
+var
+{$ifdef MSWINDOWS}
+  reg : TRegistry;
+{$else}
+  f : TextFile;
+  tmp : string;
+{$endif}
+begin
+{$ifdef WINDOWS}
+  Result := '';
+  Reg := TRegistry.Create(KEY_READ);
+  Reg.RootKey := HKEY_CLASSES_ROOT;
+  if Reg.OpenKeyReadOnly(ExtractFileExt('.'+Extension)) then
+  begin
+    Result := Reg.ReadString('Content Type');
+    Reg.CloseKey;
+  end;
+  Reg.Free;
+{$ELSE}
+  if FileExists('~/.local/share/mime/globs') then
+    AssignFile(f,'~/.local/share/mime/globs')
+  else if FileExists('/usr/local/share/mime/globs') then
+    AssignFile(f,'/usr/local/share/mime/globs')
+  else if FileExists('/usr/share/mime/globs') then
+    AssignFile(f,'/usr/share/mime/globs')
+  else
+    exit;
+  Reset(f);
+  while not eof(f) do
+    begin
+      readln(f,tmp);
+      if copy(tmp,pos(':*.',tmp)+3,length(tmp)) = Extension then
+        result := copy(tmp,0,pos(':*.',tmp)-1);
+    end;
+  CloseFile(f);
+{$endif}
+end;
 function TimeTotext(Seconds : Integer) : string;
 var
   tmp : Integer;
@@ -86,6 +134,19 @@ begin
     begin
       Result := IntToStr(Seconds)+' s';
     end
+end;
+function RoundToSecond(aDate : TDateTime) : TDateTime;
+begin
+  Result := Round(aDate * SecsPerDay) / SecsPerDay;
+end;
+function RoundToMinute(T : TDateTime): TDateTime;
+Var
+   H,M,S,ms : Word;
+begin
+   DecodeTime(T,H,M,S,ms);
+   M := (M div 1) * 1;
+   S := 0;
+   Result := EncodeTime(H,M,S,ms);
 end;
 function RoundTo(const AValue : extended ; const ADigit : TRoundToRange) : extended ;
 var X : extended ; i : integer ;
@@ -133,7 +194,6 @@ BEGIN
     Result := Result + (buf[index] shl ((bytes-index)*8));
 END;
 {$IFDEF LCL}
-{$IFNDEF LCLnogui}
 {$ifndef ver2_0}
 function Translate (Name,Value : AnsiString; Hash : Longint; arg:pointer) : AnsiString;
 var
@@ -146,218 +206,7 @@ begin
   if result<>'' then
     result:=UTF8ToSystemCharSet(result);
 end;
-{$endif ver2_0}
-function TextCut(aCanvas: TCanvas; Len: Integer; Text: String): String;
-var
-  k: Integer;
-begin
-  Result := '';
-  if Len < 0 then exit;
-  if Len <= aCanvas.TextWidth(Copy(Text, 1, 1) + '...') then exit;
-  Result := Text;
-  with aCanvas do
-    begin
-      if TextWidth(Text) > Len then
-        begin
-          for k := Length(Text) downto 1 do
-            if TextWidth(Copy(Text, 1, k) + '...') > Len then Continue
-              else
-            begin
-              Result := Copy(Text, 1, k) + '...';
-              Exit;
-            end;
-        end;
-    end;
-end;
-procedure LoadLanguage(lang: string);
-var
-  Info : TSearchRec;
-  po: TPOFile;
-  units: TStringList;
-  id: String;
-  i: Integer;
-  a: Integer;
-  Comp: TComponent;
-Begin
-  If FindFirstUTF8(ProgramDirectory+'languages'+Directoryseparator+'*.'+lowercase(copy(lang,0,2))+'.po',faAnyFile,Info)=0 then
-    repeat
-      po := TPOFile.Create(ProgramDirectory+'languages'+Directoryseparator+Info.Name);
-      units := TStringList.Create;
-      for i := 0 to po.Items.Count-1 do
-        begin
-          id := copy(TPoFileItem(po.Items[i]).IdentifierLow,0,pos('.',TPoFileItem(po.Items[i]).IdentifierLow)-1);
-          if units.IndexOf(id) = -1 then
-            units.Add(id);
-        end;
-      for i := 0 to units.Count-1 do
-        Translations.TranslateUnitResourceStrings(units[i],ProgramDirectory+'languages'+Directoryseparator+Info.Name);
-      units.Free;
-      for i := 0 to po.Items.Count-1 do
-        begin
-          id := copy(TPoFileItem(po.Items[i]).IdentifierLow,0,pos('.',TPoFileItem(po.Items[i]).IdentifierLow)-1);
-          for a := 0 to Screen.FormCount-1 do
-            if UTF8UpperCase(Screen.Forms[a].ClassName) = UTF8UpperCase(id) then
-              begin
-                id := copy(TPoFileItem(po.Items[i]).IdentifierLow,pos('.',TPoFileItem(po.Items[i]).IdentifierLow)+1,length(TPoFileItem(po.Items[i]).IdentifierLow));
-                if Assigned(Screen.Forms[a].FindComponent(copy(id,0,pos('.',id)-1))) then
-                  begin
-                    Comp := Screen.Forms[a].FindComponent(copy(id,0,pos('.',id)-1));
-                    id := copy(id,pos('.',id)+1,length(id));
-                    SetStrProp(Comp,id,TPoFileItem(po.Items[i]).Translation);
-                  end;
-              end;
-        end;
-      po.Free;
-    until FindNextUTF8(info)<>0;
-  FindCloseUTF8(Info);
-end;
-function GetProcessforExtension(InfoTyp : TProcessinfoTyp;Extension : string) : string;
-var
-{$ifdef MSWINDOWS}
-  reg : TRegistry;
-  ot : string;
-  FileClass: string;
-  chrResult: array[0..1023] of Char;
-  wrdReturn: DWORD;
-{$else}
-  SRec : TSearchRec;
-  res : Integer;
-  f : TextFile;
-  tmp : string;
-  mime : string;
-  apps : string;
-{$endif}
-begin
-{$ifdef WINDOWS}
-  case InfoTyp of
-  piOpen:ot := 'open';
-  piPrint:ot := 'print';
-  end;
-  Result := '';
-  Reg := TRegistry.Create(KEY_READ);
-  Reg.RootKey := HKEY_CLASSES_ROOT;
-  FileClass := '';
-  if Reg.OpenKeyReadOnly(ExtractFileExt('.'+Extension)) then
-  begin
-    FileClass := Reg.ReadString('');
-    Reg.CloseKey;
-  end;
-  if FileClass <> '' then begin
-    if Reg.OpenKeyReadOnly(FileClass + '\Shell\'+ot+'\Command') then
-    begin
-      wrdReturn := ExpandEnvironmentStrings(PChar(StringReplace(Reg.ReadString(''),'%1','%s',[rfReplaceAll])), chrResult, 1024);
-      if wrdReturn = 0 then
-        Result := StringReplace(Reg.ReadString(''),'%1','%s',[rfReplaceAll])
-      else
-        Result := Trim(chrResult);
-      Reg.CloseKey;
-    end;
-  end;
-  Reg.Free;
-{$ELSE}
-  apps := '';
-  mime := GetMimeTypeforExtension(Extension);
-//  /usr/share/mime-info *.keys
-  Res := FindFirst ('/usr/share/mime-info/*.keys', faAnyFile, SRec);
-  while Res = 0 do
-    begin
-      AssignFile(f,'/usr/share/mime-info/'+SRec.Name);
-      Reset(f);
-      while not eof(f) do
-        begin
-          readln(f,tmp);
-// nicht eingerueckt ist der mime typ
-          if not ((copy(tmp,0,1) = ' ') or (copy(tmp,0,1) = #9)) then
-//eingerÃckt die eigenschaften
-            if ((copy(tmp,length(tmp)-2,1) = '*')
-            and (copy(tmp,0,length(tmp)-2) = copy(mime,0,length(tmp)-2)))
-            or (trim(tmp) = trim(mime)) then
-              begin
-                readln(f,tmp);
-                while (not eof(f)) and ((copy(tmp,0,1) = ' ') or (copy(tmp,0,1) = #9)) do
-                  begin
-                    tmp := StringReplace(trim(tmp),#9,'',[rfReplaceAll]);
-//open referenziert gleich das program
-                    if lowercase(copy(tmp,0,5)) = 'open=' then
-                      begin
-                        Result := copy(tmp,6,length(tmp));
-                        if pos('%f',Result) = 0 then
-                          Result := Result+' "%s"'
-                        else
-                          Stringreplace(Result,'%f','%s',[rfReplaceAll]);
-                        SysUtils.FindClose(SRec);
-                        exit;
-                      end
-//das referenziert ein kÃrzel das isn der application registry steht
-                    else if lowercase(copy(tmp,0,49)) = 'short_list_application_ids_for_novice_user_level=' then
-                      begin
-                        apps := copy(tmp,50,length(tmp));
-                        break;
-                      end;
-                    readln(f,tmp);
-                  end;
-              end;
-          if apps <> '' then break;
-        end;
-      CloseFile(f);
-      Res := FindNext(SRec);
-      if apps <> '' then break;
-    end;
-  SysUtils.FindClose(SRec);
-  Result := apps;
-  if apps <> '' then
-    begin
-      while pos(',',apps) > 0 do
-        begin
-          Res := FindFirst ('/usr/share/application-registry/*.applications', faAnyFile, SRec);
-          while Res = 0 do
-            begin
-              AssignFile(f,'/usr/share/application-registry/'+SRec.Name);
-              Reset(f);
-              while not eof(f) do
-                begin
-                  readln(f,tmp);
-                  if not ((copy(tmp,0,1) = ' ') or (copy(tmp,0,1) = #9)) then
-    //eingerÃckt die eigenschaften
-                    if trim(tmp) = copy(apps,0,pos(',',apps)-1) then
-                      begin
-                        readln(f,tmp);
-                        while (not eof(f)) and ((copy(tmp,0,1) = ' ') or (copy(tmp,0,1) = #9)) do
-                          begin
-                            tmp := StringReplace(trim(tmp),#9,'',[rfReplaceAll]);
-                            if lowercase(copy(tmp,0,8)) = 'command=' then
-                              begin
-                                Result := copy(tmp,9,length(tmp));
-                                if FindFilenameOfCmd(Result) <> '' then
-                                  begin
-                                    if pos('%f',Result) = 0 then
-                                      Result := Result+' "%s"'
-                                    else
-                                      Stringreplace(Result,'%f','%s',[rfReplaceAll]);
-
-                                    CloseFile(f);
-                                    exit;
-                                  end;
-                              end;
-                            readln(f,tmp);
-                          end;
-                      end;
-                end;
-              CloseFile(f);
-              Res := FindNext(SRec);
-            end;
-          apps := copy(apps,pos(',',apps)+1,length(apps));
-        end;
-    end;
-  if Result='' then
-    Result:=FindFilenameOfCmd('xdg-open')+' "%s"'; // Portland OSDL/FreeDesktop standard on Linux
-  if Result='' then
-    Result:=FindFilenameOfCmd('kfmclient')+' "%s"'; // KDE command
-  if Result='' then
-    Result:=FindFilenameOfCmd('gnome-open')+' "%s"'; // GNOME command
-{$endif}
-end;
-{$ELSE}
+{$ENDIF}
 function TextCut(Len: Integer; Text: String): String;
 begin
   if Len < length(Text) then
@@ -366,45 +215,6 @@ begin
     Result := Text;
 end;
 {$ENDIF}
-{$ENDIF}
-function GetMimeTypeforExtension(Extension : string) : string;
-var
-{$ifdef MSWINDOWS}
-  reg : TRegistry;
-{$else}
-  f : TextFile;
-  tmp : string;
-{$endif}
-begin
-{$ifdef WINDOWS}
-  Result := '';
-  Reg := TRegistry.Create(KEY_READ);
-  Reg.RootKey := HKEY_CLASSES_ROOT;
-  if Reg.OpenKeyReadOnly(ExtractFileExt('.'+Extension)) then
-  begin
-    Result := Reg.ReadString('Content Type');
-    Reg.CloseKey;
-  end;
-  Reg.Free;
-{$ELSE}
-  if FileExists('~/.local/share/mime/globs') then
-    AssignFile(f,'~/.local/share/mime/globs')
-  else if FileExists('/usr/local/share/mime/globs') then
-    AssignFile(f,'/usr/local/share/mime/globs')
-  else if FileExists('/usr/share/mime/globs') then
-    AssignFile(f,'/usr/share/mime/globs')
-  else
-    exit;
-  Reset(f);
-  while not eof(f) do
-    begin
-      readln(f,tmp);
-      if copy(tmp,pos(':*.',tmp)+3,length(tmp)) = Extension then
-        result := copy(tmp,0,pos(':*.',tmp)-1);
-    end;
-  CloseFile(f);
-{$endif}
-end;
 function GetSystemLang: string;
 {$IFDEF WINDOWS}
 var
@@ -431,7 +241,7 @@ begin
   DecodeTime(DateTime,Hour,Minute,Second,Millisecond);
   Result := Format('%.2d:%.2d',[Trunc(DateTime)*HoursPerDay+Hour,Minute]);
 end;
-function DateTimeToIndustrialTime(DateTime: TDateTime): string;
+function DateTimeToIndustrialTime(dateTime: TDateTime): string;
 var
   Hour,Minute,Second,Millisecond: word;
 begin
@@ -480,7 +290,7 @@ begin
         end;
       end;
 end;
-function HTMLEncode(s: string): string;
+function HTMLEncode(const s: string): string;
 begin
   Result := StringReplace(s, '&', '&amp;', [rfreplaceall]);
   Result := StringReplace(Result, '"', '&quot;', [rfreplaceall]);
@@ -495,13 +305,18 @@ begin
   Result := StringReplace(result, 'Ü', '&Uuml;', [rfreplaceall]);
   Result := StringReplace(result, 'ß', '&szlig;', [rfreplaceall]);
 end;
-function HTMLDecode(s: string): string;
+function HTMLDecode(const si: string): string;
+var
+  Sp, Rp, Cp, Tp: PChar;
+  S: String;
+  I, Code: Integer;
+  AStr: String;
 begin
-  Result := s;
-  Result := StringReplace(Result, '&amp;'  ,'&', [rfreplaceall]);
+  Result := si;
+  Result := StringReplace(Result, '&amp;' ,'&', [rfreplaceall]);
   Result := StringReplace(Result, '&quot;' ,'"', [rfreplaceall]);
-  Result := StringReplace(Result, '&lt;'   ,'<', [rfreplaceall]);
-  Result := StringReplace(Result, '&gt;'   ,'>', [rfreplaceall]);
+  Result := StringReplace(Result, '&lt;' ,'<', [rfreplaceall]);
+  Result := StringReplace(Result, '&gt;' ,'>', [rfreplaceall]);
   Result := StringReplace(Result, '&nbsp;' ,' ', [rfreplaceall]);
   Result := StringReplace(Result, '&auml;' ,'ä', [rfreplaceall]);
   Result := StringReplace(Result, '&ouml;' ,'ö', [rfreplaceall]);
@@ -510,7 +325,204 @@ begin
   Result := StringReplace(Result, '&Ouml;' ,'Ö', [rfreplaceall]);
   Result := StringReplace(Result, '&Uuml;' ,'Ü', [rfreplaceall]);
   Result := StringReplace(Result, '&szlig;','ß', [rfreplaceall]);
+  AStr := UniToSys(Result);
+  SetLength(Result, Length(AStr));
+  Sp := PChar(AStr);
+  Rp := PChar(Result);
+  Cp := Sp;
+  try
+    while Sp^ <> #0 do
+    begin
+      case Sp^ of
+        '&': begin
+               Cp := Sp;
+               Inc(Sp);
+               case Sp^ of
+                 '#': begin
+                        Tp := Sp;
+                        Inc(Tp);
+                        while (Sp^ <> ';') and (Sp^ <> #0) do
+                          Inc(Sp);
+                        SetString(S, Tp, Sp - Tp);
+                        Val(S, I, Code);
+                        Rp^ := Chr((I));
+                      end;
+                 else
+                   Exit;
+               end;
+           end
+      else
+        Rp^ := Sp^;
+      end;
+      Inc(Rp);
+      Inc(Sp);
+    end;
+  except
+  end;
+  SetLength(Result, Rp - PChar(Result));
+  Result := SysToUni(Result);
 end;
+var
+  FNeedRTLAnsi: boolean = false;
+  FNeedRTLAnsiValid: boolean = false;
+
+function NeedRTLAnsi: boolean;
+{$IFDEF WinCE}
+// CP_UTF8 is missing in the windows unit of the Windows CE RTL
+const
+  CP_UTF8 = 65001;
+{$ENDIF}
+{$IFNDEF Windows}
+var
+  Lang: String;
+  i: LongInt;
+  Encoding: String;
+{$ENDIF}
+begin
+  if FNeedRTLAnsiValid then
+    exit(FNeedRTLAnsi);
+  {$IFDEF Windows}
+  FNeedRTLAnsi:=GetACP<>CP_UTF8;
+  {$ELSE}
+  FNeedRTLAnsi:=false;
+  Lang := SysUtils.GetEnvironmentVariable('LC_ALL');
+  if lang = '' then
+  begin
+    Lang := SysUtils.GetEnvironmentVariable('LC_MESSAGES');
+    if Lang = '' then
+    begin
+      Lang := SysUtils.GetEnvironmentVariable('LANG');
+    end;
+  end;
+  i:=System.Pos('.',Lang);
+  if (i>0) then begin
+    Encoding:=copy(Lang,i+1,length(Lang)-i);
+    FNeedRTLAnsi:=(SysUtils.CompareText(Encoding,'UTF-8')<>0)
+              and (SysUtils.CompareText(Encoding,'UTF8')<>0);
+  end;
+  {$ENDIF}
+  FNeedRTLAnsiValid:=true;
+  Result:=FNeedRTLAnsi;
+end;
+
+function IsASCII(const s: string): boolean; inline;
+var
+  i: Integer;
+begin
+  for i:=1 to length(s) do if ord(s[i])>127 then exit(false);
+  Result:=true;
+end;
+
+function UniToSys(const s: string): string;
+begin
+  if NeedRTLAnsi and (not IsASCII(s)) then
+    Result:=UTF8ToAnsi(s)
+  else
+    Result:=s;
+end;
+
+function SysToUni(const s: string): string;
+begin
+  if NeedRTLAnsi and (not IsASCII(s)) then
+  begin
+    Result:=AnsiToUTF8(s);
+    {$ifdef FPC_HAS_CPSTRING}
+    // prevent UTF8 codepage appear in the strings - we don't need codepage
+    // conversion magic in LCL code
+    SetCodePage(RawByteString(Result), StringCodePage(s), False);
+    {$endif}
+  end
+  else
+    Result:=s;
+end;
+
+function AppendPathDelim(const Path: string): string;
+begin
+  if (Path<>'') and not (Path[length(Path)] in AllowDirectorySeparators) then
+    Result:=Path+PathDelim
+  else
+    Result:=Path;
+end;
+
+function FileSize(aFile: string): Int64;
+var
+  SR: TSearchRec;
+begin
+  Result := -1;
+  if SysUtils.FindFirst(aFile,faAnyFile,SR)=0 then
+    Result := sr.Size;
+  SysUtils.FindClose(SR);
+end;
+
+function CopyFile(const SrcFilename, DestFilename: string; Flags: TCopyFileFlags
+  ): boolean;
+var
+  SrcHandle: THandle;
+  DestHandle: THandle;
+  Buffer: array[1..4096] of byte;
+  ReadCount, WriteCount, TryCount: LongInt;
+begin
+  Result := False;
+  // check overwrite
+  if (not (cffOverwriteFile in Flags)) and FileExists(UniToSys(DestFileName)) then
+    exit;
+  // check directory
+  if (cffCreateDestDirectory in Flags)
+  and (not DirectoryExists(UniToSys(ExtractFilePath(DestFileName))))
+  and (not ForceDirectories(UniToSys(ExtractFilePath(DestFileName)))) then
+    exit;
+  TryCount := 0;
+  While TryCount <> 3 Do Begin
+    SrcHandle := FileOpen(UniToSys(SrcFilename), fmOpenRead or fmShareDenyWrite);
+    if (THandle(SrcHandle)=feInvalidHandle) then Begin
+      Inc(TryCount);
+      Sleep(10);
+    End
+    Else Begin
+      TryCount := 0;
+      Break;
+    End;
+  End;
+  If TryCount > 0 Then
+    raise EFOpenError.Createfmt({SFOpenError}'Unable to open file "%s"', [SrcFilename]);
+  try
+    DestHandle := FileCreate(UniToSys(DestFileName));
+    if (THandle(DestHandle)=feInvalidHandle) then
+      raise EFCreateError.createfmt({SFCreateError}'Unable to create file "%s"',[DestFileName]);
+    try
+      repeat
+        ReadCount:=FileRead(SrcHandle,Buffer[1],High(Buffer));
+        if ReadCount<=0 then break;
+        WriteCount:=FileWrite(DestHandle,Buffer[1],ReadCount);
+        if WriteCount<ReadCount then
+          raise EWriteError.createfmt({SFCreateError}'Unable to write to file "%s"',[DestFileName])
+      until false;
+    finally
+      FileClose(DestHandle);
+    end;
+    if (cffPreserveTime in Flags) then
+      FileSetDate(UnitoSys(DestFilename), FileGetDate(SrcHandle));
+    Result := True;
+  finally
+    FileClose(SrcHandle);
+  end;
+end;
+
+function GetTicks: Int64;
+{$IFDEF UNIX}
+var
+  tv: timeval;
+{$ENDIF}
+begin
+{$IFDEF UNIX}
+  fpgettimeofday(@tv, nil);
+  Result := int64(tv.tv_sec) * 1000 + tv.tv_usec div 1000;
+{$ENDIF}
+{$IFDEF WINDOWS}
+  Result := GetTickCount;
+{$ENDIF}
+end;
+
 function CanWriteToProgramDir : Boolean;
 var
   f : TextFile;
@@ -526,6 +538,58 @@ begin
   SysUtils.DeleteFile(ExtractFilePath(Paramstr(0))+'writetest.tmp');
   Result := True;
 end;
+
+function GetHomeDir: string;
+{$IFDEF MSWINDOWS}
+const
+  CSIDL_PERSONAL = $0005;
+  CSIDL_FLAG_CREATE     = $8000; { (force creation of requested folder if it doesn't exist yet)     }
+var
+  Path: array [0..1024] of char;
+  P : Pointer;
+  SHGetFolderPath : PFNSHGetFolderPath = Nil;
+  CFGDLLHandle : THandle = 0;
+{$ENDIF}
+begin
+{$IFDEF MSWINDOWS}
+  CFGDLLHandle:=LoadLibrary('shell32.dll');
+  if (CFGDLLHandle<>0) then
+    begin
+    P:=GetProcAddress(CFGDLLHandle,'SHGetFolderPathA');
+    If (P=Nil) then
+      begin
+      FreeLibrary(CFGDLLHandle);
+      CFGDllHandle:=0;
+      end
+    else
+      SHGetFolderPath:=PFNSHGetFolderPath(P);
+    end;
+  If (P=Nil) then
+    begin
+    CFGDLLHandle:=LoadLibrary('shfolder.dll');
+    if (CFGDLLHandle<>0) then
+      begin
+      P:=GetProcAddress(CFGDLLHandle,'SHGetFolderPathA');
+      If (P=Nil) then
+        begin
+        FreeLibrary(CFGDLLHandle);
+        CFGDllHandle:=0;
+        end
+      else
+        ShGetFolderPath:=PFNSHGetFolderPath(P);
+      end;
+    end;
+  Result := ExtractFilePath(Paramstr(0));
+  If (@ShGetFolderPath<>Nil) then
+    begin
+      if SHGetFolderPath(0,CSIDL_PERSONAL or CSIDL_FLAG_CREATE,0,0,@PATH[0])=S_OK then
+        Result:=IncludeTrailingPathDelimiter(StrPas(@Path[0]));
+    end;
+{$ELSE}
+  Result:=expandfilename('~/');
+{$ENDIF}
+end;
+
 function SizeToText(size : Longint) : string;
 begin
   if size > 1024*1024*1024 then
@@ -711,6 +775,13 @@ begin
   Result := StringReplace(Result,'&','',[rfReplaceAll]);
   Result := StringReplace(Result,'(','_',[rfReplaceAll]);
   Result := StringReplace(Result,')','_',[rfReplaceAll]);
+  Result := StringReplace(Result,'ö','oe',[rfReplaceAll]);
+  Result := StringReplace(Result,'ä','ae',[rfReplaceAll]);
+  Result := StringReplace(Result,'ü','ue',[rfReplaceAll]);
+  Result := StringReplace(Result,'Ö','Oe',[rfReplaceAll]);
+  Result := StringReplace(Result,'Ä','Ae',[rfReplaceAll]);
+  Result := StringReplace(Result,'Ü','Ue',[rfReplaceAll]);
+  Result := StringReplace(Result,'ß','ss',[rfReplaceAll]);
 end;
 function StripHTML(S: string): string;
 var
@@ -923,7 +994,7 @@ begin
 {$ENDIF}
     end;
 end;
-FUNCTION StrTimeToValue(val : string) : LongInt;
+function StrTimeToValue(val: string): LongInt;
 var
   i : Integer;
   un : string;
@@ -950,7 +1021,7 @@ begin
   else
     Result := -1;
 end;
-FUNCTION IsNumeric(s: STRING): boolean;
+function IsNumeric(s: STRING): boolean;
 var
   i : integer;
 begin

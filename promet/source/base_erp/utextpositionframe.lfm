@@ -1,0 +1,94 @@
+inherited fTextPositionFrame: TfTextPositionFrame
+  Left = 0
+  Height = 260
+  Top = 0
+  Width = 790
+  ClientHeight = 260
+  ClientWidth = 790
+  Color = clWindow
+  OnEnter = FrameEnter
+  ParentColor = False
+  DesignLeft = 447
+  DesignTop = 251
+  object lTenderPos: TLabel[0]
+    Left = 3
+    Height = 13
+    Top = 4
+    Width = 49
+    Caption = 'Aus.Pos.'
+    ParentColor = False
+  end
+  object lShortText: TLabel[1]
+    Left = 63
+    Height = 13
+    Top = 4
+    Width = 46
+    Caption = 'Kurztext'
+    ParentColor = False
+  end
+  object lLongtext: TLabel[2]
+    Left = 64
+    Height = 13
+    Top = 58
+    Width = 49
+    Caption = 'Langtext'
+    ParentColor = False
+  end
+  object lTexttype: TLabel[3]
+    Left = 4
+    Height = 13
+    Top = 58
+    Width = 41
+    Caption = 'Texttyp'
+    ParentColor = False
+  end
+  object eTenderPos: TDBEdit[4]
+    Left = 3
+    Height = 23
+    Top = 18
+    Width = 54
+    DataField = 'TPOSNO'
+    DataSource = Position
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 0
+  end
+  object mLongText: TDBMemo[5]
+    Left = 64
+    Height = 182
+    Top = 73
+    Width = 720
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    DataField = 'TEXT'
+    DataSource = Position
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+  object cbTexttyp: TDBComboBox[6]
+    Left = 4
+    Height = 27
+    Top = 73
+    Width = 54
+    DataField = 'TEXTTYPE'
+    DataSource = Position
+    ItemHeight = 0
+    MaxLength = 0
+    TabOrder = 2
+    TabStop = False
+  end
+  object eShortText: TDBMemo[7]
+    Left = 63
+    Height = 40
+    Top = 18
+    Width = 721
+    Anchors = [akTop, akLeft, akRight]
+    DataField = 'SHORTTEXT'
+    DataSource = Position
+    ScrollBars = ssAutoBoth
+    TabOrder = 3
+  end
+  object Position: TDatasource[8]
+    left = 31
+    top = 119
+  end
+end

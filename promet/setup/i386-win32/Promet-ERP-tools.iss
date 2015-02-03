@@ -10,13 +10,13 @@ AppID=CUPROMETERP7
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
-DefaultDirName={pf}\Promet-ERP
+DefaultDirName={code:DefDirRoot}\Promet-ERP
 DefaultGroupName=Promet-ERP
 UninstallDisplayIcon={app}\prometerp.exe
 OutputBaseFilename=promet-erp-tools_{#AppVersion}_{#FullTarget}
 OutputDir=../output
 InternalCompressLevel=ultra
-PrivilegesRequired=none
+PrivilegesRequired=poweruser
 TimeStampsInUTC=true
 Encryption=false
 Compression=bzip
@@ -30,9 +30,11 @@ AppContact=http://www.free-erp.de
 [Files]
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\cmdwizardmandant.exe"; DestDir: "{app}\tools"; Components: admin
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\clientmanagement.exe"; DestDir: "{app}"; Components: admin
+Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\messagemanager.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*receiver.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*sender.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\sync_*.exe"; DestDir: "{app}\tools"; Components: main
+Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\pscript.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\checkout.exe"; DestDir: "{app}"; Components: admin
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\checkin.exe"; DestDir: "{app}"; Components: admin
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\statistics.exe"; DestDir: "{app}"; Components: statistics
@@ -77,3 +79,16 @@ Name: {userdesktop}\Besprechungsprotokoll; Filename: {app}\meetingminutes.exe; T
 Name: en; MessagesFile: compiler:Default.isl
 Name: de; MessagesFile: German.isl
 
+[Code]
+function IsRegularUser(): Boolean;
+begin
+  Result := not (IsAdminLoggedOn or IsPowerUserLoggedOn);
+end;
+
+function DefDirRoot(Param: String): String;
+begin
+  if IsRegularUser then
+    Result := ExpandConstant('{localappdata}')
+  else
+    Result := ExpandConstant('{pf}')
+end;

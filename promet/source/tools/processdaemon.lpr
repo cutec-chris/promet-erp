@@ -188,6 +188,12 @@ var
 begin
   Application.Log(etDebug, 'Thread.Execute');
   aFileDir := GetGlobalConfigDir('prometerp',False);
+  if (aFiledir='/')
+  or (aFileDir='') then
+    begin
+      aFileDir := '/root/.prometerp/';
+      aPath := '/root/.prometerp/';
+    end;
   Application.Log(etDebug, 'Thread.FileDir:'+aFileDir);
   If FindFirst (aFileDir+'*.perml',faAnyFile,aInfo)=0 then
     begin
@@ -207,9 +213,9 @@ begin
   ChDir(Application.Location);
   aProcess.CurrentDirectory:=Application.Location;
   if aPath = '' then
-    aProcess.CommandLine:='processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant
+    aProcess.CommandLine:=Application.Location+'processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant
   else
-    aProcess.CommandLine:='processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant+' --config-path='+aPath;
+    aProcess.CommandLine:=Application.Location+'processmanager'+ExtractFileExt(Application.ExeName)+' --mandant='+aMandant+' --config-path='+aPath;
   aProcess.Options:=[poUsePipes,poNoConsole];
   Application.Log(etDebug, 'Executing:'+aProcess.CommandLine);
   while not Terminated do
@@ -218,7 +224,7 @@ begin
         aProcess.Execute;
         while aProcess.Active and (not Terminated) do
           begin
-            sleep(100);
+            sleep(1000);
             ProcessData;
           end;
         ProcessData;
@@ -360,12 +366,11 @@ begin
     Title := 'Processdaemon';
     EventLog.DefaultEventType := etDebug;
     EventLog.AppendContent := false;
-    {$ifndef unix}
     EventLog.LogType := ltFile;
+    {$ifndef unix}
     EventLog.FileName := ChangeFileExt(ParamStr(0), '.log');
     {$else}
-    EventLog.LogType := ltSystem;
-    //EventLog.FileName := '/var/log/'+ExtractFileName(ChangeFileExt(ParamStr(0), '.log'));
+    EventLog.FileName := '/var/log/'+ExtractFileName(ChangeFileExt(ParamStr(0), '.log'));
     {$endif}
     Initialize;
     Run;

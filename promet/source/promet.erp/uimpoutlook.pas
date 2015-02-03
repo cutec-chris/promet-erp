@@ -5,7 +5,7 @@ unit uimpoutlook;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil,  Forms, Controls, Graphics, Dialogs,
   StdCtrls, Buttons, ButtonPanel, uIntfStrConsts, db
   {$IFDEF WINDOWS}
   ,ComObj
@@ -32,6 +32,7 @@ function ContOutlookImport : Boolean;
 function ContOutlookExport : Boolean;
 
 implementation
+{$R *.lfm}
 
 uses uData;
 
@@ -56,7 +57,7 @@ begin
   for i := 1 to Contacts.Items.Count do
   begin
     Contact := Contacts.Items.Item(i);
-    fOutlookImport.lbContacts.Items.Add(SysToUTF8(Contact.FullName));
+    fOutlookImport.lbContacts.Items.Add(SysToUni(Contact.FullName));
   end;
   Result := fOutlookImport.Showmodal = mrOK;
   if Result then
@@ -78,164 +79,164 @@ begin
               if (not ((Data.Customers.DataSet.State = dsInsert)
                     or (Data.Customers.DataSet.State = dsEdit))) then
                 Data.Customers.DataSet.Append;
-              Data.Customers.FieldByName('NAME').AsString:=SysToUTF8(Contact.LastNameAndFirstName);
-              Data.Customers.FieldByName('INFO').AsString:=SysToUTF8(Contact.Body);
+              Data.Customers.FieldByName('NAME').AsString:=SysToUni(Contact.LastNameAndFirstName);
+              Data.Customers.FieldByName('INFO').AsString:=SysToUni(Contact.Body);
               //Addresses
-              if SysToUTF8(Contact.BusinessAddress) <> '' then
+              if SysToUni(Contact.BusinessAddress) <> '' then
                 begin
                   Data.Addresses.DataSet.Append;
                   with Data.Addresses.DataSet do
                     begin
-                      FieldByName('ZIP').AsString := SysToUTF8(Contact.BusinessAddressPostalCode);
-                      FieldbyName('CITY').AsString := SysToUTF8(Contact.BusinessAddressCity);
-                      FieldbyName('ADDRESS').AsString := SysToUTF8(Contact.BusinessAddressStreet);
-                      FieldByName('NAME').AsString:=SysToUTF8(Contact.LastNameAndFirstName);
+                      FieldByName('ZIP').AsString := SysToUni(Contact.BusinessAddressPostalCode);
+                      FieldbyName('CITY').AsString := SysToUni(Contact.BusinessAddressCity);
+                      FieldbyName('ADDRESS').AsString := SysToUni(Contact.BusinessAddressStreet);
+                      FieldByName('NAME').AsString:=SysToUni(Contact.LastNameAndFirstName);
                       Post;
                     end;
                 end;
-              if SysToUTF8(Contact.HomeAddress) <> '' then
+              if SysToUni(Contact.HomeAddress) <> '' then
                 begin
                   Data.Addresses.DataSet.Append;
                   with Data.Addresses.DataSet do
                     begin
-                      FieldByName('ZIP').AsString := SysToUTF8(Contact.HomeAddressPostalCode);
-                      FieldbyName('CITY').AsString := SysToUTF8(Contact.HomeAddressCity);
-                      FieldbyName('ADDRESS').AsString := SysToUTF8(Contact.HomeAddressStreet);
-                      FieldByName('NAME').AsString:=SysToUTF8(Contact.LastNameAndFirstName);
+                      FieldByName('ZIP').AsString := SysToUni(Contact.HomeAddressPostalCode);
+                      FieldbyName('CITY').AsString := SysToUni(Contact.HomeAddressCity);
+                      FieldbyName('ADDRESS').AsString := SysToUni(Contact.HomeAddressStreet);
+                      FieldByName('NAME').AsString:=SysToUni(Contact.LastNameAndFirstName);
                       Post;
                     end;
                 end;
-              if SysToUTF8(Contact.MailingAddress) <> '' then
+              if SysToUni(Contact.MailingAddress) <> '' then
                 begin
                   Data.Addresses.DataSet.Append;
                   with Data.Addresses.DataSet do
                     begin
-                      FieldByName('ZIP').AsString := SysToUTF8(Contact.MailingAddressPostalCode);
-                      FieldbyName('CITY').AsString := SysToUTF8(Contact.MailingAddressCity);
-                      FieldbyName('ADDRESS').AsString := SysToUTF8(Contact.MailingAddressStreet);
-                      FieldByName('NAME').AsString:=SysToUTF8(Contact.LastNameAndFirstName);
+                      FieldByName('ZIP').AsString := SysToUni(Contact.MailingAddressPostalCode);
+                      FieldbyName('CITY').AsString := SysToUni(Contact.MailingAddressCity);
+                      FieldbyName('ADDRESS').AsString := SysToUni(Contact.MailingAddressStreet);
+                      FieldByName('NAME').AsString:=SysToUni(Contact.LastNameAndFirstName);
                       Post;
                     end;
                 end;
               //Contact Elements
-              if SysToUTF8(Contact.Birthday) <> '01.01.4501' then
+              if SysToUni(Contact.Birthday) <> '01.01.4501' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='BIR';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.Birthday);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.Birthday);
                     Post;
                   end;
-              if SysToUTF8(Contact.BusinessTelephoneNumber) <> '' then
+              if SysToUni(Contact.BusinessTelephoneNumber) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='TELB';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.BusinessTelephoneNumber);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.BusinessTelephoneNumber);
                     Post;
                   end;
-              if SysToUTF8(Contact.Business2TelephoneNumber) <> '' then
+              if SysToUni(Contact.Business2TelephoneNumber) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='TELB';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.Business2TelephoneNumber);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.Business2TelephoneNumber);
                     Post;
                   end;
-              if SysToUTF8(Contact.HomeTelephoneNumber) <> '' then
+              if SysToUni(Contact.HomeTelephoneNumber) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='TELB';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.HomeTelephoneNumber);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.HomeTelephoneNumber);
                     Post;
                   end;
-              if SysToUTF8(Contact.Home2TelephoneNumber) <> '' then
+              if SysToUni(Contact.Home2TelephoneNumber) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='TELB';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.Home2TelephoneNumber);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.Home2TelephoneNumber);
                     Post;
                   end;
-              if SysToUTF8(Contact.CompanyMainTelephoneNumber) <> '' then
+              if SysToUni(Contact.CompanyMainTelephoneNumber) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='TELB';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.CompanyMainTelephoneNumber);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.CompanyMainTelephoneNumber);
                     Post;
                   end;
-              if SysToUTF8(Contact.PrimaryTelephoneNumber) <> '' then
+              if SysToUni(Contact.PrimaryTelephoneNumber) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='TEL';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.PrimaryTelephoneNumber);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.PrimaryTelephoneNumber);
                     Post;
                   end;
-              if SysToUTF8(Contact.ISDNNumber) <> '' then
+              if SysToUni(Contact.ISDNNumber) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='TEL';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.ISDNNumber);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.ISDNNumber);
                     Post;
                   end;
-              if SysToUTF8(Contact.Email1Address) <> '' then
+              if SysToUni(Contact.Email1Address) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='MAIL';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.Email1Address);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.Email1Address);
                     Post;
                   end;
-              if SysToUTF8(Contact.Email2Address) <> '' then
+              if SysToUni(Contact.Email2Address) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='MAIL';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.Email2Address);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.Email2Address);
                     Post;
                   end;
-              if SysToUTF8(Contact.Email3Address) <> '' then
+              if SysToUni(Contact.Email3Address) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='MAIL';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.Email3Address);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.Email3Address);
                     Post;
                   end;
-              if SysToUTF8(Contact.NickName) <> '' then
+              if SysToUni(Contact.NickName) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='NICK';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.NickName);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.NickName);
                     Post;
                   end;
-              if SysToUTF8(Contact.PersonalHomePage) <> '' then
+              if SysToUni(Contact.PersonalHomePage) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='INT';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.PersonalHomePage);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.PersonalHomePage);
                     Post;
                   end;
-              if SysToUTF8(Contact.BusinessHomePage) <> '' then
+              if SysToUni(Contact.BusinessHomePage) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='INT';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.BusinessHomePage);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.BusinessHomePage);
                     Post;
                   end;
-              if SysToUTF8(Contact.MobileTelephoneNumber) <> '' then
+              if SysToUni(Contact.MobileTelephoneNumber) <> '' then
                 with Data.CustomerCont.DataSet do
                   begin
                     Append;
                     FieldByName('TYPE').AsString:='CEL';
-                    FieldbyName('DATA').AsString:=SysToUTF8(Contact.MobileTelephoneNumber);
+                    FieldbyName('DATA').AsString:=SysToUni(Contact.MobileTelephoneNumber);
                     Post;
                   end;
               Data.Customers.DataSet.Post;
@@ -252,7 +253,6 @@ begin
 end;
 
 initialization
-  {$I uimpoutlook.lrs}
 
 end.
 

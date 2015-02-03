@@ -1,7 +1,7 @@
 object fChangeStatus: TfChangeStatus
-  Left = 380
+  Left = 399
   Height = 97
-  Top = 327
+  Top = 338
   Width = 382
   Caption = 'Status ändern'
   ClientHeight = 97
@@ -9,28 +9,28 @@ object fChangeStatus: TfChangeStatus
   KeyPreview = True
   OnKeyUp = FormKeyUp
   Position = poMainFormCenter
-  LCLVersion = '0.9.29'
+  LCLVersion = '1.3'
   object lOrder: TLabel
     Left = 8
-    Height = 16
+    Height = 13
     Top = 6
-    Width = 41
+    Width = 42
     Caption = 'Auftrag'
     ParentColor = False
   end
   object lChange: TLabel
     Left = 8
-    Height = 16
+    Height = 13
     Top = 30
-    Width = 54
+    Width = 55
     Caption = 'Änderung'
     ParentColor = False
   end
   object lTarget: TLabel
     Left = 8
-    Height = 16
+    Height = 13
     Top = 56
-    Width = 20
+    Width = 21
     Caption = 'Ziel'
     ParentColor = False
   end
@@ -60,4 +60,4 @@ object fChangeStatus: TfChangeStatus
     ModalResult = 2
     TabOrder = 1
   end
-end
+end

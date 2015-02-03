@@ -24,9 +24,9 @@ unit umain;
 interface
 
 uses
-  Classes, SysUtils, simpleipc, FileUtil, ExtCtrls, Menus, Controls, ActnList,
+  Classes, SysUtils, types, FileUtil, ExtCtrls, Menus, Controls, ActnList,
   uProcessManagement,process, XMLConf,uSystemMessage,uBaseDbClasses,uBaseERPDBClasses,
-  Graphics, LCLType, db,umashineid,uBaseVisualApplication;
+  Graphics, LCLType, ImgList, db,umashineid,uBaseVisualApplication;
 
 type
 
@@ -53,7 +53,6 @@ type
     procedure aItemClick(Sender: TObject);
     procedure ApplicationEndSession(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
-    procedure DataModuleDestroy(Sender: TObject);
     procedure IPCTimerTimer(Sender: TObject);
     function OpenLink(aLink: string; Sender: TObject): Boolean;
     procedure ProgTimerTimer(Sender: TObject);
@@ -67,7 +66,7 @@ type
     FFilter2: string;
     InformRecTime : TDateTime;
     FHistory : TBaseHistory;
-    Processes : array of TProcProcess;
+    fTimelineDataSet: TBaseHistory;
     function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
     procedure SetBaseref(AValue: LargeInt);
     procedure SetFilter(AValue: string);
@@ -88,7 +87,8 @@ implementation
 uses {$ifdef WINDOWS}Windows,{$endif}
   uData,Utils,Forms,uBaseApplication,uIntfStrConsts,math,eventlog,uBaseDBInterface,
   umTimeLine,XMLPropStorage,LCLProc,uprometipc,wikitohtml,uMessages,uBaseSearch,
-  utask,uOrder,uPerson,uMasterdata,uProjects,uWiki,uDocuments,umeeting,uStatistic;
+  utask,uOrder,uPerson,uMasterdata,uProjects,uWiki,uDocuments,umeeting,uStatistic,
+  uprometscripts,LCLIntf;
 {$R *.lfm}
 const
   RefreshAll = 30;//5 mins refresh
@@ -114,130 +114,43 @@ var
   Process: TProcProcess;
   aLog: TStringList;
   aRec: LargeInt;
-  procedure DoLog(aStr: string;bLog : TStringList);
-  begin
-    with Application as IBaseApplication do
-      Log(aStr);
-    bLog.Add(aStr);
-  end;
-  function BuildCmdLine : string;
-  begin
-    with Data.ProcessClient.Processes.Parameters.DataSet do
-      begin
-        First;
-        while not EOF do
-          begin
-            cmd := cmd+' '+{$IFNDEF WINDOWS}'"'+{$ENDIF}'--'+FieldByName('NAME').AsString+'='+{$IFDEF WINDOWS}'"'+{$ENDIF}FieldByName('VALUE').AsString;
-            Next;
-          end;
-      end;
-    if pos('--mandant',lowercase(cmd)) = 0 then
-      begin
-        {$IFDEF WINDOWS}
-        cmd := cmd+' --mandant="'+Application.GetOptionValue('m','mandant')+'"';
-        {$ELSE}
-        cmd := cmd+' --mandant='+Application.GetOptionValue('m','mandant')+'';
-        {$ENDIF}
-      end;
-    if Data.Users.DataSet.Active then
-      cmd := cmd+' '+{$IFNDEF WINDOWS}'"'+{$ENDIF}'--user='+{$IFDEF WINDOWS}'"'+{$ENDIF}Data.Users.FieldByName('NAME').AsString+'"';
-  end;
+  aTime: types.DWORD;
 begin
+  if not Assigned(Data) then exit;
   if not Data.Ping(Data.MainConnection) then exit;
+  if Assigned(fmTimeline) and fmTimeline.Visible then exit;
+  with BaseApplication as IBaseApplication do
+    Debug('ProgTimer:Enter');
+  aTime:=GetTickCount;
   ProgTimer.Enabled:=False;
-  try
+  //Call processes
   with Application as IBaseApplication do
     begin
       aNow := Now();
       if aNow > 0 then
         begin
-          if aRefresh = 0 then
+          Data.ProcessClient.RefreshList;
+          if Data.ProcessClient.DataSet.Locate('NAME','*',[]) then
+            Data.ProcessClient.Process
+          else
             begin
-              Data.ProcessClient.DataSet.Refresh;
-              Data.ProcessClient.Processes.DataSet.Refresh;
-              aRefresh:=RefreshAll;
+              Data.ProcessClient.Insert;
+              Data.ProcessClient.FieldByName('NAME').AsString:='*';
+              Data.ProcessClient.FieldByName('STATUS').AsString:='N';
+              Data.ProcessClient.FieldByName('NOTES').AsString:=strRunsOnEveryMashine;
+              Data.ProcessClient.Post;
             end;
           if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
-            if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
-              begin
-                Application.Terminate;
-                exit;
-              end;
-          aLog := TStringList.Create;
-          Data.ProcessClient.Processes.DataSet.First;
-          while not Data.ProcessClient.Processes.DataSet.EOF do
             begin
-              //aLog.Text := Data.ProcessClient.Processes.DataSet.FieldByName('LOG').AsString;
-              aProcess := Data.ProcessClient.Processes.FieldByName('NAME').AsString;
-              if FileExistsUTF8(ExpandFileNameUTF8(AppendPathDelim(Application.Location)+aProcess+ExtractFileExt(Application.ExeName))) then
+              if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
                 begin
-                  Found := False;
-                  cmd := AppendPathDelim(Application.Location)+aProcess+ExtractFileExt(Application.ExeName);
-                  cmd := cmd+BuildCmdLine;
-                  for i := 0 to length(Processes)-1 do
-                    if Processes[i].CommandLine = cmd then
-                      begin
-                        bProcess := Processes[i];
-                        if bProcess.Active then
-                          Found := True
-                        else
-                          begin
-                            sl := TStringList.Create;
-                            sl.LoadFromStream(bProcess.Output);
-                            for a := 0 to sl.Count-1 do
-                              Log(aprocess+':'+sl[a]);
-                            sl.Free;
-                            if not bProcess.Informed then
-                              begin
-                                DoLog(aprocess+':'+strExitted,aLog);
-                                if Data.ProcessClient.Processes.DataSet.FieldByName('LOG').AsString<>aLog.Text then
-                                  begin
-                                    if not Data.ProcessClient.Processes.CanEdit then Data.ProcessClient.Processes.DataSet.Edit;
-                                    Data.ProcessClient.Processes.DataSet.FieldByName('LOG').AsString:=aLog.Text;
-                                    Data.ProcessClient.Processes.DataSet.Post;
-                                  end;
-                                bProcess.DoExit;
-                                bProcess.Informed := True;
-                              end;
-                            if (aNow > bProcess.Timeout) {and (bProcess.Timeout > 0)} then
-                              begin
-                                DoLog(aprocess+':'+strStartingProcessTimeout+' '+DateTimeToStr(bProcess.Timeout)+'>'+DateTimeToStr(aNow),aLog);
-                                bProcess.Timeout := aNow+(max(Data.ProcessClient.Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
-                                DoLog(aProcess+':'+strStartingProcess+' ('+bProcess.CommandLine+')',aLog);
-                                bProcess.Execute;
-                                bProcess.Informed := False;
-                                DoLog(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(bProcess.Timeout),aLog);
-                              end;
-                            Found := True;
-                          end;
-                      end;
-                  if not Found then
-                    begin
-                      aLog.Clear;
-                      cmd := AppendPathDelim(Application.Location)+aProcess+ExtractFileExt(Application.ExeName);
-                      cmd := cmd+BuildCmdLine;
-                      DoLog(aProcess+':'+strStartingProcess+' ('+cmd+')',aLog);
-                      Process := TProcProcess.Create(Self);
-                      Process.Id := Data.ProcessClient.Processes.Id.AsVariant;
-                      Process.Informed:=False;
-                      Setlength(Processes,length(Processes)+1);
-                      Processes[length(Processes)-1] := Process;
-                      Process.CommandLine:=cmd;
-                      Process.CurrentDirectory:=Application.Location;
-                      Process.Options := [poNoConsole,poUsePipes];
-                      Process.Execute;
-                      Process.Timeout := aNow+(max(Data.ProcessClient.Processes.FieldByName('INTERVAL').AsInteger,2)/MinsPerDay);
-                      DoLog(aprocess+':'+strStartingNextTimeout+' '+DateTimeToStr(Processes[i].Timeout),aLog);
-                    end;
-                end
-              else DoLog(ExpandFileNameUTF8(aProcess+ExtractFileExt(Application.ExeName))+':'+'File dosend exists',aLog);
-              Data.ProcessClient.Processes.DataSet.Next;
+                  Application.Terminate;
+                  exit;
+                end;
+              Data.ProcessClient.Process;
             end;
-          aLog.Free;
         end;
     end;
-  except
-  end;
   if acHistory.Enabled then
     begin
       //Show new History Entrys
@@ -283,7 +196,7 @@ begin
                 end;
               if tmp <> '' then
                 begin
-                  TrayIcon.BalloonHint:=UTF8ToSys(tmp);
+                  TrayIcon.BalloonHint:=UniToSys(tmp);
                   TrayIcon.ShowBalloonHint;
                   TrayIcon.Icons := ImageList2;
                   TrayIcon.Animate:=True;
@@ -306,12 +219,14 @@ begin
   //TrayIcon.Visible:=True;
   {$ENDIF}
   ProgTimer.Enabled:=True;
+  with BaseApplication as IBaseApplication do
+    Debug('ProgTimer:Exit - '+IntToStr(GetTickCount-aTime));
 end;
 procedure TfMain.TrayIconClick(Sender: TObject);
 begin
   if (not Assigned(fmTimeline)) or (not fmTimeline.Visible) then
     begin
-      fmTimeline.Execute;
+      fmTimeline.Execute(fTimelineDataSet);
       SwitchAnimationOff;
     end
   else fmTimeline.Close;
@@ -543,20 +458,22 @@ begin
       if not Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
         begin
           Data.ProcessClient.Insert;
-          Data.ProcessClient.FieldByName('NAME').AsString:=GetSystemName;
-          Data.ProcessClient.FieldByName('STATUS').AsString:='R';
+          Data.ProcessClient.DataSet.FieldByName('NAME').AsString:=GetSystemName;
+          Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='R';
           Data.ProcessClient.DataSet.Post;
           Info(getSystemName+' added and running');
         end
       else
         begin
           Data.ProcessClient.DataSet.Edit;
-          Data.ProcessClient.FieldByName('STATUS').AsString:='R';
+          Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='R';
           Data.ProcessClient.DataSet.Post;
           Info(getSystemName+' running');
         end;
       Data.ProcessClient.Processes.Open;
       Data.ProcessClient.Processes.Parameters.Open;
+
+      Data.RegisterLinkHandler('ALLOBJECTS',@OpenLink,TObjects);
       //Messages
       Data.RegisterLinkHandler('HISTORY',@OpenLink,TBaseHistory);
       //Messages
@@ -677,6 +594,7 @@ begin
         end;
       //Timeregistering
       AddSearchAbleDataSet(TUser);
+      Data.RegisterLinkHandler('USERS',@OpenLink,TUser);
       //History
       if Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE then
         begin
@@ -688,7 +606,7 @@ begin
         end;
     end;
   acHistory.Enabled:=aUser <> '';
-  FHistory := TBaseHistory.Create(Self,Data);
+  FHistory := TBaseHistory.CreateEx(Self,Data);
   FHistory.CreateTable;
   try
     with Application as IBaseDBInterface do
@@ -702,7 +620,7 @@ begin
         FFilter := '('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.IDCode.AsString)+')'
       else
         FFilter := '('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue('BLDS')+')';
-      aUsers := TUser.Create(nil,Data);
+      aUsers := TUser.Create(nil);
       aUsers.Select(Data.Users.Id.AsString);
       aUsers.Open;
       while aUsers.Count>0 do
@@ -717,12 +635,15 @@ begin
     end;
   ProgTimer.Enabled:=True;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
+  fTimelineDataSet := TBaseHistory.Create(nil);
+  fTimelineDataSet.CreateTable;
+  Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),300);
+  SwitchAnimationOff;
 end;
 procedure TfMain.acHistoryExecute(Sender: TObject);
 begin
-  fmTimeline.Execute;
+  fmTimeline.Execute(fTimelineDataSet);
   SwitchAnimationOff;
-  History.DataSet.Refresh;
 end;
 
 procedure TfMain.acMarkReadExecute(Sender: TObject);
@@ -757,16 +678,16 @@ end;
 
 procedure TfMain.ApplicationEndSession(Sender: TObject);
 begin
+  try
+    if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
+      begin
+        Data.ProcessClient.DataSet.Edit;
+        Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='N';
+        Data.ProcessClient.DataSet.Post;
+      end;
+  except
+  end;
   DoExit;
-end;
-
-procedure TfMain.DataModuleDestroy(Sender: TObject);
-var
-  i: Integer;
-begin
-  //fmTimeline.Free;
-  for i := 0 to length(Processes)-1 do
-    Processes[i].Free;
 end;
 
 procedure TfMain.IPCTimerTimer(Sender: TObject);

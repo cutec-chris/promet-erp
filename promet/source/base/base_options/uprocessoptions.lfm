@@ -1,16 +1,16 @@
 inherited fProcessOptions: TfProcessOptions
-  Height = 425
-  Width = 517
-  ClientHeight = 425
-  ClientWidth = 517
+  Height = 443
+  Width = 547
+  ClientHeight = 443
+  ClientWidth = 547
   TabOrder = 0
-  DesignLeft = 540
-  DesignTop = 355
+  DesignLeft = 442
+  DesignTop = 327
   object gProcesses: TDBGrid[0]
     Left = 8
-    Height = 106
-    Top = 27
-    Width = 501
+    Height = 126
+    Top = 25
+    Width = 531
     Align = alTop
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 8
@@ -38,16 +38,16 @@ inherited fProcessOptions: TfProcessOptions
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 289
-    Width = 517
+    Top = 308
+    Width = 547
     Align = alTop
     ResizeAnchor = akTop
   end
   object lProcesses: TLabel[2]
     Left = 4
-    Height = 15
+    Height = 13
     Top = 4
-    Width = 509
+    Width = 539
     Align = alTop
     BorderSpacing.Around = 4
     Caption = 'Clients'
@@ -57,9 +57,9 @@ inherited fProcessOptions: TfProcessOptions
   end
   object Label1: TLabel[3]
     Left = 4
-    Height = 15
-    Top = 298
-    Width = 509
+    Height = 13
+    Top = 317
+    Width = 539
     Align = alTop
     BorderSpacing.Around = 4
     Caption = 'Parameter'
@@ -69,9 +69,9 @@ inherited fProcessOptions: TfProcessOptions
   end
   object lProcesses1: TLabel[4]
     Left = 4
-    Height = 15
-    Top = 150
-    Width = 509
+    Height = 13
+    Top = 168
+    Width = 539
     Align = alTop
     BorderSpacing.Around = 4
     Caption = 'Prozesse'
@@ -81,17 +81,34 @@ inherited fProcessOptions: TfProcessOptions
   end
   object gProcesses1: TDBGrid[5]
     Left = 8
-    Height = 108
-    Top = 173
-    Width = 501
+    Height = 111
+    Top = 189
+    Width = 531
     Align = alTop
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 8
     Color = clWindow
     Columns = <    
       item
+        PickList.Strings = (
+          'pop3receiver'
+          'smtpsender'
+          'rssreceiver'
+          'twitterreceiver'
+          'sync_db'
+          'sync_outlook_tasks'
+          'sync_outlook_calendar'
+          'sync_outlook_contacts'
+          'sync_owncloud'
+          'sync_redmine'
+          'import_document'
+          'local_appbase'
+          'webdavserver'
+          'nntpserver'
+          'imapserver'
+        )
         Title.Caption = 'Prozess'
-        Width = 300
+        Width = 180
         FieldName = 'NAME'
       end    
       item
@@ -100,7 +117,18 @@ inherited fProcessOptions: TfProcessOptions
       end    
       item
         Title.Caption = 'Status'
+        Width = 40
         FieldName = 'STATUS'
+      end    
+      item
+        Title.Caption = 'gestartet'
+        Width = 100
+        FieldName = 'STARTED'
+      end    
+      item
+        Title.Caption = 'beended'
+        Width = 100
+        FieldName = 'STOPPED'
       end>
     DataSource = Processes
     TabOrder = 2
@@ -108,9 +136,9 @@ inherited fProcessOptions: TfProcessOptions
   end
   object DBNavigator1: TDBNavigator[6]
     AnchorSideTop.Control = lProcesses1
-    Left = 382
-    Height = 23
-    Top = 150
+    Left = 412
+    Height = 21
+    Top = 168
     Width = 127
     Anchors = [akTop, akRight]
     BevelOuter = bvNone
@@ -120,7 +148,7 @@ inherited fProcessOptions: TfProcessOptions
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
-    ClientHeight = 23
+    ClientHeight = 21
     ClientWidth = 127
     DataSource = Processes
     Options = []
@@ -129,8 +157,8 @@ inherited fProcessOptions: TfProcessOptions
   end
   object DBNavigator2: TDBNavigator[7]
     AnchorSideTop.Control = lProcesses
-    Left = 382
-    Height = 23
+    Left = 412
+    Height = 21
     Top = 4
     Width = 127
     Anchors = [akTop, akRight]
@@ -141,7 +169,7 @@ inherited fProcessOptions: TfProcessOptions
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
-    ClientHeight = 23
+    ClientHeight = 21
     ClientWidth = 127
     DataSource = Clients
     Options = []
@@ -150,30 +178,30 @@ inherited fProcessOptions: TfProcessOptions
   end
   object Panel1: TPanel[8]
     Left = 0
-    Height = 108
-    Top = 317
-    Width = 517
+    Height = 109
+    Top = 334
+    Width = 547
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 108
-    ClientWidth = 517
+    ClientHeight = 109
+    ClientWidth = 547
     TabOrder = 5
     object DBGrid1: TDBGrid
       Left = 0
-      Height = 108
+      Height = 109
       Top = 0
-      Width = 296
+      Width = 224
       Align = alLeft
       Color = clWindow
       Columns = <      
         item
           Title.Caption = 'Parameter'
-          Width = 100
+          Width = 80
           FieldName = 'NAME'
         end      
         item
           Title.Caption = 'Value'
-          Width = 150
+          Width = 100
           FieldName = 'VALUE'
         end>
       DataSource = ProcessParameters
@@ -181,10 +209,10 @@ inherited fProcessOptions: TfProcessOptions
       TitleStyle = tsNative
     end
     object DBMemo1: TDBMemo
-      Left = 296
-      Height = 108
+      Left = 224
+      Height = 109
       Top = 0
-      Width = 221
+      Width = 323
       Align = alClient
       DataField = 'LOG'
       DataSource = Processes
@@ -197,8 +225,8 @@ inherited fProcessOptions: TfProcessOptions
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 141
-    Width = 517
+    Top = 159
+    Width = 547
     Align = alTop
     ResizeAnchor = akTop
   end

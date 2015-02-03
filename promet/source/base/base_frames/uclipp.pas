@@ -35,7 +35,7 @@ type
     procedure DefineFields(aDataSet: TDataSet); override;
   public
     procedure Select(aID: Variant); override;
-    procedure Filter(aFilter: string; aLimit: Integer=0; aOrderBy: string='';
+    procedure FilterEx(aFilter: string; aLimit: Integer=0; aOrderBy: string='';
       aSortDirection: string='ASC'; aLocalSorting: Boolean=False;
       aGlobalFilter: Boolean=True; aUsePermissions: Boolean=False;
       aFilterIn: string='');override;
@@ -58,13 +58,14 @@ var
   Clipp: TClipp;
   Node1: TTreeNode;
 begin
-  Clipp := TClipp.Create(nil,Data);
+  Clipp := TClipp.Create(nil);
   Clipp.CreateTable;
   Clipp.Free;
   //Clipboard
   aClip := fMainTreeFrame.tvMain.Items.AddChildObject(MainNode,strClipboard,TTreeEntry.Create);
   TTreeEntry(aClip.Data).Typ := etClipboard;
-  Data.SetFilter(Data.Tree,'(('+Data.QuoteField('PARENT')+'=0) and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('Z')+'))',0,'','ASC',False,True,True);
+  Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('Z')+'))';
+  Data.Tree.DataSet.Filtered:=True;
   Data.Tree.DataSet.First;
   while not Data.Tree.dataSet.EOF do
     begin
@@ -76,6 +77,7 @@ begin
       fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
       Data.Tree.DataSet.Next;
     end;
+  Data.Tree.DataSet.Filtered:=False;
 end;
 
 procedure TClipp.DefineFields(aDataSet: TDataSet);
@@ -107,7 +109,7 @@ begin
     Fields := tmpFields;
 end;
 
-procedure TClipp.Filter(aFilter: string; aLimit: Integer; aOrderBy: string;
+procedure TClipp.FilterEx(aFilter: string; aLimit: Integer; aOrderBy: string;
   aSortDirection: string; aLocalSorting: Boolean; aGlobalFilter: Boolean;
   aUsePermissions: Boolean; aFilterIn: string);
 var
@@ -116,7 +118,7 @@ begin
   tmpfields := GetUsedFields;
   with Self.DataSet as IBaseDBFilter do
     Fields := tmpFields;
-  inherited Filter(aFilter, aLimit, aOrderBy, aSortDirection, aLocalSorting,
+  inherited FilterEx(aFilter, aLimit, aOrderBy, aSortDirection, aLocalSorting,
     aGlobalFilter, aUsePermissions, aFilterIn);
 end;
 

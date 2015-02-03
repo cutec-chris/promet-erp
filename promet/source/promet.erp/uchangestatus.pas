@@ -24,7 +24,7 @@ unit uChangeStatus;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls, Buttons,
   uIntfStrConsts,LCLType;
 
 type
@@ -50,9 +50,7 @@ var
   fChangeStatus: TfChangeStatus;
 
 implementation
-
-{ TfChangeStatus }
-
+{$R *.lfm}
 procedure TfChangeStatus.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -85,7 +83,6 @@ begin
 end;
 
 initialization
-  {$I uchangestatus.lrs}
 
 end.
 

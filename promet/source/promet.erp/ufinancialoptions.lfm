@@ -1,0 +1,45 @@
+inherited fFinancialOptions: TfFinancialOptions
+  Height = 492
+  Width = 550
+  ClientHeight = 492
+  ClientWidth = 550
+  TabOrder = 0
+  DesignLeft = 433
+  DesignTop = 177
+  object gCategory: TDBGrid[0]
+    Left = 8
+    Height = 476
+    Top = 8
+    Width = 534
+    Align = alClient
+    BorderSpacing.Around = 8
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'Konto'
+        Width = 100
+        FieldName = 'ACCOUNTNO'
+      end    
+      item
+        Title.Caption = 'Name'
+        Width = 350
+        FieldName = 'NAME'
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = 'Aktiv'
+        Width = 50
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+        FieldName = 'ACTIVE'
+      end>
+    DataSource = DataSet
+    Scrollbars = ssAutoBoth
+    TabOrder = 0
+    TitleStyle = tsNative
+  end
+  object DataSet: TDatasource[1]
+    left = 444
+    top = 412
+  end
+end

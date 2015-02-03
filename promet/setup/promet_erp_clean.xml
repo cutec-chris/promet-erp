@@ -92,17 +92,19 @@ With the task and project management tasks are planned across projects and users
 			<Char_Desc_450>Promet-ERP ist ein ERP System das zusätzlich zur Warenwirtschaftsfunktionalität auch Nachrichtenverwaltung, Aufgaben/Projektverwaltung, Dokumentenverwaltung bietet. Jegliche Funktionalität kann auch einzeln genutzt werden.</Char_Desc_450>
 			<Char_Desc_2000>Promet-ERP ist ein ERP System das zusätzlich zur Warenwirtschaftsfunktionalität auch Nachrichtenverwaltung, Aufgaben/Projektverwaltung, Dokumentenverwaltung bietet. Jegliche Funktionalität kann auch einzeln genutzt werden. 
 
+Aufträge, Personen, Artikel können mit der ERP Funktionalität verwaltet werden. Mit dem intrigierten Reportgenerator können Belege und Reports visuell erstellt werden.
+
+In der Aufgaben und Projektverwaltung können Aufgaben über mehrere Projekte und Benutzer hinweg geplant werden. Durch Firmenweit eine globale Aufgabenliste lassen sich sämtliche Projekte global planen.</Char_Desc_2000>
+
+In der intigrierten Dokumentenverwaltung können Dokumente oder Bilder verwaltet werden. Wenn eine OCR Software vorhaden ist (Tesseract,Cuneiform,gocr sind kostenlos nutzbar) wird automatisch der Text erkannt und für die Volltext benutzt. Aus Office Dokumenten wird ebenso der Text für die Volltextsuche extrahiert. Die Dokumente können anschließend mit Personen,Aufträgen oder Projekten verknüpft werden. Auch Taggen und markieren kann man die Dokumente.
+
+Über die Nachrichtenverwaltung können e-Mails, RSS Feeds, SMS, Fax o.ä. verwaltet werden.
+
+Die Dateiverwaltung verwaltet Dateien in Ständen zu jedem Objekt (Artikel,Auftrag,Person,Aufgabe...)
+
 Besonderes Interesse wird bei der Entwicklung auf Modularität und Erweiterbarkeit gelegt, jeder Kunde kann auch selbst Module entwickeln. In Unternehmen gibt es nach unserer Erfahrung fast nie durchgängig einfach abbildbare Prozesse. Spätestens beim Spezialgebiet des Unternehmens sollten Prozesse auch durch spezialisierte Lösungen abgebildet werden, um dort so effizient wie möglich zu sein. Das kann beim Promet-ERP durch den Kunden selbst ,durch uns oder Entwicklungspartner geschehen.
 
 Alle Daten werden zentral in einer Datenbank gespeichert. MSSQL,PostgereSQL,Firebird,SQLite sind die unterstützten Datenbanksysteme.
-
-Aufträge, Personen, Artikel können mit der ERP Funktionalität verwaltet werden. Mit dem intrigierten Reportgenerator können Belege und Reports visuell erstellt werden.
-
-Die Dokumentenverwaltung verwaltet Dokumente in Ständen zu jedem Objekt (Artikel,Auftrag,Person,Aufgabe...)
-
-Über die Nachrichtenverwaltung können e-Mails, RSS Feeds, SMS, Eingescannte Dokumente verwaltet werden.
-
-In der Aufgaben und Projektverwaltung können Aufgaben über mehrere Projekte und Benutzer hinweg geplant werden. Durch Firmenweit eine globale Aufgabenliste lassen sich sämtliche Projekte global planen.</Char_Desc_2000>
 		</German>
 	</Program_Descriptions>
 	<Web_Info>

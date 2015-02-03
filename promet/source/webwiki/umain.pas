@@ -52,8 +52,8 @@ begin
       RestoreConfig;
       Login;
     end;
-  Wiki := TWikiList.Create(nil,Data);
-  Documents := TDocument.Create(nil,Data);
+  Wiki := TWikiList.Create(nil);
+  Documents := TDocument.Create(nil);
   Data.Tree.Open;
 end;
 procedure TWikiPage.DataModuleDestroy(Sender: TObject);
@@ -224,12 +224,12 @@ begin
       ReplaceText := TagParams.Values['CHEADER'];
       WikiToHTML.OnConvertImage:=@ConvertImage;
       with BaseApplication as IBaseApplication do
-        ReplaceText := Replacetext+UTF8ToSys(Stringreplace(Tagparams.Values['CCONTENT'],'~Content',WikiText2HTML(Wiki.FieldByName('DATA').AsString,'/cgi-bin/wiki.cgi/wiki/',Config.ReadString('REMOVELINKOFFSET',''),True),[rfReplaceAll]));
+        ReplaceText := Replacetext+UniToSys(Stringreplace(Tagparams.Values['CCONTENT'],'~Content',WikiText2HTML(Wiki.FieldByName('DATA').AsString,'/cgi-bin/wiki.cgi/wiki/',Config.ReadString('REMOVELINKOFFSET',''),True),[rfReplaceAll]));
       ReplaceText := ReplaceText+TagParams.Values['CFOOTER'];
     end
   else
     ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TWikiPage.SearchTagReplace(Sender: TObject; const TagString: String;
   TagParams: TStringList; out ReplaceText: String);
@@ -257,7 +257,7 @@ begin
     end
   else
     ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TWikiPage.Showrequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);

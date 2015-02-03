@@ -43,6 +43,7 @@ type
     procedure ShowFrame; override;
   end;
 implementation
+uses uDetailPositionFrame,utextpositionframe;
 {$R *.lfm}
 resourcestring
   strPieceListTypeList          = 'L Im lager direkt buchen';
@@ -55,6 +56,8 @@ begin
   FPosFrame.Parent := Self;
   FPosFrame.Align:=alClient;
   FPosFrame.Show;
+  FPosFrame.InplaceFrames[0] := TfDetailPositionFrame.Create(FPosFrame);
+  FPosFrame.InplaceFrames[3] := TfTextPositionFrame.Create(FPosFrame);
   FPosFrame.BaseName:='MASTERDATA';
   cbPLType.Items.Add(strPieceListTypeList);
   cbPLType.Items.Add(strPieceListTypeOrder);

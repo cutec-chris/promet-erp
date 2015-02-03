@@ -24,7 +24,7 @@ unit uDocumentOptions;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, EditBtn, StdCtrls,
+  Classes, SysUtils, FileUtil,  Forms, Controls, EditBtn, StdCtrls,
   uOptionsFrame;
 
 type
@@ -45,11 +45,12 @@ type
   end;
 
 implementation
-uses uBaseApplication;
+{$R *.lfm}
+uses uBaseApplication,ubaseconfig;
 procedure TfDocumentOptions.StartTransaction;
 begin
   inherited StartTransaction;
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     begin
       eTempDirectory.text := Config.ReadString('TEMPPATH','');
       case Config.ReadInteger('DELETEMETHOD',0) of
@@ -63,7 +64,7 @@ end;
 
 procedure TfDocumentOptions.CommitTransaction;
 begin
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     begin
       Config.WriteString('TEMPPATH',eTempDirectory.text);
       if rbDeleteNormal.Checked then
@@ -84,7 +85,6 @@ begin
 end;
 
 initialization
-  {$I udocumentoptions.lrs}
 
 end.
 

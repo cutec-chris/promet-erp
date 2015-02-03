@@ -1,6 +1,7 @@
 unit thumbcontrol;
 
 //22.6.2010 Theo
+//Git push 30.1.2013
 
 {$MODE objfpc}{$H+}
 
@@ -8,8 +9,8 @@ interface
 
 uses
   Classes, SysUtils, scrollingcontrol, ThreadedImageLoader, types,
-  Graphics, fpImage, FPReadJPEGthumb, fpthumbresize, LResources,
-  FileUtil, Dialogs, GraphType, LCLIntf,LCLProc,Messages;
+  Graphics, fpImage, FPReadJPEGthumb, fpthumbresize,LResources,
+  FileUtil, Dialogs, GraphType, LCLIntf,LMessages;
 
 
 type
@@ -29,12 +30,13 @@ type
     FIls: TInternalLayoutStyle;
     fContentWidth: integer;
     fContentHeight: integer;
-    FDirectory: string;
+    FDirectory: UTF8String;
     fMngr: TImageLoaderManager;
     FOnLoadFile: TLoadFileEvent;
     FOnScrolled: TNotifyEvent;
     FShowPictureFrame: Boolean;
     FShowCaptions: Boolean;
+    fAutoSort: boolean;
     fThumbWidth: integer;
     fThumbHeight: integer;
     FURLList: TStringList;
@@ -54,6 +56,7 @@ type
     function GetURLList: UTF8String;
     procedure Init;
     procedure SetArrangeStyle(const AValue: TLayoutStyle);
+    procedure SetAutoSort(AValue: boolean);
     procedure SetDirectory(const AValue: UTF8String);
     procedure SetFreeInvisibleImages(const AValue: boolean);
     procedure SetMultiThreaded(const AValue: boolean);
@@ -64,9 +67,6 @@ type
     procedure SetThumbWidth(const AValue: integer);
     procedure AsyncFocus(Data: PtrInt);
     procedure SetURLList(const AValue: UTF8String);
-    procedure ScrollBy(DeltaX, DeltaY: Integer); override;
-    procedure VScroll(var Msg: TWMScroll); override;
-    procedure HScroll(var Msg: TWMScroll); override;
   protected
     class function GetControlClassDefaultSize: TSize; override;
     procedure BoundsChanged; override;
@@ -83,12 +83,12 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    {:Use this function when you need the item from control coordinates (Mouse etc.)}
-    procedure Click; override;
-    function ItemFromPoint(APoint: TPoint): TThreadedImage;
-    procedure LoadSelectedBitmap(ABitmap:TBitmap);
     procedure Arrange;
+    procedure Click; override;
+    {:Use this function when you need the item from control coordinates (Mouse etc.)}
+    function ItemFromPoint(APoint: TPoint): TThreadedImage;
     procedure ScrollIntoView;
+    procedure LoadSelectedBitmap(ABitmap:TBitmap);
     property URLList: UTF8String read GetURLList write SetURLList;
     property ImageLoaderManager: TImageLoaderManager read fMngr;
   published
@@ -111,13 +111,14 @@ type
     property OnSelectItem: TSelectItemEvent read fOnSelectItem write fOnSelectItem;
     {:Event when image stream data is required. Useful for loading data via http, ftp etc.
       Warning: if MultiThreaded=true, this happens in a separate thread context.}
+    property AutoSort : boolean read fAutoSort write SetAutoSort;
+    {:Sort URL by name}
     property OnLoadFile: TLoadFileEvent read FOnLoadFile write FOnLoadFile;
     property OnScrolled : TNotifyEvent read FOnScrolled write FOnScrolled;
     property AfterDraw : TDrawItemEvent read FAfterDraw write FAfterDraw;
     property ScrollBars;
     property Align;
     property Anchors;
-    property BorderStyle;
     property AutoSize;
     property BidiMode;
     property BorderSpacing;
@@ -181,7 +182,7 @@ procedure Register;
 implementation
 
 uses LCLType, Forms, Controls, fontfinder,
-fpreadgif,FPReadPSD,FPReadPCX,FPReadTGA,math; //just register them
+fpreadgif,FPReadPSD,FPReadPCX,FPReadTGA; //just register them
 
 
 function ShortenString(AValue: string; Width: integer; ACanvas: TCanvas): string;
@@ -214,6 +215,7 @@ begin
     begin
       if (csLoading in ComponentState) then exit;
       Init;
+      Invalidate;
     end;
 end;
 
@@ -224,7 +226,7 @@ begin
   begin
     fMngr.Clear;
     Search;
-    fMngr.Sort(0);
+    if fAutoSort then fMngr.Sort(0);
     Arrange;
   end else
   begin
@@ -250,29 +252,9 @@ begin
   fMngr.Clear;
   FURLList.Text := AValue;
   for i := 0 to FURLList.Count - 1 do fMngr.AddImage(FURLList[i]);
-  fMngr.Sort(0);
+  if fAutoSort then fMngr.Sort(0);
   Arrange;
 end;
-
-procedure TThumbControl.ScrollBy(DeltaX, DeltaY: Integer);
-begin
-  inherited ScrollBy(DeltaX, DeltaY);
-end;
-
-procedure TThumbControl.VScroll(var Msg: TWMScroll);
-begin
-  inherited VScroll(Msg);
-  if Assigned(FOnScrolled) then
-    FOnScrolled(Self);
-end;
-
-procedure TThumbControl.HScroll(var Msg: TWMScroll);
-begin
-  inherited HScroll(Msg);
-  if Assigned(FOnScrolled) then
-    FOnScrolled(Self);
-end;
-
 
 function TThumbControl.GetMultiThreaded: boolean;
 begin
@@ -300,6 +282,13 @@ begin
       Invalidate;
     end;
   end;
+end;
+
+procedure TThumbControl.SetAutoSort(AValue: boolean);
+begin
+  if fAutoSort=AValue then Exit;
+  fAutoSort:=AValue;
+  fMngr.Sort(0);
 end;
 
 procedure TThumbControl.SetMultiThreaded(const AValue: boolean);
@@ -478,8 +467,6 @@ begin
         VScrollPosition := itm.Rect.Bottom - ClientHeight + fPictureFrameBorder + fThumbDist else
         VScrollPosition := itm.Rect.Top - ClientHeight - fPictureFrameBorder - fThumbDist + ClientHeight;
     UpdateDims;
-    if Assigned(FOnScrolled) then
-      FOnScrolled(Self);
   end;
 end;
 
@@ -503,12 +490,9 @@ var i, tlen: integer;
   UrlStr: string;
   Clipped: boolean;
   Cim: TThreadedImage;
-  aTime: DWORD;
 begin
-  aTime := GetTickCount;
-  Canvas.Lock;
   begin
-    if Canvas.Clipping then
+    if Canvas.Clipping {$ifdef LCLQt} and false {$endif} then
     begin
       ARect := Canvas.ClipRect;
       Clipped := not EqualRect(ARect, ClientRect);
@@ -523,7 +507,7 @@ begin
     OffsetRect(aRect, HScrollPosition, VScrollPosition);
     if not clipped then fMngr.LoadRect(ARect);
 
-    Canvas.Brush.color := $F1F1F1;
+    Canvas.Brush.color :=  $F1F1F1;
 
     for i := 0 to fmngr.List.Count - 1 do
     begin
@@ -533,54 +517,41 @@ begin
       begin
         OffSetRect(BorderRect, -HScrollPosition, -VScrollPosition);
         if fShowPictureFrame then
-          begin
-            Canvas.Draw(BorderRect.Left - fPictureFrameBorder, BorderRect.Top - fPictureFrameBorder, fFrame)
-          end
-        else
-          begin
-            InflateRect(BorderRect, 1, 1);
-            if Cim.LoadState = lsLoaded then
-              begin
-                BorderRect := Cim.Area;
-                OffSetRect(BorderRect, -HScrollPosition + Cim.Rect.Left,
-                  -VScrollPosition + Cim.Rect.Top);
-              end
-            else
-              begin
-                BorderRect := Cim.Rect;
-                OffSetRect(BorderRect, -HScrollPosition, -VScrollPosition);
-              end;
-            Canvas.Brush.Style := bsClear;
-            Canvas.Pen.Color := clLtGray;
-            Canvas.Rectangle(BorderRect);
-            Canvas.Brush.Style := bsSolid;
-          end;
+          Canvas.Draw(BorderRect.Left - fPictureFrameBorder, BorderRect.Top - fPictureFrameBorder, fFrame) else
+        begin
+          InflateRect(BorderRect, 1, 1);
+          Canvas.Brush.Style := bsClear;
+          Canvas.Pen.Color := clLtGray;
+          Canvas.Rectangle(BorderRect);
+          Canvas.Brush.Style := bsSolid;
+        end;
 
         if Cim.LoadState = lsLoaded then
+        begin
+          Canvas.Draw(Cim.Left + Cim.Area.Left - HScrollPosition,
+            Cim.Top + Cim.Area.Top - VScrollPosition,
+            Cim.Bitmap);
+           if i = fMngr.ActiveIndex then
           begin
-            Canvas.Draw(Cim.Left + Cim.Area.Left - HScrollPosition,
-              Cim.Top + Cim.Area.Top - VScrollPosition,
-              Cim.Bitmap);
-            if i = fMngr.ActiveIndex then
-              begin
-                BorderRect := Cim.Area;
-                OffSetRect(BorderRect, -HScrollPosition + Cim.Rect.Left,
-                  -VScrollPosition + Cim.Rect.Top);
-                InflateRect(BorderRect, 1, 1);
-                Canvas.Brush.Style := bsClear;
-                Canvas.Pen.Color := $448FA2;
-                Canvas.Pen.Width := 2;
-                Canvas.Rectangle(BorderRect);
-                Canvas.Pen.Width := 1;
-                Canvas.Brush.Style := bsSolid;
-              end;
+            BorderRect := Cim.Area;
+            OffSetRect(BorderRect, -HScrollPosition + Cim.Rect.Left,
+              -VScrollPosition + Cim.Rect.Top);
+            InflateRect(BorderRect, 1, 1);
+            Canvas.Brush.Style := bsClear;
+            Canvas.Pen.Color := $448FA2;
+            Canvas.Pen.Width := 2;
+            Canvas.Rectangle(BorderRect);
+            Canvas.Pen.Width := 1;
+            Canvas.Brush.Style := bsSolid;
           end;
+        end;
 
         if fShowCaptions then
         begin
-          if Cim.Name = '' then
+          if Cim.URL = '' then
             UrlStr := ShortenString('Undefined', Cim.Width, Canvas) else
-            UrlStr := ShortenString(ExtractFileName(Cim.Name),Cim.Width, Canvas);
+            UrlStr := ShortenString(ExtractFileName(Cim.URL),
+              Cim.Width, Canvas);
           tlen := (Cim.Width - Canvas.TextWidth(UrlStr)) div 2;
           if not FShowPictureFrame then
             if i = fMngr.ActiveIndex then Canvas.Font.color := clGray else Canvas.Font.color := ClBlack else
@@ -600,18 +571,16 @@ begin
             UrlStr);
           Canvas.Brush.Style := bsSolid;
         end;
-        if Assigned(AfterDraw) then
-          begin
-            BorderRect := Cim.Rect;
-            OffSetRect(BorderRect, -HScrollPosition, -VScrollPosition);
-            AfterDraw(Self,Cim,BorderRect);
-          end;
+      if Assigned(AfterDraw) then
+        begin
+          BorderRect := Cim.Rect;
+          OffSetRect(BorderRect, -HScrollPosition, -VScrollPosition);
+          AfterDraw(Self,Cim,BorderRect);
+        end;
       end;
     end;
   end;
-  Canvas.Unlock;
   inherited Paint;
-  //debugln('PaintTime:'+IntToStr(aTime-getTickCount));
 end;
 
 function GetFPReaderMask: string;
@@ -744,7 +713,7 @@ begin
     for i := 0 to fMngr.List.Count - 1 do
     begin
       if (i > 0) then
-        if (i mod max(fGridThumbsPerLine,1) = 0) then
+        if (i mod fGridThumbsPerLine = 0) then
         begin
           inc(y, (fThumbHeight + fThumbDist + fTextExtraHeight + fPictureFrameBorder * 2));
           x := 0;
@@ -756,7 +725,8 @@ begin
       fLeftOffset + fPictureFrameBorder;
       TThreadedImage(fMngr.List[i]).Top := y + fTopOffset + fPictureFrameBorder;
     end;
-    fContentHeight := (fMngr.List.Count div max(fGridThumbsPerLine,1) + 1) * (fThumbHeight + fTextExtraHeight + fThumbDist + fPictureFrameBorder * 2) + fTopOffset;
+    fContentHeight := (fMngr.List.Count div fGridThumbsPerLine + 1) * (fThumbHeight +
+    fTextExtraHeight + fThumbDist + fPictureFrameBorder * 2) + fTopOffset;
     fContentWidth := ClientWidth;
   end;
 
@@ -803,6 +773,7 @@ begin
   fMngr := TImageLoaderManager.Create;
   fMngr.OnLoadURL := @ImgLoadURL;
   fMngr.OnLoaded := @ImgLoaded;
+  fAutoSort:=true;
 
   SmallStep := fThumbWidth;
   LargeStep := fThumbWidth * 4;
@@ -852,7 +823,7 @@ begin
   fi:=TFPMemoryImage.create(0,0);
   fi.UsePalette:=false;
   try
-    fi.LoadFromFile(itm.URL);
+    fi.LoadFromFile(UTF8ToSys(itm.URL));
     ABitmap.Assign(fi);
   finally
     fi.free;
@@ -862,8 +833,7 @@ end;
 
 procedure TThumbControl.ImgLoadURL(Sender: TObject);
 var Ext, Fn: string;
-  Img  : TFPMemoryImage = nil;
-  IRes : TFPMemoryImage = nil;
+  Img, IRes: TFPMemoryImage;
   rdjpegthumb: TFPReaderJPEG;
   area: TRect;
   Strm: TStream;
@@ -885,15 +855,16 @@ begin
       begin
         Img.LoadFromStream(Strm, rdjpegthumb);
         Strm.free;
-      end else Img.LoadFromFile(Fn, rdjpegthumb);
+      end else Img.LoadFromFile(UTF8ToSys(Fn), rdjpegthumb);
       IRes := ThumbResize(Img, fThumbWidth, fThumbHeight, area);
       try
         CSImg.Acquire;
-        if Assigned(TThreadedImage(Sender).Image) and Assigned(IRes) then
-          begin
-            TThreadedImage(Sender).Image.Assign(IRes);
-            TThreadedImage(Sender).Area := Area;
-          end;
+        if TThreadedImage(Sender).Image <> nil
+          then
+        begin
+          TThreadedImage(Sender).Image.Assign(IRes);
+          TThreadedImage(Sender).Area := Area;
+        end;
       finally
         CSImg.Release;
       end;
@@ -907,13 +878,12 @@ begin
     Img := TFPMemoryImage.Create(0, 0);
     Img.UsePalette := false;
     try
-    try
       if Assigned(FOnLoadFile) then OnLoadFile(Sender, Fn, Strm);
       if Strm <> nil then
       begin
         Img.LoadFromStream(Strm);
         Strm.free;
-      end else Img.LoadFromFile(Fn);
+      end else Img.LoadFromFile(UTF8ToSys(Fn));
       IRes := ThumbResize(Img, fThumbWidth, fThumbHeight, area);
       try
         CSImg.Acquire;
@@ -926,11 +896,8 @@ begin
         CSImg.Release;
       end;
     finally
-      if Assigned(IRes) then
-        IRes.free;
+      IRes.free;
       Img.free;
-    end;
-    except
     end;
   end;
   TThreadedImage(Sender).LoadState := lsLoading;
@@ -967,4 +934,5 @@ initialization
 finalization
   frame.free;
 
-end.
+end.
+

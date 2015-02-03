@@ -41,13 +41,13 @@ var
   aProject: TProject;
 begin
   Projects.Clear;
-  aProjects := TProjectList.Create(nil,Data);
+  aProjects := TProjectList.Create(nil);
   aProjects.Open;
   with aProjects.DataSet do
     begin
       while not Eof  do
         begin
-          aProject := TProject.Create(nil,Data);
+          aProject := TProject.Create(nil);
           aProject.Select(aProjects.Id.AsVariant);
           aProject.Open;
 //          aProject.Tasks.Open;

@@ -21,10 +21,10 @@ unit uEnterTime;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Dialogs, DBCtrls, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Dialogs, DBCtrls, StdCtrls,
   Buttons, uIntfStrConsts, db, ExtCtrls, Utils, LCLType, EditBtn,
   ActnList, Grids, Spin, DBGrids, Menus, ComCtrls, LR_Class, LR_DBSet,
-  DateUtils, Math, simpleipc, uTimes, uGridView, uFilterFrame,
+  DateUtils, Math, uTimes, uGridView, uFilterFrame,
   uBaseVisualControls;
 type
 
@@ -45,15 +45,17 @@ type
     acUse: TAction;
     ActionList1: TActionList;
     bAddJob: TSpeedButton;
+    bAddJob1: TSpeedButton;
     bChange: TBitBtn;
     bDeleteJob: TSpeedButton;
+    bTaskDone: TSpeedButton;
     bHide: TBitBtn;
     bStop: TBitBtn;
     bPause: TBitBtn;
     bStart: TBitBtn;
     cbShowDialog: TCheckBox;
     cbCategory: TComboBox;
-    eJob: TEdit;
+    eJob: TComboBox;
     eLink: TEditButton;
     eProject: TEditButton;
     iLink: TImage;
@@ -109,12 +111,18 @@ type
     procedure acStopExecute(Sender: TObject);
     procedure acUseasNewEntryExecute(Sender: TObject);
     procedure acUseExecute(Sender: TObject);
+    procedure AskUserforContinue(aData: PtrInt);
+    procedure AsyncStartTimereg(Data: PtrInt);
+    procedure bAddJob1Click(Sender: TObject);
     procedure bCloseKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure bTaskDoneClick(Sender: TObject);
     procedure cbShowDialogChange(Sender: TObject);
     procedure DatasourceBeforeScroll(DataSet: TDataSet);
     procedure DatasourceGetText(Sender: TField; var aText: string;
       DisplayText: Boolean);
     procedure DatasourceSetText(Sender: TField; const aText: string);
+    procedure eJobGetItems(Sender: TObject);
+    procedure eJobSelect(Sender: TObject);
     procedure eLinkButtonClick(Sender: TObject);
     procedure eLinkChange(Sender: TObject);
     procedure eProjectButtonClick(Sender: TObject);
@@ -136,6 +144,7 @@ type
     procedure bAddJobClick(Sender: TObject);
     procedure bDeleteJobClick(Sender: TObject);
     procedure seMaxresultsChange(Sender: TObject);
+    procedure SetJobTextAsync(Data: PtrInt);
     function SetlinkfromSearch(aLink: string): Boolean;
     function SetProjectfromSearch(aLink: string): Boolean;
     function SetListLinkfromSearch(aLink: string): Boolean;
@@ -157,6 +166,7 @@ type
     FTimes: TTimes;
     FIntTimes: TTimes;
     InplaceMemo : TInplaceMemo;
+    FJobText: String;
     FNode : TTreeNode;
     FList : TfFilter;
     Startmodified: Boolean;
@@ -184,6 +194,7 @@ type
     procedure DoSetup;
     procedure SetLanguage;
     procedure StarttimeRegistering(aLink : string);
+    function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
     property Link : string read FLink write SetLink;
     property Project : string read FProject write SetProject;
     property Task : string read FTask write SetTask;
@@ -193,6 +204,7 @@ type
     property Node : TTreeNode read FNode write FNode;
     procedure refreshNode;
     procedure SetActive;
+    procedure StartTimereg;
   end;
 var
   fEnterTime: TfEnterTime;
@@ -201,9 +213,11 @@ function CorrectHouredTimeWithSpareTime(User : string;Day : TDateTime;Hours : In
 function GetFreeTime(User : string;Day : TDateTime;Hours : Integer) : Integer;
 function GetFreeDayTime(User : string;Day : TDateTime) : Integer;
 implementation
+{$R *.lfm}
 uses
-  uRowEditor, uSearch, uBaseSearch, uSelectreport, uBaseApplication,
-  uBaseDBInterface,uProjects,uMasterdata,uPerson,uMainTreeFrame,uData
+  uRowEditor, uSearch, uBaseSearch, uSelectreport, uBaseApplication,variants,
+  uBaseDBInterface,uProjects,uMasterdata,uPerson,uMainTreeFrame,uData,uBaseDbClasses,
+  utask
   {$IFDEF WINDOWS}
   ,Windows
   {$ENDIF}
@@ -238,6 +252,12 @@ procedure TfEnterTime.seMaxresultsChange(Sender: TObject);
 begin
   acFilter.Execute;
 end;
+
+procedure TfEnterTime.SetJobTextAsync(Data: PtrInt);
+begin
+  eJob.Text:=FJobText;
+end;
+
 function TfEnterTime.SetlinkfromSearch(aLink: string): Boolean;
 begin
   Link := aLink;
@@ -249,9 +269,20 @@ begin
   Result := True;
 end;
 function TfEnterTime.SetListLinkfromSearch(aLink: string): Boolean;
+var
+  aProject: TProject;
 begin
   FList.gList.EditorMode:=False;
   FList.gList.SelectedColumn.Field.Text:=aLink;
+  if FList.gList.SelectedColumn.FieldName='PROEJCT' then
+    begin
+      aProject := TProject.Create(nil);
+      aProject.SelectFromLink(aLink);
+      aProject.Open;
+      if aProject.Count>0 then
+        FList.gList.DataSource.DataSet.FieldByName('PROJECTID').AsVariant:=aProject.Id.AsVariant;
+      aProject.Free;
+    end;
   FList.gList.EditorMode:=True;
   Result := True;
 end;
@@ -359,13 +390,19 @@ procedure TfEnterTime.SetTask(AValue: string);
 begin
   if FTask=AValue then Exit;
   FTask:=AValue;
+  bTaskDone.Enabled:=False;
+  FJobText:=Ftask;
   with Application as IBaseDBInterface do
     begin
-      eJob.Text:=Data.GetLinkDesc(FTask);
+      FJobText:=Data.GetLinkDesc(FTask);
       if Data.GetLinkIcon(FTask) <> -1 then
-        fVisualControls.Images.GetBitmap(Data.GetLinkIcon(FTask),iLink3.Picture.Bitmap)
+        begin
+          fVisualControls.Images.GetBitmap(Data.GetLinkIcon(FTask),iLink3.Picture.Bitmap);
+          bTaskDone.Enabled:=True;
+        end
       else iLink3.Picture.Clear;
     end;
+  Application.QueueAsyncCall(@SetJobTextAsync,0);
 end;
 procedure TfEnterTime.UpdateEditors;
 var
@@ -416,15 +453,6 @@ begin
   tmShowDialog.Enabled := False;
   if Assigned(FList) then
     begin
-      try
-        if Assigned(FTimes) then
-          begin
-            FreeAndNil(FTimes);
-            FIntTimes.Destroy;
-          end;
-        //if Assigned(FList.DataSet) then FList.DataSet.Destroy;
-      except
-      end;
       FList.DataSet := nil;
       FList.Destroy;
       FList := nil;
@@ -497,7 +525,7 @@ begin
       Times.DataSet.Insert;
       Times.FieldByName('LINK').AsString := FLink;
       Times.FieldByName('PROJECT').AsString := FProject;
-      aProject := TProject.Create(nil,Data);
+      aProject := TProject.Create(nil);
       aProject.SelectFromLink(FProject);
       aProject.Open;
       if aProject.Count>0 then
@@ -534,8 +562,8 @@ begin
     begin
       Link := DBConfig.ReadString('TIMELINK','');
       Project := DBConfig.ReadString('TIMEPROJECT','');
-      cbCategory.Text := DBConfig.ReadString('TIMECATEGORY','');
-      cbCategory.Text:=DBConfig.ReadString('TIMEJOB','');
+      cbCategory.Text := DBConfig.ReadString('TIMECAT','');
+      eJob.Text:=DBConfig.ReadString('TIMEJOB','');
       mNotes.Lines.Text:=DBConfig.ReadString('TIMENOTES','');
     end;
   acStartExecute(nil);
@@ -571,6 +599,87 @@ begin
   Times.FieldByName('NOTE').AsString := mNotes.Lines.Text;
   Times.DataSet.Post;
 end;
+
+procedure TfEnterTime.AskUserforContinue(aData: PtrInt);
+var
+  aRes: TModalResult;
+begin
+  with Application as IBaseDbInterface do
+    begin
+      Times.First;
+      if Trunc(Times.FieldByName('END').AsFloat) = Trunc(Now()) then
+        begin
+          if (Now()-Times.FieldByName('END').AsDateTime) > (MSecsPerSec*60*30) then
+            aRes := MessageDlg(strTimeRegistration,Format(strContinuePreviousTimeEntry,[Data.GetLinkDesc(Times.FieldByName('LINK').AsString),Data.GetLinkDesc(Times.FieldByName('PROJECT').AsString),Times.FieldByName('JOB').AsString,Times.FieldByName('END').AsString]),mtConfirmation,[mbNo,mbYes],0)
+          else
+            aRes := MessageDlg(strTimeRegistration,Format(strContinuePreviousTimeEntry,[Data.GetLinkDesc(Times.FieldByName('LINK').AsString),Data.GetLinkDesc(Times.FieldByName('PROJECT').AsString),Times.FieldByName('JOB').AsString,Times.FieldByName('END').AsString]),mtConfirmation,[mbYes,mbNo],0);
+          if aRes = mrYes then
+            begin
+              Times.DataSet.Edit;
+              Times.FieldByName('END').Clear;
+              Times.DataSet.Post;
+              exit;
+            end;
+        end;
+      if not (Times.FieldByName('END').IsNull) then
+        begin
+          if DBConfig.ReadString('TIMESTANDARTSTART','Y') = 'Y' then
+            begin
+              Times.DuplicateRecord;
+              Times.DataSet.Edit;
+              Times.FieldByName('LINK').AsString := DBConfig.ReadString('TIMELINK','');
+              Times.FieldByName('PROJECT').AsString := DBConfig.ReadString('TIMEPROJECT','');
+              Times.FieldByName('CATEGORY').AsString := DBConfig.ReadString('TIMECATEGORY','');
+              Times.FieldByName('JOB').AsString := DBConfig.ReadString('TIMEJOB','');
+              Times.FieldByName('NOTE').AsString := DBConfig.ReadString('TIMENOTES','');
+              Times.FieldByName('START').AsFloat := Now();
+              Times.FieldByName('END').Clear;
+              Times.DataSet.Post;
+            end
+          else
+            begin
+              Times.DuplicateRecord;
+              Times.DataSet.Edit;
+              Times.FieldByName('ISPAUSE').AsString := 'N';
+              Times.FieldByName('START').AsFloat := Now();
+              Times.FieldByName('END').Clear;
+              Times.DataSet.Post;
+            end;
+          Times.DataSet.Refresh;
+        end
+      else
+        begin
+          ShowMessage(strEndTimeNotSet);
+        end;
+    end;
+end;
+
+procedure TfEnterTime.AsyncStartTimereg(Data: PtrInt);
+begin
+  acStartExecute(nil);
+end;
+
+procedure TfEnterTime.bAddJob1Click(Sender: TObject);
+var
+  aTask: TTask;
+  aProject: TProject;
+begin
+  aTask := TTask.Create(nil);
+  aTask.Insert;
+  aTask.Text.AsString:=eJob.Text;
+  aProject := TProject.Create(nil);
+  aProject.SelectFromLink(Project);
+  aProject.Open;
+  if aProject.Count>0 then
+    begin
+      aTask.Project.AsString:=aProject.Text.AsString;
+      aTask.FieldByName('PROJECTID').AsVariant:=aProject.Id.AsVariant;
+    end;
+  aProject.Free;
+  aTask.FieldByName('CATEGORY').AsString:=cbCategory.Text;
+  aTask.Post;
+end;
+
 procedure TfEnterTime.bCloseKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -580,6 +689,23 @@ begin
       Close;
     end;
 end;
+
+procedure TfEnterTime.bTaskDoneClick(Sender: TObject);
+var
+  aTask: TTask;
+begin
+  aTask := TTask.Create(nil);
+  aTask.SelectFromLink(Task);
+  aTask.Open;
+  if aTask.Count>0 then
+    begin
+      aTask.Edit;
+      aTask.FieldByName('COMPLETED').AsString:='Y';
+      aTask.Post;
+    end;
+  aTask.Free;
+end;
+
 procedure TfEnterTime.cbShowDialogChange(Sender: TObject);
 begin
   if cbShowDialog.Checked then
@@ -623,6 +749,49 @@ begin
     NewTime := NewTime+trunc(Sender.DataSet.FieldByName('START').AsDateTime);
   Sender.AsDateTime:=NewTime;
 end;
+
+procedure TfEnterTime.eJobGetItems(Sender: TObject);
+var
+  aTasks: TTask;
+begin
+  aTasks := TTask.Create(nil);
+  aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
+  aTasks.Open;
+  eJob.Items.Clear;
+  while not aTasks.EOF do
+    begin
+      eJob.Items.Add(aTasks.Text.AsString+' - '+aTasks.Project.AsString);
+      aTasks.Next;
+    end;
+  aTasks.Free;
+end;
+
+procedure TfEnterTime.eJobSelect(Sender: TObject);
+var
+  aTasks: TTask;
+  aProject: TProject;
+begin
+  aTasks := TTask.Create(nil);
+  aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
+  aTasks.Open;
+  if aTasks.Locate('SUMMARY;PROJECT',VarArrayof([copy(eJob.Text,0,pos(' - ',eJob.Text)-1),copy(eJob.Text,pos(' - ',eJob.Text)+3,length(eJob.Text))]),[loCaseInsensitive]) then
+    begin
+      aProject := TProject.Create(nil);
+      aProject.Select(aTasks.FieldByName('PROJECTID').AsVariant);
+      aProject.Open;
+      if aProject.Count>0 then
+        Project:=Data.BuildLink(aProject.DataSet);
+      aProject.Free;
+      Task:=Data.BuildLink(aTasks.DataSet);
+      cbCategory.Text:=aTasks.FieldByName('CATEGORY').AsString;
+    end
+  else if pos(' - ',eJob.Text)>0 then
+    begin
+      eJob.Text:=copy(eJob.Text,0,pos(' - ',eJob.Text)-1);
+    end;
+  aTasks.Free;
+end;
+
 procedure TfEnterTime.eLinkButtonClick(Sender: TObject);
 begin
   fSearch.SetLanguage;
@@ -806,8 +975,6 @@ begin
     begin
       FTimes.DataSet.BeforeScroll:=@DataSourceBeforeScroll;
       FTimes.DataSet.AfterPost:=@FTimesAfterPost;
-//      FTimes.DataSet.BeforeEdit:=@FTimesBeforeEdit;
-//      FTimes.DataSet.BeforeInsert:=@FTimesBeforeEdit;
       FList.DefaultRows:='GLOBALWIDTH:%;START:100;END:60;LINK:100;PROJECT:100;JOB:150;ISPAUSE:30;';
       FList.FilterType:='T';
       FList.Editable:=True;
@@ -822,7 +989,6 @@ begin
       FList.OnFilterChanged:=@FListFilterChanged;
       FList.AddToolbarAction(acDelete);
       FList.AddToolbarAction(acInsert);
-//      FList.AddToolbarAction(acPrint);
       acUseAsNewEntry.Execute;
     end;
   FTimes.FieldByName('START').OnSetText:=@StartSetText;
@@ -979,8 +1145,8 @@ begin
     begin
       with Application as IBaseDbInterface do
         begin
-          FTimes := TTimes.Create(nil,Data,nil,Data.Users.DataSet);
-          FIntTimes := TTimes.Create(nil,Data,nil,Data.Users.DataSet);
+          FTimes := TTimes.CreateEx(nil,Data,nil,Data.Users.DataSet);
+          FIntTimes := TTimes.CreateEx(nil,Data,nil,Data.Users.DataSet);
           FTimes.CreateTable;
         end;
       Times.Open;
@@ -993,50 +1159,7 @@ begin
   with Application as IBaseDbInterface do
     begin
       if DBConfig.ReadString('NOTIMEREG','N') = 'Y' then exit;
-      if Trunc(Times.FieldByName('END').AsFloat) = Trunc(Now()) then
-        begin
-          if (Now()-Times.FieldByName('END').AsDateTime) > (MSecsPerSec*60*30) then
-            aRes := MessageDlg(strTimeRegistration,Format(strContinuePreviousTimeEntry,[Data.GetLinkDesc(Times.FieldByName('LINK').AsString),Data.GetLinkDesc(Times.FieldByName('PROJECT').AsString),Times.FieldByName('JOB').AsString,Times.FieldByName('END').AsString]),mtConfirmation,[mbNo,mbYes],0)
-          else
-            aRes := MessageDlg(strTimeRegistration,Format(strContinuePreviousTimeEntry,[Data.GetLinkDesc(Times.FieldByName('LINK').AsString),Data.GetLinkDesc(Times.FieldByName('PROJECT').AsString),Times.FieldByName('JOB').AsString,Times.FieldByName('END').AsString]),mtConfirmation,[mbYes,mbNo],0);
-          if aRes = mrYes then
-            begin
-              Times.DataSet.Edit;
-              Times.FieldByName('END').Clear;
-              Times.DataSet.Post;
-              exit;
-            end;
-        end;
-      if not (Times.FieldByName('END').IsNull) then
-        begin
-          if DBConfig.ReadString('TIMESTANDARTSTART','Y') = 'Y' then
-            begin
-              Times.DuplicateRecord;
-              Times.DataSet.Edit;
-              Times.FieldByName('LINK').AsString := DBConfig.ReadString('TIMELINK','');
-              Times.FieldByName('PROJECT').AsString := DBConfig.ReadString('TIMEPROJECT','');
-              Times.FieldByName('CATEGORY').AsString := DBConfig.ReadString('TIMECATEGORY','');
-              Times.FieldByName('JOB').AsString := DBConfig.ReadString('TIMEJOB','');
-              Times.FieldByName('NOTE').AsString := DBConfig.ReadString('TIMENOTES','');
-              Times.FieldByName('START').AsFloat := Now();
-              Times.FieldByName('END').Clear;
-              Times.DataSet.Post;
-            end
-          else
-            begin
-              Times.DuplicateRecord;
-              Times.DataSet.Edit;
-              Times.FieldByName('ISPAUSE').AsString := 'N';
-              Times.FieldByName('START').AsFloat := Now();
-              Times.FieldByName('END').Clear;
-              Times.DataSet.Post;
-            end;
-          Times.DataSet.Refresh;
-        end
-      else
-        begin
-          ShowMessage(strEndTimeNotSet);
-        end;
+      Application.QueueAsyncCall(@AskUserforContinue,0);
     end;
 end;
 procedure TfEnterTime.SetLanguage;
@@ -1050,6 +1173,31 @@ begin
   mNotes.Lines.Clear;
   Calculate;
   acStart.Execute;
+end;
+
+function TfEnterTime.CommandReceived(Sender: TObject; aCommand: string
+  ): Boolean;
+begin
+  Result := False;
+  if copy(aCommand,0,10) = 'Time.enter' then
+    begin
+      aCommand := copy(aCommand,12,length(aCommand));
+      Project:=copy(aCommand,0,pos(';',aCommand)-1);
+      aCommand := copy(aCommand,pos(';',aCommand)+1,length(aCommand));
+      Task:=copy(aCommand,0,pos(';',aCommand)-1);
+      aCommand := copy(aCommand,pos(';',aCommand)+1,length(aCommand));
+      Link:=copy(aCommand,0,pos(')',aCommand)-1);
+      mNotes.Clear;
+      Result := True;
+    end
+  else if aCommand = 'Time.start' then
+    StartTimereg
+  else if aCommand = 'OnClick(/Zeiterfassung/Standardeintrag starten)' then
+    begin
+      acStartstandartEntry.Execute;
+      Result := True;
+    end
+  else if copy(aCommand,0,23)='OnClick(/Zeiterfassung)' then Result := True;
 end;
 
 procedure TfEnterTime.refreshNode;
@@ -1072,6 +1220,11 @@ end;
 procedure TfEnterTime.SetActive;
 begin
   FList.SetActive;
+end;
+
+procedure TfEnterTime.StartTimereg;
+begin
+  Application.QueueAsyncCall(@AsyncStartTimereg,0);
 end;
 
 function GetWorkTime(User : string): Integer;
@@ -1122,6 +1275,5 @@ begin
     Result := GetWorkTime(User);
 end;
 initialization
-  {$I uentertime.lrs}
 end.
-
+

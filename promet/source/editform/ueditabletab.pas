@@ -56,6 +56,7 @@ type
     procedure JvDesignPanel1Paint(Sender: TObject);
     procedure JvDesignPanel1SelectionChange(Sender: TObject);
     procedure bCloseClick(Sender: TObject);
+    procedure JvDesignPanel1SurfaceBeforeClearSelection(Sender: TObject);
     procedure WriterFindAncestor(Writer: TWriter; Component: TComponent;
       const aName: string; var Ancestor, RootAncestor: TComponent);
   private
@@ -190,6 +191,25 @@ var
   Writer: TWriter;
   aControl: TControl;
 begin
+  randomize;
+  fTab.Name:=copy(fTab.Name,0,50)+IntToStr(Random(255));
+  i := 0;
+  while i < FTab.ComponentCount do
+    begin
+      if (FTab.Components[i] is TWinControl) and (not TWinControl(FTab.Components[i]).Visible) then
+        FTab.Components[i].Free
+      else inc(i);
+    end;
+  for i := 0 to FTab.ComponentCount-1 do
+    begin
+      try
+        if copy(fTab.Components[i].Name,0,50)='' then
+          fTab.Components[i].Name:='C'+copy(fTab.Components[i].Name,0,50)+IntToStr(Random(255))
+        else
+          fTab.Components[i].Name:=copy(fTab.Components[i].Name,0,50)+IntToStr(Random(255));
+      except
+      end;
+    end;
   JvDesignSurface.Active:=False;
   //Self := TEditableFrame(FTab);
   i := 0;
@@ -218,6 +238,12 @@ begin
           end;
       end;
   FEnterButton.Parent.Parent := FTab;
+end;
+
+procedure TEditableFrame.JvDesignPanel1SurfaceBeforeClearSelection(
+  Sender: TObject);
+begin
+  PropertyGrid.Selection:=nil;
 end;
 
 procedure TEditableFrame.WriterFindAncestor(Writer: TWriter;

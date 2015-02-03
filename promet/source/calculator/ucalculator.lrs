@@ -3,11 +3,11 @@
 LazarusResources.Add('TfMain','FORMDATA',[
   'TPF0'#6'TfMain'#5'fMain'#4'Left'#3#226#1#6'Height'#3#225#1#3'Top'#3#188#0#5
   +'Width'#3'<'#2#13'ActiveControl'#7#5'Input'#7'Caption'#6#11'Der Rechner'#12
-  +'ClientHeight'#3#203#1#11'ClientWidth'#3'<'#2#5'Color'#7#8'clWindow'#4'Menu'
+  +'ClientHeight'#3#205#1#11'ClientWidth'#3'<'#2#5'Color'#7#8'clWindow'#4'Menu'
   +#7#8'MainMenu'#7'OnClose'#7#9'FormClose'#8'OnCreate'#7#10'FormCreate'#9'OnDe'
   +'stroy'#7#11'FormDestroy'#6'OnShow'#7#8'FormShow'#8'Position'#7#14'poScreenC'
   +'enter'#10'LCLVersion'#6#3'1.3'#0#244#8'TSynMemo'#6'Output'#6'Cursor'#7#7'cr'
-  +'IBeam'#4'Left'#2#0#6'Height'#3'0'#1#3'Top'#2'2'#5'Width'#3'<'#2#5'Align'#7#8
+  +'IBeam'#4'Left'#2#0#6'Height'#3'3'#1#3'Top'#2'2'#5'Width'#3'<'#2#5'Align'#7#8
   +'alClient'#17'BorderSpacing.Top'#2'2'#11'Font.Height'#2#243#9'Font.Name'#6#11
   +'Courier New'#10'Font.Pitch'#7#7'fpFixed'#12'Font.Quality'#7#16'fqNonAntiali'
   +'ased'#11'ParentColor'#8#10'ParentFont'#8#8'TabOrder'#2#0#12'Gutter.Width'#2
@@ -101,7 +101,7 @@ LazarusResources.Add('TfMain','FORMDATA',[
   +'nfo.Background'#7#6'clNone'#21'MarkupInfo.Foreground'#7#6'clGray'#21'Markup'
   +'Info.FrameEdges'#7#9'sfeAround'#20'MouseActionsExpanded'#14#0#21'MouseActio'
   +'nsCollapsed'#14#0#0#0#0#0#244#8'TSynMemo'#5'Input'#6'Cursor'#7#7'crIBeam'#4
-  +'Left'#2#0#6'Height'#2'K'#3'Top'#3#128#1#5'Width'#3'<'#2#5'Align'#7#8'alBott'
+  +'Left'#2#0#6'Height'#2'K'#3'Top'#3#130#1#5'Width'#3'<'#2#5'Align'#7#8'alBott'
   +'om'#11'Font.Height'#2#243#9'Font.Name'#6#11'Courier New'#10'Font.Pitch'#7#7
   +'fpFixed'#12'Font.Quality'#7#16'fqNonAntialiased'#11'ParentColor'#8#10'Paren'
   +'tFont'#8#8'TabOrder'#2#1#9'OnKeyDown'#7#12'InputKeyDown'#12'Gutter.Width'#2
@@ -194,11 +194,11 @@ LazarusResources.Add('TfMain','FORMDATA',[
   +'g'#21'SynGutterCodeFolding1'#12'MouseActions'#14#0#21'MarkupInfo.Background'
   +#7#6'clNone'#21'MarkupInfo.Foreground'#7#6'clGray'#21'MarkupInfo.FrameEdges'
   ,#7#9'sfeAround'#20'MouseActionsExpanded'#14#0#21'MouseActionsCollapsed'#14#0
-  +#0#0#0#0#6'TLabel'#6'Label1'#4'Left'#2#8#6'Height'#2#14#3'Top'#2#16#5'Width'
-  +#2'='#7'Caption'#6#8'Umgebung'#11'ParentColor'#8#0#0#9'TComboBox'#12'cbEnvir'
-  +'oment'#4'Left'#2'P'#6'Height'#2#27#3'Top'#2#8#5'Width'#3#200#1#7'Anchors'#11
-  +#5'akTop'#6'akLeft'#7'akRight'#0#10'ItemHeight'#2#0#6'OnExit'#7#16'cbEnvirom'
-  +'entExit'#8'OnSelect'#7#18'cbEnviromentSelect'#8'TabOrder'#2#2#4'Text'#6#12
+  +#0#0#0#0#6'TLabel'#6'Label1'#4'Left'#2#8#6'Height'#2#13#3'Top'#2#16#5'Width'
+  +#2'3'#7'Caption'#6#8'Umgebung'#11'ParentColor'#8#0#0#9'TComboBox'#12'cbEnvir'
+  +'oment'#4'Left'#2'P'#6'Height'#2#21#3'Top'#2#8#5'Width'#3#200#1#7'Anchors'#11
+  +#5'akTop'#6'akLeft'#7'akRight'#0#10'ItemHeight'#2#13#6'OnExit'#7#16'cbEnviro'
+  +'mentExit'#8'OnSelect'#7#18'cbEnviromentSelect'#8'TabOrder'#2#2#4'Text'#6#12
   +'cbEnviroment'#0#0#12'TSpeedButton'#12'SpeedButton1'#4'Left'#3#29#2#6'Height'
   +#2#24#3'Top'#2#9#5'Width'#2#27#6'Action'#7#18'acDeleteEnviroment'#7'Anchors'
   +#11#5'akTop'#7'akRight'#0#10'Glyph.Data'#10':'#4#0#0'6'#4#0#0'BM6'#4#0#0#0#0
@@ -234,31 +234,31 @@ LazarusResources.Add('TfMain','FORMDATA',[
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0
   +#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#11'ShowCapt'
-  +'ion'#8#0#0#6'TLabel'#5'lInfo'#4'Left'#2#8#6'Height'#2#14#3'Top'#3'j'#1#5'Wi'
+  +'ion'#8#0#0#6'TLabel'#5'lInfo'#4'Left'#2#8#6'Height'#2#13#3'Top'#3'm'#1#5'Wi'
   +'dth'#3','#2#5'Align'#7#8'alBottom'#20'BorderSpacing.Around'#2#8#7'Caption'#6
   +#5'lInfo'#5'Color'#7#8'clInfoBk'#10'Font.Color'#7#10'clInfoText'#10'Font.Pit'
   +'ch'#7#7'fpFixed'#11'ParentColor'#8#10'ParentFont'#8#11'Transparent'#8#7'Vis'
-  +'ible'#8#0#0#11'TActionList'#11'ActionList1'#6'Images'#7#22'fVisualControls.'
-  +'Images'#4'left'#2#16#3'top'#2'x'#0#7'TAction'#7'acLogin'#7'Caption'#6#8'Anm'
-  +'elden'#10'ImageIndex'#2#12#9'OnExecute'#7#14'acLoginExecute'#0#0#7'TAction'
-  +#8'acLogout'#7'Caption'#6#8'Abmelden'#7'Enabled'#8#10'ImageIndex'#2#17#9'OnE'
-  +'xecute'#7#15'acLogoutExecute'#0#0#7'TAction'#18'acDeleteEnviroment'#7'Capti'
-  +'on'#6#18'acDeleteEnviroment'#10'ImageIndex'#2'<'#9'OnExecute'#7#25'acDelete'
-  +'EnviromentExecute'#0#0#0#9'TMainMenu'#8'MainMenu'#4'left'#2#16#3'top'#2'H'#0
-  +#9'TMenuItem'#9'miMandant'#7'Caption'#6#7'Mandant'#0#9'TMenuItem'#9'MenuItem'
-  +'4'#6'Action'#7#7'acLogin'#7'OnClick'#7#14'acLoginExecute'#0#0#9'TMenuItem'#9
-  +'MenuItem3'#6'Action'#7#8'acLogout'#7'OnClick'#7#15'acLogoutExecute'#0#0#0#9
-  +'TMenuItem'#9'miOptions'#7'Caption'#6#8'Optionen'#0#9'TMenuItem'#10'miLangua'
-  +'ge'#7'Caption'#6#7'Sprache'#0#0#0#0#10'TSynSQLSyn'#10'SynSQLSyn1'#13'Defaul'
-  +'tFilter'#6#25'SQL-Dateien (*.sql)|*.sql'#7'Enabled'#8#23'CommentAttri.Frame'
-  +'Edges'#7#9'sfeAround'#24'DataTypeAttri.FrameEdges'#7#9'sfeAround'#30'Defaul'
-  +'tPackageAttri.FrameEdges'#7#9'sfeAround'#25'ExceptionAttri.FrameEdges'#7#9
-  +'sfeAround'#24'FunctionAttri.FrameEdges'#7#9'sfeAround'#26'IdentifierAttri.F'
-  +'rameEdges'#7#9'sfeAround'#19'KeyAttri.FrameEdges'#7#9'sfeAround'#22'NumberA'
-  +'ttri.FrameEdges'#7#9'sfeAround'#21'PLSQLAttri.FrameEdges'#7#9'sfeAround'#21
-  +'SpaceAttri.FrameEdges'#7#9'sfeAround'#23'SQLPlusAttri.FrameEdges'#7#9'sfeAr'
-  ,'ound'#22'StringAttri.FrameEdges'#7#9'sfeAround'#22'SymbolAttri.FrameEdges'#7
-  +#9'sfeAround'#25'TableNameAttri.FrameEdges'#7#9'sfeAround'#24'VariableAttri.'
-  +'FrameEdges'#7#9'sfeAround'#10'SQLDialect'#7#9'sqlSybase'#4'left'#2#16#3'top'
-  +#3#144#1#0#0#11'TDataSource'#10'Enviroment'#4'left'#2'P'#3'top'#2'H'#0#0#0
+  +'ible'#8#8'WordWrap'#9#0#0#11'TActionList'#11'ActionList1'#4'left'#2#16#3'to'
+  +'p'#2'x'#0#7'TAction'#7'acLogin'#7'Caption'#6#8'Anmelden'#10'ImageIndex'#2#12
+  +#9'OnExecute'#7#14'acLoginExecute'#0#0#7'TAction'#8'acLogout'#7'Caption'#6#8
+  +'Abmelden'#7'Enabled'#8#10'ImageIndex'#2#17#9'OnExecute'#7#15'acLogoutExecut'
+  +'e'#0#0#7'TAction'#18'acDeleteEnviroment'#7'Caption'#6#18'acDeleteEnviroment'
+  +#10'ImageIndex'#2'<'#9'OnExecute'#7#25'acDeleteEnviromentExecute'#0#0#0#9'TM'
+  +'ainMenu'#8'MainMenu'#4'left'#2#16#3'top'#2'H'#0#9'TMenuItem'#9'miMandant'#7
+  +'Caption'#6#7'Mandant'#0#9'TMenuItem'#9'MenuItem4'#6'Action'#7#7'acLogin'#7
+  +'OnClick'#7#14'acLoginExecute'#0#0#9'TMenuItem'#9'MenuItem3'#6'Action'#7#8'a'
+  +'cLogout'#7'OnClick'#7#15'acLogoutExecute'#0#0#0#9'TMenuItem'#9'miOptions'#7
+  +'Caption'#6#8'Optionen'#0#9'TMenuItem'#10'miLanguage'#7'Caption'#6#7'Sprache'
+  +#0#0#0#0#10'TSynSQLSyn'#10'SynSQLSyn1'#13'DefaultFilter'#6#25'SQL-Dateien (*'
+  +'.sql)|*.sql'#7'Enabled'#8#23'CommentAttri.FrameEdges'#7#9'sfeAround'#24'Dat'
+  +'aTypeAttri.FrameEdges'#7#9'sfeAround'#30'DefaultPackageAttri.FrameEdges'#7#9
+  +'sfeAround'#25'ExceptionAttri.FrameEdges'#7#9'sfeAround'#24'FunctionAttri.Fr'
+  +'ameEdges'#7#9'sfeAround'#26'IdentifierAttri.FrameEdges'#7#9'sfeAround'#19'K'
+  +'eyAttri.FrameEdges'#7#9'sfeAround'#22'NumberAttri.FrameEdges'#7#9'sfeAround'
+  +#21'PLSQLAttri.FrameEdges'#7#9'sfeAround'#21'SpaceAttri.FrameEdges'#7#9'sfeA'
+  +'round'#23'SQLPlusAttri.FrameEdges'#7#9'sfeAround'#22'StringAttri.FrameEdges'
+  ,#7#9'sfeAround'#22'SymbolAttri.FrameEdges'#7#9'sfeAround'#25'TableNameAttri.'
+  +'FrameEdges'#7#9'sfeAround'#24'VariableAttri.FrameEdges'#7#9'sfeAround'#10'S'
+  +'QLDialect'#7#9'sqlSybase'#4'left'#2#16#3'top'#3#144#1#0#0#11'TDataSource'#10
+  +'Enviroment'#4'left'#2'P'#3'top'#2'H'#0#0#0
 ]);

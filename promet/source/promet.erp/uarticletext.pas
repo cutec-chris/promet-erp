@@ -23,20 +23,23 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, DbCtrls, ExtCtrls,
   Buttons, db, uFilterFrame, uMasterdata, uPrometFramesInplace, uExtControls;
 type
+
+  { TfArticleTextFrame }
+
   TfArticleTextFrame = class(TPrometInplaceFrame)
     Bevel1: TBevel;
     cbTextTyp: TComboBox;
     DBNavigator1: TDBNavigator;
     ExtRotatedLabel1: TExtRotatedLabel;
     mText: TMemo;
+    Panel1: TPanel;
     Panel2: TPanel;
-    pLeft: TPanel;
+    pToolbar: TPanel;
     TextTypes: TDatasource;
     Texts: TDatasource;
     lTexttyp: TLabel;
     procedure cbTextTypSelect(Sender: TObject);
     procedure mTextChange(Sender: TObject);
-    procedure TextsStateChange(Sender: TObject);
   private
     FMasterdata: TMasterdata;
     DontUpdate: Boolean;
@@ -52,7 +55,7 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uData,uRTFtoTXT;
+uses uData,uRTFtoTXT,uBaseERPDBClasses;
 procedure TfArticleTextFrame.cbTextTypSelect(Sender: TObject);
 begin
   if DontUpdate then exit;
@@ -86,11 +89,6 @@ begin
   Texts.DataSet.FieldByName('TEXT').AsString := mText.Lines.Text;
 end;
 
-procedure TfArticleTextFrame.TextsStateChange(Sender: TObject);
-begin
-  cbTextTypSelect(nil);
-end;
-
 procedure TfArticleTextFrame.SetMasterdata(const AValue: TMasterdata);
 begin
   if FMasterdata=AValue then exit;
@@ -102,17 +100,19 @@ begin
     cbTextTyp.Text := '';
   if Fmasterdata.DataSet.Active and (not Masterdata.Texts.DataSet.Active) then
     FMasterdata.Texts.Open;
+  cbTextTypSelect(nil);
 end;
 constructor TfArticleTextFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  Data.Texttyp.Open;
-  TextTypes.DataSet := Data.TextTyp.DataSet;
-  Data.TextTyp.DataSet.First;
-  while not Data.TextTyp.DataSet.EOF do
+  if not Assigned(uBaseERPDBClasses.TextTyp) then
+    uBaseERPDBClasses.TextTyp := TTextTypes.Create(nil);
+  Texttyp.Open;
+  TextTyp.DataSet.First;
+  while not TextTyp.DataSet.EOF do
     begin
-      cbTextTyp.Items.Add(Data.TextTyp.FieldByName('NAME').AsString);
-      Data.TextTyp.DataSet.Next;
+      cbTextTyp.Items.Add(TextTyp.FieldByName('NAME').AsString);
+      TextTyp.DataSet.Next;
     end;
 end;
 destructor TfArticleTextFrame.Destroy;
@@ -125,7 +125,8 @@ begin
   FEditable := Editable;
   mText.ReadOnly:=not Editable;
   DBNavigator1.Enabled:=Editable;
-  cbTextTypSelect(nil);
+  //cbTextTypSelect(nil);
+  ArrangeToolBar(pToolbar,nil,'Text');
 end;
 
 end.

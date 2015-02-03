@@ -125,7 +125,7 @@ type
     procedure FRoughCalendarShowHint(Sender: TObject; HintInfo: PHintInfo);
     procedure FRoughTreeAfterUpdateCommonSettings(Sender: TObject);
     procedure aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;aUnfinishedList : TList = nil);
     procedure RefreshTimes(Data: PtrInt);
     procedure Timer1Timer(Sender: TObject);
   private
@@ -281,12 +281,12 @@ var
 begin
   Synchronize(@StartFilling);
   aConn := Data.GetNewConnection;
-  aProjects :=  TProjectList.Create(nil,Data,aConn);
+  aProjects :=  TProjectList.CreateEx(nil,Data,aConn);
   with aProjects.DataSet as IBaseDbFilter do
     Data.SetFilter(aProjects,Data.ProcessTerm(Data.QuoteField('GROSSPLANNING')+'='+Data.QuoteValue('Y')),0,'GPRIORITY','ASC');
-  aState := TStates.Create(nil,Data,aConn);
+  aState := TStates.CreateEx(nil,Data,aConn);
   aState.Open;
-  aUsers := TUser.Create(nil,Data,aConn);
+  aUsers := TUser.CreateEx(nil,Data,aConn);
   aUsers.Open;
   while (not aProjects.EOF) and (not Terminated) do
     begin
@@ -332,8 +332,9 @@ begin
   //Free;
   inherited Create(False)
 end;
-procedure TfRoughPlanningFrame.aIntDrawBackground(Sender: TObject; aCanvas: TCanvas;
-  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+procedure TfRoughPlanningFrame.aIntDrawBackground(Sender: TObject;
+  aCanvas: TCanvas; aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;
+  aUnfinishedList: TList);
 var
   Style : TTextStyle;
   i: Integer;
@@ -494,10 +495,10 @@ begin
   CurrInterval := TInterval(FRough.Tree.Objects[0, FRough.Tree.Row]);
   if Assigned(CurrInterval) then
     begin
-      aProjects := TProjectList.Create(nil,Data);
+      aProjects := TProjectList.Create(nil);
       aProjects.Select(CurrInterval.Id);
       aProjects.Open;
-      aUsers := TUser.Create(nil,Data);
+      aUsers := TUser.Create(nil);
       aUsers.Open;
       while CurrInterval.IntervalCount > 0 do
         CurrInterval.DeleteInterval(0);
@@ -660,12 +661,12 @@ var
   aWeekEnds: Integer;
 begin
   Result := 0;
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   aUser.SelectByAccountno(asUser);
   aUser.Open;
   if aUser.FieldByName('TYPE').AsString='G' then
     begin
-      aUsers := TUser.Create(nil,Data);
+      aUsers := TUser.Create(nil);
       with aUsers.DataSet as IBaseDbFilter do
         Filter := Data.QuoteField('PARENT')+'='+Data.QuoteValue(aUser.Id.AsString);
       aUsers.Open;
@@ -694,7 +695,7 @@ begin
       Result := aDayT*(aEnd-aStart-aWeekEnds);
       //Kalender Abzüge
       {
-      aCalendar := TCalendar.Create(nil,Data);
+      aCalendar := TCalendar.Create(nil);
       aCalendar.SelectPlanedByUserAndTime(asUser,aStart,aEnd);
       aCalendar.Open;
       with aCalendar.DataSet do
@@ -788,7 +789,7 @@ begin
   aInt.OnDrawBackground:=@aIntDrawBackground;
   aInt.Style:=isNone;
   aInt.Visible:=True;
-  aProject := TProject.Create(nil,Data,aConn);
+  aProject := TProject.CreateEx(nil,Data,aConn);
   aProject.Select(aProjects.Id.AsVariant);
   aProject.Open;
   Data.SetFilter(aProject.Tasks,Data.QuoteField('CLASS')+'='+Data.QuoteValue('M'),0,'DUEDATE','ASC');

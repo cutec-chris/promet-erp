@@ -22,7 +22,7 @@ unit uViewMessage;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, ExtCtrls, StdCtrls, IpHtml,
+  Classes, SysUtils, FileUtil,  Forms, ExtCtrls, StdCtrls, IpHtml,
   uData, Graphics, Menus, uIntfStrConsts, DB, Variants, Utils, LCLIntf,
   uMessages, lconvencoding;
 type
@@ -66,7 +66,8 @@ type
     property Done : Boolean read FDone;
   end;
 implementation
-uses uDocuments,LCLProc,wikitohtml;
+{$R *.lfm}
+uses uDocuments,LCLProc,wikitohtml,uBaseDbClasses,uBaseApplication;
 resourcestring
   strMessagenotDownloaded       = 'Die Naricht wurde aus Sicherheitsgründen nicht heruntergeladen !';
   strOpenToViewItem             = 'Bitte klicken Sie doppelt auf diesen Eintrag um ihn anzuzeigen';
@@ -86,7 +87,7 @@ begin
     begin
       try
         try
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           Data.SetFilter(aDocument,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' and '+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(Messages.Content.Id.AsString));
           if aDocument.DataSet.Locate('TYPE;REF_ID_ID',VarArrayOf(['N',Messages.Content.id.AsString]),[loPartialKey]) then
             begin
@@ -98,15 +99,18 @@ begin
                   tmp := StringReplace(StringReplace(ss.DataString,'<','',[]),'>','',[]);
                   if ValidateFileName(tmp) = copy(ValidateFileName(URL),5,length(ValidateFileName(URL))) then
                     begin
-                      Data.BlobFieldToFile(aDocument.DataSet,'DOCUMENT',GetTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
-                      try
-                        Picture.LoadFromFile(GetTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
-                      except
-                        FreeAndnil(Picture);
-                      end;
-                      DeleteFileUTF8(GetTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
-                      if Assigned(Picture) and (Picture.Width = 0) then
-                        FreeAndNil(Picture);
+                      with BaseApplication as IBaseApplication do
+                        begin
+                          Data.BlobFieldToFile(aDocument.DataSet,'DOCUMENT',GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                          try
+                            Picture.LoadFromFile(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                          except
+                            FreeAndnil(Picture);
+                          end;
+                          DeleteFileUTF8(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                          if Assigned(Picture) and (Picture.Width = 0) then
+                            FreeAndNil(Picture);
+                        end;
                     end;
                   ss.Free;
                   aDocument.DataSet.Next;
@@ -122,7 +126,7 @@ begin
     begin
       try
         try
-          aDocument := TDocument.Create(Self,Data);
+          aDocument := TDocument.CreateEx(Self,Data);
           Data.SetFilter(aDocument,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' and '+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(Messages.Content.Id.AsString));
           if aDocument.Count>0 then
             begin
@@ -132,13 +136,16 @@ begin
                   if aDocument.FileName = url then
                     begin
                       ss := TStringStream.Create('');
-                      Data.BlobFieldToFile(aDocument.DataSet,'DOCUMENT',GetTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
-                      try
-                        Picture.LoadFromFile(GetTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
-                      except
-                        FreeAndnil(Picture);
-                      end;
-                      DeleteFileUTF8(GetTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                      with BaseApplication as IBaseApplication do
+                        begin
+                          Data.BlobFieldToFile(aDocument.DataSet,'DOCUMENT',GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                          try
+                            Picture.LoadFromFile(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                          except
+                            FreeAndnil(Picture);
+                          end;
+                          DeleteFileUTF8(GetInternalTempDir+copy(url,5,length(url))+'.'+aDocument.FieldByName('EXTENSION').AsString);
+                        end;
                       if Assigned(Picture) and (Picture.Width = 0) then
                         FreeAndNil(Picture);
                     end;
@@ -156,7 +163,7 @@ end;
 constructor TfViewMessage.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  Messages := TSpecialMessage.Create(Self,Data);
+  Messages := TSpecialMessage.CreateEx(Self,Data);
 end;
 destructor TfViewMessage.Destroy;
 begin
@@ -214,7 +221,7 @@ begin
          ss := TStringStream.Create('');
          Data.BlobFieldToStream(Messages.Content.DataSet,'DATA',ss);
          sl := TStringList.Create;
-         sl.Text:=SysToUTF8(ConvertEncoding(ss.DataString,GuessEncoding(ss.DataString),EncodingUTF8));
+         sl.Text:=SysToUni(ConvertEncoding(ss.DataString,GuessEncoding(ss.DataString),EncodingUTF8));
          sl.TextLineBreakStyle := tlbsCRLF;
          mContent.Lines.Assign(sl);
          sl.Free;
@@ -231,7 +238,7 @@ begin
            tmp := ss.DataString;
            aEncoding := GuessEncoding(tmp);
            if pos('ENCODING',Uppercase(tmp)) = 0 then
-             tmp := char($EF)+char($BB)+char($BF)+SysToUTF8(ConvertEncoding(tmp,aEncoding,EncodingUTF8));
+             tmp := char($EF)+char($BB)+char($BF)+SysToUni(ConvertEncoding(tmp,aEncoding,EncodingUTF8));
            ss.Free;
            ss:=TStringStream.Create(tmp);
            NewHTML:=TSimpleIpHtml.Create; // Beware:Will be freed automatically by IpHtmlPanel1
@@ -245,7 +252,8 @@ begin
                    Proc.Terminate;
                    sl := TStringList.Create;
                    sl.Text:=tmp;
-                   sl.SaveToFile(GetTempDir+'aerror.html');
+                   with BaseApplication as IBaseApplication do
+                     sl.SaveToFile(GetInternalTempDir+'aerror.html');
                    sl.Free;
                    FreeAndNil(NewHTML);
                    break;
@@ -272,14 +280,16 @@ begin
              except
                sl := TStringList.Create;
                sl.Text:=tmp;
-               sl.SaveToFile(GetTempDir+'aerror.html');
+               with BaseApplication as IBaseApplication do
+                 sl.SaveToFile(GetInternalTempDir+'aerror.html');
                sl.Free;
              end;
            end;
          except
            sl := TStringList.Create;
            sl.Text:=tmp;
-           sl.SaveToFile(GetTempDir+'aerror.html');
+           with BaseApplication as IBaseApplication do
+             sl.SaveToFile(GetInternalTempDir+'aerror.html');
            sl.Free;
            ss.Free;
          end;
@@ -295,7 +305,7 @@ begin
 
            aEncoding := GuessEncoding(tmp);
            if pos('ENCODING',Uppercase(tmp)) = 0 then
-             tmp := char($EF)+char($BB)+char($BF)+SysToUTF8(ConvertEncoding(tmp,aEncoding,EncodingUTF8));
+             tmp := char($EF)+char($BB)+char($BF)+SysToUni(ConvertEncoding(tmp,aEncoding,EncodingUTF8));
            ss.Free;
            ss:=TStringStream.Create(tmp);
            NewHTML:=TSimpleIpHtml.Create; // Beware:Will be freed automatically by IpHtmlPanel1
@@ -361,11 +371,11 @@ begin
                  ID := Data.Documents.FieldByName('NUMBER').AsString;
                  Data.SetFilter(Data.Documents,'"NUMBER"='+ID);
                  Data.Documents.DataSet.Last;
-                 Data.DataModule.BlobFieldToFile(Data.Documents.DataSet,'DOCUMENT',GetTempDir+'messagetmp.jpg');
-                 iiContent.Picture.LoadFromFile(GetTempDir+'messagetmp.jpg');
+                 Data.DataModule.BlobFieldToFile(Data.Documents.DataSet,'DOCUMENT',GetInternalTempDir+'messagetmp.jpg');
+                 iiContent.Picture.LoadFromFile(GetInternalTempDir+'messagetmp.jpg');
                  iiContent.Height:=(iiContent.Width*iiContent.Picture.Height) div iiContent.Picture.Width;
                  iiContent.Stretch:=True;
-                 DeleteFileUTF8(GetTempDir+'messagetmp.jpg');
+                 DeleteFileUTF8(GetInternalTempDir+'messagetmp.jpg');
                end;
              }
            end;
@@ -379,20 +389,31 @@ begin
   ss := sss;
   FDone := False;
   FExcept := False;
-  inherited Create(false);
+  if not BaseApplication.HasOption('disablethreads') then
+    inherited Create(false)
+  else
+    Execute;
 end;
+
 procedure TLoadHTMLProcess.Execute;
+var
+  aBitmap : TBitmap;
 begin
   FHTML.OnGetImageX:=@FView.OnGetImage;
   try
+    aBitmap := TBitmap.Create;
     FHTML.LoadFromStream(ss);
+    aBitmap.Width:=100;
+    aBitmap.Height:=100;
+    //FHTML.Render(aBitmap.Canvas,Rect(0,0,100,100),True,Point(0,10));
+    aBitmap.free;
     FDone := True;
   except
+    FreeAndNil(FHTML);
     FDone := False;
   end;
 end;
 initialization
-  {$I uviewmessage.lrs}
 
 end.
 

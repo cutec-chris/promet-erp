@@ -93,7 +93,7 @@ constructor TfFindTransaction.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FList := TfFilter.Create(Self);
-  Dataset := TAccountingJournal.Create(nil,Data);
+  Dataset := TAccountingJournal.Create(nil);
   with FList do
     begin
       FilterType:='SA';
@@ -133,7 +133,7 @@ begin
         fBookAccounting.Accountingjournal := TAccountingJournal(DataSet);
         fBookAccounting.AccountExchange := FAccountExchange;
         if not fBookAccounting.Execute(abs(FAccountExchange.FieldByName('VALUE').AsFloat),FAccountExchange.FieldByName('VALUEDATE').AsDateTime,Data.BuildLink(FAccountExchange.DataSet)) then exit;
-        aCustomer := TPerson.Create(Self,Data);
+        aCustomer := TPerson.CreateEx(Self,Data);
         aCustomer.Select(DataSet.FieldByName('CUSTNO').AsString);
         aCustomer.Open;
         if aCustomer.Count > 0 then

@@ -8,7 +8,7 @@ object fMain: TfMain
   ClientWidth = 411
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object ipHTML: TIpHtmlPanel
     Left = 0
     Height = 438
@@ -28,4 +28,4 @@ object fMain: TfMain
     TabOrder = 0
     OnHotClick = ipHTMLHotClick
   end
-end
+end

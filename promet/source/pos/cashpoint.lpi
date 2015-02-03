@@ -1,22 +1,24 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
+    <Version Value="9"/>
     <PathDelim Value="\"/>
-    <Version Value="7"/>
     <General>
       <Flags>
-        <AlwaysBuild Value="False"/>
+        <SaveClosedFiles Value="False"/>
         <LRSInOutputDirectory Value="False"/>
       </Flags>
+      <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
-      <TargetFileExt Value=".exe"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
-      <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <VersionInfo>
-      <StringTable Comments="" CompanyName="" FileDescription="" FileVersion="0.0.0.0" InternalName="" LegalCopyright="" LegalTrademarks="" OriginalFilename="" ProductName="" ProductVersion=""/>
+      <StringTable ProductVersion=""/>
     </VersionInfo>
+    <BuildModes Count="1">
+      <Item1 Name="default" Default="True"/>
+    </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
       <IgnoreBinaries Value="False"/>
@@ -29,385 +31,58 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="7">
+    <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="tponguard"/>
+        <PackageName Value="general"/>
       </Item1>
       <Item2>
-        <PackageName Value="general"/>
+        <PackageName Value="zcomponent"/>
       </Item2>
       <Item3>
-        <PackageName Value="zcomponent"/>
+        <PackageName Value="lazreport"/>
       </Item3>
       <Item4>
-        <PackageName Value="lazreport"/>
-      </Item4>
-      <Item5>
-        <PackageName Value="virtualtreeslcl"/>
-      </Item5>
-      <Item6>
         <PackageName Value="DBFLaz"/>
         <MinVersion Minor="1" Release="1" Valid="True"/>
-      </Item6>
-      <Item7>
+      </Item4>
+      <Item5>
         <PackageName Value="LCL"/>
-      </Item7>
+      </Item5>
     </RequiredPackages>
-    <Units Count="35">
+    <Units Count="3">
       <Unit0>
         <Filename Value="cashpoint.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="cashpoint"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="0"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="10"/>
-        <UsageCount Value="27"/>
-        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="ukmain.pas"/>
+        <Filename Value="umain.pas"/>
+        <IsPartOfProject Value="True"/>
         <ComponentName Value="fMain"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ukmain"/>
-        <TopLine Value="130"/>
-        <CursorPos X="38" Y="147"/>
-        <UsageCount Value="27"/>
+        <UnitName Value="umain"/>
       </Unit1>
       <Unit2>
-        <Filename Value="uorders.pas"/>
-        <ComponentName Value="fOrders"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uOrders"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="umain.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fMain"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="umain"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="279"/>
-        <CursorPos X="1" Y="335"/>
-        <UsageCount Value="20"/>
-        <Loaded Value="True"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="upassword.pas"/>
-        <ComponentName Value="fPassword"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uPassword"/>
-        <TopLine Value="56"/>
-        <CursorPos X="1" Y="70"/>
-        <UsageCount Value="27"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="uoptions.pas"/>
-        <ComponentName Value="fOptions"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uoptions"/>
-        <TopLine Value="446"/>
-        <CursorPos X="20" Y="458"/>
-        <UsageCount Value="11"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="uintfstrconsts.pas"/>
-        <UnitName Value="uIntfStrConsts"/>
-        <TopLine Value="1"/>
-        <CursorPos X="51" Y="8"/>
-        <UsageCount Value="11"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="todo.txt"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="5"/>
-        <UsageCount Value="11"/>
-        <DefaultSyntaxHighlighter Value="None"/>
-      </Unit7>
-      <Unit8>
-        <Filename Value="ubasedatamodule.pas"/>
-        <UnitName Value="uBaseDataModule"/>
-        <TopLine Value="1"/>
-        <CursorPos X="3" Y="9"/>
-        <UsageCount Value="11"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="udata.pas"/>
-        <ComponentName Value="Data"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="uData"/>
-        <TopLine Value="241"/>
-        <CursorPos X="22" Y="253"/>
-        <UsageCount Value="25"/>
-      </Unit9>
-      <Unit10>
-        <Filename Value="..\..\Programme\lazarus\lcl\dbgrids.pas"/>
-        <UnitName Value="DBGrids"/>
-        <TopLine Value="219"/>
-        <CursorPos X="10" Y="201"/>
-        <UsageCount Value="11"/>
-      </Unit10>
-      <Unit11>
-        <Filename Value="..\..\Programme\lazarus\lcl\grids.pas"/>
-        <UnitName Value="Grids"/>
-        <TopLine Value="480"/>
-        <CursorPos X="3" Y="502"/>
-        <UsageCount Value="10"/>
-      </Unit11>
-      <Unit12>
-        <Filename Value="..\..\Programme\lazarus\fpc\2.2.3\source\packages\fcl-db\src\base\db.pas"/>
-        <UnitName Value="db"/>
-        <TopLine Value="1272"/>
-        <CursorPos X="15" Y="1294"/>
-        <UsageCount Value="10"/>
-      </Unit12>
-      <Unit13>
-        <Filename Value="uarticle.pas"/>
-        <ComponentName Value="fMasterdata"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uArticle"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit13>
-      <Unit14>
-        <Filename Value="usqlitedm.pas"/>
-        <UnitName Value="uSQLiteDM"/>
-        <TopLine Value="1138"/>
-        <CursorPos X="35" Y="1162"/>
-        <UsageCount Value="10"/>
-      </Unit14>
-      <Unit15>
-        <Filename Value="..\..\general\src\uerror.pas"/>
-        <ComponentName Value="fError"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uError"/>
-        <TopLine Value="96"/>
-        <CursorPos X="30" Y="24"/>
-        <UsageCount Value="21"/>
-      </Unit15>
-      <Unit16>
-        <Filename Value="..\..\general\src\ubugtracker.pas"/>
-        <ComponentName Value="fBugTracker"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uBugtracker"/>
-        <TopLine Value="220"/>
-        <CursorPos X="44" Y="245"/>
-        <UsageCount Value="10"/>
-      </Unit16>
-      <Unit17>
-        <Filename Value="customsqliteds.pas"/>
-        <UnitName Value="customsqliteds"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit17>
-      <Unit18>
-        <Filename Value="uzeosdm.pas"/>
-        <UnitName Value="uZeOSDM"/>
-        <TopLine Value="1049"/>
-        <CursorPos X="3" Y="1061"/>
-        <UsageCount Value="10"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="uregister.pas"/>
-        <UnitName Value="uRegister"/>
-        <TopLine Value="1"/>
-        <CursorPos X="33" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit19>
-      <Unit20>
-        <Filename Value="uappconsts.pas"/>
-        <UnitName Value="uAppconsts"/>
-        <TopLine Value="34"/>
-        <CursorPos X="6" Y="46"/>
-        <UsageCount Value="21"/>
-      </Unit20>
-      <Unit21>
-        <Filename Value="cashpoint.lpi"/>
-        <TopLine Value="64"/>
-        <CursorPos X="38" Y="86"/>
-        <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="XML"/>
-      </Unit21>
-      <Unit22>
-        <Filename Value="D:\general\src\uerror.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fError"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uError"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="20"/>
-      </Unit22>
-      <Unit23>
-        <Filename Value="..\..\udata.pas"/>
-        <ComponentName Value="Data"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="uData"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="5" Y="90"/>
-        <UsageCount Value="20"/>
-      </Unit23>
-      <Unit24>
-        <Filename Value="..\..\upassword.pas"/>
-        <ComponentName Value="fPassword"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uPassword"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="128"/>
-        <CursorPos X="24" Y="132"/>
-        <UsageCount Value="20"/>
-      </Unit24>
-      <Unit25>
-        <Filename Value="..\..\umain.pas"/>
-        <UnitName Value="umain"/>
-        <TopLine Value="156"/>
-        <CursorPos X="40" Y="167"/>
-        <UsageCount Value="10"/>
-      </Unit25>
-      <Unit26>
-        <Filename Value="..\tcs_packanger\umain.pas"/>
-        <UnitName Value="umain"/>
-        <TopLine Value="323"/>
-        <CursorPos X="1" Y="343"/>
-        <UsageCount Value="10"/>
-      </Unit26>
-      <Unit27>
-        <Filename Value="C:\FPC\2.4.0\source\fpcsrc\packages\fcl-db\src\dbase\dbf.pas"/>
-        <UnitName Value="dbf"/>
-        <TopLine Value="396"/>
-        <CursorPos X="24" Y="425"/>
-        <UsageCount Value="10"/>
-      </Unit27>
-      <Unit28>
-        <Filename Value="D:\general\src\uappconsts.pas"/>
-        <UnitName Value="uAppconsts"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit28>
-      <Unit29>
-        <Filename Value="..\..\ubasedatamodule.pas"/>
-        <UnitName Value="uBaseDataModule"/>
-        <TopLine Value="609"/>
-        <CursorPos X="1" Y="620"/>
-        <UsageCount Value="10"/>
-      </Unit29>
-      <Unit30>
-        <Filename Value="C:\lazarus\lcl\propertystorage.pas"/>
-        <UnitName Value="PropertyStorage"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="20"/>
-        <CursorPos X="1" Y="804"/>
-        <UsageCount Value="10"/>
-      </Unit30>
-      <Unit31>
-        <Filename Value="..\..\uzeosdm.pas"/>
-        <UnitName Value="uZeOSDM"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="22"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit31>
-      <Unit32>
         <Filename Value="..\base\upassword.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="fPassword"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPassword"/>
-        <EditorIndex Value="2"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="10"/>
-        <UsageCount Value="20"/>
-        <Loaded Value="True"/>
-      </Unit32>
-      <Unit33>
-        <Filename Value="..\base\uaddserial.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasResources Value="True"/>
-        <UnitName Value="uaddserial"/>
-        <UsageCount Value="20"/>
-      </Unit33>
-      <Unit34>
-        <Filename Value="..\base\udata.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasResources Value="True"/>
-        <UnitName Value="udata"/>
-        <UsageCount Value="20"/>
-      </Unit34>
+      </Unit2>
     </Units>
-    <JumpHistory Count="10" HistoryIndex="9">
-      <Position1>
-        <Filename Value="cashpoint.lpr"/>
-        <Caret Line="25" Column="1" TopLine="4"/>
-      </Position1>
-      <Position2>
-        <Filename Value="cashpoint.lpr"/>
-        <Caret Line="26" Column="1" TopLine="6"/>
-      </Position2>
-      <Position3>
-        <Filename Value="cashpoint.lpr"/>
-        <Caret Line="16" Column="1" TopLine="4"/>
-      </Position3>
-      <Position4>
-        <Filename Value="umain.pas"/>
-        <Caret Line="178" Column="33" TopLine="157"/>
-      </Position4>
-      <Position5>
-        <Filename Value="umain.pas"/>
-        <Caret Line="126" Column="18" TopLine="123"/>
-      </Position5>
-      <Position6>
-        <Filename Value="umain.pas"/>
-        <Caret Line="112" Column="1" TopLine="97"/>
-      </Position6>
-      <Position7>
-        <Filename Value="umain.pas"/>
-        <Caret Line="114" Column="71" TopLine="105"/>
-      </Position7>
-      <Position8>
-        <Filename Value="umain.pas"/>
-        <Caret Line="115" Column="67" TopLine="106"/>
-      </Position8>
-      <Position9>
-        <Filename Value="cashpoint.lpr"/>
-        <Caret Line="12" Column="14" TopLine="3"/>
-      </Position9>
-      <Position10>
-        <Filename Value="cashpoint.lpr"/>
-        <Caret Line="23" Column="1" TopLine="3"/>
-      </Position10>
-    </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="8"/>
+    <Version Value="11"/>
     <PathDelim Value="\"/>
     <SearchPaths>
-      <OtherUnitFiles Value="..\..\..\general\src\;..\base\"/>
+      <OtherUnitFiles Value="..\..\..\general\src;..\base"/>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
         <CStyleOperator Value="False"/>
+        <UseAnsiStrings Value="False"/>
       </SyntaxOptions>
     </Parsing>
     <Linking>
@@ -417,11 +92,5 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
-</CONFIG>
+</CONFIG>

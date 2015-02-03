@@ -24,7 +24,7 @@ unit uDocumentAddOptions;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Calendar,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, Calendar,
   StdCtrls, ExtCtrls, Buttons, uIntfStrConsts, EditBtn, LCLType, ButtonPanel,
   ZVDateTimePicker;
 
@@ -56,7 +56,7 @@ var
   fDocumentAddOptions: TfDocumentAddOptions;
 
 implementation
-
+{$R *.lfm}
 { TfDocumentAddOptions }
 
 procedure TfDocumentAddOptions.FormKeyDown(Sender: TObject; var Key: Word;
@@ -105,7 +105,6 @@ begin
 end;
 
 initialization
-  {$I udocumentaddoptions.lrs}
 
 end.
 

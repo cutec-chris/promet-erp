@@ -1,7 +1,10 @@
-NAME;TYPE;
-"MD";"0";
-"MO";"1";
-"MA";"2";
-"TX";"3";
-"ST";"4";
-"RP";"5";
+NAME;TYPE;TEXT;
+"MD";"0";"Artikel";
+"MO";"1";"Option";
+"MA";"2";"Alternative";
+"TX";"3";"Text";
+"ST";"4";"Zwischensumme";
+"RP";"5";"Reparatur";
+"RI";"8";"Fehlerbild";
+"DS";"6";"Versand";
+"DC";"7";"Rabatt";

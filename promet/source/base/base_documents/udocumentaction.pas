@@ -24,7 +24,7 @@ unit uDocumentAction;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, DBGrids, DbCtrls, Buttons, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls, DBGrids, DbCtrls, Buttons, ExtCtrls,
   uIntfStrConsts,db,LCLType, ButtonPanel, uDocuments,uBaseDBInterface;
 
 type
@@ -64,7 +64,7 @@ var
   fDocumentAction: TfDocumentAction;
 
 implementation
-
+{$R *.lfm}
 uses uData;
 
 resourcestring
@@ -189,7 +189,6 @@ begin
 end;
 
 initialization
-  {$I udocumentaction.lrs}
 
 end.
 

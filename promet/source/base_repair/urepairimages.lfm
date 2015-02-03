@@ -1,0 +1,480 @@
+object fRepairImages: TfRepairImages
+  Left = 665
+  Height = 486
+  Top = 379
+  Width = 701
+  ActiveControl = eFilter
+  Caption = 'Fehlerbild'
+  ClientHeight = 486
+  ClientWidth = 701
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poMainFormCenter
+  LCLVersion = '1.3'
+  object gList: TDBGrid
+    Left = 8
+    Height = 398
+    Top = 40
+    Width = 176
+    Anchors = [akTop, akLeft, akBottom]
+    AutoFillColumns = True
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'Name'
+        Width = 143
+        FieldName = 'NAME'
+      end>
+    DataSource = RepairImage
+    TabOrder = 0
+    TitleStyle = tsNative
+  end
+  object eFilter: TEdit
+    Left = 8
+    Height = 21
+    Top = 8
+    Width = 176
+    OnChange = eFilterEnter
+    TabOrder = 1
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 446
+    Width = 689
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 2
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object pcPages: TExtMenuPageControl
+    Left = 188
+    Height = 430
+    Top = 8
+    Width = 507
+    ActivePage = tsAdditional
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Images = fVisualControls.Images
+    TabIndex = 1
+    TabOrder = 3
+    NewTabImageIndex = 59
+    object tsCommon: TTabSheet
+      Caption = 'Allgemein'
+      ClientHeight = 403
+      ClientWidth = 499
+      ImageIndex = 14
+      object pCommon: TPanel
+        Left = 0
+        Height = 403
+        Top = 0
+        Width = 499
+        Align = alClient
+        BevelOuter = bvNone
+        ClientHeight = 403
+        ClientWidth = 499
+        TabOrder = 0
+        object mSolve: TDBMemo
+          Left = 8
+          Height = 175
+          Top = 216
+          Width = 485
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          DataField = 'SOLVE'
+          DataSource = RepairImage
+          TabOrder = 0
+        end
+        object Label3: TLabel
+          Left = 8
+          Height = 13
+          Top = 192
+          Width = 78
+          Caption = 'Fehlerbehebung'
+          ParentColor = False
+        end
+        object mErrordesc: TDBMemo
+          Left = 8
+          Height = 120
+          Top = 64
+          Width = 319
+          Anchors = [akTop, akLeft, akRight]
+          DataField = 'SYMTOMS'
+          DataSource = RepairImage
+          TabOrder = 1
+        end
+        object Label2: TLabel
+          Left = 8
+          Height = 13
+          Top = 48
+          Width = 44
+          Caption = 'Symtome'
+          ParentColor = False
+        end
+        object eName: TDBEdit
+          Left = 8
+          Height = 21
+          Top = 16
+          Width = 207
+          DataField = 'NAME'
+          DataSource = RepairImage
+          Anchors = [akTop, akLeft, akRight]
+          CharCase = ecNormal
+          MaxLength = 0
+          TabOrder = 2
+        end
+        object Label1: TLabel
+          Left = 8
+          Height = 13
+          Top = 0
+          Width = 27
+          Caption = 'Name'
+          ParentColor = False
+        end
+        object DBNavigator1: TDBNavigator
+          Left = 364
+          Height = 25
+          Top = 14
+          Width = 129
+          Anchors = [akTop, akRight]
+          BevelOuter = bvNone
+          ChildSizing.EnlargeHorizontal = crsScaleChilds
+          ChildSizing.EnlargeVertical = crsScaleChilds
+          ChildSizing.ShrinkHorizontal = crsScaleChilds
+          ChildSizing.ShrinkVertical = crsScaleChilds
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 100
+          ClientHeight = 25
+          ClientWidth = 129
+          DataSource = RepairImage
+          Options = []
+          TabOrder = 3
+          VisibleButtons = [nbInsert, nbEdit, nbPost, nbCancel, nbRefresh]
+        end
+        object cbStatus: TComboBox
+          Left = 221
+          Height = 21
+          Hint = 'hier können Sie den Status des Kontaktes ändern um ihn in neue Zustände zu überführen'
+          Top = 16
+          Width = 128
+          Anchors = [akTop, akRight]
+          ItemHeight = 13
+          OnSelect = cbStatusSelect
+          Style = csDropDownList
+          TabOrder = 4
+        end
+        object Label6: TLabel
+          Left = 224
+          Height = 15
+          Top = 4
+          Width = 124
+          Anchors = [akTop, akRight]
+          AutoSize = False
+          BorderSpacing.Left = 5
+          Caption = 'Status'
+          Font.Color = clMedGray
+          Font.Height = 11
+          ParentColor = False
+          ParentFont = False
+        end
+        object pPreviewImage: TPanel
+          Left = 342
+          Height = 136
+          Top = 48
+          Width = 151
+          Anchors = [akTop, akRight]
+          BevelOuter = bvNone
+          BorderStyle = bsSingle
+          Caption = 'kein Bild'
+          ClientHeight = 132
+          ClientWidth = 147
+          TabOrder = 5
+          object iArticle: TImage
+            Left = 0
+            Height = 132
+            Top = 0
+            Width = 147
+            Align = alClient
+            AutoSize = True
+            PopupMenu = pmImage
+            Proportional = True
+            Stretch = True
+          end
+          object sbAddImage: TSpeedButton
+            Left = 88
+            Height = 24
+            Top = 104
+            Width = 25
+            Action = acAddImage
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              20000000000000040000640000006400000000000000000000002C86D8702D88
+              D8A62D87D8EA2D88D8F72D88D8F72D88D8F72D88D8F72D88D8F72D88D8F72D88
+              D8F72D88D8F72D87D8F72D88D8F12C86D893FFFFFF00FFFFFF00338ED9E6DCF0
+              FAF0A7DDF4FD9EDBF4FF96DAF3FF8ED8F3FF86D7F3FF7FD4F2FF79D3F2FF72D2
+              F1FF6CD0F1FF69CFF1FFC2EAF8FE338ED9F0FFFFFF00FFFFFF003594DAF7EFFA
+              FEFFA1E9F9FF91E5F8FF81E1F7FF72DEF6FF63DAF5FF54D7F4FF47D3F3FF39D0
+              F2FF2ECDF1FF26CBF0FFCAF2FBFF3594DAF7FFFFFF00FFFFFF00369ADAF8F2FA
+              FDFFB3EDFAFFA4E9F9FF95E6F8FF85E2F7FF76DEF6FF65DBF5FF57D7F4FF49D4
+              F3FF3BD1F2FF30CEF1FFCCF2FBFF3598DAF7FFFFFF00FFFFFF0036A1DAF9F6FC
+              FEFFC8F2FCFFB9EFFBFFACECFAFF9CE8F9FF8BE3F7FF7CE0F6FF6CDCF6FF5DD9
+              F5FF4FD6F4FF44D3F3FFD0F3FCFF359FDAF7FFFFFF00FFFFFF0037A6DAFAFEFF
+              FFFFF8FDFFFFF6FDFFFFF5FCFFFFF3FCFEFFD1E4E5FF97CED6FF8CCAD3FF80C7
+              D1FF74C3D0FF6BC1CFFFCCD7D5FF4D97BAF9A26946EBA269453F35ABDAFAE8F6
+              FBFF94D4EFFF88CEEEFF73C1E9FFC9E9F6FFE2DFD9FFF2F9FAFFF3FAFBFFF2FA
+              FBFFF1F9FBFFF0F9FBFFFDFCFBFF60BADEF9F1EEEAFCA26B48ED36AADAF2F1FA
+              FDFF94DEF5FF93DCF4FF81D5F2FF6ACAEDFF54ABD3FF64B9E3FF62B8E1FF60B8
+              E1FF5FB7E1FF5DB7E1FF5AB1DFFF60BBD9F6F7ECE5FFA36E4BFF35AFDAF0F7FC
+              FEFF8EE4F8FF91DEF5FF9FE0F5FFACE1F6FFAA795AFFF7F0ECFF806141FFAB81
+              57FFAB8157FFAB8157FFAB8157FF806141FFF6ECE5FFA5714FFF36B3DAF8FDFE
+              FEFFFEFFFFFFFEFEFFFFFDFEFFFFFEFFFFFFAC7C5EFFF7F1ECFFAB8157FFE5AC
+              74FFE5AC74FFE5AC74FFE5AC74FFAB8157FFF6EDE5FFA77454FF34B4D9D05EC2
+              E1FA60C3E2FA60C3E2FA60C3E2FA5FC3E2FAAD7E61FFF7F2EDFFA57E55FFDEA9
+              72FFDEA972FFDCA671FFDCA671FFA37C54FFF6EDE6FFA97858FFFFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00AD7F62FFF7F4F1FFBDAA87FFFEE5
+              B4FFFDE4B4FFFDE4B4FFFDE4B4FFBDAA87FFF6EFE7FFAB7A5CFFFFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00AE8064FFF7F4F3FFB5A380FFF2DC
+              ACFFF5DEAFFFFAE1B1FFFCE3B3FFBDAA87FFF7EFE8FFAC7C5FFFFFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00AE8064FFF3F2F1FF95805BFFBAA5
+              7FFFBAA57FFFBAA57FFFBBA782FF8E7F64FFF7F1EAFFAD7E61FFFFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00AE8165F5DEDEDCFFF3F3F2FFF7F4
+              F3FFF7F4F2FFF8F2EDFFF8F2EBFFF7F2EBFFF1EEE8FFAE7F63FFFFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00AF816552AE8165E7AE8165FFAF81
+              64FFAF8064FFAE8064FFAE8064FFAE8064FFAE8064FFAE806496
+            }
+            ShowCaption = False
+            ShowHint = True
+            ParentShowHint = False
+          end
+          object sbClipboardToImage: TSpeedButton
+            Left = 64
+            Height = 24
+            Top = 104
+            Width = 25
+            Action = acPasteImage
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C57342C1C67545E6C87545FEC775
+              45F3C87545F3C77545F3C77545F3C87546F4C57444E8CA7F53F12063984A2063
+              98CF206398FF206398FF206398FF206398FFC98F67FFFCF3ECFFFAF1E8FFFAF0
+              E7FFFBF1E9FFFBF2EAFFFBF2EAFFFBF2EBFFFDF4EEFFCA8054F9206398C274AD
+              D8FF7BB2DDFF78AEDCFF75AADAFF74A9DAFFDAA97DFFEFF1E7FFFFE9D9FFFFEA
+              DBFFFFE9D9FFFFE7D7FFFFE5D2FFFFE2CBFFEFF2E8FFCE8156FF206398FF80B9
+              E1FF5395D1FF5092D0FF4E8ECEFF4D8CCDFFD6A97DFFFBF5EEFFFFE9D9FFFFEA
+              DBFFFFE9D9FFFFE7D7FFFFE5D2FFFFE2CBFFFBF6EFFFCC8355FE206398FF84BF
+              E2FF569AD3FF5397D1FF5092CFFF5091CFFFD6A97DFFFFF7F1FFFFE9D9FFFFEA
+              DBFFFFE9D9FFFFE7D7FFFFE5D2FFFFE2CBFFFFF7F1FFCB8555FE206398FF88C4
+              E6FF599FD6FF569BD3FF5397D1FF5395D1FFD7AC7FFFFFF7F0FFFFE7D5FFFDE7
+              D6FFFDE6D4FFFCE4D0FFFBE3CBFFFADCC2FFFEF3E8FFCC8656FE206398FF8BC9
+              E7FF5CA5D7FF59A0D5FF579CD3FF569AD3FFD7AC7FFFFFF7F2FFFEE7D5FFFEE7
+              D5FFFDE5D1FFFAE0CAFFF9DEC4FFF7D9BCFFFDF2E7FFCC8757FE206398FF91CD
+              E9FF5FA9D9FF5DA5D8FF5AA0D6FF599FD6FFD8AD81FFFEF7F1FFFCE5D2FFFCE4
+              D1FFFBE2CCFFF9DDC4FFF6D7BBFFF3D1AFFFFAEFE4FFCC8758FE206398FF98D2
+              EBFF65AEDAFF60AAD9FF5DA6D8FF5CA5D7FFD9AF84FFFEF6F0FFFCE2CDFFFCE3
+              CDFFFADFC8FFF7D9BCFFF5E9DDFFFAF3EBFFFBF8F3FFCA8353FE206398FF9ED6
+              EDFF6BB2DCFF66AFDCFF60AADAFF5FA9D9FFD9AF84FFFEF5EDFFFCDEC5FFFBE0
+              C7FFF9DCC2FFF5D3B4FFFEF9F3FFFAE2C4FFECC193FFCB8857DC206398FFA5DA
+              EFFF6FB5DEFF68B0DCFF60A9D9FF5FA9D9FFD7AD81FFFFFFFEFFFDF3E9FFFDF3
+              EAFFFCF2E8FFFAEFE3FFFAF2E7FFEABB88FFCE8959E7B4693D0C206398FFAADD
+              F1FF74B9E0FF70B6DFFF6CB3DDFF6BB2DCFFD9AF84FFD7AE81FFD7AC7FFFD7AC
+              7FFFCCA070FFCD9F71FFB38F67FFCB8856D6B2673C09FFFFFF00206398FFB0E1
+              F2FF79BDE2FF4498DDFF4497DCFF4396DCFF4296DCFF4295DCFF4195DBFF539E
+              D4FF89C6E6FF206398FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00206398E094C9
+              E0FDAEE2F2FF4E9DDFFFB5EEFDFF75D4F0FF75D4F0FFB5EEFDFF4B9BDEFF8ECB
+              E9FF8DCAE8F2206398F3FFFFFF00FFFFFF00FFFFFF00FFFFFF00206398322063
+              98B2206398FF3775A4FFB6EFFEFF80DBF3FF80DBF3FFB6EFFEFF2E6EA1FF2063
+              98FF206398A520639853FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF002063982A206398FF206398FF206398FF206398FF206398FF206398F0FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+            }
+            ShowCaption = False
+            ShowHint = True
+            ParentShowHint = False
+          end
+          object sbClipboardToImage1: TSpeedButton
+            Left = 40
+            Height = 24
+            Top = 104
+            Width = 25
+            Action = acScreenshot
+            Glyph.Data = {
+              36040000424D3604000000000000360000002800000010000000100000000100
+              2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00196B3788196B37F2196B37FF196B37F2196B3788FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00196B
+              3784288C53FF64BA8DFF95D2B2FF64BA8DFF288C53FF196B378CFFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001B6C
+              39F762BA8BFF60BA87FFFFFFFFFF60B987FF67BC8FFF196B37F74747476F3737
+              37F6353535FD464646FE444444FF414141FF3F3F3FFF3C3C3CFF343434FE317B
+              4CFF9CD4B6FFFFFFFFFFFFFFFFFFFFFFFFFF95D2B2FF196B37FF575757FF6F6F
+              6FFF676767FF7A7A7AFF9B9B9BFF989898FF939393FF868686FF585858FF4485
+              5CFF90D3B1FF92D6B1FFFFFFFFFF65BC8CFF67BC8FFF1A6937FF5E5E5EFF7E7E
+              7EFF8B8B8BFFB8A595FFCE9664FFD69A60FFD79B63FFCE9968FFA39383FF5675
+              62FF61AB81FF95D4B4FFBAE6D0FF6ABB8FFF2D8F57FF255235FF606060FF8787
+              87FFB9B9B9FFD09664FFD89A61FFD89C67FFD89D67FFD89C66FFCE9A68FF8C8C
+              8CFF516E5CFF5B9470FF4F8E66FF408158FF4C7059FF353535FF626262FF8E8E
+              8EFFC7C7C7FFD6975EFFD79C65FFD99E69FFD9A06AFFD89D67FFD79A62FF9B9B
+              9BFF505050FF9E9E9EFF858585FF4E4E4EFF6E6E6EFF373737FF656565FF9494
+              94FFD0D0D0FFD6975EFFD99D66FFD99F6AFFD99E69FFD89B65FFD6985FFFA5A5
+              A5FF565656FFA3A3A3FF8B8B8BFF575757FF757575FF393939FF676767FF9B9B
+              9BFFD7D7D7FFD49A6AFFD69962FFD79B66FFD79C64FFD69960FFD09763FFADAD
+              ADFF5E5E5EFFA9A9A9FF929292FF5F5F5FFF7C7C7CFF3B3B3BFF696969FFA6A6
+              A6FFBABABAFFDAC7B7FFD49A69FFD5965EFFD5965CFFD19763FFC5B3A2FF9696
+              96FF717171FFAEAEAEFF989898FF686868FF818181FF3E3E3EFF6C6C6CFFBCBC
+              BCFFA6A6A6FFBCBCBCFFDDDDDDFFD8D8D8FFD5D5D5FFCCCCCCFFA3A3A3FF8484
+              84FF979797FFB4B4B4FF9D9D9DFF8D8D8DFF888888FF404040FF6D6D6DDBAEAE
+              AEFFD2D2D2FFB0B0B0FFA3A3A3FF9F9F9FFFB7B7B7FF989898FF9E9E9EFFC0C0
+              C0FFAAAAAAFF727272FF696969FF6A6A6AFF676767FF535353D89595950F9898
+              98FFC9C9C9FFC8C8C8FFC6C6C6FFC4C4C4FF7F939BFFA4E0F9FF41BEF3FF697C
+              85FF929393FF6D6D6D5E5C5C5CF15C5C5CFF5C5C5CFE5C5C5C35FFFFFF009898
+              9885909090C78B8B8BD0888888D1818181D6787878DC717171E16F6F6FE27676
+              76DC88888890FFFFFF00FFFFFF005C5C5C335C5C5C12FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+              FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+            }
+            ShowCaption = False
+            ShowHint = True
+            ParentShowHint = False
+          end
+        end
+      end
+    end
+    object tsAdditional: TTabSheet
+      Caption = 'Zusätzlich'
+      ClientHeight = 403
+      ClientWidth = 499
+      object lNotesforCustomer1: TLabel
+        Left = 8
+        Height = 13
+        Top = 8
+        Width = 93
+        Caption = 'betroffene Bauteile'
+        ParentColor = False
+      end
+      object gProblems: TExtDBGrid
+        Left = 8
+        Height = 110
+        Top = 24
+        Width = 482
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        AutoFillColumns = True
+        BorderStyle = bsNone
+        Color = clWindow
+        Columns = <        
+          item
+            Title.Caption = 'Baugruppe'
+            Width = 156
+            FieldName = 'ASSEMBLY'
+          end        
+          item
+            Title.Caption = 'Bauteil'
+            Width = 156
+            FieldName = 'PART'
+          end        
+          item
+            Title.Caption = 'Fehler'
+            Width = 158
+            FieldName = 'ERROR'
+          end>
+        DataSource = RepairDetail
+        DefaultRowHeight = 21
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete]
+        Scrollbars = ssAutoBoth
+        TabOrder = 0
+        TitleStyle = tsNative
+        WantReturns = False
+        CachedEditing = True
+      end
+      object mInternalNotes: TDBMemo
+        Left = 8
+        Height = 126
+        Top = 272
+        Width = 482
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        DataField = 'INTNOTES'
+        DataSource = RepairImage
+        TabOrder = 1
+        Tabstop = False
+      end
+      object lInternalNotes: TLabel
+        Left = 8
+        Height = 15
+        Top = 256
+        Width = 274
+        Anchors = [akTop, akLeft, akRight]
+        AutoSize = False
+        Caption = 'Interne Notizen'
+        ParentColor = False
+      end
+      object mNotes: TDBMemo
+        Left = 8
+        Height = 94
+        Top = 152
+        Width = 482
+        Anchors = [akTop, akLeft, akRight]
+        DataField = 'NOTES'
+        DataSource = RepairImage
+        TabOrder = 2
+        Tabstop = False
+      end
+      object lNotesforCustomer: TLabel
+        Left = 8
+        Height = 13
+        Top = 136
+        Width = 86
+        Caption = 'Notizen für Kunde'
+        ParentColor = False
+      end
+    end
+  end
+  object RepairImage: TDataSource
+    OnStateChange = RepairImageStateChange
+    left = 40
+    top = 152
+  end
+  object ActionList1: TActionList
+    Images = fVisualControls.Images
+    left = 40
+    top = 96
+    object acPasteImage: TAction
+      Caption = 'aus Zwischenablage einfügen'
+      OnExecute = acPasteImageExecute
+    end
+    object acAddImage: TAction
+      Caption = 'aus Bilddatei laden'
+      OnExecute = acAddImageExecute
+    end
+    object acScreenshot: TAction
+      Caption = 'aus Bildschirmfoto erstellen'
+      ImageIndex = 108
+      OnExecute = acScreenshotExecute
+    end
+  end
+  object pmImage: TPopupMenu
+    left = 656
+    top = 96
+    object MenuItem4: TMenuItem
+      Action = acAddImage
+    end
+    object MenuItem5: TMenuItem
+      Action = acPasteImage
+    end
+    object MenuItem6: TMenuItem
+      Action = acScreenshot
+    end
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    left = 40
+    top = 208
+  end
+  object RepairDetail: TDataSource
+    left = 120
+    top = 152
+  end
+end

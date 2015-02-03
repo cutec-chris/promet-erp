@@ -21,7 +21,7 @@ unit ucalculator;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uIntfStrConsts, db,
   memds, FileUtil, SynEdit, SynMemo, SynHighlighterSQL, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,ucalc,SynCompletion;
@@ -72,8 +72,9 @@ type
 var
   fMain: TfMain;
 implementation
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uStatistic,LCLType,
-  MathParser,uDataSet;
+  MathParser,uDataSet,uScriptEditor;
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
@@ -93,7 +94,7 @@ begin
       end;
   acLogin.Enabled:=False;
   acLogout.Enabled:=True;
-  CalcEnviroment := TCalcEnviroments.Create(nil,Data);
+  CalcEnviroment := TCalcEnviroments.Create(nil);
   CalcEnviroment.CreateTable;
   CalcEnviroment.Typ := 'CALC';
   CalcEnviroment.Open;
@@ -301,5 +302,4 @@ begin
     end;
 end;
 initialization
-  {$I ucalculator.lrs}
 end.

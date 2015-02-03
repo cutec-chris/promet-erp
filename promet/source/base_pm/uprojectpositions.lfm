@@ -29,7 +29,7 @@ inherited fProjectPositions: TfProjectPositions
     end
     object DBEdit1: TDBEdit
       Left = 392
-      Height = 25
+      Height = 23
       Top = 29
       Width = 128
       DataField = 'TARGETCOSTS'
@@ -52,7 +52,7 @@ inherited fProjectPositions: TfProjectPositions
     end
     object DBEdit2: TDBEdit
       Left = 544
-      Height = 25
+      Height = 23
       Top = 29
       Width = 128
       DataField = 'COSTS'

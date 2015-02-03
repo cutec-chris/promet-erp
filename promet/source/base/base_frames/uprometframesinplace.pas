@@ -21,16 +21,39 @@ unit uprometframesinplace;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, uPrometFrames, uExtControls;
+  Classes, SysUtils, FileUtil, Forms, Controls, ActnList, ExtCtrls,
+  uPrometFrames, uExtControls,uMasterdata;
 type
+
+  { TPrometInplaceFrame }
+
   TPrometInplaceFrame = class(TExtControlFrame)
   public
     procedure SetRights(Editable : Boolean);virtual;abstract;
+    procedure ArrangeToolBar(Control: TPanel; ActionList: TActionList; aName: string
+      );
   published
     property OnEnter;
     property OnExit;
+    procedure SetArticle(aMasterdata : TMasterdata);virtual;
   end;
 implementation
 {$R *.lfm}
+uses uBaseDBInterface;
+{ TPrometInplaceFrame }
+
+procedure TPrometInplaceFrame.ArrangeToolBar(Control: TPanel;ActionList : TActionList;aName: string);
+begin
+  with Application as IBaseDbInterface do
+    if DBConfig.ReadBoolean('TBLEFT',True) then
+      Control.Align:=alLeft
+    else Control.Align:=alRight;
+end;
+
+procedure TPrometInplaceFrame.SetArticle(aMasterdata: TMasterdata);
+begin
+
+end;
+
 end.
-
+

@@ -1,16 +1,16 @@
 object fBookAccounting: TfBookAccounting
-  Left = 439
+  Left = 452
   Height = 117
-  Top = 260
+  Top = 277
   Width = 475
   Caption = 'Zahlungseingang buchen'
   ClientHeight = 117
   ClientWidth = 475
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.3'
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 37
-    Top = 74
+    Height = 42
+    Top = 69
     Width = 463
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -220,31 +220,31 @@ object fBookAccounting: TfBookAccounting
   end
   object lPayed: TLabel
     Left = 125
-    Height = 18
+    Height = 13
     Top = 16
-    Width = 75
+    Width = 63
     Caption = 'bezahlt am'
     ParentColor = False
   end
   object lAmount: TLabel
     Left = 240
-    Height = 18
+    Height = 13
     Top = 16
-    Width = 105
+    Width = 89
     Caption = 'Zahlungsbetrag'
     ParentColor = False
   end
   object lrest: TLabel
     Left = 359
-    Height = 18
+    Height = 13
     Top = 16
-    Width = 76
+    Width = 62
     Caption = 'Restbetrag'
     ParentColor = False
   end
   object eDifference: TEdit
     Left = 359
-    Height = 27
+    Height = 23
     Top = 32
     Width = 80
     Alignment = taRightJustify
@@ -254,7 +254,7 @@ object fBookAccounting: TfBookAccounting
   end
   object meAmount: TEdit
     Left = 264
-    Height = 27
+    Height = 23
     Top = 32
     Width = 56
     Alignment = taRightJustify
@@ -266,9 +266,9 @@ object fBookAccounting: TfBookAccounting
   end
   object dePayed: TZVDateTimePicker
     Left = 125
-    Height = 25
+    Height = 21
     Top = 32
-    Width = 97
+    Width = 89
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780

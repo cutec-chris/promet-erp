@@ -21,7 +21,7 @@ unit uAccountingque;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Buttons,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, Buttons,
   Grids,ProcessUtils,Utils,FileUtil,uIntfStrConsts, ComCtrls, Variants, types,
   md5,db,StdCtrls,LCLtype, LCLProc, LCLIntf,uAccounting;
 type
@@ -96,7 +96,9 @@ resourcestring
   strTransfer                   = 'Überweisung';
 
 implementation
-uses uLogWait,uData,uError,uBankingDialog,SecureUtils,uBaseApplication;
+{$R *.lfm}
+uses uLogWait,uData,uError,uBankingDialog,SecureUtils,uBaseApplication,uBaseDbClasses,
+  usimpleprocess,ubaseconfig;
 
 procedure TAccountingAQBankingCLICmdInterface.ImportCTXData(Accounts : TAccounts;iData: TStringList;
   Ballance: real);
@@ -212,7 +214,7 @@ begin
   i := 0;
   aRec := 0;
   Output.Clear;
-  Accounts := TAccounts.Create(nil,Data);
+  Accounts := TAccounts.Create(nil);
   Accounts.Open;
   while i < fAccountingQue.lvQue.Items.Count do
     begin
@@ -233,7 +235,8 @@ begin
           CmdLn := 'aqbanking-cli request --transactions --balance';
           CmdLn := CmdLn+' --bank='+trim(Accounts.FieldByName('SORTCODE').AsString);
           CmdLn := CmdLn+' --account='+trim(Accounts.FieldByName('ACCOUNTNO').AsString);
-          CmdLn := CmdLn+' --ctxfile='+AppendPathDelim(GetTempDir)+'output.ctx';
+          with BaseApplication as IBaseApplication do
+            CmdLn := CmdLn+' --ctxfile='+AppendPathDelim(GetInternalTempDir)+'output.ctx';
           if Accounts.Exchange.Count>0 then
             CmdLn := CmdLn+' --fromdate='+FormatDateTime('YYYYMMDD',Accounts.Exchange.FieldByName('VALUEDATE').AsDateTime-1);
           if FileExists(AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+'aqbanking-cli'+ExtractFileExt(Application.Exename)) then
@@ -285,7 +288,8 @@ begin
           if not DontHide then
             begin
               IData := TStringList.Create;
-              CmdLn := 'aqbanking-cli listbal --ctxfile='+AppendPathDelim(GetTempDir)+'output.ctx';
+              with BaseApplication as IBaseApplication do
+                CmdLn := 'aqbanking-cli listbal --ctxfile='+AppendPathDelim(GetInternalTempDir)+'output.ctx';
               if FileExists(AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+'aqbanking-cli'+ExtractFileExt(Application.Exename)) then
                 CmdLn := AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+CmdLn;
               IData.Text := ExecProcessEx(CmdLn);
@@ -298,11 +302,13 @@ begin
                       tmp := copy(tmp,pos(#9,tmp)+1,length(tmp));
                       tmp1 := copy(tmp,pos(#9,tmp)+1,length(tmp));
                     end;
-                  CmdLn := 'aqbanking-cli listtrans --ctxfile='+AppendPathDelim(GetTempDir)+'output.ctx --outfile='+AppendPathDelim(GetTempDir)+'output.csv';
+                  with BaseApplication as IBaseApplication do
+                    CmdLn := 'aqbanking-cli listtrans --ctxfile='+AppendPathDelim(GetInternalTempDir)+'output.ctx --outfile='+AppendPathDelim(GetInternalTempDir)+'output.csv';
                   if FileExists(AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+'aqbanking-cli'+ExtractFileExt(Application.Exename)) then
                     CmdLn := AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+CmdLn;
                   ExecProcessEx(CmdLn);
-                  IData.LoadFromFile(AppendPathDelim(GetTempDir)+'output.csv');
+                  with BaseApplication as IBaseApplication do
+                    IData.LoadFromFile(AppendPathDelim(GetInternalTempDir)+'output.csv');
                   if TryStrToFloat(StringReplace(trim(copy(tmp,0,pos(#9,tmp)-1)),'.',DecimalSeparator,[rfReplaceAll]),AValue) then
                     ImportCTXData(Accounts,IData,AValue)
                   else
@@ -313,14 +319,17 @@ begin
                   fLogWaitForm.lbLog.Items.Add('Error:'+IData.Text);
                   DontHide := True;
                 end;
-              with BaseApplication as IBaseApplication do
+              with BaseApplication as IBaseConfig do
                 begin
-                  case Config.ReadInteger('DELETEMETHOD',0) of
-                  0:DelOK := DeleteFileUTF8(AppendPathDelim(GetTempDir)+'output.ctx');
-                  1:DelOK := DeleteSecure(AppendPathDelim(GetTempDir)+'output.ctx');
-                  2:DelOK := DeleteSecure(AppendPathDelim(GetTempDir)+'output.ctx',dmDoD522022);
-                  3:DelOK := DeleteSecure(AppendPathDelim(GetTempDir)+'output.ctx',dmOverride);
-                  end;
+                  with BaseApplication as IBaseApplication do
+                    begin
+                      case Config.ReadInteger('DELETEMETHOD',0) of
+                      0:DelOK := DeleteFileUTF8(AppendPathDelim(GetInternalTempDir)+'output.ctx');
+                      1:DelOK := DeleteSecure(AppendPathDelim(GetInternalTempDir)+'output.ctx');
+                      2:DelOK := DeleteSecure(AppendPathDelim(GetInternalTempDir)+'output.ctx',dmDoD522022);
+                      3:DelOK := DeleteSecure(AppendPathDelim(GetInternalTempDir)+'output.ctx',dmOverride);
+                      end;
+                    end;
                 end;
             end;
         end
@@ -520,12 +529,12 @@ var
 begin
   if trim(line) = '' then exit;
   if (pos(';',line) = -1) then
-    fLogWaitForm.ShowInfo(SysToUTF8(Line))
+    fLogWaitForm.ShowInfo(SysToUni(Line))
   else if CountPos(';',Line) = 2 then
     begin
       tmp := copy(Line,pos(';',Line)+1,length(Line));
       tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-      fLogWaitForm.ShowInfo(SysToUTF8(tmp));
+      fLogWaitForm.ShowInfo(SysToUni(tmp));
     end
   else if ((pos('TAN',Line) > 0) or (pos('Index',Line) > 0)) and (Pos(':',Line) > 0) then
     begin
@@ -537,15 +546,15 @@ begin
   else
     Output.Add(line);
   debugln(Line);
-  if pos('nicht möglich',SysToUTF8(tmp)) > 0 then
+  if pos('nicht möglich',SysToUni(tmp)) > 0 then
     DontHide := True;
-  if pos('ungültig',SysToUTF8(tmp)) > 0 then
+  if pos('ungültig',SysToUni(tmp)) > 0 then
     DontHide := True;
-  if pos('zu lang',SysToUTF8(tmp)) > 0 then
+  if pos('zu lang',SysToUni(tmp)) > 0 then
     DontHide := True;
-  if pos('Error',SysToUTF8(tmp)) > 0 then
+  if pos('Error',SysToUni(tmp)) > 0 then
     DontHide := True;
-  if pos('error',SysToUTF8(tmp)) > 0 then
+  if pos('error',SysToUni(tmp)) > 0 then
     DontHide := True;
 end;
 constructor TAccountingFinTSCmdInterface.Create;
@@ -575,7 +584,7 @@ begin
   fLogWaitform.ShowInfo(strAddingJobs);
   i := 0;
   aRec := 0;
-  Accounts := TAccounts.Create(nil,Data);
+  Accounts := TAccounts.Create(nil);
   Accounts.Open;
   while i < fAccountingQue.lvQue.Items.Count do
     begin
@@ -664,7 +673,7 @@ begin
           fLogWaitform.ShowInfo(strImportingData);
           while Output.Count > 0 do
             begin
-              tmp := SysToUTF8(Output[0]);
+              tmp := SysToUni(Output[0]);
               chksum := MD5Print(MD5String(tmp));
               Output.Delete(0);
               if not Accounts.Exchange.DataSet.Locate('CHECKSUM',chksum,[loCaseInsensitive]) then
@@ -776,7 +785,6 @@ begin
   Item.SubItems.Add(Sortcode);
 end;
 initialization
-  {$I uaccountingque.lrs}
 
 end.
 

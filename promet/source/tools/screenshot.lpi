@@ -38,14 +38,11 @@
       <Unit0>
         <Filename Value="screenshot.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="screenshot"/>
       </Unit0>
       <Unit1>
-        <Filename Value="uscreenshotmain.pas"/>
+        <Filename Value="..\base\base_forms\uscreenshotmain.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="fScreenshot"/>
         <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
         <UnitName Value="uscreenshotmain"/>
       </Unit1>
     </Units>
@@ -55,6 +52,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..\base\base_forms"/>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
@@ -75,11 +73,9 @@
     <Other>
       <CompilerMessages>
         <IgnoredMessages idx5024="True"/>
-        <UseMsgFile Value="True"/>
       </CompilerMessages>
       <CustomOptions Value="-dHASREPORTS
 -dSTATISTICS"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

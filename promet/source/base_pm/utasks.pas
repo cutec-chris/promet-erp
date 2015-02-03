@@ -22,12 +22,12 @@ unit utasks;
 interface
 uses
   Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, LR_DBSet, LR_Class,
-  LResources, Forms, Controls, DBGrids, ValEdit, ExtCtrls, Buttons, ComCtrls,
+   Forms, Controls, DBGrids, ValEdit, ExtCtrls, Buttons, ComCtrls,
   uPrometFramesInplaceDB, uExtControls, db, Grids, ActnList, Menus, StdCtrls,
-  simpleipc, uBaseDBClasses, uBaseDbInterface, uGridView, uIntfStrConsts,
-  Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,Clipbrd;
+  uBaseDBClasses, uBaseDbInterface, uGridView, uIntfStrConsts,
+  Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,Clipbrd, ExtDlgs;
 type
-  TOnStartTime = procedure(Sender : TObject;aProject,aTask : string) of object;
+  TOnStartTime = procedure(Sender : TObject;aProject,aTask,aCategory : string) of object;
 
   { TfTaskFrame }
 
@@ -53,13 +53,25 @@ type
     acSetOwner: TAction;
     acSetUser: TAction;
     acAppendLinkToDependencies: TAction;
+    acTerminate: TAction;
+    acInformwithexternMail: TAction;
+    acInformwithinternMail: TAction;
+    acSave: TAction;
+    acCancel: TAction;
+    acMarkProblem: TAction;
+    acMoveToProject: TAction;
+    acAddTasksfromProject: TAction;
     acUnmakeSubTask: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
     bAddPos: TSpeedButton;
     bAddPos1: TSpeedButton;
     bDelegated2: TSpeedButton;
+    bDeletePos10: TSpeedButton;
+    bDeletePos11: TSpeedButton;
+    bDeletePos12: TSpeedButton;
     bDeletePos8: TSpeedButton;
+    bDeletePos9: TSpeedButton;
     bEnterTime2: TSpeedButton;
     Bevel11: TBevel;
     bFuture: TSpeedButton;
@@ -82,7 +94,6 @@ type
     Bevel8: TBevel;
     Bevel9: TBevel;
     bExecute: TSpeedButton;
-    bFilter: TBitBtn;
     bOldTasks1: TSpeedButton;
     bDelegated1: TSpeedButton;
     bDependencies: TSpeedButton;
@@ -95,22 +106,35 @@ type
     Bevel4: TBevel;
     Bevel5: TBevel;
     bDelegated: TSpeedButton;
+    CalendarDialog1: TCalendarDialog;
     cbFilter: TComboBox;
     cbMaxResults: TCheckBox;
     Datasource: TDatasource;
     ExtRotatedLabel5: TExtRotatedLabel;
+    Label7: TLabel;
+    MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
+    MenuItem13: TMenuItem;
+    MenuItem14: TMenuItem;
+    MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
     miCopyLink: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    Panel10: TPanel;
     Panel9: TPanel;
     pBottom: TPanel;
     pmGrid: TPopupMenu;
     PUsers: TfrDBDataSet;
+    ToolButton1: TSpeedButton;
+    ToolButton2: TSpeedButton;
     Users: TDatasource;
     eFilterEdit: TSynMemo;
     eFilterIn: TEdit;
@@ -139,7 +163,6 @@ type
     Panel5: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
-    IPC: TSimpleIPCClient;
     Panel8: TPanel;
     pFilterOpt: TPanel;
     pFilterOptions: TPanel;
@@ -151,36 +174,43 @@ type
     sbDelete: TSpeedButton;
     sbSave: TSpeedButton;
     sbSave1: TSpeedButton;
-    sbSave2: TSpeedButton;
+    bFilter: TSpeedButton;
     sbSavePublic: TSpeedButton;
     seMaxresults: TSpinEdit;
     SynSQLSyn2: TSynSQLSyn;
-    tbLeft: TPanel;
+    pToolbar: TPanel;
     ToolBar: TToolBar;
     tbTop: TPanel;
     procedure acAddPosExecute(Sender: TObject);
+    procedure acAddTasksfromProjectExecute(Sender: TObject);
     procedure acAppendLinkToDependenciesExecute(Sender: TObject);
+    procedure acCancelExecute(Sender: TObject);
     procedure acDefaultFilterExecute(Sender: TObject);
     procedure acDeleteFilterExecute(Sender: TObject);
     procedure acDelPosExecute(Sender: TObject);
     procedure acFilterExecute(Sender: TObject);
     procedure acGotoProjectExecute(Sender: TObject);
+    procedure acInformwithexternMailExecute(Sender: TObject);
     procedure acLinkExecute(Sender: TObject);
     procedure acMAkeSubTaskExecute(Sender: TObject);
+    procedure acMarkProblemExecute(Sender: TObject);
     procedure acMarkSeenExecute(Sender: TObject);
+    procedure acMoveToProjectExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acFilterRightsExecute(Sender: TObject);
+    procedure acSaveExecute(Sender: TObject);
     procedure acSaveFilterExecute(Sender: TObject);
     procedure acSearchExecute(Sender: TObject);
     procedure acSetOwnerExecute(Sender: TObject);
     procedure acSetUserExecute(Sender: TObject);
     procedure acStartTimeExecute(Sender: TObject);
     procedure acStopTimeExecute(Sender: TObject);
+    procedure acTerminateExecute(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
-      aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aStatus: string;aActive : Boolean; aLink: string;aPrio :Integer; aItem: TBaseDBList=nil);
     procedure acUnmakeSubTaskExecute(Sender: TObject);
     procedure bEditFilterClick(Sender: TObject);
     procedure cbFilterSelect(Sender: TObject);
@@ -208,15 +238,19 @@ type
     procedure FGridViewSetCellText(Sender: TObject; aCol: TColumn;
       aRow: Integer; var NewText: string);
     procedure FGridViewSetupPosition(Sender: TObject;Columns : TGridColumns);
+    function fSearchAddTasksToProject(aLink: string): Boolean;
     function fSearchOpenItem(aLink: string): Boolean;
+    function fSearchOpenItemMulti(aLink: string): Boolean;
     function fSearchOpenOwnerItem(aLink: string): Boolean;
     function fSearchOpenUserItem(aLink: string): Boolean;
+    function fSearchOpenUserMailItem(aLink: string): Boolean;
     procedure lbResultsDblClick(Sender: TObject);
     procedure DoInsertInplaceSearch(Data : PtrInt);
     procedure pmGridPopup(Sender: TObject);
     procedure ReportGetValue(const ParName: String; var ParValue: Variant);
     procedure seMaxresultsChange(Sender: TObject);
   private
+    FSearcheMail : string;
     FFilter: string;
     FFilterType : string;
     FBaseFilter: string;
@@ -233,6 +267,7 @@ type
     ActiveSearch : TSearch;
     FAutoFilter : string;
     aUsers : TUser;
+    FUseTransactions: Boolean;
     function GetFilterIn: string;
     procedure ParseForms(Filter : string);
     procedure SetBaseFilter(AValue: string);
@@ -262,6 +297,7 @@ type
     procedure SetLanguage; override;
     procedure Post;
     property OnStartTime : TOnStartTime read FOnStartTime write FOnStartTime;
+    property UseTransactions : Boolean read FUseTransactions write FUseTransactions;
   end;
 procedure AddToMainTree(aAction : TAction;var aNode : TTreeNode);
 procedure RefreshTasks(FNode :TTreeNode);
@@ -273,11 +309,14 @@ resourcestring
   strSearchFromTasks                       = 'Mit Öffnen wird das gewählte Projekt in die Aufgabe übernommen';
   strAssignedTasks                         = 'Aufgaben: %s';
   strMyTasks                               = 'von mir erstellte Aufgaben: %s';
+  strUnterminatedDependencies              = 'Es gibt unterminierte Abhängigkeiten für diese Aufgabe:'+lineending+'%s';
+  strFailed                                = 'Fehlgeschlagen';
 implementation
+{$R *.lfm}
 uses uRowEditor,uTask,ubasevisualapplicationtools,uData,uMainTreeFrame,
   uSearch,uProjects,uTaskEdit,uBaseApplication,LCLType,uBaseERPDBClasses,
   uSelectReport,uFormAnimate,md5,uNRights,uBaseVisualControls,
-  uBaseVisualApplication,uError;
+  uBaseVisualApplication,uError,uSendMail,uPerson,Utils,uprometipc;
 procedure TfTaskFrame.SetDataSet(const AValue: TBaseDBDataSet);
 var
   aFilter: String = '';
@@ -288,7 +327,7 @@ begin
   FDataSet.DataSet.Close;
   FGridView.DataSet := AValue;
   Datasource.DataSet := FDataSet.DataSet;
-  aUsers := TUser.Create(nil,Data);
+  aUsers := TUser.Create(nil);
   aUsers.Select(FUserID);
   aUsers.Open;
   if not FIgnoreUser then
@@ -313,13 +352,15 @@ begin
     end
   else
     ChangeVisibleRows(bOldTasks);
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.Select(fUserID);
   aUser.Open;
   if aUser.Count>0 then
     TTaskList(FDataSet).UserId:=aUser.FieldByName('ACCOUNTNO').AsString;
   aUser.Free;
   acMarkSeen.Visible:=not (AValue is TProjectTasks);
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
 end;
 procedure TfTaskFrame.SetFilter(AValue: string);
 var
@@ -360,8 +401,6 @@ begin
 end;
 procedure TfTaskFrame.DoFilterFocus;
 begin
-  if bFilter.Visible then
-    bFilter.SetFocus;
 end;
 procedure TfTaskFrame.SetUserID(AValue: Variant);
 begin
@@ -417,16 +456,44 @@ begin
         begin
           FGridView.Columns[i].ButtonStyle:=cbsEllipsis;
         end
+      else if TColumn(FGridView.Columns[i]).FieldName = 'STARTDATE' then
+        begin
+          FGridView.Columns[i].ButtonStyle:=cbsEllipsis;
+        end
+      else if TColumn(FGridView.Columns[i]).FieldName = 'DUEDATE' then
+        begin
+          FGridView.Columns[i].ButtonStyle:=cbsEllipsis;
+        end
       ;
     end;
 end;
+
+function TfTaskFrame.fSearchAddTasksToProject(aLink: string): Boolean;
+var
+  aProject: TProject;
+begin
+  aProject := TProject.CreateEx(Self,Data);
+  aProject.SelectFromLink(aLink);
+  aProject.Open;
+  Result := aProject.Count>0;
+  if pSearch.Visible then
+    FGridView.EndUpdate;
+  pSearch.Visible:=False;
+  if Result and (Assigned(TTaskList(DataSet).Parent) and (TTaskList(DataSet).Parent is TProject)) then
+    begin
+      TProject(TTaskList(DataSet).Parent).DuplicateFromOtherProcess(aProject);
+      acRefresh.Execute;
+    end;
+  aProject.Free;
+end;
+
 function TfTaskFrame.fSearchOpenItem(aLink: string): Boolean;
 var
   aProject: TProject;
   aCount: Integer;
 begin
   Result := False;
-  aProject := TProject.Create(Self,Data);
+  aProject := TProject.CreateEx(Self,Data);
   aProject.SelectFromLink(aLink);
   aProject.Open;
   Result := aProject.Count>0;
@@ -439,7 +506,7 @@ begin
       if not DataSet.CanEdit then
         DataSet.DataSet.Edit;
       DataSet.FieldByName('PROJECTID').AsString := aProject.Id.AsString;
-      DataSet.FieldByName('PROJECT').AsString := aProject.Text.AsString;
+      DataSet.FieldByName('PROJECT').AsString := Data.GetLinkDesc(aLink);
       FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
       FGridView.gList.EditorMode:=False;
       FGridView.EndUpdate;
@@ -447,13 +514,45 @@ begin
     end;
   aProject.Free;
 end;
+
+function TfTaskFrame.fSearchOpenItemMulti(aLink: string): Boolean;
+var
+  aProject: TProject;
+  aRow: Integer;
+begin
+  Result := False;
+  aProject := TProject.CreateEx(Self,Data);
+  aProject.SelectFromLink(aLink);
+  aProject.Open;
+  Result := aProject.Count>0;
+  if pSearch.Visible then
+    FGridView.EndUpdate;
+  pSearch.Visible:=False;
+  if Result then
+    for aRow := FGridView.gList.Selection.Bottom+1 downto FGridView.gList.Selection.Top+1 do
+      begin
+        if FGridView.GotoRowNumber(aRow-1) then
+          begin
+            if not FDataSet.CanEdit then
+              FDataSet.DataSet.Edit;
+            FDataSet.FieldByName('PROJECTID').AsString := aProject.Id.AsString;
+            if not FDataSet.CanEdit then
+              FDataSet.DataSet.Edit;
+            FDataSet.FieldByName('PROJECT').AsString := Data.GetLinkDesc(aLink);
+          end
+        else break;
+      end;
+  FGridView.Refresh;
+  aProject.Free;
+end;
+
 function TfTaskFrame.fSearchOpenOwnerItem(aLink: string): Boolean;
 var
   aCount: Integer;
   aUser: TUser;
 begin
   Result := False;
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
@@ -488,7 +587,7 @@ var
   aSel: TGridRect;
 begin
   Result := False;
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
@@ -517,6 +616,40 @@ begin
   pSearch.Visible:=False;
   aUSer.Free;
 end;
+
+function TfTaskFrame.fSearchOpenUserMailItem(aLink: string): Boolean;
+var
+  aUser: TUser;
+  aCont: TPerson;
+  aFile: String;
+  sl: TStringList;
+begin
+  if pos('USERS',aLink)>0 then
+    begin
+      aUser := TUser.Create(nil);
+      aUser.SelectFromLink(aLink);
+      aUser.Open;
+      if aUser.Count>0 then
+        begin
+          FSearcheMail := trim(aUser.FieldByName('EMAIL').AsString);
+        end;
+      aUser.Free;
+    end
+  else
+    begin
+      aCont := TPerson.Create(nil);
+      aCont.SelectFromLink(aLink);
+      aCont.Open;
+      if aCont.Count>0 then
+        begin
+          aCont.ContactData.Open;
+          if aCont.ContactData.Locate('TYPE;ACTIVE',VarArrayOf(['EM','Y']),[loPartialKey]) then
+            FSearcheMail := aCont.ContactData.FieldByName('DATA').AsString;
+        end;
+      aCont.Free;
+    end;
+end;
+
 procedure TfTaskFrame.lbResultsDblClick(Sender: TObject);
 begin
   if lbResults.ItemIndex < 0 then exit;
@@ -737,13 +870,90 @@ var
   aProject: TProject;
 begin
   if not FGridView.GotoActiveRow then exit;
-  aProject := TProject.Create(nil,Data);
+  aProject := TProject.Create(nil);
   aProject.Select(DataSet.FieldByName('PROJECTID').AsVariant);
   aProject.Open;
   if aProject.Count > 0 then
     Data.GotoLink(Data.BuildLink(aProject.DataSet));
   aProject.Free;
 end;
+
+procedure TfTaskFrame.acInformwithexternMailExecute(Sender: TObject);
+var
+  i: Integer;
+  aLink: String = '';
+  aFile: String;
+  sl: TStringList;
+  aUser: TUser;
+  aDesc: String = '';
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if  (fSearch.cbSearchType.Items[i] <> strUsers)
+      and (fSearch.cbSearchType.Items[i] <> strCustomers) then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenUserMailItem;
+  FSearcheMail:='';
+  if FGridView.GotoActiveRow then
+    aLink := FGridView.DataSet.GetLink;
+  if FGridView.DataSet.FieldByName('USER').AsString<>'' then
+    begin
+      aUser := TUser.Create(nil);
+      aUser.SelectByAccountno(FGridView.DataSet.FieldByName('USER').AsString);
+      aUser.Open;
+      if aUser.Count>0 then;
+        FSearcheMail := trim(aUser.FieldByName('EMAIL').AsString);
+      aUser.Free;
+    end;
+  if FSearcheMail='' then
+    fSearch.Execute(True,'LISTU',strSearchFromMailSelect);
+  fSearch.SetLanguage;
+  if (aLink<>'') then
+    begin
+      with BaseApplication as IBaseApplication do
+        aFile := GetInternalTempDir+ValidateFileName(Data.GetLinkDesc(aLink))+'.plink';
+      sl := TStringList.Create;
+      sl.Add(aLink);
+      sl.SaveToFile(aFile);
+      sl.Free;
+      if Data.GetLinkLongDesc(aLink)<>'' then
+        aDesc := strDescription+':'+#9#9#9+LineEnding+Data.GetLinkLongDesc(aLink);
+      if FGridView.DataSet.FieldByName('OWNER').AsString<>'' then
+        begin
+          aUser := TUser.Create(nil);
+          aUser.SelectByAccountno(FGridView.DataSet.FieldByName('OWNER').AsString);
+          aUser.Open;
+          if aUser.Count>0 then;
+            aDesc := strResponsable+':'+#9#9+aUser.FieldByName('NAME').AsString+LineEnding+aDesc;
+          aUser.Free;
+        end;
+      if FGridView.DataSet.FieldByName('USER').AsString<>'' then
+        begin
+          aUser := TUser.Create(nil);
+          aUser.SelectByAccountno(FGridView.DataSet.FieldByName('USER').AsString);
+          aUser.Open;
+          if aUser.Count>0 then;
+            aDesc := strWorker+':'+#9#9#9+aUser.FieldByName('NAME').AsString+LineEnding+aDesc;
+          aUser.Free;
+        end;
+      if FGridView.DataSet.FieldByName('PROJECT').AsString<>'' then
+        aDesc := strProject+':'+#9#9#9+FGridView.DataSet.FieldByName('PROJECT').AsString+LineEnding+aDesc;
+      if FGridView.DataSet.FieldByName('STARTDATE').AsString<>'' then
+        aDesc := strStart+':'+#9#9#9+FGridView.DataSet.FieldByName('STARTDATE').AsString+LineEnding+aDesc;
+      if FGridView.DataSet.FieldByName('DUEDATE').AsString<>'' then
+        aDesc := strDue+':'+#9#9#9#9+FGridView.DataSet.FieldByName('DUEDATE').AsString+LineEnding+aDesc;
+      aDesc := strTask+':'+#9#9#9+FGridView.DataSet.FieldByName('SUMMARY').AsString+LineEnding+aDesc;
+      DoSendMail(strTask+':'+Data.GetLinkDesc(aLink),aDesc, aFile,'','','',FSearcheMail);
+    end;
+end;
+
 procedure TfTaskFrame.acLinkExecute(Sender: TObject);
 var
   aRow: LongInt;
@@ -758,7 +968,7 @@ begin
           aLink := Data.BuildLink(FGridView.DataSet.DataSet);
           if FGridView.GotoRowNumber(aRow) then
             begin
-             aTask := TTask.Create(nil,Data);
+             aTask := TTask.Create(nil);
              aTask.Select(FGridView.DataSet.Id.AsVariant);
              aTask.Open;
              if aTask.Count > 0 then
@@ -771,11 +981,51 @@ begin
         end
       else break;
     end;
+  Refresh;
 end;
 procedure TfTaskFrame.acMAkeSubTaskExecute(Sender: TObject);
 begin
   FGridView.SetChild;
 end;
+
+procedure TfTaskFrame.acMarkProblemExecute(Sender: TObject);
+var
+  aRow: Integer;
+  aProject: TProject;
+begin
+  for aRow := FGridView.gList.Selection.Bottom+1 downto FGridView.gList.Selection.Top+1 do
+    begin
+      if FGridView.GotoRowNumber(aRow-1) then
+        begin
+          if not FDataSet.CanEdit then
+            FDataSet.DataSet.Edit;
+          if FDataSet.DataSet.FieldByName('NEEDSACTION').AsString<>'Y' then
+            begin
+              FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='Y'
+            end
+          else
+            begin
+              FDataSet.DataSet.FieldByName('NEEDSACTION').AsString:='N';
+            end;
+          if FDataSet.CanEdit then
+            FDataSet.DataSet.Post;
+          if FDataSet.DataSet.FieldByName('PROJECTID').AsString<>'' then
+            begin
+              aProject := TProject.CreateEx(Self,Data,Connection);
+              aProject.Select(FDataSet.DataSet.FieldByName('PROJECTID').AsVariant);
+              aProject.Open;
+              if (aProject.Count>0) then
+                begin
+                  aProject.CheckNeedsAction;
+                end;
+              aProject.Free;
+            end;
+        end
+      else break;
+    end;
+  FGridView.Refresh;
+end;
+
 procedure TfTaskFrame.acMarkSeenExecute(Sender: TObject);
 var
   aRow: LongInt;
@@ -798,6 +1048,27 @@ begin
     end;
   FGridView.Refresh;
 end;
+
+procedure TfTaskFrame.acMoveToProjectExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strProjects then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenItemMulti;
+  fSearch.Execute(True,'TASKSP',strSearchFromTasks);
+  fSearch.SetLanguage;
+end;
+
 procedure TfTaskFrame.acOpenExecute(Sender: TObject);
 var
   FTaskEdit: TfTaskEdit;
@@ -854,6 +1125,23 @@ begin
         fNRights.Execute(data.Filters.Id.AsVariant);
     end;
 end;
+
+procedure TfTaskFrame.acSaveExecute(Sender: TObject);
+begin
+  if Assigned(FConnection) then
+    begin
+      FDataSet.CascadicPost;
+      if UseTransactions then
+        begin
+          Data.CommitTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
+      acSave.Enabled:=False;
+      acCancel.Enabled:=False;
+    end;
+  acRefresh.Execute;
+end;
+
 procedure TfTaskFrame.acSaveFilterExecute(Sender: TObject);
 begin
   if (cbFilter.Text = strNoSelectFilter) or (cbFilter.Text = '') then
@@ -942,19 +1230,18 @@ begin
   if FGridView.GotoActiveRow then
     begin
       try
-        aProject := TProject.Create(nil,Data);
+        aProject := TProject.Create(nil);
         aProject.Select(DataSet.FieldByName('PROJECTID').AsVariant);
         aProject.Open;
-        if IPC.ServerRunning then
+        {
+        if FileExists(GetTempDir+'PMSTimeregistering') and (not Assigned(OnStartTime)) then
           begin
-            IPC.Connect;
             tmp := 'Time.enter('+Data.BuildLink(aProject.DataSet)+';'+Data.BuildLink(DataSet.DataSet)+';)';
-            IPC.SendStringMessage(tmp);
-            IPC.SendStringMessage('Time.start');
-            IPC.Disconnect;
-          end;
+            SendIPCMessage(tmp,GetTempDir+'PMSTimeregistering');
+            SendIPCMessage('Time.start',GetTempDir+'PMSTimeregistering');
+          end;}
         if Assigned(OnStartTime) then
-          OnStartTime(Self,Data.BuildLink(aProject.DataSet),Data.BuildLink(DataSet.DataSet));
+          OnStartTime(Self,Data.BuildLink(aProject.DataSet),Data.BuildLink(DataSet.DataSet),DataSet.FieldByName('CATEGORY').AsString);
         aProject.Free;
       except
       end;
@@ -975,6 +1262,32 @@ begin
   DataSet.FieldByName('COMPLETED').AsString:='Y';
   DataSet.DataSet.Post;
 end;
+
+procedure TfTaskFrame.acTerminateExecute(Sender: TObject);
+var
+  aDeps: TStrings;
+  i: Integer;
+begin
+  if not FGridView.GotoActiveRow then exit;
+  Screen.Cursor:=crHourGlass;
+  Application.ProcessMessages;
+  aDeps := TTaskList(DataSet).GetUnterminatedDependencies;
+  if aDeps.Count>0 then
+    begin
+      for i := 0 to aDeps.Count-1 do
+        aDeps[i] := Data.GetLinkDesc(aDeps[i]);
+      Showmessage(Format(strUnterminatedDependencies,[aDeps.Text]));
+    end
+  else
+    begin
+      if not TTaskList(DataSet).Terminate(Now()) then
+        Showmessage(strFailed);
+    end;
+  aDeps.Free;
+  Screen.Cursor:=crDefault;
+  Refresh;
+end;
+
 procedure TfTaskFrame.ActiveSearchEndSearch(Sender: TObject);
 begin
   if not ActiveSearch.Active then
@@ -988,7 +1301,8 @@ begin
     end;
 end;
 procedure TfTaskFrame.ActiveSearchItemFound(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 begin
   with pSearch do
     begin
@@ -1064,8 +1378,24 @@ begin
         end;
       DoFilterFocus;
 //      UpdateTitle;
-      if (bFilter.Focused and bFilter.Visible) or (not bFilter.Visible) then
-        acFilter.Execute;
+//      if (bFilter.Focused and bFilter.Visible) or (not bFilter.Visible) then
+      bOldTasks.Enabled:=cbFilter.ItemIndex=0;
+      bOldTasks1.Enabled:=cbFilter.ItemIndex=0;
+      bDependencies.Enabled:=cbFilter.ItemIndex=0;
+      bDependencies1.Enabled:=cbFilter.ItemIndex=0;
+      bDelegated.Enabled:=cbFilter.ItemIndex=0;
+      bDelegated1.Enabled:=cbFilter.ItemIndex=0;
+      bFuture.Enabled:=cbFilter.ItemIndex=0;
+      bFuture1.Enabled:=cbFilter.ItemIndex=0;
+      if not bOldTasks.Enabled then bOldTasks.Down:=False;
+      if not bOldTasks1.Enabled then bOldTasks1.Down:=False;
+      if not bDependencies.Enabled then bDependencies.Down:=False;
+      if not bDependencies1.Enabled then bDependencies1.Down:=False;
+      if not bDelegated.Enabled then bDelegated.Down:=False;
+      if not bDelegated1.Enabled then bDelegated1.Down:=False;
+      if not bFuture.Enabled then bFuture.Down:=False;
+      if not bFuture1.Enabled then bFuture1.Down:=False;
+      acFilter.Execute;
     end;
 end;
 procedure TfTaskFrame.ChangeVisibleRows(Sender: TObject);
@@ -1084,6 +1414,8 @@ end;
 procedure TfTaskFrame.DatasourceStateChange(Sender: TObject);
 begin
   acDelPos.Enabled := acAddPos.Enabled and (FGridView.Count > 0);
+  acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
+  acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
 end;
 procedure TfTaskFrame.eFilterEditChange(Sender: TObject);
 begin
@@ -1162,6 +1494,38 @@ begin
     begin
       acSetOwner.Execute;
     end
+  else if Field.FieldName = 'DUEDATE' then
+    begin
+      if not Field.Field.IsNull then
+        CalendarDialog1.Date:=Field.Field.AsDateTime;
+      if CalendarDialog1.Execute then
+        begin
+          FGridView.BeginUpdate;
+          if not DataSet.CanEdit then
+            DataSet.DataSet.Edit;
+          DataSet.FieldByName('DUEDATE').AsDateTime := CalendarDialog1.Date;
+          FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
+          FGridView.gList.EditorMode:=False;
+          FGridView.EndUpdate;
+          FGridView.SetEdited;
+        end;
+    end
+  else if Field.FieldName = 'STARTDATE' then
+    begin
+      if not Field.Field.IsNull then
+        CalendarDialog1.Date:=Field.Field.AsDateTime;
+      if CalendarDialog1.Execute then
+        begin
+          FGridView.BeginUpdate;
+          if not DataSet.CanEdit then
+            DataSet.DataSet.Edit;
+          DataSet.FieldByName('STARTDATE').AsDateTime := CalendarDialog1.Date;
+          FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
+          FGridView.gList.EditorMode:=False;
+          FGridView.EndUpdate;
+          FGridView.SetEdited;
+        end;
+    end
   ;
 end;
 
@@ -1169,11 +1533,16 @@ procedure TfTaskFrame.FGridViewCellChanged(Sender: TObject; NewCell,
   OldCell: TPoint);
 var
   aCell: TColumn;
+  aCol: Integer;
+  aColCount: Integer;
 begin
   acSetOwner.Visible:=False;
   acSetUser.Visible:=False;
+  aCol := FGridView.gList.Col-1;
+  aColCount := FGridView.dgFake.Columns.Count;
+  if (aCol>=aColCount) or (aCol<0) then exit;
   try
-    aCell := FGridView.dgFake.Columns[FGridView.gList.Col-1];
+    aCell := FGridView.dgFake.Columns[aCol];
     if Assigned(aCell) then
       begin
         acSetOwner.Visible := aCell.FieldName = 'OWNER';
@@ -1202,14 +1571,14 @@ begin
   acDelPos.Execute;
 end;
 
-function TfTaskFrame.FGridViewDrawColumnCell(Sender: TObject;
-  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState
-  ): Boolean;
+function TfTaskFrame.FGridViewDrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState): Boolean;
 var
   oDate: TDateTime;
   i: Integer;
   aRect : TRect;
   aFont: TFont;
+  aColor: TColor;
 begin
   Result := False;
   TExtStringGrid(Sender).Canvas.Font.Style:=[];
@@ -1221,8 +1590,15 @@ begin
           TExtStringGrid(Sender).Objects[Column.Index,DataCol] := aFont;
           aRect := Rect;
           if Assigned(TExtStringGrid(Sender).Objects[0,DataCol]) and (TExtStringGrid(Sender).Objects[0,DataCol] is TRowObject) then
-            if (TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).ShouldStart > 0) and (Now() > TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).ShouldStart) then
-              aFont.Color := $0003C7A;
+            begin
+              if (TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).ShouldStart > 0) and (Now() > TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).ShouldStart) then
+                aFont.Color := $0003C7A;
+              if TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).NeedsAction='na' then
+                begin
+                  if FGridView.GotoRowNumber(DataCol) then
+                    TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).NeedsAction:=TExtDBGrid(Column.Grid).DataSource.DataSet.FieldByName('NEEDSACTION').AsString;
+                end;
+            end;
           for i := 1 to TExtStringGrid(Sender).ColCount-1 do
             begin
               if TExtDBGrid(Column.Grid).Columns[i-1].FieldName = 'DUEDATE' then
@@ -1230,7 +1606,8 @@ begin
                   if (trim(TExtStringGrid(Sender).Cells[i,DataCol]) <> '') and TryStrToDateTime(TExtStringGrid(Sender).Cells[i,DataCol],oDate) then
                     if oDate < Now() then
                       begin
-                        aFont.Color := clred;
+                        if aFont.Color<>clGrayText then
+                          aFont.Color := clred;
                       end;
                 end;
               if TExtDBGrid(Column.Grid).Columns[i-1].FieldName = 'STARTDATE' then
@@ -1264,6 +1641,13 @@ begin
         begin
           aFont := TFont(TExtStringGrid(Sender).Objects[Column.Index,DataCol]);
           TExtStringGrid(Sender).Canvas.Font.assign(aFont);
+        end;
+      if Assigned(TExtStringGrid(Sender).Objects[0,DataCol]) and (TExtStringGrid(Sender).Objects[0,DataCol] is TRowObject) then
+        begin
+          if TRowObject(TExtStringGrid(Sender).Objects[0,DataCol]).NeedsAction='Y' then
+            begin
+              fVisualControls.Images.Draw(TExtStringGrid(Sender).Canvas,Rect.Left-14,rect.Top,117);
+            end;
         end;
     end
 end;
@@ -1378,8 +1762,8 @@ begin
         begin
           if not pSearch.Visible then
             begin
-              if tbLeft.Visible then
-                pSearch.Left:=tbLeft.Width+X
+              if pToolbar.Visible then
+                pSearch.Left:=pToolbar.Width+X
               else pSearch.Left:=X;
               pSearch.Top:=Y;
               if tbTop.Visible then
@@ -1424,6 +1808,26 @@ begin
   FGridView.InsertAfter(True);
 end;
 
+procedure TfTaskFrame.acAddTasksfromProjectExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strProjects then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchAddTasksToProject;
+  fSearch.Execute(True,'TASKSP',strSearchFromTasks);
+  fSearch.SetLanguage;
+end;
+
 procedure TfTaskFrame.acAppendLinkToDependenciesExecute(Sender: TObject);
 var
   Stream: TStringStream;
@@ -1449,6 +1853,20 @@ begin
           aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
         end;
     end;
+end;
+
+procedure TfTaskFrame.acCancelExecute(Sender: TObject);
+begin
+  if Assigned(FConnection) then
+    begin
+      FDataSet.CascadicCancel;
+      if UseTransactions then
+        begin
+          Data.RollbackTransaction(FConnection);
+          Data.StartTransaction(FConnection);
+        end;
+    end;
+  acRefresh.Execute;
 end;
 
 procedure TfTaskFrame.acDefaultFilterExecute(Sender: TObject);
@@ -1494,7 +1912,7 @@ begin
   FGridView.Parent := Self;
   FIgnoreUser:=False;
   FGridView.Align:=alClient;
-  FGridView.DefaultRows:='GLOBALWIDTH:%;COMPLETED:30;SUMMARY:200;PROJECT:200;STARTDATE:60;DUEDATE:60;USER:100;OWNER:100';
+  FGridView.DefaultRows:='GLOBALWIDTH:%;COMPLETED:30;SUMMARY:200;PROJECT:150;STARTDATE:60;PLANTIME:30;DUEDATE:60;USER:100;OWNER:100';
   BaseName := 'TASKS';
   FGridView.TreeField := 'PARENT';
   FGridView.IdentField := 'SUMMARY';
@@ -1521,6 +1939,7 @@ begin
   FGridView.gList.PopupMenu := pmGrid;
   miCopyLink.Action := FGridView.acCopyLink;
   pFilterOptions.Height:=0;
+  CalendarDialog1.Date:=Now();
 end;
 destructor TfTaskFrame.Destroy;
 var
@@ -1540,6 +1959,7 @@ begin
   FGridView.SetRights(Editable);
   acFilterRights.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_PERMIT;
   acDeleteFilter.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_DELETE;
+  ArrangeToolBar(pToolbar,ActionList1,'Tasks');
 end;
 procedure TfTaskFrame.ShowFrame;
 begin
@@ -1571,7 +1991,7 @@ var
     bParent : Variant;
   begin
     if aParent = Null then exit;
-    aUsers := TUser.Create(nil,Data);
+    aUsers := TUser.Create(nil);
     with aUsers.DataSet as IBaseDbFilter do
       begin
         SortFields := 'NAME';
@@ -1630,7 +2050,7 @@ begin
   if Assigned(TTreeEntry(FNode.Data).SubText) then
     TTreeEntry(FNode.Data).SubText.Free;
   TTreeEntry(FNode.Data).SubText := TStringlist.Create;
-  aDataSet := TTaskList.Create(nil,Data);
+  aDataSet := TTaskList.Create(nil);
   aDataSet.CreateTable;
   aDataSet.SelectActiveByUser(Data.Users.FieldByName('ACCOUNTNO').AsString);
   aDataSet.Open;
@@ -1642,6 +2062,5 @@ begin
   aDataSet.Free;
 end;
 initialization
-  {$I utasks.lrs}
 end.
 

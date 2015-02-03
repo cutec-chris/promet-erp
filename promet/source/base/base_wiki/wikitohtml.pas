@@ -24,7 +24,7 @@ unit wikitohtml;
 interface
 
 uses
-  Classes, SysUtils, Utils, FileUtil,RegExpr,htmltowiki,LConvEncoding;
+  Classes, SysUtils, Utils,RegExpr,htmltowiki;
 
 function WikiText2HTML(input: string;LinkOffset : string = '';RemoveLinkOffset : string = '';IproChanges : Boolean = False;aLevel : Integer = 0): string;
 function StripWikiText(input : string) : string;
@@ -35,6 +35,8 @@ type
 var
   OnConvertImage : TImageConvertFunc;
   OnWikiInclude : TWikiIncludeFunc;
+  OnWikiLink : TWikiIncludeFunc;
+  OnWikiRefresh : TWikiIncludeFunc;
 
 implementation
 
@@ -52,6 +54,8 @@ var
   linkcontent: String;
   aLink: String;
   otstr: String;
+  tmp: String;
+  bLink: String;
   procedure DoReplace(var InStr,OutStr : string;ReplaceTag,NewTag : string;MustbeInOneLine : Boolean = False);
   var
     NewLine: String;
@@ -88,7 +92,7 @@ var
           istr := copy(istr,pos('[['+ImageTagName+':',istr)+length(ImageTagname)+3,length(istr));
           if (pos('|',istr) > 0) and (pos('|',istr) < pos(']]',istr)) then
             begin
-              ImageFile := UTF8ToSys(HTMLDecode(copy(istr,0,pos('|',istr)-1)));
+              ImageFile := UniToSys(HTMLDecode(copy(istr,0,pos('|',istr)-1)));
               ostr := ostr+'<a~LINKTAGS href="~HREF"><img~ATAGS src="~IMAGEFILE"';
               while (pos('|',istr) > 0) and (pos('|',istr) < pos(']]',istr)) do
                 begin
@@ -147,7 +151,7 @@ var
             begin
               if Assigned(OnConvertImage) then
                 OnConvertImage(copy(istr,0,pos(']]',istr)-1),ImageFile,aLinkTags,aHref,aTags,aWidth)
-              else ImageFile := UTF8ToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
+              else ImageFile := UniToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
               NewAlt := copy(istr,0,pos(']]',istr)-1);
               NewAlt := copy(NewAlt,0,rpos('.',NewAlt)-1);
               if aHRef = '' then
@@ -172,7 +176,7 @@ var
           istr := copy(istr,pos('[['+ImageTagName+':',istr)+length(ImageTagname)+3,length(istr));
           if (pos('|',istr) > 0) and (pos('|',istr) < pos(']]',istr)) then
             begin
-              ImageFile := UTF8ToSys(HTMLDecode(copy(istr,0,pos('|',istr)-1)));
+              ImageFile := UniToSys(HTMLDecode(copy(istr,0,pos('|',istr)-1)));
               ostr := ostr+'<a href="'+'/downloads/'+ImageFile+'"';
               while (pos('|',istr) > 0) and (pos('|',istr) < pos(']]',istr)) do
                 begin
@@ -185,7 +189,7 @@ var
             end
           else
             begin
-              ImageFile := UTF8ToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
+              ImageFile := UniToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
               ostr := ostr+'<a'+aLinkTags+' href="'+'/downloads/'+ImageFile+'">'+ImageFile+'</a>';
               istr := copy(istr,pos(']]',istr)+2,length(istr));
             end;
@@ -203,13 +207,15 @@ var
         begin
           ostr := ostr+copy(istr,0,pos('[['+ImageTagName+':',istr)-1);
           istr := copy(istr,pos('[['+ImageTagName+':',istr)+length(ImageTagname)+3,length(istr));
-          ImageFile := UTF8ToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
+          ImageFile := UniToSys(HTMLDecode(copy(istr,0,pos(']]',istr)-1)));
           istr := copy(istr,pos(']]',istr)+2,length(istr));
           if Assigned(OnWikiInclude) then
             begin
               tmp := '';
               OnWikiInclude(ImageFile,tmp,aLevel+1);
               ostr+=tmp;
+              if (tmp='') and (copy(istr,0,1)=#13) then
+                istr := copy(istr,2,length(istr));
             end;
         end;
   end;
@@ -234,7 +240,7 @@ var
       end;
   end;
 begin
-  istr := ConvertEncoding(input,GuessEncoding(Input),EncodingUTF8);
+  istr := input;//ConvertEncoding(input,GuessEncoding(Input),EncodingUTF8);
   ostr := '';
   open_uls := 0;
   act_uls := 0;
@@ -246,7 +252,7 @@ begin
   if copy(trim(istr),0,1)='*' then
     istr := #13+istr;
   istr := StringReplace(istr,#10,#13,[rfReplaceAll]);
-  //Remove NOTOC
+  //Remove NOTOC                           if Assigned(OnWikiInclude) then
   istr := StringReplace(istr,'__NOTOC__','',[rfReplaceAll]);
   //Remove TOC
   istr := StringReplace(istr,'__TOC__','',[rfReplaceAll]);
@@ -444,9 +450,15 @@ begin
       if (pos('|',istr) > 0) and (pos('|',istr) < pos(']]',istr)) then
         begin
           linkcontent := copy(istr,0,pos('|',istr)-1);
-              aLink := linkoffset+UTF8ToSys(HTMLDecode(linkcontent));
+              aLink := linkoffset+UniToSys(HTMLDecode(linkcontent));
               if copy(aLink,0,length(RemoveLinkOffset)) = RemoveLinkOffset then
                 aLink := copy(aLink,length(RemoveLinkOffset),length(aLink));
+              if Assigned(OnWikiLink) then
+                begin
+                  tmp := '';
+                  OnWikiLink(aLink,tmp,aLevel+1);
+                  aLink := tmp;
+                end;
               ostr := ostr+'<a href="'+aLink+'"';
               istr := copy(istr,pos('|',istr)+1,length(istr));
               ostr := ostr+' title="'+copy(istr,0,pos(']]',istr)-1)+'">'+copy(istr,0,pos(']]',istr)-1)+'</a>';
@@ -455,14 +467,20 @@ begin
       else
         begin
           linkcontent := copy(istr,0,pos(']]',istr)-1);
-              aLink := linkoffset+linkcontent;
-              if copy(aLink,0,length(RemoveLinkOffset)) = RemoveLinkOffset then
-                aLink := copy(aLink,length(RemoveLinkOffset),length(aLink));
-              if pos('::',linkcontent) > 0 then
-                ostr := ostr+'<a href="'+aLink+'">'
-              else
-                ostr := ostr+'<a href="'+aLink+'" title="'+copy(istr,0,pos(']]',istr)-1)+'">'+copy(istr,0,pos(']]',istr)-1)+'</a>';
-              istr := copy(istr,pos(']]',istr)+2,length(istr));
+          aLink := linkoffset+linkcontent;
+          if copy(aLink,0,length(RemoveLinkOffset)) = RemoveLinkOffset then
+            aLink := copy(aLink,length(RemoveLinkOffset),length(aLink));
+          if Assigned(OnWikiLink) then
+            begin
+              tmp := '';
+              OnWikiLink(aLink,tmp,aLevel+1);
+              aLink := tmp;
+            end;
+          if pos('::',linkcontent) > 0 then
+            ostr:=ostr+'<a href="'+aLink+'">'
+          else
+            ostr := ostr+'<a href="'+aLink+'" title="'+copy(istr,0,pos(']]',istr)-1)+'">'+copy(istr,0,pos(']]',istr)-1)+'</a>';
+          istr := copy(istr,pos(']]',istr)+2,length(istr));
         end;
     end;
   ostr := ostr+istr;
@@ -492,7 +510,7 @@ begin
       istr := ReplaceRegExpr('\r====(.*?)====',istr,#13'<h4>$1</h4>',True);
       istr := ReplaceRegExpr('\r===(.*?)===',istr,#13'<h3>$1</h3>',True);
       istr := ReplaceRegExpr('\r==(.*?)==',istr,#13'<h2>$1</h2>',True);
-      istr := ReplaceRegExpr('\r=(.*?)=\r',istr,#13'<h1>$1</h1>',True);
+      istr := ReplaceRegExpr('\r=(.*?)=\r',istr,#13'<h2>$1</h2>',True);
     end
   else
     begin
@@ -533,7 +551,7 @@ begin
       ostr := StringReplace(ostr,'</h4><br>','</h4>',[rfReplaceAll]);
       ostr := StringReplace(ostr,'</h5><br>','</h5>',[rfReplaceAll]);
       ostr := StringReplace(ostr,'</h6><br>','</h6>',[rfReplaceAll]);
-      Result := UTF8ToSys(ostr);
+      Result := UniToSys(ostr);
     end
   else
     Result := ostr;
@@ -546,4 +564,4 @@ end;
 
 
 end.
-
+

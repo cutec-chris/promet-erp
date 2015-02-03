@@ -52,7 +52,7 @@ type
     Bevel7: TBevel;
     Bevel8: TBevel;
     bExecute: TSpeedButton;
-    bExecute1: TBitBtn;
+    bExecute1: TSpeedButton;
     bExecute2: TSpeedButton;
     BtZoomIn: TBitBtn;
     BtZoomOut: TBitBtn;
@@ -268,7 +268,7 @@ begin
           fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
           Data.Tree.DataSet.Next;
         end;
-      aList := TStatistic.Create(nil,Data);
+      aList := TStatistic.Create(nil);
       aList.CreateTable;
       try
         Data.SetFilter(aList,Data.ProcessTerm(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue('')),0,'','ASC',False,True,True);
@@ -460,6 +460,7 @@ begin
               aControl.Parent:= aPanel;
               aLabel.Left := 0;
               aBevel.Left:=1000;
+              pcTabs.ActivePage:=tsResults;
             end;
         end;
     end;
@@ -737,16 +738,16 @@ begin
       else if SaveDialog.FilterIndex = 8 then
         begin
           StatisticResults.DataSet.DisableControls;
-          AssignFile(f,UTF8ToSys(SaveDialog.FileName));
+          AssignFile(f,UniToSys(SaveDialog.FileName));
           Rewrite(f);
           for x := 0 to StatisticResults.DataSet.FieldCount-1 do
-            write(f,UTF8ToSys(StatisticResults.DataSet.FieldDefs[x].DisplayName)+';');
+            write(f,UniToSys(StatisticResults.DataSet.FieldDefs[x].DisplayName)+';');
           writeln(f);
           StatisticResults.DataSet.First;
           while not StatisticResults.DataSet.EOF do
             begin
               for x := 0 to StatisticResults.DataSet.FieldCount-1 do
-                write(f,UTF8ToSys(StatisticResults.DataSet.Fields[x].AsString)+';');
+                write(f,UniToSys(StatisticResults.DataSet.Fields[x].AsString)+';');
               writeln(f);
               StatisticResults.DataSet.Next;
             end;
@@ -825,6 +826,7 @@ end;
 procedure TfStatisticFrame.bEditFilterClick(Sender: TObject);
 var
   Animate: TAnimationController;
+  nH: LongInt;
 begin
   bEditFilter.Enabled:=False;
   Animate := TAnimationController.Create(Panel5);
@@ -835,7 +837,11 @@ begin
     begin
       pTop.Visible:=True;
       with Application as IBaseDbInterface do
-        Animate.AnimateControlHeight(DBConfig.ReadInteger('STATISTICEDITHEIGHT',244));
+        begin
+          nH := DBConfig.ReadInteger('STATISTICEDITHEIGHT',244);
+          if nH<100 then nH := 244;
+          Animate.AnimateControlHeight(nH);
+        end;
     end
   else
     begin
@@ -1139,11 +1145,14 @@ begin
   Detail.DataSet:=nil;
   SubDetail.DataSet.Free;
   SubDetail.DataSet:=nil;
-  if Assigned(FConnection) then
-    begin
-      CloseConnection(acSave.Enabled);
-      FreeAndNil(FConnection);
-    end;
+  try
+    if Assigned(FConnection) then
+      begin
+        CloseConnection(acSave.Enabled);
+        FreeAndNil(FConnection);
+      end;
+  except
+  end;
   FTables.Free;
   FVariables.Free;
   FSynCompletion.Free;
@@ -1169,7 +1178,7 @@ begin
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
 //  Data.StartTransaction(FConnection);
-  DataSet := TStatistic.Create(Self,Data,FConnection);
+  DataSet := TStatistic.CreateEx(Self,Data,FConnection);
   Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
   if FDataSet.Count > 0 then
     begin
@@ -1207,7 +1216,7 @@ begin
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
 //  Data.StartTransaction(FConnection);
-  DataSet := TStatistic.Create(Self,Data,FConnection);
+  DataSet := TStatistic.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   DataSet.Select(0);
   DataSet.Open;
@@ -1220,8 +1229,7 @@ begin
   FTreeNode := AddEntry('','S',etStatistic,TStatistic(DataSet));
   DataSet.Change;
   bEditFilter.Down:=True;
-  pTop.Visible:=True;
-  pTop.Height:=244;
+  bEditFilterClick(nil);
   smQuerry.SetFocus;
 end;
 procedure TfStatisticFrame.SetLanguage;

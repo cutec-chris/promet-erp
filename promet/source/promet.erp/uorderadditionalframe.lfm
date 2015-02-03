@@ -5,35 +5,35 @@ inherited fOrderAdditionalFrame: TfOrderAdditionalFrame
   Width = 735
   ClientHeight = 111
   ClientWidth = 735
-  DesignLeft = 362
-  DesignTop = 365
+  DesignLeft = 375
+  DesignTop = 372
   object lShipping: TLabel[0]
     Left = 8
-    Height = 18
+    Height = 13
     Top = 19
-    Width = 76
+    Width = 62
     Caption = 'Versandart'
     ParentColor = False
   end
   object lCommission: TLabel[1]
     Left = 8
-    Height = 18
+    Height = 13
     Top = 60
-    Width = 84
+    Width = 67
     Caption = 'Kommission'
     ParentColor = False
   end
   object lStorage: TLabel[2]
     Left = 400
-    Height = 18
+    Height = 13
     Top = 23
-    Width = 39
+    Width = 32
     Caption = 'Lager'
     ParentColor = False
   end
   object cbShipping: TExtDBCombobox[3]
     Left = 112
-    Height = 29
+    Height = 27
     Top = 19
     Width = 276
     DataField = 'SHIPPING'
@@ -45,7 +45,7 @@ inherited fOrderAdditionalFrame: TfOrderAdditionalFrame
   end
   object cbStorage: TExtDBCombobox[4]
     Left = 472
-    Height = 29
+    Height = 27
     Hint = 'hier können Sie ein Vorgabelager auswählen'
     Top = 19
     Width = 201
@@ -58,7 +58,7 @@ inherited fOrderAdditionalFrame: TfOrderAdditionalFrame
   end
   object eCommission: TDBEdit[5]
     Left = 112
-    Height = 27
+    Height = 23
     Top = 56
     Width = 276
     DataField = 'COMMISSION'

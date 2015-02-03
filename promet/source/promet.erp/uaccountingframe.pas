@@ -22,7 +22,8 @@ interface
 uses
   Classes, SysUtils, types, FileUtil, LR_DBSet, Forms, Controls, uPrometFrames,
   uAccounting, db, uFilterFrame, Dialogs, uBaseDBInterface, DBGrids, Grids,
-  Graphics, ActnList, ExtCtrls, ComCtrls, StdCtrls, Buttons, DbCtrls,Variants;
+  Graphics, ActnList, ExtCtrls, ComCtrls, StdCtrls, Buttons, DbCtrls,Variants,
+  uBaseDbClasses;
 type
 
   { TfAccountingFrame }
@@ -146,7 +147,9 @@ begin
           FList.gList.Columns[i].ReadOnly:=False;
           FList.gList.Columns[i].PickList.Clear;
           aType := 'B';
-          Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+          Data.Categories.Open;
+          Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+          Data.Categories.DataSet.Filtered:=True;
           Data.Categories.First;
           while not Data.Categories.EOF do
             begin
@@ -255,12 +258,12 @@ var
   tmp: TBitmap;
 begin
   inherited Create(AOwner);
-  Dataset := TAccounts.Create(nil,Data);
+  Dataset := TAccounts.Create(nil);
   FList := TfFilter.Create(Self);
   with FList do
     begin
       FilterType:='A';
-      DefaultRows:='GLOBALWIDTH:%;CHECKED:50;VOUCHER:50;NAME:300;RSORTCODE:100;RACCOUNTNO:100;VALUE:70;CURRENCY:70;BALLANCE:100;VALUEDATE:100;';
+      DefaultRows:='GLOBALWIDTH:%;CHECKED:50;VOUCHER:50;PURPOSE:300;NAME:300;RSORTCODE:100;RACCOUNTNO:100;VALUE:70;CURRENCY:70;BALLANCE:100;VALUEDATE:100;';
       Parent := Self;
       Align := alClient;
       Show;
@@ -341,7 +344,7 @@ begin
     begin
       TabCaption := TAccounts(DataSet).FieldByName('NAME').AsString;
       FList.SortField:='VALUEDATE';
-      FList.SortDirection:=uBaseDBInterface.sdDescending;
+      FList.SortDirection:=uBaseDBClasses.sdDescending;
       FList.acFilter.Execute;
       FAccount := aID;
       dsAccount.DataSet := DataSet.DataSet;

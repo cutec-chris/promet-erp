@@ -24,7 +24,7 @@ unit utableedit;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uIntfStrConsts, db,
   memds, FileUtil, Translations, md5, ComCtrls, ExtCtrls, DbCtrls, Grids,
   uFilterFrame,uBaseDbDataSet,uBaseDbClasses;
@@ -74,7 +74,7 @@ var
   fMain: TfMain;
 
 implementation
-
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface, uOrder, uDataImport,uDataImportCSV;
 resourcestring
   strTablenameMissing         = 'Sie müssen mit dem Kommandozielenparameter --tablename="TABELLENNAME" einen Tabellennamen zum Editieren angeben !';
@@ -115,7 +115,7 @@ begin
       FFilter.Parent:=Self;
       FFilter.Align := alClient;
       FFIlter.FilterType:='TABLE:'+Data.QuoteField(Application.GetOptionValue('t','tablename'));
-      aDataSet := TOwnDataSet.Create(nil,Data);
+      aDataSet := TOwnDataSet.Create(nil);
       DataSource.DataSet := Data.GetNewDataSet('select * from '+Data.QuoteField(Application.GetOptionValue('t','tablename')),nil,nil,aDataSet);
       aDataSet.DataSet := DataSource.DataSet;
       DataSource.DataSet.Open;
@@ -172,6 +172,5 @@ begin
 end;
 
 initialization
-  {$I utableedit.lrs}
 
-end.
+end.

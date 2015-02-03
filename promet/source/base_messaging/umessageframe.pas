@@ -91,7 +91,7 @@ implementation
 uses uMessages,uData,uBaseDbInterface,uPerson,uIntfStrConsts,uMessageEdit,
   uMainTreeFrame,Utils,uWikiMessage;
 resourcestring
-  strCustomerNotFound                         = 'Person nicht gefunden !';
+  strCustomerNotFound                         = 'Kontakt nicht gefunden !';
   strNewMessageCView                          = '%s Neue Nachrichten';
   strNewUnknownMessageCView                   = '%s Neue unbekannte Nachrichten';
   strNewSendMessageCView                      = '%s ungesendete Nachrichten';
@@ -160,7 +160,7 @@ var
   Rec: LongInt;
 begin
   Rec := FList.DataSet.GetBookmark;
-  fMessageEdit := TfMessageEdit.Create(Self);
+  fMessageEdit := TfMessageEdit.Create(nil);
   fMessageEdit.ForwardMail(fViewMessages.Message);
   FList.DataSet.GotoBookmark(Rec);
 end;
@@ -187,7 +187,7 @@ begin
     end
   else
     begin
-      fMessageEdit := TfMessageEdit.Create(Self);
+      fMessageEdit := TfMessageEdit.Create(nil);
       fMessageEdit.SendMailTo('');
     end;
 end;
@@ -212,7 +212,7 @@ var
   Rec: LongInt;
 begin
   Rec := FList.DataSet.GetBookmark;
-  fMessageEdit := TfMessageEdit.Create(Self);
+  fMessageEdit := TfMessageEdit.Create(nil);
   fMessageEdit.AnswerMail(fViewMessages.Message);
   FList.DataSet.GotoBookmark(Rec);
 end;
@@ -251,7 +251,7 @@ var
     Result := Trim(s);
   end;
 begin
-  aCustomer := TPersonList.Create(nil,Data);
+  aCustomer := TPersonList.Create(nil);
   if FList.DataSet.FieldByName('TYPE').AsString = 'LETTE' then
     begin
       Data.SetFilter(aCustomer,Data.QuoteField('NAME')+'='+Data.QuoteValue(FList.DataSet.FieldByName('SENDER').AsString));
@@ -261,7 +261,7 @@ begin
     end
   else
     begin
-      aCont := TPersonContactData.Create(Self,Data);
+      aCont := TPersonContactData.CreateEx(Self,Data);
       tmp := getemailaddr(FList.DataSet.FieldByName('SENDER').AsString);
       Data.SetFilter(aCont,'UPPER("DATA") like UPPER('''+tmp+''')',0,'','ASC',False,True);
       if aCont.DataSet.Locate('DATA',VarArrayOf([tmp]),[loCaseInsensitive]) then
@@ -278,7 +278,7 @@ begin
         end
       else
         begin
-          bCustomer := TPerson.Create(nil,Data);
+          bCustomer := TPerson.Create(nil);
           bCustomer.Append;
           tmp := FList.DataSet.FieldByName('SENDER').AsString;
           if pos('<',tmp) > 0 then
@@ -288,7 +288,7 @@ begin
               tmp := StringReplace(tmp,'-','',[rfReplaceAll]);
               bCustomer.FieldByName('MATCHCODE').AsString := tmp;
             end;
-          with bCustomer.CustomerCont.DataSet do
+          with bCustomer.ContactData.DataSet do
             begin
               Open;
               Append;
@@ -358,7 +358,7 @@ begin
     end;
   FList.OnDrawColumnCell:=@FListDrawColumnCell;
   FList.OnScrolled:=@FListScrolled;
-  FList.Dataset := TMessageList.Create(nil,Data);
+  FList.Dataset := TMessageList.Create(nil);
   fViewMessages := TfViewMessage.Create(Self);
   fViewMessages.Parent := pMessageView;
   fViewMessages.Align:=alClient;
@@ -421,7 +421,7 @@ var
   i: Integer;
 begin
   if not Assigned(FMessageNode) then exit;
-  MsgIndex := TMessageList.Create(nil,Data);
+  MsgIndex := TMessageList.Create(nil);
   if Assigned(TTreeEntry(FMessageNode.Data).SubText) then
     TTreeEntry(FMessageNode.Data).SubText.Free;
   TTreeEntry(FMessageNode.Data).SubText := TStringlist.Create;

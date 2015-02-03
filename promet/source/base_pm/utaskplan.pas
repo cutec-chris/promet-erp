@@ -40,6 +40,7 @@ type
     FWorkTime: Extended;
     FUsage : Extended;
     procedure CalcUsage(aConnection : TComponent);
+    function GetUsageCalced: Boolean;
     function GetWorkTime: Extended;
   protected
     procedure SetStartDate(const Value: TDateTime); override;
@@ -49,9 +50,13 @@ type
     function GetUsage: Extended; override;
     procedure PrepareDrawRect; override;
   public
+    constructor Create(AGantt: TgsGantt); override;
     procedure SetUser(AValue: string;aConnection : TComponent);
     property User : string read FUser;
-    property WorkTime : Extended read GetWorkTime;
+    property Usage : Extended read FUsage write FUsage;
+    property UserID : Variant read FUserID write FUserID;
+    property WorkTime : Extended read GetWorkTime write FWorkTime;
+    property UsageCalced : Boolean read GetUsageCalced;
   end;
 
   { TRessource }
@@ -80,6 +85,7 @@ type
     acShowInProjectGantt: TAction;
     acOpen: TAction;
     acCancel: TAction;
+    acRefresh: TAction;
     acUse: TAction;
     ActionList1: TActionList;
     bDayView: TSpeedButton;
@@ -89,11 +95,12 @@ type
     bRefresh: TSpeedButton;
     bToday: TSpeedButton;
     bWeekView: TSpeedButton;
+    iHourglass: TImage;
     Label1: TLabel;
     Label3: TLabel;
-    lDate: TLabel;
     Label5: TLabel;
     Label7: TLabel;
+    lDate: TLabel;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     miUserOptions: TMenuItem;
@@ -115,13 +122,15 @@ type
     procedure acShowProjectExecute(Sender: TObject);
     procedure acUseExecute(Sender: TObject);
     procedure aIGroupDrawBackground(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;aUnfinishedList : TList = nil);
     procedure aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
-    procedure aIDrawBackground(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;RectColor,FillColor,ProbemColor : TColor);
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;aUnfinishedList : TList = nil);
+    procedure aIDrawBackground(Sender: TObject; aCanvas: TCanvas; aRect: TRect;
+      aStart, aEnd: TDateTime; aDayWidth: Double; RectColor, FillColor,
+  ProbemColor: TColor; HighlightDay: TDateTime;aUnfinishedList : TList = nil);
     procedure aIDrawBackgroundWeekends(Sender: TObject; aCanvas: TCanvas;
-      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+      aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double; aColor: TColor;
+  HighlightDay: TDateTime);
     procedure aIntervalChanged(Sender: TObject);
     procedure aItemClick(Sender: TObject);
     procedure aSubItemClick(Sender: TObject);
@@ -135,20 +144,30 @@ type
     procedure FGanttCalendarDblClick(Sender: TObject);
     procedure FGanttCalendarMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
+    procedure FGanttCalendarMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure FGanttCalendarMoveOverInterval(Sender: TObject;
       aInterval: TInterval; X, Y: Integer);
     procedure FGanttCalendarShowHint(Sender: TObject; HintInfo: PHintInfo);
+    procedure AddUserIntervals(Sender: TObject);
+    procedure FGanttCalendarStartDateChanged(Sender: TObject);
     procedure FGanttTreeAfterUpdateCommonSettings(Sender: TObject);
     procedure FGanttTreeResize(Sender: TObject);
     procedure miUserOptionsClick(Sender: TObject);
     procedure pmActionPopup(Sender: TObject);
+    procedure TCollectThreadTerminate(Sender: TObject);
     procedure TIntervalChanged(Sender: TObject);
   private
     { private declarations }
+    FSelectedCol: TDateTime;
+    FSelectedRow: Int64;
     FGantt: TgsGantt;
     FTasks : TTaskList;
+    FCollectedTo : TDateTime;
+    FCollectedFrom : TDateTime;
     FHintRect : TRect;
     FRow : Integer;
+    FThreads : TList;
     FUsers : TStringList;
     FOwners : TStringList;
     aClickPoint: types.TPoint;
@@ -160,10 +179,12 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
     procedure Populate(aParent : Variant;aUser : Variant);
-    procedure CollectResources(aResource: TRessource; asUser: string;
-      aConnection: TComponent=nil; CollectTasks: Boolean=True);
+    procedure CollectResources(aResource: TRessource; aFrom, aTo: TDateTime;
+      asUser: string; aConnection: TComponent; CollectTasks,
+  CollectCalendar: Boolean;Processmessages : Boolean = True);
     function GetIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
-    function GetTaskIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer): TInterval;
+    function GetTaskIntervalFromCoordinates(Gantt: TgsGantt; X, Y, Index: Integer;
+      IgnoreX: Boolean=False): TInterval;
     function GetTaskFromCoordinates(Gantt : TgsGantt;X,Y,Index : Integer) : string;
   end;
 
@@ -171,17 +192,23 @@ type
 
   TCollectThread = class(TThread)
   private
-    FResource: uTaskPlan.TRessource;
+    FResource: TRessource;
     FUser: String;
     FPlan: TWinControl;
+    FFrom: TDateTime;
+    FTo: TDateTime;
     FAttatchTo: TInterval;
+    FTasks: Boolean;
+    FCalendar: Boolean;
+    FTmpResource : TRessource;
+    FProcessmessages: Boolean;
     procedure Attatch;
     procedure Plan;
   public
     procedure Execute; override;
-    constructor Create(aPlan : TWinControl;aResource : TRessource;asUser : string;AttatchTo : TInterval = nil);
+    constructor Create(aPlan : TWinControl;aFrom,aTo : TDateTime;aResource : TRessource;asUser : string;aTasks,aCalendar,aProcessmessages : Boolean;AttatchTo : TInterval = nil);
   end;
-procedure ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False);
+function ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False) : Boolean;
 resourcestring
   strSaveTaskChanges                      = 'Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?';
   strChangeMilestones                     = 'Sollen Meilensteintermine auch geändert werden ?';
@@ -193,11 +220,27 @@ uses uData,LCLIntf,uBaseDbClasses,uProjects,uTaskEdit,LCLProc,uGanttView,uColors
 { TCollectThread }
 
 procedure TCollectThread.Attatch;
+var
+  aRes: TInterval;
+  found: Boolean;
+  i: Integer;
 begin
+  while FTmpResource.IntervalCount>0 do
+    begin
+      aRes := FTmpResource.Interval[FTmpResource.IntervalCount-1];
+      found := False;
+      for i := 0 to FResource.IntervalCount-1 do
+        if FResource.Interval[i].Id=aRes.Id then
+          begin
+            Found := True;
+            break;
+          end;
+      FTmpResource.RemoveInterval(aRes);
+      if not Found then
+        FResource.AddInterval(aRes)
+      else aRes.Free;
+    end;
   FAttatchTo.Pointer:=FResource;
-  if Assigned(FPlan) and FPlan.Visible then
-    FPlan.Invalidate;
-  Application.ProcessMessages;
 end;
 
 procedure TCollectThread.Plan;
@@ -205,27 +248,36 @@ var
   aConnection: Classes.TComponent;
   TaskPlan : TfTaskPlan;
 begin
-  aConnection := Data.GetNewConnection;
-  TaskPlan.CollectResources(FResource,FUser,aConnection);
-  aConnection.Free;
+  TaskPlan.CollectResources(FTmpResource,FFrom,FTo,FUser,Data.MainConnection,FTasks,FCalendar,FProcessmessages);
 end;
 
 procedure TCollectThread.Execute;
 begin
-  Synchronize(@Plan);
-  Synchronize(@Attatch);
+  FTmpResource:=TRessource.Create(FResource.Gantt);
+  if not Terminated then
+    Synchronize(@Plan);
+  if not Terminated then
+    Synchronize(@Attatch);
+  FTmpResource.Free;
 end;
 
-constructor TCollectThread.Create(aPlan: TWinControl; aResource: TRessource;
-  asUser: string; AttatchTo: TInterval);
+constructor TCollectThread.Create(aPlan: TWinControl; aFrom, aTo: TDateTime;
+  aResource: TRessource; asUser: string; aTasks, aCalendar,
+  aProcessmessages: Boolean; AttatchTo: TInterval);
 begin
   FPlan := aPlan;
+  FFrom := aFrom;
+  FTo := aTo;
+  FTasks := aTasks;
+  FProcessmessages := aProcessmessages;
+  FCalendar := aCalendar;
   FResource := aResource;
   FUser := asUser;
   FAttatchTo := AttatchTo;
+  if FProcessmessages then
+    Priority:=tpLower;
   FreeOnTerminate:=True;
-  //Execute;
-  inherited Create(False);
+  inherited Create(True);
 end;
 
 { TRessource }
@@ -251,25 +303,28 @@ var
   aDay: Integer;
   aUser: TUser;
 begin
-  aUser := TUser.Create(nil,Data,aConnection);
-  aUser.SelectByAccountno(FUser);
-  aUser.Open;
-  FUsage := aUser.FieldByName('USEWORKTIME').AsInteger/100;
-  if FUsage = 0 then FUsage := 1;
-  FWorkTime:=aUser.WorkTime*FUsage;
-  FUsage := FWorkTime/8;
-  FUserID:=aUser.Id.AsVariant;
-  aUser.Free;
+  if FUsage = -1 then
+    begin
+      aUser := TUser.CreateEx(nil,Data,aConnection);
+      aUser.SelectByAccountno(FUser);
+      aUser.Open;
+      FUsage := aUser.FieldByName('USEWORKTIME').AsInteger/100;
+      if FUsage = 0 then FUsage := 1;
+      FWorkTime:=aUser.WorkTime*FUsage;
+      FUsage := FWorkTime/8;
+      FUserID:=aUser.Id.AsVariant;
+      aUser.Free;
+    end;
   if FinishDate-StartDate > 0 then
     FCalcUsage := (FinishDate-StartDate)
   else FCalcUsage := 0;
   if FCalcUsage=0 then exit;
   if FUser <> '' then
     begin
-      aCal := TEvent.Create(nil,Data,aConnection);
+      aCal := TEvent.CreateEx(nil,Data,aConnection);
       if FUserID<>Null then
         begin
-          aCal.SelectPlanedByUserIdAndTime(FUserId,StartDate,FinishDate);
+          aCal.SelectPlanedByIdAndTime(FUserId,StartDate,FinishDate);
           aCal.Open;
           while not aCal.EOF do
             begin
@@ -294,6 +349,11 @@ begin
     FCalcUsage := 1
   else
     FCalcUsage := 10;
+end;
+
+function TPInterval.GetUsageCalced: Boolean;
+begin
+  Result := FCalcUsage<>-1;
 end;
 
 function TPInterval.GetWorkTime: Extended;
@@ -348,23 +408,32 @@ begin
   else IntervalDone := StartDate;
 end;
 
-procedure ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False);
+constructor TPInterval.Create(AGantt: TgsGantt);
+begin
+  inherited Create(AGantt);
+  FUsage:=-1;
+end;
+
+function ChangeTask(aTasks: TTaskList; aTask: TInterval;
+  DoChangeMilestones: Boolean): Boolean;
 var
   aTaskI: TTask;
   aTaskI2: TTask;
   i: Integer;
 begin
+  result := False;
   if aTasks.DataSet.Locate('SQL_ID',aTask.Id,[]) then
     begin
+      //Add new Dependencies
       for i := 0 to aTask.ConnectionCount-1 do
         begin
-          aTaskI2 := TTask.Create(nil,Data);
+          aTaskI2 := TTask.Create(nil);
           aTaskI2.Select(aTask.Connection[i].Id);
           aTaskI2.Open;
           aTaskI2.Dependencies.Open;
           if not aTaskI2.Dependencies.DataSet.Locate('REF_ID_ID',aTasks.Id.AsVariant,[]) then
             begin
-              aTaskI := TTask.Create(nil,Data);
+              aTaskI := TTask.Create(nil);
               aTaskI.Select(aTasks.Id.AsVariant);
               aTaskI.Open;
               aTaskI2.Dependencies.Add(Data.BuildLink(aTaskI.DataSet));
@@ -372,8 +441,10 @@ begin
             end;
           aTaskI2.Free;
         end;
+      //Change Task
       if ((aTasks.FieldByName('CLASS').AsString<>'M') or DoChangeMilestones) and (aTasks.FieldByName('COMPLETED').AsString<>'Y') then
         begin
+          Result := aTasks.FieldByName('CLASS').AsString='M';
           if not aTasks.CanEdit then
             aTasks.DataSet.Edit;
           if aTasks.FieldByName('SUMMARY').AsString <> aTask.Task then
@@ -388,6 +459,8 @@ begin
           if aTasks.CanEdit then
             aTasks.DataSet.Post;
         end;
+      if Assigned(aTask.Parent) then
+        ChangeTask(aTasks,aTask.Parent,DoChangeMilestones);
     end;
   aTask.Changed:=False;
 end;
@@ -425,7 +498,7 @@ var
   aUser: TUser;
   CurrInterval: TInterval;
 begin
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   CurrInterval := TInterval(FGantt.Tree.Objects[0, FGantt.Tree.Row]);
   if Assigned(CurrInterval) and (CurrInterval is TPInterval) and (TPInterval(CurrInterval).User<>'') then
     begin
@@ -444,12 +517,14 @@ var
   aSubItem: TMenuItem;
   i: Integer;
   bItem: TMenuItem;
+  aPos: TPoint;
 begin
   aClickPoint := FGantt.Calendar.ScreenToClient(Mouse.CursorPos);
+  aPos := aClickPoint;
   pmAction.Items.Clear;
   for i := 0 to 100 do
     begin
-      aInt := GetIntervalFromCoordinates(FGantt,FGantt.Calendar.ScreenToClient(Mouse.CursorPos).X,FGantt.Calendar.ScreenToClient(Mouse.CursorPos).Y,i);
+      aInt := GetIntervalFromCoordinates(FGantt,aPos.X,aPos.Y,i);
       if Assigned(aInt) then
         begin
           aItem := TMenuItem.Create(pmAction);
@@ -461,6 +536,7 @@ begin
           aSubItem.Tag:=i;
           aSubItem.OnClick:=@aSubItemClick;
           aItem.Add(aSubItem);
+          FSelectedInt:=aInt;
           if aInt.Project<>'' then
             begin
               aSubItem := TMenuItem.Create(pmAction);
@@ -489,6 +565,14 @@ begin
     end;
 end;
 
+procedure TfTaskPlan.TCollectThreadTerminate(Sender: TObject);
+begin
+  if FThreads.IndexOf(Sender) > -1 then
+    FThreads.Remove(Sender);
+  FGantt.Invalidate;
+  iHourglass.Visible:=FThreads.Count>0;
+end;
+
 procedure TfTaskPlan.TIntervalChanged(Sender: TObject);
 begin
   TInterval(TInterval(Sender).Pointer2).StartDate:=TInterval(Sender).StartDate;
@@ -503,7 +587,7 @@ var
   aInt: gsGanttCalendar.TInterval;
 begin
   aInt := GetTaskIntervalFromCoordinates(Gantt,X,Y,Index);
-  if aInt = nil then
+  if (aInt = nil) or (aInt.Id=Unassigned) then
     aInt := GetIntervalFromCoordinates(Gantt,X,Y,Index);
   if Assigned(aInt) then
     if aInt.Id <> Null then
@@ -533,8 +617,8 @@ begin
       for i := 0 to ConnectionCount-1 do
         begin
           oD := Connection[i].Duration;
-          if Connection[i].StartDate<FinishDate+Buffer then
-            Connection[i].StartDate:=FinishDate+Buffer;
+          if Connection[i].StartDate<FinishDate+WaitTime then
+            Connection[i].StartDate:=FinishDate+WaitTime;
           if Connection[i].FinishDate<Connection[i].StartDate+oD then
             Connection[i].FinishDate:=Connection[i].StartDate+oD;
           Connection[i].IntervalDone:=Connection[i].StartDate;
@@ -565,6 +649,8 @@ begin
         TInterval(List[ay]).StartDate:=TInterval(TMenuItem(Sender).Tag).StartDate;
         TInterval(List[ay]).FinishDate:=TInterval(TMenuItem(Sender).Tag).FinishDate;
         TInterval(List[ay]).Pointer2 := TInterval(TMenuItem(Sender).Tag);
+        TInterval(List[ay]).Color := TInterval(TMenuItem(Sender).Tag).Color;
+        TInterval(List[ay]).Fixed := TInterval(TMenuItem(Sender).Tag).Fixed;
         FSelectedUser := TInterval(List[ay]);
         FSelectedInt := TInterval(TMenuItem(Sender).Tag);
         TInterval(List[ay]).OnChanged:=@TIntervalChanged;
@@ -576,18 +662,20 @@ end;
 procedure TfTaskPlan.aSubItemClick(Sender: TObject);
 begin
   TMenuItem(Sender).Action.Tag:=TMenuItem(Sender).Tag;
-  //TMenuItem(Sender).Action.Execute;
 end;
 
 procedure TfTaskPlan.aINewDrawBackground(Sender: TObject; aCanvas: TCanvas;
-  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;
+  aUnfinishedList: TList);
 begin
-  aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth);
-  aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed);
+  aIDrawBackgroundWeekends(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,$e0e0e0,FSelectedCol);
+  aIDrawBackground(Sender,aCanvas,aRect,aStart,aEnd,aDayWidth,clBlue,clLime,clRed,FSelectedCol,aUnfinishedList);
 end;
 
 procedure TfTaskPlan.aIDrawBackground(Sender: TObject; aCanvas: TCanvas;
-  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;RectColor,FillColor,ProbemColor : TColor);
+  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double; RectColor,
+  FillColor, ProbemColor: TColor; HighlightDay: TDateTime;
+  aUnfinishedList: TList);
 var
   i: Integer;
   aDay: TDateTime;
@@ -621,6 +709,8 @@ var
           Brush.Color:=ProbemColor
         else
           Brush.Color:=FillColor;
+        if trunc(aDay)=trunc(HighlightDay) then
+          aCanvas.Brush.Color:=Ligthen(aCanvas.Brush.Color,0.9);
         if Assigned(aInterval.Parent) and (aInterval.Parent is TRessource) and Assigned(TRessource(aInterval.Parent).User) then
           aUsage := aUsage*(1/TRessource(aInterval.Parent).User.FUsage);
         cRect.Top := cRect.Bottom-round((cRect.Bottom-cRect.Top-1)*aUsage);
@@ -652,13 +742,15 @@ begin
       for i := 0 to aResource.IntervalCount-1 do
         if not (aResource.Interval[i] is TBackInterval) then
           aResource.Interval[i].ClearDrawRect;
-
-      for i := 0 to round(aEnd-aStart) do
+    end;
+  for i := 0 to round(aEnd-aStart) do
+    begin
+      aDay := aStart+i;
+      if not ((DayOfWeek(aDay) = 1) or (DayOfWeek(aDay) = 7)) then
         begin
-          aDay := aStart+i;
-          if not ((DayOfWeek(aDay) = 1) or (DayOfWeek(aDay) = 7)) then
+          WholeUsage := 0;
+          if Assigned(TInterval(Sender).Pointer) then
             begin
-              WholeUsage := 0;
               for a := 0 to aResource.IntervalCount-1 do
                 if not (aResource.Interval[a] is TBackInterval) then
                   begin
@@ -667,7 +759,11 @@ begin
                     or ((aResource.Interval[a].StartDate<=aDay) and (aResource.Interval[a].FinishDate>=(aDay+1)))
                     then
                       begin
-                        WholeUsage += aResource.Interval[a].PercentUsage;
+                        if (aResource.Interval[a] is TPInterval) and TPInterval(aResource.Interval[a]).UsageCalced then
+                          WholeUsage += aResource.Interval[a].PercentUsage
+                        else if Assigned(aUnfinishedList) then
+                          aUnfinishedList.Add(aResource.Interval[a])
+                        else  WholeUsage += aResource.Interval[a].PercentUsage;
                         if aResource.Interval[a].IsDrawRectClear then
                           begin
                             aIStart := aResource.Interval[a].StartDate;
@@ -681,23 +777,25 @@ begin
                           end;
                       end;
                   end;
-              if WholeUsage>1 then
+              if WholeUsage>1.01 then
                 aCanvas.Brush.Color:=ProbemColor
               else
                 aCanvas.Brush.Color:=FillColor;
-              cRect := rect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
-              cHeight := cRect.Bottom-cRect.Top;
-              if WholeUsage<1 then
-                cHeight := round(cHeight*WholeUsage);
-              cRect.Top := cRect.Bottom-cHeight;
-              aCanvas.FillRect(crect);
             end;
+          if trunc(aDay)=trunc(HighlightDay) then
+            aCanvas.Brush.Color:=Ligthen(aCanvas.Brush.Color,0.9);
+          cRect := rect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
+          cHeight := cRect.Bottom-cRect.Top;
+          if WholeUsage<1 then
+            cHeight := round(cHeight*WholeUsage);
+          cRect.Top := cRect.Bottom-cHeight;
+          aCanvas.FillRect(crect);
         end;
     end;
 end;
 
 procedure TfTaskPlan.aIDrawBackgroundWeekends(Sender: TObject;
-  aCanvas: TCanvas; aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+  aCanvas: TCanvas; aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;aColor : TColor;HighlightDay : TDateTime);
 var
   i: Integer;
   aDay: Extended;
@@ -719,9 +817,17 @@ begin
   for i := 0 to round(aEnd-aStart) do
     begin
       aDay := aStart+i;
-      aCanvas.Brush.Color:=$e0e0e0;
+      if trunc(aDay)=trunc(HighlightDay) then
+        aCanvas.Brush.Color:=Ligthen(aColor,0.8)
+      else
+        aCanvas.Brush.Color:=aColor;
       if (DayOfWeek(aDay) = 1) or (DayOfWeek(aDay) = 7) then
-        aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
+        aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom)
+      else if trunc(aDay)=trunc(HighlightDay) then
+        begin
+          aCanvas.Brush.Color:=Ligthen(clSkyBlue,0.97);
+          aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom)
+        end;
       aCanvas.Brush.Color:=clSkyBlue;
       if (trunc(aDay) = trunc(Now())) then
         aCanvas.FillRect(round(i*aDayWidth),aRect.Top+1,round((i*aDayWidth)+aDayWidth),aRect.Bottom);
@@ -748,11 +854,10 @@ begin
                 if aResource.Interval[i].Color<>clBlue then
                   aCanvas.Brush.Color:=aResource.Interval[i].Color
                 else
-                  aCanvas.Brush.Color:=$e0e0e0;
+                  aCanvas.Brush.Color:=aColor;
                 aCanvas.FillRect(aResource.Interval[i].DrawRect);
               end;
           end;
-
     end;
 end;
 
@@ -763,12 +868,12 @@ var
   aLink: String;
 begin
   aLink := GetTaskFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,TMenuItem(Sender).Tag);
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.SelectFromLink(aLink);
   aTask.Open;
   if aTask.Count>0 then
     begin
-      aProject := TProject.Create(nil,Data);
+      aProject := TProject.Create(nil);
       aProject.Select(aTask.FieldByName('PROJECTID').AsVariant);
       aProject.Open;
       if aProject.Count>0 then
@@ -797,7 +902,7 @@ var
           begin
             if TRessource(aParent.Pointer).Interval[i].Changed then
               begin
-                aTasks := TTask.Create(nil,Data);
+                aTasks := TTask.Create(nil);
                 aTasks.Select(TRessource(aParent.Pointer).Interval[i].Id);
                 aTasks.Open;
                 debugln('changing '+TRessource(aParent.Pointer).Interval[i].Task);
@@ -824,7 +929,8 @@ begin
 end;
 
 procedure TfTaskPlan.aIGroupDrawBackground(Sender: TObject; aCanvas: TCanvas;
-  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double);
+  aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;
+  aUnfinishedList: TList);
 var
   aDay: Integer;
   aInt: TInterval;
@@ -919,17 +1025,17 @@ var
   aLink: String;
 begin
   aLink := GetTaskFromCoordinates(FGantt,aClickPoint.X,aClickPoint.Y,TMenuItem(Sender).Tag);
-  aTask := TTask.Create(nil,Data);
+  aTask := TTask.Create(nil);
   aTask.SelectFromLink(aLink);
   aTask.Open;
   if aTask.Count>0 then
     begin
-      aProject := TProject.Create(nil,Data);
+      aProject := TProject.Create(nil);
       aProject.Select(aTask.FieldByName('PROJECTID').AsVariant);
       aProject.Open;
       if aProject.Count>0 then
         begin
-          aProject.Tasks.SelectActive;
+          aProject.Tasks.SelectActivewithoutDeps;
           aProject.Tasks.Open;
           fGanttView.Execute(aProject,aLink);
         end;
@@ -976,6 +1082,7 @@ procedure TfTaskPlan.bRefreshClick(Sender: TObject);
     i: Integer;
     aUser: String;
     tmpRes: TRessource;
+    aIsub: TInterval;
   begin
     for i := 0 to aInt.IntervalCount-1 do
       RefreshRes(aInt.Interval[i]);
@@ -986,14 +1093,27 @@ procedure TfTaskPlan.bRefreshClick(Sender: TObject);
         aInt.Pointer := nil;
         tmpRes := TRessource.Create(nil);
         tmpRes.User:=TPInterval(aInt);
-        TCollectThread.Create(Self,tmpRes,aUser,aInt);
+        FThreads.Add(TCollectThread.Create(Self,FGantt.Calendar.VisibleStart,FGantt.Calendar.VisibleFinish,tmpRes,aUser,True,True,True,aInt));
+        TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
+        TCollectThread(FThreads[FThreads.Count-1]).Resume;
+        aInt.Opened:=False;
+        while aInt.IntervalCount>0 do
+          aInt.Interval[0].Free;
+        aIsub := TInterval.Create(FGantt);
+        aInt.AddInterval(aISub);
       end;
   end;
 var
   i: Integer;
 begin
+  if acUse.Enabled then
+    if (MessageDlg(strTaskPlan,strItemnotSaved,mtInformation,[mbYes,mbNo],0) = mrYes) then
+      acUse.Execute;
+  FCollectedFrom:=Now();
+  FCollectedTo:=FGantt.Calendar.VisibleFinish;
   for i := 0 to FGantt.IntervalCount-1 do
     RefreshRes(FGantt.Interval[i]);
+  iHourglass.Visible:=True;
 end;
 
 procedure TfTaskPlan.bShowTasksClick(Sender: TObject);
@@ -1066,10 +1186,6 @@ begin
             FSelectedUser := TInterval(List[ay]);
             FGantt.Invalidate;
           end;
-    end
-  else
-    begin
-      pmTask.PopUp(Mouse.CursorPos.X,Mouse.CursorPos.Y);
     end;
   List.Free;
 end;
@@ -1084,9 +1200,19 @@ procedure TfTaskPlan.FGanttCalendarMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
   ay: Integer;
+  FtSelectedRow: Int64;
+  FtSelectedCol: TDateTime;
 begin
   lDate.Caption := DateToStr(FGantt.Calendar.VisibleStart+trunc((X/FGantt.Calendar.GetIntervalWidth)));
-
+  FtSelectedRow := trunc((Y/FGantt.Calendar.GetIntervalHeight));
+  FtSelectedCol := FGantt.Calendar.VisibleStart+trunc((X/FGantt.Calendar.GetIntervalWidth));
+  if (FtSelectedCol<>FSelectedCol)
+  or (FtSelectedRow<>FSelectedRow) then
+    begin
+      FSelectedCol := FtSelectedCol;
+      FSelectedRow := FtSelectedRow;
+      FGantt.Calendar.Invalidate;
+    end;
   if fHintRect.Left>-1 then
     begin
       if (X<FHintRect.Left)
@@ -1097,6 +1223,13 @@ begin
           Application.CancelHint;
         end;
     end;
+end;
+
+procedure TfTaskPlan.FGanttCalendarMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  if Button=mbRight then
+    FGanttCalendarClick(FGantt.Calendar);
 end;
 
 procedure TfTaskPlan.FGanttCalendarMoveOverInterval(Sender: TObject;
@@ -1169,9 +1302,111 @@ begin
     end;
 end;
 
+procedure TfTaskPlan.AddUserIntervals(Sender: TObject);
+  procedure AddRes(aInt : TInterval);
+  var
+    bInt: TInterval;
+    i: Integer;
+    aNew: TInterval;
+  begin
+    if Assigned(aInt.Pointer) then
+      begin
+        FGantt.BeginUpdate;
+        while aInt.IntervalCount>0 do
+          begin
+            bInt := aInt.Interval[aInt.IntervalCount-1];
+            aInt.RemoveInterval(bInt);
+            if (bInt is TInterval) then
+              bInt.Free;
+          end;
+        for i := TRessource(aInt.Pointer).IntervalCount-1 downto 0 do
+          if TRessource(aInt.Pointer).Interval[i].Project<>'CAL' then
+            if ((TRessource(aInt.Pointer).Interval[i].StartDate>FGantt.Calendar.VisibleStart)
+            and (TRessource(aInt.Pointer).Interval[i].FinishDate<FGantt.Calendar.VisibleFinish))
+            or ((TRessource(aInt.Pointer).Interval[i].StartDate>FGantt.Calendar.VisibleStart)
+            and (TRessource(aInt.Pointer).Interval[i].StartDate<FGantt.Calendar.VisibleFinish))
+            or ((TRessource(aInt.Pointer).Interval[i].FinishDate>FGantt.Calendar.VisibleStart)
+            and (TRessource(aInt.Pointer).Interval[i].FinishDate<FGantt.Calendar.VisibleFinish))
+            or ((TRessource(aInt.Pointer).Interval[i].StartDate<FGantt.Calendar.VisibleStart)
+            and (TRessource(aInt.Pointer).Interval[i].FinishDate>FGantt.Calendar.VisibleFinish))
+            then
+              begin
+                aNew := TInterval.Create(FGantt);
+                aNew.StartDate:=TRessource(aInt.Pointer).Interval[i].StartDate;
+                aNew.FinishDate:=TRessource(aInt.Pointer).Interval[i].FinishDate;
+                aNew.Task:=TRessource(aInt.Pointer).Interval[i].Task+' - '+TRessource(aInt.Pointer).Interval[i].Project;
+                aNew.Id := TRessource(aInt.Pointer).Interval[i].Id;
+                aNew.Color:=TRessource(aInt.Pointer).Interval[i].Color;
+                aNew.Fixed := TRessource(aInt.Pointer).Interval[i].Fixed;
+                aNew.Pointer2:=TRessource(aInt.Pointer).Interval[i];
+                aNew.OnChanged:=@TIntervalChanged;
+                aNew.Project:=TRessource(aInt.Pointer).Interval[i].Project;
+                aInt.AddInterval(aNew);
+              end;
+        if aInt.IntervalCount=0 then
+          begin
+            aNew := TInterval.Create(FGantt);
+            aNew.Task:=strNoDataFound;
+            aNew.Style:=isNone;
+            aInt.AddInterval(aNew);
+          end;
+        FGantt.EndUpdate;
+      end;
+  end;
+var
+  i: Integer;
+begin
+  AddRes(TInterval(Sender));
+end;
+
+procedure TfTaskPlan.FGanttCalendarStartDateChanged(Sender: TObject);
+var
+  aDiff: Extended;
+  procedure RefreshRes(aInt : TInterval);
+  var
+    i: Integer;
+    aUser: String;
+    tmpRes: TRessource;
+  begin
+    for i := 0 to aInt.IntervalCount-1 do
+      RefreshRes(aInt.Interval[i]);
+    if Assigned(aInt.Pointer) then
+      begin
+        aUser := TPInterval(aInt).User;
+        if aDiff>0 then
+          FThreads.Add(TCollectThread.Create(Self,FCollectedTo,FCollectedTo+aDiff,TRessource(aInt.Pointer),aUser,True,True,True,aInt))
+        else
+          FThreads.Add(TCollectThread.Create(Self,FCollectedFrom+aDiff,FCollectedFrom,TRessource(aInt.Pointer),aUser,True,True,True,aInt));
+        iHourglass.Visible:=True;
+        TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
+        TCollectThread(FThreads[FThreads.Count-1]).Resume;
+      end;
+  end;
+var
+  i: Integer;
+begin
+  if FGantt.Calendar.VisibleFinish>FCollectedTo then
+    begin
+      aDiff := FGantt.Calendar.VisibleFinish-FCollectedTo;
+      if aDiff<30 then aDiff := 30;
+      for i := 0 to FGantt.IntervalCount-1 do
+        RefreshRes(FGantt.Interval[i]);
+      FCollectedTo:=FCollectedTo+aDiff;
+    end;
+  if FGantt.Calendar.VisibleStart<FCollectedFrom then
+    begin
+      aDiff := FGantt.Calendar.VisibleStart-FCollectedFrom;
+      if aDiff>-30 then aDiff := -30;
+      for i := 0 to FGantt.IntervalCount-1 do
+        RefreshRes(FGantt.Interval[i]);
+      FCollectedFrom:=FCollectedFrom+aDiff;
+    end;
+end;
+
 constructor TfTaskPlan.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+  FThreads := TList.Create;
   FOwners := TStringList.Create;
   FUsers := TStringList.Create;
   FGantt := TgsGantt.Create(Self);
@@ -1179,13 +1414,18 @@ begin
   FGantt.Parent := pgantt;
   FGantt.Align:=alClient;
   FGantt.Tree.AfterUpdateCommonSettings:=@FGanttTreeAfterUpdateCommonSettings;
+  FGantt.Tree.TaskEditable:=False;
   FGantt.Calendar.OnMoveOverInterval:=@FGanttCalendarMoveOverInterval;
   FGantt.Calendar.OnShowHint:=@FGanttCalendarShowHint;
   FGantt.Calendar.OnMouseMove:=@FGanttCalendarMouseMove;
   FGantt.Calendar.OnDblClick:=@FGanttCalendarDblClick;
   FGantt.Calendar.OnClick:=@FGanttCalendarClick;
+  FGantt.Calendar.OnStartDateChanged:=@FGanttCalendarStartDateChanged;
   FGantt.Calendar.PopupMenu := pmAction;
   FGantt.Tree.PopupMenu := pmUSer;
+  FGantt.Calendar.OnMouseUp:=@FGanttCalendarMouseUp;
+  FCollectedTo:=Fgantt.Calendar.VisibleFinish;
+  FCollectedFrom:=Now();
   bDayViewClick(nil);
   FGantt.Calendar.ShowHint:=True;
   FTaskView := TfTaskFrame.Create(Self);
@@ -1217,6 +1457,9 @@ begin
     begin
       FreeAndNil(FDataSet);
     end;
+  while FThreads.Count>0 do
+    Application.ProcessMessages;
+  FThreads.Free;
   FOwners.Free;
   FUsers.Free;
   FTaskView.Free;
@@ -1241,8 +1484,9 @@ var
     aUsers: TUser;
     aINew: TPInterval;
     tmpRes: TRessource;
+    aIsub: TInterval;
   begin
-    aUsers := TUser.Create(nil,Data);
+    aUsers := TUser.Create(nil);
     Data.SetFilter(aUsers,Data.QuoteField('PARENT')+'='+Data.QuoteValue(bParent));
     aUsers.First;
     while not aUsers.EOF do
@@ -1267,14 +1511,23 @@ var
             aINew.FinishDate:=Now()-(365*10);
             aINew.SetUser(aUsers.FieldByName('ACCOUNTNO').AsString,nil);
             aINew.Visible:=True;
+            aINew.Style:=isNone;
             aIParent.AddInterval(aINew);
             tmpRes := TRessource.Create(nil);
             tmpRes.User:=aINew;
-            TCollectThread.Create(Self,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,aINew);
+            FThreads.Add(TCollectThread.Create(Self,Now(),Fgantt.Calendar.VisibleFinish,tmpRes,aUsers.FieldByName('ACCOUNTNO').AsString,True,True,False,aINew));
+            iHourglass.Visible:=True;
+            FCollectedTo:=Fgantt.Calendar.VisibleFinish;
+            FCollectedFrom:=Now();
+            TCollectThread(FThreads[FThreads.Count-1]).OnTerminate:=@TCollectThreadTerminate;
             aINew.OnDrawBackground:=@aINewDrawBackground;
+            aINew.OnExpand:=@AddUserIntervals;
+            aIsub := TInterval.Create(FGantt);
+            aINew.AddInterval(aISub);
           end;
         aUsers.Next;
       end;
+    aUsers.Free;
   end;
 begin
   if Data.Users.FieldByName('PARENT').AsVariant = Null then exit;
@@ -1282,7 +1535,7 @@ begin
     begin
       if not Assigned(FDataSet) then
         begin
-          FDataSet := TTaskList.Create(nil,Data);
+          FDataSet := TTaskList.Create(nil);
           TTaskList(FDataSet).SelectByDept(Data.Users.FieldByName('PARENT').AsVariant);
           TTaskList(FDataSet).ActualFilter := '('+TTaskList(FDataSet).ActualFilter+') AND ('+Data.ProcessTerm(Data.QuoteField('UNPLANNED')+'='+Data.QuoteValue(''))+')';
           FDataSet.Open;
@@ -1303,7 +1556,8 @@ begin
   while FGantt.IntervalCount>0 do
     FGantt.DeleteInterval(0);
   aIRoot := TInterval.Create(FGantt);
-  aRoot := TUser.Create(nil,Data);
+  aIRoot.Style:=isNone;
+  aRoot := TUser.Create(nil);
   aRoot.Open;
   FGantt.BeginUpdate;
   if aRoot.DataSet.Locate('SQL_ID',aParent,[]) then
@@ -1322,9 +1576,14 @@ begin
   FGantt.StartDate:=Now();
   acUse.Enabled:=False;
   acCancel.Enabled:=False;
+  Application.ProcessMessages;
+  for i := 0 to FThreads.Count-1 do
+    TCollectThread(FThreads[i]).Resume
 end;
 
-procedure TfTaskPlan.CollectResources(aResource: TRessource; asUser: string;aConnection : TComponent = nil;CollectTasks : Boolean = True);
+procedure TfTaskPlan.CollectResources(aResource: TRessource; aFrom,
+  aTo: TDateTime; asUser: string; aConnection: TComponent; CollectTasks,
+  CollectCalendar: Boolean; Processmessages: Boolean);
 var
   aUser: TUser;
   bTasks: TTaskList;
@@ -1334,7 +1593,7 @@ var
   aCalendar: TCalendar;
   gView : TfGanttView;
 begin
-  aUser := TUser.Create(nil,Data,aConnection);
+  aUser := TUser.CreateEx(nil,Data,aConnection);
   aUser.SelectByAccountno(asUser);
   aUser.Open;
   aResource.Resource := aUser.Text.AsString;
@@ -1343,8 +1602,10 @@ begin
     begin
       if CollectTasks then
         begin
-          bTasks := TTaskList.Create(nil,Data,aConnection);
-          bTasks.SelectActiveByUser(asUser);
+          if Processmessages then
+            Application.ProcessMessages;
+          bTasks := TTaskList.CreateEx(nil,Data,aConnection);
+          bTasks.SelectUncompletedByUser(asUser);
           bTasks.Open;
           with bTasks.DataSet do
             begin
@@ -1352,12 +1613,14 @@ begin
                 begin
                   bInterval := nil;
                   if  (not bTasks.FieldByName('DUEDATE').IsNull)
-                  and (not bTasks.FieldByName('PLANTIME').IsNull)
+                  //and (not (bTasks.FieldByName('PLANTIME').IsNull) or (bTasks.FieldByName('STARTDATE').IsNull))
                   and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
                   then
                     begin
                       bInterval := TPInterval.Create(nil);
-                      gView.FillInterval(bInterval,bTasks);
+                      gView.FillInterval(bInterval,bTasks,True,aUser);
+                      if bInterval.FinishDate>aTo then
+                        FreeAndNil(bInterval);
                     end;
                   if Assigned(bInterval) then
                     begin
@@ -1370,29 +1633,37 @@ begin
             end;
           bTasks.Free;
         end;
-      aCalendar := TCalendar.Create(nil,Data,aConnection);
-      aCalendar.SelectPlanedByUserAndTime(asUser,Now()-60,Now()+(3*365));//2 Monate zurück 3 Jahre vorraus
-      aCalendar.Open;
-      with aCalendar.DataSet do
+      if CollectCalendar then
         begin
-          First;
-          while not EOF do
+          if Processmessages then
+            Application.ProcessMessages;
+          aCalendar := TCalendar.CreateEx(nil,Data,aConnection);
+          aCalendar.SelectPlanedByUserAndTime(asUser,aFrom,aTo);
+          aCalendar.Open;
+          with aCalendar.DataSet do
             begin
-              bInterval := TBackInterval.Create(nil);
-              bInterval.StartDate:=aCalendar.FieldByName('STARTDATE').AsDateTime;
-              bInterval.FinishDate:=aCalendar.FieldByName('ENDDATE').AsDateTime;
-              if aCalendar.FieldByName('ALLDAY').AsString = 'Y' then
+              First;
+              while not EOF do
                 begin
-                  bInterval.StartDate := trunc(bInterval.StartDate);
-                  bInterval.FinishDate := trunc(bInterval.FinishDate+1);
+                  bInterval := TBackInterval.Create(nil);
+                  bInterval.StartDate:=aCalendar.FieldByName('STARTDATE').AsDateTime;
+                  bInterval.FinishDate:=aCalendar.FieldByName('ENDDATE').AsDateTime;
+                  if aCalendar.FieldByName('ALLDAY').AsString = 'Y' then
+                    begin
+                      bInterval.StartDate := trunc(bInterval.StartDate);
+                      bInterval.FinishDate := trunc(bInterval.FinishDate+1);
+                      bInterval.Fixed:=True;
+                      bInterval.Project:='CAL';
+                    end;
+                  bInterval.Task:=aCalendar.FieldByName('SUMMARY').AsString;
+                  bInterval.Id:=aCalendar.Id.AsVariant;
+                  aResource.AddInterval(bInterval);
+                  bInterval.Changed:=False;
+                  Next;
                 end;
-              bInterval.Task:=aCalendar.FieldByName('SUMMARY').AsString;
-              aResource.AddInterval(bInterval);
-              bInterval.Changed:=False;
-              Next;
             end;
+          aCalendar.Free;
         end;
-      aCalendar.Free;
       aResource.Sort;
     end;
   aUser.Free;
@@ -1421,6 +1692,11 @@ begin
     begin
       if IsInRect(X,Y,TInterval(List[ay]).DrawRect) then
         aId := TInterval(List[ay]).Id;
+      if not TInterval(List[ay]).IsDrawRectClear then
+        if IsInRect(X,Y,TInterval(List[ay]).DrawRect) and (Index=0) then
+          begin
+            Result := TInterval(List[ay]);
+          end;
       if Assigned(TInterval(List[ay]).Pointer) then
         begin
           for i := 0 to TRessource(TInterval(List[ay]).Pointer).IntervalCount-1 do
@@ -1442,7 +1718,7 @@ begin
 end;
 
 function TfTaskPlan.GetTaskIntervalFromCoordinates(Gantt: TgsGantt; X, Y,
-  Index: Integer): TInterval;
+  Index: Integer;IgnoreX : Boolean = False): TInterval;
 var
   List: TList;
   aId : Variant;
@@ -1463,7 +1739,7 @@ begin
   ay := ay+(Gantt.Tree.TopRow-1);
   if (ay<List.Count) and (ay>-1) then
     begin
-      if IsInRect(X,Y,TInterval(List[ay]).DrawRect) then
+      if IgnoreX or IsInRect(X,Y,TInterval(List[ay]).DrawRect) then
         Result := TInterval(List[ay]);
     end;
   List.Free;

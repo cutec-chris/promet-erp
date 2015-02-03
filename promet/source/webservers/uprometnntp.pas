@@ -22,7 +22,7 @@ unit uprometnntp;
 interface
 uses
   Classes, SysUtils, uLNNTP, uMessages, MimeMess, uMimeMessages, db,
-  LConvEncoding;
+  Utils;
 type
   TPNNTPGroup = class(TNNTPGroup)
   private
@@ -55,7 +55,7 @@ function TPNNTPGroup.GenerateMessage: TMimeMess;
 var
 aMessage: TMimeMessage;
 begin
-  aMessage := TMimeMessage.Create(Self,Data);
+  aMessage := TMimeMessage.CreateEx(Self,Data);
   aMessage.Select(FMessages.Id.AsVariant);
   aMessage.Open;
   Result := aMessage.EncodeMessage;
@@ -164,7 +164,7 @@ var
     bParent : Variant;
   begin
     Result := '';
-    FMsg := TMessageList.Create(Self,Data);
+    FMsg := TMessageList.CreateEx(Self,Data);
     FMsg.SelectByMsgID(aParent);
     FMsg.Open;
     if FMsg.Count > 0 then
@@ -182,7 +182,7 @@ begin
   Result := '';
   if not FMessages.DataSet.EOF then
     begin
-      Result:=FMessages.FieldByName('GRP_ID').AsString+#9+ConvertEncoding(FMessages.Text.AsString,GuessEncoding(FMessages.Text.AsString),EncodingUTF8)+#9+FMessages.DataSet.FieldbyName('SENDER').AsString+#9+Rfc822DateTime(FMessages.DataSet.FieldbyName('SENDDATE').AsDateTime)+#9+'<'+FMessages.DataSet.FieldbyName('ID').AsString+'>'+#9;
+      Result:=FMessages.FieldByName('GRP_ID').AsString+#9+SysToUni(FMessages.Text.AsString)+#9+FMessages.DataSet.FieldbyName('SENDER').AsString+#9+Rfc822DateTime(FMessages.DataSet.FieldbyName('SENDDATE').AsDateTime)+#9+'<'+FMessages.DataSet.FieldbyName('ID').AsString+'>'+#9;
       if not FMessages.DataSet.FieldByName('PARENT').IsNull then
         begin
           Result := Result+FindParentRecursive(FMessages.DataSet.FieldByName('PARENT').AsInteger)+#9;
@@ -220,7 +220,7 @@ begin
         aID := aID+aChr;
     end;
   aMsg.Header.MessageID := aID;
-  aMessage := TMimeMessage.Create(Self,Data);
+  aMessage := TMimeMessage.CreateEx(Self,Data);
   aMessage.Select(0);
   aMessage.Open;
   aMessage.DataSet.Insert;
@@ -248,7 +248,7 @@ begin
 end;
 constructor TPNNTPGroup.Create(aName: string;cFirstID : LargeInt);
 begin
-  FMessages := TMessageList.Create(Self,Data);
+  FMessages := TMessageList.CreateEx(Self,Data);
   if Data.Tree.DataSet.Locate('NAME',aName,[loCaseInsensitive]) then
     FTreeEntry := Data.Tree.Id.AsString
   else if Data.Tree.DataSet.Locate('NAME',StringReplace(aName,'_',' ',[rfReplaceAll]),[loCaseInsensitive]) then
@@ -267,4 +267,4 @@ begin
   inherited Destroy;
 end;
 end.
-
+

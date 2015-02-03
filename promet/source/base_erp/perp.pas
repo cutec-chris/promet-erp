@@ -7,7 +7,8 @@ unit perp;
 interface
 
 uses
-  uDetailPositionFrame, uPositionFrame, LazarusPackageIntf;
+  utextpositionframe, uPositionFrame, ufinance, ucalcframe, 
+  uDetailPositionFrame, ubookfibuaccount, LazarusPackageIntf;
 
 implementation
 

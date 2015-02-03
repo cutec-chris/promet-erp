@@ -1,7 +1,4 @@
 inherited PrometInplaceFrame: TPrometInplaceFrame
-  Left = 814
   Height = 238
-  Top = 422
   Width = 322
-  LCLVersion = '0.9.31'
-end
+end

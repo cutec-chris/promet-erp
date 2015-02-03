@@ -36,8 +36,10 @@ type
     cbSIPos: TDBCheckBox;
     cbSIProd: TDBCheckBox;
     cbTextTyp: TComboBox;
+    CheckBox1: TDBCheckBox;
     DBNavigator1: TDBNavigator;
     DividerBevel1: TDividerBevel;
+    DividerBevel2: TDividerBevel;
     eDefaultPosTyp: TDBEdit;
     eDerivates: TDBEdit;
     eNumberset: TDBEdit;
@@ -104,15 +106,16 @@ var
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aStates := TOrderTyp.Create(Self,Data,aConnection);
+  aStates := TOrderTyp.CreateEx(Self,Data,aConnection);
   OrderTypeDS.DataSet := aStates.DataSet;
-  Data.TextTyp.CreateTable;
-  Data.Texttyp.Open;
-  Data.TextTyp.DataSet.First;
-  while not Data.TextTyp.DataSet.EOF do
+  if not Assigned(TextTyp) then TextTyp := TTextTypes.Create(Data);
+  TextTyp.CreateTable;
+  Texttyp.Open;
+  TextTyp.DataSet.First;
+  while not TextTyp.DataSet.EOF do
     begin
-      cbTextTyp.Items.Add(Data.TextTyp.FieldByName('NAME').AsString);
-      Data.TextTyp.DataSet.Next;
+      cbTextTyp.Items.Add(TextTyp.FieldByName('NAME').AsString);
+      TextTyp.DataSet.Next;
     end;
   with fVisualControls.StatusImages do
     begin

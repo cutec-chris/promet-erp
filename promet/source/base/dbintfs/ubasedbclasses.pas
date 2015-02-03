@@ -22,8 +22,13 @@ unit uBaseDbClasses;
 interface
 uses
   Classes, SysUtils, db, uBaseDbDataSet, Variants, uIntfStrConsts, DOM,
-  Contnrs,LCLProc,Graphics;
+  Contnrs
+  {$IFDEF LCL}
+  ,Graphics
+  {$ENDIF}
+  ;
 type
+  TSortDirection = (sdAscending, sdDescending, sdIgnored);
 
   { TBaseDBDataset }
 
@@ -35,7 +40,7 @@ type
     FDataModule : TComponent;
     FOnChanged: TNotifyEvent;
     FOnRemoved: TNotifyEvent;
-    FParent: TBaseDbDataSet;
+    FParent: TBaseDBDataset;
     FUpdateFloatFields: Boolean;
     FSecModified: Boolean;
     FDoChange:Integer;
@@ -50,6 +55,8 @@ type
     function GetFullCount: Integer;
     function GetID: TField;
     function GetLimit: Integer;
+    function GetSortDirection: TSortDirection;
+    function GetSortFields: string;
     function GetState: TDataSetState;
     function GetTableName: string;
     function GetTimestamp: TField;
@@ -57,9 +64,12 @@ type
     procedure SetFilter(AValue: string);
     procedure SetFRows(AValue: Integer);
     procedure SetLimit(AValue: Integer);
+    procedure SetSortDirection(AValue: TSortDirection);
+    procedure SetSortFields(AValue: string);
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aUseIntegrity : Boolean;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
+    constructor CreateExIntegrity(aOwner : TComponent;DM : TComponent;aUseIntegrity : Boolean;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
+    constructor Create(aOwner : TComponent);override;
     destructor Destroy;override;
     property DataSet : TDataSet read FDataSet write FDataSet;
     property DataModule : TComponent read FDataModule;
@@ -71,6 +81,7 @@ type
     procedure DefineUserFields(aDataSet: TDataSet);
     procedure FillDefaults(aDataSet : TDataSet);virtual;
     procedure Select(aID : Variant);virtual;
+    procedure SelectChangedSince(aDate : TDateTime);virtual;
     procedure SetDisplayLabelName(aDataSet: TDataSet;aField, aName: string);
     procedure SetDisplayLabels(aDataSet : TDataSet);virtual;
     property Id : TField read GetID;
@@ -79,6 +90,7 @@ type
     property FullCount : Integer read GetFullCount;
     function GetBookmark: LargeInt;
     function GotoBookmark(aRec : Variant) : Boolean;
+    function GetLink : string;
     procedure FreeBookmark(aRec : Variant);
     procedure DuplicateRecord(DoPost : Boolean = False);
     property Connection : TComponent read GetConnection;
@@ -103,22 +115,29 @@ type
     procedure Edit;virtual;
     procedure Cancel;virtual;
     function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean; virtual;
-    function EOF : Boolean;
-    function FieldByName(aFieldName : string) : TField;
+    function EOF : Boolean;virtual;
+    function FieldByName(const aFieldName : string) : TField;virtual;
     procedure Assign(Source: TPersistent); override;
     procedure DirectAssign(Source : TPersistent);
-    procedure Filter(aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');virtual;
+    procedure Filter(aFilter : string;aLimit : Integer = 0);virtual;
+    procedure FilterEx(aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');virtual;
     property ActualFilter : string read GetFilter write SetFilter;
     property ActualLimit : Integer read GetLimit write SetLimit;
+    property SortFields : string read GetSortFields write SetSortFields;
+    property SortDirection : TSortDirection read GetSortDirection write SetSortDirection;
     property FetchRows : Integer read GetFRows write SetFRows;
-    property Parent : TBaseDbDataSet read FParent;
+    property Parent : TBaseDBDataSet read FParent;
     property UpdateFloatFields : Boolean read FUpdateFloatFields write FUpdateFloatFields;
     property CanEdit : Boolean read GetCanEdit;
     property Active : Boolean read GetActive write SetActive;
     property OnChange : TNotifyEvent read FOnChanged write FOnChanged;
     property OnRemove : TNotifyEvent read FOnRemoved write FOnRemoved;
   end;
+
   TReplaceFieldFunc = procedure(aField : TField;aOldValue : string;var aNewValue : string);
+
+  { TBaseDbList }
+
   TBaseDbList = class(TBaseDBDataSet)
   private
     function GetBookNumber: TField;
@@ -132,7 +151,7 @@ type
   protected
     FStatusCache: TStringList;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
     function GetStatusIcon : Integer;virtual;
     function GetTyp: string;virtual;
@@ -144,11 +163,13 @@ type
     function GetTextFieldName: string;virtual;abstract;
     function GetNumberFieldName : string;virtual;abstract;
     function GetBookNumberFieldName : string;virtual;
+    procedure Delete; override;
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;virtual;
     function  ExportToXML : string;virtual;
     procedure ImportFromXML(XML : string;OverrideFields : Boolean = False;ReplaceFieldFunc : TReplaceFieldFunc = nil);virtual;
-//    function  TableToXML(Doc : TXMLDocument;iDataSet : TDataSet) : TDOMElement;
-//    function  XMLToTable(iDataSet : TDataSet;Node : TDOMElement) : Boolean;
+    procedure OpenItem(AccHistory: Boolean=True);virtual;
+    procedure CascadicPost; override;
+    procedure GenerateThumbnail;virtual;
     property Text : TField read GetText;
     property Number : TField read GetNumber;
     property BookNumber : TField read GetBookNumber;
@@ -159,6 +180,7 @@ type
     property Typ : string read GetTyp;
     property Matchcode : TField read GetMatchcode;
     function SelectFromLink(aLink : string) : Boolean;virtual;
+    function SelectFromNumber(aNumber : string) : Boolean;virtual;
   end;
   TBaseDBDatasetClass = class of TBaseDBDataset;
   TBaseDBListClass = class of TBaseDBList;
@@ -169,23 +191,28 @@ type
   private
     FHChanged: Boolean;
     FShouldChange : Boolean;
+  protected
+    procedure OpenItem(AccHistory: Boolean=True); override;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure SetDisplayLabels(aDataSet: TDataSet); override;
     property ChangedDuringSession : Boolean read FHChanged write FHChanged;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Change; override;
-    function AddItem(aObject: TDataSet; aAction: string; aLink: string='';
-      aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;
-  aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True;
-  DoChange: Boolean=False) : Boolean; virtual;
-    procedure AddParentedItem(aObject: TDataSet; aAction: string;aParent : Variant; aLink: string='';
-      aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;
-  aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True;
-  DoChange: Boolean=False); virtual;
+
     procedure SelectByParent(aParent: Variant);
     procedure SelectByRoot(aParent: Variant);
+
+    function AddItem(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    function AddItemSR(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: string=''; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    function AddItemPlain(aObject: string; aAction: string; aLink: string=''; aReference: string=''; aRefObject: string=''; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    procedure AddParentedItem(aObject: TDataSet; aAction: string;aParent : Variant; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0; aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False); virtual;
+    procedure AddParentedItemPlain(aObject: string; aAction: string;aParent: Variant; aLink: string; aReference: string; aRefObject: string;aIcon: Integer; aComission: string; CheckDouble: Boolean; DoPost: Boolean;DoChange: Boolean); virtual;
     procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
+
+    procedure AddMessageItem(aObject: TDataSet; aMessage, aSubject, aSource, aLink: string; aParent: LargeInt = 0);
+    procedure AddAnsweredMessageItem(aObject: TDataSet; aMessage, aSubject, aSource, aLink: string; aParent: LargeInt = 0);
+
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
   end;
@@ -193,18 +220,62 @@ type
     function GetHistory: TBaseHistory;
     property History : TBaseHistory read GetHistory;
   end;
+  IBaseStructure = interface['{5CC59C2C-3A70-48F1-82BB-68A358017938}']
+    function GetParentField : string;
+    function GetStructureElements(aIndex : Integer) : TBaseDbDataSet;
+  end;
+  TAccessHistory = class(TBaseHistory)
+  public
+    procedure DefineFields(aDataSet : TDataSet);override;
+  end;
+  TImages = class;
+  TLinks = class;
+
+  { TObjects }
+
+  TObjects = class(TBaseDbList)
+  private
+    FHistory: TBaseHistory;
+    FImages: TImages;
+    FLinks: TLinks;
+  protected
+    function GetNumberFieldName: string; override;
+    function GetMatchcodeFieldName: string; override;
+    function GetTextFieldName: string; override;
+    function GetStatusFieldName: string; override;
+  public
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
+      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    destructor Destroy; override;
+    function CreateTable: Boolean; override;
+    procedure DefineFields(aDataSet : TDataSet);override;
+    procedure FillDefaults(aDataSet: TDataSet); override;
+    function SelectByLink(aLink: string): Boolean;
+    procedure SelectByRefId(aId : Variant);
+    property History : TBaseHistory read FHistory;
+    property Images : TImages read FImages;
+    property Links : TLinks read FLinks;
+  end;
+
+  { TVariables }
+
+  TVariables = class(TBaseDBDataset)
+  protected
+  public
+    procedure DefineFields(aDataSet : TDataSet);override;
+    procedure Add(aName,aId : string;aValue : Double);
+  end;
   TOptions = class;
   TFollowers = class;
   TRights = class;
-
-  { TUser }
-
+  TPayGroups = class;
   TUser = class(TBaseDbList,IBaseHistory)
   private
     FFollows: TFollowers;
     FOptions: TOptions;
     FRights: TRights;
     FHistory: TBaseHistory;
+    FPayGroups: TPayGroups;
     function GetAcc: TField;
     function GetIDCode: TField;
     function GetLeaved: TField;
@@ -217,7 +288,7 @@ type
     function MergeSalt(apasswort,aSalt : string) : string;
     function GetHistory: TBaseHistory;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);overload;override;
     destructor Destroy;override;
     procedure Open; override;
     function GetTyp: string; override;
@@ -244,9 +315,6 @@ type
     property WorkTime : Extended read GetWorktime;
     property IDCode : TField read GetIDCode;
   end;
-
-  { TActiveUsers }
-
   TActiveUsers = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -262,9 +330,6 @@ type
     function GetNewNumber(Numberset : string) : string;
     function HasNumberSet(Numberset : string) : Boolean;
   end;
-
-  { TPayGroups }
-
   TPayGroups = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -273,15 +338,12 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
-
-  { TRights }
-
   TRights = class(TBaseDBDataSet)
   private
     FCachedRights : TStringList;
     UserTable: TUser;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure Open; override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -293,16 +355,16 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
-
-  { TTree }
-
   TTree = class(TBaseDBDataSet)
+  private
+    function GetText: TField;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure Open;override;
     procedure ImportStandartEntrys;
     procedure DefineFields(aDataSet : TDataSet);override;
+    property Text : TField read GetText;
   end;
   TForms = class(TBaseDBDataSet)
   public
@@ -319,10 +381,9 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Open; override;
+    function GetOption(aSection, aIdent, DefaultValue: string): string;
+    procedure SetOption(aSection,aIdent, Value : string);
   end;
-
-  { TFollowers }
-
   TFollowers = class(TBaseDBDataSet)
   private
     function GetLink: TField;
@@ -337,8 +398,10 @@ type
     procedure FillDefaults(aDataSet : TDataSet);override;
   end;
   TLinks = class(TBaseDBDataSet)
+  private
+    FOrigFilter : string;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure Open;override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure Add(aLink : string);
@@ -354,7 +417,7 @@ type
   private
     FEntrys: TListEntrys;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure DefineFields(aDataSet : TDataSet);override;
     function CreateTable : Boolean;override;
@@ -362,13 +425,13 @@ type
     function GetNumberFieldName : string;override;
     property Entrys : TListEntrys read FEntrys;
   end;
-
-  { TImages }
-
   TImages = class(TBaseDBDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
+    {$IFDEF LCL}
     function AddFromFile(aFile : string) : Boolean;
+    {$ENDIF}
+    procedure GenerateThumbnail(aThumbnail : TBaseDbDataSet);
   end;
   TDeletedItems = class(TBaseDBDataSet)
   public
@@ -377,7 +440,7 @@ type
 var ImportAble : TClassList;
 implementation
 uses uBaseDBInterface, uBaseApplication, uBaseSearch,XMLRead,XMLWrite,Utils,
-  md5,sha1,uData;
+  md5,sha1,uData,uthumbnails;
 resourcestring
   strNumbersetDontExists        = 'Nummernkreis "%s" existiert nicht !';
   strDeletedmessages            = 'gelöschte Narichten';
@@ -476,6 +539,148 @@ resourcestring
   strNotes                      = 'Notizen';
   strOwner                      = 'Eigentümer';
   strAvalible                   = 'Verfügbar';
+  strNeedsAction                = 'benötigt Hilfe';
+
+{ TVariables }
+
+procedure TVariables.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'VARIABLES';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('NAME',ftString,100,True);
+            Add('ID',ftString,100,False);
+            Add('VALUE',ftFloat,0,True);
+          end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          begin
+            Add('NAME','NAME',[]);
+            Add('TIMESTAMPD','TIMESTAMPD',[]);
+          end;
+    end;
+end;
+
+procedure TVariables.Add(aName, aId: string; aValue: Double);
+begin
+  Insert;
+  FieldByName('NAME').AsString:=aName;
+  FieldByName('ID').AsString:=aId;
+  FieldByName('VALUE').AsFloat := aValue;
+  Post;
+end;
+
+function TObjects.GetNumberFieldName: string;
+begin
+  Result := 'NUMBER';
+end;
+function TObjects.GetMatchcodeFieldName: string;
+begin
+  Result := 'MATCHCODE';
+end;
+function TObjects.GetTextFieldName: string;
+begin
+  Result := 'NAME';
+end;
+
+function TObjects.GetStatusFieldName: string;
+begin
+  Result:='STATUS';
+end;
+
+constructor TObjects.CreateEx(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
+  FLinks := TLinks.CreateEx(Self,DM,aConnection);
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with DataSet as IBaseDBFilter do
+        begin
+          UsePermissions:=True;
+        end;
+    end;
+end;
+
+destructor TObjects.Destroy;
+begin
+  FImages.Destroy;
+  FLinks.Destroy;
+  FHistory.Destroy;
+  inherited Destroy;
+end;
+
+function TObjects.CreateTable: Boolean;
+begin
+  Result:=inherited CreateTable;
+  Result := Result and FHistory.CreateTable;
+end;
+
+procedure TObjects.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'ALLOBJECTS';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('NUMBER',ftString,60,True);
+            Add('NAME',ftString,200,False);
+            Add('MATCHCODE',ftString,200,False);
+            Add('VERSION',ftString,20,False);
+            Add('LINK',ftString,400,False);
+            Add('STATUS',ftString,4,False);
+            Add('ICON',ftInteger,0,False);
+            Add('NOTICE',ftMemo,0,False);
+            Add('TREEENTRY',ftLargeint,0,False);
+            Add('CHANGEDBY',ftString,4,False);
+          end;
+    end;
+end;
+
+procedure TObjects.FillDefaults(aDataSet: TDataSet);
+begin
+  inherited FillDefaults(aDataSet);
+  FieldByName('ICON').AsInteger:=Data.GetLinkIcon('ALLOBJECTS@');
+end;
+
+function TObjects.SelectByLink(aLink: string): Boolean;
+begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        Filter := Data.QuoteField('LINK')+'='+Data.QuoteValue(aLink);
+      end;
+end;
+
+procedure TObjects.SelectByRefId(aId: Variant);
+begin
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with Self.DataSet as IBaseDBFilter do
+        begin
+          if aId <> Null then
+            Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+TBaseDBModule(DataModule).QuoteValue(Format('%d',[Int64(aID)]))
+          else
+            Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue('0');
+          Limit := 0;
+        end;
+    end;
+end;
+
+procedure TAccessHistory.DefineFields(aDataSet: TDataSet);
+begin
+  inherited DefineFields(aDataSet);
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'ACCHISTORY';
+    end;
+end;
 
 function TFollowers.GetLink: TField;
 begin
@@ -490,7 +695,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('LINK',ftString,200,True);
+            Add('LINK',ftString,400,True);
           end;
     end;
 end;
@@ -525,17 +730,24 @@ begin
           begin
             Add('ACTIVE',ftString,1,False);
             Add('NAME',ftString,60,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('ICON',ftInteger,0,False);
           end;
     end;
 end;
-constructor TLists.Create(aOwner: TComponent; DM: TComponent;
+constructor TLists.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FEntrys := TListEntrys.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FEntrys := TListEntrys.CreateEx(Owner,DM,aConnection,DataSet);
   FEntrys.List := Self;
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with DataSet as IBaseDBFilter do
+        begin
+          UsePermissions:=True;
+        end;
+    end;
 end;
 
 destructor TLists.Destroy;
@@ -579,13 +791,12 @@ begin
         with ManagedFieldDefs do
           begin
             Add('REF_ID_ID',ftLargeInt,0,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
           begin
             Add('REF_ID_ID','REF_ID_ID',[]);
-            Add('LINK','LINK',[]);
           end;
     end;
 end;
@@ -604,6 +815,37 @@ begin
     end;
 end;
 
+procedure TImages.GenerateThumbnail(aThumbnail: TBaseDBDataset);
+var
+  s: TStream;
+  GraphExt: String;
+  aStream: TMemoryStream;
+begin
+  if not Self.Active then Self.Open;
+  if Self.Count>0 then
+    begin
+      aThumbnail.Insert;
+      aThumbnail.FieldByName('REF_ID_ID').AsVariant:=Self.FieldByName('REF_ID').AsVariant;
+      s := DataSet.CreateBlobStream(FieldByName('IMAGE'),bmRead);
+      if (S=Nil) or (s.Size = 0) then
+      else
+        begin
+          GraphExt :=  s.ReadAnsiString;
+          aStream := TMemoryStream.Create;
+          if uthumbnails.GenerateThumbNail('.'+GraphExt,s,aStream,'') then
+            begin
+              if aStream.Size>0 then
+                Data.StreamToBlobField(aStream,aThumbnail.DataSet,'THUMBNAIL');
+              aThumbnail.Post;
+            end;
+          aStream.Free;
+        end;
+      if aThumbnail.State=dsInsert then
+        aThumbnail.Cancel;
+    end;
+end;
+
+{$IFDEF LCL}
 function TImages.AddFromFile(aFile: string): Boolean;
 var
   aPicture: TPicture;
@@ -629,11 +871,11 @@ begin
   end;
   Post;
 end;
-
-constructor TLinks.Create(aOwner: TComponent; DM: TComponent;
+{$endif}
+constructor TLinks.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
 end;
 
 procedure TLinks.Open;
@@ -644,20 +886,10 @@ begin
         begin
         if Assigned(FParent) then
           begin
-            if Filter <> '' then
-              begin
-                if not FParent.Id.IsNull then
-                  Filter := Filter+' AND '+Data.QuoteField('RREF_ID')+'='+Data.QuoteValue(FParent.Id.AsString)
-                else
-                  Filter := Filter+' AND '+Data.QuoteField('RREF_ID')+'= 0';
-              end
+            if not FParent.Id.IsNull then
+              BaseFilter := Data.QuoteField('RREF_ID')+'='+Data.QuoteValue(FParent.Id.AsString)
             else
-              begin
-              if not FParent.Id.IsNull then
-                Filter := Data.QuoteField('RREF_ID')+'='+Data.QuoteValue(FParent.Id.AsString)
-              else
-                Filter := Data.QuoteField('RREF_ID')+'= 0';
-              end;
+              BaseFilter := Data.QuoteField('RREF_ID')+'= 0';
           end;
         end;
     end;
@@ -674,10 +906,10 @@ begin
         with ManagedFieldDefs do
           begin
             Add('RREF_ID',ftLargeInt,0,true);
-            Add('LINK',ftString,200,true);
+            Add('LINK',ftString,400,true);
             Add('LINK_REF_ID',ftLargeInt,0,false);
             Add('ICON',ftInteger,0,False);
-            Add('NAME',ftString,80,True);
+            Add('NAME',ftString,400,True);
             Add('REFERENCE',ftString,30,False);
             Add('CHANGEDBY',ftString,4,False);
             Add('CREATEDBY',ftString,4,False);
@@ -755,6 +987,9 @@ function TBaseDbList.GetDescription: TField;
 var
   aField: String;
 begin
+  Result := nil;
+  if not Assigned(Self) then exit;
+  if not Active then exit;
   aField := GetDescriptionFieldName;
   if aField <> '' then
     Result := DataSet.FieldByName(aField);
@@ -764,6 +999,8 @@ var
   aField: String;
 begin
   Result := nil;
+  if not Assigned(Self) then exit;
+  if not Active then exit;
   aField := GetStatusFieldName;
   if aField <> '' then
     Result := DataSet.FieldByName(aField);
@@ -772,8 +1009,9 @@ function TBaseDbList.GetText: TField;
 var
   aField: String;
 begin
-  if not Assigned(Self) then exit;
   Result := nil;
+  if not Assigned(Self) then exit;
+  if not Active then exit;
   aField := GetTextFieldName;
   if aField <> '' then
     Result := DataSet.FieldByName(aField);
@@ -787,10 +1025,10 @@ begin
   if aField <> '' then
     Result := DataSet.FieldByName(aField);
 end;
-constructor TBaseDbList.Create(aOwner: TComponent; DM: TComponent;
+constructor TBaseDbList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with FDataSet as IBaseDBFilter do
@@ -860,6 +1098,31 @@ function TBaseDbList.GetBookNumberFieldName: string;
 begin
   Result := '';
 end;
+
+procedure TBaseDbList.Delete;
+var
+  aObj: TObjects;
+begin
+  inherited Delete;
+  try
+    aObj := TObjects.Create(nil);
+    if not Data.TableExists(aObj.TableName) then
+      begin
+        aObj.CreateTable;
+        aObj.Free;
+        aObj := TObjects.CreateEx(nil,Data,nil,DataSet);
+      end;
+    aObj.SelectByRefId(Id.AsVariant);
+    aObj.Open;
+    while aObj.Count>0 do
+      begin
+        aObj.DataSet.Delete;
+      end;
+    aObj.Free;
+  except
+  end;
+end;
+
 procedure TBaseDBDataset.Select(aID: Variant);
 var
   aField: String = '';
@@ -876,13 +1139,27 @@ begin
         or (aID = Null)  then
           begin
             with DataSet as IBaseManageDb do
-              Filter := Data.QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue('0');
+              Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+TBaseDBModule(DataModule).QuoteField(aField)+'='+TBaseDBModule(DataModule).QuoteValue('0');
           end
         else
           begin
             with DataSet as IBaseManageDb do
-              Filter := Data.QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue(Format('%d',[Int64(aID)]));
+              Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+TBaseDBModule(DataModule).QuoteField(aField)+'='+TBaseDBModule(DataModule).QuoteValue(Format('%d',[Int64(aID)]));
           end;
+      end;
+end;
+
+procedure TBaseDBDataset.SelectChangedSince(aDate: TDateTime);
+var
+  aFilter: String;
+begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        aFilter := '('+TBaseDBModule(DataModule).QuoteField('TIMESTAMPD')+'>';
+        aFilter := aFilter+TBaseDBModule(DataModule).DateTimeToFilter(aDate);
+        aFilter := aFilter+')';
+        Filter := aFilter;
       end;
 end;
 
@@ -906,45 +1183,51 @@ var
     tmp: String;
     tmp1: String;
   begin
-    with aDataSet as IBaseManageDB do
+    if Assigned(aDataSet) then
       begin
-        if pos('HISTORY',uppercase(TableName)) > 0 then exit;
-        if Uppercase(TableName) = 'STORAGE' then exit;
-      end;
-    aData := Doc.CreateElement('TABLE');
-    aNode.AppendChild(aData);
-    with aDataSet as IBaseManageDB do
-      aData.SetAttribute('NAME',TableName);
-    DataNode := Doc.CreateElement('DATA');
-    aData.AppendChild(DataNode);
-    aDataSet.Open;
-    aDataSet.Refresh;
-    aDataSet.First;
-    a := 0;
-    while not aDataSet.EOF do
-      begin
-        inc(a);
-        Row := Doc.CreateElement('ROW.'+IntToStr(a));
-        DataNode.AppendChild(Row);
-        for i := 1 to aDataSet.Fields.Count-1 do
-          begin
-            tmp := aDataSet.Fields[i].FieldName;
-            if (tmp <> '')
-            and (tmp <> 'SQL_ID')
-            and (tmp <> 'REF_ID')
-            then
-              begin
-                tmp1 := aDataSet.Fields[i].AsString;
-                if (not aDataSet.Fields[i].IsNull) then
-                  Row.SetAttribute(tmp,tmp1);
-              end;
-          end;
-        with aDataSet as IBaseSubDataSets do
-          begin
-            for i := 0 to GetCount-1 do
-              RecourseTables(Row,SubDataSet[i].DataSet);
-          end;
-        aDataSet.Next;
+        try
+          with aDataSet as IBaseManageDB do
+            begin
+              if pos('HISTORY',uppercase(TableName)) > 0 then exit;
+              if Uppercase(TableName) = 'STORAGE' then exit;
+            end;
+          aData := Doc.CreateElement('TABLE');
+          aNode.AppendChild(aData);
+          with aDataSet as IBaseManageDB do
+            aData.SetAttribute('NAME',TableName);
+          DataNode := Doc.CreateElement('DATA');
+          aData.AppendChild(DataNode);
+          aDataSet.Open;
+          aDataSet.Refresh;
+          aDataSet.First;
+          a := 0;
+          while not aDataSet.EOF do
+            begin
+              inc(a);
+              Row := Doc.CreateElement('ROW.'+IntToStr(a));
+              DataNode.AppendChild(Row);
+              for i := 1 to aDataSet.Fields.Count-1 do
+                begin
+                  tmp := aDataSet.Fields[i].FieldName;
+                  if (tmp <> '')
+                  and (tmp <> 'SQL_ID')
+                  and (tmp <> 'REF_ID')
+                  then
+                    begin
+                      tmp1 := aDataSet.Fields[i].AsString;
+                      if (not aDataSet.Fields[i].IsNull) then
+                        Row.SetAttribute(tmp,tmp1);
+                    end;
+                end;
+              with aDataSet as IBaseSubDataSets do
+                begin
+                  for i := 0 to GetCount-1 do
+                    RecourseTables(Row,SubDataSet[i].DataSet);
+                end;
+              aDataSet.Next;
+            end;
+        except
+        end;
       end;
   end;
 begin
@@ -1061,6 +1344,91 @@ begin
   Stream.Free;
   Doc.Free;
 end;
+
+procedure TBaseDbList.OpenItem(AccHistory : Boolean = True);
+var
+  aHistory: TAccessHistory;
+  aObj: TObjects;
+begin
+  if Self.Count=0 then exit;
+  try
+    try
+      aHistory := TAccessHistory.Create(nil);
+      aObj := TObjects.Create(nil);
+      if AccHistory then
+        begin
+          if DataSet.State<>dsInsert then
+            begin
+              if not Data.TableExists(aHistory.TableName) then
+                aHistory.CreateTable;
+              aHistory.Free;
+              aHistory := TAccessHistory.CreateEx(nil,Data,nil,DataSet);
+              aHistory.AddItem(DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet))]),Data.BuildLink(DataSet));
+            end;
+        end;
+      if DataSet.State<>dsInsert then
+        begin
+          if not Data.TableExists(aObj.TableName) then
+            begin
+              aObj.CreateTable;
+              aObj.Free;
+              aObj := TObjects.CreateEx(nil,Data,nil,DataSet);
+            end;
+          aObj.SelectByRefId(Id.AsVariant);
+          aObj.Open;
+          if aObj.Count=0 then
+            begin
+              aObj.Insert;
+              aObj.Text.AsString := Self.Text.AsString;
+              aObj.FieldByName('SQL_ID').AsVariant:=Self.Id.AsVariant;
+              if Assigned(Self.Matchcode) then
+                aObj.Matchcode.AsString := Self.Matchcode.AsString;
+              if Assigned(Self.Status) then
+                aObj.Status.AsString := Self.Status.AsString;
+              aObj.Number.AsVariant:=Self.Number.AsVariant;
+              aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
+              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet));
+              aObj.Post;
+              Self.GenerateThumbnail;
+            end
+          else //Modify existing
+            begin
+              if aObj.Text.AsString<>Self.Text.AsString then
+                begin
+                  aObj.Edit;
+                  aObj.Text.AsString := Self.Text.AsString;
+                end;
+              if aObj.Number.AsString<>Self.Number.AsString then
+                begin
+                  aObj.Edit;
+                  aObj.Number.AsString := Self.Number.AsString;
+                end;
+              if Assigned(Self.Status) and (aObj.Status.AsString<>Self.Status.AsString) then
+                begin
+                  aObj.Edit;
+                  aObj.Status.AsString := Self.Status.AsString;
+                end;
+              if aObj.CanEdit then
+                aObj.Post;
+            end;
+        end;
+    finally
+      aObj.Free;
+      aHistory.Free;
+    end;
+  except
+  end;
+end;
+
+procedure TBaseDbList.CascadicPost;
+begin
+  OpenItem(False);//modify object properties
+  inherited CascadicPost;
+end;
+
+procedure TBaseDbList.GenerateThumbnail;
+begin
+end;
 function TBaseDbList.SelectFromLink(aLink: string): Boolean;
 begin
   Result := False;
@@ -1089,6 +1457,16 @@ begin
         end;
     end;
 end;
+
+function TBaseDbList.SelectFromNumber(aNumber: string): Boolean;
+begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        Filter := Data.QuoteField(GetNumberFieldName)+'='+Data.QuoteValue(aNumber);
+      end;
+end;
+
 procedure TBaseDBDataset.Delete;
 begin
   Change;
@@ -1136,7 +1514,8 @@ end;
 
 procedure TBaseDBDataset.Post;
 begin
-  FDataSet.Post;
+  if CanEdit then
+    FDataSet.Post;
 end;
 
 procedure TBaseDBDataset.Edit;
@@ -1166,7 +1545,7 @@ begin
     Result := FDataSet.EOF;
 end;
 
-function TBaseDBDataset.FieldByName(aFieldName : string): TField;
+function TBaseDBDataset.FieldByName(const aFieldName: string): TField;
 begin
   Result := nil;
   if Assigned(DataSet) and DataSet.Active then
@@ -1184,21 +1563,20 @@ procedure TBaseDBDataset.DirectAssign(Source: TPersistent);
 var
   i: Integer;
 begin
-  if (not DataSet.Active) or (DataSet.RecordCount = 0) then exit;
+  if (not DataSet.Active) or ((DataSet.RecordCount = 0) and (DataSet.State<>dsInsert)) then exit;
   if not (Source is TBaseDBDataSet) then exit;
-  if (not TBaseDbDataSet(Source).DataSet.Active) or (TBaseDbDataSet(Source).DataSet.RecordCount = 0) then exit;
-  for i := 0 to TBaseDbDataSet(Source).DataSet.Fields.Count-1 do
-    if DataSet.FieldDefs.IndexOf(TBaseDbDataSet(Source).DataSet.Fields[i].FieldName) <> -1 then
-      if  (TBaseDbDataSet(Source).DataSet.Fields[i].FieldName <> 'SQL_ID')
-      and (TBaseDbDataSet(Source).DataSet.Fields[i].FieldName <> 'AUTO_ID')
-      and (TBaseDbDataSet(Source).DataSet.Fields[i].FieldName <> 'TIMESTAMP') then
-        DataSet.FieldByName(TBaseDbDataSet(Source).DataSet.Fields[i].FieldName).AsVariant:=TBaseDbDataSet(Source).DataSet.Fields[i].AsVariant;
+  if (not TBaseDBDataSet(Source).DataSet.Active) or (TBaseDBDataSet(Source).DataSet.RecordCount = 0) then exit;
+  for i := 0 to TBaseDBDataSet(Source).DataSet.Fields.Count-1 do
+    if DataSet.FieldDefs.IndexOf(TBaseDBDataSet(Source).DataSet.Fields[i].FieldName) <> -1 then
+      if  (TBaseDBDataSet(Source).DataSet.Fields[i].FieldName <> 'SQL_ID')
+      and (TBaseDBDataSet(Source).DataSet.Fields[i].FieldName <> 'AUTO_ID')
+      and (TBaseDBDataSet(Source).DataSet.Fields[i].FieldName <> 'TIMESTAMP') then
+        DataSet.FieldByName(TBaseDBDataSet(Source).DataSet.Fields[i].FieldName).AsVariant:=TBaseDBDataSet(Source).DataSet.Fields[i].AsVariant;
 end;
 
-procedure TBaseDBDataset.Filter(aFilter: string;
-  aLimit: Integer; aOrderBy: string; aSortDirection: string;
-  aLocalSorting: Boolean; aGlobalFilter: Boolean; aUsePermissions: Boolean;
-  aFilterIn: string);
+procedure TBaseDBDataset.FilterEx(aFilter: string; aLimit: Integer;
+  aOrderBy: string; aSortDirection: string; aLocalSorting: Boolean;
+  aGlobalFilter: Boolean; aUsePermissions: Boolean; aFilterIn: string);
 begin
   with DataSet as IBaseDbFilter do
     begin
@@ -1217,12 +1595,27 @@ begin
   Open;
 end;
 
-constructor TBaseHistory.Create(aOwner: TComponent; DM: TComponent;
+procedure TBaseDBDataset.Filter(aFilter: string; aLimit: Integer);
+begin
+  FilterEx(aFilter,aLimit);
+end;
+
+procedure TBaseHistory.OpenItem(AccHistory: Boolean);
+begin
+  //Dont add Item
+end;
+
+constructor TBaseHistory.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   FHChanged := False;
   FShouldChange:=False;
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with FDataSet as IBaseDBFilter do
+        Limit := 50;
+    end;
 end;
 procedure TBaseHistory.SetDisplayLabels(aDataSet: TDataSet);
 begin
@@ -1241,19 +1634,22 @@ begin
         with ManagedFieldDefs do
           begin
             Add('REF_ID',ftLargeInt,0,true);
-            Add('LINK',ftString,200,False);
-            Add('OBJECT',ftString,200,False);
             Add('ACTIONICON',ftInteger,0,False);
             Add('SUMMARY',ftString,120,False);
             Add('ACTION',ftMemo,0,True);
             Add('REFERENCE', ftString,150,False);
+            Add('LINK',ftString,400,False);
+            Add('OBJECT',ftString,200,False);
             Add('REFOBJECT',ftString,200,False);
             Add('COMMISSION',ftString,60,False);
             Add('SOURCE',ftString,60,False);
             Add('READ',ftString,1,False);
+            Add('IGNORE',ftString,1,False);//ignore item in reports
+            Add('TAGS',ftString,200,False);
             Add('CHANGEDBY',ftString,4,False);
             Add('PARENT',ftLargeInt,0,False);
             Add('ROOT',ftLargeInt,0,False);
+            Add('DATE',ftDateTime,0,False);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
@@ -1263,11 +1659,12 @@ begin
             Add('SUMMARY','SUMMARY',[]);
             Add('REFERENCE','REFERENCE',[]);
             Add('COMMISSION','COMMISSION',[]);
-            Add('LINK','LINK',[]);
             Add('READ','READ',[]);
             Add('SOURCE','SOURCE',[]);
+            Add('TAGS','TAGS',[]);
             Add('CHANGEDBY','CHANGEDBY',[]);
             Add('TIMESTAMPD','TIMESTAMPD',[]);
+            Add('DATE','DATE',[]);
           end;
     end;
 end;
@@ -1297,13 +1694,35 @@ begin
   if FShouldChange then
     begin
       FHChanged := True;
-      if Owner is TBaseDbDataSet then TBaseDbDataSet(Owner).Change;
+      if Owner is TBaseDBDataSet then TBaseDBDataSet(Owner).Change;
       FShouldCHange := False;
     end;
 end;
+
 function TBaseHistory.AddItem(aObject: TDataSet; aAction: string;
   aLink: string; aReference: string; aRefObject: TDataSet; aIcon: Integer;
   aComission: string; CheckDouble: Boolean; DoPost: Boolean; DoChange: Boolean) : Boolean;
+begin
+  if Assigned(aRefObject) then
+    Result := AddItemSR(aObject,aAction,aLink,aReference,Data.BuildLink(aRefObject),aIcon,aComission,CheckDouble,DoPost,DoChange)
+  else
+    Result := AddItemSR(aObject,aAction,aLink,aReference,'',aIcon,aComission,CheckDouble,DoPost,DoChange);
+end;
+
+function TBaseHistory.AddItemSR(aObject: TDataSet; aAction: string;
+  aLink: string; aReference: string; aRefObject: string; aIcon: Integer;
+  aComission: string; CheckDouble: Boolean; DoPost: Boolean; DoChange: Boolean
+  ): Boolean;
+begin
+  with BaseApplication as IBaseDbInterface do
+    if Assigned(aObject) then
+      Result := AddItemPlain(Data.BuildLink(aObject),aAction,aLink,aReference,aRefObject,aIcon,aComission,CheckDouble,DoPost,DoChange);
+end;
+
+function TBaseHistory.AddItemPlain(aObject: string; aAction: string;
+  aLink: string; aReference: string; aRefObject: string; aIcon: Integer;
+  aComission: string; CheckDouble: Boolean; DoPost: Boolean; DoChange: Boolean
+  ): Boolean;
 var
   tmp: String;
 begin
@@ -1321,6 +1740,7 @@ begin
       and (trunc(FieldByName('TIMESTAMPD').AsDatetime) = trunc(Now()))
       and (FieldByName('CHANGEDBY').AsString = Data.Users.Idcode.AsString)
       and ((FieldByName('REFERENCE').AsString = aReference) or (FieldByName('REFERENCE').AsString=Data.Users.IDCode.Asstring))
+      and ((aIcon=11{Termin}))
       and (CheckDouble)
       then
         Delete;
@@ -1328,19 +1748,17 @@ begin
   Append;
   if aLink <> '' then
     FieldByName('LINK').AsString      := aLink;
-  with BaseApplication as IBaseDbInterface do
-    FieldByName('OBJECT').AsString := Data.BuildLink(aObject);
+  if aObject<>'' then
+    FieldByName('OBJECT').AsString := aObject;
   FieldByName('ACTIONICON').AsInteger := aIcon;
   FieldByName('ACTION').AsString    := aAction;
   FieldByName('REFERENCE').AsString := aReference;
-  if Assigned(aRefObject) then
-    begin
-      with BaseApplication as IBaseDbInterface do
-        FieldByName('REFOBJECT').AsString := Data.BuildLink(aRefObject);
-    end;
+  if aRefObject<>'' then
+    FieldByName('REFOBJECT').AsString := aRefObject;
   with BaseApplication as IBaseDbInterface do
     FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
   DataSet.FieldByName('COMMISSION').AsString := aComission;
+  DataSet.FieldByName('DATE').AsDateTime:=Now();
   if DoPost then
     Post;
   result := True;
@@ -1360,7 +1778,7 @@ procedure TBaseHistory.AddParentedItem(aObject: TDataSet; aAction: string;
     aFind: TBaseHistory;
   begin
     Result := Null;
-    aFind := TBaseHistory.Create(nil,DataModule);
+    aFind := TBaseHistory.CreateEx(nil,DataModule);
     aFind.Select(bParent);
     aFind.Open;
     if aFind.Count>0 then
@@ -1375,6 +1793,38 @@ procedure TBaseHistory.AddParentedItem(aObject: TDataSet; aAction: string;
 
 begin
   if AddItem(aObject,aAction,aLink,aReference,aRefObject,aIcon,aComission,CheckDouble,False,DoChange) then
+    begin
+      DataSet.FieldByName('PARENT').AsVariant := aParent;
+      DataSet.FieldByName('ROOT').AsVariant := GetRoot(aParent);
+      if DoPost then
+        Post;
+    end;
+end;
+
+procedure TBaseHistory.AddParentedItemPlain(aObject: string; aAction: string;
+  aParent: Variant; aLink: string; aReference: string; aRefObject: string;
+  aIcon: Integer; aComission: string; CheckDouble: Boolean; DoPost: Boolean;
+  DoChange: Boolean);
+function GetRoot(bParent : Variant) : Variant;
+var
+  aFind: TBaseHistory;
+begin
+  Result := Null;
+  aFind := TBaseHistory.CreateEx(nil,DataModule);
+  aFind.Select(bParent);
+  aFind.Open;
+  if aFind.Count>0 then
+    begin
+      if (not aFind.FieldByName('PARENT').IsNull) and (aFind.FieldByName('PARENT').AsVariant<>bParent) then
+        Result := GetRoot(aFind.FieldByName('PARENT').AsVariant)
+      else
+        Result := aFind.Id.AsVariant;
+    end;
+  aFind.Free;
+end;
+
+begin
+  if AddItemPlain(aObject,aAction,aLink,aReference,aRefObject,aIcon,aComission,CheckDouble,False,DoChange) then
     begin
       DataSet.FieldByName('PARENT').AsVariant := aParent;
       DataSet.FieldByName('ROOT').AsVariant := GetRoot(aParent);
@@ -1428,6 +1878,24 @@ begin
           Change;
         end;
     end;
+end;
+
+procedure TBaseHistory.AddMessageItem(aObject: TDataSet; aMessage, aSubject,
+  aSource, aLink: string; aParent: LargeInt);
+begin
+  if aParent=0 then
+    AddItem(aObject,aSubject+LineEnding+aMessage,aLink,'',nil,ACICON_MAILNEW)
+  else
+    AddParentedItem(aObject,aMessage,aParent,aLink,'',nil,ACICON_MAILNEW);
+end;
+
+procedure TBaseHistory.AddAnsweredMessageItem(aObject: TDataSet; aMessage,
+  aSubject, aSource, aLink: string; aParent: LargeInt);
+begin
+  if aParent=0 then
+    AddItem(aObject,aSubject+LineEnding+aMessage,aLink,'',nil,ACICON_MAILANSWERED)
+  else
+    AddParentedItem(aObject,aMessage,aParent,aLink,'',nil,ACICON_MAILANSWERED);
 end;
 
 function TBaseHistory.GetTextFieldName: string;
@@ -1541,10 +2009,16 @@ begin
           end;
     end;
 end;
-constructor TTree.Create(aOwner: TComponent; DM: TComponent;
+
+function TTree.GetText: TField;
+begin
+  Result := FieldByName('NAME');
+end;
+
+constructor TTree.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -1714,10 +2188,50 @@ begin
   inherited Open;
 end;
 
-constructor TRights.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
-  aMasterdata: TDataSet);
+function TOptions.GetOption(aSection, aIdent, DefaultValue: string): string;
 begin
-  inherited Create(aOwner,DM, aConnection, aMasterdata);
+  if not DataSet.Active then Open;
+  if not DataSet.Locate('OPTION',aIdent,[]) then
+    begin
+      with DataSet as IBaseDBFilter do
+        begin
+          SetFilter('');
+        end;
+    end;
+  if Locate('OPTION',aIdent,[]) then
+    Result := FieldByName('VALUE').AsString;
+end;
+
+procedure TOptions.SetOption(aSection, aIdent, Value: string);
+begin
+  with BaseApplication as IBaseDBInterface do
+    begin
+      if not Locate('OPTION',aIdent,[]) then
+        Data.SetFilter(Self,'',0);
+      if not Locate('OPTION',aIdent,[]) then
+        begin
+          if Value <> '' then
+            begin
+              Insert;
+              FieldByName('OPTION').AsString:=aIdent;
+            end;
+        end
+      else if Value <> '' then
+        Edit
+      else if Value = '' then
+        Delete;
+      if Value <> '' then
+        begin
+          FieldByName('VALUE').AsString := Value;
+          Post;
+        end;
+    end;
+end;
+
+constructor TRights.CreateEx(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited CreateEx(aOwner,DM, aConnection, aMasterdata);
   FCachedRights := TStringList.Create;
 end;
 destructor TRights.Destroy;
@@ -1760,7 +2274,7 @@ end;
 
 function TRights.Right(Element: string; Recursive: Boolean; UseCache: Boolean): Integer;
 var
-  aUser : LongInt;
+  aUser : Int64;
 
   procedure RecursiveGetRight(aRec : Integer = 0);
   begin
@@ -1789,6 +2303,8 @@ var
   end;
 begin
   try
+    Result := -1;
+    if not Assigned(FCachedRights) then exit;
     if (FCachedRights.Values[Element] <> '') and UseCache then
       Result := StrToInt(FCachedRights.Values[Element])
     else
@@ -1817,13 +2333,11 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('NAME',ftString,30,False);
+            Add('NAME',ftString,160,False);
             Add('ADRESS',ftMemo,0,False);
-            Add('SORTCODE',ftString,8,False);
-            Add('ACCOUNT',ftString,10,False);
-            Add('INSTITUTE',ftString,40,false);
-            Add('SWIFT',ftString,11,false);
-            Add('IBAN',ftString,34,false);
+            Add('SORTCODE',ftString,20,False);
+            Add('ACCOUNT',ftString,200,False);
+            Add('INSTITUTE',ftString,60,false);
             Add('TEL1',ftString,30,false);
             Add('TEL2',ftString,30,false);
             Add('TEL3',ftString,30,false);
@@ -1831,14 +2345,15 @@ begin
             Add('FAX',ftString,30,false);
             Add('MAIL',ftString,50,false);
             Add('INTERNET',ftString,50,false);
-            Add('ADDITION1',ftMemo,0,False);
-            Add('ADDITION2',ftMemo,0,False);
-            Add('ADDITION3',ftMemo,0,False);
-            Add('ADDITION4',ftMemo,0,False);
-            Add('ADDITION5',ftMemo,0,False);
-            Add('ADDITION6',ftMemo,0,False);
-            Add('ADDITION7',ftMemo,0,False);
-            Add('ADDITION8',ftMemo,0,False);
+            Add('ADDITION1',ftString,200,False);
+            Add('ADDITION2',ftString,200,False);
+            Add('ADDITION3',ftString,200,False);
+            Add('ADDITION4',ftString,200,False);
+            Add('ADDITION5',ftString,200,False);
+            Add('ADDITION6',ftString,200,False);
+            Add('ADDITION7',ftString,200,False);
+            Add('ADDITION8',ftString,200,False);
+            Add('DBVERSION',ftInteger,0,False);
             Add('STAMP',ftLargeInt,0,False);
             Add('IMAGE',ftBlob,0,False);
           end;
@@ -1964,15 +2479,16 @@ function TUser.GetTyp: string;
 begin
   Result := 'U';
 end;
-constructor TUser.Create(aOwner: TComponent; DM: TComponent;
+constructor TUser.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FOptions := TOptions.Create(Owner,DM,aConnection,DataSet);
-  FRights := TRights.Create(Owner,DM,aConnection,DataSet);
-  FFollows := TFollowers.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FOptions := TOptions.CreateEx(Owner,DM,aConnection,DataSet);
+  FRights := TRights.CreateEx(Owner,DM,aConnection,DataSet);
+  FFollows := TFollowers.CreateEx(Owner,DM,aConnection,DataSet);
   FRights.Users := Self;
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FPayGroups := TPayGroups.CreateEx(Self,DM,aConnection);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -1981,8 +2497,10 @@ begin
         end;
     end;
 end;
+
 destructor TUser.Destroy;
 begin
+  FPayGroups.Destroy;
   Options.Destroy;
   Rights.Destroy;
   FFollows.Destroy;
@@ -2021,6 +2539,7 @@ begin
             Add('EMPLOYMENT',ftDate,0,False);
             Add('LEAVED',ftDate,0,false);
             Add('CUSTOMERNO',ftString,20,false);
+            Add('PERSONNELNO',ftString,20,false);
             Add('DEPARTMENT',ftString,30,false);
             Add('POSITION',ftString,30,false);
             Add('LOGINNAME',ftString,30,false);
@@ -2061,6 +2580,7 @@ begin
   FOptions.CreateTable;
   FRights.CreateTable;
   FFollows.CreateTable;
+  FPayGroups.CreateTable;
 end;
 procedure TUser.SetPasswort(aPasswort: string);
 var
@@ -2144,7 +2664,7 @@ var
   aUsers: TUser;
 begin
   Result := '';
-  aUsers := Tuser.Create(nil,DataModule);
+  aUsers := Tuser.CreateEx(nil,DataModule);
   aUsers.SelectByParent(FieldbyName('PARENT').AsVariant);
   aUsers.Open;
   if aUsers.DataSet.Locate('POSITION','LEADER',[loCaseInsensitive]) then
@@ -2165,6 +2685,20 @@ begin
   if not Assigned(DataSet) then exit;
   with DataSet as IBaseDbFilter do
     Result := Limit;
+end;
+
+function TBaseDBDataset.GetSortDirection: TSortDirection;
+begin
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    Result := GetSortDirection;
+end;
+
+function TBaseDBDataset.GetSortFields: string;
+begin
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    Result := GetSortFields;
 end;
 
 function TBaseDBDataset.GetState: TDataSetState;
@@ -2191,7 +2725,7 @@ begin
 end;
 function TBaseDBDataset.GetCanEdit: Boolean;
 begin
-  Result := Assigned(Self) and (Self is TbaseDbDataSet) and Assigned(fdataSet) and (FDataSet.State = dsEdit) or (FDataSet.State = dsInsert);
+  Result := Assigned(Self) and (Self is TBaseDBDataSet) and Assigned(fdataSet) and (FDataSet.State = dsEdit) or (FDataSet.State = dsInsert);
 end;
 
 function TBaseDBDataset.GetActive: Boolean;
@@ -2273,19 +2807,36 @@ begin
   with DataSet as IBaseDbFilter do
     Limit := aValue;
 end;
-constructor TBaseDBDataset.Create(aOwner: TComponent; DM: TComponent; aUseIntegrity: Boolean;
-  aConnection: TComponent; aMasterdata: TDataSet);
+
+procedure TBaseDBDataset.SetSortDirection(AValue: TSortDirection);
+begin
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    SetSortDirection(AValue);
+end;
+
+procedure TBaseDBDataset.SetSortFields(AValue: string);
+begin
+  if not Assigned(DataSet) then exit;
+  with DataSet as IBaseDbFilter do
+    SetSortFields(AValue);
+end;
+
+constructor TBaseDBDataset.CreateExIntegrity(aOwner: TComponent; DM: TComponent;
+  aUseIntegrity: Boolean; aConnection: TComponent; aMasterdata: TDataSet);
 begin
   inherited Create(aOwner);
   FUpdateFloatFields := false;
   Fparent := nil;
   FDataModule := DM;
+  if FDataModule=nil then
+    FDataModule:=Data;
   FSecModified := True;
   FDisplayLabelsWasSet:=False;
   FUseIntegrity:=aUseIntegrity;
   FOnChanged := nil;
-  if Assigned(aOwner) and (aOwner is TBaseDbDataSet) then
-    FParent := TBaseDbDataSet(aOwner);
+  if Assigned(aOwner) and (aOwner is TBaseDBDataSet) then
+    FParent := TBaseDBDataSet(aOwner);
   with BaseApplication as IBaseDbInterface do
     begin
       with FDataModule as TBaseDbModule do
@@ -2296,16 +2847,27 @@ begin
         Limit := 100;
     end;
 end;
-constructor TBaseDBDataset.Create(aOwner: TComponent; DM: TComponent;
+constructor TBaseDBDataset.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  Create(aOwner,DM,True,aConnection,aMasterdata);
+  CreateExIntegrity(aOwner,DM,True,aConnection,aMasterdata);
 end;
+
+constructor TBaseDBDataset.Create(aOwner: TComponent);
+begin
+  CreateEx(aOwner,Data,nil,nil);
+end;
+
 destructor TBaseDBDataset.Destroy;
 begin
-  TBaseDBModule(DataModule).DestroyDataSet(FDataSet);
   if not TBaseDBModule(DataModule).IgnoreOpenRequests then
-    inherited Destroy;
+    begin
+      try
+        TBaseDBModule(DataModule).DestroyDataSet(FDataSet);
+      except
+      end;
+      inherited Destroy;
+    end;
 end;
 procedure TBaseDBDataset.Open;
 var
@@ -2323,33 +2885,19 @@ begin
     end;
   with FDataSet as IBaseManageDB do
     if (Assigned(Data)) and (Data.ShouldCheckTable(TableName,False)) then
-      Self.CreateTable;
-  try
-    with DataSet as IBaseManageDB do
       begin
-        FDataSet.Open
+        if not Self.CreateTable then
+          begin
+            with BaseApplication as IBaseApplication do
+              Info('Table "'+TableName+'" will be altered');
+            with DataSet as IBaseManageDB do
+              FDataSet.Open;
+            AlterTable;
+            FDataSet.Close;
+          end;
       end;
-  except
-    on e : Exception do
-      begin
-        aErr := e.Message;
-        debugln(e.Message);
-        Retry := True;
-      end;
-  end;
-  if Retry then
-    begin
-      while FDataSet.ControlsDisabled do
-        FDataSet.EnableControls;
-      try
-        FDataSet.Open;
-      except
-        begin
-          raise Exception.Create(aErr);
-          exit;
-        end;
-      end;
-    end;
+  with DataSet as IBaseManageDB do
+    FDataSet.Open;
   if DataSet.Active and FDisplayLabelsWasSet then
     SetDisplayLabels(DataSet);
 end;
@@ -2360,11 +2908,12 @@ begin
   FDataSet.Close;
 end;
 
-function TBaseDBDataset.CreateTable : Boolean;
+function TBaseDBDataset.CreateTable: Boolean;
 var
   aOldFilter: String;
   aOldLimit: Integer;
   aTableName: String;
+  aField: String;
 begin
   with FDataSet as IBaseManageDB do
     begin
@@ -2372,19 +2921,46 @@ begin
       if not Result then
         begin
           aTableName:=TableName;
-          if (not Assigned(Data)) or (Data.ShouldCheckTable(aTableName,False)) then
+          if (not Assigned(Data)) or (Data.ShouldCheckTable(aTableName,True)) then
             begin
               with DataSet as IBaseDbFilter do
                 begin
                   aOldFilter := Filter;
-                  Filter := '';
+                  with DataSet as IBaseManageDb do
+                    if ManagedFieldDefs.IndexOf('AUTO_ID') > -1 then
+                      aField := 'AUTO_ID';
+                  if aField = '' then aField := 'SQL_ID';
+                  Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+TBaseDBModule(DataModule).QuoteField(aField)+'='+TBaseDBModule(DataModule).QuoteValue('0');
                   aOldLimit := Limit;
                   Limit := 1;
                 end;
               FDataSet.Open;
               if CheckTable then
                 if not AlterTable then
-                  debugln('Altering Table "'+TableName+'" failed !');
+                  begin
+                    with BaseApplication as IBaseApplication do
+                      Warning('Altering Table "'+TableName+'" failed !')
+                  end
+                else
+                  begin
+                    try
+                      if not  TBaseDBModule(DataModule).TableVersions.Active then  TBaseDBModule(DataModule).TableVersions.Open;
+                       TBaseDBModule(DataModule).TableVersions.DataSet.Filter:=TBaseDBModule(DataModule).QuoteField('NAME')+'='+TBaseDBModule(DataModule).QuoteValue(TableName);
+                       TBaseDBModule(DataModule).TableVersions.DataSet.Filtered:=True;
+                      with BaseApplication as IBaseApplication do
+                        begin
+                          if TBaseDBModule(DataModule).TableVersions.Count=0 then
+                            begin
+                              TBaseDBModule(DataModule).TableVersions.Insert;
+                              TBaseDBModule(DataModule).TableVersions.FieldByName('NAME').AsString:=TableName;
+                            end;
+                          TBaseDBModule(DataModule).TableVersions.Edit;
+                          TBaseDBModule(DataModule).TableVersions.FieldByName('DBVERSION').AsInteger:=round(AppVersion*100)+AppRevision;
+                          TBaseDBModule(DataModule).TableVersions.Post;
+                        end;
+                    except
+                    end;
+                  end;
               with DataSet as IBaseDbFilter do
                 begin
                   Limit := aOldLimit;
@@ -2394,7 +2970,8 @@ begin
         end;
     end;
 end;
-procedure TBaseDBDataset.DefineDefaultFields(aDataSet: TDataSet;HasMasterSource : Boolean);
+procedure TBaseDBDataset.DefineDefaultFields(aDataSet: TDataSet;
+  HasMasterSource: Boolean);
 begin
   with aDataSet as IBaseManageDB do
     begin
@@ -2463,6 +3040,8 @@ end;
 procedure TBaseDBDataset.SetDisplayLabels(aDataSet: TDataSet);
 begin
   FDisplayLabelsWasSet := True;
+  SetDisplayLabelName(aDataSet,'LOCATION',strLocation);
+  SetDisplayLabelName(aDataSet,'STARTDATE',strStart);
   SetDisplayLabelName(aDataSet,'DUEDATE',strDue);
   SetDisplayLabelName(aDataSet,'ACCOUNTNO',strAccountNo);
   SetDisplayLabelName(aDataSet,'NAME',strName);
@@ -2582,6 +3161,7 @@ begin
   SetDisplayLabelName(aDataSet,'OWNER',strOwner);
   SetDisplayLabelName(aDataSet,'AVALIBLE',strAvalible);
   SetDisplayLabelName(aDataSet,'ICON',' ');
+  SetDisplayLabelName(aDataSet,'NEEDSACTION',strNeedsAction);
 end;
 function TBaseDBDataset.GetBookmark: LargeInt;
 begin
@@ -2600,10 +3180,16 @@ begin
         Result := DataSet.Locate('SQL_ID',aRec,[]);
     end;
 end;
+
+function TBaseDBDataset.GetLink: string;
+begin
+  Result := TBaseDBModule(DataModule).BuildLink(FDataSet);
+end;
+
 procedure TBaseDBDataset.FreeBookmark(aRec: Variant);
 begin
 end;
-procedure TBaseDBDataset.DuplicateRecord(DoPost : Boolean);
+procedure TBaseDBDataset.DuplicateRecord(DoPost: Boolean);
 var
   Data : array of string;
   i : integer;
@@ -2639,7 +3225,7 @@ procedure TBaseDBDataset.Change;
 begin
   if FDoChange > 0 then exit;
   FChanged := True;
-  if Owner is TBaseDbDataSet then TBaseDbDataSet(Owner).Change;
+  if Owner is TBaseDBDataSet then TBaseDBDataSet(Owner).Change;
   if Assigned(FOnChanged) then
     FOnChanged(Self);
 end;
@@ -2663,6 +3249,7 @@ begin
   if Assigned(FOnChanged) then
     FOnChanged(Self);
 end;
+
 initialization
 end.
-
+

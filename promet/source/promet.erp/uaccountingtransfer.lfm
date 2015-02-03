@@ -1,7 +1,7 @@
 object fTransfer: TfTransfer
-  Left = 318
+  Left = 429
   Height = 383
-  Top = 216
+  Top = 249
   Width = 535
   Caption = 'Überweisung'
   ClientHeight = 383
@@ -15,9 +15,9 @@ object fTransfer: TfTransfer
   LCLVersion = '1.3'
   object lAccount: TLabel
     Left = 8
-    Height = 14
+    Height = 13
     Top = 8
-    Width = 32
+    Width = 31
     Caption = 'Konto'
     ParentColor = False
   end
@@ -37,16 +37,16 @@ object fTransfer: TfTransfer
     Width = 518
     Anchors = [akTop, akLeft, akRight, akBottom]
     Caption = 'Enpfänger'
-    ClientHeight = 252
+    ClientHeight = 253
     ClientWidth = 514
     Color = 11664634
     ParentColor = False
     TabOrder = 1
     object lName: TLabel
       Left = 6
-      Height = 14
+      Height = 13
       Top = 6
-      Width = 34
+      Width = 33
       Caption = 'Name'
       Font.Color = 19948
       ParentColor = False
@@ -54,9 +54,9 @@ object fTransfer: TfTransfer
     end
     object lRAccount: TLabel
       Left = 6
-      Height = 14
+      Height = 13
       Top = 54
-      Width = 112
+      Width = 110
       Caption = 'Kontonummer/IBAN'
       Font.Color = 19948
       ParentColor = False
@@ -64,9 +64,9 @@ object fTransfer: TfTransfer
     end
     object lRSortCode: TLabel
       Left = 294
-      Height = 14
+      Height = 13
       Top = 54
-      Width = 92
+      Width = 91
       Caption = 'Bankleitzahl/BIC'
       Font.Color = 19948
       ParentColor = False
@@ -92,7 +92,7 @@ object fTransfer: TfTransfer
     end
     object lAmount: TLabel
       Left = 118
-      Height = 14
+      Height = 13
       Top = 137
       Width = 38
       Caption = 'Betrag'
@@ -102,7 +102,7 @@ object fTransfer: TfTransfer
     end
     object lPurpose: TLabel
       Left = 6
-      Height = 14
+      Height = 13
       Top = 151
       Width = 85
       Caption = 'Zahlungsgrund'
@@ -112,7 +112,7 @@ object fTransfer: TfTransfer
     end
     object lTextKey: TLabel
       Left = 349
-      Height = 14
+      Height = 13
       Top = 119
       Width = 73
       Caption = 'textschlüssel'
@@ -122,7 +122,7 @@ object fTransfer: TfTransfer
     end
     object eName: TEdit
       Left = 6
-      Height = 27
+      Height = 25
       Top = 22
       Width = 495
       Anchors = [akTop, akLeft, akRight]
@@ -138,7 +138,7 @@ object fTransfer: TfTransfer
     end
     object eRAccount: TEdit
       Left = 6
-      Height = 27
+      Height = 25
       Top = 72
       Width = 280
       Font.CharSet = ANSI_CHARSET
@@ -152,7 +152,7 @@ object fTransfer: TfTransfer
     end
     object eRSortCode: TEdit
       Left = 294
-      Height = 27
+      Height = 25
       Top = 72
       Width = 207
       Font.CharSet = ANSI_CHARSET
@@ -166,7 +166,7 @@ object fTransfer: TfTransfer
     end
     object eAmount: TEdit
       Left = 262
-      Height = 27
+      Height = 25
       Top = 134
       Width = 80
       Font.CharSet = ANSI_CHARSET
@@ -181,7 +181,7 @@ object fTransfer: TfTransfer
     end
     object cbCurrency: TComboBox
       Left = 174
-      Height = 29
+      Height = 27
       Top = 134
       Width = 72
       Font.CharSet = ANSI_CHARSET
@@ -198,7 +198,7 @@ object fTransfer: TfTransfer
     end
     object mPurpose: TMemo
       Left = 6
-      Height = 70
+      Height = 71
       Top = 173
       Width = 495
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -216,7 +216,7 @@ object fTransfer: TfTransfer
     end
     object cbtextKey: TComboBox
       Left = 349
-      Height = 29
+      Height = 27
       Top = 134
       Width = 152
       Anchors = [akTop, akLeft, akRight]
@@ -239,10 +239,10 @@ object fTransfer: TfTransfer
   end
   object bOK: TBitBtn
     AnchorSideRight.Control = bAbort
-    Left = 322
-    Height = 36
-    Top = 342
-    Width = 103
+    Left = 311
+    Height = 42
+    Top = 336
+    Width = 108
     Anchors = [akRight, akBottom]
     AutoSize = True
     BorderSpacing.InnerBorder = 4
@@ -254,10 +254,10 @@ object fTransfer: TfTransfer
     TabOrder = 2
   end
   object bAbort: TBitBtn
-    Left = 425
-    Height = 36
-    Top = 342
-    Width = 101
+    Left = 419
+    Height = 42
+    Top = 336
+    Width = 107
     Anchors = [akRight, akBottom]
     AutoSize = True
     BorderSpacing.InnerBorder = 4

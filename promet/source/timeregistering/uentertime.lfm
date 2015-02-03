@@ -1,11 +1,11 @@
 object fEnterTime: TfEnterTime
-  Left = 594
+  Left = 456
   Height = 437
-  Top = 191
-  Width = 534
+  Top = 190
+  Width = 533
   Caption = 'Zeiterfassung'
   ClientHeight = 437
-  ClientWidth = 534
+  ClientWidth = 533
   Constraints.MinHeight = 325
   Constraints.MinWidth = 460
   KeyPreview = True
@@ -19,9 +19,9 @@ object fEnterTime: TfEnterTime
   LCLVersion = '1.3'
   object rbNormaltime: TRadioButton
     Left = 8
-    Height = 24
-    Top = 386
-    Width = 88
+    Height = 17
+    Top = 393
+    Width = 68
     Anchors = [akLeft, akBottom]
     Caption = 'Normalzeit'
     Checked = True
@@ -31,9 +31,9 @@ object fEnterTime: TfEnterTime
   end
   object rbIndustrialTime: TRadioButton
     Left = 8
-    Height = 24
-    Top = 406
-    Width = 95
+    Height = 17
+    Top = 413
+    Width = 78
     Anchors = [akLeft, akBottom]
     Caption = 'Industriezeit'
     OnChange = RadioButton2Change
@@ -41,9 +41,9 @@ object fEnterTime: TfEnterTime
   end
   object cbShowDialog: TCheckBox
     Left = 136
-    Height = 24
-    Top = 401
-    Width = 86
+    Height = 17
+    Top = 408
+    Width = 66
     Anchors = [akLeft, akBottom]
     BorderSpacing.Right = 10
     Caption = 'Dialog alle'
@@ -54,9 +54,9 @@ object fEnterTime: TfEnterTime
   object seShowDialog: TSpinEdit
     AnchorSideLeft.Control = cbShowDialog
     AnchorSideLeft.Side = asrBottom
-    Left = 232
-    Height = 24
-    Top = 401
+    Left = 212
+    Height = 21
+    Top = 404
     Width = 50
     Anchors = [akLeft, akBottom]
     MaxValue = 380
@@ -69,20 +69,20 @@ object fEnterTime: TfEnterTime
   object lShowMin: TLabel
     AnchorSideLeft.Control = seShowDialog
     AnchorSideLeft.Side = asrBottom
-    Left = 287
-    Height = 14
-    Top = 407
-    Width = 62
+    Left = 267
+    Height = 13
+    Top = 408
+    Width = 50
     Anchors = [akLeft, akBottom]
     BorderSpacing.Left = 5
     Caption = 'min zeigen'
     ParentColor = False
   end
   object lTimeToday: TLabel
-    Left = 470
-    Height = 14
+    Left = 478
+    Height = 13
     Top = 8
-    Width = 58
+    Width = 49
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
     Caption = 'Zeit heute'
@@ -91,10 +91,10 @@ object fEnterTime: TfEnterTime
   object lTimeTodayValue: TLabel
     AnchorSideTop.Control = lTimeToday
     AnchorSideTop.Side = asrBottom
-    Left = 485
+    Left = 488
     Height = 21
-    Top = 22
-    Width = 43
+    Top = 21
+    Width = 39
     Anchors = [akTop, akRight]
     Caption = '7:00'
     Font.Height = -17
@@ -105,10 +105,10 @@ object fEnterTime: TfEnterTime
   object lTimeWeek: TLabel
     AnchorSideTop.Control = lPausesValue
     AnchorSideTop.Side = asrBottom
-    Left = 483
-    Height = 31
-    Top = 79
-    Width = 45
+    Left = 490
+    Height = 26
+    Top = 77
+    Width = 37
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
     BorderSpacing.Top = 2
@@ -118,10 +118,10 @@ object fEnterTime: TfEnterTime
   object lTimeWeekValue: TLabel
     AnchorSideTop.Control = lTimeWeek
     AnchorSideTop.Side = asrBottom
-    Left = 483
+    Left = 490
     Height = 18
-    Top = 110
-    Width = 45
+    Top = 103
+    Width = 37
     Anchors = [akTop, akRight]
     Caption = '40:00'
     Font.Height = -15
@@ -131,10 +131,10 @@ object fEnterTime: TfEnterTime
   object lTimeMonthValue: TLabel
     AnchorSideTop.Control = lTimeWeek1
     AnchorSideTop.Side = asrBottom
-    Left = 483
+    Left = 490
     Height = 18
-    Top = 161
-    Width = 45
+    Top = 149
+    Width = 37
     Anchors = [akTop, akRight]
     Caption = '85:00'
     Font.Height = -15
@@ -144,10 +144,10 @@ object fEnterTime: TfEnterTime
   object lTimeWeek1: TLabel
     AnchorSideTop.Control = lTimeWeekValue
     AnchorSideTop.Side = asrBottom
-    Left = 478
-    Height = 31
-    Top = 130
-    Width = 50
+    Left = 486
+    Height = 26
+    Top = 123
+    Width = 41
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
     BorderSpacing.Top = 2
@@ -157,10 +157,10 @@ object fEnterTime: TfEnterTime
   object lPauses: TLabel
     AnchorSideTop.Control = lTimeTodayValue
     AnchorSideTop.Side = asrBottom
-    Left = 487
-    Height = 14
-    Top = 45
-    Width = 41
+    Left = 492
+    Height = 13
+    Top = 44
+    Width = 35
     Anchors = [akTop, akRight]
     BorderSpacing.Top = 2
     Caption = 'Pausen'
@@ -171,8 +171,8 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 482
     Height = 18
-    Top = 59
-    Width = 46
+    Top = 57
+    Width = 45
     Anchors = [akTop, akRight]
     Caption = '01:00'
     Font.Height = -15
@@ -184,14 +184,14 @@ object fEnterTime: TfEnterTime
     Left = 8
     Height = 157
     Top = 24
-    Width = 453
+    Width = 452
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.InnerBorder = 2
-    ClientHeight = 153
-    ClientWidth = 449
+    ClientHeight = 139
+    ClientWidth = 448
     TabOrder = 1
     object bChange: TBitBtn
-      Left = 314
+      Left = 313
       Height = 29
       Hint = 'übernimmt die eingegebenen'#10'Daten in den aktuellen Zeiteintrag'
       Top = 50
@@ -238,7 +238,7 @@ object fEnterTime: TfEnterTime
       TabStop = False
     end
     object bStop: TBitBtn
-      Left = 314
+      Left = 313
       Height = 29
       Hint = 'Beendet die Zeiterfassung bis'#10'sie wieder begonnen wird'
       Top = 110
@@ -285,7 +285,7 @@ object fEnterTime: TfEnterTime
       TabStop = False
     end
     object bPause: TBitBtn
-      Left = 314
+      Left = 313
       Height = 29
       Hint = 'Paisiert den aktuellen '#10'Zeiteintrag'
       Top = 80
@@ -332,7 +332,7 @@ object fEnterTime: TfEnterTime
       TabStop = False
     end
     object bStart: TBitBtn
-      Left = 314
+      Left = 313
       Height = 46
       Hint = 'Startet die Zeiterfassung mit '#10'den eingegebenen Daten'
       Top = 0
@@ -383,40 +383,40 @@ object fEnterTime: TfEnterTime
     end
     object Panel6: TPanel
       Left = 0
-      Height = 153
+      Height = 139
       Top = 0
-      Width = 315
+      Width = 314
       Align = alLeft
       Anchors = [akTop, akLeft, akRight, akBottom]
       BevelOuter = bvNone
       Caption = 'Panel6'
-      ClientHeight = 153
-      ClientWidth = 315
+      ClientHeight = 139
+      ClientWidth = 314
       TabOrder = 4
       object Panel5: TPanel
         Left = 0
-        Height = 43
+        Height = 29
         Top = 110
-        Width = 315
+        Width = 314
         Align = alClient
         Anchors = [akTop, akLeft, akBottom]
         BevelOuter = bvNone
-        ClientHeight = 43
-        ClientWidth = 315
+        ClientHeight = 29
+        ClientWidth = 314
         TabOrder = 0
         object lNotes: TLabel
           Left = 4
-          Height = 14
+          Height = 13
           Top = 3
-          Width = 43
+          Width = 36
           Caption = 'Notizen'
           ParentColor = False
         end
         object mNotes: TMemo
           Left = 80
-          Height = 39
+          Height = 25
           Top = 2
-          Width = 233
+          Width = 232
           Align = alRight
           Anchors = [akTop, akLeft, akRight]
           BorderSpacing.Around = 2
@@ -427,34 +427,34 @@ object fEnterTime: TfEnterTime
         Left = 0
         Height = 28
         Top = 54
-        Width = 315
+        Width = 314
         Align = alTop
         BevelOuter = bvNone
         ClientHeight = 28
-        ClientWidth = 315
+        ClientWidth = 314
         TabOrder = 1
         object lJob1: TLabel
           Left = 4
-          Height = 14
+          Height = 13
           Top = 3
-          Width = 54
+          Width = 46
           Caption = 'Kategorie'
           ParentColor = False
           ParentFont = False
         end
         object cbCategory: TComboBox
           Left = 80
-          Height = 27
+          Height = 21
           Top = 0
-          Width = 169
+          Width = 168
           Anchors = [akTop, akLeft, akRight]
-          ItemHeight = 0
+          ItemHeight = 13
           ParentFont = False
           Sorted = True
           TabOrder = 0
         end
         object bAddJob: TSpeedButton
-          Left = 254
+          Left = 253
           Height = 22
           Hint = 'Fügt den aktuellen Text zur persönlichen '#13#10'Aufgabenliste (Dropdownliste) hinzu'
           Top = 0
@@ -499,7 +499,7 @@ object fEnterTime: TfEnterTime
           OnClick = bAddJobClick
         end
         object bDeleteJob: TSpeedButton
-          Left = 283
+          Left = 282
           Height = 22
           Hint = 'Löscht den ausgewählten Eintrag aus der '#13#10'persönlichen Aufgabenliste (Dropdownliste)'
           Top = 0
@@ -548,21 +548,20 @@ object fEnterTime: TfEnterTime
         Left = 0
         Height = 28
         Top = 82
-        Width = 315
+        Width = 314
         Align = alTop
         BevelOuter = bvNone
         ClientHeight = 28
-        ClientWidth = 315
+        ClientWidth = 314
         TabOrder = 2
         object eLink: TEditButton
           Left = 80
-          Height = 24
+          Height = 21
           Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
           Top = 0
-          Width = 207
+          Width = 229
           Anchors = [akTop, akLeft, akRight]
           ButtonWidth = 23
-          CharCase = ecNormal
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -603,6 +602,7 @@ object fEnterTime: TfEnterTime
           NumGlyphs = 1
           OnButtonClick = eLinkButtonClick
           OnChange = eLinkChange
+          PasswordChar = #0
           TabOrder = 0
         end
         object iLink: TImage
@@ -616,9 +616,9 @@ object fEnterTime: TfEnterTime
         end
         object lEntry: TLabel
           Left = 4
-          Height = 14
+          Height = 13
           Top = 6
-          Width = 40
+          Width = 34
           Caption = 'Eintrag'
           ParentColor = False
         end
@@ -627,29 +627,28 @@ object fEnterTime: TfEnterTime
         Left = 0
         Height = 26
         Top = 0
-        Width = 315
+        Width = 314
         Align = alTop
         BevelOuter = bvNone
         ClientHeight = 26
-        ClientWidth = 315
+        ClientWidth = 314
         TabOrder = 3
         object lProject: TLabel
           Left = 4
-          Height = 14
+          Height = 13
           Top = 3
-          Width = 40
+          Width = 34
           Caption = 'Projekt'
           ParentColor = False
         end
         object eProject: TEditButton
           Left = 80
-          Height = 24
+          Height = 21
           Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
           Top = 0
-          Width = 207
+          Width = 229
           Anchors = [akTop, akLeft, akRight]
           ButtonWidth = 23
-          CharCase = ecNormal
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -689,6 +688,7 @@ object fEnterTime: TfEnterTime
           MaxLength = 0
           NumGlyphs = 1
           OnButtonClick = eProjectButtonClick
+          PasswordChar = #0
           TabOrder = 0
         end
         object iLink1: TImage
@@ -705,17 +705,17 @@ object fEnterTime: TfEnterTime
         Left = 0
         Height = 28
         Top = 26
-        Width = 315
+        Width = 314
         Align = alTop
         BevelOuter = bvNone
         ClientHeight = 28
-        ClientWidth = 315
+        ClientWidth = 314
         TabOrder = 4
         object lJob2: TLabel
           Left = 4
-          Height = 14
+          Height = 13
           Top = 3
-          Width = 47
+          Width = 41
           Caption = 'Aufgabe'
           ParentColor = False
           ParentFont = False
@@ -729,14 +729,108 @@ object fEnterTime: TfEnterTime
           OnClick = iLinkClick
           Stretch = True
         end
-        object eJob: TEdit
+        object eJob: TComboBox
           Left = 80
-          Height = 24
+          Height = 21
           Top = 0
-          Width = 230
+          Width = 168
           Anchors = [akTop, akLeft, akRight]
+          ItemHeight = 13
+          OnGetItems = eJobGetItems
+          OnSelect = eJobSelect
           ParentFont = False
           TabOrder = 0
+        end
+        object bAddJob1: TSpeedButton
+          Left = 253
+          Height = 22
+          Hint = 'neue Aufgabe hinzufügen'#13#10'übernimmt gleichzeitig das gewählte Projekt in die Aufgabe'
+          Top = 0
+          Width = 27
+          Anchors = [akTop, akRight]
+          Glyph.Data = {
+            36040000424D3604000000000000360000002800000010000000100000000100
+            2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFC00FFFFF700806D5EFF7B604BFF7D624DFF806D
+            5EFFFFFFF700FFFFFC00FDFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFB00FFFFF2007C614CFFECCEB5FFECCEB5FF7C61
+            4CFFFFFFF200FFFFFB00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFC00FFFFFB00FFFFF500FFFFED00856346FFEFCFB2FFCBAB8EFF8563
+            46FFFFFFEB00FFFFF500FFFFFB00FFFFFC00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFF800FFFFF200FFFFED00FFFFE6008E6342FFF6D0AEFFD2AC8AFF8E63
+            42FFFFFFE600FFFFED00FFFFF200FFFFF700FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00806D5EFF7C614DFF836248FF8A6343FF8E6342FFD2AC8AFFD4AB8AFF9063
+            41FF8E6342FF876246FF7E624AFF826D5EFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF007C614CFFE6CCB4FFD3B59CFFD4B497FFD5B395FFD4B294FFCFAC8BFFCFA9
+            89FFCCA688FFC6A487FFDCBEA3FF7E614CFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF007C614CFFEED4BCFFEFD2B7FFF2D2B5FFF1CFB2FFEDCFB2FFEFCFB2FFF5CF
+            B1FFF4CEB0FFEFCDB0FFEBCDB2FF7F634BFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00806D5EFF7A624CFF836248FF8A6343FF8A6343FFEDCFB4FFEDCFB4FF8C63
+            43FF8C6342FF856346FF7F634BFF816F5EFFFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFF700FFFFF200FFFFEB00FFFFE6008A6245FFECCEB5FFECCEB5FF8A62
+            45FFFFFFE600FFFFEB00FFFFF100FFFFF700FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFC00FFFFFB00FFFFF500FFFFED00836248FFEACEB6FFEACEB6FF8362
+            48FFFFFFEB00FFFFF500FFFFF900FFFFFC00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFB00FFFFF2007C614CFFE8CDB8FFE8CDB8FF7C61
+            4CFFFFFFF200FFFFFA00FFFFFF00FFFFFE00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFC00FFFFF700806D5EFF7C614CFF7C614CFF806D
+            5EFFFFFFF700FFFFFC00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+          }
+          OnClick = bAddJob1Click
+        end
+        object bTaskDone: TSpeedButton
+          Left = 282
+          Height = 22
+          Hint = 'gewählte Aufgabe abschießen'
+          Top = 0
+          Width = 27
+          Anchors = [akTop, akRight]
+          Enabled = False
+          Glyph.Data = {
+            36040000424D3604000000000000360000002800000010000000100000000100
+            2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00317A360A2D753207FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF003985400A37833DFF317B37FB2E763307FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF004292490A408E47FF54A35CFF4F9F57FF327C38FE2E773408FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF004B9E530A499A51FF5BAC64FF77CA82FF74C87EFF51A059FF337D39FE2F78
+            3508FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0053A9
+            5C0A51A65AFF63B56DFF7ECE89FF7BCC87FF76CA81FF76C981FF52A25AFF347E
+            3AFE30793508FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF005AB4650959B0
+            63FF6BBD76FF84D290FF7AC985FF60B26AFF63B46DFF78C983FF78CB82FF53A3
+            5CFF347F3AFD317A3608FFFFFF00FFFFFF00FFFFFF00FFFFFF005EB969465BB5
+            66E479C986FF80CE8DFF51A65AFC4DA1566F499C518B5CAD67FF7CCC86FF79CB
+            85FF54A45DFF35803BFC317B3708FFFFFF00FFFFFF00FFFFFF00FFFFFF005FBA
+            6A3C5CB666E66DC079FF55AC5F6FFFFFFF00FFFFFF004A9D52915EAE68FF7DCD
+            89FF7CCD87FF56A55FFF36813CFC327C3808FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF005FBB6A435CB76765FFFFFF00FFFFFF00FFFFFF00FFFFFF004B9E53915FAF
+            69FF7FCE8AFF7ECE89FF57A660FF37823DFC337D3908FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF004B9F
+            549160B06AFF81CF8DFF7FCF8BFF58A761FF398540FF347E3A08FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF004CA0559162B26CFF82D18FFF7AC885FF57A660FF38843F7BFFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF004DA1569163B36DFF5FAF69FF41914979FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF004EA257914A9D527FFFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+          }
+          OnClick = bTaskDoneClick
         end
       end
     end
@@ -745,16 +839,16 @@ object fEnterTime: TfEnterTime
     Left = 8
     Height = 189
     Top = 200
-    Width = 523
+    Width = 522
     Anchors = [akTop, akLeft, akRight, akBottom]
-    ClientHeight = 185
-    ClientWidth = 519
+    ClientHeight = 171
+    ClientWidth = 518
     TabOrder = 2
     object pTimeList: TPanel
       Left = 0
-      Height = 185
+      Height = 171
       Top = 0
-      Width = 519
+      Width = 518
       Align = alClient
       BevelOuter = bvNone
       Color = clNone
@@ -764,9 +858,9 @@ object fEnterTime: TfEnterTime
     end
   end
   object bHide: TBitBtn
-    Left = 419
-    Height = 22
-    Top = 2
+    Left = 418
+    Height = 24
+    Top = 0
     Width = 42
     Action = acMinimizeToTray
     Anchors = [akTop, akRight]
@@ -811,9 +905,9 @@ object fEnterTime: TfEnterTime
   end
   object lActiveEntry: TLabel
     Left = 8
-    Height = 14
+    Height = 13
     Top = 8
-    Width = 111
+    Width = 95
     Caption = 'Aktueller Eintrag'
     Font.Style = [fsBold]
     ParentColor = False
@@ -821,9 +915,9 @@ object fEnterTime: TfEnterTime
   end
   object lTimelist: TLabel
     Left = 8
-    Height = 14
+    Height = 13
     Top = 184
-    Width = 53
+    Width = 46
     Caption = 'Zeitliste'
     Font.Style = [fsBold]
     ParentColor = False
@@ -924,7 +1018,7 @@ object fEnterTime: TfEnterTime
       Action = acGotoID
     end
   end
-  object TimeList: TDatasource
+  object TimeList: TDataSource
     OnDataChange = TimeListDataChange
     left = 256
     top = 288

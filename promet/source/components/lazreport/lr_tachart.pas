@@ -58,7 +58,7 @@ type
   public
     constructor Create(AOwnerPage:TfrPage); override;
     destructor Destroy; override;
-    procedure Assign(From: TfrView); override;
+    procedure Assign(Source : TPersistent); override;
     procedure Draw(aCanvas: TCanvas); override;
     procedure Print(Stream: TStream); override;
     procedure LoadFromStream(Stream: TStream); override;
@@ -398,19 +398,19 @@ begin
 
   XML.SetValue(Path+'DataSet/Value', GetSaveProperty('DataSet'));
 end;
-procedure TfrChartView.Assign(From: TfrView);
+procedure TfrChartView.Assign(Source: TPersistent);
 begin
   debugln('TaChart:'+Self.Name+'('+IntToHex(Integer(Pointer(Self)),8)+')'+','+Self.fDataSetStr+':Assign');
-  inherited Assign(From);
-  if From is TfrChartView then
+  inherited Assign(Source);
+  if Source is TfrChartView then
     begin
-      Self.ChartType:=(From as TfrChartView).ChartType;
-      Self.FieldX:=(From as TfrChartView).FieldX;
-      Self.FieldY:=(From as TfrChartView).FieldY;
-      Self.FieldColor:=(From as TfrChartView).FieldColor;
-      Self.FieldText:=(From as TfrChartView).FieldText;
-      Self.FixedColor:=(From as TfrChartView).FixedColor;
-      Self.DataSet:=(From as TfrChartView).DataSet;
+      Self.ChartType:=(Source as TfrChartView).ChartType;
+      Self.FieldX:=(Source as TfrChartView).FieldX;
+      Self.FieldY:=(Source as TfrChartView).FieldY;
+      Self.FieldColor:=(Source as TfrChartView).FieldColor;
+      Self.FieldText:=(Source as TfrChartView).FieldText;
+      Self.FixedColor:=(Source as TfrChartView).FixedColor;
+      Self.DataSet:=(Source as TfrChartView).DataSet;
     end;
 end;
 

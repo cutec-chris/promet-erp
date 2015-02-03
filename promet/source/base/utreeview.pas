@@ -20,7 +20,7 @@ unit utreeview;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, DBGrids,
+  Classes, SysUtils, FileUtil,  Forms, Controls, DBGrids,
   ExtCtrls, Buttons, ComCtrls, uExtControls, db, Grids, ActnList,
   Menus, uBaseDBClasses, uBaseDbInterface;
 type
@@ -89,6 +89,7 @@ type
     property DataSet : TBaseDBDataSet read FDataSet write SetDataSet;
   end;
 implementation
+{$R *.lfm}
 uses uRowEditor,ubasevisualapplicationtools;
 constructor TDBTreeEntry.Create(aBM : LargeInt);
 begin
@@ -274,6 +275,5 @@ begin
   acFilter.Execute;
 end;
 initialization
-  {$I utreeview.lrs}
 end.
 

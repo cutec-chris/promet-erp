@@ -14,4 +14,4 @@ Functions
 Development
 ===========
 
-Actual tested with Lazarus rev. 42850.
+Needs actual Lazarus Version > 1.2.2

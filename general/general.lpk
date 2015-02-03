@@ -17,11 +17,8 @@
           <UseAnsiStrings Value="False"/>
         </SyntaxOptions>
       </Parsing>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
-    <Files Count="11">
+    <Files Count="17">
       <Item1>
         <Filename Value="src_vis\ubenchmark.pas"/>
         <UnitName Value="ubenchmark"/>
@@ -67,7 +64,36 @@
         <Filename Value="src_vis\uinfo.pas"/>
         <UnitName Value="uInfo"/>
       </Item11>
+      <Item12>
+        <Filename Value="src_vis\processutils.pas"/>
+        <UnitName Value="ProcessUtils"/>
+      </Item12>
+      <Item13>
+        <Filename Value="src_vis\ulanguageutils.pas"/>
+        <UnitName Value="uLanguageUtils"/>
+      </Item13>
+      <Item14>
+        <Filename Value="src_vis\potranslator.pas"/>
+        <UnitName Value="PoTranslator"/>
+      </Item14>
+      <Item15>
+        <Filename Value="src_vis\utilsvis.pas"/>
+        <UnitName Value="UtilsVis"/>
+      </Item15>
+      <Item16>
+        <Filename Value="src_vis\ucolors.pas"/>
+        <UnitName Value="uColors"/>
+      </Item16>
+      <Item17>
+        <Filename Value="src_vis\uimaging.pas"/>
+        <UnitName Value="uImaging"/>
+      </Item17>
     </Files>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="..\promet\languages"/>
+      <EnableI18NForLFM Value="True"/>
+    </i18n>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="3">
       <Item1>

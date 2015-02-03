@@ -4,13 +4,13 @@ inherited fSystemOptions: TfSystemOptions
   ClientHeight = 415
   ClientWidth = 594
   TabOrder = 0
-  DesignLeft = 440
-  DesignTop = 177
+  DesignLeft = 432
+  DesignTop = 215
   object lNumbers: TLabel[0]
     Left = 4
-    Height = 18
+    Height = 13
     Top = 8
-    Width = 115
+    Width = 96
     Caption = 'Nummernkreise'
     Font.Style = [fsBold]
     ParentColor = False
@@ -18,9 +18,9 @@ inherited fSystemOptions: TfSystemOptions
   end
   object lVAT: TLabel[1]
     Left = 4
-    Height = 18
+    Height = 13
     Top = 160
-    Width = 119
+    Width = 97
     Caption = 'Mehrwertsteuer'
     Font.Style = [fsBold]
     ParentColor = False
@@ -28,9 +28,9 @@ inherited fSystemOptions: TfSystemOptions
   end
   object lPaymentTargets: TLabel[2]
     Left = 4
-    Height = 18
-    Top = 272
-    Width = 100
+    Height = 13
+    Top = 277
+    Width = 86
     Anchors = [akLeft, akBottom]
     Caption = 'Zahlungsziele'
     Font.Style = [fsBold]

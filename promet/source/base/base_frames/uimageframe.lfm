@@ -1,33 +1,34 @@
 inherited fImageFrame: TfImageFrame
-  Left = 0
-  Height = 317
-  Top = 0
-  Width = 552
-  ClientHeight = 317
-  ClientWidth = 552
+  Height = 331
+  Width = 588
+  ClientHeight = 331
+  ClientWidth = 588
   OnEnter = FrameEnter
   OnExit = FrameExit
+  DesignLeft = 399
+  DesignTop = 226
   object pImage: TPanel[0]
-    Left = 48
-    Height = 307
-    Top = 5
-    Width = 498
-    Anchors = [akTop, akLeft, akRight, akBottom]
+    Left = 52
+    Height = 315
+    Top = 8
+    Width = 528
+    Align = alClient
+    BorderSpacing.Around = 8
     BevelOuter = bvLowered
     Caption = 'kein Bild verfügbar'
-    ClientHeight = 307
-    ClientWidth = 498
+    ClientHeight = 315
+    ClientWidth = 528
     TabOrder = 0
     object sbImage: TScrollBox
       Left = 1
-      Height = 305
+      Height = 313
       Top = 1
-      Width = 496
-      HorzScrollBar.Page = 478
-      VertScrollBar.Page = 287
+      Width = 526
+      HorzScrollBar.Page = 512
+      VertScrollBar.Page = 305
       Align = alClient
-      ClientHeight = 287
-      ClientWidth = 478
+      ClientHeight = 311
+      ClientWidth = 524
       TabOrder = 0
       object iPreview: TDBImage
         Left = 0
@@ -45,31 +46,31 @@ inherited fImageFrame: TfImageFrame
       end
     end
   end
-  object pPosControls: TPanel[1]
+  object pToolbar: TPanel[1]
     Left = 0
-    Height = 317
+    Height = 331
     Top = 0
     Width = 44
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 317
+    ClientHeight = 331
     ClientWidth = 44
     TabOrder = 1
     object Panel2: TPanel
       Left = 0
       Height = 40
       Top = 208
-      Width = 44
+      Width = 40
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 40
-      ClientWidth = 44
+      ClientWidth = 40
       TabOrder = 0
       object Bevel1: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 32
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -95,6 +96,7 @@ inherited fImageFrame: TfImageFrame
         Top = 4
         Width = 25
         Action = acAddImage
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           20000000000000040000640000006400000000000000000000002C86D8702D88
@@ -140,18 +142,18 @@ inherited fImageFrame: TfImageFrame
       Left = 0
       Height = 188
       Top = 20
-      Width = 44
+      Width = 40
       Align = alTop
       BorderSpacing.Top = 20
       BevelOuter = bvNone
       ClientHeight = 188
-      ClientWidth = 44
+      ClientWidth = 40
       TabOrder = 1
       object Bevel2: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 32
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -187,6 +189,7 @@ inherited fImageFrame: TfImageFrame
         ClientWidth = 25
         DataSource = Images
         Direction = nbdVertical
+        Flat = True
         Options = []
         TabOrder = 0
         VisibleButtons = [nbPrior, nbNext, nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
@@ -196,17 +199,17 @@ inherited fImageFrame: TfImageFrame
       Left = 0
       Height = 88
       Top = 248
-      Width = 44
+      Width = 40
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 88
-      ClientWidth = 44
+      ClientWidth = 40
       TabOrder = 2
       object Bevel3: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 32
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -232,6 +235,7 @@ inherited fImageFrame: TfImageFrame
         Top = 4
         Width = 25
         Action = acPaste
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -278,6 +282,7 @@ inherited fImageFrame: TfImageFrame
         Top = 28
         Width = 25
         Action = acCopy
+        Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF

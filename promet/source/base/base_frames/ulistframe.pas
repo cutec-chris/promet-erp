@@ -31,7 +31,7 @@ type
     Datasource: TDatasource;
     dnNavigator: TDBNavigator;
     ExtRotatedLabel1: TExtRotatedLabel;
-    Panel1: TPanel;
+    pToolbar: TPanel;
     Panel2: TPanel;
   private
     { private declarations }
@@ -70,6 +70,7 @@ procedure TfListFrame.SetRights(Editable: Boolean);
 begin
   FList.Editable:=Editable;
   dnNavigator.Enabled:=Editable;
+  ArrangeToolBar(pToolbar,nil,'List');
 end;
 procedure TfListFrame.ShowFrame;
 begin

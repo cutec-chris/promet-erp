@@ -19,6 +19,7 @@ type
     procedure CheckQuantityCalculation;
     procedure FillPosition2;
     procedure CheckSumCalculation;
+    procedure CheckPriceCalculation;
     procedure CheckPost;
     procedure ConvertAU;
     procedure ConvertLI;
@@ -31,7 +32,7 @@ var
   aOrder : TOrder;
 procedure OrderTest.CreateOrder;
 begin
-  aOrder := TOrder.Create(nil,Data);
+  aOrder := TOrder.Create(nil);
   aOrder.Insert;
 end;
 
@@ -60,6 +61,13 @@ begin
   aOrder.Positions.FieldByName('SHORTTEXT').AsString:='Position 2';
   Check(aOrder.Positions.FieldByName('POSNO').AsString = '2');
   aOrder.Positions.FieldByName('SELLPRICE').AsString:='5';
+  aOrder.Positions.PosCalc.Append;
+  aOrder.Positions.PosCalc.FieldByName('TYPE').AsString:='SAP';
+  aOrder.Positions.PosCalc.FieldByName('PRICE').AsFloat:=5;
+  aOrder.Positions.PosCalc.Append;
+  aOrder.Positions.PosCalc.FieldByName('MINCOUNT').AsInteger:=5;
+  aOrder.Positions.PosCalc.FieldByName('TYPE').AsString:='SAP';
+  aOrder.Positions.PosCalc.FieldByName('PRICE').AsFloat:=2.5;
   aOrder.Positions.FieldByName('QUANTITY').AsString:='2';
 end;
 
@@ -68,6 +76,14 @@ begin
   aOrder.DataSet.Post;
   Check(aOrder.FieldByName('NETPRICE').AsFloat = 35);
   aOrder.CascadicPost;
+end;
+
+procedure OrderTest.CheckPriceCalculation;
+begin
+  aOrder.Positions.Edit;
+  aOrder.Positions.FieldByName('QUANTITY').AsString:='10';
+  aOrder.Positions.Post;
+  //Check(aOrder.FieldByName('NETPRICE').AsFloat = 50);
 end;
 
 procedure OrderTest.CheckPost;

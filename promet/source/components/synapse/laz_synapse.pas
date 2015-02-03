@@ -10,8 +10,8 @@ uses
   asn1util, blcksock, clamsend, dnssend, ftpsend, ftptsend, httpsend, 
   imapsend, ldapsend, mimeinln, mimemess, mimepart, nntpsend, pingsend, 
   pop3send, slogsend, smtpsend, snmpsend, sntpsend, synachar, synacode, 
-  synacrypt, synadbg, synafpc, synaicnv, synaip, synamisc, synaser, synautil, 
-  synsock, tlntsend, ssl_openssl, LazarusPackageIntf;
+  synacrypt, synadbg, synafpc, synaicnv, synaip, synamisc, synautil, synsock, 
+  tlntsend, ssl_openssl, LazarusPackageIntf;
 
 implementation
 

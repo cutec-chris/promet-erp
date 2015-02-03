@@ -50,7 +50,6 @@ type
     procedure DoTerminate;
   public
     constructor Create(aData : TBaseDBModule);
-    destructor Destroy;override;
     procedure Execute; override;
     property OnExit : TNotifyEvent read FExit write FExit;
     procedure RegisterCommandHandler(CommandHandler : TSystemCommandEvent);
@@ -122,27 +121,17 @@ constructor TMessageHandler.Create(aData : TBaseDBModule);
 begin
   Data := aData;
   Connection := Data.GetNewConnection;
-  FreeOnTerminate := True;
   aSleepTime := 12000;
-  SysCommands := TSystemCommands.Create(nil,Data,Connection);
+  SysCommands := TSystemCommands.CreateEx(nil,Data,Connection);
   SysCommands.CreateTable;
   Data.SetFilter(SysCommands,Data.QuoteField('PROCESS_ID')+'='+Data.QuoteValue(IntToStr(Data.SessionID)),5);
-  SysMessages := TSystemMessages.Create(nil,Data,Connection);
+  SysMessages := TSystemMessages.CreateEx(nil,Data,Connection);
   SysMessages.CreateTable;
   Data.SetFilter(SysMessages,Data.QuoteField('PROCESS_ID')+'='+Data.QuoteValue(IntToStr(Data.SessionID)),5);
-  inherited Create(False);
-end;
-
-destructor TMessageHandler.Destroy;
-begin
-  {
-  if not Terminated then
-    begin
-      Terminate;
-      WaitFor;
-    end;
-  }
-  inherited Destroy;
+  if not BaseApplication.HasOption('disablethreads') then
+    inherited Create(False)
+  else
+    Execute;
 end;
 
 procedure TMessageHandler.Execute;
@@ -213,8 +202,8 @@ var
   Procs: TActiveUsers;
 begin
   if not Assigned(Self) then exit;
-  Procs := TActiveUsers.Create(nil,Data);
-  SysCmd := TSystemCommands.Create(nil,Data);
+  Procs := TActiveUsers.Create(nil);
+  SysCmd := TSystemCommands.Create(nil);
   try
     with Procs.DataSet as IBaseDbFilter do
       Data.SetFilter(Procs,Data.ProcessTerm(Data.QuoteField('CLIENT')+'='+Data.QuoteValue(Target)));

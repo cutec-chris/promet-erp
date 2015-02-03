@@ -6,10 +6,9 @@ uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
-  Classes, SysUtils, CustApp,
-  Interfaces
+  Classes, SysUtils, CustApp
   { you can add units after this },db,Utils,
-  FileUtil,Forms,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
+  FileUtil,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
   uBaseApplication;
 
 type
@@ -18,7 +17,6 @@ type
 
   PrometCmdApp = class(TBaseCustomApplication)
   private
-    mailaccounts : string;
   protected
     procedure DoRun; override;
   public

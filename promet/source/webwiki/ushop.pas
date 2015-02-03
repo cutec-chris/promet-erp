@@ -3,7 +3,7 @@ unit ushop;
 interface
 uses
   SysUtils, Classes, httpdefs, fpHTTP, fpWeb, uMasterdata,
-  fpTemplate, uOrder,uerror,uBaseSearch,uBaseDbClasses;
+  fpTemplate, uOrder,uerror,uBaseSearch,uBaseDbClasses,ubaseconfig;
 type
 
   { TfmShop }
@@ -18,7 +18,7 @@ type
     procedure DataModuleGetAction(Sender: TObject; ARequest: TRequest;
       var ActionName: String);
     procedure FSearchItemFound(aIdent: string; aName: string; aStatus: string;aActive : Boolean;
-      aLink: string; aItem: TBaseDBList=nil);
+      aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
     procedure ReplaceBasketDetailTags(Sender: TObject; const TagString: String;
       TagParams: TStringList; out ReplaceText: String);
     procedure ReplaceDetailTags(Sender: TObject; const TagString: String;
@@ -78,7 +78,7 @@ begin
     begin
       fmWikiPage.SetTemplateParams(TFPWebAction(Sender).Template);
       SelectedArticle := ARequest.QueryFields.Values['Id'];
-      aMasterdata := TMasterdata.Create(Self,Data);
+      aMasterdata := TMasterdata.CreateEx(Self,Data);
       if copy(SelectedArticle,pos('_',SelectedArticle)+1,length(SelectedArticle)) = '' then
         aMasterdata.Select(copy(SelectedArticle,0,pos('_',SelectedArticle)-1),Null,'de')
       else
@@ -187,7 +187,7 @@ var
   var
     aTree : TTree;
   begin
-    aTree := TTree.Create(Self,Data);
+    aTree := TTree.CreateEx(Self,Data);
     Data.SetFilter(aTree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('M')+' AND '+Data.QuoteField('PARENT')+'='+Data.QuoteValue(bParent));
     with aTree.DataSet do
       begin
@@ -205,11 +205,11 @@ var
 
 begin
   AddSearchAbleDataSet(TMasterdataList);
-  Masterdata := TMasterdataList.Create(Self,Data);
-  aOrder := TOrder.Create(Self,Data);
+  Masterdata := TMasterdataList.CreateEx(Self,Data);
+  aOrder := TOrder.CreateEx(Self,Data);
   Menue := TStringlist.Create;
   aParent := 0;
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     PageName := Config.ReadString('SHOPTREEOFFSET','');
   Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('M'),0,'','ASC',False,True,True);
   while pos('/',PageName) > 0 do
@@ -280,7 +280,7 @@ begin
       Path := trim(Path);
     end;
   PageName := Path;
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     PageName := Config.ReadString('SHOPTREEOFFSET','')+PageName+'/';
   PathFound := True;
   aOldParent := aParent;
@@ -337,7 +337,8 @@ begin
   ActionName := Result;
 end;
 procedure TfmShop.FSearchItemFound(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 var
   LinkValue: String;
   aOffset: String;
@@ -466,7 +467,7 @@ begin
               aTmpRow := StringReplace(aTmpRow,'~ProductId',FieldByName('ID').AsString,[rfReplaceAll]);
               aTmpRow := StringReplace(aTmpRow,'~ProductName',FieldByName('SHORTTEXT').AsString,[rfReplaceAll]);
               ImgExt := '';
-              with BaseApplication as IBaseApplication do
+              with BaseApplication as IBaseConfig do
                 ImageBasePath := AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH','')));
               aSmallImageTmp := '';
               aMasterdata.Images.Open;
@@ -672,7 +673,7 @@ begin
                 begin
                   aRow := TagParams.Values['ONEROW'];
                   aRow := StringReplace(aRow,'~Quantity',FieldByName('QUANTITY').AsString,[]);
-                  aRow := StringReplace(aRow,'~ProductName',Utils.TextCut(30,FieldByName('SHORTTEXT').AsString),[]);
+                  aRow := StringReplace(aRow,'~ProductName',{Utils.TextCut(30,FieldByName('SHORTTEXT').AsString)}FieldByName('SHORTTEXT').AsString,[]);
                   aRow := StringReplace(aRow,'~ProductId',FieldByName('IDENT').AsString,[]);
                   ReplaceText := ReplaceText+aRow;
                   next;
@@ -730,10 +731,10 @@ begin
               aTmpRow := aRow;
               aTmpRow := StringReplace(aTmpRow,'~ProductId',FieldByName('ID').AsString+'_'+FieldByName('VERSION').AsString,[rfReplaceAll]);
               aTmpRow := StringReplace(aTmpRow,'~ProductName',FieldByName('SHORTTEXT').AsString,[rfReplaceAll]);
-              aMasterdata := TMasterdata.Create(Self,Data);
+              aMasterdata := TMasterdata.CreateEx(Self,Data);
               aMasterdata.Select(FieldByName('SQL_ID').AsInteger);
               aMasterdata.Open;
-              with BaseApplication as IBaseApplication do
+              with BaseApplication as IBaseConfig do
                 ImageBasePath := AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH','')));
               ImageFile := 'images/'+ValidateFileName(FieldByName('ID').AsString);
               if (not FileExists(ImageBasePath+ImageFile+'.jpg'))
@@ -829,7 +830,7 @@ var
   aCanvas: TFPImageCanvas;
   aImageText: String;
 begin
-  aMd := TMasterdata.Create(Self,Data);
+  aMd := TMasterdata.CreateEx(Self,Data);
   if AnsiCompareText(TagString, 'CONTENT') = 0 then
     begin
       ReplaceText := TagParams.Values['CHEADER'];
@@ -850,7 +851,7 @@ begin
                   LinkValue := copy(LinkValue,0,rpos('(',LinkValue)-1);
                 LinkDesc := HTMLEncode(Data.GetLinkDesc(FSearchResult[i]));
                 LinkLocation := LinkDesc;
-                with BaseApplication as IBaseApplication do
+                with BaseApplication as IBaseConfig do
                   ImageBasePath := AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH','')));
                 if rpos('(',Linkdesc) > 0 then
                   begin
@@ -928,7 +929,7 @@ begin
       fmWikiPage.ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
     end;
   aMd.Free;
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TfmShop.showbasketRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
@@ -948,7 +949,7 @@ begin
       fmWikiPage.SetTemplateParams(TFPWebAction(Sender).Template);
       TFPWebAction(Sender).Template.OnReplaceTag := @ReplaceShopDetailTags;
       SelectedArticle := ARequest.QueryFields.Values['Id'];
-      aMasterdata := TMasterdata.Create(Self,Data);
+      aMasterdata := TMasterdata.CreateEx(Self,Data);
       if copy(SelectedArticle,pos('_',SelectedArticle)+1,length(SelectedArticle)) = '' then
         aMasterdata.Select(copy(SelectedArticle,0,pos('_',SelectedArticle)-1),Null,'de')
       else

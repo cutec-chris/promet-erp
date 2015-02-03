@@ -1,7 +1,7 @@
 object fSearch: TfSearch
-  Left = 452
+  Left = 373
   Height = 445
-  Top = 187
+  Top = 185
   Width = 566
   BorderIcons = [biSystemMenu, biMaximize]
   Caption = 'Suche'
@@ -276,7 +276,7 @@ object fSearch: TfSearch
       TabStop = False
     end
     object bSearch: TBitBtn
-      Left = 417
+      Left = 416
       Height = 37
       Top = 3
       Width = 112
@@ -446,7 +446,7 @@ object fSearch: TfSearch
       Top = 20
       Width = 399
       Anchors = [akTop, akLeft, akRight, akBottom]
-      ColCount = 6
+      ColCount = 7
       ColumnClickSorts = True
       Columns = <      
         item
@@ -473,6 +473,10 @@ object fSearch: TfSearch
         item
           Title.Caption = 'Active'
           Width = 0
+        end      
+        item
+          Title.Caption = 'Prio'
+          Width = 0
         end>
       DragMode = dmAutomatic
       FixedCols = 0
@@ -492,6 +496,7 @@ object fSearch: TfSearch
         100
         130
         40
+        0
         0
         0
       )
@@ -524,13 +529,12 @@ object fSearch: TfSearch
     ClientWidth = 566
     TabOrder = 4
     object bClose: TBitBtn
-      Left = 445
-      Height = 34
-      Top = 14
-      Width = 99
+      Left = 444
+      Height = 36
+      Top = 12
+      Width = 100
       HelpType = htKeyword
       Anchors = [akRight, akBottom]
-      AutoSize = True
       BorderSpacing.InnerBorder = 4
       Caption = '&Schließen'
       Kind = bkClose
@@ -547,13 +551,12 @@ object fSearch: TfSearch
     end
     object bOpen: TBitBtn
       AnchorSideRight.Control = bClose
-      Left = 349
-      Height = 34
-      Top = 14
-      Width = 91
+      Left = 358
+      Height = 36
+      Top = 12
+      Width = 81
       Action = acOpen
       Anchors = [akRight, akBottom]
-      AutoSize = True
       BorderSpacing.Right = 5
       BorderSpacing.InnerBorder = 4
       Font.Style = [fsBold]
@@ -598,6 +601,7 @@ object fSearch: TfSearch
     end
   end
   object ActionList1: TActionList
+    Images = fVisualControls.Images
     left = 32
     top = 304
     object acOpen: TAction
@@ -621,8 +625,18 @@ object fSearch: TfSearch
       ImageIndex = 8
       OnExecute = acSearchContainedExecute
     end
+    object acInformwithexternMail: TAction
+      Caption = 'Mit externem e-Mail Programm informieren'
+      ImageIndex = 53
+      OnExecute = acInformwithexternMailExecute
+    end
+    object acInformwithinternMail: TAction
+      Caption = 'Mit e-Mail informieren'
+      ImageIndex = 53
+    end
   end
   object PopupMenu1: TPopupMenu
+    Images = fVisualControls.Images
     OnPopup = PopupMenu1Popup
     left = 184
     top = 304
@@ -789,12 +803,51 @@ object fSearch: TfSearch
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
     end
+    object MenuItem7: TMenuItem
+      Action = acInformwithexternMail
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00196B3788196B37F2196B37FF196B37F2196B3788FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00196B
+        3784288C53FF64BA8DFF95D2B2FF64BA8DFF288C53FF196B378CFFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF001B6C
+        39F762BA8BFF60BA87FFFFFFFF0060B987FF67BC8FFF196B37F78E512BBFB063
+        31EFBB7038FABE773CFBC17B40FBC27E42FBC28045FBC38247FBC38649FB317B
+        4CFF9CD4B6FFFFFFFF00FFFFFF00FFFFFF0095D2B2FF196B37FFA35D31DEF8F3
+        EEFDF5ECE4FEFBF5F0FFFBF7F1FFFBF7F3FFFBF8F4FFFCF9F5FFFCF9F5FF4A8B
+        62FF90D3B1FF92D6B1FFFFFFFF0065BC8CFF67BC8FFF1D6B37FEBE6F3CFEFCF9
+        F5FFECD0BCFFF9E4D6FFFEECDFFFFEEBDFFFFEEBDEFFFEEBDBFFFEEBDCFFA7BC
+        A2FF61AB81FF95D4B4FFBAE6D0FF6ABB8FFF2D8F57FF677942FFC27646FFFDFB
+        F8FFF9E3D2FFECCFB9FFF8E1D0FFFDE7D6FFF4D5BDFFE9BFA0FFE9BFA2FFF4D3
+        BDFFADBEA3FF609873FF4F8E66FF49885EFF96B79DFFC98C50FFC57D50FFFDFB
+        F9FFFDE9D8FFF9E1D0FFEBCAB3FFECC5A7FFE3B698FFF7E7DDFFF7E8DEFFE3B6
+        97FFECC3A4FFEAC5A9FFF8DAC2FFFCDFC6FFF8F3EDFFC88D50FFC9865BFFFDFB
+        F9FFFDE8D7FFFDE6D4FFEDC6ABFFDCAA89FFF9ECE3FFFFFBF9FFFFFCFAFFF9EE
+        E6FFDCA887FFEDBF9CFFFCDBC0FFFCDBC0FFF8F3EDFFC88C50FFCC8E66FFFDFB
+        F9FFFDE5D3FFF1CCB2FFE3B596FFF9EAE0FFFFF9F5FFFEF3EAFFFEF4EDFFFFFB
+        F9FFF9EDE5FFE3B08DFFF0C19EFFFCD7B7FFF8F3EDFFC88C50FFD09670FFFDFB
+        F9FFF1CDB1FFE3B596FFF9E9DEFFFEF7F1FFFDEDE1FFFEEFE4FFFEF1E7FFFEF3
+        EAFFFFFAF7FFF9ECE3FFE2AE8AFFF0BC95FFF8F4ECFFC88C50FFD39D7BFEFBF6
+        F2FFE3B496FFF9E8DCFFFEF5EEFFFDE9DAFFFDEADCFFFDECDEFFFDEDE1FFFEEF
+        E4FFFEF1E7FFFFFAF6FFF9EAE0FFE2AA85FFF1E4D9FFC88C50FED7AB91DCFDFA
+        F8FEFCF5F1FFFFFCF9FFFFFCF9FFFFFCF9FFFFFCF9FFFFFCFAFFFFFCFAFFFFFC
+        FAFFFFFCFBFFFFFDFBFFFFFDFCFFFBF6F3FFF8EFEAFDAB7743DBC89A7CBFD5A4
+        84F0D09770FBCC8F64FDCC8E62FDCB8E60FDCA8C5DFDC98B5BFDC88A58FDC788
+        56FDC68653FDC58450FDC4824DFCC1834DF7B27948E38E512BBFFFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+      }
+    end
   end
   object IdleTimer: TTimer
     Enabled = False
     Interval = 200
     OnTimer = IdleTimerTimer
-    left = 88
+    left = 87
     top = 304
   end
   object LinkSaveDialog: TSaveDialog
@@ -804,9 +857,16 @@ object fSearch: TfSearch
   end
   object IdleTimer1: TIdleTimer
     Enabled = False
-    Interval = 200
+    Interval = 50
     OnTimer = IdleTimer1Timer
     left = 87
+    top = 256
+  end
+  object HistorySearchTimer: TTimer
+    Enabled = False
+    Interval = 50
+    OnTimer = HistorySearchTimerTimer
+    left = 139
     top = 256
   end
 end

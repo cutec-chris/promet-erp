@@ -52,7 +52,7 @@ constructor TfStorageTypeOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aStorageType := TStorageTypes.Create(Self,Data,aConnection);
+  aStorageType := TStorageTypes.CreateEx(Self,Data,aConnection);
   StorageTypeDS.DataSet := aStorageType.DataSet;
 end;
 

@@ -21,9 +21,9 @@ unit uPassword;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Buttons,ComCtrls,LCLType, ButtonPanel, Menus, uBaseApplication,
-  uBaseDBInterface,FileUtil;
+  uBaseDBInterface,Utils;
 resourcestring
   strNoMandants         = 'keine Mandanten gefunden !';
   strStartmandantWizard = 'Es wurde kein Mandant gefunden.'+lineending+'Möchten Sie jetzt einen anlegen ?';
@@ -65,8 +65,9 @@ var
   fPassword: TfPassword;
 
 implementation
+{$R *.lfm}
 uses
-  uMashineID,uData,UTF8Process,Process;
+  uMashineID,uData,UTF8Process,Process,ubaseconfig;
 { TfPassword }
 
 procedure TfPassword.cbMandantSelect(Sender: TObject);
@@ -77,10 +78,10 @@ var
     mSettings: TStringList;
   begin
     Result := False;
-    if FileExistsUTF8(aMandantPath) then
+    if FileExists(UniToSys(aMandantPath)) then
       begin
         mSettings := TStringList.Create;
-        mSettings.LoadFromFile(UTF8ToSys(aMandantPath));
+        mSettings.LoadFromFile(UniToSys(aMandantPath));
         if mSettings.Count = 2 then
           begin
             aUser := cbUser.Text;
@@ -123,11 +124,11 @@ begin
   lFirstLogin.Visible:=False;
   with Application as IBaseDBInterface do
     begin
-      if not DirectoryExistsUTF8(MandantPath) then
+      if not DirectoryExists(UniToSys(MandantPath)) then
         begin
           if not DoOpenMandant(MandantPath) then exit;
         end
-      else if DirectoryExistsUTF8(MandantPath) then
+      else if DirectoryExists(UniToSys(MandantPath)) then
         begin
           if not DoOpenMandant(AppendPathDelim(MandantPath)+cbMandant.Text+MandantExtension) then exit;
         end;
@@ -189,7 +190,7 @@ end;
 
 procedure TfPassword.lFirstLoginResize(Sender: TObject);
 begin
-  Height := ((ePasswort.Height+8)*3)+ButtonPanel1.Height+lFirstLogin.Height+35;
+  Height := ((ePasswort.Height+8)*3)+ButtonPanel1.Height+lFirstLogin.Height+35{$ifdef LCLGTK2}+5{$endif};
 end;
 
 procedure TfPassword.MenuItem1Click(Sender: TObject);
@@ -199,9 +200,9 @@ end;
 
 procedure TfPassword.OKButtonClick(Sender: TObject);
 var
-  BaseApplication : IBaseApplication;
+  BaseApplication : IBaseConfig;
 begin
-  if Supports(Application, IBaseApplication, BaseApplication) then
+  if Supports(Application, IBaseConfig, BaseApplication) then
     begin
       if cbAutomaticLogin.Checked then
         BaseApplication.Config.WriteInteger('AUTOMATICLOGIN',CreateUserID)
@@ -225,6 +226,15 @@ begin
   aProcess.CommandLine:=AppendPathDelim(Application.Location)+'wizardmandant'+ExtractFileExt(Application.ExeName);
   if Application.HasOption('c','config-path') then
     aProcess.CommandLine:=aProcess.CommandLine+' "--config-path='+Application.GetOptionValue('c','config-path')+'"';
+  if Application.HasOption('database') then
+    begin
+      aProcess.CommandLine:=aProcess.CommandLine+' "--database='+Application.GetOptionValue('database')+'"';
+      aProcess.CommandLine:=aProcess.CommandLine+' --silent';
+    end;
+  if Application.HasOption('firebird') then
+    begin
+      aProcess.CommandLine:=aProcess.CommandLine+' --firebird';
+    end;
   aProcess.CommandLine:=aProcess.CommandLine+' "--execute='+Application.ExeName+'"';
   aProcess.Options := [poNoConsole];
   try
@@ -250,13 +260,13 @@ begin
   lFirstLogin.Visible:=False;
   lFirstLogin.Height:=0;
   lFirstLoginResize(nil);
-  with Application as IBaseApplication do
+  with Application as IBaseApplication,Application as IBaseConfig do
     begin
       if cbMandant.Items.Count = 0 then
         begin
           with Application as IBaseDbInterface do
             begin
-              If FindFirstUTF8(AppendPathDelim(MandantPath)+'*'+MandantExtension,faAnyFile,AInfo)=0 then
+              If FindFirst(UniToSys(AppendPathDelim(MandantPath)+'*'+MandantExtension),faAnyFile,AInfo)=0 then
                 Repeat
                   With aInfo do
                     begin
@@ -267,7 +277,7 @@ begin
               FindClose(aInfo);
               if cbMandant.Items.Count = 0 then
                 begin
-                  if FileExistsUTF8(AppendPathDelim(Application.Location)+'wizardmandant'+ExtractFileExt(Application.ExeName)) then
+                  if FileExists(UniToSys(AppendPathDelim(Application.Location)+'wizardmandant'+ExtractFileExt(Application.ExeName))) then
                     begin
                       if MessageDlg(strStartmandantWizard,mtInformation,[mbYes,mbNo],0) = mrYes then
                         begin
@@ -275,7 +285,8 @@ begin
                         end
                       else  raise Exception.Create(strNoMandants);
                     end
-                  else raise Exception.Create(strNoMandants);
+                  else
+                    raise Exception.Create(strNoMandants);
                   exit;
                 end;
             end;
@@ -314,6 +325,5 @@ begin
   Result := Showmodal = mrOK;
 end;
 initialization
-  {$I upassword.lrs}
 end.
-
+

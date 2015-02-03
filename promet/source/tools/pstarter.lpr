@@ -13,7 +13,7 @@ uses
   Dialogs,
   Utils,
   FileUtil
-  { add your units here }, uprogramended, general;
+  { add your units here }, uprogramended, general,uLanguageUtils;
 
 var
   Proc : TProcessUTF8;

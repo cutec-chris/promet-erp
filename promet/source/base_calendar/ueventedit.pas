@@ -21,7 +21,7 @@ info@cu-tec.de
 unit uEventEdit;
 interface
 uses
-  LMessages, LCLProc, LCLType, LCLIntf, LResources, SysUtils, Classes, Graphics,
+  LMessages, LCLProc, LCLType, LCLIntf,  SysUtils, Classes, Graphics,
   Controls, Forms, Dialogs, StdCtrls, ExtCtrls, VpData, VpEdPop, VpDateEdit,
   ComCtrls, VpBase, VpClock, VpBaseDS, VpDlg, VpConst, ZVDateTimePicker,
   uExtControls, Buttons, EditBtn, ButtonPanel, Spin, DbCtrls, Menus, ActnList,
@@ -126,6 +126,7 @@ type
     procedure AddDocuments(Sender: TObject);
     procedure AddLinks(Sender: TObject);
     procedure AddHistory(Sender: TObject);
+    procedure Addusers(Sender: TObject);
   public { Public declarations }
     Event: TVpEvent;
     CatColorMap: TVpCategoryColorMap;
@@ -142,7 +143,7 @@ type
 implementation
 uses
   VpSR,uDocuments,uDocumentFrame,uData,uLinkFrame,uprometframesinplace,
-  uSelectReport,uBaseDBInterface,uHistoryFrame,uNRights;
+  uSelectReport,uBaseDBInterface,uHistoryFrame,uNRights,umeetingusers;
 resourcestring
   strEventinPast                = 'Das Ereignis liegt in der Vergangenheit';
 procedure TfEventEdit.FormCreate(Sender: TObject);
@@ -211,7 +212,9 @@ begin
   cbCategory.Items.Clear;
   aType := 'C';
   Data.Categories.CreateTable;
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+  Data.Categories.DataSet.Filtered:=True;
   Data.Categories.First;
   while not Data.Categories.EOF do
     begin
@@ -261,9 +264,12 @@ begin
   Event.AllDayEvent := CBAllDay.Checked;
   Event.StrCategory := cbCategory.Text;
   if cbPlanrel.Checked then
-    Event.Category := 8;
+    Event.Category := 8
+  else
+    Event.Category :=  0;
   Event.AlarmWavPath := AlarmWavPath;
   Event.Location:=eLocation.Text;
+  FDataSet.Edit;
 end;
 
 procedure TfEventEdit.SetRights;
@@ -301,7 +307,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
       aDocuments.Select(FDataSet.Id.AsInteger,'T',0);
       aDocuments.Open;
@@ -322,6 +328,10 @@ begin
   TEvent(FDataSet).History.Open;
   if TEvent(FDataSet).History.Count > 0 then
     pcPages.AddTab(TfHistoryFrame.Create(Self),False);
+  pcPages.AddTabClass(TfMeetingUsers,strMeetingUsers,@AddUsers);
+  TEvent(FDataSet).Users.Open;
+  if TEvent(FDataSet).Users.Count > 0 then
+    pcPages.AddTab(TfMeetingUsers.Create(Self),False);
   SetRights;
 end;
 procedure TfEventEdit.AddDocuments(Sender: TObject);
@@ -330,7 +340,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(FDataSet.Id.AsInteger,'T',0);
     end;
@@ -350,14 +360,21 @@ begin
   TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
 
+procedure TfEventEdit.Addusers(Sender: TObject);
+begin
+  TfLinkFrame(Sender).DataSet := TEvent(FDataSet).Users;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
 function TfEventEdit.Execute(aEvent: TVpEvent; aResource: TVpResource;
   aDir: Variant; aDataStore: TVpCustomDataStore): Boolean;
 var
   ActControl: TWinControl;
+  aInserted: Boolean = False;
 begin
   FEditable := True;
   Event := aEvent;
-  FDataSet := TEvent.Create(nil,Data);
+  FDataSet := TEvent.Create(nil);
   FDataSet.SelectById(aEvent.RecordID);
   FDataSet.Open;
   FDataStore := aDataStore;
@@ -366,6 +383,8 @@ begin
       FDataSet.Insert;
       FDataSet.FieldByName('ID').AsVariant:=aEvent.RecordID;
       FDataSet.FieldByName('REF_ID_ID').AsVariant:=aDir;
+      FDataSet.Post;
+      aInserted := True;
     end;
   Resource := aResource;
   PopulateDialog;
@@ -390,7 +409,9 @@ begin
       if FDataSet.CanEdit then
         FDataSet.Post;
       aDataStore.PostEvents;
-    end;
+    end
+  else if aInserted and (FDataSet.Count>0) then
+    FDataSet.Delete;
   FDataSet.Free;
 end;
 procedure TfEventEdit.AlarmAdvanceChange(Sender: TObject);

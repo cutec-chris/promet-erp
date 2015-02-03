@@ -20,7 +20,7 @@ unit uCopyArticleData;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Buttons, ButtonPanel,uIntfStrConsts,uMasterdata;
 type
   TfCopyArticleData = class(TForm)
@@ -40,6 +40,7 @@ type
 var
   fCopyArticleData: TfCopyArticleData;
 implementation
+{$R *.lfm}
 function TfCopyArticleData.Execute(aMasterdata : TMasterdata;aNewVersion : Variant;aNewLanguage : Variant): Boolean;
 begin
   if not Assigned(Self) then
@@ -55,6 +56,5 @@ begin
     Result := FMasterdata.Copy(aNewVersion,aNewLanguage,cbCopyPrices.Checked,cbCopyproperties.Checked,cbCopyTexts.Checked,cbCopySupplier.Checked);
 end;
 initialization
-  {$I ucopyarticledata.lrs}
 end.
 

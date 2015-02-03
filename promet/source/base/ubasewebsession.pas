@@ -23,8 +23,7 @@ unit uBaseWebSession;
 interface
 
 uses
-  Classes, SysUtils, fpWeb,uSessionDBClasses,HTTPDefs,fpHTTP,BlckSock,
-  LCLProc;
+  Classes, SysUtils, fpWeb,uSessionDBClasses,HTTPDefs,fpHTTP,BlckSock;
 type
 
   { TBaseWebSession }
@@ -90,7 +89,7 @@ var
   aSessions: TSessions;
   aFilter: String;
 begin
-  aSessions := TSessions.Create(Self,Data);
+  aSessions := TSessions.CreateEx(Self,Data);
   aSessions.CreateTable;
   aFilter := Data.DateTimeToFilter(Now()-(DefaultTimeOutMinutes/(24*60)));
   aFilter := Data.QuoteField('LASTACCESS')+' < '+aFilter;
@@ -153,7 +152,7 @@ end;
 constructor TBaseWebSession.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FSession := TSessions.Create(Self,Data);
+  FSession := TSessions.CreateEx(Self,Data);
   TimeOutMinutes := 25;
 end;
 destructor TBaseWebSession.Destroy;
@@ -441,7 +440,8 @@ begin
   or (Data.Users.DataSet.Locate('LOGINNAME',aLogin,[loCaseInsensitive])))) then
     aResult:=False;
   if not aResult then
-    debugln('Login:failed!');
+    //debugln('Login:failed!')
+    ;
   Result := aResult;
 end;
 

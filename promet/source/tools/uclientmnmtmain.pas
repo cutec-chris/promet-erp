@@ -2,7 +2,7 @@ unit uclientmnmtmain;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils,
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage;
@@ -53,6 +53,7 @@ type
 var
   fMain: TfMain;
 implementation
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface, uOrder;
 procedure TfMain.IdleTimer1Timer(Sender: TObject);
 begin
@@ -89,7 +90,7 @@ begin
       end;
   IdleTimer1.Enabled:=True;
   Data.SetFilter(Data.ActiveUsers,'',1000,'TIMESTAMPD','DESC');
-  SysCommands := TSystemCommands.Create(Self,Data);
+  SysCommands := TSystemCommands.CreateEx(Self,Data);
   Data.ActiveUsers.DataSet.AfterScroll:=@UserScroll;
   Commands.DataSet := SysCommands.DataSet;
   acLogin.Enabled:=False;
@@ -153,6 +154,5 @@ begin
 end;
 
 initialization
-  {$I uclientmnmtmain.lrs}
 
 end.

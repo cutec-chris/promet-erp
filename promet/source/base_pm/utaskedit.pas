@@ -21,7 +21,7 @@ info@cu-tec.de
 unit uTaskEdit;
 interface
 uses
-  LMessages, LCLProc, LCLType, LCLIntf, LResources, SysUtils, Classes, Graphics,
+  LMessages, LCLProc, LCLType, LCLIntf,  SysUtils, Classes, Graphics,
   Controls, Forms, Dialogs, StdCtrls, ExtCtrls, ComCtrls, ZVDateTimePicker,
   DBZVDateTimePicker, utask, uExtControls, Buttons, EditBtn, ButtonPanel, Spin,
   DbCtrls, db, uIntfStrConsts,DBGrids,Grids, ActnList,uHistoryFrame;
@@ -34,13 +34,13 @@ type
     acSave: TAction;
     acAbort: TAction;
     ActionList1: TActionList;
+    bDelegated2: TSpeedButton;
     Bevel10: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
-    Bevel6: TBevel;
     Bevel7: TBevel;
     Bevel8: TBevel;
-    Bevel9: TBevel;
+    cbCategory: TDBComboBox;
     cbChecked: TDBCheckBox;
     cbChecked1: TDBCheckBox;
     cbClass: TExtDBCombobox;
@@ -48,37 +48,47 @@ type
     cbCompleted1: TDBCheckBox;
     cbPriority: TDBComboBox;
     cbState: TExtDBCombobox;
-    cbCategory: TDBComboBox;
-    eOrder: TDBEdit;
     EarlystDate: TDBZVDateTimePicker;
-    EndTimeLbl2: TLabel;
-    eTime: TEdit;
+    eUser: TEditButton;
+    eOwner: TEditButton;
+    EndDate: TDBZVDateTimePicker;
     EndDate1: TDBZVDateTimePicker;
+    EndTimeLbl: TLabel;
     EndTimeLbl1: TLabel;
+    EndTimeLbl2: TLabel;
+    eOrder: TDBEdit;
+    eProject: TEditButton;
+    eTime: TEdit;
     eBuffer: TEdit;
+    GroupBox1: TGroupBox;
+    GroupBox2: TGroupBox;
+    GroupBox3: TGroupBox;
+    GroupBox4: TGroupBox;
     Label1: TLabel;
     Label10: TLabel;
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
+    Label14: TLabel;
+    Label3: TLabel;
+    Label6: TLabel;
+    Label9: TLabel;
+    mNotes: TDBMemo;
+    Panel1: TPanel;
     Panel11: TPanel;
     pHist: TPanel;
-    bSetUser: TSpeedButton;
     Splitter1: TSplitter;
+    StartDate: TDBZVDateTimePicker;
+    StartTimeLbl: TLabel;
+    tsAdditional: TTabSheet;
     Task: TDatasource;
     eSummary: TDBEdit;
-    EndDate: TDBZVDateTimePicker;
-    eProject: TDBEdit;
-    EndTimeLbl: TLabel;
     pcPages: TExtMenuPageControl;
     Label2: TLabel;
     Label4: TLabel;
     Label5: TLabel;
     Label7: TLabel;
     Label8: TLabel;
-    Label9: TLabel;
-    mNotes: TDBMemo;
-    Panel1: TPanel;
     Panel10: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
@@ -86,26 +96,26 @@ type
     lMessage: TLabel;
     FileDialog: TOpenDialog;
     Panel8: TPanel;
-    Panel9: TPanel;
-    pbStatus: TProgressBar;
     pgEvent: TPageControl;
-    StartDate: TDBZVDateTimePicker;
-    StartTimeLbl: TLabel;
     tabEvent: TTabSheet;
     ToolButton1: TBitBtn;
-    ToolButton2: TBitBtn;
+    ToolButton2: TSpeedButton;
     tsNotes: TTabSheet;
     ToolBar1: TPanel;
-    ToolBar2: TPanel;
     procedure acAbortExecute(Sender: TObject);
     procedure acPasteLinkExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure bDelegated2Click(Sender: TObject);
     procedure bSetUserClick(Sender: TObject);
     procedure cbStateSelect(Sender: TObject);
     procedure eBufferExit(Sender: TObject);
+    procedure eProjectButtonClick(Sender: TObject);
     procedure eTimeExit(Sender: TObject);
+    procedure eUserButtonClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    function fSearchOpenItem(aLink: string): Boolean;
+    function fSearchOpenOwnerItem(aLink: string): Boolean;
     function fSearchOpenUserItem(aLink: string): Boolean;
     procedure TfHistoryFrameAddUserMessage(Sender: TObject);
     procedure TfListFrameFListgListDrawColumnCell(Sender: TObject;
@@ -133,11 +143,13 @@ type
 implementation
 uses uData,uDocumentFrame,uDocuments,uLinkFrame,uprometframesinplace,
   uListFrame,uBaseVisualControls,ClipBrd,uBaseVisualApplication,
-  uError,utasks,uSearch,uBaseDbClasses,uhistoryadditem,uBaseDBInterface;
+  uError,utasks,uSearch,uBaseDbClasses,uhistoryadditem,uBaseDBInterface,
+  uProjects;
 resourcestring
   strDependencies               = 'Abhängigkeiten';
   strClassTask                  = 'T Aufgabe';
   strClassMilestone             = 'M Meilenstein';
+  strEditTask                   = 'Aufgabe bearbeiten';
 procedure TfTaskEdit.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -153,13 +165,57 @@ begin
   FHistoryFrame.SetRights(FEditable);
 end;
 
+function TfTaskEdit.fSearchOpenItem(aLink: string): Boolean;
+var
+  aParent: TProject;
+begin
+  aParent := TProject.Create(nil);
+  aParent.SelectFromLink(aLink);
+  aParent.Open;
+  if aParent.Count>0 then
+    begin
+      FDataSet.Edit;
+      FDataSet.FieldByName('PROJECT').AsString:=Data.GetLinkDesc(aLink);
+      eProject.Text:=Data.GetLinkDesc(aLink);
+      FDataSet.FieldByName('PROJECTID').AsVariant:=aParent.Id.AsVariant;
+    end;
+  aParent.free;
+end;
+
+function TfTaskEdit.fSearchOpenOwnerItem(aLink: string): Boolean;
+var
+  aCount: Integer;
+  aUser: TUser;
+begin
+  Result := False;
+  aUser := TUser.CreateEx(Self,Data);
+  aUser.SelectFromLink(aLink);
+  aUser.Open;
+  Result := aUser.Count>0;
+  if Result then
+    begin
+      if not FDataSet.CanEdit then
+        FDataSet.DataSet.Edit;
+      FDataSet.FieldByName('OWNER').AsString := aUser.FieldByName('ACCOUNTNO').AsString;
+      eOwner.Text:=aUser.Text.AsString;
+    end
+  else
+    begin
+      if not FDataSet.CanEdit then
+        FDataSet.DataSet.Edit;
+      FDataSet.FieldByName('OWNER').Clear;
+      eOwner.Text:='';
+    end;
+  aUSer.Free;
+end;
+
 function TfTaskEdit.fSearchOpenUserItem(aLink: string): Boolean;
 var
   aCount: Integer;
   aUser: TUser;
 begin
   Result := False;
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
@@ -168,12 +224,14 @@ begin
       if not FDataSet.CanEdit then
         FDataSet.DataSet.Edit;
       FDataSet.FieldByName('USER').AsString := aUser.FieldByName('ACCOUNTNO').AsString;
+      eUser.Text:=aUser.Text.AsString;
     end
   else
     begin
       if not FDataSet.CanEdit then
         FDataSet.DataSet.Edit;
       FDataSet.FieldByName('USER').Clear;
+      eUser.Text:='';
     end;
   aUSer.Free;
 end;
@@ -183,7 +241,7 @@ var
   aOwner: String;
   aUser: TUser;
 begin
-  aUser := TUser.Create(nil,Data);
+  aUser := TUser.Create(nil);
   aUser.SelectByAccountno(FDataSet.FieldByName('OWNER').AsString);
   aUser.Open;
   if aUser.Count>0 then
@@ -232,23 +290,21 @@ begin
   Close;
 end;
 
-procedure TfTaskEdit.bSetUserClick(Sender: TObject);
+procedure TfTaskEdit.bDelegated2Click(Sender: TObject);
 var
-  i :Integer = 0;
+  aProject: TProject;
 begin
-  fSearch.SetLanguage;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strUsers then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
-  fSearch.eContains.Clear;
-  fSearch.sgResults.RowCount:=1;
-  fSearch.OnOpenItem:=@fSearchOpenUserItem;
-  fSearch.Execute(True,'TASKSU',strSearchFromTasks);
-  fSearch.SetLanguage;
+  aProject := TProject.Create(nil);
+  aProject.Select(FDataSet.FieldByName('PROJECTID').AsVariant);
+  aProject.Open;
+  if aProject.Count > 0 then
+    Data.GotoLink(Data.BuildLink(aProject.DataSet));
+  aProject.Free;
+end;
+
+procedure TfTaskEdit.bSetUserClick(Sender: TObject);
+begin
+
 end;
 
 procedure TfTaskEdit.cbStateSelect(Sender: TObject);
@@ -257,7 +313,7 @@ procedure TfTaskEdit.cbStateSelect(Sender: TObject);
     aTasks: TTaskList;
   begin
     if (aId = Null) or (aId = 0) then exit;
-    aTasks := TTaskList.Create(Self,Data,aConnection);
+    aTasks := TTaskList.CreateEx(Self,Data,aConnection);
     aTasks.SelectByParent(aId);
     aTasks.Open;
     with aTasks.DataSet do
@@ -290,6 +346,25 @@ begin
   else FDataSet.FieldByName('BUFFERTIME').Clear;
 end;
 
+procedure TfTaskEdit.eProjectButtonClick(Sender: TObject);
+var
+  i : Integer = 0;
+begin
+  fSearch.SetLanguage;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strProjects then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenItem;
+  fSearch.Execute(True,'TASKSP',strSearchFromProjects);
+  fSearch.SetLanguage;
+end;
+
 procedure TfTaskEdit.eTimeExit(Sender: TObject);
 begin
   if not FDataSet.CanEdit then
@@ -297,6 +372,28 @@ begin
   if eTime.Text<>'' then
     FDataSet.FieldByName('PLANTIME').AsString:=FloatToStr(StrToDayTime(eTime.Text))
   else FDataSet.FieldByName('PLANTIME').Clear;
+end;
+
+procedure TfTaskEdit.eUserButtonClick(Sender: TObject);
+var
+  i :Integer = 0;
+begin
+  fSearch.SetLanguage;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strUsers then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  if Sender = eUser then
+    fSearch.OnOpenItem:=@fSearchOpenUserItem
+  else
+    fSearch.OnOpenItem:=@fSearchOpenOwnerItem;
+  fSearch.Execute(True,'TASKSU',strSearchFromTasks);
+  fSearch.SetLanguage;
 end;
 
 procedure TfTaskEdit.TfListFrameFListgListDrawColumnCell(Sender: TObject;
@@ -333,11 +430,15 @@ var
   aDocFrame: TfDocumentFrame;
   nF: Extended;
   aType: Char;
+  OldPageIdx: Integer;
+  aUser: TUser;
 begin
   cbCategory.Items.Clear;
   aType := 'T';
   Data.Categories.CreateTable;
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+  Data.Categories.DataSet.Filtered:=True;
   Data.Categories.First;
   while not Data.Categories.EOF do
     begin
@@ -345,11 +446,11 @@ begin
         cbCategory.Items.Add(Data.Categories.FieldByName('NAME').AsString);
       Data.Categories.DataSet.Next;
     end;
-
+  OldPageIdx := pcPages.ActivePageIndex;
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
       aDocuments.Select(FDataSet.Id.AsInteger,'T',0);
       aDocuments.Open;
@@ -386,6 +487,17 @@ begin
     eBuffer.Text := DayTimeToStr(nF)
   else
     eBuffer.Text := FDataSet.FieldByName('BUFFERTIME').AsString;
+  if OldPageIdx<pcPages.PageCount-1 then
+    pcPages.PageIndex:=OldPageIdx;
+  aUser := TUser.Create(nil);
+  aUser.SelectByAccountno(FDataSet.FieldByName('USER').AsString);
+  aUser.Open;
+  eUser.Text:=aUser.FieldByName('NAME').AsString;
+
+  aUser.SelectByAccountno(FDataSet.FieldByName('OWNER').AsString);
+  aUser.Open;
+  eOwner.Text:=aUser.FieldByName('NAME').AsString;
+  aUser.Free;
 end;
 procedure TfTaskEdit.AddDocuments(Sender: TObject);
 var
@@ -393,7 +505,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(FDataSet.Id.AsInteger,'T',0);
     end;
@@ -444,7 +556,7 @@ begin
       aConnection := Data.GetNewConnection
     end
   else aConnection := TheConnection;
-  FDataSet := TTask.Create(nil,Data,aConnection);
+  FDataSet := TTask.CreateEx(nil,Data,aConnection);
   FDataSet.CreateTable;
   FHistoryFrame := TfHistoryFrame.Create(Self);
   FHistoryFrame.Parent := pHist;
@@ -453,8 +565,11 @@ begin
 end;
 destructor TfTaskEdit.Destroy;
 begin
-  FreeAndNil(FDataSet);
-  if OwnConnection then FreeAndNil(aConnection);
+  try
+    FreeAndNil(FDataSet);
+    if OwnConnection then FreeAndNil(aConnection);
+  except
+  end;
   inherited Destroy;
 end;
 function TfTaskEdit.Execute(aLink: string): Boolean;
@@ -477,6 +592,8 @@ begin
       if FDataSet.FieldByName('SUMMARY').IsNull then
         eSummary.SetFocus
       else mNotes.SetFocus;
+      Caption:=strEditTask+' - '+FDataSet.FieldByName('SUMMARY').AsString;
+      eProject.Text:=FDataSet.FieldByName('PROJECT').AsString;
       while Visible do
         begin
           Application.ProcessMessages;

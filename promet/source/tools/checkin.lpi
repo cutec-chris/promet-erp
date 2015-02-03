@@ -5,9 +5,10 @@
     <PathDelim Value="\"/>
     <General>
       <Flags>
+        <SaveClosedFiles Value="False"/>
         <MainUnitHasCreateFormStatements Value="False"/>
       </Flags>
-      <SessionStorage Value="InProjectDir"/>
+      <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
       <Title Value="checkin"/>
       <UseAppBundle Value="False"/>
@@ -51,7 +52,6 @@
       <Unit0>
         <Filename Value="checkin.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="checkin"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\..\output\x86_64-linux\downloads.txt"/>
@@ -79,11 +79,9 @@
     <Other>
       <CompilerMessages>
         <IgnoredMessages idx5024="True"/>
-        <UseMsgFile Value="True"/>
       </CompilerMessages>
       <CustomOptions Value="-dHASREPORTS
 -dSTATISTICS"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

@@ -18,9 +18,6 @@
           <Identifier Value="general_nogui_macro1"/>
         </Item1>
       </BuildMacros>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Files Count="11">
       <Item1>
@@ -36,47 +33,44 @@
         <UnitName Value="SecureUtils"/>
       </Item3>
       <Item4>
-        <Filename Value="src\processutils.pas"/>
-        <UnitName Value="ProcessUtils"/>
-      </Item4>
-      <Item5>
         <Filename Value="src\umashineid.pas"/>
         <UnitName Value="umashineid"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <Filename Value="src\umodifiedds.pas"/>
         <UnitName Value="uModifiedDS"/>
-      </Item6>
-      <Item7>
-        <Filename Value="src\ucolors.pas"/>
-        <UnitName Value="uColors"/>
-      </Item7>
-      <Item8>
+      </Item5>
+      <Item6>
         <Filename Value="src\urtftotxt.pas"/>
         <UnitName Value="uRTFtoTXT"/>
-      </Item8>
-      <Item9>
+      </Item6>
+      <Item7>
         <Filename Value="src\mathparser.pas"/>
         <UnitName Value="MathParser"/>
-      </Item9>
-      <Item10>
-        <Filename Value="src\uimaging.pas"/>
-        <UnitName Value="uImaging"/>
-      </Item10>
-      <Item11>
+      </Item7>
+      <Item8>
         <Filename Value="src\aspell.pas"/>
         <UnitName Value="Aspell"/>
+      </Item8>
+      <Item9>
+        <Filename Value="src\usimpleprocess.pas"/>
+        <UnitName Value="usimpleprocess"/>
+      </Item9>
+      <Item10>
+        <Filename Value="src\usunrise.pas"/>
+        <UnitName Value="uSunRise"/>
+      </Item10>
+      <Item11>
+        <Filename Value="src\utilsdate.pas"/>
+        <UnitName Value="UtilsDate"/>
       </Item11>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="2">
+    <RequiredPkgs Count="1">
       <Item1>
-        <PackageName Value="lcl"/>
-      </Item1>
-      <Item2>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item2>
+      </Item1>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

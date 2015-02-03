@@ -1,7 +1,7 @@
 unit Aspell;
 interface
 
-uses SysUtils, Classes, ProcessLineTalk, Contnrs,Forms,FileUtil;
+uses SysUtils, Classes, ProcessLineTalk, Contnrs,Utils;
 
 type
   TMessageType = (mtPlainText, mtInformation, mtWarning, mtError);
@@ -68,10 +68,12 @@ begin
   FProcess := TProcessLineTalk.Create(nil);
   
   { calculate FProcess.CommandLine }
+  {$IFDEF LCL}
   {$IFDEF WINDOWS}
   if FileExists(AppendPathDelim(Application.Location+'tools')+'aspell'+ExtractFileExt(Application.ExeName)) then
     FProcess.CommandLine := AppendPathDelim(Application.Location+'tools')+'aspell'+ExtractFileExt(Application.ExeName)+' -a'
   else
+  {$ENDIF}
   {$ENDIF}
   FProcess.CommandLine := 'aspell -a';
   if AspellMode <> '' then
@@ -175,4 +177,4 @@ begin
     FOnMessage(MessageType, AMessage, AVerbosity);
 end;
 
-end.
+end.

@@ -10,9 +10,6 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Files Count="11">
       <Item1>
@@ -61,18 +58,17 @@
       </Item11>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="10">
+    <RequiredPkgs Count="9">
       <Item1>
-        <PackageName Value="v103_lazarus"/>
-        <DefaultFilename Value="..\components\tvplanit\packages\v103_lazarus.lpk"/>
+        <PackageName Value="pscripts"/>
       </Item1>
       <Item2>
-        <PackageName Value="ZVDateTimeCtrls"/>
-        <DefaultFilename Value="..\components\ZVDateTimeCtrls\zvdatetimectrls.lpk"/>
+        <PackageName Value="v103_lazarus"/>
+        <DefaultFilename Value="..\components\tvplanit\packages\v103_lazarus.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="pImportExport"/>
-        <DefaultFilename Value="..\import\pimportexport.lpk"/>
+        <PackageName Value="ZVDateTimeCtrls"/>
+        <DefaultFilename Value="..\components\ZVDateTimeCtrls\zvdatetimectrls.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="laz_twain"/>
@@ -87,20 +83,16 @@
         <DefaultFilename Value="..\components\scanning\sanetools.lpk"/>
       </Item6>
       <Item7>
-        <PackageName Value="richmemopackage"/>
-        <DefaultFilename Value="..\components\richmemo\richmemopackage.lpk"/>
+        <PackageName Value="lazreport"/>
       </Item7>
       <Item8>
-        <PackageName Value="lazreport"/>
-      </Item8>
-      <Item9>
         <PackageName Value="pPrometDBIntfs"/>
         <DefaultFilename Value="dbintfs\pprometdbintfs.lpk"/>
-      </Item9>
-      <Item10>
+      </Item8>
+      <Item9>
         <PackageName Value="general"/>
         <DefaultFilename Value="..\..\..\general\general.lpk"/>
-      </Item10>
+      </Item9>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

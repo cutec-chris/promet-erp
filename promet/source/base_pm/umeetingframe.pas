@@ -56,12 +56,15 @@ type
     acAppendPos: TAction;
     acRenumber: TAction;
     acRestart: TAction;
+    acSetTopic: TAction;
+    acPermanentEditormode: TAction;
     Action2: TAction;
     ActionList: TActionList;
     acUnmakeSubTask: TAction;
     bAddPos: TSpeedButton;
     bAddPos1: TSpeedButton;
     bAddPos2: TSpeedButton;
+    bAddPos3: TSpeedButton;
     bDeletePos: TSpeedButton;
     bDeletePos2: TSpeedButton;
     bDeletePos5: TSpeedButton;
@@ -76,15 +79,19 @@ type
     bExecute: TSpeedButton;
     bExecute1: TSpeedButton;
     bRefresh1: TSpeedButton;
+    bpermanenetEditor: TSpeedButton;
     cbStatus: TComboBox;
     Datasource: TDatasource;
     dtStart: TDBZVDateTimePicker;
     dtEnd: TDBZVDateTimePicker;
     eName: TDBEdit;
     Entrys: TDatasource;
+    MandantDetails: TDatasource;
+    MenuItem1: TMenuItem;
     miDelete: TMenuItem;
     pmAction: TPopupMenu;
     pNav2: TPanel;
+    sbMenue1: TSpeedButton;
     Users: TDatasource;
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel3: TExtRotatedLabel;
@@ -125,14 +132,17 @@ type
     procedure acDeleteExecute(Sender: TObject);
     procedure acDelPosExecute(Sender: TObject);
     procedure acMAkeSubTaskExecute(Sender: TObject);
+    procedure acPermanentEditormodeExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acRenumberExecute(Sender: TObject);
     procedure acRestartExecute(Sender: TObject);
+    procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure acSetTopicExecute(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
-      aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aStatus: string; aActive: Boolean; aLink: string;aPrio :Integer; aItem: TBaseDBList=nil);
     procedure acUnmakeSubTaskExecute(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
     procedure DataSetChange(Sender: TObject);
@@ -184,14 +194,14 @@ var
 implementation
 uses uMainTreeFrame,Utils,uData,umeeting,uBaseDBInterface,uSearch,
   LCLType,uSelectReport,uDocuments,uDocumentFrame,uLinkFrame,umeetingusers,
-  uBaseVisualApplication,uProjects,LCLProc;
+  uBaseVisualApplication,uProjects,LCLProc,uNRights;
 resourcestring
   strSearchFromUsers                       = 'Mit Öffnen wird der gewählte Nutzer in die Liste übernommen';
   strSearchFromMeetings                    = 'Mit Öffnen wird das gewählte Projekt in die Liste übernommen';
-  strMeetingUsers                          = 'Teilnehmer';
   strNewMeeting                            = 'neue Besprechung';
   strEnterMeetingName                      = 'geben Sie einen neuen Namen für die Besprechung an';
   strMeetingName                           = 'Besprechungsname';
+  strUnassigned                            = 'kein Bezug';
 procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
 var
   Node1: TTreeNode;
@@ -221,6 +231,19 @@ begin
       FDataSet.CascadicPost;
       //Data.Commit(FConnection);
       //Data.StartTransaction(FConnection);
+      acRefresh.Execute;
+    end;
+end;
+
+procedure TfMeetingFrame.acSetTopicExecute(Sender: TObject);
+begin
+  if FGridView.GotoActiveRow then
+    begin
+      if FGridView.DataSet.CanEdit then FGridView.Post;
+      FGridView.DataSet.Edit;
+      FGridView.DataSet.FieldByName('DESC').AsString:=trim(FGridView.DataSet.FieldByName('DESC').AsString)+' ('+strUnassigned+')';
+      FGridView.DataSet.FieldByName('LINK').AsString:='NONE@NONE';
+      FGridView.Post;
     end;
 end;
 
@@ -234,7 +257,8 @@ begin
 end;
 
 procedure TfMeetingFrame.ActiveSearchItemFound(aIdent: string; aName: string;
-  aStatus: string; aActive: Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 begin
   with pSearch do
     begin
@@ -342,7 +366,7 @@ begin
       nData := TTreeEntry(uMainTreeFrame.fMainTreeFrame.tvMain.Selected.Data);
       if nData.Typ=etProject then
         begin
-          aProjects := TProject.Create(Self,Data);
+          aProjects := TProject.CreateEx(Self,Data);
           aProjects.CreateTable;
           Data.SetFilter(aProjects,nData.Filter);
           Data.GotoBookmark(aProjects,nData.Rec);
@@ -404,6 +428,7 @@ begin
         begin
           if (pos('('+strProjectProcess,NewText)>0)
           or (pos('('+strMasterdata,NewText)>0)
+          or (pos('('+strUnassigned,NewText)>0)
           then
             aFont.Style := [fsBold]
           else
@@ -555,7 +580,7 @@ var
   aUser: TUser;
 begin
   Result := False;
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
@@ -601,7 +626,7 @@ var
   aUser: TUser;
 begin
   Result := False;
-  aUser := TUser.Create(Self,Data);
+  aUser := TUser.CreateEx(Self,Data);
   aUser.SelectFromLink(aLink);
   aUser.Open;
   Result := aUser.Count>0;
@@ -771,6 +796,22 @@ begin
   FGridView.SetChild;
 end;
 
+procedure TfMeetingFrame.acPermanentEditormodeExecute(Sender: TObject);
+begin
+  Application.ProcessMessages;
+  if acPermanentEditormode.Checked then
+    FGridView.gList.Options:=FGridView.gList.Options+[goAlwaysShowEditor]
+  else
+  FGridView.gList.Options:=FGridView.gList.Options-[goAlwaysShowEditor];
+  with Application as IBaseDbInterface do
+    begin
+      if acPermanentEditorMode.Checked then
+        DBConfig.WriteString('EMEEVIS','Y')
+      else
+        DBConfig.WriteString('EMEEVIS','');
+    end;
+end;
+
 procedure TfMeetingFrame.acPrintExecute(Sender: TObject);
 var
   Hist : IBaseHistory;
@@ -781,11 +822,14 @@ begin
   acRefresh.Execute;
   Entrys.DataSet := TMeetings(DataSet).Entrys.DataSet;
   Users.DataSet := TMeetings(DataSet).Users.DataSet;
+  MandantDetails.DataSet:=Data.MandantDetails.DataSet;
+  Data.MandantDetails.Open;
   with FDataSet.DataSet as IBaseManageDB do
     begin
       fSelectReport.ReportType := 'MEE';
     end;
   fSelectReport.DataSet := DataSet;
+  fSelectReport.SavePossible:=True;
   fSelectReport.Execute;
   if fSelectReport.Booked then
     begin
@@ -818,7 +862,7 @@ var
 begin
   aMeeting := DataSet as TMeetings;
   aNewName := InputBox(strMeetingName,strEnterMeetingName,aMeeting.Text.AsString);
-  bMeeting := TMeetings.Create(nil,Data);
+  bMeeting := TMeetings.Create(nil);
   bMeeting.ImportFromXML(aMeeting.ExportToXML,False,@ReplaceField);
   bMeeting.Edit;
   bMeeting.FieldByName('DATE').Clear;
@@ -826,6 +870,11 @@ begin
   aLink := Data.BuildLink(bMeeting.DataSet);
   Data.GotoLink(aLink);
   bMeeting.Free;
+end;
+
+procedure TfMeetingFrame.acRightsExecute(Sender: TObject);
+begin
+  fNRights.Execute(DataSet.Id.AsVariant);
 end;
 
 procedure TfMeetingFrame.DoOpen;
@@ -900,7 +949,7 @@ begin
       SortField:='POSNO';
       NumberField:='POSNO';
       HasChildsField:='HASCHILDS';
-      SortDirection:=uBaseDBInterface.TSortDirection.sdAscending;
+      SortDirection:=uBaseDbClasses.TSortDirection.sdAscending;
       ReadOnly:=False;
       OnDblClick:=@FGridViewDblClick;
     end;
@@ -915,7 +964,7 @@ begin
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsInteger,'E',DataSet.Id.AsString,Null,Null);
       aDocuments.Open;
@@ -935,6 +984,10 @@ begin
   with Application as TBaseVisualApplication do
     AddTabClasses('MEE',pcPages);
   Entrys.DataSet := TMeetings(DataSet).Entrys.DataSet;
+  with Application as IBaseDBInterface do
+    acPermanentEditormode.Checked:=DBConfig.ReadString('EMEEVIS','N') = 'Y';
+  bpermanenetEditor.Down:=acPermanentEditormode.Checked;
+  acPermanentEditormodeExecute(nil);
   inherited DoOpen;
 end;
 
@@ -955,6 +1008,7 @@ begin
   cbStatus.Enabled:=DataSet.FieldByName('DATE').IsNull;
   acDelete.Enabled:=DataSet.FieldByName('DATE').IsNull;
   bRenumber.Enabled:=DataSet.FieldByName('DATE').IsNull;
+  acSetTopic.Enabled:=DataSet.FieldByName('DATE').IsNull;
 end;
 
 procedure TfMeetingFrame.AddDocuments(Sender: TObject);
@@ -963,9 +1017,9 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsInteger,'E',DataSet.Id.AsString,Null,Null);
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'E',DataSet.Id.AsString,Null,Null);
     end;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
@@ -1005,7 +1059,7 @@ begin
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
   //Data.StartTransaction(FConnection);
-  DataSet := TMeetings.Create(Self,Data,FConnection);
+  DataSet := TMeetings.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@DataSetChange;
   Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
   if FDataSet.Count > 0 then
@@ -1024,7 +1078,7 @@ begin
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
   //Data.StartTransaction(FConnection);
-  DataSet := TMeetings.Create(Self,Data,FConnection);
+  DataSet := TMeetings.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@DataSetChange;
   DataSet.Select(0);
   DataSet.Open;
@@ -1047,8 +1101,6 @@ begin
       FreeAndNil(FConnection);
     end;
   FOwners.Free;
-  if Assigned(FGridView) then
-    FGridView.Destroy;
   inherited Destroy;
 end;
 

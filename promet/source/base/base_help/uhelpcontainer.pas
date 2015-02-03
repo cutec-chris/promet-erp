@@ -5,7 +5,7 @@ unit uHelpContainer;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil,  Forms, Controls, Graphics, Dialogs,
   StdCtrls, uWikiFrame;
 
 type
@@ -27,6 +27,7 @@ var
   fHelpContainer: TfHelpContainer;
 
 implementation
+{$R *.lfm}
 uses uData,uBaseDBInterface;
 procedure TfHelpContainer.FormCreate(Sender: TObject);
 begin
@@ -51,7 +52,6 @@ begin
 end;
 
 initialization
-  {$I uhelpcontainer.lrs}
 
 end.
 

@@ -1,7 +1,7 @@
 object fScreenshot: TfScreenshot
-  Left = 571
+  Left = 458
   Height = 240
-  Top = 318
+  Top = 304
   Width = 654
   BorderStyle = bsNone
   Caption = 'fScreenshot'

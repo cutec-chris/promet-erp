@@ -20,7 +20,7 @@ unit uSendMail;
 {$mode delphi}{$H+}
 interface
 uses
-  Classes, SysUtils,UTF8Process,process,Dialogs,FileUtil
+  Classes, SysUtils,UTF8Process,process,Dialogs,Utils
   {$IFDEF WINDOWS}
   ,MAPI,windows,Forms
   {$ENDIF}
@@ -50,12 +50,12 @@ begin
   begin
     if (Subject<>'') then
     begin
-      Subject:=UTF8ToSys(Subject);
+      Subject:=UniToSys(Subject);
       lpszSubject := PChar(Subject)
     end;
     if (Body<>'') then
     begin
-      lpszNoteText := PChar(Body)
+      lpszNoteText := PChar(UniToSys(Body))
     end;
     if (SenderEMail<>'') then
     begin
@@ -85,7 +85,7 @@ begin
         MailName[nRecipCount] := copy(tmpMail,0,pos(',',tmpMail)-1);
         if (RecepientName='') then
         begin
-          lpRecepient[nRecipCount].lpszName := PChar(MailName[nRecipCount])
+          lpRecepient[nRecipCount].lpszName := PChar(UniToSys(MailName[nRecipCount]))
         end
         else
         begin
@@ -109,7 +109,7 @@ begin
     begin
       FillChar(FileAttach, SizeOf(FileAttach), 0);
       FileAttach.nPosition := Cardinal($FFFFFFFF);
-      FileName := UTF8ToSys(FileName);
+      FileName := UniToSys(FileName);
       FileAttach.lpszPathName := PChar(FileName);
       nFileCount := 1;
       lpFiles := @FileAttach;

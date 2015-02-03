@@ -25,7 +25,7 @@ unit uwait;
 interface
 
 uses
-  classes, sysutils, lresources, forms, controls, graphics, dialogs, StdCtrls,
+  classes, sysutils,  forms, controls, graphics, dialogs, StdCtrls,
   uIntfStrConsts, ExtCtrls, LMessages, Fileutil, ComCtrls;
 
 type
@@ -50,9 +50,7 @@ var
   fWaitForm: TfWaitForm;
 
 implementation
-
-{ TfWaitForm }
-
+{$R *.lfm}
 procedure TfWaitForm.WMCloseQuery(var message: TLMessage);
 begin //Workaround for #0012552
   Close;
@@ -80,7 +78,6 @@ begin
 end;
 
 initialization
-  {$I uwait.lrs}
 
 end.
 

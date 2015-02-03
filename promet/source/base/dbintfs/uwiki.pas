@@ -21,7 +21,7 @@ unit uWiki;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDBInterface, uDocuments,
-  uBaseApplication, uBaseSearch, uIntfStrConsts;
+  uBaseApplication, uBaseSearch, uIntfStrConsts,WikiToHtml;
 type
   TKeywords = class(TBaseDbDataSet)
   public
@@ -30,10 +30,14 @@ type
   end;
   TWikiList = class(TBaseDBList)
     procedure FKeywordsDataSetAfterInsert(aDataSet: TDataSet);
+    procedure WikiListWikiLink(Inp: string; var Outp: string; aLevel: Integer=0
+      );
   private
     FActiveTreeID: Variant;
     FKeywords: TKeywords;
     FKeywordDS : TDataSource;
+    FOutDir,FOutSub,FOutExt : string;
+    FOutTodo: TStringList;
   protected
   public
     function GetTyp: string;override;
@@ -41,19 +45,21 @@ type
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
     function GetDescriptionFieldName: string;override;
-    function FindWikiPage(PageName : string;Docreate : Boolean = False) : Boolean;
+    function FindWikiPage(PageName : string;aDocreate : Boolean = False) : Boolean;
     function FindWikiFolder(PageName : string) : Boolean;
+    function GetFullPath : string;
     function isDynamic : Boolean;
     function PageAsText : string;
     property ActiveTreeID : Variant read FActiveTreeID;
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     function CreateTable: Boolean; override;
     property Keywords : TKeywords read FKeywords;
+    function ExportToHTML(aFile: string; aInclude: TWikiIncludeFunc): Boolean;
   end;
 implementation
-uses Variants,WikiToHtml,htmltowiki;
+uses Variants,htmltowiki,Utils;
 
 procedure TKeywords.DefineFields(aDataSet: TDataSet);
 begin
@@ -102,6 +108,7 @@ procedure TWikiList.FKeywordsDataSetAfterInsert(aDataSet: TDataSet);
 begin
   aDataSet.FieldByName('REF_ID_ID').AsVariant:=Self.Id.AsVariant;
 end;
+
 function TWikiList.GetTyp: string;
 begin
   Result := 'W';
@@ -140,9 +147,8 @@ begin
   Result:='DATA';
 end;
 
-function TWikiList.FindWikiPage(PageName: string;Docreate : Boolean = False): Boolean;
+function TWikiList.FindWikiPage(PageName: string;aDocreate : Boolean = False): Boolean;
 var
-  aTree: TTree;
   aParent : LargeInt;
   aID: Variant;
   tmp: String;
@@ -152,31 +158,31 @@ begin
     Filter := '';
   aParent := 0;
   FActiveTreeID := aParent;
-  aTree := TTree.Create(Self,DataModule);
-  aTree.Filter(TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W'));
-  if copy(PageName,0,7) = 'http://' then exit;
+  TBaseDBModule(DataModule).Tree.DataSet.Filter := TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W');
+  TBaseDBModule(DataModule).Tree.DataSet.Filtered := True;
+  if pos('://',PageName) > 0 then exit;
   while pos('/',PageName) > 0 do
     begin
-      aTree.Open;
-      if aTree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[])
-      or aTree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[loCaseInSensitive]) then
+      if TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[])
+      or TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[loCaseInSensitive]) then
         begin
-          tmp := aTree.FieldByName('NAME').AsString;
+          tmp := TBaseDBModule(DataModule).Tree.FieldByName('NAME').AsString;
           PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
-          aParent := aTree.Id.AsVariant;
+          aParent := TBaseDBModule(DataModule).Tree.Id.AsVariant;
         end
       else
         begin
-          TBaseDBModule(DataModule).SetFilter(aTree,'',0);
-          if aTree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[])
-          or aTree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[loCaseInSensitive]) then
+          if (TBaseDBModule(DataModule).Tree.ActualFilter<>'') or (not TBaseDBModule(DataModule).Tree.Active) then
+            TBaseDBModule(DataModule).SetFilter(TBaseDBModule(DataModule).Tree,'',0,'','ASC',False,True,True);
+          if TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[])
+          or TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[loCaseInSensitive]) then
             begin
               PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
-              aParent := aTree.Id.AsVariant;
+              aParent := TBaseDBModule(DataModule).Tree.Id.AsVariant;
             end
           else
             begin
-              with aTree.DataSet do
+              with TBaseDBModule(DataModule).Tree.DataSet do
                 begin
                   Append;
                   FieldByName('TYPE').AsString := 'W';
@@ -187,11 +193,12 @@ begin
                     FieldByName('PARENT').AsInteger := 0;
                   Post;
                   PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
-                  aParent := aTree.Id.AsVariant;
+                  aParent := TBaseDBModule(DataModule).Tree.Id.AsVariant;
                 end;
             end;
         end;
     end;
+  TBaseDBModule(DataModule).Tree.DataSet.Filtered := False;
   Result := DataSet.Active and DataSet.Locate('TREEENTRY;NAME',VarArrayOf([aParent,PageName]),[]);
   if not Result then
     begin
@@ -205,46 +212,60 @@ begin
     end;
   if Result then Keywords.Open;
   FActiveTreeID := aParent;
-  aTree.Free;
 end;
 
 function TWikiList.FindWikiFolder(PageName: string): Boolean;
 var
   aParent: Variant;
-  aTree: TTree;
 begin
   Result := False;
   aParent := 0;
-  aTree := TTree.Create(Self,TBaseDBModule(DataModule));
+  TBaseDBModule(DataModule).Tree.DataSet.Filter := TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W');
+  TBaseDBModule(DataModule).Tree.DataSet.Filtered := True;
   if copy(PageName,0,7) = 'http://' then exit;
   while pos('/',PageName) > 0 do
     begin
-      aTree.Open;
-      if aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
-      or aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
+      TBaseDBModule(DataModule).Tree.Open;
+      if TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
+      or TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
         begin
           PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
-          aParent := aTree.Id.AsVariant;
+          aParent := TBaseDBModule(DataModule).Tree.Id.AsVariant;
         end
       else
         begin
-          TBaseDBModule(DataModule).SetFilter(aTree,'',0);
-          if aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
-          or aTree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
+          if (TBaseDBModule(DataModule).Tree.ActualFilter<>'') or (not TBaseDBModule(DataModule).Tree.Active) then
+            TBaseDBModule(DataModule).SetFilter(TBaseDBModule(DataModule).Tree,'',0,'','ASC',False,True,True);
+          if TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
+          or TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
             begin
               PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
-              aParent := aTree.Id.AsVariant;
+              aParent := TBaseDBModule(DataModule).Tree.Id.AsVariant;
             end
           else
             begin
               result := False;
-              aTree.Free;
               exit;
             end;
         end;
     end;
+  TBaseDBModule(DataModule).Tree.DataSet.Filtered := False;
   TBaseDBModule(DataModule).SetFilter(Self,TBaseDBModule(DataModule).QuoteField('TREEENTRY')+'='+TBaseDBModule(DataModule).QuoteValue(VarToStr(aParent)));
   Result := Count>0;
+end;
+
+function TWikiList.GetFullPath: string;
+var
+  aTree: TTree;
+begin
+  aTree := TTree.CreateEx(Self,DataModule);
+  Result := FieldByName('NAME').AsString;
+  aTree.Filter(TBaseDBModule(DataModule).QuoteField('SQL_ID')+'='+TBaseDBModule(DataModule).QuoteValue(DataSet.FieldByName('TREEENTRY').AsString));
+  while aTree.Count>0 do
+    begin
+      Result := aTree.FieldByName('NAME').AsString+'/'+Result;
+      aTree.Filter(TBaseDBModule(DataModule).QuoteField('SQL_ID')+'='+TBaseDBModule(DataModule).QuoteValue(aTree.FieldByName('PARENT').AsString));
+    end;
   aTree.Free;
 end;
 
@@ -260,11 +281,11 @@ begin
   Result := StripHTML(WikiText2HTML(DataSet.FieldByName('DATA').AsString,'',''));
 end;
 
-constructor TWikiList.Create(aOwner: TComponent; DM: TComponent;
+constructor TWikiList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FKeywords := TKeywords.Create(Self,DM,aConnection);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FKeywords := TKeywords.CreateEx(Self,DM,aConnection);
   FKeywords.DataSet.AfterInsert:=@FKeywordsDataSetAfterInsert;
 end;
 
@@ -278,6 +299,76 @@ function TWikiList.CreateTable: Boolean;
 begin
   Result:=inherited CreateTable;
   FKeywords.CreateTable;
+end;
+
+procedure TWikiList.WikiListWikiLink(Inp: string; var Outp: string;
+  aLevel: Integer=0);
+var
+  tmp: String;
+  sl: TStringList;
+  aFN: String;
+begin
+  Outp := FOutSub+'/'+Inp+FOutExt;
+  tmp := FOutDir+'/'+FOutSub+'/'+Inp;
+  tmp := copy(tmp,0,rpos('/',tmp)-1);
+  tmp := StringReplace(tmp,'/',DirectorySeparator,[rfReplaceAll]);
+  tmp := StringReplace(tmp,DirectorySeparator+DirectorySeparator,DirectorySeparator,[rfReplaceAll]);
+  ForceDirectories(tmp);
+  sl := TStringList.Create;
+  aFN := StringReplace(StringReplace(FOutDir+'/'+Outp,'/',DirectorySeparator,[rfReplaceAll]),'//','/',[rfReplaceAll]);
+  if FOutTodo.IndexOf(Inp)=-1 then
+    FOutTodo.Values[Inp] := GetFullPath;
+end;
+
+function TWikiList.ExportToHTML(aFile: string; aInclude: TWikiIncludeFunc
+  ): Boolean;
+var
+  sl: TStringList;
+  aPage: TWikiList;
+  Outp: String;
+  aFN: String;
+  aRelPath: String;
+  aLinkOffs: String;
+  aRemPath: String;
+  tmp: String;
+begin
+  WikiToHtml.OnWikiLink:=@WikiListWikiLink;
+  WikiToHtml.OnWikiInclude:=aInclude;
+  FOutDir := ExtractFileDir(aFile);
+  FOutSub := copy(ExtractFileName(aFile),0,rpos('.',ExtractFileName(aFile))-1);
+  FOutExt := ExtractFileExt(aFile);
+  FOutTodo := TStringList.Create;
+  sl := TStringList.Create;
+  sl.Text := WikiText2HTML(DataSet.FieldByName('DATA').AsString,'','');
+  sl.SaveToFile(aFile);
+  sl.Free;
+  while FOutTodo.Count>0 do
+    begin
+      aPage := TWikiList.CreateEx(nil,DataModule,Connection);
+      Outp := FOutSub+'/'+FOutTodo.Names[0]+FOutExt;
+      aFN := StringReplace(StringReplace(FOutDir+'/'+Outp,'/',DirectorySeparator,[rfReplaceAll]),'//','/',[rfReplaceAll]);
+      if (not FileExists(aFN)) and aPage.FindWikiPage(FOutTodo.Names[0]) then
+        begin
+          //aRelPath := StringReplace(FileUtil.CreateRelativePath(FOutTodo.Names[0],FOutTodo.ValueFromIndex[0]),DirectorySeparator,'/',[rfReplaceAll]);
+          tmp := Outp;
+          tmp := copy(tmp,pos('/',tmp)+1,length(tmp));
+          aLinkOffs := '';
+          aRemPath := '';
+          while copy(aRelPath,0,3)='../' do
+            begin
+              aRemPath := aRemPath+copy(tmp,0,pos('/',tmp)-1);
+              tmp := copy(tmp,pos('/',tmp)+1,length(tmp));
+              aLinkOffs := aLinkOffs+'../';
+              aRelPath:=copy(aRelPath,4,length(aRelPath));
+            end;
+          sl.Text := WikiText2HTML(aPage.DataSet.FieldByName('DATA').AsString,aLinkOffs,aRemPath);
+          sl.SaveToFile(aFN);
+          sl.Free;
+        end;
+      FOutTodo.Delete(0);
+      aPage.Free;
+    end;
+  FOutTodo.Free;
 end;
 
 initialization

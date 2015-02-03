@@ -4,9 +4,10 @@
     <Version Value="9"/>
     <General>
       <Flags>
+        <SaveClosedFiles Value="False"/>
         <MainUnitHasCreateFormStatements Value="False"/>
       </Flags>
-      <SessionStorage Value="InProjectDir"/>
+      <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
       <Title Value="local_appbase"/>
       <UseAppBundle Value="False"/>
@@ -44,22 +45,16 @@
               <OverflowChecks Value="True"/>
               <StackChecks Value="True"/>
             </Checks>
-            <VerifyObjMethodCallValidity Value="True"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
               <DebugInfoType Value="dsDwarf2"/>
               <UseHeaptrc Value="True"/>
-              <TrashVariables Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
           <Other>
-            <CompilerMessages>
-              <MsgFileName Value=""/>
-            </CompilerMessages>
             <CustomOptions Value="-dDEBUG"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -84,12 +79,6 @@
             </Debugging>
             <LinkSmart Value="True"/>
           </Linking>
-          <Other>
-            <CompilerMessages>
-              <MsgFileName Value=""/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item3>
       <SharedMatrixOptions Count="1">
@@ -104,48 +93,46 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
+        <CommandLineParams Value="--mandant=TCS-Times2"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="laz_synapse"/>
-      </Item1>
-      <Item2>
-        <PackageName Value="LazUtils"/>
-      </Item2>
-      <Item3>
-        <PackageName Value="lazreport"/>
-      </Item3>
-      <Item4>
         <PackageName Value="pfcgiprometapp"/>
         <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
-      </Item4>
-      <Item5>
-        <PackageName Value="WebLaz"/>
-      </Item5>
-      <Item6>
+      </Item1>
+      <Item2>
         <PackageName Value="FCL"/>
-      </Item6>
+      </Item2>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="4">
       <Unit0>
         <Filename Value="local_appbase.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="local_appbase"/>
       </Unit0>
       <Unit1>
-        <Filename Value="umain.pas"/>
+        <Filename Value="udataserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="appbase"/>
+        <ComponentName Value="AppDataServer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="umain"/>
+        <UnitName Value="udataserver"/>
       </Unit1>
       <Unit2>
-        <Filename Value="../../../apps/promet/library.js"/>
+        <Filename Value="uwebserver.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="TWebServer"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uwebserver"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="uloggedout.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="loggedout"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -165,15 +152,9 @@
       </Debugging>
       <LinkSmart Value="True"/>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="6">
+    <Exceptions Count="8">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -192,6 +173,12 @@
       <Item6>
         <Name Value="RunError(216)"/>
       </Item6>
+      <Item7>
+        <Name Value="EWriteError"/>
+      </Item7>
+      <Item8>
+        <Name Value="EFPHTTPError"/>
+      </Item8>
     </Exceptions>
   </Debugging>
 </CONFIG>

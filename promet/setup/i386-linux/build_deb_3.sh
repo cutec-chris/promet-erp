@@ -34,6 +34,12 @@ ln -s /usr/lib/$Program/checkin $BuildDir/usr/bin/promet-erp-checkin
 chmod 666 $BuildDir/usr/bin/promet-erp-checkin
 ln -s /usr/lib/$Program/checkin $BuildDir/usr/bin/promet-erp-checkout
 chmod 666 $BuildDir/usr/bin/promet-erp-checkout
+ln -s /usr/lib/$Program/pscript $BuildDir/usr/bin/pscript
+chmod 666 $BuildDir/usr/bin/pscript
+ln -s /usr/lib/$Program/pscript $BuildDir/usr/bin/promet-erp-script
+chmod 666 $BuildDir/usr/bin/promet-erp-script
+cp ../warnings.txt $BuildDir/usr/lib/$Program
+cp ../errors.txt $BuildDir/usr/lib/$Program
 DebSize=$(du -s $BuildDir | cut -f1)
 echo "fixing permissions ..."
 find $BuildDir -type d -print0 | xargs -0 sudo -S chmod 755  # this is needed, don't ask me why

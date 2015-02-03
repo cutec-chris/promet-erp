@@ -33,7 +33,7 @@ constructor TfStateOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aStates := TStates.Create(Self,Data,aConnection);
+  aStates := TStates.CreateEx(Self,Data,aConnection);
   StatesDS.DataSet := aStates.DataSet;
 end;
 

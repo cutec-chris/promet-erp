@@ -31,6 +31,8 @@ type
     acAdd: TAction;
     acDelete: TAction;
     acAddLinked: TAction;
+    acIgnore: TAction;
+    acRefresh: TAction;
     ActionList1: TActionList;
     Bevel1: TBevel;
     Bevel2: TBevel;
@@ -39,7 +41,7 @@ type
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel2: TExtRotatedLabel;
     ExtRotatedLabel3: TExtRotatedLabel;
-    Panel1: TPanel;
+    pToolbar: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
@@ -48,11 +50,13 @@ type
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
     procedure aButtonClick(Sender: TObject);
     procedure acAddExecute(Sender: TObject);
     procedure acAddLinkedExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
-    procedure bRefresh1Click(Sender: TObject);
+    procedure acIgnoreExecute(Sender: TObject);
+    procedure acRefreshExecute(Sender: TObject);
     function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
     procedure FContListViewDetails(Sender: TObject);
@@ -106,12 +110,12 @@ const
                              RightToLeft:False);
   aTextStyleW : TTextStyle = (Alignment:taLeftJustify;
                              Layout : tlTop;
-                             SingleLine : false;
-                             Clipping  : false;
+                             SingleLine : False;
+                             Clipping  : True;
                              ExpandTabs:False;
                              ShowPrefix:False;
-                             Wordbreak:true;
-                             Opaque:false;
+                             Wordbreak:True;
+                             Opaque:True;
                              SystemFont:False;
                              RightToLeft:False);
 implementation
@@ -144,12 +148,16 @@ begin
 end;
 destructor TMGridObject.Destroy;
 begin
-  if Assigned(Image) then
-    Image.Free;
+  try
+    if Assigned(Image) then
+      Image.Free;
+  except
+  end;
   inherited Destroy;
 end;
 function TfHistoryFrame.FContListDrawColumnCell(Sender: TObject;
-  const aRect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
+  const aRect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState
+  ): Boolean;
 var
   aColor: TColor;
   aMiddle: Integer;
@@ -284,6 +292,11 @@ begin
     end;
 end;
 procedure TfHistoryFrame.acAddExecute(Sender: TObject);
+var
+  i: Integer;
+  aClass: TBaseDBDatasetClass;
+  aObj: TBaseDBDataset;
+  aHist : IBaseHistory;
 begin
   if fHistoryAddItem.Execute then
     begin
@@ -291,9 +304,29 @@ begin
         TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,TBaseHistory(DataSet).Parent.DataSet,ACICON_USEREDITED,'',True,True)
       else
         TBaseHistory(DataSet).AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
-      FTimeLine.Refresh;
+      for i := 0 to fHistoryAddItem.lbAdditional.Count-1 do
+        if Data.ListDataSetFromLink(fHistoryAddItem.lbAdditional.Items[i],aClass) then
+          begin
+            aObj := aClass.CreateEx(nil, Data);
+            if aObj is TBaseDbList then
+              begin
+                TBaseDBList(aObj).SelectFromLink(fHistoryAddItem.lbAdditional.Items[i]);
+                aObj.Open;
+                if aObj.Count>0 then
+                  begin
+                    if Supports(aObj,IBaseHistory,aHist) then
+                      begin
+                        aHist.History.AddItem(Data.Users.DataSet,fHistoryAddItem.eAction.Text,'',fHistoryAddItem.eReference.Text,nil,ACICON_USEREDITED,'',True,True);
+                        aHist := nil;
+                      end;
+                  end;
+              end;
+            aObj.Destroy;
+          end;
+      FTimeLine.Refresh(True);
       if Assigned(FOnAddUserMessage) then
         FOnAddUserMessage(fHistoryAddItem);
+      fHistoryAddItem.lbAdditional.Clear;
     end;
 end;
 procedure TfHistoryFrame.aButtonClick(Sender: TObject);
@@ -346,7 +379,24 @@ begin
   FTimeLine.Delete;
 end;
 
-procedure TfHistoryFrame.bRefresh1Click(Sender: TObject);
+procedure TfHistoryFrame.acIgnoreExecute(Sender: TObject);
+begin
+  if FTimeLine.GotoActiveRow then
+    begin
+      with DataSet.DataSet as IBaseManageDB do
+        UpdateStdFields := False;
+      DataSet.Edit;
+      if DataSet.FieldByName('IGNORE').AsString <> 'Y' then
+        DataSet.FieldByName('IGNORE').AsString:='Y'
+      else
+        DataSet.FieldByName('IGNORE').AsString:='N';
+      DataSet.Post;
+      with DataSet.DataSet as IBaseManageDB do
+        UpdateStdFields := True;
+    end;
+end;
+
+procedure TfHistoryFrame.acRefreshExecute(Sender: TObject);
 begin
   FTimeLine.Refresh(True);
 end;
@@ -365,9 +415,11 @@ begin
                   if not FDataSet.CanEdit then
                     FDataSet.DataSet.Edit;
                   FDataSet.DataSet.FieldByName('ACTION').AsString:=fHistoryAddItem.eAction.Text;
+                  FDataSet.DataSet.FieldByName('REFERENCE').AsString:=fHistoryAddItem.eReference.Text;
                   if FDataSet.CanEdit then
                     FDataSet.DataSet.Post;
                 end;
+              FTimeLine.Refresh(True);
             end;
         end
       else
@@ -472,6 +524,7 @@ begin
     begin
       aButton := TSpeedButton.Create(pButtons);
       aButton.Glyph := nil;
+      aButton.Flat:=True;
       fVisualControls.HistoryImages.GetBitmap(i,AButton.Glyph);
       aButton.Tag:=i;
       aButton.GroupIndex:=100+i;
@@ -518,6 +571,7 @@ begin
       TextField:='ACTION';
       ReadOnly:=True;
       FTimeLine.FilterRow:=True;
+      WordWrap:=True;
       Show;
     end;
   FTimeLine.OnDrawColumnCell:=@FContListDrawColumnCell;
@@ -547,6 +601,7 @@ begin
 end;
 procedure TfHistoryFrame.SetRights(Editable : Boolean);
 begin
+  ArrangeToolBar(pToolbar,ActionList1,'History');
 end;
 procedure TfHistoryFrame.ShowFrame;
 begin

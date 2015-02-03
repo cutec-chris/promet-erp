@@ -210,7 +210,7 @@ begin
   TriedLocations := '';
   for I := 0 to High(FLocations) do
     begin
-      if ZLoadLibrary(FLocations[I]) then
+      if ZLoadLibrary(FLocations[I]) or ZLoadLibrary('/usr/lib/x86_64-linux-gnu/'+FLocations[I]) then
         Break
       else
         if TriedLocations <> '' then

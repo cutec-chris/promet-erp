@@ -11,15 +11,15 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="30"/>
-        <CursorPos X="70" Y="46"/>
+        <TopLine Value="1"/>
+        <CursorPos X="87" Y="10"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="../base/dbintfs/uprometipc.pas"/>
         <UnitName Value="uprometipc"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="33"/>
         <CursorPos X="11" Y="53"/>
@@ -29,7 +29,7 @@
       <Unit2>
         <Filename Value="../base/dbintfs/uprocessmanager.pas"/>
         <UnitName Value="uProcessManager"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="75"/>
         <CursorPos X="56" Y="107"/>
@@ -39,18 +39,16 @@
       <Unit3>
         <Filename Value="../../../general/src/processutils.pas"/>
         <UnitName Value="ProcessUtils"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="134"/>
         <CursorPos X="23" Y="142"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit3>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="8" HistoryIndex="7">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="../base/dbintfs/uprometipc.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
@@ -83,6 +81,10 @@
         <Filename Value="linksender.lpr"/>
         <Caret Line="35" Column="70" TopLine="18"/>
       </Position8>
+      <Position9>
+        <Filename Value="linksender.lpr"/>
+        <Caret Line="46" Column="70" TopLine="30"/>
+      </Position9>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>

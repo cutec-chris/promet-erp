@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="20">
+      <Unit0>
+        <Filename Value="ser.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="13"/>
+        <CursorPos X="59" Y="39"/>
+        <UsageCount Value="37"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="tinkerforge\IPConnection.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="579"/>
+        <CursorPos Y="601"/>
+        <UsageCount Value="22"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="tinkerforge\Device.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="19"/>
+        <CursorPos X="10" Y="29"/>
+        <UsageCount Value="21"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="tinkerforge\BrickletLCD20x4.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="67"/>
+        <CursorPos X="32" Y="18"/>
+        <UsageCount Value="21"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="tinkerforge\BrickletLCD16x2.pas"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="21"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbus.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="190"/>
+        <CursorPos X="14" Y="194"/>
+        <UsageCount Value="19"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbusinterfaces.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="184"/>
+        <CursorPos X="29" Y="8"/>
+        <UsageCount Value="19"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsinternbus.pas"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="19"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\D2XXUnit.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="393"/>
+        <CursorPos Y="409"/>
+        <UsageCount Value="19"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcswirelessintf.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="104"/>
+        <CursorPos X="34" Y="108"/>
+        <UsageCount Value="19"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\inc\systemh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="907"/>
+        <CursorPos X="11" Y="925"/>
+        <UsageCount Value="9"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\..\..\tcscmd_git\src\mypersistents.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="199"/>
+        <CursorPos X="15" Y="217"/>
+        <UsageCount Value="9"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="tinkerforge\LEConverter.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="7"/>
+        <CursorPos X="3" Y="16"/>
+        <UsageCount Value="9"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="serial_win.pp"/>
+        <UnitName Value="serial_win"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="148"/>
+        <CursorPos X="53" Y="19"/>
+        <UsageCount Value="16"/>
+        <Loaded Value="True"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\objpas\sysutils\sysutilh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="16"/>
+        <CursorPos X="24" Y="34"/>
+        <UsageCount Value="9"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\win\sysosh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="4"/>
+        <CursorPos X="7" Y="23"/>
+        <UsageCount Value="9"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="serial_osx.pp"/>
+        <UnitName Value="serial_osx"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="45" Y="21"/>
+        <UsageCount Value="16"/>
+        <Loaded Value="True"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\unix\unix.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="7"/>
+        <CursorPos X="5" Y="25"/>
+        <UsageCount Value="9"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\rtl-extra\src\unix\serial.pp"/>
+        <UnitName Value="Serial"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="301"/>
+        <CursorPos X="26" Y="13"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\..\..\..\..\fpc\trunk\rtl\linux\ostypes.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="25"/>
+        <CursorPos X="2" Y="198"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+    </Units>
+    <JumpHistory Count="25" HistoryIndex="24">
+      <Position1>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="11" Column="9"/>
+      </Position1>
+      <Position2>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="6" Column="20"/>
+      </Position2>
+      <Position3>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="11" Column="11"/>
+      </Position3>
+      <Position4>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="18" Column="50"/>
+      </Position4>
+      <Position5>
+        <Filename Value="serial_win.pp"/>
+        <Caret Line="17" Column="22"/>
+      </Position5>
+      <Position6>
+        <Filename Value="serial_osx.pp"/>
+        <Caret Line="17" Column="23"/>
+      </Position6>
+      <Position7>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="18" Column="92"/>
+      </Position7>
+      <Position8>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="25" Column="66"/>
+      </Position8>
+      <Position9>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="20" Column="61" TopLine="2"/>
+      </Position9>
+      <Position10>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="25" Column="65" TopLine="8"/>
+      </Position10>
+      <Position11>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="23" Column="46" TopLine="8"/>
+      </Position11>
+      <Position12>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="46" Column="70" TopLine="23"/>
+      </Position12>
+      <Position13>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="33" Column="23" TopLine="22"/>
+      </Position13>
+      <Position14>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="13" Column="8"/>
+      </Position14>
+      <Position15>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="34" Column="49" TopLine="22"/>
+      </Position15>
+      <Position16>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="39" Column="37" TopLine="25"/>
+      </Position16>
+      <Position17>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="55" TopLine="34"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\rtl-extra\src\unix\serial.pp"/>
+        <Caret Line="326" Column="21" TopLine="312"/>
+      </Position18>
+      <Position19>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="13" Column="30"/>
+      </Position19>
+      <Position20>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="33" Column="21" TopLine="16"/>
+      </Position20>
+      <Position21>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="57" TopLine="35"/>
+      </Position21>
+      <Position22>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="54" Column="7" TopLine="38"/>
+      </Position22>
+      <Position23>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="39" TopLine="35"/>
+      </Position23>
+      <Position24>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="38" Column="34" TopLine="22"/>
+      </Position24>
+      <Position25>
+        <Filename Value="ser.lpr"/>
+        <Caret Line="13" Column="9"/>
+      </Position25>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

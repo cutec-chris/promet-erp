@@ -1,0 +1,90 @@
+object fBookFibuAccount: TfBookFibuAccount
+  Left = 436
+  Height = 432
+  Top = 225
+  Width = 568
+  Caption = 'Buchhaltungskonto zuordnen'
+  ClientHeight = 432
+  ClientWidth = 568
+  LCLVersion = '1.3'
+  object eAccountno: TEdit
+    Left = 8
+    Height = 23
+    Top = 24
+    Width = 136
+    OnChange = eAccountnoChange
+    TabOrder = 0
+  end
+  object eName: TEdit
+    Left = 152
+    Height = 23
+    Top = 24
+    Width = 410
+    Anchors = [akTop, akLeft, akRight]
+    OnChange = eAccountnoChange
+    TabOrder = 1
+  end
+  object gAccounts: TDBGrid
+    Left = 8
+    Height = 320
+    Top = 56
+    Width = 554
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoFillColumns = True
+    Color = clWindow
+    Columns = <    
+      item
+        SizePriority = 0
+        Title.Caption = 'ACCOUNTNO'
+        Width = 130
+        FieldName = 'ACCOUNTNO'
+      end    
+      item
+        Title.Caption = 'NAME'
+        Width = 394
+        FieldName = 'NAME'
+      end>
+    DataSource = Datasource1
+    ReadOnly = True
+    TabOrder = 2
+    TitleStyle = tsNative
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 13
+    Top = 8
+    Width = 34
+    Caption = 'Suche'
+    ParentColor = False
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 42
+    Top = 384
+    Width = 556
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 3
+    ShowButtons = [pbOK, pbCancel]
+    object cbWholeList: TCheckBox
+      Left = 8
+      Height = 24
+      Hint = 'setzt die gesamte Liste (Filtern Sie um gewünschte Datensätze zu wählen)'#10'auf dieses Konto'
+      Top = 8
+      Width = 243
+      BorderSpacing.Around = 8
+      Caption = 'gesamte Liste auf dieses Konto setzen'
+      TabOrder = 4
+    end
+  end
+  object Datasource1: TDatasource
+    left = 31
+    top = 89
+  end
+end

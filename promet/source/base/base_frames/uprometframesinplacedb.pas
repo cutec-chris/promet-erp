@@ -21,17 +21,20 @@ unit uPrometFramesInplaceDB;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, uPrometFrames, uPrometFramesInplace,
-  uBaseDBClasses;
+  Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, Buttons,
+  uPrometFrames, uPrometFramesInplace, uBaseDBClasses, uExtControls;
 type
+
+  { TPrometInplaceDBFrame }
+
   TPrometInplaceDBFrame = class(TPrometInplaceFrame)
-  private
   protected
     FConnection: TComponent;
     FDataSet: TBaseDBDataSet;
     procedure SetDataSet(const AValue: TBaseDBDataSet);virtual;
+    procedure SetConnection(AValue: TComponent);virtual;
   public
-    property Connection : TComponent read FConnection;
+    property Connection : TComponent read FConnection write SetConnection;
     property DataSet : TBaseDBDataSet read FDataSet write SetDataSet;
     procedure SetLanguage;virtual;abstract;
     function OpenFromLink(aLink : string) : Boolean;virtual;abstract;
@@ -41,6 +44,13 @@ type
   end;
 implementation
 {$R *.lfm}
+
+procedure TPrometInplaceDBFrame.SetConnection(AValue: TComponent);
+begin
+  if FConnection=AValue then Exit;
+  FConnection:=AValue;
+end;
+
 procedure TPrometInplaceDBFrame.SetDataSet(const AValue: TBaseDBDataSet);
 begin
   if FDataSet=AValue then Exit;

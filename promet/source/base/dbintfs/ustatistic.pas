@@ -64,7 +64,7 @@ type
     function GetNumberFieldName : string;override;
     function GetDescriptionFieldName: string; override;
     procedure DefineFields(aDataSet : TDataSet);override;
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     function BuildQuerry(aVariables : TStrings) : string;
   end;
@@ -73,7 +73,7 @@ type
   function AddSQLLimit(Str : string;aLimit : Integer) : string;
 
 implementation
-uses uBaseApplication,uData,usync;
+uses uBaseApplication,uData,usync,RegExpr;
 resourcestring
   strYQLFail                = 'YQL Abfrage fehlgeschlagen:';
 { TSQLStatement }
@@ -83,23 +83,28 @@ begin
   Result := Str;
   if Data.GetDBType='postgres' then
     begin
+      Result := StringReplace(Result,'JULIANDAY(','2415020.5+CONVERT(FLOAT,',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'CHARINDEX(','strpos(',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'MONTH(','EXTRACT(MONTH FROM ',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'YEAR(','EXTRACT(YEAR FROM ',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'DAY(','EXTRACT(DAY FROM ',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'DAYOFWEEK(','EXTRACT(DOW FROM ',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'GETDATE()','CURRENT_DATE',[rfReplaceAll,rfIgnoreCase]);
-
+    end
+  else if Data.GetDBType='mssql' then
+    begin
+      Result := StringReplace(Result,'JULIANDAY(','2415020.5+CONVERT(FLOAT,',[rfReplaceAll,rfIgnoreCase]);
     end
   else if Data.GetDBType='sqlite' then
     begin
       Result := StringReplace(Result,'CHARINDEX(','instr(',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'MONTH(','strftime("%m",',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'YEAR(','strftime("%Y",',[rfReplaceAll,rfIgnoreCase]);
-      Result := StringReplace(Result,'DAY(','strftime("%d",',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,' DAY(','strftime("%d",',[rfReplaceAll,rfIgnoreCase]);
+      Result := StringReplace(Result,',DAY(','strftime("%d",',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'DAYOFWEEK(','strftime("%w",',[rfReplaceAll,rfIgnoreCase]);
       Result := StringReplace(Result,'GETDATE()','date("now")',[rfReplaceAll,rfIgnoreCase]);
-
+      Result := StringReplace(Result,'SUBSTRING(','substr(',[rfReplaceAll,rfIgnoreCase]);
     end;
 end;
 
@@ -535,14 +540,15 @@ begin
             Add('STATNFIELD',ftString,20,False);
             Add('CHARTTYPE',ftString,1,False);
             Add('TREEENTRY',ftLargeint,0,false);
+            Add('CHANGEDBY',ftString,4,false);
           end;
     end;
 end;
 
-constructor TStatistic.Create(aOwner: TComponent; DM: TComponent;
+constructor TStatistic.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -550,6 +556,7 @@ begin
           BaseSortFields := 'SQL_ID';
           SortFields := 'SQL_ID';
           SortDirection := sdAscending;
+          UsePermissions:=True;
           Limit := 0;
         end;
     end;

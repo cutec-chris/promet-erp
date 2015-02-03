@@ -23,7 +23,7 @@ unit uLogWait;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   Buttons, ButtonPanel, uIntfStrConsts;
 
 type
@@ -46,9 +46,7 @@ var
   fLogWaitForm: TfLogWaitForm;
 
 implementation
-
-{ TfLogWaitForm }
-
+{$R *.lfm}
 procedure TfLogWaitForm.ShowInfo(Info: string);
 begin
   if not Assigned(Self) then
@@ -70,6 +68,7 @@ begin
       Application.CreateForm(TfLogWaitForm,fLogWaitform);
       Self := fLogWaitForm;
     end;
+  bAbort.Kind:=bkAbort;
 end;
 
 procedure TfLogWaitForm.FormShow(Sender: TObject);
@@ -83,7 +82,6 @@ begin
 end;
 
 initialization
-  {$I ulogwait.lrs}
 
 end.
 

@@ -21,7 +21,7 @@ unit uerror;
 {$mode objfpc}{$H+}
 interface
 uses
-  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, GeoIP, BlckSock;
+  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, GeoIP, BlckSock,ubaseconfig;
 type
 
   { TfmError }
@@ -93,7 +93,7 @@ procedure TfmError.DataModuleRequest(Sender: TObject; ARequest: TRequest;
           DoSites(StringReplace(aReg.Substitute('$1'),'|','',[rfReplaceAll]),aWiki.Description.AsString,aLevel+1);
       end;
     begin
-      with BaseApplication as IBaseApplication do
+      with BaseApplication as IBaseConfig do
         LinkBase := Config.ReadString('WebsiteCompleteURL','');
       LinkBase := LinkBase+'/wiki/';
       LinkValue := Data.BuildLink(aWiki.DataSet);
@@ -120,9 +120,9 @@ procedure TfmError.DataModuleRequest(Sender: TObject; ARequest: TRequest;
   begin
     aOut := '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
     WasHere := TStringList.Create;
-    aWiki := TWikiList.Create(nil,Data);
+    aWiki := TWikiList.Create(nil);
     aWiki.Open;
-    with BaseApplication as IBaseApplication do
+    with BaseApplication as IBaseConfig do
       begin
         if aWiki.FindWikiPage(Config.ReadString('INDEX','INDEX')) then
           DoSites(Config.ReadString('INDEX','INDEX'),aWiki.Description.AsString);
@@ -139,7 +139,7 @@ var
   aFile: TFileStream;
   Sock: TBlockSocket;
 begin
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     begin
       aPath := ARequest.PathInfo;
       if copy(aPath,0,1) = '/' then
@@ -213,7 +213,7 @@ begin
     end
   else if FileExistsUTF8(aPath) and not DirectoryExistsUTF8(aPath) then
     begin
-      aFile := TFileStream.Create(UTF8ToSys(aPath),fmOpenRead,fmShareDenyNone);
+      aFile := TFileStream.Create(UniToSys(aPath),fmOpenRead,fmShareDenyNone);
       AResponse.ContentType := 'application/'+copy(aExt,2,length(aExt));
       AResponse.Code := 200;
       AResponse.ContentStream := aFile;
@@ -255,7 +255,7 @@ begin
   try
     if (aSession.Variables['City'] = '') then
       begin
-        with BaseApplication as IBaseApplication do
+        with BaseApplication as IBaseConfig do
           begin
             if not FileExists(Config.ReadString('DOCROOTPATH','')+'GeoLiteCity.dat') then exit;
             aGeoIP := TGeoIP.Create(Config.ReadString('DOCROOTPATH','')+'GeoLiteCity.dat');

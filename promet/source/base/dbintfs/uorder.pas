@@ -28,11 +28,16 @@ type
   public
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+
+  { TOrderList }
+
   TOrderList = class(TBaseERPList,IBaseHistory)
   private
     FHistory : TBaseHistory;
     FOrderTyp: TOrdertyp;
+    FOrigID: String;
     function GetHistory: TBaseHistory;
+    function GetOrderTyp: TOrdertyp;
   protected
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
@@ -40,14 +45,17 @@ type
     function GetStatusFieldName : string;override;
     function GetCommissionFieldName: string;override;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
       aMasterdata: TDataSet=nil); override;
     destructor Destroy; override;
     function GetStatusIcon: Integer; override;
     procedure Open; override;
+    procedure Select(aID : string);overload;
+    procedure OpenItem(AccHistory: Boolean=True); override;
     procedure DefineFields(aDataSet : TDataSet);override;
     property History : TBaseHistory read FHistory;
-    property OrderType : TOrdertyp read FOrderTyp;
+    property OrderType : TOrdertyp read GetOrderTyp;
+    function SelectOrderType : Boolean;
   end;
   TOrderQMTestDetails = class(TBaseDBDataSet)
   public
@@ -57,7 +65,7 @@ type
   private
     FDetails: TOrderQMtestDetails;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     function CreateTable : Boolean;override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -70,13 +78,41 @@ type
   TOrderRepairDetail = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+  TRepairImageLinks = class(TLinks)
+  public
+    procedure FillDefaults(aDataSet : TDataSet);override;
+  end;
+
+  { TOrderRepairImages }
+
+  TOrderRepairImages = class(TBaseDbDataSet)
+    procedure DefineFields(aDataSet : TDataSet);override;
+    procedure FDSDataChange(Sender: TObject; Field: TField);
+  private
+    FDetail: TOrderRepairDetail;
+    FHistory: TBaseHistory;
+    FStatus : string;
+    FImages: TImages;
+    FLinks: TRepairImageLinks;
+    FDS : TDataSource;
+  public
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
+      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    destructor Destroy; override;
+    procedure Open; override;
+    function CreateTable: Boolean; override;
+    property RepairDetail : TOrderRepairDetail read FDetail;
+    property History : TBaseHistory read FHistory;
+    property Images : TImages read FImages;
+    property Links : TRepairImageLinks read FLinks;
+  end;
   TOrderRepair = class(TBaseDBDataSet)
   private
     FDetails: TOrderRepairDetail;
   public
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FillDefaults(aDataSet : TDataSet);override;
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     function CreateTable : Boolean;override;
     property Details : TOrderRepairDetail read FDetails;
@@ -85,15 +121,17 @@ type
   private
     FOrder: TOrder;
     FOrderRepair: TOrderRepair;
-    FQMTest: TorderQMTest;
+    FQMTest: TOrderQMTest;
   protected
     function GetAccountNo : string;override;
     procedure PosPriceChanged(aPosDiff,aGrossDiff :Extended);override;
     procedure PosWeightChanged(aPosDiff : Extended);override;
+    function Round(aValue: Extended): Extended; override;
+    function RoundPos(aValue : Extended) : Extended;override;
     function GetCurrency : string;override;
     function GetOrderTyp : Integer;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     function CreateTable : Boolean;override;
     procedure Assign(aSource : TPersistent);override;
@@ -107,7 +145,7 @@ type
   private
     FOrder: TOrder;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure CascadicPost; override;
@@ -135,40 +173,45 @@ type
   TOnGetSerialEvent = function(Sender : TOrder;aMasterdata : TMasterdata;aQuantity : Integer) : Boolean of object;
   TOrder = class(TOrderList,IPostableDataSet,IShipableDataSet)
   private
+    FCurrency: TCurrency;
     FFailMessage: string;
     FLinks: TOrderLinks;
     FOnGetSerial: TOnGetSerialEvent;
     FOnGetStorage: TOnGetStorageEvent;
     FOrderAddress: TOrderAddress;
     FOrderPos: TOrderPos;
-    fOrigId : string;
+    function GetCommission: TField;
+    function Round(Value: Extended): Extended;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     function CreateTable : Boolean;override;
     procedure FillDefaults(aDataSet : TDataSet);override;
-    procedure Select(aID : string);overload;
     procedure Open;override;
     procedure RefreshActive;
     procedure CascadicPost;override;
     procedure CascadicCancel;override;
+    property Commission : TField read GetCommission;
     property Address : TOrderAddress read FOrderAddress;
     property Positions : TOrderPos read FOrderPos;
     property Links : TOrderLinks read FLinks;
     property OnGetStorage : TOnGetStorageEvent read FOnGetStorage write FOnGetStorage;
     property OnGetSerial : TOnGetSerialEvent read FOnGetSerial write FOnGetSerial;
+    property Currency : TCurrency read FCurrency;
+    function SelectCurrency : Boolean;
     procedure Recalculate;
-    function DoPost: TPostResult;
-    function FailMessage : string;
     function ChangeStatus(aNewStatus : string) : Boolean;
     procedure ShippingOutput;
+    function DoPost: TPostResult;
     function PostArticle(aTyp, aID, aVersion, aLanguage: variant; Quantity: real; QuantityUnit, PosNo: string; var aStorage: string; var OrderDelivered: boolean) : Boolean;
     function DoBookPositionCalc(AccountingJournal : TAccountingJournal) : Boolean;
+    function FailMessage : string;
     function FormatCurrency(Value : real) : string;
     function CalcDispatchType : Boolean;
   end;
 implementation
-uses uBaseDBInterface, uBaseSearch, uData, LCLProc, Process, UTF8Process,uRTFtoTXT;
+uses uBaseDBInterface, uBaseSearch, uData, Process,uRTFtoTXT,
+  uIntfStrConsts;
 resourcestring
   strStatusnotfound             = 'Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator';
   strMainOrdernotfound          = 'Hauptvorgang nicht gefunden !';
@@ -179,6 +222,84 @@ resourcestring
   strOrders                     = 'Aufträge';
   strAlreadyPosted              = 'Der Vorgang ist bereits gebucht !';
   strDispatchTypenotfound       = 'Die gewählte Versandart existiert nicht !';
+
+{ TRepairImageLinks }
+
+procedure TRepairImageLinks.FillDefaults(aDataSet: TDataSet);
+begin
+  inherited FillDefaults(aDataSet);
+  aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TOrderRepairImages).Id.AsVariant;
+end;
+
+{ TOrderRepairImages }
+
+procedure TOrderRepairImages.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'ORDERREPAIRIMAGE';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('NAME',ftString,100,True);
+            Add('STATUS',ftString,4,false);
+            Add('SYMTOMS',ftString,800,False);
+            Add('DESC',ftMemo,0,False);
+            Add('SOLVE',ftMemo,0,False);
+            Add('NOTES',ftMemo,0,False);
+            Add('INTNOTES',ftMemo,0,False);
+            Add('COUNTER',ftInteger,0,False);
+          end;
+    end;
+end;
+
+procedure TOrderRepairImages.FDSDataChange(Sender: TObject; Field: TField);
+begin
+  if not Assigned(Field) then exit;
+  if DataSet.ControlsDisabled then exit;
+  if Field.FieldName = 'STATUS' then
+    begin
+      History.Open;
+      History.AddItem(Self.DataSet,Format(strStatusChanged,[FStatus,Field.AsString]),'','',nil,ACICON_STATUSCH);
+      FStatus := Field.AsString;
+    end;
+end;
+
+constructor TOrderRepairImages.CreateEx(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
+begin
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
+  FLinks := TRepairImageLinks.CreateEx(Self,DM,aConnection);
+  FDetail := TOrderRepairDetail.CreateExIntegrity(Self,DM,False,aConnection,DataSet);
+  FDS := TDataSource.Create(Self);
+  FDS.DataSet := DataSet;
+  FDS.OnDataChange:=@FDSDataChange;
+end;
+
+destructor TOrderRepairImages.Destroy;
+begin
+  FDS.Destroy;
+  FDetail.Free;
+  FLinks.Destroy;
+  FImages.Destroy;
+  FHistory.Destroy;
+  inherited Destroy;
+end;
+
+procedure TOrderRepairImages.Open;
+begin
+  inherited Open;
+  FStatus := FieldByName('STATUS').AsString;
+end;
+
+function TOrderRepairImages.CreateTable: Boolean;
+begin
+  Result:=inherited CreateTable;
+  FImages.CreateTable;
+  FHistory.CreateTable;
+end;
 
 procedure TOrderRepairDetail.DefineFields(aDataSet: TDataSet);
 begin
@@ -202,11 +323,14 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
+            Add('ID',ftInteger,0,False);
             Add('OPERATION',ftString,20,False);
             Add('ERRDESC',ftMemo,0,False);
             Add('NOTES',ftMemo,0,False);
             Add('INTNOTES',ftMemo,0,False);
             Add('WARRENTY',ftString,1,True);
+            Add('ERRIMAGE',ftLargeint,0,False);
+            Add('IMAGENAME',ftString,100,False);
           end;
     end;
 end;
@@ -215,14 +339,15 @@ begin
   with aDataSet,BaseApplication as IBaseDbInterface do
     begin
       FieldByName('WARRENTY').AsString := 'U';
+      FieldByName('ID').AsInteger:=Self.Count+1;
     end;
   inherited FillDefaults(aDataSet);
 end;
-constructor TOrderRepair.Create(aOwner: TComponent; DM: TComponent;
+constructor TOrderRepair.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FDetails := TOrderRepairDetail.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FDetails := TOrderRepairDetail.CreateEx(Owner,DM,aConnection,DataSet);
 end;
 destructor TOrderRepair.Destroy;
 begin
@@ -253,10 +378,10 @@ begin
   aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TOrder).Id.AsVariant;
 end;
 
-constructor TOrderAddress.Create(aOwner: TComponent; DM: TComponent;
+constructor TOrderAddress.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
 end;
 
 procedure TOrderAddress.DefineFields(aDataSet: TDataSet);
@@ -396,8 +521,11 @@ begin
             Add('ISDERIVATE',ftString,1,false);
             Add('DERIVATIVE',ftString,30,false);
             Add('NUMBERSET',ftString,30,false);
-            Add('DEFPOSTYP',ftString,3,False);
-            Add('TEXTTYP',ftInteger,0,False);
+            Add('DEFPOSTYP',ftString,3,False); //welcher positionstyp wird nach insert gesetzt?
+            Add('TEXTTYP',ftInteger,0,False);  //welcher text ist standardtext
+
+            Add('ROUNDPOS',ftString,1,False);  //Positionen werden gerundet
+
             Add('SI_ORDER',ftString,1,false);  //im Auftrag anzeigen
             Add('SI_POS',ftString,1,false);    //in der Kasse anzeigen (Point of Sale)
             Add('SI_PROD',ftString,1,false);   //in der Produktion anzeigen
@@ -432,11 +560,11 @@ begin
           end;
     end;
 end;
-constructor TOrderQMTest.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
+constructor TOrderQMTest.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FDetails := TOrderQMTestDetails.Create(aOwner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FDetails := TOrderQMTestDetails.CreateEx(aOwner,DM,aConnection,DataSet);
 end;
 destructor TOrderQMTest.Destroy;
 begin
@@ -466,10 +594,31 @@ begin
           end;
     end;
 end;
-constructor TOrder.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
+
+function TOrder.GetCommission: TField;
+begin
+  result := FieldByName('COMMISSION');
+end;
+
+function TOrder.Round(Value: Extended): Extended;
+  function RoundToGranularity(aValue, aGranularity: Double): Double;
+  begin
+    Result := Trunc(aValue / aGranularity + 0.5 + 1E-10) * aGranularity
+  end;
+var
+  nk: Integer = 2;
+begin
+  if SelectCurrency and (Currency.FieldByName('DECIMALPL').AsInteger>0) then
+    nk := Currency.FieldByName('DECIMALPL').AsInteger;
+  if SelectCurrency and (Currency.FieldByName('ROUNDGRAN').AsFloat>0) then
+    Result := InternalRound(RoundToGranularity(Value,Currency.FieldByName('ROUNDGRAN').AsFloat),nk)
+  else Result := InternalRound(Value,nk);
+end;
+
+constructor TOrder.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner,DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner,DM, aConnection, aMasterdata);
   UpdateFloatFields:=True;
   with BaseApplication as IBaseDbInterface do
     begin
@@ -481,14 +630,16 @@ begin
           UsePermissions:=False;
         end;
     end;
-  FOrderAddress := TOrderAddress.Create(Self,DM,aConnection,DataSet);
+  FOrderAddress := TOrderAddress.CreateEx(Self,DM,aConnection,DataSet);
   FOrderAddress.Order := Self;
-  FOrderPos := TOrderPos.Create(Self,DM,aConnection,DataSet);
+  FOrderPos := TOrderPos.CreateEx(Self,DM,aConnection,DataSet);
   FOrderPos.Order:=Self;
-  FLinks := TOrderLinks.Create(Self,DM,aConnection);
+  FLinks := TOrderLinks.CreateEx(Self,DM,aConnection);
+  FCurrency := TCurrency.CreateEx(Self,DM,aConnection);
 end;
 destructor TOrder.Destroy;
 begin
+  FCurrency.Free;
   FOrderAddress.Destroy;
   FOrderPos.Destroy;
   FreeAndnil(FLinks);
@@ -526,7 +677,7 @@ begin
       FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
     end;
 end;
-procedure TOrder.Select(aID : string);
+procedure TOrderList.Select(aID : string);
 var
   aFilter: String;
 begin
@@ -554,6 +705,7 @@ begin
   OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
   if FieldByName('ACTIVE').IsNull then
     RefreshActive;
+  SelectCurrency;
 end;
 
 procedure TOrder.RefreshActive;
@@ -613,38 +765,65 @@ begin
   inherited CascadicCancel;
 end;
 
+function TOrder.SelectCurrency: Boolean;
+begin
+  if not FCurrency.Locate('SYMBOL',FieldByName('CURRENCY').AsString,[]) then
+    begin
+      FCurrency.Filter(Data.QuoteField('SYMBOL')+'='+Data.QuoteValue(FieldByName('CURRENCY').AsString));
+      result := FCurrency.Locate('SYMBOL',FieldByName('CURRENCY').AsString,[]);
+    end
+  else Result := True;
+end;
+
 procedure TOrder.Recalculate;
 var
   aPos: Double = 0;
   aGrossPos: Double = 0;
   aVatH : Double = 0;
   aVatV : Double = 0;
+  Vat: TVat;
 begin
+  Vat := TVat.Create(nil);
   Positions.Open;
   Positions.First;
   while not Positions.EOF do
     begin
-      aPos += Positions.FieldByName('POSPRICE').AsFloat;
-      aGrossPos += Positions.FieldByName('GROSSPRICE').AsFloat;
-      with BaseApplication as IBaseDbInterface do
+      if  (Positions.PosTypDec<>4)  //Only Positions that should calculated
+      and (Positions.PosTypDec<>1)
+      and (Positions.PosTypDec<>2)
+      and (Positions.PosTypDec<>3)
+      and (Positions.PosTypDec<>5)
+      then
         begin
-          if not Data.Vat.DataSet.Active then
-            Data.Vat.Open;
-          Data.Vat.DataSet.Locate('ID',VarArrayof([Positions.FieldByName('VAT').AsString]),[]);
-          if Data.Vat.FieldByName('ID').AsInteger=1 then
-            aVatV += Positions.FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat
-          else
-            aVatH += Positions.FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat;
+          aPos += Positions.FieldByName('POSPRICE').AsFloat;
+          aGrossPos += Positions.FieldByName('GROSSPRICE').AsFloat;
+          with BaseApplication as IBaseDbInterface do
+            begin
+              if not Vat.DataSet.Active then
+                Vat.Open;
+              Vat.DataSet.Locate('ID',VarArrayof([Positions.FieldByName('VAT').AsString]),[]);
+              if Vat.FieldByName('ID').AsInteger=1 then
+                aVatV += Positions.FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat
+              else
+                aVatH += Positions.FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat;
+            end;
         end;
+          if Positions.PosTypDec=4 then //Subtotal
+            begin
+              Positions.Edit;
+              Positions.FieldByName('POSPRICE').AsFloat := aPos;
+              Positions.FieldByName('GROSSPRICE').AsFloat := Round(aGrossPos);
+              Positions.Post;
+            end;
       Positions.Next;
     end;
   if not CanEdit then DataSet.Edit;
-  FieldByName('VATH').AsFloat:=aVatH;
-  FieldByName('VATF').AsFloat:=aVatV;
-  FieldByName('NETPRICE').AsFloat:=aPos;
-  FieldByName('NETPRICE').AsFloat:=aPos;
-  FieldByName('GROSSPRICE').AsFloat:=InternalRound(aGrossPos);
+  FieldByName('VATH').AsFloat:=Round(aVatH);
+  FieldByName('VATF').AsFloat:=Round(aVatV);
+  FieldByName('NETPRICE').AsFloat:=Round(aPos);
+  FieldByName('GROSSPRICE').AsFloat:=Round(aGrossPos);
   if CanEdit then DataSet.Post;
+  Vat.Free;
 end;
 
 function TOrder.DoPost: TPostResult;
@@ -671,9 +850,9 @@ begin
   Result := prFailed;
   CascadicPost;
   Recalculate;
-  Orders := TOrderList.Create(Owner,DataModule,Connection);
-  MasterdataList := TMasterdataList.Create(Owner,DataModule,Connection);
-  MainOrder := TOrder.Create(Owner,DataModule,Connection);
+  Orders := TOrderList.CreateEx(Owner,DataModule,Connection);
+  MasterdataList := TMasterdataList.CreateEx(Owner,DataModule,Connection);
+  MainOrder := TOrder.CreateEx(Owner,DataModule,Connection);
   MainOrder.Select(Self.FieldByName('ORDERNO').AsString);
   MainOrder.Open;
   Data.StorageType.Open;
@@ -711,7 +890,7 @@ begin
       Data.Numbers.Open;
       if Data.Numbers.Count = 0 then
         raise Exception.Create(strNumbersetnotfound);
-      Accountingjournal := TAccountingjournal.Create(Owner,DataModule,Connection);
+      Accountingjournal := TAccountingjournal.CreateEx(Owner,DataModule,Connection);
       Accountingjournal.CreateTable;
       Data.StartTransaction(Connection,True);
       try
@@ -730,9 +909,10 @@ begin
           end;
         //Belegnummer und Datum vergeben
         DataSet.Edit;
-        aNumbers := TNumberSets.Create(Owner,Data,Connection);
+        aNumbers := TNumberSets.CreateEx(Owner,Data,Connection);
         with aNumbers.DataSet as IBaseDBFilter do
           Filter := Data.QuoteField('TABLENAME')+'='+Data.QuoteValue(OrderType.FieldByName('NUMBERSET').AsString);
+        OpenItem(False);
         aNumbers.Open;
         if Result <> pralreadyPosted then
           begin
@@ -875,7 +1055,7 @@ begin
               end;
           end;
         //Kundenhistorie buchen
-        Person := TPerson.Create(Owner,DataModule,Connection);
+        Person := TPerson.CreateEx(Owner,DataModule,Connection);
         with Person.DataSet as IBaseDBFilter do
           Filter := Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(Address.FieldByName('ACCOUNTNO').AsString);
         Person.Open;
@@ -904,7 +1084,7 @@ begin
             Result := prFailed;
             Data.RollbackTransaction(Connection);
             FFailMessage := e.Message;
-            debugln(e.Message);
+            //debugln(e.Message);
             DataSet.Refresh;
           end;
       end;
@@ -1025,14 +1205,17 @@ begin
         end;
       RefreshActive;
     end;
+  OpenItem(False);
 end;
 procedure TOrder.ShippingOutput;
 var
   OrderTyp: Integer;
-  aProcess: TProcessUTF8;
+  aProcess: TProcess;
   CommaCount: Integer;
   tmp: String;
+  Dispatchtypes: TDispatchTypes;
 begin
+  Dispatchtypes := TDispatchTypes.Create(nil);
   if not OrderType.DataSet.Locate('STATUS', DataSet.FieldByName('STATUS').AsString, [loCaseInsensitive]) then
     raise Exception.Create(strStatusnotfound);
   OrderTyp := StrToIntDef(trim(copy(OrderType.FieldByName('TYPE').AsString, 0, 2)), 0);
@@ -1041,8 +1224,8 @@ begin
   or  (OrderTyp = 3)) //Rechnung
   then
     begin
-      Data.SetFilter(Data.Dispatchtypes,Data.QuoteField('ID')+'='+Data.QuoteValue(trim(copy(DataSet.FieldByName('SHIPPING').AsString,0,3))));
-      if not Data.Locate(Data.Dispatchtypes,'ID',copy(DataSet.FieldByName('SHIPPING').AsString,0,3),[loPartialKey]) then
+      Data.SetFilter(Dispatchtypes,Data.QuoteField('ID')+'='+Data.QuoteValue(trim(copy(DataSet.FieldByName('SHIPPING').AsString,0,3))));
+      if not Data.Locate(Dispatchtypes,'ID',copy(DataSet.FieldByName('SHIPPING').AsString,0,3),[loPartialKey]) then
         begin
           raise Exception.Create(strDispatchTypenotfound);
           exit;
@@ -1053,16 +1236,16 @@ begin
   or   (OrderTyp = 3)) //Rechnung
   then
     begin
-      aProcess := TProcessUTF8.Create(Self);
+      aProcess := TProcess.Create(Self);
       aProcess.ShowWindow := swoHide;
       aProcess.Options:= [poNoConsole,poWaitOnExit];
       aProcess.CommandLine := '"'+ExtractFileDir(ParamStr(0))+DirectorySeparator+'plugins'+DirectorySeparator;
-      if pos(' ',Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString) > 0 then
+      if pos(' ',Dispatchtypes.FieldByName('OUTPUTDRV').AsString) > 0 then
         begin
-          aProcess.CommandLine := aProcess.Commandline+copy(Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString,0,pos(' ',Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString)-1)+ExtractFileExt(Paramstr(0))+'"';
-          aProcess.Commandline := aProcess.Commandline+copy(Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString,pos(' ',Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString)+1,length(Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString));
+          aProcess.CommandLine := aProcess.Commandline+copy(Dispatchtypes.FieldByName('OUTPUTDRV').AsString,0,pos(' ',Dispatchtypes.FieldByName('OUTPUTDRV').AsString)-1)+ExtractFileExt(Paramstr(0))+'"';
+          aProcess.Commandline := aProcess.Commandline+copy(Dispatchtypes.FieldByName('OUTPUTDRV').AsString,pos(' ',Dispatchtypes.FieldByName('OUTPUTDRV').AsString)+1,length(Dispatchtypes.FieldByName('OUTPUTDRV').AsString));
         end
-      else aProcess.CommandLine := aProcess.Commandline+Data.Dispatchtypes.FieldByName('OUTPUTDRV').AsString+ExtractFileExt(Paramstr(0))+'"';
+      else aProcess.CommandLine := aProcess.Commandline+Dispatchtypes.FieldByName('OUTPUTDRV').AsString+ExtractFileExt(Paramstr(0))+'"';
       CommaCount := 0;
       Address.Open;
       with Address.DataSet do
@@ -1080,6 +1263,7 @@ begin
       aProcess.Execute;
       aProcess.Free;
     end;
+  Dispatchtypes.Free;
 end;
 function TOrder.PostArticle(aTyp, aID, aVersion, aLanguage: variant;
   Quantity: real; QuantityUnit, PosNo: string; var aStorage: string;
@@ -1098,7 +1282,7 @@ begin
       try
         Result := True;
         OrderTyp := StrToIntDef(trim(copy(OrderType.FieldByName('TYPE').AsString, 0, 2)), 0);
-        Masterdata := TMasterdata.Create(Owner,DataModule,Connection);
+        Masterdata := TMasterdata.CreateEx(Owner,DataModule,Connection);
         Masterdata.CreateTable;
         Masterdata.Select(aID,aVersion,aLanguage);
         Masterdata.Open;
@@ -1181,7 +1365,7 @@ begin
       except
         on e : Exception do
           begin
-            debugln('Postarticle:'+e.Message);
+            //debugln('Postarticle:'+e.Message);
             Result := False;
           end;
       end;
@@ -1256,13 +1440,13 @@ begin
         end;
       if Invert then
         begin
-          FieldByName('NETPRICE').AsFloat   := FieldByName('NETPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat;
-          FieldByName('GROSSPRICE').AsFloat := FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('GROSSPRICE').AsFloat;
+          FieldByName('NETPRICE').AsFloat   := Round(FieldByName('NETPRICE').AsFloat-Positions.FieldByName('POSPRICE').AsFloat);
+          FieldByName('GROSSPRICE').AsFloat := Round(FieldByName('GROSSPRICE').AsFloat-Positions.FieldByName('GROSSPRICE').AsFloat);
         end
       else
         begin
-          FieldByName('NETPRICE').AsFloat   := FieldByName('NETPRICE').AsFloat+Positions.FieldByName('POSPRICE').AsFloat;
-          FieldByName('GROSSPRICE').AsFloat := FieldByName('GROSSPRICE').AsFloat+Positions.FieldByName('GROSSPRICE').AsFloat;
+          FieldByName('NETPRICE').AsFloat   := Round(FieldByName('NETPRICE').AsFloat+Positions.FieldByName('POSPRICE').AsFloat);
+          FieldByName('GROSSPRICE').AsFloat := Round(FieldByName('GROSSPRICE').AsFloat+Positions.FieldByName('GROSSPRICE').AsFloat);
         end;
       Post;
     end;
@@ -1277,12 +1461,12 @@ var
   aMasterdata: TMasterdata;
   aPosTyp: TPositionTyp;
 begin
-  aPosTyp := TPositionTyp.Create(Self,DataModule,Connection);
+  aPosTyp := TPositionTyp.CreateEx(Self,DataModule,Connection);
   aPosTyp.Open;
   if aPosTyp.DataSet.Locate('TYPE',6,[loCaseInsensitive]) then
     begin
       //Find new Dispatchtype
-      aDisp := TDispatchTypes.Create(Self,DataModule,Connection);
+      aDisp := TDispatchTypes.CreateEx(Self,DataModule,Connection);
       if not Address.DataSet.Active then Address.Open;
       if Address.Count > 0 then
         begin
@@ -1296,7 +1480,7 @@ begin
         begin
           while (not aDisp.DataSet.EOF) and (aDisp.FieldByName('ARTICLE').AsString = '') do
             aDisp.DataSet.Next;
-          aMasterdata := TMasterdata.Create(Self,DataModule,Connection);
+          aMasterdata := TMasterdata.CreateEx(Self,DataModule,Connection);
           aMasterdata.Select(aDisp.FieldByName('ARTICLE').AsString);
           aMasterdata.Open;
           if aMasterdata.Count > 0 then
@@ -1314,17 +1498,19 @@ begin
 end;
 function TOrderPos.GetAccountNo: string;
 begin
-  Result:=inherited GetAccountNo;
+  if Assigned(Order) and (Order.Address.Count>0) then
+    Result:=Order.Address.FieldByName('ACCOUNTNO').AsString
+  else inherited;
 end;
 procedure TOrderPos.PosPriceChanged(aPosDiff, aGrossDiff: Extended);
 begin
   if not ((Order.DataSet.State = dsEdit) or (Order.DataSet.State = dsInsert)) then
     Order.DataSet.Edit;
-  Order.FieldByName('NETPRICE').AsFloat := Order.FieldByName('NETPRICE').AsFloat+aPosDiff;
+  Order.FieldByName('NETPRICE').AsFloat := Round(Order.FieldByName('NETPRICE').AsFloat+aPosDiff);
   Data.PaymentTargets.Open;
   if Data.PaymentTargets.DataSet.Locate('ID',Order.FieldByName('PAYMENTTAR').AsString,[]) then
-    Order.FieldByName('DISCPRICE').AsFloat := InternalRound(Order.FieldByName('NETPRICE').AsFloat-((Order.FieldByName('NETPRICE').AsFloat/100)*Data.PaymentTargets.FieldByName('CASHDISC').AsFloat));
-  Order.FieldByName('GROSSPRICE').AsFloat := Order.FieldByName('GROSSPRICE').AsFloat+aGrossDiff;
+    Order.FieldByName('DISCPRICE').AsFloat := Round(Order.FieldByName('NETPRICE').AsFloat-((Order.FieldByName('NETPRICE').AsFloat/100)*Data.PaymentTargets.FieldByName('CASHDISC').AsFloat));
+  Order.FieldByName('GROSSPRICE').AsFloat := Round(Order.FieldByName('GROSSPRICE').AsFloat+aGrossDiff);
 end;
 procedure TOrderPos.PosWeightChanged(aPosDiff : Extended);
 begin
@@ -1332,6 +1518,20 @@ begin
     Order.DataSet.Edit;
   Order.FieldByName('WEIGHT').AsFloat := Order.FieldByName('WEIGHT').AsFloat+aPosDiff;
 end;
+
+function TOrderPos.Round(aValue: Extended): Extended;
+begin
+  if Assigned(Order) then
+    Result := Order.Round(aValue)
+  else Result:=inherited Round(aValue);
+end;
+function TOrderPos.RoundPos(aValue: Extended): Extended;
+begin
+  if Order.SelectOrderType and (Order.OrderType.FieldByName('ROUNDPOS').AsString='Y') then
+    Result := Round(aValue)
+  else result := aValue;
+end;
+
 function TOrderPos.GetCurrency: string;
 begin
   Result:=Order.FieldByName('CURRENCY').AsString;
@@ -1342,12 +1542,12 @@ begin
   if Order.OrderType.DataSet.Locate('STATUS', Order.FieldByName('STATUS').AsString, [loCaseInsensitive]) then
     Result := StrToIntDef(trim(copy(Order.OrderType.FieldByName('TYPE').AsString, 0, 2)), 0);
 end;
-constructor TOrderPos.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
+constructor TOrderPos.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM,aConnection, aMasterdata);
-  FQMTest := TOrderQMTest.Create(Owner,DM,aConnection,DataSet);
-  FOrderRepair := TOrderRepair.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
+  FQMTest := TOrderQMTest.CreateEx(Owner,DM,aConnection,DataSet);
+  FOrderRepair := TOrderRepair.CreateEx(Owner,DM,aConnection,DataSet);
 end;
 destructor TOrderPos.Destroy;
 begin
@@ -1423,6 +1623,12 @@ function TOrderList.GetHistory: TBaseHistory;
 begin
   Result := FHistory;
 end;
+
+function TOrderList.GetOrderTyp: TOrdertyp;
+begin
+  Result := FOrderTyp;
+end;
+
 function TOrderList.GetTextFieldName: string;
 begin
   Result:='CUSTNAME';
@@ -1443,12 +1649,12 @@ function TOrderList.GetCommissionFieldName: string;
 begin
   Result:='COMMISSION';
 end;
-constructor TOrderList.Create(aOwner: TComponent; DM: TComponent;
+constructor TOrderList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FHistory := TBaseHistory.Create(Self,DM,aConnection,DataSet);
-  FOrderTyp := TOrderTyp.Create(Self,DM,aConnection);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FOrderTyp := TOrderTyp.CreateEx(Self,DM,aConnection);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -1457,6 +1663,7 @@ begin
         end;
     end;
 end;
+
 destructor TOrderList.Destroy;
 begin
   FHistory.Destroy;
@@ -1488,6 +1695,102 @@ begin
         Filter := QuoteField('ACTIVE')+'='+QuoteValue('Y')+' or '+Data.ProcessTerm(QuoteField('ACTIVE')+'='+QuoteValue(''));;
     end;
   inherited Open;
+end;
+
+procedure TOrderList.OpenItem(AccHistory: Boolean);
+var
+  aHistory: TAccessHistory;
+  aObj: TObjects;
+  aID: String;
+  aFilter: String;
+begin
+  if Self.Count=0 then exit;
+  try
+    try
+      aHistory := TAccessHistory.Create(nil);
+      aObj := TObjects.Create(nil);
+      if AccHistory then
+        begin
+          if DataSet.State<>dsInsert then
+            begin
+              if not Data.TableExists(aHistory.TableName) then
+                aHistory.CreateTable;
+              aHistory.Free;
+              aHistory := TAccessHistory.CreateEx(nil,Data,nil,DataSet);
+              aHistory.AddItem(DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet))]),Data.BuildLink(DataSet));
+            end;
+        end;
+      if (DataSet.State<>dsInsert) and (DataSet.FieldByName('NUMBER').IsNull) then
+        begin
+          if not Data.TableExists(aObj.TableName) then
+            begin
+              aObj.CreateTable;
+              aObj.Free;
+              aObj := TObjects.CreateEx(nil,Data,nil,DataSet);
+            end;
+          with aObj.DataSet as IBaseDBFilter do
+            begin
+              aID := FieldByName('ORDERNO').AsString;
+              if length(aID) > 4 then
+                begin
+                  aFilter :=         '('+Data.QuoteField('NUMBER')+'>='+Data.QuoteValue(copy(aID,0,length(aID)-2)+'00')+') and ';
+                  aFilter := aFilter+'('+Data.QuoteField('NUMBER')+'<='+Data.QuoteValue(copy(aID,0,length(aID)-2)+'99')+')';
+                end
+              else
+                aFilter :=  Data.QuoteField('NUMBER')+'='+Data.QuoteValue(aID);
+              Filter := aFilter;
+              Limit := 0;
+            end;
+          aObj.Open;
+          if aObj.Count=0 then
+            begin
+              aObj.Insert;
+              aObj.Text.AsString := Data.GetLinkDesc(Data.BuildLink(Self.DataSet));
+              aObj.FieldByName('SQL_ID').AsVariant:=Self.Id.AsVariant;
+              if Assigned(Self.Matchcode) then
+                aObj.Matchcode.AsString := Self.Matchcode.AsString;
+              if Assigned(Self.Status) then
+                aObj.Status.AsString := Self.Status.AsString;
+              aObj.Number.AsVariant:=Self.Number.AsVariant;
+              aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
+              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet));
+              aObj.Post;
+              Self.GenerateThumbnail;
+            end
+          else //Modify existing
+            begin
+              while aObj.Count>1 do
+                aObj.Delete;
+              if aObj.Text.AsString<>Data.GetLinkDesc(Data.BuildLink(Self.DataSet)) then
+                begin
+                  aObj.Edit;
+                  aObj.Text.AsString := Data.GetLinkDesc(Data.BuildLink(Self.DataSet));
+                end;
+              if aObj.Number.AsString<>Self.Number.AsString then
+                begin
+                  aObj.Edit;
+                  aObj.Number.AsString := Self.Number.AsString;
+                end;
+              if Assigned(Self.Status) and (aObj.Status.AsString<>Self.Status.AsString) then
+                begin
+                  aObj.Edit;
+                  aObj.Status.AsString := Self.Status.AsString;
+                end;
+              if aObj.FieldByName('LINK').AsString<>Data.BuildLink(Self.DataSet) then
+                begin
+                  aObj.Edit;
+                  aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
+                end;
+              if aObj.CanEdit then
+                aObj.Post;
+            end;
+        end;
+    finally
+      aObj.Free;
+      aHistory.Free;
+    end;
+  except
+  end;
 end;
 
 procedure TOrderList.DefineFields(aDataSet: TDataSet);
@@ -1550,6 +1853,12 @@ begin
       DefineUserFields(aDataSet);
     end;
 end;
+
+function TOrderList.SelectOrderType: Boolean;
+begin
+  Result := FOrderTyp.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
+end;
+
 initialization
 end.
 

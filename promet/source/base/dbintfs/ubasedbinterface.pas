@@ -22,8 +22,9 @@ unit uBaseDBInterface;
 interface
 uses
   Classes, SysUtils, DB, Typinfo, CustApp, Utils , memds,
-  {uAppconsts, }FileUtil, uBaseDbClasses, PropertyStorage,uIntfStrConsts,
-  uBaseSearch,uBaseERPDbClasses,uDocuments,uOrder,Variants,uProcessManagement
+  uBaseDbClasses, uIntfStrConsts,
+  uBaseSearch,uBaseERPDbClasses,uDocuments,uOrder,Variants,uProcessManagement,
+  rttiutils
   {$IFDEF LCL}
   ,LCLIntf
   {$ENDIF}
@@ -31,10 +32,22 @@ uses
 const
   MandantExtension = '.perml';
 type
-  TDBConfig = class(TCustomPropertyStorage)
-  protected
-    function  DoReadString(const Section, Ident, DefaultValue: string): string; override;
-    procedure DoWriteString(const Section, Ident, Value: string); override;
+
+  { TDBConfig }
+
+  TDBConfig = class(TPropsStorage)
+  public
+    function  ReadString(const ASection, Ident, DefaultValue: string): string; override;
+    procedure WriteString(const ASection, Ident, Value: string); override;
+    function  ReadString(Ident, DefaultValue: string): string;overload;
+    procedure WriteString(Ident, Value: string);overload;
+    procedure ReadRect(const Ident: string; out ARect: TRect;
+                       const Default: TRect);
+    procedure WriteRect(const Ident: string; const Value: TRect);
+    function  ReadInteger(const Ident: string; DefaultValue: Longint): Longint;
+    procedure WriteInteger(const Ident: string; Value: Longint);
+    function  ReadBoolean(const Ident: string; DefaultValue: Boolean): Boolean;
+    procedure WriteBoolean(const Ident: string; Value: Boolean);
   end;
   TInternalDBDataSet = class
   private
@@ -60,6 +73,7 @@ type
     FConnectionLost: TNotifyEvent;
     FKeepAlive: TNotifyEvent;
     FLastStmt: string;
+    FLastTime: Int64;
     FSessionID: LargeInt;
     FTables: TStrings;
     FTriggers: TStrings;
@@ -69,7 +83,6 @@ type
     FIgnoreOpenRequests : Boolean;
   protected
     FDataSetClass : TDataSetClass;
-    function GetConnection: TComponent;virtual;abstract;
     function GetSyncOffset: Integer;virtual;abstract;
     procedure SetSyncOffset(const AValue: Integer);virtual;abstract;
     function GetLimitAfterSelect: Boolean;virtual;
@@ -91,22 +104,17 @@ type
     StorageJournal : TStorageJournal;
     Countries : TCountries;
     Languages : TLanguages;
-    Vat : TVat;
     Userfielddefs : TUserFielddefs;
-    Units : TUnits;
     States : TStates;
     Categories : TCategory;
-    OrderPosTyp : TOrderPosTyp;
-    TextTyp : TTextTypes;
     DeletedItems : TDeletedItems;
-    DispatchTypes : TDispatchTypes;
-    PriceTypes : TPriceTypes;
-    _DocumentActions : TInternalDBDataSet;
-    _MimeTypes : TInternalDBDataSet;
-    RepairProblems : TRepairProblems;
+    TableVersions : TBaseDBDataset;
+    //_DocumentActions : TInternalDBDataSet;
+    //_MimeTypes : TInternalDBDataSet;
     ProcessClient : TProcessClient;
     constructor Create(AOwner : TComponent);virtual;
     destructor Destroy;override;
+    function GetConnection: TComponent;virtual;abstract;
     property SessionID : LargeInt read FSessionID write FSessionID;
     property MainConnection : TComponent read GetConnection;
     property UsersFilter : string read FUsersFilter;
@@ -120,27 +128,29 @@ type
     function SetProperties(aProp : string;Connection : TComponent = nil) : Boolean;virtual;
     function CreateDBFromProperties(aProp : string) : Boolean;virtual;
     property LastStatement : string read FLastStmt write FLastStmt;
+    property LastTime : Int64 read FLastTime write FLastTime;
     function IsSQLDB : Boolean;virtual;abstract;
-    function ProcessTerm(aTerm : string) : string;
+    function ProcessTerm(aTerm : string) : string;virtual;
     function GetUniID(aConnection : TComponent = nil;Generator : string = 'GEN_SQL_ID';AutoInc : Boolean = True) : Variant;virtual;abstract;
-    function GetNewDataSet(aTable : TBaseDbDataSet;aConnection : TComponent = nil;MasterData : TDataSet = nil;aTables : string = '') : TDataSet;virtual;abstract;
+    function GetNewDataSet(aTable : TBaseDBDataSet;aConnection : TComponent = nil;MasterData : TDataSet = nil;aTables : string = '') : TDataSet;virtual;abstract;
     function GetNewDataSet(aSQL : string;aConnection : TComponent = nil;MasterData : TDataSet = nil;aOrigtable : TBaseDBDataSet = nil) : TDataSet;virtual;
     procedure DestroyDataSet(DataSet : TDataSet);virtual;abstract;
     function Ping(aConnection : TComponent) : Boolean;virtual;abstract;
     procedure BlobFieldToFile(DataSet : TDataSet;Fieldname : string;Filename : string);virtual;
     procedure FileToBlobField(Filename : string;DataSet : TDataSet;Fieldname : string);virtual;
     procedure StreamToBlobField(Stream : TStream;DataSet : TDataSet;Fieldname : string);virtual;
-    procedure BlobFieldToStream(DataSet : TDataSet;Fieldname : string;Stream : TStream);virtual;
+    procedure BlobFieldToStream(DataSet: TDataSet; Fieldname: string;
+      dStream: TStream); virtual;
     function QuoteField(aField : string) : string;virtual;
     function QuoteValue(aValue : string) : string;virtual;
     function EscapeString(aValue : string) : string;virtual;
     function DateToFilter(aValue : TDateTime) : string;virtual;
     function DateTimeToFilter(aValue : TDateTime) : string;virtual;
-    function GetLinkDesc(aLink : string) : string;
-    function GetLinkLongDesc(aLink : string) : string;
-    function GetLinkIcon(aLink : string) : Integer;
-    function BuildLink(aDataSet : TDataSet) : string;
-    function GotoLink(aLink : string) : Boolean;
+    function GetLinkDesc(aLink : string) : string;virtual;
+    function GetLinkLongDesc(aLink : string) : string;virtual;
+    function GetLinkIcon(aLink : string) : Integer;virtual;
+    function BuildLink(aDataSet : TDataSet) : string;virtual;
+    function GotoLink(const aLink : string) : Boolean;virtual;
     function DataSetFromLink(aLink: string;var aClass : TBaseDBDatasetClass): Boolean;
     function ListDataSetFromLink(aLink: string;var aClass : TBaseDBDatasetClass): Boolean;
     procedure RegisterLinkHandler(aLink : string;aOpenHandler : TOpenLinkEvent;DataSetClass : TBaseDBDatasetClass;DataSetListClass : TBaseDBDatasetClass = nil);
@@ -149,7 +159,7 @@ type
     function Locate(aDataSet : TBaseDbDataSet;const keyfields: string; const keyvalues: Variant; aoptions: TLocateOptions) : boolean;
     function GetErrorNum(e : EDatabaseError) : Integer;virtual;
     function RecordCount(aDataSet : TBaseDbDataSet) : Integer;
-    function DeleteItem(aDataSet : TBaseDbDataSet) : Boolean;
+    function DeleteItem(aDataSet : TBaseDBDataSet) : Boolean;
     function ShouldCheckTable(aTableName : string;SetChecked : Boolean = True) : Boolean;
     function RemoveCheckTable(aTableName : string) : Boolean;
     function TableExists(aTableName : string;aConnection : TComponent = nil;AllowLowercase: Boolean = False) : Boolean;virtual;abstract;
@@ -163,6 +173,7 @@ type
     procedure AppendUserToActiveList;
     procedure RefreshUsersFilter;
     procedure RemoveUserFromActiveList;
+    procedure RegisterLinkHandlers;
     property IgnoreOpenRequests : Boolean read FIgnoreOpenrequests write FIgnoreOpenrequests;
     property Tables : TStrings read FTables;
     property Triggers : TStrings read FTriggers;
@@ -230,7 +241,6 @@ type
     function QuoteField(aField : string) : string;
     function QuoteValue(aValue : string) : string;
   end;
-  TSortDirection = (sdAscending, sdDescending, sdIgnored);
 
   { IBaseDbFilter }
 
@@ -269,6 +279,8 @@ type
     procedure SetUsePermisions(const AValue: Boolean);
     function GetDistinct: Boolean;
     procedure SetDistinct(const AValue: Boolean);
+    procedure DoExecSQL;
+    function NumRowsAffected : Integer;
 
     property FullSQL : string read GetSQL write SetSQL;
     property Filter : string read GetFilter write SetFilter;
@@ -314,12 +326,15 @@ type
     property UpdateChangedBy : Boolean read GetUpChangedBy write SetUpChangedBy;
     property DBConnection : TComponent read GetConnection;
   end;
+
+  { IBaseSubDataSets }
+
   IBaseSubDataSets = interface['{CB011ABE-E465-4BD4-AA49-D3A8852AA012}']
-    function GetSubDataSet(aName : string): TBaseDBDataset;
+    function GetSubDataSet(aName : string): TBaseDBDataSet;
     function GetCount : Integer;
-    function GetSubDataSetIdx(aIdx : Integer): TBaseDBDataset;
-    procedure RegisterSubDataSet(aDataSet : TBaseDBDataset);
-    property SubDataSet[aIdx : Integer] : TBaseDBDataset read GetSubDataSetIdx;
+    function GetSubDataSetIdx(aIdx : Integer): TBaseDBDataSet;
+    procedure RegisterSubDataSet(aDataSet : TBaseDBDataSet);
+    property SubDataSet[aIdx : Integer] : TBaseDBDataSet read GetSubDataSetIdx;
   end;
 const
   RIGHT_NONE  = 0;
@@ -397,62 +412,86 @@ resourcestring
   strScreenshotName              = 'Screenshot Name';
   strEnterAnName                 = 'enter an Name';
   strProjectProcess              = 'Projekt/Prozess';
+  strFor                         = 'für';
 implementation
-uses uZeosDBDM, uBaseApplication, uWiki, uMessages, uprocessmanager,uRTFtoTXT;
+uses uZeosDBDM, uBaseApplication, uWiki, uMessages, uprocessmanager,uRTFtoTXT,
+  utask,uPerson,uMasterdata,uProjects,umeeting,uStatistic,usync;
+
+{ TDBConfig }
+
 destructor TInternalDBDataSet.Destroy;
 begin
   if Assigned(FDataSet) then
     FDataSet.Free;
   inherited Destroy;
 end;
-function TDBConfig.DoReadString(const Section, Ident, DefaultValue: string
+function TDBConfig.ReadString(const ASection, Ident, DefaultValue: string
   ): string;
 begin
   Result := DefaultValue;
   with BaseApplication as IBaseDBInterface do
     begin
       if not Data.Users.DataSet.Active then Data.Users.Open;
-      if not Data.Users.Options.DataSet.Active then Data.Users.Options.Open;
-      if not Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
-        begin
-          with Data.Users.Options.DataSet as IBaseDBFilter do
-            begin
-              Data.SetFilter(Data.Users.Options,'');
-              if not Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
-                Data.SetFilter(Data.Users.Options,Data.QuoteField('OPTION')+'='+Data.QuoteValue(Ident));
-              if not Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
-                Data.SetFilter(Data.Users.Options,'');
-            end;
-        end;
-      if Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
-        Result := Data.Users.Options.FieldByName('VALUE').AsString;
+      Result := Data.Users.Options.GetOption(ASection,Ident,DefaultValue);
     end;
 end;
-procedure TDBConfig.DoWriteString(const Section, Ident, Value: string);
+procedure TDBConfig.WriteString(const ASection, Ident, Value: string);
 begin
   with BaseApplication as IBaseDBInterface do
-    begin
-      if not Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
-        Data.SetFilter(Data.Users.Options,'',0);
-      if not Data.Users.Options.DataSet.Locate('OPTION',Ident,[]) then
-        begin
-          if Value <> '' then
-            begin
-              Data.Users.Options.DataSet.Insert;
-              Data.Users.Options.FieldByName('OPTION').AsString:=Ident;
-            end;
-        end
-      else if Value <> '' then
-        Data.Users.Options.DataSet.Edit
-      else if Value = '' then
-        Data.Users.Options.DataSet.Delete;
-      if Value <> '' then
-        begin
-          Data.Users.Options.FieldByName('VALUE').AsString := Value;
-          Data.Users.Options.DataSet.Post;
-        end;
-    end;
+    Data.Users.Options.SetOption(ASection, Ident, Value);
 end;
+
+function TDBConfig.ReadString(Ident, DefaultValue: string): string;
+begin
+  if Assigned(Self) then
+    Result := ReadString('',Ident,DefaultValue)
+  else Result := DefaultValue;
+end;
+
+procedure TDBConfig.WriteString(Ident, Value: string);
+begin
+  WriteString('',Ident,Value);
+end;
+
+procedure TDBConfig.ReadRect(const Ident: string; out ARect: TRect;
+  const Default: TRect);
+begin
+  ARect.Left:=ReadInteger(Ident+'Left',Default.Left);
+  ARect.Top:=ReadInteger(Ident+'Top',Default.Top);
+  ARect.Right:=ReadInteger(Ident+'Right',Default.Right);
+  ARect.Bottom:=ReadInteger(Ident+'Bottom',Default.Bottom);
+end;
+
+procedure TDBConfig.WriteRect(const Ident: string; const Value: TRect);
+begin
+  WriteInteger(Ident+'Left',Value.Left);
+  WriteInteger(Ident+'Top',Value.Top);
+  WriteInteger(Ident+'Right',Value.Right);
+  WriteInteger(Ident+'Bottom',Value.Bottom);
+end;
+
+function TDBConfig.ReadInteger(const Ident: string; DefaultValue: Longint
+  ): Longint;
+begin
+  Result:=StrToIntDef(ReadString(Section,Ident,IntToStr(DefaultValue)),DefaultValue);
+end;
+
+procedure TDBConfig.WriteInteger(const Ident: string; Value: Longint);
+begin
+  WriteString(Section,Ident,IntToStr(Value))
+end;
+
+function TDBConfig.ReadBoolean(const Ident: string; DefaultValue: Boolean
+  ): Boolean;
+begin
+  Result := ReadInteger(Ident, Ord(DefaultValue)) <> Ord(False);
+end;
+
+procedure TDBConfig.WriteBoolean(const Ident: string; Value: Boolean);
+begin
+  WriteInteger(Ident, Ord(Value));
+end;
+
 procedure TBaseDBModule.DeleteExpiredSessions;
 begin
 end;
@@ -497,44 +536,35 @@ begin
   FCheckedTables := TStringList.Create;
   FTables := TStringList.Create;
   FTriggers := TStringList.Create;
-  Users := TUser.Create(nil,Self);
-  Numbers := TNumberSets.Create(nil,Self);
-  MandantDetails := TMandantDetails.Create(nil,Self);
-  Tree := TTree.Create(nil,Self);
-  Forms := TForms.Create(nil,Self);
-  UserFieldDefs := TUserFieldDefs.Create(nil,Self);
-  Filters := TFilters.Create(nil,Self);
-  Reports := TReports.Create(nil,Self);
-  ActiveUsers := TActiveUsers.Create(nil,Self);
-  Permissions := TPermissions.Create(nil,Self);
-  StorageTypes := TStorageTypes.Create(nil,Self);
-  Currency := TCurrency.Create(nil,Self);
-  PaymentTargets := TPaymentTargets.Create(nil,Self);
-  StorageType := TStorageTyp.Create(nil,Self);
-  StorageJournal := TStorageJournal.Create(nil,Self);
-  Countries := TCountries.Create(nil,Self);
-  Languages := TLanguages.Create(nil,Self);
-  Vat := TVat.Create(nil,Self);
-  Units := TUnits.Create(nil,Self);
-  States := TStates.Create(nil,Self);
-  Categories := TCategory.Create(nil,Self);
-  PriceTypes := TPriceTypes.Create(nil,Self);
-  OrderPosTyp := TOrderPosTyp.Create(nil,Self);
-  TextTyp := TTextTypes.Create(nil,Self);
-  DeletedItems := TDeletedItems.Create(nil,Self);
-  DispatchTypes := TDispatchTypes.Create(nil,Self);
-  RepairProblems := TRepairProblems.Create(nil,Self);
-  ProcessClient := TProcessClient.Create(nil,Self);
-  _DocumentActions := TInternalDBDataSet.Create;
-  _MimeTypes := TInternalDBDataSet.Create;
+  Users := TUser.CreateEx(nil,Self);
+  Numbers := TNumberSets.CreateEx(nil,Self);
+  MandantDetails := TMandantDetails.CreateEx(nil,Self);
+  Tree := TTree.CreateEx(nil,Self);
+  Forms := TForms.CreateEx(nil,Self);
+  UserFieldDefs := TUserFieldDefs.CreateEx(nil,Self);
+  Filters := TFilters.CreateEx(nil,Self);
+  Reports := TReports.CreateEx(nil,Self);
+  ActiveUsers := TActiveUsers.CreateEx(nil,Self);
+  Permissions := TPermissions.CreateEx(nil,Self);
+  StorageTypes := TStorageTypes.CreateEx(nil,Self);
+  Currency := TCurrency.CreateEx(nil,Self);
+  PaymentTargets := TPaymentTargets.CreateEx(nil,Self);
+  StorageType := TStorageTyp.CreateEx(nil,Self);
+  StorageJournal := TStorageJournal.CreateEx(nil,Self);
+  Countries := TCountries.CreateEx(nil,Self);
+  Languages := TLanguages.CreateEx(nil,Self);
+  States := TStates.CreateEx(nil,Self);
+  Categories := TCategory.CreateEx(nil,Self);
+  DeletedItems := TDeletedItems.CreateEx(nil,Self);
+  ProcessClient := TProcessClient.CreateEx(nil,Self);
+  TableVersions := TTableVersions.CreateEx(nil,Self);
 end;
 destructor TBaseDBModule.Destroy;
 begin
+  TableVersions.Destroy;
   FCheckedTables.Destroy;
   FTables.Free;
   FTriggers.Free;
-  _DocumentActions.Destroy;
-  _MimeTypes.Destroy;
   Users.Destroy;
   Numbers.Destroy;
   MandantDetails.Destroy;
@@ -548,18 +578,11 @@ begin
   Currency.Destroy;
   StorageType.Destroy;
   StorageJournal.Destroy;
-  Vat.Destroy;
   States.Destroy;
   Categories.Destroy;
   DeletedItems.Destroy;
-  Dispatchtypes.Destroy;
-  RepairProblems.Destroy;
-  Units.Destroy;
   Languages.Destroy;
-  PriceTypes.Destroy;
   Countries.Destroy;
-  OrderPosTyp.Destroy;
-  TextTyp.Destroy;
   PaymentTargets.Destroy;
   ProcessClient.Destroy;
   ActiveUsers.Destroy;
@@ -575,7 +598,7 @@ procedure TBaseDBModule.BlobFieldToFile(DataSet: TDataSet; Fieldname: string;
 var
   fstream: TFileStream;
 begin
-  fstream := TFileStream.Create(UTF8ToSys(Filename),fmCreate);
+  fstream := TFileStream.Create(UniToSys(Filename),fmCreate);
   try
     BlobFieldToStream(DataSet,Fieldname,fstream);
   except
@@ -589,7 +612,7 @@ procedure TBaseDBModule.FileToBlobField(Filename: string; DataSet: TDataSet;
 var
   fstream: TFileStream;
 begin
-  fstream := TFileStream.Create(UTF8ToSys(Filename),fmOpenRead);
+  fstream := TFileStream.Create(UniToSys(Filename),fmOpenRead);
   try
     StreamToBlobField(fstream,DataSet,Fieldname);
   except
@@ -598,10 +621,16 @@ begin
   end;
   fstream.Free;
 end;
+const
+  ChunkSize: Longint = 16384; { copy in 8K chunks }
 procedure TBaseDBModule.StreamToBlobField(Stream: TStream; DataSet: TDataSet;
   Fieldname: string);
 var
   Edited: Boolean;
+  dStream: TStream;
+  pBuf    : Pointer;
+  cnt: LongInt;
+  totCnt: LongInt=0;
 begin
   Edited := False;
   if (DataSet.State <> dsEdit) and (DataSet.State <> dsInsert) then
@@ -609,14 +638,63 @@ begin
       DataSet.Edit;
       Edited := True;
     end;
-  TBlobField(DataSet.FieldByName(Fieldname)).LoadFromStream(Stream);
+  dStream := DataSet.CreateBlobStream(DataSet.FieldByName(Fieldname),bmWrite);
+  try
+    GetMem(pBuf, ChunkSize);
+    try
+      cnt := Stream.Read(pBuf^, ChunkSize);
+      cnt := dStream.Write(pBuf^, cnt);
+      totCnt := totCnt + cnt;
+      {Loop the process of reading and writing}
+      while (cnt > 0) do
+        begin
+          {Read bufSize bytes from source into the buffer}
+          cnt := Stream.Read(pBuf^, ChunkSize);
+          {Now write those bytes into destination}
+          cnt := dStream.Write(pBuf^, cnt);
+          {Increment totCnt for progress and do arithmetic to update the gauge}
+          totcnt := totcnt + cnt;
+        end;
+    finally
+      FreeMem(pBuf, ChunkSize);
+    end;
+  finally
+    dStream.Free;
+  end;
   if Edited then
     DataSet.Post;
 end;
 procedure TBaseDBModule.BlobFieldToStream(DataSet: TDataSet; Fieldname: string;
-  Stream: TStream);
+  dStream: TStream);
+var
+  pBuf    : Pointer;
+  cnt: LongInt;
+  totCnt: LongInt=0;
+  Stream: TStream;
 begin
-  TBlobField(DataSet.FieldByName(Fieldname)).SaveToStream(Stream);
+  Stream := DataSet.CreateBlobStream(DataSet.FieldByName(Fieldname),bmRead);
+  try
+    GetMem(pBuf, ChunkSize);
+    try
+      cnt := Stream.Read(pBuf^, ChunkSize);
+      cnt := dStream.Write(pBuf^, cnt);
+      totCnt := totCnt + cnt;
+      {Loop the process of reading and writing}
+      while (cnt > 0) do
+        begin
+          {Read bufSize bytes from source into the buffer}
+          cnt := Stream.Read(pBuf^, ChunkSize);
+          {Now write those bytes into destination}
+          cnt := dStream.Write(pBuf^, cnt);
+          {Increment totCnt for progress and do arithmetic to update the gauge}
+          totcnt := totcnt + cnt;
+        end;
+    finally
+      FreeMem(pBuf, ChunkSize);
+    end;
+  finally
+    Stream.Free;
+  end;
 end;
 function TBaseDBModule.QuoteField(aField: string): string;
 begin
@@ -648,6 +726,7 @@ var
   aTable: TDataSet;
   aTmp: String;
   aTmp1: String;
+  aTmp2: String;
 begin
   if (pos('@',aLink) = 0) and (pos('://',aLink) = 0) then
     begin
@@ -706,14 +785,17 @@ begin
     begin
       if IsSQLDB then
         begin
-          aTable := GetNewDataSet('select "SQL_ID","STATUS" from "ORDERS" where "ORDERNO"='+QuoteValue(copy(aLink, pos('@', aLink) + 1, length(aLink))));
+          aTable := GetNewDataSet('select "SQL_ID","STATUS","CUSTNAME" from "ORDERS" where "ORDERNO"='+QuoteValue(copy(aLink, pos('@', aLink) + 1, length(aLink))));
           aTable.Open;
           aTmp := aTable.FieldByName('SQL_ID').AsString;
           aTmp1 := aTable.FieldByName('STATUS').AsString;
+          aTmp2 := trim(aTable.FieldByName('CUSTNAME').AsString);
           FreeAndNil(aTable);
           aTable := GetNewDataSet('select "STATUSNAME" from "ORDERTYPE" where "STATUS"='+QuoteValue(aTmp1));
           aTable.Open;
           Result := aTable.FieldByName('STATUSNAME').AsString+' '+copy(aLink, pos('@', aLink) + 1, length(aLink));
+          if aTmp2<>'' then
+            result := result+' '+strFor+' '+aTmp2;
           FreeAndNil(aTable);
         end
       else
@@ -881,7 +963,7 @@ begin
           else
             begin
               aTable := nil;
-              aWiki := TWikiList.Create(Self,Data);
+              aWiki := TWikiList.CreateEx(Self,Data);
               if aWiki.FindWikiPage(copy(aLink, pos('@', aLink) + 1, length(aLink))) then
                 Result := aWiki.PageAsText;
               aWiki.Free;
@@ -890,7 +972,7 @@ begin
         end
       else if copy(aLink, 0, pos('@', aLink) - 1) = 'HISTORY' then
         begin
-          aBaseHist := TBaseHistory.Create(nil,Data);
+          aBaseHist := TBaseHistory.CreateEx(nil,Data);
           aBaseHist.SelectFromLink(aLink);
           aBaseHist.Open;
           Result := GetLinkLongDesc(aBaseHist.FieldByName('OBJECT').AsString);
@@ -907,6 +989,8 @@ begin
     Result := IMAGE_WEBSITE
   else if copy(aLink, 0, pos('@', aLink) - 1) = 'MASTERDATA' then
     Result := IMAGE_MASTERDATA
+  else if copy(aLink, 0, pos('@', aLink) - 1) = 'ALLOBJECTS' then
+    Result := 121
   else if (copy(aLink, 0, pos('@', aLink) - 1) = 'CUSTOMERS')
        or (copy(aLink, 0, pos('@', aLink) - 1) = 'CUSTOMERS.ID') then
     Result := IMAGE_PERSON
@@ -929,6 +1013,10 @@ begin
     Result := IMAGE_TASK
   else if (copy(aLink, 0, pos('@', aLink) - 1) = 'WIKI') then
     Result := IMAGE_WIKI
+  else if (copy(aLink, 0, pos('@', aLink) - 1) = 'STATISTICS') then
+    Result := IMAGE_STATISTIC
+  else if (copy(aLink, 0, pos('@', aLink) - 1) = 'SCRIPTS') then
+    Result := 62
   ;
 end;
 function TBaseDBModule.BuildLink(aDataSet: TDataSet): string;
@@ -1089,11 +1177,13 @@ begin
         Result := Result+'{'+aDataSet.FieldByName('SUMMARY').AsString+'}'
       ;
     end;
+  if (length(Result)>200) and (pos('{',Result)>0) then
+    Result := copy(Result,0,190)+'}';
   Result := StringReplace(Result,'{}','',[]);
   if copy(Result,length(Result),1)='@' then
     Result := '';
 end;
-function TBaseDBModule.GotoLink(aLink: string): Boolean;
+function TBaseDBModule.GotoLink(const aLink: string): Boolean;
 var
   i: Integer;
 begin
@@ -1109,11 +1199,15 @@ begin
     begin
       if Uppercase(copy(aLink,0,pos('://',aLink)-1)) = 'HTTP' then
         begin
+          {$IFDEF LCL}
           Result := OpenURL(aLink);
+          {$ENDIF}
         end
       else if pos('://',aLink) > 0 then
         begin
+          {$IFDEF LCL}
           Result := OpenDocument(aLink);
+          {$ENDIF}
         end;
     end;
 end;
@@ -1158,7 +1252,18 @@ end;
 procedure TBaseDBModule.RegisterLinkHandler(aLink: string;
   aOpenHandler: TOpenLinkEvent; DataSetClass: TBaseDBDatasetClass;
   DataSetListClass: TBaseDBDatasetClass);
+var
+  i: Integer;
 begin
+  for i := 0 to length(FLinkHandlers)-1 do
+    if FLinkHandlers[i].aLinkType=aLink then
+      with FLinkHandlers[i] do
+        begin
+          aEvent := aOpenHandler;
+          aClass := DatasetClass;
+          aListClass := DataSetListClass;
+          exit;
+        end;
   Setlength(FLinkHandlers,length(FLinkHandlers)+1);
   with FLinkHandlers[length(FLinkHandlers)-1] do
     begin
@@ -1193,7 +1298,7 @@ function TBaseDBModule.RecordCount(aDataSet: TBaseDbDataSet): Integer;
 begin
   Result := aDataSet.Count;
 end;
-function TBaseDBModule.DeleteItem(aDataSet: TBaseDbDataSet): Boolean;
+function TBaseDBModule.DeleteItem(aDataSet: TBaseDBDataSet): Boolean;
 begin
   if not Assigned(aDataSet) then exit;
   if aDataSet.DataSet.FieldDefs.IndexOf('SQL_ID') > -1 then
@@ -1213,8 +1318,34 @@ end;
 function TBaseDBModule.ShouldCheckTable(aTableName : string;SetChecked : Boolean = True): Boolean;
 begin
   Result := FCheckedTables.IndexOf(aTableName) = -1;
+  try
+  if Result then
+    begin
+      if not TableVersions.Active then TableVersions.Open;
+      TableVersions.DataSet.Filter:=QuoteField('NAME')+'='+QuoteValue(aTableName);
+      TableVersions.DataSet.Filtered:=True;
+      with BaseApplication as IBaseApplication do
+        begin
+          if TableVersions.Count>0 then
+            if TableVersions.FieldByName('DBVERSION').AsInteger>=round(AppVersion*100)+AppRevision then
+              begin
+                Result := False;
+              end
+            else
+              begin
+                with BaseApplication as IBaseApplication do
+                  Debug('Table "'+aTableName+'" DBVersion '+TableVersions.FieldByName('DBVERSION').AsString+'<'+IntToStr(round(AppVersion*100)+AppRevision));
+              end;
+        end;
+    end;
+  except
+  end;
   if Result and SetChecked then
-    FCheckedTables.Add(aTableName);
+    begin
+      FCheckedTables.Add(aTableName);
+      with BaseApplication as IBaseApplication do
+        Debug('Table "'+aTableName+'" should be checked');
+    end;
 end;
 function TBaseDBModule.RemoveCheckTable(aTableName: string): Boolean;
 begin
@@ -1262,7 +1393,7 @@ procedure TBaseDBModule.SetFilter(DataSet: TbaseDBDataSet; aFilter: string;
   aFilterIn: string);
 begin
   if CheckForInjection(aFilter) then exit;
-  DataSet.Filter(aFilter,aLimit,aOrderBy,aSortDirection,aLocalSorting,aGlobalFilter,aUsePermissions,aFilterIn);
+  DataSet.FilterEx(aFilter,aLimit,aOrderBy,aSortDirection,aLocalSorting,aGlobalFilter,aUsePermissions,aFilterIn);
 end;
 procedure TBaseDBModule.AppendUserToActiveList;
 begin
@@ -1309,6 +1440,7 @@ begin
   except
   end;
   ActiveUsers.DataSet.Close;
+  RegisterLinkHandlers;
 end;
 
 procedure TBaseDBModule.RefreshUsersFilter;
@@ -1355,6 +1487,141 @@ begin
   except
   end;
 end;
+
+procedure TBaseDBModule.RegisterLinkHandlers;
+begin
+  RegisterLinkHandler('ALLOBJECTS',nil,TObjects);
+  //Messages
+  RegisterLinkHandler('HISTORY',nil,TBaseHistory);
+  //Messages
+  if Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+    begin
+      try
+        RegisterLinkHandler('MESSAGEIDX',nil,TMessage);
+        AddSearchAbleDataSet(TMessageList);
+      except
+      end;
+    end;
+  //Tasks
+  if (Users.Rights.Right('TASKS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('TASKS',nil,TTask,TTaskList);
+      except
+      end;
+    end;
+  //Add PIM Entrys
+  if Users.Rights.Right('CALENDAR') > RIGHT_NONE then
+    begin
+      try
+        RegisterLinkHandler('CALENDAR',nil,TTask,TTaskList);
+      except
+      end;
+    end;
+  //Orders
+  if Users.Rights.Right('ORDERS') > RIGHT_NONE then
+    begin
+      try
+      RegisterLinkHandler('ORDERS',nil,Torder);
+      AddSearchAbleDataSet(TOrderList);
+      except
+      end;
+    end;
+  //Add Contacts
+  if Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
+    begin
+      try
+      RegisterLinkHandler('CUSTOMERS',nil,TPerson);
+      AddSearchAbleDataSet(TPersonList);
+      AddSearchAbleDataSet(TPersonContactData);
+      AddSearchAbleDataSet(TPersonAddress);
+      except
+      end;
+    end;
+  //Add Masterdata stuff
+  if (Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('MASTERDATA',nil,TMasterdata);
+      AddSearchAbleDataSet(TMasterdataList);
+      except
+      end;
+    end;
+  //Projects
+  if (Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('PROJECT',nil,TProject);
+      AddSearchAbleDataSet(TProjectList);
+      except
+      end;
+    end;
+  //Wiki
+  RegisterLinkHandler('WIKI',nil,TWikiList);
+  if (Users.Rights.Right('WIKI') > RIGHT_NONE) then
+    begin
+      try
+      AddSearchAbleDataSet(TWikiList);
+      except
+      end;
+    end;
+  //Documents
+  if (Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('DOCUMENTS',nil,TDocument);
+      //RegisterLinkHandler('DOCPAGES',nil,TDocPages);
+      except
+      end;
+    end;
+  //Lists
+  if (Users.Rights.Right('LISTS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('LISTS',nil,TLists);
+      AddSearchAbleDataSet(TLists);
+      except
+      end;
+    end;
+  //Meetings
+  if (Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('MEETINGS',nil,TMeetings);
+      AddSearchAbleDataSet(TMeetings);
+      except
+      end;
+    end;
+  //Inventory
+  if (Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('INVENTORY',nil,TInventorys);
+      except
+      end;
+    end;
+  //Statistics
+  if (Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
+    begin
+      try
+      RegisterLinkHandler('STATISTICS',nil,TStatistic);
+      AddSearchAbleDataSet(TStatistic);
+      except
+      end;
+    end;
+  //Timeregistering
+  AddSearchAbleDataSet(TUser);
+  //History
+  if Users.Rights.Right('DOCUMENTS') > RIGHT_NONE then
+    begin
+      try
+      AddSearchAbleDataSet(TBaseHistory);
+      RegisterLinkHandler('HISTORY',nil,TBaseHistory);
+      except
+      end;
+    end;
+end;
+
 function TBaseDBInterface.GetMandantPath: string;
 begin
   Result := FConfigPath
@@ -1421,19 +1688,22 @@ begin
   Result := False;
   //Check if FDB already is our Mandant
   if FMandantFile <> AppendPathDelim(FConfigPath)+aMandant+MandantExtension then
-    if not FileExistsUTF8(AppendPathDelim(FConfigPath)+aMandant+MandantExtension) then
+    if not FileExists(UniToSys(AppendPathDelim(FConfigPath)+aMandant+MandantExtension)) then
       begin
         FLastError := 'Not such Mandant ('+aMandant+',Config:'+ExtractFilePath(FConfigPath)+') !';
         exit;
       end;
   mSettings := TStringList.Create;
   FMandantFile:=AppendPathDelim(FConfigPath)+aMandant+MandantExtension;
-  mSettings.LoadFromFile(UTF8ToSys(FMandantFile));
+  mSettings.LoadFromFile(UniToSys(FMandantFile));
   if (mSettings.Count <> 2) or (not OpenMandant(mSettings[0],mSettings[1])) then
     begin
       exit;
     end;
   mSettings.Free;
+  FDB.TableVersions.CreateTable;
+  FDB.MandantDetails.CreateTable;
+  FDB.MandantDetails.Open;
   FDB.Users.CreateTable;
   FDB.Numbers.CreateTable;
   FDB.ActiveUsers.CreateTable;
@@ -1482,30 +1752,29 @@ begin
           FDB.ActiveUsers.Delete;
       end;
 
-  FCategory := TCategory.Create(nil,FDB,FDB.MainConnection);
+  FCategory := TCategory.CreateEx(nil,FDB,FDB.MainConnection);
   FCategory.CreateTable;
   FCategory.Free;
-  FImages := TImages.Create(nil,FDB,FDB.MainConnection);
+  FImages := TImages.CreateEx(nil,FDB,FDB.MainConnection);
   FImages.CreateTable;
   FImages.Free;
-  FLinks := TLinks.Create(nil,FDB,FDB.MainConnection);
+  FLinks := TLinks.CreateEx(nil,FDB,FDB.MainConnection);
   FLinks.CreateTable;
   FLinks.Free;
-  FHistory := TBaseHistory.Create(nil,FDB,FDB.MainConnection);
+  FHistory := TBaseHistory.CreateEx(nil,FDB,FDB.MainConnection);
   FHistory.CreateTable;
   FHistory.Free;
-  FArchiveStore := TArchivedMessage.Create(nil,FDB,FDB.MainConnection);
+  FArchiveStore := TArchivedMessage.CreateEx(nil,FDB,FDB.MainConnection);
   FArchiveStore.CreateTable;
   FArchiveStore.Free;
   FDB.Permissions.CreateTable;
   FDB.DeletedItems.CreateTable;
-  FDB.Languages.CreateTable;
   FDB.Forms.CreateTable;
-  FDB.Tree.CreateTable;
   FDB.StorageType.CreateTable;
   FDB.Users.Options.Open;
   if AppendToActiveList then
     FDB.AppendUserToActiveList;
+  FDB.Tree.CreateTable;
   FDB.Users.LoginWasOK;
   Result := True;
 end;
@@ -1515,6 +1784,7 @@ var
   mSettings: TStringList;
   aInfo: TSearchRec;
   bInfo: TSearchRec;
+  sl: TStringList;
 begin
   Result := False;
   try
@@ -1529,22 +1799,25 @@ begin
           end
         else FilePath := GetConfigDir(StringReplace(lowercase('prometerp'),'-','',[rfReplaceAll]));
       end;
-    FilePath := CleanAndExpandDirectory(FilePath);
-    if not DirectoryExistsUTF8(FilePath) then ForceDirectoriesUTF8(FilePath);
+    if not DirectoryExists(FilePath) then ForceDirectories(FilePath);
     FConfigPath:=FilePath;
     Result := True;
   except
     on e : Exception do
       begin
-        //debugln(e.Message);
+        with BaseApplication as IBaseApplication do
+          Warning('LoadMandants:'+e.Message);
         Result := False;
       end;
   end;
   if not FindFirst(AppendPathDelim(FilePath)+'*'+MandantExtension,faAnyFile and faDirectory,aInfo)=0 then
     begin
-      if FindFirstUTF8(AppendPathDelim(SysToUTF8(BaseApplication.Location))+'*'+MandantExtension,faAnyFile and faDirectory,bInfo)=0 then
+      if FindFirst(UniToSys(AppendPathDelim(SysToUni(BaseApplication.Location))+'*'+MandantExtension),faAnyFile and faDirectory,bInfo)=0 then
         begin
-          CopyFile(AppendPathDelim(SysToUTF8(BaseApplication.Location))+bInfo.Name,AppendPathDelim(FilePath)+bInfo.Name);
+          sl := TStringList.Create;
+          sl.LoadFromFile(AppendPathDelim(SysToUni(BaseApplication.Location))+bInfo.Name);
+          sl.SaveToFile(AppendPathDelim(FilePath)+bInfo.Name);
+          sl.Free;
           FindClose(bInfo);
         end;
     end
@@ -1569,7 +1842,7 @@ begin
           FreeAndNil(FDB);
           exit;
         end;
-      FConfig := TDBConfig.Create(nil);
+      FConfig := TDBConfig.Create;
       Result := True;
     end;
 end;

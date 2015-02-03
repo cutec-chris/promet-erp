@@ -3,7 +3,7 @@ unit uforum;
 interface
 uses
   SysUtils, Classes, httpdefs, fpHTTP, fpWeb, fpTemplate, FileUtil,
-  uMessages;
+  uMessages,ubaseconfig;
 type
   TfmForum = class(TFPWebModule)
     procedure DataModuleCreate(Sender: TObject);
@@ -106,7 +106,7 @@ begin
     end
   else
     begin
-      if not Assigned(FMessage) then FMessage := TMessage.Create(Self,Data);
+      if not Assigned(FMessage) then FMessage := TMessage.CreateEx(Self,Data);
       if ARequest.QueryFields.Values['Subject'] = '' then
         if FMessage.Count > 0 then
           begin
@@ -151,7 +151,7 @@ begin
   ReplaceMainTags(Sender,TagString,TagParams,ReplaceText);
   if AnsiCompareText(TagString, 'THREADS_LIST') = 0 then
     begin
-      aThreads := TMessageList.Create(Self,Data);
+      aThreads := TMessageList.CreateEx(Self,Data);
       aThreads.SelectByDir(Data.Tree.FieldByName('ID').AsVariant);
       aThreads.Open;
       ReplaceText := TagParams.Values['HEADER'];
@@ -255,7 +255,7 @@ begin
     end;
   if Recursive then
     begin
-      SubMessages := TMessage.Create(Self,Data);
+      SubMessages := TMessage.CreateEx(Self,Data);
       SubMessages.SelectByParent(aMessage.Id.AsVariant);
       SubMessages.Open;
       SubReplaceText := TagParams.Values['SUBROWHEADER'];
@@ -293,7 +293,7 @@ begin
           DisplayMessage(FMessage,TagParams,aTmpRow,False,False,False);
           ReplaceText:=ReplaceText+aTmpRow;
         end;
-      SubMessages := TMessage.Create(Self,Data);
+      SubMessages := TMessage.CreateEx(Self,Data);
       SubMessages.SelectByParent(Fmessage.Id.AsVariant);
       SubMessages.Open;
       with SubMessages.DataSet do
@@ -334,7 +334,7 @@ begin
   SettemplateParams(TFPWebAction(Sender).Template);
   if ARequest.QueryFields.Values['Id'] <> '' then
     begin
-      if not Assigned(FMessage) then FMessage := TMessage.Create(Self,Data);
+      if not Assigned(FMessage) then FMessage := TMessage.CreateEx(Self,Data);
       FMessage.SelectByMsgID(StrToInt64(ARequest.QueryFields.Values['Id']));
       FMessage.Open;
       if FMessage.Count > 0 then
@@ -351,7 +351,7 @@ procedure TfmForum.ReplaceMainTags(Sender: TObject; const TagString: String;
   TagParams: TStringList; out ReplaceText: String);
 begin
   ReplaceStdTags(Sender,TagString,TagParams,ReplaceText);
-  ReplaceText := UTF8ToSys(ReplaceText);
+  ReplaceText := UniToSys(ReplaceText);
 end;
 procedure TfmForum.SettemplateParams(aTemplate: TFPTemplate);
 var
@@ -367,10 +367,10 @@ begin
   aTemplate.EndDelimiter := '+}';
 //  if FTemplate.Count = 0 then
     begin
-      with BaseApplication as IBaseApplication do
+      with BaseApplication as IBaseConfig do
         FTemplate.LoadFromFile(AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'templates')+'mainforumtemplate.html');
       sl := TStringList.Create;
-      with BaseApplication as IBaseApplication do
+      with BaseApplication as IBaseConfig do
         sl.LoadFromFile(AppendPathDelim(AppendPathDelim(Config.ReadString('DOCROOTPATH',''))+'templates')+'ajaxforumtemplate.html');
       FTemplate.Text:=StringReplace(FTemplate.text,'~MainTemplateContent',sl.Text,[]);
       sl.Free;

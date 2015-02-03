@@ -1,14 +1,12 @@
-object fCurrencyOptions: TfCurrencyOptions
-  Left = 0
+inherited fCurrencyOptions: TfCurrencyOptions
   Height = 528
-  Top = 0
   Width = 576
   ClientHeight = 528
   ClientWidth = 576
   TabOrder = 0
-  DesignLeft = 428
-  DesignTop = 180
-  object dgCurrency: TDBGrid
+  DesignLeft = 421
+  DesignTop = 203
+  object dgCurrency: TDBGrid[0]
     Left = 8
     Height = 512
     Top = 8
@@ -18,38 +16,43 @@ object fCurrencyOptions: TfCurrencyOptions
     Color = clWindow
     Columns = <    
       item
-        Title.Caption = 'SYMBOL'
+        Title.Caption = 'Symbol'
         FieldName = 'SYMBOL'
       end    
       item
-        Title.Caption = 'NAME'
-        Width = 200
+        Title.Caption = 'Name'
+        Width = 150
         FieldName = 'NAME'
       end    
       item
-        Title.Caption = 'MASK'
+        Title.Caption = 'Maske'
         FieldName = 'MASK'
       end    
       item
-        Title.Caption = 'DECIMALPL'
-        FieldName = 'DECIMALPL'
-      end    
-      item
-        Title.Caption = 'FACTOR'
+        Title.Caption = 'Faktor'
         FieldName = 'FACTOR'
       end    
       item
         ButtonStyle = cbsCheckboxColumn
-        Title.Caption = 'DEFAULTCUR'
+        Title.Caption = 'Standard'
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
         FieldName = 'DEFAULTCUR'
+      end    
+      item
+        Title.Caption = 'Dezimalstellen'
+        FieldName = 'DECIMALPL'
+      end    
+      item
+        Title.Caption = 'Runden auf'
+        Width = 50
+        FieldName = 'ROUNDGRAN'
       end>
     DataSource = CurrencyDS
     TabOrder = 0
     TitleStyle = tsNative
   end
-  object CurrencyDS: TDatasource
+  object CurrencyDS: TDataSource[1]
     left = 260
     top = 332
   end

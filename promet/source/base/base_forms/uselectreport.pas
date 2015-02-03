@@ -25,7 +25,7 @@ unit uSelectReport;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   Buttons, DBGrids, db, Printers, LR_Class, LR_Desgn, LR_View, Spin, LR_DBSet,
   Process, LR_Prntr, LR_ChBox, LR_Shape, LR_RRect, LR_BarC, LR_E_TXT, LR_E_HTM,
   LR_E_CSV, lr_e_pdf, LR_DB_Zeos, LRDialogControls, Variants, UTF8process,
@@ -102,6 +102,7 @@ type
     FDS: TBaseDBDataset;
     FOnSendMessage: TSendMessage;
     FReport: TfrReport;
+    FSavePossible: Boolean;
     fType: string;
     FUpdated : Boolean;
     FOldShow : TNotifyEvent;
@@ -119,6 +120,7 @@ type
     procedure SetupDB;
     procedure DoSetup;
     property Booked : Boolean read FBooked;
+    property SavePossible : Boolean read FSavePossible write FSavePossible;
     function LoadReport : Boolean;
     function Execute : Boolean;
     property OnSendMessage : TSendMessage read FOnSendMessage write FOnSendMessage;
@@ -130,11 +132,11 @@ var
   DefaultPrinterTypes : Integer;
 
 implementation
-
+{$R *.lfm}
 uses
   uIntfStrConsts,uError,uData,
-  uLogWait,uBaseDbInterface,uDocuments,uPerson,uSendMail,uEditText,umeeting
-  ;
+  uLogWait,uBaseDbInterface,uDocuments,uPerson,uSendMail,uEditText,umeeting,
+  ubaseconfig;
 
 resourcestring
   strDispatchTypenotfound       = 'Versandart nicht gefunden !';
@@ -218,8 +220,11 @@ begin
           begin
             NotPrintable := False;
             try
-              Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetTempDir+'preport.lrf');
-              Report.LoadFromFile(GetTempDir+'preport.lrf');
+              with BaseApplication as IBaseApplication do
+                begin
+                  Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
+                  Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+                end;
             except
               NotPrintable := True;
             end;
@@ -243,7 +248,7 @@ begin
               Stream := TmemoryStream.Create;
               Report.EMFPages.SaveToStream(Stream);
               Stream.Position:=0;
-              aDocument := TDocument.Create(Self,Data);
+              aDocument := TDocument.CreateEx(Self,Data);
               aDocument.Select(0);
               aDocument.Open;
               aDocument.Ref_ID:=FDS.Id.AsVariant;
@@ -342,8 +347,11 @@ begin
       try
         if not Data.Reports.FieldByName('REPORT').IsNull then
           begin
-            Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetTempDir+'preport.lrf');
-            Report.LoadFromFile(GetTempDir+'preport.lrf');
+            with BaseApplication as IBaseApplication do
+              begin
+                Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
+                Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+              end;
           end
         else
           Report.Clear; //better so ? or should the last report stay open ?
@@ -355,8 +363,8 @@ begin
       if Assigned(LR_Class.frDesigner) then
         begin
           TfrDesignerForm(LR_Class.frDesigner).HelpMenu.Visible := False; //Hide default Help
-          with Application as IBaseDbInterface do
-            BaseApplication.Config.ReadRect('ReportEditor',NewRect,TfrDesignerForm(LR_Class.frDesigner).BoundsRect);
+          with Application as IBaseConfig do
+            Config.ReadRect('ReportEditor',NewRect,TfrDesignerForm(LR_Class.frDesigner).BoundsRect);
           if (NewRect.Right-NewRect.Left < 200) or (NewRect.Right-NewRect.Left > Screen.Width) then
             begin
               NewRect.Left := 100;
@@ -376,10 +384,13 @@ begin
 //          TfrDesignerHackForm(LR_Class.frDesigner).EditorForm.M2.Beautifier := TSynBeautifier.Create(Application);
         end;
       Report.DesignReport;
-      BaseApplication.Config.WriteRect('ReportEditor',TfrDesignerForm(LR_Class.frDesigner).BoundsRect);
-      Report.SaveToFile(GetTempDir+'preport.lrf');
+      with Application as IBaseConfig do
+        Config.WriteRect('ReportEditor',TfrDesignerForm(LR_Class.frDesigner).BoundsRect);
+      with BaseApplication as IBaseApplication do
+        Report.SaveToFile(GetInternalTempDir+'preport.lrf');
       Data.Reports.DataSet.Edit;
-      Data.FileToBlobField(GetTempDir+'preport.lrf',Data.Reports.DataSet,'REPORT');
+      with BaseApplication as IBaseApplication do
+        Data.FileToBlobField(GetInternalTempDir+'preport.lrf',Data.Reports.DataSet,'REPORT');
       if Data.Reports.DataSet.FieldByName('NAME').IsNull then
         begin
           Data.Reports.DataSet.FieldByName('NAME').AsString:=strStandard;
@@ -409,7 +420,8 @@ begin
       LoadReport;
       pv := TfrPreviewForm.Create(Self);
       pv.WindowState:=wsNormal;
-      BaseApplication.Config.ReadRect('ReportPreview',NewRect,pv.BoundsRect);
+      with Application as IBaseConfig do
+        Config.ReadRect('ReportPreview',NewRect,pv.BoundsRect);
 
       if (NewRect.Right-NewRect.Left < 200) or (NewRect.Right-NewRect.Left > Screen.Width) then
         begin
@@ -435,7 +447,8 @@ begin
             Screen.Cursor:=crDefault;
           end;
       end;
-      BaseApplication.Config.WriteRect('ReportPreview',pv.BoundsRect);
+      with Application as IBaseConfig do
+        Config.WriteRect('ReportPreview',pv.BoundsRect);
       pv.Free;
       bPrint.Setfocus;
       Screen.Cursor:=crDefault;
@@ -499,7 +512,7 @@ begin
                   Stream := TmemoryStream.Create;
                   Report.EMFPages.SaveToStream(Stream);
                   Stream.Position:=0;
-                  aDocument := TDocument.Create(Self,Data);
+                  aDocument := TDocument.CreateEx(Self,Data);
                   aDocument.Select(0);
                   aDocument.Open;
                   aDocument.Ref_ID:=FDS.Id.AsVariant;
@@ -545,7 +558,7 @@ begin
                   if isPrepared or Report.PrepareReport then
                     begin
                       isPrepared := True;
-                      Report.ExportTo(frFilters[FilterIndex - 1].ClassRef, Utf8ToSys(ChangeFileExt(FileName, Copy(frFilters[FilterIndex - 1].FilterExt, 2, 255))));
+                      Report.ExportTo(frFilters[FilterIndex - 1].ClassRef, UniToSys(ChangeFileExt(FileName, Copy(frFilters[FilterIndex - 1].FilterExt, 2, 255))));
                       Res := True;
                     end
                   else fError.ShowWarning(strCantPrepareReport);
@@ -556,15 +569,15 @@ begin
         begin
           eMail := '';
           fLogWaitform.ShowInfo('e-Mail wird generiert...');
-          aCustomer := TPerson.Create(Self,Data);
+          aCustomer := TPerson.CreateEx(Self,Data);
           if (FDS is TOrder) and (TOrder(FDS).Address.Count > 0) then
             begin
               aCustomer.SelectByAccountNo(TOrder(FDS).Address.FieldByName('ACCOUNTNO').AsString);
               aCustomer.Open;
-              aCustomer.CustomerCont.Open;
-              if aCustomer.CustomerCont.DataSet.Locate('TYPE','MAIL',[]) then
+              aCustomer.ContactData.Open;
+              if aCustomer.ContactData.DataSet.Locate('TYPE','MAIL',[]) then
                 begin
-                  eMail := aCustomer.CustomerCont.FieldByName('DATA').AsString;
+                  eMail := aCustomer.ContactData.FieldByName('DATA').AsString;
                 end;
             end;
           aCustomer.Destroy;
@@ -577,15 +590,15 @@ begin
       else if cbPrinter.Text = '<'+strExterneMail+'>' then
         begin
           eMail:='';
-          aCustomer := TPerson.Create(Self,Data);
+          aCustomer := TPerson.CreateEx(Self,Data);
           if (FDS is TOrder) and (TOrder(FDS).Address.Count > 0) then
             begin
               aCustomer.SelectByAccountNo(TOrder(FDS).Address.FieldByName('ACCOUNTNO').AsString);
               aCustomer.Open;
-              aCustomer.CustomerCont.Open;
-              if aCustomer.CustomerCont.DataSet.Locate('TYPE','MAIL',[]) then
+              aCustomer.ContactData.Open;
+              if aCustomer.ContactData.DataSet.Locate('TYPE','MAIL',[]) then
                 begin
-                  eMail := aCustomer.CustomerCont.FieldByName('DATA').AsString;
+                  eMail := aCustomer.ContactData.FieldByName('DATA').AsString;
                 end;
             end;
           aCustomer.Destroy;
@@ -598,7 +611,7 @@ begin
               with TMeetings(FDS).Users do
                 begin
                   First;
-                  aUser := TUser.Create(nil,Data);
+                  aUser := TUser.Create(nil);
                   while not EOF do
                     begin
                       aUser.Select(FieldbyName('USER_ID').AsVariant);
@@ -619,7 +632,8 @@ begin
               if isPrepared or Report.PrepareReport then
                 begin
                   isPrepared := True;
-                  aFile := GetTempDir+ValidateFileName(Report.Title)+'.pdf';
+                  with BaseApplication as IBaseApplication do
+                    aFile := GetInternalTempDir+ValidateFileName(Report.Title)+'.pdf';
                   Report.ExportTo(frFilters[i].ClassRef,aFile);
                   DoSendMail(Report.Title,Data.Reports.FieldByName('TEXT').AsString, aFile,'','','',eMail);
                   res := True;
@@ -689,19 +703,19 @@ begin
           if cbInfo.Text = '<'+streMail+'>' then
             begin
               fLogWaitform.ShowInfo('e-Mail wird generiert...');
-              aCustomer := TPerson.Create(Self,Data);
+              aCustomer := TPerson.CreateEx(Self,Data);
               if (FDS is TOrder) and (TOrder(FDS).Address.Count > 0) then
                 begin
                   aCustomer.SelectByAccountNo(TOrder(FDS).Address.FieldByName('ACCOUNTNO').AsString);
                   aCustomer.Open;
-                  aCustomer.CustomerCont.Open;
-                  if aCustomer.CustomerCont.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
-                  or aCustomer.CustomerCont.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
+                  aCustomer.ContactData.Open;
+                  if aCustomer.ContactData.DataSet.Locate('TYPE;ACTIVE',VarArrayOf(['MAIL','Y']),[])
+                  or aCustomer.ContactData.DataSet.Locate('TYPE',VarArrayOf(['MAIL']),[])
                   then
                     begin
                       if Assigned(FOnSendMessage) then
                         begin
-                          FOnSendMessage(Report,aCustomer.CustomerCont.FieldByName('DATA').AsString,aName,Data.Reports.FieldByName('TEXT').AsString,isPrepared);
+                          FOnSendMessage(Report,aCustomer.ContactData.FieldByName('DATA').AsString,aName,Data.Reports.FieldByName('TEXT').AsString,isPrepared);
                           Res := True;
                         end;
                     end
@@ -859,8 +873,11 @@ begin
         with Data.Reports.FieldByName('REPORT') as TBlobField do
           if not Data.Reports.FieldByName('REPORT').IsNull then
             begin
-              Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetTempDir+'preport.lrf');
-              Report.LoadFromFile(GetTempDir+'preport.lrf');
+              with BaseApplication as IBaseApplication do
+                begin
+                  Data.BlobFieldToFile(Data.Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
+                  Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+                end;
             end
           else
             begin
@@ -887,7 +904,7 @@ begin
   FUpdated := False;
   FBooked := False;
   ActControl := Screen.ActiveControl;
-  if bBook.Visible and Assigned(Report) then
+  if bBook.Visible and Assigned(Report) and (not SavePossible) then
     Report.PreviewButtons:=[pbZoom, pbFind, pbExit]
   else if Assigned(Report) then
     Report.PreviewButtons:=[pbZoom, pbSave, pbPrint, pbFind, pbExit];
@@ -913,10 +930,10 @@ constructor TfSelectReport.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   FOldShow:=nil;
+  FSavePossible:=False;
 end;
 
 initialization
-  {$I uselectreport.lrs}
 
 end.
 

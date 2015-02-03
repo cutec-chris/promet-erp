@@ -25,8 +25,9 @@ unit uMailEditoptions;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, Buttons, uIntfStrConsts,LCLType, ButtonPanel;
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
+  ExtCtrls, Buttons, uIntfStrConsts,LCLType, ButtonPanel,FileUtil,
+  ProcessUtils,uProcessManager,uLogWait;
 
 type
 
@@ -54,11 +55,14 @@ type
     pFeedOptions: TPanel;
     pPOPOptions: TPanel;
     pSMTPOptions: TPanel;
+    procedure aProcessLineWritten(Line: string);
     procedure bCheckConnectionClick(Sender: TObject);
     procedure eServertypeSelect(Sender: TObject);
+    procedure fLogWaitFormbAbortClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { private declarations }
+    aProcess: TExtendedProcess;
   public
     { public declarations }
     function Execute : Boolean;
@@ -69,9 +73,10 @@ var
   fMailOptions: TfMailOptions;
 
 implementation
-
+{$R *.lfm}
 resourcestring
   strFeed                       = 'Feed';
+  strServiceNotInstalled        = 'Der Dienst %s ist derzeit nicht installiert !';
 
 
 { TfMailOptions }
@@ -99,9 +104,46 @@ begin
     end;
 end;
 
-procedure TfMailOptions.bCheckConnectionClick(Sender: TObject);
+procedure TfMailOptions.fLogWaitFormbAbortClick(Sender: TObject);
 begin
+  aProcess.Terminate(1);
+end;
 
+procedure TfMailOptions.bCheckConnectionClick(Sender: TObject);
+var
+  aPath: String;
+  aFile: String;
+begin
+  aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools');
+  if FileExists(aPath+lowerCase(eServertype.Text)+'receiver'+ExtractFileExt(Application.ExeName)) then
+    aFile := aPath+lowerCase(eServertype.Text)+'receiver'+ExtractFileExt(Application.ExeName)
+  else if FileExists(aPath+lowerCase(eServertype.Text)+'sender'+ExtractFileExt(Application.ExeName)) then
+    aFile := aPath+lowerCase(eServertype.Text)+'sender'+ExtractFileExt(Application.ExeName);
+  if not FileExists(aFile) then
+    begin
+      Showmessage(Format(strServiceNotInstalled,[ExtractFileName(aFile)]));
+      exit;
+    end;
+  fLogWaitForm.SetLanguage;
+  fLogWaitForm.Show;
+  fLogWaitForm.ShowInfo('Test wird gestartet:');
+  fLogWaitForm.ShowInfo(aFile+' "--mandant='+ProcessMandant+'"'+' "--user='+ProcessUser+'" --onerun');
+  fLogWaitForm.bAbort.OnClick:=@fLogWaitFormbAbortClick;
+  aProcess := TExtendedProcess.Create(aFile+' "--mandant='+ProcessMandant+'"'+' "--user='+ProcessUser+'" --onerun',True);
+  aProcess.OnLineWritten:=@aProcessLineWritten;
+  while aProcess.Active and fLogWaitForm.Visible do
+    Application.ProcessMessages;
+  if not fLogWaitForm.Visible then
+    aProcess.Terminate(1);
+  fLogWaitForm.ShowInfo('Test abgeschlossen:'+IntToStr(aProcess.ExitStatus));
+  fLogWaitForm.bAbort.Kind:=bkClose;
+  fLogWaitForm.bAbort.OnClick:=nil;
+  aProcess.Free;
+end;
+
+procedure TfMailOptions.aProcessLineWritten(Line: string);
+begin
+  fLogWaitForm.ShowInfo(Line);
 end;
 
 procedure TfMailOptions.FormKeyDown(Sender: TObject; var Key: Word;
@@ -136,7 +178,6 @@ begin
 end;
 
 initialization
-  {$I umaileditoptions.lrs}
 
 end.
 

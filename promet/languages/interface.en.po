@@ -2,3535 +2,847 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prometheus\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2010-03-03 20:38+0100\n"
+"PO-Revision-Date: 2014-05-18 08:32+0100\n"
 "Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
 "Language-Team: C.Ulrich <christian@ullihome.de>\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: uintfstrconsts:strsearchfromorder
+msgid "Mit Öffnen wird der gewählte Eintrag in den Auftrag übernommen"
+msgstr "With open, the selected entry is copied into the order"
+
+#: uintfstrconsts:strcombiteitems
+msgid "Sollen die Elemente \"%s\" und \"%s\" wirklich verschmolzen werden ?"
+msgstr "Should the elements \"%s\" and \"%s\" really merged ?"
+
+#: uintfstrconsts:strclipboard
+msgid "Zwischenablage"
+msgstr "Clipboard"
+
+# uintfstrconsts:strstatuschanged
+#: uintfstrconsts:strcategorychanged
+msgid "Kategorie geändetr auf %s"
+msgstr "Category changed to %s"
+
+# uintfstrconsts:strstatuschanged
+#: uintfstrconsts:strduedatechanged
+msgid "Zieldatum geändert zu %s"
+msgstr "Targetdate changed to %s"
+
+#: uintfstrconsts:strcantaccessfile
+msgid ""
+"Auf die Datei \"%s\" kann nicht zugegriffen werden,\n"
+"kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die "
+"Quelle"
+msgstr ""
+"The file \"%s\" is not accessable,\n"
+"copy the file to your computer or mount the source"
+
+#: uintfstrconsts:strtimetools
+msgid "Zeiterfassung"
+msgstr "Timeregistering"
+
+#: uintfstrconsts:strcosts
+msgid "Kosten"
+msgstr "Costs"
+
+#: uintfstrconsts:strtargetcosts
+msgid "Zielkosten"
+msgstr "Targetcsts"
+
+#: uintfstrconsts:strfullpercent
+msgid "Auslastung:%d%%"
+msgstr "workload:%d%%"
+
+#: uintfstrconsts:strganttview
+msgid "Gantt Ansicht"
+msgstr "Gantt View"
+
+#: uintfstrconsts:strtaskplan
+msgid "Aufgabenplan"
+msgstr "Taskplan"
+
+#: uintfstrconsts:strattplan
+msgid "Anwesenheitsplan"
+msgstr "attendance plan"
 
-# uintfstrconsts:strsearch
-#: uintfstrconsts:strcharttype
-msgid "Chart Type"
-msgstr "Chart Type"
-
-# uintfstrconsts:strsearch
-#: uintfstrconsts:strautomaticsearch
-msgid "Search while typing"
-msgstr "Search while typing"
-
-# uintfstrconsts:strmatch
-#: uintfstrconsts:strchart
-msgid "Chart"
-msgstr "Chart"
-
-#: uintfstrconsts:strwildcardsearch
-msgid "Wildgard search"
-msgstr "Wildcard search"
-
-#: uintfstrconsts:strbookingaborted
-msgid "Post of the order was aborted !"
-msgstr "Post of the order was aborted !"
-
-#: uintfstrconsts:strmailsubjectclear
-msgid "The Subject Field in your mail is clear, remember that this is often recognized as Spam of Spam Filters"
-msgstr "The Subject Field in your mail is clear, remember that this is often recognized as Spam of Spam Filters"
-
-# uintfstrconsts:strprogramended
-#: uintfstrconsts:strprogramsearch
-msgid "Program Search"
-msgstr "Program Search"
-
-# uintfstrconsts:strquantityunit
-#: uintfstrconsts:strquantityunits
-msgid "Quantity Units"
-msgstr "Quantity Units"
-
-# uintfstrconsts:strcustomers
-#: uintfstrconsts:strcustomerof
-msgid "Customer of"
-msgstr "Employee of"
-
-#: uintfstrconsts:strocr
-msgid "Caracter Recognition"
-msgstr "Caracter Recognition"
-
-# uintfstrconsts:strpages
-#: uintfstrconsts:strmessage
-msgid "Message"
-msgstr "Message"
-
-# uintfstrconsts:strdocuments
-#: uintfstrconsts:strdocument
-msgid "Document"
-msgstr "Document"
-
-# uintfstrconsts:strenteranmandantname
-#: uintfstrconsts:strenteranfiltername
-msgid "Enter an Name for the New Filter"
-msgstr "Enter an Name for the New Filter"
-
-#: uintfstrconsts:striadaddress
-msgid "IAD Invoice Address"
-msgstr "IAD Invoice Address"
-
-# uintfstrconsts:straddresses
-#: uintfstrconsts:strdadaddress
-msgid "DAD Deliver Address"
-msgstr "DAD Deliver Address"
-
-# uintfstrconsts:strorderactionadded
-#: uintfstrconsts:strorderposted
-msgid "Order posted"
-msgstr "Order posted"
-
-#: uintfstrconsts:strmaxresults
-msgid "Limit Results to"
-msgstr "Limit Results to"
-
-# uintfstrconsts:strpaused
-#: uintfstrconsts:strpayed
-msgid "Payed"
-msgstr "Payed"
-
-#: uintfstrconsts:strgotofeed
-msgid "Goto full Article"
-msgstr "Goto full Article"
-
-# uintfstrconsts:strfilter
-#: uintfstrconsts:strfeed
-msgid "Feed"
-msgstr "Feed"
-
-#: uintfstrconsts:strmarkasread
-msgid "Mark as read"
-msgstr "Mark as read"
-
-#: uintfstrconsts:strforward
-msgid "Forward"
-msgstr "Forward"
-
-#: uintfstrconsts:strgotoorcreatecontact
-msgid "Goto Contact or create it if not existent"
-msgstr "Goto Contact or create it if not existent"
-
-# uintfstrconsts:straddtostorage
-#: uintfstrconsts:straddtoreserved
-msgid "Add to reserved"
-msgstr "Add to reserved"
-
-#: uintfstrconsts:straddtomainorder
-msgid "Add to Main Order"
-msgstr "Add to Main Order"
-
-#: uintfstrconsts:strcheckstorage
-msgid "Check Storage contents"
-msgstr "Check Storage contents"
-
-#: uintfstrconsts:strpastetoanwrongdataset
-msgid "The Data couldnt be pasted in this type of Item"
-msgstr "The Data couldnt be pasted in this type of Item"
-
-#: uintfstrconsts:strcantgetclipboardcontents
-msgid "Cant get the Clipboard Contents !"
-msgstr "Cant get the Clipboard Contents !"
-
-#: uintfstrconsts:strdatasetmustbeininsertmode
-msgid "You can only paste Data in new Entrys, add an new Entry first !"
-msgstr "You can only paste Data in new Entrys, add an new Entry first !"
-
-# uintfstrconsts:stredit
-#: uintfstrconsts:stredittext
-msgid "Edit text"
-msgstr "Edit text"
-
-#: uintfstrconsts:strquerytime
-msgid "Querytime: %s Result Count: %d"
-msgstr "Querytime: %s Result Count: %d"
-
-#: uintfstrconsts:strinserteventforbirthday
-msgid "Insert Event in Calendar for these Birthday ?"
-msgstr "Insert Event in Calendar for these Birthday ?"
-
-#: uintfstrconsts:strbirthdayfrom
-msgid "%s´s Birthday"
-msgstr "%s´s Birthday"
-
-#: uintfstrconsts:streventinpast
-msgid "Event is in past"
-msgstr "Event is in past"
-
-#: uintfstrconsts:streventsthisweek
-msgid "Events this Week: %d"
-msgstr "Events this Week: %d"
-
-#: uintfstrconsts:strexecute
-msgid "Execute"
-msgstr "Execute"
-
-# uintfstrconsts:strcontact
-#: uintfstrconsts:strcountries
-msgid "Countries"
-msgstr "Countries"
-
-# uintfstrconsts:strstart
-#: uintfstrconsts:strstates
-msgid "States"
-msgstr "States"
-
-# uintfstrconsts:strcustomers
-#: uintfstrconsts:strgotocustomer
-msgid "Goto Customer"
-msgstr "Goto Customer"
-
-# uintfstrconsts:strmasterdata
-#: uintfstrconsts:strgotomasterdata
-msgid "Goto Masterdata"
-msgstr "Goto Masterdata"
-
-# uintfstrconsts:strdatabasetype
-#: uintfstrconsts:strnewdatabase
-msgid "New Database"
-msgstr "New Database"
-
-# uintfstrconsts:strcheckingforupdate
-#: uintfstrconsts:strexistingdatabase
-msgid "existing Database"
-msgstr "existing Database"
-
-#: uintfstrconsts:strreference
-msgid "Reference"
-msgstr "Reference"
-
-# uintfstrconsts:strregistered
-#: uintfstrconsts:strreserved
-msgid "Reserved"
-msgstr "Reserved"
-
-# uintfstrconsts:strarticlelist
-#: uintfstrconsts:strsaleitem
-msgid "Sale Item"
-msgstr "Sale Item"
-
-#: uintfstrconsts:strloggedin
-msgid "Kassierer: %s"
-msgstr "Employee: %s"
-
-# uintfstrconsts:strpause
-#: uintfstrconsts:strpaste
-msgid "Paste"
-msgstr "Paste"
-
-# uintfstrconsts:strtexttyp
-#: uintfstrconsts:strtexttype
-msgid "Text Type"
-msgstr "Text Type"
-
-#: uintfstrconsts:strresults
-msgid "Results"
-msgstr "Results"
-
-# uintfstrconsts:strsearch
-#: uintfstrconsts:strsearchtype
-msgid "Search Type"
-msgstr "Search Type"
-
-# uintfstrconsts:strimportfromclipboard
-#: uintfstrconsts:strimportfromoutlook
-msgid "Import from Outlook"
-msgstr "Import from Outlook"
-
-# uintfstrconsts:strcustomernumber
-#: uintfstrconsts:strchangearticlenumer
-msgid "Change Item Number"
-msgstr "Change Item Number"
-
-# uintfstrconsts:strcustomernumber
-#: uintfstrconsts:strchangecustomernumer
-msgid "Change Customer Number"
-msgstr "Change Customer Number"
-
-# uintfstrconsts:strnewimage
-#: uintfstrconsts:strnewnumber
-msgid "New Number"
-msgstr "New Number"
-
-# uintfstrconsts:strcustomers
-#: uintfstrconsts:strcustomers
-msgid "Customers"
-msgstr "Customers"
-
-# uintfstrconsts:strimportfromclipboard
-#: uintfstrconsts:strimportfromfile
-msgid "Import from File"
-msgstr "Import from File"
-
-# uintfstrconsts:strexport
-#: uintfstrconsts:strexporttofile
-msgid "Export To File"
-msgstr "Export To File"
-
-#: uintfstrconsts:strshippingoutput
-msgid "Shipping Output"
-msgstr "Shipping Output"
-
-# uintfstrconsts:strstreet
-#: uintfstrconsts:strsyncstorage
-msgid "Sync Storage"
-msgstr "Sync Storage"
-
-# uintfstrconsts:strcheckindate
-#: uintfstrconsts:strcheck
-msgid "Check"
-msgstr "Check"
-
-#: uintfstrconsts:strsettoresolved
-msgid "Set to resolved"
-msgstr "Set to resolved"
-
-# uintfstrconsts:strcheckouttorevision
-#: uintfstrconsts:strcheckouttothisrevision
-msgid "Checkout to this Revision"
-msgstr "Checkout to this Revision"
-
-# uintfstrconsts:strposition
-#: uintfstrconsts:strdisposition
-msgid "Disposition"
-msgstr "Disposition"
-
-#: uintfstrconsts:strwebshop
-msgid "Webshop"
-msgstr "Webshop"
-
-# uintfstrconsts:strrights
-#: uintfstrconsts:strweight
-msgid "Weight"
-msgstr "Weight"
-
-#: uintfstrconsts:strarticleisnotavalible
-msgid "Article %s is not avalible"
-msgstr "Article %s is not avalible"
-
-# uintfstrconsts:strselectreport
-#: uintfstrconsts:strpiecelisttypelist
-msgid "L Book direct in Storage"
-msgstr "L Book direct in Storage"
-
-#: uintfstrconsts:strpiecelisttypeorder
-msgid "O dissolve in Order"
-msgstr "O dissolve in Order"
-
-#: uintfstrconsts:strpiecelisttypeproduction
-msgid "P dissolve in Production"
-msgstr "P dissolve in Production"
-
-# uintfstrconsts:strstreet
-#: uintfstrconsts:strnostorage
-msgid "No Storage"
-msgstr "No Storage"
-
-#: uintfstrconsts:strcopytohtml
-msgid "Copy as HTML to Clipboard"
-msgstr "Load to Webshop"
-
-# uintfstrconsts:strnewimage
-#: uintfstrconsts:strnoimage
-msgid "No Image"
-msgstr "No Image"
-
-# uintfstrconsts:strtime
-#: uintfstrconsts:strimages
-msgid "Images"
-msgstr "Images"
-
-#: uintfstrconsts:strconverttopiecelist
-msgid "Convert To Piecelist"
-msgstr "Convert To Piecelist"
-
-#: uintfstrconsts:strreplaceplaceholders
-msgid "Replace Placeholders"
-msgstr "Replace Placeholders"
-
-#: uintfstrconsts:strtransactionequaltoorder
-msgid "Is The Transaction:%s%s equal to %s%s ?"
-msgstr "Is The Transaction:%s%s equal to %s%s ?"
-
-# uintfstrconsts:strnooutput
-#: uintfstrconsts:strinfooutput
-msgid "Info Output"
-msgstr "Info Output"
-
-#: uintfstrconsts:strnomailaddress
-msgid "The Contact has no e-Mail Address"
-msgstr "The Contact has no e-Mail Address"
-
-# uintfstrconsts:strpartslist
-#: uintfstrconsts:strpiecelist
-msgid "Parts List"
-msgstr "Parts List"
-
-# uintfstrconsts:strdocuments
-#: uintfstrconsts:strdocumentadded
-msgid "Document added"
-msgstr "Document added"
-
-# uintfstrconsts:strshorttext
-#: uintfstrconsts:strshortcuts
-msgid "Shortcuts"
-msgstr "Shortcuts"
-
-# uintfstrconsts:strfilternotfound
-#: uintfstrconsts:strfilternotvalid
-msgid "Filter %s is not valid"
-msgstr "Filter %s is not valid"
-
-# uintfstrconsts:strpartslist
-#: uintfstrconsts:strnewpiecelist
-msgid "New parts list"
-msgstr "New parts list"
-
-#: uintfstrconsts:strtodayevents
-msgid "Events Today : %d"
-msgstr "Events Today : %d"
-
-#: uintfstrconsts:strnewcall
-msgid "New Call"
-msgstr "New Call"
-
-#: uintfstrconsts:strsendmailsuccesful
-msgid "Message successfull sended."
-msgstr "Message successfull sended."
-
-# uintfstrconsts:strselectreport
-#: uintfstrconsts:strnewstorage
-msgid "Select an Storage"
-msgstr "Select an Storage"
-
-#: uintfstrconsts:strinvalidcode
-msgid "The entered registering Code is not Correct !"
-msgstr "The entered registering Code is not Correct !"
-
-# uintfstrconsts:strlast
-#: uintfstrconsts:strlist
-msgid "List"
-msgstr "List"
-
-#: uintfstrconsts:strbigicons
-msgid "Big Icons"
-msgstr "Big Icons"
-
-#: uintfstrconsts:strsmallicons
-msgid "Small Icons"
-msgstr "Small Icons"
-
-#: uintfstrconsts:strstoragehascontents
-msgid "The Storage has Contents, you cannot delete this."
-msgstr "The Storage has Contents, you cannot delete this."
-
-#: uintfstrconsts:strinventory
-msgid "Inventory"
-msgstr "Inventory"
-
-# uintfstrconsts:strdiscont
-#: uintfstrconsts:strcashdiscount
-msgid "Cash Discount"
-msgstr "Cash Discount"
-
-# uintfstrconsts:strdates
-#: uintfstrconsts:strdays
-msgid "Days"
-msgstr "Days"
-
-# uintfstrconsts:strdiscont
-#: uintfstrconsts:strcashdiscountdays
-msgid "Cash Discount Days"
-msgstr "Cash Discount Days"
-
-# uintfstrconsts:stroperation
-#: uintfstrconsts:stropen
-msgid "Open"
-msgstr "Open"
-
-# uintfstrconsts:straddtojournal
-#: uintfstrconsts:strstoragejournal
-msgid "Storage Journal"
-msgstr "Storage Journal"
-
-#: uintfstrconsts:strnoprintabledocument
-msgid "Thers no printable document, add an Report or select <No Output>"
-msgstr "Thers no printable document, add an Report or select <No Output>"
-
-# uintfstrconsts:stroptions
-#: uintfstrconsts:strmailoptions
-msgid "Mail Options"
-msgstr "Mail Options"
-
-# uintfstrconsts:strcommon
-#: uintfstrconsts:strcommission
-msgid "Commission"
-msgstr "Commission"
-
-#: uintfstrconsts:strfailedshowingdatafrom
-msgid "Failed showing data from"
-msgstr "Failed showing data from"
-
-#: uintfstrconsts:strexportconfiguration
-msgid "Export Configuration"
-msgstr "Export Configuration"
-
-#: uintfstrconsts:strimportconfiguration
-msgid "Import Configuration"
-msgstr "Import Configuration"
-
-#: uintfstrconsts:strmandantproperties
-msgid "Here you can setup the default values for importent Properties in your Database, after this you can start."
-msgstr "Here you can setup the default values for importent Properties in your Database."
-
-#: uintfstrconsts:strdatabaseproperties
-msgid "Here you can setup the Database connection. The default values are für an local database for your personal use. For futher options ask your system administrator or take a look at the administration book."
-msgstr "Here you can setup the Database connection. The default values are für an local database for your personal use. For futher options ask your system administrator or take a look at the administration book."
-
-# uintfstrconsts:struser
-#: uintfstrconsts:strrename
-msgid "Rename"
-msgstr "Rename"
-
-# uintfstrconsts:strnewimage
-#: uintfstrconsts:strnewname
-msgid "New Name"
-msgstr "New Name"
-
-# uintfstrconsts:strlogin
-#: uintfstrconsts:strcopylink
-msgid "Copy Link"
-msgstr "Copy Link"
-
-# uintfstrconsts:strpaperbin
-#: uintfstrconsts:strpastelink
-msgid "Paste Link"
-msgstr "Paste Link"
-
-#: uintfstrconsts:strcantpreparereport
-msgid "Failed to prepare report !"
-msgstr "Failed to prepare report !"
-
-# uintfstrconsts:strcheckingforupdate
-#: uintfstrconsts:strcreatingdatabase
-msgid "Creating database..."
-msgstr "Creating database..."
-
-#: uintfstrconsts:strfillingdefaultvalues
-msgid "Filling default values..."
-msgstr "Filling default values..."
-
-# uintfstrconsts:strcheckingforupdate
-#: uintfstrconsts:strupdatingdatabase
-msgid "Updating database..."
-msgstr "Updating database..."
-
-# uintfstrconsts:strdateformat
-#: uintfstrconsts:strdatefrom
-msgid "Date from"
-msgstr "Date from"
-
-# uintfstrconsts:strdate
-#: uintfstrconsts:strdateto
-msgid "Date To"
-msgstr "Date To"
-
-#: uintfstrconsts:strprintandpost
-msgid "Print / Post"
-msgstr "Print / Post"
-
-# uintfstrconsts:strcheckingforupdate
-#: uintfstrconsts:strcheckingforupdate
-msgid "Checking for update..."
-msgstr "Checking for update..."
-
-# uintfstrconsts:strdone
-#: uintfstrconsts:strdone
-msgid "Done"
-msgstr "Done"
-
-# uintfstrconsts:strvalue
-#: uintfstrconsts:strvalue
-msgid "Value"
-msgstr "Value"
-
-# uintfstrconsts:strsummary
-#: uintfstrconsts:strsummary
-msgid "Summary"
-msgstr "Summary"
-
-# uintfstrconsts:strinfo
-#: uintfstrconsts:strinfo
-msgid "Info"
-msgstr "Info"
-
-# uintfstrconsts:strhelp
-#: uintfstrconsts:strhelp
-msgid "Help"
-msgstr "Help"
-
-# uintfstrconsts:strhelpindex
-#: uintfstrconsts:strhelpindex
-msgid "Help Index"
-msgstr "Help Index"
-
-#: uintfstrconsts:strbugtracker
-msgid "Bugtracker"
-msgstr "Bugtracker"
-
-# uintfstrconsts:strid
-#: uintfstrconsts:strid
-msgid "ID"
-msgstr "ID"
-
-# uintfstrconsts:strsearch
-#: uintfstrconsts:strsearch
-msgid "Search"
-msgstr "Search"
-
-# uintfstrconsts:strerror
-#: uintfstrconsts:strerror
-msgid "Error"
-msgstr "Error"
-
-# uintfstrconsts:strhistory
-#: uintfstrconsts:strhistory
-msgid "History"
-msgstr "History"
-
-# uintfstrconsts:strclose
-#: uintfstrconsts:strclose
-msgid "Close"
-msgstr "Close"
-
-# uintfstrconsts:strchange
-#: uintfstrconsts:strchange
-msgid "Change"
-msgstr "Change"
-
-# uintfstrconsts:strdescription
-#: uintfstrconsts:strdescription
-msgid "Description"
-msgstr "Description"
-
-# uintfstrconsts:strpleasewait
-#: uintfstrconsts:strpleasewait
-msgid "Please wait"
-msgstr "Please wait"
-
-# uintfstrconsts:strdate
 #: uintfstrconsts:strdate
-msgid "Date"
+msgid "Datum"
 msgstr "Date"
 
-# uintfstrconsts:strok
-#: uintfstrconsts:strok
-msgid "OK"
-msgstr "OK"
+#: uintfstrconsts:strworker
+msgid "Bearbeiter"
+msgstr "Issuer"
 
-# uintfstrconsts:strsystem
-#: uintfstrconsts:strsystem
-msgid "System"
-msgstr "System"
+#: uintfstrconsts:strresponsable
+msgid "Verantwortlicher"
+msgstr "responsible"
 
-# uintfstrconsts:strcontact
-#: uintfstrconsts:strinternet
-msgid "Internet"
-msgstr "Internet"
+#: uintfstrconsts:strmeetinglist
+msgid "Besprechungsliste"
+msgstr "meeting list"
 
-#: uintfstrconsts:strpostshipping
-msgid "Shipping output ?"
-msgstr "Shipping output ?"
+#: uintfstrconsts:strmeetings
+msgid "Besprechungen"
+msgstr "meetings"
 
-# uintfstrconsts:strfilternotfound
-#: uintfstrconsts:strdispatchtypenotfound
-msgid "Dispatchtype not found !"
-msgstr "Dispatchtype not found !"
+#: uintfstrconsts:strkeywords
+msgid "Suchbegriffe"
+msgstr "Matchcodes"
 
-# uintfstrconsts:strnotesforcustomer
-#: uintfstrconsts:strwaitingforcustomer
-msgid "Waits for customer"
-msgstr "Waits for customer"
+#: uintfstrconsts:strproperties
+msgid "Eigenschaften"
+msgstr "Propertys"
 
-#: uintfstrconsts:strassemblyexchanged
-msgid "Assembly exchanged"
-msgstr "Assembly exchanged"
-
-#: uintfstrconsts:stropentoviewitem
-msgid "Please Open this Item to Show it."
-msgstr "Please Open this Item to Show it."
-
-#: uintfstrconsts:strnobonformular
-msgid "Thers no bon formular setup. Please add one first."
-msgstr "Thers no bon formular setup. Please add one first."
-
-#: uintfstrconsts:strposstatusnotloggedin
-msgid "Please login"
-msgstr "Please login"
-
-# uintfstrconsts:stractive
-#: uintfstrconsts:strprojectstatusactive
-msgid "A Active"
-msgstr "A Active"
-
-# uintfstrconsts:stractive
-#: uintfstrconsts:strprojectstatusinactive
-msgid "I Inactive"
-msgstr "I Inactive"
-
-# uintfstrconsts:strproject
-#: uintfstrconsts:strnewproject
-msgid "New Project"
-msgstr "New Project"
-
-# uintfstrconsts:strtime
-#: uintfstrconsts:strwikiimagetag
-msgid "image"
-msgstr "image"
-
-#: uintfstrconsts:strwikimainpagetext
-msgid "==Willkommen zur Prometheus Wiki==<br><br>Sie können dieses Wiki als zentralen Wissenspool verstehen. Sie können hier Informationen jeglicher Art strukturiert ablegen.<br><br>Dazu stehen Ihnen interne Links [[Ihre erste Seite]] durch die Sie auch ganz einfach neue Sieten anlegen könenn einfach indem Sie, sie anlegen und draufklicken. Externe Links, zu beliebigen Websites [http://www.ullihome.de www.ullihome.de], Aufzählungen*1*2*3===Überschriften=======In verschiedenen Größen====und ähnliche Elemente zur Verfügung."
-msgstr "==Welcome to Prometheus Wiki=="
-
-#: uintfstrconsts:strwiki
-msgid "Wiki"
-msgstr "Wiki"
+# uintfstrconsts:strtext
+#: uintfstrconsts:strtexts
+msgid "Texte"
+msgstr "Texts"
 
 # uintfstrconsts:strrepair
-#: uintfstrconsts:strrepaired
-msgid "repaired"
-msgstr "repaired"
+#: uintfstrconsts:strrepairparts
+msgid "Reparaturteile"
+msgstr "Repairparts"
 
-#: uintfstrconsts:strdiscarded
-msgid "discarded"
-msgstr "discarded"
+#: uintfstrconsts:strrepairassembly
+msgid "Baugruppen"
+msgstr "Assemblys"
 
-# uintfstrconsts:strcreatingforms
-#: uintfstrconsts:strloggingin
-msgid "Logging In..."
-msgstr "Logging In..."
+#: uintfstrconsts:strprices
+msgid "Preise"
+msgstr "Prices"
 
-# uintfstrconsts:straddtostorage
-#: uintfstrconsts:strnewmessages
-msgid "New Messages"
-msgstr "New Messages"
+#: uintfstrconsts:strsupplier
+msgid "Lieferanten"
+msgstr "Suppliers"
 
-# uintfstrconsts:straddtostorage
-#: uintfstrconsts:strnewmessagecview
-msgid "%d New messages"
-msgstr "%d New messages"
+# uintfstrconsts:strseverity
+#: uintfstrconsts:strstorage
+msgid "Lager"
+msgstr "Storage"
 
-# uintfstrconsts:strunknownsqldbtype
-#: uintfstrconsts:strnewunknownmessagecview
-msgid "%d Unknown new messages"
-msgstr "%d Unknown new messages"
+#: uintfstrconsts:strpaygroups
+msgid "Zahlungsgruppen"
+msgstr "payment groups"
 
-#: uintfstrconsts:strnewmessagecount
-msgid ""
-"%d New messages are received\n"
-"%d New unknown messages are received"
-msgstr ""
-"%d New messages are received\n"
-"%d New unknown messages are received"
+# uintfstrconsts:strmandant
+#: uintfstrconsts:strmandantdetails
+msgid "Mandantendetails"
+msgstr "Mandantdetails"
 
-# uintfstrconsts:strarticlelist
-#: uintfstrconsts:strsaleslist
-msgid "Sales List"
-msgstr "Sales List"
+#: uintfstrconsts:strpermissions
+msgid "Zugriffsrechte"
+msgstr "Accessrights"
 
-# uintfstrconsts:strinitialisingcustomers
-#: uintfstrconsts:strinitialisingphones
-msgid "Initializing Phones"
-msgstr "Initializing Phones"
+# uintfstrconsts:struser
+#: uintfstrconsts:struserrights
+msgid "Benutzerrechte"
+msgstr "Userrights"
 
-# uintfstrconsts:strorderlist
-#: uintfstrconsts:strorderview
-msgid "Order View"
-msgstr "Order View"
+#: uintfstrconsts:strtree
+msgid "Baum"
+msgstr "Tree"
 
-#: uintfstrconsts:strmessagetobig
-msgid "The e-Mail Message from \"%s\" with Subject \"%s\" is larger than 10 mb, should it be Downloaded ?"
-msgstr "The e-Mail Message from \"%s\" with Subject \"%s\" is larger than 10 mb, should it be Downloaded ?"
+#: uintfstrconsts:strreports
+msgid "Belege"
+msgstr "Proofs"
 
-# uintfstrconsts:strpaymenttarget
-#: uintfstrconsts:strpayment
-msgid "Payment"
-msgstr "Payment"
+#: uintfstrconsts:strnumbersets
+msgid "Nummernkreise"
+msgstr "Numbersets"
 
-#: uintfstrconsts:strcategory
-msgid "Category"
-msgstr "Category"
+#: uintfstrconsts:strinventory
+msgid "Inventuren"
+msgstr "Inventory"
 
-#: uintfstrconsts:strballance
-msgid "Ballance"
-msgstr "Ballance"
+#: uintfstrconsts:strinventorypos
+msgid "Inventurpositionen"
+msgstr "Inventorypositions"
 
-#: uintfstrconsts:strassembly
-msgid "Assembly"
-msgstr "Assembly"
+# uintfstrconsts:strtexttyp
+#: uintfstrconsts:strtexttypes
+msgid "Texttypen"
+msgstr "Texttyps"
 
-# uintfstrconsts:strmatch
-#: uintfstrconsts:strpart
-msgid "Part"
-msgstr "Part"
+# uintfstrconsts:strrepair
+#: uintfstrconsts:strrepairproblems
+msgid "Reparaturprobleme"
+msgstr "Repairproblems"
 
-# uintfstrconsts:strproperties
-#: uintfstrconsts:strproblem
-msgid "Problem"
-msgstr "Problem"
+# uintfstrconsts:strstart
+#: uintfstrconsts:strdispatchtyoes
+msgid "Versandarten"
+msgstr "Shipping costs"
 
-# uintfstrconsts:strwholeprice
-#: uintfstrconsts:strpurchaseprice
-msgid "Purchase price"
-msgstr "Purchase price"
+# uintfstrconsts:strpositions
+#: uintfstrconsts:strpositioncalc
+msgid "Positionskalkulation"
+msgstr "Positioncalculation"
+
+#: uintfstrconsts:strpricetypes
+msgid "Preistypen"
+msgstr "Pricetypes"
 
 # uintfstrconsts:strpositionprice
 #: uintfstrconsts:strpositiontype
-msgid "Position type"
-msgstr "Position type"
+msgid "Positionstypen"
+msgstr "Positiontypes"
 
-# uintfstrconsts:strtenderpos
-#: uintfstrconsts:strtenderposno
-msgid "Tender pos. no."
-msgstr "Tender pos. no."
+#: uintfstrconsts:strpaymenttargets
+msgid "Zahlungsziele"
+msgstr "payment targets"
 
-# uintfstrconsts:strquantity
-#: uintfstrconsts:strquantitydelivered
-msgid "Quantity delivered"
-msgstr "Quantity delivered"
+#: uintfstrconsts:strcurrency
+msgid "Währung"
+msgstr "Currency"
 
-# uintfstrconsts:strquantityunit
-#: uintfstrconsts:strquantitycalculated
-msgid "Quantity calculated"
-msgstr "Quantity calculated"
-
-# uintfstrconsts:strnotice
-#: uintfstrconsts:strnetprice
-msgid "Netprice"
-msgstr "Netprice"
-
-# uintfstrconsts:strgross
-#: uintfstrconsts:strgrossprice
-msgid "Grossprice"
-msgstr "Grossprice"
-
-#: uintfstrconsts:strshipping
-msgid "Shipping"
-msgstr "Shipping"
-
-#: uintfstrconsts:strshippingdate
-msgid "Shipping Date"
-msgstr "Shipping Date"
-
-#: uintfstrconsts:strhalfvat
-msgid "Half vat"
-msgstr "Half vat"
-
-# uintfstrconsts:strfull
-#: uintfstrconsts:strfullvat
-msgid "Full vat"
-msgstr "Full vat"
-
-# uintfstrconsts:strpages
-#: uintfstrconsts:strplace
-msgid "Place"
-msgstr "Place"
-
-# uintfstrconsts:strordernumber
-#: uintfstrconsts:strorderno
-msgid "Order Number"
-msgstr "Order Number"
-
-# uintfstrconsts:strbanking
-#: uintfstrconsts:strmincount
-msgid "Min count"
-msgstr "Min count"
-
-# uintfstrconsts:straccounting
-#: uintfstrconsts:strmaxcount
-msgid "MAx count"
-msgstr "MAx count"
-
-# uintfstrconsts:strstreet
-#: uintfstrconsts:strstoragetyp
-msgid "Storage typ"
-msgstr "Storage typ"
-
-# uintfstrconsts:strmaximize
-#: uintfstrconsts:strpricetype
-msgid "Price Type"
-msgstr "Price Type"
-
-# uintfstrconsts:strquantity
-#: uintfstrconsts:strfromquantity
-msgid "From Quantity"
-msgstr "From Quantity"
-
-# uintfstrconsts:strquantity
-#: uintfstrconsts:strtoquantity
-msgid "To Quantity"
-msgstr "To Quantity"
-
-# uintfstrconsts:strproperties
-#: uintfstrconsts:strprice
-msgid "Price"
-msgstr "Price"
-
-#: uintfstrconsts:strfromunit
-msgid "From unit"
-msgstr "From unit"
-
-#: uintfstrconsts:strtounit
-msgid "To unit"
-msgstr "To unit"
-
-# uintfstrconsts:strtransportsupplier
-#: uintfstrconsts:strtransportprice
-msgid "Transport price"
-msgstr "Transport price"
-
-# uintfstrconsts:strfinancial
-#: uintfstrconsts:strfinancialkey
-msgid "Financial key"
-msgstr "Financial key"
-
-# uintfstrconsts:strproperties
-#: uintfstrconsts:strproperty
-msgid "Property"
-msgstr "Property"
-
-#: uintfstrconsts:strvalidfrom
-msgid "Valid from"
-msgstr "Valid from"
-
-#: uintfstrconsts:strvalidto
-msgid "Valid to"
-msgstr "Valid to"
-
-#: uintfstrconsts:strvalidtome
-msgid "Valid to Unit"
-msgstr "Valid to Unit"
-
-# uintfstrconsts:strpostalcode
-#: uintfstrconsts:strpostbox
-msgid "Post Box"
-msgstr "Post Box"
+#: uintfstrconsts:strlanguages
+msgid "Sprachen"
+msgstr "Languages"
 
 # uintfstrconsts:strstart
-#: uintfstrconsts:strstate
-msgid "State"
-msgstr "State"
+#: uintfstrconsts:strstandard
+msgid "Standard"
+msgstr "Standart"
 
-# uintfstrconsts:straddresses
-#: uintfstrconsts:straddressnumber
-msgid "Address Number"
-msgstr "Address Number"
+# uintfstrconsts:strproject
+#: uintfstrconsts:strobject
+msgid "Objekt"
+msgstr "Object"
 
-# uintfstrconsts:strdate
-#: uintfstrconsts:strdata
-msgid "Data"
-msgstr "Data"
+#: uintfstrconsts:strrefobject
+msgid "Referenzobjekt"
+msgstr "Referenceobject"
 
-# uintfstrconsts:strindustrialtime
-#: uintfstrconsts:strinstitute
-msgid "Institute"
-msgstr "Institute"
+# uintfstrconsts:strstart
+#: uintfstrconsts:strstatistics
+msgid "Statistiken"
+msgstr "Statistics"
 
-# uintfstrconsts:strcreatefolder
-#: uintfstrconsts:strcreateddate
-msgid "Created on"
-msgstr "Created on"
+#: uintfstrconsts:stroverview
+msgid "Übersicht"
+msgstr "Overview"
 
-# uintfstrconsts:strchange
-#: uintfstrconsts:strchangeddate
-msgid "Changed on"
-msgstr "Changed on"
+#: uintfstrconsts:strstartingnexttimeout
+msgid "Der process wird demnächst wieder gestartet"
+msgstr "the process is startet new at"
 
-# uintfstrconsts:strdiscont
-#: uintfstrconsts:strdiscountgroup
-msgid "Discountgroup"
-msgstr "Discountgroup"
+#: uintfstrconsts:strstartingprocesstimeout
+msgid "Timeout überschritten"
+msgstr "timeout exceed"
 
-# uintfstrconsts:strdiscont
-#: uintfstrconsts:strdiscount
-msgid "Discount"
-msgstr "Discount"
+#: uintfstrconsts:strstartingprocess
+msgid "Der process wird (neu) gestartet"
+msgstr "the process is starting (new)"
 
-#: uintfstrconsts:strcallerid
-msgid "Caller ID"
-msgstr "Caller ID"
-
-# uintfstrconsts:strprint
-#: uintfstrconsts:strpercent
-msgid "Percent"
-msgstr "Percent"
-
-# uintfstrconsts:strrepair
-#: uintfstrconsts:strread
-msgid "Read"
-msgstr "Read"
-
-# uintfstrconsts:strtendertext
-#: uintfstrconsts:strsender
-msgid "Sender"
-msgstr "Sender"
-
-#: uintfstrconsts:strfactor
-msgid "Factor"
-msgstr "Factor"
-
-# uintfstrconsts:strdefaultprinter
-#: uintfstrconsts:strdefault
-msgid "Default"
-msgstr "Default"
-
-# uintfstrconsts:strproduction
-#: uintfstrconsts:strlocation
-msgid "Location"
-msgstr "Location"
-
-# uintfstrconsts:strcreatefolder
-#: uintfstrconsts:strcreatedby
-msgid "Created by"
-msgstr "Created by"
-
-#: uintfstrconsts:strsymbol
-msgid "Symbol"
-msgstr "Symbol"
-
-# uintfstrconsts:strtasks
-#: uintfstrconsts:strmask
-msgid "Mask"
-msgstr "Mask"
-
-# uintfstrconsts:strlogin
-#: uintfstrconsts:strlink
-msgid "Link"
-msgstr "Link"
-
-#: uintfstrconsts:str_end
-msgid "End"
-msgstr "End"
+#: uintfstrconsts:strexitted
+msgid "quitted"
+msgstr "qitted"
 
 # uintfstrconsts:strversion
-#: uintfstrconsts:strextension
-msgid "Extension"
-msgstr "Extension"
-
-# uintfstrconsts:strresolution
 #: uintfstrconsts:strrevision
 msgid "Revision"
 msgstr "Revision"
 
-#: uintfstrconsts:strdecimalsep
-msgid "Decimal separator"
-msgstr "Decimal separator"
-
-#: uintfstrconsts:strthousendssep
-msgid "Thousends separator"
-msgstr "Thousends separator"
-
-# uintfstrconsts:strclose
-#: uintfstrconsts:strcompclose
-msgid "Complementary close"
-msgstr "Complementary close"
-
-# uintfstrconsts:stractive
-#: uintfstrconsts:straction
-msgid "Action"
-msgstr "Action"
-
-# uintfstrconsts:strchange
-#: uintfstrconsts:strchangedby
-msgid "Changed by"
-msgstr "Changed by"
-
-# uintfstrconsts:strtablerows
-#: uintfstrconsts:strtable
-msgid "Table"
-msgstr "Table"
-
-# uintfstrconsts:strfilter
-#: uintfstrconsts:strfield
-msgid "Field"
-msgstr "Field"
-
-# uintfstrconsts:stroptions
-#: uintfstrconsts:stroption
-msgid "Option"
-msgstr "Option"
-
-# uintfstrconsts:strstart
-#: uintfstrconsts:strstdcurrency
-msgid "Standart"
-msgstr "Standart"
-
-# uintfstrconsts:straccounting
-#: uintfstrconsts:straccountno
-msgid "Account Number"
-msgstr "Account Number"
-
-# uintfstrconsts:strtablerows
-#: uintfstrconsts:strtablename
-msgid "Table Name"
-msgstr "Table Name"
-
-#: uintfstrconsts:strincrement
-msgid "Increment"
-msgstr "Increment"
-
-#: uintfstrconsts:strclosingpleasewait
-msgid "Closing ... please wait."
-msgstr "Closing ... please wait."
-
-# uintfstrconsts:strfailedpatchingfile
-#: uintfstrconsts:strerrorimportingcsvfile
-msgid "Error importing CSV File %s"
-msgstr "Error importing CSV File %s"
-
-# uintfstrconsts:strallopen
-#: uintfstrconsts:strdeletewholemessagedir
-msgid "Delete all folder entrys"
-msgstr "Delete all folder entrys"
-
-# uintfstrconsts:strcontact
-#: uintfstrconsts:strcontent
-msgid "Content"
-msgstr "Content"
-
-#: uintfstrconsts:strattatchments
-msgid "Attatchments"
-msgstr "Attatchments"
-
-#: uintfstrconsts:strcc
-msgid "CC"
-msgstr "CC"
-
-# uintfstrconsts:strsubmit
-#: uintfstrconsts:strsubject
-msgid "Subject"
-msgstr "Subject"
-
-#: uintfstrconsts:strinsertnewcontact
-msgid "Insert New Contact ?"
-msgstr "Insert New Contact ?"
-
-#: uintfstrconsts:strmaileditor
-msgid "Mail Editor"
-msgstr "Mail Editor"
-
-# uintfstrconsts:strdefaultprinter
-#: uintfstrconsts:strdeletedmessages
-msgid "Deleted Messages"
-msgstr "Deleted Messages"
-
-# uintfstrconsts:straddtostorage
-#: uintfstrconsts:strsendmessages
-msgid "Sent Messages"
-msgstr "Sent Messages"
-
-#: uintfstrconsts:stractionmessagesend
-msgid "Message Send"
-msgstr "Message Send"
-
-#: uintfstrconsts:strcopymailaddress
-msgid "Copy Mail Address"
-msgstr "Copy Mail Address"
-
-#: uintfstrconsts:strfailedtosendmail
-msgid "Failed to Send Mail !"
-msgstr "Failed to Send Mail !"
-
-#: uintfstrconsts:strfailedtoaddsenderaddress
-msgid "Failed to add Sender Adress !"
-msgstr "Failed to add Sender Adress !"
-
-#: uintfstrconsts:strfailedtoaddreceiveradress
-msgid "Failed to add Receiver Address !"
-msgstr "Failed to add Receiver Address !"
-
-# uintfstrconsts:sctelephone
-#: uintfstrconsts:strtelephone
-msgid "Telephone"
-msgstr "Telephone"
-
-# uintfstrconsts:sctelephone
-#: uintfstrconsts:strtelephony
-msgid "Telephony"
-msgstr "Telephony"
-
-#: uintfstrconsts:strallowedphonelines
-msgid "Allowed Phone Lines"
-msgstr "Allowed Phone Lines"
-
-#: uintfstrconsts:strdocumentmanagement
-msgid "Documentmanagement"
-msgstr "Documentmanagement"
-
-# uintfstrconsts:strtitle
-#: uintfstrconsts:strminutes
-msgid "Minutes"
-msgstr "Minutes"
-
-# uintfstrconsts:strcheckingforrevisions
-#: uintfstrconsts:strcheckformailevery
-msgid "Check for Mail every"
-msgstr "Check for Mail every"
-
-# uintfstrconsts:straddresses
-#: uintfstrconsts:stremailaddress
-msgid "e-Mail Address"
-msgstr "e-Mail Address"
-
-# uintfstrconsts:strseverity
-#: uintfstrconsts:strserver
-msgid "Server"
-msgstr "Server"
-
-# uintfstrconsts:strseverity
-#: uintfstrconsts:strservertype
-msgid "Servertype"
-msgstr "Servertype"
-
-#: uintfstrconsts:strcustomerhasnoaddress
-msgid "Contact has no Address, add one ?"
-msgstr "Contact has no Address, add one ?"
-
-# uintfstrconsts:stractive
-#: uintfstrconsts:strarchive
-msgid "Archive"
-msgstr "Archive"
-
-# uintfstrconsts:strcreatingforms
-#: uintfstrconsts:strsetupforms
-msgid "Setting up forms..."
-msgstr "Setting up forms..."
-
-#: uintfstrconsts:stractionmessagereceived
-msgid "Message received"
-msgstr "Message received"
-
-#: uintfstrconsts:strmessagenotdownloaded
-msgid "The message is not downloaded for security reasons"
-msgstr "The message is not downloaded for security reasons"
-
-#: uintfstrconsts:strdownloadingmessage
-msgid "Downloading message..."
-msgstr "Downloading message..."
-
-#: uintfstrconsts:strmailloginfailed
-msgid "Login failed, server is not answering"
-msgstr "Login failed, server is not answering"
-
-# uintfstrconsts:strpages
-#: uintfstrconsts:strmessages
-msgid "Messages"
-msgstr "Messages"
-
-# uintfstrconsts:strunknownsqldbtype
-#: uintfstrconsts:strunknownmessages
-msgid "Unknown Messages"
-msgstr "Unknown Messages"
-
-#: uintfstrconsts:strspam
-msgid "Spam"
-msgstr "Spam"
-
-#: uintfstrconsts:strreceivingmailsfrom
-msgid "Reciving mails from %s"
-msgstr "Reciving mails from %s"
-
-#: uintfstrconsts:strlogincomplete
-msgid "Login complete ..."
-msgstr "Login complete ..."
-
-#: uintfstrconsts:strrecivingmessagexofx
-msgid "Reciving message %d of %d"
-msgstr "Reciving message %d of %d"
-
-# uintfstrconsts:strnewtransfer
-#: uintfstrconsts:strnewtermin
-msgid "New Termin"
-msgstr "New Termin"
-
-# uintfstrconsts:strpricing
-#: uintfstrconsts:strtermin
-msgid "Termin"
-msgstr "Termin"
-
-# uintfstrconsts:stroperation
-#: uintfstrconsts:strduration
-msgid "Duration"
-msgstr "Duration"
-
-# uintfstrconsts:strcontacttype
-#: uintfstrconsts:strcontactelement
-msgid "Contact element"
-msgstr "Contact element"
-
-# uintfstrconsts:strproject
-#: uintfstrconsts:strprojects
-msgid "Projects"
-msgstr "Projects"
-
-#: uintfstrconsts:strcall
-msgid "Call"
-msgstr "Call"
-
-# uintfstrconsts:strunknownsqldbtype
-#: uintfstrconsts:strunknown
-msgid "Unknown"
-msgstr "Unknown"
-
-# uintfstrconsts:strpricing
-#: uintfstrconsts:strringing
-msgid "Ringing"
-msgstr "Ringing"
-
-# uintfstrconsts:struser
-#: uintfstrconsts:stranswer
-msgid "Answer"
-msgstr "Answer"
-
-# uintfstrconsts:strinwork
-#: uintfstrconsts:strinprogress
-msgid "In Progress"
-msgstr "In Progress"
-
-#: uintfstrconsts:strhangup
-msgid "Hangup"
-msgstr "Hangup"
-
-#: uintfstrconsts:strhold
-msgid "Hold"
-msgstr "Hold"
-
-# uintfstrconsts:strfinish
-#: uintfstrconsts:strfinished
-msgid "Finished"
-msgstr "Finished"
-
-# uintfstrconsts:strcreatingforms
-#: uintfstrconsts:strrouting
-msgid "routing ..."
-msgstr "routing ..."
-
-# uintfstrconsts:strfilter
-#: uintfstrconsts:strfailed
-msgid "Failed"
-msgstr "Failed"
-
-# uintfstrconsts:strcontact
-#: uintfstrconsts:strcontinue
-msgid "Continue"
-msgstr "Continue"
-
-# uintfstrconsts:strpaused
-#: uintfstrconsts:strrefused
-msgid "Refused"
-msgstr "Refused"
-
-#: uintfstrconsts:strbusy
-msgid "Busy"
-msgstr "Busy"
-
-#: uintfstrconsts:strautomaticlogin
-msgid "Login automatically"
-msgstr "Login automatically"
-
-#: uintfstrconsts:strhidelogin
-msgid "Hide splash and login"
-msgstr "Hide splash and login"
-
-#: uintfstrconsts:strmonthview
-msgid "Month view"
-msgstr "Month view"
-
-# uintfstrconsts:strpreview
-#: uintfstrconsts:strweekview
-msgid "Week view"
-msgstr "Week view"
-
-#: uintfstrconsts:strdayview
-msgid "Day view"
-msgstr "Day view"
-
-#: uintfstrconsts:strinvalidlinkid
-msgid "Invalid Link ID"
-msgstr "Invalid Link ID"
-
-#: uintfstrconsts:strcalendar
-msgid "Calendar"
-msgstr "Calendar"
-
-#: uintfstrconsts:strmycalendar
-msgid "My Calendar"
-msgstr "My Calendar"
-
-# uintfstrconsts:straddtoserials
-#: uintfstrconsts:straddserial
-msgid "Add serial"
-msgstr "Add serial"
-
-# uintfstrconsts:strnewsuborder
-#: uintfstrconsts:strordercreated
-msgid "New order created."
-msgstr "New order created."
-
-#: uintfstrconsts:strnovalidcommand
-msgid "You have specified no or no valid command in the Document Actions to execute for this. Valid commands must begin with exec: or mkdir:"
-msgstr "You have specified no or no valid command in the Document Actions to execute for this. Valid commands must begin with exec: or mkdir:"
-
-#: uintfstrconsts:strfailedexecuteprocess
-msgid "Failed to Execute Process: \"%s\" Return Value: %d"
-msgstr "Failed to Execute Process: \"%s\" Return Value: %d"
-
-#: uintfstrconsts:strcantdeletetempdirectory
-msgid "Failed to delete Temp Directory !"
-msgstr "Failed to delete Temp Directory !"
-
-# uintfstrconsts:strlicense
-#: uintfstrconsts:strline
-msgid "Line"
-msgstr "Line"
-
-#: uintfstrconsts:strcompilererror
-msgid "Compiler Errors:"
-msgstr "Compiler Errors:"
-
-#: uintfstrconsts:strruntimeerror
-msgid "Runtime Error:"
-msgstr "Runtime Error:"
-
-#: uintfstrconsts:strnocompilerdata
-msgid "No compiler data"
-msgstr "No compiler data"
-
-#: uintfstrconsts:strerrorgetcompilerdata
-msgid "Cant get Compiler data"
-msgstr "Cant get Compiler data"
-
-#: uintfstrconsts:stramountcannotbe0
-msgid "Please enter an Amount > 0"
-msgstr "Please enter an Amount > 0"
-
-#: uintfstrconsts:strpurposelinetolong
-msgid "One Purpose Line is too Long"
-msgstr "One Purpose Line is too Long"
-
-# uintfstrconsts:strquantity
-#: uintfstrconsts:strquit
-msgid "Quit"
-msgstr "Quit"
-
-#: uintfstrconsts:stractivestartedisnull
-msgid "No Start Time is known for the active Task, no time is notified !"
-msgstr "No Start Time is known for the active Task, no time is notified !"
-
-#: uintfstrconsts:strprocessesleft
-msgid "There are running Tasks (from Documents) please close them bevore you close prometheus"
-msgstr "There are running Tasks (from Documents) please close them bevore you close prometheus"
-
-# uintfstrconsts:strarticlelist
-#: uintfstrconsts:strprocesslist
-msgid "Process List"
-msgstr "Process List"
-
-#: uintfstrconsts:strkill
-msgid "Kill"
-msgstr "Kill"
-
-#: uintfstrconsts:strfrom
-msgid "From"
-msgstr "From"
-
-#: uintfstrconsts:strto
-msgid "To"
-msgstr "To"
-
-#: uintfstrconsts:strwoteanaccounttoimport
-msgid "Select an Account you want to Import, then give it an Name with the Edit Field below."
-msgstr "Select an Account you want to Import, then give it an Name with the Edit Field below."
-
-#: uintfstrconsts:strwoteaccounttype
-msgid "You can select an Accounttype you want to create from the List below."
-msgstr "You can select an Accounttype you want to create from the List below."
-
-#: uintfstrconsts:strimportfintstoolsaccount
-msgid "Import with FinTS Admin created FinTS Tools Account"
-msgstr "Import with FinTS Admin created FinTS Tools Account"
-
-#: uintfstrconsts:strimportmanualaqaccounts
-msgid "Import manual Created AQBanking Account"
-msgstr "Import manual Created AQBanking Account"
-
-# uintfstrconsts:strregister
-#: uintfstrconsts:strreciver
-msgid "Reciver"
-msgstr "Reciver"
-
-# uintfstrconsts:stridcode
-#: uintfstrconsts:strsortcode
-msgid "Sort Code"
-msgstr "Sort Code"
-
-# uintfstrconsts:straccounting
-#: uintfstrconsts:stramount
-msgid "Amount"
-msgstr "Amount"
-
-# uintfstrconsts:strtexttyp
-#: uintfstrconsts:strtextkey
-msgid "Text Key"
-msgstr "Text Key"
-
-# uintfstrconsts:strpause
-#: uintfstrconsts:strpurpose
-msgid "Purpose"
-msgstr "Purpose"
-
-# uintfstrconsts:strpassword
-#: uintfstrconsts:strenterpassword
-msgid "Enter Password"
-msgstr "Enter Password"
-
-# uintfstrconsts:strreadingmandants
-#: uintfstrconsts:straddingjobs
-msgid "Adding Jobs..."
-msgstr "Adding Jobs..."
-
-#: uintfstrconsts:strerrordatabasestructurenotactual
-msgid "Your Database Structure dont match to the Structure expected by this Application, please update this Application or ask your Database Administrator for updating the Database Structure"
-msgstr "Your Database Structure dont match to the Structure expected by this Application, please update this Application or ask your Database Administrator for updating the Database Structure"
-
-# uintfstrconsts:strcreatefolder
-#: uintfstrconsts:strcreatefromtemplate
-msgid "Create from Template"
-msgstr "Create from Template"
-
-# uintfstrconsts:strdelete
-#: uintfstrconsts:strselect
-msgid "Select"
-msgstr "Select"
-
-# uintfstrconsts:strselectreport
-#: uintfstrconsts:strselecttemplate
-msgid "Select Template"
-msgstr "Select Template"
-
-# uintfstrconsts:strmaximize
-#: uintfstrconsts:strtimetoday
-msgid "Time Today"
-msgstr "Time Today"
-
-# uintfstrconsts:strpaused
-#: uintfstrconsts:strpausestoday
-msgid "Pauses Today"
-msgstr "Pauses Today"
-
-#: uintfstrconsts:strcollecttimesautomatic
-msgid "Collect Times automatic"
-msgstr "Collect Times automatic"
-
-# uintfstrconsts:strnewtransfer
-#: uintfstrconsts:strtransfer
-msgid "Transfer"
-msgstr "Transfer"
-
-# uintfstrconsts:strpleasewait
-#: uintfstrconsts:stropenwithcap
-msgid "Open with ..."
-msgstr "Open with ..."
-
-#: uintfstrconsts:strsend
-msgid "Send"
-msgstr "Send"
-
-# uintfstrconsts:strmandant
-#: uintfstrconsts:strdeletenormal
-msgid "Delete normal"
-msgstr "Delete normal"
-
-# uintfstrconsts:strdefaultprinter
-#: uintfstrconsts:strdeletesecure
-msgid "Delete secure"
-msgstr "Delete secure"
-
-# uintfstrconsts:strdeletedod522022
-#: uintfstrconsts:strdeletedod522022
-msgid "Delete secure with DoD 5220.22 Method"
-msgstr "Delete secure with DoD 5220.22 Method"
-
-# uintfstrconsts:stroverride
-#: uintfstrconsts:stroverride
-msgid "Delete with just overriding the data"
-msgstr "Delete with just overriding the data"
-
-# uintfstrconsts:strerrorperformingque
-#: uintfstrconsts:strerrorperformingque
-msgid "One or more errors occour while performing que"
-msgstr "One or more errors occour while performing que"
-
-# uintfstrconsts:strcreatingforms
-#: uintfstrconsts:strwaitingforcard
-msgid "Waiting for Card..."
-msgstr "Waiting for Card..."
-
-# uintfstrconsts:straccountingque
-#: uintfstrconsts:straccountingque
-msgid "Que"
-msgstr "Que"
-
-# uintfstrconsts:strnewtransfer
-#: uintfstrconsts:strnewtransfer
-msgid "New Transfer"
-msgstr "New Transfer"
-
-# uintfstrconsts:straccounting
-#: uintfstrconsts:straccount
-msgid "Account"
-msgstr "Account"
-
-# uintfstrconsts:strthisaccountdontexists
-#: uintfstrconsts:strthisaccountdontexists
-msgid "This account isnt set up on this Mashine, you can not make Transactions to it until you have set it up."
-msgstr "This account isnt set up on this Mashine, you can not make Transactions to it until you have set it up."
-
-# uintfstrconsts:strprogramendedtext
-#: uintfstrconsts:strprogramendedtext
-msgid "The program for File File : \"%s\" seems to ended up, press OK when it has realy ended. If not press OK when it has ended. You can make it default to Dont show this Dialog if this Program is realy ended."
-msgstr "The program for File File : \"%s\" seems to ended up, press OK when it has realy ended. If not press OK when it has ended. You can make it default to Dont show this Dialog if this Program is realy ended."
-
-# uintfstrconsts:strdontshowthisfnp
-#: uintfstrconsts:strdontshowthisfnp
-msgid "Dont show this Dialog again for this Program"
-msgstr "Dont show this Dialog again for this Program"
-
-# uintfstrconsts:strprogramended
-#: uintfstrconsts:strprogramended
-msgid "Program ended"
-msgstr "Program ended"
-
-# uintfstrconsts:strposcalc
-#: uintfstrconsts:strstandartactions
-msgid "Standart actions"
-msgstr "Standart actions"
-
-# uintfstrconsts:strnewarticle
-#: uintfstrconsts:strmakenewarticleactive
-msgid "Make new Article active"
-msgstr "Make new Article active"
-
-# uintfstrconsts:straccounting
-#: uintfstrconsts:straccounts
-msgid "Accounts"
-msgstr "Accounts"
-
-# uintfstrconsts:straccounting
-#: uintfstrconsts:strnewaccount
-msgid "New Account"
-msgstr "New Account"
-
-# uintfstrconsts:strident
-#: uintfstrconsts:stridents
-msgid "Idents"
-msgstr "Idents"
-
-# uintfstrconsts:strshorttext
-#: uintfstrconsts:strshortnames
-msgid "Shortnames"
-msgstr "Shortnames"
-
-# uintfstrconsts:strfull
-#: uintfstrconsts:strfulltext
-msgid "Full Text"
-msgstr "Full Text"
-
-# uintfstrconsts:strcontact
-#: uintfstrconsts:strcontains
-msgid "Contains"
-msgstr "Contains"
-
-# uintfstrconsts:strsearch
-#: uintfstrconsts:strsearchin
-msgid "Search in"
-msgstr "Search in"
-
-# uintfstrconsts:strshorttext
-#: uintfstrconsts:strshortname
-msgid "Shortname"
-msgstr "Shortname"
-
-# uintfstrconsts:strwrongpassword
-#: uintfstrconsts:strresetpassword
-msgid "Reset password"
-msgstr "Reset password"
-
-# uintfstrconsts:strselectprofile
-#: uintfstrconsts:strselectprofile
-msgid "Please select an Profile"
-msgstr "Please select an Profile"
-
-# uintfstrconsts:strenteranmandantname
-#: uintfstrconsts:strenteranmandantname
-msgid "Enter an Name for the New Mandant"
-msgstr "Enter an Name for the New Mandant"
-
-# uintfstrconsts:strlogin
-#: uintfstrconsts:strlog
-msgid "Log"
-msgstr "Log"
-
-# uintfstrconsts:strproperties
-#: uintfstrconsts:strprofile
-msgid "Profile"
-msgstr "Profile"
-
-# uintfstrconsts:struser
-#: uintfstrconsts:strfilename
-msgid "Filename"
-msgstr "Filename"
-
-# uintfstrconsts:strmaximize
-#: uintfstrconsts:strmimetype
-msgid "Mime Type"
-msgstr "Mime Type"
-
-# uintfstrconsts:strsize
-#: uintfstrconsts:strsize
-msgid "Size"
-msgstr "Size"
-
-# uintfstrconsts:strchange
-#: uintfstrconsts:strlastchanged
-msgid "Last changed"
-msgstr "Last changed"
-
-# uintfstrconsts:strimportfromclipboard
-#: uintfstrconsts:strimportfromclipboard
-msgid "Import from clipboard"
-msgstr "Import from clipboard"
-
-# uintfstrconsts:strshowform
-#: uintfstrconsts:strshowform
-msgid "Show Window"
-msgstr "Show Window"
-
-# uintfstrconsts:strhideform
-#: uintfstrconsts:strhideform
-msgid "Hide Window"
-msgstr "Hide Window"
-
-# uintfstrconsts:strresolution
-#: uintfstrconsts:strpersonaloptions
-msgid "Personal Options"
-msgstr "Personal Options"
-
-# uintfstrconsts:strnewdir
-#: uintfstrconsts:strtempdirectory
-msgid "Temp directory"
-msgstr "Temp directory"
-
-# uintfstrconsts:strcopyprices
-#: uintfstrconsts:strcopies
-msgid "Copies"
-msgstr "Copies"
-
-# uintfstrconsts:strdue
-#: uintfstrconsts:strdue
-msgid "Due"
-msgstr "Due"
-
-# uintfstrconsts:strprinter
-#: uintfstrconsts:strpriority
-msgid "Priority"
-msgstr "Priority"
-
-# uintfstrconsts:strpricing
-#: uintfstrconsts:strtiming
-msgid "Timing"
-msgstr "Timing"
-
-# uintfstrconsts:strposcalc
-#: uintfstrconsts:strcalcdate
-msgid "Calculated Date"
-msgstr "Calculated Date"
-
-# uintfstrconsts:strtime
-#: uintfstrconsts:strusedtime
-msgid "Used Time"
-msgstr "Used Time"
-
-# uintfstrconsts:strcheckindate
-#: uintfstrconsts:strchecked
-msgid "Checked"
-msgstr "Checked"
-
-# uintfstrconsts:strnotice
-#: uintfstrconsts:strnotes
-msgid "Notes"
-msgstr "Notes"
-
-# uintfstrconsts:strallclosed
-#: uintfstrconsts:strshowcompletedentrys
-msgid "Show completed entrys"
-msgstr "Show completed entrys"
-
-# uintfstrconsts:strtasks
-#: uintfstrconsts:strtask
-msgid "Task"
-msgstr "Task"
-
-# uintfstrconsts:strdescription
-#: uintfstrconsts:strchangedescription
-msgid "Change description"
-msgstr "Change description"
-
-# uintfstrconsts:strchanges
-#: uintfstrconsts:strchangedfiles
-msgid "Changed Files"
-msgstr "Changed Files"
-
-# uintfstrconsts:strdocuments
-#: uintfstrconsts:strdocumentcheckin
-msgid "Checkin Document(s)"
-msgstr "Checkin Document(s)"
-
-# uintfstrconsts:strfailedcreatingdiff
-#: uintfstrconsts:strfailedcreatingdiff
-msgid "Failed creatting Diff of File %s"
-msgstr "Failed creatting Diff of File %s"
-
-# uintfstrconsts:strcheckingforrevisions
-#: uintfstrconsts:strcheckingforchangedfiles
-msgid "Checking for changed files"
-msgstr "Checking for changed files"
-
-# uintfstrconsts:strcheckindate
-#: uintfstrconsts:strcheckingoutfile
-msgid "Checkig out %s"
-msgstr "Checkig out %s"
-
-# uintfstrconsts:strcheckindate
-#: uintfstrconsts:strdocheckinfile
-msgid "Checkig in %s"
-msgstr "Checkig in %s"
-
-# uintfstrconsts:strdifftooldontexists
-#: uintfstrconsts:strdifftooldontexists
-msgid "Diff Tool dont exists, not Checkins possible."
-msgstr "Diff Tool dont exists, not Checkins possible."
-
-# uintfstrconsts:strfileextdesc
-#: uintfstrconsts:strfileextdesc
-msgid ".%s File"
-msgstr ".%s File"
-
-# uintfstrconsts:strcommon
-#: uintfstrconsts:strcommand
-msgid "Command"
-msgstr "Command"
-
-# uintfstrconsts:strfilter
-#: uintfstrconsts:strfile
-msgid "File"
-msgstr "File"
-
-# uintfstrconsts:stradddocumentoptions
-#: uintfstrconsts:strdocumentactions
-msgid "Document Actions"
-msgstr "Document Actions"
-
-# uintfstrconsts:strcheckoutcompletedir
-#: uintfstrconsts:strcheckoutcompletedir
-msgid "Checkout complete dir"
-msgstr "Checkout complete dir"
-
-# uintfstrconsts:struseserial
-#: uintfstrconsts:strusespecialaction
-msgid "Use special action"
-msgstr "Use special action"
-
-# uintfstrconsts:strusestandardaction
-#: uintfstrconsts:strusestandardaction
-msgid "Use standard action"
-msgstr "Use standard action"
-
-# uintfstrconsts:strcheckindate
-#: uintfstrconsts:strcheckinalsonewfiles
-msgid "Checkin also new files"
-msgstr "Checkin also new files"
-
-# uintfstrconsts:strinitialisingpim
-#: uintfstrconsts:strinitialisingpim
-msgid "Initialising PIM..."
-msgstr "Initialising PIM..."
-
-# uintfstrconsts:strinitialisingorders
-#: uintfstrconsts:strinitialisingorders
-msgid "Initialising Orders..."
-msgstr "Initialising Ordermanagement..."
-
-# uintfstrconsts:strinitialisingcustomers
-#: uintfstrconsts:strinitialisingcustomers
-msgid "Initialising Contacts..."
-msgstr "Initialising Contacts..."
-
-# uintfstrconsts:strinitialisingmasterdata
-#: uintfstrconsts:strinitialisingmasterdata
-msgid "Initialising Masterdata..."
-msgstr "Initialising Masterdatamanagement..."
-
-# uintfstrconsts:strinitialisingtimeregistering
-#: uintfstrconsts:strinitialisingtimeregistering
-msgid "Initialising Timeregistering..."
-msgstr "Initialising Timeregistering..."
-
-# uintfstrconsts:strno
-#: uintfstrconsts:strpriority6
-msgid "Now"
-msgstr "Now"
-
-# uintfstrconsts:strpriority5
-#: uintfstrconsts:strpriority5
-msgid "Higher"
-msgstr "Higher"
-
-# uintfstrconsts:strpriority4
-#: uintfstrconsts:strpriority4
-msgid "High"
-msgstr "High"
-
-# uintfstrconsts:strnormaltime
-#: uintfstrconsts:strpriority3
-msgid "Normal"
-msgstr "Normal"
-
-# uintfstrconsts:strpriority2
-#: uintfstrconsts:strpriority2
-msgid "Low"
-msgstr "Low"
-
-# uintfstrconsts:strpriority1
-#: uintfstrconsts:strpriority1
-msgid "Lower"
-msgstr "Lower"
-
-# uintfstrconsts:strdone
-#: uintfstrconsts:strpriority0
-msgid "None"
-msgstr "None"
-
-# uintfstrconsts:strtasks
-#: uintfstrconsts:strmytasks
-msgid "My Tasks"
-msgstr "My Tasks"
-
-# uintfstrconsts:strnotinwork
-#: uintfstrconsts:strnotinwork
-msgid "Not begon"
-msgstr "Not begon"
-
-# uintfstrconsts:strinwork
-#: uintfstrconsts:strinwork
-msgid "In progress"
-msgstr "In progress"
-
-# uintfstrconsts:strcompleted
-#: uintfstrconsts:strcompleted
-msgid "Completed"
-msgstr "Completed"
-
-# uintfstrconsts:struserdefinedfields
-#: uintfstrconsts:struserdefinedfields
-msgid "User defined fields"
-msgstr "User defined fields"
-
-# uintfstrconsts:strrestartnessesary
-#: uintfstrconsts:strrestartnessesary
-msgid "To make changes effect you must restart the client"
-msgstr "To make changes effect you must restart the client"
-
-# uintfstrconsts:straddfolder
-#: uintfstrconsts:straddfilter
-msgid "Add filter"
-msgstr "Add filter"
-
-# uintfstrconsts:strdefaultprinter
-#: uintfstrconsts:strdeletefilter
-msgid "Delete filter"
-msgstr "Delete filter"
-
-# uintfstrconsts:strtablerows
-#: uintfstrconsts:strtablerows
-msgid "Table rows"
-msgstr "Table rows"
-
-# uintfstrconsts:strview
-#: uintfstrconsts:strviewrows
-msgid "View rows"
-msgstr "View rows"
-
-# uintfstrconsts:strroweditor
-#: uintfstrconsts:strroweditor
-msgid "Row editor"
-msgstr "Row editor"
-
-# uintfstrconsts:strentertime
-#: uintfstrconsts:strentertime
-msgid "Begin Timeregistering with this entry"
-msgstr "Begin Timeregistering with this entry"
-
-# uintfstrconsts:strdefaultprinter
-#: uintfstrconsts:strdefaultpostyp
-msgid "Default position type"
-msgstr "Default position type"
-
-# uintfstrconsts:strselectreport
-#: uintfstrconsts:strselectreport
-msgid "Select report"
-msgstr "Select report"
-
-# uintfstrconsts:strupdatingfile
-#: uintfstrconsts:stropeningtable
-msgid "Opening Table %s"
-msgstr "Opening Table %s"
-
-# uintfstrconsts:strcheckindate
-#: uintfstrconsts:strcheckingtable
-msgid "Checking Table %s"
-msgstr "Checking Table %s"
-
-# uintfstrconsts:strassigntotree
-#: uintfstrconsts:strassigntotree
-msgid "Assign item to the selected Directory in Tree"
-msgstr "Assign item to the selected Directory in Tree"
-
-# uintfstrconsts:strfirst
-#: uintfstrconsts:strfirst
-msgid "First"
-msgstr "First"
-
-# uintfstrconsts:strprinter
-#: uintfstrconsts:strprior
-msgid "Prior"
-msgstr "Prior"
-
-# uintfstrconsts:strlast
-#: uintfstrconsts:strlast
-msgid "Last"
-msgstr "Last"
-
-# uintfstrconsts:strshowtreeentry
-#: uintfstrconsts:strshowtreeentry
-msgid "Show Entry in Tree"
-msgstr "Show Entry in Tree"
-
-# uintfstrconsts:strassigntree
-#: uintfstrconsts:strassigntree
-msgid "Use selected Item from Tree"
-msgstr "Use selected Item from Tree"
-
-# uintfstrconsts:strshowlist
-#: uintfstrconsts:strshowlist
-msgid "Show List"
-msgstr "Show List"
-
-# uintfstrconsts:strdetails
-#: uintfstrconsts:strshowdetails
-msgid "Show Details"
-msgstr "Show Details"
-
-# uintfstrconsts:strregistertext
-#: uintfstrconsts:strregistertext
-msgid "Please call the Vendor and tell hin this Number to get your registration key"
-msgstr "Please call the Vendor and tell hin this Number to get your registration key"
-
-# uintfstrconsts:strmashineid
-#: uintfstrconsts:strmashineid
-msgid "Mashine ID"
-msgstr "Mashine ID"
-
-# uintfstrconsts:strregistered
-#: uintfstrconsts:strregisterkey
-msgid "Register key"
-msgstr "Register key"
-
-# uintfstrconsts:strnumber
-#: uintfstrconsts:strnumberset
-msgid "Numberset"
-msgstr "Numberset"
-
-# uintfstrconsts:strsave
-#: uintfstrconsts:strsave
-msgid "Save"
-msgstr "Save"
-
-# uintfstrconsts:strposcalc
-#: uintfstrconsts:strsatutation
-msgid "Satutation"
-msgstr "Satutation"
-
-# uintfstrconsts:struser
-#: uintfstrconsts:strusername
-msgid "Username"
-msgstr "Username"
-
-# uintfstrconsts:stridcode
-#: uintfstrconsts:stridcode
-msgid "ID Code"
-msgstr "ID Code"
-
-# uintfstrconsts:stremployees
-#: uintfstrconsts:stremploymentdate
-msgid "Employment Date"
-msgstr "Employment Date"
-
-# uintfstrconsts:strdepartment
-#: uintfstrconsts:strdepartment
-msgid "Department"
-msgstr "Department"
+#: uintfstrconsts:strfavourites
+msgid "Favoriten"
+msgstr "Favorites"
 
 # uintfstrconsts:strposition
-#: uintfstrconsts:strposition
-msgid "Position"
-msgstr "Position"
-
-# uintfstrconsts:strleavedate
-#: uintfstrconsts:strleavedate
-msgid "Leave date"
-msgstr "Leave date"
-
-# uintfstrconsts:strrights
-#: uintfstrconsts:strrights
-msgid "Rights"
-msgstr "Rights"
-
-# uintfstrconsts:strdatabasetype
-#: uintfstrconsts:strdatabase
-msgid "Database"
-msgstr "Database"
-
-# uintfstrconsts:struser
-#: uintfstrconsts:strusers
-msgid "Users"
-msgstr "Users"
-
-# uintfstrconsts:strnumber
-#: uintfstrconsts:strnumbersets
-msgid "Numbersets"
-msgstr "Numbersets"
-
-# uintfstrconsts:strlanguage
-#: uintfstrconsts:strlanguages
-msgid "Languages"
-msgstr "Languages"
-
-# uintfstrconsts:strdateformat
-#: uintfstrconsts:strdateformat
-msgid "Dateformat"
-msgstr "Dateformat"
-
-# uintfstrconsts:strtitle
-#: uintfstrconsts:strtitles
-msgid "Titles"
-msgstr "Titles"
-
-# uintfstrconsts:strtimeformat
-#: uintfstrconsts:strtimeformat
-msgid "Timeformat"
-msgstr "Timeformat"
-
-# uintfstrconsts:strprotocol
-#: uintfstrconsts:strprotocol
-msgid "Protocol"
-msgstr "Protocol"
-
-# uintfstrconsts:strmatch
-#: uintfstrconsts:strpath
-msgid "Path"
-msgstr "Path"
-
-# uintfstrconsts:strcrm
-#: uintfstrconsts:strcrm
-msgid "CRM"
-msgstr "CRM"
-
-# uintfstrconsts:strbanking
-#: uintfstrconsts:strbankingaccounts
-msgid "Bank accounts"
-msgstr "Bank accounts"
-
-# uintfstrconsts:stradministrativedata
-#: uintfstrconsts:stradministrativedata
-msgid "Administrative data"
-msgstr "Administrative data"
-
-# uintfstrconsts:strfinancial
-#: uintfstrconsts:strfinancialaccounts
-msgid "Financial Accounts"
-msgstr "Financial Accounts"
-
-# uintfstrconsts:strstop
-#: uintfstrconsts:strstock
-msgid "Stock"
-msgstr "Stock"
-
-# uintfstrconsts:strmasterdata
-#: uintfstrconsts:strmasterdatabase
-msgid "Masterdatabase"
-msgstr "Masterdatabase"
-
-# uintfstrconsts:strpim
-#: uintfstrconsts:strpim
-msgid "PIM"
-msgstr "PIM"
-
-# uintfstrconsts:strcustomers
-#: uintfstrconsts:strcustomerlist
-msgid "Customerlist"
-msgstr "Customerlist"
-
-# uintfstrconsts:strcustomers
-#: uintfstrconsts:strnewcustomer
-msgid "New Customer"
-msgstr "New Customer"
-
-# uintfstrconsts:strdiscont
-#: uintfstrconsts:strdiscontgroup
-msgid "Discontgroup"
-msgstr "Discontgroup"
-
-# uintfstrconsts:strbanking
-#: uintfstrconsts:strbanking
-msgid "Banking"
-msgstr "Banking"
-
-# uintfstrconsts:strwishdate
-#: uintfstrconsts:strwishdate
-msgid "Wishdate"
-msgstr "Wishdate"
-
-# uintfstrconsts:strapproved
-#: uintfstrconsts:strapproved
-msgid "Approved"
-msgstr "Approved"
-
-# uintfstrconsts:strrequest
-#: uintfstrconsts:strrequest
-msgid "Request"
-msgstr "Request"
-
-# uintfstrconsts:stronlyactivearticles
-#: uintfstrconsts:stronlyactivearticles
-msgid "Only active articles"
-msgstr "Only active articles"
-
-# uintfstrconsts:strrepair
-#: uintfstrconsts:strrepair
-msgid "Repair"
-msgstr "Repair"
-
-# uintfstrconsts:strfailedcreatingdatabase
-#: uintfstrconsts:strfailedcreatingdatabase
-msgid "Failed to create Database"
-msgstr "Failed to create Database"
-
-# uintfstrconsts:strcheckandcorrectdbfailed
-#: uintfstrconsts:strcheckandcorrectdbfailed
-msgid "Database check failed for Mandant : %s"
-msgstr "Database check failed for Mandant : %s"
-
-# uintfstrconsts:strwizardnewmandant
-#: uintfstrconsts:strwizardnewmandant
-msgid "Wizard New Mandant"
-msgstr "Wizard New Mandant"
-
-# uintfstrconsts:stryoumustselectanmandant
-#: uintfstrconsts:stryoumustselectanmandant
-msgid "Please select an Mandant bevor you try to delee him !"
-msgstr "Please select an Mandant bevor you try to delee him !"
-
-# uintfstrconsts:stryoumustlogoutbevordothat
-#: uintfstrconsts:stryoumustlogoutbevordothat
-msgid "You must logout bevor you can do this !"
-msgstr "You must logout bevor you can do this !"
-
-# uintfstrconsts:strmandant
-#: uintfstrconsts:strnewmandant
-msgid "New Mandant"
-msgstr "New Mandant"
-
-# uintfstrconsts:strmandant
-#: uintfstrconsts:strdeletemandant
-msgid "Delete Mandant"
-msgstr "Delete Mandant"
-
-# uintfstrconsts:strselectdatabasetype
-#: uintfstrconsts:strselectdatabasetype
-msgid "Select an databasetype you want to use. Then press Next."
-msgstr "Select an databasetype you want to use. Then press Next."
-
-# uintfstrconsts:strdatabasetype
-#: uintfstrconsts:strdatabasetype
-msgid "Databasetype"
-msgstr "Databasetype"
-
-# uintfstrconsts:strdbase
-#: uintfstrconsts:strdbase
-msgid "DBase Database"
-msgstr "DBase Database"
-
-# uintfstrconsts:strsqldatabase
-#: uintfstrconsts:strsqldatabase
-msgid "SQL based Database"
-msgstr "SQL based Database"
-
-# uintfstrconsts:strsqldatabase
-#: uintfstrconsts:strsqlitedatabase
-msgid "SQLite based Database"
-msgstr "SQLite based Database"
-
-# uintfstrconsts:strselectdatabasedir
-#: uintfstrconsts:strselectdatabasedir
-msgid "Select an Directory where the Database is located or schould be created with the Editfield below. Then press Next."
-msgstr "Select an Directory where the Database is located or schould be created with the Editfield below. Then press Next."
-
-# uintfstrconsts:strdatabasedirectory
-#: uintfstrconsts:strdatabasedirectory
-msgid "Databasedirectory"
-msgstr "Databasedirectory"
-
-# uintfstrconsts:strnewmandant1
-#: uintfstrconsts:strnewmandant1
-msgid "With this wizard, you can create an new mandant. below you can select the working language for the mandant and have to enter an name for the mandant. Then press Next."
-msgstr "With this wizard, you can create an new mandant. below you can select the working language for the mandant and have to enter an name for the mandant. Then press Next."
-
-# uintfstrconsts:strnewsuborder
-#: uintfstrconsts:strnewsuborder
-msgid "New Suborder Created"
-msgstr "New Suborder Created"
-
-# uintfstrconsts:strnosupplierselected
-#: uintfstrconsts:strnoordertypeselected
-msgid "No ordertype selected !"
-msgstr "No ordertype selected !"
-
-# uintfstrconsts:strchanges
-#: uintfstrconsts:strchangestatus
-msgid "Change Status"
-msgstr "Change Status"
-
-# uintfstrconsts:strstatuschanged
-#: uintfstrconsts:strstatuschanged
-msgid "Status changed to %s"
-msgstr "Status changed to %s"
-
-# uintfstrconsts:strordertochange
-#: uintfstrconsts:strordertochange
-msgid "Order %s %s will be"
-msgstr "Order %s %s will be"
-
-# uintfstrconsts:strchange
-#: uintfstrconsts:strchangein
-msgid "changed in"
-msgstr "changed in"
-
-# uintfstrconsts:strderivates
-#: uintfstrconsts:strderivate
-msgid "derivated to"
-msgstr "derivated to"
-
-# uintfstrconsts:strchangeorderin
-#: uintfstrconsts:strchangeorderin
-msgid "%s %s is this correct ?."
-msgstr "%s %s is this correct ?."
-
-# uintfstrconsts:strreadingmandants
-#: uintfstrconsts:strreadingoptions
-msgid "Reading options ..."
-msgstr "Reading options ..."
-
-# uintfstrconsts:strreadingmandants
-#: uintfstrconsts:strreadingmandant
-msgid "Reading mandant %s ..."
-msgstr "Reading mandant %s ..."
-
-# uintfstrconsts:strcheckingforupdate
-#: uintfstrconsts:strcheckingdatabase
-msgid "Checking database ..."
-msgstr "Checking database ..."
-
-# uintfstrconsts:strsaveas
-#: uintfstrconsts:strsaveas
-msgid "Save As ..."
-msgstr "Save As ..."
-
-# uintfstrconsts:straddtostorage
-#: uintfstrconsts:straddtomessages
-msgid "Add to messages"
-msgstr "Add to messages"
-
-# uintfstrconsts:strdocuments
-#: uintfstrconsts:stractiondocumentremoved
-msgid "Document removed %s"
-msgstr "Document removed %s"
-
-# uintfstrconsts:strdocuments
-#: uintfstrconsts:stractiondocumentadded
-msgid "Document added %s"
-msgstr "Document added %s"
-
-# uintfstrconsts:stredit
-#: uintfstrconsts:stredited
-msgid "Edited"
-msgstr "Edited"
-
-# uintfstrconsts:strorderactionadded
-#: uintfstrconsts:strorderactionpost
-msgid "Order as %s posted"
-msgstr "Order as %s posted"
-
-# uintfstrconsts:straddserialtoarticle
-#: uintfstrconsts:straddserialtoarticle
-msgid "Please select Serial for %s Version %s Name %s"
-msgstr "Please select Serial for %s Version %s Name %s"
-
-# uintfstrconsts:strnooutput
-#: uintfstrconsts:strnooutput
-msgid "No Output"
-msgstr "No Output"
-
-# uintfstrconsts:strstatusnotfound
-#: uintfstrconsts:strstatusnotfound
-msgid "The selected Status wasnt found !"
-msgstr "The selected Status wasnt found !"
-
-# uintfstrconsts:strnumbersetnotfound
-#: uintfstrconsts:strnumbersetnotfound
-msgid "The selected Numberset wasnt found !"
-msgstr "The selected Numberset wasnt found !"
-
-# uintfstrconsts:straddserialtoarticle
-#: uintfstrconsts:strselectanstorage
-msgid "Please select an Storage for the Article %s Version %s Name %s"
-msgstr "Please select an Storage for the Article %s Version %s Name %s"
-
-# uintfstrconsts:strscannext
-#: uintfstrconsts:strscannext
-msgid "Scan next"
-msgstr "Scan next"
-
-# uintfstrconsts:strnewimage
-#: uintfstrconsts:strnewimage
-msgid "New Image"
-msgstr "New Image"
-
-# uintfstrconsts:strresolution
-#: uintfstrconsts:strresolution
-msgid "Resolution"
-msgstr "Resolution"
-
-# uintfstrconsts:stracquire
-#: uintfstrconsts:stracquire
-msgid "Acquire"
-msgstr "Acquire"
-
-# uintfstrconsts:strpreview
-#: uintfstrconsts:strdevice
-msgid "Device"
-msgstr "Device"
-
-# uintfstrconsts:strpreview
-#: uintfstrconsts:strpreviewscan
-msgid "Preview Scan"
-msgstr "Preview Scan"
-
-# uintfstrconsts:strscan
-#: uintfstrconsts:strscan
-msgid "Scan"
-msgstr "Scan"
-
-# uintfstrconsts:strcloseanduse
-#: uintfstrconsts:strcloseanduse
-msgid "Close and Use"
-msgstr "Close and Use"
-
-# uintfstrconsts:strdelivered
-#: uintfstrconsts:strdelivertime
-msgid "Delivertime"
-msgstr "Delivertime"
-
-# uintfstrconsts:strarticlenumber
-#: uintfstrconsts:strarticlenrsupplier
-msgid "Article Nr. Supplier"
-msgstr "Article Nr. Supplier"
-
-# uintfstrconsts:strtransportsupplier
-#: uintfstrconsts:strtransportsupplier
-msgid "Transport"
-msgstr "Transport"
-
-# uintfstrconsts:strcostcentre
-#: uintfstrconsts:strcostcentre
-msgid "Cost centre"
-msgstr "Cost centre"
-
-# uintfstrconsts:straccounting
-#: uintfstrconsts:straccountingkonto
-msgid "Accounting konto"
-msgstr "Accounting konto"
-
-# uintfstrconsts:stractive
-#: uintfstrconsts:stractive
-msgid "Active"
-msgstr "Active"
-
-# uintfstrconsts:strproperties
-#: uintfstrconsts:strprices
-msgid "Prices"
-msgstr "Prices"
-
-# uintfstrconsts:strstreet
-#: uintfstrconsts:strstorage
-msgid "Storage"
-msgstr "Storage"
-
-# uintfstrconsts:stryoumustlogoutbevorlogin
-#: uintfstrconsts:stryoumustlogoutbevorlogin
-msgid "You must logout from active Session bevor you can login to another !"
-msgstr "You must logout from active Session bevor you can login to another !"
-
-# uintfstrconsts:strproperties
-#: uintfstrconsts:strproperties
-msgid "Properties"
-msgstr "Properties"
-
-# uintfstrconsts:strcheckouttorevision
-#: uintfstrconsts:strcheckouttorevision
-msgid "Checkout to revision"
-msgstr "Checkout to revision"
-
-# uintfstrconsts:strcreatefolder
-#: uintfstrconsts:strcreatefolder
-msgid "Create folder"
-msgstr "Create folder"
-
-# uintfstrconsts:strview
-#: uintfstrconsts:strview
-msgid "View"
-msgstr "View"
-
-# uintfstrconsts:stredit
-#: uintfstrconsts:stredit
-msgid "Edit"
-msgstr "Edit"
-
-# uintfstrconsts:stropenwith
-#: uintfstrconsts:stropenwith
-msgid "Command to execute %s will be replaced by filename"
-msgstr "Command to execute %s will be replaced by filename"
-
-# uintfstrconsts:strminetypesdescription
-#: uintfstrconsts:strminetypesdescription
-msgid "Below you find all supported Mime Types select an type that is already there and the actual extension will be added to its extensions"
-msgstr "Below you find all supported Mime Types select an type that is already there and the actual extension will be added to its extensions"
-
-# uintfstrconsts:stradddocumentoptions
-#: uintfstrconsts:stradddocumentoptions
-msgid "Add Document Options"
-msgstr "Add Document Options"
-
-# uintfstrconsts:strcheckindate
-#: uintfstrconsts:strcheckindate
-msgid "Checkin date"
-msgstr "Checkin date"
-
-# uintfstrconsts:strdeletefromfilesystem
-#: uintfstrconsts:strdeletefromfilesystem
-msgid "Delete from harddisk"
-msgstr "Delete from harddisk"
-
-# uintfstrconsts:strnewfolder
-#: uintfstrconsts:strnewfolder
-msgid "New Folder"
-msgstr "New Folder"
-
-# uintfstrconsts:stradddocument
-#: uintfstrconsts:stradddocument
-msgid "Add document"
-msgstr "Add document"
-
-# uintfstrconsts:straddfolder
-#: uintfstrconsts:straddfolder
-msgid "Add folder"
-msgstr "Add folder"
-
-# uintfstrconsts:strfilternotfound
-#: uintfstrconsts:strfilternotfound
-msgid "Filter not found !"
-msgstr "Filter not found !"
-
-# uintfstrconsts:strcopy
-#: uintfstrconsts:strcopy
-msgid "Copy"
-msgstr "Copy"
-
-# uintfstrconsts:strcopytexts
-#: uintfstrconsts:strcopytexts
-msgid "Copy texts"
-msgstr "Copy texts"
-
-# uintfstrconsts:strcopyproperties
-#: uintfstrconsts:strcopyproperties
-msgid "Copy properties"
-msgstr "Copy properties"
-
-# uintfstrconsts:strcopyprices
-#: uintfstrconsts:strcopyprices
-msgid "Copy prices"
-msgstr "Copy prices"
-
-# uintfstrconsts:strcopysupplier
-#: uintfstrconsts:strcopysupplier
-msgid "Copy supplier"
-msgstr "Copy supplier"
-
-# uintfstrconsts:strfeaturesfornewarticleversion
-#: uintfstrconsts:strfeaturesfornewarticleversion
-msgid "Select the features for the new article version"
-msgstr "Select the features for the new article version"
-
-# uintfstrconsts:strfreeversionlimitsexceed
-#: uintfstrconsts:strtrialversionlimitsexceed
-msgid "The limits of the trial version has exceed please contact the vendor !"
-msgstr "The limits of the trial version has exceed please contact the vendor !"
-
-# uintfstrconsts:strfreeversionlimitsexceed
-#: uintfstrconsts:strfreeversionlimitsexceed
-msgid "The limits of the free version has exceed please contact the vendor !"
-msgstr "The limits of the free version has exceed please contact the vendor !"
-
-# uintfstrconsts:strnotregistered
-#: uintfstrconsts:strnotregistered
-msgid "Not registered"
-msgstr "Not registered"
-
-# uintfstrconsts:strregistered
-#: uintfstrconsts:strregistered
-msgid "Registered"
-msgstr "Registered"
-
-# uintfstrconsts:stroperation
-#: uintfstrconsts:stroperation
-msgid "Operation"
-msgstr "Operation"
-
-# uintfstrconsts:strregister
-#: uintfstrconsts:strregister
-msgid "Register"
-msgstr "Register"
-
-# uintfstrconsts:strreregister
-#: uintfstrconsts:strreregister
-msgid "Register again"
-msgstr "Register again"
-
-# uintfstrconsts:strfoundproblems
-#: uintfstrconsts:strfoundproblems
-msgid "Found problems"
-msgstr "Found problems"
-
-# uintfstrconsts:strerrordescription
-#: uintfstrconsts:strerrordescription
-msgid "Errordescription"
-msgstr "Errordescription"
-
-# uintfstrconsts:strnotesforcustomer
-#: uintfstrconsts:strnotesforcustomer
-msgid "Notes for customer"
-msgstr "Notes for customer"
-
-# uintfstrconsts:strinternalnotes
-#: uintfstrconsts:strinternalnotes
-msgid "Internal notes"
-msgstr "Internal notes"
-
-# uintfstrconsts:strserial
-#: uintfstrconsts:strserial
-msgid "Serial"
-msgstr "Serial"
-
-# uintfstrconsts:strident
-#: uintfstrconsts:strident
-msgid "Ident"
-msgstr "Ident"
-
-# uintfstrconsts:strposno
-#: uintfstrconsts:strposno
-msgid "Pos.No."
-msgstr "Pos.No."
-
-# uintfstrconsts:strtenderpos
-#: uintfstrconsts:strtenderpos
-msgid "Tender Pos."
-msgstr "Tender Pos."
-
-# uintfstrconsts:strtexttyp
-#: uintfstrconsts:strtexttyp
-msgid "Texttyp"
-msgstr "Texttyp"
-
-# uintfstrconsts:strdelivered
-#: uintfstrconsts:strdelivered
-msgid "Delivered"
-msgstr "Delivered"
-
-# uintfstrconsts:strnoaccesstoprogramdir
-#: uintfstrconsts:strnoaccesstoprogramdir
-msgid "The program directory is not writable, the online-update is disabled for this user !"
-msgstr "The program directory is not writable, the online-update is disabled for this user !"
-
-# uintfstrconsts:strsearchtext
-#: uintfstrconsts:strsearchtext
-msgid "Searchtext"
-msgstr "Searchtext"
-
-# uintfstrconsts:strbuyprice
-#: uintfstrconsts:strbuyprice
-msgid "Buyprice"
-msgstr "Buyprice"
-
-# uintfstrconsts:strsellprice
-#: uintfstrconsts:strsellprice
-msgid "Sellprice"
-msgstr "Sellprice"
-
-# uintfstrconsts:strquantity
-#: uintfstrconsts:strquantity
-msgid "Quantity"
-msgstr "Quantity"
-
-# uintfstrconsts:strdiscont
-#: uintfstrconsts:strdiscont
-msgid "Discont"
-msgstr "Discont"
-
-# uintfstrconsts:strpositionprice
-#: uintfstrconsts:strpositionprice
-msgid "Positionprice"
-msgstr "Positionprice"
-
-# uintfstrconsts:strwholeprice
-#: uintfstrconsts:strwholeprice
-msgid "Whole price"
-msgstr "Whole price"
-
-# uintfstrconsts:strcommonprice
-#: uintfstrconsts:strcommonprice
-msgid "Common price"
-msgstr "Common price"
-
-# uintfstrconsts:strsellprices
-#: uintfstrconsts:strsellprices
-msgid "Sellprices"
-msgstr "Sellprices"
-
-# uintfstrconsts:strpaymenttarget
-#: uintfstrconsts:strpaymenttarget
-msgid "Paymenttarget"
-msgstr "Paymenttarget"
-
-# uintfstrconsts:strpaymenttarget
-#: uintfstrconsts:strpaymenttargets
-msgid "Paymenttargets"
-msgstr "Paymenttargets"
-
-# uintfstrconsts:strnet
-#: uintfstrconsts:strnet
-msgid "Net"
-msgstr "Net"
-
-# uintfstrconsts:strgross
-#: uintfstrconsts:strgross
-msgid "Gross"
-msgstr "Gross"
-
-# uintfstrconsts:strcurrency
-#: uintfstrconsts:strcurrency
-msgid "Currency"
-msgstr "Currency"
-
-# uintfstrconsts:strnumber
-#: uintfstrconsts:strnumber
-msgid "Number"
-msgstr "Number"
-
-# uintfstrconsts:strordernumber
-#: uintfstrconsts:strordernumber
-msgid "Order number"
-msgstr "Order number"
-
-# uintfstrconsts:straddresses
-#: uintfstrconsts:straddresses
-msgid "Addresses"
-msgstr "Addresses"
-
-# uintfstrconsts:strpositions
 #: uintfstrconsts:strpositions
-msgid "Positions"
+msgid "Positionen"
 msgstr "Positions"
 
-# uintfstrconsts:strdetails
-#: uintfstrconsts:strdetails
-msgid "Details"
-msgstr "Details"
-
-# uintfstrconsts:strposcalc
-#: uintfstrconsts:strposcalc
-msgid "Calculation"
-msgstr "Calculation"
-
-# uintfstrconsts:strdates
-#: uintfstrconsts:strdates
-msgid "Dates"
-msgstr "Dates"
-
-# uintfstrconsts:strdocuments
-#: uintfstrconsts:strdocuments
-msgid "Documents"
-msgstr "Documents"
-
-# uintfstrconsts:strerrornoexclusivetableaccess
-#: uintfstrconsts:strerrornoexclusivetableaccess
-msgid "No exclusive access to Table !"
-msgstr "No exclusive access to Table !"
-
-# uintfstrconsts:strfailedtocopytable
-#: uintfstrconsts:strfailedtocopytable
-msgid "Cant copy table !"
-msgstr "Cant copy table !"
-
-# uintfstrconsts:strerrorupdatingtable
-#: uintfstrconsts:strerrorupdatingtable
-msgid "Cant update table !"
-msgstr "Cant update table !"
-
-# uintfstrconsts:strtimelist
-#: uintfstrconsts:strtimelist
-msgid "Time List"
-msgstr "Time List"
-
-# uintfstrconsts:strarticlelist
-#: uintfstrconsts:strarticlelist
-msgid "Article List"
-msgstr "Article List"
-
-# uintfstrconsts:strnewarticle
-#: uintfstrconsts:strnewarticle
-msgid "Create new article"
-msgstr "Create new article"
-
-# uintfstrconsts:strtasks
-#: uintfstrconsts:strtasks
-msgid "Tasks"
-msgstr "Tasks"
-
-# uintfstrconsts:strnewtransfer
-#: uintfstrconsts:strnewtask
-msgid "New Task"
-msgstr "New Task"
-
-# uintfstrconsts:strtype
-#: uintfstrconsts:strtype
-msgid "Typ"
-msgstr "Typ"
-
-# uintfstrconsts:strderivates
-#: uintfstrconsts:strderivates
-msgid "Derivates"
-msgstr "Derivates"
-
-# uintfstrconsts:strvisiblein
-#: uintfstrconsts:strvisiblein
-msgid "Visible in:"
-msgstr "Visible in:"
-
-# uintfstrconsts:strorder
-#: uintfstrconsts:strorder
-msgid "Order"
-msgstr "Order"
-
-# uintfstrconsts:strproduction
-#: uintfstrconsts:strproduction
-msgid "Production"
-msgstr "Production"
-
-# uintfstrconsts:straccounting
-#: uintfstrconsts:straccounting
-msgid "Accounting"
-msgstr "Accounting"
-
-# uintfstrconsts:strinvoicer
-#: uintfstrconsts:strinvoicer
-msgid "Invoice R"
-msgstr "Invoice R"
-
-# uintfstrconsts:strinvoiceo
-#: uintfstrconsts:strinvoiceo
-msgid "Invoice O"
-msgstr "Invoice O"
-
-# uintfstrconsts:straddtostorage
-#: uintfstrconsts:straddtostorage
-msgid "Add to storage"
-msgstr "Add to storage"
-
-# uintfstrconsts:straddtojournal
-#: uintfstrconsts:straddtojournal
-msgid "Add to Journal"
-msgstr "Add to Journal"
-
-# uintfstrconsts:straddtoserials
-#: uintfstrconsts:straddtoserials
-msgid "Add to Serials"
-msgstr "Add to Serials"
-
-# uintfstrconsts:straddtoinvr
-#: uintfstrconsts:straddtoinvr
-msgid "Add to Invoice R"
-msgstr "Add to Invoice R"
-
-# uintfstrconsts:straddtoinvo
-#: uintfstrconsts:straddtoinvo
-msgid "Add to Invoice O"
-msgstr "Add to Invoice O"
-
-# uintfstrconsts:straddtodunning
-#: uintfstrconsts:straddtodunning
-msgid "Add to Dunning"
-msgstr "Add to Dunning"
-
-# uintfstrconsts:straddtocustomerhistory
-#: uintfstrconsts:straddtocustomerhistory
-msgid "Add to Customer History"
-msgstr "Add to Customer History"
-
-# uintfstrconsts:strfilteron
-#: uintfstrconsts:strfilteron
-msgid "Filter on"
-msgstr "Filter on"
-
-# uintfstrconsts:strfilteroff
-#: uintfstrconsts:strfilteroff
-msgid "Filter off"
-msgstr "Filter off"
-
-# uintfstrconsts:strnodatafound
-#: uintfstrconsts:strnodatafound
-msgid "No data found !"
-msgstr "No data found !"
-
-# uintfstrconsts:strnocustomerfound
-#: uintfstrconsts:strnocustomerfound
-msgid "No customer found !"
-msgstr "No customer found !"
-
-# uintfstrconsts:strorders
-#: uintfstrconsts:strorders
-msgid "Orders"
-msgstr "Orders"
-
-# uintfstrconsts:strorderlist
-#: uintfstrconsts:strorderlist
-msgid "Order List"
-msgstr "Order List"
-
-# uintfstrconsts:strneworder
-#: uintfstrconsts:strneworder
-msgid "Create new %s"
-msgstr "Create new %s"
-
-# uintfstrconsts:strnotimplemented
-#: uintfstrconsts:strnotimplemented
-msgid "Sorry, not implemented yet !"
-msgstr "Sorry, not implemented yet !"
-
-# uintfstrconsts:strpages
-#: uintfstrconsts:strpages
-msgid "Pages"
-msgstr "Pages"
-
-# uintfstrconsts:strprinter
-#: uintfstrconsts:strprinter
-msgid "Printer"
-msgstr "Printer"
-
-# uintfstrconsts:strpaperbin
-#: uintfstrconsts:strpaperbin
-msgid "Paper Bin"
-msgstr "Paper Bin"
-
-# uintfstrconsts:strdefaultprinter
-#: uintfstrconsts:strdocumentdefaultprinter
-msgid "Document default Printer"
-msgstr "Document default Printer"
-
-# uintfstrconsts:strdefaultprinter
-#: uintfstrconsts:strdefaultprinter
-msgid "Default Printer"
-msgstr "Default Printer"
-
-# uintfstrconsts:stremail
-#: uintfstrconsts:stremail
-msgid "e-Mail"
-msgstr "e-Mail"
-
-# uintfstrconsts:strfileexport
-#: uintfstrconsts:strfileexport
-msgid "File Export"
-msgstr "File Export"
-
-# uintfstrconsts:strfax
-#: uintfstrconsts:strfax
-msgid "Fax"
-msgstr "Fax"
-
-# uintfstrconsts:strtimetools
-#: uintfstrconsts:strtimetools
-msgid "Timetools"
-msgstr "Timetools"
-
-# uintfstrconsts:strnosupplierselected
-#: uintfstrconsts:strnosupplierselected
-msgid "No Supplier selected !"
-msgstr "No Supplier selected !"
-
-# uintfstrconsts:strpaused
-#: uintfstrconsts:strpaused
-msgid "Paused"
-msgstr "Paused"
-
-# uintfstrconsts:strnormaltime
-#: uintfstrconsts:strnormaltime
-msgid "Normaltime"
-msgstr "Normaltime"
-
-# uintfstrconsts:strindustrialtime
-#: uintfstrconsts:strindustrialtime
-msgid "Industrialtime"
-msgstr "Industrialtime"
-
-# uintfstrconsts:strcontinueprevioustimeentry
-#: uintfstrconsts:strcontinueprevioustimeentry
-msgid "Timeregistering is stopped today, continue last Entry ?"
-msgstr "Timeregistering is stopped today, continue last Entry ?"
-
-# uintfstrconsts:strtimeregistration
-#: uintfstrconsts:strtimeregistration
-msgid "Time registration"
-msgstr "Time registration"
-
-# uintfstrconsts:strjob
-#: uintfstrconsts:strjob
-msgid "Job"
-msgstr "Job"
-
-# uintfstrconsts:stractual
-#: uintfstrconsts:stractual
-msgid "Actual"
-msgstr "Actual"
-
-# uintfstrconsts:strproject
-#: uintfstrconsts:strproject
-msgid "Project"
-msgstr "Project"
-
-# uintfstrconsts:strtime
-#: uintfstrconsts:strtime
-msgid "Time"
-msgstr "Time"
-
-# uintfstrconsts:strpauses
-#: uintfstrconsts:strpauses
-msgid "Pauses"
-msgstr "Pauses"
-
-# uintfstrconsts:strfull
-#: uintfstrconsts:strfull
-msgid "Full"
-msgstr "Full"
-
-# uintfstrconsts:strstart
-#: uintfstrconsts:strstart
-msgid "Start"
-msgstr "Start"
-
-# uintfstrconsts:strpause
-#: uintfstrconsts:strpause
-msgid "Pause"
-msgstr "Pause"
-
-# uintfstrconsts:strstop
-#: uintfstrconsts:strstop
-msgid "Stop"
-msgstr "Stop"
-
-# uintfstrconsts:strfinancial
-#: uintfstrconsts:strfinancial
-msgid "Financial"
-msgstr "Financial"
-
-# uintfstrconsts:strsnew
-#: uintfstrconsts:strsnew
-msgid "New"
-msgstr "New"
-
-# uintfstrconsts:strpreview
-#: uintfstrconsts:strpreview
-msgid "Preview"
-msgstr "Preview"
-
-# uintfstrconsts:strprint
-#: uintfstrconsts:strprint
-msgid "Print"
-msgstr "Print"
-
-# uintfstrconsts:strdesign
-#: uintfstrconsts:strdesign
-msgid "Design"
-msgstr "Design"
-
-# uintfstrconsts:strrealdelete
-#: uintfstrconsts:strrealdelete
-msgid "Do you real want to Delte this Item ?"
-msgstr "Do you real want to Delte this Item ?"
-
-# uintfstrconsts:strreadingmandants
-#: uintfstrconsts:strreadingmandants
-msgid "Reading mandants ..."
-msgstr "Reading mandants ..."
-
-# uintfstrconsts:strcreatingforms
-#: uintfstrconsts:strcreatingforms
-msgid "Creating forms ..."
-msgstr "Creating forms ..."
-
-# uintfstrconsts:strarticlenumber
-#: uintfstrconsts:strarticlenumber
-msgid "Article number"
-msgstr "Article number"
-
-# uintfstrconsts:strarticlenotsaved
-#: uintfstrconsts:stritemnotsaved
-msgid "The Item is not saved, save now ?"
-msgstr "The Item is not saved, save now ?"
-
-# uintfstrconsts:strownproduction
-#: uintfstrconsts:strownproduction
-msgid "Own production"
-msgstr "Own production"
-
-# uintfstrconsts:struseserial
-#: uintfstrconsts:struseserial
-msgid "Use serial"
-msgstr "Use serial"
-
-# uintfstrconsts:strtree
-#: uintfstrconsts:strtree
-msgid "Tree"
-msgstr "Tree"
-
-# uintfstrconsts:strbarcode
-#: uintfstrconsts:strbarcode
-msgid "Barcode"
-msgstr "Barcode"
-
-# uintfstrconsts:strpartslist
-#: uintfstrconsts:strpartslist
-msgid "Partslist"
-msgstr "Partslist"
-
-# uintfstrconsts:strwarrenty
-#: uintfstrconsts:strwarrenty
-msgid "Warrenty"
-msgstr "Warrenty"
-
-# uintfstrconsts:strquantityunit
-#: uintfstrconsts:strquantityunit
-msgid "Quantityunit"
-msgstr "Quantityunit"
-
-# uintfstrconsts:strmanufacturernr
-#: uintfstrconsts:strmanufacturernr
-msgid "Manufacturer nr"
-msgstr "Manufacturer nr"
-
-# uintfstrconsts:strvat
-#: uintfstrconsts:strvat
-msgid "VAT"
-msgstr "VAT"
-
-# uintfstrconsts:strunit
-#: uintfstrconsts:strunit
-msgid "Unit"
-msgstr "Unit"
-
-# uintfstrconsts:strcommon
-#: uintfstrconsts:strcommon
-msgid "Common"
-msgstr "Common"
-
-# uintfstrconsts:strtext
-#: uintfstrconsts:strtext
-msgid "Text"
-msgstr "Text"
-
-# uintfstrconsts:strmasterdata
-#: uintfstrconsts:strmasterdata
-msgid "Master data"
-msgstr "Master data"
-
-# uintfstrconsts:strversion
-#: uintfstrconsts:strversion
-msgid "Version"
-msgstr "Version"
-
-# uintfstrconsts:strshorttext
-#: uintfstrconsts:strshorttext
-msgid "Shorttext"
-msgstr "Shorttext"
-
-# uintfstrconsts:strlongtext
-#: uintfstrconsts:strlongtext
-msgid "Longtext"
-msgstr "Longtext"
-
-# uintfstrconsts:strtendertext
-#: uintfstrconsts:strtendertext
-msgid "Tendertext"
-msgstr "Tendertext"
-
-# uintfstrconsts:strdelete
-#: uintfstrconsts:strdelete
-msgid "Delete"
-msgstr "Delete"
-
-# uintfstrconsts:strnewdir
-#: uintfstrconsts:strnewdir
-msgid "New Directory"
-msgstr "New Directory"
-
-# uintfstrconsts:stradddir
-#: uintfstrconsts:stradddir
-msgid "Add Directory"
-msgstr "Add Directory"
-
-# uintfstrconsts:strimport
-#: uintfstrconsts:strimport
-msgid "Import"
-msgstr "Import"
-
-# uintfstrconsts:strexport
-#: uintfstrconsts:strexport
-msgid "Export"
-msgstr "Export"
-
-# uintfstrconsts:strvcard
-#: uintfstrconsts:strvcard
-msgid "VCard"
-msgstr "VCard"
-
-# uintfstrconsts:strunknownsqldbtype
-#: uintfstrconsts:strunknowndbtype
-msgid "Unknown DB type"
-msgstr "Unknown DB type"
-
-# uintfstrconsts:stremployees
-#: uintfstrconsts:stremployee
-msgid "Employee"
-msgstr "Employee"
-
-# uintfstrconsts:stremployees
-#: uintfstrconsts:stremployees
-msgid "Employees"
-msgstr "Employees"
-
-# uintfstrconsts:strsupplier
-#: uintfstrconsts:strsupplier
-msgid "Supplier"
-msgstr "Supplier"
-
-# uintfstrconsts:strunsorted
-#: uintfstrconsts:strunsorted
-msgid "unsorted"
-msgstr "unsorted"
-
-# uintfstrconsts:strname
-#: uintfstrconsts:strname
-msgid "Name"
-msgstr "Name"
-
-# uintfstrconsts:strcontact
-#: uintfstrconsts:strcontacts
-msgid "Contacts"
-msgstr "Contacts"
-
-# uintfstrconsts:strcontact
-#: uintfstrconsts:strcontact
-msgid "Contact"
-msgstr "Contact"
-
-# uintfstrconsts:strcontacttype
-#: uintfstrconsts:strcontacttype
-msgid "Contact type"
-msgstr "Contact type"
-
-# uintfstrconsts:strentry
-#: uintfstrconsts:strentry
-msgid "Entry"
-msgstr "Entry"
-
-# uintfstrconsts:strlogout
-#: uintfstrconsts:strlogout
-msgid "Logout"
-msgstr "Logout"
-
-# uintfstrconsts:strnr
-#: uintfstrconsts:strnr
-msgid "Nr"
-msgstr "Nr"
-
-# uintfstrconsts:strtitle
-#: uintfstrconsts:strtitle
-msgid "Title"
-msgstr "Title"
-
-# uintfstrconsts:strcallingname
-#: uintfstrconsts:strcallingname
-msgid "Calling name"
-msgstr "Calling name"
-
-# uintfstrconsts:strnameorfirm
-#: uintfstrconsts:strnameorfirm
-msgid "Name/Firm"
-msgstr "Name/Firm"
-
-# uintfstrconsts:stradditional
-#: uintfstrconsts:stradditional
-msgid "Additional"
-msgstr "Additional"
-
-# uintfstrconsts:strstreet
-#: uintfstrconsts:strstreet
-msgid "Street"
-msgstr "Street"
-
-# uintfstrconsts:strland
-#: uintfstrconsts:strland
-msgid "Land"
-msgstr "Land"
-
-# uintfstrconsts:strpostalcode
-#: uintfstrconsts:strpostalcode
-msgid "Postal code"
-msgstr "Postal code"
-
-# uintfstrconsts:strcity
-#: uintfstrconsts:strcity
-msgid "City"
-msgstr "City"
-
-# uintfstrconsts:strwrongpassword
-#: uintfstrconsts:strwrongpassword
-msgid "Wrong password"
-msgstr "Wrong password"
-
-# uintfstrconsts:strpassword
-#: uintfstrconsts:strpassword
-msgid "Password"
-msgstr "Password"
-
-# uintfstrconsts:strcustomernumber
-#: uintfstrconsts:strcustomernumber
-msgid "Customer number"
-msgstr "Customer number"
-
-# uintfstrconsts:strmatchcode
-#: uintfstrconsts:strmatchcode
-msgid "Matchcode"
-msgstr "Matchcode"
-
-# uintfstrconsts:strlanguage
-#: uintfstrconsts:strlanguage
-msgid "Lanuguage"
-msgstr "Lanuguage"
-
-# uintfstrconsts:strpricing
-#: uintfstrconsts:strpricing
-msgid "Pricing"
-msgstr "Pricing"
+#: uintfstrconsts:strattatchments
+msgid "Anhänge"
+msgstr "Attatchements"
+
+#: uintfstrconsts:strsync
+msgid "Synchronisation"
+msgstr "Syncronisation"
 
 # uintfstrconsts:stradress
-#: uintfstrconsts:stradress
-msgid "Adress"
-msgstr "Adress"
+#: uintfstrconsts:strprocesses
+msgid "Prozesse"
+msgstr "Processes"
 
 # uintfstrconsts:strmandant
 #: uintfstrconsts:strmandant
 msgid "Mandant"
 msgstr "Mandant"
 
+#: uintfstrconsts:strenteranfiltername
+msgid "geben Sie einen Namen für den neuen Filter an"
+msgstr "enter an name for the new filter"
+
+#: uintfstrconsts:strnorightstosavecomplexfilers
+msgid ""
+"Sie haben nicht die erforderliche Berechtigungstufe um komplexe Filter zu "
+"speichern !"
+msgstr "You dont have enougth rights to save complex filters"
+
+#: uintfstrconsts:strfilternotfound
+msgid "Der Filter \"%s\" wurde nicht gefunden !"
+msgstr "The filter \"%s\" was not found !"
+
+#: uintfstrconsts:strnoselectfilter
+msgid "<kein Filter>"
+msgstr "<no filter>"
+
+#: uintfstrconsts:strnewlist
+msgid "Neue Liste"
+msgstr "new list"
+
+# uintfstrconsts:strlast
+#: uintfstrconsts:strlists
+msgid "Listen"
+msgstr "Lists"
+
+#: uintfstrconsts:strcreatedby
+msgid "erstellt von"
+msgstr "created by"
+
+#: uintfstrconsts:strdue
+msgid "Bis"
+msgstr "To"
+
+# uintfstrconsts:strstart
+#: uintfstrconsts:strstart
+msgid "Start"
+msgstr "Start"
+
+#: uintfstrconsts:strsummary
+msgid "Zusammenfassung"
+msgstr "Summary"
+
+# uintfstrconsts:strstatuschanged
+#: uintfstrconsts:strstatuschanged
+msgid "Status geändert von %s zu %s"
+msgstr "Status changed from %s to %s"
+
+# uintfstrconsts:strstatuschanged
+#: uintfstrconsts:strnumberchanged
+msgid "Nummer geändert zu %s"
+msgstr "Number changed to %s"
+
+# uintfstrconsts:strdate
+#: uintfstrconsts:strfiles
+msgid "Dateien"
+msgstr "Files"
+
+# uintfstrconsts:strdocuments
+#: uintfstrconsts:strdocuments
+msgid "Dokumente/Bilder"
+msgstr "Documents/Images"
+
+# uintfstrconsts:strdocuments
+#: uintfstrconsts:strdocumentsonly
+msgid "Dokumente"
+msgstr "Documents"
+
+#: uintfstrconsts:strfailedtoloadmandants
+msgid "Mandanten konnten nicht gelanden werden !"
+msgstr "failed to load mandants !"
+
+#: uintfstrconsts:strmandantnotselected
+msgid "kein Mandant gewählt (--mandant) !"
+msgstr "no mandant selected (--mandant) !"
+
+#: uintfstrconsts:strdestinationnotselected
+msgid "kein Zielmandant gewählt (--destination) !"
+msgstr "no targetmandant selected (--destination) !"
+
+#: uintfstrconsts:strloginfailed
+msgid "Login fehlgeschlagen"
+msgstr "Login failed"
+
+# uintfstrconsts:strproject
+#: uintfstrconsts:strprojectlist
+msgid "Projektliste"
+msgstr "Projectlist"
+
+#: uintfstrconsts:strsaleslist
+msgid "Zahlungsliste"
+msgstr "Payment list"
+
+#: uintfstrconsts:strvoucher
+msgid "neuer Beleg"
+msgstr "new proof"
+
+#: uintfstrconsts:strneworder
+msgid "als "
+msgstr "as"
+
+#: uintfstrconsts:strwiki
+msgid "Wiki"
+msgstr "Wiki"
+
 # uintfstrconsts:struser
-#: uintfstrconsts:struser
-msgid "User"
+#: uintfstrconsts:strusers
+msgid "Benutzer"
 msgstr "User"
 
-# uintfstrconsts:strfirstlogin
-#: uintfstrconsts:strfirstlogin
-msgid "This is your first login, the password you type, is you password after now."
-msgstr "This is your first login, the password you type, is you password after now."
+#: uintfstrconsts:strlinks
+msgid "Verweise"
+msgstr "Links"
 
-# uintfstrconsts:stroptions
-#: uintfstrconsts:stroptions
-msgid "Options"
-msgstr "Options"
+#: uintfstrconsts:stritem
+msgid "Eintrag"
+msgstr "Entry"
 
-# uintfstrconsts:strlogin
-#: uintfstrconsts:strlogin
-msgid "Login"
-msgstr "Login"
+#: uintfstrconsts:strdescription
+msgid "Beschreibung"
+msgstr "Description"
 
-# uintfstrconsts:strpreview
-#: uintfstrconsts:strprev
-msgid "Prev"
-msgstr "Prev"
+# uintfstrconsts:strnewtransfer
+#: uintfstrconsts:strnewdir
+msgid "Neues Verzeichnis"
+msgstr "New Directory"
 
-# uintfstrconsts:strfinish
-#: uintfstrconsts:strfinish
-msgid "Finish"
-msgstr "Finish"
+#: uintfstrconsts:strnodirectoryselected
+msgid ""
+"Sie müssen ein Verzeichnis auswählen,\n"
+"bevor Sie den Eintrag zu einem diesem zuordnen können."
+msgstr ""
+"You must select an directory,\n"
+"bevor you can add an enry to these."
 
-# uintfstrconsts:strprev
-#: uintfstrconsts:strback
-msgid "Back"
-msgstr "Back"
+#: uintfstrconsts:strgotofeed
+msgid "vollen Artikel anzeigen"
+msgstr "show full article"
+
+#: uintfstrconsts:stractionmessagereceived
+msgid "%s - empfangen"
+msgstr "%s - received"
+
+#: uintfstrconsts:strmessagespampoints
+msgid "Spampunkte: "
+msgstr "Spampoints:"
+
+#: uintfstrconsts:strwrongpassword
+msgid ""
+"Das eingegebene Passwort stimmt nicht mit dem von Ihnen erstellten überein"
+msgstr "The entered password dont matches to yours"
+
+# uintfstrconsts:strcontact
+#: uintfstrconsts:strcustomers
+msgid "Kontakte"
+msgstr "Contacts"
+
+# uintfstrconsts:stradress
+#: uintfstrconsts:stradresses
+msgid "Adressen"
+msgstr "Adresses"
+
+# uintfstrconsts:strarticlelist
+#: uintfstrconsts:strmasterdata
+msgid "Artikel"
+msgstr "Article"
+
+#: uintfstrconsts:strcustomercont
+msgid "Kontaktdaten"
+msgstr "Contactdata"
+
+# uintfstrconsts:strtimelist
+#: uintfstrconsts:strtimelist
+msgid "Time List"
+msgstr "Time List"
+
+#: uintfstrconsts:strorders
+msgid "Aufträge"
+msgstr "Orders"
+
+#: uintfstrconsts:strtasks
+msgid "Aufgaben"
+msgstr "Tasks"
+
+# uintfstrconsts:strdate
+#: uintfstrconsts:strrecord
+msgid "Datensatz"
+msgstr "Datarow"
 
 # uintfstrconsts:strnet
-#: uintfstrconsts:strnext
-msgid "Next"
-msgstr "Next"
+#: uintfstrconsts:strsnew
+msgid "Neu"
+msgstr "New"
 
-# uintfstrconsts:strdoupdate
-#: uintfstrconsts:strdoupdate
-msgid "Automatic online update active"
-msgstr "Automatic online update active"
+#: uintfstrconsts:strsave
+msgid "Speichern"
+msgstr "save"
 
-# uintfstrconsts:strupdate
-#: uintfstrconsts:strupdate
-msgid "Update"
-msgstr "Update"
+# uintfstrconsts:strinitialisingorders
+#: uintfstrconsts:strrefresh
+msgid "Aktualisieren"
+msgstr "Refresh"
 
-# uintfstrconsts:stradd
-#: uintfstrconsts:stradd
-msgid "Add"
-msgstr "Add"
+#: uintfstrconsts:strrealdelete
+msgid "möchten Sie diesen Eintrag wirklich löschen ?"
+msgstr "Should the entry really be deleted ?"
 
-# uintfstrconsts:strstatus
-#: uintfstrconsts:strstatus
-msgid "Status"
-msgstr "Status"
+#: uintfstrconsts:strrename
+msgid "Umbenennen"
+msgstr "Rename"
 
-# uintfstrconsts:strfilter
-#: uintfstrconsts:strfilter
-msgid "Filter"
-msgstr "Filter"
+# uintfstrconsts:strname
+#: uintfstrconsts:strnewname
+msgid "neuer Name"
+msgstr "new Name"
 
-# uintfstrconsts:strnotice
-#: uintfstrconsts:strnotice
-msgid "Notice"
-msgstr "Notice"
+#: uintfstrconsts:strcreatingforms
+msgid "erstelle Formulare ..."
+msgstr "creating Forms..."
 
-# uintfstrconsts:strabort
+#: uintfstrconsts:strclose
+msgid "Schliessen"
+msgstr "Close"
+
+# uintfstrconsts:strseverity
+#: uintfstrconsts:strserver
+msgid "Server"
+msgstr "Server"
+
+#: uintfstrconsts:strpleasewait
+msgid "Bitte warten"
+msgstr "Please wait..."
+
+# uintfstrconsts:strname
+#: uintfstrconsts:strname
+msgid "Name"
+msgstr "Name"
+
+#: uintfstrconsts:stritemnotsaved
+msgid "Das Objekt ist nicht gespeichert, jetzt speichern ?"
+msgstr "This object is not saved, save ?"
+
 #: uintfstrconsts:strabort
-msgid "Abort"
+msgid "Abbrechen"
 msgstr "Abort"
 
-# uintfstrconsts:sctelephone
-#: uintfstrconsts:sctelephone
-msgid "TEL  Telephone"
-msgstr "TEL  Telephone"
+#: uintfstrconsts:strthisaccountdontexists
+msgid ""
+"Dieses Konto scheint auf diesem Computer nicht eingerichtet zu sein, richten "
+"Sie es zuerst ein !"
+msgstr "This account seems not to be set up on this computer. Set it first up."
 
-# uintfstrconsts:scbusinessphone
-#: uintfstrconsts:scbusinessphone
-msgid "TELB Business phone"
-msgstr "TELB Business phone"
+# uintfstrconsts:strcontact
+#: uintfstrconsts:straccount
+msgid "Konto"
+msgstr "Account"
 
-# uintfstrconsts:scprivatephone
-#: uintfstrconsts:scprivatephone
-msgid "TELP Private phone"
-msgstr "TELP Private phone"
+#: uintfstrconsts:strsortcode
+msgid "Bankleitzahl"
+msgstr "Bank code"
 
-# uintfstrconsts:scmobilephone
-#: uintfstrconsts:scmobilephone
-msgid "CEL  Mobilephone"
-msgstr "CEL  Mobilephone"
+# uintfstrconsts:strtype
+#: uintfstrconsts:strtype
+msgid "Typ"
+msgstr "Typ"
 
-# uintfstrconsts:scbusinessmobilephone
-#: uintfstrconsts:scbusinessmobilephone
-msgid "CELB Mobilephone"
-msgstr "CELB Mobilephone"
+#: uintfstrconsts:strcalendar
+msgid "Kalender"
+msgstr "Calendar"
 
-# uintfstrconsts:scprivatemobilephone
-#: uintfstrconsts:scprivatemobilephone
-msgid "CELP Mobilephone"
-msgstr "CELP Mobilephone"
+#: uintfstrconsts:strunknown
+msgid "Unbekannt"
+msgstr "Unknown"
 
-#: uintfstrconsts:scskype
-msgid "SKP  Skype"
-msgstr "SKP  Skype"
+#: uintfstrconsts:strnewnumber
+msgid "neue Nummer"
+msgstr "new number"
 
-# uintfstrconsts:scfax
-#: uintfstrconsts:scfax
-msgid "FAX  Fax"
-msgstr "FAX  Fax"
+#: uintfstrconsts:strdatasetmustbeininsertmode
+msgid ""
+"Sie können lediglich in neue Einträge Daten aus der Zwischenablage einfügen, "
+"bitte legen Sie zuvor einen neuen Eintrag an."
+msgstr "You can just add data to existing entrys, please add an entry before"
 
-# uintfstrconsts:scmail
-#: uintfstrconsts:scmail
-msgid "MAIL e-Mail"
-msgstr "MAIL e-Mail"
+#: uintfstrconsts:strcantgetclipboardcontents
+msgid "Konnte keine Zwischenablagedaten holen."
+msgstr "coundnt get data from clipboard"
 
-# uintfstrconsts:scbusinessmail
-#: uintfstrconsts:scbusinessmail
-msgid "MLB  Business e-Mail"
-msgstr "MLB  Business e-Mail"
+#: uintfstrconsts:stredited
+msgid "bearbeitet"
+msgstr "changed"
 
-# uintfstrconsts:scprivatemail
-#: uintfstrconsts:scprivatemail
-msgid "MLP  Private e-Mail"
-msgstr "MLP  Private e-Mail"
+# uintfstrconsts:strcontact
+#: uintfstrconsts:strcustomerlist
+msgid "Kontaktliste"
+msgstr "Contactlist"
 
-# uintfstrconsts:scworktelephone
-#: uintfstrconsts:scworktelephone
-msgid "TELW Telephone at work"
-msgstr "TELW Telephone at work"
+#: uintfstrconsts:strnodatafound
+msgid "kein Eintrag gefunden !"
+msgstr "no entry found !"
 
-# uintfstrconsts:scinternet
-#: uintfstrconsts:scinternet
-msgid "INT  Homepage"
-msgstr "INT  Homepage"
+# uintfstrconsts:strarticlelist
+#: uintfstrconsts:strarticlelist
+msgid "Artikelliste"
+msgstr "Articlelist"
 
-#: uintfstrconsts:scbirthday
-msgid "BIR  Birthday"
-msgstr "BIR  Birthday"
+#: uintfstrconsts:strsearch
+msgid "Suche"
+msgstr "Search"
+
+#: uintfstrconsts:strserial
+msgid "Serienummer"
+msgstr "Serialnumber"
+
+# uintfstrconsts:strbarcode
+#: uintfstrconsts:strbarcode
+msgid "Barcode"
+msgstr "Barcode"
+
+# uintfstrconsts:strcommon
+#: uintfstrconsts:strcommission
+msgid "Komission"
+msgstr "Commission"
+
+# uintfstrconsts:strid
+#: uintfstrconsts:strid
+msgid "ID"
+msgstr "ID"
+
+# uintfstrconsts:strcopytexts
+#: uintfstrconsts:strshortname
+msgid "Kurztext"
+msgstr "Shorttext"
+
+#: uintfstrconsts:strmessages
+msgid "Nachrichten"
+msgstr "Messages"
+
+# uintfstrconsts:stractive
+#: uintfstrconsts:strarchive
+msgid "Archiv"
+msgstr "Archive"
+
+#: uintfstrconsts:strclosingpleasewait
+msgid "wird beendet..."
+msgstr "closing..."
+
+# uintfstrconsts:stremail
+#: uintfstrconsts:stremail
+msgid "e-Mail"
+msgstr "e-Mail"
+
+#: uintfstrconsts:strexternemail
+msgid "externes e-Mail Programm"
+msgstr "external e-Mail programm"
+
+#: uintfstrconsts:strorderlist
+msgid "Auftragsliste"
+msgstr "Orderlist"
+
+#: uintfstrconsts:strquantity
+msgid "Menge"
+msgstr "Quantity"
+
+#: uintfstrconsts:strorder
+msgid "Auftrag"
+msgstr "Order"
+
+#: uintfstrconsts:stralternativerowcolor
+msgid "Alternative Zeilenfarbe"
+msgstr "Alternate rowcolor"
+
+#: uintfstrconsts:strinfocolor
+msgid "Farbe für aktives Feld"
+msgstr "color for active field"
+
+#: uintfstrconsts:strnofilter
+msgid "*"
+msgstr "*"
+
+# uintfstrconsts:strcontact
+#: uintfstrconsts:straccounts
+msgid "Konten"
+msgstr "Accounts"
+
+# uintfstrconsts:strversion
+#: uintfstrconsts:strversion
+msgid "Version"
+msgstr "Version"
+
+#: uintfstrconsts:strfinish
+msgid "Fertigstellen"
+msgstr "Finish"
+
+#: uintfstrconsts:strprev
+msgid "Zurück"
+msgstr "Back"
+
+#: uintfstrconsts:strnext
+msgid "Weiter"
+msgstr "Next"
+
+#: uintfstrconsts:strunknowndbtype
+msgid "Unbekannter Datenbanktyp"
+msgstr "unknown database type"
+
+# uintfstrconsts:strproject
+#: uintfstrconsts:strproject
+msgid "Projekt"
+msgstr "Project"
+
+#: uintfstrconsts:strusernotfound
+msgid "benutzer nicht gefunden !"
+msgstr "user not found !"
+
+#: uintfstrconsts:strerrordatabasestructurenotactual
+msgid ""
+"Die Struktur Ihrer Datenbank ist nicht aktuell, bitte wenden Sie sich an "
+"Ihren Administrator order updaten Sie diese mit dem Updatedatabase Tool."
+msgstr ""
+"The structure of your database is not actual, please contact your "
+"administrator or update it with the database tool"
+
+#: uintfstrconsts:strnotsupported
+msgid "nicht unterstützt ! (Interner Fehler)"
+msgstr "not supported ! (internal error)"
+
+#: uintfstrconsts:strdelete
+msgid "löschen"
+msgstr "delete"
+
+# uintfstrconsts:strtendertext
+#: uintfstrconsts:strfinished
+msgid "beendet"
+msgstr "closed"
+
+# uintfstrconsts:strcontact
+#: uintfstrconsts:strcontact
+msgid "Kontakt"
+msgstr "Contact"
+
+# uintfstrconsts:strdate
+#: uintfstrconsts:strfile
+msgid "Datei"
+msgstr "File"
+
+#: uintfstrconsts:strcall
+msgid "Anruf"
+msgstr "Call"
+
+#: uintfstrconsts:strmessage
+msgid "Nachricht"
+msgstr "Message"
+
+#: uintfstrconsts:strcheckingforupdate
+msgid "prüfe auf Update..."
+msgstr "check for update..."
+
+# uintfstrconsts:stroptions
+#: uintfstrconsts:strreadingoptions
+msgid "lese Optionen ..."
+msgstr "reading Options..."
+
+# uintfstrconsts:strproject
+#: uintfstrconsts:strprojects
+msgid "Projekte"
+msgstr "Projects"
+
+#: uintfstrconsts:stredit
+msgid "bearbeiten"
+msgstr "edit"
+
+#: uintfstrconsts:strcanceledit
+msgid "Änderungen verwerfen"
+msgstr "revert changed"
+
+#: uintfstrconsts:strwikimainpagetext
+msgid ""
+"==Willkommen zur Prometheus Wiki==<br>\n"
+"<br>\n"
+"Sie können dieses Wiki als zentralen Wissenspool verstehen. Sie können hier "
+"Informationen jeglicher Art strukturiert ablegen.<br>\n"
+"<br>\n"
+"Dazu stehen Ihnen interne Links [[Ihre erste Seite]] durch die Sie auch ganz "
+"einfach neue Sieten anlegen könenn einfach indem Sie, sie anlegen und "
+"draufklicken. Externe Links, zu beliebigen Websites [http://www.ullihome.de "
+"www.ullihome.de], Aufzählungen\n"
+"*1\n"
+"*2\n"
+"*3\n"
+"===Überschriften===\n"
+"====In verschiedenen Größen====\n"
+"und ähnliche Elemente zur Verfügung."
+msgstr ""
+
+#: uintfstrconsts:strwikipage
+msgid "Wiki Seite"
+msgstr "Wiki page"
+
+# uintfstrconsts:strbanking
+#: uintfstrconsts:straccountexchange
+msgid "Bankbuchungen"
+msgstr "Bank bookings"
+
+#: uintfstrconsts:strhistory
+msgid "Verlauf"
+msgstr "History"
+
+#: uintfstrconsts:strimages
+msgid "Bilder"
+msgstr "Images"
+
+#: uintfstrconsts:strimage
+msgid "Bild"
+msgstr "Image"
+
+#: uintfstrconsts:strfinance
+msgid "Finanzen"
+msgstr "Financial"
+
+#: uintfstrconsts:strsearchfromtimeregisteringmode
+msgid ""
+"Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag "
+"öffnen, wird dieser automatisch in die Zeiterfassung übernommen."
+msgstr ""
+"This search is started from timeregistering, when you open the entry its put "
+"there."
+
+#: uintfstrconsts:strsearchfromdocumentsmode
+msgid ""
+"Diese Suche wurde aus der Dokumentenverwaltung gestartet, wenn Sie einen "
+"Eintrag öffnen, wird dieser automatisch mit dem Dokument verknüpft."
+msgstr ""
+"This search is started from documentmanagement, when you open the entry its "
+"put there."
+
+#: uintfstrconsts:strsearchfromhistorymode
+msgid ""
+"Diese Suche wurde aus einem Verlauf gestartet, wenn Sie einen Eintrag "
+"öffnen, wird dieser automatisch mit dem Verlaufseintrag verknüpft."
+msgstr ""
+"This search is started from history, when you open the entry its put there."
+
+#: uintfstrconsts:strerror
+msgid "Error"
+msgstr "Error"
+
+#: uintfstrconsts:striadaddress
+msgid "IAD Rechnungsadresse"
+msgstr "IAD Billingadress"
+
+#: uintfstrconsts:strdadaddress
+msgid "DAD Lieferadresse"
+msgstr "DAD Deliveryadress"
+
+#: uintfstrconsts:strbadaddress
+msgid "BAD Geschäftsadresse"
+msgstr "BAD Workadress"
+
+#: uintfstrconsts:strpadaddress
+msgid "PAD Privatadresse"
+msgstr "PAD Privateadress"
 
 #: uintfstrconsts:vinfo
 msgid ""
-"www:  http://www.ullihome.de\n"
-"mail: christian@ullihome.de\n"
+"www:  http://www.cu-tec.de\n"
+"mail: info@cu-tec.de\n"
 "\n"
 "Lizenz:\n"
 "Die Software und ihre Dokumentation wird wie sie ist zur\n"
@@ -3551,4 +863,2350 @@ msgid ""
 "Iconset von:\n"
 "http://www.famfamfam.com/lab/icons/silk/\n"
 msgstr ""
+"www:  http://www.cu-tec.de\n"
+"mail: info@cu-tec.de\n"
+"\n"
+"License:\n"
+"This software produkt is provided \"as is\"\n"
+"without any warranty of any kind, either express or implied.\n"
+" Without limitation, to the fullest extent allowable by law,\n"
+" end user assumes the entire risk as to the quality\n"
+" and performance of the downloaded software produkt.\n"
+"created with Freepascal + Lazarus\n"
+"http://www.freepascal.org, http://lazarus.freepascal.org\n"
+"Iconset from:\n"
+"http://www.famfamfam.com/lab/icons/silk/\n"
 
+#~ msgctxt "TFACCOUNTINGQUE.BCLOSE.CAPTION"
+#~ msgid "&Schließen"
+#~ msgstr "&Close"
+
+# uintfstrconsts:strtendertext
+#~ msgctxt "TFACCOUNTINGQUE.BSEND.CAPTION"
+#~ msgid "Senden"
+#~ msgstr "send"
+
+#~ msgid "sendet alle Abfragen"
+#~ msgstr "sends all Querrys"
+
+# uintfstrconsts:strchange
+#~ msgctxt "TFACCOUNTINGQUE.FACCOUNTINGQUE.CAPTION"
+#~ msgid "Warteschlange"
+#~ msgstr "waiting que"
+
+# uintfstrconsts:straccounting
+#~ msgid "Account"
+#~ msgstr "Account"
+
+# uintfstrconsts:stridcode
+#~ msgid "Bank Code"
+#~ msgstr "Bank Code"
+
+# uintfstrconsts:strfinancial
+#~ msgid "Local Account"
+#~ msgstr "Local Account"
+
+#~ msgid "Local Bank Code"
+#~ msgstr "Local Bank Code"
+
+#~ msgid "Die Liste mit auszuführenden Abfragen"
+#~ msgstr "Que with Querys"
+
+#~ msgid "Einen Kontenabrufauftrag zur Warteschlange hinzufügen"
+#~ msgstr "Adds an Accountupdate to Que"
+
+#~ msgid "als Verweis kopieren"
+#~ msgstr "Copy as Link"
+
+#~ msgctxt "TFACCOUNTS.ACDELETE.CAPTION"
+#~ msgid "Löschen"
+#~ msgstr "Delete"
+
+# uintfstrconsts:strexport
+#~ msgctxt "TFACCOUNTS.ACEXPORT.CAPTION"
+#~ msgid "Exportieren"
+#~ msgstr "Export"
+
+#~ msgid ""
+#~ "sucht in der Zahlungsliste nach einer passenden Rechnung und bucht diese "
+#~ "ggf als bezahlt"
+#~ msgstr "searchs the payment list for an fitting invoice"
+
+# uintfstrconsts:strimport
+#~ msgctxt "TFACCOUNTS.ACIMPORT.CAPTION"
+#~ msgid "Importieren"
+#~ msgstr "Import"
+
+#~ msgctxt "TFACCOUNTS.ACOPEN.CAPTION"
+#~ msgid "Öffnen"
+#~ msgstr "open"
+
+#~ msgid "Verweis als Beleg einfügen"
+#~ msgstr "Add Link as Proof"
+
+# uintfstrconsts:strprint
+#~ msgctxt "TFACCOUNTS.ACPRINT.CAPTION"
+#~ msgid "acPrint"
+#~ msgstr "Print"
+
+#~ msgctxt "TFACCOUNTS.ACPRINT.HINT"
+#~ msgid "drucken"
+#~ msgstr "print"
+
+#~ msgid "zeigt die Buchungsdetails an"
+#~ msgstr "shows the booking details"
+
+#~ msgid "zeigt die Buchungsübersicht an"
+#~ msgstr "shows the Booking overview"
+
+#~ msgctxt "TFACCOUNTS.LACCOUNTNO.CAPTION"
+#~ msgid "Kontonummer"
+#~ msgstr "Accountno"
+
+# uintfstrconsts:strname
+#~ msgctxt "TFACCOUNTS.LNAME.CAPTION"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgctxt "TFACCOUNTS.LVALUE.CAPTION"
+#~ msgid "Wert"
+#~ msgstr "Value"
+
+# uintfstrconsts:straddfolder
+#~ msgctxt "TFACCOUNTS.MIADDFILTER.CAPTION"
+#~ msgid "acAddFilter"
+#~ msgstr "Add filter"
+
+# uintfstrconsts:strdefaultprinter
+#~ msgctxt "TFACCOUNTS.MIDELETEFILTER.CAPTION"
+#~ msgid "acDeleteFilter"
+#~ msgstr "Delete filter"
+
+#~ msgid "geht eine Buchung zurück"
+#~ msgstr "prior booking"
+
+#~ msgid "geht eine Buchung vor"
+#~ msgstr "next booking"
+
+#~ msgctxt "TFACQUIRE.BABORT.CAPTION"
+#~ msgid "&Schließen"
+#~ msgstr "&Close"
+
+#~ msgid "Übernehmen und Schliessen"
+#~ msgstr "Save an Close"
+
+#~ msgid "übernimmt alle gescannten Bilder in die "
+#~ msgstr "use all scanned pictures"
+
+#~ msgid "Vorschauscan"
+#~ msgstr "Previewscan"
+
+#~ msgid "holt ein Bild zur Vorschau mit 50 punten pro Inch"
+#~ msgstr "gets an Picture with 50 dpi"
+
+# uintfstrconsts:strscannext
+#~ msgctxt "TFACQUIRE.BSCAN.CAPTION"
+#~ msgid "Scannen"
+#~ msgstr "Scan"
+
+#~ msgid "holt ein/mehrere Bild(er) mit "
+#~ msgstr "gets one/more Images with"
+
+#~ msgid "Texterkennung"
+#~ msgstr "OCR"
+
+#~ msgid "führt eine Texterkennung (OCR) durch und "
+#~ msgstr "makes an OCR"
+
+#~ msgid "wählen Sie hier das Format in dem das "
+#~ msgstr "chose the Format to save the picture"
+
+#~ msgid "JPEG"
+#~ msgstr "JPEG"
+
+#~ msgctxt "TFACQUIRE.FACQUIRE.CAPTION"
+#~ msgid "Bild erfassen"
+#~ msgstr "Aquire image"
+
+#~ msgid "wählen Sie hier das Gerät von dem Sie Bilder importieren möchten"
+#~ msgstr "close the device to aquire from"
+
+#~ msgid "Gerät"
+#~ msgstr "Device"
+
+#~ msgctxt "TFACQUIRE.LRESOLUTION.CAPTION"
+#~ msgid "Auflösung"
+#~ msgstr "Resolution"
+
+#~ msgid "hier können Sie die Auflösung in Punkten pro Inch (dpi) einstellen"
+#~ msgstr "here you can set the resolution in dpi"
+
+#~ msgctxt "TFBOOKACCOUNTING.DEPAYED.CANCELCAPTION"
+#~ msgid "Cancel"
+#~ msgstr "Cancel"
+
+# uintfstrconsts:strok
+#~ msgctxt "TFBOOKACCOUNTING.DEPAYED.OKCAPTION"
+#~ msgid "OK"
+#~ msgstr "Ok"
+
+#~ msgctxt "TFBOOKACCOUNTING.EDIFFERENCE.TEXT"
+#~ msgid "0,00"
+#~ msgstr "0.00"
+
+#~ msgid "Zahlungseingang buchen"
+#~ msgstr "book receipt of payment"
+
+#~ msgid "Zahlungsbetrag"
+#~ msgstr "Value"
+
+#~ msgid "bezahlt am"
+#~ msgstr "payed on"
+
+#~ msgid "Restbetrag"
+#~ msgstr "remainder"
+
+#~ msgctxt "TFBOOKACCOUNTING.MEAMOUNT.TEXT"
+#~ msgid "0,00"
+#~ msgstr "0.00"
+
+# uintfstrconsts:strcontacttype
+#~ msgid "Kontakt erstellen"
+#~ msgstr "create contact"
+
+#~ msgid "Auftrag erstellen"
+#~ msgstr "create Order"
+
+#~ msgctxt "TFCALL.ACADDTASK.CAPTION"
+#~ msgid "Aufgabe erstellen"
+#~ msgstr "create Task"
+
+#~ msgid "annehmen"
+#~ msgstr "accept"
+
+#~ msgid "halten"
+#~ msgstr "hold"
+
+#~ msgctxt "TFCALL.FCALL.CAPTION"
+#~ msgid "Anrufstatus"
+#~ msgstr "Callstatus"
+
+#~ msgctxt "TFCALL.LDURATION.CAPTION"
+#~ msgid "Zeit"
+#~ msgstr "Time"
+
+# uintfstrconsts:strversion
+#~ msgctxt "TFCALL.LFROM.CAPTION"
+#~ msgid "Von"
+#~ msgstr "from"
+
+# uintfstrconsts:strnotice
+#~ msgctxt "TFCALL.LNOTES.CAPTION"
+#~ msgid "Notizen"
+#~ msgstr "Notice"
+
+# uintfstrconsts:strstatus
+#~ msgctxt "TFCALL.LSTATUS.CAPTION"
+#~ msgid "Status"
+#~ msgstr "Status"
+
+#~ msgctxt "TFCHANGESTATUS.BOK.CAPTION"
+#~ msgid "&Ok"
+#~ msgstr "&Ok"
+
+# uintfstrconsts:strstatus
+#~ msgid "Status ändern"
+#~ msgstr "change Status"
+
+#~ msgctxt "TFCHANGESTATUS.LCHANGE.CAPTION"
+#~ msgid "Änderung"
+#~ msgstr "change"
+
+#~ msgid "Ziel"
+#~ msgstr "Target"
+
+#~ msgid "Daten die in den neuen Artikel / Artikelversion übernommen werden"
+#~ msgstr "Use data for new Article/Version"
+
+#~ msgid "öffnet eine Liste mit Aktionen"
+#~ msgstr "opens an menu with further actions"
+
+#~ msgid "Bild hinzufügen"
+#~ msgstr "add image"
+
+#~ msgid "In Verzeichnis verschieben"
+#~ msgstr "move to directory"
+
+#~ msgctxt "TFCUSTOMER.ACCHANGECUSTOMERNUMBER.CAPTION"
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "klicken Sie hier um die Kundennummer zu ändern"
+#~ msgstr "click here to change the Accountno"
+
+#~ msgid "Aus Zwischenablage einfügen"
+#~ msgstr "paste from clipboard"
+
+#~ msgctxt "TFCUSTOMER.ACCOPY.CAPTION"
+#~ msgid "Kopieren"
+#~ msgstr "copy"
+
+#~ msgid "kopiert die aktuelle Adresse in die Zwischenablage"
+#~ msgstr "copys the address to clipboard"
+
+#~ msgctxt "TFCUSTOMER.ACDELETE.CAPTION"
+#~ msgid "Löschen"
+#~ msgstr "delete"
+
+#~ msgid "Mitarbeiter löschen"
+#~ msgstr "delete menber"
+
+#~ msgid "löscht den gewählten Mitarbeiter"
+#~ msgstr "deletes the selected menber"
+
+#~ msgid "Mitarbeiter aus Baum"
+#~ msgstr "member from tree"
+
+#~ msgid "fügt den im Baum gewählten Kontakt als Mitarbeiter hinzu"
+#~ msgstr "adds the person, selected in tree"
+
+#~ msgctxt "TFCUSTOMER.ACENTERTIME.CAPTION"
+#~ msgid "Zeiterfassung beginnen"
+#~ msgstr "start timeregistering"
+
+#~ msgctxt "TFCUSTOMER.ACEXPORT.CAPTION"
+#~ msgid "In Datei exportieren"
+#~ msgstr "export to file"
+
+#~ msgctxt "TFCUSTOMER.ACIMAGETOCLIPBOARD.CAPTION"
+#~ msgid "In Zwischenablage kopieren"
+#~ msgstr "copy to clipboard"
+
+#~ msgctxt "TFCUSTOMER.ACIMPORT.CAPTION"
+#~ msgid "Aus Datei importieren"
+#~ msgstr "import from file"
+
+#~ msgid "Aus Zwischenablage importieren"
+#~ msgstr "import from clipboard"
+
+#~ msgid "aus Outlook importieren"
+#~ msgstr "import from Outlook"
+
+#~ msgctxt "TFCUSTOMER.ACMENUE.HINT"
+#~ msgid "öffnet ein Menü mit weiteren Möglichkeiten"
+#~ msgstr "opens an menu with more actions"
+
+#~ msgid "erstellt einen neuen Kontakt"
+#~ msgstr "creates an new contact"
+
+#~ msgid "neuer Anruf"
+#~ msgstr "new call"
+
+#~ msgid "Neuer Mitarbeiter"
+#~ msgstr "new member"
+
+#~ msgid "neuer Auftrag"
+#~ msgstr "new order"
+
+#~ msgctxt "TFCUSTOMER.ACPASTE.CAPTION"
+#~ msgid "Einfügen"
+#~ msgstr "insert"
+
+#~ msgctxt "TFCUSTOMER.ACPRINT.CAPTION"
+#~ msgid "Drucken"
+#~ msgstr "print"
+
+#~ msgctxt "TFCUSTOMER.ACPRINT.HINT"
+#~ msgid "drucken"
+#~ msgstr "print"
+
+#~ msgid "speichert den Kontakt"
+#~ msgstr "saves the contact"
+
+#~ msgctxt "TFCUSTOMER.ACSAVEEMPLOYEE.CAPTION"
+#~ msgid "Speichern"
+#~ msgstr "save"
+
+#~ msgid "Baumeintrag anzeigen"
+#~ msgstr "show tree entry"
+
+#~ msgid "zeigt den Kontakt im Baum an "
+#~ msgstr "shows the entry in tree"
+
+#~ msgctxt "TFCUSTOMER.ACTRANSFER.CAPTION"
+#~ msgid "Überweisung erstellen"
+#~ msgstr "create bank transfer"
+
+#~ msgid ""
+#~ "erstellt eine Überweisung an die gewählte bankverbindung / den Kontakt"
+#~ msgstr "cerates an bank transfer to the selected account of this contact"
+
+#~ msgid "Kunde anzeigen"
+#~ msgstr "show contact"
+
+#~ msgid "zeigt den gewählten Kontakt an"
+#~ msgstr "shows the selected contact"
+
+#~ msgid "Kundenliste anzeigen"
+#~ msgstr "show contact list"
+
+#~ msgid "zeigt die Kontaktübersicht an"
+#~ msgstr "shows the contact list"
+
+#~ msgctxt "TFCUSTOMER.BADDFORM.HINT"
+#~ msgid "erstellt ein neues Tab"
+#~ msgstr "create new tab"
+
+#~ msgctxt "TFCUSTOMER.BASSIGNTREE.HINT"
+#~ msgid "weist den Eintrag einem Verzeichnis im Baum zu"
+#~ msgstr "adds the entry to the directory thats selected in tree"
+
+#~ msgctxt "TFCUSTOMER.BDELFORM.HINT"
+#~ msgid "löscht das aktuelle Tab"
+#~ msgstr "deletes the actual tab"
+
+#~ msgctxt "TFCUSTOMER.BEDITFORM.HINT"
+#~ msgid "hiermit können Sie den Tabdesigner aufrufen,"
+#~ msgstr "enter the Tab designer"
+
+#~ msgctxt "TFCUSTOMER.CBACTIVE.CAPTION"
+#~ msgid "Aktiv"
+#~ msgstr "active"
+
+#~ msgid ""
+#~ "setzt eine Standartwährung für den Kontakt mit der jeder Vorgang für den "
+#~ "Kontakt vorbelegt wird"
+#~ msgstr ""
+#~ "sets an standard currency for the contact all orders are created with "
+#~ "that currency"
+
+#~ msgid "setzt eine Rabattgruppe für den Kontakt"
+#~ msgstr "sets an discount for the contact"
+
+#~ msgid "wählen Sie hier die Sprache des Kontaktes"
+#~ msgstr "select the language of the contact"
+
+#~ msgid "hier können Sie den Status des Kontaktes setzen/ändern"
+#~ msgstr "here you can change the Status of the contact"
+
+#~ msgid "ist Lieferant"
+#~ msgstr "is distributor"
+
+#~ msgid "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
+#~ msgstr "check these field if the contact is an distributor"
+
+#~ msgid "geben Sie hier den namen des Kontaktes an"
+#~ msgstr "add the name of the contact here"
+
+#~ msgctxt "TFCUSTOMER.EMATCHCODE.HINT"
+#~ msgid "Hier können Sie einen Suchbegriff angeben, "
+#~ msgstr "here you can add an search term"
+
+#~ msgctxt "TFCUSTOMER.GADRESSES.HINT"
+#~ msgid "wählen Sie hier eine Adresse"
+#~ msgstr "select an address here"
+
+#~ msgid "hier können Sie Bankverbindungen des Kontaktes verwalten"
+#~ msgstr "here you can manage the bank accounts of the contact"
+
+# uintfstrconsts:strcontacttype
+#~ msgid "Contacttype"
+#~ msgstr "Contact type"
+
+# uintfstrconsts:strentry
+#~ msgctxt "TFCUSTOMER.GCONTACT.COLUMNS[1].TCOLUMNTITLE.CAPTION"
+#~ msgid "Entry"
+#~ msgstr "Entry"
+
+#~ msgctxt "TFCUSTOMER.LADDITIONAL.CAPTION"
+#~ msgid "Zusätzlich"
+#~ msgstr "Additional"
+
+# uintfstrconsts:strshorttext
+#~ msgid "Vorname"
+#~ msgstr "First name"
+
+#~ msgctxt "TFCUSTOMER.LCITY.CAPTION"
+#~ msgid "Ort"
+#~ msgstr "Location"
+
+#~ msgctxt "TFCUSTOMER.LCURRENCY.CAPTION"
+#~ msgid "Währung"
+#~ msgstr "Currency"
+
+# uintfstrconsts:strshorttext
+#~ msgid "Kontaktname"
+#~ msgstr "Contactname"
+
+#~ msgid "Mitarbeiter von"
+#~ msgstr "member of"
+
+#~ msgctxt "TFCUSTOMER.LDISCONT.CAPTION"
+#~ msgid "Rabatt"
+#~ msgstr "discount"
+
+# uintfstrconsts:strland
+#~ msgctxt "TFCUSTOMER.LLAND.CAPTION"
+#~ msgid "Land"
+#~ msgstr "Country"
+
+# uintfstrconsts:strnameorfirm
+#~ msgid "Name / Firma"
+#~ msgstr "Name/Firm"
+
+#~ msgctxt "TFCUSTOMER.LPOSTALCODE.CAPTION"
+#~ msgid "Postleitzahl"
+#~ msgstr "Zip"
+
+# uintfstrconsts:strstatus
+#~ msgctxt "TFCUSTOMER.LSTATE.CAPTION"
+#~ msgid "Status"
+#~ msgstr "Status"
+
+#~ msgid "Straße"
+#~ msgstr "Street"
+
+#~ msgctxt "TFCUSTOMER.LTITLE.CAPTION"
+#~ msgid "Anrede"
+#~ msgstr "Title"
+
+# uintfstrconsts:strexport
+#~ msgctxt "TFCUSTOMER.MIEXPORT.CAPTION"
+#~ msgid "Exportieren"
+#~ msgstr "Export"
+
+# uintfstrconsts:strimport
+#~ msgctxt "TFCUSTOMER.MIIMPORT.CAPTION"
+#~ msgid "Importieren"
+#~ msgstr "Import"
+
+#~ msgid "Notizen zum Kontakt"
+#~ msgstr "Notice to contact"
+
+#~ msgid "kein Bild verfügbar"
+#~ msgstr "no Image avalible"
+
+#~ msgctxt "TFCUSTOMER.SBADDIMAGE.HINT"
+#~ msgid "öffnet einen Dialog zum auswählen "
+#~ msgstr "opend an dialog to select an image"
+
+#~ msgctxt "TFCUSTOMER.SBCLIPBOARDTOIMAGE.HINT"
+#~ msgid "fügt ein Bild aus der Zwischenablage ein"
+#~ msgstr "adds an image from clipboard"
+
+#~ msgctxt "TFCUSTOMER.SBIMAGETOCLIPBOARD.HINT"
+#~ msgid "kopiert das Bild in die Zwischenablage"
+#~ msgstr "copys the image to clipboard"
+
+#~ msgctxt "TFCUSTOMER.SPEEDBUTTON2.CAPTION"
+#~ msgid "?"
+#~ msgstr "?"
+
+# uintfstrconsts:strhistory
+#~ msgctxt "TFCUSTOMER.TSHISTORY.CAPTION"
+#~ msgid "Historie"
+#~ msgstr "History"
+
+# uintfstrconsts:strnotice
+#~ msgctxt "TFCUSTOMER.TSINFO.CAPTION"
+#~ msgid "Notizen"
+#~ msgstr "Notice"
+
+#~ msgctxt "TFDATAIMPORT.BCHANGEFORMAT.CAPTION"
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Textdatei Trennzeichen getrennt"
+#~ msgstr "Textfile char delemited"
+
+# uintfstrconsts:strdateformat
+#~ msgctxt "TFDATAIMPORT.FDATAIMPORT.CAPTION"
+#~ msgid "Datenimport"
+#~ msgstr "Dataimport"
+
+#~ msgctxt "TFDATAIMPORT.LABEL1.CAPTION"
+#~ msgid "Datenquelle"
+#~ msgstr "Datasource"
+
+# uintfstrconsts:strdateformat
+#~ msgid "Datenformat"
+#~ msgstr "Dataformat"
+
+#~ msgctxt "TFDATAIMPORT.LINFO.CAPTION"
+#~ msgid "Bitte wählen Sie ein Datenformat"
+#~ msgstr "please select an data format"
+
+#~ msgid "hinzufügen"
+#~ msgstr "add"
+
+# uintfstrconsts:strcontact
+#~ msgid "entfernen"
+#~ msgstr "remove"
+
+#~ msgid "Befehl einfügen"
+#~ msgstr "add command"
+
+#~ msgid "Importformat Konfiguration"
+#~ msgstr "Import Configuration"
+
+#~ msgid "Quellspalten"
+#~ msgstr "Sourcerows"
+
+# uintfstrconsts:strregistered
+#~ msgid "Fester Wert"
+#~ msgstr "Fixed value"
+
+#~ msgid "Prüfen"
+#~ msgstr "Check"
+
+# uintfstrconsts:strposition
+#~ msgctxt "TFDISPOSITION.FDISPOSITION.CAPTION"
+#~ msgid "Disposition"
+#~ msgstr "Disposition"
+
+# uintfstrconsts:struser
+#~ msgctxt "TFDOCPROPERTIES.LFILENAME.CAPTION"
+#~ msgid "Dateiname"
+#~ msgstr "Filename"
+
+#~ msgid "Zuletzt geändert"
+#~ msgstr "last changes"
+
+# uintfstrconsts:strmaximize
+#~ msgid "Mime Typ"
+#~ msgstr "Mime Type"
+
+#~ msgid "zu dieser Revision auschecken"
+#~ msgstr "checkout to this revision"
+
+#~ msgctxt "TFDOCPROPERTIES.SGLOG.COLUMNS.TITLE.CAPTION"
+#~ msgid "Änderung"
+#~ msgstr "Achange"
+
+#~ msgctxt "TFDOCPROPERTIES.TSCOMMON.CAPTION"
+#~ msgid "Allgemein"
+#~ msgstr "Common"
+
+# uintfstrconsts:stradddocumentoptions
+#~ msgid "Dokumentenaktionen"
+#~ msgstr "Document Actions"
+
+#~ msgid "auch neue Dateien einchekcen"
+#~ msgstr "checkin also new files"
+
+#~ msgid "komplettes Verzeichnis auschecken"
+#~ msgstr "checkout complete dir"
+
+#~ msgid "Startprogramm nicht benutzen"
+#~ msgstr "Dont use starter"
+
+#~ msgid "Befehl"
+#~ msgstr "Command"
+
+# uintfstrconsts:strposcalc
+#~ msgid "Standart Aktionen"
+#~ msgstr "Standart actions"
+
+#~ msgid "Spezialaktion verwenden"
+#~ msgstr "apply special action"
+
+# uintfstrconsts:strposcalc
+#~ msgid "Standartaktion verwenden"
+#~ msgstr "use Standart actions"
+
+#~ msgctxt "TFDOCUMENTADDOPTIONS.CAPTION"
+#~ msgid "Dokument hinzufügen"
+#~ msgstr "add document"
+
+#~ msgid "zu Narichten hinzufügen"
+#~ msgstr "add to messages"
+
+#~ msgid "im Dateisystem löschen"
+#~ msgstr "delete in filesystem"
+
+#~ msgctxt "TFDOCUMENTADDOPTIONS.CCCALENDAR.CANCELCAPTION"
+#~ msgid "Cancel"
+#~ msgstr "Cancel"
+
+# uintfstrconsts:strok
+#~ msgctxt "TFDOCUMENTADDOPTIONS.CCCALENDAR.OKCAPTION"
+#~ msgid "OK"
+#~ msgstr "Ok"
+
+#~ msgctxt "TFDOCUMENTADDOPTIONS.LCHECKINDATE.CAPTION"
+#~ msgid "Datum"
+#~ msgstr "Date"
+
+# uintfstrconsts:strname
+#~ msgctxt "TFDOCUMENTADDOPTIONS.LNAME.CAPTION"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+# uintfstrconsts:strtendertext
+#~ msgctxt "TFEDITMAIL.BSEND.CAPTION"
+#~ msgid "Senden"
+#~ msgstr "Send"
+
+#~ msgid "eCC"
+#~ msgstr "CC"
+
+# uintfstrconsts:strsubmit
+#~ msgid "eSubject"
+#~ msgstr "Subject"
+
+#~ msgid "Nachrichteneditor"
+#~ msgstr "Messageeditor"
+
+#~ msgid "CC"
+#~ msgstr "CC"
+
+# uintfstrconsts:strpages
+#~ msgctxt "TFEDITMAIL.LMESSAGE.CAPTION"
+#~ msgid "lMessage"
+#~ msgstr "Message"
+
+#~ msgctxt "TFEDITMAIL.LSUBJECT.CAPTION"
+#~ msgid "Betreff"
+#~ msgstr "Subject"
+
+#~ msgid "An"
+#~ msgstr "To"
+
+# uintfstrconsts:strdetails
+#~ msgid "als"
+#~ msgstr "as"
+
+#~ msgid "über"
+#~ msgstr "over"
+
+#~ msgid "Inhalt"
+#~ msgstr "Content"
+
+#~ msgid "Text editieren"
+#~ msgstr "Edit text"
+
+# uintfstrconsts:strfilter
+#~ msgctxt "TFENTERTIME.ACFILTER.CAPTION"
+#~ msgid "acFilter"
+#~ msgstr "Filter"
+
+#~ msgid "neuen Eintrag einfügen"
+#~ msgstr "add new entry"
+
+#~ msgid "In die Startleistenablage minimieren"
+#~ msgstr "minimize to Tray"
+
+#~ msgctxt "TFENTERTIME.ACPRINT.CAPTION"
+#~ msgid "Drucken"
+#~ msgstr "Print"
+
+#~ msgid "Als neuen Eintrag benutzen"
+#~ msgstr "use as new entry"
+
+#~ msgid "Übernimmt die Eintragungen in den aktuellen Eintrag"
+#~ msgstr "uses the settings in actual entry"
+
+#~ msgid "übernehmen"
+#~ msgstr "apply"
+
+#~ msgid "übernimmt Änderungen "
+#~ msgstr "apply changes"
+
+#~ msgid "pausieren"
+#~ msgstr "pause"
+
+#~ msgid "pausiert die aktuelle Tätigkeit"
+#~ msgstr "pauses the actual activity"
+
+#~ msgctxt "TFENTERTIME.BPRINT.HINT"
+#~ msgid "Drucken"
+#~ msgstr "print"
+
+#~ msgctxt "TFENTERTIME.BSTART.CAPTION"
+#~ msgid "beginnen"
+#~ msgstr "start"
+
+#~ msgid "beginnt die Zeiterfassung, mit den links "
+#~ msgstr "starts the timeregistering with links"
+
+#~ msgid "Beendet die aktuelle Tätigkeit"
+#~ msgstr "stops the actual activity"
+
+#~ msgctxt "TFENTERTIME.CBMAXRESULTS.CAPTION"
+#~ msgid "Filterergebnisse begrenzen auf"
+#~ msgstr "limit filterresults to"
+
+#~ msgid "Dialog alle"
+#~ msgstr "Show dialog every"
+
+#~ msgctxt "TFENTERTIME.ELINK.HINT"
+#~ msgid "Suchen Sie mithilfe des Buttons einen passenden Eintrag"
+#~ msgstr "Search with this button an fitting entry"
+
+#~ msgctxt "TFENTERTIME.ILINK.HINT"
+#~ msgid "Zeigt an ob eine gültige verknüpfung "
+#~ msgstr "Show if an Link is valid"
+
+#~ msgctxt "TFENTERTIME.LJOB1.CAPTION"
+#~ msgid "Aufgabe"
+#~ msgstr "Task"
+
+# uintfstrconsts:strnotice
+#~ msgctxt "TFENTERTIME.LNOTES.CAPTION"
+#~ msgid "Notizen"
+#~ msgstr "Notice"
+
+# uintfstrconsts:strpause
+#~ msgid "Pausen"
+#~ msgstr "Pause"
+
+#~ msgid "min zeigen"
+#~ msgstr "show min"
+
+#~ msgid "Erfasste Zeiten"
+#~ msgstr "collected times"
+
+#~ msgid "Aktueller Zeiteintrag"
+#~ msgstr "actial activity"
+
+#~ msgid "Zeit heute"
+#~ msgstr "Times today"
+
+#~ msgid "aktuelle"
+#~ msgstr "actual"
+
+#~ msgid "aktueller"
+#~ msgstr "actual"
+
+#~ msgid "Eintrag benutzen"
+#~ msgstr "use entry"
+
+# uintfstrconsts:strindustrialtime
+#~ msgid "Industriezeit"
+#~ msgstr "Industrialtime"
+
+# uintfstrconsts:strnormaltime
+#~ msgid "Normalzeit"
+#~ msgstr "Normaltime"
+
+#~ msgctxt "TFENTERTIME.SEMAXRESULTS.HINT"
+#~ msgid "hier können Sie die Zahl der maximalen Filterergebnisse angeben"
+#~ msgstr "here you can set an limit for the filter results"
+
+#~ msgid "Erinnerung"
+#~ msgstr "reminder"
+
+#~ msgctxt "TFEVENTEDIT.CANCELBTN.CAPTION"
+#~ msgid "Abbrechen"
+#~ msgstr "Cancel"
+
+#~ msgid "Ganztägig"
+#~ msgstr "Whole day"
+
+# uintfstrconsts:strproduction
+#~ msgid "eLocation"
+#~ msgstr "Location"
+
+#~ msgctxt "TFEVENTEDIT.ENDDATE.CANCELCAPTION"
+#~ msgid "Cancel"
+#~ msgstr "Cancel"
+
+# uintfstrconsts:strok
+#~ msgctxt "TFEVENTEDIT.ENDDATE.OKCAPTION"
+#~ msgid "OK"
+#~ msgstr "Ok"
+
+#~ msgid "Endzeit"
+#~ msgstr "Endtime"
+
+#~ msgctxt "TFEVENTEDIT.FEVENTEDIT.CAPTION"
+#~ msgid "Ereignis bearbeiten"
+#~ msgstr "Edit appointment"
+
+#~ msgctxt "TFEVENTEDIT.LLOCATION.CAPTION"
+#~ msgid "Ort"
+#~ msgstr "Location"
+
+# uintfstrconsts:strpages
+#~ msgctxt "TFEVENTEDIT.LMESSAGE.CAPTION"
+#~ msgid "lMessage"
+#~ msgstr "Message"
+
+#~ msgctxt "TFEVENTEDIT.OKBTN.CAPTION"
+#~ msgid "&Ok"
+#~ msgstr "&Ok"
+
+#~ msgid "Auftreten"
+#~ msgstr "appearance"
+
+#~ msgctxt "TFEVENTEDIT.REPEATUNTIL.CANCELCAPTION"
+#~ msgid "Cancel"
+#~ msgstr "Cancel"
+
+# uintfstrconsts:strok
+#~ msgctxt "TFEVENTEDIT.REPEATUNTIL.OKCAPTION"
+#~ msgid "OK"
+#~ msgstr "Ok"
+
+#~ msgctxt "TFEVENTEDIT.STARTDATE.CANCELCAPTION"
+#~ msgid "Cancel"
+#~ msgstr "Cancel"
+
+# uintfstrconsts:strok
+#~ msgctxt "TFEVENTEDIT.STARTDATE.OKCAPTION"
+#~ msgid "OK"
+#~ msgstr "Ok"
+
+# uintfstrconsts:strstart
+#~ msgid "Startzeit"
+#~ msgstr "Starttime"
+
+#~ msgctxt "TFFILTER.ACCOPYLINK.CAPTION"
+#~ msgid "als Verknüpfung kopieren"
+#~ msgstr "copy as link"
+
+# uintfstrconsts:strdefaultprinter
+#~ msgctxt "TFFILTER.ACDELETEFILTER.CAPTION"
+#~ msgid "acDeleteFilter"
+#~ msgstr "Delete filter"
+
+#~ msgid "löscht den Filter"
+#~ msgstr "deletes the filter"
+
+# uintfstrconsts:strfilter
+#~ msgid "Filtern"
+#~ msgstr "Filter"
+
+#~ msgid "aktiviert den gewählten Filter, "
+#~ msgstr "activates the actual filter"
+
+#~ msgctxt "TFFILTER.ACOPEN.CAPTION"
+#~ msgid "Öffnen"
+#~ msgstr "Open"
+
+# uintfstrconsts:strfilter
+#~ msgid "acSaveFilter"
+#~ msgstr "save Filter"
+
+#~ msgid "speichert den Filter privat"
+#~ msgstr "saves the filter private"
+
+#~ msgid "speichert den Filter öffentlich"
+#~ msgstr "saves the filter public"
+
+#~ msgid "zeigt/verbirgt den Filtereditor"
+#~ msgstr "shows/hides the filter editor"
+
+#~ msgid "hier können Sie einen Filter wählen um die Liste einzuschränken"
+#~ msgstr "here you can select an filter"
+
+#~ msgctxt "TFFILTER.CBMAXRESULTS.CAPTION"
+#~ msgid "Filterergebnisse begrenzen auf"
+#~ msgstr "limit filterresults to"
+
+# uintfstrconsts:strfilter
+#~ msgctxt "TFFILTER.LFILTER.CAPTION"
+#~ msgid "Filter"
+#~ msgstr "Filter"
+
+# uintfstrconsts:strfilter
+#~ msgctxt "TFHISTORYFRAME.ACFILTER.CAPTION"
+#~ msgid "acFilter"
+#~ msgstr "Filter"
+
+# uintfstrconsts:strfilter
+#~ msgctxt "TFLINKS.ACFILTER.CAPTION"
+#~ msgid "acFilter"
+#~ msgstr "Filter"
+
+#~ msgid "Verweis(e) einfügen"
+#~ msgstr "Insert link(s)"
+
+#~ msgid "Im Auftrag anzeigen"
+#~ msgstr "Show in Order"
+
+#~ msgctxt "TFLINKS.GLIST.HINT"
+#~ msgid "Die Historie des Eintrags"
+#~ msgstr "The history of this entry"
+
+#~ msgctxt "TFLOGWAITFORM.BABORT.CAPTION"
+#~ msgid "Abbrechen"
+#~ msgstr "Cancel"
+
+#~ msgid "Narichteneinstellungen"
+#~ msgstr "Messageoptions"
+
+#~ msgid "POP3"
+#~ msgstr "POP§"
+
+# uintfstrconsts:straddresses
+#~ msgid "e-Mail Addresse"
+#~ msgstr "e-Mail Address"
+
+# uintfstrconsts:strname
+#~ msgctxt "TFMAILOPTIONS.LNAME.CAPTION"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+# uintfstrconsts:strpassword
+#~ msgctxt "TFMAILOPTIONS.LPASSWORD.CAPTION"
+#~ msgid "Passwort"
+#~ msgstr "Password"
+
+# uintfstrconsts:strseverity
+#~ msgid "Servertyp"
+#~ msgstr "Servertype"
+
+#~ msgctxt "TFMAIN.ACADDDIRECTORY.CAPTION"
+#~ msgid "Verzeichnis hinzufügen"
+#~ msgstr "Add directory"
+
+#~ msgid "zum vorherigen Eintrag gehen"
+#~ msgstr "goto prior entry"
+
+#~ msgctxt "TFMAIN.ACCALENDAR.CAPTION"
+#~ msgid "Kalendar"
+#~ msgstr "Calendar"
+
+# uintfstrconsts:strcontact
+#~ msgctxt "TFMAIN.ACCONTACT.CAPTION"
+#~ msgid "Kontakte"
+#~ msgstr "Contacts"
+
+#~ msgid "Verzeichnis löschen"
+#~ msgstr "delete Directory"
+
+#~ msgid "Mandanten löschen"
+#~ msgstr "delete mandant"
+
+#~ msgid "Alle Narichten löschen"
+#~ msgstr "delete all Messages"
+
+#~ msgid "zum nächsten Eintrag gehen"
+#~ msgstr "gito next entry"
+
+# uintfstrconsts:strinfo
+#~ msgctxt "tfmain.acinfo.caption"
+#~ msgid "Info"
+#~ msgstr "Info"
+
+#~ msgid "Anmelden"
+#~ msgstr "Login"
+
+#~ msgid "Abmelden"
+#~ msgstr "Logout"
+
+#~ msgctxt "TFMAIN.ACMASTERDATA.CAPTION"
+#~ msgid "Stammdaten"
+#~ msgstr "Masterdata"
+
+#~ msgid "Neuer Artikel"
+#~ msgstr "new Article"
+
+#~ msgctxt "TFMAIN.ACNEWCUSTOMER.CAPTION"
+#~ msgid "Neuer Kontakt"
+#~ msgstr "new Contact"
+
+# uintfstrconsts:stremail
+#~ msgid "Neue e-Mail"
+#~ msgstr "new e-Mail"
+
+#~ msgid "Neuen Mandanten anlegen"
+#~ msgstr "create new Mandant/database"
+
+#~ msgid "Neuer Auftrag"
+#~ msgstr "new Order"
+
+# uintfstrconsts:strproject
+#~ msgctxt "TFMAIN.ACNEWPROJECT.CAPTION"
+#~ msgid "Neues Projekt"
+#~ msgstr "New Project"
+
+#~ msgid "Neue Aufgabe"
+#~ msgstr "new Task"
+
+#~ msgctxt "TFMAIN.ACPERSONALOPTIONS.CAPTION"
+#~ msgid "Persönliche Einstellungen"
+#~ msgstr "Personal Options"
+
+#~ msgid "Einstellungen"
+#~ msgstr "Options"
+
+# uintfstrconsts:strtendertext
+#~ msgid "Beenden"
+#~ msgstr "close"
+
+#~ msgctxt "TFMAIN.ACSANDBOXMODE.CAPTION"
+#~ msgid "testmode"
+#~ msgstr "testmode"
+
+#~ msgid "Tastenkürzel"
+#~ msgstr "Shortcuts"
+
+#~ msgid "Programm zeigen/verstecken"
+#~ msgstr "Show/hide porgram"
+
+#~ msgid "Hilfe zeigen/verstecken"
+#~ msgstr "show/hode Help"
+
+#~ msgctxt "TFMAIN.ACTIMEREGISTERING.CAPTION"
+#~ msgid "Zeiterfassung"
+#~ msgstr "Timeregistering"
+
+#~ msgid "Zuletzt aufgerufene Einträge anzeigen"
+#~ msgstr "Show last accessed entrys"
+
+#~ msgctxt "TFMAIN.FMAIN.CAPTION"
+#~ msgid "Promet-ERP"
+#~ msgstr "Promet-ERP"
+
+# uintfstrconsts:strpages
+#~ msgctxt "TFMAIN.LMESSAGE.CAPTION"
+#~ msgid "lMessage"
+#~ msgstr "Message"
+
+#~ msgid "Hilfe"
+#~ msgstr "Help"
+
+#~ msgctxt "TFMAIN.MILANGUAGE.CAPTION"
+#~ msgid "Sprache"
+#~ msgstr "Language"
+
+# uintfstrconsts:strarticlelist
+#~ msgctxt "TFMAIN.MINEW1.CAPTION"
+#~ msgid "New Item1"
+#~ msgstr "Sale Item"
+
+# uintfstrconsts:stroptions
+#~ msgctxt "TFMAIN.MIOPTIONS.CAPTION"
+#~ msgid "Optionen"
+#~ msgstr "Options"
+
+# uintfstrconsts:strnet
+#~ msgctxt "TFMAIN.MITRAYNEW.CAPTION"
+#~ msgid "Neu"
+#~ msgstr "New"
+
+#~ msgctxt "TFMASTERDATA.ACASSIGNTOTREE.HINT"
+#~ msgid "weist den Eintrag einem Verzeichnis im Baum zu"
+#~ msgstr "adds the entry to the selected dir in tree"
+
+#~ msgid "klicken Sie hier um die Artikelnummer zu ändern"
+#~ msgstr "klick here to change the articlenumber"
+
+#~ msgid "In Artikel konvertieren"
+#~ msgstr "convert to article"
+
+#~ msgid "In Stückliste konvertieren"
+#~ msgstr "convert to piecelist"
+
+#~ msgctxt "TFMASTERDATA.ACCOPY.CAPTION"
+#~ msgid "Kopieren"
+#~ msgstr "Copy"
+
+#~ msgid "Zeiterfassung mit Eintrag beginnen"
+#~ msgstr "start timeregistering with entry"
+
+# uintfstrconsts:strexport
+#~ msgctxt "TFMASTERDATA.ACEXPORT.CAPTION"
+#~ msgid "Exportieren"
+#~ msgstr "Export"
+
+#~ msgctxt "TFMASTERDATA.ACIMAGETOCLIPBOARD.CAPTION"
+#~ msgid "aus Zwischenablage einfügen"
+#~ msgstr "paste from clipboard"
+
+# uintfstrconsts:strimport
+#~ msgctxt "TFMASTERDATA.ACIMPORT.CAPTION"
+#~ msgid "Importieren"
+#~ msgstr "Import"
+
+# uintfstrconsts:strownproduction
+#~ msgid "Eigenproduktion"
+#~ msgstr "Own production"
+
+# uintfstrconsts:strstatus
+#~ msgctxt "TFMASTERDATA.LSTATE.CAPTION"
+#~ msgid "Status"
+#~ msgstr "Status"
+
+# uintfstrconsts:strversion
+#~ msgid "Versandkosten"
+#~ msgstr "Shipping costs"
+
+# uintfstrconsts:strtype
+#~ msgctxt "TFMASTERDATA.LTYPE.CAPTION"
+#~ msgid "Typ"
+#~ msgstr "Typ"
+
+# uintfstrconsts:strposition
+#~ msgctxt "TFMASTERDATA.TSDISPOSITION.CAPTION"
+#~ msgid "Disposition"
+#~ msgstr "Disposition"
+
+# uintfstrconsts:strdocuments
+#~ msgctxt "TFMASTERDATA.TSDOCUMENTS.CAPTION"
+#~ msgid "Dokumente"
+#~ msgstr "Documents"
+
+# uintfstrconsts:strhistory
+#~ msgctxt "TFMASTERDATA.TSHISTORY.CAPTION"
+#~ msgid "Historie"
+#~ msgstr "History"
+
+#~ msgctxt "TFMASTERDATA.TSSUPPLIER.CAPTION"
+#~ msgid "Lieferanten"
+#~ msgstr "Supplier"
+
+# uintfstrconsts:strtext
+#~ msgctxt "TFMASTERDATA.TSTEXT.CAPTION"
+#~ msgid "Texte"
+#~ msgstr "Texts"
+
+#~ msgid "acForward"
+#~ msgstr "Forward"
+
+# uintfstrconsts:strpages
+#~ msgctxt "TFMESSAGES.FMESSAGES.CAPTION"
+#~ msgid "fMessages"
+#~ msgstr "Messages"
+
+# uintfstrconsts:strmaximize
+#~ msgid "Mime Typen"
+#~ msgstr "Mime Types"
+
+# uintfstrconsts:struser
+#~ msgctxt "TFOFFICEOPTIONS.LFILE.CAPTION"
+#~ msgid "Dateiname"
+#~ msgstr "Filename"
+
+# uintfstrconsts:strnet
+#~ msgctxt "TFOPTIONS.BNEW.CAPTION"
+#~ msgid "Neu"
+#~ msgstr "New"
+
+# uintfstrconsts:stractive
+#~ msgid "Archivements"
+#~ msgstr "achievements"
+
+# uintfstrconsts:strordernumber
+#~ msgid "Bank code numbers"
+#~ msgstr "Bank code numbers"
+
+# uintfstrconsts:strbanking
+#~ msgid "Banking accounts"
+#~ msgstr "Banking accounts"
+
+# uintfstrconsts:strnewtransfer
+#~ msgid "Transfers"
+#~ msgstr "Transfers"
+
+#~ msgid "Calendar"
+#~ msgstr "Calendar"
+
+# uintfstrconsts:strcostcentre
+#~ msgid "cost centres"
+#~ msgstr "cost centres"
+
+# uintfstrconsts:strcurrency
+#~ msgid "Currency"
+#~ msgstr "Currency"
+
+# uintfstrconsts:strcustomers
+#~ msgid "Customers"
+#~ msgstr "Customers"
+
+# uintfstrconsts:strdoupdate
+#~ msgid "Onlineupdate aktiv"
+#~ msgstr "Automatic online update active"
+
+# uintfstrconsts:strfinancial
+#~ msgid "financial account"
+#~ msgstr "financial account"
+
+# uintfstrconsts:strpages
+#~ msgid "Messages"
+#~ msgstr "Messages"
+
+# uintfstrconsts:strcustomernumber
+#~ msgid "set of numbers"
+#~ msgstr "set of numbers"
+
+# uintfstrconsts:strorders
+#~ msgid "Orders"
+#~ msgstr "Orders"
+
+# uintfstrconsts:strpartslist
+#~ msgid "Partlists"
+#~ msgstr "Partlists"
+
+# uintfstrconsts:strpaymenttarget
+#~ msgid "Paymenttypes"
+#~ msgstr "Paymenttypes"
+
+# uintfstrconsts:strpostalcode
+#~ msgid "Postalcodes"
+#~ msgstr "Postalcodes"
+
+#~ msgid "Shippingtypes"
+#~ msgstr "Shippingtypes"
+
+# uintfstrconsts:strproduction
+#~ msgid "Produktion"
+#~ msgstr "Produktion"
+
+# uintfstrconsts:strstop
+#~ msgctxt "TFOPTIONS.CBSTOCK.CAPTION"
+#~ msgid "Stock"
+#~ msgstr "Stock"
+
+# uintfstrconsts:strtasks
+#~ msgid "Tasks"
+#~ msgstr "Tasks"
+
+# uintfstrconsts:strid
+#~ msgctxt "TFOPTIONS.DGDISPATCHTYPES.COLUMNS[0].TCOLUMNTITLE.CAPTION"
+#~ msgid "ID"
+#~ msgstr "ID"
+
+# uintfstrconsts:stroptions
+#~ msgctxt "TFOPTIONS.FOPTIONS.CAPTION"
+#~ msgid "Optionen"
+#~ msgstr "Option"
+
+# uintfstrconsts:strid
+#~ msgctxt "TFOPTIONS.GPAYMENTTARGETS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
+#~ msgid "ID"
+#~ msgstr "ID"
+
+# uintfstrconsts:strid
+#~ msgctxt "TFOPTIONS.GSTORAGE.COLUMNS[0].TCOLUMNTITLE.CAPTION"
+#~ msgid "ID"
+#~ msgstr "ID"
+
+# uintfstrconsts:strid
+#~ msgctxt "TFOPTIONS.GVAT.COLUMNS[0].TCOLUMNTITLE.CAPTION"
+#~ msgid "ID"
+#~ msgstr "ID"
+
+# uintfstrconsts:stradministrativedata
+#~ msgid "Administrative data"
+#~ msgstr "Administrative data"
+
+# uintfstrconsts:stradress
+#~ msgctxt "TFOPTIONS.LADRESS.CAPTION"
+#~ msgid "Adresse"
+#~ msgstr "Adress"
+
+# uintfstrconsts:strbanking
+#~ msgid "Banking"
+#~ msgstr "Banking"
+
+# uintfstrconsts:strtendertext
+#~ msgctxt "TFOPTIONS.LCOUNTRIES.CAPTION"
+#~ msgid "Länder"
+#~ msgstr "Countrys"
+
+# uintfstrconsts:strdateformat
+#~ msgid "Datumsformat"
+#~ msgstr "Dateformat"
+
+# uintfstrconsts:strposcalc
+#~ msgid "Standart Positionstyp"
+#~ msgstr "Standard positiontyp"
+
+# uintfstrconsts:strfax
+#~ msgctxt "TFOPTIONS.LFAX.CAPTION"
+#~ msgid "Fax"
+#~ msgstr "Fax"
+
+# uintfstrconsts:strfinancial
+#~ msgid "Financial accounting"
+#~ msgstr "Financial accounting"
+
+# uintfstrconsts:stridcode
+#~ msgid "ID Code"
+#~ msgstr "ID Code"
+
+# uintfstrconsts:strindustrialtime
+#~ msgid "Kreditinstitut"
+#~ msgstr "Institute"
+
+# uintfstrconsts:strcontact
+#~ msgid "Internet"
+#~ msgstr "Internet"
+
+# uintfstrconsts:strmasterdata
+#~ msgid "Master data"
+#~ msgstr "Master data"
+
+# uintfstrconsts:strmasterdata
+#~ msgid "Master Database"
+#~ msgstr "Masterdatabase"
+
+# uintfstrconsts:strname
+#~ msgctxt "TFOPTIONS.LNAME.CAPTION"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+# uintfstrconsts:strorder
+#~ msgid "Order"
+#~ msgstr "Order"
+
+# uintfstrconsts:strpim
+#~ msgid "PIM"
+#~ msgstr "PIM"
+
+# uintfstrconsts:strprotocol
+#~ msgid "Protokoll"
+#~ msgstr "Protocol"
+
+# uintfstrconsts:strsearchtext
+#~ msgid "Rechte"
+#~ msgstr "Rights"
+
+# uintfstrconsts:strstop
+#~ msgctxt "TFOPTIONS.LSTOCK.CAPTION"
+#~ msgid "Stock"
+#~ msgstr "Stock"
+
+# uintfstrconsts:sctelephone
+#~ msgid "Telefon 1"
+#~ msgstr "Telephone 1"
+
+# uintfstrconsts:sctelephone
+#~ msgid "Telefon 2"
+#~ msgstr "Telephone 2"
+
+# uintfstrconsts:sctelephone
+#~ msgid "Telefon 3"
+#~ msgstr "Telephone 3"
+
+# uintfstrconsts:sctelephone
+#~ msgid "Telefon 4"
+#~ msgstr "Telephone 4"
+
+# uintfstrconsts:strdateformat
+#~ msgid "Zeitformat"
+#~ msgstr "Timeformat"
+
+# uintfstrconsts:strtitle
+#~ msgid "lTitles"
+#~ msgstr "Titles"
+
+# uintfstrconsts:strtype
+#~ msgctxt "TFOPTIONS.LTYPE.CAPTION"
+#~ msgid "Typ"
+#~ msgstr "Typ"
+
+# uintfstrconsts:struser
+#~ msgctxt "TFOPTIONS.LUSERNAME.CAPTION"
+#~ msgid "Benutzername"
+#~ msgstr "Username"
+
+# uintfstrconsts:strtendertext
+#~ msgid "Ändern"
+#~ msgstr "change"
+
+# uintfstrconsts:strdatabasetype
+#~ msgid "tsDatabase"
+#~ msgstr "Database"
+
+# uintfstrconsts:strmandant
+#~ msgctxt "TFOPTIONS.TSMANDANT.CAPTION"
+#~ msgid "Mandant"
+#~ msgstr "Mandant"
+
+# uintfstrconsts:strsystem
+#~ msgctxt "tfoptions.tssystem.caption"
+#~ msgid "System"
+#~ msgstr "System"
+
+# uintfstrconsts:strupdate
+#~ msgid "Update"
+#~ msgstr "Update"
+
+# uintfstrconsts:strexport
+#~ msgctxt "TFORDERS.ACEXPORT.CAPTION"
+#~ msgid "Exportieren"
+#~ msgstr "Export"
+
+# uintfstrconsts:strimport
+#~ msgctxt "TFORDERS.ACIMPORT.CAPTION"
+#~ msgid "Importieren"
+#~ msgstr "Import"
+
+# uintfstrconsts:strnet
+#~ msgctxt "TFORDERS.ACNEW.CAPTION"
+#~ msgid "Neu"
+#~ msgstr "New"
+
+# uintfstrconsts:strok
+#~ msgctxt "TFORDERS.DEAPPROVED.OKCAPTION"
+#~ msgid "OK"
+#~ msgstr "OK"
+
+# uintfstrconsts:strok
+#~ msgctxt "TFORDERS.DEORIGDATE.OKCAPTION"
+#~ msgid "OK"
+#~ msgstr "OK"
+
+# uintfstrconsts:strok
+#~ msgctxt "TFORDERS.DEREQUEST.OKCAPTION"
+#~ msgid "OK"
+#~ msgstr "OK"
+
+# uintfstrconsts:strok
+#~ msgctxt "TFORDERS.DEWISHDATE.OKCAPTION"
+#~ msgid "OK"
+#~ msgstr "OK"
+
+# uintfstrconsts:strfoundproblems
+#~ msgctxt "TFORDERS.LFOUNDPROBLEMS.CAPTION"
+#~ msgid "gefundene Probleme"
+#~ msgstr "Found problems"
+
+# uintfstrconsts:strcontact
+#~ msgctxt "TFORDERS.LINTERNALNOTES.CAPTION"
+#~ msgid "Interne Notizen"
+#~ msgstr "internal Notice"
+
+# uintfstrconsts:strlongtext
+#~ msgctxt "TFORDERS.LLONGTEXT.CAPTION"
+#~ msgid "Langtext"
+#~ msgstr "Longtext"
+
+# uintfstrconsts:strlongtext
+#~ msgctxt "TFORDERS.LLONGTEXT1.CAPTION"
+#~ msgid "Langtext"
+#~ msgstr "Longtext"
+
+# uintfstrconsts:strnotice
+#~ msgid "lNote"
+#~ msgstr "Notes"
+
+# uintfstrconsts:stroperation
+#~ msgctxt "TFORDERS.LOPERATION.CAPTION"
+#~ msgid "Operation"
+#~ msgstr "Operation"
+
+# uintfstrconsts:strstart
+#~ msgid "Versandart"
+#~ msgstr "Shipping type"
+
+# uintfstrconsts:strstatus
+#~ msgctxt "TFORDERS.LSTATE.CAPTION"
+#~ msgid "Status"
+#~ msgstr "Status"
+
+# uintfstrconsts:strversion
+#~ msgctxt "TFORDERS.LVERSION.CAPTION"
+#~ msgid "Version"
+#~ msgstr "Version"
+
+# uintfstrconsts:strversion
+#~ msgctxt "TFORDERS.LVERSION1.CAPTION"
+#~ msgid "Version"
+#~ msgstr "Version"
+
+# uintfstrconsts:strwishdate
+#~ msgid "Wunschdatum"
+#~ msgstr "Wishdate"
+
+# uintfstrconsts:strdetails
+#~ msgctxt "TFORDERS.PDETAILVIEW.CAPTION"
+#~ msgid "pDetailView"
+#~ msgstr "Details"
+
+# uintfstrconsts:strnewimage
+#~ msgctxt "TFORDERS.PIMAGE.CAPTION"
+#~ msgid "no Image"
+#~ msgstr "No Image"
+
+# uintfstrconsts:strsearchtext
+#~ msgid "Nachtext"
+#~ msgstr "Additional text"
+
+# uintfstrconsts:strdetails
+#~ msgctxt "TFORDERS.TSDETAILS.CAPTION"
+#~ msgid "Detailansicht"
+#~ msgstr "Detailview"
+
+# uintfstrconsts:strdocuments
+#~ msgctxt "TFORDERS.TSDOCUMENTS.CAPTION"
+#~ msgid "Dokumente"
+#~ msgstr "Documents"
+
+# uintfstrconsts:strhistory
+#~ msgctxt "TFORDERS.TSHISTORY.CAPTION"
+#~ msgid "Historie"
+#~ msgstr "History"
+
+# uintfstrconsts:strnotice
+#~ msgctxt "TFORDERS.TSNOTE.CAPTION"
+#~ msgid "Notizen"
+#~ msgstr "Notice"
+
+# uintfstrconsts:strdocuments
+#~ msgctxt "TFORDERS.TSPOSDOCUMENTS.CAPTION"
+#~ msgid "Dokumente"
+#~ msgstr "Documents"
+
+# uintfstrconsts:strmandant
+#~ msgid "cbMandant"
+#~ msgstr "Mandant"
+
+# uintfstrconsts:struser
+#~ msgid "cbUser"
+#~ msgstr "User"
+
+# uintfstrconsts:strpassword
+#~ msgid "ePasswort"
+#~ msgstr "Password"
+
+# uintfstrconsts:strmandant
+#~ msgctxt "TFPASSWORD.LMANDANT.CAPTION"
+#~ msgid "Mandant"
+#~ msgstr "Mandant"
+
+# uintfstrconsts:strpassword
+#~ msgctxt "TFPASSWORD.LPASSWORD.CAPTION"
+#~ msgid "Passwort"
+#~ msgstr "Password"
+
+# uintfstrconsts:strnet
+#~ msgctxt "TFPERSONALOPTIONS.BADD.CAPTION"
+#~ msgid "Neu"
+#~ msgstr "New"
+
+# uintfstrconsts:strstart
+#~ msgid "Standarteintrag"
+#~ msgstr "Standartentry"
+
+#~ msgid "Dokumentenmanagement"
+#~ msgstr "Documentmanagement"
+
+# uintfstrconsts:strsearchtext
+#~ msgid "Narichten"
+#~ msgstr "messages"
+
+# uintfstrconsts:sctelephone
+#~ msgid "Telefon"
+#~ msgstr "Telephone"
+
+# uintfstrconsts:strimport
+#~ msgctxt "TFPROJECT.ACIMPORT.CAPTION"
+#~ msgid "Importieren"
+#~ msgstr "Import"
+
+# uintfstrconsts:strdetails
+#~ msgid "acViewDetails"
+#~ msgstr "View details"
+
+# uintfstrconsts:strtimelist
+#~ msgid "acViewList"
+#~ msgstr "View List"
+
+# uintfstrconsts:strproject
+#~ msgctxt "TFPROJECT.FPROJECT.CAPTION"
+#~ msgid "Projekte"
+#~ msgstr "Projects"
+
+# uintfstrconsts:strstatus
+#~ msgctxt "TFPROJECT.LABEL2.CAPTION"
+#~ msgid "Status"
+#~ msgstr "Status"
+
+# uintfstrconsts:strname
+#~ msgctxt "TFPROJECT.LNAME.CAPTION"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+# uintfstrconsts:strdetails
+#~ msgid "pDetails"
+#~ msgstr "Details"
+
+# uintfstrconsts:strdocuments
+#~ msgctxt "TFPROJECT.TSDOCUMENTS.CAPTION"
+#~ msgid "Dokumente"
+#~ msgstr "Documents"
+
+# uintfstrconsts:strfoundproblems
+#~ msgctxt "TFRAME1.LFOUNDPROBLEMS.CAPTION"
+#~ msgid "gefundene Probleme"
+#~ msgstr "Found problems"
+
+# uintfstrconsts:strcontact
+#~ msgctxt "TFRAME1.LINTERNALNOTES.CAPTION"
+#~ msgid "Interne Notizen"
+#~ msgstr "Internal Notice"
+
+# uintfstrconsts:strlongtext
+#~ msgctxt "TFRAME1.LLONGTEXT.CAPTION"
+#~ msgid "Langtext"
+#~ msgstr "Longtext"
+
+# uintfstrconsts:strlongtext
+#~ msgctxt "TFRAME1.LLONGTEXT1.CAPTION"
+#~ msgid "Langtext"
+#~ msgstr "Longtext"
+
+# uintfstrconsts:stroperation
+#~ msgctxt "TFRAME1.LOPERATION.CAPTION"
+#~ msgid "Operation"
+#~ msgstr "Operation"
+
+# uintfstrconsts:strpositionprice
+#~ msgctxt "TFRAME1.LPOSPRICE.CAPTION"
+#~ msgid "Postitionspreis"
+#~ msgstr "Positionprice"
+
+# uintfstrconsts:strtexttyp
+#~ msgctxt "TFRAME1.LTEXTTYPE.CAPTION"
+#~ msgid "Texttyp"
+#~ msgstr "Texttyp"
+
+# uintfstrconsts:strversion
+#~ msgctxt "TFRAME1.LVERSION.CAPTION"
+#~ msgid "Version"
+#~ msgstr "Version"
+
+# uintfstrconsts:strversion
+#~ msgctxt "TFRAME1.LVERSION1.CAPTION"
+#~ msgid "Version"
+#~ msgstr "Version"
+
+# uintfstrconsts:strdetails
+#~ msgctxt "TFRAME1.PDETAILVIEW.CAPTION"
+#~ msgid "pDetailView"
+#~ msgstr "Details"
+
+# uintfstrconsts:strnewimage
+#~ msgctxt "TFRAME1.PIMAGE.CAPTION"
+#~ msgid "no Image"
+#~ msgstr "No Image"
+
+# uintfstrconsts:strdetails
+#~ msgctxt "TFRAME1.TSDETAILS.CAPTION"
+#~ msgid "Detailansicht"
+#~ msgstr "Detailview"
+
+# uintfstrconsts:strpositions
+#~ msgctxt "TFRAME1.TSPOSCALC.CAPTION"
+#~ msgid "Positionskalkulation"
+#~ msgstr "Positioncalculation"
+
+# uintfstrconsts:strdocuments
+#~ msgctxt "TFRAME1.TSPOSDOCUMENTS.CAPTION"
+#~ msgid "Dokumente"
+#~ msgstr "Documents"
+
+#~ msgid "grosse Icons"
+#~ msgstr "Big Icons"
+
+# uintfstrconsts:strdetails
+#~ msgid "Details"
+#~ msgstr "Details"
+
+# uintfstrconsts:stradddocumentoptions
+#~ msgid "Dokumentenaktion"
+#~ msgstr "Documentaction"
+
+# uintfstrconsts:strdefaultprinter
+#~ msgid "Dokument entfernen"
+#~ msgstr "remove Document"
+
+#~ msgid "kleine Icons"
+#~ msgstr "small Icons"
+
+# uintfstrconsts:struser
+#~ msgctxt "TFRDOCUMENTMANAGEMENT.LVDOCUMENTS.COLUMNS[0].CAPTION"
+#~ msgid "Dateiname"
+#~ msgstr "Filename"
+
+# uintfstrconsts:strtype
+#~ msgctxt "TFRDOCUMENTMANAGEMENT.LVDOCUMENTS.COLUMNS[1].CAPTION"
+#~ msgid "Typ"
+#~ msgstr "Typ"
+
+# uintfstrconsts:strregister
+#~ msgid "Rec"
+#~ msgstr "Rec"
+
+# uintfstrconsts:strupdatingfile
+#~ msgid "Spalten in Tabelle"
+#~ msgstr "Cols in Table"
+
+# uintfstrconsts:strarticlelist
+#~ msgid "druckt die Liste"
+#~ msgstr "prints the list"
+
+# uintfstrconsts:stroperation
+#~ msgctxt "TFSEARCH.ACOPEN.CAPTION"
+#~ msgid "acOpen"
+#~ msgstr "Open"
+
+# uintfstrconsts:strtexttyp
+#~ msgid "Type"
+#~ msgstr "Type"
+
+# uintfstrconsts:strid
+#~ msgctxt "TFSEARCH.SGRESULTS.COLUMNS[1].TGRIDCOLUMNTITLE.CAPTION"
+#~ msgid "ID"
+#~ msgstr "ID"
+
+# uintfstrconsts:strshorttext
+#~ msgid "Shortname"
+#~ msgstr "Shortname"
+
+# uintfstrconsts:strstatus
+#~ msgctxt "TFSEARCH.SGRESULTS.COLUMNS[3].TGRIDCOLUMNTITLE.CAPTION"
+#~ msgid "Status"
+#~ msgstr "Status"
+
+# uintfstrconsts:strlogin
+#~ msgctxt "TFSEARCH.SGRESULTS.COLUMNS[4].TGRIDCOLUMNTITLE.CAPTION"
+#~ msgid "Link"
+#~ msgstr "Link"
+
+# uintfstrconsts:strcopyprices
+#~ msgid "Kopien"
+#~ msgstr "Copies"
+
+# uintfstrconsts:strnet
+#~ msgctxt "TFSELECTTEMPLATE.BNEW.CAPTION"
+#~ msgid "Neu"
+#~ msgstr "New"
+
+# uintfstrconsts:strfilter
+#~ msgctxt "TFSTORAGEJOURNAL.BFILTER.CAPTION"
+#~ msgid "Filter"
+#~ msgstr "Filter"
+
+# uintfstrconsts:straddtojournal
+#~ msgid "Lagerjournal"
+#~ msgstr "Storage Journal"
+
+# uintfstrconsts:strsystem
+#~ msgid "System Monitor"
+#~ msgstr "System Monitor"
+
+# uintfstrconsts:strexport
+#~ msgctxt "TFTASKS.ACEXPORT.CAPTION"
+#~ msgid "Exportieren"
+#~ msgstr "Export"
+
+# uintfstrconsts:strimport
+#~ msgctxt "TFTASKS.ACIMPORT.CAPTION"
+#~ msgid "Importieren"
+#~ msgstr "Import"
+
+# uintfstrconsts:strallclosed
+#~ msgid "cbShowCompletedEntrys"
+#~ msgstr "Show completed entrys"
+
+# uintfstrconsts:strtasks
+#~ msgctxt "TFTASKS.FTASKS.CAPTION"
+#~ msgid "fTasks"
+#~ msgstr "Tasks"
+
+# uintfstrconsts:strposcalc
+#~ msgid "lCalcDate"
+#~ msgstr "Calculated Date"
+
+# uintfstrconsts:strprinter
+#~ msgid "Priorität"
+#~ msgstr "Priority"
+
+# uintfstrconsts:strproject
+#~ msgid "projekt"
+#~ msgstr "Project"
+
+# uintfstrconsts:strversion
+#~ msgctxt "TFTASKS.LSTARTDATE.CAPTION"
+#~ msgid "Von"
+#~ msgstr "From"
+
+# uintfstrconsts:strstatus
+#~ msgctxt "TFTASKS.LSTATUS.CAPTION"
+#~ msgid "Status"
+#~ msgstr "Status"
+
+# uintfstrconsts:strtime
+#~ msgid "lUsedTimeValue"
+#~ msgstr "Used Time"
+
+# uintfstrconsts:strname
+#~ msgctxt "TFTASKS.LVTASKS.COLUMNS[0].CAPTION"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+# uintfstrconsts:strtime
+#~ msgid "Time"
+#~ msgstr "Time"
+
+# uintfstrconsts:strprint
+#~ msgid "Percent"
+#~ msgstr "Percent"
+
+# uintfstrconsts:strproject
+#~ msgctxt "TFTASKS.LVTASKS.COLUMNS[3].CAPTION"
+#~ msgid "Project"
+#~ msgstr "Project"
+
+# uintfstrconsts:strdocuments
+#~ msgctxt "TFTASKS.TSDOCUMENTS.CAPTION"
+#~ msgid "Dokumente"
+#~ msgstr "Documents"
+
+# uintfstrconsts:strnotice
+#~ msgctxt "TFTASKS.TSNOTES.CAPTION"
+#~ msgid "Notizen"
+#~ msgstr "Notice"
+
+# uintfstrconsts:strtexttyp
+#~ msgctxt "TFTEXTTYPE.CAPTION"
+#~ msgid "Text Typ"
+#~ msgstr "Text Type"
+
+# uintfstrconsts:strtext
+#~ msgid "cbText"
+#~ msgstr "Text"
+
+# uintfstrconsts:strexport
+#~ msgctxt "TFTIMELIST.ACEXPORT.CAPTION"
+#~ msgid "Exportieren"
+#~ msgstr "Export"
+
+# uintfstrconsts:strfilter
+#~ msgctxt "TFTIMELIST.ACFILTER.CAPTION"
+#~ msgid "acFilter"
+#~ msgstr "Filter"
+
+# uintfstrconsts:strimport
+#~ msgctxt "TFTIMELIST.ACIMPORT.CAPTION"
+#~ msgid "Importieren"
+#~ msgstr "Import"
+
+# uintfstrconsts:strprint
+#~ msgctxt "TFTIMELIST.ACPRINT.CAPTION"
+#~ msgid "acPrint"
+#~ msgstr "Print"
+
+# uintfstrconsts:strindustrialtime
+#~ msgid "lInstitute"
+#~ msgstr "Institute"
+
+# uintfstrconsts:strname
+#~ msgctxt "TFTRANSFER.LNAME.CAPTION"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgid "Webshop"
+#~ msgstr "Webshop"
+
+# uintfstrconsts:strpassword
+#~ msgid "FTP Passwort"
+#~ msgstr "FTP Password"
+
+# uintfstrconsts:struser
+#~ msgctxt "TFWEBSHOP.LUSERNAME.CAPTION"
+#~ msgid "Benutzername"
+#~ msgstr "Username"
+
+# uintfstrconsts:strpassword
+#~ msgctxt "TFWEBSHOP.PASSWORD.CAPTION"
+#~ msgid "Passwort"
+#~ msgstr "Password"
+
+# uintfstrconsts:stroptions
+#~ msgctxt "TFWEBSHOP.TSOPTIONS.CAPTION"
+#~ msgid "Optionen"
+#~ msgstr "Options"
+
+# uintfstrconsts:strdocuments
+#~ msgctxt "TFWIKI.TSDOCUMENTS.CAPTION"
+#~ msgid "Dokumente"
+#~ msgstr "Documents"
+
+# uintfstrconsts:stradministrativedata
+#~ msgid "FinTS Administrator starten"
+#~ msgstr "start FinTS Administrator"
+
+# uintfstrconsts:strshorttext
+#~ msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNAME.CAPTION"
+#~ msgid "Kontoname"
+#~ msgstr "Accountname"
+
+# uintfstrconsts:strshorttext
+#~ msgctxt "TFWIZARDNEWACCOUNT.LACCOUNTNAME1.CAPTION"
+#~ msgid "Kontoname"
+#~ msgstr "Accountname"
+
+# uintfstrconsts:strname
+#~ msgctxt "TFWIZARDNEWACCOUNT.LNAME.CAPTION"
+#~ msgid "Name"
+#~ msgstr "Name"
+
+# uintfstrconsts:strlanguage
+#~ msgid "cbLanguage"
+#~ msgstr "Languages"
+
+# uintfstrconsts:strdate
+#~ msgid "Datenbank"
+#~ msgstr "Database"
+
+# uintfstrconsts:strseverity
+#~ msgctxt "TFWIZARDNEWMANDANT.LDBSERVER.CAPTION"
+#~ msgid "Server"
+#~ msgstr "Server"
+
+# uintfstrconsts:strpassword
+#~ msgctxt "TFWIZARDNEWMANDANT.LPASSWORD.CAPTION"
+#~ msgid "Passwort"
+#~ msgstr "Password"
+
+# uintfstrconsts:strproperties
+#~ msgid "Profil"
+#~ msgstr "Profile"
+
+# uintfstrconsts:struser
+#~ msgctxt "TFWIZARDNEWMANDANT.LUSERNAME.CAPTION"
+#~ msgid "Benutzername"
+#~ msgstr "Username"
+
+# uintfstrconsts:strstreet
+#~ msgid "Kontoabfrage"
+#~ msgstr "Account querry"
+
+# uintfstrconsts:strscannext
+#~ msgctxt "uacquire.strscan"
+#~ msgid "Scannen"
+#~ msgstr "Scan"
+
+# uintfstrconsts:straddserialtoarticle
+#~ msgid "Please select Serial for %s Version %s Name %s"
+#~ msgstr "Please select Serial for %s Version %s Name %s"
+
+# uintfstrconsts:strrepair
+#~ msgctxt "uarticleframe.strrepair"
+#~ msgid "Reparatur"
+#~ msgstr "Repair"
+
+# uintfstrconsts:strtext
+#~ msgctxt "uarticleframe.strtexts"
+#~ msgid "Texte"
+#~ msgstr "Texts"
+
+# uintfstrconsts:stractive
+#~ msgid "Aktion"
+#~ msgstr "Action"
+
+# uintfstrconsts:stradress
+#~ msgctxt "ubasedatamodule.stradress"
+#~ msgid "Adresse"
+#~ msgstr "Adress"
+
+#~ msgctxt "ubasedatamodule.strcategory"
+#~ msgid "Kategorie"
+#~ msgstr "Category"
+
+# uintfstrconsts:strident
+#~ msgctxt "ubasedatamodule.strident"
+#~ msgid "Ident"
+#~ msgstr "Ident"
+
+# uintfstrconsts:strindustrialtime
+#~ msgid "Institut"
+#~ msgstr "Institute"
+
+# uintfstrconsts:strland
+#~ msgctxt "ubasedatamodule.strland"
+#~ msgid "Land"
+#~ msgstr "Land"
+
+# uintfstrconsts:strnotice
+#~ msgctxt "ubasedatamodule.strnotes"
+#~ msgid "Notizen"
+#~ msgstr "Notice"
+
+# uintfstrconsts:strpassword
+#~ msgctxt "ubasedatamodule.strpassword"
+#~ msgid "Passwort"
+#~ msgstr "Password"
+
+# uintfstrconsts:strpause
+#~ msgid "Pause"
+#~ msgstr "Pause"
+
+# uintfstrconsts:strposition
+#~ msgctxt "ubasedatamodule.strposition"
+#~ msgid "Position"
+#~ msgstr "Position"
+
+# uintfstrconsts:strposno
+#~ msgctxt "ubasedatamodule.strposno"
+#~ msgid "Pos.Nr."
+#~ msgstr "Pos.No."
+
+# uintfstrconsts:strpostalcode
+#~ msgid "Postfach"
+#~ msgstr "Postal code"
+
+# uintfstrconsts:strproperties
+#~ msgid "Problem"
+#~ msgstr "Problem"
+
+# uintfstrconsts:strregistered
+#~ msgid "Reserviert"
+#~ msgstr "Reserved"
+
+# uintfstrconsts:strtendertext
+#~ msgid "Absender"
+#~ msgstr "Sender"
+
+#~ msgid "Spam"
+#~ msgstr "Spam"
+
+# uintfstrconsts:strstart
+#~ msgctxt "ubasedatamodule.strstart"
+#~ msgid "Start"
+#~ msgstr "Start"
+
+# uintfstrconsts:strstatus
+#~ msgctxt "ubasedatamodule.strstatus"
+#~ msgid "Status"
+#~ msgstr "Status"
+
+# uintfstrconsts:strcallingname
+#~ msgid "Tabellenname"
+#~ msgstr "Tablename"
+
+# uintfstrconsts:strtext
+#~ msgid "Text"
+#~ msgstr "Text"
+
+# uintfstrconsts:strtexttyp
+#, fuzzy
+#~ msgctxt "ubasedatamodule.strtexttyp"
+#~ msgid "Text Typ"
+#~ msgstr "Text Type"
+
+# uintfstrconsts:strunsorted
+#, fuzzy
+#~ msgid "Unsortiert"
+#~ msgstr "unsorted"
+
+# uintfstrconsts:strpleasewait
+#, fuzzy
+#~ msgid "leite weiter ..."
+#~ msgstr "Open with ..."
+
+# uintfstrconsts:strsystem
+#, fuzzy
+#~ msgid "Systemfarben"
+#~ msgstr "System"
+
+# uintfstrconsts:scfax
+#, fuzzy
+#~ msgctxt "ucustomer.scfax"
+#~ msgid "FAX  Fax"
+#~ msgstr "FAX  Fax"
+
+# uintfstrconsts:scinternet
+#, fuzzy
+#~ msgctxt "ucustomer.scinternet"
+#~ msgid "INT  Homepage"
+#~ msgstr "INT  Homepage"
+
+# uintfstrconsts:scmail
+#, fuzzy
+#~ msgctxt "ucustomer.scmail"
+#~ msgid "MAIL e-Mail"
+#~ msgstr "MAIL e-Mail"
+
+# uintfstrconsts:scmobilephone
+#, fuzzy
+#~ msgctxt "ucustomer.scmobilephone"
+#~ msgid "CEL  Mobiltelefon"
+#~ msgstr "CEL  Mobilephone"
+
+# uintfstrconsts:scmail
+#, fuzzy
+#~ msgctxt "ucustomer.scprivatemail"
+#~ msgid "MLP  e-Mail Privat"
+#~ msgstr "MAIL e-Mail"
+
+# uintfstrconsts:scprivatemobilephone
+#, fuzzy
+#~ msgctxt "ucustomer.scprivatemobilephone"
+#~ msgid "CELP Mobiltelefon Privat"
+#~ msgstr "CELP Mobilephone"
+
+# uintfstrconsts:scworktelephone
+#, fuzzy
+#~ msgctxt "ucustomer.scprivatephone"
+#~ msgid "TELP Telefon Privat"
+#~ msgstr "TELW Telephone at work"
+
+#, fuzzy
+#~ msgctxt "ucustomer.scskype"
+#~ msgid "SKP  Skype"
+#~ msgstr "SKP  Skype"
+
+# uintfstrconsts:sctelephone
+#, fuzzy
+#~ msgctxt "ucustomer.sctelephone"
+#~ msgid "TEL  Telefon"
+#~ msgstr "TEL  Telephone"
+
+# uintfstrconsts:strdateformat
+#, fuzzy
+#~ msgid "Datenexport"
+#~ msgstr "Dateformat"
+
+# uintfstrconsts:strdateformat
+#, fuzzy
+#~ msgctxt "udataimport.strdataimport"
+#~ msgid "Datenimport"
+#~ msgstr "Dateformat"
+
+# uintfstrconsts:strdbase
+#, fuzzy
+#~ msgid "DBase Datei"
+#~ msgstr "DBase Database"
+
+# uintfstrconsts:strcommon
+#~ msgid "Command"
+#~ msgstr "Command"
+
+# uintfstrconsts:strfilter
+#~ msgid "File"
+#~ msgstr "File"
+
+# uintfstrconsts:strdate
+#, fuzzy
+#~ msgid ".%s Datei"
+#~ msgstr "Date"
+
+# uintfstrconsts:strreadingmandants
+#, fuzzy
+#~ msgid "Adding Parts..."
+#~ msgstr "Adding Jobs..."
+
+# uintfstrconsts:strreadingmandants
+#, fuzzy
+#~ msgid "Adding Users..."
+#~ msgstr "Adding Jobs..."
+
+#, fuzzy
+#~ msgid "Encoding Message..."
+#~ msgstr "Downloading message..."
+
+# uintfstrconsts:strcreatingforms
+#, fuzzy
+#~ msgctxt "ueditmail.strloggingin"
+#~ msgid "Logging In..."
+#~ msgstr "Logging In..."
+
+# uintfstrconsts:strcreatingforms
+#, fuzzy
+#~ msgid "Logging out..."
+#~ msgstr "Logging In..."
+
+#, fuzzy
+#~ msgid "Sending Message..."
+#~ msgstr "Downloading message..."
+
+# uintfstrconsts:strpause
+#, fuzzy
+#~ msgid "»Pause«"
+#~ msgstr "Pause"
+
+# uintfstrconsts:strfilter
+#, fuzzy
+#~ msgctxt "umaileditoptions.strfeed"
+#~ msgid "Feed"
+#~ msgstr "Feed"
+
+# uintfstrconsts:strfilter
+#, fuzzy
+#~ msgctxt "umailoptions.strfeed"
+#~ msgid "Feed"
+#~ msgstr "Feed"
+
+#, fuzzy
+#~ msgctxt "umain.strcategory"
+#~ msgid "Kategorie"
+#~ msgstr "Category"
+
+#, fuzzy
+#~ msgctxt "umain.strinventory"
+#~ msgid "Inventur"
+#~ msgstr "Inventory"
+
+# uintfstrconsts:strlogin
+#, fuzzy
+#~ msgid "Login..."
+#~ msgstr "Login"
+
+#, fuzzy
+#~ msgid "Neue Inventur"
+#~ msgstr "Inventory"
+
+# uintfstrconsts:strnewtransfer
+#, fuzzy
+#~ msgctxt "umain.strnewtermin"
+#~ msgid "Neuer Termin"
+#~ msgstr "New Termin"
+
+# uintfstrconsts:sctelephone
+#, fuzzy
+#~ msgid "Telefonie"
+#~ msgstr "Telephone"
+
+# uintfstrconsts:strrepair
+#, fuzzy
+#~ msgctxt "umain.strrepair"
+#~ msgid "Reparatur"
+#~ msgstr "Repair"
+
+# uintfstrconsts:strstatus
+#, fuzzy
+#~ msgctxt "umain.strstates"
+#~ msgid "Status"
+#~ msgstr "Status"
+
+# uintfstrconsts:strsystem
+#, fuzzy
+#~ msgctxt "umain.strsystem"
+#~ msgid "System"
+#~ msgstr "System"
+
+#, fuzzy
+#~ msgctxt "umain.strwiki"
+#~ msgid "Wiki"
+#~ msgstr "Wiki"
+
+# uintfstrconsts:straddserialtoarticle
+#, fuzzy
+#~ msgid "wählen Sie ein Lager für Artikel %s Version %s Name %s"
+#~ msgstr "Please select an Storage for the Article %s Version %s Name %s"
+
+# uintfstrconsts:strchangeorderin
+#, fuzzy
+#~ msgctxt "uorderframe.strchangeorderin"
+#~ msgid "%s %s ist das richtig ?"
+#~ msgstr "%s %s is this correct ?."
+
+# uintfstrconsts:strchangeorderin
+#, fuzzy
+#~ msgctxt "uorders.strchangeorderin"
+#~ msgid "%s %s ist das richtig ?"
+#~ msgstr "%s %s is this correct ?."
+
+# uintfstrconsts:strrepair
+#, fuzzy
+#~ msgctxt "uorders.strrepaired"
+#~ msgid "repariert"
+#~ msgstr "repaired"

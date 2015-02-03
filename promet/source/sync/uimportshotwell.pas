@@ -45,7 +45,7 @@ begin
       ZConnection1.Database:=Value;
       ZConnection1.Connect;
       zData.Active:=True;
-      aDocPages := TDocPages.Create(nil,Data);
+      aDocPages := TDocPages.Create(nil);
       Data.Tree.Open;
       with zData do
         begin

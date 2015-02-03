@@ -10,7 +10,7 @@ AppID=CUPROMETERP7
 AppName={#AppName}-Tools
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
-DefaultDirName={pf}\Promet-ERP
+DefaultDirName={code:DefDirRoot}\Promet-ERP
 DefaultGroupName=Promet-ERP
 UninstallDisplayIcon={app}\prometerp.exe
 OutputBaseFilename=promet-erp_{#AppVersion}_{#FullTarget}
@@ -35,7 +35,8 @@ Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\messagemanager.exe"; Dest
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\wizardmandant.exe"; DestDir: "{app}"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*receiver.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*sender.exe"; DestDir: "{app}\tools"; Components: main
-Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\sync_db.exe"; DestDir: "{app}\tools"; Components: main
+Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\pscript.exe"; DestDir: "{app}\tools"; Components: main
+Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\sync_*.exe"; DestDir: "{app}\tools"; Components: main
 Source: "sqlite3.dll"; DestDir: "{app}"; Components: main
 Source: "sqlite3.dll"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\linksender.exe"; DestDir: "{app}\tools"; Components: main
@@ -60,7 +61,7 @@ Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\shipping_*.exe"; DestDir:
 Source: "website.url"; DestDir: "{app}"
 
 [Run]
-Filename: "{app}\wizardmandant.exe"; Parameters: "--silent"; Flags: postinstall shellexec skipifsilent; Description: "Standartdatenbank erstellen"; Components: main
+Filename: "{app}\wizardmandant.exe"; Parameters: "--silent"; Flags: postinstall shellexec skipifsilent; Description: "Standarddatenbank erstellen"; Components: main
 
 [Components]
 Name: "main"; Description: "Main Program Components"; Types: full compact custom; Flags: fixed; Languages: en
@@ -94,6 +95,19 @@ Name: de; MessagesFile: German.isl
 
 [Code]
 #include "feedback.iss"
+
+function IsRegularUser(): Boolean;
+begin
+  Result := not (IsAdminLoggedOn or IsPowerUserLoggedOn);
+end;
+
+function DefDirRoot(Param: String): String;
+begin
+  if IsRegularUser then
+    Result := ExpandConstant('{localappdata}')
+  else
+    Result := ExpandConstant('{pf}')
+end;
 
 {
 function InitializeSetup : Boolean;

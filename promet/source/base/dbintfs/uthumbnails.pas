@@ -24,18 +24,31 @@ unit uthumbnails;
 interface
 
 uses
-  Classes, SysUtils, uDocuments,Utils,Graphics,FileUtil,variants,
+  Classes, SysUtils, uDocuments,Utils,variants,
   FPImage,fpreadgif,FPReadPSD,FPReadPCX,FPReadTGA,FPReadJPEGintfd,fpthumbresize,
-  FPWriteJPEG,UTF8Process,FPReadBMP,process,LCLProc;
+  FPWriteJPEG,FPReadBMP,process,uBaseDbClasses,FPCanvas,FPImgCanv,
+  uBaseDBInterface,db
+  {$IFDEF LCL}
+  ,Graphics
+  {$ENDIF}
+  ;
+
+type
+  TThumbnails = class(TBaseDBDataset)
+  public
+    procedure DefineFields(aDataSet: TDataSet); override;
+    procedure SelectByRefId(aId : Variant);
+  end;
 
 function GetThumbnailPath(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : string;
-function GetThumbnailBitmap(aDocument : TDocuments;aWidth : Integer=310;aHeight : Integer=428) : TBitmap;
 function GetThumbTempDir : string;
 function ClearThumbDir : Boolean;
-function GenerateThumbNail(aName : string;aFullStream,aStream : TStream;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
-function GenerateThumbNail(aName : string;aFileName : string;aStream : TStream;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
+function GenerateThumbNail(aName : string;aFullStream,aStream : TStream;aText : string;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
+function GenerateThumbNail(aName : string;aFileName : string;aStream : TStream;aText : string;aWidth : Integer=310;aHeight : Integer=428) : Boolean;
 
 implementation
+
+uses uBaseApplication;
 
 function GetThumbnailPath(aDocument: TDocuments;aWidth : Integer=310;aHeight : Integer=428): string;
 var
@@ -47,13 +60,14 @@ var
   DelStream: Boolean;
 begin
   Result := '';
-  aFilename := AppendPathDelim(GetThumbTempDir)+VarToStr(aDocument.Ref_ID);
+  try
+  aFilename := GetThumbTempDir+VarToStr(aDocument.Ref_ID);
   aFilename := aFilename+'_'+IntToStr(aWidth)+'x'+IntToStr(aHeight);
   aFilename:=aFilename+'.jpg';
   if not FileExists(aFilename) then
     begin
       aNumber := aDocument.FieldByName('NUMBER').AsString;
-      bDocument := TDocument.Create(nil,aDocument.DataModule);
+      bDocument := TDocument.CreateEx(nil,aDocument.DataModule);
       bDocument.SelectByNumber(aNumber);
       bDocument.Open;
       aFullStream := TMemoryStream.Create;
@@ -61,7 +75,7 @@ begin
       bDocument.Free;
       try
         aStream := TFileStream.Create(aFilename,fmCreate);
-        GenerateThumbNail(aFilename,aFullStream,aStream,aWidth,aHeight);
+        GenerateThumbNail(aFilename,aFullStream,aStream,'',aWidth,aHeight);
         DelStream := aStream.Size=0;
         aStream.Free;
       except
@@ -69,54 +83,35 @@ begin
       end;
       try
         if DelStream then
-          DeleteFileUTF8(aFilename)
+          DeleteFile(UniToSys(aFilename))
         else Result := aFilename;
       except
       end;
     end
   else
     Result := aFilename;
-end;
-
-function GetThumbnailBitmap(aDocument: TDocuments;aWidth : Integer=310;aHeight : Integer=428): TBitmap;
-var
-  aJpg: TJPEGImage;
-  aFilename: String;
-begin
-  Result := TBitmap.Create;
-  try
-    aFilename := GetThumbNailPath(aDocument,aWidth,aHeight);
-    if aFilename='' then exit;
-    aJpg := TJPEGImage.Create;
-    try
-      aJpg.LoadFromFile(aFilename);
-    except
-      begin
-        aJpg.Free;
-        exit;
-      end;
-    end;
-    Result.Width:=aJpg.Width;
-    Result.Height:=aJpg.Height;
-    Result.Canvas.Draw(0,0,aJpg);
-  finally
-    aJpg.Free;
+  except
+    Result:='';
   end;
 end;
 
 function GetThumbTempDir: string;
 begin
   Result := GetTempDir+'promet_thumbs';
-  ForceDirectoriesUTF8(Result);
+  if Assigned(BaseApplication) and (not BaseApplication.ConsoleApplication) then
+    if Supports(BaseApplication,IBaseApplication) then
+      with BaseApplication as IBaseApplication do
+        Result := GetInternalTempDir+'promet_thumbs';
+  ForceDirectories(UniToSys(Result));
 end;
 
 function ClearThumbDir: Boolean;
 begin
-  Result := RemoveDirUTF8(GetThumbTempDir);
+  Result := RemoveDir(UniToSys(GetThumbTempDir));
 end;
 
 function GenerateThumbNail(aName: string; aFullStream, aStream: TStream;
-  aWidth: Integer; aHeight: Integer): Boolean;
+  aText: string; aWidth: Integer; aHeight: Integer): Boolean;
 var
   e: String;
   r: Integer;
@@ -130,17 +125,20 @@ begin
   if (e <> '') and (e[1] = '.') then
     System.delete (e,1,1);
   s := e + ';';
-  aFilename := getTempDir+'rpv.'+e;
-  aFStream := TFileStream.Create(getTempDir+'rpv.'+e,fmCreate);
-  aFullStream.Position:=0;
-  aFStream.CopyFrom(aFullStream,aFullStream.Size);
+  with BaseApplication as IBaseApplication do
+    begin
+      aFilename := GetInternalTempDir+'rpv.'+e;
+      aFStream := TFileStream.Create(GetInternalTempDir+'rpv.'+e,fmCreate);
+    end;
+  if aFullStream.Position=aFullStream.Size then
+    aFullStream.Position:=0;
+  aFStream.CopyFrom(aFullStream,aFullStream.Size-aFullStream.Position);
   aFStream.Free;
-  Result := GenerateThumbNail(aName,aFilename,aStream,aWidth,aHeight);
-  SysUtils.DeleteFile(aFileName);
+  Result := GenerateThumbNail(aName,aFilename,aStream,aText,aWidth,aHeight);
 end;
 
 function GenerateThumbNail(aName: string; aFileName: string; aStream: TStream;
-  aWidth: Integer; aHeight: Integer): Boolean;
+  aText: string; aWidth: Integer; aHeight: Integer): Boolean;
 var
   Img: TFPMemoryImage = nil;
   e: String;
@@ -151,12 +149,23 @@ var
   iOut: TFPMemoryImage;
   wr: TFPWriterJPEG;
   area: TRect;
-  aProcess: TProcessUTF8;
+  aProcess: TProcess;
   i: Integer;
-
+  sl: TStringList;
+  {$IFDEF LCL}
+  Printer: TBitmap;
+  {$ENDIF}
+  randlinks: Int64;
+  randoben: Int64;
+  zeile: Integer;
+  x: Int64;
+  y: Integer;
+  LineHeight: Extended;
+  aPrinter: TFPImageCanvas;
+  aOldPos: Int64;
   function ConvertExec(aCmd,aExt : string) : Boolean;
   begin
-    aProcess := TProcessUTF8.Create(nil);
+    aProcess := TProcess.Create(nil);
     {$IFDEF WINDOWS}
     aProcess.Options:= [poNoConsole, poWaitonExit,poNewConsole, poStdErrToOutPut, poNewProcessGroup];
     {$ELSE}
@@ -164,13 +173,14 @@ var
     {$ENDIF}
     aProcess.ShowWindow := swoHide;
     aProcess.CommandLine := aCmd;
-    aProcess.CurrentDirectory := AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools';
+    aProcess.CurrentDirectory := AppendPathDelim(ExtractFileDir(ParamStr(0)))+'tools';
     try
       aProcess.Execute;
     except
       on e : Exception do
         begin
-          debugln(e.Message);
+          with BaseApplication as IBaseApplication do
+            Error('Convert Error:'+e.Message);
           result := False;
         end;
     end;
@@ -188,8 +198,10 @@ var
         end;
       end;
   end;
-
 begin
+  Result := False;
+  with BaseApplication as IBaseApplication do
+    Debug('Generate Thumbnail:Enter');
   try
     e := lowercase (ExtractFileExt(aName));
     if (e <> '') and (e[1] = '.') then
@@ -199,7 +211,7 @@ begin
       h := TFPReaderJPEG
     else
       for i := 0 to ImageHandlers.Count-1 do
-        if pos(s,ImageHandlers.Extentions[ImageHandlers.TypeNames[i]]+';')>0 then
+        if pos(s,ImageHandlers.{$IF FPC_FULLVERSION>20604}Extensions{$ELSE}Extentions{$ENDIF}[ImageHandlers.TypeNames[i]]+';')>0 then
           begin
             h := ImageHandlers.ImageReader[ImageHandlers.TypeNames[i]];
             break;
@@ -226,13 +238,17 @@ begin
       end
     else if (s = 'pdf;') then
       begin
-        Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]),'.bmp');
+        Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(SysToUni(ParamStr(0))))+'tools')+'gswin32'+{$ELSE}'gs'+{$ENDIF}' -q -dBATCH -dMaxBitmap=300000000 -dNOPAUSE -dSAFER -sDEVICE=bmp16m -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s -c quit',[aFileName+'.bmp',aFileName]),'.bmp');
+        if not Result then
+          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(SysToUni(ParamStr(0))))+'tools')+{$ENDIF}'pdftopng -l 1 %s %s',[aFileName,aFilename]),'-000001.png');
       end
     else
       begin
-        Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']),'.bmp');
+        Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(SysToUni(ParamStr(0))))+'tools')+{$ENDIF}'convert %s[1] -resize %d -alpha off +antialias "%s"',[aFileName,500,afileName+'.bmp']),'.bmp');
         if not Result then
-          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(ParamStrUTF8(0)))+'tools')+{$ENDIF}'ffmpeg -i "%s" -sameq -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
+          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(SysToUni(ParamStr(0))))+'tools')+{$ENDIF}'ffmpeg -i "%s" -qscale 0 -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
+        if not Result then
+          Result := ConvertExec(Format({$IFDEF WINDOWS}AppendPathDelim(AppendPathDelim(ExtractFileDir(SysToUni(ParamStr(0))))+'tools')+{$ENDIF}'avconv -i "%s" -qscale 0 -vframes 1 "%s"',[aFileName,aFileName+'.bmp']),'.bmp');
       end;
     SysUtils.DeleteFile(aFileName);
     if Assigned(Img) then
@@ -240,15 +256,92 @@ begin
         iOut := ThumbResize(Img, aWidth, aHeight, area);
         wr := TFPWriterJPEG.Create;
         wr.ProgressiveEncoding:=True;
+        aOldPos:=aStream.Position;
         iOut.SaveToStream(aStream,wr);
+        aStream.Position:=aOldPos;
         wr.Free;
         iOut.Free;
         Img.Free;
+        Result := True;
       end;
   except
     Result := False;
   end;
+  if not result and (trim(aText)<>'') then
+    begin
+      Img := TFPMemoryImage.Create(aWidth, aHeight);
+      Img.UsePalette := false;
+      aPrinter := TFPImageCanvas.create(Img);
+      sl := TStringList.Create;
+      sl.Text:=aText;
+      while sl.Count>80 do sl.Delete(79);
+      aPrinter.Brush.FPColor:=FPColor(65535,65535,65535);//white
+      aPrinter.Rectangle(0,0,aWidth,aHeight);
+      randlinks:=round(aWidth/100);
+      randoben:=round(aHeight/100);
+      //Schrift-Einstellungen:
+      aPrinter.Font.Name:='Courier New';
+      LineHeight := ((aHeight-(randoben*2))/80);
+      aPrinter.Font.FPColor:=FPColor(0,0,0);
+      {$ifndef CPUARM}
+      aPrinter.Font.Size:=1;
+      while aPrinter.TextExtent('Äg').cy< LineHeight do
+        aPrinter.Font.Size:=aPrinter.Font.Size+1;
+      {$endif}
+      x:=randlinks;
+      y:=randoben+1;
+      for zeile:=0 to sl.Count-1 do
+        begin
+        aPrinter.TextOut(x, y, sl[zeile]);
+        y:=round(randoben+(LineHeight*Zeile));
+        end;
+      sl.Free;
+      wr := TFPWriterJPEG.Create;
+      wr.ProgressiveEncoding:=True;
+      aOldPos := aStream.Position;
+      Img.SaveToStream(aStream,wr);
+      aStream.Position:=aOldPos;
+      wr.Free;
+      Img.Free;
+      aPrinter.Free;
+    end;
+  with BaseApplication as IBaseApplication do
+    Debug('Generate Thumbnail:Exit');
 end;
 
+procedure TThumbnails.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    begin
+      TableName := 'THUMBNAILS';
+      if Assigned(ManagedFieldDefs) then
+        with ManagedFieldDefs do
+          begin
+            Add('REF_ID_ID',ftLargeint,0,True);
+            Add('THUMBNAIL',ftBlob,0,False);
+          end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          Add('REF_ID_ID','REF_ID_ID',[]);
+    end;
+end;
+
+procedure TThumbnails.SelectByRefId(aId: Variant);
+begin
+  with BaseApplication as IBaseDbInterface do
+    begin
+      with Self.DataSet as IBaseDBFilter do
+        begin
+          if aId <> Null then
+            Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(VarToStr(aId))
+          else
+            Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue('0');
+          Limit := 0;
+        end;
+    end;
+end;
+
+finalization
+  RemoveDir(GetThumbTempDir);
 end.
 

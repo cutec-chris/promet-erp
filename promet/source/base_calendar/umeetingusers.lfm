@@ -1,0 +1,157 @@
+inherited fMeetingUsers: TfMeetingUsers
+  Height = 440
+  Width = 545
+  ClientHeight = 440
+  ClientWidth = 545
+  DesignLeft = 500
+  DesignTop = 340
+  object Panel1: TPanel[0]
+    Left = 0
+    Height = 440
+    Top = 0
+    Width = 44
+    Align = alLeft
+    BevelOuter = bvNone
+    ClientHeight = 440
+    ClientWidth = 44
+    TabOrder = 0
+    object Panel2: TPanel
+      Left = 0
+      Height = 156
+      Top = 20
+      Width = 44
+      Align = alTop
+      BorderSpacing.Top = 20
+      BevelOuter = bvNone
+      ClientHeight = 156
+      ClientWidth = 44
+      TabOrder = 0
+      object Bevel1: TBevel
+        Left = 4
+        Height = 4
+        Top = 0
+        Width = 36
+        Align = alTop
+        BorderSpacing.Left = 4
+        BorderSpacing.Right = 4
+        Shape = bsTopLine
+      end
+      object ExtRotatedLabel1: TExtRotatedLabel
+        Left = 0
+        Height = 152
+        Top = 4
+        Width = 14
+        Align = alLeft
+        AutoSize = False
+        Caption = 'Eintrag'
+        Font.Color = clMedGray
+        Font.Height = 11
+        Font.Orientation = 900
+        Layout = tlBottom
+        ParentColor = False
+        ParentFont = False
+      end
+      object dnContacts: TDBNavigator
+        Left = 15
+        Height = 40
+        Top = 28
+        Width = 24
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsScaleChilds
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclTopToBottomThenLeftToRight
+        ChildSizing.ControlsPerLine = 100
+        ClientHeight = 40
+        ClientWidth = 24
+        DataSource = Datasource
+        Direction = nbdVertical
+        Options = []
+        TabOrder = 0
+        VisibleButtons = [nbDelete, nbRefresh]
+      end
+      object bAddPos1: TSpeedButton
+        Left = 15
+        Height = 24
+        Top = 4
+        Width = 24
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000A46534CCA46534FFA46534FFA465
+          34CC000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+          34FF000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000A46534FFE6CEB7FFD9AD86FFA465
+          34FF000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000A46534FFE6CEB7FFD9AD86FFA465
+          34FF000000000000000000000000000000000000000000000000000000000000
+          0000A46534CCA46534FFA46534FFA46534FFA46534FFD9AD86FFD9AD86FFA465
+          34FFA46534FFA46534FFA46534FFA46534CC0000000000000000000000000000
+          0000A46534FFE5CCB4FFDBB795FFDBB694FFDAB492FFDAB390FFD9AD86FFD8AA
+          83FFD7A87FFFD7A67DFFE0BE9FFFA46534FF0000000000000000000000000000
+          0000A46534FFE8D3C0FFE7D1BBFFE7D1BCFFE6CEB7FFE6CEB7FFE6CEB7FFE6CE
+          B7FFE6CDB6FFE6CCB5FFE6CCB6FFA46534FF0000000000000000000000000000
+          0000A46534CCA46534FFA46534FFA46534FFA46534FFE6CEB7FFE6CEB7FFA465
+          34FFA46534FFA46534FFA46534FFA46534CC0000000000000000000000000000
+          000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+          34FF000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+          34FF000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000A46534FFE6CEB7FFE6CEB7FFA465
+          34FF000000000000000000000000000000000000000000000000000000000000
+          000000000000000000000000000000000000A46534CCA46534FFA46534FFA465
+          34CC000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000
+        }
+        Layout = blGlyphTop
+        OnClick = bAddPos1Click
+        ShowCaption = False
+      end
+    end
+  end
+  object pCont: TPanel[1]
+    Left = 44
+    Height = 440
+    Top = 0
+    Width = 501
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 1
+  end
+  object Datasource: TDataSource[2]
+    left = 124
+    top = 68
+  end
+  object ActionList1: TActionList[3]
+    Images = fVisualControls.Images
+    left = 84
+    top = 68
+    object acFilter: TAction
+      Caption = 'acFilter'
+      ShortCut = 16454
+      left = 65440
+    end
+    object acPasteLinks: TAction
+      Caption = 'Verweis(e) einfügen'
+      ImageIndex = 80
+    end
+    object acShowInOrder: TAction
+      Caption = 'Im Auftrag anzeigen'
+      Enabled = False
+      ImageIndex = 87
+    end
+    object acCopyToClipboard: TAction
+      Caption = 'Verweis kopieren'
+      ImageIndex = 23
+    end
+  end
+end

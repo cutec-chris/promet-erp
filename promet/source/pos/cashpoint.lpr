@@ -16,15 +16,14 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uerror, umain, upassword, uaddserial, udata, DBFLaz, virtualtreeslcl,
-  lazreport, zcomponent, general, tponguard;
+  Forms, umain, upassword, DBFLaz,
+  lazreport, zcomponent, general;
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TfMain, fMain);
-  Application.CreateForm(TfError, fError);
   fMain.DoCreate;
   Application.Run;
 end.

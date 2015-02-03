@@ -6,14 +6,13 @@ object fGridView: TfGridView
   ClientHeight = 354
   ClientWidth = 581
   Color = clBtnFace
-  LCLVersion = '1.3'
   OnResize = FrameResize
   ParentColor = False
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
-  DesignLeft = 487
-  DesignTop = 272
+  DesignLeft = 448
+  DesignTop = 274
   object sbGrids: TPanel
     Left = 0
     Height = 198
@@ -61,6 +60,7 @@ object fGridView: TfGridView
       OnSelectCell = gListSelectCell
       OnSetEditText = gListSetEditText
       CachedEditing = True
+      OnEnterEdit = gListEnterEdit
     end
   end
   object dgFake: TDBGrid
@@ -142,7 +142,7 @@ object fGridView: TfGridView
     Columns = <    
       item
         Title.Caption = 'Title'
-        Width = 13
+        Width = 568
       end>
     DefaultColWidth = 13
     DefaultDrawing = False
@@ -158,6 +158,8 @@ object fGridView: TfGridView
     TitleStyle = tsNative
     OnColRowMoved = gHeaderColRowMoved
     OnDrawCell = gHeaderDrawCell
+    OnEditingDone = gHeaderEditingDone
+    OnExit = gHeaderEditingDone
     OnHeaderClick = gHeaderHeaderClick
     OnHeaderSized = gListHeaderSized
     OnKeyDown = gHeaderKeyDown
@@ -165,6 +167,10 @@ object fGridView: TfGridView
     OnSetEditText = gHeaderSetEditText
     OnGetCellWidth = gHeaderGetCellWidth
     CachedEditing = True
+    ColWidths = (
+      13
+      568
+    )
   end
   object pFilter: TPanel
     Left = 0
@@ -179,9 +185,9 @@ object fGridView: TfGridView
     Visible = False
     object FilterImage: TImage
       Left = 0
-      Height = 20
+      Height = 16
       Top = 0
-      Width = 12
+      Width = 8
       Align = alClient
       Picture.Data = {
         1754506F727461626C654E6574776F726B47726170686963FB01000089504E47
@@ -215,10 +221,10 @@ object fGridView: TfGridView
     TabOrder = 4
     object bRowEditor: TSpeedButton
       Left = 0
-      Height = 21
+      Height = 17
       Hint = 'hier können Sie die sichtbaren Spalten konfigurieren'#10'(Spalten hinzufügen oder entfernen)'
       Top = 0
-      Width = 12
+      Width = 8
       Align = alClient
       Caption = '?'
       Flat = True

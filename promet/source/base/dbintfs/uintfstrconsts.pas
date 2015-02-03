@@ -20,19 +20,33 @@ Created 01.06.2006
 unit uIntfStrConsts;
 {$mode objfpc}{$H+}
 interface
-uses
-    {$IFNDEF LCLnogui}
-    DbCtrls,
-    {$ENDIF}
-    LCLStrConsts;
 resourcestring
+  strRunsOnEveryMashine         = 'läuft auf allen Maschienen';
+  strItemOpened                 = 'Eintrag "%s" geöffnet';
+  strMeetingUsers               = 'Teilnehmer';
+  strAllElements                = 'Elemente';
+  strMeasurement                = 'Messungen';
+  strStructure                  = 'Struktur';
+  strSearchFromProjects         = 'Mit Öffnen wird das gewählte Projekt als Vorfahr übernommen';
+  strCommandline                = 'Komandozeile';
+  strRepaired                   = 'repariert';
+  strDiscarded                  = 'entsorgt';
+  strWaitingforCustomer         = 'wartet auf Kunden';
+  strAssemblyexchanged          = 'Baugruppentausch';
+  strIsNew                      = 'neuwertig';
+  strSearchFromMailSelect       = 'Hier könenn Sie einen Benutzer oder Kontakt zum informieren suchen, wenn Sie die Suche abbrechen müssen Sie den zu Informierenden im e-Mail Programm suchen';
+  strLocation                   = 'Ort';
+  strImportExport               = 'Import/Export';
+  strSearchFromOrder            = 'Mit Öffnen wird der gewählte Eintrag in den Auftrag übernommen';
   strCombiteItems               = 'Sollen die Elemente "%s" und "%s" wirklich verschmolzen werden ?';
   strClipboard                  = 'Zwischenablage';
   strCategoryChanged            = 'Kategorie geändetr auf %s';
   strDueDateChanged             = 'Zieldatum geändert zu %s';
+  strDueDateDeleted             = 'Zieldatum entfernt';
   strCantAccessFile             = 'Auf die Datei "%s" kann nicht zugegriffen werden,'+lineending+'kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle';
   strTimetools                  = 'Zeiterfassung';
   strCosts                      = 'Kosten';
+  strTargetCosts                = 'Zielkosten';
   strFullPercent                = 'Auslastung:%d%%';
   strGanttView                  = 'Gantt Ansicht';
   strTaskPlan                   = 'Aufgabenplan';
@@ -88,11 +102,11 @@ resourcestring
   strNoRightsToSaveComplexFilers= 'Sie haben nicht die erforderliche Berechtigungstufe um komplexe Filter zu speichern !';
   strFilterNotFound             = 'Der Filter "%s" wurde nicht gefunden !';
   strNoSelectFilter             = '<kein Filter>';
-  strInventorys                 = 'Inventuren';
   strNewList                    = 'Neue Liste';
   strLists                      = 'Listen';
   strCreatedby                  = 'erstellt von';
   strDue                        = 'Bis';
+  strTask                       = 'Aufgabe';
   strStart                      = 'Start';
   strSummary                    = 'Zusammenfassung';
   strStatusChanged              = 'Status geändert von %s zu %s';
@@ -105,8 +119,11 @@ resourcestring
   strDestinationnotSelected     = 'kein Zielmandant gewählt (--destination) !';
   strLoginFailed                = 'Login fehlgeschlagen';
   strProjectList                = 'Projektliste';
+  strObjectList                 = 'Elementliste';
+  strStatisticList              = 'Statistikliste';
   strSalesList                  = 'Zahlungsliste';
-  strVoucher                    = 'neuer Beleg';
+  strVoucher                    = 'Beleg';
+  strNewVoucher                 = 'neuer Beleg';
   strNewOrder                   = 'als ';
   strWiki                       = 'Wiki';
   strUsers                      = 'Benutzer';
@@ -126,10 +143,6 @@ resourcestring
   strTimeList                   = 'Time List';
   strOrders                     = 'Aufträge';
   strTasks                      = 'Aufgaben';
-  strRecord                     = 'Datensatz';
-  strSNew                       = 'Neu';
-  strSave                       = 'Speichern';
-  strRefresh                    = 'Aktualisieren';
   strRealDelete                 = 'möchten Sie diesen Eintrag wirklich löschen ?';
   strRename                     = 'Umbenennen';
   strNewName                    = 'neuer Name';
@@ -180,7 +193,6 @@ resourcestring
   strUserNotFound               = 'benutzer nicht gefunden !';
   strErrorDatabaseStructurenotActual = 'Die Struktur Ihrer Datenbank ist nicht aktuell, bitte wenden Sie sich an Ihren Administrator order updaten Sie diese mit dem Updatedatabase Tool.';
   strNotSupported               = 'nicht unterstützt ! (Interner Fehler)';
-  strDelete                     = 'löschen';
   strFinished                   = 'beendet';
   strContact                    = 'Kontakt';
   strFile                       = 'Datei';
@@ -190,7 +202,6 @@ resourcestring
   strreadingOptions             = 'lese Optionen ...';
   strProjects                   = 'Projekte';
   strEdit                       = 'bearbeiten';
-  strCancelEdit                 = 'Änderungen verwerfen';
   strWikiMainPageText           = '==Willkommen zur Prometheus Wiki==<br>'+lineending+'<br>'+lineending+'Sie können dieses Wiki als zentralen Wissenspool verstehen. Sie können hier Informationen jeglicher Art strukturiert ablegen.<br>'+lineending+'<br>'+lineending+'Dazu stehen Ihnen interne Links [[Ihre erste Seite]] durch die Sie auch ganz einfach neue Sieten anlegen könenn einfach indem Sie, sie anlegen und draufklicken. Externe Links, zu beliebigen Websites [http://www.ullihome.de www.ullihome.de], Aufzählungen'+lineending+'*1'+lineending+'*2'+lineending+'*3'+lineending+'===Überschriften==='+lineending+'====In verschiedenen Größen===='+lineending+'und ähnliche Elemente zur Verfügung.';
   strWikiPage                   = 'Wiki Seite';
   strAccountexchange            = 'Bankbuchungen';
@@ -231,24 +242,5 @@ resourcestring
                                 +'http://www.famfamfam.com/lab/icons/silk/'+lineending
                                 ;
 
-{$IFNDEF LCLnogui}
-procedure TranslateNavigator(nav : TDBCustomNavigator);
-{$ENDIF}
 implementation
-{$IFNDEF LCLnogui}
-procedure TranslateNavigator(nav : TDBCustomNavigator);
-begin
-  nav.Hints.Clear;
-  nav.Hints.Add(rsFirstRecordHint+' '+strRecord);
-  nav.Hints.Add(rsPriorRecordHint+' '+strRecord);
-  nav.Hints.Add(rsNextRecordHint+' '+strRecord);
-  nav.Hints.Add(rsLastRecordHint+' '+strRecord);
-  nav.Hints.Add(strSNew);
-  nav.Hints.Add(strDelete);
-  nav.Hints.Add(strEdit);
-  nav.Hints.Add(strSave);
-  nav.Hints.Add(strCancelEdit);
-  nav.Hints.Add(strRefresh);
-end;
-{$ENDIF}
 end.

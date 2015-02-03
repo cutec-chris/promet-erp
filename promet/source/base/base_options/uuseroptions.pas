@@ -3,7 +3,8 @@ unit uuseroptions;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Buttons, DbCtrls, StdCtrls,
-  ComCtrls, ExtCtrls, Menus, uOptionsFrame, db, uBaseDbClasses, uBaseVisualControls;
+  ComCtrls, ExtCtrls, Menus, uOptionsFrame, db, uBaseDbClasses,
+  uBaseVisualControls, DBZVDateTimePicker;
 type
   TUserTreeEntry = class
     Rec : Int64;
@@ -21,15 +22,17 @@ type
     DBCheckBox1: TDBCheckBox;
     DBCheckBox2: TDBCheckBox;
     eCustomerNumber2: TDBEdit;
+    eCustomerNumber3: TDBEdit;
+    eEmploymentDate: TDBZVDateTimePicker;
+    eLeaveDate: TDBZVDateTimePicker;
     lCustomerNumber3: TLabel;
+    lCustomerNumber4: TLabel;
     Paygroups: TDatasource;
     DBLookupComboBox1: TDBLookupComboBox;
     eCustomerNumber: TDBEdit;
     eCustomerNumber1: TDBEdit;
     eDepartment: TDBEdit;
-    eEmploymentDate: TDBEdit;
     eIDCode: TDBEdit;
-    eLeaveDate: TDBEdit;
     eUsername: TDBEdit;
     ilState: TImageList;
     lCustomerNumber: TLabel;
@@ -50,6 +53,7 @@ type
     miRead: TMenuItem;
     pmRights: TPopupMenu;
     pUser: TPanel;
+    SpeedButton1: TSpeedButton;
     tvRights: TTreeView;
     tvUsers: TTreeView;
     UsersDS: TDatasource;
@@ -59,6 +63,7 @@ type
     procedure bSaveUserClick(Sender: TObject);
     procedure eUsernameChange(Sender: TObject);
     procedure miRightsClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
     procedure tvUsersDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure tvUsersDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
@@ -69,6 +74,7 @@ type
     { private declarations }
     aConnection : TComponent;
     aUsers : TUser;
+    aPaygroups: TPayGroups;
     procedure UpdateRights;
   public
     { public declarations }
@@ -80,7 +86,7 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uData,Variants;
+uses uData,Variants,upaygroups;
 procedure TfUserOptions.tvUsersSelectionChanged(Sender: TObject);
 begin
   if not Assigned(tvUsers.Selected) then exit;
@@ -107,7 +113,7 @@ begin
   Node1 := tvUsers.Items.AddChildObject(nil,'New Group',TUserTreeEntry.Create);
   tvRights.Selected := Node1;
   Node1.ImageIndex:=18;
-  Node1.SelectedIndex:=0;
+  Node1.SelectedIndex:=18;
   aUsers.DataSet.Append;
   aUsers.FieldByName('ACCOUNTNO').AsString := Data.Numbers.GetNewNumber('USERS');
   aUsers.FieldByName('TYPE').AsString := 'G';
@@ -123,7 +129,6 @@ var
   Node1: TTreeNode;
 begin
   Node1 := tvUsers.Items.AddChildObject(nil,'New User',TUserTreeEntry.Create);
-  tvRights.Selected := Node1;
   Node1.ImageIndex:=21;
   Node1.SelectedIndex:=21;
   aUsers.DataSet.Append;
@@ -133,6 +138,10 @@ begin
   aUsers.DataSet.Post;
   TUserTreeEntry(Node1.Data).Rec := aUsers.GetBookmark;
   TUserTreeEntry(Node1.Data).DataSource := UsersDS;
+  try
+    tvRights.Selected := Node1;
+  except
+  end;
   UpdateRights;
 end;
 procedure TfUserOptions.bResetPasswordClick(Sender: TObject);
@@ -179,6 +188,15 @@ begin
     end;
   UpdateRights;
 end;
+
+procedure TfUserOptions.SpeedButton1Click(Sender: TObject);
+begin
+  if not Assigned(fPaygroups) then
+    Application.CreateForm(TfPaygroups,fPaygroups);
+  fPaygroups.Paygroups.DataSet := Paygroups.DataSet;
+  fPaygroups.ShowModal;
+end;
+
 procedure TfUserOptions.tvUsersDragDrop(Sender, Source: TObject; X, Y: Integer);
 var
   SourceNode: TTreeNode;
@@ -234,7 +252,7 @@ begin
               if FieldByName('TYPE').AsString = 'G' then
                 begin
                   Node1.ImageIndex := 18;
-                  Node1.SelectedIndex := 0;
+                  Node1.SelectedIndex := 18;
                   Node1.HasChildren:=True;
                 end
               else
@@ -252,12 +270,16 @@ constructor TfUserOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aUsers := TUser.Create(Self,Data,aConnection);
+  aUsers := TUser.CreateEx(Self,Data,aConnection);
   UsersDS.DataSet := aUsers.DataSet;
+  aPaygroups := TPayGroups.CreateEx(nil,Data,aConnection);
+  aPaygroups.CreateTable;
+  Paygroups.DataSet := aPaygroups.DataSet;
 end;
 destructor TfUserOptions.Destroy;
 begin
   aUsers.Destroy;
+  aPaygroups.Destroy;
   try
     aConnection.Destroy;
   except
@@ -271,6 +293,7 @@ begin
   inherited;
   Data.StartTransaction(aConnection);
   aUsers.Open;
+  aPaygroups.Open;
   with aUsers.DataSet do
     begin
       First;
@@ -308,4 +331,4 @@ begin
   inherited;
 end;
 end.
-
+

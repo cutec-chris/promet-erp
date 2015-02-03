@@ -51,11 +51,14 @@ begin
 end;
 
 procedure TfOrderAdditionalFrame.InitOrder(aOrder: TOrder);
+var
+  aDispatchTypes: TDispatchTypes;
 begin
   Order.DataSet := nil;
-  with Data.Dispatchtypes.DataSet do
+  aDispatchTypes := TDispatchTypes.Create(nil);
+  with aDispatchtypes.DataSet do
     begin
-      Data.SetFilter(Data.Dispatchtypes,'UPPER("COUNTRY")=Upper('''+trim(copy(aOrder.Address.FieldByName('COUNTRY').AsString,0,3))+''')');
+      Data.SetFilter(aDispatchtypes,'UPPER("COUNTRY")=Upper('''+trim(copy(aOrder.Address.FieldByName('COUNTRY').AsString,0,3))+''')');
       cbShipping.Items.Clear;
       First;
       while not EOF do
@@ -64,6 +67,7 @@ begin
           Next;
         end;
     end;
+  aDispatchTypes.Free;
   cbStorage.Clear;
   Data.StorageType.Open;
   with Data.StorageType.DataSet do

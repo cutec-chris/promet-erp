@@ -53,7 +53,7 @@ begin
   GV.DefaultRows:='GLOBALWIDTH:%;GPRIORITY:30;COMPLETED:30;SUMMARY:200;PROJECT:200;STARTDATE:60;DUEDATE:60;USER:100;OWNER:100';
   GV.BaseName := 'TESTTASK';
   GV.FilterRow:=True;
-  aDs := TTaskList.Create(nil,Data);
+  aDs := TTaskList.Create(nil);
   aDs.SelectActiveByUser('NOUSER');
   aDs.Open;
   GV.DataSet:=aDS;

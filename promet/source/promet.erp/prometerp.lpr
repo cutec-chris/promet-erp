@@ -22,7 +22,6 @@ program prometerp;
 {$mode objfpc}{$H+}
 
 uses
-//  heaptrc,
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}

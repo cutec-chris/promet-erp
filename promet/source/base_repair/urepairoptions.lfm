@@ -36,7 +36,7 @@ inherited fRepairOptions: TfRepairOptions
       TitleStyle = tsNative
     end
   end
-  object RepairDS: TDatasource[1]
+  object RepairDS: TDataSource[1]
     left = 424
     top = 360
   end

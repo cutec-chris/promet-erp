@@ -32,20 +32,26 @@ type
     acInsertAddress: TAction;
     acDeleteAddress: TAction;
     acGotoAddress: TAction;
+    acSearchAddress: TAction;
     ActionList1: TActionList;
     bAddressDelete1: TSpeedButton;
     bAdressNew1: TSpeedButton;
     bAdressNew2: TSpeedButton;
+    bAdressNew3: TSpeedButton;
     cbType: TComboBox;
     Datasource: TDatasource;
     mAddress: TMemo;
+    Panel1: TPanel;
+    pToolbar: TPanel;
     SearchTimer: TTimer;
     procedure acDeleteAddressExecute(Sender: TObject);
     procedure acGotoAddressExecute(Sender: TObject);
     procedure acInsertAddressExecute(Sender: TObject);
+    procedure acSearchAddressExecute(Sender: TObject);
     procedure cbTypeSelect(Sender: TObject);
     procedure DatasourceStateChange(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
+    function fSearchOpenItem(aLink: string): Boolean;
     procedure mAddressChange(Sender: TObject);
     procedure mAddressDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure mAddressDragOver(Sender, Source: TObject; X, Y: Integer;
@@ -106,12 +112,36 @@ begin
         TfAddressFrame(aFrame.pcPages.Pages[1].Controls[0]).bPasteFromClipboard.Click;
     end;
 end;
+
+procedure TfOrderAddress.acSearchAddressExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if (fSearch.cbSearchType.Items[i] <> strCustomerCont)
+      and (fSearch.cbSearchType.Items[i] <> strCustomers)
+      and (fSearch.cbSearchType.Items[i] <> strAdresses)
+      then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenItem;
+  fSearch.Execute(True,'CONTACT',strSearchFromOrder);
+  fSearch.SetLanguage;
+end;
+
 procedure TfOrderAddress.acGotoAddressExecute(Sender: TObject);
 var
   aPerson: TPerson;
 begin
   if TOrderAddress(DataSet).FieldByName('ACCOUNTNO').IsNull then exit;
-  aPerson := TPerson.Create(Self,Data);
+  aPerson := TPerson.CreateEx(Self,Data);
   aPerson.SelectByAccountNo(DataSet.FieldByName('ACCOUNTNO').AsString);
   aPerson.Open;
   if aPerson.Count > 0 then
@@ -164,6 +194,25 @@ begin
   if mAddress.CanFocus then
     mAddress.SetFocus;
 end;
+
+function TfOrderAddress.fSearchOpenItem(aLink: string): Boolean;
+var
+  aPerson: TPerson;
+begin
+  aPerson := TPerson.CreateEx(Self,Data);
+  aPerson.SelectFromLink(fSearch.GetLink);
+  aPerson.Open;
+  if aPerson.Count > 0 then
+    begin
+      aPerson.Address.Open;
+      DataSet.Assign(aPerson);
+    end;
+  aPerson.Free;
+  mAddress.Text:=DataSet.ToString;
+  mAddress.Font.Color:=clDefault;
+  TfOrderFrame(Parent.Owner).GotoPosition;
+end;
+
 procedure TfOrderAddress.mAddressChange(Sender: TObject);
 var
   i: Integer;
@@ -201,7 +250,7 @@ begin
   if Source = uMainTreeFrame.fMainTreeFrame.tvMain then
     begin
       nData := TTreeEntry(uMainTreeFrame.fMainTreeFrame.tvMain.Selected.Data);
-      aPerson := TPerson.Create(Self,Data);
+      aPerson := TPerson.CreateEx(Self,Data);
       Data.SetFilter(aPerson,nData.Filter);
       Data.GotoBookmark(aPerson,nData.Rec);
       aPerson.Address.Open;
@@ -211,7 +260,7 @@ begin
   else
   if (Source = fSearch.sgResults) then
     begin
-      aPerson := TPerson.Create(Self,Data);
+      aPerson := TPerson.CreateEx(Self,Data);
       aPerson.SelectFromLink(fSearch.GetLink);
       aPerson.Open;
       if aPerson.Count > 0 then
@@ -320,6 +369,10 @@ begin
   cbType.Enabled := Editable;
   bAdressNew1.Enabled:=Editable;
   bAddressDelete1.Enabled:=Editable;
+  with Application as IBaseDbInterface do
+    if DBConfig.ReadBoolean('TBLEFT',True) then
+      pToolbar.Align:=alLeft
+    else pToolbar.Align:=alRight;
 end;
 function TfOrderAddress.GotoAddress : Boolean;
 begin

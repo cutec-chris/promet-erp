@@ -5,7 +5,7 @@ Section: office
 Priority: optional
 Maintainer: Christian Ulrich <info@free-erp.de>
 Architecture: ARCH
-Depends:  libc6,libgtk2.0-dev (>=2.6.0),bsdiff
+Depends:  libc6,bsdiff
 Installed-Size: DEBSIZE
 Recommends: promet-erp-statistics, promet-erp-tools
 Suggests: promet-erp-sync

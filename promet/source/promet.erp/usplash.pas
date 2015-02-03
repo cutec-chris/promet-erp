@@ -24,7 +24,7 @@ unit usplash;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, ExtCtrls,
   uIntfStrConsts, StdCtrls, ComCtrls;
 
 type
@@ -53,6 +53,8 @@ type
 var
   fSplash: TfSplash;
 implementation
+uses uBaseApplication;
+{$R *.lfm}
 procedure TfSplash.FormCreate(Sender: TObject);
 begin
   lregistered.Caption := '';
@@ -74,6 +76,8 @@ procedure TfSplash.AddText(AText: string);
 begin
   lStartup.Caption := lStartUp.Caption+lineending+AText;
   Update;
+  with Application as IBaseApplication do
+    Info(AText);
   Application.Processmessages;
 end;
 
@@ -97,7 +101,6 @@ begin
 end;
 
 initialization
-  {$I usplash.lrs}
 
 end.
 

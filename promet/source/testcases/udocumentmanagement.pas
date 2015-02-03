@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, udocuments, utils,
-  fileutil;
+  fileutil,uBaseApplication;
 
 type
 
@@ -42,7 +42,8 @@ procedure DocumentManagmement.CreateFile;
 var
   sl: TStringList;
 begin
-  TempPath := AppendPathDelim(GetTempDir)+'ptc';
+  with BaseApplication as IBaseApplication do
+    TempPath := AppendPathDelim(GetInternalTempDir)+'ptc';
   ForceDirectories(TempPath);
   sl := TStringList.Create;
   sl.Text:='1';
@@ -51,7 +52,7 @@ begin
 end;
 procedure DocumentManagmement.CreateDocuments;
 begin
-  aDoc := TDocument.Create(nil,Data);
+  aDoc := TDocument.Create(nil);
   aDoc.CreateTable;
 end;
 procedure DocumentManagmement.Checkin;
@@ -99,14 +100,14 @@ end;
 procedure DocumentManagmement.CreateDir;
 begin
   aDoc.CreateDirectory('adir');
-  aDir := TDocuments.Create(nil,Data);
+  aDir := TDocuments.Create(nil);
   aDir.Select(aDoc.Ref_ID,aDoc.BaseTyp,aDoc.BaseID,aDoc.BaseVersion,aDoc.BaseLanguage,aDoc.FieldByName('NUMBER').AsVariant);
   aDir.Open;
 end;
 
 procedure DocumentManagmement.CheckinToDir;
 begin
-  aDoc2 := TDocument.Create(nil,Data);
+  aDoc2 := TDocument.Create(nil);
   aDoc2.SelectByID(0);
   aDoc2.Open;
   aDoc2.Ref_ID:=123456789;

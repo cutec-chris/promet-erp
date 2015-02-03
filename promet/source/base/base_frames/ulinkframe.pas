@@ -33,6 +33,7 @@ type
     acShowInOrder: TAction;
     acCopyToClipboard: TAction;
     acDelete: TAction;
+    acAddLinks: TAction;
     ActionList1: TActionList;
     Bevel1: TBevel;
     Datasource: TDatasource;
@@ -43,12 +44,15 @@ type
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     miOpen: TMenuItem;
-    Panel1: TPanel;
+    pToolbar: TPanel;
     Panel2: TPanel;
     pCont: TPanel;
     pmPopup: TPopupMenu;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    procedure acAddLinksExecute(Sender: TObject);
     procedure acCopyToClipboardExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
     procedure acPasteLinksExecute(Sender: TObject);
@@ -58,6 +62,7 @@ type
     procedure FContListDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FContListViewDetails(Sender: TObject);
+    function fSearchOpenItem(aLinks: string): Boolean;
     procedure pmPopupPopup(Sender: TObject);
   private
     fBaseName: string;
@@ -86,6 +91,7 @@ resourcestring
   strDoAppendToAccount            = 'Der eingefuegte Verweis ist eine Kontobuchung,'+lineending+'moechten Sie diesen Vorgang als Beleg einfuegen ?';
   strEntryNotFound                = 'Eintrag konnte nicht gefundne werden !';
   strAddEntryToLinkedItem         = 'Soll der zu verlinkende Eintrag auch einen Link auf diesen Eintrag erhalten ?';
+  strDeleteBack                   = 'Es existieren Links von den verlinkten Objekten zurück auf dieses Objekt, sollen diese auch gelöscht werden ?';
 procedure TfLinkFrame.FContListDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
@@ -119,6 +125,7 @@ var
   aHistory: TBaseHistory;
   bLink: String;
   aDS: TBaseDBList;
+  aClass: TBaseDBDatasetClass;
 begin
   Stream := TStringStream.Create('');
   if (pos('://',ClipBoard.AsText) > 0) then
@@ -169,29 +176,26 @@ begin
             begin
               aDS := nil;
               bLink := Data.BuildLink(DataSet.Parent.DataSet);
-              case copy(aLink,0,pos('@',aLink)-1) of
-              'MASTERDATA',
-              'MASTERDATA.ID':aDS := TMasterdata.Create(nil,Data);
-              'PROJECTS',
-              'PROJECTS.ID':aDS := TProject.Create(nil,Data);
-              'CUSTOMERS',
-              'CUSTOMERS.ID':aDS := TPerson.Create(nil,Data);
-              'MEETINGS':aDS := TMeetings.Create(nil,Data);
-              'ORDERS':aDS := TOrder.Create(nil,Data);
-              end;
+              if Data.ListDataSetFromLink(aLink,aClass) then
+                begin
+                  aDS := TBaseDBList(aClass.Create(nil));
+                end;
               if Assigned(aDS) then
                 begin
-                  aDS.SelectFromLink(aLink);
+                  tBaseDbList(aDS).SelectFromLink(aLink);
                   aDS.Open;
-                  Insert;
-                  FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
-                  aLinkDesc := Data.GetLinkDesc(bLink);
-                  aIcon := Data.GetLinkIcon(bLink);
-                  FieldByName('LINK').AsString := bLink;
-                  FieldByName('NAME').AsString := aLinkDesc;
-                  FieldByName('ICON').AsInteger := aIcon;
-                  FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
-                  Post;
+                  if aDS.Count>0 then
+                    begin
+                      Insert;
+                      FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
+                      aLinkDesc := Data.GetLinkDesc(bLink);
+                      aIcon := Data.GetLinkIcon(bLink);
+                      FieldByName('LINK').AsString := bLink;
+                      FieldByName('NAME').AsString := aLinkDesc;
+                      FieldByName('ICON').AsInteger := aIcon;
+                      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+                      Post;
+                    end;
                   aDS.Free;
                   DataSet.DataSet.Refresh;
                 end;
@@ -209,7 +213,7 @@ begin
               tmp1 := copy(aLink, 0, pos('&&', aLink) - 1);
               aLink   := copy(aLink, pos('&&', aLink) + 2, length(aLink));
               tmp2 := aLink;
-              Accounts := TAccounts.Create(Self,Data);
+              Accounts := TAccounts.CreateEx(Self,Data);
               Accounts.Open;
               if Accounts.DataSet.Locate('SQL_ID',tmp1,[]) then
                 begin
@@ -235,19 +239,102 @@ begin
 end;
 procedure TfLinkFrame.acCopyToClipboardExecute(Sender: TObject);
 var
-  aLinks : string;
+  aLinks : string = '';
   Stream: TStringStream;
+  i: Integer;
 begin
-  aLinks := Datasource.DataSet.FieldByName('LINK').AsString+';';
-  Stream := TStringStream.Create(aLinks);
-  Clipboard.AddFormat(LinkClipboardFormat,Stream);
-  Stream.Free;
+  with FContList do
+    begin
+      if gList.SelectedRows.Count > 0 then
+        begin
+          for i := 0 to gList.SelectedRows.Count-1 do
+            begin
+              gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
+              with Application as IBaseDbInterface do
+                aLinks := aLinks+Datasource.DataSet.FieldByName('LINK').AsString+';';
+            end;
+          gList.SelectedRows.Clear;
+        end
+      else
+        with Application as IBaseDbInterface do
+          aLinks := aLinks+Datasource.DataSet.FieldByName('LINK').AsString+';';
+      Stream := TStringStream.Create(aLinks);
+      Clipboard.AddFormat(LinkClipboardFormat,Stream);
+      Stream.Free;
+    end;
+end;
+
+procedure TfLinkFrame.acAddLinksExecute(Sender: TObject);
+begin
+  fSearch.SetLanguage;
+  fSearch.OnOpenItem:=@fSearchOpenItem;
+  fSearch.Execute(False,'LINKSADD','');
 end;
 
 procedure TfLinkFrame.acDeleteExecute(Sender: TObject);
+var
+  i: Integer;
+  bLink: String;
+  aLink: String;
+  aClass: TBaseDBDatasetClass;
+  aLinks: TLinks;
+  aDS: TBaseDbList;
+  DeleteBack : Boolean = False;
+  procedure DeleteBackLink;
+  begin
+    with FContList do
+      begin
+        //Rückverweis löschen ?!
+        bLink := Data.BuildLink(DataSet.Parent.DataSet);
+        aLink := gList.DataSource.DataSet.FieldByName('LINK').AsString;
+        if Data.ListDataSetFromLink(aLink,aClass) then
+          begin
+            aDS := TBaseDbList(aClass.Create(nil));
+          end;
+        if Assigned(aDS) then
+          begin
+            tBaseDbList(aDS).SelectFromLink(aLink);
+            aDS.Open;
+            if aDS.Count>0 then
+              begin
+                aLinks := TLinks.Create(nil);
+                aLinks.Filter(Data.QuoteField('RREF_ID')+'='+Data.QuoteValue(aDS.Id.AsString));
+                if aLinks.Locate('LINK',bLink,[]) then
+                  begin
+                    if DeleteBack or (MessageDlg(strDeleteBack,mtInformation,[mbYes,mbNo],0) = mrYes) then
+                      begin
+                        DeleteBack := True;
+                        while aLinks.Locate('LINK',bLink,[]) do
+                          aLinks.Delete;
+                      end;
+                  end;
+                aLinks.Free;
+              end;
+          end;
+      end;
+  end;
+
 begin
   if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
-    DataSet.Delete;
+    with FContList do
+      begin
+        if gList.SelectedRows.Count > 0 then
+          begin
+            for i := 0 to gList.SelectedRows.Count-1 do
+              begin
+                gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
+                DeleteBackLink;
+                gList.DataSource.DataSet.Delete;
+              end;
+            gList.SelectedRows.Clear;
+          end
+        else
+          with Application as IBaseDbInterface do
+            begin
+              DeleteBackLink;
+              gList.DataSource.DataSet.Delete;
+            end;
+      end;
 end;
 
 procedure TfLinkFrame.FContListDragDrop(Sender, Source: TObject; X, Y: Integer);
@@ -262,6 +349,7 @@ var
   aLinks: String;
   aDS: TBaseDBList;
   bLink: String;
+  aClass: TBaseDBDatasetClass;
 begin
   if Assigned(fSearch) and (Source = fSearch.sgResults) then
     begin
@@ -285,29 +373,26 @@ begin
                 begin
                   aDS := nil;
                   bLink := Data.BuildLink(DataSet.Parent.DataSet);
-                  case copy(aLink,0,pos('@',aLink)-1) of
-                  'MASTERDATA',
-                  'MASTERDATA.ID':aDS := TMasterdata.Create(nil,Data);
-                  'PROJECTS',
-                  'PROJECTS.ID':aDS := TProject.Create(nil,Data);
-                  'CUSTOMERS',
-                  'CUSTOMERS.ID':aDS := TPerson.Create(nil,Data);
-                  'MEETINGS':aDS := TMeetings.Create(nil,Data);
-                  'ORDERS':aDS := TOrder.Create(nil,Data);
-                  end;
+                  if Data.ListDataSetFromLink(aLink,aClass) then
+                    begin
+                      aDS := TBaseDbList(aClass.Create(nil));
+                    end;
                   if Assigned(aDS) then
                     begin
-                      aDS.SelectFromLink(aLink);
+                      tBaseDbList(aDS).SelectFromLink(aLink);
                       aDS.Open;
-                      Insert;
-                      FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
-                      aLinkDesc := Data.GetLinkDesc(bLink);
-                      aIcon := Data.GetLinkIcon(bLink);
-                      FieldByName('LINK').AsString := bLink;
-                      FieldByName('NAME').AsString := aLinkDesc;
-                      FieldByName('ICON').AsInteger := aIcon;
-                      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
-                      Post;
+                      if aDS.Count>0 then
+                        begin
+                          Insert;
+                          FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
+                          aLinkDesc := Data.GetLinkDesc(bLink);
+                          aIcon := Data.GetLinkIcon(bLink);
+                          FieldByName('LINK').AsString := bLink;
+                          FieldByName('NAME').AsString := aLinkDesc;
+                          FieldByName('ICON').AsInteger := aIcon;
+                          FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+                          Post;
+                        end;
                       aDS.Free;
                       DataSet.DataSet.Refresh;
                     end;
@@ -364,6 +449,65 @@ procedure TfLinkFrame.FContListViewDetails(Sender: TObject);
 begin
   Data.GotoLink(DataSet.FieldByName('LINK').AsString);
 end;
+
+function TfLinkFrame.fSearchOpenItem(aLinks: string): Boolean;
+var
+  addToLinked: Boolean;
+  aLink: String;
+  aIcon: Integer;
+  aLinkDesc: String;
+  aClass: TBaseDBDatasetClass;
+  aDS: TBaseDBDataset;
+  bLink: String;
+begin
+  aLinks := fSearch.GetLink(True);
+  addToLinked := MessageDlg(strAddEntryToLinkedItem,mtInformation,[mbYes,mbNo],0) = mrYes;
+  while pos(';',aLinks) > 0 do
+    begin
+      aLink := copy(aLinks,0,pos(';',aLinks)-1);
+      aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
+      aLinkDesc := Data.GetLinkDesc(aLink);
+      aIcon := Data.GetLinkIcon(aLink);
+      with DataSet.DataSet do
+        begin
+          Insert;
+          FieldByName('LINK').AsString := aLink;
+          FieldByName('NAME').AsString := aLinkDesc;
+          FieldByName('ICON').AsInteger := aIcon;
+          FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+          Post;
+          if addToLinked then
+            begin
+              aDS := nil;
+              bLink := Data.BuildLink(DataSet.Parent.DataSet);
+              if Data.ListDataSetFromLink(aLink,aClass) then
+                begin
+                  aDS := aClass.Create(nil);
+                end;
+              if Assigned(aDS) then
+                begin
+                  tBaseDbList(aDS).SelectFromLink(aLink);
+                  aDS.Open;
+                  if aDS.Count>0 then
+                    begin
+                      Insert;
+                      FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
+                      aLinkDesc := Data.GetLinkDesc(bLink);
+                      aIcon := Data.GetLinkIcon(bLink);
+                      FieldByName('LINK').AsString := bLink;
+                      FieldByName('NAME').AsString := aLinkDesc;
+                      FieldByName('ICON').AsInteger := aIcon;
+                      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+                      Post;
+                    end;
+                  aDS.Free;
+                  DataSet.DataSet.Refresh;
+                end;
+            end;
+        end;
+    end;
+end;
+
 procedure TfLinkFrame.pmPopupPopup(Sender: TObject);
 var
   atmp: String;
@@ -404,6 +548,7 @@ begin
   miOpen.Action := FContList.acOpen;
   FContList.gList.OnDragOver:=@FContListDragOver;
   FContList.gList.OnDragDrop:=@FContListDragDrop;
+  FContList.gList.Options:=FContList.gList.Options+[dgMultiselect,dgPersistentMultiSelect];
 end;
 destructor TfLinkFrame.Destroy;
 begin
@@ -431,6 +576,7 @@ begin
   FEditable := Editable;
   acPasteLinks.Enabled := Editable;
   dnContacts.Enabled:=Editable;
+  ArrangeToolBar(pToolbar,ActionList1,'Links');
 end;
 procedure TfLinkFrame.ShowFrame;
 begin

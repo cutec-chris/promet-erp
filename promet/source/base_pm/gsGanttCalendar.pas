@@ -73,7 +73,7 @@ type
   );
 
 type
-  TPaitBackgroundEvent = procedure(Sender : TObject;Canvas : TCanvas;aRect : TRect;aStart,aEnd : TDateTime;aDayWidth : Double) of object;
+  TPaitBackgroundEvent = procedure(Sender : TObject;Canvas : TCanvas;aRect : TRect;aStart,aEnd : TDateTime;aDayWidth : Double;aUnfinishedList : TList = nil) of object;
   TGanttCalendar = class;
   TGanttTree = class;
   TgsGantt = class;
@@ -93,12 +93,13 @@ type
     Fid: Variant;
     FInCriticalPath: Boolean;
     FIntervalStyle: TIntervalStyle;
+    FMoved: Boolean;
     FMovedBack: Boolean;
     FMovedFwd: Boolean;
     FNetDuration: TDateTime;
     FNetTime: TDateTime;
     FOnChanged: TNotifyEvent;
-    FOnOpen: TNotifyEvent;
+    FOnExpand: TNotifyEvent;
     FPB: TPaitBackgroundEvent;
     FPointer: Pointer;
     FPointer2: Pointer;
@@ -121,12 +122,16 @@ type
     FIntervals: TList;
 
     FConnections: TList;
+    FDependencies: TList;
     FCanUpdate: Boolean;
     FUpdating : Integer;
     FUpdateCount : Integer;
 
     // property procedures and functions
+    function GetDep(Index: Integer): TInterval;
+    function GetDepCount: Integer;
     function GetEarliestDate: TDateTime;
+    function GetIndex: Integer;
     function GetLatest: TDateTime;
     function GetStartDate: TDateTime;
     function GetFinishDate: TDateTime;
@@ -184,7 +189,7 @@ type
     constructor Create(AGantt: TgsGantt);virtual;
     destructor Destroy; override;
 
-    procedure AddConnection(AConnection: TInterval;DoUpdateIntervalStart : Boolean;DoChange : Boolean);
+    procedure AddConnection(AConnection: TInterval;DoUpdateIntervalStart : Boolean;DoChange : Boolean = True);
     procedure DeleteConnection(AnIndex: Integer);
     procedure RemoveConnection(AConnection: TInterval);
 
@@ -203,7 +208,6 @@ type
 
     procedure UpdateIntervalStart(Delta: TDateTime);
     procedure PrepareToUpdate;
-
     property StartDate: TDateTime read GetStartDate write SetStartDate;
     property FinishDate: TDateTime read GetFinishDate write SetFinishDate;
     property Latest : TDateTime read GetLatest;
@@ -211,7 +215,7 @@ type
     property Duration: TDateTime read GetDuration write SetDuration;
     property NetDuration: TDateTime read FNetDuration write FNetDuration;
     property NetTime: TDateTime read FNetTime write SetNetTime;
-    property Buffer: TDateTime read FBuffer write SetBuffer;
+    property WaitTime: TDateTime read FBuffer write SetBuffer;
     property StampDuration: TTimeStamp read GetStampDuration;
     property Task: String read FTask write SetTask;
     property Project: String read FProject write Fproject;
@@ -241,6 +245,8 @@ type
     property Interval[Index: Integer]: TInterval read GetInterval;
     property ConnectionCount: Integer read GetConnectionCount;
     property Connection[Index: Integer]: TInterval read GetConnection;
+    property DependencyCount: Integer read GetDepCount;
+    property Dependencies[Index: Integer]: TInterval read GetDep;
 
     property IsCollection: Boolean read GetIsCollection;
     property IntervalDone: TDateTime read GetIntervalDone write SetIntervalDone;
@@ -249,6 +255,7 @@ type
     property Changed : Boolean read FChanged write FChanged;
     property MovedBack : Boolean read FMovedBack;
     property MovedFwd : Boolean read FMovedFwd;
+    property Moved : Boolean read FMoved write FMoved;
     procedure ResetMovement;
     property DontChange : Boolean read FDontChange write FDontChange;
     procedure Change;
@@ -263,8 +270,9 @@ type
     property Color : TColor read FColor write SetColor;
     property Styles : TFontStyles read FStyle write FStyle;
     property Gantt : TgsGantt read FGantt;
-    property OnOpen : TNotifyEvent read FOnOpen write FOnOpen;
+    property OnExpand : TNotifyEvent read FOnExpand write FOnExpand;
     property Fixed : Boolean read FFixed write FFixed;
+    property Index : Integer read GetIndex;
   end;
   TMouseOverInterval = procedure(Sender : TObject;aInterval : TInterval;X,Y : Integer) of object;
 
@@ -273,6 +281,7 @@ type
   TGanttCalendar = class(TCustomControl)
   private
     FOverInterval: TMouseOverInterval;
+    FStartDateChanged: TNotifyEvent;
     FVertScrollBar: TScrollBar;
     FHorzScrollBar: TScrollBar;
 
@@ -305,6 +314,7 @@ type
     FConnectToPoint: TPoint;
 
     // Property Procedures and functions
+    function GetEndDate: TDateTime;
     procedure SetMajorScale(const Value: TTimeScale);
     procedure SetMinorScale(const Value: TTimeScale);
 
@@ -417,6 +427,7 @@ type
     property PixelsPerLine: Integer read FPixelsPerLine write SetPixelsPerLine default 24;
 
     property StartDate: TDateTime read FStartDate write SetStartDate;
+    property EndDate : TDateTime read GetEndDate;
 
     property OnMouseMove;
     property OnMouseDown;
@@ -424,7 +435,11 @@ type
     property OnDblClick;
     property OnClick;
     property OnMoveOverInterval : TMouseOverInterval read FOverInterval write FOverInterval;
+    property OnStartDateChanged : TNotifyEvent read FStartDateChanged write FStartDateChanged;
   end;
+
+  { TGanttTree }
+
   TGanttTree = class(TStringGrid)
   private
     FAfterUpdateCommonSettings: TNotifyEvent;
@@ -432,6 +447,7 @@ type
     FGantt: TgsGantt;
     FIndent: Integer;
     FBranchFont: TFont;
+    FTaskEditable: Boolean;
 
     FTextEdit: TEdit;
     FDurationEdit: TSpinEdit;
@@ -488,6 +504,7 @@ type
     property Indent: Integer read FIndent write SetIndent;
     property Font;
     property BranchFont: TFont read GetBrachFont write SetBranchFont;
+    property TaskEditable : Boolean read FTaskEditable write FTaskEditable;
     property AfterUpdateCommonSettings : TNotifyEvent read FAfterUpdateCommonSettings write SetAfterUpdateCommonSettings;
   end;
   TgsGantt = class(TCustomControl)
@@ -495,6 +512,7 @@ type
     FIntervals: TList;
 
     FCalendar: TGanttCalendar;
+    FStartDateChanged: TNotifyEvent;
     FTree: TGanttTree;
     FSplitter: TSplitter;
     FUpdateCount : Integer;
@@ -566,6 +584,8 @@ type
     property TreeIndent: Integer read GetTreeIndent write SetTreeIndent;
     property TreeFont: TFont read GetTreeFont write SetTreeFont;
     property TreeBranchFont: TFont read GetTreeBranchFont write SetTreeBranchFont;
+
+    property OnStartDateChangd : TNotifyEvent read FStartDateChanged write FStartDateChanged;
   end;
 //procedure Register;
 function UnitsBetweenDates(Start, Finish: TdateTime; TimeScale: TTimeScale): Double;
@@ -1235,21 +1255,28 @@ begin
 
   FIntervals := TList.Create;
   FConnections := Tlist.Create;
+  FDependencies := Tlist.Create;
   FCanUpdate := True;
+  FInCriticalPath:=False;
   ResetMovement;
 end;
 
 destructor TInterval.Destroy;
+var
+  i: Integer;
 begin
+  FConnections.Clear;
   FConnections.Free;
   FIntervals.Free;
+  FDependencies.Clear;
+  FDependencies.Free;
   if Assigned(FParent) then FParent.RemoveInterval(Self);
 
   inherited Destroy;
 end;
 
 procedure TInterval.AddConnection(AConnection: TInterval;
-  DoUpdateIntervalStart: Boolean; DoChange: Boolean = True);
+  DoUpdateIntervalStart: Boolean; DoChange: Boolean);
 begin
   if FConnections.IndexOf(AConnection) = -1 then
   begin
@@ -1257,8 +1284,9 @@ begin
     if ConnectionExists(AConnection) then Exit;
 
     if (AConnection.StartDate < FinishDate) and DoUpdateIntervalStart then
-      AConnection.UpdateIntervalStart((FinishDate + Buffer) - AConnection.StartDate);
+      AConnection.UpdateIntervalStart((FinishDate + WaitTime) - AConnection.StartDate);
     FConnections.Add(AConnection);
+    AConnection.FDependencies.Add(Self);
     FGantt.UpdateInterval;
     if DoChange then
       Change;
@@ -1267,12 +1295,16 @@ end;
 
 procedure TInterval.DeleteConnection(AnIndex: Integer);
 begin
+  if TInterval(FConnections[AnIndex]).FDependencies.IndexOf(Self)>-1 then
+    TInterval(FConnections[AnIndex]).FDependencies.Delete(TInterval(FConnections[AnIndex]).FDependencies.IndexOf(Self));
   FConnections.Delete(AnIndex);
   FGantt.UpdateInterval;
 end;
 
 procedure TInterval.RemoveConnection(AConnection: TInterval);
 begin
+  if AConnection.FDependencies.IndexOf(Self)>-1 then
+    AConnection.FDependencies.Delete(AConnection.FDependencies.IndexOf(Self));
   FConnections.Remove(AConnection);
   FGantt.UpdateInterval;
 end;
@@ -1422,6 +1454,7 @@ procedure TInterval.ResetMovement;
 begin
   FMovedBack:=False;
   FMovedFwd :=False;
+  FMoved:=False;
 end;
 
 {
@@ -1432,6 +1465,7 @@ end;
 
 procedure TInterval.PrepareDrawRect;
 begin
+  if not Assigned(FGantt) then exit;
   FDrawRect.Left :=
     Round
     (
@@ -1477,10 +1511,29 @@ begin
   Result := FEarliestDate;
 end;
 
+function TInterval.GetIndex: Integer;
+begin
+  Result := -1;
+  if not Assigned(FParent) then exit;
+  result := Parent.FIntervals.IndexOf(Self);
+end;
+
+function TInterval.GetDep(Index: Integer): TInterval;
+begin
+  if Index < FDependencies.Count then
+    Result := TInterval(FDependencies[Index])
+  else Result := nil;
+end;
+
+function TInterval.GetDepCount: Integer;
+begin
+  Result := FDependencies.Count;
+end;
+
 function TInterval.GetLatest: TDateTime;
 begin
   if Assigned(Self) and (not IsCollection) then
-    Result := FinishDate+Buffer
+    Result := FinishDate+WaitTime
   else Result := 0;
 end;
 
@@ -1663,7 +1716,7 @@ begin
     Result := DrawRect;
     Exit;
   end;
-
+  if not Assigned(FGantt) then exit;
   Result.Top := FDrawRect.Top + (FDrawRect.Bottom - FDrawRect.Top) div 3;
   Result.Bottom := FDrawRect.Bottom - (FDrawRect.Bottom - FDrawRect.Top) div 3;
 
@@ -1773,10 +1826,10 @@ procedure TInterval.SetOpened(const Value: Boolean);
 var
   I: Integer;
 begin
+  if Assigned(FOnExpand) and Value then
+    FOnExpand(Self);
   for I := 0 to IntervalCount - 1 do
     Interval[I].Visible := Value;
-  if Assigned(FOnOpen) then
-    FOnOpen(Self);
 end;
 
 function TInterval.CountStartDate: TDateTime;
@@ -2067,7 +2120,6 @@ begin
 
             Brush.Color := CurrInterval.Color;
             if CurrInterval.InCriticalPath then Brush.Color := clRed;
-
             with CurrInterval.DrawRect do
               Polygon
               (
@@ -2099,7 +2151,6 @@ begin
                   Point(Left + (Right - Left) div 2, Top)
                 ]
               );
-
             Brush.Style := bsSolid;
             Brush.Color := clBlue;
           end else if (CurrInterval.IsCollection) and (CurrInterval.Style = isDefault) then
@@ -2241,6 +2292,11 @@ begin
   end;
 end;
 
+function TGanttCalendar.GetEndDate: TDateTime;
+begin
+  Result := StartDate+FPixelsPerMinorScale;
+end;
+
 procedure TGanttCalendar.SetMinorScale(const Value: TTimeScale);
 begin
   if csReading in ComponentState then
@@ -2280,6 +2336,8 @@ begin
   FStartDate := Value;
   FVisibleStart := ClearToPeriodStart(MinorScale, FStartDate);
   Invalidate;
+  if Assigned(FStartDateChanged) then
+    FStartDateChanged(Self);
 end;
 
 function TGanttCalendar.GetVisibleFinish: TDateTime;
@@ -2470,9 +2528,11 @@ begin
   begin
     Brush.Style := bsSolid;
     Brush.Color := clBlack;
+    if Assigned(FromInterval) and Assigned(ToInterval) and FromInterval.InCriticalPath and ToInterval.InCriticalPath then
+      Brush.Color := clRed;
     Pen.Color := clWhite;
     Pen.Style := psDot;
-    if FromInterval.Buffer>0 then
+    if FromInterval.WaitTime>0 then
       begin
         Pen.Color := clBlack;
         Pen.Style := psSolid;
@@ -2550,12 +2610,29 @@ begin
         ]
       );
     end else begin
-
-      LineTo
-      (
-        ToRect.Left + Plus,
-        FromRect.Top + (FromRect.Bottom - FromRect.Top) div 2
-      );
+      if FromInterval.WaitTime>0 then
+        begin
+          LineTo
+          (
+            FromRect.Right + Plus + round((UnitsBetweenDates(VisibleStart,VisibleStart+1,MinorScale)*PixelsPerMinorScale)*FromInterval.WaitTime),
+            FromRect.Top + (FromRect.Bottom - FromRect.Top) div 2
+          );
+          Pen.Style := psDot;
+          Pen.Color := clWhite;
+          LineTo
+          (
+            ToRect.Left + Plus,
+            FromRect.Top + (FromRect.Bottom - FromRect.Top) div 2
+          );
+        end
+      else
+        begin
+          LineTo
+          (
+            ToRect.Left + Plus,
+            FromRect.Top + (FromRect.Bottom - FromRect.Top) div 2
+          );
+        end;
 
       if FromRect.Top > ToRect.Top then
       begin
@@ -2752,6 +2829,8 @@ begin
             Height - FHorzScrollBar.Height * Integer(FHorzScrollBar.Visible)
           );
           InvalidateRect(Handle, @R, True);
+          if Assigned(FStartDateChanged) then
+            FStartDateChanged(Self);
         end;
     end
   else
@@ -2766,11 +2845,15 @@ begin
             FBeforeStartDateCount := Abs(ScrollPos);
             ScrollPos := 0;
           end;
+          if Assigned(FStartDateChanged) then
+            FStartDateChanged(Self);
         end
       else
         begin
           FVisibleStart := ClearToPeriodStart(MinorScale, IncTime(FStartDate, MinorScale, ScrollPos));
           FBeforeStartDateCount := 0;
+          if Assigned(FStartDateChanged) then
+            FStartDateChanged(Self);
         end;
       if (ScrollCode <> scEndScroll) then
         begin
@@ -2880,6 +2963,7 @@ var
   Found: Boolean;
   aTop: Integer;
   aIdx : Integer = 0;
+  aCount : Integer = 0;
   R: TRect;
   NewDate: TDateTime;
   aDiff: Int64;
@@ -2887,6 +2971,7 @@ begin
   List := TList.Create;
   try
     FGantt.MakeIntervalList(List);
+    aCount := List.Count;
 
     if not FDragStarted then
     begin
@@ -2983,6 +3068,7 @@ begin
 
             FDragInterval.FinishDate := FDragInterval.StartDate;
           end;
+          FDragInterval.FMoved:=True;
         end;
         ditRightMove:
         begin
@@ -3131,8 +3217,13 @@ begin
       if (aDiff<>0) or (round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight) <> 0) then
         begin
           FVisibleStart := IncTime(FVisibleStart, MinorScale, aDiff);
-          FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight);
+
+          if aCount > (Height div FGantt.Tree.DefaultRowHeight) then
+            FGantt.Tree.TopRow:=FGantt.Tree.TopRow+round((FConnectFromPoint.Y-Message.YPos)/FGantt.Tree.DefaultRowHeight)
+          else FGantt.Tree.TopRow:=0;
           FConnectFromPoint := Point(Message.XPos, Message.YPos);
+          if Assigned(FStartDateChanged) then
+            FStartDateChanged(Self);
         end;
       Invalidate;
     end;
@@ -3296,6 +3387,7 @@ begin
 
   FGantt := AnOwner;
   FIntervals := FGantt.FIntervals;
+  FTaskEditable := True;
 
   //ParentCtl3d := False;
   //Ctl3d := False;
@@ -3312,7 +3404,7 @@ begin
   Options :=
   [
     goFixedVertLine, goFixedHorzLine, goVertLine,
-    goHorzLine, {goEditing,} goColSizing
+    goHorzLine, goColSizing
   ];
 
   FBranchFont := TFont.Create;
@@ -3326,7 +3418,6 @@ begin
   begin
     FTextEdit := TEdit.Create(Owner);
     (Owner as TWinControl).InsertControl(FTextEdit);
-    //FTextEdit.Ctl3D := False;
     FTextEdit.BorderStyle := bsNone;
     FTextEdit.Visible := False;
     FTextEdit.OnKeyPress := @OnEditKeyPress;
@@ -3424,18 +3515,19 @@ begin
       if (AltColorStartNormal and Odd(ARow-FixedRows)) {(1)} or
          (not AltColorStartNormal and Odd(ARow)) {(2)} then
         AColor := AlternateColor;
-      if (gdSelected in AState) then
-        begin
-          aColor := SelectedColor;
-          Canvas.Font.Color:=clHighlightText;
-        end;
-      Brush.Color := aColor;
       CurrInterval := TInterval(Objects[0, ARow]);
 
       if (CurrInterval <> nil) and CurrInterval.IsCollection then
         Canvas.Font := FBranchFont
       else
         Canvas.Font := Self.Font;
+
+      if (gdSelected in AState) then
+        begin
+          aColor := SelectedColor;
+          Canvas.Font.Color:=clHighlightText;
+        end;
+      Brush.Color := aColor;
 
       if GetColumnType(ACol) = gctTask then
       begin
@@ -3444,9 +3536,7 @@ begin
         begin
           DeltaX := (CurrInterval.Level - 1) * FIndent + 14;
           if CurrInterval.Color<>clBlue then
-            Canvas.Font.Color:=CurrInterval.Color
-          else
-            Canvas.Font.Color:=clWindowText;
+            Canvas.Font.Color:=CurrInterval.Color;
           Canvas.Font.Style:=CurrInterval.Styles;
           WriteText
           (
@@ -3579,7 +3669,7 @@ begin
       FGantt.UpdateInterval;
     end else begin
 
-      if (ACol = Col) and (ARow = Row) then
+      if (ACol = Col) and (ARow = Row) and FTaskEditable then
       begin
         ShowTaskEditor;
       end else
@@ -3815,6 +3905,8 @@ procedure TGanttTree.OnEditExit(Sender: TObject);
 begin
   if Sender = FTextEdit then
   begin
+    if Assigned(FEditInterval) then
+      FEditInterval.Change;
     if FTextEdit.Visible and Assigned(FEditInterval) then
     begin
       FEditInterval.Task := FTextEdit.Text;
@@ -4008,7 +4100,7 @@ begin
     begin
       FTextEdit.Visible := False;
       SetFocus;
-    end else if not FTextEdit.Visible then
+    end else if (not FTextEdit.Visible) and FTaskEditable then
     begin
       ShowTaskEditor;
     end;
@@ -4050,8 +4142,6 @@ begin
   InsertControl(FSplitter);
   FSplitter.Left := FTree.Left + FTree.Width + 1;
   FSplitter.Align := alLeft;
-  FSplitter.Width := 6;
-  FSplitter.Beveled := True;
 
   FCalendar := TGanttCalendar.Create(Self);
   InsertControl(FCalendar);

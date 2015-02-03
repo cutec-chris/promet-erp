@@ -25,9 +25,13 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
-  DBGrids, uExtControls, db, uMasterdata, uPrometFramesInplace;
+  DBGrids, uExtControls, db, uMasterdata, uPrometFramesInplace,uIntfStrConsts,
+  Graphics;
 
 type
+
+  { TfRepairPositionFrame }
+
   TfRepairPositionFrame = class(TPrometInplaceFrame)
     cbOperation: TDBComboBox;
     cbVersion1: TDBComboBox;
@@ -50,6 +54,9 @@ type
     Position: TDatasource;
     Repair: TDatasource;
     RepairDetail: TDatasource;
+    Timer1: TTimer;
+    procedure Timer1StartTimer(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
     procedure eSerial1Exit(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
     procedure gProblemsColExit(Sender: TObject);
@@ -57,27 +64,23 @@ type
       );
     procedure gProblemsColumnSized(Sender: TObject);
     procedure gProblemsSelectEditor(Sender: TObject; Column: TColumn;
-      var Editor: TWinControl);
+    var Editor: TWinControl);
   private
     { private declarations }
     FMasterdata : TMasterdata;
+    Repairtime:Integer;
   public
     { public declarations }
     constructor Create(AOwner: TComponent); override;
     destructor Destroy;override;
     procedure SetLanguage;
     procedure SetRights(Editable : Boolean);override;
+    procedure SetArticle(aMasterdata: TMasterdata); override;
   end;
 
 implementation
 {$R *.lfm}
 uses uOrder,uPositionFrame,uData,Variants,uRowEditor,uBaseERPDBClasses;
-resourcestring
-  strRepaired                   = 'repariert';
-  strDiscarded                  = 'entsorgt';
-  strWaitingforCustomer         = 'wartet auf Kunden';
-  strAssemblyexchanged          = 'Baugruppentausch';
-  strIsNew                      = 'neuwertig';
 procedure TfRepairPositionFrame.FrameEnter(Sender: TObject);
 begin
   if TfPosition(Owner).Dataset is TOrderPos then
@@ -95,6 +98,32 @@ begin
       end;
 end;
 
+procedure TfRepairPositionFrame.Timer1StartTimer(Sender: TObject);
+begin
+  lInfo.Font.Color := clGreen;
+  lInfo.Color := clInfoBk;
+  lInfo.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
+end;
+
+procedure TfRepairPositionFrame.Timer1Timer(Sender: TObject);
+begin
+  lInfo.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
+  Dec(Repairtime);
+  if (Repairtime < 0) then
+    begin
+      if lInfo.Caption <> 'Reparaturzeit überschritten' then
+        begin
+          lInfo.Font.Color :=  clRed;
+          lInfo.Caption := 'Reparaturzeit überschritten';
+        end;
+      if lInfo.Font.Color = clRed then
+        begin
+          lInfo.Font.Color := clInfoBk;
+        end
+      else lInfo.Font.Color := clRed;
+    end;
+end;
+
 procedure TfRepairPositionFrame.eSerial1Exit(Sender: TObject);
 var
   aStorageJournal: TStorageJournal;
@@ -102,8 +131,9 @@ begin
   lInfo.Visible:=False;
   if trim(eSerial1.Text)<>'' then
     begin
-      aStorageJournal := TStorageJournal.Create(nil,Data);
+      aStorageJournal := TStorageJournal.Create(nil);
       aStorageJournal.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(Position.DataSet.FieldByName('IDENT').AsString)+' AND '+Data.QuoteField('SERIAL')+'='+Data.QuoteValue(trim(eSerial1.Text))+' AND NOT '+Data.ProcessTerm(Data.QuoteField('NOTE')+'='+Data.QuoteValue('')));
+      //Wenn Notiz zu Artikel mit dieser Serienummer im Lagerjournal vorhanden, zeigen wir sie an
       if aStorageJournal.Count>0 then
         begin
           lInfo.Caption:=aStorageJournal.FieldByName('NOTE').AsString;
@@ -163,7 +193,7 @@ begin
     begin
       Column.PickList.Clear;
       if not Assigned(FMasterdata) then
-        aMasterdata := TMasterdata.Create(Self,Data)
+        aMasterdata := TMasterdata.CreateEx(Self,Data)
       else aMasterdata := FMasterdata;
       FMasterdata := aMasterdata;
       aMasterdata.Select(Position.DataSet.FieldByName('IDENT').AsString);
@@ -188,15 +218,17 @@ end;
 constructor TfRepairPositionFrame.Create(AOwner: TComponent);
 var
   i: Integer;
+  aRepairProblems: TRepairProblems;
 begin
   inherited Create(AOwner);
   FMasterdata := nil;
+  aRepairProblems := TRepairProblems.Create(nil);
   for i := 0 to gproblems.Columns.Count-1 do
     if TColumn(gProblems.Columns[i]).FieldName = 'ERROR' then
       begin
-        Data.RepairProblems.CreateTable;
-        Data.RepairProblems.Open;
-        with Data.RepairProblems.DataSet do
+        aRepairProblems.CreateTable;
+        aRepairProblems.Open;
+        with aRepairProblems.DataSet do
           begin
             First;
             TColumn(gProblems.Columns[i]).PickList.Clear;
@@ -207,6 +239,7 @@ begin
               end;
           end;
       end;
+  aRepairProblems.Free;
   SetLanguage;
 end;
 destructor TfRepairPositionFrame.Destroy;
@@ -228,5 +261,18 @@ procedure TfRepairPositionFrame.SetRights(Editable: Boolean);
 begin
   Enabled := Editable;
 end;
+
+procedure TfRepairPositionFrame.SetArticle(aMasterdata: TMasterdata);
+begin
+  if not aMasterdata.FieldByName('REPAIRTIME').IsNull then
+    begin
+      Position.DataSet.FieldByName('REPAIRTIME').AsVariant:=aMasterdata.FieldByName('REPAIRTIME').AsVariant;
+      Repairtime := aMasterdata.FieldByName('REPAIRTIME').value;
+      Timer1.Enabled := True;
+      lInfo.Visible := True;
+    end
+  else lInfo.Visible := False;
+end;
+
 end.
 

@@ -5,31 +5,37 @@ unit uprometipc;
 interface
 
 uses
-  Classes, SysUtils,Utils;
+  Classes, SysUtils,Utils,uBaseDbClasses;
 type
   TMessageFunction = function(aMessage : string) : Boolean;
 
-function SendIPCMessage(aMessage : string) : Boolean;
-function PeekIPCMessages : Boolean;
+function SendIPCMessage(aMessage : string;aIPCFile : string = '') : Boolean;
+function PeekIPCMessages(aIPCFile : string = '') : Boolean;
 
 var
   OnMessageReceived : TMessageFunction = nil;
+  IPCFile : string;
 
 implementation
-
-function SendIPCMessage(aMessage: string): Boolean;
+uses uBaseApplication;
+function SendIPCMessage(aMessage: string; aIPCFile: string): Boolean;
 var
   sl: TStringList;
 begin
+  if aIPCFile='' then
+    aIPCFile:=IPCFile;
   Result := False;
   sl := TStringList.Create;
   try
     try
-      if FileExists(GetTempDir+'PMSMessagemenager') then
-        sl.LoadFromFile(GetTempDir+'PMSMessagemenager');
-      sl.Add(aMessage);
-      sl.SaveToFile(GetTempDir+'PMSMessagemenager');
-      Result := True;
+      with BaseApplication as IBaseApplication do
+        begin
+          if FileExists(aIPCFile) then
+            sl.LoadFromFile(aIPCFile);
+          sl.Add(aMessage);
+          sl.SaveToFile(aIPCFile);
+          Result := True;
+        end;
     except
     end;
   finally
@@ -37,36 +43,42 @@ begin
   end;
 end;
 
-function PeekIPCMessages: Boolean;
+function PeekIPCMessages(aIPCFile : string = ''): Boolean;
 var
   sl: TStringList;
   achanged: Boolean;
   i: Integer;
   fs: TFileStream;
 begin
+  if aIPCFile='' then
+    aIPCFile:=IPCFile;
   Result := False;
   sl := TStringList.Create;
   try
     try
-      if FileExists(GetTempDir+'PMSMessagemenager') then
+      with BaseApplication as IBaseApplication do
         begin
-          fs := TFileStream.Create(GetTempDir+'PMSMessagemenager',fmShareCompat);
-          sl.LoadFromStream(fs);
-          fs.Free;
-        end;
-      i := 0;
-      achanged := False;
-      while i < sl.Count do
-        begin
-          if Assigned(OnMessageReceived) and OnMessageReceived(sl[i]) then
+          if FileExists(UniToSys(aIPCFile)) then
             begin
-              sl.Delete(i);
-              achanged := True;
-            end
-          else inc(i);
+              fs := TFileStream.Create(aIPCFile,fmShareCompat);
+              sl.LoadFromStream(fs);
+              fs.Free;
+            end;
+          i := 0;
+          sl.SaveToFile(aIPCFile); //when not saveable, raise exception and exit
+          achanged := False;
+          while i < sl.Count do
+            begin
+              if Assigned(OnMessageReceived) and OnMessageReceived(sl[i]) then
+                begin
+                  sl.Delete(i);
+                  achanged := True;
+                end
+              else inc(i);
+            end;
+          if aChanged then
+            sl.SaveToFile(aIPCFile);
         end;
-      if aChanged then
-        sl.SaveToFile(GetTempDir+'PMSMessagemenager');
     except
     end;
   finally
@@ -75,5 +87,10 @@ begin
   end;
 end;
 
+initialization
+  IPCFile := GetTempDir+'PMSMessagemenager';
+
+finalization
+  DeleteFile(IPCFile);
 end.
 

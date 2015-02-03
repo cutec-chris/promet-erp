@@ -1,11 +1,11 @@
 inherited fListFrame: TfListFrame
-  Left = 0
   Height = 277
-  Top = 0
   Width = 508
   ClientHeight = 277
   ClientWidth = 508
-  object Panel1: TPanel[0]
+  DesignLeft = 463
+  DesignTop = 292
+  object pToolbar: TPanel[0]
     Left = 0
     Height = 277
     Top = 0
@@ -19,18 +19,18 @@ inherited fListFrame: TfListFrame
       Left = 0
       Height = 156
       Top = 20
-      Width = 44
+      Width = 40
       Align = alTop
       BorderSpacing.Top = 20
       BevelOuter = bvNone
       ClientHeight = 156
-      ClientWidth = 44
+      ClientWidth = 40
       TabOrder = 0
       object Bevel1: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 28
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -38,7 +38,7 @@ inherited fListFrame: TfListFrame
       end
       object ExtRotatedLabel1: TExtRotatedLabel
         Left = 0
-        Height = 152
+        Height = 148
         Top = 4
         Width = 14
         Align = alLeft
@@ -66,6 +66,7 @@ inherited fListFrame: TfListFrame
         ClientWidth = 24
         DataSource = Datasource
         Direction = nbdVertical
+        Flat = True
         Options = []
         TabOrder = 0
         VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
@@ -73,7 +74,7 @@ inherited fListFrame: TfListFrame
     end
   end
   object Datasource: TDatasource[1]
-    left = 24
-    top = 165
+    left = 72
+    top = 160
   end
 end

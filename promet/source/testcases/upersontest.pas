@@ -25,7 +25,7 @@ var
   aPerson : TPerson;
 procedure PersonTest.Create;
 begin
-  aPerson := TPerson.Create(nil,Data);
+  aPerson := TPerson.Create(nil);
   aPerson.CreateTable;//get sure that the table is there
   aPerson.Insert;
   aPerson.Text.AsString := 'Testperson';

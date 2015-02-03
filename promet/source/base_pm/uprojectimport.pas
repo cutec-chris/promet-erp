@@ -22,7 +22,7 @@ unit uprojectimport;
 interface
 uses
   Classes, SysUtils, uProjects,XMLRead,XMLWrite,DOM,LConvEncoding,uData,uTask,db,
-  Utils,Math,FileUtil,uBaseDBInterface,variants;
+  Utils,Math,FileUtil,uBaseDBInterface,variants,uBaseDbClasses;
 //function ImportMPX(aFile : TStream;aProject : TProject) : Boolean; //MS Project ASCII
 function ImportMSPDI(aFile : TStream;aProject : TProject) : Boolean; //MS Project XML
 function ImportGAN(aFile : TStream;aProject : TProject;ReplaceIDs : Boolean = True;ImportAsSnapshot : Boolean = False) : Boolean; //Gantt Project
@@ -118,7 +118,7 @@ var
                   end;
                 if Tasks.CanEdit then
                   Tasks.DataSet.Post;
-                bTask := TTask.Create(nil,Data,Tasks.Connection);
+                bTask := TTask.CreateEx(nil,Data,Tasks.Connection);
                 bTask.Select(Tasks.Id.AsVariant);
                 bTask.Open;
                 if bTask.Count > 0 then
@@ -154,7 +154,7 @@ var
                       aLink := Data.BuildLink(Tasks.DataSet);
                     if Tasks.DataSet.Locate('ORIGID',aTask.ChildNodes[b].Attributes.GetNamedItem('id').NodeValue,[]) then
                       begin
-                        bTask := TTask.Create(nil,Data,Tasks.Connection);
+                        bTask := TTask.CreateEx(nil,Data,Tasks.Connection);
                         bTask.Select(Tasks.Id.AsVariant);
                         bTask.Open;
                         if bTask.Count > 0 then
@@ -266,7 +266,7 @@ var
     if not Assigned(aParent) then aParent := aOParent;
     Result := aDoc.CreateElement('task');
     TDOMElement(result).SetAttribute('id',aTask.Id.AsVariant);
-    TDOMElement(result).SetAttribute('name', UTF8ToSys(aTask.FieldByName('SUMMARY').AsString));
+    TDOMElement(result).SetAttribute('name', UniToSys(aTask.FieldByName('SUMMARY').AsString));
     TDOMElement(result).SetAttribute('meeting','false');
     aStart := aTask.FieldByName('STARTDATE').AsDateTime;
     if aStart = 0 then
@@ -277,7 +277,7 @@ var
     if aStart>aDue then aStart := aDue-max(aTask.FieldByName('PLANTIME').AsFloat,1);
     TDOMElement(result).SetAttribute('start',FormatDateTime('YYYY-MM-DD',aStart));
     TDOMElement(result).SetAttribute('duration',IntToStr(trunc(aDue-aStart)));
-    aIDep := TDependencies.Create(nil,Data);
+    aIDep := TDependencies.Create(nil);
     aIDep.SelectByLink(Data.BuildLink(aTask.DataSet));
     aIDep.Open;
     with aIDep.DataSet do
@@ -308,7 +308,7 @@ var
   auNode: TDOMElement;
   aProject: TProject;
 begin
-  aProject := TProject.Create(nil,Data);
+  aProject := TProject.Create(nil);
   aProject.Select(bProject.Id.AsVariant);
   with aProject.DataSet as IBaseDBFilter do
     begin
@@ -320,7 +320,7 @@ begin
   aDoc := TXMLDocument.Create;
   aProjectNode := aDoc.CreateElement('project');
   aDoc.AppendChild(aProjectNode);
-  TDOMElement(aProjectNode).SetAttribute('name',UTF8ToSys(aProject.FieldByName('NAME').AsString));
+  TDOMElement(aProjectNode).SetAttribute('name',UniToSys(aProject.FieldByName('NAME').AsString));
   TDOMElement(aProjectNode).SetAttribute('version','2.0');
   aTasksNode := aDoc.CreateElement('tasks');
   aProjectNode.AppendChild(aTasksNode);

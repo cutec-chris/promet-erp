@@ -1,7 +1,7 @@
 object fNewStorage: TfNewStorage
-  Left = 538
+  Left = 507
   Height = 395
-  Top = 292
+  Top = 272
   Width = 493
   ActiveControl = gStorage
   Caption = 'Lager auswählen'
@@ -47,8 +47,8 @@ object fNewStorage: TfNewStorage
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 34
-    Top = 355
+    Height = 42
+    Top = 347
     Width = 481
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -109,7 +109,7 @@ object fNewStorage: TfNewStorage
     Left = 6
     Height = 13
     Top = 227
-    Width = 92
+    Width = 97
     Caption = 'Bestand/Charge'
     Font.Style = [fsBold]
     ParentColor = False

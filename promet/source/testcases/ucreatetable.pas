@@ -8,12 +8,16 @@ type
   TSubTable = class(TBaseDBDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
   end;
+
+  { TTable }
+
   TTable = class(TBaseDBDataSet)
   private
     FSubTable: TSubTable;
   published
     procedure DefineFields(aDataSet : TDataSet);override;
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent=nil;
+      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     destructor Destroy;override;
     property SubTable : TSubTable read FSubTable;
   end;
@@ -66,11 +70,11 @@ begin
           end;
     end;
 end;
-constructor TTable.Create(aOwner: TComponent; DM: TComponent;
+constructor TTable.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FSubTable := TSubTable.Create(aOwner, DM, aConnection, DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FSubTable := TSubTable.CreateEx(aOwner, DM, aConnection, DataSet);
 end;
 destructor TTable.Destroy;
 begin
@@ -83,7 +87,7 @@ begin
 end;
 procedure TableCreate.CreateTable;
 begin
-  aTable := TTable.Create(nil,Data);
+  aTable := TTable.Create(nil);
   aTable.CreateTable;
 end;
 procedure TableCreate.OpenTable;
@@ -114,7 +118,7 @@ begin
 end;
 procedure TableCreate.CreateTableInTransaction;
 begin
-  aTable := TTable.Create(nil,Data,aTransaction);
+  aTable := TTable.CreateEx(nil,Data,aTransaction);
   aTable.CreateTable;
   aTable.SubTable.CreateTable;
 end;

@@ -1,5 +1,5 @@
 object fAccountingQue: TfAccountingQue
-  Left = 277
+  Left = 294
   Height = 244
   Top = 272
   Width = 831

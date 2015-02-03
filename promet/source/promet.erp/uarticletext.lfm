@@ -1,30 +1,11 @@
 inherited fArticleTextFrame: TfArticleTextFrame
-  Left = 0
   Height = 413
-  Top = 0
   Width = 570
   ClientHeight = 413
   ClientWidth = 570
-  object cbTextTyp: TComboBox[0]
-    Left = 48
-    Height = 22
-    Top = 24
-    Width = 512
-    Anchors = [akTop, akLeft, akRight]
-    ItemHeight = 14
-    OnSelect = cbTextTypSelect
-    TabOrder = 0
-    Text = 'cbTextTyp'
-  end
-  object lTexttyp: TLabel[1]
-    Left = 48
-    Height = 14
-    Top = 3
-    Width = 41
-    Caption = 'Textart'
-    ParentColor = False
-  end
-  object pLeft: TPanel[2]
+  DesignLeft = 462
+  DesignTop = 228
+  object pToolbar: TPanel[0]
     Left = 0
     Height = 413
     Top = 0
@@ -35,7 +16,7 @@ inherited fArticleTextFrame: TfArticleTextFrame
     ClientWidth = 44
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 1
+    TabOrder = 0
     object Panel2: TPanel
       Left = 0
       Height = 78
@@ -94,21 +75,50 @@ inherited fArticleTextFrame: TfArticleTextFrame
       end
     end
   end
-  object mText: TMemo[3]
-    Left = 48
-    Height = 336
-    Top = 64
-    Width = 512
-    Anchors = [akTop, akLeft, akRight, akBottom]
-    OnChange = mTextChange
-    TabOrder = 2
+  object Panel1: TPanel[1]
+    Left = 44
+    Height = 413
+    Top = 0
+    Width = 526
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 413
+    ClientWidth = 526
+    TabOrder = 1
+    object mText: TMemo
+      Left = 8
+      Height = 336
+      Top = 69
+      Width = 512
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      OnChange = mTextChange
+      TabOrder = 0
+    end
+    object lTexttyp: TLabel
+      Left = 8
+      Height = 13
+      Top = 8
+      Width = 36
+      Caption = 'Textart'
+      ParentColor = False
+    end
+    object cbTextTyp: TComboBox
+      Left = 8
+      Height = 21
+      Top = 29
+      Width = 512
+      Anchors = [akTop, akLeft, akRight]
+      ItemHeight = 13
+      OnSelect = cbTextTypSelect
+      TabOrder = 1
+      Text = 'cbTextTyp'
+    end
   end
-  object TextTypes: TDatasource[4]
+  object dsTextTypes: TDataSource[2]
     left = 89
     top = 41
   end
-  object Texts: TDatasource[5]
-    OnStateChange = TextsStateChange
+  object Texts: TDataSource[3]
     left = 88
     top = 104
   end

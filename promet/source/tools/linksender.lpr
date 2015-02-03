@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces,
-  Classes, SysUtils, pprometdbintfs, CustApp,uprometipc,uProcessManager,ProcessUtils,FileUtil
+  Classes, SysUtils, pprometdbintfs, CustApp,uprometipc,uProcessManager,usimpleprocess,FileUtil
   { you can add units after this };
 
 type

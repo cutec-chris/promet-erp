@@ -22,7 +22,7 @@ unit uBaseCustomApplication;
 interface
 uses
   {$ifdef UNIX}cwstring,{$endif}Classes, SysUtils, CustApp, uBaseApplication, uBaseDBInterface,
-  PropertyStorage, uData, uSystemMessage, lConvEncoding, eventlog,Utils,FileUtil;
+  uData, uSystemMessage, eventlog,Utils;
 resourcestring
   strFailedtoLoadMandants    = 'Mandanten konnten nicht gelanden werden !';
   strMandantnotSelected      = 'kein Mandant gewählt (--mandant) !';
@@ -64,10 +64,10 @@ type
     procedure SetConfigName(aName : string);
     procedure RestoreConfig;
     procedure SaveConfig;
-    function GetConfig: TCustomPropertyStorage;
     function GetLanguage: string;
     procedure SetLanguage(const AValue: string);
     function GetSingleInstance : Boolean; virtual;
+    function GetInternalTempDir: string;
 
     function GetAppName: string;virtual;
     function GetApprevision: Integer;virtual;
@@ -77,6 +77,7 @@ type
     procedure SetAppVersion(AValue: real);virtual;
     function GetQuickHelp: Boolean;
     procedure SetQuickhelp(AValue: Boolean);
+    function GetMessageManager : TThread;
 
     procedure Log(aType : string;aMsg : string);virtual;
     procedure Log(aMsg : string);
@@ -97,7 +98,7 @@ type
   end;
 
 implementation
-uses LCLProc;
+uses uprometscripts,variants;
 procedure TBaseCustomApplication.BaseCustomApplicationException(
   Sender: TObject; E: Exception);
 var
@@ -127,6 +128,7 @@ function TBaseCustomApplication.HandleSystemCommand(Sender: TObject;
 var
   bCommand: String;
   cCommand: String;
+  aScript: TBaseScript;
 begin
   Result := False;
   bCommand := copy(aCommand,0,pos('(',aCommand)-1);
@@ -140,6 +142,17 @@ begin
     end
   else if bCommand = 'Ping' then
     begin
+      Result := True;
+    end
+  else if bCommand = 'ExecuteScript' then
+    begin
+      aScript := TBaseScript.Create(nil);
+      aScript.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(cCommand));
+      if aScript.Count>0 then
+        begin
+          aScript.Execute(VarArrayOf([]));
+        end;
+      aScript.Free;
       Result := True;
     end
   ;
@@ -159,9 +172,10 @@ begin
       FLogger.Active:=True;
     end;
   Self.OnException:=@BaseCustomApplicationException;
-  GetConsoleTextEncoding;
+  //GetConsoleTextEncoding;
   DoDestroy := False;
   BaseApplication := Self;
+  FMessageHandler := nil;
   {.$Warnings Off}
   FDBInterface := TBaseDBInterface.Create;
   FDBInterface.SetOwner(Self);
@@ -177,6 +191,7 @@ begin
     end;
   FDBInterface.Data.Free;
   FLogger.Free;
+  BaseApplication:=nil;
   inherited Destroy;
 end;
 
@@ -206,10 +221,6 @@ begin
 //      Properties.Save;
     end;
 end;
-function TBaseCustomApplication.GetConfig: TCustomPropertyStorage;
-begin
-//  Result := Properties;
-end;
 function TBaseCustomApplication.GetLanguage: string;
 begin
 
@@ -222,10 +233,17 @@ function TBaseCustomApplication.GetSingleInstance: Boolean;
 begin
   Result := False;
 end;
+
+function TBaseCustomApplication.GetInternalTempDir: string;
+begin
+  Result := AppendPathDelim(GetTempPath);
+end;
+
 procedure TBaseCustomApplication.Debug(aMsg: string);
 begin
   if HasOption('debug') then
-    debugln('DEBUG:'+aMsg);
+    writeln('DEBUG:'+aMsg)
+    ;
 end;
 function TBaseCustomApplication.GetLog: TEventLog;
 begin
@@ -266,13 +284,21 @@ begin
 
 end;
 
+function TBaseCustomApplication.GetMessageManager: TThread;
+begin
+  Result := FMessageHandler;
+end;
+
 procedure TBaseCustomApplication.Log(aType: string; aMsg: string);
 begin
-  debugln(aType+':'+aMsg);
+  writeln(aType+':'+aMsg);
   if Assigned(FLogger) then
     begin
       if aType = 'INFO' then
-        FLogger.Info(aMsg)
+        begin
+          if FLogger.LogType<>ltSystem then
+            FLogger.Info(aMsg);
+        end
       else if aType = 'WARNING' then
         FLogger.Warning(aMsg)
       else if aType = 'ERROR' then

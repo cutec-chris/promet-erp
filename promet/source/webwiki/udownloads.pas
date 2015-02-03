@@ -21,7 +21,7 @@ unit udownloads;
 {$mode objfpc}{$H+}
 interface
 uses
-  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, FileUtil,LCLProc;
+  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, FileUtil,LCLProc,ubaseconfig;
 type
   TfmDownloads = class(TFPWebModule)
     procedure DataModuleRequest(Sender: TObject; ARequest: TRequest;
@@ -45,7 +45,7 @@ var
   aExt: String;
 begin
   TBaseWebSession(Session).AddHistoryUrl(ARequest.PathInfo);
-  with BaseApplication as IBaseApplication do
+  with BaseApplication as IBaseConfig do
     begin
       aPath := ARequest.PathInfo;
       if copy(aPath,0,1) = '/' then
@@ -59,7 +59,7 @@ begin
     end;
   if not FileExists(aPath) then
     begin
-      Documents := TDocument.Create(Self,Data);
+      Documents := TDocument.CreateEx(Self,Data);
       Data.SetFilter(Documents,'"TYPE"=''W'' and "NAME"='+Data.QuoteValue(ValidateFileName(copy(ExtractFileName(aPath),0,rpos('.',ExtractFileName(aPath))-1))),1);
       if Documents.DataSet.RecordCount > 0 then
         begin
@@ -71,7 +71,8 @@ begin
     end;
   if FileExistsUTF8(aPath) and not DirectoryExistsUTF8(aPath) then
     begin
-      aFile := TFileStream.Create(UTF8ToSys(aPath),fmOpenRead,fmShareDenyNone);
+      writeln('udownloads:started:'+aPath);
+      aFile := TFileStream.Create(UniToSys(aPath),fmOpenRead,fmShareDenyNone);
       AResponse.ContentType := 'application/'+copy(aExt,2,length(aExt));
       AResponse.Code := 200;
       AResponse.ContentStream := aFile;
@@ -82,7 +83,7 @@ begin
     end
   else
     begin
-      //writeln('udownloads:File not found:'+aPath);
+      writeln('udownloads:File not found:'+aPath);
       AResponse.Code := 404;
       AResponse.CodeText := 'Not found';
       AResponse.SendContent;

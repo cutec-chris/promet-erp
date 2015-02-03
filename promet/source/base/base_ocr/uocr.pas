@@ -21,10 +21,10 @@ unit uOCR;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, ProcessUtils, Forms, FileUtil, Graphics,
+  Classes, SysUtils, ProcessUtils, FileUtil, Graphics,
   FPImage, FPWritePNM, IntfGraphics, Utils, SynaUtil,
-  lconvencoding,uDocuments,uImaging,LCLProc,FPReadJPEG,FPReadPNG,
-  dateutils;
+  lconvencoding,uDocuments,uImaging,FPReadJPEG,FPReadPNG,
+  dateutils,uBaseDbClasses;
 type
   TOCRPages = TList;
   TGOCRProcess = class(TExtendedProcess)
@@ -76,6 +76,7 @@ function GetDateEx(aText: TStrings;var aStart,aLen : Integer): TDateTime;
 var
   OnallprocessDone : TNotifyEvent;
 implementation
+uses uBaseApplication;
 var
   Processes : TList;
 
@@ -112,33 +113,48 @@ begin
     if reworkImage then
       begin
         aImage := TFPMemoryImage.Create(1,1);
-        DeleteFileUTF8(GetTempDir+'rpv.jpg');
-        Image.SaveToFile(GetTempDir+'rpv.jpg');
-        r := TFPReaderJPEG.Create;
-        aImage.LoadFromFile(GetTempDir+'rpv.jpg',r);
-        r.Free;
-        uImaging.Delight(aImage);
-        aImage.SaveToFile(GetTempDir+'rpv.jpg');
-        aImage.Free;
-        Image.LoadFromFile(GetTempDir+'rpv.jpg');
-        DeleteFileUTF8(GetTempDir+'rpv.jpg');
+        with BaseApplication as IBaseApplication do
+          begin
+            DeleteFileUTF8(GetInternalTempDir+'rpv.jpg');
+            Image.SaveToFile(GetInternalTempDir+'rpv.jpg');
+            r := TFPReaderJPEG.Create;
+            aImage.LoadFromFile(GetInternalTempDir+'rpv.jpg',r);
+            r.Free;
+            uImaging.Delight(aImage);
+            aImage.SaveToFile(GetInternalTempDir+'rpv.jpg');
+            aImage.Free;
+            Image.LoadFromFile(GetInternalTempDir+'rpv.jpg');
+            DeleteFileUTF8(GetInternalTempDir+'rpv.jpg');
+          end;
       end;
   except
     on e : Exception do
-      debugln(e.Message);
+      begin
+        with BaseApplication as IBaseApplication do
+          Error(e.Message);
+      end;
   end;
   try
     aP := TTesseractProcess.Create(Pages,Image);
     FreeAndNil(aP);
   except
-    try
-      aP := TCuneIFormProcess.Create(Pages,Image);
-      FreeAndNil(aP);
-    except
-      aP := TGOCRProcess.Create(Pages,Image);
-      FreeAndNil(aP);
-    end;
   end;
+  if Pages.Count=0 then
+    begin
+      try
+        aP := TCuneIFormProcess.Create(Pages,Image);
+        FreeAndNil(aP);
+      except
+      end;
+    end;
+  if Pages.Count=0 then
+    begin
+      try
+        aP := TGOCRProcess.Create(Pages,Image);
+        FreeAndNil(aP);
+      except
+      end;
+    end;
 end;
 function FixText(aText: TStrings): Integer;
 var
@@ -364,16 +380,16 @@ begin
       Result := ExtractSpecial(aLine,'Bill');
       if Result <> '' then
         begin
-          aStart:=UTF8Pos(Result,atext.Text)-1;
+          aStart:=Pos(Result,atext.Text)-1;
           aLen:=length(Result);
           exit;
         end;
     end;
   GetDateEx(aText,aStart,aLen);
   i := 0;
-  while aStart>UTF8Length(aText[i]) do
+  while aStart>Length(aText[i]) do
     begin
-      aStart := aStart-UTF8Length(aText[i]);
+      aStart := aStart-Length(aText[i]);
       inc(i);
     end;
   aBase := i;
@@ -392,7 +408,7 @@ begin
       if (WordsCount(aText[i])>0) and (WordsCount(aText[i])<5) then
         begin
           Result := aText[i];
-          aStart:=UTF8Pos(Result,atext.Text)-1;
+          aStart:=Pos(Result,atext.Text)-1;
           aLen:=length(Result);
         end;
     end;
@@ -404,7 +420,7 @@ begin
       if (WordsCount(aText[i])>0) and (WordsCount(aText[i])<5) then
         begin
           Result := aText[i];
-          aStart:=UTF8Pos(Result,atext.Text)-1;
+          aStart:=Pos(Result,atext.Text)-1;
           aLen:=length(Result);
         end;
     end;
@@ -458,7 +474,7 @@ begin
           Result := IsDate(aDate);
           if (Result<IncYear(Now,15)) and (Result>IncYear(Now,-15)) then
             begin
-              aStart := UTF8Pos(aDate,aText.Text)-1;
+              aStart := Pos(aDate,aText.Text)-1;
               aLen:=length(aDate);
               exit;
             end;
@@ -478,7 +494,7 @@ begin
           Result := IsDate(aDate);
           if (Result<IncYear(Now,15)) and (Result>IncYear(Now,-15)) then
             begin
-              aStart := UTF8Pos(aDate,aText.Text)-1;
+              aStart := Pos(aDate,aText.Text)-1;
               aLen:=length(aDate);
               exit;
             end;
@@ -492,24 +508,27 @@ procedure TTesseractProcess.ProcessDone(Sender: TObject);
 var
   aSList: TStringList;
 begin
-  SysUtils.DeleteFile(GetTempDir+IntToStr(FNumber)+'export.jpg');
-  aSList := TStringList.Create;
-  FPages.Add(aSList);
-  if FileExists(GetTempDir+IntToStr(FNumber)+'export.txt') then
+  with BaseApplication as IBaseApplication do
     begin
-      aSList.LoadFromFile(GetTempDir+IntToStr(FNumber)+'export.txt');
-      aSList.Text := ConvertEncoding(aSList.Text,GuessEncoding(aSList.Text),EncodingUTF8);
-      //SysUtils.DeleteFile(GetTempDir+IntToStr(FNumber)+'export.txt');
+      SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.jpg');
+      aSList := TStringList.Create;
+      if FileExists(GetInternalTempDir+IntToStr(FNumber)+'export.txt') then
+        begin
+          aSList.LoadFromFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
+          aSList.Text := ConvertEncoding(aSList.Text,GuessEncoding(aSList.Text),EncodingUTF8);
+          //SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
+          FPages.Add(aSList);
+        end;
+      if Processes.IndexOf(Self) > -1 then
+        Processes.Remove(Self);
+      if Assigned(OnallprocessDone) then
+        begin
+          if Processes.Count = 0 then
+            OnallprocessDone(nil);
+        end;
+      if Assigned(OldDone) then
+        OldDone(Self);
     end;
-  if Processes.IndexOf(Self) > -1 then
-    Processes.Remove(Self);
-  if Assigned(OnallprocessDone) then
-    begin
-      if Processes.Count = 0 then
-        OnallprocessDone(nil);
-    end;
-  if Assigned(OldDone) then
-    OldDone(Self);
 end;
 
 procedure TTesseractProcess.Execute;
@@ -526,13 +545,16 @@ constructor TTesseractProcess.Create(Pages: TOCRPages; Image: TPicture);
 var
   aPath: String;
 begin
-  aPath := 'tesseract'+ExtractFileExt(Application.ExeName);
+  aPath := 'tesseract'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
-  aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'tesseract')+aPath;
+  aPath := AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools'+DirectorySeparator+'tesseract')+aPath;
   {$ENDIF}
   FNumber := Processes.Add(Self);
-  Image.SaveToFile(GetTempDir+IntToStr(FNumber)+'export.jpg');
-  aPath := aPath+' '+GetTempDir+IntToStr(FNumber)+'export.jpg '+GetTempDir+IntToStr(FNumber)+'export -l deu';
+  with BaseApplication as IBaseApplication do
+    begin
+      Image.SaveToFile(GetInternalTempDir+IntToStr(FNumber)+'export.jpg');
+      aPath := aPath+' '+GetInternalTempDir+IntToStr(FNumber)+'export.jpg '+GetInternalTempDir+IntToStr(FNumber)+'export -l deu';
+    end;
   OldDone := Self.OnDone;
   Self.OnDone:=@ProcessDone;
   FPages := Pages;
@@ -541,8 +563,11 @@ end;
 
 procedure TUnPaperProcess.UnpaperProcessDone(Sender: TObject);
 begin
-  FImage.LoadFromFile(GetTempDir+'unpaperexport.pnm');
-  SysUtils.DeleteFile(GetTempDir+'unpaperexport.pnm');
+  with BaseApplication as IBaseApplication do
+    begin
+      FImage.LoadFromFile(GetInternalTempDir+'unpaperexport.pnm');
+      SysUtils.DeleteFile(GetInternalTempDir+'unpaperexport.pnm');
+    end;
   if Assigned(OldDone) then
     OldDone(Self);
 end;
@@ -561,9 +586,9 @@ var
   aImage: TLazIntfImage;
   Writer: TFPCustomImageWriter;
 begin
-  aPath := 'unpaper'+ExtractFileExt(Application.ExeName);
+  aPath := 'unpaper'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
-  aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools')+aPath;
+  aPath := AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools')+aPath;
   {$ENDIF}
   aImage := TLazIntfImage.Create(1,1);
   aImage.LoadFromBitmap(Image.Bitmap.Handle,Image.Bitmap.MaskHandle);
@@ -576,10 +601,12 @@ begin
   {$IFDEF VER2_4}
   Writer := TFPWriterPNM.Create(3);
   {$ENDIF}
-  aImage.SaveToFile(GetTempDir+'unpaperexport.pnm',Writer);
+  with BaseApplication as IBaseApplication do
+    aImage.SaveToFile(GetInternalTempDir+'unpaperexport.pnm',Writer);
   Writer.Free;
   aImage.Free;
-  aPath := aPath+' --layout single '+GetTempDir+'unpaperexport.pnm';
+  with BaseApplication as IBaseApplication do
+    aPath := aPath+' --layout single '+GetInternalTempDir+'unpaperexport.pnm';
   OldDone := Self.OnDone;
   Self.OnDone:=@UnpaperProcessDone;
   FImage := Image;
@@ -589,24 +616,27 @@ procedure TCuneIFormProcess.GOCRProcessDone(Sender: TObject);
 var
   aSList: TStringList;
 begin
-  SysUtils.DeleteFile(GetTempDir+IntToStr(FNumber)+'export.jpg');
-  aSList := TStringList.Create;
-  FPages.Add(aSList);
-  if FileExists(GetTempDir+IntToStr(FNumber)+'export.txt') then
+  with BaseApplication as IBaseApplication do
     begin
-      aSList.LoadFromFile(GetTempDir+IntToStr(FNumber)+'export.txt');
-      aSList.Text := ConvertEncoding(aSList.Text,GuessEncoding(aSList.Text),EncodingUTF8);
-      SysUtils.DeleteFile(GetTempDir+IntToStr(FNumber)+'export.txt');
+      SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.jpg');
+      aSList := TStringList.Create;
+      if FileExists(GetInternalTempDir+IntToStr(FNumber)+'export.txt') then
+        begin
+          aSList.LoadFromFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
+          aSList.Text := ConvertEncoding(aSList.Text,GuessEncoding(aSList.Text),EncodingUTF8);
+          SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
+          FPages.Add(aSList);
+        end;
+      if Processes.IndexOf(Self) > -1 then
+        Processes.Remove(Self);
+      if Assigned(OnallprocessDone) then
+        begin
+          if Processes.Count = 0 then
+            OnallprocessDone(nil);
+        end;
+      if Assigned(OldDone) then
+        OldDone(Self);
     end;
-  if Processes.IndexOf(Self) > -1 then
-    Processes.Remove(Self);
-  if Assigned(OnallprocessDone) then
-    begin
-      if Processes.Count = 0 then
-        OnallprocessDone(nil);
-    end;
-  if Assigned(OldDone) then
-    OldDone(Self);
 end;
 procedure TCuneIFormProcess.Execute;
 begin
@@ -621,13 +651,16 @@ constructor TCuneIFormProcess.Create(Pages: TOCRPages; Image: TPicture);
 var
   aPath: String;
 begin
-  aPath := 'cuneiform'+ExtractFileExt(Application.ExeName);
+  aPath := 'cuneiform'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
-  aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'cuneiform')+aPath;
+  aPath := AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools'+DirectorySeparator+'cuneiform')+aPath;
   {$ENDIF}
   FNumber := Processes.Add(Self);
-  Image.SaveToFile(GetTempDir+IntToStr(FNumber)+'export.jpg');
-  aPath := aPath+' -l ger '+GetTempDir+IntToStr(FNumber)+'export.jpg -o '+GetTempDir+IntToStr(FNumber)+'export.txt';
+  with BaseApplication as IBaseApplication do
+    begin
+      Image.SaveToFile(GetInternalTempDir+IntToStr(FNumber)+'export.jpg');
+      aPath := aPath+' -l ger '+GetInternalTempDir+IntToStr(FNumber)+'export.jpg -o '+GetInternalTempDir+IntToStr(FNumber)+'export.txt';
+    end;
   OldDone := Self.OnDone;
   Self.OnDone:=@GOCRProcessDone;
   FPages := Pages;
@@ -637,24 +670,27 @@ procedure TGOCRProcess.GOCRProcessDone(Sender: TObject);
 var
   aSList: TStringList;
 begin
-  SysUtils.DeleteFile(GetTempDir+IntToStr(FNumber)+'export.pnm');
-  aSList := TStringList.Create;
-  FPages.Add(aSList);
-  if FileExists(GetTempDir+IntToStr(FNumber)+'export.txt') then
+  with BaseApplication as IBaseApplication do
     begin
-      aSList.LoadFromFile(GetTempDir+IntToStr(FNumber)+'export.txt');
-      aSList.Text := ConvertEncoding(aSList.Text,GuessEncoding(aSList.Text),EncodingUTF8);
-      SysUtils.DeleteFile(GetTempDir+IntToStr(FNumber)+'export.txt');
+      SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.pnm');
+      aSList := TStringList.Create;
+      if FileExists(GetInternalTempDir+IntToStr(FNumber)+'export.txt') then
+        begin
+          aSList.LoadFromFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
+          aSList.Text := ConvertEncoding(aSList.Text,GuessEncoding(aSList.Text),EncodingUTF8);
+          SysUtils.DeleteFile(GetInternalTempDir+IntToStr(FNumber)+'export.txt');
+          FPages.Add(aSList);
+        end;
+      if Processes.IndexOf(Self) > -1 then
+        Processes.Remove(Self);
+      if Assigned(OnallprocessDone) then
+        begin
+          if Processes.Count = 0 then
+            OnallprocessDone(nil);
+        end;
+      if Assigned(OldDone) then
+        OldDone(Self);
     end;
-  if Processes.IndexOf(Self) > -1 then
-    Processes.Remove(Self);
-  if Assigned(OnallprocessDone) then
-    begin
-      if Processes.Count = 0 then
-        OnallprocessDone(nil);
-    end;
-  if Assigned(OldDone) then
-    OldDone(Self);
 end;
 procedure TGOCRProcess.Execute;
 begin
@@ -671,9 +707,9 @@ var
   aImage: TLazIntfImage;
   Writer: TFPCustomImageWriter;
 begin
-  aPath := 'gocr'+ExtractFileExt(Application.ExeName);
+  aPath := 'gocr'+ExtractFileExt(BaseApplication.ExeName);
   {$IFDEF WINDOWS}
-  aPath := AppendPathDelim(AppendPathDelim(Application.Location)+'tools')+aPath;
+  aPath := AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools')+aPath;
   {$ENDIF}
   aImage := TLazIntfImage.Create(1,1);
   aImage.LoadFromBitmap(Image.Bitmap.Handle,Image.Bitmap.MaskHandle);
@@ -687,10 +723,13 @@ begin
   Writer := TFPWriterPNM.Create(3);
   {$ENDIF}
   FNumber := Processes.Add(Self);
-  aImage.SaveToFile(GetTempDir+IntToStr(FNumber)+'export.pnm',Writer);
-  Writer.Free;
-  aImage.Free;
-  aPath := aPath+' '+GetTempDir+IntToStr(FNumber)+'export.pnm -o '+GetTempDir+IntToStr(FNumber)+'export.txt';
+  with BaseApplication as IBaseApplication do
+    begin
+      aImage.SaveToFile(GetInternalTempDir+IntToStr(FNumber)+'export.pnm',Writer);
+      Writer.Free;
+      aImage.Free;
+      aPath := aPath+' '+GetInternalTempDir+IntToStr(FNumber)+'export.pnm -o '+GetInternalTempDir+IntToStr(FNumber)+'export.txt';
+    end;
   OldDone := Self.OnDone;
   Self.OnDone:=@GOCRProcessDone;
   FPages := Pages;
@@ -702,4 +741,4 @@ finalization
   Processes.Free;
 end.
 
-
+

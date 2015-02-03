@@ -22,7 +22,7 @@ unit uprometimap;
 interface
 uses
   Classes, SysUtils, uLIMAP, uMessages, MimeMess, uMimeMessages, db, {$IFDEF UNIX}cwstring,{$ENDIF}
-  types, LCLProc, uBaseDbClasses, lNet, mimepart;
+  types, uBaseDbClasses, lNet, mimepart;
 
 {.$DEFINE DEBUG}
 type
@@ -84,14 +84,14 @@ type
 
 implementation
 uses uData,Variants,SynaUtil,uSessionDBClasses,uBaseDBInterface,Utils,
-  uPerson,LConvEncoding,uIntfStrConsts,LCLIntf;
+  uPerson,uIntfStrConsts;
 
 { TPIMAPSocket }
 
 constructor TPIMAPSocket.Create;
 begin
   inherited Create;
-  FUser := TUser.Create(nil,Data);
+  FUser := TUser.Create(nil);
 end;
 
 destructor TPIMAPSocket.Destroy;
@@ -108,7 +108,7 @@ begin
   Data.Users.GotoBookmark(FUser.GetBookmark);
   Data.Users.Rights.ResetCache;
   Data.RefreshUsersFilter;
-  Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'=0 and '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
+  Data.SetFilter(Data.Tree,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
   with Data.Tree.DataSet do
     begin
       First;
@@ -142,9 +142,9 @@ var
   Arg1: String;
   Arg2: String;
   Max: Integer;
-  aTime: DWORD;
+  aTime: tDateTime;
 begin
-  aTime := GetTickCount;
+  aTime := Now();
   Max := 1;
   Result := True;
   if pos(',',FSelector)>0 then
@@ -211,7 +211,7 @@ begin
     end;
   FSelectCount:=Max;
   {$IFDEF DEBUG}
-  debugln('SelectNext:'+aFilter+' in '+IntToStr(GetTickCount-aTime)+' ms');
+  debugln('SelectNext:'+aFilter+' in '+IntToStr(round((Now()-aTime)*MSecsPerDay))+' ms');
   {$ENDIF}
 end;
 
@@ -219,7 +219,7 @@ function TPIMAPFolder.GenerateMessage: TMimeMess;
 var
 aMessage: TMimeMessage;
 begin
-  aMessage := TMimeMessage.Create(Self,Data);
+  aMessage := TMimeMessage.CreateEx(Self,Data);
   aMessage.Select(FMessages.Id.AsVariant);
   aMessage.Open;
   Result := aMessage.EncodeMessage;
@@ -228,22 +228,22 @@ begin
 end;
 procedure TPIMAPFolder.RefreshFirstID;
 var
-  aTime: types.DWORD;
+  aTime: TDateTime;
 begin
-  aTime := GetTickCount;
-  FMessages.Filter(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
+  aTime := Now();
+  FMessages.FilterEx(Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
   FMessages.Last;
   if FMessages.Count > 0 then
     FFirstID := FMessages.Id.AsVariant;
   {$IFDEF DEBUG}
-  debugln('RefreshFirstID:'+FMessages.Id.AsString+' in '+IntToStr(GetTickCount-aTime)+' ms');
+  debugln('RefreshFirstID:'+FMessages.Id.AsString+' in '+IntToStr(round((Now()-aTime)*MSecsPerDay))+' ms');
   {$ENDIF}
 end;
 procedure TPIMAPFolder.RefreshCount;
 var
-  aTime: DWORD;
+  aTime: TDateTime;
 begin
-  aTime := GetTickCount;
+  aTime := Now();
   FFIrstID := 0;
   FlastID := 0;
   Data.SetFilter(FMessages,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry)+' and '+Data.QuoteField('READ')+'='+Data.QuoteValue('N')+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(TPIMAPSocket(Socket).FAccountno),300,'SENDDATE','DESC');
@@ -258,7 +258,7 @@ begin
     end;
   FCount := FMessages.Count;
   {$IFDEF DEBUG}
-  debugln('RefreshCount:'+FMessages.Id.AsString+' in '+IntToStr(GetTickCount-aTime)+' ms');
+  debugln('RefreshCount:'+FMessages.Id.AsString+' in '+IntToStr(round((Now()-aTime)*MSecsPerDay))+' ms');
   {$ENDIF}
 end;
 function TPIMAPFolder.GetLastID: LargeInt;
@@ -347,7 +347,7 @@ begin
         end;
       aMsg.Header.MessageID := aID;
     end;
-  aMessage := TMimeMessage.Create(Self,Data);
+  aMessage := TMimeMessage.CreateEx(Self,Data);
   amessage.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(aMsg.Header.MessageID)+' and '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry));
   if aMessage.Count=0 then
     begin
@@ -360,9 +360,9 @@ begin
       aMessage.FieldbyName('TREEENTRY').AsString := FTreeEntry;
       if FPostDateTime<>'' then
         aMessage.FieldByName('SENDDATE').AsDateTime:=DecodeRfcDateTime(FPostDateTime);
-      aSubject := ConvertEncoding(amsg.Header.Subject,GuessEncoding(amsg.Header.Subject),EncodingUTF8);
-      atmp:=ConvertEncoding(getemailaddr(aMsg.Header.From),GuessEncoding(getemailaddr(aMsg.Header.From)),EncodingUTF8);
-      CustomerCont := TPersonContactData.Create(Self,Data);
+      aSubject := SysToUni(amsg.Header.Subject);
+      atmp:=SysToUni(getemailaddr(aMsg.Header.From));
+      CustomerCont := TPersonContactData.CreateEx(Self,Data);
       if Data.IsSQLDb then
         Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
       else
@@ -384,7 +384,7 @@ begin
                 Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
             end;
         end;
-      Customers := TPerson.Create(Self,Data);
+      Customers := TPerson.CreateEx(Self,Data);
       Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
       CustomerCont.Free;
       if Customers.Count > 0 then
@@ -449,7 +449,7 @@ var
   aSize: String;
   tmpRecNo: String;
   FAdded: Boolean;
-  aTime: DWORD;
+  aTime: TDateTime;
 
   function GetBodyStructure(aPart : TMimePart) : string;
   var
@@ -494,7 +494,7 @@ begin
   aFetch := aFetch+' ';
   if not FMessages.DataSet.BOF then
     begin
-      aTime := GetTickCount;
+      aTime := Now();
       if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
         begin
           tmpRecNo := IntToStr(FSequenceNumbers.Add(FMessages.Id.AsString)+1);
@@ -553,7 +553,7 @@ begin
             begin
               if not Assigned(aMessage) then
                 begin
-                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage := TMimeMessage.CreateEx(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
@@ -570,7 +570,7 @@ begin
               if not Assigned(aMessage) then
                 begin
                   Socket.Creator.CallAction;
-                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage := TMimeMessage.CreateEx(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
@@ -591,7 +591,7 @@ begin
               if not Assigned(aMessage) then
                 begin
                   Socket.Creator.CallAction;
-                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage := TMimeMessage.CreateEx(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
@@ -617,7 +617,7 @@ begin
               {
               if not Assigned(aMessage) then
                 begin
-                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage := TMimeMessage.CreateEx(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
@@ -631,7 +631,7 @@ begin
               if not Assigned(aMessage) then
                 begin
                   Socket.Creator.CallAction;
-                  aMessage := TMimeMessage.Create(Self,Data);
+                  aMessage := TMimeMessage.CreateEx(Self,Data);
                   aMessage.Select(FMessages.Id.AsVariant);
                   aMessage.Open;
                 end;
@@ -697,7 +697,7 @@ begin
       Result.Add(copy(tmp,0,length(tmp)-1)+')');
       //debugln(copy(tmp,0,5000));
       {$IFDEF DEBUG}
-      debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString+' '+tmpRecNo+' '+FMessages.FieldByName('SENDDATE').AsString+' in '+IntToStr(GetTickCount-aTime)+' ms');
+      debugln('FetchOneEntry:'+FMessages.Id.AsString+' '+FMessages.Subject.AsString+' '+tmpRecNo+' '+FMessages.FieldByName('SENDDATE').AsString+' in '+IntToStr(round((Now()-aTime)*MSecsPerDay))+' ms');
       {$ENDIF}
       FetchSequence:=FetchSequence+1;
       FreeAndNil(aMessage);
@@ -834,7 +834,7 @@ begin
         end;
     end;
   Result := TStringList.Create;
-  //aNewMessage := TMessageList.Create(nil,Data);
+  //aNewMessage := TMessageList.Create(nil);
   if not FMessages.DataSet.BOF then
     begin
       if FSequenceNumbers.IndexOf(FMessages.Id.AsString)=-1 then
@@ -989,7 +989,7 @@ begin
             end;
           end;
         end;
-      FMessages.Filter(copy(aSQL,0,length(aSQL)-5),0,'SENDDATE','DESC');
+      FMessages.FilterEx(copy(aSQL,0,length(aSQL)-5),0,'SENDDATE','DESC');
       FMessages.DataSet.Last;
     end;
   while (FSelectCount>0) and (not FMessages.DataSet.BOF) do
@@ -1014,7 +1014,7 @@ constructor TPIMAPFolder.Create(aParent: TIMAPFolders; aName, aSubname: string;
 begin
   FSequenceNumbers := TStringList.Create;
   FetchSequence := 1;
-  FMessages := TMessageList.Create(Self,Data);
+  FMessages := TMessageList.CreateEx(Self,Data);
   if Data.Tree.DataSet.Locate('SQL_ID',aUID,[loCaseInsensitive]) then
     FTreeEntry := Data.Tree.Id.AsString
   else if Data.Tree.DataSet.Locate('NAME',aName,[loCaseInsensitive]) then

@@ -1,0 +1,334 @@
+inherited fRepairImageFrame: TfRepairImageFrame
+  Height = 258
+  Width = 868
+  ClientHeight = 258
+  ClientWidth = 868
+  Color = clWindow
+  Constraints.MinHeight = 100
+  OnEnter = FrameEnter
+  ParentColor = False
+  DesignLeft = 405
+  DesignTop = 385
+  object Panel3: TPanel[0]
+    Left = 0
+    Height = 229
+    Top = 29
+    Width = 868
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 229
+    ClientWidth = 868
+    TabOrder = 0
+    object lVersion1: TLabel
+      Left = 104
+      Height = 14
+      Top = 42
+      Width = 54
+      AutoSize = False
+      Caption = 'Version'
+      ParentColor = False
+    end
+    object lSerial1: TLabel
+      Left = 105
+      Height = 14
+      Top = 2
+      Width = 57
+      AutoSize = False
+      Caption = 'Serienn.'
+      ParentColor = False
+    end
+    object lErrordescription: TLabel
+      Left = 105
+      Height = 13
+      Top = 115
+      Width = 94
+      Caption = 'Fehlerbeschreibung'
+      ParentColor = False
+    end
+    object lNotesforCustomer: TLabel
+      Left = 240
+      Height = 13
+      Top = 136
+      Width = 86
+      Caption = 'Notizen für Kunde'
+      ParentColor = False
+    end
+    object lInternalNotes: TLabel
+      Left = 559
+      Height = 15
+      Top = 134
+      Width = 292
+      Anchors = [akTop, akLeft, akRight]
+      AutoSize = False
+      Caption = 'Interne Notizen'
+      ParentColor = False
+    end
+    object lOperation: TLabel
+      Left = 730
+      Height = 14
+      Top = 2
+      Width = 122
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      Caption = 'Operation'
+      ParentColor = False
+    end
+    object eSerial1: TDBEdit
+      Left = 105
+      Height = 21
+      Top = 19
+      Width = 76
+      DataField = 'SERIAL'
+      DataSource = Position
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 0
+      OnExit = eSerial1Exit
+    end
+    object cbVersion1: TDBComboBox
+      Left = 104
+      Height = 21
+      Top = 58
+      Width = 77
+      DataField = 'VERSION'
+      DataSource = Position
+      ItemHeight = 13
+      MaxLength = 0
+      TabOrder = 1
+    end
+    object cbOperation: TDBComboBox
+      Left = 730
+      Height = 21
+      Top = 19
+      Width = 124
+      Anchors = [akTop, akRight]
+      DataField = 'OPERATION'
+      DataSource = Repair
+      ItemHeight = 13
+      MaxLength = 0
+      TabOrder = 2
+    end
+    object mErrordesc: TDBMemo
+      Left = 104
+      Height = 88
+      Top = 134
+      Width = 118
+      Anchors = [akTop, akLeft, akBottom]
+      DataField = 'ERRDESC'
+      DataSource = Repair
+      TabOrder = 3
+    end
+    object mNotes: TDBMemo
+      Left = 240
+      Height = 70
+      Top = 152
+      Width = 312
+      Anchors = [akTop, akLeft, akBottom]
+      DataField = 'NOTES'
+      DataSource = Repair
+      TabOrder = 4
+      Tabstop = False
+    end
+    object mInternalNotes: TDBMemo
+      Left = 559
+      Height = 70
+      Top = 152
+      Width = 295
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      DataField = 'INTNOTES'
+      DataSource = Repair
+      TabOrder = 5
+      Tabstop = False
+    end
+    object cbWarrenty: TDBCheckBox
+      Left = 730
+      Height = 16
+      Top = 56
+      Width = 120
+      AllowGrayed = True
+      Anchors = [akTop, akRight]
+      Caption = 'Garantie'
+      DataField = 'WARRENTY'
+      DataSource = Repair
+      TabOrder = 6
+      ValueChecked = 'Y'
+      ValueUnchecked = 'N'
+    end
+    object cbImage: TComboBox
+      Left = 192
+      Height = 21
+      Top = 19
+      Width = 464
+      Anchors = [akTop, akLeft, akRight]
+      ItemHeight = 13
+      OnKeyPress = cbImageKeyPress
+      OnSelect = cbImageSelect
+      TabOrder = 7
+    end
+    object Label1: TLabel
+      Left = 192
+      Height = 13
+      Top = 3
+      Width = 46
+      Caption = 'Fehlerbild'
+      ParentColor = False
+    end
+    object SpeedButton1: TSpeedButton
+      Left = 664
+      Height = 23
+      Top = 19
+      Width = 32
+      Anchors = [akTop, akRight]
+      Caption = '...'
+      OnClick = SpeedButton1Click
+    end
+    object gProblems: TExtDBGrid
+      Left = 224
+      Height = 72
+      Top = 56
+      Width = 472
+      Anchors = [akTop, akLeft, akRight]
+      AutoFillColumns = True
+      BorderStyle = bsNone
+      Color = clWindow
+      Columns = <      
+        item
+          Title.Caption = 'Baugruppe'
+          Width = 153
+          FieldName = 'ASSEMBLY'
+        end      
+        item
+          Title.Caption = 'Bauteil'
+          Width = 153
+          FieldName = 'PART'
+        end      
+        item
+          Title.Caption = 'Fehler'
+          Width = 154
+          FieldName = 'ERROR'
+        end>
+      DataSource = RepairDetail
+      DefaultRowHeight = 21
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete]
+      Scrollbars = ssAutoBoth
+      TabOrder = 8
+      TitleStyle = tsNative
+      WantReturns = False
+      CachedEditing = True
+    end
+    object dnRepairPos: TDBNavigator
+      Left = 696
+      Height = 77
+      Top = 48
+      Width = 24
+      Anchors = [akTop, akRight]
+      BevelOuter = bvNone
+      ChildSizing.EnlargeHorizontal = crsScaleChilds
+      ChildSizing.EnlargeVertical = crsScaleChilds
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 100
+      ClientHeight = 77
+      ClientWidth = 24
+      DataSource = RepairDetail
+      Direction = nbdVertical
+      Flat = True
+      Options = []
+      TabOrder = 9
+      VisibleButtons = [nbInsert, nbDelete, nbPost, nbCancel]
+    end
+    object lNotesforCustomer1: TLabel
+      Left = 224
+      Height = 13
+      Top = 43
+      Width = 93
+      Caption = 'betroffene Bauteile'
+      ParentColor = False
+    end
+    object DBNavigator1: TDBNavigator
+      Left = 8
+      Height = 125
+      Top = 19
+      Width = 22
+      BevelOuter = bvNone
+      ChildSizing.EnlargeHorizontal = crsScaleChilds
+      ChildSizing.EnlargeVertical = crsScaleChilds
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 100
+      ClientHeight = 125
+      ClientWidth = 22
+      DataSource = Repair
+      Direction = nbdVertical
+      Options = []
+      TabOrder = 10
+      VisibleButtons = [nbPrior, nbNext, nbInsert, nbDelete, nbPost, nbRefresh]
+    end
+  end
+  object lInfo: TLabel[1]
+    Left = 8
+    Height = 13
+    Top = 8
+    Width = 852
+    Align = alTop
+    Alignment = taCenter
+    BorderSpacing.Around = 8
+    Caption = 'Reparaturzeit'
+    Color = clInfoBk
+    ParentColor = False
+    Transparent = False
+  end
+  object Label2: TLabel[2]
+    Left = 8
+    Height = 13
+    Top = 32
+    Width = 30
+    Caption = 'Fehler'
+    ParentColor = False
+  end
+  object DBGrid1: TDBGrid[3]
+    Left = 32
+    Height = 203
+    Top = 48
+    Width = 66
+    Anchors = [akTop, akLeft, akBottom]
+    AutoFillColumns = True
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'ID'
+        Width = 50
+        FieldName = 'ID'
+      end>
+    DataSource = Repair
+    Scrollbars = ssAutoBoth
+    TabOrder = 1
+    TitleStyle = tsNative
+  end
+  object Position: TDataSource[4]
+    left = 136
+    top = 192
+  end
+  object Repair: TDataSource[5]
+    left = 216
+    top = 192
+  end
+  object Timer1: TTimer[6]
+    OnTimer = Timer1Timer
+    OnStartTimer = Timer1StartTimer
+    left = 318
+    top = 33
+  end
+  object Timer2: TTimer[7]
+    OnTimer = Timer2Timer
+    OnStartTimer = Timer2StartTimer
+    left = 389
+    top = 32
+  end
+  object RepairDetail: TDataSource[8]
+    left = 304
+    top = 192
+  end
+end

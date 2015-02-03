@@ -2866,6 +2866,10 @@ var
     Skip               : Boolean;
     ADTextHeight       : Integer;
     EventStr           : string;
+    I2: Integer;
+    DI: Integer;
+    AllDayWidth: Integer;
+    OldTop: LongInt;
 
   begin
     if (DataStore = nil) or (DataStore.Resource = nil) then
@@ -2874,6 +2878,10 @@ var
     { Collect all of the events for this range and determine the maximum     }
     { number of all day events for the range of days covered by the control. }
     MaxADEvents := 0;
+
+    AllDayWidth := RealWidth - RealRowHeadWidth - 1 - ScrollBarOffset;
+
+    DayWidth := AllDayWidth div FNumDays;
 
     ADEventsList := TList.Create;
     try
@@ -2914,12 +2922,17 @@ var
       end;
 
       if MaxADEvents > 0 then begin
-        { Set attributes }
-        RenderCanvas.Brush.Color := RealADEventBkgColor;                 
+
+        RenderCanvas.Brush.Color := RealADEventBkgColor;
         RenderCanvas.Font.Assign (AllDayEventAttributes.Font);
 
         { Measure the AllDayEvent TextHeight }
         ADTextHeight := RenderCanvas.TextHeight(VpProductName) + TextMargin;
+
+        { set the top of the event's rect }
+        OldTop := ADEventsRect.Top;
+        AdEventRect.Top := OldTop + TextMargin
+                    + (I  * ADTextHeight);
 
         { Build the AllDayEvent rect based on the value of MaxADEvents }
         ADEventsRect.Bottom := AdEventsRect.Top
@@ -2928,50 +2941,62 @@ var
         { Clear the AllDayEvents area }
         TpsFillRect(RenderCanvas, Angle, RenderIn, ADEventsRect);
 
-        StartsBeforeRange  := false;
-        { Cycle through the all day events and draw them appropriately }
-        for I := 0 to pred(ADEventsList.Count) do begin
+        for I := 0 to pred(RealNumDays) do begin
+          { Set attributes }
 
-          Event := ADEventsList[I];
+          StartsBeforeRange  := false;
+          DI := 0;
+          { Cycle through the all day events and draw them appropriately }
+          for I2 := 0 to pred(ADEventsList.Count) do begin
 
-          { set the top of the event's rect }
-          AdEventRect.Top := ADEventsRect.Top + TextMargin
-            + (I  * ADTextHeight);
+            Event := ADEventsList[I2];
 
-          { see if the event began before the start of the range }
-          if (Event.StartTime < trunc(RenderDate)) then
-            StartsBeforeRange := true;
+            if (trunc(Event.StartTime)<=(trunc(RenderDate)+I))
+            and (trunc(Event.EndTime)>=(trunc(RenderDate)+I)) then
+              begin
 
-          AdEventRect.Bottom := ADEventRect.Top + ADTextHeight;
-          AdEventRect.Left := AdEventsRect.Left + (TextMargin div 2);
-          AdEventRect.Right := RealRight;                                
+                { set the top of the event's rect }
+                AdEventRect.Top := OldTop + TextMargin
+                  + (DI  * ADTextHeight);
 
-          if (StartsBeforeRange) then
-            EventStr := '>> '
-          else
-            EventStr := '';
+                inc(DI);
 
-          EventStr := EventStr + Event.Description;
+                { see if the event began before the start of the range }
+                if (Event.StartTime < trunc(RenderDate)) then
+                  StartsBeforeRange := true;
 
-          RenderCanvas.Brush.Color := ADEventAttrBkgColor;               
-          RenderCanvas.Pen.Color := ADEventBorderColor;                  
-          TPSRectangle (RenderCanvas, Angle, RenderIn,
-                        ADEventRect.Left + TextMargin,
-                        ADEventRect.Top + TextMargin div 2,
-                        ADEventRect.Right - TextMargin,
-                        ADEventRect.Top + ADTextHeight + TextMargin div 2);
-          TPSTextOut (RenderCanvas,Angle, RenderIn,
-                      AdEventRect.Left + TextMargin * 2 + TextMargin div 2,
-                      AdEventRect.Top + TextMargin div 2,
-                      EventStr);
+                AdEventRect.Bottom := ADEventRect.Top + ADTextHeight;
+                AdEventRect.Left := AdEventsRect.Left + (DayWidth*I) + (TextMargin div 2);
+                AdEventRect.Right := AdEventRect.Left+DayWidth;
 
-          dvEventArray[EventCount].Rec := Rect (ADEventRect.Left,
-                                                ADEventRect.Top - 2,
-                                                ADEventRect.Right - TextMargin,
-                                                ADEventRect.Bottom);
-          dvEventArray[EventCount].Event := Event;
-          Inc (EventCount);
-        end; { for I := 0 to pred(ADEventsList.Count) do ... }
+                if (StartsBeforeRange) then
+                  EventStr := '>> '
+                else
+                  EventStr := '';
+
+                EventStr := EventStr + Event.Description;
+
+                RenderCanvas.Brush.Color := ADEventAttrBkgColor;
+                RenderCanvas.Pen.Color := ADEventBorderColor;
+                TPSRectangle (RenderCanvas, Angle, RenderIn,
+                              ADEventRect.Left + TextMargin,
+                              ADEventRect.Top + TextMargin div 2,
+                              ADEventRect.Right - TextMargin,
+                              ADEventRect.Top + ADTextHeight + TextMargin div 2);
+                TPSTextOut (RenderCanvas,Angle, RenderIn,
+                            AdEventRect.Left + TextMargin * 2 + TextMargin div 2,
+                            AdEventRect.Top + TextMargin div 2,
+                            EventStr);
+
+                dvEventArray[EventCount].Rec := Rect (ADEventRect.Left,
+                                                      ADEventRect.Top - 2,
+                                                      ADEventRect.Right - TextMargin,
+                                                      ADEventRect.Bottom);
+                dvEventArray[EventCount].Event := Event;
+                Inc (EventCount);
+              end;
+          end; { for I2 := 0 to pred(ADEventsList.Count) do ... }
+        end;
 
       end;   { if MaxADEvents > 0 }
 
@@ -3058,14 +3083,14 @@ var
         end;
         { if the Tmp event's StartTime or EndTime falls within the range of }
         { Event... }
-        if (TimeInRange(Tmp.StartTime, Event.StartTime, Event.EndTime, false)
-          or TimeInRange(Tmp.EndTime, Event.StartTime, Event.EndTime, false))
+        if (TimeInRange(frac(Tmp.StartTime), frac(Event.StartTime), frac(Event.EndTime), false)
+          or TimeInRange(frac(Tmp.EndTime), frac(Event.StartTime), frac(Event.EndTime), false))
         { or the Tmp event's StartTime is before or equal to the Event's  }
         { start time AND its end time is after or equal to the Event's    }
         { end time, then the events overlap and we will need to increment }
         { the value of K.          }
-        or ((Tmp.StartTime <= Event.StartTime)
-          and (Tmp.EndTime >= Event.EndTime))
+        or ((frac(Tmp.StartTime) <= frac(Event.StartTime))
+          and (frac(Tmp.EndTime) >= frac(Event.EndTime)))
         then begin
           { Count this event at this level }
           Inc(Levels[EArray[K].Level]);
@@ -3097,15 +3122,15 @@ var
       while Tmp <> nil do begin
         { if the Tmp event's StartTime or EndTime falls within the range of }
         { Event... }
-        if (TimeInRange(Tmp.StartTime, Event.StartTime, Event.EndTime, false)
-          or TimeInRange(Tmp.EndTime, Event.StartTime, Event.EndTime, false))
+        if (TimeInRange(frac(Tmp.StartTime), frac(Event.StartTime), frac(Event.EndTime), false)
+          or TimeInRange(frac(Tmp.EndTime), frac(Event.StartTime), frac(Event.EndTime), false))
         { or the Tmp event's StartTime is before or equal to the Event's  }
         { start time AND its end time is after or equal to the Event's    }
         { end time, then the events overlap and we will need to check the }
         { value of OLLevels. If it is bigger than result, then modify     }
         { Result accordingly. }
-        or ((Tmp.StartTime <= Event.StartTime)
-          and (Tmp.EndTime >= Event.EndTime))
+        or ((frac(Tmp.StartTime) <= frac(Event.StartTime))
+          and (frac(Tmp.EndTime) >= frac(Event.EndTime)))
         then begin
           if EArray[K].OLLevels > result then
             Result := EArray[K].OLLevels;
@@ -3144,13 +3169,13 @@ var
           Event2 := EventArray[K].Event;
 
           { if the Tmp event overlaps with Event, then check it's Width divisor }
-          if (TimeInRange(Event2.StartTime, Event1.StartTime, Event1.EndTime, false)
-            or TimeInRange(Event2.EndTime, Event1.StartTime, Event1.EndTime, false))
-          or ((Event2.StartTime <= Event1.StartTime)
-            and (Event2.EndTime >= Event1.EndTime))
+          if ((TimeInRange(frac(Event2.StartTime), frac(Event1.StartTime), frac(Event1.EndTime), false)
+            or TimeInRange(frac(Event2.EndTime), frac(Event1.StartTime), frac(Event1.EndTime), false))
+          or ((frac(Event2.StartTime) <= frac(Event1.StartTime))
+            and (frac(Event2.EndTime) >= frac(Event1.EndTime))))
           then begin
-            if EventArray[I].WidthDivisor < EventArray[K].WidthDivisor
-              Then EventArray[I].WidthDivisor := EventArray[K].WidthDivisor;
+            if EventArray[I].WidthDivisor < EventArray[K].WidthDivisor then
+               EventArray[I].WidthDivisor := EventArray[K].WidthDivisor;
           end;
         end;
       end;
@@ -3668,12 +3693,16 @@ begin
       { remove the date portion from the start and end times }
       EventSTime := Event.StartTime;
       EventETime := Event.EndTime;
-      if trunc(EventSTime) < trunc(RenderDate) then //First Event
-        EventSTime := 0+trunc(RenderDate);
-      if trunc(EventETime) > trunc(RenderDate) then //First Event
-        EventETime := 0.999+trunc(RenderDate);
-      EventSTime := EventSTime - RenderDate;
-      EventETime := EventETime - RenderDate;
+      if (EventSTime < trunc(RenderDate)) and (Event.RepeatCode=rtNone) then //First Event
+        EventSTime := trunc(RenderDate)
+      else if (Event.RepeatCode<>rtNone) then
+        EventSTime := frac(EventSTime)+trunc(RenderDate);
+      if (trunc(EventETime) > trunc(RenderDate)) and (Event.RepeatCode=rtNone) then //First Event
+        EventETime := 0.999+trunc(RenderDate)
+      else if (Event.RepeatCode<>rtNone) then
+        EventETime := frac(EventETime)+trunc(RenderDate);
+      EventSTime := EventSTime - trunc(RenderDate);
+      EventETime := EventETime - trunc(RenderDate);
       { Find the line on which this event starts }
       EventSLine := GetStartLine(EventSTime, Granularity);
       { Handle End Times of Midnight }
@@ -3715,30 +3744,35 @@ begin
       { Draw the event rectangle }
       { paint Event text area clWindow                        }
       if Assigned (DataStore) then                                       
-        case Event.Category of                                           
-          0 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category0.BackgroundColor;  
-          1 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category1.BackgroundColor;  
-          2 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category2.BackgroundColor;  
-          3 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category3.BackgroundColor;  
-          4 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category4.BackgroundColor;  
-          5 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category5.BackgroundColor;  
-          6 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category6.BackgroundColor;  
-          7 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category7.BackgroundColor;  
-          8 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category8.BackgroundColor;  
-          9 : RenderCanvas.Brush.Color :=                                
-                  DataStore.CategoryColorMap.Category9.BackgroundColor;  
-          else                                                           
-            RenderCanvas.Brush.Color := WindowColor;                     
-        end                                                              
+        if Event.Color<>clNone then
+          RenderCanvas.Brush.Color := Event.Color
+        else
+          begin
+            case Event.Category of
+              0 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category0.BackgroundColor;
+              1 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category1.BackgroundColor;
+              2 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category2.BackgroundColor;
+              3 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category3.BackgroundColor;
+              4 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category4.BackgroundColor;
+              5 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category5.BackgroundColor;
+              6 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category6.BackgroundColor;
+              7 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category7.BackgroundColor;
+              8 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category8.BackgroundColor;
+              9 : RenderCanvas.Brush.Color :=
+                      DataStore.CategoryColorMap.Category9.BackgroundColor;
+              else
+                RenderCanvas.Brush.Color := WindowColor;
+          end;
+        end
       else                                                               
         RenderCanvas.Brush.Color := WindowColor;
       TPSFillRect (RenderCanvas, Angle, RenderIn, EventRect);
@@ -4406,7 +4440,7 @@ begin
       dvDrawRowHeader (RowHeadRect);
 
     { Draw the regular events }
-    DrawAllDays; 
+    DrawAllDays;
 
     { Draw Borders }
     if FDrawingStyle = dsFlat then begin
@@ -4589,4 +4623,4 @@ begin
 end;
 {=====}
 
-end.
+end.

@@ -31,7 +31,7 @@ type
   THackCustomGrid = class(TCustomGrid);
   { TfPosition }
 
-  TfPosition = class(TFrame)
+  TfPosition = class(TPrometInplaceFrame)
     acAddPos: TAction;
     acDelPos: TAction;
     acGotoArticle: TAction;
@@ -40,22 +40,18 @@ type
     acMakeSubPos: TAction;
     acRefresh: TAction;
     acRenumber: TAction;
+    acAddfromArticle: TAction;
+    acPermanentEditorMode: TAction;
+    acSum: TAction;
+    acDiscount: TAction;
+    acViewTexts: TAction;
+    acViewDetails: TAction;
     acUnMakeSebPos: TAction;
     ActionList1: TActionList;
-    bAddPos: TSpeedButton;
-    bDeletePos: TSpeedButton;
-    bDeletePos2: TSpeedButton;
-    bDeletePos5: TSpeedButton;
-    bDeletePos6: TSpeedButton;
-    bDetailsVisible: TSpeedButton;
-    bEnterTime: TSpeedButton;
-    bEnterTime1: TSpeedButton;
     Bevel1: TBevel;
     Bevel2: TBevel;
     Bevel4: TBevel;
-    bRefresh1: TSpeedButton;
-    bRowDetails: TSpeedButton;
-    Datasource1: TDatasource;
+    Position: TDatasource;
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel2: TExtRotatedLabel;
     ExtRotatedLabel3: TExtRotatedLabel;
@@ -70,34 +66,56 @@ type
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
+    OrderPos: TDataSource;
     Panel1: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    Panel7: TPanel;
     pmPosition: TPopupMenu;
     pSearch: TPanel;
     TabTimer: TIdleTimer;
     pcTabs: TExtMenuPageControl;
     pDetail: TPanel;
-    pPosControls: TPanel;
+    pToolbar: TPanel;
     spDetails: TSplitter;
+    tbAnsicht1: TToolBar;
+    tbPosition: TToolBar;
+    tbAnsicht: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
+    ToolButton8: TToolButton;
+    ToolButton9: TToolButton;
     tsDetails: TTabSheet;
+    procedure acAddfromArticleExecute(Sender: TObject);
     procedure acAddPosExecute(Sender: TObject);
     procedure acDelPosExecute(Sender: TObject);
     procedure acGotoArticleExecute(Sender: TObject);
     procedure acMakeSubPosExecute(Sender: TObject);
+    procedure acPermanentEditorModeExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
     procedure acRenumberExecute(Sender: TObject);
     procedure acSearchArticleExecute(Sender: TObject);
+    procedure acSumExecute(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
-      aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+      aStatus: string;aActive : Boolean; aLink: string;aPrio : Integer; aItem: TBaseDBList=nil);
     procedure acUnMakeSebPosExecute(Sender: TObject);
-    procedure bDetailsVisibleClick(Sender: TObject);
-    procedure bRowDetailsClick(Sender: TObject);
-    procedure Datasource1DataChange(Sender: TObject; Field: TField);
-    procedure Datasource1StateChange(Sender: TObject);
+    procedure acViewDetailsExecute(Sender: TObject);
+    procedure acViewTextsExecute(Sender: TObject);
+    procedure AddCalcTab(Sender: TObject);
+    procedure PositionDataChange(Sender: TObject; Field: TField);
+    procedure PositionStateChange(Sender: TObject);
+    procedure DoAsyncInit(Data: PtrInt);
     procedure FDataSourceStateChange(Sender: TObject);
+    procedure FGridViewAutoFilterChanged(Sender: TObject);
     procedure FGridViewCellButtonClick(Sender: TObject; Cell: TPoint;
       Field: TColumn);
     procedure FGridViewCellChanging(Sender: TObject);
@@ -124,6 +142,7 @@ type
     FRefID : Int64;
     FEditAble : Boolean;
     ActiveSearch : TSearch;
+    FFirstShow : Boolean;
     procedure SetBaseName(AValue: string);
     procedure SetDataSet(const AValue: TBaseDBDataset);
     function  GetPosTyp : Integer;
@@ -132,7 +151,7 @@ type
     procedure AddDocumentsTab(Sender: TObject);
   public
     { public declarations }
-    InplaceFrames : array[0..7] of TPrometInplaceFrame;
+    InplaceFrames : array[0..8] of TPrometInplaceFrame;
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy;override;
     property  Dataset : TBaseDBDataset read FDataset write SetDataSet;
@@ -151,14 +170,18 @@ type
   end;
 implementation
 uses uRowEditor, uSearch, uBaseDbInterface, uOrder, uDocumentFrame, uDocuments,
-  uData,uMasterdata,uBaseVisualApplication,uMainTreeFrame;
+  uData,uMasterdata,uBaseVisualApplication,uMainTreeFrame,ucalcframe;
 {$R *.lfm}
-resourcestring
-  strSearchFromOrder                       = 'Mit Öffnen wird der gewählte Eintrag in die Position übernommen';
 procedure TfPosition.FDataSourceStateChange(Sender: TObject);
 begin
   acDelPos.Enabled := acAddPos.Enabled and (FGridView.Count > 0);
 end;
+
+procedure TfPosition.FGridViewAutoFilterChanged(Sender: TObject);
+begin
+  FGridView.AutoFilter:=StringReplace(FGridView.AutoFilter,Data.QuoteField('TEXT'),Data.QuoteField('SHORTTEXT'),[rfReplaceAll]);
+end;
+
 procedure TfPosition.FGridViewCellButtonClick(Sender: TObject; Cell: TPoint;
   Field: TColumn);
 var
@@ -167,24 +190,12 @@ var
 begin
   if Field.FieldName = 'IDENT' then
     begin
-      fSearch.SetLanguage;
-      while i < fSearch.cbSearchType.Count do
-        begin
-          if fSearch.cbSearchType.Items[i] <> strMasterdata then
-            fSearch.cbSearchType.Items.Delete(i)
-          else
-            inc(i);
-        end;
-      fSearch.eContains.Clear;
-      fSearch.sgResults.RowCount:=1;
-      fSearch.OnOpenItem:=@fSearchOpenItem;
-      fSearch.Execute(True,'POSITION',strSearchFromOrder);
-      fSearch.SetLanguage;
+      acSearchArticle.Execute;
     end;
 end;
 procedure TfPosition.FGridViewCellChanging(Sender: TObject);
 begin
-  if bDetailsVisible.Down then
+  if acViewDetails.Checked then
     TabTimer.Enabled:=True;
 end;
 procedure TfPosition.FGridViewCellChanged(Sender: TObject; NewCell,
@@ -201,7 +212,7 @@ var
   tmp: TCaption;
 begin
   Result := False;
-  if Assigned(Field) and (((Field.FieldName='TEXT') and (FDataSet.FieldByName('IDENT').AsString = '')) or (Field.FieldName='IDENT')) then
+  if Assigned(Field) and (((Field.FieldName='TEXT') and ((FDataSet.FieldByName('IDENT').AsString = '') or (FDataSet.FieldByName('TEXT').AsString = ''))) or (Field.FieldName='IDENT')) then
     begin
       if SearchString = '' then
         begin
@@ -213,7 +224,6 @@ begin
                 begin
                   if lbResults.ItemIndex = -1 then
                     begin
-                      lbResults.ItemIndex:=0;
                       pSearch.Visible := False;
                     end
                   else
@@ -225,7 +235,7 @@ begin
               VK_NEXT,
               VK_DOWN:
                 begin
-                  if lbResults.ItemIndex = -1 then
+                  if (lbResults.ItemIndex = -1) and (lbResults.Count>0) then
                     lbResults.ItemIndex:=0
                   else
                   if lbResults.ItemIndex < lbResults.Count-1 then
@@ -250,13 +260,17 @@ begin
         begin
           if not pSearch.Visible then
             begin
-              pSearch.Left:=pPosControls.Width+X;
+              if pToolbar.Align=alLeft then
+                pSearch.Left:=pToolbar.Width+X
+              else
+                pSearch.Left:=X;
               pSearch.Top:=Y;
             end;
           if Assigned(ActiveSearch) then
             ActiveSearch.Abort;
           SearchTypes := SearchTypes+[fsShortnames];
           SearchTypes := SearchTypes+[fsIdents];
+          SearchTypes := SearchTypes+[fsMatchcode];
           SetLength(SearchLocations,length(SearchLocations)+1);
           SearchLocations[length(SearchLocations)-1] := strMasterdata;
           for i := 0 to lbResults.Items.Count-1 do
@@ -280,19 +294,21 @@ procedure TfPosition.FGridViewSetupPosition(Sender: TObject;Columns : TGridColum
 var
   i: Integer;
   a: Integer;
+  aTextTyp: TTextTypes;
+  aUnits: TUnits;
 begin
   for i := 0 to FGridView.Columns.Count-1 do
     begin
       if TColumn(FGridView.Columns[i]).Fieldname = 'POSTYP' then
         begin
           FGridView.Columns[i].PickList.Clear;
-          Data.OrderPosTyp.Open;
-          with Data.Orderpostyp.DataSet do
+          TBaseDBPosition(Dataset).PosTyp.Open;
+          with TBaseDBPosition(Dataset).PosTyp.DataSet do
             begin
               First;
               while not Eof do
                 begin
-                  FGridView.Columns[i].PickList.Add(Format('%s',[FieldByName('NAME').AsString]));
+                  FGridView.Columns[i].PickList.Add(Format('%-3s %s',[FieldByName('NAME').AsString,FieldByName('TEXT').AsString]));
                   next;
                 end;
             end;
@@ -300,8 +316,9 @@ begin
       else if TColumn(FGridView.Columns[i]).Fieldname = 'TEXTTYPE' then
         begin
           FGridView.Columns[i].PickList.Clear;
-          Data.TextTyp.Open;
-          with Data.Texttyp.DataSet do
+          aTextTyp := TTextTypes.Create(nil);
+          aTextTyp.Open;
+          with aTexttyp.DataSet do
             begin
               First;
               a := 0;
@@ -312,6 +329,7 @@ begin
                   next;
                 end;
             end;
+          aTextTyp.Free;
         end
       else if TColumn(FGridView.Columns[i]).Fieldname = 'STORAGE' then
         begin
@@ -330,8 +348,9 @@ begin
       else if TColumn(FGridView.Columns[i]).FieldName = 'QUANTITYU' then
         begin
           FGridView.Columns[i].PickList.Clear;
-          Data.Units.Open;
-          with Data.Units.DataSet do
+          aUnits := TUnits.Create(nil);
+          aUnits.Open;
+          with aUnits.DataSet do
             begin
               First;
               while not eof do
@@ -341,6 +360,7 @@ begin
                 end;
             end;
 //          cbPQuantityU.Items.Assign(FGridView.Columns[i].PickList);
+          aUnits.Free;
         end
       else if TColumn(FGridView.Columns[i]).FieldName = 'IDENT' then
         begin
@@ -356,8 +376,8 @@ begin
       else if TColumn(FGridView.Columns[i]).FieldName = 'VAT' then
         begin
           FGridView.Columns[i].PickList.Clear;
-          Data.Vat.Open;
-          with Data.Vat.DataSet do
+          TBaseDBPosition(Dataset).Vat.Open;
+          with TBaseDBPosition(Dataset).Vat.DataSet do
             begin
               First;
               while not eof do
@@ -370,14 +390,14 @@ begin
       ;
     end;
   with Application as IBaseDBInterface do
-    bRowDetails.Down:= DBConfig.ReadString('RDET'+BaseName,'Y') = 'Y';
-  FGridView.UseDefaultRowHeight:=not bRowDetails.Down;
+    acViewTexts.Checked:= DBConfig.ReadString('RDET'+BaseName,'Y') = 'Y';
+  FGridView.UseDefaultRowHeight:=not acViewTexts.Checked;
   FGridView.CalculateRowHeights;
   with Application as IBaseDBInterface do
     begin
-      bDetailsVisible.Down:= DBConfig.ReadString('DVIS'+BaseName,'N') = 'Y';
+      acViewDetails.Checked:= DBConfig.ReadString('DVIS'+BaseName,'N') = 'Y';
     end;
-  bDetailsVisibleClick(nil);
+  acViewDetailsExecute(nil);
   acDelPos.Enabled := acAddPos.Enabled and (FGridView.Count > 0);
 end;
 function TfPosition.fSearchOpenItem(aLink: string): Boolean;
@@ -386,7 +406,7 @@ var
   aMasterdata: TMasterdata;
 begin
   Result := False;
-  aMasterdata := TMasterdata.Create(Self,Data);
+  aMasterdata := TMasterdata.CreateEx(Self,Data);
   aMasterdata.CreateTable;
   Data.SetFilter(aMasterdata,'('+Data.QuoteField('ID')+'='+Data.QuoteValue(fSearch.sgResults.Cells[1,fSearch.sgResults.Row])+')'+' AND '+Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y'));
   if Data.Locate(aMasterdata,'ID',fSearch.sgResults.Cells[1,fSearch.sgResults.Row],[loCaseInsensitive,loPartialKey]) then
@@ -395,6 +415,10 @@ begin
         DataSet.DataSet.Edit;
       aCount := DataSet.Count;
       DataSet.Assign(aMasterdata);
+      if (GetPostyp <> -1) and Assigned(InplaceFrames[GetPosTyp]) then
+        begin
+          InplaceFrames[GetPosTyp].SetArticle(aMasterdata);
+        end;
       if DataSet.CanEdit then DataSet.Post;
       FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
       Result := True;
@@ -412,7 +436,7 @@ begin
   FFound := False;
   if lbResults.ItemIndex < 0 then exit;
   pSearch.Visible:=False;
-  aMD := TMasterdata.Create(nil,Data);
+  aMD := TMasterdata.Create(nil);
   aMD.CreateTable;
   aMD.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
   aMD.Open;
@@ -436,6 +460,13 @@ begin
   FGridView.SetFocus;
   FGridView.InsertAfter;
 end;
+
+procedure TfPosition.acAddfromArticleExecute(Sender: TObject);
+begin
+  acAddPos.Execute;
+  acSearchArticle.Execute;
+end;
+
 procedure TfPosition.acDelPosExecute(Sender: TObject);
 begin
   FGridView.Delete;
@@ -445,7 +476,7 @@ procedure TfPosition.acGotoArticleExecute(Sender: TObject);
 var
   aMasterdata: TMasterdataList;
 begin
-  aMasterdata := TMasterdata.Create(Self,Data);
+  aMasterdata := TMasterdata.CreateEx(Self,Data);
   aMasterdata.CreateTable;
   FGridView.GotoActiveRow;
   aMasterdata.Select(DataSet.FieldByName('IDENT').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
@@ -467,6 +498,22 @@ begin
   FGridView.SetChild;
 end;
 
+procedure TfPosition.acPermanentEditorModeExecute(Sender: TObject);
+begin
+  Application.ProcessMessages;
+  if acPermanentEditormode.Checked then
+    FGridView.gList.Options:=FGridView.gList.Options+[goAlwaysShowEditor]
+  else
+  FGridView.gList.Options:=FGridView.gList.Options-[goAlwaysShowEditor];
+  with Application as IBaseDbInterface do
+    begin
+      if acPermanentEditorMode.Checked then
+        DBConfig.WriteString('EPOSVIS','Y')
+      else
+        DBConfig.WriteString('EPOSVIS','');
+    end;
+end;
+
 procedure TfPosition.acRefreshExecute(Sender: TObject);
 begin
   FGridView.Refresh;
@@ -484,8 +531,30 @@ var
   aIdx: Integer = -1;
 begin
   FGridView.SelectCol('TEXT');
-//TODO:  sgPositionsButtonClick(sgPositions, sgPositions.Col, sgPositions.Row);
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if fSearch.cbSearchType.Items[i] <> strMasterdata then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenItem;
+  fSearch.Execute(True,'POSITION',strSearchFromOrder);
+  fSearch.SetLanguage;
 end;
+
+procedure TfPosition.acSumExecute(Sender: TObject);
+var
+  aPos: TPositionTyp;
+begin
+  TBaseDBPosition(DataSet).AppendSubTotal;
+  FGridView.Refresh;
+end;
+
 procedure TfPosition.ActiveSearchEndItemSearch(Sender: TObject);
 begin
   if not ActiveSearch.Active then
@@ -495,7 +564,8 @@ begin
     end;
 end;
 procedure TfPosition.ActiveSearchItemFound(aIdent: string; aName: string;
-  aStatus: string;aActive : Boolean; aLink: string; aItem: TBaseDBList=nil);
+  aStatus: string; aActive: Boolean; aLink: string; aPrio: Integer;
+  aItem: TBaseDBList);
 begin
   with pSearch do
     begin
@@ -511,13 +581,13 @@ begin
   FGridView.UnSetChild;
 end;
 
-procedure TfPosition.bDetailsVisibleClick(Sender: TObject);
+procedure TfPosition.acViewDetailsExecute(Sender: TObject);
 begin
-  bDetailsVisible.Enabled:=False;
+  acViewDetails.Enabled:=False;
   if Assigned(Sender) then
     Application.ProcessMessages;
-  pDetail.Visible:=bDetailsVisible.Down;
-  spDetails.Visible:=bDetailsVisible.Down;
+  pDetail.Visible:=acViewDetails.Checked;
+  spDetails.Visible:=acViewDetails.Checked;
   if spDetails.Visible then
     begin
       spDetails.Top:=pDetail.Top-1;
@@ -531,36 +601,49 @@ begin
   else
     with Application as IBaseDbInterface do
       DBConfig.WriteString('DVIS'+BaseName,'N');
-  bDetailsVisible.Enabled:=True;
+  acViewDetails.Enabled:=True;
 end;
-procedure TfPosition.bRowDetailsClick(Sender: TObject);
+
+procedure TfPosition.acViewTextsExecute(Sender: TObject);
 begin
-  bRowDetails.Enabled:=False;
+  acViewTexts.Enabled:=False;
   if Sender <> nil then
     Application.ProcessMessages;
-  FGridView.UseDefaultRowHeight := not bRowDetails.Down;
+  FGridView.UseDefaultRowHeight := not acViewTexts.Checked;
   with Application as IBaseDbInterface do
     begin
-      if bRowDetails.Down then
+      if acViewTexts.Checked then
         DBConfig.WriteString('RDET'+BaseName,'Y')
       else
         DBConfig.WriteString('RDET'+BaseName,'N');
     end;
-  bRowDetails.Enabled:=True;
+  acViewTexts.Enabled:=True;
 end;
 
-procedure TfPosition.Datasource1DataChange(Sender: TObject; Field: TField);
+procedure TfPosition.AddCalcTab(Sender: TObject);
+begin
+  TfCalcPositionFrame(Sender).DataSet := FDataset;
+  TfCalcPositionFrame(Sender).TabCaption:=strCalc;
+end;
+
+procedure TfPosition.PositionDataChange(Sender: TObject; Field: TField);
 begin
   if not Assigned(Field) then exit;
   if Field.FieldName='POSTYP' then
-    if (bDetailsVisible.Down) and (not DataSet.DataSet.ControlsDisabled) then
+    if (acViewDetails.Checked) and (not DataSet.DataSet.ControlsDisabled) then
       TabTimer.Enabled:=True;
 end;
 
-procedure TfPosition.Datasource1StateChange(Sender: TObject);
+procedure TfPosition.PositionStateChange(Sender: TObject);
 begin
-  if (bDetailsVisible.Down) and Assigned(FDataSet) and (not DataSet.DataSet.ControlsDisabled) and (FDataset.State=dsInsert) then
+  if (acViewDetails.Checked) and Assigned(FDataSet) and (not DataSet.DataSet.ControlsDisabled) and (FDataset.State=dsInsert) then
     TabTimer.Enabled:=True;
+end;
+
+procedure TfPosition.DoAsyncInit(Data: PtrInt);
+begin
+  FGridView.fGridViewEnter(FGridView);
+  acPermanentEditorModeExecute(acPermanentEditorMode);
 end;
 
 procedure TfPosition.sgPositionsDragDrop(Sender, Source: TObject; X, Y: Integer
@@ -572,7 +655,7 @@ begin
   if Source = uMainTreeFrame.fMainTreeFrame.tvMain then
     begin
       nData := TTreeEntry(uMainTreeFrame.fMainTreeFrame.tvMain.Selected.Data);
-      aMasterdata := TMasterdata.Create(Self,Data);
+      aMasterdata := TMasterdata.CreateEx(Self,Data);
       aMasterdata.CreateTable;
       Data.SetFilter(aMasterdata,nData.Filter);
       Data.GotoBookmark(aMasterdata,nData.Rec);
@@ -587,7 +670,7 @@ begin
   else
   if (Source = fSearch.sgResults) then
     begin
-      aMasterdata := TMasterdata.Create(Self,Data);
+      aMasterdata := TMasterdata.CreateEx(Self,Data);
       aMasterdata.CreateTable;
       aMasterdata.SelectFromLink(fSearch.GetLink);
       aMasterdata.Open;
@@ -630,7 +713,7 @@ var
 begin
   if DataSet.DataSet.ControlsDisabled then exit;
   TabTimer.Enabled:=False;
-  if bDetailsVisible.Down then
+  if acViewDetails.Checked then
     begin
       NewVisible:=False;
       if FGridView.GotoActiveRow then
@@ -665,11 +748,14 @@ begin
   FGridView.DataSet := AValue;
   if Assigned(AValue) then
     begin
-      Datasource1.DataSet := FGridView.DataSet.DataSet;
+      Position.DataSet := FGridView.DataSet.DataSet;
+      Orderpos.DataSet := FGridView.DataSet.DataSet;
       if SetLabels then
         DataSet.SetDisplayLabels(DataSet.DataSet);
     end
-  else Datasource1.DataSet := nil;
+  else Position.DataSet := nil;
+  with Application as IBaseDBInterface do
+    acPermanentEditormode.Checked:= DBConfig.ReadString('EPOSVIS','N') = 'Y';
 end;
 procedure TfPosition.SetBaseName(AValue: string);
 begin
@@ -690,6 +776,7 @@ begin
   FFormName:=AValue;
   pcTabs.ClearTabClasses;
   pcTabs.AddTabClass(TfDocumentFrame,strFiles,@AddDocumentsTab);
+  pcTabs.AddTabClass(TfCalcPositionFrame,strCalc,@AddCalcTab);
   with Application as TBaseVisualApplication do
     AddTabClasses(FFormName,pcTabs);
 end;
@@ -707,9 +794,10 @@ begin
     begin
       with Application as TBaseVisualApplication do
         AddTabs(pcTabs);
+      //Documents
       aFrame := pcTabs.GetTab(TfDocumentFrame);
       if not Assigned(aFrame) then
-        aDocuments := TDocuments.Create(Self,Data)
+        aDocuments := TDocuments.CreateEx(Self,Data)
       else aDocuments := TDocuments(TfDocumentFrame(aFrame.Controls[0]).DataSet);
       if DataSet.DataSet.FieldDefs.IndexOf('ORDERNO') <> -1 then
         aPosID := DataSet.FieldByName('ORDERNO').AsString+DataSet.FieldByName('POSNO').AsString
@@ -734,6 +822,21 @@ begin
           TfDocumentFrame(aFrame.Controls[0]).DataSet := aDocuments;
         end
       else TfDocumentFrame(aFrame.Controls[0]).DataSet := aDocuments;;
+      //PositionCalc
+      TBaseDBPosition(Dataset).PosCalc.Open;
+      aFrame := pcTabs.GetTab(TfCalcPositionFrame);
+      if (not Assigned(aFrame)) and (TBaseDBPosition(Dataset).PosCalc.Count>0) then
+        begin
+          pcTabs.AddTab(TfCalcPositionFrame.Create(Self),False);
+          aFrame := pcTabs.GetTab(TfCalcPositionFrame);
+          AddCalcTab(aFrame.Controls[0]);
+        end
+      else if Assigned(aFrame) and (TBaseDBPosition(Dataset).PosCalc.Count=0) then
+        begin
+          pcTabs.WillRemoveTab(aFrame);
+          aFrame.Free;
+          pcTabs.TabIndex:=0;
+        end;
     end;
 end;
 procedure TfPosition.AddDocumentsTab(Sender: TObject);
@@ -742,7 +845,7 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      TfDocumentFrame(Sender).DataSet := TDocuments.Create(Self,Data);
+      TfDocumentFrame(Sender).DataSet := TDocuments.CreateEx(Self,Data);
     end;
   if not TfDocumentFrame(Sender).DataSet.DataSet.Active then
     begin
@@ -766,13 +869,19 @@ var
   i: Integer;
 begin
   FEditAble := Editable;
+  acAddfromArticle.Enabled:=Editable;
   acDelPos.Enabled := Editable;
   acAddPos.Enabled := Editable;
+  acMakeSubPos.Enabled:=Editable;
+  acUnMakeSebPos.Enabled:=Editable;
+  acSum.Enabled:=Editable;
+  acRenumber.Enabled:=Editable;
   acGotoArticle.Enabled := (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) or (Data.Users.Rights.Right('ARTICLES') > RIGHT_NONE) or (Data.Users.Rights.Right('BENEFITS') > RIGHT_NONE) or (Data.Users.Rights.Right('PARTSLIST') > RIGHT_NONE);
   FGridView.SetRights(Editable);
   for i := low(InplaceFrames) to High(InplaceFrames) do
     if Assigned(InplaceFrames[i]) then
       InplaceFrames[i].SetRights(Editable);
+  ArrangeToolBar(pToolbar,ActionList1,'Position');
 end;
 procedure TfPosition.AutoInsert;
 begin
@@ -783,7 +892,13 @@ begin
   if CanFocus and Visible then
     inherited;
   FGridView.SetFocus;
+  if FGridView.IsVisible and FFirstShow then
+    begin
+      Application.QueueAsyncCall(@DoAsyncInit,0);
+      FFirstshow := False;
+    end;
 end;
+
 procedure TfPosition.SetLanguage;
 begin
   if Assigned(DataSet) then
@@ -797,7 +912,9 @@ begin
   for i := 0 to high(InplaceFrames) do
     InplaceFrames[i] := nil;
   FPosTyp:=-1;
+  FFirstShow:=True;
   pcTabs.AddTabClass(TfDocumentFrame,strFiles,@AddDocumentsTab);
+  pcTabs.AddTabClass(TfCalcPositionFrame,strCalc,@AddCalcTab);
   FGridView := TfGridView.Create(Self);
   FGridView.OnCellChanging:=@FGridViewCellChanging;
   FGridView.OnCellChanged:=@FGridViewCellChanged;
@@ -805,8 +922,7 @@ begin
   FGridView.OnSetupPosition:=@FGridViewSetupPosition;
   FGridView.OnDragOver:=@sgPositionsDragOver;
   FGridView.OnDragDrop:=@sgPositionsDragDrop;
-  //FGridView.DefaultRows:='GLOBALWIDTH:%;POSNO:32;POSTYP:47;IDENT:65;TEXT:301;QUANTITY:40;QUANTITYU:62;SELLPRICE:68;DISCOUNT:53;POSPRICE:74;VAT:49;GROSSPRICE:83;AVALIBLE:81;STORAGE:46;';
-  FGridView.DefaultRows:='GLOBALWIDTH:%;POSNO:32;TEXT:301;QUANTITY:40;QUANTITYU:62;SELLPRICE:68;VAT:49;GROSSPRICE:83;';
+  FGridView.DefaultRows:='GLOBALWIDTH:%;POSNO:32;TEXT:301;QUANTITY:40;QUANTITYU:62;SELLPRICE:68;VAT:49;GROSSPRICE:83;POSTYP:47;';
   FGridView.IdentField:='TEXT';
   FGridView.TextField:='TEXT';
   FGridView.NumberField:='POSNO';
@@ -818,6 +934,7 @@ begin
   FGridView.FilterRow:=true;
   FGridView.WordWrap:=true;
   FGridView.OnSearchKey:=@FGridViewSearchKey;
+  FGridView.OnAutoFilterChanged:=@FGridViewAutoFilterChanged;
   FGridView.UseDefaultRowHeight := False;
   FGridView.gList.PopupMenu:=pmPosition;
 end;
@@ -854,4 +971,4 @@ begin
 end;
 
 end.
-
+

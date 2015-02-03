@@ -7,8 +7,8 @@ unit prepair;
 interface
 
 uses
-  uQSPositionFrame, uRawdata, uRepairOptions, uRepairPositionFrame, 
-  LazarusPackageIntf;
+  uQSPositionFrame, uRawdata, uRepairOptions, urepairimageframe, 
+  urepairimages, LazarusPackageIntf;
 
 implementation
 

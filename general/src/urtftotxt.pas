@@ -1,7 +1,7 @@
 unit uRTFtoTXT;
 {$mode DELPHI}
 interface
-uses sysutils,math,LCLProc,LCLIntf,FileUtil;
+uses sysutils,math,Utils;
 function RTF2Plain (const aSource: string): string;
 implementation
 function HexToInt(HexNum: string): LongInt;
@@ -104,7 +104,7 @@ begin
                                                      else if Control='tab'
                                                              then Result:=Result+#$09
                                                              else if Control='u'
-                                                                     then Result:=Result+SysToUTF8(UnicodeCharCode2ANSIChar (StrToInt (NumericValue)))
+                                                                     then Result:=Result+SysToUni(UnicodeCharCode2ANSIChar (StrToInt (NumericValue)))
                                                                      else if Control='colortbl'
                                                                              then TextValue:='';
                                                  if Length (TextValue)>0

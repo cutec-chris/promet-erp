@@ -24,15 +24,18 @@ unit uProcessManager;
 interface
 
 uses
-  Classes, SysUtils, Process, UTF8Process, FileUtil, uBaseApplication, ProcessUtils
+  Classes, SysUtils, Process, Utils, uBaseApplication,usimpleprocess
   {$IFDEF WINDOWS}
   ,Windows,jwatlhelp32
   {$ENDIF}
   ;
 
-function StartMessageManager(Mandant : string;User : string = '') : TExtendedProcess;
-function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TExtendedProcess;
+function StartMessageManager(Mandant : string;User : string = '') : TProcess;
+function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TProcess;
 function ProcessExists(cmd,cmdln: string): Boolean;
+var
+  ProcessMandant : string;
+  ProcessUser : string;
 
 implementation
 
@@ -87,31 +90,44 @@ begin
   end;
 end;
 {$ENDIF}
-function StartMessageManager(Mandant : string;User : string = '') : TExtendedProcess;
+function StartMessageManager(Mandant : string;User : string = '') : TProcess;
 begin
   Result := StartProcessManager(Mandant,User,'messagemanager');
 end;
-function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TExtendedProcess;
+function StartProcessManager(Mandant : string;User : string = '';aProcess : string = 'processmanager') : TProcess;
 var
-  cmd: String;
   tmp: String;
   aDir: String;
   cmdln: String;
 begin
+  ProcessMandant := Mandant;
+  ProcessUser := User;
   Result := nil;
-  cmd := aProcess+ExtractFileExt(BaseApplication.ExeName);
   cmdln := ' "--mandant='+Mandant+'"';
   if User <> '' then
     cmdln := cmdln+' "--user='+User+'"';
-  if ProcessExists(cmd,cmdln) then exit;
-  aDir := AppendPathDelim(AppendPathDelim(AppendPathDelim(BaseApplication.Location)+'tools'));
-  if (not FileExistsUTF8(cmd)) and (not FileExistsUTF8(aDir+cmd)) then
+  if BaseApplication.HasOption('debug-log') then
+    cmdln := cmdln+' "--debug-log=msg.'+BaseApplication.GetOptionValue('debug-log')+'"';
+  if BaseApplication.HasOption('config-path') then
+    cmdln := cmdln+' "--config-path='+BaseApplication.GetOptionValue('config-path')+'"';
+  if ProcessExists(aProcess+ExtractFileExt(BaseApplication.ExeName),cmdln) then exit;
+  aDir := BaseApplication.Location+'tools'+DirectorySeparator;
+  if (not FileExists(UniToSys(aProcess+ExtractFileExt(BaseApplication.ExeName)))) and (not FileExists(UniToSys(aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)))) then
     begin
-      aDir := AppendPathDelim(AppendPathDelim(GetCurrentDirUTF8)+'tools');
-      if not FileExistsUTF8(aDir+cmd) then exit;
+      aDir := GetCurrentDir+'tools'+DirectorySeparator;
+      if not FileExists(UniToSys(aDir+aProcess+ExtractFileExt(BaseApplication.ExeName))) then exit;
     end;
-  cmd += cmdln;
-  Result := TExtendedProcess.Create(aDir+cmd,True,aDir);
+  Result := TProcess.Create(nil);
+  Result.Options:=[poUsePipes,poStderrToOutPut,poNoConsole];
+  Result.CommandLine:=aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)+' '+cmdln;
+  try
+    Result.Execute;
+  except
+    begin
+      Result.Free;
+      Result := nil;
+    end;
+  end;
 end;
 
 end.

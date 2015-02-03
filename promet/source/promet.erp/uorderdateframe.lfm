@@ -5,79 +5,81 @@ inherited fOrderDateFrame: TfOrderDateFrame
   Width = 914
   ClientHeight = 163
   ClientWidth = 914
-  DesignLeft = 383
-  DesignTop = 212
+  ParentShowHint = False
+  ShowHint = True
+  DesignLeft = 371
+  DesignTop = 243
   object lWishDate: TLabel[0]
     Left = 16
-    Height = 15
+    Height = 13
     Top = 14
-    Width = 89
+    Width = 80
     Caption = 'Wunschdatum'
     ParentColor = False
   end
   object lApproved: TLabel[1]
     Left = 280
-    Height = 15
+    Height = 13
     Top = 14
-    Width = 54
+    Width = 49
     Caption = 'bestätigt'
     ParentColor = False
   end
   object lRequest: TLabel[2]
     Left = 520
-    Height = 15
+    Height = 13
     Top = 14
-    Width = 87
+    Width = 81
     Caption = 'Anfragedatum'
     ParentColor = False
   end
   object lDelivered: TLabel[3]
     Left = 280
-    Height = 15
+    Height = 13
     Top = 48
-    Width = 49
+    Width = 47
     Caption = 'geliefert'
     ParentColor = False
   end
   object dblDelivered: TDBText[4]
     Left = 385
-    Height = 15
+    Height = 13
     Top = 48
-    Width = 75
+    Width = 71
     DataField = 'DELIVEREDON'
     DataSource = Orders
     ParentColor = False
   end
   object lPayed: TLabel[5]
     Left = 520
-    Height = 15
+    Height = 13
     Top = 48
-    Width = 44
+    Width = 41
     Caption = 'bezahlt'
     ParentColor = False
   end
   object dblPayed: TDBText[6]
     Left = 640
-    Height = 15
+    Height = 13
     Top = 48
-    Width = 54
+    Width = 52
     DataField = 'PAYEDON'
     DataSource = Orders
     ParentColor = False
   end
   object lOrigDate: TLabel[7]
     Left = 16
-    Height = 15
+    Height = 13
     Top = 51
-    Width = 104
+    Width = 98
     Caption = 'orig. Belegdatum'
     ParentColor = False
   end
   object deRequest: TDBZVDateTimePicker[8]
     Left = 640
-    Height = 23
+    Height = 21
     Top = 14
-    Width = 97
+    Width = 89
     DataField = 'DOAFQ'
     DataSource = Orders
     ReadOnly = False
@@ -96,9 +98,9 @@ inherited fOrderDateFrame: TfOrderDateFrame
   end
   object deWishDate: TDBZVDateTimePicker[9]
     Left = 136
-    Height = 23
+    Height = 21
     Top = 14
-    Width = 97
+    Width = 89
     DataField = 'DWISH'
     DataSource = Orders
     ReadOnly = False
@@ -117,9 +119,9 @@ inherited fOrderDateFrame: TfOrderDateFrame
   end
   object deOrigDate: TDBZVDateTimePicker[10]
     Left = 136
-    Height = 23
+    Height = 21
     Top = 47
-    Width = 97
+    Width = 89
     DataField = 'ODATE'
     DataSource = Orders
     ReadOnly = False
@@ -138,9 +140,9 @@ inherited fOrderDateFrame: TfOrderDateFrame
   end
   object deApproved: TDBZVDateTimePicker[11]
     Left = 384
-    Height = 23
+    Height = 21
     Top = 14
-    Width = 97
+    Width = 89
     DataField = 'DAPPR'
     DataSource = Orders
     ReadOnly = False
@@ -158,7 +160,7 @@ inherited fOrderDateFrame: TfOrderDateFrame
     UseDefaultSeparators = True
   end
   object Orders: TDatasource[12]
-    left = 696
-    top = 36
+    left = 640
+    top = 80
   end
 end

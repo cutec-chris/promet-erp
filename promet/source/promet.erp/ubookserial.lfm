@@ -1,7 +1,7 @@
 object fBookSerial: TfBookSerial
-  Left = 489
+  Left = 510
   Height = 224
-  Top = 305
+  Top = 314
   Width = 349
   ActiveControl = eSerial
   Caption = 'Serienummer ein/ausbuchen'
@@ -11,7 +11,7 @@ object fBookSerial: TfBookSerial
   LCLVersion = '1.3'
   object eSerial: TEdit
     Left = 8
-    Height = 21
+    Height = 23
     Top = 57
     Width = 333
     Anchors = [akTop, akLeft, akRight]
@@ -21,7 +21,7 @@ object fBookSerial: TfBookSerial
     Left = 8
     Height = 13
     Top = 40
-    Width = 62
+    Width = 77
     Caption = 'Serienummer'
     ParentColor = False
   end
@@ -35,8 +35,8 @@ object fBookSerial: TfBookSerial
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 34
-    Top = 184
+    Height = 42
+    Top = 176
     Width = 337
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True

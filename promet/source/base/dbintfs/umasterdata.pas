@@ -33,10 +33,12 @@ type
     function GetNumberFieldName : string;override;
     function GetStatusFieldName : string;override;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    constructor Create(aOwner : TComponent);override;
     function GetTyp: string; override;
     procedure DefineFields(aDataSet : TDataSet);override;
+    procedure OpenItem(AccHistory: Boolean=True); override;
     procedure Select(aID : string);overload;
     procedure Select(aID : string;aVersion : Variant;aLanguage : Variant);overload;
     function SelectFromLink(aLink: string): Boolean; override;
@@ -52,7 +54,7 @@ type
     procedure PosPriceChanged(aPosDiff,aGrossDiff :Extended);override;
     procedure PosWeightChanged(aPosDiff :Extended);override;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure DefineFields(aDataSet : TDataSet);override;
     property Masterdata : TMasterdata read FMasterdata write FMasterdata;
   end;
@@ -65,7 +67,7 @@ type
     FJournal: TStorageJournal;
     function GetJournal: TStorageJournal;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
     function CreateTable : Boolean;override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -83,7 +85,7 @@ type
   private
     FPrices: TSupplierPrices;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
     function CreateTable : Boolean;override;
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -93,9 +95,6 @@ type
   public
     procedure FillDefaults(aDataSet : TDataSet);override;
   end;
-
-  { TMasterdataPrices }
-
   TMasterdataPrices = class(TBaseDbDataSet)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -119,7 +118,7 @@ type
   private
     FParts: TRepairParts;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure DefineFields(aDataSet : TDataSet);override;
     function CreateTable : Boolean;override;
@@ -146,7 +145,7 @@ type
     function GetLanguage: TField;
     function GetVersion: TField;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure Open;override;
     function CreateTable : Boolean;override;
@@ -172,11 +171,12 @@ type
                                                                cTexts : Boolean = True;
                                                                cSupplier : Boolean = True) : Boolean;
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;override;
+    procedure GenerateThumbnail; override;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
   end;
 implementation
 uses uBaseDBInterface, uBaseSearch, uBaseApplication, uBaseApplicationTools,
-  uData, Utils,uOrder;
+  uData, Utils,uOrder,uthumbnails;
 procedure TSupplierPrices.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -194,11 +194,11 @@ begin
           end;
     end;
 end;
-constructor TSupplier.Create(aOwner: TComponent; DM: TComponent;
+constructor TSupplier.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FPrices := TSupplierPrices.Create(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FPrices := TSupplierPrices.CreateEx(Owner,DM,aConnection,DataSet);
 end;
 destructor TSupplier.Destroy;
 begin
@@ -241,11 +241,11 @@ begin
           end;
     end;
 end;
-constructor TRepairAssembly.Create(aOwner: TComponent; DM: TComponent;
+constructor TRepairAssembly.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
-  FParts := TRepairParts.Create(Self,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  FParts := TRepairParts.CreateEx(Self,DM,aConnection,DataSet);
 end;
 destructor TRepairAssembly.Destroy;
 begin
@@ -313,6 +313,7 @@ begin
           begin
             Add('PTYPE',ftString,4,True);
             Add('PRICE',ftFloat,0,false);
+            Add('NOTE',ftString,500,False);
             Add('CURRENCY',ftString,3,true);
             Add('MINCOUNT',ftFloat,0,False);
             Add('MAXCOUNT',ftFloat,0,False);
@@ -332,11 +333,18 @@ begin
 end;
 
 function TMasterdataPrices.GetPriceType: Integer;
+var
+  PriceType: TPriceTypes;
 begin
   Result := 0;
-  Data.PriceTypes.Open;
-  if Data.PriceTypes.DataSet.Locate('SYMBOL', trim(DataSet.FieldByName('PTYPE').AsString), []) then
-    Result := StrToIntDef(copy(Data.Pricetypes.FieldByName('TYPE').AsString, 0, 2), 0);
+  try
+    PriceType := TPriceTypes.CreateEx(Self,DataModule,Connection);
+    PriceType.Open;
+    if PriceType.DataSet.Locate('SYMBOL', trim(DataSet.FieldByName('PTYPE').AsString), []) then
+      Result := StrToIntDef(copy(Pricetype.FieldByName('TYPE').AsString, 0, 2), 0);
+  finally
+    PriceType.Free;
+  end;
 end;
 function TMasterdataPrices.FormatCurrency(Value: real): string;
 begin
@@ -366,16 +374,16 @@ function TStorage.GetJournal: TStorageJournal;
 begin
   if not Assigned(FJournal) then
     begin
-      FJournal := TStorageJournal.Create(Self,DataModule,Connection);
+      FJournal := TStorageJournal.CreateEx(Self,DataModule,Connection);
       FJournal.CreateTable;
     end;
   Result := FJournal;
 end;
 
-constructor TStorage.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
+constructor TStorage.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM,aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
 end;
 
 destructor TStorage.Destroy;
@@ -631,11 +639,13 @@ begin
   if DataSet.ControlsDisabled then exit;
   if Field.FieldName = 'STATUS' then
     begin
+      if FStatus=Field.AsString then exit;
       History.Open;
       History.AddItem(Self.DataSet,Format(strStatusChanged,[FStatus,Field.AsString]),'','',nil,ACICON_STATUSCH);
       FStatus := Field.AsString;
       if Assigned(FStateChange) then
         FStateChange(Self);
+      OpenItem(False);
     end;
   if (Field.FieldName = 'ID') then
     begin
@@ -650,10 +660,10 @@ function TMasterdata.GetLanguage: TField;
 begin
   Result := DataSet.FieldByName('LANGUAGE');
 end;
-constructor TMasterdata.Create(aOwner: TComponent;DM : TComponent; aConnection: TComponent;
+constructor TMasterdata.CreateEx(aOwner: TComponent;DM : TComponent; aConnection: TComponent;
   aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -661,18 +671,18 @@ begin
           UsePermissions:=False;
         end;
     end;
-  FPosition := TMDPos.Create(Self, DM,aConnection,DataSet);
+  FPosition := TMDPos.CreateEx(Self, DM,aConnection,DataSet);
   FPosition.Masterdata:=Self;
-  FStorage := TStorage.Create(Self,DM,aConnection,DataSet);
-  FHistory := TMasterdataHistory.Create(Self,DM,aConnection,DataSet);
-  FImages := TImages.Create(Self,DM,aConnection,DataSet);
-  FLinks := TMasterdataLinks.Create(Self,DM,aConnection);
-  FTexts := TMasterdataTexts.Create(Self,DM,aConnection,DataSet);
-  FPrices := TMasterdataPrices.Create(Self,DM,aConnection,DataSet);
-  FProperties := TMdProperties.Create(Self,DM,aConnection,DataSet);
-  FAssembly := TRepairAssembly.Create(Self,DM,aConnection,DataSet);
-  FSupplier := TSupplier.Create(Self,DM,aConnection,DataSet);
-  FSerials := TSerials.Create(Self,DM,aConnection,DataSet);
+  FStorage := TStorage.CreateEx(Self,DM,aConnection,DataSet);
+  FHistory := TMasterdataHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
+  FLinks := TMasterdataLinks.CreateEx(Self,DM,aConnection);
+  FTexts := TMasterdataTexts.CreateEx(Self,DM,aConnection,DataSet);
+  FPrices := TMasterdataPrices.CreateEx(Self,DM,aConnection,DataSet);
+  FProperties := TMdProperties.CreateEx(Self,DM,aConnection,DataSet);
+  FAssembly := TRepairAssembly.CreateEx(Self,DM,aConnection,DataSet);
+  FSupplier := TSupplier.CreateEx(Self,DM,aConnection,DataSet);
+  FSerials := TSerials.CreateEx(Self,DM,aConnection,DataSet);
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
   FDS.OnDataChange:=@FDSDataChange;
@@ -715,7 +725,7 @@ begin
   FSerials.CreateTable;
   FAssembly.CreateTable;
   FSupplier.CreateTable;
-  aUnits := TUnits.Create(nil,DataModule,Connection);
+  aUnits := TUnits.CreateEx(nil,DataModule,Connection);
   aUnits.CreateTable;
   aUnits.Free;
 end;
@@ -726,7 +736,11 @@ begin
     BaseFilter := '';
 end;
 procedure TMasterdata.FillDefaults(aDataSet: TDataSet);
+var
+  Vat: TVat;
 begin
+  Vat := TVat.CreateEx(Self,DataModule,Connection);
+  Vat.Open;
   with aDataSet,BaseApplication as IBaseDBInterface do
     begin
       aDataSet.DisableControls;
@@ -740,13 +754,12 @@ begin
       FieldByName('LANGUAGE').AsString := 'de'; //TODO:find default language
       FieldByName('CRDATE').AsDateTime := Date;
       FieldByName('ACTIVE').AsString  := 'Y';
-      if not Data.Vat.DataSet.Active then
-        Data.Vat.Open;
-      FieldByName('VAT').AsString     := Data.Vat.FieldByName('ID').AsString;
+      FieldByName('VAT').AsString     := Vat.FieldByName('ID').AsString;
       FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
       FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
       aDataSet.EnableControls;
     end;
+  Vat.Free;
 end;
 procedure TMasterdata.CascadicPost;
 begin
@@ -779,7 +792,7 @@ var
   bMasterdata: TMasterdata;
 begin
   Result := True;
-  bMasterdata := TMasterdata.Create(Self,DataModule,Self.Connection);
+  bMasterdata := TMasterdata.CreateEx(Self,DataModule,Self.Connection);
   try
     try
       bMasterdata.Select(Id.AsVariant);
@@ -819,6 +832,20 @@ begin
       Result := Count > 0;
     end;
 end;
+
+procedure TMasterdata.GenerateThumbnail;
+var
+  aThumbnail: TThumbnails;
+begin
+  aThumbnail := TThumbnails.CreateEx(nil,DataModule);
+  aThumbnail.CreateTable;
+  aThumbnail.SelectByRefId(Self.Id.AsVariant);
+  aThumbnail.Open;
+  if aThumbnail.Count=0 then
+    Images.GenerateThumbnail(aThumbnail);
+  aThumbnail.Free;
+end;
+
 function TMDPos.GetCurrency: string;
 begin
   Result:=Masterdata.FieldByName('CURRENCY').AsString;
@@ -834,10 +861,10 @@ begin
     Masterdata.DataSet.Edit;
   Masterdata.FieldByName('WEIGHT').AsFloat := Masterdata.FieldByName('WEIGHT').AsFloat+aPosDiff;
 end;
-constructor TMDPos.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
-  aMasterdata: TDataSet);
+constructor TMDPos.CreateEx(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM,aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
 end;
 procedure TMDPos.DefineFields(aDataSet: TDataSet);
 begin
@@ -863,10 +890,10 @@ function TMasterdataList.GetStatusFieldName: string;
 begin
   Result:='STATUS';
 end;
-constructor TMasterdataList.Create(aOwner: TComponent; DM: TComponent;
+constructor TMasterdataList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -875,6 +902,12 @@ begin
         end;
     end;
 end;
+
+constructor TMasterdataList.Create(aOwner: TComponent);
+begin
+  CreateEx(aOwner,Data,nil,nil);
+end;
+
 procedure TMasterdataList.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -886,7 +919,7 @@ begin
           begin
             Add('TYPE',ftString,1,True);
             Add('ID',ftString,40,True);
-            Add('VERSION',ftString,8,False);
+            Add('VERSION',ftString,20,False);
             Add('LANGUAGE',ftString,3,False);
             Add('STATUS',ftString,4,false);
             Add('BARCODE',ftString,20,False);
@@ -902,15 +935,18 @@ begin
             Add('NOSTORAGE',ftString,1,False);
             Add('PTYPE',ftString,1,False);
             Add('WEIGHT',ftFloat,0,False);
+            Add('REPAIRTIME',ftInteger,0,False);     //max. Reparaturzeit
             Add('UNIT',ftInteger,0,False);     //Verpackungseinheit
             Add('WARRENTY',ftString,10,False);
-            Add('MANUFACNR',ftString,20,False);
+            Add('MANUFACNR',ftString,40,False);
             Add('VALIDFROM',ftDate,0,False);   //Ein/Auslaufsteuerung
             Add('VALIDTO',ftDate,0,False);     //gültig bis Datum
             Add('VALIDTOME',ftInteger,0,False);//gültig bis Menge
             Add('COSTCENTRE',ftString,10,False);//Kostenstelle
-            Add('ACCOUNT',ftString,10,False);
+            Add('ACCOUNT',ftString,10,False); //Fibu Konto
+            Add('ACCOUNTINGINFO',ftMemo,0,False); //Fibu Info
             Add('CATEGORY',ftString,60,False);
+            Add('ISTEMPLATE',ftString,1,False);
             Add('CURRENCY',ftString,5,False);
             Add('CRDATE',ftDate,0,False);
             Add('CHDATE',ftDate,0,False);
@@ -930,6 +966,108 @@ begin
   with aDataSet as IBaseDbFilter, BaseApplication as IBaseDbInterface do
     BaseFilter := Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y');
 end;
+
+procedure TMasterdataList.OpenItem(AccHistory: Boolean);
+var
+  aHistory: TAccessHistory;
+  aObj: TObjects;
+  aID: String;
+  aFilter: String;
+begin
+  if Self.Count=0 then exit;
+  try
+    try
+      aHistory := TAccessHistory.Create(nil);
+      aObj := TObjects.Create(nil);
+      if AccHistory then
+        begin
+          if DataSet.State<>dsInsert then
+            begin
+              if not Data.TableExists(aHistory.TableName) then
+                aHistory.CreateTable;
+              aHistory.Free;
+              aHistory := TAccessHistory.CreateEx(nil,Data,nil,DataSet);
+              aHistory.AddItem(DataSet,Format(strItemOpened,[Data.GetLinkDesc(Data.BuildLink(DataSet))]),Data.BuildLink(DataSet));
+            end;
+        end;
+      if (DataSet.State<>dsInsert) and (Self.FieldByName('ACTIVE').AsString='Y') then
+        begin
+          if not Data.TableExists(aObj.TableName) then
+            begin
+              aObj.CreateTable;
+              aObj.Free;
+              aObj := TObjects.CreateEx(nil,Data,nil,DataSet);
+            end;
+          with aObj.DataSet as IBaseDBFilter do
+            begin
+              aID := FieldByName('ID').AsString;
+              aFilter :=  Data.QuoteField('NUMBER')+'='+Data.QuoteValue(aID);
+              Filter := aFilter;
+              Limit := 0;
+            end;
+          aObj.Open;
+          if aObj.Count=0 then
+            begin
+              aObj.Insert;
+              aObj.Text.AsString := Self.Text.AsString;
+              aObj.FieldByName('SQL_ID').AsVariant:=Self.Id.AsVariant;
+              if Assigned(Self.Matchcode) then
+                aObj.Matchcode.AsString := Self.Matchcode.AsString;
+              if Assigned(Self.Status) then
+                aObj.Status.AsString := Self.Status.AsString;
+              aObj.Number.AsVariant:=Self.Number.AsVariant;
+              aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
+              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet));
+              aObj.FieldByName('VERSION').AsString:=Self.FieldByName('VERSION').AsString;
+              aObj.Post;
+              Self.GenerateThumbnail;
+            end
+          else //Modify existing
+            begin
+              while aObj.Count>1 do
+                aObj.Delete;
+              if aObj.Text.AsString<>Self.Text.AsString then
+                begin
+                  aObj.Edit;
+                  aObj.Text.AsString := Self.Text.AsString;
+                end;
+              if aObj.Number.AsString<>Self.Number.AsString then
+                begin
+                  aObj.Edit;
+                  aObj.Number.AsString := Self.Number.AsString;
+                end;
+              if Assigned(Self.Status) and (aObj.Status.AsString<>Self.Status.AsString) then
+                begin
+                  aObj.Edit;
+                  aObj.Status.AsString := Self.Status.AsString;
+                end;
+              if Assigned(Self.Matchcode) and (aObj.Matchcode.AsString<>Self.Matchcode.AsString) then
+                begin
+                  aObj.Edit;
+                  aObj.Matchcode.AsString := Self.Matchcode.AsString;
+                end;
+              if aObj.FieldByName('LINK').AsString<>Data.BuildLink(Self.DataSet) then
+                begin
+                  aObj.Edit;
+                  aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
+                end;
+              if aObj.FieldByName('VERSION').AsString<>Self.FieldByName('VERSION').AsString then
+                begin
+                  aObj.Edit;
+                  aObj.FieldByName('VERSION').AsString:=Self.FieldByName('VERSION').AsString;
+                end;
+              if aObj.CanEdit then
+                aObj.Post;
+            end;
+        end;
+    finally
+      aObj.Free;
+      aHistory.Free;
+    end;
+  except
+  end;
+end;
+
 procedure TMasterdataList.Select(aID: string);
 begin
   with BaseApplication as IBaseDbInterface do
@@ -984,6 +1122,7 @@ begin
       Result := True;
     end;
 end;
+
 initialization
 end.
 

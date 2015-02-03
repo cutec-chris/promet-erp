@@ -31,10 +31,12 @@ type
     function GetNumberFieldName: string;override;
     function GetStatusFieldName: string;override;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
       aMasterdata: TDataSet=nil); override;
+    constructor Create(aOwner : TComponent);override;
     function GetTyp: string; override;
     procedure DefineFields(aDataSet : TDataSet);override;
+    procedure SetDisplayLabels(aDataSet : TDataSet);override;
     function SelectFromLink(aLink: string) : Boolean; override;
     procedure SelectFromParent(aParent : Variant);virtual;
   end;
@@ -50,7 +52,7 @@ type
   private
     FProject: TProjectList;
   public
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure FillDefaults(aDataSet : TDataSet);override;
     procedure Open;override;
@@ -82,7 +84,7 @@ type
     property Project : TProjectList read FProject;
   end;
   TProjectQuestionEvent = function(Sender : TProjectList) : Boolean;
-  TProject = class(TProjectList,IBaseHistory)
+  TProject = class(TProjectList,IBaseHistory,IBaseStructure)
     procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FHistory: TProjectHistory;
@@ -95,8 +97,10 @@ type
     FStatus : string;
     FTarget: String;
     function GetHistory: TBaseHistory;
+    function GetParentField: string;
+    function GetStructureElements(aIndex : Integer) : TBaseDbDataSet;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure Open; override;
     procedure Recalculate;
@@ -112,14 +116,18 @@ type
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
     procedure Makesnapshot(aName : string);
     procedure Delete; override;
+    procedure GenerateThumbnail; override;
+    procedure CheckNeedsAction;
+    function DuplicateFromOtherProcess(bProject: TProject): Boolean;
   end;
 implementation
-uses uBaseSearch,uBaseApplication,Utils;
+uses uBaseSearch,uBaseApplication,Utils,uthumbnails,uData;
 resourcestring
   strTargetChanged              = 'Zieldatum geändert von %s zu %s';
   strManagerChanged             = 'Projektleiter geändert zu %s';
   strPlanedPrice                = 'Planpreis';
   strRealPrice                  = 'Echtpreis';
+  strWholeRealPrice             = 'Echtpreis gesamt';
   strInvoiceDate                = 'Rechnungsdatum';
 function TProjectPositions.GetCurrency: string;
 begin
@@ -230,13 +238,14 @@ begin
   inherited SetDisplayLabels(aDataSet);
   SetDisplayLabelName(aDataSet,'SELLPRICE',strPlanedPrice);
   SetDisplayLabelName(aDataSet,'REALPRICE',strRealPrice);
+  SetDisplayLabelName(aDataSet,'REALPOSPRICE',strWholeRealPrice);
   SetDisplayLabelName(aDataSet,'ORIGDATE',strInvoiceDate);
 end;
 
-constructor TProjectTasks.Create(aOwner: TComponent; DM: TComponent;
+constructor TProjectTasks.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   ActualFilter:='';
 end;
 
@@ -246,7 +255,7 @@ begin
   inherited FillDefaults(aDataSet);
   aID := (Parent as TProject).Id.AsVariant;
   aDataSet.FieldByName('PROJECTID').AsVariant:=aID;
-  aDataSet.FieldByName('PROJECT').AsVariant:=(Parent as TProject).Text.AsVariant;
+  aDataSet.FieldByName('PROJECT').AsVariant:=TBaseDBModule(DataModule).GetLinkDesc(TBaseDBModule(DataModule).BuildLink((Parent as TProject).DataSet));
 end;
 procedure TProjectTasks.Open;
 begin
@@ -300,11 +309,13 @@ begin
         History.Open;
       if (Field.FieldName = 'STATUS') then
         begin
+          if FStatus=Field.AsString then exit;
           History.AddItem(Self.DataSet,Format(strStatusChanged,[FStatus,Field.AsString]),'','',DataSet,ACICON_STATUSCH);
           FStatus := Field.AsString;
           if Assigned(FStateChange) then
             FStateChange(Self);
           Makesnapshot(FStatus+' '+DateToStr(Now()));
+          OpenItem(False);
         end;
       if (Field.FieldName = 'ID') then
         begin
@@ -317,7 +328,7 @@ begin
         end;
       if (Field.FieldName = 'PMANAGER') then
         begin
-          aUsers := TUser.Create(nil,DataModule);
+          aUsers := TUser.CreateEx(nil,DataModule);
           aUsers.SelectByAccountno(Field.AsString);
           aUsers.Open;
           if aUsers.Count>0 then
@@ -333,15 +344,25 @@ begin
   Result := History;
 end;
 
+function TProject.GetParentField: string;
+begin
+  Result := 'PARENT';
+end;
+
+function TProject.GetStructureElements(aIndex: Integer): TBaseDbDataSet;
+begin
+  Result := nil;
+end;
+
 function TProjectList.GetTyp: string;
 begin
   Result := 'P';
 end;
 
-constructor TProject.Create(aOwner: TComponent; DM: TComponent;
+constructor TProject.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -353,14 +374,14 @@ begin
           UpdateFloatFields:=True;
         end;
     end;
-  FHistory := TProjectHistory.Create(Self,DM,aConnection,DataSet);
-  FPositions := TProjectPositions.Create(Self,DM,aConnection,DataSet);
+  FHistory := TProjectHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FPositions := TProjectPositions.CreateEx(Self,DM,aConnection,DataSet);
   FPositions.FProject := Self;
-  FImages := TImages.Create(Self,DM,aConnection,DataSet);
-  FLinks := TProjectLinks.Create(Self,DM,aConnection);
+  FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
+  FLinks := TProjectLinks.CreateEx(Self,DM,aConnection);
   with Self.DataSet as IBaseSubDataSets do
     RegisterSubDataSet(FLinks);
-  FTasks := TProjectTasks.Create(Self,DM,aConnection);
+  FTasks := TProjectTasks.CreateEx(Self,DM,aConnection);
   with Self.DataSet as IBaseSubDataSets do
     RegisterSubDataSet(FTasks);
   FTasks.FProject := Self;
@@ -443,6 +464,8 @@ begin
       FieldByName('STATUS').AsString := 'A';
       FieldByName('TYPE').AsString := 'P';
       FieldByName('START').AsDateTime := Now();
+      FieldByName('CREATEDAT').AsDateTime := Now();
+      FieldByName('GPRIORITY').AsInteger := 10000;
       if Data.Numbers.HasNumberSet('PROJECTS') then
         if FieldByName('ID').IsNull then
           FieldByName('ID').AsString := Data.Numbers.GetNewNumber('PROJECTS');
@@ -465,9 +488,11 @@ end;
 
 procedure TProject.Delete;
 begin
+  Tasks.DataSet.DisableControls;
   Tasks.Open;
   while Tasks.Count>0 do
     Tasks.Delete;
+  Tasks.DataSet.EnableControls;
   Links.Open;
   while Links.Count>0 do
     Links.Delete;
@@ -475,6 +500,106 @@ begin
   while Positions.Count>0 do
     Positions.Delete;
   inherited Delete;
+end;
+
+procedure TProject.GenerateThumbnail;
+var
+  aThumbnail: TThumbnails;
+begin
+  aThumbnail := TThumbnails.CreateEx(nil,DataModule);
+  aThumbnail.CreateTable;
+  aThumbnail.SelectByRefId(Self.Id.AsVariant);
+  aThumbnail.Open;
+  if aThumbnail.Count=0 then
+    Images.GenerateThumbnail(aThumbnail);
+  aThumbnail.Free;
+end;
+
+procedure TProject.CheckNeedsAction;
+var
+  aTasks: TTaskList;
+begin
+  aTasks := TTaskList.CreateEx(nil,DataModule,Connection);
+  aTasks.Filter(TBaseDBModule(DataModule).QuoteField('PROJECTID')+'='+TBaseDBModule(DataModule).QuoteValue(Self.Id.AsString)+' AND '+TBaseDBModule(DataModule).QuoteField('NEEDSACTION')+'='+TBaseDBModule(DataModule).QuoteValue('Y'));
+  Edit;
+  if aTasks.Count>0 then
+    FieldByName('NEEDSACTION').AsString:='Y'
+  else FieldByName('NEEDSACTION').AsString:='N';
+  Post;
+end;
+
+function TProject.DuplicateFromOtherProcess(bProject: TProject): Boolean;
+var
+  cProject: TProject;
+  aTask: TTask;
+  aLink: String;
+  bTask: TTask;
+begin
+  bProject.Tasks.Open;
+  bProject.Tasks.First;
+  Tasks.ImportFromXML(bProject.Tasks.ExportToXML);
+  Tasks.First;
+  cProject := TProject.CreateEx(nil,DataModule);
+  cProject.Select(Id.AsVariant);
+  cProject.Open;
+  cProject.Tasks.Open;
+  while not Tasks.DataSet.EOF do
+    begin
+      if bProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS',VarArrayOf([Tasks.FieldByName('SUMMARY').AsString,Tasks.FieldByName('WORKSTATUS').AsVariant]),[]) then
+        begin
+          Tasks.Dependencies.Open;
+          while Tasks.Dependencies.Count>0 do
+            Tasks.Dependencies.Delete;
+          aTask := TTask.CreateEx(nil,DataModule); //Old Task
+          aTask.Select(bProject.Tasks.Id.AsVariant);
+          aTask.Open;
+          aTask.Dependencies.Open;
+          with aTask.Dependencies.DataSet do
+            begin
+              First;
+              while not EOF do
+                begin
+                  aLink := FieldByName('LINK').AsString;
+                  if pos('{',aLink) > 0 then
+                    aLink := copy(aLink,0,pos('{',aLink)-1);
+                  aLink := copy(aLink,7,length(aLink));
+                  if bProject.Tasks.GotoBookmark(StrToInt64Def(aLink,0)) then
+                    begin
+                      if cProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS;PARENT',VarArrayOf([bProject.Tasks.FieldByName('SUMMARY').AsString,bProject.Tasks.FieldByName('WORKSTATUS').AsVariant,bProject.Tasks.FieldByName('PARENT').AsVariant]),[]) then
+                        begin
+                          bTask := TTask.CreateEx(nil,DataModule); //New Task
+                          bTask.Select(Tasks.Id.AsVariant);
+                          bTask.Open;
+                          bTask.Dependencies.Open;
+                          while bTask.Dependencies.Locate('LINK',FieldByName('LINK').AsString,[]) do
+                            bTask.Dependencies.Delete;
+                          bTask.Dependencies.Add(TBaseDBModule(DataModule).BuildLink(cProject.Tasks.DataSet));
+                          bTask.Free;
+                        end;
+                    end;
+                  Next;
+                end;
+            end;
+          aTask.Free;
+        end;
+      Tasks.DataSet.Next;
+    end;
+  Tasks.DataSet.First;
+  while not Tasks.DataSet.EOF do
+    begin
+      if not Tasks.FieldByName('PARENT').IsNull then
+        begin
+          if bProject.Tasks.GotoBookmark(Tasks.FieldByName('PARENT').AsVariant) then
+            if cProject.Tasks.DataSet.Locate('SUMMARY;WORKSTATUS',VarArrayOf([bProject.Tasks.FieldByName('SUMMARY').AsString,bProject.Tasks.FieldByName('WORKSTATUS').AsVariant]),[]) then
+              begin
+                if not Tasks.CanEdit then Tasks.DataSet.Edit;
+                Tasks.FieldByName('PARENT').AsVariant:=cProject.Tasks.Id.AsVariant;
+                Tasks.DataSet.Post;
+              end;
+        end;
+      Tasks.DataSet.Next;
+    end;
+  cProject.Free;
 end;
 
 procedure TProjectLinks.FillDefaults(aDataSet: TDataSet);
@@ -525,10 +650,10 @@ function TProjectList.GetStatusFieldName: string;
 begin
   Result:='STATUS';
 end;
-constructor TProjectList.Create(aOwner: TComponent; DM: TComponent;
+constructor TProjectList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -538,7 +663,14 @@ begin
           UsePermissions:=True;
         end;
     end;
+  UpdateFloatFields:=True;
 end;
+
+constructor TProjectList.Create(aOwner: TComponent);
+begin
+  CreateEx(aOwner,Data,nil,nil);
+end;
+
 procedure TProjectList.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -553,23 +685,32 @@ begin
             Add('TYPE',ftString,1,False);
             Add('NAME',ftString,250,False);
             Add('STATUS',ftString,4,True);
+            Add('NEEDSACTION',ftString,1,False);
             Add('TREEENTRY',ftLargeInt,0,false);
             Add('START',ftDate,0,false);
             Add('END',ftDate,0,false);
+            Add('CRITPATH',ftFloat,0,false);//length of Critical Path in days
             Add('TARGET',ftDate,0,false);
             Add('PLANTARGET',ftDate,0,false);
             Add('TARGETCOSTS',ftFloat,0,false);
             Add('COSTS',ftFloat,0,false);
             Add('CURRENCY',ftString,5,False);
+            Add('COLOR',ftString,12,False);
             Add('DESCRIPTION',ftMemo,0,false);
             Add('PARENT',ftLargeint,0,False);
             Add('PMANAGER',ftString,20,False);
             Add('INFORMLEADER',ftString,1,False);
             Add('INFORMPMANAGER',ftString,1,False);
             Add('GROSSPLANNING',ftString,1,False);
+            Add('ISTEMPLATE',ftString,1,False);
+            Add('COSTCENTRE',ftString,10,False);//Kostenstelle
+            Add('ACCOUNT',ftString,10,False); //Fibu Konto
+            Add('ACCOUNTINGINFO',ftMemo,0,False); //Fibu Info
             Add('CATEGORY',ftString,60,False);
+            Add('CLASS',ftString,60,False);
             Add('CHANGEDBY',ftString,4,false);
             Add('CREATEDBY',ftString,4,false);
+            Add('CREATEDAT',ftDate,0,false);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
@@ -580,6 +721,14 @@ begin
           end;
     end;
 end;
+
+procedure TProjectList.SetDisplayLabels(aDataSet: TDataSet);
+begin
+  inherited SetDisplayLabels(aDataSet);
+  SetDisplayLabelName(DataSet,'COSTS',strCosts);
+  SetDisplayLabelName(DataSet,'TARGETCOSTS',strTargetCosts);
+end;
+
 function TProjectList.SelectFromLink(aLink: string): Boolean;
 begin
   Result := False;

@@ -24,7 +24,7 @@ unit uTimeLine;
 interface
 
 uses
-  Classes, SysUtils, Controls, Graphics, FileUtil;
+  Classes, SysUtils, Controls, Graphics, Utils;
 
 type
   TTLOrientation = (toHorizontal,toVertical);
@@ -161,12 +161,12 @@ begin
               if (FOrientation = toHorizontal) then
                 begin
                   if FUseLongMonth then
-                    TextOut(y,round(x+TextExtent(SysToUTF8(LongMonthNames[aMonth])).cx),SysToUTF8(LongMonthNames[aMonth]))
+                    TextOut(y,round(x+TextExtent(SysToUni(LongMonthNames[aMonth])).cx),SysToUni(LongMonthNames[aMonth]))
                   else
-                    TextOut(y,round(x+TextExtent(SysToUTF8(ShortMonthNames[aMonth])).cx),SysToUTF8(ShortMonthNames[aMonth]));
+                    TextOut(y,round(x+TextExtent(SysToUni(ShortMonthNames[aMonth])).cx),SysToUni(ShortMonthNames[aMonth]));
                 end
               else
-                TextOut(round(x),y,SysToUTF8(ShortMonthNames[aMonth]));
+                TextOut(round(x),y,SysToUni(ShortMonthNames[aMonth]));
               Month := aMonth;
             end;
           inc(y,TextExtent('HY').cy);

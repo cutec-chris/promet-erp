@@ -39,7 +39,7 @@ uses
   {$ELSE}
   Windows,
   {$ENDIF}
-  SysUtils, Classes,
+  SysUtils, Classes,Graphics,
   {$IFDEF VERSION6} Types, {$ENDIF}
   VpBase, VpSR, VpConst, Dialogs;
 
@@ -189,6 +189,7 @@ type
 
   TVpEvent = class
   private
+    FColor: TColor;
     FLocation: string;
     FStrCategory: String;
     procedure SetCategory(AValue: String);
@@ -275,6 +276,7 @@ type
     property CustInterval : Integer read FCustInterval write SetCustInterval;
     property Owner: TVpSchedule read FOwner;
     property Location: string read FLocation write FLocation;
+    property Color : TColor read FColor write FColor;
     { Reserved for your use }
     property UserField0: string read FUserField0 write FUserField0;
     property UserField1: string read FUserField1 write FUserField1;
@@ -833,6 +835,7 @@ begin
   FItemIndex := -1;
   FSnoozeTime := 0.0;
   FCategory:=8;
+  FColor:=clNone;
 end;
 {=====}
 
@@ -1308,6 +1311,23 @@ begin
     EventList.Clear
 
   else begin
+    { Add Allday Events. }
+    for I := 0 to pred(EventCount) do begin
+      Event := GetEvent(I);
+
+      { if this is a repeating event and it falls on "Date" then add it to }
+      { the list.                                                          }
+      if (Event.RepeatCode > rtNone)
+      and (RepeatsOn(Event, Date))
+      and Event.AllDayEvent then
+        EventList.Add(Event)
+      { otherwise if this event naturally falls on "Date" then add it to   }
+      { the list.                                                          }
+      else if ((trunc(Date) >= trunc(Event.StartTime))
+           and (trunc(Date) <= trunc(Event.EndTime)))
+           and Event.AllDayEvent then
+        EventList.Add(Event);
+    end;
     { Add this days events to the Event List. }
     for I := 0 to pred(EventCount) do begin
       Event := GetEvent(I);
@@ -1316,12 +1336,13 @@ begin
       { the list.                                                          }
       if (Event.RepeatCode > rtNone)
       and (RepeatsOn(Event, Date))
-      then
+      and (not Event.AllDayEvent) then
         EventList.Add(Event)
       { otherwise if this event naturally falls on "Date" then add it to   }
       { the list.                                                          }
       else if ((trunc(Date) >= trunc(Event.StartTime))
-           and (trunc(Date) <= trunc(Event.EndTime))) then
+           and (trunc(Date) <= trunc(Event.EndTime)))
+           and (not Event.AllDayEvent) then
         EventList.Add(Event);
     end;
   end;
@@ -2305,4 +2326,4 @@ begin
 end;
 {=====}
 
-end.
+end.

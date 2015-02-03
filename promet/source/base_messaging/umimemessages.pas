@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, MimeMess, mimepart, uMessages,
-  uDocuments, uBaseDbClasses, Variants, db, synacode, synachar, LConvEncoding,
+  uDocuments, uBaseDbClasses, Variants, db, synacode, synachar,
   zipper;
 type
   TMimeMessage = class(TMessage)
@@ -40,7 +40,7 @@ type
   end;
   function GetmailAddr(aIn : string) : string;
 implementation
-uses uData, FileUtil, synautil,uBaseDbInterface,uBaseApplication;
+uses uData, Utils, synautil,uBaseDbInterface,uBaseApplication;
 function GetmailAddr(aIn : string) : string;
 begin
   Result := GetEmailAddr(aIn);
@@ -80,7 +80,7 @@ begin
                           Content.DataSet.Post;
                           Content.DataSet.Edit;
                         end;
-                      Document := TDocument.Create(Self,Data);
+                      Document := TDocument.CreateEx(Self,Data);
                       Document.Select(0);
                       Document.Open;
                       Document.Ref_ID := Content.Id.AsVariant;
@@ -147,7 +147,7 @@ begin
           Content.DataSet.Post;
           Content.DataSet.Edit;
         end;
-      Document := TDocument.Create(Self,Data);
+      Document := TDocument.CreateEx(Self,Data);
       Document.Select(0);
       Document.Open;
       Document.Ref_ID := Content.Id.AsVariant;
@@ -156,12 +156,12 @@ begin
       Document.BaseVersion := Null;
       Document.BaseLanguage := Null;
       atmp := Sender.Filename;
-      atmp := ConvertEncoding(atmp,GuessEncoding(atmp),EncodingUTF8);
+      atmp := SysToUni(atmp);
       Document.AddFromStream(copy(ExtractFileName(atmp),0,rpos('.',ExtractFileName(atmp))-1),
                              copy(ExtractFileExt(atmp),2,length(ExtractFileExt(atmp))),
                              Sender.DecodedLines,
                              Sender.ContentID,
-                             Now());
+                             Now(),False);
       Document.Free;
     end;
 end;
@@ -189,6 +189,7 @@ var
   MP: TMimePart;
   aDocument: TDocument;
   aMimePart: TMimePart;
+  aParent: TMessageList;
 begin
   Result := nil;
   aMessage := TMimeMess.Create;
@@ -202,6 +203,17 @@ begin
   aMessage.Header.Date := DataSet.FieldByName('SENDDATE').AsDateTime;
   if not DataSet.FieldByName('REPLYTO').IsNull then
     aMessage.Header.ReplyTo:=DataSet.FieldByName('REPLYTO').AsString;
+  if not DataSet.FieldByName('PARENT').IsNull then
+    begin
+      aParent := TMessageList.CreateEx(nil,DataModule);
+      aParent.SelectByMsgID(DataSet.FieldByName('PARENT').AsVariant);
+      aParent.Open;
+      if aParent.Count>0 then
+        begin
+          aMessage.Header.CustomHeaders.Add('References: <'+aParent.FieldByName('ID').AsString+'>');
+        end;
+      aParent.Free;
+    end;
   aMessage.Header.Subject := CharsetConversion(DataSet.FieldByName('SUBJECT').AsString,UTF_8,amessage.Header.CharsetCode);
   aMessage.Header.MessageID := DataSet.FieldByName('ID').AsString;
   MailAddressesFromString(Content.DataSet.FieldByName('RECEIVERS').AsString,aMessage.Header.ToList);
@@ -244,7 +256,7 @@ begin
             begin
               if Documents.DataSet.FieldByName('ISDIR').AsString <> 'Y' then
                 begin
-                  aDocument := TDocument.Create(Self,Data);
+                  aDocument := TDocument.CreateEx(Self,Data);
                   aDocument.SelectByNumber(Documents.DataSet.FieldByName('NUMBER').AsInteger);
                   aDocument.Open;
                   if aDocument.Count>0 then
@@ -304,8 +316,9 @@ var
   sl: TStringList;
   aMsgList: TMessageList;
   aTree: TTree;
+  aMessages: TMessageList;
 begin
-  atmp := SysToUTF8(msg.Header.From);
+  atmp := SysToUni(msg.Header.From);
   if not CanEdit then
     DataSet.Edit;
   with DataSet do
@@ -317,18 +330,18 @@ begin
         end;
       if FieldByName('ID').IsNull then
         FieldByName('ID').AsString := msg.Header.MessageID;
-      FieldByName('SENDER').AsString := ConvertEncoding(atmp,GuessEncoding(atmp),EncodingUTF8);;
-      FieldByName('REPLYTO').AsString := ConvertEncoding(msg.Header.ReplyTo,GuessEncoding(msg.Header.ReplyTo),EncodingUTF8);;
+      FieldByName('SENDER').AsString := SysToUni(atmp);
+      FieldByName('REPLYTO').AsString := SysToUni(msg.Header.ReplyTo);
       FieldByName('SENDDATE').AsDateTime := msg.Header.Date;
       if FieldDefs.IndexOf('SENDTIME') <> -1 then
         FieldByName('SENDTIME').AsFloat := Frac(msg.Header.Date);
-      atmp := ConvertEncoding(msg.Header.Subject,GuessEncoding(msg.Header.Subject),EncodingUTF8);
+      atmp := SysToUni(msg.Header.Subject);
       FieldbyName('SUBJECT').AsString := atmp;
       FieldbyName('LINES').AsInteger := msg.Lines.Count;
       FieldbyName('SIZE').AsInteger := length(msg.Lines.text);
       if msg.Header.FindHeader('Newsgroups') <> '' then
         begin
-          aTree := TTree.Create(Self,Data,Connection);
+          aTree := TTree.CreateEx(Self,Data,Connection);
           aTree.Open;
           atmp := trim(msg.Header.FindHeader('Newsgroups'));
           if aTree.DataSet.Locate('TYPE;NAME',VarArrayOf(['B',atmp]),[loCaseInsensitive]) then
@@ -343,14 +356,16 @@ begin
         end;
       if msg.Header.FindHeader('References') <> '' then
         begin
-          aMsgList := TMessageList.Create(Self,Data,Connection);
+          aMsgList := TMessageList.CreateEx(Self,Data,Connection);
           atmp := msg.Header.FindHeader('References');
           while pos('<',atmp) > 0 do
-            atmp := copy(atmp,pos('<',atmp)+1,length(atmp));
-          aMsgList.SelectByID(copy(atmp,0,pos('>',atmp)-1));
-          aMsgList.Open;
-          if aMsgList.Count > 0 then
-            FieldbyName('PARENT').AsInteger := aMsgList.Number.AsInteger;
+            begin
+              atmp := copy(atmp,pos('<',atmp)+1,length(atmp));
+              aMsgList.SelectByID(copy(atmp,0,pos('>',atmp)-1));
+              aMsgList.Open;
+              if aMsgList.Count > 0 then
+                FieldbyName('PARENT').AsInteger := aMsgList.Number.AsInteger;
+            end;
           aMsgList.Destroy;
         end;
       Post;

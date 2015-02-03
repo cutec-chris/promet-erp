@@ -73,11 +73,11 @@ constructor TfLanguageOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aLanguages := TLanguages.Create(Self,Data,aConnection);
+  aLanguages := TLanguages.CreateEx(Self,Data,aConnection);
   LanguagesDS.DataSet := aLanguages.DataSet;
-  aCountries := TCountries.Create(Self,Data,aConnection);
+  aCountries := TCountries.CreateEx(Self,Data,aConnection);
   CountriesDS.DataSet := aCountries.DataSet;
-  aDispatchTypes := TDispatchTypes.Create(Self,Data,aConnection);
+  aDispatchTypes := TDispatchTypes.CreateEx(Self,Data,aConnection);
   DispatchTypesDS.DataSet := aDispatchTypes.DataSet;
 end;
 

@@ -2,7 +2,7 @@ unit uDocumentProcess;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uDocuments, UTF8Process, Process;
+  Classes, SysUtils, uDocuments, Process;
 type
   TDocExecuteThread = class(TThread)
   private
@@ -13,19 +13,21 @@ type
     FTempID: String;
     FDocument : TDocument;
     FExit : Integer;
+    FDocActionId : Variant;
+    FMimeId : Variant;
     procedure DoReturn;
   public
     property OwnCmd : string read FCmd;
     property Language : string read FLanguage write fLanguage;
     function DoExecuteDocumentCommands(bCmd: string; UseStarter: Boolean): Integer;
     function DoAfterExecutedCommands(aDoDelete: Boolean; ExStatus: Integer; TempId: string) : Boolean;
-    constructor Create(Document : TDocument;Cmd : string;DoDelete : Boolean;UseStarter : Boolean;TempID : string);
+    constructor Create(Document : TDocument;Cmd : string;DoDelete : Boolean;UseStarter : Boolean;TempID : string;aDocActionId : Variant;aMimeId : Variant);
     procedure Execute;override;
   end;
 var
   ProcessList : TList;
 implementation
-uses FileUtil, uBaseApplication, SecureUtils, Dialogs, uIntfStrConsts, Controls;
+uses uBaseApplication, SecureUtils, uIntfStrConsts,uData,Utils;
 resourcestring
   strFailedExecuteProcess       = 'Möglicherweise ist das auführen von "%s" fehlgeschlagen, Rückgabewert: %d';
   strNoValidCommand             = 'Sie haben einen ungültigen befehl in den Dateiaktionen angegeben. Gültige Befehle müssen mit exec: oder mkdir: beginnen.';
@@ -33,16 +35,15 @@ resourcestring
   strCheckinFailed              = 'Holen der Dateien fehlgeschlagen, das Temporäre Verzeichnis wurde nicht gelöscht !';
 procedure TDocExecuteThread.DoReturn;
 begin
-  if not DoAfterExecutedCommands(FDoDelete,FExit,FTempID) then
-//    fError.ShowWarning(strCheckinFailed);
-    ;//TODO:Do Something ;)
+  DoAfterExecutedCommands(FDoDelete,FExit,FTempID);
   ProcessList.Remove(Self);
   FDocument.Destroy;
 end;
 function TDocExecuteThread.DoExecuteDocumentCommands(bCmd : string;UseStarter : Boolean) : Integer;
 var
-  Proc: TProcessUTF8;
+  Proc: TProcess;
   ACmd: String;
+  tmp: String;
 begin
   while bCmd <> '' do
     begin
@@ -60,13 +61,14 @@ begin
         begin
           ACmd := StringReplace(copy(ACmd,6,length(ACmd)),#13,'',[rfReplaceAll]);
           ACmd := StringReplace(ACmd,#10,'',[rfReplaceAll]);
-          Proc := TProcessUTF8.Create(BaseApplication);
+          Proc := TProcess.Create(BaseApplication);
           if UseStarter then
             {$IFNDEF DARWIN}
             Proc.CommandLine := AppendPathDelim(ExtractFilePath(BaseApplication.Exename))+'pstarter'+ExtractFileExt(BaseApplication.Exename)+' '+Language+' '+ACmd
             {$ELSE}
             //TODO:add Language
-            Proc.CommandLine := FileUtil.CleanAndExpandDirectory(BaseApplication.Location+'..'+DirectorySeparator+'..'+DirectorySeparator+'..'+DirectorySeparator)+'pstarter.app/Contents/MacOS/pstarter '+'de'+' '+ACmd
+            tmp := BaseApplication.Location
+            //Proc.CommandLine := FileUtil.CleanAndExpandDirectory(BaseApplication.Location+'..'+DirectorySeparator+'..'+DirectorySeparator+'..'+DirectorySeparator)+'pstarter.app/Contents/MacOS/pstarter '+'de'+' '+ACmd
             {$ENDIF}
           else
             Proc.CommandLine := ACmd;
@@ -86,7 +88,7 @@ begin
       else if copy(Uppercase(ACmd),0,6) = 'MKDIR:' then
         begin
           ACmd := StringReplace(copy(ACmd,7,length(ACmd)),#13,'',[rfReplaceAll]);
-          ForceDirectoriesUTF8(ACmd);
+          ForceDirectories(uniToSys(ACmd));
         end
       else raise Exception.Create(strNoValidCommand);
     end;
@@ -99,6 +101,8 @@ var
   DelOK: Boolean;
   aRec: String;
   FileList: TStrings;
+  aDocAction: TDocumentActions;
+  aMime: TMimeTypes;
 label DelRetry;
 begin
   FileName := FDocument.GetIDCheckoutPath('',TempId);
@@ -115,29 +119,48 @@ begin
   //Remove Temp Stuff
   if aDoDelete and Result then
     begin
-    with BaseApplication as IBaseApplication do
-      begin
-        if DirectoryExistsUTF8(filename) then
-          begin
-          DelRetry:
-            case Config.ReadInteger('DELETEMETHOD',0) of
-            0:DelOK := DeleteDirectory(filename,False);
-            1:DelOK := DeleteDirectorySecure(filename,False);
-            2:DelOK := DeleteDirectorySecure(filename,False,dmDoD522022);
-            3:DelOK := DeleteDirectorySecure(filename,False,dmOverride);
-            end;
-            if not DelOK then
-              if MessageDlg(strDelete,strCantDeleteTempDirectory,mtWarning,[mbRetry,mbAbort],0) = mrRetry then
-                goto DelRetry;
-          end;
-      end;
+      if DirectoryExists(UniToSys(filename)) then
+        begin
+        DelRetry:
+          DelOK := RemoveDir(filename);
+        end;
     end
   else if aDoDelete then
-    ShowMessage(strCheckinFailed);
+    raise Exception.Create(strCheckinFailed)
+    ;
+  if FUseStarter and (ExStatus=1) then //Dont Use Starter again
+    begin
+      aDocAction := TDocumentActions.Create(nil);
+      aDocAction.Select(FDocActionId);
+      aDocAction.Open;
+      if aDocAction.Count>0 then
+        begin
+          aDocAction.Edit;
+          aDocAction.FieldByName('USESTARTER').AsString:='N';
+          aDocAction.Post;
+        end
+      else
+        begin
+          aMime := TMimeTypes.Create(nil);
+          aMime.Select(FMimeId);
+          aMime.Open;
+          if aMime.Count>0 then
+            begin
+              aMime.Edit;
+              aMime.FieldByName('USESTARTER').AsString:='N';
+              aMime.Post;
+            end;
+          aMime.Free;
+        end;
+      aDocAction.Free;
+    end;
 end;
 constructor TDocExecuteThread.Create(Document: TDocument; Cmd: string;
-  DoDelete: Boolean; UseStarter: Boolean; TempID: string);
+  DoDelete: Boolean; UseStarter: Boolean; TempID: string;
+  aDocActionId: Variant; aMimeId: Variant);
 begin
+  FDocActionId := aDocActionId;
+  FMimeId := aMimeId;
   FCmd := Cmd;
   FDoDelete := DoDelete;
   FUseStarter := UseStarter;
@@ -146,8 +169,12 @@ begin
   FLanguage := 'de';
   FDocument := Document;
   ProcessList.Add(Self);
-  inherited Create(False);
+  if not BaseApplication.HasOption('disablethreads') then
+    inherited Create(False)
+  else
+    Execute;
 end;
+
 procedure TDocExecuteThread.Execute;
 begin
   FExit := DoExecuteDocumentCommands(FCmd,FUseStarter);
@@ -158,4 +185,4 @@ initialization
 finalization
   ProcessList.Destroy;
 end.
-
+

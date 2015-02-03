@@ -22,7 +22,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ExtCtrls,
   ActnList, ComCtrls, StdCtrls, DbCtrls, Buttons, Menus, db, uPrometFrames,
-  uExtControls, uFilterFrame, uIntfStrConsts, Utils, Dialogs, variants;
+  uExtControls, uFilterFrame, uIntfStrConsts, Utils, Dialogs, variants,
+  uMeasurement;
 type
 
   { TfArticleFrame }
@@ -39,9 +40,12 @@ type
     acDelete: TAction;
     acRights: TAction;
     acPrint: TAction;
+    acPasteImage: TAction;
+    acAddImage: TAction;
+    acScreenshot: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
-    bChangeNumber: TButton;
+    bChangeNumber: TSpeedButton;
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
@@ -62,10 +66,12 @@ type
     cbCategory: TExtDBCombobox;
     cbVersion: TComboBox;
     cbWarrenty: TDBComboBox;
+    DBCheckBox4: TDBCheckBox;
     eArticleNumber: TDBEdit;
     eBarcode: TDBEdit;
     eManufacturerNR: TDBEdit;
     eMatchCode: TDBEdit;
+    eRepairTime: TDBEdit;
     eUnit: TDBEdit;
     eWeight: TExtDBEdit;
     gbTree: TGroupBox;
@@ -82,16 +88,21 @@ type
     lManufacturerNr: TLabel;
     lMatchCode: TLabel;
     lQuantityUnit: TLabel;
+    lRepairtime: TLabel;
     lShortText: TLabel;
     lUnit: TLabel;
     lVAT: TLabel;
     lVAT1: TLabel;
     lWarrenty: TLabel;
     lWeight: TLabel;
+    MandantDetails: TDatasource;
     Masterdata: TDatasource;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     miCopy: TMenuItem;
     miDelete: TMenuItem;
     miPaste: TMenuItem;
@@ -109,8 +120,12 @@ type
     PList: TfrDBDataSet;
     pmAction: TPopupMenu;
     pNav1: TPanel;
+    pmImage: TPopupMenu;
     pPreviewImage: TPanel;
     Report: TfrReport;
+    sbAddImage: TSpeedButton;
+    sbClipboardToImage: TSpeedButton;
+    sbClipboardToImage1: TSpeedButton;
     sbMenue: TSpeedButton;
     ToolBar1: TPanel;
     ToolButton1: TSpeedButton;
@@ -119,9 +134,11 @@ type
     procedure acCancelExecute(Sender: TObject);
     procedure acCloseExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
+    procedure acPasteImageExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure acScreenshotExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
     procedure bChangeNumberClick(Sender: TObject);
     procedure cbNoStorageChange(Sender: TObject);
@@ -137,6 +154,8 @@ type
   private
     { private declarations }
     FEditable : Boolean;
+    FMeasurement: TMeasurement;
+    procedure AddMeasurement(Sender: TObject);
     procedure AddDocuments(Sender: TObject);
     procedure AddHistory(Sender: TObject);
     procedure AddImages(Sender: TObject);
@@ -147,6 +166,7 @@ type
     procedure AddSupplier(Sender: TObject);
     procedure AddRepair(Sender: TObject);
     procedure AddTexts(Sender: TObject);
+    procedure AddFinance(Sender: TObject);
   protected
     procedure DoOpen(RefreshVersions : Boolean = True);
     function SetRights : Boolean;
@@ -164,7 +184,9 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uHistoryFrame,uImageFrame,uLinkFrame,uBaseDbInterface,uListFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
   uMainTreeFrame,uPrometFramesInplace,uBaseDBClasses,uarticlesupplierframe,
-  uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki;
+  uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
+  uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uBaseERPDBClasses,
+  umeasurements;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -185,6 +207,71 @@ begin
           Data.StartTransaction(FConnection);
         end;
     end;
+end;
+procedure TfArticleFrame.acScreenshotExecute(Sender: TObject);
+var
+  aSheet: TTabSheet;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
+begin
+  Application.ProcessMessages;
+  Application.MainForm.Hide;
+  Application.ProcessMessages;
+  Application.CreateForm(TfScreenshot,fScreenshot);
+  with BaseApplication as IBaseApplication do
+    fScreenshot.SaveTo:=AppendPathDelim(GetInternalTempDir)+'screenshot.jpg';
+  fScreenshot.Show;
+  while fScreenshot.Visible do Application.ProcessMessages;
+  fScreenshot.Destroy;
+  fScreenshot := nil;
+  if DataSet.State=dsInsert then
+    begin
+      DataSet.Post;
+      DataSet.Edit;
+    end;
+  pcPages.AddTab(TfImageFrame.Create(Self),False);
+  aSheet := pcPages.GetTab(TfImageFrame);
+  if Assigned(aSheet) then
+    begin
+      Application.ProcessMessages;
+      with TfImageFrame(aSheet.Controls[0]) do
+        begin
+          if not DataSet.CanEdit then
+            DataSet.Insert;
+          with BaseApplication as IBaseApplication do
+            iPreview.Picture.LoadFromFile(AppendPathDelim(GetInternalTempDir)+'screenshot.jpg');
+          DataSet.Post;
+        end;
+      aThumbnails := TThumbnails.Create(nil);
+      aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+      aThumbnails.Open;
+      while aThumbnails.Count>0 do
+        aThumbnails.Delete;
+      TMasterdata(DataSet).GenerateThumbnail;
+      aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+      aThumbnails.Open;
+      if aThumbnails.Count>0 then
+        begin
+          aStream := TMemoryStream.Create;
+          Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+          aStream.Position:=0;
+          iArticle.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+          aStream.Free;
+          acPasteImage.Visible:=False;
+          acAddImage.Visible:=False;
+          acScreenshot.Visible:=False;
+        end
+      else
+        begin
+          iArticle.Picture.Clear;
+          acPasteImage.Visible:=True;
+          acAddImage.Visible:=True;
+          acScreenshot.Visible:=True;
+        end;
+      aThumbnails.Free;
+    end;
+
+  Application.MainForm.Show;
 end;
 procedure TfArticleFrame.acSetTreeDirExecute(Sender: TObject);
 begin
@@ -322,15 +409,22 @@ procedure TfArticleFrame.sbMenueClick(Sender: TObject);
 begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
 end;
+
+procedure TfArticleFrame.AddMeasurement(Sender: TObject);
+begin
+  TfMeasurementFrame(Sender).DataSet := FMeasurement;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
 procedure TfArticleFrame.AddDocuments(Sender: TObject);
 var
   aDocuments: TDocuments;
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsInteger,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
     end;
   TfDocumentFrame(Sender).BaseElement := FDataSet;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
@@ -387,6 +481,52 @@ begin
     end;
 end;
 
+procedure TfArticleFrame.acPasteImageExecute(Sender: TObject);
+var
+  aSheet: TTabSheet;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
+begin
+  if Clipboard.HasPictureFormat then
+    begin
+      pcPages.AddTab(TfImageFrame.Create(Self),False);
+      aSheet := pcPages.GetTab(TfImageFrame);
+      if Assigned(aSheet) then
+        begin
+          Application.ProcessMessages;
+          TfImageFrame(aSheet.Controls[0]).acPaste.Execute;
+          TfImageFrame(aSheet.Controls[0]).DataSet.Post;
+          aThumbnails := TThumbnails.Create(nil);
+          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+          aThumbnails.Open;
+          while aThumbnails.Count>0 do
+            aThumbnails.Delete;
+          TMasterdata(DataSet).GenerateThumbnail;
+          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+          aThumbnails.Open;
+          if aThumbnails.Count>0 then
+            begin
+              aStream := TMemoryStream.Create;
+              Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+              aStream.Position:=0;
+              iArticle.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+              aStream.Free;
+              acPasteImage.Visible:=False;
+              acAddImage.Visible:=False;
+              acScreenshot.Visible:=False;
+            end
+          else
+            begin
+              iArticle.Picture.Clear;
+              acPasteImage.Visible:=True;
+              acAddImage.Visible:=True;
+              acScreenshot.Visible:=True;
+            end;
+          aThumbnails.Free;
+        end;
+    end;
+end;
+
 procedure TfArticleFrame.acPrintExecute(Sender: TObject);
 var
   Hist : IBaseHistory;
@@ -395,6 +535,8 @@ begin
   fSelectReport.SetLanguage;
   if Supports(FDataSet, IBaseHistory, Hist) then
     History.DataSet := Hist.GetHistory.DataSet;
+  MandantDetails.DataSet:=Data.MandantDetails.DataSet;
+  Data.MandantDetails.Open;
   PList.DataSet := DataSet.DataSet;
   with FDataSet.DataSet as IBaseManageDB do
     begin
@@ -422,8 +564,11 @@ var
   aWikiPage: TfWikiFrame;
   aWikiIdx: Integer;
   aID: String;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
 begin
   pcPages.CloseAll;
+  TMasterdata(DataSet).OpenItem;
   TabCaption := TMasterdata(FDataSet).Text.AsString;
   Masterdata.DataSet := DataSet.DataSet;
   SetRights;
@@ -497,16 +642,12 @@ begin
   TMasterdata(DataSet).Positions.Open;
   if TMasterdata(DataSet).Positions.Count > 0 then
     pcPages.AddTab(TfArticlePositionFrame.Create(Self),False);
-  pcPages.AddTabClass(TfArticleTextFrame,strTexts,@AddTexts);
-  TMasterdata(DataSet).Texts.Open;
-  if TMasterdata(DataSet).Texts.Count > 0 then
-    pcPages.AddTab(TfArticleTextFrame.Create(Self),False);
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
-      aDocuments := TDocuments.Create(Self,Data);
+      aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
-      aDocuments.Select(DataSet.Id.AsInteger,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
+      aDocuments.Select(DataSet.Id.AsLargeInt,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
       aDocuments.Open;
       if aDocuments.Count = 0 then
         aDocuments.Free
@@ -518,13 +659,9 @@ begin
           aDocFrame.BaseElement := FDataSet;
         end;
     end;
-  pcPages.AddTabClass(TfListFrame,strPrices,@AddList);
-  TMasterdata(DataSet).Prices.Open;
-  if TMasterdata(DataSet).Prices.Count > 0 then
-    pcPages.AddTab(TfListFrame.Create(nil),False,strPrices);
   pcPages.AddTabClass(TfListFrame,strProperties,@AddList);
   TMasterdata(DataSet).Properties.Open;
-  if TMasterdata(DataSet).Properties.Count > 0 then
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Properties.Count > 0) then
     pcPages.AddTab(TfListFrame.Create(nil),False,strProperties);
   pcPages.AddTabClass(TfArticleStorageFrame,strStorage,@AddStorage);
   TMasterdata(DataSet).Storage.Open;
@@ -532,7 +669,7 @@ begin
     pcPages.AddTab(TfArticleStorageFrame.Create(nil),False);
   pcPages.AddTabClass(TfArticleSupplierFrame,strSupplier,@AddSupplier);
   TMasterdata(DataSet).Supplier.Open;
-  if TMasterdata(DataSet).Supplier.Count > 0 then
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Supplier.Count > 0) then
     pcPages.AddTab(TfArticleSupplierFrame.Create(nil),False);
   pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
   TMasterdata(DataSet).History.Open;
@@ -540,21 +677,40 @@ begin
     pcPages.AddTab(TfHistoryFrame.Create(Self),False);
   if not TMasterdata(DataSet).Images.DataSet.Active then
     TMasterdata(DataSet).Images.DataSet.Open;
-  s := TMasterdata(DataSet).Images.DataSet.CreateBlobStream(TMasterdata(DataSet).Images.FieldByName('IMAGE'),bmRead);
-  if (S=Nil) or (s.Size = 0) then
+  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Images.Count > 0) then
+    pcPages.AddTab(TfImageFrame.Create(Self),False);
+  TMasterdata(DataSet).Images.DataSet.Close;
+  aThumbnails := TThumbnails.Create(nil);
+  aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+  aThumbnails.Open;
+  if aThumbnails.Count>0 then
     begin
-      iArticle.Picture.Clear;
+      aStream := TMemoryStream.Create;
+      Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+      aStream.Position:=0;
+      iArticle.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+      aStream.Free;
+      acPasteImage.Visible:=False;
+      acAddImage.Visible:=False;
+      acScreenshot.Visible:=False;
     end
   else
     begin
-      GraphExt :=  s.ReadAnsiString;
-      iArticle.Picture.LoadFromStreamWithFileExt(s,GraphExt);
+      iArticle.Picture.Clear;
+      acPasteImage.Visible:=True;
+      acAddImage.Visible:=True;
+      acScreenshot.Visible:=True;
     end;
-  s.Free;
-  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
-  if TMasterdata(DataSet).Images.Count > 0 then
-    pcPages.AddTab(TfImageFrame.Create(Self),False);
-  TMasterdata(DataSet).Images.DataSet.Close;
+  aThumbnails.Free;
+  pcPages.AddTabClass(TfArticleTextFrame,strTexts,@AddTexts);
+  TMasterdata(DataSet).Texts.Open;
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Texts.Count > 0) then
+    pcPages.AddTab(TfArticleTextFrame.Create(Self),False);
+  pcPages.AddTabClass(TfListFrame,strPrices,@AddList);
+  TMasterdata(DataSet).Prices.Open;
+  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Prices.Count > 0) then
+    pcPages.AddTab(TfListFrame.Create(nil),False,strPrices);
   pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
   TMasterdata(DataSet).Links.Open;
   if TMasterdata(DataSet).Links.Count > 0 then
@@ -563,14 +719,20 @@ begin
   TMasterdata(DataSet).Assembly.Open;
   if TMasterdata(DataSet).Assembly.Count > 0 then
     pcPages.AddTab(TfArticleRepairFrame.Create(Self),False);
+  pcPages.AddTabClass(TfFinance,strFinance,@AddFinance);
+  if (not DataSet.FieldByName('COSTCENTRE').IsNull)
+  or (not DataSet.FieldByName('ACCOUNT').IsNull)
+  or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull) then
+    pcPages.AddTab(TfFinance.Create(Self),False);
+
   mShorttext.SetFocus;
   with Application as TBaseVisualApplication do
     AddTabClasses('ART',pcPages);
   with Application as TBaseVisualApplication do
     AddTabs(pcPages);
-  if DataSet.State<> dsInsert then
+  if (DataSet.State<> dsInsert) and (DataSet.Id.AsVariant<>Null) then
     begin
-      aWiki := TWikiList.Create(nil,Data);
+      aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
         begin
           while not aWiki.EOF do
@@ -584,7 +746,10 @@ begin
               if Assigned(TBaseDbList(DataSet).Status) then
                 aWikiPage.Variables.Values['STATUS'] := TBaseDbList(DataSet).Status.AsString;
               if aWikiPage.OpenWikiPage('Promet-ERP-Help/forms/'+Self.ClassName+'/'+aWiki.Text.AsString) then
-                aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString)
+                begin
+                  aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString);
+                  aWikiPage.SetRights(FEditable);
+                end
               else aWikiPage.Free;
               if aWiki.FieldByName('CAPTION').AsString = strOverview then
                 begin
@@ -597,7 +762,7 @@ begin
         end;
       aWiki.Free;
     end;
-  inherited DoOpen;
+  if HasHelp then AddHelp(Self);
 end;
 function TfArticleFrame.SetRights: Boolean;
 begin
@@ -608,7 +773,6 @@ begin
   acRights.Enabled:=Data.Users.Rights.Right('MASTERDATA') >= RIGHT_PERMIT;
 
   pComponents.Enabled := FEditable;
-  pCommon.Enabled:=FEditable;
 end;
 procedure TfArticleFrame.AddPositions(Sender: TObject);
 begin
@@ -625,7 +789,7 @@ begin
       with TfListFrame(Sender) do
         begin
           FList.FilterType:='MDPRICES';
-          FList.DefaultRows:='GLOBALWIDTH:%;PTYPE:60;PRICE:120;CURRENCY:70;CUSTOMER:70;MINCOUNT:70;MAXCOUNT:70;VALIDFROM:80;VALIDTO:80;';
+          FList.DefaultRows:='GLOBALWIDTH:%;PTYPE:60;PRICE:120;CURRENCY:70;CUSTOMER:70;MINCOUNT:70;MAXCOUNT:70;VALIDFROM:80;VALIDTO:80;NOTE:200;';
           FList.DestroyDataSet:=False;
           TMasterdata(DataSet).Prices.Open;
           FList.DataSet := TMasterdata(DataSet).Prices;
@@ -635,10 +799,12 @@ begin
             begin
               if FList.gList.Columns[i].FieldName = 'PTYPE' then
                 begin
-                  if not Data.Pricetypes.DataSet.Active then
-                    Data.Pricetypes.Open;
+                  if not Assigned(PriceTypes) then
+                    PriceTypes := TPriceTypes.Create(nil);
+                  if not Pricetypes.DataSet.Active then
+                    Pricetypes.Open;
                   FList.gList.Columns[i].PickList.Clear;
-                  with Data.Pricetypes.DataSet do
+                  with Pricetypes.DataSet do
                     begin
                       First;
                       while not Eof do
@@ -704,6 +870,7 @@ begin
   TfArticleSupplierFrame(Sender).Supplier.DataSet := TMasterdata(DataSet).Supplier.DataSet;
   TMasterdata(DataSet).Supplier.Prices.Open;
   TfArticleSupplierFrame(Sender).SupplierPrices.DataSet := TMasterdata(DataSet).Supplier.Prices.DataSet;
+  TfArticleSupplierFrame(Sender).SetRights(FEditable);
 end;
 procedure TfArticleFrame.AddRepair(Sender: TObject);
 begin
@@ -721,14 +888,23 @@ begin
     end;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
+
+procedure TfArticleFrame.AddFinance(Sender: TObject);
+begin
+  TfFinance(Sender).DataSet := FDataSet;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
 constructor TfArticleFrame.Create(AOwner: TComponent);
 var
   aType: Char;
 begin
   inherited Create(AOwner);
   mShortText.WantTabs:=False;
-  Data.Units.Open;
-  with Data.Units.DataSet do
+  if not Assigned(Units) then
+    Units := TUnits.Create(nil);
+  Units.Open;
+  with Units.DataSet do
     begin
       First;
       while not Eof do
@@ -747,8 +923,9 @@ begin
           next;
         end;
     end;
-  Data.Vat.Open;
-  with Data.Vat.DataSet do
+  if not Assigned(Vat) then Vat := TVat.Create(Data);
+  Vat.Open;
+  with Vat.DataSet do
     begin
       First;
       while not eof do
@@ -760,7 +937,9 @@ begin
   cbCategory.Items.Clear;
   aType := 'M';
   Data.Categories.CreateTable;
-  Data.SetFilter(Data.Categories,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
+  Data.Categories.DataSet.Filtered:=True;
   Data.Categories.First;
   while not Data.Categories.EOF do
     begin
@@ -768,6 +947,9 @@ begin
         cbCategory.Items.Add(Data.Categories.FieldByName('NAME').AsString);
       Data.Categories.DataSet.Next;
     end;
+  {$ifdef DARWIN}
+  cbStatus.Style:=csDropdown;
+  {$endif}
 end;
 destructor TfArticleFrame.Destroy;
 begin
@@ -788,7 +970,7 @@ begin
     FConnection := Data.GetNewConnection;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TMasterdata.Create(Self,Data,FConnection);
+  DataSet := TMasterdata.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@MasterdataStateChange;
   TBaseDbList(DataSet).SelectFromLink(aLink);
   Dataset.Open;
@@ -803,7 +985,7 @@ begin
   TabCaption := strNewArticle;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TMasterdata.Create(Self,Data,FConnection);
+  DataSet := TMasterdata.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@MasterdataStateChange;
   DataSet.Select(0);
   DataSet.Open;

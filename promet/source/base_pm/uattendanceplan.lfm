@@ -28,7 +28,7 @@ inherited fAttPlan: TfAttPlan
       object Label5: TLabel
         Left = 4
         Height = 15
-        Top = -2
+        Top = 0
         Width = 160
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -156,7 +156,6 @@ inherited fAttPlan: TfAttPlan
         AllowAllUp = True
         BorderSpacing.InnerBorder = 2
         Caption = 'acWeekView'
-        Down = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -207,6 +206,7 @@ inherited fAttPlan: TfAttPlan
         AllowAllUp = True
         BorderSpacing.InnerBorder = 2
         Caption = 'acDayView'
+        Down = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -323,8 +323,8 @@ inherited fAttPlan: TfAttPlan
       end
       object Bevel7: TBevel
         Left = 0
-        Height = 20
-        Top = 18
+        Height = 21
+        Top = 17
         Width = 8
         Align = alLeft
         BorderSpacing.Top = 4
@@ -333,13 +333,12 @@ inherited fAttPlan: TfAttPlan
       end
       object lDate: TLabel
         Left = 0
-        Height = 1
-        Top = 13
+        Height = 21
+        Top = 14
         Width = 112
-        Align = alTop
         Alignment = taCenter
-        Font.Color = clSkyBlue
-        Font.Height = 20
+        AutoSize = False
+        Font.Color = clWindowText
         Font.Style = [fsBold]
         ParentColor = False
         ParentFont = False

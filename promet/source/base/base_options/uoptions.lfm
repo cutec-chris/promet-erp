@@ -1,22 +1,23 @@
 object fOptions: TfOptions
-  Left = 408
-  Height = 526
-  Top = 189
-  Width = 781
+  Left = 404
+  Height = 580
+  Top = 194
+  Width = 805
   Caption = 'Optionen'
-  ClientHeight = 526
-  ClientWidth = 781
+  ClientHeight = 580
+  ClientWidth = 805
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  Position = poDesktopCenter
-  LCLVersion = '0.9.31'
+  Position = poMainFormCenter
+  LCLVersion = '1.3'
   object tvMain: TTreeView
     Left = 8
-    Height = 467
+    Height = 516
     Top = 8
     Width = 216
     Align = alLeft
     BorderSpacing.Around = 8
+    DefaultItemHeight = 16
     ReadOnly = True
     TabOrder = 0
     OnSelectionChanged = tvMainSelectionChanged
@@ -24,20 +25,20 @@ object fOptions: TfOptions
   end
   object pRight: TPanel
     Left = 245
-    Height = 467
+    Height = 516
     Top = 8
-    Width = 528
+    Width = 552
     Align = alClient
     BorderSpacing.Around = 8
     BevelOuter = bvNone
-    ClientHeight = 467
-    ClientWidth = 528
+    ClientHeight = 516
+    ClientWidth = 552
     TabOrder = 1
     object pHeader: TPanel
       Left = 0
       Height = 24
       Top = 0
-      Width = 528
+      Width = 552
       Align = alTop
       BevelOuter = bvLowered
       Caption = 'Hier könnte Ihr Text stehen'
@@ -51,9 +52,9 @@ object fOptions: TfOptions
     end
     object pFrame: TPanel
       Left = 0
-      Height = 443
+      Height = 492
       Top = 24
-      Width = 528
+      Width = 552
       Align = alClient
       BevelOuter = bvNone
       Caption = 'Wählen Sie eine Kategorie'
@@ -62,25 +63,25 @@ object fOptions: TfOptions
   end
   object Splitter1: TSplitter
     Left = 232
-    Height = 477
+    Height = 526
     Top = 0
     Width = 5
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 37
-    Top = 483
-    Width = 769
+    Height = 42
+    Top = 532
+    Width = 793
     OKButton.Name = 'OKButton'
-    OKButton.Caption = '&Ok'
+    OKButton.DefaultCaption = True
     OKButton.OnClick = OKButtonClick
     HelpButton.Name = 'HelpButton'
-    HelpButton.Caption = '&Hilfe'
+    HelpButton.DefaultCaption = True
     CloseButton.Name = 'CloseButton'
-    CloseButton.Caption = '&Schließen'
+    CloseButton.DefaultCaption = True
     CloseButton.Enabled = False
     CancelButton.Name = 'CancelButton'
-    CancelButton.Caption = 'Abbrechen'
+    CancelButton.DefaultCaption = True
     CancelButton.OnClick = CancelButtonClick
     TabOrder = 3
     ShowButtons = [pbOK, pbCancel, pbHelp]

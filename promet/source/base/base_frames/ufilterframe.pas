@@ -22,7 +22,7 @@ unit uFilterFrame;
 interface
 uses
   Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, LR_DBSet, LR_Class,
-  LResources, Forms, StdCtrls, ExtCtrls, Buttons, ComCtrls, DBGrids, Grids,
+   Forms, StdCtrls, ExtCtrls, Buttons, ComCtrls, DBGrids, Grids,
   Controls, EditBtn, Spin, Menus, ActnList, md5, db, Variants, uIntfStrConsts,
   Dialogs, uExtControls, Graphics, LCLType, uTimeLine, ClipBrd, DbCtrls, math,
   uBaseDbClasses, uBaseDBInterface, uPrometFrames, uBaseApplication,ugridview;
@@ -45,6 +45,9 @@ type
     acDefaultFilter: TAction;
     acSaveLink: TAction;
     acCopyFilterLink: TAction;
+    acInformwithexternMail: TAction;
+    acInformwithinternMail: TAction;
+    acDelete: TAction;
     ActionList: TActionList;
     bEditFilter: TSpeedButton;
     bEditFilter1: TSpeedButton;
@@ -59,6 +62,9 @@ type
     cbFilter: TComboBox;
     cbMaxResults: TCheckBox;
     MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    miAdmin: TMenuItem;
+    MenuItem5: TMenuItem;
     pBottom: TPanel;
     PHistory: TfrDBDataSet;
     History: TDatasource;
@@ -113,22 +119,26 @@ type
     procedure acCopyFilterLinkExecute(Sender: TObject);
     procedure acCopyLinkExecute(Sender: TObject);
     procedure acDefaultFilterExecute(Sender: TObject);
+    procedure acDeleteExecute(Sender: TObject);
     procedure acDeleteFilterExecute(Sender: TObject);
     procedure acExportExecute(Sender: TObject);
     procedure acFilterExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
+    procedure acInformwithexternMailExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acSaveFilterExecute(Sender: TObject);
     procedure acFilterRightsExecute(Sender: TObject);
     procedure acSaveLinkExecute(Sender: TObject);
     procedure bEditRowsClick(Sender: TObject);
+    procedure bFilterKeyPress(Sender: TObject; var Key: char);
     procedure cbFilterSelect(Sender: TObject);
     procedure DatasetAfterScroll(aDataSet: TDataSet);
     procedure DblClickTimerTimer(Sender: TObject);
     procedure DoAsyncRefresh(Data: PtrInt);
     procedure DoAsyncResize(Data: PtrInt);
     procedure eFilterEditChange(Sender: TObject);
+    function fSearchOpenUserItem(aLink: string): Boolean;
     procedure gHeaderColRowMoved(Sender: TObject; IsColumn: Boolean; sIndex,
       tIndex: Integer);
     procedure gHeaderDrawCell(Sender: TObject; aCol, aRow: Integer;
@@ -157,13 +167,17 @@ type
     procedure gListMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure gListTitleClick(Column: TColumn);
+    procedure ListStateChange(Sender: TObject);
     procedure RefreshTimerTimer(Sender: TObject);
+    procedure ReportGetValue(const ParName: String; var ParValue: Variant);
     procedure sbGridsResize(Sender: TObject);
     procedure seMaxresultsChange(Sender: TObject);
     procedure tbMenueClick(Sender: TObject);
+    procedure TCustomComboBoxEnter(Sender: TObject);
     procedure TimeLineSetMarker(Sender: TObject);
     procedure TWinControlKeyPress(Sender: TObject; var Key: char);
   private
+    FSearcheMail : string;
     aOldSize : Integer;
     FbaseFilter: string;
     fDefaultRows: string;
@@ -236,7 +250,7 @@ type
     property OnGetCellText : TOnGetCellTextEvent read FOnGetCellText write FOnGetCellText;
     property OnDrawColumnCell : TDrawColumnCellEvent read FOnDrawColumnCell write FOnDrawColumnCell;
     property AutoFiltered : Boolean read GetAutoFiltered;
-    procedure AddToolbarAction(aAction : TAction);
+    function AddToolbarAction(aAction: TAction): TToolButton;
     procedure AddToolbarToggle(aAction : TAction);
     procedure AddContextAction(aAction : TAction);
     function AddFilter(FieldName,Value : string) : Boolean;
@@ -250,12 +264,15 @@ type
   end;
   function AddTab(aPage : TTabSheet;DataSet : TBaseDBDataset) : TfFilter;
 implementation
+{$R *.lfm}
 uses uRowEditor,uSearch, uBaseVisualApplicationTools, uBaseVisualApplication ,
-  uFilterTabs,uFormAnimate,uData, uBaseVisualControls,uDataImport,
-  uDataImportCSV,uSelectReport,uOrder,uBaseERPDBClasses,uNRights,LCLProc;
+  uFilterTabs,uFormAnimate,uData, uBaseVisualControls,uscriptimport,
+  uSelectReport,uOrder,uBaseERPDBClasses,uNRights,LCLProc,
+  uPerson,uSendMail,Utils;
 resourcestring
   strRecordCount                            = '%d Einträge';
   strFullRecordCount                        = 'von %d werden %d Einträge angezeigt';
+
 function AddTab(aPage : TTabSheet;DataSet : TBaseDBDataset): TfFilter;
 begin
   Result := TfFilter.Create(aPage);
@@ -399,8 +416,10 @@ procedure TfFilter.gListMouseUp(Sender: TObject; Button: TMouseButton;
 begin
   aSelectedIndex:=gList.MouseCoord(0,Y+1).Y;
 end;
+
 procedure TfFilter.gListTitleClick(Column: TColumn);
 begin
+  if not Assigned(Column.Field) then exit;
   if (Column.Field.DataType = ftMemo)
   or (Column.Field.DataType = ftWideMemo)
   or (Column.Field.DataType = ftBlob)
@@ -426,11 +445,25 @@ begin
   acFilter.Execute;
   DoUpdateTimeLine;
 end;
+
+procedure TfFilter.ListStateChange(Sender: TObject);
+begin
+end;
+
 procedure TfFilter.RefreshTimerTimer(Sender: TObject);
 begin
   if Assigned(FDataSet) then
     DoRefresh;
 end;
+
+procedure TfFilter.ReportGetValue(const ParName: String; var ParValue: Variant);
+begin
+  if Uppercase(ParName)='FILTER' then
+    ParValue:=cbFilter.Text;
+  if Uppercase(ParName)='FILTERVAR' then
+    ParValue:=BuildAutofilter(gList,gHeader);
+end;
+
 procedure TfFilter.sbGridsResize(Sender: TObject);
 var
   aMult: Extended;
@@ -457,6 +490,13 @@ procedure TfFilter.tbMenueClick(Sender: TObject);
 begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
 end;
+
+procedure TfFilter.TCustomComboBoxEnter(Sender: TObject);
+begin
+  Application.ProcessMessages;
+  TCustomComboBox(Sender).DroppedDown:=True;
+end;
+
 procedure TfFilter.TimeLineSetMarker(Sender: TObject);
 var
   a: Integer;
@@ -525,6 +565,40 @@ procedure TfFilter.eFilterEditChange(Sender: TObject);
 begin
   ParseForms(eFilterEdit.lines.Text);
 end;
+
+function TfFilter.fSearchOpenUserItem(aLink: string): Boolean;
+var
+  aUser: TUser;
+  aCont: TPerson;
+  aFile: String;
+  sl: TStringList;
+begin
+  if pos('USERS',aLink)>0 then
+    begin
+      aUser := TUser.Create(nil);
+      aUser.SelectFromLink(aLink);
+      aUser.Open;
+      if aUser.Count>0 then
+        begin
+          FSearcheMail := trim(aUser.FieldByName('EMAIL').AsString);
+        end;
+      aUser.Free;
+    end
+  else
+    begin
+      aCont := TPerson.Create(nil);
+      aCont.SelectFromLink(aLink);
+      aCont.Open;
+      if aCont.Count>0 then
+        begin
+          aCont.ContactData.Open;
+          if aCont.ContactData.Locate('TYPE;ACTIVE',VarArrayOf(['EM','Y']),[loPartialKey]) then
+            FSearcheMail := aCont.ContactData.FieldByName('DATA').AsString;
+        end;
+      aCont.Free;
+    end;
+end;
+
 procedure TfFilter.gHeaderColRowMoved(Sender: TObject; IsColumn: Boolean;
   sIndex, tIndex: Integer);
 begin
@@ -604,11 +678,18 @@ begin
 end;
 procedure TfFilter.bEditRowsClick(Sender: TObject);
 begin
-  fRowEditor.Execute     ('FILTER'+FFilterType,gList.DataSource,gList,cbFilter.Text);
+  fRowEditor.Execute     ('FILTER'+FFilterType,List,gList,cbFilter.Text);
   fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
   SetupHeader;
   UpdateTitle;
 end;
+
+procedure TfFilter.bFilterKeyPress(Sender: TObject; var Key: char);
+begin
+  if Key=#13 then
+    bFilter.Action.Execute;
+end;
+
 procedure TfFilter.acSaveFilterExecute(Sender: TObject);
 begin
   if (cbFilter.Text = strNoSelectFilter) or (cbFilter.Text = '') then
@@ -627,7 +708,7 @@ begin
   with Application as IBaseDbInterface do
     begin
       with Data.Filters.DataSet as IBaseDBFilter,Data.Filters.DataSet as IbaseManageDB do
-        Data.SetFilter(Data.Filters,Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType)),0,'','ASC',False,True,True);
+        Data.SetFilter(Data.Filters,'',0,'','ASC',False,True,True);
       if Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive,loPartialKey]) then
         Data.Filters.DataSet.Edit
       else
@@ -689,7 +770,7 @@ begin
   with Application as IBaseDbInterface do
     begin
       with Data.Filters.DataSet as IBaseDBFilter,Data.Filters.DataSet as IbaseManageDB do
-        Data.SetFilter(Data.Filters,Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType)),0,'','ASC',False,True,True);
+        Data.SetFilter(Data.Filters,'',0,'','ASC',False,True,True);
       if Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive,loPartialKey]) then
         if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
           begin
@@ -700,11 +781,7 @@ begin
 end;
 procedure TfFilter.acExportExecute(Sender: TObject);
 begin
-  with Application as IBaseApplication do
-    fDataImport.ConfigDir:=GetOurConfigDir;
-  fDataImport.BaseDir:='ACCEXP';
-  fDataImport.Target := List;
-  fDataImport.Execute(icExport);
+  fScriptImport.Execute(icExport,FilterType);
 end;
 procedure TfFilter.acCopyLinkExecute(Sender: TObject);
 var
@@ -757,6 +834,33 @@ begin
       DBConfig.WriteString('DEFAULTFILTER'+FFilterType,cbFilter.Text);
     end;
 end;
+
+procedure TfFilter.acDeleteExecute(Sender: TObject);
+var
+  aLinks : string = '';
+  Stream: TStringStream;
+  i: Integer;
+begin
+  if gList.SelectedRows.Count > 0 then
+    begin
+      if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
+        begin
+          for i := 0 to gList.SelectedRows.Count-1 do
+            begin
+              gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
+              gList.DataSource.DataSet.Delete;
+            end;
+          gList.SelectedRows.Clear;
+        end;
+    end
+  else
+    with Application as IBaseDbInterface do
+      if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
+        begin
+          gList.DataSource.DataSet.Delete;
+        end;
+end;
+
 procedure TfFilter.acFilterExecute(Sender: TObject);
 var
   aFilter: String;
@@ -768,110 +872,159 @@ begin
   if (not Assigned(DataSet)) or (not Assigned(DataSet.DataSet)) then exit;
   if DataSet.DataSet.Active then
     Rec := DataSet.GetBookmark;
-  aFilter := eFilterEdit.Lines.Text;
-  tmp := aFilter;
-  aFilter := '';
-  while pos('%',tmp) > 0 do
-    begin
-      aFilter := aFilter+copy(tmp,0,pos('%',tmp)-1);
-      tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
-      adata := copy(tmp,0,pos('%',tmp)-1);
-      if adata = '' then break;
-      tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
-      aname := copy(adata,0,pos(':',adata)-1);
-      if aname = '' then
-        aname := adata;
-      if (ToolBar.FindChildControl('TBC'+MD5Print(MD5String(aname))) <> nil) then
-        with Application as IBaseDbInterface do
+  try
+    aFilter := eFilterEdit.Lines.Text;
+    tmp := aFilter;
+    tmp := StringReplace(tmp,'@PERMISSIONJOIN@','&PERMISSIONJOIN&',[rfReplaceAll]);
+    tmp := StringReplace(tmp,'@PERMISSIONWHERE@','&PERMISSIONWHERE&',[rfReplaceAll]);
+    tmp := StringReplace(tmp,'@DEFAULTORDER@','&DEFAULTORDER&',[rfReplaceAll]);
+    tmp := StringReplace(tmp,'@AUTOFILTER@','&AUTOFILTER&',[rfReplaceAll]);
+    aFilter := '';
+    while pos('@',tmp) > 0 do
+      begin
+        aFilter := aFilter+copy(tmp,0,pos('@',tmp)-1);
+        tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
+        adata := copy(tmp,0,pos('@',tmp)-1);
+        if adata = '' then break;
+        tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
+        aname := copy(adata,0,pos(':',adata)-1);
+        if aname = '' then
+          aname := adata;
+        if (ToolBar.FindChildControl('TBC'+MD5Print(MD5String(aname))) <> nil) then
+          with Application as IBaseDbInterface do
+            begin
+              aControl := ToolBar.FindChildControl('TBC'+MD5Print(MD5String(aname)));
+              aControl := TWinControl(aControl).FindChildControl('TBE'+MD5Print(MD5String(aname)));
+              if aControl is TEdit then
+                aFilter := aFilter+TEdit(aControl).Text
+              else if aControl is TDateEdit then
+                aFilter := aFilter+Data.DateTimeToFilter(TDateEdit(aControl).Date)
+              else if aControl is TComboBox then
+                aFilter := aFilter+TComboBox(aControl).Text;
+            end;
+      end;
+    aFilter := aFilter+tmp;
+    aFilter := StringReplace(aFilter,'&PERMISSIONJOIN&','@PERMISSIONJOIN@',[rfReplaceAll]);
+    aFilter := StringReplace(aFilter,'&PERMISSIONWHERE&','@PERMISSIONWHERE@',[rfReplaceAll]);
+    aFilter := StringReplace(aFilter,'&DEFAULTORDER&','@DEFAULTORDER@',[rfReplaceAll]);
+    if lowercase(copy(trim(aFilter),0,6)) = 'select' then
+      begin
+        //TODO:Security Risk if eFilterEdit.Lines.Text changed !!!
+        with DataSet.DataSet as IBaseDBFilter do
           begin
-            aControl := ToolBar.FindChildControl('TBC'+MD5Print(MD5String(aname)));
-            aControl := TWinControl(aControl).FindChildControl('TBE'+MD5Print(MD5String(aname)));
-            if aControl is TEdit then
-              aFilter := aFilter+TEdit(aControl).Text
-            else if aControl is TDateEdit then
-              aFilter := aFilter+Data.DateTimeToFilter(TDateEdit(aControl).Date)
-            else if aControl is TComboBox then
-              aFilter := aFilter+TComboBox(aControl).Text;
+            if FAutoFilter <> '' then
+              FullSQL:=StringReplace(aFilter,'&AUTOFILTER&',' AND ('+FAutoFilter+')',[])
+            else
+              FullSQL:=StringReplace(aFilter,'&AUTOFILTER&','',[]);
+            if cbMaxResults.Checked then
+              Limit := seMaxResults.Value
+            else Limit := 0;
+            if SortField <> '' then
+              SortFields := SortField
+            else SortFields := BaseSortFields;
+            SortDirection := FSortDirection;
+            DataSet.Open;
           end;
-    end;
-  aFilter := aFilter+tmp;
-  if lowercase(copy(trim(aFilter),0,6)) = 'select' then
-    begin
-      //TODO:Security Risk if eFilterEdit.Lines.Text changed !!!
-      with DataSet.DataSet as IBaseDBFilter do
-        begin
-          if FAutoFilter <> '' then
-            FullSQL:=StringReplace(aFilter,'@AUTOFILTER@',' AND ('+FAutoFilter+')',[])
-          else
-            FullSQL:=StringReplace(aFilter,'@AUTOFILTER@','',[]);
-          if cbMaxResults.Checked then
-            Limit := seMaxResults.Value
-          else Limit := 0;
-          if SortField <> '' then
-            SortFields := SortField
-          else SortFields := BaseSortFields;
-          SortDirection := FSortDirection;
-          DataSet.Open;
-        end;
-    end
-  else
-    begin
-      with DataSet.DataSet as IBaseDBFilter do
-        aFilter := Data.ProcessTerm(aFilter);
-      if pos('$',aFilter) > 0 then
-        begin
-          aFilter := StringReplace(aFilter,'$NOW()',Data.DateTimeToFilter(Now()),[rfReplaceAll,rfIgnoreCase]);
-        end;
-      if FBaseFilter <> '' then
-        begin
-          if aFilter = '' then
-            aFilter := FBaseFilter
-          else
-            aFilter := '('+FBaseFilter+') and ('+aFilter+')';
-        end;
-      if FautoFilter <> '' then
-        begin
-          if aFilter = '' then
-            aFilter := FAutoFilter
-          else
-            aFilter := '('+aFilter+') and ('+FAutoFilter+')';
-        end;
-      with DataSet.DataSet as IBaseDBFilter do
-        begin
-          Filter := aFilter;
-          if cbMaxResults.Checked then
-            Limit := seMaxResults.Value
-          else Limit := 0;
-          if SortField <> '' then
-            SortFields := SortField
-          else SortFields := BaseSortFields;
-          SortDirection := FSortDirection;
-          Distinct := FDistinct;
-          DataSet.Open;
-        end;
-    end;
-  if Rec <> 0 then
-    begin
-      DataSet.GotoBookmark(Rec);
-      DataSet.FreeBookmark(Rec);
-    end;
-  DoUpdateDSCount;
-  if FAutoFilter <> '' then
-    DoUpdateTimeLine;
-  if acFilter.ActionComponent = bFilter then
-    DoFilterFocus;
-  if Assigned(FOnFilterChanged) then
-    FOnFilterChanged(Self);
+      end
+    else
+      begin
+        with DataSet.DataSet as IBaseDBFilter do
+          aFilter := Data.ProcessTerm(aFilter);
+        if pos('$',aFilter) > 0 then
+          begin
+            aFilter := StringReplace(aFilter,'$NOW()',Data.DateTimeToFilter(Now()),[rfReplaceAll,rfIgnoreCase]);
+          end;
+        if FBaseFilter <> '' then
+          begin
+            if aFilter = '' then
+              aFilter := FBaseFilter
+            else
+              aFilter := '('+FBaseFilter+') and ('+aFilter+')';
+          end;
+        if FautoFilter <> '' then
+          begin
+            if aFilter = '' then
+              aFilter := FAutoFilter
+            else
+              aFilter := '('+aFilter+') and ('+FAutoFilter+')';
+          end;
+        with DataSet.DataSet as IBaseDBFilter do
+          begin
+            Filter := aFilter;
+            if cbMaxResults.Checked then
+              Limit := seMaxResults.Value
+            else Limit := 0;
+            if SortField <> '' then
+              SortFields := SortField
+            else SortFields := BaseSortFields;
+            SortDirection := FSortDirection;
+            Distinct := FDistinct;
+            DataSet.Open;
+          end;
+      end;
+    if Rec <> 0 then
+      begin
+        DataSet.GotoBookmark(Rec);
+        DataSet.FreeBookmark(Rec);
+      end;
+    DoUpdateDSCount;
+    if FAutoFilter <> '' then
+      DoUpdateTimeLine;
+    if acFilter.ActionComponent = bFilter then
+      DoFilterFocus;
+    if Assigned(FOnFilterChanged) then
+      FOnFilterChanged(Self);
+  except
+    on e : Exception do
+      begin
+        pBottom.Caption:=e.Message;
+        Rec := 0;
+        raise;
+      end;
+  end;
 end;
 procedure TfFilter.acImportExecute(Sender: TObject);
 begin
-  with Application as IBaseApplication do
-    fDataImport.ConfigDir:=GetOurConfigDir;
-  fDataImport.BaseDir:='ACCIMP';
-  fDataImport.Target := List;
-  fDataImport.Execute(icImport);
+  fScriptImport.Execute(icImport,FilterType);
   List.DataSet.Refresh;
 end;
+
+procedure TfFilter.acInformwithexternMailExecute(Sender: TObject);
+var
+  i: Integer;
+  aLink: String;
+  aFile: String;
+  sl: TStringList;
+begin
+  fSearch.SetLanguage;
+  i := 0;
+  while i < fSearch.cbSearchType.Count do
+    begin
+      if  (fSearch.cbSearchType.Items[i] <> strUsers)
+      and (fSearch.cbSearchType.Items[i] <> strCustomers) then
+        fSearch.cbSearchType.Items.Delete(i)
+      else
+        inc(i);
+    end;
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenUserItem;
+  FSearcheMail:='';
+  fSearch.Execute(True,'LISTU',strSearchFromMailSelect);
+  fSearch.SetLanguage;
+  aLink := GetLink;
+  if (aLink<>'') then
+    begin
+      with BaseApplication as IBaseApplication do
+        aFile := GetInternalTempDir+ValidateFileName(Data.GetLinkDesc(aLink))+'.plink';
+      sl := TStringList.Create;
+      sl.Add(aLink);
+      sl.SaveToFile(aFile);
+      sl.Free;
+      DoSendMail(Data.GetLinkDesc(aLink),Data.GetLinkLongDesc(aLink), aFile,'','','',FSearcheMail);
+    end;
+end;
+
 procedure TfFilter.acOpenExecute(Sender: TObject);
 begin
   if Assigned(FOnViewDetails) then
@@ -906,51 +1059,58 @@ var
   aControl: TControl;
   i: Integer;
 begin
-  with Application as IBaseDBInterface do
-    begin
-      eFilterIn.Text:='';
-      if cbFilter.ItemIndex=0 then
-        begin
-          Filter := DefaultFilter;
-          SortDirection := FDefaultSortDirection;
-          SortField := FDefaultSorting;
-        end
-      else
-        begin
-          if not Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive]) then
-            with Data.Filters.DataSet,Data.Filters.DataSet as IBaseDBFilter do
-              begin
-                Filter := '';
-                Open;
-                if not Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive]) then
-                  begin
-                    raise Exception.CreateFmt(strFilterNotFound,[cbFilter.Text]);
-                    exit;
-                  end;
-              end;
-          FilterIn := Data.Filters.FieldByName('FILTERIN').AsString;
-          eFilterIn.Text:=FilterIn;
-          Filter := Data.Filters.FieldByName('FILTER').AsString;
-          SortField := Data.Filters.FieldByName('SORTFIELD').AsString;
-          if Data.Filters.FieldByName('SORTDIR').AsString = 'DESC' then
-            SortDirection := sdDescending
-          else if Data.Filters.FieldByName('SORTDIR').AsString = 'ASC' then
-            SortDirection := sdAscending
-          else
-            SortDirection := sdIgnored;
-          FDataSet.Open;
-        end;
-      if Parent is TTabSheet then
-        begin
-          TTabSheet(Parent).Caption:=cbFilter.Text;
-          if cbFilter.Text = '' then
-            TTabSheet(Parent).Caption:=TfFilterTabs(TTabSheet(Parent).PageControl.Parent).TabNames;
-        end;
-      DoFilterFocus;
-      UpdateTitle;
-      if bFilter.Focused or gList.Focused then
-        acFilter.Execute;
-    end;
+  try
+    with Application as IBaseDBInterface do
+      begin
+        eFilterIn.Text:='';
+        if cbFilter.ItemIndex=0 then
+          begin
+            Filter := DefaultFilter;
+            SortDirection := FDefaultSortDirection;
+            SortField := FDefaultSorting;
+          end
+        else
+          begin
+            if not Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive]) then
+              with Data.Filters.DataSet,Data.Filters.DataSet as IBaseDBFilter do
+                begin
+                  Filter := '';
+                  Open;
+                  if not Data.Filters.DataSet.Locate('TYPE;NAME',VarArrayOf([FFilterType,cbFilter.Text]),[loCaseInsensitive]) then
+                    begin
+                      raise Exception.CreateFmt(strFilterNotFound,[cbFilter.Text]);
+                      exit;
+                    end;
+                end;
+            FilterIn := Data.Filters.FieldByName('FILTERIN').AsString;
+            eFilterIn.Text:=FilterIn;
+            Filter := Data.Filters.FieldByName('FILTER').AsString;
+            SortField := Data.Filters.FieldByName('SORTFIELD').AsString;
+            if Data.Filters.FieldByName('SORTDIR').AsString = 'DESC' then
+              SortDirection := sdDescending
+            else if Data.Filters.FieldByName('SORTDIR').AsString = 'ASC' then
+              SortDirection := sdAscending
+            else
+              SortDirection := sdIgnored;
+            FDataSet.Open;
+          end;
+        if Parent is TTabSheet then
+          begin
+            TTabSheet(Parent).Caption:=cbFilter.Text;
+            if cbFilter.Text = '' then
+              TTabSheet(Parent).Caption:=TfFilterTabs(TTabSheet(Parent).PageControl.Parent).TabNames;
+          end;
+        DoFilterFocus;
+        UpdateTitle;
+        if bFilter.Focused or gList.Focused then
+          acFilter.Execute;
+      end;
+  except
+    on e : Exception do
+      begin
+        pBottom.Caption:=e.Message;
+      end;
+  end;
 end;
 procedure TfFilter.DatasetAfterScroll(aDataSet: TDataSet);
 begin
@@ -1001,7 +1161,7 @@ begin
       with Data.Filters.DataSet do
         begin
           with Data.Filters.DataSet as IBaseDBFilter,Data.Filters.DataSet as IbaseManageDB do
-            Data.SetFilter(Data.Filters,Data.ProcessTerm(Data.QuoteField('TYPE')+'='+Data.QuoteValue(FFilterType)),0,'','ASC',False,True,True);
+            Data.SetFilter(Data.Filters,'',0,'','ASC',False,True,True);
           First;
           while not EOF do
             begin
@@ -1082,7 +1242,8 @@ var
 begin
   if ToolBar.ComponentCount > 0 then
     begin
-      aControl := ToolBar.Controls[0];
+      if ToolBar.ControlCount>0 then
+        aControl := ToolBar.Controls[0];
       for i := 0 to aControl.ComponentCount-1 do
         if (aControl.Components[i] is TEdit)
         or (aControl.Components[i] is TComboBox)
@@ -1145,7 +1306,7 @@ begin
       pRight.Visible := NewVisible;
       fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
       aFilter := TStringList.Create;
-      for i := 1 to gHeader.Columns.Count-1 do
+      for i := 1 to gHeader.Columns.Count do
         aFilter.Add(gHeader.Cells[i,1]);
       gHeader.Columns.Assign(gList.Columns);
       for a := 0 to gList.Columns.Count-1 do
@@ -1156,7 +1317,7 @@ begin
         end;
       if Assigned(gList.DataSource.DataSet) and (gList.DataSource.DataSet.Active) then
         begin
-          for i := 1 to aFilter.Count-1 do
+          for i := 1 to aFilter.Count do
             gHeader.Cells[i,1] := aFilter[i-1];
         end;
       FAutoFilter := BuildAutoFilter(gList,gHeader);
@@ -1169,9 +1330,9 @@ var
 begin
   aFullCount := DataSet.FullCount;
   if aFullCount > DataSet.Count then
-    pBottom.Caption:=Format(strFullRecordCount,[aFullCount,DataSet.Count])
+    pBottom.Caption:=Format(strFullRecordCount,[aFullCount,List.DataSet.RecordCount])
   else
-    pBottom.Caption:=Format(strRecordCount,[DataSet.Count]);
+    pBottom.Caption:=Format(strRecordCount,[List.DataSet.RecordCount]);
 end;
 
 procedure TfFilter.Asyncrefresh;
@@ -1197,7 +1358,7 @@ begin
   FEditable := False;
   gList.ScrollSyncControl := gHeader;
   tbToolbar.Images := fVisualControls.Images;
-  gList.UseExtPicklist:=False;
+  gList.UseExtPicklist:=true;
   gHeader.CachedEditing:=False;
   SetRights;
 end;
@@ -1214,15 +1375,6 @@ begin
     FOnScrolled := nil;
   if Assigned(PRight) then
     PRight.Visible:=False;
-  try
-    if Assigned(FDataSet) and FDestroyDataSet then
-      begin
-        FDataSet.Free;
-        DataSet := nil;
-        FDataSet := nil;
-      end;
-  except
-  end;
   inherited Destroy;
 end;
 procedure TfFilter.SetFilter(const AValue: string);
@@ -1237,7 +1389,7 @@ begin
   ParseForms(FFilter);
   fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
   aFilter := TStringList.Create;
-  for i := 1 to gHeader.Columns.Count-1 do
+  for i := 1 to gHeader.Columns.Count do
     aFilter.Add(gHeader.Cells[i,1]);
   gHeader.Columns.Assign(gList.Columns);
   if not aChanged then
@@ -1403,12 +1555,12 @@ var
   begin
     Result := False;
     tmp := Filter;
-    while pos('%',tmp) > 0 do
+    while pos('@',tmp) > 0 do
       begin
-        tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
-        data := copy(tmp,0,pos('%',tmp)-1);
+        tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
+        data := copy(tmp,0,pos('@',tmp)-1);
         if data = '' then break;
-        tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
+        tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
         aname := copy(data,0,pos(':',data)-1);
         if aname = '' then
           aname := data;
@@ -1433,65 +1585,72 @@ begin
       aControl.Free;
     end;
   tmp := Filter;
-  while pos('%',tmp) > 0 do
+  tmp := StringReplace(tmp,'@PERMISSIONJOIN@','&PERMISSIONJOIN&',[rfReplaceAll]);
+  tmp := StringReplace(tmp,'@PERMISSIONWHERE@','&PERMISSIONWHERE&',[rfReplaceAll]);
+  tmp := StringReplace(tmp,'@DEFAULTORDER@','&DEFAULTORDER&',[rfReplaceAll]);
+  tmp := StringReplace(tmp,'@AUTOFILTER@','&AUTOFILTER&',[rfReplaceAll]);
+  while pos('@',tmp) > 0 do
     begin
-      tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
-      data := copy(tmp,0,pos('%',tmp)-1);
+      tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
+      data := copy(tmp,0,pos('@',tmp)-1);
       if data = '' then break;
-      tmp := copy(tmp,pos('%',tmp)+1,length(tmp));
+      tmp := copy(tmp,pos('@',tmp)+1,length(tmp));
       aname := copy(data,0,pos(':',data)-1);
       if aname = '' then
         aname := data
       else data := copy(data,pos(':',data)+1,length(data));
-      aPanel := TPanel.Create(ToolBar);
-      aPanel.Name:='TBC'+MD5Print(MD5String(aname));
-      aPanel.Left:=1000;
-      aPanel.Parent := ToolBar;
-      aPanel.Caption:='';
-      aPanel.BevelOuter:=bvNone;
-      aLabel := TLabel.Create(aPanel);
-      aLabel.Align:=alLeft;
-      aLabel.BorderSpacing.Top:=8;
-      aLabel.Caption:=aName;
-      aLabel.Parent:=aPanel;
-      aBevel := TBevel.Create(aPanel);
-      aBevel.Align:=alLeft;
-      aBevel.Shape := bsLeftLine;
-      abevel.Parent := aPanel;
-      aBevel.Width:=5;
-      aBevel.Left:=0;
-      apanel.Width:=aLabel.Left+aLabel.Width+150;
-      if data = 'DATE' then
+      if not Assigned(ToolBar.FindChildControl('TBC'+MD5Print(MD5String(aname)))) then
         begin
-          aControl := TDateEdit.Create(aPanel);
+          aPanel := TPanel.Create(ToolBar);
+          aPanel.Name:='TBC'+MD5Print(MD5String(aname));
+          aPanel.Left:=1000;
+          aPanel.Parent := ToolBar;
+          aPanel.Caption:='';
+          aPanel.BevelOuter:=bvNone;
+          aLabel := TLabel.Create(aPanel);
+          aLabel.Align:=alLeft;
+          aLabel.BorderSpacing.Top:=8;
+          aLabel.Caption:=aName;
+          aLabel.Parent:=aPanel;
+          aBevel := TBevel.Create(aPanel);
+          aBevel.Align:=alLeft;
+          aBevel.Shape := bsLeftLine;
+          abevel.Parent := aPanel;
+          aBevel.Width:=5;
+          aBevel.Left:=0;
+          apanel.Width:=aLabel.Left+aLabel.Width+150;
+          if data = 'DATE' then
+            begin
+              aControl := TDateEdit.Create(aPanel);
+              aControl.Parent:= aPanel;
+              aControl.Align:=alClient;
+              i := aControl.Width;
+              aControl.Align:=alLeft;
+              aControl.Width:=i-TDateEdit(aControl).Button.Width-14;
+              aControl.Name := 'TBE'+MD5Print(MD5String(aname));
+              aBevel.BorderSpacing.Left:=30;
+              aLabel.Left:=0;
+            end
+          else if copy(data,0,8) = 'DROPDOWN' then
+            begin
+              aControl := TComboBox.Create(aPanel);
+              aControl.Parent:= aPanel;
+              aControl.Align:=alClient;
+              aControl.Name := 'TBE'+MD5Print(MD5String(aname));
+              TComboBox(aControl).Text:='';
+            end
+          else
+            begin
+              aControl := TEdit.Create(aPanel);
+              aControl.Parent:= aPanel;
+              aControl.Align:=alClient;
+              aControl.Name := 'TBE'+MD5Print(MD5String(aname));
+              TEdit(aControl).Text := '';
+            end;
+          aControl.BorderSpacing.Around:=6;
           aControl.Parent:= aPanel;
-          aControl.Align:=alClient;
-          i := aControl.Width;
-          aControl.Align:=alLeft;
-          aControl.Width:=i-TDateEdit(aControl).Button.Width-14;
-          aControl.Name := 'TBE'+MD5Print(MD5String(aname));
-          aBevel.BorderSpacing.Left:=30;
-          aLabel.Left:=0;
-        end
-      else if copy(data,0,8) = 'DROPDOWN' then
-        begin
-          aControl := TComboBox.Create(aPanel);
-          aControl.Parent:= aPanel;
-          aControl.Align:=alClient;
-          aControl.Name := 'TBE'+MD5Print(MD5String(aname));
-          TComboBox(aControl).Text:='';
-        end
-      else
-        begin
-          aControl := TEdit.Create(aPanel);
-          aControl.Parent:= aPanel;
-          aControl.Align:=alClient;
-          aControl.Name := 'TBE'+MD5Print(MD5String(aname));
-          TEdit(aControl).Text := '';
+          TWinControl(aControl).OnKeyPress:=@TWinControlKeyPress;
         end;
-      aControl.BorderSpacing.Around:=6;
-      aControl.Parent:= aPanel;
-      TWinControl(aControl).OnKeyPress:=@TWinControlKeyPress;
       aControladded := True;
     end;
   if aControlAdded then
@@ -1510,10 +1669,10 @@ begin
     begin
       fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
       aFilter := TStringList.Create;
-      for i := 1 to gHeader.Columns.Count-1 do
+      for i := 1 to gHeader.Columns.Count do
         aFilter.Add(gHeader.Cells[i,1]);
       gHeader.Columns.Assign(gList.Columns);
-      for i := 1 to gHeader.Columns.Count-1 do
+      for i := 1 to gHeader.Columns.Count do
         begin
           if aFilter.Count >= i then
             gHeader.Cells[i,1] := aFilter[i-1]
@@ -1536,7 +1695,13 @@ begin
 end;
 type
   THackDBGrid = class(TDBGrid);
-
+  THackGrid=Class( TCustomGrid)
+  published
+    property Row;
+    property RowCount;
+    property TopRow;
+    property DefaultRowHeight;
+  End;
 function TfFilter.ShowHint(var HintStr: string; var CanShow: Boolean;
   var HintInfo: THintInfo): Boolean;
 var
@@ -1548,9 +1713,8 @@ var
   aSRow: Integer;
 begin
   Result := False;
-  if HintInfo.HintControl = gList then
+  if (HintInfo.HintControl = gList) then
     begin
-      Result := True;
       HintInfo.HintWindowClass:=TSearchHintWindow;
       gc:= gList.MouseCoord(HintInfo.CursorPos.x,HintInfo.CursorPos.y);
       if gc.y = HintY then exit;
@@ -1558,30 +1722,29 @@ begin
       gList.BeginUpdate;
       gList.DataSource.Enabled:=False;
       aDataSet := gList.DataSource.DataSet;
-//      gList.DataSource.DataSet := nil;
       Rec := aDataSet.GetBookmark;
       aSRow := gc.Y - gList.MouseCoord(0,THackDBGrid(gList).SelectedFieldRect.Top+1).Y;// - THackDBGrid(gList).DataLink.ActiveRecord;
-      aDataSet.MoveBy(aSRow);
-      aSelectedIndex := aSelectedIndex + aSRow;
-      with Application as IBaseDbInterface do
+      if aSRow = 0 then
         begin
-          aLink := Data.BuildLink(aDataSet);
-          HintInfo.HintStr := Data.GetLinkDesc(aLink);
-          aLongDesc := Data.GetLinkLongDesc(aLink);
+          with Application as IBaseDbInterface do
+            begin
+              aLink := Data.BuildLink(aDataSet);
+              HintInfo.HintStr := Data.GetLinkDesc(aLink);
+              aLongDesc := Data.GetLinkLongDesc(aLink);
+            end;
+          if aLongDesc <> '' then
+            HintInfo.HintStr := HintInfo.HintStr +lineending+ aLongDesc;
+          {$IFDEF MAINAPP}
+          Data.GetLinkIcon(aLink);
+          {$ENDIF}
+          Result := True;
         end;
-      if aLongDesc <> '' then
-        HintInfo.HintStr := HintInfo.HintStr +lineending+ aLongDesc;
-      {$IFDEF MAINAPP}
-      Data.GetLinkIcon(aLink);
-      {$ENDIF}
-      aDataSet.GotoBookmark(Rec);
-//      gList.DataSource.DataSet := aDataSet;
       gList.DataSource.Enabled:=True;
       gList.EndUpdate;
       HintInfo.HideTimeout:=15000;
     end;
 end;
-procedure TfFilter.AddToolbarAction(aAction: TAction);
+function TfFilter.AddToolbarAction(aAction: TAction) : TToolButton;
 var
   Toolbutton: TToolButton;
 begin
@@ -1590,6 +1753,7 @@ begin
   Toolbutton :=TToolButton.Create(tbToolBar);
   Toolbutton.Parent  := tbToolBar;
   ToolButton.Action := aAction;
+  Result := Toolbutton;
 end;
 procedure TfFilter.AddToolbarToggle(aAction: TAction);
 var
@@ -1645,6 +1809,7 @@ var
   aRec : LargeInt;
   aPrevRec : LargeInt;
 begin
+  if not DataSet.Active then exit;
   aRec := DataSet.GetBookmark;
   DataSet.DataSet.Prior;
   aPrevrec := DataSet.GetBookmark;
@@ -1661,6 +1826,8 @@ begin
   if not Assigned(Data) then exit;
   acFilterRights.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_PERMIT;
   acDeleteFilter.Enabled:=Data.Users.Rights.Right('EDITFILTER') >= RIGHT_DELETE;
+  miAdmin.Visible:=Data.Users.Rights.Right('OPTIONS')>=RIGHT_DELETE;
+  acDelete.Visible:=Data.Users.Rights.Right('OPTIONS')>=RIGHT_DELETE;
 end;
 function TfFilter.GetLink(onlyOne : Boolean = True): string;
 var
@@ -1702,7 +1869,6 @@ begin
 end;
 
 initialization
-  {$I ufilterframe.lrs}
 
 end.
 

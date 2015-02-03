@@ -22,12 +22,13 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, DbCtrls, DBGrids,
   Buttons, StdCtrls, db, uPrometFramesInplaceDB, uExtControls, uBaseDbClasses,
-  Clipbrd,uPerson;
+  Clipbrd, ActnList, StdActns,uPerson;
 type
 
   { TfAddressFrame }
 
   TfAddressFrame = class(TPrometInplaceDBFrame)
+    ActionList1: TActionList;
     Address: TDatasource;
     bCopyToClipboard: TSpeedButton;
     Bevel1: TBevel;
@@ -40,13 +41,14 @@ type
     eAdditional: TDBEdit;
     eCallingName: TDBEdit;
     eCity: TDBEdit;
+    EditCopy1: TEditCopy;
+    EditPaste1: TEditPaste;
     eName: TDBEdit;
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel2: TExtRotatedLabel;
     eZip: TDBEdit;
     gAdresses: TDBGrid;
     Image3: TImage;
-    Label1: TLabel;
     lAdditional: TLabel;
     lCallingName: TLabel;
     lCity: TLabel;
@@ -56,15 +58,19 @@ type
     lStreet: TLabel;
     lTitle: TLabel;
     mAddress: TDBMemo;
-    pAddress: TGroupBox;
-    Panel1: TPanel;
+    pAddress: TPanel;
+    pToolbar: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Splitter1: TSplitter;
-    procedure bCopyToClipboardClick(Sender: TObject);
-    procedure bPasteFromClipboardClick(Sender: TObject);
+    Timer1: TTimer;
+    procedure AddressStateChange(Sender: TObject);
+    procedure cbLandChange(Sender: TObject);
     procedure cbTitleEnter(Sender: TObject);
+    procedure EditCopy1Execute(Sender: TObject);
+    procedure EditPaste1Execute(Sender: TObject);
     procedure mAddressExit(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { private declarations }
     FPerson : TPerson;
@@ -81,26 +87,34 @@ type
 implementation
 {$R *.lfm}
 uses uImpClipboardContact,uData,Utils;
-procedure TfAddressFrame.bCopyToClipboardClick(Sender: TObject);
-var
-  tmp:string;
+
+procedure TfAddressFrame.AddressStateChange(Sender: TObject);
 begin
-  with Address.Dataset do
+  Timer1.Enabled:=True;
+end;
+
+procedure TfAddressFrame.cbLandChange(Sender: TObject);
+var
+  found: Boolean=false;
+begin
+  Data.Countries.Open;
+  if Data.Countries.Locate('ID',trim(copy(cbLand.Text,0,3)),[loCaseInsensitive]) then
     begin
-      if FieldByName('TITLE').AsString <> '' then
-        tmp := tmp+FieldByName('TITLE').AsString+lineending;
-      if FieldByName('CNAME').AsString <> '' then
-        tmp := tmp+FieldByName('CNAME').AsString+' '+FieldByName('NAME').AsString+lineending
-      else
-      tmp := tmp+FieldByName('NAME').AsString+lineending;
-      tmp := tmp+FieldByName('ADDITIONAL').AsString+lineending+FieldByName('ADDRESS').AsString+lineending+FieldByName('ZIP').AsString+' '+FieldByName('CITY').AsString;
-      Clipboard.AsText := tmp;
+      Data.Languages.Open;
+      if Data.Languages.Locate('ISO6391',Data.Countries.FieldByName('LANGUAGE').AsString,[loCaseInsensitive]) then
+        begin
+          cbTitle.Items.Text:=Data.Languages.FieldByName('TITLES').AsString;
+          found := True;
+        end;
+    end;
+  if not Found then
+    begin
+      Data.Languages.Open;
+      if Data.Languages.Locate('ISO6391',copy(cbLand.Text,0,2),[loCaseInsensitive]) then
+        cbTitle.Items.Text:=Data.Languages.FieldByName('TITLES').AsString;
     end;
 end;
-procedure TfAddressFrame.bPasteFromClipboardClick(Sender: TObject);
-begin
-  ContClipBoardImport(FPerson,False);
-end;
+
 procedure TfAddressFrame.cbTitleEnter(Sender: TObject);
 begin
   if (not DataSet.CanEdit) and (DataSet.Count = 0) then
@@ -117,10 +131,38 @@ begin
     end;
 end;
 
+procedure TfAddressFrame.EditCopy1Execute(Sender: TObject);
+var
+  tmp:string;
+begin
+  with Address.Dataset do
+    begin
+      if FieldByName('TITLE').AsString <> '' then
+        tmp := tmp+FieldByName('TITLE').AsString+lineending;
+      if FieldByName('CNAME').AsString <> '' then
+        tmp := tmp+FieldByName('CNAME').AsString+' '+FieldByName('NAME').AsString+lineending
+      else
+      tmp := tmp+FieldByName('NAME').AsString+lineending;
+      tmp := tmp+FieldByName('ADDITIONAL').AsString+lineending+FieldByName('ADDRESS').AsString+lineending+FieldByName('ZIP').AsString+' '+FieldByName('CITY').AsString;
+      Clipboard.AsText := tmp;
+    end;
+end;
+
+procedure TfAddressFrame.EditPaste1Execute(Sender: TObject);
+begin
+  ContClipBoardImport(FPerson,False);
+end;
+
 procedure TfAddressFrame.mAddressExit(Sender: TObject);
 begin
   if eZip.CanFocus then
     eZip.SetFocus;
+end;
+
+procedure TfAddressFrame.Timer1Timer(Sender: TObject);
+begin
+  Timer1.Enabled:=False;
+  cbLandChange(nil);
 end;
 
 procedure TfAddressFrame.SetPerson(const AValue: TPerson);
@@ -160,6 +202,7 @@ end;
 procedure TfAddressFrame.SetRights(Editable: Boolean);
 begin
   Enabled := Editable;
+  ArrangeToolBar(pToolbar,ActionList1,'Address');
 end;
 
 end.

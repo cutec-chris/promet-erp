@@ -1,15 +1,13 @@
 inherited fRepairPositionFrame: TfRepairPositionFrame
-  Left = 0
   Height = 258
-  Top = 0
   Width = 720
   ClientHeight = 258
   ClientWidth = 720
   Color = clWindow
   OnEnter = FrameEnter
   ParentColor = False
-  DesignLeft = 504
-  DesignTop = 336
+  DesignLeft = 426
+  DesignTop = 315
   object Panel1: TPanel[0]
     Left = 0
     Height = 229
@@ -183,6 +181,7 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
       ClientWidth = 24
       DataSource = RepairDetail
       Direction = nbdVertical
+      Flat = True
       Options = []
       TabOrder = 7
       VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
@@ -237,16 +236,23 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
     Transparent = False
     Visible = False
   end
-  object Position: TDatasource[2]
+  object Position: TDataSource[2]
     left = 68
     top = 108
   end
-  object Repair: TDatasource[3]
+  object Repair: TDataSource[3]
     left = 68
     top = 160
   end
-  object RepairDetail: TDatasource[4]
+  object RepairDetail: TDataSource[4]
     left = 70
     top = 214
+  end
+  object Timer1: TTimer[5]
+    Enabled = False
+    OnTimer = Timer1Timer
+    OnStartTimer = Timer1StartTimer
+    left = 488
+    top = 80
   end
 end

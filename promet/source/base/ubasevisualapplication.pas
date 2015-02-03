@@ -28,16 +28,15 @@ uses
   {uAppconsts, }uBaseDBInterface, PropertyStorage, ClipBrd, LCLType,
   uBaseVisualControls, uData, UTF8Process, Controls, Process, ProcessUtils,
   uSystemMessage, uProcessManager, uExtControls, db, typinfo, eventlog,menus,
-  Dialogs,uIntfStrConsts,DBZVDateTimePicker
+  Dialogs,uIntfStrConsts,DBZVDateTimePicker,ubaseconfig
   {$IFDEF LCLCARBON}
   ,MacOSAll,CarbonProc
   {$ENDIF}
   ;
 type
-
   { TBaseVisualApplication }
 
-  TBaseVisualApplication = class(TApplication, IBaseApplication, IBaseDbInterface)
+  TBaseVisualApplication = class(TApplication, IBaseApplication, IBaseDbInterface,IBaseConfig)
     procedure BaseVisualApplicationDebugLn(Sender: TObject; S: string;
       var Handled: Boolean);
     procedure BaseVisualApplicationException(Sender: TObject; E: Exception);
@@ -45,6 +44,10 @@ type
     procedure DataDataConnect(Sender: TObject);
     procedure DataDataConnectionLost(Sender: TObject);
     procedure DataDataDisconnectKeepAlive(Sender: TObject);
+
+      procedure IBaseApplicationIBaseConfigIBaseApplicationIBaseDBInterfaceDataUsersDataSetBeforeScroll
+      (DataSet: TDataSet);
+    procedure LanguageItemClick(Sender: TObject);
     procedure MessageHandlerExit(Sender: TObject);
     procedure ReaderReferenceName(Reader: TReader; var aName: string);
     procedure SenderTFrameReaderAncestorNotFound(Reader: TReader;
@@ -55,10 +58,11 @@ type
     procedure SenderTFrameReaderReadStringProperty(Sender: TObject;
       const Instance: TPersistent; PropInfo: PPropInfo; var Content: string);
   private
+    miLanguage : TMenuItem;
     FDBInterface: IBaseDBInterface;
     FOnUserTabAdded: TNotifyEvent;
     Properties: TXMLPropStorage;
-    Processmanager: TProcessUTF8;
+    Processmanager: TProcess;
     FMessagehandler : TMessageHandler;
     FActualName : string;
     FProps : TStringList;
@@ -69,7 +73,7 @@ type
     FAppRevision : Integer;
     aParent: TWinControl;
     FQuickHelp : Boolean;
-    procedure StartProcessManager;
+    procedure StartProcessManager(DoCloseIt : Boolean = False);
     procedure UserTabAdded(Sender : TObject);
     function HandleSystemCommand(Sender : TObject;aCommand : string) : Boolean;
     {$IFDEF LCLCARBON}
@@ -97,6 +101,8 @@ type
     procedure AddTabClasses(aType : string;pcPages : TExtMenuPageControl);
     procedure AddTabs(pcPages : TExtMenuPageControl);
     procedure OnAddCustomTab(Sender: TObject);
+    function GetInternalTempDir: string;
+    function GetMessageManager : TThread;
 
     procedure Log(aType : string;aMsg : string);
     procedure Log(aMsg : string);
@@ -114,6 +120,7 @@ type
     procedure SetAppname(AValue: string);virtual;
     procedure SetAppRevision(AValue: Integer);virtual;
     procedure SetAppVersion(AValue: real);virtual;
+    procedure LoadLanguageMenu(amiLanguage : TMenuItem);
 
     function Login : Boolean;
     function ChangePasswort: Boolean;
@@ -128,8 +135,7 @@ var
   LinkClipboardFormat : TClipboardFormat;
 implementation
 uses uPassword,uMashineID,uError,ComCtrls,StdCtrls,ExtCtrls,
-  DBCtrls, LMessages, LCLIntf,
-  LazLogger,Buttons;
+  DBCtrls, LMessages, LCLIntf,LazLogger,Buttons,uLanguageUtils,dbugintf;
 resourcestring
   strWrongPasswort            = 'Falsches Passwort !';
   strUsernotFound             = 'Benutzer nicht gefunden !';
@@ -170,6 +176,22 @@ begin
   Result := False;
 end;
 
+function TBaseVisualApplication.GetInternalTempDir: string;
+var
+  TempPath: String;
+begin
+  with BaseApplication as IBaseConfig do
+    TempPath := Config.ReadString('TEMPPATH','');
+  if TempPath = '' then
+    TempPath := GetTempDir;
+  Result := AppendPathDelim(TempPath);
+end;
+
+function TBaseVisualApplication.GetMessageManager: TThread;
+begin
+  Result := FMessagehandler;
+end;
+
 procedure TBaseVisualApplication.BaseVisualApplicationDebugLn(Sender: TObject;
   S: string; var Handled: Boolean);
 begin
@@ -182,6 +204,7 @@ procedure TBaseVisualApplication.BaseVisualApplicationException(
 var
   err: String;
 begin
+  if e.Message='Invalid variant type cast' then exit;
   fError := TfError.Create(Self);
   fError.SetLanguage;
 //  if E is EDatabaseError then
@@ -231,6 +254,27 @@ end;
 procedure TBaseVisualApplication.DataDataDisconnectKeepAlive(Sender: TObject);
 begin
   Application.ProcessMessages;
+end;
+
+procedure TBaseVisualApplication.IBaseApplicationIBaseConfigIBaseApplicationIBaseDBInterfaceDataUsersDataSetBeforeScroll
+  (DataSet: TDataSet);
+begin
+end;
+
+procedure TBaseVisualApplication.LanguageItemClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  with BaseApplication as IBaseApplication do
+    begin
+      for i := 0 to miLanguage.Count-1 do
+        if miLanguage[i].Caption = Language then
+          miLanguage[i].Checked := false;
+      TmenuItem(Sender).Checked := True;
+      Language := TmenuItem(Sender).Caption;
+      LoadLanguage(Language);
+    end;
+  MainForm.Invalidate;
 end;
 
 procedure TBaseVisualApplication.MessageHandlerExit(Sender: TObject);
@@ -364,14 +408,14 @@ begin
 end;
 procedure TBaseVisualApplication.SetConfigName(aName: string);
 begin
-  Properties.FileName := UTF8ToSys(GetOurConfigDir+aName+'.xml');
+  Properties.FileName := UniToSys(GetOurConfigDir+aName+'.xml');
 end;
 procedure TBaseVisualApplication.RestoreConfig;
 var
   NewRect : TRect;
   aWS: TWindowState;
 begin
-  with Self as IBaseApplication do
+  with Self as IBaseConfig do
     begin
       try
       Properties.Restore;
@@ -389,7 +433,8 @@ begin
 end;
 procedure TBaseVisualApplication.SaveConfig;
 begin
-  with Self as IBaseApplication do
+  try
+  with Self as IBaseConfig do
     begin
       if Assigned(MainForm) then
         begin
@@ -399,6 +444,10 @@ begin
         end;
       Properties.Save;
     end;
+  except
+    on e : Exception do
+      Error('failed to save Config:'+e.Message);
+  end;
 end;
 function TBaseVisualApplication.GetConfig: TCustomPropertyStorage;
 begin
@@ -406,12 +455,12 @@ begin
 end;
 function TBaseVisualApplication.GetLanguage: string;
 begin
-  with Self as IBaseApplication do
+  with Self as IBaseConfig do
     Result := Config.ReadString('LANGUAGE','');
 end;
 procedure TBaseVisualApplication.SetLanguage(const AValue: string);
 begin
-  with Self as IBaseApplication do
+  with Self as IBaseConfig do
     Config.WriteString('LANGUAGE',AValue);
   //TODO:change Language
 end;
@@ -521,6 +570,7 @@ begin
               aFrame.Parent := aTab;
               aTab.Visible:=False;
               aTab.PageControl := pcPages;
+              aTab.Tag := 999;
               try
                 UserTabAdded(aFrame);
                 if ShouldRemoveTab(aTab) then
@@ -574,6 +624,7 @@ begin
       aFrame.Parent := aTab;
       aTab.Visible:=False;
       aTab.PageControl := PC;
+      aTab.Tag:=999;
       try
         UserTabAdded(aFrame);
         aTab.PageIndex:=PC.PageCount-2;
@@ -607,13 +658,14 @@ procedure TBaseVisualApplication.Log(aMsg: string);
 begin
   try
     Log('INFO',aMsg);
+    SendDebugEx(aMsg,dlInformation);
   except
   end;
 end;
 procedure TBaseVisualApplication.Info(aMsg: string);
 begin
   try
-    Log(aMsg)
+    Log(aMsg);
   except
   end;
 end;
@@ -621,6 +673,7 @@ procedure TBaseVisualApplication.Warning(aMsg: string);
 begin
   try
     Log('WARNING',aMsg);
+    SendDebugEx(aMsg,dlWarning);
   except
   end;
 end;
@@ -628,6 +681,7 @@ procedure TBaseVisualApplication.Error(aMsg: string);
 begin
   try
     Log('ERROR',aMsg);
+    SendDebugEx(aMsg,dlError);
   except
   end;
 end;
@@ -635,6 +689,7 @@ procedure TBaseVisualApplication.Debug(aMsg: string);
 begin
   if HasOption('debug') then
     debugln('DEBUG:'+aMsg);
+  SendDebug('DEBUG:'+aMsg);
 end;
 function TBaseVisualApplication.GetLog: TEventLog;
 begin
@@ -675,7 +730,52 @@ procedure TBaseVisualApplication.SetAppVersion(AValue: real);
 begin
   FAppVersion:=AValue;
 end;
-procedure TBaseVisualApplication.StartProcessManager;
+procedure TBaseVisualApplication.LoadLanguageMenu(amiLanguage: TMenuItem);
+var
+  aNewItem: TMenuItem;
+  sl: TStringList;
+  i: Integer;
+  Lang : string;
+begin
+  miLanguage := amiLanguage;
+
+  lang := Application.GetOptionValue('l','lang');
+  if lang <> '' then
+    SetLanguage(Lang);
+
+  if GetLanguage = '' then
+    begin
+      //Win32 user may decide to override locale with LANG variable.
+      if Lang = '' then
+        Lang := GetEnvironmentVariableUTF8('LANG');
+      debugln('Detected Language:'+Lang);
+      if (lowercase(copy(Lang,0,2)) = 'de') or (LongMonthNames[1]='Januar') then
+        SetLanguage('Deutsch')
+      else
+        SetLanguage('English');
+    end;
+  LoadLanguage(GetLanguage);
+  miLanguage.Clear;
+  sl := TStringList.Create;
+  if FileExistsUTF8(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt') then
+    sl.LoadFromFile(UniToSys(AppendPathDelim(AppendPathDelim(ProgramDirectory) + 'languages')+'languages.txt'));
+  for i := 0 to sl.Count-1 do
+    begin
+      aNewItem := TMenuItem.Create(miLanguage);
+      aNewItem.Caption := sl[i];
+      aNewItem.AutoCheck := True;
+      aNewItem.OnClick:=@LanguageItemClick;
+      aNewItem.GroupIndex := 11;
+      miLanguage.Add(aNewItem);
+      if UpperCase(aNewItem.Caption) = UpperCase(GetLanguage) then
+        begin
+          aNewItem.Checked := True;
+        end;
+    end;
+  sl.Free;
+end;
+
+procedure TBaseVisualApplication.StartProcessManager(DoCloseIt: Boolean);
 begin
   FMessagehandler := TMessageHandler.Create(Data.Data);
   FMessageHandler.RegisterCommandHandler(@HandleSystemCommand);
@@ -684,8 +784,11 @@ begin
       if Data.Users.DataSet.Active then
         begin
           ProcessManager := uProcessManager.StartMessageManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString);
-          if not Assigned(Processmanager) then
-            ProcessManager := uProcessManager.StartProcessManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString)
+          if DoCloseIt and Assigned(Processmanager) then
+            begin
+              Processmanager.Tag:=100;
+              Info('closing messagemanager on exit');
+            end;
         end;
     end;
 end;
@@ -719,14 +822,15 @@ begin
 end;
 procedure TBaseVisualApplication.UserTabAdded(Sender: TObject);
 var
-  Stream: TMemoryStream;
+  Stream: TStringStream;
   Reader: TReader;
   i: Integer;
   tmp : string;
-  aComponent: TDBEdit;
+  aComponent: TComponent;
   aDS: TDataSource;
   aOld: TWinControl;
   aTab: TWinControl;
+  aDST: String;
 begin
   with Sender as TFrame do
     begin
@@ -737,8 +841,9 @@ begin
         if Data.Data.Forms.DataSet.Locate('NAME',TTabSheet(TFrame(Sender).Parent).Caption,[]) then
           begin
             aTab := TFrame(Sender).Parent;
+            aTab.Tag:=999;
             try
-              Stream := TMemoryStream.Create;
+              Stream := TStringStream.Create('');
               Data.Data.BlobFieldToStream(Data.Data.Forms.DataSet,'FORM',Stream);
               Stream.Position := 0;
               Reader := TReader.Create(Stream, 4096);
@@ -758,57 +863,62 @@ begin
                     Reader.ReadRootComponent(TFrame(Sender).Parent);
                     for i := 0 to Reader.Root.ComponentCount-1 do
                       begin
-                        if (Reader.Root.Components[i] is TDBEdit) and (FProps.Count > 0) and (FFields.Count > 0) then
+                        Randomize;
+                        aComponent := Reader.Root.Components[i];
+                        aComponent.Name:=aComponent.Name+IntToStr(System.Random(5000));
+                        if (aComponent is TDBEdit) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
-                            aDS := TDataSource(aParent.FindComponent(FProps[0]));
+                            aDST := FProps[0];
+                            aDS := TDataSource(aParent.FindComponent(aDST));
                             if Assigned(aDS) and Assigned(aDS.DataSet) and (aDS.DataSet.Active) and (aDS.DataSet.FieldDefs.IndexOf(FFields[0]) <> -1) then
                               begin
-                                TDBEdit(Reader.Root.Components[i]).DataField := FFields[0];
-                                TDBEdit(Reader.Root.Components[i]).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
+                                TDBEdit(aComponent).DataField := FFields[0];
+                                TDBEdit(aComponent).DataSource := TDataSource(aParent.FindComponent(aDST));
                               end;
                             FProps.Delete(0);
                             FFields.Delete(0);
                           end
-                        else if (Reader.Root.Components[i] is TDBMemo) and (FProps.Count > 0) and (FFields.Count > 0) then
+                        else if (aComponent is TDBMemo) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
-                            aDS := TDataSource(aParent.FindComponent(FProps[0]));
+                            aDST := FProps[0];
+                            aDS := TDataSource(aParent.FindComponent(aDST));
                             if Assigned(aDS) and Assigned(aDS.DataSet) and (aDS.DataSet.Active) and (aDS.DataSet.FieldDefs.IndexOf(FFields[0]) <> -1) then
                               begin
-                                TDBMemo(Reader.Root.Components[i]).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
-                                TDBMemo(Reader.Root.Components[i]).DataField := FFields[0];
+                                TDBMemo(aComponent).DataSource := TDataSource(aParent.FindComponent(aDST));
+                                TDBMemo(aComponent).DataField := FFields[0];
                               end;
                             FProps.Delete(0);
                             FFields.Delete(0);
                           end
-                        else if (Reader.Root.Components[i] is TDBCombobox) and (FProps.Count > 0) and (FFields.Count > 0) then
+                        else if (aComponent is TDBCombobox) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
                             aDS := TDataSource(aParent.FindComponent(FProps[0]));
                             if Assigned(aDS) and Assigned(aDS.DataSet) and (aDS.DataSet.Active) and (aDS.DataSet.FieldDefs.IndexOf(FFields[0]) <> -1) then
                               begin
-                                TDBCombobox(Reader.Root.Components[i]).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
-                                TDBComboBox(Reader.Root.Components[i]).DataField := FFields[0];
+                                TDBCombobox(aComponent).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
+                                TDBComboBox(aComponent).DataField := FFields[0];
                               end;
                             FProps.Delete(0);
                             FFields.Delete(0);
                           end
-                        else if (Reader.Root.Components[i] is TDBCheckBox) and (FProps.Count > 0) and (FFields.Count > 0) then
+                        else if (aComponent is TDBCheckBox) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
                             aDS := TDataSource(aParent.FindComponent(FProps[0]));
                             if Assigned(aDS) and Assigned(aDS.DataSet) and (aDS.DataSet.Active) and (aDS.DataSet.FieldDefs.IndexOf(FFields[0]) <> -1) then
                               begin
-                                TDBCheckBox(Reader.Root.Components[i]).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
-                                TDBCheckBox(Reader.Root.Components[i]).DataField := FFields[0];
+                                TDBCheckBox(aComponent).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
+                                TDBCheckBox(aComponent).DataField := FFields[0];
                               end;
                             FProps.Delete(0);
                             FFields.Delete(0);
                           end
-                        else if (Reader.Root.Components[i] is TDBZVDateTimePicker) and (FProps.Count > 0) and (FFields.Count > 0) then
+                        else if (aComponent is TDBZVDateTimePicker) and (FProps.Count > 0) and (FFields.Count > 0) then
                           begin
                             aDS := TDataSource(aParent.FindComponent(FProps[0]));
                             if Assigned(aDS) and Assigned(aDS.DataSet) and (aDS.DataSet.Active) and (aDS.DataSet.FieldDefs.IndexOf(FFields[0]) <> -1) then
                               begin
-                                TDBZVDateTimePicker(Reader.Root.Components[i]).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
-                                TDBZVDateTimePicker(Reader.Root.Components[i]).DataField := FFields[0];
+                                TDBZVDateTimePicker(aComponent).DataSource := TDataSource(aParent.FindComponent(FProps[0]));
+                                TDBZVDateTimePicker(aComponent).DataField := FFields[0];
                               end;
                             FProps.Delete(0);
                             FFields.Delete(0);
@@ -823,6 +933,7 @@ begin
               FFields.Destroy;
               Stream.Free;
             except
+              raise;
             end;
             if Assigned(FOnUserTabAdded) then
               FOnUserTabAdded(aTab);
@@ -835,6 +946,12 @@ var
   rMandant: String;
   rUser: String;
   rAutoLogin: String;
+  aRec: LargeInt;
+  function IsAutoLogin : Boolean;
+  begin
+    result := (rMandant='Standard') and (rUser='Administrator') and ((rAutoLogin='0') or (rAutoLogin=''));
+  end;
+
 begin
   Result := True;
   if not Assigned(fPassword) then
@@ -846,25 +963,40 @@ begin
   fPassword.ePasswort.Text := '';
   try
     try
-      with Self as IBaseApplication do
+      with Self as IBaseApplication,Self as IBaseConfig do
         begin
           aID := CreateUserID;
-          rMandant := Config.ReadString('LOGINMANDANT','');
-          rUser := Config.ReadString('LOGINUSER','');
-          rAutoLogin := Config.ReadString('AUTOMATICLOGIN','T');
+          rMandant := Config.ReadString('LOGINMANDANT','Standard');
+          rUser := Config.ReadString('LOGINUSER','Administrator');
+          rAutoLogin := Config.ReadString('AUTOMATICLOGIN','');
           if ((Config.ReadInteger('AUTOMATICLOGIN',0)=aID) and (aID <> 0))
-          or ((rMandant='Standart') and (rUser='Administrator') and (rAutoLogin='')) then
+          or (IsAutoLogin) then
             with Self as IBaseDBInterface do
-              if DBLogin(Config.ReadString('LOGINMANDANT',''),Config.ReadString('LOGINUSER',''),True) then
+              if DBLogin(rMandant,rUser,True) then
                 begin
-                  Data.DeleteExpiredSessions;
-                  uData.Data := Data;
-                  StartProcessManager;
-                  udata.Data.OnConnectionLost:=@DataDataConnectionLost;
-                  udata.Data.OnDisconnectKeepAlive:=@DataDataDisconnectKeepAlive;
-                  udata.Data.OnConnect:=@DataDataConnect;
-                  Result := True;
-                  exit;
+                  if IsAutoLogin and (Data.Users.Passwort.IsNull) then
+                    begin
+                      Data.DeleteExpiredSessions;
+                      uData.Data := Data;
+                      StartProcessManager(True);
+                      udata.Data.OnConnectionLost:=@DataDataConnectionLost;
+                      udata.Data.OnDisconnectKeepAlive:=@DataDataDisconnectKeepAlive;
+                      udata.Data.OnConnect:=@DataDataConnect;
+                      Result := True;
+                      exit;
+                    end
+                  else if not IsAutologin then
+                    begin
+                      Data.DeleteExpiredSessions;
+                      uData.Data := Data;
+                      StartProcessManager(False);
+                      udata.Data.OnConnectionLost:=@DataDataConnectionLost;
+                      udata.Data.OnDisconnectKeepAlive:=@DataDataDisconnectKeepAlive;
+                      udata.Data.OnConnect:=@DataDataConnect;
+                      Result := True;
+                      exit;
+                    end
+                  else Result := False;
                 end
               else
                 Config.WriteInteger('AUTOMATICLOGIN',0);
@@ -896,6 +1028,8 @@ begin
                     Result := False;
                     exit;
                   end;
+                Debug('User: '+Data.Users.Id.AsString);
+                aRec := Data.Users.GetBookmark;
                 with Self as IBaseDBInterface do
                   if not DBLogin(Config.ReadString('LOGINMANDANT',''),Config.ReadString('LOGINUSER',''),True,True) then
                     begin
@@ -904,6 +1038,9 @@ begin
                       Result := False;
                       exit;
                     end;
+                Data.Users.GotoBookmark(arec);
+                data.Users.DataSet.BeforeScroll:=@IBaseApplicationIBaseConfigIBaseApplicationIBaseDBInterfaceDataUsersDataSetBeforeScroll;
+                Debug('Logged in with User '+Data.Users.Id.AsString);
                 Data.DeleteExpiredSessions;
                 uData.Data := Data;
                 StartProcessManager;
@@ -965,7 +1102,7 @@ begin
   LazLogger.GetDebugLogger.OnDebugLn:=nil;
   uData.Data := nil;
   DoExit;
-  with Self as IBaseApplication do
+  with Self as IBaseConfig do
     begin
       Config.WriteString('AUTOMATICLOGIN','NO');
       Terminate;
@@ -981,7 +1118,7 @@ begin
       sleep(50);
       FMessageHandler := nil;
     end;
-  if Self.HasOption('t','terminateprocesses') then
+  if Assigned(Processmanager) and (Self.HasOption('t','terminateprocesses') or (Processmanager.Tag=100)) then
     if Processmanager.Active then Processmanager.Terminate(1);
   if Assigned(Processmanager) then
     FreeAndNil(ProcessManager);

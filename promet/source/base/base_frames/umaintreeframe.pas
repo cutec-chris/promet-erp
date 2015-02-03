@@ -20,7 +20,7 @@ unit uMainTreeFrame;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, ComCtrls, ActnList,
+  Classes, SysUtils, FileUtil,  Forms, Controls, ComCtrls, ActnList,
   Menus, ExtCtrls, uBaseDBInterface, uBaseDbClasses,uExtControls, db;
 type
   TEntryTyp = (etNone,etAction,etDir,
@@ -40,6 +40,7 @@ type
                  etMyCalendar,
                  etCalendarDepartment,
                  etCalendarUser,
+                 etCalendarDir,
                  etAttPlan,
                etMessages,etMessageDir,etMessageBoard,
                etTimeRegistering,
@@ -56,8 +57,7 @@ type
                etFiles,
                etDocuments,
                etImages,
-               etDocumentsOnly,
-                 etDocumentDir,
+               etDocumentDir,
                etLists,
                etStorage,
                  etStoragejournal,
@@ -71,7 +71,8 @@ type
                etWiki,
                  etWikiPage,
                etClipboard,
-                 etClipboardItem
+                 etClipboardItem,
+               etAllObjects
                );
   TTreeEntry = class
   public
@@ -105,7 +106,6 @@ type
     acAddBoard: TAction;
     acRights: TAction;
     acDeleteLink: TAction;
-    acHideEntry: TAction;
     acRestoreStandard: TAction;
     acCopyAsLink: TAction;
     acPasteLink: TAction;
@@ -184,13 +184,14 @@ var
 
 
 implementation
+{$R *.lfm}
 uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
-  uBaseVisualControls, Graphics, Utils, LCLProc, uPerson,uMasterdata,uProjects,
+  uBaseVisualControls, Graphics, Utils,UtilsVis, LCLProc, uPerson,uMasterdata,uProjects,
   uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic,uClipp,Clipbrd,
-  uBaseVisualApplication,uError;
+  uBaseVisualApplication,uError,uBaseApplication;
 resourcestring
   strRestartNessesary                         = 'Starten Sie die Anwendung neu !';
-  strRealMove                                 = 'Verzeichnis wirklich verschieben ?';
+  strRealMove                                 = 'Verzeichnis wirklich nach "%s" verschieben ?';
 constructor TTreeEntry.Create;
 begin
   Action := nil;
@@ -242,6 +243,8 @@ begin
         end;
       if ((DataT.Typ = etDir)
       or (DataT.Typ = etCustomers)
+      or (DataT.Typ = etCalendar)
+      or (DataT.Typ = etCalendarDir)
       or (DataT.Typ = etMasterdata)
       or (DataT.Typ = etProjects)
       or (DataT.Typ = etStatistics)
@@ -250,7 +253,7 @@ begin
       or (DataT.Typ = etMessageDir)
       or (DataT.Typ = etMessageBoard)
       or (DataT.Typ = etFavourites)
-      or (DataT.Typ = etDocumentsOnly)
+      or (DataT.Typ = etDocuments)
       or (DataT.Typ = etImages)
       or (DataT.Typ = etDocumentDir)
       or (DataT.Typ = etClipboard)
@@ -276,6 +279,7 @@ begin
       or (DataT.Typ = etMessageDir)
       or (DataT.Typ = etMessageBoard)
       or (DataT.Typ = etDocumentDir)
+      or (DataT.Typ = etCalendarDir)
       then
         begin
           New := TMenuItem.Create(pmTree);
@@ -292,11 +296,12 @@ begin
       or (DataT.Typ = etMessageBoard)
       or (DataT.Typ = etStatistic)
       or (DataT.Typ = etDocumentDir)
+      or (DataT.Typ = etCalendarDir)
       then
         begin
           New := TMenuItem.Create(pmTree);
           New.Action := acRights;
-          acRights.Enabled:= (((DataT.Typ = etMessageDir) or (DataT.Typ = etMessageBoard) or (DataT.Typ = etStatistic)) and (Data.Users.Rights.Right('TREE') >= RIGHT_PERMIT))
+          acRights.Enabled:= ((Data.Users.Rights.Right('TREE') >= RIGHT_PERMIT))
              or (DataT.Typ = etFavourites) or (Typ='F')
              or ((DataT.Typ = etStatistic)  and (Data.Users.Rights.Right('STATISTICS') >= RIGHT_PERMIT))
              ;
@@ -345,9 +350,11 @@ begin
           New := TMenuItem.Create(pmTree);
           New.Caption:='-';
         end;
+      {
       New := TMenuItem.Create(pmTree);
       New.Action := acHideEntry;
       pmTree.Items.Add(New);
+      }
     end;
 end;
 constructor TfMainTree.Create(AOwner: TComponent);
@@ -365,6 +372,8 @@ end;
 
 function TfMainTree.OpenLink(aLink: string; Sender: TObject): Boolean;
 begin
+  with BaseApplication as IBaseApplication do
+    Info('OpenLink:'+aLink);
   Result := False;
   if Assigned(FLinkOpen) then
     Result := FLinkOpen(aLink,Sender);
@@ -372,6 +381,8 @@ end;
 function TfMainTree.NewFromLink(aLink: string; Sender: TObject
   ): TBaseDBdataSet;
 begin
+  with BaseApplication as IBaseApplication do
+    Info('NewFromLink:'+aLink);
   result := nil;
   if Assigned(FLinkNew) then
     Result := FLinkNew(aLink,Sender);
@@ -391,11 +402,25 @@ begin
   if not Assigned(tvMain.Selected) then exit;
   DataT := TTreeEntry(tvMain.Selected.Data);
   case DataT.Typ of
-  etAction:DataT.Action.Execute;
-  etSearch:acSearch.Execute;
+  etAction:
+    begin
+      DataT.Action.Execute;
+      with BaseApplication as IBaseApplication do
+        Info('Action Open:'+DataT.Action.Name);
+    end;
+  etSearch:
+    begin
+      acSearch.Execute;
+      with BaseApplication as IBaseApplication do
+        Info('Action Open:'+acSearch.Name);
+    end
   else
-    if Assigned(FOpen) then
-      FOpen(DataT);
+    begin
+      if Assigned(FOpen) then
+        FOpen(DataT);
+      with BaseApplication as IBaseApplication do
+        Info('Open:'+DataT.Link);
+    end;
   end;
   Screen.Cursor:=crDefault;
 end;
@@ -415,7 +440,7 @@ begin
   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
   if Data.Tree.GotoBookmark(DataT2.Rec) then
     begin
-      aDS := TLinks.Create(nil,Data);
+      aDS := TLinks.Create(nil);
       Stream := TStringStream.Create('');
       if (pos('://',ClipBoard.AsText) > 0) then
         begin
@@ -476,22 +501,11 @@ var
 begin
   DataT := TTreeEntry(tvMain.Selected.Data);
   if not Assigned(DataT) then exit;
-  if  (DataT.Typ <> etDir)
-  and (DataT.Typ <> etCustomers)
-  and (DataT.Typ <> etMessageDir)
-  and (DataT.Typ <> etMessageBoard)
-  and (DataT.Typ <> etDocumentDir)
-  then exit;
   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
-  if (DataT.Typ = etDir)
-  or (DataT.Typ = etMessageDir)
-  or (DataT.Typ = etMessageBoard)
-  or (DataT.Typ = etDocumentDir)
-  then
+  if Data.GotoBookmark(Data.Tree,DataT.Rec) then
     begin
-      Data.GotoBookmark(Data.Tree,DataT.Rec);
       s := InputBox(strRename,strNewName,Data.Tree.FieldByName('NAME').AsString);
-      aTree := TTree.Create(Self,Data);
+      aTree := TTree.CreateEx(Self,Data);
       Data.SetFilter(aTree,'');
       aTree.DataSet.Edit;
       aTree.FieldByName('NAME').AsString := S;
@@ -518,6 +532,7 @@ begin
   if (DataT.Typ = etDir)
   or (DataT.Typ = etMessageDir)
   or (DataT.Typ = etMessageBoard)
+  or (DataT.Typ = etCalendarDir)
   or (DataT.Typ = etDocumentDir)
   then
     begin
@@ -528,7 +543,7 @@ begin
   else if (DataT.Typ = etStatistic)
   then
     begin
-      aDataSet := DataT.DataSourceType.Create(Self,Data);
+      aDataSet := DataT.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
         Filter := DataT.Filter;
       aDataSet.Open;
@@ -559,6 +574,7 @@ begin
   if (DataT.Typ = etDir)
   or (DataT.Typ = etMessageDir)
   or (DataT.Typ = etMessageBoard)
+  or (DataT.Typ = etCalendarDir)
   then
     begin
       Data.GotoBookmark(Data.Tree,DataT.Rec);
@@ -595,6 +611,13 @@ begin
       ParentID := '0';
       Typ := 'S';
     end
+  else if (DataT.Typ = etCalendar)
+       then
+    begin
+      ParentID := '0';
+      Typ := 'A';
+      NewTyp := etCalendarDir;
+    end
   else if (DataT.Typ = etFavourites) then
     begin
       ParentID := '0';
@@ -605,7 +628,7 @@ begin
       ParentID := '0';
       Typ := 'Z';
     end
-  else if (DataT.Typ = etDocumentsOnly)
+  else if (DataT.Typ = etDocuments)
        or (DataT.Typ = etImages)
        or (DataT.Typ = etDocumentDir)
        then
@@ -642,7 +665,7 @@ begin
       Data.Permissions.Open;
       if ParentID <> '0' then
         begin
-          aRights := TPermissions.Create(Self,Data);
+          aRights := TPermissions.CreateEx(Self,Data);
           Data.SetFilter(aRights,Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(ParentID));
           with aRights.DataSet do
             begin
@@ -682,7 +705,7 @@ begin
   if not Assigned(DataT) then exit;
   if DataT.Typ = etLink then
     begin
-      aLinks := TLinks.Create(nil,Data);
+      aLinks := TLinks.Create(nil);
       aLinks.Select(DataT.Rec);
       aLinks.Open;
       if aLinks.Count>0 then
@@ -695,7 +718,7 @@ begin
     end
   else
     begin
-      aDataSet := DataT.DataSourceType.Create(Self,Data);
+      aDataSet := DataT.DataSourceType.CreateEx(Self,Data);
       aDataSet.ActualFilter := DataT.Filter;
       aDataSet.Open;
       if aDataSet.Count > 0 then
@@ -761,14 +784,9 @@ begin
   aNode := tvMain.Selected;
   DataT := TTreeEntry(tvMain.Selected.Data);
   if not Assigned(DataT) then exit;
-  if (DataT.Typ <> etDir)
-  and (DataT.Typ <> etMessageDir)
-  and (DataT.Typ <> etMessageBoard)
-  and (DataT.Typ <> etDocumentDir)
-  then exit;
   if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
     begin
-      aTree := TTree.Create(Self,Data);
+      aTree := TTree.CreateEx(Self,Data);
       Data.SetFilter(aTree,'');
       if Data.GotoBookmark(aTree,DataT.Rec) then
         begin
@@ -790,7 +808,7 @@ begin
   if not Assigned(DataT) then exit;
   if (DataT.Typ <> etLink)
   then exit;
-  aLinks := TLinks.Create(nil,Data);
+  aLinks := TLinks.Create(nil);
   aLinks.Select(DataT.Rec);
   aLinks.Open;
   if aLinks.Count>0 then
@@ -961,14 +979,24 @@ begin
     begin
       aImageIndex := IMAGE_FAVOURITES;
       aImageList := fVisualControls.ImageListBig;
-    end
+    end;
+  etDocuments:
+    begin
+      aImageIndex := 17;
+      aImageList := fVisualControls.ImageListBig;
+    end;
+  etImages:
+    begin
+      aImageIndex := 16;
+      aImageList := fVisualControls.ImageListBig;
+    end;
   end;
   if aImageIndex = -1 then
     case aData.Typ of
     etDir,etDocumentDir:aImageIndex := IMAGE_FOLDER;
     etCustomers:aImageIndex := IMAGE_PERSON;
     etCustomer,etEmployee:aImageIndex := IMAGE_PERSON;
-    etCalendarUser,etMyCalendar:aImageIndex:=105;
+    etCalendarUser,etMyCalendar,etCalendarDir:aImageIndex:=105;
     etTaskUser:aImageIndex:=IMAGE_TASK;
     etArticle:aImageIndex := IMAGE_MASTERDATA;
     etSupplier:aImageIndex := IMAGE_SUPPLIER;
@@ -989,9 +1017,6 @@ begin
     etProject:aImageIndex := 13;
     etProcess:aImageIndex := 103;
     etFiles:aImageIndex := 19;
-    etDocumentsOnly:aImageIndex := 19;
-    etDocuments:aImageIndex := 19;
-    etImages:aImageIndex:=79;
     etLists:aImageIndex := 24;
     etStatistic:aImageIndex := 58;
     etInventory:aImageIndex := 24;
@@ -1115,6 +1140,7 @@ var
   aNode: TTreeNode;
   tmp: String;
   aNode1: TTreeNode;
+  aTargetNode: TTreeNode;
 begin
   if Assigned(FDragDrop) then
     begin
@@ -1133,8 +1159,9 @@ begin
       etStatistic,
       etWikiPage:
         begin
-          if Assigned(tvMain.GetNodeAt(X,Y)) and Assigned(tvMain.GetNodeAt(X,Y).Data) then
-            if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ=etDocumentDir) then
+          aTargetNode:=tvMain.GetNodeAt(X,Y);
+          if Assigned(aTargetNode) and Assigned(aTargetNode.Data) then
+            if (TTreeEntry(aTargetNode.Data).Typ = etDir) or (TTreeEntry(aTargetNode.Data).Typ=etDocumentDir) then
               begin
                 case DataT.Typ of
                 etCustomer,
@@ -1146,17 +1173,19 @@ begin
                 etStatistic,
                 etWikiPage:
                   begin
-                    DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
+                    DataT2 := TTreeEntry(aTargetNode.Data);
                     Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
                     Data.Tree.GotoBookmark(DataT2.Rec);
                     if (Data.Tree.FieldByName('TYPE').AsString <> 'F') then
                       begin
+                        aNewParent:=Data.Tree.Id.AsVariant;
                         acOpen.Execute;
                         aFrame := TPrometMainFrame(pcPages.ActivePage.Controls[0]);
                         with aFrame.DataSet.DataSet do
                           begin
                             Edit;
-                            FieldByName('TREEENTRY').AsVariant:=Data.Tree.Id.AsVariant;
+                            FieldByName('TREEENTRY').AsVariant:=aNewParent;
+                            Post;
                           end;
                         with TPrometMainFrame(pcPages.ActivePage.Controls[0]) do
                           begin
@@ -1171,7 +1200,7 @@ begin
                               end;
                           end;
                         tvMain.Selected.Delete;
-                        aNode1 := tvMain.GetNodeAt(X,Y);
+                        aNode1 := aTargetNode;
                         if Assigned(aNode1) then
                           begin
                             aNode1.Collapse(True);
@@ -1181,7 +1210,7 @@ begin
                       end
                     else if  (DataT.Typ = etLink) then
                       begin
-                        aDataSet := DataT.DataSourceType.Create(Self,Data);
+                        aDataSet := DataT.DataSourceType.CreateEx(Self,Data);
                         with aDataSet.DataSet as IBaseDBFilter do
                           Filter := DataT.Filter;
                         aDataSet.Open;
@@ -1190,9 +1219,9 @@ begin
                             aDataSet.DataSet.Edit;
                             aDataSet.FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
                             aDataSet.DataSet.Post;
-                            tvMain.GetNodeAt(X,Y).Collapse(True);
-                            tvMain.GetNodeAt(X,Y).HasChildren:=True;
-                            tvMain.GetNodeAt(X,Y).Expand(False);
+                            aTargetNode.Collapse(True);
+                            aTargetNode.HasChildren:=True;
+                            aTargetNode.Expand(False);
                             tvMain.Selected.Delete;
                           end;
                         aDataSet.Free;
@@ -1201,13 +1230,13 @@ begin
                       begin
                         if DataT.Link = '' then
                           begin
-                            aDataSet := DataT.DataSourceType.Create(Self,Data);
+                            aDataSet := DataT.DataSourceType.CreateEx(Self,Data);
                             with aDataSet.DataSet as IBaseDBFilter do
                               Filter := DataT.Filter;
                             aDataSet.Open;
                             if aDataSet.Count > 0 then
                               begin
-                                aLinks := TLinks.Create(Self,Data);
+                                aLinks := TLinks.CreateEx(Self,Data);
                                 aLinks.Append;
                                 aLinks.FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
                                 aLink := Data.BuildLink(aDataSet.DataSet);
@@ -1219,9 +1248,9 @@ begin
                                 aLinks.Free;
                               end;
                             aDataSet.Free;
-                            tvMain.GetNodeAt(X,Y).Collapse(True);
-                            tvMain.GetNodeAt(X,Y).HasChildren:=True;
-                            tvMain.GetNodeAt(X,Y).Expand(False);
+                            aTargetNode.Collapse(True);
+                            aTargetNode.HasChildren:=True;
+                            aTargetNode.Expand(False);
                           end;
                       end;
                   end;
@@ -1230,7 +1259,7 @@ begin
           if Assigned(tvMain.GetNodeAt(X,Y)) and Assigned(tvMain.GetNodeAt(X,Y).Data) then
             if TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etProject then
               begin
-                aPProject := TProject.Create(nil,Data);
+                aPProject := TProject.Create(nil);
                 DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
                 aPProject.Select(DataT2.Rec);
                 aPProject.Open;
@@ -1277,32 +1306,33 @@ begin
         end;
       etDir,etDocumentDir,etMessageDir,etMessageBoard:
         begin
-          if Assigned(tvMain.GetNodeAt(X,Y)) and Assigned(tvMain.GetNodeAt(X,Y).Data) then
-            if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir)
-            or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDocumentDir)
-            or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etMessageDir)
-            or (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etMessageBoard)
+          aTargetNode := tvMain.GetNodeAt(X,Y);
+          DataT2 := TTreeEntry(aTargetNode.Data);
+          if Assigned(aTargetNode) and Assigned(aTargetNode.Data) then
+            if (TTreeEntry(aTargetNode.Data).Typ = etDir)
+            or (TTreeEntry(aTargetNode.Data).Typ = etDocumentDir)
+            or (TTreeEntry(aTargetNode.Data).Typ = etMessageDir)
+            or (TTreeEntry(aTargetNode.Data).Typ = etMessageBoard)
             then
               begin
-                if MessageDlg(strRealMove,mtInformation,[mbYes,mbNo],0) = mrYes then
+                Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
+                Data.Tree.GotoBookmark(DataT2.Rec);
+                if MessageDlg(Format(strRealMove,[Data.Tree.Text.AsString]),mtInformation,[mbYes,mbNo],0) = mrYes then
                   begin
-                    DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
-                    Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
-                    Data.Tree.GotoBookmark(DataT2.Rec);
                     if Data.Tree.FieldByName('TYPE').AsString <> 'F' then
                       begin
                         aNewParent := Data.Tree.id.AsVariant;
-                        Data.SetFilter(Data.Tree,'',0,'','ASC');
+                        Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
                         Data.Tree.GotoBookmark(DataT.Rec);
                         with Data.Tree.DataSet do
                           begin
                             Edit;
-                            FieldByName('PARENT').AsInteger:=aNewParent;
+                            FieldByName('PARENT').AsVariant:=aNewParent;
                             Post;
                           end;
-                        tvMain.GetNodeAt(X,Y).Collapse(True);
-                        tvMain.GetNodeAt(X,Y).HasChildren:=True;
-                        tvMain.GetNodeAt(X,Y).Expand(False);
+                        aTargetNode.Collapse(True);
+                        aTargetNode.HasChildren:=True;
+                        aTargetNode.Expand(False);
                         try
                           tvMain.Selected.Delete;
                         except
@@ -1358,7 +1388,7 @@ begin
                       end
                     else //Favourite
                       begin
-                        aLinks := TLinks.Create(Self,Data);
+                        aLinks := TLinks.CreateEx(Self,Data);
                         aLinks.Append;
                         aLinks.FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
                         aLink := Data.BuildLink(TPrometMainFrame(pcPages.ActivePage.Controls[0]).DataSet.DataSet);
@@ -1392,7 +1422,7 @@ begin
                 begin
                   try
                     DataSourceType:=TBaseDBDataSetClass(TfFilter(TExtDBGrid(Source).Owner).DataSet.ClassType);
-                    aNewDS := DataSourceType.Create(nil,Data);
+                    aNewDS := DataSourceType.Create(nil);
                     with aNewDS.DataSet as IBaseDBFilter do
                       begin
                         UsePermissions:=False;
@@ -1414,7 +1444,7 @@ begin
                 end
               else //Favourite
                 begin
-                  aLinks := TLinks.Create(Self,Data);
+                  aLinks := TLinks.CreateEx(Self,Data);
                   aLinks.Append;
                   aLinks.FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
                   aLink := Data.BuildLink(TfFilter(TExtDBGrid(Source).Owner).DataSet.DataSet);
@@ -1434,14 +1464,14 @@ begin
         begin
           if (TfFilter(TExtDBGrid(Source).Owner).DataSet is TProjectList) then
             begin
-              aPProject := TProject.Create(nil,Data);
+              aPProject := TProject.Create(nil);
               DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
               aPProject.Select(DataT2.Rec);
               aPProject.Open;
               if aPProject.Count>0 then
                 begin
                   DataSourceType:=TBaseDBDataSetClass(TfFilter(TExtDBGrid(Source).Owner).DataSet.ClassType);
-                  aNewDS := DataSourceType.Create(nil,Data);
+                  aNewDS := DataSourceType.Create(nil);
                   with aNewDS.DataSet as IBaseDBFilter do
                     begin
                       UsePermissions:=False;
@@ -1485,7 +1515,7 @@ begin
             if Data.Tree.FieldByName('TYPE').AsString = 'F' then
 //              if DataT.Link = '' then
                 begin
-                  aLinks := TLinks.Create(Self,Data);
+                  aLinks := TLinks.CreateEx(Self,Data);
                   aLinks.Append;
                   aLinks.FieldByName('RREF_ID').AsVariant := Data.Tree.Id.AsVariant;
                   aLink := fSearch.GetLink;
@@ -1556,8 +1586,8 @@ begin
                   Accept:=True;
         end;
       end;
-      if (tvMain.Selected.Level=0) and Assigned(tvMain.GetNodeAt(X,Y)) and (tvMain.GetNodeAt(X,Y).Level=0) then
-        Accept := True;
+      //if (tvMain.Selected.Level=0) and Assigned(tvMain.GetNodeAt(X,Y)) and (tvMain.GetNodeAt(X,Y).Level=0) then
+      //  Accept := True;
     end
   else if Source = pcPages then
     begin
@@ -1620,7 +1650,7 @@ begin
   Data.SetFilter(Data.Tree,'',0,'','ASC',False,True,True);
   if (DataT.Typ = etDir) then
     begin
-      aTree := TTree.Create(Self,Data);
+      aTree := TTree.CreateEx(Self,Data);
       Data.SetFilter(aTree,'');
       Data.GotoBookmark(aTree,DataT.Rec);
       aTree.DataSet.Edit;
@@ -1633,7 +1663,7 @@ begin
   else if (DataT.Typ = etWikiPage) or (DataT.Typ = etLink) or (DataT.Typ = etStatistic) then
     begin
       Data.GotoBookmark(Data.Tree,DataT.Rec);
-      aDataSet := DataT.DataSourceType.Create(Self,Data);
+      aDataSet := DataT.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
         Filter := DataT.Filter;
       aDataSet.Open;
@@ -1689,7 +1719,7 @@ var
     Result := False;
     if (TTreeEntry(Node1.Data).Typ=etProject) or (TTreeEntry(Node1.Data).Typ=etProcess) then
       begin
-        aProject := TProject.Create(nil,Data);
+        aProject := TProject.Create(nil);
         aProject.SelectFromParent(aList.Id.AsVariant);
         aProject.Open;
         Result := aProject.Count>0;
@@ -1729,17 +1759,19 @@ begin
   or (DataT.Typ = etDocumentDir)
   or (DataT.Typ = etMessageDir)
   or (DataT.Typ = etMessageBoard)
+  or (DataT.Typ = etCalendarDir)
   then
     begin
       Data.SetFilter(Data.Tree,'',0,'','DESC',False,True,True);
       Data.Tree.GotoBookmark(DataT.Rec);
       ID := IntToStr(Int64(Data.Tree.Id.AsVariant));
       Typ := Data.Tree.FieldByName('TYPE').AsString;
-      Data.SetFilter(Data.Tree,Data.QuoteField('PARENT')+'='+ID,0,'','ASC',False,True,True);
+      Data.Tree.DataSet.Filter:=Data.QuoteField('PARENT')+'='+Data.QuoteValue(ID);
+      Data.Tree.DataSet.Filtered:=True;
       Node.DeleteChildren;
       try
       //Add directories
-      bTree := TTree.Create(nil,Data);
+      bTree := TTree.Create(nil);
       while not Data.Tree.DataSet.EOF do
         begin
           Node1 := tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
@@ -1767,6 +1799,13 @@ begin
               if bTree.Count>0 then
                 tvMain.Items.AddChild(Node1,'');
             end
+          else if Typ = 'A' then
+            begin
+              TTreeEntry(Node1.Data).Typ := etCalendarDir;
+              bTree.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(Data.Tree.Id.AsVariant));
+              if bTree.Count>0 then
+                tvMain.Items.AddChild(Node1,'');
+            end
           else
             begin
               TTreeEntry(Node1.Data).Typ := etDir;
@@ -1775,14 +1814,15 @@ begin
           Data.Tree.DataSet.Next;
         end;
       bTree.Free;
+      Data.Tree.DataSet.Filtered:=False;
       //Add Entrys
       if (Typ = 'C') and (Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE) then //Contacts
         begin
-          aList := TPersonList.Create(Self,Data);
+          aList := TPersonList.CreateEx(Self,Data);
           aTyp := etCustomer;
           Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+ID,0,'','ASC',False,True,True);
           aList.DataSet.First;
-          aPerson := TPerson.Create(Self,Data);
+          aPerson := TPerson.CreateEx(Self,Data);
           while not aList.DataSet.EOF do
             begin
               AddEntry;
@@ -1826,7 +1866,7 @@ begin
         end
       else if (Typ = 'M') and ((Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE)) then //Masterdata
         begin
-          aList := TMasterdataList.Create(Self,Data);
+          aList := TMasterdataList.CreateEx(Self,Data);
           aTyp := etArticle;
           Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID)+' AND '+Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y'),0,'','ASC',False,True,True);
           aList.DataSet.First;
@@ -1839,7 +1879,7 @@ begin
         end
       else if (Typ = 'P') and ((Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE)) then //Projekte
         begin
-          aList := TProjectList.Create(Self,Data);
+          aList := TProjectList.CreateEx(Self,Data);
           aTyp := etProject;
           with aList.DataSet as IBaseDBFilter do
             Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID)+' AND '+Data.ProcessTerm(Data.QuoteField('PARENT')+'='+Data.QuoteValue('')),0,'','ASC',False,True,True);
@@ -1855,7 +1895,7 @@ begin
         end
       else if (Typ = 'W') and (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then //Wiki
         begin
-          aList := TWikiList.Create(Self,Data);
+          aList := TWikiList.CreateEx(Self,Data);
           aTyp := etWikiPage;
           Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID),0,'','ASC',False,True,True);
           aList.DataSet.First;
@@ -1868,7 +1908,7 @@ begin
         end
       else if (Typ = 'S') and (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then //Statistics
         begin
-          aList := TStatistic.Create(Self,Data);
+          aList := TStatistic.CreateEx(Self,Data);
           aTyp := etStatistic;
           Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID),0,'','ASC',False,True,True);
           aList.DataSet.First;
@@ -1881,7 +1921,7 @@ begin
         end
       else if (Typ = 'F') then //Favorites
         begin
-          aListL := TLinks.Create(Self,Data);
+          aListL := TLinks.CreateEx(Self,Data);
           aTyp := etLink;
           Data.SetFilter(aListL,Data.QuoteField('RREF_ID')+'='+Data.QuoteValue(ID),0,'','ASC',False,True,True);
           aListL.DataSet.First;
@@ -1903,7 +1943,7 @@ begin
         end
       else if (Typ = 'Z') then //Clipboard
         begin
-          aList := TClipp.Create(Self,Data);
+          aList := TClipp.CreateEx(Self,Data);
           aTyp := etClipboardItem;
           with aList.DataSet as IBaseDBFilter do
             Data.SetFilter(aList,Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(ID),0,'','ASC',False,True,True);
@@ -1923,7 +1963,7 @@ begin
     begin
       aTyp := etProject;
       Node.DeleteChildren;
-      aProject := TProject.Create(nil,Data);
+      aProject := TProject.Create(nil);
       aProject.SelectFromParent(DataT.Rec);
       aProject.Open;
       aProject.DataSet.First;
@@ -1968,11 +2008,13 @@ begin
   Result := Result+GetEntryText(etProjects)+';';
   Result := Result+GetEntryText(etWiki)+';';
   Result := Result+GetEntryText(etDocuments)+';';
+  Result := Result+GetEntryText(etImages)+';';
   Result := Result+GetEntryText(etLists)+';';
   Result := Result+GetEntryText(etMeetings)+';';
   Result := Result+GetEntryText(etInventory)+';';
   Result := Result+GetEntryText(etFinancial)+';';
   Result := Result+GetEntryText(etStatistics)+';';
+  Result := Result+GetEntryText(etAllObjects)+';';
 end;
 
 procedure TfMainTree.SaveTreeOptions;
@@ -2063,21 +2105,20 @@ begin
     etMeetingList:CellText:=strMeetingList;
     etStatistics:Celltext := strStatistics;
     etFiles:Celltext := strFiles;
-    etDocuments:Celltext := strDocuments;
-    etDocumentsOnly:Celltext := strDocumentsOnly;
+    etDocuments:Celltext := strDocumentsOnly;
     etImages:Celltext := strImages;
     etLists:Celltext := strLists;
     etFavourites:Celltext := strFavourites;
 //    etStorage:CellText := strStorage;
 //    etStorageJournal: CellText := fStorageJournal.Caption;
-    etInventory:CellText := strInventorys;
+    etInventory:CellText := strInventory;
 //    etWebshop:Celltext := fWebshop.Caption;
 //    etDisposition:Celltext := fDisposition.Caption;
+    etAllObjects:CellText := strAllElements;
     etAction:CellText := 'ACTION';
   end;
   Result := Celltext;
 end;
 
 initialization
-  {$I umaintreeframe.lrs}
 end.

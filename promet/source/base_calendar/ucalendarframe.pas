@@ -21,9 +21,10 @@ unit uCalendarFrame;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Buttons, ExtCtrls, StdCtrls,
-  ActnList, db, uPrometFrames, VpMonthView, VpWeekView, VpDayView, VpBaseDS,
-  VpData, VpBase, uBaseDbInterface, uCalendar, DateUtils, ComCtrls, DbCtrls;
+  Classes, SysUtils, FileUtil, SynMemo, Forms, Controls, Buttons, ExtCtrls,
+  StdCtrls, ActnList, db, uPrometFrames, VpMonthView, VpWeekView, VpDayView,
+  VpBaseDS, VpData, VpBase, uBaseDbInterface, uCalendar, DateUtils, ComCtrls,
+  DbCtrls, Spin,uFilterFrame;
 type
   TCustomPrometheusDataStore = class(TVpCustomDataStore)
   private
@@ -49,46 +50,80 @@ type
     acMonthView: TAction;
     acNew: TAction;
     acPrint: TAction;
+    acWeekViewDays: TAction;
     ActionList1: TActionList;
     acWeekView: TAction;
     bDayView: TSpeedButton;
+    bEditFilter: TSpeedButton;
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
+    Bevel7: TBevel;
+    Bevel8: TBevel;
+    Bevel9: TBevel;
+    bExecute: TSpeedButton;
+    bFilter: TSpeedButton;
     bMonthView: TSpeedButton;
+    bListView: TSpeedButton;
     bNew: TSpeedButton;
-    bPrint: TSpeedButton;
     bToday: TSpeedButton;
+    bWeekViewDay: TSpeedButton;
     bWeekView: TSpeedButton;
+    cbFilter: TComboBox;
+    cbMaxResults: TCheckBox;
+    DayView1: TVpDayView;
     DayView: TVpDayView;
+    eFilterEdit: TSynMemo;
+    eFilterIn: TEdit;
+    ExtRotatedLabel4: TLabel;
     Label4: TLabel;
     Label5: TLabel;
-    Label6: TLabel;
+    lFilterEdit: TLabel;
+    lFilterIn: TLabel;
     MonthView: TVpMonthView;
     Panel1: TPanel;
+    pListView: TPanel;
     Panel4: TPanel;
+    Panel5: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
     Panel8: TPanel;
     pDayView: TPanel;
+    pFilterOpt: TPanel;
+    pFilterOptions: TPanel;
+    pWeekDayView: TPanel;
+    sbDelete: TSpeedButton;
     sbMenue: TSpeedButton;
+    sbSave: TSpeedButton;
+    sbSave1: TSpeedButton;
+    sbSavePublic: TSpeedButton;
+    seMaxresults: TSpinEdit;
     ToolBar1: TPanel;
     WeekView: TVpWeekView;
     procedure acDayViewExecute(Sender: TObject);
     procedure acGotoTodayExecute(Sender: TObject);
     procedure acMonthViewExecute(Sender: TObject);
     procedure acNewExecute(Sender: TObject);
+    procedure acPrintExecute(Sender: TObject);
+    procedure acWeekViewDaysExecute(Sender: TObject);
     procedure acWeekViewExecute(Sender: TObject);
+    procedure bEditFilterClick(Sender: TObject);
+    procedure bListViewClick(Sender: TObject);
     procedure DataStoreDateChanged(Sender: TObject; Date: TDateTime);
     procedure DayViewOwnerEditEvent(Sender: TObject; Event: TVpEvent;
       Resource: TVpResource; var AllowIt: Boolean);
+    procedure eFilterEditChange(Sender: TObject);
     procedure MonthViewDblClick(Sender: TObject);
     procedure MonthViewEventDblClick(Sender: TObject; Event: TVpEvent);
     procedure WeekViewMouseWheel(Sender: TObject; Shift: TShiftState; Delta,
       XPos, YPos: Word);
   private
     { private declarations }
+    FList : TfFilter;
+    FUserId : Variant;
+    procedure RefreshUsers(UserId: Variant);
     procedure DoOpen;override;
+    procedure ParseForms(Filter : string);
   public
     { public declarations }
     FCalendarNode : TTreeNode;
@@ -99,13 +134,16 @@ type
     function OpenFromLink(aLink : string) : Boolean;override;
     procedure New;override;
     procedure SetLanguage;override;
-    procedure OpenDir(Directory : LongInt);
+    procedure OpenDir(Directory : Variant);
     procedure DoRefresh;
   end;
 procedure RefreshCalendar(FNode :TTreeNode);
 procedure AddToMainTree(aAction : TAction;var FCalendarNode : TTreeNode);
 implementation
-uses uData, uMainTreeFrame, Math, uEventEdit, VpConst,uBaseDbClasses;
+uses uData, uMainTreeFrame, Math, uEventEdit, VpConst,uBaseDbClasses,Graphics,
+  uFormAnimate,uBaseApplication;
+var
+  Fusers : string;
 resourcestring
   strEventsThisWeek             = 'diese Woche: %d';
 procedure RefreshCalendar(FNode: TTreeNode);
@@ -127,7 +165,7 @@ begin
   if Assigned(TTreeEntry(FNode.Data).SubText) then
     TTreeEntry(FNode.Data).SubText.Free;
   TTreeEntry(FNode.Data).SubText := TStringlist.Create;
-  Cal := TCalendar.Create(nil,Data);
+  Cal := TCalendar.Create(nil);
   Cal.CreateTable;
   aDataStore := TCustomPrometheusDataStore.Create(Application);
   Data.SetFilter(Cal,Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Now())+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Now())-1)+' OR "ROTATION" > 0)');
@@ -152,7 +190,7 @@ begin
       if trunc(TodayStartTime) < trunc(Now()) then //First Event
         TodayStartTime := 0;
       if trunc(TodayEndTime) > trunc(Now()) then //Last Event
-        TodayEndTime := 0.9999;
+        TodayEndTime := 0.999999;
       TimeStr := FormatDateTime('hh:mm',TodayStartTime) + ' - ' + FormatDateTime('hh:mm', TodayEndTime) + ': ';
       if TVpEvent(List[i]).AllDayEvent then
         TimeStr := '';
@@ -212,12 +250,12 @@ var
     bParent : Variant;
   begin
     if aParent = Null then exit;
-    aUsers := TUser.Create(nil,Data);
+    aUsers := TUser.Create(nil);
     with aUsers.DataSet as IBaseDbFilter do
       begin
         SortFields := 'NAME';
         Limit:=0;
-        SortDirection:=uBaseDbInterface.TSortDirection.sdAscending;
+        SortDirection:=uBaseDbClasses.TSortDirection.sdAscending;
       end;
     Data.SetFilter(aUsers,Data.QuoteField('PARENT')+'='+Data.QuoteValue(aParent));
     aUsers.DataSet.First;
@@ -260,6 +298,20 @@ begin
         begin
           CollectUsers(Data.Users.FieldByName('PARENT').AsVariant);
         end;
+      Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('A')+'))';
+      Data.Tree.DataSet.Filtered:=True;
+      Data.Tree.DataSet.First;
+      while not Data.Tree.dataSet.EOF do
+        begin
+          Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+          TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
+          TTreeEntry(Node1.Data).DataSource := Data.Tree;
+          TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+          TTreeEntry(Node1.Data).Typ := etCalendarDir;
+          fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
+          Data.Tree.DataSet.Next;
+        end;
+      Data.Tree.DataSet.Filtered:=False;
     end;
 end;
 
@@ -273,21 +325,26 @@ const
   NumDays = 1;
 var
   aFilter: String;
-  bFilter: String;
+  cFilter: String;
+  aUsers: String;
 begin
-  if pDayView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(Date+NumDays)+') AND (("ENDDATE" > '+Data.DateToFilter(Date-NumDays)+') OR ("ROTATION" > 0))'
-  else if MonthView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheMonth(Date)+7)+') AND (("ENDDATE" > '+Data.DateToFilter(StartOfTheMonth(Date)-7)+') OR ("ROTATION" > 0))'
-  else if WeekView.Visible then
-    aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory)+' AND ("STARTDATE" < '+Data.DateToFilter(EndOfTheWeek(Date)+1)+') AND ("ENDDATE" > '+Data.DateToFilter(StartOfTheWeek(Date)-1)+' OR "ROTATION" > 0)';
-  with DataSet.DataSet as IBaseDbFilter do
-    bFilter := Filter;
-  if aFilter <> bFilter then
+  with DataSet.DataSet as IBaseDbFilter,DataSet.DataSet as IBaseManageDB do
     begin
-      Data.SetFilter(DataSet,aFilter);
-      DataStore.Resource.Schedule.ClearEvents;
-      DataStore.LoadEvents;
+      cFilter := Filter;
+      if pDayView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,Date-NumDays,Date+NumDays)
+      else if MonthView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,StartOfTheMonth(Date)-7,EndOfTheMonth(Date)+7)
+      else if WeekView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,StartOfTheWeek(Date)-1,EndOfTheWeek(Date)+1)
+      else if pWeekDayView.Visible then
+        TCalendar(DataSet).SelectByIdAndTime(aDirectory,StartOfTheWeek(Date)-8,EndOfTheWeek(Date)+8);
+      if cFilter <> Filter then
+        begin
+          DataSet.Open;
+          DataStore.Resource.Schedule.ClearEvents;
+          DataStore.LoadEvents;
+        end;
     end;
 end;
 procedure TfCalendarFrame.DayViewOwnerEditEvent(Sender: TObject;
@@ -301,10 +358,15 @@ begin
   RefreshCalendar(FCalendarNode);
 end;
 
+procedure TfCalendarFrame.eFilterEditChange(Sender: TObject);
+begin
+  ParseForms(eFilterEdit.Lines.Text);
+end;
+
 procedure TfCalendarFrame.MonthViewDblClick(Sender: TObject);
 begin
-  bWeekView.Down:=True;
-  bWeekView.Click;
+  bWeekViewDay.Down:=True;
+  bWeekViewDay.Click;
 end;
 
 procedure TfCalendarFrame.MonthViewEventDblClick(Sender: TObject;
@@ -332,9 +394,33 @@ begin
     MonthView.Date:=DataStore.Date
 end;
 
+procedure TfCalendarFrame.RefreshUsers(UserId : Variant);
+var
+  aUser: TUser;
+begin
+  if FUserid=UserId then exit;
+  FUsers := '';
+  aUser := TUser.Create(nil);
+  aUser.Select(UserId);
+  aUser.Open;
+  while aUser.Count>0 do
+    begin
+      FUsers := FUsers+' OR '+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aUser.Id.AsString);
+      aUser.Select(aUser.FieldByName('PARENT').AsVariant);
+      aUser.Open;
+    end;
+  FUsers := copy(FUsers,5,length(FUSers));
+  FUserId := UserId;
+  aUser.Free;
+end;
+
 procedure TfCalendarFrame.DoOpen;
 begin
   inherited DoOpen;
+end;
+
+procedure TfCalendarFrame.ParseForms(Filter: string);
+begin
 end;
 
 procedure TfCalendarFrame.acDayViewExecute(Sender: TObject);
@@ -343,6 +429,8 @@ begin
   MonthView.Visible := False;
   WeekView.Visible := False;
   DayView.Date:=DataStore.Date;
+  pListView.Visible := False;
+  pWeekDayView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;
@@ -350,7 +438,7 @@ procedure TfCalendarFrame.acGotoTodayExecute(Sender: TObject);
 begin
   DataStore.Date:=Now();
   if bDayView.Down then bDayView.OnClick(Self);
-  if bWeekView.Down then bWeekView.OnClick(Self);
+  if bWeekViewDay.Down then bWeekViewDay.OnClick(Self);
   if bMonthView.Down then bMonthView.OnClick(Self);
 end;
 procedure TfCalendarFrame.acMonthViewExecute(Sender: TObject);
@@ -359,6 +447,8 @@ begin
   MonthView.Visible := True;
   WeekView.Visible := False;
   MonthView.Date:=DataStore.Date;
+  pWeekDayView.Visible := False;
+  pListView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;
@@ -377,30 +467,100 @@ begin
   aEventEdit.Free;
   DataStoreDateChanged(DataStore,DataStore.Date);
 end;
+
+procedure TfCalendarFrame.acPrintExecute(Sender: TObject);
+begin
+  FList.acPrint.Execute;
+end;
+
+procedure TfCalendarFrame.acWeekViewDaysExecute(Sender: TObject);
+var
+  Year: Word;
+  Month: Word;
+  Week: Word;
+  Day: Word;
+begin
+  pDayView.Visible := False;
+  MonthView.Visible := False;
+  WeekView.Visible := False;
+  pWeekDayView.Visible := True;
+  pListView.Visible := False;
+  WeekView.Date:=DataStore.Date;
+  DecodeDateMonthWeek(DataStore.Date,Year,Month,Week,Day);
+  if Sender <> nil then
+    DataStoreDateChanged(DataStore,EncodeDateMonthWeek(Year,Month,Week,1));
+  DayView1.Date:=EncodeDateMonthWeek(Year,Month,Week,1);
+end;
+
 procedure TfCalendarFrame.acWeekViewExecute(Sender: TObject);
 begin
   pDayView.Visible := False;
   MonthView.Visible := False;
   WeekView.Visible := True;
   WeekView.Date:=DataStore.Date;
+  pListView.Visible := False;
+  pWeekDayView.Visible := False;
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;
+
+procedure TfCalendarFrame.bEditFilterClick(Sender: TObject);
+var
+  Animate: TAnimationController;
+begin
+  Animate := TAnimationController.Create(pFilterOptions);
+  bEditFilter.Enabled:=False;
+  Application.ProcessMessages;
+  if bEditFilter.Down then
+    begin
+      if Data.Users.Rights.Right('EDITFILTER') > RIGHT_READ then
+        Animate.AnimateControlHeight(143)
+      else
+        Animate.AnimateControlHeight(37);
+    end
+  else
+    Animate.AnimateControlHeight(0);
+  bEditFilter.Enabled:=True;
+  Animate.Free;
+end;
+
+procedure TfCalendarFrame.bListViewClick(Sender: TObject);
+var
+  aFilter: String;
+  cFilter: String;
+begin
+  pDayView.Visible := False;
+  MonthView.Visible := False;
+  WeekView.Visible := False;
+  pWeekDayView.Visible := False;
+  pListView.Visible := True;
+  aFilter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirectory);
+  with DataSet.DataSet as IBaseDbFilter do
+    cFilter := Filter;
+  if aFilter <> cFilter then
+    begin
+      Data.SetFilter(DataSet,aFilter,seMaxresults.Value);
+    end;
+  FList.ShowFrame;
+end;
+
 constructor TfCalendarFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  DataSet := TCalendar.Create(Self,Data);
+  FUsers := '';
+  DataSet := TCalendar.CreateEx(Self,Data);
   DataSet.CreateTable;
   DataStore := TCustomPrometheusDataStore.Create(Self);
   DataStore.DataSet := TCalendar(DataSet);
   DataStore.OnDateChanged:=@DataStoreDateChanged;
   DayView.DrawingStyle:=dsFlat;
   DayView.TimeFormat := tf24Hour;
-  WeekView.DrawingStyle:=dsNone;
+  //WeekView.DrawingStyle:=dsNone;
   WeekView.TimeFormat := tf24Hour;
-  MonthView.DrawingStyle:=dsNone;
+  //MonthView.DrawingStyle:=dsNone;
   MonthView.TimeFormat := tf24Hour;
   DayView.DataStore := DataStore;
+  DayView1.DataStore := DataStore;
   WeekView.DataStore := DataStore;
   MonthView.DataStore := DataStore;
   DataStore.Resource := TVpResource.Create(DataStore.Resources);
@@ -409,19 +569,35 @@ begin
   MonthView.Visible := False;
   WeekView.Visible := True;
   MonthView.OnDblClick:=@MonthViewDblClick;
+  pFilterOptions.Height:=0;
+
+  FList := TfFilter.Create(Self);
+  with FList do
+    begin
+      FilterType:='AP';
+      DefaultRows:='GLOBALWIDTH:%;STARTDATE:120;SUMMARY:400;PROJECT:200;CATEGORY:200;LOCATION:100;ENDDATE:120;ALLDAY:30;CREATEDBY:40;TIMESTAMPD:100;';
+      Parent := pListView;
+      Align := alClient;
+      pTop.Visible:=False;
+      Show;
+    end;
+  FList.Dataset := DataSet;
 end;
 destructor TfCalendarFrame.Destroy;
 begin
+  FList.
   DataSet.Free;
   DataSet := nil;
   if Assigned(DataStore.Resource) then
     DataStore.Resource.Free;
   DataStore.Free;
+  FList.Free;
   inherited Destroy;
 end;
 function TfCalendarFrame.OpenFromLink(aLink: string) : Boolean;
 begin
   Result := False;
+
 end;
 procedure TfCalendarFrame.New;
 begin
@@ -433,9 +609,12 @@ begin
   WeekView.LoadLanguage;
   DayView.LoadLanguage;
 end;
-procedure TfCalendarFrame.OpenDir(Directory: LongInt);
+procedure TfCalendarFrame.OpenDir(Directory: Variant);
 begin
-  aDirectory := IntToStr(Directory);
+  RefreshUsers(Directory);
+  aDirectory := Format('%d',[Int64(Directory)]);
+  with Application as IBaseApplication do
+    Debug('Open Dir '+aDirectory);
   DataStore.Directory:=Directory;
   DataStoreDateChanged(DataStore,DataStore.Date);
   DoOpen;
@@ -458,7 +637,13 @@ procedure TCustomPrometheusDataStore.LoadEvents;
 var
   Event: TVpEvent;
 begin
+  with Application as IBaseApplication do
+    Debug('Load Events');
   if not DataSet.DataSet.Active then exit;
+  Data.Categories.Open;
+  Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue('C');
+  Data.Categories.DataSet.Filtered:=True;
+  DataSet.History.Close;
   with Dataset.DataSet do
     begin
       First;
@@ -494,12 +679,17 @@ begin
               Event.CustInterval := FieldByName('ROTCUS').AsInteger;
               Event.Location:= FieldByName('LOCATION').AsString;
               Event.StrCategory:= FieldByName('CATEGORY').AsString;
+              if Data.Categories.Locate('NAME',Event.StrCategory,[]) and (Data.Categories.FieldByName('COLOR').AsString<>'') then
+                Event.Color:=StringToColor(Data.Categories.FieldByName('COLOR').AsString)
+              else Event.Color:=clNone;
               Event.Changed:=False;
               Event.Loading := false;
             end;
           Next;
         end;
     end;
+  with Application as IBaseApplication do
+    Debug('Load Events End');
 end;
 procedure TCustomPrometheusDataStore.RefreshEvents;
 begin
@@ -512,8 +702,13 @@ var
   Event: TVpEvent;
   UpdateNode: Boolean = False;
   OldFilter: String;
+  iDataSet : TEvent;
 begin
-  if not DataSet.DataSet.Active then exit;
+  with Application as IBaseApplication do
+    Debug('Post Events');
+  if not DataSet.DataSet.Active then
+    DataSet.Open;
+  iDataSet := TEvent.Create(Self);
   with DataSet.DataSet as IBaseDbFilter do
     OldFilter := Filter;
   if (Resource <> nil) and Resource.EventsDirty then
@@ -524,65 +719,94 @@ begin
           Event := Resource.Schedule.GetEvent(J);
           { if the delete flag is set then delete it from the database }
           { and free the event instance }
-          Data.SetFilter(DataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(intToStr(Event.RecordID)));
-          if Event.Deleted then
+          if not DataSet.DataSet.Locate('ID', Event.RecordID, [loCaseInsensitive]) then
+            Data.SetFilter(DataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(Format('%d',[Int64(Event.RecordID)])));
+          iDataSet.SelectById(Event.RecordID);
+          iDataSet.Open;
+          if iDataSet.Count>0 then
             begin
-              if DataSet.DataSet.Locate('ID', Event.RecordID, [loCaseInsensitive]) then
-                DataSet.DataSet.Delete;
-              Event.Free;
-              UpdateNode := True;
-              Continue;
-            end;
-          if Event.Changed then
-            begin
-              with DataSet.DataSet do
+              if Event.Deleted then
                 begin
-                  if Locate('ID', Event.RecordID, [loCaseInsensitive]) then
-                    { this event already exists in the database so update it }
-                    Edit
+                  with Application as IBaseApplication do
+                    Debug('Delete Event '+Format('%d',[Int64(Event.RecordID)]));
+                  if iDataSet.DataSet.Locate('ID', Event.RecordID, [loCaseInsensitive]) then
+                    iDataSet.DataSet.Delete
                   else
-                    Append;
-                  try
-                    { if a particular descendant datastore uses autoincrementing }
-                    { RecordID fields, then  don't overwrite them here. }
-                    if (Event.RecordID <> -1) and (Event.RecordID <> FieldByName('ID').AsInteger) then
-                      FieldByName('ID').AsInteger := Event.RecordID;
-                    FieldByName('REF_ID_ID').AsInteger := FDirectory;
-                    if FieldDefs.IndexOf('USER') <> -1 then
-                      FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
-                    FieldByName('STARTDATE').AsDateTime := Event.StartTime;
-                    FieldByName('ENDDATE').AsDateTime := Event.EndTime;
-                    FieldByName('SUMMARY').AsString := Event.Description;
-                    FieldByName('DESCR').AsString := Event.Note;
-                    FieldByName('ICATEGORY').AsInteger := Event.Category;
-    //                FieldByName('DingPath').AsString := Event.AlarmWavPath;
-                    if Event.AllDayEvent then
-                      FieldByName('ALLDAY').AsString := 'Y'
-                    else
-                      FieldByName('ALLDAY').AsString := 'N';
-                    if Event.AlarmSet then
-                      FieldByName('ALARM').AsString := 'Y'
-                    else
-                      FieldByName('ALARM').AsString := 'N';
-                    FieldByName('ALARMADV').AsInteger := Event.AlarmAdv;
-                    FieldByName('ALARMADVTP').AsInteger := Ord(Event.AlarmAdvType);
-                    FieldByName('SNOOZE').AsFloat := Event.SnoozeTime;
-                    FieldByName('ROTATION').AsInteger := Ord(Event.RepeatCode);
-                    FieldByName('ROTTO').AsDateTime := Event.RepeatRangeEnd;
-                    FieldByName('ROTCUS').AsInteger := Event.CustInterval;
-                    FieldByName('LOCATION').AsString := Event.Location;
-                    FieldByName('CATEGORY').AsString:=Event.StrCategory;
-                    Post;
-                  except
-                    Cancel;
-                  end;
-                  { if a particular descendant datastore uses autoincrementing    }
-                  { RecordID fields then the RecordID is assigned by the database }
-                  { and needs to be assigned here...}
-                  if Event.RecordID = -1 then
-                    Event.RecordID := FieldByName('ID').AsInteger;
-                  Event.Changed := false;
+                    raise Exception.Create('Event with ID '+IntToStr(Event.RecordID)+' not found !');
+                  Event.Free;
                   UpdateNode := True;
+                  Continue;
+                end;
+              if Event.Changed then
+                begin
+                  with iDataSet.DataSet do
+                    begin
+                      if Locate('ID', Event.RecordID, [loCaseInsensitive]) then
+                        begin
+                          { this event already exists in the database so update it }
+                          Edit;
+                          with Application as IBaseApplication do
+                            Debug('Edit Event '+Format('%d',[Int64(iDataSet.Id.AsVariant)]));
+                        end
+                      else
+                        begin
+                          Append;
+                          with Application as IBaseApplication do
+                            Debug('Append Event '+Format('%d',[Int64(Event.RecordID)]));
+                        end;
+                      try
+                        { if a particular descendant datastore uses autoincrementing }
+                        { RecordID fields, then  don't overwrite them here. }
+                        if (Event.RecordID <> -1) and (Event.RecordID <> FieldByName('ID').AsLargeInt) then
+                          FieldByName('ID').AsLargeInt := Event.RecordID;
+                        if FieldByName('REF_ID_ID').AsVariant <> FDirectory then
+                          FieldByName('REF_ID_ID').AsVariant := FDirectory;
+                        if FieldDefs.IndexOf('USER') <> -1 then
+                          FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
+                        if FieldByName('STARTDATE').AsDateTime <> Event.StartTime then
+                          FieldByName('STARTDATE').AsDateTime := Event.StartTime;
+                        if FieldByName('ENDDATE').AsDateTime <> Event.EndTime then
+                          FieldByName('ENDDATE').AsDateTime := Event.EndTime;
+                        if FieldByName('SUMMARY').AsString <> Event.Description then
+                          FieldByName('SUMMARY').AsString := Event.Description;
+                        if FieldByName('DESCR').AsString <> Event.Note then
+                          FieldByName('DESCR').AsString := Event.Note;
+                        if FieldByName('ICATEGORY').AsInteger <> Event.Category then
+                          FieldByName('ICATEGORY').AsInteger := Event.Category;
+        //                FieldByName('DingPath').AsString := Event.AlarmWavPath;
+                        if Event.AllDayEvent then
+                          FieldByName('ALLDAY').AsString := 'Y'
+                        else
+                          FieldByName('ALLDAY').AsString := 'N';
+                        if Event.AlarmSet then
+                          FieldByName('ALARM').AsString := 'Y'
+                        else
+                          FieldByName('ALARM').AsString := 'N';
+                        FieldByName('ALARMADV').AsInteger := Event.AlarmAdv;
+                        FieldByName('ALARMADVTP').AsInteger := Ord(Event.AlarmAdvType);
+                        FieldByName('SNOOZE').AsFloat := Event.SnoozeTime;
+                        FieldByName('ROTATION').AsInteger := Ord(Event.RepeatCode);
+                        FieldByName('ROTTO').AsDateTime := Event.RepeatRangeEnd;
+                        FieldByName('ROTCUS').AsInteger := Event.CustInterval;
+                        if FieldByName('LOCATION').AsString <> Event.Location then
+                          FieldByName('LOCATION').AsString := Event.Location;
+                        if FieldByName('CATEGORY').AsString<>Event.StrCategory then
+                          FieldByName('CATEGORY').AsString:=Event.StrCategory;
+                        if Data.Categories.Locate('NAME',Event.StrCategory,[]) and (Data.Categories.FieldByName('COLOR').AsString<>'') then
+                          Event.Color:=StringToColor(Data.Categories.FieldByName('COLOR').AsString)
+                        else Event.Color:=clNone;
+                        Post;
+                      except
+                        Cancel;
+                      end;
+                      { if a particular descendant datastore uses autoincrementing    }
+                      { RecordID fields then the RecordID is assigned by the database }
+                      { and needs to be assigned here...}
+                      if Event.RecordID = -1 then
+                        Event.RecordID := FieldByName('ID').AsVariant;
+                      Event.Changed := false;
+                      UpdateNode := True;
+                    end;
                 end;
             end;
         end;
@@ -596,6 +820,9 @@ begin
       Data.SetFilter(DataSet,OldFilter);
 //      fCalendar.CalendarNode := fCalendar.CalendarNode;
     end;
+  iDataSet.Free;
+  with Application as IBaseApplication do
+    Debug('Post Events end');
 end;
 {$R *.lfm}
 end.

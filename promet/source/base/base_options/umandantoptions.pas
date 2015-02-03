@@ -1,3 +1,21 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+*******************************************************************************}
 unit uMandantOptions;
 
 {$mode objfpc}{$H+}
@@ -6,7 +24,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
-  Dialogs, Buttons, ExtDlgs, db, uOptionsFrame, uBaseDBClasses,uBaseDBInterface;
+  Dialogs, Buttons, ExtDlgs, ComCtrls, db, uOptionsFrame, uBaseDBClasses,
+  uBaseDBInterface;
 
 type
 
@@ -15,18 +34,26 @@ type
   TfMandantOptions = class(TOptionsFrame)
     bExportConfiguration: TButton;
     bTreeEntrys: TButton;
-    iImage: TDBImage;
     eAccount: TDBEdit;
     eFax: TDBEdit;
     eInstitute: TDBEdit;
     eInternet: TDBEdit;
     eMail: TDBEdit;
-    eName: TDBEdit;
     eSortcode: TDBEdit;
     eTel1: TDBEdit;
+    eTel10: TDBEdit;
+    eTel11: TDBEdit;
+    eTel12: TDBEdit;
     eTel2: TDBEdit;
     eTel3: TDBEdit;
     eTel4: TDBEdit;
+    eTel5: TDBEdit;
+    eTel6: TDBEdit;
+    eTel7: TDBEdit;
+    eTel8: TDBEdit;
+    eTel9: TDBEdit;
+    iImage: TDBImage;
+    eName: TDBEdit;
     iPreview: TDBImage;
     Label1: TLabel;
     lAccount: TLabel;
@@ -39,16 +66,28 @@ type
     lName: TLabel;
     lSortCode: TLabel;
     lTel1: TLabel;
+    lTel10: TLabel;
+    lTel11: TLabel;
+    lTel12: TLabel;
+    lTel13: TLabel;
     lTel2: TLabel;
     lTel3: TLabel;
     lTel4: TLabel;
+    lTel5: TLabel;
+    lTel6: TLabel;
+    lTel7: TLabel;
+    lTel8: TLabel;
+    lTel9: TLabel;
     mAdress: TDBMemo;
     MandantDetailDS: TDatasource;
     OpenPictureDialog: TOpenPictureDialog;
+    PageControl1: TPageControl;
     Panel1: TPanel;
     pMandantDetails: TPanel;
     sbAddImage: TSpeedButton;
     SelectDirectoryDialog: TSelectDirectoryDialog;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
     procedure bExportConfigurationClick(Sender: TObject);
     procedure bTreeEntrysClick(Sender: TObject);
     procedure sbAddImageClick(Sender: TObject);
@@ -66,26 +105,47 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uData,uImpCSV,uOrder;
+uses uData,uImpCSV,uOrder,uDocuments,uBaseERPDBClasses;
 
 procedure TfMandantOptions.bExportConfigurationClick(Sender: TObject);
 var
   OutputDir: String;
   aOrder: TOrder;
+  aTemplates: TDocumentTemplates;
+  aCurrency: TCurrency;
+  aCountries: TCountries;
+  aDispatchtypes: TDispatchTypes;
+  aOrderPosTyp: TOrderPosTyp;
+  aPricetypes: TPriceTypes;
+  aTexttyp: TTextTypes;
+  aVat: TVat;
+  aUnits: TUnits;
 begin
   if SelectDirectoryDialog.Execute then
     begin
       OutputDir := SelectDirectoryDialog.FileName;
       ForceDirectoriesUTF8(OutputDir);
-      CSVExport(OutputDir+DirectorySeparator+'countries.csv',';',Data.Countries.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'currency.csv',';',Data.Currency.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'dispatchtypes.csv',';',Data.Dispatchtypes.DataSet);
+      aCountries := TCountries.Create(nil);
+      aCountries.Open;
+      CSVExport(OutputDir+DirectorySeparator+'countries.csv',';',aCountries.DataSet);
+      aCountries.Free;
+      aCurrency := TCurrency.Create(nil);
+      aCurrency.Open;
+      CSVExport(OutputDir+DirectorySeparator+'currency.csv',';',aCurrency.DataSet);
+      aCurrency.Free;
+      aDispatchtypes := TDispatchTypes.Create(nil);
+      aDispatchtypes.Open;
+      CSVExport(OutputDir+DirectorySeparator+'dispatchtypes.csv',';',aDispatchtypes.DataSet);
+      aDispatchtypes.Free;
       CSVExport(OutputDir+DirectorySeparator+'filters.csv',';',Data.Filters.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'forms.csv',';',Data.Forms.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'languages.csv',';',Data.Languages.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'numbers.csv',';',Data.Numbers.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'orderpostyp.csv',';',Data.orderPosTyp.DataSet);
-      aOrder := TOrder.Create(Self,Data);
+      aOrderPosTyp := TOrderPosTyp.Create(nil);
+      aOrderPosTyp.Open;
+      CSVExport(OutputDir+DirectorySeparator+'orderpostyp.csv',';',aOrderPosTyp.DataSet);
+      aOrderPosTyp.Free;
+      aOrder := TOrder.CreateEx(Self,Data);
       aOrder.Select(0);
       aOrder.Open;
       aOrder.OrderType.Open;
@@ -93,15 +153,35 @@ begin
       aOrder.Free;
       CSVExport(OutputDir+DirectorySeparator+'paymenttargets.csv',';',Data.PaymentTargets.DataSet);
       CSVExport(OutputDir+DirectorySeparator+'numbers.csv',';',Data.Numbers.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'pricetypes.csv',';',Data.Pricetypes.DataSet);
+      aPricetypes := TPriceTypes.Create(nil);
+      aPricetypes.Open;
+      CSVExport(OutputDir+DirectorySeparator+'pricetypes.csv',';',aPricetypes.DataSet);
+      aPricetypes.Free;
       CSVExport(OutputDir+DirectorySeparator+'reports.csv',';',Data.Reports.DataSet);
-//      CSVExport(OutputDir+DirectorySeparator+'templates.csv',';',Data.Templates.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'texttyp.csv',';',Data.Texttyp.DataSet);
-//      CSVExport(OutputDir+DirectorySeparator+'userfielddefs.csv',';',Data.Userfielddefs.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'vat.csv',';',Data.Vat.DataSet);
-//      CSVExport(OutputDir+DirectorySeparator+'statistic.csv',';',Data.Statistic.DataSet);
+      aTemplates := TDocumentTemplates.Create(nil);
+      CSVExport(OutputDir+DirectorySeparator+'templates.csv',';',aTemplates.DataSet);
+      aTemplates.Free;
+      aTexttyp := TTextTypes.Create(nil);
+      aTexttyp.Open;
+      CSVExport(OutputDir+DirectorySeparator+'texttyp.csv',';',aTexttyp.DataSet);
+      aTexttyp.Free;
+      try
+        CSVExport(OutputDir+DirectorySeparator+'userfielddefs.csv',';',Data.Userfielddefs.DataSet);
+      except
+      end;
+      aVat := TVat.Create(nil);
+      aVat.Open;
+      CSVExport(OutputDir+DirectorySeparator+'vat.csv',';',aVat.DataSet);
+      aVat.Free;
+      try
+        //CSVExport(OutputDir+DirectorySeparator+'statistic.csv',';',Data.Statistic.DataSet);
+      except
+      end;
       CSVExport(OutputDir+DirectorySeparator+'states.csv',';',Data.States.DataSet);
-      CSVExport(OutputDir+DirectorySeparator+'units.csv',';',Data.Units.DataSet);
+      aUnits := TUnits.Create(nil);
+      aUnits.Open;
+      CSVExport(OutputDir+DirectorySeparator+'units.csv',';',aUnits.DataSet);
+      aUnits.Free;
       CSVExport(OutputDir+DirectorySeparator+'storagetype.csv',';',Data.StorageType.DataSet);
     end;
 end;
@@ -110,7 +190,7 @@ procedure TfMandantOptions.bTreeEntrysClick(Sender: TObject);
 var
   aTree: TTree;
 begin
-  aTree := TTree.Create(nil,Data);
+  aTree := TTree.Create(nil);
   with aTree.DataSet as IBaseDBFilter do
     begin
       UsePermissions:=False;
@@ -134,7 +214,7 @@ constructor TfMandantOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   aConnection := Data.GetNewConnection;
-  aMandant := TMandantDetails.Create(Self,Data,aConnection);
+  aMandant := TMandantDetails.CreateEx(Self,Data,aConnection);
   MandantDetailDS.DataSet := aMandant.DataSet;
 end;
 

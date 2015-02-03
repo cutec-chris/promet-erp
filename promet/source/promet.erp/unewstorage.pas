@@ -20,7 +20,7 @@ unit uNewStorage;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids, StdCtrls, ExtCtrls, Buttons,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids, StdCtrls, ExtCtrls, Buttons,
   uData, db,LCLType, ButtonPanel,uOrder,uMasterdata,uBaseERPDBClasses,LCLProc;
 type
   TfNewStorage = class(TForm)
@@ -44,6 +44,7 @@ type
 var
   fNewStorage: TfNewStorage;
 implementation
+{$R *.lfm}
 resourcestring
   strSelectanStorage            = 'wählen Sie ein Lager für Artikel %s Version %s Name %s';
 procedure TfNewStorage.FormKeyDown(Sender: TObject; var Key: Word;
@@ -81,7 +82,7 @@ begin
       Self := fNewStorage;
     end;
   fStorage := aStorage;
-  aStorageType := TStorageTyp.Create(Self,Data,aStorage.Connection);
+  aStorageType := TStorageTyp.CreateEx(Self,Data,aStorage.Connection);
   StorageType.DataSet := aStorageType.DataSet;
   aStorageType.DataSet.AfterScroll:=@aStorageTypeDataSetAfterScroll;
   CtrDisabled := aStorageType.DataSet.ControlsDisabled;
@@ -117,6 +118,5 @@ begin
   FreeAndNil(fNewStorage);
 end;
 initialization
-  {$I unewstorage.lrs}
 end.
 

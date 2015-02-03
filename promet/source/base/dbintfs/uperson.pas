@@ -33,16 +33,12 @@ type
     function GetNumberFieldName : string;override;
     function GetStatusFieldName : string;override;
     function GetTyp: string; override;
-    constructor Create(aOwner: TComponent; DM: TComponent;
+    constructor CreateEx(aOwner: TComponent; DM: TComponent;
        aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure SelectByAccountNo(aAccountNo : string);overload;
     function CombineItems(aRemoteLink: string): Boolean; override;
   end;
-  TPersonHistory = class(TBaseHistory)
-  end;
-
-  { TBaseDbAddress }
 
   TBaseDbAddress = class(TBaseDBList)
   private
@@ -57,7 +53,7 @@ type
     procedure Assign(Source: TPersistent); override;
     procedure FillDefaults(aDataSet : TDataSet);override;
     function ToString: ansistring;override;
-    procedure FromString(aStr : AnsiString);
+    procedure FromString(aStr : AnsiString);virtual;
     property Title : TField read GetTitle;
     property AdressName : TField read GetName;
     property Address : TField read GetAddress;
@@ -66,9 +62,6 @@ type
     property Zip : TField read GetZip;
   end;
   TPerson = class;
-
-  { TPersonAddress }
-
   TPersonAddress = class(TBaseDBAddress)
   public
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -113,18 +106,18 @@ type
     FBanking: TPersonBanking;
     FCustomerCont: TPersonContactData;
     FEmployees: TPersonEmployees;
-    FHistory: TPersonHistory;
+    FHistory: TBaseHistory;
     FImages: TImages;
     FLinks: TPersonLinks;
     FPersonAddress: TPersonAddress;
-    FSTatus : string;
+    FStatus : string;
     FDS : TDataSource;
     FStateChange: TNotifyEvent;
     function GetAccountNo: TField;
     function GetHistory: TBaseHistory;
     function GetInfo: TField;
   public
-    constructor Create(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     procedure Open; override;
     function CreateTable : Boolean;override;
@@ -133,8 +126,8 @@ type
     procedure FillDefaults(aDataSet : TDataSet);override;
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;override;
     property Address : TPersonAddress read FPersonAddress;
-    property CustomerCont : TPersonContactData read FCustomerCont;
-    property History : TPersonHistory read FHistory;
+    property ContactData : TPersonContactData read FCustomerCont;
+    property History : TBaseHistory read FHistory;
     property Images : TImages read FImages;
     property Banking : TPersonBanking read FBanking;
     property Links : TPersonLinks read FLinks;
@@ -147,6 +140,7 @@ type
 
 implementation
 uses uBaseDBInterface, uBaseSearch, uBaseApplication, uData, Utils;
+
 procedure TPersonEmployees.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -155,10 +149,10 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('EMPLOYEE',ftString,20,True);
             Add('NAME',ftString,40,True);
             Add('DEPARTMENT',ftString,30,False);
             Add('POSITION',ftString,30,False);
+            Add('EMPLOYEE',ftString,20,False);
           end;
     end;
 end;
@@ -305,7 +299,7 @@ begin
             Add('DESCR',ftString,30,False);
             Add('TYPE',ftString,4,False);
             Add('DATA',ftString,80,False);
-            Add('LINK',ftString,200,False);
+            Add('LINK',ftString,400,False);
             Add('ACTIVE',ftString,1,False);
           end;
        if Assigned(ManagedIndexdefs) then
@@ -438,7 +432,10 @@ begin
         DataSet.Edit;
       aAddress := Source as TBaseDbAddress;
       DataSet.FieldByName('TITLE').AsString := aAddress.FieldByName('TITLE').AsString;
-      DataSet.FieldByName('NAME').AsString := aAddress.FieldByName('NAME').AsString;
+      if aAddress.FieldByName('CNAME').AsString<>'' then
+        DataSet.FieldByName('NAME').AsString := aAddress.FieldByName('CNAME').AsString+' '+aAddress.FieldByName('NAME').AsString
+      else
+        DataSet.FieldByName('NAME').AsString := aAddress.FieldByName('NAME').AsString;
       DataSet.FieldByName('ADDITIONAL').AsString := aAddress.FieldByName('ADDITIONAL').AsString;
       DataSet.FieldByName('ADDRESS').AsString := aAddress.FieldByName('ADDRESS').AsString;
       DataSet.FieldByName('CITY').AsString := aAddress.FieldByName('CITY').AsString;
@@ -496,6 +493,7 @@ var
   tmp: String;
   i: Integer;
   tmp1: String;
+  AktTitle : string;
   function CountPos(const subtext: string; Text: string): Integer;
   begin
     if (Length(subtext) = 0) or (Length(Text) = 0) or (Pos(subtext, Text) = 0) then
@@ -506,11 +504,37 @@ var
   end;
   function HasTitle(aTitle : string) : Boolean;
   begin
-    Result :=
-       (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+#10)
-    or (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+#13)
-    or (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+' ')
-    or (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+'.');
+    Result := False;
+    if (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+#10) then
+      begin
+        AktTitle:=copy(Addr[0],0,Length(aTitle));
+        Addr[0]:=copy(Addr[0],pos(#10,Addr[0])+1,length(Addr[0]));
+        Result := True;
+      end;
+    if (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+#13) then
+      begin
+        AktTitle:=copy(Addr[0],0,Length(aTitle));
+        Addr[0]:=copy(Addr[0],pos(#13,Addr[0])+1,length(Addr[0]));
+        Result := True;
+      end;
+    if (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+' ') then
+      begin
+        AktTitle:=copy(Addr[0],0,Length(aTitle));
+        Addr[0]:=copy(Addr[0],pos(' ',Addr[0])+1,length(Addr[0]));
+        Result := True;
+      end;
+    if (lowercase(copy(Addr[0],0,length(aTitle)+1)) = aTitle+'.') then
+      begin
+        AktTitle:=copy(Addr[0],0,Length(aTitle));
+        Addr[0]:=copy(Addr[0],pos('.',Addr[0])+1,length(Addr[0]));
+        Result := True;
+      end;
+    if (lowercase(Addr[0]) = aTitle) then
+      begin
+        AktTitle:=copy(Addr[0],0,Length(aTitle));
+        Addr[0]:='';
+        Result := True;
+      end;
   end;
 begin
   Addr := TStringList.Create;
@@ -561,6 +585,7 @@ begin
   DataSet.FieldByName('TITLE').Clear;
   if Addr.Count > 0 then
     if HasTitle('firm')
+    or HasTitle('firma')
     or HasTitle('herr')
     or HasTitle('frau')
     or HasTitle('mr')
@@ -568,15 +593,17 @@ begin
     or HasTitle('prof')
     then
       begin
-        DataSet.FieldByName('TITLE').AsString := trim(Addr[0]);
-        Addr.Delete(0);
+        DataSet.FieldByName('TITLE').AsString := AktTitle;
+        if trim(Addr[0])='' then
+          Addr.Delete(0);
       end;
   if Addr.Count > 0 then
     if HasTitle('dr')
     or HasTitle('prof')
     then
       begin
-        Addr.Delete(0);
+        if trim(Addr[0])='' then
+          Addr.Delete(0);
       end;
   if Addr.Count > 0 then
     begin
@@ -654,10 +681,10 @@ function TPerson.GetAccountNo: TField;
 begin
   Result := DataSet.FieldByName('ACCOUNTNO');
 end;
-constructor TPerson.Create(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
-  aMasterdata: TDataSet);
+constructor TPerson.CreateEx(aOwner: TComponent; DM: TComponent;
+  aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM,aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -665,13 +692,13 @@ begin
           UsePermissions:=False;
         end;
     end;
-  FHistory := TPersonHistory.Create(Self,DM,aConnection,DataSet);
-  FPersonAddress := TPersonAddress.Create(Self,DM,aConnection,DataSet);
-  FCustomerCont := TPersonContactData.Create(Self,DM,aConnection,DataSet);
-  FImages := TImages.Create(Self,DM,aConnection,DataSet);
-  FBanking := TPersonBanking.Create(Self,DM,aConnection,DataSet);
-  FLinks := TPersonLinks.Create(Self,DM,aConnection);
-  FEmployees := TPersonEmployees.Create(Self,DM,aConnection,DataSet);
+  FHistory := TBaseHistory.CreateEx(Self,DM,aConnection,DataSet);
+  FPersonAddress := TPersonAddress.CreateEx(Self,DM,aConnection,DataSet);
+  FCustomerCont := TPersonContactData.CreateEx(Self,DM,aConnection,DataSet);
+  FImages := TImages.CreateEx(Self,DM,aConnection,DataSet);
+  FBanking := TPersonBanking.CreateEx(Self,DM,aConnection,DataSet);
+  FLinks := TPersonLinks.CreateEx(Self,DM,aConnection);
+  FEmployees := TPersonEmployees.CreateEx(Self,DM,aConnection,DataSet);
   FDS := TDataSource.Create(Self);
   FDS.DataSet := DataSet;
   FDS.OnDataChange:=@FDSDataChange;
@@ -705,7 +732,11 @@ begin
   FEmployees.CreateTable;
 end;
 procedure TPerson.FillDefaults(aDataSet: TDataSet);
+var
+  Languages: TLanguages;
 begin
+  Languages := TLanguages.CreateEx(Self,DataModule,Connection);
+  Languages.Open;
   with aDataSet,BaseApplication as IBaseDBInterface do
     begin
       aDataSet.DisableControls;
@@ -718,10 +749,11 @@ begin
       FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
       if Data.Currency.DataSet.Active and Data.Currency.DataSet.Locate('DEFAULTCUR', 'Y', []) then
         FieldByName('CURRENCY').AsString := Data.Currency.FieldByName('SYMBOL').AsString;
-      if Data.Languages.DataSet.Active and Data.Languages.DataSet.Locate('DEFAULTLNG', 'Y', []) then
-        FieldByName('LANGUAGE').AsString := Data.Languages.FieldByName('ISO6391').AsString;
+      if Languages.DataSet.Active and Languages.DataSet.Locate('DEFAULTLNG', 'Y', []) then
+        FieldByName('LANGUAGE').AsString := Languages.FieldByName('ISO6391').AsString;
       aDataSet.EnableControls;
     end;
+  Languages.Free;
 end;
 function TPerson.Find(aIdent: string;Unsharp : Boolean = False): Boolean;
 begin
@@ -780,6 +812,7 @@ begin
   FLinks.CascadicCancel;
   inherited CascadicCancel;
 end;
+
 function TPersonList.GetMatchCodeFieldName: string;
 begin
   Result:='MATCHCODE';
@@ -802,10 +835,10 @@ begin
   Result := 'C';
 end;
 
-constructor TPersonList.Create(aOwner: TComponent; DM: TComponent;
+constructor TPersonList.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
-  inherited Create(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -873,7 +906,7 @@ begin
   Result := True;
   if TBaseDBModule(DataModule).DataSetFromLink(aRemoteLink,aClass) then
     begin
-      aObject := aClass.Create(nil,DataModule);
+      aObject := aClass.CreateEx(nil,DataModule);
       if not (aObject is TPersonList) then
         begin
           aObject.Free;
@@ -894,7 +927,7 @@ begin
                   Next;
                 end;
             end;
-          with TPerson(aObject).CustomerCont do
+          with TPerson(aObject).ContactData do
             begin
               Open;
               while not EOF do
@@ -945,4 +978,4 @@ begin
 end;
 
 initialization
-end.
+end.

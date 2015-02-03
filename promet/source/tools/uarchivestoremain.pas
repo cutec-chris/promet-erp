@@ -2,10 +2,10 @@ unit uarchivestoremain;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, DBGrids,
+  Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, ZVDateTimePicker,
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
-  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage;
+  ComCtrls, ExtCtrls, DbCtrls, Grids, Interfaces, uSystemMessage;
 type
 
   { TfMain }
@@ -52,6 +52,7 @@ type
 var
   fMain: TfMain;
 implementation
+{$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface, uOrder,uMessages;
 procedure TfMain.DoCreate;
 begin
@@ -88,7 +89,7 @@ var
 begin
   if SelectDirectoryDialog1.Execute then
     begin
-      aStore := TArchivedMessage.Create(Self,Data);
+      aStore := TArchivedMessage.CreateEx(Self,Data);
       Data.SetFilter(aStore,Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(ZVDateTimePicker1.Date)+' AND '+Data.QuoteField('TIMESTAMPD')+'<'+Data.DateTimeToFilter(ZVDateTimePicker2.Date));
       with aStore.DataSet do
         begin
@@ -130,6 +131,5 @@ begin
 end;
 
 initialization
-  {$I uarchivestoremain.lrs}
 
 end.
