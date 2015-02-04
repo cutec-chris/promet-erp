@@ -28,7 +28,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, pvisualprometapp
   { you can add units after this }
-  ,uBaseVisualApplication, uwizardnewmandant;
+  ,uBaseVisualApplication;
 
 {$R *.res}
 
@@ -36,7 +36,6 @@ begin
   Application.Free;
   Application := TBaseVisualApplication.Create(nil);
   Application.Initialize;
-  Application.CreateForm(TfWizardNewMandant, fWizardNewMandant);
   Application.Run;
 end.
 

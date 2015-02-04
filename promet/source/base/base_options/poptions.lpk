@@ -3,6 +3,7 @@
   <Package Version="4">
     <PathDelim Value="\"/>
     <Name Value="pOptions"/>
+    <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
@@ -10,7 +11,7 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="19">
+    <Files Count="20">
       <Item1>
         <Filename Value="umandantoptions.lfm"/>
         <Type Value="LFM"/>
@@ -87,8 +88,11 @@
         <Filename Value="uuserfielddefoptions.pas"/>
         <UnitName Value="uUserfieldDefOptions"/>
       </Item19>
+      <Item20>
+        <Filename Value="uwizardnewmandant.pas"/>
+        <UnitName Value="uWizardNewMandant"/>
+      </Item20>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="3">
       <Item1>
         <PackageName Value="pscripts"/>

@@ -67,7 +67,7 @@ var
 implementation
 {$R *.lfm}
 uses
-  uMashineID,uData,UTF8Process,Process,ubaseconfig;
+  uMashineID,uData,UTF8Process,Process,ubaseconfig,uWizardNewMandant;
 { TfPassword }
 
 procedure TfPassword.cbMandantSelect(Sender: TObject);
@@ -221,6 +221,7 @@ end;
 procedure TfPassword.StartWizardMandant;
 var
   aProcess: TProcessUTF8;
+  aWizard: TfWizardNewMandant;
 begin
   aProcess := TProcessUTF8.Create(Self);
   aProcess.CommandLine:=AppendPathDelim(Application.Location)+'wizardmandant'+ExtractFileExt(Application.ExeName);
