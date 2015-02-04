@@ -20,7 +20,7 @@ unit uArticlePositionFrame;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, ExtCtrls,
+  Classes, SysUtils, db, FileUtil, Forms, Controls, StdCtrls, ExtCtrls,
   uExtControls,uPositionFrame,uBaseDBClasses,uPrometFramesInplace;
 type
 
@@ -28,6 +28,7 @@ type
 
   TfArticlePositionFrame = class(TPrometInplaceFrame)
     cbPLType: TExtDBCombobox;
+    PosDS: TDatasource;
     lType: TLabel;
     Panel1: TPanel;
   private
@@ -43,7 +44,7 @@ type
     procedure ShowFrame; override;
   end;
 implementation
-uses uDetailPositionFrame,utextpositionframe;
+uses uDetailPositionFrame,utextpositionframe,uMasterdata;
 {$R *.lfm}
 resourcestring
   strPieceListTypeList          = 'L Im lager direkt buchen';
@@ -71,6 +72,7 @@ end;
 procedure TfArticlePositionFrame.SetDataSet(const AValue: TBaseDBDataSet);
 begin
   FPosFrame.Dataset := AValue;
+  PosDS.DataSet := TMDpos(AValue).Masterdata.DataSet;
 end;
 procedure TfArticlePositionFrame.SetRights(Editable: Boolean);
 begin
