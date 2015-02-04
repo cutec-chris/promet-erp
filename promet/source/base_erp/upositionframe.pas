@@ -404,6 +404,7 @@ function TfPosition.fSearchOpenItem(aLink: string): Boolean;
 var
   aCount: Integer;
   aMasterdata: TMasterdata;
+  aCnt: Integer;
 begin
   Result := False;
   aMasterdata := TMasterdata.CreateEx(Self,Data);
@@ -414,14 +415,17 @@ begin
       if not DataSet.CanEdit then
         DataSet.DataSet.Edit;
       aCount := DataSet.Count;
+      aCnt := FGridView.DataSet.Count;
       DataSet.Assign(aMasterdata);
       if (GetPostyp <> -1) and Assigned(InplaceFrames[GetPosTyp]) then
         begin
           InplaceFrames[GetPosTyp].SetArticle(aMasterdata);
         end;
-      FGridView.Refresh;
       if DataSet.CanEdit then DataSet.Post;
-      FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
+      if FGridView.DataSet.Count <> aCnt then
+        FGridView.Refresh
+      else
+        FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
       Result := True;
     end;
   aMasterdata.Destroy;
@@ -433,6 +437,7 @@ var
   Key: Word;
   Shift: TShiftState;
   aSelCol: objpas.Integer;
+  aCnt: Integer;
 begin
   FFound := False;
   if lbResults.ItemIndex < 0 then exit;
@@ -446,8 +451,12 @@ begin
   if (aCount = 0) and (DataSet.State = dsInsert) then
     inc(aCount)
   else FFound:=True;
+  aCnt := FGridView.DataSet.Count;
   DataSet.Assign(aMD);
-  FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
+  if aCnt<>FGridView.DataSet.Count then
+    FGridView.Refresh
+  else
+    FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
   FGridView.SetFocus;
   aMD.Free;
   pSearch.Visible:=False;
@@ -455,7 +464,6 @@ begin
   Shift := [];
   THackCustomGrid(FGridView.gList).KeyDown(Key,Shift);
   FGridView.gList.EditorMode:=True;
-  FGridView.Refresh;
 end;
 procedure TfPosition.acAddPosExecute(Sender: TObject);
 begin

@@ -1218,6 +1218,7 @@ var
   aMasterdata : TMasterdata;
   aQuantity: Double;
   bMasterdata: TMasterdata;
+  tParent : Variant;
 
   procedure InsertData(Masterdata : TMasterdata;Quantity : float;aParent : Variant;Active : string = 'Y');
   begin
@@ -1292,6 +1293,7 @@ begin
         aQuantity := 1;
       end;
       InsertData(aMasterdata,aQuantity,Null);
+      tParent := FieldByName('SQL_ID').AsVariant;
       if (((aMasterdata.FieldByName('PTYPE').AsString = 'P') and (GetOrderTyp = 7))
       or  ((aMasterdata.FieldByName('PTYPE').AsString = 'O'))) then
         begin
@@ -1314,9 +1316,9 @@ begin
                     begin
                       DataSet.Append;
                       if Self.GetOrderTyp = 7 then
-                        InsertData(bMasterdata,(-FieldByName('QUANTITY').AsFloat)*aQuantity,FieldByName('SQL_ID').AsVariant,FieldByName('ACTIVE').AsString)
+                        InsertData(bMasterdata,(-FieldByName('QUANTITY').AsFloat)*aQuantity,tParent,FieldByName('ACTIVE').AsString)
                       else
-                        InsertData(bMasterdata,  FieldByName('QUANTITY').AsFloat *aQuantity,FieldByName('SQL_ID').AsVariant,FieldByName('ACTIVE').AsString);
+                        InsertData(bMasterdata,  FieldByName('QUANTITY').AsFloat *aQuantity,tParent,FieldByName('ACTIVE').AsString);
                     end;
                   bMasterdata.Destroy;
                   Next;
