@@ -1984,6 +1984,7 @@ begin
         if gList.ColCount > i+1 then
           begin
             aText := gList.Cells[i+1,aRow];
+            if aText='' then exit;
             if Assigned(FGetCText) then
               FGetCText(Self,dgFake.Columns[i],aRow,atext,nil);
             TextWidth := gList.CellRect(i+1,aRow).Right-gList.CellRect(i+1,aRow).Left;
