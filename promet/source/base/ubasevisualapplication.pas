@@ -923,6 +923,10 @@ begin
                             FProps.Delete(0);
                             FFields.Delete(0);
                           end
+                        else if (aComponent is TLabel) then
+                          begin
+                            TLabel(aComponent).BringToFront;
+                          end
                         ;
                       end;
                   end;
