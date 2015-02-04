@@ -132,6 +132,7 @@
         <ComponentName Value="loggedout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uloggedout"/>
       </Unit3>
     </Units>
   </ProjectOptions>
@@ -181,4 +182,4 @@
       </Item8>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

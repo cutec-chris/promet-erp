@@ -54,7 +54,6 @@ type
     FAppName : string;
     FAppRevsion : Integer;
     FAppVersion : Real;
-//    Properties : TXMLPropStorage;
     function HandleSystemCommand(Sender : TObject;aCommand : string) : Boolean;
   public
     constructor Create(AOwner: TComponent); override;
@@ -216,10 +215,6 @@ begin
 end;
 procedure TBaseCustomApplication.SaveConfig;
 begin
-  with Self as IBaseApplication do
-    begin
-//      Properties.Save;
-    end;
 end;
 function TBaseCustomApplication.GetLanguage: string;
 begin

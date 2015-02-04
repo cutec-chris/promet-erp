@@ -23,7 +23,7 @@ unit uBaseWebSession;
 interface
 
 uses
-  Classes, SysUtils, fpWeb,uSessionDBClasses,HTTPDefs,fpHTTP,BlckSock;
+  Classes, SysUtils, fpWeb,uSessionDBClasses,HTTPDefs,fpHTTP;
 type
 
   { TBaseWebSession }
@@ -62,7 +62,7 @@ type
   end;
 
 implementation
-uses uData,uBaseDBInterface,md5,uUserAgents,db;
+uses uData,uBaseDBInterface,md5,uUserAgents,db,blcksock;
 procedure TBaseSessionFactory.DoDoneSession(var ASession: TCustomSession);
 begin
   FreeAndNil(ASession);

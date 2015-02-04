@@ -48,7 +48,7 @@ var
   TWebServer: TTWebServer;
 
 implementation
-uses uData,uBaseApplication,uBaseDbClasses,FileUtil;
+uses uData,uBaseApplication,uBaseDbClasses,Utils;
 {$R *.lfm}
 
 procedure TTWebServer.DataModuleCreate(Sender: TObject);
@@ -83,7 +83,7 @@ begin
           aStream.Free;
         end;
     end;
-  if FileExistsUTF8(FTempPath+aPath) then
+  if FileExists(UniToSys(FTempPath+aPath)) then
     begin
       AResponse.ContentStream:=TFileStream.Create(FTempPath+aPath,fmOpenRead);
       AResponse.ContentType:='text/'+copy(ExtractFileExt(aPath),2,length(aPath));
