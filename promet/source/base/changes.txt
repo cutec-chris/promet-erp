@@ -1,5 +1,6 @@
 ﻿Build 388
       - Filter:Alle Filter wurden immer angezeigt
+      - Artikel:Stücklistentyp nun einstellbar (durch Fehler nicht setzbar gewesen)
 Build 387
       - Wizardmandant:layout überarbeitte um auf allen Plattformen gut auszusehn
 Build 386

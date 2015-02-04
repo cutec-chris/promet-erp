@@ -129,7 +129,7 @@ type
     function Round(aValue: Extended): Extended; override;
     function RoundPos(aValue : Extended) : Extended;override;
     function GetCurrency : string;override;
-    function GetOrderTyp : Integer;
+    function GetOrderTyp : Integer;override;
   public
     constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;

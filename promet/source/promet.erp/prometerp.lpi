@@ -367,7 +367,6 @@
         <ComponentName Value="fArticlePositionFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uArticlePositionFrame"/>
       </Unit12>
       <Unit13>
         <Filename Value="uorderframe.pas"/>
@@ -582,7 +581,6 @@
         <ComponentName Value="fCommandline"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="ucommandline"/>
       </Unit43>
       <Unit44>
         <Filename Value="ustoredpasswords.pas"/>

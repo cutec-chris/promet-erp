@@ -419,6 +419,7 @@ begin
         begin
           InplaceFrames[GetPosTyp].SetArticle(aMasterdata);
         end;
+      FGridView.Refresh;
       if DataSet.CanEdit then DataSet.Post;
       FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
       Result := True;
@@ -454,6 +455,7 @@ begin
   Shift := [];
   THackCustomGrid(FGridView.gList).KeyDown(Key,Shift);
   FGridView.gList.EditorMode:=True;
+  FGridView.Refresh;
 end;
 procedure TfPosition.acAddPosExecute(Sender: TObject);
 begin
@@ -971,4 +973,4 @@ begin
 end;
 
 end.
-
+
