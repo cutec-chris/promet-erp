@@ -22,8 +22,8 @@ inherited fMandantOptions: TfMandantOptions
       Left = 12
       Height = 15
       Top = 96
-      Width = 35
-      Caption = 'Name'
+      Width = 75
+      Caption = 'Firmenname'
       ParentColor = False
     end
     object lAdress: TLabel
@@ -58,6 +58,7 @@ inherited fMandantOptions: TfMandantOptions
     object eName: TDBEdit
       Left = 12
       Height = 25
+      Hint = 'Der Firmenname des Mandanten der später'#10'auf Formularen erscheint'
       Top = 112
       Width = 292
       DataField = 'NAME'
@@ -356,20 +357,24 @@ inherited fMandantOptions: TfMandantOptions
         end
         object bExportConfiguration: TButton
           Left = 128
-          Height = 25
+          Height = 27
           Hint = 'exportiert die Konfiguration in ein Verzeichnis'#10'als CSV Datei pro Tabelle '#10'Sie können diese auch unter importdata'#10'im Programmverzeichnis ablegen und '#10'der Wizardmandant kann daraus neue '#10'Datenbanken/Mandanten erzeugen'
           Top = 163
-          Width = 200
+          Width = 164
+          AutoSize = True
           Caption = 'Konfiguration exportieren'
           OnClick = bExportConfigurationClick
           TabOrder = 10
         end
         object bTreeEntrys: TButton
-          Left = 328
-          Height = 25
+          AnchorSideLeft.Control = bExportConfiguration
+          AnchorSideLeft.Side = asrBottom
+          Left = 292
+          Height = 27
           Hint = 'erzeugt die Standard Baumeinträge neu'#10'z.b. die Standard e-Mail Ordner'#10'sollten sie diese versehentlich gelösht haben'#10'können Sie sie hier neu erstellen.'
           Top = 163
-          Width = 72
+          Width = 71
+          AutoSize = True
           Caption = 'Baum bef.'
           OnClick = bTreeEntrysClick
           TabOrder = 11
@@ -389,15 +394,15 @@ inherited fMandantOptions: TfMandantOptions
         ClientWidth = 422
         object lTel6: TLabel
           Left = 4
-          Height = 13
+          Height = 15
           Top = 3
-          Width = 68
+          Width = 73
           Caption = 'Zusätzlich 1'
           ParentColor = False
         end
         object eTel5: TDBEdit
           Left = 4
-          Height = 23
+          Height = 25
           Top = 19
           Width = 116
           DataField = 'ADDITION1'
@@ -408,15 +413,15 @@ inherited fMandantOptions: TfMandantOptions
         end
         object lTel7: TLabel
           Left = 4
-          Height = 13
+          Height = 15
           Top = 51
-          Width = 68
+          Width = 73
           Caption = 'Zusätzlich 2'
           ParentColor = False
         end
         object eTel6: TDBEdit
           Left = 4
-          Height = 23
+          Height = 25
           Top = 67
           Width = 116
           DataField = 'ADDITION2'
@@ -427,15 +432,15 @@ inherited fMandantOptions: TfMandantOptions
         end
         object lTel8: TLabel
           Left = 4
-          Height = 13
+          Height = 15
           Top = 99
-          Width = 68
+          Width = 73
           Caption = 'Zusätzlich 3'
           ParentColor = False
         end
         object eTel7: TDBEdit
           Left = 4
-          Height = 23
+          Height = 25
           Top = 115
           Width = 116
           DataField = 'ADDITION3'
@@ -446,15 +451,15 @@ inherited fMandantOptions: TfMandantOptions
         end
         object lTel9: TLabel
           Left = 4
-          Height = 13
+          Height = 15
           Top = 147
-          Width = 68
+          Width = 73
           Caption = 'Zusätzlich 4'
           ParentColor = False
         end
         object eTel8: TDBEdit
           Left = 4
-          Height = 23
+          Height = 25
           Top = 163
           Width = 116
           DataField = 'ADDITION4'
@@ -465,15 +470,15 @@ inherited fMandantOptions: TfMandantOptions
         end
         object lTel10: TLabel
           Left = 144
-          Height = 13
+          Height = 15
           Top = 3
-          Width = 68
+          Width = 73
           Caption = 'Zusätzlich 5'
           ParentColor = False
         end
         object eTel9: TDBEdit
           Left = 144
-          Height = 23
+          Height = 25
           Top = 19
           Width = 116
           DataField = 'ADDITION5'
@@ -484,15 +489,15 @@ inherited fMandantOptions: TfMandantOptions
         end
         object lTel11: TLabel
           Left = 144
-          Height = 13
+          Height = 15
           Top = 51
-          Width = 68
+          Width = 73
           Caption = 'Zusätzlich 6'
           ParentColor = False
         end
         object eTel10: TDBEdit
           Left = 144
-          Height = 23
+          Height = 25
           Top = 67
           Width = 116
           DataField = 'ADDITION6'
@@ -503,15 +508,15 @@ inherited fMandantOptions: TfMandantOptions
         end
         object lTel12: TLabel
           Left = 144
-          Height = 13
+          Height = 15
           Top = 99
-          Width = 68
+          Width = 73
           Caption = 'Zusätzlich 7'
           ParentColor = False
         end
         object eTel11: TDBEdit
           Left = 144
-          Height = 23
+          Height = 25
           Top = 115
           Width = 116
           DataField = 'ADDITION7'
@@ -522,15 +527,15 @@ inherited fMandantOptions: TfMandantOptions
         end
         object lTel13: TLabel
           Left = 144
-          Height = 13
+          Height = 15
           Top = 147
-          Width = 68
+          Width = 73
           Caption = 'Zusätzlich 8'
           ParentColor = False
         end
         object eTel12: TDBEdit
           Left = 144
-          Height = 23
+          Height = 25
           Top = 163
           Width = 116
           DataField = 'ADDITION8'
