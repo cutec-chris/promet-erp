@@ -26,15 +26,18 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, pvisualprometapp
+  Forms, pvisualprometapp,uWizardNewMandant
   { you can add units after this }
   ,uBaseVisualApplication;
 
 {$R *.res}
 
+var
+  aMan: TfWizardNewMandant;
 begin
   Application.Free;
   Application := TBaseVisualApplication.Create(nil);
+  Application.CreateForm(TfWizardNewMandant,fWizardNewMandant);
   Application.Initialize;
   Application.Run;
 end.

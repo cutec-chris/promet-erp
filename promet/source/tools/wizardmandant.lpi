@@ -29,7 +29,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--firebird --silent"/>
       </local>
     </RunParams>
     <RequiredPackages Count="5">
