@@ -1103,7 +1103,6 @@ procedure TBaseDbList.Delete;
 var
   aObj: TObjects;
 begin
-  inherited Delete;
   try
     aObj := TObjects.Create(nil);
     if not Data.TableExists(aObj.TableName) then
@@ -1121,6 +1120,7 @@ begin
     aObj.Free;
   except
   end;
+  inherited Delete;
 end;
 
 procedure TBaseDBDataset.Select(aID: Variant);
@@ -1350,7 +1350,7 @@ var
   aHistory: TAccessHistory;
   aObj: TObjects;
 begin
-  if Self.Count=0 then exit;
+  if (Self.Count=0) and (State<>dsInsert) then exit;
   try
     try
       aHistory := TAccessHistory.Create(nil);
@@ -1368,49 +1368,49 @@ begin
         end;
       if DataSet.State<>dsInsert then
         begin
-          if not Data.TableExists(aObj.TableName) then
-            begin
-              aObj.CreateTable;
-              aObj.Free;
-              aObj := TObjects.CreateEx(nil,Data,nil,DataSet);
-            end;
-          aObj.SelectByRefId(Id.AsVariant);
-          aObj.Open;
-          if aObj.Count=0 then
-            begin
-              aObj.Insert;
-              aObj.Text.AsString := Self.Text.AsString;
-              aObj.FieldByName('SQL_ID').AsVariant:=Self.Id.AsVariant;
-              if Assigned(Self.Matchcode) then
-                aObj.Matchcode.AsString := Self.Matchcode.AsString;
-              if Assigned(Self.Status) then
+        if not Data.TableExists(aObj.TableName) then
+          begin
+            aObj.CreateTable;
+            aObj.Free;
+            aObj := TObjects.CreateEx(nil,Data,nil,DataSet);
+          end;
+        aObj.SelectByRefId(Id.AsVariant);
+        aObj.Open;
+        if aObj.Count=0 then
+          begin
+            aObj.Insert;
+            aObj.Text.AsString := Self.Text.AsString;
+            aObj.FieldByName('SQL_ID').AsVariant:=Self.Id.AsVariant;
+            if Assigned(Self.Matchcode) then
+              aObj.Matchcode.AsString := Self.Matchcode.AsString;
+            if Assigned(Self.Status) then
+              aObj.Status.AsString := Self.Status.AsString;
+            aObj.Number.AsVariant:=Self.Number.AsVariant;
+            aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
+            aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet));
+            aObj.Post;
+            Self.GenerateThumbnail;
+          end
+        else //Modify existing
+          begin
+            if aObj.Text.AsString<>Self.Text.AsString then
+              begin
+                aObj.Edit;
+                aObj.Text.AsString := Self.Text.AsString;
+              end;
+            if aObj.Number.AsString<>Self.Number.AsString then
+              begin
+                aObj.Edit;
+                aObj.Number.AsString := Self.Number.AsString;
+              end;
+            if Assigned(Self.Status) and (aObj.Status.AsString<>Self.Status.AsString) then
+              begin
+                aObj.Edit;
                 aObj.Status.AsString := Self.Status.AsString;
-              aObj.Number.AsVariant:=Self.Number.AsVariant;
-              aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
-              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet));
+              end;
+            if aObj.CanEdit then
               aObj.Post;
-              Self.GenerateThumbnail;
-            end
-          else //Modify existing
-            begin
-              if aObj.Text.AsString<>Self.Text.AsString then
-                begin
-                  aObj.Edit;
-                  aObj.Text.AsString := Self.Text.AsString;
-                end;
-              if aObj.Number.AsString<>Self.Number.AsString then
-                begin
-                  aObj.Edit;
-                  aObj.Number.AsString := Self.Number.AsString;
-                end;
-              if Assigned(Self.Status) and (aObj.Status.AsString<>Self.Status.AsString) then
-                begin
-                  aObj.Edit;
-                  aObj.Status.AsString := Self.Status.AsString;
-                end;
-              if aObj.CanEdit then
-                aObj.Post;
-            end;
+          end;
         end;
     finally
       aObj.Free;
@@ -1422,8 +1422,8 @@ end;
 
 procedure TBaseDbList.CascadicPost;
 begin
-  OpenItem(False);//modify object properties
   inherited CascadicPost;
+  OpenItem(False);//modify object properties
 end;
 
 procedure TBaseDbList.GenerateThumbnail;
