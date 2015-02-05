@@ -740,6 +740,9 @@ begin
       else
         begin
           Result := 2;
+          with Application as IBaseDBInterface do
+            if FileExists(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension) then
+              Result := 5;
         end;
       if rbDelete.Checked then
         begin
