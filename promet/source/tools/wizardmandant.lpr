@@ -37,8 +37,8 @@ var
 begin
   Application.Free;
   Application := TBaseVisualApplication.Create(nil);
-  Application.CreateForm(TfWizardNewMandant,fWizardNewMandant);
   Application.Initialize;
+  Application.CreateForm(TfWizardNewMandant,fWizardNewMandant);
   Application.Run;
 end.
 

@@ -36,7 +36,7 @@ fi
 sudo -S rm -rf $BuildDir
 echo "copy to builddir..."
 mkdir -p $BuildDir/Promet-ERP
-cp -r ./Promet-ERP $BuildDir
+cp -r ./Promet-ERP_Firebird/* $BuildDir/Promet-ERP
 mkdir -p $BuildDir/Promet-ERP/App/promet/tools
 cp -r ../i386-win32/tools $BuildDir/Promet-ERP/App/promet
 cp -r ../../importdata $BuildDir/Promet-ERP/App/promet/
@@ -72,7 +72,7 @@ cat Appinfo_devel.ini | \
       -e "s/ARCHFPC/$Archfpc/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > $BuildDir/Promet-ERP/App/AppInfo/Appinfo.ini
-WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
+#WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
 rm $BuildDir/Promet-ERP/App/AppInfo/Launcher/Splash.jpg
 cat Appinfo.ini | \
   sed -e "s/VERSION/$Version/g" \
@@ -80,12 +80,12 @@ cat Appinfo.ini | \
       -e "s/ARCHFPC/$Archfpc/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > $BuildDir/Promet-ERP/App/AppInfo/Appinfo.ini
-WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
+#WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
 Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
 cp $BuildDir/*.paf.exe ../output
 cd $BuildDir
-rm $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable.zip
+rm $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable-firebird.zip
 zip -9 -r $FULL_NAME/../output/promet-erp-$(echo $Version).i386-win32-portable-firebird.zip Promet-ERP
 echo "cleaning up..."
 #sudo -S rm -r $BuildDir
