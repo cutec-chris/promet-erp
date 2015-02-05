@@ -376,7 +376,7 @@ var i: integer;
 begin
   if (fQueue.Count > 0) and (FThreadsFree > 0) then
   begin
-    i := Min(fQueue.Count - 1, fThreadsFree);
+    i := Min(fQueue.Count - 1, fThreadsFree-1);
     while i > -1 do
     begin
       if not TThreadedImage(fQueue[i]).Load(fReload) then
@@ -487,4 +487,4 @@ finalization
   CS.Free;
 
 
-end.
+end.
