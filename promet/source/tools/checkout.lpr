@@ -6,9 +6,8 @@ uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
-  Interfaces,
   Classes, SysUtils, pcmdprometapp, CustApp ,uBaseCustomApplication,
-  uBaseDBInterface,uWiki,uData,LConvEncoding, uDocuments,Utils,FileUtil
+  uBaseDBInterface,uWiki,uData,uDocuments,Utils
   { you can add units after this };
 
 resourcestring
@@ -67,7 +66,7 @@ begin
       aDocument.SelectByLink(Params[ParamCount-1]);
       aDocument.Open;
     end;
-  aDir := ChompPathDelim(CleanAndExpandDirectory(Params[ParamCount]));
+  aDir := Params[ParamCount];
   if rpos(DirectorySeparator,aDir) > 0 then
     aDir := copy(aDir,0,rpos(DirectorySeparator,aDir)-1);
   writeln('checking out...');

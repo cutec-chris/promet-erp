@@ -10,11 +10,15 @@ uses
   ,windows
   {$ENDIF}
   {$IFDEF UNIX}
+  {$ifndef DARWIN}
   ,dbus
+  {$endif}
   {$ENDIF}
   ;
 {$IFDEF UNIX}
+{$ifndef DARWIN}
   {$DEFINE DBUS}
+{$endif}
 {$ENDIF}
 
 type
