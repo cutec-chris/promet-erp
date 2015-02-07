@@ -153,7 +153,6 @@ type
     procedure bPrev0Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure cbLanguageSelect(Sender: TObject);
-    procedure cbSQLTypeChange(Sender: TObject);
     procedure cbSQLTypeSelect(Sender: TObject);
     procedure DirectoryEdit1AcceptFileName(Sender: TObject; var Value: String);
     procedure eMandantnameSelect(Sender: TObject);
@@ -272,11 +271,6 @@ begin
     Language := cbLanguage.Text;
 end;
 
-procedure TfWizardNewMandant.cbSQLTypeChange(Sender: TObject);
-begin
-  eSQLdatabase.Text:='promet';
-end;
-
 procedure TfWizardNewMandant.cbSQLTypeSelect(Sender: TObject);
 begin
   if (eSQLServer.Text = '') or (eSQLServer.Text = 'localhost') then
@@ -298,7 +292,6 @@ begin
     begin
       eSQLServer.Text:='';
     end;
-  eSQLdatabase1.Text:=eSQLdatabase.Text;
 end;
 
 procedure TfWizardNewMandant.DirectoryEdit1AcceptFileName(Sender: TObject;
@@ -407,9 +400,15 @@ end;
 procedure TfWizardNewMandant.rbSqliteChange(Sender: TObject);
 begin
   if rbFBE.Checked then
-    cbSQLType.Text:='firebirdd-2.1'
+    begin
+      if cbSQLType.Text='firebirdd-2.1' then exit;
+      cbSQLType.Text:='firebirdd-2.1'
+    end
   else if rbSqlite.Checked then
-    cbSQLType.Text:='sqlite-3';
+    begin
+      if cbSQLType.Text='sqlite-3' then exit;
+      cbSQLType.Text:='sqlite-3';
+    end;
   cbSQLTypeSelect(cbSQLType);
   eSQLdatabase1.Text:=eSQLdatabase.Text;
 end;
@@ -474,6 +473,7 @@ var
   aProcess: TProcessUTF8;
   sres: String;
   aTexttyp: TTextTypes;
+  tmp: String;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
@@ -634,6 +634,21 @@ begin
           with Data.ProcessClient.Processes.DataSet do
             begin
               Insert;
+              FieldByName('NAME').AsString:='sync_db';
+              FieldByName('INTERVAL').AsInteger:=1000;
+              Post;
+            end;
+          with Data.ProcessClient.DataSet do
+            begin
+              Insert;
+              FieldByName('NAME').AsString:='*';
+              FieldByName('STATUS').AsString:='N';
+              Post;
+            end;
+          Data.ProcessClient.Processes.Open;
+          with Data.ProcessClient.Processes.DataSet do
+            begin
+              Insert;
               FieldByName('NAME').AsString:='pop3receiver';
               FieldByName('INTERVAL').AsInteger:=10;
               Insert;
@@ -646,9 +661,6 @@ begin
               Insert;
               FieldByName('NAME').AsString:='twitterreceiver';
               FieldByName('INTERVAL').AsInteger:=10;
-              Insert;
-              FieldByName('NAME').AsString:='sync_db';
-              FieldByName('INTERVAL').AsInteger:=1000;
               Post;
             end;
 
@@ -697,11 +709,12 @@ begin
               DoCreateTable(TDocument);
               DoCreateTable(TWikiList);
               if Application.HasOption('c','config-path') then
-                ExecProcess(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text+'"')
+                tmp := ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text+'"')
               else
-                ExecProcess(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--mandant='+eMandantname.Text+'"');
+                tmp := ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--mandant='+eMandantname.Text+'"');
             end;
-          iDatabaseUpdated.Visible:=True;
+          if pos('ERROR:',tmp)=0 then
+            iDatabaseUpdated.Visible:=True;
         end
       else if cbExistingDatabase.Checked then
         begin
@@ -798,6 +811,7 @@ begin
         Result := 3
       else
         Result := 4;
+      eSQLdatabase1.Text:=eSQLdatabase.Text;
     end;
   3:
     begin

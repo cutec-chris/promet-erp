@@ -223,7 +223,10 @@ begin
   IMAPServer := TLIMAPServer.Create(Self);
   IMAPServer.Port := 143;
   if HasOption('port') then
-    IMAPServer.Port := StrToInt(GetOptionValue('port'));
+    begin
+      IMAPServer.Port := StrToInt(GetOptionValue('port'));
+      Info('using port for imap:'+GetOptionValue('port'));
+    end;
   if HasOption('imapport') then
     IMAPServer.Port := StrToInt(GetOptionValue('imapport'));
   SMTPServer := TLSMTPServer.Create(Self);
