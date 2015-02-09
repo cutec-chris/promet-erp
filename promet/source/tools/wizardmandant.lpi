@@ -29,6 +29,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="&quot;--config-path=C:/Dokumente und Einstellungen/ulrich/Desktop/Promet-ERP/Data/config&quot; &quot;--database=C:/Dokumente und Einstellungen/ulrich/Desktop/Promet-ERP/Data/database.db&quot; --silent &quot;--execute=C:/Dokumente und Einstellungen/ulrich/Desktop/Promet-ERP/App/promet/prometerp.exe&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="5">
