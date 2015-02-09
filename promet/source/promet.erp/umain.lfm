@@ -25,7 +25,8 @@ object fMain: TfMain
     Width = 5
     Color = clBtnFace
     ParentColor = False
-    ResizeStyle = rsLine
+    ParentShowHint = False
+    ShowHint = True
   end
   object pcPages: TExtMenuPageControl
     Left = 296

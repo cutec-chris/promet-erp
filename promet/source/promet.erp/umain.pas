@@ -3688,6 +3688,11 @@ begin
   fMainTreeFrame.OnDragOver:=@fMainTreeFrameDragOver;
   fMainTreeFrame.OnDragDrop:=@fMainTreeFrameDragDrop;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
+  {$IFDEF LCLCARBON}
+  spTree.Width:=1;
+  {$ELSE}
+  spTree.ResizeStyle:=rsPattern;
+  {$ENDIF}
 end;
 procedure TfMain.FormDestroy(Sender: TObject);
 begin
