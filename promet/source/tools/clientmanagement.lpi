@@ -98,6 +98,7 @@
     </CodeGeneration>
     <Linking>
       <Debugging>
+        <StripSymbols Value="True"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
       <Options>

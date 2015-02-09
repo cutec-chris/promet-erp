@@ -5,7 +5,7 @@ object fMain: TfMain
   Width = 868
   ActiveControl = Panel1
   Caption = 'Promet-ERP'
-  ClientHeight = 579
+  ClientHeight = 600
   ClientWidth = 868
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -17,19 +17,20 @@ object fMain: TfMain
   OnShow = FormShow
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '1.3'
+  LCLVersion = '1.2.6.0'
   object spTree: TSplitter
     Left = 291
-    Height = 529
+    Height = 550
     Top = 50
     Width = 5
     Color = clBtnFace
     ParentColor = False
-    ResizeStyle = rsLine
+    ParentShowHint = False
+    ShowHint = True
   end
   object pcPages: TExtMenuPageControl
     Left = 296
-    Height = 529
+    Height = 550
     Top = 50
     Width = 572
     ActivePage = tsStartpage
@@ -603,12 +604,12 @@ object fMain: TfMain
   end
   object tvMain: TPanel
     Left = 0
-    Height = 529
+    Height = 550
     Top = 50
     Width = 291
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 529
+    ClientHeight = 550
     ClientWidth = 291
     Color = clWindow
     DragMode = dmAutomatic

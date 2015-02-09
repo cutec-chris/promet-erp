@@ -315,7 +315,7 @@ var
   currentLocale: CFLocaleRef;
   dateFormatter: CFDateFormatterRef;
   formattedString: CFStringRef;
-begin exit;
+begin
   currentLocale := CFLocaleCopyCurrent();
 
   dateFormatter := CFDateFormatterCreate(nil, currentLocale, kCFDateFormatterLongStyle, kCFDateFormatterNoStyle);
@@ -323,28 +323,24 @@ begin exit;
   LongDateFormat := CFStringToStr(formattedString);
   if Assigned(dateFormatter) then
     CFRelease(Pointer(dateFormatter));
-  FreeCFString(formattedString);
 
   dateFormatter := CFDateFormatterCreate(nil, currentLocale, kCFDateFormatterShortStyle, kCFDateFormatterNoStyle);
   formattedString := CFDateFormatterGetFormat(dateFormatter);
   ShortDateFormat := CFStringToStr(formattedString);
   if Assigned(dateFormatter) then
     CFRelease(Pointer(dateFormatter));
-  FreeCFString(formattedString);
 
   dateFormatter := CFDateFormatterCreate(nil, currentLocale,kCFDateFormatterNoStyle, kCFDateFormatterShortStyle);
   formattedString := CFDateFormatterGetFormat(dateFormatter);
   ShortTimeFormat := CFStringToStr(formattedString);
   if Assigned(dateFormatter) then
     CFRelease(Pointer(dateFormatter));
-  FreeCFString(formattedString);
 
   dateFormatter := CFDateFormatterCreate(nil, currentLocale,kCFDateFormatterNoStyle, kCFDateFormatterShortStyle);
   formattedString := CFDateFormatterGetFormat(dateFormatter);
   LongTimeFormat := CFStringToStr(formattedString);
   if Assigned(dateFormatter) then
     CFRelease(Pointer(dateFormatter));
-  FreeCFString(formattedString);
 
   CFRelease(Pointer(currentLocale));
 end;

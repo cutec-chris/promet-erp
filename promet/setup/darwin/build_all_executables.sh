@@ -56,7 +56,7 @@ lazbuild -q ../../source/tools/clientmanagement.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/tools/clientmanagement
 echo "compiling helpviewer..."  >> scompile-$2.log
 lazbuild -q ../../source/tools/helpviewer.lpi  >> scompile-$2.log
-strip ../../output/$2-darwin/tools/helpviewer
+strip ../../output/$2-darwin/helpviewer
 
 echo "compiling webservices..."
 echo "compiling local_appbase..."  >> scompile-$2.log

@@ -52,18 +52,18 @@ inherited fMessageFrame: TfMessageFrame
           Left = 0
           Height = 60
           Top = 20
-          Width = 40
+          Width = 44
           Align = alTop
           BorderSpacing.Top = 20
           BevelOuter = bvNone
           ClientHeight = 60
-          ClientWidth = 40
+          ClientWidth = 44
           TabOrder = 0
           object Bevel1: TBevel
             Left = 4
             Height = 4
             Top = 0
-            Width = 32
+            Width = 36
             Align = alTop
             BorderSpacing.Left = 4
             BorderSpacing.Right = 4
@@ -188,17 +188,17 @@ inherited fMessageFrame: TfMessageFrame
           Left = 0
           Height = 52
           Top = 80
-          Width = 40
+          Width = 44
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 52
-          ClientWidth = 40
+          ClientWidth = 44
           TabOrder = 1
           object Bevel2: TBevel
             Left = 4
             Height = 4
             Top = 0
-            Width = 32
+            Width = 36
             Align = alTop
             BorderSpacing.Left = 4
             BorderSpacing.Right = 4
@@ -272,17 +272,17 @@ inherited fMessageFrame: TfMessageFrame
           Left = 0
           Height = 60
           Top = 132
-          Width = 40
+          Width = 44
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 60
-          ClientWidth = 40
+          ClientWidth = 44
           TabOrder = 2
           object Bevel3: TBevel
             Left = 4
             Height = 4
             Top = 0
-            Width = 32
+            Width = 36
             Align = alTop
             BorderSpacing.Left = 4
             BorderSpacing.Right = 4

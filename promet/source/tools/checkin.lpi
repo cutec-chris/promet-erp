@@ -36,17 +36,14 @@
         <WorkingDirectory Value="\media\Daten\Source\prometheus\source\"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="2">
       <Item1>
         <PackageName Value="FCL"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
-      </Item2>
-      <Item3>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
-      </Item3>
+      </Item2>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
@@ -82,6 +79,7 @@
       </CompilerMessages>
       <CustomOptions Value="-dHASREPORTS
 -dSTATISTICS"/>
+      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>

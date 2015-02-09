@@ -188,7 +188,7 @@ implementation
 uses uData,uPrometFrames,LCLType,Dialogs,uIntfStrConsts, FPCanvas,
   uBaseVisualControls, Graphics, Utils,UtilsVis, LCLProc, uPerson,uMasterdata,uProjects,
   uWiki,uSearch,Themes,uFilterFrame,uNRights,uStatistic,uClipp,Clipbrd,
-  uBaseVisualApplication,uError,uBaseApplication;
+  uBaseVisualApplication,uError,uBaseApplication,StdCtrls;
 resourcestring
   strRestartNessesary                         = 'Starten Sie die Anwendung neu !';
   strRealMove                                 = 'Verzeichnis wirklich nach "%s" verschieben ?';
@@ -362,6 +362,10 @@ begin
   inherited Create(AOwner);
   FSearchOptions:='MAIN';
   StartupTypes := TStringList.Create;
+  {$IFDEF LCLCARBON}
+  tvMain.BackgroundColor:=$00EDEDED;
+  tvMain.ScrollBars:=ssBoth;
+  {$ENDIF}
 end;
 
 destructor TfMainTree.Destroy;
