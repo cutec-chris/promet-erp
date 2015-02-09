@@ -12,7 +12,7 @@ uses
   ;
 
 function ExecProcessEx(CommandLine : string;CurDir : string = '') : string;
-procedure ExecProcess(CommandLine : string;CurDir : string = '';Waitfor : Boolean = True);
+function ExecProcess(CommandLine : string;CurDir : string = '';Waitfor : Boolean = True) : Boolean;
 
 implementation
 
@@ -41,7 +41,7 @@ begin
   if err <> '' then
     Result := 'errors:'+err+#13+Result;
 end;
-procedure ExecProcess(CommandLine : string;CurDir : string = '';Waitfor : Boolean = True);
+function ExecProcess(CommandLine : string;CurDir : string = '';Waitfor : Boolean = True) : Boolean;
 var
 {$IFDEF MSWINDOWS}
   SUInfo: TStartupInfo;
@@ -85,6 +85,7 @@ begin
   if Waitfor then Process.Free;
 {$ENDIF}
   ChDir(aDir);
+  Result := Res;
 end;
 
 

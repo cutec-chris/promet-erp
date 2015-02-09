@@ -708,13 +708,19 @@ begin
             begin
               DoCreateTable(TDocument);
               DoCreateTable(TWikiList);
+              ChDir(AppendPathDelim(Application.Location));
               if Application.HasOption('c','config-path') then
-                tmp := ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text+'"')
+                begin
+                  if ExecProcess('tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text+'"',AppendPathDelim(Application.Location)) then
+                    iDatabaseUpdated.Visible:=True;
+                  Clipboard.AsText:='tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text+'"';
+                end
               else
-                tmp := ExecProcessEx(AppendPathDelim(Application.Location)+'tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--mandant='+eMandantname.Text+'"');
+                begin
+                  if ExecProcess('tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--mandant='+eMandantname.Text+'"',AppendPathDelim(Application.Location)) then
+                    iDatabaseUpdated.Visible:=True;
+                end;
             end;
-          if pos('ERROR:',tmp)=0 then
-            iDatabaseUpdated.Visible:=True;
         end
       else if cbExistingDatabase.Checked then
         begin
@@ -871,4 +877,4 @@ begin
 end;
 initialization
 end.
-
+
