@@ -41,8 +41,8 @@ inherited fprojectFrame: TfprojectFrame
       Width = 65
       Anchors = [akTop, akRight]
       Caption = 'Baum'
-      ClientHeight = 32
-      ClientWidth = 63
+      ClientHeight = 30
+      ClientWidth = 61
       TabOrder = 1
       object bAssignTree: TSpeedButton
         Left = 2
@@ -135,8 +135,8 @@ inherited fprojectFrame: TfprojectFrame
     NewTabImageIndex = 59
     object tsInfo: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 680
-      ClientWidth = 1616
+      ClientHeight = 327
+      ClientWidth = 804
       ImageIndex = 62
       object mInfo: TDBMemo
         Left = 8
@@ -1236,8 +1236,8 @@ inherited fprojectFrame: TfprojectFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 68
-    ClientWidth = 84
+    ClientHeight = 64
+    ClientWidth = 80
     TabOrder = 4
     object iProject: TImage
       Left = 0
@@ -1495,15 +1495,21 @@ inherited fprojectFrame: TfprojectFrame
       Caption = 'acAddScreenshot'
       OnExecute = acAddScreenshotExecute
     end
+    object acRegorganize: TAction
+      Caption = 'Projekt reorganisieren'
+      Hint = 'berechnet alle Abhängigkeiten im Projekt neu'#13#10'berechnet Kostensummen neu'
+      ImageIndex = 56
+      OnExecute = acRegorganizeExecute
+    end
   end
-  object Projects: TDatasource[6]
+  object Projects: TDataSource[6]
     OnStateChange = ProjectsStateChange
     left = 144
     top = 64
   end
   object pmAction: TPopupMenu[7]
-    left = 304
-    top = 64
+    left = 248
+    top = 24
     object miStartTimeregistering: TMenuItem
       Action = acStartTimeRegistering
     end
@@ -1528,6 +1534,9 @@ inherited fprojectFrame: TfprojectFrame
     object MenuItem3: TMenuItem
       Caption = '-'
     end
+    object MenuItem12: TMenuItem
+      Action = acRegorganize
+    end
     object miDelete: TMenuItem
       Action = acDelete
     end
@@ -1546,7 +1555,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 144
     top = 224
   end
-  object History: TDatasource[10]
+  object History: TDataSource[10]
     left = 176
     top = 224
   end
@@ -1561,7 +1570,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 240
     top = 224
   end
-  object Users: TDatasource[12]
+  object Users: TDataSource[12]
     AutoEdit = False
     left = 368
     top = 224
@@ -1571,7 +1580,7 @@ inherited fprojectFrame: TfprojectFrame
     left = 288
     top = 224
   end
-  object Tasks: TDatasource[14]
+  object Tasks: TDataSource[14]
     left = 176
     top = 256
   end
@@ -1586,8 +1595,8 @@ inherited fprojectFrame: TfprojectFrame
     top = 64
   end
   object PopupMenu1: TPopupMenu[17]
-    left = 272
-    top = 24
+    left = 304
+    top = 112
     object MenuItem7: TMenuItem
       Action = acGantt
       Bitmap.Data = {
@@ -1748,7 +1757,7 @@ inherited fprojectFrame: TfprojectFrame
       }
     end
   end
-  object MandantDetails: TDatasource[18]
+  object MandantDetails: TDataSource[18]
     left = 368
     top = 283
   end

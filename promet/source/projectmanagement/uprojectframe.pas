@@ -52,6 +52,7 @@ type
     acAddImage: TAction;
     acPasteImage: TAction;
     acAddScreenshot: TAction;
+    acRegorganize: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bDelegated2: TSpeedButton;
@@ -93,6 +94,7 @@ type
     MandantDetails: TDatasource;
     MenuItem10: TMenuItem;
     MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
@@ -171,6 +173,7 @@ type
     procedure acMoveOldTasksExecute(Sender: TObject);
     procedure acPasteImageExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
+    procedure acRegorganizeExecute(Sender: TObject);
     procedure acRestartExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
@@ -605,6 +608,14 @@ begin
     end;
   fSelectReport.Showmodal;
 end;
+
+procedure TfProjectFrame.acRegorganizeExecute(Sender: TObject);
+begin
+  Screen.Cursor:=crHourGlass;
+  TProject(DataSet).Reorganize;
+  Screen.Cursor:=crDefault;
+end;
+
 var
   bProject: TProject;
   aProject: TProject;
@@ -702,6 +713,7 @@ begin
   cProject.Free;
   if not bProject.CanEdit then bProject.DataSet.Edit;
   bProject.FieldByName('PARENT').Clear;
+  bProject.Reorganize;
   aLink := Data.BuildLink(bProject.DataSet);
   Data.GotoLink(aLink);
   bProject.Free;
