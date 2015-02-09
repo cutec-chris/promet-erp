@@ -71,7 +71,9 @@ begin
 //  Clipboard.AsText:=CommandLine;
   if Res and Waitfor then
     WaitForSingleObject(ProcInfo.hProcess, INFINITE);
+  Result := Res;
 {$ELSE}
+  try
   Process := TProcess.Create(nil);
   if CurDir <> '' then
     Process.CurrentDirectory := CurDir;
@@ -83,9 +85,13 @@ begin
 //  Process.ShowWindow := swoHide;
   Process.Execute;
   if Waitfor then Process.Free;
+  Result := True;
+  except
+    Result := False;
+  end;
+
 {$ENDIF}
   ChDir(aDir);
-  Result := Res;
 end;
 
 
