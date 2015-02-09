@@ -25,11 +25,16 @@ type
     FOnThreadStart: TNotifyEvent;
     FArea: TRect;
     FBitmap: TBitmap;
+    FBitmapSelected: TBitmap;
     FHeight: integer;
     FImage: TFPMemoryImage;
-    FOnLoaded: TNotifyEvent;
+    FOnNeedRepaint: TNotifyEvent;
     FOnLoadURL: TNotifyEvent;
+    FOnLoadPointer: TNotifyEvent;
+    fOnSelect: TNotifyEvent;
+    fOnDeselect: TNotifyEvent;
     FPointer: Pointer;
+    FSelected: Boolean;
     FURL: UTF8String;
     FLoadState: TLoadState;
     FThread: TLoaderThread;
@@ -39,17 +44,25 @@ type
     function GetImage: TFPMemoryImage;
     function GetName: string;
     function GetRect: TRect;
+    procedure SetSelected(AValue: Boolean);
     procedure ThreadTerm(Sender: TObject);
+    procedure Select;
+    procedure Deselect;
     property OnThreadDone: TNotifyEvent read FOnThreadDone write FOnThreadDone;
     property OnThreadStart: TNotifyEvent read FOnThreadStart write FOnThreadStart;
+    property OnSelect: TNotifyEvent read fOnSelect write fOnSelect;
+    property OnDeselect: TNotifyEvent read fOnDeselect write fOnDeselect;
   public
     constructor Create; overload;
     constructor Create(URL: UTF8String); overload;
+    constructor Create(P: Pointer); overload;
     destructor Destroy; override;
     function Load(Reload: Boolean = False): Boolean;
     procedure FreeImage;
+    procedure ChangeSelected;
     property Image: TFPMemoryImage read GetImage;
     property Bitmap: TBitmap read FBitmap write FBitmap;
+    property BitmapSelected: TBitmap read FBitmapSelected write FBitmapSelected;
     property LoadState: TLoadState read FLoadState write FLoadState;
     property URL: UTF8String read FURL write FURL;
     property Name : string read GetName write FName;
@@ -61,9 +74,11 @@ type
     property Area: TRect read fArea write fArea;
     property Thread : TLoaderThread read FThread;
     property Pointer : Pointer read FPointer write FPointer;
+    property Selected: Boolean read FSelected write SetSelected;
   published
-    property OnLoaded: TNotifyEvent read FOnLoaded write FOnLoaded;
+    property OnNeedRepaint: TNotifyEvent read FOnNeedRepaint write FOnNeedRepaint;
     property OnLoadURL: TNotifyEvent read FOnLoadURL write FOnLoadURL;
+    property OnLoadPointer: TNotifyEvent read FOnLoadPointer write FOnLoadPointer;
   end;
 
   { TLoaderThread }
@@ -83,23 +98,32 @@ type
     FBeforeQueue: TNotifyEvent;
     FFreeInvisibleImage: Boolean;
     fList: TObjectList;
+    fSelectedList: TList;
     FMultiThreaded: boolean;
     FOnSetItemIndex: TNotifyEvent;
     FQueue: TList;
-    FOnLoaded: TNotifyEvent;
+    FOnNeedRepaint: TNotifyEvent;
     FOnLoadURL: TNotifyEvent;
+    FOnLoadPointer: TNotifyEvent;
     FReload: Boolean;
     FMaxThreads: integer;
     FThreadsFree: integer;
     procedure NextInQueue;
     procedure ThreadDone(Sender: TObject);
     procedure ThreadStart(Sender: TObject);
+    procedure ImageSelected(Sender: TObject);
+    procedure ImageDeselected(Sender: TObject);
     function GetActiveItem: TThreadedImage;
     procedure SetActiveIndex(const AValue: integer);
   public
     constructor Create;
     destructor Destroy; override;
     function AddImage(URL: UTF8String): TThreadedImage;
+    function AddImagePointer(P: Pointer): TThreadedImage;
+    function AddThreadedImage(Image: TThreadedImage): Integer;
+    procedure SetActiveIndexAndChangeSelected(AValue: integer);
+    procedure SetActiveIndexAndSelectBetween(AValue: integer);
+    procedure DeselectAll;
     procedure LoadAll;
     procedure LoadRect(ARect: TRect);
     procedure StartQueue;
@@ -110,17 +134,20 @@ type
     function CountItems: integer;
     function ThreadsIdle:boolean;
     property List: TObjectList read fList write fList;
+    property SelectedList: TList read fSelectedList write fSelectedList;
     property Queue: TList read FQueue;
     property Reload: Boolean read FReload write FReload;
     property FreeInvisibleImage: Boolean read FFreeInvisibleImage write FFreeInvisibleImage;
     procedure Sort(stpye: byte);
     function ItemFromIndex(AValue: integer): TThreadedImage;
     property ActiveIndex: integer read FActiveIndex write SetActiveIndex;
+    property ActiveIndexSelect: integer read FActiveIndex write SetActiveIndexAndChangeSelected;
+    property ActiveIndexSelectBetween: integer read FActiveIndex write SetActiveIndexAndSelectBetween;
     property ActiveItem: TThreadedImage read GetActiveItem;
-
   published
-    property OnLoaded: TNotifyEvent read FOnLoaded write FOnLoaded;
+    property OnNeedRepaint: TNotifyEvent read FOnNeedRepaint write FOnNeedRepaint;
     property OnLoadURL: TNotifyEvent read FOnLoadURL write FOnLoadURL;
+    property OnLoadPointer: TNotifyEvent read FOnLoadPointer write FOnLoadPointer;
     property BeforeStartQueue: TNotifyEvent read FBeforeQueue write FBeforeQueue;
     property MultiThreaded: boolean read FMultiThreaded write FMultiThreaded;
     property OnSetItemIndex : TNotifyEvent read FOnSetItemIndex write FOnSetItemIndex;
@@ -163,11 +190,46 @@ begin
             CSImg.Release;
           end;
           FLoadState := lsLoaded;
-          if fMultiThreaded then if Assigned(fOnLoaded) then OnLoaded(Self);
+          if fMultiThreaded then if Assigned(FOnNeedRepaint) then OnNeedRepaint(Self);
         end;
       end;
       if fMultiThreaded then if Assigned(fOnThreadDone) then OnThreadDone(Self);
   except
+  end;
+end;
+
+procedure TThreadedImage.Select;
+begin
+  if not Selected then begin;
+    // SelectedBitmap erstellen
+    if FBitmapSelected = nil then FBitmapSelected := TBitmap.Create;
+    //FBitmapSelected.Assign(FBitmap);
+    FBitmapSelected.Width:=FBitmap.Width;
+    FBitmapSelected.Height:=FBitmap.Height;
+    FBitmapSelected.Transparent:=False;
+    FBitmapSelected.Canvas.Draw(0,0,FBitmap);
+
+    FBitmapSelected.Canvas.Pen.Color:=$000080FF;
+    FBitmapSelected.Canvas.Brush.Style:=bsClear;
+    FBitmapSelected.Canvas.Pen.Width:=8;
+    FBitmapSelected.Canvas.Rectangle(0,0,FBitmapSelected.Width,FBitmapSelected.Height);
+
+    // in SelectedList eintragen (auf Reihenfolge achten)
+
+
+    FSelected:=True;
+    if Assigned(OnSelect) then OnSelect(Self);
+  end;
+end;
+
+procedure TThreadedImage.Deselect;
+begin
+  if FSelected then begin
+    FSelected:=False;
+    // SelectedBitmap Löschen
+    FreeAndNil(FBitmapSelected);
+    // aus SelectedList austragen
+    if Assigned(OnDeselect) then OnDeselect(Self);
   end;
 end;
 
@@ -176,6 +238,13 @@ begin
   fRect.Right := fRect.Left + fWidth;
   fRect.Bottom := fRect.Top + fHeight;
   Result := fRect;
+end;
+
+procedure TThreadedImage.SetSelected(AValue: Boolean);
+begin
+  if FSelected=AValue then Exit;
+  if AValue then Select else Deselect;
+  if Assigned(FOnNeedRepaint) then OnNeedRepaint(Self);
 end;
 
 
@@ -200,6 +269,7 @@ begin
   FLoadState := lsEmpty;
   fMultiThreaded := False;
   FBitmap := nil;
+  FBitmapSelected:=nil;
   Fimage := nil;
   FThread := nil;
   FPointer:=nil;
@@ -207,13 +277,20 @@ end;
 
 constructor TThreadedImage.Create(URL: UTF8String);
 begin
-  fURL := URL;
+  FURL := URL;
   Create;
+end;
+
+constructor TThreadedImage.Create(P: Pointer);
+begin
+  Create;
+  FPointer:=P;
 end;
 
 destructor TThreadedImage.Destroy;
 begin
-  fBitmap.free;
+  FBitmap.Free;
+  FBitmapSelected.Free;
   if Assigned(Pointer) then
     TObject(Pointer).Destroy;
   inherited Destroy;
@@ -222,11 +299,10 @@ end;
 function TThreadedImage.Load(Reload: Boolean): Boolean;
 begin
   Result := True;
-  if URL = '' then begin Result := False; exit; end;
-
   if (fLoadState = lsEmpty) or Reload then
   begin
     fLoadState := lsLoading;
+
     if Fimage = nil then
     begin
       FImage := TFPMemoryImage.Create(0, 0);
@@ -235,11 +311,10 @@ begin
 
     if not fMultiThreaded then
     begin
-      if Assigned(fOnLoadURL) then
-        OnLoadURL(Self)
-      else
-        Image.LoadFromFile(URL);
-      ThreadTerm(self);
+      if Assigned(FOnLoadPointer) then OnLoadPointer(Self)
+      else if Assigned(fOnLoadURL) then OnLoadURL(Self)
+      else Image.LoadFromFile(URL);
+      ThreadTerm(Self);
     end else
       begin
         fThread := TLoaderThread.Create(true);
@@ -255,8 +330,15 @@ end;
 procedure TThreadedImage.FreeImage;
 begin
   fLoadState := lsEmpty;
-  FreeAndNil(fBitmap);
+  FreeAndNil(FBitmap);
+  FreeAndNil(FBitmapSelected);
   FreeAndNil(FImage);
+end;
+
+procedure TThreadedImage.ChangeSelected;
+begin
+  if FSelected then Deselect else Select;
+  if Assigned(FOnNeedRepaint) then OnNeedRepaint(Self);
 end;
 
 
@@ -265,7 +347,8 @@ end;
 
 procedure TLoaderThread.Execute;
 begin
-  if Assigned(fRef.OnLoadURL) then fRef.OnLoadURL(fRef) else
+  if Assigned(fRef.OnLoadPointer) then fRef.OnLoadPointer(fRef) else
+    if Assigned(fRef.OnLoadURL) then fRef.OnLoadURL(fRef) else
   begin
     fRef.Image.LoadFromFile(fRef.URL);
   end;
@@ -294,6 +377,7 @@ constructor TImageLoaderManager.Create;
 begin
   fMultiThreaded := False;
   FList := TObjectList.Create;
+  fSelectedList:= TList.Create;
   FQueue := TList.Create;
   FReload := false;
   FFreeInvisibleImage := false;
@@ -305,6 +389,7 @@ destructor TImageLoaderManager.Destroy;
 begin
   FQueue.free;
   FList.free;
+  fSelectedList.Free;
   inherited Destroy;
 end;
 
@@ -313,10 +398,30 @@ begin
   Result := TThreadedImage.Create(URL);
   Result.FMultiThreaded := FMultiThreaded;
   if Assigned(FOnLoadURL) then Result.OnLoadURL := FOnLoadURL;
-  if Assigned(FOnLoaded) then Result.OnLoaded := FOnLoaded;
+  if Assigned(FOnNeedRepaint) then Result.OnNeedRepaint := FOnNeedRepaint;
   Result.OnThreadDone := @ThreadDone;
   Result.OnThreadStart := @ThreadStart;
+  Result.OnSelect:=@ImageSelected;
+  Result.OnDeselect:=@ImageDeselected;
   FList.Add(Result);
+end;
+
+function TImageLoaderManager.AddImagePointer(P: Pointer): TThreadedImage;
+begin
+  Result := TThreadedImage.Create(P);
+  Result.FMultiThreaded := FMultiThreaded;
+  if Assigned(FOnLoadPointer) then Result.OnLoadPointer := FOnLoadPointer;
+  if Assigned(FOnNeedRepaint) then Result.OnNeedRepaint := FOnNeedRepaint;
+  Result.OnThreadDone := @ThreadDone;
+  Result.OnThreadStart := @ThreadStart;
+  Result.OnSelect:=@ImageSelected;
+  Result.OnDeselect:=@ImageDeselected;
+  FList.Add(Result);
+end;
+
+function TImageLoaderManager.AddThreadedImage(Image: TThreadedImage): Integer;
+begin
+  Result:=FList.Add(Image);
 end;
 
 procedure TImageLoaderManager.LoadAll;
@@ -389,6 +494,53 @@ begin
   end;
 end;
 
+procedure TImageLoaderManager.SetActiveIndexAndChangeSelected(AValue: integer);
+begin
+  FActiveIndex:=AValue;
+  if (AValue > -1) and (AValue < fList.Count) then begin
+    TThreadedImage(fList[AValue]).ChangeSelected;
+  end;
+end;
+
+procedure TImageLoaderManager.SetActiveIndexAndSelectBetween(AValue: integer);
+Var
+  i: Integer;
+begin
+  if (AValue > -1) and (AValue < fList.Count) and (AValue<>FActiveIndex) then begin
+    if AValue>FActiveIndex then begin;
+      for i:=0 to FActiveIndex-1 do begin
+        TThreadedImage(fList[i]).Deselect;
+      end;
+      for i:= FActiveIndex to AValue do begin
+        TThreadedImage(fList[i]).Select;
+      end;
+      for i:=AValue+1 to fList.Count-1 do begin
+        TThreadedImage(fList[i]).Deselect;
+      end;
+    end else begin
+      for i:=0 to AValue-1 do begin
+        TThreadedImage(fList[i]).Deselect;
+      end;
+      for i:= AValue to FActiveIndex do begin
+        TThreadedImage(fList[i]).Select;
+      end;
+      for i:=FActiveIndex+1 to fList.Count-1 do begin
+        TThreadedImage(fList[i]).Deselect;
+      end;
+    end;
+    FActiveIndex:=AValue;
+  end;
+end;
+
+procedure TImageLoaderManager.DeselectAll;
+Var
+  i: Integer;
+begin
+  for i:=0 to fSelectedList.Count-1 do begin
+    TThreadedImage(fSelectedList[i]).Deselect;
+  end;
+end;
+
 
 procedure TImageLoaderManager.ThreadDone(Sender: TObject);
 var idx: integer;
@@ -402,6 +554,24 @@ end;
 procedure TImageLoaderManager.ThreadStart(Sender: TObject);
 begin
   Dec(FThreadsFree);
+end;
+
+procedure TImageLoaderManager.ImageSelected(Sender: TObject);
+begin
+  fSelectedList.Add(Sender);
+end;
+
+procedure TImageLoaderManager.ImageDeselected(Sender: TObject);
+Var
+  i: Integer;
+begin
+  // Delete Sender from fSelectedList;
+  for i:=0 to fSelectedList.Count-1 do begin
+    if fSelectedList[i]=@Sender then begin
+      fSelectedList.Delete(i);
+      Break;
+    end;
+  end;
 end;
 
 
