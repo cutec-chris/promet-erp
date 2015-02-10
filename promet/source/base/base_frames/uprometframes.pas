@@ -122,8 +122,6 @@ var
   aHistory: TAccessHistory;
 begin
   if HasHelp then AddHelp(Self);
-  if Assigned(DataSet) and (DataSet is TBaseDbList) then
-    TBaseDbList(DataSet).OpenItem;
 end;
 
 constructor TPrometMainFrame.Create(AOwner: TComponent);
