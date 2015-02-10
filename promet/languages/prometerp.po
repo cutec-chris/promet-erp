@@ -10,6 +10,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
+msgid "wieder starten"
+msgstr ""
+
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
 msgstr ""
@@ -3089,10 +3092,6 @@ msgctxt "TFMAIN.LABEL6.CAPTION"
 msgid "Zeit"
 msgstr ""
 
-#: tfmain.label7.caption
-msgid "erfassung"
-msgstr ""
-
 #: tfmain.menuitem1.caption
 msgctxt "TFMAIN.MENUITEM1.CAPTION"
 msgid "New Item1"
@@ -3138,6 +3137,10 @@ msgstr ""
 #: tfmain.toolbar1.caption
 msgctxt "TFMAIN.TOOLBAR1.CAPTION"
 msgid "ToolBar1"
+msgstr ""
+
+#: tfmain.toolbar2.caption
+msgid "ToolBar2"
 msgstr ""
 
 #: tfmain.tsstartpage.caption
