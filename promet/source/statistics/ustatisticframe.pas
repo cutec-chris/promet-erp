@@ -225,6 +225,7 @@ resourcestring
     strStatisticChanged           = 'Die Statistik wurde geändert, sollen die Änderungen gespeichert werden ?';
     strNotEnougthRights           = 'Sie besitzen nicht genügend Rechte um diese Anwendung zu nutzen';
     strGenerating                 = 'Abfrage wird ausgeführt...';
+    strErrorBuildingReport        = 'Es ist ein Fehler beim erstellen des Reports aufgetreten.';
 function AddEntry(ID,Typ : string;aTyp : TEntryTyp;aList : TStatistic) : TTreeNode;
 var
   Node1: TTreeNode;
@@ -661,11 +662,18 @@ begin
       Application.ProcessMessages;
       if tsReport.TabVisible then
         begin
-          if frReport.PrepareReport then
-            frReport.ShowPreparedReport;
-          if frReport.EMFPages.Count > 1 then
-            frPreview.TwoPages
-          else frPreview.Zoom:=100;
+          try
+            if frReport.PrepareReport then
+              frReport.ShowPreparedReport;
+            if frReport.EMFPages.Count > 1 then
+              frPreview.TwoPages
+            else frPreview.Zoom:=100;
+          except
+            begin
+              Showmessage(strErrorBuildingReport);
+              tsReport.Visible:=False;
+            end;
+          end;
         end;
       if (pcTabs.ActivePage = tsResults) and Visible then
         begin
