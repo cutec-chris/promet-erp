@@ -1,14 +1,14 @@
 program mta;
 {$mode objfpc}{$H+}
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
   cthreads,
-  {$ENDIF}{$ENDIF}
-  Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication, lnetbase,
-  lNet, uBaseDBInterface, md5,uData,eventlog,
-  pmimemessages, uBaseApplication, ulsmtpsrv,
-  dnssend,smtpsend,synamisc,uBaseDbClasses,uMimeMessages,mimemess,laz_synapse,
-  synautil,uPerson,db,Utils,variants, types,uMessages;
+  {$ENDIF}
+  Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication,
+  uBaseDBInterface, md5,uData,eventlog,
+  pmimemessages, uBaseApplication,uBaseDbClasses,uMimeMessages,mimemess,laz_synapse,
+  synautil,uPerson,db,Utils,variants,types,uMessages,ussmtpserver, usbaseserver,
+  smtpsend,synamisc,dnssend;
 resourcestring
   strActionMessageReceived                   = '%s';
 type
@@ -21,15 +21,15 @@ type
   { TPMTAServer }
 
   TPMTAServer = class(TBaseCustomApplication)
-    function ServerAcceptMail(aSocket: TLSMTPSocket; aFrom: string;
+    function ServerAcceptMail(aSocket: TSTcpThread; aFrom: string;
       aTo: TStrings): Boolean;
-    procedure ServerLog(aSocket: TLSocket; DirectionIn: Boolean;
+    procedure ServerLog(aSocket: TSTcpThread; DirectionIn: Boolean;
       aMessage: string);
-    function ServerLogin(aSocket: TLSocket; aUser, aPasswort: string
+    function ServerLogin(aSocket: TSTcpThread; aUser, aPasswort: string
       ): Boolean;
-    procedure ServerMailreceived(aSocket: TLSMTPSocket; aMail: TStrings;aFrom : string;aTo : TStrings);
+    procedure ServerMailreceived(aSocket: TSTcpThread; aMail: TStrings;aFrom : string;aTo : TStrings);
   private
-    Server: TLSMTPServer;
+    Server: TSSMTPServer;
     Subscribers: TMessageSubscribings;
     NextCollectTime : TDateTime;
     NextSendTime : TDateTime;
@@ -83,23 +83,23 @@ begin
       end;
 end;
 
-procedure TPMTAServer.ServerLog(aSocket: TLSocket; DirectionIn: Boolean;
+procedure TPMTAServer.ServerLog(aSocket: TSTcpThread; DirectionIn: Boolean;
   aMessage: string);
 begin
   with Self as IBaseApplication do
     begin
       if DirectionIn then
         begin
-          Info(IntToStr(TLSmtpSocket(aSocket).Id)+':>'+aMessage);
+          Info(IntToStr(TSTcpThread(aSocket).Id)+':>'+aMessage);
         end
       else
         begin
-          Info(IntToStr(TLSmtpSocket(aSocket).Id)+':<'+aMessage);
+          Info(IntToStr(TSTcpThread(aSocket).Id)+':<'+aMessage);
         end;
     end;
 end;
 
-function TPMTAServer.ServerLogin(aSocket: TLSocket; aUser, aPasswort: string
+function TPMTAServer.ServerLogin(aSocket: TSTcpThread; aUser, aPasswort: string
   ): Boolean;
 begin
   Result := False;
@@ -120,7 +120,7 @@ begin
     end;
 end;
 
-function TPMTAServer.ServerAcceptMail(aSocket: TLSMTPSocket; aFrom: string;
+function TPMTAServer.ServerAcceptMail(aSocket: TSTcpThread; aFrom: string;
   aTo: TStrings): Boolean;
 var
   aUser: TUser;
@@ -152,7 +152,7 @@ begin
   Result := True; //first accept for every user (spam test)
 end;
 
-procedure TPMTAServer.ServerMailreceived(aSocket: TLSMTPSocket;
+procedure TPMTAServer.ServerMailreceived(aSocket: TSTcpThread;
   aMail: TStrings; aFrom: string; aTo: TStrings);
 var
   y,m,d,h,mm,s,ss: word;
@@ -562,8 +562,6 @@ begin
   aTime := Now();
   while not Terminated do
     begin
-      inc(i);
-      Server.CallAction;
       sleep(10);
       if i >100 then
         begin
@@ -583,15 +581,15 @@ constructor TPMTAServer.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   StopOnException:=True;
-  Server := TLSMTPServer.Create(Self);
+  Server := TSSMTPServer.Create(Self);
   if GetOptionValue('i','interface')<>'' then
     begin
-      Server.ListenInterface := GetOptionValue('i','interface');
+      //Server.ListenInterface := GetOptionValue('i','interface');
       Info('using interface:'+GetOptionValue('i','interface'));
     end;
   if GetOptionValue('p','port')<>'' then
     begin
-      Server.ListenPort := StrToIntDef(GetOptionValue('p','port'),25);
+      //Server.ListenPort := StrToIntDef(GetOptionValue('p','port'),25);
       Info('using port:'+GetOptionValue('p','port'));
     end;
 end;
