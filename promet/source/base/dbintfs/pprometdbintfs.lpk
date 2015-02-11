@@ -3,6 +3,7 @@
   <Package Version="4">
     <PathDelim Value="\"/>
     <Name Value="pPrometDBIntfs"/>
+    <Type Value="RunAndDesignTime"/>
     <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -12,6 +13,10 @@
       </SearchPaths>
       <CodeGeneration>
         <SmartLinkUnit Value="True"/>
+        <Optimizations>
+          <OptimizationLevel Value="3"/>
+        </Optimizations>
+        <SmallerCode Value="True"/>
       </CodeGeneration>
     </CompilerOptions>
     <Files Count="44">
@@ -192,7 +197,6 @@
         <UnitName Value="uMeasurement"/>
       </Item44>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="9">
       <Item1>
         <PackageName Value="general_pascal_script"/>
