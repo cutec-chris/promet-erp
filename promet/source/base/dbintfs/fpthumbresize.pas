@@ -9,14 +9,15 @@ interface
 uses
   Classes, SysUtils, fpimage, FPImgCanv;
 
-function ThumbResize(SImg: TFPMemoryImage; W, H: integer; out Area: TRect): TFPMemoryImage;
+function DoThumbResize(SImg: TFPMemoryImage; W, H: integer; out Area: TRect): TFPMemoryImage;
+function DoThumbResizeFactor(SImg: TFPMemoryImage; W, H: integer;Factor: Double; out Area: TRect): TFPMemoryImage;
 function FpRawResize(w, h: integer; bmp: TFPMemoryImage): TFPMemoryImage;
 procedure Proportional(sw, sh, tw, th: integer; out w, h: integer; out area: TRect);
 
 
 implementation
 
-function ThumbResize(SImg: TFPMemoryImage; W, H: integer; out Area: TRect): TFPMemoryImage;
+function DoThumbResize(SImg: TFPMemoryImage; W, H: integer; out Area: TRect): TFPMemoryImage;
 var Canv: TFPImageCanvas;
   TmpI: TFPMemoryImage;
   rw, rh: integer;
@@ -41,6 +42,40 @@ begin
   Canv.free;
 end;
 
+function DoThumbResizeFactor(SImg: TFPMemoryImage; W, H: integer; Factor: Double;
+  out Area: TRect): TFPMemoryImage;
+var
+  Canv: TFPImageCanvas;
+  TmpI: TFPMemoryImage;
+  rw,rh,gw,gh: integer;
+begin
+  gw:=Round(SImg.Width*Factor);
+  gh:=Round(SImg.Height*Factor);
+  if (gw>W) or (gh>h) then begin
+    Proportional(gw, gh,W,H, rw, rh, Area);
+  end;
+
+  if (SImg.Width > 2 * gw) or (SImg.Height > 2 * gh) then
+  begin
+    Proportional(SImg.Width, SImg.Height, 2 * gW, 2 * gH, rw, rh, Area);
+    TmpI := FpRawResize(rw, rh, SImg);
+    SImg.Assign(TmpI);
+    TmpI.free;
+  end;
+
+  Proportional(SImg.Width, SImg.Height, gw, gh, rw, rh, Area);
+  Result := TFPMemoryImage.Create(0, 0);
+  Result.UsePalette:=false;
+
+  Result.Width:=rw;
+  Result.Height:=rh;
+
+  Canv := TFPImageCanvas.create(Result);
+  Canv.StretchDraw(0, 0, rw, rh, SImg);
+  Canv.free;
+end;
+
+
 function MulDiv(Number, Num, Den: Integer): Integer;
 begin
   if Den = 0 then
@@ -56,7 +91,7 @@ procedure Proportional(sw, sh, tw, th: integer; out w, h: integer; out area: TRe
 var half: integer;
 begin
   if sw / sh < tw / th
-    then begin
+  then begin
     area.Top := 0;
     area.Bottom := tw;
     w := MulDiv(th, sw, sh);
@@ -75,7 +110,6 @@ begin
     area.Bottom := area.Top + h;
   end;
 end;
-
 
 
 function FpRawResize(w, h: integer; bmp: TFPMemoryImage): TFPMemoryImage;
@@ -104,4 +138,4 @@ begin
 end;
 
 
-end.
+end.
