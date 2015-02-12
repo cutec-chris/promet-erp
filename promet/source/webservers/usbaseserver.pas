@@ -74,9 +74,11 @@ type
 
   TSBaseServer= class(TComponent)
   private
+    FListenInterface: string;
     FLog: TSLogEvent;
     FLogin: TSLoginEvent;
     FTimeout, FDefaultPort: Integer;
+    procedure SetListenInterface(AValue: string);
   protected
     function GetActive: Boolean; virtual; abstract;
     procedure SetActive(const AValue: Boolean); virtual; abstract;
@@ -86,7 +88,8 @@ type
   published
     property Active: Boolean read GetActive Write SetActive;
     procedure Start;
-    property DefaultPort: Integer read FDefaultPort Write FDefaultPort;
+    property ListenInterface : string read FListenInterface write SetListenInterface;
+    property ListenPort: Integer read FDefaultPort Write FDefaultPort;
     property Timeout: Integer read FTimeout Write FTimeout default 60000;
     property OnLogin : TSLoginEvent read FLogin write FLogin;
     property OnLog : TSLogEvent read FLog write FLog;
@@ -117,9 +120,16 @@ implementation
 
 { TSBaseServer }
 
+procedure TSBaseServer.SetListenInterface(AValue: string);
+begin
+  if FListenInterface=AValue then Exit;
+  FListenInterface:=AValue;
+end;
+
 constructor TSBaseServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  ListenInterface:='0.0.0.0';
 end;
 
 destructor TSBaseServer.Destroy;
@@ -301,7 +311,7 @@ begin
   if ( AValue<>GetActive ) then begin
     if ( AValue ) then begin
       FListeners.Clear;
-    LListener:= CreateListener('0.0.0.0', DefaultPort);
+    LListener:= CreateListener(FListenInterface, FDefaultPort);
     FListeners.Add(LListener);
     for i:= 0 to FListeners.Count-1 do
       TSTcpListener(FListeners[i]).Resume;

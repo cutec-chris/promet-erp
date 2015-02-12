@@ -82,19 +82,8 @@ resourcestring
   SSMTPNeedMailFrom= 'No originator: need MAIL';
   SSMTPWeDoNotRelayFor= 'Sorry, we do not relay for';
   SSMTPResetOK= 'OK - Reset';
-  SSMTPWelcomeMessage= 'synapseMail SMTP server ready ;)';
+  SSMTPWelcomeMessage= 'service ready';
   SSMTPCommandIsNil= 'SMTP command is nil';
-  SSMTPBlockedSubject= 'Blocked';
-  SSMTPBlockedBody= 'There was an email for you, but it was blocked by synapseMail'+#13+
-                    'because an unallowed attachment was found. Contact your administrator please.'+#13+
-                    ''+#13+
-                    'Original mail: '+#13+
-                    'Subject: %s'+#13+
-                    'From: %s'+#13+
-                    'To: %s'+#13+
-                    'Date: %s'+#13+
-                    ''+#13+
-                    'Added by synapseMail';
 
 constructor TSmtpSession.Create;
 begin
@@ -127,7 +116,7 @@ begin
   FTrustedDomains:= TStringList.Create;
   FBannedAttachments:= TStringList.Create;
   FMaxMsgSize:= 1;
-  DefaultPort:= 25;
+  ListenPort:= 25;
 end;
 
 destructor TSSmtpServer.Destroy;
@@ -180,7 +169,8 @@ begin
                 SendToClient(AThread, '504 '+SSMTPNotAlloweAttachmentFound);
               end
               else begin
-                //TODO:Import
+                if Assigned(OnMailreceived) then
+                  OnMailreceived(AThread,ASession.MimeMsg.Lines,ASession.MimeMsg.Header.From,ASession.MimeMsg.Header.ToList);
                 SendToClient(AThread, '250 OK')
               end;
             end;

@@ -584,12 +584,12 @@ begin
   Server := TSSMTPServer.Create(Self);
   if GetOptionValue('i','interface')<>'' then
     begin
-      //Server.ListenInterface := GetOptionValue('i','interface');
+      Server.ListenInterface := GetOptionValue('i','interface');
       Info('using interface:'+GetOptionValue('i','interface'));
     end;
   if GetOptionValue('p','port')<>'' then
     begin
-      //Server.ListenPort := StrToIntDef(GetOptionValue('p','port'),25);
+      Server.ListenPort := StrToIntDef(GetOptionValue('p','port'),25);
       Info('using port:'+GetOptionValue('p','port'));
     end;
 end;
@@ -609,4 +609,4 @@ begin
   Application:=TPMTAServer.Create(nil);
   Application.Run;
   Application.Free;
-end.
+end.
