@@ -52,26 +52,21 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="3">
       <Unit0>
         <Filename Value="imapserver.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="ulimap.pas"/>
+        <Filename Value="ussmtpserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ulimap"/>
+        <UnitName Value="ussmtpserver"/>
       </Unit1>
       <Unit2>
-        <Filename Value="uprometimap.pas"/>
+        <Filename Value="usimapserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uprometimap"/>
+        <UnitName Value="usimapserver"/>
       </Unit2>
-      <Unit3>
-        <Filename Value="ulsmtpsrv.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="ulsmtpsrv"/>
-      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

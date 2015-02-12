@@ -25,10 +25,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
-  lnetbase, lNet, laz_synapse, ulimap, uBaseDBInterface, md5, uData, eventlog,
-  uprometimap, ulsmtpsrv, pmimemessages,
+  laz_synapse, uBaseDBInterface, uData,
   uBaseApplication, uBaseDbClasses, synautil, ureceivemessage,
-  uMimeMessages, mimemess;
+  uMimeMessages, ussmtpserver, usimapserver, mimemess;
 type
 
   { TPIMAPServer }

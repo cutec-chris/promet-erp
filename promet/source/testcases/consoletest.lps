@@ -8,6 +8,7 @@
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <TopLine Value="100"/>
         <CursorPos X="25" Y="103"/>
         <UsageCount Value="28"/>
@@ -406,7 +407,6 @@
       <Unit58>
         <Filename Value="uordertest.pas"/>
         <UnitName Value="uordertest"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="80"/>
         <CursorPos X="29" Y="103"/>
