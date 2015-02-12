@@ -629,7 +629,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('NUMBER',ftString,60,True);
+            Add('NUMBER',ftString,60,False);
             Add('NAME',ftString,200,False);
             Add('MATCHCODE',ftString,200,False);
             Add('VERSION',ftString,20,False);
@@ -1350,7 +1350,7 @@ var
   aHistory: TAccessHistory;
   aObj: TObjects;
 begin
-  if (Self.Count=0) and (State<>dsInsert) then exit;
+  if ((Self.Count=0) and (State<>dsInsert)) or (not Assigned(Id)) then exit;
   try
     try
       aHistory := TAccessHistory.Create(nil);
@@ -3252,4 +3252,4 @@ end;
 
 initialization
 end.
-
+
