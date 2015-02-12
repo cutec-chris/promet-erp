@@ -49,12 +49,10 @@ begin
       if DirectionIn then
         begin
           Info(IntToStr(aSocket.Id)+':>'+aMessage);
-//          writeln(IntToStr(aSocket.Id)+':>'+aMessage);
         end
       else
         begin
           Info(IntToStr(aSocket.Id)+':<'+aMessage);
-//          writeln(IntToStr(aSocket.Id)+':<'+aMessage);
         end;
     end;
 end;
@@ -153,4 +151,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

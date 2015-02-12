@@ -509,6 +509,7 @@ procedure TfEnterTime.acStartExecute(Sender: TObject);
 var
   aProject: TProject;
 begin
+  FList.ClearFilter;
   Times.DataSet.Refresh;
   Times.DataSet.First;
   Calculate;
@@ -978,6 +979,7 @@ begin
       FList.DefaultRows:='GLOBALWIDTH:%;START:100;END:60;LINK:100;PROJECT:100;JOB:150;ISPAUSE:30;';
       FList.FilterType:='T';
       FList.Editable:=True;
+      FList.Sortable:=False;
       FList.Align:=alClient;
       FList.Dataset := FTimes;
       FList.OnGetCellText:=@FListGetCellText;

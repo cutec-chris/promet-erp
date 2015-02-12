@@ -103,7 +103,6 @@
       <Unit1>
         <Filename Value="uprometnntp.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uprometnntp"/>
       </Unit1>
     </Units>
   </ProjectOptions>
@@ -151,4 +150,4 @@
       </Item4>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>
