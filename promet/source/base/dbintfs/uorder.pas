@@ -912,7 +912,6 @@ begin
         aNumbers := TNumberSets.CreateEx(Owner,Data,Connection);
         with aNumbers.DataSet as IBaseDBFilter do
           Filter := Data.QuoteField('TABLENAME')+'='+Data.QuoteValue(OrderType.FieldByName('NUMBERSET').AsString);
-        OpenItem(False);
         aNumbers.Open;
         if Result <> pralreadyPosted then
           begin
@@ -922,6 +921,7 @@ begin
         if DataSet.FieldByName('ODATE').IsNull then
           DataSet.FieldByName('ODATE').AsDateTime := Now();
         DataSet.Post;
+        OpenItem(False);
         //Alle Positionen durchgehen
         Positions.DataSet.First;
         while not Positions.DataSet.EOF do
