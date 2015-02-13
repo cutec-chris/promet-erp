@@ -3,12 +3,17 @@
   <Package Version="4">
     <PathDelim Value="\"/>
     <Name Value="pscripts"/>
+    <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
+      <CodeGeneration>
+        <SmartLinkUnit Value="True"/>
+        <SmallerCode Value="True"/>
+      </CodeGeneration>
     </CompilerOptions>
     <Files Count="6">
       <Item1>
@@ -36,7 +41,6 @@
         <UnitName Value="uscriptimport"/>
       </Item6>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="6">
       <Item1>
         <PackageName Value="general_pascal_script"/>

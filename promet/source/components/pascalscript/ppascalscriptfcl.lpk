@@ -11,9 +11,6 @@
       </SearchPaths>
       <CodeGeneration>
         <SmartLinkUnit Value="True"/>
-        <Optimizations>
-          <OptimizationLevel Value="3"/>
-        </Optimizations>
         <SmallerCode Value="True"/>
       </CodeGeneration>
       <Other>
