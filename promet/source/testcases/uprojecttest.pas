@@ -27,7 +27,7 @@ begin
   aPrj := Tproject.Create(nil);
   aPrj.CreateTable;//get sure that the table is there
   aPrj.Insert;
-  aPrj.Text.AsString := 'Testarticle';
+  aPrj.Text.AsString := 'Testproject';
   aPrj.CascadicPost;
 end;
 

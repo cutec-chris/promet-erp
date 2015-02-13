@@ -100,7 +100,6 @@ type
     function GetIdent: TField;
     function GetPosNo: TField;
     function GetPosTyp: TPositionTyp;
-    function GetOrderTyp : Integer;virtual;
     procedure DoCalcPosPrice(Setprice : Boolean = False);
     procedure DoCalcGrossPosPrice;
     function GetShorttext: TField;
@@ -115,6 +114,7 @@ type
     function IsProductionOrder : Boolean;virtual;
     function GetCurrency : string;virtual;abstract;
     function GetPosTypDec : Integer;
+    function GetOrderTyp : Integer;virtual;
     procedure DoModifyPosPrice;virtual;
     procedure DoDataChange(Sender: TObject; Field: TField);virtual;
     procedure DoBeforeDelete;virtual;
@@ -1218,8 +1218,9 @@ var
   aMasterdata : TMasterdata;
   aQuantity: Double;
   bMasterdata: TMasterdata;
+  tParent : Variant;
 
-  procedure InsertData(Masterdata : TMasterdata;Quantity : float;Active : string = 'Y');
+  procedure InsertData(Masterdata : TMasterdata;Quantity : float;aParent : Variant;Active : string = 'Y');
   begin
     DisableCalculation;
     if (DataSet.State <> dsInsert) and (DataSet.State <> dsEdit) then
@@ -1230,6 +1231,7 @@ var
     DataSet.FieldByName('LANGUAGE').AsVariant := MasterData.FieldByName('LANGUAGE').AsVariant;
     DataSet.FieldByName('SHORTTEXT').AsString := MasterData.FieldByName('SHORTTEXT').AsString;
     DataSet.FieldByName('MANUFACNR').AsString := MasterData.FieldByName('MANUFACNR').AsString;
+    DataSet.FieldByName('PARENT').AsVariant := aParent;
     DataSet.FieldByName('QUANTITY').AsFloat := Quantity;
     DataSet.FieldByName('WEIGHT').AsFloat := MasterData.FieldByName('WEIGHT').AsFloat;
     DataSet.FieldByName('QUANTITYU').AsString := MasterData.FieldByName('QUANTITYU').AsString;
@@ -1290,9 +1292,10 @@ begin
       except
         aQuantity := 1;
       end;
-      InsertData(aMasterdata,aQuantity);
-      if (((aMasterdata.FieldByName('TYPE').AsString = 'P') and (aMasterdata.FieldByName('PTYPE').AsString = 'P') and (GetOrderTyp = 7))
-      or  ((aMasterdata.FieldByName('TYPE').AsString = 'P') and (aMasterdata.FieldByName('PTYPE').AsString = 'O'))) then
+      InsertData(aMasterdata,aQuantity,Null);
+      tParent := FieldByName('SQL_ID').AsVariant;
+      if (((aMasterdata.FieldByName('PTYPE').AsString = 'P') and (GetOrderTyp = 7))
+      or  ((aMasterdata.FieldByName('PTYPE').AsString = 'O'))) then
         begin
           aMasterdata.Positions.Open;
           with aMasterdata.Positions.DataSet do
@@ -1312,15 +1315,16 @@ begin
                   if bMasterdata.Count > 0 then
                     begin
                       DataSet.Append;
-                      if GetOrderTyp = 7 then
-                        InsertData(bMasterdata,(-FieldByName('QUANTITY').AsFloat)*aQuantity,FieldByName('ACTIVE').AsString)
+                      if Self.GetOrderTyp = 7 then
+                        InsertData(bMasterdata,(-FieldByName('QUANTITY').AsFloat)*aQuantity,tParent,FieldByName('ACTIVE').AsString)
                       else
-                        InsertData(bMasterdata,  FieldByName('QUANTITY').AsFloat *aQuantity,FieldByName('ACTIVE').AsString);
+                        InsertData(bMasterdata,  FieldByName('QUANTITY').AsFloat *aQuantity,tParent,FieldByName('ACTIVE').AsString);
                     end;
                   bMasterdata.Destroy;
                   Next;
                 end;
             end;
+          aQuantity:=-aQuantity;
         end;
     end
   else
@@ -1442,4 +1446,4 @@ initialization
   PriceTypes := nil;
   RepairProblems := nil;
 end.
-
+

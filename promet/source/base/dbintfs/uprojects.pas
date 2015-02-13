@@ -104,6 +104,7 @@ type
     destructor Destroy;override;
     procedure Open; override;
     procedure Recalculate;
+    procedure Reorganize;
     function CreateTable : Boolean;override;
     procedure CascadicPost;override;
     procedure CascadicCancel;override;
@@ -425,6 +426,18 @@ begin
   FieldByName('COSTS').AsFloat:=aReal;
   FieldByName('TARGETCOSTS').AsFloat:=aPos;
   if CanEdit then DataSet.Post;
+end;
+
+procedure TProject.Reorganize;
+begin
+  Recalculate;
+  Tasks.Open;
+  while not Tasks.EOF do
+    begin
+      Tasks.CheckChilds;
+      Tasks.CheckDependTasks;
+      Tasks.Next;
+    end;
 end;
 
 function TProject.CreateTable : Boolean;

@@ -25,10 +25,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
-  lnetbase, lNet, laz_synapse, ulimap, uBaseDBInterface, md5, uData, eventlog,
-  uprometimap, ulsmtpsrv, pmimemessages,
+  laz_synapse, uBaseDBInterface, uData,
   uBaseApplication, uBaseDbClasses, synautil, ureceivemessage,
-  uMimeMessages, mimemess;
+  uMimeMessages, ussmtpserver, usimapserver, mimemess;
 type
 
   { TPIMAPServer }
@@ -223,7 +222,10 @@ begin
   IMAPServer := TLIMAPServer.Create(Self);
   IMAPServer.Port := 143;
   if HasOption('port') then
-    IMAPServer.Port := StrToInt(GetOptionValue('port'));
+    begin
+      IMAPServer.Port := StrToInt(GetOptionValue('port'));
+      Info('using port for imap:'+GetOptionValue('port'));
+    end;
   if HasOption('imapport') then
     IMAPServer.Port := StrToInt(GetOptionValue('imapport'));
   SMTPServer := TLSMTPServer.Create(Self);

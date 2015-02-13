@@ -28,7 +28,7 @@ uses
   {uAppconsts, }uBaseDBInterface, PropertyStorage, ClipBrd, LCLType,
   uBaseVisualControls, uData, UTF8Process, Controls, Process, ProcessUtils,
   uSystemMessage, uProcessManager, uExtControls, db, typinfo, eventlog,menus,
-  Dialogs,uIntfStrConsts,DBZVDateTimePicker,ubaseconfig
+  Dialogs,uIntfStrConsts,DBZVDateTimePicker,ubaseconfig,ActnList,ComCtrls
   {$IFDEF LCLCARBON}
   ,MacOSAll,CarbonProc
   {$ENDIF}
@@ -130,11 +130,27 @@ type
     property MessageHandler : TMessageHandler read FMessageHandler;
     property OnUserTabAdded : TNotifyEvent read FOnUserTabAdded write FOnUserTabAdded;
   end;
+  TTreeAddCallback = procedure(NewNode : TTreeNode) of object;
+
+  { TVisualApplicationObjectType }
+
+  TVisualApplicationObjectType = class
+  private
+    FAddToTree: TTreeAddCallback;
+    FNewAction: TAction;
+    FListAction: TAction;
+  public
+    constructor Create(aNewAction,aListAction : TAction);
+    property OnAddToTree : TTreeAddCallback read FAddToTree write FAddToTree;
+  end;
+
 var
+  ObjectTypes : TList;
   PrometheusClipboardFormat : TClipboardFormat;
   LinkClipboardFormat : TClipboardFormat;
+
 implementation
-uses uPassword,uMashineID,uError,ComCtrls,StdCtrls,ExtCtrls,
+uses uPassword,uMashineID,uError,StdCtrls,ExtCtrls,
   DBCtrls, LMessages, LCLIntf,LazLogger,Buttons,uLanguageUtils,dbugintf;
 resourcestring
   strWrongPasswort            = 'Falsches Passwort !';
@@ -143,6 +159,18 @@ resourcestring
   strGiveOldPasswort          = 'Geben Sie ihr aktuelles Passwort ein';
   strDisconnected             = 'Die Verbindung zur Datenbank ist nicht mehr verfügbar. Bitte stellen Sie die Verbindung wieder her. Das Programm wird automatisch erkennen das die Verbindung wieder verfügbar ist.';
   strNewTab                   = 'Neues Tab';
+
+{ TVisualApplicationObjectType }
+
+constructor TVisualApplicationObjectType.Create(aNewAction, aListAction: TAction
+  );
+begin
+  FNewAction := aNewAction;
+  FListAction := aListAction;
+  if not Assigned(ObjectTypes) then
+    ObjectTypes := TList.Create;
+  ObjectTypes.Add(Self);
+end;
 
 function TBaseVisualApplication.HandleSystemCommand(Sender: TObject;
   aCommand: string): Boolean;
@@ -287,7 +315,7 @@ var
   currentLocale: CFLocaleRef;
   dateFormatter: CFDateFormatterRef;
   formattedString: CFStringRef;
-begin exit;
+begin
   currentLocale := CFLocaleCopyCurrent();
 
   dateFormatter := CFDateFormatterCreate(nil, currentLocale, kCFDateFormatterLongStyle, kCFDateFormatterNoStyle);
@@ -295,28 +323,24 @@ begin exit;
   LongDateFormat := CFStringToStr(formattedString);
   if Assigned(dateFormatter) then
     CFRelease(Pointer(dateFormatter));
-  FreeCFString(formattedString);
 
   dateFormatter := CFDateFormatterCreate(nil, currentLocale, kCFDateFormatterShortStyle, kCFDateFormatterNoStyle);
   formattedString := CFDateFormatterGetFormat(dateFormatter);
   ShortDateFormat := CFStringToStr(formattedString);
   if Assigned(dateFormatter) then
     CFRelease(Pointer(dateFormatter));
-  FreeCFString(formattedString);
 
   dateFormatter := CFDateFormatterCreate(nil, currentLocale,kCFDateFormatterNoStyle, kCFDateFormatterShortStyle);
   formattedString := CFDateFormatterGetFormat(dateFormatter);
   ShortTimeFormat := CFStringToStr(formattedString);
   if Assigned(dateFormatter) then
     CFRelease(Pointer(dateFormatter));
-  FreeCFString(formattedString);
 
   dateFormatter := CFDateFormatterCreate(nil, currentLocale,kCFDateFormatterNoStyle, kCFDateFormatterShortStyle);
   formattedString := CFDateFormatterGetFormat(dateFormatter);
   LongTimeFormat := CFStringToStr(formattedString);
   if Assigned(dateFormatter) then
     CFRelease(Pointer(dateFormatter));
-  FreeCFString(formattedString);
 
   CFRelease(Pointer(currentLocale));
 end;
@@ -923,6 +947,10 @@ begin
                             FProps.Delete(0);
                             FFields.Delete(0);
                           end
+                        else if (aComponent is TLabel) then
+                          begin
+                            TLabel(aComponent).BringToFront;
+                          end
                         ;
                       end;
                   end;
@@ -1128,6 +1156,7 @@ end;
 initialization
   PrometheusClipboardFormat := RegisterClipboardFormat('PrometERP XML');
   LinkClipboardFormat := RegisterClipboardFormat('PrometERP Link');
+  ObjectTypes := nil;
   RegisterClass(TSpeedButton);
   RegisterClass(TLabel);
   RegisterClass(TDBEdit);
@@ -1135,4 +1164,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

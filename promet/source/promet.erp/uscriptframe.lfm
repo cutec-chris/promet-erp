@@ -428,6 +428,7 @@ inherited fScriptFrame: TfScriptFrame
         MaxLength = 0
         TabOrder = 0
         TabStop = False
+        OnChange = eArticleNumberChange
       end
     end
     object Panel9: TPanel

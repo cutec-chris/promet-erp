@@ -14,9 +14,6 @@
           <OptimizationLevel Value="3"/>
         </Optimizations>
       </CodeGeneration>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Files Count="4">
       <Item1>

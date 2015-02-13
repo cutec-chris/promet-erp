@@ -87,6 +87,7 @@ var
 begin
   aFEnterButton := TBitBtn(Sender);
   aFTab := TTabSheet(TBitBtn(Sender).Parent.Parent);
+  if not Assigned(aFTab) then exit;
   aFEnterButton.Parent.Parent:=nil;
   for i := 0 to TTabSheet(aFTab).ControlCount-1 do
     if TTabSheet(aFTab).Controls[i] is TEditableFrame then
@@ -107,7 +108,7 @@ begin
     begin
       if (FTab.Controls[i] is TFrame) then
         FTab.Controls[i].Visible:=False;
-      if (FTab.Controls[i] is TWinControl)
+      if ((FTab.Controls[i] is TWinControl) or (FTab.Controls[i] is TGraphicControl))
       and (not (FTab.Controls[i] is TFrame))
       and (FTab.Controls[i] <> Sender)
       then
@@ -151,7 +152,6 @@ begin
   aNewControl := TControlClass(GetClass(DesignClass)).Create(fTab);
   aNewControl.Parent := JvDesignPanel1;
   aNewControl.Name:=DesignUniqueName(aNewControl,DesignClass);
-  bCloseClick(bClose);
   FEnterButton.Click;
 end;
 procedure TEditableFrame.JvDesignPanel1GetAddClass(Sender: TObject;
@@ -215,12 +215,15 @@ begin
   i := 0;
   while i < JvDesignPanel1.ControlCount do
     begin
-      if JvDesignPanel1.Controls[i] is TWinControl then
+      aControl :=JvDesignPanel1.Controls[i];
+      if (aControl is TWinControl)
+      or (aControl is TGraphicControl)
+      then
         begin
-          aControl :=JvDesignPanel1.Controls[i];
           aControl.Parent := FTab;
         end
-      else inc(i);
+      else
+        inc(i);
     end;
   Hide;
   if FTab is TTabSheet then

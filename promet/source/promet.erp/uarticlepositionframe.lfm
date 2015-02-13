@@ -1,7 +1,5 @@
 inherited fArticlePositionFrame: TfArticlePositionFrame
-  Left = 0
   Height = 240
-  Top = 0
   Width = 446
   ClientHeight = 240
   ClientWidth = 446
@@ -20,9 +18,9 @@ inherited fArticlePositionFrame: TfArticlePositionFrame
     TabOrder = 0
     object lType: TLabel
       Left = 8
-      Height = 13
+      Height = 15
       Top = 8
-      Width = 19
+      Width = 20
       Caption = 'Typ'
       ParentColor = False
     end
@@ -32,11 +30,17 @@ inherited fArticlePositionFrame: TfArticlePositionFrame
       Top = 4
       Width = 368
       Anchors = [akTop, akLeft, akRight]
+      AutoDropDown = True
       DataField = 'PTYPE'
+      DataSource = PosDS
       ItemHeight = 0
       MaxLength = 0
       Sorted = True
       TabOrder = 0
     end
+  end
+  object PosDS: TDatasource[1]
+    left = 16
+    top = 48
   end
 end

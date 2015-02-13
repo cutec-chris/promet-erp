@@ -1984,6 +1984,7 @@ begin
         if gList.ColCount > i+1 then
           begin
             aText := gList.Cells[i+1,aRow];
+            if aText='' then exit;
             if Assigned(FGetCText) then
               FGetCText(Self,dgFake.Columns[i],aRow,atext,nil);
             TextWidth := gList.CellRect(i+1,aRow).Right-gList.CellRect(i+1,aRow).Left;
@@ -2695,12 +2696,15 @@ var
 begin
   Result := -1;
   if not Assigned(gList) then exit;
+  try
   for i := gList.FixedRows to gList.RowCount-1 do
     if TRowObject(gList.Objects[0,i]).Rec=aTreeBM then
       begin
         Result := i;
         break;
       end;
+  except
+  end;
 end;
 function TfGridView.SyncActiveRow(Bookmark : Int64;DoInsert,UpdateData : Boolean;UpdateRowHeight : Boolean;DoGroup : Boolean = True;AddNotFound : Boolean = False;aIdentField : Integer = -1) : Boolean;
 var

@@ -98,14 +98,9 @@ type
     Bevel7: TBevel;
     bFfwd: TToolButton;
     bPauseTime: TSpeedButton;
-    bPauseTime1: TSpeedButton;
-    bPauseTime2: TSpeedButton;
-    bPauseTime3: TSpeedButton;
-    bPauseTime5: TSpeedButton;
     IPCTimer: TIdleTimer;
     Label3: TLabel;
     Label6: TLabel;
-    Label7: TLabel;
     MenuItem3: TMenuItem;
     Menuitem12: TMenuItem;
     MenuItem4: TMenuItem;
@@ -136,6 +131,7 @@ type
     spTree: TSplitter;
     tbMenue: TToolButton;
     ToolBar1: TToolBar;
+    ToolBar2: TToolBar;
     ToolButton1: TToolButton;
     tbTreeVisible: TSpeedButton;
     tsStartpage: TTabSheet;
@@ -3688,6 +3684,11 @@ begin
   fMainTreeFrame.OnDragOver:=@fMainTreeFrameDragOver;
   fMainTreeFrame.OnDragDrop:=@fMainTreeFrameDragDrop;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
+  {$IFDEF LCLCARBON}
+  spTree.Width:=1;
+  {$ELSE}
+  spTree.ResizeStyle:=rsPattern;
+  {$ENDIF}
 end;
 procedure TfMain.FormDestroy(Sender: TObject);
 begin

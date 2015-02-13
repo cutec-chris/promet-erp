@@ -30,11 +30,13 @@ mkdir $appfolder/Contents
 mkdir $appfolder/Contents/MacOS
 mkdir $appfolder/Contents/Resources
 mkdir $appfolder/Contents/MacOS/importdata
+mkdir $appfolder/Contents/MacOS/lib
 
 cp ../../output/$CPU_TARGET-darwin/$appfile $macosfolder/$appname
 cp ../../output/$CPU_TARGET-darwin/tools/messagemanager $macosfolder/tools/messagemanager
 cp ../../output/$CPU_TARGET-darwin/wizardmandant $macosfolder/wizardmandant
 cp -r ../../importdata/* $macosfolder/importdata
+cp -r postgres_libs/* $macosfolder/lib
 cp ../../output/$CPU_TARGET-darwin/helpviewer $macosfolder/helpviewer
 
 # Copy the resource files to the correct place

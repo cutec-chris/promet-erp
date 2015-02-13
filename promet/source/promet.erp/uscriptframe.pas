@@ -97,6 +97,7 @@ type
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
+    procedure eArticleNumberChange(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
     procedure FrameExit(Sender: TObject);
     procedure ScriptStateChange(Sender: TObject);
@@ -162,6 +163,13 @@ begin
       fMainTreeFrame.tvMain.Selected.Collapse(true);
     end;
 end;
+
+procedure TfScriptFrame.eArticleNumberChange(Sender: TObject);
+begin
+  acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
+  acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
+end;
+
 procedure TfScriptFrame.FrameEnter(Sender: TObject);
 begin
   ActionList1.State:=asNormal;
@@ -338,6 +346,8 @@ begin
     end;
   tsScript.PageIndex:=1;
   if HasHelp then AddHelp(Self);
+  acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
+  acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
 end;
 function TfScriptFrame.SetRights: Boolean;
 begin

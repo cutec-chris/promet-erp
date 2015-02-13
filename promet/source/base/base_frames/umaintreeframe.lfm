@@ -15,12 +15,12 @@ object fMainTree: TfMainTree
     Width = 320
     Align = alClient
     BorderStyle = bsNone
-    DefaultItemHeight = 16
+    DefaultItemHeight = 18
     DragMode = dmAutomatic
     PopupMenu = pmTree
     ReadOnly = True
     RightClickSelect = True
-    ScrollBars = ssAutoBoth
+    ScrollBars = ssAutoVertical
     TabOrder = 0
     OnAdvancedCustomDrawItem = tvMainAdvancedCustomDrawItem
     OnClick = tvMainSelectionChanged

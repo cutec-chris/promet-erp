@@ -1027,6 +1027,8 @@ begin
   FUseIntegrity:=AValue;
 end;
 procedure TZeosDBDataSet.SetFieldData(Field: TField; Buffer: Pointer);
+var
+  tmp: String;
 begin
   inherited;
   if Assigned(FOrigTable) then

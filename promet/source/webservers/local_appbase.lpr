@@ -24,7 +24,7 @@ program local_appbase;
 
 uses
   {$IFDEF UNIX}cwstring,cthreads,{$ENDIF}
-  Interfaces, ubasehttpapplication, pfcgiprometapp,
+  ubasehttpapplication, pfcgiprometapp,
   uBaseApplication, udataserver, uwebserver, uloggedout;
 begin
   Application.DefaultModule:='loggedout';

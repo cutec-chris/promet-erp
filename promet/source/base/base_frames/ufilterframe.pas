@@ -193,6 +193,7 @@ type
     FOnGetCellText: TOnGetCellTextEvent;
     FOnScrolled: TNotifyEvent;
     FOnViewDetails: TNotifyEvent;
+    FSortable: Boolean;
     FSortDirection: TSortDirection;
     FSortField: string;
     FTimelineField: string;
@@ -234,6 +235,7 @@ type
     property FilterIn : string read GetFilterIn write SetFilterIn;
     property DefaultFilter : string read FStdFilter write SetStdFilter;
     property FilterType : string read FFilterType write SetFilterType;
+    procedure ClearFilter;
     property DefaultRows : string read fDefaultRows write SetDefaultRows;
     property SortDirection : TSortDirection read FSortDirection write SetSortDirecion;
     property SortField : string read FSortField write SetSortField;
@@ -246,6 +248,7 @@ type
     procedure DoBeforeClose;
     function ShowHint(var HintStr: string;var CanShow: Boolean; var HintInfo: THintInfo) : Boolean;override;
     property Editable : Boolean read FEditable write SetEditable;
+    property Sortable : Boolean read FSortable write FSortable;
     property DestroyDataSet : Boolean read FDestroyDataSet write FDestroyDataSet;
     property OnGetCellText : TOnGetCellTextEvent read FOnGetCellText write FOnGetCellText;
     property OnDrawColumnCell : TDrawColumnCellEvent read FOnDrawColumnCell write FOnDrawColumnCell;
@@ -420,6 +423,7 @@ end;
 procedure TfFilter.gListTitleClick(Column: TColumn);
 begin
   if not Assigned(Column.Field) then exit;
+  if not Sortable then exit;
   if (Column.Field.DataType = ftMemo)
   or (Column.Field.DataType = ftWideMemo)
   or (Column.Field.DataType = ftBlob)
@@ -1661,6 +1665,16 @@ begin
       bFilter.Visible:=True;
     end;
 end;
+
+procedure TfFilter.ClearFilter;
+begin
+  if cbFilter.Text<>strNoSelectFilter then
+    begin
+      cbFilter.Text:=strNoSelectFilter;
+      cbFilterSelect(nil);
+    end;
+end;
+
 procedure TfFilter.SetActive;
 var
   aFilter: TStringList;

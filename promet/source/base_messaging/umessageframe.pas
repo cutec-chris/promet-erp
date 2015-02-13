@@ -366,6 +366,8 @@ begin
   FList.AddToolbarAction(acArchive);
   FList.AddToolbarAction(acMarkasRead);
   FList.AddToolbarAction(acDelete);
+  {$IFDEF LCLCARBON}
+  {$ENDIF}
 end;
 destructor TfMessageFrame.Destroy;
 begin

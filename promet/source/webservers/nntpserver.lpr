@@ -24,9 +24,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
-  lnetbase, lNet, uLNNTP, uBaseDBInterface, md5, uData, eventlog, pmimemessages,
-  uprometnntp, uBaseApplication, ulsmtpsrv,
-  laz_synapse;
+  lNet, uBaseDBInterface, md5, uData, eventlog, pmimemessages,
+  uprometnntp, uBaseApplication;
 type
   TPNNTPServer = class(TBaseCustomApplication)
     procedure ServerLog(aSocket: TLNNTPSocket; DirectionIn: Boolean;
@@ -50,12 +49,10 @@ begin
       if DirectionIn then
         begin
           Info(IntToStr(aSocket.Id)+':>'+aMessage);
-//          writeln(IntToStr(aSocket.Id)+':>'+aMessage);
         end
       else
         begin
           Info(IntToStr(aSocket.Id)+':<'+aMessage);
-//          writeln(IntToStr(aSocket.Id)+':<'+aMessage);
         end;
     end;
 end;
@@ -154,4 +151,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

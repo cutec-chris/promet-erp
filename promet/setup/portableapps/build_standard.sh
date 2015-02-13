@@ -59,7 +59,6 @@ cp -r ../../languages/*.en.po $BuildDir/Promet-ERP/App/promet/languages
 cp -r ../../languages/*.de.po $BuildDir/Promet-ERP/App/promet/languages
 cp -r ../../languages/languages.txt $BuildDir/Promet-ERP/App/promet/languages
 
-cp erp.db $BuildDir/Promet-ERP/Data/Database/promet-erp.db
 echo "compressing..."
 FULL_NAME=$(cd `dirname $0` && pwd)
 WIN_DIR=$(echo $FULL_NAME | sed 's/\//\\/g')
@@ -72,7 +71,7 @@ cat Appinfo_devel.ini | \
       -e "s/ARCHFPC/$Archfpc/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > $BuildDir/Promet-ERP/App/AppInfo/Appinfo.ini
-WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
+#WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
 rm $BuildDir/Promet-ERP/App/AppInfo/Launcher/Splash.jpg
 cat Appinfo.ini | \
   sed -e "s/VERSION/$Version/g" \

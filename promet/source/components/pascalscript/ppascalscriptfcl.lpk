@@ -9,6 +9,13 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
+      <CodeGeneration>
+        <SmartLinkUnit Value="True"/>
+        <Optimizations>
+          <OptimizationLevel Value="3"/>
+        </Optimizations>
+        <SmallerCode Value="True"/>
+      </CodeGeneration>
       <Other>
         <Verbosity>
           <ShowHints Value="False"/>

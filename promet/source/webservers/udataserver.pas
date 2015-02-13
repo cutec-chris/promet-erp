@@ -25,8 +25,8 @@ unit udataserver;
 interface
 
 uses
-  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, fpdatasetform, fphtml, db,fpjson,
-  uBaseDBInterface,FileUtil,LConvEncoding,uBaseDbClasses,fpsqlparser,
+  SysUtils, Classes, httpdefs, fpHTTP, fpWeb, fphtml, db,fpjson,
+  uBaseDBInterface,uBaseDbClasses,fpsqlparser,
   fpsqlscanner, fpsqltree,httpsend,OpenSSL, jsonparser;
 
 type

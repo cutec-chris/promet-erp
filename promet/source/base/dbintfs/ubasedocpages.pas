@@ -161,6 +161,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
+            Add('DOCID',ftLargeint,0,False); //für zusammengeheftetet Dokumente auf SQL_ID des Dokumentes
             Add('PAGE',ftInteger,0,False);
             Add('TYPE',ftString,1,False);
             Add('TAGS',ftString,500,False);

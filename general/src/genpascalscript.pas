@@ -126,6 +126,7 @@ type
   public
     function InternalUses(Comp : TPSPascalCompiler;Name : string) : Boolean;
     function Execute(aParameters: Variant): Boolean; override;
+    procedure DoCleanUp;
     property Runtime : TPSExec read FRuntime write SetRuntime;
     property ClassImporter : TPSRuntimeClassImporter read FClassImporter write SetClassImporter;
     property Compiler : TPSPascalCompiler read FCompiler write SetCompiler;
@@ -693,13 +694,8 @@ begin
         if not Result then
           FResults:= PSErrorToString(FRuntime.LastEx, '');
         if FProcess.Running then InternalKill;
+        DoCleanup;
         Result := True;
-        for i := 0 to LoadedLibs.Count-1 do
-          begin
-            aProc := aprocT2(dynlibs.GetProcAddress(TLoadedLib(LoadedLibs[i]).Handle,'ScriptCleanup'));
-            if Assigned(aProc) then
-              aProc;
-          end;
       except
         on e : Exception do
           begin
@@ -710,6 +706,20 @@ begin
     end;
   SetCurrentDir(aDir);
 end;
+
+procedure TPascalScript.DoCleanUp;
+var
+  i: Integer;
+  aProc: aProcT2;
+begin
+  for i := 0 to LoadedLibs.Count-1 do
+    begin
+      aProc := aprocT2(dynlibs.GetProcAddress(TLoadedLib(LoadedLibs[i]).Handle,'ScriptCleanup'));
+      if Assigned(aProc) then
+        aProc;
+    end;
+end;
+
 function TPascalScript.AddMethodEx(Slf, Ptr: Pointer; const Decl: tbtstring;
   CallingConv: uPSRuntime.TPSCallingConvention): Boolean;
 var

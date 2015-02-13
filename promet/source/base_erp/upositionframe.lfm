@@ -48,8 +48,7 @@ inherited fPosition: TfPosition
         Caption = 'Position'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -126,8 +125,7 @@ inherited fPosition: TfPosition
         Caption = 'Zusätzlich'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -194,8 +192,7 @@ inherited fPosition: TfPosition
         Caption = 'Ansicht'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = 900
-        Layout = tlBottom
+        Font.Orientation = -900
         ParentColor = False
         ParentFont = False
       end
@@ -262,15 +259,15 @@ inherited fPosition: TfPosition
       NewTabImageIndex = 59
       object tsDetails: TTabSheet
         Caption = 'Details'
-        ClientHeight = 206
-        ClientWidth = 698
+        ClientHeight = 201
+        ClientWidth = 700
         ImageIndex = 40
         ParentFont = False
         object Panel1: TPanel
           Left = 0
-          Height = 206
+          Height = 201
           Top = 0
-          Width = 698
+          Width = 700
           Align = alClient
           BevelOuter = bvNone
           Caption = 'keine Detailansicht verfügbar'
@@ -305,15 +302,16 @@ inherited fPosition: TfPosition
     Visible = False
     object lbResults: TListBox
       Left = 0
-      Height = 72
+      Height = 68
       Top = 0
-      Width = 424
+      Width = 420
       Align = alClient
       ItemHeight = 0
       OnDblClick = lbResultsDblClick
       ScrollWidth = 418
       TabOrder = 0
       TabStop = False
+      TopIndex = -1
     end
   end
   object ActionList1: TActionList[4]
@@ -860,4 +858,4 @@ inherited fPosition: TfPosition
     left = 304
     top = 64
   end
-end
+end

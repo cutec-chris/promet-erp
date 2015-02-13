@@ -700,6 +700,7 @@ end;
 
 procedure TfScriptEditor.DebuggerAfterExecute(Sender: TPSScript);
 begin
+  TPascalScript(FDataSet.Script).DoCleanUp;
   acRun.Enabled:=True;
   acReset.Enabled:=False;
   acPause.Enabled:=false;

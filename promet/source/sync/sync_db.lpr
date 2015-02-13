@@ -429,7 +429,7 @@ begin
       if not HasOption('m','mandant') then
         raise Exception.Create(strMandantnotSelected);
       if not DBLogin(GetOptionValue('m','mandant'),GetOptionValue('u','user')) then
-        raise Exception.Create(strLoginFailed);
+        raise Exception.Create(strLoginFailed+' '+LastError);
       uData.Data := Data;
     end;
   Info('login ok.');
