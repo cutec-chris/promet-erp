@@ -253,7 +253,7 @@ begin
     SysUtils.DeleteFile(aFileName);
     if Assigned(Img) then
       begin
-        iOut := ThumbResize(Img, aWidth, aHeight, area);
+        iOut := DoThumbResize(Img, aWidth, aHeight, area);
         wr := TFPWriterJPEG.Create;
         wr.ProgressiveEncoding:=True;
         aOldPos:=aStream.Position;

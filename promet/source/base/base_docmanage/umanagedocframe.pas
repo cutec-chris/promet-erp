@@ -174,7 +174,6 @@ type
     procedure FrameExit(Sender: TObject);
     procedure FTimeLineSetMarker(Sender: TObject);
     procedure IdleTimer1Timer(Sender: TObject);
-    procedure pmPopupPopup(Sender: TObject);
     function SetLinkfromSearch(aLink: string): Boolean;
     procedure tbMenue1Click(Sender: TObject);
     procedure ThumbControl1AfterDraw(Sender: TObject; Item: TThreadedImage;
@@ -493,9 +492,9 @@ begin
       FDataSet.GotoBookmark(arec);
       FDataSet.Next;
     end;
-  ThumbControl1.ImageLoaderManager.OnSetItemIndex:=nil;
+  ThumbControl1.ImageLoaderManager.OnItemIndexChanged:=nil;
   ThumbControl1.ImageLoaderManager.ActiveIndex:=i;
-  ThumbControl1.ImageLoaderManager.OnSetItemIndex:=@ThumbControl1ImageLoaderManagerSetItemIndex;
+  ThumbControl1.ImageLoaderManager.OnItemIndexChanged:=@ThumbControl1ImageLoaderManagerSetItemIndex;
   ThumbControl1.ScrollIntoView;
 end;
 procedure TfManageDocFrame.IdleTimer1Timer(Sender: TObject);
@@ -578,10 +577,6 @@ begin
   ThumbControl1.Invalidate;
   //Application.ProcessMessages;
   IdleTimer1.Tag:=0;
-end;
-procedure TfManageDocFrame.pmPopupPopup(Sender: TObject);
-begin
-  ThumbControl1.Click;
 end;
 
 function TfManageDocFrame.SetLinkfromSearch(aLink: string): Boolean;
@@ -1505,7 +1500,7 @@ begin
   fTimeLine.OnSetMarker:=@FTimeLineSetMarker;
   FTimeLine.Increment:=-16;
   FTimeLine.UseLongMonth:=False;
-  ThumbControl1.ImageLoaderManager.OnSetItemIndex:=@ThumbControl1ImageLoaderManagerSetItemIndex;
+  ThumbControl1.ImageLoaderManager.OnItemIndexChanged:=@ThumbControl1ImageLoaderManagerSetItemIndex;
   PreviewFrame := TfPreview.Create(Self);
   PreviewFrame.Parent := tsDocument;
   PreviewFrame.Align := alClient;
