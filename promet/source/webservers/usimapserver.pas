@@ -5,7 +5,8 @@ unit usimapserver;
 interface
 
 uses
-  Classes, SysUtils, usbaseserver, mimemess, mimepart, blcksock;
+  Classes, SysUtils, usbaseserver, mimemess, mimepart, blcksock,
+  usimapmailbox, usimapsearch;
 
 type
 
