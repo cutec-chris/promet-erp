@@ -434,12 +434,6 @@ begin
     // conversion magic in LCL code
     SetCodePage(RawByteString(Result), StringCodePage(s), False);
     {$endif}
-    for i := 0 to length(s)-1 do
-      begin
-        a := ord(s[i]);
-        if a>127 then
-          Result := StringReplace(Result,s[i],' ',[rfReplaceAll]);
-      end;
   end
   else
     Result:=s;
@@ -1105,4 +1099,4 @@ begin
 end;
 END.
 
- 
+ 

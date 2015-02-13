@@ -11,6 +11,7 @@ uses Classes;
 
 type
   TFlagMask = LongInt;   // Bitmask containing status flags of the message
+  TUnixTime    = Integer;
   TIMAPSearch = class
      private
        FFlagsSet      : TFlagMask;
@@ -85,6 +86,11 @@ function ImapDateTimeToDateTime( ImapDateTime: String ) : TDateTime;
 function ImapDateTextToDateTime( ImapDateText: String ) : TDateTime;
 function DateTimeGMTToImapDateTime( DateTime   : TDateTime;
                                     RfcTimezone: TRfcTimezone ) : String;
+function DateTimeToUnixTime( DateTime: TDateTime ): TUnixTime;
+function UnixTimeToDateTime( UnixTime: TUnixTime ): TDateTime;
+function TrimWhSpace( Const s : String ) : String;
+function PosWhSpace( s : String ) : Integer;
+function  TrimQuotes( Data: String ): String;
 
 // --------------------------------------------------------------------------
 
@@ -443,6 +449,18 @@ begin
    Result := (Chr <> #0)
 end;
 
+function PosWhSpace( s : String ) : Integer;
+var  j: Integer;
+begin
+     Result := Pos( ' ', s );
+     if Result=0 then begin
+        Result := Pos( #9, s );
+     end else begin
+        j := Pos( #9, s );
+        if (j>0) and (j<Result) then Result:=j;
+     end;
+end;
+
 function TrimWhSpace( Const s : String ) : String;
 Var i, p, l: Integer;
 begin
@@ -456,6 +474,118 @@ begin
    If p > l then Result := ''
    else If (p = 1) and (l=Length(s)) then Result := s
    else Result := Copy(s, p, l-p+1)
+end;
+
+function TrimEnclosingChars( Data, FirstChar, LastChar: String ): String;
+var  i: Integer;
+begin
+     Data := TrimWhSpace( Data );
+     i := length( Data );
+     if (i>1) and (Data[1] = FirstChar) and (Data[i] = LastChar) then
+        Result := copy( Data, 2, i-2 )
+     else
+        Result := Data
+end;
+
+function TrimQuotes( Data: String ): String;
+begin
+     Result := TrimEnclosingChars( Data, '"', '"' )
+end;
+
+function TrimParentheses( Data: String ): String;
+begin
+     Result := TrimEnclosingChars( Data, '(', ')' )
+end;
+
+function DateTimeToUnixTime( DateTime: TDateTime ): TUnixTime;
+begin
+   Result := Round( ( DateTime - EncodeDate(1970,1,1) ) * 86400 );
+end;
+
+function UnixTimeToDateTime( UnixTime: TUnixTime ): TDateTime;
+var  Days, Hours, Mins, Secs, h: Integer;
+begin
+   Secs := UnixTime;
+
+   if Secs>=0 then begin
+      Days := Secs div 86400;
+      Secs := Secs mod 86400;
+   end else begin
+      h    := Secs and $1;
+      Secs := Secs shr 1;
+
+      Days := Secs div (86400 shr 1);
+      Secs := Secs mod (86400 shr 1);
+
+      Secs := (Secs shl 1) or h;
+   end;
+
+   Hours := Secs div 3600;  Secs := Secs mod 3600;
+   Mins  := Secs div 60;    Secs := Secs mod 60;
+
+   Result := EncodeDate(1970,1,1) + Days + EncodeTime(Hours,Mins,Secs,0);
+end;
+
+function MinutesToDateTime( Minutes: Integer ): TDateTime;
+begin
+   Result := ( Minutes / 60.0 / 24.0 );
+end;
+
+function RfcTimezoneToBiasMinutes( RfcTimeZone: TRfcTimeZone ): Integer;
+begin
+   Result := 0;
+   if RfcTimeZone='' then exit;
+
+   if RfcTimeZone[1] in [ '+', '-' ] then begin
+
+      Result := strtointdef( copy(RfcTimeZone,2,2), 0 ) * 60
+              + strtointdef( copy(RfcTimeZone,4,2), 0 );
+      if (Result<0) or (Result>=24*60) then Result:=0;
+      if RfcTimeZone[1]='+' then Result:=-Result;
+
+   end else begin
+
+      RfcTimeZone := UpperCase( RfcTimeZone );
+
+      if      RfcTimeZone='GMT' then Result:=  0
+      else if RfcTimeZone='UT'  then Result:=  0
+
+      else if RfcTimeZone='EST' then Result:= -5*60
+      else if RfcTimeZone='EDT' then Result:= -4*60
+      else if RfcTimeZone='CST' then Result:= -6*60
+      else if RfcTimeZone='CDT' then Result:= -5*60
+      else if RfcTimeZone='MST' then Result:= -7*60
+      else if RfcTimeZone='MDT' then Result:= -6*60
+      else if RfcTimeZone='PST' then Result:= -8*60
+      else if RfcTimeZone='PDT' then Result:= -7*60
+
+      else if RfcTimeZone='A'   then Result:= -1*60
+      else if RfcTimeZone='B'   then Result:= -2*60
+      else if RfcTimeZone='C'   then Result:= -3*60
+      else if RfcTimeZone='D'   then Result:= -4*60
+      else if RfcTimeZone='E'   then Result:= -5*60
+      else if RfcTimeZone='F'   then Result:= -6*60
+      else if RfcTimeZone='G'   then Result:= -7*60
+      else if RfcTimeZone='H'   then Result:= -8*60
+      else if RfcTimeZone='I'   then Result:= -9*60
+      else if RfcTimeZone='K'   then Result:=-10*60
+      else if RfcTimeZone='L'   then Result:=-11*60
+      else if RfcTimeZone='M'   then Result:=-12*60
+      else if RfcTimeZone='N'   then Result:=  1*60
+      else if RfcTimeZone='O'   then Result:=  2*60
+      else if RfcTimeZone='P'   then Result:=  3*60
+      else if RfcTimeZone='Q'   then Result:=  4*60
+      else if RfcTimeZone='R'   then Result:=  5*60
+      else if RfcTimeZone='S'   then Result:=  6*60
+      else if RfcTimeZone='T'   then Result:=  7*60
+      else if RfcTimeZone='U'   then Result:=  8*60
+      else if RfcTimeZone='V'   then Result:=  9*60
+      else if RfcTimeZone='W'   then Result:= 10*60
+      else if RfcTimeZone='X'   then Result:= 11*60
+      else if RfcTimeZone='Y'   then Result:= 12*60
+      else if RfcTimeZone='Z'   then Result:=  0;
+
+   end;
 end;
 
 Const

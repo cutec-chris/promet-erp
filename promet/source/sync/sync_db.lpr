@@ -9,7 +9,7 @@ uses
   Classes, SysUtils, CustApp,
   pcmdprometapp, uData, db, uBaseDBInterface, uBaseApplication,
   uBaseCustomApplication, uBaseDbClasses, uSync, uOrder, uPerson, uMasterdata,
-  uMessages,Utils;
+  uMessages,Utils,uminiconvencoding;
 type
 
   { TSyncDBApp }
@@ -112,8 +112,7 @@ begin
             begin
               if (not aSource.FieldByName(aFieldName).IsNull) then
                 begin
-                  //tmp := ConvertEncoding(aSource.FieldByName(aFieldName).AsString,GuessEncoding(aSource.FieldByName(aFieldName).AsString),EncodingUTF8);
-                  tmp := SysToUni(aSource.FieldByName(aFieldName).AsString);
+                  tmp := ConvertEncoding(aSource.FieldByName(aFieldName).AsString,GuessEncoding(aSource.FieldByName(aFieldName).AsString),EncodingUTF8);
                   if (aDest.FieldByName(aFieldName).DataType = ftString)
                   and (aDest.FieldByName(aFieldName).AsString <> tmp) then
                     begin
@@ -583,4 +582,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+

@@ -20,12 +20,17 @@ type
   TImapMailbox = class
     private
       fCritSection : TRTLCriticalSection;
-      fIndex       : TImapMailboxIndex;
+      //fIndex       : TImapMailboxIndex;
       fPath        : String;
-      fStatus      : TMbxStatus;
+      FUIDNext: LongInt;
+      FUIDvalidity: TUnixTime;
+      FUnseen : LongInt;
+      FRecent : LongInt;
+      FMessages : LongInt;
+      //fStatus      : TMbxStatus;
       fUsers       : TList;
       fReadOnly    : Boolean; //ClientRO
-      function  GetStatus: TMbxStatus;
+      //function  GetStatus: TMbxStatus;
       procedure AddMessage( Flags: String; TimeStamp: TUnixTime );
       function  StringToFlagMask( Flags: String ): TFlagMask;
       function  FlagMaskToString( FlagMask: TFlagMask ): String;
@@ -42,14 +47,13 @@ type
                              HeaderList, BodyStrings, TextStrings: TStringList): TMessageSet;
       {/Search-new}
     public
-      function  RebuildStatusFile: TMbxStatus;
       function  StrToMsgSet( s: String; UseUID: Boolean ): TMessageSet;
 
-      property  Status         : TMBxStatus read  fStatus;
+      //property  Status         : TMBxStatus read  fStatus;
       property  Path           : String     read  fPath;
       property  MBReadOnly     : Boolean    read  fReadOnly write fReadOnly; //ClientRO //ToDo: 'write' von ReadOnly löschen oder umfunktionieren 
-      property  GetUIDnext     : LongInt    read  fStatus.UIDNext;
-      property  GetUIDvalidity : TUnixTime  read  fStatus.UIDvalidity;
+      property  GetUIDnext     : LongInt    read  FUIDNext;
+      property  GetUIDvalidity : TUnixTime  read  FUIDvalidity;
       property  PossFlags      : String     read  GetPossFlags;
       procedure Lock;
       procedure Unlock;
@@ -75,8 +79,7 @@ type
 //------------------------------------------------------------------------------
 implementation
 
-uses uTools, Sysutils, cLogFile, cAccount, uIMAPUtils, cIMAPMessage,
-     Config, uEncoding, FileCtrl, cArticle, Global;
+uses Sysutils,syncobjs;
 
 // --------------------------------------------------------- TImapMailbox -----
 function TImapMailbox.StringToFlagMask( Flags: String ): TFlagMask;
@@ -123,136 +126,15 @@ begin
   Result := '(\Answered \Flagged \Deleted \Seen \Draft)'
 end;
 
-function TImapMailbox.GetStatus: TMbxStatus;
-var  RebuildNeeded : Boolean;
-begin
-     RebuildNeeded := False;
-     FillChar( Result, SizeOf(Result), 0 );
-     if FileExists2( fPath + IMAPSTATUS_FILENAME ) then begin
-        with TFileStream.Create( fPath + IMAPSTATUS_FILENAME, fmOpenRead ) do try
-           if Read( Result, SizeOf(Result) ) <> SizeOf(Result) then begin
-              Log( LOGID_WARN, 'IMAPMailbox.readingStatusFile.failed', 'Error reading imap mailbox status file.' );
-              RebuildNeeded := True;
-           end
-        finally Free end
-     end else RebuildNeeded := True;
-     if RebuildNeeded then Result := RebuildStatusFile;
-end;
-
-function TImapMailbox.RebuildStatusFile: TMbxStatus;
-var  Status     : TMbxStatus;
-     MR         : TMessageRec;
-     Chunk      : Byte;
-     i          : Integer;
-begin
-     Log( LOGID_INFO, 'IMAPMailbox.rebuildingStatusFile', 'Rebuilding mailbox status file.' );
-
-     FillChar( Status, SizeOf(Status), 0 );
-     Status.UIDvalidity := DateTimeToUnixTime( NowGMT );
-     Status.UIDnext     := 1;
-
-     FillChar( MR, sizeof(MR), 0 );
-     Chunk := fIndex.pubChunkOf( MR );
-     try
-       Lock;
-       fIndex.Enter( Chunk );
-       try
-          Status.Messages := fIndex.Count;
-          for i := 0 to Status.Messages-1 do begin
-             fIndex.pubRecGet( Chunk, i, MR );
-             if MR.Flags and FLAGSEEN <> FLAGSEEN then inc( Status.Unseen );
-             if MR.Flags and FLAGRECENT = FLAGRECENT then inc( Status.Recent );
-             // if MR.UID >= Status.UIDnext then Status.UIDnext := MR.UID + 1;
-          end;
-          {MG}{IMAP-UID-ByteOrder}
-          fIndex.pubRecGet( Chunk, Status.Messages-1, MR );
-          if SwitchByteOrder( MR.UID ) >= Status.UIDnext then begin
-             Status.UIDnext := SwitchByteOrder( MR.UID ) + 1
-          end;
-          {/IMAP-UID-ByteOrder}
-       finally
-          fIndex.Leave( Chunk );
-       end;
-     finally
-       Unlock;
-     end;
-
-     Result := Status;
-end;
-
-procedure TImapMailbox.WriteStatus;
-begin
-   with TFileStream.Create( fPath + IMAPSTATUS_FILENAME, fmCreate ) do try
-      if Write( fStatus, SizeOf(fStatus) ) <> SizeOf(fStatus) then
-         Log( LOGID_ERROR, 'IMAPMailbox.WritingToDisk.Failed', 'Error writing imap mailbox status to disk.' );
-   finally
-      Free;
-   end;
-end;
-
 procedure TImapMailbox.Expunge( ExcludeFromResponse: pIMAPNotification );
-var  Chunk : Byte;
-     i,j   : Integer;
-     MR    : TMessageRec;
-     ServerThread : pIMAPNotification;
-     FN: String;
 begin
-   if fReadOnly then exit;
-   try
-     Lock;
-      for Chunk:=0 to fIndex.propCHUNK_MAX do begin
-         fIndex.Enter( Chunk );
-         try
-            for i := fIndex.Count-1 downto 0 do begin
-               fIndex.pubRecGet( Chunk, i, MR );
-               if (MR.Flags and FLAGDELETED) = FLAGDELETED then begin
-                  FN := fPath + IntToStr(SwitchByteOrder(MR.UID)) + '.'+Def_Extension_Mail;
-                  If SysUtils.DeleteFile( FN ) then begin
-                     if fIndex.ContainsKey(MR, INDEXKEYLEN_UID ) then begin
-                       dec( fStatus.Messages );
-                       if (MR.Flags and FLAGSEEN) <> FLAGSEEN then dec( fStatus.Unseen );
-                       if (MR.Flags and FLAGRECENT) = FLAGRECENT then dec( fStatus.Recent );
-                     end;
-
-                     fIndex.RemoveKey( MR, INDEXKEYLEN_UID );
-                     for j := 0 to fUsers.Count-1 do begin
-                        try
-                           if Assigned( fUsers.Items[j] ) then begin
-                              ServerThread := pIMAPNotification( fUsers.Items[j] );
-                              if ServerThread <> ExcludeFromResponse then begin
-                                 ServerThread^.OnExpunge( i+1 )
-                              end
-                           end
-                        except
-                        end
-                     end
-                  end else begin
-                     if FileExists2( FN ) then
-                       Log( LOGID_ERROR, 'IMAPMailbox.DeletingMessageFile.failed', 
-                          'Error deleting imap message file %s in use?', FN )
-                     else begin
-                       Log( LOGID_WARN, 'IMAPMailbox.DeletingMessageFile.DoesntExist',
-                           'Error deleting imap message file %s: Deleted outside', FN );
-                       fIndex.RemoveKey( MR, INDEXKEYLEN_UID )
-                     end
-                  end
-               end
-            end
-         finally
-            fIndex.Leave(Chunk)
-         end
-      end;
-      fIndex.SaveToFile;
-      WriteStatus
-   finally
-      Unlock
-   end
 end;
 
 function TImapMailbox.Store( Idx: Integer; Flags: String; Mode: TStoreMode ): String;
 var
   FlagMsk : tFlagMask;
 begin
+  {
   if fReadOnly then begin
     Result := FlagMaskToString(fIndex.GetFlags( Idx ));
     exit
@@ -280,6 +162,7 @@ begin
   finally
      Unlock;
   end;
+  }
 end;
 
 procedure TImapMailbox.RemoveRecentFlags;
@@ -288,8 +171,8 @@ begin
   lock;
   try
     if fReadOnly then exit;
-    for i := 0 to fIndex.Count-1 do fIndex.RemoveFlags( i, FLAGRECENT );
-    fStatus.Recent := 0;
+    //for i := 0 to fIndex.Count-1 do fIndex.RemoveFlags( i, FLAGRECENT );
+    //fStatus.Recent := 0;
   finally
     unlock
   end
@@ -301,11 +184,11 @@ begin
   try
      Lock;
      FMFlags := StringToFlagMask(Flags);
-     fIndex.AddEntry( GetUIDnext, FMFlags, TimeStamp );
-     inc( fStatus.UIDnext );
-     inc( fStatus.Messages );
-     if FMFlags and FLAGSEEN <> FLAGSEEN then inc( fStatus.Unseen );
-     if FMFlags and FLAGRECENT = FLAGRECENT then inc( fStatus.Recent );
+     //fIndex.AddEntry( GetUIDnext, FMFlags, TimeStamp );
+     inc( FUIDnext );
+     inc( FMessages );
+     if FMFlags and FLAGSEEN <> FLAGSEEN then inc( FUnseen );
+     if FMFlags and FLAGRECENT = FLAGRECENT then inc( FRecent );
   finally
      Unlock;
   end;
@@ -313,90 +196,7 @@ end;
 
 {AP2} {Destination-Lock fuer MessageCopy}
 function TImapMailbox.CopyMessage( MsgSet: TMessageSet; Destination:TImapMailbox ): Boolean;
-var  i: Integer;
-     FileNameS,FileNameD: String;
-     listFileNameD: TStringList;
-     pMessageRec: TPMessageRec;
-     nUIDnext: LongInt;
 begin
-  if Destination.MBReadOnly then begin
-    Result := false;
-    exit
-  end;
-  listFileNameD := TStringList.Create;
-  listFileNameD.Sorted:=False;
-  Result := True;
-  try
-    Lock;
-    try
-      for i := 0 to High(MsgSet) do begin
-        FileNameS := fPath + fIndex.GetUIDStr(MsgSet[i]-1) + '.'+Def_Extension_Mail;
-        if not FileExists2( FilenameS ) then begin Result := False;Break; end;
-        SetLength(FileNameD, MAX_PATH);
-        if 0=GetTempFileName(PChar(Destination.Path), '~CM', 0,PChar(FileNameD)) then
-          begin Result := False; Break; end;
-        SetLength(FileNameD, Pos(#0, FileNameD)-1);
-        if Windows.CopyFile( PChar(FilenameS), PChar(FileNameD), False )then
-        begin
-          LogRaw( LOGID_DEBUG, 'Message file '+FileNameS+' copied to '+FileNameD );
-          new(pMessageRec);
-          pMessageRec^.TimeStamp := fIndex.GetTimeStamp(MsgSet[i]-1);
-          pMessageRec^.Flags  := fIndex.GetFlags(MsgSet[i]-1) or FLAGRECENT;
-          listFileNameD.AddObject(FileNameD,tObject(pMessageRec));
-        end else begin
-          Log( LOGID_WARN, 'IMAPMailbox.CopyMessage.failed', 
-             'Error copying message %s to %s', [FileNameS, FileNameD] );
-          Result := False;
-          Break;
-        end;
-      end;
-    finally
-      Unlock;
-    end;
-
-    Destination.Lock;
-    try
-      nUIDnext := Destination.GetUIDnext;
-      i:=0;
-      with listFileNameD do while i<Count do begin
-        FileNameD := Destination.Path + IntToStr(nUIDnext) + '.'+Def_Extension_Mail;
-        if Windows.MoveFile( PChar(Strings[i]), PChar( FileNameD ) ) then
-        begin
-          LogRaw( LOGID_DEBUG, 'Message file '+Strings[i]+ ' renamed to '+FileNameD );
-          Strings[i]:= FileNameD;
-          inc(nUIDnext);
-        end else begin
-          Log( LOGID_WARN, 'IMAPMailbox.Rename.failed', 'Error renaming message %s to %s', 
-             [Strings[i], FileNameD] );
-          Result := False;
-          Break;
-        end;
-        inc(i);
-      end; // with listFileNameD do while
-      if Result then with listFileNameD do while 0<Count do begin
-        Destination.AddMessage(FlagMaskToString(TPMessageRec(Objects[0]).Flags),
-                    TPMessageRec(Objects[0]).TimeStamp);
-        with TFileStream.Create( Strings[0], fmOpenRead ) do try
-           FileSetDate(handle, DateTimeToFileDate(UnixTimeToDateTime(TPMessageRec(Objects[0]).TimeStamp)));
-        finally free end;
-        dispose(TPMessageRec(Objects[0]));
-        Delete(0);
-      end; // with listFileNameD do while
-
-    finally
-      Destination.Unlock;
-    end;
-  finally
-    with listFileNameD do while Count>0 do
-    begin
-      dispose(TPMessageRec(Objects[0]));
-      DeleteFile(Strings[0]);
-      Delete(0);
-    end;
-    listFileNameD.Free
-  end;
-
-  Destination.SendMailboxUpdate;
 end;
 {/Destination-Lock fuer MessageCopy}
 
@@ -410,37 +210,28 @@ begin
 
   Result   := 'NO APPEND error';
 
-  FileName := fPath + IntToStr( GetUIDnext ) + '.'+Def_Extension_Mail;
-  try
-     Lock;
-     try
-        with TFileStream.Create( FileName, fmCreate ) do try
-           If MsgTxt > ''
-              then Bytes := Write( MsgTxt[1], Length(MsgTxt) )
-              else Bytes := 0;
-           //AP: IMAPDateSet
-           FileSetDate(Handle,DateTimeToFileDate(UnixTimeToDateTime(Timestamp)));
-        finally Free end;
-        if Bytes = Length(MsgTxt) then begin
-           AddMessage( Flags, TimeStamp );
-           LogRaw( LOGID_DETAIL, 'Message appended to imap mailbox "' + fPath + '" with Flags: ' + Flags);
-           Result := 'OK APPEND completed';
-           SendMailboxUpdate;
-        end else begin
-           Log( LOGID_ERROR, 'IMAPMailbox.AppendingMessage.failed', 
-              'Error appending message to imap mailbox "%s"', fPath);
-        end;
-     except
-        on E: Exception do
-           Log( LOGID_ERROR, 'IMAPMailbox.AppendingMessage.error', 
-              'Couldn''t append message: %s', E.Message );
-     end;
-  finally
-     Unlock;
-  end;
 end;
 
-procedure TImapMailbox.AddIncomingMessage(Const Flags : String = '');
+function MinutesToDateTime( Minutes: Integer ): TDateTime;
+begin
+   Result := ( Minutes / 60.0 / 24.0 );
+end;
+
+function NowBiasMinutes: Integer;
+begin
+end;
+
+function NowBias: TDateTime;
+begin
+   Result := MinutesToDateTime( NowBiasMinutes );
+end;
+
+function NowGMT : TDateTime;
+begin
+   Result := Now + NowBias;
+end;
+
+procedure TImapMailbox.AddIncomingMessage(const Flags: String);
 begin
    if Flags = ''
       then AddMessage( FlagMaskToString(FLAGRECENT), DateTimeToUnixTime(NowGMT) )
@@ -496,7 +287,7 @@ function TImapMailbox.Fetch( Idx: Integer; MsgDat: String; var Success: Boolean 
   end;
 
 var  Filename, Args, DataItem, Data: String;
-     MyMail: TImapMessage;
+//     MyMail: TImapMessage;
 
   procedure AddDataValue( NewValue: String );
   begin 
@@ -506,7 +297,8 @@ var  Filename, Args, DataItem, Data: String;
 begin
    Args    := MsgDat;
    Data    := '';
-   MyMail := nil;
+   //MyMail := nil;
+   {
    Filename := fPath + fIndex.GetUIDStr( Idx ) + '.'+Def_Extension_Mail;
    if not FileExists2( Filename ) then exit;
    try
@@ -554,20 +346,17 @@ begin
    end;
    System.Delete( Data, 1, 1 );
    Result := IntToStr(Idx+1) + ' FETCH (' + Data + ')'
+   }
 end;
 
 procedure TImapMailbox.AddUser( Notify : pIMAPNotification );
 begin
-     LogRaw( LOGID_DEBUG, 'TImapMailbox.AddUser (current user count: '
-                  + IntToStr(fUsers.Count) +')' ); {MG}{ImapLog}
      fUsers.Add( Notify );
 end;
 
 procedure TImapMailbox.RemoveUser( Notify : pIMAPNotification; out NoUsersLeft: Boolean );
 var  i : Integer;
 begin
-     LogRaw( LOGID_DEBUG, 'TImapMailbox.RemoveUser (current user count: '
-                   + IntToStr(fUsers.Count) +')' ); {MG}{ImapLog}
      NoUsersLeft := False;
      i := fUsers.IndexOf( Notify );
      if i >= 0 then fUsers.Delete( i );
@@ -587,29 +376,20 @@ end;
 constructor TImapMailbox.Create( APath: String );
 begin
    inherited Create;
-   LogRaw( LOGID_DEBUG, 'TImapMailbox.Create ' + APath ); {MG}{ImapLog}
-   InitializeCriticalSection( fCritSection );
+   InitCriticalSection( fCritSection );
    fPath   := APath;
    ForceDirectories(APath); 
    fUsers  := TList.Create;
-   fIndex  := TImapMailboxIndex.Create( fPath );
-   fStatus := GetStatus;
    fReadOnly := false; //ClientRO
    //ToDo: Read-Only einzelner Mailboxen kann hier gesteuert werden.
-   if not FileExists2( fPath + IMAPINDEX_FILENAME ) then
-      fIndex.Rebuild( fPath, fStatus );
 end;
 
 destructor TImapMailbox.Destroy;
 begin
-     LogRaw( LOGID_DEBUG, 'TImapMailbox.Destroy' ); {MG}{ImapLog}
-     WriteStatus;
-     if Assigned(fIndex) then fIndex.Free;
      if fUsers.Count > 0 then
-        LogRaw( LOGID_ERROR, 'TImapMailbox.Destroy: imap mailbox is still in use!' );
+       raise Exception.Create('TImapMailbox.Destroy: imap mailbox is still in use!' );
      fUsers.Free; // TODO: User direkt aufräumen oder warnen?
-     CfgAccounts.IMAPMailboxLock( fPath, False );
-     DeleteCriticalSection( fCritSection );
+     DoneCriticalSection( fCritSection );
 
      inherited;
 end;
