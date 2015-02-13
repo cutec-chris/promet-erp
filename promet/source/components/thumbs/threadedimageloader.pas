@@ -409,6 +409,8 @@ begin
   FMaxThreads := 8;
   FThreadsFree := FMaxThreads;
   fSelectMask:=$ffbfbf;
+  FOnLoadPointer:=nil;
+  FOnLoadURL:=nil;
 end;
 
 destructor TImageLoaderManager.Destroy;
@@ -435,8 +437,8 @@ function TImageLoaderManager.AddThreadedImage(Image: TThreadedImage): Integer;
 begin
   Image.FMultiThreaded := FMultiThreaded;
   if Assigned(FOnLoadURL) then Image.OnLoadURL := FOnLoadURL;
-  if Assigned(FOnLoadPointer) then Image.OnLoadPointer := FOnLoadPointer;
-  if Assigned(FOnNeedRepaint) then Image.OnNeedRepaint := FOnNeedRepaint;
+  Image.OnLoadPointer := FOnLoadPointer;
+  Image.OnNeedRepaint := FOnNeedRepaint;
   Image.OnThreadDone := @ThreadDone;
   Image.OnThreadStart := @ThreadStart;
   Image.OnSelect:=@ImageSelected;
@@ -721,4 +723,4 @@ finalization
   CS.Free;
 
 
-end.
+end.

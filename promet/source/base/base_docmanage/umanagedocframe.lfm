@@ -1080,7 +1080,7 @@ inherited fManageDocFrame: TfManageDocFrame
       Directory = '/home/chris/'
       ThumbWidth = 130
       ThumbHeight = 130
-      ThumbDistance = 0
+      ThumbDistance = 10
       ThumbResizeFactor = 0
       MultiThreaded = True
       ShowCaptions = True
