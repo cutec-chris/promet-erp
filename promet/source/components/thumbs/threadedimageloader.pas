@@ -40,6 +40,7 @@ type
     FThread: TLoaderThread;
     FRect: TRect;
     FWidth: integer;
+    fSelectMask: Integer;
     FMultiThreaded: Boolean;
     function GetImage: TFPMemoryImage;
     function GetName: string;
@@ -108,6 +109,7 @@ type
     FOnLoadPointer: TNotifyEvent;
     FReload: Boolean;
     FMaxThreads: integer;
+    fSelectMask: Integer;
     FThreadsFree: integer;
     procedure NextInQueue;
     procedure ThreadDone(Sender: TObject);
@@ -148,6 +150,7 @@ type
     property ActiveIndexSelect: integer read FActiveIndex write SetActiveIndexAndChangeSelected;
     property ActiveIndexSelectBetween: integer read FActiveIndex write SetActiveIndexAndSelectBetween;
     property ActiveItem: TThreadedImage read GetActiveItem;
+    property SelectMask: Integer read fSelectMask write FSelectMask;
   published
     property OnNeedRepaint: TNotifyEvent read FOnNeedRepaint write FOnNeedRepaint;
     property OnLoadURL: TNotifyEvent read FOnLoadURL write FOnLoadURL;
@@ -224,33 +227,37 @@ begin
 end;
 
 procedure TThreadedImage.CreateSelectedBitmap;
-Var
-  X, Y: Integer;
+var
+  i: Integer;
+  PixelPtr,pri: PInteger;
+  RawImage,ri: TRawImage;
+  BytePerPixel,s: Integer;
 begin
+  // SelectedBitmap erstellen
   if Assigned(FBitmap) then begin
-    // SelectedBitmap erstellen
     if not Assigned(FBitmapSelected) then FBitmapSelected := TBitmap.Create;
     FBitmapSelected.Width:=FBitmap.Width;
     FBitmapSelected.Height:=FBitmap.Height;
-    FBitmapSelected.Transparent:=False;
-    FBitmapSelected.Canvas.Draw(0,0,FBitmap);
+    FBitmapSelected.PixelFormat:=FBitmap.PixelFormat;
 
-    //try
-    //  FBitmapSelected.BeginUpdate(False);
-    //  for x:=0 to FBitmapSelected.Width-1 do begin
-    //    for y:=0 to FBitmapSelected.Height-1 do begin
-    //      FBitmapSelected.Canvas.Pixels[X, Y] := (FBitmapSelected.Canvas.Pixels[X, Y]) * $010101;
-    //    end;
-    //  end;
-    //finally
-    //  FBitmapSelected.EndUpdate(False);
-    //end;
-
-    FBitmapSelected.Canvas.Pen.Color:=$000080FF;
-    FBitmapSelected.Canvas.Brush.Style:=bsClear;
-    FBitmapSelected.Canvas.Pen.Width:=8;
-    FBitmapSelected.Canvas.Rectangle(0,0,FBitmapSelected.Width,FBitmapSelected.Height);
-  end;
+    try
+      FBitmapSelected.BeginUpdate(False);
+      ri:=FBitmap.RawImage;
+      RawImage:=FBitmapSelected.RawImage;
+      BytePerPixel:=RawImage.Description.BitsPerPixel div 8;
+      if BytePerPixel=4 then begin;
+        pri:=Pinteger(ri.Data);
+        PixelPtr:=PInteger(RawImage.Data);
+        for i := 0 to (RawImage.Description.Height*RawImage.Description.Width)-1 do begin
+          PixelPtr^:=(pri^ and fSelectMask);
+          inc(PixelPtr);
+          inc(pri);
+        end;
+      end;
+    finally
+      FBitmapSelected.EndUpdate(False);
+    end;
+ end;
 end;
 
 function TThreadedImage.GetRect: TRect;
@@ -401,6 +408,7 @@ begin
   FFreeInvisibleImage := false;
   FMaxThreads := 8;
   FThreadsFree := FMaxThreads;
+  fSelectMask:=$ffbfbf;
 end;
 
 destructor TImageLoaderManager.Destroy;
@@ -433,6 +441,7 @@ begin
   Image.OnThreadStart := @ThreadStart;
   Image.OnSelect:=@ImageSelected;
   Image.OnDeselect:=@ImageDeselected;
+  Image.fSelectMask:=fSelectMask;
   Result:=FList.Add(Image);
 end;
 

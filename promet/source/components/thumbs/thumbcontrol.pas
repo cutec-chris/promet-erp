@@ -29,6 +29,7 @@ type
   TThumbControl = class(TScrollingControl)
   private
     FAfterDraw: TDrawItemEvent;
+    FColorSelect: TColor;
     FOnDestroy: TNotifyEvent;
     fOnItemIndexChanged: TSelectItemEvent;
     FOnDrawCaption: TDrawItemEvent;
@@ -72,10 +73,12 @@ type
     function GetMultiThreaded: boolean;
     function GetSelectedList: TList;
     function GetURLList: UTF8String;
+    function TColorToBGRInteger(Val: TColor): Integer;
     procedure Init;
     procedure SetArrangeStyle(const AValue: TLayoutStyle);
     procedure SetAutoSort(AValue: boolean);
     procedure SetCaptionHeight(AValue: Integer);
+    procedure SetColorSelect(AValue: TColor);
     procedure SetDirectory(const AValue: UTF8String);
     procedure SetFreeInvisibleImages(const AValue: boolean);
     procedure SetMultiThreaded(const AValue: boolean);
@@ -166,6 +169,7 @@ type
     property ClientWidth;
     property Color;
     property ColorActiveFrame: TColor read fColorActiveFrame write fColorActiveFrame;
+    property ColorSelect: TColor read FColorSelect write SetColorSelect;
     property ColorFont: TColor read fColorFont write fColorFont;
     property ColorFontSelected: TColor read fColorFontSelected write fColorFontSelected;
     property CaptionHight: Integer read FCaptionHeight write SetCaptionHeight;
@@ -351,6 +355,13 @@ begin
   Result := FURLList.Text;
 end;
 
+function TThumbControl.TColorToBGRInteger(Val: TColor): Integer;
+begin
+  Result:=((Val and $00ff0000) shr 16) or
+          (Val and $0000ff00) or
+          ((Val and $000000ff) shl 16);
+end;
+
 procedure TThumbControl.SetArrangeStyle(const AValue: TLayoutStyle);
 begin
   if FArrangeStyle <> AValue then
@@ -377,6 +388,16 @@ begin
   FCaptionHeight:=AValue;
   fTextExtraHeight := FCaptionHeight;
   Arrange;
+end;
+
+procedure TThumbControl.SetColorSelect(AValue: TColor);
+begin
+  if FColorSelect<>AValue then begin
+    FColorSelect:=AValue;
+    if Assigned(fMngr) then begin
+      fMngr.SelectMask:=TColorToBGRInteger(AValue);
+    end;
+  end;
 end;
 
 procedure TThumbControl.SetMultiThreaded(const AValue: boolean);
@@ -943,7 +964,6 @@ begin
   //Font.size := 14;
   //ff.free;
 
-  //fColorActiveFrame:=$448FA2;
   fColorActiveFrame:=clRed;
   fColorFont:=clwhite;
   fColorFontSelected:=clwhite;
@@ -969,11 +989,14 @@ begin
   FShowPictureFrame := true;
   fPictureFrameBorder := StockBorderWidth;
 
+  FColorSelect:=$00FFBFBF;
+
   fMngr := TImageLoaderManager.Create;
   fMngr.OnLoadURL := @ImgLoadURL;
   fMngr.OnLoadPointer := @ImgLoadPointer;
   fMngr.OnNeedRepaint := @ImgRepaint;
   fMngr.OnItemIndexChanged:= @ItemIndexChanged;
+  fMngr.SelectMask:=TColorToBGRInteger(FColorSelect);
   fAutoSort:=true;
 
   SmallStep := fThumbWidth;
