@@ -25,7 +25,7 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
   lNet, uBaseDBInterface, md5, uData, eventlog, pmimemessages,
-  uprometnntp, uBaseApplication;
+  uBaseApplication;
 type
   TPNNTPServer = class(TBaseCustomApplication)
     procedure ServerLog(aSocket: TLNNTPSocket; DirectionIn: Boolean;

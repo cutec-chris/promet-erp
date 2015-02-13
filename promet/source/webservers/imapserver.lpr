@@ -27,7 +27,7 @@ uses
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
   laz_synapse, uBaseDBInterface, uData,
   uBaseApplication, uBaseDbClasses, synautil, ureceivemessage,
-  uMimeMessages, ussmtpserver, usimapserver, mimemess;
+  uMimeMessages, ussmtpserver, usimapserver, usimapsearch, mimemess;
 type
 
   { TPIMAPServer }

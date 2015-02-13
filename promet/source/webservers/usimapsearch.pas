@@ -67,6 +67,7 @@ type
        Sub2     : TIMAPSearch;     // Otherwise sub1 and sub2 are OR'ed.
        destructor Destroy; override;
    end;
+   TRfcTimezone = String;
 const
    FLAGNONE     : TFlagMask =  0;
    FLAGSEEN     : TFlagMask =  1;
@@ -80,12 +81,16 @@ const
    FLAGDECLINE  : TFlagMask = 128; //Moder
 
 function GetSearchPgm( Args: String; SearchPgm: TIMAPSearch ): Boolean;
+function ImapDateTimeToDateTime( ImapDateTime: String ) : TDateTime;
+function ImapDateTextToDateTime( ImapDateText: String ) : TDateTime;
+function DateTimeGMTToImapDateTime( DateTime   : TDateTime;
+                                    RfcTimezone: TRfcTimezone ) : String;
 
 // --------------------------------------------------------------------------
 
 implementation
 
-uses SysUtils;
+uses SysUtils,uBaseApplication;
 
 { TIMAPSearch }
 
@@ -202,7 +207,70 @@ begin
      inherited Destroy;
 end;
 
-// --------------------------------------------------------------------------
+Type
+  TIMAPStringtype = ( IMAP_STRING_ATOM, IMAP_STRING_QUOTED, IMAP_STRING_LITERAL );
+  TIMAPStringtypes = Set of TIMAPStringtype;
+Const
+  IMAP_STRING_STRING  = [IMAP_STRING_QUOTED, IMAP_STRING_LITERAL];
+  IMAP_STRING_ASTRING = IMAP_STRING_STRING + [IMAP_STRING_ATOM];
+
+procedure GetString( var InStr: String; out OutStr: String; Const Stringtype: TIMAPStringtypes );
+var  i, Size : Integer;
+begin
+   OutStr := '';
+   if InStr = '' then exit;
+
+   if (IMAP_STRING_QUOTED IN Stringtype) and (InStr[1] = '"') then begin
+      i := 2;
+      while i <= Length( InStr ) do begin
+         case Instr[i] of
+            '\' : System.Delete( InStr, i, 1 );
+            '"' : begin
+                     OutStr := Copy( InStr, 2, i-2 );
+                     System.Delete( InStr, 1, i );
+                     exit
+                  end;
+         end;
+         inc( i )
+      end;
+   with BaseApplication as IBaseApplication do
+      Debug( 'Error parsing quoted string: No closing quotation mark' )
+
+   end else if (IMAP_STRING_LITERAL IN Stringtype) and (InStr[1] = '{') then begin
+      for i := 2 to Length(InStr) do begin
+         if InStr[i] = '}' then begin
+            if InStr[i-1] = '+' // Literal+ //NHB
+               then Size := StrToIntDef( Copy( InStr, 2, i-3 ), -1 )
+               else Size := StrToIntDef( Copy( InStr, 2, i-2 ), -1 );
+            System.Delete( InStr, 1, i + 2 );
+            if Size < 0 then break;
+            if Length(InStr) >= Size then begin
+               OutStr := Copy( InStr, 1, Size );
+               System.Delete( InStr, 1, Size );
+            end else begin
+               InStr := '';
+            with BaseApplication as IBaseApplication do
+              Debug('Error parsing literal string: literal too short' )
+            end;
+            exit
+         end
+      end;
+    with BaseApplication as IBaseApplication do
+      Debug('Error parsing literal string: malformed literal' )
+
+   end else if (IMAP_STRING_ATOM IN Stringtype) then begin
+      for i := 1 to Length(InStr) do begin
+         if InStr[i] in [' ', '(', ')', '"'] then begin
+            OutStr := Copy( InStr, 1, i-1 );
+            System.Delete( InStr, 1, i-1 );
+            exit
+         end;
+      end;
+      OutStr := InStr;
+   end;
+
+   InStr := ''
+end;
 
 function GetAString( var Args: String; var Chr: Char ): String;
 var  Str: String;
@@ -217,7 +285,8 @@ begin
         if Length( Str ) > 0 then
            Chr := Str[Length(Str)]
         else begin
-           Log( LOGID_WARN, 'IMAPSearch.missingarg', 'IMAP: Missing required argument' );
+           with BaseApplication as IBaseApplication do
+             Warning('IMAP: Missing required argument');
            Chr := #0
         end
      end;
@@ -238,13 +307,15 @@ begin
      Key := UpperCase( GetAString( Args, Chr ) );
      if Key = '' then begin
         if Chr <> '(' then begin
-           Log( LOGID_WARN, 'IMAPSearch.searchcommand.missingarg', 'IMAP: Missing required argument in SEARCH command' );
+           with BaseApplication as IBaseApplication do
+             Warning('IMAP: Missing required argument in SEARCH command' );
            Chr := #0;
            exit
         end;
         ParseSearchPgm( Args, SearchPgm, Chr );
         if Chr <> ')' then begin
-           Log( LOGID_WARN, 'IMAPSearch.missingclosingparen', 'IMAP: Missing required closing paren in SEARCH command' );
+           with BaseApplication as IBaseApplication do
+             Warning('IMAP: Missing required closing paren in SEARCH command' );
            Chr := #0
         end else if Args <> '' then begin
            Chr := Args[1];
@@ -271,7 +342,8 @@ begin
                 if S <> '' then SearchPgm.AddHeaderStr( S, GetAString( Args, Chr ) )
              end;
         'K': if Key = 'KEYWORD' then begin
-                Log( LOGID_WARN, 'IMAPSearch.KeyWord.NotImplemented',  'IMAP: the KEYWORD search is not implemented.' );
+                with BaseApplication as IBaseApplication do
+                  Warning('IMAP: the KEYWORD search is not implemented.' );
                 GetAString( Args, Chr );
              end;
         'L': if Key = 'LARGER' then SearchPgm.Larger := StrToIntDef( GetAString( Args, Chr ), 0 );
@@ -287,8 +359,8 @@ begin
                    if Chr <> #0 then
                       SearchPgm.Subs.Add( Sub )
                    else begin
-                      Log( LOGID_WARN, 'IMAPSearch.searchnotcommand.missingarg', 
-                         'IMAP: Missing argument in SEARCH NOT command' );
+                      with BaseApplication as IBaseApplication do
+                        Warning('IMAP: Missing argument in SEARCH NOT command' );
                       Sub.Free
                    end
                 except
@@ -313,8 +385,8 @@ begin
                    if Chr <> #0 then
                       SearchPgm.Subs.Add( Sub )
                    else begin
-                      Log( LOGID_WARN, 'IMAPSearch.searchorcommand.missingarg', 
-                         'IMAP: Missing argument in SEARCH OR command' );
+                      with BaseApplication as IBaseApplication do
+                        Warning('IMAP: Missing argument in SEARCH OR command' );
                       Sub.Free
                    end
                 except
@@ -349,8 +421,8 @@ begin
                 else if Key = 'UNFLAGGED' then SearchPgm.FlagsUnset := FLAGFLAGGED
                 else if Key = 'UNSEEN' then SearchPgm.FlagsUnset := FLAGSEEN
                 else if Key = 'UNKEYWORD' then begin
-                   Log( LOGID_WARN, 'IMAPSearch.keywordsearch.notimplementedyet', 
-                     'IMAP: the KEYWORD search is not implemented.' );
+                   with BaseApplication as IBaseApplication do
+                     Warning('IMAP: the KEYWORD search is not implemented.' );
                    GetAString( Args, Chr );
                 end 
              end
@@ -366,12 +438,102 @@ end;
 function GetSearchPgm( Args: String; SearchPgm: TIMAPSearch ): Boolean;
 var  Chr : Char;
 begin
-     LogRaw( LOGID_DETAIL, 'Parsing search criteria ...' );
-     Chr := #1; // Bugfix
-     ParseSearchPgm( Args, SearchPgm, Chr );
-     Result := (Chr <> #0)
+   Chr := #1; // Bugfix
+   ParseSearchPgm( Args, SearchPgm, Chr );
+   Result := (Chr <> #0)
 end;
 
-// --------------------------------------------------------------------------
+function TrimWhSpace( Const s : String ) : String;
+Var i, p, l: Integer;
+begin
+   p := 1; l := Length(s);
+   For i := p to l do begin
+      If (s[i]=#9) or (s[i]=' ') then Inc(p) else break
+   end;
+   For i := l downto p do begin
+      If (s[i]=#9) or (s[i]=' ') then Dec(l) else break
+   end;
+   If p > l then Result := ''
+   else If (p = 1) and (l=Length(s)) then Result := s
+   else Result := Copy(s, p, l-p+1)
+end;
+
+Const
+   RFC_DAY_NAMES   = 'SunMonTueWedThuFriSat';
+   RFC_MONTH_NAMES = 'JanFebMarAprMayJunJulAugSepOctNovDec';
+
+function ImapDateTimeToDateTime( ImapDateTime: String ) : TDateTime;
+// RFC 2060
+//   date_time ::= <"> date_day_fixed "-" date_month "-" date_year
+//                 SPACE time SPACE zone <">
+//   date_day        ::= 1*2digit
+//   date_month      ::= "Jan" / "Feb" / "Mar" / "Apr" / "May" / "Jun" /
+//                       "Jul" / "Aug" / "Sep" / "Oct" / "Nov" / "Dec"
+//   date_year       ::= 4digit
+//   time ::= 2digit ":" 2digit ":" 2digit
+//   zone ::= ("+" / "-") 4digit
+var  s, h, tz: String;
+     i, yyyy, mm, dd, hh, nn, ss: Integer;
+begin
+     Result := 29221.0;
+     s := TrimWhSpace( ImapDateTime );
+     if s = '' then exit;
+     try
+        i := Pos('-',s);
+        dd := strtoint( copy(s,1,i-1) );
+        System.Delete( s, 1, i );
+        if s = '' then exit;
+        i := Pos('-',s);
+        h := lowercase( copy(s,1,i-1) );
+        mm := ( ( Pos(h,LowerCase(RFC_MONTH_NAMES)) - 1 ) div 3 ) + 1;
+        System.Delete( s, 1, i );
+        yyyy := strtoint( copy(s,1,4) );
+        System.Delete( s, 1, 4 );
+        s := TrimWhSpace(s);
+        i := Pos(' ',s);
+        if i=0 then begin
+           h := s;
+           tz := '';
+        end else begin
+           h := TrimWhSpace( copy( s, 1, i-1 ) );
+           tz := UpperCase( TrimWhSpace( copy( s, i+1, 32 ) ) );
+        end;
+
+        hh := strtoint( copy( h, 1, 2 ) );
+        nn := strtoint( copy( h, 4, 2 ) );
+        ss := strtoint( copy( h, 7, 2 ) );
+
+        Result := EncodeDate( yyyy, mm, dd )
+                  + MinutesToDateTime( RfcTimezoneToBiasMinutes( tz ) ) // -> GMT
+                  + EncodeTime( hh, nn, ss, 0 );
+     except end
+end;
+
+function ImapDateTextToDateTime( ImapDateText: String ) : TDateTime;
+//   date_text  ::= date_day "-" date_month "-" date_year
+begin
+     Result := ImapDateTimeToDateTime( ImapDateText + ' 00:00:00 +0000' )
+end;
+
+function DateTimeGMTToImapDateTime( DateTime   : TDateTime;
+                                    RfcTimezone: TRfcTimezone ) : String;
+var  sDT : String;
+     MOY : Integer;
+begin
+   if RfcTimezone = '' then RfcTimezone := '+0000';
+
+   DateTime := DateTime - MinutesToDateTime( RfcTimezoneToBiasMinutes( RfcTimezone ) );
+
+   sDT := FormatDateTime( 'dd"."mm"."yyyy hh":"nn":"ss', DateTime );
+   MOY := strtoint( copy( sDT, 4, 2 ) );
+
+   // Date: 27-Mar-1998 12:12:50 +1300
+
+   Result := copy( sDT, 1, 2 ) + '-'
+           + copy( RFC_MONTH_NAMES, MOY*3-2, 3 ) + '-'
+           + copy( sDT, 7, 4 ) + ' '
+           + copy( sDT, 12, 8 ) + ' '
+           + RfcTimezone;
+end;
 
 end.

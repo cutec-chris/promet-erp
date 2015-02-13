@@ -52,7 +52,7 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="4">
       <Unit0>
         <Filename Value="imapserver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -60,13 +60,17 @@
       <Unit1>
         <Filename Value="ussmtpserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ussmtpserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="usimapserver.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="usimapserver"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="usimapsearch.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="usimapsearch"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -116,4 +120,4 @@
       </Item5>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

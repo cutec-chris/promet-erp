@@ -307,6 +307,7 @@ type
   public
     constructor Create(aSuspended : Boolean = False);
     procedure Execute; override;
+    destructor Destroy; override;
   end;
 
 var
@@ -1087,8 +1088,6 @@ begin
       end;
     end;
   //Timeregistering
-  DoInfo('Timeregistering');
-  Synchronize(@AddTimeReg2);
   AddSearchAbleDataSet(TUser);
   Data.RegisterLinkHandler('USERS',@fMainTreeFrame.OpenLink,TUser);
   //History
@@ -1106,6 +1105,24 @@ begin
   //aConn.Free;
   DoInfo('Search');
   Synchronize(@AddSearch);
+end;
+
+destructor TStarterThread.Destroy;
+begin
+  DoInfo('Timeregistering');
+  AddTimeReg2;
+  if Application.HasOption('hidetree') then
+    begin
+      fMain.acShowTree.Checked:=False;
+      fMain.acShowTreeExecute(nil);
+    end
+  else
+    begin
+      with Application as IBaseDbInterface do
+        fMain.acShowTree.Checked := DBConfig.ReadBoolean('SHOWTREE',True);
+      fMain.acShowTreeExecute(nil);
+    end;
+  inherited Destroy;
 end;
 
 procedure TfMain.acLoginExecute(Sender: TObject);
@@ -1419,23 +1436,12 @@ begin
           end;
         aItems.free;
         fSplash.AddText(strRefresh);
+        fMain.acShowTree.Checked:=True;
+        fMain.acShowTreeExecute(nil);
         bStart := TStarterThread.Create(False);
 
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');
-        if Application.HasOption('hidetree') then
-          begin
-            tvMain.Visible:=False;
-            spTree.Visible:=False;
-            acShowTree.Checked:=False;
-            acShowTreeExecute(nil);
-          end
-        else
-          begin
-            with Application as IBaseDbInterface do
-              acShowTree.Checked := DBConfig.ReadBoolean('SHOWTREE',True);
-            acShowTreeExecute(nil);
-          end;
       end;
     with BaseApplication as IBaseApplication do
       debug('LoginTime: '+IntToStr(GetTickCount64-aTime));
