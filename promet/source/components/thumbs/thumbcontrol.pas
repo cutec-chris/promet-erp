@@ -469,8 +469,6 @@ begin
   begin
     fThumbWidth := AValue;
     fUserThumbWidth := AValue;
-    SmallStep := fThumbWidth;
-    LargeStep := fThumbWidth * 4;
     if not (csLoading in ComponentState) then
     begin
       Arrange;
@@ -919,6 +917,9 @@ begin
 
   if FIls = IlsGrid then
   begin
+    SmallStep := fThumbHeight+fThumbDist+fTextExtraHeight+fPictureFrameBorder*2;
+    LargeStep := (ClientHeight div (fThumbHeight+fThumbDist+fTextExtraHeight+fPictureFrameBorder*2))*
+                 (fThumbHeight+fThumbDist+fTextExtraHeight+fPictureFrameBorder*2);
     y := 0;
     x := 0;
     fGridThumbsPerLine := ClientWidth div (fThumbWidth + fThumbDist + fPictureFrameBorder * 2);
