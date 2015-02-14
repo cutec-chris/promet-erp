@@ -36,7 +36,7 @@ type
     function StringToFlagMask(Flags: string): TFlagMask;
     function FlagMaskToString(FlagMask: TFlagMask): string;
     function GetPossFlags: string;
-    procedure WriteStatus; //Not Critical_Section-Protected!
+    //procedure WriteStatus; //Not Critical_Section-Protected!
     {MG}{Search-new}
     function Find(Search: TIMAPSearch; MsgSet: TMessageSet): TMessageSet;
     function JoinMessageSets(MsgSet1, MsgSet2: TMessageSet): TMessageSet;
@@ -79,6 +79,9 @@ type
     procedure AddIncomingMessage(const Flags: string = '');
     procedure SendMailboxUpdate;
 
+    property Messages : Integer read FMessages;
+    property Recent : Integer read FRecent;
+
     constructor Create(APath: string);
     destructor Destroy; override;
   end;
@@ -86,7 +89,7 @@ type
 //------------------------------------------------------------------------------
 implementation
 
-uses SysUtils, syncobjs;
+uses SysUtils, syncobjs,uBaseApplication;
 
 // --------------------------------------------------------- TImapMailbox -----
 function TImapMailbox.StringToFlagMask(Flags: string): TFlagMask;
@@ -452,10 +455,12 @@ function TImapMailbox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
   var
     i: integer;
   begin
+    {
     if UseUID then
       Result := fIndex.GetUID(Status.Messages - 1)
     else
       Result := Status.Messages;
+    }
     if s = '*' then
       exit;
     if s = '4294967295' // ugly workaround - we should have used u_int32
@@ -492,12 +497,14 @@ function TImapMailbox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
     j := 0;
     for i := Start to Finish do
     begin
+      {
       if UseUID then
         Result[j] := fIndex.GetIndex(i) + 1
       else
         Result[j] := i;
       if (Result[j] > 0) and (Result[j] <= Status.Messages) then
         Inc(j);
+      }
     end;
     SetLength(Result, j);
   end;
@@ -527,13 +534,14 @@ var
   i: integer;
 begin
   Result := '';
-  LogRaw(LOGID_DETAIL, 'Searching messages in imap mailbox ' + Path + ' ...');
   FoundMessages := Find(SearchStruct, StrToMsgSet('1:*', False));
+  {
   for i := 0 to Length(FoundMessages) - 1 do
     if UseUID then
       Result := Result + ' ' + fIndex.GetUIDStr(FoundMessages[i] - 1)
     else
       Result := Result + ' ' + IntToStr(FoundMessages[i]);
+   }
 end;
 
 
@@ -679,12 +687,14 @@ var
 begin
   SetLength(Result, Length(MsgSet));
   j := 0;
+  {
   for i := 0 to High(MsgSet) do
     if ((fIndex.GetFlags(MsgSet[i] - 1) and Flags) = Flags) xor Exclude then
     begin
       Result[j] := MsgSet[i];
       Inc(j);
     end;
+  }
   SetLength(Result, j);
 end;
 
@@ -696,6 +706,7 @@ var
 begin
   SetLength(Result, Length(MsgSet));
   j := 0;
+  {
   for i := 0 to High(MsgSet) do
   begin
     MyDate := Trunc(UnixTimeToDateTime(fIndex.GetTimeStamp(MsgSet[i] - 1)));
@@ -705,6 +716,7 @@ begin
       Inc(j);
     end;
   end;
+  }
   SetLength(Result, j);
 end;
 
@@ -717,6 +729,7 @@ begin
   j := 0;
   if Min < Max then
   begin
+    {
     for i := 0 to High(MsgSet) do
     begin
       if SysUtils.FindFirst(fPath + fIndex.GetUIDStr(MsgSet[i] - 1) +
@@ -730,6 +743,7 @@ begin
         SysUtils.FindClose(SR);
       end;
     end;
+    }
   end;
   SetLength(Result, j);
 end;
@@ -776,16 +790,15 @@ TMessageSet;
         exit;
     end;
     Result := True;
-    Log(LOGID_WARN, 'IMAPMailbox.Search.IncompatibleCharsets',
-      'IMAP SEARCH: Search charset (%s) and message charset (%s) differ. The current message is ignored.',
-      [Charset, MyCharset]);
+    with BaseApplication as IBaseApplication do
+      Warning(Format('IMAP SEARCH: Search charset (%s) and message charset (%s) differ. The current message is ignored.',[Charset, MyCharset]));
   end;
 
 var
   i, j, k, m: integer;
   HdrValue: string;
   HdrName: string;
-  MyMail: TArticle;
+  //MyMail: TArticle;
   MyHeader: string;
   MyString: string;
   MyCharset: string;
@@ -794,6 +807,7 @@ var
 begin
   SetLength(Result, Length(MsgSet));
   j := 0;
+  {
   MyMail := TArticle.Create;
   try
     for i := 0 to High(MsgSet) do
@@ -882,6 +896,7 @@ begin
   finally
     MyMail.Free
   end;
+  }
   SetLength(Result, j);
 end;
 

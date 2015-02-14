@@ -15,6 +15,11 @@ type
   TSImapServer = class(TSTcpServer)
   private
     CurrentTag: string;
+    Selected       : TImapMailbox;
+    CS_THR_IDLE     : TRTLCriticalSection;
+    SendExpunge     : array of Integer;
+    SendNewMessages : Boolean;
+    IdleState       : Boolean;
 
     procedure LogRaw(AThread: TSTcpThread; Txt: string);
     procedure SendData(AThread: TSTcpThread; const AText: string);
@@ -31,6 +36,9 @@ type
   end;
 
 implementation
+
+resourcestring
+  SIMAPWelcomeMessage = 'service ready';
 
 { TSImapServer }
 
@@ -71,15 +79,15 @@ begin
         if (length(SendExpunge) > 0) then
         begin
           for i := 0 to length(SendExpunge) - 1 do
-            SendRes(IntToStr(SendExpunge[i]) + ' EXPUNGE');
+            SendRes(AThread, IntToStr(SendExpunge[i]) + ' EXPUNGE');
           if not SendNewMessages then //Don't send it double
-            SendRes(IntToStr(Selected.Status.Messages) + ' EXISTS');
+            SendRes(AThread,IntToStr(Selected.Messages) + ' EXISTS');
           SetLength(SendExpunge, 0);
         end;
         if SendNewMessages then
         begin
-          SendRes(IntToStr(Selected.Status.Messages) + ' EXISTS');
-          SendRes(IntToStr(Selected.Status.Recent) + ' RECENT');
+          SendRes(AThread,IntToStr(Selected.Messages) + ' EXISTS');
+          SendRes(AThread,IntToStr(Selected.Recent) + ' RECENT');
           SendNewMessages := False;
         end;
       finally
@@ -88,7 +96,7 @@ begin
     finally
       Selected.Unlock
     end;
-  SendResult(CurrentTag + ' ' + Txt);
+  SendData(AThread,CurrentTag + ' ' + Txt + CRLF);
 end;
 
 procedure TSImapServer.SetActive(const AValue: boolean);
@@ -101,7 +109,7 @@ var
   LRow, LCmd, LTag: string;
 begin
   try
-    SendToClient(AThread, '220 ' + SSMTPWelcomeMessage);
+    SendData(AThread, '* OK IMAP4rev1 ' + SIMAPWelcomeMessage + CRLF);
     while (not AThread.Terminated) do
     begin
       LRow := AThread.ReadLn(Timeout);
@@ -115,53 +123,6 @@ begin
           if Assigned(OnLog) then
             OnLog(AThread, True, LRow);
 
-          if (AnsiPos(':', LRow) > 0) then
-            LCmd := Fetch(LRow, ':')
-          else
-            LCmd := Fetch(LRow, #32);
-          LTag := Fetch(LRow, #32);
-
-          if (AnsiCompareText(EmptyStr, LCmd) = 0) then
-            SendToClient(AThread, '500 ' + SSMTPCommandIsNil)
-          else
-          begin
-            if (AnsiPos(' ', LCmd) > 0) then
-              Delete(LCmd, AnsiPos(' ', LCmd), Length(LCmd));
-            if (AnsiCompareText('HELO', LCmd) = 0) then
-              DoCommandHelo(AThread, LSession, LTag)
-            else if (AnsiCompareText('EHLO', LCmd) = 0) then
-              DoCommandError(AThread, LSession, LTag)
-            else if (AnsiCompareText('MAIL', LCmd) = 0) then
-              DoCommandMail(AThread, LSession, LTag)
-            else if (AnsiCompareText('RCPT', LCmd) = 0) then
-              DoCommandRcpt(AThread, LSession, LTag)
-            else if (AnsiCompareText('DATA', LCmd) = 0) then
-              DoCommandData(AThread, LSession, LTag)
-            else if (AnsiCompareText('SEND', LCmd) = 0) then
-              DoCommandError(AThread, LSession, LTag)
-            else if (AnsiCompareText('SOML', LCmd) = 0) then
-              DoCommandError(AThread, LSession, LTag)
-            else if (AnsiCompareText('SAML', LCmd) = 0) then
-              DoCommandError(AThread, LSession, LTag)
-            else if (AnsiCompareText('RSET', LCmd) = 0) then
-              DoCommandRSet(AThread, LSession, LTag)
-            else if (AnsiCompareText('EXPN', LCmd) = 0) then
-              DoCommandError(AThread, LSession, LTag)
-            else if (AnsiCompareText('HELP', LCmd) = 0) then
-              DoCommandError(AThread, LSession, LTag)
-            else if (AnsiCompareText('VRFY', LCmd) = 0) then
-              DoCommandError(AThread, LSession, LTag)
-            else if (AnsiCompareText('NOOP', LCmd) = 0) then
-              DoCommandError(AThread, LSession, LTag)
-            else if (AnsiCompareText('QUIT', LCmd) = 0) then
-              DoCommandQuit(AThread, LSession, LTag)
-            else if (AnsiCompareText('TURN', LCmd) = 0) then
-              DoCommandError(AThread, LSession, LTag)
-            else if (AnsiCompareText('ETRN', LCmd) = 0) then
-              DoCommandError(AThread, LSession, LTag)
-            else
-              SendToClient(AThread, '500 ' + SSMTPCommandUnknown);
-          end;
         end;
     end;
   finally

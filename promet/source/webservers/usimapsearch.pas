@@ -93,6 +93,7 @@ function DateTimeToUnixTime(DateTime: TDateTime): TUnixTime;
 function UnixTimeToDateTime(UnixTime: TUnixTime): TDateTime;
 function TrimWhSpace(const s: string): string;
 function PosWhSpace(s: string): integer;
+function QuotedStringOrToken( s: String ): String;
 function TrimQuotes(Data: string): string;
 
 // --------------------------------------------------------------------------
@@ -604,6 +605,13 @@ begin
     Result := Data;
 end;
 
+function QuotedStringOrToken( s: String ): String;
+begin
+   s := TrimWhSpace( s );
+   GetString( s, Result, [IMAP_STRING_QUOTED, IMAP_STRING_ATOM] );
+   Result := TrimWhSpace( Result )
+end;
+
 function TrimQuotes(Data: string): string;
 begin
   Result := TrimEnclosingChars(Data, '"', '"');
@@ -679,76 +687,73 @@ begin
     if RfcTimeZone = 'GMT' then
       Result := 0
     else if RfcTimeZone = 'UT' then
-        Result := 0
-
-      else if RfcTimeZone = 'EST' then
-          Result := -5 * 60
-        else if RfcTimeZone = 'EDT' then
-            Result := -4 * 60
-          else if RfcTimeZone = 'CST' then
-              Result := -6 * 60
-            else if RfcTimeZone = 'CDT' then
-                Result := -5 * 60
-              else if RfcTimeZone = 'MST' then
-                  Result := -7 * 60
-                else if RfcTimeZone = 'MDT' then
-                    Result := -6 * 60
-                  else if RfcTimeZone = 'PST' then
-                      Result := -8 * 60
-                    else if RfcTimeZone = 'PDT' then
-                        Result := -7 * 60
-
-                      else if RfcTimeZone = 'A' then
-                          Result := -1 * 60
-                        else if RfcTimeZone = 'B' then
-                            Result := -2 * 60
-                          else if RfcTimeZone = 'C' then
-                              Result := -3 * 60
-                            else if RfcTimeZone = 'D' then
-                                Result := -4 * 60
-                              else if RfcTimeZone = 'E' then
-                                  Result := -5 * 60
-                                else if RfcTimeZone = 'F' then
-                                    Result := -6 * 60
-                                  else if RfcTimeZone = 'G' then
-                                      Result := -7 * 60
-                                    else if RfcTimeZone = 'H' then
-                                        Result := -8 * 60
-                                      else if RfcTimeZone = 'I' then
-                                          Result := -9 * 60
-                                        else if RfcTimeZone = 'K' then
-                                            Result := -10 * 60
-                                          else if RfcTimeZone = 'L' then
-                                              Result := -11 * 60
-                                            else if RfcTimeZone = 'M' then
-                                                Result := -12 * 60
-                                              else if RfcTimeZone = 'N' then
-                                                  Result := 1 * 60
-                                                else if RfcTimeZone = 'O' then
-                                                    Result := 2 * 60
-                                                  else if RfcTimeZone = 'P' then
-                                                      Result := 3 * 60
-                                                    else if RfcTimeZone = 'Q' then
-                                                        Result := 4 * 60
-                                                      else if RfcTimeZone = 'R' then
-                                                          Result := 5 * 60
-                                                        else if RfcTimeZone = 'S' then
-                                                            Result := 6 * 60
-                                                          else if RfcTimeZone = 'T' then
-                                                              Result := 7 * 60
-                                                            else if RfcTimeZone = 'U' then
-                                                                Result := 8 * 60
-                                                              else if RfcTimeZone = 'V' then
-                                                                  Result := 9 * 60
-                                                                else if RfcTimeZone = 'W' then
-                                                                    Result := 10 * 60
-                                                                  else if RfcTimeZone = 'X' then
-                                                                      Result := 11 * 60
-                                                                    else if RfcTimeZone = 'Y' then
-                                                                        Result := 12 * 60
-                                                                      else if RfcTimeZone = 'Z' then
-                                                                          Result := 0;
-
+      Result := 0
+    else if RfcTimeZone = 'EST' then
+      Result := -5 * 60
+    else if RfcTimeZone = 'EDT' then
+      Result := -4 * 60
+    else if RfcTimeZone = 'CST' then
+      Result := -6 * 60
+    else if RfcTimeZone = 'CDT' then
+      Result := -5 * 60
+    else if RfcTimeZone = 'MST' then
+      Result := -7 * 60
+    else if RfcTimeZone = 'MDT' then
+      Result := -6 * 60
+    else if RfcTimeZone = 'PST' then
+      Result := -8 * 60
+    else if RfcTimeZone = 'PDT' then
+      Result := -7 * 60
+    else if RfcTimeZone = 'A' then
+      Result := -1 * 60
+    else if RfcTimeZone = 'B' then
+      Result := -2 * 60
+    else if RfcTimeZone = 'C' then
+      Result := -3 * 60
+    else if RfcTimeZone = 'D' then
+      Result := -4 * 60
+    else if RfcTimeZone = 'E' then
+      Result := -5 * 60
+    else if RfcTimeZone = 'F' then
+      Result := -6 * 60
+    else if RfcTimeZone = 'G' then
+      Result := -7 * 60
+    else if RfcTimeZone = 'H' then
+      Result := -8 * 60
+    else if RfcTimeZone = 'I' then
+      Result := -9 * 60
+    else if RfcTimeZone = 'K' then
+      Result := -10 * 60
+    else if RfcTimeZone = 'L' then
+      Result := -11 * 60
+    else if RfcTimeZone = 'M' then
+      Result := -12 * 60
+    else if RfcTimeZone = 'N' then
+      Result := 1 * 60
+    else if RfcTimeZone = 'O' then
+      Result := 2 * 60
+    else if RfcTimeZone = 'P' then
+      Result := 3 * 60
+    else if RfcTimeZone = 'Q' then
+      Result := 4 * 60
+    else if RfcTimeZone = 'R' then
+      Result := 5 * 60
+    else if RfcTimeZone = 'S' then
+      Result := 6 * 60
+    else if RfcTimeZone = 'T' then
+      Result := 7 * 60
+    else if RfcTimeZone = 'U' then
+      Result := 8 * 60
+    else if RfcTimeZone = 'V' then
+      Result := 9 * 60
+    else if RfcTimeZone = 'W' then
+      Result := 10 * 60
+    else if RfcTimeZone = 'X' then
+      Result := 11 * 60
+    else if RfcTimeZone = 'Y' then
+      Result := 12 * 60
+    else if RfcTimeZone = 'Z' then
+      Result := 0;
   end;
 end;
 
