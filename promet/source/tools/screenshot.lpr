@@ -14,6 +14,7 @@ uses
 begin
   RequireDerivedFormResource := True;
   Application.Initialize;
+  Application.CreateForm(TfScreenshot, fScreenshot);
   Application.Run;
 end.
 
