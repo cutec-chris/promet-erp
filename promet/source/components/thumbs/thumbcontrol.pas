@@ -73,6 +73,8 @@ type
     function GetMultiThreaded: boolean;
     function GetSelectedList: TList;
     function GetURLList: UTF8String;
+    procedure SetOnLoadFile(AValue: TLoadFileEvent);
+    procedure SetOnLoadPointer(AValue: TLoadPointerEvent);
     function TColorToBGRInteger(Val: TColor): Integer;
     procedure Init;
     procedure SetArrangeStyle(const AValue: TLayoutStyle);
@@ -150,8 +152,8 @@ type
       Warning: if MultiThreaded=true, this happens in a separate thread context.}
     property AutoSort : boolean read fAutoSort write SetAutoSort;
     {:Sort URL by name}
-    property OnLoadFile: TLoadFileEvent read FOnLoadFile write FOnLoadFile;
-    property OnLoadPointer: TLoadPointerEvent read FOnLoadPointer write FOnLoadPointer;
+    property OnLoadFile: TLoadFileEvent read FOnLoadFile write SetOnLoadFile;
+    property OnLoadPointer: TLoadPointerEvent read FOnLoadPointer write SetOnLoadPointer;
     property OnScrolled : TNotifyEvent read FOnScrolled write FOnScrolled;
     property AfterDraw : TDrawItemEvent read FAfterDraw write FAfterDraw;
     property OnDrawCaption: TDrawItemEvent read FOnDrawCaption write FOnDrawCaption;
@@ -353,6 +355,32 @@ end;
 function TThumbControl.GetURLList: UTF8String;
 begin
   Result := FURLList.Text;
+end;
+
+procedure TThumbControl.SetOnLoadFile(AValue: TLoadFileEvent);
+begin
+  if FOnLoadFile=AValue then Exit;
+  FOnLoadFile:=AValue;
+  if Assigned(fMngr) then begin
+    if Assigned(FOnLoadFile) then begin
+      fMngr.OnLoadURL:=@ImgLoadURL;
+    end else begin
+      fMngr.OnLoadURL:=Nil;
+    end;
+  end;
+end;
+
+procedure TThumbControl.SetOnLoadPointer(AValue: TLoadPointerEvent);
+begin
+  if FOnLoadPointer=AValue then Exit;
+  FOnLoadPointer:=AValue;
+  if Assigned(fMngr) then begin
+    if Assigned(FOnLoadPointer) then begin
+      fMngr.OnLoadPointer:=@ImgLoadPointer;
+    end else begin
+      fMngr.OnLoadPointer:=Nil;
+    end;
+  end;
 end;
 
 function TThumbControl.TColorToBGRInteger(Val: TColor): Integer;
@@ -993,8 +1021,6 @@ begin
   FColorSelect:=$00FFBFBF;
 
   fMngr := TImageLoaderManager.Create;
-  fMngr.OnLoadURL := @ImgLoadURL;
-  fMngr.OnLoadPointer := @ImgLoadPointer;
   fMngr.OnNeedRepaint := @ImgRepaint;
   fMngr.OnItemIndexChanged:= @ItemIndexChanged;
   fMngr.SelectMask:=TColorToBGRInteger(FColorSelect);
