@@ -374,9 +374,11 @@ end;
 
 procedure TLoaderThread.Execute;
 begin
-  if Assigned(fRef.OnLoadPointer) then fRef.OnLoadPointer(fRef) else
-    if Assigned(fRef.OnLoadURL) then fRef.OnLoadURL(fRef) else
-  begin
+  if Assigned(fRef.OnLoadPointer) then begin
+    fRef.OnLoadPointer(fRef);
+  end else if Assigned(fRef.OnLoadURL) then begin
+    fRef.OnLoadURL(fRef);
+  end else begin
     fRef.Image.LoadFromFile(fRef.URL);
   end;
 end;
