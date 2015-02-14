@@ -48,6 +48,13 @@ begin
     OnLog(AThread, False, Txt);
 end;
 
+procedure TSImapServer.SendData(AThread: TSTcpThread; const AText: string);
+begin
+  AThread.WriteLn(AText);
+  if Assigned(OnLog) then
+    OnLog(AThread, False, AText);
+end;
+
 procedure TSImapServer.SendResLit(AThread: TSTcpThread; Txt: string);
 begin
   if Length(Txt) > 250 then
@@ -126,7 +133,6 @@ begin
         end;
     end;
   finally
-    FreeAndNil(LSession);
   end;
 end;
 

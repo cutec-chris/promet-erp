@@ -21,29 +21,29 @@ Created 01.06.2006
 program imapserver;
 {$mode objfpc}{$H+}
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
   laz_synapse, uBaseDBInterface, uData,
   uBaseApplication, uBaseDbClasses, synautil, ureceivemessage,
-  uMimeMessages, ussmtpserver, usimapserver, usimapsearch, mimemess;
+  uMimeMessages, ussmtpserver, usimapserver, usimapsearch, mimemess,usbaseserver;
 type
 
   { TPIMAPServer }
 
   TPIMAPServer = class(TBaseCustomApplication)
-    function ServerAcceptMail(aSocket: TLSMTPSocket; aFrom: string;
+    function ServerAcceptMail(aSocket: TSTcpThread; aFrom: string;
       aTo: TStrings): Boolean;
-    procedure ServerLog(aSocket: TLSocket; DirectionIn: Boolean;
+    procedure ServerLog(aSocket: TSTcpThread; DirectionIn: Boolean;
       aMessage: string);
-    function ServerLogin(aSocket: TLSocket; aUser, aPasswort: string
+    function ServerLogin(aSocket: TSTcpThread; aUser, aPasswort: string
       ): Boolean;
-    procedure SMTPServerMailreceived(aSocket: TLSMTPSocket; aMail: TStrings;
+    procedure SMTPServerMailreceived(aSocket: TSTcpThread; aMail: TStrings;
       aFrom: string; aTo: TStrings);
   private
-    IMAPServer: TLIMAPServer;
-    SMTPServer: TLSMTPServer;
+    IMAPServer: TSIMAPServer;
+    SMTPServer: TSSMTPServer;
   protected
     procedure DoRun; override;
   public
@@ -51,7 +51,7 @@ type
     destructor Destroy; override;
   end;
 
-function TPIMAPServer.ServerAcceptMail(aSocket: TLSMTPSocket; aFrom: string;
+function TPIMAPServer.ServerAcceptMail(aSocket: TSTcpThread; aFrom: string;
   aTo: TStrings): Boolean;
 var
   aRes: Boolean = false;
@@ -79,17 +79,17 @@ begin
   Result := aRes;
 end;
 
-procedure TPIMAPServer.ServerLog(aSocket: TLSocket; DirectionIn: Boolean;
+procedure TPIMAPServer.ServerLog(aSocket: TSTcpThread; DirectionIn: Boolean;
   aMessage: string);
 var
   aID: Integer;
 begin
   with Self as IBaseApplication do
     begin
-      if aSocket is TLSMTPSocket then
-        aID := TLSMTPSocket(aSocket).Id;
-      if aSocket is TLIMAPSocket then
-        aID := TLIMAPSocket(aSocket).Id;
+      if aSocket is TSTcpThread then
+        aID := TSTcpThread(aSocket).Id;
+      if aSocket is TSTcpThread then
+        aID := TSTcpThread(aSocket).Id;
       if DirectionIn then
         begin
           Info(IntToStr(aId)+':>'+aMessage);
@@ -103,7 +103,7 @@ begin
     end;
 end;
 
-function TPIMAPServer.ServerLogin(aSocket: TLSocket; aUser,
+function TPIMAPServer.ServerLogin(aSocket: TSTcpThread; aUser,
   aPasswort: string): Boolean;
 begin
   Result := False;
@@ -119,13 +119,13 @@ begin
   with Self as IBaseApplication do
     begin
       if Result then
-        Log(IntToStr(TLIMAPSocket(aSocket).Id)+':Login:'+aUser)
+        Log(IntToStr(TSTcpThread(aSocket).Id)+':Login:'+aUser)
       else
         Error('Login failed:'+aUser);
     end;
 end;
 
-procedure TPIMAPServer.SMTPServerMailreceived(aSocket: TLSMTPSocket;
+procedure TPIMAPServer.SMTPServerMailreceived(aSocket: TSTcpThread;
   aMail: TStrings; aFrom: string; aTo: TStrings);
 var
   aUser: TUser;
@@ -190,7 +190,6 @@ end;
 procedure TPIMAPServer.DoRun;
 var
   y,m,d,h,mm,s,ss: word;
-  aGroup: TIMAPFolder;
   aTime: TDateTime;
 begin
   with Self as IBaseDBInterface do
@@ -200,14 +199,12 @@ begin
     end;
   IMAPServer.OnLogin :=@ServerLogin;
   IMAPServer.OnLog:=@ServerLog;
-  if HasOption('server-log') then
-    IMAPServer.OnDebug:=@ServerLog;
-  IMAPServer.SocketClass:=TPIMAPSocket;
+//  if HasOption('server-log') then
+//    IMAPServer.OnDebug:=@ServerLog;
+  //IMAPServer.SocketClass:=TPIMAPSocket;
   aTime := Now();
   while not Terminated do
     begin
-      IMAPServer.CallAction;
-      SMTPServer.CallAction;
       sleep(100);
       if (Now()-aTime) > (1/HoursPerDay) then break;
     end;
@@ -219,19 +216,19 @@ constructor TPIMAPServer.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   StopOnException:=False;
-  IMAPServer := TLIMAPServer.Create(Self);
-  IMAPServer.Port := 143;
+  IMAPServer := TSIMAPServer.Create(Self);
+  IMAPServer.ListenPort := 143;
   if HasOption('port') then
     begin
-      IMAPServer.Port := StrToInt(GetOptionValue('port'));
+      IMAPServer.ListenPort := StrToInt(GetOptionValue('port'));
       Info('using port for imap:'+GetOptionValue('port'));
     end;
   if HasOption('imapport') then
-    IMAPServer.Port := StrToInt(GetOptionValue('imapport'));
-  SMTPServer := TLSMTPServer.Create(Self);
+    IMAPServer.ListenPort := StrToInt(GetOptionValue('imapport'));
+  SMTPServer := TSSMTPServer.Create(Self);
   if GetOptionValue('i','interface')<>'' then
     begin
-      //IMAPServer.ListenInterface := GetOptionValue('i','interface');
+      IMAPServer.ListenInterface := GetOptionValue('i','interface');
       SMTPServer.ListenInterface := GetOptionValue('i','interface');
       Info('using interface:'+GetOptionValue('i','interface'));
     end;
@@ -250,7 +247,7 @@ begin
   try
     IMAPServer.Start;
   except
-    Error('failed to open IMAP Port '+IntToStr(IMAPServer.Port));
+    Error('failed to open IMAP Port '+IntToStr(IMAPServer.ListenPort));
     raise;
   end;
   try

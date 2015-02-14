@@ -38,6 +38,7 @@ type
     destructor Destroy; override;
     function ReadLn(const ATimeout: integer): string;
     procedure WriteLn(const AData: string);
+    procedure Write(const AData: string);
     procedure Disconnect;
     procedure Execute; override;
   published
@@ -207,6 +208,31 @@ begin
   else
   begin
     FSocket.SendString(AData + CRLF);
+    if (FSocket.socket = INVALID_SOCKET) then
+    begin
+      FConnected := False;
+      FWriteTimedOut := False;
+    end
+    else
+    begin
+      case FSocket.LastError of
+        0: ;
+        WSAETIMEDOUT: FWriteTimedOut := True;
+      end;
+    end;
+  end;
+end;
+
+procedure TSTcpThread.Write(const AData: string);
+begin
+  if (FSocket.socket = INVALID_SOCKET) then
+  begin
+    FConnected := False;
+    FWriteTimedOut := False;
+  end
+  else
+  begin
+    FSocket.SendString(AData);
     if (FSocket.socket = INVALID_SOCKET) then
     begin
       FConnected := False;
