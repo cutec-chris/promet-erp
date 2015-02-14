@@ -1031,6 +1031,17 @@ var
   tmp: String;
 begin
   inherited;
+  try
+    if (Field.DataType=ftString)
+    or (Field.DataType=ftWideString)
+    then
+      begin
+        tmp := SysToUni(Field.AsString);
+        if tmp <> Field.AsString then
+          Field.AsString:=tmp;
+      end;
+  except
+  end;
   if Assigned(FOrigTable) then
     FOrigTable.Change;
 end;
@@ -2030,4 +2041,4 @@ end;
 
 end.
 
-
+
