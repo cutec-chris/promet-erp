@@ -67,8 +67,6 @@ type
     fColorFont: TColor;
     fColorFontSelected: TColor;
     fGridThumbsPerLine: integer;
-    procedure VScroll(var Msg: TLMScroll); override;
-    procedure HScroll(var Msg: TLMScroll); override;
     function GetDraggedItem: TThreadedImage;
     function GetFreeInvisibleImages: boolean;
     function GetList: TList;
@@ -347,20 +345,6 @@ end;
 function TThumbControl.GetList: TList;
 begin
   if Assigned(fMngr) then Result:=fMngr.List;
-end;
-
-procedure TThumbControl.VScroll(var Msg: TLMScroll);
-begin
-  inherited VScroll(Msg);
-  if Assigned(FOnScrolled) then
-    FOnScrolled(Self);
-end;
-
-procedure TThumbControl.HScroll(var Msg: TLMScroll);
-begin
-  inherited HScroll(Msg);
-  if Assigned(FOnScrolled) then
-    FOnScrolled(Self);
 end;
 
 function TThumbControl.GetDraggedItem: TThreadedImage;
@@ -1307,4 +1291,4 @@ finalization
   frame.free;
 
 end.
-
+
