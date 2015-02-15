@@ -46,6 +46,7 @@ type
     property Connection: TSConnection read FConnection;
     property Id: integer read FId;
     property Terminated;
+    property Socket : TTCPBlockSocket read FSocket;
     property ReadTimedOut: boolean read FReadTimedOut;
     property WriteTimedOut: boolean read FWriteTimedOut;
     property OnDestroy: TNotifyEvent read FOnDestroy write FOnDestroy;
@@ -384,6 +385,7 @@ procedure TSTcpServer.DoClientCreate(AThread: TSTcpThread);
 begin
   FSection.Create;
   try
+    FSection.Enter;
     FThreads.Add(AThread);
   finally
     FSection.Leave;
@@ -399,6 +401,7 @@ var
 begin
   FSection.Create;
   try
+    FSection.Enter;
     LIndex := FThreads.IndexOf(ASender);
     if (LIndex >= 0) then
       FThreads.Delete(LIndex);
