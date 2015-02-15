@@ -86,7 +86,8 @@ type
     destructor Destroy; override;
   end;
 
-//------------------------------------------------------------------------------
+  function NowGMT: TDateTime;
+
 implementation
 
 uses SysUtils, syncobjs,uBaseApplication;

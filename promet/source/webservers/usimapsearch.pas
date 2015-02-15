@@ -72,7 +72,14 @@ type
 
   TRfcTimezone = string;
 
+type
+  TIMAPStringtype = (IMAP_STRING_ATOM, IMAP_STRING_QUOTED, IMAP_STRING_LITERAL);
+  TIMAPStringtypes = set of TIMAPStringtype;
+
 const
+  IMAP_STRING_STRING = [IMAP_STRING_QUOTED, IMAP_STRING_LITERAL];
+  IMAP_STRING_ASTRING = IMAP_STRING_STRING + [IMAP_STRING_ATOM];
+
   FLAGNONE: TFlagMask = 0;
   FLAGSEEN: TFlagMask = 1;
   FLAGANSWERED: TFlagMask = 2;
@@ -95,6 +102,8 @@ function TrimWhSpace(const s: string): string;
 function PosWhSpace(s: string): integer;
 function QuotedStringOrToken( s: String ): String;
 function TrimQuotes(Data: string): string;
+procedure GetString(var InStr: string; out OutStr: string;
+  const Stringtype: TIMAPStringtypes);
 
 // --------------------------------------------------------------------------
 
@@ -229,14 +238,6 @@ begin
 
   inherited Destroy;
 end;
-
-type
-  TIMAPStringtype = (IMAP_STRING_ATOM, IMAP_STRING_QUOTED, IMAP_STRING_LITERAL);
-  TIMAPStringtypes = set of TIMAPStringtype;
-
-const
-  IMAP_STRING_STRING = [IMAP_STRING_QUOTED, IMAP_STRING_LITERAL];
-  IMAP_STRING_ASTRING = IMAP_STRING_STRING + [IMAP_STRING_ATOM];
 
 procedure GetString(var InStr: string; out OutStr: string;
   const Stringtype: TIMAPStringtypes);

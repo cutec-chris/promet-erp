@@ -30,6 +30,15 @@ type
     procedure SendResLit(AThread: TSTcpThread; Txt: string);
     procedure SendResTag(AThread: TSTcpThread; Txt: string);
     procedure SendRes(AThread: TSTcpThread; Txt: string);
+    function SendRequest(AThread: TSTcpThread; const AText: string) : string;
+
+    function  MBSelect( Mailbox: string; ReadOnly : Boolean ): boolean;
+    function  MBCreate( Mailbox: string ): boolean;
+    function  MBDelete( Mailbox: string ): boolean;
+    function  MBExists( var Mailbox: string ): boolean;
+    function  MBRename( OldName, NewName: String ): Boolean;
+    function  MBLogin(  var Mailbox: TImapMailbox; Path: String; LINotify : Boolean ): Boolean; //HSR //IDLE (Chg)
+    procedure MBLogout( var Mailbox: TImapMailbox; LOSel : Boolean ); //HSR //IDLE (Chg)
 
     procedure HandleCommand(AThread: TSTcpThread; const CmdLine: string);
 
@@ -77,7 +86,7 @@ type
 
 implementation
 
-uses uBaseApplication;
+uses uBaseApplication,base64;
 
 resourcestring
   SIMAPWelcomeMessage = 'service ready';
@@ -580,6 +589,16 @@ begin
   end;
 end;
 
+function CutFirstParam( var Parameters: String ): String;
+var  Str: String;
+begin
+     GetString( Parameters, Str, IMAP_STRING_ASTRING );
+     //Parameters := TrimWhSpace( Parameters );
+     //Literals können sonst kaputt gehen!
+     Parameters := LTrim( Parameters );
+     Result := TrimWhSpace( Str );
+end;
+
 procedure TSImapServer.Cmd_APPEND(AThread: TSTcpThread; Par: string); {MG}{Literal}
 var
   Mailbox, TimeStr, MessageText: string;
@@ -591,16 +610,16 @@ begin
   Mailbox := CutFirstParam(Par);
   if (Mailbox = '') or (Par = '') then
   begin
-    Log(LOGID_WARN, 'IMAPServer.Append.MissingArguments',
-      'IMAP-server - Missing arguments for APPEND.');
-    SendResTag('BAD arguments missing for APPEND!');
+    with BaseApplication as IBaseApplication do
+      Warning('IMAP-server - Missing arguments for APPEND.');
+    SendResTag(AThread,'BAD arguments missing for APPEND!');
     exit;
   end;
   if not MBExists(Mailbox) then
   begin
-    Log(LOGID_WARN, 'IMAPServer.Append.UnknownMailbox',
-      'IMAP-server: Unknown mailbox for APPEND');
-    SendResTag('NO [TRYCREATE] APPEND error: mailbox not known');
+    with BaseApplication as IBaseApplication do
+      Warning('IMAP-server: Unknown mailbox for APPEND');
+    SendResTag(AThread,'NO [TRYCREATE] APPEND error: mailbox not known');
     exit;
   end;
 
@@ -626,38 +645,32 @@ begin
 
   if Par = '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.Append.MessageMissing',
-      'IMAP-server - Message missing for APPEND.');
-    SendResTag('NO APPEND without message literal!');
+    with BaseApplication as IBaseApplication do
+      Warning('IMAP-server - Message missing for APPEND.');
+    SendResTag(AThread,'NO APPEND without message literal!');
     exit;
   end;
   MessageText := CutFirstParam(Par);
   if MessageText = '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.Append.MessageMissing',
-      'IMAP-server - Message missing for APPEND.');
-    SendResTag('NO APPEND without message literal!');
+    with BaseApplication as IBaseApplication do
+      Warning('IMAP-server - Message missing for APPEND.');
+    SendResTag(AThread,'NO APPEND without message literal!');
     exit;
   end;
 
   if Assigned(Selected) and (Mailbox = Selected.Path) then
   begin
-    SendResTag(Selected.AppendMessage(MessageText, Flags, Time));
-    Log(LOGID_INFO, 'IMAPServer.Append.ok',
-      'IMAP-server: APPEND succesfull, message added.');
+    SendResTag(AThread, Selected.AppendMessage(MessageText, Flags, Time));
   end
   else if not MBLogin(DestMailbox, Mailbox, False) then
     begin
-      SendResTag('NO APPEND error: can''t open destination mailbox');
-      Log(LOGID_INFO, 'IMAPServer.Append.CantOpenMailbox',
-        'IMAP-server: Append failed - Can''t open mailbox');
+      SendResTag(AThread, 'NO APPEND error: can''t open destination mailbox');
     end
     else
     begin
       try
-        SendResTag(DestMailbox.AppendMessage(MessageText, Flags, Time));
-        Log(LOGID_INFO, 'IMAPServer.Append.ok.MBopened',
-          'IMAP-server: APPEND succesfull, message added and mailbox opened.')
+        SendResTag(AThread, DestMailbox.AppendMessage(MessageText, Flags, Time));
       finally
         MBLogout(DestMailbox, False)
       end;
@@ -671,68 +684,66 @@ var
   s, TimeStamp, Hash, pass: string;
 begin
   CurrentUserName := '';
-  CurrentUserID := ACTID_INVALID;
   try
     par := uppercase(par);
-    LogRaw(LOGID_DETAIL, 'Auth Parameter ' + Par);
-    if (par = 'LOGIN') and not Def_IMAP_DisableSASLLogin then
+    if (par = 'LOGIN') then
     begin
       s := 'Username:';
-      s := '+ ' + EncodeB64(s[1], length(s));
-      s := SendRequest(s);
+      s := '+ ' + EncodeStringBase64(s);
+      s := SendRequest(AThread,s);
       if s = '' then
       begin
-        LogRaw(LOGID_DETAIL, 'Auth LOGIN protocol error');
-        SendResTag('NO Authentification failed!');
+        //LogRaw(LOGID_DETAIL, 'Auth LOGIN protocol error');
+        SendResTag(AThread,'NO Authentification failed!');
         Exit;
       end;
       if s = '*' then
       begin
-        LogRaw(LOGID_DETAIL, 'Auth LOGIN cancelled by client');
-        SendResTag('BAD Authentification failed!');
+        //LogRaw(LOGID_DETAIL, 'Auth LOGIN cancelled by client');
+        SendResTag(AThread,'BAD Authentification failed!');
         Exit;
       end;
-      s := DecodeB64(s[1], length(s));
-      LogRaw(LOGID_INFO, '> ' + s);
+      s := DecodeStringBase64(s);
+      //LogRaw(LOGID_INFO, '> ' + s);
       CurrentUserName := TrimWhSpace(s);
       s := 'Password:';
-      s := '+ ' + EncodeB64(s[1], length(s));
-      s := SendRequest(s);
+      s := '+ ' + EncodeStringBase64(s);
+      s := SendRequest(AThread,s);
       if s = '' then
       begin
-        LogRaw(LOGID_DETAIL, 'Auth LOGIN protocol error');
-        SendResTag('NO Authentification failed!');
+        //LogRaw(LOGID_DETAIL, 'Auth LOGIN protocol error');
+        SendResTag(AThread,'NO Authentification failed!');
         Exit;
       end;
       if s = '*' then
       begin
-        LogRaw(LOGID_DETAIL, 'Auth LOGIN cancelled by client');
-        SendResTag('BAD Authentification failed!');
+        //LogRaw(LOGID_DETAIL, 'Auth LOGIN cancelled by client');
+        SendResTag(AThread,'BAD Authentification failed!');
         Exit;
       end;
-      s := DecodeB64(s[1], length(s));
-      CurrentUserID := ACTID_INVALID;
-      SendResTag(LoginUser(s, 'LOGIN'));
+      s := DecodeStringBase64(s);
+      CurrentUserName := '';
+      //SendResTag(AThread,LoginUser(s, 'LOGIN'));
     end
     else
-      if (par = 'PLAIN') and Assigned(SSL) then
+      if (par = 'PLAIN') {and Assigned(SSL)} then
       begin
         TimeStamp := MidGenerator(Def_FQDNforMIDs);
         s := '+ ' + EncodeB64(TimeStamp[1], length(TimeStamp));
         s := SendRequest(s);
         if s = '' then
         begin
-          LogRaw(LOGID_DETAIL, 'Auth LOGIN protocoll error');
+          //LogRaw(LOGID_DETAIL, 'Auth LOGIN protocoll error');
           SendResTag('NO Authentification failed!');
           Exit;
         end;
         if s = '*' then
         begin
-          LogRaw(LOGID_DETAIL, 'Auth LOGIN cancel by client');
+          //LogRaw(LOGID_DETAIL, 'Auth LOGIN cancel by client');
           SendResTag('BAD Authentification failed!');
           Exit;
         end;
-        s := DecodeB64(s[1], length(s));
+        s := DecodeStringBase64(s);
         CurrentUserName := TrimWhSpace(copy(s, pos(#0, s) + 1, 500));
         s := TrimWhSpace(copy(CurrentUserName,
           pos(#0, CurrentUserName) + 1, 500));
@@ -1845,6 +1856,51 @@ begin
       Selected.Unlock
     end;
   SendData(AThread, CurrentTag + ' ' + Txt + CRLF);
+end;
+
+function TSImapServer.SendRequest(AThread: TSTcpThread; const AText: string
+  ): string;
+begin
+  AThread.WriteLn(AText);
+  if Assigned(OnLog) then
+    OnLog(AThread, False, AText);
+  Result := AThread.ReadLn(Timeout);
+end;
+
+function TSImapServer.MBSelect(Mailbox: string; ReadOnly: Boolean): boolean;
+begin
+
+end;
+
+function TSImapServer.MBCreate(Mailbox: string): boolean;
+begin
+
+end;
+
+function TSImapServer.MBDelete(Mailbox: string): boolean;
+begin
+
+end;
+
+function TSImapServer.MBExists(var Mailbox: string): boolean;
+begin
+
+end;
+
+function TSImapServer.MBRename(OldName, NewName: String): Boolean;
+begin
+
+end;
+
+function TSImapServer.MBLogin(var Mailbox: TImapMailbox; Path: String;
+  LINotify: Boolean): Boolean;
+begin
+
+end;
+
+procedure TSImapServer.MBLogout(var Mailbox: TImapMailbox; LOSel: Boolean);
+begin
+
 end;
 
 procedure TSImapServer.SetActive(const AValue: boolean);
