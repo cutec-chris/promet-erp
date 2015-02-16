@@ -838,6 +838,7 @@ end;
 
 procedure TfProjectFrame.bProjectColorColorChanged(Sender: TObject);
 begin
+  if DataSet.DataSet.ControlsDisabled then exit;
   DataSet.Edit;
   DataSet.FieldByName('COLOR').AsString:=ColorToString(bProjectColor.ButtonColor);
 end;

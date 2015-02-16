@@ -1032,6 +1032,7 @@ var
   tmp: String;
 begin
   inherited;
+  {
   try
     if ((Field.DataType=ftString)
     or (Field.DataType=ftWideString)
@@ -1048,6 +1049,7 @@ begin
       end;
   except
   end;
+  }
   if Assigned(FOrigTable) then
     FOrigTable.Change;
 end;

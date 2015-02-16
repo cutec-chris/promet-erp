@@ -1,5 +1,7 @@
-﻿Build 391
-      - Projects:ability to recheck dependencies
+﻿Build 392
+      -
+Build 391
+      - Projekte:Möglichkeit Projekt zu reorganisieren (Abhängigkeiten prüfen, Kosten neu berechnen...)
 Build 390
       - small Bugfixes
 Build 389

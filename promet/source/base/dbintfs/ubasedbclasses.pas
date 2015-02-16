@@ -3224,6 +3224,7 @@ end;
 procedure TBaseDBDataset.Change;
 begin
   if FDoChange > 0 then exit;
+  if fChanged then exit;
   FChanged := True;
   if Owner is TBaseDBDataSet then TBaseDBDataSet(Owner).Change;
   if Assigned(FOnChanged) then
@@ -3252,4 +3253,4 @@ end;
 
 initialization
 end.
-
+

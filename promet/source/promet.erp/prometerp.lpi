@@ -639,7 +639,6 @@
     <Exceptions Count="30">
       <Item1>
         <Name Value="EVariantError"/>
-        <Enabled Value="False"/>
       </Item1>
       <Item2>
         <Name Value="EAccessViolation"/>
@@ -675,7 +674,6 @@
       </Item9>
       <Item10>
         <Name Value="Exception"/>
-        <Enabled Value="False"/>
       </Item10>
       <Item11>
         <Name Value="EListError"/>
@@ -752,7 +750,6 @@
       </Item29>
       <Item30>
         <Name Value="EMathParserException"/>
-        <Enabled Value="False"/>
       </Item30>
     </Exceptions>
   </Debugging>
