@@ -279,7 +279,7 @@ begin
     aLink := copy(aLink,0,rpos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
     aLink := copy(aLink,0,rpos('(',aLink)-1);
-  Result := OpenWikiPage(copy(aLink, pos('@', aLink) + 1, length(aLink)));
+  Result := OpenWikiPage(copy(aLink, pos('@', aLink) + 1, length(aLink)),Data.Users.Rights.Right('WIKI')>RIGHT_READ);
 end;
 procedure TfWikiFrame.TSimpleIpHtmlGetImageX(Sender: TIpHtmlNode;
   const URL: string; var Picture: TPicture);

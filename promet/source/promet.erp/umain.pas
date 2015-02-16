@@ -635,7 +635,7 @@ begin
     begin
       TabCaption := strWiki;
       SetRights(Data.Users.Rights.Right('WIKI')>RIGHT_READ);
-      OpenFromLink('WIKI@INDEX');
+      OpenFromLink('WIKI@Wiki/index');
     end;
 end;
 

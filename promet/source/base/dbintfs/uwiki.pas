@@ -199,7 +199,7 @@ begin
         end;
     end;
   TBaseDBModule(DataModule).Tree.DataSet.Filtered := False;
-  Result := DataSet.Active and DataSet.Locate('TREEENTRY;NAME',VarArrayOf([aParent,PageName]),[]);
+  Result := DataSet.Active and (DataSet.Locate('TREEENTRY;NAME',VarArrayOf([aParent,PageName]),[]));
   if not Result then
     begin
       TBaseDBModule(DataModule).SetFilter(Self,TBaseDBModule(DataModule).QuoteField('TREEENTRY')+'='+TBaseDBModule(DataModule).QuoteValue(IntToStr(aParent)));
