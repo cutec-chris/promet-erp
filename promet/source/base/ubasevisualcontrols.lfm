@@ -5,8 +5,8 @@ object fVisualControls: TfVisualControls
   VerticalOffset = 324
   Width = 230
   object Images: TImageList
-    left = 16
-    top = 8
+    left = 112
+    top = 88
     Bitmap = {
       4C697A0000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -8866,4 +8866,4 @@ object fVisualControls: TfVisualControls
       003600000036000000330000001D
     }
   end
-end
+end

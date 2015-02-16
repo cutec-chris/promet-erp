@@ -110,6 +110,7 @@ type
     FBaseSortDirection : TSortDirection;
     FUseBaseSorting : Boolean;
     FUseIntegrity : Boolean;
+    FChangeUni : Boolean;
     FSQL : string;
     function BuildSQL : string;
     function IndexExists(IndexName : string) : Boolean;
@@ -1032,13 +1033,18 @@ var
 begin
   inherited;
   try
-    if (Field.DataType=ftString)
+    if ((Field.DataType=ftString)
     or (Field.DataType=ftWideString)
+    ) and (not FChangeUni)
     then
       begin
         tmp := SysToUni(Field.AsString);
         if tmp <> Field.AsString then
-          Field.AsString:=tmp;
+          begin
+            FChangeUni := True;
+            Field.AsString:=tmp;
+            FChangeUni := False;
+          end;
       end;
   except
   end;
@@ -1080,6 +1086,7 @@ begin
   inherited Create(AOwner);
   DoCheck := False;
   fBaseSorting := '%s';
+  FChangeUni:=False;
   FUseBaseSorting:=False;
   FBaseSortDirection:=sdIgnored;
   FManagedFieldDefs := TFieldDefs.Create(Self);
@@ -2041,4 +2048,4 @@ end;
 
 end.
 
-
+
