@@ -1374,7 +1374,6 @@ var
   aTime: DWORD;
 begin
   URL := FURL;
-  try
   with BaseApplication as IBaseApplication do
     Debug('WaitForImage   :'+URL);
   aTime := GetTickCount;
@@ -1383,8 +1382,6 @@ begin
       if GetTickCount-aTime>1000 then break;
       Application.ProcessMessages;
     end;
-  except
-  end;
   with BaseApplication as IBaseApplication do
     Debug('WaitForImageEnd:'+URL);
 end;
