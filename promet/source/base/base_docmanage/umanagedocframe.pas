@@ -180,11 +180,11 @@ type
       aRect: Trect);
     procedure ThumbControl1DblClick(Sender: TObject);
     procedure ThumbControl1ImageLoaderManagerBeforeStartQueue(Sender: TObject);
-    procedure ThumbControl1ImageLoaderManagerSetItemIndex(Sender: TObject);
+    procedure ThumbControl1ItemIndexChanged(Sender: TObject;
+      Item: TThreadedImage);
     procedure ThumbControl1LoadFile(Sender: TObject; URL: string; out
       Stream: TStream);
     procedure ThumbControl1Scrolled(Sender: TObject);
-    procedure ThumbControl1SelectItem(Sender: TObject; Item: TThreadedImage);
     procedure tstextShow(Sender: TObject);
   private
     { private declarations }
@@ -329,50 +329,6 @@ begin
     end;
 end;
 
-procedure TfManageDocFrame.ThumbControl1SelectItem(Sender: TObject;
-  Item: TThreadedImage);
-var
-  i: Integer;
-  tmp: String;
-  ItemPos: Integer;
-  DayHeight: Extended;
-  aItem: TThreadedImage;
-begin
-  SelectedItem := Item;
-  FDocFrame.Refresh(copy(Item.URL,0,pos('.',Item.URL)-1),'S');
-  aItem := ThumbControl1.ItemFromPoint(point(ThumbControl1.Left+(ThumbControl1.ThumbWidth div 2),ThumbControl1.Top+(ThumbControl1.ThumbHeight div 2)));
-  if Assigned(aItem) then
-    begin
-      if DataSet.DataSet.Locate('SQL_ID',copy(aItem.URL,0,pos('.',aItem.URL)-1),[]) then
-        begin
-          ItemPos := aItem.Area.Top+((aItem.Area.Bottom-aItem.Area.Top) div 2);
-          DayHeight := (FTimeLine.Height/FTimeLine.DateRange);
-          FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight))+30;
-          FTimeLine.PointerDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight));
-        end;
-    end;
-  DataSet.DataSet.Locate('SQL_ID',copy(Item.URL,0,pos('.',Item.URL)-1),[]);
-  FTimeLine.MarkerDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
-  if (aTag <> '') and bTag.Down and (pos(aTag,DataSet.FieldByName('TAGS').AsString)=0) then
-    begin
-      if not DataSet.CanEdit then
-        DataSet.DataSet.Edit;
-      tmp := DataSet.FieldByName('TAGS').AsString;
-      if (copy(tmp,length(tmp)-1,1) <> ',') and (trim(tmp) <> '') then
-        tmp := tmp+',';
-      tmp := tmp+aTag;
-      DataSet.FieldByName('TAGS').AsString := tmp;
-    end;
-  if (aDate <> '') and bTag1.Down then
-    begin
-      if not DataSet.CanEdit then
-        DataSet.DataSet.Edit;
-      DataSet.FieldByName('ORIGDATE').AsString := aDate;
-    end;
-  if bShowDetail.Down then
-    ShowDocument;
-end;
-
 procedure TfManageDocFrame.tstextShow(Sender: TObject);
 var
   ss: TStringStream;
@@ -419,12 +375,50 @@ begin
       FreeAndNil(FFetchDS);
     end;
 end;
-procedure TfManageDocFrame.ThumbControl1ImageLoaderManagerSetItemIndex(
-  Sender: TObject);
+procedure TfManageDocFrame.ThumbControl1ItemIndexChanged(Sender: TObject;
+  Item: TThreadedImage);
+var
+  i: Integer;
+  tmp: String;
+  ItemPos: Integer;
+  DayHeight: Extended;
+  aItem: TThreadedImage;
 begin
-  FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+60;
+  SelectedItem := Item;
+  FDocFrame.Refresh(copy(Item.URL,0,pos('.',Item.URL)-1),'S');
+  aItem := ThumbControl1.ItemFromPoint(point(ThumbControl1.Left+(ThumbControl1.ThumbWidth div 2),ThumbControl1.Top+(ThumbControl1.ThumbHeight div 2)));
+  if Assigned(aItem) then
+    begin
+      if DataSet.DataSet.Locate('SQL_ID',copy(aItem.URL,0,pos('.',aItem.URL)-1),[]) then
+        begin
+          ItemPos := aItem.Area.Top+((aItem.Area.Bottom-aItem.Area.Top) div 2);
+          DayHeight := (FTimeLine.Height/FTimeLine.DateRange);
+          FTimeLine.StartDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight))+30;
+          FTimeLine.PointerDate:=DataSet.FieldByName('ORIGDATE').AsDateTime+round((ItemPos/DayHeight));
+        end;
+    end;
+  DataSet.DataSet.Locate('SQL_ID',copy(Item.URL,0,pos('.',Item.URL)-1),[]);
   FTimeLine.MarkerDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
+  if (aTag <> '') and bTag.Down and (pos(aTag,DataSet.FieldByName('TAGS').AsString)=0) then
+    begin
+      if not DataSet.CanEdit then
+        DataSet.DataSet.Edit;
+      tmp := DataSet.FieldByName('TAGS').AsString;
+      if (copy(tmp,length(tmp)-1,1) <> ',') and (trim(tmp) <> '') then
+        tmp := tmp+',';
+      tmp := tmp+aTag;
+      DataSet.FieldByName('TAGS').AsString := tmp;
+    end;
+  if (aDate <> '') and bTag1.Down then
+    begin
+      if not DataSet.CanEdit then
+        DataSet.DataSet.Edit;
+      DataSet.FieldByName('ORIGDATE').AsString := aDate;
+    end;
+  if bShowDetail.Down then
+    ShowDocument;
 end;
+
 procedure TfManageDocFrame.FrameEnter(Sender: TObject);
 var
   aSheet: TTabSheet;
@@ -492,9 +486,7 @@ begin
       FDataSet.GotoBookmark(arec);
       FDataSet.Next;
     end;
-  ThumbControl1.ImageLoaderManager.OnItemIndexChanged:=nil;
   ThumbControl1.ImageLoaderManager.ActiveIndex:=i;
-  ThumbControl1.ImageLoaderManager.OnItemIndexChanged:=@ThumbControl1ImageLoaderManagerSetItemIndex;
   ThumbControl1.ScrollIntoView;
 end;
 procedure TfManageDocFrame.IdleTimer1Timer(Sender: TObject);
@@ -1200,7 +1192,7 @@ begin
     if IntersectRect(Dum, ARect, TThreadedImage(ThumbControl1.ImageLoaderManager.List[i]).Rect) then
       begin
         ThumbControl1.ImageLoaderManager.ActiveIndex:=i;
-        ThumbControl1SelectItem(ThumbControl1,TThreadedImage(ThumbControl1.ImageLoaderManager.List[i]));
+        ThumbControl1ItemIndexChanged(ThumbControl1,TThreadedImage(ThumbControl1.ImageLoaderManager.List[i]));
         for a := 0 to FDocFrame.lvDocuments.Items.Count-1 do
           if (lowercase(copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,4)) = 'jpg ')
           or (lowercase(copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,5)) = 'jpeg ')
@@ -1257,7 +1249,7 @@ procedure TfManageDocFrame.acSaveExecute(Sender: TObject);
 var
   a: Integer;
 begin
-  ThumbControl1SelectItem(ThumbControl1,TThreadedImage(ThumbControl1.ImageLoaderManager.List[ThumbControl1.ImageLoaderManager.ActiveIndex]));
+  ThumbControl1ItemIndexChanged(ThumbControl1,TThreadedImage(ThumbControl1.ImageLoaderManager.List[ThumbControl1.ImageLoaderManager.ActiveIndex]));
   for a := 0 to FDocFrame.lvDocuments.Items.Count-1 do
     if (lowercase(copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,4)) = 'jpg ')
     or (lowercase(copy(FDocFrame.lvDocuments.Items[a].SubItems[0],0,5)) = 'jpeg ')
@@ -1500,7 +1492,6 @@ begin
   fTimeLine.OnSetMarker:=@FTimeLineSetMarker;
   FTimeLine.Increment:=-16;
   FTimeLine.UseLongMonth:=False;
-  ThumbControl1.ImageLoaderManager.OnItemIndexChanged:=@ThumbControl1ImageLoaderManagerSetItemIndex;
   PreviewFrame := TfPreview.Create(Self);
   PreviewFrame.Parent := tsDocument;
   PreviewFrame.Align := alClient;

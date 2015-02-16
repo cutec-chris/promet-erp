@@ -1087,7 +1087,7 @@ inherited fManageDocFrame: TfManageDocFrame
       ShowPictureFrame = False
       Layout = LsGrid
       FreeInvisibleImages = True
-      OnSelectItem = ThumbControl1SelectItem
+      OnItemIndexChanged = ThumbControl1ItemIndexChanged
       AutoSort = True
       OnLoadFile = ThumbControl1LoadFile
       OnScrolled = ThumbControl1Scrolled
