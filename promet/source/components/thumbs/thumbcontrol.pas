@@ -364,8 +364,8 @@ end;
 
 procedure TThumbControl.SetOnLoadFile(AValue: TLoadFileEvent);
 begin
-  if FOnLoadFile=AValue then Exit;
   FOnLoadFile:=AValue;
+  if csDesigning in ComponentState then exit;
   if Assigned(fMngr) then begin
     if Assigned(FOnLoadFile) then begin
       fMngr.OnLoadURL:=@ImgLoadURL;
@@ -949,6 +949,7 @@ begin
     y := 0;
     x := 0;
     fGridThumbsPerLine := ClientWidth div (fThumbWidth + fThumbDistance + FThumbFrameWith * 2);
+    if fGridThumbsPerLine<1 then fGridThumbsPerLine:=1;
     for i := 0 to fMngr.List.Count - 1 do
     begin
       if (i > 0) then
@@ -1298,4 +1299,4 @@ initialization
 finalization
 
 end.
-
+
