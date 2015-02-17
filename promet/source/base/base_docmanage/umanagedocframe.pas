@@ -60,6 +60,7 @@ type
     acShowDetails: TAction;
     acFileImport: TAction;
     acOptimizeDocument: TAction;
+    acSetDate: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel1: TBevel;
@@ -84,6 +85,7 @@ type
     cbFilter: TComboBox;
     Datasource1: TDatasource;
     DBEdit1: TDBEdit;
+    MenuItem11: TMenuItem;
     mFulltext: TMemo;
     MenuItem10: TMenuItem;
     MenuItem4: TMenuItem;
@@ -160,11 +162,11 @@ type
     procedure acSaveAllExecute(Sender: TObject);
     procedure acSaveasPDFExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure acSetDateExecute(Sender: TObject);
     procedure acSetLinkExecute(Sender: TObject);
     procedure acSetTagExecute(Sender: TObject);
     procedure acShowDetailsExecute(Sender: TObject);
     procedure bShowDetailClick(Sender: TObject);
-    procedure bTag1Click(Sender: TObject);
     procedure bZoomInClick(Sender: TObject);
     procedure bZoomOutClick(Sender: TObject);
     procedure DoAOpen(Data: PtrInt);
@@ -245,7 +247,7 @@ uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
   usimpleprocess,uImaging,uBaseApplication;
 resourcestring
   strTag                   = 'Tag';
-  strSetTag                = 'durch Klick setzen';
+  strSetTag                = 'alle markierten setzen';
   strSetDate               = 'Soll das Datum %s als Belegdatum gesetzt werden ?';
   strMakeLinkToDocuments   = 'Soll ein Verweis in dne Dateien des Eintrags angelegt werden ?'+LineEnding+'So können Sie auch vom Eintrag aus das Dokument schnell finden';
   strNoText                = 'kein Text gefunden, oder keine OCR Anwendung installiert !';
@@ -406,22 +408,6 @@ begin
     end;
   DataSet.DataSet.Locate('SQL_ID',copy(Item.URL,0,pos('.',Item.URL)-1),[]);
   FTimeLine.MarkerDate:=DataSet.FieldByName('ORIGDATE').AsDateTime;
-  if (aTag <> '') and bTag.Down and (pos(aTag,DataSet.FieldByName('TAGS').AsString)=0) then
-    begin
-      if not DataSet.CanEdit then
-        DataSet.DataSet.Edit;
-      tmp := DataSet.FieldByName('TAGS').AsString;
-      if (copy(tmp,length(tmp)-1,1) <> ',') and (trim(tmp) <> '') then
-        tmp := tmp+',';
-      tmp := tmp+aTag;
-      DataSet.FieldByName('TAGS').AsString := tmp;
-    end;
-  if (aDate <> '') and bTag1.Down then
-    begin
-      if not DataSet.CanEdit then
-        DataSet.DataSet.Edit;
-      DataSet.FieldByName('ORIGDATE').AsString := aDate;
-    end;
   if bShowDetail.Down then
     ShowDocument;
 end;
@@ -925,26 +911,41 @@ begin
 end;
 
 procedure TfManageDocFrame.acMarkAsDoneExecute(Sender: TObject);
+var
+  Item : TThreadedImage;
+  i: Integer;
+  procedure ToggleDone;
+  begin
+    DataSet.DataSet.Locate('SQL_ID',copy(Item.URL,0,pos('.',Item.URL)-1),[]);
+    TDocPages(FFullDataSet).Select(DataSet.Id.AsVariant);
+    TDocPages(FFullDataSet).Open;
+    if TDocPages(FFullDataSet).Count>0 then
+      begin
+        TDocPages(FFullDataSet).Edit;
+        if TDocPages(FFullDataSet).FieldByName('DONE').AsString='Y' then
+          TDocPages(FFullDataSet).FieldByName('DONE').Clear
+        else
+          TDocPages(FFullDataSet).FieldByName('DONE').AsString:='Y';
+        TDocPages(FFullDataSet).Post;
+      end;
+    if Assigned(ThumbControl1.ImageLoaderManager.ActiveItem.Pointer) then
+      begin
+        TImageItem(ThumbControl1.ImageLoaderManager.ActiveItem.Pointer).Free;
+        ThumbControl1.ImageLoaderManager.ActiveItem.Pointer := nil;
+        ThumbControl1.Invalidate;
+      end;
+  end;
+
 begin
-  if GotoCurrentItem then
+  if ThumbControl1.SelectedList.Count=0 then
     begin
-      TDocPages(FFullDataSet).Select(DataSet.Id.AsVariant);
-      TDocPages(FFullDataSet).Open;
-      if TDocPages(FFullDataSet).Count>0 then
-        begin
-          TDocPages(FFullDataSet).Edit;
-          if TDocPages(FFullDataSet).FieldByName('DONE').AsString='Y' then
-            TDocPages(FFullDataSet).FieldByName('DONE').Clear
-          else
-            TDocPages(FFullDataSet).FieldByName('DONE').AsString:='Y';
-          TDocPages(FFullDataSet).Post;
-        end;
-      if Assigned(ThumbControl1.ImageLoaderManager.ActiveItem.Pointer) then
-        begin
-          TImageItem(ThumbControl1.ImageLoaderManager.ActiveItem.Pointer).Free;
-          ThumbControl1.ImageLoaderManager.ActiveItem.Pointer := nil;
-          ThumbControl1.Invalidate;
-        end;
+      Item := SelectedItem;
+      ToggleDone;
+    end
+  else for i := 0 to ThumbControl1.SelectedList.Count-1 do
+    begin
+      Item := TThreadedImage(ThumbControl1.SelectedList[i]);
+      ToggleDone;
     end;
 end;
 
@@ -1064,8 +1065,20 @@ begin
 end;
 
 procedure TfManageDocFrame.acRebuildThumbExecute(Sender: TObject);
+var
+  i: Integer;
+  Item: TThreadedImage;
 begin
-  RebuidThumb;
+  if ThumbControl1.SelectedList.Count=0 then
+    RebuidThumb
+  else for i := 0 to ThumbControl1.SelectedList.Count-1 do
+    begin
+      Item := TThreadedImage(ThumbControl1.SelectedList[i]);
+      DataSet.DataSet.Locate('SQL_ID',copy(Item.URL,0,pos('.',Item.URL)-1),[]);
+      FDocFrame.Refresh(copy(Item.URL,0,pos('.',Item.URL)-1),'S');
+      RebuidThumb;
+    end;
+  acRefresh.Execute;
 end;
 procedure TfManageDocFrame.acRefreshExecute(Sender: TObject);
 var
@@ -1267,6 +1280,39 @@ begin
       end;
 end;
 
+procedure TfManageDocFrame.acSetDateExecute(Sender: TObject);
+var
+  Item : TThreadedImage;
+  i: Integer;
+  procedure ToggleDone;
+  var
+    tmp: String;
+  begin
+    DataSet.DataSet.Locate('SQL_ID',copy(Item.URL,0,pos('.',Item.URL)-1),[]);
+    if (aDate <> '') then
+      begin
+        if not DataSet.CanEdit then
+          DataSet.DataSet.Edit;
+        DataSet.FieldByName('ORIGDATE').AsString := aDate;
+      end;
+  end;
+
+begin
+  if InputQuery(strDate,strSetTag,aDate) then
+    begin
+      if ThumbControl1.SelectedList.Count=0 then
+        begin
+          Item := SelectedItem;
+          ToggleDone;
+        end
+      else for i := 0 to ThumbControl1.SelectedList.Count-1 do
+        begin
+          Item := TThreadedImage(ThumbControl1.SelectedList[i]);
+          ToggleDone;
+        end;
+    end;
+end;
+
 procedure TfManageDocFrame.acSetLinkExecute(Sender: TObject);
 begin
   if GotoCurrentItem then
@@ -1278,11 +1324,39 @@ begin
 end;
 
 procedure TfManageDocFrame.acSetTagExecute(Sender: TObject);
+var
+  Item : TThreadedImage;
+  i: Integer;
+  procedure ToggleDone;
+  var
+    tmp: String;
+  begin
+    DataSet.DataSet.Locate('SQL_ID',copy(Item.URL,0,pos('.',Item.URL)-1),[]);
+    if (aTag <> '') and (pos(aTag,DataSet.FieldByName('TAGS').AsString)=0) then
+      begin
+        if not DataSet.CanEdit then
+          DataSet.DataSet.Edit;
+        tmp := DataSet.FieldByName('TAGS').AsString;
+        if (copy(tmp,length(tmp)-1,1) <> ',') and (trim(tmp) <> '') then
+          tmp := tmp+',';
+        tmp := tmp+aTag;
+        DataSet.FieldByName('TAGS').AsString := tmp;
+      end;
+  end;
+
 begin
-  if bTag.Down then
+  if InputQuery(strTag,strSetTag,aTag) then
     begin
-      if not InputQuery(strTag,strSetTag,aTag) then
-        aTag := ''
+      if ThumbControl1.SelectedList.Count=0 then
+        begin
+          Item := SelectedItem;
+          ToggleDone;
+        end
+      else for i := 0 to ThumbControl1.SelectedList.Count-1 do
+        begin
+          Item := TThreadedImage(ThumbControl1.SelectedList[i]);
+          ToggleDone;
+        end;
     end;
 end;
 procedure TfManageDocFrame.acShowDetailsExecute(Sender: TObject);
@@ -1312,14 +1386,6 @@ begin
   ThumbControl1.Arrange;
   ThumbControl1.Invalidate;
   ShowDocument;
-end;
-procedure TfManageDocFrame.bTag1Click(Sender: TObject);
-begin
-  if bTag1.Down then
-    begin
-      if not InputQuery(strDate,strSetTag,aDate) then
-        aDate := ''
-    end;
 end;
 procedure TfManageDocFrame.bZoomInClick(Sender: TObject);
 begin
@@ -1401,6 +1467,7 @@ var
   aStream: TMemoryStream;
   aNumber: String;
   aSStream: TStringStream;
+  aFS: TFileStream;
 begin
   Screen.Cursor:=crHourGlass;
   Application.ProcessMessages;
@@ -1423,16 +1490,20 @@ begin
           if GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream,aSStream.DataString) then
             begin
               if aStream.Size>0 then
-                Data.StreamToBlobField(aStream,DataSet.DataSet,'THUMBNAIL');
+                begin
+                  Data.StreamToBlobField(aStream,DataSet.DataSet,'THUMBNAIL');
+                  aStream.Position:=0;
+                  aFS := TFileStream.Create(FtempPath+DataSet.FieldByName('SQL_ID').AsString+'.jpg',fmCreate);
+                  aFS.CopyFrom(aStream,0);
+                  aFS.Free;
+                end;
             end;
           aSStream.Free;
           aDocument.Free;
-          DeleteFileUTF8(FtempPath+DataSet.FieldByName('SQL_ID').AsString+'.jpg');
           aFullStream.Free;
           aStream.Free;
         end;
     end;
-  acRefresh.Execute;
   Screen.Cursor:=crDefault;
 end;
 

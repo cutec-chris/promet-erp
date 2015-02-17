@@ -369,11 +369,10 @@ inherited fManageDocFrame: TfManageDocFrame
       object bTag: TSpeedButton
         Left = 6
         Height = 24
-        Hint = 'Tag(s) (Suchworte) für mehrere Bilder setzen'#10'geben Sie die Tags im nachfolgenden Dialog an'#10'Danach klicken Sie alle Bilder an die den Tag '#10'enthalten sollen.'#10'Wenn Sie fertig sind deaktivieren Sie den Knopf'
         Top = 15
         Width = 24
+        Action = acSetTag
         AllowAllUp = True
-        Caption = 'acSetTag'
         Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
@@ -419,11 +418,10 @@ inherited fManageDocFrame: TfManageDocFrame
       object bTag1: TSpeedButton
         Left = 29
         Height = 24
-        Hint = 'Datum für mehrere Bilder setzen'#10'geben Sie das Datum im nachfolgenden Dialog an'#10'Danach klicken Sie alle Bilder an die das Datum '#10'enthalten sollen.'#10'Wenn Sie fertig sind deaktivieren Sie den Knopf'
         Top = 15
         Width = 24
+        Action = acSetDate
         AllowAllUp = True
-        Caption = 'acSetTag'
         Flat = True
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
@@ -463,7 +461,6 @@ inherited fManageDocFrame: TfManageDocFrame
         }
         GroupIndex = 115
         Layout = blGlyphTop
-        OnClick = bTag1Click
         ShowCaption = False
       end
       object pToolbar: TPanel
@@ -1140,7 +1137,7 @@ inherited fManageDocFrame: TfManageDocFrame
       OnExecute = acRefreshExecute
     end
     object acSetTag: TAction
-      Caption = 'acSetTag'
+      Caption = 'Tag (Stichwort/Markierung) hinzufügen'
       OnExecute = acSetTagExecute
     end
     object acRebuildThumb: TAction
@@ -1233,6 +1230,10 @@ inherited fManageDocFrame: TfManageDocFrame
       Hint = 'Dokument optimieren'
       ImageIndex = 40
       OnExecute = acOptimizeDocumentExecute
+    end
+    object acSetDate: TAction
+      Caption = 'Original Datum setzen'
+      OnExecute = acSetDateExecute
     end
   end
   object pmPopup: TPopupMenu[6]
@@ -1397,6 +1398,9 @@ inherited fManageDocFrame: TfManageDocFrame
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
+    end
+    object MenuItem11: TMenuItem
+      Action = acSetTag
     end
     object MenuItem5: TMenuItem
       Action = acRename
