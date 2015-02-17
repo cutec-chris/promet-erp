@@ -724,7 +724,6 @@
       </Item22>
       <Item23>
         <Name Value="EComponentError"/>
-        <Enabled Value="False"/>
       </Item23>
       <Item24>
         <Name Value="RunError(216)"/>
