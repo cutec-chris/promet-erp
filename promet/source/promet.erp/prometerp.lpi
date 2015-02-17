@@ -382,6 +382,7 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -608,7 +609,6 @@
       <Unit46>
         <Filename Value="uallobjects.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uAllObjects"/>
       </Unit46>
     </Units>
   </ProjectOptions>
@@ -732,7 +732,6 @@
       </Item22>
       <Item23>
         <Name Value="EComponentError"/>
-        <Enabled Value="False"/>
       </Item23>
       <Item24>
         <Name Value="RunError(216)"/>
