@@ -1070,10 +1070,10 @@ begin
   //---Standard-CAPAs--------------------------------
   capabilities := 'IMAP4rev1 '
   //+ 'AUTH=CRAM-SHA1 ' +
-  //  'AUTH=CRAM-MD5 '   //JW //IMAP-Auth
-  //  + 'AUTH=DIGEST-MD5 ' //JW //SASL-DIGEST
-    + 'IDLE '            //HSR //IDLE
-    + 'LITERAL+ ';        //HSR //Literal+
+  //  'AUTH=CRAM-MD5 '
+    + 'AUTH=DIGEST-MD5 '
+    + 'IDLE '
+    + 'LITERAL+ ';
 
 
   //---Bedingte CAPAs--------------------------------
@@ -1094,8 +1094,8 @@ begin
 
   //if Def_IMAP_DisableLogin then //HSR //LOGINDISABLED
   //  capabilities := capabilities + 'LOGINDISABLED ';
-  //if  UseIMAPID then
-  //  capabilities := capabilities + 'ID ';
+  if  UseIMAPID then
+    capabilities := capabilities + 'ID ';
 
   //---Sending---------------------------------------
   SendRes(AThread,'CAPABILITY ' + trim(capabilities));

@@ -7,9 +7,17 @@ unit threadedimageLoader;
 interface
 
 uses
-  Classes, SysUtils, contnrs, types, syncobjs, Forms, Graphics, GraphType, FPimage;
+  Classes, SysUtils, contnrs, types, syncobjs, Forms, Graphics, GraphType,
+  FPimage;
 
 type
+  TRGBAQuad = record
+    Blue:  Byte;
+    Green: Byte;
+    Red:   Byte;
+    Alpha: Byte;
+  end;
+  PRGBAQuad = ^TRGBAQuad;
 
   EThreadedImageLoaderError = class(Exception);
   TLoadState = (lsEmpty, lsLoading, lsLoaded, lsError);
@@ -40,7 +48,7 @@ type
     FThread: TLoaderThread;
     FRect: TRect;
     FWidth: integer;
-    fSelectMask: Integer;
+    fSelectColor: TColor;
     FMultiThreaded: Boolean;
     function GetImage: TFPMemoryImage;
     function GetName: string;
@@ -109,8 +117,10 @@ type
     FOnLoadPointer: TNotifyEvent;
     FReload: Boolean;
     FMaxThreads: integer;
-    fSelectMask: Integer;
     FThreadsFree: integer;
+    fSelectColor: TColor;
+    fThumbFrameWith: Integer;
+    fCaptionHeight: Integer;
     procedure NextInQueue;
     procedure ThreadDone(Sender: TObject);
     procedure ThreadStart(Sender: TObject);
@@ -150,7 +160,9 @@ type
     property ActiveIndexSelect: integer read FActiveIndex write SetActiveIndexAndChangeSelected;
     property ActiveIndexSelectBetween: integer read FActiveIndex write SetActiveIndexAndSelectBetween;
     property ActiveItem: TThreadedImage read GetActiveItem;
-    property SelectMask: Integer read fSelectMask write FSelectMask;
+    property SelectColor: TColor read fSelectColor write fSelectColor;
+    property CaptionHeight: Integer read fCaptionHeight write fCaptionHeight;
+    property ThumbFrameWith: Integer read fThumbFrameWith write fThumbFrameWith;
   published
     property OnNeedRepaint: TNotifyEvent read FOnNeedRepaint write FOnNeedRepaint;
     property OnLoadURL: TNotifyEvent read FOnLoadURL write FOnLoadURL;
@@ -227,14 +239,22 @@ begin
 end;
 
 procedure TThreadedImage.CreateSelectedBitmap;
+const
+  A=127;
 var
   i: Integer;
-  PixelPtr,pri: PInteger;
+  PixelPtr,pri: PRGBAQuad;
   RawImage,ri: TRawImage;
-  BytePerPixel,s: Integer;
+  BytePerPixel: Integer;
+  aR,ag,aB: Word;
+
 begin
   // SelectedBitmap erstellen
   if Assigned(FBitmap) then begin
+    aR:=Red(fSelectColor)*(255-A);
+    aG:=Green(fSelectColor)*(255-A);
+    aB:=Blue(fSelectColor)*(255-A);
+
     if not Assigned(FBitmapSelected) then FBitmapSelected := TBitmap.Create;
     FBitmapSelected.Width:=FBitmap.Width;
     FBitmapSelected.Height:=FBitmap.Height;
@@ -246,10 +266,14 @@ begin
       RawImage:=FBitmapSelected.RawImage;
       BytePerPixel:=RawImage.Description.BitsPerPixel div 8;
       if BytePerPixel=4 then begin;
-        pri:=Pinteger(ri.Data);
-        PixelPtr:=PInteger(RawImage.Data);
+        pri:=PRGBAQuad(ri.Data);
+        PixelPtr:=PRGBAQuad(RawImage.Data);
         for i := 0 to (RawImage.Description.Height*RawImage.Description.Width)-1 do begin
-          PixelPtr^:=(pri^ and fSelectMask);
+
+          PixelPtr^.Red:=((pri^.Red*A)+aR) shr 8;
+          PixelPtr^.Green:=((pri^.Green*A)+aG) shr 8;
+          PixelPtr^.Blue:=((pri^.Blue*A)+aB) shr 8;
+
           inc(PixelPtr);
           inc(pri);
         end;
@@ -259,6 +283,41 @@ begin
     end;
  end;
 end;
+
+
+//procedure TThreadedImage.CreateSelectedBitmap;
+//var
+//  i: Integer;
+//  PixelPtr,pri: PInteger;
+//  RawImage,ri: TRawImage;
+//  BytePerPixel: Integer;
+//begin
+//  // SelectedBitmap erstellen
+//  if Assigned(FBitmap) then begin
+//    if not Assigned(FBitmapSelected) then FBitmapSelected := TBitmap.Create;
+//    FBitmapSelected.Width:=FBitmap.Width;
+//    FBitmapSelected.Height:=FBitmap.Height;
+//    FBitmapSelected.PixelFormat:=FBitmap.PixelFormat;
+//
+//    try
+//      FBitmapSelected.BeginUpdate(False);
+//      ri:=FBitmap.RawImage;
+//      RawImage:=FBitmapSelected.RawImage;
+//      BytePerPixel:=RawImage.Description.BitsPerPixel div 8;
+//      if BytePerPixel=4 then begin;
+//        pri:=Pinteger(ri.Data);
+//        PixelPtr:=PInteger(RawImage.Data);
+//        for i := 0 to (RawImage.Description.Height*RawImage.Description.Width)-1 do begin
+//          PixelPtr^:=(pri^ and fSelectMask);
+//          inc(PixelPtr);
+//          inc(pri);
+//        end;
+//      end;
+//    finally
+//      FBitmapSelected.EndUpdate(False);
+//    end;
+// end;
+//end;
 
 function TThreadedImage.GetRect: TRect;
 begin
@@ -340,7 +399,7 @@ begin
     begin
       if Assigned(FOnLoadPointer) then OnLoadPointer(Self)
       else if Assigned(fOnLoadURL) then OnLoadURL(Self)
-      else Image.LoadFromFile(URL);
+      else if FileExists(URL) then Image.LoadFromFile(URL);
       ThreadTerm(Self);
     end else
       begin
@@ -378,7 +437,7 @@ begin
     fRef.OnLoadPointer(fRef);
   end else if Assigned(fRef.OnLoadURL) then begin
     fRef.OnLoadURL(fRef);
-  end else begin
+  end else if FileExists(fRef.URL) then begin
     fRef.Image.LoadFromFile(fRef.URL);
   end;
 end;
@@ -410,9 +469,7 @@ begin
   FFreeInvisibleImage := false;
   FMaxThreads := 8;
   FThreadsFree := FMaxThreads;
-  fSelectMask:=$ffbfbf;
-  FOnLoadPointer:=nil;
-  FOnLoadURL:=nil;
+  fSelectColor:=$ffbfbf;
 end;
 
 destructor TImageLoaderManager.Destroy;
@@ -439,13 +496,13 @@ function TImageLoaderManager.AddThreadedImage(Image: TThreadedImage): Integer;
 begin
   Image.FMultiThreaded := FMultiThreaded;
   if Assigned(FOnLoadURL) then Image.OnLoadURL := FOnLoadURL;
-  Image.OnLoadPointer := FOnLoadPointer;
-  Image.OnNeedRepaint := FOnNeedRepaint;
+  if Assigned(FOnLoadPointer) then Image.OnLoadPointer := FOnLoadPointer;
+  if Assigned(FOnNeedRepaint) then Image.OnNeedRepaint := FOnNeedRepaint;
   Image.OnThreadDone := @ThreadDone;
   Image.OnThreadStart := @ThreadStart;
   Image.OnSelect:=@ImageSelected;
   Image.OnDeselect:=@ImageDeselected;
-  Image.fSelectMask:=fSelectMask;
+  Image.fSelectColor:=fSelectColor;
   Result:=FList.Add(Image);
 end;
 
@@ -646,17 +703,17 @@ var i: integer;
   aRect: TRect;
 begin
   Result := -1;
-  for i := 0 to fList.Count - 1 do
-    if TThreadedImage(fList[i]).LoadState = lsLoaded then
-    begin
+  for i := 0 to fList.Count - 1 do begin
+    if TThreadedImage(fList[i]).LoadState = lsLoaded then begin
       aRect := TThreadedImage(fList[i]).Rect;
-      OffsetRect(aRect, TThreadedImage(fList[i]).Area.Left, TThreadedImage(fList[i]).Area.Top);
-      if PtInRect(aRect, Point) then
-      begin
+      InflateRect(aRect,fThumbFrameWith,fThumbFrameWith);
+      aRect.Bottom:=aRect.Bottom+fCaptionHeight;
+      if PtInRect(aRect, Point) then begin
         Result := i;
-        break;
+        Break;
       end;
     end;
+  end;
 end;
 
 function TImageLoaderManager.ItemFromPoint(Point: TPoint): TThreadedImage;
@@ -725,4 +782,4 @@ finalization
   CS.Free;
 
 
-end.
+end.
