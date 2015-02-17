@@ -46,6 +46,9 @@ type
     acRights: TAction;
     acPrint: TAction;
     acCombineItems: TAction;
+    acPasteImage: TAction;
+    acAddImage: TAction;
+    acScreenshot: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bChangeNumber: TSpeedButton;
@@ -110,6 +113,9 @@ type
     pNav1: TPanel;
     pPreviewImage: TPanel;
     Report: TfrReport;
+    sbAddImage: TSpeedButton;
+    sbClipboardToImage: TSpeedButton;
+    sbClipboardToImage1: TSpeedButton;
     sbMenue: TSpeedButton;
     sbMenue1: TSpeedButton;
     ToolBar1: TPanel;
@@ -124,9 +130,11 @@ type
     procedure acExportExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
     procedure acNewOrderExecute(Sender: TObject);
+    procedure acPasteImageExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure acScreenshotExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
     procedure AddNewEmployee(Sender: TObject);
     procedure bChangeNumberClick(Sender: TObject);
@@ -182,7 +190,7 @@ uses uData, uPerson, uBaseVisualControls, uBaseDBInterface, uAddressFrame,
   LCLIntf,uDocuments,uListFrame,uTextFrame,uMainTreeFrame,uSearch,
   uOrderFrame,uOrder,VpData,uCalendarFrame, uImpVCard,uPrometFramesInplace,
   uNRights,uSelectReport,uBaseVisualApplication,uWiki,uWikiFrame,
-  uLanguageUtils;
+  uLanguageUtils,uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication;
 {$R *.lfm}
 resourcestring
   strAddress                    = 'Adresse';
@@ -502,6 +510,73 @@ begin
         end;
     end;
 end;
+
+procedure TfPersonFrame.acScreenshotExecute(Sender: TObject);
+var
+  aSheet: TTabSheet;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
+begin
+  Application.ProcessMessages;
+  Application.MainForm.Hide;
+  Application.ProcessMessages;
+  Application.CreateForm(TfScreenshot,fScreenshot);
+  with BaseApplication as IBaseApplication do
+    fScreenshot.SaveTo:=AppendPathDelim(GetInternalTempDir)+'screenshot.jpg';
+  fScreenshot.Show;
+  while fScreenshot.Visible do Application.ProcessMessages;
+  fScreenshot.Destroy;
+  fScreenshot := nil;
+  if DataSet.State=dsInsert then
+    begin
+      DataSet.Post;
+      DataSet.Edit;
+    end;
+  pcPages.AddTab(TfImageFrame.Create(Self),False);
+  aSheet := pcPages.GetTab(TfImageFrame);
+  if Assigned(aSheet) then
+    begin
+      Application.ProcessMessages;
+      with TfImageFrame(aSheet.Controls[0]) do
+        begin
+          if not DataSet.CanEdit then
+            DataSet.Insert;
+          with BaseApplication as IBaseApplication do
+            iPreview.Picture.LoadFromFile(AppendPathDelim(GetInternalTempDir)+'screenshot.jpg');
+          DataSet.Post;
+        end;
+      aThumbnails := TThumbnails.Create(nil);
+      aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+      aThumbnails.Open;
+      while aThumbnails.Count>0 do
+        aThumbnails.Delete;
+      TPerson(DataSet).GenerateThumbnail;
+      aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+      aThumbnails.Open;
+      if aThumbnails.Count>0 then
+        begin
+          aStream := TMemoryStream.Create;
+          Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+          aStream.Position:=0;
+          iPerson.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+          aStream.Free;
+          acPasteImage.Visible:=False;
+          acAddImage.Visible:=False;
+          acScreenshot.Visible:=False;
+        end
+      else
+        begin
+          iPerson.Picture.Clear;
+          acPasteImage.Visible:=True;
+          acAddImage.Visible:=True;
+          acScreenshot.Visible:=True;
+        end;
+      aThumbnails.Free;
+    end;
+
+  Application.MainForm.Show;
+end;
+
 procedure TfPersonFrame.acSetTreeDirExecute(Sender: TObject);
 begin
   if fMainTreeFrame.GetTreeEntry = -1 then exit;
@@ -600,6 +675,7 @@ begin
     end;
   aOrderType.Destroy;
 end;
+
 procedure TfPersonFrame.acCloseExecute(Sender: TObject);
 begin
   CloseFrame;
@@ -680,6 +756,52 @@ begin
   TOrder(aFrame.DataSet).Address.Assign(DataSet);
   aFrame.RefreshAddress;
   aFrame.GotoPosition;
+end;
+
+procedure TfPersonFrame.acPasteImageExecute(Sender: TObject);
+var
+  aSheet: TTabSheet;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
+begin
+  if Clipboard.HasPictureFormat then
+    begin
+      pcPages.AddTab(TfImageFrame.Create(Self),False);
+      aSheet := pcPages.GetTab(TfImageFrame);
+      if Assigned(aSheet) then
+        begin
+          Application.ProcessMessages;
+          TfImageFrame(aSheet.Controls[0]).acPaste.Execute;
+          TfImageFrame(aSheet.Controls[0]).DataSet.Post;
+          aThumbnails := TThumbnails.Create(nil);
+          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+          aThumbnails.Open;
+          while aThumbnails.Count>0 do
+            aThumbnails.Delete;
+          TPerson(DataSet).GenerateThumbnail;
+          aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+          aThumbnails.Open;
+          if aThumbnails.Count>0 then
+            begin
+              aStream := TMemoryStream.Create;
+              Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+              aStream.Position:=0;
+              iPerson.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+              aStream.Free;
+              acPasteImage.Visible:=False;
+              acAddImage.Visible:=False;
+              acScreenshot.Visible:=False;
+            end
+          else
+            begin
+              iPerson.Picture.Clear;
+              acPasteImage.Visible:=True;
+              acAddImage.Visible:=True;
+              acScreenshot.Visible:=True;
+            end;
+          aThumbnails.Free;
+        end;
+    end;
 end;
 
 procedure TfPersonFrame.acPrintExecute(Sender: TObject);
@@ -879,6 +1001,8 @@ var
   aWikiPage: TfWikiFrame;
   aWikiIdx: Integer;
   aID: String;
+  aThumbnails: TThumbnails;
+  aStream: TMemoryStream;
 begin
   FContList.pTop.Hide;
   FContList.Editable:=True;
@@ -963,23 +1087,34 @@ begin
   TPerson(DataSet).History.Open;
   if TPerson(DataSet).History.Count > 0 then
     pcPages.AddTab(TfHistoryFrame.Create(Self),False);
-  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
   if not TPerson(DataSet).Images.DataSet.Active then
     TPerson(DataSet).Images.DataSet.Open;
-  s := TPerson(DataSet).Images.DataSet.CreateBlobStream(TPerson(DataSet).Images.FieldByName('IMAGE'),bmRead);
-  if (S=Nil) or (s.Size = 0) then
+  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
+  if (FDataSet.State = dsInsert) or (TPerson(DataSet).Images.Count > 0) then
+    pcPages.AddTab(TfImageFrame.Create(Self),False);
+  TPerson(DataSet).Images.DataSet.Close;
+  aThumbnails := TThumbnails.Create(nil);
+  aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+  aThumbnails.Open;
+  if aThumbnails.Count>0 then
     begin
-      iPerson.Picture.Clear;
+      aStream := TMemoryStream.Create;
+      Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
+      aStream.Position:=0;
+      iPerson.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
+      aStream.Free;
+      acPasteImage.Visible:=False;
+      acAddImage.Visible:=False;
+      acScreenshot.Visible:=False;
     end
   else
     begin
-      GraphExt :=  s.ReadAnsiString;
-      iPerson.Picture.LoadFromStreamWithFileExt(s,GraphExt);
+      iPerson.Picture.Clear;
+      acPasteImage.Visible:=True;
+      acAddImage.Visible:=True;
+      acScreenshot.Visible:=True;
     end;
-  s.Free;
-  if TPerson(DataSet).Images.Count > 0 then
-    pcPages.AddTab(TfImageFrame.Create(Self),False);
-  TPerson(DataSet).Images.DataSet.Close;
+  aThumbnails.Free;
   pcPages.AddTabClass(TfPersonFinance,strFinance,@AddFinance);
   TPerson(DataSet).Banking.Open;
   if TPerson(DataSet).Banking.Count > 0 then
