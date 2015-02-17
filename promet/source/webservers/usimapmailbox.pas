@@ -81,6 +81,7 @@ type
 
     property Messages : Integer read FMessages;
     property Recent : Integer read FRecent;
+    property Unseen : Integer read FUnseen;
 
     constructor Create(APath: string);
     destructor Destroy; override;

@@ -879,6 +879,7 @@ begin
               aParent := TWinControl(Sender);
               FProps := TStringList.Create;
               FFields := TStringList.Create;
+              TFrame(Sender).Visible:=False;
               while (not (aParent is TExtControlFrame)) and Assigned(aParent) do
                 aParent := aParent.Parent;
               try
@@ -949,7 +950,8 @@ begin
                           end
                         else if (aComponent is TLabel) then
                           begin
-                            TLabel(aComponent).BringToFront;
+                            //TWinControl(aComponent).Parent := tFrame(Sender);
+                            //TLabel(aComponent).BringToFront;
                           end
                         ;
                       end;
@@ -1164,4 +1166,4 @@ initialization
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
 end.
-
+

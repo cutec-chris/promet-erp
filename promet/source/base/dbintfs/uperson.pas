@@ -136,10 +136,11 @@ type
     property Info : TField read GetInfo;
     function SelectFromLink(aLink : string) : Boolean;override;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
+    procedure GenerateThumbnail; override;
   end;
 
 implementation
-uses uBaseDBInterface, uBaseSearch, uBaseApplication, uData, Utils;
+uses uBaseDBInterface, uBaseSearch, uBaseApplication, uData, Utils,uthumbnails;
 
 procedure TPersonEmployees.DefineFields(aDataSet: TDataSet);
 begin
@@ -792,6 +793,20 @@ begin
   if not Result then
     Result := inherited SelectFromLink(aLink);
 end;
+
+procedure TPerson.GenerateThumbnail;
+var
+  aThumbnail: TThumbnails;
+begin
+  aThumbnail := TThumbnails.CreateEx(nil,DataModule);
+  aThumbnail.CreateTable;
+  aThumbnail.SelectByRefId(Self.Id.AsVariant);
+  aThumbnail.Open;
+  if aThumbnail.Count=0 then
+    Images.GenerateThumbnail(aThumbnail);
+  aThumbnail.Free;
+end;
+
 procedure TPerson.CascadicPost;
 begin
   FHistory.CascadicPost;

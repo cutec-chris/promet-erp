@@ -14,32 +14,47 @@ type
 
   TSImapServer = class(TSTcpServer)
   private
+    HierarchyDelimiter : Char;
     CurrentUserName: String;
     CurrentTag: string;
     FIMAPDelay: Integer;
     FIMAPNCBrain: Boolean;
+    FLocalTimeoutQuitDelay: Integer;
+    fReadOnly: Boolean;
     FUseIMAPID: Boolean;
     Selected: TImapMailbox;
     CS_THR_IDLE: TRTLCriticalSection;
     SendExpunge: array of integer;
     SendNewMessages: boolean;
     IdleState: boolean;
+    SelNotify       : pIMAPNotification;
 
     procedure LogRaw(AThread: TSTcpThread; Txt: string);
     procedure SendData(AThread: TSTcpThread; const AText: string);
+    procedure SendResult(AThread: TSTcpThread; const ATxt: string);
     procedure SendResLit(AThread: TSTcpThread; Txt: string);
     procedure SendResTag(AThread: TSTcpThread; Txt: string);
     procedure SendRes(AThread: TSTcpThread; Txt: string);
     function SendRequest(AThread: TSTcpThread; const AText: string) : string;
+    function SafeString( Path: String ): Boolean;
+    function LoginUser(AThread: TSTcpThread;  Password: String; AuthMechanism : String ): String;
 
-    function  MBSelect( Mailbox: string; ReadOnly : Boolean ): boolean;
-    function  MBCreate( Mailbox: string ): boolean;
-    function  MBDelete( Mailbox: string ): boolean;
-    function  MBExists( var Mailbox: string ): boolean;
-    function  MBRename( OldName, NewName: String ): Boolean;
-    function  MBLogin(  var Mailbox: TImapMailbox; Path: String; LINotify : Boolean ): Boolean; //HSR //IDLE (Chg)
-    procedure MBLogout( var Mailbox: TImapMailbox; LOSel : Boolean ); //HSR //IDLE (Chg)
+    function  MBSelect( Mailbox: string; ReadOnly : Boolean ): boolean; virtual;
+    function  MBCreate( Mailbox: string ): boolean; virtual;
+    function  MBDelete( Mailbox: string ): boolean; virtual;
+    function  MBExists( var Mailbox: string ): boolean; virtual;
+    function  MBRename( OldName, NewName: String ): Boolean; virtual;
+    function  MBLogin(  var Mailbox: TImapMailbox; Path: String; LINotify : Boolean ): Boolean; virtual;
+    procedure MBLogout( var Mailbox: TImapMailbox; LOSel : Boolean ); virtual;
+    procedure DoSearch( UseUID: Boolean; Par: String ); virtual;
+    procedure DoCopy( MsgSet: TMessageSet; Command, Destination: String );virtual;
+    procedure DoStore( MsgSet: TMessageSet; Command, Par: String );virtual;
+    procedure DoFetch( MsgSet: TMessageSet; Command, Par: String );virtual;
+    procedure DoList( Par: String; LSub: Boolean ); virtual;
+    procedure DoSubscribe( Par: String);virtual;
+    procedure DoUnSubscribe( Par: String);virtual;
 
+    function  HandleData(AThread : TSTcpThread;BufInStrm : string): String;
     procedure HandleCommand(AThread: TSTcpThread; const CmdLine: string);
 
     procedure Cmd_APPEND(AThread: TSTcpThread;Par: string);
@@ -81,12 +96,14 @@ type
     property IMAPDelay : Integer read FIMAPDelay write FIMAPDelay;
     property UseIMAPID : Boolean read FUseIMAPID write FUseIMAPID;
     property IMAPNCBrain : Boolean read FIMAPNCBrain write FIMAPNCBrain;
+    property LocalTimeoutQuitDelay : Integer read FLocalTimeoutQuitDelay write FLocalTimeoutQuitDelay;
+    property ReadOnly : Boolean read fReadOnly write fReadOnly;
   published
   end;
 
 implementation
 
-uses uBaseApplication,base64;
+uses uBaseApplication,base64,uSha1;
 
 resourcestring
   SIMAPWelcomeMessage = 'service ready';
@@ -677,6 +694,43 @@ begin
     end;
 end;
 
+function ExtractQuotedParameter(container,parameter:string):string;
+begin
+  result:='';
+  // parameter in container not present
+  if pos(parameter,container)=0 then exit;
+  parameter:=trim(parameter);
+  container:=trim(container);
+  repeat
+    // check the first parameter in container
+    if copy(container+'=',1,length(parameter)+1)=parameter+'=' then begin
+      result:=copy(container,length(parameter)+2,length(container));
+      if result[1]='"' then begin   // check if dequoting required
+        result:=copy(result,2,length(result)-1) ;
+        result:=copy(result,1,pos('"',result)-1);
+      end else
+        // if not end of container cut the parameter
+        if pos(',',result)<>0 then
+          result:=copy(result,1,pos(',',result)-1);
+      exit;
+    end else
+    // check if exist a next parameter
+    if (pos('"',container)>0) and
+        (pos(',',container)>pos('"',container)) then begin
+      // remove current qoutet parameter
+      container:=copy(container,pos('"',container)+1,length(container));
+      container:=copy(container,pos('"',container)+1,length(container));
+      if pos(',',container)>0 then // remove seprtor ","
+        container:=copy(container,pos(',',container)+1,length(container));
+    end else
+    // remove currend unquotet parameter
+    if pos(',',container)=0 then
+      container:=''
+    else
+      container:=copy(container,pos(',',container)+1,length(container));
+  until  container=''
+end;
+
 procedure TSImapServer.Cmd_AUTHENTICATE(AThread: TSTcpThread; Par: string); //JW //IMAP-Auth
 var
   realm, nonce, cnonce, qop, username, nc, realm2, digesturi, response,
@@ -723,24 +777,24 @@ begin
       end;
       s := DecodeStringBase64(s);
       CurrentUserName := '';
-      //SendResTag(AThread,LoginUser(s, 'LOGIN'));
+      SendResTag(AThread,LoginUser(AThread,s, 'LOGIN'));
     end
     else
       if (par = 'PLAIN') {and Assigned(SSL)} then
       begin
-        TimeStamp := MidGenerator(Def_FQDNforMIDs);
-        s := '+ ' + EncodeB64(TimeStamp[1], length(TimeStamp));
-        s := SendRequest(s);
+        //TODO:TimeStamp := MidGenerator(Def_FQDNforMIDs);
+        s := '+ ' + EncodeStringBase64(TimeStamp);
+        s := SendRequest(AThread,s);
         if s = '' then
         begin
           //LogRaw(LOGID_DETAIL, 'Auth LOGIN protocoll error');
-          SendResTag('NO Authentification failed!');
+          SendResTag(AThread,'NO Authentification failed!');
           Exit;
         end;
         if s = '*' then
         begin
           //LogRaw(LOGID_DETAIL, 'Auth LOGIN cancel by client');
-          SendResTag('BAD Authentification failed!');
+          SendResTag(AThread,'BAD Authentification failed!');
           Exit;
         end;
         s := DecodeStringBase64(s);
@@ -749,71 +803,72 @@ begin
           pos(#0, CurrentUserName) + 1, 500));
         CurrentUserName := TrimWhSpace(
           copy(CurrentUserName, 1, pos(#0, CurrentUserName) - 1));
-        CurrentUserID := ACTID_INVALID;
-        SendResTag(LoginUser(s, 'PLAIN'));
+        CurrentUserName := '';
+        SendResTag(AThread,LoginUser(AThread,s, 'PLAIN'));
       end
       else
-
+        {
         if Par = 'DIGEST-MD5' then
         begin
           // build challenge
-          if Def_FQDN <> '' then
-            realm := Def_FQDN
-          else
+          //if Def_FQDN <> '' then
+          //  realm := Def_FQDN
+          //else
             realm := 'localhost';
           s := 'realm="' + realm + '"';
-          nonce := HMAC_SHA1(nonce, IntToHex(PRNG(MaxInt), 8) +
-            IntToHex(PRNG(MaxInt), 8) + IntToHex(PRNG(MaxInt), 8) +
-            IntToHex(PRNG(MaxInt), 8));
-          nonce := EncodeB64(nonce[1], length(nonce));
+          Randomize;
+          nonce := HMAC_SHA1(nonce, IntToHex(Random(MaxInt), 8) +
+            IntToHex(Random(MaxInt), 8) + IntToHex(Random(MaxInt), 8) +
+            IntToHex(Random(MaxInt), 8));
+          nonce := EncodeStringBase64(nonce);
           s := s + ',' + 'nonce="' + nonce + '"';
           qop := 'auth';
           s := s + ',' + 'qop="' + qop + '"';
           s := s + ',' + 'algorithm=' + 'md5-sess';
-          LogRaw(LOGID_DEBUG, 'DIGEST-MD5 challenge: ' + s);
-          s := EncodeB64(s[1], length(s));
+          s := EncodeStringBase64(s);
           // send challenge, get response
-          s := SendRequest('+ ' + s);
+          s := SendRequest(AThread,'+ ' + s);
           if s = '' then
           begin
-            Log(LOGID_Error, 'Server.EmptyResponeReceived', 'empty response received');
-            SendResTag('BAD Authentification failed!');
+            with BaseApplication as IBaseApplication do
+              Error('empty response received');
+            SendResTag(AThread,'BAD Authentification failed!');
             exit;
           end;
           // check response, extract values
-          s := DecodeB64(s[1], length(s));
-          LogRaw(LOGID_DEBUG, 'DIGEST-MD5 response: ' + s);
+          s := DecodeStringBase64(s);
           // check username
           username := ExtractQuotedParameter(s, 'username');
           if username = '' then
           begin
-            Log(LOGID_Error, 'Server.MissingUsernameInAnswer',
-              'missing username in answer');
-            SendResTag('BAD Authentification failed!');
+            with BaseApplication as IBaseApplication do
+              Error('missing username in answer');
+            SendResTag(AThread,'BAD Authentification failed!');
             exit;
           end;
           CurrentUserName := trim(username);
-          CurrentUserID := ACTID_INVALID;
           nonce := ExtractQuotedParameter(s, 'nonce');
           if nonce = '' then
           begin
-            Log(LOGID_Error, 'Server.MissingNonceInAnswer', 'missing nonce in answer');
-            SendResTag('BAD Authentification failed!');
+            with BaseApplication as IBaseApplication do
+              Error('missing nonce in answer');
+            SendResTag(AThread,'BAD Authentification failed!');
             exit;
           end;
           cnonce := ExtractQuotedParameter(s, 'cnonce');
           if cnonce = '' then
           begin
-            Log(LOGID_Error, 'Server.MissingCnonceInAnswer',
-              'missing cnonce in answer');
-            SendResTag('BAD Authentification failed!');
+            with BaseApplication as IBaseApplication do
+              Error('missing cnonce in answer');
+            SendResTag(AThread,'BAD Authentification failed!');
             exit;
           end;
           nc := ExtractQuotedParameter(s, 'nc');
           if nc <> '00000001' then
           begin
-            Log(LOGID_Error, 'Server.WrongNCValue', 'wrong nc value');
-            SendResTag('BAD Authentification failed!');
+            with BaseApplication as IBaseApplication do
+              Error('wrong nc value');
+            SendResTag(AThread,'BAD Authentification failed!');
             exit;
           end;
           qop := ExtractQuotedParameter(s, 'qop');
@@ -822,48 +877,50 @@ begin
           else
             if (lowercase(qop) <> 'auth') then
             begin
-              Log(LOGID_Error, 'Server.UnsupportedHashQualityProtection',
-                'unsupported hash quality protection ´%s', qop);
-              SendResTag('BAD Authentification failed!');
+              with BaseApplication as IBaseApplication do
+                Error(Format('unsupported hash quality protection ´%s', [qop]));
+              SendResTag(AThread,'BAD Authentification failed!');
               exit;
             end;
           if pos('realm=', s) = 0 then
           begin
-            Log(LOGID_Error, 'Server.MissingRealmInAnswer', 'missing realm in answer');
-            SendResTag('BAD Authentification failed!');
+            with BaseApplication as IBaseApplication do
+              Error('missing realm in answer');
+            SendResTag(AThread,'BAD Authentification failed!');
             exit;
           end;
           realm2 := ExtractQuotedParameter(s, 'realm');
           if realm2 = '' then
           begin
-            Log(LOGID_Error, 'Server.MissingRealmInAnswer', 'missing realm in answer');
-            SendResTag('BAD Authentification failed!');
+            with BaseApplication as IBaseApplication do
+              Error('missing realm in answer');
+            SendResTag(AThread,'BAD Authentification failed!');
             exit;
           end;
           if realm2 <> realm then
           begin
-            Log(LOGID_Error, 'Server.WrongRealmInAnswer', 'wrong realm in answer');
-            SendResTag('BAD Authentification failed!');
+            with BaseApplication as IBaseApplication do
+              Error('wrong realm in answer');
+            SendResTag(AThread,'BAD Authentification failed!');
             exit;
           end;
           digesturi := ExtractQuotedParameter(s, 'digest-uri');
           response := ExtractQuotedParameter(s, 'response');
           if length(response) <> 32 then
           begin
-            Log(LOGID_Error, 'Server.WrongResponseLenInAnswer',
-              'wrong response length in answer');
-            SendResTag('BAD Authentification failed!');
+            with BaseApplication as IBaseApplication do
+              Error('wrong response length in answer');
+            SendResTag(AThread,'BAD Authentification failed!');
             exit;
           end;
           // build expected response and compare with received one
           try
-            CurrentUserID := CfgAccounts.Users.IDOf(CurrentUserName);
             if CurrentUserID = ACTID_INVALID then
             begin
-              Log(LOGID_Error, 'Server.Rejected.UnknownUser',
-                'login rejected, unknown user');
+              with BaseApplication as IBaseApplication do
+                Error('login rejected, unknown user');
               CurrentUserName := '';
-              SendResTag('BAD Authentification failed!');
+              SendResTag(AThread,'BAD Authentification failed!');
               exit;
             end;
             pass := CfgAccounts.Users.Find(CurrentUserID).Password;
@@ -875,15 +932,16 @@ begin
               ':' + MD5toHex(MD5OfStr(A2))));
             if s <> response then
             begin
-              Log(LOGID_Error, 'Server.Rejected.WrongResponseValue',
-                'login rejected, wrong response value');
+              with BaseApplication as IBaseApplication do
+                Error('login rejected, wrong response value');
               SendResTag('BAD Authentification failed!');
               CurrentUserName := '';
               CurrentUserID := ACTID_INVALID;
               exit;
             end;
           except
-            Log(LOGID_Error, 'Server.UnknownError', 'unknown error');
+            with BaseApplication as IBaseApplication do
+              Error('unknown error');
             SendResTag('BAD Authentification failed!');
             CurrentUserName := '';
             CurrentUserID := ACTID_INVALID;
@@ -895,10 +953,9 @@ begin
             ':' + nonce + ':' + nc + ':' + cnonce + ':' + qop + ':' +
             MD5toHex(MD5OfStr(A2))));
           s := 'rspauth=' + rspauth;
-          LogRaw(LOGID_DEBUG, 'DIGEST-MD5 rspauth: ' + s);
           s := EncodeB64(s[1], length(s));
           s := SendRequest('+ ' + s);
-          SendResTag(LoginUser(pass, 'DIGEST-MD5'));
+          SendResTag(AThread,LoginUser(pass, 'DIGEST-MD5'));
         end
         else
 
@@ -912,13 +969,11 @@ begin
             s := DecodeB64(s[1], length(s));
             if s = '' then
             begin
-              LogRaw(LOGID_DETAIL, 'Auth LOGIN protocoll error');
               SendResTag('NO Authentification failed!');
               Exit;
             end;
             if s = '*' then
             begin
-              LogRaw(LOGID_DETAIL, 'Auth LOGIN cancel by client');
               SendResTag('BAD Authentification failed!');
               Exit;
             end;
@@ -955,13 +1010,11 @@ begin
               s := DecodeB64(s[1], length(s));
               if s = '' then
               begin
-                LogRaw(LOGID_DETAIL, 'Auth LOGIN protocoll error');
                 SendResTag('NO Authentification failed!');
                 Exit;
               end;
               if s = '*' then
               begin
-                LogRaw(LOGID_DETAIL, 'Auth LOGIN cancel by client');
                 SendResTag('BAD Authentification failed!');
                 Exit;
               end;
@@ -988,22 +1041,21 @@ begin
               end;
             end
             else
+            }
             begin
               CurrentUserName := '';
-              CurrentUserID := ACTID_INVALID;
-              SendResTag('NO Unknown AUTH mechanism ' + par);
-              Log(LOGID_WARN, 'Server.unknownAUTHmechanism',
-                'Unknown AUTH mechanism %s', par);
+              SendResTag(AThread,'NO Unknown AUTH mechanism ' + par);
             end;
   except
-    CurrentUserID := ACTID_INVALID;
     CurrentUserName := '';
   end;
-  if CurrentUserID = ACTID_INVALID then
+  {
+  if CurrentUserName = '' then
     Log(LOGID_WARN, 'IMAPServer.authenticate.failed', 'IMAP: AUTHENTICATE: Failed')
   else
     Log(LOGID_INFO, 'IMAPServer.authenticate.ok',
       'IMAP: AUTHENTICATE: User %s logged in', CurrentUserName);
+  }
 end;
 
 procedure TSImapServer.Cmd_CAPA(AThread: TSTcpThread; Par: string);
@@ -1012,58 +1064,50 @@ var
 begin
   if par <> '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.capa.tooManyArgs', 'IMAP: CAPA: Too many arguments!');
-    SendResTag('BAD I don''t know parameters for CAPABILITY!');
+    SendResTag(AThread,'BAD I don''t know parameters for CAPABILITY!');
     exit;
   end;
   //---Standard-CAPAs--------------------------------
-  capabilities := 'IMAP4rev1 ' + 'AUTH=CRAM-SHA1 ' +
-    'AUTH=CRAM-MD5 '   //JW //IMAP-Auth
-    + 'AUTH=DIGEST-MD5 ' //JW //SASL-DIGEST
+  capabilities := 'IMAP4rev1 '
+  //+ 'AUTH=CRAM-SHA1 ' +
+  //  'AUTH=CRAM-MD5 '   //JW //IMAP-Auth
+  //  + 'AUTH=DIGEST-MD5 ' //JW //SASL-DIGEST
     + 'IDLE '            //HSR //IDLE
     + 'LITERAL+ ';        //HSR //Literal+
 
 
   //---Bedingte CAPAs--------------------------------
-  if Def_IMAPNCBrain then
-    capabilities := capabilities + 'X-NETSCAPE ';     //HSR //NCBrain
+  //if  Def_IMAPNCBrain then
+  //  capabilities := capabilities + 'X-NETSCAPE ';     //HSR //NCBrain
 
-  if not Def_IMAP_DisableSASLLogin then
-    capabilities := capabilities + 'AUTH=LOGIN '; //JW //IMAP-Auth
+  capabilities := capabilities + 'AUTH=LOGIN '; //JW //IMAP-Auth
 
-  {MG}{SSL}
-  if not Assigned(SSLConnection) then
-  begin
-    if Assigned(SSLContext) then
-      capabilities := capabilities + 'STARTTLS ';
-    if (Def_LocalImapTlsMode = 2) and not Def_IMAP_DisableLogin then
-      //HSR //LOGINDISABLED
-      capabilities := capabilities + 'LOGINDISABLED ';
-  end
-  else
+//  if not Assigned(SSLConnection) then
+//    begin
+//      if Assigned(SSLContext) then
+//        capabilities := capabilities + 'STARTTLS ';
+//      if (Def_LocalImapTlsMode = 2) and not Def_IMAP_DisableLogin then
+//        capabilities := capabilities + 'LOGINDISABLED ';
+//    end
+//  else
     capabilities := capabilities + 'AUTH=PLAIN ';
-  {/SSL}
 
-  if Def_IMAP_DisableLogin then //HSR //LOGINDISABLED
-    capabilities := capabilities + 'LOGINDISABLED ';
-
-  if Def_IMAP_ID then //JW //IMAP ID
-    capabilities := capabilities + 'ID ';
+  //if Def_IMAP_DisableLogin then //HSR //LOGINDISABLED
+  //  capabilities := capabilities + 'LOGINDISABLED ';
+  //if  UseIMAPID then
+  //  capabilities := capabilities + 'ID ';
 
   //---Sending---------------------------------------
-  SendRes('CAPABILITY ' + trim(capabilities));
+  SendRes(AThread,'CAPABILITY ' + trim(capabilities));
 
-  LogRaw(LOGID_DETAIL, 'IMAP: Sent capabilities: ' + capabilities);
-  SendResTag('OK I''m ready sending capabilities!');
+  SendResTag(AThread,'OK I''m ready sending capabilities!');
 end;
 
 procedure TSImapServer.Cmd_CHECK(AThread: TSTcpThread; Par: string);
 begin
   if Par <> '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.check.tooManyArgs',
-      'IMAP: CHECK: Too many arguments!');
-    SendResTag('BAD I don''t know parameters for CHECK!');
+    SendResTag(AThread,'BAD I don''t know parameters for CHECK!');
   end
   else
   begin
@@ -1076,8 +1120,7 @@ begin
         Selected.Unlock;
       end;
     end;
-    LogRaw(LOGID_DETAIL, 'IMAP: CHECK');
-    SendResTag('OK CHECK completed.');
+    SendResTag(Athread,'OK CHECK completed.');
   end;
 end;
 
@@ -1085,23 +1128,18 @@ procedure TSImapServer.Cmd_CLOSE(AThread: TSTcpThread; Par: string);
 begin
   if Par <> '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.close.tooManyArgs',
-      'IMAP: CLOSE: Too many arguments!');
-    SendResTag('BAD I don''t know parameters for CLOSE!');
+    SendResTag(AThread,'BAD I don''t know parameters for CLOSE!');
   end
   else
   begin
     try
       if not Selected.MBReadOnly then
       begin //ClientRO
-        Log(LOGID_INFO, 'IMAPServer.capa.info',
-          'IMAP: Expunge (Close) of %s', Selected.Path);
         Selected.Expunge(SelNotify);
       end
     finally
       MBLogout(Selected, True);
-      LogRaw(LOGID_DETAIL, 'IMAP: CLOSE!');
-      SendResTag('OK Mailbox closed.');
+      SendResTag(AThread,'OK Mailbox closed.');
     end;
   end;
 end;
@@ -1114,14 +1152,10 @@ begin
   Destination := CutFirstParam(Par);
   if (MsgSetStr = '') or (Destination = '') then
   begin
-    SendResTag('BAD COPY without message set / mailbox!');
-    Log(LOGID_WARN, 'IMAPServer.copy.missingArgs',
-      'IMAP: COPY: Missing arguments!');
+    SendResTag(AThread,'BAD COPY without message set / mailbox!');
   end
   else
   begin
-    Log(LOGID_INFO, 'IMAPServer.copy.info', 'IMAP: COPY %s to %s',
-      [MsgSetStr, Destination]);
     DoCopy(Selected.StrToMsgSet(MsgSetStr, False), 'COPY', Destination);
   end;
 end;
@@ -1133,21 +1167,15 @@ begin
   Mailbox := CutFirstParam(Par);
   if Mailbox = '' then
   begin
-    SendResTag('BAD CREATE without mailbox!');
-    Log(LOGID_WARN, 'IMAPServer.create.nomailbox',
-      'IMAP: CREATE: No mailbox given');
+    SendResTag(AThread,'BAD CREATE without mailbox!');
   end
   else if MBCreate(Mailbox) then
     begin
-      Log(LOGID_INFO, 'IMAPServer.create.info', 'IMAP: CREATE: Mailbox "%s" created',
-        Mailbox);
-      SendResTag('OK Mailbox created!');
+      SendResTag(AThread,'OK Mailbox created!');
     end
     else
     begin
-      Log(LOGID_WARN, 'IMAPServer.create.failed',
-        'IMAP: CREATE: Mailbox "%s" not created', Mailbox);
-      SendResTag('NO Mailbox not created!');
+      SendResTag(AThread,'NO Mailbox not created!');
     end;
 end;
 
@@ -1158,21 +1186,15 @@ begin
   Mailbox := CutFirstParam(Par);
   if Mailbox = '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.delete.missingmailbox',
-      'IMAP: DELETE: Missing mailbox');
-    SendResTag('BAD DELETE without mailbox!');
+    SendResTag(AThread,'BAD DELETE without mailbox!');
   end
   else if MBDelete(Mailbox) then
     begin
-      Log(LOGID_INFO, 'IMAPServer.delete.info', 'IMAP: DELETE: Mailbox "%s" deleted',
-        Mailbox);
-      SendResTag('OK Mailbox deleted!');
+      SendResTag(AThread,'OK Mailbox deleted!');
     end
     else
     begin
-      Log(LOGID_WARN, 'IMAPServer.delete.failed',
-        'IMAP: DELETE: Mailbox "%s" not deleted', Mailbox);
-      SendResTag('NO Mailbox not deleted!');
+      SendResTag(AThread,'NO Mailbox not deleted!');
     end;
 end;
 
@@ -1183,25 +1205,19 @@ begin
   Mailbox := CutFirstParam(Par);
   if Mailbox = '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.examine.missingmailbox',
-      'IMAP: EXAMINE: Missing mailbox');
-    SendResTag('BAD EXAMINE without mailbox!');
+    SendResTag(AThread,'BAD EXAMINE without mailbox!');
   end
   else
   begin
     if MBSelect(Mailbox, True) then
     begin
-      SendRes('OK [PERMANENTFLAGS ()] No permanent flags permitted');
-      SendResTag('OK [READ-ONLY] Mailbox opened');
-      Log(LOGID_INFO, 'IMAPServer.examine.info',
-        'IMAP: EXAMINE: Mailbox "%s" opened Read-Only', Mailbox);
+      SendRes(AThread,'OK [PERMANENTFLAGS ()] No permanent flags permitted');
+      SendResTag(AThread,'OK [READ-ONLY] Mailbox opened');
     end
     else
     begin
       MBLogout(Selected, True);
-      SendResTag('NO EXAMINE failed!');
-      Log(LOGID_WARN, 'IMAPServer.examine.failed',
-        'IMAP: EXAMINE: Failed to open mailbox "%s" Read-Only', Mailbox);
+      SendResTag(AThread,'NO EXAMINE failed!');
     end;
   end;
 end;
@@ -1210,22 +1226,16 @@ procedure TSImapServer.Cmd_EXPUNGE(AThread: TSTcpThread; Par: string);
 begin
   if Par <> '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.expunge.toomanyargs',
-      'IMAP: EXPUNGE: Too many arguments');
-    SendResTag('BAD I don''t know parameters for EXPUNGE!');
+    SendResTag(AThread,'BAD I don''t know parameters for EXPUNGE!');
   end
   else if Selected.MBReadOnly then
     begin
-      Log(LOGID_WARN, 'IMAPServer.expunge.mailboxreadonly',
-        'IMAP: EXPUNGE: Mailbox Read-Only');
-      SendResTag('NO I can''t EXPUNGE (mailbox is read-only).');
+      SendResTag(AThread,'NO I can''t EXPUNGE (mailbox is read-only).');
     end
     else
     begin
       Selected.Expunge(nil);
-      Log(LOGID_INFO, 'IMAPServer.expunge.info',
-        'IMAP: EXPUNGE: All marked messages are deleted');
-      SendResTag('OK All deleted messages are removed.');
+      SendResTag(AThread,'OK All deleted messages are removed.');
     end;
 end;
 
@@ -1236,13 +1246,10 @@ begin
   MsgSetStr := CutFirstParam(Par);
   if (MsgSetStr = '') or (Par = '') then
   begin
-    Log(LOGID_WARN, 'IMAPServer.fetch.missingargs',
-      'IMAP: FETCH: Missing arguments');
-    SendResTag('BAD FETCH without message set / data!');
+    SendResTag(AThread,'BAD FETCH without message set / data!');
   end
   else
   begin
-    LogRaw(LOGID_DETAIL, 'IMAP: FETCH');
     DoFetch(Selected.StrToMsgSet(MsgSetStr, False), 'FETCH', Par);
   end;
 end;
@@ -1254,157 +1261,104 @@ var
 begin
   if par = '' then
   begin
-    LogRaw(LOGID_Detail, 'IMAP Client ID: missing argument!');
-    SendResTag('BAD I''m missing parameters for ID!');
+    SendResTag(AThread,'BAD I''m missing parameters for ID!');
     exit;
   end;
-  ID := '("name" "Hamster" ' + '"version" "' + GetMyBuildInfo + '" ' +
-    '"os" "windows" ' + '"os-version" "' + GetWinVerInfo + '" ' +
-    '"support-url" "news:hamster.de.misc")';
+  ID := '("name" "'+ApplicationName+'" ' + '"version" "' + '0.0.0' + '" ' +
+    '"os" "hidden" ' + '"os-version" "none" ' +
+    '"support-url" "none")';
 
-  SendRes('ID ' + ID);
-  LogRaw(LOGID_DETAIL, 'IMAP: Sent ID: ' + ID);
-  SendResTag('OK ID completed!');
+  SendRes(AThread,'ID ' + ID);
+  SendResTag(AThread,'OK ID completed!');
 end;
-
-{/JW}
 
 procedure TSImapServer.Cmd_IDLE(AThread: TSTcpThread; Par: string); //HSR //IDLE
 begin
   if Par <> '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.idle.toomanyargs', 'IMAP: IDLE: Too many arguments!');
-    SendResTag('BAD I don''t know parameters for IDLE!');
+    SendResTag(AThread,'BAD I don''t know parameters for IDLE!');
   end
   else
   begin
-    if CurrentUserID <> ACTID_INVALID then
+    if CurrentUserName <> '' then
     begin
-      LogRaw(LOGID_DETAIL, 'IMAP: IDLE begin');
-      SendData('+ You are IDLE now, changes will be sent immidiatelly' + CRLF);
+      SendData(AThread,'+ You are IDLE now, changes will be sent immidiatelly' + CRLF);
       IdleState := True;
     end
     else
     begin
-      LogRaw(LOGID_DETAIL, 'IMAP: IDLE didn''t begin');
-      SendResTag('NO Not authenticated.');
+      SendResTag(AThread,'NO Not authenticated.');
     end;
   end;
 end;
 
-
-{MG}{IMAP-List}
 procedure TSImapServer.Cmd_LIST(AThread: TSTcpThread; Par: string);
 begin
-  LogRaw(LOGID_DETAIL, 'IMAP: LIST');
   DoList(Par, False);
 end;
-
-{/IMAP-List}
 
 procedure TSImapServer.Cmd_LOGIN(AThread: TSTcpThread; Par: string);
 var
   Pass: string;
 begin
-  CurrentUserID := ACTID_INVALID;
   CurrentUsername := '';
-  {MG}{SSL}
-  // disable the LOGIN command which uses clear-text passwords
-  // unless encryption is active for security reasons
-  if (Def_LocalImapTlsMode = 2) and not Assigned(SSLConnection) then
-  begin
-    SendResTag('BAD TLS connection required for LOGIN - try STARTTLS');
-    Log(LOGID_WARN, 'IMAPServer.login.tlsneeded',
-      'IMAP: LOGIN: TLS needed for this command by config');
-    exit;
-  end;
-  {/SSL}
-
-  if (Def_IMAP_DisableLogin) then
-  begin
-    SendResTag('BAD LOGIN is switched off by server-admin. Please use AUTHENTICATE.');
-    Log(LOGID_WARN, 'IMAPServer.login.disabled',
-      'IMAP: LOGIN: Disabled by config');
-    exit;
-  end;
-
   CurrentUsername := CutFirstParam(Par);
   Pass := CutFirstParam(Par);
   if (CurrentUserName = '') or (Pass = '') then
   begin
-    SendResTag('BAD LOGIN without User / Pass!');
-    Log(LOGID_WARN, 'IMAPServer.login.missinguserpass',
-      'IMAP: LOGIN: Missing User/Pass');
+    SendResTag(AThread,'BAD LOGIN without User / Pass!');
   end
   else
   begin
-    SendResTag(LoginUser(Pass, ''));
-    Log(LOGID_INFO, 'IMAPServer.login.info', 'IMAP: LOGIN: User %s logged in.',
-      CurrentUserName);
+    SendResTag(AThread,LoginUser(AThread,Pass, ''));
   end;
 end;
 
 procedure TSImapServer.Cmd_LOGOUT(AThread: TSTcpThread; Par: string);
 begin
   try
-    LogRaw(LOGID_INFO, 'IMAP: LOGOUT');
-    CurrentUserID := ACTID_INVALID;
+    CurrentUserName := '';
     try
       if Assigned(Selected) then
         MBLogout(Selected, True);
     except
     end;
 
-    if CurrentUserID >= 0 then
-      CurrentUserID := ACTID_INVALID;
+    if  AThread.Connected then
+      SendRes(AThread,'BYE IMAP4rev1 closing connection - goodbye!');
+    if AThread.Connected then
+      SendResTag(AThread,'OK Closing.');
 
-    LogRaw(LOGID_DETAIL, 'IMAP: Let the client disconnect-->disconnect');
-    if ClientSocket.Connected then
-      SendRes('BYE IMAP4rev1 closing connection - goodbye!');
-    if ClientSocket.Connected then
-      SendResTag('OK Closing.');
-
-    Sleep(Def_LocalTimeoutQuitDelay);
+    Sleep(LocalTimeoutQuitDelay);
     try
-      if ClientSocket.Connected then
-        ClientSocket.Close;
+      if AThread.Connected then
+        AThread.Disconnect;
     except
-      on E: Exception do
-        LogRaw(LOGID_DEBUG, 'Exception on Socket.Close: ' + E.Message);
     end;
   finally
-    Terminate
   end;
 end;
 
-{MG}{IMAP-List}
 procedure TSImapServer.Cmd_LSUB(AThread: TSTcpThread; Par: string);
 begin
-  LogRaw(LOGID_DETAIL, 'IMAP: LSUB');
   DoList(Par, True);
 end;
 
-{/IMAP-List}
-
-{HSR}{NCBRain}
 procedure TSImapServer.Cmd_NCBrain(AThread: TSTcpThread; Par: string);
 const
   NCBURL = 'http://www.rimarts.co.jp';
 begin //Got out of Cyrus-Source
-  SendRes('OK [NETSCAPE]');
-  SendRes('* VERSION 1.0 UNIX');
-  SendRes('* ACCOUNT-URL "' + NCBURL + '"');
-  SendResTag('OK Your brain is done now...');
+  SendRes(AThread,'OK [NETSCAPE]');
+  SendRes(AThread,'* VERSION 1.0 UNIX');
+  SendRes(AThread,'* ACCOUNT-URL "' + NCBURL + '"');
+  SendResTag(AThread,'OK Your brain is done now...');
 end;
-
-{/HSR}
 
 procedure TSImapServer.Cmd_NOOP(AThread: TSTcpThread; Par: string);
 begin
   if par <> '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.noop.toomanyargs', 'IMAP: NOOP: Too many arguments');
-    SendResTag('BAD I don''t know parameters for NOOP!');
+    SendResTag(AThread,'BAD I don''t know parameters for NOOP!');
   end
   else
   begin
@@ -1417,8 +1371,7 @@ begin
         Selected.Unlock;
       end;
     end;
-    LogRaw(LOGID_DETAIL, 'IMAP: NOOP');
-    SendResTag('OK Noop isn''t slow, is it? ;-)');
+    SendResTag(AThread,'OK Noop isn''t slow, is it? ;-)');
   end;
 end;
 
@@ -1431,20 +1384,15 @@ begin
 
   if (OldName = '') or (NewName = '') then
   begin
-    SendResTag('BAD RENAME without existing / new name!');
-    Log(LOGID_WARN, 'IMAPServer.rename.missingargs',
-      'IMAP: RENAME: Missing arguments');
+    SendResTag(AThread,'BAD RENAME without existing / new name!');
   end
   else if MBRename(OldName, NewName) then
     begin
-      Log(LOGID_INFO, 'IMAPServer.rename.info', 'IMAP: RENAME: %s to %s',
-        [OldName, NewName]);
-      SendResTag('OK Mailbox renamed.');
+      SendResTag(AThread,'OK Mailbox renamed.');
     end
     else
     begin
-      Log(LOGID_WARN, 'IMAPServer.rename.failed', 'IMAP: RENAME failed');
-      SendResTag('NO Mailbox not renamed!');
+      SendResTag(AThread,'NO Mailbox not renamed!');
     end;
 end;
 
@@ -1452,13 +1400,10 @@ procedure TSImapServer.Cmd_SEARCH(AThread: TSTcpThread; Par: string);
 begin
   if par = '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.search.missingargs',
-      'IMAP: SEARCH: Missing arguments');
-    SendResTag('BAD SEARCH without arguments!');
+    SendResTag(AThread,'BAD SEARCH without arguments!');
   end
   else
   begin
-    LogRaw(LOGID_DETAIL, 'IMAP: SEARCH');
     DoSearch(False, Par);
   end;
 end;
@@ -1473,9 +1418,7 @@ begin
   Mailbox := CutFirstParam(Par);
   if Mailbox = '' then
   begin
-    Log(LOGID_WARN, 'IMAPServer.select.missingargs',
-      'IMAP: SELECT: Missing arguments');
-    SendResTag('BAD SELECT without mailbox!');
+    SendResTag(AThread,'BAD SELECT without mailbox!');
   end
   else
   begin
@@ -1483,32 +1426,42 @@ begin
     begin
       if Selected.MBReadOnly then
       begin //ClientRO
-        SendRes('OK [PERMANENTFLAGS ()] Flags you can change permanently: NONE');
-        SendResTag('OK [READ-ONLY] Mailbox opened');
-        Log(LOGID_INFO, 'IMAPServer.select.openedreadonly',
-          'IMAP: SELECT: %s opened (Read-Only)', Mailbox);
+        SendRes(AThread,'OK [PERMANENTFLAGS ()] Flags you can change permanently: NONE');
+        SendResTag(AThread,'OK [READ-ONLY] Mailbox opened');
       end
       else
       begin
-        SendRes('OK [PERMANENTFLAGS ' + Selected.PossFlags +
-          '] Flags you can change permanently');
-        SendResTag('OK [READ-WRITE] Mailbox opened');
-        Log(LOGID_INFO, 'IMAPServer.select.opened',
-          'IMAP: SELECT: %s opened (Read-Write)', Mailbox);
+        SendRes(AThread,'OK [PERMANENTFLAGS ' + Selected.PossFlags + '] Flags you can change permanently');
+        SendResTag(AThread,'OK [READ-WRITE] Mailbox opened');
       end;
     end
     else
     begin
       MBLogout(Selected, True);
-      SendResTag('NO SELECT failed!');
-      Log(LOGID_WARN, 'IMAPServer.select.failed',
-        'IMAP: SELECT failed at %s', mailbox);
+      SendResTag(AThread,'NO SELECT failed!');
     end;
   end;
 end;
 
+function TrimEnclosingChars( Data, FirstChar, LastChar: String ): String;
+var  i: Integer;
+begin
+  Data := TrimWhSpace( Data );
+  i := length( Data );
+  if (i>1) and (Data[1] = FirstChar) and (Data[i] = LastChar) then
+    Result := copy( Data, 2, i-2 )
+  else
+    Result := Data
+end;
+
+function TrimParentheses( Data: String ): String;
+begin
+  Result := TrimEnclosingChars( Data, '(', ')' )
+end;
+
 procedure TSImapServer.Cmd_STARTTLS(AThread: TSTcpThread; Par: string); {MG}{SSL}
 begin
+  {
   if not SSLReady then
   begin
     SendResTag('BAD Command not implemented.');
@@ -1548,88 +1501,67 @@ begin
             'IMAP: STARTTLS: TLS was already started');
           SendResTag('BAD Command not permitted when TLS active');
         end;
+ }
 end;
 
 procedure TSImapServer.Cmd_STATUS(AThread: TSTcpThread; Par: string);
 var
   Mailbox, MbName, Status, StatusU, Erg: string;
-  MbxStatus: TMbxStatus;
   i: integer;
 begin
   MailBox := CutFirstParam(Par);
   if (Mailbox = '') or (Par = '') then
   begin
-    Log(LOGID_WARN, 'IMAPServer.status.missingargs',
-      'IMAP: STATUS: Missing arguments');
-    SendResTag('BAD STATUS without mailbox / status-data!');
+    SendResTag(AThread,'BAD STATUS without mailbox / status-data!');
     exit;
   end;
   MbName := Mailbox;
 
   if not SafeString(Mailbox) then
   begin
-    Log(LOGID_WARN, 'IMAPServer.status.forbiddenchars',
-      'IMAP: STATUS: Forbidden characters');
-    SendResTag('BAD STATUS Mailbox parameter contains forbidden characters!');
+    SendResTag(AThread,'BAD STATUS Mailbox parameter contains forbidden characters!');
     exit;
   end;
   if not MBExists(Mailbox) then
   begin
-    Log(LOGID_WARN, 'IMAPServer.status.invalidmailbox',
-      'IMAP: STATUS: Invalid Mailbox "%s"', Mailbox);
-    SendResTag('NO STATUS error: mailbox does not exist!');
+    SendResTag(AThread,'NO STATUS error: mailbox does not exist!');
     exit;
   end;
 
-  FillChar(MbxStatus, SizeOf(MbxStatus), 0);
-  if CfgAccounts.IMAPMailboxLock(Mailbox, True) then
-  begin
-    with TImapMailbox.Create(Mailbox) do
-      try
-        Lock;
-        MbxStatus := Status
-      finally
-        Unlock;
-        Free
-      end;
-  end
-  else
-  begin
-    with TImapMailbox(CfgAccounts.GetIMAPMailbox(Mailbox)) do
-      try
-        MbxStatus := Status
-      except
-      end;
+  with TImapMailbox.Create(Mailbox) do
+  try
+    Lock;
+    Status := TrimParentheses(TrimQuotes(Par)) + ' ';
+    Erg := '';
+    i := PosWhSpace(Status);
+    repeat
+      StatusU := uppercase(copy(Status, 1, i - 1));
+      Status := copy(Status, i + 1, length(Status));
+
+      if StatusU = 'MESSAGES' then
+        Erg := Erg + ' MESSAGES ' + IntToStr(Messages);
+
+      if StatusU = 'RECENT' then
+        Erg := Erg + ' RECENT ' + IntToStr(Recent);
+
+      if StatusU = 'UIDNEXT' then
+        Erg := Erg + ' UIDNEXT ' + IntToStr(GetUIDnext);
+
+      if StatusU = 'UIDVALIDITY' then
+        Erg := Erg + ' UIDVALIDITY ' + IntToStr(GetUIDvalidity);
+
+      if StatusU = 'UNSEEN' then
+        Erg := Erg + ' UNSEEN ' + IntToStr(Unseen);
+
+      i := PosWhSpace(Status);
+    until i = 0;
+  finally
+    Unlock;
+    Free
   end;
 
-  Status := TrimParentheses(TrimQuotes(Par)) + ' ';
-  Erg := '';
-  i := PosWhSpace(Status);
-  repeat
-    StatusU := uppercase(copy(Status, 1, i - 1));
-    Status := copy(Status, i + 1, length(Status));
-
-    if StatusU = 'MESSAGES' then
-      Erg := Erg + ' MESSAGES ' + IntToStr(MbxStatus.Messages);
-
-    if StatusU = 'RECENT' then
-      Erg := Erg + ' RECENT ' + IntToStr(MbxStatus.Recent);
-
-    if StatusU = 'UIDNEXT' then
-      Erg := Erg + ' UIDNEXT ' + IntToStr(MbxStatus.UIDNext);
-
-    if StatusU = 'UIDVALIDITY' then
-      Erg := Erg + ' UIDVALIDITY ' + IntToStr(MbxStatus.UIDValidity);
-
-    if StatusU = 'UNSEEN' then
-      Erg := Erg + ' UNSEEN ' + IntToStr(MbxStatus.Unseen);
-
-    i := PosWhSpace(Status);
-  until i = 0;
-
-  SendRes('STATUS "' + MbName + '" (' + Trim(Erg) + ')');
-  SendResTag('OK You now have the status!');
-  LogRaw(LOGID_DETAIL, 'IMAP: STATUS');
+  SendRes(AThread,'STATUS "' + MbName + '" (' + Trim(Erg) + ')');
+  SendResTag(AThread,'OK You now have the status!');
 end;
 
 procedure TSImapServer.Cmd_STORE(AThread: TSTcpThread; Par: string);
@@ -1639,18 +1571,14 @@ begin
   MsgSetStr := CutFirstParam(Par);
   if (MsgSetStr = '') or (Par = '') then
   begin
-    Log(LOGID_WARN, 'IMAPServer.store.missingargs',
-      'IMAP: STORE: Missing arguments');
-    SendResTag('BAD STORE arguments missing!');
+    SendResTag(AThread,'BAD STORE arguments missing!');
   end
   else
   begin
-    LogRaw(LOGID_DETAIL, 'IMAP: STORE parameters');
     DoStore(Selected.StrToMsgSet(MsgSetStr, False), 'STORE', Par);
   end;
 end;
 
-{IMAP-List}
 procedure TSImapServer.Cmd_SUBSCRIBE(AThread: TSTcpThread; Par: string);
 var
   Mailbox: string;
@@ -1659,39 +1587,11 @@ begin
   Mailbox := uppercase(CutFirstParam(Par));
   if (Mailbox = '') or (not SafeString(Mailbox)) then
   begin
-    Log(LOGID_WARN, 'IMAPServer.subscribe.missingorbadargs',
-      'IMAP: SUBSCRIBE: Missing or bad arguments');
-    SendResTag('BAD SUBSCRIBE without valid mailbox!');
+    SendResTag(AThread,'BAD SUBSCRIBE without valid mailbox!');
   end
   else
   begin
-    if uppercase(Mailbox) = 'INBOX' then
-      Mailbox := MailboxPath
-    else
-      Mailbox := MailboxPath + ReplacePathDelimiters(Mailbox);
-
-    if not DirectoryExists(Mailbox) then
-    begin
-      Log(LOGID_WARN, 'IMAPServer.subscribe.invalidmailbox',
-        'IMAP: SUBSCRIBE: Mailbox "%s" does not exist', Mailbox);
-      SendResTag('NO SUBSCRIBE mailbox not available!');
-    end
-    else
-    begin
-      hdlFile := FileCreate(Mailbox + IMAPSUBSCR_FILENAME);
-      if hdlFile = -1 then
-      begin
-        Log(LOGID_WARN, 'IMAPServer.subscribe.failed',
-          'IMAP: SUBSCRIBE: Mailbox "%s" can''t be subscribed', Mailbox);
-        SendResTag('NO SUBSCRIBE mailbox can''t be subscribed!');
-      end
-      else
-      begin
-        LogRaw(LOGID_DETAIL, 'IMAP: SUBSCRIBE: ' + MailBox);
-        SendResTag('OK Mailbox subscribed');
-        FileClose(hdlFile);
-      end;
-    end;
+    DoSubscribe(MailBox);
   end;
 end;
 
@@ -1704,39 +1604,11 @@ begin
   Mailbox := uppercase(CutFirstParam(Par));
   if (Mailbox = '') or (not SafeString(Mailbox)) then
   begin
-    Log(LOGID_WARN, 'IMAPServer.unsubscribe.missingorbadargs',
-      'IMAP: UNSUBSCRIBE: Missing or bad arguments');
-    SendResTag('BAD UNSUBSCRIBE without valid mailbox!');
+    SendResTag(AThread,'BAD UNSUBSCRIBE without valid mailbox!');
   end
   else
   begin
-    if uppercase(Mailbox) = 'INBOX' then
-      Mailbox := MailboxPath
-    else
-      Mailbox := MailboxPath + ReplacePathDelimiters(Mailbox);
-    if not DirectoryExists(Mailbox) then
-    begin
-      Log(LOGID_INFO, 'IMAPServer.unsubscribe.invalidmailbox',
-        'IMAP: UNSUBSCRIBE: %s - Mailbox don''t exists', Mailbox);
-      SendResTag('OK Non-Existing mailbox is unsubscribed');
-    end
-    else if not FileExists2(Mailbox + IMAPSUBSCR_FILENAME) then
-      begin
-        Log(LOGID_INFO, 'IMAPServer.subscribe.isntsubscribed',
-          'IMAP: UNSUBSCRIBE: %s - Not subscribed yet', Mailbox);
-        SendResTag('OK unsubscribed mailbox is unsubscribed (again)');
-      end
-      else if SysUtils.DeleteFile(Mailbox + IMAPSUBSCR_FILENAME) then
-        begin
-          SendResTag('OK Mailbox unsubscribed');
-          LogRaw(LOGID_DETAIL, 'IMAP: UNSUBSCRIBE: ' + MailBox);
-        end
-        else
-        begin
-          SendResTag('NO Mailbox can''t be unsubscribed');
-          LogRaw(LOGID_DETAIL, 'IMAP: UNSUBSCRIBE ' + Mailbox +
-            ' failed: Can''t delete file');
-        end;
+    DoUnSubscribe(MailBox);
   end;
 end;
 
@@ -1751,14 +1623,11 @@ begin
   i := PosWhSpace(Par);
   if (par = '') or (i = 0) then
   begin
-    Log(LOGID_WARN, 'IMAPServer.uid.missingargs', 'IMAP: UID: Missing arguments');
-    SendResTag('BAD UID without Command/Cmd-Params!');
+    SendResTag(AThread,'BAD UID without Command/Cmd-Params!');
     exit;
   end;
   Command := Uppercase(TrimQuotes(copy(Par, 1, i - 1)));
   CmdParams := TrimQuotes(copy(Par, i + 1, length(Par)));
-
-  LogRaw(LOGID_DETAIL, 'IMAP: UID-' + Command);
 
   if Command = 'SEARCH' then
   begin
@@ -1769,9 +1638,7 @@ begin
     i := PosWhSpace(CmdParams);
     if i = 0 then
     begin
-      Log(LOGID_WARN, 'IMAPServer.uid-command.missingargs',
-        'IMAP: UID-%s: Missing arguments', Command);
-      SendResTag('BAD UID ' + Command + ': not enough arguments!');
+      SendResTag(AThread,'BAD UID ' + Command + ': not enough arguments!');
       exit;
     end;
 
@@ -1782,15 +1649,13 @@ begin
     if Command = 'COPY' then
       DoCopy(MsgSet, 'UID COPY', CmdParams)
     else if Command = 'STORE' then
-        DoStore(MsgSet, 'UID STORE', CmdParams)
-      else if Command = 'FETCH' then
-          DoFetch(MsgSet, 'UID FETCH', CmdParams)
-        else
-        begin
-          Log(LOGID_WARN, 'IMAPServer.uid-command.unknown',
-            'IMAP: UID-%s unknown', Command);
-          SendResTag('BAD I don''t know this UID-command!');
-        end;
+      DoStore(MsgSet, 'UID STORE', CmdParams)
+    else if Command = 'FETCH' then
+      DoFetch(MsgSet, 'UID FETCH', CmdParams)
+    else
+      begin
+        SendResTag(AThread,'BAD I don''t know this UID-command!');
+      end;
   end;
 end;
 
@@ -1802,60 +1667,61 @@ end;
 
 procedure TSImapServer.SendData(AThread: TSTcpThread; const AText: string);
 begin
-  AThread.WriteLn(AText);
-  if Assigned(OnLog) then
-    OnLog(AThread, False, AText);
+  AThread.Write(AText);
+end;
+
+procedure TSImapServer.SendResult(AThread: TSTcpThread; const ATxt: string);
+begin
+  if Length( ATxt ) > 250
+     then LogRaw( AThread, Copy( ATxt, 1, 250 ) + ' [...]' )
+     else LogRaw( AThread, ATxt );
+  SendData(AThread, ATxt + CRLF );
 end;
 
 procedure TSImapServer.SendResLit(AThread: TSTcpThread; Txt: string);
 begin
-  if Length(Txt) > 250 then
-    LogRaw(AThread, '< * ' + Copy(Txt, 1, 250) + ' [...]')
-  else
-    LogRaw(AThread, '< * ' + Txt);
-  SendData(AThread, CurrentTag + ' ' + '{' + IntToStr(length(Txt + CRLF)) + '}');
-  SendData(AThread, Txt);
+  if Length( Txt ) > 250
+     then LogRaw( AThread, '< * ' + Copy( Txt, 1, 250 ) + ' [...]' )
+     else LogRaw( AThread, '< * ' + Txt );
+  SendData(AThread, CurrentTag + ' ' + '{' + IntToStr(length(Txt + CRLF)) + '}' + CRLF );
+  SendData(AThread, Txt + CRLF );
 end;
 
 procedure TSImapServer.SendResTag(AThread: TSTcpThread; Txt: string);
+var
+  i: Integer;
 begin
-  if Length(Txt) > 250 then
-    LogRaw(AThread, '< * ' + Copy(Txt, 1, 250) + ' [...]')
-  else
-    LogRaw(AThread, '< * ' + Txt);
-  SendData(AThread, '* ' + Txt);
+  if Assigned(Selected) then try
+    Selected.Lock;
+    try
+      EnterCriticalSection( CS_THR_IDLE );
+      if (length(SendExpunge)>0) then begin
+        for i := 0 to length(SendExpunge)-1 do
+          SendRes(AThread, IntToStr(SendExpunge[i]) + ' EXPUNGE');
+        if not SendNewMessages then //Don't send it double
+          SendRes(AThread, IntToStr(Selected.Messages) + ' EXISTS');
+        SetLength(SendExpunge, 0)
+      end;
+      if SendNewMessages then begin
+        SendRes(AThread, IntToStr(Selected.Messages) + ' EXISTS');
+        SendRes(AThread, IntToStr(Selected.Recent)   + ' RECENT');
+        SendNewMessages := false
+      end;
+    finally
+      LeaveCriticalSection( CS_THR_IDLE )
+    end;
+  finally
+    Selected.Unlock
+  end;
+  SendResult(AThread, CurrentTag + ' ' + Txt )
 end;
 
 procedure TSImapServer.SendRes(AThread: TSTcpThread; Txt: string);
-var
-  i: integer;
 begin
-  if Assigned(Selected) then
-    try
-      Selected.Lock;
-      try
-        EnterCriticalSection(CS_THR_IDLE);
-        if (length(SendExpunge) > 0) then
-        begin
-          for i := 0 to length(SendExpunge) - 1 do
-            SendRes(AThread, IntToStr(SendExpunge[i]) + ' EXPUNGE');
-          if not SendNewMessages then //Don't send it double
-            SendRes(AThread, IntToStr(Selected.Messages) + ' EXISTS');
-          SetLength(SendExpunge, 0);
-        end;
-        if SendNewMessages then
-        begin
-          SendRes(AThread, IntToStr(Selected.Messages) + ' EXISTS');
-          SendRes(AThread, IntToStr(Selected.Recent) + ' RECENT');
-          SendNewMessages := False;
-        end;
-      finally
-        LeaveCriticalSection(CS_THR_IDLE)
-      end;
-    finally
-      Selected.Unlock
-    end;
-  SendData(AThread, CurrentTag + ' ' + Txt + CRLF);
+  if Length( Txt ) > 250
+     then LogRaw( AThread, '* ' + Copy( Txt, 1, 250 ) + ' [...]' )
+     else LogRaw( AThread, '* ' + Txt );
+  SendData(AThread, '* ' + Txt + CRLF );
 end;
 
 function TSImapServer.SendRequest(AThread: TSTcpThread; const AText: string
@@ -1867,40 +1733,127 @@ begin
   Result := AThread.ReadLn(Timeout);
 end;
 
+function TSImapServer.SafeString(Path: String): Boolean;
+var  i : Integer;
+     SafeChars: Set of Char;
+begin
+   Result := False;
+   SafeChars := [' ', '!', '#'..'.', '0'..'9', ';', '=',
+                 '@'..'[', ']'..'{', '}', '~', HierarchyDelimiter];
+   for i := 1 to Length(Path) do
+      if not (Path[i] in SafeChars) then exit;
+   Result := True;
+end;
+
+function TSImapServer.LoginUser(AThread: TSTcpThread; Password: String;
+  AuthMechanism: String): String;
+var
+  ares: Boolean = False;
+begin
+  Result := CurrentTag + 'BAD System-error, check logfile. [0]';
+  if Assigned(OnLogin) then
+    begin
+      aRes := OnLogin(AThread, CurrentUserName,Password);
+      if not ares then Result := 'NO Authentication rejected'
+      else
+        begin
+          if AuthMechanism='' then
+            Result := 'OK LOGIN completed.'
+          else
+            Result := 'OK ' + AuthMechanism + ' completed.';
+        end;
+    end;
+end;
+
 function TSImapServer.MBSelect(Mailbox: string; ReadOnly: Boolean): boolean;
 begin
-
+  Result := False;
 end;
 
 function TSImapServer.MBCreate(Mailbox: string): boolean;
 begin
-
+  Result := False;
 end;
 
 function TSImapServer.MBDelete(Mailbox: string): boolean;
 begin
-
+  Result := False;
 end;
 
 function TSImapServer.MBExists(var Mailbox: string): boolean;
 begin
-
+  Result := False;
 end;
 
 function TSImapServer.MBRename(OldName, NewName: String): Boolean;
 begin
-
+  Result := False;
 end;
 
 function TSImapServer.MBLogin(var Mailbox: TImapMailbox; Path: String;
   LINotify: Boolean): Boolean;
 begin
-
+  Result := False;
 end;
 
 procedure TSImapServer.MBLogout(var Mailbox: TImapMailbox; LOSel: Boolean);
 begin
+end;
 
+procedure TSImapServer.DoSearch(UseUID: Boolean; Par: String);
+begin
+
+end;
+
+procedure TSImapServer.DoCopy(MsgSet: TMessageSet; Command, Destination: String
+  );
+begin
+
+end;
+
+procedure TSImapServer.DoStore(MsgSet: TMessageSet; Command, Par: String);
+begin
+
+end;
+
+procedure TSImapServer.DoFetch(MsgSet: TMessageSet; Command, Par: String);
+begin
+
+end;
+
+procedure TSImapServer.DoList(Par: String; LSub: Boolean);
+begin
+
+end;
+
+procedure TSImapServer.DoSubscribe(Par: String);
+begin
+
+end;
+
+procedure TSImapServer.DoUnSubscribe(Par: String);
+begin
+
+end;
+
+function TSImapServer.HandleData(AThread: TSTcpThread; BufInStrm: string
+  ): String;
+var  i: Integer;
+begin
+   Result := 'BAD Command failed (unknown reason, see logfile)';
+   i := Pos( ' ', BufInStrm );
+   CurrentTag := Copy( BufInStrm, 1, i-1 );
+   System.Delete( BufInStrm, 1, i );
+
+   if trim(CurrentTag)='' then begin //HSR //TAG-Miss
+     CurrentTag := BufInStrm;
+     System.Delete( BufInStrm, 1, length(CurrentTag) );
+     Result := 'BAD Command failed (missing TAG)'
+   end else begin
+     HandleCommand(AThread, BufInStrm );
+     Result := ''
+   end;
+   SetLength( BufInStrm, 0 );
 end;
 
 procedure TSImapServer.SetActive(const AValue: boolean);
@@ -1911,9 +1864,10 @@ end;
 procedure TSImapServer.Execute(AThread: TSTcpThread);
 var
   LRow, LCmd, LTag: string;
+  aRes: String;
 begin
   try
-    SendData(AThread, '* OK IMAP4rev1 ' + SIMAPWelcomeMessage);
+    SendData(AThread, '* OK IMAP4rev1 ' + SIMAPWelcomeMessage+ CRLF);
     while (not AThread.Terminated) do
     begin
       LRow := AThread.ReadLn(Timeout);
@@ -1923,7 +1877,8 @@ begin
         begin
           if Assigned(OnLog) then
             OnLog(AThread, True, LRow);
-
+          aRes := HandleData(AThread,LRow);
+          if aRes <> '' then AThread.WriteLn(ares);
         end;
     end;
   finally
@@ -1937,6 +1892,8 @@ begin
   FUseIMAPID:=True;
   FIMAPNCBrain :=False;
   CurrentUserName:='';
+  FLocalTimeoutQuitDelay := 100;
+  HierarchyDelimiter := '/';
 end;
 
 destructor TSImapServer.Destroy;
