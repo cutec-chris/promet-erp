@@ -27,8 +27,9 @@ uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
   Buttons, ComCtrls, ActnList, thumbcontrol, uPrometFrames, uBaseDocPages,
   uBaseDBInterface, threadedimageLoader, uDocumentFrame, DBZVDateTimePicker,
-  PReport, Dialogs, PairSplitter, Menus, ExtDlgs, uIntfStrConsts,uGeneralStrConsts,
-  uBaseDbClasses, variants, types, uTimeLine, uPreviewFrame, uOCR, uExtControls;
+  PReport, Dialogs, PairSplitter, Menus, ExtDlgs, LCLType, uIntfStrConsts,
+  uGeneralStrConsts, uBaseDbClasses, variants, types, uTimeLine, uPreviewFrame,
+  uOCR, uExtControls,syncobjs;
 
 type
   TImageItem = class(TObject)
@@ -202,6 +203,7 @@ type
     PreviewFrame: TfPreview;
     SelectedItem: TThreadedImage;
     FFilter: String;
+    CSLoad: TCriticalSection;
     loadedDocument: UTF8String;
     procedure FetchNext;
     function GetTyp: string;
@@ -294,6 +296,8 @@ end;
 procedure TfManageDocFrame.ThumbControl1LoadFile(Sender: TObject; URL: string;
   out Stream: TStream);
 begin
+  CSLoad.Enter;
+  try
   FUrl := URL;
   if FLast=URL then
     begin
@@ -305,6 +309,9 @@ begin
     TThread(TThreadedImage(Sender).Thread).Synchronize(TThreadedImage(Sender).Thread,@WaitForImage)
   else WaitForImage;
   Stream := TfileStream.Create(FtempPath+URL,fmOpenRead);
+  finally
+    CSLoad.Leave;
+  end;
 end;
 
 procedure TfManageDocFrame.ThumbControl1Scrolled(Sender: TObject);
@@ -1331,8 +1338,9 @@ procedure TfManageDocFrame.DoAOpen(Data: PtrInt);
 var
   aRefThread: TImportCheckThread;
 begin
-  FetchNext;
+  ThumbControl1.OnLoadFile:=@ThumbControl1LoadFile;
   aRefThread := TImportCheckThread.Create(Self);
+  acRefresh.Execute;
 end;
 
 procedure TfManageDocFrame.FetchNext;
@@ -1469,6 +1477,8 @@ end;
 constructor TfManageDocFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  ThumbControl1.ClearImageList;
+  CSLoad := TCriticalSection.Create;
   FFilter := '';
   SelectedItem:=nil;
   if BaseApplication.HasOption('disablethreads') then
@@ -1499,6 +1509,7 @@ begin
 end;
 destructor TfManageDocFrame.Destroy;
 begin
+  CSLoad.Free;
   FFullDataSet.Free;
   FDoc.Free;
   FTimeLine.Free;
