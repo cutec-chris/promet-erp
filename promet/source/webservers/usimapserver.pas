@@ -31,6 +31,7 @@ type
 
     procedure LogRaw(AThread: TSTcpThread; Txt: string);
     procedure SendData(AThread: TSTcpThread; const AText: string);
+    procedure SendResult(AThread: TSTcpThread; const ATxt: string);
     procedure SendResLit(AThread: TSTcpThread; Txt: string);
     procedure SendResTag(AThread: TSTcpThread; Txt: string);
     procedure SendRes(AThread: TSTcpThread; Txt: string);
@@ -53,6 +54,7 @@ type
     procedure DoSubscribe( Par: String);virtual;
     procedure DoUnSubscribe( Par: String);virtual;
 
+    function  HandleData(AThread : TSTcpThread;BufInStrm : string): String;
     procedure HandleCommand(AThread: TSTcpThread; const CmdLine: string);
 
     procedure Cmd_APPEND(AThread: TSTcpThread;Par: string);
@@ -1066,9 +1068,10 @@ begin
     exit;
   end;
   //---Standard-CAPAs--------------------------------
-  capabilities := 'IMAP4rev1 ' + 'AUTH=CRAM-SHA1 ' +
-    'AUTH=CRAM-MD5 '   //JW //IMAP-Auth
-    + 'AUTH=DIGEST-MD5 ' //JW //SASL-DIGEST
+  capabilities := 'IMAP4rev1 '
+  //+ 'AUTH=CRAM-SHA1 ' +
+  //  'AUTH=CRAM-MD5 '   //JW //IMAP-Auth
+  //  + 'AUTH=DIGEST-MD5 ' //JW //SASL-DIGEST
     + 'IDLE '            //HSR //IDLE
     + 'LITERAL+ ';        //HSR //Literal+
 
@@ -1079,23 +1082,20 @@ begin
 
   capabilities := capabilities + 'AUTH=LOGIN '; //JW //IMAP-Auth
 
-  {
-  if not Assigned(SSLConnection) then
-  begin
-    if Assigned(SSLContext) then
-      capabilities := capabilities + 'STARTTLS ';
-    if (Def_LocalImapTlsMode = 2) and not Def_IMAP_DisableLogin then
-      //HSR //LOGINDISABLED
-      capabilities := capabilities + 'LOGINDISABLED ';
-  end
-  else
-  }
+//  if not Assigned(SSLConnection) then
+//    begin
+//      if Assigned(SSLContext) then
+        capabilities := capabilities + 'STARTTLS ';
+//      if (Def_LocalImapTlsMode = 2) and not Def_IMAP_DisableLogin then
+//        capabilities := capabilities + 'LOGINDISABLED ';
+//    end
+//  else
     capabilities := capabilities + 'AUTH=PLAIN ';
 
   //if Def_IMAP_DisableLogin then //HSR //LOGINDISABLED
   //  capabilities := capabilities + 'LOGINDISABLED ';
-  if  UseIMAPID then //JW //IMAP ID
-    capabilities := capabilities + 'ID ';
+  //if  UseIMAPID then
+  //  capabilities := capabilities + 'ID ';
 
   //---Sending---------------------------------------
   SendRes(AThread,'CAPABILITY ' + trim(capabilities));
@@ -1667,60 +1667,61 @@ end;
 
 procedure TSImapServer.SendData(AThread: TSTcpThread; const AText: string);
 begin
-  AThread.WriteLn(AText);
-  if Assigned(OnLog) then
-    OnLog(AThread, False, AText);
+  AThread.Write(AText);
+end;
+
+procedure TSImapServer.SendResult(AThread: TSTcpThread; const ATxt: string);
+begin
+  if Length( ATxt ) > 250
+     then LogRaw( AThread, Copy( ATxt, 1, 250 ) + ' [...]' )
+     else LogRaw( AThread, ATxt );
+  SendData(AThread, ATxt + CRLF );
 end;
 
 procedure TSImapServer.SendResLit(AThread: TSTcpThread; Txt: string);
 begin
-  if Length(Txt) > 250 then
-    LogRaw(AThread, '< * ' + Copy(Txt, 1, 250) + ' [...]')
-  else
-    LogRaw(AThread, '< * ' + Txt);
-  SendData(AThread, CurrentTag + ' ' + '{' + IntToStr(length(Txt + CRLF)) + '}');
-  SendData(AThread, Txt);
+  if Length( Txt ) > 250
+     then LogRaw( AThread, '< * ' + Copy( Txt, 1, 250 ) + ' [...]' )
+     else LogRaw( AThread, '< * ' + Txt );
+  SendData(AThread, CurrentTag + ' ' + '{' + IntToStr(length(Txt + CRLF)) + '}' + CRLF );
+  SendData(AThread, Txt + CRLF );
 end;
 
 procedure TSImapServer.SendResTag(AThread: TSTcpThread; Txt: string);
+var
+  i: Integer;
 begin
-  if Length(Txt) > 250 then
-    LogRaw(AThread, '< * ' + Copy(Txt, 1, 250) + ' [...]')
-  else
-    LogRaw(AThread, '< * ' + Txt);
-  SendData(AThread, '* ' + Txt);
+  if Assigned(Selected) then try
+    Selected.Lock;
+    try
+      EnterCriticalSection( CS_THR_IDLE );
+      if (length(SendExpunge)>0) then begin
+        for i := 0 to length(SendExpunge)-1 do
+          SendRes(AThread, IntToStr(SendExpunge[i]) + ' EXPUNGE');
+        if not SendNewMessages then //Don't send it double
+          SendRes(AThread, IntToStr(Selected.Messages) + ' EXISTS');
+        SetLength(SendExpunge, 0)
+      end;
+      if SendNewMessages then begin
+        SendRes(AThread, IntToStr(Selected.Messages) + ' EXISTS');
+        SendRes(AThread, IntToStr(Selected.Recent)   + ' RECENT');
+        SendNewMessages := false
+      end;
+    finally
+      LeaveCriticalSection( CS_THR_IDLE )
+    end;
+  finally
+    Selected.Unlock
+  end;
+  SendResult(AThread, CurrentTag + ' ' + Txt )
 end;
 
 procedure TSImapServer.SendRes(AThread: TSTcpThread; Txt: string);
-var
-  i: integer;
 begin
-  if Assigned(Selected) then
-    try
-      Selected.Lock;
-      try
-        EnterCriticalSection(CS_THR_IDLE);
-        if (length(SendExpunge) > 0) then
-        begin
-          for i := 0 to length(SendExpunge) - 1 do
-            SendRes(AThread, IntToStr(SendExpunge[i]) + ' EXPUNGE');
-          if not SendNewMessages then //Don't send it double
-            SendRes(AThread, IntToStr(Selected.Messages) + ' EXISTS');
-          SetLength(SendExpunge, 0);
-        end;
-        if SendNewMessages then
-        begin
-          SendRes(AThread, IntToStr(Selected.Messages) + ' EXISTS');
-          SendRes(AThread, IntToStr(Selected.Recent) + ' RECENT');
-          SendNewMessages := False;
-        end;
-      finally
-        LeaveCriticalSection(CS_THR_IDLE)
-      end;
-    finally
-      Selected.Unlock
-    end;
-  SendData(AThread, CurrentTag + ' ' + Txt + CRLF);
+  if Length( Txt ) > 250
+     then LogRaw( AThread, '* ' + Copy( Txt, 1, 250 ) + ' [...]' )
+     else LogRaw( AThread, '* ' + Txt );
+  SendData(AThread, '* ' + Txt + CRLF );
 end;
 
 function TSImapServer.SendRequest(AThread: TSTcpThread; const AText: string
@@ -1821,6 +1822,26 @@ begin
 
 end;
 
+function TSImapServer.HandleData(AThread: TSTcpThread; BufInStrm: string
+  ): String;
+var  i: Integer;
+begin
+   Result := 'BAD Command failed (unknown reason, see logfile)';
+   i := Pos( ' ', BufInStrm );
+   CurrentTag := Copy( BufInStrm, 1, i-1 );
+   System.Delete( BufInStrm, 1, i );
+
+   if trim(CurrentTag)='' then begin //HSR //TAG-Miss
+     CurrentTag := BufInStrm;
+     System.Delete( BufInStrm, 1, length(CurrentTag) );
+     Result := 'BAD Command failed (missing TAG)'
+   end else begin
+     HandleCommand(AThread, BufInStrm );
+     Result := ''
+   end;
+   SetLength( BufInStrm, 0 );
+end;
+
 procedure TSImapServer.SetActive(const AValue: boolean);
 begin
   inherited SetActive(AValue);
@@ -1829,9 +1850,10 @@ end;
 procedure TSImapServer.Execute(AThread: TSTcpThread);
 var
   LRow, LCmd, LTag: string;
+  aRes: String;
 begin
   try
-    SendData(AThread, '* OK IMAP4rev1 ' + SIMAPWelcomeMessage);
+    SendData(AThread, '* OK IMAP4rev1 ' + SIMAPWelcomeMessage+ CRLF);
     while (not AThread.Terminated) do
     begin
       LRow := AThread.ReadLn(Timeout);
@@ -1841,7 +1863,8 @@ begin
         begin
           if Assigned(OnLog) then
             OnLog(AThread, True, LRow);
-
+          aRes := HandleData(AThread,LRow);
+          if aRes <> '' then AThread.WriteLn(ares);
         end;
     end;
   finally

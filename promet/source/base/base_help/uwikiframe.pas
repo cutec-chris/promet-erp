@@ -270,7 +270,10 @@ begin
     DataSet := nil;
   except
   end;
+  try
   inherited Destroy;
+  except
+  end;
 end;
 function TfWikiFrame.OpenFromLink(aLink: string) : Boolean;
 begin
