@@ -76,7 +76,7 @@ type
   end;
 
 implementation
-uses uBaseVisualControls,uExtControls,uData;
+uses uBaseVisualControls,uExtControls,uData,Utils;
 procedure TEditableFrame.aButtonClick(Sender: TObject);
 var
   aFrame: TEditableFrame = nil;
@@ -192,7 +192,7 @@ var
   aControl: TControl;
 begin
   randomize;
-  fTab.Name:=copy(fTab.Name,0,50)+IntToStr(Random(255));
+  fTab.Name:='C'+ValidateFileName(copy(fTab.Name,0,50))+IntToStr(Random(255));
   i := 0;
   while i < FTab.ComponentCount do
     begin
