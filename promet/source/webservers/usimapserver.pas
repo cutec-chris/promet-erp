@@ -37,7 +37,7 @@ type
     procedure SendRes(AThread: TSTcpThread; Txt: string);
     function SendRequest(AThread: TSTcpThread; const AText: string) : string;
     function SafeString( Path: String ): Boolean;
-    function LoginUser( Password: String; AuthMechanism : String ): String;
+    function LoginUser(AThread: TSTcpThread;  Password: String; AuthMechanism : String ): String;
 
     function  MBSelect( Mailbox: string; ReadOnly : Boolean ): boolean; virtual;
     function  MBCreate( Mailbox: string ): boolean; virtual;
@@ -777,7 +777,7 @@ begin
       end;
       s := DecodeStringBase64(s);
       CurrentUserName := '';
-      SendResTag(AThread,LoginUser(s, 'LOGIN'));
+      SendResTag(AThread,LoginUser(AThread,s, 'LOGIN'));
     end
     else
       if (par = 'PLAIN') {and Assigned(SSL)} then
@@ -804,7 +804,7 @@ begin
         CurrentUserName := TrimWhSpace(
           copy(CurrentUserName, 1, pos(#0, CurrentUserName) - 1));
         CurrentUserName := '';
-        SendResTag(AThread,LoginUser(s, 'PLAIN'));
+        SendResTag(AThread,LoginUser(AThread,s, 'PLAIN'));
       end
       else
         {
@@ -1085,7 +1085,7 @@ begin
 //  if not Assigned(SSLConnection) then
 //    begin
 //      if Assigned(SSLContext) then
-        capabilities := capabilities + 'STARTTLS ';
+//        capabilities := capabilities + 'STARTTLS ';
 //      if (Def_LocalImapTlsMode = 2) and not Def_IMAP_DisableLogin then
 //        capabilities := capabilities + 'LOGINDISABLED ';
 //    end
@@ -1310,7 +1310,7 @@ begin
   end
   else
   begin
-    SendResTag(AThread,LoginUser(Pass, ''));
+    SendResTag(AThread,LoginUser(AThread,Pass, ''));
   end;
 end;
 
@@ -1745,10 +1745,24 @@ begin
    Result := True;
 end;
 
-function TSImapServer.LoginUser(Password: String; AuthMechanism: String
-  ): String;
+function TSImapServer.LoginUser(AThread: TSTcpThread; Password: String;
+  AuthMechanism: String): String;
+var
+  ares: Boolean = False;
 begin
-
+  Result := CurrentTag + 'BAD System-error, check logfile. [0]';
+  if Assigned(OnLogin) then
+    begin
+      aRes := OnLogin(AThread, CurrentUserName,Password);
+      if not ares then Result := 'NO Authentication rejected'
+      else
+        begin
+          if AuthMechanism='' then
+            Result := 'OK LOGIN completed.'
+          else
+            Result := 'OK ' + AuthMechanism + ' completed.';
+        end;
+    end;
 end;
 
 function TSImapServer.MBSelect(Mailbox: string; ReadOnly: Boolean): boolean;
