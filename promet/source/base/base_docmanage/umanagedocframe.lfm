@@ -410,7 +410,6 @@ inherited fManageDocFrame: TfManageDocFrame
           D4FFD2D2D2FFD1D1D1FFD0D0D0FFCECECEFFCDCDCDFFCBCBCB15FFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
-        GroupIndex = 114
         Layout = blGlyphTop
         OnClick = acSetTagExecute
         ShowCaption = False
@@ -459,7 +458,6 @@ inherited fManageDocFrame: TfManageDocFrame
           FF000000000129292944919191CA262626480000000400000001000000010000
           00043232323C9B9B9BC72929294400000001FFFFFF00FFFFFF00
         }
-        GroupIndex = 115
         Layout = blGlyphTop
         ShowCaption = False
       end

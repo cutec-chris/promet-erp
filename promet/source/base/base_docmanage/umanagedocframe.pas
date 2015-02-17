@@ -928,10 +928,10 @@ var
           TDocPages(FFullDataSet).FieldByName('DONE').AsString:='Y';
         TDocPages(FFullDataSet).Post;
       end;
-    if Assigned(ThumbControl1.ImageLoaderManager.ActiveItem.Pointer) then
+    if Assigned(Item.Pointer) then
       begin
-        TImageItem(ThumbControl1.ImageLoaderManager.ActiveItem.Pointer).Free;
-        ThumbControl1.ImageLoaderManager.ActiveItem.Pointer := nil;
+        TImageItem(Item.Pointer).Free;
+        Item.Pointer := nil;
         ThumbControl1.Invalidate;
       end;
   end;
