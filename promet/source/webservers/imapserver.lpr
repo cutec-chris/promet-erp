@@ -26,7 +26,8 @@ uses
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
   laz_synapse, uBaseDBInterface, uData, uBaseApplication, uBaseDbClasses,
   synautil, ureceivemessage, uMimeMessages, ussmtpserver, usimapserver,
-  usimapsearch, mimemess, usbaseserver, uSha1, usimapmailbox,RegExpr;
+  usimapsearch, mimemess, usbaseserver, uSha1, usimapmailbox,RegExpr, db,
+  Utils,uMessages;
 type
   TPIMAPServer = class(TBaseCustomApplication)
     function ServerAcceptMail(aSocket: TSTcpThread; aFrom: string;
@@ -44,6 +45,16 @@ type
     procedure DoRun; override;
   public
     constructor Create(TheOwner: TComponent); override;
+    destructor Destroy; override;
+  end;
+
+  { TPrometMailBox }
+
+  TPrometMailBox = class(TImapMailbox)
+  private
+    Folder : TMessageList;
+  public
+    constructor Create(APath: string);override;
     destructor Destroy; override;
   end;
 
@@ -69,10 +80,58 @@ type
     destructor Destroy; override;
   end;
 
+{ TPrometMailBox }
+
+constructor TPrometMailBox.Create(APath: string);
+var
+  Tree: TTree;
+  aCnt: TDataSet;
+begin
+  inherited Create(APath);
+  Folder := TMessageList.Create(nil);
+  Tree := TTree.Create(nil);
+  Tree.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(APath));
+  Folder.SelectByDir(Tree.Id.AsVariant);
+  Folder.Open;
+  aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES" from '+Data.QuoteField(Folder.TableName)+' where '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString));
+  aCnt.Open;
+  FMessages:=aCnt.FieldByName('MESSAGES').AsInteger;
+  FUnseen:=FMessages-aCnt.FieldByName('READ').AsInteger;
+  aCnt.Free;
+end;
+
+destructor TPrometMailBox.Destroy;
+begin
+  Folder.Free;
+  inherited Destroy;
+end;
+
 function TPrometImapServer.MBSelect(AThread: TSTcpThread; Mailbox: string;
   aReadOnly: Boolean): boolean;
 begin
   Result:=False;
+  MailBoxes.DataSet.Filtered:=False;
+  if MailBoxes.Locate('NAME',AnsiToUtf8(Mailbox),[]) then
+    begin
+      Selected := TPrometMailbox.Create(AnsiToUtf8(Mailbox));
+      result := True;
+    end
+  else if Mailbox='INBOX' then
+    begin
+      if MailBoxes.Locate('SQL_ID',TREE_ID_MESSAGES,[]) then
+        begin
+          Selected := TPrometMailbox.Create(MailBoxes.FieldByName('NAME').AsString);
+          result := True;
+        end;
+    end
+  else if lowercase(Mailbox)='trash' then
+    begin
+      if MailBoxes.Locate('SQL_ID',TREE_ID_DELETED_MESSAGES,[]) then
+        begin
+          Selected := TPrometMailbox.Create(MailBoxes.FieldByName('NAME').AsString);
+          result := True;
+        end;
+    end;
 end;
 
 function TPrometImapServer.MBCreate(AThread: TSTcpThread; Mailbox: string
@@ -152,7 +211,7 @@ procedure TPrometImapServer.DoList(AThread: TSTcpThread; Par: String;
     MailBoxes.First;
     while not MailBoxes.EOF do
       begin
-        Found := Base + MailBoxes.FieldByName('NAME').AsString;
+        Found := Base + Utf8ToAnsi(MailBoxes.FieldByName('NAME').AsString);
         if (uppercase(Found) <> 'INBOX') then
           begin
             if ExecRegExpr(RegEx, Found ) then
@@ -284,12 +343,10 @@ begin
       if DirectionIn then
         begin
           Info(IntToStr(aId)+':>'+aMessage);
-// writeln(IntToStr(aSocket.Id)+':>'+aMessage);
         end
       else
         begin
           Info(IntToStr(aId)+':<'+aMessage);
-// writeln(IntToStr(aSocket.Id)+':<'+aMessage);
         end;
     end;
 end;

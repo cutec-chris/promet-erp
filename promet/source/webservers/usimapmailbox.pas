@@ -21,23 +21,16 @@ type
   TImapMailbox = class
   private
     fCritSection: TRTLCriticalSection;
-    //fIndex       : TImapMailboxIndex;
     fPath: string;
     FUIDNext: longint;
     FUIDvalidity: TUnixTime;
-    FUnseen: longint;
-    FRecent: longint;
-    FMessages: longint;
-    //fStatus      : TMbxStatus;
     fUsers: TList;
-    fReadOnly: boolean; //ClientRO
-    //function  GetStatus: TMbxStatus;
+    fReadOnly: boolean;
     procedure AddMessage(Flags: string; TimeStamp: TUnixTime);
     function StringToFlagMask(Flags: string): TFlagMask;
     function FlagMaskToString(FlagMask: TFlagMask): string;
     function GetPossFlags: string;
     //procedure WriteStatus; //Not Critical_Section-Protected!
-    {MG}{Search-new}
     function Find(Search: TIMAPSearch; MsgSet: TMessageSet): TMessageSet;
     function JoinMessageSets(MsgSet1, MsgSet2: TMessageSet): TMessageSet;
     function FindMessageSets(MsgSet1, MsgSet2: TMessageSet;
@@ -49,7 +42,10 @@ type
     function FindContent(MsgSet: TMessageSet; After, Before: int64;
       Charset: string; HeaderList, BodyStrings,
       TextStrings: TStringList): TMessageSet;
-    {/Search-new}
+  protected
+    FUnseen: longint;
+    FRecent: longint;
+    FMessages: longint;
   public
     function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
 
@@ -83,7 +79,7 @@ type
     property Recent : Integer read FRecent;
     property Unseen : Integer read FUnseen;
 
-    constructor Create(APath: string);
+    constructor Create(APath: string);virtual;
     destructor Destroy; override;
   end;
 

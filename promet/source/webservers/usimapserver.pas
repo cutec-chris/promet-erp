@@ -21,7 +21,6 @@ type
     FLocalTimeoutQuitDelay: Integer;
     fReadOnly: Boolean;
     FUseIMAPID: Boolean;
-    Selected: TImapMailbox;
     CS_THR_IDLE: TRTLCriticalSection;
     SendExpunge: array of integer;
     SendNewMessages: boolean;
@@ -65,6 +64,7 @@ type
 
   protected
     HierarchyDelimiter : Char;
+    Selected: TImapMailbox;
 
     procedure LogRaw(AThread: TSTcpThread; Txt: string);
     procedure SendData(AThread: TSTcpThread; const AText: string);
@@ -1876,6 +1876,7 @@ procedure TSImapServer.Execute(AThread: TSTcpThread);
 var
   LRow, LCmd, LTag: string;
   aRes: String;
+  tmp: String;
 begin
   try
     SendData(AThread, '* OK IMAP4rev1 ' + SIMAPWelcomeMessage+ CRLF);
@@ -1887,7 +1888,12 @@ begin
       else if LRow <> '' then
         begin
           if Assigned(OnLog) then
-            OnLog(AThread, True, LRow);
+            begin
+              tmp := LRow;
+              if pos('login ',LowerCase(LRow))>0 then
+                tmp := copy(LRow,0,pos('login ',LowerCase(LRow))+5);
+              OnLog(AThread, True, tmp);
+            end;
           aRes := HandleData(AThread,LRow);
           if aRes <> '' then AThread.WriteLn(ares);
         end;
