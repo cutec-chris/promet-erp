@@ -566,59 +566,79 @@ end;
 
 function TfManageDocFrame.SetLinkfromSearch(aLink: string): Boolean;
 var
-  aEntryClass: TBaseDBDatasetClass;
-  aEntry: TBaseDBDataset;
-  aDocument: TDocument;
-  aDocLink: String;
+  Item: TThreadedImage;
   i: Integer;
-  aName: String;
+  procedure SetLink;
+  var
+    aEntryClass: TBaseDBDatasetClass;
+    aEntry: TBaseDBDataset;
+    aDocument: TDocument;
+    aDocLink: String;
+    i: Integer;
+    aName: String;
+    DoLinkDocuments: Boolean;
+  begin
+    DataSet.DataSet.Locate('SQL_ID',copy(Item.URL,0,pos('.',Item.URL)-1),[]);
+    DoLinkDocuments := MessageDlg(strMakeLinkToDocuments,mtInformation,[mbYes,mbNo],0) = mrYes;
+    TDocPages(DataSet).Edit;
+    TDocPages(DataSet).FieldByName('LINK').AsString:=aLink;
+    TDocPages(DataSet).Post;
+    SelectedItem.Name:=TDocPages(DataSet).FieldByName('NAME').AsString+LineEnding+Data.GetLinkDesc(TDocPages(DataSet).FieldByName('LINK').AsString);
+    if Data.DataSetFromLink(aLink,aEntryClass) then
+      begin
+        if DoLinkDocuments then
+          begin
+            aEntry := aEntryClass.Create(nil);
+            if aEntry is TBaseDbList then
+              begin
+                TBaseDbList(aEntry).SelectFromLink(aLink);
+                TBaseDbList(aEntry).Open;
+                if TBaseDbList(aEntry).Count>0 then
+                  begin
+                    aDocument := TDocument.CreateEx(Self,Data);
+                    aDocument.Select(0);
+                    aDocument.Open;
+                    aDocument.Ref_ID:=aEntry.Id.AsVariant;
+                    aDocument.BaseID:=aEntry.Id.AsVariant;
+                    aDocument.BaseTyp:=TBaseDbList(aEntry).GetTyp;
+                    if Assigned(TBaseDbList(aEntry).FieldByName('LANGUAGE')) then
+                      aDocument.BaseLanguage:=TBaseDbList(aEntry).FieldByName('LANGUAGE').AsString;
+                    if Assigned(TBaseDbList(aEntry).FieldByName('VERSION')) then
+                      aDocument.BaseLanguage:=TBaseDbList(aEntry).FieldByName('VERSION').AsString;
+                    for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
+                      begin
+                        if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
+                          begin
+                            aDocLink := Data.BuildLink(FDocFrame.DataSet.DataSet);
+                            break;
+                          end;
+                      end;
+                    aDocument.AddFromLink(aDocLink);
+                    aDocument.Edit;
+                    aName := TDocPages(DataSet).FieldByName('NAME').AsString;
+                    if rpos('.',aName)>0 then
+                      aName := copy(aName,0,rpos('.',aName)-1);
+                    aDocument.FieldByName('NAME').AsString:=aName;
+                    aDocument.FieldByName('DATE').AsVariant:=TDocPages(DataSet).FieldByName('ORIGDATE').AsVariant;
+                    aDocument.Post;
+                    aDocument.Free;
+                  end;
+              end;
+            aEntry.Free;
+          end;
+      end;
+  end;
+
 begin
-  TDocPages(DataSet).Edit;
-  TDocPages(DataSet).FieldByName('LINK').AsString:=aLink;
-  TDocPages(DataSet).Post;
-  SelectedItem.Name:=TDocPages(DataSet).FieldByName('NAME').AsString+LineEnding+Data.GetLinkDesc(TDocPages(DataSet).FieldByName('LINK').AsString);
-  if Data.DataSetFromLink(aLink,aEntryClass) then
+  if ThumbControl1.SelectedList.Count=0 then
     begin
-      if MessageDlg(strMakeLinkToDocuments,mtInformation,[mbYes,mbNo],0) = mrYes then
-        begin
-          aEntry := aEntryClass.Create(nil);
-          if aEntry is TBaseDbList then
-            begin
-              TBaseDbList(aEntry).SelectFromLink(aLink);
-              TBaseDbList(aEntry).Open;
-              if TBaseDbList(aEntry).Count>0 then
-                begin
-                  aDocument := TDocument.CreateEx(Self,Data);
-                  aDocument.Select(0);
-                  aDocument.Open;
-                  aDocument.Ref_ID:=aEntry.Id.AsVariant;
-                  aDocument.BaseID:=aEntry.Id.AsVariant;
-                  aDocument.BaseTyp:=TBaseDbList(aEntry).GetTyp;
-                  if Assigned(TBaseDbList(aEntry).FieldByName('LANGUAGE')) then
-                    aDocument.BaseLanguage:=TBaseDbList(aEntry).FieldByName('LANGUAGE').AsString;
-                  if Assigned(TBaseDbList(aEntry).FieldByName('VERSION')) then
-                    aDocument.BaseLanguage:=TBaseDbList(aEntry).FieldByName('VERSION').AsString;
-                  for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
-                    begin
-                      if FDocFrame.GotoEntry(FDocFrame.lvDocuments.Items[i]) then
-                        begin
-                          aDocLink := Data.BuildLink(FDocFrame.DataSet.DataSet);
-                          break;
-                        end;
-                    end;
-                  aDocument.AddFromLink(aDocLink);
-                  aDocument.Edit;
-                  aName := TDocPages(DataSet).FieldByName('NAME').AsString;
-                  if rpos('.',aName)>0 then
-                    aName := copy(aName,0,rpos('.',aName)-1);
-                  aDocument.FieldByName('NAME').AsString:=aName;
-                  aDocument.FieldByName('DATE').AsVariant:=TDocPages(DataSet).FieldByName('ORIGDATE').AsVariant;
-                  aDocument.Post;
-                  aDocument.Free;
-                end;
-            end;
-          aEntry.Free;
-        end;
+      Item := SelectedItem;
+      SetLink;
+    end
+  else for i := 0 to ThumbControl1.SelectedList.Count-1 do
+    begin
+      Item := TThreadedImage(ThumbControl1.SelectedList[i]);
+      SetLink;
     end;
 end;
 
