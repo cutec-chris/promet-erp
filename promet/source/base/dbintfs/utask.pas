@@ -172,7 +172,7 @@ resourcestring
   strWorkstatus             = 'Bearbeitungsstatus';
   strRenamed                = 'umbenannt in "%s"';
 implementation
-uses uBaseApplication,uIntfStrConsts,uProjects,uData,uCalendar;
+uses uBaseApplication,uIntfStrConsts,uProjects,uData,uCalendar,uTimes;
 
 function CompareStarts(Item1, Item2: Pointer): Integer;
 begin
@@ -1004,6 +1004,8 @@ var
   aUser: TUser;
   Informed2: String;
   aDeps: TDependencies;
+  aTimes: TTimes;
+  aColTime: Extended;
 begin
   if FCompletedChanged then
     begin
@@ -1068,6 +1070,24 @@ begin
                 end;
             end;
           aProject.Free;
+
+          if FieldByName('TIME').IsNull then
+            begin
+              aTimes := TTimes.CreateEx(Self,DataModule,Connection);
+              aTimes.Filter(Data.QuoteField('TASKID')+'='+Data.QuoteValue(Id.AsString));
+              aColTime := 0.0;
+              while not aTimes.EOF do
+                begin
+                  if (aTimes.FieldByName('END').IsNull) and  (Now()-aTimes.FieldByName('START').AsDateTime<1) then
+                    aColTime:=aColTime+((Now()-aTimes.FieldByName('START').AsDateTime)*8)//TODO:WorkHours
+                  else if (aTimes.FieldByName('END').AsDateTime-aTimes.FieldByName('START').AsDateTime<1) then
+                    aColTime:=aColTime+((aTimes.FieldByName('END').AsDateTime-aTimes.FieldByName('START').AsDateTime)*8);//TODO:WorkHours
+                  aTimes.Next;
+                end;
+              aTimes.Free;
+              if aColTime>0 then
+                FieldByName('TIME').AsFloat:=aColTime;
+            end;
         end
       else if (FieldByName('COMPLETED').AsString='N') and (DataSet.State <> dsInsert) then
         begin
