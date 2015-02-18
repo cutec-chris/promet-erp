@@ -1083,7 +1083,7 @@ inherited fManageDocFrame: TfManageDocFrame
       MultiThreaded = True
       ShowCaptions = True
       Layout = LsGrid
-      SelectStyle = ssFrame
+      SelectStyle = ssAlpha
       FreeInvisibleImages = True
       OnItemIndexChanged = ThumbControl1ItemIndexChanged
       AutoSort = True
@@ -1092,11 +1092,11 @@ inherited fManageDocFrame: TfManageDocFrame
       ScrollBars = ssAutoBoth
       Align = alClient
       Color = clWindow
-      ColorActiveFrame = clRed
-      ColorSelect = clHighlight
+      ColorActiveFrame = clHighlight
+      ColorSelect = 8311274
       ColorFont = clWhite
       ColorFontSelected = clWhite
-      CaptionHight = 8
+      CaptionHight = 16
       DragMode = dmAutomatic
       Font.Height = -9
       Font.Name = 'Trebuchet MS'

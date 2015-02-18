@@ -848,6 +848,7 @@ begin
       end;
   if not Found then
     begin
+      if FDocFrame.lvDocuments.Items.Count>0 then exit;
       FDocFrame.lvDocuments.ItemIndex:=0;
       FDocFrame.acViewFile.Execute;
     end;
@@ -1542,6 +1543,11 @@ begin
         aStream.Free;
       except
       end;
+    end
+  else
+    begin
+      if ThumbControl1.ImageLoaderManager.CountItems>0 then
+        ThumbControl1.ImageLoaderManager.ActiveIndex:=0;
     end;
   Application.ProcessMessages;
   for i := 0 to FDocFrame.lvDocuments.Items.Count-1 do
