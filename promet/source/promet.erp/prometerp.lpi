@@ -647,7 +647,6 @@
       </Item2>
       <Item3>
         <Name Value="EZSQLException"/>
-        <Enabled Value="False"/>
       </Item3>
       <Item4>
         <Name Value="EConvertError"/>
@@ -692,7 +691,6 @@
       </Item14>
       <Item15>
         <Name Value="ESQLParser"/>
-        <Enabled Value="False"/>
       </Item15>
       <Item16>
         <Name Value="EInOutError"/>

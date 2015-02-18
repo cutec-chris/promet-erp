@@ -1,5 +1,6 @@
 ﻿Build 393
       - Kontakte:Hinzufügen von Bildern direkt aus Thumbnail heraus
+      - Zeiterfassung:Zeiten werden beim abschließen einer Aufgabe in die Aufgabe übernommen
 Build 392
       - Wiki:Startseite hat nun Pfad Wiki/index so das diese auch korrekt synchronisiert werden kann
 Build 391

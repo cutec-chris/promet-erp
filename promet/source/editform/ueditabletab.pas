@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, Buttons, ExtCtrls,
   StdCtrls, DbCtrls, ObjectInspector, JvDesignSurface, JvDesignImp, PropEdits,
-  typinfo, JvDesignUtils, DBZVDateTimePicker, uPrometFrames, Dialogs,
+  typinfo, JvDesignUtils, DBZVDateTimePicker, uPrometFrames, Dialogs,GraphPropEdits,
   uIntfStrConsts;
 
 type
@@ -52,6 +52,8 @@ type
     procedure aButtonClick(Sender: TObject);
     procedure bDeleteClick(Sender: TObject);
     procedure ButtonButtonClick(Sender: TObject);
+    procedure EditableFrameInitIDEFileDialog(AFileDialog: TFileDialog);
+    procedure EditableFrameStoreIDEFileDialog(AFileDialog: TFileDialog);
     procedure JvDesignPanel1GetAddClass(Sender: TObject; var ioClass: string);
     procedure JvDesignPanel1Paint(Sender: TObject);
     procedure JvDesignPanel1SelectionChange(Sender: TObject);
@@ -76,7 +78,7 @@ type
   end;
 
 implementation
-uses uBaseVisualControls,uExtControls,uData,Utils;
+uses uBaseVisualControls,uExtControls,uData,Utils,IDEDialogs;
 procedure TEditableFrame.aButtonClick(Sender: TObject);
 var
   aFrame: TEditableFrame = nil;
@@ -154,6 +156,19 @@ begin
   aNewControl.Name:=DesignUniqueName(aNewControl,DesignClass);
   FEnterButton.Click;
 end;
+
+procedure TEditableFrame.EditableFrameInitIDEFileDialog(AFileDialog: TFileDialog
+  );
+begin
+
+end;
+
+procedure TEditableFrame.EditableFrameStoreIDEFileDialog(
+  AFileDialog: TFileDialog);
+begin
+
+end;
+
 procedure TEditableFrame.JvDesignPanel1GetAddClass(Sender: TObject;
   var ioClass: string);
 var
@@ -259,6 +274,9 @@ end;
 constructor TEditableFrame.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+  InitIDEFileDialog:=@EditableFrameInitIDEFileDialog;
+  StoreIDEFileDialog:=@EditableFrameStoreIDEFileDialog;
+  GlobalDesignHook := TPropertyEditorHook.Create;
   ThePropertyEditorHook:=TPropertyEditorHook.Create;
 
   PropertyGrid:=TOIPropertyGrid.CreateWithParams(Self,ThePropertyEditorHook
@@ -277,6 +295,7 @@ end;
 
 destructor TEditableFrame.Destroy;
 begin
+  FreeAndNil(GlobalDesignHook);
   ThePropertyEditorHook.Free;
   PropertyGrid.Free;
   inherited Destroy;
