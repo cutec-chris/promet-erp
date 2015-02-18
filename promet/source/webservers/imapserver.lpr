@@ -17,7 +17,6 @@ to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
 MA 02111-1307, USA.
 Created 01.06.2006
 *******************************************************************************}
-//TODO:Error on 7 UID fetch 92440905:92479961,92492667,92565735:92565739,92565747,92565755:92565767,92565775:92565787,92565795,92565811,92565827,92565839 (UID RFC822.SIZE FLAGS BODY.PEEK[HEADER.FIELDS (From To Cc Bcc Subject Date Message-ID Priority X-Priority References Newsgroups In-Reply-To Content-Type Reply-To)])
 program imapserver;
 {$mode objfpc}{$H+}
 uses
@@ -27,11 +26,8 @@ uses
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
   laz_synapse, uBaseDBInterface, uData, uBaseApplication, uBaseDbClasses,
   synautil, ureceivemessage, uMimeMessages, ussmtpserver, usimapserver,
-  usimapsearch, mimemess, usbaseserver, uSha1;
+  usimapsearch, mimemess, usbaseserver, uSha1, usimapmailbox,RegExpr;
 type
-
-  { TPIMAPServer }
-
   TPIMAPServer = class(TBaseCustomApplication)
     function ServerAcceptMail(aSocket: TSTcpThread; aFrom: string;
       aTo: TStrings): Boolean;
@@ -50,6 +46,201 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
+
+  TPrometImapServer = class(TSImapServer)
+  private
+    MailBoxes : TTree;
+  public
+    function  MBSelect(AThread: TSTcpThread; Mailbox: string; aReadOnly : Boolean ): boolean; override;
+    function  MBCreate(AThread: TSTcpThread; Mailbox: string ): boolean; override;
+    function  MBDelete(AThread: TSTcpThread; Mailbox: string ): boolean; override;
+    function  MBExists(AThread: TSTcpThread; var Mailbox: string ): boolean; override;
+    function  MBRename(AThread: TSTcpThread; OldName, NewName: String ): Boolean; override;
+    function  MBLogin(AThread: TSTcpThread; var Mailbox: TImapMailbox; Path: String; LINotify : Boolean ): Boolean; override;
+    procedure MBLogout(AThread: TSTcpThread; var Mailbox: TImapMailbox; LOSel : Boolean ); override;
+    procedure DoSearch(AThread: TSTcpThread; UseUID: Boolean; Par: String ); override;
+    procedure DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Destination: String );override;
+    procedure DoStore(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Par: String );override;
+    procedure DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Par: String );override;
+    procedure DoList(AThread: TSTcpThread; Par: String; LSub: Boolean ); override;
+    procedure DoSubscribe(AThread: TSTcpThread; Par: String);override;
+    procedure DoUnSubscribe(AThread: TSTcpThread; Par: String);override;
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+  end;
+
+function TPrometImapServer.MBSelect(AThread: TSTcpThread; Mailbox: string;
+  aReadOnly: Boolean): boolean;
+begin
+  Result:=False;
+end;
+
+function TPrometImapServer.MBCreate(AThread: TSTcpThread; Mailbox: string
+  ): boolean;
+begin
+  Result:=False;
+end;
+
+function TPrometImapServer.MBDelete(AThread: TSTcpThread; Mailbox: string
+  ): boolean;
+begin
+  Result:=False;
+end;
+
+function TPrometImapServer.MBExists(AThread: TSTcpThread; var Mailbox: string
+  ): boolean;
+begin
+  Result:=False;
+end;
+
+function TPrometImapServer.MBRename(AThread: TSTcpThread; OldName,
+  NewName: String): Boolean;
+begin
+  Result:=False;
+end;
+
+function TPrometImapServer.MBLogin(AThread: TSTcpThread;
+  var Mailbox: TImapMailbox; Path: String; LINotify: Boolean): Boolean;
+begin
+  Result:=False;
+end;
+
+procedure TPrometImapServer.MBLogout(AThread: TSTcpThread;
+  var Mailbox: TImapMailbox; LOSel: Boolean);
+begin
+end;
+
+procedure TPrometImapServer.DoSearch(AThread: TSTcpThread; UseUID: Boolean;
+  Par: String);
+begin
+end;
+
+procedure TPrometImapServer.DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet;
+  Command, Destination: String);
+begin
+end;
+
+procedure TPrometImapServer.DoStore(AThread: TSTcpThread; MsgSet: TMessageSet;
+  Command, Par: String);
+begin
+end;
+
+procedure TPrometImapServer.DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet;
+  Command, Par: String);
+begin
+end;
+
+procedure TPrometImapServer.DoList(AThread: TSTcpThread; Par: String;
+  LSub: Boolean);
+  procedure SendList( Txt: String );
+  var
+    s: String;
+  begin
+    if LSub then s := 'LSUB (' else s := 'LIST (';
+    //TODO:if FileExists2( MailBoxPath + ReplacePathDelimiters( Txt ) + IMAPNOSELECT_FILENAME ) then  s := s + '\'+IMAPNOSELECT_FILENAME;
+    //Fuer LSUB nur Subscribed-Folders anwenden
+    if (NOT LSub) OR (True{Todo:Subscrbed}) then
+      SendRes(AThread, s + ') "' + HierarchyDelimiter + '" "' + Txt + '"' );
+  end;
+
+  procedure ScanFolders( RegEx : string; aParent : Int64; Base: String );
+  var  SR : TSearchRec;
+       Found: String;
+  begin
+    MailBoxes.DataSet.Filter:='"PARENT"='+IntToStr(aParent);
+    MailBoxes.DataSet.Filtered := True;
+    MailBoxes.First;
+    while not MailBoxes.EOF do
+      begin
+        Found := Base + MailBoxes.FieldByName('NAME').AsString;
+        if (uppercase(Found) <> 'INBOX') then
+          begin
+            if ExecRegExpr(RegEx, Found ) then
+              SendList( Found );
+            ScanFolders( RegEx, MailBoxes.FieldByName('SQL_ID').AsVariant, Found + HierarchyDelimiter );
+          end
+        else
+          begin
+            ScanFolders( RegEx, MailBoxes.FieldByName('SQL_ID').AsVariant, 'INBOX' + HierarchyDelimiter)
+          end
+       end;
+  end;
+
+var
+  i : Integer;
+  Reference, Mailbox, Pattern, RegEx : String;
+begin
+  i := PosWhSpace( Par );
+  if (par='') or (i=0) then
+    begin
+      SendResTag(AThread,'BAD missing reference/mailbox parameter!');
+      exit;
+    end;
+  Reference := TrimQuotes( copy( Par, 1, i-1 ) );
+  Mailbox   := TrimQuotes( copy( Par, i+1, length(Par) ) );
+
+  if not SafeString( Reference ) then
+    begin
+      SendResTag(AThread, 'BAD reference parameter contains forbidden characters!' );
+      exit;
+    end;
+  if (Mailbox = '') then
+    begin
+      if not LSub then
+        begin
+          SendRes(AThread, 'LIST (\NOSELECT) "' + HierarchyDelimiter + '" "' + Copy( Reference, 1, Pos(HierarchyDelimiter,Reference)- 1 ) + '"' )
+        end
+      else
+        begin
+          SendRes(AThread, 'LSUB (\NOSELECT) "' + HierarchyDelimiter + '" "' + Copy( Reference, 1, Pos(HierarchyDelimiter,Reference)- 1 ) + '"' )
+        end
+    end
+  else
+    begin
+      if not SafeString( Mailbox ) then
+        begin
+          SendResTag(AThread,'BAD mailbox parameter contains forbidden characters!' );
+          exit;
+        end;
+      Pattern := Reference + Mailbox;
+      RegEx := '^';
+      for i := 1 to Length( Pattern ) do
+        begin
+          case Pattern[i] of
+            '*' : RegEx := RegEx + '.*';
+            '%' : RegEx := RegEx + '[^' + HierarchyDelimiter + ']*';
+            '+', '-', '.', '$', '(', ')': RegEx := RegEx+'\'+Pattern[i];
+            else  RegEx := RegEx + Pattern[i];
+          end
+        end;
+      RegEx := RegEx + '$';
+      if ExecRegExpr(RegEx, 'INBOX' ) then SendList( 'INBOX' );
+      ScanFolders( RegEx, 0, '' );
+    end;
+  SendResTag(AThread, 'OK You have now the List!' )
+end;
+
+procedure TPrometImapServer.DoSubscribe(AThread: TSTcpThread; Par: String);
+begin
+end;
+
+procedure TPrometImapServer.DoUnSubscribe(AThread: TSTcpThread; Par: String);
+begin
+end;
+
+constructor TPrometImapServer.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  MailBoxes := TTree.Create(nil);
+  Data.RefreshUsersFilter;
+  Data.SetFilter(MailBoxes,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
+end;
+
+destructor TPrometImapServer.Destroy;
+begin
+  MailBoxes.Free;
+  inherited Destroy;
+end;
 
 function TPIMAPServer.ServerAcceptMail(aSocket: TSTcpThread; aFrom: string;
   aTo: TStrings): Boolean;
@@ -195,28 +386,13 @@ begin
   with Self as IBaseDBInterface do
     begin
       DBLogout;
-      if not Login then exit;
+      if not Login then
+        begin
+          writeln('Login failed');
+          exit;
+        end;
     end;
-  IMAPServer.OnLogin :=@ServerLogin;
-  IMAPServer.OnLog:=@ServerLog;
-//  if HasOption('server-log') then
-//    IMAPServer.OnDebug:=@ServerLog;
-  //IMAPServer.SocketClass:=TPIMAPSocket;
-  aTime := Now();
-  while not Terminated do
-    begin
-      sleep(100);
-      if (Now()-aTime) > (1/HoursPerDay) then break;
-    end;
-  // stop program loop
-  Terminate;
-end;
-
-constructor TPIMAPServer.Create(TheOwner: TComponent);
-begin
-  inherited Create(TheOwner);
-  StopOnException:=False;
-  IMAPServer := TSIMAPServer.Create(Self);
+  IMAPServer := TPrometImapServer.Create(Self);
   IMAPServer.ListenPort := 143;
   if HasOption('port') then
     begin
@@ -256,6 +432,25 @@ begin
     Error('failed to open SMTP Port '+IntToStr(SMTPServer.ListenPort));
     raise;
   end;
+  IMAPServer.OnLogin :=@ServerLogin;
+  IMAPServer.OnLog:=@ServerLog;
+//  if HasOption('server-log') then
+//    IMAPServer.OnDebug:=@ServerLog;
+  //IMAPServer.SocketClass:=TPIMAPSocket;
+  aTime := Now();
+  while not Terminated do
+    begin
+      sleep(100);
+      if (Now()-aTime) > (1/HoursPerDay) then break;
+    end;
+  // stop program loop
+  Terminate;
+end;
+
+constructor TPIMAPServer.Create(TheOwner: TComponent);
+begin
+  inherited Create(TheOwner);
+  StopOnException:=False;
 end;
 
 destructor TPIMAPServer.Destroy;

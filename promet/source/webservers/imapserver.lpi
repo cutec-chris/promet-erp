@@ -31,10 +31,10 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --port=1043"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot;"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="3">
       <Item1>
         <PackageName Value="laz_synapse"/>
         <DefaultFilename Value="..\components\synapse\laz_synapse.lpk"/>
@@ -44,15 +44,11 @@
         <DefaultFilename Value="..\base_messaging\pmimemessages.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="lnetbase"/>
-        <DefaultFilename Value="..\components\lnet\lazaruspackage\lnetbase.lpk"/>
-      </Item3>
-      <Item4>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
-      </Item4>
+      </Item3>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="6">
       <Unit0>
         <Filename Value="imapserver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -60,7 +56,6 @@
       <Unit1>
         <Filename Value="ussmtpserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ussmtpserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="usimapserver.pas"/>
@@ -76,6 +71,11 @@
         <Filename Value="uSha1.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="usimapmailbox.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="usimapmailbox"/>
+      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -95,7 +95,7 @@
     </Parsing>
     <Linking>
       <Debugging>
-        <UseExternalDbgSyms Value="True"/>
+        <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>
     <Other>
@@ -125,4 +125,4 @@
       </Item5>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

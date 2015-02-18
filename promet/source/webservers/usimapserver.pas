@@ -14,7 +14,6 @@ type
 
   TSImapServer = class(TSTcpServer)
   private
-    HierarchyDelimiter : Char;
     CurrentUserName: String;
     CurrentTag: string;
     FIMAPDelay: Integer;
@@ -29,30 +28,7 @@ type
     IdleState: boolean;
     SelNotify       : pIMAPNotification;
 
-    procedure LogRaw(AThread: TSTcpThread; Txt: string);
-    procedure SendData(AThread: TSTcpThread; const AText: string);
-    procedure SendResult(AThread: TSTcpThread; const ATxt: string);
-    procedure SendResLit(AThread: TSTcpThread; Txt: string);
-    procedure SendResTag(AThread: TSTcpThread; Txt: string);
-    procedure SendRes(AThread: TSTcpThread; Txt: string);
-    function SendRequest(AThread: TSTcpThread; const AText: string) : string;
-    function SafeString( Path: String ): Boolean;
     function LoginUser(AThread: TSTcpThread;  Password: String; AuthMechanism : String ): String;
-
-    function  MBSelect( Mailbox: string; ReadOnly : Boolean ): boolean; virtual;
-    function  MBCreate( Mailbox: string ): boolean; virtual;
-    function  MBDelete( Mailbox: string ): boolean; virtual;
-    function  MBExists( var Mailbox: string ): boolean; virtual;
-    function  MBRename( OldName, NewName: String ): Boolean; virtual;
-    function  MBLogin(  var Mailbox: TImapMailbox; Path: String; LINotify : Boolean ): Boolean; virtual;
-    procedure MBLogout( var Mailbox: TImapMailbox; LOSel : Boolean ); virtual;
-    procedure DoSearch( UseUID: Boolean; Par: String ); virtual;
-    procedure DoCopy( MsgSet: TMessageSet; Command, Destination: String );virtual;
-    procedure DoStore( MsgSet: TMessageSet; Command, Par: String );virtual;
-    procedure DoFetch( MsgSet: TMessageSet; Command, Par: String );virtual;
-    procedure DoList( Par: String; LSub: Boolean ); virtual;
-    procedure DoSubscribe( Par: String);virtual;
-    procedure DoUnSubscribe( Par: String);virtual;
 
     function  HandleData(AThread : TSTcpThread;BufInStrm : string): String;
     procedure HandleCommand(AThread: TSTcpThread; const CmdLine: string);
@@ -88,9 +64,35 @@ type
     procedure Cmd_UNSUBSCRIBE(AThread: TSTcpThread;Par: string);
 
   protected
+    HierarchyDelimiter : Char;
+
+    procedure LogRaw(AThread: TSTcpThread; Txt: string);
+    procedure SendData(AThread: TSTcpThread; const AText: string);
+    procedure SendResult(AThread: TSTcpThread; const ATxt: string);
+    procedure SendResLit(AThread: TSTcpThread; Txt: string);
+    procedure SendResTag(AThread: TSTcpThread; Txt: string);
+    procedure SendRes(AThread: TSTcpThread; Txt: string);
+    function SendRequest(AThread: TSTcpThread; const AText: string) : string;
+    function SafeString( Path: String ): Boolean;
+
     procedure SetActive(const AValue: boolean); override;
     procedure Execute(AThread: TSTcpThread); override;
   public
+    function  MBSelect(AThread: TSTcpThread; Mailbox: string; ReadOnly : Boolean ): boolean; virtual;
+    function  MBCreate(AThread: TSTcpThread; Mailbox: string ): boolean; virtual;
+    function  MBDelete(AThread: TSTcpThread; Mailbox: string ): boolean; virtual;
+    function  MBExists(AThread: TSTcpThread; var Mailbox: string ): boolean; virtual;
+    function  MBRename(AThread: TSTcpThread; OldName, NewName: String ): Boolean; virtual;
+    function  MBLogin(AThread: TSTcpThread;  var Mailbox: TImapMailbox; Path: String; LINotify : Boolean ): Boolean; virtual;
+    procedure MBLogout(AThread: TSTcpThread; var Mailbox: TImapMailbox; LOSel : Boolean ); virtual;
+    procedure DoSearch(AThread: TSTcpThread; UseUID: Boolean; Par: String ); virtual;
+    procedure DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Destination: String );virtual;
+    procedure DoStore(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Par: String );virtual;
+    procedure DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Par: String );virtual;
+    procedure DoList(AThread: TSTcpThread; Par: String; LSub: Boolean ); virtual;
+    procedure DoSubscribe(AThread: TSTcpThread; Par: String);virtual;
+    procedure DoUnSubscribe(AThread: TSTcpThread; Par: String);virtual;
+
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     property IMAPDelay : Integer read FIMAPDelay write FIMAPDelay;
@@ -632,7 +634,7 @@ begin
     SendResTag(AThread,'BAD arguments missing for APPEND!');
     exit;
   end;
-  if not MBExists(Mailbox) then
+  if not MBExists(AThread,Mailbox) then
   begin
     with BaseApplication as IBaseApplication do
       Warning('IMAP-server: Unknown mailbox for APPEND');
@@ -680,7 +682,7 @@ begin
   begin
     SendResTag(AThread, Selected.AppendMessage(MessageText, Flags, Time));
   end
-  else if not MBLogin(DestMailbox, Mailbox, False) then
+  else if not MBLogin(AThread,DestMailbox, Mailbox, False) then
     begin
       SendResTag(AThread, 'NO APPEND error: can''t open destination mailbox');
     end
@@ -689,7 +691,7 @@ begin
       try
         SendResTag(AThread, DestMailbox.AppendMessage(MessageText, Flags, Time));
       finally
-        MBLogout(DestMailbox, False)
+        MBLogout(AThread,DestMailbox, False)
       end;
     end;
 end;
@@ -1138,7 +1140,7 @@ begin
         Selected.Expunge(SelNotify);
       end
     finally
-      MBLogout(Selected, True);
+      MBLogout(AThread,Selected, True);
       SendResTag(AThread,'OK Mailbox closed.');
     end;
   end;
@@ -1156,7 +1158,7 @@ begin
   end
   else
   begin
-    DoCopy(Selected.StrToMsgSet(MsgSetStr, False), 'COPY', Destination);
+    DoCopy(AThread,Selected.StrToMsgSet(MsgSetStr, False), 'COPY', Destination);
   end;
 end;
 
@@ -1169,7 +1171,7 @@ begin
   begin
     SendResTag(AThread,'BAD CREATE without mailbox!');
   end
-  else if MBCreate(Mailbox) then
+  else if MBCreate(AThread,Mailbox) then
     begin
       SendResTag(AThread,'OK Mailbox created!');
     end
@@ -1188,7 +1190,7 @@ begin
   begin
     SendResTag(AThread,'BAD DELETE without mailbox!');
   end
-  else if MBDelete(Mailbox) then
+  else if MBDelete(AThread,Mailbox) then
     begin
       SendResTag(AThread,'OK Mailbox deleted!');
     end
@@ -1209,14 +1211,14 @@ begin
   end
   else
   begin
-    if MBSelect(Mailbox, True) then
+    if MBSelect(AThread,Mailbox, True) then
     begin
       SendRes(AThread,'OK [PERMANENTFLAGS ()] No permanent flags permitted');
       SendResTag(AThread,'OK [READ-ONLY] Mailbox opened');
     end
     else
     begin
-      MBLogout(Selected, True);
+      MBLogout(AThread,Selected, True);
       SendResTag(AThread,'NO EXAMINE failed!');
     end;
   end;
@@ -1250,7 +1252,7 @@ begin
   end
   else
   begin
-    DoFetch(Selected.StrToMsgSet(MsgSetStr, False), 'FETCH', Par);
+    DoFetch(AThread,Selected.StrToMsgSet(MsgSetStr, False), 'FETCH', Par);
   end;
 end;
 
@@ -1294,7 +1296,7 @@ end;
 
 procedure TSImapServer.Cmd_LIST(AThread: TSTcpThread; Par: string);
 begin
-  DoList(Par, False);
+  DoList(AThread,Par, False);
 end;
 
 procedure TSImapServer.Cmd_LOGIN(AThread: TSTcpThread; Par: string);
@@ -1320,7 +1322,7 @@ begin
     CurrentUserName := '';
     try
       if Assigned(Selected) then
-        MBLogout(Selected, True);
+        MBLogout(AThread,Selected, True);
     except
     end;
 
@@ -1341,7 +1343,7 @@ end;
 
 procedure TSImapServer.Cmd_LSUB(AThread: TSTcpThread; Par: string);
 begin
-  DoList(Par, True);
+  DoList(AThread,Par, True);
 end;
 
 procedure TSImapServer.Cmd_NCBrain(AThread: TSTcpThread; Par: string);
@@ -1386,7 +1388,7 @@ begin
   begin
     SendResTag(AThread,'BAD RENAME without existing / new name!');
   end
-  else if MBRename(OldName, NewName) then
+  else if MBRename(AThread,OldName, NewName) then
     begin
       SendResTag(AThread,'OK Mailbox renamed.');
     end
@@ -1404,7 +1406,7 @@ begin
   end
   else
   begin
-    DoSearch(False, Par);
+    DoSearch(AThread,False, Par);
   end;
 end;
 
@@ -1413,7 +1415,7 @@ var
   Mailbox: string;
 begin
   if Assigned(Selected) then
-    MBLogout(Selected, True); //RFC!
+    MBLogout(AThread,Selected, True); //RFC!
 
   Mailbox := CutFirstParam(Par);
   if Mailbox = '' then
@@ -1422,7 +1424,7 @@ begin
   end
   else
   begin
-    if MBSelect(Mailbox, fReadOnly) then
+    if MBSelect(AThread,Mailbox, fReadOnly) then
     begin
       if Selected.MBReadOnly then
       begin //ClientRO
@@ -1437,7 +1439,7 @@ begin
     end
     else
     begin
-      MBLogout(Selected, True);
+      MBLogout(AThread,Selected, True);
       SendResTag(AThread,'NO SELECT failed!');
     end;
   end;
@@ -1522,7 +1524,7 @@ begin
     SendResTag(AThread,'BAD STATUS Mailbox parameter contains forbidden characters!');
     exit;
   end;
-  if not MBExists(Mailbox) then
+  if not MBExists(AThread,Mailbox) then
   begin
     SendResTag(AThread,'NO STATUS error: mailbox does not exist!');
     exit;
@@ -1575,7 +1577,7 @@ begin
   end
   else
   begin
-    DoStore(Selected.StrToMsgSet(MsgSetStr, False), 'STORE', Par);
+    DoStore(AThread,Selected.StrToMsgSet(MsgSetStr, False), 'STORE', Par);
   end;
 end;
 
@@ -1591,7 +1593,7 @@ begin
   end
   else
   begin
-    DoSubscribe(MailBox);
+    DoSubscribe(AThread,MailBox);
   end;
 end;
 
@@ -1608,7 +1610,7 @@ begin
   end
   else
   begin
-    DoUnSubscribe(MailBox);
+    DoUnSubscribe(AThread,MailBox);
   end;
 end;
 
@@ -1631,7 +1633,7 @@ begin
 
   if Command = 'SEARCH' then
   begin
-    DoSearch(True, CmdParams);
+    DoSearch(AThread,True, CmdParams);
   end
   else
   begin
@@ -1647,11 +1649,11 @@ begin
       copy(CmdParams, i + 1, length(CmdParams))));
 
     if Command = 'COPY' then
-      DoCopy(MsgSet, 'UID COPY', CmdParams)
+      DoCopy(AThread,MsgSet, 'UID COPY', CmdParams)
     else if Command = 'STORE' then
-      DoStore(MsgSet, 'UID STORE', CmdParams)
+      DoStore(AThread,MsgSet, 'UID STORE', CmdParams)
     else if Command = 'FETCH' then
-      DoFetch(MsgSet, 'UID FETCH', CmdParams)
+      DoFetch(AThread,MsgSet, 'UID FETCH', CmdParams)
     else
       begin
         SendResTag(AThread,'BAD I don''t know this UID-command!');
@@ -1661,6 +1663,8 @@ end;
 
 procedure TSImapServer.LogRaw(AThread: TSTcpThread; Txt: string);
 begin
+  if pos('LOGIN ',uppercase(Txt))>0 then
+    Txt := copy(Txt,0,pos('LOGIN ',uppercase(Txt))-1);
   if Assigned(OnLog) then
     OnLog(AThread, False, Txt);
 end;
@@ -1765,73 +1769,80 @@ begin
     end;
 end;
 
-function TSImapServer.MBSelect(Mailbox: string; ReadOnly: Boolean): boolean;
+function TSImapServer.MBSelect(AThread: TSTcpThread; Mailbox: string;
+  ReadOnly: Boolean): boolean;
 begin
   Result := False;
 end;
 
-function TSImapServer.MBCreate(Mailbox: string): boolean;
+function TSImapServer.MBCreate(AThread: TSTcpThread; Mailbox: string): boolean;
 begin
   Result := False;
 end;
 
-function TSImapServer.MBDelete(Mailbox: string): boolean;
+function TSImapServer.MBDelete(AThread: TSTcpThread; Mailbox: string): boolean;
 begin
   Result := False;
 end;
 
-function TSImapServer.MBExists(var Mailbox: string): boolean;
+function TSImapServer.MBExists(AThread: TSTcpThread; var Mailbox: string
+  ): boolean;
 begin
   Result := False;
 end;
 
-function TSImapServer.MBRename(OldName, NewName: String): Boolean;
+function TSImapServer.MBRename(AThread: TSTcpThread; OldName, NewName: String
+  ): Boolean;
 begin
   Result := False;
 end;
 
-function TSImapServer.MBLogin(var Mailbox: TImapMailbox; Path: String;
-  LINotify: Boolean): Boolean;
+function TSImapServer.MBLogin(AThread: TSTcpThread; var Mailbox: TImapMailbox;
+  Path: String; LINotify: Boolean): Boolean;
 begin
   Result := False;
 end;
 
-procedure TSImapServer.MBLogout(var Mailbox: TImapMailbox; LOSel: Boolean);
+procedure TSImapServer.MBLogout(AThread: TSTcpThread;
+  var Mailbox: TImapMailbox; LOSel: Boolean);
 begin
 end;
 
-procedure TSImapServer.DoSearch(UseUID: Boolean; Par: String);
-begin
-
-end;
-
-procedure TSImapServer.DoCopy(MsgSet: TMessageSet; Command, Destination: String
-  );
+procedure TSImapServer.DoSearch(AThread: TSTcpThread; UseUID: Boolean;
+  Par: String);
 begin
 
 end;
 
-procedure TSImapServer.DoStore(MsgSet: TMessageSet; Command, Par: String);
+procedure TSImapServer.DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet;
+  Command, Destination: String);
 begin
 
 end;
 
-procedure TSImapServer.DoFetch(MsgSet: TMessageSet; Command, Par: String);
+procedure TSImapServer.DoStore(AThread: TSTcpThread; MsgSet: TMessageSet;
+  Command, Par: String);
 begin
 
 end;
 
-procedure TSImapServer.DoList(Par: String; LSub: Boolean);
+procedure TSImapServer.DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet;
+  Command, Par: String);
 begin
 
 end;
 
-procedure TSImapServer.DoSubscribe(Par: String);
+procedure TSImapServer.DoList(AThread: TSTcpThread; Par: String; LSub: Boolean);
 begin
 
 end;
 
-procedure TSImapServer.DoUnSubscribe(Par: String);
+procedure TSImapServer.DoSubscribe(AThread: TSTcpThread; Par: String);
+begin
+
+end;
+
+procedure TSImapServer.DoUnSubscribe(AThread: TSTcpThread; Par: String);
 begin
 
 end;
