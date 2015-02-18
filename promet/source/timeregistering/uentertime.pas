@@ -508,6 +508,7 @@ end;
 procedure TfEnterTime.acStartExecute(Sender: TObject);
 var
   aProject: TProject;
+  aTasks: TTask;
 begin
   FList.ClearFilter;
   Times.DataSet.Refresh;
@@ -529,8 +530,21 @@ begin
       aProject := TProject.Create(nil);
       aProject.SelectFromLink(FProject);
       aProject.Open;
+      aTasks := TTask.Create(nil);
+      aTasks.SelectActiveByUser(Data.Users.Accountno.AsString);
+      aTasks.Filter(Data.QuoteField('SUMMARY')+'='+Data.QuoteValue(eJob.Text));
       if aProject.Count>0 then
-        Times.FieldByName('PROJECTID').AsVariant := aProject.Id.AsVariant;
+        begin
+          Times.FieldByName('PROJECTID').AsVariant := aProject.Id.AsVariant;
+          if aTasks.Locate('PROJECTID',aProject.Id.AsVariant,[]) then
+            Times.FieldByName('TASKID').AsVariant := aTasks.Id.AsVariant;
+        end
+      else
+        begin
+          if aTasks.Count>0 then
+            Times.FieldByName('TASKID').AsVariant := aTasks.Id.AsVariant;
+        end;
+      aTasks.Free;
       aProject.Free;
       Times.FieldByName('CATEGORY').AsString := cbCategory.Text;
       Times.FieldByName('JOB').AsString := eJob.Text;
