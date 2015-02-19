@@ -1588,6 +1588,7 @@ begin
   SelectedItem:=nil;
   if BaseApplication.HasOption('disablethreads') then
     ThumbControl1.MultiThreaded:=False;
+  ThumbControl1.BorderStyle:=bsNone;
   DataSet := TDocPagesList.Create(nil);
   FTempPath := uthumbnails.GetThumbTempDir;
   ForceDirectoriesUTF8(FtempPath);
@@ -1602,7 +1603,7 @@ begin
   fTimeLine.Parent:=pRight;
   fTimeLine.Align:=alClient;
   fTimeLine.OnSetMarker:=@FTimeLineSetMarker;
-  FTimeLine.Increment:=-16;
+  FTimeLine.Increment:=-8;
   FTimeLine.UseLongMonth:=False;
   PreviewFrame := TfPreview.Create(Self);
   PreviewFrame.Parent := tsDocument;
