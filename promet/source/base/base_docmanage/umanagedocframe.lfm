@@ -1527,30 +1527,30 @@ inherited fManageDocFrame: TfManageDocFrame
       }
     end
   end
-  object IdleTimer1: TIdleTimer[7]
-    Enabled = False
-    Interval = 300
-    OnTimer = IdleTimer1Timer
-    left = 400
-  end
-  object SelectDirectoryDialog1: TSelectDirectoryDialog[8]
+  object SelectDirectoryDialog1: TSelectDirectoryDialog[7]
     left = 16
     top = 152
   end
-  object SaveDialog1: TSaveDialog[9]
+  object SaveDialog1: TSaveDialog[8]
     Filter = 'Portable Document Format (*.pdf)|*.pdf'
     Options = [ofNoTestFileCreate, ofEnableSizing, ofViewDetail]
     left = 16
     top = 208
   end
-  object OpenPictureDialog1: TOpenPictureDialog[10]
+  object OpenPictureDialog1: TOpenPictureDialog[9]
     Options = [ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
     left = 131
     top = 48
   end
-  object OpenDialog1: TOpenDialog[11]
+  object OpenDialog1: TOpenDialog[10]
     Options = [ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
     left = 131
     top = 80
+  end
+  object IdleTimer1: TTimer[11]
+    Enabled = False
+    Interval = 600
+    OnTimer = IdleTimer1Timer
+    left = 400
   end
 end

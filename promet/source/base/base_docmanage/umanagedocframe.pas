@@ -85,6 +85,7 @@ type
     cbFilter: TComboBox;
     Datasource1: TDatasource;
     DBEdit1: TDBEdit;
+    IdleTimer1: TTimer;
     MenuItem11: TMenuItem;
     mFulltext: TMemo;
     MenuItem10: TMenuItem;
@@ -104,7 +105,6 @@ type
     ExtRotatedLabel6: TLabel;
     ExtRotatedLabel7: TLabel;
     ExtRotatedLabel8: TExtRotatedLabel;
-    IdleTimer1: TIdleTimer;
     iNoThumbnail: TImage;
     Label1: TLabel;
     Label2: TLabel;
@@ -531,7 +531,7 @@ begin
     begin
       SortFields := 'ORIGDATE';
       SortDirection:=sdDescending;
-      Limit := 0;
+      Limit := 100;
       if trim(eSearch.Text)<>'' then
         begin
           if Uppercase(eSearch.Text)='NULL' then
@@ -853,7 +853,7 @@ begin
       end;
   if not Found then
     begin
-      if FDocFrame.lvDocuments.Items.Count>0 then exit;
+      if FDocFrame.lvDocuments.Items.Count=0 then exit;
       FDocFrame.lvDocuments.ItemIndex:=0;
       FDocFrame.acViewFile.Execute;
     end;
