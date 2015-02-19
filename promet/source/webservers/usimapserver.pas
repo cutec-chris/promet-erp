@@ -225,16 +225,16 @@ begin
         Cmd_STARTTLS(AThread,Par);
         exit;
       end; {MG}{SSL}
-      if Cmd = 'AUTHENTICATE' then
-      begin
-        Cmd_AUTHENTICATE(AThread,Par);
-        exit;
-      end;
-      if Cmd = 'LOGIN' then
-      begin
-        Cmd_LOGIN(AThread,Par);
-        exit;
-      end;
+    end;
+    if Cmd = 'AUTHENTICATE' then
+    begin
+      Cmd_AUTHENTICATE(AThread,Par);
+      exit;
+    end;
+    if Cmd = 'LOGIN' then
+    begin
+      Cmd_LOGIN(AThread,Par);
+      exit;
     end;
 
     // check authentication
@@ -784,7 +784,7 @@ begin
     else
       if (par = 'PLAIN') {and Assigned(SSL)} then
       begin
-        //TODO:TimeStamp := MidGenerator(Def_FQDNforMIDs);
+        TimeStamp := TimeToStr(Now());
         s := '+ ' + EncodeStringBase64(TimeStamp);
         s := SendRequest(AThread,s);
         if s = '' then
@@ -805,249 +805,13 @@ begin
           pos(#0, CurrentUserName) + 1, 500));
         CurrentUserName := TrimWhSpace(
           copy(CurrentUserName, 1, pos(#0, CurrentUserName) - 1));
-        CurrentUserName := '';
         SendResTag(AThread,LoginUser(AThread,s, 'PLAIN'));
       end
       else
-        {
-        if Par = 'DIGEST-MD5' then
-        begin
-          // build challenge
-          //if Def_FQDN <> '' then
-          //  realm := Def_FQDN
-          //else
-            realm := 'localhost';
-          s := 'realm="' + realm + '"';
-          Randomize;
-          nonce := HMAC_SHA1(nonce, IntToHex(Random(MaxInt), 8) +
-            IntToHex(Random(MaxInt), 8) + IntToHex(Random(MaxInt), 8) +
-            IntToHex(Random(MaxInt), 8));
-          nonce := EncodeStringBase64(nonce);
-          s := s + ',' + 'nonce="' + nonce + '"';
-          qop := 'auth';
-          s := s + ',' + 'qop="' + qop + '"';
-          s := s + ',' + 'algorithm=' + 'md5-sess';
-          s := EncodeStringBase64(s);
-          // send challenge, get response
-          s := SendRequest(AThread,'+ ' + s);
-          if s = '' then
-          begin
-            with BaseApplication as IBaseApplication do
-              Error('empty response received');
-            SendResTag(AThread,'BAD Authentification failed!');
-            exit;
-          end;
-          // check response, extract values
-          s := DecodeStringBase64(s);
-          // check username
-          username := ExtractQuotedParameter(s, 'username');
-          if username = '' then
-          begin
-            with BaseApplication as IBaseApplication do
-              Error('missing username in answer');
-            SendResTag(AThread,'BAD Authentification failed!');
-            exit;
-          end;
-          CurrentUserName := trim(username);
-          nonce := ExtractQuotedParameter(s, 'nonce');
-          if nonce = '' then
-          begin
-            with BaseApplication as IBaseApplication do
-              Error('missing nonce in answer');
-            SendResTag(AThread,'BAD Authentification failed!');
-            exit;
-          end;
-          cnonce := ExtractQuotedParameter(s, 'cnonce');
-          if cnonce = '' then
-          begin
-            with BaseApplication as IBaseApplication do
-              Error('missing cnonce in answer');
-            SendResTag(AThread,'BAD Authentification failed!');
-            exit;
-          end;
-          nc := ExtractQuotedParameter(s, 'nc');
-          if nc <> '00000001' then
-          begin
-            with BaseApplication as IBaseApplication do
-              Error('wrong nc value');
-            SendResTag(AThread,'BAD Authentification failed!');
-            exit;
-          end;
-          qop := ExtractQuotedParameter(s, 'qop');
-          if qop = '' then
-            qop := 'auth'
-          else
-            if (lowercase(qop) <> 'auth') then
-            begin
-              with BaseApplication as IBaseApplication do
-                Error(Format('unsupported hash quality protection ´%s', [qop]));
-              SendResTag(AThread,'BAD Authentification failed!');
-              exit;
-            end;
-          if pos('realm=', s) = 0 then
-          begin
-            with BaseApplication as IBaseApplication do
-              Error('missing realm in answer');
-            SendResTag(AThread,'BAD Authentification failed!');
-            exit;
-          end;
-          realm2 := ExtractQuotedParameter(s, 'realm');
-          if realm2 = '' then
-          begin
-            with BaseApplication as IBaseApplication do
-              Error('missing realm in answer');
-            SendResTag(AThread,'BAD Authentification failed!');
-            exit;
-          end;
-          if realm2 <> realm then
-          begin
-            with BaseApplication as IBaseApplication do
-              Error('wrong realm in answer');
-            SendResTag(AThread,'BAD Authentification failed!');
-            exit;
-          end;
-          digesturi := ExtractQuotedParameter(s, 'digest-uri');
-          response := ExtractQuotedParameter(s, 'response');
-          if length(response) <> 32 then
-          begin
-            with BaseApplication as IBaseApplication do
-              Error('wrong response length in answer');
-            SendResTag(AThread,'BAD Authentification failed!');
-            exit;
-          end;
-          // build expected response and compare with received one
-          try
-            if CurrentUserID = ACTID_INVALID then
-            begin
-              with BaseApplication as IBaseApplication do
-                Error('login rejected, unknown user');
-              CurrentUserName := '';
-              SendResTag(AThread,'BAD Authentification failed!');
-              exit;
-            end;
-            pass := CfgAccounts.Users.Find(CurrentUserID).Password;
-            a1 := MD5OfStr(username + ':' + realm + ':' + pass) +
-              ':' + nonce + ':' + cnonce;
-            A2 := 'AUTHENTICATE:' + digesturi;
-            s := MD5toHex(MD5OfStr(MD5toHex(MD5OfStr(A1)) +
-              ':' + nonce + ':' + nc + ':' + cnonce + ':' + qop +
-              ':' + MD5toHex(MD5OfStr(A2))));
-            if s <> response then
-            begin
-              with BaseApplication as IBaseApplication do
-                Error('login rejected, wrong response value');
-              SendResTag('BAD Authentification failed!');
-              CurrentUserName := '';
-              CurrentUserID := ACTID_INVALID;
-              exit;
-            end;
-          except
-            with BaseApplication as IBaseApplication do
-              Error('unknown error');
-            SendResTag('BAD Authentification failed!');
-            CurrentUserName := '';
-            CurrentUserID := ACTID_INVALID;
-            exit;
-          end;
-          // build rspauth and send it
-          a2 := ':' + digesturi;
-          rspauth := MD5toHex(MD5OfStr(MD5toHex(MD5OfStr(A1)) +
-            ':' + nonce + ':' + nc + ':' + cnonce + ':' + qop + ':' +
-            MD5toHex(MD5OfStr(A2))));
-          s := 'rspauth=' + rspauth;
-          s := EncodeB64(s[1], length(s));
-          s := SendRequest('+ ' + s);
-          SendResTag(AThread,LoginUser(pass, 'DIGEST-MD5'));
-        end
-        else
-
-          if par = 'CRAM-MD5' then
-          begin
-            TimeStamp := MidGenerator(Def_FQDNforMIDs);
-            s := '+ ' + EncodeB64(TimeStamp[1], length(TimeStamp));
-            s := SendRequest(s);
-            if s = '' then
-              exit;
-            s := DecodeB64(s[1], length(s));
-            if s = '' then
-            begin
-              SendResTag('NO Authentification failed!');
-              Exit;
-            end;
-            if s = '*' then
-            begin
-              SendResTag('BAD Authentification failed!');
-              Exit;
-            end;
-            Hash := TrimWhSpace(copy(s, PosWhSpace(s) + 1, 32));
-            CurrentUserName := TrimWhSpace(copy(s, 1, PosWhSpace(s) - 1));
-            CurrentUserID := CfgAccounts.Users.IDOf(CurrentUserName);
-            if CurrentUserID = ACTID_INVALID then
-            begin
-              CurrentUserName := '';
-            end
-            else
-            begin
-              pass := CfgAccounts.Users.Find(CurrentUserID).Password;
-              s := MD5HMAC(pass, TimeStamp);
-              s := MD5toHex(s);
-              if s = Hash then
-                SendResTag(LoginUser(pass, 'CRAM-MD5'))
-              else
-              begin
-                SendResTag('NO Authentification rejected!');
-                CurrentUserID := ACTID_INVALID;
-                CurrentUserName := '';
-              end;
-            end;
-          end
-          else
-            if par = 'CRAM-SHA1' then
-            begin
-              TimeStamp := MidGenerator(Def_FQDNforMIDs);
-              s := '+ ' + EncodeB64(TimeStamp[1], length(TimeStamp));
-              s := SendRequest(s);
-              if s = '' then
-                exit;
-              s := DecodeB64(s[1], length(s));
-              if s = '' then
-              begin
-                SendResTag('NO Authentification failed!');
-                Exit;
-              end;
-              if s = '*' then
-              begin
-                SendResTag('BAD Authentification failed!');
-                Exit;
-              end;
-              Hash := TrimWhSpace(copy(s, PosWhSpace(s) + 1, 40)); // Fix Arne Schloh
-              CurrentUserName := TrimWhSpace(copy(s, 1, PosWhSpace(s) - 1));
-              CurrentUserID := CfgAccounts.Users.IDOf(CurrentUserName);
-              if CurrentUserID = ACTID_INVALID then
-              begin
-                CurrentUserName := '';
-              end
-              else
-              begin
-                pass := CfgAccounts.Users.Find(CurrentUserID).Password;
-                s := HMAC_SHA1(pass, TimeStamp);
-                s := SHA1toHex(s);
-                if s = Hash then
-                  SendResTag(LoginUser(pass, 'CRAM-SHA1'))
-                else
-                begin
-                  SendResTag('NO Authentification rejected!');
-                  CurrentUserID := ACTID_INVALID;
-                  CurrentUserName := '';
-                end;
-              end;
-            end
-            else
-            }
-            begin
-              CurrentUserName := '';
-              SendResTag(AThread,'NO Unknown AUTH mechanism ' + par);
-            end;
+      begin
+        CurrentUserName := '';
+        SendResTag(AThread,'NO Unknown AUTH mechanism ' + par);
+      end;
   except
     CurrentUserName := '';
   end;
@@ -1071,9 +835,6 @@ begin
   end;
   //---Standard-CAPAs--------------------------------
   capabilities := 'IMAP4rev1 '
-  //+ 'AUTH=CRAM-SHA1 ' +
-  //  'AUTH=CRAM-MD5 '
-    + 'AUTH=DIGEST-MD5 '
     + 'IDLE '
     + 'LITERAL+ ';
 
@@ -1734,7 +1495,7 @@ begin
   AThread.WriteLn(AText);
   if Assigned(OnLog) then
     OnLog(AThread, False, AText);
-  Result := AThread.ReadLn(Timeout);
+  Result := AThread.ReadLn(Timeout+100);
 end;
 
 function TSImapServer.SafeString(Path: String): Boolean;

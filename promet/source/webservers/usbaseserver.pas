@@ -44,7 +44,7 @@ type
   published
     property Connected: boolean read FConnected;
     property Connection: TSConnection read FConnection;
-    property Id: integer read FId;
+    property Id: integer read FId write Fid;
     property Terminated;
     property Socket : TTCPBlockSocket read FSocket;
     property ReadTimedOut: boolean read FReadTimedOut;
@@ -387,6 +387,7 @@ begin
   try
     FSection.Enter;
     FThreads.Add(AThread);
+    AThread.Id := FThreads.Count;
   finally
     FSection.Leave;
   end;
