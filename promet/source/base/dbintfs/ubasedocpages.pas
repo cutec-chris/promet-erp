@@ -36,7 +36,7 @@ type
     procedure SetParamsFromExif(extn : string;aFullStream : TStream);
     procedure SetType(AValue: string);
   public
-    function GetUsedFields : string;
+    function GetUsedFields : string;virtual;
     procedure PrepareDataSet;
     procedure Open; override;
     procedure Select(aID: Variant); override;
@@ -46,9 +46,21 @@ type
     property Typ : string read FTyp write SetType;
   end;
 
+  TDocPagesList = class(TDocPages)
+  public
+    function GetUsedFields : string;override;
+  end;
+
 implementation
 uses uData,uBaseApplication,dEXIF,Process,
   uthumbnails;
+
+function TDocPagesList.GetUsedFields: string;
+begin
+  Result:=inherited GetUsedFields;
+  Result := StringReplace(Result,Data.QuoteField(TableName)+'.'+Data.QuoteField('FULLTEXT'),'',[rfReplaceAll]);
+  Result := StringReplace(Result,',,',',',[rfReplaceAll]);
+end;
 
 procedure TDocPages.SetParamsFromExif(extn: string; aFullStream: TStream);
 var
@@ -112,7 +124,6 @@ begin
               Open;
               for i := 0 to DataSet.FieldDefs.Count-1 do
                 if  (DataSet.FieldDefs[i].Name <> 'THUMBNAIL')
-                and (DataSet.FieldDefs[i].Name <> 'FULLTEXT')
                 then
                   tmpfields := tmpfields+','+Data.QuoteField(TableName)+'.'+Data.QuoteField(DataSet.FieldDefs[i].Name);
               tmpFields := copy(tmpFields,2,length(tmpFields));

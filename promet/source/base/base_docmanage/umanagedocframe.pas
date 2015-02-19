@@ -1588,7 +1588,7 @@ begin
   SelectedItem:=nil;
   if BaseApplication.HasOption('disablethreads') then
     ThumbControl1.MultiThreaded:=False;
-  DataSet := TDocPages.Create(nil);
+  DataSet := TDocPagesList.Create(nil);
   FTempPath := uthumbnails.GetThumbTempDir;
   ForceDirectoriesUTF8(FtempPath);
   FtempPath := AppendPathDelim(FtempPath);

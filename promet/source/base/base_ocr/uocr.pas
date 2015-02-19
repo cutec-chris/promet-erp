@@ -85,22 +85,34 @@ var
   aFullstream: TMemoryStream;
   aPic: TPicture;
   Fail: Boolean;
+  aText : string = '';
 begin
   aFullstream := TMemoryStream.Create;
   aDoc.CheckoutToStream(aFullStream);
   aFullStream.Position:=0;
-  aPic := TPicture.Create;
+  aDoc.GetText(aFullstream,ExtractFileExt(aDoc.FileName),aText);
+  aFullStream.Position:=0;
   Result := TOCRPages.Create;
-  Fail := False;
-  try
-    aPic.LoadFromStreamWithFileExt(aFullStream,ExtractFileExt(aDoc.FileName));
-  except
-    Fail := True;
-  end;
-  aFullStream.Free;
-  if not Fail then
-    StartOCR(Result,aPic,reworkImage);
-  aPic.Free;
+  if aText<>'' then  //Trial to get Text from other Files than Images
+    begin
+      Fail:=False;
+      Result.Add(tStringList.Create);
+      TStringList(Result[result.Count-1]).Text:=atext;
+    end
+  else
+    begin
+      aPic := TPicture.Create;
+      Fail := False;
+      try
+        aPic.LoadFromStreamWithFileExt(aFullStream,ExtractFileExt(aDoc.FileName));
+      except
+        Fail := True;
+      end;
+      aFullStream.Free;
+      if not Fail then
+        StartOCR(Result,aPic,reworkImage);
+      aPic.Free;
+    end;
 end;
 
 procedure StartOCR(Pages: TOCRPages;Image : TPicture;reworkImage : Boolean = True);
