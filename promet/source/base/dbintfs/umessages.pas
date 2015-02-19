@@ -343,7 +343,7 @@ begin
             Add('ID',ftString,120,True);
             Add('TREEENTRY',ftLargeint,0,True);
             Add('MSG_ID',ftLargeint,0,True);
-            Add('GRP_ID',ftLargeint,0,False);
+            Add('GRP_ID',ftLargeint,0,False); //ID Per Group must be changed on Move (NNTP,IMAP needs an LongInt id out SQL_ID is too Big)
             Add('TYPE',ftString,5,True);
             Add('READ',ftString,1,True);
             Add('DRAFT',ftString,1,False);

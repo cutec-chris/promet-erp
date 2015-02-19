@@ -5,7 +5,7 @@ interface
 uses Classes, usimapsearch;
 
 type
-  TMessageSet = array of integer;
+  TMessageSet = array of LongInt;
   TStoreMode = set of (smAdd, smReplace, smDelete);
 
   tOnNewMess = procedure of object; //HSR //IDLE
@@ -32,7 +32,6 @@ type
     function GetPossFlags: string;
     //procedure WriteStatus; //Not Critical_Section-Protected!
     function Find(Search: TIMAPSearch; MsgSet: TMessageSet): TMessageSet;
-    function JoinMessageSets(MsgSet1, MsgSet2: TMessageSet): TMessageSet;
     function FindMessageSets(MsgSet1, MsgSet2: TMessageSet;
       Exclude: boolean): TMessageSet;
     function FindFlags(MsgSet: TMessageSet; Flags: TFlagMask;
@@ -46,14 +45,15 @@ type
     FUnseen: longint;
     FRecent: longint;
     FMessages: longint;
+    function JoinMessageSets(MsgSet1, MsgSet2: TMessageSet): TMessageSet;
   public
-    function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
+    function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;virtual;abstract;
 
     //property  Status         : TMBxStatus read  fStatus;
     property Path: string read fPath;
     property MBReadOnly: boolean read fReadOnly write fReadOnly;
     //ClientRO //ToDo: 'write' von ReadOnly löschen oder umfunktionieren
-    property GetUIDnext: longint read FUIDNext;
+    property GetUIDnext: LongInt read FUIDNext;
     property GetUIDvalidity: TUnixTime read FUIDvalidity;
     property PossFlags: string read GetPossFlags;
     procedure Lock;
@@ -64,7 +64,6 @@ type
     procedure Expunge(ExcludeFromResponse: pIMAPNotification);
 
     function Search(SearchStruct: TIMAPSearch; UseUID: boolean): string;
-    {MG}{Search-new}
     function Fetch(Idx: integer; MsgDat: string; var Success: boolean): string;
     function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;
     function Store(Idx: integer; Flags: string; Mode: TStoreMode): string;
@@ -84,6 +83,7 @@ type
   end;
 
   function NowGMT: TDateTime;
+  function  SwitchByteOrder( Input: LongInt ): Longint;
 
 implementation
 
@@ -263,6 +263,14 @@ end;
 function NowGMT: TDateTime;
 begin
   Result := Now + NowBias;
+end;
+
+function SwitchByteOrder(Input: Longint): Longint;
+begin
+  Result :=  Input                shl 24 +
+            (Input and $0000FF00) shl  8 +
+            (Input and $00FF0000) shr  8 +
+             Input                shr 24
 end;
 
 procedure TImapMailbox.AddIncomingMessage(const Flags: string);
@@ -447,85 +455,6 @@ begin
   inherited;
 end;
 
-function TImapMailbox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
-
-  function SeqNumber(s: string): integer;
-  var
-    i: integer;
-  begin
-    {
-    if UseUID then
-      Result := fIndex.GetUID(Status.Messages - 1)
-    else
-      Result := Status.Messages;
-    }
-    if s = '*' then
-      exit;
-    if s = '4294967295' // ugly workaround - we should have used u_int32
-    then
-      i := 2147483647
-    else
-      i := StrToInt(s);
-    if i > Result then
-      Inc(Result)
-    else
-      Result := i;
-  end;
-
-  function GetSet(s: string): TMessageSet;
-  var
-    i, j, Start, Finish: integer;
-  begin
-    i := Pos(':', s);
-    if i > 0 then
-    begin
-      Start := SeqNumber(copy(s, 1, i - 1));
-      System.Delete(s, 1, i);
-    end
-    else
-      Start := SeqNumber(s);
-    Finish := SeqNumber(s);
-    if Finish < Start then
-    begin
-      i := Finish;
-      Finish := Start;
-      Start := i;
-    end;
-    SetLength(Result, Finish - Start + 1);
-    j := 0;
-    for i := Start to Finish do
-    begin
-      {
-      if UseUID then
-        Result[j] := fIndex.GetIndex(i) + 1
-      else
-        Result[j] := i;
-      if (Result[j] > 0) and (Result[j] <= Status.Messages) then
-        Inc(j);
-      }
-    end;
-    SetLength(Result, j);
-  end;
-
-var
-  i: integer;
-begin
-  SetLength(Result, 0);
-  s := TrimWhSpace(s);
-  if s > '' then
-  begin
-    i := Pos(',', s);
-    while i > 0 do
-    begin
-      Result := JoinMessageSets(Result, GetSet(copy(s, 1, i - 1)));
-      System.Delete(s, 1, i);
-      i := Pos(',', s);
-    end;
-    Result := JoinMessageSets(Result, GetSet(s));
-  end;
-end;
-
-{MG}{Search-new}
 function TImapMailbox.Search(SearchStruct: TIMAPSearch; UseUID: boolean): string;
 var
   FoundMessages: TMessageSet;

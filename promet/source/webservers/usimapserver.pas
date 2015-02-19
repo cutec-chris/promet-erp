@@ -103,6 +103,8 @@ type
   published
   end;
 
+  function TrimParentheses( Data: String ): String;
+
 implementation
 
 uses uBaseApplication,base64,uSha1;

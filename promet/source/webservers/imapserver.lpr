@@ -53,7 +53,12 @@ type
   TPrometMailBox = class(TImapMailbox)
   private
     Folder : TMessageList;
+    FHighestUID : LongInt;
+    function  GetUID( Index: Integer ): LongInt;
+    function  GetUIDStr( Index: Integer ): String;
+    function  GetIndex( UID: LongInt ): Integer;
   public
+    function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;override;
     constructor Create(APath: string);override;
     destructor Destroy; override;
   end;
@@ -82,6 +87,97 @@ type
 
 { TPrometMailBox }
 
+function TPrometMailBox.GetUID(Index: Integer): LongInt;
+begin
+  Folder.DataSet.First;
+  Folder.DataSet.MoveBy(Index);
+  Result := SwitchByteOrder(Folder.FieldByName('GRP_ID').AsLongint);
+end;
+
+function TPrometMailBox.GetUIDStr(Index: Integer): String;
+begin
+  Result := IntToStr( GetUID( Index ) );
+end;
+
+function TPrometMailBox.GetIndex(UID: LongInt): Integer;
+begin
+  if Folder.DataSet.Locate('GRP_ID',SwitchByteOrder(UID),[]) then
+    Result := Folder.DataSet.RecNo;
+end;
+
+function TPrometMailBox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
+  function SeqNumber(s: string): integer;
+  var
+    i: LongInt;
+  begin
+    if UseUID then
+      Result := GetUID(Messages - 1)
+    else
+      Result := Messages;
+    if s = '*' then
+      exit;
+    if s = '4294967295' // ugly workaround - we should have used u_int32
+    then
+      i := 2147483647
+    else
+      i := StrToInt(s);
+    if i > Result then
+      Inc(Result)
+    else
+      Result := i;
+  end;
+
+  function GetSet(s: string): TMessageSet;
+  var
+    i, j, Start, Finish: LongInt;
+  begin
+    i := Pos(':', s);
+    if i > 0 then
+    begin
+      Start := SeqNumber(copy(s, 1, i - 1));
+      System.Delete(s, 1, i);
+    end
+    else
+      Start := SeqNumber(s);
+    Finish := SeqNumber(s);
+    if Finish < Start then
+    begin
+      i := Finish;
+      Finish := Start;
+      Start := i;
+    end;
+    SetLength(Result, Finish - Start + 1);
+    j := 0;
+    for i := Start to Finish do
+    begin
+      if UseUID then
+        Result[j] := GetIndex(i) + 1
+      else
+        Result[j] := i;
+      if (Result[j] > 0) and (Result[j] <= Messages) then
+        Inc(j);
+    end;
+    SetLength(Result, j);
+  end;
+
+var
+  i: integer;
+begin
+  SetLength(Result, 0);
+  s := TrimWhSpace(s);
+  if s > '' then
+    begin
+      i := Pos(',', s);
+      while i > 0 do
+      begin
+        Result := JoinMessageSets(Result, GetSet(copy(s, 1, i - 1)));
+        System.Delete(s, 1, i);
+        i := Pos(',', s);
+      end;
+      Result := JoinMessageSets(Result, GetSet(s));
+    end;
+end;
+
 constructor TPrometMailBox.Create(APath: string);
 var
   Tree: TTree;
@@ -93,11 +189,24 @@ begin
   Tree.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(APath));
   Folder.SelectByDir(Tree.Id.AsVariant);
   Folder.Open;
-  aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES" from '+Data.QuoteField(Folder.TableName)+' where '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString));
+  aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID" from '+Data.QuoteField(Folder.TableName)+' where '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString));
   aCnt.Open;
   FMessages:=aCnt.FieldByName('MESSAGES').AsInteger;
   FUnseen:=FMessages-aCnt.FieldByName('READ').AsInteger;
+  FHighestUID:=aCnt.FieldByName('HUID').AsLongint;
   aCnt.Free;
+  Folder.First;
+  while not Folder.EOF do
+    begin
+      if Folder.FieldByName('GRP_ID').IsNull then
+        begin
+          Folder.Edit;
+          Folder.FieldByName('GRP_ID').AsLongint:=FHighestUID+1;
+          inc(FHighestUID);
+          Folder.Post;
+        end;
+      Folder.Next;
+    end;
 end;
 
 destructor TPrometMailBox.Destroy;
@@ -199,7 +308,32 @@ end;
 
 procedure TPrometImapServer.DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet;
   Command, Par: String);
+var
+  Success : Boolean;
+  SendS, MsgDat  : String;
+  i       : Integer;
 begin
+  Success := True;
+  MsgDat := TrimParentheses( Uppercase( Par ) );
+  // macros
+  StringReplace( MsgDat, 'FAST', 'FLAGS INTERNALDATE RFC822.SIZE', [] );
+  StringReplace( MsgDat, 'ALL',  'FLAGS INTERNALDATE RFC822.SIZE ENVELOPE', [] );
+  StringReplace( MsgDat, 'FULL', 'FLAGS INTERNALDATE RFC822.SIZE ENVELOPE BODY', [] );
+  // Server implementations MUST implicitly include the UID message data item
+  // as part of any FETCH response caused by a UID command, regardless of
+  // whether a UID was specified as a message data item to the FETCH.
+  if ( Command = 'UID FETCH' ) and ( Pos( 'UID', MsgDat ) = 0 ) then
+    MsgDat := MsgDat + ' UID';
+
+  for i := 0 to High(MsgSet) do
+    begin
+      SendS := Selected.Fetch( MsgSet[i]-1, MsgDat, Success );
+      if (trim(SendS) <> '') AND Success then SendRes (AThread, SendS )
+    end;
+  if Success then
+    SendResTag(AThread, 'OK ' + Command + ' is now completed' )
+  else
+    SendResTag(AThread, 'NO ' + Command + ' error' );
 end;
 
 procedure TPrometImapServer.DoList(AThread: TSTcpThread; Par: String;
