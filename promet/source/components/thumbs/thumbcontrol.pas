@@ -1156,6 +1156,7 @@ var Ext, Fn: string;
   area: TRect;
   Strm: TStream;
 begin
+  IRes := nil;
   Strm := nil;
   TThreadedImage(Sender).LoadState := lsError;
   Fn := TThreadedImage(Sender).URL;
@@ -1187,7 +1188,8 @@ begin
         CSImg.Release;
       end;
     finally
-      IRes.free;
+      if Assigned(IRes) then
+        IRes.free;
       rdjpegthumb.free;
       Img.free;
     end;
@@ -1299,4 +1301,4 @@ initialization
 finalization
 
 end.
-
+

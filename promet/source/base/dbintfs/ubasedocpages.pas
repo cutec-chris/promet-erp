@@ -112,6 +112,7 @@ begin
               Open;
               for i := 0 to DataSet.FieldDefs.Count-1 do
                 if  (DataSet.FieldDefs[i].Name <> 'THUMBNAIL')
+                and (DataSet.FieldDefs[i].Name <> 'FULLTEXT')
                 then
                   tmpfields := tmpfields+','+Data.QuoteField(TableName)+'.'+Data.QuoteField(DataSet.FieldDefs[i].Name);
               tmpFields := copy(tmpFields,2,length(tmpFields));
@@ -236,7 +237,7 @@ var
   aText: string;
   ss: TStringStream;
 begin
-  if FileExists(aFile) then
+  if FileExists(UniToSys(aFile)) then
     begin
       Insert;
       FieldByName('NAME').AsString:=ExtractFileName(aFile);
@@ -283,16 +284,16 @@ begin
       or (extn = '.arw')
       then
         begin
-          if FileExists(copy(aFile,0,rpos('.',aFile)-1)+'.jpg') then
+          if FileExists(UniToSys(copy(aFile,0,rpos('.',aFile)-1)+'.jpg')) then
             aSecFile := copy(aFile,0,rpos('.',aFile)-1)+'.jpg'
-          else if FileExists(copy(aFile,0,rpos('.',aFile)-1)+'.JPG') then
+          else if FileExists(UniToSys(copy(aFile,0,rpos('.',aFile)-1)+'.JPG')) then
             aSecFile := copy(aFile,0,rpos('.',aFile)-1)+'.JPG'
-          else if FileExists(copy(aFile,0,rpos('.',aFile)-1)+'.Jpg') then
+          else if FileExists(UniToSys(copy(aFile,0,rpos('.',aFile)-1)+'.Jpg')) then
             aSecFile := copy(aFile,0,rpos('.',aFile)-1)+'.Jpg';
           if aSecFile = '' then
             begin
-              ExecProcessEx('ufraw-batch --silent --create-id=also --out-type=jpg --exif "--output='+copy(aFile,0,rpos('.',aFile)-1)+'.jpg"'+' "'+aFile+'"');
-              if FileExists(copy(aFile,0,rpos('.',aFile)-1)+'.jpg') then
+              ExecProcessEx('ufraw-batch --silent --create-id=also --out-type=jpg --exif "--output='+UniToSys(copy(aFile,0,rpos('.',aFile)-1))+'.jpg"'+' "'+aFile+'"');
+              if FileExists(UniToSys(copy(aFile,0,rpos('.',aFile)-1)+'.jpg')) then
                 aSecFile := copy(aFile,0,rpos('.',aFile)-1)+'.jpg'
             end;
           if aSecFile <> '' then
@@ -319,9 +320,19 @@ begin
       Self.Post;
       if aText<>'' then
         begin
-          ss := TStringStream.Create(aText);
-          Data.StreamToBlobField(ss,Self.DataSet,'FULLTEXT');
-          ss.Free;
+          if DataSet.FieldDefs.IndexOf('FULLTEXT')>0 then
+            begin
+              Edit;
+              FieldByName('FULLTEXT').AsString:=aText;
+              Post;
+            end
+          else
+            begin
+              ss := TStringStream.Create(aText);
+              ss.Position:=0;
+              Data.StreamToBlobField(ss,Self.DataSet,'FULLTEXT');
+              ss.Free;
+            end;
         end;
       if aStream.Size>0 then
         Data.StreamToBlobField(aStream,Self.DataSet,'THUMBNAIL');

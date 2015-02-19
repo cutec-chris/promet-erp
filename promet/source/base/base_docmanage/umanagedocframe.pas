@@ -342,10 +342,13 @@ procedure TfManageDocFrame.tstextShow(Sender: TObject);
 var
   ss: TStringStream;
 begin
-  ss := TStringStream.Create('');
-  Data.BlobFieldToStream(DataSet.DataSet,'FULLTEXT',ss);
-  mFulltext.Text:=ss.DataString;
-  ss.Free;
+  if GotoCurrentItem then
+    begin
+      ss := TStringStream.Create('');
+      Data.BlobFieldToStream(DataSet.DataSet,'FULLTEXT',ss);
+      mFulltext.Text:=ss.DataString;
+      ss.Free;
+    end;
 end;
 
 procedure TfManageDocFrame.ThumbControl1ImageLoaderManagerBeforeStartQueue(
@@ -681,6 +684,7 @@ var
   aFile: String;
   extn: String;
   aSecFile: String;
+  iFile: String;
 begin
   Screen.Cursor:=crHourGlass;
   Application.ProcessMessages;
@@ -697,21 +701,22 @@ begin
       Application.ProcessMessages;
       for i := 0 to length(FileNames)-1 do
         begin
-          if not FileExists(Filenames[i]) then
+          iFile := UniToSys(FileNames[i]);
+          if not FileExists(iFile) then
             begin
-              NewFileName := AppendPathDelim(GetTempPath)+ExtractFileName(Filenames[i]);
+              NewFileName := AppendPathDelim(GetTempPath)+ExtractFileName(iFile);
               {$ifdef linux}
-              ExecProcess('gvfs-copy "'+Filenames[i]+'" "'+NewFileName+'"');
+              ExecProcess('gvfs-copy "'+iFile+'" "'+NewFileName+'"');
               {$endif}
               if not FileExists(NewFileName) then
-                Showmessage(Format(strCantAccessFile,[Filenames[i]]));
+                Showmessage(Format(strCantAccessFile,[iFile]));
             end
-          else NewFileName:=Filenames[i];
+          else NewFileName:=iFile;
           if FileExists(NewFileName) then
             begin
               if Assigned(fWaitform) then
                 fWaitForm.ShowInfo(ExtractFileName(NewFileName));
-              TDocPages(FFullDataSet).AddFromFile(NewFileName);
+              TDocPages(FFullDataSet).AddFromFile(SysToUni(NewFileName));
               TDocPages(FFullDataSet).Edit;
               TDocPages(FFullDataSet).FieldByName('TAGS').AsString:=fPicImport.eTags.Text;
               TDocPages(FFullDataSet).FieldByName('TYPE').AsString:=FTyp;
@@ -775,10 +780,10 @@ begin
                   if FileExistsUTF8(copy(NewFileName,0,length(NewFileName)-length(extn))+'.ufraw') then
                     DeleteFileUTF8(copy(NewFileName,0,length(NewFileName)-length(extn))+'.ufraw');
                   DeleteFileUTF8(NewFileName);
-                  if NewFileName<>Filenames[i] then
+                  if NewFileName<>iFile then
                     begin
                       {$ifdef linux}
-                      ExecProcess('gvfs-rm "'+Filenames[i]+'"');
+                      ExecProcess('gvfs-rm "'+iFile+'"');
                       {$endif}
                     end;
                 end;
@@ -1535,14 +1540,16 @@ var
 begin
   if Assigned(ThumbControl1.ImageLoaderManager.ActiveItem) then
     begin
-      if loadedDocument=ThumbControl1.ImageLoaderManager.ActiveItem.URL then exit;
-      try
-        aStream := TFileStream.Create(FtempPath+ThumbControl1.ImageLoaderManager.ActiveItem.URL,fmOpenRead);
-        PreviewFrame.LoadFromStream(aStream,'JPG');
-        loadedDocument:=ThumbControl1.ImageLoaderManager.ActiveItem.URL;
-        aStream.Free;
-      except
-      end;
+      if loadedDocument<>ThumbControl1.ImageLoaderManager.ActiveItem.URL then
+        begin
+          try
+            aStream := TFileStream.Create(FtempPath+ThumbControl1.ImageLoaderManager.ActiveItem.URL,fmOpenRead);
+            PreviewFrame.LoadFromStream(aStream,'JPG');
+            loadedDocument:=ThumbControl1.ImageLoaderManager.ActiveItem.URL;
+            aStream.Free;
+          except
+          end;
+        end;
     end
   else
     begin
@@ -1568,7 +1575,8 @@ begin
       begin
         acRotate.Enabled:=True;
       end;
-  if tstext.Visible then tstext.OnShow(tsText);
+  if tstext.Visible then
+    tstext.OnShow(tsText);
 end;
 
 constructor TfManageDocFrame.Create(AOwner: TComponent);
