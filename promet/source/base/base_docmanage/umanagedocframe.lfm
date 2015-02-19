@@ -1093,13 +1093,14 @@ inherited fManageDocFrame: TfManageDocFrame
       AfterDraw = ThumbControl1AfterDraw
       ScrollBars = ssAutoBoth
       Align = alClient
-      Color = clWindow
+      Color = clGray
       ColorActiveFrame = clHighlight
       ColorSelect = 8311274
       ColorFont = clWhite
       ColorFontSelected = clWhite
       CaptionHight = 16
       DragMode = dmAutomatic
+      Font.Color = clBtnText
       Font.Height = -9
       Font.Name = 'Trebuchet MS'
       ParentColor = False
