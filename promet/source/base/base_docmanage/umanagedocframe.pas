@@ -531,9 +531,9 @@ begin
     begin
       SortFields := 'ORIGDATE';
       SortDirection:=sdDescending;
-      Limit := 100;
       if trim(eSearch.Text)<>'' then
         begin
+          Limit := 1000;
           if Uppercase(eSearch.Text)='NULL' then
             begin
               aFilter := '('+Data.ProcessTerm(Data.QuoteField('TAGS')+'='+Data.QuoteValue(''))+') AND ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(TDocPages(DataSet).Typ)+')';
@@ -550,11 +550,13 @@ begin
               AddFilter(tmp);
               aFilter := '('+aFilter+') AND ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue(TDocPages(DataSet).Typ)+')';
             end;
-
           Filter :=  aFilter;
         end
       else
-        Filter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(TDocPages(DataSet).Typ);
+        begin
+          Filter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(TDocPages(DataSet).Typ);
+          Limit := 0;
+        end;
     end;
   DataSet.Open;
   FLast:='';

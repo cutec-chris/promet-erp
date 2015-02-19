@@ -174,6 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-tcs --mandant=ForumPG"/>
       </local>
     </RunParams>
     <RequiredPackages Count="26">
@@ -373,7 +374,6 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uOrderFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -595,10 +595,12 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticleFrame"/>
       </Unit45>
       <Unit46>
         <Filename Value="uallobjects.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="uAllObjects"/>
       </Unit46>
     </Units>
   </ProjectOptions>
