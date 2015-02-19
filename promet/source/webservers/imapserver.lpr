@@ -108,6 +108,8 @@ end;
 
 function TPrometImapServer.MBSelect(AThread: TSTcpThread; Mailbox: string;
   aReadOnly: Boolean): boolean;
+var
+  i: Integer;
 begin
   Result:=False;
   MailBoxes.DataSet.Filtered:=False;
@@ -131,6 +133,17 @@ begin
           Selected := TPrometMailbox.Create(MailBoxes.FieldByName('NAME').AsString);
           result := True;
         end;
+    end;
+  if Result then
+    begin
+      SendRes(AThread, IntToStr( Selected.Messages ) + ' EXISTS');
+      SendRes(AThread, IntToStr( Selected.Recent ) + ' RECENT');
+      i := Selected.Messages - Selected.Unseen + 1;
+      if Selected.Unseen > 0 then SendRes(AThread, 'OK [UNSEEN ' + IntToStr(i) + '] First message-number unseen.');
+      SendRes(AThread, 'OK [UIDVALIDITY ' + IntToStr( Selected.GetUIDvalidity ) + ']');
+      SendRes(AThread, 'FLAGS '+Selected.PossFlags);
+      Selected.MBReadOnly := Selected.MBReadOnly OR ReadOnly; //ClientRO //Soll die MB ReadOnly geöffnet werden?
+      if not Selected.MBReadOnly then Selected.RemoveRecentFlags;
     end;
 end;
 
