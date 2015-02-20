@@ -177,6 +177,7 @@ type
     procedure FrameExit(Sender: TObject);
     procedure FTimeLineSetMarker(Sender: TObject);
     procedure IdleTimer1Timer(Sender: TObject);
+    procedure PreviewFrameAfterGetText(Sender: TObject);
     function SetLinkfromSearch(aLink: string): Boolean;
     procedure tbMenue1Click(Sender: TObject);
     procedure ThumbControl1AfterDraw(Sender: TObject; Item: TThreadedImage;
@@ -567,6 +568,24 @@ begin
   ThumbControl1.Invalidate;
   //Application.ProcessMessages;
   IdleTimer1.Tag:=0;
+end;
+
+procedure TfManageDocFrame.PreviewFrameAfterGetText(Sender: TObject);
+var
+  aDocument: TDocument;
+begin
+  TDocPages(FFullDataSet).Select(DataSet.Id.AsVariant);
+  TDocPages(FFullDataSet).Open;
+  if TDocPages(FFullDataSet).Count>0 then
+    begin
+      aDocument := TDocument.Create(nil);
+      aDocument.SelectByID(FDocFrame.DataSet.Id.AsVariant);
+      aDocument.Open;
+      TDocPages(FFullDataSet).Edit;
+      TDocPages(FFullDataSet).FieldByName('FULLTEXT').AsString:=aDocument.FieldByName('FULLTEXT').AsString;
+      TDocPages(FFullDataSet).Post;
+      aDocument.Free;
+    end;
 end;
 
 function TfManageDocFrame.SetLinkfromSearch(aLink: string): Boolean;
@@ -1614,6 +1633,7 @@ begin
   PreviewFrame.AddToolbarAction(acEdit);
   PreviewFrame.AddToolbarAction(acRotate);
   PreviewFrame.AddToolbarAction(acOptimizeDocument);
+  PreviewFrame.AfterGetText:=@PreviewFrameAfterGetText;
 end;
 destructor TfManageDocFrame.Destroy;
 begin

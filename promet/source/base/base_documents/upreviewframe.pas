@@ -81,6 +81,7 @@ type
       procedure ScrollBar2Change(Sender: TObject);
       procedure tsImageShow(Sender: TObject);
     private
+      FAfterGetText: TNotifyEvent;
       FResetZoom: Boolean;
       FZoomW: Boolean;
       { private declarations }
@@ -110,6 +111,7 @@ type
       procedure AddToolbarAction(aAction : TAction);
       property ResetZoom : Boolean read FResetZoom write FResetZoom;
       property ZoomWidth : Boolean read FZoomW write FZoomW;
+      property AfterGetText : TNotifyEvent read FAfterGetText write fAfterGetText;
     end;
 
   { TLoadThread }
@@ -314,6 +316,8 @@ begin
       for i := 0 to Texts.Count-1 do
         TStringList(Texts[i]).Free;
       Texts.Free;
+      if Assigned(FAfterGetText) then
+        FAfterGetText(Self);
     end;
   aDoc.Free;
 end;
