@@ -35,6 +35,7 @@ type
     procedure SelectByID(aID : string);overload; //Select by ID
     procedure SelectByDir(aDir : Variant);
     procedure SelectByMsgID(aID : Int64);
+    procedure SelectByGrpID(aID : Int64);
     procedure SelectByParent(aParent : Variant);
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
@@ -393,6 +394,16 @@ begin
         Filter := Data.QuoteField('MSG_ID')+'='+Data.QuoteValue(IntToStr(aID));
       end;
 end;
+
+procedure TMessageList.SelectByGrpID(aID: Int64);
+begin
+  with BaseApplication as IBaseDBInterface do
+    with DataSet as IBaseDBFilter do
+      begin
+        Filter := Data.QuoteField('GRP_ID')+'='+Data.QuoteValue(IntToStr(aID));
+      end;
+end;
+
 procedure TMessageList.SelectByParent(aParent: Variant);
 begin
   with BaseApplication as IBaseDBInterface do

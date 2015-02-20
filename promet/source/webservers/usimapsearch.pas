@@ -104,6 +104,7 @@ function QuotedStringOrToken( s: String ): String;
 function TrimQuotes(Data: string): string;
 procedure GetString(var InStr: string; out OutStr: string;
   const Stringtype: TIMAPStringtypes);
+function TrimParentheses(Data: string): string;
 
 // --------------------------------------------------------------------------
 

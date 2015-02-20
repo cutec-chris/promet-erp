@@ -1674,10 +1674,15 @@ begin
   CurrentUserName:='';
   FLocalTimeoutQuitDelay := 100;
   HierarchyDelimiter := '/';
+  InitCriticalSection( CS_THR_IDLE );
+  SendNewMessages := false;
+  SetLength(SendExpunge, 0);
+  IdleState       := false;
 end;
 
 destructor TSImapServer.Destroy;
 begin
+  DoneCriticalsection( CS_THR_IDLE );
   inherited Destroy;
 end;
 

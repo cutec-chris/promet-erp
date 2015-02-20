@@ -2,7 +2,7 @@ unit usimapmailbox;
 
 interface
 
-uses Classes, usimapsearch;
+uses Classes, usimapsearch,mimemess,mimepart,synautil,blcksock;
 
 type
   TMessageSet = array of LongInt;
@@ -48,11 +48,30 @@ type
     function JoinMessageSets(MsgSet1, MsgSet2: TMessageSet): TMessageSet;
   public
     function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;virtual;abstract;
+    function  GetUID( Index: LongInt ): LongInt;virtual;abstract;
+    function  GetUIDStr( Index: LongInt ): String;virtual;abstract;
+    function  GetIndex( UID: LongInt ): Integer;virtual;abstract;
+    function  SetFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;virtual;abstract;
+    function  GetFlags( Index: LongInt ): TFlagMask;virtual;abstract;
+    function  AddFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;virtual;abstract;
+    function  RemoveFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;virtual;abstract;
+    function  GetTimeStamp( Index: LongInt ): TUnixTime;virtual;abstract;
+    function  GetMessage( UID: LongInt ): TMimeMess;virtual;abstract;
 
-    //property  Status         : TMBxStatus read  fStatus;
-    property Path: string read fPath;
+    function GetEnvelope(MyMessage : TMimeMess) : string;
+    function BodyStructure(Part: TMimePart; Extensible: Boolean): String;
+    function GetAddresses(MyMessage : TMimeMess;  HdrNam: String ): String;
+    function GetBodySection(MyMessage: TMimeMess; var Section: string; Nested: Boolean; var Offset, Maximum: Integer): string;
+    function GetAddressStructure( Address: String ): String;
+
+    function GetHeaderFields(MyMessage : TMimeMess; Fields: String; Exclude: Boolean ): String;
+    function BodySection(MyMessage : TMimeMess; var Section: String ): String;
+    function FullBody(MyMessage : TMimeMess) : string;
+    function FullHeader(MyMessage : TMimeMess) : string;
+    function FullText(MyMessage : TMimeMess) : string;
+    function Text(MyMessage : TMimeMess) : string;
+
     property MBReadOnly: boolean read fReadOnly write fReadOnly;
-    //ClientRO //ToDo: 'write' von ReadOnly löschen oder umfunktionieren
     property GetUIDnext: LongInt read FUIDNext;
     property GetUIDvalidity: TUnixTime read FUIDvalidity;
     property PossFlags: string read GetPossFlags;
@@ -77,6 +96,7 @@ type
     property Messages : Integer read FMessages;
     property Recent : Integer read FRecent;
     property Unseen : Integer read FUnseen;
+    property  Path           : String     read  fPath;
 
     constructor Create(APath: string);virtual;
     destructor Destroy; override;
@@ -212,6 +232,7 @@ begin
   try
     Lock;
     FMFlags := StringToFlagMask(Flags);
+    //TODO:reimplement
     //fIndex.AddEntry( GetUIDnext, FMFlags, TimeStamp );
     Inc(FUIDnext);
     Inc(FMessages);
@@ -344,7 +365,8 @@ function TImapMailbox.Fetch(Idx: integer; MsgDat: string;
 
 var
   Filename, Args, DataItem, Data: string;
-  //     MyMail: TImapMessage;
+  MyMail: TMimeMess = nil;
+  sl: TStringList;
 
   procedure AddDataValue(NewValue: string);
   begin
@@ -354,56 +376,56 @@ var
 begin
   Args := MsgDat;
   Data := '';
-  //MyMail := nil;
-   {
-   Filename := fPath + fIndex.GetUIDStr( Idx ) + '.'+Def_Extension_Mail;
-   if not FileExists2( Filename ) then exit;
-   try
-      repeat
-         DataItem := ExtractParameter( Args );
-         if DataItem = 'FLAGS' then begin
-            AddDataValue( FlagMaskToString( fIndex.GetFlags(Idx) ) )
-         end else
-         if DataItem = 'INTERNALDATE' then begin
-            AddDataValue( '"' + DateTimeGMTToImapDateTime( UnixTimeToDateTime(
-                          fIndex.GetTimeStamp(Idx) ), '+0000' ) + '"' )
-         end else
-         if DataItem = 'UID' then begin
-            AddDataValue( fIndex.GetUIDStr(Idx) )
-         end else begin
-            If Not Assigned(MyMail) then begin
-               MyMail := TImapMessage.Create;
-               MyMail.LoadFromFile( Filename )
+  sl := TStringList.Create;
+  try
+    repeat
+      DataItem := ExtractParameter( Args );
+      if DataItem = 'FLAGS' then begin
+        AddDataValue( FlagMaskToString( GetFlags(Idx) ) )
+      end else if DataItem = 'INTERNALDATE' then begin
+        AddDataValue( '"' + DateTimeGMTToImapDateTime( UnixTimeToDateTime(GetTimeStamp(Idx) ), '+0000' ) + '"' )
+      end else if DataItem = 'UID' then begin
+        AddDataValue(GetUIDStr(Idx))
+      end else begin
+        if Not Assigned(MyMail) then begin
+          MyMail := GetMessage(GetUID(Idx));
+        end;
+        if DataItem = 'ENVELOPE' then AddDataValue( GetEnvelope(MyMail) )
+        else if DataItem = 'RFC822' then AddDataValue( MakeLiteral( MyMail.Lines.Text ) )  //TODO:wo Header ??
+        else if DataItem = 'RFC822.HEADER' then
+          begin
+            MyMail.Header.EncodeHeaders(sl);
+            AddDataValue( MakeLiteral( sl.Text + #13#10 ) )
+          end
+        else if DataItem = 'RFC822.TEXT' then AddDataValue( MakeLiteral( MyMail.Lines.Text ) )
+        else if DataItem = 'RFC822.SIZE' then AddDataValue( IntToStr( Length(MyMail.Lines.Text) ) )
+        else if DataItem = 'BODYSTRUCTURE' then AddDataValue( BodyStructure(MyMail.MessagePart, True ) )
+        else if DataItem = 'BODY' then AddDataValue( BodyStructure(MyMail.MessagePart, False ) )
+        else if Copy( DataItem, 1, 4 ) = 'BODY' then
+          begin
+            if Copy( DataItem, 5, 5 ) = '.PEEK' then System.Delete( DataItem, 5, 5 )
+            else if GetFlags( Idx ) and FLAGSEEN <> FLAGSEEN then begin
+              // The \Seen flag is implicitly set; if this causes the flags to
+              // change they SHOULD be included as part of the FETCH responses.
+              Store(idx, '\seen', [smAdd]);
+              Args := Args + ' FLAGS';
             end;
-            if DataItem = 'ENVELOPE' then AddDataValue( MyMail.Envelope )
-            else if DataItem = 'RFC822' then AddDataValue( MakeLiteral( MyMail.Text ) )
-            else if DataItem = 'RFC822.HEADER' then AddDataValue( MakeLiteral( MyMail.FullHeader + #13#10 ) )
-            else if DataItem = 'RFC822.TEXT' then AddDataValue( MakeLiteral( MyMail.FullBody ) )
-            else if DataItem = 'RFC822.SIZE' then AddDataValue( IntToStr( Length(MyMail.Text) ) )
-            else if DataItem = 'BODYSTRUCTURE' then AddDataValue( MyMail.BodyStructure( True ) )
-            else if DataItem = 'BODY' then AddDataValue( MyMail.BodyStructure( False ) )
-            else if Copy( DataItem, 1, 4 ) = 'BODY' then begin
-               if Copy( DataItem, 5, 5 ) = '.PEEK' then System.Delete( DataItem, 5, 5 )
-               else if fIndex.GetFlags( Idx ) and FLAGSEEN <> FLAGSEEN then begin
-                  // The \Seen flag is implicitly set; if this causes the flags to
-                  // change they SHOULD be included as part of the FETCH responses.
-                  Store(idx, '\seen', [smAdd]);
-                  Args := Args + ' FLAGS';
-               end;
-               AddDataValue( MakeLiteral( MyMail.BodySection( DataItem ) ) )
-            end else begin
-               Log( LOGID_WARN, 'IMAPMailbox.Fetch.UnsupportedPar',
-                  'Unsupported Imap FETCH parameter: "%s"', DataItem);
-               Success := False
-            end
-         end;
-      until Args = '';
-   finally
-      FreeAndNil(MyMail)
-   end;
-   System.Delete( Data, 1, 1 );
-   Result := IntToStr(Idx+1) + ' FETCH (' + Data + ')'
-   }
+            AddDataValue( MakeLiteral( BodySection(MyMail, DataItem ) ) )
+          end
+        else
+          begin
+            //Log( LOGID_WARN, 'IMAPMailbox.Fetch.UnsupportedPar',
+            //      'Unsupported Imap FETCH parameter: "%s"', DataItem);
+            Success := False
+          end
+       end;
+    until Args = '';
+  finally
+    FreeAndNil(MyMail);
+    sl.Free;
+  end;
+  System.Delete( Data, 1, 1 );
+  Result := IntToStr(Idx+1) + ' FETCH (' + Data + ')'
 end;
 
 procedure TImapMailbox.AddUser(Notify: pIMAPNotification);
@@ -462,13 +484,11 @@ var
 begin
   Result := '';
   FoundMessages := Find(SearchStruct, StrToMsgSet('1:*', False));
-  {
   for i := 0 to Length(FoundMessages) - 1 do
     if UseUID then
-      Result := Result + ' ' + fIndex.GetUIDStr(FoundMessages[i] - 1)
+      Result := Result + ' ' + GetUIDStr(FoundMessages[i] - 1)
     else
       Result := Result + ' ' + IntToStr(FoundMessages[i]);
-   }
 end;
 
 
@@ -607,6 +627,286 @@ begin
   SetLength(Result, j);
 end;
 
+function TImapMailbox.GetEnvelope(MyMessage: TMimeMess): string;
+begin
+  Result := '(' + MyMessage.Header.FindHeader( 'date:' ) +
+            ' ' + MyMessage.Header.Subject +
+            ' ' + GetAddresses(MyMessage, 'from:' ) +
+            ' ' + GetAddresses(MyMessage, 'sender:' ) +
+            ' ' + GetAddresses(MyMessage, 'reply-to:' ) +
+            ' ' + GetAddresses(MyMessage, 'to:' ) +
+            ' ' + GetAddresses(MyMessage, 'cc:' ) +
+            ' ' + GetAddresses(MyMessage, 'bcc:' ) +
+            ' ' + MyMessage.Header.ReplyTo +
+            ' ' + MyMessage.Header.MessageID + ')';
+end;
+
+function TImapMailbox.BodyStructure(Part: TMimePart; Extensible: Boolean
+  ): String;
+var  Data : String;
+     i    : Integer;
+begin
+  if Part.ContentID = 'MULTIPART' then
+    begin  // Multipart
+      // Multiple parts are indicated by parenthesis nesting.  Instead of
+      // a body type as the first element of the parenthesized list there is
+      // a nested body.  The second element of the parenthesized list is the
+      // multipart subtype (mixed, digest, parallel, alternative, etc.). }
+      Data := '(';
+      for i := 0 to High( Part.GetSubPartCount ) do
+          Data := Data + BodyStructure(Part.GetSubPart(i),Extensible );
+      Data := Data + ' "' + Part.Secondary +'"';
+
+      //if Extensible then
+      //  Data := Data + ' ' + Part.ContentID + ' ' + Part.Disposition GetBodyDisposition + ' ' + GetBodyLanguage;
+    end
+  ;
+{  else
+    begin
+      Data := '("' + Part.ContentID + '" "' + Part.Secondary + '" ' + GetBodyFields;
+      if ContentType = 'TEXT' then Data := Data + ' ' + IntToStr( Lines )
+      else if (ContentType = 'MESSAGE') and (ContentSubtype = 'RFC822') then
+        begin
+          if Length(Parts) > 0 then
+            Data := Data + ' ' + Envelope + ' ' +
+                      Parts[0].BodyStructure( Extensible ) + ' ' +
+                      IntToStr( Lines )
+           else
+              LogRaw( LOGID_WARN, 'Error parsing RFC822 message: There is no message.' );
+        end;
+
+        if Extensible then Data := Data + ' ' + GetBodyMD5 + ' ' +
+                                   GetBodyDisposition + ' ' + GetBodyLanguage;
+     end;
+ }
+     Result := Data + ')'
+end;
+
+function TImapMailbox.GetAddresses(MyMessage: TMimeMess; HdrNam: String
+  ): String;
+var
+  i : Integer;
+  s : String;
+begin
+  s := MyMessage.Header.FindHeader(HdrNam);
+  if s = '' then
+    begin
+      // default Sender: and Reply-To: to From:
+      if (HdrNam = 'reply-to:') or (HdrNam = 'sender:') then
+        s := MyMessage.Header.From;
+     end;
+     if s = '' then begin
+        Result := 'NIL'
+     end else begin
+        // TODO
+        // ----
+        // [RFC-822] group syntax is indicated by a special form of address
+        // structure in which the host name field is NIL.  If the mailbox
+        // name field is also NIL, this is an end of group marker
+        // (semi-colon in RFC 822 syntax).  If the mailbox name field is
+        // non-NIL, this is a start of group marker, and the mailbox name
+        // field holds the group name phrase.
+        i := Pos( ',', s );
+        while i > 0 do begin
+           Result := Result + GetAddressStructure( TrimWhSpace( Copy( s, 1, i-1 ) ) );
+           System.Delete( s, 1, i );
+           i := Pos( ',', s )
+        end;
+        Result := '(' + Result + GetAddressStructure( TrimWhSpace( s ) ) + ')';
+     end
+end;
+
+procedure SplitStringIdx( Idx: Integer; var Data: String; out Rest: String );
+begin
+   if Idx > 0 then begin
+      Rest := Copy( Data, Idx+1, Length(Data)-Idx );
+      SetLength( Data, Idx-1 );
+   end else Rest := '';
+end;
+
+procedure SplitStringWhSpace( var Data: String; out Rest: String );
+begin
+     SplitStringIdx( PosWhSpace( Data ), Data, Rest );
+     TrimWhSpace( Rest );
+end;
+
+procedure SplitString( SubStr: String; var Data: String; out Rest: String );
+begin
+  SplitStringIdx( Pos( SubStr, Data ), Data, Rest );
+end;
+
+function TImapMailbox.GetBodySection(MyMessage: TMimeMess; var Section: string;
+  Nested: Boolean; var Offset, Maximum: Integer): string;
+// The text of a particular body section. The section specification is a set
+// of zero or more part specifiers delimited by periods. A part specifier is
+// either a part number or one of the following: HEADER, HEADER.FIELDS,
+// HEADER.FIELDS.NOT, MIME, and TEXT. An empty section specification refers
+// to the entire message, including the header.
+var
+  Part       : Integer;
+  SubSection : String;
+  Fields     : String;
+begin
+  Result := '';
+  SplitString( '.', Section, SubSection );
+  // The TEXT part specifier refers to the text body of the message,
+  // omitting the [RFC-822] header.
+  if Section = 'TEXT' then begin
+    Result := FullBody(MyMessage)
+  end else if Section = '' then
+    begin
+      if Nested then Result := FullBody(MyMessage)
+      else Result := Text(MyMessage)
+      end else if Section = 'HEADER' then begin
+        if SubSection = '' then Result := FullHeader(MyMessage) + CRLF
+        else if Copy( SubSection, 1, 6 ) = 'FIELDS' then begin
+           SplitStringWhSpace( Subsection, Fields );
+           Result := GetHeaderFields(MyMessage, TrimParentheses(Fields),Copy(SubSection,7,4) = '.NOT' ) + CRLF
+        end
+
+     // The MIME part specifier refers to the [MIME-IMB] header for this part.
+     // The MIME part specifier MUST be prefixed by one or more numeric part specifiers.
+     end else if Section = 'MIME' then begin
+        if Nested then Result := FullHeader(MyMessage) + CRLF
+        else
+          begin
+            //LogRaw( LOGID_WARN, 'Invalid Client operation: Fetching body section - MIME '+
+            //                  'part specifier not prefixed by numeric part specifier.' )
+          end;
+
+     end else begin
+        Part := StrToInt( Section );
+        if Part > 0 then begin
+           if MyMessage.MessagePart.ContentID = 'MULTIPART' then begin
+              if Part > MyMessage.MessagePart.GetSubPartCount then
+                 //LogRaw( LOGID_WARN, 'Invalid Client operation: Fetching part '+
+                 //     IntToStr(Part) + ' of ' + IntToStr(Length(Parts)) + ' part message.' )
+              else Result := Parts[Part-1].GetBodySection( SubSection, True, Offset, Maximum );
+           end else begin
+              // Non-[MIME-IMB] messages, and non-multipart [MIME-IMB] messages
+              // with no encapsulated message, only have a part 1.
+              if Part = 1 then Result := FullBody
+              else LogRaw( LOGID_WARN, 'Invalid Client operation: Fetching part ' +
+                        IntToStr(Part) + ' of non-multipart message.' );
+           end;
+        end else LogRaw( LOGID_WARN, 'Invalid Client operation: ' +
+                      'Fetching body section ' + Section + '.' );
+     end;
+
+     if Offset > 0 then begin
+        System.Delete( Result, 1, Offset );
+        Offset := 0;
+     end;
+     if Maximum > -1 then begin
+        if Maximum < Length(Result) then SetLength( Result, Maximum );
+        Maximum := -1;
+     end;
+end;
+
+function TImapMailbox.BodySection(MyMessage: TMimeMess; var Section: String
+  ): String;
+var  Offset, Maximum, i: Integer;
+     s: String;
+begin
+  Offset  :=  0;
+  Maximum := -1;
+
+  i := Pos('<', Section);
+  if (i > 0) and (Section[Length(Section)] = '>') then begin
+    s := Copy( Section, i, Length(Section)-i+1 );
+    i := Pos( '.', s );
+    if i <> 0 then begin
+       Offset  := StrToIntDef( Copy( s, 2, i-2 ), 0 );
+       Maximum := StrToIntDef( Copy( s, i+1, Length(s)-i-1 ), -1 );
+       System.Delete( Section, Pos('<',Section)+i-1, Length(s)-i );
+    end
+  end;
+
+  Result := GetBodySection(MyMessage, Copy( Section, 6, Pos(']',Section)-6 ),
+                           False, Offset, Maximum )
+end;
+
+function NString( Data: String ): String;
+Var i, j: Integer;
+begin
+   if Data = '' then begin
+      Result := 'NIL'
+   end else begin
+      Result := '"';
+      j := 1;
+      // Escape quotes and backslashes: '"' -> '\"' and '\' -> '\\'
+      for i := 1 to Length( Data ) do begin
+         if Data[i] in ['"','\'] then begin
+            Result := Result + Copy( Data, j, i-j ) + '\';
+            j := i;
+         end
+      end;
+      Result := Result + Copy( Data, j, Length(Data)-j+1 ) + '"'
+   end
+end;
+
+function TImapMailbox.GetAddressStructure(Address: String): String;
+// An address structure is a parenthesized list that describes an electronic
+// mail address.  The fields of an address structure are in the following
+// order: personal name, [SMTP] at-domain-list (source route), mailbox name,
+// and host name.
+var  Name, Mailbox, Host, s : String;
+     i : Integer;
+begin
+   Mailbox     := 'NIL';
+   Host        := 'NIL';
+
+   s := Address;
+   i := PosWhSpace( s );
+   if Pos( '@', s ) < i then begin       // gray@cac.washington.edu (Terry Gray)
+      Name := TrimParentheses( Copy( s, i+1, Length(s)-i ) );
+      SetLength( s, i-1 );
+   end else begin                        // Terry Gray <gray@cac.washington.edu>
+      for i := Length(s)-5 downto 1 do if s[i] in [#9,' '] then begin
+         Name := TrimQuotes( Copy( s, 1, i-1 ) );
+         System.Delete( s, 1, i );
+         break
+      end
+   end;
+   Name := NString( Name );
+   s := GetEmailAddr( s );
+   i := Pos( '@', s );
+   if i > 0 then begin
+      Mailbox := NString( Copy( s, 1, i-1 ) );
+      Host    := NString( Copy( s, i+1, Length(s) ) );
+   end else
+      Mailbox := NString( s );
+
+   // ("Terry Gray" NIL "gray" "cac.washington.edu")
+   Result := '(' + Name + ' NIL ' + Mailbox + ' ' + Host + ')'
+end;
+
+function TImapMailbox.GetHeaderFields(MyMessage: TMimeMess; Fields: String;
+  Exclude: Boolean): String;
+begin
+
+end;
+
+function TImapMailbox.FullBody(MyMessage: TMimeMess): string;
+begin
+
+end;
+
+function TImapMailbox.FullHeader(MyMessage: TMimeMess): string;
+begin
+
+end;
+
+function TImapMailbox.FullText(MyMessage: TMimeMess): string;
+begin
+
+end;
+
+function TImapMailbox.Text(MyMessage: TMimeMess): string;
+begin
+
+end;
+
 function TImapMailbox.FindFlags(MsgSet: TMessageSet; Flags: TFlagMask;
   Exclude: boolean): TMessageSet;
 var
@@ -614,14 +914,12 @@ var
 begin
   SetLength(Result, Length(MsgSet));
   j := 0;
-  {
   for i := 0 to High(MsgSet) do
-    if ((fIndex.GetFlags(MsgSet[i] - 1) and Flags) = Flags) xor Exclude then
+    if ((GetFlags(MsgSet[i] - 1) and Flags) = Flags) xor Exclude then
     begin
       Result[j] := MsgSet[i];
       Inc(j);
     end;
-  }
   SetLength(Result, j);
 end;
 
@@ -633,17 +931,15 @@ var
 begin
   SetLength(Result, Length(MsgSet));
   j := 0;
-  {
   for i := 0 to High(MsgSet) do
   begin
-    MyDate := Trunc(UnixTimeToDateTime(fIndex.GetTimeStamp(MsgSet[i] - 1)));
+    MyDate := Trunc(UnixTimeToDateTime(GetTimeStamp(MsgSet[i] - 1)));
     if (MyDate > After) and (MyDate < Before) then
     begin
       Result[j] := MsgSet[i];
       Inc(j);
     end;
   end;
-  }
   SetLength(Result, j);
 end;
 
@@ -654,12 +950,13 @@ var
 begin
   SetLength(Result, Length(MsgSet));
   j := 0;
+  //TODO:reimplement
+  {
   if Min < Max then
   begin
-    {
     for i := 0 to High(MsgSet) do
     begin
-      if SysUtils.FindFirst(fPath + fIndex.GetUIDStr(MsgSet[i] - 1) +
+      if SysUtils.FindFirst(fPath + GetUIDStr(MsgSet[i] - 1) +
         '.' + Def_Extension_Mail, faAnyFile, SR) = 0 then
       begin
         if (SR.Size > Min) and (SR.Size < Max) then
@@ -670,8 +967,8 @@ begin
         SysUtils.FindClose(SR);
       end;
     end;
-    }
   end;
+  }
   SetLength(Result, j);
 end;
 
@@ -734,6 +1031,7 @@ var
 begin
   SetLength(Result, Length(MsgSet));
   j := 0;
+  //TODO:reimplement
   {
   MyMail := TArticle.Create;
   try

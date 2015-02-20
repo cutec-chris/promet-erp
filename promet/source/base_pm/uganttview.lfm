@@ -699,9 +699,9 @@ object fGanttView: TfGanttView
         Shape = bsLeftLine
       end
       object lDate: TLabel
-        Left = 40
+        Left = 8
         Height = 21
-        Top = 14
+        Top = 13
         Width = 112
         Alignment = taCenter
         AutoSize = False

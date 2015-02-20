@@ -54,11 +54,18 @@ type
   private
     Folder : TMessageList;
     FHighestUID : LongInt;
-    function  GetUID( Index: Integer ): LongInt;
-    function  GetUIDStr( Index: Integer ): String;
-    function  GetIndex( UID: LongInt ): Integer;
+    function GotoIndex(Index : LongInt) : Boolean;
   public
+    function  GetUID( Index: LongInt ): LongInt;override;
+    function  GetUIDStr( Index: LongInt ): String;override;
+    function GetIndex(UID: LongInt): LongInt; override;
+    function  SetFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;override;
+    function  GetFlags( Index: LongInt ): TFlagMask;override;
+    function  AddFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;override;
+    function  RemoveFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;override;
     function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;override;
+    function  GetTimeStamp( Index: LongInt ): TUnixTime;override;
+    function  GetMessage( UID: LongInt ): TMimeMess;override;
     constructor Create(APath: string);override;
     destructor Destroy; override;
   end;
@@ -87,22 +94,67 @@ type
 
 { TPrometMailBox }
 
-function TPrometMailBox.GetUID(Index: Integer): LongInt;
+function TPrometMailBox.GotoIndex(Index: LongInt): Boolean;
 begin
-  Folder.DataSet.First;
-  Folder.DataSet.MoveBy(Index);
-  Result := SwitchByteOrder(Folder.FieldByName('GRP_ID').AsLongint);
+  if Index <> Folder.DataSet.RecNo then
+    begin
+      Folder.DataSet.First;
+      Folder.DataSet.MoveBy(Index);
+    end;
+  Result := True;
 end;
 
-function TPrometMailBox.GetUIDStr(Index: Integer): String;
+function TPrometMailBox.GetUID(Index: LongInt): LongInt;
+begin
+  GotoIndex(Index);
+  Result := Folder.FieldByName('GRP_ID').AsLongint;
+end;
+
+function TPrometMailBox.GetUIDStr(Index: LongInt): String;
 begin
   Result := IntToStr( GetUID( Index ) );
 end;
 
-function TPrometMailBox.GetIndex(UID: LongInt): Integer;
+function TPrometMailBox.GetIndex(UID: LongInt): LongInt;
 begin
-  if Folder.DataSet.Locate('GRP_ID',SwitchByteOrder(UID),[]) then
+  Result := -1;
+  if Folder.DataSet.Locate('GRP_ID',UID,[]) then
     Result := Folder.DataSet.RecNo;
+end;
+
+function TPrometMailBox.SetFlags(Index: LongInt; Flags: TFlagMask): TFlagMask;
+begin
+  GotoIndex(Index);
+
+end;
+
+function TPrometMailBox.GetFlags(Index: LongInt): TFlagMask;
+var
+  MR: TFlagMask;
+begin
+  GotoIndex(Index);
+  FillChar( MR, sizeof(MR), 0 );
+  if Folder.FieldByName('READ').AsString='Y' then
+    MR := MR and FLAGSEEN;
+  if not Folder.FieldByName('ANSWERED').IsNull then
+    MR := MR and FLAGANSWERED;
+  if Folder.FieldByName('FLAGGED').AsString='Y' then
+    MR := MR and FLAGFLAGGED;
+  if Folder.FieldByName('DRAFT').AsString='Y' then
+    MR := MR and FLAGDRAFT;
+end;
+
+function TPrometMailBox.AddFlags(Index: LongInt; Flags: TFlagMask): TFlagMask;
+begin
+  GotoIndex(Index);
+
+end;
+
+function TPrometMailBox.RemoveFlags(Index: LongInt; Flags: TFlagMask
+  ): TFlagMask;
+begin
+  GotoIndex(Index);
+
 end;
 
 function TPrometMailBox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
@@ -176,6 +228,28 @@ begin
       end;
       Result := JoinMessageSets(Result, GetSet(s));
     end;
+end;
+
+function TPrometMailBox.GetTimeStamp(Index: LongInt): TUnixTime;
+begin
+  if Index <> Folder.DataSet.RecNo then
+    begin
+      Folder.DataSet.First;
+      Folder.DataSet.MoveBy(Index);
+    end;
+  Result := DateTimeToUnixTime(Folder.FieldByName('SENDDATE').AsDateTime);
+end;
+
+function TPrometMailBox.GetMessage(UID: LongInt): TMimeMess;
+var
+  aMessage: TMimeMessage;
+begin
+  aMessage := TMimeMessage.Create(nil);
+  aMessage.SelectByGrpID(UID);
+  aMessage.Open;
+  Result := aMessage.EncodeMessage;
+  Result.EncodeMessage;
+  aMessage.Free;
 end;
 
 constructor TPrometMailBox.Create(APath: string);
