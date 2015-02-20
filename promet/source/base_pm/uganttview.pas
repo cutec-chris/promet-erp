@@ -46,11 +46,13 @@ type
     acCalculatefromHere: TAction;
     acMoveTogetherFromHere: TAction;
     ActionList1: TActionList;
+    bCalculatePlan1: TSpeedButton;
+    bCalculatePlanWithUsage: TSpeedButton;
     Bevel11: TBevel;
+    Bevel12: TBevel;
     bMakePossible: TSpeedButton;
     bCalculate2: TSpeedButton;
     Bevel10: TBevel;
-    Bevel9: TBevel;
     bMoveBack: TSpeedButton;
     bDayView: TSpeedButton;
     Bevel5: TBevel;
@@ -59,7 +61,6 @@ type
     Bevel8: TBevel;
     bMonthView: TSpeedButton;
     bMoveTogether: TSpeedButton;
-    bCalculatePlan: TSpeedButton;
     bSave1: TSpeedButton;
     bShowTasks: TSpeedButton;
     bMoveFwd: TSpeedButton;
@@ -70,9 +71,9 @@ type
     cbSnapshot: TComboBox;
     iHourglass: TImage;
     Label10: TLabel;
+    Label11: TLabel;
     Label4: TLabel;
     Label8: TLabel;
-    Label9: TLabel;
     lDate: TLabel;
     Label3: TLabel;
     Label5: TLabel;
@@ -93,7 +94,7 @@ type
     Panel5: TPanel;
     pCalc: TPanel;
     Panel9: TPanel;
-    pCalc1: TPanel;
+    pCalc2: TPanel;
     pgantt: TPanel;
     Panel7: TPanel;
     PopupMenu1: TPopupMenu;
@@ -122,6 +123,7 @@ type
       aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;
   aUnfinishedList: TList=nil);
     procedure bCalculatePlanClick(Sender: TObject);
+    procedure bCalculatePlanWithUsageClick(Sender: TObject);
     procedure bMoveBack1Click(Sender: TObject);
     procedure bMoveBackClick(Sender: TObject);
     procedure bMoveFwdClick(Sender: TObject);
@@ -698,6 +700,62 @@ begin
   FGantt.Invalidate;
   bMoveFwdClick(nil);
   Screen.Cursor := crDefault;
+end;
+
+procedure TfGanttView.bCalculatePlanWithUsageClick(Sender: TObject);
+var
+  UserTimes : TStringList;
+  procedure MoveForwardCalc(Sender : TInterval);
+  var
+    aTask: TTask;
+    aEarliest,aStart,aEnd,aDuration: TDateTime;
+    i: Integer;
+    aUserEnd: TDateTime;
+    aUser: String;
+    aUserTime: String;
+  begin
+    with TInterval(Sender) do
+      begin
+        BeginUpdate;
+        aTask := TTask.Create(nil);
+        aTask.Select(Id);
+        aTask.Open;
+        if aTask.Count>0 then
+          begin
+            aEarliest := Now();
+            for i := 0 to DependencyCount-1 do
+              if Dependencies[i].FinishDate+Dependencies[i].WaitTime>aEarliest then
+                aEarliest:=Dependencies[i].FinishDate+Dependencies[i].WaitTime;
+           aUser := aTask.FieldByName('USER').AsString;
+           aUserTime := UserTimes.Values[aUser];
+           if (trim(aUsertime)<>'') and (not TryStrToDateTime(aUserTime,aUserEnd)) then
+             aUserEnd := Now();
+            if aUserEnd>aEarliest then
+              aEarliest:=aUserEnd;
+            if aTask.Terminate(aEarliest,aStart,aEnd,aDuration) then
+              begin
+                StartDate:=aStart;
+                FinishDate:=aEnd;
+                UserTimes.Values[aUser]:=DateTimeToStr(aEnd);
+              end;
+          end;
+        aTask.Free;
+        EndUpdate;
+        for i := 0 to IntervalCount-1 do
+          MoveForwardCalc(Interval[i]);
+      end;
+  end;
+var
+  i : Integer;
+begin
+  UserTimes := TStringList.Create;
+  UserTimes.NameValueSeparator:=':';
+  Screen.Cursor := crHourGlass;
+  for i := 0 to FGantt.IntervalCount-1 do
+    MoveForwardCalc(FGantt.Interval[i]);
+  FGantt.Invalidate;
+  Screen.Cursor := crDefault;
+  UserTimes.Free;
 end;
 
 procedure TfGanttView.bMoveBack1Click(Sender: TObject);

@@ -981,7 +981,7 @@ begin
         end
       else break;
     end;
-  Refresh;
+  acRefresh.Execute;
 end;
 procedure TfTaskFrame.acMAkeSubTaskExecute(Sender: TObject);
 begin
