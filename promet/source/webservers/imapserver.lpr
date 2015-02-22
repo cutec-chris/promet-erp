@@ -54,6 +54,7 @@ type
   private
     Folder : TMessageList;
     FHighestUID : LongInt;
+    FLowestUID : LongInt;
     function GotoIndex(Index : LongInt) : Boolean;
   public
     function  GetUID( Index: LongInt ): LongInt;override;
@@ -70,9 +71,12 @@ type
     destructor Destroy; override;
   end;
 
+  { TPrometImapServer }
+
   TPrometImapServer = class(TSImapServer)
   private
     MailBoxes : TTree;
+    function GotoMailBox(MailBox : string) : Boolean;
   public
     function  MBSelect(AThread: TSTcpThread; Mailbox: string; aReadOnly : Boolean ): boolean; override;
     function  MBCreate(AThread: TSTcpThread; Mailbox: string ): boolean; override;
@@ -99,7 +103,7 @@ begin
   if Index <> Folder.DataSet.RecNo then
     begin
       Folder.DataSet.First;
-      Folder.DataSet.MoveBy(Index);
+      Folder.DataSet.MoveBy(Index-1);
     end;
   Result := True;
 end;
@@ -177,6 +181,8 @@ function TPrometMailBox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
       Inc(Result)
     else
       Result := i;
+    if UseUID and (Result < FLowestUID) then
+      Result := FLowestUID;
   end;
 
   function GetSet(s: string): TMessageSet;
@@ -198,10 +204,12 @@ function TPrometMailBox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
       Finish := Start;
       Start := i;
     end;
-    SetLength(Result, Finish - Start + 1);
+    SetLength(Result,100);
     j := 0;
     for i := Start to Finish do
     begin
+      if length(Result)<j+1 then
+        Setlength(Result,j+100);
       if UseUID then
         Result[j] := GetIndex(i) + 1
       else
@@ -256,19 +264,16 @@ constructor TPrometMailBox.Create(APath: string);
 var
   Tree: TTree;
   aCnt: TDataSet;
+  aFilter: String;
 begin
   inherited Create(APath);
   Folder := TMessageList.Create(nil);
   Tree := TTree.Create(nil);
   Tree.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(APath));
-  Folder.SelectByDir(Tree.Id.AsVariant);
-  Folder.Open;
-  aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID" from '+Data.QuoteField(Folder.TableName)+' where '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString));
-  aCnt.Open;
-  FMessages:=aCnt.FieldByName('MESSAGES').AsInteger;
-  FUnseen:=FMessages-aCnt.FieldByName('READ').AsInteger;
-  FHighestUID:=aCnt.FieldByName('HUID').AsLongint;
-  aCnt.Free;
+  aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString)+' and '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.Accountno.AsString);
+  Folder.SortFields:='MSG_ID';
+  Folder.SortDirection:=sdAscending;
+  Folder.Filter(aFilter);
   Folder.First;
   while not Folder.EOF do
     begin
@@ -281,6 +286,13 @@ begin
         end;
       Folder.Next;
     end;
+  aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
+  aCnt.Open;
+  FMessages:=aCnt.FieldByName('MESSAGES').AsInteger;
+  FUnseen:=FMessages-aCnt.FieldByName('READ').AsInteger;
+  FHighestUID:=aCnt.FieldByName('HUID').AsLongint;
+  FLowestUID:=aCnt.FieldByName('MUID').AsLongint;
+  aCnt.Free;
 end;
 
 destructor TPrometMailBox.Destroy;
@@ -289,23 +301,24 @@ begin
   inherited Destroy;
 end;
 
-function TPrometImapServer.MBSelect(AThread: TSTcpThread; Mailbox: string;
-  aReadOnly: Boolean): boolean;
-var
-  i: Integer;
+function TPrometImapServer.GotoMailBox(MailBox: string): Boolean;
 begin
-  Result:=False;
-  MailBoxes.DataSet.Filtered:=False;
+  Result := False;
   if MailBoxes.Locate('NAME',AnsiToUtf8(Mailbox),[]) then
     begin
-      Selected := TPrometMailbox.Create(AnsiToUtf8(Mailbox));
       result := True;
     end
-  else if Mailbox='INBOX' then
+  else if lowercase(Mailbox)='inbox' then
     begin
       if MailBoxes.Locate('SQL_ID',TREE_ID_MESSAGES,[]) then
         begin
-          Selected := TPrometMailbox.Create(MailBoxes.FieldByName('NAME').AsString);
+          result := True;
+        end;
+    end
+  else if lowercase(Mailbox)='sent' then
+    begin
+      if MailBoxes.Locate('SQL_ID',TREE_ID_SEND_MESSAGES,[]) then
+        begin
           result := True;
         end;
     end
@@ -313,9 +326,21 @@ begin
     begin
       if MailBoxes.Locate('SQL_ID',TREE_ID_DELETED_MESSAGES,[]) then
         begin
-          Selected := TPrometMailbox.Create(MailBoxes.FieldByName('NAME').AsString);
           result := True;
         end;
+    end;
+end;
+
+function TPrometImapServer.MBSelect(AThread: TSTcpThread; Mailbox: string;
+  aReadOnly: Boolean): boolean;
+var
+  i: Integer;
+begin
+  Result:=False;
+  if GotoMailBox(Mailbox) then
+    begin
+      Selected := TPrometMailbox.Create(MailBoxes.FieldByName('NAME').AsString);
+      Result := True;
     end;
   if Result then
     begin
@@ -345,7 +370,7 @@ end;
 function TPrometImapServer.MBExists(AThread: TSTcpThread; var Mailbox: string
   ): boolean;
 begin
-  Result:=False;
+  Result := GotoMailBox(Mailbox);
 end;
 
 function TPrometImapServer.MBRename(AThread: TSTcpThread; OldName,
@@ -426,24 +451,34 @@ procedure TPrometImapServer.DoList(AThread: TSTcpThread; Par: String;
   procedure ScanFolders( RegEx : string; aParent : Int64; Base: String );
   var  SR : TSearchRec;
        Found: String;
+       aMailBoxes : TTree;
   begin
-    MailBoxes.DataSet.Filter:='"PARENT"='+IntToStr(aParent);
-    MailBoxes.DataSet.Filtered := True;
-    MailBoxes.First;
-    while not MailBoxes.EOF do
+    aMailBoxes := TTree.Create(nil);
+    Data.SetFilter(aMailBoxes,'('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B')+') AND '+Data.QuoteField('PARENT')+'='+Data.QuoteValue(IntToStr(aParent)),0,'','ASC',False,True,True);
+    aMailBoxes.First;
+    while not aMailBoxes.EOF do
       begin
-        Found := Base + Utf8ToAnsi(MailBoxes.FieldByName('NAME').AsString);
+        if aMailBoxes.Id.AsVariant = TREE_ID_MESSAGES then
+          Found := Base + 'INBOX'
+        else if aMailBoxes.Id.AsVariant = TREE_ID_DELETED_MESSAGES then
+          Found := Base + 'Trash'
+        else if aMailBoxes.Id.AsVariant = TREE_ID_SEND_MESSAGES then
+          Found := Base + 'Sent'
+        else
+          Found := Base + Utf8ToAnsi(aMailBoxes.FieldByName('NAME').AsString);
         if (uppercase(Found) <> 'INBOX') then
           begin
             if ExecRegExpr(RegEx, Found ) then
               SendList( Found );
-            ScanFolders( RegEx, MailBoxes.FieldByName('SQL_ID').AsVariant, Found + HierarchyDelimiter );
+            ScanFolders( RegEx, aMailBoxes.FieldByName('SQL_ID').AsVariant, Found + HierarchyDelimiter );
           end
         else
           begin
-            ScanFolders( RegEx, MailBoxes.FieldByName('SQL_ID').AsVariant, 'INBOX' + HierarchyDelimiter)
-          end
-       end;
+            ScanFolders( RegEx, aMailBoxes.FieldByName('SQL_ID').AsVariant, 'INBOX' + HierarchyDelimiter)
+          end;
+        aMailBoxes.Next;
+      end;
+    aMailBoxes.Free;
   end;
 
 var
@@ -512,8 +547,7 @@ constructor TPrometImapServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   MailBoxes := TTree.Create(nil);
-  Data.RefreshUsersFilter;
-  Data.SetFilter(MailBoxes,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,True);
+  Data.SetFilter(MailBoxes,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,False);
 end;
 
 destructor TPrometImapServer.Destroy;
@@ -591,6 +625,10 @@ begin
         Log(IntToStr(TSTcpThread(aSocket).Id)+':Login:'+aUser)
       else
         Error('Login failed:'+aUser);
+    end;
+  if Result then
+    begin
+      Data.RefreshUsersFilter;
     end;
 end;
 

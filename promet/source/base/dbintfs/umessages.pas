@@ -386,6 +386,7 @@ begin
         Filter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(VarToStr(aDir))+' AND '+Data.ProcessTerm(Data.QuoteField('PARENT')+'='+Data.QuoteValue(''));
       end;
 end;
+
 procedure TMessageList.SelectByMsgID(aID: Int64);
 begin
   with BaseApplication as IBaseDBInterface do

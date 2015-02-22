@@ -18,6 +18,8 @@ type
     OnExpunge: tOnExpunge;
   end;
 
+  { TImapMailbox }
+
   TImapMailbox = class
   private
     fCritSection: TRTLCriticalSection;
@@ -61,14 +63,17 @@ type
     function GetEnvelope(MyMessage : TMimeMess) : string;
     function BodyStructure(Part: TMimePart; Extensible: Boolean): String;
     function GetAddresses(MyMessage : TMimeMess;  HdrNam: String ): String;
-    function GetBodySection(MyMessage: TMimeMess; var Section: string; Nested: Boolean; var Offset, Maximum: Integer): string;
+    function GetBodySection(MyMessage: TMimeMess; Section: string; Nested: Boolean; var Offset, Maximum: Integer): string;
     function GetAddressStructure( Address: String ): String;
 
     function GetHeaderFields(MyMessage : TMimeMess; Fields: String; Exclude: Boolean ): String;
+    // Header
+    function FullHeader(MyMessage : TMimeMess) : string;
+    // Body
+    //function FullText(MyMessage : TMimeMess) : string;
     function BodySection(MyMessage : TMimeMess; var Section: String ): String;
     function FullBody(MyMessage : TMimeMess) : string;
-    function FullHeader(MyMessage : TMimeMess) : string;
-    function FullText(MyMessage : TMimeMess) : string;
+    //Header+Body
     function Text(MyMessage : TMimeMess) : string;
 
     property MBReadOnly: boolean read fReadOnly write fReadOnly;
@@ -735,7 +740,7 @@ begin
   SplitStringIdx( Pos( SubStr, Data ), Data, Rest );
 end;
 
-function TImapMailbox.GetBodySection(MyMessage: TMimeMess; var Section: string;
+function TImapMailbox.GetBodySection(MyMessage: TMimeMess; Section: string;
   Nested: Boolean; var Offset, Maximum: Integer): string;
 // The text of a particular body section. The section specification is a set
 // of zero or more part specifiers delimited by periods. A part specifier is
@@ -781,16 +786,16 @@ begin
               if Part > MyMessage.MessagePart.GetSubPartCount then
                  //LogRaw( LOGID_WARN, 'Invalid Client operation: Fetching part '+
                  //     IntToStr(Part) + ' of ' + IntToStr(Length(Parts)) + ' part message.' )
-              else Result := Parts[Part-1].GetBodySection( SubSection, True, Offset, Maximum );
+              else Result := MyMessage.MessagePart.GetSubPart(Part-1).Lines.Text;
            end else begin
               // Non-[MIME-IMB] messages, and non-multipart [MIME-IMB] messages
               // with no encapsulated message, only have a part 1.
-              if Part = 1 then Result := FullBody
-              else LogRaw( LOGID_WARN, 'Invalid Client operation: Fetching part ' +
-                        IntToStr(Part) + ' of non-multipart message.' );
+              if Part = 1 then Result := FullBody(MyMessage)
+              else //LogRaw( LOGID_WARN, 'Invalid Client operation: Fetching part ' +
+                   //     IntToStr(Part) + ' of non-multipart message.' );
            end;
-        end else LogRaw( LOGID_WARN, 'Invalid Client operation: ' +
-                      'Fetching body section ' + Section + '.' );
+        end else //LogRaw( LOGID_WARN, 'Invalid Client operation: ' +
+                 //     'Fetching body section ' + Section + '.' );
      end;
 
      if Offset > 0 then begin
@@ -822,8 +827,7 @@ begin
     end
   end;
 
-  Result := GetBodySection(MyMessage, Copy( Section, 6, Pos(']',Section)-6 ),
-                           False, Offset, Maximum )
+  Result := GetBodySection(MyMessage, Copy( Section, 6, Pos(']',Section)-6 ),  False, Offset, Maximum );
 end;
 
 function NString( Data: String ): String;
@@ -883,28 +887,51 @@ end;
 
 function TImapMailbox.GetHeaderFields(MyMessage: TMimeMess; Fields: String;
   Exclude: Boolean): String;
+var
+  tmp: String;
+  tmp1: String;
+  sl: TStringList;
+  i: Integer;
 begin
-
+  tmp := Fields;
+  sl := TStringList.Create;
+  sl.NameValueSeparator:=':';
+  sl.Text:=FullHeader(MyMessage);
+  for i := 0 to sl.Count-1 do
+    if sl.Names[i]<>lowercase(sl.Names[i]) then
+      begin
+        sl[i] := lowercase(copy(sl[i],0,pos(':',sl[i])-1))+':'+copy(sl[i],pos(':',sl[i])+1,length(sl[i]));
+      end;
+  while pos(' ',tmp)>0 do
+    begin
+      tmp1 := trim(sl.Values[lowercase(copy(tmp,0,pos(' ',tmp)-1))]);
+      if tmp1<>'' then
+        Result := Result+CRLF+tmp1
+      else Result := Result+CRLF;
+      tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
+    end;
+  System.Delete(Result,1,2);
+  Result := Trim( Result ) + CRLF;
+  sl.Free;
 end;
 
 function TImapMailbox.FullBody(MyMessage: TMimeMess): string;
 begin
-
+  Result := MyMessage.MessagePart.Lines.Text;
 end;
 
 function TImapMailbox.FullHeader(MyMessage: TMimeMess): string;
+var
+  sl: TStringList;
 begin
-
-end;
-
-function TImapMailbox.FullText(MyMessage: TMimeMess): string;
-begin
-
+  sl := TStringList.Create;
+  MyMessage.Header.EncodeHeaders(sl);
+  Result := sl.Text;
 end;
 
 function TImapMailbox.Text(MyMessage: TMimeMess): string;
 begin
-
+  Result := MyMessage.Lines.Text;
 end;
 
 function TImapMailbox.FindFlags(MsgSet: TMessageSet; Flags: TFlagMask;
