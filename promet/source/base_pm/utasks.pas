@@ -409,9 +409,11 @@ begin
 end;
 function DayTimeToStr(nf: Real): string;
 begin
-  if nf < 1 then
+  if nf < 1/48 then
+    Result := IntToStr(round(nf*MinsPerDay))+'min'
+  else if nf < 1 then
     Result := FormatFloat('0.0',nf*GetHoursPerDay)+'h'
-  else Result := FloatToStr(nf);
+  else Result := FormatFloat('0.0',nf);
 end;
 function GetHoursPerDay: Real;
 begin
@@ -1693,7 +1695,7 @@ begin
             end;
         end;
     end
-  else  if (aCol.FieldName = 'PLANTIME') or (aCol.FieldName = 'BUFFERTIME')then
+  else  if (aCol.FieldName = 'PLANTIME') or (aCol.FieldName = 'BUFFERTIME') or (aCol.FieldName = 'TIME') then
     begin
       if TryStrToFloat(NewText,nF) then
         NewText := DayTimeToStr(nF);

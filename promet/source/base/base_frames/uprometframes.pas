@@ -159,7 +159,7 @@ procedure TPrometMainFrame.CloseConnection(Ask : Boolean = True);
 begin
   try
   if not Assigned(FConnection) then exit;
-  if Assigned(DataSet) and DataSet.Changed then
+  if Assigned(DataSet) and DataSet.Changed and DataSet.Active then
     begin
       if Ask and (MessageDlg(strItem+' '+TBaseDBList(DataSet).Text.AsString+' ('+TBaseDbList(DataSet).Number.AsString+')',strItemnotSaved,mtInformation,[mbYes,mbNo],0) = mrYes) then
         begin

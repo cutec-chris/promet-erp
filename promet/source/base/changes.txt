@@ -1,4 +1,6 @@
-﻿Build 393
+﻿Build 394
+      -
+Build 393
       - Kontakte:Hinzufügen von Bildern direkt aus Thumbnail heraus
       - Zeiterfassung:Zeiten werden beim abschließen einer Aufgabe in die Aufgabe übernommen
       - Dokumenten/Bildverwaltung:Multiselect möglich, Multiselekt eingeführt für:

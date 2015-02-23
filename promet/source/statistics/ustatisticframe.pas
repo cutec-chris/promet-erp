@@ -57,6 +57,7 @@ type
     BtZoomIn: TBitBtn;
     BtZoomOut: TBitBtn;
     Datasource: TDatasource;
+    DBGrid1: TDBGrid;
     DBMemo1: TDBMemo;
     eName: TDBEdit;
     Detail: TDatasource;
@@ -159,7 +160,7 @@ type
     procedure BtZoomInClick(Sender: TObject);
     procedure BtZoomOutClick(Sender: TObject);
     procedure DataSetRemove(Sender: TObject);
-    procedure DatasourceStateChange(Sender: TObject);
+    procedure DatasourceDataChange(Sender: TObject; Field: TField);
     procedure ExecuteTimerTimer(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
     procedure FrameExit(Sender: TObject);
@@ -885,9 +886,9 @@ begin
   if Assigned(FTreeNode) then FTreeNode.Free;
 end;
 
-procedure TfStatisticFrame.DatasourceStateChange(Sender: TObject);
+procedure TfStatisticFrame.DatasourceDataChange(Sender: TObject; Field: TField);
 begin
-
+  ProjectsStateChange(Sender);
 end;
 
 procedure TfStatisticFrame.ExecuteTimerTimer(Sender: TObject);
@@ -1239,6 +1240,7 @@ begin
   bEditFilter.Down:=True;
   bEditFilterClick(nil);
   smQuerry.SetFocus;
+  ProjectsStateChange(Self);
 end;
 procedure TfStatisticFrame.SetLanguage;
 begin
