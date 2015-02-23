@@ -57,7 +57,6 @@ type
     BtZoomIn: TBitBtn;
     BtZoomOut: TBitBtn;
     Datasource: TDatasource;
-    DBGrid1: TDBGrid;
     DBMemo1: TDBMemo;
     eName: TDBEdit;
     Detail: TDatasource;

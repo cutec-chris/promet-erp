@@ -1046,16 +1046,6 @@ inherited fStatisticFrame: TfStatisticFrame
             TabOrder = 1
             Visible = False
           end
-          object DBGrid1: TDBGrid
-            Left = 525
-            Height = 100
-            Top = 16
-            Width = 200
-            Color = clWindow
-            Columns = <>
-            DataSource = Datasource
-            TabOrder = 2
-          end
         end
         object tsDetail: TTabSheet
           Caption = 'Detail'
