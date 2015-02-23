@@ -307,6 +307,7 @@ procedure TfRepairImageFrame.SetArticle(aMasterdata: TMasterdata);
 begin
   if not aMasterdata.FieldByName('REPAIRTIME').IsNull then
     begin
+      Position.Edit;
       Position.DataSet.FieldByName('REPAIRTIME').AsVariant:=aMasterdata.FieldByName('REPAIRTIME').AsVariant;
       Repairtime := aMasterdata.FieldByName('REPAIRTIME').value;
       Timer1.Enabled := True;

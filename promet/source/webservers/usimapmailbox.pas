@@ -2,7 +2,7 @@ unit usimapmailbox;
 
 interface
 
-uses Classes, usimapsearch,mimemess,mimepart,synautil,blcksock;
+uses Classes, usimapsearch,mimemess,mimepart,synautil,blcksock,syncobjs;
 
 type
   TMessageSet = array of LongInt;
@@ -103,7 +103,7 @@ type
     property Unseen : Integer read FUnseen;
     property  Path           : String     read  fPath;
 
-    constructor Create(APath: string);virtual;
+    constructor Create(APath: string;CS : TCriticalSection);virtual;
     destructor Destroy; override;
   end;
 
@@ -112,7 +112,7 @@ type
 
 implementation
 
-uses SysUtils, syncobjs,uBaseApplication;
+uses SysUtils,uBaseApplication;
 
 // --------------------------------------------------------- TImapMailbox -----
 function TImapMailbox.StringToFlagMask(Flags: string): TFlagMask;
@@ -461,7 +461,7 @@ begin
   LeaveCriticalSection(fCritSection);
 end;
 
-constructor TImapMailbox.Create(APath: string);
+constructor TImapMailbox.Create(APath: string; CS: TCriticalSection);
 begin
   inherited Create;
   InitCriticalSection(fCritSection);
@@ -892,6 +892,7 @@ var
   tmp1: String;
   sl: TStringList;
   i: Integer;
+  aIdx: Integer;
 begin
   tmp := Fields;
   sl := TStringList.Create;
@@ -904,10 +905,10 @@ begin
       end;
   while pos(' ',tmp)>0 do
     begin
-      tmp1 := trim(sl.Values[lowercase(copy(tmp,0,pos(' ',tmp)-1))]);
-      if tmp1<>'' then
-        Result := Result+CRLF+tmp1
-      else Result := Result+CRLF;
+      tmp1 := '';
+      aIdx := sl.IndexOfName(lowercase(copy(tmp,0,pos(' ',tmp)-1)));
+      if aIdx>-1 then
+        Result := Result+CRLF+sl[aIdx];
       tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
     end;
   System.Delete(Result,1,2);

@@ -27,27 +27,8 @@ uses
   laz_synapse, uBaseDBInterface, uData, uBaseApplication, uBaseDbClasses,
   synautil, ureceivemessage, uMimeMessages, ussmtpserver, usimapserver,
   usimapsearch, mimemess, usbaseserver, uSha1, usimapmailbox,RegExpr, db,
-  Utils,uMessages;
+  Utils,uMessages,syncobjs;
 type
-  TPIMAPServer = class(TBaseCustomApplication)
-    function ServerAcceptMail(aSocket: TSTcpThread; aFrom: string;
-      aTo: TStrings): Boolean;
-    procedure ServerLog(aSocket: TSTcpThread; DirectionIn: Boolean;
-      aMessage: string);
-    function ServerLogin(aSocket: TSTcpThread; aUser, aPasswort: string
-      ): Boolean;
-    procedure SMTPServerMailreceived(aSocket: TSTcpThread; aMail: TStrings;
-      aFrom: string; aTo: TStrings);
-  private
-    IMAPServer: TSIMAPServer;
-    SMTPServer: TSSMTPServer;
-  protected
-    procedure DoRun; override;
-  public
-    constructor Create(TheOwner: TComponent); override;
-    destructor Destroy; override;
-  end;
-
   { TPrometMailBox }
 
   TPrometMailBox = class(TImapMailbox)
@@ -55,6 +36,7 @@ type
     Folder : TMessageList;
     FHighestUID : LongInt;
     FLowestUID : LongInt;
+    DBCS : TCriticalSection;
     function GotoIndex(Index : LongInt) : Boolean;
   public
     function  GetUID( Index: LongInt ): LongInt;override;
@@ -67,7 +49,7 @@ type
     function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;override;
     function  GetTimeStamp( Index: LongInt ): TUnixTime;override;
     function  GetMessage( UID: LongInt ): TMimeMess;override;
-    constructor Create(APath: string);override;
+    constructor Create(APath: string;CS : TCriticalSection);override;
     destructor Destroy; override;
   end;
 
@@ -76,9 +58,11 @@ type
   TPrometImapServer = class(TSImapServer)
   private
     MailBoxes : TTree;
+    DbCS : TCriticalSection;
     function GotoMailBox(MailBox : string) : Boolean;
   public
     function  MBSelect(AThread: TSTcpThread; Mailbox: string; aReadOnly : Boolean ): boolean; override;
+    function MBGet(AThread: TSTcpThread; Mailbox: string): TImapMailbox; override;
     function  MBCreate(AThread: TSTcpThread; Mailbox: string ): boolean; override;
     function  MBDelete(AThread: TSTcpThread; Mailbox: string ): boolean; override;
     function  MBExists(AThread: TSTcpThread; var Mailbox: string ): boolean; override;
@@ -93,6 +77,26 @@ type
     procedure DoSubscribe(AThread: TSTcpThread; Par: String);override;
     procedure DoUnSubscribe(AThread: TSTcpThread; Par: String);override;
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    property CS : TCriticalSection read DbCS;
+  end;
+
+  TPIMAPServer = class(TBaseCustomApplication)
+    function ServerAcceptMail(aSocket: TSTcpThread; aFrom: string;
+      aTo: TStrings): Boolean;
+    procedure ServerLog(aSocket: TSTcpThread; DirectionIn: Boolean;
+      aMessage: string);
+    function ServerLogin(aSocket: TSTcpThread; aUser, aPasswort: string
+      ): Boolean;
+    procedure SMTPServerMailreceived(aSocket: TSTcpThread; aMail: TStrings;
+      aFrom: string; aTo: TStrings);
+  private
+    IMAPServer: TPrometImapServer;
+    SMTPServer: TSSMTPServer;
+  protected
+    procedure DoRun; override;
+  public
+    constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
 
@@ -252,27 +256,31 @@ function TPrometMailBox.GetMessage(UID: LongInt): TMimeMess;
 var
   aMessage: TMimeMessage;
 begin
+  DBCS.Enter;
   aMessage := TMimeMessage.Create(nil);
   aMessage.SelectByGrpID(UID);
   aMessage.Open;
   Result := aMessage.EncodeMessage;
   Result.EncodeMessage;
   aMessage.Free;
+  DBCS.Free;
 end;
 
-constructor TPrometMailBox.Create(APath: string);
+constructor TPrometMailBox.Create(APath: string; CS: TCriticalSection);
 var
   Tree: TTree;
   aCnt: TDataSet;
   aFilter: String;
 begin
-  inherited Create(APath);
+  inherited Create(APath,CS);
+  DBCS := CS;
   Folder := TMessageList.Create(nil);
   Tree := TTree.Create(nil);
   Tree.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(APath));
   aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString)+' and '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.Accountno.AsString);
   Folder.SortFields:='MSG_ID';
   Folder.SortDirection:=sdAscending;
+  DBCS.Enter;
   Folder.Filter(aFilter);
   Folder.First;
   while not Folder.EOF do
@@ -286,6 +294,7 @@ begin
         end;
       Folder.Next;
     end;
+  DBCS.Leave;
   aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
   aCnt.Open;
   FMessages:=aCnt.FieldByName('MESSAGES').AsInteger;
@@ -339,7 +348,7 @@ begin
   Result:=False;
   if GotoMailBox(Mailbox) then
     begin
-      Selected := TPrometMailbox.Create(MailBoxes.FieldByName('NAME').AsString);
+      Selected := TPrometMailbox.Create(MailBoxes.FieldByName('NAME').AsString,DBCS);
       Result := True;
     end;
   if Result then
@@ -352,6 +361,16 @@ begin
       SendRes(AThread, 'FLAGS '+Selected.PossFlags);
       Selected.MBReadOnly := Selected.MBReadOnly OR ReadOnly; //ClientRO //Soll die MB ReadOnly geöffnet werden?
       if not Selected.MBReadOnly then Selected.RemoveRecentFlags;
+    end;
+end;
+
+function TPrometImapServer.MBGet(AThread: TSTcpThread; Mailbox: string
+  ): TImapMailbox;
+begin
+  Result := nil;
+  if GotoMailBox(Mailbox) then
+    begin
+      Result := TPrometMailbox.Create(MailBoxes.FieldByName('NAME').AsString,DBCS);
     end;
 end;
 
@@ -398,11 +417,29 @@ end;
 procedure TPrometImapServer.DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet;
   Command, Destination: String);
 begin
+  if not Assigned(Selected) then
+    begin
+      SendResTag(AThread, 'NO no Mailbox selected.');
+      exit;
+    end;
+  if Selected.MBReadOnly then begin
+     SendResTag(AThread,'NO selected mailbox is read-only.');
+     exit;
+  end;
 end;
 
 procedure TPrometImapServer.DoStore(AThread: TSTcpThread; MsgSet: TMessageSet;
   Command, Par: String);
 begin
+  if not Assigned(Selected) then
+    begin
+      SendResTag(AThread,'NO no Mailbox selected.');
+      exit;
+    end;
+  if Selected.MBReadOnly then begin
+     SendResTag(AThread,'NO selected mailbox is read-only.');
+     exit;
+  end;
 end;
 
 procedure TPrometImapServer.DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet;
@@ -546,12 +583,14 @@ end;
 constructor TPrometImapServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
+  DBCs := TCriticalSection.Create;
   MailBoxes := TTree.Create(nil);
   Data.SetFilter(MailBoxes,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,False);
 end;
 
 destructor TPrometImapServer.Destroy;
 begin
+  DBCS.Free;
   MailBoxes.Free;
   inherited Destroy;
 end;
@@ -610,6 +649,7 @@ function TPIMAPServer.ServerLogin(aSocket: TSTcpThread; aUser,
   aPasswort: string): Boolean;
 begin
   Result := False;
+  IMAPServer.CS.Enter;
   Data.Users.DataSet.Refresh;
   with Self as IBaseDBInterface do
     begin
@@ -630,6 +670,7 @@ begin
     begin
       Data.RefreshUsersFilter;
     end;
+  IMAPServer.CS.Leave;
 end;
 
 procedure TPIMAPServer.SMTPServerMailreceived(aSocket: TSTcpThread;

@@ -79,6 +79,7 @@ type
     procedure Execute(AThread: TSTcpThread); override;
   public
     function  MBSelect(AThread: TSTcpThread; Mailbox: string; ReadOnly : Boolean ): boolean; virtual;
+    function  MBGet(AThread: TSTcpThread; Mailbox: string): TImapMailbox; virtual;
     function  MBCreate(AThread: TSTcpThread; Mailbox: string ): boolean; virtual;
     function  MBDelete(AThread: TSTcpThread; Mailbox: string ): boolean; virtual;
     function  MBExists(AThread: TSTcpThread; var Mailbox: string ): boolean; virtual;
@@ -837,7 +838,7 @@ begin
   end;
   //---Standard-CAPAs--------------------------------
   capabilities := 'IMAP4rev1 '
-    + 'IDLE '
+  //  + 'IDLE '
     + 'LITERAL+ ';
 
 
@@ -1293,7 +1294,7 @@ begin
     exit;
   end;
 
-  with TImapMailbox.Create(Mailbox) do
+  with MBGet(AThread,Mailbox) do
   try
     Lock;
     Status := TrimParentheses(TrimQuotes(Par)) + ' ';
@@ -1536,6 +1537,12 @@ function TSImapServer.MBSelect(AThread: TSTcpThread; Mailbox: string;
   ReadOnly: Boolean): boolean;
 begin
   Result := False;
+end;
+
+function TSImapServer.MBGet(AThread: TSTcpThread; Mailbox: string
+  ): TImapMailbox;
+begin
+  Result := nil;
 end;
 
 function TSImapServer.MBCreate(AThread: TSTcpThread; Mailbox: string): boolean;
