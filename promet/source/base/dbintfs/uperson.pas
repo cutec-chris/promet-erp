@@ -53,6 +53,7 @@ type
     procedure Assign(Source: TPersistent); override;
     procedure FillDefaults(aDataSet : TDataSet);override;
     function ToString: ansistring;override;
+    procedure OpenItem(AccHistory: Boolean=True); override;
     procedure FromString(aStr : AnsiString);virtual;
     property Title : TField read GetTitle;
     property AdressName : TField read GetName;
@@ -488,6 +489,12 @@ begin
   Result := aAddress.Text;
   aAddress.Free;
 end;
+
+procedure TBaseDbAddress.OpenItem(AccHistory: Boolean);
+begin
+  //Do nothing
+end;
+
 procedure TBaseDbAddress.FromString(aStr: AnsiString);
 var
   Addr: TStringList;

@@ -40,6 +40,8 @@ var
 
 implementation
 
+uses uminiconvencoding;
+
 function WikiText2HTML(input: string; LinkOffset: string;
   RemoveLinkOffset: string; IproChanges: Boolean; aLevel: Integer): string;
 var
@@ -240,7 +242,7 @@ var
       end;
   end;
 begin
-  istr := input;//ConvertEncoding(input,GuessEncoding(Input),EncodingUTF8);
+  istr := ConvertEncoding(input,GuessEncoding(Input),EncodingUTF8);
   ostr := '';
   open_uls := 0;
   act_uls := 0;
@@ -564,4 +566,4 @@ end;
 
 
 end.
-
+
