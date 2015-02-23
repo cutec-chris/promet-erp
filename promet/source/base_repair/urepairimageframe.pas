@@ -49,8 +49,6 @@ type
     procedure ComboSearch(Data: PtrInt);
     procedure eSerial1Exit(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
-    procedure PositionDataChange(Sender: TObject; Field: TField);
-    procedure PositionDataSetBeforePost(DataSet: TDataSet);
     procedure SpeedButton1Click(Sender: TObject);
     procedure TfPositionDatasetTOrderPosRepairDetailsDataSetAfterScroll(
       DataSet: TDataSet);
@@ -288,29 +286,6 @@ begin
       end;
 end;
 
-procedure TfRepairImageFrame.PositionDataChange(Sender: TObject; Field: TField);
-var
-  Quantity : double;
-  QuantityOld : double;
-begin
-  //Quantity := DataSet.FieldByName('QUANTITY');
-  if Quantity<>0 then
-    begin
-      Quantity:=1;
-    end;
-end;
-
-procedure TfRepairImageFrame.PositionDataSetBeforePost(DataSet: TDataSet);
-var
-  Quantity : double;
-begin
-  Quantity := DataSet.FieldByName('QUANTITY').OldValue-DataSet.FieldByName('QUANTITY').Value;
-  if Quantity<>0 then
-    begin
-      Quantity:=1;
-    end;
-end;
-
 procedure TfRepairImageFrame.SetRights(Editable: Boolean);
 begin
   SetLanguage;
@@ -342,7 +317,6 @@ begin
       lInfo.Caption := 'Reparaturzeit: '+Format(' %d m',[Repairtime]);
     end
   else lInfo.Visible := False;
-  Position.DataSet.BeforePost:=@PositionDataSetBeforePost;
 end;
 
 destructor TfRepairImageFrame.Destroy;

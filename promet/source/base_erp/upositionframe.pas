@@ -359,7 +359,6 @@ begin
                   next;
                 end;
             end;
-//          cbPQuantityU.Items.Assign(FGridView.Columns[i].PickList);
           aUnits.Free;
         end
       else if TColumn(FGridView.Columns[i]).FieldName = 'IDENT' then
@@ -453,6 +452,10 @@ begin
   else FFound:=True;
   aCnt := FGridView.DataSet.Count;
   DataSet.Assign(aMD);
+  if (GetPostyp <> -1) and Assigned(InplaceFrames[GetPosTyp]) then
+    begin
+      InplaceFrames[GetPosTyp].SetArticle(aMD);
+    end;
   if aCnt<>FGridView.DataSet.Count then
     FGridView.Refresh
   else
@@ -674,6 +677,10 @@ begin
       then
         acAddPos.Execute;
       TBaseDBPosition(FDataSet).Assign(aMasterdata);
+      if (GetPostyp <> -1) and Assigned(InplaceFrames[GetPosTyp]) then
+        begin
+          InplaceFrames[GetPosTyp].SetArticle(aMasterdata);
+        end;
       FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
       aMasterdata.Free;
     end
@@ -691,6 +698,10 @@ begin
           then
             acAddPos.Execute;
           TBaseDbPosition(DataSet).Assign(aMasterdata);
+          if (GetPostyp <> -1) and Assigned(InplaceFrames[GetPosTyp]) then
+            begin
+              InplaceFrames[GetPosTyp].SetArticle(aMasterdata);
+            end;
           FGridView.SyncActiveRow(DataSet.GetBookmark,False,True,True);
         end;
       aMasterdata.Free;
@@ -981,4 +992,4 @@ begin
 end;
 
 end.
-
+
