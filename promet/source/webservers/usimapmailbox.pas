@@ -67,6 +67,7 @@ type
     function GetAddressStructure( Address: String ): String;
 
     function GetHeaderFields(MyMessage : TMimeMess; Fields: String; Exclude: Boolean ): String;
+    function GetBodyFields(Part: TMimePart): string;
     // Header
     function FullHeader(MyMessage : TMimeMess) : string;
     // Body
@@ -651,39 +652,38 @@ function TImapMailbox.BodyStructure(Part: TMimePart; Extensible: Boolean
 var  Data : String;
      i    : Integer;
 begin
-  if Part.ContentID = 'MULTIPART' then
+  if Uppercase(Part.Primary) = 'MULTIPART' then
     begin  // Multipart
       // Multiple parts are indicated by parenthesis nesting.  Instead of
       // a body type as the first element of the parenthesized list there is
       // a nested body.  The second element of the parenthesized list is the
       // multipart subtype (mixed, digest, parallel, alternative, etc.). }
       Data := '(';
-      for i := 0 to High( Part.GetSubPartCount ) do
+      for i := 0 to Part.GetSubPartCount-1 do
           Data := Data + BodyStructure(Part.GetSubPart(i),Extensible );
       Data := Data + ' "' + Part.Secondary +'"';
 
       //if Extensible then
       //  Data := Data + ' ' + Part.ContentID + ' ' + Part.Disposition GetBodyDisposition + ' ' + GetBodyLanguage;
     end
-  ;
-{  else
+  else
     begin
-      Data := '("' + Part.ContentID + '" "' + Part.Secondary + '" ' + GetBodyFields;
-      if ContentType = 'TEXT' then Data := Data + ' ' + IntToStr( Lines )
-      else if (ContentType = 'MESSAGE') and (ContentSubtype = 'RFC822') then
+      Data := '("' + Part.Primary + '" "' + Part.Secondary + '" ' + GetBodyFields(Part);
+      if Part.Primary = 'TEXT' then Data := Data + ' ' + IntToStr( Part.Lines.Count )
+      else if (Part.Primary = 'MESSAGE') and (Part.Secondary = 'RFC822') then
         begin
-          if Length(Parts) > 0 then
-            Data := Data + ' ' + Envelope + ' ' +
+          {
+          if Part.GetSubPartCount > 0 then
+            Data := Data + ' ' +  GetEnvelope + ' ' +
                       Parts[0].BodyStructure( Extensible ) + ' ' +
                       IntToStr( Lines )
            else
               LogRaw( LOGID_WARN, 'Error parsing RFC822 message: There is no message.' );
+              }
         end;
 
-        if Extensible then Data := Data + ' ' + GetBodyMD5 + ' ' +
-                                   GetBodyDisposition + ' ' + GetBodyLanguage;
+        //if Extensible then Data := Data + ' ' + GetBodyMD5 + ' ' + GetBodyDisposition + ' ' + GetBodyLanguage;
      end;
- }
      Result := Data + ')'
 end;
 
@@ -914,6 +914,15 @@ begin
   System.Delete(Result,1,2);
   Result := Trim( Result ) + CRLF;
   sl.Free;
+end;
+
+function TImapMailbox.GetBodyFields(Part : TMimePart): string;
+begin
+  Result :=  Part.Primary + ' ' +
+            Part.ContentID + ' ' +
+            Part.Description + ' ' +
+            Part.Encoding + ' ' +
+            IntToStr( Length( Part.Lines.Text ) )
 end;
 
 function TImapMailbox.FullBody(MyMessage: TMimeMess): string;

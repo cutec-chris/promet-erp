@@ -33,6 +33,7 @@ type
 
   TPrometMailBox = class(TImapMailbox)
   private
+    FParent : Variant;
     Folder : TMessageList;
     FHighestUID : LongInt;
     FLowestUID : LongInt;
@@ -49,7 +50,7 @@ type
     function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;override;
     function  GetTimeStamp( Index: LongInt ): TUnixTime;override;
     function  GetMessage( UID: LongInt ): TMimeMess;override;
-    constructor Create(APath: string;CS : TCriticalSection);override;
+    constructor Create(APath: String; CS: TCriticalSection); override;
     destructor Destroy; override;
   end;
 
@@ -150,6 +151,7 @@ begin
     MR := MR and FLAGFLAGGED;
   if Folder.FieldByName('DRAFT').AsString='Y' then
     MR := MR and FLAGDRAFT;
+  Result := MR;
 end;
 
 function TPrometMailBox.AddFlags(Index: LongInt; Flags: TFlagMask): TFlagMask;
@@ -256,17 +258,17 @@ function TPrometMailBox.GetMessage(UID: LongInt): TMimeMess;
 var
   aMessage: TMimeMessage;
 begin
-  DBCS.Enter;
+  //DBCS.Enter;
   aMessage := TMimeMessage.Create(nil);
-  aMessage.SelectByGrpID(UID);
+  aMessage.SelectByGrpID(UID,FParent);
   aMessage.Open;
   Result := aMessage.EncodeMessage;
   Result.EncodeMessage;
   aMessage.Free;
-  DBCS.Free;
+  //DBCS.Free;
 end;
 
-constructor TPrometMailBox.Create(APath: string; CS: TCriticalSection);
+constructor TPrometMailBox.Create(APath: String; CS: TCriticalSection);
 var
   Tree: TTree;
   aCnt: TDataSet;
@@ -276,7 +278,9 @@ begin
   DBCS := CS;
   Folder := TMessageList.Create(nil);
   Tree := TTree.Create(nil);
-  Tree.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(APath));
+  Tree.Select(APath);
+  Tree.Open;
+  FParent := APath;
   aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString)+' and '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.Accountno.AsString);
   Folder.SortFields:='MSG_ID';
   Folder.SortDirection:=sdAscending;
@@ -313,6 +317,7 @@ end;
 function TPrometImapServer.GotoMailBox(MailBox: string): Boolean;
 begin
   Result := False;
+  MailBox:=copy(MailBox,RPos('/',MailBox)+1,length(MailBox));
   if MailBoxes.Locate('NAME',AnsiToUtf8(Mailbox),[]) then
     begin
       result := True;
@@ -348,7 +353,7 @@ begin
   Result:=False;
   if GotoMailBox(Mailbox) then
     begin
-      Selected := TPrometMailbox.Create(MailBoxes.FieldByName('NAME').AsString,DBCS);
+      Selected := TPrometMailbox.Create(MailBoxes.Id.AsVariant,DBCS);
       Result := True;
     end;
   if Result then
@@ -370,7 +375,7 @@ begin
   Result := nil;
   if GotoMailBox(Mailbox) then
     begin
-      Result := TPrometMailbox.Create(MailBoxes.FieldByName('NAME').AsString,DBCS);
+      Result := TPrometMailbox.Create(MailBoxes.Id.AsVariant,DBCS);
     end;
 end;
 
@@ -426,6 +431,8 @@ begin
      SendResTag(AThread,'NO selected mailbox is read-only.');
      exit;
   end;
+
+  SendResTag(AThread,'NO not implemented.');
 end;
 
 procedure TPrometImapServer.DoStore(AThread: TSTcpThread; MsgSet: TMessageSet;
@@ -440,6 +447,8 @@ begin
      SendResTag(AThread,'NO selected mailbox is read-only.');
      exit;
   end;
+
+  SendResTag(AThread,'NO not implemented.');
 end;
 
 procedure TPrometImapServer.DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet;
@@ -790,10 +799,8 @@ begin
     raise;
   end;
   IMAPServer.OnLogin :=@ServerLogin;
-  IMAPServer.OnLog:=@ServerLog;
-//  if HasOption('server-log') then
-//    IMAPServer.OnDebug:=@ServerLog;
-  //IMAPServer.SocketClass:=TPIMAPSocket;
+  if HasOption('server-log') then
+    IMAPServer.OnLog:=@ServerLog;
   aTime := Now();
   while not Terminated do
     begin

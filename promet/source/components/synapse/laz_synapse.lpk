@@ -17,7 +17,7 @@
         <SmallerCode Value="True"/>
       </CodeGeneration>
     </CompilerOptions>
-    <Files Count="33">
+    <Files Count="34">
       <Item1>
         <Filename Value="asn1util.pas"/>
         <UnitName Value="asn1util"/>
@@ -152,6 +152,10 @@
         <Filename Value="ssl_openssl.pas"/>
         <UnitName Value="ssl_openssl"/>
       </Item33>
+      <Item34>
+        <Filename Value="synaser.pas"/>
+        <UnitName Value="synaser"/>
+      </Item34>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>
