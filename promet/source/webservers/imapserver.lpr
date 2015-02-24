@@ -134,7 +134,24 @@ end;
 function TPrometMailBox.SetFlags(Index: LongInt; Flags: TFlagMask): TFlagMask;
 begin
   GotoIndex(Index);
+  Folder.Edit;
+  if Flags and FLAGSEEN = FLAGSEEN then
+    Folder.FieldByName('READ').AsString:='Y'
+  else Folder.FieldByName('READ').AsString:='N';
 
+  if (Flags and FLAGANSWERED = FLAGANSWERED) and (Folder.FieldByName('ANSWERED').IsNull) then
+    Folder.FieldByName('ANSWERED').AsDateTime:=Now()
+  else Folder.FieldByName('ANSWERED').Clear;
+
+  if Flags and FLAGFLAGGED = FLAGFLAGGED then
+    Folder.FieldByName('FLAGGED').AsString:='Y'
+  else Folder.FieldByName('FLAGGED').AsString:='N';
+
+  if Flags and FLAGDRAFT = FLAGDRAFT then
+    Folder.FieldByName('DRAFT').AsString:='Y'
+  else Folder.FieldByName('DRAFT').AsString:='N';
+
+  Result := GetFlags(Index);
 end;
 
 function TPrometMailBox.GetFlags(Index: LongInt): TFlagMask;
@@ -156,15 +173,13 @@ end;
 
 function TPrometMailBox.AddFlags(Index: LongInt; Flags: TFlagMask): TFlagMask;
 begin
-  GotoIndex(Index);
-
+  Result := SetFlags( Index, GetFlags(Index) or Flags )
 end;
 
 function TPrometMailBox.RemoveFlags(Index: LongInt; Flags: TFlagMask
   ): TFlagMask;
 begin
-  GotoIndex(Index);
-
+  Result := SetFlags( Index, GetFlags(Index) and not Flags )
 end;
 
 function TPrometMailBox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
