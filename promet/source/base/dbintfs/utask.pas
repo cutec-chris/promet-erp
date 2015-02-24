@@ -33,12 +33,14 @@ type
   TTaskInterval = class
   private
     FDueDate: TDateTime;
+    FName: string;
     FPlan: Double;
     FStartDate: TDateTime;
   public
     property StartDate : TDateTime read FStartDate write FStartDate;
     property DueDate : TDateTime read FDueDate write FDueDate;
     property PlanTime : Double read FPlan write FPlan;
+    property Name : string read FName write FName;
   end;
   TTaskList = class(TBaseERPList,IBaseHistory)
     procedure DataSetAfterCancel(aDataSet: TDataSet);
@@ -73,7 +75,7 @@ type
     procedure SelectActive;
     procedure SelectActivewithoutDeps;
     procedure SelectByUser(AccountNo : string);
-    procedure SelectUncompletedByUser(AccountNo : string);
+    procedure SelectUncompletedByUser(AccountNo : string;IgnoreDepend : Boolean = False);
     procedure SelectActiveByUserChangedSince(AccountNo: string; aDate: TdateTime);
     procedure SelectByDept(aDept : Variant);
     procedure SelectByParent(aParent : Variant);
@@ -631,7 +633,7 @@ begin
   bTasks := TTaskList.CreateEx(nil,DataModule,Connection);
   if aUser.FieldByName('TYPE').AsString<>'G' then
     begin
-      bTasks.SelectUncompletedByUser(FieldByName('USER').AsString);
+      bTasks.SelectUncompletedByUser(FieldByName('USER').AsString,IgnoreDepend);
       bTasks.SortFields:='STARTDATE';
       bTasks.SortDirection:=sdAscending;
       bTasks.Open;
@@ -647,7 +649,7 @@ begin
               //and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
               and (not (bTasks.Id.AsVariant=Self.Id.AsVariant))
               then
-                if (not DependsOnMe(bTasks,2)) and (not IgnoreDepend) then
+                if not DependsOnMe(bTasks,2) then
                   aIntervals.Add(bTasks.GetInterval);
               Next;
             end;
@@ -667,6 +669,7 @@ begin
               aInterval.StartDate:=aCalendar.FieldByName('STARTDATE').AsDateTime;
               aInterval.DueDate:=aCalendar.FieldByName('ENDDATE').AsDateTime;
               aInterval.PlanTime:=-1;
+              aInterval.Name := aCalendar.Text.AsString;
               if aCalendar.FieldByName('ALLDAY').AsString = 'Y' then
                 begin
                   aInterval.StartDate := trunc(aInterval.StartDate);
@@ -690,19 +693,27 @@ begin
     begin
       if (not ((DayOfWeek(aNow)=1) or (DayOfWeek(aNow)=7))) then
         begin
+          with BaseApplication as IBaseApplication do
+            debug('Day: '+DateToStr(aNow));
           aPercent := 0;
           for i := 1 to aIntervals.Count-1 do
             begin
               Int2 := TTaskInterval(aIntervals[i]);
               if ((trunc(Int2.StartDate)<=aNow)
-              and (trunc(Int2.DueDate)>=aNow)) then
-                aPercent := aPercent+((Int2.PlanTime/(Int2.DueDate-Int2.StartDate))*(1/ResourceTimePerDay));
+              and (trunc(Int2.DueDate)>aNow)) then
+                begin
+                  aPercent := aPercent+((Int2.PlanTime/(Int2.DueDate-Int2.StartDate))*(1/ResourceTimePerDay));
+                  with BaseApplication as IBaseApplication do
+                    debug('  Task: '+Int2.Name+' ActPercent:'+FloatToStr(aPercent));
+                end;
             end;
           if not aFound then
             if aPercent<0.7 then
               begin
                 aFound := True;
                 aActStartDate:=aNow;
+                with BaseApplication as IBaseApplication do
+                  debug('  New Task starts here !');
               end;
           if aFound then
             begin
@@ -712,6 +723,8 @@ begin
               if TimeNeeded<=0 then
                 begin
                   aActEndDate := aNow+0.99999;
+                  with BaseApplication as IBaseApplication do
+                    debug('  New Task ends here !');
                   break;
                 end;
               if aDayUseTime<0 then
@@ -798,6 +811,7 @@ begin
   Result.StartDate:=FieldByName('STARTDATE').AsDateTime;
   Result.DueDate:=FieldByName('DUEDATE').AsDateTime;
   Result.PlanTime := FieldByName('PLANTIME').AsFloat;
+  Result.Name := Text.AsString+' - '+FieldByName('PROJECT').AsString;
 end;
 procedure TTaskList.DisableDS;
 begin
@@ -1434,11 +1448,16 @@ begin
     end;
 end;
 
-procedure TTaskList.SelectUncompletedByUser(AccountNo: string);
+procedure TTaskList.SelectUncompletedByUser(AccountNo: string;
+  IgnoreDepend: Boolean);
+var
+  aFilter: String;
 begin
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
-      Filter := '('+QuoteField('USER')+'='+QuoteValue(AccountNo)+') and ('+QuoteField('COMPLETED')+'='+QuoteValue('N')+') and ('+QuoteField('ACTIVE')+'='+QuoteValue('Y')+')';
+      aFilter :='('+QuoteField('USER')+'='+QuoteValue(AccountNo)+') and ('+QuoteField('COMPLETED')+'='+QuoteValue('N')+') and ('+QuoteField('ACTIVE')+'='+QuoteValue('Y')+')';
+      if IgnoreDepend then aFilter := aFilter+' AND ('+QuoteField('DEPDONE')+'='+QuoteValue('Y')+')';
+      Filter := aFilter;
     end;
 end;
 
