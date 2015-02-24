@@ -316,10 +316,11 @@ var
   tmp : string = '';
   i: Integer;
 begin
-  if aLevel>10 then exit;//recoursion check we may have an circulating dependency
+  if aLevel>3 then exit;//recoursion check we may have an circulating dependency
   for i := 0 to aLevel-1 do
   tmp := tmp+' ';
-  //debugln(tmp+'CheckDependencies:'+DataSet.FieldByName('SUMMARY').AsString);
+  with BaseApplication as IBaseApplication do
+    debug(tmp+'CheckDependencies:'+DataSet.FieldByName('SUMMARY').AsString);
   if not Dependencies.DataSet.Active then
     Dependencies.Open;
   Dependencies.DataSet.First;
@@ -589,7 +590,7 @@ begin
   //Get Latest Dependency
   Dependencies.Open;
   aTask := TTask.CreateEx(nil,DataModule,Connection);
-  aStartDate:=Now();
+  aStartDate:=trunc(Now());
   while not Dependencies.EOF do
     begin
       aTask.SelectFromLink(Dependencies.FieldByName('LINK').AsString);
@@ -687,7 +688,7 @@ begin
   aIntervals.Sort(@CompareStarts);
   //Find Slot
   aFound := False;
-  aNow := round(aStartDate);
+  aNow := trunc(aStartDate);
   TimeNeeded := Duration;
   while (not ((aFound) and (TimeNeeded<=0))) do
     begin
@@ -959,29 +960,32 @@ begin
   if aParent.Count > 0 then
     begin
       aTasks := TTaskList.CreateEx(Self,DataModule,Connection);
-      aTasks.SelectByParent(aParent.Id.AsVariant);
-      aTasks.Open;
-      if (aTasks.Count = 1)
-      and (aTasks.Id.AsVariant = Self.Id.AsVariant) then
-        begin
-          aParent.DataSet.Edit;
-          aParent.FieldByName('HASCHILDS').AsString:='N';
-          aParent.DataSet.Post;
-        end;
-      Clean := True;
-      for i := 0 to aTasks.Count-1 do
-        begin
-          if (aTasks.FieldByName('CHECKED').AsString = 'N') and (aTasks.Id.AsVariant <> Self.Id.AsVariant) then
-            Clean := False;
-          aTasks.Next;
-        end;
-      if Clean then
-        begin
-          aParent.DataSet.Edit;
-          aParent.FieldByName('CHECKED').AsString:='Y';
-          aParent.DataSet.Post;
-        end;
-      aTasks.Free;
+      try
+        aTasks.SelectByParent(aParent.Id.AsVariant);
+        aTasks.Open;
+        if (aTasks.Count = 1)
+        and (aTasks.Id.AsVariant = Self.Id.AsVariant) then
+          begin
+            aParent.DataSet.Edit;
+            aParent.FieldByName('HASCHILDS').AsString:='N';
+            aParent.DataSet.Post;
+          end;
+        Clean := True;
+        for i := 0 to aTasks.Count-1 do
+          begin
+            if (aTasks.FieldByName('CHECKED').AsString = 'N') and (aTasks.Id.AsVariant <> Self.Id.AsVariant) then
+              Clean := False;
+            aTasks.Next;
+          end;
+        if Clean then
+          begin
+            aParent.DataSet.Edit;
+            aParent.FieldByName('CHECKED').AsString:='Y';
+            aParent.DataSet.Post;
+          end;
+      finally
+        aTasks.Free;
+      end;
     end;
   aParent.Free;
   //Delete dependencies that points on me

@@ -926,19 +926,22 @@ var
 begin
   if not Assigned(FSelectedInterval) then exit;
   aTask := TTask.Create(nil);
-  aTask.Select(FSelectedInterval.Id);
-  aTask.Open;
-  if aTask.Count>0 then
-    begin
-      aTask.Delete;
-      UpdateDependencies(FSelectedInterval);
-      for i := 0 to FSelectedInterval.ConnectionCount-1 do
-        UpdateDependencies(FSelectedInterval.Connection[i]);
-      FGantt.RemoveInterval(FSelectedInterval);
-      FIntervals.Remove(FSelectedInterval);
-      FreeAndNil(FSelectedInterval);
-    end;
-  aTask.Free;
+  try
+    aTask.Select(FSelectedInterval.Id);
+    aTask.Open;
+    if aTask.Count>0 then
+      begin
+        aTask.Delete;
+        UpdateDependencies(FSelectedInterval);
+        for i := 0 to FSelectedInterval.ConnectionCount-1 do
+          UpdateDependencies(FSelectedInterval.Connection[i]);
+        FGantt.RemoveInterval(FSelectedInterval);
+        FIntervals.Remove(FSelectedInterval);
+        FreeAndNil(FSelectedInterval);
+      end;
+  finally
+    aTask.Free;
+  end;
 end;
 
 procedure TfGanttView.acExportToImageExecute(Sender: TObject);
