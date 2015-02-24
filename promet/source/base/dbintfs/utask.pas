@@ -93,7 +93,7 @@ type
     function CalcDates(var aStart, aDue: TDateTime): Boolean;
     function GetUnterminatedDependencies: TStrings;
     //This function calculates the earliest possible Start and Enddate for the Task
-    function Terminate(aEarliest : TDateTime;var aStart,aEnd,aDuration : TDateTime) : Boolean;
+    function Terminate(aEarliest : TDateTime;var aStart,aEnd,aDuration : TDateTime;IgnoreDepend : Boolean = False) : Boolean;
     //This function retuirns True if one of the Dependencies of aTask or its Dependencies (recoursive) points to This Task
     function DependsOnMe(aTask: TTaskList; aDeep: Integer=30): Boolean;
     //This function calculates the earliest possible Start and Enddate for the Task and sets it as Start and Enddate
@@ -553,7 +553,7 @@ begin
 end;
 
 function TTaskList.Terminate(aEarliest: TDateTime; var aStart, aEnd,
-  aDuration: TDateTime): Boolean;
+  aDuration: TDateTime; IgnoreDepend: Boolean): Boolean;
 var
   aStartDate : TDateTime;
   aTask: TTask;
@@ -647,7 +647,7 @@ begin
               //and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
               and (not (bTasks.Id.AsVariant=Self.Id.AsVariant))
               then
-                if not DependsOnMe(bTasks,2) then
+                if (not DependsOnMe(bTasks,2)) and (not IgnoreDepend) then
                   aIntervals.Add(bTasks.GetInterval);
               Next;
             end;

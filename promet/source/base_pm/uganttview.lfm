@@ -479,17 +479,17 @@ object fGanttView: TfGanttView
       Left = 412
       Height = 42
       Top = 0
-      Width = 100
+      Width = 124
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 100
+      ClientWidth = 124
       TabOrder = 2
       object Label6: TLabel
         Left = 4
         Height = 15
         Top = 0
-        Width = 60
+        Width = 84
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -511,7 +511,7 @@ object fGanttView: TfGanttView
         Shape = bsLeftLine
       end
       object bMoveFwd: TSpeedButton
-        Left = 28
+        Left = 51
         Height = 24
         Hint = 'Plan vorwärts aktualisieren'#13#10'Schiebt Aufgaben die hinter Abhängigkeiten anderer Aufgaben zurückstehen vorwärts'
         Top = 14
@@ -557,7 +557,7 @@ object fGanttView: TfGanttView
         ShowCaption = False
       end
       object bMakePossible: TSpeedButton
-        Left = 76
+        Left = 98
         Height = 24
         Top = 14
         Width = 24
@@ -567,7 +567,7 @@ object fGanttView: TfGanttView
         ShowCaption = False
       end
       object bMoveBack: TSpeedButton
-        Left = 52
+        Left = 75
         Height = 24
         Hint = 'Plan rückwärts berechnen'#13#10'schiebt Aufgaben, die vor Abhängigkeiten anderer Aufgaben stehen zurück'
         Top = 14
@@ -657,6 +657,53 @@ object fGanttView: TfGanttView
         }
         Layout = blGlyphTop
         OnClick = bCalculatePlanWithUsageClick
+        ShowCaption = False
+      end
+      object bCalculatePlanWithUsagewithoutDepend: TSpeedButton
+        Left = 28
+        Height = 24
+        Hint = 'Plan mit Auslastung aktualisieren'#13#10'Rechnet den Plan neu durch und '#13#10'berücksichtigt dabei dei Auslastung der Mitarbeiter !'#13#10'ignoriert aber die Aufgaben mit unerfüllten Abhängigkeiten'
+        Top = 14
+        Width = 24
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00D69E72C4D3996EF4D19668FFCE9263FFCB8E5EFFC98A5BFFC78756FFC384
+          52FFC38452FFC38452FFC38452FFC38452FFC38452FFBB7742B0FFFFFF00FFFF
+          FF00B7A287FFD3E4EAFFF7F0EAFFF6EDE6FFF4EAE2FFF3E7DEFFF1E4DBFFF0E2
+          D8FFF0E2D8FFF0E2D8FFF0E2D8FFF0E2D8FFF0E2D8FFC58A5DFDFFFFFF00FFFF
+          FF00A6A696FF40B0DDFFACC3C7FFFFFFFFFFEBD3BFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFEAC7ADFFFFFFFFFFFFFFFFFFFFFFFFFFF0E2D8FFC68C5FFFFFFFFF00FFFF
+          FF00DDA87EFF5FBEE2FF43B5E3FF66B2D0FFDECDBDFFEBD0BBFFEBD0BBFFEBD1
+          BDFFEACDB5FFEACDB5FFEACDB5FFEACDB5FFF0E2D8FFC68A5CFFFFFFFF00FFFF
+          FF00DFAA82FFEEEFEEFF31ADDCFF51BAE6FF39A8D7FFABD9F0FFFFFFFFFFFFFF
+          FFFFEACFBAFFFBF6F2FFFFFFFFFFFFFFFFFFF0E2D8FFC88D5FFF37C1E67435BD
+          E58C84B4B8FF8BD1E8FF3CB3DCFF7DD0F0FF6DC7ECFF44B2E2FF6CAEC9FFCEC6
+          BBFFE8C7ACFFE8C7ACFFE8C8B0FFE8C8AEFFF0E2D8FFC48654FF3AC5E8CA6ED8
+          F0FF68D3EFFF66CFEDFF84D9F3FF88D7F4FF7DCFF1FF58BCE8FF52B7E5FF229D
+          D7FF99B3BBFFF5FAFDFFFFFFFFFFFFFFFFFFF1E5DBFFC68655FF3CC9E9373AC5
+          E8EB90E6F8FF8DE3F7FF60D2F2FF84D7F4FF3AB3DCFF7EB8C8FF82B8C6FF7BB4
+          C8FF86B3C1FFD1C3B4FFE8C8B0FFE8CCB5FFF2E7DEFFC88A59FF3FCCEB063DC9
+          EA846BD9F1FF96E7F8FF47CFF2FF89DCF4FF37B7E0FFA6DEF2FFFFFFFFFFFFFF
+          FFFFE8C7ACFFFFFFFFFFFFFFFFFFFFFFFFFFF7F1EBFFCB8F5FFFFFFFFF003FCC
+          EB2046C8E6FF93E7F8FF5FD8F4FF90E0F6FF7DD6F2FF52C3E9FF9FBDBDFFE9C3
+          A6FFE9C3A6FFE9C3A6FFE9C3A6FFE9C3A6FFFBF7F4FFCE9364FFFFFFFF0041CF
+          EC0386C6CAFF74DEF3FF89E3F6FF85DEF5FF81D9F4FF78D3F1FF50C2E8FFB3E3
+          F4FFFDFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBF7F4FFD1976AFFFFFFFF00FFFF
+          FF00BFC3B2FF5DD4ECFF4BCCE0FF49C9DEFF47C5DCFF43C2DAFF40BED9FF42BB
+          D2FF79C493FF7EC384FF7AC180FF76BE7CFFFBF7F4FFD49B6FFFFFFFFF00FFFF
+          FF00EEC1A1EBFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7
+          F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFFBF7F4FFD7A074F8FFFFFF00FFFF
+          FF00EFC2A37EEFC1A2E3EDC09FFFEBBE9DFFEBBC9AFFE9BA96FFE7B793FFE6B5
+          90FFE4B28CFFE2AF88FFE0AC84FFDDA980FFDCA57DFFDAA37ACAFFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        Layout = blGlyphTop
+        OnClick = bCalculatePlanWithUsagewithoutDependClick
+        OnChangeBounds = bCalculatePlanWithUsagewithoutDependChangeBounds
         ShowCaption = False
       end
     end
@@ -851,19 +898,19 @@ object fGanttView: TfGanttView
       Visible = False
     end
     object Panel11: TPanel
-      Left = 520
+      Left = 544
       Height = 42
       Top = 0
-      Width = 80
+      Width = 56
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 80
+      ClientWidth = 56
       TabOrder = 6
       object Label10: TLabel
         Left = 4
         Height = 15
         Top = 0
-        Width = 68
+        Width = 44
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
