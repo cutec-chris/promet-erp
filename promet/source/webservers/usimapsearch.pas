@@ -494,13 +494,13 @@ begin
             SearchPgm.SentSince := GetDate(S) - 1;
           end
           else if Key = 'SENTSINCE' then
-              SearchPgm.SentSince := GetDate(S)
-            else if Key = 'SINCE' then
-                SearchPgm.Since := GetDate(S)
-              else if Key = 'SMALLER' then
-                  SearchPgm.Smaller := StrToIntDef(S, High(integer))
-                else if Key = 'SUBJECT' then
-                    SearchPgm.AddHeaderStr('subject:', S);
+            SearchPgm.SentSince := GetDate(S)
+          else if Key = 'SINCE' then
+            SearchPgm.Since := GetDate(S)
+          else if Key = 'SMALLER' then
+            SearchPgm.Smaller := StrToIntDef(S, High(integer))
+          else if Key = 'SUBJECT' then
+            SearchPgm.AddHeaderStr('subject:', S);
       end;
     'T':
     begin
@@ -515,21 +515,21 @@ begin
       if Key = 'UID' then
         SearchPgm.AddUIDStr(GetAString(Args, Chr))
       else if Key = 'UNANSWERED' then
-          SearchPgm.FlagsUnset := FLAGANSWERED
-        else if Key = 'UNDELETED' then
-            SearchPgm.FlagsUnset := FLAGDELETED
-          else if Key = 'UNDRAFT' then
-              SearchPgm.FlagsUnset := FLAGDRAFT
-            else if Key = 'UNFLAGGED' then
-                SearchPgm.FlagsUnset := FLAGFLAGGED
-              else if Key = 'UNSEEN' then
-                  SearchPgm.FlagsUnset := FLAGSEEN
-                else if Key = 'UNKEYWORD' then
-                  begin
-                    with BaseApplication as IBaseApplication do
-                      Warning('IMAP: the KEYWORD search is not implemented.');
-                    GetAString(Args, Chr);
-                  end;
+        SearchPgm.FlagsUnset := FLAGANSWERED
+      else if Key = 'UNDELETED' then
+        SearchPgm.FlagsUnset := FLAGDELETED
+      else if Key = 'UNDRAFT' then
+        SearchPgm.FlagsUnset := FLAGDRAFT
+      else if Key = 'UNFLAGGED' then
+        SearchPgm.FlagsUnset := FLAGFLAGGED
+      else if Key = 'UNSEEN' then
+        SearchPgm.FlagsUnset := FLAGSEEN
+      else if Key = 'UNKEYWORD' then
+        begin
+          with BaseApplication as IBaseApplication do
+            Warning('IMAP: the KEYWORD search is not implemented.');
+          GetAString(Args, Chr);
+        end;
     end
   end;
 end;

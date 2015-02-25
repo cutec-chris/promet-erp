@@ -50,6 +50,8 @@ type
     function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;override;
     function  GetTimeStamp( Index: LongInt ): TUnixTime;override;
     function  GetMessage( UID: LongInt ): TMimeMess;override;
+    function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;override;
+    function AppendMessage(MsgTxt: string; Flags: string; TimeStamp: TUnixTime): string; override;
     constructor Create(APath: String; CS: TCriticalSection); override;
     destructor Destroy; override;
   end;
@@ -283,6 +285,18 @@ begin
   //DBCS.Free;
 end;
 
+function TPrometMailBox.CopyMessage(MsgSet: TMessageSet;
+  Destination: TImapMailbox): boolean;
+begin
+  Result:=inherited CopyMessage(MsgSet, Destination);
+end;
+
+function TPrometMailBox.AppendMessage(MsgTxt: string; Flags: string;
+  TimeStamp: TUnixTime): string;
+begin
+  Result:=inherited AppendMessage(MsgTxt, Flags, TimeStamp);
+end;
+
 constructor TPrometMailBox.Create(APath: String; CS: TCriticalSection);
 var
   Tree: TTree;
@@ -422,6 +436,11 @@ function TPrometImapServer.MBLogin(AThread: TSTcpThread;
   var Mailbox: TImapMailbox; Path: String; LINotify: Boolean): Boolean;
 begin
   Result:=False;
+  if GotoMailBox(Path) then
+    begin
+      Mailbox := TPrometMailbox.Create(MailBoxes.Id.AsVariant,DBCS);
+      Result := True;
+    end;
 end;
 
 procedure TPrometImapServer.MBLogout(AThread: TSTcpThread;
@@ -436,6 +455,8 @@ end;
 
 procedure TPrometImapServer.DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet;
   Command, Destination: String);
+var
+  DestMailbox : TImapMailbox;
 begin
   if not Assigned(Selected) then
     begin
@@ -446,8 +467,28 @@ begin
      SendResTag(AThread,'NO selected mailbox is read-only.');
      exit;
   end;
+  DestMailBox := NIL;
+  if not MBExists(AThread, Destination ) then begin
+    SendResTag(AThread, 'NO [TRYCREATE] ' + Command + ' error: destination mailbox not known' );
+    exit
+  end;
 
-  SendResTag(AThread,'NO not implemented.');
+  if not MBLogin(AThread, DestMailbox, Destination, false ) then begin
+    SendResTag(AThread, 'NO ' + Command + ' error: can''t open destination mailbox' );
+    exit
+  end;
+
+  try
+    if Selected.CopyMessage( MsgSet, DestMailbox ) then begin
+       SendResTag(AThread, 'OK ' + Command + ' completed' );
+    end else
+       SendResTag(AThread, 'NO ' + Command + ' error: can''t copy messages' );
+    MBLogout(AThread, DestMailbox, false );
+  except
+    on E:Exception do
+      with BaseApplication as IBaseApplication do
+        Error(Format('IMAP-server - Error on DoCopy: %s', [E.Message]));
+  end
 end;
 
 procedure TPrometImapServer.DoStore(AThread: TSTcpThread; MsgSet: TMessageSet;

@@ -34,15 +34,7 @@ type
     function GetPossFlags: string;
     //procedure WriteStatus; //Not Critical_Section-Protected!
     function Find(Search: TIMAPSearch; MsgSet: TMessageSet): TMessageSet;
-    function FindMessageSets(MsgSet1, MsgSet2: TMessageSet;
-      Exclude: boolean): TMessageSet;
-    function FindFlags(MsgSet: TMessageSet; Flags: TFlagMask;
-      Exclude: boolean): TMessageSet;
-    function FindSize(MsgSet: TMessageSet; Min, Max: integer): TMessageSet;
-    function FindTimeStamp(MsgSet: TMessageSet; After, Before: int64): TMessageSet;
-    function FindContent(MsgSet: TMessageSet; After, Before: int64;
-      Charset: string; HeaderList, BodyStrings,
-      TextStrings: TStringList): TMessageSet;
+    function FindMessageSets(MsgSet1, MsgSet2: TMessageSet; Exclude: boolean): TMessageSet;
   protected
     FUnseen: longint;
     FRecent: longint;
@@ -59,6 +51,14 @@ type
     function  RemoveFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;virtual;abstract;
     function  GetTimeStamp( Index: LongInt ): TUnixTime;virtual;abstract;
     function  GetMessage( UID: LongInt ): TMimeMess;virtual;abstract;
+
+    function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;virtual;
+    function AppendMessage(MsgTxt: string; Flags: string;TimeStamp: TUnixTime): string;virtual;
+
+    function FindFlags(MsgSet: TMessageSet; Flags: TFlagMask;  Exclude: boolean): TMessageSet;virtual;
+    function FindSize(MsgSet: TMessageSet; Min, Max: integer): TMessageSet;virtual;abstract;
+    function FindTimeStamp(MsgSet: TMessageSet; After, Before: int64): TMessageSet;virtual;
+    function FindContent(MsgSet: TMessageSet; After, Before: int64; Charset: string; HeaderList, BodyStrings,  TextStrings: TStringList): TMessageSet;virtual;abstract;
 
     function GetEnvelope(MyMessage : TMimeMess) : string;
     function BodyStructure(Part: TMimePart; Extensible: Boolean): String;
@@ -90,10 +90,7 @@ type
 
     function Search(SearchStruct: TIMAPSearch; UseUID: boolean): string;
     function Fetch(Idx: integer; MsgDat: string; var Success: boolean): string;
-    function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;
     function Store(Idx: integer; Flags: string; Mode: TStoreMode): string;
-    function AppendMessage(MsgTxt: string; Flags: string;
-      TimeStamp: TUnixTime): string;
     function AreValidFlags(Flags: string): boolean;
 
     procedure AddIncomingMessage(const Flags: string = '');
@@ -248,13 +245,11 @@ begin
   end;
 end;
 
-{AP2}{Destination-Lock fuer MessageCopy}
 function TImapMailbox.CopyMessage(MsgSet: TMessageSet;
   Destination: TImapMailbox): boolean;
 begin
+  Result := False;
 end;
-
-{/Destination-Lock fuer MessageCopy}
 
 function TImapMailbox.AppendMessage(MsgTxt: string; Flags: string;
   TimeStamp: TUnixTime): string;
@@ -264,10 +259,8 @@ var
 begin
   Result := 'NO APPEND error: [Read-Only] ';
   if fReadOnly then
-    exit; //ClientRO
-
+    exit;
   Result := 'NO APPEND error';
-
 end;
 
 function MinutesToDateTime(Minutes: integer): TDateTime;
@@ -977,187 +970,4 @@ begin
   SetLength(Result, j);
 end;
 
-function TImapMailbox.FindSize(MsgSet: TMessageSet; Min, Max: integer): TMessageSet;
-var
-  i, j: integer;
-  SR: TSearchRec;
-begin
-  SetLength(Result, Length(MsgSet));
-  j := 0;
-  //TODO:reimplement
-  {
-  if Min < Max then
-  begin
-    for i := 0 to High(MsgSet) do
-    begin
-      if SysUtils.FindFirst(fPath + GetUIDStr(MsgSet[i] - 1) +
-        '.' + Def_Extension_Mail, faAnyFile, SR) = 0 then
-      begin
-        if (SR.Size > Min) and (SR.Size < Max) then
-        begin
-          Result[j] := MsgSet[i];
-          Inc(j);
-        end;
-        SysUtils.FindClose(SR);
-      end;
-    end;
-  end;
-  }
-  SetLength(Result, j);
-end;
-
-function TImapMailbox.FindContent(MsgSet: TMessageSet; After, Before: int64;
-  Charset: string;
-  HeaderList, BodyStrings, TextStrings: TStringList):
-TMessageSet;
-
-  function GetCharset(ContentType: string): string;
-  var
-    i: integer;
-  begin
-    Result := '';
-    ContentType := UpperCase(ContentType);
-    i := Pos('CHARSET=', ContentType);
-    if i > 0 then
-    begin
-      System.Delete(ContentType, 1, i + 7);
-      Result := UpperCase(QuotedStringOrToken(ContentType));
-    end;
-  end;
-
-  function Has8BitChar(txt: string): boolean;
-  var
-    i: integer;
-  begin
-    Result := True;
-    for i := 1 to Length(txt) do
-      if Ord(txt[i]) > 127 then
-        exit;
-    Result := False;
-  end;
-
-  function BadCombination(MyCharset: string; SearchStr: string): boolean;
-  begin
-    Result := False;
-    MyCharset := UpperCase(MyCharset);
-    if (MyCharset <> 'UTF-8') and (MyCharset <> 'UTF-7') then
-    begin
-      if (MyCharset = Charset) then
-        exit;
-      if not Has8BitChar(SearchStr) then
-        exit;
-    end;
-    Result := True;
-    with BaseApplication as IBaseApplication do
-      Warning(Format('IMAP SEARCH: Search charset (%s) and message charset (%s) differ. The current message is ignored.',[Charset, MyCharset]));
-  end;
-
-var
-  i, j, k, m: integer;
-  HdrValue: string;
-  HdrName: string;
-  //MyMail: TArticle;
-  MyHeader: string;
-  MyString: string;
-  MyCharset: string;
-  MyDate: int64;
-  NotFound: boolean;
-begin
-  SetLength(Result, Length(MsgSet));
-  j := 0;
-  //TODO:reimplement
-  {
-  MyMail := TArticle.Create;
-  try
-    for i := 0 to High(MsgSet) do
-    begin
-      MyMail.LoadFromFile(
-        fPath + fIndex.GetUIDStr(MsgSet[i] - 1) + '.' +
-        Def_Extension_Mail);
-      NotFound := False;
-
-      // Search headers
-      for k := 0 to HeaderList.Count - 1 do
-      begin
-        m := Pos(':', HeaderList[k]);
-        HdrName := Copy(HeaderList[k], 1, m);
-        HdrValue := UpperCase(
-          Copy(HeaderList[k], m + 1, Length(HeaderList[k]) - m));
-        if HdrValue <> '' then
-        begin
-          MyHeader := UpperCase(DecodeHeadervalue(
-            MyMail.Header[HdrName], MyCharset));
-          if BadCombination(MyCharset, HdrValue) then
-          begin
-            NotFound := True;
-            break;
-          end;
-          if Pos(HdrValue, MyHeader) = 0 then
-          begin
-            NotFound := True;
-            break;
-          end;
-        end
-        else
-        begin
-          if not MyMail.HeaderExists(HeaderList[k]) then
-          begin
-            NotFound := True;
-            break;
-          end;
-        end;
-      end;
-      if NotFound then
-        continue;
-
-      // Search message date
-      MyDate := Trunc(RfcDateTimeToDateTimeGMT(MyMail.Header['Date:']));
-      if (MyDate <= After) or (MyDate >= Before) then
-        continue;
-
-      if (BodyStrings.Count > 0) or (TextStrings.Count > 0) then
-      begin
-        MyCharset := GetCharset(MyMail.Header['Content-Type:']);
-        if BadCombination(MyCharset, BodyStrings.Text + TextStrings.Text)
-        then
-          continue;
-
-        // Search body text
-        MyString := UpperCase(MyMail.FullBody);
-        for k := 0 to BodyStrings.Count - 1 do
-        begin
-          if Pos(BodyStrings[k], MyString) = 0 then
-          begin
-            NotFound := True;
-            break;
-          end;
-        end;
-        if NotFound then
-          continue;
-
-        // Search full text
-        MyString := UpperCase(MyMail.FullHeader) + #13#10 + MyString;
-        for k := 0 to TextStrings.Count - 1 do
-        begin
-          if Pos(TextStrings[k], MyString) = 0 then
-          begin
-            NotFound := True;
-            break;
-          end;
-        end;
-        if NotFound then
-          continue;
-      end;
-
-      Result[j] := MsgSet[i];
-      Inc(j);
-    end
-  finally
-    MyMail.Free
-  end;
-  }
-  SetLength(Result, j);
-end;
-
-{/Search-new}
 end.
