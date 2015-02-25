@@ -25,7 +25,8 @@ type
     SendExpunge: array of integer;
     SendNewMessages: boolean;
     IdleState: boolean;
-    SelNotify       : pIMAPNotification;
+    SelNotify : pIMAPNotification;
+    FDisableLog : Integer;
 
     function LoginUser(AThread: TSTcpThread;  Password: String; AuthMechanism : String ): String;
 
@@ -96,6 +97,8 @@ type
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
+    procedure DisableLog;
+    procedure EnableLog;
     property IMAPDelay : Integer read FIMAPDelay write FIMAPDelay;
     property UseIMAPID : Boolean read FUseIMAPID write FUseIMAPID;
     property IMAPNCBrain : Boolean read FIMAPNCBrain write FIMAPNCBrain;
@@ -1427,6 +1430,7 @@ end;
 
 procedure TSImapServer.LogRaw(AThread: TSTcpThread; Txt: string);
 begin
+  if FDisableLog > 0 then exit;
   if pos('LOGIN ',uppercase(Txt))>0 then
     Txt := copy(Txt,0,pos('LOGIN ',uppercase(Txt))-1);
   if Assigned(OnLog) then
@@ -1676,6 +1680,7 @@ constructor TSImapServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FIMAPDelay:=0;
+  FDisableLog:=0;
   FUseIMAPID:=True;
   FIMAPNCBrain :=False;
   CurrentUserName:='';
@@ -1691,6 +1696,16 @@ destructor TSImapServer.Destroy;
 begin
   DoneCriticalsection( CS_THR_IDLE );
   inherited Destroy;
+end;
+
+procedure TSImapServer.DisableLog;
+begin
+  inc(FDisableLog);
+end;
+
+procedure TSImapServer.EnableLog;
+begin
+  dec(fDisableLog);
 end;
 
 end.

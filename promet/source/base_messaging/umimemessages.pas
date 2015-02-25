@@ -195,6 +195,7 @@ begin
   aMessage := TMimeMess.Create;
   sl := TStringList.Create;
   Content.Open;
+  if Content.Count=0 then exit;
   sl.Text := Content.DataSet.FieldByName('HEADER').AsString;
   aMessage.Header.DecodeHeaders(sl);
   with BaseApplication as IBaseApplication do

@@ -185,35 +185,32 @@ function TImapMailbox.Store(Idx: integer; Flags: string; Mode: TStoreMode): stri
 var
   FlagMsk: tFlagMask;
 begin
-  {
   if fReadOnly then begin
-    Result := FlagMaskToString(fIndex.GetFlags( Idx ));
+    Result := FlagMaskToString(GetFlags( Idx ));
     exit
   end;
   try
      Lock;
      FlagMsk := StringToFlagMask(Flags);
      if FlagMsk and FLAGSEEN = FLAGSEEN then begin
-        if fIndex.GetFlags(Idx) and FLAGSEEN = FLAGSEEN then begin
-           if Mode = [smDelete] then inc( fStatus.Unseen )
+        if GetFlags(Idx) and FLAGSEEN = FLAGSEEN then begin
+           if Mode = [smDelete] then inc( FUnseen )
         end else begin
-           if Mode <= [smReplace, smAdd] then dec( fStatus.Unseen )
+           if Mode <= [smReplace, smAdd] then dec( FUnseen )
         end
      end else begin
-        if (fIndex.GetFlags(Idx) and FLAGSEEN = FLAGSEEN) then
-           if Mode = [smReplace] then inc( fStatus.Unseen );
+        if (GetFlags(Idx) and FLAGSEEN = FLAGSEEN) then
+           if Mode = [smReplace] then inc( FUnseen );
      end;
 
-     if      Mode = [smReplace] then FlagMsk := fIndex.SetFlags   ( Idx, FlagMsk )
-     else if Mode = [smDelete]  then FlagMsk := fIndex.RemoveFlags( Idx, FlagMsk )
-     else if Mode = [smAdd]     then FlagMsk := fIndex.AddFlags   ( Idx, FlagMsk )
-     else                            FlagMsk := fIndex.GetFlags   ( Idx ); // just in case ...
+     if      Mode = [smReplace] then FlagMsk := SetFlags   ( Idx, FlagMsk )
+     else if Mode = [smDelete]  then FlagMsk := RemoveFlags( Idx, FlagMsk )
+     else if Mode = [smAdd]     then FlagMsk := AddFlags   ( Idx, FlagMsk )
+     else                            FlagMsk := GetFlags   ( Idx );
      Result := FlagMaskToString(FlagMsk);
-     WriteStatus
   finally
      Unlock;
   end;
-  }
 end;
 
 procedure TImapMailbox.RemoveRecentFlags;

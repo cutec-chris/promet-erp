@@ -161,13 +161,13 @@ begin
   GotoIndex(Index);
   FillChar( MR, sizeof(MR), 0 );
   if Folder.FieldByName('READ').AsString='Y' then
-    MR := MR and FLAGSEEN;
+    MR := MR or FLAGSEEN;
   if not Folder.FieldByName('ANSWERED').IsNull then
-    MR := MR and FLAGANSWERED;
+    MR := MR or FLAGANSWERED;
   if Folder.FieldByName('FLAGGED').AsString='Y' then
-    MR := MR and FLAGFLAGGED;
+    MR := MR or FLAGFLAGGED;
   if Folder.FieldByName('DRAFT').AsString='Y' then
-    MR := MR and FLAGDRAFT;
+    MR := MR or FLAGDRAFT;
   Result := MR;
 end;
 
@@ -452,6 +452,11 @@ end;
 
 procedure TPrometImapServer.DoStore(AThread: TSTcpThread; MsgSet: TMessageSet;
   Command, Par: String);
+var  i: integer;
+     MsgDat: string;
+     Flags, NewFlags: String;
+     Silent : Boolean;
+     Mode : TStoreMode;
 begin
   if not Assigned(Selected) then
     begin
@@ -463,7 +468,36 @@ begin
      exit;
   end;
 
-  SendResTag(AThread,'NO not implemented.');
+  i := PosWhSpace( Par );
+  MsgDat := Uppercase( TrimQuotes( copy( Par, 1, i ) ) );
+  Flags  := Uppercase( TrimParentheses( copy( Par, i+1, length(Par)-i ) ) ); {MG}{Imap-Store}
+
+  if not Selected.AreValidFlags(Flags) then begin
+     SendResTag(AThread,'NO The \Recent flag may not used as an argument in STORE!');
+     exit;
+  end;
+
+  i := pos( '.', Msgdat);
+  if (i>0) and (copy( MsgDat, i, 7 )='.SILENT') then begin
+     Silent := True;
+     MsgDat := copy( MsgDat, 1, i-1 );
+  end else
+     Silent := False;
+
+  if      MsgDat = 'FLAGS'  then Mode := [smReplace]
+  else if MsgDat = '+FLAGS' then Mode := [smAdd]
+  else if MsgDat = '-FLAGS' then Mode := [smDelete]
+  else begin
+     SendResTag(AThread,'NO ' + Command + ' with unknown message-data!');
+     exit;
+  end;
+
+  for i := 0 to High(MsgSet) do begin
+     NewFlags := Selected.Store( MsgSet[i]-1, Flags, Mode );
+     if not Silent then SendRes(AThread, IntToStr(MsgSet[i]) + ' FETCH (FLAGS ' +
+                                 NewFlags + ')' );
+  end;
+  SendResTag(AThread,'OK you''ve stored your flags now!')
 end;
 
 procedure TPrometImapServer.DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet;
@@ -484,12 +518,13 @@ begin
   // whether a UID was specified as a message data item to the FETCH.
   if ( Command = 'UID FETCH' ) and ( Pos( 'UID', MsgDat ) = 0 ) then
     MsgDat := MsgDat + ' UID';
-
+  DisableLog;
   for i := 0 to High(MsgSet) do
     begin
       SendS := Selected.Fetch( MsgSet[i]-1, MsgDat, Success );
       if (trim(SendS) <> '') AND Success then SendRes (AThread, SendS )
     end;
+  EnableLog;
   if Success then
     SendResTag(AThread, 'OK ' + Command + ' is now completed' )
   else
