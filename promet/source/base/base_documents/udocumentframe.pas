@@ -255,7 +255,6 @@ resourcestring
   strNoValidCommand                          = 'Sie haben einen ungültigen befehl in den Dateiaktionen angegeben. Gültige Befehle müssen mit exec: oder mkdir: beginnen.';
   strNewImage                                = 'Neue Datei';
   strDocumentAdded                           = 'Datei hinzugefügt';
-  strFailed                                  = 'fehlgeschlagen !';
 {$R *.lfm}
 procedure TfDocumentFrame.bMenue1Click(Sender: TObject);
 begin

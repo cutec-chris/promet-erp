@@ -21,6 +21,7 @@ unit uIntfStrConsts;
 {$mode objfpc}{$H+}
 interface
 resourcestring
+  strFailed                     = 'fehlgeschlagen !';
   strRunsOnEveryMashine         = 'läuft auf allen Maschienen';
   strItemOpened                 = 'Eintrag "%s" geöffnet';
   strMeetingUsers               = 'Teilnehmer';

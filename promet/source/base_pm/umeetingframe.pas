@@ -197,7 +197,7 @@ var
 implementation
 uses uMainTreeFrame,Utils,uData,umeeting,uBaseDBInterface,uSearch,
   LCLType,uSelectReport,uDocuments,uDocumentFrame,uLinkFrame,umeetingusers,
-  uBaseVisualApplication,uProjects,LCLProc,uNRights;
+  uBaseVisualApplication,uProjects,LCLProc,uNRights,utask;
 resourcestring
   strSearchFromUsers                       = 'Mit Öffnen wird der gewählte Nutzer in die Liste übernommen';
   strSearchFromMeetings                    = 'Mit Öffnen wird das gewählte Projekt in die Liste übernommen';
@@ -205,6 +205,7 @@ resourcestring
   strEnterMeetingName                      = 'geben Sie einen neuen Namen für die Besprechung an';
   strMeetingName                           = 'Besprechungsname';
   strUnassigned                            = 'kein Bezug';
+  strNoUserSelected                        = 'Es ist kein Benutzer oder Verantwortlicher zugewiesen !';
 procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
 var
   Node1: TTreeNode;
@@ -251,10 +252,32 @@ begin
 end;
 
 procedure TfMeetingFrame.acTerminateExecute(Sender: TObject);
+var
+  aTask: TTaskList;
+  aStart,aEnd,aDur : TDateTime;
 begin
-  aTask := TTaskLi;
-  if not TTaskList(DataSet).Terminate(Now()) then
-    Showmessage(strFailed);
+  if FGridView.GotoActiveRow then
+    begin
+      FGridView.Post;
+      aTask := TTaskList.Create(nil);
+      aTask.Insert;
+      aTask.FieldByName('USER').AsVariant:=TMeetings(DataSet).Entrys.FieldByName('USER').AsVariant;
+      aTask.FieldByName('OWNER').AsString:=TMeetings(DataSet).Entrys.FieldByName('OWNER').AsString;
+      if TMeetings(DataSet).Entrys.FieldByName('USER').IsNull then
+        aTask.FieldByName('USER').AsVariant:=TMeetings(DataSet).Entrys.FieldByName('OWNER').AsVariant;
+      if aTask.FieldByName('USER').IsNull then
+        Showmessage(strNoUserSelected)
+      else if not aTask.Terminate(Now(),aStart,aEnd,aDur) then
+        Showmessage(strFailed)
+      else
+        begin
+          TMeetings(DataSet).Entrys.Edit;
+          TMeetings(DataSet).Entrys.FieldByName('DUEDATE').AsDateTime:=aEnd;
+          acRefresh.Execute;
+        end;
+      aTask.Cancel;
+      aTask.Free;
+    end;
 end;
 
 procedure TfMeetingFrame.ActiveSearchEndSearch(Sender: TObject);

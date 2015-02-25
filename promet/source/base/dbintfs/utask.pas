@@ -624,7 +624,9 @@ begin
       ResourceTimePerDay:=Usage;
     end
   else
-    ResourceTimePerDay := 1;
+    begin //fail without User
+      exit;
+    end;
   if not FieldByName('PLANTIME').IsNull then
     aNetTime := FieldByName('PLANTIME').AsFloat
   else aNetTime := 1;
