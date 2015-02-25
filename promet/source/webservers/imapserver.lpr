@@ -137,6 +137,7 @@ function TPrometMailBox.SetFlags(Index: LongInt; Flags: TFlagMask): TFlagMask;
 begin
   GotoIndex(Index);
   Folder.Edit;
+  Folder.FieldByName('GRP_FLAGS').Clear;
   if Flags and FLAGSEEN = FLAGSEEN then
     Folder.FieldByName('READ').AsString:='Y'
   else Folder.FieldByName('READ').AsString:='N';
@@ -161,15 +162,23 @@ var
   MR: TFlagMask;
 begin
   GotoIndex(Index);
-  FillChar( MR, sizeof(MR), 0 );
-  if Folder.FieldByName('READ').AsString='Y' then
-    MR := MR or FLAGSEEN;
-  if not Folder.FieldByName('ANSWERED').IsNull then
-    MR := MR or FLAGANSWERED;
-  if Folder.FieldByName('FLAGGED').AsString='Y' then
-    MR := MR or FLAGFLAGGED;
-  if Folder.FieldByName('DRAFT').AsString='Y' then
-    MR := MR or FLAGDRAFT;
+  if Folder.FieldByName('GRP_FLAGS').IsNull then
+    begin
+      FillChar( MR, sizeof(MR), 0 );
+      if Folder.FieldByName('READ').AsString='Y' then
+        MR := MR or FLAGSEEN;
+      if not Folder.FieldByName('ANSWERED').IsNull then
+        MR := MR or FLAGANSWERED;
+      if Folder.FieldByName('FLAGGED').AsString='Y' then
+        MR := MR or FLAGFLAGGED;
+      if Folder.FieldByName('DRAFT').AsString='Y' then
+        MR := MR or FLAGDRAFT;
+      Folder.Edit;
+      Folder.FieldByName('GRP_FLAGS').AsInteger := MR;
+      Folder.Post;
+    end
+  else
+    MR := Folder.FieldByName('GRP_FLAGS').AsInteger;
   Result := MR;
 end;
 
@@ -906,6 +915,11 @@ constructor TPIMAPServer.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   StopOnException:=False;
+  with BaseApplication as IBaseApplication do
+    begin
+      AppVersion:={$I ../base/version.inc};
+      AppRevision:={$I ../base/revision.inc};
+    end;
 end;
 
 destructor TPIMAPServer.Destroy;

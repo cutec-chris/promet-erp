@@ -161,6 +161,7 @@ type
     function RecordCount(aDataSet : TBaseDbDataSet) : Integer;
     function DeleteItem(aDataSet : TBaseDBDataSet) : Boolean;
     function ShouldCheckTable(aTableName : string;SetChecked : Boolean = True) : Boolean;
+    procedure UpdateTableVersion(aTableName: string);
     function RemoveCheckTable(aTableName : string) : Boolean;
     function TableExists(aTableName : string;aConnection : TComponent = nil;AllowLowercase: Boolean = False) : Boolean;virtual;abstract;
     function TriggerExists(aTriggerName : string;aConnection : TComponent = nil;AllowLowercase: Boolean = False) : Boolean;virtual;
@@ -1322,31 +1323,48 @@ begin
   if Result then
     begin
       if not TableVersions.Active then TableVersions.Open;
-      TableVersions.DataSet.Filter:=QuoteField('NAME')+'='+QuoteValue(aTableName);
-      TableVersions.DataSet.Filtered:=True;
       with BaseApplication as IBaseApplication do
         begin
-          if TableVersions.Count>0 then
-            if TableVersions.FieldByName('DBVERSION').AsInteger>=round(AppVersion*100)+AppRevision then
+          if TableVersions.Locate('NAME',aTableName,[]) then
+            if TableVersions.FieldByName('DBVERSION').AsInteger>=round((AppVersion*10000)+AppRevision) then
               begin
                 Result := False;
               end
             else
               begin
                 with BaseApplication as IBaseApplication do
-                  Debug('Table "'+aTableName+'" DBVersion '+TableVersions.FieldByName('DBVERSION').AsString+'<'+IntToStr(round(AppVersion*100)+AppRevision));
+                  Debug('Table "'+aTableName+'" DBVersion '+TableVersions.FieldByName('DBVERSION').AsString+'<'+IntToStr(round((AppVersion*10000)+AppRevision)));
               end;
         end;
     end;
   except
   end;
-  if Result and SetChecked then
-    begin
-      FCheckedTables.Add(aTableName);
-      with BaseApplication as IBaseApplication do
-        Debug('Table "'+aTableName+'" should be checked');
-    end;
+  if (not Result) and SetChecked then
+    FCheckedTables.Add(aTableName);
 end;
+
+procedure TBaseDBModule.UpdateTableVersion(aTableName: string);
+begin
+  try
+{    if not TableVersions.Active then TableVersions.Open;
+    with BaseApplication as IBaseApplication do
+      begin
+        if not TableVersions.Locate('NAME',aTableName,[]) then
+          begin
+            TableVersions.Insert;
+            TableVersions.FieldByName('NAME').AsString:=aTableName;
+          end;
+        with BaseApplication as IBaseApplication do
+          begin
+            TableVersions.Edit;
+            TableVersions.FieldByName('DBVERSION').AsInteger:=round(AppVersion*10000+AppRevision-1);
+            TableVersions.Post;
+          end;
+      end;}
+  except
+  end;
+end;
+
 function TBaseDBModule.RemoveCheckTable(aTableName: string): Boolean;
 begin
   if FCheckedTables.IndexOf(aTableName) > -1 then
@@ -1863,4 +1881,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

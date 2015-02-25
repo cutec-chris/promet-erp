@@ -357,6 +357,7 @@ begin
             Add('SUBJECT',ftString,220,false);
             Add('PARENT',ftLargeint,0,False);
             Add('LINES',ftInteger,0,False);
+            Add('GRP_FLAGS',ftInteger,0,False); //Compiled Flags for faster access
             Add('SIZE',ftLargeInt,0,False);
           end;
       if Assigned(ManagedIndexdefs) then
