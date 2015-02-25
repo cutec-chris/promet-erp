@@ -1,5 +1,7 @@
 ﻿Build 394
+      - Aufgaben:"Finden eines Zeitslots" berücksichtigt schon erfasste Zeiten aus Zeiterfassung
       - Aufgaben:erfasste Zeiten werden als Zeit dargestellt nicht als Float Wert
+      - Projekte:Funktion in Gantt Ansicht um gesamtes projekt mit "Zeitslot finden" zu berechnen dadurch viel bessere Kapazitätsplanung
 Build 393
       - Kontakte:Hinzufügen von Bildern direkt aus Thumbnail heraus
       - Zeiterfassung:Zeiten werden beim abschließen einer Aufgabe in die Aufgabe übernommen

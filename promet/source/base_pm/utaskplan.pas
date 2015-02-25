@@ -225,22 +225,26 @@ var
   found: Boolean;
   i: Integer;
 begin
-  while FTmpResource.IntervalCount>0 do
-    begin
-      aRes := FTmpResource.Interval[FTmpResource.IntervalCount-1];
-      found := False;
-      for i := 0 to FResource.IntervalCount-1 do
-        if FResource.Interval[i].Id=aRes.Id then
-          begin
-            Found := True;
-            break;
-          end;
-      FTmpResource.RemoveInterval(aRes);
-      if not Found then
-        FResource.AddInterval(aRes)
-      else aRes.Free;
-    end;
-  FAttatchTo.Pointer:=FResource;
+  try
+    while FTmpResource.IntervalCount>0 do
+      begin
+        aRes := FTmpResource.Interval[FTmpResource.IntervalCount-1];
+        found := False;
+        for i := 0 to FResource.IntervalCount-1 do
+          if FResource.Interval[i].Id=aRes.Id then
+            begin
+              Found := True;
+              break;
+            end;
+        FTmpResource.RemoveInterval(aRes);
+        if not Found then
+          FResource.AddInterval(aRes)
+        else aRes.Free;
+      end;
+    FAttatchTo.Pointer:=FResource;
+  except
+    //seems someonw has destroyed our form before were ready
+  end;
 end;
 
 procedure TCollectThread.Plan;
@@ -1436,12 +1440,13 @@ begin
 end;
 
 destructor TfTaskPlan.Destroy;
-  procedure RefreshRes(aInt : TInterval);
+  procedure ClearResources(aInt : TInterval);
   var
     i: Integer;
+    aInt1: TInterval;
   begin
     for i := 0 to aInt.IntervalCount-1 do
-      RefreshRes(aInt.Interval[i]);
+      ClearResources(aInt.Interval[i]);
     if Assigned(aInt.Pointer) then
       begin
         TInterval(aInt.Pointer).Free;
@@ -1452,7 +1457,7 @@ var
   i: Integer;
 begin
   for i := 0 to FGantt.IntervalCount-1 do
-    RefreshRes(FGantt.Interval[i]);
+    ClearResources(FGantt.Interval[i]);
   if Assigned(FDataSet) then
     begin
       FreeAndNil(FDataSet);

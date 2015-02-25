@@ -478,27 +478,8 @@ destructor TfAttPlan.Destroy;
       ClearResources(aInt.Interval[i]);
     if Assigned(aInt.Pointer) then
       begin
-        while TInterval(aInt.Pointer).IntervalCount>0 do
-          begin
-            aInt1 := TInterval(aInt.Pointer).Interval[0];
-            TInterval(aInt.Pointer).RemoveInterval(aInt1);
-            aInt1.Free;
-          end;
         TInterval(aInt.Pointer).Free;
         aInt.Pointer := nil;
-      end;
-  end;
-  procedure DeleteIntervals(aInt : TInterval);
-  var
-    i: Integer;
-    aInt1: TInterval;
-  begin
-    while aInt.IntervalCount>0 do
-      begin
-        aInt1 := aInt.Interval[0];
-        aInt.RemoveInterval(aInt1);
-        DeleteIntervals(aInt1);
-        aInt1.Free;
       end;
   end;
 var
@@ -506,8 +487,6 @@ var
 begin
   for i := 0 to FGantt.IntervalCount-1 do
     ClearResources(FGantt.Interval[i]);
-  for i := 0 to FGantt.IntervalCount-1 do
-    DeleteIntervals(FGantt.Interval[i]);
   if Assigned(FDataSet) then
     begin
       FreeAndNil(FDataSet);

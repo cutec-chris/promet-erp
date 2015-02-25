@@ -1265,12 +1265,21 @@ destructor TInterval.Destroy;
 var
   i: Integer;
 begin
+  if Assigned(FParent) then FParent.RemoveInterval(Self);
+  FParent := nil;
   FConnections.Clear;
   FConnections.Free;
+  try
+    for i := 0 to FIntervals.Count-1 do
+      begin
+        TInterval(FIntervals.Items[i]).FParent:=nil;
+        TInterval(FIntervals.Items[i]).Free;
+      end;
+  except
+  end;
   FIntervals.Free;
   FDependencies.Clear;
   FDependencies.Free;
-  if Assigned(FParent) then FParent.RemoveInterval(Self);
 
   inherited Destroy;
 end;
@@ -4149,11 +4158,18 @@ begin
 end;
 
 destructor TgsGantt.Destroy;
+var
+  i: Integer;
 begin
   FCalendar.Free;
   FTree.Free;
   FSplitter.Free;
-  FIntervals.Free;
+  try
+    for i := 0 to FIntervals.Count-1 do
+      TInterval(FIntervals.Items[i]).Free;
+  except
+  end;
+  FreeAndNil(FIntervals);
 
   inherited Destroy;
 end;
@@ -4255,7 +4271,9 @@ end;
 
 function TgsGantt.GetIntervalCount: Integer;
 begin
-  Result := FIntervals.Count;
+  Result := 0;
+  if Assigned(FIntervals) then
+    Result := FIntervals.Count;
 end;
 
 function TgsGantt.GetInterval(AnIndex: Integer): TInterval;

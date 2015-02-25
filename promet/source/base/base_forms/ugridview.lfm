@@ -6,6 +6,7 @@ object fGridView: TfGridView
   ClientHeight = 354
   ClientWidth = 581
   Color = clBtnFace
+  LCLVersion = '1.5'
   OnResize = FrameResize
   ParentColor = False
   ParentShowHint = False
@@ -423,7 +424,7 @@ object fGridView: TfGridView
       OnExecute = acCopyToClipboardExecute
     end
   end
-  object FDataSource: TDatasource
+  object FDataSource: TDataSource
     OnStateChange = FDataSourceStateChange
     OnDataChange = FDataSourceDataChange
     left = 108

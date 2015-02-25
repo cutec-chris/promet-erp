@@ -693,7 +693,7 @@ begin
   aNow := trunc(aStartDate);
   TimeNeeded := Duration;
   //Remove used Time from Duration
-  TimeNeeded:=TimeNeeded-GetTimesForTask(WorkTime);
+  //TimeNeeded:=TimeNeeded-GetTimesForTask(WorkTime);
   if TimeNeeded<=0 then TimeNeeded:=(1/MinsPerDay)*30; //half hour for reterminating the task or finishing
   while (not ((aFound) and (TimeNeeded<=0))) do
     begin
@@ -834,9 +834,9 @@ begin
   while not aTimes.EOF do
     begin
       if (aTimes.FieldByName('END').IsNull) and  (Now()-aTimes.FieldByName('START').AsDateTime<1) then
-        aColTime:=aColTime+((Now()-aTimes.FieldByName('START').AsDateTime)*WorkTime)//TODO:WorkHours
+        aColTime:=aColTime+((Now()-aTimes.FieldByName('START').AsDateTime)*WorkTime)
       else if (aTimes.FieldByName('END').AsDateTime-aTimes.FieldByName('START').AsDateTime<1) then
-        aColTime:=aColTime+((aTimes.FieldByName('END').AsDateTime-aTimes.FieldByName('START').AsDateTime)*WorkTime);//TODO:WorkHours
+        aColTime:=aColTime+((aTimes.FieldByName('END').AsDateTime-aTimes.FieldByName('START').AsDateTime)*WorkTime);
       aTimes.Next;
     end;
   aTimes.Free;

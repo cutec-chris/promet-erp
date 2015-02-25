@@ -735,12 +735,15 @@ var
              aUserEnd := Now();
             if aUserEnd>aEarliest then
               aEarliest:=aUserEnd;
-            if aTask.Terminate(aEarliest,aStart,aEnd,aDuration) then
-              begin
-                StartDate:=aStart;
-                FinishDate:=aEnd;
-                UserTimes.Values[aUser]:=DateTimeToStr(aEnd);
-              end;
+            try
+              if aTask.Terminate(aEarliest,aStart,aEnd,aDuration) then
+                begin
+                  StartDate:=aStart;
+                  FinishDate:=aEnd;
+                  UserTimes.Values[aUser]:=DateTimeToStr(aEnd);
+                end;
+            except
+            end;
           end;
         aTask.Free;
         EndUpdate;
