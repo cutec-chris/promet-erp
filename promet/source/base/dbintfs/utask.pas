@@ -100,6 +100,8 @@ type
     function DependsOnMe(aTask: TTaskList; aDeep: Integer=30): Boolean;
     //This function calculates the earliest possible Start and Enddate for the Task and sets it as Start and Enddate
     function Terminate(aEarliest : TDateTime) : Boolean;
+    //Collect Times from Timeregistering
+    function GetTimesForTask(WorkTime: real=8): float;
     function WaitTimeDone : TDateTime;
     function GetInterval : TTaskInterval;
     procedure MakeSnapshot(aName : string);
@@ -690,6 +692,9 @@ begin
   aFound := False;
   aNow := trunc(aStartDate);
   TimeNeeded := Duration;
+  //Remove used Time from Duration
+  TimeNeeded:=TimeNeeded-GetTimesForTask(WorkTime);
+  if TimeNeeded<=0 then TimeNeeded:=(1/MinsPerDay)*30; //half hour for reterminating the task or finishing
   while (not ((aFound) and (TimeNeeded<=0))) do
     begin
       if (not ((DayOfWeek(aNow)=1) or (DayOfWeek(aNow)=7))) then
@@ -796,6 +801,46 @@ begin
       FieldByName('DUEDATE').AsDateTime:=aEnd;
       FieldByName('PLANTIME').AsFloat:=aDuration;
     end;
+end;
+
+function TTaskList.GetTimesForTask(WorkTime : real = 8): float;
+var
+  aTimes: TTimes;
+  aColTime: Extended;
+  aUser: TUser;
+  Usage: Extended;
+  ResourceTimePerDay: Extended;
+begin
+  if WorkTime=8 then
+    begin
+      aUser := TUser.CreateEx(Self,DataModule,Connection);
+      aUser.SelectByAccountno(FieldByName('USER').AsString);
+      aUser.Open;
+      if aUser.Count>0 then
+        begin
+          Usage := aUser.FieldByName('USEWORKTIME').AsInteger/100;
+          if Usage = 0 then Usage := 1;
+          WorkTime:=aUser.WorkTime*Usage;
+          Usage := WorkTime/8;
+          ResourceTimePerDay:=Usage;
+        end
+      else
+        ResourceTimePerDay := 1;
+      aUser.Free;
+    end;
+  aTimes := TTimes.CreateEx(Self,DataModule,Connection);
+  aTimes.Filter(Data.QuoteField('TASKID')+'='+Data.QuoteValue(Id.AsString)+' AND '+Data.QuoteField('ISPAUSE')+'='+Data.QuoteValue('N'));
+  aColTime := 0.0;
+  while not aTimes.EOF do
+    begin
+      if (aTimes.FieldByName('END').IsNull) and  (Now()-aTimes.FieldByName('START').AsDateTime<1) then
+        aColTime:=aColTime+((Now()-aTimes.FieldByName('START').AsDateTime)*WorkTime)//TODO:WorkHours
+      else if (aTimes.FieldByName('END').AsDateTime-aTimes.FieldByName('START').AsDateTime<1) then
+        aColTime:=aColTime+((aTimes.FieldByName('END').AsDateTime-aTimes.FieldByName('START').AsDateTime)*WorkTime);//TODO:WorkHours
+      aTimes.Next;
+    end;
+  aTimes.Free;
+  Result := aColTime;
 end;
 
 function TTaskList.WaitTimeDone: TDateTime;
@@ -1088,24 +1133,10 @@ begin
                 end;
             end;
           aProject.Free;
-
-          if FieldByName('TIME').IsNull then
-            begin
-              aTimes := TTimes.CreateEx(Self,DataModule,Connection);
-              aTimes.Filter(Data.QuoteField('TASKID')+'='+Data.QuoteValue(Id.AsString));
-              aColTime := 0.0;
-              while not aTimes.EOF do
-                begin
-                  if (aTimes.FieldByName('END').IsNull) and  (Now()-aTimes.FieldByName('START').AsDateTime<1) then
-                    aColTime:=aColTime+((Now()-aTimes.FieldByName('START').AsDateTime)*8)//TODO:WorkHours
-                  else if (aTimes.FieldByName('END').AsDateTime-aTimes.FieldByName('START').AsDateTime<1) then
-                    aColTime:=aColTime+((aTimes.FieldByName('END').AsDateTime-aTimes.FieldByName('START').AsDateTime)*8);//TODO:WorkHours
-                  aTimes.Next;
-                end;
-              aTimes.Free;
-              if aColTime>0 then
-                FieldByName('TIME').AsFloat:=aColTime;
-            end;
+          //Collect Times and set Time Field
+          aColTime := GetTimesForTask;
+          if aColTime>0 then
+            FieldByName('TIME').AsFloat:=aColTime;
         end
       else if (FieldByName('COMPLETED').AsString='N') and (DataSet.State <> dsInsert) then
         begin
