@@ -58,6 +58,7 @@ type
     acRestart: TAction;
     acSetTopic: TAction;
     acPermanentEditormode: TAction;
+    acTerminate: TAction;
     Action2: TAction;
     ActionList: TActionList;
     acUnmakeSubTask: TAction;
@@ -80,6 +81,7 @@ type
     bExecute1: TSpeedButton;
     bRefresh1: TSpeedButton;
     bpermanenetEditor: TSpeedButton;
+    bRenumber1: TSpeedButton;
     cbStatus: TComboBox;
     Datasource: TDatasource;
     dtStart: TDBZVDateTimePicker;
@@ -140,6 +142,7 @@ type
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTopicExecute(Sender: TObject);
+    procedure acTerminateExecute(Sender: TObject);
     procedure ActiveSearchEndSearch(Sender: TObject);
     procedure ActiveSearchItemFound(aIdent: string; aName: string;
       aStatus: string; aActive: Boolean; aLink: string;aPrio :Integer; aItem: TBaseDBList=nil);
@@ -245,6 +248,13 @@ begin
       FGridView.DataSet.FieldByName('LINK').AsString:='NONE@NONE';
       FGridView.Post;
     end;
+end;
+
+procedure TfMeetingFrame.acTerminateExecute(Sender: TObject);
+begin
+  aTask := TTaskLi;
+  if not TTaskList(DataSet).Terminate(Now()) then
+    Showmessage(strFailed);
 end;
 
 procedure TfMeetingFrame.ActiveSearchEndSearch(Sender: TObject);

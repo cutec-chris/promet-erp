@@ -432,6 +432,7 @@ begin
   if Count = 0 then exit;
   DataSet.Edit;
   DataSet.FieldByName('TREEENTRY').AsVariant := TREE_ID_DELETED_MESSAGES;
+  DataSet.FieldByName('GRP_ID').Clear;
   DataSet.FieldByName('READ').AsString := 'Y';
   DataSet.Post;
 end;
@@ -440,6 +441,7 @@ begin
   if Count = 0 then exit;
   DataSet.Edit;
   DataSet.FieldByName('TREEENTRY').AsVariant := TREE_ID_ARCHIVE_MESSAGES;
+  DataSet.FieldByName('GRP_ID').Clear;
   DataSet.FieldByName('READ').AsString := 'Y';
   DataSet.Post;
 end;

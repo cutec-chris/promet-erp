@@ -2484,6 +2484,7 @@ begin
                         begin
                           aMessage.DataSet.Edit;
                           aMessage.FieldByName('TREEENTRY').AsVariant:=Data.Tree.Id.AsVariant;
+                          aMessage.FieldByName('GRP_ID').Clear;
                           aMessage.DataSet.Post;
                           DoRefreshActiveTab(nil);
                         end;
