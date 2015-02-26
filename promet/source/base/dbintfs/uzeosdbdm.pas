@@ -536,45 +536,53 @@ var
 //  aConnection : TZConnection;
 begin
   Result := False;
-  with TBaseDBModule(Owner) do
-    begin
-      for i := 0 to FManagedFieldDefs.Count-1 do
-        if (FieldDefs.IndexOf(FManagedFieldDefs[i].Name) = -1) and (FManagedFieldDefs[i].Name <> 'AUTO_ID') then
-          begin
-            aSQL := 'ALTER TABLE '+QuoteField(FDefaultTableName)+' ADD '+TZeosDBDM(Self.Owner).FieldToSQL(FManagedFieldDefs[i].Name,FManagedFieldDefs[i].DataType,FManagedFieldDefs[i].Size,False)+';';
-            aConnection := Connection;
-            GeneralQuery := TZQuery.Create(Self);
-            GeneralQuery.Connection := aConnection;
-            GeneralQuery.SQL.Text := aSQL;
-            GeneralQuery.ExecSQL;
-            GeneralQuery.Free;
-            Changed := True;
-            Result := True;
-          end;
-      aSQL := '';
-      if Assigned(FManagedIndexDefs) then
-        for i := 0 to FManagedIndexDefs.Count-1 do                                           //Primary key
-          if (not IndexExists(Uppercase(Self.DefaultTableName+'_'+FManagedIndexDefs.Items[i].Name))) and (FManagedIndexDefs.Items[i].Name <>'SQL_ID') then
+  try
+    if FFields <> '' then exit;
+    with TBaseDBModule(Owner) do
+      begin
+        for i := 0 to FManagedFieldDefs.Count-1 do
+          if (FieldDefs.IndexOf(FManagedFieldDefs[i].Name) = -1) and (FManagedFieldDefs[i].Name <> 'AUTO_ID') then
             begin
-              aSQL := aSQL+'CREATE ';
-              if ixUnique in FManagedIndexDefs.Items[i].Options then
-                aSQL := aSQL+'UNIQUE ';
-              aSQL := aSQL+'INDEX '+QuoteField(Uppercase(Self.DefaultTableName+'_'+FManagedIndexDefs.Items[i].Name))+' ON '+QuoteField(Self.DefaultTableName)+' ('+QuoteField(StringReplace(FManagedIndexDefs.Items[i].Fields,';',QuoteField(','),[rfReplaceAll]))+');'+lineending;
-              if aSQL <> '' then
-                begin
-                  try
-                    GeneralQuery := TZQuery.Create(Self);
-                    GeneralQuery.Connection := Connection;
-                    GeneralQuery.SQL.Text := aSQL;
-                    GeneralQuery.ExecSQL;
-                  finally
-                    GeneralQuery.Free;
-                    aSQL := '';
-                  end;
-                end;
+              aSQL := 'ALTER TABLE '+QuoteField(FDefaultTableName)+' ADD '+TZeosDBDM(Self.Owner).FieldToSQL(FManagedFieldDefs[i].Name,FManagedFieldDefs[i].DataType,FManagedFieldDefs[i].Size,False)+';';
+              aConnection := Connection;
+              GeneralQuery := TZQuery.Create(Self);
+              try
+                GeneralQuery.Connection := aConnection;
+                GeneralQuery.SQL.Text := aSQL;
+                GeneralQuery.ExecSQL;
+              finally
+                GeneralQuery.Free;
+              end;
+              Changed := True;
               Result := True;
             end;
-    end;
+        aSQL := '';
+        if Assigned(FManagedIndexDefs) then
+          for i := 0 to FManagedIndexDefs.Count-1 do                                           //Primary key
+            if (not IndexExists(Uppercase(Self.DefaultTableName+'_'+FManagedIndexDefs.Items[i].Name))) and (FManagedIndexDefs.Items[i].Name <>'SQL_ID') then
+              begin
+                aSQL := aSQL+'CREATE ';
+                if ixUnique in FManagedIndexDefs.Items[i].Options then
+                  aSQL := aSQL+'UNIQUE ';
+                aSQL := aSQL+'INDEX '+QuoteField(Uppercase(Self.DefaultTableName+'_'+FManagedIndexDefs.Items[i].Name))+' ON '+QuoteField(Self.DefaultTableName)+' ('+QuoteField(StringReplace(FManagedIndexDefs.Items[i].Fields,';',QuoteField(','),[rfReplaceAll]))+');'+lineending;
+                if aSQL <> '' then
+                  begin
+                    try
+                      GeneralQuery := TZQuery.Create(Self);
+                      GeneralQuery.Connection := Connection;
+                      GeneralQuery.SQL.Text := aSQL;
+                      GeneralQuery.ExecSQL;
+                    finally
+                      GeneralQuery.Free;
+                      aSQL := '';
+                    end;
+                  end;
+                Result := True;
+              end;
+      end;
+  except
+    Result := False;
+  end;
 end;
 procedure TZeosDBDataSet.InternalOpen;
 var
@@ -2017,4 +2025,4 @@ end;
 
 end.
 
-
+

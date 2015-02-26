@@ -1322,7 +1322,7 @@ begin
   try
   if Result then
     begin
-      if not TableVersions.Active then TableVersions.Open;
+      TableVersions.Filter('');
       with BaseApplication as IBaseApplication do
         begin
           if TableVersions.Locate('NAME',aTableName,[]) then
@@ -1344,9 +1344,11 @@ begin
 end;
 
 procedure TBaseDBModule.UpdateTableVersion(aTableName: string);
+var
+  i: Integer;
 begin
   try
-{    if not TableVersions.Active then TableVersions.Open;
+    TableVersions.Filter('');
     with BaseApplication as IBaseApplication do
       begin
         if not TableVersions.Locate('NAME',aTableName,[]) then
@@ -1360,7 +1362,7 @@ begin
             TableVersions.FieldByName('DBVERSION').AsInteger:=round(AppVersion*10000+AppRevision-1);
             TableVersions.Post;
           end;
-      end;}
+      end;
   except
   end;
 end;
@@ -1881,4 +1883,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+
