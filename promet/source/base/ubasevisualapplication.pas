@@ -65,6 +65,7 @@ type
     Processmanager: TProcess;
     FMessagehandler : TMessageHandler;
     FActualName : string;
+    FMainFrames : TList;
     FProps : TStringList;
     FFields : TStringList;
     FLogger : TEventLog;
@@ -84,6 +85,9 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
+
+    function RegisterForm(aForm : TFrameClass) : Boolean;
+
     procedure ShowException(E: Exception);override;
     procedure HandleException(Sender: TObject); override;
     procedure Initialize; override;
@@ -353,6 +357,7 @@ begin
   FQuickHelp:=True;
   FAppVersion := 7.0;
   FAppRevision := 0;
+  FMainFrames := TList.Create;
   FLogger := TEventLog.Create(Self);
   FLogger.Active:=false;
   if HasOption('l','logfile') then
@@ -386,10 +391,17 @@ begin
 end;
 destructor TBaseVisualApplication.Destroy;
 begin
+  FMainFrames.Free;
   LazLogger.GetDebugLogger.OnDebugLn:=nil;
   Properties.Free;
   inherited Destroy;
 end;
+
+function TBaseVisualApplication.RegisterForm(aForm: TFrameClass): Boolean;
+begin
+  FMainFrames.Add(aForm);
+end;
+
 procedure TBaseVisualApplication.ShowException(E: Exception);
 begin
 end;

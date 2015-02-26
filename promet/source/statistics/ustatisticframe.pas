@@ -26,7 +26,7 @@ uses
   ExtCtrls, DbCtrls, StdCtrls, uExtControls, DBZVDateTimePicker, db,
   uPrometFrames, uPrometFramesInplace, uBaseDBClasses, Dialogs, Spin, EditBtn,
   DBGrids, variants,uStatistic,SynCompletion,md5,LCLType,
-  TASeries, TACustomSeries,fpsqlparser,Clipbrd;
+  TASeries, TACustomSeries,fpsqlparser,Clipbrd,uBaseVisualApplication;
 type
 
   { TfStatisticFrame }
@@ -199,6 +199,10 @@ type
     { public declarations }
     constructor Create(AOwner: TComponent); override;
     destructor Destroy;override;
+
+    function CanHandleLink(aLink : string): Boolean; override;
+    function CreateListFrame(aFrame: TFrame): Boolean; override;
+
     function OpenFromLink(aLink : string) : Boolean;override;
     procedure New;override;
     procedure SetLanguage;override;
@@ -1166,6 +1170,17 @@ begin
   FSynCompletion.Free;
   inherited;
 end;
+
+function TfStatisticFrame.CanHandleLink(aLink: string): Boolean;
+begin
+  Result := ((copy(aLink,0,pos('@',aLink)-1) = 'STATISTICS'));
+end;
+
+function TfStatisticFrame.CreateListFrame(aFrame: TFrame): Boolean;
+begin
+  Result:=false;
+end;
+
 function TfStatisticFrame.OpenFromLink(aLink: string) : Boolean;
 var
   aParams: String = '';
@@ -1174,7 +1189,7 @@ var
   DoExec: Boolean = False;
 begin
   Result := False;
-  if not ((copy(aLink,0,pos('@',aLink)-1) = 'STATISTICS')) then exit;
+  if not CanHandleLink(aLink) then exit;
   if rpos('{',aLink) > 0 then
     aLink := copy(aLink,0,rpos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
@@ -1253,5 +1268,7 @@ begin
   smQuerry2.Beautifier := TSynBeautifier.Create(Application);
 end;
 
+initialization
+  TBaseVisualApplication(Application).RegisterForm(TfStatisticFrame)
 end.
 

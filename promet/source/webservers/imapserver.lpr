@@ -678,15 +678,44 @@ begin
       if ExecRegExpr(RegEx, 'INBOX' ) then SendList( 'INBOX' );
       ScanFolders( RegEx, 0, '' );
     end;
-  SendResTag(AThread, 'OK You have now the List!' )
+  if not LSub then
+    SendResTag(AThread, 'OK LIST completed.' )
+  else
+    SendResTag(AThread, 'OK Lsub completed.' );
 end;
 
 procedure TPrometImapServer.DoSubscribe(AThread: TSTcpThread; Par: String);
+var
+  Mailbox: String;
 begin
+  Mailbox := uppercase( CutFirstParam(Par) );
+  if (Mailbox = '') or (not SafeString(Mailbox)) then
+    SendResTag(AThread, 'BAD SUBSCRIBE without valid mailbox!' )
+  else
+    begin
+      if not GotoMailBox(Mailbox) then
+        begin
+          SendResTag(AThread, 'BAD Mailbox not valid!' )
+        end;
+      SendResTag(AThread, 'BAD not implemented!' )
+    end;
 end;
 
 procedure TPrometImapServer.DoUnSubscribe(AThread: TSTcpThread; Par: String);
+var
+  Mailbox: String;
 begin
+  Mailbox := uppercase( CutFirstParam(Par) );
+  if (Mailbox = '') or (not SafeString(Mailbox)) then
+    SendResTag(AThread, 'BAD SUBSCRIBE without valid mailbox!' )
+  else
+    begin
+      if not GotoMailBox(Mailbox) then
+        begin
+          SendResTag(AThread, 'BAD Mailbox not valid!' )
+        end;
+      SendResTag(AThread, 'BAD not implemented!' )
+    end;
 end;
 
 constructor TPrometImapServer.Create(AOwner: TComponent);

@@ -74,7 +74,6 @@
       <Unit0>
         <Filename Value="statistics.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="statistics"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -98,7 +97,6 @@
         <ComponentName Value="fProjectDispoFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uprojectdispoframe"/>
       </Unit3>
     </Units>
   </ProjectOptions>
@@ -122,15 +120,9 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="8">
+    <Exceptions Count="9">
       <Item1>
         <Name Value="EConvertError"/>
         <Enabled Value="False"/>
@@ -156,6 +148,9 @@
       <Item8>
         <Name Value="EAbstractError"/>
       </Item8>
+      <Item9>
+        <Name Value="EProcess"/>
+      </Item9>
     </Exceptions>
   </Debugging>
 </CONFIG>

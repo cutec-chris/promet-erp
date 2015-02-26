@@ -154,8 +154,11 @@ type
     { public declarations }
     constructor Create(AOwner: TComponent); override;
     destructor Destroy;override;
+
+    function CanHandleLink(aLink : string): Boolean; override;
     function OpenFromLink(aLink : string) : Boolean;override;
     procedure New;override;
+
     procedure SetLanguage;override;
     procedure SetRights(Editable : Boolean);
     function OpenWikiPage(PageName : string;CreateIfNotExists : Boolean = False) : Boolean;
@@ -275,9 +278,15 @@ begin
   except
   end;
 end;
+
+function TfWikiFrame.CanHandleLink(aLink: string): Boolean;
+begin
+  Result := (copy(aLink,0,pos('@',aLink)-1) = 'WIKI');
+end;
+
 function TfWikiFrame.OpenFromLink(aLink: string) : Boolean;
 begin
-  if not (copy(aLink,0,pos('@',aLink)-1) = 'WIKI') then exit;
+  if not CanHandleLink(aLink) then exit;
   if rpos('{',aLink) > 0 then
     aLink := copy(aLink,0,rpos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then

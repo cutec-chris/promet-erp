@@ -50,9 +50,14 @@ type
     property Connection : TComponent read FConnection write SetConnection;
     property DataSet : TBaseDBDataSet read FDataSet write SetDataSet;
     procedure CloseConnection(Ask : Boolean = True);virtual;
+
+    function CanHandleLink(aLink : string) : Boolean;virtual;abstract;
     function OpenFromLink(aLink : string) : Boolean;virtual;
-    property Link : string read FLink;
     procedure New;virtual;
+    function CreateListFrame(aFrame : TFrame) : Boolean;virtual;
+    function HasListFrame : Boolean;virtual;
+
+    property Link : string read FLink;
     procedure SetLanguage;virtual;abstract;
     procedure CloseFrame;
     procedure Windowize;
@@ -63,8 +68,40 @@ type
     property HelpView : TfQuickHelpFrame read FQuickHelpFrame write FQuickHelpFrame;
     property UseTransactions : Boolean read FUseTransactions write FUseTransactions;
   end;
+
+  TPrometMenuEntry = class
+  private
+    FClick: TNotifyEvent;
+    FDClick: TNotifyEvent;
+    FItems: TList;
+  protected
+    function GetCaption: string;virtual;
+  public
+    function GetIconIndex : Integer;virtual;
+    property Caption : string read GetCaption;
+    procedure FillItems;virtual;abstract;
+    property Items : TList read FItems;
+    procedure RemoveItems;virtual;abstract;
+    property OnClick : TNotifyEvent read FClick write FClick;
+    property OnDblClick : TNotifyEvent read FDClick write FDClick;
+  end;
+
+  TPrometRootEntry = class(TPrometMenuEntry)
+  end;
+
 implementation
 uses ComCtrls, uIntfStrConsts,LCLType,LCLIntf,uWiki,uData,uBaseApplication;
+
+function TPrometMenuEntry.GetCaption: string;
+begin
+  Result := 'to implement';
+end;
+
+function TPrometMenuEntry.GetIconIndex: Integer;
+begin
+  Result := -1;
+end;
+
 procedure TPrometMainFrame.FwindowClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
@@ -155,6 +192,17 @@ begin
   with Application as IBaseDbInterface do
     FConnection := Data.GetNewConnection;
 end;
+
+function TPrometMainFrame.CreateListFrame(aFrame: TFrame): Boolean;
+begin
+  Result := False;
+end;
+
+function TPrometMainFrame.HasListFrame: Boolean;
+begin
+  Result := False;
+end;
+
 procedure TPrometMainFrame.CloseConnection(Ask : Boolean = True);
 begin
   try

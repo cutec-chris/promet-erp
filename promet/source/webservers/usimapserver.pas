@@ -108,6 +108,7 @@ type
   end;
 
   function TrimParentheses( Data: String ): String;
+  function CutFirstParam( var Parameters: String ): String;
 
 implementation
 
@@ -1127,7 +1128,7 @@ procedure TSImapServer.Cmd_NOOP(AThread: TSTcpThread; Par: string);
 begin
   if par <> '' then
   begin
-    SendResTag(AThread,'BAD I don''t know parameters for NOOP!');
+    SendResTag(AThread,'BAD I dont know parameters for NOOP!');
   end
   else
   begin
@@ -1140,7 +1141,7 @@ begin
         Selected.Unlock;
       end;
     end;
-    SendResTag(AThread,'OK Noop isn''t slow, is it? ;-)');
+    SendResTag(AThread,'OK Noop');
   end;
 end;
 
@@ -1363,8 +1364,6 @@ begin
     DoSubscribe(AThread,MailBox);
   end;
 end;
-
-{/IMAP-List}
 
 procedure TSImapServer.Cmd_UNSUBSCRIBE(AThread: TSTcpThread; Par: string);
 var

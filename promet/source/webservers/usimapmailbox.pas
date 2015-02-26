@@ -8,12 +8,12 @@ type
   TMessageSet = array of LongInt;
   TStoreMode = set of (smAdd, smReplace, smDelete);
 
-  tOnNewMess = procedure of object; //HSR //IDLE
-  tOnExpunge = procedure(Number: integer) of object; //HSR //IDLE
+  tOnNewMess = procedure of object;
+  tOnExpunge = procedure(Number: integer) of object;
 
   pIMAPNotification = ^tIMAPNotification;
 
-  tIMAPNotification = record //HSR //IDLE
+  tIMAPNotification = record
     OnNewMess: tOnNewMess;
     OnExpunge: tOnExpunge;
   end;
