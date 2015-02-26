@@ -1359,7 +1359,7 @@ begin
         with BaseApplication as IBaseApplication do
           begin
             TableVersions.Edit;
-            TableVersions.FieldByName('DBVERSION').AsInteger:=round(AppVersion*10000+AppRevision-1);
+            TableVersions.FieldByName('DBVERSION').AsInteger:=round(AppVersion*10000+AppRevision);
             TableVersions.Post;
           end;
       end;
@@ -1883,4 +1883,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

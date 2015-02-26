@@ -426,7 +426,7 @@ var
   i: Integer;
   a: Integer;
 begin
-  if NeedRTLAnsi and (not IsASCII(s)) then
+  if (NeedRTLAnsi and (not IsASCII(s))) or (GuessEncoding(Result)<>EncodingUTF8) then
   begin
     Result:=AnsiToUTF8(s);
     {$ifdef FPC_HAS_CPSTRING}

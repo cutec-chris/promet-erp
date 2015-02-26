@@ -583,6 +583,7 @@ begin
   except
     Result := False;
   end;
+  TBaseDBModule(Self.Owner).UpdateTableVersion(Self.FDefaultTableName);
 end;
 procedure TZeosDBDataSet.InternalOpen;
 var
@@ -2025,4 +2026,4 @@ end;
 
 end.
 
-
+

@@ -2892,7 +2892,8 @@ begin
               Info('Table "'+TableName+'" will be altered');
             with DataSet as IBaseManageDB do
               FDataSet.Open;
-            AlterTable;
+            if AlterTable then
+
             FDataSet.Close;
           end;
       end;
