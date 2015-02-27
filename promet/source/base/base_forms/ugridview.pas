@@ -136,6 +136,7 @@ type
     procedure gHeaderDrawCell(Sender: TObject; aCol, aRow: Integer;
       aRect: TRect; aState: TGridDrawState);
     procedure gHeaderEditingDone(Sender: TObject);
+    procedure gHeaderEnter(Sender: TObject);
     procedure gHeaderGetCellWidth(aCol: Integer; var aNewWidth: Integer);
     procedure gHeaderHeaderClick(Sender: TObject; IsColumn: Boolean;
       Index: Integer);
@@ -555,6 +556,12 @@ begin
   if Assigned(FAutoFilterChanged) then
     FAutoFilterChanged(Self);
   acFilter.Execute;
+  gHeader.Options:=gHeader.Options-[goAlwaysShowEditor];
+end;
+
+procedure TfGridView.gHeaderEnter(Sender: TObject);
+begin
+  gHeader.Options:=gHeader.Options+[goAlwaysShowEditor];
 end;
 
 procedure TfGridView.gHeaderGetCellWidth(aCol: Integer; var aNewWidth: Integer);
@@ -1369,13 +1376,8 @@ begin
             WasInsert := FDataSet.State=dsInsert;
             if (FDataSource.DataSet.State = dsInsert) and (not FDataSet.Changed) then
               begin
-                gList.DeleteColRow(False,gList.Row);
-                if gList.RowCount = gList.FixedRows then
-                  begin
-                    CleanList(1);
-                  end;
-                FDataSource.DataSet.Cancel;
                 Key := 0;
+                exit;
               end
             else
               begin
@@ -1395,6 +1397,7 @@ begin
           end;
           gList.EditorMode:=False;
         end;
+      if WasInsert then exit;
       if (gList.Row = gList.RowCount-1) and (goEditing in gList.Options) and FEditable then
         begin
           aBm := DataSet.GetBookmark;
