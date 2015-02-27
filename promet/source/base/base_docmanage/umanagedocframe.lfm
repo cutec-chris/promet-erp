@@ -1098,11 +1098,11 @@ inherited fManageDocFrame: TfManageDocFrame
       ColorSelect = 8311274
       ColorFont = clWhite
       ColorFontSelected = clWhite
-      CaptionHight = 16
+      CaptionHight = 24
       DragMode = dmAutomatic
       Font.Color = clWhite
       Font.Height = -9
-      Font.Name = 'Trebuchet MS'
+      Font.Name = 'Default'
       ParentColor = False
       ParentFont = False
       PopupMenu = pmPopup
