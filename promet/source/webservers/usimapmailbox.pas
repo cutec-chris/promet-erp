@@ -2,7 +2,8 @@ unit usimapmailbox;
 
 interface
 
-uses Classes, usimapsearch,mimemess,mimepart,synautil,blcksock,syncobjs;
+uses Classes, usimapsearch,mimemess,mimepart,synautil,blcksock,syncobjs,
+  usbaseserver;
 
 type
   TMessageSet = array of LongInt;
@@ -53,7 +54,7 @@ type
     function  GetMessage( UID: LongInt ): TMimeMess;virtual;abstract;
 
     function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;virtual;
-    function AppendMessage(MsgTxt: string; Flags: string;TimeStamp: TUnixTime): string;virtual;
+    function AppendMessage(AThread: TSTcpThread;MsgTxt: string; Flags: string;TimeStamp: TUnixTime): string;virtual;
 
     function FindFlags(MsgSet: TMessageSet; Flags: TFlagMask;  Exclude: boolean): TMessageSet;virtual;
     function FindSize(MsgSet: TMessageSet; Min, Max: integer): TMessageSet;virtual;abstract;
@@ -251,8 +252,8 @@ begin
   Result := False;
 end;
 
-function TImapMailbox.AppendMessage(MsgTxt: string; Flags: string;
-  TimeStamp: TUnixTime): string;
+function TImapMailbox.AppendMessage(AThread: TSTcpThread; MsgTxt: string;
+  Flags: string; TimeStamp: TUnixTime): string;
 var
   Bytes: integer;
   FileName: string;

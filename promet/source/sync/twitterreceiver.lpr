@@ -264,11 +264,14 @@ begin
                                           Customers.ContactData.Description.AsString:=asource;
                                           Customers.ContactData.Post;
                                           //Follow Customer
-                                          if aRef = '' then
+                                          if HasOption('autofollow') then
                                             begin
-                                              Data.Users.Follows.Insert;
-                                              Data.Users.Follows.Link.AsString:=Data.BuildLink(Customers.DataSet);
-                                              Data.Users.Follows.Post;
+                                              if aRef = '' then
+                                                begin
+                                                  Data.Users.Follows.Insert;
+                                                  Data.Users.Follows.Link.AsString:=Data.BuildLink(Customers.DataSet);
+                                                  Data.Users.Follows.Post;
+                                                end;
                                             end;
                                         end;
                                       if Customers.Count>0 then

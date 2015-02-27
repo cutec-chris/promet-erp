@@ -703,7 +703,14 @@ end;
 procedure TfManageDocFrame.ThumbControl1DrawCaption(Sender: TObject;
   Item: TThreadedImage; aRect: TRect);
 begin
-
+  ThumbControl1.Canvas.Font.Color:=ThumbControl1.Font.Color;
+  if pos(#10,Item.Name)>0 then
+    begin
+      ThumbControl1.Canvas.TextRect(aRect,aRect.Left,aRect.Top,copy(Item.Name,0,pos(#10,Item.Name)-1));
+      ThumbControl1.Canvas.TextRect(aRect,aRect.Left,aRect.Top+ThumbControl1.Canvas.GetTextHeight(Item.Name),copy(Item.Name,pos(#10,Item.Name)+1,length(Item.Name)));
+    end
+  else
+    ThumbControl1.Canvas.TextRect(aRect,aRect.Left,aRect.Top,Item.Name);
 end;
 
 procedure TfManageDocFrame.DoOnDropFiles(Sender: TObject;
@@ -1738,8 +1745,7 @@ end;
 procedure TfManageDocFrame.ShowFrame;
 begin
   inherited ShowFrame;
-  Application.ProcessMessages;
-  ThumbControl1.Visible:=True;
+  if not Assigned(Self) then exit;
 end;
 
 end.

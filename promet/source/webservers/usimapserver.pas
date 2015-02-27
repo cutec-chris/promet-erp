@@ -112,7 +112,7 @@ type
 
 implementation
 
-uses uBaseApplication,base64,uSha1;
+uses uBaseApplication,base64;
 
 resourcestring
   SIMAPWelcomeMessage = 'service ready';
@@ -687,7 +687,7 @@ begin
 
   if Assigned(Selected) and (Mailbox = Selected.Path) then
   begin
-    SendResTag(AThread, Selected.AppendMessage(MessageText, Flags, Time));
+    SendResTag(AThread, Selected.AppendMessage(AThread,MessageText, Flags, Time));
   end
   else if not MBLogin(AThread,DestMailbox, Mailbox, False) then
     begin
@@ -696,7 +696,7 @@ begin
     else
     begin
       try
-        SendResTag(AThread, DestMailbox.AppendMessage(MessageText, Flags, Time));
+        SendResTag(AThread, DestMailbox.AppendMessage(AThread,MessageText, Flags, Time));
       finally
         MBLogout(AThread,DestMailbox, False)
       end;
