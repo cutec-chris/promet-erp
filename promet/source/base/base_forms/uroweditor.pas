@@ -386,7 +386,7 @@ begin
       Grid.ReadOnly := IsReadOnly;
       Grid.AutoFillColumns:=copy(sl,0,12) = 'GLOBALWIDTH:';
       if Grid.AutoFillColumns then
-        Grid.ScrollBars:=ssNone
+        Grid.ScrollBars:=ssAutoVertical
       else
         Grid.ScrollBars:=ssAutoBoth;
       Grid.AutoSizeColumns;

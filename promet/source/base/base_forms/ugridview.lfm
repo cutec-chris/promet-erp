@@ -138,7 +138,6 @@ object fGridView: TfGridView
     Top = 0
     Width = 581
     Align = alTop
-    AutoFillColumns = True
     BorderStyle = bsNone
     ColCount = 2
     Columns = <    

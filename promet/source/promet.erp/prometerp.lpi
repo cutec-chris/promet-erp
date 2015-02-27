@@ -649,7 +649,6 @@
       </Item3>
       <Item4>
         <Name Value="EConvertError"/>
-        <Enabled Value="False"/>
       </Item4>
       <Item5>
         <Name Value="EInvalidGraphic"/>
