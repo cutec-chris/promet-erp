@@ -1410,6 +1410,7 @@ begin
     begin
       if (FDataSource.DataSet.State = dsInsert) and (not FDataSet.Changed) then
         begin
+          EditingDone;
           CleanRow(gList.Row,-2);
           gList.DeleteColRow(False,gList.Row);
           if gList.RowCount = gList.FixedRows then
