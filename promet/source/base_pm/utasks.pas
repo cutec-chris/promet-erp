@@ -409,8 +409,8 @@ begin
 end;
 function DayTimeToStr(nf: Real): string;
 begin
-  if nf < 1/48 then
-    Result := IntToStr(round(nf*MinsPerDay))+'min'
+  if nf < 1/GetHoursPerDay then
+    Result := IntToStr(round(nf*GetHoursPerDay*MinsPerHour))+'min'
   else if nf < 1 then
     Result := FormatFloat('0.0',nf*GetHoursPerDay)+'h'
   else Result := FormatFloat('0.0',nf);
@@ -424,8 +424,13 @@ begin
   Result := 0;
   if copy(trim(aStr),length(trim(aStr)),1)='h' then
     begin
-      if TryStrToFloat(copy(trim(aStr),0,length(trim(aStr))-1),Result) then
+      if TryStrToFloat(trim(copy(trim(aStr),0,length(trim(aStr))-1)),Result) then
         Result := Result/GetHoursPerDay;
+    end
+  else if copy(trim(aStr),length(trim(aStr))-2,3)='min' then
+    begin
+      if TryStrToFloat(trim(copy(trim(aStr),0,length(trim(aStr))-3)),Result) then
+        Result := (Result/GetHoursPerDay)/MinsPerHour;
     end
   else TryStrToFloat(aStr,Result);
 end;

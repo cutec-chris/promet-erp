@@ -14,7 +14,7 @@ object fTaskEdit: TfTaskEdit
   Position = poScreenCenter
   ShowHint = True
   ShowInTaskBar = stAlways
-  LCLVersion = '1.3'
+  LCLVersion = '1.5'
   object lMessage: TLabel
     Left = 8
     Height = 13
@@ -92,11 +92,11 @@ object fTaskEdit: TfTaskEdit
       Left = 264
       Height = 44
       Top = 0
-      Width = 136
+      Width = 224
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 136
+      ClientWidth = 224
       TabOrder = 1
       object Label5: TLabel
         Left = 4
@@ -127,7 +127,7 @@ object fTaskEdit: TfTaskEdit
         Height = 21
         Hint = 'der Vorfahr des Projektes/Prozesses'
         Top = 12
-        Width = 106
+        Width = 194
         ButtonWidth = 23
         Flat = True
         Glyph.Data = {
@@ -173,7 +173,7 @@ object fTaskEdit: TfTaskEdit
         TabOrder = 0
       end
       object bDelegated2: TSpeedButton
-        Left = 112
+        Left = 200
         Height = 19
         Top = 13
         Width = 24
@@ -385,74 +385,6 @@ object fTaskEdit: TfTaskEdit
         TabOrder = 0
       end
     end
-    object Panel10: TPanel
-      Left = 400
-      Height = 44
-      Top = 0
-      Width = 88
-      Align = alLeft
-      BevelOuter = bvNone
-      ClientHeight = 44
-      ClientWidth = 88
-      TabOrder = 4
-      object Bevel8: TBevel
-        Left = 0
-        Height = 36
-        Top = 4
-        Width = 8
-        Align = alLeft
-        BorderSpacing.Top = 4
-        BorderSpacing.Bottom = 4
-        Shape = bsLeftLine
-      end
-      object Label8: TLabel
-        Left = 4
-        Height = 15
-        Top = 0
-        Width = 44
-        Anchors = [akLeft, akBottom]
-        AutoSize = False
-        BorderSpacing.Left = 5
-        Caption = 'Zeit'
-        Font.Color = clMedGray
-        Font.Height = 11
-        ParentColor = False
-        ParentFont = False
-      end
-      object eTime: TEdit
-        Left = 4
-        Height = 21
-        Hint = 'Netto Planzeit der Aufgabe'
-        Top = 12
-        Width = 36
-        OnExit = eTimeExit
-        TabOrder = 0
-      end
-      object eBuffer: TEdit
-        Left = 48
-        Height = 21
-        Hint = 'Die Wartezeit gibt an welche Zeit die Aufgabe '#10'zusätzlich zur Nettozeit benötigt z.b. Wartezeit '#10'auf Material'
-        Top = 12
-        Width = 36
-        OnExit = eBufferExit
-        TabOrder = 1
-      end
-      object Label14: TLabel
-        Left = 40
-        Height = 15
-        Top = 0
-        Width = 44
-        Alignment = taRightJustify
-        Anchors = [akLeft, akBottom]
-        AutoSize = False
-        BorderSpacing.Left = 5
-        Caption = 'Warten'
-        Font.Color = clMedGray
-        Font.Height = 11
-        ParentColor = False
-        ParentFont = False
-      end
-    end
     object Panel11: TPanel
       Left = 584
       Height = 44
@@ -462,7 +394,7 @@ object fTaskEdit: TfTaskEdit
       BevelOuter = bvNone
       ClientHeight = 44
       ClientWidth = 88
-      TabOrder = 5
+      TabOrder = 4
       object Bevel10: TBevel
         Left = 0
         Height = 36
@@ -646,10 +578,10 @@ object fTaskEdit: TfTaskEdit
         Left = 216
         Height = 156
         Top = 8
-        Width = 307
+        Width = 408
         Caption = 'Termine'
         ClientHeight = 138
-        ClientWidth = 303
+        ClientWidth = 404
         TabOrder = 1
         object EarlystDate: TDBZVDateTimePicker
           Left = 8
@@ -685,7 +617,7 @@ object fTaskEdit: TfTaskEdit
           ParentFont = False
         end
         object EndTimeLbl: TLabel
-          Left = 160
+          Left = 256
           Height = 13
           Top = 11
           Width = 65
@@ -708,7 +640,7 @@ object fTaskEdit: TfTaskEdit
           WordWrap = True
         end
         object EndDate: TDBZVDateTimePicker
-          Left = 160
+          Left = 256
           Height = 21
           Hint = 'Der Termin, an dem die Aufgabe erledigt sein soll'#13#10'(nicht der spätest mögliche !)'
           Top = 24
@@ -785,17 +717,86 @@ object fTaskEdit: TfTaskEdit
           DateMode = dmComboBox
           UseDefaultSeparators = True
         end
+        object eTime: TEdit
+          Left = 152
+          Height = 21
+          Hint = 'Netto Planzeit der Aufgabe'
+          Top = 24
+          Width = 40
+          OnExit = eTimeExit
+          TabOrder = 4
+        end
+        object eBuffer: TEdit
+          Left = 200
+          Height = 21
+          Hint = 'Die Wartezeit gibt an welche Zeit die Aufgabe '#10'zusätzlich zur Nettozeit benötigt z.b. Wartezeit '#10'auf Material'
+          Top = 24
+          Width = 41
+          OnExit = eBufferExit
+          TabOrder = 5
+        end
+        object Label14: TLabel
+          Left = 40
+          Height = 15
+          Top = 0
+          Width = 44
+          Alignment = taRightJustify
+          Anchors = [akLeft, akBottom]
+          AutoSize = False
+          BorderSpacing.Left = 5
+          Caption = 'Warten'
+          Font.Color = clMedGray
+          Font.Height = 11
+          ParentColor = False
+          ParentFont = False
+        end
+        object Label8: TLabel
+          Left = 4
+          Height = 15
+          Top = 0
+          Width = 44
+          Anchors = [akLeft, akBottom]
+          AutoSize = False
+          BorderSpacing.Left = 5
+          Caption = 'Zeit'
+          Font.Color = clMedGray
+          Font.Height = 11
+          ParentColor = False
+          ParentFont = False
+        end
+        object EndTimeLbl3: TLabel
+          Left = 152
+          Height = 13
+          Top = 8
+          Width = 40
+          AutoSize = False
+          Caption = 'Planzeit'
+          Font.Color = clWindowText
+          ParentColor = False
+          ParentFont = False
+        end
+        object EndTimeLbl4: TLabel
+          Left = 200
+          Height = 13
+          Top = 8
+          Width = 54
+          AutoSize = False
+          Caption = 'Wartezeit'
+          Font.Color = clWindowText
+          ParentColor = False
+          ParentFont = False
+        end
       end
       object GroupBox3: TGroupBox
         Left = 216
         Height = 156
         Top = 168
-        Width = 308
+        Width = 408
         ClientHeight = 138
-        ClientWidth = 304
+        ClientWidth = 404
         TabOrder = 2
         object cbChecked1: TDBCheckBox
-          Left = 192
+          Left = 288
           Height = 17
           Top = 112
           Width = 101
@@ -823,7 +824,7 @@ object fTaskEdit: TfTaskEdit
           Left = 8
           Height = 21
           Top = 16
-          Width = 288
+          Width = 384
           DataField = 'CATEGORY'
           DataSource = Task
           ItemHeight = 13
@@ -834,7 +835,7 @@ object fTaskEdit: TfTaskEdit
           Left = 8
           Height = 21
           Top = 64
-          Width = 286
+          Width = 385
           DataField = 'ORDERNO'
           DataSource = Task
           CharCase = ecNormal
@@ -869,7 +870,7 @@ object fTaskEdit: TfTaskEdit
           Height = 21
           Hint = 'In welchem Status des Projektes '#10'wird die Aufgabe bearbeitet ?'
           Top = 112
-          Width = 168
+          Width = 268
           Anchors = [akTop, akLeft, akRight]
           DataField = 'WORKSTATUS'
           DataSource = Task

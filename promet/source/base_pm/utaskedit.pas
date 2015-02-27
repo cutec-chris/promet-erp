@@ -39,7 +39,6 @@ type
     Bevel4: TBevel;
     Bevel5: TBevel;
     Bevel7: TBevel;
-    Bevel8: TBevel;
     cbCategory: TDBComboBox;
     cbChecked: TDBCheckBox;
     cbChecked1: TDBCheckBox;
@@ -49,6 +48,10 @@ type
     cbPriority: TDBComboBox;
     cbState: TExtDBCombobox;
     EarlystDate: TDBZVDateTimePicker;
+    eBuffer: TEdit;
+    EndTimeLbl3: TLabel;
+    EndTimeLbl4: TLabel;
+    eTime: TEdit;
     eUser: TEditButton;
     eOwner: TEditButton;
     EndDate: TDBZVDateTimePicker;
@@ -58,8 +61,6 @@ type
     EndTimeLbl2: TLabel;
     eOrder: TDBEdit;
     eProject: TEditButton;
-    eTime: TEdit;
-    eBuffer: TEdit;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
     GroupBox3: TGroupBox;
@@ -72,6 +73,7 @@ type
     Label14: TLabel;
     Label3: TLabel;
     Label6: TLabel;
+    Label8: TLabel;
     Label9: TLabel;
     mNotes: TDBMemo;
     Panel1: TPanel;
@@ -88,8 +90,6 @@ type
     Label4: TLabel;
     Label5: TLabel;
     Label7: TLabel;
-    Label8: TLabel;
-    Panel10: TPanel;
     Panel4: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
