@@ -26,7 +26,7 @@ uses
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
   laz_synapse, uBaseDBInterface, uData, uBaseApplication, uBaseDbClasses,
   synautil, ureceivemessage, uMimeMessages, ussmtpserver, usimapserver,
-  usimapsearch, mimemess, usbaseserver, uSha1, usimapmailbox,RegExpr, db,
+  usimapsearch, mimemess, usbaseserver, usimapmailbox,RegExpr, db,
   Utils,uMessages,syncobjs,uPerson,uIntfStrConsts;
 type
   { TPrometMailBox }

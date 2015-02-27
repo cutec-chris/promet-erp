@@ -112,7 +112,7 @@ type
 
 implementation
 
-uses uBaseApplication,base64,uSha1;
+uses uBaseApplication,base64;
 
 resourcestring
   SIMAPWelcomeMessage = 'service ready';
