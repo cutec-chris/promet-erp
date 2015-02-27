@@ -297,8 +297,38 @@ end;
 
 function TPrometMailBox.CopyMessage(MsgSet: TMessageSet;
   Destination: TImapMailbox): boolean;
+var  i: Integer;
+     FileNameS,FileNameD: String;
+     listFileNameD: TStringList;
+     nUIDnext: LongInt;
+     aMessage: TMimeMessage;
 begin
-  Result:=inherited CopyMessage(MsgSet, Destination);
+  if Destination.MBReadOnly then begin
+    Result := false;
+    exit
+  end;
+  Result := True;
+  Lock;
+  try
+    for i := 0 to High(MsgSet) do
+      begin
+        if not GotoIndex(MsgSet[i]) then
+          begin
+            Result := False;
+            exit;
+          end;
+        //TODO:copy the Msg real at ime wo only change the TREEENTRY couse mostly the messages will not be copied but moved
+        aMessage := TMimeMessage.Create(nil);
+        aMessage.SelectByGrpID(GetUID(MsgSet[i]),FParent);
+        aMessage.Open;
+        aMessage.FieldByName('TREEENTRY').AsVariant:=FParent;
+        aMessage.Post;
+        aMessage.Free;
+      end;
+  finally
+    Unlock;
+  end;
+  Destination.SendMailboxUpdate;
 end;
 
 function TPrometMailBox.AppendMessage(AThread: TSTcpThread; MsgTxt: string;
