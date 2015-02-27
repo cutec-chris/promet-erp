@@ -8,14 +8,8 @@ interface
 
 uses
   uSelectReport, uLogWait, uSendMail, uSearch, uEditText, uwait, uNRights, 
-  uTimeLine, uRowEditor, ugridview, uscreenshotmain, LazarusPackageIntf;
+  uTimeLine, uRowEditor, ugridview, uscreenshotmain;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('pvisualforms', @Register);
 end.

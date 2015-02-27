@@ -7,9 +7,6 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Files Count="8">
       <Item1>
@@ -45,7 +42,6 @@
         <UnitName Value="uspelling"/>
       </Item8>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="sql_parser"/>

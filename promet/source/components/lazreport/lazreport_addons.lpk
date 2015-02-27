@@ -7,12 +7,6 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
-      <Other>
-        <CompilerMessages>
-          <MsgFileName Value=""/>
-        </CompilerMessages>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Files Count="6">
       <Item1>
@@ -43,7 +37,6 @@
         <UnitName Value="lr_richview"/>
       </Item6>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="6">
       <Item1>
         <PackageName Value="richmemopackage"/>

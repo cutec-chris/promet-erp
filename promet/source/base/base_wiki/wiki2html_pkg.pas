@@ -7,14 +7,8 @@ unit wiki2html_pkg;
 interface
 
 uses
-  wikitohtml, htmltowiki, LazarusPackageIntf;
+  wikitohtml, htmltowiki;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('wiki2html_pkg', @Register);
 end.

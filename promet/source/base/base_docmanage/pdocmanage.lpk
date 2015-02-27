@@ -2,17 +2,12 @@
 <CONFIG>
   <Package Version="4">
     <Name Value="pDocManage"/>
+    <Type Value="RunTimeOnly"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
-      <Other>
-        <CompilerMessages>
-          <MsgFileName Value=""/>
-        </CompilerMessages>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Files Count="5">
       <Item1>
@@ -36,7 +31,6 @@
         <UnitName Value="pDocManage"/>
       </Item5>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="pvisualframes"/>

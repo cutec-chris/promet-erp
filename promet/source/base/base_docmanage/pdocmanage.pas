@@ -7,14 +7,8 @@ unit pDocManage;
 interface
 
 uses
-  umanagedocframe, uImportImages, ucameraimport, LazarusPackageIntf;
+  umanagedocframe, uImportImages, ucameraimport;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('pDocManage', @Register);
 end.

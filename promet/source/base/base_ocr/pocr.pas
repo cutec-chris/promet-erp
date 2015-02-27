@@ -2,19 +2,13 @@
   This source is only used to compile and install the package.
  }
 
-unit pocr; 
+unit pocr;
 
 interface
 
 uses
-  uOCR, LazarusPackageIntf;
+  uOCR;
 
 implementation
 
-procedure Register; 
-begin
-end; 
-
-initialization
-  RegisterPackage('pocr', @Register); 
 end.

@@ -7,14 +7,8 @@ unit sql_parser;
 interface
 
 uses
-  sqlparser, sqlscanner, sqltree, LazarusPackageIntf;
+  sqlparser, sqlscanner, sqltree;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('sql_parser', @Register);
 end.

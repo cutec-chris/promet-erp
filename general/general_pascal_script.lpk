@@ -3,7 +3,6 @@
   <Package Version="4">
     <PathDelim Value="\"/>
     <Name Value="general_pascal_script"/>
-    <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>

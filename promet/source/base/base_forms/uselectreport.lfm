@@ -559,14 +559,6 @@ object fSelectReport: TfSelectReport
     left = 112
     top = 224
   end
-  object frRichViewObject1: TfrRichViewObject
-    left = 112
-    top = 264
-  end
-  object frChartObject1: TfrChartObject
-    left = 112
-    top = 304
-  end
   object LRDialogControls1: TLRDialogControls
     left = 72
     top = 304

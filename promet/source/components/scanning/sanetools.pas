@@ -2,19 +2,13 @@
   This source is only used to compile and install the package.
  }
 
-unit sanetools; 
+unit sanetools;
 
 interface
 
 uses
-  SaneTool, sanescanner, LazarusPackageIntf;
+  SaneTool, sanescanner;
 
 implementation
 
-procedure Register; 
-begin
-end; 
-
-initialization
-  RegisterPackage('sanetools', @Register); 
 end.

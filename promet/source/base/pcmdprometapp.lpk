@@ -2,7 +2,7 @@
 <CONFIG>
   <Package Version="4">
     <Name Value="pcmdprometapp"/>
-    <Type Value="RunAndDesignTime"/>
+    <Type Value="RunTimeOnly"/>
     <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>

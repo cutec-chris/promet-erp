@@ -14,15 +14,8 @@ uses
   ubaseapplicationtools, uWiki, uEncrypt, usync, uSessionDBClasses, utask, 
   uvtools, uimpvcal, uDocumentProcess, uProcessManager, uProcessManagement, 
   uprometipc, umeeting, uBaseDocPages, uthumbnails, ucalc, uimport, 
-  uPasswordSave, uzugferd, uprometscripts, uspeakinginterface, uMeasurement, 
-  LazarusPackageIntf;
+  uPasswordSave, uzugferd, uprometscripts, uspeakinginterface, uMeasurement;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('pPrometDBIntfs', @Register);
 end.

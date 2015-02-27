@@ -7,14 +7,8 @@ unit phelp;
 interface
 
 uses
-  uWikiFrame, uHelpContainer, uWikiMessage, uspelling, LazarusPackageIntf;
+  uWikiFrame, uHelpContainer, uWikiMessage, uspelling;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('phelp', @Register);
 end.

@@ -183,6 +183,8 @@ type
     procedure ThumbControl1AfterDraw(Sender: TObject; Item: TThreadedImage;
       aRect: Trect);
     procedure ThumbControl1DblClick(Sender: TObject);
+    procedure ThumbControl1DrawCaption(Sender: TObject; Item: TThreadedImage;
+      aRect: TRect);
     procedure ThumbControl1ImageLoaderManagerBeforeStartQueue(Sender: TObject);
     procedure ThumbControl1ItemIndexChanged(Sender: TObject;
       Item: TThreadedImage);
@@ -697,6 +699,13 @@ procedure TfManageDocFrame.ThumbControl1DblClick(Sender: TObject);
 begin
   acEdit.Execute;
 end;
+
+procedure TfManageDocFrame.ThumbControl1DrawCaption(Sender: TObject;
+  Item: TThreadedImage; aRect: TRect);
+begin
+
+end;
+
 procedure TfManageDocFrame.DoOnDropFiles(Sender: TObject;
   const FileNames: array of String);
 var

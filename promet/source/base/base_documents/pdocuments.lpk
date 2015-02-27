@@ -126,7 +126,6 @@
         <UnitName Value="uSynEditFiler"/>
       </Item29>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="pocr"/>

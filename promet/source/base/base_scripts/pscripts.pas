@@ -7,14 +7,8 @@ unit pscripts;
 interface
 
 uses
-  uScriptEditor, uFrmGotoLine, uscriptimport, LazarusPackageIntf;
+  uScriptEditor, uFrmGotoLine, uscriptimport;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('pscripts', @Register);
 end.

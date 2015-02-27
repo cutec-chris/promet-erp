@@ -7,14 +7,8 @@ unit dexif_package;
 interface
 
 uses
-  dEXIF, dIPTC, msData, LazarusPackageIntf;
+  dEXIF, dIPTC, msData;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('dexif_package', @Register);
 end.

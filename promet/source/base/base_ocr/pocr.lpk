@@ -8,9 +8,6 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
     </CompilerOptions>
     <Files Count="1">
       <Item1>
@@ -18,7 +15,6 @@
         <UnitName Value="uOCR"/>
       </Item1>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="general"/>

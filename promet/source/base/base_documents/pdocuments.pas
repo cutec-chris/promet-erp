@@ -9,14 +9,8 @@ interface
 uses
   uDocProperties, uDocumentAcquire, uDocumentAction, uDocumentAddOptions, 
   uDocumentCheckin, uDocumentFrame, uDocumentOptions, ueditor, uMimeTypeEdit, 
-  uPreviewFrame, uSelectTemplate, uSynEditFiler, LazarusPackageIntf;
+  uPreviewFrame, uSelectTemplate, uSynEditFiler;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('pdocuments', @Register);
 end.

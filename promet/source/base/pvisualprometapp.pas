@@ -8,14 +8,8 @@ interface
 
 uses
   uBaseVisualApplication, ubasevisualapplicationtools, uBaseVisualControls, 
-  uFormAnimate, uPassword, LazarusPackageIntf;
+  uFormAnimate, uPassword;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('pVisualPrometApp', @Register);
 end.

@@ -931,6 +931,8 @@ begin
   inherited Create(TheOwner);
   FOldShow:=nil;
   FSavePossible:=False;
+  frChartObject1 := TfrChartObject.Create(Self);
+  frRichViewObject1 := TfrRichViewObject.Create(Self);
 end;
 
 initialization

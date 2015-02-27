@@ -3,7 +3,6 @@
   <Package Version="4">
     <PathDelim Value="\"/>
     <Name Value="pPrometDBIntfs"/>
-    <Type Value="RunAndDesignTime"/>
     <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>
