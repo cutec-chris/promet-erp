@@ -637,7 +637,7 @@ begin
   uprometipc.OnMessageReceived:=@OnMessageReceived;
   fTimelineDataSet := TBaseHistory.Create(nil);
   fTimelineDataSet.CreateTable;
-  Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),300);
+  Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),200);
   SwitchAnimationOff;
 end;
 procedure TfMain.acHistoryExecute(Sender: TObject);

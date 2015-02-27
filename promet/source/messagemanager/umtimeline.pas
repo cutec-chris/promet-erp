@@ -526,7 +526,7 @@ begin
       tbThread.Down:=False;
       tbRootEntrys.Down:=False;
       fMain.RefreshFilter2;
-      Data.SetFilter(fTimeline.DataSet,fMain.Filter+' '+fMain.Filter2,300);
+      Data.SetFilter(fTimeline.DataSet,fMain.Filter+' '+fMain.Filter2,200);
       acRefresh.Execute;
     end;
 end;
