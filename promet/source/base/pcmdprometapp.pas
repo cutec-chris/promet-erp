@@ -7,14 +7,8 @@ unit pcmdprometapp;
 interface
 
 uses
-  uBaseCustomApplication, uPowerState, LazarusPackageIntf;
+  uBaseCustomApplication, uPowerState;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('pcmdprometapp', @Register);
 end.

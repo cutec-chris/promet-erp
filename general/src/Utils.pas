@@ -439,6 +439,8 @@ begin
   end
   else
     Result:=s;
+  if AnsiToUtf8(Result)<>Result then
+    result := AnsiToUtf8(Result);
 end;
 
 function AppendPathDelim(const Path: string): string;
