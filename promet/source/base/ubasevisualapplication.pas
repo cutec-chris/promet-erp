@@ -28,7 +28,7 @@ uses
   {uAppconsts, }uBaseDBInterface, PropertyStorage, ClipBrd, LCLType,
   uBaseVisualControls, uData, UTF8Process, Controls, Process, ProcessUtils,
   uSystemMessage, uProcessManager, uExtControls, db, typinfo, eventlog,menus,
-  Dialogs,uIntfStrConsts,DBZVDateTimePicker,ubaseconfig,ActnList,ComCtrls
+  Dialogs,uIntfStrConsts,DBZVDateTimePicker,ubaseconfig,ActnList,ComCtrls,contnrs
   {$IFDEF LCLCARBON}
   ,MacOSAll,CarbonProc
   {$ENDIF}
@@ -65,7 +65,6 @@ type
     Processmanager: TProcess;
     FMessagehandler : TMessageHandler;
     FActualName : string;
-    FMainFrames : TList;
     FProps : TStringList;
     FFields : TStringList;
     FLogger : TEventLog;
@@ -150,6 +149,7 @@ type
 
 var
   ObjectTypes : TList;
+  MainFrames : TClassList;
   PrometheusClipboardFormat : TClipboardFormat;
   LinkClipboardFormat : TClipboardFormat;
 
@@ -357,7 +357,6 @@ begin
   FQuickHelp:=True;
   FAppVersion := 7.0;
   FAppRevision := 0;
-  FMainFrames := TList.Create;
   FLogger := TEventLog.Create(Self);
   FLogger.Active:=false;
   if HasOption('l','logfile') then
@@ -391,7 +390,6 @@ begin
 end;
 destructor TBaseVisualApplication.Destroy;
 begin
-  FMainFrames.Free;
   LazLogger.GetDebugLogger.OnDebugLn:=nil;
   Properties.Free;
   inherited Destroy;
@@ -399,7 +397,7 @@ end;
 
 function TBaseVisualApplication.RegisterForm(aForm: TFrameClass): Boolean;
 begin
-  FMainFrames.Add(aForm);
+  MainFrames.Add(aForm);
 end;
 
 procedure TBaseVisualApplication.ShowException(E: Exception);
@@ -1170,6 +1168,7 @@ end;
 initialization
   PrometheusClipboardFormat := RegisterClipboardFormat('PrometERP XML');
   LinkClipboardFormat := RegisterClipboardFormat('PrometERP Link');
+  MainFrames := TClassList.Create;
   ObjectTypes := nil;
   RegisterClass(TSpeedButton);
   RegisterClass(TLabel);
@@ -1177,5 +1176,7 @@ initialization
   RegisterClass(TDBMemo);
   RegisterClass(TDBComboBox);
   RegisterClass(TPanel);
+finalization
+  MainFrames.Free;
 end.
-
+
