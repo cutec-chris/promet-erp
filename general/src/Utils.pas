@@ -426,7 +426,7 @@ var
   i: Integer;
   a: Integer;
 begin
-  if (NeedRTLAnsi and (not IsASCII(s))) or (GuessEncoding(Result)<>EncodingUTF8) then
+  if (NeedRTLAnsi and (not IsASCII(s))) then
   begin
     Result:=AnsiToUTF8(s);
     {$ifdef FPC_HAS_CPSTRING}
@@ -439,8 +439,6 @@ begin
   end
   else
     Result:=s;
-  if AnsiToUtf8(Result)<>Result then
-    result := AnsiToUtf8(Result);
 end;
 
 function AppendPathDelim(const Path: string): string;
@@ -1103,4 +1101,4 @@ begin
 end;
 END.
 
- 
+ 
