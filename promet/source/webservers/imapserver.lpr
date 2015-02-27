@@ -27,12 +27,13 @@ uses
   laz_synapse, uBaseDBInterface, uData, uBaseApplication, uBaseDbClasses,
   synautil, ureceivemessage, uMimeMessages, ussmtpserver, usimapserver,
   usimapsearch, mimemess, usbaseserver, uSha1, usimapmailbox,RegExpr, db,
-  Utils,uMessages,syncobjs;
+  Utils,uMessages,syncobjs,uPerson,uIntfStrConsts;
 type
   { TPrometMailBox }
 
   TPrometMailBox = class(TImapMailbox)
   private
+    FTreeEntry : string;
     FParent : Variant;
     Folder : TMessageList;
     FHighestUID : LongInt;
@@ -51,7 +52,7 @@ type
     function  GetTimeStamp( Index: LongInt ): TUnixTime;override;
     function  GetMessage( UID: LongInt ): TMimeMess;override;
     function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;override;
-    function AppendMessage(MsgTxt: string; Flags: string; TimeStamp: TUnixTime): string; override;
+    function AppendMessage(AThread: TSTcpThread;MsgTxt: string; Flags: string; TimeStamp: TUnixTime): string; override;
     constructor Create(APath: String; CS: TCriticalSection); override;
     destructor Destroy; override;
   end;
@@ -300,10 +301,113 @@ begin
   Result:=inherited CopyMessage(MsgSet, Destination);
 end;
 
-function TPrometMailBox.AppendMessage(MsgTxt: string; Flags: string;
-  TimeStamp: TUnixTime): string;
+function TPrometMailBox.AppendMessage(AThread: TSTcpThread; MsgTxt: string;
+  Flags: string; TimeStamp: TUnixTime): string;
+var
+  aMsg: TMimeMess;
+  aArticle: TStringList;
+  aID: String;
+  i: Integer;
+  aChr: Char;
+  aMessage: TMimeMessage;
+  atmp: String;
+  CustomerCont: TPersonContactData;
+  Customers: TPerson;
 begin
-  Result:=inherited AppendMessage(MsgTxt, Flags, TimeStamp);
+  Result:=inherited;
+  try
+    aMsg := TMimeMess.Create;
+    aArticle := TStringList.Create;
+    aArticle.Text:=MsgTxt;
+    aMsg.Lines.Assign(aArticle);
+    aArticle.Free;
+    aMsg.DecodeMessage;
+    if pos('@email.android.com',aMsg.Header.MessageID)>0 then
+      begin
+        //Android internal client fails on updating internaldate, dont let them store anything
+        aMsg.Free;
+        exit;
+      end;
+    if aMsg.Header.MessageID='' then
+      begin
+        randomize;
+        aID := '';
+        for i := 0 to 45 do
+          begin
+            aChr := chr(ord('0')+random(74));
+            if aChr in ['a'..'z','0'..'9','A'..'Z'] then
+              aID := aID+aChr;
+          end;
+        aMsg.Header.MessageID := aID;
+      end;
+    aMessage := TMimeMessage.Create(nil);
+    amessage.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(aMsg.Header.MessageID)+' and '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry));
+    if aMessage.Count=0 then
+      begin
+        aMessage.Insert;
+        aMessage.FieldByName('ID').Clear;
+        aMessage.Dataset.FieldByName('USER').AsString := AThread.User;
+        aMessage.Dataset.FieldByName('TYPE').AsString := 'EMAIL';
+        aMessage.Dataset.FieldByName('READ').AsString := 'N';
+        aMessage.DecodeMessage(aMsg);
+        aMessage.FieldbyName('TREEENTRY').AsString := FTreeEntry;
+        aSubject := SysToUni(amsg.Header.Subject);
+        atmp:=SysToUni(getemailaddr(aMsg.Header.From));
+        CustomerCont := TPersonContactData.CreateEx(nil);
+        if Data.IsSQLDb then
+          Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
+        else
+          Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
+        if CustomerCont.Count=0 then
+          begin
+            atmp := copy(aMsg.Header.From,0,pos('<',aMsg.Header.From)-1);
+            if Data.IsSQLDb then
+              Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
+            else
+              Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
+            if (CustomerCont.Count=0) then
+              begin
+                if copy(atmp,0,1)='+' then
+                  atmp := '0'+copy(atmp,3,length(atmp));
+                if Data.IsSQLDb then
+                  Data.SetFilter(CustomerCont,'UPPER("DATA")=UPPER('''+atmp+''')')
+                else
+                  Data.SetFilter(CustomerCont,'"DATA"='''+atmp+'''');
+              end;
+          end;
+        Customers := TPerson.Create(nil);
+        Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
+        CustomerCont.Free;
+        if Customers.Count > 0 then
+          begin
+            Customers.History.Open;
+            Customers.History.AddItem(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
+                                      'MESSAGEIDX@'+aMessage.FieldByName('ID').AsString+'{'+aSubject+'}',
+                                      '',
+                                      nil,
+                                      ACICON_MAILNEW);
+            Customers.History.Edit;
+            with Customers.History.DataSet as IBaseManageDB do
+              UpdateStdFields := False;
+            with Customers.History.DataSet as IBaseManageDB do
+              UpdateStdFields := True;
+            Customers.History.Post;
+          end;
+        aMessage.DataSet.Post;
+        Result := 'OK APPEND completed';
+      end
+    else
+      begin
+        aMessage.Edit;
+        aMessage.FieldByName('TIMESTAMPD').AsDateTime:=Now();
+        aMessage.Post;
+        Result := 'OK APPEND completed';
+      end;
+    aMsg.Free;
+    aMessage.Destroy;
+  except
+    Result := 'NO APPEND error';
+  end;
 end;
 
 constructor TPrometMailBox.Create(APath: String; CS: TCriticalSection);
@@ -808,6 +912,8 @@ begin
     begin
       Data.RefreshUsersFilter;
     end;
+  if Result then
+    aSocket.User:=Data.Users.Accountno.AsString;
   IMAPServer.CS.Leave;
 end;
 

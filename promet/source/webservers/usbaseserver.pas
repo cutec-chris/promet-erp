@@ -30,6 +30,7 @@ type
     FId: integer;
     FSocket: TTCPBlockSocket;
     FConnected, FReadTimedOut, FWriteTimedOut: boolean;
+    FUser: string;
     FOnDestroy: TNotifyEvent;
     FConnection: TSConnection;
     FOnExecute: TSThreadEvent;
@@ -46,6 +47,7 @@ type
     property Connection: TSConnection read FConnection;
     property Id: integer read FId write Fid;
     property Terminated;
+    property User : string read FUser write FUser;
     property Socket : TTCPBlockSocket read FSocket;
     property ReadTimedOut: boolean read FReadTimedOut;
     property WriteTimedOut: boolean read FWriteTimedOut;
