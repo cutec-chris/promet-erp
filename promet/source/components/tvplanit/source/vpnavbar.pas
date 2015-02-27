@@ -1042,7 +1042,7 @@ begin
     Visible := False;
     Parent := Self;
     OnClick := nabScrollUpBtnClick;
-    Glyph.Handle := LoadBaseBitmap('VPUPARROW');
+    //Glyph.Handle := LoadBaseBitmap('VPUPARROW');
     NumGlyphs := 1;
     Left := -20;
     Height := 15;
@@ -1054,7 +1054,7 @@ begin
     Visible := False;
     Parent := Self;
     OnClick := nabScrollDownBtnClick;
-    Glyph.Handle := LoadBaseBitmap('VPDOWNARROW');
+    //Glyph.Handle := LoadBaseBitmap('VPDOWNARROW');
     NumGlyphs := 1;
     Left := -20;
     Height := 15;
@@ -3077,4 +3077,4 @@ begin
   Result := Self;
 end;
 
-end.
+end.
