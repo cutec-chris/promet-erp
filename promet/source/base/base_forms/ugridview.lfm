@@ -6,7 +6,6 @@ object fGridView: TfGridView
   ClientHeight = 354
   ClientWidth = 581
   Color = clBtnFace
-  LCLVersion = '1.5'
   OnResize = FrameResize
   ParentColor = False
   ParentShowHint = False
@@ -38,6 +37,7 @@ object fGridView: TfGridView
       Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goRangeSelect, goColSizing, goRowMoving, goColMoving, goEditing, goTabs, goThumbTracking, goDblClickAutoSize, goSmoothScroll, goTruncCellHints]
       PopupMenu = pmPopup
       RowCount = 2
+      ScrollBars = ssAutoVertical
       TabOrder = 0
       TitleImageList = ImageList1
       TitleStyle = tsNative
@@ -138,6 +138,7 @@ object fGridView: TfGridView
     Top = 0
     Width = 581
     Align = alTop
+    AutoFillColumns = True
     BorderStyle = bsNone
     ColCount = 2
     Columns = <    
@@ -186,9 +187,9 @@ object fGridView: TfGridView
     Visible = False
     object FilterImage: TImage
       Left = 0
-      Height = 16
+      Height = 20
       Top = 0
-      Width = 8
+      Width = 12
       Align = alClient
       Picture.Data = {
         1754506F727461626C654E6574776F726B47726170686963FB01000089504E47
@@ -222,10 +223,10 @@ object fGridView: TfGridView
     TabOrder = 4
     object bRowEditor: TSpeedButton
       Left = 0
-      Height = 17
+      Height = 21
       Hint = 'hier können Sie die sichtbaren Spalten konfigurieren'#10'(Spalten hinzufügen oder entfernen)'
       Top = 0
-      Width = 8
+      Width = 12
       Align = alClient
       Caption = '?'
       Flat = True

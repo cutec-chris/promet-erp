@@ -12,20 +12,20 @@ object fRowEditor: TfRowEditor
   OnKeyDown = FormKeyDown
   Position = poMainFormCenter
   ShowInTaskBar = stAlways
-  LCLVersion = '1.3'
+  LCLVersion = '1.5'
   object pLeft: TPanel
     Left = 0
-    Height = 249
+    Height = 257
     Top = 0
     Width = 210
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 249
+    ClientHeight = 257
     ClientWidth = 210
     TabOrder = 0
     object lbSource: TListBox
       Left = 8
-      Height = 227
+      Height = 235
       Top = 24
       Width = 160
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -36,7 +36,6 @@ object fRowEditor: TfRowEditor
       OnStartDrag = lbSourceStartDrag
       ScrollWidth = 158
       TabOrder = 0
-      TopIndex = -1
     end
     object bAddRow: TBitBtn
       Left = 172
@@ -130,9 +129,9 @@ object fRowEditor: TfRowEditor
     end
     object lTableRows: TLabel
       Left = 6
-      Height = 15
+      Height = 13
       Top = 4
-      Width = 121
+      Width = 100
       Caption = 'Spalten in Tabelle'
       Font.Style = [fsBold]
       ParentColor = False
@@ -141,15 +140,15 @@ object fRowEditor: TfRowEditor
   end
   object Splitter1: TSplitter
     Left = 210
-    Height = 249
+    Height = 257
     Top = 0
     Width = 5
     ResizeStyle = rsLine
   end
   object bpButtons: TButtonPanel
     Left = 6
-    Height = 42
-    Top = 255
+    Height = 34
+    Top = 263
     Width = 390
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -165,9 +164,9 @@ object fRowEditor: TfRowEditor
     ShowButtons = [pbOK, pbCancel]
     object cbProcent: TCheckBox
       Left = 10
-      Height = 22
+      Height = 17
       Top = 10
-      Width = 180
+      Width = 142
       BorderSpacing.Around = 10
       Caption = 'prozentuale Spaltenbreite'
       TabOrder = 4
@@ -175,17 +174,17 @@ object fRowEditor: TfRowEditor
   end
   object pRight: TPanel
     Left = 215
-    Height = 249
+    Height = 257
     Top = 0
     Width = 187
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 249
+    ClientHeight = 257
     ClientWidth = 187
     TabOrder = 3
     object lbDestination: TListBox
       Left = 9
-      Height = 224
+      Height = 232
       Top = 24
       Width = 167
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -196,17 +195,16 @@ object fRowEditor: TfRowEditor
       OnStartDrag = lbDestinationStartDrag
       ScrollWidth = 165
       TabOrder = 0
-      TopIndex = -1
     end
     object lViewRows: TLabel
       Left = 9
-      Height = 15
+      Height = 13
       Top = 4
-      Width = 123
+      Width = 100
       Caption = 'Sichtbare Spalten'
       Font.Style = [fsBold]
       ParentColor = False
       ParentFont = False
     end
   end
-end
+end

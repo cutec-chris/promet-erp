@@ -310,6 +310,7 @@ begin
       tmpCols := TGridColumns.Create(Grid,TColumn);
       OldDS := Grid.DataSource;
       Grid.DataSource := nil;
+      Grid.AutoFillColumns:=False;
       tmpCols.Assign(Grid.Columns);
       Grid.Columns.Clear;
       GridWidth := Grid.Width;
@@ -377,11 +378,17 @@ begin
                 IsReadOnly := false;
               end;
         end;
+      cl.Width:=cl.Width-1;
+      cl.SizePriority := 1;
       Grid.DataSource := OldDS;
       tmpCols.Free;
       Result := True;
       Grid.ReadOnly := IsReadOnly;
-      //Grid.AutoFillColumns:=copy(sl,0,12) = 'GLOBALWIDTH:';
+      Grid.AutoFillColumns:=copy(sl,0,12) = 'GLOBALWIDTH:';
+      if Grid.AutoFillColumns then
+        Grid.ScrollBars:=ssNone
+      else
+        Grid.ScrollBars:=ssAutoBoth;
       Grid.AutoSizeColumns;
     end;
 end;
