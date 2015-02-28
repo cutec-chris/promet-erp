@@ -264,6 +264,11 @@ begin
             Add('NAME',ftString,30,True);
             Add('DBVERSION',ftInteger,0,True);
           end;
+      if Assigned(ManagedIndexdefs) then
+        with ManagedIndexDefs do
+          begin
+            Add('NAME','NAME',[ixUnique]);
+          end;
     end;
 end;
 
@@ -771,4 +776,4 @@ begin
 end;
 
 end.
-
+

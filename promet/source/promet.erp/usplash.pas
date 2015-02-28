@@ -33,7 +33,6 @@ type
 
   TfSplash = class(TForm)
     Image3: TImage;
-    lRegistered: TLabel;
     lStartup: TLabel;
     lVersion: TLabel;
     Panel1: TPanel;
@@ -57,7 +56,6 @@ uses uBaseApplication;
 {$R *.lfm}
 procedure TfSplash.FormCreate(Sender: TObject);
 begin
-  lregistered.Caption := '';
   HideTimer := TTimer.Create(Self);
   HideTimer.Enabled := False;
   HideTimer.OnTimer:=@HideTimerTimer;
