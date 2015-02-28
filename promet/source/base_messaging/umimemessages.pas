@@ -337,6 +337,7 @@ begin
       if FieldDefs.IndexOf('SENDTIME') <> -1 then
         FieldByName('SENDTIME').AsFloat := Frac(msg.Header.Date);
       atmp := SysToUni(msg.Header.Subject);
+      atmp := AnsiToUtf8(atmp);
       FieldbyName('SUBJECT').AsString := atmp;
       FieldbyName('LINES').AsInteger := msg.Lines.Count;
       FieldbyName('SIZE').AsInteger := length(msg.Lines.text);
