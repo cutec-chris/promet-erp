@@ -10,7 +10,7 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="ser_synapse"/>
+      <Title Value="serialport"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
     </General>
@@ -44,8 +44,9 @@
     </RequiredPackages>
     <Units Count="1">
       <Unit0>
-        <Filename Value="ser_synapse.lpr"/>
+        <Filename Value="serialport.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="serialport"/>
       </Unit0>
     </Units>
   </ProjectOptions>

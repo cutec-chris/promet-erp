@@ -1,4 +1,4 @@
-library ser_synapse;
+library serialport;
 
 {$mode objfpc}{$H+}
 
@@ -95,6 +95,16 @@ begin
       end;
 end;
 
+procedure ScriptCleanup;
+var
+  i: Integer;
+begin
+  for i := 0 to Ports.Count-1 do
+    TBlockSerial(Ports[i]).Free;
+  Ports.Clear;
+  FreeAndNil(Ports);
+end;
+
 function ScriptDefinition : PChar;stdcall;
 begin
   Result := 'TParityType = (NoneParity, OddParity, EvenParity);'
@@ -115,6 +125,7 @@ exports
   SerWrite,
   SerParams,
 
-  ScriptDefinition;
+  ScriptDefinition,
+  ScriptCleanup;
 
 end.

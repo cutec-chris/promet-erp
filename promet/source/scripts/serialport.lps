@@ -6,12 +6,13 @@
     <BuildModes Active="Default"/>
     <Units Count="20">
       <Unit0>
-        <Filename Value="ser.lpr"/>
+        <Filename Value="serialport.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="serialport"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="13"/>
-        <CursorPos X="59" Y="39"/>
-        <UsageCount Value="37"/>
+        <TopLine Value="81"/>
+        <CursorPos X="7" Y="102"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -140,122 +141,28 @@
       </Unit17>
       <Unit18>
         <Filename Value="..\..\..\..\..\fpc\trunk\packages\rtl-extra\src\unix\serial.pp"/>
-        <UnitName Value="Serial"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="301"/>
-        <CursorPos X="26" Y="13"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos Y="20"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit18>
       <Unit19>
-        <Filename Value="..\..\..\..\..\fpc\trunk\rtl\linux\ostypes.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="25"/>
-        <CursorPos X="2" Y="198"/>
+        <Filename Value="..\components\synapse\synaser.pas"/>
+        <UnitName Value="synaser"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="52"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit19>
     </Units>
-    <JumpHistory Count="25" HistoryIndex="24">
+    <JumpHistory Count="2" HistoryIndex="1">
       <Position1>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="11" Column="9"/>
-      </Position1>
-      <Position2>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="6" Column="20"/>
-      </Position2>
-      <Position3>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="11" Column="11"/>
-      </Position3>
-      <Position4>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="18" Column="50"/>
-      </Position4>
-      <Position5>
         <Filename Value="serial_win.pp"/>
         <Caret Line="17" Column="22"/>
-      </Position5>
-      <Position6>
+      </Position1>
+      <Position2>
         <Filename Value="serial_osx.pp"/>
         <Caret Line="17" Column="23"/>
-      </Position6>
-      <Position7>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="18" Column="92"/>
-      </Position7>
-      <Position8>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="25" Column="66"/>
-      </Position8>
-      <Position9>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="20" Column="61" TopLine="2"/>
-      </Position9>
-      <Position10>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="25" Column="65" TopLine="8"/>
-      </Position10>
-      <Position11>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="23" Column="46" TopLine="8"/>
-      </Position11>
-      <Position12>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="46" Column="70" TopLine="23"/>
-      </Position12>
-      <Position13>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="33" Column="23" TopLine="22"/>
-      </Position13>
-      <Position14>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="13" Column="8"/>
-      </Position14>
-      <Position15>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="34" Column="49" TopLine="22"/>
-      </Position15>
-      <Position16>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="39" Column="37" TopLine="25"/>
-      </Position16>
-      <Position17>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="55" TopLine="34"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\..\..\..\..\fpc\trunk\packages\rtl-extra\src\unix\serial.pp"/>
-        <Caret Line="326" Column="21" TopLine="312"/>
-      </Position18>
-      <Position19>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="13" Column="30"/>
-      </Position19>
-      <Position20>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="33" Column="21" TopLine="16"/>
-      </Position20>
-      <Position21>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="57" TopLine="35"/>
-      </Position21>
-      <Position22>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="54" Column="7" TopLine="38"/>
-      </Position22>
-      <Position23>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="39" TopLine="35"/>
-      </Position23>
-      <Position24>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="38" Column="34" TopLine="22"/>
-      </Position24>
-      <Position25>
-        <Filename Value="ser.lpr"/>
-        <Caret Line="13" Column="9"/>
-      </Position25>
+      </Position2>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
