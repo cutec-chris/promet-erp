@@ -378,18 +378,20 @@ begin
                 IsReadOnly := false;
               end;
         end;
-      cl.Width:=cl.Width-1;
+      cl.Width:=cl.Width-2;
       cl.SizePriority := 1;
       Grid.DataSource := OldDS;
       tmpCols.Free;
       Result := True;
       Grid.ReadOnly := IsReadOnly;
+      {
       Grid.AutoFillColumns:=copy(sl,0,12) = 'GLOBALWIDTH:';
       if Grid.AutoFillColumns then
-        Grid.ScrollBars:=ssAutoVertical
+        Grid.ScrollBars:=ssVertical
       else
-        Grid.ScrollBars:=ssAutoBoth;
+        Grid.ScrollBars:=ssAutoHorizontal;
       Grid.AutoSizeColumns;
+      }
     end;
 end;
 initialization
