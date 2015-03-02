@@ -35,6 +35,7 @@ type
     procedure DefineFields(aDataSet: TDataSet); override;
     constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    procedure FillDefaults(aDataSet: TDataSet); override;
   end;
 
   { TMeasurement }
@@ -130,6 +131,12 @@ begin
       UpdateFloatFields:=True;
       Limit:=5000;
     end;
+end;
+
+procedure TMeasurementData.FillDefaults(aDataSet: TDataSet);
+begin
+  inherited FillDefaults(aDataSet);
+  FieldByName('DATE').AsDateTime:=Now();
 end;
 
 end.

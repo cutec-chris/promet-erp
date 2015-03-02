@@ -1242,6 +1242,13 @@ begin
     AddTabs(pcPages);
   SetRights;
   RefreshFlow;
+  pcPages.AddTabClass(TfMeasurementFrame,strMeasurement,@AddMeasurement);
+  FreeAndNil(FMeasurement);
+  FMeasurement := TMeasurement.CreateEx(nil,Data,DataSet.Connection,DataSet.DataSet);
+  FMeasurement.CreateTable;
+  FMeasurement.Open;
+  if FMeasurement.Count>0 then
+    pcPages.AddTab(TfMeasurementFrame.Create(Self),False);
   pcPages.AddTabClass(TfTaskFrame,strTasks,@AddTasks);
   Inserted := DataSet.State=dsInsert;
   TProject(DataSet).Tasks.Open;
@@ -1336,6 +1343,8 @@ begin
     FOwners.Destroy;
   if Assigned(FConnection) then
     begin
+      if Assigned(FMeasurement) then
+        FreeAndNil(FMeasurement);
       CloseConnection(acSave.Enabled);
       DataSet.Destroy;
       DataSet := nil;
