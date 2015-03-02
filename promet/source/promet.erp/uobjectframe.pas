@@ -524,8 +524,7 @@ begin
   FMeasurement.CreateTable;
   FMeasurement.Open;
   if FMeasurement.Count>0 then
-    pcPages.AddTab(TfMeasurementFrame.Create(Self),False)
-  else FMeasurement.Free;
+    pcPages.AddTab(TfMeasurementFrame.Create(Self),False);
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
@@ -639,6 +638,8 @@ destructor TfObjectFrame.Destroy;
 begin
   if Assigned(FConnection) then
     begin
+      if Assigned(FMeasurement) then
+        FreeAndNil(FMeasurement);
       CloseConnection(acSave.Enabled);
       DataSet.Destroy;
       DataSet := nil;

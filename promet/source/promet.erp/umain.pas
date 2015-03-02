@@ -236,6 +236,7 @@ type
       procedure SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime
         (Sender: TObject; aProject, aTask, aCategory: string);
     procedure TfFilteracOpenExecute(Sender: TObject);
+    procedure tvMainClick(Sender: TObject);
   private
     { private declarations }
     WikiFrame: TfWikiFrame;
@@ -3998,6 +3999,11 @@ begin
       if TfFilter(pcPages.ActivePage.Controls[0]).DataSet.Count>0 then
         Data.GotoLink(TfFilter(pcPages.ActivePage.Controls[0]).DataSet.FieldByName('LINK').AsString);
     end;
+end;
+
+procedure TfMain.tvMainClick(Sender: TObject);
+begin
+
 end;
 
 end.

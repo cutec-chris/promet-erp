@@ -8,8 +8,8 @@
       <Unit0>
         <Filename Value="ser_synapse.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ser_synapse"/>
         <IsVisibleTab Value="True"/>
+        <TopLine Value="82"/>
         <CursorPos X="22" Y="12"/>
         <UsageCount Value="36"/>
         <Loaded Value="True"/>
@@ -103,7 +103,7 @@
       <Unit13>
         <Filename Value="serial_win.pp"/>
         <UnitName Value="serial_win"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="148"/>
         <CursorPos X="53" Y="19"/>
         <UsageCount Value="16"/>
@@ -126,7 +126,7 @@
       <Unit16>
         <Filename Value="serial_osx.pp"/>
         <UnitName Value="serial_osx"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="45" Y="21"/>
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
@@ -140,11 +140,9 @@
       </Unit17>
       <Unit18>
         <Filename Value="..\..\..\..\..\fpc\trunk\packages\rtl-extra\src\unix\serial.pp"/>
-        <UnitName Value="Serial"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <CursorPos Y="20"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\components\synapse\synaser.pas"/>

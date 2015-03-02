@@ -46,16 +46,12 @@
       <Unit0>
         <Filename Value="ser_synapse.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ser_synapse"/>
       </Unit0>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
-    <Target>
-      <Filename Value="ser"/>
-    </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
