@@ -1396,9 +1396,8 @@ begin
             raise;
           end;
           gList.EditorMode:=False;
-        end;
-      if WasInsert then exit;
-      if (gList.Row = gList.RowCount-1) and (goEditing in gList.Options) and FEditable then
+        end
+      else if (gList.Row = gList.RowCount-1) and (goEditing in gList.Options) and FEditable then
         begin
           aBm := DataSet.GetBookmark;
           if TRowObject(gList.Objects[0,gList.Row]).Rec = 0 then
