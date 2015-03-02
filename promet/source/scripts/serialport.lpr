@@ -99,6 +99,7 @@ procedure ScriptCleanup;
 var
   i: Integer;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     TBlockSerial(Ports[i]).Free;
   Ports.Clear;

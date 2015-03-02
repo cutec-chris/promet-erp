@@ -255,6 +255,7 @@ begin
         AddMethod(Self,@TPascalScript.InternalTimeToStr,'function TimeToStr(Time: TDateTime): string;');
         AddMethod(Self,@TPascalScript.InternalDateTimeToStr,'function DateTimeToStr(DateTime: TDateTime): string;');
         AddMethod(Self,@TPascalScript.InternalFormat,'function Format(Fmt: string;Args: array of const):string;');
+        AddFunction(@IntToHex,'function IntToHex(Value: integer; Digits: integer) : string;');
       end
     else if lowercase(Name)='exec' then
       begin
