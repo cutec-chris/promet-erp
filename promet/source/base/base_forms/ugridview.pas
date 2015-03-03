@@ -97,6 +97,8 @@ type
     acOpen: TAction;
     acSearch: TAction;
     acCopyToClipboard: TAction;
+    acChangeRows: TAction;
+    acResetFilter: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
     bRowEditor: TSpeedButton;
@@ -107,6 +109,8 @@ type
     ImageList1: TImageList;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
     miExport: TMenuItem;
     miImport: TMenuItem;
     miOpen: TMenuItem;
@@ -115,12 +119,15 @@ type
     Panel2: TPanel;
     bEditRows: TSpeedButton;
     pmPopup: TPopupMenu;
+    pmHeader: TPopupMenu;
     sbGrids: TPanel;
     gList: TExtStringgrid;
+    procedure acChangeRowsExecute(Sender: TObject);
     procedure acCopyLinkExecute(Sender: TObject);
     procedure acCopyToClipboardExecute(Sender: TObject);
     procedure acFilterExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
+    procedure acResetFilterExecute(Sender: TObject);
     procedure acSearchExecute(Sender: TObject);
     procedure bEditRowsClick(Sender: TObject);
     procedure deDateAcceptDate(Sender: TObject; var ADate: TDateTime;
@@ -396,12 +403,6 @@ begin
   NeedsAction:='na';
 end;
 
-procedure TfGridView.bEditRowsClick(Sender: TObject);
-begin
-  fRowEditor.Execute(FBaseName,FDataSource,dgFake,FBaseName);
-  Asyncrefresh;
-end;
-
 procedure TfGridView.deDateAcceptDate(Sender: TObject; var ADate: TDateTime;
   var AcceptDate: Boolean);
 begin
@@ -453,11 +454,22 @@ begin
 
 end;
 
+procedure TfGridView.acResetFilterExecute(Sender: TObject);
+begin
+  ClearFilters;
+end;
+
 procedure TfGridView.acSearchExecute(Sender: TObject);
 begin
   if Assigned(OnCellButtonClick) then
     OnCellButtonClick(Self,Point(gList.Selection.Left,gList.Selection.Top),dgFake.Columns[gList.Col-1]);
 end;
+
+procedure TfGridView.bEditRowsClick(Sender: TObject);
+begin
+
+end;
+
 procedure TfGridView.acCopyLinkExecute(Sender: TObject);
 var
   aLinks : string;
@@ -470,6 +482,12 @@ begin
       Clipboard.AddFormat(LinkClipboardFormat,Stream);
       Stream.Free;
     end;
+end;
+
+procedure TfGridView.acChangeRowsExecute(Sender: TObject);
+begin
+  fRowEditor.Execute(FBaseName,FDataSource,dgFake,FBaseName);
+  Asyncrefresh;
 end;
 
 procedure TfGridView.acCopyToClipboardExecute(Sender: TObject);
