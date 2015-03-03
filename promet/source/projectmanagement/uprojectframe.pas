@@ -212,6 +212,7 @@ type
     procedure AddFinance(Sender: TObject);
     procedure RefreshFlow;
   protected
+    Reopen : Boolean;
     procedure SetDataSet(const AValue: TBaseDBDataset);override;
     procedure DoOpen;override;
     function SetRights : Boolean;
@@ -865,6 +866,7 @@ begin
   if not FDataSet.CanEdit then FDataSet.DataSet.Edit;
   FDataSet.FieldByName('STATUS').AsString:=tmp;
   acSave.Execute;
+  Reopen := True;
   DoOpen;
 end;
 
@@ -1243,12 +1245,18 @@ begin
   SetRights;
   RefreshFlow;
   pcPages.AddTabClass(TfMeasurementFrame,strMeasurement,@AddMeasurement);
-  FreeAndNil(FMeasurement);
-  FMeasurement := TMeasurement.CreateEx(nil,Data,DataSet.Connection,DataSet.DataSet);
-  FMeasurement.CreateTable;
-  FMeasurement.Open;
-  if FMeasurement.Count>0 then
-    pcPages.AddTab(TfMeasurementFrame.Create(Self),False);
+  if not Reopen then
+    begin
+      FreeAndNil(FMeasurement);
+      try
+        FMeasurement := TMeasurement.CreateEx(nil,Data,DataSet.Connection,DataSet.DataSet);
+        FMeasurement.CreateTable;
+        FMeasurement.Open;
+        if FMeasurement.Count>0 then
+          pcPages.AddTab(TfMeasurementFrame.Create(Self),False);
+      except
+      end;
+    end;
   pcPages.AddTabClass(TfTaskFrame,strTasks,@AddTasks);
   Inserted := DataSet.State=dsInsert;
   TProject(DataSet).Tasks.Open;
@@ -1297,6 +1305,7 @@ begin
   finally
     DataSet.DataSet.EnableControls;
   end;
+  Reopen := False;
 end;
 function TfProjectFrame.SetRights: Boolean;
 begin
@@ -1326,6 +1335,7 @@ constructor TfProjectFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FOwners := TStringList.Create;
+  Reopen := False;
   {
   FProjectFlow := TProjectFlow.Create(Self);
   FprojectFlow.Parent:=pStatus;
