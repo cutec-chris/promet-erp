@@ -230,7 +230,6 @@ object fGridView: TfGridView
       Align = alClient
       Flat = True
       Layout = blGlyphRight
-      OnClick = bEditRowsClick
       ShowCaption = False
     end
   end

@@ -129,7 +129,6 @@ type
     procedure acOpenExecute(Sender: TObject);
     procedure acResetFilterExecute(Sender: TObject);
     procedure acSearchExecute(Sender: TObject);
-    procedure bEditRowsClick(Sender: TObject);
     procedure deDateAcceptDate(Sender: TObject; var ADate: TDateTime;
       var AcceptDate: Boolean);
     procedure dgFakeTitleClick(Column: TColumn);
@@ -463,11 +462,6 @@ procedure TfGridView.acSearchExecute(Sender: TObject);
 begin
   if Assigned(OnCellButtonClick) then
     OnCellButtonClick(Self,Point(gList.Selection.Left,gList.Selection.Top),dgFake.Columns[gList.Col-1]);
-end;
-
-procedure TfGridView.bEditRowsClick(Sender: TObject);
-begin
-
 end;
 
 procedure TfGridView.acCopyLinkExecute(Sender: TObject);
