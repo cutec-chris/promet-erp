@@ -1467,9 +1467,7 @@ procedure TfManageDocFrame.DoAOpen(Data: PtrInt);
 var
   aRefThread: TImportCheckThread;
 begin
-  ThumbControl1.OnLoadFile:=@ThumbControl1LoadFile;
   aRefThread := TImportCheckThread.Create(Self);
-  acRefresh.Execute;
 end;
 
 procedure TfManageDocFrame.FetchNext;
@@ -1625,6 +1623,7 @@ begin
   SelectedItem:=nil;
   if BaseApplication.HasOption('disablethreads') then
     ThumbControl1.MultiThreaded:=False;
+  ThumbControl1.OnLoadFile:=@ThumbControl1LoadFile;
   ThumbControl1.BorderStyle:=bsNone;
   DataSet := TDocPagesList.Create(nil);
   FTempPath := uthumbnails.GetThumbTempDir;

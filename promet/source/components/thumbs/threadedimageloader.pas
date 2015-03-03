@@ -285,40 +285,6 @@ begin
 end;
 
 
-//procedure TThreadedImage.CreateSelectedBitmap;
-//var
-//  i: Integer;
-//  PixelPtr,pri: PInteger;
-//  RawImage,ri: TRawImage;
-//  BytePerPixel: Integer;
-//begin
-//  // SelectedBitmap erstellen
-//  if Assigned(FBitmap) then begin
-//    if not Assigned(FBitmapSelected) then FBitmapSelected := TBitmap.Create;
-//    FBitmapSelected.Width:=FBitmap.Width;
-//    FBitmapSelected.Height:=FBitmap.Height;
-//    FBitmapSelected.PixelFormat:=FBitmap.PixelFormat;
-//
-//    try
-//      FBitmapSelected.BeginUpdate(False);
-//      ri:=FBitmap.RawImage;
-//      RawImage:=FBitmapSelected.RawImage;
-//      BytePerPixel:=RawImage.Description.BitsPerPixel div 8;
-//      if BytePerPixel=4 then begin;
-//        pri:=Pinteger(ri.Data);
-//        PixelPtr:=PInteger(RawImage.Data);
-//        for i := 0 to (RawImage.Description.Height*RawImage.Description.Width)-1 do begin
-//          PixelPtr^:=(pri^ and fSelectMask);
-//          inc(PixelPtr);
-//          inc(pri);
-//        end;
-//      end;
-//    finally
-//      FBitmapSelected.EndUpdate(False);
-//    end;
-// end;
-//end;
-
 function TThreadedImage.GetRect: TRect;
 begin
   fRect.Right := fRect.Left + fWidth;
