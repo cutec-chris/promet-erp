@@ -470,6 +470,7 @@ begin
   FMaxThreads := 8;
   FThreadsFree := FMaxThreads;
   fSelectColor:=$ffbfbf;
+  FActiveIndex:=-1;
 end;
 
 destructor TImageLoaderManager.Destroy;
