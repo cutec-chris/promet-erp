@@ -67,7 +67,7 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uDocuments,LCLProc,wikitohtml,uBaseDbClasses,uBaseApplication;
+uses uDocuments,LCLProc,wikitohtml,uBaseDbClasses,uBaseApplication,synautil;
 resourcestring
   strMessagenotDownloaded       = 'Die Naricht wurde aus Sicherheitsgründen nicht heruntergeladen !';
   strOpenToViewItem             = 'Bitte klicken Sie doppelt auf diesen Eintrag um ihn anzuzeigen';
@@ -175,12 +175,25 @@ begin
   ipHTMLContent.CopyToClipboard;
 end;
 procedure TfViewMessage.ipHTMLContentHotClick(Sender: TObject);
+var
+  Prot: string;
+  User: string;
+  Pass: string;
+  Host: string;
+  Port: string;
+  Path: string;
+  Para: string;
+  nUrl: String;
 begin
   if ipHTMLContent.HotNode is TIpHtmlNodeA then
     begin
       Application.ProcessMessages;
-      debugln(TIpHtmlNodeA(IpHtmlContent.HotNode).HRef);
-      OpenURL(TIpHtmlNodeA(IpHtmlContent.HotNode).HRef);
+      nUrl := TIpHtmlNodeA(IpHtmlContent.HotNode).HRef;
+      ParseURL(nUrl,Prot,User,Pass,Host,Port,Path,Para);
+      nUrl := Prot+'://'+Host;
+      nUrl := nUrl+':'+Port;
+      nUrl := nUrl+Path+Para;
+      OpenURL(nUrl);
       Application.ProcessMessages;
     end;
 end;

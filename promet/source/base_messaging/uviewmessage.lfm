@@ -35,8 +35,8 @@ object fViewMessage: TfViewMessage
     Height = 310
     Top = 0
     Width = 569
-    HorzScrollBar.Page = 567
-    VertScrollBar.Page = 308
+    HorzScrollBar.Page = 90
+    VertScrollBar.Page = 306
     Align = alClient
     ClientHeight = 308
     ClientWidth = 567
