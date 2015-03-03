@@ -76,8 +76,9 @@ begin
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
-        Data := TBlockSerial(Ports[i]).RecvBlock(100);
-        Result := PChar(Data);
+        SetLength(Data,Count);
+        TBlockSerial(Ports[i]).RecvBuffer(@Data[1],Count);
+        Result := @Data[1];
         exit;
       end;
 end;
@@ -130,14 +131,14 @@ begin
       end;
 end;
 
-function SerWrite(Handle: LongInt; Data : string): LongInt;
+function SerWrite(Handle: LongInt; Data : PChar;Len : Integer): LongInt;
 var
   i: Integer;
 begin
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
-        TBlockSerial(Ports[i]).SendBlock(Data);
+        TBlockSerial(Ports[i]).SendBuffer(Data,Len);
         Result := length(Data);
         exit;
       end;
@@ -161,7 +162,7 @@ begin
        +#10+'procedure SerClose(Handle: LongInt);'
        +#10+'procedure SerFlush(Handle: LongInt);'
        +#10+'function SerRead(Handle: LongInt; Count: LongInt): PChar;'
-       +#10+'function SerWrite(Handle: LongInt; Data : string): LongInt;'
+       +#10+'function SerWrite(Handle: LongInt; Data : PChar;Len : Integer): LongInt;'
        +#10+'procedure SerParams(Handle: LongInt; BitsPerSec: LongInt; ByteSize: Integer; Parity: TParityType; StopBits: Integer);'
        +#10+'function SerGetCTS(Handle: LongInt) : Boolean;'
        +#10+'function SerGetDSR(Handle: LongInt) : Boolean;'
