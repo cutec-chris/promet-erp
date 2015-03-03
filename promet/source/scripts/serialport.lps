@@ -8,10 +8,9 @@
       <Unit0>
         <Filename Value="serialport.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="serialport"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="81"/>
-        <CursorPos X="7" Y="102"/>
+        <TopLine Value="150"/>
+        <CursorPos X="13" Y="183"/>
         <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -149,12 +148,13 @@
         <Filename Value="..\components\synapse\synaser.pas"/>
         <UnitName Value="synaser"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="52"/>
+        <TopLine Value="626"/>
+        <CursorPos X="20" Y="321"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit19>
     </Units>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="serial_win.pp"/>
         <Caret Line="17" Column="22"/>
@@ -163,6 +163,34 @@
         <Filename Value="serial_osx.pp"/>
         <Caret Line="17" Column="23"/>
       </Position2>
+      <Position3>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="6" Column="23"/>
+      </Position3>
+      <Position4>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="120" Column="54" TopLine="101"/>
+      </Position4>
+      <Position5>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="89" Column="7" TopLine="68"/>
+      </Position5>
+      <Position6>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="101" Column="7" TopLine="80"/>
+      </Position6>
+      <Position7>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="113" Column="7" TopLine="92"/>
+      </Position7>
+      <Position8>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="126" Column="9" TopLine="97"/>
+      </Position8>
+      <Position9>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="121" Column="53" TopLine="102"/>
+      </Position9>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

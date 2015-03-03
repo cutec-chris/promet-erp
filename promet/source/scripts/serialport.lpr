@@ -82,6 +82,54 @@ begin
       end;
 end;
 
+function SerGetCTS(Handle: LongInt) : Boolean;
+var
+  i: Integer;
+begin
+  for i := 0 to Ports.Count-1 do
+    if TBlockSerial(Ports[i]).Handle=Handle then
+      begin
+        Result := TBlockSerial(Ports[i]).CTS;
+        exit;
+      end;
+end;
+
+function SerGetDSR(Handle: LongInt) : Boolean;
+var
+  i: Integer;
+begin
+  for i := 0 to Ports.Count-1 do
+    if TBlockSerial(Ports[i]).Handle=Handle then
+      begin
+        Result := TBlockSerial(Ports[i]).DSR;
+        exit;
+      end;
+end;
+
+procedure SerSetRTS(Handle: LongInt;Value : Boolean);
+var
+  i: Integer;
+begin
+  for i := 0 to Ports.Count-1 do
+    if TBlockSerial(Ports[i]).Handle=Handle then
+      begin
+        TBlockSerial(Ports[i]).RTS := Value;
+        exit;
+      end;
+end;
+
+procedure SerSetDTR(Handle: LongInt;Value : Boolean);
+var
+  i: Integer;
+begin
+  for i := 0 to Ports.Count-1 do
+    if TBlockSerial(Ports[i]).Handle=Handle then
+      begin
+        TBlockSerial(Ports[i]).DTR := Value;
+        exit;
+      end;
+end;
+
 function SerWrite(Handle: LongInt; Data : string): LongInt;
 var
   i: Integer;
@@ -115,6 +163,10 @@ begin
        +#10+'function SerRead(Handle: LongInt; Count: LongInt): PChar;'
        +#10+'function SerWrite(Handle: LongInt; Data : string): LongInt;'
        +#10+'procedure SerParams(Handle: LongInt; BitsPerSec: LongInt; ByteSize: Integer; Parity: TParityType; StopBits: Integer);'
+       +#10+'function SerGetCTS(Handle: LongInt) : Boolean;'
+       +#10+'function SerGetDSR(Handle: LongInt) : Boolean;'
+       +#10+'procedure SerSetRTS(Handle: LongInt;Value : Boolean);'
+       +#10+'procedure SerSetDTR(Handle: LongInt;Value : Boolean);'
             ;
 end;
 
@@ -125,6 +177,10 @@ exports
   SerRead,
   SerWrite,
   SerParams,
+  SerGetCTS,
+  SerGetDSR,
+  SerSetRTS,
+  SerSetDTR,
 
   ScriptDefinition,
   ScriptCleanup;
