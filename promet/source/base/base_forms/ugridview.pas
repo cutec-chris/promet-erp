@@ -111,6 +111,8 @@ type
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     miExport: TMenuItem;
     miImport: TMenuItem;
     miOpen: TMenuItem;

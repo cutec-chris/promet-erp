@@ -48,6 +48,8 @@ type
     acInformwithexternMail: TAction;
     acInformwithinternMail: TAction;
     acDelete: TAction;
+    acChangeRows: TAction;
+    acResetFilter: TAction;
     ActionList: TActionList;
     bEditFilter: TSpeedButton;
     bEditFilter1: TSpeedButton;
@@ -63,6 +65,8 @@ type
     cbMaxResults: TCheckBox;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem6: TMenuItem;
     miAdmin: TMenuItem;
     MenuItem5: TMenuItem;
     pBottom: TPanel;
@@ -71,6 +75,7 @@ type
     List: TDatasource;
     eFilterEdit: TSynMemo;
     LinkSaveDialog: TSaveDialog;
+    pmHeader: TPopupMenu;
     sbSave1: TSpeedButton;
     sbSave2: TSpeedButton;
     SynSQLSyn1: TSynSQLSyn;
@@ -116,6 +121,7 @@ type
     tbMenue1: TToolButton;
     tbToolBar: TToolBar;
     ToolBar: TToolBar;
+    procedure acChangeRowsExecute(Sender: TObject);
     procedure acCopyFilterLinkExecute(Sender: TObject);
     procedure acCopyLinkExecute(Sender: TObject);
     procedure acDefaultFilterExecute(Sender: TObject);
@@ -127,6 +133,7 @@ type
     procedure acInformwithexternMailExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
+    procedure acResetFilterExecute(Sender: TObject);
     procedure acSaveFilterExecute(Sender: TObject);
     procedure acFilterRightsExecute(Sender: TObject);
     procedure acSaveLinkExecute(Sender: TObject);
@@ -680,14 +687,6 @@ procedure TfFilter.gHeaderSetEditText(Sender: TObject; ACol, ARow: Integer;
 begin
   FAutoFilter := BuildAutoFilter(gList,gHeader);
 end;
-procedure TfFilter.bEditRowsClick(Sender: TObject);
-begin
-  fRowEditor.Execute     ('FILTER'+FFilterType,List,gList,cbFilter.Text);
-  fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
-  SetupHeader;
-  UpdateTitle;
-end;
-
 procedure TfFilter.bFilterKeyPress(Sender: TObject; var Key: char);
 begin
   if Key=#13 then
@@ -769,6 +768,11 @@ begin
     end;
 end;
 
+procedure TfFilter.bEditRowsClick(Sender: TObject);
+begin
+
+end;
+
 procedure TfFilter.acDeleteFilterExecute(Sender: TObject);
 begin
   with Application as IBaseDbInterface do
@@ -823,6 +827,14 @@ begin
       Clipboard.AddFormat(LinkClipboardFormat,Stream);
       Stream.Free;
     end;
+end;
+
+procedure TfFilter.acChangeRowsExecute(Sender: TObject);
+begin
+  fRowEditor.Execute     ('FILTER'+FFilterType,List,gList,cbFilter.Text);
+  fRowEditor.GetGridSizes('FILTER'+FFilterType,List,gList,FDefaultRows,not FEditable,cbFilter.Text);
+  SetupHeader;
+  UpdateTitle;
 end;
 
 procedure TfFilter.acDefaultFilterExecute(Sender: TObject);
@@ -1058,6 +1070,12 @@ begin
   fSelectReport.Execute;
   List.DataSet.EnableControls;
 end;
+
+procedure TfFilter.acResetFilterExecute(Sender: TObject);
+begin
+  ClearFilters;
+end;
+
 procedure TfFilter.cbFilterSelect(Sender: TObject);
 var
   aControl: TControl;
