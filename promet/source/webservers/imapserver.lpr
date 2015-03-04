@@ -33,7 +33,6 @@ type
 
   TPrometMailBox = class(TImapMailbox)
   private
-    FTreeEntry : string;
     FParent : Variant;
     Folder : TMessageList;
     FHighestUID : LongInt;
@@ -285,14 +284,14 @@ function TPrometMailBox.GetMessage(UID: LongInt): TMimeMess;
 var
   aMessage: TMimeMessage;
 begin
-  DBCS.Enter;
+  //DBCS.Enter;
   aMessage := TMimeMessage.Create(nil);
   aMessage.SelectByGrpID(UID,FParent);
   aMessage.Open;
   Result := aMessage.EncodeMessage;
   Result.EncodeMessage;
   aMessage.Free;
-  DBCS.Free;
+  //DBCS.Free;
 end;
 
 function TPrometMailBox.CopyMessage(MsgSet: TMessageSet;
@@ -371,7 +370,7 @@ begin
         aMsg.Header.MessageID := aID;
       end;
     aMessage := TMimeMessage.Create(nil);
-    amessage.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(aMsg.Header.MessageID)+' and '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FTreeEntry));
+    amessage.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(aMsg.Header.MessageID)+' and '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FParent));
     if aMessage.Count=0 then
       begin
         aMessage.Insert;
@@ -380,7 +379,7 @@ begin
         aMessage.Dataset.FieldByName('TYPE').AsString := 'EMAIL';
         aMessage.Dataset.FieldByName('READ').AsString := 'N';
         aMessage.DecodeMessage(aMsg);
-        aMessage.FieldbyName('TREEENTRY').AsString := FTreeEntry;
+        aMessage.FieldbyName('TREEENTRY').AsVariant := FParent;
         aSubject := SysToUni(amsg.Header.Subject);
         atmp:=SysToUni(getemailaddr(aMsg.Header.From));
         CustomerCont := TPersonContactData.CreateEx(nil);
@@ -734,7 +733,9 @@ procedure TPrometImapServer.DoList(AThread: TSTcpThread; Par: String;
        aMailBoxes : TTree;
   begin
     aMailBoxes := TTree.Create(nil);
+    DbCS.Enter;
     Data.SetFilter(aMailBoxes,'('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B')+') AND '+Data.QuoteField('PARENT')+'='+Data.QuoteValue(IntToStr(aParent)),0,'','ASC',False,True,True);
+    DbCS.Leave;
     aMailBoxes.First;
     while not aMailBoxes.EOF do
       begin

@@ -677,6 +677,7 @@ begin
     exit;
   end;}
   MessageText := CutFirstParam(Par);
+  {
   if MessageText = '' then
   begin
     with BaseApplication as IBaseApplication do
@@ -684,6 +685,7 @@ begin
     SendResTag(AThread,'NO APPEND without message literal!');
     exit;
   end;
+  }
 
   if Assigned(Selected) and (Mailbox = Selected.Path) then
   begin
@@ -1686,7 +1688,7 @@ begin
   FIMAPNCBrain :=False;
   CurrentUserName:='';
   FLocalTimeoutQuitDelay := 100;
-  Timeout:=300;
+  Timeout:=100;
   HierarchyDelimiter := '/';
   InitCriticalSection( CS_THR_IDLE );
   SendNewMessages := false;
