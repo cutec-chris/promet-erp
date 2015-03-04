@@ -156,7 +156,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --port=1043 --server-log --debug"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -251,4 +251,4 @@
       </Item5>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

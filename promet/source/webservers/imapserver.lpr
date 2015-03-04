@@ -285,14 +285,14 @@ function TPrometMailBox.GetMessage(UID: LongInt): TMimeMess;
 var
   aMessage: TMimeMessage;
 begin
-  //DBCS.Enter;
+  DBCS.Enter;
   aMessage := TMimeMessage.Create(nil);
   aMessage.SelectByGrpID(UID,FParent);
   aMessage.Open;
   Result := aMessage.EncodeMessage;
   Result.EncodeMessage;
   aMessage.Free;
-  //DBCS.Free;
+  DBCS.Free;
 end;
 
 function TPrometMailBox.CopyMessage(MsgSet: TMessageSet;
@@ -746,16 +746,9 @@ procedure TPrometImapServer.DoList(AThread: TSTcpThread; Par: String;
           Found := Base + 'Sent'
         else
           Found := Base + Utf8ToAnsi(aMailBoxes.FieldByName('NAME').AsString);
-        if (uppercase(Found) <> 'INBOX') then
-          begin
-            if ExecRegExpr(RegEx, Found ) then
-              SendList( Found );
-            ScanFolders( RegEx, aMailBoxes.FieldByName('SQL_ID').AsVariant, Found + HierarchyDelimiter );
-          end
-        else
-          begin
-            ScanFolders( RegEx, aMailBoxes.FieldByName('SQL_ID').AsVariant, 'INBOX' + HierarchyDelimiter)
-          end;
+        if ExecRegExpr(RegEx, Found ) then
+          SendList( Found );
+        ScanFolders( RegEx, aMailBoxes.FieldByName('SQL_ID').AsVariant, Found + HierarchyDelimiter );
         aMailBoxes.Next;
       end;
     aMailBoxes.Free;
@@ -773,7 +766,6 @@ begin
     end;
   Reference := TrimQuotes( copy( Par, 1, i-1 ) );
   Mailbox   := TrimQuotes( copy( Par, i+1, length(Par) ) );
-
   if not SafeString( Reference ) then
     begin
       SendResTag(AThread, 'BAD reference parameter contains forbidden characters!' );
@@ -809,7 +801,6 @@ begin
           end
         end;
       RegEx := RegEx + '$';
-      if ExecRegExpr(RegEx, 'INBOX' ) then SendList( 'INBOX' );
       ScanFolders( RegEx, 0, '' );
     end;
   if not LSub then
