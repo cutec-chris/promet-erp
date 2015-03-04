@@ -9,8 +9,8 @@
         <Filename Value="serialport.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="62"/>
-        <CursorPos X="20" Y="81"/>
+        <TopLine Value="157"/>
+        <CursorPos X="99" Y="180"/>
         <UsageCount Value="37"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -154,7 +154,7 @@
         <Loaded Value="True"/>
       </Unit19>
     </Units>
-    <JumpHistory Count="21" HistoryIndex="20">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
         <Filename Value="serial_win.pp"/>
         <Caret Line="17" Column="22"/>
@@ -239,6 +239,18 @@
         <Filename Value="serialport.lpr"/>
         <Caret Line="81" Column="26" TopLine="67"/>
       </Position21>
+      <Position22>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="192" Column="17" TopLine="163"/>
+      </Position22>
+      <Position23>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="94" Column="9" TopLine="74"/>
+      </Position23>
+      <Position24>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="179" Column="99" TopLine="157"/>
+      </Position24>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

@@ -1204,6 +1204,7 @@ object fGanttView: TfGanttView
     end
     object acAddSnapshot: TAction
       Caption = 'acAddSnapshot'
+      Hint = 'Snapshot des aktuellen Plans erstellen'#13#10'(nicht angezeigter sondern gespeicherter !)'
       ImageIndex = 59
       OnExecute = acAddSnapshotExecute
     end

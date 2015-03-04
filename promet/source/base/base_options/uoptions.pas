@@ -44,6 +44,7 @@ type
     Splitter1: TSplitter;
     tvMain: TTreeView;
     procedure CancelButtonClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
@@ -64,6 +65,9 @@ var
 implementation
 
 {$R *.lfm}
+
+resourcestring
+  strSaveChanges                = 'sollen Änderungen gesichert werden ?';
 
 { TfOptions }
 
@@ -117,6 +121,24 @@ begin
       aNode := aNode.GetNext;
     end;
 end;
+
+procedure TfOptions.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+var
+  Ask: Boolean = False;
+  aNode: TTreeNode;
+begin
+  aNode := tvMain.Items.GetFirstNode;
+  while Assigned(aNode) do
+    begin
+      if Assigned(aNode.Data) then
+        if TOptionsFrame(aNode.Data).InTransaction then
+          Ask := True;
+      aNode := aNode.GetNext;
+    end;
+  if Ask and (MessageDlg(strSaveChanges,mtInformation,[mbYes,mbNo],0) = mrYes) then
+    OKButtonClick(nil);
+end;
+
 procedure TfOptions.FormCreate(Sender: TObject);
 begin
   FormsList := TList.Create;
