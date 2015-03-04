@@ -1031,7 +1031,10 @@ begin
       ed.CaretXY := CaretXY;
   finally
     Free;
-    ed.SetFocus;
+    try
+      ed.SetFocus;
+    except
+    end;
   end;
 end;
 
