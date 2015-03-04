@@ -168,6 +168,7 @@ type
     function  ExportToXML : string;virtual;
     procedure ImportFromXML(XML : string;OverrideFields : Boolean = False;ReplaceFieldFunc : TReplaceFieldFunc = nil);virtual;
     procedure OpenItem(AccHistory: Boolean=True);virtual;
+    procedure BuildSearchIndexes;virtual;
     procedure CascadicPost; override;
     procedure GenerateThumbnail;virtual;
     property Text : TField read GetText;
@@ -1418,6 +1419,11 @@ begin
     end;
   except
   end;
+end;
+
+procedure TBaseDbList.BuildSearchIndexes;
+begin
+
 end;
 
 procedure TBaseDbList.CascadicPost;
@@ -3234,4 +3240,4 @@ end;
 
 initialization
 end.
-
+

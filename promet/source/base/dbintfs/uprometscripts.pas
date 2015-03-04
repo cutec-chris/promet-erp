@@ -343,6 +343,8 @@ begin
             RegisterProperty('MatchCode','TField',iptR);
             RegisterMethod('function SelectFromLink(aLink : string) : Boolean;');
             RegisterMethod('function SelectFromNumber(aNumber : string) : Boolean;');
+            RegisterMethod('function  ExportToXML : string;');
+            RegisterMethod('procedure ImportFromXML(XML : string;OverrideFields : Boolean);');
           end;
         with Sender.ClassImporter.Add(TBaseDbList) do
           begin
@@ -357,6 +359,8 @@ begin
             RegisterPropertyHelper(@TBaseDbListPropertyStatusR,nil,'STATUS');
             RegisterPropertyHelper(@TBaseDbListPropertyTypR,nil,'TYP');
             RegisterPropertyHelper(@TBaseDbListPropertyMatchCodeR,nil,'MATCHCODE');
+            RegisterVirtualMethod(@TBaseDbList.ImportFromXML,'IMPORTFROMXML');
+            RegisterVirtualMethod(@TBaseDbList.ExportToXML,'EXPORTTOXML');
           end;
         //Object (Element)
         with Sender.Compiler.AddClass(Sender.Compiler.FindClass('TBaseDBList'),TObjects) do
