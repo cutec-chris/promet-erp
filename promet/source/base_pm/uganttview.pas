@@ -45,16 +45,18 @@ type
     acAddHistory: TAction;
     acCalculatefromHere: TAction;
     acMoveTogetherFromHere: TAction;
+    acCalculatePlanWithUsage: TAction;
+    acCalculatePlanWithUsageWithoutDependencies: TAction;
+    acCalculateForward: TAction;
+    acCalculateBackwards: TAction;
+    acRefreshWizard: TAction;
     ActionList1: TActionList;
     bCalculatePlan1: TSpeedButton;
     bCalculatePlanWithUsage: TSpeedButton;
-    bCalculatePlanWithUsagewithoutDepend: TSpeedButton;
     Bevel11: TBevel;
     Bevel12: TBevel;
-    bMakePossible: TSpeedButton;
     bCalculate2: TSpeedButton;
     Bevel10: TBevel;
-    bMoveBack: TSpeedButton;
     bDayView: TSpeedButton;
     Bevel5: TBevel;
     Bevel6: TBevel;
@@ -64,7 +66,6 @@ type
     bMoveTogether: TSpeedButton;
     bSave1: TSpeedButton;
     bShowTasks: TSpeedButton;
-    bMoveFwd: TSpeedButton;
     bShowTasks1: TSpeedButton;
     bHistory: TSpeedButton;
     bToday: TSpeedButton;
@@ -119,6 +120,7 @@ type
     procedure acMakePossibleExecute(Sender: TObject);
     procedure acMoveTogetherFromHereExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
+    procedure acRefreshWizardExecute(Sender: TObject);
     procedure aIntervalChanged(Sender: TObject);
     procedure aIntervalDrawBackground(Sender: TObject; aCanvas: TCanvas;
       aRect: TRect; aStart, aEnd: TDateTime; aDayWidth: Double;
@@ -176,6 +178,7 @@ type
     FSelectedInterval: TInterval;
     FIntervals : TList;
     FManualStarted : Boolean;
+    FReasonText : string;
     function FindInterval(aParent: TInterval; aId: Variant): TInterval;
     function IntervalById(Id: Variant; Root: TInterval=nil): TInterval;
     procedure UpdateDependencies(aInt : TInterval);
@@ -204,7 +207,7 @@ var
 implementation
 uses uData,LCLIntf,uTaskEdit,variants,LCLProc,uTaskPlan,
   uIntfStrConsts,uColors,uBaseDBInterface,Grids,uLogWait,uWiki,
-  uBaseApplication,uhistoryadditem;
+  uBaseApplication,uhistoryadditem,uRefreshWizard;
 {$R *.lfm}
 resourcestring
   strSnapshot                             = 'Snapshot';
@@ -697,6 +700,7 @@ procedure TfGanttView.bCalculatePlanClick(Sender: TObject);
 var
   i : Integer;
 begin
+  FReasonText:='';
   Screen.Cursor := crHourGlass;
   for i := 0 to FGantt.IntervalCount-1 do
     MoveForwardCalc(FGantt.Interval[i]);
@@ -831,10 +835,11 @@ procedure TfGanttView.bMoveBack1Click(Sender: TObject);
 var
   i : Integer;
 begin
+  FReasonText:='';
   Screen.Cursor := crHourGlass;
   for i := 0 to FGantt.IntervalCount-1 do
     MoveTogether(FGantt.Interval[i],FGantt.Interval[i].StartDate);
-  bMoveFwd.Click;
+  acCalculateForward.Execute;
   Screen.Cursor := crDefault;
 end;
 procedure TfGanttView.bMoveBackClick(Sender: TObject);
@@ -1194,7 +1199,7 @@ var
 begin
   for i := 0 to FGantt.IntervalCount-1 do
     DoMove(FGantt.Interval[i]);
-  bMoveFwd.Click;
+  acCalculateForward.Execute;
 end;
 
 procedure TfGanttView.acMoveTogetherFromHereExecute(Sender: TObject);
@@ -1274,6 +1279,23 @@ begin
         end;
     end;
 end;
+
+procedure TfGanttView.acRefreshWizardExecute(Sender: TObject);
+begin
+  if fRefreshWizard.Execute then
+    begin
+      FReasonText:=fRefreshWizard.mReason.Lines.Text;
+      if fRefreshWizard.rbPlan1.Checked then
+        acCalculatePlanWithUsage.Execute
+      else if fRefreshWizard.rbPlan2.Checked then
+        acCalculatePlanWithUsageWithoutDependencies.Execute
+      else if fRefreshWizard.rbPlan3.Checked then
+        acCalculateForward.Execute
+      else if fRefreshWizard.rbPlan4.Checked then
+        acMakePossible.Execute;
+    end;
+end;
+
 procedure TfGanttView.bMonthViewClick(Sender: TObject);
 begin
   FGantt.MinorScale:=tsDay;
@@ -1661,8 +1683,7 @@ var
       begin
         if aParent.Interval[i].Changed then
           begin
-            if ChangeTask(FProject.Tasks,aParent.Interval[i],aChangeMilestones) then
-              ;//fHistoryAddItem.ExecuteUnmodal(FProject);
+            ChangeTask(FProject.Tasks,aParent.Interval[i],aChangeMilestones,FReasonText);
           end;
         if aParent.Interval[i].StartDate<aStart then
           aStart:=aParent.Interval[i].StartDate;
@@ -1913,6 +1934,7 @@ begin
       Application.CreateForm(TfGanttView,fGanttView);
       Self := fGanttView;
     end;
+  FReasonText:='';
   FResourcesRead := False;
   FProject := aproject;
   FTasks := aProject.Tasks;

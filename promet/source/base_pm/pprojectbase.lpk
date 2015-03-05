@@ -2,13 +2,14 @@
 <CONFIG>
   <Package Version="4">
     <Name Value="pProjectbase"/>
+    <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="25">
+    <Files Count="26">
       <Item1>
         <Filename Value="gsGantt.res"/>
         <Type Value="Binary"/>
@@ -109,8 +110,11 @@
         <Filename Value="utasks.lrs"/>
         <Type Value="LRS"/>
       </Item25>
+      <Item26>
+        <Filename Value="urefreshwizard.pas"/>
+        <UnitName Value="urefreshwizard"/>
+      </Item26>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="pcalendar"/>
