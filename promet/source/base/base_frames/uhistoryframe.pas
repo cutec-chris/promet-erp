@@ -33,11 +33,13 @@ type
     acAddLinked: TAction;
     acIgnore: TAction;
     acRefresh: TAction;
+    acShowAll: TAction;
     ActionList1: TActionList;
     Bevel1: TBevel;
     Bevel2: TBevel;
     Bevel3: TBevel;
     bRefresh1: TSpeedButton;
+    bRefresh2: TSpeedButton;
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel2: TExtRotatedLabel;
     ExtRotatedLabel3: TExtRotatedLabel;
@@ -57,6 +59,7 @@ type
     procedure acDeleteExecute(Sender: TObject);
     procedure acIgnoreExecute(Sender: TObject);
     procedure acRefreshExecute(Sender: TObject);
+    procedure acShowAllExecute(Sender: TObject);
     function FContListDrawColumnCell(Sender: TObject; const aRect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState) : Boolean;
     procedure FContListViewDetails(Sender: TObject);
@@ -399,6 +402,11 @@ end;
 procedure TfHistoryFrame.acRefreshExecute(Sender: TObject);
 begin
   FTimeLine.Refresh(True);
+end;
+
+procedure TfHistoryFrame.acShowAllExecute(Sender: TObject);
+begin
+  FDataSet.ActualLimit:=0;
 end;
 
 procedure TfHistoryFrame.FContListViewDetails(Sender: TObject);

@@ -63,6 +63,9 @@ type
     MailBoxes : TTree;
     DbCS : TCriticalSection;
     function GotoMailBox(MailBox : string) : Boolean;
+  protected
+    procedure DoClientCreate(AThread: TSTcpThread); override;
+    procedure DoClientDestroy(ASender: TObject); override;
   public
     function  MBSelect(AThread: TSTcpThread; Mailbox: string; aReadOnly : Boolean ): boolean; override;
     function MBGet(AThread: TSTcpThread; Mailbox: string): TImapMailbox; override;
@@ -514,6 +517,18 @@ begin
           result := True;
         end;
     end;
+end;
+
+procedure TPrometImapServer.DoClientCreate(AThread: TSTcpThread);
+begin
+  inherited DoClientCreate(AThread);
+  LogRaw(AThread,'Client created '+IntToStr(AThread.Id));
+end;
+
+procedure TPrometImapServer.DoClientDestroy(ASender: TObject);
+begin
+  LogRaw(TSTcpThread(ASender),'Client destroyed '+IntToStr(TSTcpThread(ASender).Id));
+  inherited DoClientDestroy(ASender);
 end;
 
 function TPrometImapServer.MBSelect(AThread: TSTcpThread; Mailbox: string;

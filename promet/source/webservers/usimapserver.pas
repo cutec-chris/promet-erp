@@ -668,14 +668,13 @@ begin
     Time := DateTimeToUnixTime(ImapDateTimeToDateTime(TimeStr))
   else
     Time := DateTimeToUnixTime(nowGMT);
-  {
   if Par = '' then
   begin
     with BaseApplication as IBaseApplication do
       Warning('IMAP-server - Message missing for APPEND.');
     SendResTag(AThread,'NO APPEND without message literal!');
     exit;
-  end;}
+  end;
   MessageText := CutFirstParam(Par);
   {
   if MessageText = '' then

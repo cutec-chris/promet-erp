@@ -108,9 +108,9 @@ type
     FOnExecute: TSThreadExecuteEvent;
     FVersion: string;
     function CreateListener(const AIP: string; const APort: integer): TSTcpListener;
-    procedure DoClientCreate(AThread: TSTcpThread);
-    procedure DoClientDestroy(ASender: TObject);
   protected
+    procedure DoClientCreate(AThread: TSTcpThread);virtual;
+    procedure DoClientDestroy(ASender: TObject);virtual;
     function GetActive: boolean; override;
     procedure SetActive(const AValue: boolean); override;
     procedure Execute(AThread: TSTcpThread); virtual;
