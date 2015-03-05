@@ -604,7 +604,10 @@ procedure TfHistoryFrame.SetDataSet(const AValue: TBaseDBDataSet);
 begin
   inherited SetDataSet(AValue);
   if not Assigned(FTimeLine) then exit;
+  FTimeLine.BaseFilter:='';
+  FTimeLine.AutoFilter:='';
   FTimeLine.DataSet := AValue;
+  AValue.ActualFilter:='';
   aButtonClick(nil);
 end;
 procedure TfHistoryFrame.SetRights(Editable : Boolean);
