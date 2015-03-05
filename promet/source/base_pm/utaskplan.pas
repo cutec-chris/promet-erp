@@ -475,9 +475,8 @@ begin
             aTasks.History.AddItem(Data.Users.DataSet,aReason,'','',atasks.DataSet,ACICON_USEREDITED,'',True,True);
 
         end;
-      Result := True;
       if Assigned(aTask.Parent) then
-        Result := Result and ChangeTask(aTasks,aTask.Parent,DoChangeMilestones);
+        ChangeTask(aTasks,aTask.Parent,DoChangeMilestones);
     end;
   aTask.Changed:=False;
 end;
