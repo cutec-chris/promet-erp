@@ -171,7 +171,7 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="5">
       <Unit0>
         <Filename Value="imapserver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -191,14 +191,10 @@
         <UnitName Value="usimapsearch"/>
       </Unit3>
       <Unit4>
-        <Filename Value="uSha1.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit4>
-      <Unit5>
         <Filename Value="usimapmailbox.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="usimapmailbox"/>
-      </Unit5>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

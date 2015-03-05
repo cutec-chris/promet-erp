@@ -27,6 +27,8 @@ type
     IdleState: boolean;
     SelNotify : pIMAPNotification;
     FDisableLog : Integer;
+    TmpData : string;
+    LiteralLength : Integer;
 
     function LoginUser(AThread: TSTcpThread;  Password: String; AuthMechanism : String ): String;
 
@@ -112,7 +114,7 @@ type
 
 implementation
 
-uses uBaseApplication,base64;
+uses uBaseApplication,base64,Utils;
 
 resourcestring
   SIMAPWelcomeMessage = 'service ready';
@@ -676,16 +678,13 @@ begin
     exit;
   end;
   MessageText := CutFirstParam(Par);
-  {
   if MessageText = '' then
   begin
     with BaseApplication as IBaseApplication do
       Warning('IMAP-server - Message missing for APPEND.');
-    SendResTag(AThread,'NO APPEND without message literal!');
+    SendResTag(AThread,'NO APPEND without message text!');
     exit;
   end;
-  }
-
   if Assigned(Selected) and (Mailbox = Selected.Path) then
   begin
     SendResTag(AThread, Selected.AppendMessage(AThread,MessageText, Flags, Time));
@@ -1626,20 +1625,45 @@ end;
 function TSImapServer.HandleData(AThread: TSTcpThread; BufInStrm: string
   ): String;
 var  i: Integer;
+  tmp: String;
 begin
    Result := 'BAD Command failed (unknown reason, see logfile)';
    i := Pos( ' ', BufInStrm );
-   CurrentTag := Copy( BufInStrm, 1, i-1 );
-   System.Delete( BufInStrm, 1, i );
 
-   if trim(CurrentTag)='' then begin //HSR //TAG-Miss
-     CurrentTag := BufInStrm;
-     System.Delete( BufInStrm, 1, length(CurrentTag) );
-     Result := 'BAD Command failed (missing TAG)'
-   end else begin
-     HandleCommand(AThread, BufInStrm );
-     Result := ''
-   end;
+   if (LiteralLength>0) or (copy(BufInStrm,length(BufInStrm),1)='}') then
+     begin
+       TmpData := TmpData+CRLF+BufInStrm;
+       LiteralLength:=LiteralLength-(length(BufInStrm)+2);
+       if (copy(BufInStrm,length(BufInStrm),1)='}') then
+         begin
+           tmp := copy(BufInStrm,rpos('{',BufInStrm)+1,length(BufInStrm));
+           tmp := copy(tmp,0,length(tmp)-1);
+           LiteralLength := StrToInt(tmp);
+           SendData(AThread, '+ Ready to receive' + CRLF );
+         end;
+       if (LiteralLength<=0) then
+         begin
+           TmpData := copy(TmpData,3,length(TmpData));
+           Result := HandleData(AThread,TmpData);
+           TmpData:='';
+           LiteralLength:=0;
+         end;
+     end
+   else
+     begin
+       CurrentTag := Copy( BufInStrm, 1, i-1 );
+       System.Delete( BufInStrm, 1, i );
+
+       if trim(CurrentTag)='' then begin //HSR //TAG-Miss
+         CurrentTag := BufInStrm;
+         System.Delete( BufInStrm, 1, length(CurrentTag) );
+         Result := 'BAD Command failed (missing TAG)'
+       end else begin
+         TmpData := '';
+         HandleCommand(AThread, BufInStrm );
+         Result := ''
+       end;
+     end;
    SetLength( BufInStrm, 0 );
 end;
 
@@ -1682,6 +1706,7 @@ constructor TSImapServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FIMAPDelay:=0;
+  LiteralLength:=0;
   FDisableLog:=0;
   FUseIMAPID:=True;
   FIMAPNCBrain :=False;
