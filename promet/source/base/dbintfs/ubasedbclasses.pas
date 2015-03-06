@@ -925,6 +925,8 @@ var
 begin
   aLinkDesc := Data.GetLinkDesc(aLink);
   aIcon := Data.GetLinkIcon(aLink);
+  if not Active then  Open;
+  if Locate('LINK',aLink,[]) then exit;
   Append;
   with DataSet do
     begin
