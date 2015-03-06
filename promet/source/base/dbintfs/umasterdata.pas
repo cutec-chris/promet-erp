@@ -853,6 +853,12 @@ begin
       finally
         bMasterdata.Free;
       end;
+    end
+  else
+    begin
+      Edit;
+      FieldByName('ACTIVE').AsString:='N';
+      Post;
     end;
 end;
 

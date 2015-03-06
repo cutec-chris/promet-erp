@@ -362,7 +362,6 @@
         <ComponentName Value="fScriptFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uscriptframe"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -517,7 +516,6 @@
         <ComponentName Value="fCopyArticleData"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uCopyArticleData"/>
       </Unit33>
       <Unit34>
         <Filename Value="ufindtransaction.pas"/>
@@ -610,7 +608,6 @@
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fVersionate"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uArticleVersion"/>
       </Unit47>
     </Units>
   </ProjectOptions>

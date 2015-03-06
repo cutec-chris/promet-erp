@@ -34,6 +34,7 @@ type
     acCopyToClipboard: TAction;
     acDelete: TAction;
     acAddLinks: TAction;
+    acEditVersion: TAction;
     ActionList1: TActionList;
     Bevel1: TBevel;
     Datasource: TDatasource;
@@ -43,6 +44,7 @@ type
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
     miOpen: TMenuItem;
     pToolbar: TPanel;
     Panel2: TPanel;
@@ -55,6 +57,7 @@ type
     procedure acAddLinksExecute(Sender: TObject);
     procedure acCopyToClipboardExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
+    procedure acEditVersionExecute(Sender: TObject);
     procedure acPasteLinksExecute(Sender: TObject);
     procedure FContListDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure FContListDragOver(Sender, Source: TObject; X, Y: Integer;
@@ -92,6 +95,7 @@ resourcestring
   strEntryNotFound                = 'Eintrag konnte nicht gefundne werden !';
   strAddEntryToLinkedItem         = 'Soll der zu verlinkende Eintrag auch einen Link auf diesen Eintrag erhalten ?';
   strDeleteBack                   = 'Es existieren Links von den verlinkten Objekten zurück auf dieses Objekt, sollen diese auch gelöscht werden ?';
+  strLinkNotValid                 = 'Der Verweis zeigt auf eine ungültige Artikelversion, soll die Version angelegt werden ?';
 procedure TfLinkFrame.FContListDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
@@ -335,6 +339,110 @@ begin
               gList.DataSource.DataSet.Delete;
             end;
       end;
+end;
+
+procedure TfLinkFrame.acEditVersionExecute(Sender: TObject);
+var
+  aNew: String;
+  i: Integer;
+
+  procedure ChangeLink;
+  var
+    aLink: String;
+    cLink: String;
+    aMasterdata: TMasterdata;
+    ActOK : Boolean = False;
+    bLink: String;
+    LinkToMe: String;
+    aDS: TBaseDbList;
+    aClass: TBaseDBDatasetClass;
+    aLinks: TLinks;
+  begin
+    LinkToMe := Data.BuildLink(DataSet.Parent.DataSet);
+    aLink := Datasource.DataSet.FieldByName('LINK').AsString;
+    if copy(aLink,0,11)='MASTERDATA@' then
+      begin
+        //Verweis auf uns im alten Artikel löschen
+        if Data.ListDataSetFromLink(aLink,aClass) then
+          begin
+            aDS := TBaseDbList(aClass.Create(nil));
+          end;
+        if Assigned(aDS) then
+          begin
+            tBaseDbList(aDS).SelectFromLink(aLink);
+            aDS.Open;
+            if aDS.Count>0 then
+              begin
+                aLinks := TLinks.Create(nil);
+                aLinks.Filter(Data.QuoteField('RREF_ID')+'='+Data.QuoteValue(aDS.Id.AsString));
+                if aLinks.Locate('LINK',LinkToMe,[]) then
+                  begin
+                    while aLinks.Locate('LINK',LinkToMe,[]) do
+                      aLinks.Delete;
+                  end;
+                aLinks.Free;
+              end;
+          end;
+        //Verweis auf neuen Artikel erstellen / Artikelversion anlegen
+        cLink := aLink;
+        bLink := copy(cLink,0,pos('&&',cLink)-1);
+        cLink := copy(cLink,pos('&&',cLink)+2,length(cLink));
+        cLink := copy(cLink,pos('&&',cLink)+2,length(cLink));
+        bLink := bLink+'&&'+aNew+'&&'+cLink;
+        aMasterdata := TMasterdata.Create(nil);
+        aMasterdata.SelectFromLink(bLink);
+        aMasterdata.Open;
+        if aMasterdata.Count=0 then
+          begin
+            if (MessageDlg(strLinks,strItem+' '+Data.GetLinkDesc(aLink)+' '+strLinkNotValid,mtConfirmation,[mbYes,mbNo],0) = mrYes) then
+              begin
+                aMasterdata.SelectFromLink(aLink);
+                aMasterdata.Open;
+                aMasterdata.Versionate(aNew,True);
+                ActOK:=true;
+              end;
+          end
+        else
+          ActOK:=true;
+        if ActOK then
+          begin
+            Datasource.DataSet.Edit;
+            Datasource.DataSet.FieldByName('LINK').AsString:=bLink;
+            Datasource.DataSet.FieldByName('NAME').AsString:=Data.GetLinkDesc(bLink);
+            Datasource.DataSet.Post;
+            //Verweis auf uns in neuer Artikelversion anlegen
+            aMasterdata.SelectFromLink(bLink);
+            aMasterdata.Open;
+            if aMasterdata.Count>0 then
+              begin
+                aMasterdata.Links.Open;
+                aMasterdata.Links.Add(LinkToMe);
+              end;
+          end;
+        aMasterdata.Free;
+      end;
+  end;
+
+begin
+  if InputQuery(strVersion,strVersion,aNew) then
+    begin
+      with FContList do
+        begin
+          if gList.SelectedRows.Count > 0 then
+            begin
+              for i := 0 to gList.SelectedRows.Count-1 do
+                begin
+                  gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
+                  with Application as IBaseDbInterface do
+                    ChangeLink;
+                end;
+              gList.SelectedRows.Clear;
+            end
+          else
+            with Application as IBaseDbInterface do
+              ChangeLink;
+        end;
+    end;
 end;
 
 procedure TfLinkFrame.FContListDragDrop(Sender, Source: TObject; X, Y: Integer);
