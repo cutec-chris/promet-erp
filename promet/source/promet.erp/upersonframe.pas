@@ -1090,7 +1090,7 @@ begin
   if not TPerson(DataSet).Images.DataSet.Active then
     TPerson(DataSet).Images.DataSet.Open;
   pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
-  if (FDataSet.State = dsInsert) or (TPerson(DataSet).Images.Count > 0) then
+  if (TPerson(DataSet).Images.Count > 0) then
     pcPages.AddTab(TfImageFrame.Create(Self),False);
   TPerson(DataSet).Images.DataSet.Close;
   aThumbnails := TThumbnails.Create(nil);
