@@ -759,6 +759,11 @@ object fMain: TfMain
       ImageIndex = 88
       OnExecute = acNewScriptExecute
     end
+    object acMasterdataVersionate: TAction
+      Caption = 'Artikel versionieren'
+      ImageIndex = 23
+      OnExecute = acMasterdataVersionateExecute
+    end
   end
   object ApplicationProperties1: TApplicationProperties
     ShowMenuGlyphs = sbgSystem

@@ -43,6 +43,7 @@ type
     acPasteImage: TAction;
     acAddImage: TAction;
     acScreenshot: TAction;
+    acNew: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bChangeNumber: TSpeedButton;
@@ -174,7 +175,9 @@ type
     { public declarations }
     constructor Create(AOwner: TComponent); override;
     destructor Destroy;override;
+    function CanHandleLink(aLink : string) : Boolean;override;
     function OpenFromLink(aLink : string) : Boolean;override;
+    procedure ListFrameAdded(aFrame: TObject); override;
     procedure New;override;
     procedure SetLanguage;override;
   end;
@@ -962,9 +965,16 @@ begin
     end;
   inherited Destroy;
 end;
+
+function TfArticleFrame.CanHandleLink(aLink: string): Boolean;
+begin
+  Result := copy(aLink,0,10)='MASTERDATA';
+end;
+
 function TfArticleFrame.OpenFromLink(aLink: string) : Boolean;
 begin
   inherited;
+  if not CanHandleLink(aLink) then exit;
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
@@ -974,9 +984,27 @@ begin
   DataSet.OnChange:=@MasterdataStateChange;
   TBaseDbList(DataSet).SelectFromLink(aLink);
   Dataset.Open;
-  DoOpen;
-  Result := True;
+  Result := DataSet.Count>0;
+  if Result then
+    DoOpen;
 end;
+
+procedure TfArticleFrame.ListFrameAdded(aFrame: TObject);
+begin
+  with aFrame as TfFilter do
+    begin
+      TabCaption := strArticleList;
+      FilterType:='M';
+      DefaultRows:='GLOBALWIDTH:%;ID:150;VERSION:100;LANGUAGE:60;MATCHCODE:200;SHORTTEXT:400;';
+      Dataset := TMasterdataList.Create(nil);
+      //gList.OnDrawColumnCell:=nil;
+      if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_READ) or (Data.Users.Rights.Right('ARTICLES') > RIGHT_READ) or (Data.Users.Rights.Right('BENEFITS') > RIGHT_READ) or (Data.Users.Rights.Right('PARTSLIST') > RIGHT_READ) then
+        begin
+          AddToolbarAction(NewAction);
+        end;
+    end;
+end;
+
 procedure TfArticleFrame.New;
 begin
   CloseConnection;

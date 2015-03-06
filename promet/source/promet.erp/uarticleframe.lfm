@@ -1111,6 +1111,11 @@ inherited fArticleFrame: TfArticleFrame
       ImageIndex = 108
       OnExecute = acScreenshotExecute
     end
+    object acNew: TAction
+      Caption = 'Neuer Artikel'
+      Hint = 'erstellt einen neuen Artikel'
+      ImageIndex = 88
+    end
   end
   object pmAction: TPopupMenu[6]
     left = 64

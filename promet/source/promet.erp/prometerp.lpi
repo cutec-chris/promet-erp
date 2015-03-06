@@ -279,7 +279,7 @@
         <PackageName Value="LCL"/>
       </Item26>
     </RequiredPackages>
-    <Units Count="47">
+    <Units Count="48">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -516,6 +516,7 @@
         <ComponentName Value="fCopyArticleData"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uCopyArticleData"/>
       </Unit33>
       <Unit34>
         <Filename Value="ufindtransaction.pas"/>
@@ -597,11 +598,19 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticleFrame"/>
       </Unit45>
       <Unit46>
         <Filename Value="uallobjects.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit46>
+      <Unit47>
+        <Filename Value="uarticleversion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fVersionate"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uArticleVersion"/>
+      </Unit47>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

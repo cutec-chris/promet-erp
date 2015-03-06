@@ -86,6 +86,7 @@ type
     acNewObject: TAction;
     acPasswords: TAction;
     acNewScript: TAction;
+    acMasterdataVersionate: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -156,6 +157,7 @@ type
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
     procedure acMasterdataExecute(Sender: TObject);
+    procedure acMasterdataVersionateExecute(Sender: TObject);
     procedure acMeetingsExecute(Sender: TObject);
     procedure acMessagesExecute(Sender: TObject);
     procedure acNewAccountExecute(Sender: TObject);
@@ -331,7 +333,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,lazutf8s
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
   uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts,
   ufinancialoptions,ubookfibuaccount,ucommandline,uobjectframe,uscriptframe,uprometscripts,
-  uPasswords
+  uPasswords,uArticleVersion
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -474,7 +476,10 @@ begin
       Dataset := TMasterdataList.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_READ) or (Data.Users.Rights.Right('ARTICLES') > RIGHT_READ) or (Data.Users.Rights.Right('BENEFITS') > RIGHT_READ) or (Data.Users.Rights.Right('PARTSLIST') > RIGHT_READ) then
-        AddToolbarAction(acNewMasterdata);
+        begin
+          AddToolbarAction(acNewMasterdata);
+          AddContextAction(acMasterdataVersionate);
+        end;
     end;
 end;
 procedure TfMain.AddOrderList(Sender: TObject);
@@ -1790,6 +1795,47 @@ begin
       aFrame.Open;
     end;
 end;
+
+procedure TfMain.acMasterdataVersionateExecute(Sender: TObject);
+var
+  aMasterdata: TMasterdataList;
+  gList: TExtDBGrid;
+  i: Integer;
+
+  procedure Versionate;
+  var
+    bMasterdata: TMasterdata;
+  begin
+    bMasterdata := TMasterdata.Create(nil);
+    bMasterdata.Select(aMasterdata.Id.AsVariant);
+    bMasterdata.Open;
+    if not bMasterdata.Versionate(fVersionate.eVersion.Text,fVersionate.cbActivate.Checked) then ShowMessage(strError);
+    bMasterdata.Free;
+  end;
+
+begin
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfFilter) and (TfFilter(pcPages.ActivePage.Controls[0]).DataSet is TMasterdataList) then
+    begin
+      if fVersionate.Execute then
+        begin
+          aMasterdata := TfFilter(pcPages.ActivePage.Controls[0]).DataSet as TMasterdataList;
+          gList := TfFilter(pcPages.ActivePage.Controls[0]).gList;
+          if gList.SelectedRows.Count > 0 then
+            begin
+              for i := 0 to gList.SelectedRows.Count-1 do
+                begin
+                  gList.DataSource.DataSet.GotoBookmark(Pointer(gList.SelectedRows.Items[i]));
+                  Versionate;
+                end;
+              gList.SelectedRows.Clear;
+            end
+          else
+            with Application as IBaseDbInterface do
+              Versionate;
+        end;
+    end;
+end;
+
 procedure TfMain.acMeetingsExecute(Sender: TObject);
 var
   i: Integer;

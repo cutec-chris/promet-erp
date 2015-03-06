@@ -31,6 +31,8 @@ type
     procedure FwindowClose(Sender: TObject; var CloseAction: TCloseAction);
   private
     FLink: string;
+    FListAction: TAction;
+    FNewAction: TAction;
     FUseTransactions: Boolean;
   protected
     FDataSet: TBaseDBDataSet;
@@ -54,7 +56,7 @@ type
     function CanHandleLink(aLink : string) : Boolean;virtual;abstract;
     function OpenFromLink(aLink : string) : Boolean;virtual;
     procedure New;virtual;
-    function CreateListFrame(aFrame : TFrame) : Boolean;virtual;
+    procedure ListFrameAdded(aFrame : TObject);virtual;abstract;//Configure your List/Filter Frame
     function HasListFrame : Boolean;virtual;
 
     property Link : string read FLink;
@@ -67,6 +69,9 @@ type
     procedure AddHelp(aWindow : TWinControl);
     property HelpView : TfQuickHelpFrame read FQuickHelpFrame write FQuickHelpFrame;
     property UseTransactions : Boolean read FUseTransactions write FUseTransactions;
+
+    property NewAction : TAction read FNewAction write FNewAction;
+    property ListAction : TAction read FListAction write FListAction;
   end;
 
   TPrometMenuEntry = class
@@ -191,11 +196,6 @@ begin
     end;
   with Application as IBaseDbInterface do
     FConnection := Data.GetNewConnection;
-end;
-
-function TPrometMainFrame.CreateListFrame(aFrame: TFrame): Boolean;
-begin
-  Result := False;
 end;
 
 function TPrometMainFrame.HasListFrame: Boolean;

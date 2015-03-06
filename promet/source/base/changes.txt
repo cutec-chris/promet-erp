@@ -3,6 +3,7 @@
       - Aufgaben:erfasste Zeiten werden als Zeit dargestellt nicht als Float Wert
       - Projekte:Funktion in Gantt Ansicht um gesamtes projekt mit "Zeitslot finden" zu berechnen dadurch viel bessere Kapazitätsplanung
       - Listen:Popupmenü auf dem Header
+      - Artikel:mehrere Artikel können nun aus der Übersicht heraus gleichzeitig versioniert werden
 Build 393
       - Kontakte:Hinzufügen von Bildern direkt aus Thumbnail heraus
       - Zeiterfassung:Zeiten werden beim abschließen einer Aufgabe in die Aufgabe übernommen

@@ -201,7 +201,7 @@ type
     destructor Destroy;override;
 
     function CanHandleLink(aLink : string): Boolean; override;
-    function CreateListFrame(aFrame: TFrame): Boolean; override;
+    procedure ListFrameAdded(aFrame: TObject); override;
 
     function OpenFromLink(aLink : string) : Boolean;override;
     procedure New;override;
@@ -1176,9 +1176,8 @@ begin
   Result := ((copy(aLink,0,pos('@',aLink)-1) = 'STATISTICS'));
 end;
 
-function TfStatisticFrame.CreateListFrame(aFrame: TFrame): Boolean;
+procedure TfStatisticFrame.ListFrameAdded(aFrame: TObject);
 begin
-  Result:=false;
 end;
 
 function TfStatisticFrame.OpenFromLink(aLink: string) : Boolean;

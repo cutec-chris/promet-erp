@@ -170,6 +170,10 @@ type
                                                                cProperties : Boolean = True;
                                                                cTexts : Boolean = True;
                                                                cSupplier : Boolean = True) : Boolean;
+    function Versionate(aNewversion : Variant;aMakeActive : Boolean = True;cPrices : Boolean = True;
+                                                               cProperties : Boolean = True;
+                                                               cTexts : Boolean = True;
+                                                               cSupplier : Boolean = True) : Boolean;
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;override;
     procedure GenerateThumbnail; override;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
@@ -818,6 +822,40 @@ begin
   DataSet.Edit;
   Change;
 end;
+
+function TMasterdata.Versionate(aNewversion: Variant; aMakeActive: Boolean;
+  cPrices: Boolean; cProperties: Boolean; cTexts: Boolean; cSupplier: Boolean
+  ): Boolean;
+var
+  bMasterdata: TMasterdata;
+begin
+  Result := Copy(aNewversion,FieldByName('LANGUAGE').AsVariant,cPrices,cProperties,cTexts,cSupplier);
+  if aMakeActive then
+    begin
+      bMasterdata := TMasterdata.CreateEx(Self,DataModule,Self.Connection);
+      try
+        try
+          bMasterdata.Select(Number.AsString);
+          bMasterdata.Open;
+          while not bMasterdata.EOF do
+            begin
+              bMasterdata.Edit;
+              if bMasterdata.Id.AsVariant<>Self.Id.AsVariant then
+                bMasterdata.FieldByName('ACTIVE').AsString:='N'
+              else
+                bMasterdata.FieldByName('ACTIVE').AsString:='Y';
+              bMasterdata.Post;
+              bMasterdata.Next;
+            end;
+        except
+          Result := False;
+        end;
+      finally
+        bMasterdata.Free;
+      end;
+    end;
+end;
+
 function TMasterdata.Find(aIdent: string;Unsharp : Boolean = False): Boolean;
 begin
   with DataSet as IBaseDbFilter,BaseApplication as IBaseDbInterface do
