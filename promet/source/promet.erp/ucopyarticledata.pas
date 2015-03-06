@@ -49,7 +49,7 @@ begin
       Application.CreateForm(TfCopyArticleData,fCopyArticleData);
       Self := fCopyArticleData;
     end;
-  cbActivate.Visible:=(aNewLanguage<>Null);
+  cbActivate.Visible:=(aNewLanguage=Null);
   fCopyArticleData.cbCopySupplier.Checked:=False;
   fCopyArticleData.cbCopySupplier.Enabled:=True;
   FMasterdata := aMasterdata;
