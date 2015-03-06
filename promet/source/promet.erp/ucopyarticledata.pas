@@ -29,6 +29,7 @@ type
     cbCopyProperties: TCheckBox;
     cbCopyTexts: TCheckBox;
     cbCopySupplier: TCheckBox;
+    cbActivate: TCheckBox;
     lFeaturesforNewArticleversion: TLabel;
   private
     { private declarations }
@@ -48,12 +49,18 @@ begin
       Application.CreateForm(TfCopyArticleData,fCopyArticleData);
       Self := fCopyArticleData;
     end;
+  cbActivate.Visible:=(aNewLanguage<>Null);
   fCopyArticleData.cbCopySupplier.Checked:=False;
   fCopyArticleData.cbCopySupplier.Enabled:=True;
   FMasterdata := aMasterdata;
   Result := Showmodal = mrOk;
   if Result then
-    Result := FMasterdata.Copy(aNewVersion,aNewLanguage,cbCopyPrices.Checked,cbCopyproperties.Checked,cbCopyTexts.Checked,cbCopySupplier.Checked);
+    begin
+      if aNewLanguage<>Null then
+        Result := FMasterdata.Copy(aNewVersion,aNewLanguage,cbCopyPrices.Checked,cbCopyproperties.Checked,cbCopyTexts.Checked,cbCopySupplier.Checked)
+      else
+        Result := FMasterdata.Versionate(aNewVersion,cbActivate.Checked,cbCopyPrices.Checked,cbCopyproperties.Checked,cbCopyTexts.Checked,cbCopySupplier.Checked)
+    end;
 end;
 initialization
 end.

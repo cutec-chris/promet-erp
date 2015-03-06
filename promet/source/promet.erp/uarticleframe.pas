@@ -329,7 +329,7 @@ begin
     Version := cbVersion.Text;
   if Dataset.FieldByName('VERSION').AsVariant <> Version then
     begin //New Version
-      if not fCopyArticleData.Execute(TMasterdata(DataSet),Version,DataSet.FieldByName('LANGUAGE').AsVariant) then
+      if not fCopyArticleData.Execute(TMasterdata(DataSet),Version,Null) then
         cbVersion.Text := DataSet.FieldByName('VERSION').AsString
       else
         begin

@@ -9,7 +9,7 @@ object fCopyArticleData: TfCopyArticleData
   ClientWidth = 280
   KeyPreview = True
   Position = poMainFormCenter
-  LCLVersion = '1.3'
+  LCLVersion = '1.5'
   object lFeaturesforNewArticleversion: TLabel
     Left = 0
     Height = 26
@@ -25,7 +25,7 @@ object fCopyArticleData: TfCopyArticleData
   object cbCopyPrices: TCheckBox
     Left = 16
     Height = 17
-    Top = 124
+    Top = 108
     Width = 47
     Caption = 'Preise'
     TabOrder = 0
@@ -33,7 +33,7 @@ object fCopyArticleData: TfCopyArticleData
   object cbCopyProperties: TCheckBox
     Left = 16
     Height = 17
-    Top = 98
+    Top = 82
     Width = 86
     Caption = 'Eigenschaften'
     TabOrder = 1
@@ -41,7 +41,7 @@ object fCopyArticleData: TfCopyArticleData
   object cbCopyTexts: TCheckBox
     Left = 16
     Height = 17
-    Top = 72
+    Top = 56
     Width = 46
     Caption = 'Texte'
     TabOrder = 2
@@ -49,7 +49,7 @@ object fCopyArticleData: TfCopyArticleData
   object cbCopySupplier: TCheckBox
     Left = 16
     Height = 17
-    Top = 150
+    Top = 134
     Width = 73
     Caption = 'Lieferanten'
     TabOrder = 3
@@ -69,5 +69,15 @@ object fCopyArticleData: TfCopyArticleData
     CancelButton.DefaultCaption = True
     TabOrder = 4
     ShowButtons = [pbOK, pbCancel]
+  end
+  object cbActivate: TCheckBox
+    Left = 16
+    Height = 17
+    Top = 175
+    Width = 146
+    Caption = 'neue version aktiv machen'
+    Checked = True
+    State = cbChecked
+    TabOrder = 5
   end
 end
