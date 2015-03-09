@@ -405,7 +405,7 @@ type
     constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     procedure Open;override;
     procedure DefineFields(aDataSet : TDataSet);override;
-    procedure Add(aLink : string);
+    function Add(aLink : string) : Boolean;
   end;
   TListEntrys = class(TBaseDBDataSet)
   private
@@ -918,11 +918,12 @@ begin
     end;
 end;
 
-procedure TLinks.Add(aLink: string);
+function TLinks.Add(aLink: string): Boolean;
 var
   aLinkDesc: String;
   aIcon: Integer;
 begin
+  Result := False;
   aLinkDesc := Data.GetLinkDesc(aLink);
   aIcon := Data.GetLinkIcon(aLink);
   if not Active then  Open;
@@ -935,6 +936,7 @@ begin
       FieldByName('ICON').AsInteger := aIcon;
       FieldByName('CHANGEDBY').AsString := Data.Users.Idcode.AsString;
       Post;
+      Result := True;
     end;
 end;
 
