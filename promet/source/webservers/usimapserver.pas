@@ -843,7 +843,7 @@ begin
   //---Standard-CAPAs--------------------------------
   capabilities := 'IMAP4rev1 '
   //  + 'IDLE '
-    + 'LITERAL+ '
+  //  + 'LITERAL+ '
   ;
 
 
@@ -1076,9 +1076,7 @@ begin
   CurrentUsername := CutFirstParam(Par);
   Pass := CutFirstParam(Par);
   if (CurrentUserName = '') or (Pass = '') then
-  begin
-    SendResTag(AThread,'BAD LOGIN without User / Pass!');
-  end
+    SendResTag(AThread,'BAD LOGIN without User / Pass!')
   else
   begin
     SendResTag(AThread,LoginUser(AThread,Pass, ''));
@@ -1634,6 +1632,7 @@ begin
      begin
        TmpData := TmpData+CRLF+BufInStrm;
        LiteralLength:=LiteralLength-(length(BufInStrm)+2);
+       writeln(IntToStr(LiteralLength));
        if (copy(BufInStrm,length(BufInStrm),1)='}') then
          begin
            tmp := copy(BufInStrm,rpos('{',BufInStrm)+1,length(BufInStrm));
