@@ -568,7 +568,17 @@ end;
 function TPrometImapServer.MBCreate(AThread: TSTcpThread; Mailbox: string
   ): boolean;
 begin
-  Result:=False;
+  DbCS.Enter;
+  try
+    MailBoxes.Append;
+    MailBoxes.Text.AsString:=Mailbox;
+    MailBoxes.FieldByName('TYPE').AsString:='N';
+    MailBoxes.Post;
+    Result:=True;
+  except
+    Result:=False;
+  end;
+  DbCS.Leave;
 end;
 
 function TPrometImapServer.MBDelete(AThread: TSTcpThread; Mailbox: string
@@ -836,9 +846,10 @@ begin
     begin
       if not GotoMailBox(Mailbox) then
         begin
-          SendResTag(AThread, 'BAD Mailbox not valid!' )
+          SendResTag(AThread, 'BAD Mailbox not valid!' );
+          exit;
         end;
-      SendResTag(AThread, 'BAD not implemented!' )
+
     end;
 end;
 
@@ -853,7 +864,8 @@ begin
     begin
       if not GotoMailBox(Mailbox) then
         begin
-          SendResTag(AThread, 'BAD Mailbox not valid!' )
+          SendResTag(AThread, 'BAD Mailbox not valid!' );
+          exit;
         end;
       SendResTag(AThread, 'BAD not implemented!' )
     end;

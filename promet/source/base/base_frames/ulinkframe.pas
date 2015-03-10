@@ -578,40 +578,35 @@ begin
       aIcon := Data.GetLinkIcon(aLink);
       with DataSet.DataSet do
         begin
-          Insert;
-          FieldByName('LINK').AsString := aLink;
-          FieldByName('NAME').AsString := aLinkDesc;
-          FieldByName('ICON').AsInteger := aIcon;
-          FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
-          Post;
-          if addToLinked then
-            begin
-              aDS := nil;
-              bLink := Data.BuildLink(DataSet.Parent.DataSet);
-              if Data.ListDataSetFromLink(aLink,aClass) then
-                begin
-                  aDS := aClass.Create(nil);
-                end;
-              if Assigned(aDS) then
-                begin
-                  tBaseDbList(aDS).SelectFromLink(aLink);
-                  aDS.Open;
-                  if aDS.Count>0 then
-                    begin
-                      Insert;
-                      FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
-                      aLinkDesc := Data.GetLinkDesc(bLink);
-                      aIcon := Data.GetLinkIcon(bLink);
-                      FieldByName('LINK').AsString := bLink;
-                      FieldByName('NAME').AsString := aLinkDesc;
-                      FieldByName('ICON').AsInteger := aIcon;
-                      FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
-                      Post;
-                    end;
-                  aDS.Free;
-                  DataSet.DataSet.Refresh;
-                end;
-            end;
+          if TLinks(DataSet).Add(aLink) then
+            if addToLinked then
+              begin
+                aDS := nil;
+                bLink := Data.BuildLink(DataSet.Parent.DataSet);
+                if Data.ListDataSetFromLink(aLink,aClass) then
+                  begin
+                    aDS := aClass.Create(nil);
+                  end;
+                if Assigned(aDS) then
+                  begin
+                    tBaseDbList(aDS).SelectFromLink(aLink);
+                    aDS.Open;
+                    if aDS.Count>0 then
+                      begin
+                        Insert;
+                        FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
+                        aLinkDesc := Data.GetLinkDesc(bLink);
+                        aIcon := Data.GetLinkIcon(bLink);
+                        FieldByName('LINK').AsString := bLink;
+                        FieldByName('NAME').AsString := aLinkDesc;
+                        FieldByName('ICON').AsInteger := aIcon;
+                        FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+                        Post;
+                      end;
+                    aDS.Free;
+                    DataSet.DataSet.Refresh;
+                  end;
+              end;
         end;
     end;
 end;
