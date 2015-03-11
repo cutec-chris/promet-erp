@@ -75,7 +75,6 @@ type
     Panel2: TPanel;
     Panel3: TPanel;
     pDetail: TPanel;
-    HigPascal: TSynPasSyn;
     PopupMenu1: TPopupMenu;
     BreakPointMenu: TMenuItem;
     MainMenu1: TMainMenu;
@@ -105,6 +104,7 @@ type
     N6: TMenuItem;
     Gotolinenumber1: TMenuItem;
     HigSQL: TSynSQLSyn;
+    HigPascal: TSynPasSyn;
     Syntaxcheck1: TMenuItem;
     tmDebug: TTimer;
     ToolBar1: TToolBar;

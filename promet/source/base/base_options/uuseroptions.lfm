@@ -1,8 +1,8 @@
 inherited fUserOptions: TfUserOptions
   Height = 427
-  Width = 531
+  Width = 539
   ClientHeight = 427
-  ClientWidth = 531
+  ClientWidth = 539
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
@@ -12,7 +12,7 @@ inherited fUserOptions: TfUserOptions
     Left = 4
     Height = 411
     Top = 8
-    Width = 217
+    Width = 225
     Anchors = [akTop, akLeft, akRight, akBottom]
     DefaultItemHeight = 16
     DragMode = dmAutomatic
@@ -26,7 +26,7 @@ inherited fUserOptions: TfUserOptions
     Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips]
   end
   object pUser: TPanel[1]
-    Left = 231
+    Left = 239
     Height = 427
     Top = 0
     Width = 300
@@ -557,6 +557,46 @@ inherited fUserOptions: TfUserOptions
       Caption = '...'
       OnClick = SpeedButton1Click
     end
+    object Label1: TLabel
+      Left = 139
+      Height = 13
+      Top = 272
+      Width = 51
+      Caption = 'Arbeitszeit'
+      ParentColor = False
+    end
+    object eWorktime: TDBEdit
+      Left = 139
+      Height = 21
+      Hint = 'Die Arbeitszeit des Benutzers in Stunden '#13#10'wenn leer wird von 8 ausgegangen'
+      Top = 288
+      Width = 54
+      DataField = 'WORKTIME'
+      DataSource = UsersDS
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 15
+    end
+    object eWorkpercentage: TDBEdit
+      Left = 208
+      Height = 21
+      Hint = 'gibt die Mögliche Auslastung für Projekte an'#13#10'beim Terminieren von Aufgaben wird nur der gültige Bereich '#13#10'mit Aufgaben befüllt so das für Tagesgeschäft Zeit bleibt'
+      Top = 288
+      Width = 54
+      DataField = 'USEWORKTIME'
+      DataSource = UsersDS
+      CharCase = ecNormal
+      MaxLength = 0
+      TabOrder = 16
+    end
+    object Label2: TLabel
+      Left = 208
+      Height = 13
+      Top = 272
+      Width = 53
+      Caption = 'Auslastung'
+      ParentColor = False
+    end
   end
   object UsersDS: TDataSource[2]
     left = 464
@@ -776,8 +816,8 @@ inherited fUserOptions: TfUserOptions
     end
   end
   object ilState: TImageList[4]
-    left = 440
-    top = 304
+    left = 472
+    top = 352
     Bitmap = {
       4C69050000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -943,7 +983,7 @@ inherited fUserOptions: TfUserOptions
     }
   end
   object Paygroups: TDataSource[5]
-    left = 388
-    top = 298
+    left = 360
+    top = 328
   end
 end
