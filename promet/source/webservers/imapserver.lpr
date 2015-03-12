@@ -458,7 +458,7 @@ begin
   Tree.Open;
   FParent := APath;
   aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString)+' and '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.Accountno.AsString);
-  Folder.SortFields:='MSG_ID';
+  Folder.SortFields:='GRP_ID,MSG_ID';
   Folder.SortDirection:=sdAscending;
   Folder.Filter(aFilter);
   Folder.First;
