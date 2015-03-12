@@ -1,7 +1,7 @@
 object fScriptEditor: TfScriptEditor
-  Left = 264
+  Left = 313
   Height = 600
-  Top = 151
+  Top = 167
   Width = 1039
   Caption = 'Editor'
   ClientHeight = 580
@@ -54,7 +54,6 @@ object fScriptEditor: TfScriptEditor
       Gutter.MouseActions = <>
       RightGutter.Width = 0
       RightGutter.MouseActions = <>
-      Highlighter = HigPascal
       Keystrokes = <      
         item
           Command = ecUp
@@ -810,24 +809,6 @@ object fScriptEditor: TfScriptEditor
     OnBreakpoint = DebuggerBreakpoint
     left = 392
     top = 64
-  end
-  object HigPascal: TSynPasSyn
-    Enabled = False
-    AsmAttri.FrameEdges = sfeAround
-    CommentAttri.FrameEdges = sfeAround
-    IDEDirectiveAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    KeyAttri.FrameEdges = sfeAround
-    NumberAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    StringAttri.FrameEdges = sfeAround
-    SymbolAttri.FrameEdges = sfeAround
-    CaseLabelAttri.FrameEdges = sfeAround
-    DirectiveAttri.FrameEdges = sfeAround
-    CompilerMode = pcmDelphi
-    NestedComments = False
-    left = 656
-    top = 112
   end
   object PopupMenu1: TPopupMenu
     left = 656
@@ -2135,5 +2116,32 @@ object fScriptEditor: TfScriptEditor
       Caption = 'Kopieren'
       OnClick = MenuItem6Click
     end
+  end
+  object HigPascal: TSynPasSyn
+    Tag = 1
+    Enabled = False
+    AsmAttri.Foreground = clGreen
+    AsmAttri.FrameEdges = sfeAround
+    CommentAttri.Foreground = clMoneyGreen
+    CommentAttri.FrameEdges = sfeAround
+    CommentAttri.Style = [fsBold]
+    IDEDirectiveAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    KeyAttri.FrameEdges = sfeAround
+    NumberAttri.Foreground = clNavy
+    NumberAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    StringAttri.Foreground = clBlue
+    StringAttri.FrameEdges = sfeAround
+    SymbolAttri.Foreground = clRed
+    SymbolAttri.FrameEdges = sfeAround
+    CaseLabelAttri.FrameEdges = sfeAround
+    DirectiveAttri.Foreground = clRed
+    DirectiveAttri.FrameEdges = sfeAround
+    DirectiveAttri.Style = [fsBold]
+    CompilerMode = pcmFPC
+    NestedComments = True
+    left = 656
+    top = 112
   end
 end

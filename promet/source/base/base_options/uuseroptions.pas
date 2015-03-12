@@ -23,8 +23,12 @@ type
     DBCheckBox2: TDBCheckBox;
     eCustomerNumber2: TDBEdit;
     eCustomerNumber3: TDBEdit;
+    eWorktime: TDBEdit;
+    eWorkpercentage: TDBEdit;
     eEmploymentDate: TDBZVDateTimePicker;
     eLeaveDate: TDBZVDateTimePicker;
+    Label1: TLabel;
+    Label2: TLabel;
     lCustomerNumber3: TLabel;
     lCustomerNumber4: TLabel;
     Paygroups: TDatasource;
