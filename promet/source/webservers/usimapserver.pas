@@ -6,29 +6,35 @@ interface
 
 uses
   Classes, SysUtils, usbaseserver, mimemess, mimepart, blcksock,
-  usimapmailbox, usimapsearch;
+  usimapmailbox, usimapsearch,synsock;
 
 type
+  TSImapThread = class(TSTcpThread)
+  public
+    CurrentUserName: String;
+    CurrentTag: string;
+    TmpData : string;
+    LiteralLength : Integer;
+    SendExpunge: array of integer;
+    SendNewMessages: boolean;
+    Selected: TImapMailbox;
+    constructor Create(ASocket: TSocket);
+  end;
 
   { TSImapServer }
 
   TSImapServer = class(TSTcpServer)
   private
-    CurrentUserName: String;
-    CurrentTag: string;
+
     FIMAPDelay: Integer;
     FIMAPNCBrain: Boolean;
     FLocalTimeoutQuitDelay: Integer;
     fReadOnly: Boolean;
     FUseIMAPID: Boolean;
     CS_THR_IDLE: TRTLCriticalSection;
-    SendExpunge: array of integer;
-    SendNewMessages: boolean;
     IdleState: boolean;
     SelNotify : pIMAPNotification;
     FDisableLog : Integer;
-    TmpData : string;
-    LiteralLength : Integer;
 
     function LoginUser(AThread: TSTcpThread;  Password: String; AuthMechanism : String ): String;
 
@@ -67,7 +73,6 @@ type
 
   protected
     HierarchyDelimiter : Char;
-    Selected: TImapMailbox;
 
     procedure LogRaw(AThread: TSTcpThread; Txt: string);
     procedure SendData(AThread: TSTcpThread; const AText: string);
@@ -160,6 +165,15 @@ begin
       Result := Copy(s, p, l - p + 1);
 end;
 
+constructor TSImapThread.Create(ASocket: TSocket);
+begin
+  inherited;
+  LiteralLength:=0;
+  CurrentUserName:='';
+  SendNewMessages := false;
+  SetLength(SendExpunge, 0);
+end;
+
 
 procedure TSImapServer.HandleCommand(AThread : TSTcpThread;const CmdLine: string);
 var
@@ -227,7 +241,7 @@ begin
       Cmd_LOGOUT(AThread,Par);
       exit;
     end;
-    if CurrentUserName = '' then
+    if TSImapThread(AThread).CurrentUserName = '' then
     begin
       if Cmd = 'STARTTLS' then
       begin
@@ -247,7 +261,7 @@ begin
     end;
 
     // check authentication
-    if CurrentUserName = '' then
+    if TSImapThread(AThread).CurrentUserName = '' then
     begin
       with BaseApplication as IBaseApplication do
         Warning(Format('This command need authentication, but client is not authenticated yet: %s',[nCmdLine]));
@@ -317,7 +331,7 @@ begin
       exit;
     end; //HSR //IDLE
 
-    if not Assigned(Selected) then
+    if not Assigned(TSImapThread(AThread).Selected) then
     begin
       with BaseApplication as IBaseApplication do
         Warning(Format('This command need a mailbox be selected, but there is no mailbox selected yet: %s',[nCmdLine]));
@@ -685,9 +699,9 @@ begin
     SendResTag(AThread,'NO APPEND without message text!');
     exit;
   end;
-  if Assigned(Selected) and (Mailbox = Selected.Path) then
+  if Assigned(TSImapThread(AThread).Selected) and (Mailbox = TSImapThread(AThread).Selected.Path) then
   begin
-    SendResTag(AThread, Selected.AppendMessage(AThread,MessageText, Flags, Time));
+    SendResTag(AThread, TSImapThread(AThread).Selected.AppendMessage(AThread,MessageText, Flags, Time));
   end
   else if not MBLogin(AThread,DestMailbox, Mailbox, False) then
     begin
@@ -746,7 +760,7 @@ var
   a1, a2, rspauth: string;
   s, TimeStamp, Hash, pass: string;
 begin
-  CurrentUserName := '';
+  TSImapThread(AThread).CurrentUserName := '';
   try
     par := uppercase(par);
     if (par = 'LOGIN') then
@@ -768,7 +782,7 @@ begin
       end;
       s := DecodeStringBase64(s);
       //LogRaw(LOGID_INFO, '> ' + s);
-      CurrentUserName := TrimWhSpace(s);
+      TSImapThread(AThread).CurrentUserName := TrimWhSpace(s);
       s := 'Password:';
       s := '+ ' + EncodeStringBase64(s);
       s := SendRequest(AThread,s);
@@ -785,7 +799,7 @@ begin
         Exit;
       end;
       s := DecodeStringBase64(s);
-      CurrentUserName := '';
+      TSImapThread(AThread).CurrentUserName := '';
       SendResTag(AThread,LoginUser(AThread,s, 'LOGIN'));
     end
     else
@@ -807,20 +821,20 @@ begin
           Exit;
         end;
         s := DecodeStringBase64(s);
-        CurrentUserName := TrimWhSpace(copy(s, pos(#0, s) + 1, 500));
-        s := TrimWhSpace(copy(CurrentUserName,
-          pos(#0, CurrentUserName) + 1, 500));
-        CurrentUserName := TrimWhSpace(
-          copy(CurrentUserName, 1, pos(#0, CurrentUserName) - 1));
+        TSImapThread(AThread).CurrentUserName := TrimWhSpace(copy(s, pos(#0, s) + 1, 500));
+        s := TrimWhSpace(copy(TSImapThread(AThread).CurrentUserName,
+          pos(#0, TSImapThread(AThread).CurrentUserName) + 1, 500));
+        TSImapThread(AThread).CurrentUserName := TrimWhSpace(
+          copy(TSImapThread(AThread).CurrentUserName, 1, pos(#0, TSImapThread(AThread).CurrentUserName) - 1));
         SendResTag(AThread,LoginUser(AThread,s, 'PLAIN'));
       end
       else
       begin
-        CurrentUserName := '';
+        TSImapThread(AThread).CurrentUserName := '';
         SendResTag(AThread,'NO Unknown AUTH mechanism ' + par);
       end;
   except
-    CurrentUserName := '';
+    TSImapThread(AThread).CurrentUserName := '';
   end;
   {
   if CurrentUserName = '' then
@@ -882,13 +896,13 @@ begin
   end
   else
   begin
-    if Assigned(Selected) then
+    if Assigned(TSImapThread(AThread).Selected) then
     begin
       try
-        Selected.Lock;
-        Selected.SendMailboxUpdate;
+        TSImapThread(AThread).Selected.Lock;
+        TSImapThread(AThread).Selected.SendMailboxUpdate;
       finally
-        Selected.Unlock;
+        TSImapThread(AThread).Selected.Unlock;
       end;
     end;
     SendResTag(Athread,'OK CHECK completed.');
@@ -904,12 +918,12 @@ begin
   else
   begin
     try
-      if not Selected.MBReadOnly then
+      if not TSImapThread(AThread).Selected.MBReadOnly then
       begin //ClientRO
-        Selected.Expunge(SelNotify);
+        TSImapThread(AThread).Selected.Expunge(SelNotify);
       end
     finally
-      MBLogout(AThread,Selected, True);
+      MBLogout(AThread,TSImapThread(AThread).Selected, True);
       SendResTag(AThread,'OK Mailbox closed.');
     end;
   end;
@@ -927,7 +941,7 @@ begin
   end
   else
   begin
-    DoCopy(AThread,Selected.StrToMsgSet(MsgSetStr, False), 'COPY', Destination);
+    DoCopy(AThread,TSImapThread(AThread).Selected.StrToMsgSet(MsgSetStr, False), 'COPY', Destination);
   end;
 end;
 
@@ -987,7 +1001,7 @@ begin
     end
     else
     begin
-      MBLogout(AThread,Selected, True);
+      MBLogout(AThread,TSImapThread(AThread).Selected, True);
       SendResTag(AThread,'NO EXAMINE failed!');
     end;
   end;
@@ -999,13 +1013,13 @@ begin
   begin
     SendResTag(AThread,'BAD I don''t know parameters for EXPUNGE!');
   end
-  else if Selected.MBReadOnly then
+  else if TSImapThread(AThread).Selected.MBReadOnly then
     begin
       SendResTag(AThread,'NO I can''t EXPUNGE (mailbox is read-only).');
     end
     else
     begin
-      Selected.Expunge(nil);
+      TSImapThread(AThread).Selected.Expunge(nil);
       SendResTag(AThread,'OK All deleted messages are removed.');
     end;
 end;
@@ -1021,7 +1035,7 @@ begin
   end
   else
   begin
-    DoFetch(AThread,Selected.StrToMsgSet(MsgSetStr, False), 'FETCH', Par);
+    DoFetch(AThread,TSImapThread(AThread).Selected.StrToMsgSet(MsgSetStr, False), 'FETCH', Par);
   end;
 end;
 
@@ -1051,7 +1065,7 @@ begin
   end
   else
   begin
-    if CurrentUserName <> '' then
+    if TSImapThread(AThread).CurrentUserName <> '' then
     begin
       SendData(AThread,'+ You are IDLE now, changes will be sent immidiatelly' + CRLF);
       IdleState := True;
@@ -1072,10 +1086,10 @@ procedure TSImapServer.Cmd_LOGIN(AThread: TSTcpThread; Par: string);
 var
   Pass: string;
 begin
-  CurrentUsername := '';
-  CurrentUsername := CutFirstParam(Par);
+  TSImapThread(AThread).CurrentUsername := '';
+  TSImapThread(AThread).CurrentUsername := CutFirstParam(Par);
   Pass := CutFirstParam(Par);
-  if (CurrentUserName = '') or (Pass = '') then
+  if (TSImapThread(AThread).CurrentUserName = '') or (Pass = '') then
     SendResTag(AThread,'BAD LOGIN without User / Pass!')
   else
   begin
@@ -1086,10 +1100,10 @@ end;
 procedure TSImapServer.Cmd_LOGOUT(AThread: TSTcpThread; Par: string);
 begin
   try
-    CurrentUserName := '';
+    TSImapThread(AThread).CurrentUserName := '';
     try
-      if Assigned(Selected) then
-        MBLogout(AThread,Selected, True);
+      if Assigned(TSImapThread(AThread).Selected) then
+        MBLogout(AThread,TSImapThread(AThread).Selected, True);
     except
     end;
 
@@ -1131,13 +1145,13 @@ begin
   end
   else
   begin
-    if Assigned(Selected) then
+    if Assigned(TSImapThread(AThread).Selected) then
     begin
       try
-        Selected.Lock;
-        Selected.SendMailboxUpdate;
+        TSImapThread(AThread).Selected.Lock;
+        TSImapThread(AThread).Selected.SendMailboxUpdate;
       finally
-        Selected.Unlock;
+        TSImapThread(AThread).Selected.Unlock;
       end;
     end;
     SendResTag(AThread,'OK Noop');
@@ -1181,8 +1195,8 @@ procedure TSImapServer.Cmd_SELECT(AThread: TSTcpThread; Par: string);
 var
   Mailbox: string;
 begin
-  if Assigned(Selected) then
-    MBLogout(AThread,Selected, True); //RFC!
+  if Assigned(TSImapThread(AThread).Selected) then
+    MBLogout(AThread,TSImapThread(AThread).Selected, True); //RFC!
 
   Mailbox := CutFirstParam(Par);
   if Mailbox = '' then
@@ -1193,20 +1207,20 @@ begin
   begin
     if MBSelect(AThread,Mailbox, fReadOnly) then
     begin
-      if Selected.MBReadOnly then
+      if TSImapThread(AThread).Selected.MBReadOnly then
       begin //ClientRO
         SendRes(AThread,'OK [PERMANENTFLAGS ()] Flags you can change permanently: NONE');
         SendResTag(AThread,'OK [READ-ONLY] Mailbox opened');
       end
       else
       begin
-        SendRes(AThread,'OK [PERMANENTFLAGS ' + Selected.PossFlags + '] Flags you can change permanently');
+        SendRes(AThread,'OK [PERMANENTFLAGS ' + TSImapThread(AThread).Selected.PossFlags + '] Flags you can change permanently');
         SendResTag(AThread,'OK [READ-WRITE] Mailbox opened');
       end;
     end
     else
     begin
-      MBLogout(AThread,Selected, True);
+      MBLogout(AThread,TSImapThread(AThread).Selected, True);
       SendResTag(AThread,'NO SELECT failed!');
     end;
   end;
@@ -1344,7 +1358,7 @@ begin
   end
   else
   begin
-    DoStore(AThread,Selected.StrToMsgSet(MsgSetStr, False), 'STORE', Par);
+    DoStore(AThread,TSImapThread(AThread).Selected.StrToMsgSet(MsgSetStr, False), 'STORE', Par);
   end;
 end;
 
@@ -1409,7 +1423,7 @@ begin
       exit;
     end;
 
-    MsgSet := Selected.StrToMsgSet(copy(CmdParams, 1, i - 1), True);
+    MsgSet := TSImapThread(AThread).Selected.StrToMsgSet(copy(CmdParams, 1, i - 1), True);
     CmdParams := TrimQuotes(TrimWhSpace(
       copy(CmdParams, i + 1, length(CmdParams))));
 
@@ -1454,7 +1468,7 @@ begin
   if Length( Txt ) > 250
      then LogRaw( AThread, '< * ' + Copy( Txt, 1, 250 ) + ' [...]' )
      else LogRaw( AThread, '< * ' + Txt );
-  SendData(AThread, CurrentTag + ' ' + '{' + IntToStr(length(Txt + CRLF)) + '}' + CRLF );
+  SendData(AThread, TSImapThread(AThread).CurrentTag + ' ' + '{' + IntToStr(length(Txt + CRLF)) + '}' + CRLF );
   SendData(AThread, Txt + CRLF );
 end;
 
@@ -1462,29 +1476,29 @@ procedure TSImapServer.SendResTag(AThread: TSTcpThread; Txt: string);
 var
   i: Integer;
 begin
-  if Assigned(Selected) then try
-    Selected.Lock;
+  if Assigned(TSImapThread(AThread).Selected) then try
+    TSImapThread(AThread).Selected.Lock;
     try
       EnterCriticalSection( CS_THR_IDLE );
-      if (length(SendExpunge)>0) then begin
-        for i := 0 to length(SendExpunge)-1 do
-          SendRes(AThread, IntToStr(SendExpunge[i]) + ' EXPUNGE');
-        if not SendNewMessages then //Don't send it double
-          SendRes(AThread, IntToStr(Selected.Messages) + ' EXISTS');
-        SetLength(SendExpunge, 0)
+      if (length(TSImapThread(AThread).SendExpunge)>0) then begin
+        for i := 0 to length(TSImapThread(AThread).SendExpunge)-1 do
+          SendRes(AThread, IntToStr(TSImapThread(AThread).SendExpunge[i]) + ' EXPUNGE');
+        if not TSImapThread(AThread).SendNewMessages then //Don't send it double
+          SendRes(AThread, IntToStr(TSImapThread(AThread).Selected.Messages) + ' EXISTS');
+        SetLength(TSImapThread(AThread).SendExpunge, 0)
       end;
-      if SendNewMessages then begin
-        SendRes(AThread, IntToStr(Selected.Messages) + ' EXISTS');
-        SendRes(AThread, IntToStr(Selected.Recent)   + ' RECENT');
-        SendNewMessages := false
+      if TSImapThread(AThread).SendNewMessages then begin
+        SendRes(AThread, IntToStr(TSImapThread(AThread).Selected.Messages) + ' EXISTS');
+        SendRes(AThread, IntToStr(TSImapThread(AThread).Selected.Recent)   + ' RECENT');
+        TSImapThread(AThread).SendNewMessages := false
       end;
     finally
       LeaveCriticalSection( CS_THR_IDLE )
     end;
   finally
-    Selected.Unlock
+    TSImapThread(AThread).Selected.Unlock
   end;
-  SendResult(AThread, CurrentTag + ' ' + Txt )
+  SendResult(AThread, TSImapThread(AThread).CurrentTag + ' ' + Txt )
 end;
 
 procedure TSImapServer.SendRes(AThread: TSTcpThread; Txt: string);
@@ -1521,10 +1535,10 @@ function TSImapServer.LoginUser(AThread: TSTcpThread; Password: String;
 var
   ares: Boolean = False;
 begin
-  Result := CurrentTag + 'BAD System-error, check logfile. [0]';
+  Result := TSImapThread(AThread).CurrentTag + 'BAD System-error, check logfile. [0]';
   if Assigned(OnLogin) then
     begin
-      aRes := OnLogin(AThread, CurrentUserName,Password);
+      aRes := OnLogin(AThread, TSImapThread(AThread).CurrentUserName,Password);
       if not ares then Result := 'NO Authentication rejected'
       else
         begin
@@ -1628,38 +1642,38 @@ begin
    Result := 'BAD Command failed (unknown reason, see logfile)';
    i := Pos( ' ', BufInStrm );
 
-   if (LiteralLength>0) or (copy(BufInStrm,length(BufInStrm),1)='}') then
+   if (TSImapThread(AThread).LiteralLength>0) or (copy(BufInStrm,length(BufInStrm)-2,1)='}') then
      begin
-       TmpData := TmpData+CRLF+BufInStrm;
-       LiteralLength:=LiteralLength-(length(BufInStrm)+2);
-       writeln(IntToStr(LiteralLength));
-       if (copy(BufInStrm,length(BufInStrm),1)='}') then
+       TSImapThread(AThread).TmpData := TSImapThread(AThread).TmpData+BufInStrm;
+       TSImapThread(AThread).LiteralLength:=TSImapThread(AThread).LiteralLength-(length(BufInStrm));
+       writeln(IntToStr(TSImapThread(AThread).LiteralLength));
+       if (copy(BufInStrm,length(BufInStrm)-2,1)='}') then
          begin
-           tmp := copy(BufInStrm,rpos('{',BufInStrm)+1,length(BufInStrm));
-           tmp := copy(tmp,0,length(tmp)-1);
-           LiteralLength := StrToInt(tmp);
+           tmp := copy(BufInStrm,rpos('{',BufInStrm)+1,length(BufInStrm)-2);
+           tmp := copy(tmp,0,length(tmp)-3);
+           TSImapThread(AThread).LiteralLength := StrToInt(tmp)-2;
            SendData(AThread, '+ Ready to receive' + CRLF );
          end;
-       if (LiteralLength<=0) then
+       if (TSImapThread(AThread).LiteralLength<=0) then
          begin
-           TmpData := copy(TmpData,3,length(TmpData));
-           Result := HandleData(AThread,TmpData);
-           TmpData:='';
-           LiteralLength:=0;
+           TSImapThread(AThread).TmpData := copy(TSImapThread(AThread).TmpData,3,length(TSImapThread(AThread).TmpData));
+           HandleCommand(AThread,TSImapThread(AThread).TmpData+CRLF);
+           TSImapThread(AThread).TmpData:='';
+           TSImapThread(AThread).LiteralLength:=0;
          end;
      end
    else
      begin
-       CurrentTag := Copy( BufInStrm, 1, i-1 );
+       TSImapThread(AThread).CurrentTag := Copy( BufInStrm, 1, i-1 );
        System.Delete( BufInStrm, 1, i );
 
-       if trim(CurrentTag)='' then begin //HSR //TAG-Miss
-         CurrentTag := BufInStrm;
-         System.Delete( BufInStrm, 1, length(CurrentTag) );
+       if trim(TSImapThread(AThread).CurrentTag)='' then begin
+         TSImapThread(AThread).CurrentTag := BufInStrm;
+         System.Delete(BufInStrm, 1, length(TSImapThread(AThread).CurrentTag) );
          Result := 'BAD Command failed (missing TAG)'
        end else begin
-         TmpData := '';
-         HandleCommand(AThread, BufInStrm );
+         TSImapThread(AThread).TmpData := '';
+         HandleCommand(AThread, copy(BufInStrm,0,length(BufInStrm)-2));
          Result := ''
        end;
      end;
@@ -1676,27 +1690,33 @@ var
   LRow, LCmd, LTag: string;
   aRes: String;
   tmp: String;
+  aRow: String;
 begin
   try
     SendData(AThread, '* OK IMAP4rev1 ' + SIMAPWelcomeMessage+ CRLF);
     while (not AThread.Terminated) do
-    begin
-      LRow := AThread.ReadLn(Timeout);
-      if (not AThread.Connected) then
-        Break
-      else if LRow <> '' then
-        begin
-          if Assigned(OnLog) then
-            begin
-              tmp := LRow;
-              if pos('login ',LowerCase(LRow))>0 then
-                tmp := copy(LRow,0,pos('login ',LowerCase(LRow))+5);
-              OnLog(AThread, True, tmp);
-            end;
-          aRes := HandleData(AThread,LRow);
-          if aRes <> '' then AThread.WriteLn(ares);
-        end;
-    end;
+      begin
+        LRow := LRow+AThread.ReadPacket(Timeout);
+        while pos(CRLF,LRow)>0 do
+          begin
+            aRow := copy(LRow,0,pos(CRLF,LRow)+length(CRLF)-1);
+            LRow:=copy(LRow,pos(CRLF,LRow)+length(CRLF),Length(LRow));
+            if (not AThread.Connected) then
+              Break
+            else if aRow <> CRLF then
+              begin
+                if Assigned(OnLog) then
+                  begin
+                    tmp := aRow;
+                    if pos('login ',LowerCase(aRow))>0 then
+                      tmp := copy(aRow,0,pos('login ',LowerCase(aRow))+5);
+                    OnLog(AThread, True, tmp);
+                  end;
+                aRes := HandleData(AThread,aRow);
+                if aRes <> '' then AThread.WriteLn(ares);
+              end;
+          end;
+      end;
   finally
   end;
 end;
@@ -1705,18 +1725,15 @@ constructor TSImapServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   FIMAPDelay:=0;
-  LiteralLength:=0;
   FDisableLog:=0;
   FUseIMAPID:=True;
   FIMAPNCBrain :=False;
-  CurrentUserName:='';
   FLocalTimeoutQuitDelay := 100;
   Timeout:=100;
   HierarchyDelimiter := '/';
   InitCriticalSection( CS_THR_IDLE );
-  SendNewMessages := false;
-  SetLength(SendExpunge, 0);
   IdleState       := false;
+  ClassType:=TSImapThread;
 end;
 
 destructor TSImapServer.Destroy;

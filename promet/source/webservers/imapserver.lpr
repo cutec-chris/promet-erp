@@ -138,26 +138,28 @@ end;
 
 function TPrometMailBox.SetFlags(Index: LongInt; Flags: TFlagMask): TFlagMask;
 begin
-  GotoIndex(Index);
-  Folder.Edit;
-  Folder.FieldByName('GRP_FLAGS').Clear;
-  if Flags and FLAGSEEN = FLAGSEEN then
-    Folder.FieldByName('READ').AsString:='Y'
-  else Folder.FieldByName('READ').AsString:='N';
+  Result := 0;
+  if GotoIndex(Index) then
+    begin
+      Folder.Edit;
+      Folder.FieldByName('GRP_FLAGS').Clear;
+      if Flags and FLAGSEEN = FLAGSEEN then
+        Folder.FieldByName('READ').AsString:='Y'
+      else Folder.FieldByName('READ').AsString:='N';
 
-  if (Flags and FLAGANSWERED = FLAGANSWERED) and (Folder.FieldByName('ANSWERED').IsNull) then
-    Folder.FieldByName('ANSWERED').AsDateTime:=Now()
-  else Folder.FieldByName('ANSWERED').Clear;
+      if (Flags and FLAGANSWERED = FLAGANSWERED) and (Folder.FieldByName('ANSWERED').IsNull) then
+        Folder.FieldByName('ANSWERED').AsDateTime:=Now()
+      else Folder.FieldByName('ANSWERED').Clear;
 
-  if Flags and FLAGFLAGGED = FLAGFLAGGED then
-    Folder.FieldByName('FLAGGED').AsString:='Y'
-  else Folder.FieldByName('FLAGGED').AsString:='N';
+      if Flags and FLAGFLAGGED = FLAGFLAGGED then
+        Folder.FieldByName('FLAGGED').AsString:='Y'
+      else Folder.FieldByName('FLAGGED').AsString:='N';
 
-  if Flags and FLAGDRAFT = FLAGDRAFT then
-    Folder.FieldByName('DRAFT').AsString:='Y'
-  else Folder.FieldByName('DRAFT').AsString:='N';
-
-  Result := GetFlags(Index);
+      if Flags and FLAGDRAFT = FLAGDRAFT then
+        Folder.FieldByName('DRAFT').AsString:='Y'
+      else Folder.FieldByName('DRAFT').AsString:='N';
+      Result := GetFlags(Index);
+    end;
 end;
 
 function TPrometMailBox.GetFlags(Index: LongInt): TFlagMask;
@@ -540,19 +542,19 @@ begin
   Result:=False;
   if GotoMailBox(Mailbox) then
     begin
-      Selected := TPrometMailbox.Create(MailBoxes.Id.AsVariant,DBCS);
+      TSImapThread(AThread).Selected := TPrometMailbox.Create(MailBoxes.Id.AsVariant,DBCS);
       Result := True;
     end;
   if Result then
     begin
-      SendRes(AThread, IntToStr( Selected.Messages ) + ' EXISTS');
-      SendRes(AThread, IntToStr( Selected.Recent ) + ' RECENT');
-      i := Selected.Messages - Selected.Unseen + 1;
-      if Selected.Unseen > 0 then SendRes(AThread, 'OK [UNSEEN ' + IntToStr(i) + '] First message-number unseen.');
-      SendRes(AThread, 'OK [UIDVALIDITY ' + IntToStr( Selected.GetUIDvalidity ) + ']');
-      SendRes(AThread, 'FLAGS '+Selected.PossFlags);
-      Selected.MBReadOnly := Selected.MBReadOnly OR ReadOnly; //ClientRO //Soll die MB ReadOnly geöffnet werden?
-      if not Selected.MBReadOnly then Selected.RemoveRecentFlags;
+      SendRes(AThread, IntToStr( TSImapThread(AThread).Selected.Messages ) + ' EXISTS');
+      SendRes(AThread, IntToStr( TSImapThread(AThread).Selected.Recent ) + ' RECENT');
+      i := TSImapThread(AThread).Selected.Messages - TSImapThread(AThread).Selected.Unseen + 1;
+      if TSImapThread(AThread).Selected.Unseen > 0 then SendRes(AThread, 'OK [UNSEEN ' + IntToStr(i) + '] First message-number unseen.');
+      SendRes(AThread, 'OK [UIDVALIDITY ' + IntToStr( TSImapThread(AThread).Selected.GetUIDvalidity ) + ']');
+      SendRes(AThread, 'FLAGS '+TSImapThread(AThread).Selected.PossFlags);
+      TSImapThread(AThread).Selected.MBReadOnly := TSImapThread(AThread).Selected.MBReadOnly OR ReadOnly; //ClientRO //Soll die MB ReadOnly geöffnet werden?
+      if not TSImapThread(AThread).Selected.MBReadOnly then TSImapThread(AThread).Selected.RemoveRecentFlags;
     end;
 end;
 
@@ -626,12 +628,12 @@ procedure TPrometImapServer.DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet;
 var
   DestMailbox : TImapMailbox;
 begin
-  if not Assigned(Selected) then
+  if not Assigned(TSImapThread(AThread).Selected) then
     begin
       SendResTag(AThread, 'NO no Mailbox selected.');
       exit;
     end;
-  if Selected.MBReadOnly then begin
+  if TSImapThread(AThread).Selected.MBReadOnly then begin
      SendResTag(AThread,'NO selected mailbox is read-only.');
      exit;
   end;
@@ -647,7 +649,7 @@ begin
   end;
 
   try
-    if Selected.CopyMessage( MsgSet, DestMailbox ) then begin
+    if TSImapThread(AThread).Selected.CopyMessage( MsgSet, DestMailbox ) then begin
        SendResTag(AThread, 'OK ' + Command + ' completed' );
     end else
        SendResTag(AThread, 'NO ' + Command + ' error: can''t copy messages' );
@@ -667,12 +669,12 @@ var  i: integer;
      Silent : Boolean;
      Mode : TStoreMode;
 begin
-  if not Assigned(Selected) then
+  if not Assigned(TSImapThread(AThread).Selected) then
     begin
       SendResTag(AThread,'NO no Mailbox selected.');
       exit;
     end;
-  if Selected.MBReadOnly then begin
+  if TSImapThread(AThread).Selected.MBReadOnly then begin
      SendResTag(AThread,'NO selected mailbox is read-only.');
      exit;
   end;
@@ -681,7 +683,7 @@ begin
   MsgDat := Uppercase( TrimQuotes( copy( Par, 1, i ) ) );
   Flags  := Uppercase( TrimParentheses( copy( Par, i+1, length(Par)-i ) ) ); {MG}{Imap-Store}
 
-  if not Selected.AreValidFlags(Flags) then begin
+  if not TSImapThread(AThread).Selected.AreValidFlags(Flags) then begin
      SendResTag(AThread,'NO The \Recent flag may not used as an argument in STORE!');
      exit;
   end;
@@ -702,7 +704,7 @@ begin
   end;
 
   for i := 0 to High(MsgSet) do begin
-     NewFlags := Selected.Store( MsgSet[i]-1, Flags, Mode );
+     NewFlags := TSImapThread(AThread).Selected.Store( MsgSet[i]-1, Flags, Mode );
      if not Silent then SendRes(AThread, IntToStr(MsgSet[i]) + ' FETCH (FLAGS ' +
                                  NewFlags + ')' );
   end;
@@ -730,7 +732,7 @@ begin
   DisableLog;
   for i := 0 to High(MsgSet) do
     begin
-      SendS := Selected.Fetch( MsgSet[i]-1, MsgDat, Success );
+      SendS := TSImapThread(AThread).Selected.Fetch( MsgSet[i]-1, MsgDat, Success );
       if (trim(SendS) <> '') AND Success then SendRes (AThread, SendS )
     end;
   EnableLog;

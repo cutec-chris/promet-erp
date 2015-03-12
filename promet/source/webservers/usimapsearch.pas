@@ -244,6 +244,7 @@ procedure GetString(var InStr: string; out OutStr: string;
   const Stringtype: TIMAPStringtypes);
 var
   i, Size: integer;
+  aLen: Integer;
 begin
   OutStr := '';
   if InStr = '' then
@@ -283,7 +284,8 @@ begin
           System.Delete(InStr, 1, i + 2);
           if Size < 0 then
             break;
-          if Length(InStr) >= Size then
+          aLen := Length(InStr);
+          if aLen >= Size then
           begin
             OutStr := Copy(InStr, 1, Size);
             System.Delete(InStr, 1, Size);

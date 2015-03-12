@@ -38,6 +38,7 @@ type
     constructor Create(ASocket: TSocket);
     destructor Destroy; override;
     function ReadLn(const ATimeout: integer): string;
+    function ReadPacket(const ATimeout : integer) : string;
     procedure WriteLn(const AData: string);
     procedure Write(const AData: string);
     procedure Disconnect;
@@ -54,32 +55,37 @@ type
     property OnDestroy: TNotifyEvent read FOnDestroy write FOnDestroy;
     property OnExecute: TSThreadEvent read FOnExecute write FOnExecute;
   end;
+  TSTcpThreadClass = class of TSTcpThread;
 
   TSLoginEvent = function(aSocket: TSTcpThread; aUser, aPasswort: string): boolean of
     object;
   TSLogEvent = procedure(aSocket: TSTcpThread; DirectionIn: boolean;
     aMessage: string) of object;
 
+  TSBaseServer = class;
   TSTcpListener = class(TThread)
   private
+    FParent: TSBaseServer;
     FSocket: TTCPBlockSocket;
     FOnConnect: TSThreadEvent;
     FPort: integer;
     FIP: string;
   public
-    constructor Create;
+    constructor Create(aParent : TSBaseServer);
     destructor Destroy; override;
     procedure Execute; override;
   published
     property IP: string read FIP write FIP;
     property Port: integer read FPort write FPort;
     property OnConnect: TSThreadEvent read FOnConnect write FOnConnect;
+    property Parent : TSBaseServer read FParent write fParent;
   end;
 
   { TSBaseServer }
 
   TSBaseServer = class(TComponent)
   private
+    FClass: TSTcpThreadClass;
     FListenInterface: string;
     FLog: TSLogEvent;
     FLogin: TSLoginEvent;
@@ -99,6 +105,7 @@ type
     property Timeout: integer read FTimeout write FTimeout default 60000;
     property OnLogin: TSLoginEvent read FLogin write FLogin;
     property OnLog: TSLogEvent read FLog write FLog;
+    property ClassType : TSTcpThreadClass read FClass write FClass;
   end;
 
   TSTcpServer = class(TSBaseServer)
@@ -201,6 +208,35 @@ begin
   end;
 end;
 
+function TSTcpThread.ReadPacket(const ATimeout: integer): string;
+begin
+  if (FSocket.socket = INVALID_SOCKET) then
+  begin
+    FConnected := False;
+    FReadTimedOut := False;
+  end
+  else
+  begin
+    FConnected := True;
+    FReadTimedOut := False;
+    Result := FSocket.RecvPacket(ATimeout);
+    if (FSocket.socket = INVALID_SOCKET) then
+    begin
+      FConnected := False;
+      FReadTimedOut := False;
+    end
+    else
+    begin
+      case FSocket.LastError of
+        0: ;
+        WSAETIMEDOUT: FReadTimedOut := True;
+        else
+          FConnected := False;
+      end;
+    end;
+  end;
+end;
+
 procedure TSTcpThread.WriteLn(const AData: string);
 begin
   if (FSocket.socket = INVALID_SOCKET) then
@@ -268,11 +304,12 @@ begin
     FOnExecute(Self);
 end;
 
-constructor TSTcpListener.Create;
+constructor TSTcpListener.Create(aParent: TSBaseServer);
 begin
   inherited Create(True);
   FSocket := TTCPBlockSocket.Create;
   FreeOnTerminate := False;
+  FParent := aParent;
 end;
 
 destructor TSTcpListener.Destroy;
@@ -307,7 +344,7 @@ begin
               LClient := Accept;
               if (LastError = 0) then
               begin
-                LSynaThread := TSTcpThread.Create(LClient);
+                LSynaThread := Parent.ClassType.Create(LClient);
                 FOnConnect(LSynaThread);
               end;
             end;
@@ -323,6 +360,7 @@ begin
   FSection := TCriticalSection.Create;
   FThreads := TList.Create;
   FListeners := TList.Create;
+  FClass := TSTcpThread;
 end;
 
 destructor TSTcpServer.Destroy;
@@ -343,7 +381,7 @@ end;
 function TSTcpServer.CreateListener(const AIP: string;
   const APort: integer): TSTcpListener;
 begin
-  Result := TSTcpListener.Create;
+  Result := TSTcpListener.Create(Self);
   Result.OnConnect := @DoClientCreate;
   Result.IP := AIP;
   Result.Port := APort;
