@@ -287,14 +287,14 @@ function TPrometMailBox.GetMessage(UID: LongInt): TMimeMess;
 var
   aMessage: TMimeMessage;
 begin
-  //DBCS.Enter;
+  DBCS.Enter;
   aMessage := TMimeMessage.Create(nil);
   aMessage.SelectByGrpID(UID,FParent);
   aMessage.Open;
   Result := aMessage.EncodeMessage;
   Result.EncodeMessage;
   aMessage.Free;
-  //DBCS.Free;
+  DBCS.Leave;
 end;
 
 function TPrometMailBox.CopyMessage(MsgSet: TMessageSet;
@@ -323,6 +323,7 @@ begin
         aMessage := TMimeMessage.Create(nil);
         aMessage.SelectByGrpID(GetUID(MsgSet[i]),FParent);
         aMessage.Open;
+        aMessage.Edit;
         aMessage.FieldByName('TREEENTRY').AsVariant:=FParent;
         aMessage.Post;
         aMessage.Free;
@@ -451,6 +452,7 @@ begin
   inherited Create(APath,CS);
   DBCS := CS;
   Folder := TMessageList.Create(nil);
+  DBCS.Enter;
   Tree := TTree.Create(nil);
   Tree.Select(APath);
   Tree.Open;
@@ -458,7 +460,6 @@ begin
   aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString)+' and '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.Accountno.AsString);
   Folder.SortFields:='MSG_ID';
   Folder.SortDirection:=sdAscending;
-  DBCS.Enter;
   Folder.Filter(aFilter);
   Folder.First;
   while not Folder.EOF do
@@ -472,9 +473,9 @@ begin
         end;
       Folder.Next;
     end;
-  DBCS.Leave;
   aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
   aCnt.Open;
+  DBCS.Leave;
   FMessages:=aCnt.FieldByName('MESSAGES').AsInteger;
   FUnseen:=FMessages-aCnt.FieldByName('READ').AsInteger;
   FHighestUID:=aCnt.FieldByName('HUID').AsLongint;
