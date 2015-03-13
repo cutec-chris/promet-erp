@@ -1725,6 +1725,7 @@ begin
                 if aRes <> '' then AThread.WriteLn(ares);
               end;
           end;
+        sleep(10);
       end;
   finally
   end;

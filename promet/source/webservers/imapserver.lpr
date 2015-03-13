@@ -457,6 +457,8 @@ var
   Tree: TTree;
   aCnt: TDataSet;
   aFilter: String;
+  ActId: LongInt;
+  aChanged: Integer = 0;
 begin
   inherited Create(APath,CS);
   DBCS := CS;
@@ -466,29 +468,41 @@ begin
   Tree.Select(APath);
   Tree.Open;
   FParent := APath;
-  aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString)+' and '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.Accountno.AsString);
+  aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString);
+  aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
+  aCnt.Open;
+  FHighestUID:=aCnt.FieldByName('HUID').AsLongint;
+  FLowestUID:=aCnt.FieldByName('MUID').AsLongint;
   Folder.SortFields:='GRP_ID,MSG_ID';
   Folder.SortDirection:=sdAscending;
+  aFilter := aFilter+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.Accountno.AsString);
   Folder.Filter(aFilter);
   Folder.First;
+  ActId := -1;
   while not Folder.EOF do
     begin
-      if Folder.FieldByName('GRP_ID').IsNull then
+      if (Folder.FieldByName('GRP_ID').IsNull) or (Folder.FieldByName('GRP_ID').AsInteger=ActId) then
         begin
           Folder.Edit;
           Folder.FieldByName('GRP_ID').AsLongint:=FHighestUID+1;
           inc(FHighestUID);
           Folder.Post;
+          inc(aChanged);
         end;
+      ActId := Folder.FieldByName('GRP_ID').AsInteger;
       Folder.Next;
+    end;
+  if aChanged>0 then
+    begin
+      Folder.Filter(aFilter);
+      Folder.First;
     end;
   aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
   aCnt.Open;
   DBCS.Leave;
   FMessages:=aCnt.FieldByName('MESSAGES').AsInteger;
   FUnseen:=FMessages-aCnt.FieldByName('READ').AsInteger;
-  FHighestUID:=aCnt.FieldByName('HUID').AsLongint;
-  FLowestUID:=aCnt.FieldByName('MUID').AsLongint;
+  inc(FUnseen,aChanged);
   aCnt.Free;
 end;
 

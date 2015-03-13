@@ -154,7 +154,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log --debug"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log --debug --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -193,7 +193,6 @@
       <Unit4>
         <Filename Value="usimapmailbox.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="usimapmailbox"/>
       </Unit4>
     </Units>
   </ProjectOptions>
