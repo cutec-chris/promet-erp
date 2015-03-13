@@ -120,13 +120,15 @@ end;
 
 function TPrometMailBox.GetUID(Index: LongInt): LongInt;
 begin
-  GotoIndex(Index);
-  Result := Folder.FieldByName('GRP_ID').AsLongint;
+  if GotoIndex(Index) then
+    Result := Folder.FieldByName('GRP_ID').AsLongint
+  else Result:=-1;
 end;
 
 function TPrometMailBox.GetUIDStr(Index: LongInt): String;
 begin
   Result := IntToStr( GetUID( Index ) );
+  if Result='-1' then Result := '';
 end;
 
 function TPrometMailBox.GetIndex(UID: LongInt): LongInt;
@@ -166,25 +168,28 @@ function TPrometMailBox.GetFlags(Index: LongInt): TFlagMask;
 var
   MR: TFlagMask;
 begin
-  GotoIndex(Index);
-  if Folder.FieldByName('GRP_FLAGS').IsNull then
+  if GotoIndex(Index) then
     begin
-      FillChar( MR, sizeof(MR), 0 );
-      if Folder.FieldByName('READ').AsString='Y' then
-        MR := MR or FLAGSEEN;
-      if not Folder.FieldByName('ANSWERED').IsNull then
-        MR := MR or FLAGANSWERED;
-      if Folder.FieldByName('FLAGGED').AsString='Y' then
-        MR := MR or FLAGFLAGGED;
-      if Folder.FieldByName('DRAFT').AsString='Y' then
-        MR := MR or FLAGDRAFT;
-      Folder.Edit;
-      Folder.FieldByName('GRP_FLAGS').AsInteger := MR;
-      Folder.Post;
+      if Folder.FieldByName('GRP_FLAGS').IsNull then
+        begin
+          FillChar( MR, sizeof(MR), 0 );
+          if Folder.FieldByName('READ').AsString='Y' then
+            MR := MR or FLAGSEEN;
+          if not Folder.FieldByName('ANSWERED').IsNull then
+            MR := MR or FLAGANSWERED;
+          if Folder.FieldByName('FLAGGED').AsString='Y' then
+            MR := MR or FLAGFLAGGED;
+          if Folder.FieldByName('DRAFT').AsString='Y' then
+            MR := MR or FLAGDRAFT;
+          Folder.Edit;
+          Folder.FieldByName('GRP_FLAGS').AsInteger := MR;
+          Folder.Post;
+        end
+      else
+        MR := Folder.FieldByName('GRP_FLAGS').AsInteger;
+      Result := MR;
     end
-  else
-    MR := Folder.FieldByName('GRP_FLAGS').AsInteger;
-  Result := MR;
+  else Result := 0;
 end;
 
 function TPrometMailBox.AddFlags(Index: LongInt; Flags: TFlagMask): TFlagMask;
@@ -731,13 +736,17 @@ begin
   // whether a UID was specified as a message data item to the FETCH.
   if ( Command = 'UID FETCH' ) and ( Pos( 'UID', MsgDat ) = 0 ) then
     MsgDat := MsgDat + ' UID';
-  DisableLog;
-  for i := 0 to High(MsgSet) do
+  with BaseApplication  do
+    if not HasOption('debug') then
+      DisableLog;
+  for i := Low(MsgSet) to High(MsgSet) do
     begin
       SendS := TSImapThread(AThread).Selected.Fetch( MsgSet[i]-1, MsgDat, Success );
       if (trim(SendS) <> '') AND Success then SendRes (AThread, SendS )
     end;
-  EnableLog;
+  with BaseApplication  do
+    if not HasOption('debug') then
+      EnableLog;
   if Success then
     SendResTag(AThread, 'OK ' + Command + ' is now completed' )
   else
