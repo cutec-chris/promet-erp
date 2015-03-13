@@ -13,8 +13,8 @@ type
   public
     CurrentUserName: String;
     CurrentTag: string;
-    TmpData : string;
-    LiteralLength : Integer;
+    TmpData : AnsiString;
+    LiteralLength : LongInt;
     SendExpunge: array of integer;
     SendNewMessages: boolean;
     Selected: TImapMailbox;
@@ -53,8 +53,8 @@ type
     procedure Cmd_EXPUNGE(AThread: TSTcpThread;Par: string);
     procedure Cmd_FETCH(AThread: TSTcpThread;Par: string);
     procedure Cmd_HELP(AThread: TSTcpThread;Par: string);
-    procedure Cmd_ID(AThread: TSTcpThread;Par: string); //JW //IMAP ID
-    procedure Cmd_IDLE(AThread: TSTcpThread;Par: string); //HSR //IDLE
+    procedure Cmd_ID(AThread: TSTcpThread;Par: string);
+    procedure Cmd_IDLE(AThread: TSTcpThread;Par: string);
     procedure Cmd_LIST(AThread: TSTcpThread;Par: string);
     procedure Cmd_LOGIN(AThread: TSTcpThread;Par: string);
     procedure Cmd_LOGOUT(AThread: TSTcpThread;Par: string);
@@ -224,12 +224,12 @@ begin
     begin
       Cmd_ID(AThread,Par);
       exit;
-    end; //JW //IMAP ID
+    end;
     if (Cmd = 'NETSCAPE') and FIMAPNCBrain then
     begin
       Cmd_NCBrain(AThread,Par);
       exit;
-    end; //HSR //NCBrain
+    end;
 
     if Cmd = 'NOOP' then
     begin
@@ -1642,24 +1642,17 @@ begin
    Result := 'BAD Command failed (unknown reason, see logfile)';
    i := Pos( ' ', BufInStrm );
 
-   if (TSImapThread(AThread).LiteralLength>0) or (copy(BufInStrm,length(BufInStrm)-2,1)='}') then
+   if (copy(BufInStrm,length(BufInStrm)-2,1)='}') then
      begin
-       TSImapThread(AThread).TmpData := TSImapThread(AThread).TmpData+BufInStrm;
-       TSImapThread(AThread).LiteralLength:=TSImapThread(AThread).LiteralLength-(length(BufInStrm));
-       writeln(IntToStr(TSImapThread(AThread).LiteralLength));
        if (copy(BufInStrm,length(BufInStrm)-2,1)='}') then
          begin
            tmp := copy(BufInStrm,rpos('{',BufInStrm)+1,length(BufInStrm)-2);
            tmp := copy(tmp,0,length(tmp)-3);
-           TSImapThread(AThread).LiteralLength := StrToInt(tmp)-2;
-           SendData(AThread, '+ Ready to receive' + CRLF );
-         end;
-       if (TSImapThread(AThread).LiteralLength<=0) then
-         begin
-           TSImapThread(AThread).TmpData := copy(TSImapThread(AThread).TmpData,3,length(TSImapThread(AThread).TmpData));
-           HandleCommand(AThread,TSImapThread(AThread).TmpData+CRLF);
-           TSImapThread(AThread).TmpData:='';
-           TSImapThread(AThread).LiteralLength:=0;
+           if TryStrToInt(tmp,TSImapThread(AThread).LiteralLength) then
+             begin
+               TSImapThread(AThread).TmpData:=BufInStrm;
+               SendData(AThread, '+ Ready to receive '+IntToStr(TSImapThread(AThread).LiteralLength)+' bytes' + CRLF );
+             end;
          end;
      end
    else
@@ -1693,11 +1686,25 @@ var
   aRow: String;
 begin
   try
+    TSImapThread(AThread).LiteralLength:=0;
+    LRow:='';
     SendData(AThread, '* OK IMAP4rev1 ' + SIMAPWelcomeMessage+ CRLF);
     while (not AThread.Terminated) do
       begin
-        LRow := LRow+AThread.ReadPacket(Timeout);
-        while pos(CRLF,LRow)>0 do
+        if TSImapThread(AThread).LiteralLength>0 then
+          begin
+            LRow := AThread.ReadPacket(Timeout);
+            TSImapThread(AThread).LiteralLength:=TSImapThread(AThread).LiteralLength-length(LRow);
+            TSImapThread(AThread).TmpData:=TSImapThread(AThread).TmpData+LRow;
+            LRow:='';
+            if TSImapThread(AThread).LiteralLength<=0 then
+              begin
+                HandleCommand(AThread,TSImapThread(AThread).TmpData);
+              end;
+          end
+        else
+          LRow := LRow+AThread.ReadPacket(Timeout);
+        while (not AThread.Terminated) and (pos(CRLF,LRow)>0) do
           begin
             aRow := copy(LRow,0,pos(CRLF,LRow)+length(CRLF)-1);
             LRow:=copy(LRow,pos(CRLF,LRow)+length(CRLF),Length(LRow));
@@ -1724,7 +1731,7 @@ end;
 constructor TSImapServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FIMAPDelay:=0;
+  FIMAPDelay:=30;
   FDisableLog:=0;
   FUseIMAPID:=True;
   FIMAPNCBrain :=False;
