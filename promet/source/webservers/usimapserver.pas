@@ -1650,6 +1650,8 @@ begin
            tmp := copy(tmp,0,length(tmp)-3);
            if TryStrToInt(tmp,TSImapThread(AThread).LiteralLength) then
              begin
+               TSImapThread(AThread).CurrentTag := Copy( BufInStrm, 1, i-1 );
+               System.Delete( BufInStrm, 1, i );
                TSImapThread(AThread).TmpData:=BufInStrm;
                SendData(AThread, '+ Ready to receive '+IntToStr(TSImapThread(AThread).LiteralLength)+' bytes' + CRLF );
              end;
@@ -1731,7 +1733,7 @@ end;
 constructor TSImapServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FIMAPDelay:=30;
+  FIMAPDelay:=0;
   FDisableLog:=0;
   FUseIMAPID:=True;
   FIMAPNCBrain :=False;

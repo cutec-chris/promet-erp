@@ -349,6 +349,7 @@ var
   CustomerCont: TPersonContactData;
   Customers: TPerson;
 begin
+  DBCS.Enter;
   Result:=inherited;
   try
     aMsg := TMimeMess.Create;
@@ -443,6 +444,7 @@ begin
   except
     Result := 'NO APPEND error';
   end;
+  DBCS.Leave;
 end;
 
 constructor TPrometMailBox.Create(APath: String; CS: TCriticalSection);
