@@ -30,6 +30,10 @@ type
   end;
 
 type
+  TSSMTPThread= class(TSTcpThread)
+  protected
+    FUser : string;
+  end;
 
   { TSSmtpServer }
 
@@ -42,20 +46,15 @@ type
     FMaxMsgSize: integer;
     function FindFileType(const AExtension: string; const AMimePart: TMimePart): boolean;
     procedure SendToClient(AThread: TSTcpThread; const AText: string);
-    procedure DoCommandHelo(AThread: TSTcpThread; ASession: TSmtpSession;
-      const AParam: string); virtual;
-    procedure DoCommandQuit(AThread: TSTcpThread; ASession: TSmtpSession;
-      const AParam: string); virtual;
-    procedure DoCommandData(AThread: TSTcpThread; ASession: TSmtpSession;
-      const AParam: string); virtual;
-    procedure DoCommandMail(AThread: TSTcpThread; ASession: TSmtpSession;
-      const AParam: string); virtual;
-    procedure DoCommandRcpt(AThread: TSTcpThread; ASession: TSmtpSession;
-      const AParam: string); virtual;
-    procedure DoCommandRSet(AThread: TSTcpThread; ASession: TSmtpSession;
-      const AParam: string); virtual;
-    procedure DoCommandError(AThread: TSTcpThread; ASession: TSmtpSession;
-      const AParam: string); virtual;
+    procedure DoCommandHelo(AThread: TSTcpThread; ASession: TSmtpSession;const AParam: string); virtual;
+    procedure DoCommandEhlo(AThread: TSTcpThread; ASession: TSmtpSession;const AParam: string); virtual;
+    procedure DoCommandAuth(AThread: TSTcpThread; ASession: TSmtpSession;AParam: string); virtual;
+    procedure DoCommandQuit(AThread: TSTcpThread; ASession: TSmtpSession;const AParam: string); virtual;
+    procedure DoCommandData(AThread: TSTcpThread; ASession: TSmtpSession;const AParam: string); virtual;
+    procedure DoCommandMail(AThread: TSTcpThread; ASession: TSmtpSession;const AParam: string); virtual;
+    procedure DoCommandRcpt(AThread: TSTcpThread; ASession: TSmtpSession;const AParam: string); virtual;
+    procedure DoCommandRSet(AThread: TSTcpThread; ASession: TSmtpSession;const AParam: string); virtual;
+    procedure DoCommandError(AThread: TSTcpThread; ASession: TSmtpSession;const AParam: string); virtual;
   protected
     procedure SetActive(const AValue: boolean); override;
     procedure Execute(AThread: TSTcpThread); override;
@@ -77,7 +76,7 @@ type
 implementation
 
 uses
-  mailchck, synautil;
+  mailchck, synautil,blcksock,base64;
 
 resourcestring
   SSMTPNoRecipients = 'No recipients: need RCPT';
@@ -128,6 +127,7 @@ begin
   FBannedAttachments := TStringList.Create;
   FMaxMsgSize := 1;
   ListenPort := 25;
+  ClassType:=TSSMTPThread;
 end;
 
 destructor TSSmtpServer.Destroy;
@@ -219,6 +219,36 @@ procedure TSSmtpServer.DoCommandHelo(AThread: TSTcpThread; ASession: TSmtpSessio
   const AParam: string);
 begin
   SendToClient(AThread, '250 ' + SSMTPHelo + ' ' + AThread.Connection.PeerName);
+end;
+
+procedure TSSmtpServer.DoCommandEhlo(AThread: TSTcpThread;
+  ASession: TSmtpSession; const AParam: string);
+begin
+  SendToClient(AThread,'250-'+aParam+' Hello '+aParam+CRLF+'250 AUTH LOGIN PLAIN');
+end;
+
+procedure TSSmtpServer.DoCommandAuth(AThread: TSTcpThread;
+  ASession: TSmtpSession; AParam: string);
+var
+  aUser: String;
+  aPass: String;
+begin
+  if uppercase(copy(aParam,0,pos(' ',aParam)-1))='PLAIN' then
+    begin
+      aParam:=Copy(aParam,pos(' ',aParam)+1,length(aParam));
+      aUser:=copy(DecodeStringBase64(aParam),2,length(aParam));
+      aPass := copy(aUser,pos(#0,aUser)+1,length(aParam));
+      aUser := copy(aUser,0,pos(#0,aUser)-1);
+      if Assigned(OnLogin) then
+        begin
+          if OnLogin(AThread,aUser,aPass) then
+            begin
+              TSSMTPThread(AThread).FUser := aUser;
+              SendToClient(AThread,'235 Authentication successful');
+            end
+          else AThread.Disconnect;
+        end;
+    end
 end;
 
 // -----------------------------------------------------------------------------
@@ -347,10 +377,10 @@ begin
   LSession := TSmtpSession.Create;
   try
     SendToClient(AThread, '220 ' + SSMTPWelcomeMessage);
+    sleep(10);
     while (not AThread.Terminated) do
     begin
       LRow := AThread.ReadLn(Timeout);
-
       if (AThread.ReadTimedOut) then
         Break
       else if (not AThread.Connected) then
@@ -375,7 +405,9 @@ begin
             if (AnsiCompareText('HELO', LCmd) = 0) then
               DoCommandHelo(AThread, LSession, LTag)
             else if (AnsiCompareText('EHLO', LCmd) = 0) then
-              DoCommandError(AThread, LSession, LTag)
+              DoCommandEhlo(AThread, LSession, LTag)
+            else if (AnsiCompareText('AUTH', LCmd) = 0) then
+              DoCommandAuth(AThread, LSession, LTag+' '+LRow)
             else if (AnsiCompareText('MAIL', LCmd) = 0) then
               DoCommandMail(AThread, LSession, LTag)
             else if (AnsiCompareText('RCPT', LCmd) = 0) then
@@ -408,6 +440,7 @@ begin
               SendToClient(AThread, '500 ' + SSMTPCommandUnknown);
           end;
         end;
+      sleep(30);
     end;
   finally
     FreeAndNil(LSession);

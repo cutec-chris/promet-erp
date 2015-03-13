@@ -154,7 +154,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log --debug --debug-sql"/>
+        <CommandLineParams Value="--mandant=&quot;Stora&quot; --port=1043 --smtpport=5087 --server-log --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -179,6 +179,7 @@
       <Unit1>
         <Filename Value="ussmtpserver.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ussmtpserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="usimapserver.pas"/>
@@ -193,6 +194,7 @@
       <Unit4>
         <Filename Value="usimapmailbox.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="usimapmailbox"/>
       </Unit4>
     </Units>
   </ProjectOptions>
@@ -226,7 +228,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="5">
+    <Exceptions Count="6">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -242,6 +244,9 @@
       <Item5>
         <Name Value="Exception"/>
       </Item5>
+      <Item6>
+        <Name Value="RunError(216)"/>
+      </Item6>
     </Exceptions>
   </Debugging>
 </CONFIG>

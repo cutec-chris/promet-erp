@@ -386,6 +386,7 @@ begin
       end else begin
         if Not Assigned(MyMail) then begin
           MyMail := GetMessage(GetUID(Idx));
+          if not Assigned(MyMail) then break;
         end;
         if DataItem = 'ENVELOPE' then AddDataValue( GetEnvelope(MyMail) )
         else if DataItem = 'RFC822' then AddDataValue( MakeLiteral( MyMail.Lines.Text ) )  //TODO:wo Header ??

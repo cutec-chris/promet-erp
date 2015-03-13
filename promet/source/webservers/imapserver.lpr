@@ -299,7 +299,8 @@ begin
   aMessage.SelectByGrpID(UID,FParent);
   aMessage.Open;
   Result := aMessage.EncodeMessage;
-  Result.EncodeMessage;
+  if Assigned(Result) then
+    Result.EncodeMessage;
   aMessage.Free;
   DBCS.Leave;
 end;
@@ -641,7 +642,39 @@ end;
 
 procedure TPrometImapServer.DoSearch(AThread: TSTcpThread; UseUID: Boolean;
   Par: String);
+var
+  Command: String;
+  Charset: String;
+  i: Integer;
+  SearchPgm: TIMAPSearch;
 begin
+  if UseUID then Command := 'UID SEARCH' else Command := 'SEARCH';
+  Charset  := '';
+  if uppercase( copy( Par, 1, 7 ) ) = 'CHARSET' then begin
+     Delete( Par, 1, 8 );
+     Par := TrimWhSpace( Par );
+     i := PosWhSpace( Par );
+     if (Par='') or (i=0) then begin
+        SendResTag(AThread, 'BAD ' + Command + ' charset argument missing' );
+        exit
+     end;
+     Charset := Uppercase( TrimQuotes( copy( Par, 1, i-1 ) ) );
+     Par := TrimWhSpace( copy( Par, i+1, length(Par) ) );
+     if (Charset = 'UTF-8') or (Charset = 'UTF-7') then begin
+        SendResTag(AThread, 'NO [BADCHARSET] specified charset not supported' );
+        exit
+     end
+  end;
+  SearchPgm := TIMAPSearch.Create( Charset );
+  try
+     if GetSearchPgm( Par, SearchPgm ) then begin
+        SendRes(AThread, 'SEARCH' + TSImapThread(AThread).Selected.Search( SearchPgm, UseUID ) );
+        SendResTag(AThread, 'OK ' + Command + ' completed' )
+     end else
+        SendResTag(AThread, 'BAD ' + Command + ' invalid syntax (see server log for details)' );
+  finally
+     SearchPgm.Free
+  end
 end;
 
 procedure TPrometImapServer.DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet;
