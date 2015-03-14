@@ -1326,7 +1326,7 @@ begin
       with BaseApplication as IBaseApplication do
         begin
           if TableVersions.Locate('NAME',aTableName,[]) then
-            if TableVersions.FieldByName('DBVERSION').AsInteger>=round((AppVersion*10000)+AppRevision) then
+            if (TableVersions.FieldByName('DBVERSION').AsInteger>=round((AppVersion*10000)+AppRevision)) and (not BaseApplication.HasOption('debug')) then
               begin
                 Result := False;
               end
@@ -1883,4 +1883,4 @@ begin
   FOwner := aOwner;
 end;
 end.
-
+

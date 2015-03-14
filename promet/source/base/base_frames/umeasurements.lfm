@@ -3,27 +3,26 @@ inherited fMeasurementFrame: TfMeasurementFrame
   Width = 964
   ClientHeight = 385
   ClientWidth = 964
-  DesignLeft = 392
-  DesignTop = 284
+  DesignLeft = 267
+  DesignTop = 274
   object PageControl1: TPageControl[0]
     Left = 0
     Height = 385
     Top = 0
     Width = 964
-    ActivePage = tsChart
+    ActivePage = tsData
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object tsData: TTabSheet
       Caption = 'Daten'
-      ClientHeight = 359
-      ClientWidth = 956
-      object gAdresses: TDBGrid
+      ClientHeight = 352
+      ClientWidth = 958
+      object gData: TDBGrid
         Left = 4
-        Height = 351
-        Hint = 'wählen Sie hier eine Adresse'
+        Height = 344
         Top = 4
-        Width = 662
+        Width = 635
         Align = alClient
         AutoFillColumns = True
         BorderSpacing.Around = 4
@@ -32,58 +31,28 @@ inherited fMeasurementFrame: TfMeasurementFrame
         Columns = <        
           item
             Title.Caption = 'Name'
-            Width = 136
+            Width = 124
             FieldName = 'NAME'
           end        
           item
+            Title.Caption = 'aktuell'
+            Width = 124
+            FieldName = 'CURRENT'
+          end        
+          item
+            Title.Caption = 'Einheit'
+            Width = 124
+            FieldName = 'UNIT'
+          end        
+          item
             Title.Caption = 'Typ'
-            Width = 136
+            Width = 124
             FieldName = 'TYPE'
           end        
           item
             Title.Caption = 'ID'
-            Width = 136
+            Width = 127
             FieldName = 'ID'
-          end        
-          item
-            ButtonStyle = cbsCheckboxColumn
-            SizePriority = 0
-            Title.Caption = 'Diagramm'
-            Width = 20
-            ValueChecked = 'Y'
-            ValueUnchecked = 'N'
-            FieldName = 'CHART'
-          end        
-          item
-            SizePriority = 0
-            Title.Caption = 'Farbe'
-            Width = 80
-            FieldName = 'COLOR'
-          end        
-          item
-            SizePriority = 0
-            Title.Caption = 'Bereich'
-            Width = 60
-            FieldName = 'RANGE'
-          end        
-          item
-            PickList.Strings = (
-              'L Links'
-              'R Rechts'
-            )
-            SizePriority = 0
-            Title.Caption = 'Position'
-            Width = 50
-            FieldName = 'POSITION'
-          end        
-          item
-            ButtonStyle = cbsCheckboxColumn
-            SizePriority = 0
-            Title.Caption = 'Interpolieren'
-            Width = 30
-            ValueChecked = 'Y'
-            ValueUnchecked = 'N'
-            FieldName = 'INTERPOLATE'
           end>
         DataSource = Measurements
         DefaultRowHeight = 22
@@ -92,46 +61,64 @@ inherited fMeasurementFrame: TfMeasurementFrame
         TabStop = False
         TitleStyle = tsNative
       end
-      object gAdresses1: TDBGrid
-        Left = 670
-        Height = 351
-        Hint = 'wählen Sie hier eine Adresse'
-        Top = 4
-        Width = 282
+      object Panel1: TPanel
+        Left = 648
+        Height = 352
+        Top = 0
+        Width = 310
         Align = alRight
-        AutoFillColumns = True
-        BorderSpacing.Around = 4
-        BorderStyle = bsNone
-        Color = clWindow
-        Columns = <        
-          item
-            Title.Caption = 'Wert'
-            Width = 135
-            FieldName = 'DATA'
-          end        
-          item
-            Title.Caption = 'Datum'
-            Width = 135
-            FieldName = 'DATE'
-          end>
-        DataSource = MeasurementData
-        DefaultRowHeight = 22
-        Scrollbars = ssAutoBoth
+        BevelOuter = bvNone
+        ClientHeight = 352
+        ClientWidth = 310
         TabOrder = 1
-        TabStop = False
-        TitleStyle = tsNative
+        object gData1: TDBGrid
+          Left = 4
+          Height = 344
+          Top = 4
+          Width = 302
+          Align = alClient
+          AutoFillColumns = True
+          BorderSpacing.Around = 4
+          BorderStyle = bsNone
+          Color = clWindow
+          Columns = <          
+            item
+              Title.Caption = 'Wert'
+              Width = 145
+              FieldName = 'DATA'
+            end          
+            item
+              Title.Caption = 'Datum'
+              Width = 145
+              FieldName = 'DATE'
+            end>
+          DataSource = MeasurementData
+          DefaultRowHeight = 22
+          Scrollbars = ssAutoBoth
+          TabOrder = 0
+          TabStop = False
+          TitleStyle = tsNative
+        end
+      end
+      object Splitter1: TSplitter
+        Left = 643
+        Height = 352
+        Top = 0
+        Width = 5
+        Align = alRight
+        ResizeAnchor = akRight
       end
     end
     object tsChart: TTabSheet
       Caption = 'Diagramm'
-      ClientHeight = 359
-      ClientWidth = 956
+      ClientHeight = 352
+      ClientWidth = 958
       OnShow = tsChartShow
       object Chart1: TChart
         Left = 0
-        Height = 319
+        Height = 312
         Top = 26
-        Width = 956
+        Width = 958
         AxisList = <        
           item
             Grid.Color = clSilver
@@ -168,8 +155,8 @@ inherited fMeasurementFrame: TfMeasurementFrame
       object ChartNavScrollBar1: TChartNavScrollBar
         Left = 0
         Height = 14
-        Top = 345
-        Width = 956
+        Top = 338
+        Width = 958
         Chart = Chart1
         Align = alBottom
         PageSize = 0
@@ -179,23 +166,23 @@ inherited fMeasurementFrame: TfMeasurementFrame
         Left = 0
         Height = 26
         Top = 0
-        Width = 956
+        Width = 958
         Caption = 'ToolBar1'
         EdgeBorders = []
         ShowCaptions = True
         TabOrder = 2
         object ToolButton1: TToolButton
-          Left = 70
+          Left = 86
           Top = 0
           Action = DataSetPrior1
         end
         object ToolButton2: TToolButton
-          Left = 110
+          Left = 137
           Top = 0
           Action = DataSetNext1
         end
         object ToolButton3: TToolButton
-          Left = 134
+          Left = 164
           Height = 22
           Top = 0
           Width = 10
@@ -203,12 +190,12 @@ inherited fMeasurementFrame: TfMeasurementFrame
           Style = tbsSeparator
         end
         object ToolButton4: TToolButton
-          Left = 144
+          Left = 174
           Top = 0
           Action = acZoomOut
         end
         object ToolButton5: TToolButton
-          Left = 185
+          Left = 224
           Top = 0
           Action = acZoomIn
         end
@@ -220,11 +207,11 @@ inherited fMeasurementFrame: TfMeasurementFrame
       end
     end
   end
-  object Measurements: TDataSource[1]
+  object Measurements: TDatasource[1]
     left = 16
     top = 120
   end
-  object MeasurementData: TDataSource[2]
+  object MeasurementData: TDatasource[2]
     left = 16
     top = 176
   end

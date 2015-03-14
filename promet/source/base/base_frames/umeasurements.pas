@@ -40,13 +40,15 @@ type
     DataSetNext1: TAction;
     DataSetPrior1: TAction;
     DateTimeIntervalChartSource2: TDateTimeIntervalChartSource;
+    gData1: TDBGrid;
     MeasurementData: TDatasource;
     Measurements: TDatasource;
     EditCopy1: TEditCopy;
     EditPaste1: TEditPaste;
-    gAdresses: TDBGrid;
-    gAdresses1: TDBGrid;
+    gData: TDBGrid;
     PageControl1: TPageControl;
+    Panel1: TPanel;
+    Splitter1: TSplitter;
     tsChart: TTabSheet;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;

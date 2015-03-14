@@ -175,7 +175,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
+        <CommandLineParams Value="--debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="26">
@@ -290,7 +290,6 @@
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uMain"/>
       </Unit1>
       <Unit2>
         <Filename Value="upersonframe.pas"/>
@@ -582,7 +581,6 @@
         <ComponentName Value="fCommandline"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="ucommandline"/>
       </Unit43>
       <Unit44>
         <Filename Value="ustoredpasswords.pas"/>
@@ -597,7 +595,6 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uArticleFrame"/>
       </Unit45>
       <Unit46>
         <Filename Value="uallobjects.pas"/>
