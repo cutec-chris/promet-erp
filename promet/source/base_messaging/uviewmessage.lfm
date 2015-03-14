@@ -77,4 +77,4 @@ object fViewMessage: TfViewMessage
       OnClick = moCopyClick
     end
   end
-end
+end
