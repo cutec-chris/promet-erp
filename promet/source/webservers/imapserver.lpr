@@ -160,6 +160,8 @@ begin
       if Flags and FLAGDRAFT = FLAGDRAFT then
         Folder.FieldByName('DRAFT').AsString:='Y'
       else Folder.FieldByName('DRAFT').AsString:='N';
+      if Flags and FLAGDELETED = FLAGDELETED then
+        Folder.FieldByName('TREEENTRY').AsVariant:=TREE_ID_DELETED_MESSAGES;
       Result := GetFlags(Index);
     end;
 end;
@@ -181,6 +183,7 @@ begin
             MR := MR or FLAGFLAGGED;
           if Folder.FieldByName('DRAFT').AsString='Y' then
             MR := MR or FLAGDRAFT;
+          if Folder.FieldByName('TREEENTRY').AsVariant=TREE_ID_DELETED_MESSAGES then MR := MR or FLAGDELETED;
           Folder.Edit;
           Folder.FieldByName('GRP_FLAGS').AsInteger := MR;
           Folder.Post;
@@ -331,9 +334,12 @@ begin
         aMessage := TMimeMessage.Create(nil);
         aMessage.SelectByGrpID(GetUID(MsgSet[i]),FParent);
         aMessage.Open;
-        aMessage.Edit;
-        aMessage.FieldByName('TREEENTRY').AsVariant:=FParent;
-        aMessage.Post;
+        if aMessage.Count>0 then
+          begin
+            aMessage.Edit;
+            aMessage.FieldByName('TREEENTRY').AsVariant:=FParent;
+            aMessage.Post;
+          end;
         aMessage.Free;
       end;
   finally

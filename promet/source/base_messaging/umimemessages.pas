@@ -190,6 +190,7 @@ var
   aDocument: TDocument;
   aMimePart: TMimePart;
   aParent: TMessageList;
+  aPart: TMimePart;
 begin
   Result := nil;
   aMessage := TMimeMess.Create;
@@ -250,8 +251,9 @@ begin
             begin
 //              sl.Text:=HTMLToTxT(ss.DataString);
 //              aMessage.AddPartText(sl,MP);
-              sl.Text:=ss.DataString;
-              aMessage.AddPartHTML(sl,MP);
+              sl.Text:= UniToSys(ss.DataString);
+              aPart := aMessage.AddPartHTML(sl,MP);
+              //aPart.CharsetCode:=CP1250;
             end;
           while not Documents.DataSet.EOF do
             begin
@@ -403,4 +405,4 @@ begin
 end;
 
 end.
-
+
