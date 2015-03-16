@@ -199,6 +199,7 @@ begin
   if Content.Count=0 then exit;
   sl.Text := Content.DataSet.FieldByName('HEADER').AsString;
   aMessage.Header.DecodeHeaders(sl);
+  aMessage.Header.CharsetCode:=UTF_8;
   with BaseApplication as IBaseApplication do
     aMessage.Header.XMailer := Appname+' '+StringReplace(Format('Version %f Build %d',[AppVersion,AppRevision]),',','.',[rfReplaceAll]);
   aMessage.Header.From := DataSet.FieldByName('SENDER').AsString;
@@ -249,11 +250,8 @@ begin
             aMessage.AddPartTextEx(sl,MP,UTF_8,True,ME_QUOTED_PRINTABLE)
           else if Content.DataSet.FieldByName('DATATYP').AsString = 'HTML' then
             begin
-//              sl.Text:=HTMLToTxT(ss.DataString);
-//              aMessage.AddPartText(sl,MP);
               sl.Text:= UniToSys(ss.DataString);
               aPart := aMessage.AddPartHTML(sl,MP);
-              //aPart.CharsetCode:=CP1250;
             end;
           while not Documents.DataSet.EOF do
             begin

@@ -134,6 +134,7 @@ end;
 function TPrometMailBox.GetIndex(UID: LongInt): LongInt;
 begin
   Result := -1;
+  if not Assigned(Folder) then exit;
   if Folder.DataSet.Locate('GRP_ID',UID,[]) then
     Result := Folder.DataSet.RecNo;
 end;
@@ -429,8 +430,8 @@ begin
         if Customers.Count > 0 then
           begin
             Customers.History.Open;
-            Customers.History.AddItem(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
-                                      'MESSAGEIDX@'+aMessage.FieldByName('ID').AsString+'{'+aSubject+'}',
+            Customers.History.AddItem(Customers.DataSet,Format(strActionMessageReceived,[copy(aSubject,0,100)]),
+                                      'MESSAGEIDX@'+aMessage.FieldByName('ID').AsString+'{'+copy(aSubject,0,100)+'}',
                                       '',
                                       nil,
                                       ACICON_MAILNEW);
@@ -449,6 +450,7 @@ begin
         aMessage.Edit;
         aMessage.FieldByName('TIMESTAMPD').AsDateTime:=Now();
         aMessage.Post;
+        //TODO:set Flags
         Result := 'OK APPEND completed';
       end;
     aMsg.Free;

@@ -341,7 +341,7 @@ begin
         with ManagedFieldDefs do
           begin
             Add('USER',ftString,20,True);
-            Add('ID',ftString,120,True);
+            Add('ID',ftString,220,True);
             Add('TREEENTRY',ftLargeint,0,True);
             Add('MSG_ID',ftLargeint,0,True);
             Add('GRP_ID',ftLargeint,0,False); //ID Per Group must be changed on Move (NNTP,IMAP needs an LongInt id out SQL_ID is too Big)
