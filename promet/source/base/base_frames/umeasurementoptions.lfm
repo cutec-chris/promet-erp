@@ -1,0 +1,96 @@
+object fMeasurementOptions: TfMeasurementOptions
+  Left = 451
+  Height = 264
+  Top = 226
+  Width = 329
+  Caption = 'Messungsoptionen'
+  ClientHeight = 264
+  ClientWidth = 329
+  LCLVersion = '1.5'
+  object DBCheckBox1: TDBCheckBox
+    Left = 24
+    Height = 22
+    Top = 24
+    Width = 161
+    AutoSize = True
+    Caption = 'In Diagramm anzeigen'
+    DataField = 'CHART'
+    DataSource = Measurement
+    TabOrder = 0
+    ValueChecked = 'True'
+    ValueUnchecked = 'False'
+  end
+  object Label1: TLabel
+    Left = 24
+    Height = 15
+    Top = 56
+    Width = 33
+    Caption = 'Farbe'
+    ParentColor = False
+  end
+  object ColorButton1: TColorButton
+    Left = 24
+    Height = 25
+    Top = 74
+    Width = 75
+    BorderWidth = 2
+    ButtonColorSize = 16
+    ButtonColor = clBlack
+    OnColorChanged = ColorButton1ColorChanged
+  end
+  object DBEdit1: TDBEdit
+    Left = 24
+    Height = 25
+    Top = 128
+    Width = 161
+    DataField = 'RANGE'
+    DataSource = Measurement
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 1
+  end
+  object Label2: TLabel
+    Left = 24
+    Height = 15
+    Top = 112
+    Width = 45
+    Caption = 'Bereich'
+    ParentColor = False
+  end
+  object DBComboBox1: TDBComboBox
+    Left = 24
+    Height = 27
+    Top = 184
+    Width = 161
+    DataField = 'INTERPOLATE'
+    DataSource = Measurement
+    ItemHeight = 0
+    MaxLength = 0
+    TabOrder = 2
+  end
+  object Label3: TLabel
+    Left = 24
+    Height = 15
+    Top = 168
+    Width = 46
+    Caption = 'Position'
+    ParentColor = False
+  end
+  object DBCheckBox2: TDBCheckBox
+    Left = 24
+    Height = 22
+    Top = 224
+    Width = 101
+    AutoSize = True
+    Caption = 'Interpolieren'
+    DataField = 'INTERPOLATE'
+    DataSource = Measurement
+    TabOrder = 3
+    ValueChecked = 'True'
+    ValueUnchecked = 'False'
+  end
+  object Measurement: TDatasource
+    left = 240
+    top = 56
+  end
+end
