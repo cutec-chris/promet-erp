@@ -52,6 +52,7 @@ type
     function  GetMessage( UID: LongInt ): TMimeMess;override;
     function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;override;
     function AppendMessage(AThread: TSTcpThread;MsgTxt: string; Flags: string; TimeStamp: TUnixTime): string; override;
+    procedure RefreshFolder;
     constructor Create(APath: String; CS: TCriticalSection); override;
     destructor Destroy; override;
   end;
@@ -459,9 +460,10 @@ begin
     Result := 'NO APPEND error';
   end;
   DBCS.Leave;
+  RefreshFolder;
 end;
 
-constructor TPrometMailBox.Create(APath: String; CS: TCriticalSection);
+procedure TPrometMailBox.RefreshFolder;
 var
   Tree: TTree;
   aCnt: TDataSet;
@@ -469,14 +471,11 @@ var
   ActId: LongInt;
   aChanged: Integer = 0;
 begin
-  inherited Create(APath,CS);
-  DBCS := CS;
-  Folder := TMessageList.Create(nil);
   DBCS.Enter;
   Tree := TTree.Create(nil);
-  Tree.Select(APath);
+  Tree.Select(Path);
   Tree.Open;
-  FParent := APath;
+  FParent := Path;
   aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString);
   aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
   aCnt.Open;
@@ -513,6 +512,14 @@ begin
   FUnseen:=FMessages-aCnt.FieldByName('READ').AsInteger;
   inc(FUnseen,aChanged);
   aCnt.Free;
+end;
+
+constructor TPrometMailBox.Create(APath: String; CS: TCriticalSection);
+begin
+  inherited Create(APath,CS);
+  DBCS := CS;
+  Folder := TMessageList.Create(nil);
+  RefreshFolder;
 end;
 
 destructor TPrometMailBox.Destroy;

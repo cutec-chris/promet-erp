@@ -250,7 +250,7 @@ begin
             aMessage.AddPartTextEx(sl,MP,UTF_8,True,ME_QUOTED_PRINTABLE)
           else if Content.DataSet.FieldByName('DATATYP').AsString = 'HTML' then
             begin
-              sl.Text:= UniToSys(ss.DataString);
+              sl.Text:= ss.DataString;
               aPart := aMessage.AddPartHTML(sl,MP);
             end;
           while not Documents.DataSet.EOF do
