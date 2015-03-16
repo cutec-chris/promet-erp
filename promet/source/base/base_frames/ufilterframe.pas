@@ -1383,6 +1383,7 @@ begin
   tbToolbar.Images := fVisualControls.Images;
   gList.UseExtPicklist:=true;
   gHeader.CachedEditing:=False;
+  FSortable:=True;
   SetRights;
 end;
 destructor TfFilter.Destroy;
