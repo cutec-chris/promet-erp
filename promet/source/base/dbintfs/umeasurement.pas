@@ -166,7 +166,7 @@ begin
       SortFields := 'DATE';
       SortDirection := sdDescending;
       UpdateFloatFields:=True;
-      Limit:=5000;
+      Limit:=500;
     end;
 end;
 
