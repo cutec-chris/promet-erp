@@ -127,7 +127,6 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <DebugInfoType Value="dsDwarf2"/>
               <UseHeaptrc Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
@@ -193,6 +192,7 @@
       <Unit4>
         <Filename Value="usimapmailbox.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="usimapmailbox"/>
       </Unit4>
     </Units>
   </ProjectOptions>

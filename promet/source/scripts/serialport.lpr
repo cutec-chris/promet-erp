@@ -83,7 +83,7 @@ begin
       end;
 end;
 
-function SerReadTimeout(Handle: LongInt;var Data : PChar;Timeout: Integer) : Integer;
+function SerReadTimeout(Handle: LongInt;var Data : PChar;Timeout: Integer;Count: LongInt) : Integer;
 var
   i: Integer;
   iData: String;
@@ -93,7 +93,7 @@ begin
       begin
         iData := TBlockSerial(Ports[i]).RecvPacket(Timeout);
         Result := length(iData);
-        Data := PChar(Data);
+        Move(iData[1],Data,Result);
         exit;
       end;
 end;
@@ -177,7 +177,7 @@ begin
        +#10+'procedure SerClose(Handle: LongInt);'
        +#10+'procedure SerFlush(Handle: LongInt);'
        +#10+'function SerRead(Handle: LongInt; Count: LongInt): PChar;'
-       +#10+'function SerReadTimeout(Handle: LongInt;var Data : PChar;Timeout: Integer) : Integer;'
+       +#10+'function SerReadTimeout(Handle: LongInt;var Data : PChar;Timeout: Integer;Count: LongInt) : Integer;'
        +#10+'function SerWrite(Handle: LongInt; Data : PChar;Len : Integer): LongInt;'
        +#10+'procedure SerParams(Handle: LongInt; BitsPerSec: LongInt; ByteSize: Integer; Parity: TParityType; StopBits: Integer);'
        +#10+'function SerGetCTS(Handle: LongInt) : Boolean;'

@@ -121,6 +121,7 @@ begin
           if (UpperCase(Sender.Secondary) = 'PLAIN') then
             s := ss.DataString+lineending+s;
           ss.Free;
+          s := SysToUni(s);
           ss := TStringStream.Create(s);
           if Content.DataSet.FieldByName('DATATYP').AsString = '' then
             Content.DataSet.FieldByName('DATATYP').AsString := Uppercase(Sender.Secondary);

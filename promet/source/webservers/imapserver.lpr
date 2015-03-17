@@ -214,7 +214,7 @@ function TPrometMailBox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
     i: LongInt;
   begin
     if UseUID then
-      Result := GetUID(Messages - 1)
+      Result := GetUID(Messages)
     else
       Result := Messages;
     if s = '*' then
@@ -261,7 +261,7 @@ function TPrometMailBox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
         Result[j] := GetIndex(i) + 1
       else
         Result[j] := i;
-      if (Result[j] > 0) and (Result[j] <= Messages) then
+      if (Result[j] > 0) and (Result[j] <= Messages+1) then
         Inc(j);
     end;
     SetLength(Result, j);
