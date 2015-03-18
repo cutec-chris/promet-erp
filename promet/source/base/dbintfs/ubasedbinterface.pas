@@ -148,7 +148,8 @@ type
     function DateTimeToFilter(aValue : TDateTime) : string;virtual;
     function GetLinkDesc(aLink : string) : string;virtual;
     function GetLinkLongDesc(aLink : string) : string;virtual;
-    function GetLinkIcon(aLink : string) : Integer;virtual;
+    function GetLinkIcon(aLink: string; GetRealIcon: Boolean=False): Integer;
+      virtual;
     function BuildLink(aDataSet : TDataSet) : string;virtual;
     function GotoLink(const aLink : string) : Boolean;virtual;
     function DataSetFromLink(aLink: string;var aClass : TBaseDBDatasetClass): Boolean;
@@ -983,7 +984,7 @@ begin
         result := copy(Result,0,300)+lineending+' ...';
     end;
 end;
-function TBaseDBModule.GetLinkIcon(aLink: string): Integer;
+function TBaseDBModule.GetLinkIcon(aLink: string;GetRealIcon : Boolean = False): Integer;
 begin
   Result := -1;
   if pos('://',aLink) > 0 then
@@ -991,7 +992,9 @@ begin
   else if copy(aLink, 0, pos('@', aLink) - 1) = 'MASTERDATA' then
     Result := IMAGE_MASTERDATA
   else if copy(aLink, 0, pos('@', aLink) - 1) = 'ALLOBJECTS' then
-    Result := 121
+    begin
+      Result := 121
+    end
   else if (copy(aLink, 0, pos('@', aLink) - 1) = 'CUSTOMERS')
        or (copy(aLink, 0, pos('@', aLink) - 1) = 'CUSTOMERS.ID') then
     Result := IMAGE_PERSON

@@ -187,7 +187,6 @@
       <Unit3>
         <Filename Value="usimapsearch.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="usimapsearch"/>
       </Unit3>
       <Unit4>
         <Filename Value="usimapmailbox.pas"/>

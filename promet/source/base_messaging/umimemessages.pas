@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils, MimeMess, mimepart, uMessages,
   uDocuments, uBaseDbClasses, Variants, db, synacode, synachar,
-  zipper;
+  zipper,uminiconvencoding;
 type
   TMimeMessage = class(TMessage)
     procedure DataSetContentDataSetDataSetmsgMessagePartWalkPart(
@@ -121,7 +121,6 @@ begin
           if (UpperCase(Sender.Secondary) = 'PLAIN') then
             s := ss.DataString+lineending+s;
           ss.Free;
-          s := SysToUni(s);
           ss := TStringStream.Create(s);
           if Content.DataSet.FieldByName('DATATYP').AsString = '' then
             Content.DataSet.FieldByName('DATATYP').AsString := Uppercase(Sender.Secondary);
@@ -134,6 +133,10 @@ begin
             begin //Use HTML if PLAIN+HTML are avalible
               Content.DataSet.FieldByName('DATATYP').AsString := Uppercase(Sender.Secondary);
               Data.StreamToBlobField(ss,Content.DataSet,'DATA');
+              ss.Free;
+              ss := TStringStream.Create('');
+              Data.BlobFieldToStream(Content.DataSet,'DATA',ss);
+              s := ss.DataString;
               HtmlThere := True;
             end;
           ss.Free;
@@ -192,6 +195,8 @@ var
   aMimePart: TMimePart;
   aParent: TMessageList;
   aPart: TMimePart;
+  tmp: String;
+  aEncoding: String;
 begin
   Result := nil;
   aMessage := TMimeMess.Create;
@@ -235,7 +240,8 @@ begin
           ss := TStringStream.Create('');
           Data.BlobFieldToStream(Content.DataSet,'DATA',ss);
           ss.Position := 0;
-          sl.Text:=ss.DataString;
+          tmp := ss.DataString;
+          sl.Text:=tmp;
           aMessage.AddPartTextEx(sl,nil,UTF_8,True,ME_QUOTED_PRINTABLE);
 //          aMessage.AddPartText(sl,nil);
           ss.Free;
@@ -245,13 +251,18 @@ begin
           ss := TStringStream.Create('');
           Data.BlobFieldToStream(Content.DataSet,'DATA',ss);
           ss.Position := 0;
-          sl.Text:=ss.DataString;
+          tmp := ss.DataString;
+          sl.Text:=tmp;
           MP := aMessage.AddPartMultipart('mixed', nil);
           if Content.DataSet.FieldByName('DATATYP').AsString = 'PLAIN' then
             aMessage.AddPartTextEx(sl,MP,UTF_8,True,ME_QUOTED_PRINTABLE)
           else if Content.DataSet.FieldByName('DATATYP').AsString = 'HTML' then
             begin
-              sl.Text:= ss.DataString;
+              tmp := ss.DataString;
+              aEncoding := GuessEncoding(tmp);
+              if pos('ENCODING',Uppercase(tmp)) = 0 then
+                tmp := ConvertEncoding(tmp,aEncoding,EncodingAnsi);
+              sl.Text:= tmp;
               aPart := aMessage.AddPartHTML(sl,MP);
             end;
           while not Documents.DataSet.EOF do
@@ -320,7 +331,6 @@ var
   aTree: TTree;
   aMessages: TMessageList;
 begin
-  atmp := SysToUni(msg.Header.From);
   if not CanEdit then
     DataSet.Edit;
   with DataSet do
@@ -332,13 +342,13 @@ begin
         end;
       if FieldByName('ID').IsNull then
         FieldByName('ID').AsString := msg.Header.MessageID;
-      FieldByName('SENDER').AsString := SysToUni(atmp);
+      atmp := SysToUni(msg.Header.From);
+      FieldByName('SENDER').AsString := atmp;
       FieldByName('REPLYTO').AsString := SysToUni(msg.Header.ReplyTo);
       FieldByName('SENDDATE').AsDateTime := msg.Header.Date;
       if FieldDefs.IndexOf('SENDTIME') <> -1 then
         FieldByName('SENDTIME').AsFloat := Frac(msg.Header.Date);
       atmp := SysToUni(msg.Header.Subject);
-      atmp := AnsiToUtf8(atmp);
       FieldbyName('SUBJECT').AsString := atmp;
       FieldbyName('LINES').AsInteger := msg.Lines.Count;
       FieldbyName('SIZE').AsInteger := length(msg.Lines.text);

@@ -9,7 +9,7 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="26">
+    <Files Count="27">
       <Item1>
         <Filename Value="gsGantt.res"/>
         <Type Value="Binary"/>
@@ -114,6 +114,10 @@
         <Filename Value="urefreshwizard.pas"/>
         <UnitName Value="urefreshwizard"/>
       </Item26>
+      <Item27>
+        <Filename Value="uchangegantt.pas"/>
+        <UnitName Value="uchangegantt"/>
+      </Item27>
     </Files>
     <RequiredPkgs Count="5">
       <Item1>

@@ -1362,6 +1362,7 @@ begin
                 if (TPrometMainFrame(pcPages.ActivePage.Controls[0]).DataSet is TPerson)
                 or (TPrometMainFrame(pcPages.ActivePage.Controls[0]).DataSet is TMasterdata)
                 or (TPrometMainFrame(pcPages.ActivePage.Controls[0]).DataSet is TProject)
+                or (TPrometMainFrame(pcPages.ActivePage.Controls[0]).DataSet is TObjects)
                 then
                   begin
                     DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
@@ -1412,11 +1413,11 @@ begin
     end
   else if (Source is TExtDBGrid) and (TExtDBGrid(Source).Owner is TfFilter) then
     begin
-      DataT := TTreeEntry(tvMain.Selected.Data);
       if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) then
         begin
           if (TfFilter(TExtDBGrid(Source).Owner).DataSet is TPersonList)
           or (TfFilter(TExtDBGrid(Source).Owner).DataSet is TMasterdataList)
+          or (TfFilter(TExtDBGrid(Source).Owner).DataSet is TObjects)
           or (TfFilter(TExtDBGrid(Source).Owner).DataSet is TProjectList) then
             begin
               DataT2 := TTreeEntry(tvMain.GetNodeAt(X,Y).Data);
@@ -1608,10 +1609,10 @@ begin
     end
   else if (Source is TExtDBGrid) and (TExtDBGrid(Source).Owner is TfFilter) then
     begin
-      DataT := TTreeEntry(tvMain.Selected.Data);
       if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etDir) then
         if (TfFilter(TExtDBGrid(Source).Owner).DataSet is TPersonList)
         or (TfFilter(TExtDBGrid(Source).Owner).DataSet is TMasterdataList)
+        or (TfFilter(TExtDBGrid(Source).Owner).DataSet is TObjects)
         or (TfFilter(TExtDBGrid(Source).Owner).DataSet is TProjectList) then
           Accept := True;
       if (TTreeEntry(tvMain.GetNodeAt(X,Y).Data).Typ = etProject) then

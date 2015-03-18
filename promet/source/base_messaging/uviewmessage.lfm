@@ -38,8 +38,8 @@ object fViewMessage: TfViewMessage
     HorzScrollBar.Page = 90
     VertScrollBar.Page = 306
     Align = alClient
-    ClientHeight = 308
-    ClientWidth = 567
+    ClientHeight = 306
+    ClientWidth = 565
     PopupMenu = pmCopy
     TabOrder = 2
     Visible = False
@@ -47,7 +47,7 @@ object fViewMessage: TfViewMessage
       Left = 0
       Height = 306
       Top = 0
-      Width = 567
+      Width = 565
       Align = alTop
     end
   end

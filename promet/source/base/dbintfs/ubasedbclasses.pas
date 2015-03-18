@@ -2034,6 +2034,7 @@ begin
       with DataSet as IBaseDBFilter do
         begin
           UsePermissions:=True;
+          Distinct:=True;
           BaseSortFields := 'SQL_ID';
           SortFields := 'SQL_ID';
           SortDirection := sdAscending;
@@ -2043,13 +2044,6 @@ begin
 end;
 procedure TTree.Open;
 begin
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          Limit := 0;
-        end;
-    end;
   inherited Open;
 end;
 procedure TTree.ImportStandartEntrys;

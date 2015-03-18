@@ -297,6 +297,8 @@ begin
   else if Assigned(FOrigTable) then
     begin
       Result := 'SELECT ';
+      if FDistinct then
+        Result := Result+'DISTINCT ';
       if TZeosDBDM(Owner).LimitAfterSelect and ((FLimit > 0)) then
         Result += Format(TZeosDBDM(Owner).LimitSTMT,[FLimit])+' ';
       if FFields = '' then
@@ -2026,4 +2028,4 @@ end;
 
 end.
 
-
+

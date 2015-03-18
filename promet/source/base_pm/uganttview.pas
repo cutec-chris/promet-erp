@@ -188,7 +188,7 @@ type
     destructor Destroy; override;
     procedure AddHelp;
     procedure Populate(aTasks: TTaskList; DoClean: Boolean=True;AddInactive : Boolean = False);
-    procedure DoSave(aChangeMilestones : Boolean);
+    procedure DoSave(aChangeMilestones : Boolean;aSetTermins : Boolean = True);
     procedure CleanIntervals;
     function FindCriticalPath: TInterval;
     procedure FillInterval(aInterval: TInterval; aTasks: TTaskList;
@@ -207,7 +207,7 @@ var
 implementation
 uses uData,LCLIntf,uTaskEdit,variants,LCLProc,uTaskPlan,
   uIntfStrConsts,uColors,uBaseDBInterface,Grids,uLogWait,uWiki,
-  uBaseApplication,uhistoryadditem,uRefreshWizard;
+  uBaseApplication,uhistoryadditem,uRefreshWizard,uchangegantt;
 {$R *.lfm}
 resourcestring
   strSnapshot                             = 'Snapshot';
@@ -292,21 +292,10 @@ var
   aDialog: TForm;
   aCheckBox: TCheckBox;
 begin
-  aDialog := CreateMessageDialog(strCommitChanges,mtInformation,[mbYes,mbNo]);
-  aCheckBox := TCheckBox.Create(aDialog) ;
-  with ACheckBox do
+  if fChangeGantt.Execute(FReasonText) then
     begin
-     Parent := aDialog;
-     Caption := strChangeMilestones;
-     Checked:=True;
-     Visible := True;
-     Left := 0;
-     Top := aDialog.Height-aCheckBox.Height;
-
+      DoSave(fChangeGantt.cbChangeMilestones.Checked);
     end;
-  if (aDialog.ShowModal = mrYes) then
-    DoSave(aCheckBox.Checked);
-  aDialog.Free;
 end;
 
 procedure TfGanttView.bCancelClick(Sender: TObject);
@@ -1671,7 +1660,7 @@ begin
   FGantt.StartDate:=Now();
   FindCriticalPath;
 end;
-procedure TfGanttView.DoSave(aChangeMilestones: Boolean);
+procedure TfGanttView.DoSave(aChangeMilestones: Boolean; aSetTermins: Boolean);
 var
   aStart: TDateTime;
   aEnd: Extended;
@@ -1683,7 +1672,7 @@ var
       begin
         if aParent.Interval[i].Changed then
           begin
-            ChangeTask(FProject.Tasks,aParent.Interval[i],aChangeMilestones,FReasonText);
+            ChangeTask(FProject.Tasks,aParent.Interval[i],aChangeMilestones,FReasonText,aSetTermins);
           end;
         if aParent.Interval[i].StartDate<aStart then
           aStart:=aParent.Interval[i].StartDate;
