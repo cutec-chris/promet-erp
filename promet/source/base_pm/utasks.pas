@@ -311,6 +311,7 @@ resourcestring
   strMyTasks                               = 'von mir erstellte Aufgaben: %s';
   strUnterminatedDependencies              = 'Es gibt unterminierte Abhängigkeiten für diese Aufgabe:'+lineending+'%s';
   strFailed                                = 'Fehlgeschlagen';
+  strChangeDependencies                    = 'Sollen Abhängigkeiten der gelöschten Aufgaben aufgelöst werden ? (längere Dauer)';
 implementation
 {$R *.lfm}
 uses uRowEditor,uTask,ubasevisualapplicationtools,uData,uMainTreeFrame,
@@ -728,7 +729,11 @@ begin
     exit;
   if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
     begin
+      if MessageDlg(strChangeDependencies,mtInformation,[mbYes,mbNo],0) = mrNo then
+        FGridView.DataSet.DataSet.DisableControls;
       FGridView.Delete;
+      if FGridView.DataSet.DataSet.ControlsDisabled then
+        FGridView.DataSet.DataSet.EnableControls;
       if DataSet is TProjectTasks then
         if not TProjectTasks(DataSet).Project.CanEdit then
           TProjectTasks(DataSet).Project.DataSet.Edit;
