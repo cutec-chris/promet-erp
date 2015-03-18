@@ -152,7 +152,7 @@ begin
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
           begin
-            Add('DATE','DATE',[]);
+            Add('DATE','DATE',[ixUnique]);
           end;
     end;
 end;
@@ -166,7 +166,7 @@ begin
       SortFields := 'DATE';
       SortDirection := sdDescending;
       UpdateFloatFields:=True;
-      Limit:=500;
+      Limit:=100;
     end;
 end;
 

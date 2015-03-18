@@ -175,7 +175,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug-sql --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="26">
@@ -290,7 +289,6 @@
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uMain"/>
       </Unit1>
       <Unit2>
         <Filename Value="upersonframe.pas"/>
@@ -298,7 +296,6 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -362,7 +359,6 @@
         <ComponentName Value="fScriptFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uscriptframe"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -644,7 +640,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="30">
+    <Exceptions Count="31">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -751,6 +747,9 @@
       <Item30>
         <Name Value="EMathParserException"/>
       </Item30>
+      <Item31>
+        <Name Value="EInterfaceException"/>
+      </Item31>
     </Exceptions>
   </Debugging>
 </CONFIG>

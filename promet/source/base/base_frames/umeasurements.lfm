@@ -212,6 +212,7 @@ inherited fMeasurementFrame: TfMeasurementFrame
     top = 120
   end
   object MeasurementData: TDatasource[2]
+    Enabled = False
     left = 16
     top = 176
   end
