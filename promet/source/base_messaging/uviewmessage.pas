@@ -240,7 +240,7 @@ begin
            tmp := ss.DataString;
            aEncoding := GuessEncoding(tmp);
            if pos('ENCODING',Uppercase(tmp)) = 0 then
-             tmp := char($EF)+char($BB)+char($BF)+SysToUni(ConvertEncoding(tmp,aEncoding,EncodingUTF8));
+             tmp := ConvertEncoding(tmp,aEncoding,EncodingAnsi);
            ss.Free;
            ss:=TStringStream.Create(tmp);
            NewHTML:=TSimpleIpHtml.Create; // Beware:Will be freed automatically by IpHtmlPanel1
