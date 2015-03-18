@@ -276,6 +276,7 @@ begin
                   aFilter := copy(aFilter,pos(' ',aFilter)+1,length(aFilter));
                   if aFilter <> '' then
                     begin
+                      Distinct:=True;
                       SortFields:='';
                       Filter := aFilter;
                       Limit := FMaxResults;
