@@ -480,6 +480,8 @@ function TfTaskFrame.fSearchAddTasksToProject(aLink: string): Boolean;
 var
   aProject: TProject;
 begin
+  Screen.Cursor:=crHourGlass;
+  Application.ProcessMessages;
   aProject := TProject.CreateEx(Self,Data);
   aProject.SelectFromLink(aLink);
   aProject.Open;
@@ -493,6 +495,7 @@ begin
       acRefresh.Execute;
     end;
   aProject.Free;
+  Screen.Cursor:=crDefault;
 end;
 
 function TfTaskFrame.fSearchOpenItem(aLink: string): Boolean;
