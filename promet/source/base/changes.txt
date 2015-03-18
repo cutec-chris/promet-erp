@@ -1,5 +1,6 @@
 ﻿Build 395
-      -
+      - Gantt:Separater Dialog für verschiedene Rechenmodelle beim verschieben von Plänen
+      - Gantt:Separater Dialog beim speichern mit Angabe von gründen, die in alle verschobenen Aufgaben übernommen werden
 Build 394
       - Aufgaben:"Finden eines Zeitslots" berücksichtigt schon erfasste Zeiten aus Zeiterfassung
       - Aufgaben:erfasste Zeiten werden als Zeit dargestellt nicht als Float Wert

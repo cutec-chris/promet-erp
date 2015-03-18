@@ -12,9 +12,11 @@ object fChangeGantt: TfChangeGantt
     Left = 8
     Height = 13
     Top = 8
-    Width = 181
+    Width = 213
     Caption = 'Grund für die Verschiebung/Ändeurng'
+    Font.Style = [fsBold]
     ParentColor = False
+    ParentFont = False
   end
   object mRule: TMemo
     Left = 8
