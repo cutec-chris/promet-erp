@@ -208,7 +208,7 @@ type
     procedure Execute; override;
     constructor Create(aPlan : TWinControl;aFrom,aTo : TDateTime;aResource : TRessource;asUser : string;aTasks,aCalendar,aProcessmessages : Boolean;AttatchTo : TInterval = nil);
   end;
-function ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False;aReason : string = '') : Boolean;
+function ChangeTask(aTasks: TTaskList;aTask : TInterval;DoChangeMilestones : Boolean = False;aReason : string = '';DoSetTermins : Boolean = True) : Boolean;
 resourcestring
   strSaveTaskChanges                      = 'Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?';
   strChangeMilestones                     = 'Sollen Meilensteintermine auch geändert werden ?';
@@ -419,7 +419,7 @@ begin
 end;
 
 function ChangeTask(aTasks: TTaskList; aTask: TInterval;
-  DoChangeMilestones: Boolean; aReason: string): Boolean;
+  DoChangeMilestones: Boolean; aReason: string; DoSetTermins: Boolean): Boolean;
 var
   aTaskI: TTask;
   aTaskI2: TTask;
@@ -450,30 +450,36 @@ begin
       if ((aTasks.FieldByName('CLASS').AsString<>'M') or DoChangeMilestones) and (aTasks.FieldByName('COMPLETED').AsString<>'Y') then
         begin
           Result := aTasks.FieldByName('CLASS').AsString='M';
-          if not aTasks.CanEdit then
-            aTasks.DataSet.Edit;
           if aTasks.FieldByName('SUMMARY').AsString <> aTask.Task then
-            aTasks.FieldByName('SUMMARY').AsString := aTask.Task;
-          if not aTasks.CanEdit then
-            aTasks.DataSet.Edit;
-          Changed := False;
-          if trunc(aTasks.FieldByName('STARTDATE').AsDateTime)<>trunc(aTask.StartDate) then
             begin
-              aTasks.FieldByName('STARTDATE').AsDateTime := aTask.StartDate;
-              changed := True;
+              if not aTasks.CanEdit then
+                aTasks.DataSet.Edit;
+              aTasks.FieldByName('SUMMARY').AsString := aTask.Task;
             end;
-          if not aTasks.CanEdit then
-            aTasks.DataSet.Edit;
-          if (trim(aTasks.FieldByName('DUEDATE').AsString)='') or (trunc(aTasks.FieldByName('DUEDATE').AsDateTime) <> trunc(aTask.FinishDate)) then
+          Changed := False;
+          if DoSetTermins then
             begin
-              aTasks.FieldByName('DUEDATE').AsDateTime := aTask.FinishDate;
-              changed := True;
+              if trunc(aTasks.FieldByName('STARTDATE').AsDateTime)<>trunc(aTask.StartDate) then
+                begin
+                  if not aTasks.CanEdit then
+                    aTasks.DataSet.Edit;
+                  aTasks.FieldByName('STARTDATE').AsDateTime := aTask.StartDate;
+                  changed := True;
+                end;
+              if (trim(aTasks.FieldByName('DUEDATE').AsString)='') or (trunc(aTasks.FieldByName('DUEDATE').AsDateTime) <> trunc(aTask.FinishDate)) then
+                begin
+                  if not aTasks.CanEdit then
+                    aTasks.DataSet.Edit;
+                  aTasks.FieldByName('DUEDATE').AsDateTime := aTask.FinishDate;
+                  changed := True;
+                end;
             end;
           if aTasks.CanEdit then
-            aTasks.DataSet.Post;
-          if (trim(aReason)<>'') and Changed then
-            aTasks.History.AddItem(Data.Users.DataSet,aReason,'','',atasks.DataSet,ACICON_USEREDITED,'',True,True);
-
+            begin
+              aTasks.DataSet.Post;
+              if (trim(aReason)<>'') and Changed then
+                aTasks.History.AddItem(Data.Users.DataSet,aReason,'','',atasks.DataSet,ACICON_USEREDITED,'',True,True);
+            end;
         end;
       if Assigned(aTask.Parent) then
         ChangeTask(aTasks,aTask.Parent,DoChangeMilestones);
