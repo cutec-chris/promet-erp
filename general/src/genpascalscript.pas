@@ -379,6 +379,21 @@ begin
                     Comp.Compile(newUnit);
                     Procs.Free;
                     Result := True;
+                  end
+                else
+                  begin
+                    aProc := aprocT(dynlibs.GetProcAddress(aLib,'ScriptUnitDefinition'));
+                    if Assigned(aProc) then
+                      begin
+                        newUnit := '';
+                        sProc := aProc();
+                        NewLib := TLoadedLib.Create;
+                        NewLib.Name:=Name;
+                        NewLib.Code:=sProc;
+                        LoadedLibs.Add(NewLib);
+                        Comp.Compile(newUnit);
+                        Result := True;
+                      end;
                   end;
                 FreeLibrary(aLib);
               end;

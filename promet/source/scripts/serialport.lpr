@@ -10,6 +10,7 @@ type
 
 var
   Ports : TList = nil;
+  aData: String;
 
 function SerOpen(const DeviceName: String): LongInt;
 var
@@ -87,13 +88,17 @@ function SerReadTimeout(Handle: LongInt;var Data : PChar;Timeout: Integer;Count:
 var
   i: Integer;
   iData: String;
+  a: Integer;
 begin
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
         iData := TBlockSerial(Ports[i]).RecvPacket(Timeout);
         Result := length(iData);
-        Move(iData[1],Data,Result);
+        aData := '';
+        for a := 1 to length(iData) do
+          aData := aData+IntToHex(ord(iData[a]),2);
+        Data := PChar(aData);
         exit;
       end;
 end;
@@ -170,20 +175,25 @@ begin
   FreeAndNil(Ports);
 end;
 
-function ScriptDefinition : PChar;stdcall;
+function ScriptUnitDefinition : PChar;stdcall;
 begin
-  Result := 'TParityType = (NoneParity, OddParity, EvenParity);'
-       +#10+'function SerOpen(const DeviceName: String): LongInt;'
-       +#10+'procedure SerClose(Handle: LongInt);'
-       +#10+'procedure SerFlush(Handle: LongInt);'
-       +#10+'function SerRead(Handle: LongInt; Count: LongInt): PChar;'
-       +#10+'function SerReadTimeout(Handle: LongInt;var Data : PChar;Timeout: Integer;Count: LongInt) : Integer;'
-       +#10+'function SerWrite(Handle: LongInt; Data : PChar;Len : Integer): LongInt;'
-       +#10+'procedure SerParams(Handle: LongInt; BitsPerSec: LongInt; ByteSize: Integer; Parity: TParityType; StopBits: Integer);'
-       +#10+'function SerGetCTS(Handle: LongInt) : Boolean;'
-       +#10+'function SerGetDSR(Handle: LongInt) : Boolean;'
-       +#10+'procedure SerSetRTS(Handle: LongInt;Value : Boolean);'
-       +#10+'procedure SerSetDTR(Handle: LongInt;Value : Boolean);'
+  Result := 'unit SerialPort;'
+       +#10+'interface'
+       +#10+'type'
+       +#10+'  TParityType = (NoneParity, OddParity, EvenParity);'
+       +#10+'  function SerOpen(const DeviceName: String): LongInt;extern SerOpen@serialport.dll;'
+       +#10+'  procedure SerClose(Handle: LongInt);extern SerClose@serialport.dll;'
+       +#10+'  procedure SerFlush(Handle: LongInt);extern SerFlush@serialport.dll;'
+       +#10+'  function SerRead(Handle: LongInt; Count: LongInt): PChar;extern SerRead@serialport.dll;'
+       +#10+'  function SerReadTimeout(Handle: LongInt;var Data : PChar;Timeout: Integer;Count: LongInt) : Integer;extern SerReadTimeout@serialport.dll;'
+       +#10+'  function SerWrite(Handle: LongInt; Data : PChar;Len : Integer): LongInt;extern SerWrite@serialport.dll;'
+       +#10+'  procedure SerParams(Handle: LongInt; BitsPerSec: LongInt; ByteSize: Integer; Parity: TParityType; StopBits: Integer);extern SerParams@serialport.dll;'
+       +#10+'  function SerGetCTS(Handle: LongInt) : Boolean;extern SerGetCTS@serialport.dll;'
+       +#10+'  function SerGetDSR(Handle: LongInt) : Boolean;extern SerGetDSR@serialport.dll;'
+       +#10+'  procedure SerSetRTS(Handle: LongInt;Value : Boolean);extern SerSetRTS@serialport.dll;'
+       +#10+'  procedure SerSetDTR(Handle: LongInt;Value : Boolean);extern SerSetDTR@serialport.dll;'
+       +#10+'implementation'
+       +#10+'end.'
             ;
 end;
 
@@ -200,7 +210,7 @@ exports
   SerSetRTS,
   SerSetDTR,
 
-  ScriptDefinition,
+  ScriptUnitDefinition,
   ScriptCleanup;
 
 end.
