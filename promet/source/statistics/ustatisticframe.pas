@@ -45,6 +45,7 @@ type
     acExecute: TAction;
     acFormatSQL: TAction;
     acCopyToNewTable: TAction;
+    acIsScript: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel3: TBevel;
@@ -133,6 +134,7 @@ type
     ExecuteTimer: TTimer;
     ToolButton3: TSpeedButton;
     ToolButton4: TSpeedButton;
+    ToolButton5: TSpeedButton;
     tsDescription: TTabSheet;
     ToolBar: TToolBar;
     ToolBar1: TPanel;

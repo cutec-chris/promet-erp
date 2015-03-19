@@ -168,6 +168,7 @@ resourcestring
   strNoDataFound                = 'kein Eintrag gefunden !';
   strArticleList                = 'Artikelliste';
   strSearch                     = 'Suche';
+  strContinueSearch             = 'weitersuchen';
   strSerial                     = 'Serienummer';
   strBarcode                    = 'Barcode';
   strCommission                 = 'Komission';

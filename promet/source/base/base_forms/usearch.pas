@@ -43,7 +43,6 @@ type
     bOpen: TBitBtn;
     cbMaxResults: TCheckBox;
     IdleTimer: TTimer;
-    IdleTimer1: TIdleTimer;
     lHint: TLabel;
     cbSearchIn: TCheckListBox;
     cbSearchType: TCheckListBox;
@@ -74,16 +73,13 @@ type
     sgResults: TStringGrid;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
-    HistorySearchTimer: TTimer;
     procedure acCopyLinkExecute(Sender: TObject);
     procedure acInformwithexternMailExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acSaveToLinkExecute(Sender: TObject);
     procedure acSearchContainedExecute(Sender: TObject);
     procedure ActiveSearchBeginItemSearch(Sender: TObject);
-    procedure ActiveSearchEndHistorySearch(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
-    procedure ActiveSearchEndSearch(Sender: TObject);
     procedure bCloseClick(Sender: TObject);
     procedure bEditFilterClick(Sender: TObject);
     procedure cbSearchInClickCheck(Sender: TObject);
@@ -102,8 +98,6 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     function fSearchOpenUserItem(aLink: string): Boolean;
-    procedure HistorySearchTimerTimer(Sender: TObject);
-    procedure IdleTimer1Timer(Sender: TObject);
     procedure IdleTimerTimer(Sender: TObject);
     procedure PopupMenu1Popup(Sender: TObject);
     procedure seMaxresultsChange(Sender: TObject);
@@ -127,6 +121,8 @@ type
     FModal : Boolean;
     FLastSearch : string;
     FOptionSet : string;
+    SearchLevel: Integer;
+    ActCount: Integer;
     procedure WMCloseQuery(var message: TLMessage); message LM_CLOSEQUERY;
   public
     { public declarations }
@@ -287,24 +283,9 @@ begin
   sgResults.BeginUpdate;
 end;
 
-procedure TfSearch.ActiveSearchEndHistorySearch(Sender: TObject);
-begin
-  HistorySearchTimer.Enabled:=True;
-end;
-
 procedure TfSearch.ActiveSearchEndItemSearch(Sender: TObject);
 begin
   sgResults.EndUpdate;
-end;
-procedure TfSearch.ActiveSearchEndSearch(Sender: TObject);
-begin
-  bOpen.Enabled:=True;
-  bSearch.Caption:=strDoSearch;
-  if sgResults.RowCount > 1 then
-    begin
-      bSearch.Default:=False;
-      bOpen.Default:=True;
-    end;
 end;
 procedure TfSearch.acCopyLinkExecute(Sender: TObject);
 var
@@ -360,6 +341,7 @@ var
 begin
   if (bSearch.Caption = strAbort) then
     begin
+      SearchLevel := 0;
       if Sender = nil then exit;
       SearchText := '';
       if Assigned(ActiveSearch) then
@@ -372,7 +354,6 @@ begin
       {$ENDIF}
       exit;
     end;
-  IdleTimer1.Enabled:=False;
   bOpen.Enabled:=False;
   bSearch.Caption := strAbort;
   Application.ProcessMessages;
@@ -386,18 +367,26 @@ begin
         SetLength(SearchLocations,length(SearchLocations)+1);
         SearchLocations[length(SearchLocations)-1] := cbSearchType.Items[i];
       end;
-  sgResults.RowCount := sgResults.FixedRows;
+  if SearchLevel=0 then
+    sgResults.RowCount := sgResults.FixedRows;
+  ActCount := sgResults.RowCount;
   SearchText := eContains.Text;
-  if cbMaxResults.Checked then
-    ActiveSearch := TSearch.Create(SearchTypes,SearchLocations,cbContains.Checked,seMaxResults.Value)
-  else
-    ActiveSearch := TSearch.Create(SearchTypes,SearchLocations,cbContains.Checked,0);
-  ActiveSearch.OnItemFound:=@DataSearchresultItem;
-  ActiveSearch.OnBeginItemSearch:=@ActiveSearchBeginItemSearch;
-  ActiveSearch.OnEndItemSearch:=@ActiveSearchEndItemSearch;
-  ActiveSearch.OnEndSearch:=@FastSearchEnd;
-  ActiveSearch.OnEndHistorySearch:=@ActiveSearchEndHistorySearch;
-  ActiveSearch.StartHistorySearch(eContains.Text);
+  if not Assigned(ActiveSearch) then
+    begin
+      if cbMaxResults.Checked then
+        ActiveSearch := TSearch.Create(SearchTypes,SearchLocations,cbContains.Checked,seMaxResults.Value)
+      else
+        ActiveSearch := TSearch.Create(SearchTypes,SearchLocations,cbContains.Checked,0);
+      ActiveSearch.OnItemFound:=@DataSearchresultItem;
+      ActiveSearch.OnBeginItemSearch:=@ActiveSearchBeginItemSearch;
+      ActiveSearch.OnEndItemSearch:=@ActiveSearchEndItemSearch;
+      ActiveSearch.OnEndSearch:=@FastSearchEnd;
+    end;
+  if not ActiveSearch.Start(eContains.Text,SearchLevel) then
+    begin
+      bSearch.Caption:=strDoSearch;
+      SearchLevel := 0;
+    end;
 end;
 procedure TfSearch.cbAutomaticsearchChange(Sender: TObject);
 begin
@@ -464,7 +453,6 @@ begin
 end;
 procedure TfSearch.eContainsChange(Sender: TObject);
 begin
-  HistorySearchTimer.Enabled:=False;
   IdleTimer.Enabled:=False;
   if Assigned(ActiveSearch) then
     begin
@@ -497,12 +485,17 @@ end;
 
 procedure TfSearch.FastSearchEnd(Sender: TObject);
 begin
-  IdleTimer1.Enabled:=false;
-  ActiveSearch.OnEndSearch := @ActiveSearchEndSearch;
+  inc(SearchLevel);
   acOpen.Enabled:=True;
   Application.ProcessMessages;
-  if bSearch.Caption=strAbort then
-    IdleTimer1.Enabled:=True;
+  bOpen.Enabled:=True;
+  bSearch.Caption:=strContinueSearch;
+  if sgResults.RowCount > ActCount then
+    begin
+      bSearch.Default:=False;
+      bOpen.Default:=True;
+    end
+  else DoSearch(bSearch);
 end;
 
 procedure TfSearch.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -595,23 +588,10 @@ begin
     end;
 end;
 
-procedure TfSearch.HistorySearchTimerTimer(Sender: TObject);
-begin
-  HistorySearchTimer.Enabled:=False;
-  ActiveSearch.Start(eContains.Text,False);
-end;
-
-procedure TfSearch.IdleTimer1Timer(Sender: TObject);
-begin
-  IdleTimer1.Enabled:=false;
-  Application.ProcessMessages;
-  if bSearch.Caption=strAbort then
-    ActiveSearch.Start(eContains.Text)
-end;
-
 procedure TfSearch.IdleTimerTimer(Sender: TObject);
 begin
   if eContains.Text = '' then exit;
+  SearchLevel:=0;
   if FLastSearch = eContains.Text then IdleTimer.Enabled:=False;
   if cbAutomaticSearch.Checked then
     begin
@@ -698,6 +678,7 @@ var
   Options: String;
   i: Integer;
 begin
+  SearchLevel:=0;
   if not Assigned(Self) then
     begin
       Application.CreateForm(TfSearch,fSearch);

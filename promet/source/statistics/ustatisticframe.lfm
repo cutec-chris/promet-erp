@@ -375,13 +375,13 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsDescription: TTabSheet
         Caption = 'Beschreibung'
-        ClientHeight = 299
-        ClientWidth = 842
+        ClientHeight = 312
+        ClientWidth = 840
         object DBMemo1: TDBMemo
           Left = 0
-          Height = 299
+          Height = 312
           Top = 0
-          Width = 842
+          Width = 840
           Align = alClient
           DataField = 'DESCRIPTION'
           DataSource = Datasource
@@ -424,14 +424,14 @@ inherited fStatisticFrame: TfStatisticFrame
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 256
-          ClientWidth = 858
+          ClientHeight = 269
+          ClientWidth = 856
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
-            Height = 204
+            Height = 217
             Top = 0
-            Width = 858
+            Width = 856
             Align = alClient
             Font.Height = -13
             Font.Name = 'Courier New'
@@ -936,11 +936,13 @@ inherited fStatisticFrame: TfStatisticFrame
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
               end>
+            MouseTextActions = <>
             MouseSelActions = <            
               item
                 ClickDir = cdDown
                 Command = emcStartDragMove
               end>
+            VisibleSpecialChars = [vscSpace, vscTabAtLast]
             SelectedColor.FrameEdges = sfeAround
             SelectedColor.BackPriority = 50
             SelectedColor.ForePriority = 50
@@ -1036,8 +1038,8 @@ inherited fStatisticFrame: TfStatisticFrame
           object lbErrors: TListBox
             Left = 0
             Height = 52
-            Top = 204
-            Width = 858
+            Top = 217
+            Width = 856
             Align = alBottom
             ItemHeight = 0
             TabOrder = 1
@@ -1558,11 +1560,13 @@ inherited fStatisticFrame: TfStatisticFrame
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
               end>
+            MouseTextActions = <>
             MouseSelActions = <            
               item
                 ClickDir = cdDown
                 Command = emcStartDragMove
               end>
+            VisibleSpecialChars = [vscSpace, vscTabAtLast]
             SelectedColor.FrameEdges = sfeAround
             SelectedColor.BackPriority = 50
             SelectedColor.ForePriority = 50
@@ -2170,11 +2174,13 @@ inherited fStatisticFrame: TfStatisticFrame
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
               end>
+            MouseTextActions = <>
             MouseSelActions = <            
               item
                 ClickDir = cdDown
                 Command = emcStartDragMove
               end>
+            VisibleSpecialChars = [vscSpace, vscTabAtLast]
             SelectedColor.FrameEdges = sfeAround
             SelectedColor.BackPriority = 50
             SelectedColor.ForePriority = 50
@@ -2328,7 +2334,7 @@ inherited fStatisticFrame: TfStatisticFrame
           AnchorSideLeft.Side = asrBottom
           Left = 64
           Height = 28
-          Top = 12
+          Top = 11
           Width = 32
           AllowAllUp = True
           BorderSpacing.Left = 8
@@ -2719,7 +2725,7 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object eName: TDBEdit
           Left = 8
-          Height = 22
+          Height = 21
           Top = 16
           Width = 354
           DataField = 'NAME'
@@ -2774,6 +2780,16 @@ inherited fStatisticFrame: TfStatisticFrame
           Width = 28
           Action = acCopyToNewTable
           Flat = True
+          ShowCaption = False
+        end
+        object ToolButton5: TSpeedButton
+          Left = 64
+          Height = 28
+          Top = 10
+          Width = 28
+          Action = acIsScript
+          Flat = True
+          GroupIndex = 55
           ShowCaption = False
         end
       end
@@ -2836,13 +2852,20 @@ inherited fStatisticFrame: TfStatisticFrame
     object acFormatSQL: TAction
       Caption = 'SQL Formatieren'
       Hint = 'formatiert den SQL Code neu'
-      ImageIndex = 62
+      ImageIndex = 49
       OnExecute = acFormatSQLExecute
     end
     object acCopyToNewTable: TAction
       Caption = 'in Tabelle kopieren'
       Hint = 'kopiert den Inhalt der aktuellen Abfrage in eine Tabelle auf die Sie später zugreifen können'
       ImageIndex = 24
+    end
+    object acIsScript: TAction
+      AutoCheck = True
+      Caption = 'acIsScript'
+      GroupIndex = 55
+      Hint = 'Statistik wird aus Script gebaut'
+      ImageIndex = 62
     end
   end
   object pmAction: TPopupMenu[4]

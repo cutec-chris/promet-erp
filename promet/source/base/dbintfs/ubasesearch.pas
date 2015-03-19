@@ -49,7 +49,6 @@ type
     FBeginSearch: TNotifyEvent;
     FCount: Integer;
     FEndSearch: TNotifyEvent;
-    FFastEndSearch: TNotifyEvent;
     FFullEndSearch: TNotifyEvent;
     FItemFound: TSearchResultItem;
     FSearchTypes: TFullTextSearchTypes;
@@ -62,14 +61,15 @@ type
   public
     constructor Create(aSearchTypes : TFullTextSearchTypes;aSearchLocations : TSearchLocations;aUseContains : Boolean = False;aMaxresults : Integer = 0);
     destructor Destroy;override;
-    procedure Start(SearchText: string; SearchUnsharp: Boolean=True);
-    procedure StartHistorySearch(SearchText : string);
+    function Start(SearchText: string;aLevel : Integer = 0) : Boolean;
+    procedure DoStart(SearchText: string; SearchUnsharp: Boolean=True);
+    procedure DoStartAllObjectsSearch(SearchText : string);
+    procedure DoStartHistorySearch(SearchText : string);
     procedure Abort;
     property Active : Boolean read FActive;
     property OnBeginItemSearch : TNotifyEvent read FBeginSearch write FBeginSearch;
     property OnItemFound : TSearchResultItem read FItemFound write FItemFound;
     property OnEndItemSearch : TNotifyEvent read FEndSearch write FEndSearch;
-    property OnEndHistorySearch : TNotifyEvent read FFastEndSearch write FFastEndSearch;
     property OnEndSearch : TNotifyEvent read FFullEndSearch write FFullEndSearch;
     property Sender : TComponent read FSender write FSender;
     property Count : Integer read FCount;
@@ -194,7 +194,19 @@ begin
     Lists[i].Free;
   inherited Destroy;
 end;
-procedure TSearch.Start(SearchText : string;SearchUnsharp : Boolean = True);
+function TSearch.Start(SearchText: string; aLevel: Integer): Boolean;
+begin
+  Result := True;
+  case aLevel of
+  0:DoStartHistorySearch(SearchText);
+  1:DoStartAllObjectsSearch(SearchText);
+  2:DoStart(SearchText,False);
+  3:DoStart(SearchText,True);
+  else Result := False;
+  end;
+end;
+
+procedure TSearch.DoStart(SearchText: string; SearchUnsharp: Boolean);
 var
   i: Integer;
   aFilter: String;
@@ -227,8 +239,17 @@ var
   end;
 begin
   if SearchUnsharp then
-    aPrio := 1000
-  else aPrio := 2000;
+    begin
+      with BaseApplication as IBaseApplication do
+        Debug('Search:StartSearch unsharp');
+      aPrio := 1000;
+    end
+  else
+    begin
+      with BaseApplication as IBaseApplication do
+        Debug('Search:StartSearch sharp');
+      aPrio := 2000;
+    end;
   if not Assigned(FItemFound) then exit;
   FActive := True;
   FCount := 0;
@@ -276,7 +297,6 @@ begin
                   aFilter := copy(aFilter,pos(' ',aFilter)+1,length(aFilter));
                   if aFilter <> '' then
                     begin
-                      Distinct:=True;
                       SortFields:='';
                       Filter := aFilter;
                       Limit := FMaxResults;
@@ -334,10 +354,17 @@ begin
 
     end;
   if Assigned(FFullEndSearch) then FFullEndSearch(Self);
+  with BaseApplication as IBaseApplication do
+    Debug('Search:StartSearch End');
   FActive := False;
 end;
 
-procedure TSearch.StartHistorySearch(SearchText: string);
+procedure TSearch.DoStartAllObjectsSearch(SearchText: string);
+begin
+  if Assigned(FFullEndSearch) then FFullEndSearch(Self);
+end;
+
+procedure TSearch.DoStartHistorySearch(SearchText: string);
 var
   aDs: TDataSet;
   aDSClass: TBaseDBDatasetClass;
@@ -346,6 +373,8 @@ var
   aActive: Boolean;
 begin
   if not Assigned(FItemFound) then exit;
+  with BaseApplication as IBaseApplication do
+    Debug('Search:StartHistorySearch');
   FActive:=True;
   if Data.IsSQLDB then
     begin
@@ -386,7 +415,9 @@ begin
         end;
       aDS.Free;
     end;
-  if Assigned(FFastEndSearch) then FFastEndSearch(Self);
+  if Assigned(FFullEndSearch) then FFullEndSearch(Self);
+  with BaseApplication as IBaseApplication do
+    Debug('Search:EndHistorySearch');
   FActive := False;
 end;
 
