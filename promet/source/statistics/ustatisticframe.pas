@@ -132,11 +132,11 @@ type
     SubDetail: TDatasource;
     SynSQLSyn1: TSynSQLSyn;
     ExecuteTimer: TTimer;
+    ToolBar: TToolBar;
     ToolButton3: TSpeedButton;
     ToolButton4: TSpeedButton;
     ToolButton5: TSpeedButton;
     tsDescription: TTabSheet;
-    ToolBar: TToolBar;
     ToolBar1: TPanel;
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;

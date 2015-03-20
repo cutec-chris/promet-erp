@@ -3,8 +3,8 @@ inherited fStatisticFrame: TfStatisticFrame
   Width = 864
   ClientHeight = 698
   ClientWidth = 864
-  DesignLeft = 427
-  DesignTop = 116
+  DesignLeft = 423
+  DesignTop = 144
   object Splitter2: TSplitter[0]
     Cursor = crVSplit
     Left = 0
@@ -28,18 +28,18 @@ inherited fStatisticFrame: TfStatisticFrame
     TabOrder = 1
     object pcTabs: TPageControl
       Left = 8
-      Height = 338
-      Top = 8
+      Height = 337
+      Top = 9
       Width = 848
-      ActivePage = tsDescription
+      ActivePage = tsResults
       Align = alClient
       BorderSpacing.Around = 8
-      TabIndex = 2
+      TabIndex = 1
       TabOrder = 0
       object tsReport: TTabSheet
         Caption = 'Report'
-        ClientHeight = 305
-        ClientWidth = 842
+        ClientHeight = 312
+        ClientWidth = 840
         object Panel2: TPanel
           Left = 0
           Height = 27
@@ -207,23 +207,23 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsResults: TTabSheet
         Caption = 'Ergebnisliste'
-        ClientHeight = 305
-        ClientWidth = 842
+        ClientHeight = 311
+        ClientWidth = 840
         object Panel1: TPanel
           Left = 0
-          Height = 283
+          Height = 282
           Top = 0
           Width = 840
           Align = alClient
           BevelOuter = bvNone
           Caption = 'Panel1'
-          ClientHeight = 283
+          ClientHeight = 282
           ClientWidth = 840
           TabOrder = 0
           object gList: TDBGrid
             Left = 4
-            Height = 1
-            Top = 20
+            Height = 0
+            Top = 19
             Width = 832
             Align = alClient
             BorderSpacing.Around = 4
@@ -241,7 +241,7 @@ inherited fStatisticFrame: TfStatisticFrame
           object Label1: TLabel
             Left = 4
             Height = 13
-            Top = 5
+            Top = 4
             Width = 832
             Align = alTop
             BorderSpacing.Around = 4
@@ -253,7 +253,7 @@ inherited fStatisticFrame: TfStatisticFrame
           object pDetails: TPanel
             Left = 0
             Height = 274
-            Top = 9
+            Top = 8
             Width = 840
             Align = alBottom
             BevelOuter = bvNone
@@ -341,28 +341,18 @@ inherited fStatisticFrame: TfStatisticFrame
             Cursor = crVSplit
             Left = 0
             Height = 5
-            Top = 17
+            Top = 16
             Width = 840
             Align = alBottom
             ResizeAnchor = akBottom
             ResizeStyle = rsLine
             Visible = False
           end
-          object ToolBar: TToolBar
-            Left = 0
-            Height = 1
-            Top = 0
-            Width = 840
-            AutoSize = True
-            ButtonHeight = 32
-            Caption = 'ToolBar'
-            TabOrder = 3
-          end
         end
         object lStatus: TLabel
           Left = 8
           Height = 13
-          Top = 291
+          Top = 290
           Width = 824
           Align = alBottom
           BorderSpacing.Around = 8
@@ -390,6 +380,16 @@ inherited fStatisticFrame: TfStatisticFrame
           TabOrder = 0
         end
       end
+    end
+    object ToolBar: TToolBar
+      Left = 0
+      Height = 1
+      Top = 0
+      Width = 864
+      AutoSize = True
+      ButtonHeight = 32
+      Caption = 'ToolBar'
+      TabOrder = 1
     end
   end
   object Panel5: TPanel[2]
@@ -2796,7 +2796,6 @@ inherited fStatisticFrame: TfStatisticFrame
     end
   end
   object ActionList1: TActionList[3]
-    Images = fVisualControls.Images
     left = 196
     top = 64
     object acSave: TAction
@@ -2863,6 +2862,7 @@ inherited fStatisticFrame: TfStatisticFrame
     object acIsScript: TAction
       AutoCheck = True
       Caption = 'acIsScript'
+      DisableIfNoHandler = False
       GroupIndex = 55
       Hint = 'Statistik wird aus Script gebaut'
       ImageIndex = 62
