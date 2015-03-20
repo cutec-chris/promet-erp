@@ -9,9 +9,9 @@
         <Filename Value="serialport.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="169"/>
-        <CursorPos X="156" Y="201"/>
-        <UsageCount Value="44"/>
+        <TopLine Value="185"/>
+        <CursorPos X="24" Y="206"/>
+        <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>

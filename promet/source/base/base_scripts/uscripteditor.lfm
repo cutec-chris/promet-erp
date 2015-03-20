@@ -647,58 +647,16 @@ object fScriptEditor: TfScriptEditor
         ClientHeight = 30
         ClientWidth = 398
         TabOrder = 1
-        object lName: TLabel
-          Left = 3
-          Height = 27
-          Top = 3
-          Width = 37
-          Align = alLeft
-          BorderSpacing.Left = 3
-          BorderSpacing.Top = 3
-          BorderSpacing.Right = 5
-          Caption = 'Name'
-          ParentColor = False
-        end
-        object eName: TDBEdit
-          Left = 48
+        object cbClient: TComboBox
+          Left = 264
           Height = 24
           Top = 0
-          Width = 152
-          DataField = 'NAME'
-          DataSource = DataSource
-          CharCase = ecNormal
-          MaxLength = 0
-          TabOrder = 0
-        end
-        object lName1: TLabel
-          Left = 215
-          Height = 27
-          Top = 3
-          Width = 33
-          Align = alRight
-          BorderSpacing.Left = 3
-          BorderSpacing.Top = 3
-          BorderSpacing.Right = 150
-          Caption = 'Client'
-          ParentColor = False
-        end
-        object cbClient: TDBComboBox
-          Left = 256
-          Height = 24
-          Top = 0
-          Width = 142
-          DataField = 'RUNMASHINE'
-          DataSource = DataSource
+          Width = 100
           ItemHeight = 16
-          MaxLength = 0
-          OnSelect = cbSyntaxSelect
-          TabOrder = 1
+          TabOrder = 0
+          Text = 'cbClient'
+          Visible = False
         end
-      end
-      object ToolButton10: TToolButton
-        Left = 727
-        Top = 2
-        Action = acRunRemote
       end
     end
     object Splitter1: TSplitter

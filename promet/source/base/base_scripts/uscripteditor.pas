@@ -49,21 +49,18 @@ type
     acRunRemote: TAction;
     ActionList1: TActionList;
     cbSyntax: TDBComboBox;
+    cbClient: TComboBox;
     DataSource: TDataSource;
-    cbClient: TDBComboBox;
-    lName1: TLabel;
     MenuItem6: TMenuItem;
     PopupMenu2: TPopupMenu;
     SelectData: TDatasource;
     gResults: TDBGrid;
-    eName: TDBEdit;
     DBGrid1: TDBGrid;
     Debugger: TPSScriptDebugger;
     FindDialog: TFindDialog;
     IFPS3DllPlugin1: TPSDllPlugin;
     ilImageList: TImageList;
     Label1: TLabel;
-    lName: TLabel;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
@@ -108,7 +105,6 @@ type
     Syntaxcheck1: TMenuItem;
     tmDebug: TTimer;
     ToolBar1: TToolBar;
-    ToolButton10: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
@@ -243,9 +239,9 @@ resourcestring
   strScriptRunning       = 'Das Script wurde gestartet';
 function OnUses(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 begin
-  if Assigned(fScriptEditor) then
+  if Assigned(fScriptEditor) and Assigned(Data) then
     TPascalScript(fScriptEditor.FDataSet.Script).InternalUses(Sender,Name)
-  else if Assigned(flastScriptEditor) then
+  else if Assigned(flastScriptEditor) and Assigned(Data) then
     TPascalScript(fLastScriptEditor.FDataSet.Script).InternalUses(Sender,Name)
 end;
 
@@ -330,7 +326,7 @@ end;
 procedure TfScriptEditor.edGutterClick(Sender: TObject; X, Y, Line: integer;
   mark: TSynEditMark);
 begin
-  if (lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal') and (cbClient.Text='') then
+  if ed.Highlighter=HigPascal then
     begin
       if Debugger.HasBreakPoint(Debugger.MainFileName, Line) then
         Debugger.ClearBreakPoint(Debugger.MainFileName, Line)
@@ -384,28 +380,32 @@ end;
 procedure TfScriptEditor.cbSyntaxSelect(Sender: TObject);
 begin
   ed.Highlighter := TSynCustomHighlighter(FindComponent('Hig'+cbSyntax.Text));
-  acStepinto.Enabled:=(lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal') and (cbClient.Text='');
-  acStepover.Enabled:=(lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal') and (cbClient.Text='');
+  acStepinto.Enabled:=(ed.Highlighter=HigPascal) and (cbClient.Text='');
+  acStepover.Enabled:=(ed.Highlighter=HigPascal) and (cbClient.Text='');
 end;
 
 procedure TfScriptEditor.DebuggerExecImport(Sender: TObject; se: TPSExec;
   x: TPSRuntimeClassImporter);
 begin
-  TPascalScript(FDataSet.Script).ClassImporter:=x;
+  if Assigned(Data) then
+    TPascalScript(FDataSet.Script).ClassImporter:=x;
 end;
 
 procedure TfScriptEditor.edChange(Sender: TObject);
 begin
- FDataSet.Edit;
- FDataSet.FieldByName('SCRIPT').AsString:=ed.Lines.Text;
- FDataSet.FieldByName('FOLDSTATE').AsString:=ed.FoldState;
+ if Assigned(Data) then
+   begin
+     FDataSet.Edit;
+     FDataSet.FieldByName('SCRIPT').AsString:=ed.Lines.Text;
+     FDataSet.FieldByName('FOLDSTATE').AsString:=ed.FoldState;
+   end;
 end;
 
 procedure TfScriptEditor.acDecompileExecute(Sender: TObject);
 var
   s: tbtstring;
 begin
- if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal' then
+ if ed.Highlighter=HigPascal then
    begin
       if Compile then
         begin
@@ -414,7 +414,7 @@ begin
           messages.AddItem(s,nil);
         end;
    end
- else if (lowercase(FDataSet.FieldByName('SYNTAX').AsString)='sql') then
+ else if ed.Highlighter=HigSQL then
    begin
      messages.AddItem(ReplaceSQLFunctions(ed.Lines.Text),nil);
    end;
@@ -480,7 +480,7 @@ begin
   messages.Visible := True;
   fLastScriptEditor := Self;
   sl := TStringList.Create;
-  sl.Text:=FDataSet.FieldByName('SCRIPT').AsString;
+  sl.Text:=ed.Text;
   i := 0;
   while i<sl.Count do
     begin
@@ -493,7 +493,7 @@ begin
       SelectData.DataSet.Free;
       SelectData.DataSet := nil;
     end;
-  if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal' then
+  if ed.Highlighter=HigPascal then
     begin
       if Debugger.Running then
       begin
@@ -503,22 +503,25 @@ begin
         if Compile then
           begin
             SetCurrentDir(GetHomeDir);
-            TPascalScript(FDataSet.Script).Runtime := Debugger.Exec;
-            TPascalScript(FDataSet.Script).Compiler := Debugger.Comp;
+            if Assigned(Data) then
+              begin
+                TPascalScript(FDataSet.Script).Runtime := Debugger.Exec;
+                TPascalScript(FDataSet.Script).Compiler := Debugger.Comp;
+              end;
             Debugger.Execute;
           end;
           acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
           acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
         end;
     end
-  else if (lowercase(FDataSet.FieldByName('SYNTAX').AsString)='sql') and (copy(lowercase(sl.Text),0,7)='select ') then
+  else if (ed.Highlighter=HigSQL) and (copy(lowercase(sl.Text),0,7)='select ') then
     begin
       gResults.Visible := True;
       messages.Visible := False;
       SelectData.DataSet := Data.GetNewDataSet(FDataSet.FieldByName('SCRIPT').AsString);
       SelectData.DataSet.Open;
     end
-  else if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='sql' then
+  else if (ed.Highlighter=HigSQL) then
     begin
       messages.Clear;
       FDataSet.writeln := @FDataSetWriteln;
@@ -537,6 +540,7 @@ end;
 procedure TfScriptEditor.acRunRemoteExecute(Sender: TObject);
 begin
   acSave.Execute;
+  {
   with BaseApplication as IBaseApplication do
     TMessageHandler(GetMessageManager).SendCommand(cbClient.Text,'ExecuteScript('+eName.Text+')');
   acRunRemote.Enabled:=false;
@@ -544,11 +548,19 @@ begin
   FOldStatus := FDataSet.FieldByName('STATUS').AsString;
   FWasRunning:=False;
   tmDebug.Enabled:=True;
+  }
 end;
 
 procedure TfScriptEditor.acSaveExecute(Sender: TObject);
 begin
-  FDataSet.Post;
+  if Assigned(Data) then
+    begin
+      FDataSet.Post;
+    end
+  else
+    begin
+
+    end;
   ed.Modified := False;
   ed.MarkTextAsSaved;
 end;
@@ -609,8 +621,8 @@ procedure TfScriptEditor.DebuggerLineInfo(Sender: TObject; const FileName: Strin
   Col: Cardinal);
 begin
   try
-  if not FDataSet.Active then exit;
-  if lowercase(FDataSet.FieldByName('SYNTAX').AsString)='pascal' then
+  if Assigned(Data) and (not FDataSet.Active) then exit;
+  if ed.Highlighter=HigPascal then
     begin
       if Debugger.Exec.DebugMode <> dmRun then
       begin
@@ -647,8 +659,11 @@ var
   i: Longint;
   mo: TMessageObject;
 begin
-  TPascalScript(FDataSet.Script).Compiler:=Debugger.Comp;
-  TPascalScript(FDataSet.Script).Runtime:=Debugger.Exec;
+  if Assigned(Data) then
+    begin
+      TPascalScript(FDataSet.Script).Compiler:=Debugger.Comp;
+      TPascalScript(FDataSet.Script).Runtime:=Debugger.Exec;
+    end;
   Debugger.OnExecImport:=@DebuggerExecImport;
   Debugger.Script.Assign(ed.Lines);
   try
@@ -700,7 +715,8 @@ end;
 
 procedure TfScriptEditor.DebuggerAfterExecute(Sender: TPSScript);
 begin
-  TPascalScript(FDataSet.Script).DoCleanUp;
+  if Assigned(Data) then
+    TPascalScript(FDataSet.Script).DoCleanUp;
   acRun.Enabled:=True;
   acReset.Enabled:=False;
   acPause.Enabled:=false;
@@ -727,7 +743,8 @@ end;
 procedure TfScriptEditor.DebuggerCompile(Sender: TPSScript);
 begin
   FOldUses:=Sender.Comp.OnUses;
-  FDataSet.Writeln:=@FDataSetWriteln;
+  if Assigned(Data) then
+    FDataSet.Writeln:=@FDataSetWriteln;
   Sender.Comp.OnUses:=@OnUses;
   OnUses(Sender.Comp,'SYSTEM');
 end;
@@ -804,29 +821,40 @@ begin
       Application.CreateForm(TfScriptEditor,fScriptEditor);
       Self := fScriptEditor;
     end;
-  if not Assigned(FDataSet) then
+  if Assigned(Data) then  //Database Handling
     begin
-      FDataSet := TBaseScript.CreateEx(nil,Data,aConnection);
-      FDataSet.CreateTable;
-    end;
-  FDataSet.Open;
-  DataSource.DataSet := FDataSet.DataSet;
-  FDataSet.DataSet.BeforeScroll:=@FDataSetDataSetBeforeScroll;
-  FDataSet.DataSet.AfterScroll:=@FDataSetDataSetAfterScroll;
-  FDataSet.DataSet.AfterCancel:=@FDataSetDataSetAfterScroll;
-  if (not FDataSet.Locate('NAME',aScript,[loCaseInsensitive])) or (aScript='') then
-    begin
-      FDataSet.Insert;
-      FDataSet.FieldByName('NAME').AsString:=aScript;
-      if DefScript<>'' then
-        FDataSet.FieldByName('SCRIPT').AsString:=DefScript;
+      if not Assigned(FDataSet) then
+        begin
+          FDataSet := TBaseScript.CreateEx(nil,Data,aConnection);
+          FDataSet.CreateTable;
+        end;
+      FDataSet.Open;
+      DataSource.DataSet := FDataSet.DataSet;
+      FDataSet.DataSet.BeforeScroll:=@FDataSetDataSetBeforeScroll;
+      FDataSet.DataSet.AfterScroll:=@FDataSetDataSetAfterScroll;
+      FDataSet.DataSet.AfterCancel:=@FDataSetDataSetAfterScroll;
+      if (not FDataSet.Locate('NAME',aScript,[loCaseInsensitive])) or (aScript='') then
+        begin
+          FDataSet.Insert;
+          FDataSet.FieldByName('NAME').AsString:=aScript;
+          if DefScript<>'' then
+            FDataSet.FieldByName('SCRIPT').AsString:=DefScript;
+        end
+      else
+        FDataSetDataSetAfterScroll(FDataSet.DataSet);
     end
-  else
-    FDataSetDataSetAfterScroll(FDataSet.DataSet);
+  else //File Handling
+    begin
+      cbSyntax.Enabled:=False;
+      ed.Highlighter:=HigPascal;
+    end;
   Result := Showmodal = mrOK;
-  if Result then
-    FDataSet.Post;
-  FDataSet.Close;
+  if Assigned(Data) then
+    begin
+      if Result then
+        FDataSet.Post;
+      FDataSet.Close;
+    end;
 end;
 
 procedure TfScriptEditor.edStatusChange(Sender: TObject;

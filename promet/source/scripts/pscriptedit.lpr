@@ -25,13 +25,12 @@ begin
   with Application as IBaseApplication do
     begin
       RestoreConfig;
-      if Login then
-        begin
-          if copy(ParamStr(Paramcount),0,1)<>'-' then
-            fScriptEditor.Execute(ParamStr(Paramcount))
-          else
-            fScriptEditor.Execute('');
-        end;
+      if Application.HasOption('database') then
+        Login;
+      if copy(ParamStr(Paramcount),0,1)<>'-' then
+        fScriptEditor.Execute(ParamStr(Paramcount))
+      else
+        fScriptEditor.Execute('');
     end;
 end.
 
