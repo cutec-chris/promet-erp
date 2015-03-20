@@ -38,8 +38,8 @@ inherited fStatisticFrame: TfStatisticFrame
       TabOrder = 0
       object tsReport: TTabSheet
         Caption = 'Report'
-        ClientHeight = 312
-        ClientWidth = 840
+        ClientHeight = 624
+        ClientWidth = 1680
         object Panel2: TPanel
           Left = 0
           Height = 27
@@ -207,8 +207,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsResults: TTabSheet
         Caption = 'Ergebnisliste'
-        ClientHeight = 311
-        ClientWidth = 840
+        ClientHeight = 622
+        ClientWidth = 1680
         object Panel1: TPanel
           Left = 0
           Height = 282
@@ -365,8 +365,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsDescription: TTabSheet
         Caption = 'Beschreibung'
-        ClientHeight = 311
-        ClientWidth = 840
+        ClientHeight = 622
+        ClientWidth = 1680
         object DBMemo1: TDBMemo
           Left = 0
           Height = 311
@@ -424,8 +424,8 @@ inherited fStatisticFrame: TfStatisticFrame
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 269
-          ClientWidth = 856
+          ClientHeight = 538
+          ClientWidth = 1712
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -1048,8 +1048,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsDetail: TTabSheet
           Caption = 'Detail'
-          ClientHeight = 258
-          ClientWidth = 854
+          ClientHeight = 516
+          ClientWidth = 1708
           inline smQuerry1: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -1661,8 +1661,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsSubDetail: TTabSheet
           Caption = 'Sub Detail'
-          ClientHeight = 258
-          ClientWidth = 854
+          ClientHeight = 516
+          ClientWidth = 1708
           inline smQuerry2: TSynMemo
             Cursor = crIBeam
             Left = 0
