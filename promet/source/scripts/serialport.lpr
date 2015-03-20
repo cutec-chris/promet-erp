@@ -71,15 +71,19 @@ end;
 
 function SerReadEx(Handle: LongInt;Count: LongInt) : PChar;
 var
-  Data: String;
+  Data,aData: String;
   i: Integer;
+  a: Integer;
 begin
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
         SetLength(Data,Count);
         TBlockSerial(Ports[i]).RecvBuffer(@Data[1],Count);
-        Result := @Data[1];
+        aData := '';
+        for a := 1 to length(Data) do
+          aData := aData+IntToHex(ord(Data[a]),2);
+        Result := @aData[1];
         exit;
       end;
 end;
@@ -220,7 +224,7 @@ begin
        +#10+'    Result := '''';'
        +#10+'    a := SerReadTimeoutEx(Handle,aOut,Timeout,Count);'
        +#10+'    bOut := aOut;'
-       +#10+'    SetLength(Result,a);'
+       +#10+'    Result := '''''
        +#10+'    while a > 0 do'
        +#10+'      begin'
        +#10+'        Result := Result+chr(StrToInt(''$''+copy(bOut,0,2)));'
