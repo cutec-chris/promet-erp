@@ -9,8 +9,8 @@
         <Filename Value="serialport.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="209"/>
-        <CursorPos X="33" Y="227"/>
+        <TopLine Value="169"/>
+        <CursorPos X="156" Y="201"/>
         <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -106,7 +106,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="148"/>
         <CursorPos X="53" Y="19"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
@@ -128,7 +128,7 @@
         <UnitName Value="serial_osx"/>
         <EditorIndex Value="2"/>
         <CursorPos X="45" Y="21"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -150,7 +150,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="1170"/>
         <CursorPos X="3" Y="1171"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
