@@ -102,19 +102,13 @@ begin
   WikiFrame.Align := alClient;
   WikiFrame.OpenWikiPage('Promet-ERP-Help/index',True);
   WikiFrame.SetRights(Data.Users.Rights.Right('WIKI')>RIGHT_READ);
-  //Add Search Node
   aDocuments := TDocuments.CreateEx(Self,Data);
   aDocuments.CreateTable;
   aDocuments.Destroy;
-  //Projects
-  aStat := fMainTreeFrame.tvMain.Items.AddChildObject(nil,strStatistics,TTreeEntry.Create);
-  TTreeEntry(aStat.Data).Typ := etStatistic;
-  ustatisticframe.AddToMainTree(acNewStatistic,aStat);
+  //Statistics
+  ustatisticframe.AddToMainTree(acNewStatistic,nil);
   if fMainTreeFrame.tvMain.Items.Count>0 then
     fMainTreeFrame.tvMain.Items[0].Expanded:=True;
-//  pcPages.AddTabClass(TfFilter,strProjectList,@AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
-//  aFrame := TfProjectDispoFrame.Create(Self);
-//  pcPages.AddTab(aFrame);
 end;
 
 procedure TfMain.acCloseTabExecute(Sender: TObject);
@@ -324,4 +318,4 @@ begin
 end;
 
 initialization
-end.
+end.
