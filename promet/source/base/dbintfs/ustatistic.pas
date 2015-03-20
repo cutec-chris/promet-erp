@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,
   sqlparser,sqlscanner,sqltree,httpsend,ssl_openssl,Utils,jsonparser,fpjson,
-  memds;
+  memds,uprometscripts;
 
 type
   TOwnSQLParser = class(TSQLParser)
@@ -537,6 +537,7 @@ begin
             Add('DETAIL',ftMemo,0,False);
             Add('SUBDETAIL',ftMemo,0,False);
             Add('STATFIELD',ftString,20,False);
+            Add('ISSCRIPT',ftString,1,False);
             Add('STATNFIELD',ftString,20,False);
             Add('CHARTTYPE',ftString,1,False);
             Add('TREEENTRY',ftLargeint,0,false);

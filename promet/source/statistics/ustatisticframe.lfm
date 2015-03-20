@@ -31,10 +31,10 @@ inherited fStatisticFrame: TfStatisticFrame
       Height = 337
       Top = 9
       Width = 848
-      ActivePage = tsResults
+      ActivePage = tsDescription
       Align = alClient
       BorderSpacing.Around = 8
-      TabIndex = 1
+      TabIndex = 2
       TabOrder = 0
       object tsReport: TTabSheet
         Caption = 'Report'
@@ -365,11 +365,11 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsDescription: TTabSheet
         Caption = 'Beschreibung'
-        ClientHeight = 312
+        ClientHeight = 311
         ClientWidth = 840
         object DBMemo1: TDBMemo
           Left = 0
-          Height = 312
+          Height = 311
           Top = 0
           Width = 840
           Align = alClient
@@ -451,7 +451,7 @@ inherited fStatisticFrame: TfStatisticFrame
                 Button = mbRight
                 Command = emcContextMenu
               end>
-            Highlighter = SynSQLSyn1
+            Highlighter = HigSQL
             Keystrokes = <            
               item
                 Command = ecUp
@@ -1075,7 +1075,6 @@ inherited fStatisticFrame: TfStatisticFrame
                 Button = mbRight
                 Command = emcContextMenu
               end>
-            Highlighter = SynSQLSyn1
             Keystrokes = <            
               item
                 Command = ecUp
@@ -1689,7 +1688,6 @@ inherited fStatisticFrame: TfStatisticFrame
                 Button = mbRight
                 Command = emcContextMenu
               end>
-            Highlighter = SynSQLSyn1
             Keystrokes = <            
               item
                 Command = ecUp
@@ -2643,12 +2641,13 @@ inherited fStatisticFrame: TfStatisticFrame
         ClientHeight = 44
         ClientWidth = 152
         TabOrder = 4
-        object bExecute1: TSpeedButton
+        object bExecute1: TBitBtn
           Left = 8
           Height = 28
           Top = 10
           Width = 144
           Action = acExecute
+          Default = True
           Glyph.Data = {
             36040000424D3604000000000000360000002800000010000000100000000100
             2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -2685,6 +2684,7 @@ inherited fStatisticFrame: TfStatisticFrame
             FF00FFFFFF007FD28E0C79CE877E73C87FC66AC277FC63BC6FFC5BB567C655AD
             5E7D8CA76103E4A6710AFFFFFF00FFFFFF00FFFFFF00FFFFFF00
           }
+          TabOrder = 0
         end
       end
       object Panel7: TPanel
@@ -2788,14 +2788,17 @@ inherited fStatisticFrame: TfStatisticFrame
           Top = 10
           Width = 28
           Action = acIsScript
+          AllowAllUp = True
           Flat = True
-          GroupIndex = 55
+          GroupIndex = 66
+          OnClick = ToolButton5Click
           ShowCaption = False
         end
       end
     end
   end
   object ActionList1: TActionList[3]
+    Images = fVisualControls.Images
     left = 196
     top = 64
     object acSave: TAction
@@ -2863,7 +2866,7 @@ inherited fStatisticFrame: TfStatisticFrame
       AutoCheck = True
       Caption = 'acIsScript'
       DisableIfNoHandler = False
-      GroupIndex = 55
+      GroupIndex = 66
       Hint = 'Statistik wird aus Script gebaut'
       ImageIndex = 62
     end
@@ -2884,36 +2887,14 @@ inherited fStatisticFrame: TfStatisticFrame
       Action = acRights
     end
   end
-  object SynSQLSyn1: TSynSQLSyn[5]
-    DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
-    Enabled = False
-    CommentAttri.FrameEdges = sfeAround
-    DataTypeAttri.FrameEdges = sfeAround
-    DefaultPackageAttri.FrameEdges = sfeAround
-    ExceptionAttri.FrameEdges = sfeAround
-    FunctionAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    KeyAttri.FrameEdges = sfeAround
-    NumberAttri.FrameEdges = sfeAround
-    PLSQLAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    SQLPlusAttri.FrameEdges = sfeAround
-    StringAttri.FrameEdges = sfeAround
-    SymbolAttri.FrameEdges = sfeAround
-    TableNameAttri.FrameEdges = sfeAround
-    VariableAttri.FrameEdges = sfeAround
-    SQLDialect = sqlSybase
-    left = 272
-    top = 296
-  end
-  object IdleSQLTimer: TIdleTimer[6]
+  object IdleSQLTimer: TIdleTimer[5]
     Enabled = False
     Interval = 500
     OnTimer = IdleSQLTimerTimer
     left = 423
     top = 296
   end
-  object frReport: TfrReport[7]
+  object frReport: TfrReport[6]
     DefaultCopies = 0
     InitialZoom = pzDefault
     Options = []
@@ -2924,7 +2905,7 @@ inherited fStatisticFrame: TfStatisticFrame
     left = 272
     top = 240
   end
-  object GutterImages: TImageList[8]
+  object GutterImages: TImageList[7]
     left = 423
     top = 240
     Bitmap = {
@@ -3187,41 +3168,41 @@ inherited fStatisticFrame: TfStatisticFrame
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
-  object StatisticDS: TDataSource[9]
+  object StatisticDS: TDataSource[8]
     left = 280
     top = 184
   end
-  object StatisticResults: TDataSource[10]
+  object StatisticResults: TDataSource[9]
     AutoEdit = False
     left = 280
     top = 116
   end
-  object PStatisticresults: TfrDBDataSet[11]
+  object PStatisticresults: TfrDBDataSet[10]
     DataSource = StatisticResults
     left = 280
     top = 64
   end
-  object PDetail: TfrDBDataSet[12]
+  object PDetail: TfrDBDataSet[11]
     DataSource = Detail
     left = 360
     top = 64
   end
-  object PSubDetail: TfrDBDataSet[13]
+  object PSubDetail: TfrDBDataSet[12]
     DataSource = SubDetail
     left = 440
     top = 64
   end
-  object SubDetail: TDataSource[14]
+  object SubDetail: TDataSource[13]
     AutoEdit = False
     left = 440
     top = 116
   end
-  object Detail: TDataSource[15]
+  object Detail: TDataSource[14]
     AutoEdit = False
     left = 360
     top = 116
   end
-  object ProcMenu: TPopupMenu[16]
+  object ProcMenu: TPopupMenu[15]
     left = 80
     top = 304
     object N2001: TMenuItem
@@ -3322,20 +3303,20 @@ inherited fStatisticFrame: TfStatisticFrame
       GroupIndex = 1
     end
   end
-  object SaveDialog: TSaveDialog[17]
+  object SaveDialog: TSaveDialog[16]
     Filter = 'Excel 2.0 Datei (*.xls)|*.xls|Excel 3.0 Datei (*.xls)|*.xls|Excel 4.0 Datei (*.xls)|*.xls|Excel 5.0 Datei (*.xls)|*.xls|Excel 2007-2009 (*.xls)|*.xls|Open Office XML (*.xlsx)|*.xlsx|Open Document Format (*.ods)|*.ods|Kommagetrennte Datei (*.csv)|*.csv'
     FilterIndex = 4
     Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
     left = 176
     top = 184
   end
-  object Datasource: TDataSource[18]
+  object Datasource: TDataSource[17]
     OnStateChange = ProjectsStateChange
     OnDataChange = DatasourceDataChange
     left = 203
     top = 121
   end
-  object pmGrid: TPopupMenu[19]
+  object pmGrid: TPopupMenu[18]
     OnPopup = pmGridPopup
     left = 120
     top = 304
@@ -3345,7 +3326,7 @@ inherited fStatisticFrame: TfStatisticFrame
       OnClick = miCopyClick
     end
   end
-  object ImageList1: TImageList[20]
+  object ImageList1: TImageList[19]
     left = 120
     top = 176
     Bitmap = {
@@ -3416,11 +3397,60 @@ inherited fStatisticFrame: TfStatisticFrame
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
-  object ExecuteTimer: TTimer[21]
+  object ExecuteTimer: TTimer[20]
     Enabled = False
     Interval = 200
     OnTimer = ExecuteTimerTimer
     left = 507
     top = 297
+  end
+  object HigPascal: TSynPasSyn[21]
+    Tag = 1
+    Enabled = False
+    AsmAttri.Foreground = clGreen
+    AsmAttri.FrameEdges = sfeAround
+    CommentAttri.Foreground = clMoneyGreen
+    CommentAttri.FrameEdges = sfeAround
+    CommentAttri.Style = [fsBold]
+    IDEDirectiveAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    KeyAttri.FrameEdges = sfeAround
+    NumberAttri.Foreground = clNavy
+    NumberAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    StringAttri.Foreground = clBlue
+    StringAttri.FrameEdges = sfeAround
+    SymbolAttri.Foreground = clRed
+    SymbolAttri.FrameEdges = sfeAround
+    CaseLabelAttri.FrameEdges = sfeAround
+    DirectiveAttri.Foreground = clRed
+    DirectiveAttri.FrameEdges = sfeAround
+    DirectiveAttri.Style = [fsBold]
+    CompilerMode = pcmFPC
+    NestedComments = True
+    left = 684
+    top = 140
+  end
+  object HigSQL: TSynSQLSyn[22]
+    DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
+    Enabled = False
+    CommentAttri.FrameEdges = sfeAround
+    DataTypeAttri.FrameEdges = sfeAround
+    DefaultPackageAttri.FrameEdges = sfeAround
+    ExceptionAttri.FrameEdges = sfeAround
+    FunctionAttri.FrameEdges = sfeAround
+    IdentifierAttri.FrameEdges = sfeAround
+    KeyAttri.FrameEdges = sfeAround
+    NumberAttri.FrameEdges = sfeAround
+    PLSQLAttri.FrameEdges = sfeAround
+    SpaceAttri.FrameEdges = sfeAround
+    SQLPlusAttri.FrameEdges = sfeAround
+    StringAttri.FrameEdges = sfeAround
+    SymbolAttri.FrameEdges = sfeAround
+    TableNameAttri.FrameEdges = sfeAround
+    VariableAttri.FrameEdges = sfeAround
+    SQLDialect = sqlSybase
+    left = 732
+    top = 140
   end
 end

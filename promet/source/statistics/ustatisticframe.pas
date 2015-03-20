@@ -25,7 +25,7 @@ uses
   LR_Class, LR_View, Forms, Controls, ComCtrls, Buttons, ActnList, Menus,
   ExtCtrls, DbCtrls, StdCtrls, uExtControls, DBZVDateTimePicker, db,
   uPrometFrames, uPrometFramesInplace, uBaseDBClasses, Dialogs, Spin, EditBtn,
-  DBGrids, variants,uStatistic,SynCompletion,md5,LCLType,
+  DBGrids, variants,uStatistic,SynCompletion, SynHighlighterPas,md5,LCLType,
   TASeries, TACustomSeries,fpsqlparser,Clipbrd,uBaseVisualApplication;
 type
 
@@ -53,7 +53,7 @@ type
     Bevel7: TBevel;
     Bevel8: TBevel;
     bExecute: TSpeedButton;
-    bExecute1: TSpeedButton;
+    bExecute1: TBitBtn;
     bExecute2: TSpeedButton;
     BtZoomIn: TBitBtn;
     BtZoomOut: TBitBtn;
@@ -67,6 +67,8 @@ type
     gList: TDBGrid;
     gSubDetail: TDBGrid;
     GutterImages: TImageList;
+    HigPascal: TSynPasSyn;
+    HigSQL: TSynSQLSyn;
     IdleSQLTimer: TIdleTimer;
     ImageList1: TImageList;
     Label1: TLabel;
@@ -130,7 +132,6 @@ type
     StatisticDS: TDatasource;
     StatisticResults: TDatasource;
     SubDetail: TDatasource;
-    SynSQLSyn1: TSynSQLSyn;
     ExecuteTimer: TTimer;
     ToolBar: TToolBar;
     ToolButton3: TSpeedButton;
@@ -181,6 +182,7 @@ type
     procedure TComboBoxChange(Sender: TObject);
     procedure TDateEditChange(Sender: TObject);
     procedure TEditChange(Sender: TObject);
+    procedure ToolButton5Click(Sender: TObject);
     procedure ZoomBtnClick(Sender: TObject);
   private
     { private declarations }
@@ -334,6 +336,17 @@ begin
   FVariables.Values[TControl(Sender).Name] := TEdit(Sender).Text;
 end;
 
+procedure TfStatisticFrame.ToolButton5Click(Sender: TObject);
+begin
+  FDataSet.Edit;
+  if ToolButton5.Down then
+    FDataSet.FieldByName('ISSCRIPT').AsString:='Y'
+  else FDataSet.FieldByName('ISSCRIPT').AsString:='N';
+  if ToolButton5.Down then
+    smQuerry.Highlighter:=HigPascal
+  else smQuerry.Highlighter:=HigSQL;
+end;
+
 procedure TfStatisticFrame.ZoomBtnClick(Sender: TObject);
 var
   pt: TPoint;
@@ -355,6 +368,7 @@ var
   aLabel: TLabel;
   i: LongInt;
   aBevel: TBevel;
+  FirstControl : TControl = nil;
   function IsChange : Boolean;
   var
     tmp: String;
@@ -444,6 +458,7 @@ begin
               TComboBox(aControl).Text:='';
               TComboBox(aControl).OnChange:=@TComboBoxChange;
               TComboBox(aControl).Text := fVariables.Values['TBE'+MD5Print(MD5String(aname))];
+              if not Assigned(FirstControl) then FirstControl:=aControl;
             end
           else if copy(data,0,8) = 'TEXT' then
             begin
@@ -455,6 +470,7 @@ begin
               TEdit(aControl).OnChange:=@TEditChange;
               if TEdit(aControl).Text = '' then
                 TEdit(aControl).Text := '*';
+              if not Assigned(FirstControl) then FirstControl:=aControl;
             end
           else
             begin
@@ -470,6 +486,13 @@ begin
               pcTabs.ActivePage:=tsResults;
             end;
         end;
+    end;
+  if Assigned(FirstControl) then
+    begin
+      try
+        TWinControl(FirstControl).SetFocus;
+      except
+      end;
     end;
 end;
 function TfStatisticFrame.CheckSQL(DoFormat: Boolean): Boolean;
@@ -1115,6 +1138,10 @@ begin
       StatisticResults.DataSet.Close;
       lStatus.Visible:=False;
     end;
+  ToolButton5.Down:=DataSet.FieldByName('ISSCRIPT').AsString='Y';
+  if ToolButton5.Down then
+    smQuerry.Highlighter:=HigPascal
+  else smQuerry.Highlighter:=HigSQL;
   inherited DoOpen;
 end;
 function TfStatisticFrame.SetRights: Boolean;
