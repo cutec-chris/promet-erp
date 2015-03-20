@@ -13,7 +13,6 @@ object fScriptEditor: TfScriptEditor
   Menu = MainMenu1
   OnCreate = FormCreate
   Position = poDesktopCenter
-  ShowInTaskBar = stAlways
   LCLVersion = '1.5'
   object StatusBar: TStatusBar
     Left = 0

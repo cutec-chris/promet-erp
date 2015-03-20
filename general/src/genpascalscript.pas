@@ -391,7 +391,7 @@ begin
                         NewLib.Name:=Name;
                         NewLib.Code:=sProc;
                         LoadedLibs.Add(NewLib);
-                        Comp.Compile(newUnit);
+                        Comp.Compile(sProc);
                         Result := True;
                       end;
                   end;

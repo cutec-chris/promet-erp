@@ -180,11 +180,13 @@ end;
 
 procedure TfSearch.cbSearchInClickCheck(Sender: TObject);
 begin
+  FreeAndNil(ActiveSearch);
   DoSearch(nil);
 end;
 
 procedure TfSearch.cbSearchTypeClickCheck(Sender: TObject);
 begin
+  FreeAndNil(ActiveSearch);
   DoSearch(nil);
 end;
 
@@ -503,6 +505,7 @@ var
   Options: String;
   i: Integer;
 begin
+  FreeAndNil(ActiveSearch);
   Options := '';
   for i := 0 to cbSearchType.Items.Count-1 do
     begin
