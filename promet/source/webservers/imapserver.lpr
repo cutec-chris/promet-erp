@@ -1174,7 +1174,7 @@ end;
 constructor TPIMAPServer.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-  StopOnException:=False;
+  StopOnException:=True;
   with BaseApplication as IBaseApplication do
     begin
       AppVersion:={$I ../base/version.inc};

@@ -127,6 +127,7 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
+              <DebugInfoType Value="dsDwarf2Set"/>
               <UseHeaptrc Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
@@ -153,7 +154,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --port=1043 --smtpport=5087 --server-log"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -178,7 +179,6 @@
       <Unit1>
         <Filename Value="ussmtpserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ussmtpserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="usimapserver.pas"/>
@@ -188,7 +188,6 @@
       <Unit3>
         <Filename Value="usimapsearch.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="usimapsearch"/>
       </Unit3>
       <Unit4>
         <Filename Value="usimapmailbox.pas"/>
