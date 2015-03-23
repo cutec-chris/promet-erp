@@ -365,8 +365,6 @@ begin
   FEditor.Parent:=tsScript;
   FEditor.Align:=alClient;
   FEditor.acSave.Visible:=False;
-  fEditor.lName.Visible:=false;
-  fEditor.eName.Visible:=false;
 end;
 destructor TfScriptFrame.Destroy;
 begin

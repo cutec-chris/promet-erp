@@ -375,6 +375,7 @@ begin
   SearchText := eContains.Text;
   if not Assigned(ActiveSearch) then
     begin
+      SearchLevel:=0;
       if cbMaxResults.Checked then
         ActiveSearch := TSearch.Create(SearchTypes,SearchLocations,cbContains.Checked,seMaxResults.Value)
       else

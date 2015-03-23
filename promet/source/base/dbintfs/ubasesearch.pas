@@ -332,7 +332,7 @@ begin
           if Assigned(FEndSearch) then FEndSearch(Self);
         end;
       //Search for Serial Number
-      if fsSerial in FSearchTypes then
+      if (fsSerial in FSearchTypes) and (trim(SearchText)<>'') then
         begin
           aPos := TOrderPos.Create(nil);
           try
@@ -360,7 +360,100 @@ begin
 end;
 
 procedure TSearch.DoStartAllObjectsSearch(SearchText: string);
+var
+  aObjects: TObjects;
+  aType: TFullTextSearchType;
+  aFilter: String;
+  aDSClass: TBaseDBDatasetClass;
+  i: Integer;
+  aLinkDs: TBaseDbList;
+  aActive: Boolean;
+
+  function EncodeField(Data : TBaseDBModule;Val : string) : string;
+  begin
+    with aObjects.DataSet as IBaseManageDB do
+      Result := 'UPPER('+Data.QuoteField(TableName)+'.'+Data.QuoteField(Val)+')';
+  end;
+
+  function EncodeValue(Data : TBaseDBModule;Val : string) : string;
+  begin
+    if FUseContains  then
+      Result := Data.QuoteValue('*'+Data.EscapeString(Val)+'*')
+    else
+      Result := Data.QuoteValue(Data.EscapeString(Val));
+    Result := 'UPPER('+Result+')';
+  end;
+
+  function CastText(Data : TBaseDBModule;Val : string) : string;
+  begin
+    with aObjects.DataSet as IBaseManageDB do
+      Result := 'UPPER(CAST('+Data.QuoteField(TableName)+'.'+Data.QuoteField(Val)+' as VARCHAR(8000)))';
+  end;
 begin
+  if not Assigned(FItemFound) then exit;
+  with BaseApplication as IBaseApplication do
+    Debug('Search:StartAllObjectsSearch');
+  FActive:=True;
+  aObjects := TObjects.Create(nil);
+  aFilter := '';
+  if not FActive then
+    begin
+      if Assigned(FEndSearch) then FEndSearch(Self);
+      exit;
+    end;
+  if (fsMatchcode in FSearchTypes) and (aObjects.GetMatchcodeFieldName <> '') then
+    aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,aObjects.GetMatchcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+  if (fsIdents in FSearchTypes) then
+    begin
+      aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,aObjects.GetNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+      if aObjects.GetBookNumberFieldName <> '' then
+        aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,aObjects.GetBookNumberFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+    end;
+  if (fsBarcode in FSearchTypes) and (aObjects.GetBarcodeFieldName <> '') then
+    aFilter += ' OR ('+Data.ProcessTerm(CastText(Data,aObjects.GetBarcodeFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+  if (fsCommission in FSearchTypes) and (aObjects.GetCommissionFieldName <> '') then
+    aFilter += ' OR ('+Data.ProcessTerm(EncodeField(Data,aObjects.GetCommissionFieldName)+' = '+EncodeValue(Data,SearchText))+')';
+  aFilter := copy(aFilter,pos(' ',aFilter)+1,length(aFilter));
+  aFilter := copy(aFilter,pos(' ',aFilter)+1,length(aFilter));
+  if aFilter <> '' then
+    begin
+      aObjects.Filter(aFilter,FMaxResults);
+      while not aObjects.EOF do
+        begin
+          if Data.DataSetFromLink(aObjects.FieldByName('LINK').AsString,aDSClass) then
+            begin
+              for i := 0 to length(FSearchLocations)-1 do
+                begin
+                  aLinkDs := TBaseDBList(aDSClass.Create(nil));
+                  if FSearchLocations[i] = aLinkDs.Caption then
+                    begin
+                      if aLinkDs is TBaseDbList then
+                        begin
+                          aLinkDs.SelectFromLink(aObjects.FieldByName('LINK').AsString);
+                          aLinkDs.Open;
+                          if aLinkDs.Count>0 then
+                            begin
+                              if Assigned(aLinkDs.Status) then
+                                begin
+                                  aActive := Data.States.DataSet.Locate('STATUS;TYPE',VarArrayOf([aLinkDs.Status.AsString,aLinkDs.Typ]),[loCaseInsensitive]);
+                                  if aActive then
+                                    aActive := aActive and (Data.States.FieldByName('ACTIVE').AsString='Y');
+                                  FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,aLinkDs.Status.AsString,aActive,aObjects.FieldByName('LINK').AsString,3000)
+                                end
+                              else
+                                FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,'',True,aObjects.FieldByName('LINK').AsString,3000);
+                            end;
+                        end;
+                    end;
+                  aLinkDs.Free;
+                end;
+            end;
+          aObjects.Next;
+        end;
+    end;
+  aObjects.Free;
+  with BaseApplication as IBaseApplication do
+    Debug('Search:EndAllObjectsSearch');
   if Assigned(FFullEndSearch) then FFullEndSearch(Self);
 end;
 
@@ -371,6 +464,12 @@ var
   aLinkDs: TBaseDbList;
   i: Integer;
   aActive: Boolean;
+
+  function ItemValid(aLink : string) : Boolean;
+  begin
+    Result := True;
+  end;
+
 begin
   if not Assigned(FItemFound) then exit;
   with BaseApplication as IBaseApplication do
@@ -401,9 +500,10 @@ begin
                                   aActive := Data.States.DataSet.Locate('STATUS;TYPE',VarArrayOf([aLinkDs.Status.AsString,aLinkDs.Typ]),[loCaseInsensitive]);
                                   if aActive then
                                     aActive := aActive and (Data.States.FieldByName('ACTIVE').AsString='Y');
-                                  FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,aLinkDs.Status.AsString,aActive,aDs.FieldByName('LINK').AsString,3000)
+                                  if ItemValid(aDs.FieldByName('LINK').AsString) then
+                                    FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,aLinkDs.Status.AsString,aActive,aDs.FieldByName('LINK').AsString,3000)
                                 end
-                              else
+                              else if ItemValid(aDs.FieldByName('LINK').AsString) then
                                 FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,'',True,aDs.FieldByName('LINK').AsString,3000);
                             end;
                         end;
