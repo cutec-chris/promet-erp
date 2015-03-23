@@ -246,6 +246,15 @@ begin
     TPascalScript(fLastScriptEditor.FDataSet.Script).InternalUses(Sender,Name)
 end;
 
+procedure DoSleep(aTime: Integer); StdCall;
+var
+  bTime: QWord;
+begin
+ bTime := GetTickCount64;
+ while GetTickCount64-bTime < aTime do
+   Application.ProcessMessages;
+end;
+
 procedure TfScriptEditor.DoSearchReplaceText(AReplace: boolean; ABackwards: boolean);
 var
   Options: TSynSearchOptions;
@@ -298,6 +307,7 @@ begin
   FSynCompletion.OnExecute:=@FSynCompletionExecute;
   FSynCompletion.OnUTF8KeyPress:=@FSynCompletionUTF8KeyPress;
   FSynCompletion.OnSearchPosition:=@FSynCompletionSearchPosition;
+  genpascalscript.DoSleep:=@DoSleep;
 end;
 
 procedure TfScriptEditor.edSpecialLineColors(Sender: TObject; Line: Integer;
@@ -794,12 +804,8 @@ begin
 end;
 
 procedure TfScriptEditor.InternalSleep(MiliSecValue: LongInt);
-var
-  aTime: QWord;
 begin
-  aTime := GetTickCount64;
-  while GetTickCount64-aTime < MiliSecValue do
-    Application.ProcessMessages;
+  genpascalscript.DoSleep(MiliSecValue);
 end;
 
 //check if script changed and not yet saved//

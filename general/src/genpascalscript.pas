@@ -148,6 +148,7 @@ type
 var
   LoadedLibs : TList;
   ActRuntime : TScript;
+  DoSleep : TScriptSleepFunction = nil;
 
 implementation
 
@@ -164,7 +165,9 @@ type
 
 procedure OwnSleep(aTime : Integer);stdcall;
 begin
-
+  if Assigned(DoSleep) then
+    DoSleep(aTime)
+  else Sleep(aTime);
 end;
 
 function IProcessDllImport(Sender: TPSExec; p: TPSExternalProcRec; Tag: Pointer
@@ -541,7 +544,7 @@ begin
 end;
 procedure TPascalScript.InternalSleep(MiliSecValue: LongInt);
 begin
-  sleep(MiliSecValue);
+  OwnSleep(MiliSecValue);
 end;
 function TPascalScript.InternalHttpGet(aURL: string; aTimeout: Integer): string;
 var
