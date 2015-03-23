@@ -11,6 +11,7 @@ object fScriptEditor: TfScriptEditor
   Font.Height = -14
   Font.Name = 'MS Sans Serif'
   Menu = MainMenu1
+  OnClose = FormClose
   OnCreate = FormCreate
   Position = poDesktopCenter
   LCLVersion = '1.5'

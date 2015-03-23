@@ -142,6 +142,7 @@ type
     procedure FDataSetDataSetAfterScroll(DataSet: TDataSet);
     procedure FDataSetDataSetBeforeScroll(DataSet: TDataSet);
     procedure FDataSetWriteln(const s: string);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure edStatusChange(Sender: TObject; Changes: TSynStatusChanges);
     function DebuggerNeedFile(Sender: TObject; const OrginFileName: String; var FileName, Output: String): Boolean;
@@ -768,6 +769,12 @@ begin
  messages.Items.Add(S);
  messages.ItemIndex:=messages.Items.Count-1;
  messages.MakeCurrentVisible;
+end;
+
+procedure TfScriptEditor.FormClose(Sender: TObject;
+  var CloseAction: TCloseAction);
+begin
+  acReset.Execute;
 end;
 
 procedure TfScriptEditor.FormCreate(Sender: TObject);

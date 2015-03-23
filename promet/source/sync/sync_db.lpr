@@ -255,7 +255,7 @@ begin
       if (SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y')
       or (SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y')
       then
-        (BaseApplication as IBaseApplication).Warning(Format(strTableNotExists,[SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
+        (BaseApplication as IBaseApplication).Info(Format(strTableNotExists,[SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
       exit;
     end;
   aSyncStamps := TSyncStamps.CreateEx(Self,DestDM);

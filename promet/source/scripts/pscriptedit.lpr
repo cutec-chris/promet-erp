@@ -25,7 +25,7 @@ begin
   with Application as IBaseApplication do
     begin
       RestoreConfig;
-      if Application.HasOption('database') then
+      if Application.HasOption('database') or Application.HasOption('config-path') then
         Login;
       if copy(ParamStr(Paramcount),0,1)<>'-' then
         fScriptEditor.Execute(ParamStr(Paramcount))

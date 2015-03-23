@@ -106,7 +106,7 @@ type
     function InternalExecResult: Integer;
     function InternalKill: Boolean;
     procedure InternalBeep;
-    procedure InternalSleep(MiliSecValue: LongInt);
+    procedure InternalSleep(MiliSecValue: LongInt);virtual;
 
     function InternalHttpGet(aURL: string;aTimeout : Integer): string;
     function InternalHttpPost(aURL,Content : string;aTimeout : Integer) : string;
@@ -143,6 +143,8 @@ type
     property OnExecuteStep : TNotifyEvent read FExecStep write FExecStep;
   end;
 
+type
+  TScriptSleepFunction = procedure (aTime : Integer); StdCall;
 var
   LoadedLibs : TList;
   ActRuntime : TScript;
@@ -157,6 +159,14 @@ uses httpsend
   ,BaseUnix
   {$endif}
   ;
+type
+  aProcSleepT = procedure(aSleep : TScriptSleepFunction);stdcall;
+
+procedure OwnSleep(aTime : Integer);stdcall;
+begin
+
+end;
+
 function IProcessDllImport(Sender: TPSExec; p: TPSExternalProcRec; Tag: Pointer
   ): Boolean;
 var
@@ -170,6 +180,7 @@ var
   ph: PLoadedDll;
   aLibName: String;
   actLib: String;
+  aProc: aProcSleepT;
 begin
   Result := ProcessDllImport(Sender,p);
 
@@ -185,7 +196,14 @@ begin
           if (ph = nil) then break;
           actLib := lowercase(copy(ph^.dllname,0,rpos('.',ph^.dllname)-1));
           if (actLib = aLibName) then
-            TLoadedLib(LoadedLibs[a]).Handle := ph^.dllhandle;
+            begin
+              TLoadedLib(LoadedLibs[a]).Handle := ph^.dllhandle;
+              aProc := aProcSleepT(dynlibs.GetProcAddress(ph^.dllhandle,'ScriptSetSleep'));
+              if Assigned(aProc) then
+                begin
+                  aProc(@OwnSleep);
+                end;
+            end;
         until false;
       end;
 end;

@@ -459,10 +459,8 @@ begin
   inherited Create;
   InitCriticalSection(fCritSection);
   fPath := APath;
-  ForceDirectories(APath);
   fUsers := TList.Create;
-  fReadOnly := False; //ClientRO
-  //ToDo: Read-Only einzelner Mailboxen kann hier gesteuert werden.
+  fReadOnly := False;
 end;
 
 destructor TImapMailbox.Destroy;
@@ -471,7 +469,6 @@ begin
     raise Exception.Create('TImapMailbox.Destroy: imap mailbox is still in use!');
   fUsers.Free; // TODO: User direkt aufräumen oder warnen?
   DoneCriticalSection(fCritSection);
-
   inherited;
 end;
 
@@ -639,6 +636,34 @@ begin
             ' ' + MyMessage.Header.MessageID + ')';
 end;
 
+function NString( Data: String ): String;
+Var i, j: Integer;
+begin
+   if Data = '' then begin
+      Result := 'NIL'
+   end else begin
+      Result := '"';
+      j := 1;
+      // Escape quotes and backslashes: '"' -> '\"' and '\' -> '\\'
+      for i := 1 to Length( Data ) do begin
+         if Data[i] in ['"','\'] then begin
+            Result := Result + Copy( Data, j, i-j ) + '\';
+            j := i;
+         end
+      end;
+      Result := Result + Copy( Data, j, Length(Data)-j+1 ) + '"'
+   end
+end;
+
+function TImapMailbox.GetBodyFields(Part : TMimePart): string;
+begin
+  Result := '("charset" "'+Part.Charset + '") ' +
+            NString(Part.ContentID) + ' ' +
+            NString(Part.Description) + ' ' +
+            NString(Part.Encoding) + ' ' +
+            IntToStr( Length( Part.Lines.Text ) )
+end;
+
 function TImapMailbox.BodyStructure(Part: TMimePart; Extensible: Boolean
   ): String;
 var  Data : String;
@@ -661,8 +686,8 @@ begin
   else
     begin
       Data := '("' + Part.Primary + '" "' + Part.Secondary + '" ' + GetBodyFields(Part);
-      if Part.Primary = 'TEXT' then Data := Data + ' ' + IntToStr( Part.Lines.Count )
-      else if (Part.Primary = 'MESSAGE') and (Part.Secondary = 'RFC822') then
+      if uppercase(Part.Primary) = 'TEXT' then Data := Data + ' ' + IntToStr( Part.Lines.Count )
+      else if (uppercase(Part.Primary) = 'MESSAGE') and (uppercase(Part.Secondary) = 'RFC822') then
         begin
           {
           if Part.GetSubPartCount > 0 then
@@ -822,25 +847,6 @@ begin
   Result := GetBodySection(MyMessage, Copy( Section, 6, Pos(']',Section)-6 ),  False, Offset, Maximum );
 end;
 
-function NString( Data: String ): String;
-Var i, j: Integer;
-begin
-   if Data = '' then begin
-      Result := 'NIL'
-   end else begin
-      Result := '"';
-      j := 1;
-      // Escape quotes and backslashes: '"' -> '\"' and '\' -> '\\'
-      for i := 1 to Length( Data ) do begin
-         if Data[i] in ['"','\'] then begin
-            Result := Result + Copy( Data, j, i-j ) + '\';
-            j := i;
-         end
-      end;
-      Result := Result + Copy( Data, j, Length(Data)-j+1 ) + '"'
-   end
-end;
-
 function TImapMailbox.GetAddressStructure(Address: String): String;
 // An address structure is a parenthesized list that describes an electronic
 // mail address.  The fields of an address structure are in the following
@@ -906,15 +912,6 @@ begin
   System.Delete(Result,1,2);
   Result := Trim( Result ) + CRLF;
   sl.Free;
-end;
-
-function TImapMailbox.GetBodyFields(Part : TMimePart): string;
-begin
-  Result :=  Part.Primary + ' ' +
-            Part.ContentID + ' ' +
-            Part.Description + ' ' +
-            Part.Encoding + ' ' +
-            IntToStr( Length( Part.Lines.Text ) )
 end;
 
 function TImapMailbox.FullBody(MyMessage: TMimeMess): string;
