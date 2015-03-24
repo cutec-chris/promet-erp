@@ -52,6 +52,7 @@ type
     function  GetMessage( UID: LongInt ): TMimeMess;override;
     function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;override;
     function AppendMessage(AThread: TSTcpThread;MsgTxt: string; Flags: string; TimeStamp: TUnixTime): string; override;
+    function FindContent(MsgSet: TMessageSet; After, Before: int64; Charset: string; HeaderList, BodyStrings,  TextStrings: TStringList): TMessageSet;override;
     procedure RefreshFolder;
     constructor Create(APath: String; CS: TCriticalSection); override;
     destructor Destroy; override;
@@ -463,6 +464,254 @@ begin
   RefreshFolder;
 end;
 
+function TPrometMailBox.FindContent(MsgSet: TMessageSet; After, Before: int64;
+  Charset: string; HeaderList, BodyStrings, TextStrings: TStringList
+  ): TMessageSet;
+function GetCharset( ContentType: String ): String;
+var  i : Integer;
+begin
+     Result := '';
+     ContentType := UpperCase( ContentType );
+     i := Pos( 'CHARSET=', ContentType );
+     if i > 0 then begin
+        System.Delete( ContentType, 1, i+7 );
+        Result := UpperCase( QuotedStringOrToken( ContentType ) )
+     end
+end;
+
+function Has8BitChar( txt: String ): Boolean;
+var  i: Integer;
+begin
+     Result := True;
+     for i := 1 to Length( txt ) do if Ord( txt[i] ) > 127 then exit;
+     Result := False
+end;
+
+function RfcTimezoneToBiasMinutes( RfcTimeZone: TRfcTimeZone ): Integer;
+begin
+   Result := 0;
+   if RfcTimeZone='' then exit;
+
+   if RfcTimeZone[1] in [ '+', '-' ] then begin
+
+      Result := strtointdef( copy(RfcTimeZone,2,2), 0 ) * 60
+              + strtointdef( copy(RfcTimeZone,4,2), 0 );
+      if (Result<0) or (Result>=24*60) then Result:=0;
+      if RfcTimeZone[1]='+' then Result:=-Result;
+
+   end else begin
+
+      RfcTimeZone := UpperCase( RfcTimeZone );
+
+      if      RfcTimeZone='GMT' then Result:=  0
+      else if RfcTimeZone='UT'  then Result:=  0
+
+      else if RfcTimeZone='EST' then Result:= -5*60
+      else if RfcTimeZone='EDT' then Result:= -4*60
+      else if RfcTimeZone='CST' then Result:= -6*60
+      else if RfcTimeZone='CDT' then Result:= -5*60
+      else if RfcTimeZone='MST' then Result:= -7*60
+      else if RfcTimeZone='MDT' then Result:= -6*60
+      else if RfcTimeZone='PST' then Result:= -8*60
+      else if RfcTimeZone='PDT' then Result:= -7*60
+
+      else if RfcTimeZone='A'   then Result:= -1*60
+      else if RfcTimeZone='B'   then Result:= -2*60
+      else if RfcTimeZone='C'   then Result:= -3*60
+      else if RfcTimeZone='D'   then Result:= -4*60
+      else if RfcTimeZone='E'   then Result:= -5*60
+      else if RfcTimeZone='F'   then Result:= -6*60
+      else if RfcTimeZone='G'   then Result:= -7*60
+      else if RfcTimeZone='H'   then Result:= -8*60
+      else if RfcTimeZone='I'   then Result:= -9*60
+      else if RfcTimeZone='K'   then Result:=-10*60
+      else if RfcTimeZone='L'   then Result:=-11*60
+      else if RfcTimeZone='M'   then Result:=-12*60
+      else if RfcTimeZone='N'   then Result:=  1*60
+      else if RfcTimeZone='O'   then Result:=  2*60
+      else if RfcTimeZone='P'   then Result:=  3*60
+      else if RfcTimeZone='Q'   then Result:=  4*60
+      else if RfcTimeZone='R'   then Result:=  5*60
+      else if RfcTimeZone='S'   then Result:=  6*60
+      else if RfcTimeZone='T'   then Result:=  7*60
+      else if RfcTimeZone='U'   then Result:=  8*60
+      else if RfcTimeZone='V'   then Result:=  9*60
+      else if RfcTimeZone='W'   then Result:= 10*60
+      else if RfcTimeZone='X'   then Result:= 11*60
+      else if RfcTimeZone='Y'   then Result:= 12*60
+      else if RfcTimeZone='Z'   then Result:=  0;
+
+   end;
+end;
+
+Const
+   RFC_DAY_NAMES   = 'SunMonTueWedThuFriSat';
+   RFC_MONTH_NAMES = 'JanFebMarAprMayJunJulAugSepOctNovDec';
+
+function MinutesToDateTime( Minutes: Integer ): TDateTime;
+begin
+   Result := ( Minutes / 60.0 / 24.0 );
+end;
+
+function RfcDateTimeToDateTimeGMT( RfcDateTime: string; ErrorDefault: TDateTime ) : TDateTime;
+var  s, h, tz : String;
+     i, yyyy, mm, dd, hh, nn, ss : Integer;
+begin
+   s := TrimWhSpace( RfcDateTime );
+   if s='' then begin Result:=ErrorDefault; exit; end;
+
+   try
+      // Date: Fri, 27 Mar 1998 12:12:50 +1300
+
+      i := Pos( ',', s );
+      if (i>0) and (i<10) then begin
+         System.Delete( s, 1, i ); // "Tue,", "Tuesday,"
+         s := TrimWhSpace(s);
+      end;
+
+      i := Pos(' ',s);
+      dd := strtoint( copy(s,1,i-1) );
+      System.Delete( s, 1, i );
+      s := TrimWhSpace(s);
+
+      i := Pos(' ',s);
+      h := lowercase( copy(s,1,i-1) );
+      mm := ( ( Pos(h,LowerCase(RFC_MONTH_NAMES)) - 1 ) div 3 ) + 1;
+      System.Delete( s, 1, i );
+      s := TrimWhSpace(s);
+
+      i := Pos(' ',s);
+      yyyy := strtoint( copy(s,1,i-1) );
+      if yyyy<100 then begin
+         if yyyy>=50 then yyyy:=yyyy+1900 else yyyy:=yyyy+2000;
+      end;
+      System.Delete( s, 1, i );
+      s := TrimWhSpace(s);
+
+      i := Pos(' ',s);
+      if i=0 then begin
+         h := s;
+         tz := '';
+      end else begin
+         h := TrimWhSpace( copy(s,1,i-1) );
+         tz := UpperCase( TrimWhSpace( copy(s,i+1,32) ) );
+      end;
+
+      i:=Pos(':',h); if i=2 then h:='0'+h;
+      hh := strtoint( copy(h,1,2) );
+      nn := strtoint( copy(h,4,2) );
+      ss := strtoint( copy(h,7,2) );
+
+      Result := EncodeDate( yyyy, mm, dd )
+              + MinutesToDateTime( RfcTimezoneToBiasMinutes( tz ) ) // -> GMT
+              + EncodeTime( hh, nn, ss, 0 );
+   except
+      Result := ErrorDefault
+   end;
+end;
+
+function RfcDateTimeToDateTimeGMT( RfcDateTime: string ) : TDateTime;
+const OldDefault = 29221.0; // =EncodeDate(1980,1,1)
+begin
+   Result := RfcDateTimeToDateTimeGMT( RfcDateTime, OldDefault );
+end;
+
+function BadCombination( MyCharset: String; SearchStr: String ): Boolean;
+begin
+     Result := False;
+     MyCharset := UpperCase( MyCharset );
+     if (MyCharset <> 'UTF-8') and (MyCharset <> 'UTF-7') then begin
+        if (MyCharset = Charset) then exit;
+        if not Has8BitChar( SearchStr ) then exit;
+     end;
+     Result := True;
+     with BaseApplication as IBaseApplication do
+       Warning(Format('IMAP SEARCH: Search charset (%s) and message charset (%s) differ. The current message is ignored.',[Charset,MyCharset]));
+end;
+
+var  i, j, k, m : Integer;
+  HdrValue   : String;
+  HdrName    : String;
+  MyMail     : TMimeMess = nil;
+  MyHeader   : String;
+  MyString   : String;
+  MyCharset  : String;
+  MyDate     : Int64;
+  NotFound   : Boolean;
+  aHeaders: TStrings;
+begin
+  SetLength( Result, Length(MsgSet) );
+  j := 0;
+  try
+    for i := 0 to High( MsgSet ) do begin
+      MyMail := GetMessage(GetUID(MsgSet[i]-1));
+      NotFound := False;
+
+      // Search headers
+      aHeaders := TStringList.Create;
+      MyMail.Header.EncodeHeaders(aHeaders);
+      for k := 0 to HeaderList.Count - 1 do begin
+         m := Pos( ':', HeaderList[k] );
+         HdrName  := Copy( HeaderList[k], 1, m );
+         HdrValue := UpperCase( Copy( HeaderList[k], m+1, Length(HeaderList[k])-m ) );
+         if HdrValue <> '' then begin
+            MyHeader := UpperCase(aHeaders.Text);
+            if BadCombination( MyCharset, HdrValue ) then begin
+               NotFound := True;
+               break
+            end;
+            if Pos( HdrValue, MyHeader ) = 0 then begin
+               NotFound := True;
+               break
+            end
+         end else begin
+            if not (MyMail.Header.FindHeader( HeaderList[k] )='') then begin
+               NotFound := True;
+               break
+            end
+         end
+      end;
+      aHeaders.Free;
+      if NotFound then continue;
+
+      // Search message date
+      MyDate := Trunc( RfcDateTimeToDateTimeGMT( MyMail.Header.Date) );
+      if (MyDate <= After) or (MyDate >= Before) then continue;
+
+      if (BodyStrings.Count > 0) or (TextStrings.Count > 0) then begin
+         MyCharset := GetCharset( MyMail.Header['Content-Type:'] );
+         if BadCombination( MyCharset, BodyStrings.Text + TextStrings.Text )
+            then continue;
+
+         // Search body text
+         MyString := UpperCase( MyMail.FullBody );
+         for k := 0 to BodyStrings.Count - 1 do begin
+            if Pos( BodyStrings[k], MyString ) = 0 then begin
+               NotFound := True;
+               break
+            end
+         end;
+         if NotFound then continue;
+
+         // Search full text
+         MyString := UpperCase( MyMail.FullHeader ) + #13#10 + MyString;
+         for k := 0 to TextStrings.Count - 1 do begin
+            if Pos( TextStrings[k], MyString ) = 0 then begin
+               NotFound := True;
+               break
+            end
+         end;
+         if NotFound then continue;
+      end;
+
+      Result[j] := MsgSet[i];
+      inc( j );
+   end
+  finally
+  end;
+  SetLength( Result, j )
+end;
+
 procedure TPrometMailBox.RefreshFolder;
 var
   Tree: TTree;
@@ -833,8 +1082,8 @@ procedure TPrometImapServer.DoList(AThread: TSTcpThread; Par: String;
        Found: String;
        aMailBoxes : TTree;
   begin
-    aMailBoxes := TTree.Create(nil);
     DbCS.Enter;
+    aMailBoxes := TTree.Create(nil);
     Data.SetFilter(aMailBoxes,'('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B')+') AND '+Data.QuoteField('PARENT')+'='+Data.QuoteValue(IntToStr(aParent)),0,'','ASC',False,True,True);
     DbCS.Leave;
     aMailBoxes.First;
