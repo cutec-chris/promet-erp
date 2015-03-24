@@ -1020,6 +1020,7 @@ begin
       if aTask.Terminate(aEarliest,aStart,aEnd,aDuration) then
         begin
           FSelectedInterval.StartDate:=aStart;
+          FSelectedInterval.Duration:=aDuration;
           FSelectedInterval.FinishDate:=aEnd;
         end;
     end;
