@@ -294,7 +294,11 @@ var
 begin
   if fChangeGantt.Execute(FReasonText) then
     begin
-      DoSave(fChangeGantt.cbChangeMilestones.Checked);
+      DoSave(fChangeGantt.cbChangeMilestones.Checked,fChangeGantt.cbSetAppt.Checked);
+      if fChangeGantt.cbAddToProject.Checked then
+        begin
+          FProject.History.AddItem(Data.Users.DataSet,fChangeGantt.mRule.Text,'','',FProject.DataSet,ACICON_USEREDITED,'',True,True);
+        end;
     end;
 end;
 

@@ -13,6 +13,7 @@ type
     ButtonPanel1: TButtonPanel;
     cbSetAppt: TCheckBox;
     cbChangeMilestones: TCheckBox;
+    cbAddToProject: TCheckBox;
     Label1: TLabel;
     mRule: TMemo;
   private
