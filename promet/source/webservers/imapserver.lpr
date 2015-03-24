@@ -675,16 +675,16 @@ begin
       if NotFound then continue;
 
       // Search message date
-      MyDate := Trunc( RfcDateTimeToDateTimeGMT( MyMail.Header.Date) );
+      MyDate := Trunc( MyMail.Header.Date );
       if (MyDate <= After) or (MyDate >= Before) then continue;
 
       if (BodyStrings.Count > 0) or (TextStrings.Count > 0) then begin
-         MyCharset := GetCharset( MyMail.Header['Content-Type:'] );
-         if BadCombination( MyCharset, BodyStrings.Text + TextStrings.Text )
-            then continue;
+         //MyCharset := GetCharset( MyMail.Header.CharsetCode ['Content-Type:'] );
+         //if BadCombination( MyCharset, BodyStrings.Text + TextStrings.Text )
+         //   then continue;
 
          // Search body text
-         MyString := UpperCase( MyMail.FullBody );
+         MyString := UpperCase( MyMail.Lines.Text );
          for k := 0 to BodyStrings.Count - 1 do begin
             if Pos( BodyStrings[k], MyString ) = 0 then begin
                NotFound := True;
@@ -694,7 +694,7 @@ begin
          if NotFound then continue;
 
          // Search full text
-         MyString := UpperCase( MyMail.FullHeader ) + #13#10 + MyString;
+         MyString := UpperCase( aHeaders.Text ) + #13#10 + MyString;
          for k := 0 to TextStrings.Count - 1 do begin
             if Pos( TextStrings[k], MyString ) = 0 then begin
                NotFound := True;
@@ -703,7 +703,6 @@ begin
          end;
          if NotFound then continue;
       end;
-
       Result[j] := MsgSet[i];
       inc( j );
    end
