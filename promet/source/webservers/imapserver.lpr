@@ -146,6 +146,7 @@ begin
   Result := 0;
   if GotoIndex(Index) then
     begin
+      DBCS.Enter;
       Folder.Edit;
       Folder.FieldByName('GRP_FLAGS').Clear;
       if Flags and FLAGSEEN = FLAGSEEN then
@@ -166,6 +167,7 @@ begin
       if Flags and FLAGDELETED = FLAGDELETED then
         Folder.FieldByName('TREEENTRY').AsVariant:=TREE_ID_DELETED_MESSAGES;
       Result := GetFlags(Index);
+      DBCS.Leave;
     end;
 end;
 
@@ -187,9 +189,11 @@ begin
           if Folder.FieldByName('DRAFT').AsString='Y' then
             MR := MR or FLAGDRAFT;
           if Folder.FieldByName('TREEENTRY').AsVariant=TREE_ID_DELETED_MESSAGES then MR := MR or FLAGDELETED;
+          DBCS.Enter;
           Folder.Edit;
           Folder.FieldByName('GRP_FLAGS').AsInteger := MR;
           Folder.Post;
+          DBCS.Leave;
         end
       else
         MR := Folder.FieldByName('GRP_FLAGS').AsInteger;
@@ -324,6 +328,7 @@ begin
     exit
   end;
   Result := True;
+  DBCS.Enter;
   Lock;
   try
     for i := 0 to High(MsgSet) do
@@ -348,6 +353,7 @@ begin
   finally
     Unlock;
   end;
+  DBCS.Leave;
   Destination.SendMailboxUpdate;
 end;
 
@@ -755,18 +761,20 @@ begin
     end;
   aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
   aCnt.Open;
-  DBCS.Leave;
   FMessages:=aCnt.FieldByName('MESSAGES').AsInteger;
   FUnseen:=FMessages-aCnt.FieldByName('READ').AsInteger;
   inc(FUnseen,aChanged);
   aCnt.Free;
+  DBCS.Leave;
 end;
 
 constructor TPrometMailBox.Create(APath: String; CS: TCriticalSection);
 begin
   inherited Create(APath,CS);
   DBCS := CS;
+  DBCS.Enter;
   Folder := TMessageList.Create(nil);
+  DBCS.Leave;
   RefreshFolder;
 end;
 
@@ -1200,7 +1208,9 @@ begin
   inherited Create(AOwner);
   DBCs := TCriticalSection.Create;
   MailBoxes := TTree.Create(nil);
+  DbCS.Enter;
   Data.SetFilter(MailBoxes,Data.QuoteField('TYPE')+'='+Data.QuoteValue('N')+' OR '+Data.QuoteField('TYPE')+'='+Data.QuoteValue('B'),0,'','ASC',False,True,False);
+  DbCS.Leave;
 end;
 
 destructor TPrometImapServer.Destroy;
@@ -1218,6 +1228,7 @@ var
   i: Integer;
 begin
   aUser := TUser.Create(nil);
+  IMAPServer.DbCS.Enter;
   for i := 0 to aTo.Count-1 do
     begin
       if Data.IsSQLDb then
@@ -1235,6 +1246,7 @@ begin
       aRes := aRes or (aUser.Count>0);
     end;
   aUser.Free;
+  IMAPServer.DbCS.Leave;
   Result := aRes;
 end;
 
@@ -1300,6 +1312,7 @@ var
   aUID: String;
   aMessage: TMimeMessage;
 begin
+  IMAPServer.DbCS.Enter;
   aUser := TUser.Create(nil);
   //mail to an User
   for i := 0 to aTo.Count-1 do
@@ -1350,6 +1363,7 @@ begin
         end;
     end;
   aUser.Free;
+  IMAPServer.DbCS.Leave;
 end;
 
 procedure TPIMAPServer.DoRun;

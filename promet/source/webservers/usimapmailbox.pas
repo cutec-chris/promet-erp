@@ -82,8 +82,8 @@ type
     property GetUIDnext: LongInt read FUIDNext;
     property GetUIDvalidity: TUnixTime read FUIDvalidity;
     property PossFlags: string read GetPossFlags;
-    procedure Lock;
-    procedure Unlock;
+    procedure Lock;virtual;
+    procedure Unlock;virtual;
     procedure RemoveRecentFlags;
     procedure AddUser(Notify: pIMAPNotification);
     procedure RemoveUser(Notify: pIMAPNotification; out NoUsersLeft: boolean);

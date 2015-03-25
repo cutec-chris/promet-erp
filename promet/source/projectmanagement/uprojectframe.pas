@@ -256,6 +256,12 @@ begin
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etAction;
       TTreeEntry(Node1.Data).Action := aAction;
+      if Data.Users.Rights.Right('RESOURCEVIEW')>RIGHT_READ then
+        begin
+          Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+          TTreeEntry(Node1.Data).Typ := etAction;
+          TTreeEntry(Node1.Data).Action := aAction;
+        end;
       Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('P')+'))';
       Data.Tree.DataSet.Filtered:=True;
       Data.Tree.DataSet.First;
