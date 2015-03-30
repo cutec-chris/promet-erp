@@ -144,7 +144,7 @@ type
   end;
 
 type
-  TScriptSleepFunction = procedure (aTime : Integer); StdCall;
+  TScriptSleepFunction = procedure (aTime : LongInt); StdCall;
 var
   LoadedLibs : TList;
   ActRuntime : TScript;

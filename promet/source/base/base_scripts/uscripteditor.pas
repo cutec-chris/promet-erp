@@ -246,7 +246,7 @@ begin
     TPascalScript(fLastScriptEditor.FDataSet.Script).InternalUses(Sender,Name)
 end;
 
-procedure DoSleep(aTime: Integer); StdCall;
+procedure DoSleep(aTime: LongInt); StdCall;
 var
   bTime: QWord;
 begin
