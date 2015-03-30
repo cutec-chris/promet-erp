@@ -279,7 +279,7 @@ begin
           FieldByName('REF_ID_ID').AsString := tmp;
           FieldByName('NAME').AsString:=Data.GetLinkDesc(aLink);
           FieldByName('LINK').AsString:=aLink;
-          FieldByName('ICON').AsInteger:=Data.GetLinkIcon(aLink);
+          FieldByName('ICON').AsInteger:=Data.GetLinkIcon(aLink,True);
         end;
       Post;
     end;

@@ -2377,7 +2377,7 @@ begin
     begin
       aLink := fSearch.GetLink;
       aLinkDesc := Data.GetLinkDesc(aLink);
-      aIcon := Data.GetLinkIcon(aLink);
+      aIcon := Data.GetLinkIcon(aLink,True);
       with TExtDBGrid(Sender).DataSource.DataSet do
         begin
           Insert;
@@ -2397,7 +2397,7 @@ begin
           Data.GotoBookmark(aDS,nData.Rec);
           aLink := Data.BuildLink(aDS.DataSet);
           aLinkDesc := Data.GetLinkDesc(aLink);
-          aIcon := Data.GetLinkIcon(aLink);
+          aIcon := Data.GetLinkIcon(aLink,True);
           aDS.Free;
           with TExtDBGrid(Sender).DataSource.DataSet do
             begin
@@ -2935,6 +2935,7 @@ var
   aBaseHist: TBaseHistory;
   aCalFrame: TfCalendarFrame;
   aEventEdit: TfEventEdit;
+  aObjs: TObjects;
 begin
   Result := False;
   Screen.Cursor:=crHourGlass;
@@ -2980,14 +2981,22 @@ begin
     end
   else if copy(aLink,0,10) = 'ALLOBJECTS' then
     begin
-      aFrame := TfObjectFrame.Create(Self);
-      aFrame.SetLanguage;
-      if aFrame.OpenFromLink(aLink) then
+      aObjs := TObjects.Create(nil);
+      aObjs.SelectByLink(aLink);
+      aObjs.Open;
+      if aObjs.FieldByName('LINK').IsNull then
         begin
-          pcPages.AddTab(aFrame);
-          Result := True;
+          aFrame := TfObjectFrame.Create(Self);
+          aFrame.SetLanguage;
+          if aFrame.OpenFromLink(aLink) then
+            begin
+              pcPages.AddTab(aFrame);
+              Result := True;
+            end
+          else aFrame.Free;
         end
-      else aFrame.Free;
+      else fMainTreeFrameOpenFromLink(aObjs.FieldByName('LINK').AsString,aSender);
+      aObjs.Free;
     end
   else if copy(aLink,0,7) = 'SCRIPTS' then
     begin

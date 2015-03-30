@@ -455,7 +455,7 @@ begin
               aLink := copy(aLinks,0,pos(';',aLinks)-1);
               aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
               aLinkDesc := aLink;
-              aIcon := Data.GetLinkIcon(aLink);
+              aIcon := Data.GetLinkIcon(aLink,True);
               with aDS do
                 begin
                   Insert;
@@ -482,7 +482,7 @@ begin
           aLink := copy(aLinks,0,pos(';',aLinks)-1);
           aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
           aLinkDesc := Data.GetLinkDesc(aLink);
-          aIcon := Data.GetLinkIcon(aLink);
+          aIcon := Data.GetLinkIcon(aLink,True);
           with aDS do
             begin
               Insert;
@@ -1246,7 +1246,7 @@ begin
                                 aLink := Data.BuildLink(aDataSet.DataSet);
                                 aLinks.FieldByName('NAME').AsString := Data.GetLinkDesc(aLink);
                                 aLinks.FieldByName('LINK').AsString := aLink;
-                                aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink);
+                                aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink,True);
                                 aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
                                 aLinks.DataSet.Post;
                                 aLinks.Free;
@@ -1399,7 +1399,7 @@ begin
                         aLink := Data.BuildLink(TPrometMainFrame(pcPages.ActivePage.Controls[0]).DataSet.DataSet);
                         aLinks.FieldByName('NAME').AsString := Data.GetLinkDesc(aLink);
                         aLinks.FieldByName('LINK').AsString := aLink;
-                        aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink);
+                        aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink,True);
                         aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
                         aLinks.DataSet.Post;
                         aLinks.Free;
@@ -1455,7 +1455,7 @@ begin
                   aLink := Data.BuildLink(TfFilter(TExtDBGrid(Source).Owner).DataSet.DataSet);
                   aLinks.FieldByName('NAME').AsString := Data.GetLinkDesc(aLink);
                   aLinks.FieldByName('LINK').AsString := aLink;
-                  aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink);
+                  aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink,True);
                   aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
                   aLinks.DataSet.Post;
                   aLinks.Free;
@@ -1526,7 +1526,7 @@ begin
                   aLink := fSearch.GetLink;
                   aLinks.FieldByName('NAME').AsString := Data.GetLinkDesc(aLink);
                   aLinks.FieldByName('LINK').AsString := aLink;
-                  aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink);
+                  aLinks.FieldByName('ICON').AsInteger := Data.GetLinkIcon(aLink,True);
                   aLinks.FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
                   aLinks.DataSet.Post;
                   aLinks.Free;
@@ -1941,7 +1941,7 @@ begin
               TTreeEntry(Node1.Data).Text[0] := aListL.FieldByName('NAME').AsString;
               TTreeEntry(Node1.Data).Link:=aListL.FieldByName('LINK').AsString;
               TTreeEntry(Node1.Data).Typ := etLink;
-              TTreeEntry(Node1.Data).LinkIcon:=Data.GetLinkIcon(aListL.FieldByName('LINK').AsString);
+              TTreeEntry(Node1.Data).LinkIcon:=Data.GetLinkIcon(aListL.FieldByName('LINK').AsString,True);
               aListL.DataSet.Next;
             end;
           aListL.Free;

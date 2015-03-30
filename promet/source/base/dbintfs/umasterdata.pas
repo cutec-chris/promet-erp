@@ -1061,7 +1061,7 @@ begin
                 aObj.Status.AsString := Self.Status.AsString;
               aObj.Number.AsVariant:=Self.Number.AsVariant;
               aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
-              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet));
+              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet),True);
               aObj.FieldByName('VERSION').AsString:=Self.FieldByName('VERSION').AsString;
               aObj.Post;
               Self.GenerateThumbnail;

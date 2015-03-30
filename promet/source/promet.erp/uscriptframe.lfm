@@ -20,8 +20,8 @@ inherited fScriptFrame: TfScriptFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 842
-      ClientWidth = 1284
+      ClientHeight = 421
+      ClientWidth = 642
       object Label1: TLabel
         Left = 8
         Height = 13
@@ -32,9 +32,9 @@ inherited fScriptFrame: TfScriptFrame
       end
       object DBMemo1: TDBMemo
         Left = 8
-        Height = 255
-        Top = 32
-        Width = 628
+        Height = 384
+        Top = 24
+        Width = 624
         Anchors = [akTop, akLeft, akRight, akBottom]
         DataField = 'NOTE'
         DataSource = Script
@@ -45,7 +45,7 @@ inherited fScriptFrame: TfScriptFrame
       object DBComboBox1: TDBComboBox
         Left = 152
         Height = 21
-        Top = 317
+        Top = -104
         Width = 132
         Anchors = [akLeft, akBottom]
         DataField = 'RUNMASHINE'
@@ -57,7 +57,7 @@ inherited fScriptFrame: TfScriptFrame
       object Label5: TLabel
         Left = 152
         Height = 13
-        Top = 297
+        Top = -124
         Width = 89
         Anchors = [akLeft, akBottom]
         Caption = 'läuft auf Mashiene'
@@ -66,7 +66,7 @@ inherited fScriptFrame: TfScriptFrame
       object Label6: TLabel
         Left = 8
         Height = 13
-        Top = 297
+        Top = -124
         Width = 41
         Anchors = [akLeft, akBottom]
         Caption = 'läuft alle'
@@ -75,7 +75,7 @@ inherited fScriptFrame: TfScriptFrame
       object DBEdit1: TDBEdit
         Left = 8
         Height = 21
-        Top = 315
+        Top = -106
         Width = 80
         DataField = 'RUNEVERY'
         DataSource = Script
@@ -87,7 +87,7 @@ inherited fScriptFrame: TfScriptFrame
       object Label7: TLabel
         Left = 96
         Height = 13
-        Top = 318
+        Top = -103
         Width = 16
         Anchors = [akLeft, akBottom]
         Caption = 'min'
@@ -96,8 +96,8 @@ inherited fScriptFrame: TfScriptFrame
       object DBMemo2: TDBMemo
         Left = 8
         Height = 58
-        Top = 359
-        Width = 628
+        Top = -62
+        Width = 0
         Anchors = [akLeft, akRight, akBottom]
         ReadOnly = True
         ScrollBars = ssAutoBoth
@@ -106,7 +106,7 @@ inherited fScriptFrame: TfScriptFrame
       object Label8: TLabel
         Left = 8
         Height = 13
-        Top = 342
+        Top = -79
         Width = 76
         Anchors = [akLeft, akBottom]
         Caption = 'letztes Ergebnis'
@@ -115,7 +115,7 @@ inherited fScriptFrame: TfScriptFrame
       object Label9: TLabel
         Left = 320
         Height = 13
-        Top = 297
+        Top = -124
         Width = 91
         Anchors = [akLeft, akBottom]
         Caption = 'ist zuletzt gelaufen'
@@ -124,7 +124,7 @@ inherited fScriptFrame: TfScriptFrame
       object DBText1: TDBText
         Left = 320
         Height = 13
-        Top = 318
+        Top = -103
         Width = 41
         Anchors = [akLeft, akBottom]
         DataField = 'LASTRUN'

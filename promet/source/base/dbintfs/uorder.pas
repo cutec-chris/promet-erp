@@ -1753,7 +1753,7 @@ begin
                 aObj.Status.AsString := Self.Status.AsString;
               aObj.Number.AsVariant:=Self.Number.AsVariant;
               aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
-              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet));
+              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet),True);
               aObj.Post;
               Self.GenerateThumbnail;
             end
@@ -1861,4 +1861,4 @@ end;
 
 initialization
 end.
-
+

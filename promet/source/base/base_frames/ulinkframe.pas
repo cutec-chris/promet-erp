@@ -141,7 +141,7 @@ begin
           aLink := copy(aLinks,0,pos(';',aLinks)-1);
           aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
           aLinkDesc := aLink;
-          aIcon := Data.GetLinkIcon(aLink);
+          aIcon := Data.GetLinkIcon(aLink,True);
           with DataSet.DataSet do
             begin
               Insert;
@@ -167,7 +167,7 @@ begin
       aLink := copy(aLinks,0,pos(';',aLinks)-1);
       aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
       aLinkDesc := Data.GetLinkDesc(aLink);
-      aIcon := Data.GetLinkIcon(aLink);
+      aIcon := Data.GetLinkIcon(aLink,True);
       with DataSet.DataSet do
         begin
           Insert;
@@ -193,7 +193,7 @@ begin
                       Insert;
                       FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
                       aLinkDesc := Data.GetLinkDesc(bLink);
-                      aIcon := Data.GetLinkIcon(bLink);
+                      aIcon := Data.GetLinkIcon(bLink,True);
                       FieldByName('LINK').AsString := bLink;
                       FieldByName('NAME').AsString := aLinkDesc;
                       FieldByName('ICON').AsInteger := aIcon;
@@ -468,7 +468,7 @@ begin
           aLink := copy(aLinks,0,pos(';',aLinks)-1);
           aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
           aLinkDesc := Data.GetLinkDesc(aLink);
-          aIcon := Data.GetLinkIcon(aLink);
+          aIcon := Data.GetLinkIcon(aLink,True);
           with DataSet.DataSet do
             begin
               Insert;
@@ -494,7 +494,7 @@ begin
                           Insert;
                           FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
                           aLinkDesc := Data.GetLinkDesc(bLink);
-                          aIcon := Data.GetLinkIcon(bLink);
+                          aIcon := Data.GetLinkIcon(bLink,True);
                           FieldByName('LINK').AsString := bLink;
                           FieldByName('NAME').AsString := aLinkDesc;
                           FieldByName('ICON').AsInteger := aIcon;
@@ -516,7 +516,7 @@ begin
         begin
           aLink := DataT.Link;
           aLinkDesc := Data.GetLinkDesc(aLink);
-          aIcon := Data.GetLinkIcon(aLink);
+          aIcon := Data.GetLinkIcon(aLink,True);
           with DataSet.DataSet do
             begin
               Insert;
@@ -575,7 +575,7 @@ begin
       aLink := copy(aLinks,0,pos(';',aLinks)-1);
       aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
       aLinkDesc := Data.GetLinkDesc(aLink);
-      aIcon := Data.GetLinkIcon(aLink);
+      aIcon := Data.GetLinkIcon(aLink,True);
       with DataSet.DataSet do
         begin
           if TLinks(DataSet).Add(aLink) then
@@ -596,7 +596,7 @@ begin
                         Insert;
                         FieldByName('RREF_ID').AsVariant:=aDS.Id.AsVariant;
                         aLinkDesc := Data.GetLinkDesc(bLink);
-                        aIcon := Data.GetLinkIcon(bLink);
+                        aIcon := Data.GetLinkIcon(bLink,True);
                         FieldByName('LINK').AsString := bLink;
                         FieldByName('NAME').AsString := aLinkDesc;
                         FieldByName('ICON').AsInteger := aIcon;

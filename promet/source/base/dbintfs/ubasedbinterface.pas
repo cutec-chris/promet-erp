@@ -985,6 +985,8 @@ begin
     end;
 end;
 function TBaseDBModule.GetLinkIcon(aLink: string;GetRealIcon : Boolean = False): Integer;
+var
+  aObjs: TObjects;
 begin
   Result := -1;
   if pos('://',aLink) > 0 then
@@ -993,7 +995,16 @@ begin
     Result := IMAGE_MASTERDATA
   else if copy(aLink, 0, pos('@', aLink) - 1) = 'ALLOBJECTS' then
     begin
-      Result := 121
+      Result := 121;
+      if GetRealIcon then
+        begin
+          aObjs := TObjects.Create(nil);
+          aObjs.SelectByLink(aLink);
+          aObjs.Open;
+          if aObjs.Count>0 then
+            Result := aObjs.FieldByName('ICON').AsInteger;
+          aObjs.Free;
+        end;
     end
   else if (copy(aLink, 0, pos('@', aLink) - 1) = 'CUSTOMERS')
        or (copy(aLink, 0, pos('@', aLink) - 1) = 'CUSTOMERS.ID') then

@@ -15,7 +15,7 @@ object fMainTree: TfMainTree
     Width = 320
     Align = alClient
     BorderStyle = bsNone
-    DefaultItemHeight = 18
+    DefaultItemHeight = 16
     DragMode = dmAutomatic
     PopupMenu = pmTree
     ReadOnly = True

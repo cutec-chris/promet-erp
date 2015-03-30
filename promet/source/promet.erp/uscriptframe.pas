@@ -345,6 +345,7 @@ begin
       aWiki.Free;
     end;
   tsScript.PageIndex:=1;
+  pcPages.ActivePage:=tsScript;
   if HasHelp then AddHelp(Self);
   acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
   acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;

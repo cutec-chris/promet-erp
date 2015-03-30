@@ -175,7 +175,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="26">
@@ -418,6 +417,7 @@
         <ComponentName Value="fBookAccounting"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uBookAccounting"/>
       </Unit19>
       <Unit20>
         <Filename Value="urepairpositionframe.pas"/>

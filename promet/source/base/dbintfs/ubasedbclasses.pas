@@ -647,15 +647,24 @@ end;
 procedure TObjects.FillDefaults(aDataSet: TDataSet);
 begin
   inherited FillDefaults(aDataSet);
-  FieldByName('ICON').AsInteger:=Data.GetLinkIcon('ALLOBJECTS@');
+  FieldByName('ICON').AsInteger:=Data.GetLinkIcon('ALLOBJECTS@',True);
 end;
 
 function TObjects.SelectByLink(aLink: string): Boolean;
+var
+  tmp: String;
 begin
   with BaseApplication as IBaseDBInterface do
     with DataSet as IBaseDBFilter do
       begin
-        Filter := Data.QuoteField('LINK')+'='+Data.QuoteValue(aLink);
+        if copy(aLink,0,11)='ALLOBJECTS@' then
+          begin
+            tmp := copy(aLink,12,length(aLink));
+            if pos('{',aLink)>0 then tmp := copy(tmp,0,pos('{',tmp)-1);
+            Filter := TBaseDBModule(DataModule).QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(tmp);
+          end
+        else
+          Filter := Data.QuoteField('LINK')+'='+Data.QuoteValue(aLink);
       end;
 end;
 
@@ -1392,7 +1401,7 @@ begin
               aObj.Status.AsString := Self.Status.AsString;
             aObj.Number.AsVariant:=Self.Number.AsVariant;
             aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
-            aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet));
+            aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet),True);
             aObj.Post;
             Self.GenerateThumbnail;
           end
