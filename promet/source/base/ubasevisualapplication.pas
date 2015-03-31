@@ -362,13 +362,15 @@ begin
   if HasOption('l','logfile') then
     begin
       FLogger.FileName := GetOptionValue('l','logfile');
+      FLogger.Active:=True;
     end
   else
     begin
       FLogger.LogType:=ltSystem;
     end;
+  if HasOption('system-log') then
+    FLogger.Active:=True;
   LazLogger.GetDebugLogger.OnDebugLn:=@BaseVisualApplicationDebugLn;
-  FLogger.Active:=True;
   {.$Warnings Off}
   FDBInterface := TBaseDBInterface.Create;
   FDBInterface.SetOwner(Self);
@@ -674,9 +676,8 @@ begin
 end;
 procedure TBaseVisualApplication.Log(aType: string; aMsg: string);
 begin
-  //debugln(aType+':'+aMsg);
   try
-  if Assigned(FLogger) then
+  if Assigned(FLogger) and FLogger.Active then
     begin
       if aType = 'INFO' then
         FLogger.Info(aMsg)
@@ -1179,4 +1180,4 @@ initialization
 finalization
   MainFrames.Free;
 end.
-
+
