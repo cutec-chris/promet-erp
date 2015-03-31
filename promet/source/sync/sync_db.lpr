@@ -524,7 +524,7 @@ begin
                                 end
                               else
                                 begin
-                                  (BaseApplication as IBaseApplication).Error(strLoginFailed);
+                                  (BaseApplication as IBaseApplication).Info(strLoginFailed);
                                   FAddLog := True;
                                 end;
                             end;
