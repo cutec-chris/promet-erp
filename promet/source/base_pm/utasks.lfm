@@ -855,11 +855,12 @@ inherited fTaskFrame: TfTaskFrame
       Left = 548
       Height = 42
       Top = 0
-      Width = 141
+      Width = 101
       Align = alClient
+      BorderSpacing.Right = 40
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 141
+      ClientWidth = 101
       Constraints.MaxWidth = 700
       TabOrder = 4
       object Bevel7: TBevel
@@ -889,7 +890,7 @@ inherited fTaskFrame: TfTaskFrame
         Height = 21
         Hint = 'hier können Sie einen Filter wählen um die Liste einzuschränken'
         Top = 12
-        Width = 90
+        Width = 50
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 8
         ItemHeight = 13
@@ -897,7 +898,7 @@ inherited fTaskFrame: TfTaskFrame
         TabOrder = 0
       end
       object bEditFilter: TSpeedButton
-        Left = 99
+        Left = 59
         Height = 21
         Hint = 'zeigt/verbirgt den Filtereditor'
         Top = 12

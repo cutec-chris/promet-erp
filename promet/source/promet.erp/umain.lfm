@@ -282,18 +282,18 @@ object fMain: TfMain
     end
   end
   object Panel3: TPanel
-    Left = 846
-    Height = 21
-    Top = 51
+    Left = 843
+    Height = 22
+    Top = 72
     Width = 21
     Anchors = [akTop, akRight]
     BevelOuter = bvNone
-    ClientHeight = 21
+    ClientHeight = 22
     ClientWidth = 21
     TabOrder = 4
     object SpeedButton1: TSpeedButton
       Left = 0
-      Height = 21
+      Height = 22
       Top = 0
       Width = 21
       Action = acCloseTab
@@ -328,18 +328,18 @@ object fMain: TfMain
     end
   end
   object Panel4: TPanel
-    Left = 826
-    Height = 21
-    Top = 51
+    Left = 823
+    Height = 22
+    Top = 72
     Width = 21
     Anchors = [akTop, akRight]
     BevelOuter = bvNone
-    ClientHeight = 21
+    ClientHeight = 22
     ClientWidth = 21
     TabOrder = 5
     object SpeedButton2: TSpeedButton
       Left = 0
-      Height = 21
+      Height = 22
       Top = 0
       Width = 21
       Action = acWindowize
