@@ -375,6 +375,7 @@ begin
   Data := '';
   sl := TStringList.Create;
   try
+    try
     repeat
       DataItem := ExtractParameter( Args );
       if DataItem = 'FLAGS' then begin
@@ -418,6 +419,12 @@ begin
           end
        end;
     until Args = '';
+    except
+      begin
+        Result := '';
+        exit;
+      end;
+    end;
   finally
     FreeAndNil(MyMail);
     sl.Free;

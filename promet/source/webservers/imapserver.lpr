@@ -136,9 +136,11 @@ end;
 function TPrometMailBox.GetIndex(UID: LongInt): LongInt;
 begin
   Result := -1;
+  DbCS.Enter;
   if not Assigned(Folder) then exit;
   if Folder.DataSet.Locate('GRP_ID',UID,[]) then
     Result := Folder.DataSet.RecNo;
+  DbCS.Leave;
 end;
 
 function TPrometMailBox.SetFlags(Index: LongInt; Flags: TFlagMask): TFlagMask;
@@ -261,7 +263,7 @@ function TPrometMailBox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
     for i := Start to Finish do
     begin
       if length(Result)<j+1 then
-        Setlength(Result,j+100);
+        Setlength(Result,j+1000);
       if UseUID then
         Result[j] := GetIndex(i) + 1
       else
