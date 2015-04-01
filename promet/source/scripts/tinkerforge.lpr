@@ -4,7 +4,7 @@ library tinkerforge;
 
 uses
   Classes,sysutils, IPConnection, Device, BrickletLCD20x4, BrickletLCD16x2,
-  BrickletVoltageCurrent;
+  BrickletVoltageCurrent,BrickletIndustrialQuadRelay,BrickletDualRelay;
 type
   TStation = class
     procedure ipconConnected(sender: TIPConnection; const connectReason: byte);
@@ -55,6 +55,14 @@ begin
       end;
       if (deviceIdentifier = BRICKLET_VOLTAGE_CURRENT_DEVICE_IDENTIFIER) then begin
         Dev := TBrickletVoltageCurrent.Create(UID, ipcon);
+        Devices.Add(Dev);
+      end;
+      if (deviceIdentifier = BRICKLET_INDUSTRIAL_QUAD_RELAY_DEVICE_IDENTIFIER) then begin
+        Dev := TBrickletIndustrialQuadRelay.Create(UID, ipcon);
+        Devices.Add(Dev);
+      end;
+      if (deviceIdentifier = BRICKLET_DUAL_RELAY_DEVICE_IDENTIFIER) then begin
+        Dev := TBrickletDualRelay.Create(UID, ipcon);
         Devices.Add(Dev);
       end;
     end;
@@ -323,6 +331,54 @@ begin
     end;
 end;
 
+function TfSetRelais(Position : char;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;
+var
+  aUid: string;
+  aConUID: string;
+  aPosition: char;
+  aHWV: TVersionNumber;
+  aFWV: TVersionNumber;
+  aDID: word;
+  aRelais: boolean;
+  bRelais: boolean;
+  sRelais: Word;
+  i: Integer;
+begin
+  Result := False;
+  for i := 0 to Station.Devices.Count-1 do
+    //begin
+      //if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
+        begin
+          TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
+          if lowercase(position)=lowercase(aPosition) then
+            begin
+              if TObject(Station.Devices[i]) is TBrickletDualRelay then
+                begin
+                  Result := True;
+                  TBrickletDualRelay(Station.Devices[i]).GetState(aRelais,bRelais);
+                  case Relais of
+                  0:TBrickletDualRelay(Station.Devices[i]).SetState(SwitchOn,bRelais);
+                  1:TBrickletDualRelay(Station.Devices[i]).SetState(aRelais,SwitchOn);
+                  else Result := False;
+                  end;
+                end
+              else if TObject(Station.Devices[i]) is TBrickletIndustrialQuadRelay then
+                begin
+                  Result := True;
+                  sRelais := TBrickletIndustrialQuadRelay(Station.Devices[i]).GetValue;
+                  if SwitchOn then
+                    sRelais:=sRelais or (1 shl Relais)
+                  else
+                    sRelais:=sRelais xor (1 shl Relais);
+                  Result := sRelais<4;
+                  TBrickletIndustrialQuadRelay(Station.Devices[i]).SetValue(sRelais);
+                end;
+              exit;
+            end;
+        end;
+    //end;
+end;
+
 procedure ScriptCleanup;
 begin
   TfDisconnect;
@@ -347,6 +403,7 @@ begin
        +#10+'function TfGetPowerById(id : Integer) : LongInt;stdcall;'
        +#10+'function TfGetPower(Position : char) : LongInt;stdcall;'
 
+       +#10+'function TfSetRelais(Position : char;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;'
             ;
 end;
 
@@ -367,6 +424,8 @@ exports
   TfGetCurrentById,
   TfGetPower,
   TfGetPowerById,
+
+  TfSetRelais,
 
   ScriptCleanup,
   ScriptDefinition;
