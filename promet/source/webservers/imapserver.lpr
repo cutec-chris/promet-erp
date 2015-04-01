@@ -406,6 +406,7 @@ begin
         aMessage.Dataset.FieldByName('USER').AsString := AThread.User;
         aMessage.Dataset.FieldByName('TYPE').AsString := 'EMAIL';
         aMessage.Dataset.FieldByName('READ').AsString := 'N';
+        aMessage.FieldByName('SENDDATE').AsDateTime:=UnixTimeToDateTime(TimeStamp);
         aMessage.DecodeMessage(aMsg);
         aMessage.FieldbyName('TREEENTRY').AsVariant := FParent;
         aSubject := SysToUni(amsg.Header.Subject);
@@ -451,6 +452,7 @@ begin
             Customers.History.Post;
           end;
         aMessage.DataSet.Post;
+        SetFlags(Folder.DataSet.RecNo,StringToFlagMask(Flags));
         Result := 'OK APPEND completed';
       end
     else
@@ -458,7 +460,6 @@ begin
         aMessage.Edit;
         aMessage.FieldByName('TIMESTAMPD').AsDateTime:=Now();
         aMessage.Post;
-        //TODO:set Flags
         Result := 'OK APPEND completed';
       end;
     aMsg.Free;

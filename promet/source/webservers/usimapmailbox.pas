@@ -30,7 +30,6 @@ type
     fUsers: TList;
     fReadOnly: boolean;
     procedure AddMessage(Flags: string; TimeStamp: TUnixTime);
-    function StringToFlagMask(Flags: string): TFlagMask;
     function FlagMaskToString(FlagMask: TFlagMask): string;
     function GetPossFlags: string;
     //procedure WriteStatus; //Not Critical_Section-Protected!
@@ -42,6 +41,7 @@ type
     FMessages: longint;
     function JoinMessageSets(MsgSet1, MsgSet2: TMessageSet): TMessageSet;
   public
+    function StringToFlagMask(Flags: string): TFlagMask;
     function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;virtual;abstract;
     function  GetUID( Index: LongInt ): LongInt;virtual;abstract;
     function  GetUIDStr( Index: LongInt ): String;virtual;abstract;
