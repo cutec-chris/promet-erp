@@ -61,6 +61,7 @@ type
     acFileImport: TAction;
     acOptimizeDocument: TAction;
     acSetDate: TAction;
+    acAquire: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
     Bevel1: TBevel;
@@ -73,6 +74,7 @@ type
     Bevel9: TBevel;
     bImport1: TSpeedButton;
     bImport2: TSpeedButton;
+    bImport3: TSpeedButton;
     bShowDetail: TSpeedButton;
     bRefresh2: TSpeedButton;
     bRefresh3: TSpeedButton;
@@ -81,7 +83,6 @@ type
     bTag1: TSpeedButton;
     bZoomIn: TSpeedButton;
     bZoomOut: TSpeedButton;
-    bImport: TSpeedButton;
     cbFilter: TComboBox;
     Datasource1: TDatasource;
     DBEdit1: TDBEdit;
@@ -144,6 +145,7 @@ type
     ThumbControl1: TThumbControl;
     tsDocument: TTabSheet;
     tsFiles: TTabSheet;
+    procedure acAquireExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
     procedure acEditExecute(Sender: TObject);
     procedure acFileImportExecute(Sender: TObject);
@@ -247,7 +249,8 @@ implementation
 uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
   ProcessUtils,uMainTreeFrame,ucameraimport,FPimage,FPReadJPEG,FPCanvas,
   FPWriteJPEG,LCLProc,uthumbnails,uBaseVisualControls,updfexport,uSearch,
-  usimpleprocess,uImaging,uBaseApplication;
+  usimpleprocess,uImaging,uBaseApplication,uDocumentAcquire,Graphics,PdfDoc,
+  PdfImages;
 resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'alle markierten setzen';
@@ -862,6 +865,113 @@ begin
       if DataSet.Count=0 then acRefresh.Execute;
     end;
 end;
+
+procedure TfManageDocFrame.acAquireExecute(Sender: TObject);
+var
+  NewImage : TJpegImage;
+  i: Integer;
+  aTop: Integer;
+  Stream: TMemoryStream;
+  Extension: String;
+  Report: TPdfDoc;
+  Page: Integer;
+  aTitle : string;
+  aText : string;
+  aDocument: TDocument;
+begin
+  Application.Processmessages;
+  if fAcquire.Execute then
+    begin
+      if fAcquire.cbType.Text = 'JPEG' then
+        begin
+          //Draw all images (Pages) to one big image
+          NewImage := TJpegImage.Create;
+          NewImage.Width := 0;
+          NewImage.Height := 0;
+          NewImage.CompressionQuality:=65;
+          for i := 0 to length(fAcquire.Images)-1 do
+            begin
+              if fAcquire.Images[i].Width > NewImage.Width then
+                NewImage.Width := fAcquire.Images[i].Width;
+              NewImage.Height := NewImage.Height+fAcquire.Images[i].Height;
+            end;
+          NewImage.Canvas.Brush.Color := clWhite;
+          NewImage.Canvas.Pen.Color := clWhite;
+          NewImage.Canvas.Rectangle(0,0,NewImage.Width,NewImage.Height);
+          aTop := 0;
+          for i := 0 to length(fAcquire.Images)-1 do
+            begin
+              NewImage.Canvas.Draw(0,aTop,fAcquire.Images[i].Bitmap);
+              inc(aTop,fAcquire.Images[i].Height);
+            end;
+          //Save it to Doc
+          Stream := TMemoryStream.Create;
+          NewImage.SaveToStream(Stream);
+          Stream.Position := 0;
+          NewImage.Free;
+          Extension := 'jpeg';
+        end
+      else if fAcquire.cbType.Text = 'PDF' then
+        begin
+          Report := TPdfDoc.Create;
+          Report.NewDoc;
+          NewImage := TJpegImage.Create;
+          NewImage.CompressionQuality:=65;
+          for i := 0 to length(fAcquire.Images)-1 do
+            begin
+              Report.AddPage;
+              Report.Canvas.PageWidth:=fAcquire.Images[i].Width+1;
+              Report.Canvas.PageHeight:=fAcquire.Images[i].Height+1;
+  //              Report.Canvas.PageHeight := trunc(Report.Canvas.PageHeight*0.8);
+              NewImage.Width := fAcquire.Images[i].Width;
+              NewImage.Height := fAcquire.Images[i].Height;
+              NewImage.Canvas.Brush.Color := clWhite;
+              NewImage.Canvas.Pen.Color := clWhite;
+              NewImage.Canvas.Rectangle(0,0,NewImage.Width,NewImage.Height);
+              NewImage.Canvas.Draw(0,0,fAcquire.Images[i].Bitmap);
+              Report.AddXObject('Image'+IntToStr(i), CreatePdfImage(NewImage, 'Pdf-Jpeg'));
+              Report.Canvas.DrawXObject(0, -1, fAcquire.Images[i].Width, fAcquire.Images[i].Height+1, 'Image'+IntToStr(i));
+            end;
+          NewImage.Free;
+          Stream := TMemoryStream.Create;
+          Report.SaveToStream(Stream);
+          Stream.Position := 0;
+          Report.Free;
+          Extension := 'pdf';
+        end;
+      aText := '';
+      aTitle := '';
+      for Page := 0 to fAcquire.Texts.Count-1 do
+        begin
+          uOCR.FixText(TStringList(fAcquire.Texts[Page]));
+          if aTitle = '' then
+            aTitle := uOCR.GetTitle(TStringList(fAcquire.Texts[Page]));
+          aText := aText+TStringList(fAcquire.Texts[Page]).Text;
+        end;
+      TDocPages(FFullDataSet).Insert;
+      TDocPages(FFullDataSet).Post;
+      aDocument := TDocument.CreateEx(Self,Data);
+      aDocument.Select(0);
+      aDocument.Open;
+      aDocument.Ref_ID:=TDocPages(FFullDataSet).Id.AsLargeInt;
+      aDocument.BaseID:=TDocPages(FFullDataSet).Id.AsString;
+      aDocument.BaseTyp:='S';
+      aDocument.BaseLanguage:=Null;
+      aDocument.BaseLanguage:=Null;
+      aDocument.ParentID:=0;
+      aDocument.AddFromStream('scan',
+                              Extension,
+                              Stream,
+                              aText,
+                              Now());
+      Stream.Free;
+      for i := 0 to fAcquire.Texts.Count-1 do
+        TStringList(fAcquire.Texts[i]).Free;
+      fAcquire.Texts.Clear;
+      aDocument.Free;
+    end;
+end;
+
 procedure TfManageDocFrame.acEditExecute(Sender: TObject);
 var
   i: Integer;
@@ -1501,6 +1611,9 @@ end;
 procedure TfManageDocFrame.SetTyp(AValue: string);
 begin
   FTyp := AValue;
+  if AValue='D' then
+    bImport3.Action:=acAquire
+  else bImport3.Action:=acImport;
 end;
 
 procedure TfManageDocFrame.WaitForImage;

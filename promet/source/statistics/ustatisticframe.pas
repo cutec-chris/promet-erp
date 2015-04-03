@@ -1139,10 +1139,13 @@ begin
       StatisticResults.DataSet.Close;
       lStatus.Visible:=False;
     end;
-  ToolButton5.Down:=DataSet.FieldByName('ISSCRIPT').AsString='Y';
-  if ToolButton5.Down then
-    smQuerry.Highlighter:=HigPascal
-  else smQuerry.Highlighter:=HigSQL;
+  if Assigned(DataSet.FieldByName('ISSCRIPT')) then
+    begin
+      ToolButton5.Down:=DataSet.FieldByName('ISSCRIPT').AsString='Y';
+      if ToolButton5.Down then
+        smQuerry.Highlighter:=HigPascal
+      else smQuerry.Highlighter:=HigSQL;
+    end;
   inherited DoOpen;
 end;
 function TfStatisticFrame.SetRights: Boolean;

@@ -418,7 +418,6 @@
         <ComponentName Value="fBookAccounting"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uBookAccounting"/>
       </Unit19>
       <Unit20>
         <Filename Value="urepairpositionframe.pas"/>

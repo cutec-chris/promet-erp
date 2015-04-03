@@ -18,7 +18,7 @@ inherited fManageDocFrame: TfManageDocFrame
     ClientWidth = 874
     TabOrder = 0
     object pNav: TPanel
-      Left = 312
+      Left = 320
       Height = 42
       Top = 0
       Width = 160
@@ -29,9 +29,9 @@ inherited fManageDocFrame: TfManageDocFrame
       TabOrder = 0
       object ExtRotatedLabel1: TLabel
         Left = 6
-        Height = 11
+        Height = 14
         Top = 0
-        Width = 25
+        Width = 34
         Caption = 'Suche'
         Font.Color = clMedGray
         Font.Height = 11
@@ -50,7 +50,7 @@ inherited fManageDocFrame: TfManageDocFrame
       end
       object eSearch: TEdit
         Left = 6
-        Height = 21
+        Height = 25
         Top = 12
         Width = 146
         OnChange = eSearchChange
@@ -58,14 +58,14 @@ inherited fManageDocFrame: TfManageDocFrame
       end
     end
     object Panel5: TPanel
-      Left = 544
+      Left = 552
       Height = 42
       Top = 0
-      Width = 330
+      Width = 322
       Align = alClient
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 330
+      ClientWidth = 322
       Constraints.MaxWidth = 700
       TabOrder = 1
       Visible = False
@@ -80,9 +80,9 @@ inherited fManageDocFrame: TfManageDocFrame
       end
       object ExtRotatedLabel2: TLabel
         Left = 6
-        Height = 11
+        Height = 14
         Top = 0
-        Width = 54
+        Width = 72
         Caption = 'Ansicht/Filter'
         Font.Color = clMedGray
         Font.Height = 11
@@ -93,18 +93,18 @@ inherited fManageDocFrame: TfManageDocFrame
       object cbFilter: TComboBox
         AnchorSideLeft.Side = asrBottom
         Left = 6
-        Height = 21
+        Height = 29
         Hint = 'hier können Sie eine vordefinierte Ansicht wählen'#10'Wenn Sie eine spezielle Ansicht/Sortierung benötigen wenden Sie sich an Ihren Administrator'
         Top = 12
-        Width = 278
+        Width = 270
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 8
-        ItemHeight = 13
+        ItemHeight = 0
         Style = csDropDownList
         TabOrder = 0
       end
       object bEditFilter: TSpeedButton
-        Left = 288
+        Left = 280
         Height = 21
         Hint = 'zeigt/verbirgt weitere Einstellungen'#10'zu den Ansichten'
         Top = 12
@@ -152,7 +152,7 @@ inherited fManageDocFrame: TfManageDocFrame
       end
     end
     object pNav1: TPanel
-      Left = 44
+      Left = 132
       Height = 42
       Top = 0
       Width = 84
@@ -164,9 +164,9 @@ inherited fManageDocFrame: TfManageDocFrame
       TabOrder = 2
       object ExtRotatedLabel4: TLabel
         Left = 6
-        Height = 11
+        Height = 14
         Top = 0
-        Width = 45
+        Width = 60
         Caption = 'Navigation'
         Font.Color = clMedGray
         Font.Height = 11
@@ -335,7 +335,7 @@ inherited fManageDocFrame: TfManageDocFrame
       ShowCaption = False
     end
     object pNav2: TPanel
-      Left = 212
+      Left = 220
       Height = 42
       Top = 0
       Width = 100
@@ -347,9 +347,9 @@ inherited fManageDocFrame: TfManageDocFrame
       TabOrder = 3
       object ExtRotatedLabel5: TLabel
         Left = 6
-        Height = 11
+        Height = 14
         Top = 0
-        Width = 39
+        Width = 57
         Caption = 'Zusätzlich'
         Font.Color = clMedGray
         Font.Height = 11
@@ -520,7 +520,7 @@ inherited fManageDocFrame: TfManageDocFrame
       end
     end
     object pSave: TPanel
-      Left = 476
+      Left = 484
       Height = 42
       Top = 0
       Width = 68
@@ -532,9 +532,9 @@ inherited fManageDocFrame: TfManageDocFrame
       TabOrder = 4
       object ExtRotatedLabel6: TLabel
         Left = 6
-        Height = 11
+        Height = 14
         Top = 0
-        Width = 40
+        Width = 56
         Caption = 'Speichern'
         Font.Color = clMedGray
         Font.Height = 11
@@ -647,21 +647,21 @@ inherited fManageDocFrame: TfManageDocFrame
       end
     end
     object pNav4: TPanel
-      Left = 132
+      Left = 44
       Height = 42
       Top = 0
-      Width = 76
+      Width = 84
       Align = alLeft
       BorderSpacing.Left = 4
       BevelOuter = bvNone
       ClientHeight = 42
-      ClientWidth = 76
+      ClientWidth = 84
       TabOrder = 5
       object ExtRotatedLabel7: TLabel
         Left = 6
-        Height = 11
+        Height = 14
         Top = 0
-        Width = 28
+        Width = 37
         Caption = 'Import'
         Font.Color = clMedGray
         Font.Height = 11
@@ -678,20 +678,10 @@ inherited fManageDocFrame: TfManageDocFrame
         BorderSpacing.Bottom = 4
         Shape = bsLeftLine
       end
-      object bImport: TSpeedButton
-        Left = 50
-        Height = 24
-        Top = 15
-        Width = 24
-        Action = acImport
-        Flat = True
-        OnClick = bZoomOutClick
-        ShowCaption = False
-      end
       object bImport1: TSpeedButton
-        Left = 26
+        Left = 56
         Height = 24
-        Top = 15
+        Top = 16
         Width = 24
         Action = acImageImport
         Flat = True
@@ -699,11 +689,21 @@ inherited fManageDocFrame: TfManageDocFrame
         ShowCaption = False
       end
       object bImport2: TSpeedButton
-        Left = 3
+        Left = 32
         Height = 24
-        Top = 15
+        Top = 16
         Width = 24
         Action = acFileImport
+        Flat = True
+        OnClick = bZoomOutClick
+        ShowCaption = False
+      end
+      object bImport3: TSpeedButton
+        Left = 6
+        Height = 24
+        Top = 16
+        Width = 24
+        Caption = 'acAquire'
         Flat = True
         OnClick = bZoomOutClick
         ShowCaption = False
@@ -721,23 +721,23 @@ inherited fManageDocFrame: TfManageDocFrame
     TabOrder = 2
     object tsDocument: TTabSheet
       Caption = 'Dokument'
-      ClientHeight = 541
-      ClientWidth = 632
+      ClientHeight = 534
+      ClientWidth = 634
       object pThumb: TPanel
         Left = 0
         Height = 50
-        Top = 491
-        Width = 632
+        Top = 484
+        Width = 634
         Align = alBottom
         BevelOuter = bvNone
         ClientHeight = 50
-        ClientWidth = 632
+        ClientWidth = 634
         TabOrder = 0
         object DBZVDateTimePicker1: TDBZVDateTimePicker
           Left = 6
-          Height = 21
+          Height = 23
           Top = 24
-          Width = 137
+          Width = 169
           DataField = 'ORIGDATE'
           DataSource = Datasource1
           ReadOnly = False
@@ -756,9 +756,9 @@ inherited fManageDocFrame: TfManageDocFrame
         end
         object DBEdit1: TDBEdit
           Left = 184
-          Height = 21
+          Height = 25
           Top = 24
-          Width = 444
+          Width = 446
           DataField = 'TAGS'
           DataSource = Datasource1
           Anchors = [akTop, akLeft, akRight]
@@ -768,17 +768,17 @@ inherited fManageDocFrame: TfManageDocFrame
         end
         object Label1: TLabel
           Left = 6
-          Height = 13
+          Height = 15
           Top = 5
-          Width = 31
+          Width = 41
           Caption = 'Datum'
           ParentColor = False
         end
         object Label2: TLabel
           Left = 184
-          Height = 13
+          Height = 15
           Top = 5
-          Width = 141
+          Width = 180
           Caption = 'Suchworte (durch , getrennt)'
           ParentColor = False
         end
@@ -1002,8 +1002,7 @@ inherited fManageDocFrame: TfManageDocFrame
             Caption = 'Text'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = 900
-            Layout = tlBottom
+            Font.Orientation = -900
             ParentColor = False
             ParentFont = False
           end
@@ -1117,7 +1116,7 @@ inherited fManageDocFrame: TfManageDocFrame
     Top = 42
     Width = 5
   end
-  object Datasource1: TDataSource[4]
+  object Datasource1: TDatasource[4]
     left = 8
     top = 392
   end
@@ -1235,6 +1234,11 @@ inherited fManageDocFrame: TfManageDocFrame
     object acSetDate: TAction
       Caption = 'Original Datum setzen'
       OnExecute = acSetDateExecute
+    end
+    object acAquire: TAction
+      Caption = 'acAquire'
+      ImageIndex = 122
+      OnExecute = acAquireExecute
     end
   end
   object pmPopup: TPopupMenu[6]
