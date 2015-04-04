@@ -106,8 +106,8 @@ type
     Menuitem12: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
-    Panel3: TPanel;
-    Panel4: TPanel;
+    pCloseTab: TPanel;
+    pSeparateWindow: TPanel;
     Panel6: TPanel;
     pTimes: TPanel;
     pTimes1: TPanel;
@@ -441,6 +441,10 @@ begin
   fMainTreeFrame.tvMain.OnExpanding:=@fMainTreeFrametvMainExpanding;
   acLogin.Execute;
   Result := not acLogin.Enabled;
+  {$ifdef LINUX}
+  pCloseTab.Top:=53;
+  pSeparateWindow.Top:=53;
+  {$endif}
 end;
 function TfMain.CommandReceived(Sender: TObject; aCommand: string): Boolean;
 begin

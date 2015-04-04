@@ -306,7 +306,7 @@ object fMain: TfMain
       Shape = bsTopLine
     end
   end
-  object Panel3: TPanel
+  object pCloseTab: TPanel
     Left = 843
     Height = 22
     Top = 72
@@ -327,7 +327,7 @@ object fMain: TfMain
       ShowCaption = False
     end
   end
-  object Panel4: TPanel
+  object pSeparateWindow: TPanel
     Left = 823
     Height = 22
     Top = 72
