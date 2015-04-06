@@ -1233,6 +1233,7 @@ begin
     FConnection.Port:=0;
     FConnection.Properties.Clear;
     FConnection.Properties.Add('timeout=2');
+    FConnection.ClientCodepage:='UTF8';
     FConnection.Protocol:='';
     FConnection.User:='';
     FConnection.Password:='';

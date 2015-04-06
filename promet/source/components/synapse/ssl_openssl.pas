@@ -819,7 +819,10 @@ end;
 {==============================================================================}
 
 initialization
-  if InitSSLInterface then
-    SSLImplementation := TSSLOpenSSL;
+  try
+    if InitSSLInterface then
+      SSLImplementation := TSSLOpenSSL;
+  except
+  end;
 
 end.
