@@ -631,28 +631,31 @@ procedure TfScriptEditor.DebuggerLineInfo(Sender: TObject; const FileName: Strin
   Col: Cardinal);
 begin
   try
-  if Assigned(Data) and (not FDataSet.Active) then exit;
-  if ed.Highlighter=HigPascal then
-    begin
-      if Debugger.Exec.DebugMode <> dmRun then
+    if Assigned(Data) and (not FDataSet.Active) then exit;
+    if ed.Highlighter=HigPascal then
       begin
-        FActiveLine := Row;
-        if (FActiveLine < ed.TopLine +2) or (FActiveLine > Ed.TopLine + Ed.LinesInWindow -2) then
-        begin
-          Ed.TopLine := FActiveLine - (Ed.LinesInWindow div 2);
-        end;
-        ed.CaretY := FActiveLine;
-        ed.CaretX := 1;
-        ed.Refresh;
+        with BaseApplication as IBaseApplication do Debug('Script:'+FileName+':'+IntToStr(Row));
+        if Debugger.Exec.DebugMode <> dmRun then
+          begin
+            FActiveLine := Row;
+            if (FActiveLine < ed.TopLine +2) or (FActiveLine > Ed.TopLine + Ed.LinesInWindow -2) then
+            begin
+              Ed.TopLine := FActiveLine - (Ed.LinesInWindow div 2);
+            end;
+            ed.CaretY := FActiveLine;
+            ed.CaretX := 1;
+            ed.Refresh;
+          end
+        else
+          begin
+            Application.ProcessMessages;
+          end;
       end
-      else
-        Application.ProcessMessages;
-    end
-  else
-    begin
-      acStepinto.Enabled:=False;
-      acStepover.Enabled:=False;
-    end;
+    else
+      begin
+        acStepinto.Enabled:=False;
+        acStepover.Enabled:=False;
+      end;
   except
   end;
 end;
@@ -879,15 +882,22 @@ function TfScriptEditor.DebuggerNeedFile(Sender: TObject; const OrginFileName: S
 var
   path: string;
 begin
-  if not Assigned(Fuses) then
+  if Assigned(Data) then
     begin
-      Fuses := TBaseScript.Create(nil);
-      Fuses.Open;
+      if not Assigned(Fuses) then
+        begin
+          Fuses := TBaseScript.Create(nil);
+          Fuses.Open;
+        end
+      else Fuses.DataSet.Refresh;
+      Result := Fuses.Locate('NAME',FileName,[loCaseInsensitive]);
+      if Result then
+        Output:=Fuses.FieldByName('SCRIPT').AsString;
     end
-  else Fuses.DataSet.Refresh;
-  Result := Fuses.Locate('NAME',FileName,[loCaseInsensitive]);
-  if Result then
-    Output:=Fuses.FieldByName('SCRIPT').AsString;
+  else
+    begin
+      //TODO:File Handling
+    end;
 end;
 
 procedure TfScriptEditor.DebuggerBreakpoint(Sender: TObject; const FileName: String; bPosition, Row,
