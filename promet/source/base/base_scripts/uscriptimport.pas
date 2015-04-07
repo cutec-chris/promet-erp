@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ButtonPanel, ExtCtrls, Buttons, EditBtn, ActnList, db,uprometscripts;
+  ButtonPanel, ExtCtrls, Buttons, EditBtn, ActnList, db,uprometpascalscript;
 
 type
   TImporterCapability = (icImport,icExport);
@@ -50,7 +50,7 @@ type
   private
     FTyp : TImporterCapability;
     FFormat : string;
-    aScripts: TBaseScript;
+    aScripts: TPrometPascalScript;
     procedure CheckAll;
     { private declarations }
   public
@@ -109,8 +109,8 @@ begin
   if aRes then
     begin
       lInfo.Caption:=strConfigureDataSource;
-      if (aScripts.Script is  TPascalScript) then
-        with aScripts.Script as TPascalScript do
+      if (TPrometPascalScript(aScripts).Script is  TPascalScript) then
+        with TPrometPascalScript(aScripts).Script as TPascalScript do
           begin
             if not TPascalScript(aScripts.Script).Compile then
               begin
@@ -147,7 +147,7 @@ begin
     end;
   Ftyp := Typ;
   fFormat := DefaultFormat;
-  aScripts := TBaseScript.Create(nil);
+  aScripts := TPrometPascalScript.Create(nil);
   if FTyp=icImport then
     aScripts.Filter(Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('Import.'+FFormat+'.*')))
   else

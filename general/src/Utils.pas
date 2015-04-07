@@ -20,6 +20,8 @@ CONST
 {$ENDIF}
 
 type
+ TStrOutFunc = procedure(const s: string) of object;
+ TStrInFunc = procedure(var s: string) of object;
  TRoundToRange = -37..37;
  {$ifdef WINDOWS}
  PFNSHGetFolderPath = Function(Ahwnd: HWND; Csidl: Integer; Token: THandle; Flags: DWord; Path: PChar): HRESULT; stdcall;

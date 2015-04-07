@@ -587,6 +587,7 @@ begin
 
   if FieldByName('ISSCRIPT').AsString='Y' then
     begin
+      {
       aScript := TBaseScript.CreateEx(nil,Data);
       aScript.Script.Source:=aQuerry;
       FInternalScript:='';
@@ -594,6 +595,7 @@ begin
       aScript.Execute(Null);
       aQuerry:=FInternalScript;
       aScript.Free;
+      ]}
     end;
 
   aState := 1;

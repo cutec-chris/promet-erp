@@ -205,7 +205,7 @@ implementation
 
 uses
   uFrmGotoLine,uData,uBaseApplication,genpascalscript,Utils,uSystemMessage,uStatistic,
-  Clipbrd;
+  Clipbrd,uprometpascalscript;
 
 {$R *.lfm}
 
@@ -241,9 +241,9 @@ resourcestring
 function OnUses(Sender: TPSPascalCompiler; const Name: tbtString): Boolean;
 begin
   if Assigned(fScriptEditor) and Assigned(Data) then
-    TPascalScript(fScriptEditor.FDataSet.Script).InternalUses(Sender,Name)
+    TPascalScript(TPrometPascalScript(fScriptEditor.FDataSet).Script).InternalUses(Sender,Name)
   else if Assigned(flastScriptEditor) and Assigned(Data) then
-    TPascalScript(fLastScriptEditor.FDataSet.Script).InternalUses(Sender,Name)
+    TPascalScript(TPrometPascalScript(fLastScriptEditor.FDataSet).Script).InternalUses(Sender,Name)
 end;
 
 procedure DoSleep(aTime: LongInt); StdCall;
@@ -399,7 +399,7 @@ procedure TfScriptEditor.DebuggerExecImport(Sender: TObject; se: TPSExec;
   x: TPSRuntimeClassImporter);
 begin
   if Assigned(Data) then
-    TPascalScript(FDataSet.Script).ClassImporter:=x;
+    TPascalScript(TPrometPascalScript(FDataSet).Script).ClassImporter:=x;
 end;
 
 procedure TfScriptEditor.edChange(Sender: TObject);
@@ -516,8 +516,8 @@ begin
             SetCurrentDir(GetHomeDir);
             if Assigned(Data) then
               begin
-                TPascalScript(FDataSet.Script).Runtime := Debugger.Exec;
-                TPascalScript(FDataSet.Script).Compiler := Debugger.Comp;
+                TPascalScript(TPrometPascalScript(FDataSet).Script).Runtime := Debugger.Exec;
+                TPascalScript(TPrometPascalScript(FDataSet).Script).Compiler := Debugger.Comp;
               end;
             Debugger.Execute;
           end;
@@ -672,8 +672,8 @@ var
 begin
   if Assigned(Data) then
     begin
-      TPascalScript(FDataSet.Script).Compiler:=Debugger.Comp;
-      TPascalScript(FDataSet.Script).Runtime:=Debugger.Exec;
+      TPascalScript(TPrometPascalScript(FDataSet).Script).Compiler:=Debugger.Comp;
+      TPascalScript(TPrometPascalScript(FDataSet).Script).Runtime:=Debugger.Exec;
     end;
   Debugger.OnExecImport:=@DebuggerExecImport;
   Debugger.Script.Assign(ed.Lines);
@@ -727,7 +727,7 @@ end;
 procedure TfScriptEditor.DebuggerAfterExecute(Sender: TPSScript);
 begin
   if Assigned(Data) then
-    TPascalScript(FDataSet.Script).DoCleanUp;
+    TPascalScript(TPrometPascalScript(FDataSet).Script).DoCleanUp;
   acRun.Enabled:=True;
   acReset.Enabled:=False;
   acPause.Enabled:=false;

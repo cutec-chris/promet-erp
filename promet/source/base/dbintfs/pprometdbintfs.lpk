@@ -15,7 +15,7 @@
         <SmallerCode Value="True"/>
       </CodeGeneration>
     </CompilerOptions>
-    <Files Count="44">
+    <Files Count="43">
       <Item1>
         <Filename Value="ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
@@ -185,51 +185,39 @@
         <UnitName Value="uprometscripts"/>
       </Item42>
       <Item43>
-        <Filename Value="uspeakinginterface.pas"/>
-        <UnitName Value="uspeakinginterface"/>
-      </Item43>
-      <Item44>
         <Filename Value="umeasurement.pas"/>
         <UnitName Value="uMeasurement"/>
-      </Item44>
+      </Item43>
     </Files>
-    <RequiredPkgs Count="9">
+    <RequiredPkgs Count="7">
       <Item1>
-        <PackageName Value="general_pascal_script"/>
-        <DefaultFilename Value="..\..\..\..\general\general_pascal_script.lpk"/>
-      </Item1>
-      <Item2>
         <PackageName Value="pthumbnails"/>
         <DefaultFilename Value="..\pthumbnails.lpk"/>
-      </Item2>
-      <Item3>
-        <PackageName Value="ppascalscriptfcl"/>
-        <DefaultFilename Value="..\..\components\pascalscript\ppascalscriptfcl.lpk"/>
-      </Item3>
-      <Item4>
+      </Item1>
+      <Item2>
         <PackageName Value="zcomponent_nogui"/>
         <DefaultFilename Value="..\..\components\zeos\packages\lazarus\zcomponent_nogui.lpk"/>
-      </Item4>
-      <Item5>
+      </Item2>
+      <Item3>
         <PackageName Value="wiki2html_pkg"/>
         <DefaultFilename Value="..\base_wiki\wiki2html_pkg.lpk"/>
-      </Item5>
-      <Item6>
+      </Item3>
+      <Item4>
         <PackageName Value="general_nogui"/>
         <DefaultFilename Value="..\..\..\..\general\general_nogui.lpk"/>
-      </Item6>
-      <Item7>
+      </Item4>
+      <Item5>
         <PackageName Value="sql_parser"/>
         <DefaultFilename Value="..\..\components\sqlparser\sql_parser.lpk"/>
-      </Item7>
-      <Item8>
+      </Item5>
+      <Item6>
         <PackageName Value="dexif_package"/>
         <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
-      </Item8>
-      <Item9>
+      </Item6>
+      <Item7>
         <PackageName Value="laz_synapse"/>
         <DefaultFilename Value="..\..\components\synapse\laz_synapse.lpk"/>
-      </Item9>
+      </Item7>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

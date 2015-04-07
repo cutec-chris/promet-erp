@@ -32,9 +32,6 @@ uses
   synamisc,RegExpr,MathParser;
 
 type
-  TWritelnFunc = procedure(const s: string) of object;
-  TWriteFunc = procedure(const s: string) of object;
-  TReadlnFunc = procedure(var s: string) of object;
   TSleepFunc = procedure(MiliSecValue : cardinal);
 
   TLoadedLib = class
