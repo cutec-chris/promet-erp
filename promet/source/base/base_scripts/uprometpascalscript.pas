@@ -578,24 +578,25 @@ function TPrometPascalScript.Execute(Parameters: Variant): Boolean;
 var
   aStartTime: TDateTime;
 begin
-  //aStartTime := Now();
+  aStartTime := Now();
   if lowercase(FieldByName('SYNTAX').AsString) = 'pascal' then
     begin
       Result := FScript.Execute(Parameters);
       if not Result then
         DoSetResults(FScript.Results);
-    end;
-  if Result then
-    begin
-      DoSetStatus('N');
-      Edit;
-      FieldByName('LASTRUN').AsDateTime:=aStartTime;
-      Post;
+      if Result then
+        begin
+          DoSetStatus('N');
+          Edit;
+          FieldByName('LASTRUN').AsDateTime:=aStartTime;
+          Post;
+        end
+      else
+        begin
+          DoSetStatus('E');
+        end;
     end
-  else
-    begin
-      DoSetStatus('E');
-    end;
+  else Inherited;
 end;
 
 destructor TPrometPascalScript.Destroy;

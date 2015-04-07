@@ -838,7 +838,7 @@ begin
     begin
       if not Assigned(FDataSet) then
         begin
-          FDataSet := TBaseScript.CreateEx(nil,Data,aConnection);
+          FDataSet := TPrometPascalScript.CreateEx(nil,Data,aConnection);
           FDataSet.CreateTable;
         end;
       FDataSet.Open;

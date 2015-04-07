@@ -121,7 +121,8 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
   uMainTreeFrame,uPrometFramesInplace,uarticlesupplierframe,
   uNRights,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
-  uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uprometscripts;
+  uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uprometscripts,
+  uprometpascalscript;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -377,7 +378,7 @@ begin
     FConnection := Data.GetNewConnection;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TBaseScript.CreateEx(Self,Data,FConnection);
+  DataSet := TPrometPascalScript.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ScriptStateChange;
   TBaseDbList(DataSet).SelectFromLink(aLink);
   Dataset.Open;
