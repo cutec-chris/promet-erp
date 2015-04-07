@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,
-  sqlparser,sqlscanner,sqltree,httpsend,ssl_openssl,Utils,jsonparser,fpjson,
+  sqlparser,sqlscanner,sqltree,httpsend,Utils,jsonparser,fpjson,
   memds,uprometscripts;
 
 type
