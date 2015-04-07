@@ -97,7 +97,7 @@ type
   end;
 
 implementation
-uses uprometscripts,variants;
+uses variants;
 procedure TBaseCustomApplication.BaseCustomApplicationException(
   Sender: TObject; E: Exception);
 var
@@ -127,7 +127,6 @@ function TBaseCustomApplication.HandleSystemCommand(Sender: TObject;
 var
   bCommand: String;
   cCommand: String;
-  aScript: TBaseScript;
 begin
   Result := False;
   bCommand := copy(aCommand,0,pos('(',aCommand)-1);
@@ -145,14 +144,8 @@ begin
     end
   else if bCommand = 'ExecuteScript' then
     begin
-      aScript := TBaseScript.Create(nil);
-      aScript.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(cCommand));
-      if aScript.Count>0 then
-        begin
-          aScript.Execute(VarArrayOf([]));
-        end;
-      aScript.Free;
-      Result := True;
+      //TODO:execute script with pscripts
+      Result := False;
     end
   ;
 end;

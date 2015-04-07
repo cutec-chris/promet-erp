@@ -69,26 +69,26 @@ begin
   aSender :=  SysToUni(msg.Header.From);
   aSubject := SysToUni(msg.Header.Subject);
   atmp:=SysToUni(getemailaddr(msg.Header.From));
-  try
-    CustomerCont := TPersonContactData.Create(nil);
-    atmp := StringReplace(atmp,'''','',[rfReplaceAll]);
-    if Data.IsSQLDb then
-      Data.SetFilter(CustomerCont,Data.ProcessTerm('UPPER("DATA")=UPPER('''+atmp+''')'))
-    else
-      Data.SetFilter(CustomerCont,Data.ProcessTerm('"DATA"='''+atmp+''''));
-  except
-  end;
+  CustomerCont := TPersonContactData.Create(nil);
+  atmp := StringReplace(atmp,'''','',[rfReplaceAll]);
+  if Data.IsSQLDb then
+    Data.SetFilter(CustomerCont,Data.ProcessTerm('UPPER("DATA")=UPPER('''+atmp+''')'))
+  else
+    Data.SetFilter(CustomerCont,Data.ProcessTerm('"DATA"='''+atmp+''''));
   Customers := TPerson.Create(nil);
   Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
   CustomerCont.Free;
   if Customers.Count > 0 then
     begin
       Customers.History.Open;
+      try
       Customers.History.AddItem(Customers.DataSet,Format(strActionMessageReceived,[aSubject]),
                                 'MESSAGEIDX@'+mID+'{'+aSubject+'}',
                                 '',
                                 nil,
                                 ACICON_MAILNEW);
+      except
+      end;
       aTreeEntry := TREE_ID_MESSAGES;
     end
   else
@@ -252,13 +252,13 @@ begin
                   aHist := TBaseHistory.CreateEx(nil,aMessageL.DataModule);
                   aHist.Filter(Data.ProcessTerm(Data.QuoteField('LINK')+'='+Data.QuoteValue('MESSAGEIDX@'+aMessageL.FieldByName('ID').AsString+'*')));
                   if aHist.Count>0 then
-                    Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}',aHist.Id.AsVariant)
+                    Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aSubject,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}',aHist.Id.AsVariant)
                   else
-                    Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}');
+                    Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aSubject,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}');
                 end;
             end
           else
-            Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aMessage.Subject.AsString,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}');
+            Data.Users.History.AddMessageItem(Customers.DataSet,aMessage.ToString,aSubject,'e-Mail','MESSAGEIDX@'+aMID+'{'+aSubject+'}');
         end;
       if aTreeEntry = TREE_ID_SPAM_MESSAGES then
         FieldByName('READ').AsString := 'Y';

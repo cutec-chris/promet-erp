@@ -26,8 +26,7 @@ uses
   Classes, SysUtils, CustApp, uBaseDBInterface,
   uData,Process, db, uSystemMessage,
   uPowerState, pcmdprometapp,math,uBaseCustomApplication,
-  uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts,
-  uprometscripts;
+  uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts;
 type
   { TProcessManager }
 

@@ -330,7 +330,6 @@ begin
                         end;
                     except
                       ReplaceOMailAccounts := False;
-                      break;
                     end;
                   end;
                 pop.Logout;
@@ -396,4 +395,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+
