@@ -123,7 +123,7 @@ var
   end;
 
 begin
-  if CanWriteToProgramDir then
+  if CanWriteToProgramDir and HasOption('debug') then
     begin
       GetLog.FileName:='processmanager.log';
       GetLog.LogType:=ltFile;
