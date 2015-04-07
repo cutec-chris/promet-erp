@@ -415,9 +415,13 @@ var
   Ratio: double;
 begin
   AllowChange := True;
-  Image.Picture.Assign(Images[udPage.Position]);
-  Ratio := Images[udPage.Position].Height / Images[udPage.Position].Width;
-  Image.Height := round(Image.Width*Ratio);
+  Image.Picture.Clear;
+  if length(Images)>udPage.Position then
+    begin
+      Image.Picture.Assign(Images[udPage.Position]);
+      Ratio := Images[udPage.Position].Height / Images[udPage.Position].Width;
+      Image.Height := round(Image.Width*Ratio);
+    end;
 end;
 
 procedure TfAcquire.EndScan;
