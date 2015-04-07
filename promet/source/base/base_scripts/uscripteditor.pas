@@ -229,7 +229,6 @@ var
 resourcestring
   STR_TEXT_NOTFOUND = 'Text not found';
   STR_UNNAMED = 'Unnamed';
-  STR_SUCCESSFULLY_COMPILED = 'Erfolgreich kompiliert';
   STR_COMPILE_ERROR = 'Fehler beim kompilieren !';
   STR_SUCCESSFULLY_EXECUTED = 'Erfolgreich ausgeführt';
   STR_RUNTIME_ERROR='[Laufzeitfehler] %s(%d:%d), bytecode(%d:%d): %s'; //Birb
@@ -691,9 +690,7 @@ begin
       mo.Y:=Debugger.CompilerMessages[i].Row;
       Messages.Items.AddObject(Debugger.CompilerMessages[i].MessageToString,mo);
     end;
-  if Result then
-    Messages.Items.Add(STR_SUCCESSFULLY_COMPILED)
-  else
+  if not Result then
     begin
       if Debugger.CompilerMessageCount=0 then
         messages.Items.Add(Debugger.ExecErrorToString);
