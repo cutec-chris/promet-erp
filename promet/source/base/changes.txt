@@ -2,6 +2,8 @@
       - Gantt:Separater Dialog für verschiedene Rechenmodelle beim verschieben von Plänen
       - Gantt:Separater Dialog beim speichern mit Angabe von Gründen, die in alle verschobenen Aufgaben übernommen werden
       - Logs:Promet loggt nur noch ins systemlog mit Kommandozeilenschalter --system-log
+      - Scripte:stabilere Implementation
+      - Dokumente:Scan Dialog hinzugefügt
 Build 394
       - Aufgaben:"Finden eines Zeitslots" berücksichtigt schon erfasste Zeiten aus Zeiterfassung
       - Aufgaben:erfasste Zeiten werden als Zeit dargestellt nicht als Float Wert

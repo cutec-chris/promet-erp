@@ -51,6 +51,7 @@ type
     cbSyntax: TDBComboBox;
     cbClient: TComboBox;
     DataSource: TDataSource;
+    GutterImages: TImageList;
     MenuItem6: TMenuItem;
     PopupMenu2: TPopupMenu;
     SelectData: TDatasource;
@@ -172,6 +173,7 @@ type
     Fuses : TBaseScript;
     FOldUses : TPSOnUses;
     FWasRunning: Boolean;
+    Linemark : TSynEditMark;
     ClassImporter: uPSRuntime.TPSRuntimeClassImporter;
     function Compile: Boolean;
     function Execute: Boolean;
@@ -335,18 +337,33 @@ end;
 
 procedure TfScriptEditor.edGutterClick(Sender: TObject; X, Y, Line: integer;
   mark: TSynEditMark);
+var
+  i: Integer;
+  m: TSynEditMark;
 begin
   if ed.Highlighter=HigPascal then
     begin
       if Debugger.HasBreakPoint(Debugger.MainFileName, Line) then
-        Debugger.ClearBreakPoint(Debugger.MainFileName, Line)
+        begin
+          Debugger.ClearBreakPoint(Debugger.MainFileName, Line);
+          i := 0;
+          while i<ed.Marks.Count do
+            begin
+              if ed.Marks[i].Line=Line then
+                ed.Marks[i].Free
+              else inc(i);
+            end;
+        end
       else
-        Debugger.SetBreakPoint(Debugger.MainFileName, Line);
-    end
-  else
-    begin
-      if Debugger.HasBreakPoint(Debugger.MainFileName, Line) then
-        Debugger.ClearBreakPoint(Debugger.MainFileName, Line);
+        begin
+          Debugger.SetBreakPoint(Debugger.MainFileName, Line);
+          m := TSynEditMark.Create(ed);
+          m.Line := Line;
+          m.ImageList := GutterImages;
+          m.ImageIndex := 1;
+          m.Visible := true;
+          ed.Marks.Add(m);
+        end;
     end;
   ed.Refresh;
 end;
@@ -618,12 +635,31 @@ end;
 procedure TfScriptEditor.BreakPointMenuClick(Sender: TObject);
 var
   Line: Longint;
+  m: TSynEditMark;
+  i: Integer;
 begin
   Line := Ed.CaretY;
   if Debugger.HasBreakPoint(Debugger.MainFileName, Line) then
-    Debugger.ClearBreakPoint(Debugger.MainFileName, Line)
+    begin
+      Debugger.ClearBreakPoint(Debugger.MainFileName, Line);
+      i := 0;
+      while i<ed.Marks.Count-1 do
+        begin
+          if ed.Marks[i].Line=Line then
+            ed.Marks.Delete(i)
+          else inc(i);
+        end;
+    end
   else
-    Debugger.SetBreakPoint(Debugger.MainFileName, Line);
+    begin
+      Debugger.SetBreakPoint(Debugger.MainFileName, Line);
+      m := TSynEditMark.Create(ed);
+      m.Line := Line;
+      m.ImageList := GutterImages;
+      m.ImageIndex := 1;
+      m.Visible := true;
+      ed.Marks.Add(m);
+    end;
   ed.Refresh;
 end;
 
@@ -634,6 +670,18 @@ begin
     if Assigned(Data) and (not FDataSet.Active) then exit;
     if ed.Highlighter=HigPascal then
       begin
+        if not Assigned(LineMark) then
+          begin
+            Linemark := TSynEditMark.Create(ed);
+            Linemark.ImageList:=GutterImages;
+            Linemark.ImageIndex:=8;
+            ed.Marks.Add(Linemark);
+            Linemark.Visible:=True;
+          end;
+        Linemark.Line:=Row;
+        if Debugger.HasBreakPoint(FileName, Row) then
+          Linemark.ImageIndex:=9
+        else Linemark.ImageIndex:=8;
         with BaseApplication as IBaseApplication do Debug('Script:'+FileName+':'+IntToStr(Row));
         if Debugger.Exec.DebugMode <> dmRun then
           begin
@@ -736,6 +784,7 @@ begin
   ed.Refresh;
   ClassImporter.Free;
   Debugger.Comp.OnUses:=FOldUses;
+  FreeAndNil(Linemark);
 end;
 
 function TfScriptEditor.Execute: Boolean;
