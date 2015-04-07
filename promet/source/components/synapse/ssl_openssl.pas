@@ -819,10 +819,8 @@ end;
 {==============================================================================}
 
 initialization
-  try
+  {$ifndef CPUARM}
     if InitSSLInterface then
       SSLImplementation := TSSLOpenSSL;
-  except
-  end;
-
+  {$endif}
 end.
