@@ -2037,7 +2037,9 @@ object fScriptEditor: TfScriptEditor
   object HigSQL: TSynSQLSyn
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
     Enabled = False
+    CommentAttri.Foreground = clBlue
     CommentAttri.FrameEdges = sfeAround
+    CommentAttri.Style = []
     DataTypeAttri.FrameEdges = sfeAround
     DefaultPackageAttri.FrameEdges = sfeAround
     ExceptionAttri.FrameEdges = sfeAround
