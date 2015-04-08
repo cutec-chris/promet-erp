@@ -174,6 +174,7 @@ type
     FOldUses : TPSOnUses;
     FWasRunning: Boolean;
     Linemark : TSynEditMark;
+    LastStepTime : Int64;
     ClassImporter: uPSRuntime.TPSRuntimeClassImporter;
     function Compile: Boolean;
     function Execute: Boolean;
@@ -503,6 +504,7 @@ var
   sl: TStringList;
   i: Integer;
 begin
+  LastStepTime := GetTickCount;
   gResults.Visible := False;
   messages.Visible := True;
   fLastScriptEditor := Self;
@@ -670,21 +672,23 @@ begin
     if Assigned(Data) and (not FDataSet.Active) then exit;
     if ed.Highlighter=HigPascal then
       begin
-        if not Assigned(LineMark) then
+        if (Debugger.Exec.DebugMode <> dmRun) and (FileName = Debugger.MainFileName) then
           begin
-            Linemark := TSynEditMark.Create(ed);
-            Linemark.ImageList:=GutterImages;
-            Linemark.ImageIndex:=8;
-            ed.Marks.Add(Linemark);
-            Linemark.Visible:=True;
-          end;
-        Linemark.Line:=Row;
-        if Debugger.HasBreakPoint(FileName, Row) then
-          Linemark.ImageIndex:=9
-        else Linemark.ImageIndex:=8;
-        with BaseApplication as IBaseApplication do Debug('Script:'+FileName+':'+IntToStr(Row));
-        if Debugger.Exec.DebugMode <> dmRun then
-          begin
+            //Set mark
+            if not Assigned(LineMark) then
+              begin
+                Linemark := TSynEditMark.Create(ed);
+                Linemark.ImageList:=GutterImages;
+                Linemark.ImageIndex:=8;
+                ed.Marks.Add(Linemark);
+                Linemark.Visible:=True;
+              end;
+            Linemark.Line:=Row;
+            if Debugger.HasBreakPoint(FileName, Row) then
+              Linemark.ImageIndex:=9
+            else Linemark.ImageIndex:=8;
+            with BaseApplication as IBaseApplication do Debug('Script:'+FileName+':'+IntToStr(Row));
+            //Mark active Line
             FActiveLine := Row;
             if (FActiveLine < ed.TopLine +2) or (FActiveLine > Ed.TopLine + Ed.LinesInWindow -2) then
             begin
@@ -696,7 +700,9 @@ begin
           end
         else
           begin
-            Application.ProcessMessages;
+            if GetTickCount-LastStepTime > 10 then
+              Application.ProcessMessages;
+            LastStepTime:=GetTickCount;
           end;
       end
     else
