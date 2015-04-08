@@ -2080,7 +2080,7 @@ object fScriptEditor: TfScriptEditor
     Enabled = False
     AsmAttri.Foreground = clGreen
     AsmAttri.FrameEdges = sfeAround
-    CommentAttri.Foreground = clMoneyGreen
+    CommentAttri.Foreground = clBlue
     CommentAttri.FrameEdges = sfeAround
     CommentAttri.Style = [fsBold]
     IDEDirectiveAttri.FrameEdges = sfeAround
