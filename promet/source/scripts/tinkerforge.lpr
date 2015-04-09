@@ -91,6 +91,7 @@ begin
   Station.Conn.Connect(Host,Port);
   Station.Conn.Enumerate;
   result := Station.Conn.IsConnected;
+  sleep(20);
 end;
 function TfDisconnect : Boolean;stdcall;
 begin
@@ -365,13 +366,15 @@ begin
               else if TObject(Station.Devices[i]) is TBrickletIndustrialQuadRelay then
                 begin
                   Result := True;
-                  sRelais := TBrickletIndustrialQuadRelay(Station.Devices[i]).GetValue;
+                  sRelais := TBrickletIndustrialQuadRelay(Station.Devices[i]).GetValue xor $F;
                   if SwitchOn then
                     sRelais:=sRelais or (1 shl Relais)
                   else
                     sRelais:=sRelais xor (1 shl Relais);
-                  Result := sRelais<4;
-                  TBrickletIndustrialQuadRelay(Station.Devices[i]).SetValue(sRelais);
+                  sRelais:=sRelais xor $F;
+                  Result := sRelais<=$F;
+                  if Result then
+                    TBrickletIndustrialQuadRelay(Station.Devices[i]).SetValue(sRelais);
                 end;
               exit;
             end;
