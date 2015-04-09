@@ -90,6 +90,7 @@ type
     FCompiler: TPSPascalCompiler;
     FCompilerFree: Boolean;
     FClassImporter: TPSRuntimeClassImporter;
+    FToolRegistered: TStrOutFunc;
     procedure SetClassImporter(AValue: TPSRuntimeClassImporter);
     procedure SetCompiler(AValue: TPSPascalCompiler);
     procedure SetRuntime(AValue: TPSExec);
@@ -138,6 +139,8 @@ type
     constructor Create;override;
     destructor Destroy; override;
     property OnExecuteStep : TNotifyEvent read FExecStep write FExecStep;
+    property OnToolRegistering : TStrOutFunc read FToolRegistered write FToolRegistered;
+    procedure OpenTool(aName : string);
   end;
 
 type
@@ -412,6 +415,12 @@ begin
                         Comp.Compile(sProc);
                         Result := True;
                       end;
+                  end;
+                aProc := aprocT(dynlibs.GetProcAddress(aLib,'ScriptTool'));
+                if Assigned(aProc) then
+                  begin
+                    if Assigned(OnToolRegistering) then
+                      FToolRegistered(Name);
                   end;
                 FreeLibrary(aLib);
               end;
@@ -826,6 +835,21 @@ begin
     FRuntime.Free;
   inherited Destroy;
 end;
+
+procedure TPascalScript.OpenTool(aName: string);
+var
+  i: Integer;
+  aProc: aProcT2;
+begin
+  for i := 0 to LoadedLibs.Count-1 do
+    if lowercase(TLoadedLib(LoadedLibs[i]).Name)=lowercase(aName) then
+      begin
+        aProc := aprocT2(dynlibs.GetProcAddress(TLoadedLib(LoadedLibs[i]).Handle,'ScriptTool'));
+        if Assigned(aProc) then
+          aProc;
+      end;
+end;
+
 initialization
   LoadedLibs := TList.Create;
 finalization

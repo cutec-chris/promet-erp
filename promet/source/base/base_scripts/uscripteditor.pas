@@ -52,6 +52,7 @@ type
     cbClient: TComboBox;
     DataSource: TDataSource;
     GutterImages: TImageList;
+    Label2: TLabel;
     MenuItem6: TMenuItem;
     PopupMenu2: TPopupMenu;
     SelectData: TDatasource;
@@ -106,6 +107,7 @@ type
     Syntaxcheck1: TMenuItem;
     tmDebug: TTimer;
     ToolBar1: TToolBar;
+    tbTools: TToolBar;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
     ToolButton4: TToolButton;
@@ -114,6 +116,7 @@ type
     ToolButton7: TToolButton;
     ToolButton8: TToolButton;
     ToolButton9: TToolButton;
+    procedure aButtonClick(Sender: TObject);
     procedure acDecompileExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
     procedure acNewExecute(Sender: TObject);
@@ -162,6 +165,7 @@ type
     procedure edDropFiles(Sender: TObject; X, Y: Integer;
       AFiles: TStrings);
     procedure tmDebugTimer(Sender: TObject);
+    procedure TPascalScriptToolRegistering(const s: string);
   private
     FSearchFromCaret: boolean;
     FOldStatus : string;
@@ -448,6 +452,11 @@ begin
    end;
 end;
 
+procedure TfScriptEditor.aButtonClick(Sender: TObject);
+begin
+  TPascalScript(TPrometPascalScript(FDataSet).Script).OpenTool(TToolButton(Sender).Caption);
+end;
+
 procedure TfScriptEditor.acLogoutExecute(Sender: TObject);
 begin
   with Application as IBaseApplication do
@@ -529,6 +538,7 @@ begin
         FResume := True
       end else
       begin
+        TPascalScript(TPrometPascalScript(FDataSet).Script).OnToolRegistering:=@TPascalScriptToolRegistering;
         if Compile then
           begin
             SetCurrentDir(GetHomeDir);
@@ -733,8 +743,9 @@ begin
     end;
   Debugger.OnExecImport:=@DebuggerExecImport;
   Debugger.Script.Assign(ed.Lines);
+  Result := (not ed.Modified) and (TPascalScript(TPrometPascalScript(FDataSet).Script).Runtime.Status<>isNotLoaded);
   try
-    Result := Debugger.Compile;
+    Result := Result or Debugger.Compile;
   except
     on e : Exception do
       Messages.Items.Add(e.Message);
@@ -1191,6 +1202,22 @@ begin
        messages.AddItem(sl[i],nil);
      sl.Free;
    end;
+end;
+
+procedure TfScriptEditor.TPascalScriptToolRegistering(const s: string);
+var
+  i: Integer;
+  aButton: TToolButton;
+begin
+  for i := 0 to tbTools.ButtonList.Count-1 do
+    if tbTools.Buttons[i].Caption=s then
+      exit;
+  aButton := TToolButton.Create(tbTools);
+  aButton.Parent:=tbTools;
+  aButton.Caption:=s;
+  aButton.ShowCaption:=True;
+  aButton.Hint:=s;
+  aButton.OnClick:=@aButtonClick;
 end;
 
 end.
