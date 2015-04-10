@@ -67,6 +67,7 @@ type
     InformRecTime : TDateTime;
     FHistory : TBaseHistory;
     fTimelineDataSet: TBaseHistory;
+    ProcessManager: TProcess;
     function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
     procedure SetBaseref(AValue: LargeInt);
     procedure SetFilter(AValue: string);
@@ -88,7 +89,7 @@ uses {$ifdef WINDOWS}Windows,{$endif}
   uData,Utils,Forms,uBaseApplication,uIntfStrConsts,math,eventlog,uBaseDBInterface,
   umTimeLine,XMLPropStorage,LCLProc,uprometipc,wikitohtml,uMessages,uBaseSearch,
   utask,uOrder,uPerson,uMasterdata,uProjects,uWiki,uDocuments,umeeting,uStatistic,
-  uprometscripts,LCLIntf;
+  uprometscripts,LCLIntf,uProcessManager;
 {$R *.lfm}
 const
   RefreshAll = 30;//5 mins refresh
@@ -123,34 +124,6 @@ begin
     Debug('ProgTimer:Enter');
   aTime:=GetTickCount;
   ProgTimer.Enabled:=False;
-  //Call processes
-  with Application as IBaseApplication do
-    begin
-      aNow := Now();
-      if aNow > 0 then
-        begin
-          Data.ProcessClient.RefreshList;
-          if Data.ProcessClient.DataSet.Locate('NAME','*',[]) then
-            Data.ProcessClient.Process
-          else
-            begin
-              Data.ProcessClient.Insert;
-              Data.ProcessClient.FieldByName('NAME').AsString:='*';
-              Data.ProcessClient.FieldByName('STATUS').AsString:='N';
-              Data.ProcessClient.FieldByName('NOTES').AsString:=strRunsOnEveryMashine;
-              Data.ProcessClient.Post;
-            end;
-          if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
-            begin
-              if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
-                begin
-                  Application.Terminate;
-                  exit;
-                end;
-              Data.ProcessClient.Process;
-            end;
-        end;
-    end;
   if acHistory.Enabled then
     begin
       //Show new History Entrys
@@ -403,7 +376,6 @@ begin
           AppVersion:={$I ../base/version.inc};
           AppRevision:={$I ../base/revision.inc};
         end;
-      Info('processmanager starting...');
       with BaseApplication as IBaseDbInterface do
         begin
           Info('loading mandants...');
@@ -451,27 +423,15 @@ begin
             end;
           uData.Data := Data;
         end;
-      Info('processmanager login successful');
+      Info('messagemanager login successful');
       TrayIcon.Hint:=strHint+LineEnding+aMandant+' '+aUser;
-      Data.ProcessClient.CreateTable;
-      Data.ProcessClient.Open;
-      if not Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
+      with Application as IBaseDBInterface do
         begin
-          Data.ProcessClient.Insert;
-          Data.ProcessClient.DataSet.FieldByName('NAME').AsString:=GetSystemName;
-          Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='R';
-          Data.ProcessClient.DataSet.Post;
-          Info(getSystemName+' added and running');
-        end
-      else
-        begin
-          Data.ProcessClient.DataSet.Edit;
-          Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='R';
-          Data.ProcessClient.DataSet.Post;
-          Info(getSystemName+' running');
+          if Data.Users.DataSet.Active then
+            begin
+              ProcessManager := uProcessManager.StartProcessManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString);
+            end;
         end;
-      Data.ProcessClient.Processes.Open;
-      Data.ProcessClient.Processes.Parameters.Open;
 
       Data.RegisterLinkHandler('ALLOBJECTS',@OpenLink,TObjects);
       //Messages
@@ -639,6 +599,7 @@ begin
   fTimelineDataSet.CreateTable;
   Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),200);
   SwitchAnimationOff;
+
 end;
 procedure TfMain.acHistoryExecute(Sender: TObject);
 begin

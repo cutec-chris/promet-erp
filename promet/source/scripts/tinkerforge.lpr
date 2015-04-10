@@ -4,7 +4,8 @@ library tinkerforge;
 
 uses
   Classes,sysutils, IPConnection, Device, BrickletLCD20x4, BrickletLCD16x2,
-  BrickletVoltageCurrent,BrickletIndustrialQuadRelay,BrickletDualRelay;
+  BrickletVoltageCurrent,BrickletIndustrialQuadRelay,BrickletDualRelay,process,
+  Utils, general_nogui;
 type
   TStation = class
     procedure ipconConnected(sender: TIPConnection; const connectReason: byte);
@@ -25,6 +26,7 @@ type
 
 var
   Station : TStation;
+  BrickV: TProcess;
 
 procedure TStation.ipconConnected(sender: TIPConnection;
   const connectReason: byte);
@@ -366,12 +368,17 @@ begin
               else if TObject(Station.Devices[i]) is TBrickletIndustrialQuadRelay then
                 begin
                   Result := True;
-                  sRelais := TBrickletIndustrialQuadRelay(Station.Devices[i]).GetValue xor $F;
+                  sRelais := TBrickletIndustrialQuadRelay(Station.Devices[i]).GetValue;
                   if SwitchOn then
-                    sRelais:=sRelais or (1 shl Relais)
+                    begin
+                      if sRelais and (1 shl Relais) <> (1 shl Relais) then
+                        sRelais:=sRelais or (1 shl Relais)
+                    end
                   else
-                    sRelais:=sRelais xor (1 shl Relais);
-                  sRelais:=sRelais xor $F;
+                    begin
+                      if sRelais and (1 shl Relais) = (1 shl Relais) then
+                        sRelais:=sRelais xor (1 shl Relais);
+                    end;
                   Result := sRelais<=$F;
                   if Result then
                     TBrickletIndustrialQuadRelay(Station.Devices[i]).SetValue(sRelais);
@@ -385,6 +392,22 @@ end;
 procedure ScriptCleanup;
 begin
   TfDisconnect;
+end;
+
+procedure ScriptTool;
+begin
+  if not Assigned(BrickV) then
+    begin
+      BrickV := TProcess.Create(nil);
+      BrickV.Executable:='brickv';
+      BrickV.CurrentDirectory:=GetProgramDir+'Tinkerforge'+DirectorySeparator+'Brickv';
+      BrickV.Options:=[poNoConsole];
+      try
+        BrickV.Execute;
+      except
+        FreeAndNil(BrickV);
+      end;
+    end;
 end;
 
 function ScriptDefinition : PChar;stdcall;
@@ -431,6 +454,7 @@ exports
   TfSetRelais,
 
   ScriptCleanup,
+  ScriptTool,
   ScriptDefinition;
 
 end.
