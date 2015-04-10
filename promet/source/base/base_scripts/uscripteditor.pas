@@ -743,7 +743,7 @@ begin
     end;
   Debugger.OnExecImport:=@DebuggerExecImport;
   Debugger.Script.Assign(ed.Lines);
-  Result := (not ed.Modified) and (TPascalScript(TPrometPascalScript(FDataSet).Script).Runtime.Status<>isNotLoaded);
+  Result := False;
   try
     Result := Result or Debugger.Compile;
   except

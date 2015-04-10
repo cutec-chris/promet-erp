@@ -643,10 +643,10 @@ object fScriptEditor: TfScriptEditor
         Left = 329
         Height = 30
         Top = 2
-        Width = 199
+        Width = 375
         BevelOuter = bvNone
         ClientHeight = 30
-        ClientWidth = 199
+        ClientWidth = 375
         TabOrder = 1
         object cbClient: TComboBox
           Left = 264
@@ -662,7 +662,7 @@ object fScriptEditor: TfScriptEditor
           Left = 45
           Height = 30
           Top = 0
-          Width = 154
+          Width = 330
           Align = alClient
           Caption = 'tbTools'
           EdgeBorders = []
