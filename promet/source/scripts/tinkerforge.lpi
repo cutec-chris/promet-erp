@@ -33,6 +33,11 @@
         <CommandLineParams Value="&quot;--config-path=devel&quot; DLLt"/>
       </local>
     </RunParams>
+    <RequiredPackages Count="1">
+      <Item1>
+        <PackageName Value="general_nogui"/>
+      </Item1>
+    </RequiredPackages>
     <Units Count="5">
       <Unit0>
         <Filename Value="tinkerforge.lpr"/>

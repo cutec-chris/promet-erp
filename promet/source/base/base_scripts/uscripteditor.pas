@@ -538,20 +538,24 @@ begin
         FResume := True
       end else
       begin
-        TPascalScript(TPrometPascalScript(FDataSet).Script).OnToolRegistering:=@TPascalScriptToolRegistering;
-        if Compile then
-          begin
-            SetCurrentDir(GetHomeDir);
-            if Assigned(Data) then
-              begin
-                TPascalScript(TPrometPascalScript(FDataSet).Script).Runtime := Debugger.Exec;
-                TPascalScript(TPrometPascalScript(FDataSet).Script).Compiler := Debugger.Comp;
-              end;
-            Debugger.Execute;
-          end;
-          acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
-          acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+        try
+          TPascalScript(TPrometPascalScript(FDataSet).Script).OnToolRegistering:=@TPascalScriptToolRegistering;
+          if Compile then
+            begin
+              SetCurrentDir(GetHomeDir);
+              if Assigned(Data) then
+                begin
+                  TPascalScript(TPrometPascalScript(FDataSet).Script).Runtime := Debugger.Exec;
+                  TPascalScript(TPrometPascalScript(FDataSet).Script).Compiler := Debugger.Comp;
+                end;
+              Debugger.Execute;
+            end;
+            acStepinto.Enabled:=acPause.Enabled or acRun.Enabled;
+            acStepover.Enabled:=acPause.Enabled or acRun.Enabled;
+        except
+          Showmessage('Error compiling');
         end;
+      end;
     end
   else if (ed.Highlighter=HigSQL) and (copy(lowercase(sl.Text),0,7)='select ') then
     begin
