@@ -330,6 +330,8 @@ begin
                         end;
                     except
                       ReplaceOMailAccounts := False;
+                      Message.Content.Cancel;
+                      Message.Cancel;
                     end;
                   end;
                 pop.Logout;
