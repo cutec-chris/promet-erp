@@ -87,7 +87,7 @@ begin
       aScript.Readln:=@aScriptReadln;
       aScript.Write:=@aScriptWrite;
       aScript.Writeln:=@aScriptWriteln;
-      aScript.Sleep:=@aSleep;
+      //aScript.Sleep:=@aSleep;
       aScript.SelectByName(ParamStr(ParamCount));
       aScript.Open;
       if not aScript.Locate('NAME',ParamStr(ParamCount),[loCaseInsensitive]) then
