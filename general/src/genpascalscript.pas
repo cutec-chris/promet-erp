@@ -169,6 +169,49 @@ begin
     DoSleep(aTime)
   else Sleep(aTime);
 end;
+type
+  TMsgDlgType    = (mtWarning, mtError, mtInformation, mtConfirmation, mtCustom);
+  TMsgDlgBtn     = (mbYes, mbNo, mbOK, mbCancel, mbAbort, mbRetry, mbIgnore,
+                    mbAll, mbNoToAll, mbYesToAll, mbHelp, mbClose);
+  TMsgDlgButtons = set of TMsgDlgBtn;
+
+const
+  mrNone = 0;
+  mrOk = 1;
+  mrCancel = 2;
+  mrAbort = 3;
+  mrRetry = 4;
+  mrIgnore = 5;
+  mrYes = 6;
+  mrNo = 7;
+  mrAll = 8;
+  mrNoToAll = 9;
+  mrYesToAll = 10;
+
+function MessageDlgC(aMsg: string; DlgType: TMsgDlgType;
+            Buttons: TMsgDlgButtons; const HelpKeyword: string): Integer;
+var
+  res: LongInt;
+begin
+  if (mbYes in Buttons) and (mbNo in Buttons) and (mbCancel in Buttons) then
+    res := MessageBox(0,PChar(aMsg),PChar('Frage'),MB_YESNOCANCEL+MB_ICONINFORMATION)
+  else if (mbYes in Buttons) and (mbNo in Buttons) then
+    res := MessageBox(0,PChar(aMsg),PChar('Frage'),MB_YESNO+MB_ICONINFORMATION)
+  else if mbOK in Buttons then
+    res := MessageBox(0,PChar(aMsg),PChar('Frage'),MB_OK+MB_ICONINFORMATION)
+  else if (mbOK in Buttons) and (mbCancel in Buttons) then
+    res := MessageBox(0,PChar(aMsg),PChar('Frage'),MB_OKCANCEL+MB_ICONINFORMATION);
+  case res of
+  IDYES:Result := mrYes;
+  IDNO:Result := mrNO;
+  IDOK:Result := mrOK;
+  IDCANCEL:Result := mrCancel;
+  end;
+end;
+procedure ShowMessageC(const aMsg: string);
+begin
+  MessageBox(0,PChar(aMsg),PChar('Information'),MB_ICONINFORMATION);
+end;
 
 function IProcessDllImport(Sender: TPSExec; p: TPSExternalProcRec; Tag: Pointer
   ): Boolean;
@@ -328,6 +371,33 @@ begin
       begin
         InternalUses(Comp,'CLASSES');
         AddMethod(Self,@TPascalScript.InternalMathParse,'function MathParse(Input : string) : string;');
+      end
+    else if lowercase(Name)='dialogs' then
+      begin
+        {$IF defined(LCLNOGUI)}
+        Result := false;
+        {$ELSE}
+        Comp.AddConstantN('mrNone', 'Integer').Value^.ts32 := 0;
+        Comp.AddConstantN('mrOk', 'Integer').Value^.ts32 := 1;
+        Comp.AddConstantN('mrCancel', 'Integer').Value^.ts32 := 2;
+        Comp.AddConstantN('mrAbort', 'Integer').Value^.ts32 := 3;
+        Comp.AddConstantN('mrRetry', 'Integer').Value^.ts32 := 4;
+        Comp.AddConstantN('mrIgnore', 'Integer').Value^.ts32 := 5;
+        Comp.AddConstantN('mrYes', 'Integer').Value^.ts32 := 6;
+        Comp.AddConstantN('mrNo', 'Integer').Value^.ts32 := 7;
+        Comp.AddConstantN('mrAll', 'Integer').Value^.ts32 := 8;
+        Comp.AddConstantN('mrNoToAll', 'Integer').Value^.ts32 := 9;
+        Comp.AddConstantN('mrYesToAll', 'Integer').Value^.ts32 := 10;
+        Comp.AddTypeS('TMsgDlgType', '( mtWarning, mtError, mtInformation, mtConfirmation, mtCustom )');
+        Comp.AddTypeS('TMsgDlgBtn', '( mbYes, mbNo, mbOK, mbCancel, mbAbort, mbRetry, mbIgnore, mbAll, mbNoToAll, mbYesToAll, mbHelp )');
+        Comp.AddTypeS('TMsgDlgButtons', 'set of TMsgDlgBtn');
+        Comp.AddConstantN('mbYesNoCancel','LongInt').Value^.ts32 := ord(0) or ord(1) or ord(3);
+        Comp.AddConstantN('mbOKCancel','LongInt').Value^.ts32 := ord(2) or ord(3);
+        Comp.AddConstantN('mbAbortRetryIgnore','LongInt').Value^.ts32 := ord(4) or ord(5) or ord(6);
+        AddFunction(@MessageDlgC,'Function MessageDlg( const Msg : string; DlgType : TMsgDlgType; Buttons : TMsgDlgButtons; HelpCtx : Longint) : Integer');
+        AddFunction(@ShowMessageC,'Procedure ShowMessage( const Msg : string)');
+        Result := True;
+        {$ENDIF}
       end
     else
       begin
