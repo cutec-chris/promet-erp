@@ -75,13 +75,19 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="2">
+    <Exceptions Count="4">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
       <Item2>
         <Name Value="EXMLReadError"/>
       </Item2>
+      <Item3>
+        <Name Value="EZSQLException"/>
+      </Item3>
+      <Item4>
+        <Name Value="EZDatabaseError"/>
+      </Item4>
     </Exceptions>
   </Debugging>
 </CONFIG>

@@ -112,6 +112,8 @@ type
     FUseIntegrity : Boolean;
     FChangeUni : Boolean;
     FSQL : string;
+    FHasNewID : Boolean;
+    procedure SetNewIDIfNull;
     function BuildSQL : string;
     function IndexExists(IndexName : string) : Boolean;
     procedure WaitForLostConnection;
@@ -119,6 +121,7 @@ type
     //Internal DataSet Methods that needs to be changed
     procedure InternalOpen; override;
     procedure InternalRefresh; override;
+    procedure InternalPost; override;
     procedure DoAfterInsert; override;
     procedure DoBeforePost; override;
     procedure DoBeforeInsert; override;
@@ -200,6 +203,21 @@ uses ZDbcIntfs,uBaseApplication,uEncrypt;
 resourcestring
   strUnknownDbType                = 'Unbekannter Datenbanktyp';
   strDatabaseConnectionLost       = 'Die Datenbankverbindung wurde verlohren !';
+
+procedure TZeosDBDataSet.SetNewIDIfNull;
+begin
+  if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1) and  FieldByName('SQL_ID').IsNull then
+    begin
+      FieldByName('SQL_ID').AsVariant:=TBaseDBModule(Self.Owner).GetUniID(Connection);
+      FHasNewID:=True;
+    end
+  else if (FieldDefs.IndexOf('SQL_ID') = -1) and (FieldDefs.IndexOf('AUTO_ID') > -1) and FieldByName('AUTO_ID').IsNull then
+    begin
+      FieldByName('AUTO_ID').AsVariant:=TBaseDBModule(Self.Owner).GetUniID(Connection,'GEN_AUTO_ID');
+      FHasNewID:=True;
+    end;
+end;
+
 function TZeosDBDataSet.BuildSQL : string;
 function BuildJoins : string;
 var
@@ -666,6 +684,42 @@ begin
   end;
 end;
 
+procedure TZeosDBDataSet.InternalPost;
+var
+  ok : boolean = false;
+  rc : Integer = 0;
+begin
+  while not ok do
+    begin
+      ok := True;
+      try
+        inherited InternalPost;
+      except
+        begin
+          inc(rc);
+          ok := false;
+          if FHasNewID or (rc>30) then
+            begin
+              if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1)  then
+                begin
+                  FieldByName('SQL_ID').AsVariant:=Null
+                end
+              else if (FieldDefs.IndexOf('SQL_ID') = -1) and (FieldDefs.IndexOf('AUTO_ID') > -1) then
+                begin
+                  FieldByName('AUTO_ID').AsVariant:=Null;
+                end;
+              SetNewIDIfNull;
+            end
+          else
+            begin
+              raise;
+              exit;
+            end;
+        end;
+      end;
+    end;
+end;
+
 procedure TZeosDBDataSet.DoAfterInsert;
 begin
   inherited DoAfterInsert;
@@ -683,11 +737,9 @@ begin
   inherited DoBeforePost;
   if Assigned(Self.FOrigTable) then
     Self.FOrigTable.DisableChanges;
+  FHasNewID:=False;
   try
-  if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1) and  FieldByName('SQL_ID').IsNull then
-    FieldByName('SQL_ID').AsVariant:=TBaseDBModule(Self.Owner).GetUniID(Connection)
-  else if (FieldDefs.IndexOf('SQL_ID') = -1) and (FieldDefs.IndexOf('AUTO_ID') > -1) and FieldByName('AUTO_ID').IsNull then
-    FieldByName('AUTO_ID').AsVariant:=TBaseDBModule(Self.Owner).GetUniID(Connection,'GEN_AUTO_ID');
+  SetNewIDIfNull;
   if FUpStdFields and Assigned(FOrigTable) {and (FOrigTable.Changed)} then
     begin
       if (FieldDefs.IndexOf('TIMESTAMPD') > -1) then

@@ -193,6 +193,7 @@ function MessageDlgC(aMsg: string; DlgType: TMsgDlgType;
 var
   res: LongInt;
 begin
+  {$ifdef WINDOWS}
   if (mbYes in Buttons) and (mbNo in Buttons) and (mbCancel in Buttons) then
     res := MessageBox(0,PChar(aMsg),PChar('Frage'),MB_YESNOCANCEL+MB_ICONINFORMATION)
   else if (mbYes in Buttons) and (mbNo in Buttons) then
@@ -207,10 +208,14 @@ begin
   IDOK:Result := mrOK;
   IDCANCEL:Result := mrCancel;
   end;
+  {$endif}
 end;
+
 procedure ShowMessageC(const aMsg: string);
 begin
+  {$ifdef WINDOWS}
   MessageBox(0,PChar(aMsg),PChar('Information'),MB_ICONINFORMATION);
+  {$endif}
 end;
 
 function IProcessDllImport(Sender: TPSExec; p: TPSExternalProcRec; Tag: Pointer
