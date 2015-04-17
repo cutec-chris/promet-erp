@@ -688,6 +688,24 @@ procedure TZeosDBDataSet.InternalPost;
 var
   ok : boolean = false;
   rc : Integer = 0;
+
+  function CheckID : Boolean;
+  var
+    aDs: TDataSet;
+  begin
+    if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1)  then
+      begin
+        aDs := TBaseDBModule(FOrigTable.DataModule).GetNewDataSet('select '+TBaseDBModule(FOrigTable.DataModule).QuoteField('SQL_ID')+' from '+TBaseDBModule(FOrigTable.DataModule).QuoteField(DefaultTableName)+' where '+TBaseDBModule(FOrigTable.DataModule).QuoteField('SQL_ID')+'='+TBaseDBModule(FOrigTable.DataModule).QuoteValue(FieldByName('SQL_ID').AsVariant));
+      end
+    else if (FieldDefs.IndexOf('SQL_ID') = -1) and (FieldDefs.IndexOf('AUTO_ID') > -1) then
+      begin
+        aDs := TBaseDBModule(FOrigTable.DataModule).GetNewDataSet('select '+TBaseDBModule(FOrigTable.DataModule).QuoteField('AUTO_ID')+' from '+TBaseDBModule(FOrigTable.DataModule).QuoteField(DefaultTableName)+' where '+TBaseDBModule(FOrigTable.DataModule).QuoteField('AUTO_ID')+'='+TBaseDBModule(FOrigTable.DataModule).QuoteValue(FieldByName('AUTO_ID').AsVariant));
+      end;
+    aDs.Open;
+    Result := aDs.RecordCount>0;
+    aDs.Free;
+  end;
+
 begin
   while not ok do
     begin
@@ -698,7 +716,7 @@ begin
         begin
           inc(rc);
           ok := false;
-          if FHasNewID or (rc>30) then
+          if (FHasNewID or (rc>30)) and CheckID then
             begin
               if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1)  then
                 begin
