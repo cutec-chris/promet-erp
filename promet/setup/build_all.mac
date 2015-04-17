@@ -45,4 +45,4 @@ hdiutil create -anyowners -volname "Promet-ERP" -imagekey zlib-level=9 -srcfolde
 rm -rf $BUILD_DC_TMP_DIR
 rm -rf $BUILD_PACK_DIR
 
-sh upload_osx.sh
+sh darwin/upload_osx.sh
