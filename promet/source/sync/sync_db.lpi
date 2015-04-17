@@ -26,7 +26,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS-Times2"/>
+        <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -756,7 +756,6 @@
       </Unit103>
       <Unit104>
         <Filename Value="..\..\..\general\src\uminiconvencoding.pas"/>
-        <UnitName Value="uminiconvencoding"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="40"/>
         <UsageCount Value="10"/>
@@ -770,7 +769,7 @@
         <UsageCount Value="10"/>
       </Unit105>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sync_db.lpr"/>
         <Caret Line="12" Column="30"/>
@@ -887,6 +886,10 @@
         <Filename Value="sync_db.lpr"/>
         <Caret Line="518" Column="52" TopLine="500"/>
       </Position29>
+      <Position30>
+        <Filename Value="..\base\pcmdprometapp.pas"/>
+        <Caret Line="10" Column="3"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

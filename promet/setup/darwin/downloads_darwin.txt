@@ -3,4 +3,4 @@ Alle untenstehenden Installationen sind Version VERSION erstellt CREATEDATE.<br>
 Änderungen finden Sie in der [[Promet-ERP/changes|Änderungsliste]].
 
 ==Hauptprogramm==
-[http://downloads.free-erp.de/prometerp-VERSION.i386.dmg Promet-ERP Diskimage für MacOS ~30 Mb]
+[http://downloads.free-erp.de/prometerp-VERSION.i386.dmg Promet-ERP Diskimage für MacOS DARWIN_SIZE Mb]
