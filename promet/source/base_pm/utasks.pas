@@ -21,11 +21,13 @@ unit utasks;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, LR_DBSet, LR_Class,
-   Forms, Controls, DBGrids, ValEdit, ExtCtrls, Buttons, ComCtrls,
-  uPrometFramesInplaceDB, uExtControls, db, Grids, ActnList, Menus, StdCtrls,
-  uBaseDBClasses, uBaseDbInterface, uGridView, uIntfStrConsts,
-  Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,Clipbrd, ExtDlgs;
+  Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, SynGutterBase,
+  SynGutterMarks, SynGutterLineNumber, SynGutterChanges, SynGutter,
+  SynGutterCodeFolding, LR_DBSet, LR_Class, Forms, Controls, DBGrids, ValEdit,
+  ExtCtrls, Buttons, ComCtrls, uPrometFramesInplaceDB, uExtControls, db, Grids,
+  ActnList, Menus, StdCtrls, uBaseDBClasses, uBaseDbInterface, uGridView,
+  uIntfStrConsts, Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,
+  Clipbrd, ExtDlgs;
 type
   TOnStartTime = procedure(Sender : TObject;aProject,aTask,aCategory : string) of object;
 

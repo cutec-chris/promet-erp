@@ -916,9 +916,9 @@ var
   aDS: TMeetings;
 begin
   DoInfo('start');
-  //Synchronize(@NewConn);
   aConn := nil;
   Synchronize(@NewMenu);
+  DoInfo('Startuptype');
   Synchronize(@DoStartupType);
   miNew.Action := fMainTreeFrame.acSearch;
   DoInfo('Timeregistering');
