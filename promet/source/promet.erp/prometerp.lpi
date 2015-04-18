@@ -183,7 +183,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug --debug-sql"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">

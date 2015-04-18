@@ -524,6 +524,8 @@ begin
     end;
   if (not acStop.Enabled) or (Sender = nil) then
     begin
+      with Application as IBaseApplication do
+        Info('Timeregistering:start Time');
       Times.DataSet.Insert;
       Times.FieldByName('LINK').AsString := FLink;
       Times.FieldByName('PROJECT').AsString := FProject;
@@ -555,6 +557,8 @@ begin
     end
   else //pause
     begin
+      with Application as IBaseApplication do
+        Info('Timeregistering:pause Time ');
       Times.DuplicateRecord(False);
       Times.FieldByName('ISPAUSE').AsString := 'N';
       Times.FieldByName('START').AsFloat := Now();
@@ -1157,6 +1161,8 @@ procedure TfEnterTime.DoSetup;
 var
   aRes: LongInt;
 begin
+  with Application as IBaseApplication do
+    Info('Timeregistering:DoSetup');
   if not Assigned(Times) then
     begin
       with Application as IBaseDbInterface do
@@ -1177,6 +1183,8 @@ begin
       if DBConfig.ReadString('NOTIMEREG','N') = 'Y' then exit;
       Application.QueueAsyncCall(@AskUserforContinue,0);
     end;
+  with Application as IBaseApplication do
+    Info('Timeregistering:DoSetup end');
 end;
 procedure TfEnterTime.SetLanguage;
 begin
@@ -1292,4 +1300,4 @@ begin
 end;
 initialization
 end.
-
+

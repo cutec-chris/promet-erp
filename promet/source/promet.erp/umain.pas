@@ -736,6 +736,7 @@ end;
 
 procedure TStarterThread.AddTimeReg;
 begin
+  try
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
     begin
       fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
@@ -747,6 +748,9 @@ begin
       fMain.pTimes.Visible := True;
       SendIPCMessage('noop',GetTempDir+'PMSTimeregistering');
     end;
+  except
+    DoInfo('Timeregistering Error:');
+  end;
 end;
 
 procedure TStarterThread.AddTimeReg2;
@@ -763,8 +767,9 @@ begin
           fMain.FTimeReg.RefreshNode;
         end;
     end;
-
-  finally
+  except
+    MainNode.Free;
+    DoInfo('Timeregistering Error:RefreshNode');
   end;
 end;
 
@@ -923,6 +928,7 @@ begin
   miNew.Action := fMainTreeFrame.acSearch;
   DoInfo('Timeregistering');
   Synchronize(@AddTimeReg);
+  DoInfo('Objects,Tree,...');
   //All Objects
   fMain.pcPages.AddTabClass(TfFilter,strObjectList,@fMain.AddElementList,Data.GetLinkIcon('ALLOBJECTS@'),True);
   //Expand Tree
