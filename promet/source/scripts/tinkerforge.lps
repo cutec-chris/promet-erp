@@ -9,7 +9,8 @@
         <Filename Value="tinkerforge.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="8" Y="8"/>
+        <TopLine Value="413"/>
+        <CursorPos X="53" Y="428"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit0>
