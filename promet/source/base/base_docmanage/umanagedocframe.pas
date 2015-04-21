@@ -1816,6 +1816,8 @@ end;
 
 procedure TfManageDocFrame.OpenDir(aDir: Variant);
 begin
+  with BaseApplication as IBaseApplication do
+    Debug('TfManageDocFrame:OpenDir enter');
   if aDir = Null then
     FFilter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(FTyp)
   else
@@ -1852,6 +1854,8 @@ begin
   ThumbControl1.Invalidate;
   bShowDetail.Enabled:=DataSet.Count>0;
   pSave.Enabled:=DataSet.Count>0;
+  with BaseApplication as IBaseApplication do
+    Debug('TfManageDocFrame:OpenDir leave');
 end;
 
 procedure TfManageDocFrame.ShowFrame;
