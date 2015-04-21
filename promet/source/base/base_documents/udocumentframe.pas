@@ -1314,11 +1314,15 @@ begin
   aNew.SubItems.Add(IntToStr(DataSet.GetBookmark));
 end;
 function TfDocumentFrame.GotoSelected: Boolean;
+var
+  Item: TListItem;
 begin
   Result := False;
-  if lvDocuments.Selected = nil then exit;
-  if lvDocuments.Selected.SubItems.Count < 4 then exit;
-  if DataSet.GotoBookmark(StrToInt64(lvDocuments.Selected.SubItems[3])) then
+  Item := lvDocuments.Selected;
+  if lvDocuments.Items.Count= 0 then exit;
+  if Item=nil then Item := lvDocuments.Items[0];
+  if Item.SubItems.Count < 4 then exit;
+  if DataSet.GotoBookmark(StrToInt64(Item.SubItems[3])) then
     Result := True;
 end;
 procedure TfDocumentFrame.DoEditDocument(Method: string; ShowEditor: Boolean);

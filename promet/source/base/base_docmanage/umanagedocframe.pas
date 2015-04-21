@@ -1001,7 +1001,6 @@ begin
   if not Found then
     begin
       if FDocFrame.lvDocuments.Items.Count=0 then exit;
-      FDocFrame.lvDocuments.ItemIndex:=0;
       FDocFrame.acViewFile.Execute;
     end;
 end;
