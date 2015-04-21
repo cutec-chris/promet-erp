@@ -36,7 +36,7 @@ interface
 
 uses
   {$IFDEF UNIX} clocale, cwstring,{$ENDIF}
-  Classes, SysUtils, LCLIntf;
+  Classes, SysUtils;
 
 var
   mwHashTable: array[#0..#255] of byte;

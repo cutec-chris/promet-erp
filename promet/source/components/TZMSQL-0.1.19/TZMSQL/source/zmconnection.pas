@@ -57,7 +57,7 @@ interface
 
 uses
   {$ifdef unix}clocale, cwstring,{$endif}
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils,
   jansql;
 
 type
@@ -133,7 +133,7 @@ var
 begin
   //Determine the full path
   //Set the path
-  vApplicationPath:=extractfiledir(application.exename);
+  vApplicationPath:=extractfiledir(ParamStr(0));
   //Derermine last delimiter in path.
   //If full path
   if LastDelimiter('/\', FDatabasePath)<>0 then

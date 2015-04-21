@@ -5,7 +5,7 @@ library filedb;
 {$INTERFACES CORBA}
 
 uses
-  Classes,sysutils, db;
+  Classes,sysutils, zmsql, db;
 
 function GetNewConnection: TComponent;
 begin

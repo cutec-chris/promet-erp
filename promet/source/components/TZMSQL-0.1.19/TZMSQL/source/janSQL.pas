@@ -60,7 +60,7 @@ interface
 
 uses
     {$IFDEF UNIX} clocale, cwstring,{$ENDIF}
-    LCLIntf,  SysUtils, Classes, Graphics, Controls, Forms,Dialogs,
+    SysUtils, Classes,
     janSQLstrings,janSQLExpression2,janSQLTokenizer, mwStringHashList,
     {$IFNDEF VER130} //Delphi 5
   {$IFNDEF VER120} //Delphi 4

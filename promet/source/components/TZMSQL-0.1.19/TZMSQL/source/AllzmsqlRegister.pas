@@ -13,7 +13,7 @@ interface
 
 uses
   {$IFDEF UNIX} clocale, cwstring,{$ENDIF}  
-  Classes,SysUtils,TypInfo,lresources,PropEdits,ComponentEditors,
+  Classes,SysUtils,TypInfo,PropEdits,ComponentEditors,
   ZMConnection,
   ZMQueryDataSet,
   ZMReferentialKey,
@@ -43,4 +43,4 @@ end;
 
 end.
 
-
+
