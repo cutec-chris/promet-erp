@@ -706,6 +706,18 @@ var
     aDs.Free;
   end;
 
+  procedure CleanID;
+  begin
+    if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1)  then
+      begin
+        FieldByName('SQL_ID').AsVariant:=Null
+      end
+    else if (FieldDefs.IndexOf('SQL_ID') = -1) and (FieldDefs.IndexOf('AUTO_ID') > -1) then
+      begin
+        FieldByName('AUTO_ID').AsVariant:=Null;
+      end;
+  end;
+
 begin
   while not ok do
     begin
@@ -716,17 +728,15 @@ begin
         begin
           inc(rc);
           ok := false;
-          if (FHasNewID or (rc>30)) and CheckID then
+          if (FHasNewID and (rc<3)) then
             begin
-              if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1)  then
-                begin
-                  FieldByName('SQL_ID').AsVariant:=Null
-                end
-              else if (FieldDefs.IndexOf('SQL_ID') = -1) and (FieldDefs.IndexOf('AUTO_ID') > -1) then
-                begin
-                  FieldByName('AUTO_ID').AsVariant:=Null;
-                end;
+              CleanID;
               SetNewIDIfNull;
+              while CheckID do
+                begin
+                  CleanID;
+                  SetNewIDIfNull;
+                end;
             end
           else
             begin
