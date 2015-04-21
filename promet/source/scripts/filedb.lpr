@@ -1,16 +1,11 @@
-library zsqldb;
+library filedb;
 
 {$mode objfpc}{$H+}
 {$DEFINE USE_BIN_STR}
 {$INTERFACES CORBA}
 
 uses
-  Classes,sysutils, zcomponent_nogui, ZConnection, db, ZSqlMetadata,
-  ZAbstractRODataset, ZDataset, ZSequence,ZAbstractConnection,
-  ZSqlMonitor,Utils;
-
-var
-  FMainConnection : TZConnection;
+  Classes,sysutils, db;
 
 function GetNewConnection: TComponent;
 begin

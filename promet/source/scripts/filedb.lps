@@ -6,10 +6,11 @@
     <BuildModes Active="Default"/>
     <Units Count="15">
       <Unit0>
-        <Filename Value="zsqldb.lpr"/>
+        <Filename Value="filedb.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="filedb"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="6" Y="16"/>
+        <CursorPos Y="10"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -109,29 +110,17 @@
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="1249"/>
+        <TopLine Value="1405"/>
         <CursorPos Y="1258"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit14>
     </Units>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="1">
       <Position1>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="20" Column="5"/>
+        <Filename Value="filedb.lpr"/>
+        <Caret Line="8" Column="23" TopLine="118"/>
       </Position1>
-      <Position2>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="30" Column="5"/>
-      </Position2>
-      <Position3>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="28" Column="117" TopLine="9"/>
-      </Position3>
-      <Position4>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="38" Column="85" TopLine="9"/>
-      </Position4>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
