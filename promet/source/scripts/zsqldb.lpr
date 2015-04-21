@@ -123,7 +123,30 @@ end;
 
 function ScriptDefinition : PChar;stdcall;
 begin
-  Result := ''
+  Result := 'function SetProperties(aProp : string;Connection : TComponent) : Boolean;stdcall;'
+       +#10+'function CreateDBFromProperties(aProp: string): Boolean;'
+       +#10+'function IsSQLDB : Boolean;'
+       +#10+'function GetNewDataSet(aSQL : string;aConnection : TComponent;MasterData : TDataSet;aOrigtable : TObject) : TDataSet;'
+       +#10+'procedure DestroyDataSet(DataSet : TDataSet);'
+       +#10+'function Ping(aConnection : TComponent) : Boolean;'
+       +#10+'function DateToFilter(aValue : TDateTime) : string;'
+       +#10+'function DateTimeToFilter(aValue : TDateTime) : string;'
+       +#10+'function GetUniID(aConnection : TComponent;Generator : string;AutoInc : Boolean) : Variant;'
+       //+#10+'procedure StreamToBlobField(Stream : TStream;DataSet : TDataSet;Fieldname : string);'
+       //+#10+'procedure BlobFieldToStream(DataSet: TDataSet; Fieldname: string;dStream: TStream);'
+       //+#10+'function GetErrorNum(e: EDatabaseError): Integer;'
+       +#10+'function GetNewConnection: TComponent;'
+       +#10+'function QuoteField(aField: string): string;'
+       +#10+'procedure Disconnect(aConnection : TComponent);'
+       +#10+'function StartTransaction(aConnection : TComponent;ForceTransaction : Boolean): Boolean;'
+       +#10+'function CommitTransaction(aConnection : TComponent): Boolean;'
+       +#10+'function RollbackTransaction(aConnection : TComponent): Boolean;'
+       +#10+'function TableExists(aTableName : string;aConnection : TComponent;AllowLowercase: Boolean) : Boolean;'
+       +#10+'function TriggerExists(aTriggerName: string; aConnection: TComponent; AllowLowercase: Boolean): Boolean;'
+       +#10+'function GetDBType: string;'
+       +#10+'function DropTable(aTableName : string) : Boolean;'
+       //+#10+'function GetColumns(TableName : string) : TStrings;'
+
             ;
 end;
 
