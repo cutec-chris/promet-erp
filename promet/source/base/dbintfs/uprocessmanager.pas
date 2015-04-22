@@ -119,11 +119,17 @@ begin
     end;
   Result := TProcess.Create(nil);
   Result.Options:=[poUsePipes,poStderrToOutPut,poNoConsole];
+  Result.CurrentDirectory:=aDir;
   Result.CommandLine:=aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)+' '+cmdln;
+  with BaseApplication as IBaseApplication do
+    Debug('Processmanager started with Command:'+Result.CommandLine);
   try
     Result.Execute;
   except
+    on e : Exception do
     begin
+      with BaseApplication as IBaseApplication do
+        Error('Processmanager Error:'+e.Message);
       Result.Free;
       Result := nil;
     end;

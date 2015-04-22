@@ -8,7 +8,6 @@
       <Unit0>
         <Filename Value="filedb.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="filedb"/>
         <TopLine Value="13"/>
         <CursorPos Y="10"/>
         <UsageCount Value="26"/>
@@ -109,15 +108,15 @@
       <Unit14>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="1405"/>
+        <TopLine Value="1404"/>
         <CursorPos Y="1258"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\AllzmsqlRegister.pas"/>
-        <UnitName Value="AllzmsqlRegister"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="28" Y="16"/>
         <UsageCount Value="10"/>
@@ -152,7 +151,6 @@
       <Unit19>
         <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
         <UnitName Value="ZMQueryDataSet"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <TopLine Value="117"/>
         <CursorPos X="22" Y="120"/>
@@ -169,58 +167,50 @@
         <Loaded Value="True"/>
       </Unit20>
     </Units>
-    <JumpHistory Count="14" HistoryIndex="13">
+    <JumpHistory Count="12" HistoryIndex="11">
       <Position1>
-        <Filename Value="filedb.lpr"/>
-        <Caret Line="8" Column="23" TopLine="118"/>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\janSQL.pas"/>
       </Position1>
       <Position2>
-        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\janSQL.pas"/>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\mwStringHashList.pas"/>
       </Position2>
       <Position3>
         <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\mwStringHashList.pas"/>
+        <Caret Line="39" Column="22" TopLine="20"/>
       </Position3>
       <Position4>
-        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\mwStringHashList.pas"/>
-        <Caret Line="39" Column="22" TopLine="20"/>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmconnection.pas"/>
       </Position4>
       <Position5>
         <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmconnection.pas"/>
+        <Caret Line="57" Column="62" TopLine="41"/>
       </Position5>
       <Position6>
-        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmconnection.pas"/>
-        <Caret Line="57" Column="62" TopLine="41"/>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
       </Position6>
       <Position7>
-        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmconnection.pas"/>
-        <Caret Line="60" Column="22" TopLine="98"/>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
+        <Caret Line="120" Column="22" TopLine="101"/>
       </Position7>
       <Position8>
         <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
+        <Caret Line="122" Column="3" TopLine="103"/>
       </Position8>
       <Position9>
         <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
-        <Caret Line="120" Column="22" TopLine="101"/>
+        <Caret Line="128" TopLine="109"/>
       </Position9>
       <Position10>
-        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
-        <Caret Line="122" Column="3" TopLine="103"/>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmreferentialkey.pas"/>
       </Position10>
       <Position11>
         <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
-        <Caret Line="128" TopLine="109"/>
+        <Caret Line="127" Column="23" TopLine="109"/>
       </Position11>
       <Position12>
-        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmreferentialkey.pas"/>
-      </Position12>
-      <Position13>
-        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
-        <Caret Line="127" Column="23" TopLine="109"/>
-      </Position13>
-      <Position14>
         <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
         <Caret Line="161" Column="52" TopLine="136"/>
-      </Position14>
+      </Position12>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

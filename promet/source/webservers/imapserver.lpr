@@ -791,6 +791,7 @@ function TPrometImapServer.GotoMailBox(MailBox: string): Boolean;
 begin
   Result := False;
   MailBox:=copy(MailBox,RPos('/',MailBox)+1,length(MailBox));
+  DbCS.Enter;
   if MailBoxes.Locate('NAME',AnsiToUtf8(Mailbox),[]) then
     begin
       result := True;
@@ -816,6 +817,7 @@ begin
           result := True;
         end;
     end;
+  DbCS.Leave;
 end;
 
 procedure TPrometImapServer.DoClientCreate(AThread: TSTcpThread);
