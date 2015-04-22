@@ -106,6 +106,8 @@ begin
   cmdln := ' "--mandant='+Mandant+'"';
   if User <> '' then
     cmdln := cmdln+' "--user='+User+'"';
+  if BaseApplication.HasOption('debug') then
+  cmdln := cmdln+' --debug';
   if BaseApplication.HasOption('debug-log') then
     cmdln := cmdln+' "--debug-log=msg.'+BaseApplication.GetOptionValue('debug-log')+'"';
   if BaseApplication.HasOption('config-path') then
@@ -119,7 +121,6 @@ begin
     end;
   Result := TProcess.Create(nil);
   Result.Options:=[poUsePipes,poStderrToOutPut,poNoConsole];
-  Result.CurrentDirectory:=aDir;
   Result.CommandLine:=aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)+' '+cmdln;
   with BaseApplication as IBaseApplication do
     Debug('Processmanager started with Command:'+Result.CommandLine);
