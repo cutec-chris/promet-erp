@@ -343,6 +343,7 @@ procedure TBaseERPList.CascadicPost;
 var
   Hist : IBaseHistory;
   sType: String;
+  i: Integer;
 begin
   if CanEdit and UpdateHistory and Supports(Self, IBaseHistory, Hist) then
     begin
@@ -360,6 +361,12 @@ begin
         sType := strEdited;
       if not Hist.History.ChangedDuringSession then
         begin
+          sType:=sType+' (';
+          for i := 0 to DataSet.Fields.Count-1 do
+            if DataSet.Fields[i].OldValue<>DataSet.Fields[i].NewValue then
+              sType := sType+','+DataSet.Fields[i].FieldName;
+          sType:=Stringreplace(sType,'(,','(',[rfReplaceAll])+')';
+          sType:=Stringreplace(sType,'()','',[rfReplaceAll]);
           Hist.History.AddItem(Self.DataSet,sType);
         end;
       Hist.History.ChangedDuringSession := False;

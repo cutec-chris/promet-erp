@@ -25,12 +25,12 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbClasses, uBaseDBInterface, db, Utils
-  ,uBaseDatasetInterfaces;
+  ,uBaseDatasetInterfaces,uBaseERPDBClasses;
 
 type
   { TBaseScript }
 
-  TBaseScript = class(TBaseDbList)
+  TBaseScript = class(TBaseERPList,IBaseHistory)
   private
     aDS: TDataSet;
     FHistory: TBaseHistory;
@@ -48,6 +48,7 @@ type
     procedure InternalWrite(const s: string);
     procedure InternalWriteln(const s: string);
     procedure InternalReadln(var s: string);
+    function GetHistory: TBaseHistory;
   public
     constructor CreateEx(aOwner: TComponent; DM: TComponent;
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
@@ -69,7 +70,7 @@ var
   Historyrun : Boolean;
 
 implementation
-uses uStatistic,uData,httpsend,variants,uPerson,uMasterdata,uProjects,uOrder,uBaseERPDBClasses,
+uses uStatistic,uData,httpsend,variants,uPerson,uMasterdata,uProjects,uOrder,
   uBaseApplication,uSystemMessage,utask,uMessages,uDocuments;
 function ProcessScripts : Boolean;//process Scripts that must be runned cyclic Result shows that it should be runned faster (debug)
 var
@@ -184,6 +185,11 @@ end;
 procedure TBaseScript.InternalReadln(var s: string);
 begin
   if Assigned(FRlFunc) then FRlFunc(s);
+end;
+
+function TBaseScript.GetHistory: TBaseHistory;
+begin
+  Result := FHistory;
 end;
 
 constructor TBaseScript.CreateEx(aOwner: TComponent; DM: TComponent;
