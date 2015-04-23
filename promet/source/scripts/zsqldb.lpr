@@ -7,10 +7,17 @@ library zsqldb;
 uses
   Classes,sysutils, zcomponent_nogui, ZConnection, db, ZSqlMetadata,
   ZAbstractRODataset, ZDataset, ZSequence,ZAbstractConnection,
-  ZSqlMonitor,Utils;
+  ZSqlMonitor,Utils,uEncrypt,ZDbcIntfs;
 
 var
   FMainConnection : TZConnection;
+  FLimitAfterSelect: Boolean;
+  FLimitSTMT: String;
+  FDBTyp: String;
+  Sequence: TZSequence;
+resourcestring
+  strUnknownDbType                = 'Unbekannter Datenbanktyp';
+  strDatabaseConnectionLost       = 'Die Datenbankverbindung wurde verlohren !';
 
 function GetNewConnection: TComponent;
 begin
@@ -19,7 +26,151 @@ procedure Disconnect(aConnection : TComponent);
 begin
 end;
 function SetProperties(aProp : string;Connection : TComponent = nil) : Boolean;
+var
+  tmp: String;
+  FConnection : TZConnection;
+  FProperties: String;
 begin
+  FProperties := aProp;
+  FConnection := TZConnection(Connection);
+  if not Assigned(FConnection) then
+    begin
+      FConnection := FMainConnection;
+      if FConnection.Connected then
+        FConnection.Disconnect;
+    end;
+  Result := True;
+  tmp := aProp;
+  try
+    if FConnection.Connected then
+      FConnection.Disconnect;
+    FConnection.Port:=0;
+    FConnection.Properties.Clear;
+    FConnection.Properties.Add('timeout=2');
+    FConnection.ClientCodepage:='UTF8';
+    FConnection.Protocol:='';
+    FConnection.User:='';
+    FConnection.Password:='';
+    FConnection.HostName:='';
+    FConnection.Database:='';
+    FConnection.Properties.Clear;
+    FConnection.Protocol:=copy(tmp,0,pos(';',tmp)-1);
+    Assert(FConnection.Protocol<>'',strUnknownDbType);
+    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+    FConnection.HostName := copy(tmp,0,pos(';',tmp)-1);
+    if pos(':',FConnection.HostName) > 0 then
+      begin
+        FConnection.Port:=StrToInt(copy(FConnection.HostName,pos(':',FConnection.HostName)+1,length(FConnection.HostName)));
+        FConnection.HostName:=copy(FConnection.HostName,0,pos(':',FConnection.HostName)-1);
+      end
+    else if pos('/',FConnection.HostName) > 0 then
+      begin
+        FConnection.Port:=StrToInt(copy(FConnection.HostName,pos('/',FConnection.HostName)+1,length(FConnection.HostName)));
+        FConnection.HostName:=copy(FConnection.HostName,0,pos('/',FConnection.HostName)-1);
+      end;
+    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+    FConnection.Database:=copy(tmp,0,pos(';',tmp)-1);
+    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+    FConnection.User := copy(tmp,0,pos(';',tmp)-1);
+    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+    if copy(tmp,0,1) = 'x' then
+      FConnection.Password := Decrypt(copy(tmp,2,length(tmp)),99998)
+    else
+      FConnection.Password := tmp;
+    if (copy(FConnection.Protocol,0,6) = 'sqlite')
+    or (copy(FConnection.Protocol,0,8) = 'postgres')
+    then
+      begin
+        FConnection.TransactIsolationLevel:=tiNone;
+        if (copy(FConnection.Protocol,0,6) = 'sqlite') then
+          if not FileExists(FConnection.Database) then
+            raise Exception.Create('Databasefile dosend exists');
+      end
+    else if (copy(FConnection.Protocol,0,5) = 'mssql') then
+      FConnection.TransactIsolationLevel:=tiReadUnCommitted
+    else if (copy(FConnection.Protocol,0,8) = 'firebird')
+    or (copy(FConnection.Protocol,0,9) = 'interbase')
+    or (copy(FConnection.Protocol,0,5) = 'mysql')
+    then
+      begin
+        FConnection.TransactIsolationLevel:=tiReadCommitted;
+      end;
+    FConnection.Connected:=True;
+    FLimitAfterSelect := False;
+    FLimitSTMT := 'LIMIT %d';
+    FDBTyp := FConnection.Protocol;
+    if FConnection.Protocol = 'sqlite-3' then
+      begin
+//        FConnection.ExecuteDirect('PRAGMA synchronous = NORMAL;');
+//        FConnection.ExecuteDirect('PRAGMA cache_size = 5120;');
+//        FConnection.ExecuteDirect('PRAGMA auto_vacuum = FULL;');
+        FConnection.ExecuteDirect('PRAGMA journal_mode = MEMORY;');
+        FConnection.ExecuteDirect('PRAGMA recursive_triggers = ON;');
+        FConnection.ExecuteDirect('PRAGMA foreign_keys = ON;');
+        FConnection.ExecuteDirect('PRAGMA case_sensitive_like = ON;');
+      end
+    else if (copy(FConnection.Protocol,0,8) = 'firebird')
+         or (copy(FConnection.Protocol,0,9) = 'interbase') then
+      begin
+        FDBTyp := 'firebird';
+        FLimitSTMT := 'ROWS 1 TO %d';
+        if not Assigned(Sequence) then
+          begin
+            Sequence := TZSequence.Create(nil);
+          end;
+      end
+    else if FConnection.Protocol = 'mssql' then
+      begin
+        FLimitAfterSelect := True;
+        FLimitSTMT := 'TOP %d';
+      end;
+  except on e : Exception do
+    begin
+      //if Assigned(BaseApplication) then
+      //  with BaseApplication as IBaseDBInterface do
+      //    LastError := e.Message;
+      Result := False;
+    end;
+  end;
+  if Result then
+    begin
+      if not DBExists then //Create generators
+        begin
+          try
+            if (copy(FConnection.Protocol,0,8) = 'firebird')
+            or (copy(FConnection.Protocol,0,9) = 'interbase') then
+              begin
+                FConnection.ExecuteDirect('EXECUTE BLOCK AS BEGIN'+lineending
+                                         +'if (not exists(select 1 from rdb$generators where rdb$generator_name = ''GEN_SQL_ID'')) then'+lineending
+                                         +'execute statement ''CREATE SEQUENCE GEN_SQL_ID;'';'+lineending
+                                         +'END;');
+                FConnection.ExecuteDirect('EXECUTE BLOCK AS BEGIN'+lineending
+                                         +'if (not exists(select 1 from rdb$generators where rdb$generator_name = ''GEN_AUTO_ID'')) then'+lineending
+                                         +'execute statement ''CREATE SEQUENCE GEN_AUTO_ID;'';'+lineending
+                                         +'END;');
+              end
+            else if copy(FConnection.Protocol,0,6) = 'sqlite' then
+              begin
+                FConnection.ExecuteDirect('CREATE TABLE IF NOT EXISTS "GEN_SQL_ID"("SQL_ID" BIGINT NOT NULL PRIMARY KEY,ID BIGINT);');
+                FConnection.ExecuteDirect('CREATE TABLE IF NOT EXISTS "GEN_AUTO_ID"("SQL_ID" BIGINT NOT NULL PRIMARY KEY,ID BIGINT);');
+              end
+            else
+              begin
+                if not TableExists('GEN_SQL_ID') then
+                  FConnection.ExecuteDirect('CREATE TABLE '+QuoteField('GEN_SQL_ID')+'('+QuoteField('SQL_ID')+' BIGINT NOT NULL PRIMARY KEY,'+QuoteField('ID')+' BIGINT);');
+                if not TableExists('GEN_AUTO_ID') then
+                  FConnection.ExecuteDirect('CREATE TABLE '+QuoteField('GEN_AUTO_ID')+'('+QuoteField('SQL_ID')+' BIGINT NOT NULL PRIMARY KEY,'+QuoteField('ID')+' BIGINT);');
+              end
+          except on e : Exception do
+            begin
+              if Assigned(BaseApplication) then
+                with BaseApplication as IBaseDBInterface do
+                  LastError := e.Message;
+              Result := False;
+            end;
+          end;
+        end;
+    end;
 end;
 function CreateDBFromProperties(aProp: string): Boolean;
 begin

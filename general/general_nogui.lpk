@@ -24,7 +24,7 @@
         <SmallerCode Value="True"/>
       </CodeGeneration>
     </CompilerOptions>
-    <Files Count="12">
+    <Files Count="13">
       <Item1>
         <Filename Value="src\Utils.pas"/>
         <UnitName Value="Utils"/>
@@ -73,6 +73,10 @@
         <Filename Value="src\uminiconvencoding.pas"/>
         <UnitName Value="uminiconvencoding"/>
       </Item12>
+      <Item13>
+        <Filename Value="src\uencrypt.pas"/>
+        <UnitName Value="uEncrypt"/>
+      </Item13>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>

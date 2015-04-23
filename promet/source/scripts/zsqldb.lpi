@@ -35,10 +35,12 @@
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="zcomponent_nogui"/>
+        <PackageName Value="general_nogui"/>
+        <DefaultFilename Value="..\..\..\general\general_nogui.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="general_nogui"/>
+        <PackageName Value="zcomponent_nogui"/>
+        <DefaultFilename Value="..\components\zeos\packages\lazarus\zcomponent_nogui.lpk"/>
       </Item2>
     </RequiredPackages>
     <Units Count="1">

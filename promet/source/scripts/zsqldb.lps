@@ -4,12 +4,13 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="15">
+    <Units Count="16">
       <Unit0>
         <Filename Value="zsqldb.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="6" Y="16"/>
+        <TopLine Value="110"/>
+        <CursorPos X="9" Y="131"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -109,13 +110,22 @@
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="1249"/>
-        <CursorPos Y="1258"/>
+        <TopLine Value="184"/>
+        <CursorPos X="15" Y="202"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit14>
+      <Unit15>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="498"/>
+        <CursorPos Y="503"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit15>
     </Units>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="19" HistoryIndex="18">
       <Position1>
         <Filename Value="zsqldb.lpr"/>
         <Caret Line="20" Column="5"/>
@@ -132,6 +142,66 @@
         <Filename Value="zsqldb.lpr"/>
         <Caret Line="38" Column="85" TopLine="9"/>
       </Position4>
+      <Position5>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="1296" Column="10" TopLine="1291"/>
+      </Position5>
+      <Position6>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="25" TopLine="3"/>
+      </Position6>
+      <Position7>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="26" TopLine="7"/>
+      </Position7>
+      <Position8>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="27" Column="3" TopLine="7"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="1324" Column="48" TopLine="1303"/>
+      </Position9>
+      <Position10>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="17"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="186" Column="52" TopLine="172"/>
+      </Position11>
+      <Position12>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="1343" Column="35" TopLine="1313"/>
+      </Position12>
+      <Position13>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="10" Column="21"/>
+      </Position13>
+      <Position14>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="204" Column="43" TopLine="184"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="1350" Column="48" TopLine="1320"/>
+      </Position15>
+      <Position16>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="10" Column="39" TopLine="5"/>
+      </Position16>
+      <Position17>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="17"/>
+      </Position17>
+      <Position18>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="118" Column="13" TopLine="98"/>
+      </Position18>
+      <Position19>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="18"/>
+      </Position19>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
