@@ -4,7 +4,7 @@ interface
 uses
   Classes, SysUtils, db, DbCtrls, DBGrids, Controls, Grids, Dialogs, LCLType,
   StdCtrls, Graphics, LMessages, LCLProc, LCLIntf, ComCtrls, Menus, Forms,
-  ExtCtrls,uModifiedDS;
+  ExtCtrls,uBaseDatasetInterfaces;
 type
   THackDBGrid = class(TDBGrid);
   THackGrid = class(TCustomGrid);

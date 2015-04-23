@@ -299,6 +299,8 @@ begin
         begin
           FProject.History.AddItem(Data.Users.DataSet,fChangeGantt.mRule.Text,'','',FProject.DataSet,ACICON_USEREDITED,'',True,True);
         end;
+      if fChangeGantt.cbMakeSnapshot.Checked then
+        Fproject.Makesnapshot(strSnapshot+' '+DateToStr(Now()));
     end;
 end;
 

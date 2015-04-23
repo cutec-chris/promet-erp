@@ -26,7 +26,7 @@ uses
   ZVDateTimePicker, uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, ugridview,
   uExtControls, uBaseVisualControls, uBaseDbClasses, uFormAnimate, uBaseSearch,
-  ImgList, uBaseDbInterface, uQuickHelpFrame, uHistoryFrame;
+  ImgList, uBaseDbInterface, uQuickHelpFrame, uHistoryFrame,uBaseDatasetInterfaces;
 type
 
   { TfmTimeline }

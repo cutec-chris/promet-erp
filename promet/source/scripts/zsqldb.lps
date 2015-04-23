@@ -4,253 +4,274 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="17">
+    <Units Count="19">
       <Unit0>
         <Filename Value="zsqldb.lpr"/>
         <IsPartOfProject Value="True"/>
+        <TopLine Value="28"/>
         <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uzsqldbdataset"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="16"/>
+        <CursorPos X="40" Y="150"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\base\dbintfs\ubasedatasetinterfaces.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uBaseDatasetInterfaces"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="93"/>
+        <CursorPos Y="130"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
         <Filename Value="tinkerforge\IPConnection.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="579"/>
         <CursorPos Y="601"/>
         <UsageCount Value="24"/>
-      </Unit1>
-      <Unit2>
+      </Unit3>
+      <Unit4>
         <Filename Value="tinkerforge\Device.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="86"/>
         <CursorPos X="35" Y="101"/>
         <UsageCount Value="23"/>
-      </Unit2>
-      <Unit3>
+      </Unit4>
+      <Unit5>
         <Filename Value="tinkerforge\BrickletLCD20x4.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="108"/>
         <CursorPos X="14" Y="124"/>
         <UsageCount Value="23"/>
-      </Unit3>
-      <Unit4>
+      </Unit5>
+      <Unit6>
         <Filename Value="tinkerforge\BrickletLCD16x2.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="103"/>
         <CursorPos X="14" Y="119"/>
         <UsageCount Value="23"/>
-      </Unit4>
-      <Unit5>
+      </Unit6>
+      <Unit7>
         <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbus.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="190"/>
         <CursorPos X="14" Y="194"/>
         <UsageCount Value="20"/>
-      </Unit5>
-      <Unit6>
+      </Unit7>
+      <Unit8>
         <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbusinterfaces.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="184"/>
         <CursorPos X="29" Y="8"/>
         <UsageCount Value="20"/>
-      </Unit6>
-      <Unit7>
+      </Unit8>
+      <Unit9>
         <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsinternbus.pas"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
         <UsageCount Value="20"/>
-      </Unit7>
-      <Unit8>
+      </Unit9>
+      <Unit10>
         <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\D2XXUnit.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="393"/>
         <CursorPos Y="409"/>
         <UsageCount Value="20"/>
-      </Unit8>
-      <Unit9>
+      </Unit10>
+      <Unit11>
         <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcswirelessintf.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="104"/>
         <CursorPos X="34" Y="108"/>
         <UsageCount Value="20"/>
-      </Unit9>
-      <Unit10>
+      </Unit11>
+      <Unit12>
         <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\inc\systemh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="907"/>
         <CursorPos X="11" Y="925"/>
         <UsageCount Value="10"/>
-      </Unit10>
-      <Unit11>
+      </Unit12>
+      <Unit13>
         <Filename Value="..\..\..\..\tcscmd_git\src\mypersistents.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="199"/>
         <CursorPos X="15" Y="217"/>
         <UsageCount Value="10"/>
-      </Unit11>
-      <Unit12>
+      </Unit13>
+      <Unit14>
         <Filename Value="tinkerforge\LEConverter.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="7"/>
         <CursorPos X="3" Y="16"/>
         <UsageCount Value="10"/>
-      </Unit12>
-      <Unit13>
+      </Unit14>
+      <Unit15>
         <Filename Value="tinkerforge\BrickletVoltageCurrent.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="384"/>
         <CursorPos X="3" Y="81"/>
         <UsageCount Value="10"/>
-      </Unit13>
-      <Unit14>
+      </Unit15>
+      <Unit16>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="2"/>
-        <CursorPos Y="20"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="78"/>
+        <CursorPos X="86" Y="88"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit14>
-      <Unit15>
+      </Unit16>
+      <Unit17>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="162"/>
         <CursorPos Y="180"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit15>
-      <Unit16>
-        <Filename Value="uzsqldbdataset.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="uzsqldbdataset"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="11" Y="18"/>
-        <UsageCount Value="20"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="..\..\..\general\src\umodifiedds.pas"/>
+        <UnitName Value="uModifiedDS"/>
+        <EditorIndex Value="3"/>
+        <CursorPos Y="9"/>
+        <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit16>
+      </Unit18>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="zsqldb.lpr"/>
-        <Caret Line="27" Column="3" TopLine="7"/>
+        <Caret Line="10" Column="39" TopLine="5"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1324" Column="48" TopLine="1303"/>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="17"/>
       </Position2>
       <Position3>
         <Filename Value="zsqldb.lpr"/>
-        <Caret Line="17"/>
+        <Caret Line="118" Column="13" TopLine="98"/>
       </Position3>
       <Position4>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="186" Column="52" TopLine="172"/>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="18"/>
       </Position4>
       <Position5>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1343" Column="35" TopLine="1313"/>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="131" Column="9" TopLine="110"/>
       </Position5>
       <Position6>
         <Filename Value="zsqldb.lpr"/>
-        <Caret Line="10" Column="21"/>
+        <Caret Line="137" Column="14" TopLine="19"/>
       </Position6>
       <Position7>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="204" Column="43" TopLine="184"/>
+        <Caret Line="199" Column="35" TopLine="185"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1350" Column="48" TopLine="1320"/>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="135" Column="20" TopLine="118"/>
       </Position8>
       <Position9>
         <Filename Value="zsqldb.lpr"/>
-        <Caret Line="10" Column="39" TopLine="5"/>
+        <Caret Line="137" Column="15" TopLine="118"/>
       </Position9>
       <Position10>
         <Filename Value="zsqldb.lpr"/>
-        <Caret Line="17"/>
+        <Caret Line="32" TopLine="19"/>
       </Position10>
       <Position11>
         <Filename Value="zsqldb.lpr"/>
-        <Caret Line="118" Column="13" TopLine="98"/>
+        <Caret Line="34" TopLine="8"/>
       </Position11>
       <Position12>
         <Filename Value="zsqldb.lpr"/>
-        <Caret Line="18"/>
+        <Caret Line="261" TopLine="225"/>
       </Position12>
       <Position13>
         <Filename Value="zsqldb.lpr"/>
-        <Caret Line="131" Column="9" TopLine="110"/>
+        <Caret Line="189" Column="41" TopLine="171"/>
       </Position13>
       <Position14>
         <Filename Value="zsqldb.lpr"/>
-        <Caret Line="137" Column="14" TopLine="19"/>
+        <Caret Line="192" Column="5" TopLine="171"/>
       </Position14>
       <Position15>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="199" Column="35" TopLine="185"/>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="40" Column="29" TopLine="3"/>
       </Position15>
       <Position16>
         <Filename Value="zsqldb.lpr"/>
-        <Caret Line="135" Column="20" TopLine="118"/>
+        <Caret Line="289" TopLine="252"/>
       </Position16>
       <Position17>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="137" Column="15" TopLine="118"/>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="1529" Column="21" TopLine="1525"/>
       </Position17>
       <Position18>
         <Filename Value="zsqldb.lpr"/>
-        <Caret Line="32" TopLine="19"/>
+        <Caret Line="18" Column="31"/>
       </Position18>
       <Position19>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="34" TopLine="8"/>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="1104" TopLine="1055"/>
       </Position19>
       <Position20>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="261" TopLine="225"/>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="8" Column="29"/>
       </Position20>
       <Position21>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="189" Column="41" TopLine="171"/>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="88" Column="30" TopLine="75"/>
       </Position21>
       <Position22>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="192" Column="5" TopLine="171"/>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="8" Column="40"/>
       </Position22>
       <Position23>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="40" Column="29" TopLine="3"/>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="18" Column="11"/>
       </Position23>
       <Position24>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="289" TopLine="252"/>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="27" Column="52" TopLine="11"/>
       </Position24>
       <Position25>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="1529" Column="21" TopLine="1525"/>
+        <Caret Line="20"/>
       </Position25>
       <Position26>
-        <Filename Value="zsqldb.lpr"/>
-        <Caret Line="18" Column="31"/>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="88" Column="86" TopLine="78"/>
       </Position26>
       <Position27>
-        <Filename Value="uzsqldbdataset.pas"/>
-        <Caret Line="1104" TopLine="1055"/>
+        <Filename Value="..\..\..\general\src\umodifiedds.pas"/>
+        <Caret Line="6"/>
       </Position27>
       <Position28>
         <Filename Value="uzsqldbdataset.pas"/>
-        <Caret Line="8" Column="29"/>
+        <Caret Line="27" Column="66" TopLine="17"/>
       </Position28>
       <Position29>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="88" Column="30" TopLine="75"/>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="43" Column="28" TopLine="15"/>
       </Position29>
       <Position30>
         <Filename Value="uzsqldbdataset.pas"/>
-        <Caret Line="8" Column="40"/>
+        <Caret Line="132" Column="58" TopLine="119"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

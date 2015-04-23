@@ -43,7 +43,7 @@
         <DefaultFilename Value="..\components\zeos\packages\lazarus\zcomponent_nogui.lpk"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="zsqldb.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -53,6 +53,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uzsqldbdataset"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="..\base\dbintfs\ubasedatasetinterfaces.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uBaseDatasetInterfaces"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -60,6 +65,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..\base\dbintfs"/>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

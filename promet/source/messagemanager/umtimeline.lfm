@@ -4,7 +4,7 @@ object fmTimeline: TfmTimeline
   Top = 257
   Width = 554
   Caption = 'Nachrichtenzentrale'
-  ClientHeight = 444
+  ClientHeight = 445
   ClientWidth = 554
   Color = clWindow
   KeyPreview = True
@@ -179,13 +179,12 @@ object fmTimeline: TfmTimeline
         ScrollWidth = 342
         TabOrder = 0
         TabStop = False
-        TopIndex = -1
       end
     end
   end
   object pMessages: TPanel
     Left = 0
-    Height = 301
+    Height = 302
     Top = 143
     Width = 554
     Align = alClient
@@ -462,10 +461,10 @@ object fmTimeline: TfmTimeline
       Visible = False
       object cbEnviroment: TComboBox
         Left = 88
-        Height = 27
+        Height = 21
         Top = 3
         Width = 179
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 0
         Text = '<keine>'
       end
@@ -644,4 +643,4 @@ object fmTimeline: TfmTimeline
       end
     end
   end
-end
+end

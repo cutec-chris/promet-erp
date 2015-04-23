@@ -24,7 +24,7 @@
         <SmallerCode Value="True"/>
       </CodeGeneration>
     </CompilerOptions>
-    <Files Count="13">
+    <Files Count="14">
       <Item1>
         <Filename Value="src\Utils.pas"/>
         <UnitName Value="Utils"/>
@@ -77,6 +77,10 @@
         <Filename Value="src\uencrypt.pas"/>
         <UnitName Value="uEncrypt"/>
       </Item13>
+      <Item14>
+        <Filename Value="src\ubasedatasetinterfaces.pas"/>
+        <UnitName Value="uBaseDatasetInterfaces"/>
+      </Item14>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>

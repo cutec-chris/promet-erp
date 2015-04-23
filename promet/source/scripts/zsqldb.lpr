@@ -26,7 +26,7 @@ library zsqldb;
 uses
   Classes,sysutils, zcomponent_nogui, ZConnection, db, ZSqlMetadata,
   ZAbstractRODataset, ZDataset, ZSequence,ZAbstractConnection,
-  ZSqlMonitor,Utils,uEncrypt,ZDbcIntfs, uzsqldbdataset;
+  ZSqlMonitor,Utils,uEncrypt,ZDbcIntfs, uzsqldbdataset, ubasedatasetinterfaces;
 
 var
   FMainConnection : TZConnection;

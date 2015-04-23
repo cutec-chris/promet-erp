@@ -15,7 +15,7 @@
         <SmallerCode Value="True"/>
       </CodeGeneration>
     </CompilerOptions>
-    <Files Count="43">
+    <Files Count="42">
       <Item1>
         <Filename Value="ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
@@ -184,10 +184,6 @@
         <Filename Value="umeasurement.pas"/>
         <UnitName Value="uMeasurement"/>
       </Item42>
-      <Item43>
-        <Filename Value="ubasedatasetinterfaces.pas"/>
-        <UnitName Value="uBaseDatasetInterfaces"/>
-      </Item43>
     </Files>
     <RequiredPkgs Count="7">
       <Item1>

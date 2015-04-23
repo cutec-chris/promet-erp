@@ -1,11 +1,11 @@
 object fChangeGantt: TfChangeGantt
   Left = 471
-  Height = 238
+  Height = 264
   Top = 267
   Width = 428
   ActiveControl = mRule
   Caption = 'Änderungen speichern'
-  ClientHeight = 238
+  ClientHeight = 264
   ClientWidth = 428
   LCLVersion = '1.5'
   object Label1: TLabel
@@ -20,30 +20,28 @@ object fChangeGantt: TfChangeGantt
   end
   object mRule: TMemo
     Left = 8
-    Height = 93
+    Height = 95
     Top = 24
     Width = 410
     Anchors = [akTop, akLeft, akRight, akBottom]
-    Lines.Strings = (
-      'mRule'
-    )
     TabOrder = 0
   end
   object cbSetAppt: TCheckBox
     Left = 8
     Height = 17
-    Top = 148
+    Top = 174
     Width = 353
     Anchors = [akLeft, akBottom]
     Caption = 'Termine setzen (ohne Haken werden nur Abhängigkeiten gespeichert)'
     Checked = True
+    OnChange = cbSetApptChange
     State = cbChecked
     TabOrder = 1
   end
   object cbChangeMilestones: TCheckBox
     Left = 8
     Height = 17
-    Top = 172
+    Top = 198
     Width = 144
     Anchors = [akLeft, akBottom]
     Caption = 'Meilensteintermine ändern'
@@ -54,7 +52,7 @@ object fChangeGantt: TfChangeGantt
   object ButtonPanel1: TButtonPanel
     Left = 6
     Height = 34
-    Top = 198
+    Top = 224
     Width = 416
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -70,10 +68,21 @@ object fChangeGantt: TfChangeGantt
   object cbAddToProject: TCheckBox
     Left = 8
     Height = 17
-    Top = 124
+    Top = 150
     Width = 172
     Anchors = [akLeft, akBottom]
     Caption = 'auch in Projektverlauf eintragen'
     TabOrder = 4
+  end
+  object cbMakeSnapshot: TCheckBox
+    Left = 8
+    Height = 17
+    Top = 126
+    Width = 107
+    Anchors = [akLeft, akBottom]
+    Caption = 'Snapshot erstellen'
+    Checked = True
+    State = cbChecked
+    TabOrder = 5
   end
 end
