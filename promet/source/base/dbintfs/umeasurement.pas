@@ -23,7 +23,7 @@ unit uMeasurement;
 interface
 
 uses
-  Classes, SysUtils,uBaseDbClasses,uBaseDBInterface,db;
+  Classes, SysUtils,uBaseDbClasses,uBaseDBInterface,db,uBaseDatasetInterfaces;
 
 
 type

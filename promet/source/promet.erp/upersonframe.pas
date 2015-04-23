@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ComCtrls,
   ExtCtrls, StdCtrls, DbCtrls, Buttons, db, uPrometFrames, uExtControls,
   uFilterFrame, DBGrids, Grids, Graphics, ActnList, uIntfstrconsts,
-  uBaseDBClasses, Dialogs, Menus, StdActns, Utils, uDocumentFrame, variants;
+  uBaseDBClasses, Dialogs, Menus, StdActns, Utils, uDocumentFrame, variants,uBaseDatasetInterfaces;
 type
 
   { TfPersonFrame }

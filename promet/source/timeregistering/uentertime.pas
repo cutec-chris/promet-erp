@@ -25,7 +25,7 @@ uses
   Buttons, uIntfStrConsts, db, ExtCtrls, Utils, LCLType, EditBtn,
   ActnList, Grids, Spin, DBGrids, Menus, ComCtrls, LR_Class, LR_DBSet,
   DateUtils, Math, uTimes, uGridView, uFilterFrame,
-  uBaseVisualControls;
+  uBaseVisualControls,uBaseDatasetInterfaces;
 type
 
   { TfEnterTime }

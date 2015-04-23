@@ -21,7 +21,7 @@ unit uMasterdata;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDbClasses, uBaseERPDBClasses, uIntfStrConsts;
+  Classes, SysUtils, db, uBaseDbClasses, uBaseERPDBClasses, uIntfStrConsts,uBaseDatasetInterfaces;
 type
 
   { TMasterdataList }

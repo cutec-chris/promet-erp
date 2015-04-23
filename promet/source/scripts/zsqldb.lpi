@@ -43,11 +43,16 @@
         <DefaultFilename Value="..\components\zeos\packages\lazarus\zcomponent_nogui.lpk"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="1">
+    <Units Count="2">
       <Unit0>
         <Filename Value="zsqldb.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uzsqldbdataset"/>
+      </Unit1>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

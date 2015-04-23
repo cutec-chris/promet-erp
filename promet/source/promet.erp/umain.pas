@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ComCtrls, ExtCtrls, ActnList, Buttons, StdCtrls, uBaseApplication,
   uBaseDBClasses, uExtControls, uBaseVisualApplication,db,uBaseSearch,uMainTreeFrame,
-  uWikiFrame,DBGrids,Grids, types,uEnterTime;
+  uWikiFrame,DBGrids,Grids, types,uEnterTime,uBaseDatasetInterfaces;
 type
   THackListBox = class(TListBox);
 

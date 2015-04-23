@@ -21,7 +21,7 @@ unit uBaseSearch;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uBaseDBClasses,uIntfStrConsts,variants,db;
+  Classes, SysUtils, uBaseDBClasses,uIntfStrConsts,variants,db,uBaseDatasetInterfaces;
 resourcestring
   strMatchcode                  = 'Suchbegriffe';
   strShortnames                 = 'Kurztexte';

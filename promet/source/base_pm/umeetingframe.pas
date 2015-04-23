@@ -28,7 +28,7 @@ uses
   ActnList, ComCtrls, ExtCtrls, StdCtrls, Buttons, DbCtrls, EditBtn,
   uprometframesinplace, uPrometFrames, uExtControls, ugridview, Dialogs,
   uIntfStrConsts, variants, DBGrids, Grids, Graphics, Menus, DBZVDateTimePicker,
-  ZVDateTimePicker, uBaseSearch, uBaseDbClasses;
+  ZVDateTimePicker, uBaseSearch, uBaseDbClasses,uBaseDatasetInterfaces;
 
 type
   THackCustomGrid = class(TCustomGrid);
@@ -982,7 +982,7 @@ begin
       SortField:='POSNO';
       NumberField:='POSNO';
       HasChildsField:='HASCHILDS';
-      SortDirection:=uBaseDbClasses.TSortDirection.sdAscending;
+      SortDirection:=TSortDirection.sdAscending;
       ReadOnly:=False;
       OnDblClick:=@FGridViewDblClick;
     end;

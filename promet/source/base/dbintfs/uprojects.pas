@@ -21,7 +21,7 @@ unit uProjects;
 interface
 uses
   Classes, SysUtils, uBaseDBClasses, db, uBaseDbInterface, uIntfStrConsts,
-  uBaseERPDbClasses,uTask,Variants;
+  uBaseERPDbClasses,uTask,Variants,uBaseDatasetInterfaces;
 type
   { TProjectList }
   TProjectList = class(TBaseERPList)

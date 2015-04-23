@@ -1,3 +1,22 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+Created 20.04.2015
+*******************************************************************************}
 library zsqldb;
 
 {$mode objfpc}{$H+}
@@ -7,7 +26,7 @@ library zsqldb;
 uses
   Classes,sysutils, zcomponent_nogui, ZConnection, db, ZSqlMetadata,
   ZAbstractRODataset, ZDataset, ZSequence,ZAbstractConnection,
-  ZSqlMonitor,Utils,uEncrypt,ZDbcIntfs;
+  ZSqlMonitor,Utils,uEncrypt,ZDbcIntfs, uzsqldbdataset;
 
 var
   FMainConnection : TZConnection;
@@ -15,6 +34,7 @@ var
   FLimitSTMT: String;
   FDBTyp: String;
   Sequence: TZSequence;
+  IgnoreOpenRequests : Boolean;
 resourcestring
   strUnknownDbType                = 'Unbekannter Datenbanktyp';
   strDatabaseConnectionLost       = 'Die Datenbankverbindung wurde verlohren !';
@@ -23,6 +43,12 @@ function GetNewConnection: TComponent;
 begin
 end;
 procedure Disconnect(aConnection : TComponent);
+begin
+end;
+function TableExists(aTableName : string;aConnection : TComponent = nil;AllowLowercase: Boolean = False) : Boolean;
+begin
+end;
+function QuoteField(aField: string): string;
 begin
 end;
 function SetProperties(aProp : string;Connection : TComponent = nil) : Boolean;
@@ -134,7 +160,7 @@ begin
   end;
   if Result then
     begin
-      if not DBExists then //Create generators
+      if not (TableExists('USERS') and TableExists('GEN_SQL_ID') and TableExists('GEN_AUTO_ID')) then //Create generators
         begin
           try
             if (copy(FConnection.Protocol,0,8) = 'firebird')
@@ -163,9 +189,9 @@ begin
               end
           except on e : Exception do
             begin
-              if Assigned(BaseApplication) then
-                with BaseApplication as IBaseDBInterface do
-                  LastError := e.Message;
+              //if Assigned(BaseApplication) then
+              //  with BaseApplication as IBaseDBInterface do
+              //    LastError := e.Message;
               Result := False;
             end;
           end;
@@ -173,7 +199,82 @@ begin
     end;
 end;
 function CreateDBFromProperties(aProp: string): Boolean;
+var
+  FConnection: TZConnection;
+  tmp: String;
+  aPassword: String;
+  aUser: String;
+  aDatabase: String;
 begin
+  FConnection := TZConnection.Create(nil);
+  //if Assigned(BaseApplication) then
+  //  with BaseApplication as IBaseDBInterface do
+  //    LastError := '';
+  tmp := aProp;
+  FConnection.Protocol:=copy(tmp,0,pos(';',tmp)-1);
+  Assert(FConnection.Protocol<>'',strUnknownDbType);
+  tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+  FConnection.HostName := copy(tmp,0,pos(';',tmp)-1);
+  if pos(':',FConnection.HostName) > 0 then
+    begin
+      FConnection.Port:=StrToInt(copy(FConnection.HostName,pos(':',FConnection.HostName)+1,length(FConnection.HostName)));
+      FConnection.HostName:=copy(FConnection.HostName,0,pos(':',FConnection.HostName)-1);
+    end
+  else if pos('/',FConnection.HostName) > 0 then
+    begin
+      FConnection.Port:=StrToInt(copy(FConnection.HostName,pos('/',FConnection.HostName)+1,length(FConnection.HostName)));
+      FConnection.HostName:=copy(FConnection.HostName,0,pos('/',FConnection.HostName)-1);
+    end;
+  tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+  aDatabase:=copy(tmp,0,pos(';',tmp)-1);
+  tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+  aUser := copy(tmp,0,pos(';',tmp)-1);
+  FConnection.User:=aUser;
+  tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+  FConnection.Database:=aDatabase;
+  if copy(tmp,0,1) = 'x' then
+    aPassword := Decrypt(copy(tmp,2,length(tmp)),99998)
+  else
+    aPassword := tmp;
+  FConnection.Password:=aPassword;
+  if (copy(FConnection.Protocol,0,8) = 'postgres')
+  then
+    begin
+      FConnection.Database:='postgres';
+    end
+    else if (copy(FConnection.Protocol,0,5) = 'mssql') then
+      FConnection.Properties.Add('CreateNewDatabase=CREATE DATABASE "'+aDatabase+'"')
+    else if (copy(FConnection.Protocol,0,8) = 'firebird')
+    or (copy(FConnection.Protocol,0,9) = 'interbase')
+    then
+      begin
+        if FConnection.HostName <> '' then
+          FConnection.Properties.Add('CreateNewDatabase=CREATE DATABASE '''+FConnection.HostName+':'+aDatabase+''' USER '''+aUser+''' PASSWORD '''+aPassword+''' PAGE_SIZE = 4096 DEFAULT CHARACTER SET UTF8')
+        else
+          FConnection.Properties.Add('CreateNewDatabase=CREATE DATABASE '''+aDatabase+''' USER '''+aUser+''' PASSWORD '''+aPassword+''' PAGE_SIZE = 4096 DEFAULT CHARACTER SET UTF8');
+      end
+    else if (copy(FConnection.Protocol,0,6) = 'sqlite') then
+      begin
+        ForceDirectories(ExtractFileDir(FConnection.Database));
+      end;
+  try
+    FConnection.Connected:=True;
+  except
+    on e : Exception do
+    //if Assigned(BaseApplication) then
+    //  with BaseApplication as IBaseDBInterface do
+    //    LastError := e.Message;
+  end;
+  if (copy(FConnection.Protocol,0,8) = 'postgres')
+  then
+    begin
+      Result := FConnection.ExecuteDirect('CREATE DATABASE "'+aDatabase+'" WITH OWNER = "'+aUser+'" ENCODING = ''UTF8'' CONNECTION LIMIT = -1;');
+      FConnection.Disconnect;
+      FConnection.Database:=aDatabase;
+    end;
+  FConnection.Connected:=True;
+  Result := FConnection.Connected;
+  FConnection.Free;
 end;
 function IsSQLDB : Boolean;
 begin
@@ -181,6 +282,30 @@ begin
 end;
 function GetNewDataSet(aSQL : string;aConnection : TComponent = nil;MasterData : TDataSet = nil;aOrigtable : TObject = nil) : TDataSet;
 begin
+  if IgnoreOpenrequests then exit;
+  Result := FDataSetClass.Create(Self);
+  if not Assigned(aConnection) then
+    aConnection := MainConnection;
+  with TZeosDBDataSet(Result) do
+    begin
+      Connection := TZConnection(aConnection);
+      FTableNames := aTables;
+      aTable.DefineFields(Result);
+      aTable.DefineDefaultFields(Result,Assigned(Masterdata));
+      FOrigTable := aTable;
+      if Assigned(Masterdata) then
+        begin
+          if not Assigned(TZeosDBDataSet(MasterData).MasterDataSource) then
+            begin
+              TZeosDBDataSet(MasterData).MasterDataSource := TDataSource.Create(Self);
+              TZeosDBDataSet(MasterData).MasterDataSource.DataSet := MasterData;
+            end;
+          DataSource := TZeosDBDataSet(MasterData).MasterDataSource;
+          MasterSource := TZeosDBDataSet(MasterData).MasterDataSource;
+          with Masterdata as IBaseSubDataSets do
+            RegisterSubDataSet(aTable);
+        end;
+    end;
 end;
 procedure DestroyDataSet(DataSet : TDataSet);
 begin
@@ -209,9 +334,6 @@ end;
 procedure DeleteExpiredSessions;
 begin
 end;
-function QuoteField(aField: string): string;
-begin
-end;
 function StartTransaction(aConnection : TComponent;ForceTransaction : Boolean = False): Boolean;
 begin
 end;
@@ -219,9 +341,6 @@ function CommitTransaction(aConnection : TComponent): Boolean;
 begin
 end;
 function RollbackTransaction(aConnection : TComponent): Boolean;
-begin
-end;
-function TableExists(aTableName : string;aConnection : TComponent = nil;AllowLowercase: Boolean = False) : Boolean;
 begin
 end;
 function TriggerExists(aTriggerName: string; aConnection: TComponent=nil; AllowLowercase: Boolean=False): Boolean;

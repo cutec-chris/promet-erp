@@ -26,7 +26,7 @@ uses
   ExtCtrls, DbCtrls, StdCtrls, uExtControls, DBZVDateTimePicker, db,
   uPrometFrames, uPrometFramesInplace, uBaseDBClasses, Dialogs, Spin, EditBtn,
   DBGrids, variants,uStatistic,SynCompletion, SynHighlighterPas,md5,LCLType,
-  TASeries, TACustomSeries,fpsqlparser,Clipbrd,uBaseVisualApplication;
+  TASeries, TACustomSeries,fpsqlparser,Clipbrd,uBaseVisualApplication,uBaseDatasetInterfaces;
 type
 
   { TfStatisticFrame }

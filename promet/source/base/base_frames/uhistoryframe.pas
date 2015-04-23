@@ -22,7 +22,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, DbCtrls, ExtCtrls,
   uPrometFramesInplaceDB, uExtControls, db, uBaseDbClasses, uFilterFrame, Grids,
-  DBGrids, Buttons, ActnList, ugridview, Clipbrd, Graphics;
+  DBGrids, Buttons, ActnList, ugridview, Clipbrd, Graphics,uBaseDatasetInterfaces;
 type
 
   { TfHistoryFrame }

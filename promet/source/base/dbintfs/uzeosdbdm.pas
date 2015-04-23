@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, db, uBaseDBInterface,ZConnection, ZSqlMetadata,
   ZAbstractRODataset, ZDataset, uBaseDbClasses, ZSequence,ZAbstractConnection,
-  uModifiedDS,ZSqlMonitor,Utils;
+  uModifiedDS,ZSqlMonitor,Utils,uBaseDatasetInterfaces;
 type
   TUnprotectedDataSet = class(TDataSet);
 
@@ -184,10 +184,10 @@ type
     function GetUseIntegrity: Boolean;
     procedure SetUseIntegrity(AValue: Boolean);
     //IBaseSubDataSets
-    function GetSubDataSet(aName : string): TBaseDBDataSet;
-    procedure RegisterSubDataSet(aDataSet : TBaseDBDataSet);
+    function GetSubDataSet(aName : string): TComponent;
+    procedure RegisterSubDataSet(aDataSet : TComponent);
     function GetCount : Integer;
-    function GetSubDataSetIdx(aIdx : Integer): TBaseDBDataSet;
+    function GetSubDataSetIdx(aIdx : Integer): TComponent;
     //IBaseModifiedDS
     function IsChanged: Boolean;
   public
@@ -1111,7 +1111,7 @@ begin
   if Assigned(FOrigTable) then
     FOrigTable.Change;
 end;
-function TZeosDBDataSet.GetSubDataSet(aName: string): TBaseDBDataSet;
+function TZeosDBDataSet.GetSubDataSet(aName: string): TComponent;
 var
   i: Integer;
 begin
@@ -1121,7 +1121,7 @@ begin
       if TableName = aName then
         Result := TBaseDBDataSet(FSubDataSets[i]);
 end;
-procedure TZeosDBDataSet.RegisterSubDataSet(aDataSet: TBaseDBDataSet);
+procedure TZeosDBDataSet.RegisterSubDataSet(aDataSet: TComponent);
 begin
   FSubDataSets.Add(aDataSet);
 end;
@@ -1129,7 +1129,7 @@ function TZeosDBDataSet.GetCount: Integer;
 begin
   Result := FSubDataSets.Count;
 end;
-function TZeosDBDataSet.GetSubDataSetIdx(aIdx: Integer): TBaseDBDataSet;
+function TZeosDBDataSet.GetSubDataSetIdx(aIdx: Integer): TComponent;
 begin
   Result := nil;
   if aIdx < FSubDataSets.Count then

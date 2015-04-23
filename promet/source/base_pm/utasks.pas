@@ -25,7 +25,7 @@ uses
    Forms, Controls, DBGrids, ValEdit, ExtCtrls, Buttons, ComCtrls,
   uPrometFramesInplaceDB, uExtControls, db, Grids, ActnList, Menus, StdCtrls,
   uBaseDBClasses, uBaseDbInterface, uGridView, uIntfStrConsts,
-  Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,Clipbrd, ExtDlgs;
+  Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,Clipbrd, ExtDlgs,uBaseDatasetInterfaces;
 type
   TOnStartTime = procedure(Sender : TObject;aProject,aTask,aCategory : string) of object;
 

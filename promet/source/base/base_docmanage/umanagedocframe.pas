@@ -29,7 +29,7 @@ uses
   uBaseDBInterface, threadedimageLoader, uDocumentFrame, DBZVDateTimePicker,
   PReport, Dialogs, PairSplitter, Menus, ExtDlgs, LCLType, uIntfStrConsts,
   uGeneralStrConsts, uBaseDbClasses, variants, types, uTimeLine, uPreviewFrame,
-  uOCR, uExtControls,syncobjs;
+  uOCR, uExtControls,syncobjs,uBaseDatasetInterfaces;
 
 type
   TImageItem = class(TObject)

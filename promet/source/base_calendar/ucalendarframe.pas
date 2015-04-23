@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, SynMemo, Forms, Controls, Buttons, ExtCtrls,
   StdCtrls, ActnList, db, uPrometFrames, VpMonthView, VpWeekView, VpDayView,
   VpBaseDS, VpData, VpBase, uBaseDbInterface, uCalendar, DateUtils, ComCtrls,
-  DbCtrls, Spin,uFilterFrame;
+  DbCtrls, Spin,uFilterFrame,uBaseDatasetInterfaces;
 type
   TCustomPrometheusDataStore = class(TVpCustomDataStore)
   private
@@ -255,7 +255,7 @@ var
       begin
         SortFields := 'NAME';
         Limit:=0;
-        SortDirection:=uBaseDbClasses.TSortDirection.sdAscending;
+        SortDirection:=TSortDirection.sdAscending;
       end;
     Data.SetFilter(aUsers,Data.QuoteField('PARENT')+'='+Data.QuoteValue(aParent));
     aUsers.DataSet.First;

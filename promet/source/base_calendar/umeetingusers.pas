@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, DbCtrls, Buttons,
   ActnList, uExtControls, db, uPrometFramesInplaceDB, uFilterFrame,uBaseDbClasses,
-  uBaseDBInterface,uIntfStrConsts,Grids;
+  uBaseDBInterface,uIntfStrConsts,Grids,uBaseDatasetInterfaces;
 
 type
   TfMeetingUsers = class(TPrometInplaceDBFrame)

@@ -25,7 +25,7 @@ uses
    Forms, StdCtrls, ExtCtrls, Buttons, ComCtrls, DBGrids, Grids,
   Controls, EditBtn, Spin, Menus, ActnList, md5, db, Variants, uIntfStrConsts,
   Dialogs, uExtControls, Graphics, LCLType, uTimeLine, ClipBrd, DbCtrls, math,
-  uBaseDbClasses, uBaseDBInterface, uPrometFrames, uBaseApplication,ugridview;
+  uBaseDbClasses, uBaseDBInterface, uPrometFrames, uBaseApplication,ugridview,uBaseDatasetInterfaces;
 type
   TOnGetCellTextEvent = procedure(Sender: TObject; DataCol: Integer;
               Column: TColumn;var aText : string) of object;

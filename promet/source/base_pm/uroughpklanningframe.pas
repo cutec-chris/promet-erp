@@ -27,7 +27,7 @@ uses
   uPrometFrames, uPrometFramesInplace, uBaseDBClasses, Dialogs, Spin, EditBtn,
   DBGrids, variants,uStatistic,SynCompletion,md5,LCLType,
   TASeries, TACustomSeries,fpsqlparser,Clipbrd,gsGanttCalendar,uProjects,Grids,
-  uIntfStrConsts,Graphics,Math;
+  uIntfStrConsts,Graphics,Math,uBaseDatasetInterfaces;
 type
   TFillingThread = class;
   TIntDepartment = class

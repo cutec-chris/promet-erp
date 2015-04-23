@@ -21,7 +21,7 @@ unit uWiki;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDBInterface, uDocuments,
-  uBaseApplication, uBaseSearch, uIntfStrConsts,WikiToHtml;
+  uBaseApplication, uBaseSearch, uIntfStrConsts,WikiToHtml,uBaseDatasetInterfaces;
 type
   TKeywords = class(TBaseDbDataSet)
   public
@@ -63,7 +63,7 @@ uses Variants,htmltowiki,Utils;
 
 procedure TKeywords.DefineFields(aDataSet: TDataSet);
 begin
-  with aDataSet as IBaseManageDB do
+  with TBaseDBDataSet(aDataSet) as IBaseManageDB do
     begin
       TableName := 'KEYWORDS';
       TableCaption:=strKeywords;

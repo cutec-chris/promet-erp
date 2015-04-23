@@ -21,7 +21,7 @@ unit uImpCSV;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, db, Utils, uBaseDbInterface, uBaseApplication;
+  Classes, SysUtils, db, Utils, uBaseDbInterface, uBaseApplication,uBaseDatasetInterfaces;
 procedure CSVExport(Filename : string;Delemiter : char;DataSet : TDataSet);
 procedure CSVImport(Filename : string;Delemiter : char;DataSet : TDataSet);
 implementation
@@ -167,4 +167,4 @@ begin
   header.Destroy;
 end;
 end.
-
+

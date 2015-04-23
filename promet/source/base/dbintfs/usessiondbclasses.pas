@@ -5,7 +5,7 @@ unit uSessionDBClasses;
 interface
 
 uses
-  Classes, SysUtils,uBaseDbClasses, db, uBaseDbInterface, uBaseApplication, md5;
+  Classes, SysUtils,uBaseDbClasses, db, uBaseDbInterface, uBaseApplication, md5,uBaseDatasetInterfaces;
 type
   TSessionVariables = class(TBaseDBDataSet)
   public

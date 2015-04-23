@@ -24,7 +24,7 @@ interface
 
 uses
   Classes,SysUtils,uDocuments,uBaseDbClasses,uBaseDBInterface,db,uIntfStrConsts,
-  Utils,usimpleprocess;
+  Utils,usimpleprocess,uBaseDatasetInterfaces;
 type
 
   { TDocPages }

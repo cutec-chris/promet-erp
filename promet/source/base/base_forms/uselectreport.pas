@@ -31,7 +31,7 @@ uses
   LR_E_CSV, lr_e_pdf, LR_DB_Zeos, LRDialogControls, Variants, UTF8process,
   ExtCtrls, DbCtrls, LCLType, uExtControls, FileUtil, uBaseApplication, uOrder,
   lr_richview, lr_tachart, SynBeautifier, PrintersDlgs,uBaseERPDBClasses,uBaseDbClasses,
-  Utils;
+  Utils,uBaseDatasetInterfaces;
 
 type
   TfrDesignerHackForm = TfrDesignerForm;

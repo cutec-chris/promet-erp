@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, ButtonPanel, uBaseDBClasses, uFilterFrame, uAccounting;
+  StdCtrls, ButtonPanel, uBaseDBClasses, uFilterFrame, uAccounting,uBaseDatasetInterfaces;
 
 type
   TfFindTransaction = class(TForm)

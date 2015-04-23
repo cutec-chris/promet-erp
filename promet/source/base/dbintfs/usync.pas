@@ -23,7 +23,7 @@ unit usync;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uBaseApplication,
-  fpjson,fpsqltree,synautil,Utils;
+  fpjson,fpsqltree,synautil,Utils,uBaseDatasetInterfaces;
 type
   TTableVersions = class(TBaseDBDataSet)
   public
@@ -776,4 +776,4 @@ begin
 end;
 
 end.
-
+

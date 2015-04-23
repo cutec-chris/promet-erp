@@ -20,7 +20,7 @@ unit uAccounting;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDBClasses, uBaseApplication,uIntfStrConsts;
+  Classes, SysUtils, db, uBaseDBClasses, uBaseApplication,uIntfStrConsts,uBaseDatasetInterfaces;
 type
 
   { TAccountExchange }

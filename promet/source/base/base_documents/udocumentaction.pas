@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls, DBGrids, DbCtrls, Buttons, ExtCtrls,
-  uIntfStrConsts,db,LCLType, ButtonPanel, uDocuments,uBaseDBInterface;
+  uIntfStrConsts,db,LCLType, ButtonPanel, uDocuments,uBaseDBInterface,uBaseDatasetInterfaces;
 
 type
 
@@ -191,4 +191,4 @@ end;
 initialization
 
 end.
-
+

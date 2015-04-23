@@ -25,7 +25,7 @@ uses
   Controls, Forms, Dialogs, StdCtrls, ExtCtrls, VpData, VpEdPop, VpDateEdit,
   ComCtrls, VpBase, VpClock, VpBaseDS, VpDlg, VpConst, ZVDateTimePicker,
   uExtControls, Buttons, EditBtn, ButtonPanel, Spin, DbCtrls, Menus, ActnList,
-  LR_DBSet, LR_Class, uIntfStrConsts, uCalendar, db, uBaseDbClasses;
+  LR_DBSet, LR_Class, uIntfStrConsts, uCalendar, db, uBaseDbClasses,uBaseDatasetInterfaces;
 type
 
   { TfEventEdit }

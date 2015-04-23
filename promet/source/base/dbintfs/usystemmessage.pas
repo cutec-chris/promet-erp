@@ -21,7 +21,7 @@ unit uSystemMessage;
 interface
 uses
   Classes, SysUtils, uBaseDbInterface, uBaseDbClasses, db, uBaseApplication,
-  Variants;
+  Variants,uBaseDatasetInterfaces;
 type
   TSystemCommands = class(TBaseDBDataSet)
   public

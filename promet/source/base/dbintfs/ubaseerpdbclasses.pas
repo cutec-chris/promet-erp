@@ -21,7 +21,7 @@ unit uBaseERPDBClasses;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uBaseDbClasses, db, ContNrs, uIntfStrConsts;
+  Classes, SysUtils, uBaseDbClasses, db, ContNrs, uIntfStrConsts,uBaseDatasetInterfaces;
 type
   TPostResult = (prSuccess,prAlreadyPosted,prFailed);
   IPostableDataSet = interface['{26EC4496-0D5A-4BFC-A712-C9001F5A0599}']
@@ -1446,4 +1446,4 @@ initialization
   PriceTypes := nil;
   RepairProblems := nil;
 end.
-
+

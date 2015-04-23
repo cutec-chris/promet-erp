@@ -21,7 +21,7 @@ unit uMainTreeFrame;
 interface
 uses
   Classes, SysUtils, FileUtil,  Forms, Controls, ComCtrls, ActnList,
-  Menus, ExtCtrls, uBaseDBInterface, uBaseDbClasses,uExtControls, db;
+  Menus, ExtCtrls, uBaseDBInterface, uBaseDbClasses,uExtControls, db,uBaseDatasetInterfaces;
 type
   TEntryTyp = (etNone,etAction,etDir,
                etFavourites,etLink,

@@ -24,7 +24,8 @@ unit uprometscripts;
 interface
 
 uses
-  Classes, SysUtils, uBaseDbClasses, uBaseDBInterface, db, Utils;
+  Classes, SysUtils, uBaseDbClasses, uBaseDBInterface, db, Utils
+  ,uBaseDatasetInterfaces;
 
 type
   { TBaseScript }

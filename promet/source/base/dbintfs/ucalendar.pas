@@ -22,7 +22,8 @@ unit uCalendar;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils,uBaseDbClasses,uBaseDbInterface,db,uIntfStrConsts,variants;
+  Classes, SysUtils,uBaseDbClasses,uBaseDbInterface,db,uIntfStrConsts,variants,
+  uBaseDatasetInterfaces;
 type
   TMeetingUsers = class(TBaseDBDataSet)
   protected

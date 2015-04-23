@@ -177,7 +177,7 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="27">
+    <RequiredPackages Count="26">
       <Item1>
         <PackageName Value="promet_scripts"/>
         <DefaultFilename Value="../base/base_scripts/promet_scripts.lpk"/>
@@ -275,12 +275,8 @@
         <DefaultFilename Value="../../../general/general.lpk"/>
       </Item25>
       <Item26>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
-      </Item26>
-      <Item27>
         <PackageName Value="LCL"/>
-      </Item27>
+      </Item26>
     </RequiredPackages>
     <Units Count="48">
       <Unit0>
@@ -301,6 +297,7 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -322,6 +319,7 @@
         <ComponentName Value="fAccountingFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uAccountingFrame"/>
       </Unit5>
       <Unit6>
         <Filename Value="uaccountingque.pas"/>
@@ -364,7 +362,6 @@
         <ComponentName Value="fScriptFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uscriptframe"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -526,6 +523,7 @@
         <ComponentName Value="fFindTransaction"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uFindTransaction"/>
       </Unit34>
       <Unit35>
         <Filename Value="uorderaddressframe.pas"/>
@@ -600,6 +598,7 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticleFrame"/>
       </Unit45>
       <Unit46>
         <Filename Value="uallobjects.pas"/>
