@@ -1,5 +1,6 @@
 ﻿Build 396
-      -
+      - Datenbank:schon vergebene SQL_IDś werden übersprungen
+      - Scripte:Verlaufseintrag bei jedem speichern (wie bei jedem Listenelement)
 Build 395
       - Gantt:Separater Dialog für verschiedene Rechenmodelle beim verschieben von Plänen
       - Gantt:Separater Dialog beim speichern mit Angabe von Gründen, die in alle verschobenen Aufgaben übernommen werden
