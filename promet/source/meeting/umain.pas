@@ -22,7 +22,7 @@ unit umain;
 interface
 uses
    Forms, Controls, Buttons, Menus, ActnList, StdCtrls, uExtControls,
-  ComCtrls, ExtCtrls,uMainTreeFrame, Classes;
+  ComCtrls, ExtCtrls,uMainTreeFrame, Classes,uBaseDatasetInterfaces;
 type
   TfMain = class(TForm)
     acLogin: TAction;
@@ -318,4 +318,4 @@ begin
 end;
 
 initialization
-end.
+end.

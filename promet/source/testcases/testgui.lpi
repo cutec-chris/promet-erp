@@ -89,6 +89,7 @@
       <Unit6>
         <Filename Value="ucreatetable.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ucreatetable"/>
       </Unit6>
       <Unit7>
         <Filename Value="udocumentmanagement.pas"/>
@@ -130,6 +131,9 @@
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="testgui"/>
+    </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
@@ -148,4 +152,14 @@
       <CustomOptions Value="-dUSEFORM"/>
     </Other>
   </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="2">
+      <Item1>
+        <Name Value="EZSQLException"/>
+      </Item1>
+      <Item2>
+        <Name Value="EProcess"/>
+      </Item2>
+    </Exceptions>
+  </Debugging>
 </CONFIG>
