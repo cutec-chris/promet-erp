@@ -9,7 +9,7 @@ uses
   Classes, SysUtils, CustApp,
   pcmdprometapp, uData, db, uBaseDBInterface, uBaseApplication,
   uBaseCustomApplication, uBaseDbClasses, uSync, uOrder, uPerson, uMasterdata,
-  uMessages,Utils,uminiconvencoding;
+  uMessages,Utils,uminiconvencoding,uBaseDatasetInterfaces;
 type
 
   { TSyncDBApp }

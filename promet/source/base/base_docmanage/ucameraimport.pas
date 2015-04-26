@@ -33,7 +33,7 @@ type
   { TfCameraimport }
 
   TfCameraimport = class(TForm)
-    Button1: TButton;
+    bImportAll: TButton;
     bImport: TButton;
     Button2: TButton;
     ButtonPanel1: TButtonPanel;
@@ -42,7 +42,7 @@ type
     Label1: TLabel;
     lvPhotos: TListView;
     procedure bImportClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure bImportAllClick(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure cbCameraSelect(Sender: TObject);
   private
@@ -110,8 +110,20 @@ var
   sl: TStringList;
   extn: String;
   aSecFile: String;
+  i: Integer;
+  tmp: String;
 begin
-  if lvPhotos.Selected=nil then exit;
+  if lvPhotos.Selected=nil then
+    begin
+      i := 0;
+      lvPhotos.Selected := lvPhotos.Items[0];
+      while not lvPhotos.Selected.Checked do
+        begin
+          inc(i);
+          if i>=lvPhotos.Items.Count then exit;
+          lvPhotos.Selected := lvPhotos.Items[i];
+        end;
+    end;
   with BaseApplication as IBaseApplication do
     begin
       If FindFirstUTF8(AppendPathDelim(GetInternalTempDir)+'raw_*',faAnyFile,AInfo)=0 then
@@ -166,10 +178,10 @@ begin
   else NewFileName:=aFile;
   if FileExists(NewFileName) then
     begin
-      TDocPages(FDoc.DataSet).AddFromFile(NewFileName);
-      if not TDocPages(FDoc.DataSet).CanEdit then TDocPages(FDoc.DataSet).DataSet.Edit;
-      TDocPages(FDoc.DataSet).FieldByName('TYPE').AsString:=FDoc.Typ;
-      TDocPages(FDoc.DataSet).Post;
+      TDocPages(FDoc.FullDataSet).AddFromFile(NewFileName);
+      if not TDocPages(FDoc.FullDataSet).CanEdit then TDocPages(FDoc.FullDataSet).DataSet.Edit;
+      TDocPages(FDoc.FullDataSet).FieldByName('TYPE').AsString:=FDoc.Typ;
+      TDocPages(FDoc.FullDataSet).Post;
            aFile := NewFileName;
           extn :=  AnsiString(AnsiLowerCase(ExtractFileExt(aFile)));
           if (extn = '.cr2')
@@ -240,13 +252,19 @@ begin
           with BaseApplication as IBaseApplication do
             aProcess.CurrentDirectory:=GetInternalTempDir;
           try
-            aProcess.CommandLine:='gphoto2 --delete-file='+atmp;
-            aProcess.Options:=[poUsePipes,poWaitOnExit];
-            aProcess.Execute;
-            sl.LoadFromStream(aProcess.Output);
+            try
+              aProcess.CommandLine:='gphoto2 --delete-file='+atmp;
+              aProcess.Options:=[poUsePipes,poWaitOnExit];
+              aProcess.Execute;
+              sl.LoadFromStream(aProcess.Output);
+            except
+              on e : Exception do
+                sl.Text:=e.Message;
+            end;
           finally
             aProcess.Free;
           end;
+          tmp := sl.Text;
           sl.Free;
         end;
       if Sender <> nil then
@@ -257,7 +275,7 @@ begin
     cbCameraSelect(nil);
 end;
 
-procedure TfCameraimport.Button1Click(Sender: TObject);
+procedure TfCameraimport.bImportAllClick(Sender: TObject);
 var
   i: Integer;
   oldDelete: Boolean;

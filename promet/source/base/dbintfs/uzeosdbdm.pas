@@ -770,8 +770,8 @@ begin
   SetNewIDIfNull;
   if FUpStdFields and Assigned(FOrigTable) {and (FOrigTable.Changed)} then
     begin
-      if (FieldDefs.IndexOf('TIMESTAMPD') > -1) then
-        FieldByName('TIMESTAMPD').AsDateTime:=Now();
+      //if (FieldDefs.IndexOf('TIMESTAMPD') > -1) then
+      FieldByName('TIMESTAMPD').AsDateTime:=Now();
       with BaseApplication as IBaseDBInterface do
         begin
           if Data.Users.DataSet.Active then

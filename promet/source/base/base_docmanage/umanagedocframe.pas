@@ -228,6 +228,7 @@ type
     procedure OpenDir(aDir : Variant);
     property Typ : string read GetTyp write SetTyp;
     procedure ShowFrame; override;
+    property FullDataSet : TDocPages read FFullDataSet;
   end;
 
   { TImportCheckTherad }
