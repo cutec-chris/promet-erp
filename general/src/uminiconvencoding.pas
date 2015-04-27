@@ -122,6 +122,9 @@ function UTF8ToDBCS(const s: string;
 
 procedure GetSupportedEncodings(List: TStrings);
 
+procedure UTF8FixBroken(P: PChar);
+procedure UTF8FixBroken(var S: string);
+
 implementation
 
 {$IFDEF Windows}
@@ -7160,6 +7163,79 @@ begin
   except
   end;
   {$endif}
+end;
+
+{ fix any broken UTF8 sequences with spaces }
+procedure UTF8FixBroken(P: PChar);
+var
+  c: cardinal;
+begin
+  if p=nil then exit;
+  while p^<>#0 do begin
+    if ord(p^)<%10000000 then begin
+      // regular single byte character
+      inc(p);
+    end
+    else if ord(p^)<%11000000 then begin
+      // invalid
+      p^:=' ';
+      inc(p);
+    end
+    else if ((ord(p^) and %11100000) = %11000000) then begin
+      // starts with %110 => should be 2 byte character
+      if ((ord(p[1]) and %11000000) = %10000000) then begin
+        c:=((ord(p^) and %00011111) shl 6);
+           //or (ord(p[1]) and %00111111);
+        if c<(1 shl 7) then
+          p^:=' '  // fix XSS attack
+        else
+          inc(p,2)
+      end
+      else if p[1]<>#0 then
+        p^:=' ';
+    end
+    else if ((ord(p^) and %11110000) = %11100000) then begin
+      // starts with %1110 => should be 3 byte character
+      if ((ord(p[1]) and %11000000) = %10000000)
+      and ((ord(p[2]) and %11000000) = %10000000) then begin
+        c:=((ord(p^) and %00011111) shl 12)
+           or ((ord(p[1]) and %00111111) shl 6);
+           //or (ord(p[2]) and %00111111);
+        if c<(1 shl 11) then
+          p^:=' '  // fix XSS attack
+        else
+          inc(p,3);
+      end else
+        p^:=' ';
+    end
+    else if ((ord(p^) and %11111000) = %11110000) then begin
+      // starts with %11110 => should be 4 byte character
+      if ((ord(p[1]) and %11000000) = %10000000)
+      and ((ord(p[2]) and %11000000) = %10000000)
+      and ((ord(p[3]) and %11000000) = %10000000) then begin
+        c:=((ord(p^) and %00001111) shl 18)
+           or ((ord(p[1]) and %00111111) shl 12)
+           or ((ord(p[2]) and %00111111) shl 6);
+           //or (ord(p[3]) and %00111111);
+        if c<(1 shl 16) then
+          p^:=' ' // fix XSS attack
+        else
+          inc(p,4)
+      end else
+        p^:=' ';
+    end
+    else begin
+      p^:=' ';
+      inc(p);
+    end;
+  end;
+end;
+
+procedure UTF8FixBroken(var S: string);
+begin
+  if S='' then exit;
+  UniqueString(S);
+  UTF8FixBroken(PChar(S));
 end;
 
 end.

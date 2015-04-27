@@ -441,6 +441,7 @@ begin
   end
   else
     Result:=s;
+  UTF8FixBroken(Result);
 end;
 
 function AppendPathDelim(const Path: string): string;
