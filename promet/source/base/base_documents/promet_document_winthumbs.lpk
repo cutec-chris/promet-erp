@@ -16,7 +16,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="2">
+    <Files Count="3">
       <Item1>
         <Filename Value="shellobjhelper.pas"/>
         <UnitName Value="ShellObjHelper"/>
@@ -25,6 +25,10 @@
         <Filename Value="shobjidlquot.pas"/>
         <UnitName Value="ShObjIdlQuot"/>
       </Item2>
+      <Item3>
+        <Filename Value="uwindowsshellpreviews.pas"/>
+        <UnitName Value="uwindowsshellpreviews"/>
+      </Item3>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="1">
