@@ -363,6 +363,9 @@ begin
   end;
   SetLength(Result, Rp - PChar(Result));
   Result := SysToUni(Result);
+  Result := StringReplace(Result,#13#13,#13,[rfReplaceAll]);
+  Result := StringReplace(Result,#10#10,#10,[rfReplaceAll]);
+  Result := StringReplace(Result,#10#13#10#13,#10#13,[rfReplaceAll]);
 end;
 var
   FNeedRTLAnsi: boolean = false;
