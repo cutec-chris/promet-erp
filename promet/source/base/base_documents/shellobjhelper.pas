@@ -13,7 +13,7 @@ unit ShellObjHelper;
 interface
 
 uses
-  LCLIntf, LCLType, LMessages, ShlObj, ShObjIdlQuot, ActiveX, Graphics, comobj,Windows;
+  ShlObj, ShObjIdlQuot, ActiveX, Comobj,Windows, Graphics;
 
 {$IFDEF DELPHI3}
 // Delphi 3 SysUtils does not have this function

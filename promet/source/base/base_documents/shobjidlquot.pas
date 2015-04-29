@@ -11,7 +11,7 @@ unit ShObjIdlQuot;
 
 interface
 
-uses LCLIntf, LCLType, LMessages,windows;
+uses Windows;
 
 type
   { from ShlObjIdl.h }
