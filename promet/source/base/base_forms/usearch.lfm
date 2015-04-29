@@ -442,7 +442,7 @@ object fSearch: TfSearch
     end
     object sgResults: TStringGrid
       Left = 8
-      Height = 228
+      Height = 212
       Top = 20
       Width = 399
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -500,6 +500,17 @@ object fSearch: TfSearch
         0
         0
       )
+    end
+    object bSearchFurther: TButton
+      Left = 8
+      Height = 23
+      Top = 229
+      Width = 399
+      Anchors = [akLeft, akRight, akBottom]
+      Caption = 'weitersuchen (mehr Ergebnisse)'
+      OnClick = bSearchFurtherClick
+      TabOrder = 1
+      Visible = False
     end
   end
   object lHint: TLabel
