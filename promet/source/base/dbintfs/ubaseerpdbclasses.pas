@@ -431,7 +431,7 @@ begin
           aSync:= TSyncItems.CreateEx(nil,DataModule);
           aSync.SelectByReference(aObject.Id.AsVariant);
           aSync.Open;
-          while not aDoc.EOF do
+          while not aSync.EOF do
             begin
               aSync.Edit;
               aSync.FieldByName('LOCAL_ID').AsVariant:=Self.Id.AsVariant;
