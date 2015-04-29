@@ -51,6 +51,9 @@ type
     FEndSearch: TNotifyEvent;
     FFullEndSearch: TNotifyEvent;
     FItemFound: TSearchResultItem;
+    FNewFound: Boolean;
+    FNextLevel: Integer;
+    FSearchString: string;
     FSearchTypes: TFullTextSearchTypes;
     FSearchLocations: TSearchLocations;
     FSender: TComponent;
@@ -73,6 +76,9 @@ type
     property OnEndSearch : TNotifyEvent read FFullEndSearch write FFullEndSearch;
     property Sender : TComponent read FSender write FSender;
     property Count : Integer read FCount;
+    property NextSearchLevel : Integer read FNextLevel;
+    property SearchString : string read FSearchString;
+    property NewFound : Boolean read FNewFound;
   end;
   TLinkObject = class(TObject)
   private
@@ -197,6 +203,13 @@ end;
 function TSearch.Start(SearchText: string; aLevel: Integer): Boolean;
 begin
   Result := True;
+  FNewFound := False;
+  FNextLevel := aLevel+1;
+  if SearchText<>FSearchString then
+    begin
+      FSearchString:=SearchText;
+      FCount := 0;
+    end;
   case aLevel of
   0:DoStartHistorySearch(SearchText);
   1:DoStartAllObjectsSearch(SearchText);
@@ -252,7 +265,6 @@ begin
     end;
   if not Assigned(FItemFound) then exit;
   FActive := True;
-  FCount := 0;
   with BaseApplication as IBaseDBInterface do
     begin
       //Search for registered Searchtytpes
@@ -315,10 +327,14 @@ begin
                                   aLPrio := aPrio;
                                   if aActive then
                                     aLPrio := aLPrio+500;
-                                  FItemFound(Lists[i].Number.AsString,Lists[i].Text.AsString,Lists[i].Status.AsString,aActive,Data.BuildLink(Lists[i].DataSet),aPrio,Lists[i])
+                                  FItemFound(Lists[i].Number.AsString,Lists[i].Text.AsString,Lists[i].Status.AsString,aActive,Data.BuildLink(Lists[i].DataSet),aPrio,Lists[i]);
+                                  FNewFound:=True;
                                 end
                               else
-                                FItemFound(Lists[i].Number.AsString,Lists[i].Text.AsString,Lists[i].Status.AsString,True,Data.BuildLink(Lists[i].DataSet),aPrio+300,Lists[i]);
+                                begin
+                                  FItemFound(Lists[i].Number.AsString,Lists[i].Text.AsString,Lists[i].Status.AsString,True,Data.BuildLink(Lists[i].DataSet),aPrio+300,Lists[i]);
+                                  FNewFound:=True;
+                                end;
                             end
                           else
                             FItemFound(Lists[i].Number.AsString,Lists[i].Text.AsString,'',True,Data.BuildLink(Lists[i].DataSet),aPrio,Lists[i]);
@@ -353,10 +369,10 @@ begin
         end;
 
     end;
+  FActive := False;
   if Assigned(FFullEndSearch) then FFullEndSearch(Self);
   with BaseApplication as IBaseApplication do
     Debug('Search:StartSearch End');
-  FActive := False;
 end;
 
 procedure TSearch.DoStartAllObjectsSearch(SearchText: string);
@@ -438,10 +454,14 @@ begin
                                   aActive := Data.States.DataSet.Locate('STATUS;TYPE',VarArrayOf([aLinkDs.Status.AsString,aLinkDs.Typ]),[loCaseInsensitive]);
                                   if aActive then
                                     aActive := aActive and (Data.States.FieldByName('ACTIVE').AsString='Y');
-                                  FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,aLinkDs.Status.AsString,aActive,aObjects.FieldByName('LINK').AsString,3000)
+                                  FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,aLinkDs.Status.AsString,aActive,aObjects.FieldByName('LINK').AsString,3000);
+                                  FNewFound:=True;
                                 end
                               else
-                                FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,'',True,aObjects.FieldByName('LINK').AsString,3000);
+                                begin
+                                  FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,'',True,aObjects.FieldByName('LINK').AsString,3000);
+                                  FNewFound:=True;
+                                end;
                             end;
                         end;
                     end;
@@ -452,9 +472,10 @@ begin
         end;
     end;
   aObjects.Free;
+  FActive := False;
+  if Assigned(FFullEndSearch) then FFullEndSearch(Self);
   with BaseApplication as IBaseApplication do
     Debug('Search:EndAllObjectsSearch');
-  if Assigned(FFullEndSearch) then FFullEndSearch(Self);
 end;
 
 procedure TSearch.DoStartHistorySearch(SearchText: string);
@@ -501,7 +522,10 @@ begin
                                   if aActive then
                                     aActive := aActive and (Data.States.FieldByName('ACTIVE').AsString='Y');
                                   if ItemValid(aDs.FieldByName('LINK').AsString) then
-                                    FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,aLinkDs.Status.AsString,aActive,aDs.FieldByName('LINK').AsString,3000)
+                                    begin
+                                      FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,aLinkDs.Status.AsString,aActive,aDs.FieldByName('LINK').AsString,3000);
+                                      FNewFound:=True;
+                                    end;
                                 end
                               else if ItemValid(aDs.FieldByName('LINK').AsString) then
                                 FItemFound(aLinkDs.Number.AsString,aLinkDs.Text.AsString,'',True,aDs.FieldByName('LINK').AsString,3000);
@@ -515,10 +539,10 @@ begin
         end;
       aDS.Free;
     end;
+  FActive := False;
   if Assigned(FFullEndSearch) then FFullEndSearch(Self);
   with BaseApplication as IBaseApplication do
     Debug('Search:EndHistorySearch');
-  FActive := False;
 end;
 
 procedure TSearch.Abort;
