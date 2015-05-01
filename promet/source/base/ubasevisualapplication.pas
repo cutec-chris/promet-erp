@@ -237,6 +237,7 @@ var
   err: String;
 begin
   if e.Message='Invalid variant type cast' then exit;
+  Error(e.Message);
   fError := TfError.Create(Self);
   fError.SetLanguage;
 //  if E is EDatabaseError then
@@ -1180,4 +1181,4 @@ initialization
 finalization
   MainFrames.Free;
 end.
-
+

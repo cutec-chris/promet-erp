@@ -736,6 +736,7 @@ end;
 
 procedure TStarterThread.AddTimeReg;
 begin
+  try
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
     begin
       fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
@@ -747,6 +748,9 @@ begin
       fMain.pTimes.Visible := True;
       SendIPCMessage('noop',GetTempDir+'PMSTimeregistering');
     end;
+  except
+    DoInfo('Timeregistering Error:');
+  end;
 end;
 
 procedure TStarterThread.AddTimeReg2;
@@ -763,8 +767,9 @@ begin
           fMain.FTimeReg.RefreshNode;
         end;
     end;
-
-  finally
+  except
+    MainNode.Free;
+    DoInfo('Timeregistering Error:RefreshNode');
   end;
 end;
 
@@ -899,13 +904,18 @@ end;
 
 constructor TStarterThread.Create(aSuspended: Boolean);
 begin
-  {$ifndef UNIX}
-  FreeOnTerminate:=True;
-  Priority:=tpLowest;
-  inherited Create(aSuspended);
-  {$else}
-  Execute;
-  {$endif}
+  if not BaseApplication.HasOption('disablethreads') then
+    begin
+      {$ifndef UNIX}
+      FreeOnTerminate:=True;
+      Priority:=tpLowest;
+      inherited Create(aSuspended);
+      {$else}
+      Execute;
+      {$endif}
+    end
+  else
+    Execute;
 end;
 
 procedure TStarterThread.Execute;
@@ -916,13 +926,14 @@ var
   aDS: TMeetings;
 begin
   DoInfo('start');
-  //Synchronize(@NewConn);
   aConn := nil;
   Synchronize(@NewMenu);
+  DoInfo('Startuptype');
   Synchronize(@DoStartupType);
   miNew.Action := fMainTreeFrame.acSearch;
   DoInfo('Timeregistering');
   Synchronize(@AddTimeReg);
+  DoInfo('Objects,Tree,...');
   //All Objects
   fMain.pcPages.AddTabClass(TfFilter,strObjectList,@fMain.AddElementList,Data.GetLinkIcon('ALLOBJECTS@'),True);
   //Expand Tree

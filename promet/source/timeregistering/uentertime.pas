@@ -317,19 +317,6 @@ procedure TfEnterTime.TimerTimer(Sender: TObject);
 begin
   if not Assigned(uData.Data) then exit;
   Calculate(False);
-  {
-  with Application as IBaseDBInterface do
-    begin
-      if DBConfig.ReadString('WORKTIMEMESSAGE','N') = 'Y' then
-        begin
-          if (aTimesTD > GetWorkTime(Data.Users.FieldByName('ACCOUNTNO').AsString)) and (WorkTimeMessage) then
-            begin
-              WorkTimeMessage := False;
-              Showmessage(strWorkTimeOverdune);
-            end;
-        end;
-    end;
-  }
 end;
 procedure TfEnterTime.tmShowDialogTimer(Sender: TObject);
 var
@@ -524,6 +511,8 @@ begin
     end;
   if (not acStop.Enabled) or (Sender = nil) then
     begin
+      with Application as IBaseApplication do
+        Info('Timeregistering:start Time');
       Times.DataSet.Insert;
       Times.FieldByName('LINK').AsString := FLink;
       Times.FieldByName('PROJECT').AsString := FProject;
@@ -555,6 +544,8 @@ begin
     end
   else //pause
     begin
+      with Application as IBaseApplication do
+        Info('Timeregistering:pause Time ');
       Times.DuplicateRecord(False);
       Times.FieldByName('ISPAUSE').AsString := 'N';
       Times.FieldByName('START').AsFloat := Now();
@@ -923,42 +914,6 @@ var
   aTime: Double;
 begin
   Calculate;
-{
-  if Startmodified then
-    begin
-      FTimes.DataSet.DisableControls;
-      Rec := FTimes.GetBookmark;
-      aTime := FTimes.FieldByName('START').AsDateTime;
-      fTimes.DataSet.Next;
-      if (FTimes.GetBookmark <> rec) and (FTimes.FieldByName('END').AsDateTime <> aTime) and (FTimes.FieldByName('END').AsDateTime = EndValue) then
-        begin
-          FTimes.DataSet.Edit;
-          FTimes.FieldByName('END').AsDateTime:=aTime;
-          FTimes.DataSet.Post;
-          FTimes.DataSet.Prior;
-        end
-      else if (FTimes.GetBookmark <> rec) then
-        FTimes.DataSet.Prior;
-      FTimes.DataSet.EnableControls;
-    end;
-  if EndModified then
-    begin
-      FTimes.DataSet.DisableControls;
-      Rec := FTimes.GetBookmark;
-      aTime := FTimes.FieldByName('END').AsDateTime;
-      fTimes.DataSet.Prior;
-      if (FTimes.GetBookmark <> rec) and (FTimes.FieldByName('START').AsDateTime <> aTime) and (FTimes.FieldByName('START').AsDateTime = StartValue) then
-        begin
-          FTimes.DataSet.Edit;
-          FTimes.FieldByName('START').AsDateTime:=aTime;
-          FTimes.DataSet.Post;
-          FTimes.DataSet.Next;
-        end
-      else if (FTimes.GetBookmark <> rec) then
-        FTimes.DataSet.Next;
-      FTimes.DataSet.EnableControls;
-    end;
-}
 end;
 procedure TfEnterTime.FTimesBeforeEdit(DataSet: TDataSet);
 begin
@@ -1051,6 +1006,7 @@ begin
   if not Assigned(Parent) then exit;
   if not Assigned(Data) then exit;
   if (FIntTimes.DataSet.State <> dsBrowse) then exit;
+  try
   if aDoRefresh then
     begin
       FIntTimes.DataSet.Refresh;
@@ -1134,6 +1090,8 @@ begin
       lTimeWeekValue.Caption := DateTimeToIndustrialTime(aTimesTW);
       lTimeMonthValue.Caption := DateTimeToIndustrialTime(aTimesTM);
     end;
+  except
+  end;
 end;
 
 procedure TfEnterTime.StopActualTime;
@@ -1157,6 +1115,8 @@ procedure TfEnterTime.DoSetup;
 var
   aRes: LongInt;
 begin
+  with Application as IBaseApplication do
+    Info('Timeregistering:DoSetup');
   if not Assigned(Times) then
     begin
       with Application as IBaseDbInterface do
@@ -1177,6 +1137,8 @@ begin
       if DBConfig.ReadString('NOTIMEREG','N') = 'Y' then exit;
       Application.QueueAsyncCall(@AskUserforContinue,0);
     end;
+  with Application as IBaseApplication do
+    Info('Timeregistering:DoSetup end');
 end;
 procedure TfEnterTime.SetLanguage;
 begin
@@ -1292,4 +1254,4 @@ begin
 end;
 initialization
 end.
-
+
