@@ -414,7 +414,7 @@ object fEnterTime: TfEnterTime
           Height = 22
           Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
           Top = 0
-          Width = 225
+          Width = 201
           Anchors = [akTop, akLeft, akRight]
           ButtonWidth = 23
           CharCase = ecNormal
@@ -501,7 +501,7 @@ object fEnterTime: TfEnterTime
           Height = 22
           Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
           Top = 0
-          Width = 225
+          Width = 201
           Anchors = [akTop, akLeft, akRight]
           ButtonWidth = 23
           CharCase = ecNormal

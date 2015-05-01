@@ -904,13 +904,18 @@ end;
 
 constructor TStarterThread.Create(aSuspended: Boolean);
 begin
-  {$ifndef UNIX}
-  FreeOnTerminate:=True;
-  Priority:=tpLowest;
-  inherited Create(aSuspended);
-  {$else}
-  Execute;
-  {$endif}
+  if not BaseApplication.HasOption('disablethreads') then
+    begin
+      {$ifndef UNIX}
+      FreeOnTerminate:=True;
+      Priority:=tpLowest;
+      inherited Create(aSuspended);
+      {$else}
+      Execute;
+      {$endif}
+    end
+  else
+    Execute;
 end;
 
 procedure TStarterThread.Execute;
