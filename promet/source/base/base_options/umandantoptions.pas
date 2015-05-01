@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, DbCtrls,
   Dialogs, Buttons, ExtDlgs, ComCtrls, db, uOptionsFrame, uBaseDBClasses,
-  uBaseDBInterface;
+  uBaseDBInterface,uBaseDatasetInterfaces;
 
 type
 

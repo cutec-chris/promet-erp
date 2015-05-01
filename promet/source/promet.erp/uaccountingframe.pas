@@ -23,7 +23,7 @@ uses
   Classes, SysUtils, types, FileUtil, LR_DBSet, Forms, Controls, uPrometFrames,
   uAccounting, db, uFilterFrame, Dialogs, uBaseDBInterface, DBGrids, Grids,
   Graphics, ActnList, ExtCtrls, ComCtrls, StdCtrls, Buttons, DbCtrls,Variants,
-  uBaseDbClasses;
+  uBaseDbClasses,uBaseDatasetInterfaces;
 type
 
   { TfAccountingFrame }
@@ -344,7 +344,7 @@ begin
     begin
       TabCaption := TAccounts(DataSet).FieldByName('NAME').AsString;
       FList.SortField:='VALUEDATE';
-      FList.SortDirection:=uBaseDBClasses.sdDescending;
+      FList.SortDirection:=sdDescending;
       FList.acFilter.Execute;
       FAccount := aID;
       dsAccount.DataSet := DataSet.DataSet;

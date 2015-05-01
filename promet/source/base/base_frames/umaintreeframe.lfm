@@ -66,6 +66,9 @@ object fMainTree: TfMainTree
       Caption = 'Suche'
       ImageIndex = 8
       OnExecute = acSearchExecute
+      SecondaryShortCuts.Strings = (
+        'Strg+F'
+      )
       ShortCut = 49222
     end
     object acAddBoard: TAction

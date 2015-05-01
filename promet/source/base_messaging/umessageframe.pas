@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, PairSplitter, ComCtrls,
   ActnList, uPrometFrames, uBaseVisualControls, uFilterFrame, uBaseDbClasses,
   DBGrids, Grids, Graphics, Buttons, ExtCtrls, uViewMessage, Variants, db,
-  ClipBrd, Menus, uExtControls;
+  ClipBrd, Menus, uExtControls,uBaseDatasetInterfaces;
 type
   TfMessageFrame = class(TPrometMainFrame)
     acNew: TAction;

@@ -22,7 +22,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="356"/>
+      <BuildNr Value="357"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -63,7 +63,6 @@
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
             <CustomOptions Value="-dDebugLR"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -94,9 +93,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Win64">
@@ -126,9 +122,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item4>
       <Item5 Name="DebugOSX">
@@ -165,7 +158,6 @@
           </Linking>
           <Other>
             <CustomOptions Value="-dHASMESSAGING"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item5>
@@ -186,7 +178,7 @@
         <CommandLineParams Value="&quot;--config-path=devel&quot; --debug"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="27">
+    <RequiredPackages Count="26">
       <Item1>
         <PackageName Value="promet_scripts"/>
         <DefaultFilename Value="../base/base_scripts/promet_scripts.lpk"/>
@@ -284,12 +276,8 @@
         <DefaultFilename Value="../../../general/general.lpk"/>
       </Item25>
       <Item26>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
-      </Item26>
-      <Item27>
         <PackageName Value="LCL"/>
-      </Item27>
+      </Item26>
     </RequiredPackages>
     <Units Count="48">
       <Unit0>
@@ -310,7 +298,6 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -610,7 +597,6 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uArticleFrame"/>
       </Unit45>
       <Unit46>
         <Filename Value="uallobjects.pas"/>
@@ -654,7 +640,6 @@
     </Linking>
     <Other>
       <CustomOptions Value="-dHASMESSAGING"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
   <Debugging>
@@ -664,7 +649,6 @@
       </Item1>
       <Item2>
         <Name Value="EAccessViolation"/>
-        <Enabled Value="False"/>
       </Item2>
       <Item3>
         <Name Value="EZSQLException"/>

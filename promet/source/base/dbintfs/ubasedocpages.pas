@@ -24,7 +24,7 @@ interface
 
 uses
   Classes,SysUtils,uDocuments,uBaseDbClasses,uBaseDBInterface,db,uIntfStrConsts,
-  Utils,usimpleprocess;
+  Utils,usimpleprocess,uBaseDatasetInterfaces;
 type
 
   { TDocPages }
@@ -322,11 +322,13 @@ begin
         aDocument.CheckoutToStream(aFullStream);
       aFullStream.Position:=0;
       SetParamsFromExif(extn,aFullStream);
+      aFullStream.Position:=0;
       if FieldByName('ORIGDATE').IsNull then
         FieldByName('ORIGDATE').AsDateTime:=aDocument.FieldByName('DATE').AsDateTime;
       if FieldByName('ORIGDATE').IsNull then
         FieldByName('ORIGDATE').AsDateTime:=Now();
       aDocument.GetText(aFullStream,extn,aText);
+      aFullStream.Position:=0;
       GenerateThumbNail(ExtractFileExt(aDocument.FileName),aFullStream,aStream,aText);
       Self.Post;
       if aText<>'' then

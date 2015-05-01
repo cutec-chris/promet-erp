@@ -20,7 +20,8 @@ unit ubasevisualapplicationtools;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, DBGrids, Grids, DB, uBaseApplication, uBaseDbInterface, Utils;
+  Classes, SysUtils, DBGrids, Grids, DB, uBaseApplication, uBaseDbInterface, Utils,
+  uBaseDatasetInterfaces;
 type
   TFilterCellTextEvent = procedure(Sender : TObject;aCol : TColumn;aText : string;var NewText : string) of object;
 function BuildAutofilter(List : TDBGrid;Header : TStringGrid;aEvent : TFilterCellTextEvent = nil) : string;

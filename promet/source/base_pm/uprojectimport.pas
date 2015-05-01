@@ -22,7 +22,7 @@ unit uprojectimport;
 interface
 uses
   Classes, SysUtils, uProjects,XMLRead,XMLWrite,DOM,LConvEncoding,uData,uTask,db,
-  Utils,Math,FileUtil,uBaseDBInterface,variants,uBaseDbClasses;
+  Utils,Math,FileUtil,uBaseDBInterface,variants,uBaseDbClasses,uBaseDatasetInterfaces;
 //function ImportMPX(aFile : TStream;aProject : TProject) : Boolean; //MS Project ASCII
 function ImportMSPDI(aFile : TStream;aProject : TProject) : Boolean; //MS Project XML
 function ImportGAN(aFile : TStream;aProject : TProject;ReplaceIDs : Boolean = True;ImportAsSnapshot : Boolean = False) : Boolean; //Gantt Project

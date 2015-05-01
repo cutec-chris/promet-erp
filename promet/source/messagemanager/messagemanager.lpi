@@ -30,7 +30,8 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--debug"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; &quot;--user=Christian Ulrich&quot;"/>
+        <WorkingDirectory Value="C:/Prometheus/TCS/paradoxtest1/promet/output/i386-win32/tools"/>
       </local>
     </RunParams>
     <RequiredPackages Count="9">
@@ -125,7 +126,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="14">
+    <Exceptions Count="15">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -168,6 +169,9 @@
       <Item14>
         <Name Value="EAccessViolation"/>
       </Item14>
+      <Item15>
+        <Name Value="EProcess"/>
+      </Item15>
     </Exceptions>
   </Debugging>
 </CONFIG>

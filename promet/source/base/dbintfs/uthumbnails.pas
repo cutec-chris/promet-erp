@@ -27,7 +27,7 @@ uses
   Classes, SysUtils, uDocuments,Utils,variants,
   FPImage,fpreadgif,FPReadPSD,FPReadPCX,FPReadTGA,FPReadJPEGintfd,fpthumbresize,
   FPWriteJPEG,FPReadBMP,process,uBaseDbClasses,FPCanvas,FPImgCanv,
-  uBaseDBInterface,db
+  uBaseDBInterface,db,uBaseDatasetInterfaces
   {$IFDEF LCL}
   ,Graphics
   {$ENDIF}

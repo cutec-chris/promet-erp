@@ -29,7 +29,7 @@ uses
   Classes, SysUtils, Utils,  Forms, Controls, DBGrids, ExtCtrls,
   Buttons, ComCtrls, uExtControls, db, Grids, ActnList, Menus, uBaseDBClasses,
   uBaseDbInterface, StdCtrls, Graphics, types, Clipbrd, LMessages,
-  ubasevisualapplicationtools, ZVDateTimePicker, Dialogs, DbCtrls, EditBtn;
+  ubasevisualapplicationtools, ZVDateTimePicker, Dialogs, DbCtrls, EditBtn,uBaseDatasetInterfaces;
 type
   TUnprotectedGrid = class(TCustomGrid);
 

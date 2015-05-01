@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, db, uBaseDBInterface,ZConnection, ZSqlMetadata,
   ZAbstractRODataset, ZDataset, uBaseDbClasses, ZSequence,ZAbstractConnection,
-  uModifiedDS,ZSqlMonitor,Utils;
+  uModifiedDS,ZSqlMonitor,Utils,uBaseDatasetInterfaces;
 type
   TUnprotectedDataSet = class(TDataSet);
 
@@ -184,10 +184,10 @@ type
     function GetUseIntegrity: Boolean;
     procedure SetUseIntegrity(AValue: Boolean);
     //IBaseSubDataSets
-    function GetSubDataSet(aName : string): TBaseDBDataSet;
-    procedure RegisterSubDataSet(aDataSet : TBaseDBDataSet);
+    function GetSubDataSet(aName : string): TComponent;
+    procedure RegisterSubDataSet(aDataSet : TComponent);
     function GetCount : Integer;
-    function GetSubDataSetIdx(aIdx : Integer): TBaseDBDataSet;
+    function GetSubDataSetIdx(aIdx : Integer): TComponent;
     //IBaseModifiedDS
     function IsChanged: Boolean;
   public
@@ -706,6 +706,18 @@ var
     aDs.Free;
   end;
 
+  procedure CleanID;
+  begin
+    if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1)  then
+      begin
+        FieldByName('SQL_ID').AsVariant:=Null
+      end
+    else if (FieldDefs.IndexOf('SQL_ID') = -1) and (FieldDefs.IndexOf('AUTO_ID') > -1) then
+      begin
+        FieldByName('AUTO_ID').AsVariant:=Null;
+      end;
+  end;
+
 begin
   while not ok do
     begin
@@ -716,17 +728,15 @@ begin
         begin
           inc(rc);
           ok := false;
-          if (FHasNewID or (rc>30)) and CheckID then
+          if (FHasNewID and (rc<3)) then
             begin
-              if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1)  then
-                begin
-                  FieldByName('SQL_ID').AsVariant:=Null
-                end
-              else if (FieldDefs.IndexOf('SQL_ID') = -1) and (FieldDefs.IndexOf('AUTO_ID') > -1) then
-                begin
-                  FieldByName('AUTO_ID').AsVariant:=Null;
-                end;
+              CleanID;
               SetNewIDIfNull;
+              while CheckID do
+                begin
+                  CleanID;
+                  SetNewIDIfNull;
+                end;
             end
           else
             begin
@@ -760,8 +770,8 @@ begin
   SetNewIDIfNull;
   if FUpStdFields and Assigned(FOrigTable) {and (FOrigTable.Changed)} then
     begin
-      if (FieldDefs.IndexOf('TIMESTAMPD') > -1) then
-        FieldByName('TIMESTAMPD').AsDateTime:=Now();
+      //if (FieldDefs.IndexOf('TIMESTAMPD') > -1) then
+      FieldByName('TIMESTAMPD').AsDateTime:=Now();
       with BaseApplication as IBaseDBInterface do
         begin
           if Data.Users.DataSet.Active then
@@ -1101,7 +1111,7 @@ begin
   if Assigned(FOrigTable) then
     FOrigTable.Change;
 end;
-function TZeosDBDataSet.GetSubDataSet(aName: string): TBaseDBDataSet;
+function TZeosDBDataSet.GetSubDataSet(aName: string): TComponent;
 var
   i: Integer;
 begin
@@ -1111,7 +1121,7 @@ begin
       if TableName = aName then
         Result := TBaseDBDataSet(FSubDataSets[i]);
 end;
-procedure TZeosDBDataSet.RegisterSubDataSet(aDataSet: TBaseDBDataSet);
+procedure TZeosDBDataSet.RegisterSubDataSet(aDataSet: TComponent);
 begin
   FSubDataSets.Add(aDataSet);
 end;
@@ -1119,7 +1129,7 @@ function TZeosDBDataSet.GetCount: Integer;
 begin
   Result := FSubDataSets.Count;
 end;
-function TZeosDBDataSet.GetSubDataSetIdx(aIdx: Integer): TBaseDBDataSet;
+function TZeosDBDataSet.GetSubDataSetIdx(aIdx: Integer): TComponent;
 begin
   Result := nil;
   if aIdx < FSubDataSets.Count then

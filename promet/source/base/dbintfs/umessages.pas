@@ -21,7 +21,7 @@ unit uMessages;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDBInterface, uDocuments,
-  uBaseApplication, uBaseSearch, uIntfStrConsts;
+  uBaseApplication, uBaseSearch, uIntfStrConsts,uBaseDatasetInterfaces;
 type
 
   { TMessageList }

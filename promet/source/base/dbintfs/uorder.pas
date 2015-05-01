@@ -22,7 +22,8 @@ unit uOrder;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseApplication,
-  uBaseERPDBClasses, uMasterdata, uPerson, Variants, uAccounting;
+  uBaseERPDBClasses, uMasterdata, uPerson, Variants, uAccounting
+  ,uBaseDatasetInterfaces;
 type
   TOrderTyp = class(TBaseDBDataSet)
   public

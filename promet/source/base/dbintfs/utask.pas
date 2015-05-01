@@ -23,7 +23,8 @@ unit utask;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uBaseDbClasses, uBaseDbInterface, db, uBaseERPDBClasses,Math;
+  Classes, SysUtils, uBaseDbClasses, uBaseDbInterface, db, uBaseERPDBClasses,Math,
+  uBaseDatasetInterfaces;
 type
   TDependencies = class;
   TTaskSnapshots = class(TBaseDbDataSet)

@@ -21,13 +21,11 @@ unit utasks;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, SynGutterBase,
-  SynGutterMarks, SynGutterLineNumber, SynGutterChanges, SynGutter,
-  SynGutterCodeFolding, LR_DBSet, LR_Class, Forms, Controls, DBGrids, ValEdit,
-  ExtCtrls, Buttons, ComCtrls, uPrometFramesInplaceDB, uExtControls, db, Grids,
-  ActnList, Menus, StdCtrls, uBaseDBClasses, uBaseDbInterface, uGridView,
-  uIntfStrConsts, Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,
-  Clipbrd, ExtDlgs;
+  Classes, SysUtils, FileUtil, SynMemo, SynHighlighterSQL, LR_DBSet, LR_Class,
+   Forms, Controls, DBGrids, ValEdit, ExtCtrls, Buttons, ComCtrls,
+  uPrometFramesInplaceDB, uExtControls, db, Grids, ActnList, Menus, StdCtrls,
+  uBaseDBClasses, uBaseDbInterface, uGridView, uIntfStrConsts,
+  Variants, uBaseSearch, Graphics, Spin, EditBtn, Dialogs,Clipbrd, ExtDlgs,uBaseDatasetInterfaces;
 type
   TOnStartTime = procedure(Sender : TObject;aProject,aTask,aCategory : string) of object;
 
@@ -1309,7 +1307,12 @@ procedure TfTaskFrame.ActiveSearchEndSearch(Sender: TObject);
 begin
   if not ActiveSearch.Active then
     begin
-      if ActiveSearch.Count=0 then
+      if not ActiveSearch.NewFound then
+        begin
+          ActiveSearch.Start(ActiveSearch.SearchString,ActiveSearch.NextSearchLevel);
+          exit;
+        end;
+      if (ActiveSearch.Count=0) and (lbResults.Items.Count=0) then
         begin
           if pSearch.Visible then
             FGridView.EndUpdate;
@@ -1330,7 +1333,8 @@ begin
         end;
     end;
   if aActive then
-    lbResults.Items.AddObject(aName,TLinkObject.Create(aLink));
+    if lbResults.Items.IndexOf(aName)=-1 then
+      lbResults.Items.AddObject(aName,TLinkObject.Create(aLink));
 end;
 procedure TfTaskFrame.acUnmakeSubTaskExecute(Sender: TObject);
 begin

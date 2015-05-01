@@ -41,6 +41,7 @@ type
     Bevel1: TBevel;
     bSearch: TBitBtn;
     bOpen: TBitBtn;
+    bSearchFurther: TButton;
     cbMaxResults: TCheckBox;
     IdleTimer: TTimer;
     lHint: TLabel;
@@ -82,6 +83,7 @@ type
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure bCloseClick(Sender: TObject);
     procedure bEditFilterClick(Sender: TObject);
+    procedure bSearchFurtherClick(Sender: TObject);
     procedure cbSearchInClickCheck(Sender: TObject);
     procedure cbSearchTypeClickCheck(Sender: TObject);
     procedure DoSearch(Sender: TObject);
@@ -176,6 +178,11 @@ begin
     Animate.AnimateControlHeight(55);
   bEditFilter.Enabled:=True;
   Animate.Free;
+end;
+
+procedure TfSearch.bSearchFurtherClick(Sender: TObject);
+begin
+  bSearch.Click;
 end;
 
 procedure TfSearch.cbSearchInClickCheck(Sender: TObject);
@@ -349,6 +356,7 @@ begin
       if Assigned(ActiveSearch) then
         ActiveSearch.Abort;
       bSearch.Caption := strDoSearch;
+      bSearchFurther.Visible:=bSearch.Caption=strContinueSearch;
       bOpen.Enabled:=True;
       {$IFDEF MAINAPP}
       if (fsSerial in SearchTypes) then
@@ -358,6 +366,7 @@ begin
     end;
   bOpen.Enabled:=False;
   bSearch.Caption := strAbort;
+  bSearchFurther.Visible:=bSearch.Caption=strContinueSearch;
   Application.ProcessMessages;
   for i := low(uBaseSearch.SearchLocations) to High(uBaseSearch.SearchLocations) do
     if cbSearchIn.Items.IndexOf(uBaseSearch.SearchLocations[i]) >= 0 then
@@ -388,6 +397,7 @@ begin
   if not ActiveSearch.Start(eContains.Text,SearchLevel) then
     begin
       bSearch.Caption:=strDoSearch;
+      bSearchFurther.Visible:=bSearch.Caption=strContinueSearch;
       SearchLevel := 0;
     end;
 end;
@@ -493,6 +503,7 @@ begin
   Application.ProcessMessages;
   bOpen.Enabled:=True;
   bSearch.Caption:=strContinueSearch;
+  bSearchFurther.Visible:=bSearch.Caption=strContinueSearch;
   if sgResults.RowCount > ActCount then
     begin
       bSearch.Default:=False;

@@ -363,6 +363,9 @@ begin
   end;
   SetLength(Result, Rp - PChar(Result));
   Result := SysToUni(Result);
+  Result := StringReplace(Result,#13#13,#13,[rfReplaceAll]);
+  Result := StringReplace(Result,#10#10,#10,[rfReplaceAll]);
+  Result := StringReplace(Result,#10#13#10#13,#10#13,[rfReplaceAll]);
 end;
 var
   FNeedRTLAnsi: boolean = false;
@@ -441,6 +444,7 @@ begin
   end
   else
     Result:=s;
+  UTF8FixBroken(Result);
 end;
 
 function AppendPathDelim(const Path: string): string;

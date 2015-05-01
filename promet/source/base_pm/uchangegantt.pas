@@ -11,11 +11,13 @@ uses
 type
   TfChangeGantt = class(TForm)
     ButtonPanel1: TButtonPanel;
+    cbMakeSnapshot: TCheckBox;
     cbSetAppt: TCheckBox;
     cbChangeMilestones: TCheckBox;
     cbAddToProject: TCheckBox;
     Label1: TLabel;
     mRule: TMemo;
+    procedure cbSetApptChange(Sender: TObject);
   private
     { private declarations }
   public
@@ -29,6 +31,12 @@ var
 implementation
 
 {$R *.lfm}
+
+procedure TfChangeGantt.cbSetApptChange(Sender: TObject);
+begin
+  if not cbSetAppt.Checked then
+    cbMakeSnapshot.Checked:=False;
+end;
 
 function TfChangeGantt.Execute(var aRule: string): Boolean;
 begin

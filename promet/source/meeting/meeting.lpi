@@ -33,11 +33,7 @@
             </Debugging>
           </Linking>
           <Other>
-            <CompilerMessages>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
             <CustomOptions Value="-dDEBUG"/>
-            <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -102,7 +98,6 @@
       <Unit0>
         <Filename Value="meeting.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="meeting"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>
@@ -134,12 +129,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="8">

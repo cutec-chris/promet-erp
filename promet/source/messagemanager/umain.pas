@@ -116,12 +116,29 @@ var
   aLog: TStringList;
   aRec: LargeInt;
   aTime: types.DWORD;
+  s: TStringStream;
 begin
   if not Assigned(Data) then exit;
   if not Data.Ping(Data.MainConnection) then exit;
   if Assigned(fmTimeline) and fmTimeline.Visible then exit;
   with BaseApplication as IBaseApplication do
     Debug('ProgTimer:Enter');
+  if Assigned(ProcessManager) and (not ProcessManager.Active) then
+    with BaseApplication as IBaseApplication do
+      begin
+        Error('Processmanager Disabled: exitcode:'+IntToStr(ProcessManager.ExitStatus));
+        s := TStringStream.Create('');
+        s.CopyFrom(ProcessManager.Output,ProcessManager.Output.NumBytesAvailable);
+        Error('Processmanager Disabled:'+s.DataString);
+        s.Free;
+        FreeAndNil(ProcessManager);
+      end;
+  if not Assigned(ProcessManager) then
+    begin
+      with Application as IBaseDBInterface do
+        ProcessManager := uProcessManager.StartProcessManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString);
+    end;
+
   aTime:=GetTickCount;
   ProgTimer.Enabled:=False;
   if acHistory.Enabled then
@@ -365,6 +382,7 @@ var
         end;
   end;
 begin
+  ProcessManager:=nil;
   TrayIcon.AnimateInterval:=200;
   aRefresh:=0;
   Application.OnEndSession:=@ApplicationEndSession;
@@ -425,13 +443,6 @@ begin
         end;
       Info('messagemanager login successful');
       TrayIcon.Hint:=strHint+LineEnding+aMandant+' '+aUser;
-      with Application as IBaseDBInterface do
-        begin
-          if Data.Users.DataSet.Active then
-            begin
-              ProcessManager := uProcessManager.StartProcessManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString);
-            end;
-        end;
 
       Data.RegisterLinkHandler('ALLOBJECTS',@OpenLink,TObjects);
       //Messages
@@ -599,7 +610,6 @@ begin
   fTimelineDataSet.CreateTable;
   Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),200);
   SwitchAnimationOff;
-
 end;
 procedure TfMain.acHistoryExecute(Sender: TObject);
 begin

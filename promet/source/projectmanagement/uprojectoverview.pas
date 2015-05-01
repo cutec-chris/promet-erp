@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, uprometframesinplace,
-  uMainTreeFrame,uIntfStrConsts,uProjects,uBaseDBInterface,uBaseDbClasses;
+  uMainTreeFrame,uIntfStrConsts,uProjects,uBaseDBInterface,uBaseDbClasses,uBaseDatasetInterfaces;
 
 type
   TfObjectStructureFrame = class(TPrometInplaceFrame)

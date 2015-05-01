@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, DB, Typinfo, CustApp, Utils , memds,
   uBaseDbClasses, uIntfStrConsts,
   uBaseSearch,uBaseERPDbClasses,uDocuments,uOrder,Variants,uProcessManagement,
-  rttiutils
+  rttiutils,uBaseDatasetInterfaces
   {$IFDEF LCL}
   ,LCLIntf
   {$ENDIF}
@@ -244,100 +244,6 @@ type
     function QuoteValue(aValue : string) : string;
   end;
 
-  { IBaseDbFilter }
-
-  IBaseDbFilter = interface['{7EBB7ABE-1171-4333-A609-C0F59B1E2C5F}']
-    function GetBaseSortDirection: TSortDirection;
-    function GetfetchRows: Integer;
-    function GetUseBaseSorting: Boolean;
-    procedure SetBaseSortDirection(AValue: TSortDirection);
-    function GetBaseSorting: string;
-    procedure SetBaseSorting(AValue: string);
-    procedure SetBaseSortFields(const AValue: string);
-    function GetBaseSortFields: string;
-    function GetFields: string;
-    procedure SetfetchRows(AValue: Integer);
-    procedure SetFields(const AValue: string);
-    function GetSQL: string;
-    procedure SetSQL(const AValue: string);
-    function GetFilter: string;
-    procedure SetFilter(const AValue: string);
-    function GetBaseFilter: string;
-    procedure SetBaseFilter(const AValue: string);
-    function GetFilterTables: string;
-    function GetLimit: Integer;
-    function GetSortDirection: TSortDirection;
-    function GetSortFields: string;
-    function GetLocalSortFields: string;
-    function GetSortLocal: Boolean;
-    procedure SetSortLocal(const AValue: Boolean);
-    procedure SetFilterTables(const AValue: string);
-    procedure Setlimit(const AValue: Integer);
-    procedure SetSortDirection(const AValue: TSortDirection);
-    procedure SetSortFields(const AValue: string);
-    procedure SetLocalSortFields(const AValue: string);
-    function GetUsePermissions: Boolean;
-    procedure SetUseBaseSorting(AValue: Boolean);
-    procedure SetUsePermisions(const AValue: Boolean);
-    function GetDistinct: Boolean;
-    procedure SetDistinct(const AValue: Boolean);
-    procedure DoExecSQL;
-    function NumRowsAffected : Integer;
-
-    property FullSQL : string read GetSQL write SetSQL;
-    property Filter : string read GetFilter write SetFilter;
-    property FetchRows : Integer read GetfetchRows write SetfetchRows;
-    property BaseFilter : string read GetBaseFilter write SetBaseFilter;
-    property Limit : Integer read GetLimit write Setlimit;
-    property Fields : string read GetFields write SetFields;
-    property SortFields : string read GetSortFields write SetSortFields;
-    property LocalSortFields : string read GetLocalSortFields write SetLocalSortFields;
-    property BaseSortFields : string read GetBaseSortFields write SetBaseSortFields;
-    property BaseSorting : string read GetBaseSorting write SetBaseSorting;
-    property UseBaseSorting : Boolean read GetUseBaseSorting write SetUseBaseSorting;
-    property BaseSortDirection : TSortDirection read GetBaseSortDirection write SetBaseSortDirection;
-    property SortDirection : TSortDirection read GetSortDirection write SetSortDirection;
-    property Distinct : Boolean read GetDistinct write SetDistinct;
-    property SortLocal : Boolean read GetSortLocal write SetSortLocal;
-    property FilterTables : string read GetFilterTables write SetFilterTables;
-    property UsePermissions : Boolean read GetUsePermissions write SetUsePermisions;
-  end;
-  IBaseManageDB = interface['{271BD4A2-2720-49DA-90A6-AA64FB2B9862}']
-    function GetConnection: TComponent;
-    function GetManagedFieldDefs: TFieldDefs;
-    function GetManagedIndexDefs: TIndexDefs;
-    function GetTableCaption: string;
-    function GetTableName: string;
-    function GetUpChangedBy: Boolean;
-    function GetUpStdFields: Boolean;
-    function GetUseIntegrity: Boolean;
-    procedure SetUpChangedBy(AValue: Boolean);
-    procedure SetUpStdFields(AValue: Boolean);
-    procedure SetTableCaption(const AValue: string);
-    function CreateTable : Boolean;
-    function CheckTable : Boolean;
-    function AlterTable : Boolean;
-    procedure SetTableName(const AValue: string);
-    procedure SetUseIntegrity(AValue: Boolean);
-    property ManagedFieldDefs : TFieldDefs read GetManagedFieldDefs;
-    property ManagedIndexDefs : TIndexDefs read GetManagedIndexDefs;
-    property TableName : string read GetTableName write SetTableName;
-    property TableCaption : string read GetTableCaption write SetTableCaption;
-    property UseIntegrity : Boolean read GetUseIntegrity write SetUseIntegrity;
-    property UpdateStdFields : Boolean read GetUpStdFields write SetUpStdFields;
-    property UpdateChangedBy : Boolean read GetUpChangedBy write SetUpChangedBy;
-    property DBConnection : TComponent read GetConnection;
-  end;
-
-  { IBaseSubDataSets }
-
-  IBaseSubDataSets = interface['{CB011ABE-E465-4BD4-AA49-D3A8852AA012}']
-    function GetSubDataSet(aName : string): TBaseDBDataSet;
-    function GetCount : Integer;
-    function GetSubDataSetIdx(aIdx : Integer): TBaseDBDataSet;
-    procedure RegisterSubDataSet(aDataSet : TBaseDBDataSet);
-    property SubDataSet[aIdx : Integer] : TBaseDBDataSet read GetSubDataSetIdx;
-  end;
 const
   RIGHT_NONE  = 0;
   RIGHT_READ  = 1;
@@ -1340,7 +1246,7 @@ begin
       with BaseApplication as IBaseApplication do
         begin
           if TableVersions.Locate('NAME',aTableName,[]) then
-            if (TableVersions.FieldByName('DBVERSION').AsInteger>=round((AppVersion*10000)+AppRevision)) and (not BaseApplication.HasOption('debug')) then
+            if (TableVersions.FieldByName('DBVERSION').AsInteger>=round((AppVersion*10000)+AppRevision)) and (not BaseApplication.HasOption('debug')) and (TableExists(aTableName)) then
               begin
                 Result := False;
               end
@@ -1353,7 +1259,7 @@ begin
     end;
   except
   end;
-  if (not Result) and SetChecked then
+  if (not Result) and SetChecked and TableExists(aTableName) then
     FCheckedTables.Add(aTableName);
 end;
 

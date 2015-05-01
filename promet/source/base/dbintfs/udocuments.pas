@@ -22,7 +22,7 @@ unit uDocuments;
 interface
 uses
   Classes, SysUtils, db, uBaseDBClasses, Utils,
-  usimpleprocess
+  usimpleprocess,uBaseDatasetInterfaces
   {$IFDEF LCL}
   ,Graphics
   {$ENDIF};

@@ -20,7 +20,7 @@ unit uTimes;
 {$mode objfpc}
 interface
 uses
-  Classes, SysUtils, uBaseDBClasses, db, uBaseDBInterface;
+  Classes, SysUtils, uBaseDBClasses, db, uBaseDBInterface,uBaseDatasetInterfaces;
 type
   TTimes = class(TBaseDBDataSet)
   public

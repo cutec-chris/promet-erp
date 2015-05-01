@@ -22,7 +22,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, DbCtrls, ExtCtrls,
   uPrometFramesInplaceDB, uBaseDbClasses, uFilterFrame, Grids, DBGrids,
-  Menus, ActnList,ClipBrd,uOrder,Dialogs, Buttons, uExtControls, db;
+  Menus, ActnList,ClipBrd,uOrder,Dialogs, Buttons, uExtControls, db,uBaseDatasetInterfaces;
 type
 
   { TfLinkFrame }

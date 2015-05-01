@@ -30,7 +30,7 @@ uses
   uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, wiki2html_pkg,
   uBaseApplication, httpsend, jsonparser, jsonscanner, fpjson, uBaseDBInterface,
   ssl_openssl, synautil, uBaseDbClasses,htmltowiki,uDocuments,
-  uPerson;
+  uPerson,uBaseDatasetInterfaces;
 
 type
 

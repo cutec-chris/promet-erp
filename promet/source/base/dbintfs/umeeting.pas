@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,
-  uBaseERPDBClasses,utask,uCalendar;
+  uBaseERPDBClasses,utask,uCalendar,uBaseDatasetInterfaces;
 type
   TMeetings = class;
   TMeetingEntrys = class(TBaseDBDataSet)

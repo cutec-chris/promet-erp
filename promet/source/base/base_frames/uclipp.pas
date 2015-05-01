@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, uBaseDbDataSet,uBaseDbClasses,uIntfStrConsts,uBaseDBInterface,
-  db,Clipbrd, ComCtrls,uDocuments,uBaseApplication;
+  db,Clipbrd, ComCtrls,uDocuments,uBaseApplication,uBaseDatasetInterfaces;
 type
   TRestoreResult = (rrPartially,rrFully,rrNone);
   TClipp = class(TBaseDBList)

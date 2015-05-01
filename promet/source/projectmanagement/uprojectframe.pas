@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ComCtrls,
   Buttons, ActnList, Menus, ExtCtrls, DbCtrls, StdCtrls, uExtControls,
   DBZVDateTimePicker, db, uPrometFrames, uPrometFramesInplace, uBaseDBClasses,
-  Dialogs, Spin, EditBtn,variants,uProjectFlow,uTasks,Graphics,uMeasurement;
+  Dialogs, Spin, EditBtn,variants,uProjectFlow,uTasks,Graphics,uMeasurement,uBaseDatasetInterfaces;
 type
 
   { TfProjectFrame }

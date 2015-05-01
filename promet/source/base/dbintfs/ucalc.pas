@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils,uBaseDbClasses, db, uBaseDbInterface,uIntfStrConsts,uStatistic,
-  MathParser,Utils;
+  MathParser,Utils,uBaseDatasetInterfaces;
 type
 
   { TCalcVariables }

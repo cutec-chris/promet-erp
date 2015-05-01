@@ -9,7 +9,7 @@ object fMain: TfMain
   OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.3'
+  LCLVersion = '1.5'
   object Properties: TXMLPropStorage
     StoredValues = <    
       item

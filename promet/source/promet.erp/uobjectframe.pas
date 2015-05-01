@@ -23,7 +23,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ExtCtrls,
   ActnList, ComCtrls, StdCtrls, DbCtrls, Buttons, Menus, db, uPrometFrames,
   uExtControls, uFilterFrame, uIntfStrConsts, Utils, Dialogs, variants,
-  uMeasurement;
+  uMeasurement,uBaseDatasetInterfaces;
 type
 
   { TfObjectFrame }

@@ -279,19 +279,25 @@ end;
 
 procedure TBaseCustomApplication.Log(aType: string; aMsg: string);
 begin
-  writeln(aType+':'+aMsg);
-  if Assigned(FLogger) then
-    begin
-      if aType = 'INFO' then
-        begin
-          if FLogger.LogType<>ltSystem then
-            FLogger.Info(aMsg);
-        end
-      else if aType = 'WARNING' then
-        FLogger.Warning(aMsg)
-      else if aType = 'ERROR' then
-        FLogger.Error(aMsg);
-    end;
+  try
+    if StdOutputHandle <> 0 then
+      begin
+        writeln(aType+':'+aMsg);
+      end;
+    if Assigned(FLogger) then
+      begin
+        if aType = 'INFO' then
+          begin
+            if FLogger.LogType<>ltSystem then
+              FLogger.Info(aMsg);
+          end
+        else if aType = 'WARNING' then
+          FLogger.Warning(aMsg)
+        else if aType = 'ERROR' then
+          FLogger.Error(aMsg);
+      end;
+  except
+  end;
 end;
 procedure TBaseCustomApplication.Log(aMsg: string);
 begin

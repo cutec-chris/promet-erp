@@ -29,7 +29,7 @@ uses
   uBaseDBInterface, threadedimageLoader, uDocumentFrame, DBZVDateTimePicker,
   PReport, Dialogs, PairSplitter, Menus, ExtDlgs, LCLType, uIntfStrConsts,
   uGeneralStrConsts, uBaseDbClasses, variants, types, uTimeLine, uPreviewFrame,
-  uOCR, uExtControls,syncobjs;
+  uOCR, uExtControls,syncobjs,uBaseDatasetInterfaces;
 
 type
   TImageItem = class(TObject)
@@ -228,6 +228,7 @@ type
     procedure OpenDir(aDir : Variant);
     property Typ : string read GetTyp write SetTyp;
     procedure ShowFrame; override;
+    property FullDataSet : TDocPages read FFullDataSet;
   end;
 
   { TImportCheckTherad }
@@ -1001,7 +1002,6 @@ begin
   if not Found then
     begin
       if FDocFrame.lvDocuments.Items.Count=0 then exit;
-      FDocFrame.lvDocuments.ItemIndex:=0;
       FDocFrame.acViewFile.Execute;
     end;
 end;
@@ -1816,6 +1816,8 @@ end;
 
 procedure TfManageDocFrame.OpenDir(aDir: Variant);
 begin
+  with BaseApplication as IBaseApplication do
+    Debug('TfManageDocFrame:OpenDir enter');
   if aDir = Null then
     FFilter := Data.QuoteField('TYPE')+'='+Data.QuoteValue(FTyp)
   else
@@ -1852,6 +1854,8 @@ begin
   ThumbControl1.Invalidate;
   bShowDetail.Enabled:=DataSet.Count>0;
   pSave.Enabled:=DataSet.Count>0;
+  with BaseApplication as IBaseApplication do
+    Debug('TfManageDocFrame:OpenDir leave');
 end;
 
 procedure TfManageDocFrame.ShowFrame;

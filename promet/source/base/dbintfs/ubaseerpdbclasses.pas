@@ -21,7 +21,7 @@ unit uBaseERPDBClasses;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uBaseDbClasses, db, ContNrs, uIntfStrConsts;
+  Classes, SysUtils, uBaseDbClasses, db, ContNrs, uIntfStrConsts,uBaseDatasetInterfaces;
 type
   TPostResult = (prSuccess,prAlreadyPosted,prFailed);
   IPostableDataSet = interface['{26EC4496-0D5A-4BFC-A712-C9001F5A0599}']
@@ -343,6 +343,7 @@ procedure TBaseERPList.CascadicPost;
 var
   Hist : IBaseHistory;
   sType: String;
+  i: Integer;
 begin
   if CanEdit and UpdateHistory and Supports(Self, IBaseHistory, Hist) then
     begin
@@ -360,6 +361,12 @@ begin
         sType := strEdited;
       if not Hist.History.ChangedDuringSession then
         begin
+          sType:=sType+' (';
+          for i := 0 to DataSet.Fields.Count-1 do
+            if DataSet.Fields[i].OldValue<>DataSet.Fields[i].NewValue then
+              sType := sType+','+DataSet.Fields[i].FieldName;
+          sType:=Stringreplace(sType,'(,','(',[rfReplaceAll])+')';
+          sType:=Stringreplace(sType,'()','',[rfReplaceAll]);
           Hist.History.AddItem(Self.DataSet,sType);
         end;
       Hist.History.ChangedDuringSession := False;
@@ -424,7 +431,7 @@ begin
           aSync:= TSyncItems.CreateEx(nil,DataModule);
           aSync.SelectByReference(aObject.Id.AsVariant);
           aSync.Open;
-          while not aDoc.EOF do
+          while not aSync.EOF do
             begin
               aSync.Edit;
               aSync.FieldByName('LOCAL_ID').AsVariant:=Self.Id.AsVariant;
@@ -1446,4 +1453,4 @@ initialization
   PriceTypes := nil;
   RepairProblems := nil;
 end.
-
+

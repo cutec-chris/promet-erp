@@ -20,7 +20,7 @@ unit uProcessManagement;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils,uBaseDbClasses,db,Process;
+  Classes, SysUtils,uBaseDbClasses,db,Process,uBaseDatasetInterfaces;
 type
   TProcProcess = class(TProcess)
   private

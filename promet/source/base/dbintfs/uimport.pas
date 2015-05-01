@@ -24,7 +24,7 @@ unit uimport;
 interface
 
 uses
-  Classes, SysUtils,uBaseDbClasses,db,uBaseDBInterface;
+  Classes, SysUtils,uBaseDbClasses,db,uBaseDBInterface,uBaseDatasetInterfaces;
 
 type
 

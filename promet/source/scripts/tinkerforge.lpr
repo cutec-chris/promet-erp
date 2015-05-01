@@ -186,6 +186,7 @@ function TfLCDButtonPressed(Button : byte) : Boolean;
 var
   i: Integer;
 begin
+  Result := False;
   if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin

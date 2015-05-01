@@ -22,14 +22,12 @@ unit uBaseDbClasses;
 interface
 uses
   Classes, SysUtils, db, uBaseDbDataSet, Variants, uIntfStrConsts, DOM,
-  Contnrs
+  Contnrs,uBaseDatasetInterfaces
   {$IFDEF LCL}
   ,Graphics
   {$ENDIF}
   ;
 type
-  TSortDirection = (sdAscending, sdDescending, sdIgnored);
-
   { TBaseDBDataset }
 
   TBaseDBDataset = class(TComponent)
@@ -1236,7 +1234,7 @@ var
               with aDataSet as IBaseSubDataSets do
                 begin
                   for i := 0 to GetCount-1 do
-                    RecourseTables(Row,SubDataSet[i].DataSet);
+                    RecourseTables(Row,TBaseDBDataset(SubDataSet[i]).DataSet);
                 end;
               aDataSet.Next;
             end;
@@ -1334,7 +1332,7 @@ var
                 begin
                   for a := 0 to GetCount-1 do
                     begin
-                      if ProcessDataSet(SubDataSet[a].DataSet) then break;
+                      if ProcessDataSet(TBaseDbDataSet(SubDataSet[a]).DataSet) then break;
                     end;
                 end;
           end;

@@ -26,7 +26,7 @@ uses
   cthreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, sysutils, lazreport, turbopoweripro, uMain, pvisualprometapp,FileUtil,
+  Forms, sysutils, lazreport, turbopoweripro, uMain,FileUtil,
   Process
   { you can add units after this }
   ,uBaseVisualApplication, pphones, richmemopackage, zvdatetimectrls, general;
