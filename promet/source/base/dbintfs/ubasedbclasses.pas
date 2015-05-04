@@ -439,7 +439,7 @@ type
 var ImportAble : TClassList;
 implementation
 uses uBaseDBInterface, uBaseApplication, uBaseSearch,XMLRead,XMLWrite,Utils,
-  md5,sha1,uData,uthumbnails;
+  md5,sha1,uData,uthumbnails,base64;
 resourcestring
   strNumbersetDontExists        = 'Nummernkreis "%s" existiert nicht !';
   strDeletedmessages            = 'gelöschte Narichten';
@@ -1226,9 +1226,14 @@ var
                   and (tmp <> 'REF_ID')
                   then
                     begin
-                      tmp1 := aDataSet.Fields[i].AsString;
+                      tmp1 :=  aDataSet.Fields[i].AsString;
                       if (not aDataSet.Fields[i].IsNull) then
-                        Row.SetAttribute(tmp,tmp1);
+                        begin
+                          if aDataSet.Fields[i].IsBlob then
+                            Row.SetAttribute(tmp,EncodeStringBase64(aDataSet.Fields[i].AsString))
+                          else
+                            Row.SetAttribute(tmp,tmp1);
+                        end;
                     end;
                 end;
               with aDataSet as IBaseSubDataSets do
@@ -1307,7 +1312,10 @@ var
                           aNewValue := bNode.Attributes.Item[d].NodeValue;
                           if Assigned(ReplaceFieldFunc) then
                             ReplaceFieldFunc(ThisDataSet.FieldByName(bNode.Attributes.Item[d].NodeName),bNode.Attributes.Item[d].NodeValue,aNewValue);
-                          ThisDataSet.FieldByName(bNode.Attributes.Item[d].NodeName).AsString := aNewValue;
+                          if ThisDataSet.FieldByName(bNode.Attributes.Item[d].NodeName).IsBlob then
+                            ThisDataSet.FieldByName(bNode.Attributes.Item[d].NodeName).AsString := DecodeStringBase64(aNewValue)
+                          else
+                            ThisDataSet.FieldByName(bNode.Attributes.Item[d].NodeName).AsString := aNewValue;
                         end;
                   ThisDataSet.Post;
                   for b := 0 to bNode.ChildNodes.Count-1 do

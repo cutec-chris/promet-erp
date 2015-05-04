@@ -648,6 +648,7 @@ var
   aTask: TTask;
   aLink: String;
   bTask: TTask;
+  aXML: String;
 begin
   aProject := DataSet as TProject;
   aNewProjectName := InputBox(strProcessName,strEnterProcessName,aProject.Text.AsString);
@@ -656,7 +657,8 @@ begin
   Application.ProcessMessages;
   Data.SetFilter(aProject.Tasks,Data.QuoteField('PROJECTID')+'='+Data.QuoteValue(aProject.Id.AsString));
   bProject := TProject.Create(nil);
-  bProject.ImportFromXML(aProject.ExportToXML,False,@ReplaceField);
+  aXML := aProject.ExportToXML;
+  bProject.ImportFromXML(aXML,False,@ReplaceField);
   cProject := TProject.Create(nil);
   cProject.Select(bProject.Id.AsVariant);
   cProject.Open;
