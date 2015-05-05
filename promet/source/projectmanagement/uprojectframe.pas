@@ -55,6 +55,7 @@ type
     acRegorganize: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
+    bChangeNumber: TSpeedButton;
     bDelegated2: TSpeedButton;
     Bevel10: TBevel;
     Bevel11: TBevel;
@@ -178,6 +179,7 @@ type
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
+    procedure bChangeNumberClick(Sender: TObject);
     procedure bProjectColorColorChanged(Sender: TObject);
     procedure cbCategorySelect(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
@@ -842,6 +844,21 @@ begin
       Edit;
       FieldbyName('TREEENTRY').AsInteger:=fMainTreeFrame.GetTreeEntry;
       fMainTreeFrame.tvMain.Selected.Collapse(true);
+    end;
+end;
+
+procedure TfProjectFrame.bChangeNumberClick(Sender: TObject);
+var
+  str: String;
+begin
+  str := DataSet.FieldByName('ID').AsString;
+  if InputQuery(strChangeNumer,strnewNumber,str) and (str <> DataSet.FieldByName('ID').AsString) then
+    begin
+      with DataSet.DataSet do
+        begin
+          Edit;
+          FieldbyName('ID').AsString:=str;
+        end;
     end;
 end;
 

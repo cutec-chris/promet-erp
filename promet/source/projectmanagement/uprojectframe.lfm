@@ -692,17 +692,17 @@ inherited fprojectFrame: TfprojectFrame
       Left = 262
       Height = 44
       Top = 0
-      Width = 118
+      Width = 142
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 118
+      ClientWidth = 142
       TabOrder = 2
       object Label5: TLabel
         Left = 4
         Height = 15
         Top = 0
-        Width = 110
+        Width = 134
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
         BorderSpacing.Left = 5
@@ -727,17 +727,28 @@ inherited fprojectFrame: TfprojectFrame
         Height = 21
         Hint = 'Die Projektnummer'
         Top = 12
-        Width = 110
+        Width = 84
         DataField = 'ID'
         DataSource = Projects
+        ReadOnly = True
         CharCase = ecNormal
         MaxLength = 0
         TabOrder = 0
         TabStop = False
       end
+      object bChangeNumber: TSpeedButton
+        Left = 96
+        Height = 22
+        Hint = 'Nummer ändern'
+        Top = 12
+        Width = 39
+        Caption = '...'
+        Flat = True
+        OnClick = bChangeNumberClick
+      end
     end
     object Panel9: TPanel
-      Left = 380
+      Left = 404
       Height = 44
       Top = 0
       Width = 146
@@ -848,7 +859,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object Panel10: TPanel
-      Left = 526
+      Left = 550
       Height = 44
       Top = 0
       Width = 77
@@ -931,7 +942,7 @@ inherited fprojectFrame: TfprojectFrame
       end
     end
     object Panel11: TPanel
-      Left = 603
+      Left = 627
       Height = 44
       Top = 0
       Width = 194

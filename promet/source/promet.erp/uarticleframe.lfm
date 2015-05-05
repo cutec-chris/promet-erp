@@ -757,7 +757,6 @@ inherited fArticleFrame: TfArticleFrame
         DataSource = Masterdata
         ReadOnly = True
         CharCase = ecNormal
-        Enabled = False
         MaxLength = 0
         TabOrder = 0
         TabStop = False
@@ -765,6 +764,7 @@ inherited fArticleFrame: TfArticleFrame
       object bChangeNumber: TSpeedButton
         Left = 116
         Height = 22
+        Hint = 'Nummer ändern'
         Top = 13
         Width = 39
         Caption = '...'

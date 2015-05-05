@@ -197,7 +197,6 @@ resourcestring
   strSupplier                                = 'Lieferant';
   strRepair                                  = 'Reparatur';
   strTexts                                   = 'Texte';
-  strChangeNumer                             = 'Nummer ändern';
   strNewArticle                              = 'neuer Artikel';
 procedure TfArticleFrame.acSaveExecute(Sender: TObject);
 begin
