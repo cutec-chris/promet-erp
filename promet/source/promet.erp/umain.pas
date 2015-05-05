@@ -1143,6 +1143,7 @@ begin
         fMain.acShowTree.Checked := DBConfig.ReadBoolean('SHOWTREE',True);
       fMain.acShowTreeExecute(nil);
     end;
+  DoInfo('StarterThread:end');
   inherited Destroy;
 end;
 
