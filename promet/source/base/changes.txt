@@ -1,5 +1,5 @@
 ﻿Build 397
-      -
+      - Projekte:Projektnummer nicht direkt editierbar (wie bei Artikeln)
 Build 396
       - Datenbank:schon vergebene SQL_IDś werden übersprungen
       - Scripte:Verlaufseintrag bei jedem speichern (wie bei jedem Listenelement)
