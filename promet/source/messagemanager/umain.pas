@@ -128,11 +128,13 @@ begin
       begin
         Error('Processmanager Disabled: exitcode:'+IntToStr(ProcessManager.ExitStatus));
         Showmessage('Processmanager Disabled: exitcode:'+IntToStr(ProcessManager.ExitStatus));
+        {
         s := TStringStream.Create('');
         s.CopyFrom(ProcessManager.Output,ProcessManager.Output.NumBytesAvailable);
         Error('Processmanager Disabled:'+s.DataString);
         Showmessage('Processmanager Disabled:'+s.DataString);
         s.Free;
+        }
         FreeAndNil(ProcessManager);
       end;
   if not Assigned(ProcessManager) then

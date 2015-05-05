@@ -120,7 +120,7 @@ begin
       if not FileExists(UniToSys(aDir+aProcess+ExtractFileExt(BaseApplication.ExeName))) then exit;
     end;
   Result := TProcess.Create(nil);
-  Result.Options:=[poUsePipes,poStderrToOutPut,poNoConsole];
+  Result.Options:=[poNoConsole];
   Result.CommandLine:=aDir+aProcess+ExtractFileExt(BaseApplication.ExeName)+' '+cmdln;
   with BaseApplication as IBaseApplication do
     Debug('Processmanager started with Command:'+Result.CommandLine);
