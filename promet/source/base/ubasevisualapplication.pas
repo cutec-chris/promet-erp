@@ -708,6 +708,8 @@ end;
 procedure TBaseVisualApplication.Warning(aMsg: string);
 begin
   try
+    if HasOption('debug') then
+      debugln('DEBUG:'+aMsg);
     Log('WARNING',aMsg);
     SendDebugEx(aMsg,dlWarning);
   except
@@ -716,6 +718,8 @@ end;
 procedure TBaseVisualApplication.Error(aMsg: string);
 begin
   try
+    if HasOption('debug') then
+      debugln('DEBUG:'+aMsg);
     Log('ERROR',aMsg);
     SendDebugEx(aMsg,dlError);
   except
@@ -1181,4 +1185,4 @@ initialization
 finalization
   MainFrames.Free;
 end.
-
+

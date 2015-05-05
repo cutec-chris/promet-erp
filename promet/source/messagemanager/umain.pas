@@ -37,10 +37,10 @@ type
     acExit: TAction;
     acMarkRead: TAction;
     ActionList1: TActionList;
-    IPCTimer: TIdleTimer;
     ImageList1: TImageList;
     ImageList2: TImageList;
     ImageList3: TImageList;
+    IPCTimer: TTimer;
     MenuItem1: TMenuItem;
     miExit: TMenuItem;
     miHistory: TMenuItem;
@@ -89,7 +89,7 @@ uses {$ifdef WINDOWS}Windows,{$endif}
   uData,Utils,Forms,uBaseApplication,uIntfStrConsts,math,eventlog,uBaseDBInterface,
   umTimeLine,XMLPropStorage,LCLProc,uprometipc,wikitohtml,uMessages,uBaseSearch,
   utask,uOrder,uPerson,uMasterdata,uProjects,uWiki,uDocuments,umeeting,uStatistic,
-  uprometscripts,LCLIntf,uProcessManager;
+  uprometscripts,LCLIntf,uProcessManager,Dialogs;
 {$R *.lfm}
 const
   RefreshAll = 30;//5 mins refresh
@@ -127,9 +127,11 @@ begin
     with BaseApplication as IBaseApplication do
       begin
         Error('Processmanager Disabled: exitcode:'+IntToStr(ProcessManager.ExitStatus));
+        Showmessage('Processmanager Disabled: exitcode:'+IntToStr(ProcessManager.ExitStatus));
         s := TStringStream.Create('');
         s.CopyFrom(ProcessManager.Output,ProcessManager.Output.NumBytesAvailable);
         Error('Processmanager Disabled:'+s.DataString);
+        Showmessage('Processmanager Disabled:'+s.DataString);
         s.Free;
         FreeAndNil(ProcessManager);
       end;

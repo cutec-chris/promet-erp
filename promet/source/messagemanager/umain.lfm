@@ -784,7 +784,7 @@ object fMain: TfMain
       FF01000000000000000000000000
     }
   end
-  object IPCTimer: TIdleTimer
+  object IPCTimer: TTimer
     Interval = 200
     OnTimer = IPCTimerTimer
     left = 152

@@ -64,6 +64,7 @@
     <RequiredPkgs Count="9">
       <Item1>
         <PackageName Value="pscripts"/>
+        <DefaultFilename Value="base_scripts\pscripts.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="v103_lazarus"/>
