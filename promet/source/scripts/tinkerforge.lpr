@@ -5,7 +5,7 @@ library tinkerforge;
 uses
   Classes,sysutils, IPConnection, Device, BrickletLCD20x4, BrickletLCD16x2,
   BrickletVoltageCurrent,BrickletIndustrialQuadRelay,BrickletDualRelay,process,
-  Utils, general_nogui;
+  Utils;
 type
   TStation = class
     procedure ipconConnected(sender: TIPConnection; const connectReason: byte);
