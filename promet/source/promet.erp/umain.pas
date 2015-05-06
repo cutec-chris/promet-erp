@@ -306,6 +306,7 @@ type
     procedure RegisterPhoneLines;
     function GetRight(aRight : string) : Integer;
     procedure DoRealInfo;
+    procedure DoCalendar;
     procedure DoInfo(aMsg : string);
   public
     constructor Create(aSuspended : Boolean = False);
@@ -896,6 +897,11 @@ begin
     Info('StarterThread:'+FInfo);
 end;
 
+procedure TStarterThread.DoCalendar;
+begin
+  fMain.RefreshCalendar;
+end;
+
 procedure TStarterThread.DoInfo(aMsg: string);
 begin
   FInfo := aMsg;
@@ -977,7 +983,7 @@ begin
       DataSetType:=TCalendar;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
-      fMain.RefreshCalendar;
+      Synchronize(@DoCalendar);
       except
       end;
     end;

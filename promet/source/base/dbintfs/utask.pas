@@ -588,6 +588,8 @@ var
   TimeNeeded: Double;
   aDayUseTime: Extended;
   aActEndDate: Extended;
+  aInt: TTaskInterval;
+  aUsedTime: float;
 begin
   Result := False;
   //Get Latest Dependency
@@ -636,6 +638,8 @@ begin
   //Collect Tasks
   aIntervals := TList.Create;
   //Find first free Slot
+  with BaseApplication as IBaseApplication do
+    debug('Collect Tasks start');
   bTasks := TTaskList.CreateEx(nil,DataModule,Connection);
   if aUser.FieldByName('TYPE').AsString<>'G' then
     begin
@@ -643,7 +647,6 @@ begin
       bTasks.SortFields:='STARTDATE';
       bTasks.SortDirection:=sdAscending;
       bTasks.Open;
-
       aIntervals.Add(TTaskInterval.Create);
       TTaskInterval(aIntervals[0]).DueDate:=aStartDate;
       with bTasks.DataSet do
@@ -652,11 +655,36 @@ begin
             begin
               if  (not bTasks.FieldByName('STARTDATE').IsNull)
               and (not bTasks.FieldByName('DUEDATE').IsNull)
-              //and (not (bTasks.FieldByName('PLANTASK').AsString='N'))
               and (not (bTasks.Id.AsVariant=Self.Id.AsVariant))
               then
                 if not DependsOnMe(bTasks,2) then
-                  aIntervals.Add(bTasks.GetInterval);
+                  begin
+                    aInt := bTasks.GetInterval;
+                    with BaseApplication as IBaseApplication do
+                      debug('  Task: '+aInt.Name+' ('+DateToStr(aInt.StartDate)+'-'+DateToStr(aInt.DueDate)+')');
+
+                    if aInt.StartDate<Now() then
+                      begin
+                        aUsedTime := bTasks.GetTimesForTask();
+                        aInt.PlanTime:=aInt.PlanTime-aUsedTime;
+                        if aInt.PlanTime<1 then
+                          begin
+                            aInt.PlanTime:=1;
+                            aInt.StartDate:=now();
+                          end
+                        else
+                          aInt.StartDate:=Now()-(aUsedTime*(1/ResourceTimePerDay));
+                        with BaseApplication as IBaseApplication do
+                          debug('    changed:  ('+DateToStr(aInt.StartDate)+'-'+DateToStr(aInt.DueDate)+')');
+                      end;
+                    if (aInt.DueDate<Now()) and (aInt.StartDate+(aInt.PlanTime*(1/ResourceTimePerDay))>Now()) then
+                      begin
+                        aInt.DueDate:=aInt.StartDate+(aInt.PlanTime*(1/ResourceTimePerDay));
+                        with BaseApplication as IBaseApplication do
+                          debug('    changed:  ('+DateToStr(aInt.StartDate)+'-'+DateToStr(aInt.DueDate)+')');
+                      end;
+                    aIntervals.Add(aInt);
+                  end;
               Next;
             end;
           if bTasks.EOF then

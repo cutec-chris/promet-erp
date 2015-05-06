@@ -280,10 +280,6 @@ end;
 procedure TBaseCustomApplication.Log(aType: string; aMsg: string);
 begin
   try
-    if StdOutputHandle <> 0 then
-      begin
-        writeln(aType+':'+aMsg);
-      end;
     if Assigned(FLogger) then
       begin
         if aType = 'INFO' then

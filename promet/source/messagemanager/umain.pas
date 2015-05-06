@@ -127,7 +127,6 @@ begin
     with BaseApplication as IBaseApplication do
       begin
         Error('Processmanager Disabled: exitcode:'+IntToStr(ProcessManager.ExitStatus));
-        Showmessage('Processmanager Disabled: exitcode:'+IntToStr(ProcessManager.ExitStatus));
         {
         s := TStringStream.Create('');
         s.CopyFrom(ProcessManager.Output,ProcessManager.Output.NumBytesAvailable);

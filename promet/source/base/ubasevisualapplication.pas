@@ -730,6 +730,8 @@ begin
   if HasOption('debug') then
     debugln('DEBUG:'+aMsg);
   SendDebug('DEBUG:'+aMsg);
+  if GetDebuggingEnabled then
+    sleep(10);
 end;
 function TBaseVisualApplication.GetLog: TEventLog;
 begin
