@@ -443,10 +443,10 @@ object fTaskEdit: TfTaskEdit
     Height = 357
     Top = 73
     Width = 681
-    ActivePage = tsNotes
+    ActivePage = tsAdditional
     Align = alClient
     Images = fVisualControls.Images
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     NewTabImageIndex = 0
     object tsNotes: TTabSheet
@@ -685,7 +685,7 @@ object fTaskEdit: TfTaskEdit
           UseDefaultSeparators = True
         end
         object EndTimeLbl1: TLabel
-          Left = 160
+          Left = 152
           Height = 13
           Top = 96
           Width = 94
@@ -696,7 +696,7 @@ object fTaskEdit: TfTaskEdit
           ParentFont = False
         end
         object EndDate1: TDBZVDateTimePicker
-          Left = 160
+          Left = 152
           Height = 21
           Hint = 'Der Termin, zu dem die Aufgabe ursprünglich geplant war.'
           Top = 112
@@ -735,35 +735,6 @@ object fTaskEdit: TfTaskEdit
           OnExit = eBufferExit
           TabOrder = 5
         end
-        object Label14: TLabel
-          Left = 40
-          Height = 15
-          Top = 0
-          Width = 44
-          Alignment = taRightJustify
-          Anchors = [akLeft, akBottom]
-          AutoSize = False
-          BorderSpacing.Left = 5
-          Caption = 'Warten'
-          Font.Color = clMedGray
-          Font.Height = 11
-          ParentColor = False
-          ParentFont = False
-        end
-        object Label8: TLabel
-          Left = 4
-          Height = 15
-          Top = 0
-          Width = 44
-          Anchors = [akLeft, akBottom]
-          AutoSize = False
-          BorderSpacing.Left = 5
-          Caption = 'Zeit'
-          Font.Color = clMedGray
-          Font.Height = 11
-          ParentColor = False
-          ParentFont = False
-        end
         object EndTimeLbl3: TLabel
           Left = 152
           Height = 13
@@ -785,6 +756,33 @@ object fTaskEdit: TfTaskEdit
           Font.Color = clWindowText
           ParentColor = False
           ParentFont = False
+        end
+        object Label8: TLabel
+          Left = 152
+          Height = 13
+          Top = 56
+          Width = 30
+          Caption = 'Istzeit'
+          ParentColor = False
+        end
+        object DBText1: TDBText
+          Left = 152
+          Height = 13
+          Top = 72
+          Width = 41
+          DataField = 'TIME'
+          DataSource = Task
+          ParentColor = False
+        end
+        object Button1: TButton
+          Left = 200
+          Height = 25
+          Hint = 'Erfasste Zeiten aus der Zeiterfassung zusammenstellen'
+          Top = 68
+          Width = 54
+          Caption = 'holen'
+          OnClick = Button1Click
+          TabOrder = 6
         end
       end
       object GroupBox3: TGroupBox

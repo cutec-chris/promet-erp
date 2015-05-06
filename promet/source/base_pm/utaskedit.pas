@@ -21,7 +21,7 @@ info@cu-tec.de
 unit uTaskEdit;
 interface
 uses
-  LMessages, LCLProc, LCLType, LCLIntf,  SysUtils, Classes, Graphics,
+  LMessages, LCLProc, LCLType, LCLIntf,  SysUtils, Classes, math, Graphics,
   Controls, Forms, Dialogs, StdCtrls, ExtCtrls, ComCtrls, ZVDateTimePicker,
   DBZVDateTimePicker, utask, uExtControls, Buttons, EditBtn, ButtonPanel, Spin,
   DbCtrls, db, uIntfStrConsts,DBGrids,Grids, ActnList,uHistoryFrame;
@@ -39,6 +39,7 @@ type
     Bevel4: TBevel;
     Bevel5: TBevel;
     Bevel7: TBevel;
+    Button1: TButton;
     cbCategory: TDBComboBox;
     cbChecked: TDBCheckBox;
     cbChecked1: TDBCheckBox;
@@ -47,6 +48,7 @@ type
     cbCompleted1: TDBCheckBox;
     cbPriority: TDBComboBox;
     cbState: TExtDBCombobox;
+    DBText1: TDBText;
     EarlystDate: TDBZVDateTimePicker;
     eBuffer: TEdit;
     EndTimeLbl3: TLabel;
@@ -70,7 +72,6 @@ type
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
-    Label14: TLabel;
     Label3: TLabel;
     Label6: TLabel;
     Label8: TLabel;
@@ -107,6 +108,7 @@ type
     procedure acSaveExecute(Sender: TObject);
     procedure bDelegated2Click(Sender: TObject);
     procedure bSetUserClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
     procedure cbStateSelect(Sender: TObject);
     procedure eBufferExit(Sender: TObject);
     procedure eProjectButtonClick(Sender: TObject);
@@ -305,6 +307,21 @@ end;
 procedure TfTaskEdit.bSetUserClick(Sender: TObject);
 begin
 
+end;
+
+procedure TfTaskEdit.Button1Click(Sender: TObject);
+var
+  aColTime: float;
+begin
+  with FDataSet do
+    begin
+      aColTime := GetTimesForTask;
+      if aColTime>0 then
+        begin
+          Edit;
+          FieldByName('TIME').AsFloat:=aColTime;
+        end;
+    end;
 end;
 
 procedure TfTaskEdit.cbStateSelect(Sender: TObject);
