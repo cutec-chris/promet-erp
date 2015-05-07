@@ -2178,6 +2178,9 @@ begin
             Add('PARENT',ftLargeint,0,False);
             Add('TYPE',ftString,1,True);
             Add('NAME',ftString,60,True);
+            Add('LINK',ftString,400,False);
+            Add('ICON',ftInteger,0,False);
+            Add('DESC',ftString,200,False);
           end;
     end;
 end;
