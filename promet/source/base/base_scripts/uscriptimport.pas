@@ -42,11 +42,12 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lInfo: TLabel;
+    OpenDialog: TOpenDialog;
     Panel1: TPanel;
-    SelectDirectoryDialog1: TSelectDirectoryDialog;
     SpeedButton1: TSpeedButton;
     procedure acConfigExecute(Sender: TObject);
     procedure cbFormatSelect(Sender: TObject);
+    procedure eDataSourceButtonClick(Sender: TObject);
   private
     FTyp : TImporterCapability;
     FFormat : string;
@@ -77,7 +78,7 @@ resourcestring
 
 implementation
 
-uses uScriptEditor,uData,genpascalscript,variants;
+uses uScriptEditor,uData,genpascalscript,variants,uError;
 
 {$R *.lfm}
 
@@ -125,9 +126,21 @@ begin
               lInfo.Caption:=Runtime.RunProcPN([],'SOURCEDESCRIPTION');
             except
             end;
+            OpenDialog.Filter:='';
+            try
+              OpenDialog.Filter:=Runtime.RunProcPN([],'FILEEXTENSION');
+            except
+            end;
           end;
     end
   else lInfo.Caption:=strSelectAnFormat;
+end;
+
+procedure TfScriptImport.eDataSourceButtonClick(Sender: TObject);
+begin
+  if OpenDialog.Filter<>'' then
+    if OpenDialog.Execute then
+      eDataSource.Text:=OpenDialog.FileName;
 end;
 
 procedure TfScriptImport.CheckAll;
@@ -172,7 +185,12 @@ begin
         Result := aScripts.Locate('NAME','Export.'+FFormat+'.'+cbFormat.Text,[loCaseInsensitive]);
       if Result then
         begin
-          aScripts.Execute(VarArrayOf([eDataSource.Text]));
+          with TPrometPascalScript(aScripts).Script as TPascalScript do
+            begin
+              Result := Runtime.RunProcPN([eDataSource.Text],'IMPORT');
+              if not Result then
+                fError.ShowError(Runtime.RunProcPN([eDataSource.Text],'LASTERROR'));
+            end;
         end
     end;
   aScripts.Free;
