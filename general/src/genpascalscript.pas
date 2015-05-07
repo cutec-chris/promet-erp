@@ -517,7 +517,7 @@ end;
 function ExtendICompiler(Sender: TPSPascalCompiler; const Name: tbtString
   ): Boolean;
 begin
-  TPascalScript(Sender.Obj).InternalUses(Sender,Name);
+  Result := TPascalScript(Sender.Obj).InternalUses(Sender,Name);
 end;
 { TByteCodeScript }
 constructor TByteCodeScript.Create;

@@ -755,15 +755,15 @@ begin
       Messages.Items.Add(e.Message);
   end;
   messages.Clear;
-  for i := 0 to Debugger.CompilerMessageCount -1 do
-    begin
-      mo := TMessageObject.Create;
-      mo.X:=Debugger.CompilerMessages[i].Col;
-      mo.Y:=Debugger.CompilerMessages[i].Row;
-      Messages.Items.AddObject(Debugger.CompilerMessages[i].MessageToString,mo);
-    end;
   if not Result then
     begin
+      for i := 0 to Debugger.CompilerMessageCount -1 do
+        begin
+          mo := TMessageObject.Create;
+          mo.X:=Debugger.CompilerMessages[i].Col;
+          mo.Y:=Debugger.CompilerMessages[i].Row;
+          Messages.Items.AddObject(Debugger.CompilerMessages[i].MessageToString,mo);
+        end;
       if Debugger.CompilerMessageCount=0 then
         messages.Items.Add(Debugger.ExecErrorToString);
       Messages.Items.Add(STR_COMPILE_ERROR);
