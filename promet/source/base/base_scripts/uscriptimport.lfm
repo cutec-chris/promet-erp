@@ -110,6 +110,7 @@ object fScriptImport: TfScriptImport
     end
   end
   object OpenDialog: TOpenDialog
+    Filter = 'Leistungsbescheibung (*.d81)|*.d81|Kostenansatz (*.d82)|*.d82|Angebotsaufforderung (*.d83)|*.d83|Angebotsabgabe (*.d84)|*.d84|Nebenangebot (*.d85)|*.d85|Auftragserteilung (*.d86)|*.d86|Rechnung (*.d89)|*.d89'
     left = 56
     top = 24
   end
