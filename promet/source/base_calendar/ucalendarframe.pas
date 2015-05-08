@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, SynMemo, Forms, Controls, Buttons, ExtCtrls,
   StdCtrls, ActnList, db, uPrometFrames, VpMonthView, VpWeekView, VpDayView,
   VpBaseDS, VpData, VpBase, uBaseDbInterface, uCalendar, DateUtils, ComCtrls,
-  DbCtrls, Spin,uFilterFrame,uBaseDatasetInterfaces;
+  DbCtrls, Spin, Menus,uFilterFrame,uBaseDatasetInterfaces;
 type
   TCustomPrometheusDataStore = class(TVpCustomDataStore)
   private
@@ -50,6 +50,8 @@ type
     acMonthView: TAction;
     acNew: TAction;
     acPrint: TAction;
+    acImport: TAction;
+    acExport: TAction;
     acWeekViewDays: TAction;
     ActionList1: TActionList;
     acWeekView: TAction;
@@ -80,6 +82,8 @@ type
     Label5: TLabel;
     lFilterEdit: TLabel;
     lFilterIn: TLabel;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
     MonthView: TVpMonthView;
     Panel1: TPanel;
     pListView: TPanel;
@@ -91,6 +95,7 @@ type
     pDayView: TPanel;
     pFilterOpt: TPanel;
     pFilterOptions: TPanel;
+    pmAction: TPopupMenu;
     pWeekDayView: TPanel;
     sbDelete: TSpeedButton;
     sbMenue: TSpeedButton;
@@ -101,7 +106,9 @@ type
     ToolBar1: TPanel;
     WeekView: TVpWeekView;
     procedure acDayViewExecute(Sender: TObject);
+    procedure acExportExecute(Sender: TObject);
     procedure acGotoTodayExecute(Sender: TObject);
+    procedure acImportExecute(Sender: TObject);
     procedure acMonthViewExecute(Sender: TObject);
     procedure acNewExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
@@ -115,6 +122,7 @@ type
     procedure eFilterEditChange(Sender: TObject);
     procedure MonthViewDblClick(Sender: TObject);
     procedure MonthViewEventDblClick(Sender: TObject; Event: TVpEvent);
+    procedure sbMenueClick(Sender: TObject);
     procedure WeekViewMouseWheel(Sender: TObject; Shift: TShiftState; Delta,
       XPos, YPos: Word);
   private
@@ -381,6 +389,11 @@ begin
   RefreshCalendar(FCalendarNode);
 end;
 
+procedure TfCalendarFrame.sbMenueClick(Sender: TObject);
+begin
+  TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
+end;
+
 procedure TfCalendarFrame.WeekViewMouseWheel(Sender: TObject;
   Shift: TShiftState; Delta, XPos, YPos: Word);
 begin
@@ -434,6 +447,12 @@ begin
   if Sender <> nil then
     DataStoreDateChanged(DataStore,DataStore.Date);
 end;
+
+procedure TfCalendarFrame.acExportExecute(Sender: TObject);
+begin
+  FList.acExport.Execute;
+end;
+
 procedure TfCalendarFrame.acGotoTodayExecute(Sender: TObject);
 begin
   DataStore.Date:=Now();
@@ -441,6 +460,12 @@ begin
   if bWeekViewDay.Down then bWeekViewDay.OnClick(Self);
   if bMonthView.Down then bMonthView.OnClick(Self);
 end;
+
+procedure TfCalendarFrame.acImportExecute(Sender: TObject);
+begin
+  FList.acImport.Execute;
+end;
+
 procedure TfCalendarFrame.acMonthViewExecute(Sender: TObject);
 begin
   pDayView.Visible := False;
