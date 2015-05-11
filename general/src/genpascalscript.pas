@@ -325,6 +325,7 @@ begin
         AddMethod(Self,@TPascalScript.InternalDateTimeToStr,'function DateTimeToStr(DateTime: TDateTime): string;');
         AddMethod(Self,@TPascalScript.InternalFormat,'function Format(Fmt: string;Args: array of const):string;');
         AddFunction(@IntToHex,'function IntToHex(Value: integer; Digits: integer) : string;');
+        AddFunction(@FileExists,'function FileExists (Const FileName : String) : Boolean;');
       end
     else if lowercase(Name)='exec' then
       begin
@@ -757,8 +758,11 @@ end;
 procedure TPascalScript.SetCompiler(AValue: TPSPascalCompiler);
 begin
   if FCompiler=AValue then Exit;
-  if FCompilerFree then
-    FCompiler.Free;
+  try
+    if FCompilerFree then
+      FCompiler.Free;
+  except
+  end;
   FCompiler:=AValue;
   FCompilerFree := False;
 end;
