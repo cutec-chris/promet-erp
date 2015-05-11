@@ -65,7 +65,7 @@ inherited fUserFieldOptions: TfUserFieldOptions
     WordWrap = True
   end
   object UserfielddefsDS: TDataSource[2]
-    OnDataChange = UserfielddefsDSDataChange
+    OnUpdateData = UserfielddefsDSUpdateData
     left = 132
     top = 316
   end

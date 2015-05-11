@@ -33,6 +33,7 @@ type
     lOnlyOnNextStart: TLabel;
     UserfielddefsDS: TDatasource;
     procedure UserfielddefsDSDataChange(Sender: TObject; Field: TField);
+    procedure UserfielddefsDSUpdateData(Sender: TObject);
   private
     { private declarations }
     aConnection: TComponent;
@@ -54,8 +55,12 @@ uses uData;
 procedure TfUserFieldOptions.UserfielddefsDSDataChange(Sender: TObject;
   Field: TField);
 begin
-  while Data.TableVersions.DataSet.Locate('NAME',UserfielddefsDS.DataSet.FieldByName('TTABLE').AsString,[loCaseInsensitive]) do
-    Data.TableVersions.DataSet.Delete;
+end;
+
+procedure TfUserFieldOptions.UserfielddefsDSUpdateData(Sender: TObject);
+begin
+  if Data.TableVersions.DataSet.Locate('NAME',UserfielddefsDS.DataSet.FieldByName('TTABLE').AsString,[loCaseInsensitive]) then
+    Data.TableVersions.Delete;
 end;
 
 constructor TfUserFieldOptions.Create(TheOwner: TComponent);
