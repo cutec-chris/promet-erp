@@ -48,6 +48,7 @@ type
     procedure acConfigExecute(Sender: TObject);
     procedure cbFormatSelect(Sender: TObject);
     procedure eDataSourceButtonClick(Sender: TObject);
+    procedure lInfoResize(Sender: TObject);
   private
     FTyp : TImporterCapability;
     FFormat : string;
@@ -141,6 +142,11 @@ begin
   if OpenDialog.Filter<>'' then
     if OpenDialog.Execute then
       eDataSource.Text:=OpenDialog.FileName;
+end;
+
+procedure TfScriptImport.lInfoResize(Sender: TObject);
+begin
+  Height := eDataSource.Top+eDataSource.Height+bpButtons.Height+30;
 end;
 
 procedure TfScriptImport.CheckAll;

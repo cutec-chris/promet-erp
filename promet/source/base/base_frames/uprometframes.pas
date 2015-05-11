@@ -58,6 +58,7 @@ type
     procedure New;virtual;
     procedure ListFrameAdded(aFrame : TObject);virtual;abstract;//Configure your List/Filter Frame
     function HasListFrame : Boolean;virtual;
+    procedure DoSetup;virtual;abstract;
 
     property Link : string read FLink;
     procedure SetLanguage;virtual;abstract;
@@ -73,17 +74,25 @@ type
     property NewAction : TAction read FNewAction write FNewAction;
     property ListAction : TAction read FListAction write FListAction;
   end;
+  TPrometMainFrameClass = class(TPrometMainFrame);
+
+  { TPrometMenuEntry }
 
   TPrometMenuEntry = class
   private
     FClick: TNotifyEvent;
     FDClick: TNotifyEvent;
     FItems: TList;
+    FLink: string;
+    FPath: string;
+    FCaption : string;
   protected
-    function GetCaption: string;virtual;
   public
+    constructor Create(aCaption, aPath, aLink: string; aIcon: Integer);
     function GetIconIndex : Integer;virtual;
-    property Caption : string read GetCaption;
+    property Caption : string read FCaption;
+    property DefaultPath : string read FPath;
+    property Link : string read FLink;
     procedure FillItems;virtual;abstract;
     property Items : TList read FItems;
     procedure RemoveItems;virtual;abstract;
@@ -94,12 +103,27 @@ type
   TPrometRootEntry = class(TPrometMenuEntry)
   end;
 
+  procedure AddFrameClass(aFrame : TPrometMainFrameClass);
+
+var
+  PrometMenuEntrys : TList;
+  PrometFrames : TList;
+
 implementation
 uses ComCtrls, uIntfStrConsts,LCLType,LCLIntf,uWiki,uData,uBaseApplication;
 
-function TPrometMenuEntry.GetCaption: string;
+procedure AddFrameClass(aFrame: TPrometMainFrameClass);
 begin
-  Result := 'to implement';
+  if not Assigned(PrometFrames) then
+    PrometFrames := TList.Create;
+end;
+
+constructor TPrometMenuEntry.Create(aCaption, aPath, aLink: string; aIcon: Integer);
+begin
+  inherited Create;
+  FLink:=aLink;
+  FCaption := aCaption;
+  FPath:=aPath;
 end;
 
 function TPrometMenuEntry.GetIconIndex: Integer;
