@@ -32,6 +32,7 @@ type
     gUserfields: TDBGrid;
     lOnlyOnNextStart: TLabel;
     UserfielddefsDS: TDatasource;
+    procedure UserfielddefsDSDataChange(Sender: TObject; Field: TField);
   private
     { private declarations }
     aConnection: TComponent;
@@ -49,6 +50,14 @@ implementation
 
 {$R *.lfm}
 uses uData;
+
+procedure TfUserFieldOptions.UserfielddefsDSDataChange(Sender: TObject;
+  Field: TField);
+begin
+  while Data.TableVersions.DataSet.Locate('NAME',UserfielddefsDS.DataSet.FieldByName('TTABLE').AsString,[loCaseInsensitive]) do
+    Data.TableVersions.DataSet.Delete;
+end;
+
 constructor TfUserFieldOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);

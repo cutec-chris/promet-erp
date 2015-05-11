@@ -8,8 +8,8 @@ inherited fUserFieldOptions: TfUserFieldOptions
   DesignTop = 183
   object gUserfields: TDBGrid[0]
     Left = 8
-    Height = 470
-    Top = 31
+    Height = 472
+    Top = 29
     Width = 538
     Align = alClient
     BorderSpacing.Around = 8
@@ -53,7 +53,7 @@ inherited fUserFieldOptions: TfUserFieldOptions
   end
   object lOnlyOnNextStart: TLabel[1]
     Left = 8
-    Height = 15
+    Height = 13
     Top = 8
     Width = 538
     Align = alTop
@@ -64,7 +64,8 @@ inherited fUserFieldOptions: TfUserFieldOptions
     Transparent = False
     WordWrap = True
   end
-  object UserfielddefsDS: TDatasource[2]
+  object UserfielddefsDS: TDataSource[2]
+    OnDataChange = UserfielddefsDSDataChange
     left = 132
     top = 316
   end
