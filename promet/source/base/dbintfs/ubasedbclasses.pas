@@ -3014,6 +3014,10 @@ begin
                         Add('U'+UserFields.FieldByName('TFIELD').AsString,ftString,UserFields.FieldByName('SIZE').AsInteger)
                       else if UserFields.FieldByName('TYPE').AsString = 'DATETIME' then
                         Add('U'+UserFields.FieldByName('TFIELD').AsString,ftDateTime,0)
+                      else if UserFields.FieldByName('TYPE').AsString = 'FLOAT' then
+                        Add('U'+UserFields.FieldByName('TFIELD').AsString,ftFloat,0)
+                      else if UserFields.FieldByName('TYPE').AsString = 'TEXT' then
+                        Add('U'+UserFields.FieldByName('TFIELD').AsString,ftMemo,0)
                       ;
                     end;
               UserFields.DataSet.Next;

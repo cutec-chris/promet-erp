@@ -22,6 +22,8 @@ inherited fUserFieldOptions: TfUserFieldOptions
           'CUSTOMERS'
           'ORDERS'
           'ORDERPOS'
+          'PROJECTS'
+          'DOCMANAGE'
         )
         Title.Caption = 'TTABLE'
         Width = 200
@@ -37,6 +39,8 @@ inherited fUserFieldOptions: TfUserFieldOptions
           'STRING'
           'INTEGER'
           'DATETIME'
+          'FLOAT'
+          'TEXT'
         )
         Title.Caption = 'TYPE'
         Width = 70
