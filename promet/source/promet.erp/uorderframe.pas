@@ -1050,5 +1050,7 @@ begin
         end;
     end;
 end;
+initialization
+  AddFrameClass(TfOrderFrame);
 end.
 

@@ -1446,6 +1446,8 @@ begin
     RefreshTimer.Enabled:=True;
 end;
 
+initialization
+  AddFrameClass(TfWikiFrame);
 {$R *.lfm}
 end.
 

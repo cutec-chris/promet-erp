@@ -1024,4 +1024,6 @@ end;
 procedure TfArticleFrame.SetLanguage;
 begin
 end;
+initialization
+  AddFrameClass(TfArticleFrame);
 end.

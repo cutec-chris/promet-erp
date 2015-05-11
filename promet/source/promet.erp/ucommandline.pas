@@ -168,5 +168,7 @@ begin
   aHistory := TAccessHistory.CreateEx(nil,Data,nil,Data.Users.DataSet);
 end;
 
+initialization
+  AddFrameClass(TfCommandline);
 end.
 

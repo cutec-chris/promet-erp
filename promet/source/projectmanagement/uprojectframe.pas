@@ -1459,5 +1459,7 @@ begin
   aTask.Free;
 end;
 
+initialization
+  AddFrameClass(TfProjectFrame);
 end.
 

@@ -351,5 +351,7 @@ begin
     end;
   FList.SetActive;
 end;
+initialization
+  AddFrameClass(TfAccountingFrame);
 end.
 

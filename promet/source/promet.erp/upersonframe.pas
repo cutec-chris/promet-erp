@@ -1263,5 +1263,7 @@ begin
   pcPages.AddTab(TfAddressFrame.Create(Self));
 end;
 
+initialization
+  AddFrameClass(TfPersonFrame);
 end.
 

@@ -849,6 +849,8 @@ begin
   with Application as IBaseApplication do
     Debug('Post Events end');
 end;
+initialization
+  AddFrameClass(TfCalendarFrame);
 {$R *.lfm}
 end.
 

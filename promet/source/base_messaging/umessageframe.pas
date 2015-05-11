@@ -456,5 +456,7 @@ begin
   fMainTreeFrame.tvMain.Invalidate;
   MsgIndex.free;
 end;
+initialization
+  AddFrameClass(TfMessageFrame);
 end.
 

@@ -419,4 +419,6 @@ begin
   FEditor.Show;
 end;
 
+initialization
+  AddFrameClass(TfScriptFrame);
 end.

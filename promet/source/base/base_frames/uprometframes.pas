@@ -74,7 +74,7 @@ type
     property NewAction : TAction read FNewAction write FNewAction;
     property ListAction : TAction read FListAction write FListAction;
   end;
-  TPrometMainFrameClass = class(TPrometMainFrame);
+  TPrometMainFrameClass = class of TPrometMainFrame;
 
   { TPrometMenuEntry }
 
