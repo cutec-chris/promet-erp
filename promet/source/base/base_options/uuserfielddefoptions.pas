@@ -58,9 +58,17 @@ begin
 end;
 
 procedure TfUserFieldOptions.UserfielddefsDSUpdateData(Sender: TObject);
+var
+  aTable: String;
 begin
-  if Data.TableVersions.DataSet.Locate('NAME',UserfielddefsDS.DataSet.FieldByName('TTABLE').AsString,[loCaseInsensitive]) then
-    Data.TableVersions.Delete;
+  aTable := UserfielddefsDS.DataSet.FieldByName('TTABLE').AsString;
+  Data.TableVersions.DataSet.Filter:=Data.QuoteField('NAME')+'='+Data.QuoteValue(aTable);
+  Data.TableVersions.DataSet.Filtered:=True;
+  while not Data.TableVersions.EOF do
+    Data.TableVersions.DataSet.Delete;
+  Data.TableVersions.DataSet.Filtered:=false;
+  if Data.Tables.IndexOf(aTable)>-1 then
+    Data.Tables.Delete(Data.Tables.IndexOf(aTable));
 end;
 
 constructor TfUserFieldOptions.Create(TheOwner: TComponent);

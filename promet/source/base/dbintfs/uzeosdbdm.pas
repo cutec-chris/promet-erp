@@ -820,6 +820,9 @@ end;
 procedure TZeosDBDataSet.DoBeforeDelete;
 begin
   inherited DoBeforeDelete;
+  if (GetTableName='DELETEDITEMS')
+  or (GetTableName='TABLEVERSIONS')
+  then exit;
   try
     if Assigned(FOrigTable) and Assigned(FOrigTable.OnRemove) then FOrigTable.OnRemove(FOrigTable);
     if GetUpStdFields = True then
