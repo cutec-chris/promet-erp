@@ -64,5 +64,7 @@ begin
   FTimeReg.SetActive;
 end;
 
+initialization
+  AddFrameClass(TfTimeFrame);
 end.
 

@@ -1864,5 +1864,7 @@ begin
   if not Assigned(Self) then exit;
 end;
 
+initialization
+  AddFrameClass(TfManageDocFrame);
 end.
 
