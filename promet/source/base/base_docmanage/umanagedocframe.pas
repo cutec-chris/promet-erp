@@ -1864,7 +1864,13 @@ begin
   if not Assigned(Self) then exit;
 end;
 
+var
+  aEntry : TPrometMenuEntry;
 initialization
   AddFrameClass(TfManageDocFrame);
+  aEntry := TPrometMenuEntry.Create(strDocumentsOnly,strDocumentsOnly,'DOCUMENTS@DOCMANAGE',IMAGE_FOLDER);
+  AddMenuEntry(aEntry);
+  aEntry := TPrometMenuEntry.Create(strImages,strImages,'IMAGES@DOCMANAGE',IMAGE_FOLDER);
+  AddMenuEntry(aEntry);
 end.
 

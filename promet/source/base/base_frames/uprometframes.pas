@@ -104,9 +104,10 @@ type
   end;
 
   procedure AddFrameClass(aFrame : TPrometMainFrameClass);
+  procedure AddMenuEntry(aEntry : TPrometMenuEntry);
 
 var
-  PrometMenuEntrys : TClassList;
+  PrometMenuEntrys : TList;
   PrometFrames : TClassList;
 
 implementation
@@ -119,6 +120,13 @@ begin
   if not Assigned(PrometFrames) then
     PrometFrames := TClassList.Create;
   PrometFrames.Add(aFrame);
+end;
+
+procedure AddMenuEntry(aEntry: TPrometMenuEntry);
+begin
+  if not Assigned(PrometMenuEntrys) then
+    PrometMenuEntrys := TList.Create;
+  PrometMenuEntrys.Add(aEntry);
 end;
 
 constructor TPrometMenuEntry.Create(aCaption, aPath, aLink: string; aIcon: Integer);

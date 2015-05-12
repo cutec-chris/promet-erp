@@ -1417,11 +1417,13 @@ begin
               begin
                 aObj.Edit;
                 aObj.Text.AsString := Self.Text.AsString;
+                aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
               end;
             if aObj.Number.AsString<>Self.Number.AsString then
               begin
                 aObj.Edit;
                 aObj.Number.AsString := Self.Number.AsString;
+                aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
               end;
             if Assigned(Self.Status) and (aObj.Status.AsString<>Self.Status.AsString) then
               begin
