@@ -995,6 +995,7 @@ var
   rUser: String;
   rAutoLogin: String;
   aRec: LargeInt;
+  i: Integer;
   function IsAutoLogin : Boolean;
   begin
     result := (rMandant='Standard') and (rUser='Administrator') and ((rAutoLogin='0') or (rAutoLogin=''));
@@ -1120,6 +1121,9 @@ begin
       udata.Data.OnConnectionLost:=@DataDataConnectionLost;
       udata.Data.OnDisconnectKeepAlive:=@DataDataDisconnectKeepAlive;
       udata.Data.OnConnect:=@DataDataConnect;
+      for i := 0 to MainFrames.Count-1 do
+        begin
+        end;
     end;
   if not Result then uData.Data := nil;
 end;

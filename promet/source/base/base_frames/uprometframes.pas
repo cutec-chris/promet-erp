@@ -22,7 +22,7 @@ unit uPrometFrames;
 interface
 uses
   Classes, SysUtils, Forms, uBaseDbInterface, uBaseDbClasses, uExtControls,
-  Dialogs, Controls, ExtCtrls,uQuickHelpFrame,LCLProc, ActnList,db;
+  Dialogs, Controls, ExtCtrls,uQuickHelpFrame,LCLProc, ActnList,db,contnrs;
 type
 
   { TPrometMainFrame }
@@ -106,16 +106,19 @@ type
   procedure AddFrameClass(aFrame : TPrometMainFrameClass);
 
 var
-  PrometMenuEntrys : TList;
-  PrometFrames : TList;
+  PrometMenuEntrys : TClassList;
+  PrometFrames : TClassList;
 
 implementation
 uses ComCtrls, uIntfStrConsts,LCLType,LCLIntf,uWiki,uData,uBaseApplication;
 
 procedure AddFrameClass(aFrame: TPrometMainFrameClass);
+var
+  a : TPrometMainFrame;
 begin
   if not Assigned(PrometFrames) then
-    PrometFrames := TList.Create;
+    PrometFrames := TClassList.Create;
+  PrometFrames.Add(aFrame);
 end;
 
 constructor TPrometMenuEntry.Create(aCaption, aPath, aLink: string; aIcon: Integer);

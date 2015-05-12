@@ -297,7 +297,6 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -543,7 +542,6 @@
         <ComponentName Value="fTimeFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uTimeFrame"/>
       </Unit37>
       <Unit38>
         <Filename Value="uwizardnewaccount.pas"/>
