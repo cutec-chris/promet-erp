@@ -328,7 +328,7 @@ begin
               begin
                 if Assigned(aProject) and (aProject.Count>0) then
                   begin
-                    if FieldByName('OWNER').AsString <> '' then
+                    if (FieldByName('OWNER').AsString <> '') or (FieldByName('USER').AsString <> '') then
                       begin //Task
                         aProject.Tasks.Open;
                         aProject.Tasks.Append;
@@ -344,6 +344,8 @@ begin
                           end;
                         aProject.Tasks.FieldByName('DESC').AsString:=asl.Text;
                         asl.Free;
+                        if aProject.Tasks.FieldByName('OWNER').IsNull then
+                          aProject.Tasks.FieldByName('OWNER').AsVariant:=FieldByName('USER').AsVariant;
                         aProject.Tasks.FieldByName('OWNER').AsString:=FieldByName('OWNER').AsString;
                         aProject.Tasks.FieldByName('USER').AsVariant:=FieldByName('USER').AsVariant;
                         if FieldByName('USER').IsNull then
