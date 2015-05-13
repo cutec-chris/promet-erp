@@ -88,11 +88,12 @@ type
     FCaption : string;
   protected
   public
-    constructor Create(aCaption, aPath, aLink: string; aIcon: Integer);
+    constructor Create(aCaption, aPath, aLink: string; aIcon: Integer;aType : char = '');
     function GetIconIndex : Integer;virtual;
     property Caption : string read FCaption;
     property DefaultPath : string read FPath;
     property Link : string read FLink;
+    property Typ : string read FType;
     procedure FillItems;virtual;abstract;
     property Items : TList read FItems;
     procedure RemoveItems;virtual;abstract;
@@ -129,12 +130,14 @@ begin
   PrometMenuEntrys.Add(aEntry);
 end;
 
-constructor TPrometMenuEntry.Create(aCaption, aPath, aLink: string; aIcon: Integer);
+constructor TPrometMenuEntry.Create(aCaption, aPath, aLink: string;
+  aIcon: Integer; aType: char);
 begin
   inherited Create;
   FLink:=aLink;
   FCaption := aCaption;
   FPath:=aPath;
+  FType := aType;
 end;
 
 function TPrometMenuEntry.GetIconIndex: Integer;

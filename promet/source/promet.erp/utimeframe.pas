@@ -63,8 +63,11 @@ begin
   inherited ShowFrame;
   FTimeReg.SetActive;
 end;
-
+var
+  aEntry : TPrometMenuEntry;
 initialization
   AddFrameClass(TfTimeFrame);
+  aEntry := TPrometMenuEntry.Create(strDocumentsOnly,strDocumentsOnly,'DOCUMENTS@DOCMANAGE',IMAGE_FOLDER,'D');
+  AddMenuEntry(aEntry);
 end.
 

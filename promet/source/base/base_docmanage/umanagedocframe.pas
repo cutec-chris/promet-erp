@@ -1868,9 +1868,9 @@ var
   aEntry : TPrometMenuEntry;
 initialization
   AddFrameClass(TfManageDocFrame);
-  aEntry := TPrometMenuEntry.Create(strDocumentsOnly,strDocumentsOnly,'DOCUMENTS@DOCMANAGE',IMAGE_FOLDER);
+  aEntry := TPrometMenuEntry.Create(strDocumentsOnly,strDocumentsOnly,'DOCUMENTS@DOCMANAGE',IMAGE_FOLDER,'D');
   AddMenuEntry(aEntry);
-  aEntry := TPrometMenuEntry.Create(strImages,strImages,'IMAGES@DOCMANAGE',IMAGE_FOLDER);
+  aEntry := TPrometMenuEntry.Create(strImages,strImages,'IMAGES@DOCMANAGE',IMAGE_FOLDER,'I');
   AddMenuEntry(aEntry);
 end.
 
