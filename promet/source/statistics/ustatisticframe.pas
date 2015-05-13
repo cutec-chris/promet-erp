@@ -1300,8 +1300,14 @@ begin
   smQuerry2.Beautifier := TSynBeautifier.Create(Application);
 end;
 
+var
+  aEntry : TPrometMenuEntry;
 initialization
   TBaseVisualApplication(Application).RegisterForm(TfStatisticFrame);
+  aEntry := TPrometMenuEntry.Create(strStatistics,strStatistics,'FOLDER@STATISTIC',IMAGE_STATISTICS,'S');
+  AddMenuEntry(aEntry);
+  aEntry := TPrometMenuEntry.Create(strNewStatistic,strStatistics+'/'+strNewStatistic,'NEW@STATISTIC',88);
+  AddMenuEntry(aEntry);
 
 end.
 

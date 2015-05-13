@@ -70,7 +70,7 @@ implementation
 {$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface,uWikiFrame,
   uDocuments,uFilterFrame,uIntfStrConsts,
-  uProjects,uPrometFrames,uBaseDbClasses,ustatisticframe,uprojectdispoframe;
+  uProjects,uPrometFrames,uBaseDbClasses,ustatisticframe;
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
@@ -86,7 +86,6 @@ var
   Node: TTreeNode;
   miNew: TMenuItem;
   aDocuments: TDocuments;
-  aFrame: TfProjectDispoFrame;
   aStat: TTreeNode;
 begin
   with Application as IBaseApplication do
