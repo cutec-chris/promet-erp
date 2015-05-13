@@ -23,7 +23,8 @@ unit uBaseWebSession;
 interface
 
 uses
-  Classes, SysUtils, fpWeb,uSessionDBClasses,HTTPDefs,fpHTTP;
+  Classes, SysUtils, fpWeb,uSessionDBClasses,HTTPDefs,fpHTTP,
+  uBaseDatasetInterfaces;
 type
 
   { TBaseWebSession }

@@ -72,7 +72,7 @@ implementation
 {$R *.lfm}
 uses uStatistic,uData,uBaseWebSession,uPerson,uOrder,uMasterdata,utask,uProjects,
   uBaseDbDataSet,usync,uMessages,uBaseSearch,uWiki,uDocuments,umeeting,uBaseERPDBClasses,
-  uBaseApplication;
+  uBaseApplication,uBaseDatasetInterfaces;
 
 procedure TAppDataServer.checkloginRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
@@ -503,8 +503,8 @@ begin
     for i := 0 to GetCount-1 do
       begin
         aNewObj := TJSONObject.Create;
-        ObjectToJSON(SubDataSet[i],aNewObj,ADateAsString);
-        AJSON.Add(SubDataSet[i].Caption,aNewObj);
+        ObjectToJSON(TBaseDBDataSet(SubDataSet[i]),aNewObj,ADateAsString);
+        AJSON.Add(TBaseDBDataSet(SubDataSet[i]).Caption,aNewObj);
       end;
 end;
 
