@@ -96,14 +96,20 @@
         <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="pfcgiprometapp"/>
-        <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
+        <PackageName Value="LCL"/>
       </Item1>
       <Item2>
-        <PackageName Value="FCL"/>
+        <PackageName Value="weblaz"/>
       </Item2>
+      <Item3>
+        <PackageName Value="pfcgiprometapp"/>
+        <DefaultFilename Value="../base/pfcgiprometapp.lpk"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+      </Item4>
     </RequiredPackages>
     <Units Count="4">
       <Unit0>
