@@ -1264,6 +1264,6 @@ begin
 end;
 
 initialization
-  AddFrameClass(TfPersonFrame);
+  TBaseVisualApplication(Application).RegisterForm(TfPersonFrame);
 end.
 

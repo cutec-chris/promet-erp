@@ -86,9 +86,10 @@ type
     FLink: string;
     FPath: string;
     FCaption : string;
+    FType: string;
   protected
   public
-    constructor Create(aCaption, aPath, aLink: string; aIcon: Integer;aType : char = '');
+    constructor Create(aCaption, aPath, aLink: string; aIcon: Integer;aType : char = ' ');
     function GetIconIndex : Integer;virtual;
     property Caption : string read FCaption;
     property DefaultPath : string read FPath;
@@ -104,24 +105,13 @@ type
   TPrometRootEntry = class(TPrometMenuEntry)
   end;
 
-  procedure AddFrameClass(aFrame : TPrometMainFrameClass);
   procedure AddMenuEntry(aEntry : TPrometMenuEntry);
 
 var
   PrometMenuEntrys : TList;
-  PrometFrames : TClassList;
 
 implementation
 uses ComCtrls, uIntfStrConsts,LCLType,LCLIntf,uWiki,uData,uBaseApplication;
-
-procedure AddFrameClass(aFrame: TPrometMainFrameClass);
-var
-  a : TPrometMainFrame;
-begin
-  if not Assigned(PrometFrames) then
-    PrometFrames := TClassList.Create;
-  PrometFrames.Add(aFrame);
-end;
 
 procedure AddMenuEntry(aEntry: TPrometMenuEntry);
 begin
@@ -138,6 +128,7 @@ begin
   FCaption := aCaption;
   FPath:=aPath;
   FType := aType;
+  FType:=trim(FType);
 end;
 
 function TPrometMenuEntry.GetIconIndex: Integer;

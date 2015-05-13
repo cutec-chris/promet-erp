@@ -89,7 +89,7 @@ procedure RefreshMessages(FMessageNode :TTreeNode);
 implementation
 {$R *.lfm}
 uses uMessages,uData,uBaseDbInterface,uPerson,uIntfStrConsts,uMessageEdit,
-  uMainTreeFrame,Utils,uWikiMessage;
+  uMainTreeFrame,Utils,uWikiMessage,uBaseVisualApplication;
 resourcestring
   strCustomerNotFound                         = 'Kontakt nicht gefunden !';
   strNewMessageCView                          = '%s Neue Nachrichten';
@@ -457,6 +457,6 @@ begin
   MsgIndex.free;
 end;
 initialization
-  AddFrameClass(TfMessageFrame);
+  TBaseVisualApplication(Application).RegisterForm(TfMessageFrame);
 end.
 

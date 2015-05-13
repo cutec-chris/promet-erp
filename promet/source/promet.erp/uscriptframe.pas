@@ -420,5 +420,5 @@ begin
 end;
 
 initialization
-  AddFrameClass(TfScriptFrame);
+  TBaseVisualApplication(Application).RegisterForm(TfScriptFrame);
 end.

@@ -1460,6 +1460,6 @@ begin
 end;
 
 initialization
-  AddFrameClass(TfProjectFrame);
+  TBaseVisualApplication(Application).RegisterForm(TfProjectFrame);
 end.
 

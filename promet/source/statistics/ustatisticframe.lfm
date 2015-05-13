@@ -38,8 +38,8 @@ inherited fStatisticFrame: TfStatisticFrame
       TabOrder = 0
       object tsReport: TTabSheet
         Caption = 'Report'
-        ClientHeight = 624
-        ClientWidth = 1680
+        ClientHeight = 1248
+        ClientWidth = 3360
         object Panel2: TPanel
           Left = 0
           Height = 27
@@ -207,8 +207,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsResults: TTabSheet
         Caption = 'Ergebnisliste'
-        ClientHeight = 622
-        ClientWidth = 1680
+        ClientHeight = 1244
+        ClientWidth = 3360
         object Panel1: TPanel
           Left = 0
           Height = 282
@@ -365,8 +365,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsDescription: TTabSheet
         Caption = 'Beschreibung'
-        ClientHeight = 622
-        ClientWidth = 1680
+        ClientHeight = 1244
+        ClientWidth = 3360
         object DBMemo1: TDBMemo
           Left = 0
           Height = 311
@@ -424,8 +424,8 @@ inherited fStatisticFrame: TfStatisticFrame
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 538
-          ClientWidth = 1712
+          ClientHeight = 1076
+          ClientWidth = 3424
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -1048,8 +1048,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsDetail: TTabSheet
           Caption = 'Detail'
-          ClientHeight = 516
-          ClientWidth = 1708
+          ClientHeight = 1032
+          ClientWidth = 3416
           inline smQuerry1: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -1661,8 +1661,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsSubDetail: TTabSheet
           Caption = 'Sub Detail'
-          ClientHeight = 516
-          ClientWidth = 1708
+          ClientHeight = 1032
+          ClientWidth = 3416
           inline smQuerry2: TSynMemo
             Cursor = crIBeam
             Left = 0

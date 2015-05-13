@@ -44,6 +44,7 @@ type
 
 implementation
 
+uses uBaseVisualApplication,uIntfStrConsts,uBaseDBInterface;
 {$R *.lfm}
 
 { TfTimeFrame }
@@ -66,8 +67,8 @@ end;
 var
   aEntry : TPrometMenuEntry;
 initialization
-  AddFrameClass(TfTimeFrame);
-  aEntry := TPrometMenuEntry.Create(strDocumentsOnly,strDocumentsOnly,'DOCUMENTS@DOCMANAGE',IMAGE_FOLDER,'D');
+  TBaseVisualApplication(Application).RegisterForm(TfTimeFrame);
+  aEntry := TPrometMenuEntry.Create(strTimetools,strTimetools,'TIMEREGISTERING@TIMES',IMAGE_TIME);
   AddMenuEntry(aEntry);
 end.
 

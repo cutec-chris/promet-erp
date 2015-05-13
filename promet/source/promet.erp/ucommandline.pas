@@ -65,7 +65,8 @@ type
 
 implementation
 {$R *.lfm}
-uses uData,uScriptEditor,Dialogs,uIntfStrConsts,uBaseDBInterface;
+uses uData,uScriptEditor,Dialogs,uIntfStrConsts,uBaseDBInterface,
+  uBaseVisualApplication;
 resourcestring
   strSentenceNotValid            = 'Das wurde leider nicht verstanden !';
 procedure TfCommandline.InputKeyDown(Sender: TObject; var Key: Word;
@@ -169,6 +170,6 @@ begin
 end;
 
 initialization
-  AddFrameClass(TfCommandline);
+  TBaseVisualApplication(Application).RegisterForm(TfCommandline);
 end.
 

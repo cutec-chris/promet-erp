@@ -1051,6 +1051,6 @@ begin
     end;
 end;
 initialization
-  AddFrameClass(TfOrderFrame);
+  TBaseVisualApplication(Application).RegisterForm(TfOrderFrame);
 end.
 

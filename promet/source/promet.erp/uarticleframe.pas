@@ -1025,5 +1025,5 @@ procedure TfArticleFrame.SetLanguage;
 begin
 end;
 initialization
-  AddFrameClass(TfArticleFrame);
+  TBaseVisualApplication(Application).RegisterForm(TfArticleFrame);
 end.

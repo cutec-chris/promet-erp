@@ -1301,6 +1301,7 @@ begin
 end;
 
 initialization
-  TBaseVisualApplication(Application).RegisterForm(TfStatisticFrame)
+  TBaseVisualApplication(Application).RegisterForm(TfStatisticFrame);
+
 end.
 

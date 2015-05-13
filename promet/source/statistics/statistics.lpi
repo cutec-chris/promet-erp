@@ -71,7 +71,7 @@
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item11>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="3">
       <Unit0>
         <Filename Value="statistics.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -92,13 +92,6 @@
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ustatisticframe"/>
       </Unit2>
-      <Unit3>
-        <Filename Value="uprojectdispoframe.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fProjectDispoFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

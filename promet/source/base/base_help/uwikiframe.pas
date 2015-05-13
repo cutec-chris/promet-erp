@@ -177,7 +177,7 @@ implementation
 uses uWiki,uData,WikiToHTML,uDocuments,Utils,LCLIntf,Variants,
   uBaseDbInterface,uscreenshotmain,uMessages,uDocumentFrame,sqlparser,
   sqlscanner, sqltree,uBaseVisualApplication,uStatistic,uspelling,uBaseApplication,
-  uBaseVisualControls,uRTFtoTXT;
+  uBaseVisualControls,uRTFtoTXT,uIntfStrConsts;
 procedure THistory.SetIndex(const AValue: Integer);
 begin
   Move(AValue,Count-1);
@@ -1446,8 +1446,12 @@ begin
     RefreshTimer.Enabled:=True;
 end;
 
+var
+  aEntry : TPrometMenuEntry;
 initialization
-  AddFrameClass(TfWikiFrame);
+  TBaseVisualApplication(Application).RegisterForm(TfWikiFrame);
+  aEntry := TPrometMenuEntry.Create(strWiki,strWiki,'FOLDER@WIKI',IMAGE_WIKI,'W');
+  AddMenuEntry(aEntry);
 {$R *.lfm}
 end.
 

@@ -149,7 +149,7 @@ procedure RefreshCalendar(FNode :TTreeNode);
 procedure AddToMainTree(aAction : TAction;var FCalendarNode : TTreeNode);
 implementation
 uses uData, uMainTreeFrame, Math, uEventEdit, VpConst,uBaseDbClasses,Graphics,
-  uFormAnimate,uBaseApplication;
+  uFormAnimate,uBaseApplication,uBaseVisualApplication;
 var
   Fusers : string;
 resourcestring
@@ -850,7 +850,7 @@ begin
     Debug('Post Events end');
 end;
 initialization
-  AddFrameClass(TfCalendarFrame);
+  TBaseVisualApplication(Application).RegisterForm(TfCalendarFrame);
 {$R *.lfm}
 end.
 

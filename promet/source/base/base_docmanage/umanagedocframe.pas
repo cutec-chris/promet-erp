@@ -251,7 +251,7 @@ uses uData,udocuments,uWait,LCLIntf,Utils,uFormAnimate,uImportImages,
   ProcessUtils,uMainTreeFrame,ucameraimport,FPimage,FPReadJPEG,FPCanvas,
   FPWriteJPEG,LCLProc,uthumbnails,uBaseVisualControls,updfexport,uSearch,
   usimpleprocess,uImaging,uBaseApplication,uDocumentAcquire,Graphics,PdfDoc,
-  PdfImages;
+  PdfImages,uBaseVisualApplication;
 resourcestring
   strTag                   = 'Tag';
   strSetTag                = 'alle markierten setzen';
@@ -1867,7 +1867,7 @@ end;
 var
   aEntry : TPrometMenuEntry;
 initialization
-  AddFrameClass(TfManageDocFrame);
+  TBaseVisualApplication(Application).RegisterForm(TfManageDocFrame);
   aEntry := TPrometMenuEntry.Create(strDocumentsOnly,strDocumentsOnly,'DOCUMENTS@DOCMANAGE',IMAGE_FOLDER,'D');
   AddMenuEntry(aEntry);
   aEntry := TPrometMenuEntry.Create(strImages,strImages,'IMAGES@DOCMANAGE',IMAGE_FOLDER,'I');
