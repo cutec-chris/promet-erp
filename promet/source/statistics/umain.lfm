@@ -1,22 +1,20 @@
 object fMain: TfMain
-  Left = 545
+  Left = 464
   Height = 714
   Top = 124
   Width = 970
   Caption = 'Statistics'
-  ClientHeight = 694
+  ClientHeight = 693
   ClientWidth = 970
   Color = clWindow
   Menu = MainMenu
   OnClose = FormClose
-  OnCreate = FormCreate
-  OnDestroy = FormDestroy
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '1.5'
   object tvMain: TPanel
     Left = 0
-    Height = 694
+    Height = 693
     Top = 0
     Width = 328
     Align = alLeft
@@ -25,14 +23,14 @@ object fMain: TfMain
   end
   object Splitter2: TSplitter
     Left = 328
-    Height = 694
+    Height = 693
     Top = 0
     Width = 5
     ResizeStyle = rsLine
   end
   object pcPages: TExtMenuPageControl
     Left = 333
-    Height = 694
+    Height = 693
     Top = 0
     Width = 637
     ActivePage = tsHelp

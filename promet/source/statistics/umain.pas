@@ -22,7 +22,7 @@ unit umain;
 interface
 uses
   Forms, Controls, Buttons, Menus, ActnList, StdCtrls, uExtControls,
-  ComCtrls, ExtCtrls,uMainTreeFrame, Classes,uBaseDatasetInterfaces;
+  ComCtrls, ExtCtrls, Classes,uBaseDatasetInterfaces;
 type
   TfMain = class(TForm)
     acLogin: TAction;
@@ -49,13 +49,7 @@ type
     procedure acLogoutExecute(Sender: TObject);
     procedure acNewStatisticExecute(Sender: TObject);
     procedure acStatisticsExecute(Sender: TObject);
-    function fMainTreeFrameOpen(aEntry: TTreeEntry): Boolean;
-    function fMainTreeFrameOpenFromLink(aLink: string; aSender: TObject
-      ): Boolean;
-    procedure fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -104,10 +98,6 @@ begin
   aDocuments := TDocuments.CreateEx(Self,Data);
   aDocuments.CreateTable;
   aDocuments.Destroy;
-  //Statistics
-  ustatisticframe.AddToMainTree(acNewStatistic,nil);
-  if fMainTreeFrame.tvMain.Items.Count>0 then
-    fMainTreeFrame.tvMain.Items[0].Expanded:=True;
 end;
 
 procedure TfMain.acCloseTabExecute(Sender: TObject);
@@ -156,6 +146,7 @@ begin
       aFrame.Open;
     end;
 end;
+{
 function TfMain.fMainTreeFrameOpen(aEntry: TTreeEntry): Boolean;
 var
   aDataSet: TBaseDBDataset;
@@ -209,13 +200,6 @@ begin
   Application.ProcessMessages;
   if copy(aLink,0,8) = 'CUSTOMER' then
     begin
-      {
-      aFrame := TfPersonFrame.Create(Self);
-      aFrame.OpenFromLink(aLink);
-      pcPages.AddTab(aFrame);
-      aFrame.SetLanguage;
-      Result := True;
-      }
     end
   else if copy(aLink,0,5) = 'WIKI@' then
     begin
@@ -226,7 +210,6 @@ begin
           aFrame := TfWikiFrame.Create(Self);
           pcPages.AddTab(aFrame);
           aFrame.SetLanguage;
-          //aFrame.SetRights(Data.Users.Rights.Right('WIKI')>RIGHT_READ);
         end;
       aFrame.OpenFromLink(aLink);
       Result := True;
@@ -250,22 +233,13 @@ var
   New: TMenuItem;
 begin
   case aEntry.Typ of
-  {
-  etCustomerList,etCustomers:
-    begin
-      acContact.Execute;
-    end;
-  etTasks,etMyTasks:
-    begin
-      acTasks.Execute;
-    end;
-  }
   etProjects:
     begin
       acStatistics.Execute;
     end;
   end;
 end;
+}
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   if Assigned(tsHelp) and (tsHelp.ControlCount > 0) then
@@ -277,31 +251,12 @@ begin
       DoExit;
     end;
 end;
-procedure TfMain.FormCreate(Sender: TObject);
-begin
-  uMainTreeFrame.fMainTreeFrame := TfMainTree.Create(Self);
-  fMainTreeFrame.pcPages := pcPages;
-  fMainTreeFrame.Parent := tvMain;
-  fMainTreeFrame.Align:=alClient;
-  fMainTreeFrame.SearchOptions:='STATISTICS';
-//  fMainTreeFrame.OnNewFromLink:=@fMainTreeFrameNewFromLink;
-  fMainTreeFrame.OnOpenFromLink:=@fMainTreeFrameOpenFromLink;
-  fMainTreeFrame.OnOpen:=@fMainTreeFrameOpen;
-  fMainTreeFrame.OnSelectionChanged:=@fMainTreeFrameSelectionChanged;
-end;
-procedure TfMain.FormDestroy(Sender: TObject);
-begin
-  uMainTreeFrame.fMainTreeFrame.Destroy;
-end;
 procedure TfMain.FormShow(Sender: TObject);
 begin
   if not acLogin.Enabled then exit;
   with Application as IBaseApplication do
     RestoreConfig; //Must be called when Mainform is Visible
   acLogin.Execute;
-  if Assigned(Data) then
-    begin
-    end;
 end;
 procedure TfMain.AddProjectList(Sender: TObject);
 begin

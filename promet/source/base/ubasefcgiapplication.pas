@@ -166,6 +166,9 @@ end;
 function TBaseFCGIApplication.GetOurConfigDir: string;
 begin
   Result := GetConfigDir(StringReplace(lowercase(GetAppname),'-','',[rfReplaceAll]));
+  if HasOption('c','config-path') then
+    Result := GetOptionValue('c','config-path');
+  result := AppendPathDelim(Result);
 end;
 function TBaseFCGIApplication.GetAppName: string;
 begin
@@ -283,11 +286,11 @@ begin
   Result := False;
   with Self as IBaseDbInterface do
     begin
-      if not LoadMandants('') then
+      if not LoadMandants() then
         raise Exception.Create(strFailedtoLoadMandants);
       aMandant := GetOptionValue('m','mandant');
       if aMandant = '' then
-        aMandant := 'Default';//FConfig.ReadString('MANDANT','');
+        aMandant := 'Default';
       if not DBLogin(aMandant,'') then
         begin
           raise Exception.Create(strLoginFailed+':'+LastError);

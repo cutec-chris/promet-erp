@@ -166,6 +166,9 @@ end;
 function TBaseHTTPApplication.GetOurConfigDir: string;
 begin
   Result := GetConfigDir(StringReplace(lowercase(GetAppname),'-','',[rfReplaceAll]));
+  if HasOption('c','config-path') then
+    Result := GetOptionValue('c','config-path');
+  result := AppendPathDelim(Result);
 end;
 function TBaseHTTPApplication.GetAppName: string;
 begin

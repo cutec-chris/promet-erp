@@ -8,8 +8,8 @@
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="115"/>
-        <CursorPos Y="142"/>
+        <TopLine Value="34"/>
+        <CursorPos X="31" Y="38"/>
         <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -261,7 +261,6 @@
       <Unit39>
         <Filename Value="ucreatetable.pas"/>
         <UnitName Value="ucreatetable"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
         <TopLine Value="67"/>
         <CursorPos Y="92"/>
@@ -407,8 +406,8 @@
       <Unit58>
         <Filename Value="uordertest.pas"/>
         <UnitName Value="uordertest"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="80"/>
         <CursorPos X="29" Y="103"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
