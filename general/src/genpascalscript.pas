@@ -75,6 +75,13 @@ type
 
   TPascalScript = class;
 
+  TInternalFindRec = Record
+    Time : TDateTime;
+    Size : Int64;
+    Attr : Longint;
+    Name : string;
+  end;
+
   TPascalOnUses = function(Sender: TPascalScript; const Name: tbtString): Boolean of object;
 
   { TPascalScript }
@@ -91,6 +98,10 @@ type
     FCompilerFree: Boolean;
     FClassImporter: TPSRuntimeClassImporter;
     FToolRegistered: TStrOutFunc;
+    FFindRec : TSearchRec;
+    procedure InternalFindClose(var FindRec: TInternalFindRec);
+    function InternalFindFirst(const FileName: String; var FindRec: TInternalFindRec): Boolean;
+    function InternalFindNext(var FindRec: TInternalFindRec): Boolean;
     procedure SetClassImporter(AValue: TPSRuntimeClassImporter);
     procedure SetCompiler(AValue: TPSPascalCompiler);
     procedure SetRuntime(AValue: TPSExec);
@@ -280,6 +291,40 @@ begin
     ActRuntime.OnRunLine(ActRuntime);
 end;
 
+function TPascalScript.InternalFindFirst(const FileName: String; var FindRec: TInternalFindRec): Boolean;
+begin
+  try
+    Result := FindFirst(UniToSys(FileName),faAnyFile or faDirectory,FFindRec)=0;
+    if Result then
+      begin
+        FindRec.Attr:=FFindRec.Attr;
+        FindRec.Name:=SysToUni(FFindRec.Name);
+        FindRec.Size:=FFindRec.Size;
+        FindRec.Time:=FileDateToDateTime(FFindRec.Time);
+      end;
+  except
+    Result := False;
+  end;
+end;
+function TPascalScript.InternalFindNext(var FindRec: TInternalFindRec): Boolean;
+begin
+  try
+    Result := FindNext(FFindRec)=0;
+    if Result then
+      begin
+        FindRec.Attr:=FFindRec.Attr;
+        FindRec.Name:=SysToUni(FFindRec.Name);
+        FindRec.Size:=FFindRec.Size;
+        FindRec.Time:=FileDateToDateTime(FFindRec.Time);
+      end;
+  except
+    Result := False;
+  end;
+end;
+procedure TPascalScript.InternalFindClose(var FindRec: TInternalFindRec);
+begin
+  SysUtils.FindClose(FFindRec);
+end;
 function TPascalScript.InternalUses(Comp: TPSPascalCompiler; Name: string
   ): Boolean;
 var
@@ -326,6 +371,15 @@ begin
         AddMethod(Self,@TPascalScript.InternalFormat,'function Format(Fmt: string;Args: array of const):string;');
         AddFunction(@IntToHex,'function IntToHex(Value: integer; Digits: integer) : string;');
         AddFunction(@FileExists,'function FileExists (Const FileName : String) : Boolean;');
+        Comp.AddTypeS('TFindRec','record' +
+                                 ' Time : TDateTime;'+
+                                 ' Size : Int64;'+
+                                 ' Attr : Longint;'+
+                                 ' Name : string;'+
+                                 'end');
+        AddMethod(Self,@TPascalScript.InternalFindFirst,'function FindFirst(const FileName: String; var FindRec: TFindRec): Boolean;');
+        AddMethod(Self,@TPascalScript.InternalFindNext,'function FindNext(var FindRec: TFindRec): Boolean;');
+        AddMethod(Self,@TPascalScript.InternalFindClose,'function FindClose(var FindRec: TFindRec): Boolean;');
       end
     else if lowercase(Name)='exec' then
       begin
