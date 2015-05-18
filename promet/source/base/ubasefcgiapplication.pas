@@ -291,7 +291,7 @@ begin
       aMandant := GetOptionValue('m','mandant');
       if aMandant = '' then
         aMandant := 'Default';
-      if not DBLogin(aMandant,'') then
+      if not DBLogin(aMandant,GetOptionValue('u','user'),False,True) then
         begin
           raise Exception.Create(strLoginFailed+':'+LastError);
         end;

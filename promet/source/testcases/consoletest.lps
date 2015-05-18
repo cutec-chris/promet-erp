@@ -4,12 +4,12 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="68">
+    <Units Count="69">
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="34"/>
-        <CursorPos X="31" Y="38"/>
+        <TopLine Value="23"/>
+        <CursorPos X="14" Y="32"/>
         <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -23,7 +23,7 @@
       <Unit2>
         <Filename Value="tlogout.pas"/>
         <UnitName Value="tlogout"/>
-        <EditorIndex Value="26"/>
+        <EditorIndex Value="19"/>
         <CursorPos X="81" Y="24"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
@@ -35,7 +35,7 @@
       <Unit4>
         <Filename Value="tdbtests.pas"/>
         <UnitName Value="tdbtests"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="14"/>
         <CursorPos Y="27"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
@@ -160,8 +160,9 @@
       <Unit25>
         <Filename Value="tlogin.pas"/>
         <UnitName Value="tLogin"/>
-        <EditorIndex Value="20"/>
-        <CursorPos X="10" Y="26"/>
+        <EditorIndex Value="13"/>
+        <TopLine Value="16"/>
+        <CursorPos Y="31"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit25>
@@ -177,18 +178,20 @@
       </Unit27>
       <Unit28>
         <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
-        <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="28"/>
-        <TopLine Value="16"/>
-        <CursorPos X="18" Y="47"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="47"/>
+        <CursorPos X="3" Y="72"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
-        <TopLine Value="262"/>
-        <CursorPos X="20" Y="286"/>
+        <UnitName Value="uBaseCustomApplication"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="310"/>
+        <CursorPos X="89" Y="324"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\packages\fcl-fpcunit\src\fpcunit.pp"/>
@@ -203,17 +206,15 @@
       </Unit31>
       <Unit32>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="2950"/>
         <CursorPos Y="2964"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit32>
       <Unit33>
         <Filename Value="tcreatedatabase.pas"/>
         <UnitName Value="tCreateDatabase"/>
-        <EditorIndex Value="25"/>
+        <EditorIndex Value="18"/>
         <TopLine Value="25"/>
         <CursorPos X="68" Y="55"/>
         <UsageCount Value="11"/>
@@ -222,7 +223,7 @@
       <Unit34>
         <Filename Value="utfulllogout.pas"/>
         <UnitName Value="utfulllogout"/>
-        <EditorIndex Value="24"/>
+        <EditorIndex Value="17"/>
         <CursorPos X="12" Y="22"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
@@ -230,7 +231,7 @@
       <Unit35>
         <Filename Value="utransaction.pas"/>
         <UnitName Value="utransaction"/>
-        <EditorIndex Value="22"/>
+        <EditorIndex Value="15"/>
         <TopLine Value="65"/>
         <CursorPos X="74" Y="77"/>
         <UsageCount Value="10"/>
@@ -239,15 +240,15 @@
       <Unit36>
         <Filename Value="ulinkcheck.pas"/>
         <UnitName Value="ulinkcheck"/>
-        <EditorIndex Value="23"/>
-        <TopLine Value="10"/>
+        <EditorIndex Value="16"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit36>
       <Unit37>
         <Filename Value="udocumentmanagement.pas"/>
         <UnitName Value="udocumentmanagement"/>
-        <EditorIndex Value="27"/>
+        <EditorIndex Value="20"/>
+        <TopLine Value="16"/>
         <CursorPos X="3" Y="46"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -261,7 +262,7 @@
       <Unit39>
         <Filename Value="ucreatetable.pas"/>
         <UnitName Value="ucreatetable"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="67"/>
         <CursorPos Y="92"/>
         <UsageCount Value="10"/>
@@ -270,7 +271,7 @@
       <Unit40>
         <Filename Value="..\base\dbintfs\udata.pas"/>
         <UnitName Value="uData"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="10"/>
         <CursorPos X="18" Y="20"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -278,9 +279,9 @@
       <Unit41>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="13"/>
-        <TopLine Value="1237"/>
-        <CursorPos Y="1249"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="1749"/>
+        <CursorPos Y="1765"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit41>
@@ -291,8 +292,8 @@
       <Unit43>
         <Filename Value="utgridview.pas"/>
         <UnitName Value="utgridview"/>
-        <EditorIndex Value="9"/>
-        <TopLine Value="163"/>
+        <EditorIndex Value="8"/>
+        <TopLine Value="167"/>
         <CursorPos X="16" Y="197"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -354,7 +355,7 @@
       <Unit52>
         <Filename Value="..\base\dbintfs\uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="12"/>
         <TopLine Value="779"/>
         <CursorPos Y="804"/>
         <UsageCount Value="10"/>
@@ -363,7 +364,7 @@
       <Unit53>
         <Filename Value="..\base\dbintfs\uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="81"/>
         <CursorPos X="52" Y="98"/>
         <UsageCount Value="10"/>
@@ -372,9 +373,9 @@
       <Unit54>
         <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
         <UnitName Value="ZDbcSqLiteUtils"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="250"/>
-        <CursorPos Y="268"/>
+        <CursorPos X="30" Y="261"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -397,7 +398,7 @@
       <Unit57>
         <Filename Value="..\base\dbintfs\uprojects.pas"/>
         <UnitName Value="uProjects"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="430"/>
         <CursorPos Y="455"/>
         <UsageCount Value="10"/>
@@ -406,73 +407,60 @@
       <Unit58>
         <Filename Value="uordertest.pas"/>
         <UnitName Value="uordertest"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="73"/>
         <CursorPos X="29" Y="103"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit58>
       <Unit59>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
-        <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="344"/>
         <CursorPos Y="368"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit59>
       <Unit60>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
-        <UnitName Value="uOrder"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="896"/>
         <CursorPos Y="925"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit60>
       <Unit61>
         <Filename Value="..\base\dbintfs\uthumbnails.pas"/>
-        <UnitName Value="uthumbnails"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="81"/>
         <CursorPos X="30" Y="101"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit61>
       <Unit62>
         <Filename Value="..\base\pcmdprometapp.pas"/>
-        <UnitName Value="pcmdprometapp"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="10"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit62>
       <Unit63>
         <Filename Value="..\base\base_scripts\uscripteditor.pas"/>
         <ComponentName Value="fScriptEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uScriptEditor"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="715"/>
         <CursorPos X="45" Y="722"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit63>
       <Unit64>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1249"/>
         <CursorPos X="23" Y="1266"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit64>
       <Unit65>
         <Filename Value="upersontest.pas"/>
         <UnitName Value="upersontest"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="8"/>
         <CursorPos X="48" Y="22"/>
         <UsageCount Value="10"/>
@@ -480,12 +468,10 @@
       </Unit65>
       <Unit66>
         <Filename Value="..\components\zeos\src\component\ZAbstractRODataset.pas"/>
-        <UnitName Value="ZAbstractRODataset"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1372"/>
         <CursorPos X="38" Y="1381"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit66>
       <Unit67>
@@ -496,132 +482,139 @@
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit67>
+      <Unit68>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\fcl-base\src\custapp.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="14"/>
+        <CursorPos X="3" Y="29"/>
+        <UsageCount Value="10"/>
+      </Unit68>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="ucreatetable.pas"/>
-        <Caret Line="91" TopLine="67"/>
+        <Filename Value="tlogin.pas"/>
+        <Caret Line="26" Column="3" TopLine="16"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2929" TopLine="2913"/>
+        <Filename Value="tlogin.pas"/>
+        <Caret Line="28" TopLine="16"/>
       </Position2>
       <Position3>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2930" TopLine="2913"/>
+        <Filename Value="tlogin.pas"/>
+        <Caret Line="31" TopLine="16"/>
       </Position3>
       <Position4>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2932" TopLine="2913"/>
+        <Filename Value="tlogin.pas"/>
+        <Caret Line="26" Column="15" TopLine="16"/>
       </Position4>
       <Position5>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2933" TopLine="2913"/>
+        <Filename Value="tdbtests.pas"/>
+        <Caret Line="27"/>
       </Position5>
       <Position6>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2935" TopLine="2913"/>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="141" Column="21" TopLine="115"/>
       </Position6>
       <Position7>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2936" TopLine="2913"/>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="38" Column="28" TopLine="23"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2964" TopLine="2932"/>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="32" Column="14" TopLine="23"/>
       </Position8>
       <Position9>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
-        <Caret Line="268" TopLine="250"/>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <Caret Line="194" Column="13" TopLine="190"/>
       </Position9>
       <Position10>
-        <Filename Value="ucreatetable.pas"/>
-        <Caret Line="91" TopLine="67"/>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <Caret Line="192" TopLine="186"/>
       </Position10>
       <Position11>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2929" TopLine="2913"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1738" TopLine="1724"/>
       </Position11>
       <Position12>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2930" TopLine="2913"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1742" TopLine="1724"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2932" TopLine="2913"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1743" TopLine="1724"/>
       </Position13>
       <Position14>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2933" TopLine="2913"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1744" TopLine="1724"/>
       </Position14>
       <Position15>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2935" TopLine="2913"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1753" TopLine="1729"/>
       </Position15>
       <Position16>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2936" TopLine="2913"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1764" TopLine="1749"/>
       </Position16>
       <Position17>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1240" TopLine="1234"/>
+        <Caret Line="1765" TopLine="1749"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1241" TopLine="1234"/>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <Caret Line="316" TopLine="310"/>
       </Position18>
       <Position19>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1242" TopLine="1234"/>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <Caret Line="317" TopLine="310"/>
       </Position19>
       <Position20>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1243" TopLine="1234"/>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <Caret Line="318" TopLine="310"/>
       </Position20>
       <Position21>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1245" TopLine="1234"/>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <Caret Line="320" TopLine="310"/>
       </Position21>
       <Position22>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1246" TopLine="1234"/>
+        <Caret Line="1742" TopLine="1727"/>
       </Position22>
       <Position23>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1248" TopLine="1234"/>
+        <Caret Line="1743" TopLine="1727"/>
       </Position23>
       <Position24>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1249" TopLine="1237"/>
+        <Caret Line="1744" TopLine="1727"/>
       </Position24>
       <Position25>
-        <Filename Value="ucreatetable.pas"/>
-        <Caret Line="91" TopLine="67"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1753" TopLine="1729"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2929" TopLine="2913"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1764" TopLine="1749"/>
       </Position26>
       <Position27>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2930" TopLine="2913"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1765" TopLine="1749"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2932" TopLine="2913"/>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <Caret Line="322" TopLine="310"/>
       </Position28>
       <Position29>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2933" TopLine="2913"/>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <Caret Line="324" TopLine="310"/>
       </Position29>
       <Position30>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2964" TopLine="2950"/>
+        <Filename Value="..\base\ubasecustomapplication.pas"/>
+        <Caret Line="316" TopLine="310"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -629,6 +622,13 @@
         <Source Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-image\src\fpimage.inc"/>
         <Line Value="177"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Line Value="1742"/>
+      </Item2>
     </BreakPoints>
   </Debugging>
 </CONFIG>
