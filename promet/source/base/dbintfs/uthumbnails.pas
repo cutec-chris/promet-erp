@@ -49,6 +49,8 @@ function GenerateThumbNail(aName : string;aFileName : string;aStream : TStream;a
 implementation
 
 uses uBaseApplication;
+var
+  ThumbDir : string;
 
 function GetThumbnailPath(aDocument: TDocuments;aWidth : Integer=310;aHeight : Integer=428): string;
 var
@@ -97,12 +99,20 @@ end;
 
 function GetThumbTempDir: string;
 begin
-  Result := GetTempDir+'promet_thumbs';
-  if Assigned(BaseApplication) and (not BaseApplication.ConsoleApplication) then
-    if Supports(BaseApplication,IBaseApplication) then
-      with BaseApplication as IBaseApplication do
-        Result := GetInternalTempDir+'promet_thumbs';
-  ForceDirectories(UniToSys(Result));
+  if ThumbDir='' then
+    begin
+      try
+        Result := GetTempDir+'promet_thumbs';
+        if Assigned(BaseApplication) and (not BaseApplication.ConsoleApplication) then
+          if Supports(BaseApplication,IBaseApplication) then
+            with BaseApplication as IBaseApplication do
+              Result := GetInternalTempDir+'promet_thumbs';
+        ForceDirectories(UniToSys(Result));
+        ThumbDir:=Result;
+      except
+      end;
+    end
+  else Result:=ThumbDir;
 end;
 
 function ClearThumbDir: Boolean;
@@ -341,6 +351,8 @@ begin
     end;
 end;
 
+initialization
+  ThumbDir := '';
 finalization
   RemoveDir(GetThumbTempDir);
 end.

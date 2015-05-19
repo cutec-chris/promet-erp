@@ -24,7 +24,7 @@ program local_appbase;
 
 uses
   {$IFDEF UNIX}cwstring,cthreads,{$ENDIF}
-  ubasehttpapplication, pfcgiprometapp,
+  ubasehttpapplication, pfcgiprometapp,Interfaces,
   uBaseApplication, udataserver, uwebserver, uloggedout;
 begin
   Application.DefaultModule:='loggedout';
@@ -37,6 +37,7 @@ begin
         end;
       SetConfigName('appconfig');
       RestoreConfig;
+      chdir('..');
       try
         if Login then
           begin
