@@ -115,7 +115,6 @@
       <Unit0>
         <Filename Value="webserver.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="webserver"/>
       </Unit0>
       <Unit1>
         <Filename Value="udataserver.pas"/>
@@ -131,7 +130,6 @@
         <ComponentName Value="TWebServer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="uwebserver"/>
       </Unit2>
       <Unit3>
         <Filename Value="uloggedout.pas"/>
@@ -139,7 +137,6 @@
         <ComponentName Value="loggedout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="uloggedout"/>
       </Unit3>
     </Units>
   </ProjectOptions>
@@ -162,7 +159,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="9">
+    <Exceptions Count="10">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -190,6 +187,9 @@
       <Item9>
         <Name Value="Exception"/>
       </Item9>
+      <Item10>
+        <Name Value="EFPWebError"/>
+      </Item10>
     </Exceptions>
   </Debugging>
 </CONFIG>
