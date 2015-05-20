@@ -18,7 +18,7 @@
 
 info@cu-tec.de
 *******************************************************************************}
-program local_appbase;
+program webserver;
 
 {$mode objfpc}{$H+}
 
