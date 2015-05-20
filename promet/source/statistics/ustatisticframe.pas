@@ -625,8 +625,11 @@ begin
 //      Data.StartTransaction(FConnection);
       acClose.Execute;
       Screen.Cursor := crDefault;
-      if Assigned(FTreeNode) then
-        fMainTreeFrame.tvMain.Items.Delete(FTreeNode);
+      try
+        if Assigned(FTreeNode) then
+          fMainTreeFrame.tvMain.Items.Delete(FTreeNode);
+      except
+      end;
     end;
 end;
 
@@ -674,7 +677,7 @@ begin
       fSelectReport.ReportType:= copy(DataSet.Id.AsString,length(DataSet.Id.AsString)-3,4);
       tsResults.TabVisible:=True;
       pcTabs.ActivePage := tsResults;
-      if Data.Reports.Count > 0 then
+      if (Data.Reports.Count > 0) and (DataSet.State<>dsInsert) then
         begin
           Printer.PrinterIndex:=-1;//Default Printer
           fSelectReport.Report := frReport;
@@ -1287,6 +1290,7 @@ begin
   bEditFilterClick(nil);
   smQuerry.SetFocus;
   ProjectsStateChange(Self);
+  tsReport.TabVisible:=False;
 end;
 procedure TfStatisticFrame.SetLanguage;
 begin
