@@ -59,9 +59,9 @@ lazbuild -q ../../source/tools/helpviewer.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/helpviewer
 
 echo "compiling webservices..."
-echo "compiling local_appbase..."  >> scompile-$2.log
-lazbuild -q ../../source/webservers/local_appbase.lpi  >> scompile-$2.log
-strip ../../output/$2-darwin/web/local_appbase
+echo "compiling webserver..."  >> scompile-$2.log
+lazbuild -q ../../source/webservers/webserver.lpi  >> scompile-$2.log
+strip ../../output/$2-darwin/web/webserver
 echo "compiling imapserver..."  >> scompile-$2.log
 lazbuild -q ../../source/webservers/imapserver.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/web/imapserver

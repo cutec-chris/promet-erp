@@ -64,8 +64,8 @@ lazbuild $Params -q ../../source/tools/helpviewer.lpi  >> scompile-$2-tools.log
 grep -w "Error:" scompile-$2-tools.log
 
 echo "compiling webservices..."
-echo "compiling local_appbase..."  > scompile-$2-web.log
-lazbuild $Params -q ../../source/webservers/local_appbase.lpi  >> scompile-$2-web.log
+echo "compiling webserver..."  > scompile-$2-web.log
+lazbuild $Params -q ../../source/webservers/webserver.lpi  >> scompile-$2-web.log
 echo "compiling imapserver..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/imapserver.lpi  >> scompile-$2-web.log
 echo "compiling mta..."  >> scompile-$2-web.log

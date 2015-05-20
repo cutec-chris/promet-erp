@@ -36,8 +36,8 @@ lazbuild $Params ../../source/tools/processdaemon.lpi  >> scompile-$2-tools.log
 grep -w "Error:" scompile-$2-tools.log
 grep -w "ERROR:" scompile-$2-tools.log
 echo "compiling webservices..."
-#echo "compiling local_appbase..."  > scompile-$2-web.log
-#lazbuild $Params ../../source/webservers/local_appbase.lpi  >> scompile-$2-web.log
+#echo "compiling webserver..."  > scompile-$2-web.log
+#lazbuild $Params ../../source/webservers/webserver.lpi  >> scompile-$2-web.log
 echo "compiling imapserver..."  >> scompile-$2-web.log
 lazbuild $Params ../../source/webservers/imapserver.lpi  >> scompile-$2-web.log
 echo "compiling mta..."  >> scompile-$2-web.log
@@ -46,8 +46,8 @@ echo "compiling nntpserver..."  >> scompile-$2-web.log
 lazbuild $Params ../../source/webservers/nntpserver.lpi  >> scompile-$2-web.log
 echo "compiling httpserver..."  >> scompile-$2-web.log
 lazbuild $Params ../../source/webservers/httpserver.lpi  >> scompile-$2-web.log
-echo "compiling webdavserver..."  >> scompile-$2-web.log
-lazbuild $Params ../../source/webservers/webdavserver.lpi  >> scompile-$2-web.log
+echo "compiling davserver..."  >> scompile-$2-web.log
+lazbuild $Params ../../source/webservers/davserver.lpi  >> scompile-$2-web.log
 echo "compiling syslogserver..."  >> scompile-$2-web.log
 lazbuild $Params ../../source/webservers/syslog.lpi  >> scompile-$2-web.log
 grep -w "Error:" scompile-$2-web.log

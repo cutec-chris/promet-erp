@@ -6,7 +6,7 @@ cp ../../output/$1-linux/tools/processmanager $2/tools/
 cp ../../output/$1-linux/tools/processdaemon $2/tools/promet-process
 cp ../../output/$1-linux/tools/sync_* $2/tools/
 cp ../../output/$1-linux/tools/syslog $2/tools
-cp ../../output/$1-linux/tools/local_appbase $2/tools
+cp ../../output/$1-linux/tools/webserver $2/tools
 cp ../../output/$1-linux/tools/pscript $2/tools
 rm $2/tools/sync_*.dbg
 cp ../../output/$1-linux/tools/import_* $2/tools/
@@ -20,7 +20,7 @@ install ../../output/$1-linux/tools/*receiver $2/tools
 install ../../output/$1-linux/tools/*sender $2/tools
 Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
-cp $2/tools/local_appbase ../executables/$Version/$1
+cp $2/tools/webserver ../executables/$Version/$1
 cp $2/tools/imapserver ../executables/$Version/$1
 cp $2/tools/mta ../executables/$Version/$1
 cp $2/tools/nntpserver ../executables/$Version/$1

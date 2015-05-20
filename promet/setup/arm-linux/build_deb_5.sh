@@ -30,13 +30,13 @@ cp ../i386-linux/debian/promet-process.sh $BuildDir/etc/init.d/promet-process
 chmod 666 $BuildDir/etc/init.d/promet-process
 chmod +x $BuildDir/etc/init.d/promet-process
 ln -s /usr/lib/$Program/tools/imapserver $BuildDir/usr/bin/promet-erp-imap
-ln -s /usr/lib/$Program/tools/webdavserver $BuildDir/usr/bin/promet-erp-webdav
-ln -s /usr/lib/$Program/tools/local_appbase $BuildDir/usr/bin/promet-erp-appbase
+ln -s /usr/lib/$Program/tools/davserver $BuildDir/usr/bin/promet-erp-dav
+ln -s /usr/lib/$Program/tools/webserver $BuildDir/usr/bin/promet-erp-appbase
 ln -s /usr/lib/$Program/tools/mta $BuildDir/usr/bin/promet-erp-mta
 ln -s /usr/lib/$Program/tools/nntpserver $BuildDir/usr/bin/promet-erp-nntp
 ln -s /usr/lib/$Program/tools/syslog $BuildDir/usr/bin/promet-erp-syslog
 chmod 666 $BuildDir/usr/bin/promet-erp-imap
-chmod 666 $BuildDir/usr/bin/promet-erp-webdav
+chmod 666 $BuildDir/usr/bin/promet-erp-dav
 chmod 666 $BuildDir/usr/bin/promet-erp-appbase
 chmod 666 $BuildDir/usr/bin/promet-erp-mta
 chmod 666 $BuildDir/usr/bin/promet-erp-nntp
