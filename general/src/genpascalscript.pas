@@ -109,7 +109,7 @@ type
     procedure InternalChDir(Directory : string);
     procedure InternalMkDir(Directory : string);
 
-    procedure InternalExec(cmd : string;ShowConsole : Boolean = False);
+    procedure InternalExec(cmd : string);
     procedure InternalExecWrite(cmd : string);
     function InternalExecActive: Boolean;
     function InternalExecResult: Integer;
@@ -383,7 +383,7 @@ begin
       end
     else if lowercase(Name)='exec' then
       begin
-        AddMethod(Self,@TPascalScript.InternalExec,'procedure Exec(cmd : string;ShowConsole : Boolean);');
+        AddMethod(Self,@TPascalScript.InternalExec,'procedure Exec(cmd : string);');
         AddMethod(Self,@TPascalScript.InternalExecWrite,'procedure ExecWrite(cmd : string);');
         AddMethod(Self,@TPascalScript.InternalExecActive,'function ExecActive : Boolean;');
         AddMethod(Self,@TPascalScript.InternalExecResult,'function ExecResult : Integer;');
@@ -600,19 +600,17 @@ begin
   inherited Destroy;
 end;
 
-procedure TPascalScript.InternalExec(cmd: string; ShowConsole: Boolean);
+procedure TPascalScript.InternalExec(cmd: string);
 var
   aLine: String;
 begin
   FProcess.CommandLine:=cmd;
-  FProcess.Options:=[poUsePipes,poNoConsole,poStderrToOutPut];
-  if ShowConsole then
-    FProcess.Options:=[poUsePipes,poStderrToOutPut];
+  FProcess.Options:=[poUsePipes,poStderrToOutPut];
+  FProcess.ShowWindow:=swoHIDE;
   {$ifdef lcl}
   FProcess.PipeBufferSize:=1;
   {$endif}
   CompleteOutput:='';
-  FProcess.ShowWindow:=swoNone;
   try
     FProcess.Execute;
   except
@@ -644,7 +642,7 @@ begin
     begin
       Setlength(Buffer,ReadSize);
       ReadCount := FProcess.Output.Read(Buffer[1], ReadSize);
-      CompleteOutput:=CompleteOutput+copy(Buffer,0,ReadCount);
+      CompleteOutput:=CompleteOutput+SysToUni(copy(Buffer,0,ReadCount));
       ReadSize := FProcess.Output.NumBytesAvailable;
     end;
   while pos(#10,CompleteOutput)>0 do
