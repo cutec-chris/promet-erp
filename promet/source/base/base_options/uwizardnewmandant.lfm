@@ -11,7 +11,7 @@ object fWizardNewMandant: TfWizardNewMandant
   OnDestroy = FormDestroy
   OnShow = FormShow
   Position = poDesktopCenter
-  LCLVersion = '1.3'
+  LCLVersion = '1.5'
   object pResult: TPanel
     Left = 128
     Height = 350
@@ -1454,4 +1454,4 @@ object fWizardNewMandant: TfWizardNewMandant
     left = 102
     top = 297
   end
-end
+end
