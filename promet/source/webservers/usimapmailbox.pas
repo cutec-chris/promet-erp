@@ -35,6 +35,7 @@ type
     //procedure WriteStatus; //Not Critical_Section-Protected!
     function Find(Search: TIMAPSearch; MsgSet: TMessageSet): TMessageSet;
     function FindMessageSets(MsgSet1, MsgSet2: TMessageSet; Exclude: boolean): TMessageSet;
+    procedure SetUIDVal(AValue: TUnixTime);
   protected
     FUnseen: longint;
     FRecent: longint;
@@ -80,7 +81,7 @@ type
 
     property MBReadOnly: boolean read fReadOnly write fReadOnly;
     property GetUIDnext: LongInt read FUIDNext;
-    property GetUIDvalidity: TUnixTime read FUIDvalidity;
+    property GetUIDvalidity: TUnixTime read FUIDvalidity write SetUIDVal;
     property PossFlags: string read GetPossFlags;
     procedure Lock;virtual;
     procedure Unlock;virtual;
@@ -601,6 +602,12 @@ begin
   SetLength(Result, j);
 end;
 
+procedure TImapMailbox.SetUIDVal(AValue: TUnixTime);
+begin
+  if FUIDvalidity=AValue then Exit;
+  FUIDvalidity:=AValue;
+end;
+
 function TImapMailbox.JoinMessageSets(MsgSet1, MsgSet2: TMessageSet): TMessageSet;
   // Returns messages that are part of MsgSet1 OR MsgSet2
 var
@@ -624,6 +631,8 @@ begin
     begin
       Result[j] := MsgSet2[i];
       Inc(j);
+      if j >= length(Result) then
+        SetLength(Result, j);
     end;
   end;
   SetLength(Result, j);

@@ -27,7 +27,7 @@ uses
   laz_synapse, uBaseDBInterface, uData, uBaseApplication, uBaseDbClasses,
   synautil, ureceivemessage, uMimeMessages, ussmtpserver, usimapserver,
   usimapsearch, mimemess, usbaseserver, usimapmailbox,RegExpr, db,
-  Utils,uMessages,syncobjs,uPerson,uIntfStrConsts;
+  Utils,uMessages,syncobjs,uPerson,uIntfStrConsts,uBaseDatasetInterfaces;
 type
   { TPrometMailBox }
 
@@ -779,6 +779,7 @@ begin
   Folder := TMessageList.Create(nil);
   DBCS.Leave;
   RefreshFolder;
+  GetUIDvalidity:=DateTimeToUnixTime(Folder.TimeStamp.AsDateTime);
 end;
 
 destructor TPrometMailBox.Destroy;
