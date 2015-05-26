@@ -340,6 +340,7 @@ procedure TfSelectReport.bDesignClick(Sender: TObject);
 var
   BaseApplication : IBaseApplication;
   NewRect: TRect;
+  aResult: Integer;
 begin
   if not Supports(Application, IBaseApplication, BaseApplication) then exit;
   with Application as IBaseDbInterface do
@@ -381,13 +382,12 @@ begin
               FOldShow:=TfrDesignerForm(LR_Class.frDesigner).OnShow;
               TfrDesignerForm(LR_Class.frDesigner).OnShow:=@ApplicationIBaseDBInterfaceTfrDesignerFormShow;
             end;
-//          TfrDesignerHackForm(LR_Class.frDesigner).EditorForm.M2.Beautifier := TSynBeautifier.Create(Application);
+          with BaseApplication as IBaseApplication do
+            TfrDesignerForm(LR_Class.frDesigner).CurDocName:=GetInternalTempDir+'preport.lrf';
         end;
-      Report.DesignReport;
+      aResult := Report.DesignReport;
       with Application as IBaseConfig do
         Config.WriteRect('ReportEditor',TfrDesignerForm(LR_Class.frDesigner).BoundsRect);
-      with BaseApplication as IBaseApplication do
-        Report.SaveToFile(GetInternalTempDir+'preport.lrf');
       Data.Reports.DataSet.Edit;
       with BaseApplication as IBaseApplication do
         Data.FileToBlobField(GetInternalTempDir+'preport.lrf',Data.Reports.DataSet,'REPORT');
