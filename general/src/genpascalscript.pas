@@ -108,6 +108,7 @@ type
   protected
     procedure InternalChDir(Directory : string);
     procedure InternalMkDir(Directory : string);
+    function InternalDirectoryExists(Const Directory : String) : Boolean;
 
     procedure InternalExec(cmd : string);
     procedure InternalExecWrite(cmd : string);
@@ -212,7 +213,7 @@ begin
   else if mbOK in Buttons then
     res := MessageBox(0,PChar(aMsg),PChar('Frage'),MB_OK+MB_ICONINFORMATION)
   else if (mbOK in Buttons) and (mbCancel in Buttons) then
-    res := MessageBox(0,PChar(aMsg),PChar('Frage'),MB_OKCANCEL+MB_ICONINFORMATION);
+    res := MessageBox(0,PChar(UniToSys(aMsg)),PChar('Frage'),MB_OKCANCEL+MB_ICONINFORMATION);
   case res of
   IDYES:Result := mrYes;
   IDNO:Result := mrNO;
@@ -225,7 +226,7 @@ end;
 procedure ShowMessageC(const aMsg: string);
 begin
   {$ifdef WINDOWS}
-  MessageBox(0,PChar(aMsg),PChar('Information'),MB_ICONINFORMATION);
+  MessageBox(0,PChar(UniToSys(aMsg)),PChar('Information'),MB_ICONINFORMATION);
   {$endif}
 end;
 
@@ -362,13 +363,13 @@ begin
         InternalUses(Comp,'DATEUTILS');
         AddMethod(Self,@TPascalScript.InternalBeep,'procedure Beep;');
         AddMethod(Self,@TPascalScript.InternalSleep,'procedure Sleep(MiliSecValue : LongInt);');
-        AddFunction(@DirectoryExists,'function DirectoryExists(Const Directory : String) : Boolean;');
         Comp.AddTypeS('TReplaceFlag','(rfReplaceAll, rfIgnoreCase)');
         Comp.AddTypeS('TReplaceFlags','set of TReplaceFlag');
         AddFunction(@StringReplace,'function StringReplace(const S, OldPattern, NewPattern: string;  Flags: TReplaceFlags): string;');
         AddMethod(Self,@TPascalScript.InternalTimeToStr,'function TimeToStr(Time: TDateTime): string;');
         AddMethod(Self,@TPascalScript.InternalDateTimeToStr,'function DateTimeToStr(DateTime: TDateTime): string;');
         AddMethod(Self,@TPascalScript.InternalFormat,'function Format(Fmt: string;Args: array of const):string;');
+        AddMethod(Self,@TPascalScript.InternalDirectoryExists,'function DirectoryExists(Const Directory : String) : Boolean;');
         AddFunction(@IntToHex,'function IntToHex(Value: integer; Digits: integer) : string;');
         AddFunction(@FileExists,'function FileExists (Const FileName : String) : Boolean;');
         Comp.AddTypeS('TFindRec','record' +
@@ -835,12 +836,19 @@ begin
 end;
 procedure TPascalScript.InternalChDir(Directory: string);
 begin
-  chdir(Directory);
+  chdir(UniToSys(Directory));
 end;
 procedure TPascalScript.InternalMkDir(Directory: string);
 begin
-  mkdir(Directory);
+  mkdir(UniToSys(Directory));
 end;
+
+function TPascalScript.InternalDirectoryExists(const Directory: String
+  ): Boolean;
+begin
+  Result := DirectoryExists(UniToSys(Directory));
+end;
+
 function TPascalScript.Execute(aParameters: Variant): Boolean;
 var
   i: Integer;
