@@ -231,7 +231,8 @@ begin
             Add('WORKSTATUS',ftString,4,False);
             Add('ORIGDATE',ftDateTime,0,False);
           end;
-      DefineUserFields(aDataSet);
+      if Data.ShouldCheckTable(TableName) then
+        DefineUserFields(aDataSet);
     end;
 end;
 procedure TProjectPositions.SetDisplayLabels(aDataSet: TDataSet);
@@ -732,6 +733,8 @@ begin
             Add('NAME','NAME',[]);
             Add('TREEENTRY','TREEENTRY',[]);
           end;
+      if Data.ShouldCheckTable(TableName) then
+        DefineUserFields(aDataSet);
     end;
 end;
 

@@ -174,7 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-tcs/ --debug"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-tcs/"/>
       </local>
     </RunParams>
     <RequiredPackages Count="26">

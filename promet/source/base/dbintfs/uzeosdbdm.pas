@@ -553,9 +553,8 @@ var
   GeneralQuery: TZQuery;
   Changed: Boolean;
   aConnection : TZAbstractConnection;
-//  aConnection : TZConnection;
 begin
-  Result := False;
+  Result := True;
   try
     if FFields <> '' then exit;
     with TBaseDBModule(Owner) do

@@ -67,8 +67,8 @@ begin
   while not Data.TableVersions.EOF do
     Data.TableVersions.DataSet.Delete;
   Data.TableVersions.DataSet.Filtered:=false;
-  if Data.Tables.IndexOf(aTable)>-1 then
-    Data.Tables.Delete(Data.Tables.IndexOf(aTable));
+  while Data.CheckedTables.IndexOf(aTable)>-1 do
+    Data.CheckedTables.Delete(Data.CheckedTables.IndexOf(aTable));
 end;
 
 constructor TfUserFieldOptions.Create(TheOwner: TComponent);

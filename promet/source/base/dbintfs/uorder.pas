@@ -83,9 +83,6 @@ type
   public
     procedure FillDefaults(aDataSet : TDataSet);override;
   end;
-
-  { TOrderRepairImages }
-
   TOrderRepairImages = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FDSDataChange(Sender: TObject; Field: TField);
@@ -135,6 +132,7 @@ type
     constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy;override;
     function CreateTable : Boolean;override;
+    procedure Open; override;
     procedure Assign(aSource : TPersistent);override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FillDefaults(aDataSet : TDataSet);override;
@@ -1562,6 +1560,12 @@ begin
   FOrderRepair.CreateTable;
   FQMTest.CreateTable;
 end;
+
+procedure TOrderPos.Open;
+begin
+  inherited Open;
+end;
+
 procedure TOrderPos.Assign(aSource: TPersistent);
 var
   aMasterdata: TMasterdata;
@@ -1604,7 +1608,8 @@ begin
   with aDataSet as IBaseManageDB do
     begin
       TableName := 'ORDERPOS';
-      DefineUserFields(aDataSet);
+      if Data.ShouldCheckTable(TableName) then
+        DefineUserFields(aDataSet);
     end;
 end;
 procedure TOrderPos.FillDefaults(aDataSet: TDataSet);
@@ -1851,7 +1856,8 @@ begin
             Add('CUSTNO','CUSTNO',[]);
             Add('CUSTNAME','CUSTNAME',[]);
           end;
-      DefineUserFields(aDataSet);
+      if Data.ShouldCheckTable(TableName) then
+        DefineUserFields(aDataSet);
     end;
 end;
 

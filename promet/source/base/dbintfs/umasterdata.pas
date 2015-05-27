@@ -1005,7 +1005,8 @@ begin
             Add('BARCODE','BARCODE',[]);
             Add('SHORTTEXT','SHORTTEXT',[]);
           end;
-      DefineUserFields(aDataSet);
+      if Data.ShouldCheckTable(TableName) then
+        DefineUserFields(aDataSet);
     end;
   with aDataSet as IBaseDbFilter, BaseApplication as IBaseDbInterface do
     BaseFilter := Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y');

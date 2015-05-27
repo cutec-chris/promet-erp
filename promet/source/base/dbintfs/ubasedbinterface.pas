@@ -178,6 +178,7 @@ type
     procedure RegisterLinkHandlers;
     property IgnoreOpenRequests : Boolean read FIgnoreOpenrequests write FIgnoreOpenrequests;
     property Tables : TStrings read FTables;
+    property CheckedTables : TStringList read FCheckedTables;
     property Triggers : TStrings read FTriggers;
     property LimitAfterSelect : Boolean read GetLimitAfterSelect;
     property LimitSTMT : string read GetLimitSTMT;

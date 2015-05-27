@@ -906,7 +906,8 @@ begin
             Add('MATCHCODE','MATCHCODE',[]);
             Add('NAME','NAME',[]);
           end;
-      DefineUserFields(aDataSet);
+      if Data.ShouldCheckTable(TableName) then
+        DefineUserFields(aDataSet);
     end;
 end;
 procedure TPersonList.SelectByAccountNo(aAccountNo: string);
