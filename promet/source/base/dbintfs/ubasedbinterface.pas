@@ -1250,7 +1250,7 @@ begin
               begin
                 Result := False;
               end
-            else
+            else if (not BaseApplication.HasOption('debug')) then
               begin
                 with BaseApplication as IBaseApplication do
                   Debug('Table "'+aTableName+'" DBVersion '+TableVersions.FieldByName('DBVERSION').AsString+'<'+IntToStr(round((AppVersion*10000)+AppRevision)));

@@ -1624,7 +1624,8 @@ end;
 
 procedure TBaseDBDataset.Filter(aFilter: string; aLimit: Integer);
 begin
-  FilterEx(aFilter,aLimit);
+  if (not ((ActualFilter=aFilter) and (aLimit=ActualLimit))) then
+    FilterEx(aFilter,aLimit);
 end;
 
 procedure TBaseHistory.OpenItem(AccHistory: Boolean);
@@ -2917,8 +2918,12 @@ begin
             with DataSet as IBaseManageDB do
               FDataSet.Open;
             if AlterTable then
-
-            FDataSet.Close;
+              FDataSet.Close
+            else
+              begin
+                with BaseApplication as IBaseApplication do
+                  Info('Table "'+TableName+'" altering failed');
+              end;
           end;
       end;
   with DataSet as IBaseManageDB do

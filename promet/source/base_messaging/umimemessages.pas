@@ -311,7 +311,7 @@ begin
     begin
       aMessage.Encodemessage;
       try
-        if Self.DataSet.FieldByName('LINES').IsNull then
+        if (Self.DataSet.FieldByName('LINES').IsNull) and (not Self.DataSet.FieldByName('USER').IsNull) then
           begin
             if not Self.CanEdit then
               Self.DataSet.Edit;
