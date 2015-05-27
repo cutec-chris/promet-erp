@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Buttons, ButtonPanel, ExtCtrls, db, Utils, uDataImport, Variants, LConvEncoding;
+  Buttons, ButtonPanel, ExtCtrls, db, Utils, uDataImport, Variants, uminiconvencoding;
 
 type
 

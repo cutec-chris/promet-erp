@@ -27,7 +27,7 @@ var
   dmSync: TdmSync;
 implementation
 {$R *.lfm}
-uses uOrder,uMasterdata,uPerson,lconvencoding,uBaseApplication;
+uses uOrder,uMasterdata,uPerson,uminiconvencoding,uBaseApplication;
 resourcestring
   strTableNotExists          = 'Tabelle "%s" existiert nicht, übersprungen !';
   strSyncOffsetdontMatch     = 'Synchronisations Offset passt nicht bei "%s" !';
@@ -373,4 +373,4 @@ begin
   Application.Terminate;
 end;
 end.
-
+

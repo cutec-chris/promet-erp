@@ -76,7 +76,7 @@ type
   end;
 implementation
 uses uData,uAccountingQue,uBaseVisualControls,uBaseERPDBClasses,Utils,
-  uIntfStrConsts,uBookAccounting,uPerson,uOrder,lconvencoding,
+  uIntfStrConsts,uBookAccounting,uPerson,uOrder,uminiconvencoding,
   uBaseVisualApplication, ClipBrd, uError, uMain, uFindTransaction;
 {$R *.lfm}
 resourcestring

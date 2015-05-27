@@ -21,7 +21,7 @@ unit uprojectimport;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uProjects,XMLRead,XMLWrite,DOM,LConvEncoding,uData,uTask,db,
+  Classes, SysUtils, uProjects,XMLRead,XMLWrite,DOM,uminiconvencoding,uData,uTask,db,
   Utils,Math,FileUtil,uBaseDBInterface,variants,uBaseDbClasses,uBaseDatasetInterfaces;
 //function ImportMPX(aFile : TStream;aProject : TProject) : Boolean; //MS Project ASCII
 function ImportMSPDI(aFile : TStream;aProject : TProject) : Boolean; //MS Project XML

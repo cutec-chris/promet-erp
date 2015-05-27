@@ -24,7 +24,7 @@ interface
 uses
   Classes, SysUtils, FileUtil,  Forms, ExtCtrls, StdCtrls, IpHtml,
   uData, Graphics, Menus, uIntfStrConsts, DB, Variants, Utils, LCLIntf,
-  uMessages, lconvencoding;
+  uMessages, uminiconvencoding;
 type
   TSimpleIpHtml = class(TIpHtml)
   public
@@ -240,7 +240,8 @@ begin
            tmp := ss.DataString;
            aEncoding := GuessEncoding(tmp);
            if pos('ENCODING',Uppercase(tmp)) = 0 then
-             tmp := ConvertEncoding(tmp,aEncoding,EncodingAnsi);
+             tmp := ConvertEncoding(tmp,aEncoding,EncodingUTF8);
+           tmp := HTMLEncodeTagless(tmp);
            ss.Free;
            ss:=TStringStream.Create(tmp);
            NewHTML:=TSimpleIpHtml.Create; // Beware:Will be freed automatically by IpHtmlPanel1

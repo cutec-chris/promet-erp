@@ -59,6 +59,7 @@ function GetSystemLang : string;
 function DateTimeToHourString(DateTime : TDateTime) : string;
 function DateTimeToIndustrialTime(dateTime : TDateTime) : string;
 function ConvertUnknownStringdate(input : string) : TDateTime;
+function HTMLEncodeTagless(const s: string): string;
 function HTMLEncode(const s : string)  : string;
 function HTMLDecode(const si : string)  : string;
 function UniToSys(const s: string): string; inline;
@@ -292,6 +293,16 @@ begin
         end;
       end;
 end;
+function HTMLEncodeTagless(const s: string): string;
+begin
+  Result := StringReplace(s, 'ä', '&auml;', [rfreplaceall]);
+  Result := StringReplace(result, 'ö', '&ouml;', [rfreplaceall]);
+  Result := StringReplace(result, 'ü', '&uuml;', [rfreplaceall]);
+  Result := StringReplace(result, 'Ä', '&Auml;', [rfreplaceall]);
+  Result := StringReplace(result, 'Ö', '&Ouml;', [rfreplaceall]);
+  Result := StringReplace(result, 'Ü', '&Uuml;', [rfreplaceall]);
+  Result := StringReplace(result, 'ß', '&szlig;', [rfreplaceall]);
+end;
 function HTMLEncode(const s: string): string;
 begin
   Result := StringReplace(s, '&', '&amp;', [rfreplaceall]);
@@ -299,13 +310,7 @@ begin
   Result := StringReplace(result, '<', '&lt;', [rfreplaceall]);
   Result := StringReplace(result, '>', '&gt;', [rfreplaceall]);
   Result := StringReplace(result, '''', '&auml', [rfreplaceall]);
-  Result := StringReplace(result, 'ä', '&auml;', [rfreplaceall]);
-  Result := StringReplace(result, 'ö', '&ouml;', [rfreplaceall]);
-  Result := StringReplace(result, 'ü', '&uuml;', [rfreplaceall]);
-  Result := StringReplace(result, 'Ä', '&Auml;', [rfreplaceall]);
-  Result := StringReplace(result, 'Ö', '&Ouml;', [rfreplaceall]);
-  Result := StringReplace(result, 'Ü', '&Uuml;', [rfreplaceall]);
-  Result := StringReplace(result, 'ß', '&szlig;', [rfreplaceall]);
+  Result := HTMLEncodeTagless(Result);
 end;
 function HTMLDecode(const si: string): string;
 var

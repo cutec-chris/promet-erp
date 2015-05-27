@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, ProcessUtils, FileUtil, Graphics,
   FPImage, FPWritePNM, IntfGraphics, Utils, SynaUtil,
-  lconvencoding,uDocuments,uImaging,FPReadJPEG,FPReadPNG,
+  uminiconvencoding,uDocuments,uImaging,FPReadJPEG,FPReadPNG,
   dateutils,uBaseDbClasses;
 type
   TOCRPages = TList;

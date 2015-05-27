@@ -158,7 +158,7 @@ implementation
 {$R *.lfm}
 uses
   SynEditHighlighter, SynEditTypes, SynEditLines, LCLType,
-  LConvEncoding,uSynEditFiler;
+  uminiconvencoding,uSynEditFiler;
 resourcestring
   rsMsgNewFile                = 'new File.txt';
 procedure ShowEditor(const sFileName:String);
