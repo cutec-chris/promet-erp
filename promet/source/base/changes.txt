@@ -1,4 +1,6 @@
-﻿Build 397
+﻿Build 398
+      -
+Build 397
       - Projekte:Projektnummer nicht direkt editierbar (wie bei Artikeln)
       - Nachrichtenzentrale:processmanager wird nun ohne pipes gestartet
       - Nachichteneditor:Unicode Anzeige hat bei einigen Nachrichten Encoding falsch benutzt

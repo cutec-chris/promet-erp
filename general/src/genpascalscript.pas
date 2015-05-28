@@ -896,9 +896,12 @@ var
 begin
   for i := 0 to LoadedLibs.Count-1 do
     begin
-      aProc := aprocT2(dynlibs.GetProcAddress(TLoadedLib(LoadedLibs[i]).Handle,'ScriptCleanup'));
-      if Assigned(aProc) then
-        aProc;
+      try
+        aProc := aprocT2(dynlibs.GetProcAddress(TLoadedLib(LoadedLibs[i]).Handle,'ScriptCleanup'));
+        if Assigned(aProc) then
+          aProc;
+      except
+      end;
     end;
 end;
 

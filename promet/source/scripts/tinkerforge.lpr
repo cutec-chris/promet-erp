@@ -1,6 +1,7 @@
 library tinkerforge;
 
 {$mode objfpc}{$H+}
+{$interfaces CORBA}
 
 uses
   Classes,sysutils, IPConnection, Device, BrickletLCD20x4, BrickletLCD16x2,
@@ -90,10 +91,14 @@ function TfConnect(Host : PChar;Port : Integer) : Boolean;stdcall;
 begin
   if not Assigned(Station) then
     Station := TStation.Create;
-  Station.Conn.Connect(Host,Port);
-  Station.Conn.Enumerate;
-  result := Station.Conn.IsConnected;
-  sleep(20);
+  try
+    Station.Conn.Connect(Host,Port);
+    Station.Conn.Enumerate;
+    result := Station.Conn.IsConnected;
+    sleep(20);
+  except
+    Result := False;
+  end;
 end;
 function TfDisconnect : Boolean;stdcall;
 begin
@@ -471,4 +476,6 @@ exports
   ScriptTool,
   ScriptDefinition;
 
+initialization
+  Station:=nil;
 end.

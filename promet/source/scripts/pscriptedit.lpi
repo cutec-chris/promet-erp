@@ -142,7 +142,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="5">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
@@ -158,6 +158,12 @@
       <Item5>
         <Name Value="EProcess"/>
       </Item5>
+      <Item6>
+        <Name Value="EZSQLException"/>
+      </Item6>
+      <Item7>
+        <Name Value="EZDatabaseError"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>
