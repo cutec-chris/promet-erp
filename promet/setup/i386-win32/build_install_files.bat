@@ -4,7 +4,7 @@ md ..\..\output\%1\plugins
 lazbuild --build-mode=Default -q ..\..\source\tools\wizardmandant.lpi
 If errorlevel 1 lazbuild --build-mode=Default -q ..\..\source\tools\wizardmandant.lpi
 If errorlevel 1 goto end
-lazbuild --build-mode=Default -q -B ..\..\source\messagemanager\messagemanager.lpi
+lazbuild -q -B ..\..\source\messagemanager\messagemanager.lpi
 If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\messagemanager\messagemanager.lpi
 If errorlevel 1 goto end
 lazbuild --build-mode=Default -q ..\..\source\promet.erp\prometerp.lpi

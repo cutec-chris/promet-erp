@@ -1,6 +1,14 @@
 ﻿Build 397
       - Projekte:Projektnummer nicht direkt editierbar (wie bei Artikeln)
       - Nachrichtenzentrale:processmanager wird nun ohne pipes gestartet
+      - Nachichteneditor:Unicode Anzeige hat bei einigen Nachrichten Encoding falsch benutzt
+      - Benutzerdefinierte Felder:Integerfelder wurden nicht hinzugefügt
+      - Reports:Reports wurden immer gespeichert auch wenn Benutzerabfrage negativ war
+      - Scripte:Unicodewandlungen bei Daeihandling Routinen korrigiert
+      - Scripte:Dateisuchroutinen FindFirst/Findnext hinzugefügt
+      - Meetings:Benutzer und Verantwortlicher werden auf das jewails andere gesetzt wenn ein Feld leer ist
+      - Inplace Suchen:reaktiviert/Fehler beim aufrufen beseitigt
+      - Aufgabeneditor:möglichkeit bereits erfasste Zeiten auf einer Aufgabe als "Zwischenstand" abzufragen
 Build 396
       - Datenbank:schon vergebene SQL_IDś werden übersprungen
       - Scripte:Verlaufseintrag bei jedem speichern (wie bei jedem Listenelement)
