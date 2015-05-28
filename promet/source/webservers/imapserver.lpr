@@ -1270,10 +1270,12 @@ begin
       if DirectionIn then
         begin
           Info(IntToStr(aId)+':>'+aMessage);
+          writeln(IntToStr(aId)+':>'+aMessage)
         end
       else
         begin
           Info(IntToStr(aId)+':<'+aMessage);
+          writeln(IntToStr(aId)+':<'+aMessage)
         end;
     end;
 end;

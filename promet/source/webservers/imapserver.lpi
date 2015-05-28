@@ -116,18 +116,16 @@
           <Parsing>
             <SyntaxOptions>
               <CStyleOperator Value="False"/>
-              <IncludeAssertionCode Value="True"/>
             </SyntaxOptions>
           </Parsing>
           <CodeGeneration>
             <Checks>
               <IOChecks Value="True"/>
-              <StackChecks Value="True"/>
             </Checks>
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <DebugInfoType Value="dsDwarf2Set"/>
+              <TrashVariables Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
@@ -153,7 +151,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --port=1043 --smtpport=5087 --server-log"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -178,11 +176,11 @@
       <Unit1>
         <Filename Value="ussmtpserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ussmtpserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="usimapserver.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="usimapserver"/>
       </Unit2>
       <Unit3>
         <Filename Value="usimapsearch.pas"/>
@@ -226,7 +224,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="6">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -245,6 +243,9 @@
       <Item6>
         <Name Value="RunError(216)"/>
       </Item6>
+      <Item7>
+        <Name Value="EZDatabaseError"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>

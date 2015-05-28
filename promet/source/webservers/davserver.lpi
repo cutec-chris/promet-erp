@@ -37,7 +37,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log"/>
         <WorkingDirectory Value="..\"/>
       </local>
     </RunParams>
@@ -59,7 +59,6 @@
       <Unit0>
         <Filename Value="davserver.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="davserver"/>
       </Unit0>
       <Unit1>
         <Filename Value="ulsvnserver.pas"/>
@@ -114,7 +113,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="4">
+    <Exceptions Count="6">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -127,6 +126,12 @@
       <Item4>
         <Name Value="EZSQLException"/>
       </Item4>
+      <Item5>
+        <Name Value="Exception"/>
+      </Item5>
+      <Item6>
+        <Name Value="EZDatabaseError"/>
+      </Item6>
     </Exceptions>
   </Debugging>
 </CONFIG>
