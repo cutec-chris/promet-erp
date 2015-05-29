@@ -117,6 +117,15 @@ inherited fLinkFrame: TfLinkFrame
         Flat = True
         ShowCaption = False
       end
+      object SpeedButton5: TSpeedButton
+        Left = 16
+        Height = 22
+        Top = 120
+        Width = 24
+        Action = acAddFolder
+        Flat = True
+        ShowCaption = False
+      end
     end
   end
   object pmPopup: TPopupMenu[2]
@@ -383,6 +392,7 @@ inherited fLinkFrame: TfLinkFrame
       Caption = 'Verweis kopieren'
       ImageIndex = 23
       OnExecute = acCopyToClipboardExecute
+      ShortCut = 16451
     end
     object acDelete: TAction
       Caption = 'löschen'
@@ -399,9 +409,19 @@ inherited fLinkFrame: TfLinkFrame
       ImageIndex = 67
       OnExecute = acEditVersionExecute
     end
+    object acAddFolder: TAction
+      Caption = 'Verzeichnis hinzufügen'
+      Hint = 'Verzeichnis aus Dateisystem verlinken'
+      ImageIndex = 79
+      OnExecute = acAddFolderExecute
+    end
   end
   object Datasource: TDataSource[4]
     left = 96
     top = 40
+  end
+  object SelectDirectoryDialog1: TSelectDirectoryDialog[5]
+    left = 96
+    top = 80
   end
 end

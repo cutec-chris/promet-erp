@@ -25,9 +25,6 @@ uses
   uBaseDbClasses, uIntfStrConsts,
   uBaseSearch,uBaseERPDbClasses,uDocuments,uOrder,Variants,uProcessManagement,
   rttiutils,uBaseDatasetInterfaces
-  {$IFDEF LCL}
-  ,LCLIntf
-  {$ENDIF}
   ;
 const
   MandantExtension = '.perml';
@@ -1117,21 +1114,6 @@ begin
           Result := FLinkHandlers[i].aEvent(aLink,Self);
         break;
       end;
-  if not Result then
-    begin
-      if Uppercase(copy(aLink,0,pos('://',aLink)-1)) = 'HTTP' then
-        begin
-          {$IFDEF LCL}
-          Result := OpenURL(aLink);
-          {$ENDIF}
-        end
-      else if pos('://',aLink) > 0 then
-        begin
-          {$IFDEF LCL}
-          Result := OpenDocument(aLink);
-          {$ENDIF}
-        end;
-    end;
 end;
 function TBaseDBModule.DataSetFromLink(aLink: string;
   var aClass: TBaseDBDatasetClass): Boolean;

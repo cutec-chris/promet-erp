@@ -278,7 +278,7 @@ implementation
 uses uRowEditor,uSearch, uBaseVisualApplicationTools, uBaseVisualApplication ,
   uFilterTabs,uFormAnimate,uData, uBaseVisualControls,uscriptimport,
   uSelectReport,uOrder,uBaseERPDBClasses,uNRights,LCLProc,
-  uPerson,uSendMail,Utils;
+  uPerson,uSendMail,Utils,LCLIntf;
 resourcestring
   strRecordCount                            = '%d Einträge';
   strFullRecordCount                        = 'von %d werden %d Einträge angezeigt';
@@ -1042,6 +1042,8 @@ begin
 end;
 
 procedure TfFilter.acOpenExecute(Sender: TObject);
+var
+  aLink: String;
 begin
   if Assigned(FOnViewDetails) then
     FOnViewDetails(Self)

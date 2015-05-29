@@ -35,6 +35,7 @@ type
     acDelete: TAction;
     acAddLinks: TAction;
     acEditVersion: TAction;
+    acAddFolder: TAction;
     ActionList1: TActionList;
     Bevel1: TBevel;
     Datasource: TDatasource;
@@ -50,10 +51,13 @@ type
     Panel2: TPanel;
     pCont: TPanel;
     pmPopup: TPopupMenu;
+    SelectDirectoryDialog1: TSelectDirectoryDialog;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
     SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    procedure acAddFolderExecute(Sender: TObject);
     procedure acAddLinksExecute(Sender: TObject);
     procedure acCopyToClipboardExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
@@ -161,7 +165,8 @@ begin
   else
     fError.ShowWarning(strCantgetClipboardContents);
   Stream.Free;
-  addToLinked := MessageDlg(strAddEntryToLinkedItem,mtInformation,[mbYes,mbNo],0) = mrYes;
+  if pos(';',aLinks)>0 then
+    addToLinked := MessageDlg(strAddEntryToLinkedItem,mtInformation,[mbYes,mbNo],0) = mrYes;
   while pos(';',aLinks) > 0 do
     begin
       aLink := copy(aLinks,0,pos(';',aLinks)-1);
@@ -260,8 +265,11 @@ begin
           gList.SelectedRows.Clear;
         end
       else
-        with Application as IBaseDbInterface do
-          aLinks := aLinks+Datasource.DataSet.FieldByName('LINK').AsString+';';
+        begin
+          with Application as IBaseDbInterface do
+            aLinks := aLinks+Datasource.DataSet.FieldByName('LINK').AsString+';';
+          ClipBoard.AsText:=Datasource.DataSet.FieldByName('LINK').AsString;
+        end;
       Stream := TStringStream.Create(aLinks);
       Clipboard.AddFormat(LinkClipboardFormat,Stream);
       Stream.Free;
@@ -273,6 +281,29 @@ begin
   fSearch.SetLanguage;
   fSearch.OnOpenItem:=@fSearchOpenItem;
   fSearch.Execute(False,'LINKSADD','');
+end;
+
+procedure TfLinkFrame.acAddFolderExecute(Sender: TObject);
+var
+  aLink: String;
+  aLinkDesc: String;
+  aIcon: Integer;
+begin
+  if SelectDirectoryDialog1.Execute then
+    begin
+      aLink := 'file://'+StringReplace(SelectDirectoryDialog1.FileName,'\','/',[rfReplaceAll]);
+      aLinkDesc := ExtractFileName(SelectDirectoryDialog1.FileName);
+      aIcon := 123;
+      with DataSet.DataSet do
+        begin
+          Insert;
+          FieldByName('LINK').AsString := aLink;
+          FieldByName('NAME').AsString := aLinkDesc;
+          FieldByName('ICON').AsInteger := aIcon;
+          FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
+          Post;
+        end;
+    end;
 end;
 
 procedure TfLinkFrame.acDeleteExecute(Sender: TObject);
@@ -554,8 +585,21 @@ begin
     end;
 end;
 procedure TfLinkFrame.FContListViewDetails(Sender: TObject);
+var
+  aLink: String;
 begin
-  Data.GotoLink(DataSet.FieldByName('LINK').AsString);
+  if not Data.GotoLink(DataSet.FieldByName('LINK').AsString) then
+    begin
+      aLink := DataSet.FieldByName('LINK').AsString;
+      if Uppercase(copy(aLink,0,pos('://',aLink)-1)) = 'HTTP' then
+        begin
+          OpenURL(aLink);
+        end
+      else if pos('://',aLink) > 0 then
+        begin
+          OpenDocument(aLink);
+        end;
+    end;
 end;
 
 function TfLinkFrame.fSearchOpenItem(aLinks: string): Boolean;
