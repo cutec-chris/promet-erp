@@ -25,11 +25,10 @@ TFlagFileStream = Class(THandleStream)
 {$ENDIF}
   
 function DeleteSecure(Filename : string;Method : TSecureDeleteMethod = dmSecure) : Boolean;
-//function DeleteDirectorySecure(const DirectoryName: string;OnlyChilds: boolean;Method : TSecureDeleteMethod = dmSecure): boolean;
+function DeleteDirectorySecure(const DirectoryName: string;OnlyChilds: boolean;Method : TSecureDeleteMethod = dmSecure): boolean;
 
 implementation
 
-{
 function DeleteDirectorySecure(const DirectoryName: string;OnlyChilds: boolean;Method : TSecureDeleteMethod): boolean;
 var
   FileInfo: TSearchRec;
@@ -37,8 +36,8 @@ var
   CurFilename: String;
 begin
   Result:=false;
-  CurSrcDir:=CleanAndExpandDirectory(DirectoryName);
-  if FindFirstUTF8(CurSrcDir+GetAllFilesMask,faAnyFile,FileInfo)=0 then
+  CurSrcDir:=DirectoryName+DirectorySeparator;// CleanAndExpandDirectory(DirectoryName);
+  if FindFirst(UniToSys(CurSrcDir)+'*',faAnyFile,FileInfo)=0 then
     begin
       repeat
         // check if special file
@@ -50,13 +49,12 @@ begin
         end else begin
           if not DeleteSecure(CurFilename,Method) then exit;
         end;
-      until FindNextUTF8(FileInfo)<>0;
+      until FindNext(FileInfo)<>0;
     end;
   SysUtils.FindClose(FileInfo);
-  if (not OnlyChilds) and (not RemoveDirUTF8(DirectoryName)) then exit;
+  if (not OnlyChilds) and (not RemoveDir(UniToSys(DirectoryName))) then exit;
   Result:=true;
 end;
-}
 function WriteData(Filename : string;Data : byte) : Boolean;
 const buffersize = 1024;
 var

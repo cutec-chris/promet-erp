@@ -121,9 +121,9 @@ begin
     begin
       if DirectoryExists(UniToSys(filename)) then
         begin
-        DelRetry:
-          DelOK := RemoveDir(filename);
-        end;
+          DelRetry:
+            DelOK := DeleteDirectorySecure(filename,false);
+          end;
     end
   else if aDoDelete then
     raise Exception.Create(strCheckinFailed)
@@ -185,4 +185,4 @@ initialization
 finalization
   ProcessList.Destroy;
 end.
-
+

@@ -48,7 +48,7 @@ function GenerateThumbNail(aName : string;aFileName : string;aStream : TStream;a
 
 implementation
 
-uses uBaseApplication;
+uses uBaseApplication,SecureUtils;
 var
   ThumbDir : string;
 
@@ -354,6 +354,6 @@ end;
 initialization
   ThumbDir := '';
 finalization
-  RemoveDir(GetThumbTempDir);
+  DeleteDirectorySecure(GetThumbTempDir,false);
 end.
 
