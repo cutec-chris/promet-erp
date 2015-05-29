@@ -92,7 +92,7 @@ type
 implementation
 uses uBaseVisualControls,Graphics,uBaseDbInterface,uData,uBaseVisualApplication,
   uError, uIntfStrConsts,uAccounting,Utils,uSearch,uMainTreeFrame,uMasterdata,uProjects,
-  uPerson,umeeting;
+  uPerson,umeeting,LCLIntf;
 {$R *.lfm}
 resourcestring
   strDoAppendToAccount            = 'Der eingefuegte Verweis ist eine Kontobuchung,'+lineending+'moechten Sie diesen Vorgang als Beleg einfuegen ?';
