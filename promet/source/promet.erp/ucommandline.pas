@@ -101,7 +101,7 @@ end;
 
 procedure TfCommandline.FSpeakingInterfacaceWriteln(const s: string);
 begin
-  Output.Append('<'+s);
+  Output.Lines.Add('<'+s);
 end;
 
 procedure TfCommandline.acNewScriptExecute(Sender: TObject);
