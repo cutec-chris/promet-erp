@@ -37,3 +37,6 @@
 [submodule "promet/source/components/tapi"]
 	path = promet/source/components/tapi
 	url = https://github.com/cutec-chris/tapi
+[submodule "promet/source/components/sqlparser"]
+	path = promet/source/components/sqlparser
+	url = https://github.com/cutec-chris/sqlparser
