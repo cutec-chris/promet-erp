@@ -25,3 +25,6 @@
 [submodule "promet/source/components/thumbs"]
 	path = promet/source/components/thumbs
 	url = https://github.com/tcs-ulli/lazarus-thumbviewer
+[submodule "general"]
+	path = general
+	url = https://github.com/tcs-ulli/general
