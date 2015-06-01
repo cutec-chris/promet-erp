@@ -28,3 +28,6 @@
 [submodule "general"]
 	path = general
 	url = https://github.com/tcs-ulli/general
+[submodule "promet/source/components/fpspreadsheet"]
+	path = promet/source/components/fpspreadsheet
+	url = https://github.com/tcs-ulli/fpspreadsheet
