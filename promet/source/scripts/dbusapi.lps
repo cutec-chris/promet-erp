@@ -4,16 +4,15 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="19">
+    <Units Count="21">
       <Unit0>
         <Filename Value="dbusapi.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="dbusapi"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="14"/>
-        <CursorPos X="21" Y="41"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="18"/>
+        <CursorPos X="9" Y="40"/>
         <UsageCount Value="24"/>
-        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="tinkerforge\IPConnection.pas"/>
@@ -116,7 +115,7 @@
       <Unit15>
         <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus.pas"/>
         <UnitName Value="dbus"/>
-        <EditorIndex Value="1"/>
+        <IsVisibleTab Value="True"/>
         <TopLine Value="55"/>
         <CursorPos X="19" Y="64"/>
         <UsageCount Value="10"/>
@@ -135,30 +134,39 @@
       </Unit17>
       <Unit18>
         <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus-errors.inc"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="25"/>
         <CursorPos X="26" Y="48"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit18>
+      <Unit19>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus-bus.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="12"/>
+        <CursorPos X="36" Y="27"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus-shared.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="62"/>
+        <CursorPos X="3" Y="37"/>
+        <UsageCount Value="10"/>
+      </Unit20>
     </Units>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="3" HistoryIndex="2">
       <Position1>
-        <Filename Value="dbusapi.lpr"/>
-        <Caret Line="7" Column="22"/>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus.pas"/>
+        <Caret Line="61" Column="18" TopLine="55"/>
       </Position1>
       <Position2>
         <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus.pas"/>
-        <Caret Line="61" Column="18" TopLine="55"/>
+        <Caret Line="63" Column="18" TopLine="55"/>
       </Position2>
       <Position3>
         <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus.pas"/>
-        <Caret Line="63" Column="18" TopLine="55"/>
-      </Position3>
-      <Position4>
-        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus.pas"/>
         <Caret Line="64" Column="19" TopLine="55"/>
-      </Position4>
+      </Position3>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
