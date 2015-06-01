@@ -46,3 +46,6 @@
 [submodule "promet/source/components/gifanim"]
 	path = promet/source/components/gifanim
 	url = https://github.com/cutec-chris/gifanim
+[submodule "promet/source/components/jvdesign"]
+	path = promet/source/components/jvdesign
+	url = https://github.com/cutec-chris/jvdesign
