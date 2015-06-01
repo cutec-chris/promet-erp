@@ -31,6 +31,3 @@
 [submodule "promet/source/components/fpspreadsheet"]
 	path = promet/source/components/fpspreadsheet
 	url = https://github.com/tcs-ulli/fpspreadsheet
-[submodule "promet/source/components/synapse"]
-	path = promet/source/components/synapse
-	url = https://github.com/cutec-chris/Ararat-Synapse.git
