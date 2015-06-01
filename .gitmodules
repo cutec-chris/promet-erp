@@ -1,0 +1,3 @@
+[submodule "promet/source/components/zeos"]
+	path = promet/source/components/zeos
+	url = https://github.com/tcs-ulli/ZeosDBO.git
