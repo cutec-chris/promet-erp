@@ -10,3 +10,6 @@
 [submodule "promet/source/components/tvplanit"]
 	path = promet/source/components/tvplanit
 	url = https://github.com/tcs-ulli/tvplanit
+[submodule "promet/source/components/besen"]
+	path = promet/source/components/besen
+	url = https://github.com/tcs-ulli/besen
