@@ -60,8 +60,10 @@
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="pstarter"/>
+    </Target>
     <SearchPaths>
-      <OtherUnitFiles Value="..\base"/>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
