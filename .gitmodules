@@ -4,3 +4,6 @@
 [submodule "promet/source/components/brookframework"]
 	path = promet/source/components/brookframework
 	url = https://github.com/silvioprog/brookframework.git
+[submodule "promet/source/components/powerpdf"]
+	path = promet/source/components/powerpdf
+	url = https://github.com/tcs-ulli/PowerPDF
