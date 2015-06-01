@@ -34,3 +34,6 @@
 [submodule "promet/source/components/synapse"]
 	path = promet/source/components/synapse
 	url = https://github.com/cutec-chris/Ararat-Synapse.git
+[submodule "promet/source/components/tapi"]
+	path = promet/source/components/tapi
+	url = https://github.com/cutec-chris/tapi
