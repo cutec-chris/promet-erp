@@ -13,3 +13,6 @@
 [submodule "promet/source/components/besen"]
 	path = promet/source/components/besen
 	url = https://github.com/tcs-ulli/besen
+[submodule "promet/source/components/TZMSQL"]
+	path = promet/source/components/TZMSQL
+	url = https://github.com/tcs-ulli/tzmsql
