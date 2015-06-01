@@ -40,3 +40,6 @@
 [submodule "promet/source/components/sqlparser"]
 	path = promet/source/components/sqlparser
 	url = https://github.com/cutec-chris/sqlparser
+[submodule "promet/source/components/dexif"]
+	path = promet/source/components/dexif
+	url = https://github.com/cutec-chris/dexif
