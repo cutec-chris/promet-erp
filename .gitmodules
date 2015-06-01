@@ -16,3 +16,6 @@
 [submodule "promet/source/components/TZMSQL"]
 	path = promet/source/components/TZMSQL
 	url = https://github.com/tcs-ulli/tzmsql
+[submodule "promet/source/components/zvdatetimecontrols"]
+	path = promet/source/components/zvdatetimecontrols
+	url = https://github.com/tcs-ulli/zvdatetimecontrols
