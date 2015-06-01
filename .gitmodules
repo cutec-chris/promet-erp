@@ -27,7 +27,7 @@
 	url = https://github.com/tcs-ulli/lazarus-thumbviewer
 [submodule "general"]
 	path = general
-	url = https://github.com/tcs-ulli/general
+	url = https://github.com/cutec-chris/general.git
 [submodule "promet/source/components/fpspreadsheet"]
 	path = promet/source/components/fpspreadsheet
 	url = https://github.com/tcs-ulli/fpspreadsheet
@@ -49,3 +49,6 @@
 [submodule "promet/source/components/jvdesign"]
 	path = promet/source/components/jvdesign
 	url = https://github.com/cutec-chris/jvdesign
+[submodule "promet/source/base"]
+	path = promet/source/base
+	url = https://github.com/cutec-chris/promet-base
