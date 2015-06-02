@@ -61,7 +61,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="pstarter"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\pstarter"/>
     </Target>
     <SearchPaths>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
