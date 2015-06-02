@@ -367,14 +367,7 @@ procedure TfTaskEdit.eProjectButtonClick(Sender: TObject);
 var
   i : Integer = 0;
 begin
-  fSearch.SetLanguage;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strProjects then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strProjects);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenItem;
@@ -395,14 +388,7 @@ procedure TfTaskEdit.eUserButtonClick(Sender: TObject);
 var
   i :Integer = 0;
 begin
-  fSearch.SetLanguage;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strUsers then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strUsers);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   if Sender = eUser then

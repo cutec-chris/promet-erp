@@ -508,7 +508,6 @@ object fMain: TfMain
     object acOpen: TAction
       Caption = 'Öffnen'
       ImageIndex = 19
-      OnExecute = acOpenExecute
     end
     object acNewTermin: TAction
       Category = 'erfassung'

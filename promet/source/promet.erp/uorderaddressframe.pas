@@ -117,18 +117,7 @@ procedure TfOrderAddress.acSearchAddressExecute(Sender: TObject);
 var
   i: Integer;
 begin
-  fSearch.SetLanguage;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if (fSearch.cbSearchType.Items[i] <> strCustomerCont)
-      and (fSearch.cbSearchType.Items[i] <> strCustomers)
-      and (fSearch.cbSearchType.Items[i] <> strAdresses)
-      then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strCustomerCont+','+strCustomers+','+strAdresses);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenItem;

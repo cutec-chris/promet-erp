@@ -685,17 +685,9 @@ procedure TfPersonFrame.acCombineItemsExecute(Sender: TObject);
 var
   i: Integer;
 begin
-  fSearch.SetLanguage;
   fSearch.OnOpenItem:=@fSearchOpenItem;
   fSearch.OnValidateItem:=@fSearchValidateItem;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strCustomers then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strCustomers);
   fSearch.eContains.Text:=eName.Text;
   fSearch.Execute(True,'COMBPERSON','');
 end;

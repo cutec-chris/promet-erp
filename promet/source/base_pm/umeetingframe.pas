@@ -349,14 +349,7 @@ begin
   i := 0;
   if Field.FieldName = 'USER' then
     begin
-      fSearch.SetLanguage;
-      while i < fSearch.cbSearchType.Count do
-        begin
-          if fSearch.cbSearchType.Items[i] <> strUsers then
-            fSearch.cbSearchType.Items.Delete(i)
-          else
-            inc(i);
-        end;
+      fSearch.AllowSearchTypes(strUsers);
       fSearch.eContains.Clear;
       fSearch.sgResults.RowCount:=1;
       fSearch.OnOpenItem:=@fSearchOpenUserItem;
@@ -365,14 +358,7 @@ begin
     end
   else if Field.FieldName = 'OWNER' then
     begin
-      fSearch.SetLanguage;
-      while i < fSearch.cbSearchType.Count do
-        begin
-          if fSearch.cbSearchType.Items[i] <> strUsers then
-            fSearch.cbSearchType.Items.Delete(i)
-          else
-            inc(i);
-        end;
+      fSearch.AllowSearchTypes(strUsers);
       fSearch.eContains.Clear;
       fSearch.sgResults.RowCount:=1;
       fSearch.OnOpenItem:=@fSearchOpenOwnerItem;
@@ -780,17 +766,7 @@ procedure TfMeetingFrame.acAddTopicExecute(Sender: TObject);
 var
   i: Integer;
 begin
-  fSearch.SetLanguage;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if (fSearch.cbSearchType.Items[i] <> strProjects)
-      and (fSearch.cbSearchType.Items[i] <> strMasterdata)
-      then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strProjects+','+strMasterdata);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenProjectItem;

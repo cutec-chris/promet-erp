@@ -131,17 +131,7 @@ procedure TfMeetingUsers.bAddPos1Click(Sender: TObject);
 var
   i: Integer;
 begin
-  fSearch.SetLanguage;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if (fSearch.cbSearchType.Items[i] <> strUsers)
-      and (fSearch.cbSearchType.Items[i] <> strCustomers)
-      then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strUsers+','+strCustomers);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenProjectItem;

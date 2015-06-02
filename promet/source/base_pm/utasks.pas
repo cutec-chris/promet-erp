@@ -902,16 +902,7 @@ var
   aUser: TUser;
   aDesc: String = '';
 begin
-  fSearch.SetLanguage;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if  (fSearch.cbSearchType.Items[i] <> strUsers)
-      and (fSearch.cbSearchType.Items[i] <> strCustomers) then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strUsers+','+strCustomers);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenUserMailItem;
@@ -1068,15 +1059,7 @@ procedure TfTaskFrame.acMoveToProjectExecute(Sender: TObject);
 var
   i: Integer;
 begin
-  fSearch.SetLanguage;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strProjects then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strProjects);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenItemMulti;
@@ -1201,15 +1184,7 @@ procedure TfTaskFrame.acSetOwnerExecute(Sender: TObject);
 var
   i: Integer;
 begin
-  fSearch.SetLanguage;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strUsers then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strUsers);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenOwnerItem;
@@ -1221,15 +1196,7 @@ procedure TfTaskFrame.acSetUserExecute(Sender: TObject);
 var
   i: Integer;
 begin
-  fSearch.SetLanguage;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strUsers then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strUsers);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenUserItem;
@@ -1493,14 +1460,7 @@ var
 begin
   if Field.FieldName = 'PROJECT' then
     begin
-      fSearch.SetLanguage;
-      while i < fSearch.cbSearchType.Count do
-        begin
-          if fSearch.cbSearchType.Items[i] <> strProjects then
-            fSearch.cbSearchType.Items.Delete(i)
-          else
-            inc(i);
-        end;
+      fSearch.AllowSearchTypes(strProjects);
       fSearch.eContains.Clear;
       fSearch.sgResults.RowCount:=1;
       fSearch.OnOpenItem:=@fSearchOpenItem;
@@ -1833,15 +1793,7 @@ procedure TfTaskFrame.acAddTasksfromProjectExecute(Sender: TObject);
 var
   i: Integer;
 begin
-  fSearch.SetLanguage;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strProjects then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strProjects);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchAddTasksToProject;

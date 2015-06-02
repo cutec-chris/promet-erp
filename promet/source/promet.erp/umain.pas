@@ -174,7 +174,6 @@ type
     procedure acNewStatisticsExecute(Sender: TObject);
     procedure acNewTaskExecute(Sender: TObject);
     procedure acNewTerminExecute(Sender: TObject);
-    procedure acOpenExecute(Sender: TObject);
     procedure acOrdersExecute(Sender: TObject);
     procedure acPasswordsExecute(Sender: TObject);
     procedure acPauseTimeExecute(Sender: TObject);
@@ -2077,10 +2076,6 @@ begin
       AddCalendar(aFrame);
     end;
   aFrame.New;
-end;
-procedure TfMain.acOpenExecute(Sender: TObject);
-begin
-
 end;
 procedure TfMain.acOrdersExecute(Sender: TObject);
 var
