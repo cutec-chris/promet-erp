@@ -64,6 +64,7 @@ var
   aChk: Integer;
   aUserThere: Boolean;
   i: Integer;
+  btmp: String;
 begin
   Result := True;
   aSender :=  SysToUni(msg.Header.From);
@@ -128,7 +129,8 @@ begin
                   inc(b);
                   lSP := 1;
                   atmp := copy(atmp,16,length(atmp));
-                  aDate := DecodeRfcDateTime(copy(atmp,pos(';',atmp)+1,length(atmp)));
+                  btmp := copy(atmp,rpos(';',atmp)+1,length(atmp));
+                  aDate := DecodeRfcDateTime(trim(btmp));
                   if aDate > aReceivedDate then aReceivedDate:=aDate;
                   if aDate < aSendDate then aSendDate:=aDate;
                   atmp := trim(copy(atmp,0,pos('by',lowercase(atmp))-1));
