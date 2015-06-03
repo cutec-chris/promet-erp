@@ -121,7 +121,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\web\mta"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\mta"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
@@ -164,4 +164,4 @@
       </Item4>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

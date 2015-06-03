@@ -125,7 +125,7 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <TrashVariables Value="True"/>
+              <DebugInfoType Value="dsDwarf2"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
@@ -139,9 +139,6 @@
           </Other>
         </CompilerOptions>
       </Item4>
-      <SharedMatrixOptions Count="1">
-        <Item1 ID="246660654979" Modes="Default" Value="-dEnableUTF8RTL"/>
-      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -151,7 +148,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --port=1043 --smtpport=5087 --server-log"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -176,11 +173,11 @@
       <Unit1>
         <Filename Value="ussmtpserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ussmtpserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="usimapserver.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="usimapserver"/>
       </Unit2>
       <Unit3>
         <Filename Value="usimapsearch.pas"/>
@@ -198,7 +195,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\web\imapserver"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\imapserver"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
@@ -219,8 +216,7 @@
         <IgnoredMessages idx5024="True"/>
       </CompilerMessages>
       <CustomOptions Value="-dHASREPORTS
--dSTATISTICS
--FcUTF8"/>
+-dSTATISTICS"/>
     </Other>
   </CompilerOptions>
   <Debugging>

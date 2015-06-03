@@ -11,9 +11,6 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
-      <CodeGeneration>
-        <SmallerCode Value="True"/>
-      </CodeGeneration>
     </CompilerOptions>
     <Files Count="3">
       <Item1>
