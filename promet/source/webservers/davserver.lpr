@@ -233,7 +233,9 @@ begin
           aDirList.Add(aItem);
         end;
     end
-  else if copy(aDir,0,7) = '/caldav' then
+  else if (copy(aDir,0,7) = '/caldav')
+       or (copy(aDir,0,19) = '/.well-known/caldav')
+  then
     begin
       aFullDir := aDir;
       aDir := copy(aDir,9,length(aDir));
@@ -517,7 +519,10 @@ begin
       sl.Free;
       Result := True;
     end
-  else if (copy(aDir,0,7) = 'caldav/') or (copy(aDir,0,7) = '/caldav') then
+  else if (copy(aDir,0,7) = 'caldav/')
+       or (copy(aDir,0,7) = '/caldav')
+       or (copy(aDir,0,19) = '/.well-known/caldav')
+       then
     begin
       aFullDir := aDir;
       aDir := copy(aDir,8,length(aDir));
@@ -686,7 +691,9 @@ var
 begin
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
-  if copy(aDir,0,7) = '/caldav' then
+  if (copy(aDir,0,7) = '/caldav')
+  or (copy(aDir,0,19) = '.well-known/caldav')
+  then
     begin
       aFullDir := aDir;
       aDir := copy(aDir,9,length(aDir));

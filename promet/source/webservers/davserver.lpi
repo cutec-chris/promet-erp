@@ -37,14 +37,14 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log"/>
+        <CommandLineParams Value="--mandant=&quot;Stora&quot; --server-log"/>
         <WorkingDirectory Value="..\"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
       <Item1>
         <PackageName Value="pmimemessages"/>
-        <DefaultFilename Value="..\base_messaging\pmimemessages.lpk"/>
+        <DefaultFilename Value="..\base\base_messaging\pmimemessages.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="lnetbase"/>
