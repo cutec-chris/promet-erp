@@ -213,7 +213,7 @@
       </Item9>
       <Item10>
         <PackageName Value="tabeditor"/>
-        <DefaultFilename Value="../editform/tabeditor.lpk"/>
+        <DefaultFilename Value="../base/base_editform/tabeditor.lpk"/>
       </Item10>
       <Item11>
         <PackageName Value="statisticsaddon"/>
@@ -225,19 +225,19 @@
       </Item12>
       <Item13>
         <PackageName Value="prepair"/>
-        <DefaultFilename Value="../base_repair/prepair.lpk"/>
+        <DefaultFilename Value="../base/base_repair/prepair.lpk"/>
       </Item13>
       <Item14>
         <PackageName Value="pmessaging"/>
-        <DefaultFilename Value="../base_messaging/pmessaging.lpk"/>
+        <DefaultFilename Value="../base/base_messaging/pmessaging.lpk"/>
       </Item14>
       <Item15>
         <PackageName Value="perp"/>
-        <DefaultFilename Value="../base_erp/perp.lpk"/>
+        <DefaultFilename Value="../base/base_erp/perp.lpk"/>
       </Item15>
       <Item16>
         <PackageName Value="pcalendar"/>
-        <DefaultFilename Value="../base_calendar/pcalendar.lpk" Prefer="True"/>
+        <DefaultFilename Value="../base/base_calendar/pcalendar.lpk"/>
       </Item16>
       <Item17>
         <PackageName Value="projectmanagement"/>
@@ -661,7 +661,6 @@
       </Item8>
       <Item9>
         <Name Value="EInvalidOperation"/>
-        <Enabled Value="False"/>
       </Item9>
       <Item10>
         <Name Value="Exception"/>

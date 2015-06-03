@@ -1,7 +1,0 @@
-object DataModule1: TDataModule1
-  OnCreate = DataModuleCreate
-  Height = 191
-  HorizontalOffset = 527
-  VerticalOffset = 224
-  Width = 345
-end
