@@ -8,8 +8,6 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
-      <CodeGeneration>
-      </CodeGeneration>
     </CompilerOptions>
     <Files Count="4">
       <Item1>
@@ -36,7 +34,7 @@
       </Item1>
       <Item2>
         <PackageName Value="pProjectbase"/>
-        <DefaultFilename Value="../base_pm/pprojectbase.lpk"/>
+        <DefaultFilename Value="../base/base_pm/pprojectbase.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="general"/>
