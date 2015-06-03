@@ -9,7 +9,6 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
       <CodeGeneration>
-        <SmallerCode Value="True"/>
       </CodeGeneration>
     </CompilerOptions>
     <Files Count="11">

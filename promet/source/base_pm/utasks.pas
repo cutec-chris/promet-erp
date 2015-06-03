@@ -1937,7 +1937,8 @@ end;
 procedure TfTaskFrame.ShowFrame;
 begin
   FGridView.Refresh;
-  FGridView.SetFocus;
+  if FGridView.CanFocus and Visible then
+    FGridView.SetFocus;
 end;
 
 procedure TfTaskFrame.DoRefresh;
