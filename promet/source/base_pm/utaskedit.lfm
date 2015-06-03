@@ -443,10 +443,10 @@ object fTaskEdit: TfTaskEdit
     Height = 357
     Top = 73
     Width = 681
-    ActivePage = tsNotes
+    ActivePage = tsAdditional
     Align = alClient
     Images = fVisualControls.Images
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     NewTabImageIndex = 0
     object tsNotes: TTabSheet
@@ -779,10 +779,44 @@ object fTaskEdit: TfTaskEdit
           Height = 25
           Hint = 'Erfasste Zeiten aus der Zeiterfassung zusammenstellen'
           Top = 68
-          Width = 54
+          Width = 46
           Caption = 'holen'
           OnClick = Button1Click
           TabOrder = 6
+        end
+        object EndTimeLbl5: TLabel
+          Left = 256
+          Height = 13
+          Top = 56
+          Width = 82
+          Alignment = taRightJustify
+          Caption = 'Spätester Termin'
+          Font.Color = clWindowText
+          ParentColor = False
+          ParentFont = False
+          WordWrap = True
+        end
+        object EarlystDate1: TDBZVDateTimePicker
+          Left = 256
+          Height = 21
+          Hint = 'Der Termin, an dem die Aufgabe frühestens bearbeitet werden darf.'#13#10'z.b. durch Lieferanten oder Fertigung bedingt'
+          Top = 72
+          Width = 137
+          DataField = 'LATEST'
+          DataSource = Task
+          ReadOnly = False
+          CenturyFrom = 1941
+          MaxDate = 2958465
+          MinDate = -53780
+          TabOrder = 7
+          TrailingSeparator = False
+          TextForNullDate = ' '
+          LeadingZeros = True
+          Kind = dtkDateTime
+          TimeFormat = tf24
+          TimeDisplay = tdHMS
+          DateMode = dmComboBox
+          UseDefaultSeparators = True
         end
       end
       object GroupBox3: TGroupBox

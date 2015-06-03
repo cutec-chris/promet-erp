@@ -50,9 +50,11 @@ type
     cbState: TExtDBCombobox;
     DBText1: TDBText;
     EarlystDate: TDBZVDateTimePicker;
+    EarlystDate1: TDBZVDateTimePicker;
     eBuffer: TEdit;
     EndTimeLbl3: TLabel;
     EndTimeLbl4: TLabel;
+    EndTimeLbl5: TLabel;
     eTime: TEdit;
     eUser: TEditButton;
     eOwner: TEditButton;
@@ -151,6 +153,7 @@ resourcestring
   strDependencies               = 'Abhängigkeiten';
   strClassTask                  = 'T Aufgabe';
   strClassMilestone             = 'M Meilenstein';
+  strClassAP                    = 'P Arbeitspaket';
   strEditTask                   = 'Aufgabe bearbeiten';
 procedure TfTaskEdit.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
@@ -630,6 +633,7 @@ begin
   cbClass.Clear;
   cbClass.Items.Add(strClassTask);
   cbClass.Items.Add(strClassMilestone);
+  cbClass.Items.Add(strClassAP);
   Data.SetFilter(Data.States,Data.QuoteField('TYPE')+'='+Data.QuoteValue('P'));
   cbState.Clear;
   with Data.States.DataSet do
