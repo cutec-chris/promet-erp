@@ -2,14 +2,15 @@
 <CONFIG>
   <Package Version="4">
     <Name Value="statisticsaddon"/>
+    <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
+      <CodeGeneration>
+        <SmallerCode Value="True"/>
+      </CodeGeneration>
     </CompilerOptions>
     <Files Count="2">
       <Item1>
@@ -21,7 +22,6 @@
         <UnitName Value="ustatisticframe"/>
       </Item2>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="7">
       <Item1>
         <PackageName Value="laz_fpspreadsheet"/>

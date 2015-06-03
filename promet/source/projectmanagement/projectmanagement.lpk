@@ -2,14 +2,15 @@
 <CONFIG>
   <Package Version="4">
     <Name Value="projectmanagement"/>
+    <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
+      <CodeGeneration>
+        <SmallerCode Value="True"/>
+      </CodeGeneration>
     </CompilerOptions>
     <Files Count="4">
       <Item1>
@@ -29,7 +30,6 @@
         <UnitName Value="uminuteframe"/>
       </Item4>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="tabeditor"/>

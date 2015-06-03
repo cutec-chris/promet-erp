@@ -3,6 +3,7 @@
   <Package Version="4">
     <PathDelim Value="\"/>
     <Name Value="richmemopackage"/>
+    <Type Value="RunAndDesignTime"/>
     <AddToProjectUsesSection Value="True"/>
     <Author Value="Dmitry 'skalogryz' Boyarintsev"/>
     <CompilerOptions>
@@ -17,11 +18,13 @@
           <UseAnsiStrings Value="False"/>
         </SyntaxOptions>
       </Parsing>
+      <CodeGeneration>
+        <SmallerCode Value="True"/>
+      </CodeGeneration>
       <Other>
         <CompilerMessages>
-          <IgnoredMessages idx4055="True" idx5024="True" idx5057="True" idx5060="True"/>
+          <IgnoredMessages idx5060="True" idx5057="True" idx5024="True" idx4055="True"/>
         </CompilerMessages>
-        <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
     <Description Value="RichMemo control. Implements cross-platfrom RichEdit control.
@@ -87,7 +90,6 @@
         <Type Value="Include"/>
       </Item12>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="2">
       <Item1>
         <PackageName Value="LCL"/>

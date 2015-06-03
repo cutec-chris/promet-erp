@@ -2,11 +2,15 @@
 <CONFIG>
   <Package Version="4">
     <Name Value="perp"/>
+    <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
+      <CodeGeneration>
+        <SmallerCode Value="True"/>
+      </CodeGeneration>
     </CompilerOptions>
     <Files Count="11">
       <Item1>
@@ -54,7 +58,6 @@
         <UnitName Value="ubookfibuaccount"/>
       </Item11>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="pvisualframes"/>

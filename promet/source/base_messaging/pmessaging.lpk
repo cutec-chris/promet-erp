@@ -2,17 +2,15 @@
 <CONFIG>
   <Package Version="4">
     <Name Value="pmessaging"/>
+    <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
-      <Other>
-        <CompilerMessages>
-          <MsgFileName Value=""/>
-        </CompilerMessages>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
+      <CodeGeneration>
+        <SmallerCode Value="True"/>
+      </CodeGeneration>
     </CompilerOptions>
     <Files Count="11">
       <Item1>
@@ -60,7 +58,6 @@
         <UnitName Value="uMessageRoute"/>
       </Item11>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="6">
       <Item1>
         <PackageName Value="rtfconvert_pkg_vis"/>
