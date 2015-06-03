@@ -443,10 +443,10 @@ object fTaskEdit: TfTaskEdit
     Height = 357
     Top = 73
     Width = 681
-    ActivePage = tsAdditional
+    ActivePage = tsNotes
     Align = alClient
     Images = fVisualControls.Images
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     NewTabImageIndex = 0
     object tsNotes: TTabSheet
