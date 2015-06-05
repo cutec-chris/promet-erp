@@ -221,7 +221,7 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,
   uFilterFrame,uBaseSearch,Utils,uBaseERPDBClasses,uSelectReport,
   uNRights,uSearch,LCLProc,utask,fpsqltree,fpsqlscanner,SynEditMarks,LCLIntf,
-  fpspreadsheet, fpsallformats,uFormAnimate,SynBeautifier,Printers;
+  fpspreadsheet, fpsallformats,uFormAnimate,SynBeautifier,Printers,fpsTypes;
 {$R *.lfm}
 resourcestring
     strQueryTime                  = 'Abfragezeit: %s Anzahl Datensätze: %d';
