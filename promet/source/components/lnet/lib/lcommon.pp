@@ -367,7 +367,7 @@ end;
 
 function LStrError(const Ernum: Longint; const UseUTF8: Boolean = False): string;
 begin
-  Result := ' ['+IntToStr(Ernum)+' ] '+Errors.StrError(Ernum);
+  Result := ' [' + IntToStr(Ernum) + ']: ' + Errors.StrError(Ernum);
 end;
 
 function LSocketError: Longint;

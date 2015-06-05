@@ -163,8 +163,8 @@ type
     procedure RegisterWithEventer(AEventer: TLEventer); virtual;
   public
     function HandleDocument(const ARequest: TDocumentRequest): TOutputItem; virtual; abstract;
-    property NextHandler : TDocumentHandler read FNext;
-    property FileHandler: TFileHandler read FFileHandler write FFileHandler;
+
+    property FileHandler: TFileHandler read FFileHandler;
   end;
 
   { TFileHandler }
