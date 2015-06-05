@@ -990,7 +990,7 @@ begin
   FBufferPos := FBuffer;
   FBufferEnd := FBufferPos;
   FBuffer[0] := #0;
-  FKeepAlive := true;
+  FKeepAlive := false;
 end;
 
 destructor TLHTTPSocket.Destroy;
@@ -2343,4 +2343,4 @@ begin
 end;
 
 end.
-
+

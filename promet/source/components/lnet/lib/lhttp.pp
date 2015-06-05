@@ -32,7 +32,7 @@ uses
   classes, sysutils, lnet, lnetssl, levents, lhttputil, lstrbuffer;
 
 type
-  TLHTTPMethod = (hmHead, hmGet, hmPost, hmUnknown);
+  TLHTTPMethod = (hmHead, hmGet, hmPost, hmDelete, hmUnknown);
   TLHTTPMethods = set of TLHTTPMethod;
   TLHTTPParameter = (hpConnection, hpContentLength, hpContentType,
     hpAccept, hpAcceptCharset, hpAcceptEncoding, hpAcceptLanguage, hpHost,
@@ -50,7 +50,7 @@ const
   HTTPDisconnectStatuses = [hsBadRequest, hsRequestTooLong, hsForbidden, 
     hsInternalError, hsNotAllowed];
   HTTPMethodStrings: array[TLHTTPMethod] of string =
-    ('HEAD', 'GET', 'POST', '');
+    ('HEAD', 'GET', 'POST', 'DELETE', '');
   HTTPParameterStrings: array[TLHTTPParameter] of string =
     ('CONNECTION', 'CONTENT-LENGTH', 'CONTENT-TYPE', 'ACCEPT', 
      'ACCEPT-CHARSET', 'ACCEPT-ENCODING', 'ACCEPT-LANGUAGE', 'HOST',
@@ -578,7 +578,7 @@ end;
 
 constructor TURIHandler.Create;
 begin
-  FMethods := [hmHead, hmGet, hmPost];
+  FMethods := [hmHead, hmGet, hmPost, hmDelete];
 end;
 
 procedure TURIHandler.RegisterWithEventer(AEventer: TLEventer);
