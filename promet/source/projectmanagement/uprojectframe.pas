@@ -80,6 +80,7 @@ type
     DBCheckBox4: TDBCheckBox;
     DBZVDateTimePicker4: TDBZVDateTimePicker;
     DBZVDateTimePicker5: TDBZVDateTimePicker;
+    eInitiator: TEditButton;
     eParent: TEditButton;
     eManager: TEditButton;
     iProject: TImage;
@@ -88,6 +89,7 @@ type
     Label12: TLabel;
     Label13: TLabel;
     Label14: TLabel;
+    Label15: TLabel;
     Label8: TLabel;
     Label9: TLabel;
     lVAT1: TLabel;
@@ -183,6 +185,8 @@ type
     procedure bProjectColorColorChanged(Sender: TObject);
     procedure cbCategorySelect(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
+    procedure eInitiatorButtonClick(Sender: TObject);
+    procedure eInitiatorEnter(Sender: TObject);
     procedure eNameChange(Sender: TObject);
     procedure eManagerButtonClick(Sender: TObject);
     procedure eManagerExit(Sender: TObject);
@@ -190,6 +194,7 @@ type
     procedure eParentExit(Sender: TObject);
     function fSearchOpenItem(aLink: string): Boolean;
     function fSearchOpenItemL(aLink: string): Boolean;
+    function fSearchOpenItemLI(aLink: string): Boolean;
     procedure pcPagesChange(Sender: TObject);
     procedure ProjectsStateChange(Sender: TObject);
     procedure ReportGetValue(const ParName: String; var ParValue: Variant);
@@ -895,6 +900,25 @@ begin
   DoOpen;
 end;
 
+procedure TfProjectFrame.eInitiatorButtonClick(Sender: TObject);
+begin
+  fSearch.AllowSearchTypes(strUsers);
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenItemLI;
+  fSearch.Execute(True,'TASKSL',strSearchFromProjects);
+  fSearch.SetLanguage;
+end;
+
+procedure TfProjectFrame.eInitiatorEnter(Sender: TObject);
+begin
+  if trim(eParent.Text)='' then
+    begin
+      if not DataSet.CanEdit then DataSet.DataSet.Edit;
+      DataSet.FieldByName('PINITED').Clear;
+    end;
+end;
+
 procedure TfProjectFrame.AddOverview(Sender: TObject);
 begin
   TfObjectStructureFrame(Sender).ParentObject:=TBaseDbList(fDataSet);
@@ -967,8 +991,6 @@ begin
 end;
 
 procedure TfProjectFrame.eManagerButtonClick(Sender: TObject);
-var
-  i : Integer = 0;
 begin
   fSearch.AllowSearchTypes(strUsers);
   fSearch.eContains.Clear;
@@ -1039,6 +1061,22 @@ begin
   aParent.free;
 end;
 
+function TfProjectFrame.fSearchOpenItemLI(aLink: string): Boolean;
+var
+  aParent: TUser;
+begin
+  aParent := TUser.Create(nil);
+  aParent.SelectFromLink(aLink);
+  aParent.Open;
+  if aParent.Count>0 then
+    begin
+      eManager.Text:=aParent.FieldByName('NAME').AsString;
+      if not DataSet.CanEdit then DataSet.DataSet.Edit;
+      dataSet.FieldByName('PINITED').AsString:=aParent.FieldByName('ACCOUNTNO').AsString;
+    end;
+  aParent.free;
+end;
+
 procedure TfProjectFrame.pcPagesChange(Sender: TObject);
 begin
 
@@ -1096,6 +1134,17 @@ begin
       aParentU.Open;
       if aParentU.Count>0 then
         eManager.Text:=aParentU.FieldByName('NAME').AsString;
+      aParentU.free;
+    end;
+  if TProject(dataSet).FieldByName('PINITED').IsNull then
+    eInitiator.Text:=''
+  else
+    begin
+      aParentU := TUser.Create(nil);
+      aParentU.SelectByAccountno(dataSet.FieldByName('PINITED').AsString);
+      aParentU.Open;
+      if aParentU.Count>0 then
+        eInitiator.Text:=aParentU.FieldByName('NAME').AsString;
       aParentU.free;
     end;
 
