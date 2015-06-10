@@ -2155,6 +2155,7 @@ msgid "01:00"
 msgstr ""
 
 #: tfentertime.lproject.caption
+msgctxt "tfentertime.lproject.caption"
 msgid "Projekt"
 msgstr ""
 
@@ -4806,6 +4807,11 @@ msgstr ""
 
 #: tforderadditionalframe.lcommission.caption
 msgid "Kommission"
+msgstr ""
+
+#: tforderadditionalframe.lcommission1.caption
+msgctxt "TFORDERADDITIONALFRAME.LCOMMISSION1.CAPTION"
+msgid "Projekt"
 msgstr ""
 
 #: tforderadditionalframe.lshipping.caption
