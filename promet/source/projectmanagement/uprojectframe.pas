@@ -1070,7 +1070,7 @@ begin
   aParent.Open;
   if aParent.Count>0 then
     begin
-      eManager.Text:=aParent.FieldByName('NAME').AsString;
+      eInitiator.Text:=aParent.FieldByName('NAME').AsString;
       if not DataSet.CanEdit then DataSet.DataSet.Edit;
       dataSet.FieldByName('PINITED').AsString:=aParent.FieldByName('ACCOUNTNO').AsString;
     end;
