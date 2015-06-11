@@ -47,8 +47,7 @@ type
     acGotoParent: TAction;
     acGantt: TAction;
     acInactiveGantt: TAction;
-    acCalculatePlan: TAction;
-    acMoveOldTasks: TAction;
+    acCalculate: TAction;
     acAddImage: TAction;
     acPasteImage: TAction;
     acAddScreenshot: TAction;
@@ -172,7 +171,7 @@ type
     procedure acGotoParentExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
     procedure acInactiveGanttExecute(Sender: TObject);
-    procedure acMoveOldTasksExecute(Sender: TObject);
+    procedure acCalculateExecute(Sender: TObject);
     procedure acPasteImageExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRegorganizeExecute(Sender: TObject);
@@ -545,7 +544,7 @@ begin
     end;
 end;
 
-procedure TfProjectFrame.acMoveOldTasksExecute(Sender: TObject);
+procedure TfProjectFrame.acCalculateExecute(Sender: TObject);
 begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.BeginUpdate;

@@ -1443,15 +1443,10 @@ inherited fprojectFrame: TfprojectFrame
       ImageIndex = 104
       OnExecute = acInactiveGanttExecute
     end
-    object acCalculatePlan: TAction
+    object acCalculate: TAction
       Caption = 'Plan berechnen'
       ImageIndex = 95
-      OnExecute = acCalculatePlanExecute
-    end
-    object acMoveOldTasks: TAction
-      Caption = 'Plan aktualisieren (verschiebt überzogene Aufgaben)'
-      ImageIndex = 104
-      OnExecute = acMoveOldTasksExecute
+      OnExecute = acCalculateExecute
     end
     object acAddImage: TAction
       Caption = 'acAddImage'
@@ -1648,8 +1643,7 @@ inherited fprojectFrame: TfprojectFrame
       Caption = '-'
     end
     object MenuItem10: TMenuItem
-      Action = acMoveOldTasks
-      Caption = 'Plan berechnen'
+      Action = acCalculate
       Bitmap.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
         2000000000000004000064000000640000000000000000000000FEFDFD00FDFD
