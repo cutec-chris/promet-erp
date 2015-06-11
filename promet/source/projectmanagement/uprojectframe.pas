@@ -101,7 +101,6 @@ type
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
-    MenuItem9: TMenuItem;
     Panel10: TPanel;
     Panel11: TPanel;
     pNav2: TPanel;
@@ -550,7 +549,8 @@ procedure TfProjectFrame.acMoveOldTasksExecute(Sender: TObject);
 begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.BeginUpdate;
-  fGanttView.MoveAndCalculate(TProject(DataSet));
+  fGanttView.Project := TProject(DataSet);
+  fGanttView.acRefreshWizard.Execute;
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     begin
       TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
