@@ -3,8 +3,8 @@ inherited fStatisticFrame: TfStatisticFrame
   Width = 864
   ClientHeight = 698
   ClientWidth = 864
-  DesignLeft = 423
-  DesignTop = 144
+  DesignLeft = 99
+  DesignTop = 181
   object Splitter2: TSplitter[0]
     Cursor = crVSplit
     Left = 0
@@ -3304,8 +3304,8 @@ inherited fStatisticFrame: TfStatisticFrame
     end
   end
   object SaveDialog: TSaveDialog[16]
-    Filter = 'Excel 2.0 Datei (*.xls)|*.xls|Excel 3.0 Datei (*.xls)|*.xls|Excel 4.0 Datei (*.xls)|*.xls|Excel 5.0 Datei (*.xls)|*.xls|Excel 2007-2009 (*.xls)|*.xls|Open Office XML (*.xlsx)|*.xlsx|Open Document Format (*.ods)|*.ods|Kommagetrennte Datei (*.csv)|*.csv'
-    FilterIndex = 4
+    Filter = 'Excel 2.0 Datei (*.xls)|*.xls|Excel 5.0 Datei (*.xls)|*.xls|Excel 2007-2009 (*.xls)|*.xls|Open Office XML (*.xlsx)|*.xlsx|Open Document Format (*.ods)|*.ods|Kommagetrennte Datei (*.csv)|*.csv'
+    FilterIndex = 2
     Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
     left = 176
     top = 184
