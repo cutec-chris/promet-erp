@@ -690,15 +690,7 @@ var
   i: Integer;
 begin
   fSearch.SetLanguage;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if (fSearch.cbSearchType.Items[i] <> strUsers)
-      then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strUsers);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenUser;
