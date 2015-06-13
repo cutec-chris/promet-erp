@@ -29,7 +29,7 @@ uses
   Forms, uerror, richmemopackage
   { you can add units after this },
 utableedit,
-  upassword, udata, uBaseVisualApplication, pimportexport;
+  upassword, uBaseVisualApplication, pimportexport;
 
 {$R *.res}
 

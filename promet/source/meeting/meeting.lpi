@@ -53,10 +53,11 @@
     <RequiredPackages Count="12">
       <Item1>
         <PackageName Value="pProjectbase"/>
-        <DefaultFilename Value="..\base_pm\pprojectbase.lpk"/>
+        <DefaultFilename Value="..\base\base_pm\pprojectbase.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="laz_fpspreadsheet"/>
+        <DefaultFilename Value="..\components\fpspreadsheet\laz_fpspreadsheet.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="TAChartLazarusPkg"/>
@@ -69,7 +70,7 @@
       </Item5>
       <Item6>
         <PackageName Value="phelp"/>
-        <DefaultFilename Value="..\base\phelp.lpk"/>
+        <DefaultFilename Value="..\base\base_help\phelp.lpk"/>
       </Item6>
       <Item7>
         <PackageName Value="general"/>

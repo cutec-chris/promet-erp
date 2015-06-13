@@ -48,6 +48,7 @@
       </Item5>
       <Item6>
         <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
       </Item6>
     </RequiredPackages>
     <Units Count="2">
