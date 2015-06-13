@@ -24,7 +24,8 @@ unit uzsqldbdataset;
 interface
 
 uses
-  Classes, SysUtils, ZClasses, ZDataset,ubasedatasetinterfaces,DB;
+  Classes, SysUtils, ZClasses, ZDataset,ubasedatasetinterfaces,DB,ZSqlMetadata,
+  ZConnection,ZAbstractConnection;
 
 type
   TZeosDBDataSet = class(TZQuery,IBaseDBFilter,IBaseManageDB,IBaseSubDatasets,IBaseModifiedDS)
@@ -138,21 +139,25 @@ type
     property MasterDataSource : TDataSource read FMDS write FMDS;
     property DefaultTableName : string read FDefaultTableName;
     procedure DoExecSQL;
+    property Tablenames : string read FTableNames write FTableNames;
+    property OrigTable : TComponent read FOrigTable write FOrigTable;
     function NumRowsAffected: Integer;
   end;
 
 implementation
 
+uses uzsqldbfunctions;
+
 procedure TZeosDBDataSet.SetNewIDIfNull;
 begin
   if (FieldDefs.IndexOf('AUTO_ID') = -1) and (FieldDefs.IndexOf('SQL_ID') > -1) and  FieldByName('SQL_ID').IsNull then
     begin
-      FieldByName('SQL_ID').AsVariant:=TBaseDBModule(Self.Owner).GetUniID(Connection);
+      FieldByName('SQL_ID').AsVariant:=GetUniID(Connection);
       FHasNewID:=True;
     end
   else if (FieldDefs.IndexOf('SQL_ID') = -1) and (FieldDefs.IndexOf('AUTO_ID') > -1) and FieldByName('AUTO_ID').IsNull then
     begin
-      FieldByName('AUTO_ID').AsVariant:=TBaseDBModule(Self.Owner).GetUniID(Connection,'GEN_AUTO_ID');
+      FieldByName('AUTO_ID').AsVariant:=GetUniID(Connection,'GEN_AUTO_ID');
       FHasNewID:=True;
     end;
 end;
@@ -168,7 +173,7 @@ begin
       Result := FTableNames;
       if Result = '' then
         Result := FDefaultTableName;
-      Result := TBaseDBModule(Owner).QuoteField(Result);
+      Result := QuoteField(Result);
       exit;
     end;
   tmp := FTableNames+',';
@@ -177,8 +182,8 @@ begin
   tmp := copy(tmp,pos(',',tmp)+1,length(tmp));
   while pos(',',tmp) > 0 do
     begin
-      Result := Result+ ' inner join '+TBaseDBModule(Owner).QuoteField(copy(tmp,0,pos(',',tmp)-1))+' on '+TBaseDBModule(Owner).QuoteField(copy(tmp,0,pos(',',tmp)-1))+'.REF_ID='+aDS+'.SQL_ID';
-      aDS := TBaseDBModule(Owner).QuoteField(copy(tmp,0,pos(',',tmp)-1));
+      Result := Result+ ' inner join '+QuoteField(copy(tmp,0,pos(',',tmp)-1))+' on '+QuoteField(copy(tmp,0,pos(',',tmp)-1))+'.REF_ID='+aDS+'.SQL_ID';
+      aDS := QuoteField(copy(tmp,0,pos(',',tmp)-1));
       tmp := copy(tmp,pos(',',tmp)+1,length(tmp));
     end;
 end;
@@ -194,9 +199,9 @@ var
   procedure BuildSResult;
   begin
     SResult := '';
-    if pos(',',TZeosDBDM(Owner).QuoteField(FSortFields)) = 0 then
+    if pos(',',QuoteField(FSortFields)) = 0 then
       begin
-        sResult += TZeosDBDM(Owner).QuoteField(FDefaultTableName)+'.'+TZeosDBDM(Owner).QuoteField(FSortFields);
+        sResult += QuoteField(FDefaultTableName)+'.'+QuoteField(FSortFields);
         if FSortDirection = sdAscending then
           sResult += ' ASC'
         else if FSortDirection = sdDescending then
@@ -214,7 +219,7 @@ var
         tmp := FSortFields;
         while pos(',',tmp) > 0 do
           begin
-            sResult += TZeosDBDM(Owner).QuoteField(FDefaultTableName)+'.'+TZeosDBDM(Owner).QuoteField(copy(tmp,0,pos(',',tmp)-1));
+            sResult += QuoteField(FDefaultTableName)+'.'+QuoteField(copy(tmp,0,pos(',',tmp)-1));
             tmp := copy(tmp,pos(',',tmp)+1,length(tmp));
             if FSortDirection = sdAscending then
               sResult += ' ASC'
@@ -225,7 +230,7 @@ var
           end;
         if tmp <> '' then
           begin
-            sResult += TZeosDBDM(Owner).QuoteField(FDefaultTableName)+'.'+TZeosDBDM(Owner).QuoteField(tmp);
+            sResult += QuoteField(FDefaultTableName)+'.'+QuoteField(tmp);
             if FSortDirection = sdAscending then
               sResult += ' ASC'
             else
@@ -238,15 +243,15 @@ begin
   if FSQL <> '' then
     begin
       BuildSResult;
-      if (FManagedFieldDefs.IndexOf('AUTO_ID') = -1) and (TZeosDBDM(Owner).UsersFilter <> '') and FUsePermissions then
+      if (FManagedFieldDefs.IndexOf('AUTO_ID') = -1) and (FUsersFilter <> '') and FUsePermissions then
         begin
-          PJ := ' LEFT JOIN '+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+' ON ('+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+'.'+TZeosDBDM(Owner).QuoteField('REF_ID_ID')+'='+TZeosDBDM(Owner).QuoteField(FDefaultTableName)+'.'+TZeosDBDM(Owner).QuoteField('SQL_ID')+')';
-          PW := ' AND ('+aFilter+') AND (('+TZeosDBDM(Owner).UsersFilter+') OR '+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+'.'+TZeosDBDM(Owner).QuoteField('USER')+' is NULL)';
+          PJ := ' LEFT JOIN '+QuoteField('PERMISSIONS')+' ON ('+QuoteField('PERMISSIONS')+'.'+QuoteField('REF_ID_ID')+'='+QuoteField(FDefaultTableName)+'.'+QuoteField('SQL_ID')+')';
+          PW := ' AND ('+aFilter+') AND (('+FUsersFilter+') OR '+QuoteField('PERMISSIONS')+'.'+QuoteField('USER')+' is NULL)';
         end
       else if (FManagedFieldDefs.IndexOf('AUTO_ID') = -1) and FUsePermissions then
         begin
-          PJ := ' LEFT JOIN '+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+' ON ('+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+'.'+TZeosDBDM(Owner).QuoteField('REF_ID_ID')+'='+TZeosDBDM(Owner).QuoteField(FDefaultTableName)+'.'+TZeosDBDM(Owner).QuoteField('SQL_ID')+')';
-          PW := ' AND ('+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+'.'+TZeosDBDM(Owner).QuoteField('USER')+' is NULL)'
+          PJ := ' LEFT JOIN '+QuoteField('PERMISSIONS')+' ON ('+QuoteField('PERMISSIONS')+'.'+QuoteField('REF_ID_ID')+'='+QuoteField(FDefaultTableName)+'.'+QuoteField('SQL_ID')+')';
+          PW := ' AND ('+QuoteField('PERMISSIONS')+'.'+QuoteField('USER')+' is NULL)'
         end;
       PW := StringReplace(PW,'AND ()','',[rfReplaceAll]);
       Result := StringReplace(StringReplace(StringReplace(FSQL,'@PERMISSIONJOIN@',PJ,[]),'@PERMISSIONWHERE@',PW,[]),'@DEFAULTORDER@',SResult,[]);
@@ -256,10 +261,10 @@ begin
       Result := 'SELECT ';
       if FDistinct then
         Result := Result+'DISTINCT ';
-      if TZeosDBDM(Owner).LimitAfterSelect and ((FLimit > 0)) then
-        Result += Format(TZeosDBDM(Owner).LimitSTMT,[FLimit])+' ';
+      if FLimitAfterSelect and ((FLimit > 0)) then
+        Result += Format(FLimitSTMT,[FLimit])+' ';
       if FFields = '' then
-        Result += TZeosDBDM(Owner).QuoteField(FDefaultTableName)+'.'+'* '
+        Result += QuoteField(FDefaultTableName)+'.'+'* '
       else
         Result += FFields+' ';
       aFilter := FFilter;
@@ -277,14 +282,14 @@ begin
                 aRefField := 'SQL_ID';
             end;
           if aFilter <> '' then
-            aFilter := '('+aFilter+') and ('+TZeosDBDM(Owner).QuoteField('REF_ID')+'=:'+TZeosDBDM(Owner).QuoteField(aRefField)+')'
+            aFilter := '('+aFilter+') and ('+QuoteField('REF_ID')+'=:'+QuoteField(aRefField)+')'
           else
-            aFilter := TZeosDBDM(Owner).QuoteField('REF_ID')+'=:'+TZeosDBDM(Owner).QuoteField(aRefField);
+            aFilter := QuoteField('REF_ID')+'=:'+QuoteField(aRefField);
         end;
-      if (FManagedFieldDefs.IndexOf('AUTO_ID') = -1) and (TZeosDBDM(Owner).UsersFilter <> '') and FUsePermissions then
-        Result += 'FROM '+BuildJoins+' LEFT JOIN '+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+' ON ('+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+'.'+TZeosDBDM(Owner).QuoteField('REF_ID_ID')+'='+TZeosDBDM(Owner).QuoteField(FDefaultTableName)+'.'+TZeosDBDM(Owner).QuoteField('SQL_ID')+') WHERE ('+aFilter+') AND (('+TZeosDBDM(Owner).UsersFilter+') OR '+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+'.'+TZeosDBDM(Owner).QuoteField('USER')+' is NULL)'
+      if (FManagedFieldDefs.IndexOf('AUTO_ID') = -1) and (FUsersFilter <> '') and FUsePermissions then
+        Result += 'FROM '+BuildJoins+' LEFT JOIN '+QuoteField('PERMISSIONS')+' ON ('+QuoteField('PERMISSIONS')+'.'+QuoteField('REF_ID_ID')+'='+QuoteField(FDefaultTableName)+'.'+QuoteField('SQL_ID')+') WHERE ('+aFilter+') AND (('+FUsersFilter+') OR '+QuoteField('PERMISSIONS')+'.'+QuoteField('USER')+' is NULL)'
       else if (FManagedFieldDefs.IndexOf('AUTO_ID') = -1) and FUsePermissions then
-        Result += 'FROM '+BuildJoins+' LEFT JOIN '+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+' ON ('+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+'.'+TZeosDBDM(Owner).QuoteField('REF_ID_ID')+'='+TZeosDBDM(Owner).QuoteField(FDefaultTableName)+'.'+TZeosDBDM(Owner).QuoteField('SQL_ID')+') WHERE ('+aFilter+') AND ('+TZeosDBDM(Owner).QuoteField('PERMISSIONS')+'.'+TZeosDBDM(Owner).QuoteField('USER')+' is NULL)'
+        Result += 'FROM '+BuildJoins+' LEFT JOIN '+QuoteField('PERMISSIONS')+' ON ('+QuoteField('PERMISSIONS')+'.'+QuoteField('REF_ID_ID')+'='+QuoteField(FDefaultTableName)+'.'+QuoteField('SQL_ID')+') WHERE ('+aFilter+') AND ('+QuoteField('PERMISSIONS')+'.'+QuoteField('USER')+' is NULL)'
       else
         Result += 'FROM '+BuildJoins+' WHERE ('+aFilter+')';
       Result := StringReplace(Result,' WHERE () AND ','WHERE ',[]);
@@ -297,12 +302,12 @@ begin
           else
             Result += ' ORDER BY '+sResult;
         end;
-      if (FLimit > 0) and (not TZeosDBDM(Owner).LimitAfterSelect) then
-        Result += ' '+Format(TZeosDBDM(Owner).LimitSTMT,[FLimit]);
+      if (FLimit > 0) and (not FLimitAfterSelect) then
+        Result += ' '+Format(FLimitSTMT,[FLimit]);
     end
   else
     Result := SQL.text;
-  if Assigned(FOrigTable) then TBaseDBModule(ForigTable.DataModule).LastStatement := Result;
+  if Assigned(FOrigTable) then FLastStatement := Result;
 end;
 function TZeosDBDataSet.IndexExists(IndexName: string): Boolean;
 var
@@ -311,43 +316,43 @@ var
 begin
   CustomQuery := TZQuery.Create(Self);
   CustomQuery.Connection := Connection;
-  if (copy(TZConnection(TBaseDBModule(Owner).MainConnection).Protocol,0,8) = 'firebird')
-  or (copy(TZConnection(TBaseDBModule(Owner).MainConnection).Protocol,0,9) = 'interbase') then
+  if (copy(TZConnection(FMainConnection).Protocol,0,8) = 'firebird')
+  or (copy(TZConnection(FMainConnection).Protocol,0,9) = 'interbase') then
     begin
-      CustomQuery.SQL.Text := 'select rdb$index_name from rdb$indices where rdb$index_name='+TZeosDBDM(Owner).QuoteValue(indexname);
+      CustomQuery.SQL.Text := 'select rdb$index_name from rdb$indices where rdb$index_name='+QuoteValue(indexname);
       CustomQuery.Open;
       Result := CustomQuery.RecordCount > 0;
       CustomQuery.Close;
     end
-  else if (copy(TZConnection(TBaseDBModule(Owner).MainConnection).Protocol,0,6) = 'sqlite') then
+  else if (copy(TZConnection(FMainConnection).Protocol,0,6) = 'sqlite') then
     begin
-      CustomQuery.SQL.Text := 'select name from SQLITE_MASTER where "TYPE"=''index'' and NAME='+TZeosDBDM(Owner).QuoteValue(indexname);
+      CustomQuery.SQL.Text := 'select name from SQLITE_MASTER where "TYPE"=''index'' and NAME='+QuoteValue(indexname);
       CustomQuery.Open;
       Result := CustomQuery.RecordCount > 0;
       CustomQuery.Close;
     end
-  else if (copy(TZConnection(TBaseDBModule(Owner).MainConnection).Protocol,0,5) = 'mssql') then
+  else if (copy(TZConnection(FMainConnection).Protocol,0,5) = 'mssql') then
     begin
-      CustomQuery.SQL.Text := 'select name from dbo.sysindexes where NAME='+TZeosDBDM(Owner).QuoteValue(indexname);
+      CustomQuery.SQL.Text := 'select name from dbo.sysindexes where NAME='+QuoteValue(indexname);
       CustomQuery.Open;
       Result := CustomQuery.RecordCount > 0;
       CustomQuery.Close;
     end
-  else if (copy(TZConnection(TBaseDBModule(Owner).MainConnection).Protocol,0,8) = 'postgres') then
+  else if (copy(TZConnection(FMainConnection).Protocol,0,8) = 'postgres') then
     begin
-      CustomQuery.SQL.Text := 'select * from pg_class where relname='+TZeosDBDM(Owner).QuoteValue(indexname);
+      CustomQuery.SQL.Text := 'select * from pg_class where relname='+QuoteValue(indexname);
       CustomQuery.Open;
       Result := CustomQuery.RecordCount > 0;
       CustomQuery.Close;
     end
   else
     begin
-      Metadata := TZSQLMetaData.Create(TZConnection(TBaseDBModule(Owner).MainConnection));
+      Metadata := TZSQLMetaData.Create(TZConnection(FMainConnection));
       MetaData.Connection := Connection;
       MetaData.MetadataType:=mdIndexInfo;
-      Metadata.Catalog:=TZConnection(TBaseDBModule(Owner).MainConnection).Catalog;
+      Metadata.Catalog:=TZConnection(FMainConnection).Catalog;
       Metadata.TableName:=copy(indexname,0,pos('_',indexname)-1);
-      MetaData.Filter:='INDEX_NAME='+TZeosDBDM(Owner).QuoteValue(indexname);
+      MetaData.Filter:='INDEX_NAME='+QuoteValue(indexname);
       MetaData.Filtered:=True;
       MetaData.Active:=True;
       Result := MetaData.RecordCount > 0;
@@ -360,27 +365,27 @@ procedure TZeosDBDataSet.WaitForLostConnection;
 var
   aConnThere: Boolean;
 begin
-  if not TZeosDBDM(Owner).Ping(Connection) then
+  if not Ping(Connection) then
     begin
-      if Assigned(TZeosDBDM(Owner).OnConnectionLost) then
-        TZeosDBDM(Owner).OnConnectionLost(TZeosDBDM(Owner));
+      //if Assigned(OnConnectionLost) then
+      //  OnConnectionLost(TZeosDBDM(Owner));
       aConnThere := False;
       while not aConnThere do
         begin
           if GetCurrentThreadID=MainThreadID then
             begin
-              if Assigned(TZeosDBDM(Owner).OnDisconnectKeepAlive) then
-                TZeosDBDM(Owner).OnDisconnectKeepAlive(TZeosDBDM(Owner));
+              //if Assigned(OnDisconnectKeepAlive) then
+              //  OnDisconnectKeepAlive(TZeosDBDM(Owner));
             end;
           try
-            if TZeosDBDM(Owner).Ping(Connection) then aConnThere := True
+            if Ping(Connection) then aConnThere := True
             else sleep(200);
           except
             sleep(200);
           end;
         end;
-      if Assigned(TZeosDBDM(Owner).OnConnect) then
-        TZeosDBDM(Owner).OnConnect(TZeosDBDM(Owner));
+      //if Assigned(OnConnect) then
+      //  OnConnect(TZeosDBDM(Owner));
     end;
 end;
 
@@ -394,64 +399,61 @@ var
   RestartTransaction: Boolean = False;
 begin
   Result := False;
-  with TBaseDBModule(Owner) do
+  if Assigned(FOrigTable) and (FFields = '') then
     begin
-      if Assigned(FOrigTable) and (FFields = '') then
+      if FFields = '' then
+        DoCheck := True;
+      bConnection := Connection;
+      if ShouldCheckTable(Self.FDefaultTableName) then
         begin
-          if FFields = '' then
-            DoCheck := True;
-          bConnection := Connection;
-          if ShouldCheckTable(Self.FDefaultTableName) then
+          if not TableExists(Self.FDefaultTableName,Connection) then
             begin
-              if not TableExists(Self.FDefaultTableName,Connection) then
+              Tables.Clear;
+              Result := True;
+              aSQL := 'CREATE TABLE '+QuoteField(Uppercase(Self.FDefaultTableName))+' ('+lineending;
+              if FManagedFieldDefs.IndexOf('AUTO_ID') = -1 then
+                aSQL += TZeosDBDM(Self.Owner).FieldToSQL('SQL_ID',ftLargeInt,0,True)+' PRIMARY KEY,'+lineending
+              else
                 begin
-                  Tables.Clear;
-                  Result := True;
-                  aSQL := 'CREATE TABLE '+QuoteField(Uppercase(Self.FDefaultTableName))+' ('+lineending;
-                  if FManagedFieldDefs.IndexOf('AUTO_ID') = -1 then
-                    aSQL += TZeosDBDM(Self.Owner).FieldToSQL('SQL_ID',ftLargeInt,0,True)+' PRIMARY KEY,'+lineending
-                  else
-                    begin
-                      aSQL += TZeosDBDM(Self.Owner).FieldToSQL('AUTO_ID',ftLargeInt,0,True)+' PRIMARY KEY,'+lineending;
-                    end;
-                  if Assigned(MasterSource) then
-                    begin
-                      aSQL += TZeosDBDM(Self.Owner).FieldToSQL('REF_ID',ftLargeInt,0,True);
-                      if FUseIntegrity then
-                        begin
-                          with MasterSource.DataSet as IBaseManageDB do
-                            begin
-                              if ManagedFieldDefs.IndexOf('AUTO_ID') = -1 then
-                                aSQL += ' REFERENCES '+QuoteField(TZeosDBDataSet(MasterSource.DataSet).DefaultTableName)+'('+QuoteField('SQL_ID')+') ON DELETE CASCADE'
-                              else
-                                aSQL += ' REFERENCES '+QuoteField(TZeosDBDataSet(MasterSource.DataSet).DefaultTableName)+'('+QuoteField('AUTO_ID')+') ON DELETE CASCADE';
-                            end;
-                          if (copy(TZConnection(TBaseDBModule(Self.Owner).MainConnection).Protocol,0,6) = 'sqlite') then
-                            aSQL += ' DEFERRABLE INITIALLY DEFERRED';
-                        end;
-                      aSQL+=','+lineending;
-                    end;
-                  for i := 0 to FManagedFieldDefs.Count-1 do
-                    if FManagedFieldDefs[i].Name <> 'AUTO_ID' then
-                      aSQL += TZeosDBDM(Self.Owner).FieldToSQL(FManagedFieldDefs[i].Name,FManagedFieldDefs[i].DataType,FManagedFieldDefs[i].Size,FManagedFieldDefs[i].Required)+','+lineending;
-                  aSQL += TZeosDBDM(Self.Owner).FieldToSQL('TIMESTAMPD',ftDateTime,0,True)+');';
-                  try
-                    try
-                      GeneralQuery := TZQuery.Create(Self);
-                      GeneralQuery.Connection := bConnection;
-                      GeneralQuery.SQL.Text := aSQL;
-                      GeneralQuery.ExecSQL;
-                      if bConnection.InTransaction then
-                        begin
-                          TZeosDBDM(Self.Owner).CommitTransaction(bConnection);
-                          TZeosDBDM(Self.Owner).StartTransaction(bConnection);
-                        end;
-                    except
-                    end;
-                  finally
-                    GeneralQuery.Destroy;
-                  end;
+                  aSQL += TZeosDBDM(Self.Owner).FieldToSQL('AUTO_ID',ftLargeInt,0,True)+' PRIMARY KEY,'+lineending;
                 end;
+              if Assigned(MasterSource) then
+                begin
+                  aSQL += TZeosDBDM(Self.Owner).FieldToSQL('REF_ID',ftLargeInt,0,True);
+                  if FUseIntegrity then
+                    begin
+                      with MasterSource.DataSet as IBaseManageDB do
+                        begin
+                          if ManagedFieldDefs.IndexOf('AUTO_ID') = -1 then
+                            aSQL += ' REFERENCES '+QuoteField(TZeosDBDataSet(MasterSource.DataSet).DefaultTableName)+'('+QuoteField('SQL_ID')+') ON DELETE CASCADE'
+                          else
+                            aSQL += ' REFERENCES '+QuoteField(TZeosDBDataSet(MasterSource.DataSet).DefaultTableName)+'('+QuoteField('AUTO_ID')+') ON DELETE CASCADE';
+                        end;
+                      if (copy(TZConnection(TBaseDBModule(Self.Owner).MainConnection).Protocol,0,6) = 'sqlite') then
+                        aSQL += ' DEFERRABLE INITIALLY DEFERRED';
+                    end;
+                  aSQL+=','+lineending;
+                end;
+              for i := 0 to FManagedFieldDefs.Count-1 do
+                if FManagedFieldDefs[i].Name <> 'AUTO_ID' then
+                  aSQL += TZeosDBDM(Self.Owner).FieldToSQL(FManagedFieldDefs[i].Name,FManagedFieldDefs[i].DataType,FManagedFieldDefs[i].Size,FManagedFieldDefs[i].Required)+','+lineending;
+              aSQL += TZeosDBDM(Self.Owner).FieldToSQL('TIMESTAMPD',ftDateTime,0,True)+');';
+              try
+                try
+                  GeneralQuery := TZQuery.Create(Self);
+                  GeneralQuery.Connection := bConnection;
+                  GeneralQuery.SQL.Text := aSQL;
+                  GeneralQuery.ExecSQL;
+                  if bConnection.InTransaction then
+                    begin
+                      TZeosDBDM(Self.Owner).CommitTransaction(bConnection);
+                      TZeosDBDM(Self.Owner).StartTransaction(bConnection);
+                    end;
+                except
+                end;
+              finally
+                GeneralQuery.Destroy;
+              end;
             end;
         end;
     end;
@@ -550,12 +552,12 @@ var
 begin
   if Assigned(FOrigTable) then
     TBaseDBModule(ForigTable.DataModule).LastTime := GetTicks;
-  if TZeosDBDM(Owner).IgnoreOpenRequests then exit;
+  if IgnoreOpenRequests then exit;
   try
     inherited InternalOpen;
   except
     InternalClose;
-    if TZeosDBDM(Owner).Ping(Connection) then
+    if Ping(Connection) then
       inherited InternalOpen
     else
       begin
@@ -605,14 +607,14 @@ end;
 
 procedure TZeosDBDataSet.InternalRefresh;
 begin
-  if TZeosDBDM(Owner).IgnoreOpenRequests then exit;
+  if IgnoreOpenRequests then exit;
   try
     inherited InternalRefresh;
   except
     InternalClose;
     if not Active then
       begin
-        if TZeosDBDM(Owner).Ping(Connection) then
+        if Ping(Connection) then
           InternalOpen
         else
           begin
@@ -762,7 +764,7 @@ begin
   try
     if Assigned(FOrigTable) and Assigned(FOrigTable.OnRemove) then FOrigTable.OnRemove(FOrigTable);
     if GetUpStdFields = True then
-      TZeosDBDM(Owner).DeleteItem(FOrigTable);
+      DeleteItem(FOrigTable);
   except
   end;
 end;
@@ -835,7 +837,7 @@ end;
 procedure TZeosDBDataSet.SetFilter(const AValue: string);
 begin
   if (FFilter=AValue) and (SQL.text<>'') then exit;
-  if TZeosDBDM(Owner).CheckForInjection(AValue) then exit;
+  if CheckForInjection(AValue) then exit;
   FFilter := AValue;
   FSQL := '';
   Close;

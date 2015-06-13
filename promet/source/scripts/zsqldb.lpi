@@ -54,18 +54,20 @@
         <UnitName Value="uzsqldbdataset"/>
       </Unit1>
       <Unit2>
-        <Filename Value="..\base\dbintfs\ubasedatasetinterfaces.pas"/>
+        <Filename Value="uzsqldbfunctions.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uBaseDatasetInterfaces"/>
+        <UnitName Value="uzsqldbfunctions"/>
       </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="zsqldb"/>
+    </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\base\dbintfs"/>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
