@@ -35,7 +35,7 @@
     <RequiredPackages Count="5">
       <Item1>
         <PackageName Value="pOptions"/>
-        <DefaultFilename Value="../base_options/poptions.lpk"/>
+        <DefaultFilename Value="../base/base_options/poptions.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="FCL"/>

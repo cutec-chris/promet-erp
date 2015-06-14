@@ -482,6 +482,7 @@
         <ComponentName Value="fPhoneOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPhoneOptions"/>
       </Unit29>
       <Unit30>
         <Filename Value="umailoptions.pas"/>
