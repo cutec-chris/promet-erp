@@ -56,7 +56,7 @@ Source: "..\..\languages\*.po"; DestDir: "{app}\languages"; Components: main
 Source: "..\..\languages\*.txt"; DestDir: "{app}\languages"; Components: main
 
 Source: "plugins\*.*"; DestDir: "{app}\plugins"; Components: main
-Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\shipping_*.exe"; DestDir: "{app}\plugins"; Components: main
+#Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\shipping_*.exe"; DestDir: "{app}\plugins"; Components: main
 
 Source: "website.url"; DestDir: "{app}"
 
