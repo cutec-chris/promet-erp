@@ -1103,7 +1103,10 @@ procedure TPrometImapServer.DoList(AThread: TSTcpThread; Par: String;
     while not aMailBoxes.EOF do
       begin
         if aMailBoxes.Id.AsVariant = TREE_ID_MESSAGES then
-          Found := Base + 'INBOX'
+          begin
+            if not LSub then
+              Found := Base + 'INBOX'
+          end
         else if aMailBoxes.Id.AsVariant = TREE_ID_DELETED_MESSAGES then
           Found := Base + 'Trash'
         else if aMailBoxes.Id.AsVariant = TREE_ID_SEND_MESSAGES then
@@ -1270,12 +1273,10 @@ begin
       if DirectionIn then
         begin
           Info(IntToStr(aId)+':>'+aMessage);
-          writeln(IntToStr(aId)+':>'+aMessage)
         end
       else
         begin
           Info(IntToStr(aId)+':<'+aMessage);
-          writeln(IntToStr(aId)+':<'+aMessage)
         end;
     end;
 end;
