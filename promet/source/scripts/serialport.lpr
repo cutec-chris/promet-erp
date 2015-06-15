@@ -29,6 +29,7 @@ var
   i: Integer;
   aDev: TBlockSerial;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -174,7 +175,10 @@ var
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    TBlockSerial(Ports[i]).Free;
+    begin
+      TBlockSerial(Ports[i]).CloseSocket;
+      TBlockSerial(Ports[i]).Free;
+    end;
   Ports.Clear;
   FreeAndNil(Ports);
 end;
