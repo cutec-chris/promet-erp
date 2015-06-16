@@ -52,3 +52,6 @@
 [submodule "promet/source/base"]
 	path = promet/source/base
 	url = https://github.com/cutec-chris/promet-base
+[submodule "promet/source/components/uxmpp"]
+	path = promet/source/components/uxmpp
+	url = https://github.com/cutec-chris/uxmpp.git

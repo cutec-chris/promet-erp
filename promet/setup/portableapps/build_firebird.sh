@@ -72,7 +72,7 @@ cat Appinfo_devel.ini | \
       -e "s/ARCHFPC/$Archfpc/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > $BuildDir/Promet-ERP/App/AppInfo/Appinfo.ini
-#WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
+#WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "c:\PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
 rm $BuildDir/Promet-ERP/App/AppInfo/Launcher/Splash.jpg
 cat Appinfo.ini | \
   sed -e "s/VERSION/$Version/g" \
@@ -80,7 +80,7 @@ cat Appinfo.ini | \
       -e "s/ARCHFPC/$Archfpc/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > $BuildDir/Promet-ERP/App/AppInfo/Appinfo.ini
-#WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
+WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "c:\PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
 Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
 cp $BuildDir/*.paf.exe ../output
