@@ -62,9 +62,9 @@ begin
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
         case Parity of
-        NoneParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'N',StopBits,false,true);
-        OddParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'O',StopBits,false,true);
-        EvenParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'E',StopBits,false,true);
+        NoneParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'N',StopBits,false,TBlockSerial(Ports[i]).Tag=0);
+        OddParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'O',StopBits,false,TBlockSerial(Ports[i]).Tag=0);
+        EvenParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'E',StopBits,false,TBlockSerial(Ports[i]).Tag=0);
         end;
         exit;
       end;
@@ -144,6 +144,21 @@ begin
       end;
 end;
 
+procedure SerRTSToggle(Handle: LongInt;Value : Boolean);
+var
+  i: Integer;
+begin
+  for i := 0 to Ports.Count-1 do
+    if TBlockSerial(Ports[i]).Handle=Handle then
+      begin
+        TBlockSerial(Ports[i]).EnableRTSToggle(Value);
+        if Value then
+          TBlockSerial(Ports[i]).Tag:=1
+        else TBlockSerial(Ports[i]).Tag:=0;
+        exit;
+      end;
+end;
+
 procedure SerSetDTR(Handle: LongInt;Value : Boolean);
 var
   i: Integer;
@@ -200,6 +215,7 @@ begin
        +#10+'  function SerGetDSR(Handle: LongInt) : Boolean;external ''SerGetDSR@serialport'';'
        +#10+'  procedure SerSetRTS(Handle: LongInt;Value : Boolean);external ''SerSetRTS@serialport'';'
        +#10+'  procedure SerSetDTR(Handle: LongInt;Value : Boolean);external ''SerSetDTR@serialport'';'
+       +#10+'  procedure SerRTSToggle(Handle: LongInt;Value : Boolean);external ''SerRTSToggle@serialport'';'
 
        +#10+'  function SerReadEx(Handle: LongInt; Count: LongInt): PChar;external ''SerReadEx@serialport'';'
        +#10+'  function SerReadTimeoutEx(Handle: LongInt;var Data : PChar;Timeout: Integer;Count: LongInt) : Integer;external ''SerReadTimeoutEx@serialport'';'
@@ -253,6 +269,7 @@ exports
   SerGetDSR,
   SerSetRTS,
   SerSetDTR,
+  SerRTSToggle,
 
   ScriptUnitDefinition,
   ScriptCleanup;

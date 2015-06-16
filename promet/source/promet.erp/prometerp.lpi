@@ -631,7 +631,6 @@
     <Exceptions Count="31">
       <Item1>
         <Name Value="EVariantError"/>
-        <Enabled Value="False"/>
       </Item1>
       <Item2>
         <Name Value="EAccessViolation"/>
