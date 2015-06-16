@@ -482,7 +482,6 @@
         <ComponentName Value="fPhoneOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uPhoneOptions"/>
       </Unit29>
       <Unit30>
         <Filename Value="umailoptions.pas"/>
@@ -629,7 +628,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="30">
+    <Exceptions Count="31">
       <Item1>
         <Name Value="EVariantError"/>
         <Enabled Value="False"/>
@@ -741,6 +740,9 @@
       <Item30>
         <Name Value="EMathParserException"/>
       </Item30>
+      <Item31>
+        <Name Value="EPSCompilerException"/>
+      </Item31>
     </Exceptions>
   </Debugging>
 </CONFIG>
