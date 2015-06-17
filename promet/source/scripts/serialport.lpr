@@ -3,7 +3,7 @@ library serialport;
 {$mode objfpc}{$H+}
 
 uses
-  Classes,sysutils,synaser;
+  Classes,sysutils,synaser,utils, general_nogui;
 
 type
   TParityType = (NoneParity, OddParity, EvenParity);
@@ -104,11 +104,16 @@ var
   i: Integer;
   iData: String;
   a: Integer;
+  aTime: Int64;
 begin
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
+        aTime := GetTicks;
+        iData := '';
         iData := TBlockSerial(Ports[i]).RecvPacket(Timeout);
+        while (length(iData)<Count) and (GetTicks-aTime<Timeout) do
+          iData := iData+TBlockSerial(Ports[i]).RecvPacket(Timeout);
         Result := length(iData);
         aData := '';
         for a := 1 to length(iData) do

@@ -4,13 +4,13 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="23">
+    <Units Count="24">
       <Unit0>
         <Filename Value="serialport.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="54"/>
-        <CursorPos Y="64"/>
+        <TopLine Value="93"/>
+        <CursorPos Y="117"/>
         <UsageCount Value="51"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -103,7 +103,7 @@
       <Unit13>
         <Filename Value="serial_win.pp"/>
         <UnitName Value="serial_win"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="148"/>
         <CursorPos X="53" Y="19"/>
         <UsageCount Value="24"/>
@@ -126,7 +126,7 @@
       <Unit16>
         <Filename Value="serial_osx.pp"/>
         <UnitName Value="serial_osx"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="45" Y="21"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
@@ -160,143 +160,109 @@
       </Unit20>
       <Unit21>
         <Filename Value="..\components\pascalscript\x86.inc"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="145"/>
         <CursorPos Y="163"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <UnitName Value="synaser"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1619"/>
         <CursorPos Y="1642"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit22>
+      <Unit23>
+        <Filename Value="..\..\..\general\src\Utils.pas"/>
+        <UnitName Value="Utils"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="527"/>
+        <CursorPos Y="533"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit23>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="894" TopLine="872"/>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="68" Column="14" TopLine="45"/>
       </Position1>
       <Position2>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="895" TopLine="872"/>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="78" Column="44" TopLine="43"/>
       </Position2>
       <Position3>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="896" TopLine="872"/>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="76" Column="36" TopLine="57"/>
       </Position3>
       <Position4>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="897" TopLine="872"/>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="67" Column="27" TopLine="54"/>
       </Position4>
       <Position5>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="899" TopLine="872"/>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="64" TopLine="54"/>
       </Position5>
       <Position6>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="902" TopLine="872"/>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="65" TopLine="54"/>
       </Position6>
       <Position7>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="903" TopLine="879"/>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="66" TopLine="54"/>
       </Position7>
       <Position8>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="904" TopLine="879"/>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="67" TopLine="54"/>
       </Position8>
       <Position9>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="906" TopLine="879"/>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="68" TopLine="54"/>
       </Position9>
       <Position10>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="881" Column="5" TopLine="872"/>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="72" TopLine="54"/>
       </Position10>
       <Position11>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="68" Column="14" TopLine="45"/>
+        <Caret Line="73" TopLine="54"/>
       </Position11>
       <Position12>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="78" Column="44" TopLine="43"/>
+        <Caret Line="74" TopLine="54"/>
       </Position12>
       <Position13>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="76" Column="36" TopLine="57"/>
+        <Caret Line="78" TopLine="54"/>
       </Position13>
       <Position14>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="67" Column="27" TopLine="54"/>
+        <Caret Line="79" TopLine="54"/>
       </Position14>
       <Position15>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="64" TopLine="54"/>
+        <Caret Line="81" TopLine="54"/>
       </Position15>
       <Position16>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="65" TopLine="54"/>
+        <Caret Line="111" Column="21" TopLine="87"/>
       </Position16>
       <Position17>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="66" TopLine="54"/>
+        <Caret Line="115" TopLine="93"/>
       </Position17>
       <Position18>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="67" TopLine="54"/>
+        <Caret Line="116" TopLine="93"/>
       </Position18>
       <Position19>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="68" TopLine="54"/>
+        <Caret Line="117" TopLine="93"/>
       </Position19>
       <Position20>
         <Filename Value="serialport.lpr"/>
-        <Caret Line="72" TopLine="54"/>
+        <Caret Line="116" TopLine="93"/>
       </Position20>
-      <Position21>
-        <Filename Value="serialport.lpr"/>
-        <Caret Line="73" TopLine="54"/>
-      </Position21>
-      <Position22>
-        <Filename Value="serialport.lpr"/>
-        <Caret Line="74" TopLine="54"/>
-      </Position22>
-      <Position23>
-        <Filename Value="serialport.lpr"/>
-        <Caret Line="78" TopLine="54"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="1638" TopLine="1619"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="1639" TopLine="1619"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="1641" TopLine="1619"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\..\..\..\tcscmd_git\src\synaser.pas"/>
-        <Caret Line="1642" TopLine="1619"/>
-      </Position27>
-      <Position28>
-        <Filename Value="serialport.lpr"/>
-        <Caret Line="79" TopLine="54"/>
-      </Position28>
-      <Position29>
-        <Filename Value="serialport.lpr"/>
-        <Caret Line="81" TopLine="54"/>
-      </Position29>
-      <Position30>
-        <Filename Value="..\components\pascalscript\x86.inc"/>
-        <Caret Line="163" TopLine="145"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
