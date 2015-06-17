@@ -36,11 +36,13 @@ ln -s /usr/lib/$Program/tools/mta $BuildDir/usr/bin/promet-erp-mta
 ln -s /usr/lib/$Program/tools/nntpserver $BuildDir/usr/bin/promet-erp-nntp
 ln -s /usr/lib/$Program/tools/syslog $BuildDir/usr/bin/promet-erp-syslog
 ln -s /usr/lib/$Program/tools/pscript $BuildDir/usr/bin/promet-script
+ln -s /usr/lib/$Program/tools/message_xmpp $BuildDir/usr/bin/promet-erp-xmpp
 chmod 666 $BuildDir/usr/bin/promet-erp-imap
 chmod 666 $BuildDir/usr/bin/promet-erp-webdav
 chmod 666 $BuildDir/usr/bin/promet-erp-appbase
 chmod 666 $BuildDir/usr/bin/promet-erp-mta
 chmod 666 $BuildDir/usr/bin/promet-erp-nntp
+chmod 666 $BuildDir/usr/bin/promet-erp-xmpp
 ln -s /usr/lib/$Program/cmdwizardmandant $BuildDir/usr/bin/promet-erp-cmdwizardmandant
 chmod 666 $BuildDir/usr/bin/promet-erp-cmdwizardmandant
 DebSize=$(du -s $BuildDir | cut -f1)

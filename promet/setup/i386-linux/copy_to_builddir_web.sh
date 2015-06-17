@@ -16,6 +16,7 @@ cp ../../output/$1-linux/web/mta $2/tools
 cp ../../output/$1-linux/web/nntpserver $2/tools
 cp ../../output/$1-linux/web/webdavserver $2/tools
 cp ../../output/$1-linux/web/httpserver $2/tools
+cp ../../output/$1-linux/message_xmpp $2/tools
 install ../../output/$1-linux/tools/*receiver $2/tools
 install ../../output/$1-linux/tools/*sender $2/tools
 Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
@@ -33,3 +34,4 @@ cp $2/tools/*receiver ../executables/$Version/$1
 cp $2/tools/*sender ../executables/$Version/$1
 cp $2/tools/sync_* ../executables/$Version/$1
 cp $2/tools/import_* ../executables/$Version/$1
+cp $2/tools/message_* ../executables/$Version/$1

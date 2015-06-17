@@ -78,4 +78,6 @@ echo "compiling webdavserver..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/webdavserver.lpi  >> scompile-$2-web.log
 echo "compiling syslogserver..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/syslog.lpi  >> scompile-$2-web.log
+echo "compiling message_xmpp..."  >> scompile-$2-web.log
+lazbuild $Params -q ../../source/webservers/message_xmpp.lpi  >> scompile-$2-web.log
 grep -w "Error:" scompile-$2-web.log

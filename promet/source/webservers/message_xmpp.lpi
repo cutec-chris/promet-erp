@@ -69,7 +69,6 @@
       <Filename Value="message_xmpp"/>
     </Target>
     <SearchPaths>
-      <OtherUnitFiles Value="..\base"/>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
