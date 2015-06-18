@@ -89,6 +89,7 @@ type
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
     procedure eArticleNumberChange(Sender: TObject);
+    procedure FEditorOpenUnit(aUnitName: string; X, Y: Integer);
     procedure FrameEnter(Sender: TObject);
     procedure FrameExit(Sender: TObject);
     procedure ScriptStateChange(Sender: TObject);
@@ -160,6 +161,17 @@ procedure TfScriptFrame.eArticleNumberChange(Sender: TObject);
 begin
   acSave.Enabled := DataSet.CanEdit or DataSet.Changed;
   acCancel.Enabled:= DataSet.CanEdit or DataSet.Changed;
+end;
+
+procedure TfScriptFrame.FEditorOpenUnit(aUnitName: string; X, Y: Integer);
+var
+  aScript: TBaseScript;
+begin
+  aScript := TBaseScript.Create(nil);
+  aScript.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aUnitName));
+  if aScript.Count>0 then
+    data.GotoLink('SCRIPTS@'+aScript.Id.AsString);
+  aScript.Free;
 end;
 
 procedure TfScriptFrame.FrameEnter(Sender: TObject);
@@ -358,6 +370,7 @@ begin
   FEditor.Parent:=tsScript;
   FEditor.Align:=alClient;
   FEditor.acSave.Visible:=False;
+  FEditor.OnOpenUnit:=@FEditorOpenUnit;
 end;
 destructor TfScriptFrame.Destroy;
 begin

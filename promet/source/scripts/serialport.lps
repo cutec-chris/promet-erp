@@ -9,8 +9,8 @@
         <Filename Value="serialport.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="93"/>
-        <CursorPos Y="117"/>
+        <TopLine Value="99"/>
+        <CursorPos X="47" Y="114"/>
         <UsageCount Value="51"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -103,7 +103,7 @@
       <Unit13>
         <Filename Value="serial_win.pp"/>
         <UnitName Value="serial_win"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="148"/>
         <CursorPos X="53" Y="19"/>
         <UsageCount Value="24"/>
@@ -126,7 +126,7 @@
       <Unit16>
         <Filename Value="serial_osx.pp"/>
         <UnitName Value="serial_osx"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="45" Y="21"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
@@ -146,10 +146,12 @@
       </Unit18>
       <Unit19>
         <Filename Value="..\components\synapse\synaser.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="615"/>
-        <CursorPos X="30" Y="534"/>
+        <UnitName Value="synaser"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="451"/>
+        <CursorPos X="14" Y="462"/>
         <UsageCount Value="18"/>
+        <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\components\pascalscript\uPSRuntime.pas"/>
@@ -175,14 +177,14 @@
       <Unit23>
         <Filename Value="..\..\..\general\src\Utils.pas"/>
         <UnitName Value="Utils"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="527"/>
         <CursorPos Y="533"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit23>
     </Units>
-    <JumpHistory Count="20" HistoryIndex="19">
+    <JumpHistory Count="21" HistoryIndex="20">
       <Position1>
         <Filename Value="serialport.lpr"/>
         <Caret Line="68" Column="14" TopLine="45"/>
@@ -263,6 +265,21 @@
         <Filename Value="serialport.lpr"/>
         <Caret Line="116" TopLine="93"/>
       </Position20>
+      <Position21>
+        <Filename Value="serialport.lpr"/>
+        <Caret Line="114" Column="47" TopLine="99"/>
+      </Position21>
     </JumpHistory>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="serialport.lpr"/>
+        <Line Value="117"/>
+      </Item1>
+    </BreakPoints>
+  </Debugging>
 </CONFIG>
