@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, CustApp
   { you can add units after this },db, Utils, FileUtil, uData, uIntfStrConsts,
   pcmdprometapp, uBaseCustomApplication, uBaseApplication, uxmpp, synautil,
-  uPerson, uBaseDbClasses, uspeakinginterface;
+  uPerson, uBaseDbClasses, uspeakinginterface, wikitohtml;
 
 type
   { PrometXMPPMessanger }
@@ -46,13 +46,26 @@ type
       Status, Photo: string);
   private
     FActive : Boolean;
+    FBaseRef: LargeInt;
+    FFilter: string;
+    FFilter2: string;
+    FHistory: TBaseHistory;
     FUsers : TStringList;
     Speaker: TSpeakingInterface;
     xmpp: TXmpp;
     FJID : string;
+    InformRecTime : TDateTime;
+    procedure SetBaseref(AValue: LargeInt);
+    procedure SetFilter(AValue: string);
+    procedure SetFilter2(AValue: string);
   protected
     procedure DoRun; override;
     function CheckUser(JID : string) : Boolean;
+    procedure RefreshFilter2;
+    property History : TBaseHistory read FHistory;
+    property Filter : string read FFilter write SetFilter;
+    property Filter2 : string read FFilter2 write SetFilter2;
+    property BaseRef : LargeInt read FBaseRef write SetBaseref;
   public
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -113,7 +126,28 @@ begin
     end
   else writeln('user unknown !')
 end;
+
+procedure PrometXMPPMessanger.SetBaseref(AValue: LargeInt);
+begin
+  if FBaseRef=AValue then Exit;
+  FBaseRef:=AValue;
+end;
+
+procedure PrometXMPPMessanger.SetFilter(AValue: string);
+begin
+  if FFilter=AValue then Exit;
+  FFilter:=AValue;
+end;
+
+procedure PrometXMPPMessanger.SetFilter2(AValue: string);
+begin
+  if FFilter2=AValue then Exit;
+  FFilter2:=AValue;
+end;
+
 procedure PrometXMPPMessanger.DoRun;
+var
+  tmp : string;
 begin
   FActive:=True;
   with BaseApplication as IBaseApplication do
@@ -142,7 +176,31 @@ begin
   xmpp.Login;
   while FActive and not Terminated do
     begin
-      sleep(1);
+      sleep(1000);
+      Data.Users.First;
+      while not Data.Users.EOF do
+        begin
+          //Show new History Entrys
+          if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
+            begin
+              Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',10,'TIMESTAMPD','DESC');
+              History.DataSet.Refresh;
+              History.DataSet.First;
+            end;
+          if (not FHistory.EOF) then
+            begin
+              if (FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.IDCode.AsString)
+              and (FHistory.FieldByName('READ').AsString <> 'Y')
+              then
+                begin
+                  tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
+                  InformRecTime:=FHistory.TimeStamp.AsDateTime+(1/(MSecsPerDay/MSecsPerSec));
+                  FHistory.DataSet.Next;
+                  break;
+                end;
+              FHistory.DataSet.Next;
+            end;
+        end;
     end;
   writeln('exitting ...');
   //xmpp.Free;
@@ -177,6 +235,23 @@ begin
       aCont.Free;
     end;
 end;
+
+procedure PrometXMPPMessanger.RefreshFilter2;
+begin
+  Data.Users.Follows.ActualLimit:=0;
+  Data.Users.Follows.Open;
+  FFilter2:='';
+  with Data.Users.Follows do
+    begin
+      First;
+      while not EOF do
+        begin
+          FFilter2:=FFilter2+' OR ('+Data.QuoteField('OBJECT')+'='+Data.QuoteValue(FieldByName('LINK').AsString)+')';
+          Next;
+        end;
+    end;
+end;
+
 constructor PrometXMPPMessanger.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
