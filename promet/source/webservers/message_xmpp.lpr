@@ -44,6 +44,8 @@ type
       MsgHTML: string; TimeStamp: TDateTime; MsgType: TMessageType);
     procedure xmppPresence(Sender: TObject; Presence_Type, JID, Resource,
       Status, Photo: string);
+    procedure xmppRoster(Sender: TObject; JID, aName, Subscription, Group: string
+      );
   private
     FActive : Boolean;
     FBaseRef: LargeInt;
@@ -118,6 +120,8 @@ begin
 end;
 procedure PrometXMPPMessanger.xmppPresence(Sender: TObject; Presence_Type, JID,
   Resource, Status, Photo: string);
+var
+  UserIdx: Integer;
 begin
   writeln('presence:'+Presence_Type+','+JID+','+Resource+','+Status+',',Photo);
   if CheckUser(JID) then
@@ -125,7 +129,24 @@ begin
       if Presence_Type='subscribe' then
         begin
           xmpp.SendPresence(JID,'subscribed',xmpp.JabberID,xmpp.Resource,'');
+        end
+      else if Presence_Type='unavailable' then
+        begin
+          UserIdx :=FUsers.IndexOfName(JID);
+          if UserIdx>-1 then
+            FUsers.Delete(UserIdx);
         end;
+    end
+  else writeln('user unknown !')
+end;
+
+procedure PrometXMPPMessanger.xmppRoster(Sender: TObject; JID, aName,
+  Subscription, Group: string);
+begin
+  writeln('roaster:'+JID+','+aName+','+Subscription+',',Group);
+  if CheckUser(JID) then
+    begin
+      xmpp.SendPresence(JID,'subscribe',xmpp.JabberID,xmpp.Resource,'');
     end
   else writeln('user unknown !')
 end;
@@ -176,6 +197,7 @@ begin
   xmpp.OnPresence:=@xmppPresence;
   xmpp.OnMessage:=@xmppMessage;
   xmpp.OnLogout:=@xmppLogout;
+  xmpp.OnRoster:=@xmppRoster;
   if HasOption('server-log') then
     xmpp.OnDebugXML:=@xmppDebugXML;
   xmpp.OnIqVcard:=@xmppIqVcard;

@@ -121,6 +121,7 @@ var
   DoDelete : Boolean = False;
   ss: TStringStream;
   tmp: String;
+  Userrec : Variant;
 
   function DoGetStartValue: Integer;
   var
@@ -144,6 +145,8 @@ var
     Messages.Free;
   end;
 begin
+  Userrec := Data.GetBookmark(Data.Users);
+  if not Data.Users.Locate('NAME',aUSer,[]) then exit;
   aConnection := Data.GetNewConnection;
   MessageIndex := TMessageList.CreateEx(Self,Data,aConnection);
   MessageIndex.CreateTable;
@@ -360,6 +363,7 @@ begin
   DeletedItems.Free;
   Message.Free;
   aConnection.Free;
+  Data.GotoBookmark(Data.Users,Userrec);
 end;
 
 function TPOP3Receiver.GetSingleInstance: Boolean;
