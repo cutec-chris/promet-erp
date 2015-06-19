@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, CustApp
   { you can add units after this },db, Utils, FileUtil, uData, uIntfStrConsts,
   pcmdprometapp, uBaseCustomApplication, uBaseApplication, uxmpp, synautil,
-  uPerson, uBaseDbClasses, uspeakinginterface, wikitohtml;
+  uPerson, uBaseDbClasses, uspeakinginterface, wikitohtml,uBaseDBInterface;
 
 type
   { PrometXMPPMessanger }
@@ -122,7 +122,10 @@ begin
   writeln('presence:'+Presence_Type+','+JID+','+Resource+','+Status+',',Photo);
   if CheckUser(JID) then
     begin
-
+      if Presence_Type='subscribe' then
+        begin
+          xmpp.SendPresence(JID,'subscribed',xmpp.JabberID,xmpp.Resource,'');
+        end;
     end
   else writeln('user unknown !')
 end;
@@ -148,6 +151,9 @@ end;
 procedure PrometXMPPMessanger.DoRun;
 var
   tmp : string;
+  i: Integer;
+  aUsers: TUser;
+  aUID : Variant;
 begin
   FActive:=True;
   with BaseApplication as IBaseApplication do
@@ -157,6 +163,7 @@ begin
     end;
   if not Login then Terminate;
   //Your logged in here on promet DB
+  FHistory := TBaseHistory.Create(nil);
   Speaker := TSpeakingInterface.Create(nil);
   Speaker.Writeln:=@SpeakerWriteln;
   xmpp := TXmpp.Create;
@@ -176,35 +183,66 @@ begin
   xmpp.Login;
   while FActive and not Terminated do
     begin
-      sleep(1000);
-      Data.Users.First;
-      while not Data.Users.EOF do
+      sleep(10000);
+      for i := 0 to FUsers.Count-1 do
         begin
-          //Show new History Entrys
-          if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
+          if Data.Users.Locate('SQL_ID',FUsers.ValueFromIndex[i],[]) then
             begin
-              Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',10,'TIMESTAMPD','DESC');
-              History.DataSet.Refresh;
-              History.DataSet.First;
-            end;
-          if (not FHistory.EOF) then
-            begin
-              if (FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.IDCode.AsString)
-              and (FHistory.FieldByName('READ').AsString <> 'Y')
-              then
-                begin
-                  tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
-                  InformRecTime:=FHistory.TimeStamp.AsDateTime+(1/(MSecsPerDay/MSecsPerSec));
-                  FHistory.DataSet.Next;
-                  break;
-                end;
-              FHistory.DataSet.Next;
+              try
+                with BaseApplication as IBaseDBInterface do
+                  InformRecTime := StrToDateTime(DBConfig.ReadString('INFORMRECTIME',DateTimeToStr(Now()-5)));
+              except
+                InformRecTime:=Now()-5;
+              end;
+              try
+                if Data.Users.IDCode.AsString<>'' then
+                  FFilter := '('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.IDCode.AsString)+')'
+                else
+                  FFilter := '('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue('BLDS')+')';
+                aUsers := TUser.Create(nil);
+                aUsers.Select(Data.Users.Id.AsString);
+                aUsers.Open;
+                while aUsers.Count>0 do
+                  begin
+                    FFilter := FFilter+' OR ('+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(aUsers.Id.AsString)+')';
+                    aUId := aUsers.FieldByName('PARENT').AsVariant;
+                    aUsers.Select(aUId);
+                    aUsers.Open;
+                  end;
+                aUsers.Free;
+                RefreshFilter2;
+                //Show new History Entrys
+                if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
+                  begin
+                    Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',10,'TIMESTAMPD','DESC');
+                    History.DataSet.Refresh;
+                    History.DataSet.First;
+                  end;
+                if (not FHistory.EOF) then
+                  begin
+                    if (FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.IDCode.AsString)
+                    and (FHistory.FieldByName('READ').AsString <> 'Y')
+                    then
+                      begin
+                        tmp:=FHistory.FieldByName('DATE').AsString+' '+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
+                        InformRecTime:=FHistory.TimeStamp.AsDateTime+(1/(MSecsPerDay/MSecsPerSec));
+                        xmpp.SendPersonalMessage(FUsers.Names[i],tmp);
+                        FHistory.DataSet.Next;
+                      end;
+                    FHistory.DataSet.Next;
+                  end;
+                if tmp<>'' then
+                  with BaseApplication as IBaseDBInterface do
+                    DBConfig.WriteString('INFORMRECTIME',DateTimeToStr(InformRecTime));
+              except
+              end;
             end;
         end;
     end;
   writeln('exitting ...');
   //xmpp.Free;
   Speaker.Free;
+  FHistory.Free;
   // stop program loop
   Terminate;
 end;
@@ -215,7 +253,7 @@ var
 begin
   if pos('/',JID)>0 then
     JID := copy(JID,0,pos('/',JID)-1);
-  Result := FUsers.Values[JID]='True';
+  Result := FUsers.Values[JID]<>'False';
   if FUsers.Values[JID]='' then
     begin
       FUsers.Values[JID]:='False';
@@ -227,7 +265,7 @@ begin
           aUser.Filter(Data.QuoteField('CUSTOMERNO')+'='+Data.QuoteValue(aCont.FieldByName('ACCOUNTNO').AsString));
           if aUser.Count>0 then
             begin
-              FUsers.Values[JID]:='True';
+              FUsers.Values[JID]:=aUser.Id.AsString;
               Result := True;
             end;
           aUser.Free;
