@@ -191,6 +191,7 @@ var
   aUsers: TUser;
   aUID : Variant;
   a: Integer;
+  StartTime: TDateTime;
 begin
   FActive:=True;
   with BaseApplication as IBaseApplication do
@@ -219,6 +220,7 @@ begin
   xmpp.OnIqVcard:=@xmppIqVcard;
   writeln('logging in ...');
   xmpp.Login;
+  StartTime := Now();
   while FActive and not Terminated do
     begin
       sleep(10000);
@@ -275,6 +277,11 @@ begin
                 a := 0;
               except
               end;
+            end;
+          if Now()-StartTime > ((1/MinsPerDay)*20) then
+            begin
+              FActive:=False;
+              break;
             end;
         end;
     end;
