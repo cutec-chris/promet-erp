@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, uPrometFrames, LCLType,
   ExtCtrls, StdCtrls, Buttons, ComCtrls, ActnList,uspeakinginterface,
-  uBaseDbClasses;
+  uBaseDbClasses,uIntfStrConsts;
 
 type
 
@@ -67,8 +67,6 @@ implementation
 {$R *.lfm}
 uses uData,uScriptEditor,Dialogs,uIntfStrConsts,uBaseDBInterface,
   uBaseVisualApplication;
-resourcestring
-  strSentenceNotValid            = 'Das wurde leider nicht verstanden !';
 procedure TfCommandline.InputKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin

@@ -118,9 +118,7 @@ begin
     begin
       FJID:=From;
       if not Speaker.CheckSentence(MsgText) then
-        begin //History entry
-          AddUserHistory(From,MsgText);
-        end;
+        xmpp.SendPersonalMessage(From,strSentenceNotValid);
       FJID:='';
     end
   else writeln('user unknown !')
