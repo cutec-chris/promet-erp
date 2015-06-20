@@ -57,9 +57,11 @@ type
     xmpp: TXmpp;
     FJID : string;
     InformRecTime : TDateTime;
+    FMessages : TStringList;
     procedure SetBaseref(AValue: LargeInt);
     procedure SetFilter(AValue: string);
     procedure SetFilter2(AValue: string);
+    procedure AddUserHistory(JID,Msg : string);
   protected
     procedure DoRun; override;
     function CheckUser(JID : string) : Boolean;
@@ -108,12 +110,17 @@ end;
 procedure PrometXMPPMessanger.xmppMessage(Sender: TObject; From: string;
   MsgText: string; MsgHTML: string; TimeStamp: TDateTime; MsgType: TMessageType
   );
+var
+  ID: String;
 begin
   writeln('msg:'+From+':'+MsgText);
   if CheckUser(From) then
     begin
       FJID:=From;
-      Speaker.CheckSentence(MsgText);
+      if not Speaker.CheckSentence(MsgText) then
+        begin //History entry
+          AddUserHistory(From,MsgText);
+        end;
       FJID:='';
     end
   else writeln('user unknown !')
@@ -169,12 +176,23 @@ begin
   FFilter2:=AValue;
 end;
 
+procedure PrometXMPPMessanger.AddUserHistory(JID, Msg: string);
+var
+  ID: String;
+begin
+  if pos('/',JID)>0 then
+    JID := copy(JID,0,pos('/',JID)-1);
+  ID := FUsers.Values[JID];
+  FMessages.Add(ID+'='+Msg);
+end;
+
 procedure PrometXMPPMessanger.DoRun;
 var
   tmp : string;
   i: Integer;
   aUsers: TUser;
   aUID : Variant;
+  a: Integer;
 begin
   FActive:=True;
   with BaseApplication as IBaseApplication do
@@ -256,6 +274,7 @@ begin
                 if tmp<>'' then
                   with BaseApplication as IBaseDBInterface do
                     DBConfig.WriteString('INFORMRECTIME',DateTimeToStr(InformRecTime));
+                a := 0;
               except
               end;
             end;
@@ -317,10 +336,12 @@ begin
   inherited Create(TheOwner);
   StopOnException:=True;
   FUsers := TStringList.Create;
+  FMessages := TStringList.Create;
 end;
 destructor PrometXMPPMessanger.Destroy;
 begin
   FUsers.Free;
+  FMessages.Free;
   inherited Destroy;
 end;
 var

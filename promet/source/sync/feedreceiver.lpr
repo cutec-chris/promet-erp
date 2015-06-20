@@ -180,9 +180,9 @@ begin
                         if not Assigned(aIDNode) then
                           aIDNode := aNode.FindNode('guid');
                         if FeedType = 'RSS' then
-                          aLinkValue := DoDecode(aNode.FindNode('link').FirstChild.NodeValue)
+                          aLinkValue := aNode.FindNode('link').FirstChild.NodeValue
                         else
-                          aLinkValue := DoDecode(aNode.FindNode('link').Attributes.GetNamedItem('href').NodeValue);
+                          aLinkValue := aNode.FindNode('link').Attributes.GetNamedItem('href').NodeValue;
                         aTitleNode := aNode.FindNode('title');
                         if not Assigned(aTitleNode) then
                           aTitleNode := aNode.FindNode('summary');
@@ -303,10 +303,11 @@ begin
                                 tmp := '<b>'+DoDecode(aTitleNode.FirstChild.NodeValue)+'</b><br>'+tmp;
                                 tmp := tmp+'<br><a href='''+aLinkValue+'''>'+strGotoFeed+'</a>';
                                 tmp := '<html><body>'+tmp+'</body></html>';
-                                ss := TStringStream.Create(DoDecode(tmp));
+                                ss := TStringStream.Create(tmp);
                                 Data.StreamToBlobField(ss,Message.Content.DataSet,'DATA');
                                 ss.Free;
                                 MessageHandler.SendCommand('prometerp','Message.refresh');
+                                Data.Users.History.AddMessageItem(Message.DataSet,Message.ToString,MessageIndex.FieldbyName('SUBJECT').AsString,'Feed','MESSAGEIDX@'+MID+'{'+MessageIndex.FieldbyName('SUBJECT').AsString+'}');
                               end;
                           end
                         else if (aSendDate-0.001 > MessageIndex.DataSet.FieldByName('SENDDATE').AsDateTime)
@@ -367,4 +368,4 @@ begin
   Application.Run;
   Application.Free;
 end.
-
+
