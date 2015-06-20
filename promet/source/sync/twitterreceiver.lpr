@@ -318,9 +318,6 @@ begin
                                               Somethingimported:=True;
                                               with aHist.DataSet as IBaseManageDB do
                                                 UpdateStdFields := False;
-                                              aHist.Edit;
-                                              aHist.FieldByName('READ').AsString:='N';
-                                              aHist.Post;
                                               Info('new Subentry from '+author);
                                               Customers.History.AddParentedItem(Customers.DataSet,text,aHist.Id.AsVariant,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
                                               Customers.History.TimeStamp.AsDateTime:=aTime;
