@@ -61,7 +61,6 @@ type
     procedure SetBaseref(AValue: LargeInt);
     procedure SetFilter(AValue: string);
     procedure SetFilter2(AValue: string);
-    procedure AddUserHistory(JID,Msg : string);
   protected
     procedure DoRun; override;
     function CheckUser(JID : string) : Boolean;
@@ -172,16 +171,6 @@ procedure PrometXMPPMessanger.SetFilter2(AValue: string);
 begin
   if FFilter2=AValue then Exit;
   FFilter2:=AValue;
-end;
-
-procedure PrometXMPPMessanger.AddUserHistory(JID, Msg: string);
-var
-  ID: String;
-begin
-  if pos('/',JID)>0 then
-    JID := copy(JID,0,pos('/',JID)-1);
-  ID := FUsers.Values[JID];
-  FMessages.Add(ID+'='+Msg);
 end;
 
 procedure PrometXMPPMessanger.DoRun;

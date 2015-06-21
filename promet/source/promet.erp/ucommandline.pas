@@ -65,7 +65,7 @@ type
 
 implementation
 {$R *.lfm}
-uses uData,uScriptEditor,Dialogs,uIntfStrConsts,uBaseDBInterface,
+uses uData,uScriptEditor,Dialogs,uBaseDBInterface,
   uBaseVisualApplication;
 procedure TfCommandline.InputKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
