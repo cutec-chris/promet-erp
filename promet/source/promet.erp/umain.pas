@@ -2285,10 +2285,17 @@ begin
   aFrame := TfTaskPlan.Create(Self);
   aFrame.TabCaption := strTaskPlan;
   pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('TASKS@'),False);
-  if Data.Users.FieldByName('POSITION').AsString = 'LEADER' then
-    aFrame.Populate(Data.Users.FieldByName('PARENT').AsVariant,Null)
+  if Data.Users.Rights.Right('RESOURCEVIEW')>RIGHT_READ then
+    begin
+      aFrame.Populate(Null,Null)
+    end
   else
-    aFrame.Populate(Data.Users.FieldByName('PARENT').AsVariant,Data.Users.Id.AsVariant);
+    begin
+      if Data.Users.FieldByName('POSITION').AsString = 'LEADER' then
+        aFrame.Populate(Data.Users.FieldByName('PARENT').AsVariant,Null)
+      else
+        aFrame.Populate(Data.Users.FieldByName('PARENT').AsVariant,Data.Users.Id.AsVariant);
+    end;
 end;
 
 procedure TfMain.acTasksExecute(Sender: TObject);
