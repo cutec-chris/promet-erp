@@ -286,7 +286,7 @@ begin
                                               Somethingimported:=True;
                                               Info('new Entry from '+author);
                                               Customers.History.AddItem(Customers.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
-                                              Customers.History.TimeStamp.AsDateTime:=aTime;
+                                              Customers.History.FieldByName('DATE').AsDateTime:=aTime;
                                               Customers.History.FieldByName('REFOBJECT').AsString:=aCat;
                                               Customers.History.FieldByName('SOURCE').AsString:=asource;
                                               Customers.History.FieldByName('CHANGEDBY').Clear;
