@@ -243,18 +243,17 @@ begin
                 //Show new History Entrys
                 if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
                   begin
-                    Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('DATE')+'>='+Data.DateTimeToFilter(InformRecTime)+')',20,'DATE','DESC');
+                    Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('DATE')+'>='+Data.DateTimeToFilter(InformRecTime)+')',0,'DATE','DESC');
                     History.DataSet.Refresh;
                     History.DataSet.First;
                   end;
                 if (not FHistory.EOF) then
                   begin
-                    if (FHistory.FieldByName('CHANGEDBY').AsString <> Data.Users.IDCode.AsString)
-                    and (FHistory.FieldByName('READ').AsString <> 'Y')
+                    if (FHistory.FieldByName('READ').AsString <> 'Y')
                     then
                       begin
                         tmp:=FHistory.FieldByName('DATE').AsString+' '+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
-                        InformRecTime:=FHistory.TimeStamp.AsDateTime+(1/(MSecsPerDay/MSecsPerSec));
+                        InformRecTime:=FHistory.FieldByName('DATE').AsDateTime+(1/(MSecsPerDay/MSecsPerSec));
                         xmpp.SendPersonalMessage(FUsers.Names[i],tmp);
                         FHistory.DataSet.Next;
                       end;
