@@ -57,6 +57,18 @@ begin
   topic:=copy(topic,0,length(topic)-(length(aProp)+1));
   if pos(':',aProp)>0 then
     aProp := copy(aProp,0,pos(':',aProp)-1);
+  if not TryStrToFloat(payload,PayloadFloat) then
+    begin
+      if (lowercase(payload)='ok')
+      or (lowercase(payload)='true')
+      or (lowercase(payload)='y')
+      then PayloadFloat:=1
+      else
+      if (lowercase(payload)='false')
+      or (lowercase(payload)='n')
+      then PayloadFloat:=0
+      else exit;
+    end;
   aObject := copy(topic,rpos('/',topic)+1,length(topic));
   anObject := TObjects.Create(nil);
   anObject.SelectFromNumber(aObject);
@@ -67,7 +79,7 @@ begin
       aMeasurement.Open;
       if aMeasurement.Locate('ID',aProp,[loCaseInsensitive]) then
         begin
-          if TryStrToFloat(payload,PayloadFloat) and (aMeasurement.Current.AsFloat<>PayloadFloat) then
+          if (aMeasurement.Current.AsFloat<>PayloadFloat) then
             begin
               aMeasurement.Edit;
               aMeasurement.Current.AsFloat:=PayloadFloat;
@@ -120,7 +132,8 @@ begin
       mqttc.Subscribe('/#');
       while mqttc.isConnected do
         begin
-          sleep(100);
+          sleep(30000);
+          if not mqttc.PingReq then break;
         end;
     end
   else writeln('Connection failed');
