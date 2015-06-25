@@ -55,3 +55,6 @@
 [submodule "promet/source/components/uxmpp"]
 	path = promet/source/components/uxmpp
 	url = https://github.com/cutec-chris/uxmpp.git
+[submodule "promet/source/components/tmqttclient"]
+	path = promet/source/components/tmqttclient
+	url = https://github.com/cutec-chris/TMQTTClient.git

@@ -34,12 +34,15 @@
     <RequiredPackages Count="3">
       <Item1>
         <PackageName Value="LAZ_MQTT"/>
+        <DefaultFilename Value="..\components\tmqttclient\TMQTTClient\laz_mqtt.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="general"/>
+        <DefaultFilename Value="..\..\..\general\general.lpk"/>
       </Item3>
     </RequiredPackages>
     <Units Count="1">
