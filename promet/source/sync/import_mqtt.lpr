@@ -62,10 +62,12 @@ begin
       if (lowercase(payload)='ok')
       or (lowercase(payload)='true')
       or (lowercase(payload)='y')
+      or (lowercase(payload)='on')
       then PayloadFloat:=1
       else
       if (lowercase(payload)='false')
       or (lowercase(payload)='n')
+      or (lowercase(payload)='off')
       then PayloadFloat:=0
       else exit;
     end;
