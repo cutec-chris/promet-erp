@@ -10,7 +10,7 @@
       </Flags>
       <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
-      <Title Value="cmdln_sample"/>
+      <Title Value="import_mqtt"/>
     </General>
     <VersionInfo>
       <StringTable ProductVersion=""/>
@@ -27,21 +27,24 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;TEST&quot;"/>
+        <CommandLineParams Value="--mandant=&quot;Stora&quot; --mqtt-server=192.168.1.103"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="pcmdprometapp"/>
+        <PackageName Value="LAZ_MQTT"/>
       </Item1>
       <Item2>
-        <PackageName Value="general"/>
+        <PackageName Value="pcmdprometapp"/>
       </Item2>
+      <Item3>
+        <PackageName Value="general"/>
+      </Item3>
     </RequiredPackages>
     <Units Count="1">
       <Unit0>
-        <Filename Value="cmdln_sample.lpr"/>
+        <Filename Value="import_mqtt.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
     </Units>
@@ -49,6 +52,9 @@
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="import_mqtt"/>
+    </Target>
     <SearchPaths>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools"/>
     </SearchPaths>

@@ -3,9 +3,9 @@
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils,
   FileUtil,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
