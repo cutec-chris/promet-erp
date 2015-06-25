@@ -31,6 +31,7 @@ lazbuild $Params -q -B ../../source/scripts/pscript.lpi  >> scompile-$2-tools.lo
 #lazbuild $Params -q -B ../../source/sync/sync_owncloud.lpi  >> scompile-$2-tools.log
 #lazbuild $Params -q -B ../../source/sync/sync_redmine.lpi  >> scompile-$2-tools.log
 lazbuild $Params -q -B ../../source/sync/import_document.lpi  >> scompile-$2-tools.log
+lazbuild $Params -q -B ../../source/sync/import_mqtt.lpi  >> scompile-$2-tools.log
 echo "compiling pop3receiver..." >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/sync/pop3receiver.lpi  >> scompile-$2-tools.log
 echo "compiling feedreceiver..." >> scompile-$2-tools.log
