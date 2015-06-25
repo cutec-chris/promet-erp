@@ -56,7 +56,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="import_mqtt"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\import_mqtt"/>
     </Target>
     <SearchPaths>
       <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools"/>
