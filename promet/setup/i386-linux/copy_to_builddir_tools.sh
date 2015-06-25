@@ -8,8 +8,8 @@ cp ../../output/$1-linux/tableedit $2
 cp ../../output/$1-linux/clientmanagement $2
 cp ../../output/$1-linux/archivestore $2
 cp ../../output/$1-linux/pscript $2/tools
-cp ../../output/$1-linux/tools/import_document $2/tools
-cp ../../output/$1-linux/tools/import_mqtt $2/tools
+cp ../../output/$1-linux/tools/import_* $2/tools/
+rm $2/tools/import_*.dbg
 Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
 cp $2/cmdwizardmandant ../executables/$Version/$1

@@ -9,8 +9,6 @@ cp ../../output/$1-linux/tools/syslog $2/tools
 cp ../../output/$1-linux/tools/webserver $2/tools
 cp ../../output/$1-linux/tools/pscript $2/tools
 rm $2/tools/sync_*.dbg
-cp ../../output/$1-linux/tools/import_* $2/tools/
-rm $2/tools/import_*.dbg
 cp ../../output/$1-linux/tools/imapserver $2/tools
 cp ../../output/$1-linux/tools/mta $2/tools
 cp ../../output/$1-linux/tools/nntpserver $2/tools

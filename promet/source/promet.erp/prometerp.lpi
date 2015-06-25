@@ -22,7 +22,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="367"/>
+      <BuildNr Value="368"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -578,7 +578,6 @@
         <ComponentName Value="fCommandline"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="ucommandline"/>
       </Unit43>
       <Unit44>
         <Filename Value="ustoredpasswords.pas"/>
@@ -630,7 +629,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="31">
+    <Exceptions Count="33">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -744,6 +743,12 @@
       <Item31>
         <Name Value="EPSCompilerException"/>
       </Item31>
+      <Item32>
+        <Name Value="RunError(204)"/>
+      </Item32>
+      <Item33>
+        <Name Value="EInvalidPointer"/>
+      </Item33>
     </Exceptions>
   </Debugging>
 </CONFIG>

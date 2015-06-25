@@ -926,23 +926,10 @@ inherited fStatisticFrame: TfStatisticFrame
                 MoveCaret = True
               end            
               item
-                Button = mbMiddle
-                ClickDir = cdDown
-                Command = emcPasteSelection
-                MoveCaret = True
-              end            
-              item
                 Shift = [ssCtrl]
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
               end>
-            MouseTextActions = <>
-            MouseSelActions = <            
-              item
-                ClickDir = cdDown
-                Command = emcStartDragMove
-              end>
-            VisibleSpecialChars = [vscSpace, vscTabAtLast]
             SelectedColor.FrameEdges = sfeAround
             SelectedColor.BackPriority = 50
             SelectedColor.ForePriority = 50
@@ -1549,21 +1536,9 @@ inherited fStatisticFrame: TfStatisticFrame
                 MoveCaret = True
               end            
               item
-                Button = mbMiddle
-                ClickDir = cdDown
-                Command = emcPasteSelection
-                MoveCaret = True
-              end            
-              item
                 Shift = [ssCtrl]
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
-              end>
-            MouseTextActions = <>
-            MouseSelActions = <            
-              item
-                ClickDir = cdDown
-                Command = emcStartDragMove
               end>
             VisibleSpecialChars = [vscSpace, vscTabAtLast]
             SelectedColor.FrameEdges = sfeAround
@@ -2162,21 +2137,9 @@ inherited fStatisticFrame: TfStatisticFrame
                 MoveCaret = True
               end            
               item
-                Button = mbMiddle
-                ClickDir = cdDown
-                Command = emcPasteSelection
-                MoveCaret = True
-              end            
-              item
                 Shift = [ssCtrl]
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
-              end>
-            MouseTextActions = <>
-            MouseSelActions = <            
-              item
-                ClickDir = cdDown
-                Command = emcStartDragMove
               end>
             VisibleSpecialChars = [vscSpace, vscTabAtLast]
             SelectedColor.FrameEdges = sfeAround
