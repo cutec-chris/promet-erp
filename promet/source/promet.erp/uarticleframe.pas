@@ -365,7 +365,6 @@ begin
           exit;
         end;
     end;
-  pcPages.CloseAll;
   DoOpen(False);
   DataSet.DataSet.EnableControls;
   Screen.Cursor:=crDefault;
@@ -568,8 +567,8 @@ var
   aID: String;
   aThumbnails: TThumbnails;
   aStream: TMemoryStream;
+  aFrame: TTabSheet;
 begin
-  pcPages.CloseAll;
   TMasterdata(DataSet).OpenItem;
   TabCaption := TMasterdata(FDataSet).Text.AsString;
   Masterdata.DataSet := DataSet.DataSet;
@@ -640,10 +639,8 @@ begin
         end;
     end;
 
-  pcPages.AddTabClass(TfArticlePositionFrame,strPositions,@AddPositions);
   TMasterdata(DataSet).Positions.Open;
-  if TMasterdata(DataSet).Positions.Count > 0 then
-    pcPages.AddTab(TfArticlePositionFrame.Create(Self),False);
+  pcPages.NewFrame(TfArticlePositionFrame,TMasterdata(DataSet).Positions.Count > 0,strPositions,@AddPositions);
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
@@ -662,27 +659,20 @@ begin
         end;
     end;
   pcPages.AddTabClass(TfListFrame,strProperties,@AddList);
+
   TMasterdata(DataSet).Properties.Open;
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Properties.Count > 0) then
-    pcPages.AddTab(TfListFrame.Create(nil),False,strProperties);
-  pcPages.AddTabClass(TfArticleStorageFrame,strStorage,@AddStorage);
+  pcPages.NewFrame(TfListFrame,(FDataSet.State = dsInsert) or (TMasterdata(DataSet).Properties.Count > 0),strProperties,@AddList,False,strProperties);
+
   TMasterdata(DataSet).Storage.Open;
-  if TMasterdata(DataSet).Storage.Count > 0 then
-    pcPages.AddTab(TfArticleStorageFrame.Create(nil),False);
+  pcPages.NewFrame(TfArticleStorageFrame,TMasterdata(DataSet).Storage.Count > 0,strStorage,@AddStorage);
+
   pcPages.AddTabClass(TfArticleSupplierFrame,strSupplier,@AddSupplier);
   TMasterdata(DataSet).Supplier.Open;
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Supplier.Count > 0) then
-    pcPages.AddTab(TfArticleSupplierFrame.Create(nil),False);
-  pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
+  pcPages.NewFrame(TfArticleSupplierFrame,TMasterdata(DataSet).Supplier.Count > 0,strSupplier,@AddSupplier);
+
   TMasterdata(DataSet).History.Open;
-  if TMasterdata(DataSet).History.Count > 0 then
-    pcPages.AddTab(TfHistoryFrame.Create(Self),False);
-  if not TMasterdata(DataSet).Images.DataSet.Active then
-    TMasterdata(DataSet).Images.DataSet.Open;
-  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Images.Count > 0) then
-    pcPages.AddTab(TfImageFrame.Create(Self),False);
-  TMasterdata(DataSet).Images.DataSet.Close;
+  pcPages.NewFrame(TfHistoryFrame,TMasterdata(DataSet).History.Count > 0,strHistory,@AddHistory);
+
   aThumbnails := TThumbnails.Create(nil);
   aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
   aThumbnails.Open;
@@ -704,28 +694,26 @@ begin
       acAddImage.Visible:=True;
       acScreenshot.Visible:=True;
     end;
+  pcPages.NewFrame(TfImageFrame,(FDataSet.State = dsInsert) or (aThumbnails.Count > 0),strImages,@AddImages);
   aThumbnails.Free;
-  pcPages.AddTabClass(TfArticleTextFrame,strTexts,@AddTexts);
+
   TMasterdata(DataSet).Texts.Open;
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Texts.Count > 0) then
-    pcPages.AddTab(TfArticleTextFrame.Create(Self),False);
-  pcPages.AddTabClass(TfListFrame,strPrices,@AddList);
+  pcPages.NewFrame(TfArticleTextFrame,(FDataSet.State = dsInsert) or (TMasterdata(DataSet).Texts.Count > 0),strTexts,@AddTexts);
+
   TMasterdata(DataSet).Prices.Open;
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Prices.Count > 0) then
-    pcPages.AddTab(TfListFrame.Create(nil),False,strPrices);
+  pcPages.NewFrame(TfListFrame,(FDataSet.State = dsInsert) or (TMasterdata(DataSet).Prices.Count > 0),strPrices,@AddList,False,strPrices);
+
   pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
   TMasterdata(DataSet).Links.Open;
-  if TMasterdata(DataSet).Links.Count > 0 then
-    pcPages.AddTab(TfLinkFrame.Create(Self),False);
+  pcPages.NewFrame(TfLinkFrame,(TMasterdata(DataSet).Links.Count > 0),strLinks,@AddLinks);
+
   pcPages.AddTabClass(TfArticleRepairFrame,strRepair,@AddRepair);
   TMasterdata(DataSet).Assembly.Open;
-  if TMasterdata(DataSet).Assembly.Count > 0 then
-    pcPages.AddTab(TfArticleRepairFrame.Create(Self),False);
-  pcPages.AddTabClass(TfFinance,strFinance,@AddFinance);
-  if (not DataSet.FieldByName('COSTCENTRE').IsNull)
-  or (not DataSet.FieldByName('ACCOUNT').IsNull)
-  or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull) then
-    pcPages.AddTab(TfFinance.Create(Self),False);
+  pcPages.NewFrame(TFArticlerepairFrame,(TMasterdata(DataSet).Assembly.Count > 0),strRepair,@AddRepair);
+
+  pcPages.NewFrame(TfFinance,(not DataSet.FieldByName('COSTCENTRE').IsNull)
+                          or (not DataSet.FieldByName('ACCOUNT').IsNull)
+                          or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull),strFinance,@AddFinance);
 
   mShorttext.SetFocus;
   with Application as TBaseVisualApplication do
