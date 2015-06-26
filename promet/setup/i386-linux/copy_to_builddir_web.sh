@@ -1,14 +1,8 @@
 #!/bin/bash
 mkdir $2/web
 mkdir $2/tools
-cp ../../output/$1-linux/cmdwizardmandant $2/tools/
-cp ../../output/$1-linux/tools/processmanager $2/tools/
-cp ../../output/$1-linux/tools/processdaemon $2/tools/promet-process
-cp ../../output/$1-linux/tools/sync_* $2/tools/
 cp ../../output/$1-linux/tools/syslog $2/tools
 cp ../../output/$1-linux/tools/webserver $2/tools
-cp ../../output/$1-linux/tools/pscript $2/tools
-rm $2/tools/sync_*.dbg
 cp ../../output/$1-linux/tools/imapserver $2/tools
 cp ../../output/$1-linux/tools/mta $2/tools
 cp ../../output/$1-linux/tools/nntpserver $2/tools
