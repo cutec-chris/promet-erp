@@ -168,7 +168,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="15">
+    <Exceptions Count="16">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -214,6 +214,9 @@
       <Item15>
         <Name Value="EProcess"/>
       </Item15>
+      <Item16>
+        <Name Value="EZSQLException"/>
+      </Item16>
     </Exceptions>
   </Debugging>
 </CONFIG>

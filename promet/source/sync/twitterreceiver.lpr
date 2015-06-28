@@ -290,6 +290,7 @@ begin
                                               Customers.History.FieldByName('REFOBJECT').AsString:=aCat;
                                               Customers.History.FieldByName('SOURCE').AsString:=asource;
                                               Customers.History.FieldByName('CHANGEDBY').Clear;
+                                              Customers.History.FieldByName('TIMESTAMPD').AsDateTime:=Now();
                                               if Assigned(html) and (not html.IsNull) then
                                                 begin
                                                   Customers.History.Post;
@@ -324,6 +325,7 @@ begin
                                                   Customers.History.FieldByName('REFOBJECT').AsString:=aCat;
                                                   Customers.History.FieldByName('SOURCE').AsString:=asource;
                                                   Customers.History.FieldByName('CHANGEDBY').Clear;
+                                                  Customers.History.FieldByName('TIMESTAMPD').AsDateTime:=Now();
                                                   if Assigned(html) and (not html.IsNull) then
                                                     begin
                                                       Customers.History.Post;

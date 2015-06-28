@@ -149,7 +149,7 @@ begin
       //Show new History Entrys
       if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
         begin
-          Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',10,'TIMESTAMPD','DESC');
+          Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('DATE')+'>='+Data.DateTimeToFilter(InformRecTime)+')',10,'DATE','DESC');
           History.DataSet.Refresh;
           History.DataSet.First;
         end;
@@ -181,7 +181,7 @@ begin
                   then
                     begin
                       tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
-                      InformRecTime:=FHistory.TimeStamp.AsDateTime+(1/(MSecsPerDay/MSecsPerSec));
+                      InformRecTime:=FHistory.FieldByName('DATE').AsDateTime+(1/(MSecsPerDay/MSecsPerSec));
                       FHistory.DataSet.Next;
                       break;
                     end;
