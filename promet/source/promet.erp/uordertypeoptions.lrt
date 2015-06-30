@@ -7,14 +7,7 @@ TFORDERTYPEOPTIONS.GORDERSTATUS.COLUMNS[1].TITLE.CAPTION=STATUSNAME
 TFORDERTYPEOPTIONS.GORDERSTATUS.COLUMNS[2].TITLE.CAPTION=ICON
 TFORDERTYPEOPTIONS.EORDERTYPE.HINT=Der Typ des Auftrages hiermit wird entschieden ob Spezialeigenschaften gebucht werden
 TFORDERTYPEOPTIONS.EDERIVATES.HINT=In welche Vorgangstypen ist der Vorgang wandelbar ?
-TFORDERTYPEOPTIONS.GBVISIBILITY.HINT=Wo soll der Vorgang sichtbar sein ?
-TFORDERTYPEOPTIONS.GBVISIBILITY.CAPTION=Sichtbarkeit
-TFORDERTYPEOPTIONS.CBSIORDER.CAPTION=Vorgang
-TFORDERTYPEOPTIONS.CBSIPOS.CAPTION=Kasse
-TFORDERTYPEOPTIONS.CBSIPROD.CAPTION=Produktion
-TFORDERTYPEOPTIONS.CBSIACC.CAPTION=Buchhaltung
-TFORDERTYPEOPTIONS.CBSIINVR.CAPTION=Rechnungseingang
-TFORDERTYPEOPTIONS.CBSIINVO.CAPTION=Rechnungsausgang
+z.b. Angebot->Auftrag->Lieferschein (AU;LI)
 TFORDERTYPEOPTIONS.RGADDSTORAGE.CAPTION=im Lager buchen
 TFORDERTYPEOPTIONS.RGADDJOURNAL.CAPTION=Belegjournal
 TFORDERTYPEOPTIONS.RGADDSERIALS.CAPTION=Serienummern buchen
@@ -23,12 +16,15 @@ TFORDERTYPEOPTIONS.RGADDINVO.CAPTION=Rechnungsausgang
 TFORDERTYPEOPTIONS.RGADDDUNNING.CAPTION=Mahnwesen
 TFORDERTYPEOPTIONS.RGADDCHIST.CAPTION=Kunden-Verlauf
 TFORDERTYPEOPTIONS.ENUMBERSET.HINT=In welchen Nummernkreis werden die Nummern gebucht ?
+(Nummernkreise können Sie Optionen->System anlegen)
 TFORDERTYPEOPTIONS.EDEFAULTPOSTYP.HINT=Welcher Positionstyp soll Standardmäßig verwendet werden ?
 TFORDERTYPEOPTIONS.CBISDERIVATE.HINT=Ist der Vorgang ein Untervorgang ?
+(Vorgang wird unter dem abgeleiteten angezeigt z.b. Lieferschein)
 TFORDERTYPEOPTIONS.CBISDERIVATE.CAPTION=ist Untervorgang
 TFORDERTYPEOPTIONS.RGADDRESERVED.CAPTION=als reserviert buchen
 TFORDERTYPEOPTIONS.RGADDTOMAINORDER.CAPTION=Lagereintrag im Vorgang
 TFORDERTYPEOPTIONS.CBTEXTTYP.HINT=Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird
+TFORDERTYPEOPTIONS.LVIMAGES.HINT=Hier können Sie ein Bild für den Vorgangstypen einstellen welches in den Listen angezeigt werden kann
 TFORDERTYPEOPTIONS.LABEL1.CAPTION=Bild
 TFORDERTYPEOPTIONS.LABEL2.CAPTION=Standard Texttyp
 TFORDERTYPEOPTIONS.DIVIDERBEVEL1.CAPTION=Buchen
@@ -36,3 +32,8 @@ TFORDERTYPEOPTIONS.DIVIDERBEVEL2.CAPTION=Runden
 TFORDERTYPEOPTIONS.CHECKBOX1.HINT=Soll schon der Bruttopreis in der Position gerundet werden ?
 (Üblich z.b. auf Kassenbons auf Rechnungen unüblich)
 TFORDERTYPEOPTIONS.CHECKBOX1.CAPTION=Position runden
+TFORDERTYPEOPTIONS.CHECKBOX2.HINT=Standardmäßig sind Vorgänge nach dme Buchen nicht mehr bearbeitbar
+Bei Rechnungen z.b. muss das auch zwingend so sein
+Bei einigen Belegen wie z.b. Reparaturbelegen macht es aber Sinn diese später noch bearbeiten zu können
+Dies ist auch mit diesem Flag nur mit Recht "Rechte vergeben" möglich
+TFORDERTYPEOPTIONS.CHECKBOX2.CAPTION=Vorgang nach buchen änderbar

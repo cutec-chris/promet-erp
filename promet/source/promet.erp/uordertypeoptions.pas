@@ -29,14 +29,9 @@ type
 
   TforderTypeOptions = class(TOptionsFrame)
     cbIsDerivate: TDBCheckBox;
-    cbSIAcc: TDBCheckBox;
-    cbSIINVO: TDBCheckBox;
-    cbSIINVR: TDBCheckBox;
-    cbSIOrder: TDBCheckBox;
-    cbSIPos: TDBCheckBox;
-    cbSIProd: TDBCheckBox;
     cbTextTyp: TComboBox;
     CheckBox1: TDBCheckBox;
+    CheckBox2: TDBCheckBox;
     DBNavigator1: TDBNavigator;
     DividerBevel1: TDividerBevel;
     DividerBevel2: TDividerBevel;
@@ -44,7 +39,6 @@ type
     eDerivates: TDBEdit;
     eNumberset: TDBEdit;
     eOrderType: TDBComboBox;
-    gbVisibility: TGroupBox;
     gOrderStatus: TDBGrid;
     Label1: TLabel;
     Label2: TLabel;

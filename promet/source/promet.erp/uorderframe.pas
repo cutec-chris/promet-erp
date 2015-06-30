@@ -839,12 +839,21 @@ var
   OrderType: LongInt;
   Editable: Boolean;
   i: Integer;
+  Editable2: Boolean = False;
 begin
+  TOrder(FDataSet).OrderType.DataSet.Locate('STATUS',TOrder(FDataSet).DataSet.FieldByName('STATUS').AsString,[]);
   OrderType := StrToIntDef(trim(copy(TOrder(FDataSet).OrderType.FieldByName('TYPE').AsString,0,2)),0);
   FEditable := Application.HasOption('e','editall') or ((Data.Users.Rights.Right('ORDERS') > RIGHT_READ) and (DataSet.FieldByName('DATE').IsNull));
   EditAble := FEditable;
   Result := Editable;
+  if (Data.Users.Rights.Right('ORDERS') > RIGHT_DELETE) and (TOrder(FDataSet).OrderType.FieldByName('CHANGEABLE').AsString='Y') then
+    begin
+      Editable := True;
+      Editable2:=True;
+    end;
   cbStatus.Enabled:=(not Editable) and (Data.Users.Rights.Right('ORDERS') > RIGHT_READ);
+  if Editable2 then
+    cbStatus.Enabled:=True;
   Self.FPosFrame.SetRights(Editable);
   acAddAddress.Enabled:=Editable;
   acDelete.Enabled:=Editable and (Data.Users.Rights.Right('ORDERS') > RIGHT_WRITE);
