@@ -64,7 +64,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="zsqldb"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\db_sql"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

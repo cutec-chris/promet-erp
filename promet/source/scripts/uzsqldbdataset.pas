@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, ZClasses, ZDataset,ubasedatasetinterfaces,DB,ZSqlMetadata,
-  ZConnection,ZAbstractConnection;
+  ZConnection,ZAbstractConnection,ZAbstractRODataset;
 
 type
   TZeosDBDataSet = class(TZQuery,IBaseDBFilter,IBaseManageDB,IBaseSubDatasets,IBaseModifiedDS)
@@ -115,7 +115,6 @@ type
     function GetTableName: string;
     procedure SetTableName(const AValue: string);
     function CreateTable : Boolean;
-    function CheckTable : Boolean;
     function AlterTable : Boolean;
     function GetConnection: TComponent;
     function GetTableCaption: string;
@@ -127,7 +126,7 @@ type
     function GetUseIntegrity: Boolean;
     procedure SetUseIntegrity(AValue: Boolean);
     //IBaseSubDataSets
-    function GetSubDataSet(aName : string): TComponent;
+    function GetSubDataSet(aName: string): TComponent;
     procedure RegisterSubDataSet(aDataSet : TComponent);
     function GetCount : Integer;
     function GetSubDataSetIdx(aIdx : Integer): TComponent;
@@ -716,9 +715,7 @@ procedure TZeosDBDataSet.DoBeforeDelete;
 begin
   inherited DoBeforeDelete;
   try
-    if Assigned(FOrigTable) and Assigned(FOrigTable.OnRemove) then FOrigTable.OnRemove(FOrigTable);
-    if GetUpStdFields = True then
-      DeleteItem(FOrigTable);
+    if Assigned(FOrigTable) then FOrigTable.DoBeforeDelete;
   except
   end;
 end;
@@ -791,7 +788,7 @@ end;
 procedure TZeosDBDataSet.SetFilter(const AValue: string);
 begin
   if (FFilter=AValue) and (SQL.text<>'') then exit;
-  if CheckForInjection(AValue) then exit;
+  if Assigned(FOrigTable) and FOrigTable.CheckForInjection(AValue) then exit;
   FFilter := AValue;
   FSQL := '';
   Close;
@@ -1006,17 +1003,17 @@ begin
   if Assigned(FOrigTable) then
     FOrigTable.Change;
 end;
-function TZeosDBDataSet.GetSubDataSet(aName: string): TBaseDBDataSet;
+function TZeosDBDataSet.GetSubDataSet(aName: string): TComponent;
 var
   i: Integer;
 begin
   Result := nil;
   for i := 0 to FSubDataSets.Count-1 do
-    with TBaseDBDataSet(FSubDataSets[i]) as IBaseManageDB do
+    with TAbstractDBDataset(FSubDataSets[i]) as IBaseManageDB do
       if TableName = aName then
-        Result := TBaseDBDataSet(FSubDataSets[i]);
+        Result := TAbstractDBDataset(FSubDataSets[i]);
 end;
-procedure TZeosDBDataSet.RegisterSubDataSet(aDataSet: TBaseDBDataSet);
+procedure TZeosDBDataSet.RegisterSubDataSet(aDataSet: TComponent);
 begin
   FSubDataSets.Add(aDataSet);
 end;
@@ -1024,17 +1021,17 @@ function TZeosDBDataSet.GetCount: Integer;
 begin
   Result := FSubDataSets.Count;
 end;
-function TZeosDBDataSet.GetSubDataSetIdx(aIdx: Integer): TBaseDBDataSet;
+function TZeosDBDataSet.GetSubDataSetIdx(aIdx: Integer): TComponent;
 begin
   Result := nil;
   if aIdx < FSubDataSets.Count then
-    Result := TBaseDbDataSet(FSubDataSets[aIdx]);
+    Result := TAbstractDBDataset(FSubDataSets[aIdx]);
 end;
 function TZeosDBDataSet.IsChanged: Boolean;
 begin
   Result := Modified;
   if Assigned(FOrigTable) then
-    Result := ForigTable.Changed;
+    Result := TAbstractDBDataset(ForigTable).Changed;
 end;
 constructor TZeosDBDataSet.Create(AOwner: TComponent);
 begin
