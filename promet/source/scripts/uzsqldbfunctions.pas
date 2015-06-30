@@ -37,7 +37,7 @@ function SetProperties(aProp : string;Connection : TComponent = nil) : Boolean;
 function CreateDBFromProperties(aProp: string): Boolean;
 function IsSQLDB : Boolean;
 function GetNewDataSet(aTable: TAbstractDBDataset;aConnection: TComponent; MasterData: TDataSet; aTables: string): TDataSet;
-function GetNewDataSetSQL(aSQL : string;aConnection : TComponent = nil;MasterData : TDataSet = nil;aOrigtable : TComponent = nil) : TDataSet;
+function GetNewDataSetSQL(aSQL : string;aConnection : TComponent = nil;MasterData : TDataSet = nil;aOrigtable : TAbstractDBDataset = nil) : TDataSet;
 procedure DestroyDataSet(DataSet : TDataSet);
 function Ping(aConnection : TComponent) : Boolean;
 function DateToFilter(aValue : TDateTime) : string;
@@ -67,6 +67,7 @@ var
   FDataSetClass : TDataSetClass;
   FUsersFilter : string;
   FLastStatement : string;
+  UserCode : string;
 resourcestring
   strUnknownDbType                = 'Unbekannter Datenbanktyp';
   strDatabaseConnectionLost       = 'Die Datenbankverbindung wurde verlohren !';
@@ -347,7 +348,7 @@ begin
         end;
     end;
 end;
-function GetNewDataSetSQL(aSQL : string;aConnection : TComponent = nil;MasterData : TDataSet = nil;aOrigtable : TComponent = nil) : TDataSet;
+function GetNewDataSetSQL(aSQL : string;aConnection : TComponent = nil;MasterData : TDataSet = nil;aOrigtable : TAbstractDBDataset = nil) : TDataSet;
 begin
   Result := FDataSetClass.Create(nil);
   if not Assigned(aConnection) then
