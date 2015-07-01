@@ -58,3 +58,6 @@
 [submodule "promet/source/components/tmqttclient"]
 	path = promet/source/components/tmqttclient
 	url = https://github.com/cutec-chris/TMQTTClient.git
+[submodule "promet/source/components/richmemo"]
+	path = promet/source/components/richmemo
+	url = https://github.com/cutec-chris/richmemo.git
