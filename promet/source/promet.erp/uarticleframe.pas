@@ -641,6 +641,7 @@ begin
 
   TMasterdata(DataSet).Positions.Open;
   pcPages.NewFrame(TfArticlePositionFrame,TMasterdata(DataSet).Positions.Count > 0,strPositions,@AddPositions);
+
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
@@ -658,7 +659,6 @@ begin
           aDocFrame.BaseElement := FDataSet;
         end;
     end;
-  pcPages.AddTabClass(TfListFrame,strProperties,@AddList);
 
   TMasterdata(DataSet).Properties.Open;
   pcPages.NewFrame(TfListFrame,(FDataSet.State = dsInsert) or (TMasterdata(DataSet).Properties.Count > 0),strProperties,@AddList,False,strProperties);
@@ -703,11 +703,9 @@ begin
   TMasterdata(DataSet).Prices.Open;
   pcPages.NewFrame(TfListFrame,(FDataSet.State = dsInsert) or (TMasterdata(DataSet).Prices.Count > 0),strPrices,@AddList,False,strPrices);
 
-  pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
   TMasterdata(DataSet).Links.Open;
   pcPages.NewFrame(TfLinkFrame,(TMasterdata(DataSet).Links.Count > 0),strLinks,@AddLinks);
 
-  pcPages.AddTabClass(TfArticleRepairFrame,strRepair,@AddRepair);
   TMasterdata(DataSet).Assembly.Open;
   pcPages.NewFrame(TFArticlerepairFrame,(TMasterdata(DataSet).Assembly.Count > 0),strRepair,@AddRepair);
 

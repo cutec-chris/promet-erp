@@ -50,7 +50,7 @@ type
     acCalculate: TAction;
     acAddImage: TAction;
     acPasteImage: TAction;
-    acAddScreenshot: TAction;
+    acScreenshot: TAction;
     acRegorganize: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
@@ -161,7 +161,7 @@ type
     ToolButton2: TSpeedButton;
     tsInfo: TTabSheet;
     Users: TDatasource;
-    procedure acAddScreenshotExecute(Sender: TObject);
+    procedure acScreenshotExecute(Sender: TObject);
     procedure acCalculatePlanExecute(Sender: TObject);
     procedure acCancelExecute(Sender: TObject);
     procedure acCloseExecute(Sender: TObject);
@@ -589,14 +589,14 @@ begin
               aStream.Free;
               acPasteImage.Visible:=False;
               acAddImage.Visible:=False;
-              acAddScreenshot.Visible:=False;
+              acScreenshot.Visible:=False;
             end
           else
             begin
               iProject.Picture.Clear;
               acPasteImage.Visible:=True;
               acAddImage.Visible:=True;
-              acAddScreenshot.Visible:=True;
+              acScreenshot.Visible:=True;
             end;
           aThumbnails.Free;
         end;
@@ -763,7 +763,7 @@ begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.EndUpdate;
 end;
-procedure TfProjectFrame.acAddScreenshotExecute(Sender: TObject);
+procedure TfProjectFrame.acScreenshotExecute(Sender: TObject);
 var
   aSheet: TTabSheet;
   aThumbnails: TThumbnails;
@@ -814,14 +814,14 @@ begin
           aStream.Free;
           acPasteImage.Visible:=False;
           acAddImage.Visible:=False;
-          acAddScreenshot.Visible:=False;
+          acScreenshot.Visible:=False;
         end
       else
         begin
           iProject.Picture.Clear;
           acPasteImage.Visible:=True;
           acAddImage.Visible:=True;
-          acAddScreenshot.Visible:=True;
+          acScreenshot.Visible:=True;
         end;
       aThumbnails.Free;
     end;
@@ -1105,14 +1105,11 @@ begin
   DataSet.DataSet.DisableControls;
   try
   TProject(DataSet).OpenItem;
-  pcPages.ClearTabClasses;
-  pcPages.CloseAll;
   FEditable := ((Data.Users.Rights.Right('PROJECTS') > RIGHT_READ));
-  pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
+
   TProject(DataSet).History.Open;
-  if TProject(DataSet).History.Count > 0 then
-    pcPages.AddTab(TfHistoryFrame.Create(Self),False);
-  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
+  pcPages.NewFrame(TfHistoryFrame,TProject(DataSet).History.Count > 0,strHistory,@AddHistory);
+
   if TProject(DataSet).FieldByName('PARENT').IsNull then
     eParent.Text:=strNoParent
   else
@@ -1218,8 +1215,7 @@ begin
     end;
 
   pNav2.Visible := TProject(DataSet).FieldByName('TYPE').AsString = 'C';
-  if not TProject(DataSet).Images.DataSet.Active then
-    TProject(DataSet).Images.DataSet.Open;
+
   aThumbnails := TThumbnails.Create(nil);
   aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
   aThumbnails.Open;
@@ -1230,39 +1226,29 @@ begin
       aStream.Position:=0;
       iProject.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
       aStream.Free;
-      if TProject(DataSet).Images.Count > 0 then
-        pcPages.AddTab(TfImageFrame.Create(Self),False);
       acPasteImage.Visible:=False;
       acAddImage.Visible:=False;
-      acAddScreenshot.Visible:=False;
+      acScreenshot.Visible:=False;
     end
   else
     begin
       iProject.Picture.Clear;
-      if TProject(DataSet).Images.Count > 0 then
-        begin
-          pcPages.AddTab(TfImageFrame.Create(Self),False);
-          TProject(DataSet).GenerateThumbnail;
-        end;
       acPasteImage.Visible:=True;
       acAddImage.Visible:=True;
-      acAddScreenshot.Visible:=True;
+      acScreenshot.Visible:=True;
     end;
+  pcPages.NewFrame(TfImageFrame,(FDataSet.State = dsInsert) or (aThumbnails.Count > 0),strImages,@AddImages);
   aThumbnails.Free;
-  TProject(DataSet).Images.DataSet.Close;
-  pcPages.AddTabClass(TfObjectStructureFrame,strStructure,@AddOverview);
+
   aSubProject := TProject.Create(nil);
   aSubProject.SelectFromParent(fDataSet.Id.AsVariant);
   aSubProject.Open;
-  if aSubProject.Count>0 then
-    begin
-      pcPages.AddTab(TfObjectStructureFrame.Create(Self),True)
-    end;
+  pcPages.NewFrame(TfObjectStructureFrame,aSubProject.Count>0,strStructure,@AddOverview);
   aSubProject.Free;
-  pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
+
   TProject(DataSet).Links.Open;
-  if TProject(DataSet).Links.Count > 0 then
-    pcPages.AddTab(TfLinkFrame.Create(Self),False);
+  pcPages.NewFrame(TfLinkFrame,(TProject(DataSet).Links.Count > 0),strLinks,@AddLinks);
+
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
@@ -1280,10 +1266,10 @@ begin
           aDocFrame.BaseElement:=DataSet;
         end;
     end;
-  pcPages.AddTabClass(TfProjectPositions,strCosts,@AddPositions);
+
   TProject(DataSet).Positions.Open;
-  if TProject(DataSet).Positions.Count > 0 then
-    pcPages.AddTab(TfProjectPositions.Create(Self),False);
+  pcPages.NewFrame(TfProjectPositions,TProject(DataSet).Positions.Count > 0,strPositions,@AddPositions);
+
   sePriority.OnChange:=nil;
   sePriority.Value:=DataSet.FieldByName('GPRIORITY').AsInteger;
   sePriority.OnChange:=@sePriorityChange;
@@ -1292,11 +1278,11 @@ begin
     begin
       pcPages.CanHaveCustomTabs(@TBaseVisualApplication(Application).OnAddCustomTab);
     end;
-  pcPages.AddTabClass(TfFinance,strFinance,@AddFinance);
-  if (not DataSet.FieldByName('COSTCENTRE').IsNull)
-  or (not DataSet.FieldByName('ACCOUNT').IsNull)
-  or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull) then
-    pcPages.AddTab(TfFinance.Create(Self),False);
+
+  pcPages.NewFrame(TfFinance,(not DataSet.FieldByName('COSTCENTRE').IsNull)
+                          or (not DataSet.FieldByName('ACCOUNT').IsNull)
+                          or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull),strFinance,@AddFinance);
+
   with Application as TBaseVisualApplication do
     AddTabClasses('PRJ',pcPages);
   with Application as TBaseVisualApplication do
@@ -1316,6 +1302,7 @@ begin
       except
       end;
     end;
+
   pcPages.AddTabClass(TfTaskFrame,strTasks,@AddTasks);
   Inserted := DataSet.State=dsInsert;
   TProject(DataSet).Tasks.Open;
@@ -1327,7 +1314,7 @@ begin
     end;
   if Inserted or (TProject(DataSet).Tasks.Count = 0) then
     pcPages.PageIndex:=0;
-  if DataSet.State<> dsInsert then
+  if (DataSet.State<> dsInsert) and (DataSet.Id.AsVariant<>Null) and (not Assigned(pcPages.GetTab(TfWikiFrame))) then
     begin
       aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
