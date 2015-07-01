@@ -36,6 +36,8 @@ type
     procedure SpeakerWriteln(const s: string);
     procedure xmppDebugXML(Sender: TObject; Value: string);
     procedure xmppError(Sender: TObject; ErrMsg: string);
+    procedure xmppFileAccept(Sender: TObject; JID, Session, Filename: string;
+      FileSize: Integer; var Accept: Boolean);
     procedure xmppIqVcard(Sender: TObject; from_, to_, fn_, photo_type_,
       photo_bin_: string);
     procedure xmppLogin(Sender: TObject);
@@ -91,6 +93,13 @@ begin
   FActive := False;
   writeln('error:'+ErrMsg);
 end;
+
+procedure PrometXMPPMessanger.xmppFileAccept(Sender: TObject; JID, Session,
+  Filename: string; FileSize: Integer; var Accept: Boolean);
+begin
+  Accept := True;
+end;
+
 procedure PrometXMPPMessanger.xmppIqVcard(Sender: TObject; from_, to_, fn_,
   photo_type_, photo_bin_: string);
 begin
@@ -204,6 +213,7 @@ begin
   xmpp.OnMessage:=@xmppMessage;
   xmpp.OnLogout:=@xmppLogout;
   xmpp.OnRoster:=@xmppRoster;
+  xmpp.OnFileAccept:=@xmppFileAccept;
   if HasOption('server-log') then
     xmpp.OnDebugXML:=@xmppDebugXML;
   xmpp.OnIqVcard:=@xmppIqVcard;
@@ -243,7 +253,7 @@ begin
                 //Show new History Entrys
                 if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
                   begin
-                    Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',0,'DATE','DESC');
+                    Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(InformRecTime)+')',0,'DATE','DESC');
                     History.DataSet.Refresh;
                     History.DataSet.First;
                   end;
@@ -254,7 +264,7 @@ begin
                       begin
                         tmp:=FHistory.FieldByName('DATE').AsString+' '+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
                         if FHistory.FieldByName('TIMESTAMPD').AsDateTime>InformRecTime then
-                          InformRecTime:=FHistory.FieldByName('TIMESTAMPD').AsDateTime+(1/(MSecsPerDay/MSecsPerSec));
+                          InformRecTime:=FHistory.FieldByName('TIMESTAMPD').AsDateTime+(1/MSecsPerSec)*1000;
                         xmpp.SendPersonalMessage(FUsers.Names[i],tmp);
                         FHistory.DataSet.Next;
                       end;

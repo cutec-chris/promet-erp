@@ -8,4 +8,4 @@ Date=$6
 BuildDir=$7
 cp ../output/*$Version_$Arch*.deb /tmp
 cd /tmp
-alien -r *.deb
+sudo alien -r *.deb

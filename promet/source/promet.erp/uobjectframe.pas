@@ -23,7 +23,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ExtCtrls,
   ActnList, ComCtrls, StdCtrls, DbCtrls, Buttons, Menus, db, uPrometFrames,
   uExtControls, uFilterFrame, uIntfStrConsts, Utils, Dialogs, variants,
-  uMeasurement,uBaseDatasetInterfaces;
+  uBaseDbClasses,uBaseDatasetInterfaces;
 type
 
   { TfObjectFrame }
@@ -142,7 +142,7 @@ implementation
 uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uHistoryFrame,uImageFrame,uLinkFrame,uBaseDbInterface,uListFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
-  uMainTreeFrame,uPrometFramesInplace,uBaseDBClasses,uarticlesupplierframe,
+  uMainTreeFrame,uPrometFramesInplace,uarticlesupplierframe,
   uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
   uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,umeasurements;
 resourcestring
