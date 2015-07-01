@@ -706,8 +706,6 @@ begin
   pMain.Visible:=False;
   pPreviewT.Visible:=False;
   spPreview.Visible := False;
-  pcHeader.CloseAll;
-  pcHeader.ClearTabClasses;
   while pAddresses.ControlCount > 0 do
     pAddresses.Controls[0].Free;
   Orders.DataSet := FDataSet.DataSet;
@@ -757,17 +755,13 @@ begin
     end;
   Editable := SetRights;
   RefreshAddress;
-  pcHeader.AddTabClass(TfOrderAdditionalFrame,strAdditional,@AddAdditional);
-  aFrame := TfOrderAdditionalFrame.Create(Self);
-  if (FDataSet.State = dsInsert) or TfOrderAdditionalFrame(aFrame).IsNeeded(FDataSet.DataSet) then
-    begin
-      pcHeader.AddTab(aFrame,False);
-      TfOrderAdditionalFrame(aFrame).SetRights(Editable);
-    end
-  else aFrame.Free;
+
+  pcHeader.NewFrame(TfOrderAdditionalFrame,(FDataSet.State = dsInsert) or TfOrderAdditionalFrame(aFrame).IsNeeded(FDataSet.DataSet),strAdditional,@AddAdditional);
+
   pcHeader.AddTabClass(TfOrderOverviewFrame,strOverview,@AddOverview);
   if FDataSet.Count > 1 then
     pcHeader.AddTab(TfOrderOverviewFrame.Create(Self),False);
+
   pcHeader.AddTabClass(TfOrderDateFrame,strDates,@AddDates);
   aFrame := TfOrderDateFrame.Create(Self);
   if TfOrderDateFrame(aFrame).IsNeeded(FDataSet.DataSet) or (DataSet.State=dsInsert) then
@@ -776,10 +770,10 @@ begin
       TfOrderDateFrame(aFrame).SetRights(FEditable);
     end
   else aFrame.Free;
-  pcHeader.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
+
   TOrder(DataSet).History.Open;
-  if TOrder(DataSet).History.Count > 0 then
-    pcHeader.AddTab(TfHistoryFrame.Create(Self),False);
+  pcHeader.NewFrame(TfHistoryFrame,TOrder(DataSet).History.Count > 0,strHistory,@AddHistory);
+
   pcHeader.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin
@@ -797,13 +791,9 @@ begin
           aDocFrame.SetRights(Editable);
         end;
     end;
-  pcHeader.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
-  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
-    begin
-      TOrder(DataSet).Links.Open;
-      if TOrder(DataSet).Links.Count > 0 then
-        pcHeader.AddTab(TfLinkFrame.Create(Self),False);
-    end;
+
+  TOrder(DataSet).Links.Open;
+  pcHeader.NewFrame(TfLinkFrame,(TOrder(DataSet).Links.Count > 0),strLinks,@AddLinks);
 
   TOrder(fDataSet).Positions.Open;
   FPosFrame.BaseName:='ORDERS'+DataSet.FieldByName('STATUS').AsString;
@@ -821,6 +811,7 @@ begin
     AddTabClasses('ORH',pcHeader);
   with Application as TBaseVisualApplication do
     AddTabs(pcHeader);
+  pcHeader.PageIndex:=0;
   pMain.Visible:=True;
   inherited DoOpen;
   if Dataset.State = dsInsert then

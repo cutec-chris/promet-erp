@@ -107,7 +107,6 @@ begin
   if ParentOrder.DataSet.Locate('ORDERNO',copy(tvOrderView.Selected.Text,pos(' ',tvOrderView.Selected.Text)+1,length(tvOrderView.Selected.Text)),[]) then
     begin
       aLink := Data.BuildLink(ParentOrder.DataSet);
-      TfOrderFrame(owner).pcHeader.PageIndex:=0;
       if aLink <> bLink then
         begin
           FOpenLink := aLink;
