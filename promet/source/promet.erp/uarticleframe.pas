@@ -720,7 +720,7 @@ begin
     AddTabClasses('ART',pcPages);
   with Application as TBaseVisualApplication do
     AddTabs(pcPages);
-  if (DataSet.State<> dsInsert) and (DataSet.Id.AsVariant<>Null) then
+  if (DataSet.State<> dsInsert) and (DataSet.Id.AsVariant<>Null) and (not Assigned(pcPages.GetTab(TfWikiFrame))) then
     begin
       aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
