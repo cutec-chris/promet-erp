@@ -231,32 +231,6 @@ object Frame1: TFrame1
       end
     end
   end
-  object TabControl: TTabControl
-    Left = 0
-    Height = 445
-    Top = 58
-    Width = 754
-    Align = alClient
-    TabOrder = 2
-    object WorksheetGrid: TsWorksheetGrid
-      Left = 2
-      Height = 440
-      Top = 3
-      Width = 750
-      FrozenCols = 0
-      FrozenRows = 0
-      ReadFormulas = False
-      Align = alClient
-      AutoAdvance = aaDown
-      BorderStyle = bsNone
-      ColCount = 27
-      MouseWheelOption = mwGrid
-      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSizing, goColSizing, goThumbTracking, goDblClickAutoSize, goHeaderHotTracking, goHeaderPushedLook, goFixedColSizing, goCellHints]
-      RowCount = 101
-      TabOrder = 1
-      TitleStyle = tsNative
-    end
-  end
   object Splitter1: TSplitter
     Cursor = crVSplit
     Left = 0
@@ -265,6 +239,28 @@ object Frame1: TFrame1
     Width = 754
     Align = alTop
     ResizeAnchor = akTop
+  end
+  object sWorksheetGrid1: TsWorksheetGrid
+    Left = 0
+    Height = 422
+    Top = 58
+    Width = 754
+    FrozenCols = 0
+    FrozenRows = 0
+    ReadFormulas = False
+    Align = alClient
+    AutoAdvance = aaDown
+    ColCount = 27
+    RowCount = 101
+    TabOrder = 3
+    TitleStyle = tsNative
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 480
+    Width = 754
+    Panels = <>
   end
   object OpenDialog: TOpenDialog
     DefaultExt = '.xls'

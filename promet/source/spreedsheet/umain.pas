@@ -3,7 +3,7 @@ unit umain;
 interface
 uses
   Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
-  Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils,
+  Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uExtControls,
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage;
 type
@@ -17,6 +17,13 @@ type
     miLanguage: TMenuItem;
     miMandant: TMenuItem;
     miOptions: TMenuItem;
+    Panel3: TPanel;
+    pcPages: TExtMenuPageControl;
+    SpeedButton1: TSpeedButton;
+    Splitter1: TSplitter;
+    Splitter2: TSplitter;
+    tsHelp: TTabSheet;
+    tvMain: TPanel;
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);

@@ -148,6 +148,8 @@ type
     OpenDialog: TOpenDialog;
     SaveDialog: TSaveDialog;
     Splitter1: TSplitter;
+    StatusBar1: TStatusBar;
+    sWorksheetGrid1: TsWorksheetGrid;
     TabControl: TTabControl;
     TbBorders: TToolButton;
     TbNumFormats: TToolButton;
@@ -180,7 +182,7 @@ type
 implementation
 
 initialization
-  {$I unit1.lrs}
+  {$I uspreetsheet.lrs}
 
 end.
 

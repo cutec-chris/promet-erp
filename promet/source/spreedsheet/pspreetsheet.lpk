@@ -11,10 +11,27 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\"/>
       </SearchPaths>
     </CompilerOptions>
-    <RequiredPkgs Count="1">
+    <Files Count="1">
       <Item1>
-        <PackageName Value="FCL"/>
+        <Filename Value="uspreetsheet.pas"/>
+        <UnitName Value="uspreetsheet"/>
       </Item1>
+    </Files>
+    <RequiredPkgs Count="4">
+      <Item1>
+        <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="..\base\dbintfs\pprometdbintfs.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="laz_fpspreadsheet_visual"/>
+        <DefaultFilename Value="..\components\fpspreadsheet\laz_fpspreadsheet_visual.lpk"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+      </Item4>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
