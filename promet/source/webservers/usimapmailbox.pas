@@ -399,7 +399,7 @@ begin
           end
         else if DataItem = 'RFC822.TEXT' then AddDataValue( MakeLiteral( MyMail.Lines.Text ) )
         else if DataItem = 'RFC822.SIZE' then AddDataValue( IntToStr( Length(MyMail.Lines.Text) ) )
-        else if DataItem = 'BODYSTRUCTURE' then AddDataValue( BodyStructure(MyMail.MessagePart, True ) )
+        else if DataItem = 'BODYSTRUCTURE' then {AddDataValue( BodyStructure(MyMail.MessagePart, True ) )}
         else if DataItem = 'BODY' then AddDataValue( BodyStructure(MyMail.MessagePart, False ) )
         else if Copy( DataItem, 1, 4 ) = 'BODY' then
           begin
@@ -815,7 +815,7 @@ begin
      end else begin
         Part := StrToInt( Section );
         if Part > 0 then begin
-           if MyMessage.MessagePart.ContentID = 'MULTIPART' then begin
+           if Uppercase(MyMessage.MessagePart.Primary) = 'MULTIPART' then begin
               if Part > MyMessage.MessagePart.GetSubPartCount then
                  //LogRaw( LOGID_WARN, 'Invalid Client operation: Fetching part '+
                  //     IntToStr(Part) + ' of ' + IntToStr(Length(Parts)) + ' part message.' )

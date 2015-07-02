@@ -797,7 +797,7 @@ begin
           FreeAndNil(FUserHist);
         end
       else
-        Data.Users.History.AddItem(Data.Users.DataSet,mEntry.Lines.Text,'','',nil,ACICON_USEREDITED,'',True,True);
+        Data.Users.History.AddParentedItem(Data.Users.DataSet,mEntry.Lines.Text,FParentItem,'','',nil,ACICON_USEREDITED,'',True,True);
       Found := True;
     end
   else
@@ -814,7 +814,7 @@ begin
         end;
       aTask.FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
       aTask.DataSet.Post;
-      Data.Users.History.AddItem(aTask.DataSet,aTask.FieldByName('SUMMARY').AsString,Data.BuildLink(aTask.DataSet),'',nil,ACICON_TASKADDED,'',False);;
+      Data.Users.History.AddParentedItem(aTask.DataSet,aTask.FieldByName('SUMMARY').AsString,FParentItem,Data.BuildLink(aTask.DataSet),'',nil,ACICON_TASKADDED,'',False);;
       aTask.Free;
     end;
   fTimeline.Refresh;
