@@ -819,7 +819,7 @@ begin
               if Part > MyMessage.MessagePart.GetSubPartCount then
                  //LogRaw( LOGID_WARN, 'Invalid Client operation: Fetching part '+
                  //     IntToStr(Part) + ' of ' + IntToStr(Length(Parts)) + ' part message.' )
-              else Result := MyMessage.MessagePart.GetSubPart(Part-1).Lines.Text;
+              else Result := MyMessage.MessagePart.GetSubPart(Part-1).PartBody.Text;
            end else begin
               // Non-[MIME-IMB] messages, and non-multipart [MIME-IMB] messages
               // with no encapsulated message, only have a part 1.
@@ -932,7 +932,7 @@ end;
 
 function TImapMailbox.FullBody(MyMessage: TMimeMess): string;
 begin
-  Result := MyMessage.MessagePart.Lines.Text;
+  Result := MyMessage.MessagePart.PartBody.Text;
 end;
 
 function TImapMailbox.FullHeader(MyMessage: TMimeMess): string;
