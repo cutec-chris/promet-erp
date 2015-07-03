@@ -8,30 +8,41 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="1">
+    <Files Count="3">
       <Item1>
         <Filename Value="uspreetsheet.pas"/>
         <UnitName Value="uspreetsheet"/>
       </Item1>
-    </Files>
-    <RequiredPkgs Count="4">
-      <Item1>
-        <PackageName Value="pPrometDBIntfs"/>
-        <DefaultFilename Value="..\base\dbintfs\pprometdbintfs.lpk"/>
-      </Item1>
       <Item2>
-        <PackageName Value="laz_fpspreadsheet_visual"/>
-        <DefaultFilename Value="..\components\fpspreadsheet\laz_fpspreadsheet_visual.lpk"/>
+        <Filename Value="usortparamsform.pas"/>
+        <UnitName Value="usortparamsform"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <Filename Value="uformatsettingsform.pas"/>
+        <UnitName Value="uformatsettingsform"/>
+      </Item3>
+    </Files>
+    <RequiredPkgs Count="5">
+      <Item1>
+        <PackageName Value="pvisualbaseframes"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="..\base\dbintfs\pprometdbintfs.lpk"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="laz_fpspreadsheet_visual"/>
+        <DefaultFilename Value="..\components\fpspreadsheet\laz_fpspreadsheet_visual.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCL"/>
       </Item4>
+      <Item5>
+        <PackageName Value="FCL"/>
+      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

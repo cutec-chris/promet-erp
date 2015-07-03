@@ -1,0 +1,394 @@
+object FormatSettingsForm: TFormatSettingsForm
+  Left = 417
+  Height = 494
+  Top = 229
+  Width = 470
+  BorderStyle = bsDialog
+  Caption = 'Workbook format settings'
+  ClientHeight = 494
+  ClientWidth = 470
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  Position = poMainFormCenter
+  ShowHint = True
+  LCLVersion = '1.5'
+  object PageControl: TPageControl
+    Left = 8
+    Height = 438
+    Top = 8
+    Width = 454
+    ActivePage = PgDateTime
+    Align = alClient
+    BorderSpacing.Around = 8
+    TabIndex = 2
+    TabOrder = 0
+    OnChange = PageControlChange
+    object PgNumber: TTabSheet
+      Caption = 'Number'
+      ClientHeight = 412
+      ClientWidth = 446
+      object LblDecimalSeparator: TLabel
+        Left = 16
+        Height = 13
+        Top = 19
+        Width = 90
+        Caption = 'Decimal separator:'
+        ParentColor = False
+      end
+      object LblThousandSeparator: TLabel
+        Left = 16
+        Height = 13
+        Top = 51
+        Width = 101
+        Caption = 'Thousand separator:'
+        ParentColor = False
+      end
+      object Label1: TLabel
+        Left = 4
+        Height = 13
+        Top = 395
+        Width = 438
+        Align = alBottom
+        BorderSpacing.Around = 4
+        Caption = 'The current workbook is automatically updated to these settings.'
+        ParentColor = False
+        WordWrap = True
+      end
+      object Bevel3: TBevel
+        Left = 0
+        Height = 3
+        Top = 388
+        Width = 446
+        Align = alBottom
+        Shape = bsBottomLine
+      end
+    end
+    object PgCurrency: TTabSheet
+      Caption = 'Currency'
+      ClientHeight = 412
+      ClientWidth = 446
+      object LblCurrencySymbol: TLabel
+        Left = 16
+        Height = 13
+        Top = 20
+        Width = 84
+        Caption = 'Currency symbol:'
+        FocusControl = EdCurrencySymbol
+        ParentColor = False
+      end
+      object EdCurrencySymbol: TEdit
+        Left = 200
+        Height = 21
+        Top = 16
+        Width = 202
+        Anchors = [akTop, akLeft, akRight]
+        OnChange = EdCurrencySymbolChange
+        TabOrder = 0
+      end
+      object LblCurrencySymbol1: TLabel
+        Left = 16
+        Height = 13
+        Top = 52
+        Width = 119
+        Caption = 'Currency decimal places:'
+        FocusControl = EdCurrencyDecimals
+        ParentColor = False
+      end
+      object EdCurrencyDecimals: TSpinEdit
+        Left = 200
+        Height = 21
+        Top = 48
+        Width = 66
+        TabOrder = 1
+      end
+      object LblPosCurrencyFormat: TLabel
+        Left = 16
+        Height = 13
+        Top = 84
+        Width = 125
+        Caption = 'Format of positive values:'
+        FocusControl = CbPosCurrencyFormat
+        ParentColor = False
+      end
+      object CbPosCurrencyFormat: TComboBox
+        Left = 200
+        Height = 21
+        Top = 80
+        Width = 231
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 13
+        Style = csDropDownList
+        TabOrder = 2
+      end
+      object LblNegCurrencyFormat: TLabel
+        Left = 16
+        Height = 13
+        Top = 116
+        Width = 130
+        Caption = 'Format of negative values:'
+        FocusControl = CbNegCurrencyFormat
+        ParentColor = False
+      end
+      object CbNegCurrencyFormat: TComboBox
+        Left = 200
+        Height = 21
+        Top = 112
+        Width = 231
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 13
+        Style = csDropDownList
+        TabOrder = 3
+      end
+      object Label2: TLabel
+        Left = 4
+        Height = 13
+        Top = 395
+        Width = 438
+        Align = alBottom
+        BorderSpacing.Around = 4
+        Caption = 'These settings are only respected in new cells.'
+        ParentColor = False
+        WordWrap = True
+      end
+      object Bevel2: TBevel
+        Left = 0
+        Height = 3
+        Top = 388
+        Width = 446
+        Align = alBottom
+        Shape = bsBottomLine
+      end
+      object BtnCurrency: TBitBtn
+        Left = 406
+        Height = 25
+        Top = 15
+        Width = 25
+        Caption = '...'
+        OnClick = BtnCurrencyClick
+        TabOrder = 4
+      end
+    end
+    object PgDateTime: TTabSheet
+      Caption = 'Date/time'
+      ClientHeight = 412
+      ClientWidth = 446
+      object LblNumFormat1: TLabel
+        Left = 16
+        Height = 13
+        Top = 20
+        Width = 117
+        Caption = 'Long date format string:'
+        ParentColor = False
+      end
+      object CbLongDateFormat: TComboBox
+        Left = 200
+        Height = 21
+        Top = 16
+        Width = 231
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 13
+        ItemIndex = 0
+        Items.Strings = (
+          'ddd, d/mm/yyyy'
+          'ddd, d/mmm/yyyy'
+          'dddd, d/mm/yyyy'
+          'dddd, d/mmm/yyyy'
+          'd/mm/yyyy'
+          'dd/mm/yyyy'
+          'dddd, mm/d/yyyy'
+          'dddd, mmm/d/yyyy'
+          'mm/d/yyyy'
+          'mm/dd/yyyy'
+          'yyyy/mm/dd'
+          'yyyy/mm/d'
+          'yyyy/mmm/d'
+          'yyyy/mmmm/d'
+        )
+        OnChange = DateTimeFormatChange
+        OnEnter = DateTimeFormatChange
+        TabOrder = 0
+        Text = 'ddd, d/mm/yyyy'
+      end
+      object LblNumFormat2: TLabel
+        Left = 16
+        Height = 13
+        Top = 52
+        Width = 120
+        Caption = 'Short date format string:'
+        ParentColor = False
+      end
+      object CbShortDateFormat: TComboBox
+        Left = 200
+        Height = 21
+        Top = 48
+        Width = 231
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 13
+        ItemIndex = 0
+        Items.Strings = (
+          'd/m/yy'
+          'd/mm/yy'
+          'd/mm/yyyy'
+          'm/d/yy'
+          'mm/d/yy'
+          'mm/d/yyyy'
+          'yy/m/d'
+          'yy/mm/d'
+          'yyyy/mm/d'
+        )
+        OnChange = DateTimeFormatChange
+        OnEnter = DateTimeFormatChange
+        TabOrder = 1
+        Text = 'd/m/yy'
+      end
+      object LblDateSeparator: TLabel
+        Left = 16
+        Height = 13
+        Top = 83
+        Width = 77
+        Caption = 'Date separator:'
+        ParentColor = False
+      end
+      object LblLongMonthNames: TLabel
+        Left = 16
+        Height = 13
+        Top = 116
+        Width = 94
+        Caption = 'Long month names:'
+        ParentColor = False
+      end
+      object LblShortMonthNames: TLabel
+        Left = 16
+        Height = 13
+        Top = 148
+        Width = 97
+        Caption = 'Short month names:'
+        ParentColor = False
+      end
+      object LblLongDayNames: TLabel
+        Left = 16
+        Height = 13
+        Top = 180
+        Width = 82
+        Caption = 'Long day names:'
+        ParentColor = False
+      end
+      object LblShortDayNames: TLabel
+        Left = 16
+        Height = 13
+        Top = 212
+        Width = 85
+        Caption = 'Short day names:'
+        ParentColor = False
+      end
+      object LblNumFormat3: TLabel
+        Left = 16
+        Height = 13
+        Top = 252
+        Width = 115
+        Caption = 'Long time format string:'
+        ParentColor = False
+      end
+      object LblNumFormat4: TLabel
+        Left = 16
+        Height = 13
+        Top = 284
+        Width = 118
+        Caption = 'Short time format string:'
+        ParentColor = False
+      end
+      object LblTimeSeparator: TLabel
+        Left = 16
+        Height = 13
+        Top = 315
+        Width = 76
+        Caption = 'Time separator:'
+        ParentColor = False
+      end
+      object CbLongTimeFormat: TComboBox
+        Left = 200
+        Height = 21
+        Top = 248
+        Width = 231
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 13
+        ItemIndex = 1
+        Items.Strings = (
+          'h:n:s'
+          'h:nn:ss'
+          'hh:nn:ss'
+        )
+        OnChange = DateTimeFormatChange
+        OnEnter = DateTimeFormatChange
+        TabOrder = 2
+        Text = 'h:nn:ss'
+      end
+      object CbShortTimeFormat: TComboBox
+        Left = 200
+        Height = 21
+        Top = 280
+        Width = 231
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 13
+        ItemIndex = 1
+        Items.Strings = (
+          'h:n'
+          'h:nn'
+          'hh:nn'
+        )
+        OnChange = DateTimeFormatChange
+        OnEnter = DateTimeFormatChange
+        TabOrder = 3
+        Text = 'h:nn'
+      end
+      object Label3: TLabel
+        Left = 4
+        Height = 26
+        Top = 382
+        Width = 438
+        Align = alBottom
+        BorderSpacing.Around = 4
+        Caption = 'Only the date and time separator are automatically respected by the workbook; the other settings are considered only for new cells.'
+        ParentColor = False
+        WordWrap = True
+      end
+      object Bevel1: TBevel
+        Left = 0
+        Height = 3
+        Top = 375
+        Width = 446
+        Align = alBottom
+        Shape = bsBottomLine
+      end
+    end
+  end
+  object ButtonPanel: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 454
+    Width = 458
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    OKButton.OnClick = OKButtonClick
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 1
+    ShowButtons = [pbOK, pbCancel]
+    object LblDateTimeSample: TLabel
+      Left = 6
+      Height = 36
+      Top = 2
+      Width = 287
+      Anchors = [akTop, akLeft, akRight]
+      AutoSize = False
+      Caption = 'sample'
+      Layout = tlCenter
+      ParentColor = False
+      WordWrap = True
+    end
+  end
+end

@@ -1,18 +1,17 @@
-object Frame1: TFrame1
-  Left = 0
-  Height = 503
-  Top = 0
-  Width = 754
-  ClientHeight = 503
-  ClientWidth = 754
-  TabOrder = 0
-  DesignLeft = 421
-  DesignTop = 255
+object fSpreetsheet: TfSpreetsheet
+  Left = 409
+  Height = 639
+  Top = 258
+  Width = 885
+  ClientHeight = 639
+  ClientWidth = 885
+  ShowHint = True
+  LCLVersion = '1.5'
   object FormatToolBar: TToolBar
     Left = 0
     Height = 27
     Top = 0
-    Width = 754
+    Width = 885
     ButtonHeight = 23
     Caption = 'FormatToolBar'
     Images = ImageList
@@ -39,6 +38,7 @@ object Frame1: TFrame1
       Top = 2
       Width = 127
       ItemHeight = 13
+      OnSelect = FontComboBoxSelect
       TabOrder = 0
     end
     object FontSizeComboBox: TComboBox
@@ -59,6 +59,7 @@ object Frame1: TFrame1
         '20'
         '24'
       )
+      OnSelect = FontSizeComboBoxSelect
       TabOrder = 1
     end
     object ToolButton7: TToolButton
@@ -139,7 +140,9 @@ object Frame1: TFrame1
       Width = 149
       NoneColorColor = clDefault
       Style = [cbPrettyNames, cbCustomColors]
+      OnGetColors = CbBackgroundColorGetColors
       ItemHeight = 20
+      OnSelect = CbBackgroundColorSelect
       TabOrder = 2
     end
     object ToolButton21: TToolButton
@@ -157,8 +160,8 @@ object Frame1: TFrame1
       Style = tbsDropDown
     end
     object ToolButton24: TToolButton
-      Left = 1
-      Top = 25
+      Left = 737
+      Top = 2
       Action = AcDecDecimals
     end
     object ToolButton25: TToolButton
@@ -190,7 +193,7 @@ object Frame1: TFrame1
     Left = 0
     Height = 26
     Top = 27
-    Width = 754
+    Width = 885
     Caption = 'FormulaToolBar'
     Constraints.MinHeight = 26
     TabOrder = 1
@@ -204,8 +207,9 @@ object Frame1: TFrame1
       Left = 176
       Height = 24
       Top = 2
-      Width = 578
+      Width = 709
       Align = alClient
+      OnEditingDone = MemoFormulaEditingDone
       TabOrder = 1
       WantReturns = False
     end
@@ -227,8 +231,38 @@ object Frame1: TFrame1
         Width = 170
         Align = alTop
         Alignment = taCenter
+        OnEditingDone = EdCellAddressEditingDone
         TabOrder = 0
       end
+    end
+  end
+  object TabControl: TTabControl
+    Left = 0
+    Height = 581
+    Top = 58
+    Width = 885
+    OnChange = TabControlChange
+    Align = alClient
+    TabOrder = 2
+    object WorksheetGrid: TsWorksheetGrid
+      Left = 2
+      Height = 576
+      Top = 3
+      Width = 881
+      FrozenCols = 0
+      FrozenRows = 0
+      ReadFormulas = False
+      Align = alClient
+      AutoAdvance = aaDown
+      BorderStyle = bsNone
+      ColCount = 27
+      MouseWheelOption = mwGrid
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSizing, goColSizing, goThumbTracking, goDblClickAutoSize, goHeaderHotTracking, goHeaderPushedLook, goFixedColSizing, goCellHints]
+      RowCount = 101
+      TabOrder = 1
+      TitleStyle = tsNative
+      OnHeaderClick = WorksheetGridHeaderClick
+      OnSelection = WorksheetGridSelection
     end
   end
   object Splitter1: TSplitter
@@ -236,49 +270,27 @@ object Frame1: TFrame1
     Left = 0
     Height = 5
     Top = 53
-    Width = 754
+    Width = 885
     Align = alTop
     ResizeAnchor = akTop
-  end
-  object sWorksheetGrid1: TsWorksheetGrid
-    Left = 0
-    Height = 422
-    Top = 58
-    Width = 754
-    FrozenCols = 0
-    FrozenRows = 0
-    ReadFormulas = False
-    Align = alClient
-    AutoAdvance = aaDown
-    ColCount = 27
-    RowCount = 101
-    TabOrder = 3
-    TitleStyle = tsNative
-  end
-  object StatusBar1: TStatusBar
-    Left = 0
-    Height = 23
-    Top = 480
-    Width = 754
-    Panels = <>
   end
   object OpenDialog: TOpenDialog
     DefaultExt = '.xls'
     Filter = 'Excel spreadsheet (*.xls)|*.xls|Excel XML spreadsheet (*.xlsx)|*.xlsx|LibreOffice/OpenOffice spreadsheet (*.ods)|*.ods|Comma-delimited files (*.csv)|*.csv|Wikitable (pipes) (.wikitable_pipes)|*.wikitable_pipes|All files (*.*)|*.*'
     Options = [ofExtensionDifferent, ofEnableSizing, ofViewDetail]
-    left = 212
-    top = 228
+    left = 184
+    top = 200
   end
   object SaveDialog: TSaveDialog
     DefaultExt = '.xls'
     Filter = 'Excel 97-2003 spreadsheet (*.xls)|*.xls|Excel 5.0/95 spreadsheet (*.xls)|*.xls|Excel 2 spreadsheet (*.xls)|*.xls|Excel 2007+  XML spreadsheet (*.xlsx)|*.xlsx|LibreOffice/OpenOffice spreadsheet (*.ods)|*.ods|Comma-delimited file (*.csv)|*.csv|Wikitable (wikimedia) (*.wikitable_wikimedia)|*.wikitable_wikimedia'
     Options = [ofOverwritePrompt, ofExtensionDifferent, ofEnableSizing, ofViewDetail]
-    left = 212
-    top = 292
+    left = 184
+    top = 264
   end
   object ImageList: TImageList
-    left = 300
-    top = 292
+    left = 272
+    top = 264
     Bitmap = {
       4C692B0000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00EAC39DFFE6BF96FFE4BB92FFE4BB92FFD1A06CF5D09E6DF6CC96
@@ -1661,14 +1673,15 @@ object Frame1: TFrame1
   end
   object ActionList: TActionList
     Images = ImageList
-    left = 300
-    top = 228
+    left = 272
+    top = 200
     object AcHorDefaultAlign: TAction
       Tag = 100
       Category = 'Format'
       AutoCheck = True
       Caption = 'Default'
       Checked = True
+      OnExecute = AcHorAlignmentExecute
     end
     object AcLeftAlign: TAction
       Tag = 101
@@ -1676,6 +1689,7 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = 'Left'
       ImageIndex = 4
+      OnExecute = AcHorAlignmentExecute
     end
     object AcHorCenterAlign: TAction
       Tag = 102
@@ -1683,6 +1697,7 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = 'Centered'
       ImageIndex = 5
+      OnExecute = AcHorAlignmentExecute
     end
     object AcRightAlign: TAction
       Tag = 103
@@ -1690,6 +1705,7 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = 'Right'
       ImageIndex = 6
+      OnExecute = AcHorAlignmentExecute
     end
     object AcFontBold: TAction
       Category = 'Format'
@@ -1697,6 +1713,7 @@ object Frame1: TFrame1
       Caption = 'Bold'
       Hint = 'Bold'
       ImageIndex = 7
+      OnExecute = AcFontStyleExecute
     end
     object AcFontItalic: TAction
       Category = 'Format'
@@ -1704,6 +1721,7 @@ object Frame1: TFrame1
       Caption = 'Italic'
       Hint = 'Italic'
       ImageIndex = 8
+      OnExecute = AcFontStyleExecute
     end
     object AcFontStrikeout: TAction
       Category = 'Format'
@@ -1711,6 +1729,7 @@ object Frame1: TFrame1
       Caption = 'Strike out'
       Hint = 'Strike out'
       ImageIndex = 9
+      OnExecute = AcFontStyleExecute
     end
     object AcFontUnderline: TAction
       Tag = 9
@@ -1719,18 +1738,21 @@ object Frame1: TFrame1
       Caption = 'Underline'
       Hint = 'Underline'
       ImageIndex = 10
+      OnExecute = AcFontStyleExecute
     end
     object AcFont: TAction
       Category = 'Format'
       Caption = 'Font...'
       Hint = 'Font'
       ImageIndex = 11
+      OnExecute = AcFontExecute
     end
     object AcVAlignDefault: TAction
       Tag = 110
       Category = 'Format'
       AutoCheck = True
       Caption = 'Default'
+      OnExecute = AcVertAlignmentExecute
     end
     object AcVAlignTop: TAction
       Tag = 111
@@ -1738,6 +1760,7 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = 'Top'
       ImageIndex = 12
+      OnExecute = AcVertAlignmentExecute
     end
     object AcVAlignCenter: TAction
       Tag = 112
@@ -1745,6 +1768,7 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = 'Centered'
       ImageIndex = 13
+      OnExecute = AcVertAlignmentExecute
     end
     object AcVAlignBottom: TAction
       Tag = 113
@@ -1752,90 +1776,107 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = 'Bottom'
       ImageIndex = 14
+      OnExecute = AcVertAlignmentExecute
     end
     object AcBorderNone: TAction
       Category = 'Format'
       Caption = 'No borders'
       ImageIndex = 15
+      OnExecute = AcBorderExecute
     end
     object AcBorderLeft: TAction
       Category = 'Format'
       Caption = 'Left'
       ImageIndex = 16
+      OnExecute = AcBorderExecute
     end
     object AcBorderHCenter: TAction
       Category = 'Format'
       Caption = 'Inner'
       ImageIndex = 17
+      OnExecute = AcBorderExecute
     end
     object AcBorderRight: TAction
       Category = 'Format'
       Caption = 'Right'
       ImageIndex = 18
+      OnExecute = AcBorderExecute
     end
     object AcBorderTop: TAction
       Category = 'Format'
       Caption = 'Top'
       ImageIndex = 19
+      OnExecute = AcBorderExecute
     end
     object AcBorderVCenter: TAction
       Category = 'Format'
       Caption = 'Inner'
       ImageIndex = 20
+      OnExecute = AcBorderExecute
     end
     object AcBorderBottom: TAction
       Category = 'Format'
       Caption = 'Bottom'
       GroupIndex = 120
       ImageIndex = 21
+      OnExecute = AcBorderExecute
     end
     object AcBorderBottomDbl: TAction
       Category = 'Format'
       Caption = 'Bottom/double'
       GroupIndex = 120
       ImageIndex = 22
+      OnExecute = AcBorderExecute
     end
     object AcBorderBottomMedium: TAction
       Category = 'Format'
       Caption = 'Bottom/thick'
       GroupIndex = 120
       ImageIndex = 23
+      OnExecute = AcBorderExecute
     end
     object AcBorderTopBottom: TAction
       Category = 'Format'
       Caption = 'Top and bottom'
       ImageIndex = 25
+      OnExecute = AcBorderExecute
     end
     object AcBorderTopBottomThick: TAction
       Category = 'Format'
       Caption = 'Top and bottom/thick'
       ImageIndex = 26
+      OnExecute = AcBorderExecute
     end
     object AcBorderInner: TAction
       Category = 'Format'
       Caption = 'All inner'
       ImageIndex = 24
+      OnExecute = AcBorderExecute
     end
     object AcBorderAll: TAction
       Category = 'Format'
       Caption = 'All'
       ImageIndex = 29
+      OnExecute = AcBorderExecute
     end
     object AcBorderOuter: TAction
       Category = 'Format'
       Caption = 'Outer'
       ImageIndex = 27
+      OnExecute = AcBorderExecute
     end
     object AcBorderOuterMedium: TAction
       Category = 'Format'
       Caption = 'Outer/thick'
       ImageIndex = 28
+      OnExecute = AcBorderExecute
     end
     object AcWordwrap: TAction
       Category = 'Format'
       AutoCheck = True
       Caption = 'Word wrap'
       Hint = 'Wrap text'
+      OnExecute = AcWordwrapExecute
     end
     object AcTextHoriz: TAction
       Tag = 130
@@ -1844,6 +1885,7 @@ object Frame1: TFrame1
       Caption = 'Horizontal'
       Checked = True
       Hint = 'Use horizontal text'
+      OnExecute = AcTextRotationExecute
     end
     object AcTextVertCW: TAction
       Tag = 131
@@ -1851,6 +1893,7 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = '90° clockwise'
       Hint = 'Text rotated by 90° clockwise'
+      OnExecute = AcTextRotationExecute
     end
     object AcTextVertCCW: TAction
       Tag = 132
@@ -1858,6 +1901,7 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = '90° counter-clockwise'
       Hint = 'Text rotated by 90° counter-clockwise'
+      OnExecute = AcTextRotationExecute
     end
     object AcTextStacked: TAction
       Tag = 133
@@ -1865,6 +1909,7 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = 'Stacked characters'
       Hint = 'Text characters stacked'
+      OnExecute = AcTextRotationExecute
     end
     object AcNFGeneral: TAction
       Tag = 1000
@@ -1872,6 +1917,7 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = 'General'
       Checked = True
+      OnExecute = AcNumFormatExecute
     end
     object AcNFFixed: TAction
       Tag = 1010
@@ -1879,6 +1925,7 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = 'Fixed'
       Hint = 'Fixed format'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFFixedTh: TAction
       Tag = 1020
@@ -1886,140 +1933,164 @@ object Frame1: TFrame1
       AutoCheck = True
       Caption = 'Fixed w/thousand separator'
       Hint = 'Fixed format with thousand separator'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFExp: TAction
       Tag = 1030
       Category = 'Format'
       AutoCheck = True
       Caption = 'Exponential'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFPercentage: TAction
       Tag = 1040
       Category = 'Format'
       AutoCheck = True
       Caption = 'Percentage'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFCurrency: TAction
       Tag = 1060
       Category = 'Format'
       AutoCheck = True
       Caption = 'Currency'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFCurrencyRed: TAction
       Tag = 1070
       Category = 'Format'
       AutoCheck = True
       Caption = 'Currency (negative values in red)'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFShortDateTime: TAction
       Tag = 1080
       Category = 'Format'
       AutoCheck = True
       Caption = 'Date + time'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFShortDate: TAction
       Tag = 1090
       Category = 'Format'
       AutoCheck = True
       Caption = 'Short date'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFLongDate: TAction
       Tag = 1100
       Category = 'Format'
       AutoCheck = True
       Caption = 'Long date'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFShortTime: TAction
       Tag = 1110
       Category = 'Format'
       AutoCheck = True
       Caption = 'Short time'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFLongTime: TAction
       Tag = 1120
       Category = 'Format'
       AutoCheck = True
       Caption = 'Long time'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFShortTimeAM: TAction
       Tag = 1130
       Category = 'Format'
       AutoCheck = True
       Caption = 'Short time AM/PM'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFLongTimeAM: TAction
       Tag = 1140
       Category = 'Format'
       AutoCheck = True
       Caption = 'Long time AM/PM'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFDayMonth: TAction
       Tag = 1150
       Category = 'Format'
       AutoCheck = True
       Caption = 'Day + month'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFMonthDay: TAction
       Tag = 1160
       Category = 'Format'
       AutoCheck = True
       Caption = 'Month + year'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFCusstomMS: TAction
       Tag = 1181
       Category = 'Format'
       AutoCheck = True
       Caption = 'Minutes + seconds'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFCustomMSZ: TAction
       Tag = 1182
       Category = 'Format'
       AutoCheck = True
       Caption = 'Minutes + seconds + milliseconds'
+      OnExecute = AcNumFormatExecute
     end
     object AcNFTimeInterval: TAction
       Tag = 1170
       Category = 'Format'
       AutoCheck = True
       Caption = 'Time interval'
+      OnExecute = AcNumFormatExecute
     end
     object AcIncDecimals: TAction
       Category = 'Format'
       Caption = 'AcIncDecimals'
       Hint = 'More decimals'
       ImageIndex = 31
+      OnExecute = AcIncDecDecimalsExecute
     end
     object AcDecDecimals: TAction
       Category = 'Format'
       Caption = 'AcDecDecimals'
       Hint = 'Less decimals'
       ImageIndex = 32
+      OnExecute = AcIncDecDecimalsExecute
     end
     object AcCopyFormat: TAction
       Category = 'Format'
       AutoCheck = True
       Caption = 'AcCopyFormat'
       ImageIndex = 30
+      OnExecute = AcCopyFormatExecute
     end
     object AcNew: TAction
       Category = 'File'
       Caption = 'New'
       ImageIndex = 34
+      OnExecute = AcNewExecute
     end
     object AcOpen: TAction
       Category = 'File'
       Caption = 'Open...'
       ImageIndex = 0
+      OnExecute = acOpenExecute
     end
     object AcSaveAs: TAction
       Category = 'File'
       Caption = 'Save as...'
       ImageIndex = 1
+      OnExecute = acSaveAsExecute
     end
     object AcQuit: TAction
       Category = 'File'
       Caption = 'Quit'
       ImageIndex = 2
+      OnExecute = acQuitExecute
     end
     object AcEdit: TAction
       Category = 'Edit'
@@ -2027,30 +2098,35 @@ object Frame1: TFrame1
       Caption = 'Edit mode'
       Hint = 'Enable/disable editing'
       ImageIndex = 3
+      OnExecute = AcEditExecute
     end
     object AcAddColumn: TAction
       Category = 'Edit'
       Caption = 'Add column'
       Hint = 'Add column'
       ImageIndex = 36
+      OnExecute = AcAddColumnExecute
     end
     object AcAddRow: TAction
       Category = 'Edit'
       Caption = 'Add row'
       Hint = 'Add row'
       ImageIndex = 35
+      OnExecute = AcAddRowExecute
     end
     object AcViewInspector: TAction
       Category = 'View'
       AutoCheck = True
       Caption = 'Inspector'
       Checked = True
+      OnExecute = AcViewInspectorExecute
     end
     object AcMergeCells: TAction
       Category = 'Format'
       Caption = 'Merge cells'
       Hint = 'Merge/unmerge selected cells'
       ImageIndex = 39
+      OnExecute = AcMergeCellsExecute
     end
     object AcShowHeaders: TAction
       Category = 'View'
@@ -2058,6 +2134,7 @@ object Frame1: TFrame1
       Caption = 'Headers'
       Checked = True
       Hint = 'Show/hide column and row headers'
+      OnExecute = AcShowHeadersExecute
     end
     object AcShowGridlines: TAction
       Category = 'View'
@@ -2065,61 +2142,78 @@ object Frame1: TFrame1
       Caption = 'Grid lines'
       Checked = True
       Hint = 'Show/hide grid lines'
+      OnExecute = AcShowGridlinesExecute
     end
     object AcDeleteColumn: TAction
       Category = 'Edit'
       Caption = 'Delete column'
       Hint = 'Delete column'
       ImageIndex = 38
+      OnExecute = AcDeleteColumnExecute
     end
     object AcDeleteRow: TAction
       Category = 'Edit'
       Caption = 'Delete row'
       Hint = 'Delete row'
       ImageIndex = 37
+      OnExecute = AcDeleteRowExecute
     end
     object AcCSVParams: TAction
       Category = 'Settings'
       Caption = 'CSV parameters...'
+      OnExecute = AcCSVParamsExecute
     end
     object AcFormatSettings: TAction
       Category = 'File'
       Caption = 'Number format settings...'
       Hint = 'Modify the global settings for number and date/time formatting'
+      OnExecute = AcFormatSettingsExecute
     end
     object AcSortColAsc: TAction
       Caption = 'Sort column only (ascending)'
       Hint = 'Sort selected column (ascending)'
+      OnExecute = AcSortColAscExecute
     end
     object AcSort: TAction
       Caption = 'Sort...'
       Hint = 'Sort selected range'
+      OnExecute = AcSortExecute
     end
     object AcCurrencySymbols: TAction
       Category = 'Settings'
       Caption = 'Currency symbols...'
       Hint = 'Names and symbols known as valid currencies'
+      OnExecute = AcCurrencySymbolsExecute
     end
     object AcCommentAdd: TAction
       Caption = 'New comment..'
       Hint = 'Add comment'
       ImageIndex = 40
+      OnExecute = AcCommentAddExecute
     end
     object AcCommentDelete: TAction
       Caption = 'Delete comment'
       Hint = 'Delete comment'
       ImageIndex = 41
+      OnExecute = AcCommentDeleteExecute
     end
     object AcCommentEdit: TAction
       Caption = 'Edit comment...'
       Hint = 'Edit comment'
       ImageIndex = 42
+      OnExecute = AcCommentAddExecute
     end
+  end
+  object FontDialog: TFontDialog
+    MinFontSize = 0
+    MaxFontSize = 0
+    left = 184
+    top = 328
   end
   object BordersPopupMenu: TPopupMenu
     Images = ImageList
-    left = 392
-    top = 228
+    left = 384
+    top = 264
     object MenuItem20: TMenuItem
       Action = AcBorderNone
       Bitmap.Data = {
@@ -2725,8 +2819,8 @@ object Frame1: TFrame1
     end
   end
   object NumFormatPopupMenu: TPopupMenu
-    left = 392
-    top = 292
+    left = 384
+    top = 328
     object MnuNFGeneral: TMenuItem
       Action = AcNFGeneral
       AutoCheck = True

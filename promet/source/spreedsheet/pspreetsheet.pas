@@ -7,7 +7,7 @@ unit pspreetsheet;
 interface
 
 uses
-  uspreetsheet, LazarusPackageIntf;
+  uspreetsheet, usortparamsform, uformatsettingsform, LazarusPackageIntf;
 
 implementation
 
