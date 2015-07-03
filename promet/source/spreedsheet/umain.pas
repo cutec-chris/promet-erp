@@ -38,7 +38,7 @@ var
   fMain: TfMain;
 implementation
 {$R *.lfm}
-uses uBaseApplication, uData, uBaseDbInterface, uOrder;
+uses uBaseApplication, uData, uBaseDbInterface, uOrder,uspreetsheet;
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
@@ -51,6 +51,7 @@ end;
 procedure TfMain.acLoginExecute(Sender: TObject);
 var
   a: TOrder;
+  aSheet: TfSpreetsheet;
 begin
   with Application as IBaseApplication do
     if not Login then
@@ -61,7 +62,12 @@ begin
   acLogin.Enabled:=False;
   acLogout.Enabled:=True;
 
-
+  aSheet := TfSpreetsheet.Create(Self);
+  aSheet.DisableAutoSizing;
+  aSheet.Parent := tsHelp;
+  aSheet.Align:=alClient;
+  aSheet.Show;
+  aSheet.EnableAutoSizing;
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin

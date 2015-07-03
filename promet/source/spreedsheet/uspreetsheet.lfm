@@ -1,13 +1,9 @@
-object fSpreetsheet: TfSpreetsheet
-  Left = 409
+inherited fSpreetsheet: TfSpreetsheet
   Height = 639
-  Top = 258
   Width = 885
   ClientHeight = 639
   ClientWidth = 885
-  ShowHint = True
-  LCLVersion = '1.5'
-  object FormatToolBar: TToolBar
+  object FormatToolBar: TToolBar[0]
     Left = 0
     Height = 27
     Top = 0
@@ -189,7 +185,7 @@ object fSpreetsheet: TfSpreetsheet
       Action = AcMergeCells
     end
   end
-  object FormulaToolBar: TToolBar
+  object FormulaToolBar: TToolBar[1]
     Left = 0
     Height = 26
     Top = 27
@@ -198,16 +194,16 @@ object fSpreetsheet: TfSpreetsheet
     Constraints.MinHeight = 26
     TabOrder = 1
     object FormulaToolbarSplitter: TSplitter
-      Left = 171
+      Left = 47
       Height = 24
       Top = 2
       Width = 5
     end
     object FormulaMemo: TMemo
-      Left = 176
+      Left = 52
       Height = 24
       Top = 2
-      Width = 709
+      Width = 833
       Align = alClient
       OnEditingDone = MemoFormulaEditingDone
       TabOrder = 1
@@ -217,18 +213,18 @@ object fSpreetsheet: TfSpreetsheet
       Left = 1
       Height = 22
       Top = 2
-      Width = 170
+      Width = 46
       Align = alLeft
       BorderSpacing.Bottom = 2
       BevelOuter = bvNone
       ClientHeight = 22
-      ClientWidth = 170
+      ClientWidth = 46
       TabOrder = 2
       object EdCellAddress: TEdit
         Left = 0
         Height = 21
         Top = 0
-        Width = 170
+        Width = 46
         Align = alTop
         Alignment = taCenter
         OnEditingDone = EdCellAddressEditingDone
@@ -236,7 +232,7 @@ object fSpreetsheet: TfSpreetsheet
       end
     end
   end
-  object TabControl: TTabControl
+  object TabControl: TTabControl[2]
     Left = 0
     Height = 581
     Top = 58
@@ -257,7 +253,7 @@ object fSpreetsheet: TfSpreetsheet
       BorderStyle = bsNone
       ColCount = 27
       MouseWheelOption = mwGrid
-      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSizing, goColSizing, goThumbTracking, goDblClickAutoSize, goHeaderHotTracking, goHeaderPushedLook, goFixedColSizing, goCellHints]
+      Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSizing, goColSizing, goEditing, goThumbTracking, goDblClickAutoSize, goHeaderHotTracking, goHeaderPushedLook, goFixedColSizing, goCellHints]
       RowCount = 101
       TabOrder = 1
       TitleStyle = tsNative
@@ -265,7 +261,7 @@ object fSpreetsheet: TfSpreetsheet
       OnSelection = WorksheetGridSelection
     end
   end
-  object Splitter1: TSplitter
+  object Splitter1: TSplitter[3]
     Cursor = crVSplit
     Left = 0
     Height = 5
@@ -274,21 +270,21 @@ object fSpreetsheet: TfSpreetsheet
     Align = alTop
     ResizeAnchor = akTop
   end
-  object OpenDialog: TOpenDialog
+  object OpenDialog: TOpenDialog[4]
     DefaultExt = '.xls'
     Filter = 'Excel spreadsheet (*.xls)|*.xls|Excel XML spreadsheet (*.xlsx)|*.xlsx|LibreOffice/OpenOffice spreadsheet (*.ods)|*.ods|Comma-delimited files (*.csv)|*.csv|Wikitable (pipes) (.wikitable_pipes)|*.wikitable_pipes|All files (*.*)|*.*'
     Options = [ofExtensionDifferent, ofEnableSizing, ofViewDetail]
     left = 184
     top = 200
   end
-  object SaveDialog: TSaveDialog
+  object SaveDialog: TSaveDialog[5]
     DefaultExt = '.xls'
     Filter = 'Excel 97-2003 spreadsheet (*.xls)|*.xls|Excel 5.0/95 spreadsheet (*.xls)|*.xls|Excel 2 spreadsheet (*.xls)|*.xls|Excel 2007+  XML spreadsheet (*.xlsx)|*.xlsx|LibreOffice/OpenOffice spreadsheet (*.ods)|*.ods|Comma-delimited file (*.csv)|*.csv|Wikitable (wikimedia) (*.wikitable_wikimedia)|*.wikitable_wikimedia'
     Options = [ofOverwritePrompt, ofExtensionDifferent, ofEnableSizing, ofViewDetail]
     left = 184
     top = 264
   end
-  object ImageList: TImageList
+  object ImageList: TImageList[6]
     left = 272
     top = 264
     Bitmap = {
@@ -1671,7 +1667,7 @@ object fSpreetsheet: TfSpreetsheet
       0000000000000000000000000000
     }
   end
-  object ActionList: TActionList
+  object ActionList: TActionList[7]
     Images = ImageList
     left = 272
     top = 200
@@ -2098,7 +2094,6 @@ object fSpreetsheet: TfSpreetsheet
       Caption = 'Edit mode'
       Hint = 'Enable/disable editing'
       ImageIndex = 3
-      OnExecute = AcEditExecute
     end
     object AcAddColumn: TAction
       Category = 'Edit'
@@ -2202,13 +2197,13 @@ object fSpreetsheet: TfSpreetsheet
       OnExecute = AcCommentAddExecute
     end
   end
-  object FontDialog: TFontDialog
+  object FontDialog: TFontDialog[8]
     MinFontSize = 0
     MaxFontSize = 0
     left = 184
     top = 328
   end
-  object BordersPopupMenu: TPopupMenu
+  object BordersPopupMenu: TPopupMenu[9]
     Images = ImageList
     left = 384
     top = 264
@@ -2816,7 +2811,7 @@ object fSpreetsheet: TfSpreetsheet
       }
     end
   end
-  object NumFormatPopupMenu: TPopupMenu
+  object NumFormatPopupMenu: TPopupMenu[10]
     left = 384
     top = 328
     object MnuNFGeneral: TMenuItem

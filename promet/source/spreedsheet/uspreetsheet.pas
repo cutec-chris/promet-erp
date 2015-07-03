@@ -15,7 +15,7 @@ type
 
   { TfSpreetsheet }
 
-  TfSpreetsheet = class(TForm)
+  TfSpreetsheet = class(TPrometMainFrame)
     AcOpen: TAction;
     AcSaveAs: TAction;
     AcQuit: TAction;
@@ -289,7 +289,6 @@ type
     procedure AcCopyFormatExecute(Sender: TObject);
     procedure AcDeleteColumnExecute(Sender: TObject);
     procedure AcDeleteRowExecute(Sender: TObject);
-    procedure AcEditExecute(Sender: TObject);
     procedure AcFontExecute(Sender: TObject);
     procedure AcFontStyleExecute(Sender: TObject);
     procedure AcFormatSettingsExecute(Sender: TObject);
@@ -323,7 +322,6 @@ type
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure InspectorPageControlChange(Sender: TObject);
     procedure MemoFormulaEditingDone(Sender: TObject);
     procedure TabControlChange(Sender: TObject);
     procedure WorksheetGridHeaderClick(Sender: TObject; IsColumn: Boolean;
@@ -338,18 +336,17 @@ type
     procedure LoadFile(const AFileName: String);
     procedure SetupBackgroundColorBox;
     procedure UpdateBackgroundColorIndex;
-    procedure UpdateCellInfo(ACell: PCell);
     procedure UpdateCommentActions;
     procedure UpdateFontNameIndex;
     procedure UpdateFontSizeIndex;
     procedure UpdateFontStyleActions;
     procedure UpdateHorAlignmentActions;
-    procedure UpdateInspector;
     procedure UpdateNumFormatActions;
     procedure UpdateTextRotationActions;
     procedure UpdateVertAlignmentActions;
     procedure UpdateWordwraps;
 
+    procedure DoOpen;
   public
     procedure BeforeRun;
 
@@ -394,14 +391,6 @@ const
 
 
 { TfSpreetsheet }
-
-procedure TfSpreetsheet.AcEditExecute(Sender: TObject);
-begin
-  if AcEdit.Checked then
-    WorksheetGrid.Options := WorksheetGrid.Options + [goEditing]
-  else
-    WorksheetGrid.Options := WorksheetGrid.Options - [goEditing];
-end;
 
 procedure TfSpreetsheet.AcBorderExecute(Sender: TObject);
 const
@@ -1060,19 +1049,11 @@ begin
 
   // Initialize a new empty workbook
   AcNewExecute(nil);
-
-  ActiveControl := WorksheetGrid;
 end;
 
 procedure TfSpreetsheet.FormDestroy(Sender: TObject);
 begin
   FPalette.Free;
-end;
-
-procedure TfSpreetsheet.InspectorPageControlChange(Sender: TObject);
-begin
-  CellInspector.Parent := InspectorPageControl.ActivePage;
-  UpdateInspector;
 end;
 
 procedure TfSpreetsheet.LoadFile(const AFileName: String);
@@ -1185,145 +1166,6 @@ begin
   end;
 end;
 
-procedure TfSpreetsheet.UpdateCellInfo(ACell: PCell);
-var
-  s: String;
-  cb: TsCellBorder;
-  r1,r2,c1,c2: Cardinal;
-  fmt: TsCellFormat;
-  nfparams: TsNumFormatParams;
-begin
-  with CellInspector do
-  begin
-    TitleCaptions[0] := 'Properties';
-    TitleCaptions[1] := 'Values';
-    Strings.Clear;
-    if InspectorPageControl.ActivePage = PgCellValue then
-    begin
-      if ACell=nil
-        then Strings.Add(Format('Row=%d', [WorksheetGrid.GetWorksheetRow(WorksheetGrid.Row)]))
-        else Strings.Add(Format('Row=%d', [ACell^.Row]));
-      if ACell=nil
-        then Strings.Add(Format('Column=%d', [WorksheetGrid.GetWorksheetCol(WorksheetGrid.Col)]))
-        else Strings.Add(Format('Column=%d', [ACell^.Col]));
-      if ACell=nil
-        then Strings.Add('ContentType=')
-        else Strings.Add(Format('ContentType=%s', [GetEnumName(TypeInfo(TCellContentType), ord(ACell^.ContentType))]));
-      if (ACell=nil) or (ACell^.ContentType <> cctNumber)
-        then Strings.Add('NumberValue=')
-        else Strings.Add(Format('NumberValue=%g', [ACell^.NumberValue]));
-      if (ACell=nil) or (ACell^.ContentType <> cctDateTime)
-        then Strings.Add('DateTimeValue=')
-        else Strings.Add(Format('DateTimeValue=%g', [ACell^.DateTimeValue]));
-      if (ACell=nil) or (ACell^.ContentType <> cctUTF8String)
-        then Strings.Add('UTF8StringValue=')
-        else Strings.Add(Format('UTF8StringValue=%s', [ACell^.UTF8StringValue]));
-      if (ACell=nil) or (ACell^.ContentType <> cctBool)
-        then Strings.Add('BoolValue=')
-        else Strings.Add(Format('BoolValue=%s', [BoolToStr(ACell^.BoolValue)]));
-      if (ACell=nil) or (ACell^.ContentType <> cctError)
-        then Strings.Add('ErrorValue=')
-        else Strings.Add(Format('ErrorValue=%s', [
-               GetEnumName(TypeInfo(TsErrorValue), ord(ACell^.ErrorValue)) ]));
-      if (ACell=nil) or (Length(ACell^.FormulaValue)=0)
-        then Strings.Add('FormulaValue=')
-        else Strings.Add(Format('FormulaValue="%s"', [ACell^.FormulaValue]));
-    end
-    else
-    if InspectorPageControl.ActivePage = PgSheet then
-    begin
-      if WorksheetGrid.Worksheet = nil then
-      begin
-        Strings.Add('First row=');
-        Strings.Add('Last row=');
-        Strings.Add('First column=');
-        Strings.Add('Last column=');
-      end else
-      begin
-        Strings.Add(Format('First row=%d', [WorksheetGrid.Worksheet.GetFirstRowIndex]));
-        Strings.Add(Format('Last row=%d', [WorksheetGrid.Worksheet.GetLastRowIndex]));
-        Strings.Add(Format('First column=%d', [WorksheetGrid.Worksheet.GetFirstColIndex]));
-        Strings.Add(Format('Last column=%d', [WorksheetGrid.Worksheet.GetLastColIndex]));
-      end;
-    end
-    else
-    begin
-      if ACell <> nil
-        then fmt := WorksheetGrid.Workbook.GetCellFormat(ACell^.FormatIndex)
-        else InitFormatRecord(fmt);
-      if (ACell=nil) or not (uffFont in fmt.UsedFormattingFields)
-        then Strings.Add('FontIndex=')
-        else Strings.Add(Format('FontIndex=%d (%s)', [
-               fmt.FontIndex,
-               WorksheetGrid.Workbook.GetFontAsString(fmt.FontIndex)]));
-      if (ACell=nil) or not (uffTextRotation in fmt.UsedFormattingFields)
-        then Strings.Add('TextRotation=')
-        else Strings.Add(Format('TextRotation=%s', [GetEnumName(TypeInfo(TsTextRotation), ord(fmt.TextRotation))]));
-      if (ACell=nil) or not (uffHorAlign in fmt.UsedFormattingFields)
-        then Strings.Add('HorAlignment=')
-        else Strings.Add(Format('HorAlignment=%s', [GetEnumName(TypeInfo(TsHorAlignment), ord(fmt.HorAlignment))]));
-      if (ACell=nil) or not (uffVertAlign in fmt.UsedFormattingFields)
-        then Strings.Add('VertAlignment=')
-        else Strings.Add(Format('VertAlignment=%s', [GetEnumName(TypeInfo(TsVertAlignment), ord(fmt.VertAlignment))]));
-      if (ACell=nil) or not (uffBorder in fmt.UsedFormattingFields) then
-        Strings.Add('Borders=')
-      else begin
-        s := '';
-        if cbNorth in fmt.Border then s := s + ', cbNorth';
-        if cbSouth in fmt.Border then s := s + ', cbSouth';
-        if cbEast in fmt.Border then s := s + ', cbEast';
-        if cbWest in fmt.Border then s := s + ', cbWest';
-        if cbDiagUp in fmt.Border then s := s + ', cbDiagUp';
-        if cbDiagDown in fmt.Border then s := s + ', cbDiagDown';
-        if s <> '' then Delete(s, 1, 2);
-        Strings.Add('Borders='+s);
-      end;
-      for cb in TsCellBorder do
-        if ACell=nil then
-          Strings.Add(Format('BorderStyles[%s]=', [
-            GetEnumName(TypeInfo(TsCellBorder), ord(cb))
-          ]))
-        else
-          Strings.Add(Format('BorderStyles[%s]=%s, %s', [
-            GetEnumName(TypeInfo(TsCellBorder), ord(cb)),
-            GetEnumName(TypeInfo(TsLineStyle), ord(fmt.BorderStyles[cb].LineStyle)),
-            GetColorName(fmt.BorderStyles[cb].Color)
-          ]));
-      if (ACell=nil) or not (uffBackground in fmt.UsedformattingFields)
-        then Strings.Add('BackgroundColor=')
-        else Strings.Add(Format('BackgroundColor=$%8x (%s)', [
-               fmt.Background.BgColor,
-               GetColorName(fmt.Background.BgColor)
-             ]));
-      if (ACell=nil) or not (uffNumberFormat in fmt.UsedFormattingFields)
-        then Strings.Add('NumberFormat=')
-        else begin
-          nfparams := WorksheetGrid.Workbook.GetNumberFormat(fmt.NumberFormatIndex);
-          if nfparams = nil then
-          begin
-            Strings.Add('NumberFormat=General');
-            Strings.Add('NumberFormatStr=');
-          end else
-          begin
-            Strings.Add(Format('NumberFormat=%s', [GetEnumName(TypeInfo(TsNumberFormat), ord(nfparams.NumFormat))]));
-            Strings.Add(Format('NumberFormatStr=%s', [nfparams.NumFormatStr]));
-          end;
-        end;
-      {
-      if (ACell=nil) or not (uffNumberFormat in fmt.UsedFormattingFields)
-        then Strings.Add('NumberFormatStr=')
-        else Strings.Add('NumberFormatStr=' + fmt.NumberFormatStr);
-      }
-      if not WorksheetGrid.Worksheet.IsMerged(ACell)
-        then Strings.Add('Merged range=')
-        else begin
-          WorksheetGrid.Worksheet.FindMergedRange(ACell, r1, c1, r2, c2);
-          Strings.Add('Merged range=' + GetCellRangeString(r1, c1, r2, c2));
-        end;
-    end;
-  end;
-end;
-
 procedure TfSpreetsheet.UpdateCommentActions;
 var
   r, c: Cardinal;
@@ -1373,17 +1215,6 @@ begin
   AcFontItalic.Checked := fssItalic in style;
   AcFontUnderline.Checked := fssUnderline in style;
   AcFontStrikeout.Checked := fssStrikeOut in style;
-end;
-
-procedure TfSpreetsheet.UpdateInspector;
-var
-  r, c: Cardinal;
-  cell: PCell;
-begin
-  r := WorksheetGrid.GetWorksheetRow(WorksheetGrid.Row);
-  c := WorksheetGrid.GetWorksheetCol(WorksheetGrid.Col);
-  cell := WorksheetGrid.Worksheet.FindCell(r, c);
-  UpdateCellInfo(cell);
 end;
 
 procedure TfSpreetsheet.UpdateNumFormatActions;
@@ -1456,6 +1287,11 @@ begin
   AcWordwrap.Checked := wrapped;
 end;
 
+procedure TfSpreetsheet.DoOpen;
+begin
+
+end;
+
 procedure TfSpreetsheet.WorksheetGridSelection(Sender: TObject; aCol,
   aRow: Integer);
 var
@@ -1515,7 +1351,6 @@ begin
   UpdateNumFormatActions;
   UpdateCommentActions;
 
-  UpdateCellInfo(cell);
 end;
 
 
