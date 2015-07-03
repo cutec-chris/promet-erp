@@ -2161,7 +2161,6 @@ object fSpreetsheet: TfSpreetsheet
     object AcCSVParams: TAction
       Category = 'Settings'
       Caption = 'CSV parameters...'
-      OnExecute = AcCSVParamsExecute
     end
     object AcFormatSettings: TAction
       Category = 'File'
@@ -2183,7 +2182,6 @@ object fSpreetsheet: TfSpreetsheet
       Category = 'Settings'
       Caption = 'Currency symbols...'
       Hint = 'Names and symbols known as valid currencies'
-      OnExecute = AcCurrencySymbolsExecute
     end
     object AcCommentAdd: TAction
       Caption = 'New comment..'

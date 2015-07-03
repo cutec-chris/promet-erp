@@ -287,8 +287,6 @@ type
     procedure AcCommentAddExecute(Sender: TObject);
     procedure AcCommentDeleteExecute(Sender: TObject);
     procedure AcCopyFormatExecute(Sender: TObject);
-    procedure AcCSVParamsExecute(Sender: TObject);
-    procedure AcCurrencySymbolsExecute(Sender: TObject);
     procedure AcDeleteColumnExecute(Sender: TObject);
     procedure AcDeleteRowExecute(Sender: TObject);
     procedure AcEditExecute(Sender: TObject);
@@ -602,6 +600,26 @@ begin
   end;
 end;
 
+procedure TfSpreetsheet.AcFormatSettingsExecute(Sender: TObject);
+var
+  F: TFormatSettingsForm;
+begin
+  if WorksheetGrid.Workbook = nil then
+    exit;
+
+  F := TFormatSettingsForm.Create(nil);
+  try
+    F.FormatSettings := WorksheetGrid.Workbook.FormatSettings;
+    if F.ShowModal = mrOK then
+    begin
+      WorksheetGrid.Workbook.FormatSettings := F.FormatSettings;
+      WorksheetGrid.Invalidate;
+    end;
+  finally
+    F.Free;
+  end;
+end;
+
 procedure TfSpreetsheet.AcHorAlignmentExecute(Sender: TObject);
 var
   hor_align: TsHorAlignment;
@@ -727,13 +745,18 @@ begin
 end;
 
 
-procedure TfSpreetsheet.acOpenExecute(Sender: TObject);
+procedure TfSpreetsheet.AcOpenExecute(Sender: TObject);
 begin
   if OpenDialog.Execute then
     LoadFile(OpenDialog.FileName);
 end;
 
-procedure TfSpreetsheet.acSaveAsExecute(Sender: TObject);
+procedure TfSpreetsheet.AcQuitExecute(Sender: TObject);
+begin
+
+end;
+
+procedure TfSpreetsheet.AcSaveAsExecute(Sender: TObject);
 // Saves sheet in grid to file, overwriting existing file
 var
   err: String = '';
@@ -1433,7 +1456,8 @@ begin
   AcWordwrap.Checked := wrapped;
 end;
 
-procedure TfSpreetsheet.WorksheetGridSelection(Sender: TObject; ACol, ARow: Integer);
+procedure TfSpreetsheet.WorksheetGridSelection(Sender: TObject; aCol,
+  aRow: Integer);
 var
   r, c: Cardinal;
   cell: PCell;

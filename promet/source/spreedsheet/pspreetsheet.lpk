@@ -11,7 +11,7 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="3">
+    <Files Count="5">
       <Item1>
         <Filename Value="uspreetsheet.pas"/>
         <UnitName Value="uspreetsheet"/>
@@ -24,6 +24,14 @@
         <Filename Value="uformatsettingsform.pas"/>
         <UnitName Value="uformatsettingsform"/>
       </Item3>
+      <Item4>
+        <Filename Value="sctrls.pas"/>
+        <UnitName Value="sCtrls"/>
+      </Item4>
+      <Item5>
+        <Filename Value="ucurrencyform.pas"/>
+        <UnitName Value="ucurrencyform"/>
+      </Item5>
     </Files>
     <RequiredPkgs Count="5">
       <Item1>

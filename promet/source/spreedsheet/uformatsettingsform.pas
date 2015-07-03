@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  ButtonPanel, ComCtrls, StdCtrls, Spin, ExtCtrls, Buttons;
+  ButtonPanel, ComCtrls, StdCtrls, Spin, ExtCtrls, Buttons,sCtrls;
 
 type
   { TFormatSettingsForm }
@@ -86,7 +86,7 @@ implementation
 
 uses
   fpsUtils, fpsNumFormat,
-  sCurrencyForm;
+  uCurrencyForm;
 
 const
   CURR_VALUE = 100.0;

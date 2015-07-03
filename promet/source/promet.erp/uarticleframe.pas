@@ -643,7 +643,7 @@ begin
   pcPages.NewFrame(TfArticlePositionFrame,TMasterdata(DataSet).Positions.Count > 0,strPositions,@AddPositions);
 
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
-  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
+  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) and (not Assigned(pcPages.GetTab(TfDocumentFrame))) then
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;

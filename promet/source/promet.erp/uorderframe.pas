@@ -759,7 +759,9 @@ begin
   pcHeader.NewFrame(TfOrderAdditionalFrame,(FDataSet.State = dsInsert) or TfOrderAdditionalFrame(aFrame).IsNeeded(FDataSet.DataSet),strAdditional,@AddAdditional);
 
   pcHeader.AddTabClass(TfOrderOverviewFrame,strOverview,@AddOverview);
-  if FDataSet.Count > 1 then
+  if Assigned(pcHeader.GetTab(TfOrderOverviewFrame)) then
+    pcHeader.GetTab(TfOrderOverviewFrame).Free;
+  if (FDataSet.Count > 1) then
     pcHeader.AddTab(TfOrderOverviewFrame.Create(Self),False);
 
   pcHeader.AddTabClass(TfOrderDateFrame,strDates,@AddDates);
@@ -775,7 +777,7 @@ begin
   pcHeader.NewFrame(TfHistoryFrame,TOrder(DataSet).History.Count > 0,strHistory,@AddHistory);
 
   pcHeader.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
-  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
+  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) and (not Assigned(pcHeader.GetTab(TfDocumentFrame))) then
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
@@ -992,7 +994,6 @@ begin
     aLink := copy(aLink,0,rpos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
     aLink := copy(aLink,0,rpos('(',aLink)-1);
-  pcHeader.CloseAll;
   FPosFrame.Dataset:=nil;
   CloseConnection(acSave.Enabled);
   FreeAndNil(FConnection);
