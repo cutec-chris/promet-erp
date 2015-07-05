@@ -143,7 +143,6 @@ begin
     else
       Result := Copy(s, 1, l);
 end;
-
 function LTrim(const s: string): string;
 var
   i, p, l: integer;
@@ -164,7 +163,6 @@ begin
     else
       Result := Copy(s, p, l - p + 1);
 end;
-
 constructor TSImapThread.Create(ASocket: TSocket);
 begin
   inherited;
@@ -173,8 +171,6 @@ begin
   SendNewMessages := false;
   SetLength(SendExpunge, 0);
 end;
-
-
 procedure TSImapServer.HandleCommand(AThread : TSTcpThread;const CmdLine: string);
 var
   LogCmdLine, Cmd, Par: string;
@@ -394,10 +390,6 @@ begin
     end;
   end;
 end;
-
-
-//-------------------------------------------------Kommandos--------
-
 procedure TSImapServer.Cmd_HELP(AThread: TSTcpThread; Par: string);
 var
   s: string;
@@ -630,7 +622,6 @@ begin
       SendResTag(AThread,'OK You''ve the help you want, haven''t you?');
   end;
 end;
-
 function CutFirstParam( var Parameters: String ): String;
 var  Str: String;
 begin
@@ -640,7 +631,6 @@ begin
      Parameters := LTrim( Parameters );
      Result := TrimWhSpace( Str );
 end;
-
 procedure TSImapServer.Cmd_APPEND(AThread: TSTcpThread; Par: string); {MG}{Literal}
 var
   Mailbox, TimeStr, MessageText: string;
@@ -716,7 +706,6 @@ begin
       end;
     end;
 end;
-
 function ExtractQuotedParameter(container,parameter:string):string;
 begin
   result:='';
@@ -753,7 +742,6 @@ begin
       container:=copy(container,pos(',',container)+1,length(container));
   until  container=''
 end;
-
 procedure TSImapServer.Cmd_AUTHENTICATE(AThread: TSTcpThread; Par: string); //JW //IMAP-Auth
 var
   realm, nonce, cnonce, qop, username, nc, realm2, digesturi, response,
@@ -844,7 +832,6 @@ begin
       'IMAP: AUTHENTICATE: User %s logged in', CurrentUserName);
   }
 end;
-
 procedure TSImapServer.Cmd_CAPA(AThread: TSTcpThread; Par: string);
 var
   capabilities: string;
@@ -887,7 +874,6 @@ begin
 
   SendResTag(AThread,'OK I''m ready sending capabilities!');
 end;
-
 procedure TSImapServer.Cmd_CHECK(AThread: TSTcpThread; Par: string);
 begin
   if Par <> '' then
@@ -908,7 +894,6 @@ begin
     SendResTag(Athread,'OK CHECK completed.');
   end;
 end;
-
 procedure TSImapServer.Cmd_CLOSE(AThread: TSTcpThread; Par: string);
 begin
   if Par <> '' then
@@ -928,7 +913,6 @@ begin
     end;
   end;
 end;
-
 procedure TSImapServer.Cmd_COPY(AThread: TSTcpThread; Par: string);
 var
   MsgSetStr, Destination: string;
@@ -944,7 +928,6 @@ begin
     DoCopy(AThread,TSImapThread(AThread).Selected.StrToMsgSet(MsgSetStr, False), 'COPY', Destination);
   end;
 end;
-
 procedure TSImapServer.Cmd_CREATE(AThread: TSTcpThread; Par: string);
 var
   Mailbox: string;
@@ -963,7 +946,6 @@ begin
       SendResTag(AThread,'NO Mailbox not created!');
     end;
 end;
-
 procedure TSImapServer.Cmd_DELETE(AThread: TSTcpThread; Par: string);
 var
   Mailbox: string;
@@ -982,7 +964,6 @@ begin
       SendResTag(AThread,'NO Mailbox not deleted!');
     end;
 end;
-
 procedure TSImapServer.Cmd_EXAMINE(AThread: TSTcpThread; Par: string);
 var
   Mailbox: string;
@@ -1006,7 +987,6 @@ begin
     end;
   end;
 end;
-
 procedure TSImapServer.Cmd_EXPUNGE(AThread: TSTcpThread; Par: string);
 begin
   if Par <> '' then
@@ -1023,7 +1003,6 @@ begin
       SendResTag(AThread,'OK All deleted messages are removed.');
     end;
 end;
-
 procedure TSImapServer.Cmd_FETCH(AThread: TSTcpThread; Par: string);
 var
   MsgSetStr: string;
@@ -1038,8 +1017,6 @@ begin
     DoFetch(AThread,TSImapThread(AThread).Selected.StrToMsgSet(MsgSetStr, False), 'FETCH', Par);
   end;
 end;
-
-{JW}{IMAP ID}
 procedure TSImapServer.Cmd_ID(AThread: TSTcpThread; Par: string);
 var
   id: string;
@@ -1056,7 +1033,6 @@ begin
   SendRes(AThread,'ID ' + ID);
   SendResTag(AThread,'OK ID completed!');
 end;
-
 procedure TSImapServer.Cmd_IDLE(AThread: TSTcpThread; Par: string); //HSR //IDLE
 begin
   if Par <> '' then
@@ -1076,12 +1052,10 @@ begin
     end;
   end;
 end;
-
 procedure TSImapServer.Cmd_LIST(AThread: TSTcpThread; Par: string);
 begin
   DoList(AThread,Par, False);
 end;
-
 procedure TSImapServer.Cmd_LOGIN(AThread: TSTcpThread; Par: string);
 var
   Pass: string;
@@ -1096,7 +1070,6 @@ begin
     SendResTag(AThread,LoginUser(AThread,Pass, ''));
   end;
 end;
-
 procedure TSImapServer.Cmd_LOGOUT(AThread: TSTcpThread; Par: string);
 begin
   try
@@ -1121,12 +1094,10 @@ begin
   finally
   end;
 end;
-
 procedure TSImapServer.Cmd_LSUB(AThread: TSTcpThread; Par: string);
 begin
   DoList(AThread,Par, True);
 end;
-
 procedure TSImapServer.Cmd_NCBrain(AThread: TSTcpThread; Par: string);
 const
   NCBURL = 'http://www.rimarts.co.jp';
@@ -1136,7 +1107,6 @@ begin //Got out of Cyrus-Source
   SendRes(AThread,'* ACCOUNT-URL "' + NCBURL + '"');
   SendResTag(AThread,'OK Your brain is done now...');
 end;
-
 procedure TSImapServer.Cmd_NOOP(AThread: TSTcpThread; Par: string);
 begin
   if par <> '' then
@@ -1157,7 +1127,6 @@ begin
     SendResTag(AThread,'OK Noop');
   end;
 end;
-
 procedure TSImapServer.Cmd_RENAME(AThread: TSTcpThread; Par: string);
 var
   OldName, NewName: string;
@@ -1178,7 +1147,6 @@ begin
       SendResTag(AThread,'NO Mailbox not renamed!');
     end;
 end;
-
 procedure TSImapServer.Cmd_SEARCH(AThread: TSTcpThread; Par: string);
 begin
   if par = '' then
@@ -1190,7 +1158,6 @@ begin
     DoSearch(AThread,False, Par);
   end;
 end;
-
 procedure TSImapServer.Cmd_SELECT(AThread: TSTcpThread; Par: string);
 var
   Mailbox: string;
@@ -1225,7 +1192,6 @@ begin
     end;
   end;
 end;
-
 function TrimEnclosingChars( Data, FirstChar, LastChar: String ): String;
 var  i: Integer;
 begin
@@ -1236,12 +1202,10 @@ begin
   else
     Result := Data
 end;
-
 function TrimParentheses( Data: String ): String;
 begin
   Result := TrimEnclosingChars( Data, '(', ')' )
 end;
-
 procedure TSImapServer.Cmd_STARTTLS(AThread: TSTcpThread; Par: string); {MG}{SSL}
 begin
   {
@@ -1286,7 +1250,6 @@ begin
         end;
  }
 end;
-
 procedure TSImapServer.Cmd_STATUS(AThread: TSTcpThread; Par: string);
 var
   Mailbox, MbName, Status, StatusU, Erg: string;
@@ -1346,7 +1309,6 @@ begin
   SendRes(AThread,'STATUS "' + MbName + '" (' + Trim(Erg) + ')');
   SendResTag(AThread,'OK You now have the status!');
 end;
-
 procedure TSImapServer.Cmd_STORE(AThread: TSTcpThread; Par: string);
 var
   MsgSetStr: string;
@@ -1361,7 +1323,6 @@ begin
     DoStore(AThread,TSImapThread(AThread).Selected.StrToMsgSet(MsgSetStr, False), 'STORE', Par);
   end;
 end;
-
 procedure TSImapServer.Cmd_SUBSCRIBE(AThread: TSTcpThread; Par: string);
 var
   Mailbox: string;
@@ -1377,7 +1338,6 @@ begin
     DoSubscribe(AThread,MailBox);
   end;
 end;
-
 procedure TSImapServer.Cmd_UNSUBSCRIBE(AThread: TSTcpThread; Par: string);
 var
   MailBox: string;
@@ -1392,7 +1352,6 @@ begin
     DoUnSubscribe(AThread,MailBox);
   end;
 end;
-
 procedure TSImapServer.Cmd_UID(AThread: TSTcpThread; Par: string);
 var
   i: integer;
@@ -1439,7 +1398,6 @@ begin
       end;
   end;
 end;
-
 procedure TSImapServer.LogRaw(AThread: TSTcpThread; Txt: string);
 begin
   if FDisableLog > 0 then exit;
@@ -1448,13 +1406,11 @@ begin
   if Assigned(OnLog) then
     OnLog(AThread, False, Txt);
 end;
-
 procedure TSImapServer.SendData(AThread: TSTcpThread; const AText: string);
 begin
   if AThread.Connected then
     AThread.Write(AText);
 end;
-
 procedure TSImapServer.SendResult(AThread: TSTcpThread; const ATxt: string);
 begin
   if Length( ATxt ) > 250
@@ -1462,7 +1418,6 @@ begin
      else LogRaw( AThread, ATxt );
   SendData(AThread, ATxt + CRLF );
 end;
-
 procedure TSImapServer.SendResLit(AThread: TSTcpThread; Txt: string);
 begin
   if Length( Txt ) > 250
@@ -1471,7 +1426,6 @@ begin
   SendData(AThread, TSImapThread(AThread).CurrentTag + ' ' + '{' + IntToStr(length(Txt + CRLF)) + '}' + CRLF );
   SendData(AThread, Txt + CRLF );
 end;
-
 procedure TSImapServer.SendResTag(AThread: TSTcpThread; Txt: string);
 var
   i: Integer;
@@ -1500,7 +1454,6 @@ begin
   end;
   SendResult(AThread, TSImapThread(AThread).CurrentTag + ' ' + Txt )
 end;
-
 procedure TSImapServer.SendRes(AThread: TSTcpThread; Txt: string);
 begin
   if Length( Txt ) > 250
@@ -1508,7 +1461,6 @@ begin
      else LogRaw( AThread, '* ' + Txt );
   SendData(AThread, '* ' + Txt + CRLF );
 end;
-
 function TSImapServer.SendRequest(AThread: TSTcpThread; const AText: string
   ): string;
 begin
@@ -1517,7 +1469,6 @@ begin
     OnLog(AThread, False, AText);
   Result := AThread.ReadLn(Timeout+100);
 end;
-
 function TSImapServer.SafeString(Path: String): Boolean;
 var  i : Integer;
      SafeChars: Set of Char;
@@ -1529,7 +1480,6 @@ begin
       if not (Path[i] in SafeChars) then exit;
    Result := True;
 end;
-
 function TSImapServer.LoginUser(AThread: TSTcpThread; Password: String;
   AuthMechanism: String): String;
 var
@@ -1549,91 +1499,75 @@ begin
         end;
     end;
 end;
-
 function TSImapServer.MBSelect(AThread: TSTcpThread; Mailbox: string;
   ReadOnly: Boolean): boolean;
 begin
   Result := False;
 end;
-
 function TSImapServer.MBGet(AThread: TSTcpThread; Mailbox: string
   ): TImapMailbox;
 begin
   Result := nil;
 end;
-
 function TSImapServer.MBCreate(AThread: TSTcpThread; Mailbox: string): boolean;
 begin
   Result := False;
 end;
-
 function TSImapServer.MBDelete(AThread: TSTcpThread; Mailbox: string): boolean;
 begin
   Result := False;
 end;
-
 function TSImapServer.MBExists(AThread: TSTcpThread; var Mailbox: string
   ): boolean;
 begin
   Result := False;
 end;
-
 function TSImapServer.MBRename(AThread: TSTcpThread; OldName, NewName: String
   ): Boolean;
 begin
   Result := False;
 end;
-
 function TSImapServer.MBLogin(AThread: TSTcpThread; var Mailbox: TImapMailbox;
   Path: String; LINotify: Boolean): Boolean;
 begin
   Result := False;
 end;
-
 procedure TSImapServer.MBLogout(AThread: TSTcpThread;
   var Mailbox: TImapMailbox; LOSel: Boolean);
 begin
 end;
-
 procedure TSImapServer.DoSearch(AThread: TSTcpThread; UseUID: Boolean;
   Par: String);
 begin
 
 end;
-
 procedure TSImapServer.DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet;
   Command, Destination: String);
 begin
 
 end;
-
 procedure TSImapServer.DoStore(AThread: TSTcpThread; MsgSet: TMessageSet;
   Command, Par: String);
 begin
 
 end;
-
 procedure TSImapServer.DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet;
   Command, Par: String);
 begin
 
 end;
-
 procedure TSImapServer.DoList(AThread: TSTcpThread; Par: String; LSub: Boolean);
 begin
 
 end;
-
 procedure TSImapServer.DoSubscribe(AThread: TSTcpThread; Par: String);
 begin
 
 end;
-
 procedure TSImapServer.DoUnSubscribe(AThread: TSTcpThread; Par: String);
 begin
 
 end;
-
 function TSImapServer.HandleData(AThread: TSTcpThread; BufInStrm: string
   ): String;
 var  i: Integer;
@@ -1674,12 +1608,10 @@ begin
      end;
    SetLength( BufInStrm, 0 );
 end;
-
 procedure TSImapServer.SetActive(const AValue: boolean);
 begin
   inherited SetActive(AValue);
 end;
-
 procedure TSImapServer.Execute(AThread: TSTcpThread);
 var
   LRow, LCmd, LTag: string;
@@ -1730,7 +1662,6 @@ begin
   finally
   end;
 end;
-
 constructor TSImapServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -1745,21 +1676,17 @@ begin
   IdleState       := false;
   ClassType:=TSImapThread;
 end;
-
 destructor TSImapServer.Destroy;
 begin
   DoneCriticalsection( CS_THR_IDLE );
   inherited Destroy;
 end;
-
 procedure TSImapServer.DisableLog;
 begin
   inc(FDisableLog);
 end;
-
 procedure TSImapServer.EnableLog;
 begin
   dec(fDisableLog);
 end;
-
 end.
