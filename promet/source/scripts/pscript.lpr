@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils,
   uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
-  uBaseApplication,uprometscripts,genpascalscript;
+  uBaseApplication,uprometscripts,genpascalscript,uprometpascalscript;
 
 type
 
@@ -84,9 +84,6 @@ begin
       if not Login then Terminate;
       //Your logged in here on promet DB
       aScript := TBaseScript.Create(nil);
-      aScript.Readln:=@aScriptReadln;
-      aScript.Write:=@aScriptWrite;
-      aScript.Writeln:=@aScriptWriteln;
       //aScript.Sleep:=@aSleep;
       aScript.SelectByName(ParamStr(ParamCount));
       aScript.Open;
@@ -104,6 +101,20 @@ begin
               writeln('not implemented !!');
             end;
         end;
+      if lowercase(aScript.FieldByName('SYNTAX').AsString)='pascal' then
+        begin
+          aScript.Free;
+          aScript := TPrometPascalScript.Create(nil);
+          aScript.SelectByName(ParamStr(ParamCount));
+          aScript.Open;
+          if not aScript.Locate('NAME',ParamStr(ParamCount),[loCaseInsensitive]) then
+            begin
+              writeln('Script "'+ParamStr(ParamCount)+'" not found !');
+            end;
+        end;
+      aScript.Readln:=@aScriptReadln;
+      aScript.Write:=@aScriptWrite;
+      aScript.Writeln:=@aScriptWriteln;
       aScript.Execute(Null);
       aScript.Free;
     end
