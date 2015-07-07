@@ -2241,6 +2241,8 @@ begin
 end;
 procedure TfMain.acShowTreeExecute(Sender: TObject);
 begin
+  BeginFormUpdate;
+  BeginUpdateBounds;
   tvMain.Visible:=acShowTree.Checked;
   spTree.Visible:=acShowTree.Checked;
   with Application as IBaseDbInterface do
@@ -2253,6 +2255,8 @@ begin
       pPages.Height:=fmain.Height;
     end
   else pPages.Align:=alClient;
+  EndUpdateBounds;
+  EndFormUpdate;
 end;
 
 procedure TfMain.acStandartTimeExecute(Sender: TObject);
