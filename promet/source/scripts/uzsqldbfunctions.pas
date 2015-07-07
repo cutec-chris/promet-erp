@@ -92,7 +92,7 @@ end;
 function QuoteValue(aField: string): string;
 begin
 end;
-function SetProperties(aProp : string;Connection : TComponent = nil) : Boolean;
+function SetProperties(aProp: string; Connection: TComponent): Boolean;
 var
   tmp: String;
   FConnection : TZConnection;

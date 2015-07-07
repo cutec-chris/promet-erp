@@ -32,7 +32,7 @@ end;
 
 function ScriptDefinition : PChar;stdcall;
 begin
-  Result := 'function SetProperties(aProp : string;Connection : TComponent) : Boolean;stdcall;'
+  Result := 'function SetProperties(aProp : string;Connection : TComponent) : Boolean;'
        +#10+'function CreateDBFromProperties(aProp: string): Boolean;'
        +#10+'function IsSQLDB : Boolean;'
        +#10+'function GetNewDataSet(aSQL : string;aConnection : TComponent;MasterData : TDataSet;aOrigtable : TObject) : TDataSet;'

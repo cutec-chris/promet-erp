@@ -63,7 +63,8 @@ type
     function FindContent(MsgSet: TMessageSet; After, Before: int64; Charset: string; HeaderList, BodyStrings,  TextStrings: TStringList): TMessageSet;virtual;abstract;
 
     function GetEnvelope(MyMessage: TMimeMess): string;
-    function BodyStructure(Part: TMimePart; Extensible: Boolean): String;
+    function BodyStructure(Part: TMimePart; Msg: TMimeMess; Extensible: Boolean
+      ): String;
     function GetAddresses(MyMessage : TMimeMess;  HdrNam: String ): String;
     function GetBodySection(MyMessage: TMimeMess; Section: string; Nested: Boolean; var Offset, Maximum: Integer): string;
     function GetAddressStructure( Address: String ): String;
@@ -390,7 +391,7 @@ begin
           MyMail := GetMessage(GetUID(Idx));
           if not Assigned(MyMail) then break;
         end;
-        if DataItem = 'ENVELOPE' then AddDataValue( GetEnvelope(MyMail.MessagePart) )
+        if DataItem = 'ENVELOPE' then AddDataValue( GetEnvelope(MyMail) )
         else if DataItem = 'RFC822' then AddDataValue( MakeLiteral( MyMail.Lines.Text ) )  //TODO:wo Header ??
         else if DataItem = 'RFC822.HEADER' then
           begin
@@ -399,8 +400,8 @@ begin
           end
         else if DataItem = 'RFC822.TEXT' then AddDataValue( MakeLiteral( MyMail.Lines.Text ) )
         else if DataItem = 'RFC822.SIZE' then AddDataValue( IntToStr( Length(MyMail.Lines.Text) ) )
-        else if DataItem = 'BODYSTRUCTURE' then AddDataValue( BodyStructure(MyMail.MessagePart, True ) )
-        else if DataItem = 'BODY' then AddDataValue( BodyStructure(MyMail.MessagePart, False ) )
+        else if DataItem = 'BODYSTRUCTURE' then AddDataValue( BodyStructure(MyMail.MessagePart,MyMail, True ) )
+        else if DataItem = 'BODY' then AddDataValue( BodyStructure(MyMail.MessagePart,MyMail, False ) )
         else if Copy( DataItem, 1, 4 ) = 'BODY' then
           begin
             if Copy( DataItem, 5, 5 ) = '.PEEK' then System.Delete( DataItem, 5, 5 )
@@ -680,7 +681,7 @@ begin
             IntToStr( Length( Part.Lines.Text ) )
 end;
 
-function TImapMailbox.BodyStructure(Part: TMimePart; Extensible: Boolean
+function TImapMailbox.BodyStructure(Part: TMimePart;Msg : TMimeMess; Extensible: Boolean
   ): String;
 var  Data : String;
      i    : Integer;
@@ -693,11 +694,11 @@ begin
       // multipart subtype (mixed, digest, parallel, alternative, etc.). }
       Data := '(';
       for i := 0 to Part.GetSubPartCount-1 do
-          Data := Data + BodyStructure(Part.GetSubPart(i),Extensible );
+          Data := Data + BodyStructure(Part.GetSubPart(i),Msg,Extensible );
       Data := Data + ' "' + Part.Secondary +'"';
 
-      //if Extensible then
-      //  Data := Data + ' ' + Part.ContentID + ' ' + Part.Disposition GetBodyDisposition + ' ' + GetBodyLanguage;
+      if Extensible then
+        Data := Data + ' ' + Part.ContentID + ' ' + Part.Disposition + ' ' + {GetBodyLanguage}'en';
     end
   else
     begin
@@ -706,11 +707,12 @@ begin
       else if (uppercase(Part.Primary) = 'MESSAGE') and (uppercase(Part.Secondary) = 'RFC822') then
         begin
           if Part.GetSubPartCount > 0 then
-            Data := Data + ' ' +  GetEnvelope(Part) + ' ' +
-                      BodyStructure(Part.GetSubPart(0),Extensible) + ' ' +
-                      IntToStr( Lines )
+            Data := Data + ' ' +  GetEnvelope(Msg) + ' ' +
+                      BodyStructure(Part.GetSubPart(0),Msg,Extensible) + ' ' +
+                      IntToStr(Msg.Lines.Count )
            else
-              LogRaw( LOGID_WARN, 'Error parsing RFC822 message: There is no message.' );
+              //LogRaw( LOGID_WARN, 'Error parsing RFC822 message: There is no message.' )
+             ;
         end;
 
         //if Extensible then Data := Data + ' ' + GetBodyMD5 + ' ' + GetBodyDisposition + ' ' + GetBodyLanguage;
