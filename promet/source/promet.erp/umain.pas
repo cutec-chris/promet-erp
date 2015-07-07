@@ -108,6 +108,7 @@ type
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     Panel1: TPanel;
+    pPages: TPanel;
     Panel6: TPanel;
     pCloseTab: TPanel;
     pSeparateWindow: TPanel;
@@ -444,8 +445,8 @@ begin
   acLogin.Execute;
   Result := not acLogin.Enabled;
   {$ifdef LINUX}
-  pCloseTab.Top:=53;
-  pSeparateWindow.Top:=53;
+  pCloseTab.BorderSpacing.Top:=3;
+  pSeparateWindow.BorderSpacing.Top:=3;
   {$endif}
 end;
 function TfMain.CommandReceived(Sender: TObject; aCommand: string): Boolean;
@@ -2246,12 +2247,12 @@ begin
     DBConfig.WriteBoolean('SHOWTREE',acShowTree.Checked);
   if tvMain.Visible then
     begin
-      pcpages.Anchors := [akTop,akLeft,akRight,akBottom];
-      pcPages.Align:=alnone;
-      pcPages.Width:=fMain.Width-tvMain.Width;
-      pcPages.Height:=fmain.Height;
+      ppages.Anchors := [akTop,akLeft,akRight,akBottom];
+      pPages.Align:=alnone;
+      pPages.Width:=fMain.Width-tvMain.Width;
+      pPages.Height:=fmain.Height;
     end
-  else pcPages.Align:=alClient;
+  else pPages.Align:=alClient;
 end;
 
 procedure TfMain.acStandartTimeExecute(Sender: TObject);
@@ -3797,10 +3798,10 @@ end;
 
 procedure TfMain.FormResize(Sender: TObject);
 begin
-  if pcPages.Align=alnone then
+  if pPages.Align=alnone then
     begin
-      pcPages.Width:=fMain.Width-tvMain.Width;
-      pcPages.Height:=fmain.Height;
+      pPages.Width:=fMain.Width-tvMain.Width;
+      pPages.Height:=fmain.Height;
     end;
 end;
 

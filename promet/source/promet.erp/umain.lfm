@@ -4,7 +4,7 @@ object fMain: TfMain
   Top = 131
   Width = 935
   Caption = 'Promet-ERP'
-  ClientHeight = 601
+  ClientHeight = 600
   ClientWidth = 935
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -20,38 +20,13 @@ object fMain: TfMain
   LCLVersion = '1.5'
   object spTree: TSplitter
     Left = 283
-    Height = 563
+    Height = 562
     Top = 38
     Width = 5
     Color = clBtnFace
     ParentColor = False
     ParentShowHint = False
     ShowHint = True
-  end
-  object tvMain: TPanel
-    Left = 0
-    Height = 563
-    Top = 38
-    Width = 283
-    Align = alLeft
-    BevelOuter = bvNone
-    ClientHeight = 563
-    ClientWidth = 283
-    Color = clWindow
-    DragMode = dmAutomatic
-    ParentColor = False
-    TabOrder = 2
-    Visible = False
-    OnClick = tvMainClick
-    object Bevel1: TBevel
-      Left = 35
-      Height = 1
-      Top = 0
-      Width = 248
-      Align = alTop
-      BorderSpacing.Left = 35
-      Shape = bsTopLine
-    end
   end
   object Panel1: TPanel
     Left = 0
@@ -64,7 +39,7 @@ object fMain: TfMain
     ClientWidth = 935
     Color = clBtnFace
     ParentColor = False
-    TabOrder = 5
+    TabOrder = 2
     object Panel6: TPanel
       Left = 0
       Height = 38
@@ -288,102 +263,145 @@ object fMain: TfMain
       end
     end
   end
-  object pcPages: TExtMenuPageControl
-    Left = 288
+  object tvMain: TPanel
+    Left = 0
+    Height = 562
+    Top = 38
+    Width = 283
+    Align = alLeft
+    BevelOuter = bvNone
+    ClientHeight = 562
+    ClientWidth = 283
+    Color = clWindow
+    DragMode = dmAutomatic
+    ParentColor = False
+    TabOrder = 1
+    Visible = False
+    OnClick = tvMainClick
+    object Bevel1: TBevel
+      Left = 35
+      Height = 1
+      Top = 0
+      Width = 248
+      Align = alTop
+      BorderSpacing.Left = 35
+      Shape = bsTopLine
+    end
+  end
+  object pPages: TPanel
+    Left = 289
     Height = 600
     Top = 0
-    Width = 647
-    ActivePage = tsStartpage
+    Width = 642
     Anchors = [akTop, akLeft, akRight, akBottom]
-    DragMode = dmAutomatic
-    TabIndex = 0
-    TabOrder = 1
-    NewTabImageIndex = 59
-    object tsStartpage: TTabSheet
-      Caption = 'Startseite'
-      ImageIndex = 12
-    end
-  end
-  object pSeparateWindow: TPanel
-    AnchorSideTop.Control = pcPages
-    Left = 890
-    Height = 22
-    Top = 24
-    Width = 21
-    Anchors = [akTop, akRight]
-    BorderSpacing.Top = 24
     BevelOuter = bvNone
-    ClientHeight = 22
-    ClientWidth = 21
-    TabOrder = 4
-    object SpeedButton2: TSpeedButton
-      Left = 0
-      Height = 22
-      Top = 0
-      Width = 21
-      Action = acWindowize
-      Align = alClient
-      Anchors = [akTop, akRight]
-      Glyph.Data = {
-        36040000424D3604000000000000360000002800000010000000100000000100
-        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C3916D9BC38E
-        68FFC08B66FFBE8864FFBB8561FFB9835FFFB6805EFFB47E5CFFB27C5AFFB17B
-        58FFAE7957FFAD7656FFAB7554FFA97353FFA97151FFA370519BC8926CFFCECE
-        CEFFD6D6D6FFD4D4D4FFD2D2D2FFD0D0D0FFCDCDCDFFCBCBCBFFCACACAFFC8C8
-        C8FFC6C6C6FFC5C5C5FFC3C3C3FFC2C2C2FFAFAFAFFFA97251FFCA946EFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAA7353FFCC976FFFFFFF
-        FFFFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2
-        F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFAC7554FFCF9A72FFFFFF
-        FFFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2
-        F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFAD7856FFD19C73FFFFFF
-        FFFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3
-        F3FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFB07A58FFD49E75FFFFFF
-        FFFFFDFDFDFFFDFDFDFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5
-        F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2F2FFFFFFFFFFB27C5AFFD5A076FFFFFF
-        FFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8
-        F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFFFFFFFFFB57E5CFFD8A279FFFFFF
-        FFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFCFCFCFFFBFB
-        FBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFFFFFFFFFB7815EFFD9A379FFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBA8560FFDBA47AFFD4D4
-        D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4
-        D4FFD4D4D4FFD4D4D4FFD3D3D3FFD3D3D3FFD3D3D3FFBD8763FFDCA77BFFDBA4
-        7AFFDAA379FFD8A279FFD7A178FFD59F76FFD39E74FFD19C73FFCF9A72FFCD97
-        70FFCB956EFFC9946CFFC7916BFFC48F69FFC38D67FFC08B66FFDDAC85FDF1DC
-        CEFFEAC1A0FFE8B992FFE8B992FFE8B992FFE8B992FFE8B992FFE8B992FFCDC8
-        C5FFE8B992FFCDC8C5FFE8B992FF4464FFFFE8C4A7FFC1906FFDDDAC86C2DDB1
-        8DF4DCA77BFFDCA67AFFDAA47AFFD8A279FFD8A179FFD5A076FFD49E75FFD29D
-        73FFCF9A72FFCE9970FFCB966FFFC9946CFFC49A7AF4C39371C2FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
-      }
-      ShowCaption = False
-    end
-  end
-  object pCloseTab: TPanel
-    AnchorSideTop.Control = pcPages
-    Left = 910
-    Height = 22
-    Top = 24
-    Width = 21
-    Anchors = [akTop, akRight]
-    BorderSpacing.Top = 24
-    BevelOuter = bvNone
-    ClientHeight = 22
-    ClientWidth = 21
+    Caption = 'pPages'
+    ClientHeight = 600
+    ClientWidth = 642
     TabOrder = 3
-    object SpeedButton1: TSpeedButton
+    object pcPages: TExtMenuPageControl
       Left = 0
-      Height = 22
+      Height = 600
       Top = 0
-      Width = 21
-      Action = acCloseTab
+      Width = 642
+      ActivePage = tsStartpage
       Align = alClient
+      DragMode = dmAutomatic
+      TabIndex = 0
+      TabOrder = 0
+      NewTabImageIndex = 59
+      object tsStartpage: TTabSheet
+        Caption = 'Startseite'
+        ImageIndex = 12
+      end
+    end
+    object pSeparateWindow: TPanel
+      AnchorSideTop.Control = pcPages
+      AnchorSideRight.Control = pPages
+      AnchorSideRight.Side = asrBottom
+      Left = 596
+      Height = 22
+      Top = 30
+      Width = 21
       Anchors = [akTop, akRight]
-      ShowCaption = False
+      BorderSpacing.Top = 30
+      BorderSpacing.Right = 25
+      BevelOuter = bvNone
+      ClientHeight = 22
+      ClientWidth = 21
+      TabOrder = 2
+      object SpeedButton2: TSpeedButton
+        Left = 0
+        Height = 22
+        Top = 0
+        Width = 21
+        Action = acWindowize
+        Align = alClient
+        Anchors = [akTop, akRight]
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C3916D9BC38E
+          68FFC08B66FFBE8864FFBB8561FFB9835FFFB6805EFFB47E5CFFB27C5AFFB17B
+          58FFAE7957FFAD7656FFAB7554FFA97353FFA97151FFA370519BC8926CFFCECE
+          CEFFD6D6D6FFD4D4D4FFD2D2D2FFD0D0D0FFCDCDCDFFCBCBCBFFCACACAFFC8C8
+          C8FFC6C6C6FFC5C5C5FFC3C3C3FFC2C2C2FFAFAFAFFFA97251FFCA946EFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAA7353FFCC976FFFFFFF
+          FFFFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2
+          F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFAC7554FFCF9A72FFFFFF
+          FFFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2
+          F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFAD7856FFD19C73FFFFFF
+          FFFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3
+          F3FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFB07A58FFD49E75FFFFFF
+          FFFFFDFDFDFFFDFDFDFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5
+          F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2F2FFFFFFFFFFB27C5AFFD5A076FFFFFF
+          FFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8
+          F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFFFFFFFFFB57E5CFFD8A279FFFFFF
+          FFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFCFCFCFFFBFB
+          FBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFFFFFFFFFB7815EFFD9A379FFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBA8560FFDBA47AFFD4D4
+          D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4
+          D4FFD4D4D4FFD4D4D4FFD3D3D3FFD3D3D3FFD3D3D3FFBD8763FFDCA77BFFDBA4
+          7AFFDAA379FFD8A279FFD7A178FFD59F76FFD39E74FFD19C73FFCF9A72FFCD97
+          70FFCB956EFFC9946CFFC7916BFFC48F69FFC38D67FFC08B66FFDDAC85FDF1DC
+          CEFFEAC1A0FFE8B992FFE8B992FFE8B992FFE8B992FFE8B992FFE8B992FFCDC8
+          C5FFE8B992FFCDC8C5FFE8B992FF4464FFFFE8C4A7FFC1906FFDDDAC86C2DDB1
+          8DF4DCA77BFFDCA67AFFDAA47AFFD8A279FFD8A179FFD5A076FFD49E75FFD29D
+          73FFCF9A72FFCE9970FFCB966FFFC9946CFFC49A7AF4C39371C2FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        ShowCaption = False
+      end
+    end
+    object pCloseTab: TPanel
+      AnchorSideTop.Control = pcPages
+      AnchorSideRight.Control = pPages
+      AnchorSideRight.Side = asrBottom
+      Left = 616
+      Height = 22
+      Top = 30
+      Width = 21
+      Anchors = [akTop, akRight]
+      BorderSpacing.Top = 30
+      BorderSpacing.Right = 5
+      BevelOuter = bvNone
+      ClientHeight = 22
+      ClientWidth = 21
+      TabOrder = 1
+      object SpeedButton1: TSpeedButton
+        Left = 0
+        Height = 22
+        Top = 0
+        Width = 21
+        Action = acCloseTab
+        Align = alClient
+        Anchors = [akTop, akRight]
+        ShowCaption = False
+      end
     end
   end
   object MainMenu1: TMainMenu
