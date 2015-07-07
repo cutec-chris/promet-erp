@@ -308,7 +308,6 @@ type
     procedure AcVertAlignmentExecute(Sender: TObject);
     procedure AcViewInspectorExecute(Sender: TObject);
     procedure AcWordwrapExecute(Sender: TObject);
-    procedure CbAutoCalcFormulasChange(Sender: TObject);
     procedure CbBackgroundColorSelect(Sender: TObject);
     procedure CbHeaderStyleChange(Sender: TObject);
     procedure CbReadFormulasChange(Sender: TObject);
@@ -324,6 +323,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure MemoFormulaEditingDone(Sender: TObject);
     procedure TabControlChange(Sender: TObject);
+    procedure WorksheetGridClick(Sender: TObject);
     procedure WorksheetGridHeaderClick(Sender: TObject; IsColumn: Boolean;
       Index: Integer);
     procedure WorksheetGridSelection(Sender: TObject; aCol, aRow: Integer);
@@ -875,11 +875,6 @@ begin
     LoadFile(ParamStr(1));
 end;
 
-procedure TfSpreetsheet.CbAutoCalcFormulasChange(Sender: TObject);
-begin
-  WorksheetGrid.AutoCalc := CbAutoCalcFormulas.Checked;;
-end;
-
 procedure TfSpreetsheet.CbBackgroundColorGetColors(Sender: TCustomColorBox; Items: TStrings);
 var
   clr: TColor;
@@ -1129,6 +1124,11 @@ procedure TfSpreetsheet.TabControlChange(Sender: TObject);
 begin
   WorksheetGrid.SelectSheetByIndex(TabControl.TabIndex);
   WorksheetGridSelection(self, WorksheetGrid.Col, WorksheetGrid.Row);
+end;
+
+procedure TfSpreetsheet.WorksheetGridClick(Sender: TObject);
+begin
+
 end;
 
 procedure TfSpreetsheet.WorksheetGridHeaderClick(Sender: TObject; IsColumn: Boolean;

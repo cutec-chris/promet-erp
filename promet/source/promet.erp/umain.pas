@@ -106,9 +106,11 @@ type
     Menuitem12: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
+    Panel1: TPanel;
+    Panel6: TPanel;
     pCloseTab: TPanel;
     pSeparateWindow: TPanel;
-    Panel6: TPanel;
     pTimes: TPanel;
     pTimes1: TPanel;
     RefreshTimer: TIdleTimer;
@@ -119,7 +121,6 @@ type
     miOptions: TMenuItem;
     miLanguage: TMenuItem;
     miSettings: TMenuItem;
-    Panel1: TPanel;
     pmHistory: TPopupMenu;
     pcPages: TExtMenuPageControl;
     MainMenu1: TMainMenu;
@@ -131,10 +132,10 @@ type
     SpeedButton2: TSpeedButton;
     spTree: TSplitter;
     tbMenue: TToolButton;
+    tbTreeVisible: TSpeedButton;
     ToolBar1: TToolBar;
     ToolBar2: TToolBar;
     ToolButton1: TToolButton;
-    tbTreeVisible: TSpeedButton;
     tsStartpage: TTabSheet;
     tvMain: TPanel;
     procedure acAttPlanExecute(Sender: TObject);
@@ -218,6 +219,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure IPCTimerTimer(Sender: TObject);
     procedure miOptionsClick(Sender: TObject);
@@ -2242,6 +2244,14 @@ begin
   spTree.Visible:=acShowTree.Checked;
   with Application as IBaseDbInterface do
     DBConfig.WriteBoolean('SHOWTREE',acShowTree.Checked);
+  if tvMain.Visible then
+    begin
+      pcpages.Anchors := [akTop,akLeft,akRight,akBottom];
+      pcPages.Align:=alnone;
+      pcPages.Width:=fMain.Width-tvMain.Width;
+      pcPages.Height:=fmain.Height;
+    end
+  else pcPages.Align:=alClient;
 end;
 
 procedure TfMain.acStandartTimeExecute(Sender: TObject);
@@ -3784,6 +3794,16 @@ begin
   FHistory.Free;
   uMainTreeFrame.fMainTreeFrame.Destroy;
 end;
+
+procedure TfMain.FormResize(Sender: TObject);
+begin
+  if pcPages.Align=alnone then
+    begin
+      pcPages.Width:=fMain.Width-tvMain.Width;
+      pcPages.Height:=fmain.Height;
+    end;
+end;
+
 procedure TfMain.FormShow(Sender: TObject);
 begin
   with Application as IBaseApplication do

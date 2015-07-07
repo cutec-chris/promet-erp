@@ -245,6 +245,7 @@ inherited fSpreetsheet: TfSpreetsheet
       Height = 576
       Top = 3
       Width = 881
+      AutoCalc = True
       FrozenCols = 0
       FrozenRows = 0
       ReadFormulas = False
@@ -257,6 +258,7 @@ inherited fSpreetsheet: TfSpreetsheet
       RowCount = 101
       TabOrder = 1
       TitleStyle = tsNative
+      OnClick = WorksheetGridClick
       OnHeaderClick = WorksheetGridHeaderClick
       OnSelection = WorksheetGridSelection
     end
