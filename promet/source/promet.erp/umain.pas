@@ -3804,8 +3804,8 @@ procedure TfMain.FormResize(Sender: TObject);
 begin
   if pPages.Align=alnone then
     begin
-      pPages.Width:=fMain.Width-tvMain.Width;
-      pPages.Height:=fmain.Height;
+      pPages.Width:=fMain.Width-tvMain.Width-spTree.Width;
+      pPages.Height:=fmain.Height-MainMenu1.Height;
     end;
 end;
 
