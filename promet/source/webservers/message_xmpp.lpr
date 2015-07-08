@@ -229,9 +229,14 @@ begin
             begin
               try
                 with BaseApplication as IBaseDBInterface do
-                  InformRecTime := StrToDateTime(DBConfig.ReadString('INFORMRECTIME',DateTimeToStr(Now()-5)));
+                  InformRecTime := DecodeRfcDateTime(DBConfig.ReadString('INFORMRECTIME',''));
+                if (InformRecTime=0) or (InformRecTime<Now()-5) then
+                 InformRecTime := Now()-5;
               except
-                InformRecTime:=Now()-5;
+                on e : Exception do
+                  begin
+                    InformRecTime:=Now()-5;
+                  end;
               end;
               try
                 if Data.Users.IDCode.AsString<>'' then
@@ -253,26 +258,25 @@ begin
                 //Show new History Entrys
                 if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
                   begin
-                    Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(InformRecTime)+')',0,'DATE');
+                    Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(InformRecTime)+')',0,'TIMESTAMPD');
                     History.DataSet.Refresh;
                     History.DataSet.First;
                   end;
-                if (not FHistory.EOF) then
+                while (not FHistory.EOF) do
                   begin
                     if (FHistory.FieldByName('READ').AsString <> 'Y')
                     then
                       begin
                         tmp:=FHistory.FieldByName('DATE').AsString+' '+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
-                        if FHistory.FieldByName('TIMESTAMPD').AsDateTime>InformRecTime then
-                          InformRecTime:=FHistory.FieldByName('TIMESTAMPD').AsDateTime+(1/MSecsPerSec)*1000;
                         xmpp.SendPersonalMessage(FUsers.Names[i],tmp);
-                        FHistory.DataSet.Next;
                       end;
+                    if FHistory.FieldByName('TIMESTAMPD').AsDateTime>InformRecTime then
+                      InformRecTime:=FHistory.FieldByName('TIMESTAMPD').AsDateTime+(1/MSecsPerSec);
                     FHistory.DataSet.Next;
                   end;
                 if tmp<>'' then
                   with BaseApplication as IBaseDBInterface do
-                    DBConfig.WriteString('INFORMRECTIME',DateTimeToStr(InformRecTime));
+                    DBConfig.WriteString('INFORMRECTIME',Rfc822DateTime(InformRecTime));
                 a := 0;
               except
               end;

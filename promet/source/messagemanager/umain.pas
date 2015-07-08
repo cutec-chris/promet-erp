@@ -89,7 +89,7 @@ uses {$ifdef WINDOWS}Windows,{$endif}
   uData,Utils,Forms,uBaseApplication,uIntfStrConsts,math,eventlog,uBaseDBInterface,
   umTimeLine,XMLPropStorage,LCLProc,uprometipc,wikitohtml,uMessages,uBaseSearch,
   utask,uOrder,uPerson,uMasterdata,uProjects,uWiki,uDocuments,umeeting,uStatistic,
-  uprometscripts,LCLIntf,uProcessManager,Dialogs;
+  uprometscripts,LCLIntf,uProcessManager,Dialogs,synautil;
 {$R *.lfm}
 const
   RefreshAll = 30;//5 mins refresh
@@ -117,6 +117,7 @@ var
   aRec: LargeInt;
   aTime: types.DWORD;
   s: TStringStream;
+  bTime: String;
 begin
   if not Assigned(Data) then exit;
   if not Data.Ping(Data.MainConnection) then exit;
@@ -149,15 +150,23 @@ begin
       //Show new History Entrys
       if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
         begin
-          Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(InformRecTime)+')',10,'DATE');
+          try
+            with Application as IBaseDBInterface do
+              InformRecTime := DecodeRfcDateTime(DBConfig.ReadString('INFORMRECTIME',''));
+            if (InformRecTime=0) or (InformRecTime<Now()-5) then
+             InformRecTime := Now()-5;
+          except
+            on e : Exception do
+              begin
+                InformRecTime:=Now()-5;
+              end;
+          end;
+          Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(InformRecTime)+')',0,'TIMESTAMPD');
           History.DataSet.Refresh;
           History.DataSet.First;
         end;
       if (not FHistory.EOF) then
         begin
-          aRec := FHistory.GetBookmark;
-          FHistory.DataSet.Refresh;
-          FHistory.GotoBookmark(aRec);
           if Assigned(fmTimeline) and fmTimeline.Visible then
             begin
               if (fmTimeline.WindowState=wsMinimized) then
@@ -181,11 +190,10 @@ begin
                   then
                     begin
                       tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
-                      if FHistory.FieldByName('TIMESTAMPD').AsDateTime>InformRecTime then
-                        InformRecTime:=FHistory.FieldByName('TIMESTAMPD').AsDateTime+(1/MSecsPerSec)*1000;
-                      FHistory.DataSet.Next;
-                      break;
                     end;
+                  bTime := TimeToStr(FHistory.FieldByName('TIMESTAMPD').AsDateTime);
+                  if FHistory.FieldByName('TIMESTAMPD').AsDateTime>InformRecTime then
+                    InformRecTime:=FHistory.FieldByName('TIMESTAMPD').AsDateTime+(1/MSecsPerSec);
                   FHistory.DataSet.Next;
                 end;
               if tmp <> '' then
@@ -195,7 +203,7 @@ begin
                   TrayIcon.Icons := ImageList2;
                   TrayIcon.Animate:=True;
                   with Application as IBaseDBInterface do
-                    DBConfig.WriteString('INFORMRECTIME',DateTimeToStr(InformRecTime));
+                    DBConfig.WriteString('INFORMRECTIME',Rfc822DateTime(InformRecTime));
                   TrayIcon.Tag := 0;
                   if Assigned(fmTimeline) then
                     begin
@@ -583,12 +591,6 @@ begin
   acHistory.Enabled:=aUser <> '';
   FHistory := TBaseHistory.CreateEx(Self,Data);
   FHistory.CreateTable;
-  try
-    with Application as IBaseDBInterface do
-      InformRecTime := StrToDateTime(DBConfig.ReadString('INFORMRECTIME',DateTimeToStr(Now()-5)));
-  except
-    InformRecTime:=Now()-5;
-  end;
   if aUser <> '' then
     begin
       if Data.Users.IDCode.AsString<>'' then
