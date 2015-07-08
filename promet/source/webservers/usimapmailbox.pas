@@ -52,7 +52,7 @@ type
     function  AddFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;virtual;abstract;
     function  RemoveFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;virtual;abstract;
     function  GetTimeStamp( Index: LongInt ): TUnixTime;virtual;abstract;
-    function  GetMessage( UID: LongInt ): TMimeMess;virtual;abstract;
+    function  GetMessage( UID: LongInt;HeaderOnly : Boolean  ): TMimeMess;virtual;abstract;
 
     function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;virtual;
     function AppendMessage(AThread: TSTcpThread;MsgTxt: string; Flags: string;TimeStamp: TUnixTime): string;virtual;
@@ -365,7 +365,18 @@ function TImapMailbox.Fetch(Idx: integer; MsgDat: string;
 var
   Filename, Args, DataItem, Data: string;
   MyMail: TMimeMess = nil;
+  FullGetted : Boolean = False;
   sl: TStringList;
+
+  procedure GetFull;
+  begin
+    if not FullGetted then
+      begin
+        MyMail.Free;
+        MyMail := GetMessage(GetUID(Idx),False);
+        FullGetted:=True;
+      end;
+  end;
 
   procedure AddDataValue(NewValue: string);
   begin
@@ -388,7 +399,7 @@ begin
         AddDataValue(GetUIDStr(Idx))
       end else begin
         if Not Assigned(MyMail) then begin
-          MyMail := GetMessage(GetUID(Idx));
+          MyMail := GetMessage(GetUID(Idx),True);
           if not Assigned(MyMail) then break;
         end;
         if DataItem = 'ENVELOPE' then AddDataValue( GetEnvelope(MyMail) )
@@ -400,8 +411,16 @@ begin
           end
         else if DataItem = 'RFC822.TEXT' then AddDataValue( MakeLiteral( MyMail.Lines.Text ) )
         else if DataItem = 'RFC822.SIZE' then AddDataValue( IntToStr( Length(MyMail.Lines.Text) ) )
-        else if DataItem = 'BODYSTRUCTURE' then AddDataValue( BodyStructure(MyMail.MessagePart,MyMail, True ) )
-        else if DataItem = 'BODY' then AddDataValue( BodyStructure(MyMail.MessagePart,MyMail, False ) )
+        else if DataItem = 'BODYSTRUCTURE' then
+          begin
+            GetFull;
+            AddDataValue( BodyStructure(MyMail.MessagePart,MyMail, True ) )
+          end
+        else if DataItem = 'BODY' then
+          begin
+            GetFull;
+            AddDataValue( BodyStructure(MyMail.MessagePart,MyMail, False ) )
+          end
         else if Copy( DataItem, 1, 4 ) = 'BODY' then
           begin
             if Copy( DataItem, 5, 5 ) = '.PEEK' then System.Delete( DataItem, 5, 5 )
@@ -411,6 +430,8 @@ begin
               Store(idx, '\seen', [smAdd]);
               Args := Args + ' FLAGS';
             end;
+            if pos('HEADER',DataItem)=0 then
+              GetFull;
             AddDataValue( MakeLiteral( BodySection(MyMail, DataItem ) ) )
           end
         else

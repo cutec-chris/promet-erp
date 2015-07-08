@@ -1,6 +1,6 @@
 [submodule "promet/source/components/zeos"]
 	path = promet/source/components/zeos
-	url = https://github.com/tcs-ulli/ZeosDBO.git
+	url = https://github.com/cutec-chris/ZeosDBO.git
 [submodule "promet/source/components/brookframework"]
 	path = promet/source/components/brookframework
 	url = https://github.com/silvioprog/brookframework.git
@@ -24,7 +24,7 @@
 	url = https://github.com/tcs-ulli/zvdatetimecontrols
 [submodule "promet/source/components/thumbs"]
 	path = promet/source/components/thumbs
-	url = https://github.com/tcs-ulli/lazarus-thumbviewer
+	url = https://github.com/cutec-chris/lazarus-thumbviewer
 [submodule "general"]
 	path = general
 	url = https://github.com/cutec-chris/general.git
