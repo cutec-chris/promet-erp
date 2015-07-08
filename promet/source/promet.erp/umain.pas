@@ -2255,6 +2255,7 @@ begin
       pPages.Height:=fmain.Height;
     end
   else pPages.Align:=alClient;
+  FormResize(Self);
   EndUpdateBounds;
   EndFormUpdate;
 end;
