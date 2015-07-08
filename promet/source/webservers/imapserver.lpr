@@ -313,8 +313,6 @@ begin
   aMessage.SelectByGrpID(UID,FParent);
   aMessage.Open;
   Result := aMessage.EncodeMessage(HeaderOnly);
-  if Assigned(Result) then
-    Result.EncodeMessage;
   aMessage.Free;
   DBCS.Leave;
 end;
