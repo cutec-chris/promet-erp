@@ -27,7 +27,7 @@ install -m 644 ../../resources/world_icon64.png $BuildDir/usr/share/pixmaps/$Pro
 install -m 644 general/$Program.desktop $BuildDir/usr/share/applications/$Program.desktop
 install -m 644 general/wizardmandant.desktop $BuildDir/usr/share/applications/prometerp-wizardmandant.desktop
 echo "copy to builddir..."
-cp ../help/help.db $BuildDir/usr/lib/$Program/
+cp ../help.db $BuildDir/usr/lib/$Program/
 ./copy_to_builddir.sh $Archfpc $BuildDir/usr/lib/$Program
 install general/$Program.starter $BuildDir/usr/lib/$Program/
 install general/helpviewer.starter $BuildDir/usr/lib/$Program/

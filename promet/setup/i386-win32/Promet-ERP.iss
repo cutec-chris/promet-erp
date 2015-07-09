@@ -46,7 +46,7 @@ Source: "..\errors.txt"; DestDir: "{app}"; Components: main
 Source: "..\warnings.txt"; DestDir: "{app}"; Components: main
 
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\helpviewer.exe"; DestDir: "{app}"; Components: help
-Source: "..\help\help.db"; DestDir: "{app}"; Components: help
+Source: "..\help.db"; DestDir: "{app}"; Components: help
 
 Source: "tools\*.*"; DestDir: "{app}\tools"; Components: main
 
