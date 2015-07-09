@@ -28,7 +28,7 @@ uses
   synautil, ureceivemessage, uMimeMessages, ussmtpserver, usimapserver,
   usimapsearch, mimemess, usbaseserver, usimapmailbox,RegExpr, db,
   Utils,uMessages,syncobjs,uPerson,uIntfStrConsts,uBaseDatasetInterfaces,
-  variants;
+  variants,synachar;
 type
   { TPrometMailBox }
 
@@ -50,7 +50,7 @@ type
     function  RemoveFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;override;
     function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;override;
     function  GetTimeStamp( Index: LongInt ): TUnixTime;override;
-    function  GetMessage( UID: LongInt ): TMimeMess;override;
+    function  GetMessage( UID: LongInt;HeaderOnly : Boolean ): TMimeMess;override;
     function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;override;
     function AppendMessage(AThread: TSTcpThread;MsgTxt: string; Flags: string; TimeStamp: TUnixTime): string; override;
     function FindContent(MsgSet: TMessageSet; After, Before: int64; Charset: string; HeaderList, BodyStrings,  TextStrings: TStringList): TMessageSet;override;
@@ -303,7 +303,8 @@ begin
   Result := DateTimeToUnixTime(Folder.FieldByName('SENDDATE').AsDateTime);
 end;
 
-function TPrometMailBox.GetMessage(UID: LongInt): TMimeMess;
+function TPrometMailBox.GetMessage(UID: LongInt; HeaderOnly: Boolean
+  ): TMimeMess;
 var
   aMessage: TMimeMessage;
 begin
@@ -311,9 +312,7 @@ begin
   aMessage := TMimeMessage.Create(nil);
   aMessage.SelectByGrpID(UID,FParent);
   aMessage.Open;
-  Result := aMessage.EncodeMessage;
-  if Assigned(Result) then
-    Result.EncodeMessage;
+  Result := aMessage.EncodeMessage(HeaderOnly);
   aMessage.Free;
   DBCS.Leave;
 end;
@@ -765,9 +764,7 @@ begin
   Folder.SortFields:='GRP_ID,MSG_ID';
   Folder.SortDirection:=sdAscending;
   aFilter := aFilter+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.Accountno.AsString);
-  Folder.Filter(aFilter);
-  Folder.First;
-  ActId := -1;
+  Folder.Filter(aFilter+' AND '+Data.QuoteField('GRP_ID')+'=NULL');
   while Folder.Locate('GRP_ID',Null,[]) do
     begin
       if (Folder.FieldByName('GRP_ID').IsNull) or (Folder.FieldByName('GRP_ID').AsInteger=ActId) then
@@ -780,6 +777,9 @@ begin
         end;
       ActId := Folder.FieldByName('GRP_ID').AsInteger;
     end;
+  Folder.Filter(aFilter);
+  Folder.First;
+  ActId := -1;
   if aChanged>0 then
     begin
       Folder.Filter(aFilter);
@@ -817,6 +817,7 @@ var
   ParentId : Variant;
 begin
   Result := False;
+  MailBox:=CharsetConversion(MailBox,UTF_7mod,UTF_8);
   if pos('/',MailBox)>0 then
     Parent := copy(MailBox,0,RPos('/',MailBox)-1);
   MailBox:=copy(MailBox,RPos('/',MailBox)+1,length(MailBox));
