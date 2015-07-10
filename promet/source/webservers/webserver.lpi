@@ -130,6 +130,7 @@
         <ComponentName Value="TWebServer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uwebserver"/>
       </Unit2>
       <Unit3>
         <Filename Value="uloggedout.pas"/>
@@ -137,6 +138,7 @@
         <ComponentName Value="loggedout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uloggedout"/>
       </Unit3>
     </Units>
   </ProjectOptions>

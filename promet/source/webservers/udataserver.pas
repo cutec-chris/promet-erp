@@ -71,7 +71,7 @@ var
 implementation
 {$R *.lfm}
 uses uStatistic,uData,uBaseWebSession,uPerson,uOrder,uMasterdata,utask,uProjects,
-  uBaseDbDataSet,usync,uMessages,uBaseSearch,uWiki,uDocuments,umeeting,uBaseERPDBClasses,
+  usync,uMessages,uBaseSearch,uWiki,uDocuments,umeeting,uBaseERPDBClasses,
   uBaseApplication,uBaseDatasetInterfaces;
 
 procedure TAppDataServer.checkloginRequest(Sender: TObject; ARequest: TRequest;
