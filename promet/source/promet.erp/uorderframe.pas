@@ -777,6 +777,8 @@ begin
   pcHeader.NewFrame(TfHistoryFrame,TOrder(DataSet).History.Count > 0,strHistory,@AddHistory);
 
   pcHeader.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
+  if Assigned(pcHeader.GetTab(TfDocumentFrame)) then
+    pcHeader.GetTab(TfDocumentFrame).Free;
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) and (not Assigned(pcHeader.GetTab(TfDocumentFrame))) then
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);

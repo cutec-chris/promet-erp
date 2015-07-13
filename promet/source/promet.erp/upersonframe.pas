@@ -1108,6 +1108,8 @@ begin
   pcPages.NewFrame(TfLinkFrame,(TPerson(DataSet).Links.Count > 0),strLinks,@AddLinks);
 
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
+  if Assigned(pcPages.GetTab(TfDocumentFrame)) then
+    pcPages.GetTab(TfDocumentFrame).Free;
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) and (not Assigned(pcPages.GetTab(TfDocumentFrame))) then
     begin
       aDocuments := TDocuments.CreateEx(Self,Data,DataSet.Connection);

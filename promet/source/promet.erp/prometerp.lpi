@@ -174,6 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -274,7 +275,7 @@
         <PackageName Value="LCL"/>
       </Item25>
     </RequiredPackages>
-    <Units Count="48">
+    <Units Count="49">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -591,6 +592,7 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticleFrame"/>
       </Unit45>
       <Unit46>
         <Filename Value="uallobjects.pas"/>
@@ -602,6 +604,13 @@
         <ComponentName Value="fVersionate"/>
         <ResourceBaseClass Value="Form"/>
       </Unit47>
+      <Unit48>
+        <Filename Value="upasswordgenerate.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fPWGenerate"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit48>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
