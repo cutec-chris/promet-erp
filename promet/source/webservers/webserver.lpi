@@ -122,6 +122,7 @@
         <ComponentName Value="AppDataServer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="udataserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="uwebserver.pas"/>
@@ -129,6 +130,7 @@
         <ComponentName Value="TWebServer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uwebserver"/>
       </Unit2>
       <Unit3>
         <Filename Value="uloggedout.pas"/>
@@ -136,6 +138,7 @@
         <ComponentName Value="loggedout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="uloggedout"/>
       </Unit3>
     </Units>
   </ProjectOptions>
