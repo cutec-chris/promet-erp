@@ -364,6 +364,7 @@
         <ComponentName Value="fArticlePositionFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticlePositionFrame"/>
       </Unit12>
       <Unit13>
         <Filename Value="uorderframe.pas"/>

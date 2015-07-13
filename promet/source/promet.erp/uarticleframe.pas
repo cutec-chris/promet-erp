@@ -352,6 +352,7 @@ begin
   application.ProcessMessages;
   if UseTransactions then
     Data.StartTransaction(FConnection);
+  TMasterdata(DataSet).Positions.Close;
   TMasterdata(DataSet).Select(aId,cbVersion.Text,aLanguage);
   DataSet.DataSet.DisableControls;
   DataSet.Open;
@@ -569,6 +570,7 @@ var
   aThumbnails: TThumbnails;
   aStream: TMemoryStream;
   aFrame: TTabSheet;
+  WasDisabled: Boolean;
 begin
   TMasterdata(DataSet).OpenItem;
   TabCaption := TMasterdata(FDataSet).Text.AsString;
@@ -640,8 +642,13 @@ begin
         end;
     end;
 
+  WasDisabled := DataSet.DataSet.ControlsDisabled;
+  if WasDisabled then
+    DataSet.DataSet.EnableControls;
   TMasterdata(DataSet).Positions.Open;
-  pcPages.NewFrame(TfArticlePositionFrame,TMasterdata(DataSet).Positions.Count > 0,strPiecelist,@AddPositions);
+  pcPages.NewFrame(TfArticlePositionFrame,(TMasterdata(DataSet).Positions.Count>0),strPiecelist,@AddPositions);
+  if WasDisabled then
+    DataSet.DataSet.DisableControls;
 
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if Assigned(pcPages.GetTab(TfDocumentFrame)) then
