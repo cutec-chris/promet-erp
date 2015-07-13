@@ -6044,12 +6044,88 @@ msgctxt "TFORDERTYPEOPTIONS.RGADDTOMAINORDER.CAPTION"
 msgid "Lagereintrag im Vorgang"
 msgstr ""
 
-#: tform1.button1.caption
-msgid "Button1"
+#: tform1.bitbtn2.caption
+msgctxt "tform1.bitbtn2.caption"
+msgid "To Clipboard"
+msgstr ""
+
+#: tform1.bitbtn3.caption
+msgid "Show/Hide password"
 msgstr ""
 
 #: tform1.caption
-msgid "Form1"
+msgctxt "tform1.caption"
+msgid "Advanced Password Generator"
+msgstr ""
+
+#: tform1.checkbox1.caption
+msgctxt "tform1.checkbox1.caption"
+msgid "feste Größe"
+msgstr ""
+
+#: tform1.checkbox2.caption
+msgctxt "tform1.checkbox2.caption"
+msgid "Kleinbuchstaben (a-z)"
+msgstr ""
+
+#: tform1.checkbox3.caption
+msgctxt "tform1.checkbox3.caption"
+msgid "GROSS Buchstaben (A-Z)"
+msgstr ""
+
+#: tform1.checkbox4.caption
+msgctxt "tform1.checkbox4.caption"
+msgid "Ziffern (0-9)"
+msgstr ""
+
+#: tform1.checkbox5.caption
+msgctxt "tform1.checkbox5.caption"
+msgid "Eindeutige zeichen"
+msgstr ""
+
+#: tform1.checkbox5.hint
+msgctxt "tform1.checkbox5.hint"
+msgid "No similar character will be generated"
+msgstr ""
+
+#: tform1.checkbox6.caption
+msgctxt "tform1.checkbox6.caption"
+msgid "Spezialzeichen"
+msgstr ""
+
+#: tform1.checkbox6.hint
+msgctxt "tform1.checkbox6.hint"
+msgid "Special characters as:$@&#!+%"
+msgstr ""
+
+#: tform1.edit2.hint
+msgctxt "tform1.edit2.hint"
+msgid "Your characters goes here"
+msgstr ""
+
+#: tform1.groupbox1.caption
+msgctxt "tform1.groupbox1.caption"
+msgid " Options "
+msgstr ""
+
+#: tform1.groupbox2.caption
+msgctxt "tform1.groupbox2.caption"
+msgid " Result "
+msgstr ""
+
+#: tform1.image1.hint
+msgctxt "tform1.image1.hint"
+msgid "At least 8 character recommended!"
+msgstr ""
+
+#: tform1.label1.caption
+msgctxt "tform1.label1.caption"
+msgid "Min. Größe:"
+msgstr ""
+
+#: tform1.label2.caption
+msgctxt "tform1.label2.caption"
+msgid "Max. Größe:"
 msgstr ""
 
 #: tfpassword.bok.caption
@@ -6743,6 +6819,86 @@ msgstr ""
 #: tfproject.tvdescription.caption
 msgctxt "TFPROJECT.TVDESCRIPTION.CAPTION"
 msgid "Beschreibung"
+msgstr ""
+
+#: tfpwgenerate.bshowpw.caption
+msgctxt "TFPWGENERATE.BSHOWPW.CAPTION"
+msgid "Passwort zeigen/verstecken"
+msgstr ""
+
+#: tfpwgenerate.caption
+msgctxt "TFPWGENERATE.CAPTION"
+msgid "Paswort Generator"
+msgstr ""
+
+#: tfpwgenerate.cbfixedsize.caption
+msgctxt "TFPWGENERATE.CBFIXEDSIZE.CAPTION"
+msgid "feste Größe"
+msgstr ""
+
+#: tfpwgenerate.cblowercase.caption
+msgctxt "TFPWGENERATE.CBLOWERCASE.CAPTION"
+msgid "Kleinbuchstaben (a-z)"
+msgstr ""
+
+#: tfpwgenerate.cbnumbers.caption
+msgctxt "TFPWGENERATE.CBNUMBERS.CAPTION"
+msgid "Ziffern (0-9)"
+msgstr ""
+
+#: tfpwgenerate.cbspecial.caption
+msgctxt "TFPWGENERATE.CBSPECIAL.CAPTION"
+msgid "Spezialzeichen"
+msgstr ""
+
+#: tfpwgenerate.cbspecial.hint
+msgctxt "TFPWGENERATE.CBSPECIAL.HINT"
+msgid "Special characters as:$@&#!+%"
+msgstr ""
+
+#: tfpwgenerate.cbuni.caption
+msgctxt "TFPWGENERATE.CBUNI.CAPTION"
+msgid "Eindeutige zeichen"
+msgstr ""
+
+#: tfpwgenerate.cbuni.hint
+msgctxt "TFPWGENERATE.CBUNI.HINT"
+msgid "No similar character will be generated"
+msgstr ""
+
+#: tfpwgenerate.cbuppercase.caption
+msgctxt "TFPWGENERATE.CBUPPERCASE.CAPTION"
+msgid "GROSS Buchstaben (A-Z)"
+msgstr ""
+
+#: tfpwgenerate.edit2.hint
+msgctxt "TFPWGENERATE.EDIT2.HINT"
+msgid "Your characters goes here"
+msgstr ""
+
+#: tfpwgenerate.groupbox1.caption
+msgctxt "TFPWGENERATE.GROUPBOX1.CAPTION"
+msgid " Options "
+msgstr ""
+
+#: tfpwgenerate.groupbox2.caption
+msgctxt "TFPWGENERATE.GROUPBOX2.CAPTION"
+msgid " Result "
+msgstr ""
+
+#: tfpwgenerate.image1.hint
+msgctxt "TFPWGENERATE.IMAGE1.HINT"
+msgid "At least 8 character recommended!"
+msgstr ""
+
+#: tfpwgenerate.label1.caption
+msgctxt "TFPWGENERATE.LABEL1.CAPTION"
+msgid "Min. Größe:"
+msgstr ""
+
+#: tfpwgenerate.label2.caption
+msgctxt "TFPWGENERATE.LABEL2.CAPTION"
+msgid "Max. Größe:"
 msgstr ""
 
 #: tframe1.baddform1.hint
