@@ -198,6 +198,7 @@ resourcestring
   strRepair                                  = 'Reparatur';
   strTexts                                   = 'Texte';
   strNewArticle                              = 'neuer Artikel';
+  strPiecelist                               = 'Stückliste';
 procedure TfArticleFrame.acSaveExecute(Sender: TObject);
 begin
   if Assigned(FConnection) then
@@ -640,7 +641,7 @@ begin
     end;
 
   TMasterdata(DataSet).Positions.Open;
-  pcPages.NewFrame(TfArticlePositionFrame,TMasterdata(DataSet).Positions.Count > 0,strPositions,@AddPositions);
+  pcPages.NewFrame(TfArticlePositionFrame,TMasterdata(DataSet).Positions.Count > 0,strPiecelist,@AddPositions);
 
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if Assigned(pcPages.GetTab(TfDocumentFrame)) then
