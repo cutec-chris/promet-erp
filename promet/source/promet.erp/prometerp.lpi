@@ -560,7 +560,6 @@
         <ComponentName Value="fPasswords"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uPasswords"/>
       </Unit40>
       <Unit41>
         <Filename Value="ucategoryoptions.pas"/>
@@ -593,6 +592,7 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticleFrame"/>
       </Unit45>
       <Unit46>
         <Filename Value="uallobjects.pas"/>
@@ -610,7 +610,6 @@
         <ComponentName Value="fPWGenerate"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="upasswordgenerate"/>
       </Unit48>
     </Units>
   </ProjectOptions>
