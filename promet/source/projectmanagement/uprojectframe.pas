@@ -1270,7 +1270,7 @@ begin
     end;
 
   TProject(DataSet).Positions.Open;
-  pcPages.NewFrame(TfProjectPositions,TProject(DataSet).Positions.Count > 0,strPositions,@AddPositions);
+  pcPages.NewFrame(TfProjectPositions,TProject(DataSet).Positions.Count > 0,strCosts,@AddPositions);
 
   sePriority.OnChange:=nil;
   sePriority.Value:=DataSet.FieldByName('GPRIORITY').AsInteger;
