@@ -448,8 +448,6 @@ begin
       Application.ProcessMessages;
       FDataSet.CascadicCancel;
       DataSet.Delete;
-//      Data.Commit(FConnection);
-//      Data.StartTransaction(FConnection);
       acClose.Execute;
       Screen.Cursor := crDefault;
     end;
@@ -1423,7 +1421,6 @@ begin
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-//  Data.StartTransaction(FConnection);
   DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   if copy(aLink,0,pos('@',aLink)-1) = 'PROJECTS.ID' then
@@ -1442,7 +1439,6 @@ begin
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-//  Data.StartTransaction(FConnection);
   TabCaption := strNewProject;
   DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
