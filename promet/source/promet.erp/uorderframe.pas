@@ -542,7 +542,6 @@ begin
         end;
       if fChangeStatus.Execute then
         begin
-          pcHeader.CloseAll;
           DataSet.CascadicPost;
           if UseTransactions then
             begin
