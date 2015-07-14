@@ -309,7 +309,6 @@ begin
       ActiveSearch.OnItemFound:=@SenderTComboBoxActiveSearchItemFound;
       ActiveSearch.OnEndSearch:=@ActiveSearchEndItemSearch;
       ActiveSearch.Start(SearchString);
-//      while ActiveSearch.Active do Application.ProcessMessages;
     end;
 end;
 procedure TfOrderFrame.acCloseExecute(Sender: TObject);
@@ -477,9 +476,14 @@ begin
 end;
 procedure TfOrderFrame.ActiveSearchEndItemSearch(Sender: TObject);
 begin
-  //if not ActiveSearch.Active then
+  if not ActiveSearch.Active then
     begin
-      if ActiveSearch.Count=0 then
+      if not ActiveSearch.NewFound then
+        begin
+          ActiveSearch.Start(ActiveSearch.SearchString,ActiveSearch.NextSearchLevel);
+          exit;
+        end;
+      if (ActiveSearch.Count=0) and (lbResults.Items.Count=0) then
         pSearch.Visible:=False;
     end;
 end;
@@ -599,7 +603,8 @@ begin
         Visible := True;
     end;
   if aActive then
-    lbResults.Items.AddObject(aName,TLinkObject.Create(aLink));
+    if lbResults.Items.IndexOf(Data.GetLinkDesc(aLink))=-1 then
+      lbResults.Items.AddObject(Data.GetLinkDesc(aLink) ,TLinkObject.Create(aLink));
 end;
 procedure TfOrderFrame.spPreviewMoved(Sender: TObject);
 begin

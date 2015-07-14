@@ -527,6 +527,7 @@
         <ComponentName Value="fOrderAddress"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uorderaddressframe"/>
       </Unit35>
       <Unit36>
         <Filename Value="uarticlesupplierframe.pas"/>
