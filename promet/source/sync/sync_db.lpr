@@ -9,7 +9,7 @@ uses
   Classes, SysUtils, CustApp,
   pcmdprometapp, uData, db, uBaseDBInterface, uBaseApplication,
   uBaseCustomApplication, uBaseDbClasses, uSync, uOrder, uPerson, uMasterdata,
-  uMessages,Utils,uminiconvencoding,uBaseDatasetInterfaces;
+  uMessages,Utils,uminiconvencoding,uBaseDatasetInterfaces,utask,uCalendar;
 type
 
   { TSyncDBApp }
@@ -408,6 +408,25 @@ var
   aMessage: TMessage;
   aRec: db.LargeInt;
   aSyncError: TSyncItems;
+  procedure DoCreateTable(aTableC : TClass);
+  var
+    aTableName: string;
+    aTable : TBaseDBDataset;
+  begin
+    try
+    {
+      aTable := TBaseDbDataSetClass(aTableC).CreateEx(Self,FDest.GetDB);
+      with aTable.DataSet as IBaseManageDB do
+        aTableName := TableName;
+      with aTable.DataSet as IBaseDbFilter do
+        Limit := 1;
+      aTable.CreateTable;
+      aTable.Open;
+      aTable.Free;
+      }
+    except
+    end;
+  end;
 begin
   FLog := TStringList.Create;
   FTables := TStringList.Create;
@@ -483,29 +502,21 @@ begin
                                   aSyncOffs := FDest.GetDB.SyncOffset;
                                   if SyncDB.DataSet.FieldByName('SYNCOFFS').AsInteger = aSyncOffs then
                                     begin
+                                      DoCreateTable(TDeletedItems);
+                                      DoCreateTable(TSyncStamps);
+                                      aTable := TOrder.CreateEx(Self,uData.Data);
+                                      aTable.CreateTable;
+                                      TOrder(aTable).Positions.Open;
+                                      aTable.Free;
+                                      DoCreateTable(TPerson);
+                                      DoCreateTable(TMasterdata);
+                                      DoCreateTable(TTask);
+                                      DoCreateTable(TCalendar);
                                       SyncDB.Tables.Open;
                                       if SyncDB.Tables.DataSet.Locate('NAME','USERFIELDDEFS',[loCaseInSensitive]) then
                                         begin
+                                          DoCreateTable(TUserfielddefs);
                                           SyncTable(SyncDB,uData.Data,FDest.GetDB);
-                                          aTable := TDeletedItems.CreateEx(Self,FDest.GetDB);
-                                          aTable.CreateTable;
-                                          aTable.Free;
-                                          aTable := TSyncStamps.CreateEx(Self,uData.Data);
-                                          aTable.CreateTable;
-                                          aTable.Free;
-                                          aTable := TOrder.CreateEx(Self,uData.Data);
-                                          aTable.CreateTable;
-                                          aTable.Open;
-                                          TOrder(aTable).Positions.Open;
-                                          aTable.Free;
-                                          aTable := TPerson.CreateEx(Self,uData.Data);
-                                          aTable.CreateTable;
-                                          aTable.Open;
-                                          aTable.Free;
-                                          aTable := TMasterdata.CreateEx(Self,uData.Data);
-                                          aTable.CreateTable;
-                                          aTable.Open;
-                                          aTable.Free;
                                         end;
                                       SyncDB.Tables.DataSet.First;
                                       while not SyncDB.Tables.DataSet.EOF do
