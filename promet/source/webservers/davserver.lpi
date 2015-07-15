@@ -37,7 +37,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --server-log"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log --debug"/>
         <WorkingDirectory Value="..\"/>
       </local>
     </RunParams>
@@ -63,7 +63,6 @@
       <Unit1>
         <Filename Value="ulsvnserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ulsvnserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="ulwebdavserver.pas"/>
