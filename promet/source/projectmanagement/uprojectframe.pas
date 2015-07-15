@@ -624,6 +624,8 @@ procedure TfProjectFrame.acRegorganizeExecute(Sender: TObject);
 begin
   Screen.Cursor:=crHourGlass;
   TProject(DataSet).Reorganize;
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    TfTaskFrame(pcPages.ActivePage.Controls[0]).DoRefresh;
   Screen.Cursor:=crDefault;
 end;
 
@@ -731,6 +733,8 @@ begin
   Data.GotoLink(aLink);
   bProject.Free;
   Screen.Cursor:=crDefault;
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    TfTaskFrame(pcPages.ActivePage.Controls[0]).DoRefresh;
 end;
 procedure TfProjectFrame.acRightsExecute(Sender: TObject);
 begin
