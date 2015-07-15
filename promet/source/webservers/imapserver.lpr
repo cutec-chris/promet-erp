@@ -1308,6 +1308,8 @@ procedure TPIMAPServer.ServerLog(aSocket: TSTcpThread; DirectionIn: Boolean;
   aMessage: string);
 var
   aID: Integer;
+  f : TextFile;
+  msg: String;
 begin
   with Self as IBaseApplication do
     begin
@@ -1316,12 +1318,18 @@ begin
       if aSocket is TSTcpThread then
         aID := TSTcpThread(aSocket).Id;
       if DirectionIn then
-        begin
-          Info(IntToStr(aId)+':>'+aMessage);
-        end
+        msg := IntToStr(aId)+':>'+aMessage
       else
+        msg := IntToStr(aId)+':<'+aMessage;
+      Debug(msg);
+      if HasOption('debug') then
         begin
-          Info(IntToStr(aId)+':<'+aMessage);
+          AssignFile(f,'imap.log.'+IntToStr(aId)+'.txt');
+         if not FileExists('imap.log.'+IntToStr(aId)+'.txt') then
+           Rewrite(f)
+         else Append(f);
+         writeln(f,msg);
+         CloseFile(f);
         end;
     end;
 end;

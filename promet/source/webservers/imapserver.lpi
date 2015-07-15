@@ -143,7 +143,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --port=1043 --smtpport=5087 --server-log --debug"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -168,6 +168,7 @@
       <Unit1>
         <Filename Value="ussmtpserver.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ussmtpserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="usimapserver.pas"/>
@@ -201,11 +202,12 @@
         <CStyleOperator Value="False"/>
       </SyntaxOptions>
     </Parsing>
-    <Linking>
-      <Debugging>
-        <UseExternalDbgSyms Value="True"/>
-      </Debugging>
-    </Linking>
+    <CodeGeneration>
+      <Checks>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
+      </Checks>
+    </CodeGeneration>
     <Other>
       <CompilerMessages>
         <IgnoredMessages idx5024="True"/>

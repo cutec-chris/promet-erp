@@ -94,11 +94,11 @@ type
     function  MBRename(AThread: TSTcpThread; OldName, NewName: String ): Boolean; virtual;
     function  MBLogin(AThread: TSTcpThread;  var Mailbox: TImapMailbox; Path: String; LINotify : Boolean ): Boolean; virtual;
     procedure MBLogout(AThread: TSTcpThread; var Mailbox: TImapMailbox; LOSel : Boolean ); virtual;
-    procedure DoSearch(AThread: TSTcpThread; UseUID: Boolean; Par: String ); virtual;
-    procedure DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Destination: String );virtual;
-    procedure DoStore(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Par: String );virtual;
-    procedure DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Par: String );virtual;
-    procedure DoList(AThread: TSTcpThread; Par: String; LSub: Boolean ); virtual;
+    procedure DoSearch(AThread: TSTcpThread; UseUID: Boolean; Par: String ); virtual;abstract;
+    procedure DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Destination: String );virtual;abstract;
+    procedure DoStore(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Par: String );virtual;abstract;
+    procedure DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet; Command, Par: String );virtual;abstract;
+    procedure DoList(AThread: TSTcpThread; Par: String; LSub: Boolean ); virtual;abstract;
     procedure DoSubscribe(AThread: TSTcpThread; Par: String);virtual;
     procedure DoUnSubscribe(AThread: TSTcpThread; Par: String);virtual;
 
@@ -1535,30 +1535,6 @@ end;
 procedure TSImapServer.MBLogout(AThread: TSTcpThread;
   var Mailbox: TImapMailbox; LOSel: Boolean);
 begin
-end;
-procedure TSImapServer.DoSearch(AThread: TSTcpThread; UseUID: Boolean;
-  Par: String);
-begin
-
-end;
-procedure TSImapServer.DoCopy(AThread: TSTcpThread; MsgSet: TMessageSet;
-  Command, Destination: String);
-begin
-
-end;
-procedure TSImapServer.DoStore(AThread: TSTcpThread; MsgSet: TMessageSet;
-  Command, Par: String);
-begin
-
-end;
-procedure TSImapServer.DoFetch(AThread: TSTcpThread; MsgSet: TMessageSet;
-  Command, Par: String);
-begin
-
-end;
-procedure TSImapServer.DoList(AThread: TSTcpThread; Par: String; LSub: Boolean);
-begin
-
 end;
 procedure TSImapServer.DoSubscribe(AThread: TSTcpThread; Par: String);
 begin
