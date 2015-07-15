@@ -16,6 +16,7 @@ inherited fCategoryOptions: TfCategoryOptions
     Color = clWindow
     Columns = <    
       item
+        ButtonStyle = cbsPickList
         PickList.Strings = (
           'P   Projekt'
           'K  Projekt Klassifizierung'
@@ -23,6 +24,8 @@ inherited fCategoryOptions: TfCategoryOptions
           'M  Artikel'
           'B  Bank'
           'C  Kalendar'
+          'R Fehlerbild'
+          'S Script'
         )
         Title.Caption = 'Typ'
         Width = 40
