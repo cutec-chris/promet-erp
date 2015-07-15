@@ -45,7 +45,11 @@ type
     ActionList1: TActionList;
     Bevel3: TBevel;
     Bevel4: TBevel;
+    Bevel5: TBevel;
     Bevel6: TBevel;
+    cbActive: TDBCheckBox;
+    cbStatus: TComboBox;
+    cbVersion: TComboBox;
     DBMemo1: TDBMemo;
     eArticleNumber: TDBEdit;
     History: TDatasource;
@@ -53,7 +57,11 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
     MandantDetails: TDatasource;
+    Panel8: TPanel;
+    Panel9: TPanel;
     Script: TDatasource;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
@@ -68,7 +76,6 @@ type
     Panel4: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
-    Panel9: TPanel;
     pcPages: TExtMenuPageControl;
     PHistory: TfrDBDataSet;
     PList: TfrDBDataSet;
@@ -88,6 +95,9 @@ type
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
+    procedure cbStatusSelect(Sender: TObject);
+    procedure cbVersionExit(Sender: TObject);
+    procedure cbVersionSelect(Sender: TObject);
     procedure eArticleNumberChange(Sender: TObject);
     procedure FEditorOpenUnit(aUnitName: string; X, Y: Integer);
     procedure FrameEnter(Sender: TObject);
@@ -123,7 +133,7 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uMainTreeFrame,uPrometFramesInplace,uarticlesupplierframe,
   uNRights,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
   uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uprometscripts,
-  uprometpascalscript;
+  uprometpascalscript,uBaseDatasetInterfaces;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -154,6 +164,62 @@ begin
       Edit;
       FieldbyName('TREEENTRY').AsVariant:=fMainTreeFrame.GetTreeEntry;
       fMainTreeFrame.tvMain.Selected.Collapse(true);
+    end;
+end;
+
+procedure TfScriptFrame.cbStatusSelect(Sender: TObject);
+var
+  tmp: String;
+begin
+  tmp := copy(cbStatus.text,pos('(',cbStatus.text)+1,length(cbStatus.text));
+  tmp := copy(tmp,0,pos(')',tmp)-1);
+  if not FDataSet.CanEdit then FDataSet.DataSet.Edit;
+  FDataSet.FieldByName('STATUS').AsString:=tmp;
+  acSave.Execute;
+  DoOpen;
+end;
+
+procedure TfScriptFrame.cbVersionExit(Sender: TObject);
+var
+  TargetVer: String;
+  Version : Variant;
+begin
+  Version := NULL;
+  if cbVersion.Text <> '' then
+    Version := cbVersion.Text;
+  if Dataset.FieldByName('VERSION').AsVariant <> Version then
+    begin //New Version
+      if not TBaseScript(DataSet).Versionate(Version) then
+        cbVersion.Text := DataSet.FieldByName('VERSION').AsString
+      else
+        begin
+          cbVersion.Items.Add(TargetVer);
+          cbVersion.Text:=TargetVer;
+          DoOpen;
+          FDataSet.Change;
+        end;
+    end;
+end;
+
+procedure TfScriptFrame.cbVersionSelect(Sender: TObject);
+var
+  TargetVer: String;
+  Version : Variant;
+begin
+  Version := NULL;
+  if cbVersion.Text <> '' then
+    Version := cbVersion.Text;
+  if Dataset.FieldByName('VERSION').AsVariant <> Version then
+    begin //New Version
+      if not TBaseScript(DataSet).Versionate(Version) then
+        cbVersion.Text := DataSet.FieldByName('VERSION').AsString
+      else
+        begin
+          cbVersion.Items.Add(TargetVer);
+          cbVersion.Text:=TargetVer;
+          DoOpen;
+          FDataSet.Change;
+        end;
     end;
 end;
 
@@ -287,6 +353,30 @@ begin
   TabCaption := TBaseScript(FDataSet).Text.AsString;
   Script.DataSet := DataSet.DataSet;
   SetRights;
+  if Script.DataSet.State <> dsInsert then
+    begin
+      if Refreshversions then
+        begin
+          Rec := DataSet.GetBookmark;
+          Script.DataSet.DisableControls;
+          with DataSet.DataSet as IBaseDbFilter do
+            begin
+              aFilter := Filter;
+              Filter := Data.QuoteField('NAME')+'='+Data.QuoteValue(DataSet.FieldByName('NAME').AsString);
+            end;
+          DataSet.Open;
+          DataSet.DataSet.First;
+          cbVersion.Items.Clear;
+          while not DataSet.DataSet.EOF do
+            begin
+              cbVersion.Items.Add(DataSet.FieldByName('VERSION').AsString);
+              DataSet.DataSet.Next;
+            end;
+          DataSet.GotoBookmark(Rec);
+          cbVersion.Text:=DataSet.FieldByName('VERSION').AsString;
+          Script.DataSet.EnableControls;
+        end;
+    end;
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
     begin

@@ -6,6 +6,17 @@ TFSCRIPTFRAME.LABEL3.CAPTION=Erweitert
 TFSCRIPTFRAME.SBMENUE.HINT=zusätzliche Optionen
 (Menü)
 TFSCRIPTFRAME.LABEL4.CAPTION=Name
+TFSCRIPTFRAME.LABEL6.CAPTION=Version
+TFSCRIPTFRAME.CBVERSION.HINT=hier können Sie die zu bearbeitende Artikelversion auswählen.
+Wenn Sie eine neue version eingeben und das Feld verlassen,
+wird ein Dialog geöffnet in dem abgefragt wird was vom aktuellen
+Artikel übernommen werden soll, danach existiert der Atikel auch
+in der neuen Artikelversion.
+TFSCRIPTFRAME.CBACTIVE.HINT=markiert diesen Artikel als aktiv
+(aktive Version)
+TFSCRIPTFRAME.CBACTIVE.CAPTION=Aktiv
+TFSCRIPTFRAME.LABEL5.CAPTION=Status
+TFSCRIPTFRAME.CBSTATUS.HINT=hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen
 TFSCRIPTFRAME.ACSAVE.CAPTION=Speichern
 TFSCRIPTFRAME.ACSAVE.HINT=Speichert alle Änderungen in die Datenbank
 TFSCRIPTFRAME.ACCANCEL.CAPTION=Abbrechen
