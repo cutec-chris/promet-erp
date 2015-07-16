@@ -4,7 +4,7 @@ object fMain: TfMain
   Top = 131
   Width = 935
   Caption = 'Promet-ERP'
-  ClientHeight = 600
+  ClientHeight = 601
   ClientWidth = 935
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -20,7 +20,7 @@ object fMain: TfMain
   LCLVersion = '1.5'
   object spTree: TSplitter
     Left = 283
-    Height = 562
+    Height = 563
     Top = 38
     Width = 5
     Color = clBtnFace
@@ -77,12 +77,12 @@ object fMain: TfMain
       end
       object ToolBar1: TToolBar
         Left = 39
-        Height = 23
-        Top = 16
+        Height = 26
+        Top = 12
         Width = 179
         BorderSpacing.Left = 39
-        BorderSpacing.Top = 16
-        ButtonHeight = 18
+        BorderSpacing.Top = 12
+        ButtonHeight = 26
         ButtonWidth = 55
         Caption = 'ToolBar1'
         Color = clBtnFace
@@ -166,9 +166,9 @@ object fMain: TfMain
       end
       object bPauseTime: TSpeedButton
         Left = 4
-        Height = 21
+        Height = 26
         Hint = 'Zeiterfassung pausieren/'#10'wieder starten'
-        Top = 15
+        Top = 12
         Width = 29
         AllowAllUp = True
         Caption = 'acPauseTime'
@@ -216,8 +216,8 @@ object fMain: TfMain
       end
       object bDependencies: TSpeedButton
         Left = 32
-        Height = 21
-        Top = 15
+        Height = 26
+        Top = 12
         Width = 29
         Action = acStandartTime
         AllowAllUp = True
@@ -265,12 +265,12 @@ object fMain: TfMain
   end
   object tvMain: TPanel
     Left = 0
-    Height = 562
+    Height = 563
     Top = 38
     Width = 283
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 562
+    ClientHeight = 563
     ClientWidth = 283
     Color = clWindow
     DragMode = dmAutomatic
@@ -290,18 +290,18 @@ object fMain: TfMain
   end
   object pPages: TPanel
     Left = 289
-    Height = 600
+    Height = 601
     Top = 0
     Width = 642
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
     Caption = 'pPages'
-    ClientHeight = 600
+    ClientHeight = 601
     ClientWidth = 642
     TabOrder = 3
     object pcPages: TExtMenuPageControl
       Left = 0
-      Height = 600
+      Height = 601
       Top = 0
       Width = 642
       ActivePage = tsStartpage
