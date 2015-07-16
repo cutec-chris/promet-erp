@@ -17,7 +17,7 @@ cp $2/tools/webserver ../executables/$Version/$1
 cp $2/tools/imapserver ../executables/$Version/$1
 cp $2/tools/mta ../executables/$Version/$1
 cp $2/tools/nntpserver ../executables/$Version/$1
-cp $2/tools/webdavserver ../executables/$Version/$1
+cp $2/tools/davserver ../executables/$Version/$1
 cp $2/tools/processmanager ../executables/$Version/$1
 cp $2/tools/promet-process ../executables/$Version/$1
 cp $2/tools/syslog ../executables/$Version/$1
