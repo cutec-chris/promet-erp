@@ -23,14 +23,14 @@ Source: "isxdl.dll"; Flags: dontcopy
 Source: "icons\*.ico"; Flags: dontcopy
 Source: "..\..\resources\multi-icon.ico"; Flags: dontcopy
 [Run]
-Filename: "{tmp}\isstudio-setup.exe"; StatusMsg: "Installing Inno Script Studio..."; Parameters: {code:GetISStudioCmdLine}; Flags: skipifdoesntexist; Check: ISStudioCheck
+Filename: "{tmp}\isstudio-setup.exe"; StatusMsg: "Installing Inno Script Studio..."; Parameters: {code:GetISStudioCmdLine}; Flags: skipifdoesntexist; Check: PrometCheck
 
 [Code]
 var
   Modifying, AllowInnoIDE: Boolean;
 
   PrometPage, PostgresPage: TWizardPage;
-  InnoIDECheckBox, ISStudioCheckBox, ISPPCheckBox, ISCryptCheckBox: TCheckBox;
+  PrometCheckBox, PostgresCheckBox, MySQLCheckBox, FirebirdCheckBox: TCheckBox;
   IDEOrg: Boolean;
 
   FilesDownloaded: Boolean;
@@ -57,16 +57,16 @@ external 'DestroyIcon@user32.dll stdcall';
 const
   DI_NORMAL = 3;
 
-procedure SetInnoIDECheckBoxChecked(Checked: Boolean);
+procedure PrometSetCheckBoxChecked(Checked: Boolean);
 begin
-  if InnoIDECheckBox <> nil then
-    InnoIDECheckBox.Checked := Checked;
+  if PrometCheckBox <> nil then
+    PrometCheckBox.Checked := Checked;
 end;
 
-function GetInnoIDECheckBoxChecked: Boolean;
+function PrometGetCheckBoxChecked: Boolean;
 begin
-  if InnoIDECheckBox <> nil then
-    Result := InnoIDECheckBox.Checked
+  if PrometCheckBox <> nil then
+    Result := PrometCheckBox.Checked
   else
     Result := False;
 end;
@@ -193,46 +193,42 @@ begin
   SubCaption1 := 'Möchten Sie diesen Computer als Promet-ERP Client einrichten?';
   IconFileName := 'multi-icon.ico';
   Label1Caption :=
-    'Inno Setup supports encryption. However, because of encryption import/export laws in some countries, encryption support is not included in the main' +
-    ' Inno Setup installer. Instead, it can be downloaded from a server located in the Netherlands now.';
-  Label2Caption := 'Select whether you would like to download and install encryption support, then click Next.';
-  CheckCaption := '&Download and install encryption support';
+    'Wenn dies ein Arbeitscomputer auf dem Promet-ERP laufen soll ist, ' +
+    'benutzen Sie diese Option.';
+  Label2Caption := 'Wenn dieser Computer lediglich als Datenbank-Server laufen soll, oder Dienste wie e-Mail Server,Kalenderserver,Webapplikationsserver o.ä. hier laufen sollen wählen Sie die Option ab.';
+  CheckCaption := '&Promet-ERP Clientsoftware herunterladen und installieren';
 
-  PrometPage := CreateCustomOptionPage(ISPPPage.ID, Caption, SubCaption1, IconFileName, Label1Caption, Label2Caption, CheckCaption, ISCryptCheckBox);
+  PrometPage := CreateCustomOptionPage(wpSelectProgramGroup, Caption, SubCaption1, IconFileName, Label1Caption, Label2Caption, CheckCaption, PrometCheckBox);
 
   Caption := 'Postgres SQL Server';
   SubCaption1 := 'Möchten Sie auf diesem Computer einen Postgres SQL Server einrichten?';
-  IconFileName := 'pqsql.ico';
+  IconFileName := 'pgsql.ico';
   Label1Caption :=
-    'Inno Setup Preprocessor (ISPP) is an official add-on for Inno Setup. ISPP allows' +
-    ' you to conditionally compile parts of scripts, to use compile time variables in your scripts and to use built-in' +
-    ' functions which for example can read from the registry or INI files at compile time.' + #13#10#13#10 +
-    'ISPP also contains a special version of the ISCC command line compiler which can take variable definitions as command' +
-    ' line parameters and use them during compilation.';
-  Label2Caption := 'Select whether you would like to install ISPP, then click Next.';
-  CheckCaption := '&Install Inno Setup Preprocessor';
+    'Wenn dieser Computer als Datenbankserver laufen soll, um anderen Computern im (lokalen) Netzwerk zugriff auf die Daten zu erlauben wählen Sie diese Option';
+  Label2Caption := 'Wenn Sie im Netzwerk keine Daten bereitstellen möchten und lediglich lokal arbeiten benötigen Sie diese Option nicht.';
+  CheckCaption := '&Postgres-SQL Datenbankserver herunterladen und installieren';
 
-  PostgresPage := CreateCustomOptionPage(IDEPage.ID, Caption, SubCaption1, IconFileName, Label1Caption, Label2Caption, CheckCaption, ISPPCheckBox);
+  PostgresPage := CreateCustomOptionPage(PrometPage.ID, Caption, SubCaption1, IconFileName, Label1Caption, Label2Caption, CheckCaption, PostgresCheckBox);
 end;
 
 procedure InitializeWizard;
 begin
   CreateCustomPages;
 
-  SetInnoIDECheckBoxChecked(GetPreviousData('IDE' {don't change}, '1') = '1');
-  ISStudioCheckBox.Checked := GetPreviousData('ISStudio', '1') = '1';
-  ISPPCheckBox.Checked := GetPreviousData('ISPP', '1') = '1';
-  ISCryptCheckBox.Checked := GetPreviousData('ISCrypt', '1') = '1';
+  PrometSetCheckBoxChecked(GetPreviousData('Promet' {don't change}, '1') = '1');
+  PrometCheckBox.Checked := True;
+  PostgresCheckBox.Checked := True;
+  //MySQLCheckBox.Checked := GetPreviousData('Postgres', '1') = '1';
 
-  IDEOrg := GetInnoIDECheckBoxChecked or ISStudioCheckBox.Checked;
+  IDEOrg := PrometGetCheckBoxChecked or PrometCheckBox.Checked;
 end;
 
 procedure RegisterPreviousData(PreviousDataKey: Integer);
 begin
-  SetPreviousData(PreviousDataKey, 'IDE' {don't change}, IntToStr(Ord(GetInnoIDECheckBoxChecked)));
-  SetPreviousData(PreviousDataKey, 'ISStudio', IntToStr(Ord(ISStudioCheckBox.Checked)));
-  SetPreviousData(PreviousDataKey, 'ISPP', IntToStr(Ord(ISPPCheckBox.Checked)));
-  SetPreviousData(PreviousDataKey, 'ISCrypt', IntToStr(Ord(ISCryptCheckBox.Checked)));
+  SetPreviousData(PreviousDataKey, 'Promet' {don't change}, IntToStr(Ord(PrometGetCheckBoxChecked)));
+  SetPreviousData(PreviousDataKey, 'Postgres', IntToStr(Ord(PostgresCheckBox.Checked)));
+  SetPreviousData(PreviousDataKey, 'MySQL', IntToStr(Ord(MySQLCheckBox.Checked)));
+  SetPreviousData(PreviousDataKey, 'Firebird', IntToStr(Ord(FirebirdCheckBox.Checked)));
 end;
 
 procedure DownloadFiles(InnoIDE, ISStudio, ISCrypt: Boolean);
@@ -283,14 +279,14 @@ end;
 
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 begin
-  if GetInnoIDECheckBoxChecked or ISStudioCheckBox.Checked or ISCryptCheckBox.Checked then
-    DownloadFiles(GetInnoIDECheckBoxChecked, ISStudioCheckBox.Checked, ISCryptCheckBox.Checked);
+  if PrometGetCheckBoxChecked or PrometCheckBox.Checked or FirebirdCheckBox.Checked then
+    DownloadFiles(PrometGetCheckBoxChecked, PostgresCheckBox.Checked, FirebirdCheckBox.Checked);
   Result := '';
 end;
 
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
-  Result := Modifying and ((PageID = wpSelectDir) or (PageID = wpSelectProgramGroup) or ((PageID = IDEPage.ID) and IDEOrg));
+  Result := Modifying and ((PageID = wpSelectDir) or (PageID = wpSelectProgramGroup) or ((PageID = PrometPage.ID) and IDEOrg));
 end;
 
 function ModifyingCheck: Boolean;
@@ -300,27 +296,22 @@ end;
 
 function InnoIDECheck: Boolean;
 begin
-  Result := GetInnoIDECheckBoxChecked and FilesDownloaded;
+  Result := PrometGetCheckBoxChecked and FilesDownloaded;
 end;
 
-function ISStudioCheck: Boolean;
+function PrometCheck: Boolean;
 begin
-  Result := ISStudioCheckBox.Checked and FilesDownloaded;
+  Result := PrometCheckBox.Checked and FilesDownloaded;
 end;
 
-function AnyIDECheck: Boolean;
+function PostgresCheck: Boolean;
 begin
-  Result := InnoIDECheck or ISStudioCheck;
+  Result := PostgresCheckBox.Checked and FilesDownloaded;
 end;
 
-function ISPPCheck: Boolean;
+function FirebirdCheck: Boolean;
 begin
-  Result := ISPPCheckBox.Checked;
-end;
-
-function ISCryptCheck: Boolean;
-begin
-  Result := ISCryptCheckBox.Checked and FilesDownloaded;
+  Result := FirebirdCheckBox.Checked and FilesDownloaded;
 end;
 
 function GetIDEPath(Key, Name: String; var IDEPath: String; var IDEPathRead: Boolean): String;
