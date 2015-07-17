@@ -203,24 +203,21 @@ end;
 
 procedure TfScriptFrame.cbVersionSelect(Sender: TObject);
 var
-  TargetVer: String;
-  Version : Variant;
+  aId: String;
+  aLanguage : Variant;
 begin
-  Version := NULL;
-  if cbVersion.Text <> '' then
-    Version := cbVersion.Text;
-  if Dataset.FieldByName('VERSION').AsVariant <> Version then
-    begin //New Version
-      if not TBaseScript(DataSet).Versionate(Version) then
-        cbVersion.Text := DataSet.FieldByName('VERSION').AsString
-      else
-        begin
-          cbVersion.Items.Add(TargetVer);
-          cbVersion.Text:=TargetVer;
-          DoOpen;
-          FDataSet.Change;
-        end;
-    end;
+  aId := TBaseScript(DataSet).Text.AsString;
+  if UseTransactions then
+    CloseConnection;
+  Screen.Cursor:=crHourglass;
+  application.ProcessMessages;
+  if UseTransactions then
+    Data.StartTransaction(FConnection);
+  TBaseScript(DataSet).Locate('VERSION',cbVersion.Text,[]);
+  DataSet.DataSet.DisableControls;
+  DoOpen(False);
+  DataSet.DataSet.EnableControls;
+  Screen.Cursor:=crDefault;
 end;
 
 procedure TfScriptFrame.eArticleNumberChange(Sender: TObject);
