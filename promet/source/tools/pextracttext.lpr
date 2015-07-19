@@ -20,7 +20,7 @@ Created 16.07.2015
 program pextracttext;
 
 uses laz_fpspreadsheet, Classes, fpolestorage, fprichdocument, general_nogui,
-  uminiconvencoding, sysutils, Utils,uOODocument;
+  uminiconvencoding, sysutils, Utils,OODocument;
 
 function StripUnwantedChar(Text: string):string;
 var
@@ -74,8 +74,10 @@ var
   bText : string;
   i: Integer;
   aDoc: TODFDocument;
+  OutFile: String;
 begin
-  aFile := UniToSys(ParamStr(Paramcount));
+  aFile := UniToSys(ParamStr(Paramcount-1));
+  OutFile := UniToSys(ParamStr(Paramcount));
   if FileExists(aFile) then
     begin
       aText := TStringList.Create;
@@ -87,20 +89,26 @@ begin
           end;
       '.odt':
           begin
-            aDoc := TODFDocument.Create(aFile);
+            aDoc := TODFDocument.Create;
             bText := aDoc.AsString;
             aDoc.Free;
             aText.Text:=bText;
           end;
       else
         begin
-          //aText.LoadFromFile(aFile);
-          //aText.Text:=StripUnwantedChar(aText.Text);
+          aText.LoadFromFile(aFile);
+          for i := 0 to 1500 do
+            if (length(copy(aText.Text,i,1))>0) and (ord(copy(aText.Text,i,1)[1]) > 127) then
+              begin
+                break;
+              end;
+           aText.Text := copy(aText.Text,0,1500);
         end;
       end;
       if aText.Count>0 then
-        for i := 0 to aText.Count-1 do
-          writeln(aText[i]);
+        begin
+          aText.SaveToFile(OutFile);
+        end;
     end
   else writeln('no File "'+aFile+'" found');
 end.

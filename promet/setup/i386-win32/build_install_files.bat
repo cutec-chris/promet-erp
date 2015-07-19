@@ -30,6 +30,8 @@ If errorlevel 1 goto end
 lazbuild --build-mode=Default -q ..\..\source\tools\checkout.lpi
 If errorlevel 1 lazbuild --build-mode=Default -B -q ..\..\source\tools\checkout.lpi
 If errorlevel 1 goto end
+lazbuild --build-mode=Default -q ..\..\source\tools\pextracttext.lpi
+If errorlevel 1 goto end
 lazbuild --build-mode=Default -q ..\..\source\tools\checkin.lpi
 If errorlevel 1 goto end
 lazbuild --build-mode=Default -q ..\..\source\tools\tableedit.lpi
