@@ -19,7 +19,7 @@ Created 16.07.2015
 *******************************************************************************}
 program pextracttext;
 
-uses laz_fpspreadsheet, Classes, fpolestorage, poffice, general_nogui,
+uses laz_fpspreadsheet, Classes, fpolestorage, fprichdocument, general_nogui,
   uminiconvencoding, sysutils, Utils,uOODocument;
 
 function StripUnwantedChar(Text: string):string;

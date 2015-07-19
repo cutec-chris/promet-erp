@@ -33,7 +33,7 @@
     </RunParams>
     <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="pOffice"/>
+        <PackageName Value="fprichdocument"/>
       </Item1>
       <Item2>
         <PackageName Value="general_nogui"/>
