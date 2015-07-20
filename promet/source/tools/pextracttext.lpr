@@ -62,7 +62,6 @@ begin
         aContent2 := ConvertEncoding(aContent,EncodingUCS2LE,EncodingUTF8);
         aText:=StripUnwantedChar(aContent2);
       end;
-    DeleteFile(UniToSys(aFileName));
   finally
     OLEStorage.Free;
   end;
@@ -90,6 +89,8 @@ begin
       '.odt':
           begin
             aDoc := TODFDocument.Create;
+            aDoc.Filename := aFile;
+            aDoc.Open;
             bText := aDoc.AsString;
             aDoc.Free;
             aText.Text:=bText;

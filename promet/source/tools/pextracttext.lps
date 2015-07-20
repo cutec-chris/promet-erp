@@ -3,31 +3,30 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="13">
+    <Units Count="16">
       <Unit0>
         <Filename Value="pextracttext.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="84"/>
-        <CursorPos Y="106"/>
-        <UsageCount Value="24"/>
+        <TopLine Value="36"/>
+        <CursorPos Y="60"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="../base/base_documents/upreviewframe.pas"/>
         <UnitName Value="uPreviewFrame"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <CursorPos Y="20"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="../base/dbintfs/udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="1744"/>
         <CursorPos Y="1848"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -45,28 +44,28 @@
       </Unit4>
       <Unit5>
         <Filename Value="../../../../../fpc/trunk/packages/paszlib/src/zipper.pp"/>
-        <UnitName Value="zipper"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="2375"/>
         <CursorPos X="3" Y="2392"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="../components/fpspreadsheet/fpsopendocument.pas"/>
         <UnitName Value="fpsopendocument"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="1835"/>
-        <CursorPos Y="1854"/>
-        <UsageCount Value="11"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="2049"/>
+        <CursorPos X="24" Y="2071"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="../components/fpspreadsheet/fpsxmlcommon.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="78"/>
-        <CursorPos X="3" Y="80"/>
+        <UnitName Value="fpsxmlcommon"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="29"/>
+        <CursorPos Y="57"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="../base/base_office/urichdocument.pas"/>
@@ -89,82 +88,167 @@
       <Unit11>
         <Filename Value="../components/prichedit/oodocument.pas"/>
         <UnitName Value="oodocument"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="34" Y="15"/>
-        <UsageCount Value="10"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="91"/>
+        <CursorPos X="63" Y="160"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="../components/prichedit/richdocument.pas"/>
         <UnitName Value="richdocument"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="35"/>
-        <CursorPos X="21" Y="52"/>
-        <UsageCount Value="10"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="50"/>
+        <CursorPos X="7" Y="75"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit12>
+      <Unit13>
+        <Filename Value="/tmp/content.xml"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="XML"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="../../../../../fpc/trunk/rtl/objpas/classes/classesh.inc"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="738"/>
+        <CursorPos X="3" Y="726"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <UnitName Value="fpolestorage"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="28"/>
+        <CursorPos Y="821"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit15>
     </Units>
-    <JumpHistory Count="15" HistoryIndex="14">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="../../../../../fpc/trunk/packages/paszlib/src/zipper.pp"/>
-        <Caret Line="386" Column="49" TopLine="371"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="786" TopLine="765"/>
       </Position1>
       <Position2>
-        <Filename Value="../../../../../fpc/trunk/packages/paszlib/src/zipper.pp"/>
-        <Caret Line="2550" Column="8" TopLine="2546"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="788" TopLine="765"/>
       </Position2>
       <Position3>
-        <Filename Value="../../../../../fpc/trunk/packages/paszlib/src/zipper.pp"/>
-        <Caret Line="2498" Column="18" TopLine="2481"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="497" TopLine="482"/>
       </Position3>
       <Position4>
-        <Filename Value="../components/fpspreadsheet/fpsopendocument.pas"/>
-        <Caret Line="83" Column="38" TopLine="73"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="551" TopLine="534"/>
       </Position4>
       <Position5>
-        <Filename Value="pextracttext.lpr"/>
-        <Caret Line="79" Column="3" TopLine="68"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="791" TopLine="775"/>
       </Position5>
       <Position6>
-        <Filename Value="pextracttext.lpr"/>
-        <Caret Line="111" TopLine="89"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="792" TopLine="775"/>
       </Position6>
       <Position7>
-        <Filename Value="pextracttext.lpr"/>
-        <Caret Line="92" Column="29" TopLine="78"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="793" TopLine="775"/>
       </Position7>
       <Position8>
-        <Filename Value="../components/prichedit/oodocument.pas"/>
-        <Caret Line="15" Column="34"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="556" TopLine="541"/>
       </Position8>
       <Position9>
-        <Filename Value="../components/prichedit/richdocument.pas"/>
-        <Caret Line="52" Column="30" TopLine="25"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="796" TopLine="782"/>
       </Position9>
       <Position10>
-        <Filename Value="pextracttext.lpr"/>
-        <Caret Line="92" Column="29" TopLine="78"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="797" TopLine="782"/>
       </Position10>
       <Position11>
-        <Filename Value="pextracttext.lpr"/>
-        <Caret Line="93" Column="30" TopLine="78"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="798" TopLine="782"/>
       </Position11>
       <Position12>
-        <Filename Value="../components/prichedit/richdocument.pas"/>
-        <Caret Line="52" Column="22" TopLine="35"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="564" TopLine="548"/>
       </Position12>
       <Position13>
-        <Filename Value="pextracttext.lpr"/>
-        <Caret Line="93" Column="27" TopLine="78"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="565" TopLine="548"/>
       </Position13>
       <Position14>
-        <Filename Value="pextracttext.lpr"/>
-        <Caret Line="106" TopLine="85"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="569" TopLine="548"/>
       </Position14>
       <Position15>
-        <Filename Value="pextracttext.lpr"/>
-        <Caret Line="101" Column="73" TopLine="85"/>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="573" TopLine="548"/>
       </Position15>
+      <Position16>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="574" TopLine="549"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="801" TopLine="787"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="803" TopLine="787"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="806" TopLine="787"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="808" TopLine="787"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="809" TopLine="787"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="664" TopLine="648"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="810" TopLine="796"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="816" TopLine="796"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="817" TopLine="796"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="671" TopLine="655"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="673" TopLine="655"/>
+      </Position27>
+      <Position28>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="819" TopLine="802"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../components/fpspreadsheet/fpolestorage.pas"/>
+        <Caret Line="821" TopLine="802"/>
+      </Position29>
+      <Position30>
+        <Filename Value="pextracttext.lpr"/>
+        <Caret Line="58" TopLine="36"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
