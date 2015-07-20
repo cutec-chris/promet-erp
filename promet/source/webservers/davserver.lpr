@@ -238,7 +238,10 @@ begin
   then
     begin
       aFullDir := aDir;
-      aDir := copy(aDir,9,length(aDir));
+      if copy(aDir,0,7)='/caldav' then
+        aDir := copy(aDir,9,length(aDir))
+      else if (copy(aDir,0,19) = '/.well-known/caldav') then
+        aDir := copy(aDir,21,length(aDir));
       if copy(aDir,length(aDir),1) = '/' then
         aDir := copy(aDir,0,length(aDir)-1);
       if Data.Users.DataSet.Active then
