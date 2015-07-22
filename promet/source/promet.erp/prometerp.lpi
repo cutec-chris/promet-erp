@@ -568,7 +568,6 @@
         <ComponentName Value="fCategoryOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="ucategoryoptions"/>
       </Unit41>
       <Unit42>
         <Filename Value="../base/changes.txt"/>
@@ -580,6 +579,7 @@
         <ComponentName Value="fCommandline"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ucommandline"/>
       </Unit43>
       <Unit44>
         <Filename Value="ustoredpasswords.pas"/>
