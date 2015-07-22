@@ -4,7 +4,7 @@ object fMain: TfMain
   Top = 131
   Width = 935
   Caption = 'Promet-ERP'
-  ClientHeight = 601
+  ClientHeight = 600
   ClientWidth = 935
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -20,7 +20,7 @@ object fMain: TfMain
   LCLVersion = '1.5'
   object spTree: TSplitter
     Left = 283
-    Height = 563
+    Height = 562
     Top = 38
     Width = 5
     Color = clBtnFace
@@ -265,12 +265,12 @@ object fMain: TfMain
   end
   object tvMain: TPanel
     Left = 0
-    Height = 563
+    Height = 562
     Top = 38
     Width = 283
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 563
+    ClientHeight = 562
     ClientWidth = 283
     Color = clWindow
     DragMode = dmAutomatic
@@ -290,18 +290,18 @@ object fMain: TfMain
   end
   object pPages: TPanel
     Left = 289
-    Height = 601
+    Height = 600
     Top = 0
     Width = 642
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
     Caption = 'pPages'
-    ClientHeight = 601
+    ClientHeight = 600
     ClientWidth = 642
     TabOrder = 3
     object pcPages: TExtMenuPageControl
       Left = 0
-      Height = 601
+      Height = 600
       Top = 0
       Width = 642
       ActivePage = tsStartpage
