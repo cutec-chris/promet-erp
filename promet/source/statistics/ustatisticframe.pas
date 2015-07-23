@@ -166,6 +166,7 @@ type
     procedure ExecuteTimerTimer(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
     procedure FrameExit(Sender: TObject);
+    procedure frReportGetValue(const ParName: String; var ParValue: Variant);
     procedure FSynCompletionExecute(Sender: TObject);
     procedure FSynCompletionSearchPosition(var aPosition: integer);
     procedure FSynCompletionUTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char
@@ -190,6 +191,7 @@ type
     csData: TChartSeries;
     FSynCompletion : TSynCompletion;
     FVariables : TStringList;
+    FVariableNames : TStringList;
     FTables : TStringList;
     FTreeNode : TTreeNode;
     procedure ParseForms(Filter: string);
@@ -592,6 +594,7 @@ begin
               else if aControl is TComboBox then
                 bFilter := CheckWildgards(TComboBox(aControl).Text);
               cFilter := StringReplace(cFilter,'@'+adata+'@',bFilter,[]);
+              FVariableNames.Values[aName]:='TBE'+MD5Print(MD5String(aname));
             end;
         end;
       cFilter := StringReplace(cFilter,'@USERID@',Data.Users.Id.AsString,[rfReplaceAll]);
@@ -696,6 +699,9 @@ begin
       if tsReport.TabVisible then
         begin
           try
+            for i := 0 to FVariableNames.Count-1 do
+              if (frReport.Variables.IndexOf(FVariableNames.Names[i])=-1) then
+                frReport.Variables.Add(' '+FVariableNames.Names[i]);
             if frReport.PrepareReport then
               frReport.ShowPreparedReport;
             if frReport.EMFPages.Count > 1 then
@@ -938,6 +944,13 @@ begin
   //ActionList1.State:=asSuspended;
 end;
 
+procedure TfStatisticFrame.frReportGetValue(const ParName: String;
+  var ParValue: Variant);
+begin
+  if FVariables.Values[FVariableNames.Values[ParName]]<>'' then
+    ParValue:=FVariables.Values[FVariableNames.Values[ParName]];
+end;
+
 procedure TfStatisticFrame.FSynCompletionExecute(Sender: TObject);
 function GetCurWord:string;
 var
@@ -1173,6 +1186,7 @@ begin
   FSynCompletion.OnUTF8KeyPress:=@FSynCompletionUTF8KeyPress;
   FSynCompletion.OnSearchPosition:=@FSynCompletionSearchPosition;
   FVariables := TStringList.Create;
+  FVariableNames := TStringList.Create;
   FTables := TStringList.Create;
   pTop.Height := 0;
   Panel5.Height:=45;
@@ -1203,6 +1217,7 @@ begin
   end;
   FTables.Free;
   FVariables.Free;
+  FVariableNames.Free;
   FSynCompletion.Free;
   inherited;
 end;
