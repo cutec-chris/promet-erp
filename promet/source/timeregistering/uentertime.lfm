@@ -81,7 +81,7 @@ object fEnterTime: TfEnterTime
   object lTimeToday: TLabel
     Left = 478
     Height = 13
-    Top = 32
+    Top = 24
     Width = 49
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
@@ -93,7 +93,7 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 488
     Height = 21
-    Top = 45
+    Top = 37
     Width = 39
     Anchors = [akTop, akRight]
     Caption = '7:00'
@@ -107,11 +107,10 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 490
     Height = 26
-    Top = 101
+    Top = 89
     Width = 37
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
-    BorderSpacing.Top = 2
     Caption = 'aktuelle'#13#10'Woche'
     ParentColor = False
   end
@@ -120,7 +119,7 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 490
     Height = 18
-    Top = 127
+    Top = 115
     Width = 37
     Anchors = [akTop, akRight]
     Caption = '40:00'
@@ -133,7 +132,7 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 490
     Height = 18
-    Top = 173
+    Top = 159
     Width = 37
     Anchors = [akTop, akRight]
     Caption = '85:00'
@@ -146,11 +145,10 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 486
     Height = 26
-    Top = 147
+    Top = 133
     Width = 41
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
-    BorderSpacing.Top = 2
     Caption = 'aktueller'#13#10'Monat'
     ParentColor = False
   end
@@ -159,10 +157,9 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 492
     Height = 13
-    Top = 68
+    Top = 58
     Width = 35
     Anchors = [akTop, akRight]
-    BorderSpacing.Top = 2
     Caption = 'Pausen'
     ParentColor = False
   end
@@ -171,7 +168,7 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 482
     Height = 18
-    Top = 81
+    Top = 71
     Width = 45
     Anchors = [akTop, akRight]
     Caption = '01:00'
