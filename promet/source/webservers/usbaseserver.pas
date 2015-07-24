@@ -333,23 +333,27 @@ begin
     Bind(FIP, IntToStr(FPort));
     Listen;
     repeat
-      if (Terminated) then
-        Break
-      else if (CanRead(1000)) then
-        begin
-          if ((not Terminated) and (not Suspended)) then
+      try
+        if (Terminated) then
+          Break
+        else if (CanRead(1000)) then
           begin
-            if (Assigned(FOnConnect)) then
+            if ((not Terminated) and (not Suspended)) then
             begin
-              LClient := Accept;
-              if (LastError = 0) then
+              if (Assigned(FOnConnect)) then
               begin
-                LSynaThread := Parent.ClassType.Create(LClient);
-                FOnConnect(LSynaThread);
+                LClient := Accept;
+                if (LastError = 0) then
+                begin
+                  LSynaThread := Parent.ClassType.Create(LClient);
+                  FOnConnect(LSynaThread);
+                end;
               end;
             end;
           end;
-        end;
+      except
+        Break;
+      end;
     until False;
   end;
 end;
