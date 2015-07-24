@@ -33,6 +33,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=MySQL"/>
       </local>
     </RunParams>
     <RequiredPackages Count="8">
@@ -69,6 +70,7 @@
       <Unit1>
         <Filename Value="tlogin.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="tLogin"/>
       </Unit1>
       <Unit2>
         <Filename Value="tlogout.pas"/>
@@ -89,7 +91,6 @@
       <Unit6>
         <Filename Value="ucreatetable.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ucreatetable"/>
       </Unit6>
       <Unit7>
         <Filename Value="udocumentmanagement.pas"/>
@@ -114,12 +115,10 @@
       <Unit12>
         <Filename Value="uordertest.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uordertest"/>
       </Unit12>
       <Unit13>
         <Filename Value="utgridview.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="utgridview"/>
       </Unit13>
       <Unit14>
         <Filename Value="utzugferd.pas"/>
@@ -132,7 +131,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="testgui"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\testgui"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
