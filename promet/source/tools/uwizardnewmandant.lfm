@@ -1,0 +1,1457 @@
+object fWizardNewMandant: TfWizardNewMandant
+  Left = 362
+  Height = 350
+  Top = 237
+  Width = 570
+  Caption = 'Neuen Mandanten erstellen'
+  ClientHeight = 350
+  ClientWidth = 570
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  Position = poDesktopCenter
+  LCLVersion = '1.5'
+  object pResult: TPanel
+    Left = 128
+    Height = 350
+    Top = 0
+    Width = 442
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 350
+    ClientWidth = 442
+    FullRepaint = False
+    TabOrder = 4
+    Visible = False
+    object lCreatingDatabase: TLabel
+      Left = 40
+      Height = 15
+      Top = 9
+      Width = 177
+      Caption = 'erstelle Tabellen (wenn nötig)'
+      ParentColor = False
+    end
+    object lFillingDefaultValues: TLabel
+      Left = 40
+      Height = 15
+      Top = 32
+      Width = 144
+      Caption = 'Vorgabewerte einsetzen'
+      ParentColor = False
+    end
+    object lUpdatingDatabase: TLabel
+      Left = 40
+      Height = 15
+      Top = 56
+      Width = 87
+      Caption = 'Hilfe einsetzen'
+      ParentColor = False
+    end
+    object iDatabaseCreated: TImage
+      Left = 8
+      Height = 21
+      Top = 9
+      Width = 23
+      Picture.Data = {
+        1754506F727461626C654E6574776F726B47726170686963E401000089504E47
+        0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
+        AB4944415478DABD93D92E436114857BE738EF626ED5185342AA865427EAE829
+        45298D1BAAA7AD56AB434A0CC7A5186A8EC414942012975AD58667102FA1BAFC
+        9568C285181217FFDDBFD6DEFBDB6B0B0008FEF204FF6EA05E6BE25B96EA9DBF
+        3250AD36F2A6633DFA0F5848F82AEE4706CA60033F78D485D97B37BC3756E8B6
+        D4A8F014D9BE2556AC4879E3A10ED37117A6E24E746EB7A2D25B8C1287904A7F
+        325EB2358633A6E7B358BE2CE5532D4FC69C08C41C6F95CBDDE244F15801951E
+        C178C196F59E324FDCB509ECAE72E85D4C60F17DFB5A04EEC6E0BFB383DD54A1
+        CC559828B2E7536988FDE7DADADE50FBA32FCC613A360ECD962C41600DC91625
+        53863D06BEA81DDE5B0E1D1B0A948E8B12625B1EF5618D3D279A4CFD611BCC57
+        03987BF0C01BB6C278A483E9448F89B005EE5B0B9875394A9CC29742EB47717A
+        0466474E93CA3085F46F73FAA336B82266B8C26668D65A52B092222E97FA3248
+        04162D5B90A07BB71DEEC8281C37C3680BCA40602545961CEA5B4994CC57D375
+        3395A46505D42BCD20B092C2D16CEA475126FBA5CB27C420B09E0BCCD919BFBA
+        05028BCE1FC9CAF8976B7C05BEA2A93C4F441D810000000049454E44AE426082
+      }
+      Visible = False
+    end
+    object iDatabaseFilled: TImage
+      Left = 8
+      Height = 21
+      Top = 32
+      Width = 23
+      Picture.Data = {
+        1754506F727461626C654E6574776F726B47726170686963E401000089504E47
+        0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
+        AB4944415478DABD93D92E436114857BE738EF626ED5185342AA865427EAE829
+        45298D1BAAA7AD56AB434A0CC7A5186A8EC414942012975AD58667102FA1BAFC
+        9568C285181217FFDDBFD6DEFBDB6B0B0008FEF204FF6EA05E6BE25B96EA9DBF
+        3250AD36F2A6633DFA0F5848F82AEE4706CA60033F78D485D97B37BC3756E8B6
+        D4A8F014D9BE2556AC4879E3A10ED37117A6E24E746EB7A2D25B8C1287904A7F
+        325EB2358633A6E7B358BE2CE5532D4FC69C08C41C6F95CBDDE244F15801951E
+        C178C196F59E324FDCB509ECAE72E85D4C60F17DFB5A04EEC6E0BFB383DD54A1
+        CC559828B2E7536988FDE7DADADE50FBA32FCC613A360ECD962C41600DC91625
+        53863D06BEA81DDE5B0E1D1B0A948E8B12625B1EF5618D3D279A4CFD611BCC57
+        03987BF0C01BB6C278A483E9448F89B005EE5B0B9875394A9CC29742EB47717A
+        0466474E93CA3085F46F73FAA336B82266B8C26668D65A52B092222E97FA3248
+        04162D5B90A07BB71DEEC8281C37C3680BCA40602545961CEA5B4994CC57D375
+        3395A46505D42BCD20B092C2D16CEA475126FBA5CB27C420B09E0BCCD919BFBA
+        05028BCE1FC9CAF8976B7C05BEA2A93C4F441D810000000049454E44AE426082
+      }
+      Visible = False
+    end
+    object iDatabaseUpdated: TImage
+      Left = 8
+      Height = 21
+      Top = 56
+      Width = 23
+      Picture.Data = {
+        1754506F727461626C654E6574776F726B47726170686963E401000089504E47
+        0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
+        AB4944415478DABD93D92E436114857BE738EF626ED5185342AA865427EAE829
+        45298D1BAAA7AD56AB434A0CC7A5186A8EC414942012975AD58667102FA1BAFC
+        9568C285181217FFDDBFD6DEFBDB6B0B0008FEF204FF6EA05E6BE25B96EA9DBF
+        3250AD36F2A6633DFA0F5848F82AEE4706CA60033F78D485D97B37BC3756E8B6
+        D4A8F014D9BE2556AC4879E3A10ED37117A6E24E746EB7A2D25B8C1287904A7F
+        325EB2358633A6E7B358BE2CE5532D4FC69C08C41C6F95CBDDE244F15801951E
+        C178C196F59E324FDCB509ECAE72E85D4C60F17DFB5A04EEC6E0BFB383DD54A1
+        CC559828B2E7536988FDE7DADADE50FBA32FCC613A360ECD962C41600DC91625
+        53863D06BEA81DDE5B0E1D1B0A948E8B12625B1EF5618D3D279A4CFD611BCC57
+        03987BF0C01BB6C278A483E9448F89B005EE5B0B9875394A9CC29742EB47717A
+        0466474E93CA3085F46F73FAA336B82266B8C26668D65A52B092222E97FA3248
+        04162D5B90A07BB71DEEC8281C37C3680BCA40602545961CEA5B4994CC57D375
+        3395A46505D42BCD20B092C2D16CEA475126FBA5CB27C420B09E0BCCD919BFBA
+        05028BCE1FC9CAF8976B7C05BEA2A93C4F441D810000000049454E44AE426082
+      }
+      Visible = False
+    end
+    object bvleft1: TBevel
+      Left = 0
+      Height = 50
+      Top = 300
+      Width = 442
+      Align = alBottom
+      Shape = bsTopLine
+    end
+    object pDetails: TPanel
+      Left = 12
+      Height = 200
+      Top = 88
+      Width = 396
+      BevelOuter = bvNone
+      ClientHeight = 200
+      ClientWidth = 396
+      TabOrder = 0
+      Visible = False
+      object Button1: TButton
+        Left = 180
+        Height = 23
+        Top = 168
+        Width = 210
+        Caption = 'Mandanteneinstellungen'
+        OnClick = Button1Click
+        TabOrder = 0
+      end
+      object Label2: TLabel
+        Left = 0
+        Height = 126
+        Top = 0
+        Width = 396
+        Align = alTop
+        Caption = 'Das erstellen der Datenbank wurde beendet, Sie können '#10'nun wenn gewünscht noch Details zum Mandanten '#10'eingeben (Name,Adresse,Telefonnummern u.ä.). '#10'Die dann auf allen Druckbelegen mitverwendet werden.'#10#10'Auch andere Gelobale Einstellungen sind direkt von '#10'hier möglich (Benutzerverwaltung,Prozesse). '#10'Sie können die Einstellungen auch jederzeit in den '#10'Optionen nachholen'
+        Font.Height = -11
+        ParentColor = False
+        ParentFont = False
+      end
+    end
+    object bAbort6: TButton
+      Left = 272
+      Height = 25
+      Top = 304
+      Width = 166
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.InnerBorder = 4
+      Caption = 'Schliessen'
+      OnClick = bAbort0Click
+      TabOrder = 1
+    end
+    object lDefaultValue: TLabel
+      AnchorSideLeft.Control = lFillingDefaultValues
+      AnchorSideLeft.Side = asrBottom
+      Left = 191
+      Height = 1
+      Top = 32
+      Width = 1
+      BorderSpacing.Left = 7
+      ParentColor = False
+    end
+  end
+  object pCont2: TPanel
+    Left = 128
+    Height = 350
+    Top = 0
+    Width = 442
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 350
+    ClientWidth = 442
+    FullRepaint = False
+    TabOrder = 1
+    object lDescription2: TLabel
+      Left = 0
+      Height = 42
+      Top = 0
+      Width = 442
+      Align = alTop
+      Caption = 'Um Daten abzulegen wird eine Datenbank benötigt. Dafür werden verschiedene große Datenbanksysteme unterstützt. Wähen Sie zunächst zwischen:'
+      Font.Height = -11
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object pButtons2: TPanel
+      Left = 0
+      Height = 50
+      Top = 300
+      Width = 442
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 442
+      TabOrder = 0
+      object bvRight2: TBevel
+        Left = 0
+        Height = 2
+        Top = 0
+        Width = 442
+        Align = alTop
+        Shape = bsTopLine
+      end
+      object bNext2: TButton
+        Left = 120
+        Height = 25
+        Top = 14
+        Width = 100
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bNext0'
+        OnClick = bNext0Click
+        TabOrder = 0
+      end
+      object bPrev2: TButton
+        Left = 21
+        Height = 25
+        Top = 14
+        Width = 99
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bPrev0'
+        OnClick = bPrev0Click
+        TabOrder = 1
+      end
+      object bAbort2: TButton
+        Left = 264
+        Height = 25
+        Top = 14
+        Width = 176
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bAbort0'
+        OnClick = bAbort0Click
+        TabOrder = 2
+      end
+    end
+    object rbPersonal: TRadioButton
+      AnchorSideTop.Control = lDescription2
+      AnchorSideTop.Side = asrBottom
+      Left = 0
+      Height = 22
+      Top = 50
+      Width = 22
+      AutoSize = False
+      BorderSpacing.Top = 8
+      Checked = True
+      TabOrder = 1
+      TabStop = True
+    end
+    object Label3: TLabel
+      AnchorSideTop.Control = lDescription2
+      AnchorSideTop.Side = asrBottom
+      Left = 32
+      Height = 118
+      Top = 50
+      Width = 400
+      AutoSize = False
+      BorderSpacing.Top = 8
+      Caption = 'Persönliche Datenbank: Einige Datenbanksysteme können auf einem einzelnen Computer benutzt werden. Diese werden dann Embedded oder Personal Datenbanken genannt. Wenn Sie allein arbeiten möchten oder das Programm testen wird das eine gute Wahl sein.'
+      ParentColor = False
+      WordWrap = True
+    end
+    object Label4: TLabel
+      AnchorSideTop.Control = Label3
+      AnchorSideTop.Side = asrBottom
+      Left = 32
+      Height = 121
+      Top = 172
+      Width = 399
+      AutoSize = False
+      BorderSpacing.Top = 4
+      Caption = 'Datenbankserver: Für diese Option müssen Sie einen Datenbankserver haben/einrichten. Dafür können Sie dann aber mit mehreren Nutzern im Netzwerk am selben Datenbestand gleichzeitig arbeiten.'
+      ParentColor = False
+      WordWrap = True
+    end
+    object RadioButton2: TRadioButton
+      AnchorSideTop.Control = Label3
+      AnchorSideTop.Side = asrBottom
+      Left = 4
+      Height = 22
+      Top = 172
+      Width = 22
+      AutoSize = False
+      BorderSpacing.Top = 4
+      TabOrder = 2
+    end
+  end
+  object pCont0: TPanel
+    Left = 128
+    Height = 350
+    Top = 0
+    Width = 442
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 350
+    ClientWidth = 442
+    FullRepaint = False
+    TabOrder = 6
+    object lDescription0: TLabel
+      Left = 4
+      Height = 70
+      Top = 4
+      Width = 434
+      Align = alTop
+      Alignment = taCenter
+      BorderSpacing.Around = 4
+      Caption = 'Mit diesem Assistenten können Sie einen neuen Mandanten erstellen, wählen Sie dazu im ersten Schritt eine Sprache für den mandanten aus, und geben Sie darunter einen Namen an. Weiterhin müssen Sie hier auswählen ob die Datenbank mit Vorgabedaten gefüllt werden soll oder nicht.'
+      Font.Height = -11
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object lMandantname: TLabel
+      AnchorSideTop.Control = cbLanguage
+      AnchorSideTop.Side = asrBottom
+      Left = 8
+      Height = 15
+      Top = 124
+      Width = 102
+      BorderSpacing.Top = 10
+      Caption = 'Mandantenname'
+      ParentColor = False
+    end
+    object lLanguage: TLabel
+      AnchorSideTop.Control = lDescription0
+      AnchorSideTop.Side = asrBottom
+      Left = 8
+      Height = 15
+      Top = 87
+      Width = 50
+      BorderSpacing.Top = 13
+      Caption = 'Sprache'
+      ParentColor = False
+    end
+    object pButtons0: TPanel
+      Left = 0
+      Height = 50
+      Top = 300
+      Width = 442
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 442
+      TabOrder = 5
+      object bvRight0: TBevel
+        Left = 0
+        Height = 2
+        Top = 0
+        Width = 442
+        Align = alTop
+        Shape = bsTopLine
+      end
+      object bNext0: TButton
+        Left = 120
+        Height = 30
+        Top = 10
+        Width = 100
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bNext0'
+        OnClick = bNext0Click
+        TabOrder = 0
+      end
+      object bPrev0: TButton
+        Left = 21
+        Height = 30
+        Top = 10
+        Width = 99
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bPrev0'
+        OnClick = bPrev0Click
+        TabOrder = 1
+      end
+      object bAbort0: TButton
+        Left = 264
+        Height = 29
+        Top = 10
+        Width = 176
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bAbort0'
+        OnClick = bAbort0Click
+        TabOrder = 2
+      end
+    end
+    object cbLanguage: TComboBox
+      AnchorSideTop.Control = lDescription0
+      AnchorSideTop.Side = asrBottom
+      Left = 144
+      Height = 27
+      Top = 87
+      Width = 263
+      BorderSpacing.Top = 13
+      ItemHeight = 0
+      ItemIndex = 0
+      Items.Strings = (
+        'Deutsch'
+      )
+      OnSelect = cbLanguageSelect
+      TabOrder = 4
+      TabStop = False
+      Text = 'Deutsch'
+    end
+    object cbNewdatabase: TRadioButton
+      AnchorSideTop.Control = cbLanguage
+      AnchorSideBottom.Control = cbExistingdatabase
+      Left = 4
+      Height = 22
+      Hint = 'Benutzen Sie diese Einstellung, wenn sie eine neue Datenbank anlegen möchten'#10'Im folgenden Dialog können Sie ein Profil mit Standardeinstellungen für diese'#10'Datenbank wählen'
+      Top = 163
+      Width = 282
+      BorderSpacing.Top = 76
+      Caption = 'Neue Datenbank (mit Einstellungen füllen)'
+      Checked = True
+      TabOrder = 1
+      TabStop = True
+    end
+    object cbExistingdatabase: TRadioButton
+      AnchorSideTop.Control = cbNewdatabase
+      AnchorSideTop.Side = asrBottom
+      Left = 4
+      Height = 22
+      Hint = 'wählen Sie diese Einstellung, wenn Sie eine Datenbankverknüpfung'#10'zu einer schon existierenden Datenbank anlegen möchten,'#10'z.b. wenn Sie einen weiteren Client-PC einrichten möchten.'
+      Top = 192
+      Width = 350
+      BorderSpacing.Top = 7
+      Caption = 'exitierende Datenbank (keine Einstellungen einfügen)'
+      TabOrder = 2
+    end
+    object eMandantname: TComboBox
+      AnchorSideTop.Control = cbLanguage
+      AnchorSideTop.Side = asrBottom
+      Left = 144
+      Height = 27
+      Top = 122
+      Width = 284
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Top = 8
+      ItemHeight = 0
+      OnSelect = eMandantnameSelect
+      TabOrder = 0
+    end
+    object rbDelete: TRadioButton
+      AnchorSideTop.Control = cbNewdatabase
+      AnchorSideTop.Side = asrBottom
+      Left = 4
+      Height = 22
+      Hint = 'Mit deiser Einstellung können Sie eine Datenbankverknüpfung löschen'#10'(löscht nicht die Datenbank !!)'
+      Top = 257
+      Width = 218
+      BorderSpacing.Top = 72
+      Caption = 'Datenbankverknüpfung löschen'
+      Enabled = False
+      TabOrder = 3
+    end
+    object rbFromFile: TRadioButton
+      AnchorSideTop.Control = cbExistingdatabase
+      Left = 4
+      Height = 22
+      Hint = 'Mit dieser Einstellung können Sie die Datenbankeinstellungen aus einer Datei (.perml) laden.'#10'Sie finden diese Dateien nach einer Einrichrung mit diesem Assistenten'#10'unter Windows in'#10'Benuterprofil\Lokale Einstellungen\Anwendungsdaten\prometerp\*.perml'#10'Unter Unix in'#10'Benuterprofil\.prometerp\*.perml'
+      Top = 226
+      Width = 135
+      BorderSpacing.Top = 34
+      Caption = 'aus Datei erstellen'
+      TabOrder = 6
+    end
+    object DirectoryEdit1: TFileNameEdit
+      AnchorSideTop.Control = rbFromFile
+      Left = 208
+      Height = 25
+      Top = 226
+      Width = 216
+      OnAcceptFileName = DirectoryEdit1AcceptFileName
+      Filter = 'Promet-ERP Mandant File|*.perml'
+      FilterIndex = 0
+      DefaultExt = 'perml'
+      HideDirectories = False
+      ButtonWidth = 23
+      DirectInput = False
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 7
+    end
+  end
+  object pCont1: TPanel
+    Left = 128
+    Height = 350
+    Top = 0
+    Width = 442
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 350
+    ClientWidth = 442
+    FullRepaint = False
+    TabOrder = 5
+    object lDescription1: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 442
+      Align = alTop
+      Caption = 'Wählen Sie hier ein Profil mit Vorgabewerten aus'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object lProfile: TLabel
+      AnchorSideTop.Control = lDescription1
+      AnchorSideTop.Side = asrBottom
+      Left = 12
+      Height = 15
+      Top = 15
+      Width = 30
+      Caption = 'Profil'
+      ParentColor = False
+    end
+    object pButtons1: TPanel
+      Left = 0
+      Height = 50
+      Top = 300
+      Width = 442
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 442
+      TabOrder = 0
+      object bvRight1: TBevel
+        Left = 0
+        Height = 2
+        Top = 0
+        Width = 442
+        Align = alTop
+        Shape = bsTopLine
+      end
+      object bNext1: TButton
+        Left = 120
+        Height = 25
+        Top = 14
+        Width = 100
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bNext0'
+        OnClick = bNext0Click
+        TabOrder = 0
+      end
+      object bPrev1: TButton
+        Left = 21
+        Height = 25
+        Top = 14
+        Width = 99
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bPrev0'
+        OnClick = bPrev0Click
+        TabOrder = 1
+      end
+      object bAbort1: TButton
+        Left = 264
+        Height = 25
+        Top = 14
+        Width = 172
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bAbort0'
+        OnClick = bAbort0Click
+        TabOrder = 2
+      end
+    end
+    object tvProfile: TTreeView
+      AnchorSideTop.Control = lProfile
+      AnchorSideTop.Side = asrBottom
+      Left = 12
+      Height = 211
+      Top = 30
+      Width = 416
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      DefaultItemHeight = 18
+      ReadOnly = True
+      TabOrder = 1
+      Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips]
+    end
+    object cbSyncHelp: TCheckBox
+      AnchorSideTop.Control = tvProfile
+      AnchorSideTop.Side = asrBottom
+      Left = 12
+      Height = 22
+      Hint = 'Wenn Diese Option gesetzt ist, '#13#10'wird auf der Datenbank ein Synchronisationseintrag'#13#10'für eine mitgelieferte Hilfe Datenbank erstellt'#13#10'Bei Updates der Hilfedatenbank werden die Änderungen'#13#10'automatisch synchronisiert.'
+      Top = 250
+      Width = 309
+      BorderSpacing.Top = 9
+      Caption = 'Hilfe und Scripte in Datenbank synchronisieren'
+      Checked = True
+      State = cbChecked
+      TabOrder = 2
+    end
+  end
+  object pCont3: TPanel
+    Left = 128
+    Height = 350
+    Top = 0
+    Width = 442
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 350
+    ClientWidth = 442
+    FullRepaint = False
+    TabOrder = 2
+    object lDescription3: TLabel
+      Left = 0
+      Height = 15
+      Top = 0
+      Width = 442
+      Align = alTop
+      Caption = 'wählen Sie hier eine Datenbank'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object pButtons3: TPanel
+      Left = 0
+      Height = 50
+      Top = 300
+      Width = 442
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 442
+      TabOrder = 0
+      object bvRight3: TBevel
+        Left = 0
+        Height = 2
+        Top = 0
+        Width = 442
+        Align = alTop
+        Shape = bsTopLine
+      end
+      object bNext3: TButton
+        Left = 120
+        Height = 25
+        Top = 14
+        Width = 100
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bNext0'
+        OnClick = bNext0Click
+        TabOrder = 0
+      end
+      object bPrev3: TButton
+        Left = 21
+        Height = 25
+        Top = 14
+        Width = 99
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bPrev0'
+        OnClick = bPrev0Click
+        TabOrder = 1
+      end
+      object bAbort3: TButton
+        Left = 264
+        Height = 25
+        Top = 14
+        Width = 176
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bAbort0'
+        OnClick = bAbort0Click
+        TabOrder = 2
+      end
+    end
+    object rbSqlite: TRadioButton
+      Left = 8
+      Height = 22
+      Top = 21
+      Width = 63
+      Caption = 'SQLite'
+      Checked = True
+      OnChange = rbSqliteChange
+      TabOrder = 1
+      TabStop = True
+    end
+    object rbFBE: TRadioButton
+      Left = 8
+      Height = 22
+      Top = 132
+      Width = 138
+      Caption = 'Firebird embedded'
+      OnChange = rbSqliteChange
+      TabOrder = 2
+    end
+    object lDescription6: TLabel
+      Left = 24
+      Height = 81
+      Top = 52
+      Width = 376
+      AutoSize = False
+      Caption = 'SQLite ist eine kleine embedded Datenbank die auf sehr vielen Systemen eingesetzt werden kann. Selbst auf vielen embedded Geräten ist sie verfügbar. Das Datiformat ist sehr robust und unterscheidet sich von Plattfom zu Plattform nicht.'
+      Font.Height = -11
+      Font.Style = [fsItalic]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object lDescription7: TLabel
+      Left = 24
+      Height = 73
+      Top = 164
+      Width = 376
+      AutoSize = False
+      Caption = 'Firebird embedded ist ein ableger einer Open Source Datenbank die Datenbankdatei kann bei Bedarf auch mit einem Datenbankserver gleicher Version weiterverwendet werden'
+      Font.Height = -11
+      Font.Style = [fsItalic]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object eSQLdatabase1: TFileNameEdit
+      Left = 8
+      Height = 25
+      Top = 253
+      Width = 385
+      DialogOptions = []
+      FilterIndex = 0
+      HideDirectories = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 3
+    end
+    object lDescription11: TLabel
+      Left = 9
+      Height = 15
+      Top = 237
+      Width = 58
+      Caption = 'Dateipfad'
+      Font.Style = [fsItalic]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+  end
+  object pCont5: TPanel
+    Left = 128
+    Height = 350
+    Top = 0
+    Width = 442
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 350
+    ClientWidth = 442
+    FullRepaint = False
+    TabOrder = 3
+    object lDescription4: TLabel
+      Left = 0
+      Height = 30
+      Top = 0
+      Width = 442
+      Align = alTop
+      Caption = 'Hier finden Sie die Einstellungen nocheinmal in der Übersicht, oder können erweiterte Einstellungen vornehmen.'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object lDBType: TLabel
+      Left = 24
+      Height = 15
+      Top = 88
+      Width = 86
+      Caption = 'Datenbanktyp'
+      ParentColor = False
+    end
+    object lDBServer: TLabel
+      Left = 24
+      Height = 15
+      Top = 120
+      Width = 39
+      Caption = 'Server'
+      ParentColor = False
+    end
+    object lDatabase: TLabel
+      Left = 24
+      Height = 15
+      Top = 176
+      Width = 66
+      Caption = 'Datenbank'
+      ParentColor = False
+    end
+    object lUsername: TLabel
+      Left = 24
+      Height = 15
+      Top = 208
+      Width = 88
+      Caption = 'Benutzername'
+      ParentColor = False
+    end
+    object lPassword: TLabel
+      Left = 24
+      Height = 15
+      Top = 237
+      Width = 52
+      Caption = 'Passwort'
+      ParentColor = False
+    end
+    object pButtons4: TPanel
+      Left = 0
+      Height = 50
+      Top = 300
+      Width = 442
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 442
+      TabOrder = 5
+      object bvRight4: TBevel
+        Left = 0
+        Height = 2
+        Top = 0
+        Width = 442
+        Align = alTop
+        Shape = bsTopLine
+      end
+      object bNext5: TButton
+        Left = 120
+        Height = 25
+        Top = 14
+        Width = 100
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bNext0'
+        OnClick = bNext0Click
+        TabOrder = 0
+      end
+      object bPrev4: TButton
+        Left = 21
+        Height = 25
+        Top = 14
+        Width = 99
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bPrev0'
+        OnClick = bPrev0Click
+        TabOrder = 1
+      end
+      object bAbort4: TButton
+        Left = 264
+        Height = 25
+        Top = 14
+        Width = 172
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bAbort0'
+        OnClick = bAbort0Click
+        TabOrder = 2
+      end
+    end
+    object cbSQLType: TComboBox
+      Left = 144
+      Height = 27
+      Top = 88
+      Width = 150
+      ItemHeight = 0
+      ItemIndex = 0
+      Items.Strings = (
+        'sqlite-3'
+        'postgresql-8'
+        'postgresql-7'
+        'mssql'
+        'mysql'
+        'mysql-4.1'
+        'mysql-5'
+        'firebird-2.5'
+        'firebird-2.1'
+        'firebird-2.0'
+        'firebird-1.5'
+        'firebird-1.0'
+        'firebirdd-2.5'
+        'firebirdd-2.1'
+        'firebirdd-2.0'
+        'firebirdd-1.5'
+        'interbase-6'
+      )
+      MaxLength = 65535
+      OnSelect = cbSQLTypeSelect
+      TabOrder = 0
+      Text = 'sqlite-3'
+    end
+    object eSQLServer: TEdit
+      Left = 144
+      Height = 25
+      Top = 120
+      Width = 192
+      TabOrder = 1
+      Text = 'localhost'
+    end
+    object eSQLUser: TEdit
+      Left = 144
+      Height = 25
+      Top = 208
+      Width = 200
+      TabOrder = 3
+    end
+    object eSQLPassword: TEdit
+      Left = 144
+      Height = 25
+      Top = 237
+      Width = 200
+      EchoMode = emPassword
+      PasswordChar = '*'
+      TabOrder = 4
+    end
+    object eSQLdatabase: TFileNameEdit
+      Left = 144
+      Height = 25
+      Top = 176
+      Width = 240
+      DialogOptions = []
+      FilterIndex = 0
+      HideDirectories = False
+      ButtonWidth = 23
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 2
+    end
+    object bCopyConnectionString: TSpeedButton
+      Left = 304
+      Height = 28
+      Hint = 'Mit diesem Knopf können Sie den Datenbankverbindungsstring'#10'in die Zwischenablage kopieren um ihn z.b. für die Synchronisationseinstellungen '#10'parat zu haben.'
+      Top = 88
+      Width = 32
+      Glyph.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C57342C1C67545E6C87545FEC775
+        45F3C87545F3C77545F3C77545F3C87546F4C57444E8CA7F53F1FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C77949EDFCF3ECFFFAF1E8FFFAF0
+        E7FFFBF1E9FFFBF2EAFFFBF2EAFFFBF2EBFFFDF4EEFFCA8054F9FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00CF8253FFEFF1E7FFFFE9D9FFFFEA
+        DBFFFFE9D9FFFFE7D7FFFFE5D2FFFFE2CBFFEFF2E8FFCE8156FFFFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00CC8352FBFBF5EEFFFFE9D9FFFFEA
+        DBFFFFE9D9FFFFE7D7FFFFE5D2FFFFE2CBFFFBF6EFFFCC8355FEC7794AB9C879
+        4BCEC87545DDC77545D4C87545D4C77545D4CA8452FFFFF7F1FFFFE9D9FFFFEA
+        DBFFFFE9D9FFFFE7D7FFFFE5D2FFFFE2CBFFFFF7F1FFCB8555FEC87C4ED3FCF3
+        ECDEFAF1E8DEFAF0E7DEFBF1E9DEFBF2EADEE4BA91FFFFF7F0FFFFE7D5FFFDE7
+        D6FFFDE6D4FFFCE4D0FFFBE3CBFFFADCC2FFFEF3E8FFCC8656FECF8253DEEFF1
+        E7DEFFE9D9DEFFEADBDEFFE9D9DEFFE7D7DEE4BB91FFFFF7F2FFFEE7D5FFFEE7
+        D5FFFDE5D1FFFAE0CAFFF9DEC4FFF7D9BCFFFDF2E7FFCC8757FECC8352DBFBF5
+        EEDEFFE9D9DEFFEADBDEFFE9D9DEFFE7D7DEE4BB92FFFEF7F1FFFCE5D2FFFCE4
+        D1FFFBE2CCFFF9DDC4FFF6D7BBFFF3D1AFFFFAEFE4FFCC8758FECA8452DBFFF7
+        F1DEFFE9D9DEFFEADBDEFFE9D9DEFFE7D7DEE4BB92FFFEF6F0FFFCE2CDFFFCE3
+        CDFFFADFC8FFF7D9BCFFF5E9DDFFFAF3EBFFFBF8F3FFCA8353FECB8553DBFFF7
+        F0DEFFE7D5DEFDE7D6DEFDE6D4DEFCE4D0DEE4BB93FFFEF5EDFFFCDEC5FFFBE0
+        C7FFF9DCC2FFF5D3B4FFFEF9F3FFFAE2C4FFECC193FFC37D4893CB8654DBFFF7
+        F2DEFEE7D5DEFEE7D5DEFDE5D1DEFAE0CADEE5BE96FFFFFFFEFFFDF3E9FFFDF3
+        EAFFFCF2E8FFFAEFE3FFFAF2E7FFEABB88FFCF8555B3B4693D0CCB8655DBFEF7
+        F1DEFCE5D2DEFCE4D1DEFBE2CCDEF9DDC4DEEAC39DFFE6BF96FFE4BB92FFE4BB
+        92FFD1A06CF5D09E6DF6CC965FDAC479427EB2673C09FFFFFF00CB8655DBFEF6
+        F0DEFCE2CDDEFCE3CDDEFADFC8DEF7D9BCDEF5E9DDDEFAF3EBDEFBF8F3DECD95
+        65DCFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00CB8656DAFEF5
+        EDDEFCDEC5DEFBE0C7DEF9DCC2DEF5D3B4DEFEF9F3DEFAE2C4DEECC193DEC37D
+        4880FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00CA8554D0FFFF
+        FFDBFDF3E9DEFDF3EADEFCF2E8DEFAEFE3DEFAF2E7DEEABB88DECF85559CB469
+        3D0AFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C77947AACC86
+        55CECC8857DECB8856DBCC8856DBCB8757DBCA8350D0C479426EB2673C08FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+      }
+      OnClick = bCopyConnectionStringClick
+    end
+    object Label1: TLabel
+      Left = 379
+      Height = 15
+      Top = 101
+      Width = 47
+      Anchors = [akTop, akRight]
+      Caption = 'Sync ID'
+      ParentColor = False
+    end
+    object seSyncID: TSpinEdit
+      Left = 378
+      Height = 25
+      Hint = 'Die SyncID sollte bei Synchronisierten Datenbanken'#10'zwischen den Datenbanken unterschiedlich sein'#10'damit werden dann unterschiedliche Nummernkreise '#10'für die Datensatznummern (SQL_ID) verwendet '#10'damit es keine Überschneidungen gibt'
+      Top = 120
+      Width = 50
+      Anchors = [akTop, akRight]
+      MaxValue = 187
+      TabOrder = 6
+    end
+  end
+  object pCont4: TPanel
+    Left = 128
+    Height = 350
+    Top = 0
+    Width = 442
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 350
+    ClientWidth = 442
+    FullRepaint = False
+    TabOrder = 7
+    object lDescription5: TLabel
+      Left = 0
+      Height = 45
+      Top = 0
+      Width = 442
+      Align = alTop
+      Caption = 'wählen Sie hier eine Datenbank aus. Installieren Sie entsprechend der Auswahl einen Datenbankserver (falls nicht vorhanden)'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object pButtons5: TPanel
+      Left = 0
+      Height = 50
+      Top = 300
+      Width = 442
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 50
+      ClientWidth = 442
+      TabOrder = 0
+      object bvRight5: TBevel
+        Left = 0
+        Height = 2
+        Top = 0
+        Width = 442
+        Align = alTop
+        Shape = bsTopLine
+      end
+      object bNext4: TButton
+        Left = 120
+        Height = 25
+        Top = 14
+        Width = 100
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bNext0'
+        OnClick = bNext0Click
+        TabOrder = 0
+      end
+      object bPrev5: TButton
+        Left = 21
+        Height = 25
+        Top = 14
+        Width = 99
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bPrev0'
+        OnClick = bPrev0Click
+        TabOrder = 1
+      end
+      object bAbort5: TButton
+        Left = 264
+        Height = 25
+        Top = 14
+        Width = 172
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.InnerBorder = 4
+        Caption = 'bAbort0'
+        OnClick = bAbort0Click
+        TabOrder = 2
+      end
+    end
+    object rbPQ: TRadioButton
+      AnchorSideTop.Control = lDescription5
+      AnchorSideTop.Side = asrBottom
+      Left = 15
+      Height = 22
+      Top = 48
+      Width = 99
+      BorderSpacing.Top = 3
+      Caption = 'PostgresSQL'
+      Checked = True
+      OnChange = rbPQChange
+      TabOrder = 1
+      TabStop = True
+    end
+    object rbFB: TRadioButton
+      AnchorSideTop.Control = lDescription8
+      AnchorSideTop.Side = asrBottom
+      Left = 16
+      Height = 22
+      Top = 117
+      Width = 69
+      Caption = 'Firebird'
+      OnChange = rbPQChange
+      TabOrder = 3
+    end
+    object lDescription8: TLabel
+      AnchorSideTop.Control = rbMS
+      AnchorSideTop.Side = asrBottom
+      Left = 24
+      Height = 47
+      Top = 70
+      Width = 167
+      AutoSize = False
+      Caption = 'ist eine gute Open Source Datenbank, die auf vielen Systemen verfügbar ist'
+      Font.Height = -9
+      Font.Style = [fsItalic]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object lDescription9: TLabel
+      AnchorSideTop.Control = rbFB
+      AnchorSideTop.Side = asrBottom
+      Left = 24
+      Height = 48
+      Top = 139
+      Width = 167
+      AutoSize = False
+      Caption = 'Firebird ist auf nicht soviel Systemen wie PostgreSQL verfügbar aber sehr schnell.'
+      Font.Height = -9
+      Font.Style = [fsItalic]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object rbMS: TRadioButton
+      AnchorSideTop.Control = lDescription5
+      AnchorSideTop.Side = asrBottom
+      Left = 191
+      Height = 22
+      Top = 48
+      Width = 149
+      BorderSpacing.Top = 3
+      Caption = 'Microsoft SQL Server'
+      OnChange = rbPQChange
+      TabOrder = 2
+    end
+    object lDescription10: TLabel
+      AnchorSideTop.Control = rbMS
+      AnchorSideTop.Side = asrBottom
+      Left = 200
+      Height = 48
+      Top = 70
+      Width = 144
+      AutoSize = False
+      Caption = 'ein sehr schnelles kommerzielles Datenbanksystem'
+      Font.Height = -9
+      Font.Style = [fsItalic]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object eSQLDatabase2: TEdit
+      Left = 17
+      Height = 25
+      Top = 208
+      Width = 143
+      TabOrder = 4
+      Text = 'promet-erp'
+    end
+    object lDescription12: TLabel
+      Left = 17
+      Height = 15
+      Top = 191
+      Width = 100
+      Caption = 'Datenbankname'
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object eDBServer: TEdit
+      Left = 168
+      Height = 25
+      Top = 208
+      Width = 200
+      TabOrder = 5
+      Text = 'localhost'
+    end
+    object lDescription13: TLabel
+      Left = 168
+      Height = 15
+      Top = 191
+      Width = 103
+      Caption = 'Datenbankserver'
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object lUsername1: TLabel
+      Left = 17
+      Height = 15
+      Top = 237
+      Width = 88
+      Caption = 'Benutzername'
+      ParentColor = False
+    end
+    object lPassword1: TLabel
+      Left = 17
+      Height = 15
+      Top = 266
+      Width = 52
+      Caption = 'Passwort'
+      ParentColor = False
+    end
+    object eSQLPassword1: TEdit
+      Left = 168
+      Height = 25
+      Top = 266
+      Width = 200
+      EchoMode = emPassword
+      PasswordChar = '*'
+      TabOrder = 7
+    end
+    object eSQLUser1: TEdit
+      Left = 168
+      Height = 25
+      Top = 237
+      Width = 200
+      TabOrder = 6
+    end
+  end
+  object pLeft: TPanel
+    Left = 0
+    Height = 350
+    Top = 0
+    Width = 128
+    Align = alLeft
+    BevelOuter = bvNone
+    ClientHeight = 350
+    ClientWidth = 128
+    ParentColor = False
+    TabOrder = 0
+    object bvImage: TPanel
+      Left = 9
+      Height = 271
+      Top = 9
+      Width = 108
+      BevelOuter = bvLowered
+      ClientHeight = 271
+      ClientWidth = 108
+      Color = clWhite
+      ParentColor = False
+      TabOrder = 0
+      object imDialog: TImage
+        Left = 1
+        Height = 269
+        Top = 1
+        Width = 106
+        Align = alClient
+        Picture.Data = {
+          1754506F727461626C654E6574776F726B47726170686963D113000089504E47
+          0D0A1A0A0000000D4948445200000068000000E60802000000B6C4575E000013
+          984944415478DAED9D2D74BB3C14C65FF99793B3939393B3959395B54824128B
+          4422B1C8482416894462914864DF277920655DB702E5734B4E4E4FD78F35F971
+          6FEECDCD4DF8EF6CCAA8F29F4160C01970069C01678A0167C01970069C01678A
+          0167C09DCF55550541E0BA4E9224065CAF52D7751886B66D8928C8B3D8F75CC7
+          B1D7C5B703704208200B43BF2CD2AACCF898A731E8815F966506DC75814C39B6
+          1DF86E912744D6A9195E4913E13AB6E7BA795E1870B2408E1CC7F13C27CF92BA
+          CC81E933B5A6825D55E6491C41737DDF2FCBF2EF826B2D809DA5715DE54AD0EE
+          54852F8B45E8D85610867F0E5C5D9FA328A2058094F541F6199FFC4A1406D0EE
+          384EFE0AB8388ED1E1308005C85ADD1C5321A4181095D975D234FDCDE0D03D74
+          D2971620EDA99B7745AFAE0A0C8ED2ECBA6E96E7BF0D5C9EE7E818BA272D4055
+          50D7A6AB125F9AC6D2EC7A5E5114BF015C5194E80CBAA42C0091CD55F1FFE730
+          BB4B83A3D1947E7F1C4964553E2B35CD0E838032BB7610845555EF091CA64D30
+          9A68BA10687A3EB7A0DDC487C7289266172DA9EB3D806B8C66E8EB0EAC55F1EB
+          6599A325CA6B89B70B2E49A4D10C7C4FFA0AF59AC83EE1AB0BB407AD42DBC605
+          0B660497D1687A9848A6755D56D556A83515035F5DC20782D3E7BA838305FFCD
+          63016A06CE300B3FD7A5D2CD8D56B40D2DCCA4D3E7A2CD6B821342D002D41A59
+          B5E1AA9AC7A6FA9EBD0E38CC10E16760DA0445385337375FEBAA446BF3344A85
+          EBBBA7A5C1B5D32669011ADDDC05B2AA28B238116E1CD989707CD75A0E5CDEB1
+          00E7BA626BB68F0CB5C89334F693C8614D170387D99FB4000E2D40556F5E37C9
+          0B156A91250104ADA98B8183E58694456180DF97C36A5DEA366DB7D68D940159
+          2A3CF0E2E342E020659E2CAD622ADDDC01B21A5296664998C65E5385B710B8B2
+          2C7DDF6F5CB3F38E90558DD18CFD4E5D041CD734E5D4241690B2F33E90550A59
+          91673174937551707281CE718488D00EC9702FC8E067C8E12CD4D49606679D8E
+          D23553CCF652319C413725B534ECB25B149CE3587912AA99C00E90A19D706841
+          4D8293755570EAB7C1AE90A3DD669129DDCC53A1EA36C0E5CDCF53EEB6C54EB6
+          473AB4A914B44C347543E06495A3861AEFEAAD2093CC32081AA82970F146C171
+          C42DA5EB5BAB5AAD516B22C3D08196486A79BC03701841F004ADC4C586E8B504
+          17AD157553226BEB2EC0A996C92A873CE5202FC1EB5CD38B2C6576844A55CAD3
+          1D82632B53219316A4637C66C7E6AB8D6E36490E3B0627D96170615B95E8D533
+          E153CCE42A4F273B64EFE024BBB6DD7952553ABB6012649CAD946A49452E4A95
+          E5AEC165B7C0C93EA4FCB3AEBAC9190F20533E6DBB16B57F70D2A4E6F157704C
+          CAA5B143972ADADC91991240565ED6C6F60EAEC8846D1D5F5E9E85CCFE6EDAFA
+          199C62A70623F90AF0619636085FAD75F3AAEE1C9CEFD9FFA9E2B976D975A3BA
+          E014BBA6AB789EABF47008E09D141722E3177F1738E5F78A30709F9EFE81DDF1
+          E390C1956B1CD19BE0F4AAE5C526CA957315D7FB06D94F75DF631C06B844046F
+          AFAF60F7FCFC14069EDEB471135CB3B6D4AE4E285F2C6F93759BB876CFBA73AB
+          2A9D5ED93E68EBD3D313F01DDEDF02DF83D055DACFFA0A4EB3D3B51A9C83B37B
+          7068195A09FB005585C282DDCBCB8BE73A6922D470965737C155D57580BB9F86
+          FE2A70EDCC214107D23426A322CFC23088A24067175C2D037FAD7F079C48E230
+          4D22B652B9234DE29BF47B95FF75381CDEDFDFA330289B68FB4F0B2B92C5A0BA
+          577099100252E5019F8C82E54AE8CA4CAF60AA15EB9C2ECBEBCB8BEF7B5CB756
+          1194EB4545151D1AB7936177EE481EDBB6F5FAFA0276B190FB46E9CDA9A1ADD0
+          EC80F655995D947FFFFE7D7C1C02DFCFD2440F6D2DB8E2AF8053CD4AA08BB0A7
+          783D0A7DA86DDB87CBCC81B9D1220AF1C9FF3AE5EDED0D03A266F797C0A5422E
+          5966B16D9DA4237278F73D476D594E3EED236AB293A5FE6659EA792E463D889E
+          9C7278AEDAE950567F0C1CB43565143308BC6778C04F4F9675F47D3716A174E5
+          68FBBA3387BA548926650EE745444A1E2F06F7E616D4BE75776125995A900A28
+          2960D18FC3A867DB27E04BE2484D098AAE1FA79D92EBB4C3F24F81BBB08B615B
+          51A1AD2F2FCF6A087B850AFBDE055F7D2F6BF94F816B1C60B96C9E25103A8C71
+          B0129675E20C4CE2B32D4CC2E2382A38216D66575FD2CFFF26B8BC09C6A590AF
+          30F45101EB743A121FDC11756E43100BB41EFE4ADE08E0E77851A9C276A3EBBE
+          D71C64A623A6A95108B9A3F4011966AF9CC34279C3C0073E0867268DEFA7285B
+          13731F5F77BE58430F0EF80008530B2829AA2FBD90377A70EF6F6F6ABBA8577E
+          8A53E69F16951FA97B5DE5BAAC39E4703B0010082185707781D2751DFA71C077
+          B56FD080EB1EA2A28890601AC3F862BA0A2B014B12A8830AFE0A3897F971BDC1
+          750399A52498E5D26796F35948DF9F02670F05F7398E76B10618FE0A03AE0FB8
+          B2AD2408E5FD2271F134F577802B3BC82E5521BB7AB1599C9DA8EE1F5CEF6AC0
+          1970A3C0352792A953B506816BF2EC26AB624FE03067CC52E187BE177A995CF1
+          CA878013B3D45D80C39350846116DB7170F41DC5CE80BB07AECC93248E04A656
+          45E6A7D151784EE05646E27A820BE2086F0499B013089DCD79428F98DA9F5755
+          17035C1AB949A8C03903C0353B8826AFBB300E458AB9D429748FB177881CA86A
+          FF286EAEC3F133D47DB8236067F9B62DC52D36E0063AC0AD1B5CF48C7DCF0C2E
+          DF05B811D58033E0C6831B53D594239CBDFE3E708501371E5C122E52B7002E9B
+          105CB214B8707D70B1F0B9D1D7801B062E4DC228F4F0D844FAF701AE97AA62EA
+          E84D78F0DE0D5595896E7E2C02E6003FB0C892748FA159A07E072E5507EFB9F6
+          019D9D778C93A7FCC532592493FB452EC7090CAB1B00872700E73947EB748CA2
+          68D02EC7A1635C2037D7707BB4163DEAECBEC0A91A7827EBF411044135FC18EA
+          61E094A079CC4067A5E8C904FE2C1E267A2B81CB64F5544ADF87CA03AAC6EDAB
+          1DACAA78024103296ECBE7CE7CC81D5E4C9366B3D7C5ECFE0C2E0E96A9299F28
+          7651607B8EE5BAEE83372A180CAE50631C18315DBF35AF72912955F208825907
+          DF77151FF87C18DE8C951217FAB6651DC330ACAAEAFC7019E9C7F12C2330426D
+          B71436A2447C0DD6567FDBE5BBA5C11119A4CC96D9F1FE68C59CCA8FA30FAC45
+          8F1B6D847EB190E7044A8D966F5185DB77755588E744A6A8A93B271D1F57CCE9
+          FC38B92F84FD978F8908C028E9E06B9EA87D7322F4DB5D4C0B8103B23842DB8F
+          0EDA9FAD71CF9A9B93FCA2259575440F6F014D444069175FF36E96440B80CB12
+          1FAE996B1FA19C49B2DE5D92DC6FCE56028E4C29A91CE35AB92BD45BC4274D84
+          C4DABCD52EDC5D81F326ACCACFF003CFB2ADD32377B8982A95D58E238F6B1F0D
+          385DB592CA8D988146D3286F6322A4005E64ADF3F569C0351300894C1A4DE99A
+          F9755D9FE72F77C09565699D4E6057340BBD5F16315BCF4E8E71D2B9FB245940
+          06E300B261E052853B5F8C9B6E3F5295A00969343FE6B000E3C135ECAC93B8B0
+          FB5A1B46022246E94BF58AFA8520DC944FDF82DFF718354C00E2D071AC8FF92C
+          C043E0CE6AA7A4DC291338DFB36BE715096CA8922FE90647AD7ADEFE7022E313
+          836B832C725CFB636E0BF028B8B33ABE47DDB5CDCA7F66D74ECB000EF894FE06
+          2DC19BE0DC41F512CF58C4024C008E45DD8FF804B12A149DBB0B74A016290124
+          C12FE086215337F9684240F579E532F8B604699AE26A47814BB5CD7EAC3A1B01
+          D4A47BDC7DAB37B854D54B08A85A1DDA28701CF2D49D032FA297F52638081C91
+          3104845F5CF286BDB380634992048E53E03B9765F301559D62729357A4AAD44D
+          370A2CFB74705D272F8AF3C6CA43F7ACA96A79FF2DE08B42376F0F0AEE591B70
+          ED2D63BA15522642DBB10E8E6DAF7553F279C169470F7AE4D82731049F341DB7
+          90E11146131763DC9DEDF6048E25CF0BDFF76073E1EE914B9B81D00F9C903590
+          46F3235CEA06DA9B00A7A54F2AAF7D82C797083F4FBF25D805970A279446F3B0
+          350BB01C38ED2DF3D623D0DFC0936102452ACCD36B704016F912D9362DC0D2E0
+          74C1AC1BCEAABC99A46D798E9CB401A25C3A51876E0A18CD6D5B80D5C0756510
+          740011E3203C40DF730279CB257BD63BB2FF0670BFAF1870069C0167C01970A6
+          1870069C0167C0617E8E9980BC3F32260598A762AEAF0A9EE04FBC1886213E30
+          4996D5EEC181421CC79665BDBFBFBFBEBEE211CF1D55FCB6C8689D2A80F8F6F6
+          A63F9624C932ABEEDB0287B92740800258409A802FCF73081D50D635EF6E7429
+          FA157967AD3C1742400C09114F8A5DC545C68343CF8FC7A33C90D0B6A97A2C65
+          EFA23F0FDCA0FFFCFC0C012C7E7758097A877E42EF804F0BD1E84261A4F0E2DF
+          EE22F63B181C3AF9F1F181E109FD7C1CD9577C18F2A0B920B88B816F400A0486
+          2428D450ADEC5F6A7957F6F24395DF03EE703880DAD5903F530138C8DD6F0087
+          710DE096A1C602E9DEF878F75F9FA10D430FACE762E0F043F057C06ECB83DD7D
+          709809C0F95852DCC80E320E7C3B0687A10DDE3F456FB1829FE3446DC7E0206E
+          BCF20B83C3D5C235DB3138A80CD338EA05CB6F00078F9712B7303898F22D3B25
+          F7C1C1BAA10FCB8363486AC7E0E08E6298632ECC62D43011C605837DD83738D7
+          75E194CC01EEBBE91D7ECE5265DFC6216A8BEED824B0383965D018C2054C544F
+          C6E95018B98253829F66306667E030FB41BBD1BD49A641F03664FEB06DE33F33
+          0E8AA1007F42AE6149F12BBC48F82D3C67081E524F94F80A5ED94276535F7068
+          2BD8A974237F74EE9F4AF5B7DE54010EFC37FC5B1D56FAC1AD63F8045F474B74
+          D81904578C7D0E00477610161859F479103E7C57078DE338EE06818746EEE47D
+          E08B021ED2BAA1E361E0C88E8B06C0C7D7EF06F2006BC2A07137F60919243E3A
+          4C3B0057A802D9C1304401441F188CBC1234E81446A80991DDC4072F1DEDDCD6
+          B6CB9BE0C88E4DC713E82F873F40A40DA1484216B8F376A6A071577F21D1F8B9
+          C5523C1F024776574B827C1DD4FEFDFBC70D7EB352EB3600ED5C8CDD34E0F465
+          676003EFA203A0B670148FD143D8DC059205260647B9C357E0942D1C89D20D80
+          B95860CA3131387C9E51EF6AA50270681BFC1E3CAE3F57C5008F76F404870B4E
+          E7602D768C5A53E4570E9DC311EB098E0B544BAEECDC0407133FF7E2EC7D70D0
+          53AEDEDF054735C187B5D7B696B6E2CAE1FAAD0C0EED809DE23CFF2E387ABC78
+          7D5D700CE7ADBF200D1B8FE1169731EF94EFC08132C1AD58B6028E433E75F02E
+          3878709CC0AE450D3F0D1712D76F13E0685E39D815F236A03F819B295CFC5DDC
+          B89BC7C87731FD828A6C051C2D2C1AC49812CA77631CACF0E46B14DD3828C333
+          703818313EA8C2301FAE2E9EE3E261C207AF8821ACF5C1D1D2A359681F26F6DD
+          985A171C83B793C4D935325C24FCDBE3F1C8C03AB3A7BA318544153C095581EF
+          C9E185514F7C1810279C8A8D4965052686D8800F1CB529D0712474004D7F708D
+          42FF1C5830740E5820857FAE0333770BD502C8A0BC240E9A9344DEC7274FF3F0
+          07B60682C0547CF40AAF30919A57FE9115162083C860708056A2B723928DAF9C
+          73B4505FF207F14DB0CF012D60021D21A29FC0A7D728F0D68869235333F1AF78
+          BCC1B47163B487C13BA64AAE06AE5BE807E0514F3370911922EE3FBEE0EB4086
+          5EE9FCD6398277681B478071A23731380C2854D5AB291A45AFCF120F0675C882
+          3CAF6BFEB8317E023FF7F4F434F484F825C0911D9D3EC6D3D1D6EFBC04984886
+          70E7A6A6D951C0C16EE869740B499C5EA340C18B20C8DD4A2085E71CF8C1AB4B
+          6DC9680ADA80C161D05ACFA2E0F464432F8FE203F830DD2E3DE5582512056B0B
+          DF60EBE0AEA2EDD49775E3C6681884AEBFA1581F1C2F38AEF6F299C65F85AE7F
+          DC781312874738BA5B881BF7D7D689C1311036141CE3C6AB873F9911B00E38E0
+          18010E1F438BE9EEAE5838D15E071C0A7C71E66F0D028716AF0B8E73C7FEE1CF
+          E9C1611EC3C4A441E0E082AE1E37C6F5EE1FFE9C1E1C7E9E13C0A1E0E68E1BDF
+          0537286E3CCBF119DCA57F7355EC0755D51996AB50D3D9A26B824B9204D300CC
+          63BAECEE82E33C8CDD58981A638BD09595C1E92007CC2B5776FA80C33547D327
+          8CB9F7A4C618099A8A2BB7A671D005DACAF3097864C65D7090539D9FBDD8A12E
+          4CE563C89AA3F3FAE01875003B9E2CC2F0FFCFE0A8D7E8063AB3404E3E7F88BF
+          CB233CB7028E9794FB19A08378DE8DB2DD0447767864D069A6B45EFDFFB5DBB4
+          3970DA47E18A0433C6BA1B1BBE82D3B14F4A04BB374933F85B0C0572B5AC1B70
+          DD22388D0FD2075F098F683AE3977A867B054E0F8B789D69D9A337269117465B
+          5E065821FEE7AEB86D1A9C565EB49E8B585C5AE46699AFE0BA71638E7DDC1DC0
+          45681A93AB08951E0AF8798648B925432FC86A43BF3370DD64060A02C0E945C5
+          BB71634281D470D15E87E075E12B780BE0285C5DA05AD6760CEE2A8A7717DCD7
+          B8F15D0DD523A9FEFA5F07A733DC6F12BC3A87ADBBB265C01970CAAAFE601C0C
+          B829E3C633815B2D743EDA2F6556DD8AE0F01C5ECB6A8B35A30B7797F78F1BCF
+          010E6D586D79F0917000D783D702C718E26A0BD28F148C2F0C022F0F8EE2B666
+          0AC483110B665C75D92D000E7F32ECBA66D2CD8305F601ECA0B677E3C65381E3
+          C479FD34AFC70BBB0111283E97C9C1F10906075EAAA1EDDCE221F118A7612830
+          E230F83107389E628251156ED0B860DF464FD7476F010EE30E9719BFC68D4783
+          6348C6B22C081A1CA0AD244F4F2E7A0C7C42A1B81FA58BE32EB8AB0FF3847020
+          C3F5C055593F5D7F017C3C2587EBDCF8F3EB01273F48EED50611805B7983C8F2
+          CACBFC35F41F107963034683F1BA0E1030EACB40F1D5CD12782AC554EDD9DF1D
+          44B4D2018DBED7064F07E471DF7C0522C6E585AD6C8233C58033E00C3803CE80
+          33C58033E00C3803CE8033C58033E00C3803CE14036E74F91FD737AED5FE7C8E
+          550000000049454E44AE426082
+        }
+      end
+    end
+    object bvleft: TBevel
+      Left = 0
+      Height = 50
+      Top = 300
+      Width = 128
+      Align = alBottom
+      Shape = bsTopLine
+    end
+    object BitBtn1: TBitBtn
+      Left = 9
+      Height = 34
+      Top = 304
+      Width = 62
+      Anchors = [akLeft, akBottom]
+      AutoSize = True
+      DefaultCaption = True
+      Kind = bkHelp
+      OnClick = BitBtn1Click
+      TabOrder = 1
+    end
+  end
+  object md: TDatasource
+    left = 36
+    top = 60
+  end
+  object SilentTimer: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = SilentTimerTimer
+    left = 102
+    top = 297
+  end
+end
