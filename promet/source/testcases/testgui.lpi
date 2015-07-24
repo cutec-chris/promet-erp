@@ -83,6 +83,7 @@
       <Unit4>
         <Filename Value="utransaction.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="utransaction"/>
       </Unit4>
       <Unit5>
         <Filename Value="utfulllogout.pas"/>
