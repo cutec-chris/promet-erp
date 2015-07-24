@@ -26,9 +26,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, pvisualprometapp,uWizardNewMandant
-  { you can add units after this }
-  ,uBaseVisualApplication;
+  Forms, pvisualprometapp,uBaseVisualApplication, uWizardNewMandant;
 
 {$R *.res}
 
