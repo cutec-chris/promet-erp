@@ -464,6 +464,7 @@ begin
                 begin
                   aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString);
                   aWikiPage.SetRights(FEditable);
+                  aWikiPage.LeftBar:=True;
                 end
               else aWikiPage.Free;
               if aWiki.FieldByName('CAPTION').AsString = strOverview then
@@ -471,7 +472,6 @@ begin
                   pcPages.Pages[aWikiIdx+1].PageIndex:=0;
                   pcPages.PageIndex:=0;
                 end;
-              aWikiPage.LeftBar:=True;
               aWiki.Next;
             end;
         end;
