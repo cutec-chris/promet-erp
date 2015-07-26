@@ -23,7 +23,7 @@
       <Unit2>
         <Filename Value="tlogout.pas"/>
         <UnitName Value="tlogout"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="23"/>
         <CursorPos X="81" Y="24"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
@@ -36,8 +36,8 @@
         <Filename Value="tdbtests.pas"/>
         <UnitName Value="tdbtests"/>
         <EditorIndex Value="12"/>
-        <TopLine Value="10"/>
-        <CursorPos X="16" Y="37"/>
+        <TopLine Value="15"/>
+        <CursorPos X="23" Y="36"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit4>
@@ -207,7 +207,6 @@
       <Unit32>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="13"/>
         <TopLine Value="2865"/>
         <CursorPos X="24" Y="2889"/>
@@ -217,7 +216,7 @@
       <Unit33>
         <Filename Value="tcreatedatabase.pas"/>
         <UnitName Value="tCreateDatabase"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="22"/>
         <TopLine Value="25"/>
         <CursorPos X="68" Y="55"/>
         <UsageCount Value="11"/>
@@ -226,7 +225,7 @@
       <Unit34>
         <Filename Value="utfulllogout.pas"/>
         <UnitName Value="utfulllogout"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="21"/>
         <CursorPos X="12" Y="22"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
@@ -234,7 +233,7 @@
       <Unit35>
         <Filename Value="utransaction.pas"/>
         <UnitName Value="utransaction"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="19"/>
         <TopLine Value="65"/>
         <CursorPos X="74" Y="77"/>
         <UsageCount Value="10"/>
@@ -243,14 +242,14 @@
       <Unit36>
         <Filename Value="ulinkcheck.pas"/>
         <UnitName Value="ulinkcheck"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="20"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit36>
       <Unit37>
         <Filename Value="udocumentmanagement.pas"/>
         <UnitName Value="udocumentmanagement"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="24"/>
         <TopLine Value="16"/>
         <CursorPos X="3" Y="46"/>
         <UsageCount Value="10"/>
@@ -282,10 +281,11 @@
       <Unit41>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="156"/>
-        <CursorPos X="45" Y="181"/>
+        <EditorIndex Value="16"/>
+        <TopLine Value="1731"/>
+        <CursorPos Y="1747"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\..\..\general\src\ugeneralstrconsts.pas"/>
@@ -317,9 +317,12 @@
       </Unit45>
       <Unit46>
         <Filename Value="..\base\ubasevisualapplication.pas"/>
-        <TopLine Value="3"/>
-        <CursorPos X="26" Y="21"/>
+        <UnitName Value="uBaseVisualApplication"/>
+        <EditorIndex Value="15"/>
+        <TopLine Value="20"/>
+        <CursorPos X="4" Y="35"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\base\uselectreport.pas"/>
@@ -374,7 +377,6 @@
       </Unit53>
       <Unit54>
         <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
-        <UnitName Value="ZDbcSqLiteUtils"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="250"/>
         <CursorPos X="30" Y="261"/>
@@ -430,10 +432,12 @@
       </Unit60>
       <Unit61>
         <Filename Value="..\base\dbintfs\uthumbnails.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="81"/>
-        <CursorPos X="30" Y="101"/>
+        <UnitName Value="uthumbnails"/>
+        <EditorIndex Value="14"/>
+        <TopLine Value="268"/>
+        <CursorPos Y="162"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit61>
       <Unit62>
         <Filename Value="..\base\pcmdprometapp.pas"/>
@@ -453,7 +457,6 @@
       </Unit63>
       <Unit64>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <UnitName Value="uZeosDBDM"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1127"/>
         <CursorPos X="20" Y="1145"/>
@@ -470,7 +473,6 @@
       </Unit65>
       <Unit66>
         <Filename Value="..\components\zeos\src\component\ZAbstractRODataset.pas"/>
-        <UnitName Value="ZAbstractRODataset"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1843"/>
         <CursorPos Y="1862"/>
@@ -495,8 +497,8 @@
       <Unit69>
         <Filename Value="..\..\..\general\src\ubasedatasetinterfaces.pas"/>
         <UnitName Value="uBaseDatasetInterfaces"/>
-        <EditorIndex Value="15"/>
-        <TopLine Value="4"/>
+        <EditorIndex Value="18"/>
+        <TopLine Value="45"/>
         <CursorPos X="14" Y="74"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -504,13 +506,14 @@
       <Unit70>
         <Filename Value="..\..\..\general\src\usimpleprocess.pas"/>
         <UnitName Value="usimpleprocess"/>
-        <EditorIndex Value="14"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="17"/>
         <CursorPos Y="31"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit70>
     </Units>
-    <JumpHistory Count="7" HistoryIndex="6">
+    <JumpHistory Count="11" HistoryIndex="10">
       <Position1>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <Caret Line="2951" TopLine="2932"/>
@@ -539,10 +542,26 @@
         <Filename Value="tdbtests.pas"/>
         <Caret Line="37" Column="16" TopLine="10"/>
       </Position7>
+      <Position8>
+        <Filename Value="..\base\dbintfs\uthumbnails.pas"/>
+        <Caret Line="101" Column="30" TopLine="81"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\base\ubasevisualapplication.pas"/>
+        <Caret Line="21" Column="26" TopLine="3"/>
+      </Position9>
+      <Position10>
+        <Filename Value="..\base\ubasevisualapplication.pas"/>
+        <Caret Line="35" Column="4" TopLine="20"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1747" TopLine="1731"/>
+      </Position11>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
-    <BreakPoints Count="2">
+    <BreakPoints Count="1">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -550,13 +569,6 @@
         <Source Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-image\src\fpimage.inc"/>
         <Line Value="177"/>
       </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Line Value="1742"/>
-      </Item2>
     </BreakPoints>
   </Debugging>
 </CONFIG>
