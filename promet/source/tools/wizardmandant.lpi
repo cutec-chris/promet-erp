@@ -61,7 +61,9 @@
       <Unit1>
         <Filename Value="uwizardnewmandant.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="fWizardNewMandant"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="uWizardNewMandant"/>
       </Unit1>
     </Units>

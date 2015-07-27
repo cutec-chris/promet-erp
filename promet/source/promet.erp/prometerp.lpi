@@ -22,7 +22,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="371"/>
+      <BuildNr Value="373"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -174,7 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=MySQL"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
