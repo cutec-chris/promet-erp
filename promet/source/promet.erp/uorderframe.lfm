@@ -796,42 +796,44 @@ inherited fOrderFrame: TfOrderFrame
       object lOrdernumber1: TLabel
         AnchorSideLeft.Side = asrBottom
         Left = 4
-        Height = 14
+        Height = 13
         Top = 13
-        Width = 117
-        AutoSize = False
+        Width = 83
         BorderSpacing.Left = 20
         Caption = 'Vorgangsnummer'
         ParentColor = False
       end
       object lNumber1: TLabel
-        AnchorSideLeft.Control = lDate1
+        AnchorSideLeft.Control = deDate1
         AnchorSideLeft.Side = asrBottom
-        Left = 215
+        Left = 175
         Height = 13
         Top = 12
         Width = 39
-        BorderSpacing.Left = 48
+        BorderSpacing.Left = 11
         Caption = 'Nummer'
         ParentColor = False
       end
       object lDate1: TLabel
-        Left = 136
+        AnchorSideLeft.Control = dlOrdernumber1
+        AnchorSideLeft.Side = asrBottom
+        Left = 109
         Height = 13
         Top = 13
         Width = 31
+        BorderSpacing.Left = 11
         Caption = 'Datum'
         ParentColor = False
       end
       object dlOrdernumber1: TDBText
         AnchorSideLeft.Side = asrBottom
         Left = 4
-        Height = 13
+        Height = 16
         Hint = 'Die automatisch vergebene eindeutige Vorgangsnummer'
         Top = 25
-        Width = 132
-        AutoSize = False
+        Width = 94
         BorderSpacing.Left = 4
+        Constraints.MinWidth = 90
         DataField = 'ORDERNO'
         DataSource = Orders
         Font.Height = -13
@@ -839,12 +841,14 @@ inherited fOrderFrame: TfOrderFrame
         ParentFont = False
       end
       object deDate1: TDBText
-        Left = 136
-        Height = 17
+        AnchorSideLeft.Control = dlOrdernumber1
+        AnchorSideLeft.Side = asrBottom
+        Left = 109
+        Height = 16
         Hint = 'das Buchungsdatum'
         Top = 25
-        Width = 86
-        AutoSize = False
+        Width = 55
+        BorderSpacing.Left = 11
         Constraints.MinWidth = 50
         DataField = 'DATE'
         DataSource = Orders
@@ -854,14 +858,14 @@ inherited fOrderFrame: TfOrderFrame
         ParentFont = False
       end
       object deNumber1: TDBText
-        AnchorSideLeft.Control = lDate1
+        AnchorSideLeft.Control = deDate1
         AnchorSideLeft.Side = asrBottom
-        Left = 215
+        Left = 175
         Height = 16
         Hint = 'Die Buchungsnummer'
         Top = 25
         Width = 73
-        BorderSpacing.Left = 48
+        BorderSpacing.Left = 11
         Constraints.MinWidth = 50
         DataField = 'NUMBER'
         DataSource = Orders
