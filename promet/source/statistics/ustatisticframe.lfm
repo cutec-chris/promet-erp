@@ -38,8 +38,8 @@ inherited fStatisticFrame: TfStatisticFrame
       TabOrder = 0
       object tsReport: TTabSheet
         Caption = 'Report'
-        ClientHeight = 2496
-        ClientWidth = 6720
+        ClientHeight = 4992
+        ClientWidth = 13440
         object Panel2: TPanel
           Left = 0
           Height = 27
@@ -207,8 +207,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsResults: TTabSheet
         Caption = 'Ergebnisliste'
-        ClientHeight = 2488
-        ClientWidth = 6720
+        ClientHeight = 4976
+        ClientWidth = 13440
         object Panel1: TPanel
           Left = 0
           Height = 282
@@ -365,8 +365,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsDescription: TTabSheet
         Caption = 'Beschreibung'
-        ClientHeight = 622
-        ClientWidth = 1662
+        ClientHeight = 1244
+        ClientWidth = 3324
         object DBMemo1: TDBMemo
           Left = 0
           Height = 311
@@ -424,8 +424,8 @@ inherited fStatisticFrame: TfStatisticFrame
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 538
-          ClientWidth = 1694
+          ClientHeight = 1076
+          ClientWidth = 3388
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -1038,8 +1038,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsDetail: TTabSheet
           Caption = 'Detail'
-          ClientHeight = 2064
-          ClientWidth = 6832
+          ClientHeight = 4128
+          ClientWidth = 13664
           inline smQuerry1: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -1641,8 +1641,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsSubDetail: TTabSheet
           Caption = 'Sub Detail'
-          ClientHeight = 2064
-          ClientWidth = 6832
+          ClientHeight = 4128
+          ClientWidth = 13664
           inline smQuerry2: TSynMemo
             Cursor = crIBeam
             Left = 0

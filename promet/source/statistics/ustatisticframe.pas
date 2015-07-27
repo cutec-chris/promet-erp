@@ -1218,6 +1218,7 @@ begin
   FTables.Free;
   FVariables.Free;
   FVariableNames.Free;
+  FDataSet:=nil;
   FSynCompletion.Free;
   inherited;
 end;
