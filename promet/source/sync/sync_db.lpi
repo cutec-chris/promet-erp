@@ -26,7 +26,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -46,7 +46,6 @@
         <EditorIndex Value="1"/>
         <TopLine Value="148"/>
         <CursorPos Y="158"/>
-        <FoldState Value=" T3m80}K022Y"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -99,7 +98,6 @@
       </Unit6>
       <Unit7>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <UnitName Value="uBaseDbClasses"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="57"/>
         <CursorPos X="14" Y="71"/>
@@ -782,7 +780,6 @@
       </Unit107>
       <Unit108>
         <Filename Value="..\base\dbintfs\ucalendar.pas"/>
-        <UnitName Value="uCalendar"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="430"/>
         <CursorPos Y="445"/>
@@ -790,7 +787,6 @@
       </Unit108>
       <Unit109>
         <Filename Value="..\..\..\..\..\fpc\trunk\packages\fcl-db\src\base\db.pas"/>
-        <UnitName Value="db"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1646"/>
         <CursorPos X="15" Y="1659"/>

@@ -35,7 +35,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot;"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=MySQL"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">

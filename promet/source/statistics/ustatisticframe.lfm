@@ -365,8 +365,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsDescription: TTabSheet
         Caption = 'Beschreibung'
-        ClientHeight = 1244
-        ClientWidth = 3324
+        ClientHeight = 311
+        ClientWidth = 831
         object DBMemo1: TDBMemo
           Left = 0
           Height = 311
@@ -424,8 +424,8 @@ inherited fStatisticFrame: TfStatisticFrame
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 1076
-          ClientWidth = 3388
+          ClientHeight = 269
+          ClientWidth = 847
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
