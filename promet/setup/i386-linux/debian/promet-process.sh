@@ -25,7 +25,7 @@ start() {
 	if [ -f $SVC_FILE ]; then 
 	  #reset
 	  echo -n "Starting "$SVC_ALIAS": "
-	  RETVALS=$(start-stop-daemon -S -b -x $SVC_FILE -- $SVC_START_OPTIONS)
+	  RETVALS=$(sudo start-stop-daemon -S -b -x $SVC_FILE -- $SVC_START_OPTIONS)
           Count=${#RETVALS[@]}
 	  RETVAL="[FAIL]"
           if [ $Count -eq 0 ]; then
@@ -53,7 +53,7 @@ start() {
 
 stop() {
 	echo -n "Shutting down "$SVC_ALIAS":"
-	RETVALS=$(start-stop-daemon -K -x $SVC_FILE -- $SVC_STOP_OPTIONS)
+	RETVALS=$(sudo start-stop-daemon -K -x $SVC_FILE -- $SVC_STOP_OPTIONS)
 	PROCKILLS=$(killall -w -q -e processmanager)
 	Count=${#RETVALS[@]}
 	Index=0	
