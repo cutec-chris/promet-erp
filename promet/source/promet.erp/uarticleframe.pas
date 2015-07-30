@@ -572,23 +572,21 @@ var
   aFrame: TTabSheet;
   WasDisabled: Boolean;
 begin
-  TMasterdata(DataSet).OpenItem;
+  TMasterdata(FDataSet).OpenItem;
   TabCaption := TMasterdata(FDataSet).Text.AsString;
-  Masterdata.DataSet := DataSet.DataSet;
   SetRights;
-  if Masterdata.DataSet.State <> dsInsert then
+  if FDataSet.DataSet.State <> dsInsert then
     begin
       if Refreshversions then
         begin
-          Rec := DataSet.GetBookmark;
-          Masterdata.DataSet.DisableControls;
-          with DataSet.DataSet as IBaseDbFilter do
+          FDataSet.DataSet.DisableControls;
+          with FDataSet.DataSet as IBaseDbFilter do
             begin
               aFilter := Filter;
               Filter := Data.QuoteField('ID')+'='+Data.QuoteValue(DataSet.FieldByName('ID').AsString);
             end;
-          DataSet.Open;
-          DataSet.DataSet.First;
+          FDataSet.Open;
+          FDataSet.DataSet.First;
           cbVersion.Items.Clear;
           while not DataSet.DataSet.EOF do
             begin
@@ -597,7 +595,7 @@ begin
             end;
           DataSet.GotoBookmark(Rec);
           cbVersion.Text:=DataSet.FieldByName('VERSION').AsString;
-          Masterdata.DataSet.EnableControls;
+          FDataSet.DataSet.EnableControls;
         end;
     end;
 
@@ -760,6 +758,7 @@ begin
         end;
       aWiki.Free;
     end;
+  Masterdata.DataSet := FDataSet.DataSet;
   if HasHelp then AddHelp(Self);
 end;
 function TfArticleFrame.SetRights: Boolean;
