@@ -180,6 +180,7 @@ type
     procedure ListFrameAdded(aFrame: TObject); override;
     procedure New;override;
     procedure SetLanguage;override;
+    function GetType: string; override;
   end;
 implementation
 {$R *.lfm}
@@ -427,7 +428,7 @@ begin
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,GetType,DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
     end;
   TfDocumentFrame(Sender).BaseElement := FDataSet;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
@@ -599,7 +600,7 @@ begin
         end;
     end;
 
-  aType := 'M';
+  aType := GetType;
   cbStatus.Items.Clear;
   if not Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
     begin
@@ -655,7 +656,7 @@ begin
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
-      aDocuments.Select(DataSet.Id.AsLargeInt,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
+      aDocuments.Select(DataSet.Id.AsLargeInt,GetType,DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
       aDocuments.Open;
       if aDocuments.Count = 0 then
         aDocuments.Free
@@ -932,7 +933,7 @@ begin
         end;
     end;
   cbCategory.Items.Clear;
-  aType := 'M';
+  aType := GetType;
   Data.Categories.CreateTable;
   Data.Categories.Open;
   Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
@@ -991,13 +992,13 @@ begin
   with aFrame as TfFilter do
     begin
       TabCaption := strArticleList;
-      FilterType:='M';
+      FilterType:=GetType;
       DefaultRows:='GLOBALWIDTH:%;ID:150;VERSION:100;LANGUAGE:60;MATCHCODE:200;SHORTTEXT:400;';
       Dataset := TMasterdataList.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_READ) or (Data.Users.Rights.Right('ARTICLES') > RIGHT_READ) or (Data.Users.Rights.Right('BENEFITS') > RIGHT_READ) or (Data.Users.Rights.Right('PARTSLIST') > RIGHT_READ) then
         begin
-          AddToolbarAction(NewAction);
+          AddToolbarAction(acNew);
         end;
     end;
 end;
@@ -1022,6 +1023,12 @@ end;
 procedure TfArticleFrame.SetLanguage;
 begin
 end;
+
+function TfArticleFrame.GetType: string;
+begin
+  Result := 'M';
+end;
+
 initialization
   TBaseVisualApplication(Application).RegisterForm(TfArticleFrame);
 end.

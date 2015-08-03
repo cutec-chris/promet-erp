@@ -3,11 +3,11 @@ inherited fSpreetsheet: TfSpreetsheet
   Width = 885
   ClientHeight = 639
   ClientWidth = 885
-  DesignLeft = 549
-  DesignTop = 201
+  DesignLeft = 404
+  DesignTop = 145
   object FormatToolBar: TToolBar[0]
     Left = 0
-    Height = 27
+    Height = 30
     Top = 0
     Width = 885
     ButtonHeight = 23
@@ -32,7 +32,7 @@ inherited fSpreetsheet: TfSpreetsheet
     end
     object FontComboBox: TComboBox
       Left = 52
-      Height = 27
+      Height = 23
       Top = 2
       Width = 127
       AutoSize = False
@@ -42,7 +42,7 @@ inherited fSpreetsheet: TfSpreetsheet
     end
     object FontSizeComboBox: TComboBox
       Left = 179
-      Height = 27
+      Height = 23
       Top = 2
       Width = 48
       AutoSize = False
@@ -135,12 +135,13 @@ inherited fSpreetsheet: TfSpreetsheet
     end
     object CbBackgroundColor: TColorBox
       Left = 530
-      Height = 29
+      Height = 23
       Top = 2
       Width = 149
       NoneColorColor = clDefault
       Style = [cbPrettyNames, cbCustomColors]
       OnGetColors = CbBackgroundColorGetColors
+      AutoSize = False
       ItemHeight = 20
       OnSelect = CbBackgroundColorSelect
       TabOrder = 2
@@ -192,7 +193,7 @@ inherited fSpreetsheet: TfSpreetsheet
   object FormulaToolBar: TToolBar[1]
     Left = 0
     Height = 26
-    Top = 27
+    Top = 30
     Width = 885
     Caption = 'FormulaToolBar'
     Constraints.MinHeight = 26
@@ -238,15 +239,19 @@ inherited fSpreetsheet: TfSpreetsheet
   end
   object TabControl: TTabControl[2]
     Left = 0
-    Height = 581
-    Top = 58
+    Height = 578
+    Top = 61
     Width = 885
     OnChange = TabControlChange
+    TabIndex = 0
+    Tabs.Strings = (
+      'New Tab'
+    )
     Align = alClient
     TabOrder = 2
     object WorksheetGrid: TsWorksheetGrid
       Left = 2
-      Height = 549
+      Height = 546
       Top = 30
       Width = 881
       AutoCalc = True
@@ -271,7 +276,7 @@ inherited fSpreetsheet: TfSpreetsheet
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 53
+    Top = 56
     Width = 885
     Align = alTop
     ResizeAnchor = akTop

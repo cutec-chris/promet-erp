@@ -64,11 +64,7 @@ begin
   inherited ShowFrame;
   FTimeReg.SetActive;
 end;
-var
-  aEntry : TPrometMenuEntry;
 initialization
   TBaseVisualApplication(Application).RegisterForm(TfTimeFrame);
-  aEntry := TPrometMenuEntry.Create(strTimetools,strTimetools,'TIMEREGISTERING@TIMES',IMAGE_TIME);
-  AddMenuEntry(aEntry);
 end.
 

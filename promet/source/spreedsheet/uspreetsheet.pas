@@ -331,9 +331,11 @@ type
   private
     FCopiedFormat: TCell;
     FPalette: TsPalette;
+    FSpName: string;
 
     function EditComment(ACaption: String; var AText: String): Boolean;
     procedure LoadFile(const AFileName: String);
+    procedure SetName(AValue: string);
     procedure SetupBackgroundColorBox;
     procedure UpdateBackgroundColorIndex;
     procedure UpdateCommentActions;
@@ -349,7 +351,8 @@ type
     procedure DoOpen;
   public
     procedure BeforeRun;
-
+    property Name : string read FSpName write SetName;
+    procedure DefineMenuEntrys; override;
   end;
 
 //  Excel 97-2003 spreadsheet (*.xls)|*.xls|Excel 5.0 spreadsheet (*.xls)|*.xls|Excel 2.1 spreadsheet (*.xls)|*.xls|Excel XML spreadsheet (*.xlsx)|*.xlsx|LibreOffice/OpenOffice spreadsheet (*.ods)|*.ods|Comma-delimited file (*.csv)|*.csv|Wikitable (wikimedia) (.wikitable_wikimedia)|*.wikitable_wikimedia
@@ -360,7 +363,11 @@ implementation
 
 uses
   TypInfo, LCLIntf, LCLType, LCLVersion, fpcanvas, Buttons,
-  fpsutils, fpscsv, fpsNumFormat,usortparamsform,uformatsettingsform;
+  fpsutils, fpscsv, fpsNumFormat,usortparamsform,uformatsettingsform,
+  uBaseVisualApplication,uData,uIntfStrConsts;
+
+resourcestring
+  strNewSpreetsheet                           = 'Neue Tabelle';
 
 const
   DROPDOWN_COUNT = 24;
@@ -875,6 +882,14 @@ begin
     LoadFile(ParamStr(1));
 end;
 
+procedure TfSpreetsheet.DefineMenuEntrys;
+var
+  aRoot : Variant;
+begin
+  aRoot := DefineMenuEntry(Null,strSpreetsheet,'spreetsheet',34);
+  DefineMenuEntry(aRoot,strNewSpreetsheet,'spreetsheet/new',35);
+end;
+
 procedure TfSpreetsheet.CbBackgroundColorGetColors(Sender: TCustomColorBox; Items: TStrings);
 var
   clr: TColor;
@@ -1095,6 +1110,12 @@ begin
     if err <> '' then
       MessageDlg(err, mtError, [mbOK], 0);
   end;
+end;
+
+procedure TfSpreetsheet.SetName(AValue: string);
+begin
+  if FSpName=AValue then Exit;
+  FSpName:=AValue;
 end;
 
 procedure TfSpreetsheet.MemoFormulaEditingDone(Sender: TObject);
@@ -1356,6 +1377,7 @@ end;
 
 initialization
   {$I uspreetsheet.lrs}
+  TBaseVisualApplication(Application).RegisterForm(TfSpreetsheet);
 
 end.
 
