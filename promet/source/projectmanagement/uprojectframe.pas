@@ -1483,6 +1483,6 @@ begin
 end;
 
 initialization
-  TBaseVisualApplication(Application).RegisterForm(TfProjectFrame);
+//  TBaseVisualApplication(Application).RegisterForm(TfProjectFrame);
 end.
 

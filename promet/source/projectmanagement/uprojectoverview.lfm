@@ -1,7 +1,34 @@
 inherited fObjectStructureFrame: TfObjectStructureFrame
   Height = 460
   Width = 730
+  ClientHeight = 460
+  ClientWidth = 730
   OnEnter = FrameEnter
   DesignLeft = 397
   DesignTop = 245
+  object ToolBar1: TToolBar[0]
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 730
+    Caption = 'ToolBar1'
+    EdgeInner = esNone
+    EdgeOuter = esNone
+    ShowCaptions = True
+    TabOrder = 0
+    object ToolButton1: TToolButton
+      Left = 1
+      Top = 0
+      Action = acAddLevel
+      AutoSize = True
+    end
+  end
+  object ActionList1: TActionList[1]
+    left = 40
+    top = 58
+    object acAddLevel: TAction
+      Caption = 'Ebene höher'
+      OnExecute = acAddLevelExecute
+    end
+  end
 end
