@@ -1058,6 +1058,6 @@ begin
     end;
 end;
 initialization
-  TBaseVisualApplication(Application).RegisterForm(TfOrderFrame);
+//  TBaseVisualApplication(Application).RegisterForm(TfOrderFrame);
 end.
 

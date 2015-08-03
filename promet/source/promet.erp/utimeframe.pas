@@ -65,6 +65,6 @@ begin
   FTimeReg.SetActive;
 end;
 initialization
-  TBaseVisualApplication(Application).RegisterForm(TfTimeFrame);
+//  TBaseVisualApplication(Application).RegisterForm(TfTimeFrame);
 end.
 

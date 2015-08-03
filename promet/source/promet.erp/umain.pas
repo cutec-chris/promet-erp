@@ -997,7 +997,7 @@ begin
       DataSetType:=TOrder;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
-      Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,Torder);
+      Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,TOrder);
       AddSearchAbleDataSet(TOrderList);
       except
       end;

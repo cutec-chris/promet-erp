@@ -564,5 +564,5 @@ begin
 end;
 
 initialization
-  TBaseVisualApplication(Application).RegisterForm(TfScriptFrame);
+//  TBaseVisualApplication(Application).RegisterForm(TfScriptFrame);
 end.

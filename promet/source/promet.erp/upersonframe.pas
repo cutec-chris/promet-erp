@@ -1250,6 +1250,6 @@ begin
 end;
 
 initialization
-  TBaseVisualApplication(Application).RegisterForm(TfPersonFrame);
+//  TBaseVisualApplication(Application).RegisterForm(TfPersonFrame);
 end.
 

@@ -561,7 +561,7 @@ var
   aDocFrame: TfDocumentFrame;
   Rec: LargeInt;
   aFilter: String;
-  aType: Char;
+  aType: string;
   tmp: String;
   aFound: Boolean;
   aWiki: TWikiList;
@@ -895,7 +895,7 @@ end;
 
 constructor TfArticleFrame.Create(AOwner: TComponent);
 var
-  aType: Char;
+  aType: string;
 begin
   inherited Create(AOwner);
   mShortText.WantTabs:=False;
@@ -1030,5 +1030,5 @@ begin
 end;
 
 initialization
-  TBaseVisualApplication(Application).RegisterForm(TfArticleFrame);
+//  TBaseVisualApplication(Application).RegisterForm(TfArticleFrame);
 end.

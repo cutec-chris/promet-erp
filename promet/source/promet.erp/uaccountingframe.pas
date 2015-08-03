@@ -352,6 +352,6 @@ begin
   FList.SetActive;
 end;
 initialization
-  TBaseVisualApplication(Application).RegisterForm(TfAccountingFrame);
+//  TBaseVisualApplication(Application).RegisterForm(TfAccountingFrame);
 end.
 

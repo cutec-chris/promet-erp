@@ -168,6 +168,6 @@ begin
 end;
 
 initialization
-  TBaseVisualApplication(Application).RegisterForm(TfCommandline);
+//  TBaseVisualApplication(Application).RegisterForm(TfCommandline);
 end.
 
