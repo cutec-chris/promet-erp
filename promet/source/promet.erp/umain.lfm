@@ -289,21 +289,23 @@ object fMain: TfMain
     end
   end
   object pPages: TPanel
-    Left = 289
+    AnchorSideLeft.Control = spTree
+    AnchorSideLeft.Side = asrBottom
+    Left = 288
     Height = 601
     Top = 0
-    Width = 642
+    Width = 643
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
     Caption = 'pPages'
     ClientHeight = 601
-    ClientWidth = 642
+    ClientWidth = 643
     TabOrder = 3
     object pcPages: TExtMenuPageControl
       Left = 0
       Height = 601
       Top = 0
-      Width = 642
+      Width = 643
       ActivePage = tsStartpage
       Align = alClient
       DragMode = dmAutomatic
@@ -319,7 +321,7 @@ object fMain: TfMain
       AnchorSideTop.Control = pcPages
       AnchorSideRight.Control = pPages
       AnchorSideRight.Side = asrBottom
-      Left = 596
+      Left = 597
       Height = 22
       Top = 25
       Width = 21
@@ -381,7 +383,7 @@ object fMain: TfMain
       AnchorSideTop.Control = pcPages
       AnchorSideRight.Control = pPages
       AnchorSideRight.Side = asrBottom
-      Left = 616
+      Left = 617
       Height = 22
       Top = 25
       Width = 21
