@@ -936,8 +936,6 @@ begin
   DoInfo('start');
   aConn := nil;
   Synchronize(@NewMenu);
-  DoInfo('Startuptype');
-  Synchronize(@DoStartupType);
   miNew.Action := fMainTreeFrame.acSearch;
   DoInfo('Timeregistering');
   Synchronize(@AddTimeReg);
@@ -1134,6 +1132,8 @@ begin
   //aConn.Free;
   DoInfo('Search');
   Synchronize(@AddSearch);
+  DoInfo('Startuptype');
+  Synchronize(@DoStartupType);
 end;
 
 destructor TStarterThread.Destroy;
