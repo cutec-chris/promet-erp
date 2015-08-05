@@ -3004,7 +3004,7 @@ begin
         end
       else aFrame.Free;
     end
-  else if copy(aLink,0,11) = 'MESSAGEIDX@' then
+  else if copy(aLink,0,10) = 'MESSAGEIDX' then
     begin
       aMessageEdit := TfMessageEdit.Create(nil);
       aMessageEdit.OpenFromLink(aLink);
@@ -3050,7 +3050,7 @@ begin
         end
       else aFrame.Free;
     end
-  else if copy(aLink,0,7) = 'ORDERS@' then
+  else if copy(aLink,0,6) = 'ORDERS' then
     begin
       aFrame := TfOrderFrame.Create(Self);
       aFrame.SetLanguage;
@@ -3062,7 +3062,7 @@ begin
         end
       else aFrame.Free;
     end
-  else if copy(aLink,0,5) = 'WIKI@' then
+  else if copy(aLink,0,4) = 'WIKI' then
     begin
       if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfWikiFrame) then
         aFrame := TfWikiFrame(pcPages.ActivePage.Controls[0])
@@ -3076,7 +3076,7 @@ begin
       aFrame.OpenFromLink(aLink);
       Result := True;
     end
-  else if (copy(aLink,0,11) = 'STATISTICS@') then
+  else if (copy(aLink,0,10) = 'STATISTICS') then
     begin
       aFrame := TfStatisticFrame.Create(Self);
       aFrame.OpenFromLink(aLink);
@@ -3084,8 +3084,7 @@ begin
       aFrame.SetLanguage;
       Result := True;
     end
-  else if (copy(aLink,0,9) = 'PROJECTS@')
-       or (copy(aLink,0,12) = 'PROJECTS.ID@') then
+  else if (copy(aLink,0,8) = 'PROJECTS') then
     begin
       aFrame := TfProjectFrame.Create(Self);
       aFrame.SetLanguage;
@@ -3097,7 +3096,7 @@ begin
         end
       else aFrame.Free;
     end
-  else if (copy(aLink,0,6) = 'TASKS@') then
+  else if (copy(aLink,0,5) = 'TASKS') then
     begin
       Screen.Cursor:=crDefault;
       FTaskEdit := TfTaskEdit.Create(Self);
@@ -3105,7 +3104,7 @@ begin
       FTaskEdit.Free;
       Result := True;
     end
-  else if (copy(aLink,0,9) = 'CALENDAR@') then
+  else if (copy(aLink,0,8) = 'CALENDAR') then
     begin
       Screen.Cursor:=crDefault;
       aCalFrame := TfCalendarFrame.Create(nil);
@@ -3119,7 +3118,7 @@ begin
       aCalFrame.Free;
       Result := True;
     end
-  else if (copy(aLink,0,16) = 'ACCOUNTEXCHANGE@') then
+  else if (copy(aLink,0,15) = 'ACCOUNTEXCHANGE') then
     begin
       tmp := aLink;
       tmp   := copy(tmp, pos('@', tmp) + 1, length(tmp));
@@ -3141,7 +3140,7 @@ begin
           aFrame.SetLanguage;
         end else aFrame.Free;
     end
-  else if (copy(aLink,0,6) = 'LISTS@') then
+  else if (copy(aLink,0,5) = 'LISTS') then
     begin
       aList := TLists.CreateEx(Self,Data);
       aList.SelectFromLink(aLink);
@@ -3166,7 +3165,7 @@ begin
         end;
       TfFilter(aFrame).Open;
     end
-  else if (copy(aLink,0,8) = 'HISTORY@') then
+  else if (copy(aLink,0,7) = 'HISTORY') then
     begin
       aBaseHist := TBaseHistory.Create(nil);
       aBaseHist.SelectFromLink(aLink);
@@ -3245,7 +3244,7 @@ begin
         end;
       aDoc.Free;
     end
-  else if (copy(aLink,0,10) = 'INVENTORY@') then
+  else if (copy(aLink,0,9) = 'INVENTORY') then
     begin
       aInv := TInventorys.CreateEx(Self,Data);
       aInv.SelectFromLink(aLink);
@@ -3269,7 +3268,7 @@ begin
         end;
       TfFilter(aFrame).Open;
     end
-  else if (copy(aLink,0,9) = 'MEETINGS@') then
+  else if (copy(aLink,0,8) = 'MEETINGS') then
     begin
       aFrame := TfMeetingFrame.Create(Self);
       aFrame.OpenFromLink(aLink);

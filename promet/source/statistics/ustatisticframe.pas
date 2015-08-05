@@ -1201,8 +1201,6 @@ begin
 end;
 destructor TfStatisticFrame.Destroy;
 begin
-  Datasource.DataSet.Free;
-  Datasource.DataSet:=nil;
   Detail.DataSet.Free;
   Detail.DataSet:=nil;
   SubDetail.DataSet.Free;
@@ -1225,7 +1223,7 @@ end;
 
 function TfStatisticFrame.CanHandleLink(aLink: string): Boolean;
 begin
-  Result := ((copy(aLink,0,pos('@',aLink)-1) = 'STATISTICS'));
+  Result := ((copy(aLink,0,10) = 'STATISTICS'));
 end;
 
 procedure TfStatisticFrame.ListFrameAdded(aFrame: TObject);
@@ -1251,7 +1249,6 @@ begin
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-//  Data.StartTransaction(FConnection);
   DataSet := TStatistic.CreateEx(Self,Data,FConnection);
   Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
   if FDataSet.Count > 0 then

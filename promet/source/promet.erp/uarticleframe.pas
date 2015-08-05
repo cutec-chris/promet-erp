@@ -954,11 +954,6 @@ begin
   if Assigned(FConnection) then
     begin
       CloseConnection(acSave.Enabled);
-      if Assigned(DataSet) then
-        begin
-          DataSet.Destroy;
-          DataSet := nil;
-        end;
       FreeAndNil(FConnection);
     end;
   inherited Destroy;

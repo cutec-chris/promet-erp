@@ -1428,9 +1428,16 @@ begin
   DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   if copy(aLink,0,pos('@',aLink)-1) = 'PROJECTS.ID' then
-    Data.SetFilter(FDataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1)
+    Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1)
   else
-    Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
+    Data.SetFilter(FDataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
+  if FDataSet.Count = 0 then
+    begin
+      if copy(aLink,0,pos('@',aLink)-1) = 'PROJECTS.ID' then
+        Data.SetFilter(FDataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1)
+      else
+        Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
+    end;
   if FDataSet.Count > 0 then
     begin
       TabCaption := TProject(FDataSet).Text.AsString;

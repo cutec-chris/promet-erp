@@ -995,7 +995,7 @@ end;
 function TfOrderFrame.OpenFromLink(aLink: string) : Boolean;
 begin
   inherited;
-  if not (copy(aLink,0,pos('@',aLink)-1) = 'ORDERS') then exit;
+  if not (copy(aLink,0,6) = 'ORDERS') then exit;
   if rpos('{',aLink) > 0 then
     aLink := copy(aLink,0,rpos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
@@ -1010,9 +1010,11 @@ begin
   FreeAndNil(FDataSet);
   DataSet := TOrder.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@OrdersStateChange;
-  TOrder(DataSet).Select(copy(aLink,pos('@',aLink)+1,length(aLink)));
-  DoOpen;
-  Result := True;
+  TOrder(DataSet).SelectFromLink(aLink);
+  DataSet.Open;
+  Result := DataSet.Count>0;
+  if Result then
+    DoOpen;
 end;
 procedure TfOrderFrame.New;
 begin
