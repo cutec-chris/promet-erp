@@ -432,6 +432,7 @@ begin
   FList := TfFilter.Create(Self);
   FList.Parent := pTimeList;
   FTimes := nil;
+  FList.DBNavigator1.VisibleButtons := FList.DBNavigator1.VisibleButtons+[nbPost];
 end;
 
 destructor TfEnterTime.Destroy;
@@ -1254,4 +1255,4 @@ begin
 end;
 initialization
 end.
-
+
