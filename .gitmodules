@@ -64,3 +64,6 @@
 [submodule "promet/source/components/prichedit"]
 	path = promet/source/components/prichedit
 	url = https://github.com/cutec-chris/PRichEdit.git
+[submodule "promet/source/plugins/oofile"]
+	path = promet/source/plugins/oofile
+	url = https://github.com/cutec-chris/doublecmd-plugin-oofile.git
