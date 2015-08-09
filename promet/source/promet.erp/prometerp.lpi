@@ -22,7 +22,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="375"/>
+      <BuildNr Value="376"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -371,7 +371,6 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uOrderFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -593,7 +592,6 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uArticleFrame"/>
       </Unit45>
       <Unit46>
         <Filename Value="uallobjects.pas"/>
@@ -638,7 +636,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="33">
+    <Exceptions Count="34">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -756,6 +754,9 @@
       <Item33>
         <Name Value="EInvalidPointer"/>
       </Item33>
+      <Item34>
+        <Name Value="PixelCanvasException"/>
+      </Item34>
     </Exceptions>
   </Debugging>
 </CONFIG>
