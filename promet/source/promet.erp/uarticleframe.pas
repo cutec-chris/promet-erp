@@ -580,6 +580,7 @@ begin
     begin
       if Refreshversions then
         begin
+          Rec := DataSet.GetBookmark;
           FDataSet.DataSet.DisableControls;
           with FDataSet.DataSet as IBaseDbFilter do
             begin
