@@ -23,6 +23,24 @@ var
 {$R pstarter.res}
 
 
+{$IFDEF WINDOWS}
+function IsFileOpen(FileName: string): Boolean;
+var
+  HFileRes: HFILE;
+begin
+  Result := False;
+  if not FileExists(FileName) then Exit;
+  HFileRes := CreateFile(PChar(FileName),
+                         GENERIC_READ or GENERIC_WRITE,
+                         0,
+                         nil,
+                         OPEN_EXISTING,
+                         FILE_ATTRIBUTE_NORMAL,
+                         0);
+  Result := (HFileRes = INVALID_HANDLE_VALUE);
+  if not Result then
+    CloseHandle(HFileRes);
+end;{$ELSE}
 function IsFileOpen(const FileName: string): Boolean;
 var Stream: TFileStream;
 begin
@@ -36,6 +54,7 @@ begin
   end;
   Stream.Free;
 end;
+{$ENDIF}
 
 begin
   Application.Initialize;
