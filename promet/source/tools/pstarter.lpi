@@ -72,8 +72,14 @@
         <UseAnsiStrings Value="False"/>
       </SyntaxOptions>
     </Parsing>
+    <CodeGeneration>
+      <Checks>
+        <StackChecks Value="True"/>
+      </Checks>
+    </CodeGeneration>
     <Linking>
       <Debugging>
+        <DebugInfoType Value="dsStabs"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
       <Options>

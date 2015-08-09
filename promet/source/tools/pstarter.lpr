@@ -12,6 +12,7 @@ uses
   SysUtils,
   Dialogs,
   Utils,
+  Classes,
   FileUtil
   { add your units here }, uprogramended, general,uLanguageUtils;
 
@@ -20,6 +21,21 @@ var
   tmp: string;
 
 {$R pstarter.res}
+
+
+function IsFileOpen(const FileName: string): Boolean;
+var Stream: TFileStream;
+begin
+  Result := false;
+  if not FileExists(FileName) then exit;
+  try
+    Stream := TFileStream.Create(FileName,fmOpenRead or fmShareExclusive);
+  except
+    Result := true;
+    exit;
+  end;
+  Stream.Free;
+end;
 
 begin
   Application.Initialize;
@@ -32,11 +48,25 @@ begin
   if length(tmp)>0 then
     if byte(tmp[length(tmp)])>128 then
       tmp := copy(tmp,0,length(tmp)-1);
-  if (copy(tmp,0,1)='"') and (copy(tmp,length(tmp)-1,1) = '"') then
+  if (copy(tmp,0,1)='"') and (copy(tmp,length(tmp),1) = '"') then
     tmp := copy(tmp,2,length(tmp)-2);
   Proc.CommandLine := tmp;
   if Proc.CommandLine = '' then exit;
   Proc.Execute;
+  while pos(' ',tmp)>0 do
+    begin
+      if (copy(tmp,0,1)='"') and (copy(tmp,length(tmp),1) = '"') then
+        tmp := copy(tmp,2,length(tmp)-2);
+      if FileExistsUTF8(tmp) then break;
+      tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
+      if (copy(tmp,0,1)='"') and (copy(tmp,length(tmp),1) = '"') then
+        tmp := copy(tmp,2,length(tmp)-2);
+      if FileExistsUTF8(tmp) then break;
+    end;
+  if FileExistsUTF8(tmp) then
+    begin
+      while IsFileOpen(tmp) do sleep(100);
+    end;
   Application.CreateForm(TfProgramEnded, fProgramEnded);
   fProgramEnded.Filename := ExtractFilename(tmp);
   Application.Run;
@@ -45,4 +75,4 @@ begin
   else
     ExitCode := 0;
 end.
-
+
