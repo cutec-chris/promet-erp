@@ -22,7 +22,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="376"/>
+      <BuildNr Value="377"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -709,7 +709,6 @@
       </Item20>
       <Item21>
         <Name Value="ESQLScannerError"/>
-        <Enabled Value="False"/>
       </Item21>
       <Item22>
         <Name Value="FPImageException"/>
