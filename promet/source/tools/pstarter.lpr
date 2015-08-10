@@ -13,6 +13,9 @@ uses
   Dialogs,
   Utils,
   Classes,
+  {$IFDEF WINDOWS}
+  Windows,
+  {$ENDIF}
   FileUtil
   { add your units here }, uprogramended, general,uLanguageUtils;
 
