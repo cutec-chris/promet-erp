@@ -67,3 +67,6 @@
 [submodule "promet/source/plugins/oofile"]
 	path = promet/source/plugins/oofile
 	url = https://github.com/cutec-chris/doublecmd-plugin-oofile.git
+[submodule "promet/source/plugins/winthumb"]
+	path = promet/source/plugins/winthumb
+	url = https://github.com/tcs-ulli/lister-plugin-winthumb.git
