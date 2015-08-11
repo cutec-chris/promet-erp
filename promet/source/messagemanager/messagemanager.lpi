@@ -66,7 +66,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; &quot;--user=Christian Ulrich&quot;"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; &quot;--user=Christian Ulrich&quot; --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="9">

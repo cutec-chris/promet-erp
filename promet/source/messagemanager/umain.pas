@@ -349,6 +349,8 @@ begin
   end;
 end;
 procedure TfMain.RefreshFilter2;
+var
+  i: Integer;
 begin
   Data.Users.Follows.ActualLimit:=0;
   Data.Users.Follows.Open;
@@ -356,9 +358,11 @@ begin
   with Data.Users.Follows do
     begin
       First;
+      i := 0;
       while not EOF do
         begin
           FFilter2:=FFilter2+' OR ('+Data.QuoteField('OBJECT')+'='+Data.QuoteValue(FieldByName('LINK').AsString)+')';
+          inc(i);
           Next;
         end;
     end;
