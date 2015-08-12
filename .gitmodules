@@ -70,3 +70,6 @@
 [submodule "promet/source/plugins/winthumb"]
 	path = promet/source/plugins/winthumb
 	url = https://github.com/tcs-ulli/lister-plugin-winthumb.git
+[submodule "promet/source/plugins/dwgfile"]
+	path = promet/source/plugins/dwgfile
+	url = https://github.com/cutec-chris/lister-plugin-dwg.git
