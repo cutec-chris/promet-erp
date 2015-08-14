@@ -13,14 +13,14 @@ object Form1: TForm1
     Height = 21
     Top = 40
     Width = 576
-    FileName = 'C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Zugriffsberechtigungen.doc'
+    FileName = 'C:\TEMP\1.dxf'
     FilterIndex = 0
     HideDirectories = False
     ButtonWidth = 23
     NumGlyphs = 1
     MaxLength = 0
     TabOrder = 0
-    Text = 'C:\Dokumente und Einstellungen\ulrich\Eigene Dateien\Zugriffsberechtigungen.doc'
+    Text = 'C:\TEMP\1.dxf'
   end
   object Label1: TLabel
     Left = 16

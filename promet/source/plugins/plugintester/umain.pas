@@ -97,7 +97,7 @@ begin
               aMod.UnloadModule;
             end;
           end;
-      if Found then Image1.Picture.LoadFromFile(GetTempPath+'thumb.bmp');
+      if Found then Image1.Picture.LoadFromFile(ThumbFile);
     end;
 end;
 
