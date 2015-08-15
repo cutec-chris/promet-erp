@@ -76,3 +76,6 @@
 [submodule "promet/source/plugins/vectorfile"]
 	path = promet/source/plugins/vectorfile
 	url = https://github.com/tcs-ulli/lister-plugin-vectorfile.git
+[submodule "promet/source/components/OpenRichedit"]
+	path = promet/source/components/OpenRichedit
+	url = https://github.com/tcs-ulli/OpenRichedit

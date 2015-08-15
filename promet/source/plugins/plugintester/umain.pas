@@ -9,6 +9,9 @@ uses
   StdCtrls, ExtCtrls,uWlxModule,Utils;
 
 type
+
+  { TForm1 }
+
   TForm1 = class(TForm)
     Button1: TButton;
     Button2: TButton;
@@ -17,6 +20,8 @@ type
     Label1: TLabel;
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
   private
     { private declarations }
@@ -35,7 +40,14 @@ implementation
 procedure TForm1.FormCreate(Sender: TObject);
 var
   Info: TSearchRec;
+  sl: TStringList;
 begin
+  sl := TStringList.Create;
+  if FileExists('wlxtester.ini') then
+    sl.LoadFromFile('wlxtester.ini');
+  if sl.Count>0 then
+    FileNameEdit1.FileName:=sl[0];
+  sl.Free;
   Modules := TWLXModuleList.Create;
   If FindFirst (UniToSys(ExtractFilePath(ParamStr(0))+DirectorySeparator+'plugins'+DirectorySeparator+'*.wlx'),faAnyFile and faDirectory,Info)=0 then
     begin
@@ -99,6 +111,51 @@ begin
           end;
       if Found then Image1.Picture.LoadFromFile(ThumbFile);
     end;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  aName: String;
+  aFileName: String;
+  Result: Boolean;
+  e: String;
+  i: Integer;
+  aMod: TWlxModule;
+  ThumbFile: String;
+  Found: Boolean=false;
+  aText: String;
+begin
+  Result := False;
+  aName := FileNameEdit1.FileName;
+  aFileName := FileNameEdit1.FileName;
+  e := lowercase (ExtractFileExt(aName));
+  if (e <> '') and (e[1] = '.') then
+    System.delete (e,1,1);
+  for i := 0 to Modules.Count-1 do
+    begin
+      aMod := Modules.GetWlxModule(i);
+      if aMod.LoadModule then
+        if (pos('EXT="'+Uppercase(e)+'"',aMod.CallListGetDetectString)>0) or (pos('EXT="*"',aMod.CallListGetDetectString)>0) then
+          begin
+            try
+              aText := aMod.CallListGetText(aFileName,'');
+              Found := True;
+            except
+              aMod.UnloadModule;
+            end;
+          end;
+      if Found then Memo1.Lines.Text:=aText;
+    end;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+var
+  sl: TStringList;
+begin
+  sl := TStringList.Create;
+  sl.Add(FileNameEdit1.FileName);
+  sl.SaveToFile('wlxtester.ini');
+  sl.Free;
 end;
 
 end.
