@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, EditBtn,
-  StdCtrls, ExtCtrls,uWlxModule,Utils;
+  StdCtrls, ExtCtrls,uWlxModule, WlxPlugin,Utils;
 
 type
 
@@ -76,10 +76,11 @@ var
   aHeight: Integer;
   aBitmap: TBitmap;
   Found: Boolean=false;
+  aHandle: HBITMAP;
 begin
   Result := False;
-  aWidth := 100;
-  aHeight := 100;
+  aWidth := Image1.Width;
+  aHeight := Image1.Height;
   aName := FileNameEdit1.FileName;
   aFileName := FileNameEdit1.FileName;
   e := lowercase (ExtractFileExt(aName));
@@ -96,9 +97,10 @@ begin
               if ThumbFile='' then
                 begin
                   aBitmap := TBitmap.Create;
-                  aBitmap.Handle:=aMod.CallListGetPreviewBitmap(aFileName,aWidth,aHeight,'');
-                  if aBitmap.Handle<>0 then
+                  aHandle:=aMod.CallListGetPreviewBitmap(aFileName,aWidth,aHeight,'');
+                  if aHandle<>0 then
                     begin
+                      aBitmap.Handle:=aHandle;
                       aBitmap.SaveToFile(GetTempPath+'thumb.bmp');
                       ThumbFile := GetTempPath+'thumb.bmp';
                     end;
@@ -109,7 +111,11 @@ begin
               aMod.UnloadModule;
             end;
           end;
-      if Found then Image1.Picture.LoadFromFile(ThumbFile);
+      if Found then
+        begin
+          Image1.Picture.LoadFromFile(ThumbFile);
+          exit;
+        end;
     end;
 end;
 
