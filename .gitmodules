@@ -61,9 +61,6 @@
 [submodule "promet/source/components/richmemo"]
 	path = promet/source/components/richmemo
 	url = https://github.com/cutec-chris/richmemo.git
-[submodule "promet/source/components/prichedit"]
-	path = promet/source/components/prichedit
-	url = https://github.com/cutec-chris/PRichEdit.git
 [submodule "promet/source/plugins/oofile"]
 	path = promet/source/plugins/oofile
 	url = https://github.com/cutec-chris/doublecmd-plugin-oofile.git
@@ -79,3 +76,6 @@
 [submodule "promet/source/components/OpenRichedit"]
 	path = promet/source/components/OpenRichedit
 	url = https://github.com/tcs-ulli/OpenRichedit
+[submodule "promet/source/components/fpvectorial"]
+	path = promet/source/components/fpvectorial
+	url = https://github.com/cutec-chris/fpvectorial.git
