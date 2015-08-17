@@ -79,3 +79,6 @@
 [submodule "promet/source/components/fpvectorial"]
 	path = promet/source/components/fpvectorial
 	url = https://github.com/cutec-chris/fpvectorial.git
+[submodule "promet/source/plugins/solidworks"]
+	path = promet/source/plugins/solidworks
+	url = https://github.com/cutec-chris/lister-plugin-solidworks.git

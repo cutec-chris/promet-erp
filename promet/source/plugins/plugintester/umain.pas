@@ -93,7 +93,7 @@ begin
         if (pos('EXT="'+Uppercase(e)+'"',aMod.CallListGetDetectString)>0) or (pos('EXT="*"',aMod.CallListGetDetectString)>0) then
           begin
             try
-              ThumbFile := aMod.CallListGetPreviewBitmapFile(aFileName,GetTempPath,aWidth,aHeight,'');
+              ThumbFile := aMod.CallListGetPreviewBitmapFile(aFileName,AppendPathDelim(GetTempPath),aWidth,aHeight,'');
               if ThumbFile='' then
                 begin
                   aBitmap := TBitmap.Create;
@@ -101,8 +101,8 @@ begin
                   if aHandle<>0 then
                     begin
                       aBitmap.Handle:=aHandle;
-                      aBitmap.SaveToFile(GetTempPath+'thumb.bmp');
-                      ThumbFile := GetTempPath+'thumb.bmp';
+                      aBitmap.SaveToFile(AppendPathDelim(GetTempPath)+'thumb.bmp');
+                      ThumbFile := AppendPathDelim(GetTempPath)+'thumb.bmp';
                     end;
                   aBitmap.Free;
                 end;
