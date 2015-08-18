@@ -103,10 +103,12 @@ begin
                       aBitmap.Handle:=aHandle;
                       aBitmap.SaveToFile(AppendPathDelim(GetTempPath)+'thumb.bmp');
                       ThumbFile := AppendPathDelim(GetTempPath)+'thumb.bmp';
+                      Found := True;
                     end;
                   aBitmap.Free;
-                end;
-              Found := True;
+                end
+              else
+                Found := True;
             except
               aMod.UnloadModule;
             end;
@@ -150,7 +152,11 @@ begin
               aMod.UnloadModule;
             end;
           end;
-      if Found then Memo1.Lines.Text:=aText;
+      if Found then
+        begin
+          Memo1.Lines.Text:=SysToUni(aText);
+          break;
+        end;
     end;
 end;
 
