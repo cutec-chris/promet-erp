@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, uPrometFrames, LCLType,
   ExtCtrls, StdCtrls, Buttons, ComCtrls, ActnList,uspeakinginterface,
-  uBaseDbClasses;
+  uBaseDbClasses,uIntfStrConsts;
 
 type
 
@@ -65,9 +65,8 @@ type
 
 implementation
 {$R *.lfm}
-uses uData,uScriptEditor,Dialogs,uIntfStrConsts,uBaseDBInterface;
-resourcestring
-  strSentenceNotValid            = 'Das wurde leider nicht verstanden !';
+uses uData,uScriptEditor,Dialogs,uBaseDBInterface,
+  uBaseVisualApplication;
 procedure TfCommandline.InputKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -100,7 +99,7 @@ end;
 
 procedure TfCommandline.FSpeakingInterfacaceWriteln(const s: string);
 begin
-  Output.Append('<'+s);
+  Output.Lines.Add('<'+s);
 end;
 
 procedure TfCommandline.acNewScriptExecute(Sender: TObject);
@@ -168,5 +167,7 @@ begin
   aHistory := TAccessHistory.CreateEx(nil,Data,nil,Data.Users.DataSet);
 end;
 
+initialization
+//  TBaseVisualApplication(Application).RegisterForm(TfCommandline);
 end.
 

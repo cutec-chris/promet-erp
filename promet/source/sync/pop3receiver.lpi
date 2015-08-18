@@ -42,7 +42,7 @@
       </Item1>
       <Item2>
         <PackageName Value="pmimemessages"/>
-        <DefaultFilename Value="..\base_messaging\pmimemessages.lpk"/>
+        <DefaultFilename Value="..\base\base_messaging\pmimemessages.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="pcmdprometapp"/>
@@ -77,10 +77,13 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="1">
+    <Exceptions Count="2">
       <Item1>
         <Name Value="EZSQLException"/>
       </Item1>
+      <Item2>
+        <Name Value="EZDatabaseError"/>
+      </Item2>
     </Exceptions>
   </Debugging>
 </CONFIG>

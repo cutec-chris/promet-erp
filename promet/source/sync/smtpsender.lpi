@@ -44,11 +44,11 @@
       </Item1>
       <Item2>
         <PackageName Value="pmimemessages"/>
-        <DefaultFilename Value="../base_messaging/pmimemessages.lpk"/>
+        <DefaultFilename Value="../base/base_messaging/pmimemessages.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="pcmdprometapp"/>
-        <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
+        <DefaultFilename Value="../base/pcmdprometapp.lpk" Prefer="True"/>
       </Item3>
     </RequiredPackages>
     <Units Count="1">

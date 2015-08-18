@@ -27,19 +27,27 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS-Times2 Git"/>
+        <CommandLineParams Value="--mandant=TCS-Times2 GitAenderungsCheck"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="pcmdprometapp"/>
-        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
+        <PackageName Value="promet_scripts"/>
+        <DefaultFilename Value="..\base\base_scripts\promet_scripts.lpk"/>
       </Item1>
       <Item2>
+        <PackageName Value="general_pascal_script"/>
+        <DefaultFilename Value="..\..\..\general\general_pascal_script.lpk"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
+      </Item3>
+      <Item4>
         <PackageName Value="general"/>
         <DefaultFilename Value="..\..\..\general\general.lpk"/>
-      </Item2>
+      </Item4>
     </RequiredPackages>
     <Units Count="1">
       <Unit0>

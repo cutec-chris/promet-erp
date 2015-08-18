@@ -12,6 +12,10 @@ uses
   SysUtils,
   Dialogs,
   Utils,
+  Classes,
+  {$IFDEF WINDOWS}
+  Windows,
+  {$ENDIF}
   FileUtil
   { add your units here }, uprogramended, general,uLanguageUtils;
 
@@ -20,6 +24,53 @@ var
   tmp: string;
 
 {$R pstarter.res}
+
+
+{$IFDEF WINDOWS}
+function IsFileOpen(FileName: string): Boolean;
+var
+  HFileRes: HFILE;
+begin
+  Result := False;
+  if not FileExists(FileName) then Exit;
+  HFileRes := CreateFile(PChar(FileName),
+                         GENERIC_READ or GENERIC_WRITE,
+                         0,
+                         nil,
+                         OPEN_EXISTING,
+                         FILE_ATTRIBUTE_NORMAL,
+                         0);
+  Result := (HFileRes = INVALID_HANDLE_VALUE);
+  if not Result then
+    CloseHandle(HFileRes);
+end;{$ELSE}
+function IsFileOpen(const FileName: string): Boolean;
+var
+  atmp: TStringList;
+begin
+  result:=false;
+  atmp := TStringList.Create;
+  with TProcess.Create(nil) do try
+    try
+      // see: http://wiki.lazarus.freepascal.org/Executing_External_Programs
+      CommandLine := 'lsof "'+FileName+'"';  // deprecated but ok
+      // wait until command done, record output
+      Options := Options + [poWaitOnExit, poUsePipes];
+      Execute;
+      atmp.LoadFromStream(Output);
+    except
+      FreeAndNil(atmp);
+    end
+  finally
+    Free;
+  end;
+  if Assigned(atmp) then Result := atmp.Count>1
+  else
+    begin
+    end;
+  FreeAndNil(atmp);
+end;
+{$ENDIF}
 
 begin
   Application.Initialize;
@@ -32,11 +83,25 @@ begin
   if length(tmp)>0 then
     if byte(tmp[length(tmp)])>128 then
       tmp := copy(tmp,0,length(tmp)-1);
-  if (copy(tmp,0,1)='"') and (copy(tmp,length(tmp)-1,1) = '"') then
+  if (copy(tmp,0,1)='"') and (copy(tmp,length(tmp),1) = '"') then
     tmp := copy(tmp,2,length(tmp)-2);
   Proc.CommandLine := tmp;
   if Proc.CommandLine = '' then exit;
   Proc.Execute;
+  while pos(' ',tmp)>0 do
+    begin
+      if (copy(tmp,0,1)='"') and (copy(tmp,length(tmp),1) = '"') then
+        tmp := copy(tmp,2,length(tmp)-2);
+      if FileExistsUTF8(tmp) then break;
+      tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
+      if (copy(tmp,0,1)='"') and (copy(tmp,length(tmp),1) = '"') then
+        tmp := copy(tmp,2,length(tmp)-2);
+      if FileExistsUTF8(tmp) then break;
+    end;
+  if FileExistsUTF8(tmp) then
+    begin
+      while IsFileOpen(tmp) do sleep(100);
+    end;
   Application.CreateForm(TfProgramEnded, fProgramEnded);
   fProgramEnded.Filename := ExtractFilename(tmp);
   Application.Run;
@@ -45,4 +110,4 @@ begin
   else
     ExitCode := 0;
 end.
-
+

@@ -36,6 +36,7 @@ Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\wizardmandant.exe"; DestD
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*receiver.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*sender.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\pscript.exe"; DestDir: "{app}\tools"; Components: main
+Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\pextracttext.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\sync_*.exe"; DestDir: "{app}\tools"; Components: main
 Source: "sqlite3.dll"; DestDir: "{app}"; Components: main
 Source: "sqlite3.dll"; DestDir: "{app}\tools"; Components: main
@@ -46,7 +47,7 @@ Source: "..\errors.txt"; DestDir: "{app}"; Components: main
 Source: "..\warnings.txt"; DestDir: "{app}"; Components: main
 
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\helpviewer.exe"; DestDir: "{app}"; Components: help
-Source: "..\help\help.db"; DestDir: "{app}"; Components: help
+Source: "..\help.db"; DestDir: "{app}"; Components: help
 
 Source: "tools\*.*"; DestDir: "{app}\tools"; Components: main
 
@@ -56,7 +57,6 @@ Source: "..\..\languages\*.po"; DestDir: "{app}\languages"; Components: main
 Source: "..\..\languages\*.txt"; DestDir: "{app}\languages"; Components: main
 
 Source: "plugins\*.*"; DestDir: "{app}\plugins"; Components: main
-Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\shipping_*.exe"; DestDir: "{app}\plugins"; Components: main
 
 Source: "website.url"; DestDir: "{app}"
 

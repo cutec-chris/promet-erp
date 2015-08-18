@@ -23,7 +23,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ExtCtrls,
   ActnList, ComCtrls, StdCtrls, DbCtrls, Buttons, Menus, db, uPrometFrames,
   uExtControls, uFilterFrame, uIntfStrConsts, Utils, Dialogs, variants,
-  uMeasurement;
+  uBaseDbClasses,uBaseDatasetInterfaces;
 type
 
   { TfObjectFrame }
@@ -142,7 +142,7 @@ implementation
 uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uHistoryFrame,uImageFrame,uLinkFrame,uBaseDbInterface,uListFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
-  uMainTreeFrame,uPrometFramesInplace,uBaseDBClasses,uarticlesupplierframe,
+  uMainTreeFrame,uPrometFramesInplace,uarticlesupplierframe,
   uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
   uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,umeasurements;
 resourcestring
@@ -602,6 +602,7 @@ begin
                 begin
                   aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString);
                   aWikiPage.SetRights(FEditable);
+                  aWikiPage.LeftBar:=True;
                 end
               else aWikiPage.Free;
               if aWiki.FieldByName('CAPTION').AsString = strOverview then
@@ -609,7 +610,6 @@ begin
                   pcPages.Pages[aWikiIdx+1].PageIndex:=0;
                   pcPages.PageIndex:=0;
                 end;
-              aWikiPage.LeftBar:=True;
               aWiki.Next;
             end;
         end;

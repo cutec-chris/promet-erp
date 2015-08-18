@@ -29,7 +29,7 @@ var
 
 procedure TZugferdTest.DocumentExists;
 begin
-  Check(FileExists('../../ZUGFeRD-invoice.xml'),'Invoice not existent');
+  Check(FileExists('../../source/testcases/ZUGFeRD-invoice.xml'),'Invoice not existent');
 end;
 
 procedure TZugferdTest.CreateOrder;
@@ -39,7 +39,7 @@ end;
 
 procedure TZugferdTest.ImportDocument;
 begin
-  Check(ImportZugferdInvoice(aOrder,'../../ZUGFeRD-invoice.xml'),'Import failed');
+  Check(ImportZugferdInvoice(aOrder,'../../source/testcases/ZUGFeRD-invoice.xml'),'Import failed');
 end;
 
 procedure TZugferdTest.CheckDocument;

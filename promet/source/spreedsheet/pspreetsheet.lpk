@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="pspreetsheet"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Files Count="5">
+      <Item1>
+        <Filename Value="uspreetsheet.pas"/>
+        <UnitName Value="uspreetsheet"/>
+      </Item1>
+      <Item2>
+        <Filename Value="usortparamsform.pas"/>
+        <UnitName Value="usortparamsform"/>
+      </Item2>
+      <Item3>
+        <Filename Value="uformatsettingsform.pas"/>
+        <UnitName Value="uformatsettingsform"/>
+      </Item3>
+      <Item4>
+        <Filename Value="sctrls.pas"/>
+        <UnitName Value="sCtrls"/>
+      </Item4>
+      <Item5>
+        <Filename Value="ucurrencyform.pas"/>
+        <UnitName Value="ucurrencyform"/>
+      </Item5>
+    </Files>
+    <RequiredPkgs Count="5">
+      <Item1>
+        <PackageName Value="pvisualbaseframes"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="..\base\dbintfs\pprometdbintfs.lpk"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="laz_fpspreadsheet_visual"/>
+        <DefaultFilename Value="..\components\fpspreadsheet\laz_fpspreadsheet_visual.lpk"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="LCL"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="FCL"/>
+      </Item5>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="21">
+      <Unit0>
+        <Filename Value="dbusapi.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="dbusapi"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="18"/>
+        <CursorPos X="9" Y="40"/>
+        <UsageCount Value="24"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="tinkerforge\IPConnection.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="453"/>
+        <CursorPos Y="484"/>
+        <UsageCount Value="24"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="tinkerforge\Device.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="86"/>
+        <CursorPos X="35" Y="101"/>
+        <UsageCount Value="23"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="tinkerforge\BrickletLCD20x4.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="108"/>
+        <CursorPos X="14" Y="124"/>
+        <UsageCount Value="23"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="tinkerforge\BrickletLCD16x2.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="103"/>
+        <CursorPos X="14" Y="119"/>
+        <UsageCount Value="23"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbus.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="190"/>
+        <CursorPos X="14" Y="194"/>
+        <UsageCount Value="20"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbusinterfaces.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="184"/>
+        <CursorPos X="29" Y="8"/>
+        <UsageCount Value="20"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsinternbus.pas"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\D2XXUnit.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="393"/>
+        <CursorPos Y="409"/>
+        <UsageCount Value="20"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcswirelessintf.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="104"/>
+        <CursorPos X="34" Y="108"/>
+        <UsageCount Value="20"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\inc\systemh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="907"/>
+        <CursorPos X="11" Y="925"/>
+        <UsageCount Value="10"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\..\..\tcscmd_git\src\mypersistents.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="199"/>
+        <CursorPos X="15" Y="217"/>
+        <UsageCount Value="10"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="tinkerforge\LEConverter.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="7"/>
+        <CursorPos X="3" Y="16"/>
+        <UsageCount Value="10"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="tinkerforge\BrickletVoltageCurrent.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="384"/>
+        <CursorPos X="3" Y="81"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\..\..\..\..\lazarus\packager\registration\registerfcl.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="66"/>
+        <UsageCount Value="10"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus.pas"/>
+        <UnitName Value="dbus"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="55"/>
+        <CursorPos X="19" Y="64"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus-macros.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="34"/>
+        <UsageCount Value="10"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus-types.inc"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus-errors.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="25"/>
+        <CursorPos X="26" Y="48"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus-bus.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="12"/>
+        <CursorPos X="36" Y="27"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus-shared.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="62"/>
+        <CursorPos X="3" Y="37"/>
+        <UsageCount Value="10"/>
+      </Unit20>
+    </Units>
+    <JumpHistory Count="3" HistoryIndex="2">
+      <Position1>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus.pas"/>
+        <Caret Line="61" Column="18" TopLine="55"/>
+      </Position1>
+      <Position2>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus.pas"/>
+        <Caret Line="63" Column="18" TopLine="55"/>
+      </Position2>
+      <Position3>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\dbus\src\dbus.pas"/>
+        <Caret Line="64" Column="19" TopLine="55"/>
+      </Position3>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

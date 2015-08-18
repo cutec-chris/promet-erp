@@ -29,8 +29,8 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <HostApplicationFilename Value="C:\Quellen\promet-erp\promet\output\i386-win32\pscriptedit.exe"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; Test.Tinkerforge"/>
+        <HostApplicationFilename Value="C:\Prometheus\TCS\paradoxtest1\promet\output\i386-win32\pscriptedit.exe"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; Tinkerforge"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">
@@ -95,7 +95,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="4">
+    <Exceptions Count="6">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -106,8 +106,14 @@
         <Name Value="EFOpenError"/>
       </Item3>
       <Item4>
-        <Name Value="EProcess"/>
+        <Name Value="EZSQLException"/>
       </Item4>
+      <Item5>
+        <Name Value="EZDatabaseError"/>
+      </Item5>
+      <Item6>
+        <Name Value="EProcess"/>
+      </Item6>
     </Exceptions>
   </Debugging>
 </CONFIG>

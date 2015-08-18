@@ -9,7 +9,7 @@ object fProgramEnded: TfProgramEnded
   ClientHeight = 139
   ClientWidth = 497
   OnCreate = FormCreate
-  LCLVersion = '1.3'
+  LCLVersion = '1.5'
   object lMessage: TLabel
     Left = 4
     Height = 106
@@ -18,14 +18,16 @@ object fProgramEnded: TfProgramEnded
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoSize = False
     Caption = 'lMessage'
+    Font.Height = -15
     ParentColor = False
+    ParentFont = False
     WordWrap = True
   end
   object cbDontShowthisDialogAgain: TCheckBox
     Left = 4
-    Height = 17
-    Top = 120
-    Width = 265
+    Height = 22
+    Top = 115
+    Width = 336
     Anchors = [akLeft, akBottom]
     Caption = 'diese Meldung für diesen Typ nicht wieder anzeigen'
     TabOrder = 0

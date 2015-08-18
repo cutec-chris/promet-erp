@@ -27,7 +27,7 @@ uses
   Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uIntfStrConsts, db,
   memds, FileUtil, Translations, md5, ComCtrls, ExtCtrls, DbCtrls, Grids,
-  uFilterFrame,uBaseDbDataSet,uBaseDbClasses;
+  uFilterFrame,uBaseDbClasses,uBaseDatasetInterfaces;
 
 type
   { TfMain }
@@ -173,4 +173,4 @@ end;
 
 initialization
 
-end.
+end.

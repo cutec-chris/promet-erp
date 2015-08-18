@@ -23,7 +23,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ExtCtrls,
   ActnList, ComCtrls, StdCtrls, DbCtrls, Buttons, Menus, db, uPrometFrames,
   uExtControls, uFilterFrame, uIntfStrConsts, Utils, Dialogs, variants,
-  uMeasurement;
+  uBaseDbClasses,uBaseDatasetInterfaces;
 type
 
   { TfArticleFrame }
@@ -180,13 +180,14 @@ type
     procedure ListFrameAdded(aFrame: TObject); override;
     procedure New;override;
     procedure SetLanguage;override;
+    function GetType: string; override;
   end;
 implementation
 {$R *.lfm}
 uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uHistoryFrame,uImageFrame,uLinkFrame,uBaseDbInterface,uListFrame,
   uArticleStorageFrame,uArticleRepairFrame,uArticleText,uCopyArticleData,
-  uMainTreeFrame,uPrometFramesInplace,uBaseDBClasses,uarticlesupplierframe,
+  uMainTreeFrame,uPrometFramesInplace,uarticlesupplierframe,
   uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
   uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uBaseERPDBClasses,
   umeasurements;
@@ -197,8 +198,8 @@ resourcestring
   strSupplier                                = 'Lieferant';
   strRepair                                  = 'Reparatur';
   strTexts                                   = 'Texte';
-  strChangeNumer                             = 'Nummer ändern';
   strNewArticle                              = 'neuer Artikel';
+  strPiecelist                               = 'Stückliste';
 procedure TfArticleFrame.acSaveExecute(Sender: TObject);
 begin
   if Assigned(FConnection) then
@@ -352,6 +353,7 @@ begin
   application.ProcessMessages;
   if UseTransactions then
     Data.StartTransaction(FConnection);
+  TMasterdata(DataSet).Positions.Close;
   TMasterdata(DataSet).Select(aId,cbVersion.Text,aLanguage);
   DataSet.DataSet.DisableControls;
   DataSet.Open;
@@ -366,7 +368,6 @@ begin
           exit;
         end;
     end;
-  pcPages.CloseAll;
   DoOpen(False);
   DataSet.DataSet.EnableControls;
   Screen.Cursor:=crDefault;
@@ -427,7 +428,7 @@ begin
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,GetType,DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
     end;
   TfDocumentFrame(Sender).BaseElement := FDataSet;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
@@ -560,7 +561,7 @@ var
   aDocFrame: TfDocumentFrame;
   Rec: LargeInt;
   aFilter: String;
-  aType: Char;
+  aType: string;
   tmp: String;
   aFound: Boolean;
   aWiki: TWikiList;
@@ -569,25 +570,25 @@ var
   aID: String;
   aThumbnails: TThumbnails;
   aStream: TMemoryStream;
+  aFrame: TTabSheet;
+  WasDisabled: Boolean;
 begin
-  pcPages.CloseAll;
-  TMasterdata(DataSet).OpenItem;
+  TMasterdata(FDataSet).OpenItem;
   TabCaption := TMasterdata(FDataSet).Text.AsString;
-  Masterdata.DataSet := DataSet.DataSet;
   SetRights;
-  if Masterdata.DataSet.State <> dsInsert then
+  if FDataSet.DataSet.State <> dsInsert then
     begin
       if Refreshversions then
         begin
           Rec := DataSet.GetBookmark;
-          Masterdata.DataSet.DisableControls;
-          with DataSet.DataSet as IBaseDbFilter do
+          FDataSet.DataSet.DisableControls;
+          with FDataSet.DataSet as IBaseDbFilter do
             begin
               aFilter := Filter;
               Filter := Data.QuoteField('ID')+'='+Data.QuoteValue(DataSet.FieldByName('ID').AsString);
             end;
-          DataSet.Open;
-          DataSet.DataSet.First;
+          FDataSet.Open;
+          FDataSet.DataSet.First;
           cbVersion.Items.Clear;
           while not DataSet.DataSet.EOF do
             begin
@@ -596,11 +597,11 @@ begin
             end;
           DataSet.GotoBookmark(Rec);
           cbVersion.Text:=DataSet.FieldByName('VERSION').AsString;
-          Masterdata.DataSet.EnableControls;
+          FDataSet.DataSet.EnableControls;
         end;
     end;
 
-  aType := 'M';
+  aType := GetType;
   cbStatus.Items.Clear;
   if not Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
     begin
@@ -641,16 +642,22 @@ begin
         end;
     end;
 
-  pcPages.AddTabClass(TfArticlePositionFrame,strPositions,@AddPositions);
+  WasDisabled := DataSet.DataSet.ControlsDisabled;
+  if WasDisabled then
+    DataSet.DataSet.EnableControls;
   TMasterdata(DataSet).Positions.Open;
-  if TMasterdata(DataSet).Positions.Count > 0 then
-    pcPages.AddTab(TfArticlePositionFrame.Create(Self),False);
+  pcPages.NewFrame(TfArticlePositionFrame,(TMasterdata(DataSet).Positions.Count>0),strPiecelist,@AddPositions);
+  if WasDisabled then
+    DataSet.DataSet.DisableControls;
+
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
-  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
+  if Assigned(pcPages.GetTab(TfDocumentFrame)) then
+    pcPages.GetTab(TfDocumentFrame).Free;
+  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) and (not Assigned(pcPages.GetTab(TfDocumentFrame))) then
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
-      aDocuments.Select(DataSet.Id.AsLargeInt,'M',DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
+      aDocuments.Select(DataSet.Id.AsLargeInt,GetType,DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
       aDocuments.Open;
       if aDocuments.Count = 0 then
         aDocuments.Free
@@ -662,28 +669,20 @@ begin
           aDocFrame.BaseElement := FDataSet;
         end;
     end;
-  pcPages.AddTabClass(TfListFrame,strProperties,@AddList);
+
   TMasterdata(DataSet).Properties.Open;
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Properties.Count > 0) then
-    pcPages.AddTab(TfListFrame.Create(nil),False,strProperties);
-  pcPages.AddTabClass(TfArticleStorageFrame,strStorage,@AddStorage);
+  pcPages.NewFrame(TfListFrame,(FDataSet.State = dsInsert) or (TMasterdata(DataSet).Properties.Count > 0),strProperties,@AddList,False,strProperties);
+
   TMasterdata(DataSet).Storage.Open;
-  if TMasterdata(DataSet).Storage.Count > 0 then
-    pcPages.AddTab(TfArticleStorageFrame.Create(nil),False);
+  pcPages.NewFrame(TfArticleStorageFrame,TMasterdata(DataSet).Storage.Count > 0,strStorage,@AddStorage);
+
   pcPages.AddTabClass(TfArticleSupplierFrame,strSupplier,@AddSupplier);
   TMasterdata(DataSet).Supplier.Open;
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Supplier.Count > 0) then
-    pcPages.AddTab(TfArticleSupplierFrame.Create(nil),False);
-  pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
+  pcPages.NewFrame(TfArticleSupplierFrame,TMasterdata(DataSet).Supplier.Count > 0,strSupplier,@AddSupplier);
+
   TMasterdata(DataSet).History.Open;
-  if TMasterdata(DataSet).History.Count > 0 then
-    pcPages.AddTab(TfHistoryFrame.Create(Self),False);
-  if not TMasterdata(DataSet).Images.DataSet.Active then
-    TMasterdata(DataSet).Images.DataSet.Open;
-  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Images.Count > 0) then
-    pcPages.AddTab(TfImageFrame.Create(Self),False);
-  TMasterdata(DataSet).Images.DataSet.Close;
+  pcPages.NewFrame(TfHistoryFrame,TMasterdata(DataSet).History.Count > 0,strHistory,@AddHistory);
+
   aThumbnails := TThumbnails.Create(nil);
   aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
   aThumbnails.Open;
@@ -705,35 +704,31 @@ begin
       acAddImage.Visible:=True;
       acScreenshot.Visible:=True;
     end;
+  pcPages.NewFrame(TfImageFrame,(FDataSet.State = dsInsert) or (aThumbnails.Count > 0),strImages,@AddImages);
   aThumbnails.Free;
-  pcPages.AddTabClass(TfArticleTextFrame,strTexts,@AddTexts);
+
   TMasterdata(DataSet).Texts.Open;
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Texts.Count > 0) then
-    pcPages.AddTab(TfArticleTextFrame.Create(Self),False);
-  pcPages.AddTabClass(TfListFrame,strPrices,@AddList);
+  pcPages.NewFrame(TfArticleTextFrame,(FDataSet.State = dsInsert) or (TMasterdata(DataSet).Texts.Count > 0),strTexts,@AddTexts);
+
   TMasterdata(DataSet).Prices.Open;
-  if (FDataSet.State = dsInsert) or (TMasterdata(DataSet).Prices.Count > 0) then
-    pcPages.AddTab(TfListFrame.Create(nil),False,strPrices);
-  pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
+  pcPages.NewFrame(TfListFrame,(FDataSet.State = dsInsert) or (TMasterdata(DataSet).Prices.Count > 0),strPrices,@AddList,False,strPrices);
+
   TMasterdata(DataSet).Links.Open;
-  if TMasterdata(DataSet).Links.Count > 0 then
-    pcPages.AddTab(TfLinkFrame.Create(Self),False);
-  pcPages.AddTabClass(TfArticleRepairFrame,strRepair,@AddRepair);
+  pcPages.NewFrame(TfLinkFrame,(TMasterdata(DataSet).Links.Count > 0),strLinks,@AddLinks);
+
   TMasterdata(DataSet).Assembly.Open;
-  if TMasterdata(DataSet).Assembly.Count > 0 then
-    pcPages.AddTab(TfArticleRepairFrame.Create(Self),False);
-  pcPages.AddTabClass(TfFinance,strFinance,@AddFinance);
-  if (not DataSet.FieldByName('COSTCENTRE').IsNull)
-  or (not DataSet.FieldByName('ACCOUNT').IsNull)
-  or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull) then
-    pcPages.AddTab(TfFinance.Create(Self),False);
+  pcPages.NewFrame(TFArticlerepairFrame,(TMasterdata(DataSet).Assembly.Count > 0),strRepair,@AddRepair);
+
+  pcPages.NewFrame(TfFinance,(not DataSet.FieldByName('COSTCENTRE').IsNull)
+                          or (not DataSet.FieldByName('ACCOUNT').IsNull)
+                          or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull),strFinance,@AddFinance);
 
   mShorttext.SetFocus;
   with Application as TBaseVisualApplication do
     AddTabClasses('ART',pcPages);
   with Application as TBaseVisualApplication do
     AddTabs(pcPages);
-  if (DataSet.State<> dsInsert) and (DataSet.Id.AsVariant<>Null) then
+  if (DataSet.State<> dsInsert) and (DataSet.Id.AsVariant<>Null) and (not Assigned(pcPages.GetTab(TfWikiFrame))) then
     begin
       aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
@@ -752,6 +747,7 @@ begin
                 begin
                   aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString);
                   aWikiPage.SetRights(FEditable);
+                  aWikiPage.LeftBar:=True;
                 end
               else aWikiPage.Free;
               if aWiki.FieldByName('CAPTION').AsString = strOverview then
@@ -759,12 +755,12 @@ begin
                   pcPages.Pages[aWikiIdx+1].PageIndex:=0;
                   pcPages.PageIndex:=0;
                 end;
-              aWikiPage.LeftBar:=True;
               aWiki.Next;
             end;
         end;
       aWiki.Free;
     end;
+  Masterdata.DataSet := FDataSet.DataSet;
   if HasHelp then AddHelp(Self);
 end;
 function TfArticleFrame.SetRights: Boolean;
@@ -900,7 +896,7 @@ end;
 
 constructor TfArticleFrame.Create(AOwner: TComponent);
 var
-  aType: Char;
+  aType: string;
 begin
   inherited Create(AOwner);
   mShortText.WantTabs:=False;
@@ -938,7 +934,7 @@ begin
         end;
     end;
   cbCategory.Items.Clear;
-  aType := 'M';
+  aType := GetType;
   Data.Categories.CreateTable;
   Data.Categories.Open;
   Data.Categories.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType);
@@ -959,8 +955,6 @@ begin
   if Assigned(FConnection) then
     begin
       CloseConnection(acSave.Enabled);
-      DataSet.Destroy;
-      DataSet := nil;
       FreeAndNil(FConnection);
     end;
   inherited Destroy;
@@ -994,13 +988,13 @@ begin
   with aFrame as TfFilter do
     begin
       TabCaption := strArticleList;
-      FilterType:='M';
+      FilterType:=GetType;
       DefaultRows:='GLOBALWIDTH:%;ID:150;VERSION:100;LANGUAGE:60;MATCHCODE:200;SHORTTEXT:400;';
       Dataset := TMasterdataList.Create(nil);
       //gList.OnDrawColumnCell:=nil;
       if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_READ) or (Data.Users.Rights.Right('ARTICLES') > RIGHT_READ) or (Data.Users.Rights.Right('BENEFITS') > RIGHT_READ) or (Data.Users.Rights.Right('PARTSLIST') > RIGHT_READ) then
         begin
-          AddToolbarAction(NewAction);
+          AddToolbarAction(acNew);
         end;
     end;
 end;
@@ -1025,4 +1019,12 @@ end;
 procedure TfArticleFrame.SetLanguage;
 begin
 end;
+
+function TfArticleFrame.GetType: string;
+begin
+  Result := 'M';
+end;
+
+initialization
+//  TBaseVisualApplication(Application).RegisterForm(TfArticleFrame);
 end.

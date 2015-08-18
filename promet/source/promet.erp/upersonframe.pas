@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ComCtrls,
   ExtCtrls, StdCtrls, DbCtrls, Buttons, db, uPrometFrames, uExtControls,
   uFilterFrame, DBGrids, Grids, Graphics, ActnList, uIntfstrconsts,
-  uBaseDBClasses, Dialogs, Menus, StdActns, Utils, uDocumentFrame, variants;
+  uBaseDBClasses, Dialogs, Menus, StdActns, Utils, uDocumentFrame, variants,uBaseDatasetInterfaces;
 type
 
   { TfPersonFrame }
@@ -685,17 +685,9 @@ procedure TfPersonFrame.acCombineItemsExecute(Sender: TObject);
 var
   i: Integer;
 begin
-  fSearch.SetLanguage;
   fSearch.OnOpenItem:=@fSearchOpenItem;
   fSearch.OnValidateItem:=@fSearchValidateItem;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strCustomers then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strCustomers);
   fSearch.eContains.Text:=eName.Text;
   fSearch.Execute(True,'COMBPERSON','');
 end;
@@ -1076,23 +1068,15 @@ begin
     end;
   TPerson(FDataSet).ContactData.DataSet.AfterPost:=@TPersonCustomerContDataSetAfterPost;
   TranslateNavigator(dnNavigator);
-  pcPages.AddTabClass(TfAddressFrame,strAddress,@AddAddress);
+
   TPerson(DataSet).Address.Open;
-  if (TPerson(DataSet).Address.Count > 0) or (DataSet.State = dsInsert) then
-    pcPages.AddTab(TfAddressFrame.Create(Self),False);
-  pcPages.AddTabClass(TfTextFrame,strInfo,@Addtext);
-  if not TPerson(DataSet).FieldByName('INFO').IsNull then
-    pcPages.AddTab(TfTextFrame.Create(Self),False);
-  pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
+  pcPages.NewFrame(TfAddressFrame,TPerson(DataSet).Address.Count > 0,strAddress,@AddAddress);
+
+  pcPages.NewFrame(TfTextFrame,not TPerson(DataSet).FieldByName('INFO').IsNull,strInfo,@AddText);
+
   TPerson(DataSet).History.Open;
-  if TPerson(DataSet).History.Count > 0 then
-    pcPages.AddTab(TfHistoryFrame.Create(Self),False);
-  if not TPerson(DataSet).Images.DataSet.Active then
-    TPerson(DataSet).Images.DataSet.Open;
-  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
-  if (TPerson(DataSet).Images.Count > 0) then
-    pcPages.AddTab(TfImageFrame.Create(Self),False);
-  TPerson(DataSet).Images.DataSet.Close;
+  pcPages.NewFrame(TfHistoryFrame,TPerson(DataSet).History.Count > 0,strHistory,@AddHistory);
+
   aThumbnails := TThumbnails.Create(nil);
   aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
   aThumbnails.Open;
@@ -1114,17 +1098,19 @@ begin
       acAddImage.Visible:=True;
       acScreenshot.Visible:=True;
     end;
+  pcPages.NewFrame(TfImageFrame,(FDataSet.State = dsInsert) or (aThumbnails.Count > 0),strImages,@AddImages);
   aThumbnails.Free;
-  pcPages.AddTabClass(TfPersonFinance,strFinance,@AddFinance);
+
   TPerson(DataSet).Banking.Open;
-  if TPerson(DataSet).Banking.Count > 0 then
-    pcPages.AddTab(TfPersonFinance.Create(Self),False);
-  pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
+  pcPages.NewFrame(TfPersonFinance,TPerson(DataSet).Banking.Count > 0,strFinance,@AddFinance);
+
   TPerson(DataSet).Links.Open;
-  if TPerson(DataSet).Links.Count > 0 then
-    pcPages.AddTab(TfLinkFrame.Create(Self),False);
+  pcPages.NewFrame(TfLinkFrame,(TPerson(DataSet).Links.Count > 0),strLinks,@AddLinks);
+
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
-  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
+  if Assigned(pcPages.GetTab(TfDocumentFrame)) then
+    pcPages.GetTab(TfDocumentFrame).Free;
+  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) and (not Assigned(pcPages.GetTab(TfDocumentFrame))) then
     begin
       aDocuments := TDocuments.CreateEx(Self,Data,DataSet.Connection);
       aDocuments.CreateTable;
@@ -1139,10 +1125,10 @@ begin
           pcPages.AddTab(aDocFrame,False);
         end;
     end;
-  pcPages.AddTabClass(TfListFrame,strEmployees,@AddList);
+
   TPerson(DataSet).Employees.Open;
-  if TPerson(DataSet).Employees.Count > 0 then
-    pcPages.AddTab(TfListFrame.Create(Self),False);
+  pcPages.NewFrame(TfListFrame,(TPerson(DataSet).Employees.Count > 0),strEmployees,@AddList,False,strEmployees);
+
   if Data.IsSQLDb then
     begin
       aDS := Data.GetNewDataSet('select '+Data.QuoteField('CUSTOMERS')+'.'+Data.QuoteField('ACCOUNTNO')+','+Data.QuoteField('CUSTOMERS')+'.'+Data.QuoteField('NAME')+' from '+Data.QuoteField('EMPLOYEES')+' inner join '+Data.QuoteField('CUSTOMERS')+' on '+Data.QuoteField('EMPLOYEES')+'.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField('CUSTOMERS')+'.'+Data.QuoteField('SQL_ID')+' where '+Data.QuoteField('EMPLOYEES')+'.'+Data.QuoteField('EMPLOYEE')+'='+Data.QuoteValue(Customers.DataSet.FieldByName('ACCOUNTNO').AsString),DataSet.Connection);
@@ -1165,7 +1151,7 @@ begin
     pcPages.PageIndex:=1
   else
     pcPages.PageIndex:=0;
-  if DataSet.State<> dsInsert then
+  if (DataSet.State<> dsInsert) and (DataSet.Id.AsVariant<>Null) and (not Assigned(pcPages.GetTab(TfWikiFrame))) then
     begin
       aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
@@ -1184,6 +1170,7 @@ begin
                 begin
                   aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString);
                   aWikiPage.SetRights(FEditable);
+                  aWikiPage.LeftBar:=True;
                 end
               else FreeAndNil(aWikiPage);
               if Assigned(aWikiPage) then
@@ -1193,7 +1180,6 @@ begin
                       pcPages.Pages[aWikiIdx+1].PageIndex:=0;
                       pcPages.PageIndex:=0;
                     end;
-                  aWikiPage.LeftBar:=True;
                 end;
               aWiki.Next;
             end;
@@ -1263,5 +1249,7 @@ begin
   pcPages.AddTab(TfAddressFrame.Create(Self));
 end;
 
+initialization
+//  TBaseVisualApplication(Application).RegisterForm(TfPersonFrame);
 end.
 

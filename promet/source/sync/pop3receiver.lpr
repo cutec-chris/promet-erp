@@ -121,6 +121,7 @@ var
   DoDelete : Boolean = False;
   ss: TStringStream;
   tmp: String;
+  Userrec : Variant;
 
   function DoGetStartValue: Integer;
   var
@@ -144,6 +145,8 @@ var
     Messages.Free;
   end;
 begin
+  Userrec := Data.GetBookmark(Data.Users);
+  if not Data.Users.Locate('NAME',aUSer,[]) then exit;
   aConnection := Data.GetNewConnection;
   MessageIndex := TMessageList.CreateEx(Self,Data,aConnection);
   MessageIndex.CreateTable;
@@ -176,6 +179,7 @@ begin
           pop.AuthType:=POP3AuthAll;
           pop.AutoTLS:=True;
           pop.Timeout:=12000;
+          pop.Sock.ConnectionTimeout:=12000;
           tmp := mailaccounts;
           tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
           if copy(tmp,0,2) <> 'L:' then
@@ -330,6 +334,8 @@ begin
                         end;
                     except
                       ReplaceOMailAccounts := False;
+                      Message.Content.Cancel;
+                      Message.Cancel;
                     end;
                   end;
                 pop.Logout;
@@ -358,6 +364,7 @@ begin
   DeletedItems.Free;
   Message.Free;
   aConnection.Free;
+  Data.GotoBookmark(Data.Users,Userrec);
 end;
 
 function TPOP3Receiver.GetSingleInstance: Boolean;

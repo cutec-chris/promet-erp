@@ -8,7 +8,7 @@ uses
   uBaseDBInterface, md5,uData,eventlog,
   pmimemessages, uBaseApplication,uBaseDbClasses,uMimeMessages,mimemess,laz_synapse,
   synautil,uPerson,db,Utils,variants,types,uMessages,ussmtpserver, usbaseserver,
-  smtpsend,synamisc,dnssend;
+  smtpsend,synamisc,dnssend,uBaseDatasetInterfaces;
 resourcestring
   strActionMessageReceived                   = '%s';
 type

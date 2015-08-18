@@ -13,6 +13,7 @@ copy ..\..\output\i386-win32\plugins\shipping_*.exe ..\executables\%BASEVERSION%
 copy ..\..\output\i386-win32\tools\*receiver.exe ..\executables\%BASEVERSION%\%TARGETCPU%
 copy ..\..\output\i386-win32\tools\*sender.exe ..\executables\%BASEVERSION%\%TARGETCPU%
 copy ..\..\output\i386-win32\tools\pscript.exe ..\executables\%BASEVERSION%\%TARGETCPU%
+copy ..\..\output\i386-win32\tools\pextracttext.exe ..\executables\%BASEVERSION%\%TARGETCPU%
 copy ..\..\output\i386-win32\statistics.exe ..\executables\%BASEVERSION%\%TARGETCPU%
 copy ..\..\output\i386-win32\meetingminutes.exe ..\executables\%BASEVERSION%\%TARGETCPU%
 copy ..\..\output\i386-win32\timeregistering.exe ..\executables\%BASEVERSION%\%TARGETCPU%

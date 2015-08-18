@@ -1,7 +1,5 @@
 inherited fOrderAdditionalFrame: TfOrderAdditionalFrame
-  Left = 0
   Height = 111
-  Top = 0
   Width = 735
   ClientHeight = 111
   ClientWidth = 735
@@ -9,25 +7,25 @@ inherited fOrderAdditionalFrame: TfOrderAdditionalFrame
   DesignTop = 372
   object lShipping: TLabel[0]
     Left = 8
-    Height = 13
+    Height = 15
     Top = 19
-    Width = 62
+    Width = 65
     Caption = 'Versandart'
     ParentColor = False
   end
   object lCommission: TLabel[1]
     Left = 8
-    Height = 13
+    Height = 15
     Top = 60
-    Width = 67
+    Width = 71
     Caption = 'Kommission'
     ParentColor = False
   end
   object lStorage: TLabel[2]
     Left = 400
-    Height = 13
+    Height = 15
     Top = 23
-    Width = 32
+    Width = 34
     Caption = 'Lager'
     ParentColor = False
   end
@@ -58,7 +56,7 @@ inherited fOrderAdditionalFrame: TfOrderAdditionalFrame
   end
   object eCommission: TDBEdit[5]
     Left = 112
-    Height = 23
+    Height = 25
     Top = 56
     Width = 276
     DataField = 'COMMISSION'
@@ -67,8 +65,27 @@ inherited fOrderAdditionalFrame: TfOrderAdditionalFrame
     MaxLength = 0
     TabOrder = 2
   end
-  object Order: TDatasource[6]
-    left = 416
+  object lCommission1: TLabel[6]
+    Left = 400
+    Height = 15
+    Top = 60
+    Width = 41
+    Caption = 'Projekt'
+    ParentColor = False
+  end
+  object eCommission1: TDBEdit[7]
+    Left = 472
+    Height = 25
+    Top = 56
+    Width = 248
+    DataField = 'PROJECT'
+    DataSource = Order
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 3
+  end
+  object Order: TDatasource[8]
+    left = 344
     top = 56
   end
 end

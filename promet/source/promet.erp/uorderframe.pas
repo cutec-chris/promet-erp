@@ -309,7 +309,6 @@ begin
       ActiveSearch.OnItemFound:=@SenderTComboBoxActiveSearchItemFound;
       ActiveSearch.OnEndSearch:=@ActiveSearchEndItemSearch;
       ActiveSearch.Start(SearchString);
-//      while ActiveSearch.Active do Application.ProcessMessages;
     end;
 end;
 procedure TfOrderFrame.acCloseExecute(Sender: TObject);
@@ -477,9 +476,14 @@ begin
 end;
 procedure TfOrderFrame.ActiveSearchEndItemSearch(Sender: TObject);
 begin
-  //if not ActiveSearch.Active then
+  if not ActiveSearch.Active then
     begin
-      if ActiveSearch.Count=0 then
+      if not ActiveSearch.NewFound then
+        begin
+          ActiveSearch.Start(ActiveSearch.SearchString,ActiveSearch.NextSearchLevel);
+          exit;
+        end;
+      if (ActiveSearch.Count=0) and (lbResults.Items.Count=0) then
         pSearch.Visible:=False;
     end;
 end;
@@ -542,7 +546,6 @@ begin
         end;
       if fChangeStatus.Execute then
         begin
-          pcHeader.CloseAll;
           DataSet.CascadicPost;
           if UseTransactions then
             begin
@@ -600,7 +603,8 @@ begin
         Visible := True;
     end;
   if aActive then
-    lbResults.Items.AddObject(aName,TLinkObject.Create(aLink));
+    if lbResults.Items.IndexOf(Data.GetLinkDesc(aLink))=-1 then
+      lbResults.Items.AddObject(Data.GetLinkDesc(aLink) ,TLinkObject.Create(aLink));
 end;
 procedure TfOrderFrame.spPreviewMoved(Sender: TObject);
 begin
@@ -706,8 +710,6 @@ begin
   pMain.Visible:=False;
   pPreviewT.Visible:=False;
   spPreview.Visible := False;
-  pcHeader.CloseAll;
-  pcHeader.ClearTabClasses;
   while pAddresses.ControlCount > 0 do
     pAddresses.Controls[0].Free;
   Orders.DataSet := FDataSet.DataSet;
@@ -757,17 +759,15 @@ begin
     end;
   Editable := SetRights;
   RefreshAddress;
-  pcHeader.AddTabClass(TfOrderAdditionalFrame,strAdditional,@AddAdditional);
-  aFrame := TfOrderAdditionalFrame.Create(Self);
-  if (FDataSet.State = dsInsert) or TfOrderAdditionalFrame(aFrame).IsNeeded(FDataSet.DataSet) then
-    begin
-      pcHeader.AddTab(aFrame,False);
-      TfOrderAdditionalFrame(aFrame).SetRights(Editable);
-    end
-  else aFrame.Free;
+
+  pcHeader.NewFrame(TfOrderAdditionalFrame,(FDataSet.State = dsInsert) or TfOrderAdditionalFrame(aFrame).IsNeeded(FDataSet.DataSet),strAdditional,@AddAdditional);
+
   pcHeader.AddTabClass(TfOrderOverviewFrame,strOverview,@AddOverview);
-  if FDataSet.Count > 1 then
+  if Assigned(pcHeader.GetTab(TfOrderOverviewFrame)) then
+    pcHeader.GetTab(TfOrderOverviewFrame).Free;
+  if (FDataSet.Count > 1) then
     pcHeader.AddTab(TfOrderOverviewFrame.Create(Self),False);
+
   pcHeader.AddTabClass(TfOrderDateFrame,strDates,@AddDates);
   aFrame := TfOrderDateFrame.Create(Self);
   if TfOrderDateFrame(aFrame).IsNeeded(FDataSet.DataSet) or (DataSet.State=dsInsert) then
@@ -776,12 +776,14 @@ begin
       TfOrderDateFrame(aFrame).SetRights(FEditable);
     end
   else aFrame.Free;
-  pcHeader.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
+
   TOrder(DataSet).History.Open;
-  if TOrder(DataSet).History.Count > 0 then
-    pcHeader.AddTab(TfHistoryFrame.Create(Self),False);
+  pcHeader.NewFrame(TfHistoryFrame,TOrder(DataSet).History.Count > 0,strHistory,@AddHistory);
+
   pcHeader.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
-  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
+  if Assigned(pcHeader.GetTab(TfDocumentFrame)) then
+    pcHeader.GetTab(TfDocumentFrame).Free;
+  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) and (not Assigned(pcHeader.GetTab(TfDocumentFrame))) then
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
@@ -797,13 +799,9 @@ begin
           aDocFrame.SetRights(Editable);
         end;
     end;
-  pcHeader.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
-  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
-    begin
-      TOrder(DataSet).Links.Open;
-      if TOrder(DataSet).Links.Count > 0 then
-        pcHeader.AddTab(TfLinkFrame.Create(Self),False);
-    end;
+
+  TOrder(DataSet).Links.Open;
+  pcHeader.NewFrame(TfLinkFrame,(TOrder(DataSet).Links.Count > 0),strLinks,@AddLinks);
 
   TOrder(fDataSet).Positions.Open;
   FPosFrame.BaseName:='ORDERS'+DataSet.FieldByName('STATUS').AsString;
@@ -821,6 +819,7 @@ begin
     AddTabClasses('ORH',pcHeader);
   with Application as TBaseVisualApplication do
     AddTabs(pcHeader);
+  pcHeader.PageIndex:=0;
   pMain.Visible:=True;
   inherited DoOpen;
   if Dataset.State = dsInsert then
@@ -839,12 +838,21 @@ var
   OrderType: LongInt;
   Editable: Boolean;
   i: Integer;
+  Editable2: Boolean = False;
 begin
+  TOrder(FDataSet).OrderType.DataSet.Locate('STATUS',TOrder(FDataSet).DataSet.FieldByName('STATUS').AsString,[]);
   OrderType := StrToIntDef(trim(copy(TOrder(FDataSet).OrderType.FieldByName('TYPE').AsString,0,2)),0);
   FEditable := Application.HasOption('e','editall') or ((Data.Users.Rights.Right('ORDERS') > RIGHT_READ) and (DataSet.FieldByName('DATE').IsNull));
   EditAble := FEditable;
   Result := Editable;
+  if (Data.Users.Rights.Right('ORDERS') > RIGHT_DELETE) and (TOrder(FDataSet).OrderType.FieldByName('CHANGEABLE').AsString='Y') then
+    begin
+      Editable := True;
+      Editable2:=True;
+    end;
   cbStatus.Enabled:=(not Editable) and (Data.Users.Rights.Right('ORDERS') > RIGHT_READ);
+  if Editable2 then
+    cbStatus.Enabled:=True;
   Self.FPosFrame.SetRights(Editable);
   acAddAddress.Enabled:=Editable;
   acDelete.Enabled:=Editable and (Data.Users.Rights.Right('ORDERS') > RIGHT_WRITE);
@@ -987,12 +995,11 @@ end;
 function TfOrderFrame.OpenFromLink(aLink: string) : Boolean;
 begin
   inherited;
-  if not (copy(aLink,0,pos('@',aLink)-1) = 'ORDERS') then exit;
+  if not (copy(aLink,0,6) = 'ORDERS') then exit;
   if rpos('{',aLink) > 0 then
     aLink := copy(aLink,0,rpos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
     aLink := copy(aLink,0,rpos('(',aLink)-1);
-  pcHeader.CloseAll;
   FPosFrame.Dataset:=nil;
   CloseConnection(acSave.Enabled);
   FreeAndNil(FConnection);
@@ -1003,9 +1010,11 @@ begin
   FreeAndNil(FDataSet);
   DataSet := TOrder.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@OrdersStateChange;
-  TOrder(DataSet).Select(copy(aLink,pos('@',aLink)+1,length(aLink)));
-  DoOpen;
-  Result := True;
+  TOrder(DataSet).SelectFromLink(aLink);
+  DataSet.Open;
+  Result := DataSet.Count>0;
+  if Result then
+    DoOpen;
 end;
 procedure TfOrderFrame.New;
 begin
@@ -1050,5 +1059,7 @@ begin
         end;
     end;
 end;
+initialization
+//  TBaseVisualApplication(Application).RegisterForm(TfOrderFrame);
 end.
 

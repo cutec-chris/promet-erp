@@ -31,6 +31,7 @@ lazbuild $Params -q -B ../../source/scripts/pscript.lpi  >> scompile-$2-tools.lo
 #lazbuild $Params -q -B ../../source/sync/sync_owncloud.lpi  >> scompile-$2-tools.log
 #lazbuild $Params -q -B ../../source/sync/sync_redmine.lpi  >> scompile-$2-tools.log
 lazbuild $Params -q -B ../../source/sync/import_document.lpi  >> scompile-$2-tools.log
+lazbuild $Params -q -B ../../source/sync/import_mqtt.lpi  >> scompile-$2-tools.log
 echo "compiling pop3receiver..." >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/sync/pop3receiver.lpi  >> scompile-$2-tools.log
 echo "compiling feedreceiver..." >> scompile-$2-tools.log
@@ -64,8 +65,8 @@ lazbuild $Params -q ../../source/tools/helpviewer.lpi  >> scompile-$2-tools.log
 grep -w "Error:" scompile-$2-tools.log
 
 echo "compiling webservices..."
-echo "compiling local_appbase..."  > scompile-$2-web.log
-lazbuild $Params -q ../../source/webservers/local_appbase.lpi  >> scompile-$2-web.log
+echo "compiling webserver..."  > scompile-$2-web.log
+lazbuild $Params -q ../../source/webservers/webserver.lpi  >> scompile-$2-web.log
 echo "compiling imapserver..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/imapserver.lpi  >> scompile-$2-web.log
 echo "compiling mta..."  >> scompile-$2-web.log
@@ -78,4 +79,6 @@ echo "compiling webdavserver..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/webdavserver.lpi  >> scompile-$2-web.log
 echo "compiling syslogserver..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/syslog.lpi  >> scompile-$2-web.log
+echo "compiling message_xmpp..."  >> scompile-$2-web.log
+lazbuild $Params -q ../../source/webservers/message_xmpp.lpi  >> scompile-$2-web.log
 grep -w "Error:" scompile-$2-web.log

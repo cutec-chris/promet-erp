@@ -20,27 +20,46 @@ inherited fScriptFrame: TfScriptFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 421
-      ClientWidth = 642
+      ClientHeight = 414
+      ClientWidth = 644
       object Label1: TLabel
         Left = 8
-        Height = 13
+        Height = 15
         Top = 8
-        Width = 64
+        Width = 83
         Caption = 'Beschreibung'
         ParentColor = False
       end
       object DBMemo1: TDBMemo
         Left = 8
-        Height = 384
+        Height = 345
         Top = 24
-        Width = 624
+        Width = 626
         Anchors = [akTop, akLeft, akRight, akBottom]
         DataField = 'NOTE'
         DataSource = Script
         Font.Height = -13
         ParentFont = False
         TabOrder = 0
+      end
+      object Label7: TLabel
+        Left = 8
+        Height = 15
+        Top = 384
+        Width = 47
+        Caption = 'Priorität'
+        ParentColor = False
+      end
+      object DBEdit1: TDBEdit
+        Left = 64
+        Height = 25
+        Top = 381
+        Width = 65
+        DataField = 'PRIORITY'
+        DataSource = Script
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 1
       end
     end
     object tsScript: TTabSheet
@@ -226,17 +245,17 @@ inherited fScriptFrame: TfScriptFrame
       Left = 124
       Height = 44
       Top = 0
-      Width = 332
+      Width = 276
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 332
+      ClientWidth = 276
       TabOrder = 2
       object Label4: TLabel
         Left = 4
         Height = 15
         Top = 0
-        Width = 324
+        Width = 268
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
         BorderSpacing.Left = 5
@@ -258,11 +277,12 @@ inherited fScriptFrame: TfScriptFrame
       end
       object eArticleNumber: TDBEdit
         Left = 4
-        Height = 21
+        Height = 25
         Top = 13
-        Width = 324
+        Width = 268
         DataField = 'NAME'
         DataSource = Script
+        Anchors = [akTop, akLeft, akRight]
         CharCase = ecNormal
         MaxLength = 0
         TabOrder = 0
@@ -271,7 +291,7 @@ inherited fScriptFrame: TfScriptFrame
       end
     end
     object Panel9: TPanel
-      Left = 456
+      Left = 496
       Height = 44
       Top = 0
       Width = 139
@@ -279,7 +299,21 @@ inherited fScriptFrame: TfScriptFrame
       BevelOuter = bvNone
       ClientHeight = 44
       ClientWidth = 139
-      TabOrder = 3
+      TabOrder = 4
+      object Label6: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 131
+        Anchors = [akLeft, akRight, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Version'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
       object Bevel6: TBevel
         Left = 0
         Height = 36
@@ -290,9 +324,83 @@ inherited fScriptFrame: TfScriptFrame
         BorderSpacing.Bottom = 4
         Shape = bsLeftLine
       end
+      object cbVersion: TComboBox
+        Left = 4
+        Height = 27
+        Hint = 'hier können Sie die zu bearbeitende Artikelversion auswählen.'#13#10'Wenn Sie eine neue version eingeben und das Feld verlassen,'#13#10'wird ein Dialog geöffnet in dem abgefragt wird was vom aktuellen'#13#10'Artikel übernommen werden soll, danach existiert der Atikel auch'#13#10'in der neuen Artikelversion.'
+        Top = 12
+        Width = 68
+        ItemHeight = 0
+        OnExit = cbVersionExit
+        OnSelect = cbVersionSelect
+        TabOrder = 0
+        TabStop = False
+      end
+      object cbActive: TDBCheckBox
+        Left = 81
+        Height = 22
+        Hint = 'markiert diesen Artikel als aktiv'#13#10'(aktive Version)'
+        Top = 4
+        Width = 54
+        Anchors = [akTop, akRight]
+        AutoSize = True
+        Caption = 'Aktiv'
+        DataField = 'ACTIVE'
+        DataSource = Script
+        TabOrder = 1
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+      end
+    end
+    object Panel8: TPanel
+      Left = 400
+      Height = 44
+      Top = 0
+      Width = 96
+      Align = alLeft
+      BevelOuter = bvNone
+      ClientHeight = 44
+      ClientWidth = 96
+      TabOrder = 3
+      object Label5: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 88
+        Anchors = [akLeft, akRight, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Status'
+        Font.Color = clMedGray
+        Font.Height = 11
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel5: TBevel
+        Left = 0
+        Height = 36
+        Top = 4
+        Width = 8
+        Align = alLeft
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object cbStatus: TComboBox
+        Left = 4
+        Height = 29
+        Hint = 'hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen'
+        Top = 12
+        Width = 86
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 0
+        OnSelect = cbStatusSelect
+        Style = csDropDownList
+        TabOrder = 0
+      end
     end
   end
-  object Script: TDataSource[2]
+  object Script: TDatasource[2]
     OnStateChange = ScriptStateChange
     left = 16
     top = 88
@@ -429,7 +537,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 172
     top = 252
   end
-  object History: TDataSource[6]
+  object History: TDatasource[6]
     left = 204
     top = 252
   end
@@ -447,7 +555,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 220
     top = 169
   end
-  object MandantDetails: TDataSource[9]
+  object MandantDetails: TDatasource[9]
     left = 256
     top = 232
   end

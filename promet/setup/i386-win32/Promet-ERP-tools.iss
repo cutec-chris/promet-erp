@@ -39,7 +39,6 @@ Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\checkout.exe"; DestDir: "
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\checkin.exe"; DestDir: "{app}"; Components: admin
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\statistics.exe"; DestDir: "{app}"; Components: statistics
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\meetingminutes.exe"; DestDir: "{app}"; Components: meeting
-Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\archivestore.exe"; DestDir: "{app}"; Components: archive
 
 Source: "tools\*.*"; DestDir: "{app}\tools"; Components: main
 

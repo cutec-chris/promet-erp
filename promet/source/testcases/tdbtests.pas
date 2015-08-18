@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry,
-  uData;
+  uData,uBaseDbClasses,uBaseDatasetInterfaces;
 
 type
 
@@ -15,6 +15,7 @@ type
   TDBTest= class(TTestCase)
   published
     procedure Escaping;
+    procedure FetchAll;
   end;
 
 implementation
@@ -25,6 +26,18 @@ var
 begin
   tmp := '''';
   Check(Data.EscapeString('''') <> tmp,'Escaping failed');
+end;
+
+procedure TDBTest.FetchAll;
+var
+  aHist: TBaseHistory;
+begin
+  aHist := TBaseHistory.Create(nil);
+  with aHist.DataSet as IBaseDbFilter do
+    Check(FetchRows=20,'FetchRows:'+IntToStr(FetchRows));
+  aHist.Open;
+  Check(aHist.DataSet.RecordCount<=20,'Fetched Rows:'+IntToStr(aHist.DataSet.RecordCount));
+  aHist.Free;
 end;
 
 

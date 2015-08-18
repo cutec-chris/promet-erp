@@ -28,7 +28,7 @@ object fmTimeline: TfmTimeline
       Left = 29
       Height = 92
       Top = 9
-      Width = 482
+      Width = 498
       Align = alClient
       BorderSpacing.Left = 20
       BorderSpacing.Around = 8
@@ -38,10 +38,10 @@ object fmTimeline: TfmTimeline
       WantReturns = False
     end
     object bSend: TBitBtn
-      Left = 519
+      Left = 535
       Height = 92
       Top = 9
-      Width = 26
+      Width = 10
       Action = acSend
       Align = alRight
       AutoSize = True
@@ -644,4 +644,4 @@ object fmTimeline: TfmTimeline
       end
     end
   end
-end
+end

@@ -123,6 +123,8 @@ var
   end;
 
 begin
+  GetLog.LogType:=ltSystem;
+  GetLog.Active:=False;
   if CanWriteToProgramDir and HasOption('debug') then
     begin
       GetLog.FileName:='processmanager.log';
@@ -210,7 +212,7 @@ end;
 constructor TProcessManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-  StopOnException:=True;
+  StopOnException:=False;
   PowerStateMonitor := TPowerStateMonitor.Create;
 end;
 destructor TProcessManager.Destroy;

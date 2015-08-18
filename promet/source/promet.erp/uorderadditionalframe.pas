@@ -24,10 +24,15 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, DbCtrls, DBGrids, db,
   uExtControls, uOrder, uPrometFramesInplace;
 type
+
+  { TfOrderAdditionalFrame }
+
   TfOrderAdditionalFrame = class(TPrometInplaceFrame)
     cbShipping: TExtDBCombobox;
     cbStorage: TExtDBCombobox;
     eCommission: TDBEdit;
+    eCommission1: TDBEdit;
+    lCommission1: TLabel;
     Order: TDatasource;
     lCommission: TLabel;
     lShipping: TLabel;

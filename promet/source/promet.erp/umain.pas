@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
   ComCtrls, ExtCtrls, ActnList, Buttons, StdCtrls, uBaseApplication,
   uBaseDBClasses, uExtControls, uBaseVisualApplication,db,uBaseSearch,uMainTreeFrame,
-  uWikiFrame,DBGrids,Grids, types,uEnterTime;
+  uWikiFrame,DBGrids,Grids, types,uEnterTime,uBaseDatasetInterfaces;
 type
   THackListBox = class(TListBox);
 
@@ -106,9 +106,12 @@ type
     Menuitem12: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
+    Panel1: TPanel;
+    pPages: TPanel;
+    Panel6: TPanel;
     pCloseTab: TPanel;
     pSeparateWindow: TPanel;
-    Panel6: TPanel;
     pTimes: TPanel;
     pTimes1: TPanel;
     RefreshTimer: TIdleTimer;
@@ -119,7 +122,6 @@ type
     miOptions: TMenuItem;
     miLanguage: TMenuItem;
     miSettings: TMenuItem;
-    Panel1: TPanel;
     pmHistory: TPopupMenu;
     pcPages: TExtMenuPageControl;
     MainMenu1: TMainMenu;
@@ -131,10 +133,10 @@ type
     SpeedButton2: TSpeedButton;
     spTree: TSplitter;
     tbMenue: TToolButton;
+    tbTreeVisible: TSpeedButton;
     ToolBar1: TToolBar;
     ToolBar2: TToolBar;
     ToolButton1: TToolButton;
-    tbTreeVisible: TSpeedButton;
     tsStartpage: TTabSheet;
     tvMain: TPanel;
     procedure acAttPlanExecute(Sender: TObject);
@@ -174,7 +176,6 @@ type
     procedure acNewStatisticsExecute(Sender: TObject);
     procedure acNewTaskExecute(Sender: TObject);
     procedure acNewTerminExecute(Sender: TObject);
-    procedure acOpenExecute(Sender: TObject);
     procedure acOrdersExecute(Sender: TObject);
     procedure acPasswordsExecute(Sender: TObject);
     procedure acPauseTimeExecute(Sender: TObject);
@@ -219,6 +220,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure IPCTimerTimer(Sender: TObject);
     procedure miOptionsClick(Sender: TObject);
@@ -306,6 +308,7 @@ type
     procedure RegisterPhoneLines;
     function GetRight(aRight : string) : Integer;
     procedure DoRealInfo;
+    procedure DoCalendar;
     procedure DoInfo(aMsg : string);
   public
     constructor Create(aSuspended : Boolean = False);
@@ -324,7 +327,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,lazutf8s
   uOptions,uUserOptions,uMandantOptions,uSystemOptions,uStateOptions,uCategoryOptions,uOrderTypeOptions,
   uUserFieldDefOptions,uStorageTypeOptions,uCurrencyOptions,uLanguageOptions,
   uRepairOptions, uSyncOptions, uDocumentOptions, uPhoneOptions, uMailOptions,
-  uScriptOptions,uvisualoptions,
+  uScriptOptions,uvisualoptions,uProcessManager,
   uHelpContainer,uProjects,uProjectFrame,Math,uSkypePhone,LCLIntf,uWiki,
   uTask,uDocumentProcess,uDocumentFrame,uPrometFramesInplaceDB,uInfo,
   uProcessOptions,Utils,uBaseERPDBClasses,umaintasks,utasks,uTaskEdit,LCLProc,
@@ -442,8 +445,8 @@ begin
   acLogin.Execute;
   Result := not acLogin.Enabled;
   {$ifdef LINUX}
-  pCloseTab.Top:=53;
-  pSeparateWindow.Top:=53;
+  pCloseTab.BorderSpacing.Top:=3;
+  pSeparateWindow.BorderSpacing.Top:=3;
   {$endif}
 end;
 function TfMain.CommandReceived(Sender: TObject; aCommand: string): Boolean;
@@ -736,6 +739,7 @@ end;
 
 procedure TStarterThread.AddTimeReg;
 begin
+  try
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
     begin
       fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
@@ -747,6 +751,9 @@ begin
       fMain.pTimes.Visible := True;
       SendIPCMessage('noop',GetTempDir+'PMSTimeregistering');
     end;
+  except
+    DoInfo('Timeregistering Error:');
+  end;
 end;
 
 procedure TStarterThread.AddTimeReg2;
@@ -763,8 +770,9 @@ begin
           fMain.FTimeReg.RefreshNode;
         end;
     end;
-
-  finally
+  except
+    MainNode.Free;
+    DoInfo('Timeregistering Error:RefreshNode');
   end;
 end;
 
@@ -891,6 +899,11 @@ begin
     Info('StarterThread:'+FInfo);
 end;
 
+procedure TStarterThread.DoCalendar;
+begin
+  fMain.RefreshCalendar;
+end;
+
 procedure TStarterThread.DoInfo(aMsg: string);
 begin
   FInfo := aMsg;
@@ -899,13 +912,18 @@ end;
 
 constructor TStarterThread.Create(aSuspended: Boolean);
 begin
-  {$ifndef UNIX}
-  FreeOnTerminate:=True;
-  Priority:=tpLowest;
-  inherited Create(aSuspended);
-  {$else}
-  Execute;
-  {$endif}
+  if not BaseApplication.HasOption('disablethreads') then
+    begin
+      {$ifndef UNIX}
+      FreeOnTerminate:=True;
+      Priority:=tpLowest;
+      inherited Create(aSuspended);
+      {$else}
+      Execute;
+      {$endif}
+    end
+  else
+    Execute;
 end;
 
 procedure TStarterThread.Execute;
@@ -916,13 +934,12 @@ var
   aDS: TMeetings;
 begin
   DoInfo('start');
-  //Synchronize(@NewConn);
   aConn := nil;
   Synchronize(@NewMenu);
-  Synchronize(@DoStartupType);
   miNew.Action := fMainTreeFrame.acSearch;
   DoInfo('Timeregistering');
   Synchronize(@AddTimeReg);
+  DoInfo('Objects,Tree,...');
   //All Objects
   fMain.pcPages.AddTabClass(TfFilter,strObjectList,@fMain.AddElementList,Data.GetLinkIcon('ALLOBJECTS@'),True);
   //Expand Tree
@@ -966,7 +983,7 @@ begin
       DataSetType:=TCalendar;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
-      fMain.RefreshCalendar;
+      Synchronize(@DoCalendar);
       except
       end;
     end;
@@ -978,7 +995,7 @@ begin
       DataSetType:=TOrder;
       Synchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
-      Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,Torder);
+      Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,TOrder);
       AddSearchAbleDataSet(TOrderList);
       except
       end;
@@ -1115,6 +1132,8 @@ begin
   //aConn.Free;
   DoInfo('Search');
   Synchronize(@AddSearch);
+  DoInfo('Startuptype');
+  Synchronize(@DoStartupType);
 end;
 
 destructor TStarterThread.Destroy;
@@ -1132,6 +1151,7 @@ begin
         fMain.acShowTree.Checked := DBConfig.ReadBoolean('SHOWTREE',True);
       fMain.acShowTreeExecute(nil);
     end;
+  DoInfo('StarterThread:end');
   inherited Destroy;
 end;
 
@@ -1453,6 +1473,7 @@ begin
         with Application as IBaseDbInterface do
           FHistory.Text := DBConfig.ReadString('HISTORY','');
       end;
+    TBaseVisualApplication(BaseApplication).LoginDone;
     with BaseApplication as IBaseApplication do
       debug('LoginTime: '+IntToStr(GetTickCount64-aTime));
   finally
@@ -2060,10 +2081,6 @@ begin
     end;
   aFrame.New;
 end;
-procedure TfMain.acOpenExecute(Sender: TObject);
-begin
-
-end;
 procedure TfMain.acOrdersExecute(Sender: TObject);
 var
   i: Integer;
@@ -2224,10 +2241,23 @@ begin
 end;
 procedure TfMain.acShowTreeExecute(Sender: TObject);
 begin
+  BeginFormUpdate;
+  BeginUpdateBounds;
   tvMain.Visible:=acShowTree.Checked;
   spTree.Visible:=acShowTree.Checked;
   with Application as IBaseDbInterface do
     DBConfig.WriteBoolean('SHOWTREE',acShowTree.Checked);
+  if tvMain.Visible then
+    begin
+      ppages.Anchors := [akTop,akLeft,akRight,akBottom];
+      pPages.Align:=alnone;
+      pPages.Width:=fMain.Width-tvMain.Width;
+      pPages.Height:=fmain.Height;
+    end
+  else pPages.Align:=alClient;
+  FormResize(Self);
+  EndUpdateBounds;
+  EndFormUpdate;
 end;
 
 procedure TfMain.acStandartTimeExecute(Sender: TObject);
@@ -2272,10 +2302,17 @@ begin
   aFrame := TfTaskPlan.Create(Self);
   aFrame.TabCaption := strTaskPlan;
   pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('TASKS@'),False);
-  if Data.Users.FieldByName('POSITION').AsString = 'LEADER' then
-    aFrame.Populate(Data.Users.FieldByName('PARENT').AsVariant,Null)
+  if Data.Users.Rights.Right('RESOURCEVIEW')>RIGHT_READ then
+    begin
+      aFrame.Populate(Null,Null)
+    end
   else
-    aFrame.Populate(Data.Users.FieldByName('PARENT').AsVariant,Data.Users.Id.AsVariant);
+    begin
+      if Data.Users.FieldByName('POSITION').AsString = 'LEADER' then
+        aFrame.Populate(Data.Users.FieldByName('PARENT').AsVariant,Null)
+      else
+        aFrame.Populate(Data.Users.FieldByName('PARENT').AsVariant,Data.Users.Id.AsVariant);
+    end;
 end;
 
 procedure TfMain.acTasksExecute(Sender: TObject);
@@ -2967,7 +3004,7 @@ begin
         end
       else aFrame.Free;
     end
-  else if copy(aLink,0,11) = 'MESSAGEIDX@' then
+  else if copy(aLink,0,10) = 'MESSAGEIDX' then
     begin
       aMessageEdit := TfMessageEdit.Create(nil);
       aMessageEdit.OpenFromLink(aLink);
@@ -3013,7 +3050,7 @@ begin
         end
       else aFrame.Free;
     end
-  else if copy(aLink,0,7) = 'ORDERS@' then
+  else if copy(aLink,0,6) = 'ORDERS' then
     begin
       aFrame := TfOrderFrame.Create(Self);
       aFrame.SetLanguage;
@@ -3025,7 +3062,7 @@ begin
         end
       else aFrame.Free;
     end
-  else if copy(aLink,0,5) = 'WIKI@' then
+  else if copy(aLink,0,4) = 'WIKI' then
     begin
       if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfWikiFrame) then
         aFrame := TfWikiFrame(pcPages.ActivePage.Controls[0])
@@ -3039,7 +3076,7 @@ begin
       aFrame.OpenFromLink(aLink);
       Result := True;
     end
-  else if (copy(aLink,0,11) = 'STATISTICS@') then
+  else if (copy(aLink,0,10) = 'STATISTICS') then
     begin
       aFrame := TfStatisticFrame.Create(Self);
       aFrame.OpenFromLink(aLink);
@@ -3047,8 +3084,7 @@ begin
       aFrame.SetLanguage;
       Result := True;
     end
-  else if (copy(aLink,0,9) = 'PROJECTS@')
-       or (copy(aLink,0,12) = 'PROJECTS.ID@') then
+  else if (copy(aLink,0,8) = 'PROJECTS') then
     begin
       aFrame := TfProjectFrame.Create(Self);
       aFrame.SetLanguage;
@@ -3060,7 +3096,7 @@ begin
         end
       else aFrame.Free;
     end
-  else if (copy(aLink,0,6) = 'TASKS@') then
+  else if (copy(aLink,0,5) = 'TASKS') then
     begin
       Screen.Cursor:=crDefault;
       FTaskEdit := TfTaskEdit.Create(Self);
@@ -3068,7 +3104,7 @@ begin
       FTaskEdit.Free;
       Result := True;
     end
-  else if (copy(aLink,0,9) = 'CALENDAR@') then
+  else if (copy(aLink,0,8) = 'CALENDAR') then
     begin
       Screen.Cursor:=crDefault;
       aCalFrame := TfCalendarFrame.Create(nil);
@@ -3082,7 +3118,7 @@ begin
       aCalFrame.Free;
       Result := True;
     end
-  else if (copy(aLink,0,16) = 'ACCOUNTEXCHANGE@') then
+  else if (copy(aLink,0,15) = 'ACCOUNTEXCHANGE') then
     begin
       tmp := aLink;
       tmp   := copy(tmp, pos('@', tmp) + 1, length(tmp));
@@ -3104,7 +3140,7 @@ begin
           aFrame.SetLanguage;
         end else aFrame.Free;
     end
-  else if (copy(aLink,0,6) = 'LISTS@') then
+  else if (copy(aLink,0,5) = 'LISTS') then
     begin
       aList := TLists.CreateEx(Self,Data);
       aList.SelectFromLink(aLink);
@@ -3129,7 +3165,7 @@ begin
         end;
       TfFilter(aFrame).Open;
     end
-  else if (copy(aLink,0,8) = 'HISTORY@') then
+  else if (copy(aLink,0,7) = 'HISTORY') then
     begin
       aBaseHist := TBaseHistory.Create(nil);
       aBaseHist.SelectFromLink(aLink);
@@ -3208,7 +3244,7 @@ begin
         end;
       aDoc.Free;
     end
-  else if (copy(aLink,0,10) = 'INVENTORY@') then
+  else if (copy(aLink,0,9) = 'INVENTORY') then
     begin
       aInv := TInventorys.CreateEx(Self,Data);
       aInv.SelectFromLink(aLink);
@@ -3232,7 +3268,7 @@ begin
         end;
       TfFilter(aFrame).Open;
     end
-  else if (copy(aLink,0,9) = 'MEETINGS@') then
+  else if (copy(aLink,0,8) = 'MEETINGS') then
     begin
       aFrame := TfMeetingFrame.Create(Self);
       aFrame.OpenFromLink(aLink);
@@ -3763,6 +3799,16 @@ begin
   FHistory.Free;
   uMainTreeFrame.fMainTreeFrame.Destroy;
 end;
+
+procedure TfMain.FormResize(Sender: TObject);
+begin
+  if pPages.Align=alnone then
+    begin
+      pPages.Width:=fMain.Width-tvMain.Width-spTree.Width;
+      pPages.Height:=fmain.Height-MainMenu1.Height;
+    end;
+end;
+
 procedure TfMain.FormShow(Sender: TObject);
 begin
   with Application as IBaseApplication do

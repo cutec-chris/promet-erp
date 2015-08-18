@@ -18,8 +18,14 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="nogui"/>
+    </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="359611697520" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -29,7 +35,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Test"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help"/>
       </local>
     </RunParams>
     <RequiredPackages Count="5">
@@ -87,4 +93,11 @@
 -dSTATISTICS"/>
     </Other>
   </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="1">
+      <Item1>
+        <Name Value="EProcess"/>
+      </Item1>
+    </Exceptions>
+  </Debugging>
 </CONFIG>

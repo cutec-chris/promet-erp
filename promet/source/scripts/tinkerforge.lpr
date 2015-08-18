@@ -1,11 +1,12 @@
 library tinkerforge;
 
 {$mode objfpc}{$H+}
+{$interfaces CORBA}
 
 uses
   Classes,sysutils, IPConnection, Device, BrickletLCD20x4, BrickletLCD16x2,
   BrickletVoltageCurrent,BrickletIndustrialQuadRelay,BrickletDualRelay,process,
-  Utils, general_nogui;
+  Utils;
 type
   TStation = class
     procedure ipconConnected(sender: TIPConnection; const connectReason: byte);
@@ -90,10 +91,14 @@ function TfConnect(Host : PChar;Port : Integer) : Boolean;stdcall;
 begin
   if not Assigned(Station) then
     Station := TStation.Create;
-  Station.Conn.Connect(Host,Port);
-  Station.Conn.Enumerate;
-  result := Station.Conn.IsConnected;
-  sleep(20);
+  try
+    Station.Conn.Connect(Host,Port);
+    Station.Conn.Enumerate;
+    result := Station.Conn.IsConnected;
+    sleep(20);
+  except
+    Result := False;
+  end;
 end;
 function TfDisconnect : Boolean;stdcall;
 begin
@@ -102,6 +107,7 @@ begin
 end;
 function TfEnumerate : Integer;stdcall;
 begin
+  if Station=nil then exit;
   sleep(10);
   Result :=Station.Devices.Count;
 end;
@@ -109,6 +115,7 @@ procedure TfLCDBackLightOn;stdcall;
 var
   i: Integer;
 begin
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
@@ -127,6 +134,7 @@ procedure TfLCDBackLightOff;stdcall;
 var
   i: Integer;
 begin
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
@@ -145,6 +153,7 @@ procedure TfLCDWrite(x,y : Integer;text : string);stdcall;
 var
   i: Integer;
 begin
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
@@ -163,6 +172,7 @@ procedure TfLCDClear;stdcall;
 var
   i: Integer;
 begin
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
@@ -181,6 +191,8 @@ function TfLCDButtonPressed(Button : byte) : Boolean;
 var
   i: Integer;
 begin
+  Result := False;
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
@@ -202,6 +214,7 @@ var
 begin
   Result := -1;
   a := 0;
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
@@ -227,6 +240,7 @@ var
   aUid: string;
 begin
   Result := -1;
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
@@ -248,6 +262,7 @@ var
 begin
   Result := -1;
   a := 0;
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
@@ -273,6 +288,7 @@ var
   aUid: string;
 begin
   Result := -1;
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
@@ -294,6 +310,7 @@ var
 begin
   Result := -1;
   a := 0;
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
@@ -319,6 +336,7 @@ var
   aUid: string;
 begin
   Result := -1;
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
@@ -348,6 +366,7 @@ var
   i: Integer;
 begin
   Result := False;
+  if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     //begin
       //if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
@@ -457,4 +476,6 @@ exports
   ScriptTool,
   ScriptDefinition;
 
+initialization
+  Station:=nil;
 end.

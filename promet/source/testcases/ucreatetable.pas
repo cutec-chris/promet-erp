@@ -3,7 +3,7 @@ unit ucreatetable;
 interface
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, uData, uBaseDbClasses,db,
-  uBaseDBInterface,Forms;
+  uBaseDBInterface,Forms,uBaseDatasetInterfaces;
 type
   TSubTable = class(TBaseDBDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
@@ -151,10 +151,13 @@ begin
 end;
 procedure TableCreate.DeleteTableInTransaction;
 begin
-  Data.DropTable('TESTSUBTABLE');
-  Data.DropTable('TESTTABLE');
+  try
+    Data.DropTable('TESTSUBTABLE');
+    Data.DropTable('TESTTABLE');
+  except
+  end;
 end;
 initialization
   RegisterTest(TableCreate);
 end.
-
+

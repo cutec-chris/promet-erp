@@ -61,7 +61,7 @@ object AppDataServer: TAppDataServer
   CreateSession = True
   AfterInitModule = DataModuleAfterInitModule
   Height = 328
-  HorizontalOffset = 345
-  VerticalOffset = 259
+  HorizontalOffset = 296
+  VerticalOffset = 294
   Width = 393
 end

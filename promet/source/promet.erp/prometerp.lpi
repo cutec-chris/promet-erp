@@ -22,7 +22,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="356"/>
+      <BuildNr Value="379"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -54,7 +54,6 @@
           <Linking>
             <Debugging>
               <UseHeaptrc Value="True"/>
-              <TrashVariables Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
@@ -164,7 +163,7 @@
       <SharedMatrixOptions Count="3">
         <Item1 ID="724251795577" Modes="Win32,Win64" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
         <Item2 ID="699350395536" Type="IDEMacro" MacroName="LCLWidgetType" Value="cocoa"/>
-        <Item3 ID="834953185030" Targets="linux" Modes="Default" Value="-dTHREADINGDISABLED"/>
+        <Item3 ID="834953185030" Targets="linux" Value="-dTHREADINGDISABLED"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
@@ -175,114 +174,108 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="27">
+    <RequiredPackages Count="25">
       <Item1>
         <PackageName Value="promet_scripts"/>
         <DefaultFilename Value="../base/base_scripts/promet_scripts.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="pack_powerpdf"/>
       </Item2>
       <Item3>
-        <PackageName Value="pack_powerpdf"/>
-      </Item3>
-      <Item4>
         <PackageName Value="pOptions"/>
         <DefaultFilename Value="../base/base_options/poptions.lpk"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="lazreport"/>
       </Item4>
       <Item5>
-        <PackageName Value="lazreport"/>
-      </Item5>
-      <Item6>
         <PackageName Value="pvisualframes"/>
         <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
-      </Item6>
-      <Item7>
+      </Item5>
+      <Item6>
         <PackageName Value="pvisualforms"/>
         <DefaultFilename Value="../base/base_forms/pvisualforms.lpk"/>
+      </Item6>
+      <Item7>
+        <PackageName Value="LazControls"/>
       </Item7>
       <Item8>
-        <PackageName Value="LazControls"/>
-      </Item8>
-      <Item9>
         <PackageName Value="ptimes"/>
         <DefaultFilename Value="../timeregistering/ptimes.lpk"/>
-      </Item9>
-      <Item10>
+      </Item8>
+      <Item9>
         <PackageName Value="pDocManage"/>
         <DefaultFilename Value="../base/base_docmanage/pdocmanage.lpk"/>
+      </Item9>
+      <Item10>
+        <PackageName Value="tabeditor"/>
+        <DefaultFilename Value="../base/base_editform/tabeditor.lpk"/>
       </Item10>
       <Item11>
-        <PackageName Value="tabeditor"/>
-        <DefaultFilename Value="../editform/tabeditor.lpk"/>
-      </Item11>
-      <Item12>
         <PackageName Value="statisticsaddon"/>
         <DefaultFilename Value="../statistics/statisticsaddon.lpk"/>
-      </Item12>
-      <Item13>
+      </Item11>
+      <Item12>
         <PackageName Value="base_inet"/>
         <DefaultFilename Value="../base/base_inet/base_inet.lpk"/>
+      </Item12>
+      <Item13>
+        <PackageName Value="prepair"/>
+        <DefaultFilename Value="../base/base_repair/prepair.lpk"/>
       </Item13>
       <Item14>
-        <PackageName Value="prepair"/>
-        <DefaultFilename Value="../base_repair/prepair.lpk"/>
+        <PackageName Value="pmessaging"/>
+        <DefaultFilename Value="../base/base_messaging/pmessaging.lpk"/>
       </Item14>
       <Item15>
-        <PackageName Value="pmessaging"/>
-        <DefaultFilename Value="../base_messaging/pmessaging.lpk"/>
+        <PackageName Value="perp"/>
+        <DefaultFilename Value="../base/base_erp/perp.lpk"/>
       </Item15>
       <Item16>
-        <PackageName Value="perp"/>
-        <DefaultFilename Value="../base_erp/perp.lpk"/>
+        <PackageName Value="pcalendar"/>
+        <DefaultFilename Value="../base/base_calendar/pcalendar.lpk"/>
       </Item16>
       <Item17>
-        <PackageName Value="pcalendar"/>
-        <DefaultFilename Value="../base_calendar/pcalendar.lpk" Prefer="True"/>
-      </Item17>
-      <Item18>
         <PackageName Value="projectmanagement"/>
         <DefaultFilename Value="../projectmanagement/projectmanagement.lpk"/>
-      </Item18>
-      <Item19>
+      </Item17>
+      <Item18>
         <PackageName Value="ZVDateTimeCtrls"/>
         <DefaultFilename Value="../components/ZVDateTimeCtrls/zvdatetimectrls.lpk"/>
-      </Item19>
-      <Item20>
+      </Item18>
+      <Item19>
         <PackageName Value="phelp"/>
         <DefaultFilename Value="../base_help/phelp.lpk"/>
-      </Item20>
-      <Item21>
+      </Item19>
+      <Item20>
         <PackageName Value="pPhones"/>
         <DefaultFilename Value="../base/base_phone/pphones.lpk"/>
-      </Item21>
-      <Item22>
+      </Item20>
+      <Item21>
         <PackageName Value="TurboPowerIPro"/>
         <MinVersion Major="1" Valid="True"/>
+      </Item21>
+      <Item22>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item22>
       <Item23>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCLBase"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item23>
       <Item24>
-        <PackageName Value="LCLBase"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
-      </Item24>
-      <Item25>
         <PackageName Value="general"/>
         <DefaultFilename Value="../../../general/general.lpk"/>
-      </Item25>
-      <Item26>
-        <PackageName Value="pVisualPrometApp"/>
-        <DefaultFilename Value="../base/pvisualprometapp.lpk"/>
-      </Item26>
-      <Item27>
+      </Item24>
+      <Item25>
         <PackageName Value="LCL"/>
-      </Item27>
+      </Item25>
     </RequiredPackages>
-    <Units Count="48">
+    <Units Count="49">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -364,7 +357,6 @@
         <ComponentName Value="fScriptFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uscriptframe"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -600,6 +592,7 @@
         <ComponentName Value="fArticleFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticleFrame"/>
       </Unit45>
       <Unit46>
         <Filename Value="uallobjects.pas"/>
@@ -611,6 +604,13 @@
         <ComponentName Value="fVersionate"/>
         <ResourceBaseClass Value="Form"/>
       </Unit47>
+      <Unit48>
+        <Filename Value="upasswordgenerate.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fPWGenerate"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit48>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -622,15 +622,6 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <Checks>
-        <IOChecks Value="True"/>
-        <RangeChecks Value="True"/>
-        <OverflowChecks Value="True"/>
-        <StackChecks Value="True"/>
-      </Checks>
-      <SmallerCode Value="True"/>
-    </CodeGeneration>
     <Linking>
       <Debugging>
         <UseExternalDbgSyms Value="True"/>
@@ -646,13 +637,12 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="31">
+    <Exceptions Count="34">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
       <Item2>
         <Name Value="EAccessViolation"/>
-        <Enabled Value="False"/>
       </Item2>
       <Item3>
         <Name Value="EZSQLException"/>
@@ -662,10 +652,10 @@
       </Item4>
       <Item5>
         <Name Value="EInvalidGraphic"/>
+        <Enabled Value="False"/>
       </Item5>
       <Item6>
         <Name Value="EDatabaseError"/>
-        <Enabled Value="False"/>
       </Item6>
       <Item7>
         <Name Value="EReadError"/>
@@ -718,7 +708,6 @@
       </Item20>
       <Item21>
         <Name Value="ESQLScannerError"/>
-        <Enabled Value="False"/>
       </Item21>
       <Item22>
         <Name Value="FPImageException"/>
@@ -726,9 +715,11 @@
       </Item22>
       <Item23>
         <Name Value="EComponentError"/>
+        <Enabled Value="False"/>
       </Item23>
       <Item24>
         <Name Value="RunError(216)"/>
+        <Enabled Value="False"/>
       </Item24>
       <Item25>
         <Name Value="EheTextDrawerException"/>
@@ -754,8 +745,17 @@
         <Name Value="EMathParserException"/>
       </Item30>
       <Item31>
-        <Name Value="EInterfaceException"/>
+        <Name Value="EPSCompilerException"/>
       </Item31>
+      <Item32>
+        <Name Value="RunError(204)"/>
+      </Item32>
+      <Item33>
+        <Name Value="EInvalidPointer"/>
+      </Item33>
+      <Item34>
+        <Name Value="PixelCanvasException"/>
+      </Item34>
     </Exceptions>
   </Debugging>
 </CONFIG>

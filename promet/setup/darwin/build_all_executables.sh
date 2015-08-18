@@ -20,16 +20,16 @@ echo "compiling sync_db..." >> scompile-$2.log
 lazbuild -q ../../source/sync/sync_db.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/tools/sync_db
 echo "compiling pop3receiver..." >> scompile-$2.log
-lazbuild -q ../../source/messageimport/pop3receiver.lpi  >> scompile-$2.log
+lazbuild -q ../../source/sync/pop3receiver.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/tools/pop3receiver
 echo "compiling feedreceiver..." >> scompile-$2.log
-lazbuild -q ../../source/messageimport/feedreceiver.lpi  >> scompile-$2.log
+lazbuild -q ../../source/sync/feedreceiver.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/tools/feedreceiver
 echo "compiling twitterreceiver..." >> scompile-$2.log
-lazbuild -q ../../source/messageimport/twitterreceiver.lpi  >> scompile-$2.log
+lazbuild -q ../../source/sync/twitterreceiver.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/tools/twitterreceiver
 echo "compiling smtpsender..." >> scompile-$2.log
-lazbuild -q ../../source/messageimport/smtpsender.lpi  >> scompile-$2.log
+lazbuild -q ../../source/sync/smtpsender.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/tools/smtpsender
 echo "compiling tools..."
 echo "compiling pstarter..." >> scompile-$2.log
@@ -59,9 +59,9 @@ lazbuild -q ../../source/tools/helpviewer.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/helpviewer
 
 echo "compiling webservices..."
-echo "compiling local_appbase..."  >> scompile-$2.log
-lazbuild -q ../../source/webservers/local_appbase.lpi  >> scompile-$2.log
-strip ../../output/$2-darwin/web/local_appbase
+echo "compiling webserver..."  >> scompile-$2.log
+lazbuild -q ../../source/webservers/webserver.lpi  >> scompile-$2.log
+strip ../../output/$2-darwin/web/webserver
 echo "compiling imapserver..."  >> scompile-$2.log
 lazbuild -q ../../source/webservers/imapserver.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/web/imapserver
@@ -71,9 +71,3 @@ strip ../../output/$2-darwin/web/mta
 echo "compiling nntpserver..."  >> scompile-$2.log
 lazbuild -q ../../source/webservers/nntpserver.lpi  >> scompile-$2.log
 strip ../../output/$2-darwin/tools/nntpserver
-echo "compiling svnserver..."  >> scompile-$2.log
-lazbuild -q ../../source/webservers/svnserver.lpi  >> scompile-$2.log
-strip ../../output/$2-darwin/tools/svnserver
-echo "compiling httpserver..."  >> scompile-$2.log
-lazbuild -q ../../source/webservers/httpserver.lpi  >> scompile-$2.log
-strip ../../output/$2-darwin/tools/httpserver

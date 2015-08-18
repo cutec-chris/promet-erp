@@ -26,7 +26,7 @@ uses
   ZVDateTimePicker, uIntfStrConsts, db, memds, FileUtil, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, ugridview,
   uExtControls, uBaseVisualControls, uBaseDbClasses, uFormAnimate, uBaseSearch,
-  ImgList, uBaseDbInterface, uQuickHelpFrame, uHistoryFrame;
+  ImgList, uBaseDbInterface, uQuickHelpFrame, uHistoryFrame,uBaseDatasetInterfaces;
 type
 
   { TfmTimeline }
@@ -690,15 +690,7 @@ var
   i: Integer;
 begin
   fSearch.SetLanguage;
-  i := 0;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if (fSearch.cbSearchType.Items[i] <> strUsers)
-      then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strUsers);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenUser;
@@ -805,7 +797,7 @@ begin
           FreeAndNil(FUserHist);
         end
       else
-        Data.Users.History.AddItem(Data.Users.DataSet,mEntry.Lines.Text,'','',nil,ACICON_USEREDITED,'',True,True);
+        Data.Users.History.AddParentedItem(Data.Users.DataSet,mEntry.Lines.Text,FParentItem,'','',nil,ACICON_USEREDITED,'',True,True);
       Found := True;
     end
   else
@@ -822,7 +814,7 @@ begin
         end;
       aTask.FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
       aTask.DataSet.Post;
-      Data.Users.History.AddItem(aTask.DataSet,aTask.FieldByName('SUMMARY').AsString,Data.BuildLink(aTask.DataSet),'',nil,ACICON_TASKADDED,'',False);;
+      Data.Users.History.AddParentedItem(aTask.DataSet,aTask.FieldByName('SUMMARY').AsString,FParentItem,Data.BuildLink(aTask.DataSet),'',nil,ACICON_TASKADDED,'',False);;
       aTask.Free;
     end;
   fTimeline.Refresh;

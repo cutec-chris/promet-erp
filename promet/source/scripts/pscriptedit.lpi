@@ -86,7 +86,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; Tests.CallFunction"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; Serial"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
@@ -142,7 +142,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="5">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
@@ -158,6 +158,12 @@
       <Item5>
         <Name Value="EProcess"/>
       </Item5>
+      <Item6>
+        <Name Value="EZSQLException"/>
+      </Item6>
+      <Item7>
+        <Name Value="EZDatabaseError"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>

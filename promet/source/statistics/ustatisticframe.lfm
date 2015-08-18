@@ -1,16 +1,16 @@
 inherited fStatisticFrame: TfStatisticFrame
   Height = 698
-  Width = 864
+  Width = 855
   ClientHeight = 698
-  ClientWidth = 864
-  DesignLeft = 423
-  DesignTop = 144
+  ClientWidth = 855
+  DesignLeft = 99
+  DesignTop = 181
   object Splitter2: TSplitter[0]
     Cursor = crVSplit
     Left = 0
     Height = 5
     Top = 339
-    Width = 864
+    Width = 855
     Align = alTop
     ResizeAnchor = akTop
     ResizeStyle = rsLine
@@ -20,17 +20,17 @@ inherited fStatisticFrame: TfStatisticFrame
     Left = 0
     Height = 354
     Top = 344
-    Width = 864
+    Width = 855
     Align = alClient
     BevelOuter = bvNone
     ClientHeight = 354
-    ClientWidth = 864
+    ClientWidth = 855
     TabOrder = 1
     object pcTabs: TPageControl
       Left = 8
       Height = 337
       Top = 9
-      Width = 848
+      Width = 839
       ActivePage = tsDescription
       Align = alClient
       BorderSpacing.Around = 8
@@ -38,8 +38,8 @@ inherited fStatisticFrame: TfStatisticFrame
       TabOrder = 0
       object tsReport: TTabSheet
         Caption = 'Report'
-        ClientHeight = 624
-        ClientWidth = 1680
+        ClientHeight = 4992
+        ClientWidth = 13440
         object Panel2: TPanel
           Left = 0
           Height = 27
@@ -207,8 +207,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsResults: TTabSheet
         Caption = 'Ergebnisliste'
-        ClientHeight = 622
-        ClientWidth = 1680
+        ClientHeight = 4976
+        ClientWidth = 13440
         object Panel1: TPanel
           Left = 0
           Height = 282
@@ -365,13 +365,13 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsDescription: TTabSheet
         Caption = 'Beschreibung'
-        ClientHeight = 622
-        ClientWidth = 1680
+        ClientHeight = 311
+        ClientWidth = 831
         object DBMemo1: TDBMemo
           Left = 0
           Height = 311
           Top = 0
-          Width = 840
+          Width = 831
           Align = alClient
           DataField = 'DESCRIPTION'
           DataSource = Datasource
@@ -385,7 +385,7 @@ inherited fStatisticFrame: TfStatisticFrame
       Left = 0
       Height = 1
       Top = 0
-      Width = 864
+      Width = 855
       AutoSize = True
       ButtonHeight = 32
       Caption = 'ToolBar'
@@ -396,42 +396,42 @@ inherited fStatisticFrame: TfStatisticFrame
     Left = 0
     Height = 339
     Top = 0
-    Width = 864
+    Width = 855
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 339
-    ClientWidth = 864
+    ClientWidth = 855
     TabOrder = 2
     object pTop: TPanel
       Left = 0
       Height = 295
       Top = 44
-      Width = 864
+      Width = 855
       Align = alClient
       BevelOuter = bvNone
       ClientHeight = 295
-      ClientWidth = 864
+      ClientWidth = 855
       TabOrder = 0
       Visible = False
       object PageControl1: TPageControl
         Left = 0
         Height = 295
         Top = 0
-        Width = 864
+        Width = 855
         ActivePage = tsMaster
         Align = alClient
         TabIndex = 0
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 538
-          ClientWidth = 1712
+          ClientHeight = 269
+          ClientWidth = 847
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
             Height = 217
             Top = 0
-            Width = 856
+            Width = 847
             Align = alClient
             Font.Height = -13
             Font.Name = 'Courier New'
@@ -926,22 +926,12 @@ inherited fStatisticFrame: TfStatisticFrame
                 MoveCaret = True
               end            
               item
-                Button = mbMiddle
-                ClickDir = cdDown
-                Command = emcPasteSelection
-                MoveCaret = True
-              end            
-              item
                 Shift = [ssCtrl]
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
               end>
             MouseTextActions = <>
-            MouseSelActions = <            
-              item
-                ClickDir = cdDown
-                Command = emcStartDragMove
-              end>
+            MouseSelActions = <>
             VisibleSpecialChars = [vscSpace, vscTabAtLast]
             SelectedColor.FrameEdges = sfeAround
             SelectedColor.BackPriority = 50
@@ -1039,7 +1029,7 @@ inherited fStatisticFrame: TfStatisticFrame
             Left = 0
             Height = 52
             Top = 217
-            Width = 856
+            Width = 847
             Align = alBottom
             ItemHeight = 0
             TabOrder = 1
@@ -1048,8 +1038,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsDetail: TTabSheet
           Caption = 'Detail'
-          ClientHeight = 516
-          ClientWidth = 1708
+          ClientHeight = 4128
+          ClientWidth = 13664
           inline smQuerry1: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -1549,22 +1539,12 @@ inherited fStatisticFrame: TfStatisticFrame
                 MoveCaret = True
               end            
               item
-                Button = mbMiddle
-                ClickDir = cdDown
-                Command = emcPasteSelection
-                MoveCaret = True
-              end            
-              item
                 Shift = [ssCtrl]
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
               end>
             MouseTextActions = <>
-            MouseSelActions = <            
-              item
-                ClickDir = cdDown
-                Command = emcStartDragMove
-              end>
+            MouseSelActions = <>
             VisibleSpecialChars = [vscSpace, vscTabAtLast]
             SelectedColor.FrameEdges = sfeAround
             SelectedColor.BackPriority = 50
@@ -1661,8 +1641,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsSubDetail: TTabSheet
           Caption = 'Sub Detail'
-          ClientHeight = 516
-          ClientWidth = 1708
+          ClientHeight = 4128
+          ClientWidth = 13664
           inline smQuerry2: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -2162,22 +2142,12 @@ inherited fStatisticFrame: TfStatisticFrame
                 MoveCaret = True
               end            
               item
-                Button = mbMiddle
-                ClickDir = cdDown
-                Command = emcPasteSelection
-                MoveCaret = True
-              end            
-              item
                 Shift = [ssCtrl]
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
               end>
             MouseTextActions = <>
-            MouseSelActions = <            
-              item
-                ClickDir = cdDown
-                Command = emcStartDragMove
-              end>
+            MouseSelActions = <>
             VisibleSpecialChars = [vscSpace, vscTabAtLast]
             SelectedColor.FrameEdges = sfeAround
             SelectedColor.BackPriority = 50
@@ -2278,11 +2248,11 @@ inherited fStatisticFrame: TfStatisticFrame
       Left = 0
       Height = 44
       Top = 0
-      Width = 864
+      Width = 855
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 864
+      ClientWidth = 855
       TabOrder = 1
       object Panel4: TPanel
         Left = 152
@@ -2691,18 +2661,18 @@ inherited fStatisticFrame: TfStatisticFrame
         Left = 490
         Height = 44
         Top = 0
-        Width = 362
+        Width = 353
         Align = alLeft
         Anchors = [akTop, akLeft, akRight, akBottom]
         BevelOuter = bvNone
         ClientHeight = 44
-        ClientWidth = 362
+        ClientWidth = 353
         TabOrder = 5
         object Label6: TLabel
           Left = 5
           Height = 15
           Top = 0
-          Width = 357
+          Width = 348
           Align = alTop
           Anchors = [akLeft, akBottom]
           AutoSize = False
@@ -2727,7 +2697,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Left = 8
           Height = 21
           Top = 16
-          Width = 354
+          Width = 303
           DataField = 'NAME'
           DataSource = Datasource
           Anchors = [akTop, akLeft, akRight]
@@ -2902,6 +2872,7 @@ inherited fStatisticFrame: TfStatisticFrame
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
     ShowProgress = False
     DataType = dtDataSource
+    OnGetValue = frReportGetValue
     left = 272
     top = 240
   end
@@ -3304,8 +3275,8 @@ inherited fStatisticFrame: TfStatisticFrame
     end
   end
   object SaveDialog: TSaveDialog[16]
-    Filter = 'Excel 2.0 Datei (*.xls)|*.xls|Excel 3.0 Datei (*.xls)|*.xls|Excel 4.0 Datei (*.xls)|*.xls|Excel 5.0 Datei (*.xls)|*.xls|Excel 2007-2009 (*.xls)|*.xls|Open Office XML (*.xlsx)|*.xlsx|Open Document Format (*.ods)|*.ods|Kommagetrennte Datei (*.csv)|*.csv'
-    FilterIndex = 4
+    Filter = 'Excel 2.0 Datei (*.xls)|*.xls|Excel 5.0 Datei (*.xls)|*.xls|Excel 2007-2009 (*.xls)|*.xls|Open Office XML (*.xlsx)|*.xlsx|Open Document Format (*.ods)|*.ods|Kommagetrennte Datei (*.csv)|*.csv'
+    FilterIndex = 2
     Options = [ofOverwritePrompt, ofEnableSizing, ofViewDetail]
     left = 176
     top = 184

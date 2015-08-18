@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, FileUtil, LR_DBSet, LR_Class, Forms, Controls, ComCtrls,
   Buttons, ActnList, Menus, ExtCtrls, DbCtrls, StdCtrls, uExtControls,
   DBZVDateTimePicker, db, uPrometFrames, uPrometFramesInplace, uBaseDBClasses,
-  Dialogs, Spin, EditBtn,variants,uProjectFlow,uTasks,Graphics,uMeasurement;
+  Dialogs, Spin, EditBtn,variants,uProjectFlow,uTasks,Graphics,uMeasurement,uBaseDatasetInterfaces;
 type
 
   { TfProjectFrame }
@@ -47,14 +47,14 @@ type
     acGotoParent: TAction;
     acGantt: TAction;
     acInactiveGantt: TAction;
-    acCalculatePlan: TAction;
-    acMoveOldTasks: TAction;
+    acCalculate: TAction;
     acAddImage: TAction;
     acPasteImage: TAction;
-    acAddScreenshot: TAction;
+    acScreenshot: TAction;
     acRegorganize: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
+    bChangeNumber: TSpeedButton;
     bDelegated2: TSpeedButton;
     Bevel10: TBevel;
     Bevel11: TBevel;
@@ -79,6 +79,7 @@ type
     DBCheckBox4: TDBCheckBox;
     DBZVDateTimePicker4: TDBZVDateTimePicker;
     DBZVDateTimePicker5: TDBZVDateTimePicker;
+    eInitiator: TEditButton;
     eParent: TEditButton;
     eManager: TEditButton;
     iProject: TImage;
@@ -87,6 +88,7 @@ type
     Label12: TLabel;
     Label13: TLabel;
     Label14: TLabel;
+    Label15: TLabel;
     Label8: TLabel;
     Label9: TLabel;
     lVAT1: TLabel;
@@ -98,7 +100,6 @@ type
     MenuItem6: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
-    MenuItem9: TMenuItem;
     Panel10: TPanel;
     Panel11: TPanel;
     pNav2: TPanel;
@@ -160,7 +161,7 @@ type
     ToolButton2: TSpeedButton;
     tsInfo: TTabSheet;
     Users: TDatasource;
-    procedure acAddScreenshotExecute(Sender: TObject);
+    procedure acScreenshotExecute(Sender: TObject);
     procedure acCalculatePlanExecute(Sender: TObject);
     procedure acCancelExecute(Sender: TObject);
     procedure acCloseExecute(Sender: TObject);
@@ -170,7 +171,7 @@ type
     procedure acGotoParentExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
     procedure acInactiveGanttExecute(Sender: TObject);
-    procedure acMoveOldTasksExecute(Sender: TObject);
+    procedure acCalculateExecute(Sender: TObject);
     procedure acPasteImageExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRegorganizeExecute(Sender: TObject);
@@ -178,9 +179,12 @@ type
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
+    procedure bChangeNumberClick(Sender: TObject);
     procedure bProjectColorColorChanged(Sender: TObject);
     procedure cbCategorySelect(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
+    procedure eInitiatorButtonClick(Sender: TObject);
+    procedure eInitiatorEnter(Sender: TObject);
     procedure eNameChange(Sender: TObject);
     procedure eManagerButtonClick(Sender: TObject);
     procedure eManagerExit(Sender: TObject);
@@ -188,6 +192,7 @@ type
     procedure eParentExit(Sender: TObject);
     function fSearchOpenItem(aLink: string): Boolean;
     function fSearchOpenItemL(aLink: string): Boolean;
+    function fSearchOpenItemLI(aLink: string): Boolean;
     procedure pcPagesChange(Sender: TObject);
     procedure ProjectsStateChange(Sender: TObject);
     procedure ReportGetValue(const ParName: String; var ParValue: Variant);
@@ -443,8 +448,6 @@ begin
       Application.ProcessMessages;
       FDataSet.CascadicCancel;
       DataSet.Delete;
-//      Data.Commit(FConnection);
-//      Data.StartTransaction(FConnection);
       acClose.Execute;
       Screen.Cursor := crDefault;
     end;
@@ -539,11 +542,12 @@ begin
     end;
 end;
 
-procedure TfProjectFrame.acMoveOldTasksExecute(Sender: TObject);
+procedure TfProjectFrame.acCalculateExecute(Sender: TObject);
 begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.BeginUpdate;
-  fGanttView.MoveAndCalculate(TProject(DataSet));
+  fGanttView.Project := TProject(DataSet);
+  fGanttView.acRefreshWizard.Execute;
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     begin
       TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
@@ -583,14 +587,14 @@ begin
               aStream.Free;
               acPasteImage.Visible:=False;
               acAddImage.Visible:=False;
-              acAddScreenshot.Visible:=False;
+              acScreenshot.Visible:=False;
             end
           else
             begin
               iProject.Picture.Clear;
               acPasteImage.Visible:=True;
               acAddImage.Visible:=True;
-              acAddScreenshot.Visible:=True;
+              acScreenshot.Visible:=True;
             end;
           aThumbnails.Free;
         end;
@@ -620,6 +624,8 @@ procedure TfProjectFrame.acRegorganizeExecute(Sender: TObject);
 begin
   Screen.Cursor:=crHourGlass;
   TProject(DataSet).Reorganize;
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    TfTaskFrame(pcPages.ActivePage.Controls[0]).DoRefresh;
   Screen.Cursor:=crDefault;
 end;
 
@@ -648,6 +654,7 @@ var
   aTask: TTask;
   aLink: String;
   bTask: TTask;
+  aXML: String;
 begin
   aProject := DataSet as TProject;
   aNewProjectName := InputBox(strProcessName,strEnterProcessName,aProject.Text.AsString);
@@ -656,7 +663,8 @@ begin
   Application.ProcessMessages;
   Data.SetFilter(aProject.Tasks,Data.QuoteField('PROJECTID')+'='+Data.QuoteValue(aProject.Id.AsString));
   bProject := TProject.Create(nil);
-  bProject.ImportFromXML(aProject.ExportToXML,False,@ReplaceField);
+  aXML := aProject.ExportToXML;
+  bProject.ImportFromXML(aXML,False,@ReplaceField);
   cProject := TProject.Create(nil);
   cProject.Select(bProject.Id.AsVariant);
   cProject.Open;
@@ -725,6 +733,8 @@ begin
   Data.GotoLink(aLink);
   bProject.Free;
   Screen.Cursor:=crDefault;
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
+    TfTaskFrame(pcPages.ActivePage.Controls[0]).DoRefresh;
 end;
 procedure TfProjectFrame.acRightsExecute(Sender: TObject);
 begin
@@ -755,7 +765,7 @@ begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     TfTaskFrame(pcPages.ActivePage.Controls[0]).GridView.EndUpdate;
 end;
-procedure TfProjectFrame.acAddScreenshotExecute(Sender: TObject);
+procedure TfProjectFrame.acScreenshotExecute(Sender: TObject);
 var
   aSheet: TTabSheet;
   aThumbnails: TThumbnails;
@@ -806,14 +816,14 @@ begin
           aStream.Free;
           acPasteImage.Visible:=False;
           acAddImage.Visible:=False;
-          acAddScreenshot.Visible:=False;
+          acScreenshot.Visible:=False;
         end
       else
         begin
           iProject.Picture.Clear;
           acPasteImage.Visible:=True;
           acAddImage.Visible:=True;
-          acAddScreenshot.Visible:=True;
+          acScreenshot.Visible:=True;
         end;
       aThumbnails.Free;
     end;
@@ -840,6 +850,21 @@ begin
       Edit;
       FieldbyName('TREEENTRY').AsInteger:=fMainTreeFrame.GetTreeEntry;
       fMainTreeFrame.tvMain.Selected.Collapse(true);
+    end;
+end;
+
+procedure TfProjectFrame.bChangeNumberClick(Sender: TObject);
+var
+  str: String;
+begin
+  str := DataSet.FieldByName('ID').AsString;
+  if InputQuery(strChangeNumer,strnewNumber,str) and (str <> DataSet.FieldByName('ID').AsString) then
+    begin
+      with DataSet.DataSet do
+        begin
+          Edit;
+          FieldbyName('ID').AsString:=str;
+        end;
     end;
 end;
 
@@ -874,6 +899,25 @@ begin
   acSave.Execute;
   Reopen := True;
   DoOpen;
+end;
+
+procedure TfProjectFrame.eInitiatorButtonClick(Sender: TObject);
+begin
+  fSearch.AllowSearchTypes(strUsers);
+  fSearch.eContains.Clear;
+  fSearch.sgResults.RowCount:=1;
+  fSearch.OnOpenItem:=@fSearchOpenItemLI;
+  fSearch.Execute(True,'TASKSL',strSearchFromProjects);
+  fSearch.SetLanguage;
+end;
+
+procedure TfProjectFrame.eInitiatorEnter(Sender: TObject);
+begin
+  if trim(eParent.Text)='' then
+    begin
+      if not DataSet.CanEdit then DataSet.DataSet.Edit;
+      DataSet.FieldByName('PINITED').Clear;
+    end;
 end;
 
 procedure TfProjectFrame.AddOverview(Sender: TObject);
@@ -948,17 +992,8 @@ begin
 end;
 
 procedure TfProjectFrame.eManagerButtonClick(Sender: TObject);
-var
-  i : Integer = 0;
 begin
-  fSearch.SetLanguage;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strUsers then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strUsers);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenItemL;
@@ -979,14 +1014,7 @@ procedure TfProjectFrame.eParentButtonClick(Sender: TObject);
 var
   i : Integer = 0;
 begin
-  fSearch.SetLanguage;
-  while i < fSearch.cbSearchType.Count do
-    begin
-      if fSearch.cbSearchType.Items[i] <> strProjects then
-        fSearch.cbSearchType.Items.Delete(i)
-      else
-        inc(i);
-    end;
+  fSearch.AllowSearchTypes(strProjects);
   fSearch.eContains.Clear;
   fSearch.sgResults.RowCount:=1;
   fSearch.OnOpenItem:=@fSearchOpenItem;
@@ -1034,6 +1062,22 @@ begin
   aParent.free;
 end;
 
+function TfProjectFrame.fSearchOpenItemLI(aLink: string): Boolean;
+var
+  aParent: TUser;
+begin
+  aParent := TUser.Create(nil);
+  aParent.SelectFromLink(aLink);
+  aParent.Open;
+  if aParent.Count>0 then
+    begin
+      eInitiator.Text:=aParent.FieldByName('NAME').AsString;
+      if not DataSet.CanEdit then DataSet.DataSet.Edit;
+      dataSet.FieldByName('PINITED').AsString:=aParent.FieldByName('ACCOUNTNO').AsString;
+    end;
+  aParent.free;
+end;
+
 procedure TfProjectFrame.pcPagesChange(Sender: TObject);
 begin
 
@@ -1063,14 +1107,11 @@ begin
   DataSet.DataSet.DisableControls;
   try
   TProject(DataSet).OpenItem;
-  pcPages.ClearTabClasses;
-  pcPages.CloseAll;
   FEditable := ((Data.Users.Rights.Right('PROJECTS') > RIGHT_READ));
-  pcPages.AddTabClass(TfHistoryFrame,strHistory,@AddHistory);
+
   TProject(DataSet).History.Open;
-  if TProject(DataSet).History.Count > 0 then
-    pcPages.AddTab(TfHistoryFrame.Create(Self),False);
-  pcPages.AddTabClass(TfImageFrame,strImages,@AddImages);
+  pcPages.NewFrame(TfHistoryFrame,TProject(DataSet).History.Count > 0,strHistory,@AddHistory);
+
   if TProject(DataSet).FieldByName('PARENT').IsNull then
     eParent.Text:=strNoParent
   else
@@ -1091,6 +1132,17 @@ begin
       aParentU.Open;
       if aParentU.Count>0 then
         eManager.Text:=aParentU.FieldByName('NAME').AsString;
+      aParentU.free;
+    end;
+  if TProject(dataSet).FieldByName('PINITED').IsNull then
+    eInitiator.Text:=''
+  else
+    begin
+      aParentU := TUser.Create(nil);
+      aParentU.SelectByAccountno(dataSet.FieldByName('PINITED').AsString);
+      aParentU.Open;
+      if aParentU.Count>0 then
+        eInitiator.Text:=aParentU.FieldByName('NAME').AsString;
       aParentU.free;
     end;
 
@@ -1165,8 +1217,7 @@ begin
     end;
 
   pNav2.Visible := TProject(DataSet).FieldByName('TYPE').AsString = 'C';
-  if not TProject(DataSet).Images.DataSet.Active then
-    TProject(DataSet).Images.DataSet.Open;
+
   aThumbnails := TThumbnails.Create(nil);
   aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
   aThumbnails.Open;
@@ -1177,41 +1228,33 @@ begin
       aStream.Position:=0;
       iProject.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
       aStream.Free;
-      if TProject(DataSet).Images.Count > 0 then
-        pcPages.AddTab(TfImageFrame.Create(Self),False);
       acPasteImage.Visible:=False;
       acAddImage.Visible:=False;
-      acAddScreenshot.Visible:=False;
+      acScreenshot.Visible:=False;
     end
   else
     begin
       iProject.Picture.Clear;
-      if TProject(DataSet).Images.Count > 0 then
-        begin
-          pcPages.AddTab(TfImageFrame.Create(Self),False);
-          TProject(DataSet).GenerateThumbnail;
-        end;
       acPasteImage.Visible:=True;
       acAddImage.Visible:=True;
-      acAddScreenshot.Visible:=True;
+      acScreenshot.Visible:=True;
     end;
+  pcPages.NewFrame(TfImageFrame,(FDataSet.State = dsInsert) or (aThumbnails.Count > 0),strImages,@AddImages);
   aThumbnails.Free;
-  TProject(DataSet).Images.DataSet.Close;
-  pcPages.AddTabClass(TfObjectStructureFrame,strStructure,@AddOverview);
+
   aSubProject := TProject.Create(nil);
   aSubProject.SelectFromParent(fDataSet.Id.AsVariant);
   aSubProject.Open;
-  if aSubProject.Count>0 then
-    begin
-      pcPages.AddTab(TfObjectStructureFrame.Create(Self),True)
-    end;
+  pcPages.NewFrame(TfObjectStructureFrame,aSubProject.Count>0,strStructure,@AddOverview);
   aSubProject.Free;
-  pcPages.AddTabClass(TfLinkFrame,strLinks,@AddLinks);
+
   TProject(DataSet).Links.Open;
-  if TProject(DataSet).Links.Count > 0 then
-    pcPages.AddTab(TfLinkFrame.Create(Self),False);
+  pcPages.NewFrame(TfLinkFrame,(TProject(DataSet).Links.Count > 0),strLinks,@AddLinks);
+
   pcPages.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
-  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) then
+  if Assigned(pcPages.GetTab(TfDocumentFrame)) then
+    pcPages.GetTab(TfDocumentFrame).Free;
+  if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) and (not Assigned(pcPages.GetTab(TfDocumentFrame))) then
     begin
       aDocuments := TDocuments.CreateEx(Self,Data,DataSet.Connection);
       aDocuments.CreateTable;
@@ -1227,10 +1270,10 @@ begin
           aDocFrame.BaseElement:=DataSet;
         end;
     end;
-  pcPages.AddTabClass(TfProjectPositions,strCosts,@AddPositions);
+
   TProject(DataSet).Positions.Open;
-  if TProject(DataSet).Positions.Count > 0 then
-    pcPages.AddTab(TfProjectPositions.Create(Self),False);
+  pcPages.NewFrame(TfProjectPositions,TProject(DataSet).Positions.Count > 0,strCosts,@AddPositions);
+
   sePriority.OnChange:=nil;
   sePriority.Value:=DataSet.FieldByName('GPRIORITY').AsInteger;
   sePriority.OnChange:=@sePriorityChange;
@@ -1239,11 +1282,11 @@ begin
     begin
       pcPages.CanHaveCustomTabs(@TBaseVisualApplication(Application).OnAddCustomTab);
     end;
-  pcPages.AddTabClass(TfFinance,strFinance,@AddFinance);
-  if (not DataSet.FieldByName('COSTCENTRE').IsNull)
-  or (not DataSet.FieldByName('ACCOUNT').IsNull)
-  or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull) then
-    pcPages.AddTab(TfFinance.Create(Self),False);
+
+  pcPages.NewFrame(TfFinance,(not DataSet.FieldByName('COSTCENTRE').IsNull)
+                          or (not DataSet.FieldByName('ACCOUNT').IsNull)
+                          or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull),strFinance,@AddFinance);
+
   with Application as TBaseVisualApplication do
     AddTabClasses('PRJ',pcPages);
   with Application as TBaseVisualApplication do
@@ -1263,6 +1306,7 @@ begin
       except
       end;
     end;
+
   pcPages.AddTabClass(TfTaskFrame,strTasks,@AddTasks);
   Inserted := DataSet.State=dsInsert;
   TProject(DataSet).Tasks.Open;
@@ -1274,7 +1318,7 @@ begin
     end;
   if Inserted or (TProject(DataSet).Tasks.Count = 0) then
     pcPages.PageIndex:=0;
-  if DataSet.State<> dsInsert then
+  if (DataSet.State<> dsInsert) and (DataSet.Id.AsVariant<>Null) and (not Assigned(pcPages.GetTab(TfWikiFrame))) then
     begin
       aWiki := TWikiList.Create(nil);
       if aWiki.FindWikiFolder('Promet-ERP-Help/forms/'+Self.ClassName+'/') then
@@ -1293,6 +1337,7 @@ begin
                 begin
                   aWikiIdx := pcPages.AddTab(aWikiPage,False,aWiki.FieldByName('CAPTION').AsString);
                   aWikiPage.SetRights(FEditable);
+                  aWikiPage.LeftBar:=True;
                 end
               else aWikiPage.Free;
               if aWiki.FieldByName('CAPTION').AsString = strOverview then
@@ -1300,7 +1345,6 @@ begin
                   pcPages.Pages[aWikiIdx+1].PageIndex:=0;
                   pcPages.PageIndex:=0;
                 end;
-              aWikiPage.LeftBar:=True;
               aWiki.Next;
             end;
         end;
@@ -1381,13 +1425,19 @@ begin
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-//  Data.StartTransaction(FConnection);
   DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   if copy(aLink,0,pos('@',aLink)-1) = 'PROJECTS.ID' then
-    Data.SetFilter(FDataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1)
+    Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1)
   else
-    Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
+    Data.SetFilter(FDataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
+  if FDataSet.Count = 0 then
+    begin
+      if copy(aLink,0,pos('@',aLink)-1) = 'PROJECTS.ID' then
+        Data.SetFilter(FDataSet,Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1)
+      else
+        Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
+    end;
   if FDataSet.Count > 0 then
     begin
       TabCaption := TProject(FDataSet).Text.AsString;
@@ -1400,7 +1450,6 @@ begin
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-//  Data.StartTransaction(FConnection);
   TabCaption := strNewProject;
   DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
@@ -1440,5 +1489,7 @@ begin
   aTask.Free;
 end;
 
+initialization
+//  TBaseVisualApplication(Application).RegisterForm(TfProjectFrame);
 end.
 

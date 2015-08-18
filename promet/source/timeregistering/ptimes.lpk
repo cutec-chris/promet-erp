@@ -2,15 +2,15 @@
 <CONFIG>
   <Package Version="4">
     <Name Value="ptimes"/>
+    <Type Value="RunAndDesignTime"/>
     <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
-      <Other>
-        <CompilerPath Value="$(CompPath)"/>
-      </Other>
+      <CodeGeneration>
+      </CodeGeneration>
     </CompilerOptions>
     <Files Count="6">
       <Item1>
@@ -38,7 +38,6 @@
         <UnitName Value="uTimeOptions"/>
       </Item6>
     </Files>
-    <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="4">
       <Item1>
         <PackageName Value="pOptions"/>

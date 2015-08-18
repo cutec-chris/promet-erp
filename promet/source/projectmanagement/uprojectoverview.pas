@@ -5,11 +5,18 @@ unit uprojectoverview;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, uprometframesinplace,
-  uMainTreeFrame,uIntfStrConsts,uProjects,uBaseDBInterface,uBaseDbClasses;
+  Classes, SysUtils, FileUtil, Forms, Controls, ComCtrls, Menus, ActnList,
+  uprometframesinplace, uMainTreeFrame, uIntfStrConsts, uProjects,
+  uBaseDBInterface, uBaseDbClasses, uBaseDatasetInterfaces, db;
 
 type
   TfObjectStructureFrame = class(TPrometInplaceFrame)
+    acAddLevel: TAction;
+    ActionList1: TActionList;
+    MenuItem1: TMenuItem;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    procedure acAddLevelExecute(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
     function FTreeOpen(aEntry: TTreeEntry): Boolean;
   private
@@ -29,6 +36,78 @@ implementation
 uses uData;
 procedure TfObjectStructureFrame.FrameEnter(Sender: TObject);
 begin
+end;
+
+procedure TfObjectStructureFrame.acAddLevelExecute(Sender: TObject);
+var
+  aEntry: TTreeEntry;
+  aDataSet: TBaseDBDataset;
+  aParent: TField;
+  bDataSet: TBaseDBDataset;
+  Node1: TTreeNode;
+  Node2: TTreeNode;
+  Node3: TTreeNode;
+  Node4: TTreeNode;
+begin
+  with FTree do
+    begin
+      if tvMain.Items.Count=0 then exit;
+      aEntry := TTreeEntry(tvMain.Items[0].Data);
+      aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
+      with aDataSet.DataSet as IBaseDBFilter do
+        Filter := aEntry.Filter;
+      aDataSet.Open;
+      if aDataSet.Count>0 then
+        begin
+          aParent := aDataSet.FieldByName('PARENT');
+          if Assigned(aParent) and (aParent.AsVariant<>Null) then
+            begin
+              bDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
+              bDataSet.Filter(Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(aParent.AsString));
+              bDataSet.Open;
+              if bDataSet.Count>0 then
+                begin
+                  FObject:=TBaseDbList(bDataSet);
+                  Node1 := tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+                  TTreeEntry(Node1.Data).Rec := FObject.GetBookmark;
+                  Node1.HasChildren:=True;
+                  with FObject.DataSet as IBaseManageDB do
+                    TTreeEntry(Node1.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(FObject.GetBookmark));
+                  TTreeEntry(Node1.Data).DataSourceType := TBaseDBDataSetClass(FObject.ClassType);
+                  TTreeEntry(Node1.Data).Text[0] := FObject.Text.AsString+' ('+FObject.Number.AsString+')'+' ['+FObject.Status.AsString+']';
+                  case FObject.ClassName of
+                  'TProject':TTreeEntry(Node1.Data).Typ := etProject;
+                  end;
+                  Node1.HasChildren:=True;
+                  Node1.Expanded:=True;
+                  Node2 := tvMain.Items[0];
+                  while Assigned(Node2) do
+                    begin
+                      Node3 := Node2;
+                      Node2 := Node2.GetNextSibling;
+                      if Node3<>Node1 then
+                        begin
+                          Node4 := nil;
+                          if Node1.Count>0 then
+                            Node4 := Node1.Items[0];
+                          while Assigned(Node4) do
+                            begin
+                              if TTreeEntry(Node4.data).Rec=TTreeEntry(Node3.Data).Rec then
+                                begin
+                                  Node3.MoveTo(Node4,naInsertBehind);
+                                  Node4.Free;
+                                  break;
+                                end;
+                              Node4 := Node4.GetNextSibling;
+                            end;
+                        end;
+                    end;
+                end;
+              bDataSet.Free;
+            end;
+        end;
+      aDataSet.Free;
+    end;
 end;
 
 function TfObjectStructureFrame.FTreeOpen(aEntry: TTreeEntry): Boolean;
@@ -60,6 +139,7 @@ begin
     begin
       Node1 := tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Rec := FObject.GetBookmark;
+      Node1.HasChildren:=True;
       with FObject.DataSet as IBaseManageDB do
         TTreeEntry(Node1.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(FObject.GetBookmark));
       TTreeEntry(Node1.Data).DataSourceType := TBaseDBDataSetClass(FObject.ClassType);
@@ -68,7 +148,6 @@ begin
       'TProject':TTreeEntry(Node1.Data).Typ := etProject;
       end;
       Node1.HasChildren:=True;
-      Node1.Expanded:=True;
     end;
 end;
 

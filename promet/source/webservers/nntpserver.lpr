@@ -24,8 +24,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, types, pcmdprometapp, CustApp, uBaseCustomApplication,
-  lNet, uBaseDBInterface, md5, uData, eventlog, pmimemessages,
-  uBaseApplication;
+  lNet, lnetbase, uBaseDBInterface, md5, uData, eventlog, pmimemessages, ulnntp,
+  uprometnntp, uBaseApplication;
 type
   TPNNTPServer = class(TBaseCustomApplication)
     procedure ServerLog(aSocket: TLNNTPSocket; DirectionIn: Boolean;

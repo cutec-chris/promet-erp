@@ -15,15 +15,8 @@
         </SyntaxOptions>
       </Parsing>
       <CodeGeneration>
-        <SmartLinkUnit Value="True"/>
-        <Optimizations>
-          <OptimizationLevel Value="2"/>
-        </Optimizations>
       </CodeGeneration>
       <Linking>
-        <Debugging>
-          <GenerateDebugInfo Value="True"/>
-        </Debugging>
       </Linking>
       <Other>
         <Verbosity>

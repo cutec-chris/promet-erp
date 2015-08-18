@@ -48,9 +48,10 @@
       </Item5>
       <Item6>
         <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="1">
       <Unit0>
         <Filename Value="uarchivestoremain.pas"/>
         <IsPartOfProject Value="True"/>
@@ -59,13 +60,6 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uarchivestoremain"/>
       </Unit0>
-      <Unit1>
-        <Filename Value="..\base\upassword.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fPassword"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit1>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

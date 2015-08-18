@@ -26,7 +26,7 @@ uses
   ExtCtrls, DbCtrls, StdCtrls, uExtControls, DBZVDateTimePicker, db,
   uPrometFrames, uPrometFramesInplace, uBaseDBClasses, Dialogs, Spin, EditBtn,
   DBGrids, variants,uStatistic,SynCompletion, SynHighlighterPas,md5,LCLType,
-  TASeries, TACustomSeries,fpsqlparser,Clipbrd,uBaseVisualApplication;
+  TASeries, TACustomSeries,fpsqlparser,Clipbrd,uBaseVisualApplication,uBaseDatasetInterfaces;
 type
 
   { TfStatisticFrame }
@@ -166,6 +166,7 @@ type
     procedure ExecuteTimerTimer(Sender: TObject);
     procedure FrameEnter(Sender: TObject);
     procedure FrameExit(Sender: TObject);
+    procedure frReportGetValue(const ParName: String; var ParValue: Variant);
     procedure FSynCompletionExecute(Sender: TObject);
     procedure FSynCompletionSearchPosition(var aPosition: integer);
     procedure FSynCompletionUTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char
@@ -190,6 +191,7 @@ type
     csData: TChartSeries;
     FSynCompletion : TSynCompletion;
     FVariables : TStringList;
+    FVariableNames : TStringList;
     FTables : TStringList;
     FTreeNode : TTreeNode;
     procedure ParseForms(Filter: string);
@@ -221,7 +223,7 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,
   uFilterFrame,uBaseSearch,Utils,uBaseERPDBClasses,uSelectReport,
   uNRights,uSearch,LCLProc,utask,fpsqltree,fpsqlscanner,SynEditMarks,LCLIntf,
-  fpspreadsheet, fpsallformats,uFormAnimate,SynBeautifier,Printers;
+  fpspreadsheet, fpsallformats,uFormAnimate,SynBeautifier,Printers,fpsTypes;
 {$R *.lfm}
 resourcestring
     strQueryTime                  = 'Abfragezeit: %s Anzahl Datensätze: %d';
@@ -592,6 +594,7 @@ begin
               else if aControl is TComboBox then
                 bFilter := CheckWildgards(TComboBox(aControl).Text);
               cFilter := StringReplace(cFilter,'@'+adata+'@',bFilter,[]);
+              FVariableNames.Values[aName]:='TBE'+MD5Print(MD5String(aname));
             end;
         end;
       cFilter := StringReplace(cFilter,'@USERID@',Data.Users.Id.AsString,[rfReplaceAll]);
@@ -625,8 +628,11 @@ begin
 //      Data.StartTransaction(FConnection);
       acClose.Execute;
       Screen.Cursor := crDefault;
-      if Assigned(FTreeNode) then
-        fMainTreeFrame.tvMain.Items.Delete(FTreeNode);
+      try
+        if Assigned(FTreeNode) then
+          fMainTreeFrame.tvMain.Items.Delete(FTreeNode);
+      except
+      end;
     end;
 end;
 
@@ -674,7 +680,7 @@ begin
       fSelectReport.ReportType:= copy(DataSet.Id.AsString,length(DataSet.Id.AsString)-3,4);
       tsResults.TabVisible:=True;
       pcTabs.ActivePage := tsResults;
-      if Data.Reports.Count > 0 then
+      if (Data.Reports.Count > 0) and (DataSet.State<>dsInsert) then
         begin
           Printer.PrinterIndex:=-1;//Default Printer
           fSelectReport.Report := frReport;
@@ -693,6 +699,9 @@ begin
       if tsReport.TabVisible then
         begin
           try
+            for i := 0 to FVariableNames.Count-1 do
+              if (frReport.Variables.IndexOf(FVariableNames.Names[i])=-1) then
+                frReport.Variables.Add(' '+FVariableNames.Names[i]);
             if frReport.PrepareReport then
               frReport.ShowPreparedReport;
             if frReport.EMFPages.Count > 1 then
@@ -935,6 +944,13 @@ begin
   //ActionList1.State:=asSuspended;
 end;
 
+procedure TfStatisticFrame.frReportGetValue(const ParName: String;
+  var ParValue: Variant);
+begin
+  if FVariables.Values[FVariableNames.Values[ParName]]<>'' then
+    ParValue:=FVariables.Values[FVariableNames.Values[ParName]];
+end;
+
 procedure TfStatisticFrame.FSynCompletionExecute(Sender: TObject);
 function GetCurWord:string;
 var
@@ -1170,6 +1186,7 @@ begin
   FSynCompletion.OnUTF8KeyPress:=@FSynCompletionUTF8KeyPress;
   FSynCompletion.OnSearchPosition:=@FSynCompletionSearchPosition;
   FVariables := TStringList.Create;
+  FVariableNames := TStringList.Create;
   FTables := TStringList.Create;
   pTop.Height := 0;
   Panel5.Height:=45;
@@ -1184,8 +1201,6 @@ begin
 end;
 destructor TfStatisticFrame.Destroy;
 begin
-  Datasource.DataSet.Free;
-  Datasource.DataSet:=nil;
   Detail.DataSet.Free;
   Detail.DataSet:=nil;
   SubDetail.DataSet.Free;
@@ -1200,13 +1215,15 @@ begin
   end;
   FTables.Free;
   FVariables.Free;
+  FVariableNames.Free;
+  FDataSet:=nil;
   FSynCompletion.Free;
   inherited;
 end;
 
 function TfStatisticFrame.CanHandleLink(aLink: string): Boolean;
 begin
-  Result := ((copy(aLink,0,pos('@',aLink)-1) = 'STATISTICS'));
+  Result := ((copy(aLink,0,10) = 'STATISTICS'));
 end;
 
 procedure TfStatisticFrame.ListFrameAdded(aFrame: TObject);
@@ -1232,7 +1249,6 @@ begin
   CloseConnection;
   if not Assigned(FConnection) then
     FConnection := Data.GetNewConnection;
-//  Data.StartTransaction(FConnection);
   DataSet := TStatistic.CreateEx(Self,Data,FConnection);
   Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
   if FDataSet.Count > 0 then
@@ -1287,6 +1303,7 @@ begin
   bEditFilterClick(nil);
   smQuerry.SetFocus;
   ProjectsStateChange(Self);
+  tsReport.TabVisible:=False;
 end;
 procedure TfStatisticFrame.SetLanguage;
 begin
@@ -1301,6 +1318,6 @@ begin
 end;
 
 initialization
-  TBaseVisualApplication(Application).RegisterForm(TfStatisticFrame)
+//  TBaseVisualApplication(Application).RegisterForm(TfStatisticFrame);
 end.
 

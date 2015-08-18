@@ -27,7 +27,8 @@ uses
   laz_synapse, uBaseDBInterface, uData, uBaseApplication, uBaseDbClasses,
   synautil, ureceivemessage, uMimeMessages, ussmtpserver, usimapserver,
   usimapsearch, mimemess, usbaseserver, usimapmailbox,RegExpr, db,
-  Utils,uMessages,syncobjs,uPerson,uIntfStrConsts;
+  Utils,uMessages,syncobjs,uPerson,uIntfStrConsts,uBaseDatasetInterfaces,
+  variants,synachar;
 type
   { TPrometMailBox }
 
@@ -49,7 +50,7 @@ type
     function  RemoveFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;override;
     function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;override;
     function  GetTimeStamp( Index: LongInt ): TUnixTime;override;
-    function  GetMessage( UID: LongInt ): TMimeMess;override;
+    function  GetMessage( UID: LongInt;HeaderOnly : Boolean ): TMimeMess;override;
     function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;override;
     function AppendMessage(AThread: TSTcpThread;MsgTxt: string; Flags: string; TimeStamp: TUnixTime): string; override;
     function FindContent(MsgSet: TMessageSet; After, Before: int64; Charset: string; HeaderList, BodyStrings,  TextStrings: TStringList): TMessageSet;override;
@@ -302,7 +303,8 @@ begin
   Result := DateTimeToUnixTime(Folder.FieldByName('SENDDATE').AsDateTime);
 end;
 
-function TPrometMailBox.GetMessage(UID: LongInt): TMimeMess;
+function TPrometMailBox.GetMessage(UID: LongInt; HeaderOnly: Boolean
+  ): TMimeMess;
 var
   aMessage: TMimeMessage;
 begin
@@ -310,9 +312,7 @@ begin
   aMessage := TMimeMessage.Create(nil);
   aMessage.SelectByGrpID(UID,FParent);
   aMessage.Open;
-  Result := aMessage.EncodeMessage;
-  if Assigned(Result) then
-    Result.EncodeMessage;
+  Result := aMessage.EncodeMessage(HeaderOnly);
   aMessage.Free;
   DBCS.Leave;
 end;
@@ -487,7 +487,6 @@ begin
         Result := UpperCase( QuotedStringOrToken( ContentType ) )
      end
 end;
-
 function Has8BitChar( txt: String ): Boolean;
 var  i: Integer;
 begin
@@ -495,7 +494,6 @@ begin
      for i := 1 to Length( txt ) do if Ord( txt[i] ) > 127 then exit;
      Result := False
 end;
-
 function RfcTimezoneToBiasMinutes( RfcTimeZone: TRfcTimeZone ): Integer;
 begin
    Result := 0;
@@ -552,7 +550,6 @@ begin
 
    end;
 end;
-
 Const
    RFC_DAY_NAMES   = 'SunMonTueWedThuFriSat';
    RFC_MONTH_NAMES = 'JanFebMarAprMayJunJulAugSepOctNovDec';
@@ -561,7 +558,6 @@ function MinutesToDateTime( Minutes: Integer ): TDateTime;
 begin
    Result := ( Minutes / 60.0 / 24.0 );
 end;
-
 function RfcDateTimeToDateTimeGMT( RfcDateTime: string; ErrorDefault: TDateTime ) : TDateTime;
 var  s, h, tz : String;
      i, yyyy, mm, dd, hh, nn, ss : Integer;
@@ -618,13 +614,11 @@ begin
       Result := ErrorDefault
    end;
 end;
-
 function RfcDateTimeToDateTimeGMT( RfcDateTime: string ) : TDateTime;
 const OldDefault = 29221.0; // =EncodeDate(1980,1,1)
 begin
    Result := RfcDateTimeToDateTimeGMT( RfcDateTime, OldDefault );
 end;
-
 function BadCombination( MyCharset: String; SearchStr: String ): Boolean;
 begin
      Result := False;
@@ -637,7 +631,6 @@ begin
      with BaseApplication as IBaseApplication do
        Warning(Format('IMAP SEARCH: Search charset (%s) and message charset (%s) differ. The current message is ignored.',[Charset,MyCharset]));
 end;
-
 var  i, j, k, m : Integer;
   HdrValue   : String;
   HdrName    : String;
@@ -648,7 +641,36 @@ var  i, j, k, m : Integer;
   MyDate     : Int64;
   NotFound   : Boolean;
   aHeaders: TStrings;
+  aFilter : string = '';
+  aMsgs: TMessageList;
 begin
+  //Headers
+  for k := 0 to HeaderList.Count - 1 do begin
+     m := Pos( ':', HeaderList[k] );
+     HdrName  := Copy( HeaderList[k], 1, m );
+     HdrValue := UpperCase( Copy( HeaderList[k], m+1, Length(HeaderList[k])-m ) );
+     if HdrValue <> '' then
+       begin
+         aFilter := aFilter+' OR '+Data.ProcessTerm('UPPER('+Data.QuoteField('ID')+')=UPPER('+Data.QuoteValue(GetEmailAddr(HdrValue))+')');
+       end
+  end;
+  aFilter := '('+copy(aFilter,5,length(aFilter))+')';
+  //Date
+  aFilter := aFilter+' AND ('+Data.QuoteField('SENDDATE')+'>'+Data.DateTimeToFilter(After)+' AND '+Data.QuoteField('SENDDATE')+'<'+Data.DateTimeToFilter(Before)+')';
+  DbCS.Enter;
+  aMsgs := TMessageList.Create(nil);
+  aMsgs.Filter(aFilter,0);
+  i := 0;
+  SetLength( Result, aMsgs.Count );
+  while not aMsgs.EOF do
+    begin
+      Result[i] := GetIndex(aMsgs.FieldByName('GRP_ID').AsLargeInt);
+      inc(i);
+      aMsgs.Next;
+    end;
+  aMsgs.Free;
+  DbCS.Leave;
+  {
   SetLength( Result, Length(MsgSet) );
   j := 0;
   try
@@ -718,6 +740,7 @@ begin
   finally
   end;
   SetLength( Result, j )
+  }
 end;
 
 procedure TPrometMailBox.RefreshFolder;
@@ -741,10 +764,8 @@ begin
   Folder.SortFields:='GRP_ID,MSG_ID';
   Folder.SortDirection:=sdAscending;
   aFilter := aFilter+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.Accountno.AsString);
-  Folder.Filter(aFilter);
-  Folder.First;
-  ActId := -1;
-  while not Folder.EOF do
+  Folder.Filter(aFilter+' AND '+Data.QuoteField('GRP_ID')+'=NULL');
+  while Folder.Locate('GRP_ID',Null,[]) do
     begin
       if (Folder.FieldByName('GRP_ID').IsNull) or (Folder.FieldByName('GRP_ID').AsInteger=ActId) then
         begin
@@ -755,8 +776,10 @@ begin
           inc(aChanged);
         end;
       ActId := Folder.FieldByName('GRP_ID').AsInteger;
-      Folder.Next;
     end;
+  Folder.Filter(aFilter);
+  Folder.First;
+  ActId := -1;
   if aChanged>0 then
     begin
       Folder.Filter(aFilter);
@@ -779,6 +802,7 @@ begin
   Folder := TMessageList.Create(nil);
   DBCS.Leave;
   RefreshFolder;
+  GetUIDvalidity:=DateTimeToUnixTime(Folder.TimeStamp.AsDateTime);
 end;
 
 destructor TPrometMailBox.Destroy;
@@ -788,12 +812,26 @@ begin
 end;
 
 function TPrometImapServer.GotoMailBox(MailBox: string): Boolean;
+var
+  Parent: String;
+  ParentId : Variant;
 begin
   Result := False;
+  MailBox:=CharsetConversion(MailBox,UTF_7mod,UTF_8);
+  if pos('/',MailBox)>0 then
+    Parent := copy(MailBox,0,RPos('/',MailBox)-1);
   MailBox:=copy(MailBox,RPos('/',MailBox)+1,length(MailBox));
+  DbCS.Enter;
   if MailBoxes.Locate('NAME',AnsiToUtf8(Mailbox),[]) then
     begin
       result := True;
+      if Parent <> '' then
+        if MailBoxes.FieldByName('PARENT').AsLargeInt=0 then
+          begin
+            Result := Result and MailBoxes.Locate('NAME',copy(Parent,RPos('/',Parent)+1,length(Parent)),[]);
+            ParentId := MailBoxes.Id.AsVariant;
+            Result := Result and MailBoxes.Locate('NAME;PARENT',VarArrayOf([MailBox,ParentId]),[]);
+          end;
     end
   else if lowercase(Mailbox)='inbox' then
     begin
@@ -816,6 +854,7 @@ begin
           result := True;
         end;
     end;
+  DbCS.Leave;
 end;
 
 procedure TPrometImapServer.DoClientCreate(AThread: TSTcpThread);
@@ -941,11 +980,16 @@ begin
   end;
   SearchPgm := TIMAPSearch.Create( Charset );
   try
-     if GetSearchPgm( Par, SearchPgm ) then begin
-        SendRes(AThread, 'SEARCH' + TSImapThread(AThread).Selected.Search( SearchPgm, UseUID ) );
-        SendResTag(AThread, 'OK ' + Command + ' completed' )
-     end else
-        SendResTag(AThread, 'BAD ' + Command + ' invalid syntax (see server log for details)' );
+    try
+       if GetSearchPgm( Par, SearchPgm ) then begin
+          SendRes(AThread, 'SEARCH' + TSImapThread(AThread).Selected.Search( SearchPgm, UseUID ) );
+          SendResTag(AThread, 'OK ' + Command + ' completed' )
+       end else
+          SendResTag(AThread, 'BAD ' + Command + ' invalid syntax (see server log for details)' );
+     except
+       on e : Exception do
+         SendResTag(AThread, 'ERROR ' + Command + ' '+e.Message );
+     end;
   finally
      SearchPgm.Free
   end
@@ -1046,28 +1090,32 @@ var
   SendS, MsgDat  : String;
   i       : Integer;
 begin
-  Success := True;
-  MsgDat := TrimParentheses( Uppercase( Par ) );
-  // macros
-  StringReplace( MsgDat, 'FAST', 'FLAGS INTERNALDATE RFC822.SIZE', [] );
-  StringReplace( MsgDat, 'ALL',  'FLAGS INTERNALDATE RFC822.SIZE ENVELOPE', [] );
-  StringReplace( MsgDat, 'FULL', 'FLAGS INTERNALDATE RFC822.SIZE ENVELOPE BODY', [] );
-  // Server implementations MUST implicitly include the UID message data item
-  // as part of any FETCH response caused by a UID command, regardless of
-  // whether a UID was specified as a message data item to the FETCH.
-  if ( Command = 'UID FETCH' ) and ( Pos( 'UID', MsgDat ) = 0 ) then
-    MsgDat := MsgDat + ' UID';
-  with BaseApplication  do
-    if not HasOption('debug') then
-      DisableLog;
-  for i := Low(MsgSet) to High(MsgSet) do
-    begin
-      SendS := TSImapThread(AThread).Selected.Fetch( MsgSet[i]-1, MsgDat, Success );
-      if (trim(SendS) <> '') AND Success then SendRes (AThread, SendS )
-    end;
-  with BaseApplication  do
-    if not HasOption('debug') then
-      EnableLog;
+  try
+    Success := True;
+    MsgDat := TrimParentheses( Uppercase( Par ) );
+    // macros
+    StringReplace( MsgDat, 'FAST', 'FLAGS INTERNALDATE RFC822.SIZE', [] );
+    StringReplace( MsgDat, 'ALL',  'FLAGS INTERNALDATE RFC822.SIZE ENVELOPE', [] );
+    StringReplace( MsgDat, 'FULL', 'FLAGS INTERNALDATE RFC822.SIZE ENVELOPE BODY', [] );
+    // Server implementations MUST implicitly include the UID message data item
+    // as part of any FETCH response caused by a UID command, regardless of
+    // whether a UID was specified as a message data item to the FETCH.
+    if ( Command = 'UID FETCH' ) and ( Pos( 'UID', MsgDat ) = 0 ) then
+      MsgDat := MsgDat + ' UID';
+    with BaseApplication  do
+      if not HasOption('debug') then
+        DisableLog;
+    for i := Low(MsgSet) to High(MsgSet) do
+      begin
+        SendS := TSImapThread(AThread).Selected.Fetch( MsgSet[i]-1, MsgDat, Success );
+        if (trim(SendS) <> '') AND Success then SendRes (AThread, SendS )
+      end;
+    with BaseApplication  do
+      if not HasOption('debug') then
+        EnableLog;
+  except
+    Success := False;
+  end;
   if Success then
     SendResTag(AThread, 'OK ' + Command + ' is now completed' )
   else
@@ -1100,7 +1148,10 @@ procedure TPrometImapServer.DoList(AThread: TSTcpThread; Par: String;
     while not aMailBoxes.EOF do
       begin
         if aMailBoxes.Id.AsVariant = TREE_ID_MESSAGES then
-          Found := Base + 'INBOX'
+          begin
+            if not LSub then
+              Found := Base + 'INBOX'
+          end
         else if aMailBoxes.Id.AsVariant = TREE_ID_DELETED_MESSAGES then
           Found := Base + 'Trash'
         else if aMailBoxes.Id.AsVariant = TREE_ID_SEND_MESSAGES then
@@ -1257,6 +1308,8 @@ procedure TPIMAPServer.ServerLog(aSocket: TSTcpThread; DirectionIn: Boolean;
   aMessage: string);
 var
   aID: Integer;
+  f : TextFile;
+  msg: String;
 begin
   with Self as IBaseApplication do
     begin
@@ -1265,12 +1318,18 @@ begin
       if aSocket is TSTcpThread then
         aID := TSTcpThread(aSocket).Id;
       if DirectionIn then
-        begin
-          Info(IntToStr(aId)+':>'+aMessage);
-        end
+        msg := IntToStr(aId)+':>'+aMessage
       else
+        msg := IntToStr(aId)+':<'+aMessage;
+      Debug(msg);
+      if HasOption('debug') then
         begin
-          Info(IntToStr(aId)+':<'+aMessage);
+          AssignFile(f,'imap.log.'+IntToStr(aId)+'.txt');
+         if not FileExists('imap.log.'+IntToStr(aId)+'.txt') then
+           Rewrite(f)
+         else Append(f);
+         writeln(f,msg);
+         CloseFile(f);
         end;
     end;
 end;

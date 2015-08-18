@@ -3,7 +3,7 @@ library serialport;
 {$mode objfpc}{$H+}
 
 uses
-  Classes,sysutils,synaser;
+  Classes,sysutils,synaser,utils, general_nogui;
 
 type
   TParityType = (NoneParity, OddParity, EvenParity);
@@ -12,7 +12,7 @@ var
   Ports : TList = nil;
   aData: String;
 
-function SerOpen(const DeviceName: String): LongInt;
+function SerOpen(const DeviceName: String): LongInt;stdcall;
 var
   aDev: TBlockSerial;
 begin
@@ -24,11 +24,12 @@ begin
   Result := aDev.Handle;
 end;
 
-procedure SerClose(Handle: LongInt);
+procedure SerClose(Handle: LongInt); stdcall;
 var
   i: Integer;
   aDev: TBlockSerial;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -41,7 +42,7 @@ begin
       end;
 end;
 
-procedure SerFlush(Handle: LongInt);
+procedure SerFlush(Handle: LongInt); stdcall;
 var
   i: Integer;
 begin
@@ -53,23 +54,33 @@ begin
       end;
 end;
 
-procedure SerParams(Handle: LongInt; BitsPerSec: LongInt; ByteSize: Integer; Parity: TParityType; StopBits: Integer);
+procedure SerParams(Handle: LongInt; BitsPerSec: LongInt; ByteSize: Integer; Parity: TParityType; StopBits: Integer);stdcall;
 var
   i: Integer;
 begin
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
+        TBlockSerial(Ports[i]).GetCommState;
+        TBlockSerial(Ports[i]).DCB.BaudRate:=BitsPerSec;
+        TBlockSerial(Ports[i]).DCB.ByteSize:=ByteSize;
         case Parity of
-        NoneParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'N',StopBits,false,true);
-        OddParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'O',StopBits,false,true);
-        EvenParity:TBlockSerial(Ports[i]).Config(BitsPerSec,ByteSize,'E',StopBits,false,true);
+        NoneParity:TBlockSerial(Ports[i]).DCB.Parity:=0;
+        OddParity:TBlockSerial(Ports[i]).DCB.Parity:=1;
+        EvenParity:TBlockSerial(Ports[i]).DCB.Parity:=2;
         end;
+        TBlockSerial(Ports[i]).DCB.StopBits:=StopBits;
+        TBlockSerial(Ports[i]).DCB.flags:=dcb_Binary;
+        if TBlockSerial(Ports[i]).tag<>1 then
+          begin
+            TBlockSerial(Ports[i]).dcb.Flags := TBlockSerial(Ports[i]).dcb.Flags or dcb_OutxCtsFlow or dcb_RtsControlHandshake
+          end;
+        TBlockSerial(Ports[i]).SetCommState;
         exit;
       end;
 end;
 
-function SerReadEx(Handle: LongInt;Count: LongInt) : PChar;
+function SerReadEx(Handle: LongInt;Count: LongInt) : PChar;stdcall;
 var
   Data,aData: String;
   i: Integer;
@@ -88,16 +99,21 @@ begin
       end;
 end;
 
-function SerReadTimeoutEx(Handle: LongInt;var Data : PChar;Timeout: Integer;Count: LongInt) : Integer;
+function SerReadTimeoutEx(Handle: LongInt;var Data : PChar;Timeout: Integer;Count: LongInt) : Integer;stdcall;
 var
   i: Integer;
   iData: String;
   a: Integer;
+  aTime: Int64;
 begin
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
+        aTime := GetTicks;
+        iData := '';
         iData := TBlockSerial(Ports[i]).RecvPacket(Timeout);
+        while (length(iData)<Count) and (GetTicks-aTime<Timeout) do
+          iData := iData+TBlockSerial(Ports[i]).RecvPacket(Timeout);
         Result := length(iData);
         aData := '';
         for a := 1 to length(iData) do
@@ -107,7 +123,7 @@ begin
       end;
 end;
 
-function SerGetCTS(Handle: LongInt) : Boolean;
+function SerGetCTS(Handle: LongInt) : Boolean;stdcall;
 var
   i: Integer;
 begin
@@ -119,7 +135,7 @@ begin
       end;
 end;
 
-function SerGetDSR(Handle: LongInt) : Boolean;
+function SerGetDSR(Handle: LongInt) : Boolean;stdcall;
 var
   i: Integer;
 begin
@@ -131,7 +147,7 @@ begin
       end;
 end;
 
-procedure SerSetRTS(Handle: LongInt;Value : Boolean);
+procedure SerSetRTS(Handle: LongInt;Value : Boolean);stdcall;
 var
   i: Integer;
 begin
@@ -143,7 +159,22 @@ begin
       end;
 end;
 
-procedure SerSetDTR(Handle: LongInt;Value : Boolean);
+procedure SerRTSToggle(Handle: LongInt;Value : Boolean);stdcall;
+var
+  i: Integer;
+begin
+  for i := 0 to Ports.Count-1 do
+    if TBlockSerial(Ports[i]).Handle=Handle then
+      begin
+        TBlockSerial(Ports[i]).EnableRTSToggle(Value);
+        if Value then
+          TBlockSerial(Ports[i]).Tag:=1
+        else TBlockSerial(Ports[i]).Tag:=0;
+        exit;
+      end;
+end;
+
+procedure SerSetDTR(Handle: LongInt;Value : Boolean);stdcall;
 var
   i: Integer;
 begin
@@ -155,7 +186,7 @@ begin
       end;
 end;
 
-function SerWrite(Handle: LongInt; Data : PChar;Len : Integer): LongInt;
+function SerWrite(Handle: LongInt; Data : PChar;Len : Integer): LongInt;stdcall;
 var
   i: Integer;
 begin
@@ -168,13 +199,16 @@ begin
       end;
 end;
 
-procedure ScriptCleanup;
+procedure ScriptCleanup;stdcall;
 var
   i: Integer;
 begin
   if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
-    TBlockSerial(Ports[i]).Free;
+    begin
+      TBlockSerial(Ports[i]).CloseSocket;
+      TBlockSerial(Ports[i]).Free;
+    end;
   Ports.Clear;
   FreeAndNil(Ports);
 end;
@@ -185,20 +219,21 @@ begin
        +#10+'interface'
        +#10+'type'
        +#10+'  TParityType = (NoneParity, OddParity, EvenParity);'
-       +#10+'  function SerOpen(const DeviceName: String): LongInt;external ''SerOpen@serialport'';'
-       +#10+'  procedure SerClose(Handle: LongInt);external ''SerClose@serialport'';'
-       +#10+'  procedure SerFlush(Handle: LongInt);external ''SerFlush@serialport'';'
+       +#10+'  function SerOpen(const DeviceName: String): LongInt;external ''SerOpen@serialport stdcall'';'
+       +#10+'  procedure SerClose(Handle: LongInt);external ''SerClose@serialport stdcall'';'
+       +#10+'  procedure SerFlush(Handle: LongInt);external ''SerFlush@serialport stdcall'';'
        +#10+'  function SerRead(Handle: LongInt; Count: LongInt): string;'
        +#10+'  function SerReadTimeout(Handle: LongInt;Timeout: Integer;Count: LongInt) : string;'
-       +#10+'  function SerWrite(Handle: LongInt; Data : PChar;Len : Integer): LongInt;external ''SerWrite@serialport'';'
-       +#10+'  procedure SerParams(Handle: LongInt; BitsPerSec: LongInt; ByteSize: Integer; Parity: TParityType; StopBits: Integer);external ''SerParams@serialport'';'
-       +#10+'  function SerGetCTS(Handle: LongInt) : Boolean;external ''SerGetCTS@serialport'';'
-       +#10+'  function SerGetDSR(Handle: LongInt) : Boolean;external ''SerGetDSR@serialport'';'
-       +#10+'  procedure SerSetRTS(Handle: LongInt;Value : Boolean);external ''SerSetRTS@serialport'';'
-       +#10+'  procedure SerSetDTR(Handle: LongInt;Value : Boolean);external ''SerSetDTR@serialport'';'
+       +#10+'  function SerWrite(Handle: LongInt; Data : PChar;Len : Integer): LongInt;external ''SerWrite@serialport stdcall'';'
+       +#10+'  procedure SerParams(Handle: LongInt; BitsPerSec: LongInt; ByteSize: Integer; Parity: TParityType; StopBits: Integer);external ''SerParams@serialport stdcall'';'
+       +#10+'  function SerGetCTS(Handle: LongInt) : Boolean;external ''SerGetCTS@serialport stdcall'';'
+       +#10+'  function SerGetDSR(Handle: LongInt) : Boolean;external ''SerGetDSR@serialport stdcall'';'
+       +#10+'  procedure SerSetRTS(Handle: LongInt;Value : Boolean);external ''SerSetRTS@serialport stdcall'';'
+       +#10+'  procedure SerSetDTR(Handle: LongInt;Value : Boolean);external ''SerSetDTR@serialport stdcall'';'
+       +#10+'  procedure SerRTSToggle(Handle: LongInt;Value : Boolean);external ''SerRTSToggle@serialport stdcall'';'
 
-       +#10+'  function SerReadEx(Handle: LongInt; Count: LongInt): PChar;external ''SerReadEx@serialport'';'
-       +#10+'  function SerReadTimeoutEx(Handle: LongInt;var Data : PChar;Timeout: Integer;Count: LongInt) : Integer;external ''SerReadTimeoutEx@serialport'';'
+       +#10+'  function SerReadEx(Handle: LongInt; Count: LongInt): PChar;external ''SerReadEx@serialport stdcall'';'
+       +#10+'  function SerReadTimeoutEx(Handle: LongInt;var Data : PChar;Timeout: Integer;Count: LongInt) : Integer;external ''SerReadTimeoutEx@serialport stdcall'';'
        +#10+'implementation'
        +#10+'  function SerRead(Handle: LongInt; Count: LongInt): string;'
        +#10+'  var aOut : PChar;'
@@ -249,6 +284,7 @@ exports
   SerGetDSR,
   SerSetRTS,
   SerSetDTR,
+  SerRTSToggle,
 
   ScriptUnitDefinition,
   ScriptCleanup;

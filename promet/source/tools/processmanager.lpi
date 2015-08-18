@@ -35,7 +35,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS-Times2"/>
+        <CommandLineParams Value="--mandant=Central"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">

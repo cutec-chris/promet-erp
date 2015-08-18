@@ -50,6 +50,7 @@ type
     ToolButton5: TToolButton;
     ToolButton6: TToolButton;
     ToolButton7: TToolButton;
+    procedure acGenerateExecute(Sender: TObject);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -67,7 +68,7 @@ var
   fPasswords: TfPasswords;
 
 implementation
-uses uData;
+uses uData,upasswordgenerate;
 {$R *.lfm}
 
 { TfPasswords }
@@ -91,6 +92,15 @@ begin
     end
   else
     DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+end;
+
+procedure TfPasswords.acGenerateExecute(Sender: TObject);
+begin
+  if fPWGenerate.Execute then
+    begin
+      DataSet.Edit;
+      DataSet.FieldByName('PASSWORD').AsString:=fPWGenerate.ePassword.Text;
+    end;
 end;
 
 function TfPasswords.Execute: Boolean;

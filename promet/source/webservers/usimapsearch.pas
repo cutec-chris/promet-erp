@@ -628,6 +628,8 @@ end;
 
 function DateTimeToUnixTime(DateTime: TDateTime): TUnixTime;
 begin
+  if DateTime<EncodeDate(1970, 1, 1) then
+    DateTime:=EncodeDate(1970, 1, 1);
   Result := Round((DateTime - EncodeDate(1970, 1, 1)) * 86400);
 end;
 

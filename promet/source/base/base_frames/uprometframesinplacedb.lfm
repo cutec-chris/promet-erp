@@ -1,4 +1,0 @@
-inherited PrometInplaceDBFrame: TPrometInplaceDBFrame
-  Left = 0
-  Top = 0
-end

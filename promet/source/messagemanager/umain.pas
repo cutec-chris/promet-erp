@@ -37,10 +37,10 @@ type
     acExit: TAction;
     acMarkRead: TAction;
     ActionList1: TActionList;
-    IPCTimer: TIdleTimer;
     ImageList1: TImageList;
     ImageList2: TImageList;
     ImageList3: TImageList;
+    IPCTimer: TTimer;
     MenuItem1: TMenuItem;
     miExit: TMenuItem;
     miHistory: TMenuItem;
@@ -89,7 +89,7 @@ uses {$ifdef WINDOWS}Windows,{$endif}
   uData,Utils,Forms,uBaseApplication,uIntfStrConsts,math,eventlog,uBaseDBInterface,
   umTimeLine,XMLPropStorage,LCLProc,uprometipc,wikitohtml,uMessages,uBaseSearch,
   utask,uOrder,uPerson,uMasterdata,uProjects,uWiki,uDocuments,umeeting,uStatistic,
-  uprometscripts,LCLIntf,uProcessManager;
+  uprometscripts,LCLIntf,uProcessManager,Dialogs,synautil;
 {$R *.lfm}
 const
   RefreshAll = 30;//5 mins refresh
@@ -116,12 +116,33 @@ var
   aLog: TStringList;
   aRec: LargeInt;
   aTime: types.DWORD;
+  s: TStringStream;
+  bTime: String;
 begin
   if not Assigned(Data) then exit;
   if not Data.Ping(Data.MainConnection) then exit;
   if Assigned(fmTimeline) and fmTimeline.Visible then exit;
   with BaseApplication as IBaseApplication do
     Debug('ProgTimer:Enter');
+  if Assigned(ProcessManager) and (not ProcessManager.Active) then
+    with BaseApplication as IBaseApplication do
+      begin
+        Error('Processmanager Disabled: exitcode:'+IntToStr(ProcessManager.ExitStatus));
+        {
+        s := TStringStream.Create('');
+        s.CopyFrom(ProcessManager.Output,ProcessManager.Output.NumBytesAvailable);
+        Error('Processmanager Disabled:'+s.DataString);
+        Showmessage('Processmanager Disabled:'+s.DataString);
+        s.Free;
+        }
+        FreeAndNil(ProcessManager);
+      end;
+  if not Assigned(ProcessManager) then
+    begin
+      with Application as IBaseDBInterface do
+        ProcessManager := uProcessManager.StartProcessManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString);
+    end;
+
   aTime:=GetTickCount;
   ProgTimer.Enabled:=False;
   if acHistory.Enabled then
@@ -129,15 +150,23 @@ begin
       //Show new History Entrys
       if (not FHistory.DataSet.Active) or (FHistory.DataSet.EOF) then //all shown, refresh list
         begin
-          Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>='+Data.DateTimeToFilter(InformRecTime)+')',10,'TIMESTAMPD','DESC');
+          try
+            with Application as IBaseDBInterface do
+              InformRecTime := DecodeRfcDateTime(DBConfig.ReadString('INFORMRECTIME',''));
+            if (InformRecTime=0) or (InformRecTime<Now()-5) then
+             InformRecTime := Now()-5;
+          except
+            on e : Exception do
+              begin
+                InformRecTime:=Now()-5;
+              end;
+          end;
+          Data.SetFilter(FHistory,'('+FFilter+' '+FFilter2+') AND ('+Data.QuoteField('TIMESTAMPD')+'>'+Data.DateTimeToFilter(InformRecTime)+')',0,'TIMESTAMPD');
           History.DataSet.Refresh;
           History.DataSet.First;
         end;
       if (not FHistory.EOF) then
         begin
-          aRec := FHistory.GetBookmark;
-          FHistory.DataSet.Refresh;
-          FHistory.GotoBookmark(aRec);
           if Assigned(fmTimeline) and fmTimeline.Visible then
             begin
               if (fmTimeline.WindowState=wsMinimized) then
@@ -161,10 +190,10 @@ begin
                   then
                     begin
                       tmp:=tmp+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
-                      InformRecTime:=FHistory.TimeStamp.AsDateTime+(1/(MSecsPerDay/MSecsPerSec));
-                      FHistory.DataSet.Next;
-                      break;
                     end;
+                  bTime := TimeToStr(FHistory.FieldByName('TIMESTAMPD').AsDateTime);
+                  if FHistory.FieldByName('TIMESTAMPD').AsDateTime>InformRecTime then
+                    InformRecTime:=FHistory.FieldByName('TIMESTAMPD').AsDateTime+(1/MSecsPerSec);
                   FHistory.DataSet.Next;
                 end;
               if tmp <> '' then
@@ -174,7 +203,7 @@ begin
                   TrayIcon.Icons := ImageList2;
                   TrayIcon.Animate:=True;
                   with Application as IBaseDBInterface do
-                    DBConfig.WriteString('INFORMRECTIME',DateTimeToStr(InformRecTime));
+                    DBConfig.WriteString('INFORMRECTIME',Rfc822DateTime(InformRecTime));
                   TrayIcon.Tag := 0;
                   if Assigned(fmTimeline) then
                     begin
@@ -320,6 +349,8 @@ begin
   end;
 end;
 procedure TfMain.RefreshFilter2;
+var
+  i: Integer;
 begin
   Data.Users.Follows.ActualLimit:=0;
   Data.Users.Follows.Open;
@@ -327,9 +358,11 @@ begin
   with Data.Users.Follows do
     begin
       First;
+      i := 0;
       while not EOF do
         begin
           FFilter2:=FFilter2+' OR ('+Data.QuoteField('OBJECT')+'='+Data.QuoteValue(FieldByName('LINK').AsString)+')';
+          inc(i);
           Next;
         end;
     end;
@@ -365,6 +398,7 @@ var
         end;
   end;
 begin
+  ProcessManager:=nil;
   TrayIcon.AnimateInterval:=200;
   aRefresh:=0;
   Application.OnEndSession:=@ApplicationEndSession;
@@ -425,13 +459,6 @@ begin
         end;
       Info('messagemanager login successful');
       TrayIcon.Hint:=strHint+LineEnding+aMandant+' '+aUser;
-      with Application as IBaseDBInterface do
-        begin
-          if Data.Users.DataSet.Active then
-            begin
-              ProcessManager := uProcessManager.StartProcessManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString);
-            end;
-        end;
 
       Data.RegisterLinkHandler('ALLOBJECTS',@OpenLink,TObjects);
       //Messages
@@ -568,12 +595,6 @@ begin
   acHistory.Enabled:=aUser <> '';
   FHistory := TBaseHistory.CreateEx(Self,Data);
   FHistory.CreateTable;
-  try
-    with Application as IBaseDBInterface do
-      InformRecTime := StrToDateTime(DBConfig.ReadString('INFORMRECTIME',DateTimeToStr(Now()-5)));
-  except
-    InformRecTime:=Now()-5;
-  end;
   if aUser <> '' then
     begin
       if Data.Users.IDCode.AsString<>'' then
@@ -599,7 +620,6 @@ begin
   fTimelineDataSet.CreateTable;
   Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),200);
   SwitchAnimationOff;
-
 end;
 procedure TfMain.acHistoryExecute(Sender: TObject);
 begin

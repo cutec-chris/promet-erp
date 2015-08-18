@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="21">
+      <Unit0>
+        <Filename Value="filedb.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <TopLine Value="13"/>
+        <CursorPos Y="10"/>
+        <UsageCount Value="26"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="tinkerforge\IPConnection.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="579"/>
+        <CursorPos Y="601"/>
+        <UsageCount Value="24"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="tinkerforge\Device.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="86"/>
+        <CursorPos X="35" Y="101"/>
+        <UsageCount Value="23"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="tinkerforge\BrickletLCD20x4.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="108"/>
+        <CursorPos X="14" Y="124"/>
+        <UsageCount Value="23"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="tinkerforge\BrickletLCD16x2.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="103"/>
+        <CursorPos X="14" Y="119"/>
+        <UsageCount Value="23"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbus.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="190"/>
+        <CursorPos X="14" Y="194"/>
+        <UsageCount Value="20"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbusinterfaces.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="184"/>
+        <CursorPos X="29" Y="8"/>
+        <UsageCount Value="20"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsinternbus.pas"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="20"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\D2XXUnit.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="393"/>
+        <CursorPos Y="409"/>
+        <UsageCount Value="20"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcswirelessintf.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="104"/>
+        <CursorPos X="34" Y="108"/>
+        <UsageCount Value="20"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\inc\systemh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="907"/>
+        <CursorPos X="11" Y="925"/>
+        <UsageCount Value="10"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\..\..\tcscmd_git\src\mypersistents.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="199"/>
+        <CursorPos X="15" Y="217"/>
+        <UsageCount Value="10"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="tinkerforge\LEConverter.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="7"/>
+        <CursorPos X="3" Y="16"/>
+        <UsageCount Value="10"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="tinkerforge\BrickletVoltageCurrent.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="384"/>
+        <CursorPos X="3" Y="81"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <UnitName Value="uZeosDBDM"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="1404"/>
+        <CursorPos Y="1258"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\AllzmsqlRegister.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="28" Y="16"/>
+        <UsageCount Value="10"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\janSQL.pas"/>
+        <UnitName Value="janSQL"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="41"/>
+        <CursorPos X="24" Y="63"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\mwStringHashList.pas"/>
+        <UnitName Value="mwStringHashList"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="20"/>
+        <CursorPos X="20" Y="39"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmconnection.pas"/>
+        <UnitName Value="ZMConnection"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="117"/>
+        <CursorPos X="46" Y="136"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
+        <UnitName Value="ZMQueryDataSet"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="117"/>
+        <CursorPos X="22" Y="120"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmreferentialkey.pas"/>
+        <UnitName Value="ZMReferentialKey"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="40"/>
+        <CursorPos X="22" Y="59"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit20>
+    </Units>
+    <JumpHistory Count="12" HistoryIndex="11">
+      <Position1>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\janSQL.pas"/>
+      </Position1>
+      <Position2>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\mwStringHashList.pas"/>
+      </Position2>
+      <Position3>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\mwStringHashList.pas"/>
+        <Caret Line="39" Column="22" TopLine="20"/>
+      </Position3>
+      <Position4>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmconnection.pas"/>
+      </Position4>
+      <Position5>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmconnection.pas"/>
+        <Caret Line="57" Column="62" TopLine="41"/>
+      </Position5>
+      <Position6>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
+      </Position6>
+      <Position7>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
+        <Caret Line="120" Column="22" TopLine="101"/>
+      </Position7>
+      <Position8>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
+        <Caret Line="122" Column="3" TopLine="103"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
+        <Caret Line="128" TopLine="109"/>
+      </Position9>
+      <Position10>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmreferentialkey.pas"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
+        <Caret Line="127" Column="23" TopLine="109"/>
+      </Position11>
+      <Position12>
+        <Filename Value="..\components\TZMSQL-0.1.19\TZMSQL\source\zmquerydataset.pas"/>
+        <Caret Line="161" Column="52" TopLine="136"/>
+      </Position12>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

@@ -1,12 +1,11 @@
 object fMain: TfMain
   Left = 381
-  Height = 600
+  Height = 621
   Top = 131
-  Width = 868
-  ActiveControl = Panel1
+  Width = 935
   Caption = 'Promet-ERP'
-  ClientHeight = 579
-  ClientWidth = 868
+  ClientHeight = 601
+  ClientWidth = 935
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
   Menu = MainMenu1
@@ -14,62 +13,47 @@ object fMain: TfMain
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnResize = FormResize
   OnShow = FormShow
   Position = poScreenCenter
   ShowHint = True
   LCLVersion = '1.5'
   object spTree: TSplitter
-    Left = 291
-    Height = 529
-    Top = 50
+    Left = 283
+    Height = 563
+    Top = 38
     Width = 5
     Color = clBtnFace
     ParentColor = False
     ParentShowHint = False
     ShowHint = True
   end
-  object pcPages: TExtMenuPageControl
-    Left = 296
-    Height = 529
-    Top = 50
-    Width = 572
-    ActivePage = tsStartpage
-    Align = alClient
-    DragMode = dmAutomatic
-    TabIndex = 0
-    TabOrder = 1
-    NewTabImageIndex = 59
-    object tsStartpage: TTabSheet
-      Caption = 'Startseite'
-      ImageIndex = 12
-    end
-  end
   object Panel1: TPanel
     Left = 0
-    Height = 50
+    Height = 38
     Top = 0
-    Width = 868
+    Width = 935
     Align = alTop
     BevelOuter = bvNone
-    ClientHeight = 50
-    ClientWidth = 868
+    ClientHeight = 38
+    ClientWidth = 935
     Color = clBtnFace
     ParentColor = False
     TabOrder = 2
     object Panel6: TPanel
       Left = 0
-      Height = 50
+      Height = 38
       Top = 0
       Width = 218
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 50
+      ClientHeight = 38
       ClientWidth = 218
       TabOrder = 0
       object Label3: TLabel
         Left = 4
         Height = 15
-        Top = 5
+        Top = 0
         Width = 210
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -84,7 +68,7 @@ object fMain: TfMain
       object Bevel3: TBevel
         Left = 0
         Height = 0
-        Top = 47
+        Top = 38
         Width = 8
         Align = alLeft
         BorderSpacing.Top = 4
@@ -93,12 +77,12 @@ object fMain: TfMain
       end
       object ToolBar1: TToolBar
         Left = 39
-        Height = 29
-        Top = 16
+        Height = 26
+        Top = 12
         Width = 179
         BorderSpacing.Left = 39
-        BorderSpacing.Top = 16
-        ButtonHeight = 30
+        BorderSpacing.Top = 12
+        ButtonHeight = 26
         ButtonWidth = 55
         Caption = 'ToolBar1'
         Color = clBtnFace
@@ -108,7 +92,6 @@ object fMain: TfMain
         TabOrder = 0
         object tbMenue: TToolButton
           Left = 1
-          Hint = 'Zurück (zum letzten Eintrag) gehen'#10'mit der Liste können Sie auswählen'#10'zu welchem Eintrag Sie möchten'
           Top = 0
           Action = acBack
           DropdownMenu = pmHistory
@@ -118,7 +101,6 @@ object fMain: TfMain
         end
         object bFfwd: TToolButton
           Left = 68
-          Hint = 'Vor (zum nächsten Eintrag) gehen'
           Top = 0
           Action = acForward
           AutoSize = True
@@ -134,8 +116,8 @@ object fMain: TfMain
       end
       object tbTreeVisible: TSpeedButton
         Left = -1
-        Height = 44
-        Top = 9
+        Height = 41
+        Top = 0
         Width = 37
         Action = acShowTree
         AllowAllUp = True
@@ -148,19 +130,19 @@ object fMain: TfMain
     end
     object pTimes: TPanel
       Left = 218
-      Height = 50
+      Height = 38
       Top = 0
       Width = 63
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 50
+      ClientHeight = 38
       ClientWidth = 63
       TabOrder = 1
       Visible = False
       object Label6: TLabel
         Left = 4
         Height = 15
-        Top = 6
+        Top = 1
         Width = 55
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -174,7 +156,7 @@ object fMain: TfMain
       end
       object Bevel6: TBevel
         Left = 0
-        Height = 42
+        Height = 30
         Top = 4
         Width = 8
         Align = alLeft
@@ -184,9 +166,9 @@ object fMain: TfMain
       end
       object bPauseTime: TSpeedButton
         Left = 4
-        Height = 29
+        Height = 26
         Hint = 'Zeiterfassung pausieren/'#10'wieder starten'
-        Top = 15
+        Top = 12
         Width = 29
         AllowAllUp = True
         Caption = 'acPauseTime'
@@ -234,8 +216,8 @@ object fMain: TfMain
       end
       object bDependencies: TSpeedButton
         Left = 32
-        Height = 29
-        Top = 15
+        Height = 26
+        Top = 12
         Width = 29
         Action = acStandartTime
         AllowAllUp = True
@@ -246,18 +228,18 @@ object fMain: TfMain
     end
     object pTimes1: TPanel
       Left = 281
-      Height = 50
+      Height = 38
       Top = 0
       Width = 247
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 50
+      ClientHeight = 38
       ClientWidth = 247
       TabOrder = 2
       Visible = False
       object Bevel7: TBevel
         Left = 0
-        Height = 42
+        Height = 30
         Top = 4
         Width = 8
         Align = alLeft
@@ -267,7 +249,7 @@ object fMain: TfMain
       end
       object ToolBar2: TToolBar
         Left = 8
-        Height = 50
+        Height = 38
         Top = 0
         Width = 239
         Align = alClient
@@ -283,105 +265,145 @@ object fMain: TfMain
   end
   object tvMain: TPanel
     Left = 0
-    Height = 529
-    Top = 50
-    Width = 291
+    Height = 563
+    Top = 38
+    Width = 283
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 529
-    ClientWidth = 291
+    ClientHeight = 563
+    ClientWidth = 283
     Color = clWindow
     DragMode = dmAutomatic
     ParentColor = False
-    TabOrder = 3
+    TabOrder = 1
     Visible = False
     OnClick = tvMainClick
     object Bevel1: TBevel
       Left = 35
       Height = 1
       Top = 0
-      Width = 256
+      Width = 248
       Align = alTop
       BorderSpacing.Left = 35
       Shape = bsTopLine
     end
   end
-  object pCloseTab: TPanel
-    Left = 843
-    Height = 22
-    Top = 72
-    Width = 21
-    Anchors = [akTop, akRight]
+  object pPages: TPanel
+    AnchorSideLeft.Control = spTree
+    AnchorSideLeft.Side = asrBottom
+    Left = 288
+    Height = 601
+    Top = 0
+    Width = 643
+    Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
-    ClientHeight = 22
-    ClientWidth = 21
-    TabOrder = 4
-    object SpeedButton1: TSpeedButton
+    Caption = 'pPages'
+    ClientHeight = 601
+    ClientWidth = 643
+    TabOrder = 3
+    object pcPages: TExtMenuPageControl
       Left = 0
-      Height = 22
+      Height = 601
       Top = 0
-      Width = 21
-      Action = acCloseTab
+      Width = 643
+      ActivePage = tsStartpage
       Align = alClient
-      Anchors = [akTop, akRight]
-      ShowCaption = False
+      DragMode = dmAutomatic
+      TabIndex = 0
+      TabOrder = 0
+      NewTabImageIndex = 59
+      object tsStartpage: TTabSheet
+        Caption = 'Startseite'
+        ImageIndex = 12
+      end
     end
-  end
-  object pSeparateWindow: TPanel
-    Left = 823
-    Height = 22
-    Top = 72
-    Width = 21
-    Anchors = [akTop, akRight]
-    BevelOuter = bvNone
-    ClientHeight = 22
-    ClientWidth = 21
-    TabOrder = 5
-    object SpeedButton2: TSpeedButton
-      Left = 0
+    object pSeparateWindow: TPanel
+      AnchorSideTop.Control = pcPages
+      AnchorSideRight.Control = pPages
+      AnchorSideRight.Side = asrBottom
+      Left = 597
       Height = 22
-      Top = 0
+      Top = 25
       Width = 21
-      Action = acWindowize
-      Align = alClient
       Anchors = [akTop, akRight]
-      Glyph.Data = {
-        36040000424D3604000000000000360000002800000010000000100000000100
-        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C3916D9BC38E
-        68FFC08B66FFBE8864FFBB8561FFB9835FFFB6805EFFB47E5CFFB27C5AFFB17B
-        58FFAE7957FFAD7656FFAB7554FFA97353FFA97151FFA370519BC8926CFFCECE
-        CEFFD6D6D6FFD4D4D4FFD2D2D2FFD0D0D0FFCDCDCDFFCBCBCBFFCACACAFFC8C8
-        C8FFC6C6C6FFC5C5C5FFC3C3C3FFC2C2C2FFAFAFAFFFA97251FFCA946EFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAA7353FFCC976FFFFFFF
-        FFFFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2
-        F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFAC7554FFCF9A72FFFFFF
-        FFFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2
-        F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFAD7856FFD19C73FFFFFF
-        FFFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3
-        F3FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFB07A58FFD49E75FFFFFF
-        FFFFFDFDFDFFFDFDFDFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5
-        F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2F2FFFFFFFFFFB27C5AFFD5A076FFFFFF
-        FFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8
-        F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFFFFFFFFFB57E5CFFD8A279FFFFFF
-        FFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFCFCFCFFFBFB
-        FBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFFFFFFFFFB7815EFFD9A379FFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBA8560FFDBA47AFFD4D4
-        D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4
-        D4FFD4D4D4FFD4D4D4FFD3D3D3FFD3D3D3FFD3D3D3FFBD8763FFDCA77BFFDBA4
-        7AFFDAA379FFD8A279FFD7A178FFD59F76FFD39E74FFD19C73FFCF9A72FFCD97
-        70FFCB956EFFC9946CFFC7916BFFC48F69FFC38D67FFC08B66FFDDAC85FDF1DC
-        CEFFEAC1A0FFE8B992FFE8B992FFE8B992FFE8B992FFE8B992FFE8B992FFCDC8
-        C5FFE8B992FFCDC8C5FFE8B992FF4464FFFFE8C4A7FFC1906FFDDDAC86C2DDB1
-        8DF4DCA77BFFDCA67AFFDAA47AFFD8A279FFD8A179FFD5A076FFD49E75FFD29D
-        73FFCF9A72FFCE9970FFCB966FFFC9946CFFC49A7AF4C39371C2FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
-      }
-      ShowCaption = False
+      BorderSpacing.Top = 25
+      BorderSpacing.Right = 25
+      BevelOuter = bvNone
+      ClientHeight = 22
+      ClientWidth = 21
+      TabOrder = 2
+      object SpeedButton2: TSpeedButton
+        Left = 0
+        Height = 22
+        Top = 0
+        Width = 21
+        Action = acWindowize
+        Align = alClient
+        Anchors = [akTop, akRight]
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C3916D9BC38E
+          68FFC08B66FFBE8864FFBB8561FFB9835FFFB6805EFFB47E5CFFB27C5AFFB17B
+          58FFAE7957FFAD7656FFAB7554FFA97353FFA97151FFA370519BC8926CFFCECE
+          CEFFD6D6D6FFD4D4D4FFD2D2D2FFD0D0D0FFCDCDCDFFCBCBCBFFCACACAFFC8C8
+          C8FFC6C6C6FFC5C5C5FFC3C3C3FFC2C2C2FFAFAFAFFFA97251FFCA946EFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAA7353FFCC976FFFFFFF
+          FFFFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2
+          F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFAC7554FFCF9A72FFFFFF
+          FFFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2
+          F2FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFAD7856FFD19C73FFFFFF
+          FFFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3
+          F3FFF2F2F2FFF2F2F2FFF2F2F2FFF2F2F2FFFFFFFFFFB07A58FFD49E75FFFFFF
+          FFFFFDFDFDFFFDFDFDFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5
+          F5FFF4F4F4FFF3F3F3FFF2F2F2FFF2F2F2FFFFFFFFFFB27C5AFFD5A076FFFFFF
+          FFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFCFCFCFFFBFBFBFFFAFAFAFFF8F8
+          F8FFF7F7F7FFF5F5F5FFF4F4F4FFF3F3F3FFFFFFFFFFB57E5CFFD8A279FFFFFF
+          FFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFCFCFCFFFBFB
+          FBFFFAFAFAFFF8F8F8FFF7F7F7FFF5F5F5FFFFFFFFFFB7815EFFD9A379FFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBA8560FFDBA47AFFD4D4
+          D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4D4FFD4D4
+          D4FFD4D4D4FFD4D4D4FFD3D3D3FFD3D3D3FFD3D3D3FFBD8763FFDCA77BFFDBA4
+          7AFFDAA379FFD8A279FFD7A178FFD59F76FFD39E74FFD19C73FFCF9A72FFCD97
+          70FFCB956EFFC9946CFFC7916BFFC48F69FFC38D67FFC08B66FFDDAC85FDF1DC
+          CEFFEAC1A0FFE8B992FFE8B992FFE8B992FFE8B992FFE8B992FFE8B992FFCDC8
+          C5FFE8B992FFCDC8C5FFE8B992FF4464FFFFE8C4A7FFC1906FFDDDAC86C2DDB1
+          8DF4DCA77BFFDCA67AFFDAA47AFFD8A279FFD8A179FFD5A076FFD49E75FFD29D
+          73FFCF9A72FFCE9970FFCB966FFFC9946CFFC49A7AF4C39371C2FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
+        }
+        ShowCaption = False
+      end
+    end
+    object pCloseTab: TPanel
+      AnchorSideTop.Control = pcPages
+      AnchorSideRight.Control = pPages
+      AnchorSideRight.Side = asrBottom
+      Left = 617
+      Height = 22
+      Top = 25
+      Width = 21
+      Anchors = [akTop, akRight]
+      BorderSpacing.Top = 25
+      BorderSpacing.Right = 5
+      BevelOuter = bvNone
+      ClientHeight = 22
+      ClientWidth = 21
+      TabOrder = 1
+      object SpeedButton1: TSpeedButton
+        Left = 0
+        Height = 22
+        Top = 0
+        Width = 21
+        Action = acCloseTab
+        Align = alClient
+        Anchors = [akTop, akRight]
+        ShowCaption = False
+      end
     end
   end
   object MainMenu1: TMainMenu
@@ -398,6 +420,10 @@ object fMain: TfMain
     end
     object miView: TMenuItem
       Caption = 'Ansicht'
+      object MenuItem6: TMenuItem
+        Action = acShowTree
+        AutoCheck = True
+      end
     end
     object miSettings: TMenuItem
       Caption = 'Einstellungen'
@@ -508,7 +534,6 @@ object fMain: TfMain
     object acOpen: TAction
       Caption = 'Öffnen'
       ImageIndex = 19
-      OnExecute = acOpenExecute
     end
     object acNewTermin: TAction
       Category = 'erfassung'
@@ -585,7 +610,7 @@ object fMain: TfMain
     object acShowTree: TAction
       Category = 'Ansicht'
       AutoCheck = True
-      Caption = 'Baum'
+      Caption = 'Baum anzeigen'
       Checked = True
       GroupIndex = 1234
       Hint = 'Baum anzeigen/ausblenden'

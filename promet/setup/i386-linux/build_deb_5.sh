@@ -31,16 +31,18 @@ chmod 666 $BuildDir/etc/init.d/promet-process
 chmod +x $BuildDir/etc/init.d/promet-process
 ln -s /usr/lib/$Program/tools/imapserver $BuildDir/usr/bin/promet-erp-imap
 ln -s /usr/lib/$Program/tools/webdavserver $BuildDir/usr/bin/promet-erp-webdav
-ln -s /usr/lib/$Program/tools/local_appbase $BuildDir/usr/bin/promet-erp-appbase
+ln -s /usr/lib/$Program/tools/webserver $BuildDir/usr/bin/promet-erp-appbase
 ln -s /usr/lib/$Program/tools/mta $BuildDir/usr/bin/promet-erp-mta
 ln -s /usr/lib/$Program/tools/nntpserver $BuildDir/usr/bin/promet-erp-nntp
 ln -s /usr/lib/$Program/tools/syslog $BuildDir/usr/bin/promet-erp-syslog
 ln -s /usr/lib/$Program/tools/pscript $BuildDir/usr/bin/promet-script
+ln -s /usr/lib/$Program/tools/message_xmpp $BuildDir/usr/bin/promet-erp-xmpp
 chmod 666 $BuildDir/usr/bin/promet-erp-imap
 chmod 666 $BuildDir/usr/bin/promet-erp-webdav
 chmod 666 $BuildDir/usr/bin/promet-erp-appbase
 chmod 666 $BuildDir/usr/bin/promet-erp-mta
 chmod 666 $BuildDir/usr/bin/promet-erp-nntp
+chmod 666 $BuildDir/usr/bin/promet-erp-xmpp
 ln -s /usr/lib/$Program/cmdwizardmandant $BuildDir/usr/bin/promet-erp-cmdwizardmandant
 chmod 666 $BuildDir/usr/bin/promet-erp-cmdwizardmandant
 DebSize=$(du -s $BuildDir | cut -f1)

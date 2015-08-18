@@ -90,7 +90,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; DLLt"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; promet"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
@@ -151,13 +151,22 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="2">
+    <Exceptions Count="5">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
       <Item2>
         <Name Value="EPSCompilerException"/>
       </Item2>
+      <Item3>
+        <Name Value="EProcess"/>
+      </Item3>
+      <Item4>
+        <Name Value="EZSQLException"/>
+      </Item4>
+      <Item5>
+        <Name Value="EZDatabaseError"/>
+      </Item5>
     </Exceptions>
   </Debugging>
 </CONFIG>

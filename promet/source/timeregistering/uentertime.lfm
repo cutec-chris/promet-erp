@@ -81,7 +81,7 @@ object fEnterTime: TfEnterTime
   object lTimeToday: TLabel
     Left = 478
     Height = 13
-    Top = 8
+    Top = 24
     Width = 49
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
@@ -93,7 +93,7 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 488
     Height = 21
-    Top = 21
+    Top = 37
     Width = 39
     Anchors = [akTop, akRight]
     Caption = '7:00'
@@ -107,11 +107,10 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 490
     Height = 26
-    Top = 77
+    Top = 89
     Width = 37
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
-    BorderSpacing.Top = 2
     Caption = 'aktuelle'#13#10'Woche'
     ParentColor = False
   end
@@ -120,7 +119,7 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 490
     Height = 18
-    Top = 103
+    Top = 115
     Width = 37
     Anchors = [akTop, akRight]
     Caption = '40:00'
@@ -133,7 +132,7 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 490
     Height = 18
-    Top = 149
+    Top = 159
     Width = 37
     Anchors = [akTop, akRight]
     Caption = '85:00'
@@ -146,11 +145,10 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 486
     Height = 26
-    Top = 123
+    Top = 133
     Width = 41
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
-    BorderSpacing.Top = 2
     Caption = 'aktueller'#13#10'Monat'
     ParentColor = False
   end
@@ -159,10 +157,9 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 492
     Height = 13
-    Top = 44
+    Top = 58
     Width = 35
     Anchors = [akTop, akRight]
-    BorderSpacing.Top = 2
     Caption = 'Pausen'
     ParentColor = False
   end
@@ -171,7 +168,7 @@ object fEnterTime: TfEnterTime
     AnchorSideTop.Side = asrBottom
     Left = 482
     Height = 18
-    Top = 57
+    Top = 71
     Width = 45
     Anchors = [akTop, akRight]
     Caption = '01:00'
@@ -245,7 +242,6 @@ object fEnterTime: TfEnterTime
       Align = alLeft
       Anchors = [akTop, akLeft, akRight, akBottom]
       BevelOuter = bvNone
-      Caption = 'Panel6'
       ClientHeight = 139
       ClientWidth = 314
       TabOrder = 4
@@ -415,7 +411,7 @@ object fEnterTime: TfEnterTime
           Height = 21
           Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
           Top = 0
-          Width = 229
+          Width = 205
           Anchors = [akTop, akLeft, akRight]
           ButtonWidth = 23
           Glyph.Data = {
@@ -502,7 +498,7 @@ object fEnterTime: TfEnterTime
           Height = 21
           Hint = 'Suchen Sie mithilfe des Buttons einen passenden Eintrag'#13#10'oder geben Sie einen freien Text ein'
           Top = 0
-          Width = 229
+          Width = 205
           Anchors = [akTop, akLeft, akRight]
           ButtonWidth = 23
           Glyph.Data = {

@@ -32,7 +32,7 @@
     <RequiredPackages Count="6">
       <Item1>
         <PackageName Value="pImportExport"/>
-        <DefaultFilename Value="..\import\pimportexport.lpk"/>
+        <DefaultFilename Value="..\base\base_import\pimportexport.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pvisualbaseframes"/>
@@ -54,7 +54,7 @@
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item6>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="3">
       <Unit0>
         <Filename Value="tableedit.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -75,13 +75,6 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uPassword"/>
       </Unit2>
-      <Unit3>
-        <Filename Value="..\base\udata.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="Data"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -115,9 +108,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
@@ -132,4 +122,4 @@
       </Item3>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

@@ -44,6 +44,7 @@ type
 
 implementation
 
+uses uBaseVisualApplication,uIntfStrConsts,uBaseDBInterface;
 {$R *.lfm}
 
 { TfTimeFrame }
@@ -63,6 +64,7 @@ begin
   inherited ShowFrame;
   FTimeReg.SetActive;
 end;
-
+initialization
+//  TBaseVisualApplication(Application).RegisterForm(TfTimeFrame);
 end.
 

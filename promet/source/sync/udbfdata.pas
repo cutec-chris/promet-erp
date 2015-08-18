@@ -5,7 +5,7 @@ unit udbfdata;
 interface
 
 uses
-  Classes, SysUtils, dbf, FileUtil,  Forms, uBaseDBInterface, lconvencoding,
+  Classes, SysUtils, dbf, FileUtil,  Forms, uBaseDBInterface, uminiconvencoding,
   Dialogs, lclproc;
 
 type
@@ -189,4 +189,4 @@ end;
 initialization
 
 end.
-
+

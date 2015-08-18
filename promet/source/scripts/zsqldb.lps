@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="28">
+      <Unit0>
+        <Filename Value="zsqldb.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="28"/>
+        <CursorPos X="132" Y="38"/>
+        <UsageCount Value="49"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uzsqldbdataset"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="17"/>
+        <CursorPos X="54" Y="31"/>
+        <UsageCount Value="42"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="uzsqldbfunctions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uzsqldbfunctions"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="21"/>
+        <CursorPos X="10" Y="36"/>
+        <UsageCount Value="41"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\base\dbintfs\ubasedatasetinterfaces.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="93"/>
+        <CursorPos Y="130"/>
+        <UsageCount Value="19"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="tinkerforge\IPConnection.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="579"/>
+        <CursorPos Y="601"/>
+        <UsageCount Value="23"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="tinkerforge\Device.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="86"/>
+        <CursorPos X="35" Y="101"/>
+        <UsageCount Value="22"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="tinkerforge\BrickletLCD20x4.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="108"/>
+        <CursorPos X="14" Y="124"/>
+        <UsageCount Value="22"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="tinkerforge\BrickletLCD16x2.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="103"/>
+        <CursorPos X="14" Y="119"/>
+        <UsageCount Value="22"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbus.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="190"/>
+        <CursorPos X="14" Y="194"/>
+        <UsageCount Value="19"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbusinterfaces.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="184"/>
+        <CursorPos X="29" Y="8"/>
+        <UsageCount Value="19"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsinternbus.pas"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="19"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\D2XXUnit.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="393"/>
+        <CursorPos Y="409"/>
+        <UsageCount Value="19"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcswirelessintf.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="104"/>
+        <CursorPos X="34" Y="108"/>
+        <UsageCount Value="19"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="C:\Programme\lazarus124\fpc\2.6.4\source\rtl\inc\systemh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="907"/>
+        <CursorPos X="11" Y="925"/>
+        <UsageCount Value="9"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\..\..\..\tcscmd_git\src\mypersistents.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="199"/>
+        <CursorPos X="15" Y="217"/>
+        <UsageCount Value="9"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="tinkerforge\LEConverter.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="7"/>
+        <CursorPos X="3" Y="16"/>
+        <UsageCount Value="9"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="tinkerforge\BrickletVoltageCurrent.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="384"/>
+        <CursorPos X="3" Y="81"/>
+        <UsageCount Value="9"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <UnitName Value="uZeosDBDM"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="132"/>
+        <CursorPos X="78" Y="145"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <UnitName Value="uBaseDBInterface"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="157"/>
+        <CursorPos X="14" Y="170"/>
+        <UsageCount Value="30"/>
+        <Loaded Value="True"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\..\..\general\src\umodifiedds.pas"/>
+        <UnitName Value="uModifiedDS"/>
+        <EditorIndex Value="5"/>
+        <CursorPos Y="9"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\fcl-base\src\rttiutils.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="53"/>
+        <CursorPos X="3" Y="68"/>
+        <UsageCount Value="9"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="..\base\dbintfs\uwiki.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="9"/>
+        <CursorPos X="49" Y="24"/>
+        <UsageCount Value="9"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="..\..\..\general\src\ubasedatasetinterfaces.pas"/>
+        <UnitName Value="uBaseDatasetInterfaces"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="90"/>
+        <CursorPos Y="103"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="..\base\dbintfs\ubasedbdataset.pas"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="9"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <UnitName Value="uBaseDbClasses"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="100"/>
+        <CursorPos X="41" Y="120"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="..\..\..\..\..\fpc\trunk\packages\fcl-db\src\base\db.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1900"/>
+        <CursorPos X="3" Y="1885"/>
+        <UsageCount Value="9"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="..\components\zeos\src\component\ZAbstractRODataset.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="61"/>
+        <CursorPos X="43" Y="76"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="..\..\output\x86_64-linux\devel\Help.perml"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="38" Y="2"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit27>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="1007" Column="65" TopLine="993"/>
+      </Position1>
+      <Position2>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="1015" Column="34" TopLine="998"/>
+      </Position2>
+      <Position3>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="1013" Column="45" TopLine="998"/>
+      </Position3>
+      <Position4>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="1015" Column="54" TopLine="1000"/>
+      </Position4>
+      <Position5>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="1017" Column="65" TopLine="1002"/>
+      </Position5>
+      <Position6>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="1025" Column="69" TopLine="1010"/>
+      </Position6>
+      <Position7>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="1029" Column="33" TopLine="1010"/>
+      </Position7>
+      <Position8>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="1035" Column="25" TopLine="1020"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\..\..\general\src\ubasedatasetinterfaces.pas"/>
+        <Caret Line="196" TopLine="179"/>
+      </Position9>
+      <Position10>
+        <Filename Value="..\..\..\general\src\ubasedatasetinterfaces.pas"/>
+        <Caret Line="137" TopLine="114"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="34" Column="27" TopLine="19"/>
+      </Position11>
+      <Position12>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="64" Column="41" TopLine="40"/>
+      </Position12>
+      <Position13>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="65" Column="32" TopLine="41"/>
+      </Position13>
+      <Position14>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="66" Column="30" TopLine="42"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="142" Column="32" TopLine="117"/>
+      </Position15>
+      <Position16>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="904" Column="64" TopLine="884"/>
+      </Position16>
+      <Position17>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="1149" Column="41" TopLine="1124"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="1151" Column="26" TopLine="1126"/>
+      </Position18>
+      <Position19>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="1270" Column="36" TopLine="1254"/>
+      </Position19>
+      <Position20>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="1273" Column="48" TopLine="1254"/>
+      </Position20>
+      <Position21>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="1278" Column="26" TopLine="1254"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
+        <Caret Line="1390" Column="48" TopLine="1366"/>
+      </Position22>
+      <Position23>
+        <Filename Value="..\..\..\general\src\ubasedatasetinterfaces.pas"/>
+        <Caret Line="207" Column="9" TopLine="192"/>
+      </Position23>
+      <Position24>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="1035" Column="25" TopLine="1020"/>
+      </Position24>
+      <Position25>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="118" TopLine="105"/>
+      </Position25>
+      <Position26>
+        <Filename Value="uzsqldbdataset.pas"/>
+        <Caret Line="31" Column="54" TopLine="17"/>
+      </Position26>
+      <Position27>
+        <Filename Value="zsqldb.lpr"/>
+        <Caret Line="63" Column="13" TopLine="61"/>
+      </Position27>
+      <Position28>
+        <Filename Value="uzsqldbfunctions.pas"/>
+        <Caret Line="95" Column="37" TopLine="95"/>
+      </Position28>
+      <Position29>
+        <Filename Value="uzsqldbfunctions.pas"/>
+        <Caret Line="36" Column="17" TopLine="21"/>
+      </Position29>
+      <Position30>
+        <Filename Value="uzsqldbfunctions.pas"/>
+        <Caret Line="95" Column="17" TopLine="83"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

@@ -1,4 +1,0 @@
-inherited PrometInplaceFrame: TPrometInplaceFrame
-  Height = 238
-  Width = 322
-end
