@@ -25,53 +25,6 @@ var
 
 {$R pstarter.res}
 
-
-{$IFDEF WINDOWS}
-function IsFileOpen(FileName: string): Boolean;
-var
-  HFileRes: HFILE;
-begin
-  Result := False;
-  if not FileExists(FileName) then Exit;
-  HFileRes := CreateFile(PChar(FileName),
-                         GENERIC_READ or GENERIC_WRITE,
-                         0,
-                         nil,
-                         OPEN_EXISTING,
-                         FILE_ATTRIBUTE_NORMAL,
-                         0);
-  Result := (HFileRes = INVALID_HANDLE_VALUE);
-  if not Result then
-    CloseHandle(HFileRes);
-end;{$ELSE}
-function IsFileOpen(const FileName: string): Boolean;
-var
-  atmp: TStringList;
-begin
-  result:=false;
-  atmp := TStringList.Create;
-  with TProcess.Create(nil) do try
-    try
-      // see: http://wiki.lazarus.freepascal.org/Executing_External_Programs
-      CommandLine := 'lsof "'+FileName+'"';  // deprecated but ok
-      // wait until command done, record output
-      Options := Options + [poWaitOnExit, poUsePipes];
-      Execute;
-      atmp.LoadFromStream(Output);
-    except
-      FreeAndNil(atmp);
-    end
-  finally
-    Free;
-  end;
-  if Assigned(atmp) then Result := atmp.Count>1
-  else
-    begin
-    end;
-  FreeAndNil(atmp);
-end;
-{$ENDIF}
-
 begin
   Application.Initialize;
   Proc := TProcessUTF8.Create(nil);
@@ -98,9 +51,10 @@ begin
         tmp := copy(tmp,2,length(tmp)-2);
       if FileExistsUTF8(tmp) then break;
     end;
+  sleep(1500);
   if FileExistsUTF8(tmp) then
     begin
-      while IsFileOpen(tmp) do sleep(100);
+      while IsFileOpen(tmp) do sleep(500);
     end;
   Application.CreateForm(TfProgramEnded, fProgramEnded);
   fProgramEnded.Filename := ExtractFilename(tmp);

@@ -29,7 +29,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="de &quot;\usr\bin\xdg-open &quot;\tmp\DOCUMENTS.ID4294896793_Leerseite OpenOffice_84027\Leerseite OpenOffice.odt&quot;&quot;"/>
+        <CommandLineParams Value="de &quot;\usr\bin\xdg-open &quot;\tmp\1\1.odt&quot;&quot;"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
