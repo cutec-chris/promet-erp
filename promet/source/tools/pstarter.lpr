@@ -45,17 +45,30 @@ begin
     CloseHandle(HFileRes);
 end;{$ELSE}
 function IsFileOpen(const FileName: string): Boolean;
-var Stream: TFileStream;
+var
+  atmp: TStringList;
 begin
-  Result := false;
-  if not FileExists(FileName) then exit;
-  try
-    Stream := TFileStream.Create(FileName,fmOpenRead or fmShareExclusive);
-  except
-    Result := true;
-    exit;
+  result:=false;
+  atmp := TStringList.Create;
+  with TProcess.Create(nil) do try
+    try
+      // see: http://wiki.lazarus.freepascal.org/Executing_External_Programs
+      CommandLine := 'lsof "'+FileName+'"';  // deprecated but ok
+      // wait until command done, record output
+      Options := Options + [poWaitOnExit, poUsePipes];
+      Execute;
+      atmp.LoadFromStream(Output);
+    except
+      FreeAndNil(atmp);
+    end
+  finally
+    Free;
   end;
-  Stream.Free;
+  if Assigned(atmp) then Result := atmp.Count>1
+  else
+    begin
+    end;
+  FreeAndNil(atmp);
 end;
 {$ENDIF}
 
