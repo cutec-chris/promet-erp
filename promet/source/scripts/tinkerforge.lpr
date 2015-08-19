@@ -28,6 +28,7 @@ type
 var
   Station : TStation;
   BrickV: TProcess;
+  DeviceList : string;
 
 procedure TStation.ipconConnected(sender: TIPConnection;
   const connectReason: byte);
@@ -46,6 +47,7 @@ begin
   if ((enumerationType = IPCON_ENUMERATION_TYPE_CONNECTED) or
       (enumerationType = IPCON_ENUMERATION_TYPE_AVAILABLE)) then
     begin
+      DeviceList := DeviceList+IntToStr(deviceIdentifier)+','+uid+','+position+','+connectedUid+#10;
       if (deviceIdentifier = BRICKLET_LCD_20X4_DEVICE_IDENTIFIER) then begin
         Dev := TBrickletLCD20x4.Create(UID, ipcon);
         Devices.Add(Dev);
@@ -89,6 +91,7 @@ begin
 end;
 function TfConnect(Host : PChar;Port : Integer) : Boolean;stdcall;
 begin
+  DeviceList := '';
   if not Assigned(Station) then
     Station := TStation.Create;
   try
@@ -407,6 +410,10 @@ begin
         end;
     //end;
 end;
+function TfGetDeviceList : pchar;stdcall;
+begin
+  Result := pchar(DeviceList);
+end;
 
 procedure ScriptCleanup;
 begin
@@ -449,6 +456,7 @@ begin
        +#10+'function TfGetPower(Position : char) : LongInt;stdcall;'
 
        +#10+'function TfSetRelais(Position : char;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;'
+       +#10+'function TfGetDeviceList : pchar;stdcall;'
             ;
 end;
 
@@ -471,6 +479,7 @@ exports
   TfGetPowerById,
 
   TfSetRelais,
+  TfGetDeviceList,
 
   ScriptCleanup,
   ScriptTool,
