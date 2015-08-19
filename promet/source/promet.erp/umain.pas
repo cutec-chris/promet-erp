@@ -1478,7 +1478,7 @@ begin
       debug('LoginTime: '+IntToStr(GetTickCount64-aTime));
   finally
     fSplash.Hide;
-    fMain.Visible:=True;
+    fMain.Show;
   end;
   IPCTimer.Enabled:=True;
 end;

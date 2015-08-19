@@ -17,6 +17,7 @@ object fMain: TfMain
   OnShow = FormShow
   Position = poScreenCenter
   ShowHint = True
+  ShowInTaskBar = stAlways
   LCLVersion = '1.5'
   object spTree: TSplitter
     Left = 283
@@ -258,7 +259,6 @@ object fMain: TfMain
         Caption = 'ToolBar2'
         EdgeBorders = []
         EdgeInner = esNone
-        Images = fVisualControls.ImageListBig
         TabOrder = 0
       end
     end
@@ -407,6 +407,7 @@ object fMain: TfMain
     end
   end
   object MainMenu1: TMainMenu
+    Images = fVisualControls.Images
     left = 128
     top = 88
     object miMandant: TMenuItem
@@ -797,6 +798,7 @@ object fMain: TfMain
     top = 136
   end
   object pmHistory: TPopupMenu
+    Images = fVisualControls.Images
     OnPopup = pmHistoryPopup
     left = 72
     top = 88
