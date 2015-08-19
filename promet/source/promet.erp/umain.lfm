@@ -17,7 +17,6 @@ object fMain: TfMain
   OnShow = FormShow
   Position = poScreenCenter
   ShowHint = True
-  ShowInTaskBar = stAlways
   LCLVersion = '1.5'
   object spTree: TSplitter
     Left = 283
