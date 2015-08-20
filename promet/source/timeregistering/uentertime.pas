@@ -814,6 +814,7 @@ begin
   else if FList.gList.SelectedColumn.FieldName = 'PROJECT' then
     begin
       fSearch.OnOpenItem:=@SetListLinkfromSearch;
+      fSearch.AllowSearchTypes(strProject);
       if fSearch.Execute(True,'TIMEPROJ',strSearchfromTimeregisteringMode) then
         Project := fSearch.GetLink;
       fList.gList.SetFocus;
@@ -830,6 +831,7 @@ procedure TfEnterTime.eProjectButtonClick(Sender: TObject);
 begin
   fSearch.SetLanguage;
   fSearch.OnOpenItem:=@SetProjectfromSearch;
+  fSearch.AllowSearchTypes(strProject);
   fSearch.Execute(True,'TIMEPROJ',strSearchfromTimeregisteringMode);
 end;
 procedure TfEnterTime.FListFilterChanged(Sender: TObject);
