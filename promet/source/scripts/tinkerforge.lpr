@@ -47,7 +47,7 @@ begin
   if ((enumerationType = IPCON_ENUMERATION_TYPE_CONNECTED) or
       (enumerationType = IPCON_ENUMERATION_TYPE_AVAILABLE)) then
     begin
-      DeviceList := DeviceList+IntToStr(deviceIdentifier)+','+uid+','+position+','+connectedUid+#10;
+      DeviceList := DeviceList+connectedUid+','+IntToStr(deviceIdentifier)+','+position+','+uid+#10;
       if (deviceIdentifier = BRICKLET_LCD_20X4_DEVICE_IDENTIFIER) then begin
         Dev := TBrickletLCD20x4.Create(UID, ipcon);
         Devices.Add(Dev);

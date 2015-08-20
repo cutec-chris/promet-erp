@@ -9,9 +9,9 @@
         <Filename Value="tinkerforge.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="82"/>
-        <CursorPos Y="95"/>
-        <UsageCount Value="25"/>
+        <TopLine Value="43"/>
+        <CursorPos X="92" Y="50"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -19,9 +19,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="IPConnection"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="453"/>
         <CursorPos Y="484"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -29,9 +28,9 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Device"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="86"/>
+        <TopLine Value="306"/>
         <CursorPos X="35" Y="101"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -40,7 +39,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="108"/>
         <CursorPos X="14" Y="124"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="26"/>
       </Unit3>
       <Unit4>
         <Filename Value="tinkerforge\BrickletLCD16x2.pas"/>
@@ -48,7 +47,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="103"/>
         <CursorPos X="14" Y="119"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="26"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\..\..\tcscmd_git\src\tcsbus\utcsbus.pas"/>
