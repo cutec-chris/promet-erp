@@ -59,6 +59,12 @@ If errorlevel 1 goto end
 lazbuild --build-mode=Default -q ..\..\source\sync\twitterreceiver.lpi
 If errorlevel 1 goto end
 
+lazbuild --build-mode=Default -q ..\..\source\plugins\oofile\oofile.lpi
+lazbuild --build-mode=Default -q ..\..\source\plugins\dwgfile\dwgfile.lpi
+lazbuild --build-mode=Default -q ..\..\source\plugins\solidworks\solidworks.lpi
+lazbuild --build-mode=Default -q ..\..\source\plugins\vectorfile\vectorfile.lpi
+lazbuild --build-mode=Default -q ..\..\source\plugins\winthumb\winthumb.lpi
+
 lazbuild --build-mode=Default -q ..\..\source\tools\portableapps.lpi
 lazbuild --build-mode=Default -q ..\..\source\tools\cdmenue.lpi
 If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\tools\cdmenue.lpi

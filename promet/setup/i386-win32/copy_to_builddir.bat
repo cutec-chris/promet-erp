@@ -25,3 +25,4 @@ copy ..\..\output\i386-win32\checkin.exe ..\executables\%BASEVERSION%\%TARGETCPU
 copy ..\..\output\i386-win32\tableedit.exe ..\executables\%BASEVERSION%\%TARGETCPU%
 copy ..\..\output\i386-win32\clientmanagement.exe ..\executables\%BASEVERSION%\%TARGETCPU%
 copy ..\..\output\i386-win32\cdmenue.exe ..\executables\%BASEVERSION%\%TARGETCPU%
+copy ..\..\output\i386-win32\plugins\*.wlx ..\executables\%BASEVERSION%\%TARGETCPU%
