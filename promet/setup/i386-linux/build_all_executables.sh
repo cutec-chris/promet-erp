@@ -82,3 +82,12 @@ lazbuild $Params -q ../../source/webservers/syslog.lpi  >> scompile-$2-web.log
 echo "compiling message_xmpp..."  >> scompile-$2-web.log
 lazbuild $Params -q ../../source/webservers/message_xmpp.lpi  >> scompile-$2-web.log
 grep -w "Error:" scompile-$2-web.log
+
+echo "compiling plugins..."
+echo "compiling plugins..."  > scompile-$2-plugins.log
+lazbuild --build-mode=Default -q ../../source/plugins/oofile/oofile.lpi
+lazbuild --build-mode=Default -q ../../source/plugins/dwgfile/dwgfile.lpi
+lazbuild --build-mode=Default -q ../../source/plugins/solidworks/solidworks.lpi
+lazbuild --build-mode=Default -q ../../source/plugins/vectorfile/vectorfile.lpi
+lazbuild --build-mode=Default -q ../../source/plugins/winthumb/winthumb.lpi
+
