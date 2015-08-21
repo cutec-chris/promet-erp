@@ -28,6 +28,7 @@ type
 var
   Station : TStation;
   BrickV: TProcess;
+  DeviceList : string;
 
 procedure TStation.ipconConnected(sender: TIPConnection;
   const connectReason: byte);
@@ -46,6 +47,7 @@ begin
   if ((enumerationType = IPCON_ENUMERATION_TYPE_CONNECTED) or
       (enumerationType = IPCON_ENUMERATION_TYPE_AVAILABLE)) then
     begin
+      DeviceList := DeviceList+connectedUid+','+IntToStr(deviceIdentifier)+','+position+','+uid+#10;
       if (deviceIdentifier = BRICKLET_LCD_20X4_DEVICE_IDENTIFIER) then begin
         Dev := TBrickletLCD20x4.Create(UID, ipcon);
         Devices.Add(Dev);
@@ -89,6 +91,7 @@ begin
 end;
 function TfConnect(Host : PChar;Port : Integer) : Boolean;stdcall;
 begin
+  DeviceList := '';
   if not Assigned(Station) then
     Station := TStation.Create;
   try
@@ -228,7 +231,7 @@ begin
         end;
     end;
 end;
-function TfGetVoltage(position : char) : LongInt;stdcall;
+function TfGetVoltage(position : pchar) : LongInt;stdcall;
 var
   a: Integer;
   i: Integer;
@@ -246,7 +249,7 @@ begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
         begin
           TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
-          if lowercase(position)=lowercase(aPosition) then
+          if (lowercase(position)=lowercase(aConUID)+'.'+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
             begin
               Result := TBrickletVoltageCurrent(Station.Devices[i]).GetVoltage;
               exit;
@@ -276,7 +279,7 @@ begin
         end;
     end;
 end;
-function TfGetCurrent(position : char) : LongInt;stdcall;
+function TfGetCurrent(position : pchar) : LongInt;stdcall;
 var
   a: Integer;
   i: Integer;
@@ -294,7 +297,7 @@ begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
         begin
           TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
-          if lowercase(position)=lowercase(aPosition) then
+          if (lowercase(position)=lowercase(aConUID)+'.'+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
             begin
               Result := TBrickletVoltageCurrent(Station.Devices[i]).GetCurrent;
               exit;
@@ -324,7 +327,7 @@ begin
         end;
     end;
 end;
-function TfGetPower(position : char) : LongInt;stdcall;
+function TfGetPower(position : pchar) : LongInt;stdcall;
 var
   a: Integer;
   i: Integer;
@@ -342,7 +345,7 @@ begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
         begin
           TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
-          if lowercase(position)=lowercase(aPosition) then
+          if (lowercase(position)=lowercase(aConUID)+'.'+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
             begin
               Result := TBrickletVoltageCurrent(Station.Devices[i]).GetPower;
               exit;
@@ -352,7 +355,7 @@ begin
     end;
 end;
 
-function TfSetRelais(Position : char;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;
+function TfSetRelais(Position : pchar;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;
 var
   aUid: string;
   aConUID: string;
@@ -372,7 +375,7 @@ begin
       //if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
         begin
           TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
-          if lowercase(position)=lowercase(aPosition) then
+          if (lowercase(position)=lowercase(aConUID)+'.'+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
             begin
               if TObject(Station.Devices[i]) is TBrickletDualRelay then
                 begin
@@ -406,6 +409,10 @@ begin
             end;
         end;
     //end;
+end;
+function TfGetDeviceList : pchar;stdcall;
+begin
+  Result := pchar(DeviceList);
 end;
 
 procedure ScriptCleanup;
@@ -442,13 +449,14 @@ begin
        +#10+'function TfLCDButtonPressed(Button : byte) : Boolean;'
 
        +#10+'function TfGetVoltageById(id : Integer) : LongInt;stdcall;'
-       +#10+'function TfGetVoltage(Position : char) : LongInt;stdcall;'
+       +#10+'function TfGetVoltage(Position : pchar) : LongInt;stdcall;'
        +#10+'function TfGetCurrentById(id : Integer) : LongInt;stdcall;'
-       +#10+'function TfGetCurrent(Position : char) : LongInt;stdcall;'
+       +#10+'function TfGetCurrent(Position : pchar) : LongInt;stdcall;'
        +#10+'function TfGetPowerById(id : Integer) : LongInt;stdcall;'
-       +#10+'function TfGetPower(Position : char) : LongInt;stdcall;'
+       +#10+'function TfGetPower(Position : pchar) : LongInt;stdcall;'
 
-       +#10+'function TfSetRelais(Position : char;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;'
+       +#10+'function TfSetRelais(Position : pchar;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;'
+       +#10+'function TfGetDeviceList : pchar;stdcall;'
             ;
 end;
 
@@ -471,6 +479,7 @@ exports
   TfGetPowerById,
 
   TfSetRelais,
+  TfGetDeviceList,
 
   ScriptCleanup,
   ScriptTool,
