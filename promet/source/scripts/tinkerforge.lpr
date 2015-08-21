@@ -249,7 +249,7 @@ begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
         begin
           TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
-          if (lowercase(position)=lowercase(aConUID)+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
+          if (lowercase(position)=lowercase(aConUID)+'.'+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
             begin
               Result := TBrickletVoltageCurrent(Station.Devices[i]).GetVoltage;
               exit;
@@ -297,7 +297,7 @@ begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
         begin
           TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
-          if (lowercase(position)=lowercase(aConUID)+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
+          if (lowercase(position)=lowercase(aConUID)+'.'+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
             begin
               Result := TBrickletVoltageCurrent(Station.Devices[i]).GetCurrent;
               exit;
@@ -345,7 +345,7 @@ begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
         begin
           TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
-          if (lowercase(position)=lowercase(aConUID)+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
+          if (lowercase(position)=lowercase(aConUID)+'.'+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
             begin
               Result := TBrickletVoltageCurrent(Station.Devices[i]).GetPower;
               exit;
@@ -375,7 +375,7 @@ begin
       //if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
         begin
           TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
-          if (lowercase(position)=lowercase(aConUID)+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
+          if (lowercase(position)=lowercase(aConUID)+'.'+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
             begin
               if TObject(Station.Devices[i]) is TBrickletDualRelay then
                 begin
