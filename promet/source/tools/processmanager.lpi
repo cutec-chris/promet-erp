@@ -35,7 +35,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Central"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-cutec/ --mandant=CUTEC"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">
