@@ -1,0 +1,12 @@
+Source: promet-erp-plugins
+Package: promet-erp-plugins
+Version: VERSION
+Section: office
+Priority: optional
+Maintainer: Christian Ulrich <info@free-erp.de>
+Architecture: ARCH
+Installed-Size: DEBSIZE
+Depends:
+Description: Plugins for Promet-ERP
+ .
+

@@ -120,6 +120,12 @@ begin
         end;
       if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
         begin
+          if Data.ProcessClient.FieldByName('STATUS').AsString = '' then
+            begin
+              Data.ProcessClient.Edit;
+              Data.ProcessClient.FieldByName('STATUS').AsString := 'R';
+              Data.ProcessClient.Post;
+            end;
           if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
             begin
               Terminate;

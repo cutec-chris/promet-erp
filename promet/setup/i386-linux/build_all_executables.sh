@@ -89,5 +89,3 @@ lazbuild --build-mode=Default -q ../../source/plugins/oofile/oofile.lpi
 lazbuild --build-mode=Default -q ../../source/plugins/dwgfile/dwgfile.lpi
 lazbuild --build-mode=Default -q ../../source/plugins/solidworks/solidworks.lpi
 lazbuild --build-mode=Default -q ../../source/plugins/vectorfile/vectorfile.lpi
-lazbuild --build-mode=Default -q ../../source/plugins/winthumb/winthumb.lpi
-

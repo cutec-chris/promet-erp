@@ -7,7 +7,7 @@ Maintainer: Christian Ulrich <info@free-erp.de>
 Architecture: ARCH
 Depends:  libc6,bsdiff
 Installed-Size: DEBSIZE
-Recommends: promet-erp-statistics, promet-erp-tools
+Recommends: promet-erp-statistics, promet-erp-tools,promet-erp-plugins
 Suggests: promet-erp-sync
 Description: ERP with Document- and Taskmanagement
  Promet-ERP is an ERP System for small business
