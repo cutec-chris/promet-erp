@@ -1,5 +1,5 @@
 ==Installationen==
-Alle untenstehenden Installationen sind Version 7.0.410 erstellt Di 25. Aug 00:38:13 CEST 2015.<br>
+Alle untenstehenden Installationen sind Version 7.0.410 erstellt Fr 28. Aug 14:19:35 CEST 2015.<br>
 Änderungen finden Sie in der [[Promet-ERP/changes|Änderungsliste]].
 
 ===Zip===
