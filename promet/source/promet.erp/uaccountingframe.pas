@@ -316,7 +316,7 @@ begin
   tmp2 := ID;
   DataSet.Open;
   TAccounts(DataSet).Exchange.Open;
-  if Data.Locate(DataSet,'SQL_ID',tmp1,[]) then
+  if DataSet.Locate('SQL_ID',tmp1,[]) then
     begin
       OpenAccount(StrToInt(tmp1));
       if not TAccounts(DataSet).Exchange.DataSet.Locate('SQL_ID',tmp2,[]) then
@@ -324,7 +324,7 @@ begin
           Data.SetFilter(TAccounts(DataSet).Exchange,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(tmp2),1,'','ASC',False,False);
           FList.AddFilter('DATE',TAccounts(DataSet).Exchange.FieldByName('DATE').AsString);
           Data.SetFilter(TAccounts(DataSet).Exchange,'',0,'','ASC',False,False);
-          Result := Data.Locate(TAccounts(DataSet).Exchange,'SQL_ID',tmp2,[]);
+          Result := TAccounts(DataSet).Exchange.Locate('SQL_ID',tmp2,[]);
         end
       else
         begin

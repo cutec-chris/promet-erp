@@ -273,7 +273,7 @@ var
         while not EOF do
           begin
             Data.SetFilter(SyncItems,Data.QuoteField('LOCAL_ID')+'='+Data.QuoteValue(IntToStr(Data.GetBookmark(CustomerCont))));
-            if (Data.Locate(SyncItems,'REMOTE_ID',VarArrayOf([aSyncTyp]),[]))
+            if (SyncItems.Locate('REMOTE_ID',VarArrayOf([aSyncTyp]),[]))
             or ((SyncItems.Count = 0) and ( //Nur wenn zu LocalID keine REMOTE_ID vorhanden
                  (trim(FieldByName('TYPE').AsString) = ItemType)
               or (trim(FieldByName('TYPE').AsString) = ItemType2)
@@ -282,7 +282,7 @@ var
             then
               begin
                 bFound := False;
-                if (Data.Locate(SyncItems,'REMOTE_ID',VarArrayOf([aSyncTyp]),[])) then
+                if (SyncItems.Locate('REMOTE_ID',VarArrayOf([aSyncTyp]),[])) then
                   for i := 0 to length(SQLSynced)-1 do
                     if SQLSynced[i] = Data.GetBookmark(CustomerCont) then
                       bFound := True;
@@ -311,7 +311,7 @@ var
                       end;
                     if bSynced then
                       begin
-                        if not (Data.Locate(SyncItems,'REMOTE_ID',VarArrayOf([aSyncTyp]),[])) then
+                        if not (SyncItems.Locate('REMOTE_ID',VarArrayOf([aSyncTyp]),[])) then
                           with SyncItems.DataSet do
                             begin
                               Insert;
@@ -382,14 +382,14 @@ var
         while not EOF do
           begin
             Data.SetFilter(SyncItems,'"LOCAL_ID"='+Data.QuoteValue(IntToStr(Data.GetBookmark(Addresses))));
-            if (Data.Locate(SyncItems,'REMOTE_ID',VarArrayOf([aSyncStreet]),[]))
+            if (SyncItems.Locate('REMOTE_ID',VarArrayOf([aSyncStreet]),[]))
             or (trim(FieldByName('TYPE').AsString) = ItemType)
             or (trim(FieldByName('TYPE').AsString) = ItemType2)
             or (trim(FieldByName('TYPE').AsString) = ItemType3)
             then
               begin
                 bFound := False;
-                if (Data.Locate(SyncItems,'REMOTE_ID',VarArrayOf([aSyncStreet]),[])) then
+                if (SyncItems.Locate('REMOTE_ID',VarArrayOf([aSyncStreet]),[])) then
                   for i := 0 to length(SQLSynced)-1 do
                     if SQLSynced[i] = Data.GetBookmark(Addresses) then
                       bFound := True;
@@ -423,7 +423,7 @@ var
                       end;
                     if bSynced then
                       begin
-                        if not (Data.Locate(SyncItems,'REMOTE_ID',VarArrayOf([aSyncStreet]),[])) then
+                        if not (SyncItems.Locate('REMOTE_ID',VarArrayOf([aSyncStreet]),[])) then
                           with SyncItems.DataSet do
                             begin
                               Insert;

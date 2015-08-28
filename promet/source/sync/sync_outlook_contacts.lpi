@@ -54,9 +54,9 @@
         <Filename Value="sync_outlook_contacts.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="503"/>
-        <CursorPos X="41" Y="518"/>
-        <FoldState Value=" T3mg231F"/>
+        <TopLine Value="409"/>
+        <CursorPos X="50" Y="426"/>
+        <FoldState Value=" T3mg23;"/>
         <UsageCount Value="200"/>
         <Bookmarks Count="1">
           <Item0 Y="705"/>
@@ -823,7 +823,7 @@
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or;*.rc"/>
     </Build>
-    <JumpHistory Count="17" HistoryIndex="16">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <Caret Line="414" TopLine="384"/>
@@ -892,6 +892,30 @@
         <Filename Value="sync_outlook_contacts.lpr"/>
         <Caret Line="473" Column="39" TopLine="459"/>
       </Position17>
+      <Position18>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="518" Column="41" TopLine="503"/>
+      </Position18>
+      <Position19>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="276" Column="34" TopLine="258"/>
+      </Position19>
+      <Position20>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="285" Column="38" TopLine="268"/>
+      </Position20>
+      <Position21>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="314" Column="50" TopLine="297"/>
+      </Position21>
+      <Position22>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="385" Column="34" TopLine="368"/>
+      </Position22>
+      <Position23>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="392" Column="38" TopLine="375"/>
+      </Position23>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

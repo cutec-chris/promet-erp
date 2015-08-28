@@ -124,7 +124,7 @@ begin
   for i := 0 to iData.Count-1 do
     begin
       tmp := iData[i];
-      if not Data.Locate(Accounts.Exchange,'CHECKSUM',MD5Print(MD5String(tmp)),[loCaseInsensitive]) then
+      if not Accounts.Exchange.Locate('CHECKSUM',MD5Print(MD5String(tmp)),[loCaseInsensitive]) then
         begin
           for a := 0 to 6 do
             tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
@@ -137,7 +137,7 @@ begin
       chksum := MD5Print(MD5String(tmp));
       iData.Delete(0);
       Data.SetFilter(Accounts.Exchange,'"CHECKSUM"='''+chksum+'''',0,'','DESC',False,False);
-      if not Data.Locate(Accounts.Exchange,'CHECKSUM',chksum,[loCaseInsensitive]) then
+      if not Accounts.Exchange.Locate('CHECKSUM',chksum,[loCaseInsensitive]) then
         with Accounts.Exchange.DataSet do
           begin
             Append;
@@ -654,7 +654,7 @@ begin
             begin
               tmp := Output[a];
               Data.SetFilter(Accounts.Exchange,'',0,'','DESC',False,False);
-              if not Data.Locate(Accounts.Exchange,'CHECKSUM',MD5Print(MD5String(tmp)),[loCaseInsensitive]) then
+              if not Accounts.Exchange.Locate('CHECKSUM',MD5Print(MD5String(tmp)),[loCaseInsensitive]) then
                 begin
                   for b := 0 to 1 do
                     tmp := copy(tmp,pos(';',tmp)+1,length(tmp));

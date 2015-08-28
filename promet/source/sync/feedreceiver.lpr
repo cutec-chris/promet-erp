@@ -29,7 +29,7 @@ uses
   uData, uBaseCustomApplication,uBaseDbClasses,
   synautil,httpsend, laz_synapse,uMessages,uDocuments,uBaseDbInterface,
   dom,xmlread,md5, uIntfStrConsts, pcmdprometapp,Variants,
-  uBaseApplication;
+  uBaseApplication,uminiconvencoding;
 
 type
   TRSSReceiver = class(TBaseCustomApplication)
@@ -117,7 +117,7 @@ var
   aDir: String;
   function DoDecode(aIn : string) : string;
   begin
-    Result := SysToUni(aIn);
+    Result := uminiconvencoding.ConvertEncoding(aIn,GuessEncoding(aIn),EncodingUTF8);
   end;
 
 begin
@@ -296,11 +296,11 @@ begin
                                 tmp := '';
                                 if Assigned(aMessageNode) then
                                   begin
-                                    tmp := HTMLDecode(DoDecode(aMessageNode.FirstChild.NodeValue));
+                                    tmp := aMessageNode.FirstChild.NodeValue;
                                     if tmp = '' then
                                       tmp := aMessageNode.TextContent;
                                   end;
-                                tmp := '<b>'+DoDecode(aTitleNode.FirstChild.NodeValue)+'</b><br>'+tmp;
+                                tmp := '<b>'+aTitleNode.FirstChild.NodeValue+'</b><br>'+tmp;
                                 tmp := tmp+'<br><a href='''+aLinkValue+'''>'+strGotoFeed+'</a>';
                                 tmp := '<html><body>'+tmp+'</body></html>';
                                 ss := TStringStream.Create(tmp);
