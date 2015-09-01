@@ -38,6 +38,7 @@ echo "copy to builddir..."
 mkdir -p $BuildDir/Promet-ERP
 cp -r ./Promet-ERP $BuildDir
 mkdir -p $BuildDir/Promet-ERP/App/promet/tools
+mkdir -p $BuildDir/Promet-ERP/App/promet/plugins
 cp -r ../i386-win32/tools $BuildDir/Promet-ERP/App/promet
 cp -r ../../importdata $BuildDir/Promet-ERP/App/promet/
 mv "$BuildDir/Promet-ERP/App/promet/importdata/Warenwirtschaft (alles)/Österreich" "$BuildDir/Promet-ERP/App/promet/importdata/Warenwirtschaft (alles)/Osterreich"
