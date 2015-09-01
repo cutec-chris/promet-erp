@@ -82,3 +82,6 @@
 [submodule "promet/source/plugins/solidworks"]
 	path = promet/source/plugins/solidworks
 	url = https://github.com/cutec-chris/lister-plugin-solidworks.git
+[submodule "promet/source/components/hunspell"]
+	path = promet/source/components/hunspell
+	url = https://github.com/cutec-chris/hunspell.git

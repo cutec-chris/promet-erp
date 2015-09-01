@@ -7,6 +7,9 @@ If errorlevel 1 goto end
 lazbuild -q -B ..\..\source\messagemanager\messagemanager.lpi
 If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\messagemanager\messagemanager.lpi
 If errorlevel 1 goto end
+lazbuild -q -B ..\..\source\tools\processmanager.lpi
+If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\tools\processmanager.lpi
+If errorlevel 1 goto end
 lazbuild --build-mode=Default -q ..\..\source\promet.erp\prometerp.lpi
 If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\promet.erp\prometerp.lpi
 If errorlevel 1 goto end
@@ -34,7 +37,6 @@ lazbuild --build-mode=Default -q ..\..\source\tools\checkin.lpi
 If errorlevel 1 goto end
 lazbuild --build-mode=Default -q ..\..\source\tools\tableedit.lpi
 If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\tools\tableedit.lpi
-If errorlevel 1 goto end
 
 lazbuild --build-mode=Default -q ..\..\source\timeregistering\timeregistering.lpi
 If errorlevel 1 lazbuild --build-mode=Default -q -B ..\..\source\timeregistering\timeregistering.lpi
