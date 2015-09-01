@@ -3805,7 +3805,14 @@ begin
   if pPages.Align=alnone then
     begin
       pPages.Width:=fMain.Width-tvMain.Width-spTree.Width;
-      pPages.Height:=fmain.Height-MainMenu1.Height;
+      {$if declared(lcl_version)}
+      if lcl_fullversion>1260 then
+        pPages.Height:=fmain.Height-MainMenu1.Height
+      else
+        pPages.Height:=fmain.Height-20;
+      {$else}
+      pPages.Height:=fmain.Height-20;
+      {$endif}
     end;
 end;
 
