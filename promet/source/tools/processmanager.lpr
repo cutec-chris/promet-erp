@@ -117,6 +117,7 @@ begin
           Data.ProcessClient.FieldByName('STATUS').AsString:='N';
           Data.ProcessClient.FieldByName('NOTES').AsString:=strRunsOnEveryMashine;
           Data.ProcessClient.Post;
+          Data.ProcessClient.Process
         end;
       if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
         begin
