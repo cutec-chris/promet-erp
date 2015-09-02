@@ -17,7 +17,7 @@ object fMain: TfMain
   OnShow = FormShow
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '1.5'
+  LCLVersion = '1.2.6.0'
   object spTree: TSplitter
     Left = 283
     Height = 563

@@ -315,7 +315,8 @@ begin
       fTimeline.Show;
       Show;
       BoundsRect := aBoundsRect;
-      acDelete.Visible:=Data.Users.Rights.Right('HISTORY')>=RIGHT_DELETE;
+      if Assigned(Data) then
+        acDelete.Visible:=Data.Users.Rights.Right('HISTORY')>=RIGHT_DELETE;
       minewestDownClick(nil);
       Application.QueueAsyncCall(@AsyncScrollTop,0);
     end;
@@ -348,6 +349,7 @@ var
   aWiki: TWikiList;
 begin
   if Assigned(FQuickHelpFrame) then exit;
+  if not Assigned(Data) then exit;
   aWiki := TWikiList.Create(nil);
   with BaseApplication as IBaseApplication do
   if aWiki.FindWikiPage('Promet-ERP-Help/workflows/tftimeline') then
@@ -1221,8 +1223,11 @@ begin
   pInput.Height:=110;
   fTimeline.InvertedDrawing := minewestDown.Checked;
   //fTimeline.Refresh;
-  fTimeline.DataSet.First;
-  fTimeline.GotoDataSetRow;
+  if Assigned(Data) then
+    begin
+      fTimeline.DataSet.First;
+      fTimeline.GotoDataSetRow;
+    end;
 end;
 
 procedure TfmTimeline.PopupMenu1Popup(Sender: TObject);
