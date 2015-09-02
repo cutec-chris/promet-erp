@@ -7,3 +7,4 @@ SQL Error: ERROR:  duplicate key value violates unique constraint "CUSTOMERS_ACC
 SQL Error: column @KEY@ is not unique=Ein Eintrag mit dieser Nummer existiert bereits ! Sie können keinen doppelten Eintrag speichern !
 SQL Error: @FIELD@ may not be NULL=Das Feld @FIELD@ muss ausgefüllt sein !
 SQL Error: ERROR:  null value in column "@FIELD@" violates not-null constraint=Das Feld @FIELD@ muss ausgefüllt sein !
+SQL Error: ERROR:  value too long for type @TYPE@=Ein Wert ist zu lang (@TYPE@) !
