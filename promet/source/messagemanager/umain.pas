@@ -321,6 +321,7 @@ end;
 procedure TfMain.DoExit;
 begin
   try
+    Data.ProcessClient.ShutDown;
     if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
       begin
         Data.ProcessClient.DataSet.Edit;
@@ -604,6 +605,7 @@ begin
   Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),200);
   SwitchAnimationOff;
 end;
+
 procedure TfMain.acHistoryExecute(Sender: TObject);
 begin
   fmTimeline.Execute(fTimelineDataSet);

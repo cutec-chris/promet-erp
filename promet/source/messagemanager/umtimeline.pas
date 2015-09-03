@@ -911,7 +911,6 @@ end;
 
 procedure TfmTimeline.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  Data.ProcessClient.ShutDown;
   IdleTimer1.Enabled:=False;
   with Application as IBaseConfig do
     Config.WriteRect('TIMELINERECT',BoundsRect);
