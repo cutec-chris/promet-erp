@@ -42,7 +42,7 @@ mkdir -p $BuildDir/Promet-ERP/App/promet/plugins
 cp -r ../i386-win32/tools $BuildDir/Promet-ERP/App/promet
 cp -r ../../importdata $BuildDir/Promet-ERP/App/promet/
 mv "$BuildDir/Promet-ERP/App/promet/importdata/Warenwirtschaft (alles)/Österreich" "$BuildDir/Promet-ERP/App/promet/importdata/Warenwirtschaft (alles)/Osterreich"
-cp ../help/help.db $BuildDir/Promet-ERP/App/promet
+cp ../help.db $BuildDir/Promet-ERP/App/promet
 cp ../warnings.txt $BuildDir/Promet-ERP/App/promet
 cp ../errors.txt $BuildDir/Promet-ERP/App/promet
 cp ../executables/$Version/$Archfpc/prometerp.exe $BuildDir/Promet-ERP/App/promet
