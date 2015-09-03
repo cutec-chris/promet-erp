@@ -32,7 +32,6 @@ CloseApplications=yes
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\prometerp.exe"; DestDir: "{app}"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\pstarter.exe"; DestDir: "{app}"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\messagemanager.exe"; DestDir: "{app}\tools"; Components: main
-Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\processmanager.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\wizardmandant.exe"; DestDir: "{app}"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*receiver.exe"; DestDir: "{app}\tools"; Components: main
 Source: "..\executables\{#BaseAppVersion}\{#TargetCPU}\*sender.exe"; DestDir: "{app}\tools"; Components: main

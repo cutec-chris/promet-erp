@@ -6,7 +6,6 @@ mkdir $2/tools
 install ../../output/$1-linux/prometerp $2
 install ../../output/$1-linux/wizardmandant $2
 install ../../output/$1-linux/pstarter $2
-install ../../output/$1-linux/tools/processmanager $2/tools
 install ../../output/$1-linux/tools/messagemanager $2/tools
 install ../../output/$1-linux/helpviewer $2
 install ../help/help.db $2
