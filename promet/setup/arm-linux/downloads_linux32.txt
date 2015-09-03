@@ -7,8 +7,10 @@ Alle untenstehenden Installationen sind Version VERSION erstellt CREATEDDATE.<br
 |-
 | || [[Bild:deb.png]] || [[Bild:rpm.png]]
 |-
-|Webservices||[http://downloads.free-erp.de/promet-erp-webservices_VERSION_armhf-nogui.deb Webservices Debian Package für Ubuntu,Debian Linux (32 bit)]
+|Webservices||[http://downloads.free-erp.de/promet-erp-webservices_VERSION_armhf-nogui.deb Webservices Debian Package für Debian auf Arm Systemen]
 |-
-|Werkzeuge||[http://downloads.free-erp.de/promet-erp-tools_VERSION_armhf-nogui.deb Admin Tools Debian Package für Ubuntu,Debian Linux (64 bit) 12 Mb]
+|Werkzeuge||[http://downloads.free-erp.de/promet-erp-tools_VERSION_armhf-nogui.deb Admin Tools Debian Package für Debian auf Arm Systemen]
+|-
+|Plugins||[http://downloads.free-erp.de/promet-erp-plugins_VERSION_armhf-nogui.deb Plugins Debian Package für Debian auf Arm Systemen]
 
 |}

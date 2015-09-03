@@ -35,7 +35,7 @@ type
   private
     PowerStateMonitor: TPowerStateMonitor;
   protected
-    Processes : array of TProcProcess;
+    //Processes : array of TProcProcess;
     procedure DoRun; override;
   public
     constructor Create(TheOwner: TComponent); override;
@@ -86,62 +86,20 @@ begin
       uData.Data := Data;
     end;
   Info('processmanager login successful');
-  Data.ProcessClient.CreateTable;
-  Data.ProcessClient.Open;
-  if not Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
-    begin
-      Data.ProcessClient.Insert;
-      Data.ProcessClient.DataSet.FieldByName('NAME').AsString:=GetSystemName;
-      Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='R';
-      Data.ProcessClient.DataSet.Post;
-      Info(getSystemName+' added and running');
-    end
-  else
-    begin
-      Data.ProcessClient.DataSet.Edit;
-      Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='R';
-      Data.ProcessClient.DataSet.Post;
-      Info(getSystemName+' running');
-    end;
+  Data.ProcessClient.Startup;
+  Info(getSystemName+' running');
   Data.ProcessClient.Processes.Open;
   Data.ProcessClient.Processes.Parameters.Open;
   while not Terminated do
     begin
       Data.ProcessClient.RefreshList;
-      if Data.ProcessClient.DataSet.Locate('NAME','*',[]) then
-        Data.ProcessClient.Process
-      else
+      if not Data.ProcessClient.ProcessAll then
         begin
-          Data.ProcessClient.Insert;
-          Data.ProcessClient.FieldByName('NAME').AsString:='*';
-          Data.ProcessClient.FieldByName('STATUS').AsString:='N';
-          Data.ProcessClient.FieldByName('NOTES').AsString:=strRunsOnEveryMashine;
-          Data.ProcessClient.Post;
-          Data.ProcessClient.Process
-        end;
-      if Data.ProcessClient.DataSet.Locate('NAME',GetSystemName,[]) then
-        begin
-          if Data.ProcessClient.FieldByName('STATUS').AsString = '' then
-            begin
-              Data.ProcessClient.Edit;
-              Data.ProcessClient.FieldByName('STATUS').AsString := 'R';
-              Data.ProcessClient.Post;
-            end;
-          if Data.ProcessClient.FieldByName('STATUS').AsString <> 'R' then
-            begin
-              Terminate;
-              exit;
-            end;
-          Data.ProcessClient.Process;
+          Terminate;
+          exit;
         end;
       sleep(3000);
     end;
-  try
-    Data.ProcessClient.DataSet.Edit;
-    Data.ProcessClient.DataSet.FieldByName('STATUS').AsString:='N';
-    Data.ProcessClient.DataSet.Post;
-  except
-  end;
   // stop program loop
   Terminate;
 end;
@@ -152,11 +110,8 @@ begin
   PowerStateMonitor := TPowerStateMonitor.Create;
 end;
 destructor TProcessManager.Destroy;
-var
-  i: Integer;
 begin
-  for i := 0 to length(Processes)-1 do
-    Processes[i].Free;
+  Data.ProcessClient.ShutDown;
   inherited Destroy;
 end;
 var

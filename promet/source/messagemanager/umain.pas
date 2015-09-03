@@ -124,25 +124,7 @@ begin
   if Assigned(fmTimeline) and fmTimeline.Visible then exit;
   with BaseApplication as IBaseApplication do
     Debug('ProgTimer:Enter');
-  if Assigned(ProcessManager) and (not ProcessManager.Active) then
-    with BaseApplication as IBaseApplication do
-      begin
-        Error('Processmanager Disabled: exitcode:'+IntToStr(ProcessManager.ExitStatus));
-        {
-        s := TStringStream.Create('');
-        s.CopyFrom(ProcessManager.Output,ProcessManager.Output.NumBytesAvailable);
-        Error('Processmanager Disabled:'+s.DataString);
-        Showmessage('Processmanager Disabled:'+s.DataString);
-        s.Free;
-        }
-        FreeAndNil(ProcessManager);
-      end;
-  if not Assigned(ProcessManager) then
-    begin
-      with Application as IBaseDBInterface do
-        ProcessManager := uProcessManager.StartProcessManager(MandantName,Data.Users.DataSet.FieldByName('NAME').AsString);
-    end;
-
+  Data.ProcessClient.ProcessAll;
   aTime:=GetTickCount;
   ProgTimer.Enabled:=False;
   if acHistory.Enabled then
@@ -615,6 +597,7 @@ begin
       RefreshFilter2;
     end;
   ProgTimer.Enabled:=True;
+  Data.ProcessClient.Startup;
   uprometipc.OnMessageReceived:=@OnMessageReceived;
   fTimelineDataSet := TBaseHistory.Create(nil);
   fTimelineDataSet.CreateTable;

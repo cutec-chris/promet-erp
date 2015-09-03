@@ -35,7 +35,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-cutec/ --mandant=CUTEC"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-cen/ --debug --mandant=Central"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">
@@ -72,7 +72,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="4">
+    <Exceptions Count="6">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -85,6 +85,12 @@
       <Item4>
         <Name Value="EProcess"/>
       </Item4>
+      <Item5>
+        <Name Value="EZSQLException"/>
+      </Item5>
+      <Item6>
+        <Name Value="EZDatabaseError"/>
+      </Item6>
     </Exceptions>
   </Debugging>
 </CONFIG>

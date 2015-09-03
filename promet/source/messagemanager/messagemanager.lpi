@@ -55,9 +55,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item2>
     </BuildModes>
@@ -69,7 +66,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-cutec/ --mandant=CUTEC"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-cutec/ --mandant=CUTEC --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="9">
@@ -169,9 +166,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="16">
