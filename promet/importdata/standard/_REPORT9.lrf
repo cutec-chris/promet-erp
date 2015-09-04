@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CONFIG>
   <LazReport>
-    <Version Value="26"/>
+    <Version Value="28"/>
     <Title Value="PrometERP-Schlussrechnung 101229"/>
     <Subject Value=""/>
     <KeyWords Value=""/>
     <Comments Value=""/>
     <ReportCreateDate Value="2012-09-24 18:43:27"/>
-    <ReportLastChange Value="2014-07-05 14:19:21"/>
+    <ReportLastChange Value="2015-09-04 10:59:49"/>
     <ReportVersionBuild Value=""/>
     <ReportVersionMajor Value=""/>
     <ReportVersionMinor Value=""/>
@@ -39,7 +39,6 @@
         <ColCount Value="1"/>
         <ColGap Value="0"/>
         <LayoutOrder Value="loColumns"/>
-        <ObjectCount Value="47"/>
         <Object1>
           <Name Value="PageHeader1"/>
           <ClassName Value="TfrBandView"/>
@@ -58,9 +57,13 @@
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
+          <Frames>
+            <Restrictions Value=""/>
+          </Frames>
           <BandType Value="btPageHeader"/>
           <Condition Value=""/>
           <DatasetStr Value=""/>
+          <Child Value=""/>
         </Object1>
         <Object2>
           <Name Value="MasterData1"/>
@@ -80,9 +83,13 @@
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
+          <Frames>
+            <Restrictions Value=""/>
+          </Frames>
           <BandType Value="btMasterData"/>
           <Condition Value=""/>
           <DatasetStr Value="POrderPos"/>
+          <Child Value=""/>
         </Object2>
         <Object3>
           <Name Value="PageFooter1"/>
@@ -102,9 +109,13 @@
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
+          <Frames>
+            <Restrictions Value=""/>
+          </Frames>
           <BandType Value="btPageFooter"/>
           <Condition Value=""/>
           <DatasetStr Value=""/>
+          <Child Value=""/>
         </Object3>
         <Object4>
           <Name Value="ReportSummary1"/>
@@ -124,9 +135,13 @@
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
+          <Frames>
+            <Restrictions Value=""/>
+          </Frames>
           <BandType Value="btReportSummary"/>
           <Condition Value=""/>
           <DatasetStr Value=""/>
+          <Child Value=""/>
         </Object4>
         <Object5>
           <Name Value="ReportTitle1"/>
@@ -146,9 +161,13 @@
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
+          <Frames>
+            <Restrictions Value=""/>
+          </Frames>
           <BandType Value="btReportTitle"/>
           <Condition Value=""/>
           <DatasetStr Value=""/>
+          <Child Value=""/>
         </Object5>
         <Object6>
           <Name Value="Memo23"/>
@@ -169,12 +188,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Rechnung&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -195,6 +219,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object6>
         <Object7>
           <Name Value="Memo24"/>
@@ -215,12 +240,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="[Orders.&quot;NUMBER&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -241,6 +271,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object7>
         <Object8>
           <Name Value="Memo25"/>
@@ -261,12 +292,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Datum&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -287,6 +323,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object8>
         <Object9>
           <Name Value="Memo26"/>
@@ -307,12 +344,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="[Orders.&quot;DATE&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -333,6 +375,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object9>
         <Object10>
           <Name Value="Memo27"/>
@@ -353,12 +396,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Kundennummer&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -379,6 +427,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object10>
         <Object11>
           <Name Value="Memo28"/>
@@ -399,12 +448,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="[OrderAddress.&quot;ACCOUNTNO&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -425,6 +479,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object11>
         <Object12>
           <Name Value="Memo7"/>
@@ -445,12 +500,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value=""/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -471,6 +531,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object12>
         <Object13>
           <Name Value="Memo13"/>
@@ -491,12 +552,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Adresse&#xA;[MandantDetails.&quot;ADRESS&quot;]&#xA;&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -517,6 +583,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object13>
         <Object14>
           <Name Value="Memo14"/>
@@ -537,12 +604,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Bank&#xA;&#xA;Name: [MandantDetails.&quot;INSTITUTE&quot;]&#xA;BIC    : [MandantDetails.&quot;SORTCODE&quot;]&#xA;IBAN  : [MandantDetails.&quot;ACCOUNT&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -563,6 +635,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object14>
         <Object15>
           <Name Value="Memo16"/>
@@ -583,12 +656,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Seite [PAGE#] von [TOTALPAGES]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -609,6 +687,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object15>
         <Object16>
           <Name Value="Memo12"/>
@@ -629,12 +708,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="5"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Hiermit erlauben wir uns, Ihnen wie folgt zu berechnen:&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -655,6 +739,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object16>
         <Object17>
           <Name Value="Memo15"/>
@@ -675,12 +760,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Pos.&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -701,6 +791,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object17>
         <Object18>
           <Name Value="Memo17"/>
@@ -721,12 +812,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Bezeichnung&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -747,6 +843,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object18>
         <Object19>
           <Name Value="Memo18"/>
@@ -767,12 +864,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Menge&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -793,6 +895,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object19>
         <Object20>
           <Name Value="Memo19"/>
@@ -813,12 +916,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Preis&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -839,6 +947,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object20>
         <Object21>
           <Name Value="Memo20"/>
@@ -859,12 +968,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Gesamtpreis&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -885,6 +999,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object21>
         <Object22>
           <Name Value="Memo21"/>
@@ -905,12 +1020,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="[OrderPos.&quot;POSNO&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -931,6 +1051,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object22>
         <Object23>
           <Name Value="Memo22"/>
@@ -951,12 +1072,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="[OrderPos.&quot;SHORTTEXT&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -977,6 +1103,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object23>
         <Object24>
           <Name Value="Memo29"/>
@@ -997,12 +1124,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="16843308"/>
             <FormatStr Value=""/>
             <Memo Value="[OrderPos.&quot;QUANTITY&quot;] [OrderPos.&quot;QUANTITYU&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1023,6 +1155,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object24>
         <Object25>
           <Name Value="Memo30"/>
@@ -1043,12 +1176,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="16843308"/>
             <FormatStr Value=""/>
             <Memo Value="[OrderPos.&quot;SELLPRICE&quot;]  [Orders.&quot;CURRENCY&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1069,6 +1207,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object25>
         <Object26>
           <Name Value="Memo31"/>
@@ -1089,12 +1228,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="16843308"/>
             <FormatStr Value=""/>
             <Memo Value="[OrderPos.&quot;POSPRICE&quot;] [Orders.&quot;CURRENCY&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1115,6 +1259,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object26>
         <Object27>
           <Name Value="Memo1"/>
@@ -1135,12 +1280,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="MwSt&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1161,6 +1311,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object27>
         <Object28>
           <Name Value="Memo2"/>
@@ -1181,12 +1332,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="16843308"/>
             <FormatStr Value=""/>
             <Memo Value="[[Orders.&quot;GROSSPRICE&quot;]-[Orders.&quot;NETPRICE&quot;]] [Orders.&quot;CURRENCY&quot;]&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1207,6 +1363,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object28>
         <Object29>
           <Name Value="Memo3"/>
@@ -1227,12 +1384,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Gesamtpreis&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1253,6 +1415,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object29>
         <Object30>
           <Name Value="Memo8"/>
@@ -1273,12 +1436,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="16843308"/>
             <FormatStr Value=""/>
             <Memo Value="[Orders.&quot;GROSSPRICE&quot;] [Orders.&quot;CURRENCY&quot;]&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1299,6 +1467,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object30>
         <Object31>
           <Name Value="Memo9"/>
@@ -1319,12 +1488,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
-            <Memo Value=" &#xA;"/>
+            <Memo Value="Zahlungsziel: [PaymentTargets.&quot;TEXT&quot;] &#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1345,6 +1519,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object31>
         <Object32>
           <Name Value="Memo10"/>
@@ -1365,12 +1540,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Nettopreis&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;&#xA;&#xA;&#xA;"/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1391,6 +1571,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object32>
         <Object33>
           <Name Value="Memo32"/>
@@ -1411,12 +1592,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="16843308"/>
             <FormatStr Value=""/>
             <Memo Value="[Orders.&quot;NETPRICE&quot;] [Orders.&quot;CURRENCY&quot;]&#xA;"/>
             <Script Value="if [Page#] = [TotalPages] then&#xA;  Visible := 1&#xA;else&#xA;  Visible := 0;&#xA;"/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1437,6 +1623,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object33>
         <Object34>
           <Name Value="Memo33"/>
@@ -1457,12 +1644,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="5"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Vielen Dank für Ihr Vertrauen.&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1483,6 +1675,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object34>
         <Object35>
           <Name Value="Memo34"/>
@@ -1503,12 +1696,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Steuernummer: [MandantDetails.&quot;ADDITION1&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1529,6 +1727,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object35>
         <Object36>
           <Name Value="Memo35"/>
@@ -1549,12 +1748,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Sofern nicht anders angegeben gilt Lieferdatum = Rechnungsdatum.&#xA;Es gelten unsere AGB&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1575,6 +1779,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object36>
         <Object37>
           <Name Value="Memo36"/>
@@ -1595,12 +1800,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Kommission&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1621,6 +1831,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object37>
         <Object38>
           <Name Value="Memo37"/>
@@ -1641,12 +1852,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="[Orders.&quot;COMMISSION&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1667,6 +1883,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object38>
         <Object39>
           <Name Value="Memo4"/>
@@ -1687,12 +1904,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="  [OrderAddress.&quot;TITLE&quot;]&#xA;  [OrderAddress.&quot;NAME&quot;]&#xA;  [OrderAddress.&quot;ADDITIONAL&quot;]&#xA;  [OrderAddress.&quot;ADDRESS&quot;]&#xA;  [OrderAddress.&quot;COUNTRY&quot;] [OrderAddress.&quot;ZIP&quot;] [OrderAddress.&quot;CITY&quot;]&#xA;&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1713,6 +1935,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object39>
         <Object40>
           <Name Value="Memo5"/>
@@ -1733,12 +1956,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="[MandantDetails.&quot;ADRESS&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1759,6 +1987,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object40>
         <Object41>
           <Name Value="Memo11"/>
@@ -1779,12 +2008,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="5"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="| Anschrift&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1805,6 +2039,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object41>
         <Object42>
           <Name Value="Memo6"/>
@@ -1825,12 +2060,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="Internet&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1851,6 +2091,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object42>
         <Object43>
           <Name Value="Memo38"/>
@@ -1871,12 +2112,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="[MandantDetails.&quot;INTERNET&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1897,6 +2143,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object43>
         <Object44>
           <Name Value="Memo39"/>
@@ -1917,12 +2164,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="e-Mail&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1943,6 +2195,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object44>
         <Object45>
           <Name Value="Memo40"/>
@@ -1963,12 +2216,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="[MandantDetails.&quot;MAIL&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -1989,6 +2247,7 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object45>
         <Object46>
           <Name Value="Picture1"/>
@@ -2009,6 +2268,7 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Memo Value="[MandantDetails.&quot;IMAGE&quot;]&#xA;"/>
@@ -2040,12 +2300,17 @@
             <FrameStyle Value="frsSolid"/>
             <FrameWidth Value="1"/>
             <FrameBorders Value=""/>
+            <Restrictions Value=""/>
           </Frames>
           <Data>
             <Format Value="556"/>
             <FormatStr Value=""/>
             <Memo Value="[MandantDetails.&quot;NAME&quot;]&#xA;"/>
             <Script Value=""/>
+            <OnClick Value=""/>
+            <OnMouseEnter Value=""/>
+            <OnMouseLeave Value=""/>
+            <DetailReport Value=""/>
           </Data>
           <Tag Value=""/>
           <FURLInfo Value=""/>
@@ -2066,12 +2331,17 @@
           <Layout Value="tlTop"/>
           <Angle Value="0"/>
           <Justify Value="False"/>
+          <Cursor Value="0"/>
         </Object47>
+        <ObjectCount Value="47"/>
       </Page1>
       <FVal>
         <Count Value="0"/>
       </FVal>
       <ParentVars Value=""/>
     </Pages>
+    <DetailReports>
+      <Count Value="0"/>
+    </DetailReports>
   </LazReport>
 </CONFIG>
