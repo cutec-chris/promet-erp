@@ -831,7 +831,7 @@ procedure TfEnterTime.eProjectButtonClick(Sender: TObject);
 begin
   fSearch.SetLanguage;
   fSearch.OnOpenItem:=@SetProjectfromSearch;
-  fSearch.AllowSearchTypes(strProject);
+  fSearch.AllowSearchTypes(strProjects);
   fSearch.Execute(True,'TIMEPROJ',strSearchfromTimeregisteringMode);
 end;
 procedure TfEnterTime.FListFilterChanged(Sender: TObject);
