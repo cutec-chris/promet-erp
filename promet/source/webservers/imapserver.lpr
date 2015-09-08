@@ -1328,7 +1328,6 @@ begin
          if not FileExists('imap.log.'+IntToStr(aId)+'.txt') then
            Rewrite(f)
          else Append(f);
-         writeln(f,msg);
          CloseFile(f);
         end;
     end;
@@ -1438,7 +1437,7 @@ begin
       DBLogout;
       if not Login then
         begin
-          writeln('Login failed');
+          Error('Login failed');
           exit;
         end;
     end;
