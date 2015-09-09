@@ -1646,7 +1646,7 @@ begin
   FUseIMAPID:=True;
   FIMAPNCBrain :=False;
   FLocalTimeoutQuitDelay := 100;
-  Timeout:=100;
+  //Timeout:=10000;
   HierarchyDelimiter := '/';
   InitCriticalSection( CS_THR_IDLE );
   IdleState       := false;

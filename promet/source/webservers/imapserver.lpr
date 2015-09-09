@@ -1488,10 +1488,16 @@ begin
   while not Terminated do
     begin
       sleep(100);
-      if (Now()-aTime) > (1/HoursPerDay) then break;
+      if (Now()-aTime) > (1/HoursPerDay) then
+        begin
+          break;
+        end;
     end;
+  IMAPServer.Free;
+  SMTPServer.Free;
   // stop program loop
   Terminate;
+  exit;
 end;
 
 constructor TPIMAPServer.Create(TheOwner: TComponent);
