@@ -562,7 +562,6 @@ begin
                               else
                                 begin
                                   (BaseApplication as IBaseApplication).Info(strLoginFailed);
-                                  FAddLog := True;
                                 end;
                             end;
                         end;

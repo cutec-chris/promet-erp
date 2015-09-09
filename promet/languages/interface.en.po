@@ -1,18 +1,21 @@
+# Christian U. <ulrich@tcs-germany.de>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: Prometheus\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-05-18 08:32+0100\n"
-"Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
-"Language-Team: C.Ulrich <christian@ullihome.de>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-09 15:40+0200\n"
+"PO-Revision-Date: 2015-09-09 15:45+0200\n"
+"Last-Translator: Christian U. <ulrich@tcs-germany.de>\n"
+"Language-Team: Christian Ulrich\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #: uintfstrconsts:strsearchfromorder
-msgid "Mit Öffnen wird der gewählte Eintrag in den Auftrag übernommen"
+msgid "Mit \303\226ffnen wird der gew\303\244hlte Eintrag in den Auftrag \303\274bernommen"
 msgstr "With open, the selected entry is copied into the order"
 
 #: uintfstrconsts:strcombiteitems
@@ -23,21 +26,18 @@ msgstr "Should the elements \"%s\" and \"%s\" really merged ?"
 msgid "Zwischenablage"
 msgstr "Clipboard"
 
-# uintfstrconsts:strstatuschanged
 #: uintfstrconsts:strcategorychanged
-msgid "Kategorie geändetr auf %s"
+msgid "Kategorie ge\303\244ndetr auf %s"
 msgstr "Category changed to %s"
 
-# uintfstrconsts:strstatuschanged
 #: uintfstrconsts:strduedatechanged
-msgid "Zieldatum geändert zu %s"
+msgid "Zieldatum ge\303\244ndert zu %s"
 msgstr "Targetdate changed to %s"
 
 #: uintfstrconsts:strcantaccessfile
 msgid ""
 "Auf die Datei \"%s\" kann nicht zugegriffen werden,\n"
-"kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die "
-"Quelle"
+"kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle"
 msgstr ""
 "The file \"%s\" is not accessable,\n"
 "copy the file to your computer or mount the source"
@@ -56,7 +56,7 @@ msgstr "Targetcsts"
 
 #: uintfstrconsts:strfullpercent
 msgid "Auslastung:%d%%"
-msgstr "workload:%d%%"
+msgstr "Workload:%d%%"
 
 #: uintfstrconsts:strganttview
 msgid "Gantt Ansicht"
@@ -68,7 +68,7 @@ msgstr "Taskplan"
 
 #: uintfstrconsts:strattplan
 msgid "Anwesenheitsplan"
-msgstr "attendance plan"
+msgstr "Attendance plan"
 
 #: uintfstrconsts:strdate
 msgid "Datum"
@@ -80,15 +80,15 @@ msgstr "Issuer"
 
 #: uintfstrconsts:strresponsable
 msgid "Verantwortlicher"
-msgstr "responsible"
+msgstr "Responsible"
 
 #: uintfstrconsts:strmeetinglist
 msgid "Besprechungsliste"
-msgstr "meeting list"
+msgstr "Meeting list"
 
 #: uintfstrconsts:strmeetings
 msgid "Besprechungen"
-msgstr "meetings"
+msgstr "Meetings"
 
 #: uintfstrconsts:strkeywords
 msgid "Suchbegriffe"
@@ -127,7 +127,7 @@ msgstr "Storage"
 
 #: uintfstrconsts:strpaygroups
 msgid "Zahlungsgruppen"
-msgstr "payment groups"
+msgstr "Payment groups"
 
 # uintfstrconsts:strmandant
 #: uintfstrconsts:strmandantdetails
@@ -194,10 +194,10 @@ msgstr "Positiontypes"
 
 #: uintfstrconsts:strpaymenttargets
 msgid "Zahlungsziele"
-msgstr "payment targets"
+msgstr "Payment targets"
 
 #: uintfstrconsts:strcurrency
-msgid "Währung"
+msgid "W\303\244hrung"
 msgstr "Currency"
 
 #: uintfstrconsts:strlanguages
@@ -224,20 +224,20 @@ msgid "Statistiken"
 msgstr "Statistics"
 
 #: uintfstrconsts:stroverview
-msgid "Übersicht"
+msgid "\303\234bersicht"
 msgstr "Overview"
 
 #: uintfstrconsts:strstartingnexttimeout
-msgid "Der process wird demnächst wieder gestartet"
-msgstr "the process is startet new at"
+msgid "Der process wird demn\303\244chst wieder gestartet"
+msgstr "The process is startet new at"
 
 #: uintfstrconsts:strstartingprocesstimeout
-msgid "Timeout überschritten"
-msgstr "timeout exceed"
+msgid "Timeout \303\274berschritten"
+msgstr "Timeout exceed"
 
 #: uintfstrconsts:strstartingprocess
 msgid "Der process wird (neu) gestartet"
-msgstr "the process is starting (new)"
+msgstr "The process is starting (new)"
 
 #: uintfstrconsts:strexitted
 msgid "quitted"
@@ -258,8 +258,8 @@ msgid "Positionen"
 msgstr "Positions"
 
 #: uintfstrconsts:strattatchments
-msgid "Anhänge"
-msgstr "Attatchements"
+msgid "Anh\303\244nge"
+msgstr "Attatchments"
 
 #: uintfstrconsts:strsync
 msgid "Synchronisation"
@@ -276,13 +276,11 @@ msgid "Mandant"
 msgstr "Mandant"
 
 #: uintfstrconsts:strenteranfiltername
-msgid "geben Sie einen Namen für den neuen Filter an"
+msgid "geben Sie einen Namen f\303\274r den neuen Filter an"
 msgstr "enter an name for the new filter"
 
 #: uintfstrconsts:strnorightstosavecomplexfilers
-msgid ""
-"Sie haben nicht die erforderliche Berechtigungstufe um komplexe Filter zu "
-"speichern !"
+msgid "Sie haben nicht die erforderliche Berechtigungstufe um komplexe Filter zu speichern !"
 msgstr "You dont have enougth rights to save complex filters"
 
 #: uintfstrconsts:strfilternotfound
@@ -319,14 +317,12 @@ msgstr "Start"
 msgid "Zusammenfassung"
 msgstr "Summary"
 
-# uintfstrconsts:strstatuschanged
 #: uintfstrconsts:strstatuschanged
-msgid "Status geändert von %s zu %s"
+msgid "Status ge\303\244ndert von %s zu %s"
 msgstr "Status changed from %s to %s"
 
-# uintfstrconsts:strstatuschanged
 #: uintfstrconsts:strnumberchanged
-msgid "Nummer geändert zu %s"
+msgid "Nummer ge\303\244ndert zu %s"
 msgstr "Number changed to %s"
 
 # uintfstrconsts:strdate
@@ -346,15 +342,15 @@ msgstr "Documents"
 
 #: uintfstrconsts:strfailedtoloadmandants
 msgid "Mandanten konnten nicht gelanden werden !"
-msgstr "failed to load mandants !"
+msgstr "Failed to load mandants !"
 
 #: uintfstrconsts:strmandantnotselected
-msgid "kein Mandant gewählt (--mandant) !"
-msgstr "no mandant selected (--mandant) !"
+msgid "kein Mandant gew\303\244hlt (--mandant) !"
+msgstr "No mandant selected (--mandant) !"
 
 #: uintfstrconsts:strdestinationnotselected
-msgid "kein Zielmandant gewählt (--destination) !"
-msgstr "no targetmandant selected (--destination) !"
+msgid "kein Zielmandant gew\303\244hlt (--destination) !"
+msgstr "No targetmandant selected (--destination) !"
 
 #: uintfstrconsts:strloginfailed
 msgid "Login fehlgeschlagen"
@@ -371,7 +367,7 @@ msgstr "Payment list"
 
 #: uintfstrconsts:strvoucher
 msgid "neuer Beleg"
-msgstr "new proof"
+msgstr "New proof"
 
 #: uintfstrconsts:strneworder
 msgid "als "
@@ -405,15 +401,15 @@ msgstr "New Directory"
 
 #: uintfstrconsts:strnodirectoryselected
 msgid ""
-"Sie müssen ein Verzeichnis auswählen,\n"
-"bevor Sie den Eintrag zu einem diesem zuordnen können."
+"Sie m\303\274ssen ein Verzeichnis ausw\303\244hlen,\n"
+"bevor Sie den Eintrag zu einem diesem zuordnen k\303\266nnen."
 msgstr ""
 "You must select an directory,\n"
 "bevor you can add an enry to these."
 
 #: uintfstrconsts:strgotofeed
 msgid "vollen Artikel anzeigen"
-msgstr "show full article"
+msgstr "Show full article"
 
 #: uintfstrconsts:stractionmessagereceived
 msgid "%s - empfangen"
@@ -424,8 +420,7 @@ msgid "Spampunkte: "
 msgstr "Spampoints:"
 
 #: uintfstrconsts:strwrongpassword
-msgid ""
-"Das eingegebene Passwort stimmt nicht mit dem von Ihnen erstellten überein"
+msgid "Das eingegebene Passwort stimmt nicht mit dem von Ihnen erstellten \303\274berein"
 msgstr "The entered password dont matches to yours"
 
 # uintfstrconsts:strcontact
@@ -453,7 +448,7 @@ msgid "Time List"
 msgstr "Time List"
 
 #: uintfstrconsts:strorders
-msgid "Aufträge"
+msgid "Auftr\303\244ge"
 msgstr "Orders"
 
 #: uintfstrconsts:strtasks
@@ -472,7 +467,7 @@ msgstr "New"
 
 #: uintfstrconsts:strsave
 msgid "Speichern"
-msgstr "save"
+msgstr "Save"
 
 # uintfstrconsts:strinitialisingorders
 #: uintfstrconsts:strrefresh
@@ -480,7 +475,7 @@ msgid "Aktualisieren"
 msgstr "Refresh"
 
 #: uintfstrconsts:strrealdelete
-msgid "möchten Sie diesen Eintrag wirklich löschen ?"
+msgid "m\303\266chten Sie diesen Eintrag wirklich l\303\266schen ?"
 msgstr "Should the entry really be deleted ?"
 
 #: uintfstrconsts:strrename
@@ -523,10 +518,10 @@ msgid "Abbrechen"
 msgstr "Abort"
 
 #: uintfstrconsts:strthisaccountdontexists
-msgid ""
-"Dieses Konto scheint auf diesem Computer nicht eingerichtet zu sein, richten "
-"Sie es zuerst ein !"
-msgstr "This account seems not to be set up on this computer. Set it first up."
+msgid "Dieses Konto scheint auf diesem Computer nicht eingerichtet zu sein, richten Sie es zuerst ein !"
+msgstr ""
+"This account seems not to be set up on this computer, please set it first "
+"up."
 
 # uintfstrconsts:strcontact
 #: uintfstrconsts:straccount
@@ -552,12 +547,10 @@ msgstr "Unknown"
 
 #: uintfstrconsts:strnewnumber
 msgid "neue Nummer"
-msgstr "new number"
+msgstr "New number"
 
 #: uintfstrconsts:strdatasetmustbeininsertmode
-msgid ""
-"Sie können lediglich in neue Einträge Daten aus der Zwischenablage einfügen, "
-"bitte legen Sie zuvor einen neuen Eintrag an."
+msgid "Sie k\303\266nnen lediglich in neue Eintr\303\244ge Daten aus der Zwischenablage einf\303\274gen, bitte legen Sie zuvor einen neuen Eintrag an."
 msgstr "You can just add data to existing entrys, please add an entry before"
 
 #: uintfstrconsts:strcantgetclipboardcontents
@@ -575,7 +568,7 @@ msgstr "Contactlist"
 
 #: uintfstrconsts:strnodatafound
 msgid "kein Eintrag gefunden !"
-msgstr "no entry found !"
+msgstr "No entry found !"
 
 # uintfstrconsts:strarticlelist
 #: uintfstrconsts:strarticlelist
@@ -649,7 +642,7 @@ msgid "Alternative Zeilenfarbe"
 msgstr "Alternate rowcolor"
 
 #: uintfstrconsts:strinfocolor
-msgid "Farbe für aktives Feld"
+msgid "Farbe f\303\274r aktives Feld"
 msgstr "color for active field"
 
 #: uintfstrconsts:strnofilter
@@ -671,7 +664,7 @@ msgid "Fertigstellen"
 msgstr "Finish"
 
 #: uintfstrconsts:strprev
-msgid "Zurück"
+msgid "Zur\303\274ck"
 msgstr "Back"
 
 #: uintfstrconsts:strnext
@@ -692,19 +685,17 @@ msgid "benutzer nicht gefunden !"
 msgstr "user not found !"
 
 #: uintfstrconsts:strerrordatabasestructurenotactual
-msgid ""
-"Die Struktur Ihrer Datenbank ist nicht aktuell, bitte wenden Sie sich an "
-"Ihren Administrator order updaten Sie diese mit dem Updatedatabase Tool."
+msgid "Die Struktur Ihrer Datenbank ist nicht aktuell, bitte wenden Sie sich an Ihren Administrator order updaten Sie diese mit dem Updatedatabase Tool."
 msgstr ""
 "The structure of your database is not actual, please contact your "
 "administrator or update it with the database tool"
 
 #: uintfstrconsts:strnotsupported
-msgid "nicht unterstützt ! (Interner Fehler)"
+msgid "nicht unterst\303\274tzt ! (Interner Fehler)"
 msgstr "not supported ! (internal error)"
 
 #: uintfstrconsts:strdelete
-msgid "löschen"
+msgid "l\303\266schen"
 msgstr "delete"
 
 # uintfstrconsts:strtendertext
@@ -731,8 +722,8 @@ msgid "Nachricht"
 msgstr "Message"
 
 #: uintfstrconsts:strcheckingforupdate
-msgid "prüfe auf Update..."
-msgstr "check for update..."
+msgid "pr\303\274fe auf Update..."
+msgstr "checking for Update..."
 
 # uintfstrconsts:stroptions
 #: uintfstrconsts:strreadingoptions
@@ -749,27 +740,23 @@ msgid "bearbeiten"
 msgstr "edit"
 
 #: uintfstrconsts:strcanceledit
-msgid "Änderungen verwerfen"
-msgstr "revert changed"
+msgid "\303\204nderungen verwerfen"
+msgstr "Revert changed"
 
 #: uintfstrconsts:strwikimainpagetext
 msgid ""
 "==Willkommen zur Prometheus Wiki==<br>\n"
 "<br>\n"
-"Sie können dieses Wiki als zentralen Wissenspool verstehen. Sie können hier "
-"Informationen jeglicher Art strukturiert ablegen.<br>\n"
+"Sie k\303\266nnen dieses Wiki als zentralen Wissenspool verstehen. Sie k\303\266nnen hier Informationen jeglicher Art strukturiert ablegen.<br>\n"
 "<br>\n"
-"Dazu stehen Ihnen interne Links [[Ihre erste Seite]] durch die Sie auch ganz "
-"einfach neue Sieten anlegen könenn einfach indem Sie, sie anlegen und "
-"draufklicken. Externe Links, zu beliebigen Websites [http://www.ullihome.de "
-"www.ullihome.de], Aufzählungen\n"
+"Dazu stehen Ihnen interne Links [[Ihre erste Seite]] durch die Sie auch ganz einfach neue Sieten anlegen k\303\266nenn einfach indem Sie, sie anlegen und draufklicken. Externe Links, zu beliebigen Websites [http://www.ullihome.de www.ullihome.de], Aufz\303\244hlungen\n"
 "*1\n"
 "*2\n"
 "*3\n"
-"===Überschriften===\n"
-"====In verschiedenen Größen====\n"
-"und ähnliche Elemente zur Verfügung."
-msgstr ""
+"===\303\234berschriften===\n"
+"====In verschiedenen Gr\303\266\303\237en====\n"
+"und \303\244hnliche Elemente zur Verf\303\274gung."
+msgstr "==Welcome to Promet Wiki=="
 
 #: uintfstrconsts:strwikipage
 msgid "Wiki Seite"
@@ -797,25 +784,19 @@ msgid "Finanzen"
 msgstr "Financial"
 
 #: uintfstrconsts:strsearchfromtimeregisteringmode
-msgid ""
-"Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag "
-"öffnen, wird dieser automatisch in die Zeiterfassung übernommen."
+msgid "Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag \303\266ffnen, wird dieser automatisch in die Zeiterfassung \303\274bernommen."
 msgstr ""
 "This search is started from timeregistering, when you open the entry its put "
 "there."
 
 #: uintfstrconsts:strsearchfromdocumentsmode
-msgid ""
-"Diese Suche wurde aus der Dokumentenverwaltung gestartet, wenn Sie einen "
-"Eintrag öffnen, wird dieser automatisch mit dem Dokument verknüpft."
+msgid "Diese Suche wurde aus der Dokumentenverwaltung gestartet, wenn Sie einen Eintrag \303\266ffnen, wird dieser automatisch mit dem Dokument verkn\303\274pft."
 msgstr ""
 "This search is started from documentmanagement, when you open the entry its "
 "put there."
 
 #: uintfstrconsts:strsearchfromhistorymode
-msgid ""
-"Diese Suche wurde aus einem Verlauf gestartet, wenn Sie einen Eintrag "
-"öffnen, wird dieser automatisch mit dem Verlaufseintrag verknüpft."
+msgid "Diese Suche wurde aus einem Verlauf gestartet, wenn Sie einen Eintrag \303\266ffnen, wird dieser automatisch mit dem Verlaufseintrag verkn\303\274pft."
 msgstr ""
 "This search is started from history, when you open the entry its put there."
 
@@ -832,8 +813,8 @@ msgid "DAD Lieferadresse"
 msgstr "DAD Deliveryadress"
 
 #: uintfstrconsts:strbadaddress
-msgid "BAD Geschäftsadresse"
-msgstr "BAD Workadress"
+msgid "BAD Gesch\303\244ftsadresse"
+msgstr "BAD Buisinessadress"
 
 #: uintfstrconsts:strpadaddress
 msgid "PAD Privatadresse"
@@ -867,15 +848,139 @@ msgstr ""
 "mail: info@cu-tec.de\n"
 "\n"
 "License:\n"
-"This software produkt is provided \"as is\"\n"
+"This software product is provided \"as is\"\n"
 "without any warranty of any kind, either express or implied.\n"
 " Without limitation, to the fullest extent allowable by law,\n"
 " end user assumes the entire risk as to the quality\n"
-" and performance of the downloaded software produkt.\n"
+" and performance of the downloaded software product.\n"
 "created with Freepascal + Lazarus\n"
 "http://www.freepascal.org, http://lazarus.freepascal.org\n"
 "Iconset from:\n"
 "http://www.famfamfam.com/lab/icons/silk/\n"
+
+#~ msgid "Mit Öffnen wird der gewählte Eintrag in den Auftrag übernommen"
+#~ msgstr "With open, the selected entry is copied into the order"
+
+# uintfstrconsts:strstatuschanged
+#~ msgid "Kategorie geändetr auf %s"
+#~ msgstr "Category changed to %s"
+
+# uintfstrconsts:strstatuschanged
+#~ msgid "Zieldatum geändert zu %s"
+#~ msgstr "Targetdate changed to %s"
+
+#~ msgid "Währung"
+#~ msgstr "Currency"
+
+#~ msgid "Übersicht"
+#~ msgstr "Overview"
+
+#~ msgid "Der process wird demnächst wieder gestartet"
+#~ msgstr "The process is startet new at"
+
+#~ msgid "Timeout überschritten"
+#~ msgstr "Timeout exceed"
+
+#~ msgid "Anhänge"
+#~ msgstr "Attatchements"
+
+#~ msgid "geben Sie einen Namen für den neuen Filter an"
+#~ msgstr "enter an name for the new filter"
+
+# uintfstrconsts:strstatuschanged
+#~ msgid "Status geändert von %s zu %s"
+#~ msgstr "Status changed from %s to %s"
+
+# uintfstrconsts:strstatuschanged
+#~ msgid "Nummer geändert zu %s"
+#~ msgstr "Number changed to %s"
+
+#~ msgid "kein Mandant gewählt (--mandant) !"
+#~ msgstr "No mandant selected (--mandant) !"
+
+#~ msgid "kein Zielmandant gewählt (--destination) !"
+#~ msgstr "No targetmandant selected (--destination) !"
+
+#~ msgid ""
+#~ "Sie müssen ein Verzeichnis auswählen,\n"
+#~ "bevor Sie den Eintrag zu einem diesem zuordnen können."
+#~ msgstr ""
+#~ "You must select an directory,\n"
+#~ "bevor you can add an enry to these."
+
+#~ msgid ""
+#~ "Das eingegebene Passwort stimmt nicht mit dem von Ihnen erstellten überein"
+#~ msgstr "The entered password dont matches to yours"
+
+#~ msgid "Aufträge"
+#~ msgstr "Orders"
+
+#~ msgid "möchten Sie diesen Eintrag wirklich löschen ?"
+#~ msgstr "Should the entry really be deleted ?"
+
+#~ msgid ""
+#~ "Sie können lediglich in neue Einträge Daten aus der Zwischenablage einfügen, "
+#~ "bitte legen Sie zuvor einen neuen Eintrag an."
+#~ msgstr "You can just add data to existing entrys, please add an entry before"
+
+#~ msgid "Farbe für aktives Feld"
+#~ msgstr "color for active field"
+
+#~ msgid "Zurück"
+#~ msgstr "Back"
+
+#~ msgid "nicht unterstützt ! (Interner Fehler)"
+#~ msgstr "not supported ! (internal error)"
+
+#~ msgid "löschen"
+#~ msgstr "delete"
+
+#~ msgid "prüfe auf Update..."
+#~ msgstr "Check for update..."
+
+#~ msgid "Änderungen verwerfen"
+#~ msgstr "Revert changed"
+
+#~ msgid ""
+#~ "==Willkommen zur Prometheus Wiki==<br>\n"
+#~ "<br>\n"
+#~ "Sie können dieses Wiki als zentralen Wissenspool verstehen. Sie können hier "
+#~ "Informationen jeglicher Art strukturiert ablegen.<br>\n"
+#~ "<br>\n"
+#~ "Dazu stehen Ihnen interne Links [[Ihre erste Seite]] durch die Sie auch ganz "
+#~ "einfach neue Sieten anlegen könenn einfach indem Sie, sie anlegen und "
+#~ "draufklicken. Externe Links, zu beliebigen Websites [http://www.ullihome.de "
+#~ "www.ullihome.de], Aufzählungen\n"
+#~ "*1\n"
+#~ "*2\n"
+#~ "*3\n"
+#~ "===Überschriften===\n"
+#~ "====In verschiedenen Größen====\n"
+#~ "und ähnliche Elemente zur Verfügung."
+#~ msgstr "==Welcome to Promet Wiki==<br>"
+
+#~ msgid ""
+#~ "Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag "
+#~ "öffnen, wird dieser automatisch in die Zeiterfassung übernommen."
+#~ msgstr ""
+#~ "This search is started from timeregistering, when you open the entry its put "
+#~ "there."
+
+#~ msgid ""
+#~ "Diese Suche wurde aus der Dokumentenverwaltung gestartet, wenn Sie einen "
+#~ "Eintrag öffnen, wird dieser automatisch mit dem Dokument verknüpft."
+#~ msgstr ""
+#~ "This search is started from documentmanagement, when you open the entry its "
+#~ "put there."
+
+#~ msgid ""
+#~ "Diese Suche wurde aus einem Verlauf gestartet, wenn Sie einen Eintrag "
+#~ "öffnen, wird dieser automatisch mit dem Verlaufseintrag verknüpft."
+#~ msgstr ""
+#~ "This search is started from history, when you open the entry its put there."
+
+#~ msgid "BAD Geschäftsadresse"
+#~ msgstr "BAD Workadress"
 
 #~ msgctxt "TFACCOUNTINGQUE.BCLOSE.CAPTION"
 #~ msgid "&Schließen"
