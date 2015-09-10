@@ -145,6 +145,7 @@ resourcestring
   strTexts                                   = 'Texte';
   strChangeNumer                             = 'Nummer ändern';
   strNewArticle                              = 'neuer Artikel';
+  strShouldThisVersionated                   = 'Soll das Script versioniert werden ?';
 procedure TfScriptFrame.acSaveExecute(Sender: TObject);
 begin
   if Assigned(FConnection) then
@@ -191,7 +192,7 @@ begin
     Version := cbVersion.Text;
   if Dataset.FieldByName('VERSION').AsVariant <> Version then
     begin //New Version
-      if not TBaseScript(DataSet).Versionate(Version) then
+      if (MessageDlg(strVersion,strShouldThisVersionated,mtInformation,[mbYes,mbNo],0)<>mrYes) or (not TBaseScript(DataSet).Versionate(Version)) then
         cbVersion.Text := DataSet.FieldByName('VERSION').AsString
       else
         begin
@@ -526,6 +527,7 @@ begin
   DataSet.OnChange:=@ScriptStateChange;
   TBaseDbList(DataSet).SelectFromLink(aLink);
   Dataset.Open;
+  DataSet.Locate('ACTIVE','Y',[]);
   DoOpen;
   Result := True;
 end;
@@ -544,7 +546,7 @@ begin
   TabCaption := strNewArticle;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TBaseScript.CreateEx(Self,Data,FConnection);
+  DataSet := TPrometPascalScript.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ScriptStateChange;
   DataSet.Select(0);
   DataSet.Open;

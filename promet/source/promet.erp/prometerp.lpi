@@ -174,7 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--debug"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -357,6 +357,7 @@
         <ComponentName Value="fScriptFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uscriptframe"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>

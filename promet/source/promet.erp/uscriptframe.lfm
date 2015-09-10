@@ -20,21 +20,21 @@ inherited fScriptFrame: TfScriptFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 414
-      ClientWidth = 644
+      ClientHeight = 421
+      ClientWidth = 642
       object Label1: TLabel
         Left = 8
-        Height = 15
+        Height = 13
         Top = 8
-        Width = 83
+        Width = 64
         Caption = 'Beschreibung'
         ParentColor = False
       end
       object DBMemo1: TDBMemo
         Left = 8
-        Height = 345
+        Height = 352
         Top = 24
-        Width = 626
+        Width = 624
         Anchors = [akTop, akLeft, akRight, akBottom]
         DataField = 'NOTE'
         DataSource = Script
@@ -44,15 +44,15 @@ inherited fScriptFrame: TfScriptFrame
       end
       object Label7: TLabel
         Left = 8
-        Height = 15
+        Height = 13
         Top = 384
-        Width = 47
+        Width = 38
         Caption = 'Priorität'
         ParentColor = False
       end
       object DBEdit1: TDBEdit
         Left = 64
-        Height = 25
+        Height = 21
         Top = 381
         Width = 65
         DataField = 'PRIORITY'
@@ -277,7 +277,7 @@ inherited fScriptFrame: TfScriptFrame
       end
       object eArticleNumber: TDBEdit
         Left = 4
-        Height = 25
+        Height = 21
         Top = 13
         Width = 268
         DataField = 'NAME'
@@ -326,22 +326,22 @@ inherited fScriptFrame: TfScriptFrame
       end
       object cbVersion: TComboBox
         Left = 4
-        Height = 27
+        Height = 21
         Hint = 'hier können Sie die zu bearbeitende Artikelversion auswählen.'#13#10'Wenn Sie eine neue version eingeben und das Feld verlassen,'#13#10'wird ein Dialog geöffnet in dem abgefragt wird was vom aktuellen'#13#10'Artikel übernommen werden soll, danach existiert der Atikel auch'#13#10'in der neuen Artikelversion.'
         Top = 12
         Width = 68
-        ItemHeight = 0
+        ItemHeight = 13
         OnExit = cbVersionExit
         OnSelect = cbVersionSelect
         TabOrder = 0
         TabStop = False
       end
       object cbActive: TDBCheckBox
-        Left = 81
-        Height = 22
+        Left = 93
+        Height = 17
         Hint = 'markiert diesen Artikel als aktiv'#13#10'(aktive Version)'
         Top = 4
-        Width = 54
+        Width = 42
         Anchors = [akTop, akRight]
         AutoSize = True
         Caption = 'Aktiv'
@@ -388,19 +388,19 @@ inherited fScriptFrame: TfScriptFrame
       end
       object cbStatus: TComboBox
         Left = 4
-        Height = 29
+        Height = 21
         Hint = 'hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen'
         Top = 12
         Width = 86
         Anchors = [akTop, akLeft, akRight]
-        ItemHeight = 0
+        ItemHeight = 13
         OnSelect = cbStatusSelect
         Style = csDropDownList
         TabOrder = 0
       end
     end
   end
-  object Script: TDatasource[2]
+  object Script: TDataSource[2]
     OnStateChange = ScriptStateChange
     left = 16
     top = 88
@@ -537,7 +537,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 172
     top = 252
   end
-  object History: TDatasource[6]
+  object History: TDataSource[6]
     left = 204
     top = 252
   end
@@ -555,7 +555,7 @@ inherited fScriptFrame: TfScriptFrame
     left = 220
     top = 169
   end
-  object MandantDetails: TDatasource[9]
+  object MandantDetails: TDataSource[9]
     left = 256
     top = 232
   end
