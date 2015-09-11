@@ -6,6 +6,8 @@
 *.bak
 *.dbg
 *.exe
+*.db
+promet/source/scripts/tinkerforge/*
 lib*/
 promet/output/i386-win32/importdata/*
 promet/output/*

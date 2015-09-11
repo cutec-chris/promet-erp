@@ -190,7 +190,7 @@ begin
   Version := NULL;
   if cbVersion.Text <> '' then
     Version := cbVersion.Text;
-  if Dataset.FieldByName('VERSION').AsVariant <> Version then
+  if Dataset.FieldByName('VERSION').AsString <> Version then
     begin //New Version
       if (MessageDlg(strVersion,strShouldThisVersionated,mtInformation,[mbYes,mbNo],0)<>mrYes) or (not TBaseScript(DataSet).Versionate(Version)) then
         cbVersion.Text := DataSet.FieldByName('VERSION').AsString
