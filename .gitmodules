@@ -85,3 +85,6 @@
 [submodule "promet/source/components/hunspell"]
 	path = promet/source/components/hunspell
 	url = https://github.com/cutec-chris/hunspell.git
+[submodule "promet/source/plugins/target3001"]
+	path = promet/source/plugins/target3001
+	url = https://github.com/tcs-ulli/lister-plugin-target3001.git
