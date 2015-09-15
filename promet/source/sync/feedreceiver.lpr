@@ -162,7 +162,7 @@ begin
                   FeedType := 'RSS';
                 http.Free;
                 if FeedType = 'ATOM' then
-                  aFeedName := DoDecode(aNode.FindNode('title').FirstChild.NodeValue);
+                  aFeedName := copy(DoDecode(aNode.FindNode('title').FirstChild.NodeValue),0,99);
                 if Assigned(aNode) then
                   aNode := aNode.FirstChild;
                 while Assigned(aNode) do
@@ -298,9 +298,10 @@ begin
                                   begin
                                     tmp := aMessageNode.FirstChild.NodeValue;
                                     if tmp = '' then
-                                      tmp := aMessageNode.TextContent;
+                                      tmp := DoDecode(aMessageNode.TextContent);
                                   end;
-                                tmp := '<b>'+aTitleNode.FirstChild.NodeValue+'</b><br>'+tmp;
+                                if pos(DoDecode(aTitleNode.FirstChild.NodeValue),tmp)=0 then
+                                  tmp := '<b>'+DoDecode(aTitleNode.FirstChild.NodeValue)+'</b><br>'+tmp;
                                 tmp := tmp+'<br><a href='''+aLinkValue+'''>'+strGotoFeed+'</a>';
                                 tmp := '<html><body>'+tmp+'</body></html>';
                                 ss := TStringStream.Create(tmp);
