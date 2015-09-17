@@ -35,7 +35,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-cen/ --debug --mandant=Central"/>
+        <CommandLineParams Value="--mandant=Stora"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">

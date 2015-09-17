@@ -549,7 +549,6 @@ object fmTimeline: TfmTimeline
       Caption = 'in Zwischenablage kopieren'
       ImageIndex = 23
       OnExecute = acCopyToClipboardExecute
-      ShortCut = 16451
     end
     object acDeleteENviroment: TAction
       Caption = 'Umgebung löschen'
