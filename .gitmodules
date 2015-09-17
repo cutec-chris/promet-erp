@@ -42,7 +42,7 @@
 	url = https://github.com/cutec-chris/sqlparser
 [submodule "promet/source/components/dexif"]
 	path = promet/source/components/dexif
-	url = https://github.com/cutec-chris/dexif
+	url = https://github.com/cutec-No submodule mapping found in .gitmodules for pathchris/dexif
 [submodule "promet/source/components/gifanim"]
 	path = promet/source/components/gifanim
 	url = https://github.com/cutec-chris/gifanim
@@ -88,3 +88,6 @@
 [submodule "promet/source/plugins/target3001"]
 	path = promet/source/plugins/target3001
 	url = https://github.com/tcs-ulli/lister-plugin-target3001.git
+[submodule "promet/source/plugins/mindmap"]
+	path = promet/source/plugins/mindmap
+	url = https://github.com/tcs-ulli/lister-plugin-mindmap.git
