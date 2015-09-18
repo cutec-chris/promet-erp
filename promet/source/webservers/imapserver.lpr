@@ -36,8 +36,8 @@ type
   private
     FParent : Variant;
     Folder : TMessageList;
-    FHighestUID : LongInt;
-    FLowestUID : LongInt;
+    FHighestUID : Int64;
+    FLowestUID : Int64;
     DBCS : TCriticalSection;
     function GotoIndex(Index : LongInt) : Boolean;
   public
@@ -236,8 +236,8 @@ function TPrometMailBox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
       Inc(Result)
     else
       Result := i;
-    if UseUID and (Result < FLowestUID) then
-      Result := FLowestUID;
+    if UseUID then
+      Result := GetUID(Result);
   end;
 
   function GetSet(s: string): TMessageSet;
@@ -757,6 +757,8 @@ begin
   Tree.Open;
   FParent := Path;
   aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString);
+  with BaseApplication as IBaseApplication do
+    Debug('Refreshing Folder:'+Folder.TableName+' Filter:'+aFilter);
   aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
   aCnt.Open;
   FHighestUID:=aCnt.FieldByName('HUID').AsLongint;
@@ -1109,6 +1111,17 @@ begin
       begin
         SendS := TSImapThread(AThread).Selected.Fetch( MsgSet[i]-1, MsgDat, Success );
         if (trim(SendS) <> '') AND Success then SendRes (AThread, SendS )
+      end;
+    if Length(MsgSet)=0 then //Fetchall
+      begin
+        TPrometMailBox(TSImapThread(AThread).Selected).Folder.First;
+        while not TPrometMailBox(TSImapThread(AThread).Selected).Folder.EOF do
+          begin
+            CS.Enter;
+            TSImapThread(AThread).Selected.Fetch(TPrometMailBox(TSImapThread(AThread).Selected).Folder.Id.AsVariant , MsgDat, Success );
+            TPrometMailBox(TSImapThread(AThread).Selected).Folder.Next;
+            CS.Leave;
+          end;
       end;
     with BaseApplication  do
       if not HasOption('debug') then
