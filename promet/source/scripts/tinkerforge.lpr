@@ -6,7 +6,7 @@ library tinkerforge;
 uses
   Classes,sysutils, IPConnection, Device, BrickletLCD20x4, BrickletLCD16x2,
   BrickletVoltageCurrent,BrickletIndustrialQuadRelay,BrickletDualRelay,process,
-  Utils;
+  Utils,BrickletColor;
 type
   TStation = class
     procedure ipconConnected(sender: TIPConnection; const connectReason: byte);
@@ -68,6 +68,10 @@ begin
       end;
       if (deviceIdentifier = BRICKLET_DUAL_RELAY_DEVICE_IDENTIFIER) then begin
         Dev := TBrickletDualRelay.Create(UID, ipcon);
+        Devices.Add(Dev);
+      end;
+      if (deviceIdentifier = BRICKLET_COLOR_DEVICE_IDENTIFIER) then begin
+        Dev := TBrickletColor.Create(UID, ipcon);
         Devices.Add(Dev);
       end;
     end;
@@ -354,7 +358,6 @@ begin
         end;
     end;
 end;
-
 function TfSetRelais(Position : pchar;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;
 var
   aUid: string;
@@ -410,16 +413,82 @@ begin
         end;
     //end;
 end;
+function TfGetColorById(id : Integer) : Cardinal;stdcall;
+var
+  a: Integer;
+  i: Integer;
+  r: word;
+  g: word;
+  b: word;
+  c: word;
+  rgbc: array[0..3] of Byte;
+begin
+  Result := -1;
+  a := 0;
+  if Station=nil then exit;
+  for i := 0 to Station.Devices.Count-1 do
+    begin
+      if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
+        begin
+          if a=id then
+            begin
+              TBrickletColor(Station.Devices[i]).GetColor(r,g,b,c);
+              rgbc[0] := r div 256;
+              rgbc[1] := g div 256;
+              rgbc[2] := b div 256;
+              rgbc[3] := c div 256;
+              Result := dword(rgbc);
+              exit;
+            end;
+          inc(a);
+        end;
+    end;
+end;
+function TfGetColor(position : pchar) : Cardinal;stdcall;
+var
+  a: Integer;
+  i: Integer;
+  aDID: word;
+  aFWV: TVersionNumber;
+  aHWV: TVersionNumber;
+  aPosition: char;
+  aConUID: string;
+  aUid: string;
+  r: word;
+  g: word;
+  b: word;
+  c: word;
+  rgbc: array[0..3] of Byte;
+begin
+  Result := -1;
+  if Station=nil then exit;
+  for i := 0 to Station.Devices.Count-1 do
+    begin
+      if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
+        begin
+          TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
+          if (lowercase(position)=lowercase(aConUID)+'.'+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
+            begin
+              TBrickletColor(Station.Devices[i]).GetColor(r,g,b,c);
+              rgbc[0] := r div 256;
+              rgbc[1] := g div 256;
+              rgbc[2] := b div 256;
+              rgbc[3] := c div 256;
+              Result := dword(rgbc);
+              exit;
+            end;
+          inc(a);
+        end;
+    end;
+end;
 function TfGetDeviceList : pchar;stdcall;
 begin
   Result := pchar(DeviceList);
 end;
-
 procedure ScriptCleanup;
 begin
   TfDisconnect;
 end;
-
 procedure ScriptTool;
 begin
   if not Assigned(BrickV) then
@@ -435,18 +504,18 @@ begin
       end;
     end;
 end;
-
 function ScriptDefinition : PChar;stdcall;
 begin
   Result := 'function TfEnumerate : Integer;stdcall;'
        +#10+'function TfConnect(Host : PChar;Port : Integer) : Boolean;stdcall;'
        +#10+'function TfDisconnect : Boolean;stdcall;'
+       +#10+'function TfGetDeviceList : pchar;stdcall;'
 
        +#10+'procedure TfLCDBackLightOn;stdcall;'
        +#10+'procedure TfLCDBackLightOff;stdcall;'
        +#10+'procedure TfLCDWrite(x,y : Integer;text : string);stdcall;'
        +#10+'procedure TfLCDClear;stdcall;'
-       +#10+'function TfLCDButtonPressed(Button : byte) : Boolean;'
+       +#10+'function TfLCDButtonPressed(Button : byte) : Boolean;stdcall;'
 
        +#10+'function TfGetVoltageById(id : Integer) : LongInt;stdcall;'
        +#10+'function TfGetVoltage(Position : pchar) : LongInt;stdcall;'
@@ -455,8 +524,11 @@ begin
        +#10+'function TfGetPowerById(id : Integer) : LongInt;stdcall;'
        +#10+'function TfGetPower(Position : pchar) : LongInt;stdcall;'
 
+       +#10+'function TfGetColor(Position : pchar) : LongInt;stdcall;'
+       +#10+'function TfGetColorById(id : Integer) : LongInt;stdcall;'
+
        +#10+'function TfSetRelais(Position : pchar;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;'
-       +#10+'function TfGetDeviceList : pchar;stdcall;'
+
             ;
 end;
 
@@ -464,6 +536,7 @@ exports
   TfConnect,
   TfEnumerate,
   TfDisconnect,
+  TfGetDeviceList,
 
   TfLCDBackLightOn,
   TfLCDBackLightOff,
@@ -478,8 +551,10 @@ exports
   TfGetPower,
   TfGetPowerById,
 
+  TfGetColor,
+  TfGetColorById,
+
   TfSetRelais,
-  TfGetDeviceList,
 
   ScriptCleanup,
   ScriptTool,
