@@ -207,7 +207,8 @@ uses uData,uBaseVisualControls,uOrderAdditionalFrame,uOverviewFrame,
   uSelectReport,uNewStorage,uMainTreeFrame,uRepairPositionFrame,uQSPositionFrame,
   uDetailPositionFrame,uBaseVisualApplication,uPersonFrame,uPersonFinance,
   uAccountingTransfer,uPrometFramesInplace,Utils,uorderaddressframe,uMessageEdit,
-  uNRights,uBookSerial,uBaseApplication,utextpositionframe,urepairimageframe;
+  uNRights,uBookSerial,uBaseApplication,utextpositionframe,urepairimageframe,
+  LCLVersion;
 resourcestring
   strAdditional                       = 'Zusätzlich';
   strDates                            = 'Datum';
@@ -226,14 +227,23 @@ var
   i: Integer;
   fMessageEdit: TfMessageEdit;
 begin
+  {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR >= 5) and (LCL_RELEASE >= 0))}
+  FOR i := 0 TO ExportFilters.Count - 1 DO
+    if pos('PDF',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
+  {$else}
   FOR i := 0 TO frFiltersCount - 1 DO
     if pos('PDF',Uppercase(frFilters[i].FilterDesc)) > 0 then
+  {$endif}
       if aReport.PrepareReport then
         begin
           isPrepared := True;
           with BaseApplication as IBaseApplication do
             begin
+              {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR >= 5) and (LCL_RELEASE >= 0))}
+              aReport.ExportTo(ExportFilters[i].ClassRef,GetInternalTempDir+aSubject+'.pdf');
+              {$else}
               aReport.ExportTo(frFilters[i].ClassRef,GetInternalTempDir+aSubject+'.pdf');
+              {$endif}
               fMessageEdit := TfMessageEdit.Create(nil);
               fMessageEdit.SendMailToWithDoc(aMail,aSubject,aText,GetInternalTempDir+aSubject+'.pdf',True);
             end;
