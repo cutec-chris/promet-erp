@@ -1638,7 +1638,8 @@ begin
           end;
         sleep(10);
       end;
-  finally
+  except
+    AThread.Terminate;
   end;
 end;
 constructor TSImapServer.Create(AOwner: TComponent);
