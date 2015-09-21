@@ -53,6 +53,7 @@ end;
 procedure TProcessManager.DoRun;
 var
   aTime: TDateTime;
+  aSystem: String;
 begin
   GetLog.LogType:=ltSystem;
   GetLog.Active:=False;
@@ -89,14 +90,17 @@ begin
     end;
   Info('processmanager login successful');
   Data.ProcessClient.Startup;
-  Info(getSystemName+' running');
+  aSystem := GetSystemName;
+  if HasOption('systemname') then
+    aSystem:=GetOptionValue('systemname');
+  Info(aSystem+' running');
   Data.ProcessClient.Processes.Open;
   Data.ProcessClient.Processes.Parameters.Open;
   aTime := Now();
   while (not Terminated) and ((Now()-aTime) < (1/HoursPerDay)) do
     begin
       Data.ProcessClient.RefreshList;
-      if not Data.ProcessClient.ProcessAll then
+      if not Data.ProcessClient.ProcessAll(aSystem) then
         begin
           Terminate;
           exit;

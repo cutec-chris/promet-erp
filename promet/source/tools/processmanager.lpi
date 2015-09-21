@@ -35,7 +35,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Stora"/>
+        <CommandLineParams Value="--mandant=Stora --systemname=Server10"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">
