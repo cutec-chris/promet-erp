@@ -7,7 +7,7 @@ AppPublisherURL=http://www.cu-tec.de
 AppSupportURL=http://www.free-erp.de
 AppUpdatesURL=http://www.free-erp.de
 MinVersion=0,5.0
-DefaultDirName={pf}\Promet-ERP
+DefaultDirName={pf}\Promet-ERP1
 DefaultGroupName=Promet-ERP
 AllowNoIcons=yes
 Compression=lzma2/ultra
@@ -22,8 +22,13 @@ WizardSmallImageFile=compiler:WizModernSmallImage-IS.bmp
 Source: "isxdl.dll"; Flags: dontcopy
 Source: "icons\*.ico"; Flags: dontcopy
 Source: "..\..\resources\multi-icon.ico"; Flags: dontcopy
+Source: "unzip.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall
+
 [Run]
-Filename: "{tmp}\isstudio-setup.exe"; StatusMsg: "Installing Inno Script Studio..."; Parameters: {code:GetISStudioCmdLine}; Flags: skipifdoesntexist; Check: PrometCheck
+Filename: "{tmp}\unzip.exe"; Parameters: "{tmp}\promet-erp.zip -d {app}"; StatusMsg: "Installiere Promet-ERP...";
+Filename: "{tmp}\unzip.exe";  Parameters: ; Check: PrometCheck
+//http://pginstaller.projects.pgfoundry.org/silent.html
+Filename: "{tmp}\postgres-server.exe"; StatusMsg: "Installiere PostgresSQL Server..."; Parameters: "/qn ADDLOCAL=server"; Check: PostgresCheck
 
 [Code]
 var
@@ -227,11 +232,11 @@ procedure RegisterPreviousData(PreviousDataKey: Integer);
 begin
   SetPreviousData(PreviousDataKey, 'Promet' {don't change}, IntToStr(Ord(PrometGetCheckBoxChecked)));
   SetPreviousData(PreviousDataKey, 'Postgres', IntToStr(Ord(PostgresCheckBox.Checked)));
-  SetPreviousData(PreviousDataKey, 'MySQL', IntToStr(Ord(MySQLCheckBox.Checked)));
-  SetPreviousData(PreviousDataKey, 'Firebird', IntToStr(Ord(FirebirdCheckBox.Checked)));
+  //SetPreviousData(PreviousDataKey, 'MySQL', IntToStr(Ord(MySQLCheckBox.Checked)));
+  //SetPreviousData(PreviousDataKey, 'Firebird', IntToStr(Ord(FirebirdCheckBox.Checked)));
 end;
 
-procedure DownloadFiles(InnoIDE, ISStudio, ISCrypt: Boolean);
+function DownloadFiles(Promet, Postgres, Firebird: Boolean) : Boolean;
 var
   hWnd: Integer;
   URL, FileName: String;
@@ -239,49 +244,45 @@ begin
   isxdl_SetOption('label', 'Downloading extra files');
   isxdl_SetOption('description', 'Please wait while Setup is downloading extra files to your computer.');
 
-  try
-    FileName := ExpandConstant('{tmp}\WizModernSmallImage-IS.bmp');
-    if not FileExists(FileName) then
-      ExtractTemporaryFile(ExtractFileName(FileName));
-    isxdl_SetOption('smallwizardimage', FileName);
-  except
-  end;
-
   //turn off isxdl resume so it won't leave partially downloaded files behind
   //resuming wouldn't help anyway since we're going to download to {tmp}
   isxdl_SetOption('resume', 'false');
 
   hWnd := StrToInt(ExpandConstant('{wizardhwnd}'));
 
-  if InnoIDE then begin
-    URL := 'http://www.jrsoftware.org/download.php/innoide.exe';
-    FileName := ExpandConstant('{tmp}\innoide-setup.exe');
+  if Promet then begin
+    URL := 'http://downloads.free-erp.de/promet-erp-7.0.414.i386-win32-portable.zip';
+    FileName := ExpandConstant('{tmp}\promet-erp.zip');
     isxdl_AddFile(URL, FileName);
   end;
 
-  if ISStudio then begin
-    URL := 'http://www.jrsoftware.org/download.php/isstudio.exe';
-    FileName := ExpandConstant('{tmp}\isstudio-setup.exe');
+  if Postgres then begin
+    URL := 'http://get.enterprisedb.com/postgresql/postgresql-9.4.4-3-windows.exe';
+    FileName := ExpandConstant('{tmp}\postgres-server.exe');
     isxdl_AddFile(URL, FileName);
   end;
 
-  if ISCrypt then begin
-    URL := 'http://www.jrsoftware.org/download.php/iscrypt.dll';
-    FileName := ExpandConstant('{tmp}\ISCrypt.dll');
+  if Firebird then begin
+    URL := 'http://sourceforge.net/projects/firebird/files/firebird-win32/2.5.4-Release/Firebird-2.5.4.26856-0_Win32.zip/download';
+    FileName := ExpandConstant('{tmp}\firebird-server.exe');
     isxdl_AddFile(URL, FileName);
   end;
 
   if isxdl_DownloadFiles(hWnd) <> 0 then
-    FilesDownloaded := True
-  else
-    SuppressibleMsgBox('Setup could not download the extra files. Try again later or download and install the extra files manually.' + #13#13 + 'Setup will now continue installing normally.', mbError, mb_Ok, idOk);
+    FilesDownloaded := True;
 end;
 
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 begin
+  Result := 'nichts zu Installieren';
   if PrometGetCheckBoxChecked or PrometCheckBox.Checked or FirebirdCheckBox.Checked then
-    DownloadFiles(PrometGetCheckBoxChecked, PostgresCheckBox.Checked, FirebirdCheckBox.Checked);
-  Result := '';
+    begin
+      DownloadFiles(PrometGetCheckBoxChecked, PostgresCheckBox.Checked, false);
+      if FilesDownloaded then
+        Result := ''
+      else
+        Result := 'Fehler beim Download';
+    end;
 end;
 
 function ShouldSkipPage(PageID: Integer): Boolean;
@@ -314,48 +315,7 @@ begin
   Result := FirebirdCheckBox.Checked and FilesDownloaded;
 end;
 
-function GetIDEPath(Key, Name: String; var IDEPath: String; var IDEPathRead: Boolean): String;
-var
-  IDEPathKeyName, IDEPathValueName: String;
-begin
-  if not IDEPathRead then begin
-    IDEPathKeyName := 'Software\Microsoft\Windows\CurrentVersion\Uninstall\' + Key;
-    IDEPathValueName := 'Inno Setup: App Path';
-
-    if not RegQueryStringValue(HKLM, IDEPathKeyName, IDEPathValueName, IDEPath) then begin
-      if not RegQueryStringValue(HKCU, IDEPathKeyName, IDEPathValueName, IDEPath) then begin
-        SuppressibleMsgBox('Error launching InnoIDE:'#13'Could not read InnoIDE path from registry.', mbError, mb_Ok, idOk);
-        IDEPath := '';
-      end;
-    end;
-
-    IDEPathRead := True;
-  end;
-
-  Result := IDEPath;
-end;
-
-function GetInnoIDEPath(S: String): String;
-begin
-  Result := GetIDEPath('{1E8BAA74-62A9-421D-A61F-164C7C3943E9}_is1', 'InnoIDE', InnoIDEPath, InnoIDEPathRead);
-end;
-
-function GetISStudioPath(S: String): String;
-begin
-  Result := GetIDEPath('{7C22BD69-9939-43CE-B16E-437DB2A39492}_is1', 'Inno Script Studio', ISStudioPath, ISStudioPathRead);
-end;
-
 function PortableCheck: Boolean;
 begin
   Result := ExpandConstant('{param:portable|0}') = '1';
-end;
-
-function GetISStudioCmdLine(S: String): String;
-begin
-  Result := '/verysilent /group="' + ExpandConstant('{groupname}') + '\Inno Script Studio" /mergetasks="';
-  if not IsTaskSelected('desktopicon') then
-    Result := Result + '!';
-  Result := Result + 'desktopicon,issfileassociation"';
-  if PortableCheck then
-    Result := Result + ' /portable=1';
 end;
