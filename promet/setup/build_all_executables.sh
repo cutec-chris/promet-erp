@@ -4,41 +4,80 @@ Params='--cpu='$2' --build-mode=Default'
 #  Params=$Params' --compiler=/usr/local/lib/fpc/2.7.1/ppc386'
 #fi
 echo "compiling for $1... $Params"
-cd ../../
-lazbuild --add-package $(pwd)/source/base/base_help/phelp.lpk
-lazbuild --add-package $(pwd)/source/base/base_frames/pvisualframes.lpk
-lazbuild --add-package $(pwd)/source/base/base_docmanage/pdocmanage.lpk
-lazbuild --add-package $(pwd)/source/base/base_forms/pvisualforms.lpk
-lazbuild --add-package $(pwd)/source/base/base_wiki/rtfconvert_pkg_vis.lpk
-lazbuild --add-package $(pwd)/source/base/base_phone/pphones.lpk
-lazbuild --add-package $(pwd)/source/base/base_options/poptions.lpk
-lazbuild --add-package $(pwd)/source/components/richmemo/richmemopackage.lpk
-lazbuild --add-package $(pwd)/source/base/pcmdprometapp.lpk
+lazbuild --add-package $(pwd)/../source/base/base_help/phelp.lpk
+lazbuild --add-package $(pwd)/../source/base/base_frames/pvisualframes.lpk
+lazbuild --add-package $(pwd)/../source/base/base_docmanage/pdocmanage.lpk
+lazbuild --add-package $(pwd)/../source/base/base_forms/pvisualforms.lpk
+lazbuild --add-package $(pwd)/../source/base/base_wiki/rtfconvert_pkg_vis.lpk
+lazbuild --add-package $(pwd)/../source/base/base_phone/pphones.lpk
+lazbuild --add-package $(pwd)/../source/base/base_options/poptions.lpk
+lazbuild --add-package $(pwd)/../source/components/richmemo/richmemopackage.lpk
+lazbuild --add-package $(pwd)/../source/base/pcmdprometapp.lpk
 echo "compiling apps..."
 echo "compiling messagemanager..." > scompile-$2-apps.log
 lazbuild $Params -B ../../source/messagemanager/messagemanager.lpi >> scompile-$2-apps.log
+if [ $? -ne 0 ]
+then
+  echo "ERROR: Fehler beim bauen von messagemenager"
+  exit
+fi
 echo "compiling promet..." >> scompile-$2-apps.log
 lazbuild $Params -q -B ../../source/promet.erp/prometerp.lpi >> scompile-$2-apps.log
+if [ $? -ne 0 ]
+then
+  echo "ERROR: Fehler beim bauen von promet"
+  exit
+fi
 echo "compiling statistics..." >> scompile-$2-apps.log
 lazbuild $Params -q  ../../source/statistics/statistics.lpi  >> scompile-$2-apps.log
+if [ $? -ne 0 ]
+then
+  echo "ERROR: Fehler beim bauen von statistics"
+  exit
+fi
 echo "compiling wizardmandant..." >> scompile-$2-apps.log
 lazbuild $Params -q ../../source/tools/wizardmandant.lpi  >> scompile-$2-apps.log
+if [ $? -ne 0 ]
+then
+  echo "ERROR: Fehler beim bauen von wizardmandant"
+  exit
+fi
 echo "compiling import/exporters..."
 echo "compiling sync_..." > scompile-$2-tools.log
 lazbuild $Params -q -B ../../source/sync/sync_db.lpi  >> scompile-$2-tools.log
+if [ $? -ne 0 ]
+then
+  echo "ERROR: Fehler beim bauen von sync_db"
+  exit
+fi
 lazbuild $Params -q -B ../../source/scripts/pscript.lpi  >> scompile-$2-tools.log
+if [ $? -ne 0 ]
+then
+  echo "ERROR: Fehler beim bauen von pscript"
+  exit
+fi
 #lazbuild $Params -q -B ../../source/sync/sync_owncloud.lpi  >> scompile-$2-tools.log
 #lazbuild $Params -q -B ../../source/sync/sync_redmine.lpi  >> scompile-$2-tools.log
 lazbuild $Params -q -B ../../source/sync/import_document.lpi  >> scompile-$2-tools.log
 lazbuild $Params -q -B ../../source/sync/import_mqtt.lpi  >> scompile-$2-tools.log
 echo "compiling pop3receiver..." >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/sync/pop3receiver.lpi  >> scompile-$2-tools.log
+if [ $? -ne 0 ]
+then
+  echo "ERROR: Fehler beim bauen von pop3receiver"
+  exit
+fi
 echo "compiling feedreceiver..." >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/sync/feedreceiver.lpi  >> scompile-$2-tools.log
 echo "compiling twitterreceiver..." >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/sync/twitterreceiver.lpi  >> scompile-$2-tools.log
 echo "compiling smtpsender..." >> scompile-$2-tools.log
 lazbuild $Params -q ../../source/sync/smtpsender.lpi  >> scompile-$2-tools.log
+if [ $? -ne 0 ]
+then
+  echo "ERROR: Fehler beim bauen von smtpsender"
+  exit
+fi
 grep -w "Error:" scompile-$2-tools.log
 echo "compiling tools..."
 echo "compiling pstarter..." >> scompile-$2-tools.log

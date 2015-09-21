@@ -51,6 +51,8 @@ begin
   Error(e.Message);
 end;
 procedure TProcessManager.DoRun;
+var
+  aTime: TDateTime;
 begin
   GetLog.LogType:=ltSystem;
   GetLog.Active:=False;
@@ -90,7 +92,8 @@ begin
   Info(getSystemName+' running');
   Data.ProcessClient.Processes.Open;
   Data.ProcessClient.Processes.Parameters.Open;
-  while not Terminated do
+  aTime := Now();
+  while (not Terminated) and ((Now()-aTime) < (1/HoursPerDay)) do
     begin
       Data.ProcessClient.RefreshList;
       if not Data.ProcessClient.ProcessAll then
