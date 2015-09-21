@@ -38,7 +38,7 @@ type
     Folder : TMessageList;
     FHighestUID : Int64;
     FLowestUID : Int64;
-    DBCS : TCriticalSection;
+    _DBCS : TCriticalSection;
     function GotoIndex(Index : LongInt) : Boolean;
   public
     function  GetUID( Index: LongInt ): LongInt;override;
@@ -54,6 +54,8 @@ type
     function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;override;
     function AppendMessage(AThread: TSTcpThread;MsgTxt: string; Flags: string; TimeStamp: TUnixTime): string; override;
     function FindContent(MsgSet: TMessageSet; After, Before: int64; Charset: string; HeaderList, BodyStrings,  TextStrings: TStringList): TMessageSet;override;
+    procedure InternalLock(WhoAmI : string);
+    procedure InternalUnlock(WhoAmI : string);
     procedure RefreshFolder;
     constructor Create(APath: String; CS: TCriticalSection); override;
     destructor Destroy; override;
@@ -85,9 +87,10 @@ type
     procedure DoList(AThread: TSTcpThread; Par: String; LSub: Boolean ); override;
     procedure DoSubscribe(AThread: TSTcpThread; Par: String);override;
     procedure DoUnSubscribe(AThread: TSTcpThread; Par: String);override;
+    procedure InternalLock(WhoAmI : string);
+    procedure InternalUnlock(WhoAmI : string);
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    property CS : TCriticalSection read DbCS;
   end;
 
   TPIMAPServer = class(TBaseCustomApplication)
@@ -121,6 +124,27 @@ begin
   Result := True;
 end;
 
+procedure TPrometMailBox.InternalLock(WhoAmI: string);
+begin
+  with BaseApplication as IBaseApplication do
+    Debug('  Locking entered from '+WhoAmI);
+  if not _DBCS.TryEnter then
+    begin
+      with BaseApplication as IBaseApplication do
+        Warning('DANGER:already Locked !!!!');
+      sleep(5000);
+      if not _DBCS.TryEnter then
+        raise Exception.Create('Lock after 5secs not released !!');
+    end;
+end;
+
+procedure TPrometMailBox.InternalUnlock(WhoAmI: string);
+begin
+  with BaseApplication as IBaseApplication do
+    Debug('UnLocking entered from '+WhoAmI);
+  _DBCS.Leave;
+end;
+
 function TPrometMailBox.GetUID(Index: LongInt): LongInt;
 begin
   if GotoIndex(Index) then
@@ -137,11 +161,13 @@ end;
 function TPrometMailBox.GetIndex(UID: LongInt): LongInt;
 begin
   Result := -1;
-  DbCS.Enter;
+  InternalLock('GetIndex');
   if not Assigned(Folder) then exit;
   if Folder.DataSet.Locate('GRP_ID',UID,[]) then
     Result := Folder.DataSet.RecNo;
-  DbCS.Leave;
+  with BaseApplication as IBaseApplication do
+    Debug('GetIndex('+IntToStr(UID)+')='+IntToStr(result));
+  InternalUnlock('GetIndex');
 end;
 
 function TPrometMailBox.SetFlags(Index: LongInt; Flags: TFlagMask): TFlagMask;
@@ -149,7 +175,7 @@ begin
   Result := 0;
   if GotoIndex(Index) then
     begin
-      DBCS.Enter;
+      InternalLock('SetFlags');
       Folder.Edit;
       Folder.FieldByName('GRP_FLAGS').Clear;
       if Flags and FLAGSEEN = FLAGSEEN then
@@ -170,7 +196,7 @@ begin
       if Flags and FLAGDELETED = FLAGDELETED then
         Folder.FieldByName('TREEENTRY').AsVariant:=TREE_ID_DELETED_MESSAGES;
       Result := GetFlags(Index);
-      DBCS.Leave;
+      InternalUnlock('SetFlags');
     end;
 end;
 
@@ -192,11 +218,11 @@ begin
           if Folder.FieldByName('DRAFT').AsString='Y' then
             MR := MR or FLAGDRAFT;
           if Folder.FieldByName('TREEENTRY').AsVariant=TREE_ID_DELETED_MESSAGES then MR := MR or FLAGDELETED;
-          DBCS.Enter;
+          InternalLock('GetFlags');
           Folder.Edit;
           Folder.FieldByName('GRP_FLAGS').AsInteger := MR;
           Folder.Post;
-          DBCS.Leave;
+          InternalUnlock('GetFlags');
         end
       else
         MR := Folder.FieldByName('GRP_FLAGS').AsInteger;
@@ -308,13 +334,18 @@ function TPrometMailBox.GetMessage(UID: LongInt; HeaderOnly: Boolean
 var
   aMessage: TMimeMessage;
 begin
-  DBCS.Enter;
-  aMessage := TMimeMessage.Create(nil);
-  aMessage.SelectByGrpID(UID,FParent);
-  aMessage.Open;
-  Result := aMessage.EncodeMessage(HeaderOnly);
-  aMessage.Free;
-  DBCS.Leave;
+  InternalLock('GetMessage '+IntToStr(UID));
+  try
+    aMessage := TMimeMessage.Create(nil);
+    aMessage.SelectByGrpID(UID,FParent);
+    aMessage.Open;
+    if aMessage.Count>0 then
+      Result := aMessage.EncodeMessage(HeaderOnly)
+    else Result := nil;
+    aMessage.Free;
+  finally
+    InternalUnlock('GetMessage '+IntToStr(UID));
+  end;
 end;
 
 function TPrometMailBox.CopyMessage(MsgSet: TMessageSet;
@@ -330,7 +361,7 @@ begin
     exit
   end;
   Result := True;
-  DBCS.Enter;
+  InternalLock('CopyMessage');
   Lock;
   try
     for i := 0 to High(MsgSet) do
@@ -354,8 +385,8 @@ begin
       end;
   finally
     Unlock;
+    InternalUnlock('CopyMessage');
   end;
-  DBCS.Leave;
   Destination.SendMailboxUpdate;
 end;
 
@@ -372,7 +403,8 @@ var
   CustomerCont: TPersonContactData;
   Customers: TPerson;
 begin
-  DBCS.Enter;
+  InternalLock('AppendMessage');
+  try
   Result:=inherited;
   try
     aMsg := TMimeMess.Create;
@@ -469,7 +501,9 @@ begin
   except
     Result := 'NO APPEND error';
   end;
-  DBCS.Leave;
+  finally
+    InternalUnlock('AppednMessage');
+  end;
   RefreshFolder;
 end;
 
@@ -657,9 +691,10 @@ begin
   aFilter := '('+copy(aFilter,5,length(aFilter))+')';
   //Date
   aFilter := aFilter+' AND ('+Data.QuoteField('SENDDATE')+'>'+Data.DateTimeToFilter(After)+' AND '+Data.QuoteField('SENDDATE')+'<'+Data.DateTimeToFilter(Before)+')';
-  DbCS.Enter;
+  InternalLock('FindContent');
   aMsgs := TMessageList.Create(nil);
   aMsgs.Filter(aFilter,0);
+  InternalUnLock('FindContent');
   i := 0;
   SetLength( Result, aMsgs.Count );
   while not aMsgs.EOF do
@@ -669,7 +704,6 @@ begin
       aMsgs.Next;
     end;
   aMsgs.Free;
-  DbCS.Leave;
   {
   SetLength( Result, Length(MsgSet) );
   j := 0;
@@ -751,14 +785,15 @@ var
   ActId: LongInt;
   aChanged: Integer = 0;
 begin
-  DBCS.Enter;
+  InternalLock('RefreshFolder');
+  try
   Tree := TTree.Create(nil);
   Tree.Select(Path);
   Tree.Open;
   FParent := Path;
   aFilter := Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(Tree.Id.AsString);
   with BaseApplication as IBaseApplication do
-    Debug('Refreshing Folder:'+Folder.TableName+' Filter:'+aFilter);
+    Debug('Refreshing Folder:'+Path+' Filter:'+aFilter);
   aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
   aCnt.Open;
   FHighestUID:=aCnt.FieldByName('HUID').AsLongint;
@@ -766,7 +801,9 @@ begin
   Folder.SortFields:='GRP_ID,MSG_ID';
   Folder.SortDirection:=sdAscending;
   aFilter := aFilter+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.Accountno.AsString);
-  Folder.Filter(aFilter+' AND '+Data.QuoteField('GRP_ID')+'=NULL');
+  Folder.Filter(aFilter+' AND '+Data.QuoteField('GRP_ID')+' is NULL');
+  with BaseApplication as IBaseApplication do
+    Debug('Items without GRP_ID:'+IntToStr(Folder.Count));
   while Folder.Locate('GRP_ID',Null,[]) do
     begin
       if (Folder.FieldByName('GRP_ID').IsNull) or (Folder.FieldByName('GRP_ID').AsInteger=ActId) then
@@ -787,22 +824,26 @@ begin
       Folder.Filter(aFilter);
       Folder.First;
     end;
+  with BaseApplication as IBaseApplication do
+    Debug('Folder Count:'+IntToStr(Folder.Count));
   aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
   aCnt.Open;
   FMessages:=aCnt.FieldByName('MESSAGES').AsInteger;
   FUnseen:=FMessages-aCnt.FieldByName('READ').AsInteger;
   inc(FUnseen,aChanged);
   aCnt.Free;
-  DBCS.Leave;
+  finally
+    InternalUnlock('RefreshFolder');
+  end;
 end;
 
 constructor TPrometMailBox.Create(APath: String; CS: TCriticalSection);
 begin
   inherited Create(APath,CS);
-  DBCS := CS;
-  DBCS.Enter;
+  _DBCS := CS;
+  InternalLock('Create');
   Folder := TMessageList.Create(nil);
-  DBCS.Leave;
+  InternalUnlock('Create');
   RefreshFolder;
   GetUIDvalidity:=DateTimeToUnixTime(Folder.TimeStamp.AsDateTime);
 end;
@@ -1091,6 +1132,7 @@ var
   Success : Boolean;
   SendS, MsgDat  : String;
   i       : Integer;
+  aRec: TBookmark;
 begin
   try
     Success := True;
@@ -1110,17 +1152,23 @@ begin
     for i := Low(MsgSet) to High(MsgSet) do
       begin
         SendS := TSImapThread(AThread).Selected.Fetch( MsgSet[i]-1, MsgDat, Success );
-        if (trim(SendS) <> '') AND Success then SendRes (AThread, SendS )
+        if TSImapThread(AThread).Terminated then break;
+        if (trim(SendS) <> '') AND Success then SendRes (AThread, SendS );
       end;
     if Length(MsgSet)=0 then //Fetchall
       begin
+        with TPrometMailBox(TSImapThread(AThread).Selected).Folder.DataSet as IBaseDbFilter do
+          with BaseApplication as IBaseApplication do
+            Debug('Fetchall Filter: '+Filter+' Count:'+IntToStr(TPrometMailBox(TSImapThread(AThread).Selected).Folder.Count));
         TPrometMailBox(TSImapThread(AThread).Selected).Folder.First;
         while not TPrometMailBox(TSImapThread(AThread).Selected).Folder.EOF do
           begin
-            CS.Enter;
-            TSImapThread(AThread).Selected.Fetch(TPrometMailBox(TSImapThread(AThread).Selected).Folder.Id.AsVariant , MsgDat, Success );
+            aRec := TPrometMailBox(TSImapThread(AThread).Selected).Folder.DataSet.GetBookmark;
+            SendS := TSImapThread(AThread).Selected.Fetch(TPrometMailBox(TSImapThread(AThread).Selected).Folder.DataSet.RecNo , MsgDat, Success );
+            if (trim(SendS) <> '') AND Success then SendRes (AThread, SendS );
+            TPrometMailBox(TSImapThread(AThread).Selected).Folder.DataSet.GotoBookmark(aRec);
             TPrometMailBox(TSImapThread(AThread).Selected).Folder.Next;
-            CS.Leave;
+            if TSImapThread(AThread).Terminated then break;
           end;
       end;
     with BaseApplication  do
@@ -1270,6 +1318,21 @@ begin
     end;
 end;
 
+procedure TPrometImapServer.InternalLock(WhoAmI: string);
+begin
+  if not DBCS.TryEnter then
+    begin
+      sleep(5000);
+      if not DBCS.TryEnter then
+        raise Exception.Create('Lock after 5secs not released !!');
+    end;
+end;
+
+procedure TPrometImapServer.InternalUnlock(WhoAmI: string);
+begin
+  DbCS.Leave;
+end;
+
 constructor TPrometImapServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -1334,7 +1397,7 @@ begin
         msg := IntToStr(aId)+':>'+aMessage
       else
         msg := IntToStr(aId)+':<'+aMessage;
-      Debug(msg);
+      Info(msg);
       if HasOption('debug') then
         begin
           AssignFile(f,'imap.log.'+IntToStr(aId)+'.txt');
@@ -1350,7 +1413,8 @@ function TPIMAPServer.ServerLogin(aSocket: TSTcpThread; aUser,
   aPasswort: string): Boolean;
 begin
   Result := False;
-  IMAPServer.CS.Enter;
+  IMAPServer.InternalLock('Login');
+  try
   Data.Users.DataSet.Refresh;
   with Self as IBaseDBInterface do
     begin
@@ -1373,7 +1437,9 @@ begin
     end;
   if Result then
     aSocket.User:=Data.Users.Accountno.AsString;
-  IMAPServer.CS.Leave;
+  finally
+    IMAPServer.InternalUnlock('Login');
+  end;
 end;
 
 procedure TPIMAPServer.SMTPServerMailreceived(aSocket: TSTcpThread;

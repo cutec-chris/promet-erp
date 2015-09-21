@@ -1488,6 +1488,7 @@ function TSImapServer.LoginUser(AThread: TSTcpThread; Password: String;
 var
   ares: Boolean = False;
 begin
+
   Result := TSImapThread(AThread).CurrentTag + 'BAD System-error, check logfile. [0]';
   if Assigned(OnLogin) then
     begin
