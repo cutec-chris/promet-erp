@@ -25,10 +25,9 @@ Source: "..\..\resources\multi-icon.ico"; Flags: dontcopy
 Source: "unzip.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall
 
 [Run]
-Filename: "{tmp}\unzip.exe"; Parameters: "{tmp}\promet-erp.zip -d {app}"; StatusMsg: "Installiere Promet-ERP...";
-Filename: "{tmp}\unzip.exe";  Parameters: ; Check: PrometCheck
+Filename: "{tmp}\unzip.exe"; Parameters: "{tmp}\promet-erp.zip -d {app}"; Flags: shellexec; StatusMsg: "Installiere Promet-ERP...";
 //http://pginstaller.projects.pgfoundry.org/silent.html
-Filename: "{tmp}\postgres-server.exe"; StatusMsg: "Installiere PostgresSQL Server..."; Parameters: "/qn ADDLOCAL=server"; Check: PostgresCheck
+Filename: "{tmp}\postgres-server.exe"; StatusMsg: "Installiere PostgresSQL Server..."; Parameters: "--mode unattended --disable-stackbuilder 1"; Check: PostgresCheck
 
 [Code]
 var
