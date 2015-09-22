@@ -227,7 +227,7 @@ var
   i: Integer;
   fMessageEdit: TfMessageEdit;
 begin
-  {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR >= 5) and (LCL_RELEASE >= 0))}
+  {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR >= 5) and (LCL_RELEASE >= 1))}
   FOR i := 0 TO ExportFilters.Count - 1 DO
     if pos('PDF',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
   {$else}
@@ -239,7 +239,7 @@ begin
           isPrepared := True;
           with BaseApplication as IBaseApplication do
             begin
-              {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR >= 5) and (LCL_RELEASE >= 0))}
+              {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR >= 5) and (LCL_RELEASE >= 1))}
               aReport.ExportTo(ExportFilters[i].ClassRef,GetInternalTempDir+aSubject+'.pdf');
               {$else}
               aReport.ExportTo(frFilters[i].ClassRef,GetInternalTempDir+aSubject+'.pdf');
