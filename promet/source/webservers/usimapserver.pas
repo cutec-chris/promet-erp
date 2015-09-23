@@ -1383,7 +1383,10 @@ begin
     end;
 
     if Uppercase(copy(CmdParams, 1, i - 1))='1:*' then
-      SetLength(MsgSet,0)
+      begin
+        SetLength(MsgSet,1);
+        MsgSet[0] := -1;
+      end
     else
       MsgSet := TSImapThread(AThread).Selected.StrToMsgSet(copy(CmdParams, 1, i - 1), True);
     CmdParams := TrimQuotes(TrimWhSpace(

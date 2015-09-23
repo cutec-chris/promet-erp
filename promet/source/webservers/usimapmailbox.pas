@@ -6,7 +6,7 @@ uses Classes, usimapsearch,mimemess,mimepart,synautil,blcksock,syncobjs,
   usbaseserver;
 
 type
-  TMessageSet = array of LongInt;
+  TMessageSet = array of Int64;
   TStoreMode = set of (smAdd, smReplace, smDelete);
 
   tOnNewMess = procedure of object;
@@ -27,7 +27,6 @@ type
     fPath: string;
     FUIDNext: longint;
     FUIDvalidity: TUnixTime;
-    fUsers: TList;
     fReadOnly: boolean;
     procedure AddMessage(Flags: string; TimeStamp: TUnixTime);
     function FlagMaskToString(FlagMask: TFlagMask): string;
@@ -87,8 +86,6 @@ type
     procedure Lock;virtual;
     procedure Unlock;virtual;
     procedure RemoveRecentFlags;
-    procedure AddUser(Notify: pIMAPNotification);
-    procedure RemoveUser(Notify: pIMAPNotification; out NoUsersLeft: boolean);
     procedure Expunge(ExcludeFromResponse: pIMAPNotification);
 
     function Search(SearchStruct: TIMAPSearch; UseUID: boolean): string;
@@ -104,7 +101,7 @@ type
     property Unseen : Integer read FUnseen;
     property  Path           : String     read  fPath;
 
-    constructor Create(APath: string;CS : TCriticalSection);virtual;
+    constructor Create(aThread : TSTcpThread;APath: string;CS : TCriticalSection);virtual;
     destructor Destroy; override;
   end;
 
@@ -306,22 +303,12 @@ procedure TImapMailbox.SendMailboxUpdate;
 var
   i: integer;
 begin
-  for i := 0 to fUsers.Count - 1 do
-    try
-      if Assigned(fUsers.Items[i]) then
-      begin
-        pIMAPNotification(fUsers.Items[i])^.OnNewMess;
-{
-           TSrvIMAPCli( Users.Items[i] ).SendRes( IntToStr(GetMessages) + ' EXISTS');
+{           TSrvIMAPCli( Users.Items[i] ).SendRes( IntToStr(GetMessages) + ' EXISTS');
            if FirstUser then begin
               TSrvIMAPCli( Users.Items[i] ).SendRes( IntToStr(GetRecent) + ' RECENT');
               RemoveRecentFlags;
               FirstUser := False;
            end }
-      end
-    except
-      Continue
-    end;
   if not fReadOnly then
     RemoveRecentFlags;
 end;
@@ -386,6 +373,8 @@ var
 begin
   Args := MsgDat;
   Data := '';
+  Result := '';
+  if Idx<0 then exit;
   sl := TStringList.Create;
   try
     try
@@ -456,24 +445,6 @@ begin
   Result := IntToStr(Idx+1) + ' FETCH (' + Data + ')'
 end;
 
-procedure TImapMailbox.AddUser(Notify: pIMAPNotification);
-begin
-  fUsers.Add(Notify);
-end;
-
-procedure TImapMailbox.RemoveUser(Notify: pIMAPNotification;
-  out NoUsersLeft: boolean);
-var
-  i: integer;
-begin
-  NoUsersLeft := False;
-  i := fUsers.IndexOf(Notify);
-  if i >= 0 then
-    fUsers.Delete(i);
-  if fUsers.Count = 0 then
-    NoUsersLeft := True;
-end;
-
 procedure TImapMailbox.Lock;
 begin
   EnterCriticalSection(fCritSection);
@@ -484,20 +455,17 @@ begin
   LeaveCriticalSection(fCritSection);
 end;
 
-constructor TImapMailbox.Create(APath: string; CS: TCriticalSection);
+constructor TImapMailbox.Create(aThread: TSTcpThread; APath: string;
+  CS: TCriticalSection);
 begin
   inherited Create;
   InitCriticalSection(fCritSection);
   fPath := APath;
-  fUsers := TList.Create;
   fReadOnly := False;
 end;
 
 destructor TImapMailbox.Destroy;
 begin
-  if fUsers.Count > 0 then
-    raise Exception.Create('TImapMailbox.Destroy: imap mailbox is still in use!');
-  fUsers.Free; // TODO: User direkt aufräumen oder warnen?
   DoneCriticalSection(fCritSection);
   inherited;
 end;
