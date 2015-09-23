@@ -796,8 +796,8 @@ begin
     Debug('Refreshing Folder:'+Path+' Filter:'+aFilter);
   aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
   aCnt.Open;
-  FHighestUID:=aCnt.FieldByName('HUID').AsLongint;
-  FLowestUID:=aCnt.FieldByName('MUID').AsLongint;
+  FHighestUID:=StrToIntDef(aCnt.FieldByName('HUID').AsString,0);
+  FLowestUID:=StrToIntDef(aCnt.FieldByName('MUID').AsString,0);
   Folder.SortFields:='GRP_ID,MSG_ID';
   Folder.SortDirection:=sdAscending;
   aFilter := aFilter+' AND '+Data.QuoteField('USER')+'='+Data.QuoteValue(Data.Users.Accountno.AsString);
@@ -828,8 +828,8 @@ begin
     Debug('Folder Count:'+IntToStr(Folder.Count));
   aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
   aCnt.Open;
-  FMessages:=aCnt.FieldByName('MESSAGES').AsInteger;
-  FUnseen:=FMessages-aCnt.FieldByName('READ').AsInteger;
+  FMessages:=StrToIntDef(aCnt.FieldByName('MESSAGES').AsString,0);
+  FUnseen:=FMessages-StrToIntDef(aCnt.FieldByName('READ').AsString,0);
   inc(FUnseen,aChanged);
   aCnt.Free;
   finally
@@ -1418,7 +1418,7 @@ begin
   Data.Users.DataSet.Refresh;
   with Self as IBaseDBInterface do
     begin
-      if Data.Users.DataSet.Locate('LOGINNAME',aUser,[]) or Data.Users.DataSet.Locate('NAME',aUser,[]) then
+      if Data.Users.DataSet.Locate('LOGINNAME',aUser,[loCaseInsensitive]) or Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
         begin
           if (Data.Users.CheckPasswort(aPasswort)) then
             Result := True;
