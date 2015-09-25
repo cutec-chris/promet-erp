@@ -142,7 +142,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=../devel --mandant=Help --server-log --debug"/>
+        <CommandLineParams Value="&quot;--mandant=Stora&quot; --server-log --debug --port=1043"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -167,7 +167,6 @@
       <Unit1>
         <Filename Value="ussmtpserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ussmtpserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="usimapserver.pas"/>
