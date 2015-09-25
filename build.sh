@@ -9,55 +9,17 @@ set -e
 # dav - compiling dav server
 # all - compiling all
 # default - compiling program only (using by default)
-
-# path to lazbuild
-export lazbuild=$(which lazbuild)
-
-# Set up widgetset
-# Set up processor architecture: i386 or x86_64
-if [ $2 ]
-  then export lcl=$2
-fi
-if [ $lcl ] && [ $CPU_TARGET ]
-  then export BUILD_ARCH=$(echo "--widgetset=$lcl")" "$(echo "--cpu=$CPU_TARGET")
-elif [ $lcl ]
-  then export BUILD_ARCH=$(echo "--widgetset=$lcl")
-elif [ $CPU_TARGET ]
-  then export BUILD_ARCH=$(echo "--cpu=$CPU_TARGET")
-fi
+$BASH promet/setup/build-tools/setup_enviroment.sh
 
 build_default()
 {
-  source/promet.erp/build.sh
-}
-
-build_beta()
-{
-  components/build.sh
-  plugins/build.sh
-  
-  # Build Double Commander
-  $lazbuild src/doublecmd.lpi --bm=beta $DC_ARCH
-  
-  # Build Dwarf LineInfo Extractor
-  $lazbuild tools/extractdwrflnfo.lpi
-  
-  # Extract debug line info
-  chmod a+x tools/extractdwrflnfo
-  if [ -f doublecmd.dSYM/Contents/Resources/DWARF/doublecmd ]; then
-    mv -f doublecmd.dSYM/Contents/Resources/DWARF/doublecmd $(pwd)/doublecmd.dbg
-  fi
-  tools/extractdwrflnfo doublecmd.dbg
-  
-  # Strip debug info
-  strip doublecmd
+  echo "Building default..."
+  echo $BUILD_ARCH
 }
 
 build_all()
 {
-  components/build.sh
-  plugins/build.sh
-  build_default
+  echo "Building all..."
 }
 
 

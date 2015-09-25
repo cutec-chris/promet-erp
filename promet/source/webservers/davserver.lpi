@@ -37,7 +37,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --server-log"/>
+        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot; --server-log"/>
         <WorkingDirectory Value="..\"/>
       </local>
     </RunParams>
