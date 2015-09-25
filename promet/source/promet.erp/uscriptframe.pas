@@ -185,9 +185,9 @@ end;
 procedure TfScriptFrame.cbVersionExit(Sender: TObject);
 var
   TargetVer: String;
-  Version : Variant;
+  Version : string;
 begin
-  Version := NULL;
+  Version := '';
   if cbVersion.Text <> '' then
     Version := cbVersion.Text;
   if Dataset.FieldByName('VERSION').AsString <> Version then

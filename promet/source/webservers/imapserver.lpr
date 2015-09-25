@@ -125,14 +125,21 @@ begin
 end;
 
 procedure TPrometMailBox.InternalLock(WhoAmI: string);
+var
+  i: Integer;
 begin
   with BaseApplication as IBaseApplication do
     Debug('  Locking entered from '+WhoAmI);
   if not _DBCS.TryEnter then
     begin
       with BaseApplication as IBaseApplication do
-        Warning('DANGER:already Locked !!!!');
-      sleep(5000);
+        Debug('already Locked !');
+      for i := 0 to 5000 do
+        begin
+          sleep(1);
+          if _DBCS.TryEnter then
+            exit;
+        end;
       if not _DBCS.TryEnter then
         raise Exception.Create('Lock after 5secs not released !!');
     end;
@@ -161,8 +168,8 @@ end;
 function TPrometMailBox.GetIndex(UID: LongInt): LongInt;
 begin
   Result := -1;
-  InternalLock('GetIndex');
   if not Assigned(Folder) then exit;
+  InternalLock('GetIndex');
   if Folder.DataSet.Locate('GRP_ID',UID,[]) then
     Result := Folder.DataSet.RecNo;
   with BaseApplication as IBaseApplication do
@@ -279,6 +286,13 @@ function TPrometMailBox.StrToMsgSet(s: string; UseUID: boolean): TMessageSet;
     Finish := SeqNumber(s);
     SetLength(Result,100);
     j := 0;
+    if UseUID then
+      begin
+        if Start < FLowestUID then
+          Start := FLowestUID;
+        if Finish>FHighestUID then
+          Finish:=FHighestUID;
+      end;
     for i := Start to Finish do
     begin
       if length(Result)<j+1 then
@@ -1317,14 +1331,21 @@ begin
 end;
 
 procedure TPrometImapServer.InternalLock(WhoAmI: string);
+var
+  i: Integer;
 begin
   with BaseApplication as IBaseApplication do
     Debug('  Locking entered from '+WhoAmI);
   if not _DBCS.TryEnter then
     begin
       with BaseApplication as IBaseApplication do
-        Warning('DANGER:already Locked !!!!');
-      sleep(5000);
+        Debug('already Locked !');
+      for i := 0 to 5000 do
+        begin
+          sleep(1);
+          if _DBCS.TryEnter then
+            exit;
+        end;
       if not _DBCS.TryEnter then
         raise Exception.Create('Lock after 5secs not released !!');
     end;

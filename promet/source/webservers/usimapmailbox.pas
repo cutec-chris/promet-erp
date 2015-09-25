@@ -935,7 +935,9 @@ end;
 
 function TImapMailbox.Text(MyMessage: TMimeMess): string;
 begin
-  Result := MyMessage.Lines.Text;
+  if Assigned(MyMessage) then
+    Result := MyMessage.Lines.Text
+  else Result := '';
 end;
 
 function TImapMailbox.FindFlags(MsgSet: TMessageSet; Flags: TFlagMask;
