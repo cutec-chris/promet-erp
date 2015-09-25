@@ -69,7 +69,7 @@
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
       <OtherUnitFiles Value="tinkerforge"/>
-      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)\scriptplugins"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

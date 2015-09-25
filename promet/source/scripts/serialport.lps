@@ -271,15 +271,4 @@
       </Position21>
     </JumpHistory>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="serialport.lpr"/>
-        <Line Value="117"/>
-      </Item1>
-    </BreakPoints>
-  </Debugging>
 </CONFIG>
