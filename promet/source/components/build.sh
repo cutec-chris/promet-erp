@@ -1,39 +1,109 @@
 #!/bin/bash
-set -e
-# Compiling components
-
-# This script run from main build.sh script
-# If you run it direct, set up $lazbuild first
-
-# Get processor architecture
-if [ -z $CPU_TARGET ] ; then
-  export CPU_TARGET=$(fpc -iTP)
-fi
-
-# Generate PIC code
-if [ "$CPU_TARGET" != "arm" ] ; then
-  if [ -f /etc/fpc.cfg ] ; then
-    cp /etc/fpc.cfg ./
-    echo "-fPIC" >> fpc.cfg
-    export PPC_CONFIG_PATH=$(pwd)
-  fi
-fi
-
-# Build components
 basedir=$(pwd)
-cd components
-$lazbuild chsdet/chsdet.lpk $DC_ARCH
-$lazbuild CmdLine/cmdbox.lpk $DC_ARCH
-$lazbuild dcpcrypt/dcpcrypt.lpk $DC_ARCH
-$lazbuild doublecmd/doublecmd_common.lpk $DC_ARCH
-$lazbuild KASToolBar/kascomp.lpk $DC_ARCH
-$lazbuild viewer/viewerpackage.lpk $DC_ARCH
-$lazbuild gifanim/pkg_gifanim.lpk $DC_ARCH
-$lazbuild ZVDateTimeCtrls/zvdatetimectrls.lpk $DC_ARCH
-cd $basedir
-
-# Remove temporary file
-if [ -f fpc.cfg ] ; then
-  rm -f fpc.cfg
-  export PPC_CONFIG_PATH=
+cd promet/source/components
+. ../../setup/build-tools/setup_enviroment.sh
+echo "Building components..."
+# Build components
+$lazbuild dexif/dexif_package.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
 fi
+$lazbuild zvdatetimectrls/zvdatetimectrls.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild zeos/packages/lazarus/zcomponent.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild zeos/packages/lazarus/zcomponent_nogui.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild websockets/websockets.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild uxmpp/source/uxmpp_laz.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild tvplanit/packages/v103_lazarus.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild tmqttclient/TMQTTClient/laz_mqtt.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild thumbs/thumbctrl.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild tapi/laz_tapi.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild synapse/laz_synapse.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild scanning/sanetools.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild powerpdf/pack_powerpdf.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild pascalscript/ppascalscriptlcl.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild pascalscript/ppascalscriptfcl.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild lnet/lazaruspackage/lnetbase.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild lazreport/lazreport_addons.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+cd $basedir

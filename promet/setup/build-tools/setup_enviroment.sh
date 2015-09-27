@@ -1,7 +1,7 @@
 #!/bin/bash
-set -e
 # path to lazbuild
 export lazbuild=$(which lazbuild)
+export grep=$(which grep)
 
 # Set up widgetset
 # Set up processor architecture: i386 or x86_64
@@ -15,4 +15,4 @@ elif [ $lcl ]
 elif [ $CPU_TARGET ]
   then export BUILD_ARCH=$(echo "--cpu=$CPU_TARGET")
 fi
-
+export BUILD_PARAMS=-qq
