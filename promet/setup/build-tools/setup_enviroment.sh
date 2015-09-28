@@ -1,7 +1,16 @@
 #!/bin/bash
 # path to lazbuild
-export lazbuild=$(which lazbuild)
-export grep=$(which grep)
+
+export lazbuild="lazbuild"
+export grep="grep"
+Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
+Archlazbuild=$(lazbuild -? | grep "powerpc_64" | sed 's/.*: \([^ ]\+\)$/\1/')
+Widgetsetlazbuild=$(lazbuild -? | grep "Carbon." | sed 's/.*: \([^ ]\+\)$/\1/')
+OSlazbuild=$(lazbuild -? | grep "linux." | sed 's/.*: \([^ ]\+\)$/\1/')
+
+export TARGET_OS=$OSlazbuild
+export TARGET_CPU=$Archlazbuild
+export TARGET_WIDGETSET=$Widgetsetlazbuild
 
 # Set up widgetset
 # Set up processor architecture: i386 or x86_64
