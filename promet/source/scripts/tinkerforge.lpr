@@ -428,7 +428,7 @@ begin
   if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
-      if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
+      if TDevice(Station.Devices[i]) is TBrickletColor then
         begin
           if a=id then
             begin
@@ -464,7 +464,7 @@ begin
   if Station=nil then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
-      if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
+      if TDevice(Station.Devices[i]) is TBrickletColor then
         begin
           TDevice(Station.Devices[i]).GetIdentity(aUid,aConUID,aPosition,aHWV,aFWV,aDID);
           if (lowercase(position)=lowercase(aConUID)+'.'+lowercase(aPosition)) or (lowercase(position)=lowercase(aPosition)) then
@@ -524,8 +524,8 @@ begin
        +#10+'function TfGetPowerById(id : Integer) : LongInt;stdcall;'
        +#10+'function TfGetPower(Position : pchar) : LongInt;stdcall;'
 
-       +#10+'function TfGetColor(Position : pchar) : LongInt;stdcall;'
-       +#10+'function TfGetColorById(id : Integer) : LongInt;stdcall;'
+       +#10+'function TfGetColor(Position : pchar) : Cardinal;stdcall;'
+       +#10+'function TfGetColorById(id : Integer) : Cardinal;stdcall;'
 
        +#10+'function TfSetRelais(Position : pchar;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;'
 

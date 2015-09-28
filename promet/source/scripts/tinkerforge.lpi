@@ -30,7 +30,7 @@
       <local>
         <FormatVersion Value="1"/>
         <HostApplicationFilename Value="C:\Prometheus\TCS\paradoxtest1\promet\output\i386-win32\pscriptedit.exe"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help Tinkerforge"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help Test.TinkerforgeColor"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">

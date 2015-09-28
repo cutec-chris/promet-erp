@@ -50,7 +50,6 @@ type
     cbActive: TDBCheckBox;
     cbStatus: TComboBox;
     cbVersion: TComboBox;
-    DBEdit1: TDBEdit;
     DBMemo1: TDBMemo;
     eArticleNumber: TDBEdit;
     History: TDatasource;
@@ -60,7 +59,6 @@ type
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
-    Label7: TLabel;
     MandantDetails: TDatasource;
     Panel8: TPanel;
     Panel9: TPanel;

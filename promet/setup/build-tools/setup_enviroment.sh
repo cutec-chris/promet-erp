@@ -1,27 +1,33 @@
 #!/bin/bash
 # path to lazbuild
 
-export lazbuild="lazbuild"
-export grep="grep"
-Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
-Archlazbuild=$(lazbuild -? | grep "powerpc_64" | sed 's/.*: \([^ ]\+\)$/\1/')
-Widgetsetlazbuild=$(lazbuild -? | grep "Carbon." | sed 's/.*: \([^ ]\+\)$/\1/')
-OSlazbuild=$(lazbuild -? | grep "linux." | sed 's/.*: \([^ ]\+\)$/\1/')
-
-export TARGET_OS=$OSlazbuild
-export TARGET_CPU=$Archlazbuild
-export TARGET_WIDGETSET=$Widgetsetlazbuild
-
-# Set up widgetset
-# Set up processor architecture: i386 or x86_64
-if [ $2 ]
-  then export lcl=$2
+if [ -e promet/source/base/version.inc ]
+  then
+  export lazbuild="lazbuild"
+  export grep="grep"
+  export TARGET_CPU=$( lazbuild -? | grep 'powerpc_64' | sed 's/.*: \([^ ]\+\)$/\1/')
+  export TARGET_WIDGETSET=$( lazbuild -? | grep 'Carbon.' | sed 's/.*: \([^ ]\+\)$/\1/')
+  export TARGET_OS=$( lazbuild -? | grep 'linux.' | sed 's/.*: \([^ ]\+\)$/\1/')
+  export BUILD_DIR=$TEMP/promet-build
+  Year=`date +%y`
+  Month=`date +%m`
+  Day=`date +%d`
+  export BUILD_DATE=20$Year$Month$Day
+  Version=$(sed 's/\r//g' promet/source/base/version.inc).$(sed 's/\r//g' promet/source/base/revision.inc)
+  export BUILD_VERSION=$(echo $Version | sed 's/\n//g');
+  export OUTPUT_DIR=promet/setup/output/$BUILD_VERSION
+  # Set up widgetset
+  # Set up processor architecture: i386 or x86_64
+  if [ $2 ]
+    then export lcl=$2
+  fi
+  if [ $TARGET_WIDGETSET ] && [ $TARGET_CPU ]
+    then export BUILD_ARCH=$(echo "--widgetset=$TARGET_WIDGETSET")" "$(echo "--cpu=$TARGET_CPU")
+  elif [ $TARGET_WIDGETSET ]
+    then export BUILD_ARCH=$(echo "--widgetset=$TARGET_WIDGETSET")
+  elif [ $TARGET_CPU ]
+    then export BUILD_ARCH=$(echo "--cpu=$TARGET_CPU")
+  fi
+  export BUILD_PARAMS=-q
 fi
-if [ $lcl ] && [ $CPU_TARGET ]
-  then export BUILD_ARCH=$(echo "--widgetset=$lcl")" "$(echo "--cpu=$CPU_TARGET")
-elif [ $lcl ]
-  then export BUILD_ARCH=$(echo "--widgetset=$lcl")
-elif [ $CPU_TARGET ]
-  then export BUILD_ARCH=$(echo "--cpu=$CPU_TARGET")
-fi
-export BUILD_PARAMS=-qq
+

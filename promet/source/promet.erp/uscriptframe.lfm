@@ -32,7 +32,7 @@ inherited fScriptFrame: TfScriptFrame
       end
       object DBMemo1: TDBMemo
         Left = 8
-        Height = 352
+        Height = 384
         Top = 24
         Width = 624
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -41,25 +41,6 @@ inherited fScriptFrame: TfScriptFrame
         Font.Height = -13
         ParentFont = False
         TabOrder = 0
-      end
-      object Label7: TLabel
-        Left = 8
-        Height = 13
-        Top = 384
-        Width = 38
-        Caption = 'Priorität'
-        ParentColor = False
-      end
-      object DBEdit1: TDBEdit
-        Left = 64
-        Height = 21
-        Top = 381
-        Width = 65
-        DataField = 'PRIORITY'
-        DataSource = Script
-        CharCase = ecNormal
-        MaxLength = 0
-        TabOrder = 1
       end
     end
     object tsScript: TTabSheet

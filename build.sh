@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 # You can execute this script with different parameters:
 # components - compiling components needed
 # plugins - compiling plugins
@@ -17,10 +16,35 @@ set -e
 # default - compiling program only (using by default)
 . ./promet/setup/build-tools/setup_enviroment.sh
 
+if [ -d $BUILD_DIR ]
+  then
+    echo "."
+  else
+    mkdir $BUILD_DIR
+fi
+if [ -d $OUTPUT_DIR ]
+  then
+    echo "."
+  else
+    mkdir $OUTPUT_DIR
+fi
+
 build_default()
 {
   echo "Building default..."
-  echo $BUILD_ARCH
+  $BASH promet/source/plugins/build.sh
+  $BASH promet/source/tools/build_visual.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  $BASH promet/source/messagemanager/build.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  $BASH promet/source/promet.erp/build.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
 }
 
 build_all()
