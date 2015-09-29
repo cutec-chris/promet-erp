@@ -46,4 +46,13 @@ if [ "$?" -ne "0" ]; then
   $grep -w "Error:" build.txt
   exit 1
 fi
+
+#copy Files
+cd $basedir
+rm -r $BUILD_DIR
+mkdir $BUILD_DIR
+mkdir $BUILD_DIR/plugins
+cp $basedir/promet/output/$TARGET_CPU-$TARGET_OS/plugins/*.wlx $BUILD_DIR/plugins
+cd $BUILD_DIR
+zip -rq plugins_$BUILD_VERSION_$TARGET_CPU-$TARGET_OS.zip .
 cd $basedir
