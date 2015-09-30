@@ -12,6 +12,9 @@ if [ -e promet/source/base/version.inc ]
     then export BUILD_DIR=$TEMP/promet-build
     else export BUILD_DIR=/tmp/promet-build
   fi
+  if [ $TARGET_OS="win32" ]
+    then $TARGET_EXTENSION=".exe"
+  fi
   Year=`date +%y`
   Month=`date +%m`
   Day=`date +%d`

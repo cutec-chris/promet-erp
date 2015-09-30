@@ -12,6 +12,8 @@
 # sync - sync_db
 # archive - archivestore program to extract archived files
 # statistics - the repoting and statistics tool
+# help - cleanup help.db from test data and zip it
+# importdata - Zip the standard Importdata
 # all - compiling all
 # default - compiling program only (using by default)
 . ./promet/setup/build-tools/setup_enviroment.sh
@@ -45,6 +47,8 @@ build_default()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  . ./promet/help/build.sh
+  . ./promet/importdata/build.sh
 }
 
 build_all()
@@ -118,6 +122,8 @@ build_all()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  . ./promet/help/build.sh
+  . ./promet/importdata/build.sh
 }
 
 
@@ -127,6 +133,8 @@ case $1 in
      plugins)  . ./promet/source/plugins/build.sh;;
        tools)  . ./promet/source/tools/build.sh;;
 tools-visual)  . ./promet/source/tools/build_visual.sh;;
+  importdata)  . ./promet/importdata/build.sh;;
+        help)  . ./promet/help/build.sh;;
       promet)  . ./promet/source/promet.erp/build.sh;;
   messageman)  . ./promet/source/messagemanager/build.sh;;
      meeting)  . ./promet/source/meeting/build.sh;;
