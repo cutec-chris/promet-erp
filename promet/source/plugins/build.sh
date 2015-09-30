@@ -40,12 +40,15 @@ if [ "$?" -ne "0" ]; then
   $grep -w "Error:" build.txt
 fi
 
+set -xv
+
 #copy Files
 cd $basedir
 rm -r $BUILD_DIR
 mkdir $BUILD_DIR
 mkdir $BUILD_DIR/plugins
-cp $basedir/promet/output/$TARGET_CPU-$TARGET_OS/plugins/*.wlx $BUILD_DIR/plugins
+cp promet/output/$TARGET_CPU-$TARGET_OS/plugins/*.wlx $BUILD_DIR/plugins
+$BASH
 cd $BUILD_DIR
 zip -rq plugins_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip .
 cd $basedir

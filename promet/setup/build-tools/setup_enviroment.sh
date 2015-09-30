@@ -8,7 +8,10 @@ if [ -e promet/source/base/version.inc ]
   export TARGET_CPU=$( lazbuild -? | grep 'powerpc_64' | sed 's/.*: \([^ ]\+\)$/\1/')
   export TARGET_WIDGETSET=$( lazbuild -? | grep 'Carbon.' | sed 's/.*: \([^ ]\+\)$/\1/')
   export TARGET_OS=$( lazbuild -? | grep 'linux.' | sed 's/.*: \([^ ]\+\)$/\1/')
-  export BUILD_DIR=/tmp/promet-build
+  if [ $TEMP ]
+    then export BUILD_DIR=$TEMP/promet-build
+    else export BUILD_DIR=/tmp/promet-build
+  fi
   Year=`date +%y`
   Month=`date +%m`
   Day=`date +%d`

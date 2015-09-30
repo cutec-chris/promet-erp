@@ -141,6 +141,7 @@ type
     procedure acSaveExecute(Sender: TObject);
     procedure acScreenshotExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
+    procedure AddAutomation(Sender: TObject);
     procedure bChangeNumberClick(Sender: TObject);
     procedure cbNoStorageChange(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
@@ -190,7 +191,7 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uMainTreeFrame,uPrometFramesInplace,uarticlesupplierframe,
   uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
   uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uBaseERPDBClasses,
-  umeasurements;
+  umeasurements,uautomationframe;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -287,6 +288,13 @@ begin
       fMainTreeFrame.tvMain.Selected.Collapse(true);
     end;
 end;
+
+procedure TfArticleFrame.AddAutomation(Sender: TObject);
+begin
+  TfAutomationframe(Sender).DataSet := FDataset;
+  TfAutomationframe(Sender).TabCaption:=strAutomation;
+end;
+
 procedure TfArticleFrame.bChangeNumberClick(Sender: TObject);
 var
   str: String;
@@ -722,6 +730,7 @@ begin
   pcPages.NewFrame(TfFinance,(not DataSet.FieldByName('COSTCENTRE').IsNull)
                           or (not DataSet.FieldByName('ACCOUNT').IsNull)
                           or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull),strFinance,@AddFinance);
+  pcPages.NewFrame(TfAutomationframe,TMasterdata(DataSet).FieldByName('SCRIPT').AsString<>'',strAutomation,@AddAutomation);
 
   mShorttext.SetFocus;
   with Application as TBaseVisualApplication do
