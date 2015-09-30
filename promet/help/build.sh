@@ -1,4 +1,5 @@
 #/bin/bash
+echo "Building help..."
 basedir=$(pwd)
 cd promet/help
 rm -r $BUILD_DIR

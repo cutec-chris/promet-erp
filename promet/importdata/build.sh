@@ -1,7 +1,7 @@
 #!/bin/bash
 basedir=$(pwd)
-cd promet/importdata
-. ../setup/build-tools/setup_enviroment.sh
+cd promet
+. setup/build-tools/setup_enviroment.sh
 echo "Building importdata..."
 # Build components
 #set -xv
