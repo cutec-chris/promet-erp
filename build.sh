@@ -32,16 +32,16 @@ fi
 build_default()
 {
   echo "Building default..."
-  $BASH promet/source/plugins/build.sh
-  $BASH promet/source/tools/build_visual.sh
+  . ./promet/source/plugins/build.sh
+  . ./promet/source/tools/build_visual.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/messagemanager/build.sh
+  . ./promet/source/messagemanager/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/promet.erp/build.sh
+  . ./promet/source/promet.erp/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
@@ -50,71 +50,71 @@ build_default()
 build_all()
 {
   echo "Building all..."
-  $BASH promet/source/components/build.sh
+  . ./promet/source/components/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/testcases/build.sh
+  . ./promet/source/testcases/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/plugins/build.sh
+  . ./promet/source/plugins/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/tools/build.sh
+  . ./promet/source/tools/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/tools/build_visual.sh
+  . ./promet/source/tools/build_visual.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/messagemanager/build.sh
+  . ./promet/source/messagemanager/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/promet.erp/build.sh
+  . ./promet/source/promet.erp/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/meeting/build.sh
+  . ./promet/source/meeting/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/tools/build_archivestore.sh
+  . ./promet/source/tools/build_archivestore.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/statistics/build.sh
+  . ./promet/source/statistics/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/webservers/build_webserver.sh
+  . ./promet/source/webservers/build_webserver.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/webservers/build_imap.sh
+  . ./promet/source/webservers/build_imap.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/webservers/build_dav.sh
+  . ./promet/source/webservers/build_dav.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/sync/build_mail.sh
+  . ./promet/source/sync/build_mail.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/sync/build_feed.sh
+  . ./promet/source/sync/build_feed.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/sync/build_mqtt.sh
+  . ./promet/source/sync/build_mqtt.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  $BASH promet/source/sync/build.sh
+  . ./promet/source/sync/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
@@ -122,23 +122,23 @@ build_all()
 
 
 case $1 in
-       tests)  promet/source/testcases/build.sh;;
-  components)  promet/source/components/build.sh;;
-     plugins)  promet/source/plugins/build.sh;;
-       tools)  promet/source/tools/build.sh;;
-tools-visual)  promet/source/tools/build_visual.sh;;
-      promet)  promet/source/promet.erp/build.sh;;
-  messageman)  promet/source/messagemanager/build.sh;;
-     meeting)  promet/source/meeting/build.sh;;
-     archive)  promet/source/tools/build_archivestore.sh;;
-  statistics)  promet/source/statistics/build.sh;;
-         web)  promet/source/webservers/build_webserver.sh;;
-        imap)  promet/source/webservers/build_imap.sh;;
-         dav)  promet/source/webservers/build_dav.sh;;
-        mail)  promet/source/sync/build_mail.sh;;
-        feed)  promet/source/sync/build_feed.sh;;
-        mqtt)  promet/source/sync/build_mqtt.sh;;
-        sync)  promet/source/sync/build.sh;;
+       tests)  . ./promet/source/testcases/build.sh;;
+  components)  . ./promet/source/components/build.sh;;
+     plugins)  . ./promet/source/plugins/build.sh;;
+       tools)  . ./promet/source/tools/build.sh;;
+tools-visual)  . ./promet/source/tools/build_visual.sh;;
+      promet)  . ./promet/source/promet.erp/build.sh;;
+  messageman)  . ./promet/source/messagemanager/build.sh;;
+     meeting)  . ./promet/source/meeting/build.sh;;
+     archive)  . ./promet/source/tools/build_archivestore.sh;;
+  statistics)  . ./promet/source/statistics/build.sh;;
+         web)  . ./promet/source/webservers/build_webserver.sh;;
+        imap)  . ./promet/source/webservers/build_imap.sh;;
+         dav)  . ./promet/source/webservers/build_dav.sh;;
+        mail)  . ./promet/source/sync/build_mail.sh;;
+        feed)  . ./promet/source/sync/build_feed.sh;;
+        mqtt)  . ./promet/source/sync/build_mqtt.sh;;
+        sync)  . ./promet/source/sync/build.sh;;
          all)  build_all;;
            *)  build_default;;
 esac

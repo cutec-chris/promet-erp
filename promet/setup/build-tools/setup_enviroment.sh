@@ -8,13 +8,14 @@ if [ -e promet/source/base/version.inc ]
   export TARGET_CPU=$( lazbuild -? | grep 'powerpc_64' | sed 's/.*: \([^ ]\+\)$/\1/')
   export TARGET_WIDGETSET=$( lazbuild -? | grep 'Carbon.' | sed 's/.*: \([^ ]\+\)$/\1/')
   export TARGET_OS=$( lazbuild -? | grep 'linux.' | sed 's/.*: \([^ ]\+\)$/\1/')
-  export BUILD_DIR=$TEMP/promet-build
+  export BUILD_DIR=/tmp/promet-build
   Year=`date +%y`
   Month=`date +%m`
   Day=`date +%d`
   export BUILD_DATE=20$Year$Month$Day
   Version=$(sed 's/\r//g' promet/source/base/version.inc).$(sed 's/\r//g' promet/source/base/revision.inc)
   export BUILD_VERSION=$(echo $Version | sed 's/\n//g');
+  echo "Version to Build:$BUILD_VERSION"
   export OUTPUT_DIR=promet/setup/output/$BUILD_VERSION
   # Set up widgetset
   # Set up processor architecture: i386 or x86_64
