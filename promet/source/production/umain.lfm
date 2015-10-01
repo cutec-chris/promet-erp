@@ -1,41 +1,195 @@
 object fMain: TfMain
-  Left = 340
-  Height = 714
-  Top = 106
-  Width = 993
-  Caption = 'Projektmanagement'
-  ClientHeight = 694
-  ClientWidth = 993
+  Left = 343
+  Height = 715
+  Top = 121
+  Width = 996
+  Caption = 'Avaprod'
+  ClientHeight = 695
+  ClientWidth = 996
   Color = clWindow
   Menu = MainMenu
   OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '1.5'
-  object Splitter1: TSplitter
-    Left = 988
-    Height = 694
+  object Panel1: TPanel
+    Left = 0
+    Height = 695
     Top = 0
-    Width = 5
-    Align = alRight
-    ResizeAnchor = akRight
+    Width = 254
+    Align = alLeft
+    BevelOuter = bvNone
+    Caption = 'Panel1'
+    ClientHeight = 695
+    ClientWidth = 254
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 8
+      Height = 32
+      Top = 8
+      Width = 177
+      Caption = 'Artikel oder Produktionsauftrag'#13#10'(scannen möglich)'
+      Font.Height = -13
+      ParentColor = False
+      ParentFont = False
+    end
+    object eOrder: TEdit
+      Left = 8
+      Height = 21
+      Top = 48
+      Width = 192
+      Anchors = [akTop, akLeft, akRight]
+      OnKeyPress = eOrderKeyPress
+      TabOrder = 0
+      Text = '<Auftrag oder Artikel>'
+    end
+    object Label2: TLabel
+      Left = 8
+      Height = 16
+      Top = 88
+      Width = 187
+      Caption = 'Auftragsübersicht/Arbeitsschritte'
+      Font.Height = -13
+      ParentColor = False
+      ParentFont = False
+    end
+    object SpeedButton2: TSpeedButton
+      Left = 200
+      Height = 22
+      Top = 48
+      Width = 23
+      Action = acLoadOrder
+      Anchors = [akTop, akRight]
+      ShowCaption = False
+    end
+    object SpeedButton1: TSpeedButton
+      Left = 225
+      Height = 22
+      Top = 48
+      Width = 23
+      Anchors = [akTop, akRight]
+      Caption = '...'
+    end
+    object TreeView1: TTreeView
+      Left = 8
+      Height = 569
+      Top = 112
+      Width = 240
+      Anchors = [akTop, akLeft, akRight]
+      DefaultItemHeight = 16
+      TabOrder = 1
+    end
+  end
+  object Panel2: TPanel
+    Left = 254
+    Height = 695
+    Top = 0
+    Width = 742
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 695
+    ClientWidth = 742
+    TabOrder = 1
+    object Splitter1: TSplitter
+      Left = 0
+      Height = 695
+      Top = 0
+      Width = 1
+    end
+    object BitBtn1: TBitBtn
+      Left = 562
+      Height = 42
+      Top = 640
+      Width = 165
+      Action = acNextStep
+      Anchors = [akLeft, akBottom]
+      TabOrder = 1
+    end
+    object BitBtn2: TBitBtn
+      Left = 8
+      Height = 42
+      Top = 640
+      Width = 165
+      Action = acPriorStep
+      Anchors = [akLeft, akBottom]
+      TabOrder = 2
+    end
+    object BitBtn3: TSpeedButton
+      Left = 174
+      Height = 42
+      Top = 640
+      Width = 144
+      Action = acPrepare
+      Anchors = [akLeft, akBottom]
+      Down = True
+      GroupIndex = 111
+    end
+    object BitBtn4: TSpeedButton
+      Left = 320
+      Height = 42
+      Top = 640
+      Width = 240
+      Action = acExecuteStep
+      Anchors = [akLeft, akBottom]
+    end
+    object IpHtmlPanel1: TIpHtmlPanel
+      Left = 8
+      Height = 616
+      Top = 16
+      Width = 728
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      FixedTypeface = 'Courier New'
+      DefaultTypeFace = 'default'
+      DefaultFontSize = 12
+      FlagErrors = False
+      PrintSettings.MarginLeft = 0.5
+      PrintSettings.MarginTop = 0.5
+      PrintSettings.MarginRight = 0.5
+      PrintSettings.MarginBottom = 0.5
+      TabOrder = 3
+    end
   end
   object ActionList1: TActionList
-    left = 16
-    top = 120
+    Images = fVisualControls.Images
+    left = 64
+    top = 360
     object acLogin: TAction
       Caption = 'Anmelden'
+      ImageIndex = 12
       OnExecute = acLoginExecute
     end
     object acLogout: TAction
       Caption = 'Abmelden'
       Enabled = False
+      ImageIndex = 17
       OnExecute = acLogoutExecute
+    end
+    object acNextStep: TAction
+      Caption = 'Nächster Schritt'
+      ImageIndex = 85
+    end
+    object acPriorStep: TAction
+      Caption = 'vorheriger Schritt'
+      ImageIndex = 84
+    end
+    object acExecuteStep: TAction
+      Caption = 'Ausführen'
+      ImageIndex = 22
+    end
+    object acPrepare: TAction
+      Caption = 'Vorbereiten'
+      ImageIndex = 39
+    end
+    object acLoadOrder: TAction
+      Caption = 'acLoadOrder'
+      ImageIndex = 16
+      OnExecute = acLoadOrderExecute
     end
   end
   object MainMenu: TMainMenu
-    left = 16
-    top = 72
+    Images = fVisualControls.Images
+    left = 64
+    top = 304
     object miMandant: TMenuItem
       Caption = 'Mandant'
       object MenuItem4: TMenuItem

@@ -25,24 +25,31 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item1>
       <Item2>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="LCL"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCLBase"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="richmemopackage"/>
       </Item3>
       <Item4>
-        <PackageName Value="pVisualPrometApp"/>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item4>
+      <Item5>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="pVisualPrometApp"/>
+      </Item6>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
@@ -92,10 +99,13 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="1">
+    <Exceptions Count="2">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
+      <Item2>
+        <Name Value="EZDatabaseError"/>
+      </Item2>
     </Exceptions>
   </Debugging>
 </CONFIG>
