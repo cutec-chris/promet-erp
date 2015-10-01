@@ -130,7 +130,7 @@ build_all()
 case $1 in
        tests)  . ./promet/source/testcases/build.sh;;
   components)  . ./promet/source/components/build.sh;;
-     plugins)  . ./promet/source/plugins/build.sh;;
+     plugins)  $BASH promet/source/plugins/build.sh;;
        tools)  . ./promet/source/tools/build.sh;;
 tools-visual)  . ./promet/source/tools/build_visual.sh;;
   importdata)  . ./promet/importdata/build.sh;;

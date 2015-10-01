@@ -108,7 +108,7 @@ var
 begin
   if InputQuery(strName,strName,aName) then
     begin
-      fScriptEditor.Execute('CmdLn.'+aName,nil,'uses promet;'+lineending
+      fScriptEditor.Execute('CmdLn.'+aName,Null,nil,'uses promet;'+lineending
                                               +'  function CheckSentence(Sentence : string) : Boolean;'+lineending
                                               +'  begin'+lineending
                                               +'    Result := False;'+lineending
@@ -123,7 +123,7 @@ procedure TfCommandline.acEditScriptExecute(Sender: TObject);
 begin
   if FSpeakingInterfacace.Count>0 then
     begin
-      fScriptEditor.Execute(FSpeakingInterfacace.FieldByName('NAME').AsString);
+      fScriptEditor.Execute(FSpeakingInterfacace.FieldByName('NAME').AsString,Null);
       FSpeakingInterfacace.DataSet.Refresh;
     end;
 end;
