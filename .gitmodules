@@ -91,3 +91,6 @@
 [submodule "promet/source/plugins/mindmap"]
 	path = promet/source/plugins/mindmap
 	url = https://github.com/tcs-ulli/lister-plugin-mindmap.git
+[submodule "promet/source/components/bcrypt"]
+	path = promet/source/components/bcrypt
+	url = https://github.com/cutec-chris/BCrypt-for-delphi-lazarus-fpc.git
