@@ -32,6 +32,8 @@ type
     cbTextTyp: TComboBox;
     CheckBox1: TDBCheckBox;
     CheckBox2: TDBCheckBox;
+    CheckBox3: TDBCheckBox;
+    CheckBox4: TDBCheckBox;
     DBNavigator1: TDBNavigator;
     DividerBevel1: TDividerBevel;
     DividerBevel2: TDividerBevel;

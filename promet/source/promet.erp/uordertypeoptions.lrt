@@ -37,3 +37,5 @@ Bei Rechnungen z.b. muss das auch zwingend so sein
 Bei einigen Belegen wie z.b. Reparaturbelegen macht es aber Sinn diese später noch bearbeiten zu können
 Dies ist auch mit diesem Flag nur mit Recht "Rechte vergeben" möglich
 TFORDERTYPEOPTIONS.CHECKBOX2.CAPTION=Vorgang nach buchen änderbar
+TFORDERTYPEOPTIONS.CHECKBOX3.CAPTION=in Auftrag sichtbar
+TFORDERTYPEOPTIONS.CHECKBOX4.CAPTION=in Produktion sichtbar

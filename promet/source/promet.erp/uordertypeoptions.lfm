@@ -449,7 +449,31 @@ inherited forderTypeOptions: TforderTypeOptions
     ValueChecked = 'Y'
     ValueUnchecked = 'N'
   end
-  object OrderTypeDS: TDataSource[28]
+  object CheckBox3: TDBCheckBox[28]
+    Left = 176
+    Height = 17
+    Top = 144
+    Width = 169
+    Caption = 'in Auftrag sichtbar'
+    DataField = 'SI_ORDER'
+    DataSource = OrderTypeDS
+    TabOrder = 20
+    ValueChecked = 'Y'
+    ValueUnchecked = 'N'
+  end
+  object CheckBox4: TDBCheckBox[29]
+    Left = 176
+    Height = 17
+    Top = 160
+    Width = 169
+    Caption = 'in Produktion sichtbar'
+    DataField = 'SI_PROD'
+    DataSource = OrderTypeDS
+    TabOrder = 21
+    ValueChecked = 'Y'
+    ValueUnchecked = 'N'
+  end
+  object OrderTypeDS: TDataSource[30]
     left = 368
     top = 112
   end

@@ -174,7 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -301,7 +301,6 @@
         <ComponentName Value="fAddressFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uAddressFrame"/>
       </Unit3>
       <Unit4>
         <Filename Value="upersonfinance.pas"/>
@@ -450,6 +449,7 @@
         <ComponentName Value="forderTypeOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderTypeOptions"/>
       </Unit24>
       <Unit25>
         <Filename Value="ustoragetypeoptions.pas"/>
@@ -580,7 +580,6 @@
         <ComponentName Value="fCommandline"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="ucommandline"/>
       </Unit43>
       <Unit44>
         <Filename Value="ustoredpasswords.pas"/>
@@ -714,7 +713,6 @@
       </Item21>
       <Item22>
         <Name Value="FPImageException"/>
-        <Enabled Value="False"/>
       </Item22>
       <Item23>
         <Name Value="EComponentError"/>
