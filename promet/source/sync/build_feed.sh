@@ -16,4 +16,6 @@ if [ "$?" -ne "0" ]; then
   $grep -w "Error:" build.txt
   exit 1
 fi
+cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
+zip $basedir/promet/setup/output/$BUILD_VERSION/feedreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip tools/feedreceiver$TARGET_EXTENSION
 cd $basedir

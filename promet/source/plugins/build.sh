@@ -42,12 +42,6 @@ fi
 
 #set -xv
 #copy Files
-cd $basedir
-rm -r $BUILD_DIR
-mkdir $BUILD_DIR
-mkdir $BUILD_DIR/plugins
-cp promet/output/$TARGET_CPU-$TARGET_OS/plugins/*.wlx $BUILD_DIR/plugins
-cd $BUILD_DIR
-zip -rq plugins_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip .
-mv plugins_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip $basedir/promet/setup/output/$BUILD_VERSION
+cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
+zip $basedir/promet/setup/output/$BUILD_VERSION/plugins_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip plugins/*.wlx
 cd $basedir

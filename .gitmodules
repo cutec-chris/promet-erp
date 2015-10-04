@@ -94,3 +94,9 @@
 [submodule "promet/source/components/bcrypt"]
 	path = promet/source/components/bcrypt
 	url = https://github.com/cutec-chris/BCrypt-for-delphi-lazarus-fpc.git
+[submodule "promet/source/components/python4laz"]
+	path = promet/source/components/python4laz
+	url = https://github.com/tcs-ulli/Python-for-Lazarus.git
+[submodule "promet/source/components/python4delphi"]
+	path = promet/source/components/python4delphi
+	url = https://github.com/cutec-chris/python4delphi.git
