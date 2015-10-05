@@ -121,8 +121,6 @@ object fMain: TfMain
       Width = 144
       Action = acPrepare
       Anchors = [akLeft, akBottom]
-      Down = True
-      GroupIndex = 111
     end
     object BitBtn4: TSpeedButton
       Left = 320

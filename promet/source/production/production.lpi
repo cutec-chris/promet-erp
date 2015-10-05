@@ -55,7 +55,6 @@
       <Unit0>
         <Filename Value="production.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="production"/>
       </Unit0>
       <Unit1>
         <Filename Value="umain.pas"/>

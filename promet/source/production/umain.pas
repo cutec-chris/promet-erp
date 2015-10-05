@@ -45,6 +45,7 @@ type
   private
     { private declarations }
     FOrder : TOrder;
+    procedure DoOpen;
   public
     { public declarations }
     procedure DoCreate;
@@ -106,6 +107,8 @@ begin
           FOrder.Insert;
           FOrder.Positions.Insert;
           FOrder.Positions.Assign(aMasterdata);
+          FOrder.Positions.Post;
+          FOrder.Post;
         end;
       aMasterdata.Free;
     end;
@@ -114,7 +117,8 @@ begin
       Showmessage(strNoOrderFound);
       eOrder.SelectAll;
       eOrder.SetFocus;
-    end;
+    end
+  else DoOpen;
 end;
 
 procedure TfMain.acLogoutExecute(Sender: TObject);
@@ -151,5 +155,11 @@ begin
     begin
     end;
 end;
+
+procedure TfMain.DoOpen;
+begin
+
+end;
+
 initialization
 end.
