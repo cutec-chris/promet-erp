@@ -53,12 +53,15 @@ type
     procedure aItemClick(Sender: TObject);
     procedure ApplicationEndSession(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
+    procedure DataModuleDestroy(Sender: TObject);
     procedure IPCTimerTimer(Sender: TObject);
     function OpenLink(aLink: string; Sender: TObject): Boolean;
     procedure ProgTimerTimer(Sender: TObject);
     procedure TrayIconClick(Sender: TObject);
   private
     { private declarations }
+    FUser: String;
+    FMandant: String;
     aNow: TDateTime;
     aRefresh : Integer;
     FBaseRef: LargeInt;
@@ -124,7 +127,10 @@ begin
   if Assigned(fmTimeline) and fmTimeline.Visible then exit;
   with BaseApplication as IBaseApplication do
     Debug('ProgTimer:Enter');
-  Data.ProcessClient.ProcessAll;
+  if not ProcessManager.Active then
+    FreeAndNil(ProcessManager);
+  if not Assigned(ProcessManager) then
+    ProcessManager := StartProcessManager(FMandant,FUser);
   aTime:=GetTickCount;
   ProgTimer.Enabled:=False;
   if acHistory.Enabled then
@@ -353,8 +359,6 @@ end;
 procedure TfMain.DataModuleCreate(Sender: TObject);
 var
   XMLConfig: TXMLPropStorage;
-  aUser: String;
-  aMandant: String;
   aUsers: TUser;
   aUId : Variant;
   function FindSettings(bMandant,aConfig : string) : Boolean;
@@ -374,8 +378,8 @@ var
               Result := True;
               aID := CreateUserID;
               if ((XMLConfig.ReadString('AUTOMATICLOGIN','') = IntToStr(aId)) and (aId <> 0)) then
-                aUser := XMLConfig.ReadString('LOGINUSER','');
-              aMandant := XMLConfig.ReadString('LOGINMANDANT','');
+                FUser := XMLConfig.ReadString('LOGINUSER','');
+              FMandant := XMLConfig.ReadString('LOGINMANDANT','');
             end;
           XMLConfig.Free;
         end;
@@ -403,35 +407,35 @@ begin
               Application.Terminate;
             end;
           Info('search user...');
-          FindSettings(aMandant,'PrometERP');
+          FindSettings(FMandant,'PrometERP');
           if Application.GetOptionValue('m','mandant') <> '' then
-            aMandant := Application.GetOptionValue('m','mandant');
+            FMandant := Application.GetOptionValue('m','mandant');
           if Application.GetOptionValue('u','user') <> '' then
-            aUser := Application.GetOptionValue('u','user');
-          if aUser = '' then FindSettings(aMandant,'Timeregistering');
-          if aUser = '' then FindSettings(aMandant,'Statistics');
-          Info('User:'+aUser);
-          Info('Mandant:'+aMandant);
+            FUser := Application.GetOptionValue('u','user');
+          if FUser = '' then FindSettings(FMandant,'Timeregistering');
+          if FUser = '' then FindSettings(FMandant,'Statistics');
+          Info('User:'+FUser);
+          Info('Mandant:'+FMandant);
           Info('login...');
-          if aMandant = '' then
+          if FMandant = '' then
             begin
               //debugln(strMandantnotSelected);
               acHistory.Enabled:=False;
               exit;
             end;
-          if not DBLogin(aMandant,aUser,False,False) then
+          if not DBLogin(FMandant,FUser,False,False) then
             begin
               //debugln(strLoginFailed+' '+LastError);
               acHistory.Enabled:=False;
-              aUser := '';
-              aMandant := '';
-              FindSettings(aMandant,'PrometERP');
-              if aUser = '' then FindSettings(aMandant,'Timeregistering');
-              if aUser = '' then FindSettings(aMandant,'Statistics');
-              Info('User:'+aUser);
-              Info('Mandant:'+aMandant);
+              FUser := '';
+              FMandant := '';
+              FindSettings(FMandant,'PrometERP');
+              if FUser = '' then FindSettings(FMandant,'Timeregistering');
+              if FUser = '' then FindSettings(FMandant,'Statistics');
+              Info('User:'+FUser);
+              Info('Mandant:'+FMandant);
               Info('relogin...');
-              if not DBLogin(aMandant,aUser,False,False) then
+              if not DBLogin(FMandant,FUser,False,False) then
                 begin
                   //debugln(strLoginFailed+' '+LastError);
                   acHistory.Enabled:=False;
@@ -441,7 +445,7 @@ begin
           uData.Data := Data;
         end;
       Info('messagemanager login successful');
-      TrayIcon.Hint:=strHint+LineEnding+aMandant+' '+aUser;
+      TrayIcon.Hint:=strHint+LineEnding+FMandant+' '+FUser;
 
       Data.RegisterLinkHandler('ALLOBJECTS',@OpenLink,TObjects);
       //Messages
@@ -575,10 +579,10 @@ begin
           end;
         end;
     end;
-  acHistory.Enabled:=aUser <> '';
+  acHistory.Enabled:=FUser <> '';
   FHistory := TBaseHistory.CreateEx(Self,Data);
   FHistory.CreateTable;
-  if aUser <> '' then
+  if FUser <> '' then
     begin
       if Data.Users.IDCode.AsString<>'' then
         FFilter := '('+Data.QuoteField('REFERENCE')+'='+Data.QuoteValue(Data.Users.IDCode.AsString)+')'
@@ -604,6 +608,11 @@ begin
   fTimelineDataSet.CreateTable;
   Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),200);
   SwitchAnimationOff;
+end;
+
+procedure TfMain.DataModuleDestroy(Sender: TObject);
+begin
+  FreeAndNil(ProcessManager);
 end;
 
 procedure TfMain.acHistoryExecute(Sender: TObject);

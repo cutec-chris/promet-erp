@@ -184,11 +184,13 @@ procedure TfScriptFrame.cbVersionExit(Sender: TObject);
 var
   TargetVer: String;
   Version : string;
+  nVersion: String;
 begin
   Version := '';
   if cbVersion.Text <> '' then
     Version := cbVersion.Text;
-  if Dataset.FieldByName('VERSION').AsString <> Version then
+  nVersion := Dataset.FieldByName('VERSION').AsString;
+  if nVersion <> Version then
     begin //New Version
       if (MessageDlg(strVersion,strShouldThisVersionated,mtInformation,[mbYes,mbNo],0)<>mrYes) or (not TBaseScript(DataSet).Versionate(Version)) then
         cbVersion.Text := DataSet.FieldByName('VERSION').AsString
@@ -214,10 +216,10 @@ begin
   application.ProcessMessages;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  TBaseScript(DataSet).Locate('VERSION',cbVersion.Text,[]);
-  DataSet.DataSet.DisableControls;
+  if not TBaseScript(DataSet).Locate('VERSION',cbVersion.Text,[]) then
+    if cbVersion.Text='' then
+      TBaseScript(DataSet).Locate('VERSION',Null,[]);
   DoOpen(False);
-  DataSet.DataSet.EnableControls;
   Screen.Cursor:=crDefault;
 end;
 

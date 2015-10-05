@@ -60,6 +60,7 @@ begin
   FPosFrame.InplaceFrames[0] := TfDetailPositionFrame.Create(FPosFrame);
   FPosFrame.InplaceFrames[3] := TfTextPositionFrame.Create(FPosFrame);
   FPosFrame.BaseName:='MASTERDATA';
+  FPosFrame.FormName:='ARP';
   cbPLType.Items.Add(strPieceListTypeList);
   cbPLType.Items.Add(strPieceListTypeOrder);
   cbPLType.Items.Add(strPieceListTypeProduction);
