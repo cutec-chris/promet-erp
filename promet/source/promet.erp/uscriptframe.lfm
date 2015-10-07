@@ -20,8 +20,8 @@ inherited fScriptFrame: TfScriptFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 421
-      ClientWidth = 642
+      ClientHeight = 842
+      ClientWidth = 1284
       object Label1: TLabel
         Left = 8
         Height = 13

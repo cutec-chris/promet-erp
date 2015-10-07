@@ -523,7 +523,7 @@ begin
     FConnection := Data.GetNewConnection;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TPrometPascalScript.CreateEx(Self,Data,FConnection);
+  DataSet := TBaseScript.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ScriptStateChange;
   TBaseDbList(DataSet).SelectFromLink(aLink);
   Dataset.Open;
@@ -546,7 +546,7 @@ begin
   TabCaption := strNewArticle;
   if UseTransactions then
     Data.StartTransaction(FConnection);
-  DataSet := TPrometPascalScript.CreateEx(Self,Data,FConnection);
+  DataSet := TBaseScript.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ScriptStateChange;
   DataSet.Select(0);
   DataSet.Open;

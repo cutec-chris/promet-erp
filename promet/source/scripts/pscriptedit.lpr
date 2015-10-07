@@ -28,9 +28,9 @@ begin
       if Application.HasOption('database') or Application.HasOption('config-path') then
         Login;
       if copy(ParamStr(Paramcount),0,1)<>'-' then
-        fScriptEditor.Execute(ParamStr(Paramcount))
+        fScriptEditor.Execute(ParamStr(Paramcount),Null)
       else
-        fScriptEditor.Execute('');
+        fScriptEditor.Execute('',Null);
     end;
 end.
 
