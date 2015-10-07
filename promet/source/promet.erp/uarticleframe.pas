@@ -730,7 +730,8 @@ begin
   pcPages.NewFrame(TfFinance,(not DataSet.FieldByName('COSTCENTRE').IsNull)
                           or (not DataSet.FieldByName('ACCOUNT').IsNull)
                           or (not DataSet.FieldByName('ACCOUNTINGINFO').IsNull),strFinance,@AddFinance);
-  pcPages.NewFrame(TfAutomationframe,TMasterdata(DataSet).FieldByName('SCRIPT').AsString<>'',strAutomation,@AddAutomation);
+  if Assigned(TMasterdata(DataSet).FieldByName('SCRIPT')) then
+    pcPages.NewFrame(TfAutomationframe,TMasterdata(DataSet).FieldByName('SCRIPT').AsString<>'',strAutomation,@AddAutomation);
 
   mShorttext.SetFocus;
   with Application as TBaseVisualApplication do
