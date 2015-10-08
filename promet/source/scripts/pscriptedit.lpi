@@ -142,7 +142,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="7">
+    <Exceptions Count="9">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
@@ -164,6 +164,12 @@
       <Item7>
         <Name Value="EZDatabaseError"/>
       </Item7>
+      <Item8>
+        <Name Value="Exception"/>
+      </Item8>
+      <Item9>
+        <Name Value="EPyNameError"/>
+      </Item9>
     </Exceptions>
   </Debugging>
 </CONFIG>
