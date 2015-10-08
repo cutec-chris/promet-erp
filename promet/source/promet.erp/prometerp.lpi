@@ -637,7 +637,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="34">
+    <Exceptions Count="35">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -754,6 +754,9 @@
       <Item34>
         <Name Value="PixelCanvasException"/>
       </Item34>
+      <Item35>
+        <Name Value="EPyImportError"/>
+      </Item35>
     </Exceptions>
   </Debugging>
 </CONFIG>
