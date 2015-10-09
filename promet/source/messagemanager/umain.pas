@@ -127,7 +127,7 @@ begin
   if Assigned(fmTimeline) and fmTimeline.Visible then exit;
   with BaseApplication as IBaseApplication do
     Debug('ProgTimer:Enter');
-  if not ProcessManager.Active then
+  if Assigned(ProcessManager) and (not ProcessManager.Active) then
     FreeAndNil(ProcessManager);
   if not Assigned(ProcessManager) then
     ProcessManager := StartProcessManager(FMandant,FUser);
