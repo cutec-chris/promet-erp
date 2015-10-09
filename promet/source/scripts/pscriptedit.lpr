@@ -21,6 +21,7 @@ begin
   with Application as IBaseDbInterface do
     LoadMandants;
   Application.CreateForm(TfScriptEditor,fScriptEditor);
+  fScriptEditor.ShowInTaskBar:=stAlways;
   fScriptEditor.Hide;
   with Application as IBaseApplication do
     begin

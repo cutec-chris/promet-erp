@@ -636,7 +636,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="35">
+    <Exceptions Count="36">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -756,6 +756,9 @@
       <Item35>
         <Name Value="EPyImportError"/>
       </Item35>
+      <Item36>
+        <Name Value="EPyIOError"/>
+      </Item36>
     </Exceptions>
   </Debugging>
 </CONFIG>
