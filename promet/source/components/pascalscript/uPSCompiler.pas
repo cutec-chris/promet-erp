@@ -1189,8 +1189,6 @@ type
     {$WARNINGS OFF}
     property UnitName: tbtString read FUnitName;
     {$WARNINGS ON}
-
-    property Obj : TObject read FObject write FObject;
   end;
   TIFPSPascalCompiler = TPSPascalCompiler;
 
