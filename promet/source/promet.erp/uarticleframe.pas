@@ -580,7 +580,9 @@ var
   aStream: TMemoryStream;
   aFrame: TTabSheet;
   WasDisabled: Boolean;
+  oldIndex: Integer;
 begin
+  oldIndex := pcPages.TabIndex;
   TMasterdata(FDataSet).OpenItem;
   TabCaption := TMasterdata(FDataSet).Text.AsString;
   SetRights;
@@ -772,6 +774,7 @@ begin
     end;
   Masterdata.DataSet := FDataSet.DataSet;
   if HasHelp then AddHelp(Self);
+  pcPages.TabIndex:=oldIndex;
 end;
 function TfArticleFrame.SetRights: Boolean;
 begin

@@ -77,8 +77,8 @@ inherited fPersonFrame: TfPersonFrame
       Width = 65
       Anchors = [akTop, akRight]
       Caption = 'Baum'
-      ClientHeight = 30
-      ClientWidth = 61
+      ClientHeight = 32
+      ClientWidth = 63
       TabOrder = 2
       object bAssignTree: TSpeedButton
         Left = 2
@@ -326,8 +326,8 @@ inherited fPersonFrame: TfPersonFrame
     NewTabImageIndex = 59
     object tsCustomerCont: TTabSheet
       Caption = 'Kontaktdaten'
-      ClientHeight = 309
-      ClientWidth = 619
+      ClientHeight = 644
+      ClientWidth = 1246
       ImageIndex = 51
       object pCont: TPanel
         Left = 44
@@ -379,8 +379,7 @@ inherited fPersonFrame: TfPersonFrame
             Caption = 'Navigation'
             Font.Color = clMedGray
             Font.Height = 11
-            Font.Orientation = 900
-            Layout = tlBottom
+            Font.Orientation = -900
             ParentColor = False
             ParentFont = False
           end
@@ -772,8 +771,8 @@ inherited fPersonFrame: TfPersonFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 116
-    ClientWidth = 94
+    ClientHeight = 120
+    ClientWidth = 98
     TabOrder = 0
     object iPerson: TImage
       Left = 0
@@ -904,7 +903,7 @@ inherited fPersonFrame: TfPersonFrame
     Visible = False
     WordWrap = True
   end
-  object Customers: TDataSource[5]
+  object Customers: TDatasource[5]
     OnStateChange = CustomersStateChange
     OnDataChange = CustomersDataChange
     left = 120
@@ -1060,7 +1059,7 @@ inherited fPersonFrame: TfPersonFrame
     left = 172
     top = 252
   end
-  object History: TDataSource[11]
+  object History: TDatasource[11]
     left = 204
     top = 252
   end
@@ -1078,7 +1077,7 @@ inherited fPersonFrame: TfPersonFrame
     left = 220
     top = 169
   end
-  object MandantDetails: TDataSource[14]
+  object MandantDetails: TDatasource[14]
     left = 120
     top = 112
   end

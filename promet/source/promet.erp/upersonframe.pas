@@ -995,7 +995,9 @@ var
   aID: String;
   aThumbnails: TThumbnails;
   aStream: TMemoryStream;
+  oldIndex: Integer;
 begin
+  oldIndex := pcPages.TabIndex;
   FContList.pTop.Hide;
   FContList.Editable:=True;
   FContList.DataSet := TPerson(FDataSet).ContactData;
@@ -1070,7 +1072,7 @@ begin
   TranslateNavigator(dnNavigator);
 
   TPerson(DataSet).Address.Open;
-  pcPages.NewFrame(TfAddressFrame,TPerson(DataSet).Address.Count > 0,strAddress,@AddAddress);
+  pcPages.NewFrame(TfAddressFrame,(FDataSet.State = dsInsert) or (TPerson(DataSet).Address.Count > 0),strAddress,@AddAddress);
 
   pcPages.NewFrame(TfTextFrame,not TPerson(DataSet).FieldByName('INFO').IsNull,strInfo,@AddText);
 
@@ -1147,10 +1149,6 @@ begin
   with Application as TBaseVisualApplication do
     AddTabs(pcPages);
   acNewOrder.Visible:=Data.Users.Rights.Right('ORDERS') > RIGHT_READ;
-  if FDataSet.State = dsInsert then
-    pcPages.PageIndex:=1
-  else
-    pcPages.PageIndex:=0;
   if (DataSet.State<> dsInsert) and (DataSet.Id.AsVariant<>Null) and (not Assigned(pcPages.GetTab(TfWikiFrame))) then
     begin
       aWiki := TWikiList.Create(nil);
@@ -1186,6 +1184,10 @@ begin
         end;
       aWiki.Free;
     end;
+  if FDataSet.State = dsInsert then
+    pcPages.PageIndex:=1
+  else
+    pcPages.PageIndex:=oldIndex;
   eName.SetFocus;
   inherited DoOpen;
 end;

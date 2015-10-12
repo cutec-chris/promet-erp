@@ -243,8 +243,8 @@ inherited fArticleFrame: TfArticleFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 654
-      ClientWidth = 1300
+      ClientHeight = 327
+      ClientWidth = 650
       ImageIndex = 14
       object pCommon: TPanel
         Left = 0
@@ -919,8 +919,8 @@ inherited fArticleFrame: TfArticleFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 80
-    ClientWidth = 90
+    ClientHeight = 78
+    ClientWidth = 88
     TabOrder = 0
     object iArticle: TImage
       Left = 0
@@ -1036,7 +1036,7 @@ inherited fArticleFrame: TfArticleFrame
       ParentShowHint = False
     end
   end
-  object Masterdata: TDataSource[4]
+  object Masterdata: TDatasource[4]
     OnStateChange = MasterdataStateChange
     left = 16
     top = 88
@@ -1183,7 +1183,7 @@ inherited fArticleFrame: TfArticleFrame
     left = 172
     top = 252
   end
-  object History: TDataSource[8]
+  object History: TDatasource[8]
     left = 204
     top = 252
   end
@@ -1201,7 +1201,7 @@ inherited fArticleFrame: TfArticleFrame
     left = 304
     top = 160
   end
-  object MandantDetails: TDataSource[11]
+  object MandantDetails: TDatasource[11]
     left = 256
     top = 232
   end
