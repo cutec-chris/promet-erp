@@ -809,10 +809,7 @@ begin
       Task:=Data.BuildLink(aTasks.DataSet);
       cbCategory.Text:=aTasks.FieldByName('CATEGORY').AsString;
     end
-  else if pos(' - ',eJob.Text)>0 then
-    begin
-      eJob.Text:=copy(eJob.Text,0,pos(' - ',eJob.Text)-1);
-    end;
+  else Task := '';
   aTasks.Free;
 end;
 

@@ -519,8 +519,9 @@ function TfScriptFrame.OpenFromLink(aLink: string) : Boolean;
 begin
   inherited;
   CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
+  if UseTransactions then
+    if not Assigned(FConnection) then
+      FConnection := Data.GetNewConnection;
   if UseTransactions then
     Data.StartTransaction(FConnection);
   DataSet := TBaseScript.CreateEx(Self,Data,FConnection);
