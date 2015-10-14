@@ -22,7 +22,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="392"/>
+      <BuildNr Value="397"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -174,7 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-cen/ --mandant=Central"/>
+        <CommandLineParams Value="--debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -294,7 +294,6 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -358,6 +357,7 @@
         <ComponentName Value="fScriptFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uscriptframe"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
@@ -372,6 +372,7 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -579,6 +580,7 @@
         <ComponentName Value="fCommandline"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ucommandline"/>
       </Unit43>
       <Unit44>
         <Filename Value="ustoredpasswords.pas"/>
@@ -638,7 +640,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="36">
+    <Exceptions Count="37">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -761,6 +763,9 @@
       <Item36>
         <Name Value="EPyIOError"/>
       </Item36>
+      <Item37>
+        <Name Value="EPyException"/>
+      </Item37>
     </Exceptions>
   </Debugging>
 </CONFIG>

@@ -1149,7 +1149,7 @@ begin
     begin
       with Application as IBaseDbInterface do
         fMain.acShowTree.Checked := DBConfig.ReadBoolean('SHOWTREE',True);
-      fMain.acShowTreeExecute(nil);
+      //fMain.acShowTreeExecute(nil);
     end;
   DoInfo('StarterThread:end');
   inherited Destroy;

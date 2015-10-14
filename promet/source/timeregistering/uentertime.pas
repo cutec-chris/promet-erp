@@ -283,6 +283,7 @@ begin
         FList.gList.DataSource.DataSet.FieldByName('PROJECTID').AsVariant:=aProject.Id.AsVariant;
       aProject.Free;
     end;
+  FList.gList.DataSource.DataSet.FieldByName('TASKID').Clear;
   FList.gList.EditorMode:=True;
   Result := True;
 end;
@@ -529,7 +530,7 @@ begin
           if aTasks.Locate('PROJECTID',aProject.Id.AsVariant,[]) then
             Times.FieldByName('TASKID').AsVariant := aTasks.Id.AsVariant;
         end
-      else
+      else if FProject='' then
         begin
           if aTasks.Count>0 then
             Times.FieldByName('TASKID').AsVariant := aTasks.Id.AsVariant;
@@ -590,16 +591,32 @@ begin
   cbCategory.Text := Times.FieldByName('CATEGORY').AsString;
   eJob.Text:=Times.FieldByName('JOB').AsString;
   mNotes.Lines.Text:=Times.FieldByName('NOTE').AsString;
+  Task:='';
 end;
 procedure TfEnterTime.acUseExecute(Sender: TObject);
+var
+  aProject: TProject;
+  aTasks: TTask;
 begin
-  {
-  Times.DataSet.Refresh;
-  Times.DataSet.First;
-  }
   if not ((Times.State = dsInsert) or (Times.dataSet.State = dsEdit)) then
     Times.dataSet.Edit;
   Times.FieldByName('PROJECT').AsString := FProject;
+  aProject := TProject.Create(nil);
+  aProject.SelectFromLink(FProject);
+  aProject.Open;
+  if aProject.Count>0 then
+    begin
+      FList.gList.DataSource.DataSet.FieldByName('PROJECTID').AsVariant:=aProject.Id.AsVariant;
+      aTasks := TTask.Create(nil);
+      aTasks.SelectFromLink(Task);
+      atasks.Open;
+      if aTasks.Count>0 then
+        FList.gList.DataSource.DataSet.FieldByName('TASKID').AsVariant:=aTasks.Id.AsVariant
+      else
+        FList.gList.DataSource.DataSet.FieldByName('TASKID').Clear;
+      aTasks.Free;
+    end;
+  aProject.Free;
   Times.FieldByName('LINK').AsString := FLink;
   Times.FieldByName('CATEGORY').AsString := cbCategory.text;
   Times.FieldByName('JOB').AsString := eJob.text;
@@ -814,7 +831,7 @@ begin
   else if FList.gList.SelectedColumn.FieldName = 'PROJECT' then
     begin
       fSearch.OnOpenItem:=@SetListLinkfromSearch;
-      fSearch.AllowSearchTypes(strProject);
+      fSearch.AllowSearchTypes(strProjects);
       if fSearch.Execute(True,'TIMEPROJ',strSearchfromTimeregisteringMode) then
         Project := fSearch.GetLink;
       fList.gList.SetFocus;
