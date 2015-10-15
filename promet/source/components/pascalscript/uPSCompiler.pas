@@ -2644,7 +2644,6 @@ begin
   CopyVariantContents(Src, Result);
 end;
 
-
 procedure InitializeVariant(Vari: PIfRVariant; FType: TPSType);
 begin
   FillChar(vari^, SizeOf(TIfRVariant), 0);
