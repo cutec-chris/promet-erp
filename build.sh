@@ -22,13 +22,13 @@ if [ -d $BUILD_DIR ]
   then
     echo "."
   else
-    mkdir $BUILD_DIR
+    mkdir -p $BUILD_DIR
 fi
 if [ -d $OUTPUT_DIR ]
   then
     echo "."
   else
-    mkdir $OUTPUT_DIR
+    mkdir -p $OUTPUT_DIR
 fi
 
 build_default()
