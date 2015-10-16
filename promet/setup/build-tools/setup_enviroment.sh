@@ -42,6 +42,7 @@ if [ -e promet/source/base/version.inc ]
   elif [ $TARGET_CPU ]
     then export BUILD_ARCH=$(echo "--cpu=$TARGET_CPU")
   fi
+  if [ "x$TARGET_CPU" != "xarm" ]; then
   export BUILD_PARAMS=-q
 fi
 
