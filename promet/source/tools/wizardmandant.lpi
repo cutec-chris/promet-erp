@@ -29,7 +29,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-cen/ --mandant=Central"/>
       </local>
     </RunParams>
     <RequiredPackages Count="5">
