@@ -126,6 +126,52 @@ build_all()
   . ./promet/importdata/build.sh
 }
 
+clean_all()
+{
+  rm -f -r promet/source/base/dbintfs/lib
+  rm -f -r promet/source/base/dbintfs/base_scripts/lib
+  rm -f -r promet/source/base/dbintfs/base_pm/lib
+  rm -f -r promet/source/promet.erp/lib
+  rm -f -r promet/source/tools/lib
+  rm -f -r promet/source/projectmanagement/lib
+  rm -f -r promet/source/clientmanagement/lib
+  rm -f -r promet/source/messageimport/lib
+  rm -f -r promet/source/archivestore/lib
+  rm -f -r promet/source/base/base_calendar/lib
+  rm -f -r promet/source/base/base_documents/lib
+  rm -f -r promet/source/base_erp/lib
+  rm -f -r promet/source/base/base_messaging/lib
+  rm -f -r promet/source/base/base_ocr/lib
+  rm -f -r promet/source/base/base_office/lib
+  rm -f -r promet/source/base_phone/lib
+  rm -f -r promet/source/base_pm/lib
+  rm -f -r promet/source/base_repair/lib
+  rm -f -r promet/source/base_wiki/lib
+  rm -f -r promet/source/base_help/lib
+  rm -f -r promet/source/base/base_frames/lib
+  rm -f -r promet/source/base/base_forms/lib
+  rm -f -r promet/source/base/base_inet/lib
+  rm -f -r promet/source/base/base_docmanage/lib
+  rm -f -r promet/source/meeting/lib
+  rm -f -r promet/source/testcases/lib
+  rm -f -r promet/source/webstat/lib
+  rm -f -r promet/source/checkout/lib
+  rm -f -r promet/source/webservers/lib
+  rm -f -r promet/source/import/lib
+  rm -f -r promet/source/pos/lib
+  rm -f -r promet/source/statistics/lib
+  rm -f -r promet/source/sync/lib
+  rm -f -r promet/source/timeregistering/lib
+  rm -f -r promet/source/tools/lib
+  rm -f -r promet/general/lib
+  find promet/source -type f -iname "*.compiled" -exec rm -f {} \;
+  find promet/source -type f -iname "*.bak" -exec rm -f {} \;
+  find promet/source -type f -iname "*.ppu" -exec rm -f {} \;
+  find promet/source -type f -iname "*.o" -exec rm -f {} \;
+  find promet/source -type f -iname "*.or" -exec rm -f {} \;
+  find promet/source -type f -iname "*.rst" -exec rm -f {} \;
+}
+
 
 case $1 in
        tests)  . ./promet/source/testcases/build.sh;;
@@ -147,6 +193,7 @@ tools-visual)  . ./promet/source/tools/build_visual.sh;;
         feed)  . ./promet/source/sync/build_feed.sh;;
         mqtt)  . ./promet/source/sync/build_mqtt.sh;;
         sync)  . ./promet/source/sync/build.sh;;
+       clean)  clean_all;;
          all)  build_all;;
            *)  build_default;;
 esac
