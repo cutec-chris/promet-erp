@@ -60,7 +60,7 @@
       <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\feedreceiver"/>
     </Target>
     <SearchPaths>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

@@ -59,7 +59,7 @@
       <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\import_mqtt"/>
     </Target>
     <SearchPaths>
-      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
