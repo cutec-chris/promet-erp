@@ -128,6 +128,8 @@ build_all()
 
 clean_all()
 {
+  rm -f -r $OUTPUT_DIR
+  mkdir -p $OUTPUT_DIR
   rm -f -r promet/source/base/dbintfs/lib
   rm -f -r promet/source/base/dbintfs/base_scripts/lib
   rm -f -r promet/source/base/dbintfs/base_pm/lib

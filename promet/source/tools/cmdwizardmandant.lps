@@ -8,7 +8,6 @@
       <Unit0>
         <Filename Value="cmdwizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="80"/>
         <CursorPos X="25" Y="95"/>
         <UsageCount Value="23"/>
@@ -23,9 +22,10 @@
       <Unit2>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="181"/>
-        <CursorPos Y="201"/>
+        <TopLine Value="106"/>
+        <CursorPos X="11" Y="191"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit2>
