@@ -57,10 +57,6 @@ build_server()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/webservers/build_webserver.sh
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
   . ./promet/source/webservers/build_imap.sh
   if [ "$?" -ne "0" ]; then
     exit 1
@@ -82,6 +78,10 @@ build_server()
     exit 1
   fi
   . ./promet/source/sync/build.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  . ./promet/source/webservers/build_webserver.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
