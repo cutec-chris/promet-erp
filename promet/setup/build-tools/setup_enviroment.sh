@@ -18,6 +18,9 @@ if [ -e promet/source/base/version.inc ]
     else
     export TARGET_EXTENSION=''
   fi
+  if [ "x$TARGET_CPU" = "xarm" ]; then
+    export TARGET_OS='linux'
+  fi
   if [ $TEMP ]
     then export BUILD_DIR=$TEMP/promet-build
     else export BUILD_DIR=/tmp/promet-build
