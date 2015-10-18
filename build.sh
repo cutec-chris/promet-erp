@@ -51,6 +51,42 @@ build_default()
   . ./promet/importdata/build.sh
 }
 
+build_server()
+{
+  . ./promet/source/tools/build.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  . ./promet/source/webservers/build_webserver.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  . ./promet/source/webservers/build_imap.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  . ./promet/source/webservers/build_dav.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  . ./promet/source/sync/build_mail.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  . ./promet/source/sync/build_feed.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  . ./promet/source/sync/build_mqtt.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  . ./promet/source/sync/build.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+}
+
 build_all()
 {
   echo "Building all..."
@@ -196,6 +232,7 @@ tools-visual)  . ./promet/source/tools/build_visual.sh;;
         mqtt)  . ./promet/source/sync/build_mqtt.sh;;
         sync)  . ./promet/source/sync/build.sh;;
        clean)  clean_all;;
+      server)  build_server;;
          all)  build_all;;
            *)  build_default;;
 esac
