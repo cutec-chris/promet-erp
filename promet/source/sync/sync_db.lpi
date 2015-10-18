@@ -26,7 +26,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=TCS-Times2&quot;"/>
+        <CommandLineParams Value="&quot;--mandant=Stora&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -45,7 +45,7 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="489"/>
+        <TopLine Value="536"/>
         <CursorPos Y="565"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>

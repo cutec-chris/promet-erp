@@ -125,8 +125,11 @@ begin
   if CheckUser(From) then
     begin
       FJID:=From;
-      if not Speaker.CheckSentence(MsgText) then
-        xmpp.SendPersonalMessage(From,strSentenceNotValid);
+      try
+        if not Speaker.CheckSentence(MsgText) then
+          xmpp.SendPersonalMessage(From,strSentenceNotValid);
+      except
+      end;
       FJID:='';
     end
   else writeln('user unknown !')
