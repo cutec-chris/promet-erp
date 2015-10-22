@@ -174,7 +174,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-cen/ --mandant=Central"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">

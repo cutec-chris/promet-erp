@@ -279,6 +279,9 @@ type
     property TimeReg : TfEnterTime read FTimeReg;
     function DoCreate : Boolean;
   end;
+
+  { TStarterThread }
+
   TStarterThread = class(TThread)
   private
     Node,Node1,Node2,Node3,aNode : TTreeNode;
@@ -302,7 +305,7 @@ type
     procedure DoCreate;
     procedure RefreshTasks;
     procedure Expand;
-    procedure RefreshWiki;
+    procedure AddWiki;
     procedure DoGetRight;
     procedure AddSearch;
     procedure RegisterPhoneLines;
@@ -310,6 +313,7 @@ type
     procedure DoRealInfo;
     procedure DoCalendar;
     procedure DoInfo(aMsg : string);
+    procedure DoSynchronize(AMethod: TThreadMethod);
   public
     constructor Create(aSuspended : Boolean = False);
     procedure Execute; override;
@@ -444,10 +448,6 @@ begin
   fMainTreeFrame.tvMain.OnExpanding:=@fMainTreeFrametvMainExpanding;
   acLogin.Execute;
   Result := not acLogin.Enabled;
-  {$ifdef LINUX}
-  pCloseTab.BorderSpacing.Top:=3;
-  pSeparateWindow.BorderSpacing.Top:=3;
-  {$endif}
 end;
 function TfMain.CommandReceived(Sender: TObject; aCommand: string): Boolean;
 begin
@@ -852,9 +852,38 @@ begin
   fMainTreeFrame.RestoreExpands;
 end;
 
-procedure TStarterThread.RefreshWiki;
+procedure TStarterThread.AddWiki;
+var
+  aWiki: TWikiList;
+  aStartPagetext: String;
+  aUser: TUser;
 begin
-  fMain.WikiFrame.Refresh;
+  aWiki := TWikiList.Create(nil);
+  aWiki.CreateTable;
+  try
+    fMain.WikiFrame.SetRights(True);
+    aUser := TUser.Create(nil);
+    aUser.Open;
+    aUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
+    while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString)) and (not aUser.FieldByName('PARENT').IsNull) do
+      begin
+        aUser.Locate('SQL_ID',aUser.FieldByName('PARENT').AsVariant,[]);
+      end;
+    if aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,false) then
+      aStartPagetext:=aWiki.FieldByName('DATA').AsString;
+    if not fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,True) then
+      begin
+        if aWiki.FindWikiPage('Promet-ERP-Help/users/Administrator') then
+          aStartPagetext := aWiki.FieldByName('DATA').AsString
+        else aStartPagetext:='[[Include:Promet-ERP-Help/index]]';
+        fMain.WikiFrame.DataSet.Edit;
+        fMain.WikiFrame.DataSet.FieldByName('DATA').AsString:=aStartPagetext;
+        fMain.WikiFrame.DataSet.Post;
+        fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,False);
+      end;
+  except
+  end;
+  aWiki.Free;
 end;
 
 procedure TStarterThread.DoGetRight;
@@ -895,6 +924,7 @@ end;
 
 procedure TStarterThread.DoRealInfo;
 begin
+  Application.ProcessMessages;
   with Application as IBaseApplication do
     Info('StarterThread:'+FInfo);
 end;
@@ -908,6 +938,11 @@ procedure TStarterThread.DoInfo(aMsg: string);
 begin
   FInfo := aMsg;
   Synchronize(@DorealInfo);
+end;
+
+procedure TStarterThread.DoSynchronize(AMethod: TThreadMethod);
+begin
+  AMethod;
 end;
 
 constructor TStarterThread.Create(aSuspended: Boolean);
@@ -935,20 +970,17 @@ var
 begin
   DoInfo('start');
   aConn := nil;
-  Synchronize(@NewMenu);
+  DoSynchronize(@NewMenu);
   miNew.Action := fMainTreeFrame.acSearch;
   DoInfo('Timeregistering');
-  Synchronize(@AddTimeReg);
+  DoSynchronize(@AddTimeReg);
   DoInfo('Objects,Tree,...');
   //All Objects
   fMain.pcPages.AddTabClass(TfFilter,strObjectList,@fMain.AddElementList,Data.GetLinkIcon('ALLOBJECTS@'),True);
-  //Expand Tree
-  DoInfo('ExpandTree');
-  Synchronize(@Expand);
   //Documents
   DoInfo('Documents');
   DataSetType:=TDocuments;
-  Synchronize(@DoCreate);
+  DoSynchronize(@DoCreate);
   Data.RegisterLinkHandler('ALLOBJECTS',@fMainTreeFrame.OpenLink,TObjects);
   Data.RegisterLinkHandler('SCRIPTS',@fMainTreeFrame.OpenLink,TBaseScript);
   //Messages
@@ -964,7 +996,7 @@ begin
       except
       end;
     end;
-  Synchronize(@StartReceive);
+  DoSynchronize(@StartReceive);
   //Tasks
   DoInfo('Tasks');
   if (GetRight('TASKS') > RIGHT_NONE) then
@@ -981,9 +1013,9 @@ begin
     begin
       try
       DataSetType:=TCalendar;
-      Synchronize(@DoCreate);
+      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
-      Synchronize(@DoCalendar);
+      DoSynchronize(@DoCalendar);
       except
       end;
     end;
@@ -993,7 +1025,7 @@ begin
     begin
       try
       DataSetType:=TOrder;
-      Synchronize(@DoCreate);
+      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
       Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,TOrder);
       AddSearchAbleDataSet(TOrderList);
@@ -1006,9 +1038,9 @@ begin
     begin
       try
       DataSetType:=TPerson;
-      Synchronize(@DoCreate);
+      DoSynchronize(@DoCreate);
       DataSetType:=TCountries;
-      Synchronize(@DoCreate);
+      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strCustomerList,@fMain.AddCustomerList,Data.GetLinkIcon('CUSTOMERS@'),True);
       Data.RegisterLinkHandler('CUSTOMERS',@fMainTreeFrame.OpenLink,TPerson);
       AddSearchAbleDataSet(TPersonList);
@@ -1023,7 +1055,7 @@ begin
     begin
       try
       DataSetType:=TMasterdata;
-      Synchronize(@DoCreate);
+      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strArticleList,@fMain.AddMasterdataList,Data.GetLinkIcon('MASTERDATA@'),True);
       Data.RegisterLinkHandler('MASTERDATA',@fMainTreeFrame.OpenLink,TMasterdata);
       AddSearchAbleDataSet(TMasterdataList);
@@ -1036,7 +1068,7 @@ begin
     begin
       try
       DataSetType:=TProject;
-      Synchronize(@DoCreate);
+      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strProjectList,@fMain.AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
       Data.RegisterLinkHandler('PROJECT',@fMainTreeFrame.OpenLink,TProject);
       AddSearchAbleDataSet(TProjectList);
@@ -1054,7 +1086,6 @@ begin
       except
       end;
     end;
-  Synchronize(@RefreshWiki);
   //Documents
   DoInfo('Documents');
   if (GetRight('DOCUMENTS') > RIGHT_NONE) then
@@ -1063,7 +1094,7 @@ begin
       Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink,TDocument);
       Data.RegisterLinkHandler('DOCPAGES',@fMainTreeFrame.OpenLink,TDocPages);
       DataSetType:=TDocPages;
-      Synchronize(@DoCreate);
+      DoSynchronize(@DoCreate);
       except
       end;
     end;
@@ -1073,7 +1104,7 @@ begin
     begin
       try
       DataSetType:=TLists;
-      Synchronize(@DoCreate);
+      DoSynchronize(@DoCreate);
       Data.RegisterLinkHandler('LISTS',@fMainTreeFrame.OpenLink,TLists);
       AddSearchAbleDataSet(TLists);
       except
@@ -1085,7 +1116,7 @@ begin
     begin
       try
       DataSetType:=TMeetings;
-      Synchronize(@DoCreate);
+      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strMeetingList,@fMain.AddMeetingList,-1,True);
       Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink,TMeetings);
       AddSearchAbleDataSet(TMeetings);
@@ -1098,7 +1129,7 @@ begin
     begin
       try
       DataSetType:=TInventorys;
-      Synchronize(@DoCreate);
+      DoSynchronize(@DoCreate);
       Data.RegisterLinkHandler('INVENTORY',@fMainTreeFrame.OpenLink,TInventorys);
       except
       end;
@@ -1114,6 +1145,8 @@ begin
       except
       end;
     end;
+  DoInfo('Startuptype');
+  DoSynchronize(@DoStartupType);
   //Timeregistering
   AddSearchAbleDataSet(TUser);
   Data.RegisterLinkHandler('USERS',@fMainTreeFrame.OpenLink,TUser);
@@ -1128,12 +1161,15 @@ begin
       end;
     end;
   DoInfo('Phonelines');
-  Synchronize(@RegisterPhoneLines);
+  DoSynchronize(@RegisterPhoneLines);
   //aConn.Free;
   DoInfo('Search');
-  Synchronize(@AddSearch);
-  DoInfo('Startuptype');
-  Synchronize(@DoStartupType);
+  DoSynchronize(@AddSearch);
+  DoInfo('Wiki');
+  DoSynchronize(@AddWiki);
+  //Expand Tree
+  DoInfo('ExpandTree');
+  DoSynchronize(@Expand);
 end;
 
 destructor TStarterThread.Destroy;
@@ -1207,37 +1243,9 @@ begin
           TBaseVisualApplication(Application).MessageHandler.RegisterCommandHandler(@CommandReceived);
         with BaseApplication as IBaseApplication do
           debug('BaseLogin: '+IntToStr(GetTickCount64-aTime));
-        aWiki := TWikiList.Create(nil);
-        aWiki.CreateTable;
-        if aWiki.FindWikiPage('Promet-ERP-Help/users/Administrator') then
-          aStartPagetext := aWiki.FieldByName('DATA').AsString
-        else aStartPagetext:='[[Include:Promet-ERP-Help/index]]';
-        WikiFrame := TfWikiFrame.Create(Self);
-        WikiFrame.Parent := tsStartpage;
+        WikiFrame := TfWikiFrame.Create(nil);
+        WikiFrame.Parent := fMain.tsStartpage;
         WikiFrame.Align := alClient;
-        try
-          WikiFrame.SetRights(True);
-          aUser := TUser.Create(nil);
-          aUser.Open;
-          aUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
-          while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString)) and (not aUser.FieldByName('PARENT').IsNull) do
-            begin
-              aUser.Locate('SQL_ID',aUser.FieldByName('PARENT').AsVariant,[]);
-            end;
-          if aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,false) then
-            aStartPagetext:=aWiki.FieldByName('DATA').AsString;
-          if not WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,True) then
-            begin
-              WikiFrame.DataSet.Edit;
-              WikiFrame.DataSet.FieldByName('DATA').AsString:=aStartPagetext;
-              WikiFrame.DataSet.Post;
-              WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,False);
-            end;
-        except
-        end;
-        aWiki.Free;
-        with BaseApplication as IBaseApplication do
-          debug('Wiki: '+IntToStr(GetTickCount64-aTime));
         aItems := TStringList.Create;
         aItems.Delimiter:=';';
         aItems.DelimitedText := DBConfig.ReadString('TREEENTRYS:'+ApplicationName,fMainTreeFrame.GetBigIconTexts);
@@ -1468,6 +1476,12 @@ begin
         fSplash.AddText(strRefresh);
         fMain.acShowTree.Checked:=True;
         fMain.acShowTreeExecute(nil);
+        fSplash.Hide;
+        fMain.Show;
+        {$ifdef LINUX}
+        pCloseTab.BorderSpacing.Top:=3;
+        pSeparateWindow.BorderSpacing.Top:=3;
+        {$endif}
         bStart := TStarterThread.Create(False);
 
         with Application as IBaseDbInterface do
