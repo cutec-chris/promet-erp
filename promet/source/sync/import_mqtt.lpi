@@ -27,7 +27,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Stora&quot; --mqtt-server=192.168.1.103"/>
+        <CommandLineParams Value="--mandant=&quot;Central&quot; --mqtt-server=192.168.177.103"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>

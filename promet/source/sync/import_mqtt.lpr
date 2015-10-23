@@ -42,6 +42,8 @@ type
       GrantedQoS: integer);
     procedure mqttcUnSubAck(Sender: TObject; MessageID: integer);
   private
+    anObject: TObjects;
+    aMeasurement: TMeasurement;
   protected
     procedure DoRun; override;
   public
@@ -65,50 +67,48 @@ procedure PrometCmdApp.mqttcPublish(Sender: TObject; topic, payload: ansistring
   );
 var
   aProp: String;
-  anObject: TObjects;
-  aMeasurement: TMeasurement;
   PayloadFloat: Extended;
   aObject: String;
 begin
-  writeln(topic+':'+payload);
-  aProp := copy(topic,rpos('/',topic)+1,length(topic));
-  topic:=copy(topic,0,length(topic)-(length(aProp)+1));
-  if pos(':',aProp)>0 then
-    aProp := copy(aProp,0,pos(':',aProp)-1);
-  if not TryStrToFloat(payload,PayloadFloat) then
-    begin
-      if (lowercase(payload)='ok')
-      or (lowercase(payload)='true')
-      or (lowercase(payload)='y')
-      or (lowercase(payload)='on')
-      then PayloadFloat:=1
-      else
-      if (lowercase(payload)='false')
-      or (lowercase(payload)='n')
-      or (lowercase(payload)='off')
-      then PayloadFloat:=0
-      else exit;
-    end;
-  aObject := copy(topic,rpos('/',topic)+1,length(topic));
-  anObject := TObjects.Create(nil);
-  anObject.SelectFromNumber(aObject);
-  anObject.Open;
-  if anObject.Count>0 then
-    begin
-      aMeasurement := TMeasurement.CreateEx(nil,Data,anObject.Connection,anObject.DataSet);
-      aMeasurement.Open;
-      if aMeasurement.Locate('ID',aProp,[loCaseInsensitive]) then
-        begin
-          if (aMeasurement.Current.AsFloat<>PayloadFloat) then
-            begin
-              aMeasurement.Edit;
-              aMeasurement.Current.AsFloat:=PayloadFloat;
-              aMeasurement.Post;
-            end;
-        end;
-      aMeasurement.Free;
-    end;
-  anObject.Free;
+  try
+    writeln(topic+':'+payload);
+    aProp := copy(topic,rpos('/',topic)+1,length(topic));
+    topic:=copy(topic,0,length(topic)-(length(aProp)+1));
+    if pos(':',aProp)>0 then
+      aProp := copy(aProp,0,pos(':',aProp)-1);
+    if not TryStrToFloat(payload,PayloadFloat) then
+      begin
+        if (lowercase(payload)='ok')
+        or (lowercase(payload)='true')
+        or (lowercase(payload)='y')
+        or (lowercase(payload)='on')
+        then PayloadFloat:=1
+        else
+        if (lowercase(payload)='false')
+        or (lowercase(payload)='n')
+        or (lowercase(payload)='off')
+        then PayloadFloat:=0
+        else exit;
+      end;
+    aObject := copy(topic,rpos('/',topic)+1,length(topic));
+    anObject.SelectFromNumber(aObject);
+    anObject.Open;
+    if anObject.Count>0 then
+      begin
+        aMeasurement.Open;
+        if aMeasurement.Locate('ID',aProp,[loCaseInsensitive]) then
+          begin
+            if (aMeasurement.Current.AsFloat<>PayloadFloat) then
+              begin
+                aMeasurement.Edit;
+                aMeasurement.Current.AsFloat:=PayloadFloat;
+                aMeasurement.Post;
+              end;
+          end;
+      end;
+  except
+    Terminate;
+  end;
 end;
 
 procedure PrometCmdApp.mqttcSubAck(Sender: TObject; MessageID: integer;
@@ -147,14 +147,21 @@ begin
   if mqttc.Connect then
     begin
       writeln('Connected.');
-      sleep(100);
-      writeln('Subscribe to /#');
-      mqttc.Subscribe('/#');
-      while mqttc.isConnected do
-        begin
-          sleep(30000);
-          if not mqttc.PingReq then break;
-        end;
+      anObject:=TObjects.Create(nil);
+      aMeasurement := TMeasurement.CreateEx(nil,Data,anObject.Connection,anObject.DataSet);
+      try
+        sleep(100);
+        writeln('Subscribe to /#');
+        mqttc.Subscribe('/#');
+        while mqttc.isConnected do
+          begin
+            sleep(30000);
+            if not mqttc.PingReq then break;
+          end;
+      finally
+        FreeAndNil(aMeasurement);
+        FreeAndNil(anObject);
+      end;
     end
   else writeln('Connection failed');
   // stop program loop
@@ -164,7 +171,6 @@ end;
 constructor PrometCmdApp.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-  StopOnException:=True;
 end;
 
 destructor PrometCmdApp.Destroy;
