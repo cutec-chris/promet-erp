@@ -972,6 +972,8 @@ begin
   aConn := nil;
   DoSynchronize(@NewMenu);
   miNew.Action := fMainTreeFrame.acSearch;
+  DoInfo('Startuptype');
+  DoSynchronize(@DoStartupType);
   DoInfo('Timeregistering');
   DoSynchronize(@AddTimeReg);
   DoInfo('Objects,Tree,...');
@@ -1145,8 +1147,6 @@ begin
       except
       end;
     end;
-  DoInfo('Startuptype');
-  DoSynchronize(@DoStartupType);
   //Timeregistering
   AddSearchAbleDataSet(TUser);
   Data.RegisterLinkHandler('USERS',@fMainTreeFrame.OpenLink,TUser);
