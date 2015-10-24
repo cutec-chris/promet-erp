@@ -974,6 +974,8 @@ begin
   miNew.Action := fMainTreeFrame.acSearch;
   DoInfo('Startuptype');
   DoSynchronize(@DoStartupType);
+  DoInfo('Wiki');
+  DoSynchronize(@AddWiki);
   DoInfo('Timeregistering');
   DoSynchronize(@AddTimeReg);
   DoInfo('Objects,Tree,...');
@@ -1165,8 +1167,6 @@ begin
   //aConn.Free;
   DoInfo('Search');
   DoSynchronize(@AddSearch);
-  DoInfo('Wiki');
-  DoSynchronize(@AddWiki);
   //Expand Tree
   DoInfo('ExpandTree');
   DoSynchronize(@Expand);
