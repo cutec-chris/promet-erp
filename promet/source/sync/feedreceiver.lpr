@@ -191,8 +191,8 @@ begin
                         else if Assigned(aTitleNode) then
                           tmp := StringReplace(trim(aTitleNode.FirstChild.NodeValue),lineending,'',[rfReplaceAll]);
                         MID := MD5Print(MD5String(tmp));
-                        Data.SetFilter(MessageIndex,'"ID"='''+MID+'''');
-                        Data.SetFilter(Data.DeletedItems,Data.Processterm('"LINK"=''MESSAGEIDX@'+MID+'*'''));
+                        Data.SetFilter(MessageIndex,Data.QuoteField('ID')+'='+Data.QuoteValue(MID));
+                        Data.SetFilter(Data.DeletedItems,Data.Processterm(Data.QuoteField('LINK')+'='+Data.QuoteValue('MESSAGEIDX@'+MID+'*')));
                         aMessageNode := aNode.FindNode('description');
                         if not Assigned(aMessageNode) then
                           aMessageNode := aNode.FindNode('content');
