@@ -35,8 +35,9 @@ if [ "$?" -ne "0" ]; then
   exit 1
 fi
 cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
-target=tools_$TARGET_CPU-$TARGET_OS-$BUILD
-targetfile=$target_VERSION.zip
+target=tools_$TARGET_CPU-$TARGET_OS
+targetfile=$target-$BUILD_VERSION.zip
+targetcur=$target-current.zip
 zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile checkin$TARGET_EXTENSION checkout$TARGET_EXTENSION tools/processdaemon$TARGET_EXTENSION tools/processmanager$TARGET_EXTENSION
-. ../../setup/build-tools/doupload.sh $targetfile $target_current.zip
+. ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd $basedir
