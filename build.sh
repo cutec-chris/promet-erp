@@ -85,6 +85,10 @@ build_server()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  . ./promet/source/scripts/build.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
 }
 
 build_all()

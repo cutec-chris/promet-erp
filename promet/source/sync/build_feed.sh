@@ -18,8 +18,9 @@ if [ "$?" -ne "0" ]; then
 #  exit 1
 fi
 cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
-target=feedreceiver_$TARGET_CPU-$TARGET_OS-$BUILD
-targetfile=$target_VERSION.zip
-zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile tools/feedreceiver$TARGET_EXTENSION
-. ../../setup/build-tools/doupload.sh $targetfile $target_current.zip
+target=feedreceiver_$TARGET_CPU-$TARGET_OS
+targetfile=$target-$BUILD_VERSION.zip
+targetcur=$target-current.zip
+zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile tools/feedreceiver$TARGET_EXTENSION tools/twitterreceiver$TARGET_EXTENSION
+. ../../setup/build-tools/doupload.sh $targetfile $targetcur &
 cd $basedir
