@@ -278,7 +278,7 @@ begin
                                   FieldByName('TIMESTAMPT').AsFloat := Frac(Now());
                                 Post;
                               end;
-                            Data.SetFilter(Message,'"ID"='''+MID+'''');
+                            Data.SetFilter(Message,Data.QuoteField('ID')+'='+Data.QuoteValue(MID));
                             with Message.Content.DataSet do
                               begin
                                 Open;
