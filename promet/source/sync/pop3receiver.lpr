@@ -133,8 +133,8 @@ var
     Messages := TMessageList.Create(Self);
     for b := MList.Count-1 downto 0 do
       begin
-        Data.SetFilter(Messages,'"ID"='''+trim(copy(MList[b],pos(' ',MList[b])+1,length(MList[b])))+'''');
-        Data.SetFilter(DeletedItems,'"LINK"=''MESSAGEIDX@'+copy(MList[b],pos(' ',MList[b])+1,length(MList[b]))+'''');
+        Data.SetFilter(Messages,Data.QuoteField('ID')+'='+Data.QuoteValue(trim(copy(MList[b],pos(' ',MList[b])+1,length(MList[b])))));
+        Data.SetFilter(DeletedItems,Data.QuoteField('LINK')+'='+Data.QuoteValue('MESSAGEIDX@'+copy(MList[b],pos(' ',MList[b])+1,length(MList[b]))));
         if (Messages.Count > 0)
         or (DeletedItems.Count > 0) then
           begin
@@ -286,8 +286,8 @@ begin
                           msg.Lines.Text:=pop.FullResult.Text;
                           msg.DecodeMessage;
                           aMID := copy(MList[messageidx],pos(' ',MList[messageidx])+1,length(MList[messageidx]));
-                          Data.SetFilter(MessageIndex,'"ID"='''+aMID+'''');
-                          Data.SetFilter(DeletedItems,'"LINK"=''MESSAGEIDX@'+aMID+'''');
+                          Data.SetFilter(MessageIndex,Data.QuoteField('ID')+'='+Data.QuoteValue(aMID));
+                          Data.SetFilter(DeletedItems,Data.ProcessTerm(Data.QuoteField('LINK')+'='+Data.QuoteValue('MESSAGEIDX@'+aMID+'*')));
                           if (not MessageIndex.DataSet.Locate('ID',aMID,[]))
                           and (not DeletedItems.DataSet.Locate('LINK','MESSAGEIDX@'+aMID,[])) then
                             begin
