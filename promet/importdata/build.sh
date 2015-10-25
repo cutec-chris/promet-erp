@@ -6,5 +6,9 @@ echo "Building importdata..."
 # Build components
 #set -xv
 #copy Files
-zip -rq $basedir/promet/setup/output/$BUILD_VERSION/importdata_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip importdata
+target=help_$TARGET_CPU-$TARGET_OS
+targetfile=$target-$BUILD_VERSION.zip
+targetcur=$target-current.zip
+zip -rq $basedir/promet/setup/output/$BUILD_VERSION/$targetfile importdata
+. ../../setup/build-tools/doupload.sh $targetfile $targetcur &
 cd $basedir

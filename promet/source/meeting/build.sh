@@ -1,6 +1,6 @@
 #!/bin/bash
 basedir=$(pwd)
-cd promet/source/plugins
+cd promet/source/meeting
 . ../../setup/build-tools/setup_enviroment.sh
 echo "Building meeting..."
 # Build components
