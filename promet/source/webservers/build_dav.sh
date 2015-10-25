@@ -1,6 +1,6 @@
 #!/bin/bash
 basedir=$(pwd)
-cd promet/source/plugins
+cd promet/source/webservers
 . ../../setup/build-tools/setup_enviroment.sh
 echo "Building davserver..."
 # Build components
