@@ -11,5 +11,8 @@ if [ "$?" -ne "0" ]; then
   exit 1
 fi
 cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
-zip $basedir/promet/setup/output/$BUILD_VERSION/pscriptedit_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip pscriptedit$TARGET_EXTENSION
+target=pscriptedit_$TARGET_CPU-$TARGET_OS-$BUILD
+targetfile=$target_VERSION.zip
+zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile pscriptedit$TARGET_EXTENSION
+. ../../setup/build-tools/doupload.sh $targetfile $target_current.zip
 cd $basedir

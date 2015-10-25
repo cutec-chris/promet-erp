@@ -12,5 +12,8 @@ if [ "$?" -ne "0" ]; then
 #  build fails on old compilers
 fi
 cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
-zip $basedir/promet/setup/output/$BUILD_VERSION/webserver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip tools/webserver$TARGET_EXTENSION
+target=webserver_$TARGET_CPU-$TARGET_OS-$BUILD
+targetfile=$target_VERSION.zip
+zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile tools/webserver$TARGET_EXTENSION
+. ../../setup/build-tools/doupload.sh $targetfile $target_current.zip
 cd $basedir

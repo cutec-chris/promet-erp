@@ -11,5 +11,8 @@ if [ "$?" -ne "0" ]; then
   exit 1
 fi
 cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
-zip $basedir/promet/setup/output/$BUILD_VERSION/prometerp_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip prometerp$TARGET_EXTENSION
+target=prometerp_$TARGET_CPU-$TARGET_OS-$BUILD
+targetfile=$target_VERSION.zip
+zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile prometerp$TARGET_EXTENSION
+. ../../setup/build-tools/doupload.sh $targetfile $target_current.zip
 cd $basedir

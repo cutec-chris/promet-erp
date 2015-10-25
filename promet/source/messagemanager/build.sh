@@ -14,5 +14,8 @@ cd $basedir
 #set -xv
 #copy Files
 cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
-zip $basedir/promet/setup/output/$BUILD_VERSION/messagemanager_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip tools/messagemanager$TARGET_EXTENSION
+target=messagemanager_$TARGET_CPU-$TARGET_OS-$BUILD
+targetfile=$target_VERSION.zip
+zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile tools/messagemanager$TARGET_EXTENSION
+. ../../setup/build-tools/doupload.sh $targetfile $target_current.zip
 cd $basedir

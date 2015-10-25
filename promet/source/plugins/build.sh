@@ -43,5 +43,8 @@ fi
 #set -xv
 #copy Files
 cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
-zip $basedir/promet/setup/output/$BUILD_VERSION/plugins_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip plugins/*.wlx
+target=plugins_$TARGET_CPU-$TARGET_OS-$BUILD
+targetfile=$target_VERSION.zip
+zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile plugins/*.wlx
+. ../../setup/build-tools/doupload.sh $targetfile $target_current.zip
 cd $basedir
