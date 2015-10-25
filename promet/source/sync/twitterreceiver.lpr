@@ -241,13 +241,13 @@ begin
                                       try
                                         CustomerCont := TPersonContactData.Create(Self);
                                         if Data.IsSQLDb then
-                                          Data.SetFilter(CustomerCont,'"TYPE"=''SON'' AND UPPER("DATA")=UPPER('''+uid+''')')
+                                          Data.SetFilter(CustomerCont,Data.QuoteField('TYPE')+'='+Data.QuoteValue('SON')+' AND UPPER('+Data.QuoteField('DATA')+')=UPPER('+Data.QuoteValue(uid)+')')
                                         else
-                                          Data.SetFilter(CustomerCont,'"TYPE"=''SON'' AND "DATA"='''+uid+'''');
+                                          Data.SetFilter(CustomerCont,Data.QuoteField('TYPE')+'='+Data.QuoteValue('SON')+' AND '+Data.QuoteField('DATA')+'='+Data.QuoteValue(uid));
                                       except
                                       end;
                                       Customers := TPerson.Create(Self);
-                                      Data.SetFilter(Customers,'"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
+                                      Data.SetFilter(Customers,Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
                                       CustomerCont.Free;
                                       if aRef<>'' then
                                         Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
