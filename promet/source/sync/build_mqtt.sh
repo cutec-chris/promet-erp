@@ -11,5 +11,5 @@ if [ "$?" -ne "0" ]; then
   exit 1
 fi
 cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
-zip $basedir/promet/setup/output/$BUILD_VERSION/mqttreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip import_mqtt$TARGET_EXTENSION
+zip $basedir/promet/setup/output/$BUILD_VERSION/mqttreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip tools/import_mqtt$TARGET_EXTENSION
 cd $basedir
