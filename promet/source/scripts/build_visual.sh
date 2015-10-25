@@ -1,6 +1,6 @@
 #!/bin/bash
 basedir=$(pwd)
-cd promet/source/statistics
+cd promet/source/scripts
 . ../../setup/build-tools/setup_enviroment.sh
 echo "Building script edit..."
 # Build components
