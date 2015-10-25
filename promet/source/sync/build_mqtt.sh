@@ -2,7 +2,7 @@
 basedir=$(pwd)
 cd promet/source/sync
 . ../../setup/build-tools/setup_enviroment.sh
-echo "Building feed components..."
+echo "Building mqtt components..."
 # Build components
 $lazbuild import_mqtt.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
