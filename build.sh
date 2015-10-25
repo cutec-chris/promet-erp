@@ -1,11 +1,14 @@
 #!/bin/bash
 # You can execute this script with different parameters:
+# default - compiling promet basic programms
+# server - compiling promet server programms
 # components - compiling components needed
 # plugins - compiling plugins
 # tools - compiling commandline plugins
 # web - compiling webserver
 # imap - compiling imapserver
 # dav - compiling dav server
+# xmpp - compiling xmpp messaging interface
 # mail - send/reveive mail components
 # feed - reveive feed and social components
 # mqtt - receive messages from mqtt brooker
@@ -82,6 +85,10 @@ build_server()
     exit 1
   fi
   . ./promet/source/webservers/build_webserver.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  . ./promet/source/webservers/build_xmpp.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
@@ -230,6 +237,7 @@ tools-visual)  . ./promet/source/tools/build_visual.sh;;
   statistics)  . ./promet/source/statistics/build.sh;;
          web)  . ./promet/source/webservers/build_webserver.sh;;
         imap)  . ./promet/source/webservers/build_imap.sh;;
+        xmpp)  . ./promet/source/webservers/build_xmpp.sh;;
          dav)  . ./promet/source/webservers/build_dav.sh;;
         mail)  . ./promet/source/sync/build_mail.sh;;
         feed)  . ./promet/source/sync/build_feed.sh;;
