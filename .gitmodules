@@ -103,3 +103,6 @@
 [submodule "promet/source/components/laz-n-tier"]
 	path = promet/source/components/laz-n-tier
 	url = https://github.com/cutec-chris/laz-n-tier
+[submodule "promet/source/components/pascalscript"]
+	path = promet/source/components/pascalscript
+	url = https://github.com/cutec-chris/pascalscript
