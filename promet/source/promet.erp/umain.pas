@@ -942,7 +942,11 @@ end;
 
 procedure TStarterThread.DoSynchronize(AMethod: TThreadMethod);
 begin
+  {$ifdef WINDOWS}
+  Synchronize(AMethod);
+  {$else}
   AMethod;
+  {$ENDIF}
 end;
 
 constructor TStarterThread.Create(aSuspended: Boolean);

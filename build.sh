@@ -38,6 +38,10 @@ build_default()
 {
   echo "Building default..."
   . ./promet/source/plugins/build.sh
+  . ./promet/source/tools/build.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
   . ./promet/source/tools/build_visual.sh
   if [ "$?" -ne "0" ]; then
     exit 1
