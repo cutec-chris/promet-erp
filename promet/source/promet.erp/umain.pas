@@ -3468,6 +3468,7 @@ begin
     exit;
   if (Node.Count=1) and (Node.Items[0].Data=nil) then
     begin
+      Data.Tree.FilterEx('',0,'','ASC',False,True,True);
       Node.DeleteChildren;
       case DataT.Typ of
       etFavourites:
