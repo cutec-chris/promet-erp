@@ -99,13 +99,12 @@ begin
   aTime := Now();
   while (not Terminated) and ((Now()-aTime) < (1/HoursPerDay)) do
     begin
-      Data.ProcessClient.RefreshList;
       if not Data.ProcessClient.ProcessAll(aSystem) then
         begin
           Terminate;
           exit;
         end;
-      sleep(3000);
+      sleep(6000);
     end;
   // stop program loop
   Terminate;
@@ -113,7 +112,7 @@ end;
 constructor TProcessManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-  StopOnException:=False;
+  StopOnException:=True;
   PowerStateMonitor := TPowerStateMonitor.Create;
 end;
 destructor TProcessManager.Destroy;
