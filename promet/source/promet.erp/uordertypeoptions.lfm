@@ -414,7 +414,7 @@ inherited forderTypeOptions: TforderTypeOptions
   object DividerBevel2: TDividerBevel[25]
     Left = 176
     Height = 13
-    Top = 176
+    Top = 184
     Width = 240
     Caption = 'Runden'
     Anchors = [akTop, akLeft, akRight]
@@ -440,7 +440,7 @@ inherited forderTypeOptions: TforderTypeOptions
     Left = 176
     Height = 17
     Hint = 'Standardmäßig sind Vorgänge nach dme Buchen nicht mehr bearbeitbar'#13#10'Bei Rechnungen z.b. muss das auch zwingend so sein'#13#10'Bei einigen Belegen wie z.b. Reparaturbelegen macht es aber Sinn diese später noch bearbeiten zu können'#13#10'Dies ist auch mit diesem Flag nur mit Recht "Rechte vergeben" möglich'
-    Top = 120
+    Top = 112
     Width = 169
     Caption = 'Vorgang nach buchen änderbar'
     DataField = 'CHANGEABLE'
@@ -473,8 +473,20 @@ inherited forderTypeOptions: TforderTypeOptions
     ValueChecked = 'Y'
     ValueUnchecked = 'N'
   end
-  object OrderTypeDS: TDataSource[30]
-    left = 368
-    top = 112
+  object CheckBox5: TDBCheckBox[30]
+    Left = 314
+    Height = 17
+    Top = 96
+    Width = 100
+    Caption = 'Kopie anlegen'
+    DataField = 'DOCOPY'
+    DataSource = OrderTypeDS
+    TabOrder = 22
+    ValueChecked = 'Y'
+    ValueUnchecked = 'N'
+  end
+  object OrderTypeDS: TDataSource[31]
+    left = 440
+    top = 96
   end
 end

@@ -24,8 +24,24 @@ Source: "icons\*.ico"; Flags: dontcopy
 Source: "..\..\resources\multi-icon.ico"; Flags: dontcopy
 Source: "unzip.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall
 
+[Components]
+Name: "program"; Description: "Programdateien"; Types: full compact custom;ExtraDiskSpaceRequired: 14600000
+Name: "help"; Description: "Hilfe Datenbank"; Types: full compact custom;ExtraDiskSpaceRequired: 10000000
+Name: "visualtools"; Description: "Werkzeuge"; Types: full compact custom;ExtraDiskSpaceRequired: 29100000
+Name: "mail"; Description: "e-Mail Unterstützung"; Types: full custom
+Name: "feed"; Description: "Feed Unterstützung (Atom,RSS,Twitter)"; Types: full custom
+Name: "sync"; Description: "Datenbanksynchronisation/Backup"; Types: full custom
+Name: "statistics"; Description: "Reporting/Statistik"; Types: full custom
+Name: "archive"; Description: "Archivprogramm (Revisionssichere Archivierung)"; Types: full custom
+Name: "tools"; Description: "Kommandozeilenprogramme"; Types: custom
+Name: "xmpp"; Description: "Jabber/XMPP Unterstützung"; Types: custom
+Name: "dav"; Description: "Kalender/Kontaktserver (CalDAV,CardDAV)"; Types: custom
+Name: "imap"; Description: "e-Mail Server (IMAP)"; Types: custom
+Name: "web"; Description: "Webserver/Applikationsserver"; Types: custom
+Name: "mqtt"; Description: "MQTT Unterstützung (IoT)"; Types: custom
+
 [Run]
-Filename: "{tmp}\unzip.exe"; Parameters: "{tmp}\promet-erp.zip -d {app}"; Flags: shellexec; StatusMsg: "Installiere Promet-ERP...";
+Filename: "{tmp}\unzip.exe"; Parameters: "{tmp}\*.zip -d {app}"; Flags: shellexec; StatusMsg: "Installiere Promet-ERP...";
 //http://pginstaller.projects.pgfoundry.org/silent.html
 Filename: "{tmp}\postgres-server.exe"; StatusMsg: "Installiere PostgresSQL Server..."; Parameters: "--mode unattended --disable-stackbuilder 1"; Check: PostgresCheck
 
@@ -249,9 +265,92 @@ begin
 
   hWnd := StrToInt(ExpandConstant('{wizardhwnd}'));
 
-  if Promet then begin
-    URL := 'http://downloads.free-erp.de/promet-erp-7.0.414.i386-win32-portable.zip';
-    FileName := ExpandConstant('{tmp}\promet-erp.zip');
+  if IsComponentSelected('program') then begin
+    URL := 'http://downloads.free-erp.de/prometerp_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\prometerp_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+    URL := 'http://downloads.free-erp.de/importdata_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\importdata_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+    URL := 'http://downloads.free-erp.de/messagemanager_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\messagemanager_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+    URL := 'http://downloads.free-erp.de/plugins_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\plugins_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+
+  if IsComponentSelected('help') then begin
+    URL := 'http://downloads.free-erp.de/help_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\help_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+
+  if IsComponentSelected('mail') then begin
+    URL := 'http://downloads.free-erp.de/mailreceiver_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\mailreceiver_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+
+  if IsComponentSelected('visualtools') then begin
+    URL := 'http://downloads.free-erp.de/visualtools-i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\visualtools-i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+
+  if IsComponentSelected('help') then begin
+    URL := 'http://downloads.free-erp.de/help_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\help_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+  if IsComponentSelected('feed') then begin
+    URL := 'http://downloads.free-erp.de/feedreceiver_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\feedreceiver_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+  if IsComponentSelected('sync') then begin
+    URL := 'http://downloads.free-erp.de/sync_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\sync_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+  if IsComponentSelected('statistics') then begin
+    URL := 'http://downloads.free-erp.de/statistics_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\statistics_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+  if IsComponentSelected('archive') then begin
+    URL := 'http://downloads.free-erp.de/archivestore_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\archivestore_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+  if IsComponentSelected('tools') then begin
+    URL := 'http://downloads.free-erp.de/tools_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\tools_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+  if IsComponentSelected('xmpp') then begin
+    URL := 'http://downloads.free-erp.de/xmpp_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\xmpp_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+  if IsComponentSelected('dav') then begin
+    URL := 'http://downloads.free-erp.de/dav_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\dav_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+  if IsComponentSelected('imap') then begin
+    URL := 'http://downloads.free-erp.de/imap_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\imap_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+  if IsComponentSelected('web') then begin
+    URL := 'http://downloads.free-erp.de/webserver_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\webserver_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+  if IsComponentSelected('mqtt') then begin
+    URL := 'http://downloads.free-erp.de/mqtt_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\mqtt_i386-win32-current.zip');
     isxdl_AddFile(URL, FileName);
   end;
 

@@ -34,6 +34,7 @@ type
     CheckBox2: TDBCheckBox;
     CheckBox3: TDBCheckBox;
     CheckBox4: TDBCheckBox;
+    CheckBox5: TDBCheckBox;
     DBNavigator1: TDBNavigator;
     DividerBevel1: TDividerBevel;
     DividerBevel2: TDividerBevel;
