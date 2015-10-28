@@ -117,7 +117,7 @@
       <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\pscriptedit"/>
     </Target>
     <SearchPaths>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

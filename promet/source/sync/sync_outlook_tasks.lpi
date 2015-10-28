@@ -229,7 +229,6 @@
         <TopLine Value="1175"/>
         <CursorPos X="29" Y="1207"/>
         <UsageCount Value="6"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit28>
       <Unit29>
         <Filename Value="ubasedatamodule.pas"/>
@@ -248,7 +247,6 @@
         <TopLine Value="2285"/>
         <CursorPos X="21" Y="2292"/>
         <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit31>
       <Unit32>
         <Filename Value="mapi\mapix.pas"/>
@@ -343,6 +341,7 @@
         <TopLine Value="409"/>
         <CursorPos Y="420"/>
         <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\base\uimpoutlook.pas"/>
@@ -360,6 +359,7 @@
         <TopLine Value="1407"/>
         <CursorPos X="40" Y="1413"/>
         <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit49>
       <Unit50>
         <Filename Value="C:\Programme\lazarus\fpc\2.4.3\source\rtl\inc\variants.pp"/>
@@ -416,12 +416,14 @@
         <TopLine Value="379"/>
         <CursorPos X="40" Y="400"/>
         <UsageCount Value="5"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit58>
       <Unit59>
         <Filename Value="..\components\zeos\src\dbc\ZDbcResultSet.pas"/>
         <TopLine Value="537"/>
         <CursorPos X="43" Y="546"/>
         <UsageCount Value="5"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit59>
       <Unit60>
         <Filename Value="C:\lazarus\fpc\2.4.3\source\rtl\objpas\sysutils\datih.inc"/>
@@ -504,14 +506,12 @@
         <TopLine Value="207"/>
         <CursorPos X="2" Y="233"/>
         <UsageCount Value="6"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit71>
       <Unit72>
         <Filename Value="..\..\..\LKomponenten\zeos\src\component\ZComponent.inc"/>
         <TopLine Value="21"/>
         <CursorPos X="10" Y="54"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit72>
       <Unit73>
         <Filename Value="..\..\..\LKomponenten\zeos\src\Zeos.inc"/>
@@ -972,7 +972,7 @@
     </Target>
     <SearchPaths>
       <OtherUnitFiles Value="mapi"/>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

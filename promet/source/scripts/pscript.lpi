@@ -59,8 +59,11 @@
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\pscript"/>
+    </Target>
     <SearchPaths>
-      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

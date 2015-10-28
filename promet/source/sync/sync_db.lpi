@@ -46,7 +46,6 @@
         <EditorIndex Value="1"/>
         <TopLine Value="19"/>
         <CursorPos X="15" Y="96"/>
-        <FoldState Value=" T0kW8H111 T3mA0S1D"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -689,7 +688,6 @@
       </Unit95>
       <Unit96>
         <Filename Value="..\base\dbintfs\ubasedocpages.pas"/>
-        <UnitName Value="uBaseDocPages"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="34"/>
         <CursorPos X="42" Y="50"/>
@@ -697,7 +695,6 @@
       </Unit96>
       <Unit97>
         <Filename Value="..\base\dbintfs\uprometscripts.pas"/>
-        <UnitName Value="uprometscripts"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="11"/>
         <CursorPos X="60" Y="27"/>
@@ -743,7 +740,6 @@
         <ComponentName Value="ExtControlFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uExtControls"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="386"/>
         <CursorPos X="84" Y="396"/>
@@ -801,7 +797,6 @@
       </Unit110>
       <Unit111>
         <Filename Value="..\components\zeos\src\component\ZAbstractRODataset.pas"/>
-        <UnitName Value="ZAbstractRODataset"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2820"/>
         <CursorPos Y="2839"/>
@@ -940,7 +935,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
