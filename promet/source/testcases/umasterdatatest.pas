@@ -20,14 +20,19 @@ type
 
 implementation
 uses uData;
+const
+  Article1: array [1 .. 11] of String = ('Kombi', 'Kneif', 'Spitz','Rohr','Wassperpumpen','Montier','Sicherungsring','Flach','Loch','Rund','Abisolier');
+  Article2: array [1 .. 6] of String = (' rot', ' gelb', ' grün',' blau',' schwarz',' orange');
 var
   aMD : TMasterdata;
+
 procedure MasterdataTest.Create;
 begin
   aMD := TMasterdata.Create(nil);
   aMD.CreateTable;//get sure that the table is there
   aMD.Insert;
-  aMD.Text.AsString := 'Testarticle';
+  Randomize;
+  aMD.Text.AsString := Article1[Random(High(Article1))]+Article2[Random(High(Article2))];
   aMD.CascadicPost;
 end;
 
