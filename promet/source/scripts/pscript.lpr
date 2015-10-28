@@ -28,7 +28,8 @@ uses
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils,
   uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
-  uBaseApplication,uprometscripts,genpascalscript,uprometpascalscript;
+  uBaseApplication,uprometscripts,genscript,uprometpascalscript,
+  uprometpythonscript;
 
 type
 
@@ -81,7 +82,11 @@ begin
     end;
   if HasOption('m','mandant') then
     begin
-      if not Login then Terminate;
+      if not Login then
+        begin
+          writeln('Login to database failed !');
+          Terminate;
+        end;
       //Your logged in here on promet DB
       aScript := TBaseScript.Create(nil);
       //aScript.Sleep:=@aSleep;
@@ -101,40 +106,52 @@ begin
               writeln('not implemented !!');
             end;
         end;
-      if lowercase(aScript.FieldByName('SYNTAX').AsString)='pascal' then
+      if Assigned(aScript.Script) then
         begin
-          aScript.Free;
-          aScript := TPrometPascalScript.Create(nil);
-          aScript.SelectByName(ParamStr(ParamCount));
-          aScript.Open;
-          if not aScript.Locate('NAME',ParamStr(ParamCount),[loCaseInsensitive]) then
-            begin
-              writeln('Script "'+ParamStr(ParamCount)+'" not found !');
-            end;
+          aScript.Script.Readln:=@aScriptReadln;
+          aScript.Script.Write:=@aScriptWrite;
+          aScript.Script.Writeln:=@aScriptWriteln;
         end;
-      aScript.Readln:=@aScriptReadln;
-      aScript.Write:=@aScriptWrite;
-      aScript.Writeln:=@aScriptWriteln;
-      aScript.Execute(Null);
+      if not aScript.Execute(Null) then
+        begin
+          WriteLn('executing failed:'+aScript.Script.Results);
+          ExitCode:=3;
+        end;
       aScript.Free;
     end
   else if FileExists(ParamStr(ParamCount)) then//no database access
     begin
-      bScript := TPascalScript.Create;
+      case lowercase(ExtractFileExt(ParamStr(ParamCount))) of
+      '.pas','.pp':bScript := TPrometPascalScript.Create;
+      '.py':bScript := TPrometPythonscript.Create
+      else bScript:=nil;
+      end;
+      if not Assigned(bScript) then
+        begin
+          writeln('Script Type '+lowercase(ExtractFileExt(ParamStr(ParamCount)))+' not recognized !');
+          ExitCode:=1;
+          Terminate;
+          Exit;
+        end;
       sl := TStringList.Create;
       sl.LoadFromFile(ParamStr(ParamCount));
-      sl.Free;
       bScript.Source:=sl.Text;
+      sl.Free;
+      bScript.Readln:=@aScriptReadln;
+      bScript.Write:=@aScriptWrite;
+      bScript.Writeln:=@aScriptWriteln;
       if bScript is TByteCodeScript then
         if not (bScript as TByteCodeScript).Compile then
           begin
             writeln('Compilation failed:'+bScript.Results);
+            ExitCode:=2;
             Terminate;
             exit;
           end;
       if not bScript.Execute(Null) then
         begin
           writeln('Execute failed:'+bScript.Results);
+          ExitCode:=3;
           Terminate;
           exit;
         end

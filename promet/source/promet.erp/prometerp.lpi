@@ -22,7 +22,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="411"/>
+      <BuildNr Value="412"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -174,7 +174,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -357,7 +356,6 @@
         <ComponentName Value="fScriptFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uscriptframe"/>
       </Unit11>
       <Unit12>
         <Filename Value="uarticlepositionframe.pas"/>
