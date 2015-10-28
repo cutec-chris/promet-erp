@@ -596,9 +596,6 @@ begin
                 Info(SyncDB.FieldByName('NAME').AsString+' sync done.');
               end
           else  Info('ignoring:'+SyncDB.FieldByName('NAME').AsString+' (already started)');
-        end
-      else Info('ignoring:'+SyncDB.FieldByName('NAME').AsString);
-
       SyncDB.DataSet.Next;
     end;
   FreeAndNil(FTempDataSet);

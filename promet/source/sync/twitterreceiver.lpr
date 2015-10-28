@@ -151,6 +151,18 @@ var
   CustomerCont: TPersonContactData;
   uid: string;
   IsSubItem: Boolean;
+  function JsonFind(JO : TJSONObject;const AName: String): TJSONData;
+
+  Var
+    I : Integer;
+
+  begin
+    I:=JO.IndexOfName(AName);
+    If (I<>-1) then
+      Result:=JO.Items[i]
+    else
+      Result:=Nil;
+  end;
 begin
   omailaccounts := '';
   mailaccounts := '';
@@ -213,7 +225,7 @@ begin
                                 text := atext.AsString
                               else text := '';
                               text := SysToUni(text);
-                              html := TJSONObject(aData).Find('statusnet_html');
+                              html := JsonFind(TJSONObject(aData),'statusnet_html');
                               if Assigned(TJSONObject(TJSONObject(aData).Elements['user'])) and Assigned(TJSONObject(TJSONObject(aData).Elements['user']).Elements['name']) then
                                 author := TJSONObject(TJSONObject(aData).Elements['user']).Elements['name'].AsString
                               else author := '';
