@@ -45,7 +45,7 @@ type
     FAddLog : Boolean;
     aFirstSyncedRow : TDateTime;
     function SyncRow(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
-    procedure SyncTable(SyncDB : TSyncDB;SourceDM,DestDM : TBaseDBModule);
+    function SyncTable(SyncDB : TSyncDB;SourceDM,DestDM : TBaseDBModule) : Integer;
   protected
     procedure DoRun; override;
     function GetSingleInstance : Boolean; override;
@@ -221,7 +221,8 @@ begin
   except
   end;
 end;
-procedure TSyncDBApp.SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule);
+function TSyncDBApp.SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule
+  ): Integer;
 function BuildFilter(aSourceDM,aDestDM : TBaseDBModule;aTime : TDateTime = 0) : string;
 var
   aFilter: String;
@@ -277,6 +278,7 @@ var
   end;
 
 begin
+  Result := 0;
   aFirstSyncedRow:=Now();
   aLastSetTime := Now();
   bFirstSyncedRow:=aFirstSyncedRow;
@@ -366,16 +368,19 @@ begin
           (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncOut.RecordCount,'<',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
           (BaseApplication as IBaseApplication).Info(aFilter);
         end;
+      SourceDM.StartTransaction(SourceDM.MainConnection,True);
       while not aSyncOut.EOF do
         begin
           try
             SyncRow(SyncDB,aSyncOut,SourceDM,DestDM,True);
+            inc(Result);
           except
             //RestoreTime := True;
           end;
           aSyncOut.Next;
         end;
       aSyncOut.Destroy;
+      SourceDM.CommitTransaction(SourceDM.MainConnection);
     end;
   aFilter := BuildFilter(DestDM,SourceDM,aSyncTime);
   if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
@@ -385,10 +390,12 @@ begin
           SetTime := True;
           (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncIn.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
         end;
+      DestDM.StartTransaction(DestDM.MainConnection,True);
       while not aSyncIn.EOF do
         begin
           try
             SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False);
+            inc(Result);
           except
             //RestoreTime:=True;
           end;
@@ -397,6 +404,7 @@ begin
       FreeAndNil(FTempDataSet);
       FTempNewCounter := 0;
       aSyncIn.Destroy;
+      DestDM.CommitTransaction(DestDM.MainConnection);
     end;
   UpdateTime;
   if (aFirstSyncedRow<bFirstSyncedRow) and (not RestoreTime) then
@@ -595,7 +603,8 @@ begin
                 end;
                 Info(SyncDB.FieldByName('NAME').AsString+' sync done.');
               end
-          else  Info('ignoring:'+SyncDB.FieldByName('NAME').AsString+' (already started)');
+          else Info('ignoring:'+SyncDB.FieldByName('NAME').AsString+' (already started)');
+        end;
       SyncDB.DataSet.Next;
     end;
   FreeAndNil(FTempDataSet);
