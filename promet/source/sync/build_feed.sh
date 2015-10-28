@@ -22,5 +22,5 @@ target=feedreceiver_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
 zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile tools/feedreceiver$TARGET_EXTENSION tools/twitterreceiver$TARGET_EXTENSION
-. ../../setup/build-tools/doupload.sh $targetfile $targetcur &
+. ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd $basedir
