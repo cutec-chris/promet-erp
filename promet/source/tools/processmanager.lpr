@@ -54,6 +54,7 @@ procedure TProcessManager.DoRun;
 var
   aTime: TDateTime;
   aSystem: String;
+  i: Integer;
 begin
   GetLog.LogType:=ltSystem;
   GetLog.Active:=False;
@@ -104,8 +105,11 @@ begin
           Terminate;
           exit;
         end;
-      CheckSynchronize;
-      sleep(6000);
+      for i := 0 to 60 do
+        begin
+          CheckSynchronize;
+          sleep(100);
+        end;
     end;
   // stop program loop
   Terminate;
