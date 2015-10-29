@@ -137,7 +137,7 @@ begin
   Port := GetOptionValue('p','port');
   if Port = '' then
     Port := '1883';
-  mqttc := TMQTTClient.Create(GetOptionValue('m','mqtt-server'),StrToInt(Port));
+  mqttc := TMQTTClient.Create(GetOptionValue('m','mqtt'),StrToInt(Port));
   writeln('Connecting ...');
   mqttc.OnPublish:=@mqttcPublish;
   mqttc.OnSubAck:=@mqttcSubAck;
@@ -155,7 +155,7 @@ begin
         mqttc.Subscribe('/#');
         while mqttc.isConnected do
           begin
-            sleep(30000);
+            sleep(10000);
             if not mqttc.PingReq then break;
           end;
       finally
