@@ -104,6 +104,7 @@ begin
           Terminate;
           exit;
         end;
+      CheckSynchronize;
       sleep(6000);
     end;
   // stop program loop
