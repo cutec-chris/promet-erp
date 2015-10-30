@@ -98,7 +98,7 @@ begin
   Data.ProcessClient.Processes.Open;
   Data.ProcessClient.Processes.Parameters.Open;
   aTime := Now();
-  while (not Terminated) and ((Now()-aTime) < (1/HoursPerDay)) do
+  while (not Terminated) and ((Now()-aTime) < (1)) do
     begin
       if not Data.ProcessClient.ProcessAll(aSystem) then
         begin
