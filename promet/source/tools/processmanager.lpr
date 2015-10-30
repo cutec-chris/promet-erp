@@ -105,11 +105,7 @@ begin
           Terminate;
           exit;
         end;
-      for i := 0 to 60 do
-        begin
-          CheckSynchronize;
-          sleep(100);
-        end;
+      sleep(6000);
     end;
   // stop program loop
   Terminate;
