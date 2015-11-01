@@ -59,8 +59,7 @@ var
   payload: String;
   aProp : string;
 begin
-  if HasOption('log') then
-    writeln(StringReplace(aInfo,'<br>','',[rfReplaceAll]));
+  Debug(StringReplace(aInfo,'<br>','',[rfReplaceAll]));
   aInfo := copy(aInfo,pos(' ',aInfo)+1,length(aInfo));//Date
   aInfo := copy(aInfo,pos(' ',aInfo)+1,length(aInfo));//Time
   Typ := copy(aInfo,0,pos(' ',aInfo)-1);
@@ -89,7 +88,7 @@ begin
         then PayloadFloat:=0
         else exit;
       end;
-    if anObject.Number.AsString<> aObject then
+    if anObject.Active and (anObject.Number.AsString<> aObject) then
       begin
         anObject.SelectFromNumber(aObject);
         anObject.Open;
