@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -25,7 +25,7 @@
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
         <CompilerOptions>
-          <Version Value="11"/>
+          <Version Value="9"/>
           <Target>
             <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/processmanager"/>
           </Target>
@@ -51,16 +51,18 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <DebugInfoType Value="dsDwarf2Set"/>
               <UseHeaptrc Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
         </CompilerOptions>
       </Item2>
       <Item3 Name="Release">
         <CompilerOptions>
-          <Version Value="11"/>
+          <Version Value="9"/>
           <Target>
             <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/processmanager"/>
           </Target>
@@ -71,21 +73,18 @@
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
             <Optimizations>
-              <OptimizationLevel Value="3"/>
               <VariablesInRegisters Value="True"/>
+              <OptimizationLevel Value="3"/>
             </Optimizations>
           </CodeGeneration>
           <Linking>
-            <Debugging>
-              <GenerateDebugInfo Value="False"/>
-            </Debugging>
             <LinkSmart Value="True"/>
           </Linking>
+          <Other>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
         </CompilerOptions>
       </Item3>
-      <SharedMatrixOptions Count="1">
-        <Item1 ID="945437562517" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
-      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -112,7 +111,7 @@
     </Units>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="11"/>
+    <Version Value="9"/>
     <Target>
       <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/processmanager"/>
     </Target>
@@ -130,6 +129,9 @@
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
+    <Other>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="6">
@@ -153,4 +155,4 @@
       </Item6>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>
