@@ -59,7 +59,8 @@ var
   payload: String;
   aProp : string;
 begin
-  writeln(StringReplace(aInfo,'<br>','',[rfReplaceAll]));
+  if HasOption('log') then
+    writeln(StringReplace(aInfo,'<br>','',[rfReplaceAll]));
   aInfo := copy(aInfo,pos(' ',aInfo)+1,length(aInfo));//Date
   aInfo := copy(aInfo,pos(' ',aInfo)+1,length(aInfo));//Time
   Typ := copy(aInfo,0,pos(' ',aInfo)-1);
@@ -88,8 +89,11 @@ begin
         then PayloadFloat:=0
         else exit;
       end;
-    anObject.SelectFromNumber(aObject);
-    anObject.Open;
+    if anObject.Number.AsString<> aObject then
+      begin
+        anObject.SelectFromNumber(aObject);
+        anObject.Open;
+      end;
     if anObject.Count>0 then
       begin
         aMeasurement.Open;
@@ -142,6 +146,7 @@ begin
   try
     while not Terminated do
       begin
+        sleep(100);
         CheckSynchronize(100);
       end;
   finally

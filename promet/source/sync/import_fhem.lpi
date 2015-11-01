@@ -49,7 +49,6 @@
       <Unit1>
         <Filename Value="ufhem.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ufhem"/>
       </Unit1>
     </Units>
   </ProjectOptions>
