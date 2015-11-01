@@ -84,6 +84,10 @@ build_server()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  . ./promet/source/sync/build_fhem.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
   . ./promet/source/sync/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
@@ -169,6 +173,10 @@ build_all()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  . ./promet/source/sync/build_fhem.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
   . ./promet/source/sync/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
@@ -246,6 +254,7 @@ tools-visual)  . ./promet/source/tools/build_visual.sh;;
         mail)  . ./promet/source/sync/build_mail.sh;;
         feed)  . ./promet/source/sync/build_feed.sh;;
         mqtt)  . ./promet/source/sync/build_mqtt.sh;;
+        fhem)  . ./promet/source/sync/build_fhem.sh;;
         sync)  . ./promet/source/sync/build.sh;;
        clean)  clean_all;;
       server)  build_server;;
