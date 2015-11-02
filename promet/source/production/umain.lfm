@@ -67,8 +67,8 @@ object fMain: TfMain
       Height = 22
       Top = 48
       Width = 23
+      Action = acSearchOrder
       Anchors = [akTop, akRight]
-      Caption = '...'
     end
     object TreeView1: TTreeView
       Left = 8
@@ -182,6 +182,10 @@ object fMain: TfMain
       Caption = 'acLoadOrder'
       ImageIndex = 16
       OnExecute = acLoadOrderExecute
+    end
+    object acSearchOrder: TAction
+      Caption = '...'
+      OnExecute = acSearchOrderExecute
     end
   end
   object MainMenu: TMainMenu

@@ -29,27 +29,32 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="7">
       <Item1>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="..\base\base_forms\pvisualforms.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item2>
       <Item3>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="LCL"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="richmemopackage"/>
       </Item4>
       <Item5>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item5>
       <Item6>
-        <PackageName Value="pVisualPrometApp"/>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item6>
+      <Item7>
+        <PackageName Value="pVisualPrometApp"/>
+        <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
+      </Item7>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>

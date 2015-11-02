@@ -14,7 +14,6 @@ type
     procedure Create;
     procedure CheckHistory;
     procedure SelectfromLink;
-    procedure Delete;
     procedure Free;
   end;
 
@@ -32,7 +31,7 @@ begin
   aMD.CreateTable;//get sure that the table is there
   aMD.Insert;
   Randomize;
-  aMD.Text.AsString := Article1[Random(High(Article1))]+Article2[Random(High(Article2))];
+  aMD.Text.AsString := Article1[Random(High(Article1))]+'zange '+Article2[Random(High(Article2))];
   aMD.CascadicPost;
 end;
 
@@ -46,11 +45,6 @@ begin
   aMD.SelectFromLink(Data.BuildLink(aMD.DataSet));
   aMD.Open;
   Check(aMD.Count = 1,'Selected Count = '+IntToStr(aMD.Count))
-end;
-
-procedure MasterdataTest.Delete;
-begin
-  aMD.Delete;
 end;
 
 procedure MasterdataTest.Free;

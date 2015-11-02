@@ -96,6 +96,7 @@
       <Unit7>
         <Filename Value="udocumentmanagement.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="udocumentmanagement"/>
       </Unit7>
       <Unit8>
         <Filename Value="ulinkcheck.pas"/>
@@ -104,10 +105,12 @@
       <Unit9>
         <Filename Value="upersontest.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="upersontest"/>
       </Unit9>
       <Unit10>
         <Filename Value="umasterdatatest.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="umasterdatatest"/>
       </Unit10>
       <Unit11>
         <Filename Value="uprojecttest.pas"/>
@@ -124,7 +127,6 @@
       <Unit14>
         <Filename Value="utzugferd.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="utzugferd"/>
       </Unit14>
       <Unit15>
         <Filename Value="tscripttest.pas"/>

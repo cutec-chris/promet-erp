@@ -15,6 +15,7 @@ type
     acExecuteStep: TAction;
     acPrepare: TAction;
     acLoadOrder: TAction;
+    acSearchOrder: TAction;
     ActionList1: TActionList;
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
@@ -39,9 +40,11 @@ type
     procedure acLoadOrderExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
+    procedure acSearchOrderExecute(Sender: TObject);
     procedure eOrderKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
+    function SetOrderfromSearch(aLink: string): Boolean;
   private
     { private declarations }
     FOrder : TOrder;
@@ -56,7 +59,7 @@ resourcestring
   strNoOrderFound                       = 'Es wurde kein Auftrag oder Artikel gefunden der zum Suchkriterium passt !';
 implementation
 {$R *.lfm}
-uses uBaseApplication, uData, uBaseDbInterface,uMasterdata;
+uses uBaseApplication, uData, uBaseDbInterface,uMasterdata,uSearch;
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
@@ -127,6 +130,14 @@ begin
     Logout;
 end;
 
+procedure TfMain.acSearchOrderExecute(Sender: TObject);
+begin
+  fSearch.SetLanguage;
+  fSearch.OnOpenItem:=@SetOrderfromSearch;
+  fSearch.AllowSearchTypes(strOrders+','+strMasterdata);
+  fSearch.Execute(True,'PRODSE','');
+end;
+
 procedure TfMain.eOrderKeyPress(Sender: TObject; var Key: char);
 begin
   if Key=#13 then
@@ -154,6 +165,11 @@ begin
   if Assigned(Data) then
     begin
     end;
+end;
+
+function TfMain.SetOrderfromSearch(aLink: string): Boolean;
+begin
+
 end;
 
 procedure TfMain.DoOpen;
