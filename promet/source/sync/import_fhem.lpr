@@ -88,7 +88,7 @@ begin
         then PayloadFloat:=0
         else exit;
       end;
-    if anObject.Active and (anObject.Number.AsString<> aObject) then
+    if (not anObject.Active) or (anObject.Number.AsString<> aObject) then
       begin
         anObject.SelectFromNumber(aObject);
         anObject.Open;
