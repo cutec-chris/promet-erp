@@ -19,6 +19,7 @@ uses
   umasterdatatest,
   uprojecttest,
   uordertest,
+  tscripttest,
 
   tLogout;
 
@@ -31,4 +32,4 @@ begin
   Application.CreateForm(TGuiTestRunner, TestRunner);
   Application.Run;
 end.
-
+

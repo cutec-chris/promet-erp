@@ -33,6 +33,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="8">
@@ -61,7 +62,7 @@
         <PackageName Value="FCL"/>
       </Item8>
     </RequiredPackages>
-    <Units Count="15">
+    <Units Count="16">
       <Unit0>
         <Filename Value="testgui.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -69,6 +70,7 @@
       <Unit1>
         <Filename Value="tlogin.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="tLogin"/>
       </Unit1>
       <Unit2>
         <Filename Value="tlogout.pas"/>
@@ -81,6 +83,7 @@
       <Unit4>
         <Filename Value="utransaction.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="utransaction"/>
       </Unit4>
       <Unit5>
         <Filename Value="utfulllogout.pas"/>
@@ -89,7 +92,6 @@
       <Unit6>
         <Filename Value="ucreatetable.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ucreatetable"/>
       </Unit6>
       <Unit7>
         <Filename Value="udocumentmanagement.pas"/>
@@ -114,18 +116,21 @@
       <Unit12>
         <Filename Value="uordertest.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uordertest"/>
       </Unit12>
       <Unit13>
         <Filename Value="utgridview.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="utgridview"/>
       </Unit13>
       <Unit14>
         <Filename Value="utzugferd.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="utzugferd"/>
       </Unit14>
+      <Unit15>
+        <Filename Value="tscripttest.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="tscripttest"/>
+      </Unit15>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
