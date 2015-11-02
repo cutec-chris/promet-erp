@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -18,14 +18,11 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
-    <MacroValues Count="1">
-      <Macro1 Name="LCLWidgetType" Value="nogui"/>
-    </MacroValues>
     <BuildModes Count="3">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
         <CompilerOptions>
-          <Version Value="9"/>
+          <Version Value="11"/>
           <Target>
             <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/processmanager"/>
           </Target>
@@ -55,14 +52,11 @@
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
-          <Other>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item2>
       <Item3 Name="Release">
         <CompilerOptions>
-          <Version Value="9"/>
+          <Version Value="11"/>
           <Target>
             <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/processmanager"/>
           </Target>
@@ -73,16 +67,13 @@
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
             <Optimizations>
-              <VariablesInRegisters Value="True"/>
               <OptimizationLevel Value="3"/>
+              <VariablesInRegisters Value="True"/>
             </Optimizations>
           </CodeGeneration>
           <Linking>
             <LinkSmart Value="True"/>
           </Linking>
-          <Other>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item3>
     </BuildModes>
@@ -111,7 +102,7 @@
     </Units>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="9"/>
+    <Version Value="11"/>
     <Target>
       <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/processmanager"/>
     </Target>
@@ -129,9 +120,6 @@
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
-    <Other>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="6">
@@ -155,4 +143,4 @@
       </Item6>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

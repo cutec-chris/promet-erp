@@ -20,8 +20,8 @@ inherited fScriptFrame: TfScriptFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 842
-      ClientWidth = 1284
+      ClientHeight = 421
+      ClientWidth = 642
       object Label1: TLabel
         Left = 8
         Height = 13
@@ -32,9 +32,9 @@ inherited fScriptFrame: TfScriptFrame
       end
       object DBMemo1: TDBMemo
         Left = 8
-        Height = 384
+        Height = 0
         Top = 24
-        Width = 624
+        Width = 0
         Anchors = [akTop, akLeft, akRight, akBottom]
         DataField = 'NOTE'
         DataSource = Script

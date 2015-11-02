@@ -146,10 +146,10 @@ resourcestring
   strShouldThisVersionated                   = 'Soll das Script versioniert werden ?';
 procedure TfScriptFrame.acSaveExecute(Sender: TObject);
 begin
+  FDataSet.CascadicPost;
+  fEditor.acSave.Execute;
   if Assigned(FConnection) then
     begin
-      FDataSet.CascadicPost;
-      fEditor.acSave.Execute;
       if UseTransactions then
         begin
           Data.CommitTransaction(FConnection);
