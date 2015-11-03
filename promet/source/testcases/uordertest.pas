@@ -14,6 +14,7 @@ type
   OrderTest= class(TTestCase)
   published
     procedure CreateOrder;
+    procedure FillAddress;
     procedure FillPosition1;
     procedure CheckVatCalculation;
     procedure CheckQuantityCalculation;
@@ -27,7 +28,7 @@ type
   end;
 
 implementation
-uses uData;
+uses uData,uPerson,uMasterdata;
 var
   aOrder : TOrder;
 procedure OrderTest.CreateOrder;
@@ -36,11 +37,37 @@ begin
   aOrder.Insert;
 end;
 
-procedure OrderTest.FillPosition1;
+procedure OrderTest.FillAddress;
+var
+  aPerson: TPerson;
+  a: Int64;
 begin
+  aPerson := TPerson.Create(nil);
+  aPerson.Open;
+  Randomize;
+  a := Random(aPerson.Count-1);
+  if a>0 then
+    aPerson.DataSet.MoveBy(a);
+  aOrder.Address.Assign(aPerson);
+  aPerson.Free;
+  Check(aOrder.Address.Count=1,'Person insert failed')
+end;
+
+procedure OrderTest.FillPosition1;
+var
+  aMD: TMasterdata;
+  a: Int64;
+begin
+  aMD := TMasterdata.Create(nil);
+  aMD.Open;
+  Randomize;
+  a := Random(aMD.Count-1);
+  if a>0 then
+    aMD.DataSet.MoveBy(a);
   aOrder.Positions.Insert;
-  aOrder.Positions.FieldByName('SHORTTEXT').AsString:='Position 1';
+  aOrder.Positions.Assign(aMD);
   Check(aOrder.Positions.FieldByName('POSNO').AsString = '1');
+  aMd.Free;
 end;
 
 procedure OrderTest.CheckVatCalculation;

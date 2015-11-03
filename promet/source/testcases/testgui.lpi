@@ -119,6 +119,7 @@
       <Unit12>
         <Filename Value="uordertest.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="uordertest"/>
       </Unit12>
       <Unit13>
         <Filename Value="utgridview.pas"/>

@@ -132,7 +132,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="8">
+    <Exceptions Count="9">
       <Item1>
         <Name Value="EConvertError"/>
         <Enabled Value="False"/>
@@ -158,6 +158,9 @@
       <Item8>
         <Name Value="EVariantError"/>
       </Item8>
+      <Item9>
+        <Name Value="EProcess"/>
+      </Item9>
     </Exceptions>
   </Debugging>
 </CONFIG>
