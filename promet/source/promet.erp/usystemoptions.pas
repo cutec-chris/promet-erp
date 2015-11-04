@@ -27,13 +27,16 @@ uses
   uOptionsFrame, uBaseDbClasses, uBaseERPDbClasses;
 type
   TfSystemOptions = class(TOptionsFrame)
+    TextsDS: TDataSource;
     gNumbers: TDBGrid;
     gPaymentTargets: TDBGrid;
     gUnits: TDBGrid;
+    gUnits1: TDBGrid;
     gVat: TDBGrid;
     lNumbers: TLabel;
     lPaymentTargets: TLabel;
     lUnits: TLabel;
+    lUnits1: TLabel;
     lVAT: TLabel;
     NumbersDS: TDatasource;
     PaymentTargetsDS: TDatasource;
@@ -46,6 +49,7 @@ type
     aVat: TVat;
     aUnits: TUnits;
     aPaymentTargets: TPaymentTargets;
+    aTexts: TTextTypes;
   public
     { public declarations }
     constructor Create(TheOwner: TComponent); override;
@@ -69,9 +73,12 @@ begin
   UnitsDS.DataSet := aUnits.DataSet;
   aPaymentTargets := TPaymentTargets.CreateEx(Self,Data,aConnection);
   PaymentTargetsDS.DataSet := aPaymentTargets.DataSet;
+  aTexts := TTextTypes.CreateEx(Self,Data,aConnection);
+  TextsDS.DataSet := aTexts.DataSet;
 end;
 destructor TfSystemOptions.Destroy;
 begin
+  aTexts.Destroy;
   aNumbers.Destroy;
   aVat.Destroy;
   aUnits.Destroy;
@@ -87,6 +94,7 @@ begin
   aUnits.Open;
   aPaymentTargets.Open;
   aNumbers.Open;
+  aTexts.Open;
 end;
 procedure TfSystemOptions.CommitTransaction;
 begin

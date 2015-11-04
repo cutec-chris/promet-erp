@@ -34,10 +34,10 @@ object fMain: TfMain
       ParentFont = False
     end
     object eOrder: TEdit
-      Left = 8
+      Left = 32
       Height = 21
       Top = 48
-      Width = 192
+      Width = 136
       Anchors = [akTop, akLeft, akRight]
       OnKeyPress = eOrderKeyPress
       TabOrder = 0
@@ -54,7 +54,7 @@ object fMain: TfMain
       ParentFont = False
     end
     object SpeedButton2: TSpeedButton
-      Left = 200
+      Left = 225
       Height = 22
       Top = 48
       Width = 23
@@ -63,21 +63,39 @@ object fMain: TfMain
       ShowCaption = False
     end
     object SpeedButton1: TSpeedButton
-      Left = 225
+      Left = 8
       Height = 22
-      Top = 48
+      Top = 47
       Width = 23
       Action = acSearchOrder
       Anchors = [akTop, akRight]
     end
-    object TreeView1: TTreeView
+    object tvStep: TTreeView
       Left = 8
-      Height = 569
+      Height = 536
       Top = 112
       Width = 240
       Anchors = [akTop, akLeft, akRight]
       DefaultItemHeight = 16
       TabOrder = 1
+    end
+    object cbVersion: TComboBox
+      Left = 172
+      Height = 21
+      Top = 48
+      Width = 52
+      Enabled = False
+      ItemHeight = 13
+      TabOrder = 2
+    end
+    object Button1: TButton
+      Left = 8
+      Height = 25
+      Top = 657
+      Width = 240
+      Anchors = [akTop, akLeft, akBottom]
+      Caption = 'Auftrag schließen'
+      TabOrder = 3
     end
   end
   object Panel2: TPanel

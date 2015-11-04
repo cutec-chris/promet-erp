@@ -10,7 +10,7 @@ inherited fSystemOptions: TfSystemOptions
     Left = 4
     Height = 13
     Top = 8
-    Width = 96
+    Width = 90
     Caption = 'Nummernkreise'
     Font.Style = [fsBold]
     ParentColor = False
@@ -20,7 +20,7 @@ inherited fSystemOptions: TfSystemOptions
     Left = 4
     Height = 13
     Top = 160
-    Width = 97
+    Width = 92
     Caption = 'Mehrwertsteuer'
     Font.Style = [fsBold]
     ParentColor = False
@@ -30,7 +30,7 @@ inherited fSystemOptions: TfSystemOptions
     Left = 4
     Height = 13
     Top = 277
-    Width = 86
+    Width = 77
     Anchors = [akLeft, akBottom]
     Caption = 'Zahlungsziele'
     Font.Style = [fsBold]
@@ -80,7 +80,7 @@ inherited fSystemOptions: TfSystemOptions
     Left = 4
     Height = 88
     Top = 176
-    Width = 373
+    Width = 244
     Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clWindow
     Columns = <    
@@ -121,12 +121,12 @@ inherited fSystemOptions: TfSystemOptions
       item
         Title.Caption = 'NAME'
         Width = 100
-        FieldName = 'NAME'
+        FieldName = 'Name'
       end    
       item
         Title.Caption = 'TEXT'
         Width = 150
-        FieldName = 'TEXT'
+        FieldName = 'Text'
       end    
       item
         Title.Caption = 'CASHDISC'
@@ -141,7 +141,7 @@ inherited fSystemOptions: TfSystemOptions
       item
         Title.Caption = 'DAYS'
         Width = 70
-        FieldName = 'DAYS'
+        FieldName = 'Tage'
       end    
       item
         ButtonStyle = cbsCheckboxColumn
@@ -156,7 +156,7 @@ inherited fSystemOptions: TfSystemOptions
     TitleStyle = tsNative
   end
   object lUnits: TLabel[6]
-    Left = 385
+    Left = 256
     Height = 16
     Top = 160
     Width = 200
@@ -168,10 +168,10 @@ inherited fSystemOptions: TfSystemOptions
     ParentFont = False
   end
   object gUnits: TDBGrid[7]
-    Left = 386
+    Left = 257
     Height = 88
     Top = 176
-    Width = 200
+    Width = 168
     Anchors = [akTop, akRight, akBottom]
     Color = clWindow
     Columns = <    
@@ -185,20 +185,61 @@ inherited fSystemOptions: TfSystemOptions
     TabOrder = 3
     TitleStyle = tsNative
   end
-  object NumbersDS: TDatasource[8]
-    left = 260
-    top = 228
+  object lUnits1: TLabel[8]
+    Left = 432
+    Height = 16
+    Top = 160
+    Width = 200
+    Anchors = [akTop, akRight]
+    AutoSize = False
+    Caption = 'Texttypen'
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
   end
-  object UnitsDS: TDatasource[9]
-    left = 356
-    top = 228
+  object gUnits1: TDBGrid[9]
+    Left = 432
+    Height = 88
+    Top = 176
+    Width = 154
+    Anchors = [akTop, akRight, akBottom]
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'NAME'
+        Width = 100
+        FieldName = 'NAME'
+      end    
+      item
+        PickList.Strings = (
+          '7 Produktion'
+        )
+        Title.Caption = 'TYP'
+        FieldName = 'TYP'
+      end>
+    DataSource = TextsDS
+    Scrollbars = ssAutoBoth
+    TabOrder = 4
+    TitleStyle = tsNative
   end
-  object PaymentTargetsDS: TDatasource[10]
-    left = 460
-    top = 228
+  object NumbersDS: TDataSource[10]
+    left = 24
+    top = 56
   end
-  object VatDS: TDatasource[11]
-    left = 112
-    top = 228
+  object UnitsDS: TDataSource[11]
+    left = 304
+    top = 200
+  end
+  object PaymentTargetsDS: TDataSource[12]
+    left = 48
+    top = 320
+  end
+  object VatDS: TDataSource[13]
+    left = 88
+    top = 200
+  end
+  object TextsDS: TDataSource[14]
+    left = 488
+    top = 200
   end
 end

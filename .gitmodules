@@ -1,6 +1,3 @@
-[submodule "promet/source/components/zeos"]
-	path = promet/source/components/zeos
-	url = https://github.com/cutec-chris/ZeosDBO.git
 [submodule "promet/source/components/brookframework"]
 	path = promet/source/components/brookframework
 	url = https://github.com/silvioprog/brookframework.git

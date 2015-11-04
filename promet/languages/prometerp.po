@@ -7899,6 +7899,15 @@ msgctxt "TFSYSTEMOPTIONS.GUNITS.COLUMNS[0].TITLE.CAPTION"
 msgid "NAME"
 msgstr ""
 
+#: tfsystemoptions.gunits1.columns[0].title.caption
+msgctxt "TFSYSTEMOPTIONS.GUNITS1.COLUMNS[0].TITLE.CAPTION"
+msgid "NAME"
+msgstr ""
+
+#: tfsystemoptions.gunits1.columns[1].title.caption
+msgid "TYP"
+msgstr ""
+
 #: tfsystemoptions.gvat.columns[0].title.caption
 msgctxt "TFSYSTEMOPTIONS.GVAT.COLUMNS[0].TITLE.CAPTION"
 msgid "ID"
@@ -7932,6 +7941,10 @@ msgstr ""
 #: tfsystemoptions.lunits.caption
 msgctxt "TFSYSTEMOPTIONS.LUNITS.CAPTION"
 msgid "Mengeneinheiten"
+msgstr ""
+
+#: tfsystemoptions.lunits1.caption
+msgid "Texttypen"
 msgstr ""
 
 #: tfsystemoptions.lvat.caption

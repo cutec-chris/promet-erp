@@ -21,6 +21,8 @@ type
     BitBtn2: TBitBtn;
     BitBtn3: TSpeedButton;
     BitBtn4: TSpeedButton;
+    Button1: TButton;
+    cbVersion: TComboBox;
     eOrder: TEdit;
     IpHtmlPanel1: TIpHtmlPanel;
     Label1: TLabel;
@@ -36,7 +38,7 @@ type
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     Splitter1: TSplitter;
-    TreeView1: TTreeView;
+    tvStep: TTreeView;
     procedure acLoadOrderExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
@@ -59,7 +61,7 @@ resourcestring
   strNoOrderFound                       = 'Es wurde kein Auftrag oder Artikel gefunden der zum Suchkriterium passt !';
 implementation
 {$R *.lfm}
-uses uBaseApplication, uData, uBaseDbInterface,uMasterdata,uSearch;
+uses uBaseApplication, uData, uBaseDbInterface,uMasterdata,uSearch,variants;
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
@@ -93,7 +95,7 @@ begin
   if IsNumeric(eOrder.Text) then
     FOrder.SelectFromNumber(eOrder.Text);
   FOrder.Open;
-  if FOrder.Count=0 then
+  if (FOrder.Count=0) and (IsNumeric(eOrder.Text)) then
     begin
       //Try to select by Commission
       FOrder.SelectFromNumber(eOrder.Text);
@@ -105,13 +107,20 @@ begin
       aMasterdata := TMasterdata.Create(nil);
       aMasterdata.SelectFromNumber(eOrder.Text);
       aMasterdata.Open;
+      if cbVersion.Enabled and (cbVersion.Text<>'') then
+        aMasterdata.Locate('VERSION',cbVersion.Text,[]);
       if aMasterdata.Count>0 then
         begin
-          FOrder.Insert;
-          FOrder.Positions.Insert;
-          FOrder.Positions.Assign(aMasterdata);
-          FOrder.Positions.Post;
-          FOrder.Post;
+          FOrder.OrderType.Open;
+          if FOrder.OrderType.Locate('SI_PROD;TYPE',VarArrayOf(['Y',7]),[]) then
+            begin
+              FOrder.Insert;
+              FOrder.Positions.Insert;
+              //FOrder.Status.AsString:=FOrder.OrderType.FieldByName('STATUS').AsString;
+              FOrder.Positions.Assign(aMasterdata);
+              FOrder.Positions.Post;
+              FOrder.Post;
+            end;
         end;
       aMasterdata.Free;
     end;
@@ -168,13 +177,42 @@ begin
 end;
 
 function TfMain.SetOrderfromSearch(aLink: string): Boolean;
+var
+  aMasterdata: TMasterdata;
 begin
-
+  aMasterdata := TMasterdata.Create(nil);
+  aMasterdata.SelectFromLink(aLink);
+  aMasterdata.Open;
+  eOrder.Text:=aMasterdata.Number.AsString;
+  cbVersion.Text:=aMasterdata.Version.AsString;
+  aMasterdata.Select(aMasterdata.Number.AsString);
+  aMasterdata.Open;
+  cbVersion.Enabled:=aMasterdata.Count>1;
+  cbVersion.Items.Clear;
+  aMasterdata.First;
+  while not aMasterdata.EOF do
+    begin
+      cbVersion.Items.Add(aMasterdata.Version.AsString);
+      aMasterdata.Next;
+    end;
+  aMasterdata.Free;
 end;
 
 procedure TfMain.DoOpen;
 begin
+  eOrder.Enabled:=FOrder.Count>0;
+  cbVersion.Enabled:=cbVersion.Enabled and (FOrder.Count>0);
+  tvStep.Enabled:=FOrder.Count>0;
+  tvStep.Items.Clear;
+  if FOrder.Count>0 then
+    begin
+      FOrder.Positions.First;
+      while not FOrder.Positions.EOF do
+        begin
 
+          FOrder.Positions.Next;
+        end;
+    end;
 end;
 
 initialization
