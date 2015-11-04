@@ -32,9 +32,15 @@ uses
   uBaseApplication,uminiconvencoding;
 
 type
+
+  { TRSSReceiver }
+
   TRSSReceiver = class(TBaseCustomApplication)
+    procedure httpHeadersChange(Sender: TObject);
   private
     mailaccounts : string;
+    aLastMessage: TDateTime;
+    http: THTTPSend;
   protected
     MessageIndex : TMessageList;
     Message : TMessage;
@@ -47,6 +53,25 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
+
+procedure TRSSReceiver.httpHeadersChange(Sender: TObject);
+var
+  i: Integer;
+  s: String;
+  aDate: TDateTime;
+begin
+  for i := 0 to TStringList(Sender).Count-1 do
+    begin
+      s := TStringList(Sender)[i];
+      if copy(LowerCase(s),0,5)='date:' then
+        begin
+          aDate := DecodeRfcDateTime(copy(s,6,length(s)));
+          if aDate<aLastMessage then
+            http.Abort;
+        end;
+    end;
+end;
+
 procedure TRSSReceiver.DoRun;
 var
   i: Integer;
@@ -95,7 +120,6 @@ begin
 end;
 procedure TRSSReceiver.ReceiveMails(aUser: string);
 var
-  http: THTTPSend;
   aNode : TDOMNode;
   Doc : TXMLDocument;
   tmp: String;
@@ -115,6 +139,7 @@ var
   aLinkValue: String;
   aLoc: String;
   aDir: String;
+  aSource: String;
   function DoDecode(aIn : string) : string;
   begin
     Result := uminiconvencoding.ConvertEncoding(aIn,GuessEncoding(aIn),EncodingUTF8);
@@ -133,9 +158,13 @@ begin
         begin
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
           http := THTTPSend.Create;
+          http.Headers.OnChange:=@httpHeadersChange;
           http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
           Info('Importing Feed '+copy(mailaccounts,0,pos(';',mailaccounts)-1));
-          http.HTTPMethod('GET',copy(mailaccounts,0,pos(';',mailaccounts)-1));
+          aSource := copy(mailaccounts,0,pos(';',mailaccounts)-1);
+          Data.SetFilter(MessageIndex,Data.QuoteField('CC')+'='+Data.QuoteValue(aSource),1,'SENDDATE','DESC');
+          aLastMessage := MessageIndex.FieldByName('SENDDATE').AsDateTime;
+          http.HTTPMethod('GET',aSource);
           if HasOption('debug') then
             http.Document.SaveToFile('/tmp/rss.xml');
           if http.ResultCode = 302 then
@@ -259,6 +288,7 @@ begin
                                 FieldByName('TYPE').AsString := 'FEED';
                                 FieldByName('READ').AsString := 'N';
                                 FieldByName('SENDER').AsString := aFeedName;
+                                FieldByName('CC').AsString := aSource;
                                 if aSendDate <> 0 then
                                   begin
                                     FieldByName('SENDDATE').AsDateTime := aSendDate;
