@@ -106,3 +106,6 @@
 [submodule "promet/source/components/pascalscript"]
 	path = promet/source/components/pascalscript
 	url = https://github.com/cutec-chris/pascalscript
+[submodule "zeos2"]
+	path = promet/source/components/zeos
+	url = https://github.com/cutec-chris/ZeosDBO.git
