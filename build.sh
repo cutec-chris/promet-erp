@@ -224,6 +224,7 @@ clean_all()
   rm -f -r promet/source/sync/lib
   rm -f -r promet/source/timeregistering/lib
   rm -f -r promet/source/tools/lib
+  rm -f -r promet/source/components/zeos/packages/lazarus/lib
   rm -f -r promet/general/lib
   find promet/source -type f -iname "*.compiled" -exec rm -f {} \;
   find promet/source -type f -iname "*.bak" -exec rm -f {} \;
