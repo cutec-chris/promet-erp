@@ -3,7 +3,7 @@ unit umain;
 interface
 uses
   Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
-  Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils,
+  Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uExtControls,
   uIntfStrConsts, db, memds, FileUtil, IpHtml, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, uOrder;
 type
@@ -15,18 +15,26 @@ type
     acExecuteStep: TAction;
     acPrepare: TAction;
     acLoadOrder: TAction;
+    acSearchMasterdata: TAction;
     acSearchOrder: TAction;
     ActionList1: TActionList;
+    Bevel3: TBevel;
+    Bevel7: TBevel;
+    bItalic: TSpeedButton;
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
     BitBtn3: TSpeedButton;
     BitBtn4: TSpeedButton;
     Button1: TButton;
     cbVersion: TComboBox;
+    dnEdit: TDBNavigator;
     eOrder: TEdit;
-    IpHtmlPanel1: TIpHtmlPanel;
+    eWikiPage: TDBMemo;
+    ipHTML: TIpHtmlPanel;
     Label1: TLabel;
     Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
     MainMenu: TMainMenu;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -35,14 +43,33 @@ type
     miOptions: TMenuItem;
     Panel1: TPanel;
     Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    pcPages: TExtMenuPageControl;
+    pNav1: TPanel;
+    sbMenue: TSpeedButton;
+    sbSpellcheck: TSpeedButton;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    SpeedButton7: TSpeedButton;
+    SpeedButton8: TSpeedButton;
+    SpeedButton9: TSpeedButton;
     Splitter1: TSplitter;
+    ToolBar1: TPanel;
+    ToolButton1: TSpeedButton;
+    ToolButton2: TSpeedButton;
+    tsEdit: TTabSheet;
     tvStep: TTreeView;
     procedure acLoadOrderExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
-    procedure acSearchOrderExecute(Sender: TObject);
+    procedure acSearchMasterdataExecute(Sender: TObject);
     procedure eOrderKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -55,10 +82,16 @@ type
     { public declarations }
     procedure DoCreate;
   end;
+  TProdTreeData = class
+  public
+    Position : Int64;
+  end;
+
 var
   fMain: TfMain;
 resourcestring
   strNoOrderFound                       = 'Es wurde kein Auftrag oder Artikel gefunden der zum Suchkriterium passt !';
+  strDoPick                             = 'kommissionieren';
 implementation
 {$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface,uMasterdata,uSearch,variants;
@@ -139,7 +172,7 @@ begin
     Logout;
 end;
 
-procedure TfMain.acSearchOrderExecute(Sender: TObject);
+procedure TfMain.acSearchMasterdataExecute(Sender: TObject);
 begin
   fSearch.SetLanguage;
   fSearch.OnOpenItem:=@SetOrderfromSearch;
@@ -152,6 +185,11 @@ begin
   if Key=#13 then
     begin
       acLoadOrder.Execute;
+    end
+  else
+    begin
+      cbVersion.Text:='';
+      cbVersion.Enabled := False;
     end;
 end;
 
@@ -199,6 +237,45 @@ begin
 end;
 
 procedure TfMain.DoOpen;
+var
+  nNode: TTreeNode;
+  nComm : TTreeNode = nil;
+
+  function GetParentNode : TTreeNode;
+  var
+    aNode: TTreeNode;
+  begin
+    result := nil;
+    aNode := nil;
+    if tvStep.Items.Count>0 then
+      aNode := tvStep.Items[0];
+    while Assigned(aNode) do
+      begin
+        if TProdTreeData(aNode.Data).Position=FOrder.Positions.FieldByName('PARENT').AsVariant then
+          begin
+            Result := aNode;
+            break;
+          end;
+        aNode := aNode.GetNext;
+      end;
+    if tvStep.Items.Count>0 then
+      begin
+        case FOrder.Positions.PosTyp.FieldByName('TYPE').AsInteger of
+        0,1,2:
+          begin
+            if not Assigned(nComm) then
+              begin
+                nComm := tvStep.Items.AddChildObject(GetParentNode,strDoPick,TProdTreeData.Create);
+                nComm.ImageIndex:=43;
+                nComm.SelectedIndex:=nComm.ImageIndex;
+              end;
+            Result := nComm
+          end;
+        else nComm := nil;
+        end;
+      end;
+  end;
+
 begin
   eOrder.Enabled:=FOrder.Count>0;
   cbVersion.Enabled:=cbVersion.Enabled and (FOrder.Count>0);
@@ -206,10 +283,18 @@ begin
   tvStep.Items.Clear;
   if FOrder.Count>0 then
     begin
+      FOrder.Positions.Open;
       FOrder.Positions.First;
       while not FOrder.Positions.EOF do
         begin
-
+          nNode := tvStep.Items.AddChildObject(GetParentNode,FOrder.Positions.FieldByName('SHORTTEXT').AsString,TProdTreeData.Create);
+          case FOrder.Positions.PosTyp.FieldByName('TYPE').AsInteger of
+          0,1,2:nNode.ImageIndex:=14;//Artikel
+          3:nNode.ImageIndex:=49;//Text
+          9:nNode.ImageIndex:=57;//Montage/Argeitsgang
+          end;
+          nNode.SelectedIndex:=nNode.ImageIndex;
+          TProdTreeData(nNode.Data).Position:=FOrder.Positions.Id.AsVariant;
           FOrder.Positions.Next;
         end;
     end;
