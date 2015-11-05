@@ -17,8 +17,11 @@ type
     acLoadOrder: TAction;
     acSearchMasterdata: TAction;
     acSearchOrder: TAction;
+    acSave: TAction;
+    acAbort: TAction;
     ActionList1: TActionList;
     Bevel3: TBevel;
+    Bevel4: TBevel;
     Bevel7: TBevel;
     bItalic: TSpeedButton;
     BitBtn1: TBitBtn;
@@ -27,7 +30,6 @@ type
     BitBtn4: TSpeedButton;
     Button1: TButton;
     cbVersion: TComboBox;
-    dnEdit: TDBNavigator;
     eOrder: TEdit;
     eWikiPage: TDBMemo;
     ipHTML: TIpHtmlPanel;
@@ -35,6 +37,7 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
+    Label5: TLabel;
     MainMenu: TMainMenu;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -47,8 +50,13 @@ type
     Panel4: TPanel;
     Panel5: TPanel;
     Panel6: TPanel;
+    Panel7: TPanel;
     pcPages: TExtMenuPageControl;
     pNav1: TPanel;
+    rbNoData: TRadioButton;
+    rbOrder: TRadioButton;
+    rbList: TRadioButton;
+    rbArticle: TRadioButton;
     sbMenue: TSpeedButton;
     sbSpellcheck: TSpeedButton;
     SpeedButton1: TSpeedButton;
@@ -69,15 +77,19 @@ type
     procedure acLoadOrderExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
+    procedure acNextStepExecute(Sender: TObject);
     procedure acSearchMasterdataExecute(Sender: TObject);
     procedure eOrderKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
     function SetOrderfromSearch(aLink: string): Boolean;
+    procedure tvStepSelectionChanged(Sender: TObject);
   private
     { private declarations }
     FOrder : TOrder;
     procedure DoOpen;
+    procedure FindNextStep;
+    function LoadStep : Boolean;
   public
     { public declarations }
     procedure DoCreate;
@@ -172,6 +184,11 @@ begin
     Logout;
 end;
 
+procedure TfMain.acNextStepExecute(Sender: TObject);
+begin
+  FindNextStep;
+end;
+
 procedure TfMain.acSearchMasterdataExecute(Sender: TObject);
 begin
   fSearch.SetLanguage;
@@ -236,6 +253,16 @@ begin
   aMasterdata.Free;
 end;
 
+procedure TfMain.tvStepSelectionChanged(Sender: TObject);
+begin
+  if Assigned(tvStep.Selected) then
+    begin
+      if FOrder.Positions.Locate('SQL_ID',TProdTreeData(tvStep.Selected.Data).Position,[]) then
+        LoadStep
+      else rbNoData.Checked:=True;
+    end;
+end;
+
 procedure TfMain.DoOpen;
 var
   nNode: TTreeNode;
@@ -297,6 +324,78 @@ begin
           TProdTreeData(nNode.Data).Position:=FOrder.Positions.Id.AsVariant;
           FOrder.Positions.Next;
         end;
+    end;
+  FindNextStep;
+end;
+
+procedure TfMain.FindNextStep;
+begin
+
+end;
+
+function TfMain.LoadStep: Boolean;
+var
+  nOrder: TOrder;
+  aMasterdata: TMasterdata;
+begin
+  Result := False;
+  rbNoData.Checked:=True;
+  //Information in Order
+  if (FOrder.Positions.FieldByName('SCRIPT').IsNull) and (FOrder.Positions.FieldByName('TEXT').IsNull) then
+    begin
+      rbOrder.Checked:=True;
+      Result := True;
+    end;
+  //Information in Piecelist
+  if not Result then
+    begin
+      nOrder := TOrder.Create(nil);
+      //Unseren Auftrag nochmal öffnen damit wir die Position wechseln können
+      nOrder.Select(FOrder.Id.AsVariant);
+      nOrder.Open;
+      nOrder.Positions.Open;
+      if nOrder.Positions.Locate('SQL_ID',FOrder.Positions.FieldByName('PARENT').AsVariant,[]) then //Vorgängerposition finden (zu fertigender Artikel)
+        begin
+          aMasterdata := TMasterdata.Create(nil);
+          aMasterdata.Select(nOrder.Positions.FieldByName('IDENT').AsString);
+          aMasterdata.Open;
+          //nach Artikel/Version/Sprache suchen
+          if not aMasterdata.Locate('ID;VERSION;LANGUAGE',VarArrayOf([nOrder.Positions.FieldByName('IDENT').AsString,nOrder.Positions.FieldByName('VERSION').AsString,nOrder.Positions.FieldByName('LANGUAGE').AsString]),[]) then
+            begin
+              //nach Artikel/Version suchen (Sprache ignorieren)
+              if not aMasterdata.Locate('ID;VERSION',VarArrayOf([nOrder.Positions.FieldByName('IDENT').AsString,nOrder.Positions.FieldByName('VERSION').AsString]),[]) then
+                aMasterdata.Close;
+            end;
+          if aMasterdata.Active then
+            begin
+              aMasterdata.Positions.Open;
+              //Positionsnummer in Stückliste finden
+              if aMasterdata.Positions.Locate('POSNO',FOrder.Positions.FieldByName('TPOSNO').AsString,[]) then
+                begin
+                  rbList.Checked:=True;
+                  Result := true;
+                end;
+            end;
+          aMasterdata.Free;
+        end;
+      nOrder.Free;
+    end;
+  if not Result then
+    begin
+      aMasterdata := TMasterdata.Create(nil);
+      aMasterdata.Select(FOrder.Positions.FieldByName('IDENT').AsString);
+      if not aMasterdata.Locate('ID;VERSION;LANGUAGE',VarArrayOf([FOrder.Positions.FieldByName('IDENT').AsString,FOrder.Positions.FieldByName('VERSION').AsString,FOrder.Positions.FieldByName('LANGUAGE').AsString]),[]) then
+        begin
+          //nach Artikel/Version suchen (Sprache ignorieren)
+          if not aMasterdata.Locate('ID;VERSION',VarArrayOf([FOrder.Positions.FieldByName('IDENT').AsString,FOrder.Positions.FieldByName('VERSION').AsString]),[]) then
+            aMasterdata.Close;
+        end;
+      if aMasterdata.Active then
+        begin
+          rbArticle.Checked:=True;
+          Result := True;
+        end;
+      aMasterdata.Free;
     end;
 end;
 
