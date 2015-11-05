@@ -63,11 +63,24 @@ begin
   for i := 0 to TStringList(Sender).Count-1 do
     begin
       s := TStringList(Sender)[i];
+      Debug(s);
       if copy(LowerCase(s),0,5)='date:' then
         begin
           aDate := DecodeRfcDateTime(copy(s,6,length(s)));
+          if aLastMessage>0 then
+            begin
+              Debug('Last Message:'+DateTimeToStr(aLastMessage));
+              Debug('Last changed:'+DateTimeToStr(aDate));
+            end
+          else
+            begin
+              Debug('No last message, full Download');
+            end;
           if aDate<aLastMessage then
-            http.Abort;
+            begin
+              http.Abort;
+              Debug('Abort Download');
+            end;
         end;
     end;
 end;
