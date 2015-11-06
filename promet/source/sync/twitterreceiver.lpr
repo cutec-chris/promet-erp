@@ -248,6 +248,7 @@ begin
                                   uid := StringReplace(uid,'''','',[rfReplaceAll]);
 
                                   Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aCat));
+                                  sleep(10);
                                   if aHist.Count=0 then
                                     begin
                                       try
@@ -368,6 +369,7 @@ begin
                               else jData.Items[i] := nil;
                            end
                          else inc(i);
+                         sleep(10);
                         end;
                       dec(Retry);
                       if not Somethingimported then
