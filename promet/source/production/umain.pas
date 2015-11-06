@@ -4,7 +4,7 @@ interface
 uses
   Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uExtControls,
-  uIntfStrConsts, db, memds, FileUtil, IpHtml, Translations, md5,
+  uIntfStrConsts, db, memds, FileUtil, ipHTML, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, uOrder,
   uBaseDbInterface,uBaseDbClasses,uprometscripts,uDocuments;
 type
@@ -29,8 +29,7 @@ type
     Button1: TButton;
     cbVersion: TComboBox;
     eOrder: TEdit;
-    ipHTML: TIpHtmlPanel;
-    ipHTML1: TIpHtmlPanel;
+    ipWorkHTML: TIpHtmlPanel;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -90,10 +89,20 @@ type
 
     PreText : TStringList;
     WorkText : TStringList;
+    Prepared : Boolean;
     constructor Create;
     destructor Destroy; override;
     function CheckContent : Boolean;
+    procedure ShowData;
     procedure LoadScript(aScript : string;aVersion : Variant);
+  end;
+  TSimpleIpHtml = class(TIpHtml)
+    procedure SimpleIpHtmlGetImageX(Sender: TIpHtmlNode; const URL: string;
+      var Picture: TPicture);
+  protected
+  public
+    property OnGetImageX;
+    constructor Create;
   end;
 
 var
@@ -105,10 +114,23 @@ implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses;
 
+procedure TSimpleIpHtml.SimpleIpHtmlGetImageX(Sender: TIpHtmlNode;
+  const URL: string; var Picture: TPicture);
+begin
+  Picture:=nil;
+end;
+
+constructor TSimpleIpHtml.Create;
+begin
+  inherited;
+  OnGetImageX:=@SimpleIpHtmlGetImageX;
+end;
+
 constructor TProdTreeData.Create;
 begin
   PreText := TStringList.Create;
   WorkText := TStringList.Create;
+  Prepared:=False;
 end;
 
 destructor TProdTreeData.Destroy;
@@ -125,6 +147,31 @@ begin
   or (PreText.Text<>'')
   or (Assigned(Script) and (Script.Count>0)) then
     Result := True;
+end;
+
+procedure TProdTreeData.ShowData;
+var
+  aHTML: TSimpleIpHtml;
+  ss: TStringStream;
+begin
+  fMain.acPrepare.Enabled:=PreText.Text<>'';
+  fMain.acPrepare.Checked:=(not Prepared) and (PreText.Text<>'');
+  if fMain.acPrepare.Checked then
+    begin
+      aHTML := TSimpleIPHtml.Create;
+      ss := TStringStream.Create(PreText.Text);
+      aHTML.LoadFromStream(ss);
+      ss.Free;
+      fMain.ipWorkHTML.SetHtml(aHTML);
+    end
+  else
+    begin
+      aHTML := TSimpleIPHtml.Create;
+      ss := TStringStream.Create(WorkText.Text);
+      aHTML.LoadFromStream(ss);
+      ss.Free;
+      fMain.ipWorkHTML.SetHtml(aHTML);
+    end;
 end;
 
 procedure TProdTreeData.LoadScript(aScript: string; aVersion: Variant);
@@ -355,12 +402,23 @@ begin
           FOrder.Positions.Next;
         end;
     end;
-  FindNextStep;
+  if tvStep.Items.Count>0 then
+    begin
+      tvStep.Selected:=tvStep.Items[0].GetNext;
+      tvStep.Items[0].Expanded:=True;
+      FindNextStep;
+    end;
 end;
 
 procedure TfMain.FindNextStep;
 begin
-
+  while (Assigned(tvStep.Selected)) and (not LoadStep) do
+    begin
+      if tvStep.Selected.ImageIndex=43 then //Kommissionieren
+        tvStep.Selected:=tvStep.Selected.GetNextSibling
+      else
+        tvStep.Selected:=tvStep.Selected.GetNext;
+    end;
 end;
 
 function TfMain.LoadStep: Boolean;
@@ -447,6 +505,10 @@ begin
           rbArticle.Checked:=Result;
         end;
       aMasterdata.Free;
+    end;
+  if Result then
+    begin
+      TreeData.ShowData;
     end;
 end;
 

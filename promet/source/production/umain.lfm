@@ -13,23 +13,6 @@ object fMain: TfMain
   Position = poScreenCenter
   ShowHint = True
   LCLVersion = '1.5'
-  object ipHTML: TIpHtmlPanel
-    Left = 289
-    Height = 696
-    Top = 0
-    Width = 732
-    Align = alClient
-    FixedTypeface = 'Courier New'
-    DefaultTypeFace = 'arial'
-    DefaultFontSize = 10
-    FlagErrors = False
-    PrintSettings.MarginLeft = 0.5
-    PrintSettings.MarginTop = 0.5
-    PrintSettings.MarginRight = 0.5
-    PrintSettings.MarginBottom = 0.5
-    ShowHints = False
-    TabOrder = 2
-  end
   object Panel1: TPanel
     Left = 0
     Height = 696
@@ -60,7 +43,7 @@ object fMain: TfMain
       Anchors = [akTop, akLeft, akRight]
       OnKeyPress = eOrderKeyPress
       TabOrder = 0
-      Text = '49211400'
+      Text = '49221000'
     end
     object Label2: TLabel
       Left = 8
@@ -445,7 +428,7 @@ object fMain: TfMain
         end
       end
     end
-    object ipHTML1: TIpHtmlPanel
+    object ipWorkHTML: TIpHtmlPanel
       Left = 0
       Height = 596
       Top = 50
