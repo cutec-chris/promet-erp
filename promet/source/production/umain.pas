@@ -5,13 +5,12 @@ uses
   Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uExtControls,
   uIntfStrConsts, db, memds, FileUtil, IpHtml, Translations, md5,
-  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, uOrder;
+  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, uOrder,
+  uBaseDbInterface,uBaseDbClasses,uprometscripts,uDocuments;
 type
   TfMain = class(TForm)
     acLogin: TAction;
     acLogout: TAction;
-    acNextStep: TAction;
-    acPriorStep: TAction;
     acExecuteStep: TAction;
     acPrepare: TAction;
     acLoadOrder: TAction;
@@ -19,20 +18,19 @@ type
     acSearchOrder: TAction;
     acSave: TAction;
     acAbort: TAction;
+    acNextStep: TAction;
     ActionList1: TActionList;
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel7: TBevel;
-    bItalic: TSpeedButton;
     BitBtn1: TBitBtn;
-    BitBtn2: TBitBtn;
     BitBtn3: TSpeedButton;
     BitBtn4: TSpeedButton;
     Button1: TButton;
     cbVersion: TComboBox;
     eOrder: TEdit;
-    eWikiPage: TDBMemo;
     ipHTML: TIpHtmlPanel;
+    ipHTML1: TIpHtmlPanel;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -46,33 +44,23 @@ type
     miOptions: TMenuItem;
     Panel1: TPanel;
     Panel2: TPanel;
-    Panel3: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
-    pcPages: TExtMenuPageControl;
     pNav1: TPanel;
     rbNoData: TRadioButton;
     rbOrder: TRadioButton;
     rbList: TRadioButton;
     rbArticle: TRadioButton;
     sbMenue: TSpeedButton;
-    sbSpellcheck: TSpeedButton;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
-    SpeedButton4: TSpeedButton;
-    SpeedButton5: TSpeedButton;
-    SpeedButton6: TSpeedButton;
-    SpeedButton7: TSpeedButton;
-    SpeedButton8: TSpeedButton;
-    SpeedButton9: TSpeedButton;
     Splitter1: TSplitter;
     ToolBar1: TPanel;
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;
-    tsEdit: TTabSheet;
     tvStep: TTreeView;
     procedure acLoadOrderExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
@@ -97,6 +85,15 @@ type
   TProdTreeData = class
   public
     Position : Int64;
+    Script : TBaseScript;
+    Documents : TDocuments;
+
+    PreText : TStringList;
+    WorkText : TStringList;
+    constructor Create;
+    destructor Destroy; override;
+    function CheckContent : Boolean;
+    procedure LoadScript(aScript : string;aVersion : Variant);
   end;
 
 var
@@ -106,7 +103,40 @@ resourcestring
   strDoPick                             = 'kommissionieren';
 implementation
 {$R *.lfm}
-uses uBaseApplication, uData, uBaseDbInterface,uMasterdata,uSearch,variants;
+uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses;
+
+constructor TProdTreeData.Create;
+begin
+  PreText := TStringList.Create;
+  WorkText := TStringList.Create;
+end;
+
+destructor TProdTreeData.Destroy;
+begin
+  PreText.Free;
+  WorkText.Free;
+  inherited Destroy;
+end;
+
+function TProdTreeData.CheckContent: Boolean;
+begin
+  Result := False;
+  if (WorkText.Text<>'')
+  or (PreText.Text<>'')
+  or (Assigned(Script) and (Script.Count>0)) then
+    Result := True;
+end;
+
+procedure TProdTreeData.LoadScript(aScript: string; aVersion: Variant);
+begin
+  if not Assigned(Script) then
+    Script := TBaseScript.Create(nil);
+  Script.SelectByName(aScript);
+  Script.Open;
+  if not Script.Locate('VERSION',aVersion,[]) then
+    Script.Close;
+end;
+
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
@@ -337,14 +367,22 @@ function TfMain.LoadStep: Boolean;
 var
   nOrder: TOrder;
   aMasterdata: TMasterdata;
+  TreeData : TProdTreeData;
 begin
   Result := False;
   rbNoData.Checked:=True;
+  TreeData := TProdTreeData(tvStep.Selected.Data);
+  TreeData.WorkText.Clear;
+  TreeData.PreText.Clear;
+  FreeAndNil(TreeData.Script);
+  FreeAndNil(TreeData.Documents);
   //Information in Order
-  if (FOrder.Positions.FieldByName('SCRIPT').IsNull) and (FOrder.Positions.FieldByName('TEXT').IsNull) then
+  if (FOrder.Positions.FieldByName('SCRIPT').AsString<>'') or (FOrder.Positions.FieldByName('TEXT').AsString<>'') then
     begin
+      TreeData.LoadScript(FOrder.Positions.FieldByName('SCRIPT').AsString,FOrder.Positions.FieldByName('SCRIPTVER').AsVariant);
+      TreeData.WorkText.Text:=FOrder.Positions.FieldByName('TEXT').AsString;
+      Result := TreeData.CheckContent;
       rbOrder.Checked:=True;
-      Result := True;
     end;
   //Information in Piecelist
   if not Result then
@@ -372,8 +410,10 @@ begin
               //Positionsnummer in Stückliste finden
               if aMasterdata.Positions.Locate('POSNO',FOrder.Positions.FieldByName('TPOSNO').AsString,[]) then
                 begin
-                  rbList.Checked:=True;
-                  Result := true;
+                  TreeData.LoadScript(aMasterdata.Positions.FieldByName('SCRIPT').AsString,aMasterdata.Positions.FieldByName('SCRIPTVER').AsVariant);
+                  TreeData.WorkText.Text:=aMasterdata.Positions.FieldByName('TEXT').AsString;
+                  Result := TreeData.CheckContent;
+                  rbList.Checked:=Result;
                 end;
             end;
           aMasterdata.Free;
@@ -384,6 +424,7 @@ begin
     begin
       aMasterdata := TMasterdata.Create(nil);
       aMasterdata.Select(FOrder.Positions.FieldByName('IDENT').AsString);
+      aMasterdata.Open;
       if not aMasterdata.Locate('ID;VERSION;LANGUAGE',VarArrayOf([FOrder.Positions.FieldByName('IDENT').AsString,FOrder.Positions.FieldByName('VERSION').AsString,FOrder.Positions.FieldByName('LANGUAGE').AsString]),[]) then
         begin
           //nach Artikel/Version suchen (Sprache ignorieren)
@@ -392,8 +433,18 @@ begin
         end;
       if aMasterdata.Active then
         begin
-          rbArticle.Checked:=True;
-          Result := True;
+          TreeData.LoadScript(aMasterdata.FieldByName('SCRIPT').AsString,aMasterdata.FieldByName('SCRIPTVER').AsVariant);
+          if not Assigned(uBaseERPDBClasses.TextTyp) then
+            uBaseERPDBClasses.TextTyp := TTextTypes.Create(nil);
+          Texttyp.Open;
+          if TextTyp.Locate('TYP','7',[]) then
+            begin
+              aMasterdata.Texts.Open;
+              if aMasterdata.Texts.Locate('TEXTTYPE',TextTyp.DataSet.RecNo,[]) then
+                TreeData.WorkText.Text:=aMasterdata.Texts.FieldByName('TEXT').AsString;
+            end;
+          Result := TreeData.CheckContent;
+          rbArticle.Checked:=Result;
         end;
       aMasterdata.Free;
     end;
