@@ -41,42 +41,33 @@
         <WorkingDirectory Value="..\"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="2">
       <Item1>
         <PackageName Value="pmimemessages"/>
         <DefaultFilename Value="..\base\base_messaging\pmimemessages.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="lnetbase"/>
-        <DefaultFilename Value="..\components\lnet\lazaruspackage\lnetbase.lpk"/>
-      </Item2>
-      <Item3>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
-      </Item3>
+      </Item2>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="4">
       <Unit0>
         <Filename Value="davserver.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="ulsvnserver.pas"/>
+        <Filename Value="uhttpserver.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit1>
       <Unit2>
-        <Filename Value="ulwebdavserver.pas"/>
+        <Filename Value="uhttputil.pp"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ulwebdavserver"/>
       </Unit2>
       <Unit3>
-        <Filename Value="README-WEBDAVSERVER.md"/>
+        <Filename Value="udavserver.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
-      <Unit4>
-        <Filename Value="commtest.txt"/>
-        <IsPartOfProject Value="True"/>
-      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

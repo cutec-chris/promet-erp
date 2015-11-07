@@ -201,6 +201,7 @@ begin
               if tmp <> '' then url := purl+'statuses/home_timeline.json?since_id='+tmp;
               //url := purl+'statuses/home_timeline.json';
               http.HTTPMethod('GET',url);
+              Info('Download complete, importing...');
               if http.ResultCode=200 then
                 begin
                   Parser := TJSONParser.Create(http.Document);
@@ -374,10 +375,12 @@ begin
                       dec(Retry);
                       if not Somethingimported then
                         inc(nothingimported);
-                      if nothingimported>10 then break;
+                      if nothingimported>1 then break;
+                      Retry:=0;
                       for i := 0 to jData.Count-1 do
                         if Assigned(jData.Items[i]) then
                           inc(Retry);
+                      Info(IntToStr(Retry)+' Entrys not imported (parents not there), next round');
                     end;
                   if aId <> '' then
                     begin

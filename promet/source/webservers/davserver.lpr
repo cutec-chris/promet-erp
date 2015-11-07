@@ -22,27 +22,30 @@ uses
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}
-  Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication, lnetbase,
-  lNet, uBaseDBInterface, md5,uData,
-  pmimemessages,uBaseApplication,uBaseDatasetInterfaces,
-  ulsvnserver, ulwebdavserver, uDocuments, Utils,lMimeTypes,lHTTPUtil,lCommon,lexthttp,
-  DateUtils,uimpvcal,uCalendar,uWiki,synautil,uBaseDbClasses,Variants,utask;
+  Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication,
+  uBaseDBInterface, md5, uData, pmimemessages, uBaseApplication,
+  uBaseDatasetInterfaces, uDocuments, Utils,
+  DateUtils, uimpvcal, uCalendar,
+  uWiki, synautil, uBaseDbClasses, Variants, utask, udavserver, uhttputil;
 type
+
+  { TSVNServer }
+
   TSVNServer = class(TBaseCustomApplication)
     procedure ServerAccess(AMessage: string);
     function ServerDelete(aDir: string): Boolean;
-    function ServerGetDirectoryList(aDir: string;aDepth : Integer; var aDirList: TLDirectoryList
+    function ServerGetDirectoryList(aDir: string;aDepth : Integer; var aDirList: TDAVDirectoryList
       ) : Boolean;
     function ServerGetFile(aDir: string; Stream: TStream;var LastModified : TDateTime;var MimeType : string;var eTag : string): Boolean;
     function ServerMkCol(aDir: string): Boolean;
-    function ServerPutFile(aDir: string; Stream: TStream; var eTag: string; var FStatus : TLHttpStatus
+    function ServerPutFile(aDir: string; Stream: TStream; var eTag: string; var FStatus : Integer
       ): Boolean;
     function ServerReadAllowed(aDir: string): Boolean;
     function ServerUserLogin(aUser, aPassword: string): Boolean;
   private
-    Server : TLSVNServer;
-    procedure AddDocumentsToFileList(aFileList : TLDirectoryList;aDocuments : TDocuments);
-    procedure AddDocumentToFileList(aFileList : TLDirectoryList;aDocuments : TDocuments);
+    Server : TWebDAVServer;
+    procedure AddDocumentsToFileList(aFileList : TDAVDirectoryList;aDocuments : TDocuments);
+    procedure AddDocumentToFileList(aFileList : TDAVDirectoryList;aDocuments : TDocuments);
   protected
     procedure DoRun; override;
   public
@@ -202,9 +205,9 @@ begin
     end;
 end;
 function TSVNServer.ServerGetDirectoryList(aDir: string; aDepth: Integer;
-  var aDirList: TLDirectoryList): Boolean;
+  var aDirList: TDAVDirectoryList): Boolean;
 var
-  aItem: TLFile;
+  aItem: TDAVFile;
   aDocuments: TDocuments;
   aFile: String;
   aCal: TCalendar;
@@ -219,7 +222,7 @@ begin
   if aDir = '/' then
     begin
       Result := True;
-      aDirList := TLDirectoryList.Create;
+      aDirList := TDAVDirectoryList.Create;
       if aDepth>0 then
         begin
           aDocuments := TDocuments.Create(nil);
@@ -227,9 +230,9 @@ begin
           aDocuments.Open;
           AddDocumentsToFileList(aDirList,aDocuments);
           aDocuments.Free;
-          aItem := TLFile.Create('caldav',True);
+          aItem := TDAVFile.Create('caldav',True);
           aDirList.Add(aItem);
-          aItem := TLFile.Create('ical',True);
+          aItem := TDAVFile.Create('ical',True);
           aDirList.Add(aItem);
         end;
     end
@@ -247,7 +250,7 @@ begin
       if Data.Users.DataSet.Active then
         begin
           if aDir = '' then
-            aDirList := TLDirectoryList.Create
+            aDirList := TDAVDirectoryList.Create
           else aDirList:=nil;
           if (copy(aDir,RPos('/',aDir)+1,length(aDir)) = 'user') then
             begin
@@ -257,7 +260,7 @@ begin
           //Add CalDAV Calendars
           aDirs := TTree.Create(nil);
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('A'));
-          aItem := TLFile.Create('home',True);
+          aItem := TDAVFile.Create('home',True);
           if (aDir = aItem.Name) or (aDir = '') then
             begin
               aItem.IsCalendar:=True;
@@ -289,9 +292,9 @@ begin
                   while not aCal.EOF do
                     begin
                       if aCal.FieldByName('ORIGID').AsString<>'' then
-                        aItem := TLFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
+                        aItem := TDAVFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
                       else
-                        aItem := TLFile.Create(aCal.Id.AsString+'.ics');
+                        aItem := TDAVFile.Create(aCal.Id.AsString+'.ics');
                       aItem.Properties.Values['getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                       aItem.Properties.Values['getcontenttype'] := 'text/calendar; component=vevent';
                       aDirList.Add(aItem);
@@ -303,9 +306,9 @@ begin
                   while not aTasks.EOF do
                     begin
                       if aTasks.FieldByName('ORIGID').AsString<>'' then
-                        aItem := TLFile.Create(aTasks.FieldByName('ORIGID').AsString+'.ics')
+                        aItem := TDAVFile.Create(aTasks.FieldByName('ORIGID').AsString+'.ics')
                       else
-                        aItem := TLFile.Create(aTasks.Id.AsString+'.ics');
+                        aItem := TDAVFile.Create(aTasks.Id.AsString+'.ics');
                       aItem.Path := aFullDir+'/home';
                       aItem.Properties.Values['getetag'] := aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
                       aItem.Properties.Values['getcontenttype'] := 'text/calendar; component=vtodo';
@@ -319,7 +322,7 @@ begin
           else aItem.Free;
           while not aDirs.EOF do
             begin
-              aItem := TLFile.Create(aDirs.Text.AsString,True);
+              aItem := TDAVFile.Create(aDirs.Text.AsString,True);
               if (aDir = aItem.Name) or (aDir = '') then
                 begin
                   aItem.IsCalendar:=True;
@@ -342,9 +345,9 @@ begin
                       while not aCal.EOF do
                         begin
                           if aCal.FieldByName('ORIGID').AsString<>'' then
-                            aItem := TLFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
+                            aItem := TDAVFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
                           else
-                            aItem := TLFile.Create(aCal.Id.AsString+'.ics');
+                            aItem := TDAVFile.Create(aCal.Id.AsString+'.ics');
                           aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                           aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
                           aItem.Path := aFullDir+'/'+aDirs.Text.AsString;
@@ -371,7 +374,7 @@ begin
       if Data.Users.DataSet.Active then
         begin
           if aDir = '' then
-            aDirList := TLDirectoryList.Create
+            aDirList := TDAVDirectoryList.Create
           else aDirList:=nil;
           if (copy(aDir,RPos('/',aDir)+1,length(aDir)) = 'user') then
             begin
@@ -385,7 +388,7 @@ begin
             begin
 
 
-              aItem := TLFile.Create(aDirs.Text.AsString,True);
+              aItem := TDAVFile.Create(aDirs.Text.AsString,True);
               if (aDir = aItem.Name) or (aDir = '') then
                 begin
                   aItem.IsCalendar:=True;
@@ -408,9 +411,9 @@ begin
                       while not aCal.EOF do
                         begin
                           if aCal.FieldByName('ORIGID').AsString<>'' then
-                            aItem := TLFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
+                            aItem := TDAVFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
                           else
-                            aItem := TLFile.Create(aCal.Id.AsString+'.ics');
+                            aItem := TDAVFile.Create(aCal.Id.AsString+'.ics');
                           aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                           aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
                           aItem.Path := aFullDir+'/'+aDirs.Text.AsString;
@@ -435,7 +438,7 @@ begin
           aFullDir := aDir;
           aDir := copy(aDir,7,length(aDir));
           //Add ics file
-          aItem := TLFile.Create(Data.Users.Text.AsString+'.ics',False);
+          aItem := TDAVFile.Create(Data.Users.Text.AsString+'.ics',False);
           if (aDir = aItem.Name) or (aDir = '') then
             begin
               aItem.Properties.Values['getcontenttype'] := 'text/calendar';
@@ -462,7 +465,7 @@ begin
     end
   else
     begin
-      aDirList := TLDirectoryList.Create;
+      aDirList := TDAVDirectoryList.Create;
       if aDepth>0 then
         begin
           aDocuments := TDocuments.Create(nil);
@@ -676,7 +679,7 @@ begin
   aDocuments.Free;
 end;
 function TSVNServer.ServerPutFile(aDir: string; Stream: TStream;
-  var eTag: string; var FStatus: TLHttpStatus): Boolean;
+  var eTag: string; var FStatus: Integer): Boolean;
 var
   aDocuments: TDocuments;
   aDocument: TDocument;
@@ -850,7 +853,7 @@ begin
     Result := Data.Users.CheckPasswort(aPassword);
   if not Result then Data.Users.DataSet.Close;
 end;
-procedure TSVNServer.AddDocumentsToFileList(aFileList: TLDirectoryList;
+procedure TSVNServer.AddDocumentsToFileList(aFileList: TDAVDirectoryList;
   aDocuments: TDocuments);
 var
   aFile: TLFile;
@@ -863,7 +866,7 @@ begin
       aDocuments.DataSet.Next;
     end;
 end;
-procedure TSVNServer.AddDocumentToFileList(aFileList: TLDirectoryList;
+procedure TSVNServer.AddDocumentToFileList(aFileList: TDAVDirectoryList;
   aDocuments: TDocuments);
 var
   aFile: TLFile;

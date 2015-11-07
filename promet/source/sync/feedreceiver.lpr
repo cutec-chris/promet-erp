@@ -79,7 +79,7 @@ begin
           if aDate<aLastMessage then
             begin
               http.Abort;
-              Debug('Abort Download');
+              Info('Abort Download, no change');
             end;
         end;
     end;
@@ -177,6 +177,9 @@ begin
           aSource := copy(mailaccounts,0,pos(';',mailaccounts)-1);
           Data.SetFilter(MessageIndex,Data.QuoteField('CC')+'='+Data.QuoteValue(aSource),1,'SENDDATE','DESC');
           aLastMessage := MessageIndex.FieldByName('SENDDATE').AsDateTime;
+          http.Headers.Clear;
+          if aLastMessage>0 then
+            http.Headers.Add('If-Modified-Since: '+synautil.Rfc822DateTime(aLastMessage));
           http.HTTPMethod('GET',aSource);
           if HasOption('debug') then
             http.Document.SaveToFile('/tmp/rss.xml');
