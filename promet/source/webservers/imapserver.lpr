@@ -44,6 +44,7 @@ type
     function  GetUID( Index: LongInt ): LongInt;override;
     function  GetUIDStr( Index: LongInt ): String;override;
     function GetIndex(UID: LongInt): LongInt; override;
+    procedure InternalSetFlags(aFolder: TMessageList; Flags: TFlagMask);
     function  SetFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;override;
     function  GetFlags( Index: LongInt ): TFlagMask;override;
     function  AddFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;override;
@@ -130,6 +131,7 @@ var
 begin
   with BaseApplication as IBaseApplication do
     Debug('  Locking entered from '+WhoAmI);
+  exit;
   if not _DBCS.TryEnter then
     begin
       with BaseApplication as IBaseApplication do
@@ -149,6 +151,7 @@ procedure TPrometMailBox.InternalUnlock(WhoAmI: string);
 begin
   with BaseApplication as IBaseApplication do
     Debug('UnLocking entered from '+WhoAmI);
+  exit;
   _DBCS.Leave;
 end;
 
@@ -177,31 +180,37 @@ begin
   InternalUnlock('GetIndex');
 end;
 
+procedure TPrometMailBox.InternalSetFlags(aFolder: TMessageList;
+  Flags: TFlagMask);
+begin
+  aFolder.Edit;
+  aFolder.FieldByName('GRP_FLAGS').Clear;
+  if Flags and FLAGSEEN = FLAGSEEN then
+    aFolder.FieldByName('READ').AsString:='Y'
+  else aFolder.FieldByName('READ').AsString:='N';
+
+  if (Flags and FLAGANSWERED = FLAGANSWERED) and (Folder.FieldByName('ANSWERED').IsNull) then
+    aFolder.FieldByName('ANSWERED').AsDateTime:=Now()
+  else aFolder.FieldByName('ANSWERED').Clear;
+
+  if Flags and FLAGFLAGGED = FLAGFLAGGED then
+    aFolder.FieldByName('FLAGGED').AsString:='Y'
+  else aFolder.FieldByName('FLAGGED').AsString:='N';
+
+  if Flags and FLAGDRAFT = FLAGDRAFT then
+    aFolder.FieldByName('DRAFT').AsString:='Y'
+  else aFolder.FieldByName('DRAFT').AsString:='N';
+  if Flags and FLAGDELETED = FLAGDELETED then
+    aFolder.FieldByName('TREEENTRY').AsVariant:=TREE_ID_DELETED_MESSAGES;
+end;
+
 function TPrometMailBox.SetFlags(Index: LongInt; Flags: TFlagMask): TFlagMask;
 begin
   Result := 0;
   if GotoIndex(Index) then
     begin
       InternalLock('SetFlags');
-      Folder.Edit;
-      Folder.FieldByName('GRP_FLAGS').Clear;
-      if Flags and FLAGSEEN = FLAGSEEN then
-        Folder.FieldByName('READ').AsString:='Y'
-      else Folder.FieldByName('READ').AsString:='N';
-
-      if (Flags and FLAGANSWERED = FLAGANSWERED) and (Folder.FieldByName('ANSWERED').IsNull) then
-        Folder.FieldByName('ANSWERED').AsDateTime:=Now()
-      else Folder.FieldByName('ANSWERED').Clear;
-
-      if Flags and FLAGFLAGGED = FLAGFLAGGED then
-        Folder.FieldByName('FLAGGED').AsString:='Y'
-      else Folder.FieldByName('FLAGGED').AsString:='N';
-
-      if Flags and FLAGDRAFT = FLAGDRAFT then
-        Folder.FieldByName('DRAFT').AsString:='Y'
-      else Folder.FieldByName('DRAFT').AsString:='N';
-      if Flags and FLAGDELETED = FLAGDELETED then
-        Folder.FieldByName('TREEENTRY').AsVariant:=TREE_ID_DELETED_MESSAGES;
+      InternalSetFlags(Folder,Flags);
       InternalUnlock('SetFlags');
       Result := GetFlags(Index);
     end;
@@ -500,12 +509,12 @@ begin
         Result := 'OK APPEND completed';
       end;
     aMsg.Free;
+    InternalSetFlags(aMessage,StringToFlagMask(Flags));
     aMessage.Destroy;
   except
     Result := 'NO APPEND error';
   end;
   InternalUnlock('AppendMessage');
-  SetFlags(Folder.DataSet.RecNo,StringToFlagMask(Flags));
   RefreshFolder(AThread);
 end;
 
