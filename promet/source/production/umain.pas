@@ -19,6 +19,7 @@ type
     acSave: TAction;
     acAbort: TAction;
     acNextStep: TAction;
+    acCloseOrder: TAction;
     ActionList1: TActionList;
     Bevel3: TBevel;
     Bevel4: TBevel;
@@ -61,6 +62,7 @@ type
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;
     tvStep: TTreeView;
+    procedure acCloseOrderExecute(Sender: TObject);
     procedure acLoadOrderExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
@@ -95,6 +97,7 @@ type
     function CheckContent : Boolean;
     procedure ShowData;
     procedure LoadScript(aScript : string;aVersion : Variant);
+    procedure LoadDocuments(aID : largeInt;aType : string;aTID : string;aVersion : Variant;aLanguage : Variant);
   end;
   TSimpleIpHtml = class(TIpHtml)
     procedure SimpleIpHtmlGetImageX(Sender: TIpHtmlNode; const URL: string;
@@ -116,8 +119,29 @@ uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses;
 
 procedure TSimpleIpHtml.SimpleIpHtmlGetImageX(Sender: TIpHtmlNode;
   const URL: string; var Picture: TPicture);
+var
+  TreeData: TProdTreeData;
+  ms: TMemoryStream;
+  aPicture: TPicture;
+  aURL: String;
 begin
   Picture:=nil;
+  if Assigned(fMain.tvStep.Selected) then
+    begin
+      TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
+      if not Assigned(TreeData.Documents) then exit;
+      TreeData.Documents.Open;
+      aURL := copy(URL,0,rpos('.',URL)-1);
+      if TreeData.Documents.Locate('NAME',aURL,[loCaseInsensitive]) then
+        begin
+          ms := TMemoryStream.Create;
+          Data.BlobFieldToStream(TreeData.Documents.DataSet,'DOCUMENT',ms);
+          ms.Position:=0;
+          aPicture := TPicture.Create;
+          aPicture.LoadFromStreamWithFileExt(ms,TreeData.Documents.FieldByName('EXTENSION').AsString);
+          Picture := aPicture;
+        end;
+    end;
 end;
 
 constructor TSimpleIpHtml.Create;
@@ -159,7 +183,10 @@ begin
   if fMain.acPrepare.Checked then
     begin
       aHTML := TSimpleIPHtml.Create;
-      ss := TStringStream.Create(PreText.Text);
+      if pos('<body',lowercase(PreText.Text))=0 then
+        ss := TStringStream.Create('<body>'+PreText.Text+'</body>')
+      else
+        ss := TStringStream.Create(PreText.Text);
       aHTML.LoadFromStream(ss);
       ss.Free;
       fMain.ipWorkHTML.SetHtml(aHTML);
@@ -167,7 +194,10 @@ begin
   else
     begin
       aHTML := TSimpleIPHtml.Create;
-      ss := TStringStream.Create(WorkText.Text);
+      if pos('<body',lowercase(WorkText.Text))=0 then
+        ss := TStringStream.Create('<body>'+WorkText.Text+'</body>')
+      else
+        ss := TStringStream.Create(WorkText.Text);
       aHTML.LoadFromStream(ss);
       ss.Free;
       fMain.ipWorkHTML.SetHtml(aHTML);
@@ -182,6 +212,14 @@ begin
   Script.Open;
   if not Script.Locate('VERSION',aVersion,[]) then
     Script.Close;
+end;
+
+procedure TProdTreeData.LoadDocuments(aID: largeInt; aType: string;
+  aTID: string; aVersion: Variant; aLanguage: Variant);
+begin
+  if not Assigned(Documents) then
+    Documents := TDocuments.Create(nil);
+  Documents.Select(aID,aType,aTID,aVersion,aLanguage);
 end;
 
 procedure TfMain.DoCreate;
@@ -253,6 +291,18 @@ begin
       eOrder.SetFocus;
     end
   else DoOpen;
+end;
+
+procedure TfMain.acCloseOrderExecute(Sender: TObject);
+begin
+  tvStep.Items.Clear;
+  ipWorkHTML.SetHtml(nil);
+  eOrder.Enabled:=True;
+  cbVersion.Enabled:=True;
+  acSearchMasterdata.Enabled:=True;
+  acSearchOrder.Enabled:=True;
+  acLoadOrder.Enabled:=True;
+  acCloseOrder.Enabled:=False;
 end;
 
 procedure TfMain.acLogoutExecute(Sender: TObject);
@@ -408,6 +458,12 @@ begin
       tvStep.Items[0].Expanded:=True;
       FindNextStep;
     end;
+  eOrder.Enabled:=False;
+  cbVersion.Enabled:=False;
+  acSearchMasterdata.Enabled:=False;
+  acSearchOrder.Enabled:=False;
+  acLoadOrder.Enabled:=False;
+  acCloseOrder.Enabled:=True;
 end;
 
 procedure TfMain.FindNextStep;
@@ -426,6 +482,7 @@ var
   nOrder: TOrder;
   aMasterdata: TMasterdata;
   TreeData : TProdTreeData;
+  aPosID: String;
 begin
   Result := False;
   rbNoData.Checked:=True;
@@ -438,6 +495,11 @@ begin
   if (FOrder.Positions.FieldByName('SCRIPT').AsString<>'') or (FOrder.Positions.FieldByName('TEXT').AsString<>'') then
     begin
       TreeData.LoadScript(FOrder.Positions.FieldByName('SCRIPT').AsString,FOrder.Positions.FieldByName('SCRIPTVER').AsVariant);
+      if FOrder.Positions.DataSet.FieldDefs.IndexOf('ORDERNO') <> -1 then
+        aPosID := FOrder.Positions.FieldByName('ORDERNO').AsString+FOrder.Positions.FieldByName('POSNO').AsString
+      else
+        aPosID := FOrder.Positions.FieldByName('SQL_ID').AsString+FOrder.Positions.FieldByName('POSNO').AsString;
+      TreeData.LoadDocuments(FOrder.Positions.Id.AsVariant,'P',aPosId,Null,Null);
       TreeData.WorkText.Text:=FOrder.Positions.FieldByName('TEXT').AsString;
       Result := TreeData.CheckContent;
       rbOrder.Checked:=True;
@@ -470,6 +532,11 @@ begin
                 begin
                   TreeData.LoadScript(aMasterdata.Positions.FieldByName('SCRIPT').AsString,aMasterdata.Positions.FieldByName('SCRIPTVER').AsVariant);
                   TreeData.WorkText.Text:=aMasterdata.Positions.FieldByName('TEXT').AsString;
+                  if aMasterdata.Positions.DataSet.FieldDefs.IndexOf('ORDERNO') <> -1 then
+                    aPosID := aMasterdata.Positions.FieldByName('ORDERNO').AsString+aMasterdata.Positions.FieldByName('POSNO').AsString
+                  else
+                    aPosID := aMasterdata.Positions.FieldByName('SQL_ID').AsString+aMasterdata.Positions.FieldByName('POSNO').AsString;
+                  TreeData.LoadDocuments(aMasterdata.Positions.Id.AsVariant,'P',aPosId,Null,Null);
                   Result := TreeData.CheckContent;
                   rbList.Checked:=Result;
                 end;
@@ -501,6 +568,7 @@ begin
               if aMasterdata.Texts.Locate('TEXTTYPE',TextTyp.DataSet.RecNo,[]) then
                 TreeData.WorkText.Text:=aMasterdata.Texts.FieldByName('TEXT').AsString;
             end;
+          TreeData.LoadDocuments(aMasterdata.Id.AsVariant,aMasterdata.GetTyp,aMasterdata.FieldByName('ID').AsString,aMasterdata.FieldByName('VERSION').AsVariant,aMasterdata.FieldByName('LANGUAGE').AsVariant);
           Result := TreeData.CheckContent;
           rbArticle.Checked:=Result;
         end;

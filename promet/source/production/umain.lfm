@@ -103,8 +103,8 @@ object fMain: TfMain
       Height = 40
       Top = 651
       Width = 274
+      Action = acCloseOrder
       Anchors = [akLeft, akRight, akBottom]
-      Caption = 'Auftrag schließen'
       TabOrder = 3
     end
     object SpeedButton3: TSpeedButton
@@ -503,6 +503,11 @@ object fMain: TfMain
     object acNextStep: TAction
       Caption = 'Fertig'
       ImageIndex = 74
+    end
+    object acCloseOrder: TAction
+      Caption = 'Auftrag (ab)schließen'
+      Enabled = False
+      OnExecute = acCloseOrderExecute
     end
   end
   object MainMenu: TMainMenu

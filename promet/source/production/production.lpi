@@ -28,12 +28,14 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="9">
+    <RequiredPackages Count="8">
       <Item1>
         <PackageName Value="general"/>
+        <DefaultFilename Value="..\..\..\general\general.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="phelp"/>
+        <DefaultFilename Value="..\base\base_help\phelp.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="pvisualforms"/>
@@ -46,20 +48,17 @@
         <PackageName Value="LCL"/>
       </Item5>
       <Item6>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item6>
       <Item7>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCLBase"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item7>
       <Item8>
-        <PackageName Value="LCLBase"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
-      </Item8>
-      <Item9>
         <PackageName Value="pVisualPrometApp"/>
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
-      </Item9>
+      </Item8>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
