@@ -473,7 +473,9 @@ object fMain: TfMain
     end
     object acPrepare: TAction
       Caption = 'Vorbereiten'
+      DisableIfNoHandler = False
       ImageIndex = 39
+      OnExecute = acPrepareExecute
     end
     object acLoadOrder: TAction
       Caption = 'acLoadOrder'

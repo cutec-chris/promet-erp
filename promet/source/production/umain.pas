@@ -67,6 +67,7 @@ type
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
     procedure acNextStepExecute(Sender: TObject);
+    procedure acPrepareExecute(Sender: TObject);
     procedure acSearchMasterdataExecute(Sender: TObject);
     procedure eOrderKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -316,6 +317,11 @@ begin
   FindNextStep;
 end;
 
+procedure TfMain.acPrepareExecute(Sender: TObject);
+begin
+
+end;
+
 procedure TfMain.acSearchMasterdataExecute(Sender: TObject);
 begin
   fSearch.SetLanguage;
@@ -483,6 +489,7 @@ var
   aMasterdata: TMasterdata;
   TreeData : TProdTreeData;
   aPosID: String;
+  aTexts: TBoilerplate;
 begin
   Result := False;
   rbNoData.Checked:=True;
@@ -501,6 +508,22 @@ begin
         aPosID := FOrder.Positions.FieldByName('SQL_ID').AsString+FOrder.Positions.FieldByName('POSNO').AsString;
       TreeData.LoadDocuments(FOrder.Positions.Id.AsVariant,'P',aPosId,Null,Null);
       TreeData.WorkText.Text:=FOrder.Positions.FieldByName('TEXT').AsString;
+      if FOrder.Positions.FieldByName('PREPTEXT').AsString<>'' then
+        begin
+          aTexts := TBoilerplate.Create(nil);
+          aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(FOrder.Positions.FieldByName('PREPTEXT').AsString));
+          if aTexts.Count>0 then
+            TreeData.PreText.Text:=aTexts.FieldByName('TEXT').AsString;
+          aTexts.Free;
+        end;
+      if FOrder.Positions.FieldByName('WORKTEXT').AsString<>'' then
+        begin
+          aTexts := TBoilerplate.Create(nil);
+          aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(FOrder.Positions.FieldByName('WORKTEXT').AsString));
+          if aTexts.Count>0 then
+            TreeData.WorkText.Text:=aTexts.FieldByName('TEXT').AsString;
+          aTexts.Free;
+        end;
       Result := TreeData.CheckContent;
       rbOrder.Checked:=True;
     end;
@@ -537,6 +560,22 @@ begin
                   else
                     aPosID := aMasterdata.Positions.FieldByName('SQL_ID').AsString+aMasterdata.Positions.FieldByName('POSNO').AsString;
                   TreeData.LoadDocuments(aMasterdata.Positions.Id.AsVariant,'P',aPosId,Null,Null);
+                  if aMasterdata.Positions.FieldByName('PREPTEXT').AsString<>'' then
+                    begin
+                      aTexts := TBoilerplate.Create(nil);
+                      aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aMasterdata.Positions.FieldByName('PREPTEXT').AsString));
+                      if aTexts.Count>0 then
+                        TreeData.PreText.Text:=aTexts.FieldByName('TEXT').AsString;
+                      aTexts.Free;
+                    end;
+                  if aMasterdata.Positions.FieldByName('WORKTEXT').AsString<>'' then
+                    begin
+                      aTexts := TBoilerplate.Create(nil);
+                      aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aMasterdata.Positions.FieldByName('WORKTEXT').AsString));
+                      if aTexts.Count>0 then
+                        TreeData.WorkText.Text:=aTexts.FieldByName('TEXT').AsString;
+                      aTexts.Free;
+                    end;
                   Result := TreeData.CheckContent;
                   rbList.Checked:=Result;
                 end;
@@ -569,6 +608,22 @@ begin
                 TreeData.WorkText.Text:=aMasterdata.Texts.FieldByName('TEXT').AsString;
             end;
           TreeData.LoadDocuments(aMasterdata.Id.AsVariant,aMasterdata.GetTyp,aMasterdata.FieldByName('ID').AsString,aMasterdata.FieldByName('VERSION').AsVariant,aMasterdata.FieldByName('LANGUAGE').AsVariant);
+          if aMasterdata.FieldByName('PREPTEXT').AsString<>'' then
+            begin
+              aTexts := TBoilerplate.Create(nil);
+              aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aMasterdata.FieldByName('PREPTEXT').AsString));
+              if aTexts.Count>0 then
+                TreeData.PreText.Text:=aTexts.FieldByName('TEXT').AsString;
+              aTexts.Free;
+            end;
+          if aMasterdata.FieldByName('WORKTEXT').AsString<>'' then
+            begin
+              aTexts := TBoilerplate.Create(nil);
+              aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aMasterdata.FieldByName('WORKTEXT').AsString));
+              if aTexts.Count>0 then
+                TreeData.WorkText.Text:=aTexts.FieldByName('TEXT').AsString;
+              aTexts.Free;
+            end;
           Result := TreeData.CheckContent;
           rbArticle.Checked:=Result;
         end;
