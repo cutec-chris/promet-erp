@@ -318,8 +318,15 @@ begin
 end;
 
 procedure TfMain.acPrepareExecute(Sender: TObject);
+var
+  TreeData: TProdTreeData;
 begin
-
+  if Assigned(fMain.tvStep.Selected) then
+    begin
+      TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
+      TreeData.Prepared:=not TreeData.Prepared;
+      TreeData.ShowData;
+    end;
 end;
 
 procedure TfMain.acSearchMasterdataExecute(Sender: TObject);

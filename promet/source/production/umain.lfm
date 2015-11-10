@@ -151,6 +151,7 @@ object fMain: TfMain
         Top = 4
         Width = 144
         Action = acPrepare
+        AllowAllUp = True
         Anchors = [akLeft, akBottom]
       end
       object BitBtn4: TSpeedButton
@@ -472,8 +473,10 @@ object fMain: TfMain
       ImageIndex = 22
     end
     object acPrepare: TAction
+      AutoCheck = True
       Caption = 'Vorbereiten'
       DisableIfNoHandler = False
+      GroupIndex = 1
       ImageIndex = 39
       OnExecute = acPrepareExecute
     end
