@@ -28,37 +28,41 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="8">
+    <RequiredPackages Count="9">
       <Item1>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="..\..\..\general\general.lpk"/>
+        <PackageName Value="promet_scripts"/>
+        <DefaultFilename Value="..\base\base_scripts\promet_scripts.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="phelp"/>
-        <DefaultFilename Value="..\base\base_help\phelp.lpk"/>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="..\..\..\general\general.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="pvisualforms"/>
-        <DefaultFilename Value="..\base\base_forms\pvisualforms.lpk"/>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="..\base\base_help\phelp.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="..\base\base_forms\pvisualforms.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="LCL"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item5>
       <Item6>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="LCL"/>
       </Item6>
       <Item7>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item7>
       <Item8>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
+      </Item8>
+      <Item9>
         <PackageName Value="pVisualPrometApp"/>
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
-      </Item8>
+      </Item9>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>

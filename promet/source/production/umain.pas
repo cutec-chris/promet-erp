@@ -63,6 +63,7 @@ type
     ToolButton2: TSpeedButton;
     tvStep: TTreeView;
     procedure acCloseOrderExecute(Sender: TObject);
+    procedure acExecuteStepExecute(Sender: TObject);
     procedure acLoadOrderExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
@@ -85,6 +86,7 @@ type
     procedure DoCreate;
   end;
   TProdTreeData = class
+    procedure ScriptWriteln(const s: string);
   public
     Position : Int64;
     Script : TBaseScript;
@@ -92,6 +94,7 @@ type
 
     PreText : TStringList;
     WorkText : TStringList;
+    ScriptOutput : TStringList;
     Prepared : Boolean;
     constructor Create;
     destructor Destroy; override;
@@ -116,7 +119,8 @@ resourcestring
   strDoPick                             = 'kommissionieren';
 implementation
 {$R *.lfm}
-uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses;
+uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
+  uBaseVisualControls,uprometpascalscript,uprometpythonscript;
 
 procedure TSimpleIpHtml.SimpleIpHtmlGetImageX(Sender: TIpHtmlNode;
   const URL: string; var Picture: TPicture);
@@ -125,22 +129,66 @@ var
   ms: TMemoryStream;
   aPicture: TPicture;
   aURL: String;
+  Path: String;
+  aNumber: integer;
+  NewPath: String;
+  Result: TMemoryStream;
+  tmp: String;
 begin
   Picture:=nil;
   if Assigned(fMain.tvStep.Selected) then
     begin
       TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
       if not Assigned(TreeData.Documents) then exit;
-      TreeData.Documents.Open;
-      aURL := copy(URL,0,rpos('.',URL)-1);
-      if TreeData.Documents.Locate('NAME',aURL,[loCaseInsensitive]) then
+      Path := URL;
+      if copy(uppercase(Path),0,5)='ICON(' then
         begin
-          ms := TMemoryStream.Create;
-          Data.BlobFieldToStream(TreeData.Documents.DataSet,'DOCUMENT',ms);
-          ms.Position:=0;
-          aPicture := TPicture.Create;
-          aPicture.LoadFromStreamWithFileExt(ms,TreeData.Documents.FieldByName('EXTENSION').AsString);
-          Picture := aPicture;
+          if TryStrToInt(copy(Path,6,length(Path)-6),aNumber) then
+            begin
+              ms := TMemoryStream.Create;
+              Picture := TPicture.Create;
+              fVisualControls.Images.GetBitmap(aNumber,Picture.Bitmap);
+              Picture.SaveToStreamWithFileExt(ms,'png');
+              NewPath := Copy(Path,0,length(path)-length(ExtractFileExt(Path)))+'.png';
+              ms.Position:=0;
+              Result := ms;
+              ms.Position:=0;
+              aPicture := TPicture.Create;
+              aPicture.LoadFromStreamWithFileExt(ms,TreeData.Documents.FieldByName('EXTENSION').AsString);
+              Picture := aPicture;
+            end;
+        end
+      else if copy(uppercase(Path),0,12)='HISTORYICON(' then
+        begin
+          tmp := copy(Path,13,length(Path)-13);
+          if TryStrToInt(tmp,aNumber) then
+            begin
+              ms := TMemoryStream.Create;
+              Picture := TPicture.Create;
+              fVisualControls.HistoryImages.GetBitmap(aNumber,Picture.Bitmap);
+              Picture.SaveToStreamWithFileExt(ms,'png');
+              NewPath := Copy(Path,0,length(path)-length(ExtractFileExt(Path)))+'.png';
+              ms.Position:=0;
+              Result := ms;
+              ms.Position:=0;
+              aPicture := TPicture.Create;
+              aPicture.LoadFromStreamWithFileExt(ms,TreeData.Documents.FieldByName('EXTENSION').AsString);
+              Picture := aPicture;
+            end;
+        end
+      else
+        begin
+          TreeData.Documents.Open;
+          aURL := copy(URL,0,rpos('.',URL)-1);
+          if TreeData.Documents.Locate('NAME',aURL,[loCaseInsensitive]) then
+            begin
+              ms := TMemoryStream.Create;
+              Data.BlobFieldToStream(TreeData.Documents.DataSet,'DOCUMENT',ms);
+              ms.Position:=0;
+              aPicture := TPicture.Create;
+              aPicture.LoadFromStreamWithFileExt(ms,TreeData.Documents.FieldByName('EXTENSION').AsString);
+              Picture := aPicture;
+            end;
         end;
     end;
 end;
@@ -151,10 +199,17 @@ begin
   OnGetImageX:=@SimpleIpHtmlGetImageX;
 end;
 
+procedure TProdTreeData.ScriptWriteln(const s: string);
+begin
+  ScriptOutput.Add(s);
+  ShowData;
+end;
+
 constructor TProdTreeData.Create;
 begin
   PreText := TStringList.Create;
   WorkText := TStringList.Create;
+  ScriptOutput := TStringList.Create;
   Prepared:=False;
 end;
 
@@ -162,6 +217,7 @@ destructor TProdTreeData.Destroy;
 begin
   PreText.Free;
   WorkText.Free;
+  ScriptOutput.Free;
   inherited Destroy;
 end;
 
@@ -185,9 +241,9 @@ begin
     begin
       aHTML := TSimpleIPHtml.Create;
       if pos('<body',lowercase(PreText.Text))=0 then
-        ss := TStringStream.Create('<body>'+PreText.Text+'</body>')
+        ss := TStringStream.Create('<body>'+UniToSys(PreText.Text)+'</body>')
       else
-        ss := TStringStream.Create(PreText.Text);
+        ss := TStringStream.Create(UniToSys(PreText.Text));
       aHTML.LoadFromStream(ss);
       ss.Free;
       fMain.ipWorkHTML.SetHtml(aHTML);
@@ -196,13 +252,15 @@ begin
     begin
       aHTML := TSimpleIPHtml.Create;
       if pos('<body',lowercase(WorkText.Text))=0 then
-        ss := TStringStream.Create('<body>'+WorkText.Text+'</body>')
+        ss := TStringStream.Create('<body>'+UniToSys(WorkText.Text+LineEnding+LineEnding+ScriptOutput.Text)+'</body>')
       else
-        ss := TStringStream.Create(WorkText.Text);
+        ss := TStringStream.Create(UniToSys(WorkText.Text+ScriptOutput.Text));
       aHTML.LoadFromStream(ss);
       ss.Free;
       fMain.ipWorkHTML.SetHtml(aHTML);
     end;
+  if Assigned(Script) and (Script.Count>0) then
+    fMain.acExecuteStep.Enabled:=Prepared;
 end;
 
 procedure TProdTreeData.LoadScript(aScript: string; aVersion: Variant);
@@ -211,6 +269,7 @@ begin
     Script := TBaseScript.Create(nil);
   Script.SelectByName(aScript);
   Script.Open;
+  Script.Writeln:=@ScriptWriteln;
   if not Script.Locate('VERSION',aVersion,[]) then
     Script.Close;
 end;
@@ -306,6 +365,28 @@ begin
   acCloseOrder.Enabled:=False;
 end;
 
+procedure TfMain.acExecuteStepExecute(Sender: TObject);
+var
+  TreeData: TProdTreeData;
+begin
+  if Assigned(fMain.tvStep.Selected) then
+    begin
+      TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
+      acExecuteStep.Enabled:=False;
+      TreeData.ScriptOutput.Clear;
+      if Assigned(TreeData.Script) then
+        if not TreeData.Script.Execute(Null) then
+          begin
+            if not Assigned(TreeData.Script.Script) then
+              TreeData.ScriptOutput.Add('<b>Ausführung fehlgeschlagen:Scripttyp unbekannt</b>')
+            else
+              TreeData.ScriptOutput.Add('<b>Ausführung fehlgeschlagen:'+TreeData.Script.Script.Results+'</b>');
+            TreeData.ShowData;
+          end;
+      acExecuteStep.Enabled:=True;
+    end;
+end;
+
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
   with Application as IBaseApplication do
@@ -394,12 +475,20 @@ begin
 end;
 
 procedure TfMain.tvStepSelectionChanged(Sender: TObject);
+var
+  Res: Boolean;
 begin
   if Assigned(tvStep.Selected) then
     begin
+      fMain.acExecuteStep.Enabled:=False;
       if FOrder.Positions.Locate('SQL_ID',TProdTreeData(tvStep.Selected.Data).Position,[]) then
-        LoadStep
-      else rbNoData.Checked:=True;
+        Res := LoadStep
+      else Res := False;
+      if not Res then
+        begin
+          ipWorkHTML.SetHtml(nil);
+          rbNoData.Checked:=True;
+        end;
     end;
 end;
 
