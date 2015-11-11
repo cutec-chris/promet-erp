@@ -1,3 +1,22 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+Created 08.10.2015
+*******************************************************************************}
 unit umain;
 {$mode objfpc}{$H+}
 interface
@@ -154,7 +173,7 @@ begin
               Result := ms;
               ms.Position:=0;
               aPicture := TPicture.Create;
-              aPicture.LoadFromStreamWithFileExt(ms,TreeData.Documents.FieldByName('EXTENSION').AsString);
+              aPicture.LoadFromStreamWithFileExt(ms,'png');
               Picture := aPicture;
             end;
         end
@@ -172,7 +191,7 @@ begin
               Result := ms;
               ms.Position:=0;
               aPicture := TPicture.Create;
-              aPicture.LoadFromStreamWithFileExt(ms,TreeData.Documents.FieldByName('EXTENSION').AsString);
+              aPicture.LoadFromStreamWithFileExt(ms,'png');
               Picture := aPicture;
             end;
         end
@@ -200,9 +219,30 @@ begin
 end;
 
 procedure TProdTreeData.ScriptWriteln(const s: string);
+var
+  aTxt: String;
 begin
-  ScriptOutput.Add(s);
+  if copy(s,0,7)='**STEP ' then
+    ScriptOutput.Add('<img src="ICON(22)"></img><i>'+copy(s,8,length(s))+'</i><br>')
+  else if copy(s,0,10)='**STEPEND ' then
+    begin
+      aTxt := ScriptOutput[ScriptOutput.Count-1];
+      aTxt := copy(aTxt,30,length(aTxt)-29-8);
+      ScriptOutput.Delete(ScriptOutput.Count-1);
+      ScriptOutput.Add('<img src="ICON(74)"></img><span>'+aTxt+' -> '+copy(s,11,length(s))+'</span><br>')
+    end
+  else if copy(s,0,8)='**ERROR ' then
+    begin
+      aTxt := ScriptOutput[ScriptOutput.Count-1];
+      aTxt := copy(aTxt,30,length(aTxt)-29-8);
+      ScriptOutput.Delete(ScriptOutput.Count-1);
+      ScriptOutput.Add('<img src="ICON(75)"></img><b>'+aTxt+' -> '+copy(s,9,length(s))+'</b><br>')
+    end
+  else ScriptOutput.Add(s);
   ShowData;
+  fMain.ipWorkHTML.Repaint;
+  fMain.ipWorkHTML.Scroll(hsaEnd);
+  Application.ProcessMessages;
 end;
 
 constructor TProdTreeData.Create;
