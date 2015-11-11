@@ -141,6 +141,15 @@ implementation
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
   uBaseVisualControls,uprometpascalscript,uprometpythonscript;
 
+procedure InternalSleep(MiliSecValue: cardinal);
+var
+  aTime: Int64;
+begin
+  aTime := GetTicks;
+  while (GetTicks-aTime) < MiliSecValue do
+    Application.ProcessMessages;
+end;
+
 procedure TSimpleIpHtml.SimpleIpHtmlGetImageX(Sender: TIpHtmlNode;
   const URL: string; var Picture: TPicture);
 var
@@ -310,6 +319,9 @@ begin
   Script.SelectByName(aScript);
   Script.Open;
   Script.Writeln:=@ScriptWriteln;
+  if Assigned(Script.Script) then
+    if Script.Script is TPrometPascalScript then
+      TPrometPascalScript(Script.Script).Sleep:=@InternalSleep;
   if not Script.Locate('VERSION',aVersion,[]) then
     Script.Close;
 end;
