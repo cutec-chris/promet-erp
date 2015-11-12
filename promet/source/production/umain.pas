@@ -25,7 +25,8 @@ uses
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uExtControls,
   uIntfStrConsts, db, memds, FileUtil, ipHTML, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, uOrder,
-  uBaseDbInterface,uBaseDbClasses,uprometscripts,uDocuments;
+  uBaseDbInterface,uBaseDbClasses,uprometscripts,uDocuments,uprometpascalscript,
+  genpascalscript;
 type
   TfMain = class(TForm)
     acLogin: TAction;
@@ -106,6 +107,8 @@ type
   end;
   TProdTreeData = class
     procedure ScriptWriteln(const s: string);
+    function TPrometPascalScriptUses(Sender: TPascalScript;
+      const Name: String; OnlyAdditional: Boolean): Boolean;
   public
     Position : Int64;
     Script : TBaseScript;
@@ -139,7 +142,7 @@ resourcestring
 implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
-  uBaseVisualControls,uprometpascalscript,uprometpythonscript;
+  uBaseVisualControls,uprometpythonscript;
 
 procedure InternalSleep(MiliSecValue: cardinal);
 var
@@ -254,6 +257,17 @@ begin
   Application.ProcessMessages;
 end;
 
+function TProdTreeData.TPrometPascalScriptUses(Sender: TPascalScript;
+  const Name: String; OnlyAdditional: Boolean): Boolean;
+begin
+  if lowercase(Name) = 'production' then
+    begin
+      //HideWorkText
+      //ClearScriptOutput
+      Result := True;
+    end;
+end;
+
 constructor TProdTreeData.Create;
 begin
   PreText := TStringList.Create;
@@ -321,7 +335,10 @@ begin
   Script.Writeln:=@ScriptWriteln;
   if Assigned(Script.Script) then
     if Script.Script is TPrometPascalScript then
-      TPrometPascalScript(Script.Script).Sleep:=@InternalSleep;
+      begin
+        TPrometPascalScript(Script.Script).Sleep:=@InternalSleep;
+        TPrometPascalScript(Script.Script).OnUses:=@TPrometPascalScriptUses;
+      end;
   if not Script.Locate('VERSION',aVersion,[]) then
     Script.Close;
 end;
