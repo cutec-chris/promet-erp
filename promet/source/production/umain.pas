@@ -443,6 +443,7 @@ begin
       TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
       acExecuteStep.Enabled:=False;
       TreeData.ScriptOutput.Clear;
+      TreeData.Script.ActualObject := FDataSet;
       if Assigned(TreeData.Script) then
         if not TreeData.Script.Execute(Null) then
           begin
@@ -528,17 +529,20 @@ begin
   aMasterdata := TMasterdata.Create(nil);
   aMasterdata.SelectFromLink(aLink);
   aMasterdata.Open;
-  eOrder.Text:=aMasterdata.Number.AsString;
-  cbVersion.Text:=aMasterdata.Version.AsString;
-  aMasterdata.Select(aMasterdata.Number.AsString);
-  aMasterdata.Open;
-  cbVersion.Enabled:=aMasterdata.Count>1;
-  cbVersion.Items.Clear;
-  aMasterdata.First;
-  while not aMasterdata.EOF do
+  if aMasterdata.Count>0 then
     begin
-      cbVersion.Items.Add(aMasterdata.Version.AsString);
-      aMasterdata.Next;
+      eOrder.Text:=aMasterdata.Number.AsString;
+      cbVersion.Text:=aMasterdata.Version.AsString;
+      aMasterdata.Select(aMasterdata.Number.AsString);
+      aMasterdata.Open;
+      cbVersion.Enabled:=aMasterdata.Count>1;
+      cbVersion.Items.Clear;
+      aMasterdata.First;
+      while not aMasterdata.EOF do
+        begin
+          cbVersion.Items.Add(aMasterdata.Version.AsString);
+          aMasterdata.Next;
+        end;
     end;
   aMasterdata.Free;
 end;
