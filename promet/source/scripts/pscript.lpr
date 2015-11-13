@@ -22,9 +22,9 @@ Created 08.08.2014
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils,
   uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
@@ -39,6 +39,8 @@ type
     procedure aScriptReadln(var s: string);
     procedure aScriptWrite(const s: string);
     procedure aScriptWriteln(const s: string);
+    procedure bScriptRunLine(Sender: TScript; Module: string; Position, Row,
+      Col: Integer);
   private
   protected
     procedure DoRun; override;
@@ -67,6 +69,12 @@ end;
 procedure PrometCmdApp.aScriptWriteln(const s: string);
 begin
   writeln(s);
+end;
+
+procedure PrometCmdApp.bScriptRunLine(Sender: TScript; Module: string;
+  Position, Row, Col: Integer);
+begin
+  CheckSynchronize(10);
 end;
 
 procedure PrometCmdApp.DoRun;
@@ -111,6 +119,7 @@ begin
           aScript.Script.Readln:=@aScriptReadln;
           aScript.Script.Write:=@aScriptWrite;
           aScript.Script.Writeln:=@aScriptWriteln;
+          aScript.Script.OnRunLine:=@bScriptRunLine;
         end;
       if not aScript.Execute(Null) then
         begin
@@ -140,6 +149,7 @@ begin
       bScript.Readln:=@aScriptReadln;
       bScript.Write:=@aScriptWrite;
       bScript.Writeln:=@aScriptWriteln;
+      bScript.OnRunLine:=@bScriptRunLine;
       if bScript is TByteCodeScript then
         if not (bScript as TByteCodeScript).Compile then
           begin
