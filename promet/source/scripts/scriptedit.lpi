@@ -90,7 +90,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; promet"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; Test.PythonThreads"/>
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
@@ -151,7 +151,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="5">
+    <Exceptions Count="6">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
@@ -167,6 +167,9 @@
       <Item5>
         <Name Value="EZDatabaseError"/>
       </Item5>
+      <Item6>
+        <Name Value="Exception"/>
+      </Item6>
     </Exceptions>
   </Debugging>
 </CONFIG>

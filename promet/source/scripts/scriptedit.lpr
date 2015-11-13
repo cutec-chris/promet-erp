@@ -26,9 +26,9 @@ begin
       if Login then
         begin
           if copy(ParamStr(Paramcount),0,1)<>'-' then
-            fScriptEditor.Execute(ParamStr(Paramcount))
+            fScriptEditor.Execute(ParamStr(Paramcount),Null)
           else
-            fScriptEditor.Execute('');
+            fScriptEditor.Execute('',Null);
         end;
     end;
 end.

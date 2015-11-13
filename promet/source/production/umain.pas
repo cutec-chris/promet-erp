@@ -443,7 +443,7 @@ begin
       TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
       acExecuteStep.Enabled:=False;
       TreeData.ScriptOutput.Clear;
-      TreeData.Script.ActualObject := FDataSet;
+      TreeData.Script.ActualObject := FOrder;
       if Assigned(TreeData.Script) then
         if not TreeData.Script.Execute(Null) then
           begin
