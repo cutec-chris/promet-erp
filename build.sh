@@ -125,15 +125,15 @@ build_all()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  . ./promet/source/promet.erp/build.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
   . ./promet/source/tools/build_visual.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
   . ./promet/source/messagemanager/build.sh
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  . ./promet/source/promet.erp/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
