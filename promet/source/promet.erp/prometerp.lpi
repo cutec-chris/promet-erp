@@ -598,7 +598,6 @@
       <Unit46>
         <Filename Value="uallobjects.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uAllObjects"/>
       </Unit46>
       <Unit47>
         <Filename Value="uarticleversion.pas"/>

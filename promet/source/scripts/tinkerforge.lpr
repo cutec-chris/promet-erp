@@ -200,18 +200,13 @@ var
 begin
   Result := False;
   if Station=nil then exit;
+  if Button>2 then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
-        with TBrickletLCD16x2(Station.Devices[i]) do
-          begin
-            Result := IsButtonPressed(Button);
-          end;
+        Result := TBrickletLCD16x2(Station.Devices[i]).IsButtonPressed(Button);
       if TDevice(Station.Devices[i]) is TBrickletLCD20x4 then
-        with TBrickletLCD20x4(Station.Devices[i]) do
-          begin
-            Result := IsButtonPressed(Button);
-          end;
+        Result := TBrickletLCD20x4(Station.Devices[i]).IsButtonPressed(Button);
     end;
 end;
 function TfGetVoltageById(id : Integer) : LongInt;stdcall;
@@ -413,6 +408,7 @@ begin
         end;
     //end;
 end;
+{
 function TfGetColorById(id : Integer) : Cardinal;stdcall;
 var
   a: Integer;
@@ -481,6 +477,7 @@ begin
         end;
     end;
 end;
+}
 function TfGetDeviceList : pchar;stdcall;
 begin
   Result := pchar(DeviceList);
@@ -514,8 +511,8 @@ begin
        +#10+'procedure TfLCDBackLightOn;stdcall;'
        +#10+'procedure TfLCDBackLightOff;stdcall;'
        +#10+'procedure TfLCDWrite(x,y : Integer;text : string);stdcall;'
-       +#10+'procedure TfLCDClear;stdcall;'
        +#10+'function TfLCDButtonPressed(Button : byte) : Boolean;stdcall;'
+       +#10+'procedure TfLCDClear;stdcall;'
 
        +#10+'function TfGetVoltageById(id : Integer) : LongInt;stdcall;'
        +#10+'function TfGetVoltage(Position : pchar) : LongInt;stdcall;'
@@ -524,8 +521,8 @@ begin
        +#10+'function TfGetPowerById(id : Integer) : LongInt;stdcall;'
        +#10+'function TfGetPower(Position : pchar) : LongInt;stdcall;'
 
-       +#10+'function TfGetColor(Position : pchar) : Cardinal;stdcall;'
-       +#10+'function TfGetColorById(id : Integer) : Cardinal;stdcall;'
+       //+#10+'function TfGetColor(Position : pchar) : Cardinal;stdcall;'
+       //+#10+'function TfGetColorById(id : Integer) : Cardinal;stdcall;'
 
        +#10+'function TfSetRelais(Position : pchar;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;'
 
@@ -551,8 +548,8 @@ exports
   TfGetPower,
   TfGetPowerById,
 
-  TfGetColor,
-  TfGetColorById,
+  //TfGetColor,
+  //TfGetColorById,
 
   TfSetRelais,
 
