@@ -113,10 +113,10 @@ build_all()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/testcases/build.sh
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
+#  . ./promet/source/testcases/build.sh
+#  if [ "$?" -ne "0" ]; then
+#    exit 1
+#  fi
   . ./promet/source/plugins/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1

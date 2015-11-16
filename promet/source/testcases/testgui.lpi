@@ -83,7 +83,6 @@
       <Unit4>
         <Filename Value="utransaction.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="utransaction"/>
       </Unit4>
       <Unit5>
         <Filename Value="utfulllogout.pas"/>
@@ -96,7 +95,6 @@
       <Unit7>
         <Filename Value="udocumentmanagement.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="udocumentmanagement"/>
       </Unit7>
       <Unit8>
         <Filename Value="ulinkcheck.pas"/>
@@ -105,12 +103,10 @@
       <Unit9>
         <Filename Value="upersontest.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="upersontest"/>
       </Unit9>
       <Unit10>
         <Filename Value="umasterdatatest.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="umasterdatatest"/>
       </Unit10>
       <Unit11>
         <Filename Value="uprojecttest.pas"/>
@@ -119,7 +115,6 @@
       <Unit12>
         <Filename Value="uordertest.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uordertest"/>
       </Unit12>
       <Unit13>
         <Filename Value="utgridview.pas"/>
@@ -132,7 +127,6 @@
       <Unit15>
         <Filename Value="tscripttest.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="tscripttest"/>
       </Unit15>
     </Units>
   </ProjectOptions>

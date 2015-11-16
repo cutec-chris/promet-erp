@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="73">
+    <Units Count="74">
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -22,8 +22,7 @@
       </Unit1>
       <Unit2>
         <Filename Value="tlogout.pas"/>
-        <UnitName Value="tlogout"/>
-        <EditorIndex Value="25"/>
+        <EditorIndex Value="26"/>
         <CursorPos X="81" Y="24"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
@@ -34,7 +33,6 @@
       </Unit3>
       <Unit4>
         <Filename Value="tdbtests.pas"/>
-        <UnitName Value="tdbtests"/>
         <EditorIndex Value="12"/>
         <TopLine Value="15"/>
         <CursorPos X="23" Y="36"/>
@@ -187,7 +185,9 @@
       <Unit29>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
+        <TopLine Value="313"/>
         <CursorPos Y="332"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
@@ -215,7 +215,7 @@
       <Unit33>
         <Filename Value="tcreatedatabase.pas"/>
         <UnitName Value="tCreateDatabase"/>
-        <EditorIndex Value="24"/>
+        <EditorIndex Value="25"/>
         <TopLine Value="25"/>
         <CursorPos X="68" Y="55"/>
         <UsageCount Value="14"/>
@@ -223,16 +223,14 @@
       </Unit33>
       <Unit34>
         <Filename Value="utfulllogout.pas"/>
-        <UnitName Value="utfulllogout"/>
-        <EditorIndex Value="23"/>
+        <EditorIndex Value="24"/>
         <CursorPos X="40" Y="22"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit34>
       <Unit35>
         <Filename Value="utransaction.pas"/>
-        <UnitName Value="utransaction"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="20"/>
         <TopLine Value="65"/>
         <CursorPos X="76" Y="81"/>
         <UsageCount Value="13"/>
@@ -240,15 +238,13 @@
       </Unit35>
       <Unit36>
         <Filename Value="ulinkcheck.pas"/>
-        <UnitName Value="ulinkcheck"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="21"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit36>
       <Unit37>
         <Filename Value="udocumentmanagement.pas"/>
-        <UnitName Value="udocumentmanagement"/>
-        <EditorIndex Value="26"/>
+        <EditorIndex Value="27"/>
         <TopLine Value="16"/>
         <CursorPos X="3" Y="46"/>
         <UsageCount Value="13"/>
@@ -262,7 +258,6 @@
       </Unit38>
       <Unit39>
         <Filename Value="ucreatetable.pas"/>
-        <UnitName Value="ucreatetable"/>
         <EditorIndex Value="7"/>
         <TopLine Value="67"/>
         <CursorPos Y="92"/>
@@ -280,7 +275,6 @@
       <Unit41>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="16"/>
         <TopLine Value="1731"/>
         <CursorPos Y="1747"/>
@@ -293,7 +287,6 @@
       </Unit42>
       <Unit43>
         <Filename Value="utgridview.pas"/>
-        <UnitName Value="utgridview"/>
         <EditorIndex Value="6"/>
         <TopLine Value="167"/>
         <CursorPos X="16" Y="197"/>
@@ -392,7 +385,6 @@
       </Unit55>
       <Unit56>
         <Filename Value="uprojecttest.pas"/>
-        <UnitName Value="uprojecttest"/>
         <EditorIndex Value="3"/>
         <TopLine Value="7"/>
         <CursorPos Y="32"/>
@@ -410,7 +402,6 @@
       </Unit57>
       <Unit58>
         <Filename Value="uordertest.pas"/>
-        <UnitName Value="uordertest"/>
         <EditorIndex Value="2"/>
         <TopLine Value="49"/>
         <CursorPos X="29" Y="103"/>
@@ -420,7 +411,7 @@
       <Unit59>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="22"/>
+        <EditorIndex Value="23"/>
         <TopLine Value="343"/>
         <CursorPos Y="351"/>
         <UsageCount Value="12"/>
@@ -435,7 +426,6 @@
       </Unit60>
       <Unit61>
         <Filename Value="..\base\dbintfs\uthumbnails.pas"/>
-        <UnitName Value="uthumbnails"/>
         <EditorIndex Value="14"/>
         <TopLine Value="268"/>
         <CursorPos Y="162"/>
@@ -467,7 +457,6 @@
       </Unit64>
       <Unit65>
         <Filename Value="upersontest.pas"/>
-        <UnitName Value="upersontest"/>
         <EditorIndex Value="9"/>
         <TopLine Value="8"/>
         <CursorPos X="48" Y="22"/>
@@ -500,7 +489,7 @@
       <Unit69>
         <Filename Value="..\..\..\general\src\ubasedatasetinterfaces.pas"/>
         <UnitName Value="uBaseDatasetInterfaces"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="19"/>
         <TopLine Value="45"/>
         <CursorPos X="14" Y="74"/>
         <UsageCount Value="13"/>
@@ -508,8 +497,7 @@
       </Unit69>
       <Unit70>
         <Filename Value="..\..\..\general\src\usimpleprocess.pas"/>
-        <UnitName Value="usimpleprocess"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <CursorPos Y="31"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
@@ -524,15 +512,23 @@
       </Unit71>
       <Unit72>
         <Filename Value="umasterdatatest.pas"/>
-        <UnitName Value="umasterdatatest"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="22"/>
         <TopLine Value="9"/>
         <CursorPos Y="35"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit72>
+      <Unit73>
+        <Filename Value="C:\lazarus32\components\lazreport\source\lr_srch.pas"/>
+        <UnitName Value="LR_Srch"/>
+        <EditorIndex Value="17"/>
+        <TopLine Value="37"/>
+        <CursorPos X="30" Y="69"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit73>
     </Units>
-    <JumpHistory Count="16" HistoryIndex="15">
+    <JumpHistory Count="18" HistoryIndex="17">
       <Position1>
         <Filename Value="umasterdatatest.pas"/>
         <Caret Line="31" TopLine="6"/>
@@ -597,6 +593,13 @@
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <Caret Line="351" TopLine="343"/>
       </Position16>
+      <Position17>
+        <Filename Value="C:\lazarus32\components\lazreport\source\lr_srch.pas"/>
+      </Position17>
+      <Position18>
+        <Filename Value="C:\lazarus32\components\lazreport\source\lr_srch.pas"/>
+        <Caret Line="69" Column="30" TopLine="37"/>
+      </Position18>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
