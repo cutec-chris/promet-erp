@@ -40,12 +40,14 @@ type
     FTempDataSetName : string;
     FDest : TBaseDBInterface;
     aGlobalTime : TDateTime;
+    aLastRowTime : TDateTime;
     FLog : TStringList;
     FTables : TStringList;
     FAddLog : Boolean;
     aFirstSyncedRow : TDateTime;
     function SyncRow(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
-    function SyncTable(SyncDB : TSyncDB;SourceDM,DestDM : TBaseDBModule) : Integer;
+    function SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;
+      SyncCount: Integer=0): Integer;
   protected
     procedure DoRun; override;
     function GetSingleInstance : Boolean; override;
@@ -92,13 +94,17 @@ begin
           FTempDataSetName := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
         end;
     end;
-  aSource := SourceDM.GetNewDataSet('select * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+SourceDM.QuoteField('SQL_ID')+'='+SourceDM.QuoteValue(SyncTbl.FieldByName('SQL_ID').AsString));
+  if SyncTbl.FieldCount>2 then
+    aSource := SyncTbl
+  else
+    aSource := SourceDM.GetNewDataSet('select * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+SourceDM.QuoteField('SQL_ID')+'='+SourceDM.QuoteValue(SyncTbl.FieldByName('SQL_ID').AsString));
   aDest := DestDM.GetNewDataSet('select * from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+DestDM.QuoteField('SQL_ID')+'='+DestDM.QuoteValue(SyncTbl.FieldByName('SQL_ID').AsString));
   with aDest as IBaseManageDB do
     UpdateStdFields := False;
   try
     try
-      aSource.Open;
+      if not aSource.Active then
+        aSource.Open;
       aDest.Open;
       if aDest.RecordCount = 0 then
         begin
@@ -146,6 +152,8 @@ begin
                 end;
             end;
         end;
+      if aSource.FieldByName('TIMESTAMPD').AsDateTime > aLastRowTime then
+        aLastRowTime:=aSource.FieldByName('TIMESTAMPD').AsDateTime;
       if SyncOut and DoPost then
         if aDest.FieldDefs.IndexOf('TIMESTAMPD') > -1 then
           if not aDest.FieldByName('TIMESTAMPD').IsNull then
@@ -213,7 +221,8 @@ begin
         end;
     end;
   finally
-    FreeAndNil(aSource);
+    if aSource<>SyncTbl then
+      FreeAndNil(aSource);
     FreeAndNil(aDest);
     FreeAndNil(aDel);
   end;
@@ -221,8 +230,7 @@ begin
   except
   end;
 end;
-function TSyncDBApp.SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule
-  ): Integer;
+function TSyncDBApp.SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;SyncCount : Integer = 0): Integer;
 function BuildFilter(aSourceDM,aDestDM : TBaseDBModule;aTime : TDateTime = 0) : string;
 var
   aFilter: String;
@@ -266,13 +274,18 @@ var
   bFilter: String;
   bFirstSyncedRow: TDateTime;
   aLastSetTime: TDateTime;
+  aSyncOutTime: TDateTime;
+  aSQLF: String;
 
   procedure UpdateTime(DoSetIt : Boolean = True);
   begin
     if (not RestoreTime) and SetTime then
       begin
         SyncDB.Tables.DataSet.Edit;
-        SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aGlobalTime;
+        if aLastRowTime>0 then
+          SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aLastRowTime
+        else
+          SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aGlobalTime;
         SyncDB.Tables.DataSet.Post;
       end;
   end;
@@ -293,129 +306,162 @@ begin
       exit;
     end;
   aSyncStamps := TSyncStamps.CreateEx(Self,DestDM);
-  aSyncStamps.CreateTable;
-  aFilter := BuildFilter(SourceDM,DestDM);
-  bFilter := Data.QuoteField('NAME')+'='+Data.QuoteValue(aTableName);
-  if aFilter <> '' then
-    bFilter := bFilter+' AND '+aFilter;
-  aSyncTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
-  if SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y' then
-    begin
-      with aSyncStamps.DataSet as IBaseDbFilter do
-        Filter := bFilter;
-      aSyncStamps.Open;
-      while not aSyncStamps.DataSet.EOF do
-        begin
-          if aSyncStamps.FieldByName('NAME').AsString=aTableName then
-            if aSyncStamps.DataSet.FieldByName('TIMESTAMPD').AsDateTime < aSyncTime then
-              begin
-                aSyncTime:=aSyncStamps.FieldByName('LTIMESTAMP').AsDateTime;
-                (BaseApplication as IBaseApplication).Info(Format(strSyncStamp,[aSyncStamps.FieldByName('FROM').AsString,aSyncStamps.FieldByName('NAME').AsString,aSyncStamps.FieldByName('LTIMESTAMP').AsString]));
-              end;
-          aSyncStamps.DataSet.Next;
-        end;
-    end;
-  aFilter := BuildFilter(SourceDM,DestDM,aSyncTime);
-  //First collect the rows to sync (if we do this afterwards we sync everything double)
-  if SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y' then //Out
-    begin
-      if trim(SyncDB.Tables.DataSet.FieldByName('FILTEROUT').AsString) <> '' then
-        begin
-          if trim(aFilter) <> '' then
-            aFilter := '('+aFilter+') and ('+SyncDB.Tables.DataSet.FieldByName('FILTEROUT').AsString+')'
-          else
-            aFilter := '('+SyncDB.Tables.DataSet.FieldByName('FILTEROUT').AsString+')';
-        end;
-      if (pos('insert',lowercase(aFilter)) > 0)
-      or (pos('update',lowercase(aFilter)) > 0)
-      or (pos('delete',lowercase(aFilter)) > 0) then exit;
-
-      aSQL := 'select '+SourceDM.QuoteField('SQL_ID')+','+SourceDM.QuoteField('TIMESTAMPD')+' from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
-      if aFilter <> '' then
-        aSQL := aSQL+' where '+aFilter;
-      aSyncOut := SourceDM.GetNewDataSet(aSQL);
-      aSyncOut.Open;
-    end;
-  aFilter := BuildFilter(DestDM,SourceDM,aSyncTime);
-  if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
-    begin
-      if trim(SyncDB.Tables.DataSet.FieldByName('FILTERIN').AsString) <> '' then
-        begin
-          if trim(aFilter) <> '' then
-            aFilter := '('+aFilter+') and ('+SyncDB.Tables.DataSet.FieldByName('FILTERIN').AsString+')'
-          else
-            aFilter := '('+SyncDB.Tables.DataSet.FieldByName('FILTERIN').AsString+')';
-        end;
-      if (pos('insert',lowercase(aFilter)) > 0)
-      or (pos('update',lowercase(aFilter)) > 0)
-      or (pos('delete',lowercase(aFilter)) > 0) then exit;
-
-      aSQL := 'select '+DestDM.QuoteField('SQL_ID')+','+DestDM.QuoteField('TIMESTAMPD')+' from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
-      if aFilter <> '' then
-        aSQL := aSQL+' where '+aFilter;
-      aSyncIn := DestDM.GetNewDataSet(aSQL);
-      aSyncIn.Open;
-    end;
-
-  //Then sync them
-  if SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y' then //Out
-    begin
-      aOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
-      if aSyncOut.RecordCount > 0 then
-        begin
-          TimeSet := True;
-          SetTime := True;
-          (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncOut.RecordCount,'<',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
-          (BaseApplication as IBaseApplication).Info(aFilter);
-        end;
-      SourceDM.StartTransaction(SourceDM.MainConnection,True);
-      while not aSyncOut.EOF do
-        begin
-          try
-            SyncRow(SyncDB,aSyncOut,SourceDM,DestDM,True);
-            inc(Result);
-          except
-            //RestoreTime := True;
+  try
+    aFilter := BuildFilter(SourceDM,DestDM);
+    bFilter := Data.QuoteField('NAME')+'='+Data.QuoteValue(aTableName);
+    if aFilter <> '' then
+      bFilter := bFilter+' AND '+aFilter;
+    aSyncTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
+    if SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y' then
+      begin
+        with aSyncStamps.DataSet as IBaseDbFilter do
+          Filter := bFilter;
+        aSyncStamps.Open;
+        while not aSyncStamps.DataSet.EOF do
+          begin
+            if aSyncStamps.FieldByName('NAME').AsString=aTableName then
+              if aSyncStamps.DataSet.FieldByName('TIMESTAMPD').AsDateTime < aSyncTime then
+                begin
+                  aSyncTime:=aSyncStamps.FieldByName('LTIMESTAMP').AsDateTime;
+                  (BaseApplication as IBaseApplication).Info(Format(strSyncStamp,[aSyncStamps.FieldByName('FROM').AsString,aSyncStamps.FieldByName('NAME').AsString,aSyncStamps.FieldByName('LTIMESTAMP').AsString]));
+                end;
+            aSyncStamps.DataSet.Next;
           end;
-          aSyncOut.Next;
-        end;
-      aSyncOut.Destroy;
-      SourceDM.CommitTransaction(SourceDM.MainConnection);
-    end;
-  aFilter := BuildFilter(DestDM,SourceDM,aSyncTime);
-  if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
-    begin
-      if (aSyncIn.RecordCount > 0) then
-        begin
-          SetTime := True;
-          (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncIn.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
-        end;
-      DestDM.StartTransaction(DestDM.MainConnection,True);
-      while not aSyncIn.EOF do
-        begin
-          try
-            SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False);
-            inc(Result);
-          except
-            //RestoreTime:=True;
+      end;
+    aFilter := BuildFilter(SourceDM,DestDM,aSyncTime);
+    //First collect the rows to sync (if we do this afterwards we sync everything double)
+    if SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y' then //Out
+      begin
+        if trim(SyncDB.Tables.DataSet.FieldByName('FILTEROUT').AsString) <> '' then
+          begin
+            if trim(aFilter) <> '' then
+              aFilter := '('+aFilter+') and ('+SyncDB.Tables.DataSet.FieldByName('FILTEROUT').AsString+')'
+            else
+              aFilter := '('+SyncDB.Tables.DataSet.FieldByName('FILTEROUT').AsString+')';
           end;
-          aSyncIn.Next;
-        end;
-      FreeAndNil(FTempDataSet);
-      FTempNewCounter := 0;
-      aSyncIn.Destroy;
-      DestDM.CommitTransaction(DestDM.MainConnection);
-    end;
-  UpdateTime;
-  if (aFirstSyncedRow<bFirstSyncedRow) and (not RestoreTime) then
-    begin
-      aSyncStamps.Append;
-      aSyncStamps.DataSet.FieldByName('FROM').AsString:=SyncDB.DataSet.FieldByName('NAME').AsString;
-      aSyncStamps.DataSet.FieldByName('NAME').AsString:=aTableName;
-      aSyncStamps.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aFirstSyncedRow;
-      aSyncStamps.DataSet.Post;
-    end;
-  aSyncStamps.Free;
+        if (pos('insert',lowercase(aFilter)) > 0)
+        or (pos('update',lowercase(aFilter)) > 0)
+        or (pos('delete',lowercase(aFilter)) > 0) then exit;
+
+        aSQLF := '';
+        if aFilter <> '' then
+          aSQLF := ' where '+aFilter+' order by '+Data.QuoteField('TIMESTAMPD')+' asc';
+        if SyncCount=0 then
+          aSQL := 'select '+SourceDM.QuoteField('SQL_ID')+','+SourceDM.QuoteField('TIMESTAMPD')+' from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+aSQLF
+        else
+          begin
+            if SourceDM.LimitAfterSelect then
+              aSQL := 'select '+Format(SourceDM.LimitSTMT,[IntToStr(SyncCount)])+' * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+aSQLF
+            else
+              aSQL := 'select * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+aSQLF+' '+Format(DestDM.LimitSTMT,[IntToStr(SyncCount)]);
+          end;
+        aSyncOut := SourceDM.GetNewDataSet(aSQL);
+        aSyncOut.Open;
+      end;
+    aFilter := BuildFilter(DestDM,SourceDM,aSyncTime);
+    if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
+      begin
+        if trim(SyncDB.Tables.DataSet.FieldByName('FILTERIN').AsString) <> '' then
+          begin
+            if trim(aFilter) <> '' then
+              aFilter := '('+aFilter+') and ('+SyncDB.Tables.DataSet.FieldByName('FILTERIN').AsString+')'
+            else
+              aFilter := '('+SyncDB.Tables.DataSet.FieldByName('FILTERIN').AsString+')';
+          end;
+        if (pos('insert',lowercase(aFilter)) > 0)
+        or (pos('update',lowercase(aFilter)) > 0)
+        or (pos('delete',lowercase(aFilter)) > 0) then exit;
+
+        aSQLF:='';
+        if aFilter <> '' then
+          aSQLF := ' where '+aFilter+' order by '+Data.QuoteField('TIMESTAMPD')+' asc';
+        if SyncCount=0 then
+          begin
+            aSQL := 'select '+DestDM.QuoteField('SQL_ID')+','+DestDM.QuoteField('TIMESTAMPD')+' from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+aSQLF;
+          end
+        else
+          begin
+            if DestDM.LimitAfterSelect then
+              aSQL := 'select '+Format(DestDM.LimitSTMT,[IntToStr(SyncCount)])+' * from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+aSQLF
+            else
+              aSQL := 'select * from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+aSQLF+' '+Format(DestDM.LimitSTMT,[IntToStr(SyncCount)]);
+          end;
+        aSyncIn := DestDM.GetNewDataSet(aSQL);
+        aSyncIn.Open;
+      end;
+    aSyncOutTime:=aGlobalTime;
+
+    //Then sync them
+    if SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y' then //Out
+      begin
+        aOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
+        aLastRowTime:=aOldTime;
+        if aSyncOut.RecordCount > 0 then
+          begin
+            TimeSet := True;
+            SetTime := True;
+            (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncOut.RecordCount,'<',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
+            (BaseApplication as IBaseApplication).Info(aFilter);
+          end;
+        if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+          SourceDM.StartTransaction(SourceDM.MainConnection,True);
+        while not aSyncOut.EOF do
+          begin
+            try
+              SyncRow(SyncDB,aSyncOut,SourceDM,DestDM,True);
+              inc(Result);
+            except
+              //RestoreTime := True;
+            end;
+            aSyncOut.Next;
+          end;
+        aSyncOut.Destroy;
+        aSyncOutTime := aLastRowTime;
+        if SyncCount>0 then
+          SourceDM.CommitTransaction(SourceDM.MainConnection);
+      end;
+    aFilter := BuildFilter(DestDM,SourceDM,aSyncTime);
+    if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
+      begin
+        aOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
+        aLastRowTime:=aOldTime;
+        if (aSyncIn.RecordCount > 0) then
+          begin
+            SetTime := True;
+            (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncIn.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
+          end;
+        if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+          DestDM.StartTransaction(DestDM.MainConnection,True);
+        while not aSyncIn.EOF do
+          begin
+            try
+              SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False);
+              inc(Result);
+            except
+              //RestoreTime:=True;
+            end;
+            aSyncIn.Next;
+          end;
+        FreeAndNil(FTempDataSet);
+        FTempNewCounter := 0;
+        aSyncIn.Destroy;
+        if aSyncOutTime<aLastRowTime then
+          aLastRowTime:=aSyncOutTime;
+        if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+          DestDM.CommitTransaction(DestDM.MainConnection);
+      end;
+    UpdateTime;
+    if (aFirstSyncedRow<bFirstSyncedRow) and (not RestoreTime) then
+      begin
+        aSyncStamps.Append;
+        aSyncStamps.DataSet.FieldByName('FROM').AsString:=SyncDB.DataSet.FieldByName('NAME').AsString;
+        aSyncStamps.DataSet.FieldByName('NAME').AsString:=aTableName;
+        aSyncStamps.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aFirstSyncedRow;
+        aSyncStamps.DataSet.Post;
+      end;
+  finally
+    aSyncStamps.Free;
+  end;
 end;
 function TSyncDBApp.GetSingleInstance: Boolean;
 begin
@@ -443,6 +489,7 @@ var
   aMessage: TMessage;
   aRec: db.LargeInt;
   aSyncError: TSyncItems;
+  SyncedTables: Integer;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
@@ -552,17 +599,22 @@ begin
                                           DoCreateTable(TUserfielddefs);
                                           SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                         end;
-                                      SyncDB.Tables.DataSet.First;
-                                      while not SyncDB.Tables.DataSet.EOF do
+                                      SyncedTables := 100;
+                                      while SyncedTables>10 do
                                         begin
-                                          FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
-                                          try
-                                            SyncTable(SyncDB,uData.Data,FDest.GetDB);
-                                          except
-                                            on e : Exception do
-                                              Error(e.Message);
-                                          end;
-                                          SyncDB.Tables.DataSet.Next;
+                                          SyncedTables:=0;
+                                          SyncDB.Tables.DataSet.First;
+                                          while not SyncDB.Tables.DataSet.EOF do
+                                            begin
+                                              FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                                              try
+                                                inc(SyncedTables,SyncTable(SyncDB,uData.Data,FDest.GetDB,500));
+                                              except
+                                                on e : Exception do
+                                                  Error(e.Message);
+                                              end;
+                                              SyncDB.Tables.DataSet.Next;
+                                            end;
                                         end;
                                     end;
                                   DBLogout;
