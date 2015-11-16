@@ -3043,7 +3043,7 @@ begin
       aObjs := TObjects.Create(nil);
       aObjs.SelectByLink(aLink);
       aObjs.Open;
-      if aObjs.FieldByName('LINK').IsNull then
+      if aObjs.FieldByName('LINK').IsNull or (copy(aObjs.FieldByName('LINK').AsString,0,10) = 'ALLOBJECTS') then
         begin
           aFrame := TfObjectFrame.Create(Self);
           aFrame.SetLanguage;
