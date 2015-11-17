@@ -600,7 +600,7 @@ begin
                                           SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                         end;
                                       SyncedTables := 100;
-                                      while SyncedTables>10 do
+                                      while SyncedTables>30 do
                                         begin
                                           SyncedTables:=0;
                                           SyncDB.Tables.DataSet.First;
