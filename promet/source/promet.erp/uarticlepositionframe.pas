@@ -42,6 +42,7 @@ type
     procedure SetRights(Editable : Boolean);override;
     procedure SetFocus; override;
     procedure ShowFrame; override;
+    procedure DoRefresh(ForceRefresh: Boolean=False); override;
   end;
 implementation
 uses uDetailPositionFrame,utextpositionframe,uMasterdata;
@@ -91,6 +92,11 @@ procedure TfArticlePositionFrame.ShowFrame;
 begin
   inherited ShowFrame;
   SetFocus;
+end;
+
+procedure TfArticlePositionFrame.DoRefresh(ForceRefresh: Boolean);
+begin
+  FPosFrame.DoRefresh(ForceRefresh);
 end;
 
 end.
