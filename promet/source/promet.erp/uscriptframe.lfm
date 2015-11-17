@@ -32,9 +32,9 @@ inherited fScriptFrame: TfScriptFrame
       end
       object DBMemo1: TDBMemo
         Left = 8
-        Height = 0
+        Height = 384
         Top = 24
-        Width = 0
+        Width = 624
         Anchors = [akTop, akLeft, akRight, akBottom]
         DataField = 'NOTE'
         DataSource = Script
