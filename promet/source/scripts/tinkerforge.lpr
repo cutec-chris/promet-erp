@@ -194,19 +194,21 @@ begin
           end;
     end;
 end;
-function TfLCDButtonPressed(Button : byte) : Boolean;
+function TfLCDButtonPressed(Button : byte) : Boolean;stdcall;
 var
   i: Integer;
 begin
   Result := False;
   if Station=nil then exit;
-  if Button>2 then exit;
+  if Button>3 then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
-        Result := TBrickletLCD16x2(Station.Devices[i]).IsButtonPressed(Button);
+        with TDevice(Station.Devices[i]) as TBrickletLCD16x2 do
+          Result := IsButtonPressed(Button);
       if TDevice(Station.Devices[i]) is TBrickletLCD20x4 then
-        Result := TBrickletLCD20x4(Station.Devices[i]).IsButtonPressed(Button);
+        with TDevice(Station.Devices[i]) as TBrickletLCD20x4 do
+          Result := IsButtonPressed(Button);
     end;
 end;
 function TfGetVoltageById(id : Integer) : LongInt;stdcall;
@@ -408,7 +410,6 @@ begin
         end;
     //end;
 end;
-{
 function TfGetColorById(id : Integer) : Cardinal;stdcall;
 var
   a: Integer;
@@ -477,12 +478,11 @@ begin
         end;
     end;
 end;
-}
 function TfGetDeviceList : pchar;stdcall;
 begin
   Result := pchar(DeviceList);
 end;
-procedure ScriptCleanup;
+procedure ScriptCleanup;stdcall;
 begin
   TfDisconnect;
 end;
@@ -521,8 +521,8 @@ begin
        +#10+'function TfGetPowerById(id : Integer) : LongInt;stdcall;'
        +#10+'function TfGetPower(Position : pchar) : LongInt;stdcall;'
 
-       //+#10+'function TfGetColor(Position : pchar) : Cardinal;stdcall;'
-       //+#10+'function TfGetColorById(id : Integer) : Cardinal;stdcall;'
+       +#10+'function TfGetColor(Position : pchar) : Cardinal;stdcall;'
+       +#10+'function TfGetColorById(id : Integer) : Cardinal;stdcall;'
 
        +#10+'function TfSetRelais(Position : pchar;Relais : Integer;SwitchOn : Boolean) : Boolean;stdcall;'
 
@@ -548,8 +548,8 @@ exports
   TfGetPower,
   TfGetPowerById,
 
-  //TfGetColor,
-  //TfGetColorById,
+  TfGetColor,
+  TfGetColorById,
 
   TfSetRelais,
 
