@@ -607,9 +607,13 @@ var
 
 begin
   eOrder.Enabled:=FOrder.Count>0;
+  eOrder.Text:=FOrder.Commission.AsString;
+  if eOrder.Text='' then eOrder.Text:=FOrder.Number.AsString;
   cbVersion.Enabled:=cbVersion.Enabled and (FOrder.Count>0);
   tvStep.Enabled:=FOrder.Count>0;
   tvStep.Items.Clear;
+  FOrder.SelectFromNumber(FOrder.Number.AsString);
+  FOrder.Open;
   if FOrder.Count>0 then
     begin
       FOrder.Positions.Open;
