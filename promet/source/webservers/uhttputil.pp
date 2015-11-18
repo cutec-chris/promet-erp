@@ -30,7 +30,7 @@ interface
 
 uses
   sysutils, 
-  strutils;
+  strutils,tzutil;
 
 type
   TCharSet = set of Char;

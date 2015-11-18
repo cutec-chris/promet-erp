@@ -66,7 +66,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Central&quot; --debug-sql"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help"/>
       </local>
     </RunParams>
     <RequiredPackages Count="9">
@@ -114,7 +114,6 @@
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="umain"/>
       </Unit1>
       <Unit2>
         <Filename Value="umtimeline.pas"/>

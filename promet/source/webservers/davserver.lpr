@@ -24,9 +24,9 @@ uses
   {$ENDIF}
   Classes, SysUtils, pcmdprometapp, CustApp, uBaseCustomApplication,
   uBaseDBInterface, md5, uData, pmimemessages, uBaseApplication,
-  uBaseDatasetInterfaces, uDocuments, Utils,
-  DateUtils, uimpvcal, uCalendar,
-  uWiki, synautil, uBaseDbClasses, Variants, utask, udavserver, uhttputil;
+  uBaseDatasetInterfaces, uDocuments, Utils, DateUtils, uimpvcal, uCalendar,
+  uWiki, synautil, laz_synapse, uBaseDbClasses, Variants, utask, udavserver,
+  uhttputil;
 type
 
   { TSVNServer }
@@ -624,12 +624,15 @@ begin
                 begin
                   aDocument.CheckoutToStream(Stream);
                   LastModified:=aDocument.LastModified;
+                  //TODO:fix this
+                  {
                   if Assigned(MimeList) then
                     begin
                       lIndex := MimeList.IndexOf(ExtractFileExt(aDocuments.FileName));
                       if lIndex >= 0 then
                         MimeType := TStringObject(MimeList.Objects[lIndex]).Str;
                     end;
+                  }
                   if MimeType = '' then
                     MimeType := GetMimeTypeforExtension(ExtractFileExt(aDocuments.FileName));
                   Result := True;
@@ -777,7 +780,7 @@ begin
               if not VTodoImport(aTasks,sl,True) then
                 result := False;
               eTag:=aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
-              FStatus:=hsCreated;
+              FStatus:=201;
             end;
           atasks.Free;
           if not result then //New file
@@ -788,7 +791,7 @@ begin
               if not VCalImport(aCal,sl,True) then
                 result := False;
               eTag:=aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
-              FStatus:=hsCreated;
+              FStatus:=201;
             end;
         end;
       aCal.Free;
@@ -856,7 +859,7 @@ end;
 procedure TSVNServer.AddDocumentsToFileList(aFileList: TDAVDirectoryList;
   aDocuments: TDocuments);
 var
-  aFile: TLFile;
+  aFile: TDAVFile;
   lIndex: Integer;
 begin
   aDocuments.DataSet.First;
@@ -869,18 +872,21 @@ end;
 procedure TSVNServer.AddDocumentToFileList(aFileList: TDAVDirectoryList;
   aDocuments: TDocuments);
 var
-  aFile: TLFile;
+  aFile: TDAVFile;
   lIndex: Integer;
 begin
-  aFile := TLFile.Create(aDocuments.FileName,aDocuments.IsDir);
+  aFile := TDAVFile.Create(aDocuments.FileName,aDocuments.IsDir);
   if not aDocuments.IsDir then
     begin
+      //TODO:fix this
+      {
       if Assigned(MimeList) then
         begin
           lIndex := MimeList.IndexOf(ExtractFileExt(aDocuments.FileName));
           if lIndex >= 0 then
             aFile.Properties.Values['getcontenttype'] := TStringObject(MimeList.Objects[lIndex]).Str;
         end;
+      }
       if aFile.Properties.Values['getcontenttype'] = '' then
         aFile.Properties.Values['getcontenttype'] := GetMimeTypeforExtension(ExtractFileExt(aDocuments.FileName));
       if aFile.Properties.Values['getcontenttype'] = '' then
@@ -901,8 +907,7 @@ begin
     DBLogout;
   while not Terminated do
     begin
-      Server.CallAction;
-      Sleep(1);
+      Sleep(100);
     end;
   // stop program loop
   Terminate;
@@ -911,8 +916,8 @@ constructor TSVNServer.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   StopOnException:=True;
-  Server := TLSVNServer.Create(Self);
-  Server.OnAccess:=@ServerAccess;
+  Server := TWebDAVServer.Create;
+  //Server.OnAccess:=@ServerAccess;
   Server.OnGetDirectoryList:=@ServerGetDirectoryList;
   Server.OnMkCol:=@ServerMkCol;
   Server.OnDelete:=@ServerDelete;
@@ -922,7 +927,7 @@ begin
   Server.OnWriteAllowed:=@ServerReadAllowed;
   Server.OnUserLogin:=@ServerUserLogin;
   Login;
-  if not Server.Listen(8085) then raise Exception.Create('Cant bind to port !');
+  Server.Start;
   Data.Users.DataSet.Close;
 end;
 destructor TSVNServer.Destroy;
