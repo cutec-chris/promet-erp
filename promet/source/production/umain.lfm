@@ -43,7 +43,7 @@ object fMain: TfMain
       Anchors = [akTop, akLeft, akRight]
       OnKeyPress = eOrderKeyPress
       TabOrder = 0
-      Text = '49221000'
+      Text = '49287600'
     end
     object Label2: TLabel
       Left = 8

@@ -190,7 +190,8 @@ uses uData, uPerson, uBaseVisualControls, uBaseDBInterface, uAddressFrame,
   LCLIntf,uDocuments,uListFrame,uTextFrame,uMainTreeFrame,uSearch,
   uOrderFrame,uOrder,VpData,uCalendarFrame, uImpVCard,uPrometFramesInplace,
   uNRights,uSelectReport,uBaseVisualApplication,uWiki,uWikiFrame,
-  uLanguageUtils,uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication;
+  uLanguageUtils,uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,
+  uscriptimport;
 {$R *.lfm}
 resourcestring
   strAddress                    = 'Adresse';
@@ -710,31 +711,14 @@ begin
     end;
 end;
 procedure TfPersonFrame.acExportExecute(Sender: TObject);
-var
-  sl: TStringList;
 begin
-  ExportDialog.FileName:=ExtractFileDir(ExportDialog.FileName)+TPerson(DataSet).Text.AsString;
-  if ExportDialog.Execute then
-    begin
-      if ExtractFileExt(ExportDialog.Filename) = '' then
-        ExportDialog.Filename := ExportDialog.Filename+'.vcf';
-      sl := TStringList.Create;
-      VCardExport(TPerson(DataSet),sl);
-      sl.SaveToFile(ExportDialog.Filename);
-      sl.Free;
-    end;
+  if fScriptImport.Execute(icExport,'C',FDataSet) then
+    DataSet.DataSet.Refresh;
 end;
 procedure TfPersonFrame.acImportExecute(Sender: TObject);
-var
-  sl: TStringList;
 begin
-  if ImportDialog.Execute then
-    begin
-      sl := TStringList.Create;
-      sl.LoadFromFile(ImportDialog.FileName);
-      VCardImport(TPerson(DataSet),sl);
-      sl.Free;
-    end;
+  if fScriptImport.Execute(icImport,'C',FDataSet) then
+    DataSet.DataSet.Refresh;
 end;
 procedure TfPersonFrame.acNewOrderExecute(Sender: TObject);
 var

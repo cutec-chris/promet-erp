@@ -315,7 +315,7 @@ begin
     begin
       aHTML := TSimpleIPHtml.Create;
       if pos('<body',lowercase(WorkText.Text))=0 then
-        ss := TStringStream.Create('<body>'+UniToSys(WorkText.Text+LineEnding+LineEnding+ScriptOutput.Text)+'</body>')
+        ss := TStringStream.Create('<body>'+UniToSys(WorkText.Text+'<br><br>'+ScriptOutput.Text)+'</body>')
       else
         ss := TStringStream.Create(UniToSys(WorkText.Text+ScriptOutput.Text));
       aHTML.LoadFromStream(ss);
@@ -323,7 +323,7 @@ begin
       fMain.ipWorkHTML.SetHtml(aHTML);
     end;
   if Assigned(Script) and (Script.Count>0) then
-    fMain.acExecuteStep.Enabled:=Prepared;
+    fMain.acExecuteStep.Enabled:=(Prepared or ((PreText.Text=''))) and ((not Assigned(Script) or (not Script.Script.IsRunning)));
 end;
 
 procedure TProdTreeData.LoadScript(aScript: string; aVersion: Variant);

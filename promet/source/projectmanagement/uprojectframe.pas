@@ -242,7 +242,7 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uFilterFrame,uBaseSearch,Utils,uprojectimport,uBaseERPDBClasses,uSelectReport,
   uNRights,uprojectpositions,uSearch,LCLProc,utask,uprojectoverview,uBaseVisualApplication,
   uGanttView,uWikiFrame,uWiki,ufinance,uthumbnails,Clipbrd,uscreenshotmain,
-  uBaseApplication,umeasurements;
+  uBaseApplication,umeasurements,uscriptimport;
 {$R *.lfm}
 resourcestring
   strNoParent                     = '<kein Vorfahr>';
@@ -454,23 +454,9 @@ begin
 end;
 
 procedure TfProjectFrame.acExportExecute(Sender: TObject);
-var
-  aStream: TFileStream;
-  aFN: String;
 begin
-  Screen.Cursor:=crHourGlass;
-  if dExport.Execute then
-    begin
-      aFN := dExport.FileName;
-      if Pos('.',aFN)=0 then
-        aFN := aFN+'.gan';
-      aStream := TFileStream.Create(aFN,fmCreate);
-      case dExport.FilterIndex of
-      1:ExportGAN(aStream,TProject(DataSet));
-      end;
-      aStream.Free;
-    end;
-  Screen.Cursor:=crDefault;
+  if fScriptImport.Execute(icExport,'P',FDataSet) then
+    DataSet.DataSet.Refresh;
 end;
 
 procedure TfProjectFrame.acGanttExecute(Sender: TObject);
@@ -511,20 +497,9 @@ begin
 end;
 
 procedure TfProjectFrame.acImportExecute(Sender: TObject);
-var
-  aStream: TFileStream;
 begin
-  Screen.Cursor:=crHourGlass;
-  if dImport.Execute then
-    begin
-      aStream := TFileStream.Create(UniToSys(dImport.FileName),fmOpenRead);
-      case dImport.FilterIndex of
-      1:ImportGAN(aStream,TProject(DataSet));
-      end;
-      DoOpen;
-      aStream.Free;
-    end;
-  Screen.Cursor:=crDefault;
+  if fScriptImport.Execute(icImport,'P',FDataSet) then
+    DataSet.DataSet.Refresh;
 end;
 
 procedure TfProjectFrame.acInactiveGanttExecute(Sender: TObject);

@@ -44,6 +44,8 @@ type
     acCreateTransfer: TAction;
     acAddAddress: TAction;
     acRights: TAction;
+    acImport: TAction;
+    acExport: TAction;
     ActionList: TActionList;
     bAddressDelete1: TSpeedButton;
     Bevel1: TBevel;
@@ -142,7 +144,9 @@ type
     procedure acCloseExecute(Sender: TObject);
     procedure acCreateTransferExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
+    procedure acExportExecute(Sender: TObject);
     procedure acGotoAddressExecute(Sender: TObject);
+    procedure acImportExecute(Sender: TObject);
     procedure acMarkasDoneExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
@@ -208,7 +212,7 @@ uses uData,uBaseVisualControls,uOrderAdditionalFrame,uOverviewFrame,
   uDetailPositionFrame,uBaseVisualApplication,uPersonFrame,uPersonFinance,
   uAccountingTransfer,uPrometFramesInplace,Utils,uorderaddressframe,uMessageEdit,
   uNRights,uBookSerial,uBaseApplication,utextpositionframe,urepairimageframe,
-  LCLVersion;
+  LCLVersion,uscriptimport;
 resourcestring
   strAdditional                       = 'Zusätzlich';
   strDates                            = 'Datum';
@@ -366,6 +370,13 @@ begin
       Screen.Cursor := crDefault;
     end;
 end;
+
+procedure TfOrderFrame.acExportExecute(Sender: TObject);
+begin
+  if fScriptImport.Execute(icExport,'O',FDataSet) then
+    DataSet.DataSet.Refresh;
+end;
+
 procedure TfOrderFrame.acGotoAddressExecute(Sender: TObject);
 var
   aPerson: TPerson;
@@ -379,6 +390,13 @@ begin
     end;
   aPerson.Free;
 end;
+
+procedure TfOrderFrame.acImportExecute(Sender: TObject);
+begin
+  if fScriptImport.Execute(icImport,'O',FDataSet) then
+    DataSet.DataSet.Refresh;
+end;
+
 procedure TfOrderFrame.acMarkasDoneExecute(Sender: TObject);
 begin
   if not DataSet.CanEdit then

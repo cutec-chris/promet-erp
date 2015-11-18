@@ -44,6 +44,8 @@ type
     acAddImage: TAction;
     acScreenshot: TAction;
     acNew: TAction;
+    acImport: TAction;
+    acExport: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bChangeNumber: TSpeedButton;
@@ -104,6 +106,9 @@ type
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
     miCopy: TMenuItem;
     miDelete: TMenuItem;
     miPaste: TMenuItem;
@@ -135,6 +140,8 @@ type
     procedure acCancelExecute(Sender: TObject);
     procedure acCloseExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
+    procedure acExportExecute(Sender: TObject);
+    procedure acImportExecute(Sender: TObject);
     procedure acPasteImageExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
@@ -191,7 +198,7 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uMainTreeFrame,uPrometFramesInplace,uarticlesupplierframe,
   uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
   uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uBaseERPDBClasses,
-  umeasurements,uautomationframe;
+  umeasurements,uautomationframe,uscriptimport;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -491,6 +498,18 @@ begin
       acClose.Execute;
       Screen.Cursor := crDefault;
     end;
+end;
+
+procedure TfArticleFrame.acExportExecute(Sender: TObject);
+begin
+  if fScriptImport.Execute(icExport,'M',FDataSet) then
+    DataSet.DataSet.Refresh;
+end;
+
+procedure TfArticleFrame.acImportExecute(Sender: TObject);
+begin
+  if fScriptImport.Execute(icImport,'M',FDataSet) then
+    DataSet.DataSet.Refresh;
 end;
 
 procedure TfArticleFrame.acPasteImageExecute(Sender: TObject);
