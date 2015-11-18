@@ -150,33 +150,33 @@ build_all()
     exit 1
   fi
   . ./promet/source/webservers/build_webserver.sh
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
+#  if [ "$?" -ne "0" ]; then
+#    exit 1
+#  fi
   . ./promet/source/webservers/build_imap.sh
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
+#  if [ "$?" -ne "0" ]; then
+#    exit 1
+#  fi
   . ./promet/source/webservers/build_dav.sh
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
+#  if [ "$?" -ne "0" ]; then
+#    exit 1
+#  fi
   . ./promet/source/sync/build_mail.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
   . ./promet/source/sync/build_feed.sh
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
+#  if [ "$?" -ne "0" ]; then
+#    exit 1
+#  fi
   . ./promet/source/sync/build_mqtt.sh
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
+#  if [ "$?" -ne "0" ]; then
+#    exit 1
+#  fi
   . ./promet/source/sync/build_fhem.sh
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
+#  if [ "$?" -ne "0" ]; then
+#    exit 1
+#  fi
   . ./promet/source/sync/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
