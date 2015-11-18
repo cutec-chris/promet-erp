@@ -157,10 +157,6 @@ build_all()
 #  if [ "$?" -ne "0" ]; then
 #    exit 1
 #  fi
-  . ./promet/source/webservers/build_dav.sh
-#  if [ "$?" -ne "0" ]; then
-#    exit 1
-#  fi
   . ./promet/source/sync/build_mail.sh
   if [ "$?" -ne "0" ]; then
     exit 1
@@ -181,6 +177,10 @@ build_all()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  . ./promet/source/webservers/build_dav.sh
+#  if [ "$?" -ne "0" ]; then
+#    exit 1
+#  fi
   . ./promet/help/build.sh
   . ./promet/importdata/build.sh
 }
