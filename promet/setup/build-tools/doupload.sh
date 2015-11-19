@@ -2,4 +2,4 @@
 scp -P 232 $basedir/promet/setup/output/$BUILD_VERSION/$1 autoupload@178.254.12.54:promet_upload_target
 DIR=$(dirname "$1")
 FILE=$(basename "$1")
-ssh autoupload@178.254.12.54 -p 232 ln -s -f -t promet_upload_target $FILE ./$2
+ssh autoupload@178.254.12.54 -p 232 "cd promet_upload_target;ln -s -f $FILE $2"
