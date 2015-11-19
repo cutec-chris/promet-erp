@@ -1,7 +1,7 @@
 [Setup]
 AppName=Promet-ERP
 AppId=prometerp
-AppVersion=0.0.0
+AppVersion=7.1.0
 AppPublisher=Christian Ulrich
 AppPublisherURL=http://www.cu-tec.de
 AppSupportURL=http://www.free-erp.de
@@ -30,9 +30,12 @@ Name: "help"; Description: "Hilfe Datenbank"; Types: full compact custom;ExtraDi
 Name: "visualtools"; Description: "Werkzeuge"; Types: full compact custom;ExtraDiskSpaceRequired: 29100000
 Name: "mail"; Description: "e-Mail Unterstützung"; Types: full custom
 Name: "feed"; Description: "Feed Unterstützung (Atom,RSS,Twitter)"; Types: full custom
+Name: "clientsqlite"; Description: "SQLite Unterstützung"; Types: full custom
+Name: "clientpostgres"; Description: "Postgres Unterstützung"; Types: custom
+Name: "clientmysql"; Description: "MySQL Unterstützung"; Types: full custom
 Name: "sync"; Description: "Datenbanksynchronisation/Backup"; Types: full custom
-Name: "statistics"; Description: "Reporting/Statistik"; Types: full custom
-Name: "archive"; Description: "Archivprogramm (Revisionssichere Archivierung)"; Types: full custom
+Name: "statistics"; Description: "Reporting/Statistik"; Types: custom
+Name: "archive"; Description: "Archivprogramm (Revisionssichere Archivierung)"; Types: custom
 Name: "tools"; Description: "Kommandozeilenprogramme"; Types: custom
 Name: "xmpp"; Description: "Jabber/XMPP Unterstützung"; Types: custom
 Name: "dav"; Description: "Kalender/Kontaktserver (CalDAV,CardDAV)"; Types: custom
@@ -41,7 +44,7 @@ Name: "web"; Description: "Webserver/Applikationsserver"; Types: custom
 Name: "mqtt"; Description: "MQTT Unterstützung (IoT)"; Types: custom
 
 [Run]
-Filename: "{tmp}\unzip.exe"; Parameters: "{tmp}\*.zip -d {app}"; Flags: shellexec; StatusMsg: "Installiere Promet-ERP...";
+Filename: "{tmp}\unzip.exe"; Parameters: "{tmp}\*.zip -aoa -d ""{app}"""; Flags: waituntilterminated runhidden; StatusMsg: "Installiere Promet-ERP..."
 
 [Code]
 var
@@ -113,8 +116,8 @@ begin
     URL := 'http://downloads.free-erp.de/prometerp_i386-win32-current.zip';
     FileName := ExpandConstant('{tmp}\prometerp_i386-win32-current.zip');
     isxdl_AddFile(URL, FileName);
-    URL := 'http://downloads.free-erp.de/importdata_i386-win32-current.zip';
-    FileName := ExpandConstant('{tmp}\importdata_i386-win32-current.zip');
+    URL := 'http://downloads.free-erp.de/importdata-current.zip';
+    FileName := ExpandConstant('{tmp}\importdata-current.zip');
     isxdl_AddFile(URL, FileName);
     URL := 'http://downloads.free-erp.de/messagemanager_i386-win32-current.zip';
     FileName := ExpandConstant('{tmp}\messagemanager_i386-win32-current.zip');
@@ -125,8 +128,8 @@ begin
   end;
 
   if IsComponentSelected('help') then begin
-    URL := 'http://downloads.free-erp.de/help_i386-win32-current.zip';
-    FileName := ExpandConstant('{tmp}\help_i386-win32-current.zip');
+    URL := 'http://downloads.free-erp.de/help-current.zip';
+    FileName := ExpandConstant('{tmp}\help-current.zip');
     isxdl_AddFile(URL, FileName);
   end;
 
@@ -136,17 +139,30 @@ begin
     isxdl_AddFile(URL, FileName);
   end;
 
-  if IsComponentSelected('visualtools') then begin
-    URL := 'http://downloads.free-erp.de/visualtools-i386-win32-current.zip';
-    FileName := ExpandConstant('{tmp}\visualtools-i386-win32-current.zip');
+  if IsComponentSelected('clientsqlite') then begin
+    URL := 'http://downloads.free-erp.de/sqliteclient_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\sqlite_i386-win32-current.zip');
     isxdl_AddFile(URL, FileName);
   end;
 
-  if IsComponentSelected('help') then begin
-    URL := 'http://downloads.free-erp.de/help_i386-win32-current.zip';
-    FileName := ExpandConstant('{tmp}\help_i386-win32-current.zip');
+  if IsComponentSelected('clientpostgres') then begin
+    URL := 'http://downloads.free-erp.de/postgresclient_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\postgresclient_i386-win32-current.zip');
     isxdl_AddFile(URL, FileName);
   end;
+
+  if IsComponentSelected('clientmysql') then begin
+    URL := 'http://downloads.free-erp.de/mysqlclient_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\mysqlclient_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+
+  if IsComponentSelected('visualtools') then begin
+    URL := 'http://downloads.free-erp.de/visualtools_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\visualtools_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+
   if IsComponentSelected('feed') then begin
     URL := 'http://downloads.free-erp.de/feedreceiver_i386-win32-current.zip';
     FileName := ExpandConstant('{tmp}\feedreceiver_i386-win32-current.zip');
@@ -195,18 +211,6 @@ begin
   if IsComponentSelected('mqtt') then begin
     URL := 'http://downloads.free-erp.de/mqtt_i386-win32-current.zip';
     FileName := ExpandConstant('{tmp}\mqtt_i386-win32-current.zip');
-    isxdl_AddFile(URL, FileName);
-  end;
-
-  if Postgres then begin
-    URL := 'http://get.enterprisedb.com/postgresql/postgresql-9.4.4-3-windows.exe';
-    FileName := ExpandConstant('{tmp}\postgres-server.exe');
-    isxdl_AddFile(URL, FileName);
-  end;
-
-  if Firebird then begin
-    URL := 'http://sourceforge.net/projects/firebird/files/firebird-win32/2.5.4-Release/Firebird-2.5.4.26856-0_Win32.zip/download';
-    FileName := ExpandConstant('{tmp}\firebird-server.exe');
     isxdl_AddFile(URL, FileName);
   end;
 

@@ -2,7 +2,7 @@
 basedir=$(pwd)
 cd promet/source/tools
 . ../../setup/build-tools/setup_enviroment.sh
-echo "Building tools..."
+echo "Building archivestore..."
 # Build components
 $lazbuild archivestore.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then

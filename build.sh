@@ -149,40 +149,44 @@ build_all()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/webservers/build_webserver.sh
-#  if [ "$?" -ne "0" ]; then
-#    exit 1
-#  fi
   . ./promet/source/webservers/build_imap.sh
-#  if [ "$?" -ne "0" ]; then
-#    exit 1
-#  fi
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
   . ./promet/source/sync/build_mail.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
   . ./promet/source/sync/build_feed.sh
-#  if [ "$?" -ne "0" ]; then
-#    exit 1
-#  fi
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
   . ./promet/source/sync/build_mqtt.sh
-#  if [ "$?" -ne "0" ]; then
-#    exit 1
-#  fi
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
   . ./promet/source/sync/build_fhem.sh
-#  if [ "$?" -ne "0" ]; then
-#    exit 1
-#  fi
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
   . ./promet/source/sync/build.sh
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/webservers/build_dav.sh
-#  if [ "$?" -ne "0" ]; then
-#    exit 1
-#  fi
   . ./promet/help/build.sh
   . ./promet/importdata/build.sh
+  if [ "x$TARGET_OS" = "xwin32" ]; then
+    . ./promet/setup/i386-win32/build.sh
+  fi
+
+  . ./promet/source/webservers/build_webserver.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
+  . ./promet/source/webservers/build_dav.sh
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
 }
 
 clean_all()
@@ -257,6 +261,7 @@ tools-visual)  . ./promet/source/tools/build_visual.sh;;
         mqtt)  . ./promet/source/sync/build_mqtt.sh;;
         fhem)  . ./promet/source/sync/build_fhem.sh;;
         sync)  . ./promet/source/sync/build.sh;;
+  winclients)  . ./promet/setup/i386-win32/build.sh;;
        clean)  clean_all;;
       server)  build_server;;
          all)  build_all;;
