@@ -56,11 +56,13 @@ type
   TDAVFileStreamEvent = function(aDir : string;Stream : TStream;var eTag : string;var Result : Integer) : Boolean of object;
   TDAVFileStreamDateEvent = function(aDir : string;Stream : TStream;var FLastModified : TDateTime;var MimeType : string;var eTag : string) : Boolean of object;
   TDAVLoginEvent = function(aUser,aPassword : string) : Boolean of object;
+  TDAVAccessEvent = procedure(Info : string) of object;
 
   { TWebDAVServer }
 
   TWebDAVServer = class(TTCPHttpDaemon)
   private
+    FAccess: TDAVAccessEvent;
     FCtag: TDAVGetCTag;
     FDelete: TDAVFileEvent;
     FGet: TDAVFileStreamDateEvent;
@@ -82,6 +84,7 @@ type
     property OnWriteAllowed : TDAVFileEvent read FWriteAllowed write FWriteAllowed;
     property OnUserLogin : TDAVLoginEvent read FUserLogin write FUserLogin;
     property OngetCTag : TDAVGetCTag read FCtag write FCtag;
+    property OnAccess : TDAVAccessEvent read FAccess write FAccess;
   end;
 
 implementation

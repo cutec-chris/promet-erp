@@ -917,7 +917,7 @@ begin
   inherited Create(TheOwner);
   StopOnException:=True;
   Server := TWebDAVServer.Create;
-  //Server.OnAccess:=@ServerAccess;
+  Server.OnAccess:=@ServerAccess;
   Server.OnGetDirectoryList:=@ServerGetDirectoryList;
   Server.OnMkCol:=@ServerMkCol;
   Server.OnDelete:=@ServerDelete;
