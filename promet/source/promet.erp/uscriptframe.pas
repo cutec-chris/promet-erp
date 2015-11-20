@@ -42,6 +42,7 @@ type
     acPasteImage: TAction;
     acAddImage: TAction;
     acScreenshot: TAction;
+    acSetActiveObject: TAction;
     ActionList1: TActionList;
     Bevel3: TBevel;
     Bevel4: TBevel;
@@ -60,6 +61,7 @@ type
     Label5: TLabel;
     Label6: TLabel;
     MandantDetails: TDatasource;
+    MenuItem7: TMenuItem;
     Panel8: TPanel;
     Panel9: TPanel;
     Script: TDatasource;
@@ -94,6 +96,7 @@ type
     procedure acDeleteExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure acSetActiveObjectExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
     procedure cbVersionExit(Sender: TObject);
@@ -102,6 +105,7 @@ type
     procedure FEditorOpenUnit(aUnitName: string; X, Y: Integer);
     procedure FrameEnter(Sender: TObject);
     procedure FrameExit(Sender: TObject);
+    function fSearchOpenItem(aLink: string): Boolean;
     procedure ScriptStateChange(Sender: TObject);
     procedure mShortTextExit(Sender: TObject);
     procedure sbMenueClick(Sender: TObject);
@@ -133,7 +137,7 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uMainTreeFrame,uPrometFramesInplace,uarticlesupplierframe,
   uNRights,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
   uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uprometscripts,
-  uprometpascalscript,uBaseDatasetInterfaces;
+  uprometpascalscript,uBaseDatasetInterfaces,uSearch;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -157,6 +161,14 @@ begin
         end;
     end;
 end;
+
+procedure TfScriptFrame.acSetActiveObjectExecute(Sender: TObject);
+begin
+  fSearch.SetLanguage;
+  fSearch.OnOpenItem:=@fSearchOpenItem;
+  fSearch.Execute(True,'SCA','');
+end;
+
 procedure TfScriptFrame.acSetTreeDirExecute(Sender: TObject);
 begin
   if fMainTreeFrame.GetTreeEntry = -1 then exit;
@@ -248,6 +260,24 @@ procedure TfScriptFrame.FrameExit(Sender: TObject);
 begin
   ActionList1.State:=asSuspended;
 end;
+
+function TfScriptFrame.fSearchOpenItem(aLink: string): Boolean;
+var
+  aDataSetClass: TBaseDBDatasetClass;
+  aDataSet: TBaseDBDataset;
+begin
+  if TBaseDBModule(Data).DataSetFromLink(aLink,aDataSetClass) then
+    begin
+      aDataSet := aDataSetClass.CreateEx(nil,Data);
+      TBaseDbList(aDataSet).SelectFromLink(aLink);
+      aDataSet.Open;
+      if aDataSet.Count>0 then
+        TBaseScript(FDataSet).ActualObject := aDataSet
+      else
+        aDataSet.Free;
+    end;
+end;
+
 procedure TfScriptFrame.ScriptStateChange(Sender: TObject);
 begin
   acSave.Enabled := DataSet.CanEdit or DataSet.Changed;

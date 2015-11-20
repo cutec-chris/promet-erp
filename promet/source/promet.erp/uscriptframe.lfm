@@ -451,10 +451,18 @@ inherited fScriptFrame: TfScriptFrame
       Caption = 'aus Bildschirmfoto erstellen'
       ImageIndex = 108
     end
+    object acSetActiveObject: TAction
+      Caption = 'ActiveObject setzen'
+      Hint = 'Ermöglicht es die Variable ActiveObject im Script'#13#10'auf ein beliebiges Promet Element zu setzen'#13#10'Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt'
+      OnExecute = acSetActiveObjectExecute
+    end
   end
   object pmAction: TPopupMenu[4]
     left = 64
     top = 112
+    object MenuItem7: TMenuItem
+      Action = acSetActiveObject
+    end
     object miStartTimeregistering: TMenuItem
       Caption = 'Zeiterfassung starten'
     end

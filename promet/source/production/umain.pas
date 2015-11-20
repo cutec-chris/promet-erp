@@ -26,7 +26,7 @@ uses
   uIntfStrConsts, db, memds, FileUtil, ipHTML, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, uOrder,
   uBaseDbInterface,uBaseDbClasses,uprometscripts,uDocuments,uprometpascalscript,
-  genpascalscript;
+  genpascalscript,genscript;
 type
   TfMain = class(TForm)
     acLogin: TAction;
@@ -94,6 +94,8 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
     function SetOrderfromSearch(aLink: string): Boolean;
+    procedure TreeDataScriptScriptRunLine(Sender: TScript; Module: string;
+      aPosition, aRow, aCol: Integer);
     procedure tvStepSelectionChanged(Sender: TObject);
   private
     { private declarations }
@@ -144,7 +146,7 @@ implementation
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
   uBaseVisualControls,uprometpythonscript;
 
-procedure InternalSleep(MiliSecValue: cardinal);
+procedure InternalSleep(MiliSecValue: LongInt); StdCall;
 var
   aTime: Int64;
 begin
@@ -336,7 +338,6 @@ begin
   if Assigned(Script.Script) then
     if Script.Script is TPrometPascalScript then
       begin
-        TPrometPascalScript(Script.Script).Sleep:=@InternalSleep;
         TPrometPascalScript(Script.Script).OnUses:=@TPrometPascalScriptUses;
       end;
   if not Script.Locate('VERSION',aVersion,[]) then
@@ -444,6 +445,7 @@ begin
       acExecuteStep.Enabled:=False;
       TreeData.ScriptOutput.Clear;
       TreeData.Script.ActualObject := FOrder;
+      TreeData.Script.Script.OnRunLine:=@TreeDataScriptScriptRunLine;
       if Assigned(TreeData.Script) then
         if not TreeData.Script.Execute(Null) then
           begin
@@ -545,6 +547,12 @@ begin
         end;
     end;
   aMasterdata.Free;
+end;
+
+procedure TfMain.TreeDataScriptScriptRunLine(Sender: TScript; Module: string;
+  aPosition, aRow, aCol: Integer);
+begin
+  Application.ProcessMessages;
 end;
 
 procedure TfMain.tvStepSelectionChanged(Sender: TObject);
@@ -809,4 +817,5 @@ begin
 end;
 
 initialization
+  genpascalscript.DoSleep:=@InternalSleep;
 end.

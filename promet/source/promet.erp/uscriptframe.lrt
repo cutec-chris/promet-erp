@@ -32,6 +32,10 @@ TFSCRIPTFRAME.ACPRINT.CAPTION=acPrint
 TFSCRIPTFRAME.ACPASTEIMAGE.CAPTION=aus Zwischenablage einfügen
 TFSCRIPTFRAME.ACADDIMAGE.CAPTION=aus Bilddatei laden
 TFSCRIPTFRAME.ACSCREENSHOT.CAPTION=aus Bildschirmfoto erstellen
+TFSCRIPTFRAME.ACSETACTIVEOBJECT.CAPTION=ActiveObject setzen
+TFSCRIPTFRAME.ACSETACTIVEOBJECT.HINT=Ermöglicht es die Variable ActiveObject im Script
+auf ein beliebiges Promet Element zu setzen
+Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt
 TFSCRIPTFRAME.MISTARTTIMEREGISTERING.CAPTION=Zeiterfassung starten
 TFSCRIPTFRAME.MENUITEM1.CAPTION=-
 TFSCRIPTFRAME.MENUITEM2.CAPTION=-
