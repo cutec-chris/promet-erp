@@ -1,8 +1,8 @@
 inherited fArticleFrame: TfArticleFrame
   Height = 492
-  Width = 650
+  Width = 663
   ClientHeight = 492
-  ClientWidth = 650
+  ClientWidth = 663
   OnEnter = FrameEnter
   OnExit = FrameExit
   DesignLeft = 359
@@ -11,11 +11,11 @@ inherited fArticleFrame: TfArticleFrame
     Left = 0
     Height = 61
     Top = 44
-    Width = 650
+    Width = 663
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 61
-    ClientWidth = 650
+    ClientWidth = 663
     TabOrder = 1
     object Image3: TImage
       Left = 2
@@ -133,7 +133,7 @@ inherited fArticleFrame: TfArticleFrame
       }
     end
     object lLanguage: TLabel
-      Left = 469
+      Left = 482
       Height = 14
       Top = 3
       Width = 56
@@ -143,7 +143,7 @@ inherited fArticleFrame: TfArticleFrame
       ParentColor = False
     end
     object lMatchCode: TLabel
-      Left = 268
+      Left = 281
       Height = 17
       Top = 1
       Width = 142
@@ -153,7 +153,7 @@ inherited fArticleFrame: TfArticleFrame
       ParentColor = False
     end
     object eMatchCode: TDBEdit
-      Left = 269
+      Left = 282
       Height = 21
       Hint = 'Hier können Sie einen Suchbegriff angeben, '#13#10'um den Eintrag besser zu finden'
       Top = 21
@@ -166,7 +166,7 @@ inherited fArticleFrame: TfArticleFrame
       TabOrder = 2
     end
     object gbTree: TGroupBox
-      Left = 396
+      Left = 409
       Height = 48
       Top = 3
       Width = 65
@@ -203,7 +203,7 @@ inherited fArticleFrame: TfArticleFrame
       Height = 36
       Hint = 'Der Kurztext des Eintrags'
       Top = 21
-      Width = 204
+      Width = 217
       Anchors = [akTop, akLeft, akRight]
       DataField = 'SHORTTEXT'
       DataSource = Masterdata
@@ -212,7 +212,7 @@ inherited fArticleFrame: TfArticleFrame
       TabOrder = 3
     end
     object cbLanguage: TComboBox
-      Left = 469
+      Left = 482
       Height = 21
       Hint = 'wählt den Eintrag in einer anderen Sprache aus'#13#10'oder erstellt eine neue Sprache für den Eintrag'
       Top = 20
@@ -234,7 +234,7 @@ inherited fArticleFrame: TfArticleFrame
     Left = 0
     Height = 361
     Top = 112
-    Width = 656
+    Width = 669
     ActivePage = tsCommon
     Anchors = [akTop, akLeft, akRight, akBottom]
     Images = fVisualControls.Images
@@ -244,20 +244,20 @@ inherited fArticleFrame: TfArticleFrame
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
       ClientHeight = 334
-      ClientWidth = 648
+      ClientWidth = 661
       ImageIndex = 14
       object pCommon: TPanel
         Left = 0
         Height = 334
         Top = 0
-        Width = 648
+        Width = 661
         Align = alClient
         BevelOuter = bvNone
         ClientHeight = 334
-        ClientWidth = 648
+        ClientWidth = 661
         TabOrder = 0
         object cbQuantityUnit: TDBComboBox
-          Left = 394
+          Left = 407
           Height = 21
           Top = 48
           Width = 148
@@ -269,7 +269,7 @@ inherited fArticleFrame: TfArticleFrame
           TabOrder = 2
         end
         object cbVAT: TExtDBCombobox
-          Left = 394
+          Left = 407
           Height = 21
           Top = 123
           Width = 200
@@ -343,7 +343,7 @@ inherited fArticleFrame: TfArticleFrame
           Left = 22
           Height = 21
           Top = 267
-          Width = 328
+          Width = 341
           DataField = 'MANUFACNR'
           DataSource = Masterdata
           Anchors = [akTop, akLeft, akRight]
@@ -355,7 +355,7 @@ inherited fArticleFrame: TfArticleFrame
           Left = 23
           Height = 21
           Top = 217
-          Width = 328
+          Width = 341
           Anchors = [akTop, akLeft, akRight]
           DataField = 'WARRENTY'
           DataSource = Masterdata
@@ -364,7 +364,7 @@ inherited fArticleFrame: TfArticleFrame
           TabOrder = 7
         end
         object eUnit: TDBEdit
-          Left = 394
+          Left = 407
           Height = 21
           Top = 171
           Width = 200
@@ -379,7 +379,7 @@ inherited fArticleFrame: TfArticleFrame
           Left = 23
           Height = 21
           Top = 171
-          Width = 328
+          Width = 341
           DataField = 'BARCODE'
           DataSource = Masterdata
           Anchors = [akTop, akLeft, akRight]
@@ -388,7 +388,7 @@ inherited fArticleFrame: TfArticleFrame
           TabOrder = 5
         end
         object lWeight: TLabel
-          Left = 394
+          Left = 407
           Height = 16
           Top = 201
           Width = 126
@@ -414,7 +414,7 @@ inherited fArticleFrame: TfArticleFrame
           ParentColor = False
         end
         object lQuantityUnit: TLabel
-          Left = 394
+          Left = 407
           Height = 14
           Top = 30
           Width = 128
@@ -424,7 +424,7 @@ inherited fArticleFrame: TfArticleFrame
           ParentColor = False
         end
         object lVAT: TLabel
-          Left = 394
+          Left = 407
           Height = 14
           Top = 107
           Width = 128
@@ -434,7 +434,7 @@ inherited fArticleFrame: TfArticleFrame
           ParentColor = False
         end
         object lUnit: TLabel
-          Left = 394
+          Left = 407
           Height = 14
           Top = 155
           Width = 126
@@ -452,7 +452,7 @@ inherited fArticleFrame: TfArticleFrame
           ParentColor = False
         end
         object eWeight: TExtDBEdit
-          Left = 394
+          Left = 407
           Height = 21
           Top = 217
           Width = 200
@@ -476,7 +476,7 @@ inherited fArticleFrame: TfArticleFrame
           Left = 23
           Height = 21
           Top = 123
-          Width = 327
+          Width = 340
           Anchors = [akTop, akLeft, akRight]
           DataField = 'CATEGORY'
           DataSource = Masterdata
@@ -500,7 +500,7 @@ inherited fArticleFrame: TfArticleFrame
           ValueUnchecked = 'N'
         end
         object eRepairTime: TDBEdit
-          Left = 392
+          Left = 405
           Height = 21
           Hint = 'Wenn dieses Feld befüllt ist, findet diese Zeit '#13#10'(in Minuten) bei der Reparatur dieses Artikels '#13#10'Verwendung.'#13#10#13#10'Sobald der Artikel im Reparaturauftrag '#13#10'ausgewählt wird, startet die '#13#10'Zeiterfassung und ein Timer läuft ab.'
           Top = 267
@@ -513,7 +513,7 @@ inherited fArticleFrame: TfArticleFrame
           TabOrder = 13
         end
         object lRepairtime: TLabel
-          Left = 394
+          Left = 407
           Height = 16
           Hint = 'Wenn dieses Feld befüllt ist, findet diese Zeit '#13#10'(in Minuten) bei der Reparatur dieses Artikels '#13#10'Verwendung.'#13#10#13#10'Sobald der Artikel im Reparaturauftrag '#13#10'ausgewählt wird, startet die '#13#10'Zeiterfassung und ein Timer läuft ab.'
           Top = 251
@@ -543,27 +543,27 @@ inherited fArticleFrame: TfArticleFrame
     Left = 0
     Height = 44
     Top = 0
-    Width = 650
+    Width = 663
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 44
-    ClientWidth = 650
+    ClientWidth = 663
     TabOrder = 3
     object Panel4: TPanel
       Left = 0
       Height = 44
       Top = 0
-      Width = 68
+      Width = 88
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 68
+      ClientWidth = 88
       TabOrder = 0
       object Label2: TLabel
         Left = 4
         Height = 15
         Top = 0
-        Width = 60
+        Width = 80
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -591,9 +591,18 @@ inherited fArticleFrame: TfArticleFrame
         Flat = True
         ShowCaption = False
       end
+      object bExecute1: TSpeedButton
+        Left = 64
+        Height = 28
+        Top = 12
+        Width = 24
+        Action = acRestart
+        Flat = True
+        ShowCaption = False
+      end
     end
     object Panel6: TPanel
-      Left = 68
+      Left = 88
       Height = 44
       Top = 0
       Width = 56
@@ -715,7 +724,7 @@ inherited fArticleFrame: TfArticleFrame
       end
     end
     object Panel7: TPanel
-      Left = 124
+      Left = 144
       Height = 44
       Top = 0
       Width = 156
@@ -773,7 +782,7 @@ inherited fArticleFrame: TfArticleFrame
       end
     end
     object Panel8: TPanel
-      Left = 280
+      Left = 300
       Height = 44
       Top = 0
       Width = 142
@@ -819,7 +828,7 @@ inherited fArticleFrame: TfArticleFrame
       end
     end
     object Panel9: TPanel
-      Left = 465
+      Left = 485
       Height = 44
       Top = 0
       Width = 139
@@ -881,7 +890,7 @@ inherited fArticleFrame: TfArticleFrame
       end
     end
     object pNav1: TPanel
-      Left = 422
+      Left = 442
       Height = 44
       Top = 0
       Width = 43
@@ -911,7 +920,7 @@ inherited fArticleFrame: TfArticleFrame
     end
   end
   object pPreviewImage: TPanel[3]
-    Left = 548
+    Left = 561
     Height = 80
     Top = 25
     Width = 90
@@ -1123,6 +1132,13 @@ inherited fArticleFrame: TfArticleFrame
     object acExport: TAction
       Caption = 'Exportieren'
       OnExecute = acExportExecute
+    end
+    object acRestart: TAction
+      Caption = 'Dublizieren'
+      Enabled = False
+      Hint = 'Dupliziert den Artikel'
+      ImageIndex = 124
+      OnExecute = acRestartExecute
     end
   end
   object pmAction: TPopupMenu[6]

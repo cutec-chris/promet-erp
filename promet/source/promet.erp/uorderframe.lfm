@@ -252,8 +252,8 @@ inherited fOrderFrame: TfOrderFrame
               end
               object tsHeader1: TTabSheet
                 Caption = 'Kopftext'
-                ClientHeight = 69
-                ClientWidth = 443
+                ClientHeight = 138
+                ClientWidth = 886
                 object mOrderNote4: TDBMemo
                   Left = 0
                   Height = 67
@@ -270,8 +270,8 @@ inherited fOrderFrame: TfOrderFrame
               end
               object TabSheet3: TTabSheet
                 Caption = 'Nachtext'
-                ClientHeight = 69
-                ClientWidth = 443
+                ClientHeight = 138
+                ClientWidth = 886
                 object mOrderNote5: TDBMemo
                   Left = 0
                   Height = 67
@@ -389,18 +389,18 @@ inherited fOrderFrame: TfOrderFrame
       Left = 44
       Height = 44
       Top = 0
-      Width = 68
+      Width = 92
       Align = alLeft
       BorderSpacing.Left = 44
       BevelOuter = bvNone
       ClientHeight = 44
-      ClientWidth = 68
+      ClientWidth = 92
       TabOrder = 0
       object Label2: TLabel
         Left = 4
         Height = 15
         Top = 0
-        Width = 60
+        Width = 84
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -438,6 +438,15 @@ inherited fOrderFrame: TfOrderFrame
         Flat = True
         ShowCaption = False
       end
+      object bExecute1: TSpeedButton
+        Left = 64
+        Height = 28
+        Top = 12
+        Width = 24
+        Action = acRestart
+        Flat = True
+        ShowCaption = False
+      end
     end
     object ToolButton4: TSpeedButton
       Left = 3
@@ -448,7 +457,7 @@ inherited fOrderFrame: TfOrderFrame
       ShowCaption = False
     end
     object Panel6: TPanel
-      Left = 112
+      Left = 136
       Height = 44
       Top = 0
       Width = 56
@@ -570,7 +579,7 @@ inherited fOrderFrame: TfOrderFrame
       end
     end
     object Panel7: TPanel
-      Left = 168
+      Left = 192
       Height = 44
       Top = 0
       Width = 280
@@ -616,7 +625,7 @@ inherited fOrderFrame: TfOrderFrame
       end
     end
     object Panel8: TPanel
-      Left = 448
+      Left = 472
       Height = 44
       Top = 0
       Width = 296
@@ -833,6 +842,13 @@ inherited fOrderFrame: TfOrderFrame
     object acExport: TAction
       Caption = 'Exportieren'
       OnExecute = acExportExecute
+    end
+    object acRestart: TAction
+      Caption = 'Duplizieren'
+      Enabled = False
+      Hint = 'Dupliziert den Auftrag'
+      ImageIndex = 124
+      OnExecute = acRestartExecute
     end
   end
   object Orders: TDataSource[6]

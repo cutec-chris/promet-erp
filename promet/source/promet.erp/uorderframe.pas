@@ -46,6 +46,7 @@ type
     acRights: TAction;
     acImport: TAction;
     acExport: TAction;
+    acRestart: TAction;
     ActionList: TActionList;
     bAddressDelete1: TSpeedButton;
     Bevel1: TBevel;
@@ -53,6 +54,7 @@ type
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
+    bExecute1: TSpeedButton;
     cbCurrency: TDBComboBox;
     cbPaymentTarget: TComboBox;
     cbStatus: TComboBox;
@@ -149,6 +151,7 @@ type
     procedure acImportExecute(Sender: TObject);
     procedure acMarkasDoneExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
+    procedure acRestartExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure ActiveSearchEndItemSearch(Sender: TObject);
@@ -446,6 +449,13 @@ begin
     end;
 //  fMain.RefreshMessages;
 end;
+
+procedure TfOrderFrame.acRestartExecute(Sender: TObject);
+begin
+  TOrder(FDataSet).Duplicate;
+  DoOpen;
+end;
+
 procedure TfOrderFrame.acRightsExecute(Sender: TObject);
 begin
   fNRights.Execute(DataSet.Id.AsVariant);

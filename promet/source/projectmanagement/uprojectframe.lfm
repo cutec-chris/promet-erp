@@ -1425,7 +1425,7 @@ inherited fprojectFrame: TfprojectFrame
     object acRestart: TAction
       Caption = 'acRestart'
       Hint = 'startet den Prozess neu'
-      ImageIndex = 99
+      ImageIndex = 124
       OnExecute = acRestartExecute
     end
     object acGotoParent: TAction

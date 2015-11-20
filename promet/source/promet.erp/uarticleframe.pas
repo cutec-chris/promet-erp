@@ -46,6 +46,7 @@ type
     acNew: TAction;
     acImport: TAction;
     acExport: TAction;
+    acRestart: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bChangeNumber: TSpeedButton;
@@ -55,6 +56,7 @@ type
     Bevel6: TBevel;
     Bevel7: TBevel;
     bExecute: TSpeedButton;
+    bExecute1: TSpeedButton;
     bShowTree: TSpeedButton;
     cbActive: TDBCheckBox;
     cbLanguage: TComboBox;
@@ -144,6 +146,7 @@ type
     procedure acImportExecute(Sender: TObject);
     procedure acPasteImageExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
+    procedure acRestartExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acScreenshotExecute(Sender: TObject);
@@ -574,6 +577,12 @@ begin
       fSelectReport.ReportType := 'MAS';
     end;
   fSelectReport.Showmodal;
+end;
+
+procedure TfArticleFrame.acRestartExecute(Sender: TObject);
+begin
+  TMasterdata(FDataSet).Duplicate;
+  DoOpen;
 end;
 
 procedure TfArticleFrame.acRightsExecute(Sender: TObject);
