@@ -108,6 +108,7 @@ build_server()
 
 build_all()
 {
+  clean_all
   echo "Building all..."
   . ./promet/source/components/build.sh
   if [ "$?" -ne "0" ]; then
@@ -244,7 +245,7 @@ case $1 in
   components)  . ./promet/source/components/build.sh;;
      plugins)  $BASH promet/source/plugins/build.sh;;
        tools)  . ./promet/source/tools/build.sh;;
-tools-visual)  . ./promet/source/tools/build_visual.sh;;
+      visual)  . ./promet/source/tools/build_visual.sh;;
   importdata)  . ./promet/importdata/build.sh;;
         help)  . ./promet/help/build.sh;;
       promet)  . ./promet/source/promet.erp/build.sh;;

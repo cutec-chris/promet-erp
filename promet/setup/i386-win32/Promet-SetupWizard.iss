@@ -24,27 +24,51 @@ Source: "icons\*.ico"; Flags: dontcopy
 Source: "..\..\resources\multi-icon.ico"; Flags: dontcopy
 Source: "unzip.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall
 
+[Dirs]
+Name: "{app}"; Flags: uninsalwaysuninstall
+
 [Components]
-Name: "program"; Description: "Programdateien"; Types: full compact custom;ExtraDiskSpaceRequired: 14600000
-Name: "help"; Description: "Hilfe Datenbank"; Types: full compact custom;ExtraDiskSpaceRequired: 10000000
-Name: "visualtools"; Description: "Werkzeuge"; Types: full compact custom;ExtraDiskSpaceRequired: 29100000
-Name: "mail"; Description: "e-Mail Unterstützung"; Types: full custom
-Name: "feed"; Description: "Feed Unterstützung (Atom,RSS,Twitter)"; Types: full custom
-Name: "clientsqlite"; Description: "SQLite Unterstützung"; Types: full custom
-Name: "clientpostgres"; Description: "Postgres Unterstützung"; Types: custom
-Name: "clientmysql"; Description: "MySQL Unterstützung"; Types: full custom
-Name: "sync"; Description: "Datenbanksynchronisation/Backup"; Types: full custom
-Name: "statistics"; Description: "Reporting/Statistik"; Types: custom
-Name: "archive"; Description: "Archivprogramm (Revisionssichere Archivierung)"; Types: custom
-Name: "tools"; Description: "Kommandozeilenprogramme"; Types: custom
-Name: "xmpp"; Description: "Jabber/XMPP Unterstützung"; Types: custom
-Name: "dav"; Description: "Kalender/Kontaktserver (CalDAV,CardDAV)"; Types: custom
-Name: "imap"; Description: "e-Mail Server (IMAP)"; Types: custom
-Name: "web"; Description: "Webserver/Applikationsserver"; Types: custom
-Name: "mqtt"; Description: "MQTT Unterstützung (IoT)"; Types: custom
+Name: "program"; Description: "Programdateien"; ExtraDiskSpaceRequired: 14600000; Types: full compact custom
+Name: "help"; Description: "Hilfe Datenbank"; ExtraDiskSpaceRequired: 10000000; Types: full compact custom
+Name: "visualtools"; Description: "Werkzeuge"; ExtraDiskSpaceRequired: 29100000; Types: full compact custom
+Name: "win32tools"; Description: "PDF und OCR Unterstütung"; ExtraDiskSpaceRequired: 4553871; Types: full compact custom
+Name: "mail"; Description: "e-Mail Unterstützung"; ExtraDiskSpaceRequired: 6831654; Types: full custom
+Name: "feed"; Description: "Feed Unterstützung (Atom,RSS,Twitter)"; ExtraDiskSpaceRequired: 3354131; Types: full custom
+Name: "clientsqlite"; Description: "SQLite Unterstützung"; ExtraDiskSpaceRequired: 681097; Types: full compact custom
+Name: "clientpostgres"; Description: "Postgres Unterstützung"; ExtraDiskSpaceRequired: 7053908; Types: custom
+Name: "clientmysql"; Description: "MySQL Unterstützung"; ExtraDiskSpaceRequired: 4465152; Types: full custom
+Name: "sync"; Description: "Datenbanksynchronisation/Backup"; ExtraDiskSpaceRequired: 3261459; Types: full custom
+Name: "statistics"; Description: "Reporting/Statistik"; ExtraDiskSpaceRequired: 12260883; Types: custom
+Name: "meeting"; Description: "Besprechungsprotokoll"; ExtraDiskSpaceRequired: 11000000; Types: custom
+;Name: "archive"; Description: "Archivprogramm (Revisionssichere Archivierung)"; Types: custom
+Name: "tools"; Description: "Kommandozeilenprogramme"; ExtraDiskSpaceRequired: 3721043; Types: custom
+Name: "xmpp"; Description: "Jabber/XMPP Unterstützung"; ExtraDiskSpaceRequired: 3301907; Types: custom
+;Name: "dav"; Description: "Kalender/Kontaktserver (CalDAV,CardDAV)"; Types: custom
+Name: "imap"; Description: "e-Mail Server (IMAP)"; ExtraDiskSpaceRequired: 3567635; Types: custom
+Name: "web"; Description: "Webserver/Applikationsserver"; ExtraDiskSpaceRequired: 3165203; Types: custom
+Name: "mqtt"; Description: "MQTT Unterstützung (IoT)"; ExtraDiskSpaceRequired: 3301907; Types: custom
+
+[Icons]
+Name: "{group}\Internet"; Filename: "{app}\website.url"
+Name: "{userdesktop}\Promet-ERP"; Filename: "{app}\prometerp.exe"; Flags: createonlyiffileexists; Components: program; Tasks: desktopicon
+Name: "{group}\Promet-ERP"; Filename: "{app}\prometerp.exe"; WorkingDir: "{app}"; Flags: createonlyiffileexists; Components: program
+Name: "{group}\Promet-ERP Reporting"; Filename: "{app}\statistics.exe"; WorkingDir: "{app}"; Flags: createonlyiffileexists; Components: statistics
+Name: "{group}\Promet-ERP Besprechung"; Filename: "{app}\meetingminutes.exe"; WorkingDir: "{app}"; Flags: createonlyiffileexists; Components: meeting
+
+[Tasks]
+Name: desktopicon; Description: Create an Desktop Icon; GroupDescription: Additional Icons:; Languages: en
+Name: desktopicon; Description: Ein Desktop Icon erstellen; GroupDescription: Zusätzliche Icons:; Languages: de
+
+[Languages]
+Name: en; MessagesFile: compiler:Default.isl
+Name: de; MessagesFile: German.isl
 
 [Run]
-Filename: "{tmp}\unzip.exe"; Parameters: "{tmp}\*.zip -aoa -d ""{app}"""; Flags: waituntilterminated runhidden; StatusMsg: "Installiere Promet-ERP..."
+Filename: "{tmp}\unzip.exe"; Parameters: "-o {tmp}\*.zip -d ""{app}"""; Flags: waituntilterminated shellexec runhidden; StatusMsg: "Installiere Promet-ERP..."
+
+[UninstallDelete]
+Type: filesandordirs; Name: "{app}\*.*"
+Type: filesandordirs; Name: "{app}"
 
 [Code]
 var
@@ -79,6 +103,8 @@ const
   DI_NORMAL = 3;
 
 function InitializeSetup(): Boolean;
+var
+  ErrorCode: Integer;
 begin
   Modifying := ExpandConstant('{param:modify|0}') = '1';
   AllowInnoIDE := ExpandConstant('{param:allowinnoide|0}') = '1';
@@ -86,6 +112,9 @@ begin
   InnoIDEPathRead := False;
   ISStudioPathRead := False;
 
+  ShellExec('open',  'taskkill.exe', '/f /im messagemanager.exe','',SW_HIDE,ewNoWait,ErrorCode);
+  ShellExec('open',  'taskkill.exe', '/f /im pop3receiver.exe','',SW_HIDE,ewNoWait,ErrorCode);
+  ShellExec('open',  'taskkill.exe', '/f /im smtpsender.exe','',SW_HIDE,ewNoWait,ErrorCode);
   Result := True;
 end;
 
@@ -163,6 +192,12 @@ begin
     isxdl_AddFile(URL, FileName);
   end;
 
+  if IsComponentSelected('win32tools') then begin
+    URL := 'http://downloads.free-erp.de/win32tools_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\win32tools_i386-win32-current.zip');
+    isxdl_AddFile(URL, FileName);
+  end;
+
   if IsComponentSelected('feed') then begin
     URL := 'http://downloads.free-erp.de/feedreceiver_i386-win32-current.zip';
     FileName := ExpandConstant('{tmp}\feedreceiver_i386-win32-current.zip');
@@ -199,8 +234,8 @@ begin
     isxdl_AddFile(URL, FileName);
   end;
   if IsComponentSelected('imap') then begin
-    URL := 'http://downloads.free-erp.de/imap_i386-win32-current.zip';
-    FileName := ExpandConstant('{tmp}\imap_i386-win32-current.zip');
+    URL := 'http://downloads.free-erp.de/imapserver_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\imapserver_i386-win32-current.zip');
     isxdl_AddFile(URL, FileName);
   end;
   if IsComponentSelected('web') then begin
@@ -209,8 +244,8 @@ begin
     isxdl_AddFile(URL, FileName);
   end;
   if IsComponentSelected('mqtt') then begin
-    URL := 'http://downloads.free-erp.de/mqtt_i386-win32-current.zip';
-    FileName := ExpandConstant('{tmp}\mqtt_i386-win32-current.zip');
+    URL := 'http://downloads.free-erp.de/mqttreceiver_i386-win32-current.zip';
+    FileName := ExpandConstant('{tmp}\mqttreceiver_i386-win32-current.zip');
     isxdl_AddFile(URL, FileName);
   end;
 
