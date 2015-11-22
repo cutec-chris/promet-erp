@@ -17,6 +17,8 @@ Uninstallable=True
 UninstallDisplayIcon={app}\Compil32.exe
 WizardImageFile=compiler:WizModernImage-IS.bmp
 WizardSmallImageFile=compiler:WizModernSmallImage-IS.bmp
+OutputDir=..\output
+OutputBaseFilename=PrometClientSetup
 
 [Files]
 Source: "isxdl.dll"; Flags: dontcopy
@@ -41,10 +43,10 @@ Name: "sync"; Description: "Datenbanksynchronisation/Backup"; ExtraDiskSpaceRequ
 Name: "statistics"; Description: "Reporting/Statistik"; ExtraDiskSpaceRequired: 12260883; Types: custom
 Name: "meeting"; Description: "Besprechungsprotokoll"; ExtraDiskSpaceRequired: 11000000; Types: custom
 ;Name: "archive"; Description: "Archivprogramm (Revisionssichere Archivierung)"; Types: custom
-Name: "tools"; Description: "Kommandozeilenprogramme"; ExtraDiskSpaceRequired: 3721043; Types: custom
+Name: "tools"; Description: "Kommandozeilenprogramme"; ExtraDiskSpaceRequired: 3721043; Types:full custom
 Name: "xmpp"; Description: "Jabber/XMPP Unterstützung"; ExtraDiskSpaceRequired: 3301907; Types: custom
 ;Name: "dav"; Description: "Kalender/Kontaktserver (CalDAV,CardDAV)"; Types: custom
-Name: "imap"; Description: "e-Mail Server (IMAP)"; ExtraDiskSpaceRequired: 3567635; Types: custom
+Name: "imap"; Description: "e-Mail Server (IMAP)"; ExtraDiskSpaceRequired: 3567635; Types:full custom
 Name: "web"; Description: "Webserver/Applikationsserver"; ExtraDiskSpaceRequired: 3165203; Types: custom
 Name: "mqtt"; Description: "MQTT Unterstützung (IoT)"; ExtraDiskSpaceRequired: 3301907; Types: custom
 
@@ -115,6 +117,7 @@ begin
   ShellExec('open',  'taskkill.exe', '/f /im messagemanager.exe','',SW_HIDE,ewNoWait,ErrorCode);
   ShellExec('open',  'taskkill.exe', '/f /im pop3receiver.exe','',SW_HIDE,ewNoWait,ErrorCode);
   ShellExec('open',  'taskkill.exe', '/f /im smtpsender.exe','',SW_HIDE,ewNoWait,ErrorCode);
+  ShellExec('open',  'taskkill.exe', '/f /im processmanager.exe','',SW_HIDE,ewNoWait,ErrorCode);
   Result := True;
 end;
 
