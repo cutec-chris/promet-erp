@@ -64,6 +64,7 @@ type
     miOptions: TMenuItem;
     Panel1: TPanel;
     Panel2: TPanel;
+    Panel3: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
     Panel6: TPanel;
@@ -617,13 +618,16 @@ begin
   eOrder.Enabled:=FOrder.Count>0;
   eOrder.Text:=FOrder.Commission.AsString;
   if eOrder.Text='' then eOrder.Text:=FOrder.Number.AsString;
+  FreeAndNil(FOrder);
+  FOrder := TOrder.Create(nil);
   cbVersion.Enabled:=cbVersion.Enabled and (FOrder.Count>0);
   tvStep.Enabled:=FOrder.Count>0;
   tvStep.Items.Clear;
-  FOrder.SelectFromNumber(FOrder.Number.AsString);
+  FOrder.SelectFromNumber(eOrder.Text);
   FOrder.Open;
   if FOrder.Count>0 then
     begin
+      FOrder.Positions.Close;
       FOrder.Positions.Open;
       FOrder.Positions.First;
       while not FOrder.Positions.EOF do
