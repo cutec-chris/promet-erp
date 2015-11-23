@@ -51,9 +51,9 @@
 		<Program_Category_Class>Business::Project Management</Program_Category_Class>
 		<Program_System_Requirements />
 		<File_Info>
-			<File_Size_Bytes>WIN_SIZEB</File_Size_Bytes>
-			<File_Size_K>WIN_SIZEK</File_Size_K>
-			<File_Size_MB>WIN_SIZEM</File_Size_MB>
+			<File_Size_Bytes>439904</File_Size_Bytes>
+			<File_Size_K>439</File_Size_K>
+			<File_Size_MB>0.4</File_Size_MB>
 		</File_Info>
 		<Expire_Info>
 			<Has_Expire_Info>N</Has_Expire_Info>
@@ -116,7 +116,7 @@ Alle Daten werden zentral in einer Datenbank gespeichert. MSSQL,PostgereSQL,Fire
 			<Application_XML_File_URL>http://downloads.free-erp.de/promet_erp.xml</Application_XML_File_URL>
 		</Application_URLs>
 		<Download_URLs>
-			<Primary_Download_URL>http://downloads.free-erp.de/promet-erp_PROGVERSION_i386-win32.exe</Primary_Download_URL>
+			<Primary_Download_URL>http://downloads.free-erp.de/PrometClientSetup.exe</Primary_Download_URL>
 			<Secondary_Download_URL />
 			<Additional_Download_URL_1 />
 			<Additional_Download_URL_2 />
