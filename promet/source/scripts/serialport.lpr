@@ -3,7 +3,11 @@ library serialport;
 {$mode objfpc}{$H+}
 
 uses
-  Classes,sysutils,synaser,utils, general_nogui;
+  Classes,sysutils,synaser,utils, general_nogui
+  {$IFDEF WINDOWS}
+  ,Windows,registry
+  {$ENDIF}
+  ;
 
 type
   TParityType = (NoneParity, OddParity, EvenParity);
@@ -213,6 +217,47 @@ begin
   FreeAndNil(Ports);
 end;
 
+function SerPortNames: PChar;stdcall;
+var
+  {$IFDEF WINDOWS}
+  l: TStringList;
+  v: TStringList;
+  reg: TRegistry;
+  n: Integer;
+  aPort: String;
+  {$ENDIF}
+begin
+  {$IFDEF WINDOWS}
+  l := TStringList.Create;
+  v := TStringList.Create;
+  reg := TRegistry.Create;
+  try
+{$IFNDEF VER100}
+{$IFNDEF VER120}
+    reg.Access := KEY_READ;
+{$ENDIF}
+{$ENDIF}
+    reg.RootKey := HKEY_LOCAL_MACHINE;
+    reg.OpenKey('\HARDWARE\DEVICEMAP\SERIALCOMM', false);
+    reg.GetValueNames(l);
+    for n := 0 to l.Count - 1 do
+      begin
+        aPort := l[n];
+        aPort := reg.ReadString(aPort);
+        v.Add(aPort);
+
+      end;
+    Result := PChar(v.Text);
+  finally
+    reg.Free;
+    l.Free;
+    v.Free;
+  end;
+  {$ELSE}
+  Result := PChar(GetSerialPortNames);
+  {$ENDIF}
+end;
+
 function ScriptUnitDefinition : PChar;stdcall;
 begin
   Result := 'unit SerialPort;'
@@ -231,6 +276,7 @@ begin
        +#10+'  procedure SerSetRTS(Handle: LongInt;Value : Boolean);external ''SerSetRTS@%dllpath% stdcall'';'
        +#10+'  procedure SerSetDTR(Handle: LongInt;Value : Boolean);external ''SerSetDTR@%dllpath% stdcall'';'
        +#10+'  procedure SerRTSToggle(Handle: LongInt;Value : Boolean);external ''SerRTSToggle@%dllpath% stdcall'';'
+       +#10+'  function SerPortNames: PChar;external ''SerPortNames@%dllpath% stdcall'';'
 
        +#10+'  function SerReadEx(Handle: LongInt; Count: LongInt): PChar;external ''SerReadEx@%dllpath% stdcall'';'
        +#10+'  function SerReadTimeoutEx(Handle: LongInt;var Data : PChar;Timeout: Integer;Count: LongInt) : Integer;external ''SerReadTimeoutEx@%dllpath% stdcall'';'
@@ -285,6 +331,7 @@ exports
   SerSetRTS,
   SerSetDTR,
   SerRTSToggle,
+  SerPortNames,
 
   ScriptUnitDefinition,
   ScriptCleanup;
