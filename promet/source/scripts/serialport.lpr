@@ -20,12 +20,17 @@ function SerOpen(const DeviceName: String): LongInt;stdcall;
 var
   aDev: TBlockSerial;
 begin
+  Result := 0;
   if not Assigned(Ports) then
     Ports := TList.Create;
   aDev := TBlockSerial.Create;
   aDev.Connect(DeviceName);
-  Ports.Add(aDev);
-  Result := aDev.Handle;
+  if aDev.Handle<>INVALID_HANDLE_VALUE then
+    begin
+      Ports.Add(aDev);
+      Result := aDev.Handle;
+    end
+  else aDev.Free;
 end;
 
 procedure SerClose(Handle: LongInt); stdcall;
@@ -50,6 +55,7 @@ procedure SerFlush(Handle: LongInt); stdcall;
 var
   i: Integer;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -62,6 +68,7 @@ procedure SerParams(Handle: LongInt; BitsPerSec: LongInt; ByteSize: Integer; Par
 var
   i: Integer;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -90,6 +97,7 @@ var
   i: Integer;
   a: Integer;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -110,6 +118,7 @@ var
   a: Integer;
   aTime: Int64;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -131,6 +140,7 @@ function SerGetCTS(Handle: LongInt) : Boolean;stdcall;
 var
   i: Integer;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -143,6 +153,7 @@ function SerGetDSR(Handle: LongInt) : Boolean;stdcall;
 var
   i: Integer;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -155,6 +166,7 @@ procedure SerSetRTS(Handle: LongInt;Value : Boolean);stdcall;
 var
   i: Integer;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -167,6 +179,7 @@ procedure SerRTSToggle(Handle: LongInt;Value : Boolean);stdcall;
 var
   i: Integer;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -182,6 +195,7 @@ procedure SerSetDTR(Handle: LongInt;Value : Boolean);stdcall;
 var
   i: Integer;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -194,6 +208,7 @@ function SerWrite(Handle: LongInt; Data : PChar;Len : Integer): LongInt;stdcall;
 var
   i: Integer;
 begin
+  if not Assigned(Ports) then exit;
   for i := 0 to Ports.Count-1 do
     if TBlockSerial(Ports[i]).Handle=Handle then
       begin
@@ -226,7 +241,9 @@ var
   n: Integer;
   aPort: String;
   {$ENDIF}
+  AllPorts : string;
 begin
+  AllPorts := '';
   {$IFDEF WINDOWS}
   l := TStringList.Create;
   v := TStringList.Create;
@@ -243,18 +260,19 @@ begin
     for n := 0 to l.Count - 1 do
       begin
         aPort := l[n];
-        aPort := reg.ReadString(aPort);
-        v.Add(aPort);
-
+        aPort := StringReplace(reg.ReadString(aPort),#0,'',[rfReplaceAll]);
+        if AllPorts<>'' then
+          Allports += LineEnding;
+        AllPorts += aPort;
       end;
-    Result := PChar(v.Text);
+    Result := PChar(Allports);
   finally
     reg.Free;
     l.Free;
     v.Free;
   end;
   {$ELSE}
-  Result := PChar(GetSerialPortNames);
+  Result := PChar(StringReplace(GetSerialPortNames,',',LineEnding,[rfReplaceAll]));
   {$ENDIF}
 end;
 
