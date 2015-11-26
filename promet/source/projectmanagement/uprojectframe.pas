@@ -566,6 +566,7 @@ begin
               acPasteImage.Visible:=False;
               acAddImage.Visible:=False;
               acScreenshot.Visible:=False;
+              acDeleteThumb.Visible:=True;
             end
           else
             begin
@@ -795,6 +796,7 @@ begin
           acPasteImage.Visible:=False;
           acAddImage.Visible:=False;
           acScreenshot.Visible:=False;
+          acDeleteThumb.Visible:=True;
         end
       else
         begin
