@@ -52,6 +52,7 @@ type
     acPasteImage: TAction;
     acScreenshot: TAction;
     acRegorganize: TAction;
+    acDeleteThumb: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bChangeNumber: TSpeedButton;
@@ -110,6 +111,7 @@ type
     PTasks: TfrDBDataSet;
     dExport: TSaveDialog;
     sbAddImage: TSpeedButton;
+    sbAddImage1: TSpeedButton;
     sbClipboardToImage: TSpeedButton;
     sbClipboardToImage1: TSpeedButton;
     sePriority: TSpinEdit;
@@ -161,6 +163,7 @@ type
     ToolButton2: TSpeedButton;
     tsInfo: TTabSheet;
     Users: TDatasource;
+    procedure acDeleteThumbExecute(Sender: TObject);
     procedure acScreenshotExecute(Sender: TObject);
     procedure acCalculatePlanExecute(Sender: TObject);
     procedure acCancelExecute(Sender: TObject);
@@ -805,6 +808,24 @@ begin
 
   Application.MainForm.Show;
 end;
+
+procedure TfProjectFrame.acDeleteThumbExecute(Sender: TObject);
+var
+  aThumbnails: TThumbnails;
+begin
+  aThumbnails := TThumbnails.Create(nil);
+  aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+  aThumbnails.Open;
+  while aThumbnails.Count>0 do
+    aThumbnails.Delete;
+  aThumbnails.Free;
+  iProject.Picture.Clear;
+  acDeleteThumb.Visible:=False;
+  acScreenshot.Visible:=True;
+  acPasteImage.Visible:=True;
+  acAddImage.Visible:=True;
+end;
+
 procedure TfProjectFrame.acSaveExecute(Sender: TObject);
 begin
   if Assigned(FConnection) then
@@ -1206,6 +1227,7 @@ begin
       acPasteImage.Visible:=False;
       acAddImage.Visible:=False;
       acScreenshot.Visible:=False;
+      acDeleteThumb.Visible:=True;
     end
   else
     begin
@@ -1213,6 +1235,7 @@ begin
       acPasteImage.Visible:=True;
       acAddImage.Visible:=True;
       acScreenshot.Visible:=True;
+      acDeleteThumb.Visible:=False;
     end;
   pcPages.NewFrame(TfImageFrame,(FDataSet.State = dsInsert) or (aThumbnails.Count > 0),strImages,@AddImages);
   aThumbnails.Free;

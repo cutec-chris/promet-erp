@@ -49,6 +49,7 @@ type
     acPasteImage: TAction;
     acAddImage: TAction;
     acScreenshot: TAction;
+    acDeleteThumb: TAction;
     ActionList1: TActionList;
     bAssignTree: TSpeedButton;
     bChangeNumber: TSpeedButton;
@@ -114,6 +115,7 @@ type
     pPreviewImage: TPanel;
     Report: TfrReport;
     sbAddImage: TSpeedButton;
+    sbAddImage1: TSpeedButton;
     sbClipboardToImage: TSpeedButton;
     sbClipboardToImage1: TSpeedButton;
     sbMenue: TSpeedButton;
@@ -127,6 +129,7 @@ type
     procedure acCloseExecute(Sender: TObject);
     procedure acCombineItemsExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
+    procedure acDeleteThumbExecute(Sender: TObject);
     procedure acExportExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
     procedure acNewOrderExecute(Sender: TObject);
@@ -710,6 +713,24 @@ begin
       Screen.Cursor := crDefault;
     end;
 end;
+
+procedure TfPersonFrame.acDeleteThumbExecute(Sender: TObject);
+var
+  aThumbnails: TThumbnails;
+begin
+  aThumbnails := TThumbnails.Create(nil);
+  aThumbnails.SelectByRefId(DataSet.Id.AsVariant);
+  aThumbnails.Open;
+  while aThumbnails.Count>0 do
+    aThumbnails.Delete;
+  aThumbnails.Free;
+  iPerson.Picture.Clear;
+  acDeleteThumb.Visible:=False;
+  acScreenshot.Visible:=True;
+  acPasteImage.Visible:=True;
+  acAddImage.Visible:=True;
+end;
+
 procedure TfPersonFrame.acExportExecute(Sender: TObject);
 begin
   if fScriptImport.Execute(icExport,'C',FDataSet) then
@@ -1076,6 +1097,7 @@ begin
       acPasteImage.Visible:=False;
       acAddImage.Visible:=False;
       acScreenshot.Visible:=False;
+      acDeleteThumb.Visible:=True;
     end
   else
     begin
@@ -1083,6 +1105,7 @@ begin
       acPasteImage.Visible:=True;
       acAddImage.Visible:=True;
       acScreenshot.Visible:=True;
+      acDeleteThumb.Visible:=False;
     end;
   pcPages.NewFrame(TfImageFrame,(FDataSet.State = dsInsert) or (aThumbnails.Count > 0),strImages,@AddImages);
   aThumbnails.Free;

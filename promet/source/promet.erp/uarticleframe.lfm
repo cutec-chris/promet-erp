@@ -1044,6 +1044,16 @@ inherited fArticleFrame: TfArticleFrame
       ShowHint = True
       ParentShowHint = False
     end
+    object sbAddImage1: TSpeedButton
+      Left = 61
+      Height = 24
+      Top = 0
+      Width = 25
+      Action = acDeleteThumb
+      ShowCaption = False
+      ShowHint = True
+      ParentShowHint = False
+    end
   end
   object Masterdata: TDataSource[4]
     OnStateChange = MasterdataStateChange
@@ -1139,6 +1149,12 @@ inherited fArticleFrame: TfArticleFrame
       Hint = 'Dupliziert den Artikel'
       ImageIndex = 124
       OnExecute = acRestartExecute
+    end
+    object acDeleteThumb: TAction
+      Caption = 'acDeleteThumb'
+      Hint = 'Thumbnail entfernen'
+      ImageIndex = 75
+      OnExecute = acDeleteThumbExecute
     end
   end
   object pmAction: TPopupMenu[6]

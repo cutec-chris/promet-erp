@@ -887,6 +887,16 @@ inherited fPersonFrame: TfPersonFrame
       ShowHint = True
       ParentShowHint = False
     end
+    object sbAddImage1: TSpeedButton
+      Left = 69
+      Height = 24
+      Top = 0
+      Width = 25
+      Action = acDeleteThumb
+      ShowCaption = False
+      ShowHint = True
+      ParentShowHint = False
+    end
   end
   object lHint: TLabel[4]
     Left = 8
@@ -1005,6 +1015,12 @@ inherited fPersonFrame: TfPersonFrame
       Caption = 'acScreenshot'
       ImageIndex = 108
       OnExecute = acScreenshotExecute
+    end
+    object acDeleteThumb: TAction
+      Caption = 'acDeleteThumb'
+      Hint = 'Thumbnail entfernen'
+      ImageIndex = 75
+      OnExecute = acDeleteThumbExecute
     end
   end
   object pmAction: TPopupMenu[7]

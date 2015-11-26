@@ -1356,6 +1356,16 @@ inherited fprojectFrame: TfprojectFrame
       ShowHint = True
       ParentShowHint = False
     end
+    object sbAddImage1: TSpeedButton
+      Left = 56
+      Height = 24
+      Top = 0
+      Width = 25
+      Action = acDeleteThumb
+      ShowCaption = False
+      ShowHint = True
+      ParentShowHint = False
+    end
   end
   object ActionList1: TActionList[5]
     Images = fVisualControls.Images
@@ -1464,6 +1474,12 @@ inherited fprojectFrame: TfprojectFrame
       Hint = 'berechnet alle Abhängigkeiten im Projekt neu'#13#10'berechnet Kostensummen neu'
       ImageIndex = 56
       OnExecute = acRegorganizeExecute
+    end
+    object acDeleteThumb: TAction
+      Caption = 'acDeleteThumb'
+      Hint = 'Thumbnail entfernen'
+      ImageIndex = 75
+      OnExecute = acDeleteThumbExecute
     end
   end
   object Projects: TDataSource[6]
