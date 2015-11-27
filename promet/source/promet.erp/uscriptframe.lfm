@@ -452,7 +452,7 @@ inherited fScriptFrame: TfScriptFrame
       ImageIndex = 108
     end
     object acSetActiveObject: TAction
-      Caption = 'ActiveObject setzen'
+      Caption = 'ActualObject setzen'
       Hint = 'Ermöglicht es die Variable ActiveObject im Script'#13#10'auf ein beliebiges Promet Element zu setzen'#13#10'Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt'
       OnExecute = acSetActiveObjectExecute
     end
