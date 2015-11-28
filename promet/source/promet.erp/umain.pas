@@ -195,6 +195,9 @@ type
     procedure acTimeRegisteringExecute(Sender: TObject);
     procedure acWikiExecute(Sender: TObject);
     procedure acWindowizeExecute(Sender: TObject);
+    procedure aFrameInvDragDrop(Sender, Source: TObject; X, Y: Integer);
+    procedure aFrameInvDragOver(Sender, Source: TObject; X, Y: Integer;
+      State: TDragState; var Accept: Boolean);
     procedure aFrameTfFilterClose(Sender: TObject; var CloseAction: TCloseAction
       );
     procedure aFrameTfFilterDragDrop(Sender, Source: TObject; X, Y: Integer);
@@ -1945,15 +1948,15 @@ begin
 end;
 procedure TfMain.acNewInventoryExecute(Sender: TObject);
 var
-  aDS : TInventoryPos;
+  aDS : TInventorys;
 begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfFilter) then
     begin
-      aDS := TInventoryPos(TfFilter(pcPages.ActivePage.Controls[0]).DataSet);
+      aDS := TInventorys(TfFilter(pcPages.ActivePage.Controls[0]).DataSet);
     end
   else exit;
-  aDS.Inventory.Append;
-  with aDS.Inventory.DataSet do
+  aDS.Append;
+  with aDS do
     begin
       FieldByName('DESC').AsString:=Dialogs.InputBox(strNewInventory,strName,strInventory);
       FieldByName('STATUS').AsString:='';
@@ -2415,6 +2418,85 @@ begin
   if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TPrometMainFrame)
   and (pcPages.PageCount > 2) then
     TPrometMainFrame(pcPages.ActivePage.Controls[0]).Windowize;
+end;
+
+procedure TfMain.aFrameInvDragDrop(Sender, Source: TObject; X, Y: Integer);
+var
+  aLink: String;
+  nData: TTreeEntry;
+  aDS: TBaseDBDataset;
+
+  procedure AddFromLink(bLink : string);
+  var
+    aMd: TMasterdata;
+  begin
+    aMd := TMasterdata.Create(nil);
+    aMd.SelectFromLink(bLink);
+    aMd.Open;
+    if aMd.Count>0 then
+      begin
+        with TExtDBGrid(Sender).DataSource.DataSet do
+          begin
+            aMd.Storage.Open;
+            while not aMd.Storage.EOF do
+              begin
+                Insert;
+                FieldByName('IDENT').AsString:=aMd.FieldByName('ID').AsString;
+                FieldByName('VERSION').AsString:=aMd.FieldByName('VERSION').AsString;
+                FieldByName('LANGUAGE').AsString:=aMd.FieldByName('LANGUAGE').AsString;
+                FieldByName('SHORTTEXT').AsString:=aMd.FieldByName('SHORTTEXT').AsString;
+                FieldByName('POSNO').AsInteger:=RecordCount+1;
+                FieldByName('STORAGE').AsString:=aMd.Storage.FieldByName('STORAGEID').AsString;
+                FieldByName('QUANTITYU').AsString:=aMd.FieldByName('QUANTITYU').AsString;
+                Post;
+                aMd.Storage.Next;
+              end;
+          end;
+      end;
+    aMd.Free;
+  end;
+begin
+  if Assigned(fSearch) and (Source = fSearch.sgResults) then
+    begin
+      aLink := fSearch.GetLink;
+      with TExtDBGrid(Sender).DataSource.DataSet do
+        begin
+          AddFromLink(aLink);
+        end;
+    end
+  else
+    begin
+      if Source = uMainTreeFrame.fMainTreeFrame.tvMain then
+        begin
+          nData := TTreeEntry(uMainTreeFrame.fMainTreeFrame.tvMain.Selected.Data);
+          aDS := nData.DataSourceType.CreateEx(Self,Data);
+          Data.SetFilter(aDS,nData.Filter);
+          Data.GotoBookmark(aDS,nData.Rec);
+          aLink := Data.BuildLink(aDS.DataSet);
+          aDS.Free;
+          with TExtDBGrid(Sender).DataSource.DataSet do
+            begin
+              AddFromLink(aLink);
+            end;
+        end
+    end;
+end;
+
+procedure TfMain.aFrameInvDragOver(Sender, Source: TObject; X, Y: Integer;
+  State: TDragState; var Accept: Boolean);
+begin
+  Accept := False;
+  if Assigned(fSearch) and (Source = fSearch.sgResults) then
+    begin
+      with fSearch.sgResults do
+        Accept := trim(fSearch.GetLink) <> '';
+    end;
+  if Assigned(uMainTreeFrame.fMainTreeFrame)
+  and (Source = uMainTreeFrame.fMainTreeFrame.tvMain)
+  and ((TTreeEntry(uMainTreeFrame.fMainTreeFrame.tvMain.Selected.Data).Typ = etMasterdata)
+  )
+  then
+    Accept := True;
 end;
 
 procedure TfMain.aFrameTfFilterClose(Sender: TObject;
@@ -3275,14 +3357,19 @@ begin
         begin
           TabCaption := aInv.FieldByName('DESC').AsString;
           FilterType:='INVPOS';
-          DefaultRows:='GLOBALWIDTH:%;PONO:25;IDENT:70;SHORTTEXT:120;STORAGE:30;QUANTITY:30;QUANTITYC:30;QUANTITYU:50;';
+          DefaultRows:='GLOBALWIDTH:%;POSNO:25;IDENT:70;SHORTTEXT:120;STORAGE:30;QUANTITY:30;QUANTITYC:30;QUANTITYU:50;';
           Dataset := aInv.Positions;
           DestroyDataSet:=False;
           TfFilter(aFrame).OnClose:=@aInvPosCloseClose;
-//          gList.OnDragOver:=@aFrameTfFilterDragOver;
-//          gList.OnDragDrop:=@aFrameTfFilterDragDrop;
-          AddToolbarAction(acBookInventory);
-          AddToolbarAction(acCollectInventory);
+          if aInv.FieldByName('DATE').IsNull then
+            begin
+              TfFilter(aFrame).Editable:=True;
+              gList.OnDragOver:=@aFrameInvDragOver;
+              gList.OnDragDrop:=@aFrameInvDragDrop;
+              AddToolbarAction(acDeleteListeEntry);
+              AddToolbarAction(acBookInventory);
+              AddToolbarAction(acCollectInventory);
+            end;
         end;
       TfFilter(aFrame).Open;
     end
