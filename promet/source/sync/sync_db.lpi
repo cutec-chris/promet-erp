@@ -43,9 +43,10 @@
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="593"/>
-        <CursorPos X="34" Y="609"/>
+        <TopLine Value="394"/>
+        <CursorPos X="36" Y="407"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -62,8 +63,8 @@
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="31"/>
-        <CursorPos X="52" Y="54"/>
+        <TopLine Value="112"/>
+        <CursorPos X="14" Y="124"/>
         <UsageCount Value="111"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -288,9 +289,7 @@
       <Unit38>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="219"/>
         <CursorPos Y="312"/>
         <UsageCount Value="38"/>
         <Loaded Value="True"/>
@@ -450,7 +449,6 @@
       </Unit62>
       <Unit63>
         <Filename Value="..\..\..\general\src\Utils.pas"/>
-        <UnitName Value="Utils"/>
         <EditorIndex Value="8"/>
         <TopLine Value="422"/>
         <CursorPos X="25" Y="437"/>
@@ -800,7 +798,7 @@
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit111>
     </Units>
-    <JumpHistory Count="25" HistoryIndex="24">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="sync_db.lpr"/>
         <Caret Line="156" TopLine="141"/>
@@ -901,6 +899,18 @@
         <Filename Value="sync_db.lpr"/>
         <Caret Line="609" Column="34" TopLine="593"/>
       </Position25>
+      <Position26>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="3" Column="85"/>
+      </Position26>
+      <Position27>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="407" Column="60" TopLine="384"/>
+      </Position27>
+      <Position28>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="434" Column="56" TopLine="411"/>
+      </Position28>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

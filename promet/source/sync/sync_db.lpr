@@ -404,7 +404,7 @@ begin
             (BaseApplication as IBaseApplication).Info(aFilter);
           end;
         if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
-          SourceDM.StartTransaction(SourceDM.MainConnection,True);
+          SourceDM.StartTransaction(SourceDM.MainConnection);
         while not aSyncOut.EOF do
           begin
             try
@@ -431,7 +431,7 @@ begin
             (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncIn.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
           end;
         if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
-          DestDM.StartTransaction(DestDM.MainConnection,True);
+          DestDM.StartTransaction(DestDM.MainConnection);
         while not aSyncIn.EOF do
           begin
             try
