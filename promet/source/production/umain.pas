@@ -389,7 +389,7 @@ begin
   if (FOrder.Count=0) and (IsNumeric(eOrder.Text)) then
     begin
       //Try to select by Commission
-      FOrder.SelectFromNumber(eOrder.Text);
+      FOrder.SelectFromCommission(eOrder.Text);
     end;
   FOrder.Open;
   if FOrder.Count=0 then
@@ -415,6 +415,8 @@ begin
         end;
       aMasterdata.Free;
     end;
+  if FOrder.Count>0 then
+    eOrder.Text:=FOrder.Number.AsString;
   if FOrder.Count=0 then
     begin
       Showmessage(strNoOrderFound);
@@ -616,8 +618,7 @@ var
 
 begin
   eOrder.Enabled:=FOrder.Count>0;
-  eOrder.Text:=FOrder.Commission.AsString;
-  if eOrder.Text='' then eOrder.Text:=FOrder.Number.AsString;
+  eOrder.Text:=FOrder.Number.AsString;
   FreeAndNil(FOrder);
   FOrder := TOrder.Create(nil);
   cbVersion.Enabled:=cbVersion.Enabled and (FOrder.Count>0);
@@ -655,6 +656,7 @@ begin
   acSearchOrder.Enabled:=False;
   acLoadOrder.Enabled:=False;
   acCloseOrder.Enabled:=True;
+  tvStep.Enabled:=True;
 end;
 
 procedure TfMain.FindNextStep;
