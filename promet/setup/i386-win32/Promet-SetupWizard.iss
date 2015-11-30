@@ -52,10 +52,10 @@ Name: "mqtt"; Description: "MQTT Unterstützung (IoT)"; ExtraDiskSpaceRequired: 3
 
 [Icons]
 Name: "{group}\Internet"; Filename: "{app}\website.url"
-Name: "{userdesktop}\Promet-ERP"; Filename: "{app}\prometerp.exe"; Flags: createonlyiffileexists; Components: program; Tasks: desktopicon
-Name: "{group}\Promet-ERP"; Filename: "{app}\prometerp.exe"; WorkingDir: "{app}"; Flags: createonlyiffileexists; Components: program
-Name: "{group}\Promet-ERP Reporting"; Filename: "{app}\statistics.exe"; WorkingDir: "{app}"; Flags: createonlyiffileexists; Components: statistics
-Name: "{group}\Promet-ERP Besprechung"; Filename: "{app}\meetingminutes.exe"; WorkingDir: "{app}"; Flags: createonlyiffileexists; Components: meeting
+Name: "{userdesktop}\Promet-ERP"; Filename: "{app}\prometerp.exe"; Components: program; Tasks: desktopicon
+Name: "{group}\Promet-ERP"; Filename: "{app}\prometerp.exe"; WorkingDir: "{app}"; Components: program
+Name: "{group}\Promet-ERP Reporting"; Filename: "{app}\statistics.exe"; WorkingDir: "{app}"; Components: statistics
+Name: "{group}\Promet-ERP Besprechung"; Filename: "{app}\meetingminutes.exe"; WorkingDir: "{app}"; Components: meeting
 
 [Tasks]
 Name: desktopicon; Description: Create an Desktop Icon; GroupDescription: Additional Icons:; Languages: en
