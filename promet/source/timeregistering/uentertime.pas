@@ -586,6 +586,7 @@ begin
 end;
 procedure TfEnterTime.acUseasNewEntryExecute(Sender: TObject);
 begin
+  if not Times.Active then exit;
   Link := Times.FieldByName('LINK').AsString;
   Project := Times.FieldByName('PROJECT').AsString;
   cbCategory.Text := Times.FieldByName('CATEGORY').AsString;
@@ -979,6 +980,7 @@ begin
       FList.AddToolbarAction(acInsert);
       acUseAsNewEntry.Execute;
     end;
+  FTimes.Open;
   FTimes.FieldByName('START').OnSetText:=@StartSetText;
   FTimes.FieldByName('END').OnSetText:=@DatasourceSetText;
   with Application as IBaseDBInterface do

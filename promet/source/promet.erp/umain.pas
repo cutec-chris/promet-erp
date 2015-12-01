@@ -983,8 +983,6 @@ begin
   DoSynchronize(@DoStartupType);
   DoInfo('Wiki');
   DoSynchronize(@AddWiki);
-  DoInfo('Timeregistering');
-  DoSynchronize(@AddTimeReg);
   DoInfo('Objects,Tree,...');
   //All Objects
   fMain.pcPages.AddTabClass(TfFilter,strObjectList,@fMain.AddElementList,Data.GetLinkIcon('ALLOBJECTS@'),True);
@@ -1157,6 +1155,8 @@ begin
       end;
     end;
   //Timeregistering
+  DoInfo('Timeregistering');
+  DoSynchronize(@AddTimeReg);
   AddSearchAbleDataSet(TUser);
   Data.RegisterLinkHandler('USERS',@fMainTreeFrame.OpenLink,TUser);
   //History
@@ -1177,12 +1177,12 @@ begin
   //Expand Tree
   DoInfo('ExpandTree');
   DoSynchronize(@Expand);
+  DoInfo('Timeregistering');
+  DoSynchronize(@AddTimeReg2);
 end;
 
 destructor TStarterThread.Destroy;
 begin
-  DoInfo('Timeregistering');
-  AddTimeReg2;
   if Application.HasOption('hidetree') then
     begin
       fMain.acShowTree.Checked:=False;
