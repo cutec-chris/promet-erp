@@ -98,7 +98,7 @@ begin
   Data.ProcessClient.Processes.Open;
   Data.ProcessClient.Processes.Parameters.Open;
   aTime := Now();
-  while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),120))) do
+  while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do
     begin
       if not Data.ProcessClient.ProcessAll(aSystem) then
         begin
