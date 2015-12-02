@@ -43,7 +43,7 @@ object fMain: TfMain
       Anchors = [akTop, akLeft, akRight]
       OnKeyPress = eOrderKeyPress
       TabOrder = 0
-      Text = '49325100'
+      Text = '<Auftragsnummer oder Artikel>'
     end
     object Label2: TLabel
       Left = 8
@@ -161,7 +161,9 @@ object fMain: TfMain
         Top = 4
         Width = 240
         Action = acExecuteStep
+        AllowAllUp = True
         Anchors = [akLeft, akBottom]
+        GroupIndex = 112
       end
     end
     object ToolBar1: TPanel
@@ -485,6 +487,7 @@ object fMain: TfMain
     end
     object acExecuteStep: TAction
       Caption = 'Ausführen'
+      GroupIndex = 112
       ImageIndex = 22
       OnExecute = acExecuteStepExecute
     end

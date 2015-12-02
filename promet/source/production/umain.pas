@@ -115,7 +115,7 @@ type
   public
     Position : Int64;
     Script : TBaseScript;
-    Documents : TDocuments;
+    Documents : TDocument;
 
     PreText : TStringList;
     WorkText : TStringList;
@@ -168,6 +168,7 @@ var
   NewPath: String;
   Result: TMemoryStream;
   tmp: String;
+  aDoc: TDocument;
 begin
   Picture:=nil;
   if Assigned(fMain.tvStep.Selected) then
@@ -217,7 +218,11 @@ begin
           if TreeData.Documents.Locate('NAME',aURL,[loCaseInsensitive]) then
             begin
               ms := TMemoryStream.Create;
-              Data.BlobFieldToStream(TreeData.Documents.DataSet,'DOCUMENT',ms);
+              aDoc := TDocument.Create(nil);
+              aDoc.SelectByNumber(TreeData.Documents.FieldByName('NUMBER').AsVariant);
+              aDoc.Open;
+              aDoc.CheckoutToStream(ms);
+              aDoc.Free;
               ms.Position:=0;
               aPicture := TPicture.Create;
               aPicture.LoadFromStreamWithFileExt(ms,TreeData.Documents.FieldByName('EXTENSION').AsString);
@@ -326,7 +331,7 @@ begin
       fMain.ipWorkHTML.SetHtml(aHTML);
     end;
   if Assigned(Script) and (Script.Count>0) then
-    fMain.acExecuteStep.Enabled:=(Prepared or ((PreText.Text=''))) and ((not Assigned(Script) or (not Script.Script.IsRunning)));
+    fMain.acExecuteStep.Enabled:=(Prepared or ((PreText.Text=''))) and (Assigned(Script));
 end;
 
 procedure TProdTreeData.LoadScript(aScript: string; aVersion: Variant);
@@ -349,7 +354,7 @@ procedure TProdTreeData.LoadDocuments(aID: largeInt; aType: string;
   aTID: string; aVersion: Variant; aLanguage: Variant);
 begin
   if not Assigned(Documents) then
-    Documents := TDocuments.Create(nil);
+    Documents := TDocument.Create(nil);
   Documents.Select(aID,aType,aTID,aVersion,aLanguage);
 end;
 
@@ -384,12 +389,12 @@ begin
   //Try to select by Orderno
   FOrder.SelectFromNumber('');
   if IsNumeric(eOrder.Text) then
-    FOrder.SelectFromNumber(eOrder.Text);
+    FOrder.SelectFromCommission(eOrder.Text);
   FOrder.Open;
   if (FOrder.Count=0) and (IsNumeric(eOrder.Text)) then
     begin
       //Try to select by Commission
-      FOrder.SelectFromCommission(eOrder.Text);
+      FOrder.SelectFromNumber(eOrder.Text);
     end;
   FOrder.Open;
   if FOrder.Count=0 then
@@ -445,20 +450,29 @@ begin
   if Assigned(fMain.tvStep.Selected) then
     begin
       TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
-      acExecuteStep.Enabled:=False;
-      TreeData.ScriptOutput.Clear;
-      TreeData.Script.ActualObject := FOrder;
-      TreeData.Script.Script.OnRunLine:=@TreeDataScriptScriptRunLine;
-      if Assigned(TreeData.Script) then
-        if not TreeData.Script.Execute(Null) then
-          begin
-            if not Assigned(TreeData.Script.Script) then
-              TreeData.ScriptOutput.Add('<b>Ausführung fehlgeschlagen:Scripttyp unbekannt</b>')
-            else
-              TreeData.ScriptOutput.Add('<b>Ausführung fehlgeschlagen:'+TreeData.Script.Script.Results+'</b>');
-            TreeData.ShowData;
-          end;
-      acExecuteStep.Enabled:=True;
+      if not acExecuteStep.Checked then
+        begin
+          Application.ProcessMessages;
+          acExecuteStep.Checked:=True;
+          TreeData.ScriptOutput.Clear;
+          TreeData.Script.ActualObject := FOrder;
+          TreeData.Script.Script.OnRunLine:=@TreeDataScriptScriptRunLine;
+          if Assigned(TreeData.Script) then
+            if not TreeData.Script.Execute(Null) then
+              begin
+                if not Assigned(TreeData.Script.Script) then
+                  TreeData.ScriptOutput.Add('<b>Ausführung fehlgeschlagen:Scripttyp unbekannt</b>')
+                else
+                  TreeData.ScriptOutput.Add('<b>Ausführung fehlgeschlagen:'+TreeData.Script.Script.Results+'</b>');
+                TreeData.ShowData;
+              end;
+          acExecuteStep.Checked:=False;
+          Application.ProcessMessages;
+        end
+      else
+        begin
+          TreeData.Script.Script.Stop;
+        end;
     end;
 end;
 
