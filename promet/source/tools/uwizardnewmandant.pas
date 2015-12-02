@@ -607,7 +607,7 @@ begin
               aSyncDB.Tables.Insert;
               aSyncDB.Tables.FieldByName('NAME').AsString:='SCRIPTS';
               aSyncDB.Tables.FieldByName('ACTIVE').AsString:='Y';
-              aSyncDB.Tables.FieldByName('FILTERIN').AsString:=Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('CmdLn.*'))+' OR '+Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('Import.*'))+' OR '+Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('Export.*'));
+              aSyncDB.Tables.FieldByName('FILTERIN').AsString:=Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('CmdLn.*'))+' OR '+Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('Import*'))+' OR '+Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('Export*'));
               aSyncDB.Tables.DataSet.Post;
               aSyncDB.Free;
             end;
