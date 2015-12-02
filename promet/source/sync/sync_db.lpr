@@ -599,8 +599,8 @@ begin
                                           DoCreateTable(TUserfielddefs);
                                           SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                         end;
-                                      SyncedTables := 100;
-                                      while SyncedTables>30 do
+                                      SyncedTables := (SyncDB.Tables.Count*2);
+                                      while SyncedTables>(SyncDB.Tables.Count) do
                                         begin
                                           SyncedTables:=0;
                                           SyncDB.Tables.DataSet.First;
@@ -608,7 +608,7 @@ begin
                                             begin
                                               FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                                               try
-                                                inc(SyncedTables,SyncTable(SyncDB,uData.Data,FDest.GetDB,500));
+                                                inc(SyncedTables,SyncTable(SyncDB,uData.Data,FDest.GetDB,100));
                                               except
                                                 on e : Exception do
                                                   Error(e.Message);

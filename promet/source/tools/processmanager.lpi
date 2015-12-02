@@ -85,7 +85,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Central&quot; --debug"/>
+        <CommandLineParams Value="--mandant=TCS-Times2"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">
