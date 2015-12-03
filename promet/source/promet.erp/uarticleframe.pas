@@ -1021,6 +1021,7 @@ begin
   if Assigned(FConnection) then
     begin
       CloseConnection(acSave.Enabled);
+      FreeAndNil(FDataSet);
       FreeAndNil(FConnection);
     end;
   inherited Destroy;
