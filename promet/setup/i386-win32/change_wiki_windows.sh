@@ -1,4 +1,6 @@
 #!/bin/bash
+basedir=$(pwd)
+cd promet/setup/i386-win32
 Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
 Arch=`dpkg --print-architecture`
@@ -10,13 +12,12 @@ cat downloads_windows.txt | \
       -e "s/ARCHFPC/$Archfpc/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > act_downloads.txt
-../../output/x86_64-linux/tools/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/windows act_downloads.txt
-../../output/x86_64-linux/tools/changewikipage --mandant=Stora Promet-ERP/changes ../../source/base/changes.txt
-../../output/x86_64-linux/tools/sync_db --mandant=Stora
+#../../output/x86_64-linux/tools/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/windows act_downloads.txt
+#../../output/x86_64-linux/tools/changewikipage --mandant=Stora Promet-ERP/changes ../../source/base/changes.txt
+#../../output/x86_64-linux/tools/sync_db --mandant=Stora
 Year=`date +%y`
 Month=`date +%m`
 Day=`date +%d`
-File="Promet-ERP_$(echo $Version)_i386-win32.exe"
 cat ../promet_erp_clean.xml | \
   sed -e "s/PROGVERSION/$Version/g" \
       -e "s/CREATEDDATE/$Date/g" \
@@ -25,3 +26,4 @@ cat ../promet_erp_clean.xml | \
       -e "s/DAY/$Day/g" \
   > promet_erp.xml
 scp -P 232 promet_erp.xml autoupload@ullihome.de:promet_upload_target
+cd $basedir
