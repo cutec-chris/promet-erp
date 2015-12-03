@@ -178,6 +178,7 @@ build_all()
   . ./promet/importdata/build.sh
   if [ "x$TARGET_OS" = "xwin32" ]; then
     . ./promet/setup/i386-win32/build.sh
+    . ./promet/setup/i386-win32/change_wiki_windows.sh
   fi
 
   . ./promet/source/webservers/build_webserver.sh
