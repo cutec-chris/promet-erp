@@ -174,8 +174,10 @@ build_all()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/help/build.sh
-  . ./promet/importdata/build.sh
+  if [ "x$TARGET_OS" != "xwin32" ]; then
+    . ./promet/help/build.sh
+    . ./promet/importdata/build.sh
+  fi
   if [ "x$TARGET_OS" = "xwin32" ]; then
     . ./promet/setup/i386-win32/build.sh
     . ./promet/setup/i386-win32/change_wiki_windows.sh
