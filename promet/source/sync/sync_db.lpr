@@ -490,6 +490,8 @@ var
   aRec: db.LargeInt;
   aSyncError: TSyncItems;
   SyncedTables: Integer;
+  FOldTime: TDateTime;
+  FSyncedCount: Integer;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
@@ -608,7 +610,11 @@ begin
                                             begin
                                               FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                                               try
-                                                inc(SyncedTables,SyncTable(SyncDB,uData.Data,FDest.GetDB,100));
+                                                FOldTime := RoundToMinute(SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime);
+                                                FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,100);
+                                                inc(SyncedTables,FSyncedCount);
+                                                if (RoundToMinute(SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime) = FOldTime) and (FSyncedCount>1) then
+                                                  inc(SyncedTables,SyncTable(SyncDB,uData.Data,FDest.GetDB));
                                               except
                                                 on e : Exception do
                                                   Error(e.Message);

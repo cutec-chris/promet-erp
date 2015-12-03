@@ -3,7 +3,7 @@ object fMain: TfMain
   Height = 716
   Top = 147
   Width = 1021
-  Caption = 'Avaprod'
+  Caption = 'Avad'
   ClientHeight = 696
   ClientWidth = 1021
   Color = clWindow
