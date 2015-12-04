@@ -243,8 +243,8 @@ inherited fArticleFrame: TfArticleFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 668
-      ClientWidth = 1322
+      ClientHeight = 1336
+      ClientWidth = 2644
       ImageIndex = 14
       object pCommon: TPanel
         Left = 0

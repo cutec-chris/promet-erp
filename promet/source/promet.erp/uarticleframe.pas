@@ -155,6 +155,7 @@ type
     procedure acScreenshotExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
     procedure AddAutomation(Sender: TObject);
+    procedure AddOverview(Sender: TObject);
     procedure bChangeNumberClick(Sender: TObject);
     procedure cbNoStorageChange(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
@@ -204,7 +205,7 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uMainTreeFrame,uPrometFramesInplace,uarticlesupplierframe,
   uNRights,uSelectReport,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
   uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uBaseERPDBClasses,
-  umeasurements,uautomationframe,uscriptimport;
+  umeasurements,uautomationframe,uscriptimport,uprojectoverview;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
@@ -307,6 +308,11 @@ procedure TfArticleFrame.AddAutomation(Sender: TObject);
 begin
   TfAutomationframe(Sender).DataSet := FDataset;
   TfAutomationframe(Sender).TabCaption:=strAutomation;
+end;
+
+procedure TfArticleFrame.AddOverview(Sender: TObject);
+begin
+  TfObjectStructureFrame(Sender).ParentObject:=TBaseDbList(fDataSet);
 end;
 
 procedure TfArticleFrame.bChangeNumberClick(Sender: TObject);
@@ -707,6 +713,7 @@ begin
     DataSet.DataSet.EnableControls;
   TMasterdata(DataSet).Positions.Open;
   pcPages.NewFrame(TfArticlePositionFrame,(TMasterdata(DataSet).Positions.Count>0),strPiecelist,@AddPositions);
+  pcPages.NewFrame(TfObjectStructureFrame,TMasterdata(DataSet).Positions.Count>0,strStructure,@AddOverview);
   if WasDisabled then
     DataSet.DataSet.DisableControls;
 

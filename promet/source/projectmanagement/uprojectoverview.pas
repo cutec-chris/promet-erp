@@ -146,6 +146,7 @@ begin
       TTreeEntry(Node1.Data).Text[0] := FObject.Text.AsString+' ('+FObject.Number.AsString+')'+' ['+FObject.Status.AsString+']';
       case FObject.ClassName of
       'TProject':TTreeEntry(Node1.Data).Typ := etProject;
+      'TMasterdata':TTreeEntry(Node1.Data).Typ := etArticle;
       end;
       Node1.HasChildren:=True;
     end;
