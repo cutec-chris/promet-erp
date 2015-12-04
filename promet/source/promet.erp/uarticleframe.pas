@@ -723,7 +723,6 @@ begin
   if (FDataSet.State <> dsInsert) and (fDataSet.Count > 0) and (not Assigned(pcPages.GetTab(TfDocumentFrame))) then
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
-      aDocuments.CreateTable;
       aDocuments.Select(DataSet.Id.AsLargeInt,GetType,DataSet.FieldByName('ID').AsString,DataSet.FieldByName('VERSION').AsVariant,DataSet.FieldByName('LANGUAGE').AsVariant);
       aDocuments.Open;
       if aDocuments.Count = 0 then

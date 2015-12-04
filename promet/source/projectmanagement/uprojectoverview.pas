@@ -33,7 +33,7 @@ type
 
 implementation
 {$R *.lfm}
-uses uData;
+uses uData,uMasterdata;
 procedure TfObjectStructureFrame.FrameEnter(Sender: TObject);
 begin
 end;
@@ -48,6 +48,9 @@ var
   Node2: TTreeNode;
   Node3: TTreeNode;
   Node4: TTreeNode;
+  aPos: TMDPos;
+  aMS: TMasterdata;
+  DoMove: Boolean = True;
 begin
   with FTree do
     begin
@@ -60,7 +63,7 @@ begin
       if aDataSet.Count>0 then
         begin
           aParent := aDataSet.FieldByName('PARENT');
-          if Assigned(aParent) and (aParent.AsVariant<>Null) then
+          if Assigned(aParent) and (aParent.AsVariant<>Null) then //Aus Tabellenparent generieren
             begin
               bDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
               bDataSet.Filter(Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(aParent.AsString));
@@ -104,6 +107,65 @@ begin
                     end;
                 end;
               bDataSet.Free;
+            end
+          else if (aEntry.Typ=etArticle) then //Aus Stücklisten generieren
+            begin
+              aPos := TMDPos.Create(nil);
+              Data.SetFilter(aPos,Data.QuoteField('IDENT')+'='+Data.QuoteValue(aDataSet.FieldByName('ID').AsString));
+              with aPos do
+                begin
+                  First;
+                  while not EOF do
+                    begin
+                      bDataSet := TMasterdata.Create(nil);
+                      bDataSet.Select(aPos.FieldByName('REF_ID').AsVariant);
+                      bDataSet.Open;
+                      if bDataSet.Count>0 then
+                        begin
+                          FObject:=TBaseDbList(bDataSet);
+                          Node1 := tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
+                          TTreeEntry(Node1.Data).Rec := FObject.GetBookmark;
+                          Node1.HasChildren:=True;
+                          with FObject.DataSet as IBaseManageDB do
+                            TTreeEntry(Node1.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(FObject.GetBookmark));
+                          TTreeEntry(Node1.Data).DataSourceType := TBaseDBDataSetClass(FObject.ClassType);
+                          TTreeEntry(Node1.Data).Text[0] := FObject.Text.AsString+' ('+FObject.Number.AsString+')'+' ['+FObject.Status.AsString+']';
+                          case FObject.ClassName of
+                          'TMasterdata':TTreeEntry(Node1.Data).Typ := etArticle;
+                          end;
+                          Node1.HasChildren:=True;
+                          if DoMove then
+                            begin
+                              Node1.Expanded:=True;
+                              Node2 := tvMain.Items[0];
+                              while Assigned(Node2) do
+                                begin
+                                  Node3 := Node2;
+                                  Node2 := Node2.GetNextSibling;
+                                  if Node3<>Node1 then
+                                    begin
+                                      Node4 := nil;
+                                      if Node1.Count>0 then
+                                        Node4 := Node1.Items[0];
+                                      while Assigned(Node4) do
+                                        begin
+                                          if TTreeEntry(Node4.data).Rec=TTreeEntry(Node3.Data).Rec then
+                                            begin
+                                              Node3.MoveTo(Node4,naInsertBehind);
+                                              Node4.Free;
+                                              break;
+                                            end;
+                                          Node4 := Node4.GetNextSibling;
+                                        end;
+                                    end;
+                                end;
+                              DoMove := False;
+                            end;
+                        end;
+                      Next;
+                    end;
+                end;
+              aPos.Free;
             end;
         end;
       aDataSet.Free;
