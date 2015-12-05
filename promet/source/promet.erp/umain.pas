@@ -87,6 +87,7 @@ type
     acPasswords: TAction;
     acNewScript: TAction;
     acMasterdataVersionate: TAction;
+    acProduction: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -179,6 +180,7 @@ type
     procedure acOrdersExecute(Sender: TObject);
     procedure acPasswordsExecute(Sender: TObject);
     procedure acPauseTimeExecute(Sender: TObject);
+    procedure acProductionExecute(Sender: TObject);
     procedure acProjectOverviewExecute(Sender: TObject);
     procedure acProjectsExecute(Sender: TObject);
     procedure acRefreshOrderListExecute(Sender: TObject);
@@ -260,6 +262,7 @@ type
     procedure AddCustomerList(Sender: TObject);
     procedure AddMasterdataList(Sender: TObject);
     procedure AddOrderList(Sender: TObject);
+    procedure AddProductionOrderList(Sender: TObject);
     procedure AddCommandline(Sender: TObject);
     procedure AddStatisticList(Sender: TObject);
     procedure AddListsList(Sender: TObject);
@@ -495,13 +498,57 @@ end;
 procedure TfMain.AddOrderList(Sender: TObject);
 var
   forderFrame : TfOrderFrame;
+  aFilter: String = '';
 begin
   with Sender as TfFilter do
     begin
+      Tag := 0; //Type Orders
       TabCaption := strOrderList;
       FilterType:='O';
       DefaultRows:='GLOBALWIDTH:%;STATUS:50;NUMBER:100;CUSTNO:100;CUSTNAME:300;PAYEDON:28;DELIVERED:28;DONE:28;';
       Dataset := TOrderList.Create(nil);
+      TOrderList(DataSet).OrderType.Filter('');
+      TOrderList(DataSet).OrderType.First;
+      while not TOrderList(DataSet).OrderType.EOF do
+        begin
+          if TOrderList(DataSet).OrderType.FieldByName('SI_ORDER').AsString='Y' then
+            aFilter += ' OR '+Data.QuoteField('STATUS')+'='+Data.QuoteValue(TOrderList(DataSet).OrderType.FieldByName('STATUS').AsString);
+          TOrderList(DataSet).OrderType.Next;
+        end;
+      aFilter := copy(aFilter,4,length(aFilter));
+      BaseFilter:=aFilter;
+      acFilter.Execute;
+      OnDrawColumnCell:=@fOrderFrame.gListDrawColumnCell;
+      if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
+        AddToolbarAction(acNewOrder);
+      if Data.Users.Rights.Right('ORDERS') >= RIGHT_PERMIT then
+        AddContextAction(acRefreshOrderList);
+    end;
+end;
+
+procedure TfMain.AddProductionOrderList(Sender: TObject);
+var
+  forderFrame : TfOrderFrame;
+  aFilter: String = '';
+begin
+  with Sender as TfFilter do
+    begin
+      Tag:=1; //Productionorders
+      TabCaption := strProductionOrders;
+      FilterType:='OP';
+      DefaultRows:='GLOBALWIDTH:%;STATUS:50;NUMBER:100;CUSTNO:100;CUSTNAME:300;PAYEDON:28;DELIVERED:28;DONE:28;';
+      Dataset := TOrderList.Create(nil);
+      TOrderList(DataSet).OrderType.Filter('');
+      TOrderList(DataSet).OrderType.First;
+      while not TOrderList(DataSet).OrderType.EOF do
+        begin
+          if TOrderList(DataSet).OrderType.FieldByName('SI_PROD').AsString='Y' then
+            aFilter += ' OR '+Data.QuoteField('STATUS')+'='+Data.QuoteValue(TOrderList(DataSet).OrderType.FieldByName('STATUS').AsString);
+          TOrderList(DataSet).OrderType.Next;
+        end;
+      aFilter := copy(aFilter,4,length(aFilter));
+      BaseFilter:=aFilter;
+      acFilter.Execute;
       OnDrawColumnCell:=@fOrderFrame.gListDrawColumnCell;
       if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
         AddToolbarAction(acNewOrder);
@@ -1041,6 +1088,19 @@ begin
       except
       end;
     end;
+  //Production
+  DoInfo('Production');
+  if GetRight('PRODUCTION') > RIGHT_NONE then
+    begin
+      try
+      DataSetType:=TOrder;
+      DoSynchronize(@DoCreate);
+      fMain.pcPages.AddTabClass(TfFilter,strProductionOrders,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
+      Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,TOrder);
+      AddSearchAbleDataSet(TOrderList);
+      except
+      end;
+    end;
   //Add Contacts
   DoInfo('Contacts');
   if GetRight('CUSTOMERS') > RIGHT_NONE then
@@ -1255,7 +1315,8 @@ begin
         WikiFrame.Align := alClient;
         aItems := TStringList.Create;
         aItems.Delimiter:=';';
-        aItems.DelimitedText := DBConfig.ReadString('TREEENTRYS:'+ApplicationName,fMainTreeFrame.GetBigIconTexts);
+        //aItems.DelimitedText := DBConfig.ReadString('TREEENTRYS:'+ApplicationName,fMainTreeFrame.GetBigIconTexts);
+        aItems.DelimitedText := fMainTreeFrame.GetBigIconTexts;
         //Actions
         Data.RegisterLinkHandler('ACTION',@OpenAction,nil);
         //Actions
@@ -1278,15 +1339,15 @@ begin
                     SomethingFound:=True;
                     Node.Visible:=False;
                     FSearchNode := Node;
-                  end;
-                if tmp = GetEntryText(etFavourites) then
+                  end
+                else if tmp = GetEntryText(etFavourites) then
                   begin
                     NewNode;
                     Node.Height := 34;
                     TTreeEntry(Node.Data).Typ := etFavourites;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etMessages) then
+                  end
+                else if tmp = GetEntryText(etMessages) then
                   begin
                     //Messages
                     if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
@@ -1301,8 +1362,8 @@ begin
                         acNewMessage.Visible:=True;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etTasks) then
+                  end
+                else if tmp = GetEntryText(etTasks) then
                   begin
                     //Tasks
                     if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
@@ -1314,8 +1375,8 @@ begin
                         acNewTask.Visible:=True;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etCalendar) then
+                  end
+                else if tmp = GetEntryText(etCalendar) then
                   begin
                     //PIM
                     if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
@@ -1329,8 +1390,8 @@ begin
                         acNewTermin.Visible:=True;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etOrders) then
+                  end
+                else if tmp = GetEntryText(etOrders) then
                   begin
                     //Orders,Production,...
                     if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
@@ -1343,8 +1404,22 @@ begin
                         acNewOrder.Visible:=True;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etCustomers) then
+                  end
+                else if tmp = GetEntryText(etProduction) then
+                  begin
+                    //Orders,Production,...
+                    if Data.Users.Rights.Right('PRODUCTION') > RIGHT_NONE then
+                      begin
+                        NewMenu;
+                        miNew.Action := fMain.acProduction;
+                        NewNode;
+                        Node.Height := 32;
+                        TTreeEntry(Node.Data).Typ := etProduction;
+                        acNewOrder.Visible:=True;
+                      end;
+                    SomethingFound:=True;
+                  end
+                else if tmp = GetEntryText(etCustomers) then
                   begin
                     //Contacts
                     if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
@@ -1357,8 +1432,8 @@ begin
                         acNewContact.Visible:=True;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etMasterdata) then
+                  end
+                else if tmp = GetEntryText(etMasterdata) then
                   begin
                     //Add Masterdata stuff
                     if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
@@ -1371,8 +1446,8 @@ begin
                         acNewMasterdata.Visible:=True;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etProjects) then
+                  end
+                else if tmp = GetEntryText(etProjects) then
                   begin
                     //Projects
                     if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
@@ -1383,8 +1458,8 @@ begin
                         acNewProject.Visible:=True;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etWiki) then
+                  end
+                else if tmp = GetEntryText(etWiki) then
                   begin
                     //Wiki
                     if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
@@ -1394,8 +1469,8 @@ begin
                         TTreeEntry(Node.Data).Typ := etWiki;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etDocuments) then
+                  end
+                else if tmp = GetEntryText(etDocuments) then
                   begin
                     //Documents
                     if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
@@ -1410,8 +1485,8 @@ begin
                         Node.Height := 34;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etLists) then
+                  end
+                else if tmp = GetEntryText(etLists) then
                   begin
                     //Lists
                     if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
@@ -1420,8 +1495,8 @@ begin
                         TTreeEntry(Node.Data).Typ := etLists;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etMeetings) then
+                  end
+                else if tmp = GetEntryText(etMeetings) then
                   begin
                     //Meetings
                     if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
@@ -1430,8 +1505,8 @@ begin
                         TTreeEntry(Node.Data).Typ := etMeetings;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etInventory) then
+                  end
+                else if tmp = GetEntryText(etInventory) then
                   begin
                     //Inventory
                     if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
@@ -1440,8 +1515,8 @@ begin
                         TTreeEntry(Node.Data).Typ := etInventory;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etFinancial) then
+                  end
+                else if tmp = GetEntryText(etFinancial) then
                   begin
                     //Financial
                     if (Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE)
@@ -1452,8 +1527,8 @@ begin
                         TTreeEntry(Node.Data).Typ := etFinancial;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etStatistics) then
+                  end
+                else if tmp = GetEntryText(etStatistics) then
                   begin
                     //Statistics
                     if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
@@ -1465,8 +1540,8 @@ begin
                         TTreeEntry(Node.Data).Typ := etStatistics;
                       end;
                     SomethingFound:=True;
-                  end;
-                if tmp = GetEntryText(etAllObjects) then
+                  end
+                else if tmp = GetEntryText(etAllObjects) then
                   begin
                     NewMenu;
                     miNew.Action := fMain.acElements;
@@ -2110,7 +2185,7 @@ var
 begin
   Application.ProcessMessages;
   for i := 0 to pcPages.PageCount-2 do
-    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TOrderList) then
+    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TOrderList) and (TfFilter(pcPages.Pages[i].Controls[0]).Tag=0) then
       begin
         pcPages.PageIndex:=i;
         Found := True;
@@ -2137,6 +2212,28 @@ begin
         FTimeReg.acStart.Execute
       else
         FTimeReg.acPause.Execute;
+    end;
+end;
+
+procedure TfMain.acProductionExecute(Sender: TObject);
+var
+  i: Integer;
+  Found: Boolean = false;
+  aFrame: TfFilter;
+begin
+  Application.ProcessMessages;
+  for i := 0 to pcPages.PageCount-2 do
+    if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TOrderList) and (TfFilter(pcPages.Pages[i].Controls[0]).Tag=1) then
+      begin
+        pcPages.PageIndex:=i;
+        Found := True;
+      end;
+  if not Found then
+    begin
+      aFrame := TfFilter.Create(Self);
+      pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('ORDERS@'),False);
+      AddProductionOrderList(aFrame);
+      aFrame.Open;
     end;
 end;
 
@@ -2850,7 +2947,7 @@ begin
     begin
       aEntry.Action.Execute;
     end;
-  etCustomerList,etCustomers,etArticleList,etOrderList,
+  etCustomerList,etCustomers,etArticleList,etOrderList,etProductionList,
   etTasks,etMyTasks,etProjects,
   etLink:
     begin
@@ -3414,6 +3511,11 @@ begin
       acOrders.Execute;
       result := True;
     end;
+  etProduction,etProductionList:
+    begin
+      acProduction.Execute;
+      result := True;
+    end;
   etStatistics:
     begin
       acStatistics.Execute;
@@ -3653,8 +3755,25 @@ begin
                     end;
                   aOrderType.DataSet.Next;
                 end;
-              Data.SetFilter(aOrderType,'('+Data.QuoteValue('SI_PROD')+' = '+Data.QuoteValue('Y')+')');
+              Data.SetFilter(aOrderType,'');
+              aOrderType.DataSet.Locate('TYPE','0',[loCaseInsensitive,loPartialKey]);
+              fMain.acNewOrder.Caption := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
+              aOrderType.Free;
+            end
+          else
+            fMain.acNewOrder.Enabled:=False;
+        end;
+      etProduction:
+        begin
+          Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+          TTreeEntry(Node1.Data).Typ := etProductionList;
+          if Data.Users.Rights.Right('PRODUCTION') > RIGHT_READ then
+            begin
+              aOrderType := TOrderTyp.Create(nil);
+              aOrderType.Open;
+              Data.SetFilter(aOrderType,'('+Data.QuoteField('SI_PROD')+' = ''Y'')');
               aOrderType.DataSet.First;
+              DefaultOrder := False;
               while not aOrderType.DataSet.EOF do
                 begin
                   Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1.Parent,'',TTreeEntry.Create);
@@ -3665,9 +3784,6 @@ begin
                   TTreeEntry(Node2.Data).Text[0] := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
                   aOrderType.DataSet.Next;
                 end;
-              Data.SetFilter(aOrderType,'');
-              aOrderType.DataSet.Locate('TYPE','0',[loCaseInsensitive,loPartialKey]);
-              fMain.acNewOrder.Caption := Format(strNewOrder,[aOrderType.FieldByName('STATUSNAME').AsString]);
               aOrderType.Free;
             end
           else
