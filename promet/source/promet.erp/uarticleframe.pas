@@ -756,7 +756,6 @@ begin
     begin
       aStream := TMemoryStream.Create;
       Data.BlobFieldToStream(aThumbnails.DataSet,'THUMBNAIL',aStream);
-      Data.BlobFieldToFile(aThumbnails.DataSet,'THUMBNAIL','c:\test.jpg');
       aStream.Position:=0;
       iArticle.Picture.LoadFromStreamWithFileExt(aStream,'jpg');
       aStream.Free;
