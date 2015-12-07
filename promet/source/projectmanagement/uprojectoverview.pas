@@ -151,7 +151,9 @@ begin
                                         Node4 := Node1.Items[0];
                                       while Assigned(Node4) do
                                         begin
-                                          if TTreeEntry(Node4.data).Rec=TTreeEntry(Node3.Data).Rec then
+                                          if (TTreeEntry(Node4.data).Rec=TTreeEntry(Node3.Data).Rec)
+                                          or (TTreeEntry(Node4.data).Text[0]=TTreeEntry(Node3.Data).Text[0])
+                                          then
                                             begin
                                               Node3.MoveTo(Node4,naInsertBehind);
                                               Node4.Free;
