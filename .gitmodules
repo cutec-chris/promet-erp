@@ -39,7 +39,7 @@
 	url = https://github.com/cutec-chris/sqlparser
 [submodule "promet/source/components/dexif"]
 	path = promet/source/components/dexif
-	url = https://github.com/cutec-No submodule mapping found in .gitmodules for pathchris/dexif
+	url = https://github.com/cutec-chris/dexif
 [submodule "promet/source/components/gifanim"]
 	path = promet/source/components/gifanim
 	url = https://github.com/cutec-chris/gifanim
