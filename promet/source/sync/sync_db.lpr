@@ -403,8 +403,8 @@ begin
             (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncOut.RecordCount,'<',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
             (BaseApplication as IBaseApplication).Info(aFilter);
           end;
-        if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
-          SourceDM.StartTransaction(SourceDM.MainConnection);
+        //if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+        //  SourceDM.StartTransaction(SourceDM.MainConnection);
         while not aSyncOut.EOF do
           begin
             try
@@ -417,8 +417,8 @@ begin
           end;
         aSyncOut.Destroy;
         aSyncOutTime := aLastRowTime;
-        if SyncCount>0 then
-          SourceDM.CommitTransaction(SourceDM.MainConnection);
+        //if SyncCount>0 then
+        //  SourceDM.CommitTransaction(SourceDM.MainConnection);
       end;
     aFilter := BuildFilter(DestDM,SourceDM,aSyncTime);
     if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
@@ -430,8 +430,8 @@ begin
             SetTime := True;
             (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncIn.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
           end;
-        if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
-          DestDM.StartTransaction(DestDM.MainConnection);
+        //if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+        //  DestDM.StartTransaction(DestDM.MainConnection);
         while not aSyncIn.EOF do
           begin
             try
@@ -447,8 +447,8 @@ begin
         aSyncIn.Destroy;
         if aSyncOutTime<aLastRowTime then
           aLastRowTime:=aSyncOutTime;
-        if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
-          DestDM.CommitTransaction(DestDM.MainConnection);
+        //if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+        //  DestDM.CommitTransaction(DestDM.MainConnection);
       end;
     UpdateTime;
     if (aFirstSyncedRow<bFirstSyncedRow) and (not RestoreTime) then
