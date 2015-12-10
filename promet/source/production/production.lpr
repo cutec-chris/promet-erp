@@ -16,8 +16,8 @@ begin
   Application.Free;
   Application := TBaseVisualApplication.Create(nil);
   Application.Initialize;
-  Application.CreateForm(TfMain, fMain);
   fMain.DoCreate;
+  Application.CreateForm(TfMain, fMain);
   Application.Run;
 end.
-
+

@@ -38,15 +38,18 @@ type
     acSearchOrder: TAction;
     acSave: TAction;
     acAbort: TAction;
-    acNextStep: TAction;
+    acReady: TAction;
     acCloseOrder: TAction;
+    acProduce: TAction;
     ActionList1: TActionList;
+    Bevel1: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel7: TBevel;
     BitBtn1: TBitBtn;
+    BitBtn2: TSpeedButton;
     BitBtn3: TSpeedButton;
-    BitBtn4: TSpeedButton;
+    BitBtn5: TSpeedButton;
     Button1: TButton;
     cbVersion: TComboBox;
     eOrder: TEdit;
@@ -56,6 +59,7 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
+    lStep: TLabel;
     MainMenu: TMainMenu;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -69,12 +73,15 @@ type
     Panel5: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
+    Panel8: TPanel;
+    Panel9: TPanel;
     pNav1: TPanel;
     rbNoData: TRadioButton;
     rbOrder: TRadioButton;
     rbList: TRadioButton;
     rbArticle: TRadioButton;
     sbMenue: TSpeedButton;
+    Shape1: TShape;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
@@ -88,8 +95,9 @@ type
     procedure acLoadOrderExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
-    procedure acNextStepExecute(Sender: TObject);
+    procedure acReadyExecute(Sender: TObject);
     procedure acPrepareExecute(Sender: TObject);
+    procedure acProduceExecute(Sender: TObject);
     procedure acSearchMasterdataExecute(Sender: TObject);
     procedure eOrderKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -102,7 +110,7 @@ type
     { private declarations }
     FOrder : TOrder;
     procedure DoOpen;
-    procedure FindNextStep;
+    function FindNextStep: Boolean;
     function LoadStep : Boolean;
   public
     { public declarations }
@@ -142,6 +150,7 @@ var
 resourcestring
   strNoOrderFound                       = 'Es wurde kein Auftrag oder Artikel gefunden der zum Suchkriterium passt !';
   strDoPick                             = 'kommissionieren';
+  strNotmoreSteps                       = 'Es sind keine (weiteren) Arbeitschritte vorhanden.<br><br>Um einen neuen Auftrag auswählen zu können müssen Sie den Auftrag (ab)schließen';
 implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
@@ -307,7 +316,11 @@ var
   ss: TStringStream;
 begin
   fMain.acPrepare.Enabled:=PreText.Text<>'';
-  fMain.acPrepare.Checked:=(not Prepared) and (PreText.Text<>'');
+  fMain.acProduce.Enabled:=True;
+  fMain.acReady.Enabled:=True;
+  if (fMain.acPrepare.Checked and (not fMain.acPrepare.Enabled)) or (Prepared) then
+    fMain.acProduce.Checked:=True
+  else fMain.acPrepare.Checked:=True;
   if fMain.acPrepare.Checked then
     begin
       aHTML := TSimpleIPHtml.Create;
@@ -371,6 +384,7 @@ procedure TfMain.acLoginExecute(Sender: TObject);
 var
   a: TOrder;
 begin
+  Application.ProcessMessages;
   with Application as IBaseApplication do
     if not Login then
       begin
@@ -454,6 +468,7 @@ begin
         begin
           Application.ProcessMessages;
           acExecuteStep.Checked:=True;
+          Application.ProcessMessages;
           TreeData.ScriptOutput.Clear;
           TreeData.Script.ActualObject := FOrder;
           TreeData.Script.Script.OnRunLine:=@TreeDataScriptScriptRunLine;
@@ -482,7 +497,7 @@ begin
     Logout;
 end;
 
-procedure TfMain.acNextStepExecute(Sender: TObject);
+procedure TfMain.acReadyExecute(Sender: TObject);
 begin
   FindNextStep;
 end;
@@ -494,7 +509,19 @@ begin
   if Assigned(fMain.tvStep.Selected) then
     begin
       TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
-      TreeData.Prepared:=not TreeData.Prepared;
+      TreeData.Prepared:=False;
+      TreeData.ShowData;
+    end;
+end;
+
+procedure TfMain.acProduceExecute(Sender: TObject);
+var
+  TreeData: TProdTreeData;
+begin
+  if Assigned(fMain.tvStep.Selected) then
+    begin
+      TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
+      TreeData.Prepared:=True;
       TreeData.ShowData;
     end;
 end;
@@ -533,11 +560,11 @@ end;
 procedure TfMain.FormShow(Sender: TObject);
 begin
   if not acLogin.Enabled then exit;
-  with Application as IBaseApplication do
-    RestoreConfig; //Must be called when Mainform is Visible
   acLogin.Execute;
   if Assigned(Data) then
     begin
+      with Application as IBaseApplication do
+        RestoreConfig; //Must be called when Mainform is Visible
     end;
 end;
 
@@ -584,8 +611,12 @@ begin
       else Res := False;
       if not Res then
         begin
+          fMain.lStep.Caption:=fMain.tvStep.Selected.Text;
           ipWorkHTML.SetHtml(nil);
           rbNoData.Checked:=True;
+          acProduce.Enabled:=False;
+          acPrepare.Enabled:=False;
+          acReady.Enabled:=False;
         end;
     end;
 end;
@@ -651,7 +682,7 @@ begin
           case FOrder.Positions.PosTyp.FieldByName('TYPE').AsInteger of
           0,1,2:nNode.ImageIndex:=14;//Artikel
           3:nNode.ImageIndex:=49;//Text
-          9:nNode.ImageIndex:=57;//Montage/Argeitsgang
+          9:nNode.ImageIndex:=22;//Montage/Argeitsgang
           end;
           nNode.SelectedIndex:=nNode.ImageIndex;
           TProdTreeData(nNode.Data).Position:=FOrder.Positions.Id.AsVariant;
@@ -660,7 +691,7 @@ begin
     end;
   if tvStep.Items.Count>0 then
     begin
-      tvStep.Selected:=tvStep.Items[0].GetNext;
+      tvStep.Selected:=tvStep.Items[0];
       tvStep.Items[0].Expanded:=True;
       FindNextStep;
     end;
@@ -673,14 +704,32 @@ begin
   tvStep.Enabled:=True;
 end;
 
-procedure TfMain.FindNextStep;
+function TfMain.FindNextStep : Boolean;
+var
+  aHTML: TSimpleIpHtml;
+  ss: TStringStream;
 begin
-  while (Assigned(tvStep.Selected)) and (not LoadStep) do
+  result := False;
+  while (Assigned(tvStep.Selected) and (not Result)) do
     begin
       if tvStep.Selected.ImageIndex=43 then //Kommissionieren
         tvStep.Selected:=tvStep.Selected.GetNextSibling
       else
         tvStep.Selected:=tvStep.Selected.GetNext;
+      if Assigned(tvStep.Selected) then
+        begin
+          Result := LoadStep or (tvStep.Selected.ImageIndex=49);
+          if Result then acReady.Enabled:=True;
+          if Result then break;
+        end;
+    end;
+  if not Result then
+    begin
+      aHTML := TSimpleIPHtml.Create;
+      ss := TStringStream.Create('<body>'+UniToSys(strNotmoreSteps)+'</body>');
+      aHTML.LoadFromStream(ss);
+      ss.Free;
+      fMain.ipWorkHTML.SetHtml(aHTML);
     end;
 end;
 
@@ -692,6 +741,7 @@ var
   aPosID: String;
   aTexts: TBoilerplate;
 begin
+  lStep.Caption:=tvStep.Selected.Text;
   Result := False;
   rbNoData.Checked:=True;
   TreeData := TProdTreeData(tvStep.Selected.Data);
