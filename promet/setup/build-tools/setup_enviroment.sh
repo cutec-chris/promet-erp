@@ -6,13 +6,16 @@ if [ -e promet/source/base/version.inc ]
   export lazbuild="lazbuild"
   export grep="grep"
   export SED="sed"
-  $SED --version > /dev/null
+  $SED 's/||/| |/g' /dev/null
   if [ "$?" -ne "0" ]; then
     export SED="$(PWD)/promet/setup/build-tools/sed.exe"
   fi
-  export TARGET_CPU=$( lazbuild -? | grep 'powerpc_64' | $SED 's/.*: \([^ ]\+\)$/\1/')
-  export TARGET_WIDGETSET=$( lazbuild -? | grep 'Carbon.' | $SED 's/.*: \([^ ]\+\)$/\1/')
-  export TARGET_OS=$( lazbuild -? | grep 'linux.' | $SED 's/.*: \([^ ]\+\)$/\1/')
+  export TARGET_CPU=$( lazbuild -? | grep 'powerpc_64' | $SED -e 's/.*: //')
+  export TARGET_WIDGETSET=$( lazbuild -? | grep 'Carbon.' | $SED 's/.*: //')
+  export TARGET_OS=$( lazbuild -? | grep 'linux.' | $SED -e 's/.*: //')
+  echo "CPU:$TARGET_CPU" 
+  echo "OS:$TARGET_OS"
+  echo "Widgetset:$TARGET_WIDGETSET"
   if [ "x$TARGET_OS" = "xwin32" ]; then
     export TARGET_EXTENSION='.exe'
     else
@@ -29,8 +32,8 @@ if [ -e promet/source/base/version.inc ]
   Month=`date +%m`
   Day=`date +%d`
   export BUILD_DATE=20$Year$Month$Day
-  Version=$($SED 's/\r//g' promet/source/base/version.inc).$($SED 's/\r//g' promet/source/base/revision.inc)
-  export BUILD_VERSION=$(echo $Version | $SED 's/\n//g');
+  Version=$(cat promet/source/base/version.inc).$(cat promet/source/base/revision.inc)
+  export BUILD_VERSION=$(echo $Version | $SED $'s@\r@@g');
   echo "Version to Build:$BUILD_VERSION"
   export OUTPUT_DIR=promet/setup/output/$BUILD_VERSION
   # Set up widgetset

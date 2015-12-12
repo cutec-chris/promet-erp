@@ -526,6 +526,7 @@ var
 begin
   Application.ProcessMessages;
   Screen.Cursor := crHourglass;
+  try
   //Wizard finished, use the made settings
   with Application as IBaseDBInterface do
     begin
@@ -731,6 +732,14 @@ begin
             end;
         end;
     end;
+  except
+    on e : Exception do
+      begin
+        Res := False;
+        with BaseApplication as IBaseDbInterface do
+          LastError := e.Message;
+      end;
+  end;
   Screen.Cursor := crDefault;
   if not Res then
     begin
