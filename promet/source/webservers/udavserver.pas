@@ -5,7 +5,7 @@ unit udavserver;
 interface
 
 uses
-  Classes, SysUtils,uhttpserver;
+  Classes, SysUtils,uhttpserver,ulsvnserver;
 
 type
   TDAVFile = class;
@@ -58,6 +58,13 @@ type
   TDAVLoginEvent = function(aUser,aPassword : string) : Boolean of object;
   TDAVAccessEvent = procedure(Info : string) of object;
 
+  { TDAVSocket }
+
+  TDAVSocket = class(TTCPHttpThrd)
+  public
+    function ProcessHttpRequest(Request, URI: string): integer; override;
+  end;
+
   { TWebDAVServer }
 
   TWebDAVServer = class(TTCPHttpDaemon)
@@ -74,6 +81,7 @@ type
     FUserLogin: TDAVLoginEvent;
     FWriteAllowed: TDAVFileEvent;
   public
+    constructor Create; override;
     property OnGetDirectoryList : TDAVGetDirectoryList read FGetDirList write FGetDirList;
     property OnMkCol : TDAVFileEvent read FMkCol write FMkCol;
     property OnDelete : TDAVFileEvent read FDelete write FDelete;
@@ -88,6 +96,21 @@ type
   end;
 
 implementation
+
+{ TDAVSocket }
+
+function TDAVSocket.ProcessHttpRequest(Request, URI: string): integer;
+begin
+
+end;
+
+{ TWebDAVServer }
+
+constructor TWebDAVServer.Create;
+begin
+  inherited Create;
+  ThreadType:=TDAVSocket;
+end;
 
 { TDAVDirectoryList }
 
