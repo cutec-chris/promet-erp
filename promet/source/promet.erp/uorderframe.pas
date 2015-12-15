@@ -607,6 +607,7 @@ end;
 procedure TfOrderFrame.lbResultsDblClick(Sender: TObject);
 var
   aPerson: TPerson;
+  aAdress: TBaseDbAddress;
 begin
   if TfOrderAddress(ActiveSearch.Sender).EnterEdit then
     begin
@@ -615,11 +616,26 @@ begin
       aPerson := TPerson.Create(nil);
       aPerson.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
       aPerson.Open;
-      aPerson.Address.Open;
-      TfOrderAddress(ActiveSearch.Sender).DataSet.Assign(aPerson);
-      TfOrderAddress(ActiveSearch.Sender).DataSet := TOrder(DataSet).Address;
+      if aPerson.Count=1 then
+        begin
+          aPerson.Address.Open;
+          TfOrderAddress(ActiveSearch.Sender).DataSet.Assign(aPerson);
+          TfOrderAddress(ActiveSearch.Sender).DataSet := TOrder(DataSet).Address;
+          GotoPosition;
+        end
+      else
+        begin
+          aAdress := TPersonAddress.Create(nil);
+          aAdress.SelectFromLink(TLinkObject(lbResults.Items.Objects[lbResults.ItemIndex]).Link);
+          aAdress.Open;
+          if aAdress.Count=1 then
+            begin
+              TfOrderAddress(ActiveSearch.Sender).DataSet.Assign(aAdress);
+              TfOrderAddress(ActiveSearch.Sender).DataSet := TOrder(DataSet).Address;
+            end;
+          aAdress.Free;
+        end;
       aPerson.Free;
-      GotoPosition;
     end;
 end;
 procedure TfOrderFrame.OrdersStateChange(Sender: TObject);
