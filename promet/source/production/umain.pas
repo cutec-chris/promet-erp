@@ -17,6 +17,7 @@
   MA 02111-1307, USA.
 Created 08.10.2015
 *******************************************************************************}
+//49595300
 unit umain;
 {$mode objfpc}{$H+}
 interface
@@ -401,17 +402,21 @@ var
   aMasterdata: TMasterdata;
 begin
   //Try to select by Orderno
-  FOrder.SelectFromNumber('');
-  if IsNumeric(eOrder.Text) then
-    FOrder.SelectFromCommission(eOrder.Text);
-  FOrder.Open;
-  if (FOrder.Count=0) and (IsNumeric(eOrder.Text)) then
+  if not cbVersion.Enabled then //Wenn cbVersion Enabled ist ist es ein Artikel
     begin
-      //Try to select by Commission
-      FOrder.SelectFromNumber(eOrder.Text);
-    end;
-  FOrder.Open;
-  if FOrder.Count=0 then
+      FOrder.SelectFromNumber('');
+      if IsNumeric(eOrder.Text) then
+        FOrder.SelectFromCommission(eOrder.Text);
+      FOrder.Open;
+      if (FOrder.Count=0) and (IsNumeric(eOrder.Text)) then
+        begin
+          //Try to select by Commission
+          FOrder.SelectFromNumber(eOrder.Text);
+        end;
+      FOrder.Open;
+    end
+  else FOrder.Close;
+  if FOrder.Count<=0 then
     begin
       //Find Article and Create Order
       aMasterdata := TMasterdata.Create(nil);
@@ -430,13 +435,14 @@ begin
               FOrder.Positions.Assign(aMasterdata);
               FOrder.Positions.Post;
               FOrder.Post;
+              cbVersion.Enabled:=False;
             end;
         end;
       aMasterdata.Free;
     end;
   if FOrder.Count>0 then
     eOrder.Text:=FOrder.Number.AsString;
-  if FOrder.Count=0 then
+  if FOrder.Count<=0 then
     begin
       Showmessage(strNoOrderFound);
       eOrder.SelectAll;
