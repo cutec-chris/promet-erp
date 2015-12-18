@@ -221,7 +221,7 @@ begin
   if Assigned(TWebDAVServer(FSocket.Creator).OnReadAllowed) and (not TWebDAVServer(FSocket.Creator).OnReadAllowed(Path)) then
     begin
       FSocket.Status:=401;
-      TDAVSocket(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"'+#13#10);
+      TDAVSocket(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
       Result := True;
     end;
 end;
@@ -234,10 +234,10 @@ var
 
   procedure AddDAVheaders;
   begin
-    HeaderOut.Add('DAV: 1,2, access-control, calendar-access'+#13#10);
-    HeaderOut.Add('DAV: <http://apache.org/dav/propset/fs/1>'+#13#10);
-    HeaderOut.Add('MS-Author-Via: DAV'+#13#10);
-    HeaderOut.Add('Vary: Accept-Encoding'+#13#10);
+    HeaderOut.Add('DAV: 1,2, access-control, calendar-access');
+    HeaderOut.Add('DAV: <http://apache.org/dav/propset/fs/1>');
+    HeaderOut.Add('MS-Author-Via: DAV');
+    HeaderOut.Add('Vary: Accept-Encoding');
   end;
 
 begin
@@ -253,16 +253,16 @@ begin
     'OPTIONS':
        begin
          AddDAVheaders;
-         HeaderOut.Add('DAV: version-control,checkout,working-resource'+#13#10);
-         HeaderOut.Add('DAV: 1, calendar-access, calendar-schedule, calendar-proxy'+#13#10);
-         HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL'+#13#10);
+         HeaderOut.Add('DAV: version-control,checkout,working-resource');
+         HeaderOut.Add('DAV: 1, calendar-access, calendar-schedule, calendar-proxy');
+         HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL');
          Res := TDAVOptionsOutput.Create(Self,InputData,OutputData);
        end;
     'REPORT':
        begin
          AddDAVheaders;
-         HeaderOut.Add('DAV: version-control,checkout,working-resource'+#13#10);
-         HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL'+#13#10);
+         HeaderOut.Add('DAV: version-control,checkout,working-resource');
+         HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL');
          Res := TDAVReportOutput.Create(Self,InputData,OutputData);
        end;
     'PROPFIND':
@@ -375,12 +375,12 @@ begin
       WriteXML(ADoc,FOut);
       //Self.FBufferSize := FOut.Size;
       FOut.Position:=0;
-      TDAVSocket(FSocket).HeaderOut.Add('ContentLength:'+IntToStr(FOut.Size));
+      TDAVSocket(FSocket).HeaderOut.Add('ContentLength: '+IntToStr(FOut.Size));
       TDAVSocket(FSocket).OutputData := Self.FOut;
     end
   else
     begin
-      TDAVSocket(FSocket).HeaderOut.Add('ContentLength:0');
+      TDAVSocket(FSocket).HeaderOut.Add('ContentLength: 0');
       TDAVSocket(FSocket).Status:=403;
       FOut.Clear;
       TDAVSocket(FSocket).OutputData := Self.FOut;
@@ -833,7 +833,7 @@ begin
   if Assigned(TWebDAVServer(FSocket.Creator).OnReadAllowed) and (not TWebDAVServer(FSocket.Creator).OnReadAllowed(Path)) then
     begin
       TDAVSocket(FSocket).Status:=403;
-      TDAVSocket(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"'+#13#10);
+      TDAVSocket(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
       Result := True;
     end;
   aProperties.Free;
