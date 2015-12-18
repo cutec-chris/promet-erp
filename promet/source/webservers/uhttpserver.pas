@@ -22,8 +22,11 @@ type
     property ThreadType :  THttpThrdClass read FClass write FClass;
   end;
 
+  { TTCPHttpThrd }
+
   TTCPHttpThrd = class(TThread)
   private
+    FCreator: TTCPHttpDaemon;
     Sock:TTCPBlockSocket;
   public
     Headers: TStringList;
@@ -31,6 +34,7 @@ type
     Constructor Create (hsock:tSocket);
     Destructor Destroy; override;
     procedure Execute; override;
+    property Creator : TTCPHttpDaemon read FCreator write FCreator;
     function ProcessHttpRequest(Request, URI: string): integer;virtual;
   end;
 
@@ -76,7 +80,7 @@ end;
 
 { TTCPHttpThrd }
 
-Constructor TTCPHttpThrd.Create(Hsock:TSocket);
+constructor TTCPHttpThrd.Create(hsock: tSocket);
 begin
   Headers := TStringList.Create;
   InputData := TMemoryStream.Create;
@@ -88,7 +92,7 @@ begin
   inherited create(false);
 end;
 
-Destructor TTCPHttpThrd.Destroy;
+destructor TTCPHttpThrd.Destroy;
 begin
   Sock.free;
   Headers.Free;

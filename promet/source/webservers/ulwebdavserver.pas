@@ -2,7 +2,7 @@ unit ulwebdavserver;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, lexthttp, lStrBuffer, dom, xmlread, xmlwrite;
+  Classes, SysUtils, lhttp, lStrBuffer, dom, xmlread, xmlwrite;
 type
   TLXMLURIHandler = class(TURIHandler)
   protected

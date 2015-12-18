@@ -12,7 +12,6 @@
       <MainUnit Value="0"/>
       <Title Value="production"/>
       <UseXPManifest Value="True"/>
-      <Icon Value="0"/>
     </General>
     <BuildModes Count="1">
       <Item1 Name="default" Default="True"/>
@@ -76,7 +75,6 @@
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="umain"/>
       </Unit1>
     </Units>
   </ProjectOptions>

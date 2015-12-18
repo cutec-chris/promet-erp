@@ -1,10 +1,10 @@
 object fMain: TfMain
-  Left = 339
+  Left = 203
   Height = 716
-  Top = 148
+  Top = 81
   Width = 1153
   Caption = 'Avad'
-  ClientHeight = 696
+  ClientHeight = 695
   ClientWidth = 1153
   Color = clWindow
   Menu = MainMenu
@@ -16,20 +16,20 @@ object fMain: TfMain
   Visible = True
   object Panel1: TPanel
     Left = 0
-    Height = 696
+    Height = 695
     Top = 0
     Width = 288
     Align = alLeft
     BevelOuter = bvNone
     Caption = 'Panel1'
-    ClientHeight = 696
+    ClientHeight = 695
     ClientWidth = 288
     TabOrder = 0
     object Label1: TLabel
       Left = 8
-      Height = 32
+      Height = 34
       Top = 8
-      Width = 177
+      Width = 204
       Caption = 'Artikel oder Produktionsauftrag'#13#10'(scannen möglich)'
       Font.Height = -13
       ParentColor = False
@@ -37,7 +37,7 @@ object fMain: TfMain
     end
     object eOrder: TEdit
       Left = 56
-      Height = 21
+      Height = 25
       Hint = 'Geben Sie hier eine Produktionsauftragsnummer ein'#13#10'oder eine Artikelnummer und kleicken auf auswählen'
       Top = 48
       Width = 198
@@ -48,9 +48,9 @@ object fMain: TfMain
     end
     object Label2: TLabel
       Left = 8
-      Height = 16
-      Top = 96
-      Width = 187
+      Height = 17
+      Top = 104
+      Width = 214
       Caption = 'Auftragsübersicht/Arbeitsschritte'
       Font.Height = -13
       ParentColor = False
@@ -75,13 +75,12 @@ object fMain: TfMain
     end
     object tvStep: TTreeView
       Left = 8
-      Height = 529
+      Height = 528
       Top = 120
       Width = 274
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderStyle = bsNone
-      DefaultItemHeight = 16
-      Images = fVisualControls.Images
+      DefaultItemHeight = 18
       ReadOnly = True
       ScrollBars = ssAutoBoth
       TabOrder = 1
@@ -89,13 +88,13 @@ object fMain: TfMain
       Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
     end
     object cbVersion: TComboBox
-      Left = 202
-      Height = 21
+      Left = 192
+      Height = 27
       Top = 72
-      Width = 52
+      Width = 62
       Anchors = [akTop, akRight]
       Enabled = False
-      ItemHeight = 13
+      ItemHeight = 0
       Items.Strings = (
         'wählen Sie die Version des Artikels'
       )
@@ -104,7 +103,7 @@ object fMain: TfMain
     object Button1: TButton
       Left = 8
       Height = 40
-      Top = 651
+      Top = 650
       Width = 274
       Action = acCloseOrder
       Anchors = [akLeft, akRight, akBottom]
@@ -121,40 +120,40 @@ object fMain: TfMain
   end
   object Panel2: TPanel
     Left = 289
-    Height = 696
+    Height = 695
     Top = 0
     Width = 864
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 696
+    ClientHeight = 695
     ClientWidth = 864
     TabOrder = 1
     object ToolBar1: TPanel
       Left = 15
-      Height = 48
+      Height = 52
       Top = 0
       Width = 849
       Align = alTop
       BorderSpacing.Left = 15
       BevelOuter = bvNone
-      ClientHeight = 48
+      ClientHeight = 52
       ClientWidth = 849
       TabOrder = 0
       object Panel5: TPanel
         Left = 0
-        Height = 48
+        Height = 52
         Top = 0
         Width = 68
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 48
+        ClientHeight = 52
         ClientWidth = 68
         TabOrder = 0
         Visible = False
         object Label3: TLabel
           Left = 4
           Height = 15
-          Top = -2
+          Top = 0
           Width = 60
           Alignment = taCenter
           Anchors = [akLeft, akRight, akBottom]
@@ -186,18 +185,18 @@ object fMain: TfMain
       end
       object Panel6: TPanel
         Left = 68
-        Height = 48
+        Height = 52
         Top = 0
         Width = 56
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 48
+        ClientHeight = 52
         ClientWidth = 56
         TabOrder = 1
         object Label4: TLabel
           Left = 4
           Height = 15
-          Top = -2
+          Top = 0
           Width = 48
           Alignment = taCenter
           Anchors = [akLeft, akRight, akBottom]
@@ -211,7 +210,7 @@ object fMain: TfMain
         end
         object Bevel3: TBevel
           Left = 0
-          Height = 40
+          Height = 44
           Top = 4
           Width = 8
           Align = alLeft
@@ -306,12 +305,12 @@ object fMain: TfMain
       end
       object pNav1: TPanel
         Left = 312
-        Height = 48
+        Height = 52
         Top = 0
         Width = 43
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 48
+        ClientHeight = 52
         ClientWidth = 43
         TabOrder = 2
         object Bevel7: TBevel
@@ -326,19 +325,19 @@ object fMain: TfMain
       end
       object Panel7: TPanel
         Left = 124
-        Height = 48
+        Height = 52
         Top = 0
         Width = 188
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 48
+        ClientHeight = 52
         ClientWidth = 188
         Enabled = False
         TabOrder = 3
         object Label5: TLabel
           Left = 4
           Height = 15
-          Top = -2
+          Top = 0
           Width = 180
           Alignment = taCenter
           Anchors = [akLeft, akRight, akBottom]
@@ -352,7 +351,7 @@ object fMain: TfMain
         end
         object Bevel4: TBevel
           Left = 0
-          Height = 40
+          Height = 44
           Top = 4
           Width = 8
           Align = alLeft
@@ -362,25 +361,25 @@ object fMain: TfMain
         end
         object rbOrder: TRadioButton
           Left = 4
-          Height = 17
+          Height = 22
           Top = 12
-          Width = 55
+          Width = 69
           Caption = 'Auftrag'
           TabOrder = 0
         end
         object rbList: TRadioButton
           Left = 72
-          Height = 17
+          Height = 22
           Top = 12
-          Width = 40
+          Width = 52
           Caption = 'Liste'
           TabOrder = 1
         end
         object rbArticle: TRadioButton
           Left = 128
-          Height = 17
+          Height = 22
           Top = 12
-          Width = 48
+          Width = 62
           Caption = 'Artikel'
           Checked = True
           TabOrder = 2
@@ -388,9 +387,9 @@ object fMain: TfMain
         end
         object rbNoData: TRadioButton
           Left = 4
-          Height = 17
+          Height = 22
           Top = 32
-          Width = 75
+          Width = 96
           Caption = 'keine Daten'
           TabOrder = 3
         end
@@ -398,19 +397,19 @@ object fMain: TfMain
     end
     object Panel3: TPanel
       Left = 24
-      Height = 632
-      Top = 56
+      Height = 627
+      Top = 60
       Width = 832
       Align = alClient
       BorderSpacing.Around = 8
       BevelOuter = bvNone
       Caption = 'Panel3'
-      ClientHeight = 632
+      ClientHeight = 627
       ClientWidth = 832
       TabOrder = 1
       object ipWorkHTML: TIpHtmlPanel
         Left = 0
-        Height = 526
+        Height = 521
         Top = 56
         Width = 832
         Align = alClient
@@ -469,7 +468,7 @@ object fMain: TfMain
         end
         object lStep: TLabel
           Left = 0
-          Height = 16
+          Height = 17
           Top = 0
           Width = 832
           Align = alTop
@@ -484,7 +483,7 @@ object fMain: TfMain
       object Panel9: TPanel
         Left = 0
         Height = 50
-        Top = 582
+        Top = 577
         Width = 832
         Align = alBottom
         BevelOuter = bvNone
@@ -505,17 +504,17 @@ object fMain: TfMain
     end
     object Panel4: TPanel
       Left = 0
-      Height = 648
-      Top = 48
+      Height = 643
+      Top = 52
       Width = 16
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 648
+      ClientHeight = 643
       ClientWidth = 16
       TabOrder = 2
       object Bevel1: TBevel
         Left = 15
-        Height = 648
+        Height = 643
         Top = 0
         Width = 1
         Align = alRight
@@ -533,7 +532,7 @@ object fMain: TfMain
   end
   object Splitter1: TSplitter
     Left = 288
-    Height = 696
+    Height = 695
     Top = 0
     Width = 1
   end
@@ -616,7 +615,6 @@ object fMain: TfMain
     end
   end
   object MainMenu: TMainMenu
-    Images = fVisualControls.Images
     left = 64
     top = 304
     object miMandant: TMenuItem
