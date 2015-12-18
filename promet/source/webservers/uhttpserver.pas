@@ -59,22 +59,34 @@ end;
 procedure TTCPHttpDaemon.Execute;
 var
   ClientSock:TSocket;
+  aNewSock: TTCPHttpThrd;
 begin
   with sock do
     begin
       CreateSocket;
       setLinger(true,10000);
       bind('0.0.0.0','8085');
-      listen;
-      repeat
-        if terminated then break;
-        if canread(1000) then
-          begin
-            ClientSock:=accept;
-            if lastError=0 then
-              FClass.create(ClientSock);
-          end;
-      until false;
+      if LastError=0 then
+        begin
+          listen;
+          repeat
+            if terminated then break;
+            if canread(1000) then
+              begin
+                ClientSock:=accept;
+                if lastError=0 then
+                  begin
+                    aNewSock := FClass.create(ClientSock);
+                    aNewSock.Creator:=Self;
+                  end;
+              end;
+          until false;
+        end
+      else
+        begin
+          raise Exception.Create('Listen failed');
+          Terminate;
+        end;
     end;
 end;
 
