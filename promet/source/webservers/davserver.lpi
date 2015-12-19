@@ -37,7 +37,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=Stora&quot; --server-log"/>
+        <CommandLineParams Value="&quot;--mandant=Central&quot; --server-log --debug --debug-sql"/>
         <WorkingDirectory Value="..\"/>
       </local>
     </RunParams>

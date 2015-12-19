@@ -30,7 +30,7 @@ interface
 
 uses
   sysutils, 
-  strutils,tzutil;
+  strutils,tzutil,classes;
 
 type
   TCharSet = set of Char;
@@ -61,6 +61,8 @@ type
   function DecomposeURL(const URL: string; out Host, URI: string; out Port: Word): Boolean;
   function ComposeURL(Host, URI: string; const Port: Word): string;
 
+  function MemoryStreamToString(M: TMemoryStream): string;
+
 implementation
 
 uses
@@ -68,6 +70,11 @@ uses
 
 var
   AllChars: TCharSet = [];
+
+function MemoryStreamToString(M: TMemoryStream): string;
+begin
+  SetString(Result, PChar(M.Memory), M.Size div SizeOf(Char));
+end;
 
 function EncodeWithCharSet(const AStr: string; const aCharSet: TCharSet; const SpaceString: string = '%20'): string;
   { code from MvC's web }

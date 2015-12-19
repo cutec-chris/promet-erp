@@ -30,6 +30,7 @@ type
     Sock:TTCPBlockSocket;
   public
     Headers: TStringList;
+    Parameters : TStringList;
     InputData, OutputData: TMemoryStream;
     Constructor Create (hsock:tSocket);
     Destructor Destroy; override;
@@ -95,6 +96,8 @@ end;
 constructor TTCPHttpThrd.Create(hsock: tSocket);
 begin
   Headers := TStringList.Create;
+  Parameters := TStringList.Create;
+  Parameters.NameValueSeparator:=':';
   InputData := TMemoryStream.Create;
   OutputData := TMemoryStream.Create;
   sock:=TTCPBlockSocket.create;
@@ -108,6 +111,7 @@ destructor TTCPHttpThrd.Destroy;
 begin
   Sock.free;
   Headers.Free;
+  Parameters.Free;
   InputData.Free;
   OutputData.Free;
   inherited Destroy;
@@ -122,6 +126,7 @@ var
   x, n: integer;
   resultcode: integer;
   close: boolean;
+  tmp: String;
 begin
   timeout := 120000;
   repeat
@@ -153,7 +158,11 @@ begin
         if sock.lasterror <> 0 then
           Exit;
         if s <> '' then
-          Headers.add(s);
+          begin
+            Headers.add(s);
+            tmp := copy(s,0,pos(':',s)-1);
+            Parameters.Add(lowercase(tmp)+':'+copy(s,pos(':',s)+1,length(s)));
+          end;
         if Pos('CONTENT-LENGTH:', Uppercase(s)) = 1 then
           Size := StrToIntDef(SeparateRight(s, ' '), -1);
         if Pos('CONNECTION: CLOSE', Uppercase(s)) = 1 then
