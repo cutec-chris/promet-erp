@@ -161,7 +161,7 @@ begin
           begin
             Headers.add(s);
             tmp := copy(s,0,pos(':',s)-1);
-            Parameters.Add(lowercase(tmp)+':'+copy(s,pos(':',s)+1,length(s)));
+            Parameters.Add(lowercase(tmp)+':'+trim(copy(s,pos(':',s)+1,length(s))));
           end;
         if Pos('CONTENT-LENGTH:', Uppercase(s)) = 1 then
           Size := StrToIntDef(SeparateRight(s, ' '), -1);

@@ -226,6 +226,7 @@ begin
       if aDepth>0 then
         begin
           aDocuments := TDocuments.Create(nil);
+          aDocuments.GetUsedFields;
           aDocuments.Select(1,'D',0);
           aDocuments.Open;
           AddDocumentsToFileList(aDirList,aDocuments);
@@ -907,7 +908,7 @@ begin
     DBLogout;
   while not Terminated do
     begin
-      Sleep(100);
+      CheckSynchronize(100);
     end;
   // stop program loop
   Terminate;
