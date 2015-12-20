@@ -192,7 +192,7 @@ type
 
 implementation
 
-uses base64,Utils,uhttputil;
+uses base64,Utils,uhttputil,uBaseApplication;
 
 { TFileStreamOutput }
 
@@ -520,9 +520,12 @@ begin
   if HandleXMLRequest(ADoc) then
     begin
       WriteXML(ADoc,FOut);
-      writeln('<'+TDAVSocket(FSocket).Parameters.Text);
-      writeln('<'+MemoryStreamToString(Fin));
-      writeln('>'+MemoryStreamToString(FOut));
+      if BaseApplication.HasOption('debug') then
+        begin
+          writeln('<'+TDAVSocket(FSocket).Parameters.Text);
+          writeln('<'+MemoryStreamToString(Fin));
+          writeln('>'+MemoryStreamToString(FOut));
+        end;
       //Self.FBufferSize := FOut.Size;
       FOut.Position:=0;
       TDAVSocket(FSocket).HeaderOut.Add('ContentLength: '+IntToStr(FOut.Size));
@@ -612,7 +615,8 @@ var
         Attr.NodeValue:=aNS;
         aDocument.DocumentElement.Attributes.setNamedItem(Attr);
         Result := anPrefix;
-        writeln('New NS:'+anPrefix+'='+aNS);
+        if BaseApplication.HasOption('debug') then
+          writeln('New NS:'+anPrefix+'='+aNS);
       end;
   end;
   procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D';aFile : TDAVFile = nil);
@@ -663,7 +667,8 @@ var
         end;
     end;
   begin
-    writeln('CreateResponse:'+aPath+' '+prefix);
+    if BaseApplication.HasOption('debug') then
+      writeln('CreateResponse:'+aPath+' '+prefix);
     aNotFoundProp := TStringList.Create;
     aNotFoundProp.AddStrings(Properties);
     aResponse := aDocument.CreateElement(prefix+':response');
@@ -917,7 +922,8 @@ var
               aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[a]);
             end;
             aProp.AppendChild(aPropC);
-            writeln('Property not found:'+aNotFoundProp.ValueFromIndex[a]);
+            if BaseApplication.HasOption('debug') then
+              writeln('Property not found:'+aNotFoundProp.ValueFromIndex[a]);
           end;
         aStatus := aDocument.CreateElement(prefix+':status');
         aPropStat.AppendChild(aStatus);
@@ -928,7 +934,8 @@ var
 
 begin
   Result := False;
-  writeln('***PROPFIND:'+HTTPDecode(TDAVSocket(FSocket).URI));
+  if BaseApplication.HasOption('debug') then
+    writeln('***PROPFIND:'+HTTPDecode(TDAVSocket(FSocket).URI));
   aProperties := TStringList.Create;
   if FSocket.Parameters.Values['Authorization'] <> '' then
     begin
@@ -955,14 +962,16 @@ begin
               Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
               Attr1.NodeValue:=aNSName;
               aMSRes.Attributes.setNamedItem(Attr1);
-              writeln('Old NS:'+aLocalName+'='+aNSName);
+              if BaseApplication.HasOption('debug') then
+                writeln('Old NS:'+aLocalName+'='+aNSName);
             end
           else if (aLocalName = 'xmlns') and (aNSName<>'') then
             begin
               Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aPrefix);
               Attr1.NodeValue:=aNSName;
               aMSRes.Attributes.setNamedItem(Attr1);
-              writeln('Old NS:'+aNSName+'=');
+              if BaseApplication.HasOption('debug') then
+                writeln('Old NS:'+aNSName+'=');
             end;
 
         end;
@@ -980,7 +989,8 @@ begin
                 tmp := tmp1+':'+tmp;
             end;
           aProperties.Values[lowercase(tmp)]:=aPropNode.ChildNodes.Item[i].NodeName;
-          writeln('Wanted:'+tmp+'='+aPropNode.ChildNodes.Item[i].NodeName);
+          if BaseApplication.HasOption('debug') then
+            writeln('Wanted:'+tmp+'='+aPropNode.ChildNodes.Item[i].NodeName);
         end;
       aDocument.DocumentElement.Free;
     end
@@ -1095,7 +1105,8 @@ var
         end;
     end;
   begin
-    writeln('CreateResponse:'+aPath+' '+prefix);
+    if BaseApplication.HasOption('debug') then
+      writeln('CreateResponse:'+aPath+' '+prefix);
     aNotFoundProp := TStringList.Create;
     aNotFoundProp.AddStrings(Properties);
     aResponse := aDocument.CreateElement(prefix+':response');
@@ -1140,7 +1151,8 @@ var
           begin
             aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[a]);
             aProp.AppendChild(aPropC);
-            writeln('Property not found:'+aNotFoundProp.ValueFromIndex[a]);
+            if BaseApplication.HasOption('debug') then
+              writeln('Property not found:'+aNotFoundProp.ValueFromIndex[a]);
           end;
         aStatus := aDocument.CreateElement(prefix+':status');
         aPropStat.AppendChild(aStatus);
@@ -1161,7 +1173,8 @@ var
 begin
   aProperties := TStringList.Create;
   bProperties := TStringList.Create;
-  writeln('***REPORT:'+HTTPDecode(TDAVSocket(FSocket).URI));
+  if BaseApplication.HasOption('debug') then
+    writeln('***REPORT:'+HTTPDecode(TDAVSocket(FSocket).URI));
   aItems := TStringList.Create;
   if FSocket.Parameters.Values['authorization'] <> '' then
     begin
@@ -1227,7 +1240,8 @@ begin
                 tmp := tmp1+':'+tmp;
             end;
           aProperties.Values[lowercase(tmp)]:=aPropNode.ChildNodes.Item[i].NodeName;
-          writeln('Wanted:'+tmp+'='+aPropNode.ChildNodes.Item[i].NodeName);
+          if BaseApplication.HasOption('debug') then
+            writeln('Wanted:'+tmp+'='+aPropNode.ChildNodes.Item[i].NodeName);
         end;
       aPropNode := TDOMElement(aDocument.DocumentElement);
       for i := 0 to aPropNode.ChildNodes.Count-1 do
