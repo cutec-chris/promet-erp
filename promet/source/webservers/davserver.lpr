@@ -44,8 +44,10 @@ type
     function ServerUserLogin(aSocket : TDAVSocket;aUser, aPassword: string): Boolean;
   private
     Server : TWebDAVServer;
-    procedure AddDocumentsToFileList(aFileList : TDAVDirectoryList;aDocuments : TDocuments);
-    procedure AddDocumentToFileList(aFileList : TDAVDirectoryList;aDocuments : TDocuments);
+    procedure AddDocumentsToFileList(aFileList: TDAVDirectoryList;
+      aDocuments: TDocuments; aPath: string);
+    procedure AddDocumentToFileList(aFileList: TDAVDirectoryList;
+      aDocuments: TDocuments; FullPath: string);
   protected
     procedure DoRun; override;
   public
@@ -225,17 +227,17 @@ begin
       Data.Users.Filter('',0);
       if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
+  Data.RefreshUsersFilter;
   if aDir = '/' then
     begin
       Result := True;
-      aDirList := TDAVDirectoryList.Create;
       if aDepth>0 then
         begin
           aDocuments := TDocuments.Create(nil);
           aDocuments.GetUsedFields;
           aDocuments.Select(1,'D',0);
           aDocuments.Open;
-          AddDocumentsToFileList(aDirList,aDocuments);
+          AddDocumentsToFileList(aDirList,aDocuments,'/');
           aDocuments.Free;
           aItem := TDAVFile.Create('caldav',True);
           aDirList.Add(aItem);
@@ -256,9 +258,6 @@ begin
         aDir := copy(aDir,0,length(aDir)-1);
       if Data.Users.DataSet.Active then
         begin
-          if aDir = '' then
-            aDirList := TDAVDirectoryList.Create
-          else aDirList:=nil;
           if (copy(aDir,RPos('/',aDir)+1,length(aDir)) = 'user') then
             begin
               IsCalendarUser := True;
@@ -472,37 +471,33 @@ begin
     end
   else
     begin
-      aDirList := TDAVDirectoryList.Create;
-      if aDepth>0 then
+      aDocuments := TDocuments.Create(nil);
+      aDocuments.Select(1,'D',0);
+      if copy(aDir,length(aDir),1) <> '/' then
+        aDir := aDir+'/';
+      if aDocuments.OpenPath(aDir,'/') then
         begin
-          aDocuments := TDocuments.Create(nil);
-          aDocuments.Select(1,'D',0);
-          if copy(aDir,length(aDir),1) <> '/' then
-            aDir := aDir+'/';
-          if aDocuments.OpenPath(aDir,'/') then
+          AddDocumentsToFileList(aDirList,aDocuments,aDir);
+          Result := True;
+        end
+      else
+        begin
+          aDir := copy(aDir,0,length(aDir)-1);
+          aFile := HTTPDecode(copy(aDir,rpos('/',aDir)+1,length(aDir)));
+          aDir := copy(aDir,0,rpos('/',aDir));
+          if ((aDir = '') or (aDir = '/') or aDocuments.OpenPath(aDir,'/')) and (aDocuments.Active) then
             begin
-              AddDocumentsToFileList(aDirList,aDocuments);
-              Result := True;
-            end
-          else
-            begin
-              aDir := copy(aDir,0,length(aDir)-1);
-              aFile := HTTPDecode(copy(aDir,rpos('/',aDir)+1,length(aDir)));
-              aDir := copy(aDir,0,rpos('/',aDir));
-              if ((aDir = '') or (aDir = '/') or aDocuments.OpenPath(aDir,'/')) and (aDocuments.Active) then
+              aDocuments.DataSet.First;
+              while not aDocuments.DataSet.EOF do
                 begin
-                  aDocuments.DataSet.First;
-                  while not aDocuments.DataSet.EOF do
-                    begin
-                      if aDocuments.FileName = aFile then
-                        AddDocumentToFileList(aDirList,aDocuments);
-                      aDocuments.DataSet.Next;
-                    end;
-                  Result := True;
+                  if aDocuments.FileName = aFile then
+                    AddDocumentToFileList(aDirList,aDocuments,aDir+aFile);
+                  aDocuments.DataSet.Next;
                 end;
+              Result := True;
             end;
-          aDocuments.Free;
         end;
+      aDocuments.Free;
     end;
 end;
 function TSVNServer.ServerGetFile(aSocket: TDAVSocket; aDir: string;
@@ -670,6 +665,7 @@ begin
       Data.Users.Filter('',0);
       if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
+  Data.RefreshUsersFilter;
   aDocuments := TDocuments.Create(nil);
   aDocuments.Select(1,'D',0);
   aDocuments.Open;
@@ -727,6 +723,7 @@ begin
       Data.Users.Filter('',0);
       if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
+  Data.RefreshUsersFilter;
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
   if (copy(aDir,0,7) = '/caldav')
@@ -892,7 +889,7 @@ begin
   else aSocket.User:=Data.Users.Id.AsString;
 end;
 procedure TSVNServer.AddDocumentsToFileList(aFileList: TDAVDirectoryList;
-  aDocuments: TDocuments);
+  aDocuments: TDocuments;aPath : string);
 var
   aFile: TDAVFile;
   lIndex: Integer;
@@ -900,17 +897,17 @@ begin
   aDocuments.DataSet.First;
   while not aDocuments.DataSet.EOF do
     begin
-      AddDocumentToFileList(aFileList,aDocuments);
+      AddDocumentToFileList(aFileList,aDocuments,aPath+aDocuments.FileName);
       aDocuments.DataSet.Next;
     end;
 end;
 procedure TSVNServer.AddDocumentToFileList(aFileList: TDAVDirectoryList;
-  aDocuments: TDocuments);
+  aDocuments: TDocuments;FullPath : string);
 var
   aFile: TDAVFile;
   lIndex: Integer;
 begin
-  aFile := TDAVFile.Create(aDocuments.FileName,aDocuments.IsDir);
+  aFile := TDAVFile.Create(FullPath,aDocuments.IsDir);
   if not aDocuments.IsDir then
     begin
       //TODO:fix this
@@ -961,7 +958,8 @@ begin
   Server.OnReadAllowed:=@ServerReadAllowed;
   Server.OnWriteAllowed:=@ServerReadAllowed;
   Server.OnUserLogin:=@ServerUserLogin;
-  Login;
+  if not Login then exit;
+  writeln('Login to Database OK');
   Server.Start;
   Data.Users.DataSet.Close;
 end;

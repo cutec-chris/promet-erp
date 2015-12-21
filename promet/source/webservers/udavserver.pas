@@ -36,6 +36,7 @@ type
     procedure Put(Index: Integer; AValue: TDAVFile);
   public
     constructor Create;
+    function HasPath(aPath : string) : Boolean;
     property Files[Index: Integer]: TDAVFile read Get write Put; default;
     destructor Destroy;override;
   end;
@@ -176,7 +177,6 @@ type
     FDirList : TDAVDirectoryList;
     FResult : Boolean;
   protected
-    procedure DoDoGetDirectoryList;
     function DoGetDirectoryList(aDir : string;a3 : Integer;var aDirList : TDAVDirectoryList) : Boolean;
     function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;override;
   end;
@@ -187,7 +187,6 @@ type
     FDirList : TDAVDirectoryList;
     FResult : Boolean;
   protected
-    procedure DoDoGetDirectoryList;
     function DoGetDirectoryList(aDir : string;a3 : Integer;var aDirList : TDAVDirectoryList) : Boolean;
     function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;override;
   end;
@@ -253,22 +252,14 @@ begin
   FSocket := ASocket;
 end;
 
-{ TDAVOptionsOutput }
-
-procedure TDAVOptionsOutput.DoDoGetDirectoryList;
-begin
-  FDirList:=nil;
-  FResult:=True;
-  if Assigned(TWebDAVServer(FSocket.Creator).OnGetDirectoryList) then
-    FResult := TWebDAVServer(FSocket.Creator).OnGetDirectoryList(TDAVSocket(FSocket),FDir,FDepth,FDirList);
-end;
-
 function TDAVOptionsOutput.DoGetDirectoryList(aDir: string; a3: Integer;
   var aDirList: TDAVDirectoryList): Boolean;
 begin
   FDir := aDir;
   FDepth:=a3;
-  FSocket.Synchronize(@DoDoGetDirectoryList);
+  FDirList:=aDirList;
+  if Assigned(TWebDAVServer(FSocket.Creator).OnGetDirectoryList) then
+    FResult := TWebDAVServer(FSocket.Creator).OnGetDirectoryList(TDAVSocket(FSocket),FDir,FDepth,FDirList);
   aDirList:=FDirList;
   Result := FResult;
 end;
@@ -307,7 +298,9 @@ begin
   if pos('trunk',Path) > 0 then
     Path := StringReplace(Path,'trunk','!svn/act',[]);
   aDepth := StrToIntDef(trim(FSocket.Parameters.Values['depth']),0);
+  aDirList := TDAVDirectoryList.Create;
   Result := DoGetDirectoryList(Path,aDepth,aDirList);
+  aDirList.Free;
 
   aHRef.AppendChild(aDocument.CreateTextNode(Path));
   aActivityCollection.AppendChild(aHref);
@@ -488,6 +481,19 @@ begin
   inherited;
 end;
 
+function TDAVDirectoryList.HasPath(aPath: string): Boolean;
+var
+  i: Integer;
+begin
+  Result:=False;
+  for i := 0 to Count-1 do
+    if Files[i].Path+Files[i].Name=aPath then
+      begin
+        Result := True;
+        break;
+      end;
+end;
+
 destructor TDAVDirectoryList.Destroy;
 begin
   inherited Destroy;
@@ -504,13 +510,13 @@ end;
 constructor TDAVFile.Create(aName: string; aIsDir: Boolean);
 begin
   inherited Create;
-  FName := aName;
+  FName := ExtractFileName(aName);
   FIsDir := aIsDir;
   FIsCal:=False;
   FIsTodo:=False;
   FProperties := TStringList.Create;
   FASet := TStringList.Create;
-  FPath := '';
+  FPath := ExtractFilePath(aName);
 end;
 
 destructor TDAVFile.Destroy;
@@ -571,20 +577,14 @@ begin
   inherited Destroy;
 end;
 
-procedure TDAVFindPropOutput.DoDoGetDirectoryList;
-begin
-  FDirList:=nil;
-  FResult:=True;
-  if Assigned(TWebDAVServer(FSocket.Creator).OnGetDirectoryList) then
-    FResult := TWebDAVServer(FSocket.Creator).OnGetDirectoryList(TDAVSocket(FSocket),FDir,FDepth,FDirList);
-end;
-
 function TDAVFindPropOutput.DoGetDirectoryList(aDir: string; a3: Integer;
   var aDirList: TDAVDirectoryList): Boolean;
 begin
   FDir := aDir;
   FDepth:=a3;
-  FSocket.Synchronize(@DoDoGetDirectoryList);
+  FDirList := aDirList;
+  if Assigned(TWebDAVServer(FSocket.Creator).OnGetDirectoryList) then
+    FResult := TWebDAVServer(FSocket.Creator).OnGetDirectoryList(TDAVSocket(FSocket),FDir,FDepth,FDirList);
   aDirList:=FDirList;
   Result := FResult;
 end;
@@ -688,8 +688,8 @@ var
         end;
     end;
   begin
-    if BaseApplication.HasOption('debug') then
-      writeln('CreateResponse:'+aPath+' '+prefix);
+    if Assigned(TWebDAVServer(FSocket.Creator).OnAccess) then
+      TWebDAVServer(FSocket.Creator).OnAccess(FSocket,'>'+aPath+' '+prefix);
     aNotFoundProp := TStringList.Create;
     aNotFoundProp.AddStrings(Properties);
     aResponse := aDocument.CreateElement(prefix+':response');
@@ -958,9 +958,9 @@ begin
   if BaseApplication.HasOption('debug') then
     writeln('***PROPFIND:'+HTTPDecode(TDAVSocket(FSocket).URI));
   aProperties := TStringList.Create;
-  if FSocket.Parameters.Values['Authorization'] <> '' then
+  if FSocket.Parameters.Values['authorization'] <> '' then
     begin
-      aUser := FSocket.Parameters.Values['Authorization'];
+      aUser := FSocket.Parameters.Values['authorization'];
       aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
       TWebDAVServer(FSocket.Creator).Lock;
       if Assigned(TWebDAVServer(FSocket.Creator).OnUserLogin) then
@@ -1021,12 +1021,23 @@ begin
   Path := HTTPDecode(TDAVSocket(FSocket).URI);
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   aDepth := StrToIntDef(trim(FSocket.Parameters.Values['depth']),0);
+  aDirList := TDAVDirectoryList.Create;
   TWebDAVServer(FSocket.Creator).Lock;
   Result := DoGetDirectoryList(Path,aDepth,aDirList);
+  for i := 1 to aDepth do
+    begin
+      for a := 0 to aDirList.Count-1 do
+        begin
+          if (CountOccurences('/',aDirList.Files[a].Path) = aDepth+1)
+          and (aDirList.Files[a].IsDir) then
+            DoGetDirectoryList(aDirList.Files[a].Path,aDepth,aDirList);
+        end;
+    end;
   TWebDAVServer(FSocket.Creator).Unlock;
   if Assigned(aDirList) then
     begin
-      Createresponse(Path,aMSres,aProperties,aNS,aPrefix);
+      if not aDirList.HasPath(Path) then
+        Createresponse(Path,aMSres,aProperties,aNS,aPrefix);
       if copy(Path,length(Path),1) <> '/' then
         Path := Path+'/';
       for i := 0 to aDirList.Count-1 do
@@ -1041,6 +1052,7 @@ begin
     begin
       Createresponse(Path,aMSres,aProperties,aNs,aPrefix,TDAVFile(aDirList));
     end;
+  aDirList.Free;
   TDAVSocket(FSocket).Status:=207;
   TWebDAVServer(FSocket.Creator).Lock;
   if Assigned(TWebDAVServer(FSocket.Creator).OnReadAllowed) and (not TWebDAVServer(FSocket.Creator).OnReadAllowed(TDAVSocket(FSocket),Path)) then
