@@ -32,16 +32,16 @@ type
   { TSVNServer }
 
   TSVNServer = class(TBaseCustomApplication)
-    procedure ServerAccess(AMessage: string);
-    function ServerDelete(aDir: string): Boolean;
-    function ServerGetDirectoryList(aDir: string;aDepth : Integer; var aDirList: TDAVDirectoryList
+    procedure ServerAccess(aSocket : TDAVSocket;AMessage: string);
+    function ServerDelete(aSocket : TDAVSocket;aDir: string): Boolean;
+    function ServerGetDirectoryList(aSocket : TDAVSocket;aDir: string;aDepth : Integer; var aDirList: TDAVDirectoryList
       ) : Boolean;
-    function ServerGetFile(aDir: string; Stream: TStream;var LastModified : TDateTime;var MimeType : string;var eTag : string): Boolean;
-    function ServerMkCol(aDir: string): Boolean;
-    function ServerPutFile(aDir: string; Stream: TStream; var eTag: string; var FStatus : Integer
+    function ServerGetFile(aSocket : TDAVSocket;aDir: string; Stream: TStream;var LastModified : TDateTime;var MimeType : string;var eTag : string): Boolean;
+    function ServerMkCol(aSocket : TDAVSocket;aDir: string): Boolean;
+    function ServerPutFile(aSocket : TDAVSocket;aDir: string; Stream: TStream; var eTag: string; var FStatus : Integer
       ): Boolean;
-    function ServerReadAllowed(aDir: string): Boolean;
-    function ServerUserLogin(aUser, aPassword: string): Boolean;
+    function ServerReadAllowed(aSocket : TDAVSocket;aDir: string): Boolean;
+    function ServerUserLogin(aSocket : TDAVSocket;aUser, aPassword: string): Boolean;
   private
     Server : TWebDAVServer;
     procedure AddDocumentsToFileList(aFileList : TDAVDirectoryList;aDocuments : TDocuments);
@@ -92,11 +92,11 @@ begin
   m := bias mod 60;
   Result := FormatDateTime('yyyy-mm-dd',aDate)+'T'+FormatDateTime('hh:nn:ss',aDate,WebFormatSettings)+ Result + SysUtils.Format('%.2d:%.2d', [h, m]);
 end;
-procedure TSVNServer.ServerAccess(AMessage: string);
+procedure TSVNServer.ServerAccess(aSocket: TDAVSocket; AMessage: string);
 begin
   writeln(AMessage);
 end;
-function TSVNServer.ServerDelete(aDir: string): Boolean;
+function TSVNServer.ServerDelete(aSocket: TDAVSocket; aDir: string): Boolean;
 var
   aDocuments: TDocuments;
   aDocument: TDocument;
@@ -204,8 +204,8 @@ begin
       aDocuments.Free;
     end;
 end;
-function TSVNServer.ServerGetDirectoryList(aDir: string; aDepth: Integer;
-  var aDirList: TDAVDirectoryList): Boolean;
+function TSVNServer.ServerGetDirectoryList(aSocket: TDAVSocket; aDir: string;
+  aDepth: Integer; var aDirList: TDAVDirectoryList): Boolean;
 var
   aItem: TDAVFile;
   aDocuments: TDocuments;
@@ -219,6 +219,12 @@ var
   aTasks: TTaskList;
 begin
   Result := false;
+  if aSocket.User='' then exit;
+  if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then
+    begin
+      Data.Users.Filter('',0);
+      if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
+    end;
   if aDir = '/' then
     begin
       Result := True;
@@ -499,8 +505,9 @@ begin
         end;
     end;
 end;
-function TSVNServer.ServerGetFile(aDir: string; Stream: TStream;
-  var LastModified: TDateTime; var MimeType: string; var eTag: string): Boolean;
+function TSVNServer.ServerGetFile(aSocket: TDAVSocket; aDir: string;
+  Stream: TStream; var LastModified: TDateTime; var MimeType: string;
+  var eTag: string): Boolean;
 var
   aDocuments: TDocuments;
   aDocument: TDocument;
@@ -514,6 +521,13 @@ var
   aDirs: TTree;
   aTasks: TTaskList;
 begin
+  Result := False;
+  if aSocket.User='' then exit;
+  if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then
+    begin
+      Data.Users.Filter('',0);
+      if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
+    end;
   if aDir = 'ical/'+Data.Users.Text.AsString+'.ics' then
     begin
       sl := TStringList.Create;
@@ -643,12 +657,19 @@ begin
         end;
     end;
 end;
-function TSVNServer.ServerMkCol(aDir: string): Boolean;
+function TSVNServer.ServerMkCol(aSocket: TDAVSocket; aDir: string): Boolean;
 var
   aDocuments: TDocuments;
   aDocument: TDocument;
   Subfolder: Boolean = False;
 begin
+  Result := False;
+  if aSocket.User='' then exit;
+  if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then
+    begin
+      Data.Users.Filter('',0);
+      if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
+    end;
   aDocuments := TDocuments.Create(nil);
   aDocuments.Select(1,'D',0);
   aDocuments.Open;
@@ -682,8 +703,8 @@ begin
     end;
   aDocuments.Free;
 end;
-function TSVNServer.ServerPutFile(aDir: string; Stream: TStream;
-  var eTag: string; var FStatus: Integer): Boolean;
+function TSVNServer.ServerPutFile(aSocket: TDAVSocket; aDir: string;
+  Stream: TStream; var eTag: string; var FStatus: Integer): Boolean;
 var
   aDocuments: TDocuments;
   aDocument: TDocument;
@@ -699,6 +720,13 @@ var
   sl: TStringList;
   aTasks: TTaskList;
 begin
+  Result := False;
+  if aSocket.User='' then exit;
+  if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then
+    begin
+      Data.Users.Filter('',0);
+      if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
+    end;
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
   if (copy(aDir,0,7) = '/caldav')
@@ -845,17 +873,23 @@ begin
       aDocuments2.Free;
     end;
 end;
-function TSVNServer.ServerReadAllowed(aDir: string): Boolean;
+function TSVNServer.ServerReadAllowed(aSocket: TDAVSocket; aDir: string
+  ): Boolean;
 begin
-  Result := Data.Users.DataSet.Active;
+  Result := aSocket.User<>'';
 end;
-function TSVNServer.ServerUserLogin(aUser, aPassword: string): Boolean;
+function TSVNServer.ServerUserLogin(aSocket: TDAVSocket; aUser,
+  aPassword: string): Boolean;
 begin
   Data.Users.Open;
   Result := (Data.Users.DataSet.Locate('NAME',aUser,[]) or Data.Users.DataSet.Locate('LOGINNAME',aUser,[])) and (Data.Users.Leaved.IsNull);
   if Result then
     Result := Data.Users.CheckPasswort(aPassword);
-  if not Result then Data.Users.DataSet.Close;
+  if not Result then
+    begin
+      aSocket.User:='';
+    end
+  else aSocket.User:=Data.Users.Id.AsString;
 end;
 procedure TSVNServer.AddDocumentsToFileList(aFileList: TDAVDirectoryList;
   aDocuments: TDocuments);

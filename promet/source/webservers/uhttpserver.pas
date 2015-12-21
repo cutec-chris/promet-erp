@@ -32,7 +32,7 @@ type
     Headers: TStringList;
     Parameters : TStringList;
     InputData, OutputData: TMemoryStream;
-    Constructor Create (hsock:tSocket);
+    Constructor Create (hsock:tSocket);virtual;
     Destructor Destroy; override;
     procedure Execute; override;
     property Creator : TTCPHttpDaemon read FCreator write FCreator;
@@ -144,6 +144,7 @@ begin
       Exit;
     protocol := fetch(s, ' ');
     headers.Clear;
+    Parameters.Clear;
     size := -1;
     close := false;
     //read request headers
@@ -196,6 +197,7 @@ begin
     if sock.lasterror <> 0 then
       Exit;
     Sock.SendBuffer(OutputData.Memory, OutputData.Size);
+    Headers.Clear;
     if close then
       Break;
   until Sock.LastError <> 0;
