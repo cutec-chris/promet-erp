@@ -262,12 +262,15 @@ begin
   if fType=AValue then Exit;
   fType:=AValue;
   FChart.Series.Clear;
+  //TODO:fix this
+  {
   if SeriesClassRegistry.IndexOf(AValue) > -1 then
     begin
       aClass := TChartSeries(TSeriesClass(SeriesClassRegistry.Objects[SeriesClassRegistry.IndexOf(AValue)]).Create(nil));
       fChart.AddSeries(aClass);
       aClass.Source := FChartSource;
     end;
+  }
 end;
 
 procedure CreateDS(const Desc: String; var DataSet: TfrDataSet; var IsVirtualDS: Boolean);
@@ -475,7 +478,8 @@ begin
   if not assigned(frChartForm) {and not (csDesigning in ComponentState)} then
   begin
     frChartForm:=TfrChartForm.Create(nil);
-    frChartForm.cbType.Items.Assign(SeriesClassRegistry);
+    //TODO:fix this
+    //frChartForm.cbType.Items.Assign(SeriesClassRegistry);
     frRegisterObject(TfrChartView, frChartForm.Image1.Picture.Bitmap,
       sInsChart, frChartForm);
   end;
@@ -491,4 +495,4 @@ finalization
     frChartForm.Free;
 
 end.
-
+
