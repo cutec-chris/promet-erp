@@ -47,7 +47,6 @@ type
   private
     FASet: TStringList;
     FCHS: string;
-    FFath: string;
     FIsCal: Boolean;
     FIsCalU: Boolean;
     FIsDir: Boolean;
@@ -67,7 +66,7 @@ type
     property IsTodoList : Boolean read FIsTodo write FIsTodo;
     property CalendarHomeSet : string read FCHS write FCHS;
     property UserAdressSet : TStringList read FASet;
-    property Path : string read FFath write FPath;
+    property Path : string read FPath write FPath;
   end;
 
   { TDAVSocket }
@@ -95,6 +94,8 @@ type
   TDAVLoginEvent = function(aSocket : TDAVSocket;aUser,aPassword : string) : Boolean of object;
   TDAVAccessEvent = procedure(aSocket : TDAVSocket;Info : string) of object;
 
+  { TWebDAVServer }
+
   TWebDAVServer = class(TTCPHttpDaemon)
   private
     FAccess: TDAVAccessEvent;
@@ -115,6 +116,7 @@ type
     destructor Destroy; override;
     procedure Lock;
     procedure Unlock;
+    procedure InternalMessage(aMsg: string); override;
     property OnGetDirectoryList : TDAVGetDirectoryList read FGetDirList write FGetDirList;
     property OnMkCol : TDAVFileEvent read FMkCol write FMkCol;
     property OnDelete : TDAVFileEvent read FDelete write FDelete;
@@ -464,6 +466,12 @@ begin
   FCS.Leave;
 end;
 
+procedure TWebDAVServer.InternalMessage(aMsg: string);
+begin
+  if Assigned(OnAccess) then
+    OnAccess(nil,'!'+aMsg);
+end;
+
 { TDAVDirectoryList }
 
 function TDAVDirectoryList.Get(Index: Integer): TDAVFile;
@@ -484,14 +492,19 @@ end;
 function TDAVDirectoryList.HasPath(aPath: string): Boolean;
 var
   i: Integer;
+  tmp: String;
 begin
   Result:=False;
   for i := 0 to Count-1 do
-    if Files[i].Path+Files[i].Name=aPath then
-      begin
-        Result := True;
-        break;
-      end;
+    begin
+      tmp := Files[i].Path;
+      tmp += Files[i].Name;
+      if tmp=aPath then
+        begin
+          Result := True;
+          break;
+        end;
+    end;
 end;
 
 destructor TDAVDirectoryList.Destroy;
@@ -1024,6 +1037,7 @@ begin
   aDirList := TDAVDirectoryList.Create;
   TWebDAVServer(FSocket.Creator).Lock;
   Result := DoGetDirectoryList(Path,aDepth,aDirList);
+  {
   for i := 1 to aDepth do
     begin
       for a := 0 to aDirList.Count-1 do
@@ -1033,6 +1047,7 @@ begin
             DoGetDirectoryList(aDirList.Files[a].Path,aDepth,aDirList);
         end;
     end;
+  }
   TWebDAVServer(FSocket.Creator).Unlock;
   if Assigned(aDirList) then
     begin
@@ -1045,7 +1060,7 @@ begin
           if aDirList[i].Path='' then
             Createresponse(Path+aDirList[i].Name,aMSres,aProperties,aNs,aPrefix,aDirList[i])
           else
-            Createresponse(aDirList[i].Path+'/'+aDirList[i].Name,aMSres,aProperties,aNs,aPrefix,aDirList[i]);
+            Createresponse(aDirList[i].Path+aDirList[i].Name,aMSres,aProperties,aNs,aPrefix,aDirList[i]);
         end;
     end
   else if Assigned(aDirList) and (aDirList is TDAVFile) then

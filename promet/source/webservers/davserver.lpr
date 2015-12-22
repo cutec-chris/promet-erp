@@ -239,9 +239,9 @@ begin
           aDocuments.Open;
           AddDocumentsToFileList(aDirList,aDocuments,'/');
           aDocuments.Free;
-          aItem := TDAVFile.Create('caldav',True);
+          aItem := TDAVFile.Create('/caldav',True);
           aDirList.Add(aItem);
-          aItem := TDAVFile.Create('ical',True);
+          aItem := TDAVFile.Create('/ical',True);
           aDirList.Add(aItem);
         end;
     end
@@ -250,6 +250,8 @@ begin
   then
     begin
       aFullDir := aDir;
+      if copy(aFullDir,length(aFullDir),1) <> '/' then
+        aFullDir := aFullDir+'/';
       if copy(aDir,0,7)='/caldav' then
         aDir := copy(aDir,9,length(aDir))
       else if (copy(aDir,0,19) = '/.well-known/caldav') then
@@ -266,7 +268,7 @@ begin
           //Add CalDAV Calendars
           aDirs := TTree.Create(nil);
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('A'));
-          aItem := TDAVFile.Create('home',True);
+          aItem := TDAVFile.Create(aFullDir+'home',True);
           if (aDir = aItem.Name) or (aDir = '') then
             begin
               aItem.IsCalendar:=True;
@@ -298,9 +300,9 @@ begin
                   while not aCal.EOF do
                     begin
                       if aCal.FieldByName('ORIGID').AsString<>'' then
-                        aItem := TDAVFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
+                        aItem := TDAVFile.Create(aFullDir+aCal.FieldByName('ORIGID').AsString+'.ics')
                       else
-                        aItem := TDAVFile.Create(aCal.Id.AsString+'.ics');
+                        aItem := TDAVFile.Create(aFullDir+aCal.Id.AsString+'.ics');
                       aItem.Properties.Values['getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                       aItem.Properties.Values['getcontenttype'] := 'text/calendar; component=vevent';
                       aDirList.Add(aItem);
@@ -312,9 +314,9 @@ begin
                   while not aTasks.EOF do
                     begin
                       if aTasks.FieldByName('ORIGID').AsString<>'' then
-                        aItem := TDAVFile.Create(aTasks.FieldByName('ORIGID').AsString+'.ics')
+                        aItem := TDAVFile.Create(aFullDir+aTasks.FieldByName('ORIGID').AsString+'.ics')
                       else
-                        aItem := TDAVFile.Create(aTasks.Id.AsString+'.ics');
+                        aItem := TDAVFile.Create(aFullDir+aTasks.Id.AsString+'.ics');
                       aItem.Path := aFullDir+'/home';
                       aItem.Properties.Values['getetag'] := aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
                       aItem.Properties.Values['getcontenttype'] := 'text/calendar; component=vtodo';
@@ -328,7 +330,7 @@ begin
           else aItem.Free;
           while not aDirs.EOF do
             begin
-              aItem := TDAVFile.Create(aDirs.Text.AsString,True);
+              aItem := TDAVFile.Create(aFullDir+aDirs.Text.AsString,True);
               if (aDir = aItem.Name) or (aDir = '') then
                 begin
                   aItem.IsCalendar:=True;
@@ -351,9 +353,9 @@ begin
                       while not aCal.EOF do
                         begin
                           if aCal.FieldByName('ORIGID').AsString<>'' then
-                            aItem := TDAVFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
+                            aItem := TDAVFile.Create(aFullDir+aCal.FieldByName('ORIGID').AsString+'.ics')
                           else
-                            aItem := TDAVFile.Create(aCal.Id.AsString+'.ics');
+                            aItem := TDAVFile.Create(aFullDir+aCal.Id.AsString+'.ics');
                           aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                           aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
                           aItem.Path := aFullDir+'/'+aDirs.Text.AsString;
@@ -374,6 +376,8 @@ begin
   else if copy(aDir,0,8) = '/carddav' then
     begin
       aFullDir := aDir;
+      if copy(aFullDir,length(aFullDir),1) <> '/' then
+        aFullDir := aFullDir+'/';
       aDir := copy(aDir,10,length(aDir));
       if copy(aDir,length(aDir),1) = '/' then
         aDir := copy(aDir,0,length(aDir)-1);
@@ -394,7 +398,7 @@ begin
             begin
 
 
-              aItem := TDAVFile.Create(aDirs.Text.AsString,True);
+              aItem := TDAVFile.Create(aFullDir+aDirs.Text.AsString,True);
               if (aDir = aItem.Name) or (aDir = '') then
                 begin
                   aItem.IsCalendar:=True;
@@ -417,12 +421,11 @@ begin
                       while not aCal.EOF do
                         begin
                           if aCal.FieldByName('ORIGID').AsString<>'' then
-                            aItem := TDAVFile.Create(aCal.FieldByName('ORIGID').AsString+'.ics')
+                            aItem := TDAVFile.Create(aFullDir+aCal.FieldByName('ORIGID').AsString+'.ics')
                           else
-                            aItem := TDAVFile.Create(aCal.Id.AsString+'.ics');
+                            aItem := TDAVFile.Create(aFullDir+aCal.Id.AsString+'.ics');
                           aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                           aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
-                          aItem.Path := aFullDir+'/'+aDirs.Text.AsString;
                           aDirList.Add(aItem);
                           aCal.Next;
                         end;
@@ -442,9 +445,11 @@ begin
       if Data.Users.DataSet.Active then
         begin
           aFullDir := aDir;
+          if copy(aFullDir,length(aFullDir),1) <> '/' then
+            aFullDir := aFullDir+'/';
           aDir := copy(aDir,7,length(aDir));
           //Add ics file
-          aItem := TDAVFile.Create(Data.Users.Text.AsString+'.ics',False);
+          aItem := TDAVFile.Create(aFullDir+Data.Users.Text.AsString+'.ics',False);
           if (aDir = aItem.Name) or (aDir = '') then
             begin
               aItem.Properties.Values['getcontenttype'] := 'text/calendar';

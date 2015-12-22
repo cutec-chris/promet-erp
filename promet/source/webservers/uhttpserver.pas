@@ -20,6 +20,7 @@ type
     Destructor Destroy; override;
     procedure Execute; override;
     property ThreadType :  THttpThrdClass read FClass write FClass;
+    procedure InternalMessage(aMsg : string);virtual;
   end;
 
   { TTCPHttpThrd }
@@ -62,33 +63,39 @@ var
   ClientSock:TSocket;
   aNewSock: TTCPHttpThrd;
 begin
-  with sock do
+  while not Terminated do
     begin
-      CreateSocket;
-      setLinger(true,10000);
-      bind('0.0.0.0','8085');
-      if LastError=0 then
+      with sock do
         begin
-          listen;
-          repeat
-            if terminated then break;
-            if canread(1000) then
-              begin
-                ClientSock:=accept;
-                if lastError=0 then
+          CreateSocket;
+          setLinger(true,10000);
+          bind('0.0.0.0','8085');
+          if LastError=0 then
+            begin
+              InternalMessage('Listening...');
+              listen;
+              repeat
+                if terminated then break;
+                if canread(1000) then
                   begin
-                    aNewSock := FClass.create(ClientSock);
-                    aNewSock.Creator:=Self;
+                    ClientSock:=accept;
+                    if lastError=0 then
+                      begin
+                        aNewSock := FClass.create(ClientSock);
+                        aNewSock.Creator:=Self;
+                      end;
                   end;
-              end;
-          until false;
-        end
-      else
-        begin
-          raise Exception.Create('Listen failed');
-          Terminate;
+              until false;
+            end;
         end;
+      InternalMessage('Bind failed, retrying in 5 sek...');
+      sleep(5000);
     end;
+end;
+
+procedure TTCPHttpDaemon.InternalMessage(aMsg: string);
+begin
+
 end;
 
 { TTCPHttpThrd }
