@@ -2,11 +2,13 @@ unit twebdav;
 
 {$mode objfpc}{$H+}
 
+//Checks according to http://sabre.io/dav/building-a-caldav-client/
+
 interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry,udavserver,
-  Sockets,uhttputil,uprometdavserver;
+  Sockets,uhttputil,uprometdavserver,uData;
 
 type
 
@@ -19,7 +21,8 @@ type
     procedure SetUp; override;
     procedure PropfindRoot;
     procedure FindPrincipal;
-    procedure OptionsDepth0;
+    procedure FindPrincipalCalendarHome;
+    procedure FindPrincipalCalendars;
   end;
 
   { TestSocket }
@@ -36,6 +39,7 @@ var
   aReq : TStringList;
   Server : TWebDAVServer;
   ServerFunctions: TPrometServerFunctions;
+  UserURL,UserCalenderURL : string;
 
 { TestSocket }
 
@@ -47,10 +51,9 @@ begin
   InputData := TMemoryStream.Create;
   OutputData := TMemoryStream.Create;
 end;
-
 function TWebDAVTest.SendRequest(aRequest: string): string;
 var
-  aURL: String;
+  aURL, tmp: String;
 begin
   aReq.Text:=aRequest;
   aURL := aReq[0];
@@ -63,10 +66,11 @@ begin
     end;
   aReq.Delete(0);
   aReq.SaveToStream(Socket.InputData);
-  Socket.ProcessHttpRequest(copy(aURL,0,pos(' ',aURL)-1),copy(aURL,pos(' ',aURL)+1,length(aURL)));
+  tmp := copy(aURL,pos(' ',aURL)+1,length(aURL));
+  tmp := trim(copy(tmp,0,pos('HTTP',tmp)-1));
+  Socket.ProcessHttpRequest(copy(aURL,0,pos(' ',aURL)-1),tmp);
   Result := IntToStr(Socket.Status)+LineEnding+MemoryStreamToString(Socket.OutputData);
 end;
-
 procedure TWebDAVTest.SetUp;
 begin
   inherited SetUp;
@@ -74,6 +78,7 @@ begin
   Socket := TestSocket.Create(0);
   Server := TWebDAVServer.Create;
   Socket.Creator:=Server;
+  Socket.User:=Data.Users.Id.AsString;
   ServerFunctions := TPrometServerFunctions.Create;
   Server.OnGetDirectoryList:=@ServerFunctions.ServerGetDirectoryList;
   Server.OnMkCol:=@ServerFunctions.ServerMkCol;
@@ -84,7 +89,6 @@ begin
   Server.OnWriteAllowed:=@ServerFunctions.ServerReadAllowed;
   Server.OnUserLogin:=@ServerFunctions.ServerUserLogin;
 end;
-
 procedure TWebDAVTest.PropfindRoot;
 var
   aRes: String;
@@ -103,9 +107,8 @@ begin
   +'  </d:prop>'+#13
   +'</d:propfind>'+#13
   );
-  Check(copy(aRes,0,pos(#10,aRes)-1)='401','Wrong Answer to PropfindRoot');
+  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to PropfindRoot');
 end;
-
 procedure TWebDAVTest.FindPrincipal;
 var
   aRes, tmp: String;
@@ -121,14 +124,58 @@ begin
   +'     <d:current-user-principal />'+#13
   +'  </d:prop>'+#13
   +'</d:propfind>'+#13);
-  Check(copy(aRes,0,pos(#10,aRes)-1)='401','Wrong Answer to Propfind Principal');
+  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Propfind Principal');
   tmp := copy(ares,pos('d:current-user-principal',aRes)+24,length(aRes));
-
+  tmp := copy(tmp,2,pos('/d:current-user-principal',tmp)-3);
+  tmp := trim(Stringreplace(tmp,#10,'',[rfReplaceAll]));
+  Check(pos('d:href',tmp)>0,'Wrong Principal');
+  tmp := copy(tmp,pos('>',tmp)+1,length(tmp));
+  tmp := copy(tmp,0,pos('<',tmp)-1);
+  UserURL := tmp;
 end;
-
-procedure TWebDAVTest.OptionsDepth0;
+procedure TWebDAVTest.FindPrincipalCalendarHome;
+var
+  aRes, tmp: String;
 begin
-
+  aRes := SendRequest(
+    'PROPFIND '+UserURL+' HTTP/1.1'+#13
+  +'Depth: 0'+#13
+  +'Prefer: return-minimal'+#13
+  +'Content-Type: application/xml; charset=utf-8'+#13
+  +''+#13
+  +'<d:propfind xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav">'+#13
+  +'  <d:prop>'+#13
+  +'     <c:calendar-home-set />'+#13
+  +'  </d:prop>'+#13
+  +'</d:propfind>'+#13);
+  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
+  tmp := copy(ares,pos('c:calendar-home-set',aRes)+20,length(aRes));
+  tmp := copy(tmp,2,pos('/c:calendar-home-set',tmp)-3);
+  tmp := trim(Stringreplace(tmp,#10,'',[rfReplaceAll]));
+  Check(pos('d:href',tmp)>0,'Wrong Home Set');
+  tmp := copy(tmp,pos('>',tmp)+1,length(tmp));
+  tmp := copy(tmp,0,pos('<',tmp)-1);
+  UserCalenderURL := tmp;
+end;
+procedure TWebDAVTest.FindPrincipalCalendars;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+    'PROPFIND '+UserCalenderURL+' HTTP/1.1'+#13
+  +'Depth: 1'+#13
+  +'Prefer: return-minimal'+#13
+  +'Content-Type: application/xml; charset=utf-8'+#13
+  +''+#13
+  +'<d:propfind xmlns:d="DAV:" xmlns:cs="http://calendarserver.org/ns/" xmlns:c="urn:ietf:params:xml:ns:caldav">'+#13
+  +'  <d:prop>'+#13
+  +'     <d:resourcetype />'+#13
+  +'     <d:displayname />'+#13
+  +'     <cs:getctag />'+#13
+  +'     <c:supported-calendar-component-set />'+#13
+  +'  </d:prop>'+#13
+  +'</d:propfind>'+#13);
+  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
 end;
 
 initialization

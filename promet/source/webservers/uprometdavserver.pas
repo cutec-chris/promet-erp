@@ -1,3 +1,21 @@
+{*******************************************************************************
+  Copyright (C) Christian Ulrich info@cu-tec.de
+
+  This source is free software; you can redistribute it and/or modify it under
+  the terms of the GNU General Public License as published by the Free
+  Software Foundation; either version 2 of the License, or commercial alternative
+  contact us for more information
+
+  This code is distributed in the hope that it will be useful, but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+  details.
+
+  A copy of the GNU General Public License is available on the World Wide Web
+  at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
+  to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+  MA 02111-1307, USA.
+*******************************************************************************}
 unit uprometdavserver;
 
 {$mode objfpc}{$H+}
@@ -205,6 +223,7 @@ begin
       if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
   Data.RefreshUsersFilter;
+  //Root
   if aDir = '/' then
     begin
       Result := True;
@@ -229,6 +248,19 @@ begin
           aDirList.Add(aItem);
         end;
     end
+  //Principals
+  else if (copy(aDir,0,7) = '/users/')
+  then
+    begin
+      Result := True;
+      aFullDir := aDir;
+      if copy(aFullDir,length(aFullDir),1) <> '/' then
+        aFullDir := aFullDir+'/';
+      aItem := TDAVFile.Create(aFullDir,True);
+      aDirList.Add(aItem);
+      aItem.CalendarHomeSet:='/caldav/';
+    end
+  //Standard CalDAV Paths
   else if (copy(aDir,0,7) = '/caldav')
        or (copy(aDir,0,19) = '/.well-known/caldav')
   then
@@ -355,6 +387,7 @@ begin
         end
       else Result := False;
     end
+  //Standard CardDAV Paths
   else if copy(aDir,0,8) = '/carddav' then
     begin
       aFullDir := aDir;
@@ -422,6 +455,7 @@ begin
         end
       else Result := False;
     end
+  //Ical Calendar
   else if copy(aDir,0,5) = '/ical' then
     begin
       if Data.Users.DataSet.Active then
@@ -456,6 +490,7 @@ begin
         end
       else Result:=False;
     end
+  //Files from Documents/Files
   else
     begin
       aDocuments := TDocuments.Create(nil);
@@ -481,8 +516,8 @@ begin
                     AddDocumentToFileList(aDirList,aDocuments,aDir+aFile);
                   aDocuments.DataSet.Next;
                 end;
-              Result := True;
             end;
+          Result := True;
         end;
       aDocuments.Free;
     end;
