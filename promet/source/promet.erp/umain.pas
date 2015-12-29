@@ -932,6 +932,7 @@ begin
         fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,False);
       end;
   except
+    fMain.WikiFrame.DataSet.Cancel;
   end;
   aWiki.Free;
 end;

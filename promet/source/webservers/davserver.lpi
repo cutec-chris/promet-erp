@@ -37,7 +37,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=Stora&quot; --server-log"/>
+        <CommandLineParams Value="&quot;--mandant=Stora&quot; --server-log --debug"/>
         <WorkingDirectory Value="..\"/>
       </local>
     </RunParams>
@@ -54,7 +54,7 @@
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="5">
       <Unit0>
         <Filename Value="davserver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -71,6 +71,10 @@
         <Filename Value="udavserver.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="uprometdavserver.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

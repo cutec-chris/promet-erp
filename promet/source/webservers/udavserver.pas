@@ -54,6 +54,7 @@ type
     FName: string;
     FPath: string;
     FProperties: TStringList;
+    FUserURI: string;
     procedure SetName(AValue: string);
   public
     constructor Create(aName : string;aIsDir : Boolean = False);
@@ -65,6 +66,7 @@ type
     property IsCalendarUser : Boolean read FIsCalU write FIsCalU;
     property IsTodoList : Boolean read FIsTodo write FIsTodo;
     property CalendarHomeSet : string read FCHS write FCHS;
+    property CurrentUserPrincipal : string read FUserURI write FUserURI;
     property UserAdressSet : TStringList read FASet;
     property Path : string read FPath write FPath;
   end;
@@ -551,21 +553,25 @@ var
   tmp: String;
 begin
   FIn.Position:=0;
+  if BaseApplication.HasOption('debug') then
+    begin
+      writeln('<'+TDAVSocket(FSocket).Parameters.Text);
+      writeln('<'+MemoryStreamToString(Fin));
+    end;
   try
     if Fin.Size>0 then
       ReadXMLFile(ADoc,FIn);
   except
+    on e : Exception do
+      begin
+        TDAVSocket(FSocket).Status:=424;
+        exit;
+      end;
   end;
   FOut.Clear;
   if HandleXMLRequest(ADoc) then
     begin
       WriteXML(ADoc,FOut);
-      if BaseApplication.HasOption('debug') then
-        begin
-          writeln('<'+TDAVSocket(FSocket).Parameters.Text);
-          writeln('<'+MemoryStreamToString(Fin));
-          writeln('>'+MemoryStreamToString(FOut));
-        end;
       //Self.FBufferSize := FOut.Size;
       FOut.Position:=0;
       TDAVSocket(FSocket).HeaderOut.Add('ContentLength: '+IntToStr(FOut.Size));
@@ -577,6 +583,10 @@ begin
       TDAVSocket(FSocket).Status:=403;
       FOut.Clear;
       TDAVSocket(FSocket).OutputData := Self.FOut;
+    end;
+  if BaseApplication.HasOption('debug') then
+    begin
+      writeln('>'+MemoryStreamToString(FOut));
     end;
 end;
 function TXmlOutput.BuildStatus(aStatus: Integer;Statusname : string): string;
@@ -723,9 +733,44 @@ var
         if (FindProp(':resourcetype') > -1)  then
           begin
             tmp := aNotFoundProp.ValueFromIndex[FindProp(':resourcetype')];
+            if pos(':',tmp)=0 then tmp := prefix+':'+tmp;
             aPropC := aDocument.CreateElement(tmp);
             RemoveProp(prefix+':resourcetype');
             aProp.AppendChild(aPropC);
+          end;
+        if aFile.CurrentUserPrincipal<>'' then
+          begin
+            if (FindProp(':current-user-principal') > -1) then
+              begin
+                tmp := aNotFoundProp.ValueFromIndex[FindProp(':current-user-principal')];
+                if pos(':',tmp)=0 then tmp := prefix+':'+tmp;
+                aPropD := aDocument.CreateElement(tmp);
+                aProp.AppendChild(apropD);
+                aHref := aDocument.CreateElement(prefix+':href');
+                aPropD.AppendChild(aHref);
+                aHRef.AppendChild(aDocument.CreateTextNode(aFile.CurrentUserPrincipal));
+                RemoveProp(':current-user-principal');
+              end;
+          end;
+        if (FindProp(':calendar-user-address-set') > -1)  then
+          begin
+            aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-user-address-set')]);
+            aProp.AppendChild(apropD);
+            aHref := aDocument.CreateElement(prefix+':href');
+            aPropD.AppendChild(aHref);
+            aHRef.AppendChild(aDocument.CreateTextNode(aPath+'user/'));
+            RemoveProp(':calendar-user-address-set');
+          end;
+        if (FindProp(':calendar-home-set') > -1) then
+          begin
+            tmp := aNotFoundProp.ValueFromIndex[FindProp(':calendar-home-set')];
+            AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
+            aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-home-set')]);
+            aProp.AppendChild(apropD);
+            aHref := aDocument.CreateElement(prefix+':href');
+            aPropD.AppendChild(aHref);
+            aHRef.AppendChild(aDocument.CreateTextNode(aFile.CalendarHomeSet));
+            RemoveProp(':calendar-home-set');
           end;
         if aFile.IsCalendar then
           begin
@@ -738,35 +783,7 @@ var
                 aHRef.AppendChild(aDocument.CreateTextNode(aPath+'user/'));
                 RemoveProp(':owner');
               end;
-            if (FindProp(':current-user-principal') > -1)  then
-              begin
-                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':current-user-principal')]);
-                aProp.AppendChild(apropD);
-                aHref := aDocument.CreateElement(prefix+':href');
-                aPropD.AppendChild(aHref);
-                aHRef.AppendChild(aDocument.CreateTextNode(aPath+'user/'));
-                RemoveProp(':current-user-principal');
-              end;
-            if (FindProp(':calendar-user-address-set') > -1)  then
-              begin
-                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-user-address-set')]);
-                aProp.AppendChild(apropD);
-                aHref := aDocument.CreateElement(prefix+':href');
-                aPropD.AppendChild(aHref);
-                aHRef.AppendChild(aDocument.CreateTextNode(aPath+'user/'));
-                RemoveProp(':calendar-user-address-set');
-              end;
-            if (FindProp(':calendar-home-set') > -1) then
-              begin
-                tmp := aNotFoundProp.ValueFromIndex[FindProp(':calendar-home-set')];
-                AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
-                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-home-set')]);
-                aProp.AppendChild(apropD);
-                aHref := aDocument.CreateElement(prefix+':href');
-                aPropD.AppendChild(aHref);
-                aHRef.AppendChild(aDocument.CreateTextNode(aFile.CalendarHomeSet));
-                RemoveProp(':calendar-home-set');
-              end;
+            {
 
             if (aFile.UserAdressSet.Count>0) and (FindProp(':calendar-user-address-set') > -1) then
               begin
@@ -782,6 +799,7 @@ var
                   end;
                 RemoveProp(':calendar-user-address-set');
               end;
+              }
             if FindProp(':schedule-inbox-URL') > -1  then
               begin
                 tmp := aNotFoundProp.ValueFromIndex[FindProp(':schedule-inbox-URL')];
