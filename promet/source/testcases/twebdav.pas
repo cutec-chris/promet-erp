@@ -21,8 +21,11 @@ type
     procedure SetUp; override;
     procedure PropfindRoot;
     procedure FindPrincipal;
+    procedure FindPrincipalOnWellKnown;
     procedure FindPrincipalCalendarHome;
     procedure FindPrincipalCalendars;
+    procedure CheckNamespaceUsage;
+    procedure AddEvent;
   end;
 
   { TestSocket }
@@ -131,7 +134,33 @@ begin
   Check(pos('d:href',tmp)>0,'Wrong Principal');
   tmp := copy(tmp,pos('>',tmp)+1,length(tmp));
   tmp := copy(tmp,0,pos('<',tmp)-1);
-  UserURL := tmp;
+  UserURL := trim(tmp);
+  Check(UserURL<>'','Wrong Principal URL');
+end;
+procedure TWebDAVTest.FindPrincipalOnWellKnown;
+var
+  aRes, tmp: String;
+begin
+  aRes := SendRequest(
+    'PROPFIND /.well-known/caldav/ HTTP/1.1'+#13
+  +'Depth: 0'+#13
+  +'Prefer: return-minimal'+#13
+  +'Content-Type: application/xml; charset=utf-8'+#13
+  +''+#13
+  +'<d:propfind xmlns:d="DAV:">'+#13
+  +'  <d:prop>'+#13
+  +'     <d:current-user-principal />'+#13
+  +'  </d:prop>'+#13
+  +'</d:propfind>'+#13);
+  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Propfind Principal');
+  tmp := copy(ares,pos('d:current-user-principal',aRes)+24,length(aRes));
+  tmp := copy(tmp,2,pos('/d:current-user-principal',tmp)-3);
+  tmp := trim(Stringreplace(tmp,#10,'',[rfReplaceAll]));
+  Check(pos('d:href',tmp)>0,'Wrong Principal');
+  tmp := copy(tmp,pos('>',tmp)+1,length(tmp));
+  tmp := copy(tmp,0,pos('<',tmp)-1);
+  UserURL := trim(tmp);
+  Check(UserURL<>'','Wrong Principal URL');
 end;
 procedure TWebDAVTest.FindPrincipalCalendarHome;
 var
@@ -155,14 +184,15 @@ begin
   Check(pos('d:href',tmp)>0,'Wrong Home Set');
   tmp := copy(tmp,pos('>',tmp)+1,length(tmp));
   tmp := copy(tmp,0,pos('<',tmp)-1);
-  UserCalenderURL := tmp;
+  UserCalenderURL := trim(tmp);
+  Check(UserCalenderURL<>'','Wrong Home Set URL');
 end;
 procedure TWebDAVTest.FindPrincipalCalendars;
 var
   aRes: String;
 begin
   aRes := SendRequest(
-    'PROPFIND '+UserCalenderURL+' HTTP/1.1'+#13
+   'PROPFIND '+UserCalenderURL+' HTTP/1.1'+#13
   +'Depth: 1'+#13
   +'Prefer: return-minimal'+#13
   +'Content-Type: application/xml; charset=utf-8'+#13
@@ -176,6 +206,24 @@ begin
   +'  </d:prop>'+#13
   +'</d:propfind>'+#13);
   Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
+end;
+
+procedure TWebDAVTest.CheckNamespaceUsage;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND /caldav/ HTTP 1.1'+#13
+  +'depth:1'+#13
+  +'content-type:application/xml; charset=utf-8'+#13
+  +''+#13
+  +'<?xml version="1.0" encoding="UTF-8" ?>'+#13
+  +'<propfind xmlns="DAV:" xmlns:CAL="urn:ietf:params:xml:ns:caldav" xmlns:CARD="urn:ietf:params:xml:ns:carddav"><prop><CAL:supported-calendar-component-set /><resourcetype /><displayname /><current-user-privilege-set /><n0:calendar-color xmlns:n0="http://apple.com/ns/ical/" /><CAL:calendar-description /><CAL:calendar-timezone /></prop></propfind>'+#13);
+  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
+  Check(pos('xmlns:D="DAV:"',aRes)>0,'DAV Namespace missing');
+  Check(pos('xmlns:CAL="urn:ietf:params:xml:ns:caldav"',aRes)>0,'CalDAV Namespace missing');
+  Check(pos('xmlns:CARD="urn:ietf:params:xml:ns:carddav"',aRes)>0,'CardDAV Namespace missing');
+  //TODO:Check(pos('xmlns:n0="http://apple.com/ns/ical/"',aRes)>0,'ICal Namespace missing');
 end;
 
 initialization

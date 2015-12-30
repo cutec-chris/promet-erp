@@ -104,6 +104,14 @@ var
   aCal: TCalendar;
   aTasks: TTaskList;
 begin
+  Result := False;
+  if aSocket.User='' then exit;
+  if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then
+    begin
+      Data.Users.Filter('',0);
+      if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
+    end;
+  Data.RefreshUsersFilter;
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
   if copy(aDir,0,7) = '/caldav' then
@@ -211,7 +219,7 @@ var
   sl: TStringList;
   Stream: TMemoryStream;
   aDirs: TTree;
-  aFullDir: String;
+  aFullDir, aBaseDir, TmpPath: String;
   IsCalendarUser: Boolean = false;
   aTasks: TTaskList;
 begin
@@ -268,12 +276,17 @@ begin
       aFullDir := aDir;
       if copy(aFullDir,length(aFullDir),1) <> '/' then
         aFullDir := aFullDir+'/';
+      if (copy(aDir,0,7) = '/caldav') then aBaseDir := '/caldav/';
+      if (copy(aDir,0,19) = '/.well-known/caldav') then aBaseDir := '/.well-known/caldav/';
       if copy(aDir,0,7)='/caldav' then
         aDir := copy(aDir,9,length(aDir))
       else if (copy(aDir,0,19) = '/.well-known/caldav') then
         aDir := copy(aDir,21,length(aDir));
       if copy(aDir,length(aDir),1) = '/' then
         aDir := copy(aDir,0,length(aDir)-1);
+      aItem := TDAVFile.Create(aFullDir,True);
+      aItem.CurrentUserPrincipal:='/users/'+Data.Users.FieldByName('NAME').AsString;
+      aDirList.Add(aItem);
       if Data.Users.DataSet.Active then
         begin
           if (copy(aDir,RPos('/',aDir)+1,length(aDir)) = 'user') then
@@ -284,8 +297,14 @@ begin
           //Add CalDAV Calendars
           aDirs := TTree.Create(nil);
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('A'));
-          aItem := TDAVFile.Create(aFullDir+'home',True);
-          if (aDir = aItem.Name) or (aDir = '') then
+          if not (Assigned(aItem) and (aItem.Path = aBaseDir+aDir+DirectorySeparator)) then
+            begin
+              aItem := TDAVFile.Create(aBaseDir+aDir+DirectorySeparator,True);
+              if Assigned(aDirList) then
+                aDirList.Add(aItem)
+              else aDirList := aItem;
+            end;
+          if (aBaseDir+aDir+DirectorySeparator = aItem.Path) or (aDir = '') then
             begin
               aItem.IsCalendar:=True;
               aItem.IsTodoList:=True;
@@ -302,12 +321,9 @@ begin
               aItem.Properties.Values['getetag'] := Data.Users.Id.AsString;
               aItem.Properties.Values['getcontenttype'] := 'text/calendar';
               aItem.Properties.Values['displayname'] := aItem.Name;
-              if Assigned(aDirList) then
-                aDirList.Add(aItem)
-              else aDirList := aItem;
               if (aDepth>0) and (aDir <> '') then
                 begin
-                  aCal.SelectByIdAndTime(Data.Users.Id.AsVariant,Now(),Now()+90); //3 month in future
+                  aCal.SelectByIdAndTime(Data.Users.Id.AsVariant,Now()-30,Now()+180);
                   aCal.ActualLimit:=100;
                   aCal.Open;
                   while not aCal.EOF do
@@ -326,11 +342,10 @@ begin
                   aTasks.Open;
                   while not aTasks.EOF do
                     begin
-                      if aTasks.FieldByName('ORIGID').AsString<>'' then
-                        aItem := TDAVFile.Create(aFullDir+aTasks.FieldByName('ORIGID').AsString+'.ics')
+                      if aTasks.FieldByName('ORIGIDS').AsString<>'' then
+                        aItem := TDAVFile.Create(aFullDir+aTasks.FieldByName('ORIGIDS').AsString+'.ics')
                       else
                         aItem := TDAVFile.Create(aFullDir+aTasks.Id.AsString+'.ics');
-                      aItem.Path := aFullDir+'/home';
                       aItem.Properties.Values['getetag'] := aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
                       aItem.Properties.Values['getcontenttype'] := 'text/calendar; component=vtodo';
                       aDirList.Add(aItem);
@@ -343,43 +358,50 @@ begin
           else aItem.Free;
           while not aDirs.EOF do
             begin
-              aItem := TDAVFile.Create(aFullDir+aDirs.Text.AsString,True);
-              if (aDir = aItem.Name) or (aDir = '') then
+              TmpPath := aBaseDir+aDirs.Text.AsString;
+              if copy(TmpPath,0,length(aFullDir))=aFullDir then
                 begin
-                  aItem.IsCalendar:=True;
-                  aItem.IsCalendarUser:=IsCalendarUser;
-                  aItem.CurrentUserPrincipal:='/users/'+Data.Users.FieldByName('NAME').AsString;
-                  aCal := TCalendar.Create(nil);
-                  aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
-                  aItem.Properties.Values['getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
-                  aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
-                  aItem.Properties.Values['getcontenttype'] := 'text/calendar';
-                  aItem.Properties.Values['displayname'] := aItem.Name;
-                  aItem.CalendarHomeSet:='/caldav/';
-                  if Assigned(aDirList) then
-                    aDirList.Add(aItem)
-                  else aDirList := aItem;
-                  if aDepth>0 then
+                  if not (Assigned(aItem) and (aItem.Path = aBaseDir+aDirs.Text.AsString+DirectorySeparator)) then
                     begin
-                      aCal.SelectByIdAndTime(aDirs.Id.AsVariant,Now(),Now()+90); //3 month in future
-                      aCal.ActualLimit:=100;
-                      aCal.Open;
-                      while not aCal.EOF do
-                        begin
-                          if aCal.FieldByName('ORIGID').AsString<>'' then
-                            aItem := TDAVFile.Create(aFullDir+aCal.FieldByName('ORIGID').AsString+'.ics')
-                          else
-                            aItem := TDAVFile.Create(aFullDir+aCal.Id.AsString+'.ics');
-                          aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
-                          aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
-                          aItem.Path := aFullDir+'/'+aDirs.Text.AsString;
-                          aDirList.Add(aItem);
-                          aCal.Next;
-                        end;
+                      aItem := TDAVFile.Create(aBaseDir+aDirs.Text.AsString+DirectorySeparator,True);
+                      if Assigned(aDirList) then
+                        aDirList.Add(aItem)
+                      else aDirList := aItem;
                     end;
-                  aCal.Free;
-                end
-              else aItem.Free;
+                  if (aBaseDir+aDirs.Text.AsString+DirectorySeparator = aItem.Path) or (aDir = '') then
+                    begin
+                      aItem.IsCalendar:=True;
+                      aItem.IsCalendarUser:=IsCalendarUser;
+                      aItem.CurrentUserPrincipal:='/users/'+Data.Users.FieldByName('NAME').AsString;
+                      aCal := TCalendar.Create(nil);
+                      aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
+                      aItem.Properties.Values['getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+                      aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
+                      aItem.Properties.Values['getcontenttype'] := 'text/calendar';
+                      aItem.Properties.Values['displayname'] := aItem.Name;
+                      aItem.CalendarHomeSet:='/caldav/';
+                      if aDepth>0 then
+                        begin
+                          aCal.SelectByIdAndTime(aDirs.Id.AsVariant,Now(),Now()+90); //3 month in future
+                          aCal.ActualLimit:=100;
+                          aCal.Open;
+                          while not aCal.EOF do
+                            begin
+                              if aCal.FieldByName('ORIGID').AsString<>'' then
+                                aItem := TDAVFile.Create(aFullDir+aCal.FieldByName('ORIGID').AsString+'.ics')
+                              else
+                                aItem := TDAVFile.Create(aFullDir+aCal.Id.AsString+'.ics');
+                              aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+                              aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
+                              aItem.Path := aFullDir+'/'+aDirs.Text.AsString;
+                              aDirList.Add(aItem);
+                              aCal.Next;
+                            end;
+                        end;
+                      aCal.Free;
+                    end
+                  else aItem.Free;
+                end;
               aDirs.Next;
             end;
           aDirs.Free;
@@ -388,7 +410,9 @@ begin
       else Result := False;
     end
   //Standard CardDAV Paths
-  else if copy(aDir,0,8) = '/carddav' then
+  else if (copy(aDir,0,8) = '/carddav')
+       or (copy(aDir,0,19) = '/.well-known/carddav')
+    then
     begin
       aFullDir := aDir;
       if copy(aFullDir,length(aFullDir),1) <> '/' then
@@ -411,8 +435,6 @@ begin
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('F'));
           while not aDirs.EOF do
             begin
-
-
               aItem := TDAVFile.Create(aFullDir+aDirs.Text.AsString,True);
               if (aDir = aItem.Name) or (aDir = '') then
                 begin
@@ -606,7 +628,7 @@ begin
           aCal.Select(aFile);
           aCal.Open;
         end;
-      Result := aCal.Count=1;
+      Result := aCal.Count>=1;
       if Result then
         begin
           eTag:=aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
@@ -619,19 +641,20 @@ begin
       if (not result) and (aDir = 'home') then //check for taks
         begin
           aTasks := TTaskList.Create(nil);
-          if IsNumeric(aFile) then
+          aTasks.Filter(Data.QuoteField('ORIGIDS')+'='+Data.QuoteValue(aFile));
+          if (aTasks.Count=0) and IsNumeric(aFile) then
             begin
               aTasks.Select(aFile);
               aTasks.Open;
-              Result := aTasks.Count=1;
-              if Result then
-                begin
-                  eTag:=aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
-                  sl := TStringList.Create;
-                  VTodoExport(aTasks,sl);
-                  sl.SaveToStream(Stream);
-                  sl.Free;
-                end;
+            end;
+          Result := aTasks.Count>=1;
+          if Result then
+            begin
+              eTag:=aTasks.Id.AsString+IntToStr(trunc(frac(aTasks.TimeStamp.AsDateTime)*1000));
+              sl := TStringList.Create;
+              VTodoExport(aTasks,sl);
+              sl.SaveToStream(Stream);
+              sl.Free;
             end;
           aTasks.Free;
         end;
@@ -747,6 +770,7 @@ begin
       Data.Users.Filter('',0);
       if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
+  Result := True;
   Data.RefreshUsersFilter;
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
@@ -797,13 +821,15 @@ begin
           aCal.Select(aFile);
           aCal.Open;
         end;
-      Result := aCal.Count=1;
+      Result := aCal.Count>=1;
       if Result then
         begin
           eTag:=aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
           aCal.Edit;
           if not VCalImport(aCal,sl,True) then
-            Result := False;
+            Result := False
+          else
+            FStatus:=200;
         end
       else
         begin
@@ -814,14 +840,16 @@ begin
             begin
               aTasks.Select(aFile);
               aTasks.Open;
-              Result := aTasks.Count=1;
-              if Result then  //edit task
-                begin
-                  eTag:=aTasks.Id.AsString+IntToStr(trunc(frac(atasks.TimeStamp.AsDateTime)*1000));
-                  aTasks.Edit;
-                  if not VTodoImport(aTasks,sl,True) then
-                    Result := False;
-                end
+            end;
+          Result := aTasks.Count>=1;
+          if Result then  //edit task
+            begin
+              eTag:=aTasks.Id.AsString+IntToStr(trunc(frac(atasks.TimeStamp.AsDateTime)*1000));
+              aTasks.Edit;
+              if not VTodoImport(aTasks,sl,True) then
+                Result := False
+              else
+                FStatus:=200;
             end;
           if (not Result) and (pos(':vtodo',lowercase(sl.Text))>0) then //new task
             begin
@@ -951,6 +979,7 @@ begin
       aFile.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(aDocuments.LastModified),WebFormatSettings)+' GMT';
       aFile.Properties.Values['getcontentlength'] := IntToStr(aDocuments.Size);
       aFile.Properties.Values['getetag'] := aDocuments.Number.AsString+IntToStr(trunc(frac(aDocuments.TimeStamp.AsDateTime)*1000));
+      aFile.CurrentUser:='/users/'+Data.Users.FieldByName('NAME').AsString;
     end;
   aFile.Properties.Values['creationdate'] := BuildISODate(aDocuments.CreationDate);
   aFileList.Add(aFile);

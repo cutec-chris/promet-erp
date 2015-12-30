@@ -51,6 +51,7 @@ type
     FIsCalU: Boolean;
     FIsDir: Boolean;
     FIsTodo: Boolean;
+    FLUserURI: string;
     FName: string;
     FPath: string;
     FProperties: TStringList;
@@ -67,6 +68,7 @@ type
     property IsTodoList : Boolean read FIsTodo write FIsTodo;
     property CalendarHomeSet : string read FCHS write FCHS;
     property CurrentUserPrincipal : string read FUserURI write FUserURI;
+    property CurrentUser : string read FLUserURI write FLUserURI;
     property UserAdressSet : TStringList read FASet;
     property Path : string read FPath write FPath;
   end;
@@ -245,7 +247,7 @@ var
 begin
   TDAVSocket(FSocket).Status := 500;
   if Assigned(Event) then
-    if Event(TDAVSocket(FSocket),HTTPDecode(TDAVSocket(FSocket).URI),Foutput,FeTag,FStatus) then
+    if Event(TDAVSocket(FSocket),HTTPDecode(TDAVSocket(FSocket).URI),TDAVSocket(FSocket).InputData,FeTag,FStatus) then
       TDAVSocket(FSocket).Status:=FStatus;
 end;
 
@@ -497,10 +499,14 @@ var
   tmp: String;
 begin
   Result:=False;
+  if copy(aPath,length(aPath),1)='/' then
+    aPath := copy(aPath,0,length(aPath)-1);
   for i := 0 to Count-1 do
     begin
       tmp := Files[i].Path;
       tmp += Files[i].Name;
+      if copy(tmp,length(tmp),1)='/' then
+        tmp := copy(tmp,0,length(tmp)-1);
       if tmp=aPath then
         begin
           Result := True;
@@ -628,7 +634,7 @@ var
   aDepth: Integer;
   tmp1: DOMString;
   a: Integer;
-  Attr: TDOMNode;
+  Attr, aChildNode: TDOMNode;
   aAttrPrefix: String;
   aLocalName,aNSName: String;
   Attr1: TDOMAttr;
@@ -772,57 +778,53 @@ var
             aHRef.AppendChild(aDocument.CreateTextNode(aFile.CalendarHomeSet));
             RemoveProp(':calendar-home-set');
           end;
+        if (FindProp(':owner') > -1)  then
+          begin
+            aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':owner')]);
+            aProp.AppendChild(apropD);
+            aHref := aDocument.CreateElement(prefix+':href');
+            aPropD.AppendChild(aHref);
+            aHRef.AppendChild(aDocument.CreateTextNode(aFile.CurrentUser));
+            RemoveProp(':owner');
+          end;
+        if FindProp(':schedule-inbox-URL') > -1  then
+          begin
+            tmp := aNotFoundProp.ValueFromIndex[FindProp(':schedule-inbox-URL')];
+            AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
+            aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':schedule-inbox-URL')]);
+            aProp.AppendChild(apropD);
+            aHref := aDocument.CreateElement(prefix+':href');
+            aPropD.AppendChild(aHref);
+            aHRef.AppendChild(aDocument.CreateTextNode(aFile.CalendarHomeSet+'home/'));
+            RemoveProp(':schedule-inbox-URL');
+          end;
+        if FindProp(':schedule-outbox-URL') > -1  then
+          begin
+            tmp := aNotFoundProp.ValueFromIndex[FindProp(':schedule-outbox-URL')];
+            AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
+            aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':schedule-outbox-URL')]);
+            aProp.AppendChild(apropD);
+            aHref := aDocument.CreateElement(prefix+':href');
+            aPropD.AppendChild(aHref);
+            aHRef.AppendChild(aDocument.CreateTextNode(aFile.CalendarHomeSet+'home/'));
+            RemoveProp(':schedule-outbox-URL');
+          end;
+        if (aFile.UserAdressSet.Count>0) and (FindProp(':calendar-user-address-set') > -1) then
+          begin
+            tmp := aNotFoundProp.ValueFromIndex[FindProp(':calendar-user-address-set')];
+            AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
+            aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-user-address-set')]);
+            aProp.AppendChild(apropD);
+            for b := 0 to aFile.UserAdressSet.Count-1 do
+              begin
+                aHref := aDocument.CreateElement(prefix+':href');
+                aPropD.AppendChild(aHref);
+                aHRef.AppendChild(aDocument.CreateTextNode(aFile.UserAdressSet[b]));
+              end;
+            RemoveProp(':calendar-user-address-set');
+          end;
         if aFile.IsCalendar then
           begin
-            if (FindProp(':owner') > -1)  then
-              begin
-                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':owner')]);
-                aProp.AppendChild(apropD);
-                aHref := aDocument.CreateElement(prefix+':href');
-                aPropD.AppendChild(aHref);
-                aHRef.AppendChild(aDocument.CreateTextNode(aPath+'user/'));
-                RemoveProp(':owner');
-              end;
-            {
-
-            if (aFile.UserAdressSet.Count>0) and (FindProp(':calendar-user-address-set') > -1) then
-              begin
-                tmp := aNotFoundProp.ValueFromIndex[FindProp(':calendar-user-address-set')];
-                AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
-                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-user-address-set')]);
-                aProp.AppendChild(apropD);
-                for b := 0 to aFile.UserAdressSet.Count-1 do
-                  begin
-                    aHref := aDocument.CreateElement(prefix+':href');
-                    aPropD.AppendChild(aHref);
-                    aHRef.AppendChild(aDocument.CreateTextNode(aFile.UserAdressSet[b]));
-                  end;
-                RemoveProp(':calendar-user-address-set');
-              end;
-              }
-            if FindProp(':schedule-inbox-URL') > -1  then
-              begin
-                tmp := aNotFoundProp.ValueFromIndex[FindProp(':schedule-inbox-URL')];
-                AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
-                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':schedule-inbox-URL')]);
-                aProp.AppendChild(apropD);
-                aHref := aDocument.CreateElement(prefix+':href');
-                aPropD.AppendChild(aHref);
-                aHRef.AppendChild(aDocument.CreateTextNode(aPath+'outbox/'));
-                RemoveProp(':schedule-inbox-URL');
-              end;
-            if FindProp(':schedule-outbox-URL') > -1  then
-              begin
-                tmp := aNotFoundProp.ValueFromIndex[FindProp(':schedule-outbox-URL')];
-                AddNS(copy(tmp,0,pos(':',tmp)-1),'urn:ietf:params:xml:ns:caldav');
-                aPropD := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':schedule-outbox-URL')]);
-                aProp.AppendChild(apropD);
-                aHref := aDocument.CreateElement(prefix+':href');
-                aPropD.AppendChild(aHref);
-                aHRef.AppendChild(aDocument.CreateTextNode(aPath+'inbox/'));
-                RemoveProp(':schedule-outbox-URL');
-              end;
-
             if not aFile.IsCalendarUser then
               begin
                 if Assigned(aPropC) then
@@ -907,6 +909,11 @@ var
                     'CS':
                       begin
                         AddNS(copy(tmp,0,pos(':',tmp)-1),'http://calendarserver.org/ns/');
+                        aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(aFile.Properties.Names[a])]);
+                      end;
+                    'IC':
+                      begin
+                        AddNS(copy(tmp,0,pos(':',tmp)-1),'http://apple.com/ns/ical/');
                         aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(aFile.Properties.Names[a])]);
                       end;
                     else
@@ -1033,8 +1040,9 @@ begin
           tmp := aPropNode.ChildNodes.Item[i].NodeName;
           tmp := copy(tmp,pos(':',tmp)+1,length(tmp));
           tmp1 := copy(aPropNode.ChildNodes.Item[i].NodeName,0,pos(':',aPropNode.ChildNodes.Item[i].NodeName)-1);
-          if aPropNode.ChildNodes.Item[i].NamespaceURI<>'' then
-            tmp := aPropNode.ChildNodes.Item[i].NamespaceURI+':'+tmp
+          aChildNode := aPropNode.ChildNodes.Item[i];
+          if aChildNode.NamespaceURI<>'' then
+            tmp := aChildNode.NamespaceURI+':'+tmp
           else
             begin
               if pos(':',tmp)=0 then
@@ -1293,6 +1301,7 @@ begin
                       'dav:':tmp := 'D:'+tmp;
                       'urn:ietf:params:xml:ns:caldav':tmp := 'C:'+tmp;
                       'http://calendarserver.org/ns/':tmp := 'CS:'+tmp;
+                      'http://apple.com/ns/ical/':tmp := 'IC:'+tmp;
                       end;
                     end;
                   if (aAttrPrefix = 'xmlns') then

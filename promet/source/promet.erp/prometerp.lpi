@@ -174,7 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Central&quot; --disablethreads"/>
+        <CommandLineParams Value="--mandant=&quot;Test&quot; --disablethreads"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">

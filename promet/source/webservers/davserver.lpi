@@ -37,7 +37,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=Stora&quot; --server-log --debug"/>
+        <CommandLineParams Value="&quot;--mandant=Test&quot; --server-log --debug"/>
         <WorkingDirectory Value="..\"/>
       </local>
     </RunParams>
@@ -111,7 +111,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="6">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -130,6 +130,9 @@
       <Item6>
         <Name Value="EZDatabaseError"/>
       </Item6>
+      <Item7>
+        <Name Value="EConvertError"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>
