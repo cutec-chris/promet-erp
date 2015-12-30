@@ -174,7 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=&quot;Test&quot; --disablethreads"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-cen/"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
