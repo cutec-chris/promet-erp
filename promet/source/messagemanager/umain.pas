@@ -347,21 +347,7 @@ begin
   FFilter2:='';
   with Data.Users.Follows do
     begin
-      First;
-      i := 0;
-      while not EOF do
-        begin
-          nLink := FieldByName('LINK').AsString;
-          if pos('{',nLink)>0 then
-            begin
-              nLink := copy(nLink,0,pos('{',nLink)-1);
-              FFilter2:=FFilter2+' OR ('+Data.ProcessTerm(Data.QuoteField('OBJECT')+'='+Data.QuoteValue(nLink+'*'))+')';
-            end
-          else
-            FFilter2:=FFilter2+' OR ('+Data.QuoteField('OBJECT')+'='+Data.QuoteValue(nLink)+')';
-          inc(i);
-          Next;
-        end;
+      FFilter2:=BuildFilter;
     end;
 end;
 procedure TfMain.DataModuleCreate(Sender: TObject);

@@ -331,16 +331,7 @@ procedure PrometXMPPMessanger.RefreshFilter2;
 begin
   Data.Users.Follows.ActualLimit:=0;
   Data.Users.Follows.Open;
-  FFilter2:='';
-  with Data.Users.Follows do
-    begin
-      First;
-      while not EOF do
-        begin
-          FFilter2:=FFilter2+' OR ('+Data.QuoteField('OBJECT')+'='+Data.QuoteValue(FieldByName('LINK').AsString)+')';
-          Next;
-        end;
-    end;
+  FFilter2:=Data.Users.Follows.BuildFilter;
 end;
 
 constructor PrometXMPPMessanger.Create(TheOwner: TComponent);

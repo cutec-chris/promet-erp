@@ -21,9 +21,10 @@ program helpviewer;
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{.$IFDEF UseCThreads}
+  heaptrc,
+  {$IFDEF UNIX}
   cthreads,
-  {.$ENDIF}{$ENDIF}
+  {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, richmemopackage, uhelpviewer, pvisualprometapp,
   uBaseVisualApplication;
@@ -39,4 +40,4 @@ begin
   fMain.DoCreate;
   Application.Run;
 end.
-
+
