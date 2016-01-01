@@ -154,6 +154,12 @@ begin
                                           ReceiversOk := False;
                                           res := SMTP.FullResult.Text;
                                           Error('failed:'+res);
+                                          aMessage.History.Open;
+                                          aMessage.History.AddItem(aMessage.DataSet,Format(strActionMessageSendFailed,[res]),
+                                                                    Data.BuildLink(MessageIndex.DataSet),
+                                                                    '',
+                                                                    nil,
+                                                                    ACICON_MAILANSWERED);
                                         end;
                                     end;
                                 end;
