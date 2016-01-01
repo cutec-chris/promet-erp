@@ -395,7 +395,7 @@ begin
          if Assigned(TWebDAVServer(Creator).OnReadAllowed)
          and (not TWebDAVServer(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
            begin
-             Status:=403;
+             Status:=401;
            end
          else
            begin
@@ -410,7 +410,7 @@ begin
          if Assigned(TWebDAVServer(Creator).OnReadAllowed)
          and (not TWebDAVServer(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
            begin
-             Status:=403;
+             Status:=401;
            end
          else
            begin
@@ -439,6 +439,13 @@ begin
         Headers.AddStrings(HeaderOut);
         if Assigned(TWebDAVServer(Creator).OnAccess) then
           TWebDAVServer(Creator).OnAccess(Self,'>'+IntToStr(Result));
+      end
+    else
+      begin
+        Headers.Clear;
+        Headers.AddStrings(HeaderOut);
+        if Status<>0 then
+          Result := Status;
       end;
   finally
     HeaderOut.Free;

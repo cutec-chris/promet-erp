@@ -268,19 +268,22 @@ begin
                   end;
                 while (not FHistory.EOF) do
                   begin
-                    if (FHistory.FieldByName('READ').AsString <> 'Y')
-                    then
-                      begin
-                        tmp:=FHistory.FieldByName('DATE').AsString+' '+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
-                        xmpp.SendPersonalMessage(FUsers.Names[i],tmp);
-                      end;
-                    if FHistory.FieldByName('TIMESTAMPD').AsDateTime>InformRecTime then
-                      InformRecTime:=FHistory.FieldByName('TIMESTAMPD').AsDateTime+(1/MSecsPerSec);
-                    FHistory.DataSet.Next;
+                    try
+                      if (FHistory.FieldByName('READ').AsString <> 'Y')
+                      then
+                        begin
+                          tmp:=FHistory.FieldByName('DATE').AsString+' '+StripWikiText(FHistory.FieldByName('ACTION').AsString)+' - '+FHistory.FieldByName('REFERENCE').AsString+lineending;
+                          xmpp.SendPersonalMessage(FUsers.Names[i],tmp);
+                        end;
+                      if FHistory.FieldByName('TIMESTAMPD').AsDateTime>InformRecTime then
+                        InformRecTime:=FHistory.FieldByName('TIMESTAMPD').AsDateTime+(1/MSecsPerSec);
+                      if tmp<>'' then
+                        with BaseApplication as IBaseDBInterface do
+                          DBConfig.WriteString('INFORMRECTIME',Rfc822DateTime(InformRecTime));
+                    finally
+                      FHistory.DataSet.Next;
+                    end;
                   end;
-                if tmp<>'' then
-                  with BaseApplication as IBaseDBInterface do
-                    DBConfig.WriteString('INFORMRECTIME',Rfc822DateTime(InformRecTime));
                 a := 0;
               except
               end;

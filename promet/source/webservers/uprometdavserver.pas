@@ -112,6 +112,7 @@ begin
       if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
   Data.RefreshUsersFilter;
+  Result:=True;
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
   if copy(aDir,0,7) = '/caldav' then

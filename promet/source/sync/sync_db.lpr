@@ -411,7 +411,10 @@ begin
               SyncRow(SyncDB,aSyncOut,SourceDM,DestDM,True);
               inc(Result);
             except
-              //RestoreTime := True;
+              begin
+                dec(Result);
+                //RestoreTime := True;
+              end;
             end;
             aSyncOut.Next;
           end;
@@ -438,7 +441,10 @@ begin
               SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False);
               inc(Result);
             except
-              //RestoreTime:=True;
+              begin
+                dec(Result);
+                //RestoreTime:=True;
+              end;
             end;
             aSyncIn.Next;
           end;
@@ -601,8 +607,8 @@ begin
                                           DoCreateTable(TUserfielddefs);
                                           SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                         end;
-                                      SyncedTables := (SyncDB.Tables.Count*2);
-                                      while SyncedTables>(SyncDB.Tables.Count) do
+                                      SyncedTables := (SyncDB.Tables.Count*4);
+                                      while SyncedTables>(SyncDB.Tables.Count*2) do
                                         begin
                                           SyncedTables:=0;
                                           SyncDB.Tables.DataSet.First;
