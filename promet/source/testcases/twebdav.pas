@@ -26,6 +26,7 @@ type
     procedure FindPrincipalCalendars;
     procedure CheckNamespaceUsage;
     procedure AddEvent;
+    procedure CheckReportWithoutRequest;
   end;
 
   { TestSocket }
@@ -224,6 +225,28 @@ begin
   Check(pos('xmlns:CAL="urn:ietf:params:xml:ns:caldav"',aRes)>0,'CalDAV Namespace missing');
   Check(pos('xmlns:CARD="urn:ietf:params:xml:ns:carddav"',aRes)>0,'CardDAV Namespace missing');
   //TODO:Check(pos('xmlns:n0="http://apple.com/ns/ical/"',aRes)>0,'ICal Namespace missing');
+end;
+
+procedure TWebDAVTest.AddEvent;
+begin
+end;
+
+procedure TWebDAVTest.CheckReportWithoutRequest;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'REPORT /caldav/home/ HTTP 1.1'+#13
+  +'content-type:application/xml; charset=utf-8'+#13
+  +'pragma:no-cache'+#13
+  +'prefer:return-minimal'+#13
+  +'depth:1'+#13
+  +'cache-control:no-cache'+#13
+  +'connection:keep-alive'+#13
+  +''+#13
+  +'<?xml version="1.0" encoding="utf-8" ?><A:calendar-query xmlns:A="urn:ietf:params:xml:ns:caldav" xmlns:B="DAV:"><B:prop><B:getcontenttype/><B:getetag/></B:prop><A:filter><A:comp-filter name="VCALENDAR"><A:comp-filter name="VTODO"/></A:comp-filter></A:filter></A:calendar-query>');
+  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
+  Check(pos('B:multistatus',aRes)>0,'Wrong Namespace');
 end;
 
 initialization

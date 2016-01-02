@@ -146,15 +146,26 @@ type
   end;
   TMemoryStreamOutput = class(TStreamOutput)
   end;
+
+  { TXmlOutput }
+
   TXmlOutput = class(TMemoryStreamOutput)
   private
     FIn: TMemoryStream;
     FOut : TMemoryStream;
     ADoc: TXMLDocument;
+    aNotFoundProp : TStrings;
+    aPropNode: TDOMElement;
+    aMSRes: TDOMElement;
+    aDepth: Integer;
+    Path : string;
+    aUser: string;
   protected
     procedure DoneInput; override;
+    function FindProp(aprop: string): Integer;
+    procedure RemoveProp(aProp: string);
     function BuildStatus(aStatus: Integer; Statusname: string): string;
-    function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;virtual;abstract;
+    function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;virtual;
   public
     constructor Create(ASocket: TDAVSocket;aIn,aOut : TMemoryStream);override;
     destructor Destroy; override;
@@ -176,6 +187,20 @@ type
     constructor Create(ASocket: TDAVSocket; aIn, aOut: TMemoryStream); override;
     property Event : TDAVFileStreamDateEvent read FEvent write FEvent;
   end;
+
+  { TMultistatusXmlOutput }
+
+  TMultistatusXmlOutput = class(TXmlOutput)
+  protected
+    aProperties: TStringList;
+    aNs : string;
+    aPrefix : string;
+    function HandleXMLRequest(aDocument: TXMLDocument): Boolean; override;
+    function ImportNamespaces(aDocument: TXMLDocument): Boolean;
+  public
+    constructor Create(ASocket: TDAVSocket; aIn, aOut: TMemoryStream); override;
+    destructor Destroy; override;
+  end;
   TDAVOptionsOutput = class(TXmlOutput)
   private
     FDir : string;
@@ -186,7 +211,7 @@ type
     function DoGetDirectoryList(aDir : string;a3 : Integer;var aDirList : TDAVDirectoryList) : Boolean;
     function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;override;
   end;
-  TDAVFindPropOutput = class(TXmlOutput)
+  TDAVFindPropOutput = class(TMultistatusXmlOutput)
   private
     FDir : string;
     FDepth : Integer;
@@ -204,7 +229,7 @@ type
   protected
     function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;override;
   end;
-  TDAVReportOutput = class(TXmlOutput)
+  TDAVReportOutput = class(TMultistatusXmlOutput)
   protected
     function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;override;
   end;
@@ -212,6 +237,74 @@ type
 implementation
 
 uses base64,Utils,uhttputil,uBaseApplication;
+
+{ TMultistatusXmlOutput }
+
+function TMultistatusXmlOutput.HandleXMLRequest(aDocument: TXMLDocument
+  ): Boolean;
+var
+  a, i: Integer;
+  Attr, aChildNode: TDOMNode;
+  aAttrPrefix, aLocalName, tmp1: String;
+  aNSName, tmp: DOMString;
+  Attr1: TDOMAttr;
+begin
+  Result:=inherited HandleXMLRequest(aDocument);
+end;
+
+function TMultistatusXmlOutput.ImportNamespaces(aDocument: TXMLDocument): Boolean;
+var
+  a: Integer;
+  Attr: TDOMNode;
+  aAttrPrefix, aLocalName: String;
+  aNSName, tmp: DOMString;
+  Attr1: TDOMAttr;
+begin
+  tmp := aDocument.DocumentElement.NodeName;
+  if trim(copy(tmp,0,pos(':',tmp)-1)) <> '' then
+    aPrefix := trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
+  for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
+    begin
+      Attr := aDocument.DocumentElement.Attributes[a];
+      aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
+      aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
+      aNSName := Attr.NodeValue;
+      if (aAttrPrefix = 'xmlns') and (aLocalName<>'') then
+        begin
+          Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
+          Attr1.NodeValue:=aNSName;
+          aMSRes.Attributes.setNamedItem(Attr1);
+          if BaseApplication.HasOption('debug') then
+            writeln('Old NS:'+aLocalName+'='+aNSName);
+          if aNSName=aNs then
+            aPrefix:=aLocalName;
+        end
+      else if (aLocalName = 'xmlns') and (aNSName<>'') then
+        begin
+          Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aPrefix);
+          Attr1.NodeValue:=aNSName;
+          aMSRes.Attributes.setNamedItem(Attr1);
+          if BaseApplication.HasOption('debug') then
+            writeln('Old NS:'+aNSName+'=');
+        end;
+
+    end;
+end;
+
+constructor TMultistatusXmlOutput.Create(ASocket: TDAVSocket; aIn,
+  aOut: TMemoryStream);
+begin
+  inherited Create(ASocket, aIn, aOut);
+  aProperties := TStringList.Create;
+  aNS := 'DAV:';
+  aPrefix:='D';
+end;
+
+destructor TMultistatusXmlOutput.Destroy;
+begin
+  aProperties.Free;
+  inherited Destroy;
+end;
 
 { TFileStreamOutput }
 
@@ -277,22 +370,9 @@ var
   aActivityCollection: TDOMElement = nil;
   aHref: TDOMElement;
   aDirList : TDAVDirectoryList;
-  Path: string;
-  aDepth: Integer;
-  aUser: string;
   AuthReq: Boolean;
 begin
-  Result := False;
-  Path := TDAVSocket(FSocket).URI;
-  if FSocket.Parameters.Values['authorization'] <> '' then
-    begin
-      aUser := FSocket.Parameters.Values['authorization'];
-      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
-      TWebDAVServer(FSocket.Creator).Lock;
-      if Assigned(TWebDAVServer(FSocket.Creator).OnUserLogin) then
-        TWebDAVServer(FSocket.Creator).OnUserLogin(TDAVSocket(FSocket),copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
-      TWebDAVServer(FSocket.Creator).Unlock;
-    end;
+  Result := Inherited HandleXMLRequest(aDocument);
   aOptionsRes := aDocument.CreateElementNS('DAV:','D:options-response');
   if Assigned(aDocument.DocumentElement) then
     aActivityCollection := TDOMElement(aDocument.DocumentElement.FirstChild);
@@ -559,7 +639,36 @@ begin
   ADoc := TXMLDocument.Create;
   FIn := aIn;
   FOut := aOut;
+  aNotFoundProp := TStringList.Create;
   inherited Create(ASocket,aIn,aOut);
+end;
+function TXmlOutput.FindProp(aprop : string) : Integer;
+var
+  b : Integer;
+begin
+  b := 0;
+  while b < aNotFoundProp.Count do
+    begin
+      if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
+        begin
+          Result := b;
+          exit;
+        end
+      else inc(b);
+    end;
+  Result := -1;
+end;
+procedure TXmlOutput.RemoveProp(aProp : string);
+var
+  b : Integer;
+begin
+  b := 0;
+  while b < aNotFoundProp.Count do
+    begin
+      if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
+        aNotFoundProp.Delete(b)
+      else inc(b);
+    end;
 end;
 procedure TXmlOutput.DoneInput;
 var
@@ -606,10 +715,27 @@ function TXmlOutput.BuildStatus(aStatus: Integer;Statusname : string): string;
 begin
   Result := 'HTTP/1.1 '+IntToStr(aStatus)+' '+StatusName;
 end;
+
+function TXmlOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
+begin
+  Result := False;
+  Path := TDAVSocket(FSocket).URI;
+  if FSocket.Parameters.Values['authorization'] <> '' then
+    begin
+      aUser := FSocket.Parameters.Values['authorization'];
+      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+      TWebDAVServer(FSocket.Creator).Lock;
+      if Assigned(TWebDAVServer(FSocket.Creator).OnUserLogin) then
+        TWebDAVServer(FSocket.Creator).OnUserLogin(TDAVSocket(FSocket),copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
+      TWebDAVServer(FSocket.Creator).Unlock;
+    end;
+end;
+
 destructor TXmlOutput.Destroy;
 begin
   FIn.Free;
   FOut.Free;
+  aNotFoundProp.Free;
   inherited Destroy;
 end;
 
@@ -628,17 +754,9 @@ end;
 function TDAVFindPropOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
 var
   tmp: DOMString;
-  aMSRes: TDOMElement;
-  Path: string;
   aDirList : TDAVDirectoryList = nil;
   i: Integer;
   pfNode: TDOMElement;
-  aNs : string = 'DAV:';
-  aPrefix : string = 'D';
-  aProperties: TStringList;
-  aPropNode: TDOMElement;
-  aUser: String;
-  aDepth: Integer;
   tmp1: DOMString;
   a: Integer;
   Attr, aChildNode: TDOMNode;
@@ -687,7 +805,6 @@ var
     a: Integer;
     aLock: TDOMElement;
     aLockEntry: TDOMElement;
-    aNotFoundProp : TStrings;
     aPropD: TDOMNode;
     aPropE: TDOMNode;
     aPropF: TDOMNode;
@@ -695,39 +812,10 @@ var
     aPropG: TDOMNode;
     bPrefix: String;
     aTextNode: TDOMText;
-    function FindProp(aprop : string) : Integer;
-    var
-      b : Integer;
-    begin
-      b := 0;
-      while b < aNotFoundProp.Count do
-        begin
-          if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
-            begin
-              Result := b;
-              exit;
-            end
-          else inc(b);
-        end;
-      Result := -1;
-    end;
-    procedure RemoveProp(aProp : string);
-    var
-      b : Integer;
-    begin
-      b := 0;
-      while b < aNotFoundProp.Count do
-        begin
-          if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
-            aNotFoundProp.Delete(b)
-          else inc(b);
-        end;
-    end;
   begin
     if Assigned(TWebDAVServer(FSocket.Creator).OnAccess) then
       TWebDAVServer(FSocket.Creator).OnAccess(FSocket,'>'+aPath+' '+prefix);
-    aNotFoundProp := TStringList.Create;
-    aNotFoundProp.AddStrings(Properties);
+    aNotFoundProp.Assign(Properties);
     aResponse := aDocument.CreateElement(prefix+':response');
     aParent.AppendChild(aResponse);
     aHref := aDocument.CreateElement(prefix+':href');
@@ -995,52 +1083,16 @@ var
         aPropStat.AppendChild(aStatus);
           aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(404,'Not Found')));
       end;
-    aNotFoundProp.Free;
   end;
 
 begin
-  Result := False;
+  Result := inherited HandleXMLRequest(aDocument);
   if BaseApplication.HasOption('debug') then
     writeln('***PROPFIND:'+HTTPDecode(TDAVSocket(FSocket).URI));
-  aProperties := TStringList.Create;
-  if FSocket.Parameters.Values['authorization'] <> '' then
-    begin
-      aUser := FSocket.Parameters.Values['authorization'];
-      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
-      TWebDAVServer(FSocket.Creator).Lock;
-      if Assigned(TWebDAVServer(FSocket.Creator).OnUserLogin) then
-        TWebDAVServer(FSocket.Creator).OnUserLogin(TDAVSocket(FSocket),copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
-      TWebDAVServer(FSocket.Creator).Unlock;
-    end;
   if Assigned(aDocument.DocumentElement) then
     begin
-      if trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1)) <> '' then
-        aPrefix := trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
       aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
-      for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
-        begin
-          Attr := aDocument.DocumentElement.Attributes[a];
-          aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
-          aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
-          aNSName := Attr.NodeValue;
-          if (aAttrPrefix = 'xmlns') and (aLocalName<>'') then
-            begin
-              Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
-              Attr1.NodeValue:=aNSName;
-              aMSRes.Attributes.setNamedItem(Attr1);
-              if BaseApplication.HasOption('debug') then
-                writeln('Old NS:'+aLocalName+'='+aNSName);
-            end
-          else if (aLocalName = 'xmlns') and (aNSName<>'') then
-            begin
-              Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aPrefix);
-              Attr1.NodeValue:=aNSName;
-              aMSRes.Attributes.setNamedItem(Attr1);
-              if BaseApplication.HasOption('debug') then
-                writeln('Old NS:'+aNSName+'=');
-            end;
-
-        end;
+      ImportNamespaces(aDocument);
       aPropNode := TDOMElement(aDocument.DocumentElement.FirstChild);
       for i := 0 to aPropNode.ChildNodes.Count-1 do
         begin
@@ -1064,7 +1116,6 @@ begin
   else
     aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
   aDocument.AppendChild(aMSRes);
-  Path := HTTPDecode(TDAVSocket(FSocket).URI);
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   aDepth := StrToIntDef(trim(FSocket.Parameters.Values['depth']),0);
   aDirList := TDAVDirectoryList.Create;
@@ -1110,18 +1161,11 @@ begin
       Result := True;
     end;
   TWebDAVServer(FSocket.Creator).Unlock;
-  aProperties.Free;
 end;
 function TDAVReportOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
 var
-  aProperties: TStringList;
-  aUser: string;
-  aPrefix: String;
   aItems: TStringList;
-  aPropNode: TDOMElement;
   i: Integer;
-  aMSRes: TDOMElement;
-  aDepth: Integer;
   bProperties: TStringList;
   tmp: DOMString;
   tmp1: String;
@@ -1132,7 +1176,6 @@ var
   Attr1: TDOMAttr;
   aNSName: String;
   tmp2: DOMString;
-  Path: string;
   aDirList : TDAVDirectoryList;
   aNode: TDOMNode;
   aFilter : string = '';
@@ -1148,7 +1191,6 @@ var
     a: Integer;
     aLock: TDOMElement;
     aLockEntry: TDOMElement;
-    aNotFoundProp : TStrings;
     aPropD: TDOMNode;
     aPropE: TDOMNode;
     aPropF: TDOMNode;
@@ -1157,39 +1199,10 @@ var
     aStream : TStringStream;
     FLastModified : TDateTime;
     FMimeType,FeTag : string;
-    function FindProp(aprop : string) : Integer;
-    var
-      b : Integer;
-    begin
-      b := 0;
-      while b < aNotFoundProp.Count do
-        begin
-          if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
-            begin
-              Result := b;
-              exit;
-            end
-          else inc(b);
-        end;
-      Result := -1;
-    end;
-    procedure RemoveProp(aProp : string);
-    var
-      b : Integer;
-    begin
-      b := 0;
-      while b < aNotFoundProp.Count do
-        begin
-          if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
-            aNotFoundProp.Delete(b)
-          else inc(b);
-        end;
-    end;
   begin
     if BaseApplication.HasOption('debug') then
       writeln('CreateResponse:'+aPath+' '+prefix);
-    aNotFoundProp := TStringList.Create;
-    aNotFoundProp.AddStrings(Properties);
+    aNotFoundProp.Assign(Properties);
     aResponse := aDocument.CreateElement(prefix+':response');
     aParent.AppendChild(aResponse);
     aHref := aDocument.CreateElement(prefix+':href');
@@ -1239,7 +1252,6 @@ var
         aPropStat.AppendChild(aStatus);
         aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(404,'Not Found')));
       end;
-    aNotFoundProp.Free;
   end;
   procedure RecourseFilter(aNode : TDOMNode);
   var
@@ -1252,40 +1264,17 @@ var
   end;
 
 begin
-  aProperties := TStringList.Create;
+  result := Inherited HandleXMLRequest(aDocument);
   bProperties := TStringList.Create;
   if BaseApplication.HasOption('debug') then
     writeln('***REPORT:'+HTTPDecode(TDAVSocket(FSocket).URI));
   aItems := TStringList.Create;
-  if FSocket.Parameters.Values['authorization'] <> '' then
-    begin
-      aUser := FSocket.Parameters.Values['authorization'];
-      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
-      TWebDAVServer(FSocket.Creator).Lock;
-      if Assigned(TWebDAVServer(FSocket.Creator).OnUserLogin) then
-        TWebDAVServer(FSocket.Creator).OnUserLogin(TDAVSocket(FSocket),copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
-      TWebDAVServer(FSocket.Creator).Unlock;
-    end;
   Path := TDAVSocket(FSocket).URI;
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   if Assigned(aDocument.DocumentElement) then
     begin
-      if trim(copy(aDocument.DocumentElement.FirstChild.NodeName,0,pos(':',aDocument.DocumentElement.FirstChild.NodeName)-1)) <> '' then
-        aPrefix := trim(copy(aDocument.DocumentElement.FirstChild.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
       aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
-      for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
-        begin
-          Attr := aDocument.DocumentElement.Attributes[a];
-          aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
-          aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
-          aNSName := Attr.NodeValue;
-          if (aAttrPrefix = 'xmlns') and (aLocalName<>'') then
-            begin
-              Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
-              Attr1.NodeValue:=aNSName;
-              aMSRes.Attributes.setNamedItem(Attr1);
-            end;
-        end;
+      ImportNamespaces(aDocument);
       aPropNode := TDOMElement(aDocument.DocumentElement.FindNode(aPrefix+':prop'));
       if Assigned(aPropNode) then
       for i := 0 to aPropNode.ChildNodes.Count-1 do
@@ -1357,7 +1346,6 @@ begin
       bProperties.Assign(aProperties);
       CreateResponse(aItems[i],aMSRes,bProperties);
     end;
-  aProperties.Free;
   bProperties.Free;
   aItems.Free;
   TDAVSocket(FSocket).Status:=207;
@@ -1365,7 +1353,7 @@ begin
 end;
 function TDAVDeleteOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
 begin
-  Result := False;
+  Result := inherited HandleXMLRequest(aDocument);
   TWebDAVServer(FSocket.Creator).Lock;
   if Assigned(TWebDAVServer(FSocket.Creator).OnDelete) then
     Result := TWebDAVServer(FSocket.Creator).OnDelete(TDAVSocket(FSocket),HTTPDecode(TDAVSocket(FSocket).URI));
@@ -1373,7 +1361,7 @@ begin
 end;
 function TDAVMkColOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
 begin
-  Result := False;
+  Result := inherited HandleXMLRequest(aDocument);
   TWebDAVServer(FSocket.Creator).Lock;
   if Assigned(TWebDAVServer(FSocket.Creator).OnMkCol) then
     Result := TWebDAVServer(FSocket.Creator).OnMkCol(TDAVSocket(FSocket),HTTPDecode(TDAVSocket(FSocket).URI));

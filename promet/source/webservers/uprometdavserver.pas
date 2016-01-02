@@ -300,12 +300,12 @@ begin
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('A'));
           if not (Assigned(aItem) and (aItem.Path = aBaseDir+aDir+DirectorySeparator)) then
             begin
-              aItem := TDAVFile.Create(aBaseDir+aDir+DirectorySeparator,True);
+              aItem := TDAVFile.Create(aBaseDir+'home'+DirectorySeparator,True);
               if Assigned(aDirList) then
                 aDirList.Add(aItem)
               else aDirList := aItem;
             end;
-          if (aBaseDir+aDir+DirectorySeparator = aItem.Path) or (aDir = '') then
+          if (aBaseDir+'home'+DirectorySeparator = aItem.Path) or (aDir = '') then
             begin
               aItem.IsCalendar:=True;
               aItem.IsTodoList:=True;
