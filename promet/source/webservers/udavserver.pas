@@ -87,6 +87,7 @@ type
     property Status : Integer read FStatus write FStatus;
     property HeaderOut : TStringList read FHeadersOut write FHeadersOut;
     function ProcessHttpRequest(Request, aURI: string): integer; override;
+    function CheckAuth: Boolean;
     property User : string read FUser write FUser;
   end;
 
@@ -133,6 +134,9 @@ type
     property OngetCTag : TDAVGetCTag read FCtag write FCtag;
     property OnAccess : TDAVAccessEvent read FAccess write FAccess;
   end;
+
+  { TStreamOutput }
+
   TStreamOutput = class
   private
     Foutput: TStream;
@@ -159,7 +163,6 @@ type
     aMSRes: TDOMElement;
     aDepth: Integer;
     Path : string;
-    aUser: string;
     aNs : string;
     aPrefix : string;
   protected
@@ -373,12 +376,28 @@ var
   FStatus : Integer;
 begin
   TDAVSocket(FSocket).Status := 500;
+  writeln('<'+MemoryStreamToString(TDAVSocket(FSocket).InputData));
   if Assigned(Event) then
     if Event(TDAVSocket(FSocket),HTTPDecode(TDAVSocket(FSocket).URI),TDAVSocket(FSocket).InputData,FeTag,FStatus) then
       TDAVSocket(FSocket).Status:=FStatus;
 end;
 
 { TStreamOutput }
+
+function TDAVSocket.CheckAuth: Boolean;
+var
+  aUser: String;
+begin
+  if Parameters.Values['authorization'] <> '' then
+    begin
+      aUser := Parameters.Values['authorization'];
+      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+      TWebDAVServer(Creator).Lock;
+      if Assigned(TWebDAVServer(Creator).OnUserLogin) then
+        TWebDAVServer(Creator).OnUserLogin(TDAVSocket(Self),copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
+      TWebDAVServer(Creator).Unlock;
+    end;
+end;
 
 constructor TStreamOutput.Create(ASocket: TDAVSocket; aIn, aOut: TMemoryStream);
 begin
@@ -420,7 +439,9 @@ begin
     Path := StringReplace(Path,'trunk','!svn/act',[]);
   aDepth := StrToIntDef(trim(FSocket.Parameters.Values['depth']),0);
   aDirList := TDAVDirectoryList.Create;
+  TWebDAVServer(FSocket.Creator).Lock;
   Result := DoGetDirectoryList(Path,aDepth,aDirList);
+  TWebDAVServer(FSocket.Creator).Unlock;
   aDirList.Free;
 
   aHRef.AppendChild(aDocument.CreateTextNode(Path));
@@ -491,11 +512,13 @@ begin
        end;
     'GET','HEAD':
        begin
+         CheckAuth;
          TWebDAVServer(Creator).Lock;
          if Assigned(TWebDAVServer(Creator).OnReadAllowed)
          and (not TWebDAVServer(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
            begin
              Status:=401;
+             HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
            end
          else
            begin
@@ -506,11 +529,13 @@ begin
        end;
     'PUT':
        begin
+         CheckAuth;
          TWebDAVServer(Creator).Lock;
          if Assigned(TWebDAVServer(Creator).OnReadAllowed)
          and (not TWebDAVServer(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
            begin
              Status:=401;
+             HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
            end
          else
            begin
@@ -521,11 +546,13 @@ begin
        end;
     'POST':
        begin
+         CheckAuth;
          TWebDAVServer(Creator).Lock;
          if Assigned(TWebDAVServer(Creator).OnReadAllowed)
          and (not TWebDAVServer(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
            begin
              Status:=401;
+             HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
            end
          else
            begin
@@ -536,11 +563,13 @@ begin
        end;
     'MKCOL':
        begin
+         CheckAuth;
          AddDAVheaders;
          Res := TDAVMkColOutput.Create(Self,InputData,OutputData);
        end;
     'DELETE':
        begin
+         CheckAuth;
          AddDAVheaders;
          Res := TDAVDeleteOutput.Create(Self,InputData,OutputData);
        end;
@@ -561,6 +590,8 @@ begin
         Headers.AddStrings(HeaderOut);
         if Status<>0 then
           Result := Status;
+        if Assigned(TWebDAVServer(Creator).OnAccess) then
+          TWebDAVServer(Creator).OnAccess(Self,'>'+IntToStr(Result));
       end;
   finally
     HeaderOut.Free;
@@ -757,15 +788,7 @@ function TXmlOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
 begin
   Result := False;
   Path := TDAVSocket(FSocket).URI;
-  if FSocket.Parameters.Values['authorization'] <> '' then
-    begin
-      aUser := FSocket.Parameters.Values['authorization'];
-      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
-      TWebDAVServer(FSocket.Creator).Lock;
-      if Assigned(TWebDAVServer(FSocket.Creator).OnUserLogin) then
-        TWebDAVServer(FSocket.Creator).OnUserLogin(TDAVSocket(FSocket),copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
-      TWebDAVServer(FSocket.Creator).Unlock;
-    end;
+  TDAVSocket(FSocket).CheckAuth;
 end;
 
 destructor TXmlOutput.Destroy;
@@ -1240,6 +1263,8 @@ var
   begin
     if BaseApplication.HasOption('debug') then
       writeln('CreateResponse:'+aPath+' '+prefix);
+    if Assigned(TWebDAVServer(FSocket.Creator).OnAccess) then
+      TWebDAVServer(FSocket.Creator).OnAccess(FSocket,'>'+aPath+' '+prefix);
     aNotFoundProp.Assign(Properties);
     aResponse := aDocument.CreateElement(prefix+':response');
     aParent.AppendChild(aResponse);
@@ -1367,11 +1392,13 @@ begin
       if aItems.Count=0 then
         begin //we report all ??!
           aDirList := TDAVDirectoryList.Create;
+          TWebDAVServer(TDAVSocket(FSocket).Creator).Lock;
           if TWebDAVServer(TDAVSocket(FSocket).Creator).FGetDirList(TDAVSocket(FSocket),Path,1,aDirList) then
             for i := 0 to aDirList.Count-1 do
               begin
                 aItems.Add(Path+aDirList[i].Name);
               end;
+          TWebDAVServer(TDAVSocket(FSocket).Creator).Unlock;
           aDirList.Free;
         end;
       aDocument.DocumentElement.Free;

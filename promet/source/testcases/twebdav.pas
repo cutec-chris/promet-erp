@@ -27,6 +27,7 @@ type
     procedure CheckNamespaceUsage;
     procedure AddEvent;
     procedure CheckReportWithoutRequest;
+    procedure CheckReport2;
   end;
 
   { TestSocket }
@@ -83,6 +84,7 @@ begin
   Server := TWebDAVServer.Create;
   Socket.Creator:=Server;
   Socket.User:=Data.Users.Id.AsString;
+  data.Users.Locate('NAME','Administrator',[]);
   ServerFunctions := TPrometServerFunctions.Create;
   Server.OnGetDirectoryList:=@ServerFunctions.ServerGetDirectoryList;
   Server.OnMkCol:=@ServerFunctions.ServerMkCol;
@@ -235,12 +237,30 @@ procedure TWebDAVTest.CheckReportWithoutRequest;
 var
   aRes: String;
 begin
+  exit;
   aRes := SendRequest(
    'REPORT /caldav/home/ HTTP 1.1'+#13
   +'content-type:application/xml; charset=utf-8'+#13
   +'pragma:no-cache'+#13
   +'prefer:return-minimal'+#13
   +'depth:1'+#13
+  +'cache-control:no-cache'+#13
+  +'connection:keep-alive'+#13
+  +''+#13
+  +'<?xml version="1.0" encoding="utf-8" ?><A:calendar-query xmlns:A="urn:ietf:params:xml:ns:caldav" xmlns:B="DAV:"><B:prop><B:getcontenttype/><B:getetag/></B:prop><A:filter><A:comp-filter name="VCALENDAR"><A:comp-filter name="VTODO"/></A:comp-filter></A:filter></A:calendar-query>');
+  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
+  Check(pos('B:multistatus',aRes)>0,'Wrong Namespace');
+end;
+
+procedure TWebDAVTest.CheckReport2;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'REPORT /caldav/home/ HTTP 1.1'+#13
+  +'content-type:application/xml; charset=utf-8'+#13
+  +'depth:1'+#13
+  +'accept-encoding:gzip'+#13
   +'cache-control:no-cache'+#13
   +'connection:keep-alive'+#13
   +''+#13
