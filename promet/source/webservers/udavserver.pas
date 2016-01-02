@@ -160,12 +160,15 @@ type
     aDepth: Integer;
     Path : string;
     aUser: string;
+    aNs : string;
+    aPrefix : string;
   protected
     procedure DoneInput; override;
     function FindProp(aprop: string): Integer;
     procedure RemoveProp(aProp: string);
     function BuildStatus(aStatus: Integer; Statusname: string): string;
     function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;virtual;
+    function FindDefaultPrefix(aDocument: TXMLDocument) : Boolean;
   public
     constructor Create(ASocket: TDAVSocket;aIn,aOut : TMemoryStream);override;
     destructor Destroy; override;
@@ -187,14 +190,9 @@ type
     constructor Create(ASocket: TDAVSocket; aIn, aOut: TMemoryStream); override;
     property Event : TDAVFileStreamDateEvent read FEvent write FEvent;
   end;
-
-  { TMultistatusXmlOutput }
-
   TMultistatusXmlOutput = class(TXmlOutput)
   protected
     aProperties: TStringList;
-    aNs : string;
-    aPrefix : string;
     function HandleXMLRequest(aDocument: TXMLDocument): Boolean; override;
     function ImportNamespaces(aDocument: TXMLDocument): Boolean;
   public
@@ -277,7 +275,9 @@ begin
           if BaseApplication.HasOption('debug') then
             writeln('Old NS:'+aLocalName+'='+aNSName);
           if aNSName=aNs then
-            aPrefix:=aLocalName;
+            begin
+              aPrefix:=aLocalName;
+            end;
         end
       else if (aLocalName = 'xmlns') and (aNSName<>'') then
         begin
@@ -291,13 +291,47 @@ begin
     end;
 end;
 
+function TXmlOutput.FindDefaultPrefix(aDocument: TXMLDocument
+  ): Boolean;
+var
+  tmp, aNSName: DOMString;
+  a: Integer;
+  Attr: TDOMNode;
+  aLocalName, aAttrPrefix: String;
+  Attr1: TDOMAttr;
+begin
+  Result := False;
+  if not Assigned(aDocument.DocumentElement) then exit;
+  tmp := aDocument.DocumentElement.NodeName;
+  if trim(copy(tmp,0,pos(':',tmp)-1)) <> '' then
+    begin
+      aPrefix := trim(copy(aDocument.DocumentElement.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
+      Result := True;
+    end;
+  for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
+    begin
+      Attr := aDocument.DocumentElement.Attributes[a];
+      aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
+      aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
+      aNSName := Attr.NodeValue;
+      if (aAttrPrefix = 'xmlns') and (aLocalName<>'') then
+        begin
+          Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
+          Attr1.NodeValue:=aNSName;
+          if aNSName=aNs then
+            begin
+              aPrefix:=aLocalName;
+              Result := True;
+            end;
+        end;
+    end;
+end;
+
 constructor TMultistatusXmlOutput.Create(ASocket: TDAVSocket; aIn,
   aOut: TMemoryStream);
 begin
   inherited Create(ASocket, aIn, aOut);
   aProperties := TStringList.Create;
-  aNS := 'DAV:';
-  aPrefix:='D';
 end;
 
 destructor TMultistatusXmlOutput.Destroy;
@@ -373,13 +407,14 @@ var
   AuthReq: Boolean;
 begin
   Result := Inherited HandleXMLRequest(aDocument);
-  aOptionsRes := aDocument.CreateElementNS('DAV:','D:options-response');
+  FindDefaultPrefix(aDocument);
+  aOptionsRes := aDocument.CreateElementNS('DAV:',aPrefix+':options-response');
   if Assigned(aDocument.DocumentElement) then
     aActivityCollection := TDOMElement(aDocument.DocumentElement.FirstChild);
   if not Assigned(aActivityCollection) then
-    aActivityCollection := aDocument.CreateElement('D:activity-collection-set');
+    aActivityCollection := aDocument.CreateElement(aPrefix+':activity-collection-set');
   aOptionsRes.AppendChild(aActivityCollection);
-  aHref := aDocument.CreateElement('D:href');
+  aHref := aDocument.CreateElement(aPrefix+':href');
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   if pos('trunk',Path) > 0 then
     Path := StringReplace(Path,'trunk','!svn/act',[]);
@@ -640,6 +675,8 @@ begin
   FIn := aIn;
   FOut := aOut;
   aNotFoundProp := TStringList.Create;
+  aNS := 'DAV:';
+  aPrefix:='D';
   inherited Create(ASocket,aIn,aOut);
 end;
 function TXmlOutput.FindProp(aprop : string) : Integer;
@@ -1091,6 +1128,7 @@ begin
     writeln('***PROPFIND:'+HTTPDecode(TDAVSocket(FSocket).URI));
   if Assigned(aDocument.DocumentElement) then
     begin
+      FindDefaultPrefix(aDocument);
       aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
       ImportNamespaces(aDocument);
       aPropNode := TDOMElement(aDocument.DocumentElement.FirstChild);
@@ -1273,6 +1311,7 @@ begin
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   if Assigned(aDocument.DocumentElement) then
     begin
+      FindDefaultPrefix(aDocument);
       aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
       ImportNamespaces(aDocument);
       aPropNode := TDOMElement(aDocument.DocumentElement.FindNode(aPrefix+':prop'));
@@ -1344,7 +1383,7 @@ begin
   for i := 0 to aItems.Count-1 do
     begin
       bProperties.Assign(aProperties);
-      CreateResponse(aItems[i],aMSRes,bProperties);
+      CreateResponse(aItems[i],aMSRes,bProperties,aNs,aPrefix);
     end;
   bProperties.Free;
   aItems.Free;
