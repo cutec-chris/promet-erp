@@ -223,6 +223,7 @@ var
   aFullDir, aBaseDir, TmpPath: String;
   IsCalendarUser: Boolean = false;
   aTasks: TTaskList;
+  aDel: TDeletedItems;
 begin
   Result := false;
   if aSocket.User='' then exit;
@@ -312,16 +313,22 @@ begin
               aItem.IsCalendarUser:=IsCalendarUser;
               aItem.CurrentUserPrincipal:='/users/'+Data.Users.FieldByName('NAME').AsString;
               //Select last SQL_ID as ctag
+              aDel := TDeletedItems.Create(nil);
+              aDel.ActualLimit:=1;
+              aDel.SortFields:='TIMESTAMPD';
+              aDel.SortDirection:= sdDescending;
+              aDel.Open;
               aCal := TCalendar.Create(nil);
               aCal.SelectByUser(Data.Users.Accountno.AsString);
               aCal.ActualLimit:=1;
               aCal.SortFields:='TIMESTAMPD';
               aCal.SortDirection:= sdDescending;
               aCal.Open;
-              aItem.Properties.Values['getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+              aItem.Properties.Values['getctag'] := IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000))+IntToStr(trunc(frac(aDel.TimeStamp.AsDateTime)*1000));
               aItem.Properties.Values['getetag'] := Data.Users.Id.AsString;
               aItem.Properties.Values['getcontenttype'] := 'text/calendar';
               aItem.Properties.Values['displayname'] := aItem.Name;
+              aDel.Free;
               if (aDepth>0) and (aDir <> '') then
                 begin
                   aCal.SelectByIdAndTime(Data.Users.Id.AsVariant,Now()-30,Now()+180);
@@ -374,13 +381,24 @@ begin
                       aItem.IsCalendar:=True;
                       aItem.IsCalendarUser:=IsCalendarUser;
                       aItem.CurrentUserPrincipal:='/users/'+Data.Users.FieldByName('NAME').AsString;
+                      aDel := TDeletedItems.Create(nil);
+                      aDel.ActualLimit:=1;
+                      aDel.SortFields:='TIMESTAMPD';
+                      aDel.SortDirection:= sdDescending;
+                      aDel.Open;
                       aCal := TCalendar.Create(nil);
                       aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
-                      aItem.Properties.Values['getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+                      aCal.SelectByUser(Data.Users.Accountno.AsString);
+                      aCal.ActualLimit:=1;
+                      aCal.SortFields:='TIMESTAMPD';
+                      aCal.SortDirection:= sdDescending;
+                      aCal.Open;
+                      aItem.Properties.Values['getctag'] := IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000))+IntToStr(trunc(frac(aDel.TimeStamp.AsDateTime)*1000));
                       aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
                       aItem.Properties.Values['getcontenttype'] := 'text/calendar';
                       aItem.Properties.Values['displayname'] := aItem.Name;
                       aItem.CalendarHomeSet:='/caldav/';
+                      aDel.Free;
                       if aDepth>0 then
                         begin
                           aCal.SelectByIdAndTime(aDirs.Id.AsVariant,Now(),Now()+90); //3 month in future
