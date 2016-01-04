@@ -37,7 +37,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=Test&quot; --server-log"/>
+        <CommandLineParams Value="&quot;--mandant=Test&quot; --server-log --debug"/>
         <WorkingDirectory Value="..\"/>
       </local>
     </RunParams>

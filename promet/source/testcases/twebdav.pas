@@ -28,6 +28,7 @@ type
     procedure AddEvent;
     procedure CheckReportWithoutRequest;
     procedure CheckReport2;
+    procedure CheckOptionsSubPath;
   end;
 
   { TestSocket }
@@ -69,7 +70,8 @@ begin
       Socket.Headers.Add(aReq[0]);
       aReq.Delete(0);
     end;
-  aReq.Delete(0);
+  if aReq.Count>0 then
+    aReq.Delete(0);
   aReq.SaveToStream(Socket.InputData);
   tmp := copy(aURL,pos(' ',aURL)+1,length(aURL));
   tmp := trim(copy(tmp,0,pos('HTTP',tmp)-1));
@@ -267,6 +269,16 @@ begin
   +'<?xml version="1.0" encoding="utf-8" ?><A:calendar-query xmlns:A="urn:ietf:params:xml:ns:caldav" xmlns:B="DAV:"><B:prop><B:getcontenttype/><B:getetag/></B:prop><A:filter><A:comp-filter name="VCALENDAR"><A:comp-filter name="VTODO"/></A:comp-filter></A:filter></A:calendar-query>');
   Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
   Check(pos('B:multistatus',aRes)>0,'Wrong Namespace');
+end;
+
+procedure TWebDAVTest.CheckOptionsSubPath;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'OPTIONS /caldav/Testkalender%20alle/ HTTP 1.1'+#13
+  +'');
+  Check(copy(aRes,0,pos(#10,aRes)-1)='200','Wrong Answer to Subpath Option');
 end;
 
 initialization

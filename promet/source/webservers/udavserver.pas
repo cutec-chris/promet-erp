@@ -162,7 +162,7 @@ type
     aPropNode: TDOMElement;
     aMSRes: TDOMElement;
     aDepth: Integer;
-    Path : string;
+    Path : AnsiString;
     aNs : string;
     aPrefix : string;
   protected
@@ -444,7 +444,7 @@ begin
   TWebDAVServer(FSocket.Creator).Unlock;
   aDirList.Free;
 
-  aHRef.AppendChild(aDocument.CreateTextNode(Path));
+  aHRef.AppendChild(aDocument.CreateTextNode(StringReplace(Utils.HTTPEncode(Path),'%2f','/',[rfReplaceAll,rfIgnoreCase])));
   aActivityCollection.AppendChild(aHref);
   if Assigned(aDocument.DocumentElement) then
     aDocument.DocumentElement.Free;
@@ -883,7 +883,7 @@ var
     aResponse.AppendChild(aHref);
     if not (Assigned(aFile) and (not aFile.IsDir)) then
       if copy(aPath,length(aPath),1) <> '/' then aPath := aPath+'/';
-    aHRef.AppendChild(aDocument.CreateTextNode(aPath));
+    aHRef.AppendChild(aDocument.CreateTextNode(URLEncode(aPath)));
     aPropStat := aDocument.CreateElement(prefix+':propstat');
     aResponse.AppendChild(aPropStat);
     aProp := aDocument.CreateElement(prefix+':'+'prop');
@@ -1332,7 +1332,7 @@ begin
   if BaseApplication.HasOption('debug') then
     writeln('***REPORT:'+HTTPDecode(TDAVSocket(FSocket).URI));
   aItems := TStringList.Create;
-  Path := TDAVSocket(FSocket).URI;
+  Path := HTTPDecode(TDAVSocket(FSocket).URI);
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   if Assigned(aDocument.DocumentElement) then
     begin

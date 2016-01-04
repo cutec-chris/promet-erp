@@ -220,13 +220,14 @@ var
   sl: TStringList;
   Stream: TMemoryStream;
   aDirs: TTree;
-  aFullDir, aBaseDir, TmpPath: String;
+  aFullDir, aBaseDir, TmpPath, tmp2: String;
   IsCalendarUser: Boolean = false;
   aTasks: TTaskList;
   aDel: TDeletedItems;
 begin
   Result := false;
   if aSocket.User='' then exit;
+  aDir := HTTPDecode(aDir);
   if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then
     begin
       Data.Users.Filter('',0);
@@ -367,7 +368,8 @@ begin
           while not aDirs.EOF do
             begin
               TmpPath := aBaseDir+aDirs.Text.AsString;
-              if copy(TmpPath,0,length(aFullDir))=aFullDir then
+              tmp2 := copy(TmpPath,0,length(aFullDir));
+              if tmp2=TmpPath then
                 begin
                   if not (Assigned(aItem) and (aItem.Path = aBaseDir+aDirs.Text.AsString+DirectorySeparator)) then
                     begin
