@@ -174,7 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-cen/"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -286,7 +286,6 @@
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uMain"/>
       </Unit1>
       <Unit2>
         <Filename Value="upersonframe.pas"/>
@@ -294,7 +293,6 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -527,6 +525,7 @@
         <ComponentName Value="fOrderAddress"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uorderaddressframe"/>
       </Unit35>
       <Unit36>
         <Filename Value="uarticlesupplierframe.pas"/>
