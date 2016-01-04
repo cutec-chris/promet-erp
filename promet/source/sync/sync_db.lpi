@@ -26,7 +26,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=Stora&quot;"/>
+        <CommandLineParams Value="--mandant=TCS-Times2"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -45,8 +45,8 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="609"/>
-        <CursorPos X="80" Y="611"/>
+        <TopLine Value="552"/>
+        <CursorPos X="75" Y="613"/>
         <FoldState Value=" T3rf031+"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
@@ -400,6 +400,7 @@
       </Unit55>
       <Unit56>
         <Filename Value="..\base\pcmdprometapp.pas"/>
+        <UnitName Value="pcmdprometapp"/>
         <EditorIndex Value="7"/>
         <CursorPos X="3" Y="10"/>
         <UsageCount Value="15"/>
@@ -451,6 +452,7 @@
       </Unit62>
       <Unit63>
         <Filename Value="..\..\..\general\src\Utils.pas"/>
+        <UnitName Value="Utils"/>
         <EditorIndex Value="9"/>
         <TopLine Value="191"/>
         <CursorPos X="4" Y="195"/>
@@ -952,6 +954,15 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_db.lpr"/>
+        <Line Value="571"/>
+      </Item1>
+    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="aTableName"/>
