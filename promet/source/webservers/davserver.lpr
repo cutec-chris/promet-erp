@@ -49,12 +49,18 @@ end;
 procedure TSVNServer.DoRun;
 var
   y,m,d,h,mm,s,ss: word;
+  aTime: TDateTime;
 begin
   with Self as IBaseDBInterface do
     DBLogout;
+  aTime := Now();
   while not Terminated do
     begin
       CheckSynchronize(100);
+      if (Now()-aTime) > (1/HoursPerDay) then
+        begin
+          break;
+        end;
     end;
   // stop program loop
   Terminate;
