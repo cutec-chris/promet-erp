@@ -300,14 +300,14 @@ begin
           //Add CalDAV Calendars
           aDirs := TTree.Create(nil);
           aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('A'));
-          if not (Assigned(aItem) and (aItem.Path = aBaseDir+aDir+DirectorySeparator)) then
+          if not (Assigned(aItem) and (aItem.Path = aBaseDir+aDir+'/')) then
             begin
-              aItem := TDAVFile.Create(aBaseDir+'home'+DirectorySeparator,True);
+              aItem := TDAVFile.Create(aBaseDir+'home'+'/',True);
               if Assigned(aDirList) then
                 aDirList.Add(aItem)
               else aDirList := aItem;
             end;
-          if (aBaseDir+'home'+DirectorySeparator = aItem.Path) or (aDir = '') then
+          if (aBaseDir+'home'+'/' = aItem.Path) or (aDir = '') then
             begin
               aItem.IsCalendar:=True;
               aItem.IsTodoList:=True;
@@ -371,14 +371,14 @@ begin
               tmp2 := copy(TmpPath,0,length(aFullDir));
               if tmp2=TmpPath then
                 begin
-                  if not (Assigned(aItem) and (aItem.Path = aBaseDir+aDirs.Text.AsString+DirectorySeparator)) then
+                  if not (Assigned(aItem) and (aItem.Path = aBaseDir+aDirs.Text.AsString+'/')) then
                     begin
-                      aItem := TDAVFile.Create(aBaseDir+aDirs.Text.AsString+DirectorySeparator,True);
+                      aItem := TDAVFile.Create(aBaseDir+aDirs.Text.AsString+'/',True);
                       if Assigned(aDirList) then
                         aDirList.Add(aItem)
                       else aDirList := aItem;
                     end;
-                  if (aBaseDir+aDirs.Text.AsString+DirectorySeparator = aItem.Path) or (aDir = '') then
+                  if (aBaseDir+aDirs.Text.AsString+'/' = aItem.Path) or (aDir = '') then
                     begin
                       aItem.IsCalendar:=True;
                       aItem.IsCalendarUser:=IsCalendarUser;
@@ -414,7 +414,6 @@ begin
                                 aItem := TDAVFile.Create(aFullDir+aCal.Id.AsString+'.ics');
                               aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
                               aItem.Properties.Values['D:getcontenttype'] := 'text/calendar; component=vevent';
-                              aItem.Path := aFullDir+'/'+aDirs.Text.AsString;
                               aDirList.Add(aItem);
                               aCal.Next;
                             end;

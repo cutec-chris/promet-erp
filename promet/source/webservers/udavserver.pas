@@ -239,6 +239,11 @@ implementation
 
 uses base64,Utils,uhttputil,uBaseApplication;
 
+function InternURLEncode(aURL : string) : string;
+begin
+  Result := StringReplace(Utils.HTTPEncode(aURL),'%2f','/',[rfReplaceAll,rfIgnoreCase])
+end;
+
 { TMultistatusXmlOutput }
 
 function TMultistatusXmlOutput.HandleXMLRequest(aDocument: TXMLDocument
@@ -353,12 +358,14 @@ var
   FMimeType : string;
 begin
   TDAVSocket(FSocket).Status := 500;
+  TWebDAVServer(TDAVSocket(FSocket).Creator).Lock;
   if Assigned(Event) then
     if Event(TDAVSocket(FSocket),HTTPDecode(TDAVSocket(FSocket).URI),Foutput,FModified,FMimeType,FeTag) then
       begin
         TDAVSocket(FSocket).Status := 200;
         //TDAVSocket(FSocket).HeaderOut.Add('Last-Modified: '+ LocalTimeToGMT(FModified));
       end;
+  TWebDAVServer(TDAVSocket(FSocket).Creator).Unlock;
 end;
 
 constructor TFileStreamOutput.Create(ASocket: TDAVSocket; aIn,
@@ -376,10 +383,13 @@ var
   FStatus : Integer;
 begin
   TDAVSocket(FSocket).Status := 500;
-  writeln('<'+MemoryStreamToString(TDAVSocket(FSocket).InputData));
+  TWebDAVServer(TDAVSocket(FSocket).Creator).Lock;
+  if BaseApplication.HasOption('debug') then
+    writeln('<'+MemoryStreamToString(TDAVSocket(FSocket).InputData));
   if Assigned(Event) then
     if Event(TDAVSocket(FSocket),HTTPDecode(TDAVSocket(FSocket).URI),TDAVSocket(FSocket).InputData,FeTag,FStatus) then
       TDAVSocket(FSocket).Status:=FStatus;
+  TWebDAVServer(TDAVSocket(FSocket).Creator).Unlock;
 end;
 
 { TStreamOutput }
@@ -444,7 +454,7 @@ begin
   TWebDAVServer(FSocket.Creator).Unlock;
   aDirList.Free;
 
-  aHRef.AppendChild(aDocument.CreateTextNode(StringReplace(Utils.HTTPEncode(Path),'%2f','/',[rfReplaceAll,rfIgnoreCase])));
+  aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(Path)));
   aActivityCollection.AppendChild(aHref);
   if Assigned(aDocument.DocumentElement) then
     aDocument.DocumentElement.Free;
@@ -652,6 +662,8 @@ var
   tmp: String;
 begin
   Result:=False;
+  if pos(#0,aPath)>0 then
+    aPath := copy(aPath,0,pos(#0,aPath)-1);
   if copy(aPath,length(aPath),1)='/' then
     aPath := copy(aPath,0,length(aPath)-1);
   for i := 0 to Count-1 do
@@ -883,7 +895,7 @@ var
     aResponse.AppendChild(aHref);
     if not (Assigned(aFile) and (not aFile.IsDir)) then
       if copy(aPath,length(aPath),1) <> '/' then aPath := aPath+'/';
-    aHRef.AppendChild(aDocument.CreateTextNode(URLEncode(aPath)));
+    aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(aPath)));
     aPropStat := aDocument.CreateElement(prefix+':propstat');
     aResponse.AppendChild(aPropStat);
     aProp := aDocument.CreateElement(prefix+':'+'prop');
@@ -909,7 +921,7 @@ var
                 aProp.AppendChild(apropD);
                 aHref := aDocument.CreateElement(prefix+':href');
                 aPropD.AppendChild(aHref);
-                aHRef.AppendChild(aDocument.CreateTextNode(aFile.CurrentUserPrincipal));
+                aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(aFile.CurrentUserPrincipal)));
                 RemoveProp(':current-user-principal');
               end;
           end;
@@ -919,7 +931,7 @@ var
             aProp.AppendChild(apropD);
             aHref := aDocument.CreateElement(prefix+':href');
             aPropD.AppendChild(aHref);
-            aHRef.AppendChild(aDocument.CreateTextNode(aPath+'user/'));
+            aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(aPath+'user/')));
             RemoveProp(':calendar-user-address-set');
           end;
         if (FindProp(':calendar-home-set') > -1) then
@@ -930,7 +942,7 @@ var
             aProp.AppendChild(apropD);
             aHref := aDocument.CreateElement(prefix+':href');
             aPropD.AppendChild(aHref);
-            aHRef.AppendChild(aDocument.CreateTextNode(aFile.CalendarHomeSet));
+            aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(aFile.CalendarHomeSet)));
             RemoveProp(':calendar-home-set');
           end;
         if (FindProp(':owner') > -1)  then
@@ -939,7 +951,7 @@ var
             aProp.AppendChild(apropD);
             aHref := aDocument.CreateElement(prefix+':href');
             aPropD.AppendChild(aHref);
-            aHRef.AppendChild(aDocument.CreateTextNode(aFile.CurrentUser));
+            aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(aFile.CurrentUser)));
             RemoveProp(':owner');
           end;
         if FindProp(':schedule-inbox-URL') > -1  then
@@ -950,7 +962,7 @@ var
             aProp.AppendChild(apropD);
             aHref := aDocument.CreateElement(prefix+':href');
             aPropD.AppendChild(aHref);
-            aHRef.AppendChild(aDocument.CreateTextNode(aFile.CalendarHomeSet+'home/'));
+            aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(aFile.CalendarHomeSet+'home/')));
             RemoveProp(':schedule-inbox-URL');
           end;
         if FindProp(':schedule-outbox-URL') > -1  then
@@ -961,7 +973,7 @@ var
             aProp.AppendChild(apropD);
             aHref := aDocument.CreateElement(prefix+':href');
             aPropD.AppendChild(aHref);
-            aHRef.AppendChild(aDocument.CreateTextNode(aFile.CalendarHomeSet+'home/'));
+            aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(aFile.CalendarHomeSet+'home/')));
             RemoveProp(':schedule-outbox-URL');
           end;
         if (aFile.UserAdressSet.Count>0) and (FindProp(':calendar-user-address-set') > -1) then
@@ -974,7 +986,7 @@ var
               begin
                 aHref := aDocument.CreateElement(prefix+':href');
                 aPropD.AppendChild(aHref);
-                aHRef.AppendChild(aDocument.CreateTextNode(aFile.UserAdressSet[b]));
+                aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(aFile.UserAdressSet[b])));
               end;
             RemoveProp(':calendar-user-address-set');
           end;
@@ -1270,7 +1282,7 @@ var
     aParent.AppendChild(aResponse);
     aHref := aDocument.CreateElement(prefix+':href');
     aResponse.AppendChild(aHref);
-    aHRef.AppendChild(aDocument.CreateTextNode(aPath));
+    aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(aPath)));
     aPropStat := aDocument.CreateElement(prefix+':propstat');
     aResponse.AppendChild(aPropStat);
     aProp := aDocument.CreateElement(prefix+':'+'prop');
@@ -1333,6 +1345,8 @@ begin
     writeln('***REPORT:'+HTTPDecode(TDAVSocket(FSocket).URI));
   aItems := TStringList.Create;
   Path := HTTPDecode(TDAVSocket(FSocket).URI);
+  if pos(#0,path)>0 then
+    Path := copy(Path,0,pos(#0,Path)-1);
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   if Assigned(aDocument.DocumentElement) then
     begin
@@ -1418,19 +1432,29 @@ begin
   Result:=True;
 end;
 function TDAVDeleteOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
+var
+  aPath: String;
 begin
   Result := inherited HandleXMLRequest(aDocument);
   TWebDAVServer(FSocket.Creator).Lock;
+  aPath := HTTPDecode(TDAVSocket(FSocket).URI);
+  if pos(#0,apath)>0 then
+    aPath := copy(aPath,0,pos(#0,aPath)-1);
   if Assigned(TWebDAVServer(FSocket.Creator).OnDelete) then
-    Result := TWebDAVServer(FSocket.Creator).OnDelete(TDAVSocket(FSocket),HTTPDecode(TDAVSocket(FSocket).URI));
+    Result := TWebDAVServer(FSocket.Creator).OnDelete(TDAVSocket(FSocket),aPath);
   TWebDAVServer(FSocket.Creator).Unlock;
 end;
 function TDAVMkColOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
+var
+  aPath: String;
 begin
   Result := inherited HandleXMLRequest(aDocument);
+  aPath := HTTPDecode(TDAVSocket(FSocket).URI);
+  if pos(#0,apath)>0 then
+    aPath := copy(aPath,0,pos(#0,aPath)-1);
   TWebDAVServer(FSocket.Creator).Lock;
   if Assigned(TWebDAVServer(FSocket.Creator).OnMkCol) then
-    Result := TWebDAVServer(FSocket.Creator).OnMkCol(TDAVSocket(FSocket),HTTPDecode(TDAVSocket(FSocket).URI));
+    Result := TWebDAVServer(FSocket.Creator).OnMkCol(TDAVSocket(FSocket),aPath);
   TWebDAVServer(FSocket.Creator).Unlock;
 end;
 
