@@ -21,10 +21,11 @@ unit uMain;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ComCtrls, ExtCtrls, ActnList, Buttons, StdCtrls, uBaseApplication,
-  uBaseDBClasses, uExtControls, uBaseVisualApplication,db,uBaseSearch,uMainTreeFrame,
-  uWikiFrame,DBGrids,Grids, types,uEnterTime,uBaseDatasetInterfaces;
+  Classes, SysUtils, FileUtil, ExtendedNotebook, Forms, Controls, Graphics,
+  Dialogs, Menus, ComCtrls, ExtCtrls, ActnList, Buttons, StdCtrls,
+  uBaseApplication, uBaseDBClasses, uExtControls, uBaseVisualApplication, db,
+  uBaseSearch, uMainTreeFrame, uWikiFrame, DBGrids, Grids, CheckLst, types,
+  uEnterTime, uBaseDatasetInterfaces;
 type
   THackListBox = class(TListBox);
 
@@ -88,6 +89,8 @@ type
     acNewScript: TAction;
     acMasterdataVersionate: TAction;
     acProduction: TAction;
+    acShowSearch: TAction;
+    acSearchOptions: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -100,15 +103,21 @@ type
     Bevel7: TBevel;
     bFfwd: TToolButton;
     bPauseTime: TSpeedButton;
+    cbSearchIn: TCheckListBox;
+    cbSearchType: TCheckListBox;
+    eSearch: TEdit;
     IPCTimer: TIdleTimer;
     Label3: TLabel;
     Label6: TLabel;
+    lSearchIn: TLabel;
+    lSearchtype: TLabel;
     MenuItem3: TMenuItem;
     Menuitem12: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     Panel1: TPanel;
+    pSearchOptions: TPanel;
     pPages: TPanel;
     Panel6: TPanel;
     pCloseTab: TPanel;
@@ -132,14 +141,19 @@ type
     miMandant: TMenuItem;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
     spTree: TSplitter;
     tbMenue: TToolButton;
     tbTreeVisible: TSpeedButton;
+    tbTreeVisible1: TSpeedButton;
     ToolBar1: TToolBar;
     ToolBar2: TToolBar;
     ToolButton1: TToolButton;
+    tvSearch: TTreeView;
     tsStartpage: TTabSheet;
     tvMain: TPanel;
+    tvSearchP: TPanel;
+    tvMainAll: TPanel;
     procedure acAttPlanExecute(Sender: TObject);
     procedure acBackExecute(Sender: TObject);
     procedure acBookInventoryExecute(Sender: TObject);
@@ -188,6 +202,8 @@ type
     procedure acSalesListBookExecute(Sender: TObject);
     procedure acSalesListExecute(Sender: TObject);
     procedure acSalesListPayExecute(Sender: TObject);
+    procedure acSearchOptionsExecute(Sender: TObject);
+    procedure acShowSearchExecute(Sender: TObject);
     procedure acShowTreeExecute(Sender: TObject);
     procedure acStandartTimeExecute(Sender: TObject);
     procedure acStartPageExecute(Sender: TObject);
@@ -210,6 +226,8 @@ type
     procedure ApplicationProperties1ShowHint(var HintStr: string;
       var CanShow: Boolean; var HintInfo: THintInfo);
     procedure ApplicationTBaseVisualApplicationUserTabAdded(Sender: TObject);
+    procedure eSearchChange(Sender: TObject);
+    procedure eSearchEnter(Sender: TObject);
     procedure fMainTreeFrameDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure fMainTreeFrameDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
@@ -227,6 +245,9 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure fSearchActiveSearchItemFound(aIdent: string; aName: string;
+      aStatus: string; aActive: Boolean; aLink: string; aPriority: Integer=0;
+      aItem: TBaseDBList=nil);
     procedure IPCTimerTimer(Sender: TObject);
     procedure miOptionsClick(Sender: TObject);
     function OpenAction(aLink: string; Sender: TObject): Boolean;
@@ -245,7 +266,7 @@ type
       procedure SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime
         (Sender: TObject; aProject, aTask, aCategory: string);
     procedure TfFilteracOpenExecute(Sender: TObject);
-    procedure tvMainClick(Sender: TObject);
+    procedure tvMainAllClick(Sender: TObject);
   private
     { private declarations }
     WikiFrame: TfWikiFrame;
@@ -2358,19 +2379,75 @@ begin
       fBookAccounting.Execute(0,Now());
     end;
 end;
+
+procedure TfMain.acSearchOptionsExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  pSearchOptions.Visible:=acSearchOptions.Checked;
+  if pSearchOptions.Visible then
+    begin
+      fSearch.SetLanguage;
+      fSearch.LoadOptions('MAINS');
+      cbSearchType.Items.Assign(fSearch.cbSearchType.Items);
+      for i := 0 to fSearch.cbSearchType.Items.Count-1 do
+        cbSearchType.Checked[i] := fSearch.cbSearchType.Checked[i];
+      cbSearchIn.Items.Assign(fSearch.cbSearchIn.Items);
+      for i := 0 to fSearch.cbSearchIn.Items.Count-1 do
+        cbSearchIn.Checked[i] := fSearch.cbSearchIn.Checked[i];
+    end
+  else
+    begin
+      cbSearchIn.Items.Assign(fSearch.cbSearchIn.Items);
+      for i := 0 to fSearch.cbSearchType.Items.Count-1 do
+        fSearch.cbSearchType.Checked[i] := cbSearchType.Checked[i];
+      for i := 0 to fSearch.cbSearchIn.Items.Count-1 do
+        fSearch.cbSearchIn.Checked[i] := cbSearchIn.Checked[i];
+      fSearch.SaveOptions;
+    end;
+end;
+
+procedure TfMain.acShowSearchExecute(Sender: TObject);
+begin
+
+end;
+
 procedure TfMain.acShowTreeExecute(Sender: TObject);
 begin
   BeginFormUpdate;
   BeginUpdateBounds;
+  if acShowTree.Checked or acShowSearch.Checked then
+    begin
+      tvMainAll.Visible:=True;
+      spTree.Visible:=True;
+    end
+  else
+    begin
+      tvMainAll.Visible:=False;
+      spTree.Visible:=false;
+    end;
+  if acShowTree.Checked and acShowSearch.Checked then
+    begin
+      if Sender=acShowSearch then
+        acShowTree.Checked:=False
+      else
+        acShowSearch.Checked:=False;
+    end;
   tvMain.Visible:=acShowTree.Checked;
-  spTree.Visible:=acShowTree.Checked;
+  tvSearchP.Visible:=acShowSearch.Checked;
+  if tvSearchP.Visible then
+    begin
+      tvSearchP.SetFocus;
+      eSearch.SelectAll;
+      eSearch.SetFocus;
+    end;
   with Application as IBaseDbInterface do
-    DBConfig.WriteBoolean('SHOWTREE',acShowTree.Checked);
-  if tvMain.Visible then
+    DBConfig.WriteBoolean('SHOWTREE',acShowTree.Checked or acShowSearch.Checked);
+  if tvMainAll.Visible then
     begin
       ppages.Anchors := [akTop,akLeft,akRight,akBottom];
       pPages.Align:=alnone;
-      pPages.Width:=fMain.Width-tvMain.Width;
+      pPages.Width:=fMain.Width-tvMainAll.Width;
       pPages.Height:=fmain.Height;
     end
   else pPages.Align:=alClient;
@@ -2690,6 +2767,28 @@ begin
   if Data.Users.Rights.Right('OPTIONS') > RIGHT_READ then
     aFrame.SetupTabEditor(TTabSheet(Sender));
 end;
+
+procedure TfMain.eSearchChange(Sender: TObject);
+begin
+  if eSearch.Text<>strSearchText then
+    begin
+      fSearch.SetLanguage;
+      fSearch.LoadOptions('MAINS');
+      fSearch.SetUpSearch;
+      fSearch.ActiveSearch.OnItemFound:=@fSearchActiveSearchItemFound;
+      fSearch.eContains.Text:=eSearch.Text;
+    end;
+end;
+
+procedure TfMain.eSearchEnter(Sender: TObject);
+begin
+  if eSearch.Text=strSearchText then
+    begin
+      eSearch.Text:='';
+      eSearch.Font.Color:=clWindowText;
+    end;
+end;
+
 procedure TfMain.fMainTreeFrameDragDrop(Sender, Source: TObject; X, Y: Integer);
 var
   aLink: String;
@@ -3944,12 +4043,15 @@ begin
     FreeAndNil(fHelpContainer);
   if Assigned(tsStartpage) and (tsStartpage.ControlCount > 0) then
     tsStartpage.Controls[0].Destroy;
-  pcPages.CloseAll;
   with Application as IBaseApplication do
     begin
       SaveConfig;
       DoExit;
     end;
+  try
+    pcPages.CloseAll;
+  except
+  end;
   with BaseApplication as IBaseApplication do
     Debug('fMain:FormClose exit');
 end;
@@ -4001,7 +4103,7 @@ begin
   SearchLinks := TStringList.Create;
   uMainTreeFrame.fMainTreeFrame := TfMainTree.Create(Self);
   fMainTreeFrame.pcPages := pcPages;
-  fMainTreeFrame.Parent := tvMain;
+  fMainTreeFrame.Parent := tvMainAll;
   fMainTreeFrame.Align:=alClient;
   fMainTreeFrame.OnNewFromLink:=@fMainTreeFrameNewFromLink;
   fMainTreeFrame.OnOpenFromLink:=@fMainTreeFrameOpenFromLink;
@@ -4027,7 +4129,7 @@ procedure TfMain.FormResize(Sender: TObject);
 begin
   if pPages.Align=alnone then
     begin
-      pPages.Width:=fMain.Width-tvMain.Width-spTree.Width;
+      pPages.Width:=fMain.Width-tvMainAll.Width-spTree.Width;
       {$if declared(lcl_version)}
       if lcl_fullversion>1260 then
         pPages.Height:=fmain.Height-MainMenu1.Height
@@ -4043,6 +4145,15 @@ procedure TfMain.FormShow(Sender: TObject);
 begin
   with Application as IBaseApplication do
     RestoreConfig; //Must be called when Mainform is Visible
+end;
+
+procedure TfMain.fSearchActiveSearchItemFound(aIdent: string; aName: string;
+  aStatus: string; aActive: Boolean; aLink: string; aPriority: Integer=0;
+  aItem: TBaseDBList=nil);
+var
+  tItem: TTreeNode;
+begin
+  tItem := tvSearch.Items.Add(nil,aName);
 end;
 
 procedure TfMain.IPCTimerTimer(Sender: TObject);
@@ -4336,7 +4447,7 @@ begin
     end;
 end;
 
-procedure TfMain.tvMainClick(Sender: TObject);
+procedure TfMain.tvMainAllClick(Sender: TObject);
 begin
 
 end;

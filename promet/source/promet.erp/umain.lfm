@@ -4,7 +4,7 @@ object fMain: TfMain
   Top = 131
   Width = 935
   Caption = 'Promet-ERP'
-  ClientHeight = 600
+  ClientHeight = 601
   ClientWidth = 935
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -17,10 +17,10 @@ object fMain: TfMain
   OnShow = FormShow
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '1.7'
+  LCLVersion = '1.5'
   object spTree: TSplitter
     Left = 283
-    Height = 562
+    Height = 563
     Top = 38
     Width = 5
     Color = clBtnFace
@@ -44,17 +44,17 @@ object fMain: TfMain
       Left = 0
       Height = 38
       Top = 0
-      Width = 218
+      Width = 226
       Align = alLeft
       BevelOuter = bvNone
       ClientHeight = 38
-      ClientWidth = 218
+      ClientWidth = 226
       TabOrder = 0
       object Label3: TLabel
         Left = 4
         Height = 15
         Top = 0
-        Width = 210
+        Width = 218
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
@@ -76,14 +76,14 @@ object fMain: TfMain
         Shape = bsLeftLine
       end
       object ToolBar1: TToolBar
-        Left = 39
+        Left = 72
         Height = 26
         Top = 12
-        Width = 179
-        BorderSpacing.Left = 39
+        Width = 154
+        BorderSpacing.Left = 72
         BorderSpacing.Top = 12
         ButtonHeight = 26
-        ButtonWidth = 55
+        ButtonWidth = 45
         Caption = 'ToolBar1'
         Color = clBtnFace
         EdgeBorders = []
@@ -100,7 +100,7 @@ object fMain: TfMain
           Style = tbsDropDown
         end
         object bFfwd: TToolButton
-          Left = 68
+          Left = 58
           Top = 0
           Action = acForward
           AutoSize = True
@@ -109,7 +109,7 @@ object fMain: TfMain
           ShowHint = True
         end
         object ToolButton1: TToolButton
-          Left = 123
+          Left = 103
           Top = 0
           Action = acStartPage
         end
@@ -127,9 +127,21 @@ object fMain: TfMain
         GroupIndex = 1234
         ShowCaption = False
       end
+      object tbTreeVisible1: TSpeedButton
+        Left = 35
+        Height = 41
+        Top = 0
+        Width = 37
+        Action = acShowSearch
+        AllowAllUp = True
+        Color = clWindow
+        Flat = True
+        GroupIndex = 1235
+        ShowCaption = False
+      end
     end
     object pTimes: TPanel
-      Left = 218
+      Left = 226
       Height = 38
       Top = 0
       Width = 63
@@ -227,7 +239,7 @@ object fMain: TfMain
       end
     end
     object pTimes1: TPanel
-      Left = 281
+      Left = 289
       Height = 38
       Top = 0
       Width = 247
@@ -262,21 +274,21 @@ object fMain: TfMain
       end
     end
   end
-  object tvMain: TPanel
+  object tvMainAll: TPanel
     Left = 0
-    Height = 562
+    Height = 563
     Top = 38
     Width = 283
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 562
+    ClientHeight = 563
     ClientWidth = 283
     Color = clWindow
     DragMode = dmAutomatic
     ParentColor = False
     TabOrder = 1
     Visible = False
-    OnClick = tvMainClick
+    OnClick = tvMainAllClick
     object Bevel1: TBevel
       Left = 35
       Height = 1
@@ -286,23 +298,137 @@ object fMain: TfMain
       BorderSpacing.Left = 35
       Shape = bsTopLine
     end
+    object tvMain: TPanel
+      Left = 0
+      Height = 562
+      Top = 1
+      Width = 283
+      Align = alClient
+      BevelOuter = bvNone
+      Color = clWindow
+      DragMode = dmAutomatic
+      ParentColor = False
+      TabOrder = 0
+      Visible = False
+    end
+    object tvSearchP: TPanel
+      Left = 0
+      Height = 562
+      Top = 1
+      Width = 283
+      Align = alClient
+      BevelOuter = bvNone
+      ClientHeight = 562
+      ClientWidth = 283
+      Color = clWindow
+      DragMode = dmAutomatic
+      ParentColor = False
+      TabOrder = 1
+      Visible = False
+      object eSearch: TEdit
+        Left = 8
+        Height = 21
+        Top = 11
+        Width = 248
+        Font.Color = clGrayText
+        OnChange = eSearchChange
+        OnEnter = eSearchEnter
+        ParentFont = False
+        TabOrder = 0
+        Text = '<hier tippen um zu suchen>'
+      end
+      object SpeedButton3: TSpeedButton
+        Left = 258
+        Height = 22
+        Top = 11
+        Width = 23
+        Action = acSearchOptions
+        AllowAllUp = True
+        GroupIndex = 1236
+        ShowCaption = False
+      end
+      object tvSearch: TTreeView
+        Left = 0
+        Height = 522
+        Top = 40
+        Width = 283
+        Align = alBottom
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        BorderStyle = bsNone
+        DefaultItemHeight = 16
+        Images = fVisualControls.Images
+        TabOrder = 1
+      end
+      object pSearchOptions: TPanel
+        Left = 32
+        Height = 330
+        Top = 32
+        Width = 249
+        Anchors = [akTop, akRight]
+        ClientHeight = 330
+        ClientWidth = 249
+        TabOrder = 2
+        Visible = False
+        object lSearchtype: TLabel
+          Left = 5
+          Height = 13
+          Top = 169
+          Width = 239
+          Align = alTop
+          BorderSpacing.Around = 4
+          Caption = 'Suchtypen'
+          ParentColor = False
+        end
+        object cbSearchType: TCheckListBox
+          Left = 9
+          Height = 135
+          Top = 26
+          Width = 231
+          Align = alTop
+          BorderSpacing.Around = 8
+          ItemHeight = 0
+          TabOrder = 1
+        end
+        object lSearchIn: TLabel
+          Left = 5
+          Height = 13
+          Top = 5
+          Width = 239
+          Align = alTop
+          BorderSpacing.Around = 4
+          Caption = 'Suche in'
+          ParentColor = False
+        end
+        object cbSearchIn: TCheckListBox
+          Left = 9
+          Height = 131
+          Top = 190
+          Width = 231
+          Align = alClient
+          BorderSpacing.Around = 8
+          ItemHeight = 0
+          TabOrder = 0
+          TabStop = False
+        end
+      end
+    end
   end
   object pPages: TPanel
     AnchorSideLeft.Control = spTree
     AnchorSideLeft.Side = asrBottom
     Left = 288
-    Height = 600
+    Height = 601
     Top = 0
     Width = 643
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
     Caption = 'pPages'
-    ClientHeight = 600
+    ClientHeight = 601
     ClientWidth = 643
     TabOrder = 3
     object pcPages: TExtMenuPageControl
       Left = 0
-      Height = 600
+      Height = 601
       Top = 0
       Width = 643
       ActivePage = tsStartpage
@@ -793,6 +919,22 @@ object fMain: TfMain
       Caption = 'Produktion'
       ImageIndex = 125
       OnExecute = acProductionExecute
+    end
+    object acShowSearch: TAction
+      Category = 'Ansicht'
+      AutoCheck = True
+      Caption = 'Suche anzeigen'
+      GroupIndex = 1234
+      ImageIndex = 8
+      OnExecute = acShowTreeExecute
+    end
+    object acSearchOptions: TAction
+      Category = 'Ansicht'
+      AutoCheck = True
+      Caption = 'acSearchOptions'
+      GroupIndex = 12346
+      ImageIndex = 56
+      OnExecute = acSearchOptionsExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties
