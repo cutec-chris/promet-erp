@@ -68,12 +68,14 @@ type
   private
     MailBoxes : TTree;
     _DbCS : TCriticalSection;
-    function GotoMailBox(MailBox : string) : Boolean;
+    _LockFrom : TSTcpThread;
+    function GotoMailBox(MailBox: string; Socket: TSTcpThread): Boolean;
   protected
     procedure DoClientCreate(AThread: TSTcpThread); override;
     procedure DoClientDestroy(ASender: TObject); override;
+    procedure SocketRelease(ASocket: TSTcpThread); override;
   public
-    function  MBSelect(AThread: TSTcpThread; Mailbox: string; aReadOnly : Boolean ): boolean; override;
+    function MBSelect(AThread: TSTcpThread; Mailbox: string; aReadOnly: Boolean): boolean; override;
     function MBGet(AThread: TSTcpThread; Mailbox: string): TImapMailbox; override;
     function  MBCreate(AThread: TSTcpThread; Mailbox: string ): boolean; override;
     function  MBDelete(AThread: TSTcpThread; Mailbox: string ): boolean; override;
@@ -88,8 +90,8 @@ type
     procedure DoList(AThread: TSTcpThread; Par: String; LSub: Boolean ); override;
     procedure DoSubscribe(AThread: TSTcpThread; Par: String);override;
     procedure DoUnSubscribe(AThread: TSTcpThread; Par: String);override;
-    procedure InternalLock(WhoAmI : string);
-    procedure InternalUnlock(WhoAmI : string);
+    procedure InternalLock(WhoAmI : string;Socket : TSTcpThread);
+    procedure InternalUnlock(WhoAmI : string;Socket : TSTcpThread);
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   end;
@@ -866,7 +868,8 @@ begin
   inherited Destroy;
 end;
 
-function TPrometImapServer.GotoMailBox(MailBox: string): Boolean;
+function TPrometImapServer.GotoMailBox(MailBox: string; Socket: TSTcpThread
+  ): Boolean;
 var
   Parent: String;
   ParentId : Variant;
@@ -876,7 +879,7 @@ begin
   if pos('/',MailBox)>0 then
     Parent := copy(MailBox,0,RPos('/',MailBox)-1);
   MailBox:=copy(MailBox,RPos('/',MailBox)+1,length(MailBox));
-  InternalLock('GotoMailbox');
+  InternalLock('GotoMailbox',Socket);
   try
   if MailBoxes.Locate('NAME',AnsiToUtf8(Mailbox),[]) then
     begin
@@ -911,7 +914,7 @@ begin
         end;
     end;
   finally
-    InternalUnlock('GotoMailBox');
+    InternalUnlock('GotoMailBox',Socket);
   end;
 end;
 
@@ -927,13 +930,19 @@ begin
   inherited DoClientDestroy(ASender);
 end;
 
+procedure TPrometImapServer.SocketRelease(ASocket: TSTcpThread);
+begin
+  InternalUnlock('Socket release',ASocket);
+  inherited SocketRelease(ASocket);
+end;
+
 function TPrometImapServer.MBSelect(AThread: TSTcpThread; Mailbox: string;
   aReadOnly: Boolean): boolean;
 var
   i: Integer;
 begin
   Result:=False;
-  if GotoMailBox(Mailbox) then
+  if GotoMailBox(Mailbox,AThread) then
     begin
       TSImapThread(AThread).Selected := TPrometMailbox.Create(AThread,MailBoxes.Id.AsVariant,_DBCS);
       Result := True;
@@ -955,7 +964,7 @@ function TPrometImapServer.MBGet(AThread: TSTcpThread; Mailbox: string
   ): TImapMailbox;
 begin
   Result := nil;
-  if GotoMailBox(Mailbox) then
+  if GotoMailBox(Mailbox,AThread) then
     begin
       Result := TPrometMailbox.Create(AThread,MailBoxes.Id.AsVariant,_DBCS);
     end;
@@ -964,7 +973,7 @@ end;
 function TPrometImapServer.MBCreate(AThread: TSTcpThread; Mailbox: string
   ): boolean;
 begin
-  InternalLock('MBCreate');
+  InternalLock('MBCreate',AThread);
   try
   try
     MailBoxes.Append;
@@ -976,7 +985,7 @@ begin
     Result:=False;
   end;
   finally
-    InternalUnlock('MBCreate');
+    InternalUnlock('MBCreate',AThread);
   end;
 end;
 
@@ -989,7 +998,7 @@ end;
 function TPrometImapServer.MBExists(AThread: TSTcpThread; var Mailbox: string
   ): boolean;
 begin
-  Result := GotoMailBox(Mailbox);
+  Result := GotoMailBox(Mailbox,AThread);
 end;
 
 function TPrometImapServer.MBRename(AThread: TSTcpThread; OldName,
@@ -1002,7 +1011,7 @@ function TPrometImapServer.MBLogin(AThread: TSTcpThread;
   var Mailbox: TImapMailbox; Path: String; LINotify: Boolean): Boolean;
 begin
   Result:=False;
-  if GotoMailBox(Path) then
+  if GotoMailBox(Path,AThread) then
     begin
       Mailbox := TPrometMailbox.Create(aThread,MailBoxes.Id.AsVariant,_DBCS);
       Result := True;
@@ -1312,7 +1321,7 @@ begin
     SendResTag(AThread, 'BAD SUBSCRIBE without valid mailbox!' )
   else
     begin
-      if not GotoMailBox(Mailbox) then
+      if not GotoMailBox(Mailbox,AThread) then
         begin
           SendResTag(AThread, 'BAD Mailbox not valid!' );
           exit;
@@ -1330,7 +1339,7 @@ begin
     SendResTag(AThread, 'BAD SUBSCRIBE without valid mailbox!' )
   else
     begin
-      if not GotoMailBox(Mailbox) then
+      if not GotoMailBox(Mailbox,AThread) then
         begin
           SendResTag(AThread, 'BAD Mailbox not valid!' );
           exit;
@@ -1339,7 +1348,7 @@ begin
     end;
 end;
 
-procedure TPrometImapServer.InternalLock(WhoAmI: string);
+procedure TPrometImapServer.InternalLock(WhoAmI: string; Socket: TSTcpThread);
 var
   i: Integer;
 begin
@@ -1353,18 +1362,26 @@ begin
         begin
           sleep(1);
           if _DBCS.TryEnter then
-            exit;
+            begin
+              _LockFrom := Socket;
+              exit;
+            end;
         end;
       if not _DBCS.TryEnter then
         raise Exception.Create('Lock after 5secs not released !!');
-    end;
+    end
+  else
+    _LockFrom := Socket;
 end;
 
-procedure TPrometImapServer.InternalUnlock(WhoAmI: string);
+procedure TPrometImapServer.InternalUnlock(WhoAmI: string; Socket: TSTcpThread);
 begin
-  with BaseApplication as IBaseApplication do
-    Debug('UnLocking entered from '+WhoAmI);
-  _DbCS.Leave;
+  if Socket=_LockFrom then
+    begin
+      with BaseApplication as IBaseApplication do
+        Debug('UnLocking entered from '+WhoAmI);
+      _DbCS.Leave;
+    end;
 end;
 
 constructor TPrometImapServer.Create(AOwner: TComponent);
@@ -1392,7 +1409,7 @@ var
   i: Integer;
 begin
   aUser := TUser.Create(nil);
-  IMAPServer.InternalLock('ServerAcceptMail');
+  IMAPServer.InternalLock('ServerAcceptMail',aSocket);
   try
   for i := 0 to aTo.Count-1 do
     begin
@@ -1412,7 +1429,7 @@ begin
     end;
   aUser.Free;
   finally
-    IMAPServer.InternalUnlock('ServerAcceptMail');
+    IMAPServer.InternalUnlock('ServerAcceptMail',aSocket);
   end;
   Result := aRes;
 end;
@@ -1441,7 +1458,7 @@ function TPIMAPServer.ServerLogin(aSocket: TSTcpThread; aUser,
   aPasswort: string): Boolean;
 begin
   Result := False;
-  IMAPServer.InternalLock('Login');
+  IMAPServer.InternalLock('Login',aSocket);
   try
   Data.Users.DataSet.Refresh;
   with Self as IBaseDBInterface do
@@ -1466,7 +1483,7 @@ begin
   if Result then
     aSocket.User:=Data.Users.Accountno.AsString;
   finally
-    IMAPServer.InternalUnlock('Login');
+    IMAPServer.InternalUnlock('Login',aSocket);
   end;
 end;
 
@@ -1480,7 +1497,7 @@ var
   aUID: String;
   aMessage: TMimeMessage;
 begin
-  IMAPServer.Internallock('ServerMailReceived');
+  IMAPServer.Internallock('ServerMailReceived',aSocket);
   try
   aUser := TUser.Create(nil);
   //mail to an User
@@ -1533,7 +1550,7 @@ begin
     end;
   aUser.Free;
   finally
-    IMAPServer.InternalUnlock('ServerMailReceived');
+    IMAPServer.InternalUnlock('ServerMailReceived',aSocket);
   end;
 end;
 
@@ -1623,8 +1640,14 @@ end;
 
 destructor TPIMAPServer.Destroy;
 begin
-  IMAPServer.Free;
-  SMTPServer.Free;
+  try
+    IMAPServer.Free;
+  except
+  end;
+  try
+    SMTPServer.Free;
+  except
+  end;
   inherited Destroy;
 end;
 

@@ -28,6 +28,7 @@ type
   TSTcpThread = class(TThread)
   private
     FId: integer;
+    FOnException: TNotifyEvent;
     FSocket: TTCPBlockSocket;
     FConnected, FReadTimedOut, FWriteTimedOut: boolean;
     FUser: string;
@@ -54,6 +55,7 @@ type
     property WriteTimedOut: boolean read FWriteTimedOut;
     property OnDestroy: TNotifyEvent read FOnDestroy write FOnDestroy;
     property OnExecute: TSThreadEvent read FOnExecute write FOnExecute;
+    property OnException : TNotifyEvent read FOnException write FOnException;
   end;
   TSTcpThreadClass = class of TSTcpThread;
 
@@ -300,8 +302,13 @@ begin
   FConnection.PeerIP := FSocket.GetRemoteSinIP;
   FConnection.PeerName := FSocket.ResolveIPToName(FSocket.GetRemoteSinIP);
   FConnection.PeerPort := FSocket.GetRemoteSinPort;
-  if (Assigned(FOnExecute)) then
-    FOnExecute(Self);
+  try
+    if (Assigned(FOnExecute)) then
+      FOnExecute(Self);
+  except
+    if (Assigned(FOnException)) then
+      FOnException(Self);
+  end;
 end;
 
 constructor TSTcpListener.Create(aParent: TSBaseServer);

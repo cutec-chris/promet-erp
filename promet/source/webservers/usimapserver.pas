@@ -10,6 +10,9 @@ uses
 
 type
   TSImapThread = class(TSTcpThread)
+    procedure SImapThreadException(Sender: TObject);
+  private
+    FServer: TSTcpServer;
   public
     CurrentUserName: String;
     CurrentTag: string;
@@ -18,7 +21,8 @@ type
     SendExpunge: array of integer;
     SendNewMessages: boolean;
     Selected: TImapMailbox;
-    constructor Create(ASocket: TSocket);
+    constructor Create(AServer : TSTcpServer; ASocket: TSocket);
+    destructor Destroy; override;
   end;
 
   { TSImapServer }
@@ -82,6 +86,7 @@ type
     procedure SendRes(AThread: TSTcpThread; Txt: string);
     function SendRequest(AThread: TSTcpThread; const AText: string) : string;
     function SafeString( Path: String ): Boolean;
+    procedure SocketRelease(ASocket : TSTcpThread);virtual;
 
     procedure SetActive(const AValue: boolean); override;
     procedure Execute(AThread: TSTcpThread); override;
@@ -163,14 +168,30 @@ begin
     else
       Result := Copy(s, p, l - p + 1);
 end;
-constructor TSImapThread.Create(ASocket: TSocket);
+
+procedure TSImapThread.SImapThreadException(Sender: TObject);
 begin
-  inherited;
+  raise Exception.Create('Exception in Thread');
+  Destroy;
+end;
+
+constructor TSImapThread.Create(AServer: TSTcpServer; ASocket: TSocket);
+begin
+  inherited Create(ASocket);
+  FServer := AServer;
   LiteralLength:=0;
   CurrentUserName:='';
   SendNewMessages := false;
   SetLength(SendExpunge, 0);
+  OnException:=@SImapThreadException;
 end;
+
+destructor TSImapThread.Destroy;
+begin
+  TSImapServer(FServer).SocketRelease(Self);
+  inherited Destroy;
+end;
+
 procedure TSImapServer.HandleCommand(AThread : TSTcpThread;const CmdLine: string);
 var
   LogCmdLine, Cmd, Par: string;
@@ -1486,6 +1507,11 @@ begin
       if not (Path[i] in SafeChars) then exit;
    Result := True;
 end;
+
+procedure TSImapServer.SocketRelease(ASocket: TSTcpThread);
+begin
+end;
+
 function TSImapServer.LoginUser(AThread: TSTcpThread; Password: String;
   AuthMechanism: String): String;
 var
