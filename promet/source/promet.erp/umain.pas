@@ -248,6 +248,9 @@ type
     procedure fSearchActiveSearchItemFound(aIdent: string; aName: string;
       aStatus: string; aActive: Boolean; aLink: string; aPriority: Integer=0;
       aItem: TBaseDBList=nil);
+    procedure fSearchItemFound(aIdent: string; aName: string; aStatus: string;
+      aActive: Boolean; aLink: string; aPriority: Integer=0; aItem: TBaseDBList=
+      nil);
     procedure IPCTimerTimer(Sender: TObject);
     procedure miOptionsClick(Sender: TObject);
     function OpenAction(aLink: string; Sender: TObject): Boolean;
@@ -2401,6 +2404,7 @@ begin
       cbSearchIn.Items.Assign(fSearch.cbSearchIn.Items);
       for i := 0 to fSearch.cbSearchType.Items.Count-1 do
         fSearch.cbSearchType.Checked[i] := cbSearchType.Checked[i];
+      cbSearchType.Items.Assign(fSearch.cbSearchType.Items);
       for i := 0 to fSearch.cbSearchIn.Items.Count-1 do
         fSearch.cbSearchIn.Checked[i] := cbSearchIn.Checked[i];
       fSearch.SaveOptions;
@@ -2774,8 +2778,10 @@ begin
     begin
       fSearch.SetLanguage;
       fSearch.LoadOptions('MAINS');
-      fSearch.SetUpSearch;
-      fSearch.ActiveSearch.OnItemFound:=@fSearchActiveSearchItemFound;
+      fSearch.OnItemFound:=@fSearchItemFound;
+      tvSearch.Items.Clear;
+      //fSearch.SetUpSearch;
+      //fSearch.ActiveSearch.OnItemFound:=@fSearchActiveSearchItemFound;
       fSearch.eContains.Text:=eSearch.Text;
     end;
 end;
@@ -4154,6 +4160,19 @@ var
   tItem: TTreeNode;
 begin
   tItem := tvSearch.Items.Add(nil,aName);
+end;
+
+procedure TfMain.fSearchItemFound(aIdent: string; aName: string;
+  aStatus: string; aActive: Boolean; aLink: string; aPriority: Integer=0;
+  aItem: TBaseDBList=nil);
+var
+  bItem: TTreeNode;
+begin
+  bItem := tvSearch.Items.AddChildObject(nil,aName,TTreeEntry.Create);
+  TTreeEntry(bItem.Data).Link:=aLink;
+  TTreeEntry(bItem.Data).Typ:=etLink;
+  bItem.ImageIndex:=Data.GetLinkIcon(aLink,True);
+  bItem.SelectedIndex:=bItem.ImageIndex;
 end;
 
 procedure TfMain.IPCTimerTimer(Sender: TObject);
