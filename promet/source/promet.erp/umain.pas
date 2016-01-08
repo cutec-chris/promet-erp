@@ -252,6 +252,7 @@ type
     procedure fSearchItemFound(aIdent: string; aName: string; aStatus: string;
       aActive: Boolean; aLink: string; aPriority: Integer=0; aItem: TBaseDBList=
       nil);
+    procedure fSearchSearchDone(Sender: TObject);
     procedure IPCTimerTimer(Sender: TObject);
     procedure miOptionsClick(Sender: TObject);
     function OpenAction(aLink: string; Sender: TObject): Boolean;
@@ -2418,6 +2419,7 @@ begin
       for i := 0 to fSearch.cbSearchIn.Items.Count-1 do
         fSearch.cbSearchIn.Checked[i] := cbSearchIn.Checked[i];
       fSearch.SaveOptions;
+      fSearch.SetUpSearch;
     end;
 end;
 
@@ -2794,9 +2796,9 @@ begin
       fSearch.SetLanguage;
       fSearch.LoadOptions('MAIS');
       fSearch.OnItemFound:=@fSearchItemFound;
+      fSearch.OnSearchDone:=@fSearchSearchDone;
       tvSearch.Items.Clear;
-      //fSearch.SetUpSearch;
-      //fSearch.ActiveSearch.OnItemFound:=@fSearchActiveSearchItemFound;
+      tvSearch.Cursor:=crHourGlass;
       fSearch.eContains.Text:=eSearch.Text;
     end;
 end;
@@ -2808,6 +2810,7 @@ begin
       eSearch.Text:='';
       eSearch.Font.Color:=clWindowText;
     end;
+  eSearch.SelectAll;
 end;
 
 procedure TfMain.fMainTreeFrameDragDrop(Sender, Source: TObject; X, Y: Integer);
@@ -4188,6 +4191,11 @@ begin
   TTreeEntry(bItem.Data).Typ:=etLink;
   bItem.ImageIndex:=Data.GetLinkIcon(aLink,True);
   bItem.SelectedIndex:=bItem.ImageIndex;
+end;
+
+procedure TfMain.fSearchSearchDone(Sender: TObject);
+begin
+  tvSearch.Cursor:=crDefault;
 end;
 
 procedure TfMain.IPCTimerTimer(Sender: TObject);
