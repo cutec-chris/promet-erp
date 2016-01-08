@@ -174,7 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--debug"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">

@@ -358,9 +358,12 @@ object fMain: TfMain
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderStyle = bsNone
         DefaultItemHeight = 16
+        DragMode = dmAutomatic
         Images = fVisualControls.Images
+        ReadOnly = True
         TabOrder = 1
         OnDblClick = tvSearchDblClick
+        Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
       end
       object pSearchOptions: TPanel
         Left = 32
