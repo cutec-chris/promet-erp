@@ -191,6 +191,7 @@ type
     procedure acNewStatisticsExecute(Sender: TObject);
     procedure acNewTaskExecute(Sender: TObject);
     procedure acNewTerminExecute(Sender: TObject);
+    procedure acOpenExecute(Sender: TObject);
     procedure acOrdersExecute(Sender: TObject);
     procedure acPasswordsExecute(Sender: TObject);
     procedure acPauseTimeExecute(Sender: TObject);
@@ -269,7 +270,7 @@ type
       procedure SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime
         (Sender: TObject; aProject, aTask, aCategory: string);
     procedure TfFilteracOpenExecute(Sender: TObject);
-    procedure tvMainAllClick(Sender: TObject);
+    procedure tvSearchDblClick(Sender: TObject);
   private
     { private declarations }
     WikiFrame: TfWikiFrame;
@@ -2202,6 +2203,16 @@ begin
     end;
   aFrame.New;
 end;
+
+procedure TfMain.acOpenExecute(Sender: TObject);
+begin
+  if tvSearchP.Visible then
+    begin
+      if Assigned(tvSearch.Selected) and Assigned(tvSearch.Selected.Data) then
+        data.GotoLink(TTreeEntry(tvSearch.Selected.Data).Link);
+    end;
+end;
+
 procedure TfMain.acOrdersExecute(Sender: TObject);
 var
   i: Integer;
@@ -2390,8 +2401,7 @@ begin
   pSearchOptions.Visible:=acSearchOptions.Checked;
   if pSearchOptions.Visible then
     begin
-      fSearch.SetLanguage;
-      fSearch.LoadOptions('MAINS');
+      fSearch.LoadOptions('MAIS');
       cbSearchType.Items.Assign(fSearch.cbSearchType.Items);
       for i := 0 to fSearch.cbSearchType.Items.Count-1 do
         cbSearchType.Checked[i] := fSearch.cbSearchType.Checked[i];
@@ -2401,10 +2411,10 @@ begin
     end
   else
     begin
-      cbSearchIn.Items.Assign(fSearch.cbSearchIn.Items);
+      fSearch.cbSearchType.Items.Assign(cbSearchType.Items);
       for i := 0 to fSearch.cbSearchType.Items.Count-1 do
         fSearch.cbSearchType.Checked[i] := cbSearchType.Checked[i];
-      cbSearchType.Items.Assign(fSearch.cbSearchType.Items);
+      fSearch.cbSearchIn.Items.Assign(cbSearchIn.Items);
       for i := 0 to fSearch.cbSearchIn.Items.Count-1 do
         fSearch.cbSearchIn.Checked[i] := cbSearchIn.Checked[i];
       fSearch.SaveOptions;
@@ -2439,6 +2449,11 @@ begin
     end;
   tvMain.Visible:=acShowTree.Checked;
   tvSearchP.Visible:=acShowSearch.Checked;
+  if tvMain.Visible then
+    begin
+      pSearchOptions.Visible:=False;
+      acSearchOptions.Checked:=False;
+    end;
   if tvSearchP.Visible then
     begin
       tvSearchP.SetFocus;
@@ -2777,7 +2792,7 @@ begin
   if eSearch.Text<>strSearchText then
     begin
       fSearch.SetLanguage;
-      fSearch.LoadOptions('MAINS');
+      fSearch.LoadOptions('MAIS');
       fSearch.OnItemFound:=@fSearchItemFound;
       tvSearch.Items.Clear;
       //fSearch.SetUpSearch;
@@ -4466,9 +4481,9 @@ begin
     end;
 end;
 
-procedure TfMain.tvMainAllClick(Sender: TObject);
+procedure TfMain.tvSearchDblClick(Sender: TObject);
 begin
-
+  acOpen.Execute;
 end;
 
 end.

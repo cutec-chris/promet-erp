@@ -288,7 +288,6 @@ object fMain: TfMain
     ParentColor = False
     TabOrder = 1
     Visible = False
-    OnClick = tvMainAllClick
     object Bevel1: TBevel
       Left = 35
       Height = 1
@@ -361,6 +360,7 @@ object fMain: TfMain
         DefaultItemHeight = 16
         Images = fVisualControls.Images
         TabOrder = 1
+        OnDblClick = tvSearchDblClick
       end
       object pSearchOptions: TPanel
         Left = 32
@@ -663,6 +663,7 @@ object fMain: TfMain
     object acOpen: TAction
       Caption = 'Öffnen'
       ImageIndex = 19
+      OnExecute = acOpenExecute
     end
     object acNewTermin: TAction
       Category = 'erfassung'
