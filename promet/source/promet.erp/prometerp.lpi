@@ -174,7 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help --debug"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-cen/"/>
       </local>
     </RunParams>
     <RequiredPackages Count="25">
@@ -294,6 +294,7 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
