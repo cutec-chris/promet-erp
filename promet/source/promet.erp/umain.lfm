@@ -4,7 +4,7 @@ object fMain: TfMain
   Top = 131
   Width = 935
   Caption = 'Promet-ERP'
-  ClientHeight = 601
+  ClientHeight = 600
   ClientWidth = 935
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -17,10 +17,10 @@ object fMain: TfMain
   OnShow = FormShow
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '1.5'
+  LCLVersion = '1.7'
   object spTree: TSplitter
     Left = 283
-    Height = 563
+    Height = 562
     Top = 38
     Width = 5
     Color = clBtnFace
@@ -276,12 +276,12 @@ object fMain: TfMain
   end
   object tvMainAll: TPanel
     Left = 0
-    Height = 563
+    Height = 562
     Top = 38
     Width = 283
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 563
+    ClientHeight = 562
     ClientWidth = 283
     Color = clWindow
     DragMode = dmAutomatic
@@ -299,7 +299,7 @@ object fMain: TfMain
     end
     object tvMain: TPanel
       Left = 0
-      Height = 562
+      Height = 561
       Top = 1
       Width = 283
       Align = alClient
@@ -312,12 +312,12 @@ object fMain: TfMain
     end
     object tvSearchP: TPanel
       Left = 0
-      Height = 562
+      Height = 561
       Top = 1
       Width = 283
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 562
+      ClientHeight = 561
       ClientWidth = 283
       Color = clWindow
       DragMode = dmAutomatic
@@ -326,7 +326,7 @@ object fMain: TfMain
       Visible = False
       object eSearch: TEdit
         Left = 8
-        Height = 21
+        Height = 25
         Top = 11
         Width = 248
         Font.Color = clGrayText
@@ -340,7 +340,7 @@ object fMain: TfMain
         AnchorSideBottom.Control = eSearch
         AnchorSideBottom.Side = asrBottom
         Left = 258
-        Height = 21
+        Height = 25
         Top = 11
         Width = 23
         Action = acSearchOptions
@@ -351,13 +351,13 @@ object fMain: TfMain
       end
       object tvSearch: TTreeView
         Left = 0
-        Height = 522
+        Height = 521
         Top = 40
         Width = 283
         Align = alBottom
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderStyle = bsNone
-        DefaultItemHeight = 16
+        DefaultItemHeight = 18
         DragMode = dmAutomatic
         Images = fVisualControls.Images
         ReadOnly = True
@@ -377,8 +377,8 @@ object fMain: TfMain
         Visible = False
         object lSearchtype: TLabel
           Left = 5
-          Height = 13
-          Top = 169
+          Height = 15
+          Top = 171
           Width = 239
           Align = alTop
           BorderSpacing.Around = 4
@@ -388,16 +388,17 @@ object fMain: TfMain
         object cbSearchType: TCheckListBox
           Left = 9
           Height = 135
-          Top = 26
+          Top = 28
           Width = 231
           Align = alTop
           BorderSpacing.Around = 8
           ItemHeight = 0
           TabOrder = 1
+          TopIndex = -1
         end
         object lSearchIn: TLabel
           Left = 5
-          Height = 13
+          Height = 15
           Top = 5
           Width = 239
           Align = alTop
@@ -407,14 +408,15 @@ object fMain: TfMain
         end
         object cbSearchIn: TCheckListBox
           Left = 9
-          Height = 123
-          Top = 190
+          Height = 119
+          Top = 194
           Width = 231
           Align = alClient
           BorderSpacing.Around = 8
           ItemHeight = 0
           TabOrder = 0
           TabStop = False
+          TopIndex = -1
         end
       end
     end
@@ -423,18 +425,18 @@ object fMain: TfMain
     AnchorSideLeft.Control = spTree
     AnchorSideLeft.Side = asrBottom
     Left = 288
-    Height = 601
+    Height = 600
     Top = 0
     Width = 643
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
     Caption = 'pPages'
-    ClientHeight = 601
+    ClientHeight = 600
     ClientWidth = 643
     TabOrder = 3
     object pcPages: TExtMenuPageControl
       Left = 0
-      Height = 601
+      Height = 600
       Top = 0
       Width = 643
       ActivePage = tsStartpage

@@ -1443,6 +1443,10 @@ begin
   if Assigned(TWebDAVServer(FSocket.Creator).OnDelete) then
     Result := TWebDAVServer(FSocket.Creator).OnDelete(TDAVSocket(FSocket),aPath);
   TWebDAVServer(FSocket.Creator).Unlock;
+  if Result then
+    FSocket.FStatus:=200
+  else
+    FSocket.FStatus:=403;
 end;
 function TDAVMkColOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
 var

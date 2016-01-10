@@ -131,7 +131,7 @@ begin
       else
         begin
           aDirs := TTree.Create(nil);
-          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
+          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('A'));
           aDirPar := null;
           Result := True;
           while pos('/',aDir)>0 do
@@ -220,7 +220,7 @@ var
   sl: TStringList;
   Stream: TMemoryStream;
   aDirs: TTree;
-  aFullDir, aBaseDir, TmpPath, tmp2: String;
+  aFullDir, aBaseDir, TmpPath, tmp2, tmp3: String;
   IsCalendarUser: Boolean = false;
   aTasks: TTaskList;
   aDel: TDeletedItems;
@@ -368,8 +368,9 @@ begin
           while not aDirs.EOF do
             begin
               TmpPath := aBaseDir+aDirs.Text.AsString;
-              tmp2 := copy(TmpPath,0,length(aFullDir));
-              if tmp2=TmpPath then
+              tmp2 := copy(aFullDir,0,length(TmpPath));
+              tmp3 := copy(TmpPath,0,length(tmp2));
+              if tmp2=tmp3 then
                 begin
                   if not (Assigned(aItem) and (aItem.Path = aBaseDir+aDirs.Text.AsString+'/')) then
                     begin
@@ -389,9 +390,8 @@ begin
                       aDel.SortDirection:= sdDescending;
                       aDel.Open;
                       aCal := TCalendar.Create(nil);
-                      aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
-                      aCal.SelectByUser(Data.Users.Accountno.AsString);
                       aCal.ActualLimit:=1;
+                      aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
                       aCal.SortFields:='TIMESTAMPD';
                       aCal.SortDirection:= sdDescending;
                       aCal.Open;
@@ -622,7 +622,7 @@ begin
       else
         begin
           aDirs := TTree.Create(nil);
-          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
+          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('A'));
           aDirPar := null;
           Result := True;
           while pos('/',aDir)>0 do
@@ -812,7 +812,7 @@ begin
       else
         begin
           aDirs := TTree.Create(nil);
-          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('C'));
+          aDirs.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('A'));
           aDirPar := null;
           Result := True;
           while pos('/',aDir)>0 do

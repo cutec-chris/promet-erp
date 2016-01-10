@@ -37,7 +37,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS-Times2 --server-log --debug"/>
+        <CommandLineParams Value="&quot;--mandant=Stora&quot;"/>
         <WorkingDirectory Value="..\"/>
       </local>
     </RunParams>
@@ -66,17 +66,14 @@
       <Unit2>
         <Filename Value="uhttputil.pp"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uhttputil"/>
       </Unit2>
       <Unit3>
         <Filename Value="udavserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="udavserver"/>
       </Unit3>
       <Unit4>
         <Filename Value="uprometdavserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="uprometdavserver"/>
       </Unit4>
     </Units>
   </ProjectOptions>

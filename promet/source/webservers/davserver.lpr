@@ -69,6 +69,7 @@ constructor TSVNServer.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   StopOnException:=True;
+  if not Login then exit;
   Server := TWebDAVServer.Create;
   ServerFunctions := TPrometServerFunctions.Create;
   Server.OnAccess:=@ServerAccess;
@@ -80,7 +81,6 @@ begin
   Server.OnReadAllowed:=@ServerFunctions.ServerReadAllowed;
   Server.OnWriteAllowed:=@ServerFunctions.ServerReadAllowed;
   Server.OnUserLogin:=@ServerFunctions.ServerUserLogin;
-  if not Login then exit;
   writeln('Login to Database OK');
   Server.Start;
   Data.Users.DataSet.Close;

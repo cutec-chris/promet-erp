@@ -15,3 +15,14 @@ Development
 ===========
 
 Needs actual Lazarus Version > 1.2.2
+
+How to start
+============
+
+Get it from GIT
+ git clone https://github.com/cutec-chris/promet-erp.git --depth=1
+ git submodule update
+
+Update it from GIT
+  git pull
+  git submodule update

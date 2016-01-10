@@ -2449,6 +2449,16 @@ begin
       else
         acShowSearch.Checked:=False;
     end;
+  with Application as IBaseDbInterface do
+    DBConfig.WriteBoolean('SHOWTREE',acShowTree.Checked or acShowSearch.Checked);
+  if tvMainAll.Visible then
+    begin
+      ppages.Anchors := [akTop,akLeft,akRight,akBottom];
+      pPages.Align:=alnone;
+      pPages.Width:=fMain.Width-tvMainAll.Width;
+      pPages.Height:=fmain.Height;
+    end
+  else pPages.Align:=alClient;
   tvMain.Visible:=acShowTree.Checked;
   tvSearchP.Visible:=acShowSearch.Checked;
   if tvMain.Visible then
@@ -2462,16 +2472,6 @@ begin
       eSearch.SelectAll;
       eSearch.SetFocus;
     end;
-  with Application as IBaseDbInterface do
-    DBConfig.WriteBoolean('SHOWTREE',acShowTree.Checked or acShowSearch.Checked);
-  if tvMainAll.Visible then
-    begin
-      ppages.Anchors := [akTop,akLeft,akRight,akBottom];
-      pPages.Align:=alnone;
-      pPages.Width:=fMain.Width-tvMainAll.Width;
-      pPages.Height:=fmain.Height;
-    end
-  else pPages.Align:=alClient;
   FormResize(Self);
   EndUpdateBounds;
   EndFormUpdate;
@@ -4127,7 +4127,7 @@ begin
   SearchLinks := TStringList.Create;
   uMainTreeFrame.fMainTreeFrame := TfMainTree.Create(Self);
   fMainTreeFrame.pcPages := pcPages;
-  fMainTreeFrame.Parent := tvMainAll;
+  fMainTreeFrame.Parent := tvMain;
   fMainTreeFrame.Align:=alClient;
   fMainTreeFrame.OnNewFromLink:=@fMainTreeFrameNewFromLink;
   fMainTreeFrame.OnOpenFromLink:=@fMainTreeFrameOpenFromLink;
