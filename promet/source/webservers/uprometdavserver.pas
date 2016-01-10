@@ -829,6 +829,8 @@ begin
                   exit;
                 end;
             end;
+          if not aDirs.Locate('PARENT;NAME',VarArrayOf([aDirPar,aDir]),[]) then
+            aDirs.Locate('NAME',VarArrayOf([aDir]),[]);
           aParent := aDirs.Id.AsVariant;
         end;
       sl := TStringList.Create;
@@ -846,6 +848,8 @@ begin
         begin
           eTag:=aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
           aCal.Edit;
+          if aCal.FieldByName('REF_ID_ID').AsVariant<>aParent then
+            aCal.FieldByName('REF_ID_ID').AsVariant:=aParent;
           if not VCalImport(aCal,sl,True) then
             Result := False
           else
