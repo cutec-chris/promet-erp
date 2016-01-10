@@ -617,7 +617,7 @@ begin
                                               FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                                               try
                                                 FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
-                                                FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,100);
+                                                FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,300);
                                                 inc(SyncedTables,FSyncedCount);
                                                 if (SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = FOldTime) and (FSyncedCount>1) then
                                                   inc(SyncedTables,SyncTable(SyncDB,uData.Data,FDest.GetDB));
