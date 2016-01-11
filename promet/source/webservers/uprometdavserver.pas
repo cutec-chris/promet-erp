@@ -325,7 +325,10 @@ begin
               aCal.SortFields:='TIMESTAMPD';
               aCal.SortDirection:= sdDescending;
               aCal.Open;
-              aItem.Properties.Values['getctag'] := IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000))+IntToStr(trunc(frac(aDel.TimeStamp.AsDateTime)*1000));
+              if aCal.TimeStamp.AsDateTime>aDel.TimeStamp.AsDateTime then
+                aItem.Properties.Values['getctag'] := aCal.TimeStamp.AsString
+              else
+                aItem.Properties.Values['getctag'] := aDel.TimeStamp.AsString;
               aItem.Properties.Values['getetag'] := Data.Users.Id.AsString;
               aItem.Properties.Values['getcontenttype'] := 'text/calendar';
               aItem.Properties.Values['displayname'] := aItem.Name;
@@ -395,7 +398,10 @@ begin
                       aCal.SortFields:='TIMESTAMPD';
                       aCal.SortDirection:= sdDescending;
                       aCal.Open;
-                      aItem.Properties.Values['getctag'] := IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000))+IntToStr(trunc(frac(aDel.TimeStamp.AsDateTime)*1000));
+                      if aCal.TimeStamp.AsDateTime>aDel.TimeStamp.AsDateTime then
+                        aItem.Properties.Values['getctag'] := aCal.TimeStamp.AsString
+                      else
+                        aItem.Properties.Values['getctag'] := aDel.TimeStamp.AsString;
                       aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
                       aItem.Properties.Values['getcontenttype'] := 'text/calendar';
                       aItem.Properties.Values['displayname'] := aItem.Name;
@@ -462,7 +468,11 @@ begin
                   aItem.IsCalendarUser:=IsCalendarUser;
                   aCal := TCalendar.Create(nil);
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
-                  aItem.Properties.Values['getctag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
+                  //if aCal.TimeStamp.AsDateTime>aDel.TimeStamp.AsDateTime then
+                    aItem.Properties.Values['getctag'] := aCal.TimeStamp.AsString
+                  //else
+                  //  aItem.Properties.Values['getctag'] := aDel.TimeStamp.AsString
+                  ;
                   aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
                   aItem.Properties.Values['getcontenttype'] := 'text/calendar';
                   aItem.Properties.Values['displayname'] := aItem.Name;

@@ -882,11 +882,14 @@ var
     aPropF: TDOMNode;
     b: Integer;
     aPropG: TDOMNode;
-    bPrefix: String;
+    bPrefix : string;
+    FcTag: String = '';
     aTextNode: TDOMText;
   begin
+    if FindProp(':getctag') >-1 then
+      FcTag := aNotFoundProp.ValueFromIndex[FindProp(':getctag')];
     if Assigned(TWebDAVServer(FSocket.Creator).OnAccess) then
-      TWebDAVServer(FSocket.Creator).OnAccess(FSocket,'>'+aPath+' '+prefix);
+      TWebDAVServer(FSocket.Creator).OnAccess(FSocket,'>'+aPath+' '+prefix+' '+FcTag);
     aNotFoundProp.Assign(Properties);
     aResponse := aDocument.CreateElement(prefix+':response');
     aParent.AppendChild(aResponse);
