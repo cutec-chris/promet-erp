@@ -26,41 +26,22 @@ uses
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uExtControls,
   uIntfStrConsts, db, memds, FileUtil, ipHTML, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, uOrder,
-  uBaseDbInterface,uBaseDbClasses,uprometscripts,uDocuments,uprometpascalscript,
-  genpascalscript,genscript;
+  uBaseDbInterface,uBaseDbClasses,fautomationform;
 type
   TfMain = class(TForm)
     acLogin: TAction;
     acLogout: TAction;
-    acExecuteStep: TAction;
-    acPrepare: TAction;
     acLoadOrder: TAction;
     acSearchMasterdata: TAction;
     acSearchOrder: TAction;
-    acSave: TAction;
-    acAbort: TAction;
-    acReady: TAction;
     acCloseOrder: TAction;
-    acProduce: TAction;
     ActionList1: TActionList;
     Bevel1: TBevel;
-    Bevel3: TBevel;
-    Bevel4: TBevel;
-    Bevel7: TBevel;
-    BitBtn1: TBitBtn;
-    BitBtn2: TSpeedButton;
-    BitBtn3: TSpeedButton;
-    BitBtn5: TSpeedButton;
     Button1: TButton;
     cbVersion: TComboBox;
     eOrder: TEdit;
-    ipWorkHTML: TIpHtmlPanel;
     Label1: TLabel;
     Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    lStep: TLabel;
     MainMenu: TMainMenu;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -68,28 +49,13 @@ type
     miMandant: TMenuItem;
     miOptions: TMenuItem;
     Panel1: TPanel;
-    Panel2: TPanel;
-    Panel3: TPanel;
+    pAutomation: TPanel;
     Panel4: TPanel;
-    Panel5: TPanel;
-    Panel6: TPanel;
-    Panel7: TPanel;
-    Panel8: TPanel;
-    Panel9: TPanel;
-    pNav1: TPanel;
-    rbNoData: TRadioButton;
-    rbOrder: TRadioButton;
-    rbList: TRadioButton;
-    rbArticle: TRadioButton;
-    sbMenue: TSpeedButton;
     Shape1: TShape;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
     Splitter1: TSplitter;
-    ToolBar1: TPanel;
-    ToolButton1: TSpeedButton;
-    ToolButton2: TSpeedButton;
     tvStep: TTreeView;
     procedure acCloseOrderExecute(Sender: TObject);
     procedure acExecuteStepExecute(Sender: TObject);
@@ -103,274 +69,27 @@ type
     procedure eOrderKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure pAutomationClick(Sender: TObject);
     function SetOrderfromSearch(aLink: string): Boolean;
-    procedure TreeDataScriptScriptRunLine(Sender: TScript; Module: string;
-      aPosition, aRow, aCol: Integer);
     procedure tvStepSelectionChanged(Sender: TObject);
   private
     { private declarations }
     FOrder : TOrder;
+    FAutomation : TFAutomation;
     procedure DoOpen;
-    function FindNextStep: Boolean;
-    function LoadStep : Boolean;
   public
     { public declarations }
     procedure DoCreate;
-  end;
-  TProdTreeData = class
-    procedure ScriptWriteln(const s: string);
-    function TPrometPascalScriptUses(Sender: TPascalScript;
-      const Name: String; OnlyAdditional: Boolean): Boolean;
-  public
-    Position : Int64;
-    Script : TBaseScript;
-    Documents : TDocument;
-
-    PreText : TStringList;
-    WorkText : TStringList;
-    ScriptOutput : TStringList;
-    Prepared : Boolean;
-    constructor Create;
-    destructor Destroy; override;
-    function CheckContent : Boolean;
-    procedure ShowData;
-    procedure LoadScript(aScript : string;aVersion : Variant);
-    procedure LoadDocuments(aID : largeInt;aType : string;aTID : string;aVersion : Variant;aLanguage : Variant);
-  end;
-  TSimpleIpHtml = class(TIpHtml)
-    procedure SimpleIpHtmlGetImageX(Sender: TIpHtmlNode; const URL: string;
-      var Picture: TPicture);
-  protected
-  public
-    property OnGetImageX;
-    constructor Create;
   end;
 
 var
   fMain: TfMain;
 resourcestring
   strNoOrderFound                       = 'Es wurde kein Auftrag oder Artikel gefunden der zum Suchkriterium passt !';
-  strDoPick                             = 'kommissionieren';
-  strNotmoreSteps                       = 'Es sind keine (weiteren) Arbeitschritte vorhanden.<br><br>Um einen neuen Auftrag auswählen zu können müssen Sie den Auftrag (ab)schließen';
 implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
-  uBaseVisualControls,uprometpythonscript;
-
-procedure InternalSleep(MiliSecValue: LongInt); StdCall;
-var
-  aTime: Int64;
-begin
-  aTime := GetTicks;
-  while (GetTicks-aTime) < MiliSecValue do
-    Application.ProcessMessages;
-end;
-
-procedure TSimpleIpHtml.SimpleIpHtmlGetImageX(Sender: TIpHtmlNode;
-  const URL: string; var Picture: TPicture);
-var
-  TreeData: TProdTreeData;
-  ms: TMemoryStream;
-  aPicture: TPicture;
-  aURL: String;
-  Path: String;
-  aNumber: integer;
-  NewPath: String;
-  Result: TMemoryStream;
-  tmp: String;
-  aDoc: TDocument;
-begin
-  Picture:=nil;
-  if Assigned(fMain.tvStep.Selected) then
-    begin
-      TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
-      if not Assigned(TreeData.Documents) then exit;
-      Path := URL;
-      if copy(uppercase(Path),0,5)='ICON(' then
-        begin
-          if TryStrToInt(copy(Path,6,length(Path)-6),aNumber) then
-            begin
-              ms := TMemoryStream.Create;
-              Picture := TPicture.Create;
-              fVisualControls.Images.GetBitmap(aNumber,Picture.Bitmap);
-              Picture.SaveToStreamWithFileExt(ms,'png');
-              NewPath := Copy(Path,0,length(path)-length(ExtractFileExt(Path)))+'.png';
-              ms.Position:=0;
-              Result := ms;
-              ms.Position:=0;
-              aPicture := TPicture.Create;
-              aPicture.LoadFromStreamWithFileExt(ms,'png');
-              Picture := aPicture;
-            end;
-        end
-      else if copy(uppercase(Path),0,12)='HISTORYICON(' then
-        begin
-          tmp := copy(Path,13,length(Path)-13);
-          if TryStrToInt(tmp,aNumber) then
-            begin
-              ms := TMemoryStream.Create;
-              Picture := TPicture.Create;
-              fVisualControls.HistoryImages.GetBitmap(aNumber,Picture.Bitmap);
-              Picture.SaveToStreamWithFileExt(ms,'png');
-              NewPath := Copy(Path,0,length(path)-length(ExtractFileExt(Path)))+'.png';
-              ms.Position:=0;
-              Result := ms;
-              ms.Position:=0;
-              aPicture := TPicture.Create;
-              aPicture.LoadFromStreamWithFileExt(ms,'png');
-              Picture := aPicture;
-            end;
-        end
-      else
-        begin
-          TreeData.Documents.Open;
-          aURL := copy(URL,0,rpos('.',URL)-1);
-          if TreeData.Documents.Locate('NAME',aURL,[loCaseInsensitive]) then
-            begin
-              ms := TMemoryStream.Create;
-              aDoc := TDocument.Create(nil);
-              aDoc.SelectByNumber(TreeData.Documents.FieldByName('NUMBER').AsVariant);
-              aDoc.Open;
-              aDoc.CheckoutToStream(ms);
-              aDoc.Free;
-              ms.Position:=0;
-              aPicture := TPicture.Create;
-              aPicture.LoadFromStreamWithFileExt(ms,TreeData.Documents.FieldByName('EXTENSION').AsString);
-              Picture := aPicture;
-            end;
-        end;
-    end;
-end;
-
-constructor TSimpleIpHtml.Create;
-begin
-  inherited;
-  OnGetImageX:=@SimpleIpHtmlGetImageX;
-end;
-
-procedure TProdTreeData.ScriptWriteln(const s: string);
-var
-  aTxt: String;
-begin
-  if copy(s,0,7)='**STEP ' then
-    ScriptOutput.Add('<img src="ICON(22)"></img><i>'+copy(s,8,length(s))+'</i><br>')
-  else if copy(s,0,10)='**STEPEND ' then
-    begin
-      aTxt := ScriptOutput[ScriptOutput.Count-1];
-      aTxt := copy(aTxt,30,length(aTxt)-29-8);
-      ScriptOutput.Delete(ScriptOutput.Count-1);
-      ScriptOutput.Add('<img src="ICON(74)"></img><span>'+aTxt+' -> '+copy(s,11,length(s))+'</span><br>')
-    end
-  else if copy(s,0,8)='**ERROR ' then
-    begin
-      aTxt := ScriptOutput[ScriptOutput.Count-1];
-      aTxt := copy(aTxt,30,length(aTxt)-29-8);
-      ScriptOutput.Delete(ScriptOutput.Count-1);
-      ScriptOutput.Add('<img src="ICON(75)"></img><b>'+aTxt+' -> '+copy(s,9,length(s))+'</b><br>')
-    end
-  else ScriptOutput.Add(s);
-  ShowData;
-  fMain.ipWorkHTML.Repaint;
-  fMain.ipWorkHTML.Scroll(hsaEnd);
-  Application.ProcessMessages;
-end;
-
-function TProdTreeData.TPrometPascalScriptUses(Sender: TPascalScript;
-  const Name: String; OnlyAdditional: Boolean): Boolean;
-begin
-  if lowercase(Name) = 'production' then
-    begin
-      //HideWorkText
-      //ClearScriptOutput
-      Result := True;
-    end;
-end;
-
-constructor TProdTreeData.Create;
-begin
-  PreText := TStringList.Create;
-  WorkText := TStringList.Create;
-  ScriptOutput := TStringList.Create;
-  Prepared:=False;
-end;
-
-destructor TProdTreeData.Destroy;
-begin
-  PreText.Free;
-  WorkText.Free;
-  ScriptOutput.Free;
-  inherited Destroy;
-end;
-
-function TProdTreeData.CheckContent: Boolean;
-begin
-  Result := False;
-  if (WorkText.Text<>'')
-  or (PreText.Text<>'')
-  or (Assigned(Script) and (Script.Count>0)) then
-    Result := True;
-end;
-
-procedure TProdTreeData.ShowData;
-var
-  aHTML: TSimpleIpHtml;
-  ss: TStringStream;
-begin
-  fMain.acPrepare.Enabled:=PreText.Text<>'';
-  fMain.acProduce.Enabled:=True;
-  fMain.acReady.Enabled:=True;
-  if (fMain.acPrepare.Checked and (not fMain.acPrepare.Enabled)) or (Prepared) then
-    fMain.acProduce.Checked:=True
-  else fMain.acPrepare.Checked:=True;
-  if fMain.acPrepare.Checked then
-    begin
-      aHTML := TSimpleIPHtml.Create;
-      if pos('<body',lowercase(PreText.Text))=0 then
-        ss := TStringStream.Create('<body>'+UniToSys(PreText.Text)+'</body>')
-      else
-        ss := TStringStream.Create(UniToSys(PreText.Text));
-      aHTML.LoadFromStream(ss);
-      ss.Free;
-      fMain.ipWorkHTML.SetHtml(aHTML);
-    end
-  else
-    begin
-      aHTML := TSimpleIPHtml.Create;
-      if pos('<body',lowercase(WorkText.Text))=0 then
-        ss := TStringStream.Create('<body>'+UniToSys(WorkText.Text+'<br><br>'+ScriptOutput.Text)+'</body>')
-      else
-        ss := TStringStream.Create(UniToSys(WorkText.Text+ScriptOutput.Text));
-      aHTML.LoadFromStream(ss);
-      ss.Free;
-      fMain.ipWorkHTML.SetHtml(aHTML);
-    end;
-  if Assigned(Script) and (Script.Count>0) then
-    fMain.acExecuteStep.Enabled:=(Prepared or ((PreText.Text=''))) and (Assigned(Script));
-end;
-
-procedure TProdTreeData.LoadScript(aScript: string; aVersion: Variant);
-begin
-  if not Assigned(Script) then
-    Script := TBaseScript.Create(nil);
-  Script.SelectByName(aScript);
-  Script.Open;
-  Script.Writeln:=@ScriptWriteln;
-  if Assigned(Script.Script) then
-    if Script.Script is TPrometPascalScript then
-      begin
-        TPrometPascalScript(Script.Script).OnUses:=@TPrometPascalScriptUses;
-      end;
-  if not Script.Locate('VERSION',aVersion,[]) then
-    Script.Close;
-end;
-
-procedure TProdTreeData.LoadDocuments(aID: largeInt; aType: string;
-  aTID: string; aVersion: Variant; aLanguage: Variant);
-begin
-  if not Assigned(Documents) then
-    Documents := TDocument.Create(nil);
-  Documents.Select(aID,aType,aTID,aVersion,aLanguage);
-end;
+  uprometpythonscript;
 
 procedure TfMain.DoCreate;
 begin
@@ -396,7 +115,6 @@ begin
   acLogout.Enabled:=True;
   FOrder := TOrder.Create(nil);
 end;
-
 procedure TfMain.acLoadOrderExecute(Sender: TObject);
 var
   aMasterdata: TMasterdata;
@@ -450,11 +168,10 @@ begin
     end
   else DoOpen;
 end;
-
 procedure TfMain.acCloseOrderExecute(Sender: TObject);
 begin
+  fAutomation.Clear;
   tvStep.Items.Clear;
-  ipWorkHTML.SetHtml(nil);
   eOrder.Enabled:=True;
   cbVersion.Enabled:=True;
   acSearchMasterdata.Enabled:=True;
@@ -462,52 +179,11 @@ begin
   acLoadOrder.Enabled:=True;
   acCloseOrder.Enabled:=False;
 end;
-
-procedure TfMain.acExecuteStepExecute(Sender: TObject);
-var
-  TreeData: TProdTreeData;
-begin
-  if Assigned(fMain.tvStep.Selected) then
-    begin
-      TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
-      if not acExecuteStep.Checked then
-        begin
-          Application.ProcessMessages;
-          acExecuteStep.Checked:=True;
-          Application.ProcessMessages;
-          TreeData.ScriptOutput.Clear;
-          TreeData.Script.ActualObject := FOrder;
-          TreeData.Script.Script.OnRunLine:=@TreeDataScriptScriptRunLine;
-          if Assigned(TreeData.Script) then
-            if not TreeData.Script.Execute(Null) then
-              begin
-                if not Assigned(TreeData.Script.Script) then
-                  TreeData.ScriptOutput.Add('<b>Ausführung fehlgeschlagen:Scripttyp unbekannt</b>')
-                else
-                  TreeData.ScriptOutput.Add('<b>Ausführung fehlgeschlagen:'+TreeData.Script.Script.Results+'</b>');
-                TreeData.ShowData;
-              end;
-          acExecuteStep.Checked:=False;
-          Application.ProcessMessages;
-        end
-      else
-        begin
-          TreeData.Script.Script.Stop;
-        end;
-    end;
-end;
-
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
   with Application as IBaseApplication do
     Logout;
 end;
-
-procedure TfMain.acReadyExecute(Sender: TObject);
-begin
-  FindNextStep;
-end;
-
 procedure TfMain.acPrepareExecute(Sender: TObject);
 var
   TreeData: TProdTreeData;
@@ -519,7 +195,6 @@ begin
       TreeData.ShowData;
     end;
 end;
-
 procedure TfMain.acProduceExecute(Sender: TObject);
 var
   TreeData: TProdTreeData;
@@ -599,32 +274,9 @@ begin
   aMasterdata.Free;
 end;
 
-procedure TfMain.TreeDataScriptScriptRunLine(Sender: TScript; Module: string;
-  aPosition, aRow, aCol: Integer);
-begin
-  Application.ProcessMessages;
-end;
-
 procedure TfMain.tvStepSelectionChanged(Sender: TObject);
-var
-  Res: Boolean;
 begin
-  if Assigned(tvStep.Selected) then
-    begin
-      fMain.acExecuteStep.Enabled:=False;
-      if FOrder.Positions.Locate('SQL_ID',TProdTreeData(tvStep.Selected.Data).Position,[]) then
-        Res := LoadStep
-      else Res := False;
-      if not Res then
-        begin
-          fMain.lStep.Caption:=fMain.tvStep.Selected.Text;
-          ipWorkHTML.SetHtml(nil);
-          rbNoData.Checked:=True;
-          acProduce.Enabled:=False;
-          acPrepare.Enabled:=False;
-          acReady.Enabled:=False;
-        end;
-    end;
+  FAutomation.tvStep.Selected:=tvStep.Selected;
 end;
 
 procedure TfMain.DoOpen;
@@ -708,188 +360,6 @@ begin
   acLoadOrder.Enabled:=False;
   acCloseOrder.Enabled:=True;
   tvStep.Enabled:=True;
-end;
-
-function TfMain.FindNextStep : Boolean;
-var
-  aHTML: TSimpleIpHtml;
-  ss: TStringStream;
-begin
-  result := False;
-  while (Assigned(tvStep.Selected) and (not Result)) do
-    begin
-      if tvStep.Selected.ImageIndex=43 then //Kommissionieren
-        tvStep.Selected:=tvStep.Selected.GetNextSibling
-      else
-        tvStep.Selected:=tvStep.Selected.GetNext;
-      if Assigned(tvStep.Selected) then
-        begin
-          Result := LoadStep or (tvStep.Selected.ImageIndex=49);
-          if Result then acReady.Enabled:=True;
-          if Result then break;
-        end;
-    end;
-  if not Result then
-    begin
-      aHTML := TSimpleIPHtml.Create;
-      ss := TStringStream.Create('<body>'+UniToSys(strNotmoreSteps)+'</body>');
-      aHTML.LoadFromStream(ss);
-      ss.Free;
-      fMain.ipWorkHTML.SetHtml(aHTML);
-    end;
-end;
-
-function TfMain.LoadStep: Boolean;
-var
-  nOrder: TOrder;
-  aMasterdata: TMasterdata;
-  TreeData : TProdTreeData;
-  aPosID: String;
-  aTexts: TBoilerplate;
-begin
-  lStep.Caption:=tvStep.Selected.Text;
-  Result := False;
-  rbNoData.Checked:=True;
-  TreeData := TProdTreeData(tvStep.Selected.Data);
-  TreeData.WorkText.Clear;
-  TreeData.PreText.Clear;
-  FreeAndNil(TreeData.Script);
-  FreeAndNil(TreeData.Documents);
-  //Information in Order
-  if (FOrder.Positions.FieldByName('SCRIPT').AsString<>'') or (FOrder.Positions.FieldByName('TEXT').AsString<>'') then
-    begin
-      TreeData.LoadScript(FOrder.Positions.FieldByName('SCRIPT').AsString,FOrder.Positions.FieldByName('SCRIPTVER').AsVariant);
-      if FOrder.Positions.DataSet.FieldDefs.IndexOf('ORDERNO') <> -1 then
-        aPosID := FOrder.Positions.FieldByName('ORDERNO').AsString+FOrder.Positions.FieldByName('POSNO').AsString
-      else
-        aPosID := FOrder.Positions.FieldByName('SQL_ID').AsString+FOrder.Positions.FieldByName('POSNO').AsString;
-      TreeData.LoadDocuments(FOrder.Positions.Id.AsVariant,'P',aPosId,Null,Null);
-      TreeData.WorkText.Text:=FOrder.Positions.FieldByName('TEXT').AsString;
-      if FOrder.Positions.FieldByName('PREPTEXT').AsString<>'' then
-        begin
-          aTexts := TBoilerplate.Create(nil);
-          aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(FOrder.Positions.FieldByName('PREPTEXT').AsString));
-          if aTexts.Count>0 then
-            TreeData.PreText.Text:=aTexts.FieldByName('TEXT').AsString;
-          aTexts.Free;
-        end;
-      if FOrder.Positions.FieldByName('WORKTEXT').AsString<>'' then
-        begin
-          aTexts := TBoilerplate.Create(nil);
-          aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(FOrder.Positions.FieldByName('WORKTEXT').AsString));
-          if aTexts.Count>0 then
-            TreeData.WorkText.Text:=aTexts.FieldByName('TEXT').AsString;
-          aTexts.Free;
-        end;
-      Result := TreeData.CheckContent;
-      rbOrder.Checked:=True;
-    end;
-  //Information in Piecelist
-  if not Result then
-    begin
-      nOrder := TOrder.Create(nil);
-      //Unseren Auftrag nochmal öffnen damit wir die Position wechseln können
-      nOrder.Select(FOrder.Id.AsVariant);
-      nOrder.Open;
-      nOrder.Positions.Open;
-      if nOrder.Positions.Locate('SQL_ID',FOrder.Positions.FieldByName('PARENT').AsVariant,[]) then //Vorgängerposition finden (zu fertigender Artikel)
-        begin
-          aMasterdata := TMasterdata.Create(nil);
-          aMasterdata.Select(nOrder.Positions.FieldByName('IDENT').AsString);
-          aMasterdata.Open;
-          //nach Artikel/Version/Sprache suchen
-          if not aMasterdata.Locate('ID;VERSION;LANGUAGE',VarArrayOf([nOrder.Positions.FieldByName('IDENT').AsString,nOrder.Positions.FieldByName('VERSION').AsString,nOrder.Positions.FieldByName('LANGUAGE').AsString]),[]) then
-            begin
-              //nach Artikel/Version suchen (Sprache ignorieren)
-              if not aMasterdata.Locate('ID;VERSION',VarArrayOf([nOrder.Positions.FieldByName('IDENT').AsString,nOrder.Positions.FieldByName('VERSION').AsString]),[]) then
-                aMasterdata.Close;
-            end;
-          if aMasterdata.Active then
-            begin
-              aMasterdata.Positions.Open;
-              //Positionsnummer in Stückliste finden
-              if aMasterdata.Positions.Locate('POSNO',FOrder.Positions.FieldByName('TPOSNO').AsString,[]) then
-                begin
-                  TreeData.LoadScript(aMasterdata.Positions.FieldByName('SCRIPT').AsString,aMasterdata.Positions.FieldByName('SCRIPTVER').AsVariant);
-                  TreeData.WorkText.Text:=aMasterdata.Positions.FieldByName('TEXT').AsString;
-                  if aMasterdata.Positions.DataSet.FieldDefs.IndexOf('ORDERNO') <> -1 then
-                    aPosID := aMasterdata.Positions.FieldByName('ORDERNO').AsString+aMasterdata.Positions.FieldByName('POSNO').AsString
-                  else
-                    aPosID := aMasterdata.Positions.FieldByName('SQL_ID').AsString+aMasterdata.Positions.FieldByName('POSNO').AsString;
-                  TreeData.LoadDocuments(aMasterdata.Positions.Id.AsVariant,'P',aPosId,Null,Null);
-                  if aMasterdata.Positions.FieldByName('PREPTEXT').AsString<>'' then
-                    begin
-                      aTexts := TBoilerplate.Create(nil);
-                      aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aMasterdata.Positions.FieldByName('PREPTEXT').AsString));
-                      if aTexts.Count>0 then
-                        TreeData.PreText.Text:=aTexts.FieldByName('TEXT').AsString;
-                      aTexts.Free;
-                    end;
-                  if aMasterdata.Positions.FieldByName('WORKTEXT').AsString<>'' then
-                    begin
-                      aTexts := TBoilerplate.Create(nil);
-                      aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aMasterdata.Positions.FieldByName('WORKTEXT').AsString));
-                      if aTexts.Count>0 then
-                        TreeData.WorkText.Text:=aTexts.FieldByName('TEXT').AsString;
-                      aTexts.Free;
-                    end;
-                  Result := TreeData.CheckContent;
-                  rbList.Checked:=Result;
-                end;
-            end;
-          aMasterdata.Free;
-        end;
-      nOrder.Free;
-    end;
-  if not Result then
-    begin
-      aMasterdata := TMasterdata.Create(nil);
-      aMasterdata.Select(FOrder.Positions.FieldByName('IDENT').AsString);
-      aMasterdata.Open;
-      if not aMasterdata.Locate('ID;VERSION;LANGUAGE',VarArrayOf([FOrder.Positions.FieldByName('IDENT').AsString,FOrder.Positions.FieldByName('VERSION').AsString,FOrder.Positions.FieldByName('LANGUAGE').AsString]),[]) then
-        begin
-          //nach Artikel/Version suchen (Sprache ignorieren)
-          if not aMasterdata.Locate('ID;VERSION',VarArrayOf([FOrder.Positions.FieldByName('IDENT').AsString,FOrder.Positions.FieldByName('VERSION').AsString]),[]) then
-            aMasterdata.Close;
-        end;
-      if aMasterdata.Active then
-        begin
-          TreeData.LoadScript(aMasterdata.FieldByName('SCRIPT').AsString,aMasterdata.FieldByName('SCRIPTVER').AsVariant);
-          if not Assigned(uBaseERPDBClasses.TextTyp) then
-            uBaseERPDBClasses.TextTyp := TTextTypes.Create(nil);
-          Texttyp.Open;
-          if TextTyp.Locate('TYP','7',[]) then
-            begin
-              aMasterdata.Texts.Open;
-              if aMasterdata.Texts.Locate('TEXTTYPE',TextTyp.DataSet.RecNo,[]) then
-                TreeData.WorkText.Text:=aMasterdata.Texts.FieldByName('TEXT').AsString;
-            end;
-          TreeData.LoadDocuments(aMasterdata.Id.AsVariant,aMasterdata.GetTyp,aMasterdata.FieldByName('ID').AsString,aMasterdata.FieldByName('VERSION').AsVariant,aMasterdata.FieldByName('LANGUAGE').AsVariant);
-          if aMasterdata.FieldByName('PREPTEXT').AsString<>'' then
-            begin
-              aTexts := TBoilerplate.Create(nil);
-              aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aMasterdata.FieldByName('PREPTEXT').AsString));
-              if aTexts.Count>0 then
-                TreeData.PreText.Text:=aTexts.FieldByName('TEXT').AsString;
-              aTexts.Free;
-            end;
-          if aMasterdata.FieldByName('WORKTEXT').AsString<>'' then
-            begin
-              aTexts := TBoilerplate.Create(nil);
-              aTexts.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aMasterdata.FieldByName('WORKTEXT').AsString));
-              if aTexts.Count>0 then
-                TreeData.WorkText.Text:=aTexts.FieldByName('TEXT').AsString;
-              aTexts.Free;
-            end;
-          Result := TreeData.CheckContent;
-          rbArticle.Checked:=Result;
-        end;
-      aMasterdata.Free;
-    end;
-  if Result then
-    begin
-      TreeData.ShowData;
-    end;
 end;
 
 initialization
