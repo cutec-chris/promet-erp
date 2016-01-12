@@ -61,10 +61,9 @@ type
     procedure acLoadOrderExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
-    procedure acPrepareExecute(Sender: TObject);
-    procedure acProduceExecute(Sender: TObject);
     procedure acSearchMasterdataExecute(Sender: TObject);
     procedure eOrderKeyPress(Sender: TObject; var Key: char);
+    procedure FAutomationSelectStep(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -181,28 +180,6 @@ begin
   with Application as IBaseApplication do
     Logout;
 end;
-procedure TfMain.acPrepareExecute(Sender: TObject);
-var
-  TreeData: TProdTreeData;
-begin
-  if Assigned(fMain.tvStep.Selected) then
-    begin
-      TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
-      TreeData.Prepared:=False;
-      TreeData.ShowData;
-    end;
-end;
-procedure TfMain.acProduceExecute(Sender: TObject);
-var
-  TreeData: TProdTreeData;
-begin
-  if Assigned(fMain.tvStep.Selected) then
-    begin
-      TreeData := TProdTreeData(fMain.tvStep.Selected.Data);
-      TreeData.Prepared:=True;
-      TreeData.ShowData;
-    end;
-end;
 
 procedure TfMain.acSearchMasterdataExecute(Sender: TObject);
 begin
@@ -225,6 +202,15 @@ begin
     end;
 end;
 
+procedure TfMain.FAutomationSelectStep(Sender: TObject);
+begin
+  if (FAutomation.tvStep.Selected<>nil) and (tvStep.Items.Count>FAutomation.tvStep.Selected.AbsoluteIndex) then
+    begin
+      tvStep.Selected := tvStep.Items[FAutomation.tvStep.Selected.AbsoluteIndex];
+      Shape1.Top:=tvStep.Top+tvStep.Selected.Top-((Shape1.Height-tvStep.Selected.Height) div 2);
+    end;
+end;
+
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   FOrder.Free;
@@ -243,6 +229,7 @@ begin
   FAutomation.BorderStyle:=bsNone;
   FAutomation.Align:=alClient;
   FAutomation.Parent:=pAutomation;
+  FAutomation.OnSelectStep:=@FAutomationSelectStep;
   FAutomation.Show;
 end;
 
@@ -308,6 +295,7 @@ begin
       FAutomation.DoOpen;
     end;
   tvStep.Items.Assign(FAutomation.tvStep.Items);
+  FAutomationSelectStep(FAutomation.tvStep);
 
   eOrder.Enabled:=False;
   cbVersion.Enabled:=False;
