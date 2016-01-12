@@ -150,7 +150,7 @@ var
   asource: string;
   CustomerCont: TPersonContactData;
   uid: string;
-  IsSubItem: Boolean;
+  IsRootItem, NoCustFound: Boolean;
   function JsonFind(JO : TJSONObject;const AName: String): TJSONData;
 
   Var
@@ -267,9 +267,12 @@ begin
                                       Data.SetFilter(Customers,Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
                                       CustomerCont.Free;
                                       if aRef<>'' then
-                                        Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef));
-                                      IsSubItem := (aRef='') or ((aHist.Count=0) and (nothingimported>5));
-                                      if (Customers.Count = 0) and (not IsSubItem) and (trim(author)<>'') then
+                                        Data.SetFilter(aHist,Data.QuoteField('REFOBJECT')+'='+Data.QuoteValue(aRef))
+                                      else aHist.Close;
+                                      IsRootItem := (aRef='') or ((aHist.Count<=0) and (nothingimported>5));
+                                      NoCustFound := Customers.Count = 0;
+                                      author := trim(author);
+                                      if (NoCustFound) and (IsRootItem) and (author<>'') then
                                         begin
                                           //Add Customer
                                           Info('Add Author:'+author);
@@ -297,7 +300,7 @@ begin
                                           Customers.History.Open;
                                           with Customers.History.DataSet as IBaseManageDB do
                                             UpdateStdFields := False;
-                                          if IsSubItem then
+                                          if IsRootItem then
                                             begin
                                               inc(Retry,6);
                                               Somethingimported:=True;
