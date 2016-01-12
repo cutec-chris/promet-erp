@@ -58,18 +58,16 @@ type
     Splitter1: TSplitter;
     tvStep: TTreeView;
     procedure acCloseOrderExecute(Sender: TObject);
-    procedure acExecuteStepExecute(Sender: TObject);
     procedure acLoadOrderExecute(Sender: TObject);
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
-    procedure acReadyExecute(Sender: TObject);
     procedure acPrepareExecute(Sender: TObject);
     procedure acProduceExecute(Sender: TObject);
     procedure acSearchMasterdataExecute(Sender: TObject);
     procedure eOrderKeyPress(Sender: TObject; var Key: char);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure pAutomationClick(Sender: TObject);
     function SetOrderfromSearch(aLink: string): Boolean;
     procedure tvStepSelectionChanged(Sender: TObject);
   private
@@ -89,7 +87,7 @@ resourcestring
 implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
-  uprometpythonscript;
+  uprometpythonscript,genpascalscript;
 
 procedure TfMain.DoCreate;
 begin
@@ -123,8 +121,7 @@ begin
   if not cbVersion.Enabled then //Wenn cbVersion Enabled ist ist es ein Artikel
     begin
       FOrder.SelectFromNumber('');
-      if IsNumeric(eOrder.Text) then
-        FOrder.SelectFromCommission(eOrder.Text);
+      FOrder.SelectFromCommission(eOrder.Text);
       FOrder.Open;
       if (FOrder.Count=0) and (IsNumeric(eOrder.Text)) then
         begin
@@ -173,11 +170,11 @@ begin
   fAutomation.Clear;
   tvStep.Items.Clear;
   eOrder.Enabled:=True;
-  cbVersion.Enabled:=True;
   acSearchMasterdata.Enabled:=True;
   acSearchOrder.Enabled:=True;
   acLoadOrder.Enabled:=True;
   acCloseOrder.Enabled:=False;
+  cbVersion.Enabled := False;
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
@@ -238,6 +235,17 @@ begin
       DoExit;
     end;
 end;
+
+procedure TfMain.FormCreate(Sender: TObject);
+begin
+  FAutomation := TFAutomation.Create(Self);
+  fautomationform.FAutomation := FAutomation;
+  FAutomation.BorderStyle:=bsNone;
+  FAutomation.Align:=alClient;
+  FAutomation.Parent:=pAutomation;
+  FAutomation.Show;
+end;
+
 procedure TfMain.FormShow(Sender: TObject);
 begin
   if not acLogin.Enabled then exit;
@@ -276,49 +284,11 @@ end;
 
 procedure TfMain.tvStepSelectionChanged(Sender: TObject);
 begin
-  FAutomation.tvStep.Selected:=tvStep.Selected;
+  if tvStep.Selected<>nil then
+    FAutomation.tvStep.Selected := FAutomation.tvStep.Items[tvStep.Selected.AbsoluteIndex];
 end;
 
 procedure TfMain.DoOpen;
-var
-  nNode: TTreeNode;
-  nComm : TTreeNode = nil;
-
-  function GetParentNode : TTreeNode;
-  var
-    aNode: TTreeNode;
-  begin
-    result := nil;
-    aNode := nil;
-    if tvStep.Items.Count>0 then
-      aNode := tvStep.Items[0];
-    while Assigned(aNode) do
-      begin
-        if TProdTreeData(aNode.Data).Position=FOrder.Positions.FieldByName('PARENT').AsVariant then
-          begin
-            Result := aNode;
-            break;
-          end;
-        aNode := aNode.GetNext;
-      end;
-    if tvStep.Items.Count>0 then
-      begin
-        case FOrder.Positions.PosTyp.FieldByName('TYPE').AsInteger of
-        0,1,2:
-          begin
-            if not Assigned(nComm) then
-              begin
-                nComm := tvStep.Items.AddChildObject(GetParentNode,strDoPick,TProdTreeData.Create);
-                nComm.ImageIndex:=43;
-                nComm.SelectedIndex:=nComm.ImageIndex;
-              end;
-            Result := nComm
-          end;
-        else nComm := nil;
-        end;
-      end;
-  end;
-
 begin
   eOrder.Enabled:=FOrder.Count>0;
   eOrder.Text:=FOrder.Number.AsString;
@@ -334,25 +304,11 @@ begin
       FOrder.Positions.Close;
       FOrder.Positions.Open;
       FOrder.Positions.First;
-      while not FOrder.Positions.EOF do
-        begin
-          nNode := tvStep.Items.AddChildObject(GetParentNode,FOrder.Positions.FieldByName('SHORTTEXT').AsString,TProdTreeData.Create);
-          case FOrder.Positions.PosTyp.FieldByName('TYPE').AsInteger of
-          0,1,2:nNode.ImageIndex:=14;//Artikel
-          3:nNode.ImageIndex:=49;//Text
-          9:nNode.ImageIndex:=22;//Montage/Argeitsgang
-          end;
-          nNode.SelectedIndex:=nNode.ImageIndex;
-          TProdTreeData(nNode.Data).Position:=FOrder.Positions.Id.AsVariant;
-          FOrder.Positions.Next;
-        end;
+      FAutomation.DataSet := FOrder.Positions;
+      FAutomation.DoOpen;
     end;
-  if tvStep.Items.Count>0 then
-    begin
-      tvStep.Selected:=tvStep.Items[0];
-      tvStep.Items[0].Expanded:=True;
-      FindNextStep;
-    end;
+  tvStep.Items.Assign(FAutomation.tvStep.Items);
+
   eOrder.Enabled:=False;
   cbVersion.Enabled:=False;
   acSearchMasterdata.Enabled:=False;
@@ -360,6 +316,15 @@ begin
   acLoadOrder.Enabled:=False;
   acCloseOrder.Enabled:=True;
   tvStep.Enabled:=True;
+end;
+
+procedure InternalSleep(MiliSecValue: LongInt); StdCall;
+var
+  aTime: Int64;
+begin
+  aTime := GetTicks;
+  while (GetTicks-aTime) < MiliSecValue do
+    Application.ProcessMessages;
 end;
 
 initialization

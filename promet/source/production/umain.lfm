@@ -9,6 +9,7 @@ object fMain: TfMain
   Color = clWindow
   Menu = MainMenu
   OnClose = FormClose
+  OnCreate = FormCreate
   OnShow = FormShow
   Position = poDesktopCenter
   ShowHint = True
@@ -154,7 +155,6 @@ object fMain: TfMain
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    OnClick = pAutomationClick
   end
   object Splitter1: TSplitter
     Left = 287
