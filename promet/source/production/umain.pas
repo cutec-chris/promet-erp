@@ -231,6 +231,7 @@ begin
   FAutomation.Parent:=pAutomation;
   FAutomation.OnSelectStep:=@FAutomationSelectStep;
   FAutomation.Show;
+  FAutomation.tvStep.Visible:=False;
 end;
 
 procedure TfMain.FormShow(Sender: TObject);
