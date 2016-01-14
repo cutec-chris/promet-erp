@@ -447,26 +447,26 @@ end;
 
 procedure TImapMailbox.Lock;
 begin
-  EnterCriticalSection(fCritSection);
+  //EnterCriticalSection(fCritSection);
 end;
 
 procedure TImapMailbox.Unlock;
 begin
-  LeaveCriticalSection(fCritSection);
+  //LeaveCriticalSection(fCritSection);
 end;
 
 constructor TImapMailbox.Create(aThread: TSTcpThread; APath: string;
   CS: TCriticalSection);
 begin
   inherited Create;
-  InitCriticalSection(fCritSection);
+  //InitCriticalSection(fCritSection);
   fPath := APath;
   fReadOnly := False;
 end;
 
 destructor TImapMailbox.Destroy;
 begin
-  DoneCriticalSection(fCritSection);
+  //DoneCriticalSection(fCritSection);
   inherited;
 end;
 

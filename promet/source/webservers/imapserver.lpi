@@ -171,14 +171,17 @@
       <Unit2>
         <Filename Value="usimapserver.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="usimapserver"/>
       </Unit2>
       <Unit3>
         <Filename Value="usimapsearch.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="usimapsearch"/>
       </Unit3>
       <Unit4>
         <Filename Value="usimapmailbox.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="usimapmailbox"/>
       </Unit4>
     </Units>
   </ProjectOptions>
