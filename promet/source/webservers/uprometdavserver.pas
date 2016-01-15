@@ -326,9 +326,9 @@ begin
               aCal.SortDirection:= sdDescending;
               aCal.Open;
               if aCal.TimeStamp.AsDateTime>aDel.TimeStamp.AsDateTime then
-                aItem.Properties.Values['getctag'] := aCal.TimeStamp.AsString
+                aItem.Properties.Values['getctag'] := StringReplace(aCal.TimeStamp.AsString,' ','',[rfReplaceAll])
               else
-                aItem.Properties.Values['getctag'] := aDel.TimeStamp.AsString;
+                aItem.Properties.Values['getctag'] := StringReplace(aDel.TimeStamp.AsString,' ','',[rfReplaceAll]);
               aItem.Properties.Values['getetag'] := Data.Users.Id.AsString;
               aItem.Properties.Values['getcontenttype'] := 'text/calendar';
               aItem.Properties.Values['displayname'] := aItem.Name;
@@ -399,9 +399,9 @@ begin
                       aCal.SortDirection:= sdDescending;
                       aCal.Open;
                       if aCal.TimeStamp.AsDateTime>aDel.TimeStamp.AsDateTime then
-                        aItem.Properties.Values['getctag'] := aCal.TimeStamp.AsString
+                        aItem.Properties.Values['getctag'] := StringReplace(aCal.TimeStamp.AsString,' ','',[rfReplaceAll])
                       else
-                        aItem.Properties.Values['getctag'] := aDel.TimeStamp.AsString;
+                        aItem.Properties.Values['getctag'] := StringReplace(aDel.TimeStamp.AsString,' ','',[rfReplaceAll]);
                       aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
                       aItem.Properties.Values['getcontenttype'] := 'text/calendar';
                       aItem.Properties.Values['displayname'] := aItem.Name;
@@ -469,9 +469,9 @@ begin
                   aCal := TCalendar.Create(nil);
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
                   //if aCal.TimeStamp.AsDateTime>aDel.TimeStamp.AsDateTime then
-                    aItem.Properties.Values['getctag'] := aCal.TimeStamp.AsString
+                    aItem.Properties.Values['getctag'] := StringReplace(aCal.TimeStamp.AsString,' ','',[rfReplaceAll])
                   //else
-                  //  aItem.Properties.Values['getctag'] := aDel.TimeStamp.AsString
+                  //  aItem.Properties.Values['getctag'] := Stringreplace(aDel.TimeStamp.AsString,' ','',[rfReplaceAll])
                   ;
                   aItem.Properties.Values['getetag'] := aDirs.Id.AsString;
                   aItem.Properties.Values['getcontenttype'] := 'text/calendar';

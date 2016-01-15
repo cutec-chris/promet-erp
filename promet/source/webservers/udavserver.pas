@@ -886,8 +886,7 @@ var
     FcTag: String = '';
     aTextNode: TDOMText;
   begin
-    if FindProp(':getctag') >-1 then
-      FcTag := aNotFoundProp.ValueFromIndex[FindProp(':getctag')];
+    if Assigned(aFile) then FcTag:=aFile.Properties.Values['getctag'];
     if Assigned(TWebDAVServer(FSocket.Creator).OnAccess) then
       TWebDAVServer(FSocket.Creator).OnAccess(FSocket,'>'+aPath+' '+prefix+' '+FcTag);
     aNotFoundProp.Assign(Properties);
