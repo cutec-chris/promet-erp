@@ -208,6 +208,7 @@ begin
   SL := TStringList.Create;
   fLogWaitForm.SetLanguage;
   fLogwaitForm.bAbort.Kind:=bkAbort;
+  fLogWaitForm.Clear;
   fLogWaitForm.Show;
   fLogWaitform.ShowInfo(strAddingJobs);
   AllGood := True;
@@ -580,6 +581,7 @@ begin
 //  fWizardnewAccount.InitWizard;
   DontHide := true;
   fLogWaitForm.bAbort.Kind:=bkCancel;
+  fLogWaitForm.Clear;
   fLogWaitForm.Show;
   fLogWaitform.ShowInfo(strAddingJobs);
   i := 0;

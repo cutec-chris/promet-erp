@@ -125,6 +125,7 @@ begin
       exit;
     end;
   fLogWaitForm.SetLanguage;
+  fLogWaitForm.Clear;
   fLogWaitForm.Show;
   fLogWaitForm.ShowInfo('Test wird gestartet:');
   fLogWaitForm.ShowInfo(aFile+' "--mandant='+ProcessMandant+'"'+' "--user='+ProcessUser+'" --onerun');
