@@ -227,6 +227,7 @@ type
     procedure ApplicationProperties1ShowHint(var HintStr: string;
       var CanShow: Boolean; var HintInfo: THintInfo);
     procedure ApplicationTBaseVisualApplicationUserTabAdded(Sender: TObject);
+    procedure cbSearchTypeClick(Sender: TObject);
     procedure eSearchChange(Sender: TObject);
     procedure eSearchEnter(Sender: TObject);
     procedure fMainTreeFrameDragDrop(Sender, Source: TObject; X, Y: Integer);
@@ -2409,17 +2410,6 @@ begin
       cbSearchIn.Items.Assign(fSearch.cbSearchIn.Items);
       for i := 0 to fSearch.cbSearchIn.Items.Count-1 do
         cbSearchIn.Checked[i] := fSearch.cbSearchIn.Checked[i];
-    end
-  else
-    begin
-      fSearch.cbSearchType.Items.Assign(cbSearchType.Items);
-      for i := 0 to fSearch.cbSearchType.Items.Count-1 do
-        fSearch.cbSearchType.Checked[i] := cbSearchType.Checked[i];
-      fSearch.cbSearchIn.Items.Assign(cbSearchIn.Items);
-      for i := 0 to fSearch.cbSearchIn.Items.Count-1 do
-        fSearch.cbSearchIn.Checked[i] := cbSearchIn.Checked[i];
-      fSearch.SaveOptions;
-      fSearch.SetUpSearch;
     end;
 end;
 
@@ -2787,6 +2777,23 @@ var
 begin
   if Data.Users.Rights.Right('OPTIONS') > RIGHT_READ then
     aFrame.SetupTabEditor(TTabSheet(Sender));
+end;
+
+procedure TfMain.cbSearchTypeClick(Sender: TObject);
+var
+  i: Integer;
+begin
+  fSearch.cbSearchType.Items.Assign(cbSearchType.Items);
+  for i := 0 to fSearch.cbSearchType.Items.Count-1 do
+    fSearch.cbSearchType.Checked[i] := cbSearchType.Checked[i];
+  fSearch.cbSearchIn.Items.Assign(cbSearchIn.Items);
+  for i := 0 to fSearch.cbSearchIn.Items.Count-1 do
+    fSearch.cbSearchIn.Checked[i] := cbSearchIn.Checked[i];
+  fSearch.SaveOptions;
+  fSearch.SearchLevel:=0;
+  fSearch.SetUpSearch;
+  tvSearch.Items.Clear;
+  fSearch.DoSearch(nil);
 end;
 
 procedure TfMain.eSearchChange(Sender: TObject);
