@@ -13,7 +13,8 @@ function ReadHexFile(Filename : PChar) : Boolean;stdcall;
 begin
   if not Assigned(aHexBuffer) then aHexBuffer := THexBuffer.Create(nil);
   try
-    Result := aHexBuffer.LoadFromFile(Filename);
+    aHexBuffer.Filename := Filename;
+    Result := aHexBuffer.DataSize>0;
   except
     result := False;
   end;
@@ -43,6 +44,7 @@ end;
 function SetHexByte(aIndex : Integer;avalue : byte) : Boolean;stdcall;
 begin
   if not Assigned(aHexBuffer) then aHexBuffer := THexBuffer.Create(nil);
+  aHexBuffer.Update;
   Result := True;
   try
     aHexBuffer.DataBin[aIndex] := avalue;

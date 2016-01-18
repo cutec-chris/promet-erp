@@ -454,7 +454,7 @@ begin
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
       aDocuments.CreateTable;
-      aDocuments.Select(DataSet.Id.AsLargeInt,'E');
+      aDocuments.Select(DataSet.Id.AsLargeInt,'S');
       aDocuments.Open;
       if aDocuments.Count = 0 then
         aDocuments.Free
