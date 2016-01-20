@@ -859,7 +859,7 @@ begin
   Folder := TMessageList.Create(nil);
   InternalUnlock('Create');
   RefreshFolder(aThread);
-  GetUIDvalidity:=DateTimeToUnixTime(Folder.TimeStamp.AsDateTime);
+  GetUIDvalidity:=DateTimeToUnixTime(Folder.TimeStamp.AsDateTime) and $FFFF;
 end;
 
 destructor TPrometMailBox.Destroy;
