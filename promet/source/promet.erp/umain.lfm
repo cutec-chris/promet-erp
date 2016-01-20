@@ -363,6 +363,7 @@ object fMain: TfMain
         ReadOnly = True
         TabOrder = 1
         OnDblClick = tvSearchDblClick
+        OnStartDrag = tvSearchStartDrag
         Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
       end
       object pSearchOptions: TPanel

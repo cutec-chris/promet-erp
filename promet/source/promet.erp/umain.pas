@@ -273,6 +273,7 @@ type
         (Sender: TObject; aProject, aTask, aCategory: string);
     procedure TfFilteracOpenExecute(Sender: TObject);
     procedure tvSearchDblClick(Sender: TObject);
+    procedure tvSearchStartDrag(Sender: TObject; var DragObject: TDragObject);
   private
     { private declarations }
     WikiFrame: TfWikiFrame;
@@ -4499,6 +4500,23 @@ end;
 procedure TfMain.tvSearchDblClick(Sender: TObject);
 begin
   acOpen.Execute;
+end;
+
+procedure TfMain.tvSearchStartDrag(Sender: TObject; var DragObject: TDragObject
+  );
+var
+  aSel: TTreeNode;
+begin
+  aSel := tvSearch.GetNodeAt(tvSearch.ScreenToClient(Mouse.CursorPos).x,tvSearch.ScreenToClient(Mouse.CursorPos).y);
+  if Assigned(aSel) and Assigned(aSel) then
+    begin
+      if TTreeEntry(aSel.Data).Link<>'' then
+        begin
+          DragObject := TDragEntry.Create(Self);
+          with DragObject as TDragEntry do
+            Links := TTreeEntry(aSel.Data).Link;
+        end;
+    end;
 end;
 
 end.
