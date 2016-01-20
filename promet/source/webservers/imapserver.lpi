@@ -142,7 +142,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help --server-log --debug"/>
+        <CommandLineParams Value="--mandant=TCS-Times2 --server-log"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">

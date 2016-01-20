@@ -80,7 +80,7 @@ type
     function Text(MyMessage : TMimeMess) : string;
 
     property MBReadOnly: boolean read fReadOnly write fReadOnly;
-    property GetUIDnext: LongInt read FUIDNext;
+    function GetUIDnext: LongInt;virtual;abstract;
     property GetUIDvalidity: TUnixTime read FUIDvalidity write SetUIDVal;
     property PossFlags: string read GetPossFlags;
     procedure Lock;virtual;
@@ -442,7 +442,7 @@ begin
     sl.Free;
   end;
   System.Delete( Data, 1, 1 );
-  Result := IntToStr(Idx+1) + ' FETCH (' + Data + ')'
+  Result := IntToStr(Idx) + ' FETCH (' + Data + ')'
 end;
 
 procedure TImapMailbox.Lock;

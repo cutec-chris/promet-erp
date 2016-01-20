@@ -51,6 +51,7 @@ type
     function  RemoveFlags( Index: LongInt; Flags: TFlagMask ): TFlagMask;override;
     function StrToMsgSet(s: string; UseUID: boolean): TMessageSet;override;
     function  GetTimeStamp( Index: LongInt ): TUnixTime;override;
+    function GetUIDnext: LongInt; override;
     function  GetMessage( UID: LongInt;HeaderOnly : Boolean ): TMimeMess;override;
     function CopyMessage(MsgSet: TMessageSet; Destination: TImapMailbox): boolean;override;
     function AppendMessage(AThread: TSTcpThread;MsgTxt: string; Flags: string; TimeStamp: TUnixTime): string; override;
@@ -344,6 +345,11 @@ begin
       Folder.DataSet.MoveBy(Index);
     end;
   Result := DateTimeToUnixTime(Folder.FieldByName('SENDDATE').AsDateTime);
+end;
+
+function TPrometMailBox.GetUIDnext: LongInt;
+begin
+  Result := FHighestUID+1;
 end;
 
 function TPrometMailBox.GetMessage(UID: LongInt; HeaderOnly: Boolean
