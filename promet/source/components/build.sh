@@ -28,6 +28,12 @@ if [ "$?" -ne "0" ]; then
   $grep -w "Error:" build.txt
   exit 1
 fi
+$lazbuild synapse/laz_synapse.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed 11"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
 $lazbuild websockets/websockets.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed 5"
@@ -61,12 +67,6 @@ fi
 $lazbuild tapi/laz_tapi.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed 10"
-  $grep -w "Error:" build.txt
-  exit 1
-fi
-$lazbuild synapse/laz_synapse.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
-if [ "$?" -ne "0" ]; then
-  echo "build failed 11"
   $grep -w "Error:" build.txt
   exit 1
 fi
