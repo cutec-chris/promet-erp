@@ -1,7 +1,8 @@
 #!/bin/bash
 # path to lazbuild
 
-if [ -e promet/source/base/version.inc ]
+#if [ -e promet/source/base/version.inc ]
+if [ "x$lazbuild" = "x" ]
   then
   export lazbuild="lazbuild"
   export grep="grep"
