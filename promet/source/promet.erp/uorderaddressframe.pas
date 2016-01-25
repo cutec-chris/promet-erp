@@ -83,7 +83,7 @@ type
 implementation
 {$R *.lfm}
 uses uIntfStrConsts,uPersonFrame,uMainTreeFrame,uData,uPerson,uOrderFrame,
-  uSearch,uBaseDBInterface,uAddressFrame;
+  uSearch,uBaseDBInterface,uAddressFrame,uBaseVisualApplication;
 procedure TfOrderAddress.cbTypeSelect(Sender: TObject);
 begin
   if (DataSet.State = dsInsert) or DataSet.GotoBookmark(Rec) then
@@ -258,6 +258,18 @@ begin
           DataSet.Assign(aPerson);
         end;
       aPerson.Free;
+    end
+  else if Source is TDragEntry then
+    begin
+      aPerson := TPerson.CreateEx(Self,Data);
+      aPerson.SelectFromLink(TDragEntry(Source).Links);
+      aPerson.Open;
+      if aPerson.Count > 0 then
+        begin
+          aPerson.Address.Open;
+          DataSet.Assign(aPerson);
+        end;
+      aPerson.Free;
     end;
   mAddress.Text:=DataSet.ToString;
   mAddress.Font.Color:=clDefault;
@@ -278,6 +290,12 @@ begin
       with fSearch.sgResults do
         if Data.GetLinkIcon(fSearch.GetLink)= IMAGE_PERSON then
           Accept := True;
+    end;
+  if Source is TDragEntry then
+    begin
+      Accept := (pos('CUSTOMERS' ,TDragEntry(Source).Links)>0)
+             or (pos('ADRESSES' ,TDragEntry(Source).Links)>0);
+      exit;
     end;
 end;
 procedure TfOrderAddress.mAddressExit(Sender: TObject);
