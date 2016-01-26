@@ -27,3 +27,5 @@ Get it from GIT
 Update it from GIT
   git pull
   git submodule update
+
+For building also libdbus,libsane devel packages must be installed on linux
