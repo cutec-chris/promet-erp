@@ -219,6 +219,8 @@ type
     procedure AddOverview(Sender: TObject);
     procedure AddFinance(Sender: TObject);
     procedure RefreshFlow;
+    procedure ReplaceField(aField: TField; aOldValue: string;
+      var aNewValue: string);
   protected
     Reopen : Boolean;
     procedure SetDataSet(const AValue: TBaseDBDataset);override;
@@ -611,7 +613,7 @@ end;
 var
   bProject: TProject;
   aProject: TProject;
-procedure ReplaceField(aField: TField; aOldValue: string; var aNewValue: string);
+procedure TfProjectFrame.ReplaceField(aField: TField; aOldValue: string; var aNewValue: string);
 begin
   if aField.FieldName='COMPLETED' then aNewValue:='N';
   if aField.FieldName='SEEN' then aNewValue:='N';
