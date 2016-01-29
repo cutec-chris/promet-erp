@@ -10,6 +10,8 @@ uses
 type
   TStation = class
     procedure ipconConnected(sender: TIPConnection; const connectReason: byte);
+    procedure ipconDisconnected(sender: TIPConnection;
+      const disconnectReason: byte);
     procedure ipconEnumerate(sender: TIPConnection; const uid: string;
       const connectedUid: string; const position: char;
       const hardwareVersion: TVersionNumber;
@@ -37,6 +39,13 @@ begin
     ipcon.Enumerate;
   end;
 end;
+
+procedure TStation.ipconDisconnected(sender: TIPConnection;
+  const disconnectReason: byte);
+begin
+  writeln('puff');
+end;
+
 procedure TStation.ipconEnumerate(sender: TIPConnection; const uid: string;
   const connectedUid: string; const position: char;
   const hardwareVersion: TVersionNumber; const firmwareVersion: TVersionNumber;
@@ -82,6 +91,7 @@ begin
   Devices := TList.Create;
   ipcon.OnEnumerate:=@ipconEnumerate;
   ipcon.OnConnected:=@ipconConnected;
+  ipcon.OnDisconnected:=@ipconDisconnected;
 end;
 destructor TStation.Destroy;
 begin
@@ -161,19 +171,23 @@ var
   i: Integer;
 begin
   if Station=nil then exit;
-  for i := 0 to Station.Devices.Count-1 do
-    begin
-      if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
-        with TBrickletLCD16x2(Station.Devices[i]) do
-          begin
-            WriteLine(y,x,text);
-          end;
-      if TDevice(Station.Devices[i]) is TBrickletLCD20x4 then
-        with TBrickletLCD20x4(Station.Devices[i]) do
-          begin
-            WriteLine(y,x,text);
-          end;
-    end;
+  if not Station.ipcon.IsConnected then exit;
+  try
+    for i := 0 to Station.Devices.Count-1 do
+      begin
+        if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
+          with TBrickletLCD16x2(Station.Devices[i]) do
+            begin
+              WriteLine(y,x,text);
+            end;
+        if TDevice(Station.Devices[i]) is TBrickletLCD20x4 then
+          with TBrickletLCD20x4(Station.Devices[i]) do
+            begin
+              WriteLine(y,x,text);
+            end;
+      end;
+  except
+  end;
 end;
 procedure TfLCDClear;stdcall;
 var
@@ -200,16 +214,20 @@ var
 begin
   Result := False;
   if Station=nil then exit;
-  if Button>3 then exit;
-  for i := 0 to Station.Devices.Count-1 do
-    begin
-      if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
-        with TDevice(Station.Devices[i]) as TBrickletLCD16x2 do
-          Result := IsButtonPressed(Button);
-      if TDevice(Station.Devices[i]) is TBrickletLCD20x4 then
-        with TDevice(Station.Devices[i]) as TBrickletLCD20x4 do
-          Result := IsButtonPressed(Button);
-    end;
+  try
+    if not Station.ipcon.IsConnected then exit;
+    if Button>3 then exit;
+    for i := 0 to Station.Devices.Count-1 do
+      begin
+        if TDevice(Station.Devices[i]) is TBrickletLCD16x2 then
+          with TDevice(Station.Devices[i]) as TBrickletLCD16x2 do
+            Result := IsButtonPressed(Button);
+        if TDevice(Station.Devices[i]) is TBrickletLCD20x4 then
+          with TDevice(Station.Devices[i]) as TBrickletLCD20x4 do
+            Result := IsButtonPressed(Button);
+      end;
+  except
+  end;
 end;
 function TfGetVoltageById(id : Integer) : LongInt;stdcall;
 var
@@ -219,6 +237,7 @@ begin
   Result := -1;
   a := 0;
   if Station=nil then exit;
+  if not Station.ipcon.IsConnected then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then
@@ -245,6 +264,7 @@ var
 begin
   Result := -1;
   if Station=nil then exit;
+  if not Station.ipcon.IsConnected then exit;
   for i := 0 to Station.Devices.Count-1 do
     begin
       if TDevice(Station.Devices[i]) is TBrickletVoltageCurrent then

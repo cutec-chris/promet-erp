@@ -46,17 +46,14 @@
       <Unit1>
         <Filename Value="tinkerforge\IPConnection.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="IPConnection"/>
       </Unit1>
       <Unit2>
         <Filename Value="tinkerforge\Device.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Device"/>
       </Unit2>
       <Unit3>
         <Filename Value="tinkerforge\BrickletLCD20x4.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="BrickletLCD20x4"/>
       </Unit3>
       <Unit4>
         <Filename Value="tinkerforge\BrickletLCD16x2.pas"/>
@@ -79,6 +76,7 @@
     </Parsing>
     <Linking>
       <Debugging>
+        <TrashVariables Value="True"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
       <Options>

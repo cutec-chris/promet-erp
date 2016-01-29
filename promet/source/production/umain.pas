@@ -26,8 +26,21 @@ uses
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uExtControls,
   uIntfStrConsts, db, memds, FileUtil, ipHTML, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, uOrder,
-  uBaseDbInterface,uBaseDbClasses,fautomationform;
+  uBaseDbInterface,uBaseDbClasses,fautomationform,blcksock, synsock;
 type
+  TTCPCommandDaemon = class(TThread)
+  private
+    FOnData: TNotifyEvent;
+    FSocket:TTCPBlockSocket;
+    FData : string;
+    procedure DoData;
+  public
+    constructor Create;
+    Destructor Destroy; override;
+    procedure Execute; override;
+    property Data : string read FData;
+    property OnData : TNotifyEvent read FOnData write FOnData;
+  end;
   TfMain = class(TForm)
     acLogin: TAction;
     acLogout: TAction;
@@ -67,12 +80,14 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FSocketData(Sender: TObject);
     function SetOrderfromSearch(aLink: string): Boolean;
     procedure tvStepSelectionChanged(Sender: TObject);
   private
     { private declarations }
     FOrder : TOrder;
     FAutomation : TFAutomation;
+    FSocket : TTCPCommandDaemon;
     procedure DoOpen;
   public
     { public declarations }
@@ -86,7 +101,52 @@ resourcestring
 implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
-  uprometpythonscript,genpascalscript;
+  uprometpythonscript,genpascalscript,Synautil;
+
+procedure TTCPCommandDaemon.DoData;
+begin
+  if Assigned(FOnData) then
+    FOnData(Self);
+end;
+
+constructor TTCPCommandDaemon.Create;
+begin
+  FSocket:=TTCPBlockSocket.create;
+  FreeOnTerminate:=true;
+  inherited Create(false);
+end;
+
+destructor TTCPCommandDaemon.Destroy;
+begin
+  FSocket.Free;
+  inherited Destroy;
+end;
+
+procedure TTCPCommandDaemon.Execute;
+var
+  ClientSock: TSocket;
+  ConnectionSocket: TTCPBlockSocket;
+begin
+  ConnectionSocket := TTCPBlockSocket.Create;
+  FSocket.CreateSocket;
+  FSocket.setLinger(true,10);
+  FSocket.Bind('localhost','9874');
+  FSocket.Listen;
+  if FSocket.LastError = 0 then
+    begin
+      while not Terminated do
+        begin
+          if FSocket.CanRead(10000) then
+            begin
+              ConnectionSocket.Socket := FSocket.accept;
+              FData := ConnectionSocket.RecvString(10000);
+              ConnectionSocket.CloseSocket;
+              if FData<>'' then
+                Synchronize(@DoData);
+            end;
+        end;
+   end
+end;
 
 procedure TfMain.DoCreate;
 begin
@@ -111,6 +171,8 @@ begin
   acLogin.Enabled:=False;
   acLogout.Enabled:=True;
   FOrder := TOrder.Create(nil);
+  FSocket := TTCPCommandDaemon.Create;
+  FSocket.OnData:=@FSocketData;
 end;
 procedure TfMain.acLoadOrderExecute(Sender: TObject);
 var
@@ -243,6 +305,24 @@ begin
       with Application as IBaseApplication do
         RestoreConfig; //Must be called when Mainform is Visible
     end;
+end;
+
+procedure TfMain.FSocketData(Sender: TObject);
+var
+  aFunction: String;
+  aParams : array of Variant;
+  tmp: String;
+begin
+  Setlength(aParams,0);
+  aFunction := TTCPCommandDaemon(Sender).Data;
+  if pos('(',aFunction)>0 then
+    begin
+      tmp := copy(aFunction,pos('(',aFunction)+1,length(aFunction));
+      tmp := copy(tmp,0,length(tmp)-2);
+      aFunction:=copy(aFunction,0,pos('(',aFunction)-1);
+    end;
+  if Assigned(FAutomation.Script) then
+    FAutomation.Script.Script.RunScriptFunction(aParams,aFunction);
 end;
 
 function TfMain.SetOrderfromSearch(aLink: string): Boolean;
