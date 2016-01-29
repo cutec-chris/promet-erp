@@ -22,7 +22,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="444"/>
+      <BuildNr Value="446"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -387,6 +387,7 @@
         <ComponentName Value="fOrderOverviewFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOverviewFrame"/>
       </Unit15>
       <Unit16>
         <Filename Value="uorderdateframe.pas"/>

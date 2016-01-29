@@ -187,6 +187,7 @@ type
       aSubject: string; aText: string; var isPrepared: Boolean);
   protected
     procedure DoOpen;override;
+    procedure DoOpen(AddHist: Boolean=True);
     function SetRights : Boolean;
   public
     { public declarations }
@@ -256,6 +257,13 @@ begin
             end;
         end;
 end;
+
+procedure TfOrderFrame.DoOpen;
+begin
+  inherited DoOpen;
+  DoOpen(True);
+end;
+
 procedure TfOrderFrame.OnSearchKey(Sender: TObject; X, Y: Integer; var Key: Word;
   Shift: TShiftState; SearchString : string);
 var
@@ -453,7 +461,7 @@ end;
 procedure TfOrderFrame.acRestartExecute(Sender: TObject);
 begin
   TOrder(FDataSet).Duplicate;
-  DoOpen;
+  DoOpen(False);
 end;
 
 procedure TfOrderFrame.acRightsExecute(Sender: TObject);
@@ -596,7 +604,7 @@ begin
               with Application as IBaseDbInterface do
                 Data.StartTransaction(Connection);
             end;
-          DoOpen;
+          DoOpen(False);
         end
       else
         Restorestatus;
@@ -751,7 +759,7 @@ begin
       aFrame.CustomerOf := Data.BuildLink(DataSet.DataSet);
     end;
 end;
-procedure TfOrderFrame.DoOpen;
+procedure TfOrderFrame.DoOpen(AddHist : Boolean = True);
 var
   OrderTyp: LongInt;
   tmp: String;
@@ -831,9 +839,6 @@ begin
     end
   else aFrame.Free;
 
-  TOrder(DataSet).History.Open;
-  pcHeader.NewFrame(TfHistoryFrame,TOrder(DataSet).History.Count > 0,strHistory,@AddHistory);
-
   pcHeader.AddTabClass(TfDocumentFrame,strFiles,@AddDocuments);
   if Assigned(pcHeader.GetTab(TfDocumentFrame)) then
     pcHeader.GetTab(TfDocumentFrame).Free;
@@ -875,14 +880,16 @@ begin
     AddTabs(pcHeader);
   pcHeader.PageIndex:=0;
   pMain.Visible:=True;
+  TOrder(DataSet).History.Open;
+  pcHeader.NewFrame(TfHistoryFrame,(TOrder(DataSet).History.Count > 0) and AddHist,strHistory,@AddHistory);
   inherited DoOpen;
+  FPosFrame.SetFocus;
   if Dataset.State = dsInsert then
     begin
       if pAddresses.ControlCount > 0 then
         TfOrderAddress(pAddresses.Controls[0]).SetFocus;
       exit;
     end;
-  FPosFrame.SetFocus;
   //All what not depends on new order
   if TOrder(DataSet).Address.Count > 0 then
     TOrder(DataSet).Address.DataSet.Locate('TYPE','DAD',[loPartialKey]);
@@ -1046,7 +1053,7 @@ begin
     end;
   inherited Destroy;
 end;
-function TfOrderFrame.OpenFromLink(aLink: string) : Boolean;
+function TfOrderFrame.OpenFromLink(aLink: string): Boolean;
 begin
   inherited;
   if not (copy(aLink,0,6) = 'ORDERS') then exit;
@@ -1068,7 +1075,7 @@ begin
   DataSet.Open;
   Result := DataSet.Count>0;
   if Result then
-    DoOpen;
+    DoOpen(False);
 end;
 procedure TfOrderFrame.New;
 begin
@@ -1089,7 +1096,7 @@ begin
   if aStatus <> '' then
     if not TOrder(DataSet).OrderType.DataSet.Locate('STATUS',aStatus,[]) then exit;
   DataSet.DataSet.Insert;
-  DoOpen;
+  DoOpen(False);
   acSave.Enabled := False;
   acCancel.Enabled:= False;
 end;
