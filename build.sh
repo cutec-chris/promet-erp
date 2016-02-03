@@ -266,6 +266,7 @@ case $1 in
         fhem)  . ./promet/source/sync/build_fhem.sh;;
         sync)  . ./promet/source/sync/build.sh;;
   winclients)  . ./promet/setup/i386-win32/build.sh;;
+  linclients)  . ./promet/setup/i386-linux/build.sh;;
        clean)  clean_all;;
       server)  build_server;;
          all)  build_all;;
