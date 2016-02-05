@@ -1637,9 +1637,18 @@ begin
         if TSImapThread(AThread).LiteralLength>0 then
           begin
             LRow := AThread.ReadPacket(Timeout);
-            TSImapThread(AThread).LiteralLength:=TSImapThread(AThread).LiteralLength-length(LRow);
-            TSImapThread(AThread).TmpData:=TSImapThread(AThread).TmpData+LRow;
-            LRow:='';
+            if length(LRow)>TSImapThread(AThread).LiteralLength then
+              begin
+                TSImapThread(AThread).TmpData:=TSImapThread(AThread).TmpData+copy(LRow,0,TSImapThread(AThread).LiteralLength);
+                LRow := copy(LRow,TSImapThread(AThread).LiteralLength,length(LRow));
+                TSImapThread(AThread).LiteralLength:=0;
+              end
+            else
+              begin
+                TSImapThread(AThread).LiteralLength:=TSImapThread(AThread).LiteralLength-length(LRow);
+                TSImapThread(AThread).TmpData:=TSImapThread(AThread).TmpData+LRow;
+                LRow:='';
+              end;
             if TSImapThread(AThread).LiteralLength<=0 then
               begin
                 HandleCommand(AThread,TSImapThread(AThread).TmpData);
@@ -1663,7 +1672,8 @@ begin
                     OnLog(AThread, True, tmp);
                   end;
                 aRes := HandleData(AThread,aRow);
-                if aRes <> '' then AThread.WriteLn(ares);
+                if aRes <> '' then
+                  AThread.WriteLn(ares);
               end;
           end;
         sleep(10);

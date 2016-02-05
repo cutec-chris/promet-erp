@@ -38,6 +38,7 @@ type
     Folder : TMessageList;
     FHighestUID : Int64;
     FLowestUID : Int64;
+    FLockedFrom : string;
     _DBCS : TCriticalSection;
     function GotoIndex(Index : LongInt) : Boolean;
   public
@@ -138,7 +139,7 @@ begin
   if not _DBCS.TryEnter then
     begin
       with BaseApplication as IBaseApplication do
-        Debug('already Locked !');
+        Debug('already Locked from '+FLockedFrom+' !');
       for i := 0 to 5000 do
         begin
           sleep(1);
@@ -147,7 +148,8 @@ begin
         end;
       if not _DBCS.TryEnter then
         raise Exception.Create('Lock after 5secs not released !!');
-    end;
+    end
+  else FLockedFrom:=WhoAmI;
 end;
 
 procedure TPrometMailBox.InternalUnlock(WhoAmI: string);
@@ -507,14 +509,14 @@ begin
             Customers.History.Post;
           end;
         aMessage.DataSet.Post;
-        Result := 'OK APPEND completed';
+        Result := 'OK APPEND completed.';
       end
     else
       begin
         aMessage.Edit;
         aMessage.FieldByName('TIMESTAMPD').AsDateTime:=Now();
         aMessage.Post;
-        Result := 'OK APPEND completed';
+        Result := 'OK APPEND completed.';
       end;
     aMsg.Free;
     InternalSetFlags(aMessage,StringToFlagMask(Flags));
@@ -1059,7 +1061,7 @@ begin
     try
        if GetSearchPgm( Par, SearchPgm ) then begin
           SendRes(AThread, 'SEARCH' + TSImapThread(AThread).Selected.Search( SearchPgm, UseUID ) );
-          SendResTag(AThread, 'OK ' + Command + ' completed' )
+          SendResTag(AThread, 'OK ' + Command + ' completed.' )
        end else
           SendResTag(AThread, 'BAD ' + Command + ' invalid syntax (see server log for details)' );
      except
@@ -1098,7 +1100,7 @@ begin
 
   try
     if TSImapThread(AThread).Selected.CopyMessage( MsgSet, DestMailbox ) then begin
-       SendResTag(AThread, 'OK ' + Command + ' completed' );
+       SendResTag(AThread, 'OK ' + Command + ' completed.' );
     end else
        SendResTag(AThread, 'NO ' + Command + ' error: can''t copy messages' );
     MBLogout(AThread, DestMailbox, false );
@@ -1214,7 +1216,7 @@ begin
     Success := False;
   end;
   if Success then
-    SendResTag(AThread, 'OK ' + Command + ' is now completed' )
+    SendResTag(AThread, 'OK ' + Command + ' is now completed.' )
   else
     SendResTag(AThread, 'NO ' + Command + ' error' );
 end;
