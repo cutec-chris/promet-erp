@@ -1460,7 +1460,7 @@ begin
   if Assigned(TSImapThread(AThread).Selected) then try
     TSImapThread(AThread).Selected.Lock;
     try
-      EnterCriticalSection( CS_THR_IDLE );
+     // EnterCriticalSection( CS_THR_IDLE );
       if (length(TSImapThread(AThread).SendExpunge)>0) then begin
         for i := 0 to length(TSImapThread(AThread).SendExpunge)-1 do
           SendRes(AThread, IntToStr(TSImapThread(AThread).SendExpunge[i]) + ' EXPUNGE');
@@ -1474,7 +1474,7 @@ begin
         TSImapThread(AThread).SendNewMessages := false
       end;
     finally
-      LeaveCriticalSection( CS_THR_IDLE )
+      //LeaveCriticalSection( CS_THR_IDLE )
     end;
   finally
     TSImapThread(AThread).Selected.Unlock
@@ -1698,6 +1698,7 @@ begin
 end;
 destructor TSImapServer.Destroy;
 begin
+  Active:=False;
   DoneCriticalsection( CS_THR_IDLE );
   inherited Destroy;
 end;

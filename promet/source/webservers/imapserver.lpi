@@ -142,7 +142,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=Stora&quot; --server-log --port=1043 --smtpport=5087"/>
+        <CommandLineParams Value="&quot;--mandant=Stora&quot; --port=1043 --smtpport=5087"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -217,7 +217,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="7">
+    <Exceptions Count="9">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -239,6 +239,12 @@
       <Item7>
         <Name Value="EZDatabaseError"/>
       </Item7>
+      <Item8>
+        <Name Value="EAccessViolation"/>
+      </Item8>
+      <Item9>
+        <Name Value="RunError(210)"/>
+      </Item9>
     </Exceptions>
   </Debugging>
 </CONFIG>

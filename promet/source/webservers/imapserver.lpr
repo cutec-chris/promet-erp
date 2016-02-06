@@ -455,6 +455,7 @@ begin
         aMsg.Header.MessageID := aID;
       end;
     aMessage := TMimeMessage.Create(nil);
+    Data.StartTransaction(aMessage.Connection);
     amessage.Filter(Data.QuoteField('ID')+'='+Data.QuoteValue(aMsg.Header.MessageID)+' and '+Data.QuoteField('TREEENTRY')+'='+Data.QuoteValue(FParent));
     if aMessage.Count=0 then
       begin
@@ -520,12 +521,14 @@ begin
       end;
     aMsg.Free;
     InternalSetFlags(aMessage,StringToFlagMask(Flags));
-    aMessage.Destroy;
+    aMessage.Post;
+    Data.CommitTransaction(aMessage.Connection);
+    aMessage.Free;
   except
     Result := 'NO APPEND error';
   end;
   InternalUnlock('AppendMessage');
-  RefreshFolder(AThread);
+  //RefreshFolder(AThread);
 end;
 
 function TPrometMailBox.FindContent(MsgSet: TMessageSet; After, Before: int64;
@@ -847,6 +850,7 @@ begin
     end;
   with BaseApplication as IBaseApplication do
     Debug('Folder Count:'+IntToStr(Folder.Count));
+  aCnt.Free;
   aCnt := Data.GetNewDataSet('select count('+Data.QuoteField('READ')+') as "READ",count(*) as "MESSAGES",max("GRP_ID") as "HUID", min("GRP_ID") as "MUID" from '+Data.QuoteField(Folder.TableName)+' where '+aFilter);
   aCnt.Open;
   FMessages:=StrToIntDef(aCnt.FieldByName('MESSAGES').AsString,0);
@@ -1623,13 +1627,13 @@ begin
   while not Terminated do
     begin
       sleep(100);
-      if (Now()-aTime) > (1/HoursPerDay) then
+      if (Now()-aTime) > ((1/HoursPerDay)) then
         begin
           break;
         end;
     end;
-  IMAPServer.Free;
-  SMTPServer.Free;
+  IMAPServer.Active:=False;
+  SMTPServer.Active:=False;
   // stop program loop
   Terminate;
   exit;
@@ -1648,14 +1652,10 @@ end;
 
 destructor TPIMAPServer.Destroy;
 begin
-  try
-    IMAPServer.Free;
-  except
-  end;
-  try
-    SMTPServer.Free;
-  except
-  end;
+  IMAPServer.Free;
+  SMTPServer.Free;
+  with Self as IBaseDBInterface do
+    DBLogout;
   inherited Destroy;
 end;
 

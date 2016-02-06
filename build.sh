@@ -182,6 +182,10 @@ build_all()
     . ./promet/setup/i386-win32/build.sh
     . ./promet/setup/i386-win32/change_wiki_windows.sh
   fi
+  if [ "x$TARGET_OS" = "xlinux" ]; then
+    . ./promet/setup/i386-linux/build.sh
+    . ./promet/setup/i386-linux/change_wiki.sh
+  fi
 
   . ./promet/source/webservers/build_webserver.sh
   if [ "$?" -ne "0" ]; then

@@ -427,6 +427,12 @@ begin
         TSTcpThread(FListeners[i]).Free;
       end;
 
+      for i := FThreads.Count - 1 downto 0 do
+      begin
+        TSTcpThread(FThreads[i]).Terminate;
+        TSTcpThread(FThreads[i]).WaitFor;
+      end;
+
       FListeners.Clear;
     end;
   end;

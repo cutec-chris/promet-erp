@@ -1,0 +1,17 @@
+Source: promet-erp
+Package: promet-erp
+Version: VERSION
+Section: office
+Priority: optional
+Maintainer: Christian Ulrich <info@free-erp.de>
+Architecture: ARCH
+Depends:  libc6,bsdiff
+Installed-Size: DEBSIZE
+Recommends: promet-erp-statistics
+Suggests: promet-erp-services
+Description: ERP with Document- and Taskmanagement
+ Promet-ERP is an ERP System for small business
+ It is an Multimandant-Multiuser-Multiplatform System with
+ an integrated Documentmanagement System and Taskmanagement
+ .
+
