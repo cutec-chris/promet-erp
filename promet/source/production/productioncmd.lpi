@@ -29,7 +29,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="Dotest"/>
+        <CommandLineParams Value="DoProgrammController"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -66,11 +66,6 @@
       <Debugging>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
-      <Options>
-        <Win32>
-          <GraphicApplication Value="True"/>
-        </Win32>
-      </Options>
     </Linking>
     <Other>
       <CompilerMessages>
