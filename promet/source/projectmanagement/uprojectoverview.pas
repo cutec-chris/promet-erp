@@ -36,6 +36,7 @@ implementation
 uses uData,uMasterdata;
 procedure TfObjectStructureFrame.FrameEnter(Sender: TObject);
 begin
+
 end;
 
 procedure TfObjectStructureFrame.acAddLevelExecute(Sender: TObject);
@@ -183,13 +184,18 @@ begin
   case aEntry.Typ of
   etCustomer,etEmployee,etArticle,etProject,etProcess:
     begin
-      aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
-      with aDataSet.DataSet as IBaseDBFilter do
-        Filter := aEntry.Filter;
-      aDataSet.Open;
-      if aDataSet.Count > 0 then
-        fMainTreeFrame.OpenLink(Data.BuildLink(aDataSet.DataSet),Self);
-      aDataSet.Free;
+      if (aEntry.Link<>'') then
+        fMainTreeFrame.OpenLink(aEntry.Link,Self)
+      else
+        begin
+          aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
+          with aDataSet.DataSet as IBaseDBFilter do
+            Filter := aEntry.Filter;
+          aDataSet.Open;
+          if aDataSet.Count > 0 then
+            fMainTreeFrame.OpenLink(Data.BuildLink(aDataSet.DataSet),Self);
+          aDataSet.Free;
+        end;
     end;
   end;
 end;
@@ -215,6 +221,7 @@ begin
       'TMasterdata':TTreeEntry(Node1.Data).Typ := etArticle;
       end;
       Node1.HasChildren:=True;
+      Node1.Expanded:=True;
     end;
 end;
 
