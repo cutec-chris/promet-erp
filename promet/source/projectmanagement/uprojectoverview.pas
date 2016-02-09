@@ -123,7 +123,7 @@ begin
                       bDataSet := TMasterdata.Create(nil);
                       bDataSet.Select(aPos.FieldByName('REF_ID').AsVariant);
                       bDataSet.Open;
-                      if bDataSet.Count>0 then
+                      if (bDataSet.Count>0) and (bDataSet.FieldByName('ACTIVE').AsString='Y') then
                         begin
                           FObject:=TBaseDbList(bDataSet);
                           Node1 := tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
