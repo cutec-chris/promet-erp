@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils,
   uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
-  uBaseApplication,uprometscripts,genscript,uprometpascalscript,
+  uBaseApplication,uprometscripts,genscript, general_nogui,uprometpascalscript,
   uprometpythonscript;
 
 type
