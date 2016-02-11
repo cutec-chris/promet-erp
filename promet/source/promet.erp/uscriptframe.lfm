@@ -458,8 +458,8 @@ inherited fScriptFrame: TfScriptFrame
     end
   end
   object pmAction: TPopupMenu[4]
-    left = 64
-    top = 112
+    left = 88
+    top = 120
     object MenuItem7: TMenuItem
       Action = acSetActiveObject
     end

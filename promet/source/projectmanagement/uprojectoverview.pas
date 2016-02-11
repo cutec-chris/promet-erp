@@ -21,6 +21,7 @@ type
     function FTreeOpen(aEntry: TTreeEntry): Boolean;
   private
     FObject: TBaseDbList;
+    FrootNode : TTreeNode;
     { private declarations }
     FTree : TfMainTree;
     procedure SetObject(AValue: TBaseDbList);
@@ -36,7 +37,7 @@ implementation
 uses uData,uMasterdata;
 procedure TfObjectStructureFrame.FrameEnter(Sender: TObject);
 begin
-
+  FrootNode.Expanded:=True;
 end;
 
 procedure TfObjectStructureFrame.acAddLevelExecute(Sender: TObject);
@@ -221,7 +222,7 @@ begin
       'TMasterdata':TTreeEntry(Node1.Data).Typ := etArticle;
       end;
       Node1.HasChildren:=True;
-      Node1.Expanded:=True;
+      FrootNode := Node1;
     end;
 end;
 
