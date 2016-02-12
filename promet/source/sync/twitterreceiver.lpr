@@ -151,6 +151,7 @@ var
   CustomerCont: TPersonContactData;
   uid: string;
   IsRootItem, NoCustFound: Boolean;
+  aDS: TDataSet;
   function JsonFind(JO : TJSONObject;const AName: String): TJSONData;
 
   Var
@@ -168,7 +169,7 @@ begin
   mailaccounts := '';
   with Self as IBaseDbInterface do
     mailaccounts := DBConfig.ReadString('MAILACCOUNTS','');
-  ReplaceOmailaccounts := false;
+  ReplaceOmailaccounts := True;
   aHist := TBaseHistory.Create(nil);
   htmltowiki.OnConvertImage:=@PrometCmdAppConvertImage;
   with aHist.DataSet as IBaseManageDB do
@@ -365,14 +366,21 @@ begin
                      sleep(10);
                     end;
                   dec(Retry);
-                  if not Somethingimported then
-                    inc(nothingimported);
-                  if nothingimported>1 then break;
                   if aId <> '' then
                     begin
-                      ReplaceOmailaccounts:=True;
                       omailaccounts := copy(omailaccounts,0,length(omailaccounts)-1)+aId+';';
-                    end;
+                      try
+                      if Data.IsSQLDB then
+                        begin
+                          aDS := Data.GetNewDataSet('UPDATE '+Data.QuoteField('HISTORY')+' SET '+Data.QuoteField('PARENT')+' = '+Data.QuoteField('HISTPAR')+'.'+Data.QuoteField('SQL_ID')+' FROM '+Data.QuoteField('HISTORY')+' AS '+Data.QuoteField('HISTORYB')+' INNER JOIN '+Data.QuoteField('HISTORY')+' AS '+Data.QuoteField('HISTPAR')+' ON '+Data.QuoteField('HISTORYB')+'.'+Data.QuoteField('REFOBJECT')+'='+Data.QuoteField('HISTPAR')+'.'+Data.QuoteField('PARENTSTR')+' WHERE '+Data.QuoteField('HISTORY')+'.'+Data.QuoteField('PARENTSTR')+' is not NULL AND '+Data.QuoteField('HISTORY')+'.'+Data.QuoteField('PARENT')+' is NULL');
+                          aDS.Open;
+                          aDS.Free;
+                        end;
+                      except
+                      end;
+                    end
+                  else
+                    ReplaceOmailaccounts:=False;
                   Parser.Free;
                 end
               else
@@ -380,11 +388,6 @@ begin
               http.Free;
             end;
           omailaccounts := omailaccounts+'|';
-          try
-          if Data.IsSQLDB then
-            Data.GetNewDataSet('UPDATE '+Data.QuoteField('HISTORY')+' SET '+Data.QuoteField('PARENT')+' = '+Data.QuoteField('HISTPAR')+'.'+Data.QuoteField('SQL_ID')+' FROM '+Data.QuoteField('HISTORY')+' AS '+Data.QuoteField('HISTORYB')+' INNER JOIN '+Data.QuoteField('HISTORY')+' AS '+Data.QuoteField('HISTPAR')+' ON '+Data.QuoteField('HISTORYB')+'.'+Data.QuoteField('REFOBJECT')+'='+Data.QuoteField('HISTPAR')+'.'+Data.QuoteField('PARENTSTR')+' WHERE '+Data.QuoteField('HISTORY')+'.'+Data.QuoteField('PARENTSTR')+' is not NULL AND '+Data.QuoteField('HISTORY')+'.'+Data.QuoteField('PARENT')+' is NULL');
-          except
-          end;
         end
       else
         omailaccounts := omailaccounts+copy(mailaccounts,0,pos('|',mailaccounts));
