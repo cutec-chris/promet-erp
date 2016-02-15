@@ -21,7 +21,8 @@ unit uArticleText;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, DbCtrls, ExtCtrls,
-  Buttons, db, uFilterFrame, uMasterdata, uPrometFramesInplace, uExtControls;
+  Buttons, db, uFilterFrame, uMasterdata, uPrometFramesInplace, kmemo,
+  uExtControls;
 type
 
   { TfArticleTextFrame }
@@ -30,8 +31,9 @@ type
     Bevel1: TBevel;
     cbTextTyp: TComboBox;
     DBNavigator1: TDBNavigator;
+    dsTextTypes: TDataSource;
     ExtRotatedLabel1: TExtRotatedLabel;
-    mText: TMemo;
+    KMemo1: TKMemo;
     Panel1: TPanel;
     Panel2: TPanel;
     pToolbar: TPanel;
@@ -40,6 +42,7 @@ type
     lTexttyp: TLabel;
     procedure cbTextTypSelect(Sender: TObject);
     procedure mTextChange(Sender: TObject);
+    procedure TextsDataChange(Sender: TObject; Field: TField);
   private
     FMasterdata: TMasterdata;
     DontUpdate: Boolean;
@@ -60,7 +63,7 @@ procedure TfArticleTextFrame.cbTextTypSelect(Sender: TObject);
 begin
   if DontUpdate then exit;
   DontUpdate := True;
-  mText.Clear;
+  KMemo1.Clear;
   if not Texts.DataSet.Active then exit;
   if Texts.DataSet.State=dsInsert then
     Texts.DataSet.Cancel;
@@ -75,9 +78,10 @@ begin
       Texts.DataSet.FieldByName('TEXTTYPE').AsInteger:=cbTextTyp.ItemIndex;
     end;
   //TODO:Support RTF
-  mtext.Lines.BeginUpdate;
-  mText.Lines.Text:=RTF2Plain(Texts.DataSet.FieldByName('TEXT').AsString);
-  mText.Lines.EndUpdate;
+  //mtext.Lines.BeginUpdate;
+  //mText.Lines.Text:=RTF2Plain(Texts.DataSet.FieldByName('TEXT').AsString);
+  //mText.Lines.EndUpdate;
+  TextsDataChange(nil,Texts.DataSet.FieldByName('TEXT'));
   DontUpDate := False;
 end;
 
@@ -86,7 +90,19 @@ begin
   if DontUpdate then exit;
   if not ((Texts.DataSet.State=dsEdit) or (Texts.DataSet.State=dsInsert)) then
     Texts.DataSet.Edit;
-  Texts.DataSet.FieldByName('TEXT').AsString := mText.Lines.Text;
+  //Texts.DataSet.FieldByName('TEXT').AsString := mText.Lines.Text;
+end;
+
+procedure TfArticleTextFrame.TextsDataChange(Sender: TObject; Field: TField);
+var
+  ss: TStringStream;
+begin
+  if Field.FieldName='TEXT' then
+    begin
+      ss := TStringStream.Create('');
+      Data.BlobFieldToStream(Field.DataSet,'TEXT',ss);
+      KMemo1.LoadFromRTFStream(ss);
+    end;
 end;
 
 procedure TfArticleTextFrame.SetMasterdata(const AValue: TMasterdata);
@@ -123,7 +139,7 @@ end;
 procedure TfArticleTextFrame.SetRights(Editable: Boolean);
 begin
   FEditable := Editable;
-  mText.ReadOnly:=not Editable;
+  KMemo1.ReadOnly:=not Editable;
   DBNavigator1.Enabled:=Editable;
   //cbTextTypSelect(nil);
   ArrangeToolBar(pToolbar,nil,'Text');

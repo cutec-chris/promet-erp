@@ -177,103 +177,106 @@
         <CommandLineParams Value="--debug"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="25">
+    <RequiredPackages Count="26">
       <Item1>
-        <PackageName Value="promet_scripts"/>
-        <DefaultFilename Value="../base/base_scripts/promet_scripts.lpk"/>
+        <PackageName Value="KControlsLaz"/>
       </Item1>
       <Item2>
-        <PackageName Value="pack_powerpdf"/>
+        <PackageName Value="promet_scripts"/>
+        <DefaultFilename Value="../base/base_scripts/promet_scripts.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="pOptions"/>
-        <DefaultFilename Value="../base/base_options/poptions.lpk"/>
+        <PackageName Value="pack_powerpdf"/>
       </Item3>
       <Item4>
-        <PackageName Value="lazreport"/>
+        <PackageName Value="pOptions"/>
+        <DefaultFilename Value="../base/base_options/poptions.lpk"/>
       </Item4>
       <Item5>
-        <PackageName Value="pvisualframes"/>
-        <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
+        <PackageName Value="lazreport"/>
       </Item5>
       <Item6>
-        <PackageName Value="pvisualforms"/>
-        <DefaultFilename Value="../base/base_forms/pvisualforms.lpk"/>
+        <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
       </Item6>
       <Item7>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="../base/base_forms/pvisualforms.lpk"/>
       </Item7>
       <Item8>
-        <PackageName Value="ptimes"/>
-        <DefaultFilename Value="../timeregistering/ptimes.lpk"/>
+        <PackageName Value="LazControls"/>
       </Item8>
       <Item9>
-        <PackageName Value="pDocManage"/>
-        <DefaultFilename Value="../base/base_docmanage/pdocmanage.lpk"/>
+        <PackageName Value="ptimes"/>
+        <DefaultFilename Value="../timeregistering/ptimes.lpk"/>
       </Item9>
       <Item10>
-        <PackageName Value="tabeditor"/>
-        <DefaultFilename Value="../base/base_editform/tabeditor.lpk"/>
+        <PackageName Value="pDocManage"/>
+        <DefaultFilename Value="../base/base_docmanage/pdocmanage.lpk"/>
       </Item10>
       <Item11>
-        <PackageName Value="statisticsaddon"/>
-        <DefaultFilename Value="../statistics/statisticsaddon.lpk"/>
+        <PackageName Value="tabeditor"/>
+        <DefaultFilename Value="../base/base_editform/tabeditor.lpk"/>
       </Item11>
       <Item12>
-        <PackageName Value="base_inet"/>
-        <DefaultFilename Value="../base/base_inet/base_inet.lpk"/>
+        <PackageName Value="statisticsaddon"/>
+        <DefaultFilename Value="../statistics/statisticsaddon.lpk"/>
       </Item12>
       <Item13>
-        <PackageName Value="prepair"/>
-        <DefaultFilename Value="../base/base_repair/prepair.lpk"/>
+        <PackageName Value="base_inet"/>
+        <DefaultFilename Value="../base/base_inet/base_inet.lpk"/>
       </Item13>
       <Item14>
-        <PackageName Value="pmessaging"/>
-        <DefaultFilename Value="../base/base_messaging/pmessaging.lpk"/>
+        <PackageName Value="prepair"/>
+        <DefaultFilename Value="../base/base_repair/prepair.lpk"/>
       </Item14>
       <Item15>
-        <PackageName Value="perp"/>
-        <DefaultFilename Value="../base/base_erp/perp.lpk"/>
+        <PackageName Value="pmessaging"/>
+        <DefaultFilename Value="../base/base_messaging/pmessaging.lpk"/>
       </Item15>
       <Item16>
-        <PackageName Value="pcalendar"/>
-        <DefaultFilename Value="../base/base_calendar/pcalendar.lpk"/>
+        <PackageName Value="perp"/>
+        <DefaultFilename Value="../base/base_erp/perp.lpk"/>
       </Item16>
       <Item17>
-        <PackageName Value="projectmanagement"/>
-        <DefaultFilename Value="../projectmanagement/projectmanagement.lpk"/>
+        <PackageName Value="pcalendar"/>
+        <DefaultFilename Value="../base/base_calendar/pcalendar.lpk"/>
       </Item17>
       <Item18>
-        <PackageName Value="ZVDateTimeCtrls"/>
-        <DefaultFilename Value="../components/ZVDateTimeCtrls/zvdatetimectrls.lpk"/>
+        <PackageName Value="projectmanagement"/>
+        <DefaultFilename Value="../projectmanagement/projectmanagement.lpk"/>
       </Item18>
       <Item19>
-        <PackageName Value="phelp"/>
-        <DefaultFilename Value="../base_help/phelp.lpk"/>
+        <PackageName Value="ZVDateTimeCtrls"/>
+        <DefaultFilename Value="../components/ZVDateTimeCtrls/zvdatetimectrls.lpk"/>
       </Item19>
       <Item20>
-        <PackageName Value="pPhones"/>
-        <DefaultFilename Value="../base/base_phone/pphones.lpk"/>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="../base_help/phelp.lpk"/>
       </Item20>
       <Item21>
-        <PackageName Value="TurboPowerIPro"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="pPhones"/>
+        <DefaultFilename Value="../base/base_phone/pphones.lpk"/>
       </Item21>
       <Item22>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="TurboPowerIPro"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item22>
       <Item23>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item23>
       <Item24>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="../../../general/general.lpk"/>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item24>
       <Item25>
-        <PackageName Value="LCL"/>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
       </Item25>
+      <Item26>
+        <PackageName Value="LCL"/>
+      </Item26>
     </RequiredPackages>
     <Units Count="50">
       <Unit0>
@@ -508,6 +511,7 @@
         <ComponentName Value="fArticleTextFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uArticleText"/>
       </Unit32>
       <Unit33>
         <Filename Value="ucopyarticledata.pas"/>
