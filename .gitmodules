@@ -106,3 +106,6 @@
 [submodule "zeos2"]
 	path = promet/source/components/zeos
 	url = https://github.com/cutec-chris/ZeosDBO.git
+[submodule "promet/source/components/kcontrols"]
+	path = promet/source/components/kcontrols
+	url = https://github.com/cutec-chris/kcontrols.git
