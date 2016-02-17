@@ -5,7 +5,7 @@ uses
   Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uExtControls,
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
-  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage;
+  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,uspreedsheet;
 type
   TfMain = class(TForm)
     acLogin: TAction;
@@ -43,7 +43,7 @@ procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
     begin
-      SetConfigName('ProjectManagement');
+      SetConfigName('Avasp');
     end;
   with Application as IBaseDbInterface do
     LoadMandants;

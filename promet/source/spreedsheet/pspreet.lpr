@@ -14,6 +14,7 @@ umain, pvisualprometapp, uBaseVisualApplication;
 {$R *.res}
 
 begin
+  Application.Title:='Avasp';
   Application.Free;
   Application := TBaseVisualApplication.Create(nil);
   Application.Initialize;
@@ -21,4 +22,4 @@ begin
   fMain.DoCreate;
   Application.Run;
 end.
-
+

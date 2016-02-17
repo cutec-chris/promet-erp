@@ -349,6 +349,10 @@ type
     procedure UpdateWordwraps;
 
     procedure DoOpen;
+    procedure WorksheetGridWorkbookReadCellData(Sender: TObject; ARow,
+      ACol: Cardinal; const ADataCell: PCell);
+    procedure WorksheetGridWorkbookWriteCellData(Sender: TObject; ARow,
+      ACol: Cardinal; var AValue: variant; var AStyleCell: PCell);
   public
     procedure BeforeRun;
     property Name : string read FSpName write SetName;
@@ -1310,7 +1314,47 @@ end;
 
 procedure TfSpreetsheet.DoOpen;
 begin
+  WorksheetGrid.Workbook.OnReadCellData:=@WorksheetGridWorkbookReadCellData;
+  WorksheetGrid.Workbook.OnWriteCellData:=@WorksheetGridWorkbookWriteCellData;
+  // Enter virtual mode
+  WorksheetGrid.Workbook.Options := MyWorkbook.Options + [boVirtualMode];
 
+  // Define number of columns - we want a column for each field
+  WorksheetGrid.Workbook.VirtualColCount := MyDatabase.FieldCount;
+
+  // Define number of rows - we want every record, plus 1 row for the title row
+  WorksheetGrid.Workbook.VirtualRowCount := MyDatabase.RecordCount + 1;
+end;
+
+procedure TfSpreetsheet.WorksheetGridWorkbookReadCellData(Sender: TObject;
+  ARow, ACol: Cardinal; const ADataCell: PCell);
+begin
+
+end;
+
+procedure TfSpreetsheet.WorksheetGridWorkbookWriteCellData(Sender: TObject;
+  ARow, ACol: Cardinal; var AValue: variant; var AStyleCell: PCell);
+begin
+{
+MyWorksheet.WriteFontStyle(0, 0, [fssBold]);
+MyWorksheet.WriteBackgroundColor(0, 0, scGray);
+
+
+if ARow = 0 then begin
+   // The value to be written to the spreadsheet is the field name.
+   AValue := MyDatabase.Fields[ACol].FieldName;
+   // Formatting is defined in the HeaderTemplateCell.
+   AStyleCell := MyHeaderTemplateCell;
+   // Move to first record
+   MyDatabase.First;
+ end else begin
+   // The value to be written to the spreadsheet is the record value in the field corresponding to the column.
+   // No special requirements on formatting --> leave AStyleCell at its default (nil).
+   AValue := MyDatabase.Fields[ACol].AsVariant;
+   // Advance database cursor if last field of record has been written
+   if ACol = MyDatabase.FieldCount-1 then MyDatabase.Next;
+ end;
+ }
 end;
 
 procedure TfSpreetsheet.WorksheetGridSelection(Sender: TObject; aCol,
