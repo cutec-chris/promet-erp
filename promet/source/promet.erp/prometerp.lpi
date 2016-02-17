@@ -180,6 +180,7 @@
     <RequiredPackages Count="26">
       <Item1>
         <PackageName Value="KControlsLaz"/>
+        <DefaultFilename Value="../components/kcontrols/packages/kcontrols/kcontrolslaz.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="promet_scripts"/>

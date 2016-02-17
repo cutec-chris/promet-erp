@@ -77,10 +77,7 @@ begin
       Texts.DataSet.Insert;
       Texts.DataSet.FieldByName('TEXTTYPE').AsInteger:=cbTextTyp.ItemIndex;
     end;
-  //TODO:Support RTF
-  //mtext.Lines.BeginUpdate;
-  //mText.Lines.Text:=RTF2Plain(Texts.DataSet.FieldByName('TEXT').AsString);
-  //mText.Lines.EndUpdate;
+  //-TODO:Support RTF
   TextsDataChange(nil,Texts.DataSet.FieldByName('TEXT'));
   DontUpDate := False;
 end;
@@ -90,18 +87,22 @@ begin
   if DontUpdate then exit;
   if not ((Texts.DataSet.State=dsEdit) or (Texts.DataSet.State=dsInsert)) then
     Texts.DataSet.Edit;
-  //Texts.DataSet.FieldByName('TEXT').AsString := mText.Lines.Text;
+  //TODO:check if its real RTF else write just in Text
+  Texts.DataSet.FieldByName('TEXT').AsString := KMemo1.RTF;
 end;
 
 procedure TfArticleTextFrame.TextsDataChange(Sender: TObject; Field: TField);
 var
   ss: TStringStream;
 begin
+  if not Assigned(Field) then exit;
   if Field.FieldName='TEXT' then
     begin
       ss := TStringStream.Create('');
       Data.BlobFieldToStream(Field.DataSet,'TEXT',ss);
+      ss.Position:=0;
       KMemo1.LoadFromRTFStream(ss);
+      ss.Free;
     end;
 end;
 

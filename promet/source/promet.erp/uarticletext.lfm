@@ -48,7 +48,8 @@ inherited fArticleTextFrame: TfArticleTextFrame
         Caption = 'Navigation'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -86,19 +87,19 @@ inherited fArticleTextFrame: TfArticleTextFrame
     TabOrder = 1
     object lTexttyp: TLabel
       Left = 8
-      Height = 15
+      Height = 13
       Top = 8
-      Width = 41
+      Width = 36
       Caption = 'Textart'
       ParentColor = False
     end
     object cbTextTyp: TComboBox
       Left = 8
-      Height = 27
+      Height = 21
       Top = 29
       Width = 512
       Anchors = [akTop, akLeft, akRight]
-      ItemHeight = 0
+      ItemHeight = 13
       OnSelect = cbTextTypSelect
       TabOrder = 0
       Text = 'cbTextTyp'
@@ -109,11 +110,8 @@ inherited fArticleTextFrame: TfArticleTextFrame
       Top = 64
       Width = 512
       Anchors = [akTop, akLeft, akRight, akBottom]
-      ContentPadding.Left = 5
-      ContentPadding.Top = 5
-      ContentPadding.Right = 5
-      ContentPadding.Bottom = 5
       TabOrder = 1
+      OnChange = mTextChange
     end
   end
   object dsTextTypes: TDataSource[2]
