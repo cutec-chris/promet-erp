@@ -85,7 +85,7 @@ inherited fArticleTextFrame: TfArticleTextFrame
     ClientWidth = 526
     TabOrder = 1
     object lTexttyp: TLabel
-      Left = 8
+      Left = 0
       Height = 15
       Top = 8
       Width = 41
@@ -93,10 +93,10 @@ inherited fArticleTextFrame: TfArticleTextFrame
       ParentColor = False
     end
     object cbTextTyp: TComboBox
-      Left = 8
+      Left = 0
       Height = 27
-      Top = 29
-      Width = 512
+      Top = 24
+      Width = 520
       Anchors = [akTop, akLeft, akRight]
       ItemHeight = 0
       OnSelect = cbTextTypSelect
@@ -104,10 +104,10 @@ inherited fArticleTextFrame: TfArticleTextFrame
       Text = 'cbTextTyp'
     end
     object KMemo1: TKMemo
-      Left = 8
-      Height = 344
-      Top = 64
-      Width = 512
+      Left = 0
+      Height = 352
+      Top = 56
+      Width = 520
       Anchors = [akTop, akLeft, akRight, akBottom]
       ContentPadding.Left = 5
       ContentPadding.Top = 5
@@ -118,12 +118,12 @@ inherited fArticleTextFrame: TfArticleTextFrame
     end
   end
   object dsTextTypes: TDataSource[2]
-    left = 89
-    top = 41
+    left = 168
+    top = 136
   end
   object Texts: TDataSource[3]
     OnDataChange = TextsDataChange
-    left = 88
-    top = 104
+    left = 168
+    top = 200
   end
 end
