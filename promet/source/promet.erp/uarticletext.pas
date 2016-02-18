@@ -21,7 +21,7 @@ unit uArticleText;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, DbCtrls, ExtCtrls,
-  Buttons, db, uFilterFrame, uMasterdata, uPrometFramesInplace, kmemo,
+  Buttons, DBGrids, db, uFilterFrame, uMasterdata, uPrometFramesInplace, kmemo,
   uExtControls;
 type
 
@@ -78,8 +78,8 @@ begin
       Texts.DataSet.FieldByName('TEXTTYPE').AsInteger:=cbTextTyp.ItemIndex;
     end;
   //-TODO:Support RTF
-  TextsDataChange(nil,Texts.DataSet.FieldByName('TEXT'));
   DontUpDate := False;
+  TextsDataChange(nil,Texts.DataSet.FieldByName('TEXT'));
 end;
 
 procedure TfArticleTextFrame.mTextChange(Sender: TObject);
@@ -88,21 +88,31 @@ begin
   if not ((Texts.DataSet.State=dsEdit) or (Texts.DataSet.State=dsInsert)) then
     Texts.DataSet.Edit;
   //TODO:check if its real RTF else write just in Text
+  DontUpdate:=True;
+  if Texts.DataSet.FieldByName('TEXTTYPE').AsInteger<>cbTextTyp.ItemIndex then
+    begin
+      Texts.DataSet.Insert;
+      Texts.DataSet.FieldByName('TEXTTYPE').AsInteger:=cbTextTyp.ItemIndex;
+    end;
   Texts.DataSet.FieldByName('TEXT').AsString := KMemo1.RTF;
+  DontUpdate:=False;
 end;
 
 procedure TfArticleTextFrame.TextsDataChange(Sender: TObject; Field: TField);
 var
   ss: TStringStream;
 begin
+  if DontUpdate then exit;
   if not Assigned(Field) then exit;
   if Field.FieldName='TEXT' then
     begin
+      DontUpdate:=True;
       ss := TStringStream.Create('');
       Data.BlobFieldToStream(Field.DataSet,'TEXT',ss);
       ss.Position:=0;
       KMemo1.LoadFromRTFStream(ss);
       ss.Free;
+      DontUpdate:=False;
     end;
 end;
 
