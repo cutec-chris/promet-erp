@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="25">
+      <Unit0>
+        <Filename Value="audio.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="180"/>
+        <CursorPos X="19" Y="208"/>
+        <UsageCount Value="27"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="components\acs\src\filters\acs_audio.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="220"/>
+        <CursorPos X="3" Y="227"/>
+        <UsageCount Value="13"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="components\acs\src\filters\acs_audiomix.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="37"/>
+        <CursorPos X="27" Y="46"/>
+        <UsageCount Value="14"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="components\acs\src\filters\acs_types.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="25"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="components\acs\src\filters\acs_file.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="182"/>
+        <CursorPos Y="210"/>
+        <UsageCount Value="14"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="components\acs\src\filters\acs_filters.pas"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="14"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="components\acs\src\filters\acs_cdrom.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="145"/>
+        <UsageCount Value="14"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="components\acs\src\filters\acs_classes.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="958"/>
+        <CursorPos Y="986"/>
+        <UsageCount Value="13"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="components\acs\src\filters\acs_converters.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="781"/>
+        <CursorPos X="3" Y="768"/>
+        <UsageCount Value="14"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="components\acs\src\devices\acs_stdaudio.pas"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="39"/>
+        <CursorPos X="31" Y="52"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="components\acs\src\filters\acs_streams.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="61"/>
+        <CursorPos X="32" Y="33"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="components\acs\src\filters\acs_procs.pas"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="14"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="components\acs\src\filters\acs_mixer.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="21" Y="17"/>
+        <UsageCount Value="14"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="components\acs\src\filters\win32\acs_mixer.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="142"/>
+        <CursorPos Y="160"/>
+        <UsageCount Value="14"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="components\acs\src\filters\acs_properties.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="5" Y="12"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="components\acs\src\formats\acs_vorbis.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="13"/>
+        <CursorPos X="12" Y="32"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="components\acs\src\devices\acs_dxaudio.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="10"/>
+        <CursorPos X="71" Y="28"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\paradoxtest1\promet\source\base\base_scripts\uscripteditor.pas"/>
+        <UnitName Value="uScriptEditor"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="32" Y="557"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="components\acs\src\filters\acs_indicator.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="49"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="components\acs\src\formats\acs_allformats.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="8" Y="13"/>
+        <UsageCount Value="13"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="components\acs\src\devices\win32\acs_audio.inc"/>
+        <EditorIndex Value="3"/>
+        <CursorPos Y="194"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="components\acs\packages\acs_reg.pas"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="12"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="C:\Programme\lazarus140\fpc\2.6.4\source\rtl\objpas\classes\classesh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1584"/>
+        <CursorPos X="21" Y="1602"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="components\acs\src\formats\acs_flac.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="941"/>
+        <CursorPos Y="974"/>
+        <UsageCount Value="12"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="..\paradoxtest1\promet\source\base\dbintfs\umasterdata.pas"/>
+        <UnitName Value="uMasterdata"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="751"/>
+        <CursorPos Y="770"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit24>
+    </Units>
+    <JumpHistory Count="21" HistoryIndex="20">
+      <Position1>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="130" TopLine="122"/>
+      </Position1>
+      <Position2>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="131" TopLine="122"/>
+      </Position2>
+      <Position3>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="130" TopLine="122"/>
+      </Position3>
+      <Position4>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="131" TopLine="122"/>
+      </Position4>
+      <Position5>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="130" TopLine="118"/>
+      </Position5>
+      <Position6>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="131" TopLine="118"/>
+      </Position6>
+      <Position7>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="21" Column="22"/>
+      </Position7>
+      <Position8>
+        <Filename Value="components\acs\src\devices\acs_stdaudio.pas"/>
+        <Caret Line="52" Column="31" TopLine="39"/>
+      </Position8>
+      <Position9>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="22" TopLine="4"/>
+      </Position9>
+      <Position10>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="23" Column="25" TopLine="4"/>
+      </Position10>
+      <Position11>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="37" Column="46" TopLine="18"/>
+      </Position11>
+      <Position12>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="48" Column="38" TopLine="29"/>
+      </Position12>
+      <Position13>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="50" Column="21" TopLine="31"/>
+      </Position13>
+      <Position14>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="63" Column="47" TopLine="44"/>
+      </Position14>
+      <Position15>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="74" Column="39" TopLine="55"/>
+      </Position15>
+      <Position16>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="130" TopLine="111"/>
+      </Position16>
+      <Position17>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="131" TopLine="111"/>
+      </Position17>
+      <Position18>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="130" TopLine="111"/>
+      </Position18>
+      <Position19>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="132" TopLine="111"/>
+      </Position19>
+      <Position20>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="133" TopLine="111"/>
+      </Position20>
+      <Position21>
+        <Filename Value="audio.lpr"/>
+        <Caret Line="134" TopLine="111"/>
+      </Position21>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>
