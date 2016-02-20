@@ -36,6 +36,7 @@ type
   private
     FParent : Variant;
     Folder : TMessageList;
+    Connection : TComponent;
     FHighestUID : Int64;
     FLowestUID : Int64;
     FLockedFrom : string;
@@ -868,7 +869,8 @@ begin
   inherited Create(aThread,APath,CS);
   _DBCS := CS;
   InternalLock('Create');
-  Folder := TMessageList.Create(nil);
+  Connection := Data.GetNewConnection;
+  Folder := TMessageList.CreateEx(nil,Data,Connection);
   InternalUnlock('Create');
   RefreshFolder(aThread);
   GetUIDvalidity:=DateTimeToUnixTime(Folder.TimeStamp.AsDateTime) and $FFFF;
@@ -877,6 +879,7 @@ end;
 destructor TPrometMailBox.Destroy;
 begin
   Folder.Free;
+  Connection.Free;
   inherited Destroy;
 end;
 
