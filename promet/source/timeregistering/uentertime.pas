@@ -944,7 +944,7 @@ begin
   if Column.FieldName = 'NOTE' then
     begin
       Editor := InplaceMemo;
-      InplaceMemo.Lines.Text:=Times.FieldByName('NOTE').AsString;
+      InplaceMemo.Blocks.Text:=Times.FieldByName('NOTE').AsString;
       InplaceMemo.OnChange:=@InplaceMemoChange;
     end;
 end;
@@ -955,7 +955,7 @@ begin
 end;
 procedure TfEnterTime.InplaceMemoChange(Sender: TObject);
 begin
-  FList.gList.DataSource.DataSet.FieldByName('NOTE').AsString:=TInplaceMemo(Sender).Lines.Text;
+  FList.gList.DataSource.DataSet.FieldByName('NOTE').AsString:=TInplaceMemo(Sender).Text;
 end;
 procedure TfEnterTime.SetupDB;
 begin

@@ -21,21 +21,25 @@ unit uArticleText;
 interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, DbCtrls, ExtCtrls,
-  Buttons, DBGrids, db, uFilterFrame, uMasterdata, uPrometFramesInplace, kmemo,
-  uExtControls;
+  Buttons, DBGrids, db, uFilterFrame, uMasterdata, uPrometFramesInplace,
+  uEditorToolbar, kmemo, uExtControls;
 type
 
   { TfArticleTextFrame }
 
   TfArticleTextFrame = class(TPrometInplaceFrame)
     Bevel1: TBevel;
+    Bevel2: TBevel;
     cbTextTyp: TComboBox;
     DBNavigator1: TDBNavigator;
     dsTextTypes: TDataSource;
     ExtRotatedLabel1: TExtRotatedLabel;
+    ExtRotatedLabel2: TExtRotatedLabel;
+    fEditorToolbar1: TfEditorToolbar;
     KMemo1: TKMemo;
     Panel1: TPanel;
     Panel2: TPanel;
+    Panel3: TPanel;
     pToolbar: TPanel;
     TextTypes: TDatasource;
     Texts: TDatasource;
@@ -52,7 +56,6 @@ type
   public
     { public declarations }
     constructor Create(AOwner: TComponent); override;
-    destructor Destroy;override;
     property Masterdata : TMasterdata read FMasterdata write SetMasterdata;
     procedure SetRights(Editable : Boolean);override;
   end;
@@ -141,10 +144,7 @@ begin
       cbTextTyp.Items.Add(TextTyp.FieldByName('NAME').AsString);
       TextTyp.DataSet.Next;
     end;
-end;
-destructor TfArticleTextFrame.Destroy;
-begin
-  inherited Destroy;
+  fEditorToolbar1.Editor := KMemo1;
 end;
 
 procedure TfArticleTextFrame.SetRights(Editable: Boolean);

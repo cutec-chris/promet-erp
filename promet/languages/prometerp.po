@@ -873,6 +873,10 @@ msgctxt "TFARTICLETEXTFRAME.EXTROTATEDLABEL1.CAPTION"
 msgid "Navigation"
 msgstr ""
 
+#: tfarticletextframe.extrotatedlabel2.caption
+msgid "Edit"
+msgstr ""
+
 #: tfarticletextframe.ltexttyp.caption
 msgid "Textart"
 msgstr ""

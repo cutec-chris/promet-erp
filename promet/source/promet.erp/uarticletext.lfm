@@ -1,19 +1,19 @@
 inherited fArticleTextFrame: TfArticleTextFrame
-  Height = 413
+  Height = 492
   Width = 570
-  ClientHeight = 413
+  ClientHeight = 492
   ClientWidth = 570
   DesignLeft = 462
   DesignTop = 228
   object pToolbar: TPanel[0]
     Left = 0
-    Height = 413
+    Height = 492
     Top = 0
-    Width = 44
+    Width = 60
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 413
-    ClientWidth = 44
+    ClientHeight = 492
+    ClientWidth = 60
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
@@ -21,18 +21,18 @@ inherited fArticleTextFrame: TfArticleTextFrame
       Left = 0
       Height = 78
       Top = 42
-      Width = 44
+      Width = 60
       Align = alTop
       BorderSpacing.Top = 42
       BevelOuter = bvNone
       ClientHeight = 78
-      ClientWidth = 44
+      ClientWidth = 60
       TabOrder = 0
       object Bevel1: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 52
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -53,7 +53,7 @@ inherited fArticleTextFrame: TfArticleTextFrame
         ParentFont = False
       end
       object DBNavigator1: TDBNavigator
-        Left = 16
+        Left = 32
         Height = 74
         Top = 4
         Width = 25
@@ -73,16 +73,63 @@ inherited fArticleTextFrame: TfArticleTextFrame
         VisibleButtons = [nbEdit, nbPost, nbCancel]
       end
     end
+    object Panel3: TPanel
+      Left = 0
+      Height = 372
+      Top = 120
+      Width = 60
+      Align = alClient
+      BevelOuter = bvNone
+      ClientHeight = 372
+      ClientWidth = 60
+      TabOrder = 1
+      object Bevel2: TBevel
+        Left = 4
+        Height = 4
+        Top = 0
+        Width = 52
+        Align = alTop
+        BorderSpacing.Left = 4
+        BorderSpacing.Right = 4
+        Shape = bsTopLine
+      end
+      object ExtRotatedLabel2: TExtRotatedLabel
+        Left = 0
+        Height = 368
+        Top = 4
+        Width = 14
+        Align = alLeft
+        AutoSize = False
+        Caption = 'Edit'
+        Font.Color = clMedGray
+        Font.Height = 11
+        Font.Orientation = -900
+        ParentColor = False
+        ParentFont = False
+      end
+      inline fEditorToolbar1: TfEditorToolbar
+        Left = 13
+        Height = 368
+        Top = 4
+        Width = 47
+        Align = alRight
+        ClientHeight = 368
+        ClientWidth = 47
+        inherited ToBSecond: TToolBar
+          Width = 47
+        end
+      end
+    end
   end
   object Panel1: TPanel[1]
-    Left = 44
-    Height = 413
+    Left = 60
+    Height = 492
     Top = 0
-    Width = 526
+    Width = 510
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 413
-    ClientWidth = 526
+    ClientHeight = 492
+    ClientWidth = 510
     TabOrder = 1
     object lTexttyp: TLabel
       Left = 0
@@ -96,7 +143,7 @@ inherited fArticleTextFrame: TfArticleTextFrame
       Left = 0
       Height = 27
       Top = 24
-      Width = 520
+      Width = 504
       Anchors = [akTop, akLeft, akRight]
       ItemHeight = 0
       OnSelect = cbTextTypSelect
@@ -105,9 +152,9 @@ inherited fArticleTextFrame: TfArticleTextFrame
     end
     object KMemo1: TKMemo
       Left = 0
-      Height = 352
+      Height = 431
       Top = 56
-      Width = 520
+      Width = 504
       Anchors = [akTop, akLeft, akRight, akBottom]
       ContentPadding.Left = 5
       ContentPadding.Top = 5
