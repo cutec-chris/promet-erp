@@ -45,7 +45,7 @@ Name: "meeting"; Description: "Besprechungsprotokoll"; ExtraDiskSpaceRequired: 1
 ;Name: "archive"; Description: "Archivprogramm (Revisionssichere Archivierung)"; Types: custom
 Name: "tools"; Description: "Kommandozeilenprogramme"; ExtraDiskSpaceRequired: 3721043; Types:full custom
 Name: "xmpp"; Description: "Jabber/XMPP Unterstützung"; ExtraDiskSpaceRequired: 3301907; Types: custom
-;Name: "dav"; Description: "Kalender/Kontaktserver (CalDAV,CardDAV)"; Types: custom
+Name: "dav"; Description: "Kalender/Kontaktserver (CalDAV,CardDAV)"; Types: custom
 Name: "imap"; Description: "e-Mail Server (IMAP)"; ExtraDiskSpaceRequired: 3567635; Types:full custom
 Name: "web"; Description: "Webserver/Applikationsserver"; ExtraDiskSpaceRequired: 3165203; Types: custom
 Name: "mqtt"; Description: "MQTT Unterstützung (IoT)"; ExtraDiskSpaceRequired: 3301907; Types: custom
