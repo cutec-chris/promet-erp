@@ -34,9 +34,9 @@ if [ "x$lazbuild" = "x" ]
   Day=`date +%d`
   export BUILD_DATE=20$Year$Month$Day
   Version=$(cat promet/source/base/version.inc).$(cat promet/source/base/revision.inc)
-  export BUILD_VERSION=$(echo $Version | $SED $'s@\r@@g');
-  if [ "$?" -ne "0" ]; then
-    export BUILD_VERSION=$(echo $Version);
+  export BUILD_VERSION=$(echo $Version);
+  if [ "x$TARGET_OS" != "xwin32" ]; then
+    export BUILD_VERSION=$(echo $Version | $SED $'s@\r@@g');
   fi
   echo "Version to Build:$BUILD_VERSION"
   export OUTPUT_DIR=promet/setup/output/$BUILD_VERSION
