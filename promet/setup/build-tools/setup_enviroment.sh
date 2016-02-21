@@ -35,6 +35,9 @@ if [ "x$lazbuild" = "x" ]
   export BUILD_DATE=20$Year$Month$Day
   Version=$(cat promet/source/base/version.inc).$(cat promet/source/base/revision.inc)
   export BUILD_VERSION=$(echo $Version | $SED $'s@\r@@g');
+  if [ "$?" -ne "0" ]; then
+    export BUILD_VERSION=$(echo $Version);
+  fi
   echo "Version to Build:$BUILD_VERSION"
   export OUTPUT_DIR=promet/setup/output/$BUILD_VERSION
   # Set up widgetset
