@@ -12,9 +12,9 @@ cat ./downloads_linux.txt | \
       -e "s/CREATEDDATE/$Date/g" \
       -e "s/ARCH/$Arch/g" \
   > act_downloads_linux.txt
-#lazbuild ../../source/tools/changewikipage.lpi
+lazbuild ../../source/tools/changewikipage.lpi
 echo Promet-ERP/dowloadplattforms/linux-$Archfpc
 ../../output/x86_64-linux/tools/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/linux-$Archfpc act_downloads_linux.txt
 ../../output/x86_64-linux/tools/changewikipage --mandant=Stora Promet-ERP/changes ../../source/base/changes.txt
-#../../output/x86_64-linux/tools/sync_db --mandant=Stora
+../../output/x86_64-linux/tools/sync_db --mandant=Stora
 cd $basedir
