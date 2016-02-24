@@ -45,7 +45,7 @@ begin
   end;
   StopOnException := True;
   if not Login then raise Exception.Create('Login failed !');
-  aWiki := TWikiList.Create(Self);
+  aWiki := TWikiList.Create(nil);
   aPage := TStringList.Create;
   try
     aPage.LoadFromFile(Params[ParamCount]);
@@ -61,6 +61,7 @@ begin
       aWiki.DataSet.FieldByName('DATA').AsString := aPage.Text;
       aWiki.DataSet.FieldByName('TIMESTAMPD').AsDateTime:=Now();
       aWiki.DataSet.Post;
+      Writeln('Wiki Page "'+Params[ParamCount-1]+'" geändert !');
     end;
   aPage.Free;
   aWiki.Free;
