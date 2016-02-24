@@ -9,6 +9,7 @@ cat downloads_linux.txt | \
   sed -e "s/VERSION/$Version/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > act_downloads_linux.txt
+lazbuild ../../source/tools/changewikipage.lpi
 ../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/linux-$TARGET_CPU act_downloads_linux.txt
 ../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
 ../../output/x86_64-linux/tools/sync_db --mandant=Stora

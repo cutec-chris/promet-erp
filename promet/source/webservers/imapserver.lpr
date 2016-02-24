@@ -72,6 +72,7 @@ type
     MailBoxes : TTree;
     _DbCS : TCriticalSection;
     _LockFrom : TSTcpThread;
+    _LockName : string;
     function GotoMailBox(MailBox: string; Socket: TSTcpThread): Boolean;
   protected
     procedure DoClientCreate(AThread: TSTcpThread); override;
@@ -1372,13 +1373,16 @@ begin
   if not _DBCS.TryEnter then
     begin
       with BaseApplication as IBaseApplication do
-        Debug('already Locked !');
+        Debug('already Locked from '+_LockName+' !');
       for i := 0 to 5000 do
         begin
           sleep(1);
           if _DBCS.TryEnter then
             begin
+              with BaseApplication as IBaseApplication do
+                Debug('  Locking finished '+WhoAmI);
               _LockFrom := Socket;
+              _LockName:=WhoAmI;
               exit;
             end;
         end;
@@ -1386,7 +1390,12 @@ begin
         raise Exception.Create('Lock after 5secs not released !!');
     end
   else
-    _LockFrom := Socket;
+    begin
+      _LockFrom := Socket;
+      _LockName:=WhoAmI;
+      with BaseApplication as IBaseApplication do
+        Debug('  Locking finished '+WhoAmI);
+    end;
 end;
 
 procedure TPrometImapServer.InternalUnlock(WhoAmI: string; Socket: TSTcpThread);
@@ -1475,28 +1484,32 @@ begin
   Result := False;
   IMAPServer.InternalLock('Login',aSocket);
   try
-  Data.Users.DataSet.Refresh;
-  with Self as IBaseDBInterface do
-    begin
-      if Data.Users.DataSet.Locate('LOGINNAME',aUser,[loCaseInsensitive]) or Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
+    try
+      Data.Users.DataSet.Refresh;
+      with Self as IBaseDBInterface do
         begin
-          if (Data.Users.CheckPasswort(aPasswort)) then
-            Result := True;
+          if Data.Users.DataSet.Locate('LOGINNAME',aUser,[loCaseInsensitive]) or Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
+            begin
+              if (Data.Users.CheckPasswort(aPasswort)) then
+                Result := True;
+            end;
         end;
-    end;
-  with Self as IBaseApplication do
-    begin
+      with Self as IBaseApplication do
+        begin
+          if Result then
+            Log(IntToStr(TSTcpThread(aSocket).Id)+':Login:'+aUser)
+          else
+            Error('Login failed:'+aUser);
+        end;
       if Result then
-        Log(IntToStr(TSTcpThread(aSocket).Id)+':Login:'+aUser)
-      else
-        Error('Login failed:'+aUser);
+        begin
+          Data.RefreshUsersFilter;
+        end;
+      if Result then
+        aSocket.User:=Data.Users.Accountno.AsString;
+    except
+      Result := False;
     end;
-  if Result then
-    begin
-      Data.RefreshUsersFilter;
-    end;
-  if Result then
-    aSocket.User:=Data.Users.Accountno.AsString;
   finally
     IMAPServer.InternalUnlock('Login',aSocket);
   end;
