@@ -146,6 +146,7 @@ type
     tbMenue: TToolButton;
     tbTreeVisible: TSpeedButton;
     tbTreeVisible1: TSpeedButton;
+    SearchTimer: TTimer;
     ToolBar1: TToolBar;
     ToolBar2: TToolBar;
     ToolButton1: TToolButton;
@@ -261,6 +262,7 @@ type
     function OpenOption(aLink: string; Sender: TObject): Boolean;
     procedure pmHistoryPopup(Sender: TObject);
     procedure DoRefreshActiveTab(Sender: TObject);
+    procedure SearchTimerTimer(Sender: TObject);
     procedure SenderTfFilterDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure SenderTfFiltergListDrawColumnCell(Sender: TObject;
@@ -2799,16 +2801,7 @@ end;
 
 procedure TfMain.eSearchChange(Sender: TObject);
 begin
-  if eSearch.Text<>strSearchText then
-    begin
-      fSearch.SetLanguage;
-      fSearch.LoadOptions('MAIS');
-      fSearch.OnItemFound:=@fSearchItemFound;
-      fSearch.OnSearchDone:=@fSearchSearchDone;
-      tvSearch.Items.Clear;
-      tvSearch.Cursor:=crHourGlass;
-      fSearch.eContains.Text:=eSearch.Text;
-    end;
+  SearchTimer.Enabled:=True;
 end;
 
 procedure TfMain.eSearchEnter(Sender: TObject);
@@ -4194,9 +4187,11 @@ procedure TfMain.fSearchItemFound(aIdent: string; aName: string;
 var
   bItem: TTreeNode;
 begin
-  bItem := tvSearch.Items.AddChildObject(nil,aName,TTreeEntry.Create);
+  bItem := tvSearch.Items.AddChildObject(nil,aName+' ('+aIdent+')',TTreeEntry.Create);
   TTreeEntry(bItem.Data).Link:=aLink;
   TTreeEntry(bItem.Data).Typ:=etLink;
+  if aStatus<>'' then
+    bItem.Text:=bItem.Text+' ['+aStatus+']';
   bItem.ImageIndex:=Data.GetLinkIcon(aLink,True);
   bItem.SelectedIndex:=bItem.ImageIndex;
 end;
@@ -4403,6 +4398,22 @@ begin
   except
   end;
 end;
+
+procedure TfMain.SearchTimerTimer(Sender: TObject);
+begin
+  SearchTimer.Enabled:=False;
+  if eSearch.Text<>strSearchText then
+    begin
+      fSearch.SetLanguage;
+      fSearch.LoadOptions('MAIS');
+      fSearch.OnItemFound:=@fSearchItemFound;
+      fSearch.OnSearchDone:=@fSearchSearchDone;
+      tvSearch.Items.Clear;
+      tvSearch.Cursor:=crHourGlass;
+      fSearch.eContains.Text:=eSearch.Text;
+    end;
+end;
+
 procedure TfMain.SenderTfFilterDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin

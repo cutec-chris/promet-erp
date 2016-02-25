@@ -17,7 +17,7 @@ object fMain: TfMain
   OnShow = FormShow
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '1.5'
+  LCLVersion = '1.4.4.0'
   object spTree: TSplitter
     Left = 283
     Height = 563
@@ -974,5 +974,12 @@ object fMain: TfMain
     OnTimer = IPCTimerTimer
     left = 32
     top = 176
+  end
+  object SearchTimer: TTimer
+    Enabled = False
+    Interval = 300
+    OnTimer = SearchTimerTimer
+    left = 176
+    top = 88
   end
 end
