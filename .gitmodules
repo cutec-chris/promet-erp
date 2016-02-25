@@ -9,7 +9,7 @@
 	url = https://github.com/tcs-ulli/tvplanit
 [submodule "promet/source/components/besen"]
 	path = promet/source/components/besen
-	url = https://github.com/tcs-ulli/besen
+	url = https://github.com/tcs-ulli/besen.git
 [submodule "promet/source/components/TZMSQL"]
 	path = promet/source/components/TZMSQL
 	url = https://github.com/tcs-ulli/tzmsql
