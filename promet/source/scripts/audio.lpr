@@ -13,23 +13,39 @@ var
   FileLoaded : Boolean;
   Input : TAcsAudioIn;
   Indicator : TAcsVolumeQuery;
-  NullOutput : TAcsNullOut;
+  NullOutput : TAcsNULLOut;
 
 procedure CreateClasses;
 begin
   if not Assigned(Output) then
-    Output := TAcsAudioOut.Create(nil);
+    begin
+      Output := TAcsAudioOut.Create(nil);
+      Output.Driver:='DirectSound';
+    end;
   if not Assigned(FileInput) then
-    FileInput := TAcsFileIn.Create(nil);
-  Output.Input:=FileInput;
+    begin
+      FileInput := TAcsFileIn.Create(nil);
+      FileInput.Loop:=False;
+      Output.Input:=FileInput;
+    end;
   if not Assigned(Input) then
-    Input := TAcsAudioIn.Create(nil);
+    begin
+      Input := TAcsAudioIn.Create(nil);
+      Input.Driver:='Wavemapper';
+    end;
   if not Assigned(Indicator) then
-    Indicator := TAcsVolumeQuery.Create(nil);
-  Indicator.Input := Input;
+    begin
+      Indicator := TAcsVolumeQuery.Create(nil);
+      Indicator.Input := Input;
+    end;
   if not Assigned(NullOutput) then
-    NullOutput := TAcsNULLOut.Create(nil);
-  NullOutput.Input := Indicator;
+    begin
+      NullOutput := TAcsNULLOut.Create(nil);
+      NullOutput.Input := Indicator;
+      //NullOutput.Input := Input;
+      NullOutput.BufferSize:=$10;
+      //NullOutput.FileName:='c:\tmp.wav';
+    end;
 end;
 
 function ListInputs : PChar;stdcall;
@@ -121,9 +137,14 @@ begin
   Result := NullOutput.Active;
 end;
 
-function GetRecordVolume : Double;stdcall;
+function GetRecordVolumeDB : Double;stdcall;
 begin
   Result := (Indicator.dbLeft+Indicator.dbRight)/2;
+end;
+
+function GetRecordVolume : Word;stdcall;
+begin
+  Result := round((Indicator.volLeft+Indicator.volRight)/2);
 end;
 
 function StopRecording : Boolean;stdcall;
@@ -189,7 +210,8 @@ begin
        +#10+'function Stop : Boolean;stdcall;'
        +#10+'function StartRecording : Boolean;stdcall;'
        +#10+'function IsRecording : Boolean;stdcall;'
-       +#10+'function GetRecordVolume : Double;stdcall;'
+       +#10+'function GetRecordVolume : Word;stdcall;'
+       +#10+'function GetRecordVolumeDB : Double;stdcall;'
        +#10+'function StopRecording : Boolean;stdcall;'
             ;
 end;
@@ -206,6 +228,7 @@ exports
   StartRecording,
   IsRecording,
   GetRecordVolume,
+  GetRecordVolumeDB,
   StopRecording,
 
   ScriptCleanup,
