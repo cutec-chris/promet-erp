@@ -87,7 +87,7 @@ resourcestring
 implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
-  uprometpythonscript,genpascalscript,Synautil;
+  uprometpythonscript,genpascalscript,Synautil,genscript;
 
 procedure TfMain.DoCreate;
 begin
@@ -278,7 +278,7 @@ end;
 
 procedure TfMain.tvStepSelectionChanged(Sender: TObject);
 begin
-  if tvStep.Selected<>nil then
+  if (tvStep.Selected<>nil) and (FAutomation.tvStep.Enabled) then
     FAutomation.tvStep.Selected := FAutomation.tvStep.Items[tvStep.Selected.AbsoluteIndex];
 end;
 
