@@ -1,15 +1,15 @@
 inherited fSpreetsheet: TfSpreetsheet
   Height = 639
-  Width = 885
+  Width = 928
   ClientHeight = 639
-  ClientWidth = 885
+  ClientWidth = 928
   DesignLeft = 404
   DesignTop = 145
   object FormatToolBar: TToolBar[0]
     Left = 0
     Height = 30
     Top = 0
-    Width = 885
+    Width = 928
     ButtonHeight = 23
     Caption = 'FormatToolBar'
     Images = ImageList
@@ -194,7 +194,7 @@ inherited fSpreetsheet: TfSpreetsheet
     Left = 0
     Height = 26
     Top = 30
-    Width = 885
+    Width = 928
     Caption = 'FormulaToolBar'
     Constraints.MinHeight = 26
     TabOrder = 1
@@ -208,7 +208,7 @@ inherited fSpreetsheet: TfSpreetsheet
       Left = 52
       Height = 24
       Top = 2
-      Width = 833
+      Width = 876
       Align = alClient
       OnEditingDone = MemoFormulaEditingDone
       TabOrder = 1
@@ -241,7 +241,7 @@ inherited fSpreetsheet: TfSpreetsheet
     Left = 0
     Height = 578
     Top = 61
-    Width = 885
+    Width = 928
     OnChange = TabControlChange
     TabIndex = 0
     Tabs.Strings = (
@@ -253,7 +253,7 @@ inherited fSpreetsheet: TfSpreetsheet
       Left = 2
       Height = 555
       Top = 21
-      Width = 881
+      Width = 924
       AutoCalc = True
       FrozenCols = 0
       FrozenRows = 0
@@ -277,7 +277,7 @@ inherited fSpreetsheet: TfSpreetsheet
     Left = 0
     Height = 5
     Top = 56
-    Width = 885
+    Width = 928
     Align = alTop
     ResizeAnchor = akTop
   end

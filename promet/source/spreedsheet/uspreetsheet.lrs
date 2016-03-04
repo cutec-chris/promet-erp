@@ -1,10 +1,10 @@
 { This is an automatically generated lazarus resource file }
 
 LazarusResources.Add('TfSpreetsheet','FORMDATA',[
-  'TPF0'#241#13'TfSpreetsheet'#12'fSpreetsheet'#6'Height'#3#127#2#5'Width'#3'u'
-  +#3#12'ClientHeight'#3#127#2#11'ClientWidth'#3'u'#3#10'DesignLeft'#3#148#1#9
+  'TPF0'#241#13'TfSpreetsheet'#12'fSpreetsheet'#6'Height'#3#127#2#5'Width'#3#160
+  +#3#12'ClientHeight'#3#127#2#11'ClientWidth'#3#160#3#10'DesignLeft'#3#148#1#9
   +'DesignTop'#3#145#0#0#242#2#0#8'TToolBar'#13'FormatToolBar'#4'Left'#2#0#6'He'
-  +'ight'#2#30#3'Top'#2#0#5'Width'#3'u'#3#12'ButtonHeight'#2#23#7'Caption'#6#13
+  +'ight'#2#30#3'Top'#2#0#5'Width'#3#160#3#12'ButtonHeight'#2#23#7'Caption'#6#13
   +'FormatToolBar'#6'Images'#7#9'ImageList'#8'TabOrder'#2#0#0#11'TToolButton'#12
   +'ToolButton10'#4'Left'#3'D'#1#3'Top'#2#2#6'Action'#7#11'AcLeftAlign'#4'Wrap'
   +#9#0#0#11'TToolButton'#12'ToolButton12'#4'Left'#3'['#1#3'Top'#2#2#6'Action'#7
@@ -49,10 +49,10 @@ LazarusResources.Add('TfSpreetsheet','FORMDATA',[
   +'t'#2#1#3'Top'#2#2#6'Action'#7#12'AcCopyFormat'#0#0#11'TToolButton'#12'ToolB'
   +'utton28'#4'Left'#3#251#1#3'Top'#2#2#6'Action'#7#12'AcMergeCells'#0#0#0#242#2
   +#1#8'TToolBar'#14'FormulaToolBar'#4'Left'#2#0#6'Height'#2#26#3'Top'#2#30#5'W'
-  +'idth'#3'u'#3#7'Caption'#6#14'FormulaToolBar'#21'Constraints.MinHeight'#2#26
+  +'idth'#3#160#3#7'Caption'#6#14'FormulaToolBar'#21'Constraints.MinHeight'#2#26
   +#8'TabOrder'#2#1#0#9'TSplitter'#22'FormulaToolbarSplitter'#4'Left'#2'/'#6'He'
   +'ight'#2#24#3'Top'#2#2#5'Width'#2#5#0#0#5'TMemo'#11'FormulaMemo'#4'Left'#2'4'
-  +#6'Height'#2#24#3'Top'#2#2#5'Width'#3'A'#3#5'Align'#7#8'alClient'#13'OnEditi'
+  +#6'Height'#2#24#3'Top'#2#2#5'Width'#3'l'#3#5'Align'#7#8'alClient'#13'OnEditi'
   +'ngDone'#7#22'MemoFormulaEditingDone'#8'TabOrder'#2#1#11'WantReturns'#8#0#0#6
   +'TPanel'#12'AddressPanel'#4'Left'#2#1#6'Height'#2#22#3'Top'#2#2#5'Width'#2'.'
   +#5'Align'#7#6'alLeft'#20'BorderSpacing.Bottom'#2#2#10'BevelOuter'#7#6'bvNone'
@@ -60,39 +60,39 @@ LazarusResources.Add('TfSpreetsheet','FORMDATA',[
   +'CellAddress'#4'Left'#2#0#6'Height'#2#21#3'Top'#2#0#5'Width'#2'.'#5'Align'#7
   +#5'alTop'#9'Alignment'#7#8'taCenter'#13'OnEditingDone'#7#24'EdCellAddressEdi'
   +'tingDone'#8'TabOrder'#2#0#0#0#0#0#242#2#2#11'TTabControl'#10'TabControl'#4
-  +'Left'#2#0#6'Height'#3'B'#2#3'Top'#2'='#5'Width'#3'u'#3#8'OnChange'#7#16'Tab'
-  +'ControlChange'#8'TabIndex'#2#0#12'Tabs.Strings'#1#6#7'New Tab'#0#5'Align'#7
+  +'Left'#2#0#6'Height'#3'B'#2#3'Top'#2'='#5'Width'#3#160#3#8'OnChange'#7#16'Ta'
+  +'bControlChange'#8'TabIndex'#2#0#12'Tabs.Strings'#1#6#7'New Tab'#0#5'Align'#7
   +#8'alClient'#8'TabOrder'#2#2#0#15'TsWorksheetGrid'#13'WorksheetGrid'#4'Left'
-  +#2#2#6'Height'#3'+'#2#3'Top'#2#21#5'Width'#3'q'#3#8'AutoCalc'#9#10'FrozenCol'
-  +'s'#2#0#10'FrozenRows'#2#0#12'ReadFormulas'#8#5'Align'#7#8'alClient'#11'Auto'
-  ,'Advance'#7#6'aaDown'#11'BorderStyle'#7#6'bsNone'#8'ColCount'#2#27#16'MouseW'
-  +'heelOption'#7#6'mwGrid'#7'Options'#11#15'goFixedVertLine'#15'goFixedHorzLin'
-  +'e'#10'goVertLine'#10'goHorzLine'#13'goRangeSelect'#11'goRowSizing'#11'goCol'
-  +'Sizing'#9'goEditing'#15'goThumbTracking'#18'goDblClickAutoSize'#19'goHeader'
-  +'HotTracking'#18'goHeaderPushedLook'#16'goFixedColSizing'#11'goCellHints'#0#8
-  +'RowCount'#2'e'#8'TabOrder'#2#1#10'TitleStyle'#7#8'tsNative'#7'OnClick'#7#18
-  +'WorksheetGridClick'#13'OnHeaderClick'#7#24'WorksheetGridHeaderClick'#11'OnS'
-  +'election'#7#22'WorksheetGridSelection'#0#0#0#242#2#3#9'TSplitter'#9'Splitte'
-  +'r1'#6'Cursor'#7#8'crVSplit'#4'Left'#2#0#6'Height'#2#5#3'Top'#2'8'#5'Width'#3
-  +'u'#3#5'Align'#7#5'alTop'#12'ResizeAnchor'#7#5'akTop'#0#0#242#2#4#11'TOpenDi'
-  +'alog'#10'OpenDialog'#10'DefaultExt'#6#4'.xls'#6'Filter'#6#229'Excel spreads'
-  +'heet (*.xls)|*.xls|Excel XML spreadsheet (*.xlsx)|*.xlsx|LibreOffice/OpenOf'
-  +'fice spreadsheet (*.ods)|*.ods|Comma-delimited files (*.csv)|*.csv|Wikitabl'
-  +'e (pipes) (.wikitable_pipes)|*.wikitable_pipes|All files (*.*)|*.*'#7'Optio'
-  +'ns'#11#20'ofExtensionDifferent'#14'ofEnableSizing'#12'ofViewDetail'#0#4'lef'
-  +'t'#3#184#0#3'top'#3#200#0#0#0#242#2#5#11'TSaveDialog'#10'SaveDialog'#10'Def'
-  +'aultExt'#6#4'.xls'#6'Filter'#12'5'#1#0#0'Excel 97-2003 spreadsheet (*.xls)|'
-  +'*.xls|Excel 5.0/95 spreadsheet (*.xls)|*.xls|Excel 2 spreadsheet (*.xls)|*.'
-  +'xls|Excel 2007+  XML spreadsheet (*.xlsx)|*.xlsx|LibreOffice/OpenOffice spr'
-  +'eadsheet (*.ods)|*.ods|Comma-delimited file (*.csv)|*.csv|Wikitable (wikime'
-  +'dia) (*.wikitable_wikimedia)|*.wikitable_wikimedia'#7'Options'#11#17'ofOver'
-  +'writePrompt'#20'ofExtensionDifferent'#14'ofEnableSizing'#12'ofViewDetail'#0
-  +#4'left'#3#184#0#3'top'#3#8#1#0#0#242#2#6#10'TImageList'#9'ImageList'#4'left'
-  +#3#16#1#3'top'#3#8#1#6'Bitmap'#10#14#172#0#0'Li+'#0#0#0#16#0#0#0#16#0#0#0#255
-  +#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255
-  +#255#0#234#195#157#255#230#191#150#255#228#187#146#255#228#187#146#255#209
-  +#160'l'#245#208#158'm'#246#204#150'_'#218#196'yB~'#178'g<'#9#255#255#255#0
+  +#2#2#6'Height'#3'+'#2#3'Top'#2#21#5'Width'#3#156#3#8'AutoCalc'#9#10'FrozenCo'
+  +'ls'#2#0#10'FrozenRows'#2#0#12'ReadFormulas'#8#5'Align'#7#8'alClient'#11'Aut'
+  ,'oAdvance'#7#6'aaDown'#11'BorderStyle'#7#6'bsNone'#8'ColCount'#2#27#16'Mouse'
+  +'WheelOption'#7#6'mwGrid'#7'Options'#11#15'goFixedVertLine'#15'goFixedHorzLi'
+  +'ne'#10'goVertLine'#10'goHorzLine'#13'goRangeSelect'#11'goRowSizing'#11'goCo'
+  +'lSizing'#9'goEditing'#15'goThumbTracking'#18'goDblClickAutoSize'#19'goHeade'
+  +'rHotTracking'#18'goHeaderPushedLook'#16'goFixedColSizing'#11'goCellHints'#0
+  +#8'RowCount'#2'e'#8'TabOrder'#2#1#10'TitleStyle'#7#8'tsNative'#7'OnClick'#7
+  +#18'WorksheetGridClick'#13'OnHeaderClick'#7#24'WorksheetGridHeaderClick'#11
+  +'OnSelection'#7#22'WorksheetGridSelection'#0#0#0#242#2#3#9'TSplitter'#9'Spli'
+  +'tter1'#6'Cursor'#7#8'crVSplit'#4'Left'#2#0#6'Height'#2#5#3'Top'#2'8'#5'Widt'
+  +'h'#3#160#3#5'Align'#7#5'alTop'#12'ResizeAnchor'#7#5'akTop'#0#0#242#2#4#11'T'
+  +'OpenDialog'#10'OpenDialog'#10'DefaultExt'#6#4'.xls'#6'Filter'#6#229'Excel s'
+  +'preadsheet (*.xls)|*.xls|Excel XML spreadsheet (*.xlsx)|*.xlsx|LibreOffice/'
+  +'OpenOffice spreadsheet (*.ods)|*.ods|Comma-delimited files (*.csv)|*.csv|Wi'
+  +'kitable (pipes) (.wikitable_pipes)|*.wikitable_pipes|All files (*.*)|*.*'#7
+  +'Options'#11#20'ofExtensionDifferent'#14'ofEnableSizing'#12'ofViewDetail'#0#4
+  +'left'#3#184#0#3'top'#3#200#0#0#0#242#2#5#11'TSaveDialog'#10'SaveDialog'#10
+  +'DefaultExt'#6#4'.xls'#6'Filter'#12'5'#1#0#0'Excel 97-2003 spreadsheet (*.xl'
+  +'s)|*.xls|Excel 5.0/95 spreadsheet (*.xls)|*.xls|Excel 2 spreadsheet (*.xls)'
+  +'|*.xls|Excel 2007+  XML spreadsheet (*.xlsx)|*.xlsx|LibreOffice/OpenOffice '
+  +'spreadsheet (*.ods)|*.ods|Comma-delimited file (*.csv)|*.csv|Wikitable (wik'
+  +'imedia) (*.wikitable_wikimedia)|*.wikitable_wikimedia'#7'Options'#11#17'ofO'
+  +'verwritePrompt'#20'ofExtensionDifferent'#14'ofEnableSizing'#12'ofViewDetail'
+  +#0#4'left'#3#184#0#3'top'#3#8#1#0#0#242#2#6#10'TImageList'#9'ImageList'#4'le'
+  +'ft'#3#16#1#3'top'#3#8#1#6'Bitmap'#10#14#172#0#0'Li+'#0#0#0#16#0#0#0#16#0#0#0
   +#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
+  +#255#255#0#234#195#157#255#230#191#150#255#228#187#146#255#228#187#146#255
+  +#209#160'l'#245#208#158'm'#246#204#150'_'#218#196'yB~'#178'g<'#9#255#255#255
+  +#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255
   +#255#255#0#229#190#150#255#255#255#254#255#253#243#233#255#253#243#234#255
   +#252#242#232#255#250#239#227#255#250#242#231#255#234#187#136#255#207#133'U'
   +#179#180'i='#12#255#255#255#0#255#255#255#0#255#255#255#0#255#255#255#0#255

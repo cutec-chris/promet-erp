@@ -5,7 +5,7 @@ uses
   Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, DBGrids,
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uExtControls,
   uIntfStrConsts, db, memds, FileUtil, Translations, md5,
-  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,uspreedsheet;
+  ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage,uspreadsheet;
 type
   TfMain = class(TForm)
     acLogin: TAction;
@@ -63,6 +63,9 @@ begin
   acLogout.Enabled:=True;
 
   aSheet := TfSpreetsheet.Create(Self);
+  aSheet.DataSet := TSpreedsheet.Create(nil);
+  aSheet.DataSet.Insert;
+  aSheet.DoOpen;
   aSheet.DisableAutoSizing;
   aSheet.Parent := tsHelp;
   aSheet.Align:=alClient;

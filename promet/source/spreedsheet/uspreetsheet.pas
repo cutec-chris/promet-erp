@@ -348,12 +348,12 @@ type
     procedure UpdateVertAlignmentActions;
     procedure UpdateWordwraps;
 
-    procedure DoOpen;
     procedure WorksheetGridWorkbookReadCellData(Sender: TObject; ARow,
       ACol: Cardinal; const ADataCell: PCell);
     procedure WorksheetGridWorkbookWriteCellData(Sender: TObject; ARow,
       ACol: Cardinal; var AValue: variant; var AStyleCell: PCell);
   public
+    procedure DoOpen;
     procedure BeforeRun;
     property Name : string read FSpName write SetName;
     procedure DefineMenuEntrys; override;
@@ -368,7 +368,7 @@ implementation
 uses
   TypInfo, LCLIntf, LCLType, LCLVersion, fpcanvas, Buttons,
   fpsutils, fpscsv, fpsNumFormat,usortparamsform,uformatsettingsform,
-  uBaseVisualApplication,uData,uIntfStrConsts;
+  uBaseVisualApplication,uData,uIntfStrConsts,uspreadsheet;
 
 resourcestring
   strNewSpreetsheet                           = 'Neue Tabelle';
@@ -1090,10 +1090,6 @@ begin
     end;
 
     // Update user interface
-    Caption := Format('spready - %s (%s)', [
-      AFilename,
-      GetFileFormatName(WorksheetGrid.Workbook.FileFormat)
-    ]);
     AcShowGridLines.Checked := WorksheetGrid.ShowGridLines;
     AcShowHeaders.Checked := WorksheetGrid.ShowHeaders;
     EdFrozenCols.Value := WorksheetGrid.FrozenCols;
@@ -1320,41 +1316,33 @@ begin
   WorksheetGrid.Workbook.Options := WorksheetGrid.Workbook.Options + [boVirtualMode];
 
   // Define number of columns - we want a column for each field
-  WorksheetGrid.Workbook.VirtualColCount := MyDatabase.FieldCount;
+  WorksheetGrid.Workbook.VirtualColCount := DataSet.DataSet.FieldCount;
 
   // Define number of rows - we want every record, plus 1 row for the title row
-  WorksheetGrid.Workbook.VirtualRowCount := MyDatabase.RecordCount + 1;
+  WorksheetGrid.Workbook.VirtualRowCount := DataSet.DataSet.RecordCount + 1;
 end;
 
 procedure TfSpreetsheet.WorksheetGridWorkbookReadCellData(Sender: TObject;
   ARow, ACol: Cardinal; const ADataCell: PCell);
+var
+  aCell: TSpreedsheetCell;
 begin
-
+  aCell := TSpreedsheet(DataSet).Cells[ARow,ACol];
+  ADataCell^.UTF8StringValue:=TSpreedsheet(DataSet).FieldByName('CONTENT').AsString;
 end;
 
 procedure TfSpreetsheet.WorksheetGridWorkbookWriteCellData(Sender: TObject;
   ARow, ACol: Cardinal; var AValue: variant; var AStyleCell: PCell);
+var
+  aCell: TSpreedsheetCell;
 begin
-{
-MyWorksheet.WriteFontStyle(0, 0, [fssBold]);
-MyWorksheet.WriteBackgroundColor(0, 0, scGray);
-
-
-if ARow = 0 then begin
-   // The value to be written to the spreadsheet is the field name.
-   AValue := MyDatabase.Fields[ACol].FieldName;
-   // Formatting is defined in the HeaderTemplateCell.
-   AStyleCell := MyHeaderTemplateCell;
-   // Move to first record
-   MyDatabase.First;
- end else begin
-   // The value to be written to the spreadsheet is the record value in the field corresponding to the column.
-   // No special requirements on formatting --> leave AStyleCell at its default (nil).
-   AValue := MyDatabase.Fields[ACol].AsVariant;
-   // Advance database cursor if last field of record has been written
-   if ACol = MyDatabase.FieldCount-1 then MyDatabase.Next;
- end;
- }
+  aCell := TSpreedsheet(DataSet).Cells[ARow,ACol];
+  if ARow > 0 then
+   begin
+     // The value to be written to the spreadsheet is the record value in the field corresponding to the column.
+     // No special requirements on formatting --> leave AStyleCell at its default (nil).
+     AValue := aCell.FieldByName('CONTENT').AsVariant;
+   end;
 end;
 
 procedure TfSpreetsheet.WorksheetGridSelection(Sender: TObject; aCol,

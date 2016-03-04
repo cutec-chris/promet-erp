@@ -798,6 +798,7 @@ object fMain: TfMain
     end
     object acCloseTab: TAction
       Caption = 'Tab Schliessen'
+      Hint = 'Schließt das aktuelle Tab'
       ImageIndex = 75
       OnExecute = acCloseTabExecute
       ShortCut = 16471
@@ -869,6 +870,7 @@ object fMain: TfMain
     end
     object acWindowize: TAction
       Caption = 'acWindowize'
+      Hint = 'aktuelles Tab in separates Fenster wandeln'
       OnExecute = acWindowizeExecute
     end
     object acStartPage: TAction

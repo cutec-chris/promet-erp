@@ -4,17 +4,17 @@ object fMain: TfMain
   Top = 106
   Width = 993
   Caption = 'Promet Spreetsheet'
-  ClientHeight = 693
+  ClientHeight = 694
   ClientWidth = 993
   Color = clWindow
   Menu = MainMenu
   OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.7'
+  LCLVersion = '1.4.4.0'
   object Splitter1: TSplitter
     Left = 988
-    Height = 693
+    Height = 694
     Top = 0
     Width = 5
     Align = alRight
@@ -22,7 +22,7 @@ object fMain: TfMain
   end
   object tvMain: TPanel
     Left = 0
-    Height = 693
+    Height = 694
     Top = 0
     Width = 328
     Align = alLeft
@@ -31,14 +31,14 @@ object fMain: TfMain
   end
   object Splitter2: TSplitter
     Left = 328
-    Height = 693
+    Height = 694
     Top = 0
     Width = 5
     ResizeStyle = rsLine
   end
   object pcPages: TExtMenuPageControl
     Left = 333
-    Height = 693
+    Height = 694
     Top = 0
     Width = 655
     ActivePage = tsHelp
