@@ -1317,7 +1317,7 @@ begin
   WorksheetGrid.Workbook.OnReadCellData:=@WorksheetGridWorkbookReadCellData;
   WorksheetGrid.Workbook.OnWriteCellData:=@WorksheetGridWorkbookWriteCellData;
   // Enter virtual mode
-  WorksheetGrid.Workbook.Options := MyWorkbook.Options + [boVirtualMode];
+  WorksheetGrid.Workbook.Options := WorksheetGrid.Workbook.Options + [boVirtualMode];
 
   // Define number of columns - we want a column for each field
   WorksheetGrid.Workbook.VirtualColCount := MyDatabase.FieldCount;

@@ -32,21 +32,21 @@ inherited fSpreetsheet: TfSpreetsheet
     end
     object FontComboBox: TComboBox
       Left = 52
-      Height = 23
+      Height = 21
       Top = 2
       Width = 127
       AutoSize = False
-      ItemHeight = 0
+      ItemHeight = 13
       OnSelect = FontComboBoxSelect
       TabOrder = 0
     end
     object FontSizeComboBox: TComboBox
       Left = 179
-      Height = 23
+      Height = 21
       Top = 2
       Width = 48
       AutoSize = False
-      ItemHeight = 0
+      ItemHeight = 13
       Items.Strings = (
         '8'
         '9'
@@ -135,7 +135,7 @@ inherited fSpreetsheet: TfSpreetsheet
     end
     object CbBackgroundColor: TColorBox
       Left = 530
-      Height = 23
+      Height = 26
       Top = 2
       Width = 149
       NoneColorColor = clDefault
@@ -206,7 +206,7 @@ inherited fSpreetsheet: TfSpreetsheet
     end
     object FormulaMemo: TMemo
       Left = 52
-      Height = 34
+      Height = 24
       Top = 2
       Width = 833
       Align = alClient
@@ -227,7 +227,7 @@ inherited fSpreetsheet: TfSpreetsheet
       TabOrder = 2
       object EdCellAddress: TEdit
         Left = 0
-        Height = 25
+        Height = 21
         Top = 0
         Width = 46
         Align = alTop
@@ -251,8 +251,8 @@ inherited fSpreetsheet: TfSpreetsheet
     TabOrder = 2
     object WorksheetGrid: TsWorksheetGrid
       Left = 2
-      Height = 546
-      Top = 30
+      Height = 555
+      Top = 21
       Width = 881
       AutoCalc = True
       FrozenCols = 0
