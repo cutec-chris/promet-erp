@@ -109,3 +109,6 @@
 [submodule "promet/source/components/kcontrols"]
 	path = promet/source/components/kcontrols
 	url = https://github.com/cutec-chris/kcontrols.git
+[submodule "promet/source/components/ecc"]
+	path = promet/source/components/ecc
+	url = https://github.com/cutec-chris/Eye-Candy_Controls
