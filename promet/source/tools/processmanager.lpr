@@ -26,7 +26,8 @@ uses
   Classes, SysUtils, CustApp, uBaseDBInterface,
   uData,Process, db, uSystemMessage,
   uPowerState, pcmdprometapp,math,uBaseCustomApplication,
-  uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts;
+  uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts,
+  uprometmsgnetwork;
 type
   { TProcessManager }
 
@@ -98,14 +99,21 @@ begin
   Data.ProcessClient.Processes.Open;
   Data.ProcessClient.Processes.Parameters.Open;
   aTime := Now();
+  i := 0;
   while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do
     begin
-      if not Data.ProcessClient.ProcessAll(aSystem) then
+      if i > 10 then
         begin
-          Terminate;
-          exit;
+          i := 0;
+          if not Data.ProcessClient.ProcessAll(aSystem) then
+            begin
+              Terminate;
+              exit;
+            end;
         end;
-      sleep(6000);
+      while CheckSynchronize(50) do;
+      sleep(600);
+      inc(i);
     end;
   // stop program loop
   Terminate;
