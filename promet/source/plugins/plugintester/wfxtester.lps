@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="8">
+    <Units Count="9">
       <Unit0>
         <Filename Value="wfxtester.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -20,9 +20,8 @@
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="umain"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="63"/>
+        <TopLine Value="61"/>
         <CursorPos Y="118"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
@@ -51,8 +50,7 @@
       </Unit4>
       <Unit5>
         <Filename Value="..\..\..\..\general\src\Utils.pas"/>
-        <UnitName Value="Utils"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="473"/>
         <CursorPos Y="498"/>
         <UsageCount Value="10"/>
@@ -60,8 +58,7 @@
       </Unit5>
       <Unit6>
         <Filename Value="..\..\..\..\general\src\uminiconvencoding.pas"/>
-        <UnitName Value="uminiconvencoding"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="7155"/>
         <CursorPos Y="7175"/>
         <UsageCount Value="10"/>
@@ -69,14 +66,19 @@
       </Unit6>
       <Unit7>
         <Filename Value="..\..\..\..\..\..\lazarus\lcl\include\control.inc"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="2712"/>
         <CursorPos Y="2726"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit7>
+      <Unit8>
+        <Filename Value="..\..\base\dbintfs\uprometmsgnetwork.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="274"/>
+        <UsageCount Value="10"/>
+      </Unit8>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="..\..\..\..\general\src\Utils.pas"/>
         <Caret Line="485" TopLine="473"/>
@@ -162,41 +164,37 @@
         <Caret Line="122" TopLine="98"/>
       </Position21>
       <Position22>
-        <Filename Value="..\..\..\..\..\..\lazarus\lcl\include\control.inc"/>
-        <Caret Line="2726" TopLine="2712"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="142" TopLine="127"/>
       </Position22>
       <Position23>
         <Filename Value="umain.pas"/>
-        <Caret Line="142" TopLine="127"/>
+        <Caret Line="144" TopLine="127"/>
       </Position23>
       <Position24>
         <Filename Value="umain.pas"/>
-        <Caret Line="144" TopLine="127"/>
+        <Caret Line="145" TopLine="127"/>
       </Position24>
       <Position25>
         <Filename Value="umain.pas"/>
-        <Caret Line="145" TopLine="127"/>
+        <Caret Line="146" TopLine="127"/>
       </Position25>
       <Position26>
         <Filename Value="umain.pas"/>
-        <Caret Line="146" TopLine="127"/>
+        <Caret Line="148" TopLine="127"/>
       </Position26>
       <Position27>
         <Filename Value="umain.pas"/>
-        <Caret Line="148" TopLine="127"/>
+        <Caret Line="149" TopLine="127"/>
       </Position27>
       <Position28>
         <Filename Value="umain.pas"/>
-        <Caret Line="149" TopLine="127"/>
+        <Caret Line="150" TopLine="127"/>
       </Position28>
       <Position29>
         <Filename Value="umain.pas"/>
-        <Caret Line="150" TopLine="127"/>
-      </Position29>
-      <Position30>
-        <Filename Value="umain.pas"/>
         <Caret Line="89" TopLine="74"/>
-      </Position30>
+      </Position29>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
