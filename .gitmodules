@@ -112,3 +112,15 @@
 [submodule "promet/source/components/ecc"]
 	path = promet/source/components/ecc
 	url = https://github.com/cutec-chris/Eye-Candy_Controls
+[submodule "promet/source/scripts/plugins/tinkerforge"]
+	path = promet/source/scripts/plugins/tinkerforge
+	url = https://github.com/tcs-ulli/script-plugin-tinkerforge.git
+[submodule "promet/source/scripts/plugins/hexfiles"]
+	path = promet/source/scripts/plugins/hexfiles
+	url = https://github.com/tcs-ulli/script-plugin-hexfiles.git
+[submodule "promet/source/scripts/plugins/serialport"]
+	path = promet/source/scripts/plugins/serialport
+	url = https://github.com/tcs-ulli/script-plugin-serialport.git
+[submodule "promet/source/scripts/plugins/dbus"]
+	path = promet/source/scripts/plugins/dbus
+	url = https://github.com/tcs-ulli/script-plugin-dbus.git
