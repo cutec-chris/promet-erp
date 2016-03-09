@@ -124,3 +124,9 @@
 [submodule "promet/source/scripts/plugins/dbus"]
 	path = promet/source/scripts/plugins/dbus
 	url = https://github.com/tcs-ulli/script-plugin-dbus.git
+[submodule "promet/source/scripts/plugins/usb"]
+	path = promet/source/scripts/plugins/usb
+	url = https://github.com/tcs-ulli/script-plugin-usb.git
+[submodule "promet/source/scripts/plugins/video"]
+	path = promet/source/scripts/plugins/video
+	url = https://github.com/tcs-ulli/script-plugin-video.git
