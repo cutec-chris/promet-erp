@@ -130,3 +130,6 @@
 [submodule "promet/source/scripts/plugins/video"]
 	path = promet/source/scripts/plugins/video
 	url = https://github.com/tcs-ulli/script-plugin-video.git
+[submodule "promet/source/scripts/plugins/audio"]
+	path = promet/source/scripts/plugins/audio
+	url = https://github.com/tcs-ulli/script-plugin-audio.git
