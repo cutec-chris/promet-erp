@@ -8,10 +8,10 @@ object Form1: TForm1
   ClientWidth = 603
   OnClose = FormClose
   OnCreate = FormCreate
-  LCLVersion = '1.5'
+  LCLVersion = '1.7'
   object FileNameEdit1: TFileNameEdit
     Left = 16
-    Height = 21
+    Height = 25
     Top = 40
     Width = 576
     FileName = 'C:\TEMP\1.dxf'
@@ -25,9 +25,9 @@ object Form1: TForm1
   end
   object Label1: TLabel
     Left = 16
-    Height = 13
+    Height = 15
     Top = 24
-    Width = 25
+    Width = 31
     Caption = 'Datei'
     ParentColor = False
   end
@@ -45,6 +45,7 @@ object Form1: TForm1
     Height = 168
     Top = 112
     Width = 392
+    Proportional = True
   end
   object Memo1: TMemo
     Left = 16
