@@ -15,7 +15,7 @@
   at <http://www.gnu.org/copyleft/gpl.html>. You can also obtain it by writing
   to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
   MA 02111-1307, USA.
-Created 03.12.2011
+Created 01.03.2016
 *******************************************************************************}
 unit umain;
 {$mode objfpc}{$H+}
@@ -31,9 +31,6 @@ type
     acProjects: TAction;
     ActionList1: TActionList;
     bFfwd: TToolButton;
-    bSearch: TSpeedButton;
-    eContains: TEdit;
-    lbResults: TListBox;
     MainMenu: TMainMenu;
     miView: TMenuItem;
     MenuItem3: TMenuItem;
@@ -44,7 +41,6 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     pcPages: TExtMenuPageControl;
-    pSearch: TPanel;
     tvMain: TPanel;
     Splitter2: TSplitter;
     tbMenue: TToolButton;
@@ -118,7 +114,7 @@ begin
   aDocuments.CreateTable;
   aDocuments.Destroy;
   //Projects
-  //uProjectFrame.AddToMainTree(acNewProject,nil);
+  uShemeFrame.AddToMainTree(acNewSheme,nil);
   pcPages.AddTabClass(TfFilter,strProjectList,@AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
@@ -229,17 +225,15 @@ begin
       aFrame.OpenFromLink(aLink);
       Result := True;
     end
-{
-  else if (copy(aLink,0,9) = 'PROJECTS@')
-       or (copy(aLink,0,12) = 'PROJECTS.ID@') then
+  else if (copy(aLink,0,9) = 'SHEME@')
+       or (copy(aLink,0,12) = 'SHEME.ID@') then
     begin
-      aFrame := TfProjectFrame.Create(Self);
+      aFrame := TfShemeFrame.Create(Self);
       aFrame.OpenFromLink(aLink);
       pcPages.AddTab(aFrame);
       aFrame.SetLanguage;
       Result := True;
     end
-}
   ;
   Screen.Cursor:=crDefault;
 end;

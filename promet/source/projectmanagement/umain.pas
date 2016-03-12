@@ -75,7 +75,7 @@ implementation
 {$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface,uWikiFrame,
   uDocuments,uProjectFrame,uFilterFrame,uIntfStrConsts,
-  uProjects,uPrometFrames,uBaseDbClasses;
+  uProjects,uPrometFrames,uBaseDbClasses,uBaseDatasetInterfaces;
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
@@ -316,4 +316,4 @@ begin
 end;
 
 initialization
-end.
+end.
