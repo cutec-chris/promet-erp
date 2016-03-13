@@ -29,26 +29,30 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="5">
+    <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="phelp"/>
-        <DefaultFilename Value="..\base\base_help\phelp.lpk"/>
+        <PackageName Value="pSheme"/>
+        <DefaultFilename Value="psheme.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="..\..\..\general\general.lpk"/>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="..\base\base_help\phelp.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="..\..\..\general\general.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="LCL"/>
       </Item4>
       <Item5>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
+      </Item5>
+      <Item6>
         <PackageName Value="pVisualPrometApp"/>
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
-      </Item5>
+      </Item6>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>

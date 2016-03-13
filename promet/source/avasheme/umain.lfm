@@ -114,14 +114,14 @@ object fMain: TfMain
       Enabled = False
       OnExecute = acLogoutExecute
     end
-    object acNewProject: TAction
-      Caption = 'Neues Projekt'
+    object acNewScheme: TAction
+      Caption = 'Neues Shema'
       ImageIndex = 88
-      OnExecute = acNewProjectExecute
+      OnExecute = acNewSchemeExecute
     end
-    object acProjects: TAction
-      Caption = 'acProjects'
-      OnExecute = acProjectsExecute
+    object acSchemas: TAction
+      Caption = 'acShemes'
+      OnExecute = acSchemasExecute
     end
   end
   object MainMenu: TMainMenu

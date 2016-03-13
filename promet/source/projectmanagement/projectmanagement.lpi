@@ -109,7 +109,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="3">
+    <Exceptions Count="4">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
@@ -119,6 +119,9 @@
       <Item3>
         <Name Value="EVariantError"/>
       </Item3>
+      <Item4>
+        <Name Value="EProcess"/>
+      </Item4>
     </Exceptions>
   </Debugging>
 </CONFIG>

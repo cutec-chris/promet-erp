@@ -24,11 +24,14 @@ uses
    Forms, Controls, Buttons, Menus, ActnList, StdCtrls, uExtControls,
   ComCtrls, ExtCtrls,uMainTreeFrame, Classes;
 type
+
+  { TfMain }
+
   TfMain = class(TForm)
     acLogin: TAction;
     acLogout: TAction;
-    acNewProject: TAction;
-    acProjects: TAction;
+    acNewScheme: TAction;
+    acSchemas: TAction;
     ActionList1: TActionList;
     bFfwd: TToolButton;
     MainMenu: TMainMenu;
@@ -48,8 +51,8 @@ type
     tsHelp: TTabSheet;
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
-    procedure acNewProjectExecute(Sender: TObject);
-    procedure acProjectsExecute(Sender: TObject);
+    procedure acNewSchemeExecute(Sender: TObject);
+    procedure acSchemasExecute(Sender: TObject);
     function fMainTreeFrameOpen(aEntry: TTreeEntry): Boolean;
     function fMainTreeFrameOpenFromLink(aLink: string; aSender: TObject
       ): Boolean;
@@ -60,7 +63,7 @@ type
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
-    procedure AddProjectList(Sender: TObject);
+    procedure AddSchemeList(Sender: TObject);
   public
     { public declarations }
     procedure DoCreate;
@@ -71,12 +74,12 @@ implementation
 {$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface,uWikiFrame,
   uDocuments,uFilterFrame,uIntfStrConsts,uBaseDatasetInterfaces,
-  uProjects,uPrometFrames,uBaseDbClasses;
+  uProjects,uPrometFrames,uBaseDbClasses,uschemeframe;
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
     begin
-      SetConfigName('Avasheme');
+      SetConfigName('Avascheme');
     end;
   with Application as IBaseDbInterface do
     LoadMandants;
@@ -114,8 +117,8 @@ begin
   aDocuments.CreateTable;
   aDocuments.Destroy;
   //Projects
-  uShemeFrame.AddToMainTree(acNewSheme,nil);
-  pcPages.AddTabClass(TfFilter,strProjectList,@AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
+  uschemeframe.AddToMainTree(acNewScheme,nil);
+  pcPages.AddTabClass(TfFilter,strSchemeList,@AddSchemeList,Data.GetLinkIcon('SCHEME@'),True);
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
@@ -124,12 +127,12 @@ begin
     Logout;
 end;
 
-procedure TfMain.acNewProjectExecute(Sender: TObject);
+procedure TfMain.acNewSchemeExecute(Sender: TObject);
 begin
 
 end;
 
-procedure TfMain.acProjectsExecute(Sender: TObject);
+procedure TfMain.acSchemasExecute(Sender: TObject);
 var
   i: Integer;
   Found: Boolean = False;
@@ -145,8 +148,8 @@ begin
   if not Found then
     begin
       aFrame := TfFilter.Create(Self);
-      pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('PROJECTS@'),False);
-      AddprojectList(aFrame);
+      pcPages.AddTab(aFrame,True,'',Data.GetLinkIcon('SCHEME@'),False);
+      AddSchemeList(aFrame);
       aFrame.Open;
     end;
 end;
@@ -159,17 +162,7 @@ begin
   Screen.Cursor:=crHourglass;
   Application.ProcessMessages;
   case aEntry.Typ of
-  etSalesList:
-    begin
-      aEntry.Action.Execute;
-    end;
-  etCustomerList,etCustomers,etArticleList,etOrderList,
-  etTasks,etMyTasks,etProjects,etCalendar,etMyCalendar,
-  etMessages,etMessageDir:
-    begin
-      pcPages.SetFocus;
-    end;
-  etCustomer,etEmployee,etProject:
+  etScheme:
     begin
       aDataSet := aEntry.DataSourceType.CreateEx(Self,Data);
       with aDataSet.DataSet as IBaseDBFilter do
@@ -201,17 +194,7 @@ var
 begin
   Screen.Cursor:=crHourGlass;
   Application.ProcessMessages;
-  if copy(aLink,0,8) = 'CUSTOMER' then
-    begin
-      {
-      aFrame := TfPersonFrame.Create(Self);
-      aFrame.OpenFromLink(aLink);
-      pcPages.AddTab(aFrame);
-      aFrame.SetLanguage;
-      Result := True;
-      }
-    end
-  else if copy(aLink,0,5) = 'WIKI@' then
+  if copy(aLink,0,5) = 'WIKI@' then
     begin
       if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfWikiFrame) then
         aFrame := TfWikiFrame(pcPages.ActivePage.Controls[0])
@@ -225,8 +208,8 @@ begin
       aFrame.OpenFromLink(aLink);
       Result := True;
     end
-  else if (copy(aLink,0,9) = 'SHEME@')
-       or (copy(aLink,0,12) = 'SHEME.ID@') then
+  else if (copy(aLink,0,9) = 'SCHEME@')
+       or (copy(aLink,0,12) = 'SCHEME.ID@') then
     begin
       aFrame := TfShemeFrame.Create(Self);
       aFrame.OpenFromLink(aLink);
@@ -255,9 +238,9 @@ begin
       acTasks.Execute;
     end;
   }
-  etProjects:
+  etSchemes:
     begin
-      acProjects.Execute;
+      acSchemas.Execute;
     end;
   end;
 end;
@@ -298,16 +281,16 @@ begin
     begin
     end;
 end;
-procedure TfMain.AddProjectList(Sender: TObject);
+procedure TfMain.AddSchemeList(Sender: TObject);
 begin
   with Sender as TfFilter do
     begin
-      Caption := strProjectList;
-      FilterType:='P';
-      DefaultRows:='GLOBALWIDTH:%;ID:70;NAME:100;STATUS:60;';
-      Dataset := TProjectList.Create(nil);
+      Caption := strSchemeList;
+      FilterType:='S';
+      DefaultRows:='GLOBALWIDTH:%;NAME:100;STATUS:60;';
+      Dataset := TSchemeList.Create(nil);
       gList.OnDrawColumnCell:=nil;
-      AddToolbarAction(acNewProject);
+      AddToolbarAction(acNewScheme);
     end;
 end;
 
