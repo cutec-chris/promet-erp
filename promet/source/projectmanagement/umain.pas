@@ -129,8 +129,15 @@ begin
 end;
 
 procedure TfMain.acNewProjectExecute(Sender: TObject);
+var
+  aFrame: TfProjectFrame;
 begin
-
+  Application.ProcessMessages;
+  aFrame := TfProjectFrame.Create(Self);
+  pcPages.AddTab(aFrame);
+  aFrame.SetLanguage;
+  aFrame.OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;
+  aFrame.New;
 end;
 
 procedure TfMain.acProjectsExecute(Sender: TObject);

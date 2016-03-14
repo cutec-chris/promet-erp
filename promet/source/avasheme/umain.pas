@@ -74,7 +74,7 @@ implementation
 {$R *.lfm}
 uses uBaseApplication, uData, uBaseDbInterface,uWikiFrame,
   uDocuments,uFilterFrame,uIntfStrConsts,uBaseDatasetInterfaces,
-  uProjects,uPrometFrames,uBaseDbClasses,uschemeframe;
+  uProjects,uPrometFrames,uBaseDbClasses,uschemeframe,uscheme;
 procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
@@ -128,8 +128,14 @@ begin
 end;
 
 procedure TfMain.acNewSchemeExecute(Sender: TObject);
+var
+  aFrame: TfShemeFrame;
 begin
-
+  Application.ProcessMessages;
+  aFrame := TfShemeFrame.Create(Self);
+  pcPages.AddTab(aFrame);
+  aFrame.SetLanguage;
+  aFrame.New;
 end;
 
 procedure TfMain.acSchemasExecute(Sender: TObject);

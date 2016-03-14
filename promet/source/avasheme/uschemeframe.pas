@@ -75,6 +75,7 @@ type
   public
     { public declarations }
     constructor Create(AOwner: TComponent); override;
+    procedure SetLanguage; override;
   end;
 
 procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
@@ -128,6 +129,11 @@ begin
   //FGraph.OnObjectDblClick := @goDblClick;
   //FGraph.OnDblClick := @sgDblClick;
   FGraph.FixedScrollBars := True;
+end;
+
+procedure TfShemeFrame.SetLanguage;
+begin
+
 end;
 
 end.
