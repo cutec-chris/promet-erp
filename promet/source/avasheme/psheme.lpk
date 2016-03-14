@@ -18,12 +18,15 @@
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="uGraphRTM"/>
+        <DefaultFilename Value="../components/simplegraph/Package/ugraphrtm.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="LCL"/>

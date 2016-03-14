@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, Buttons,
-  DbCtrls, EditBtn, ComCtrls, ActnList, uExtControls, uPrometFrames,
+  DbCtrls, EditBtn, ComCtrls, ActnList, uExtControls, db, uPrometFrames,
   uPrometFramesInplace, usimplegraph,Graphics;
 
 type
@@ -55,6 +55,7 @@ type
     Bevel7: TBevel;
     bExecute: TSpeedButton;
     cbStatus: TComboBox;
+    Scheme: TDataSource;
     eNumber: TDBEdit;
     Label3: TLabel;
     Label4: TLabel;
@@ -72,6 +73,7 @@ type
   private
     { private declarations }
     FGraph: TEvsSimpleGraph;
+    procedure DoOpen;
   public
     { public declarations }
     constructor Create(AOwner: TComponent); override;
@@ -93,7 +95,7 @@ begin
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etAction;
       TTreeEntry(Node1.Data).Action := aAction;
-      Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('S')+'))';
+      Data.Tree.DataSet.Filter:='(('+Data.QuoteField('PARENT')+'='+Data.QuoteValue('0')+') and ('+Data.QuoteField('TYPE')+'='+Data.QuoteValue('D')+'))';
       Data.Tree.DataSet.Filtered:=True;
       Data.Tree.DataSet.First;
       while not Data.Tree.dataSet.EOF do

@@ -3,8 +3,8 @@ inherited fShemeFrame: TfShemeFrame
   Width = 795
   ClientHeight = 555
   ClientWidth = 795
-  DesignLeft = 230
-  DesignTop = 175
+  DesignLeft = 352
+  DesignTop = 229
   object ToolBar1: TPanel[0]
     Left = 0
     Height = 44
@@ -214,11 +214,12 @@ inherited fShemeFrame: TfShemeFrame
       end
       object eNumber: TDBEdit
         Left = 4
-        Height = 25
+        Height = 21
         Hint = 'Die Projektnummer'
         Top = 12
         Width = 204
         DataField = 'ID'
+        DataSource = Scheme
         ReadOnly = True
         CharCase = ecNormal
         MaxLength = 0
@@ -271,11 +272,11 @@ inherited fShemeFrame: TfShemeFrame
       end
       object cbStatus: TComboBox
         Left = 1
-        Height = 29
+        Height = 21
         Hint = 'hier können Sie den Status des Projektes ändern um es in neue Zustände zu überführen'
         Top = 12
         Width = 143
-        ItemHeight = 0
+        ItemHeight = 13
         Style = csDropDownList
         TabOrder = 0
       end
@@ -347,7 +348,6 @@ inherited fShemeFrame: TfShemeFrame
     end
   end
   object ActionList1: TActionList[1]
-    Images = fVisualControls.Images
     left = 224
     top = 92
     object acSave: TAction
@@ -407,5 +407,9 @@ inherited fShemeFrame: TfShemeFrame
       Hint = 'Thumbnail entfernen'
       ImageIndex = 75
     end
+  end
+  object Scheme: TDataSource[2]
+    left = 152
+    top = 96
   end
 end
