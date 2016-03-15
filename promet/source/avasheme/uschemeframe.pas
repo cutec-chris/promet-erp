@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, Buttons,
   DbCtrls, EditBtn, ComCtrls, ActnList, uExtControls, db, uPrometFrames,
-  uPrometFramesInplace, usimplegraph,Graphics;
+  uPrometFramesInplace, usimplegraph,Graphics,uBaseDbClasses,variants;
 
 type
 
@@ -47,16 +47,73 @@ type
     acSetTreeDir: TAction;
     acShowTreeDir: TAction;
     acStartTimeRegistering: TAction;
+    ActionList: TActionList;
     ActionList1: TActionList;
-    bChangeNumber: TSpeedButton;
+    Bevel1: TBevel;
     Bevel3: TBevel;
     Bevel5: TBevel;
     Bevel6: TBevel;
     Bevel7: TBevel;
+    Bevel8: TBevel;
     bExecute: TSpeedButton;
+    bMenue1: TSpeedButton;
     cbStatus: TComboBox;
+    ClipboardBitmap: TAction;
+    ClipboardMetafile: TAction;
+    ClipboardNative: TAction;
+    CoolBar1: TToolBar;
+    EditAlign: TAction;
+    EditBringToFront: TAction;
+    EditCopy: TAction;
+    EditCut: TAction;
+    EditDelete: TAction;
+    EditInvertSelection: TAction;
+    EditLockLinks: TAction;
+    EditLockNodes: TAction;
+    EditMakeAllSelectable: TAction;
+    EditPaste: TAction;
+    EditProperties: TAction;
+    EditSelectAll: TAction;
+    EditSendToBack: TAction;
+    EditSize: TAction;
+    ExtRotatedLabel1: TExtRotatedLabel;
+    ExtRotatedLabel4: TExtRotatedLabel;
+    FormatAlignBottom: TAction;
+    FormatAlignLeft: TAction;
+    FormatAlignRight: TAction;
+    FormatAlignTop: TAction;
+    FormatBold: TAction;
+    FormatCenter: TAction;
+    FormatItalic: TAction;
+    FormatUnderline: TAction;
+    FormatVCenter: TAction;
+    HelpAbout: TAction;
+    HelpUsage: TAction;
+    ImageList: TImageList;
+    LinkAddPoint: TAction;
+    LinkGrow: TAction;
+    LinkRemovePoint: TAction;
+    LinkReverse: TAction;
+    LinkRotateCCW: TAction;
+    LinkRotateCW: TAction;
+    LinkShrink: TAction;
+    ObjectsBezier: TAction;
+    ObjectsEllipse: TAction;
+    ObjectsHexagon: TAction;
+    ObjectsLink: TAction;
+    ObjectsNone: TAction;
+    ObjectsPentagon: TAction;
+    ObjectsRectangle: TAction;
+    ObjectsRhomboid: TAction;
+    ObjectsRoundRect: TAction;
+    ObjectsTriangle: TAction;
+    OptionsConfirmDeletion: TAction;
+    OptionsConfirmHookLink: TAction;
+    Panel2: TPanel;
+    Panel7: TPanel;
+    pToolbar: TPanel;
     Scheme: TDataSource;
-    eNumber: TDBEdit;
+    eName: TDBEdit;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
@@ -69,14 +126,47 @@ type
     sbMenue: TSpeedButton;
     ToolBar1: TPanel;
     ToolButton1: TSpeedButton;
+    ToolButton10: TToolButton;
+    ToolButton11: TToolButton;
     ToolButton2: TSpeedButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
+    ToolButton8: TToolButton;
+    ToolButton9: TToolButton;
+    ViewActualSize: TAction;
+    ViewFixScrolls: TAction;
+    ViewGrid: TAction;
+    ViewPan: TAction;
+    ViewTransparent: TAction;
+    ViewWholeGraph: TAction;
+    ViewZoomIn: TAction;
+    ViewZoomOut: TAction;
+    procedure acSaveExecute(Sender: TObject);
+    procedure ObjectsLinkExecute(Sender: TObject);
+    procedure ObjectsNoneExecute(Sender: TObject);
+    procedure ObjectsPentagonExecute(Sender: TObject);
+    procedure ObjectsRectangleExecute(Sender: TObject);
+    procedure ObjectsRhomboidExecute(Sender: TObject);
+    procedure ObjectsRoundRectExecute(Sender: TObject);
+    procedure ObjectsTriangleExecute(Sender: TObject);
+    procedure SchemeStateChange(Sender: TObject);
+    procedure ViewPanExecute(Sender: TObject);
   private
     { private declarations }
+    FEditable: Boolean;
     FGraph: TEvsSimpleGraph;
-    procedure DoOpen;
+    procedure FGraphObjectChange(Graph: TEvsSimpleGraph;
+      GraphObject: TEvsGraphObject);
+    procedure SetDataSet(const AValue: TBaseDBDataset);override;
+    procedure DoOpen;override;
+    function SetRights : Boolean;
   public
     { public declarations }
     constructor Create(AOwner: TComponent); override;
+    procedure New;override;
     procedure SetLanguage; override;
   end;
 
@@ -84,7 +174,7 @@ procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 
 implementation
 
-uses uData,uBaseDBInterface,uMainTreeFrame;
+uses uData,uBaseDBInterface,uMainTreeFrame,uscheme,uIntfStrConsts;
 
 procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
 var
@@ -116,6 +206,163 @@ end;
 
 { TfShemeFrame }
 
+procedure TfShemeFrame.ViewPanExecute(Sender: TObject);
+begin
+  FGraph.SnapToGrid:=False;
+  FGraph.CommandMode := cmPan;
+end;
+
+procedure TfShemeFrame.ObjectsNoneExecute(Sender: TObject);
+begin
+  if FEditable then
+    FGraph.CommandMode := cmViewOnly
+  else
+    FGraph.CommandMode := cmEdit;
+end;
+
+procedure TfShemeFrame.ObjectsLinkExecute(Sender: TObject);
+begin
+  FGraph.CommandMode := cmInsertLink;
+  FGraph.DefaultLinkClass := TEvsGraphLink;
+end;
+
+procedure TfShemeFrame.acSaveExecute(Sender: TObject);
+var
+  aMS: TMemoryStream;
+begin
+  if Assigned(FConnection) then
+    begin
+      FDataSet.Edit;
+      aMS := TMemoryStream.Create;
+      FGraph.SaveToStream(aMS);
+      aMS.Position:=0;
+      Data.StreamToBlobField(aMS,FDataSet.DataSet,'DATA');
+      FDataSet.CascadicPost;
+    end;
+end;
+
+procedure TfShemeFrame.ObjectsPentagonExecute(Sender: TObject);
+begin
+  FGraph.DefaultNodeClass := TEvsPentagonalNode;
+  FGraph.CommandMode := cmInsertNode;
+end;
+
+procedure TfShemeFrame.ObjectsRectangleExecute(Sender: TObject);
+begin
+  FGraph.DefaultNodeClass := TEvsRectangularNode;
+  FGraph.CommandMode := cmInsertNode;
+end;
+
+procedure TfShemeFrame.ObjectsRhomboidExecute(Sender: TObject);
+begin
+  FGraph.DefaultNodeClass := TEvsRhomboidalNode;
+  FGraph.CommandMode := cmInsertNode;
+end;
+
+procedure TfShemeFrame.ObjectsRoundRectExecute(Sender: TObject);
+begin
+  FGraph.DefaultNodeClass := TEvsRoundRectangularNode;
+  FGraph.CommandMode := cmInsertNode;
+  FGraph.SnapToGrid:=True;
+end;
+
+procedure TfShemeFrame.ObjectsTriangleExecute(Sender: TObject);
+begin
+  FGraph.DefaultNodeClass := TEvsTriangularNode;
+  FGraph.CommandMode := cmInsertNode;
+end;
+
+procedure TfShemeFrame.SchemeStateChange(Sender: TObject);
+var
+  aEnabled: Boolean;
+begin
+  aEnabled := DataSet.CanEdit or DataSet.Changed;
+  acSave.Enabled := aEnabled;
+  acCancel.Enabled:= aEnabled;
+end;
+
+procedure TfShemeFrame.SetDataSet(const AValue: TBaseDBDataset);
+begin
+  inherited SetDataSet(AValue);
+  acSave.Enabled:=False;
+  acCancel.Enabled:=False;
+  if not Assigned(AValue) then exit;
+  Scheme.DataSet := AValue.DataSet;
+end;
+
+procedure TfShemeFrame.FGraphObjectChange(Graph: TEvsSimpleGraph;
+  GraphObject: TEvsGraphObject);
+begin
+  DataSet.Edit;
+end;
+
+procedure TfShemeFrame.DoOpen;
+var
+  aType: Char;
+  aFound: Boolean;
+  tmp: String;
+begin
+  TSchemeList(DataSet).OpenItem;
+  FEditable := ((Data.Users.Rights.Right('PROJECTS') > RIGHT_READ));
+
+  cbStatus.Items.Clear;
+  cbStatus.Text := '';
+  aType := 'D';
+  if not Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
+    begin
+      Data.SetFilter(Data.States,'');
+      aFound := Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]);
+    end
+  else aFound := True;
+  if aFound then
+    begin
+      cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+      cbStatus.Text := Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')';
+    end
+  else cbStatus.Text:=FDataSet.FieldByName('STATUS').AsString;
+  tmp := trim(Data.States.FieldByName('DERIVATIVE').AsString);
+  if (length(tmp) = 0) or (tmp[length(tmp)] <> ';') then
+    tmp := tmp+';';
+  if tmp <> ';' then
+    begin
+      while pos(';',tmp) > 0 do
+        begin
+          if Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,copy(tmp,0,pos(';',tmp)-1)]),[loCaseInsensitive]) then
+            cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+          tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+        end;
+    end
+  else
+    begin
+      Data.SetFilter(Data.States,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+      with Data.States.DataSet do
+        begin
+          First;
+          while not eof do
+            begin
+              if cbStatus.Items.IndexOf(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')') = -1 then
+                cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+              Next;
+            end;
+        end;
+    end;
+
+end;
+
+function TfShemeFrame.SetRights: Boolean;
+begin
+  FEditable := ((Data.Users.Rights.Right('SCHEMES') > RIGHT_READ));
+  Result := FEditable;
+  acDelete.Enabled:=FEditable and (Data.Users.Rights.Right('PROJECTS') > RIGHT_WRITE);
+  acPaste.Enabled:=FEditable;
+  acRights.Enabled:=Data.Users.Rights.Right('PROJECTS') >= RIGHT_PERMIT;
+  eName.Enabled:=FEditable;
+  cbStatus.Enabled:=FEditable;
+  eName.Enabled:=FEditable;
+
+  FGraph.Enabled := FEditable;
+end;
+
 constructor TfShemeFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -131,6 +378,20 @@ begin
   //FGraph.OnObjectDblClick := @goDblClick;
   //FGraph.OnDblClick := @sgDblClick;
   FGraph.FixedScrollBars := True;
+  FGraph.OnObjectChange:=@FGraphObjectChange;
+end;
+
+procedure TfShemeFrame.New;
+begin
+  CloseConnection;
+  if not Assigned(FConnection) then
+    FConnection := Data.GetNewConnection;
+  TabCaption := strNewScheme;
+  DataSet := TSchemeList.CreateEx(Self,Data,FConnection);
+  DataSet.Select(0);
+  DataSet.Open;
+  DataSet.DataSet.Insert;
+  DoOpen;
 end;
 
 procedure TfShemeFrame.SetLanguage;

@@ -90,6 +90,7 @@ var
   Node: TTreeNode;
   miNew: TMenuItem;
   aDocuments: TDocuments;
+  aScheme: TSchemeList;
 begin
   with Application as IBaseApplication do
     if not Login then
