@@ -1,0 +1,487 @@
+object fLinkProperties: TfLinkProperties
+  Left = 497
+  Height = 497
+  Top = 202
+  Width = 365
+  BorderStyle = bsDialog
+  Caption = 'Verbindungseigenschaften'
+  ClientHeight = 497
+  ClientWidth = 365
+  Color = clBtnFace
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  OnCreate = FormCreate
+  Position = poMainFormCenter
+  LCLVersion = '1.7'
+  object Label1: TLabel
+    Left = 8
+    Height = 14
+    Top = 8
+    Width = 23
+    Caption = 'Text'
+    FocusControl = LinkLabel
+    ParentColor = False
+  end
+  object Label4: TLabel
+    Left = 24
+    Height = 14
+    Top = 367
+    Width = 47
+    Caption = 'Options:'
+    FocusControl = AllOptions
+    ParentColor = False
+  end
+  object LinkLabel: TEdit
+    Left = 8
+    Height = 24
+    Top = 24
+    Width = 352
+    Anchors = [akTop, akLeft, akRight]
+    TabOrder = 3
+  end
+  object Style: TGroupBox
+    Left = 24
+    Height = 88
+    Top = 180
+    Width = 153
+    Caption = ' Line Style '
+    ClientHeight = 73
+    ClientWidth = 151
+    TabOrder = 7
+    object Shape1: TShape
+      Left = 68
+      Height = 1
+      Top = 18
+      Width = 67
+      Brush.Style = bsClear
+    end
+    object Shape2: TShape
+      Left = 66
+      Height = 1
+      Top = 37
+      Width = 69
+      Brush.Style = bsClear
+      Pen.Style = psDash
+    end
+    object Shape3: TShape
+      Left = 67
+      Height = 1
+      Top = 56
+      Width = 68
+      Brush.Style = bsClear
+      Pen.Style = psDot
+    end
+    object StyleSolid: TRadioButton
+      Left = 14
+      Height = 22
+      Top = 10
+      Width = 53
+      Caption = 'Solid'
+      Checked = True
+      TabOrder = 0
+    end
+    object StyleDash: TRadioButton
+      Left = 14
+      Height = 22
+      Top = 29
+      Width = 54
+      Caption = 'Dash'
+      TabOrder = 1
+    end
+    object StyleDot: TRadioButton
+      Left = 14
+      Height = 22
+      Top = 48
+      Width = 45
+      Caption = 'Dot'
+      TabOrder = 2
+    end
+  end
+  object Colors: TGroupBox
+    Left = 188
+    Height = 88
+    Top = 180
+    Width = 153
+    Caption = ' Colors '
+    ClientHeight = 73
+    ClientWidth = 151
+    TabOrder = 8
+    object Label2: TLabel
+      Left = 14
+      Height = 14
+      Top = 10
+      Width = 27
+      Caption = 'Line:'
+      FocusControl = LinkLineColor
+      ParentColor = False
+    end
+    object Label3: TLabel
+      Left = 14
+      Height = 14
+      Top = 41
+      Width = 61
+      Caption = 'Begin/End:'
+      FocusControl = LinkStyleColor
+      ParentColor = False
+    end
+    object LinkLineColor: TPanel
+      Left = 86
+      Height = 25
+      Top = 5
+      Width = 49
+      ClientHeight = 25
+      ClientWidth = 49
+      TabOrder = 0
+      OnClick = LinkLineColorClick
+      object LineColor: TShape
+        Left = 1
+        Height = 23
+        Top = 1
+        Width = 47
+        Align = alClient
+        Enabled = False
+      end
+    end
+    object LinkStyleColor: TPanel
+      Left = 86
+      Height = 25
+      Top = 36
+      Width = 49
+      ClientHeight = 25
+      ClientWidth = 49
+      TabOrder = 1
+      OnClick = LinkStyleColorClick
+      object StyleColor: TShape
+        Left = 1
+        Height = 23
+        Top = 1
+        Width = 47
+        Align = alClient
+        Enabled = False
+      end
+    end
+  end
+  object btnChangeFont: TButton
+    Left = 8
+    Height = 25
+    Top = 64
+    Width = 129
+    Caption = 'Schriftart'
+    OnClick = btnChangeFontClick
+    TabOrder = 5
+  end
+  object btnOK: TButton
+    Left = 19
+    Height = 25
+    Top = 461
+    Width = 75
+    Caption = 'OK'
+    Default = True
+    ModalResult = 1
+    TabOrder = 0
+  end
+  object btnCancel: TButton
+    Left = 102
+    Height = 25
+    Top = 461
+    Width = 75
+    Cancel = True
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 1
+  end
+  object btnApply: TButton
+    Left = 186
+    Height = 25
+    Top = 461
+    Width = 75
+    Caption = 'Apply'
+    OnClick = btnApplyClick
+    TabOrder = 2
+  end
+  object AllOptions: TCheckListBox
+    Left = 24
+    Height = 57
+    Top = 382
+    Width = 317
+    Columns = 2
+    Items.Strings = (
+      'Linkable'
+      'Selectable'
+      'Show Caption'
+      'Fixed - Start Point'
+      'Fixed - End Point'
+      'Fixed - Break Points'
+      'Fixed Anchor - Start Point'
+      'Fixed Anchor - End Point'
+    )
+    ItemHeight = 20
+    TabOrder = 11
+    Data = {
+      080000000000000000000000
+    }
+  end
+  object LabelPlacement: TGroupBox
+    Left = 188
+    Height = 102
+    Top = 64
+    Width = 153
+    Caption = 'Textausrichtung'
+    ClientHeight = 87
+    ClientWidth = 151
+    TabOrder = 4
+    object Label9: TLabel
+      Left = 14
+      Height = 14
+      Top = 18
+      Width = 44
+      Caption = 'Position'
+      FocusControl = Edit4
+      ParentColor = False
+    end
+    object Label10: TLabel
+      Left = 14
+      Height = 14
+      Top = 50
+      Width = 46
+      Caption = 'Abstand'
+      FocusControl = Edit5
+      ParentColor = False
+    end
+    object Edit4: TEdit
+      Left = 62
+      Height = 24
+      Top = 15
+      Width = 60
+      TabOrder = 0
+      Text = '-1'
+    end
+    object LabelPosition: TUpDown
+      Left = 122
+      Height = 24
+      Top = 15
+      Width = 16
+      Associate = Edit4
+      Min = -1
+      Position = -1
+      TabOrder = 1
+      Wrap = False
+    end
+    object Edit5: TEdit
+      Left = 62
+      Height = 24
+      Top = 47
+      Width = 60
+      TabOrder = 2
+      Text = '0'
+    end
+    object LabelSpacing: TUpDown
+      Left = 122
+      Height = 24
+      Top = 47
+      Width = 16
+      Associate = Edit5
+      Min = -100
+      Position = 0
+      TabOrder = 3
+      Wrap = False
+    end
+  end
+  object Size: TGroupBox
+    Left = 24
+    Height = 50
+    Top = 122
+    Width = 153
+    Caption = ' Line Size '
+    ClientHeight = 35
+    ClientWidth = 151
+    TabOrder = 6
+    object Edit1: TEdit
+      Left = 10
+      Height = 24
+      Top = 4
+      Width = 112
+      TabOrder = 0
+      Text = '1'
+    end
+    object PenWidth: TUpDown
+      Left = 122
+      Height = 24
+      Top = 4
+      Width = 16
+      Associate = Edit1
+      Max = 10
+      Min = 1
+      Position = 1
+      TabOrder = 1
+      Wrap = False
+    end
+  end
+  object LineBegin: TGroupBox
+    Left = 24
+    Height = 86
+    Top = 276
+    Width = 153
+    Caption = ' Begin '
+    ClientHeight = 71
+    ClientWidth = 151
+    TabOrder = 9
+    object Label5: TLabel
+      Left = 14
+      Height = 14
+      Top = 10
+      Width = 32
+      Caption = 'Style:'
+      FocusControl = LineBeginStyle
+      ParentColor = False
+    end
+    object Label6: TLabel
+      Left = 14
+      Height = 14
+      Top = 40
+      Width = 27
+      Caption = 'Size:'
+      ParentColor = False
+    end
+    object LineBeginStyle: TComboBox
+      Left = 51
+      Height = 25
+      Top = 7
+      Width = 85
+      ItemHeight = 0
+      ItemIndex = 0
+      Items.Strings = (
+        'None'
+        'Arrow'
+        'Simple Arrow'
+        'Circle'
+        'Diamond'
+      )
+      Style = csDropDownList
+      TabOrder = 0
+      Text = 'None'
+    end
+    object Edit2: TEdit
+      Left = 51
+      Height = 24
+      Top = 37
+      Width = 68
+      TabOrder = 1
+      Text = '1'
+    end
+    object LineBeginSize: TUpDown
+      Left = 119
+      Height = 24
+      Top = 37
+      Width = 16
+      Associate = Edit2
+      Max = 10
+      Min = 1
+      Position = 1
+      TabOrder = 2
+      Wrap = False
+    end
+  end
+  object LineEnd: TGroupBox
+    Left = 188
+    Height = 86
+    Top = 276
+    Width = 153
+    Caption = ' End '
+    ClientHeight = 71
+    ClientWidth = 151
+    TabOrder = 10
+    object Label7: TLabel
+      Left = 14
+      Height = 14
+      Top = 10
+      Width = 32
+      Caption = 'Style:'
+      FocusControl = LineEndStyle
+      ParentColor = False
+    end
+    object Label8: TLabel
+      Left = 14
+      Height = 14
+      Top = 40
+      Width = 27
+      Caption = 'Size:'
+      ParentColor = False
+    end
+    object LineEndStyle: TComboBox
+      Left = 51
+      Height = 25
+      Top = 7
+      Width = 85
+      ItemHeight = 0
+      ItemIndex = 0
+      Items.Strings = (
+        'None'
+        'Arrow'
+        'Simple Arrow'
+        'Circle'
+        'Diamond'
+      )
+      Style = csDropDownList
+      TabOrder = 0
+      Text = 'None'
+    end
+    object Edit3: TEdit
+      Left = 51
+      Height = 24
+      Top = 37
+      Width = 68
+      TabOrder = 1
+      Text = '1'
+    end
+    object LineEndSize: TUpDown
+      Left = 119
+      Height = 24
+      Top = 37
+      Width = 16
+      Associate = Edit3
+      Max = 10
+      Min = 1
+      Position = 1
+      TabOrder = 2
+      Wrap = False
+    end
+  end
+  object FontDialog: TFontDialog
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    MinFontSize = 0
+    MaxFontSize = 0
+    left = 272
+    top = 458
+  end
+  object ColorDialog: TColorDialog
+    Color = clBlack
+    CustomColors.Strings = (
+      'ColorA=000000'
+      'ColorB=000080'
+      'ColorC=008000'
+      'ColorD=008080'
+      'ColorE=800000'
+      'ColorF=800080'
+      'ColorG=808000'
+      'ColorH=808080'
+      'ColorI=C0C0C0'
+      'ColorJ=0000FF'
+      'ColorK=00FF00'
+      'ColorL=00FFFF'
+      'ColorM=FF0000'
+      'ColorN=FF00FF'
+      'ColorO=FFFF00'
+      'ColorP=FFFFFF'
+      'ColorQ=C0DCC0'
+      'ColorR=F0CAA6'
+      'ColorS=F0FBFF'
+      'ColorT=A4A0A0'
+    )
+    left = 304
+    top = 458
+  end
+end
