@@ -120,6 +120,7 @@ begin
   //Projects
   uschemeframe.AddToMainTree(acNewScheme,nil);
   pcPages.AddTabClass(TfFilter,strSchemeList,@AddSchemeList,Data.GetLinkIcon('SCHEME@'),True);
+  Data.RegisterLinkHandler('SCHEME',@fMainTreeFrame.OpenLink,TSchemeList);
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
@@ -215,8 +216,8 @@ begin
       aFrame.OpenFromLink(aLink);
       Result := True;
     end
-  else if (copy(aLink,0,9) = 'SCHEME@')
-       or (copy(aLink,0,12) = 'SCHEME.ID@') then
+  else if (copy(aLink,0,7) = 'SCHEME@')
+       or (copy(aLink,0,10) = 'SCHEME.ID@') then
     begin
       aFrame := TfShemeFrame.Create(Self);
       aFrame.OpenFromLink(aLink);

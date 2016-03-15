@@ -4,7 +4,7 @@ object fMain: TfMain
   Top = 114
   Width = 970
   Caption = 'Projektmanagement'
-  ClientHeight = 693
+  ClientHeight = 694
   ClientWidth = 970
   Color = clWindow
   Menu = MainMenu
@@ -13,10 +13,10 @@ object fMain: TfMain
   OnDestroy = FormDestroy
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.7'
+  LCLVersion = '1.4.4.0'
   object tvMain: TPanel
     Left = 0
-    Height = 656
+    Height = 657
     Top = 37
     Width = 328
     Align = alLeft
@@ -25,7 +25,7 @@ object fMain: TfMain
   end
   object Splitter2: TSplitter
     Left = 328
-    Height = 656
+    Height = 657
     Top = 37
     Width = 5
     ResizeStyle = rsLine
@@ -53,6 +53,7 @@ object fMain: TfMain
       ButtonWidth = 64
       Caption = 'ToolBar1'
       EdgeBorders = []
+      Images = fVisualControls.Images
       ParentColor = False
       TabOrder = 0
       object tbMenue: TToolButton
@@ -73,17 +74,6 @@ object fMain: TfMain
         ShowHint = True
       end
     end
-    object eContains: TEdit
-      Left = 607
-      Height = 25
-      Top = 4
-      Width = 327
-      Anchors = [akTop, akRight]
-      Font.Color = clGrayText
-      ParentFont = False
-      TabOrder = 1
-      Text = '<hier tippen um zu suchen>'
-    end
     object Panel2: TPanel
       Left = 0
       Height = 5
@@ -93,93 +83,26 @@ object fMain: TfMain
       BevelOuter = bvNone
       Color = clBtnFace
       ParentColor = False
-      TabOrder = 2
-    end
-    object bSearch: TSpeedButton
-      Left = 934
-      Height = 22
-      Top = 4
-      Width = 23
-      Anchors = [akTop, akRight]
-      Glyph.Data = {
-        36040000424D3604000000000000360000002800000010000000100000000100
-        2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00145D9503105A921AFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF0022669E061B629AAD22679DFF115B9387FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF003272
-        AA062B6DA5AD558DBCFF89B5DDFF185F97FFFFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00447FB7063C79
-        B1AD6497C5FF9DC1E4FF6699C7FF1F659DEBFFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00DDB28F02D9AE8A97D6A985E3D3A57FFDD0A07BFDCD9C76E4A2938ADE75A2
-        CCFFABCBE8FF76A4CEFF3070A8EB286BA327FFFFFF00FFFFFF00FFFFFF00E4BD
-        9B02E1B896C0E8C9AEFFF5E1CDFFF7E5D3FFF7E5D1FFF3DDC8FFDFBA9CFFC7A8
-        91FF86AED5FF417DB5EB3977AF27FFFFFF00FFFFFF00FFFFFF00FFFFFF00E8C3
-        A297EDD0B7FFF8E8D9FFF5DEC8FFF3D8BDFFF3D6BBFFF4DBC2FFF7E4D2FFDFBB
-        9DFF9D9492F74B84BC27FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00ECC8
-        A8E3F7E7D7FFF6E1CCFFF4DBC2FFF4DAC0FFF3D8BDFFF3D7BBFFF4DBC2FFF3DE
-        C9FFCD9F7BE7FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F0CE
-        AEFDF9ECDFFFF5DFC8FFF5DDC6FFF4DCC3FFF4DAC1FFF3D9BEFFF3D7BDFFF8E6
-        D3FFD3A57FFDFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F4D3
-        B4FDF9EDE1FFF6E1CCFFF5DFC9FFF5DEC7FFF4DCC4FFF4DBC2FFF4DAC0FFF8E7
-        D6FFD7AA86FDFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F7D7
-        B9E3F9EBDEFFF7E7D6FFF6E1CCFFF5E0CAFFF5DEC8FFF5DDC5FFF6E1CBFFF5E2
-        D0FFDBB08CE3FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FADB
-        BD97F8E2CCFFFAEEE3FFF7E7D6FFF6E2CEFFF6E1CBFFF6E3D0FFF9EADDFFECCF
-        B5FFDFB69397FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FCDE
-        C002FADBBEC0F9E2CDFFFAECDEFFF9EEE2FFF9EDE2FFF8E9DAFFF0D5BDFFE7C0
-        9FC0E3BC9A02FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FCDEC102FADCBF97F9D9BBE3F6D6B8FDF4D3B4FDF1CFAFE3EECBAB97EBC6
-        A602FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
-      }
-      ShowCaption = False
+      TabOrder = 1
     end
   end
   object pcPages: TExtMenuPageControl
     Left = 333
-    Height = 656
+    Height = 657
     Top = 37
     Width = 637
     ActivePage = tsHelp
     Align = alClient
     TabIndex = 0
-    TabOrder = 4
+    TabOrder = 3
     NewTabImageIndex = 59
     object tsHelp: TTabSheet
       Caption = 'Hilfe'
       ImageIndex = 54
     end
   end
-  object pSearch: TPanel
-    Left = 612
-    Height = 136
-    Top = 28
-    Width = 315
-    Anchors = [akTop, akRight]
-    BevelOuter = bvNone
-    Caption = 'pSearch'
-    ClientHeight = 136
-    ClientWidth = 315
-    TabOrder = 3
-    Visible = False
-    object lbResults: TListBox
-      Left = 0
-      Height = 136
-      Top = 0
-      Width = 315
-      Align = alClient
-      ItemHeight = 0
-      ScrollWidth = 313
-      TabOrder = 0
-      TopIndex = -1
-    end
-  end
   object ActionList1: TActionList
+    Images = fVisualControls.Images
     left = 16
     top = 120
     object acLogin: TAction

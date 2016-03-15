@@ -10,9 +10,9 @@ uses
 
 type
 
-  { TEvsNodeProperties }
+  { TfNodeProperties }
 
-  TEvsNodeProperties = class(TForm)
+  TfNodeProperties = class(TForm)
     ButtonPanel1: TButtonPanel;
     Label1: TLabel;
     NodeShape: TRadioGroup;
@@ -22,15 +22,12 @@ type
     NodeBodyColor: TPanel;
     NodeBorderColor: TPanel;
     btnChangeFont: TButton;
-    Bevel1: TBevel;
     FontDialog: TFontDialog;
     ColorDialog: TColorDialog;
     NodeText: TMemo;
     GroupBox1: TGroupBox;
     OpenPictureDialog: TOpenPictureDialog;
     cbAlignment: TComboBox;
-    AllOptions: TCheckListBox;
-    Label4: TLabel;
     BodyColor: TShape;
     BorderColor: TShape;
     cbLayout: TComboBox;
@@ -63,10 +60,10 @@ type
     MarginRect: TRect;
     procedure ListRegistredNodeClasses;
     procedure ApplyChanges;
-    procedure SetObjectOptions(Value: TEvsGraphObjectOptions);
-    function GetObjectOptions: TEvsGraphObjectOptions;
-    procedure SetNodeOptions(Value: TEvsGraphNodeOptions);
-    function GetNodeOptions: TEvsGraphNodeOptions;
+    //procedure SetObjectOptions(Value: TEvsGraphObjectOptions);
+    //function GetObjectOptions: TEvsGraphObjectOptions;
+    //procedure SetNodeOptions(Value: TEvsGraphNodeOptions);
+    //function GetNodeOptions: TEvsGraphNodeOptions;
   public
     class function Execute(Nodes: TEvsGraphObjectList): Boolean;
   end;
@@ -94,9 +91,9 @@ begin
   Result := StringReplace(Result, ' Node', '', []);
 end;
 
-{ TEvsNodeProperties }
+{ TfNodeProperties }
 
-class function TEvsNodeProperties.Execute(Nodes: TEvsGraphObjectList): Boolean;
+class function TfNodeProperties.Execute(Nodes: TEvsGraphObjectList): Boolean;
 begin
   Result := False;
   with Create(Application) do
@@ -128,8 +125,8 @@ begin
       BorderStyle.ItemIndex := Ord(Pen.Style);
       FontDialog.Font := Font;
       MarginRect := BackgroundMargins;
-      SetObjectOptions(Options);
-      SetNodeOptions(NodeOptions);
+      //SetObjectOptions(Options);
+      //SetNodeOptions(NodeOptions);
     end;
     if ShowModal = mrOK then
     begin
@@ -141,7 +138,7 @@ begin
   end;
 end;
 
-procedure TEvsNodeProperties.ListRegistredNodeClasses;
+procedure TfNodeProperties.ListRegistredNodeClasses;
 var
   I: Integer;
   NodeClass: TEvsGraphNodeClass;
@@ -154,7 +151,7 @@ begin
   end;
 end;
 
-procedure TEvsNodeProperties.ApplyChanges;
+procedure TfNodeProperties.ApplyChanges;
 var
   I: Integer;
 begin
@@ -187,8 +184,8 @@ begin
           else if Backgnd = 2 then
             Background.Graphic := nil;
           BackgroundMargins := MarginRect;
-          Options := GetObjectOptions;
-          NodeOptions := GetNodeOptions;
+          //Options := GetObjectOptions;
+          //NodeOptions := GetNodeOptions;
         finally
           EndUpdate;
         end;
@@ -201,47 +198,47 @@ begin
   end;
 end;
 
-procedure TEvsNodeProperties.NodeBodyColorClick(Sender: TObject);
+procedure TfNodeProperties.NodeBodyColorClick(Sender: TObject);
 begin
   ColorDialog.Color := BodyColor.Brush.Color;
   if ColorDialog.Execute then
     BodyColor.Brush.Color := ColorDialog.Color;
 end;
 
-procedure TEvsNodeProperties.NodeBorderColorClick(Sender: TObject);
+procedure TfNodeProperties.NodeBorderColorClick(Sender: TObject);
 begin
   ColorDialog.Color := BorderColor.Brush.Color;
   if ColorDialog.Execute then
     BorderColor.Brush.Color := ColorDialog.Color;
 end;
 
-procedure TEvsNodeProperties.btnChangeFontClick(Sender: TObject);
+procedure TfNodeProperties.btnChangeFontClick(Sender: TObject);
 begin
   FontDialog.Execute;
 end;
 
-procedure TEvsNodeProperties.btnChangBkgndClick(Sender: TObject);
+procedure TfNodeProperties.btnChangBkgndClick(Sender: TObject);
 begin
   if OpenPictureDialog.Execute then
     Backgnd := 1;
 end;
 
-procedure TEvsNodeProperties.btnClearBackgroundClick(Sender: TObject);
+procedure TfNodeProperties.btnClearBackgroundClick(Sender: TObject);
 begin
   Backgnd := 2;
 end;
 
-procedure TEvsNodeProperties.btnApplyClick(Sender: TObject);
+procedure TfNodeProperties.btnApplyClick(Sender: TObject);
 begin
   ApplyChanges;
 end;
 
-procedure TEvsNodeProperties.FormCreate(Sender: TObject);
+procedure TfNodeProperties.FormCreate(Sender: TObject);
 begin
   SetBounds(Screen.Width - Width - 30, 50, Width, Height);
 end;
-
-function TEvsNodeProperties.GetObjectOptions: TEvsGraphObjectOptions;
+{
+function TfNodeProperties.GetObjectOptions: TEvsGraphObjectOptions;
 var
   Option: TEvsGraphObjectOption;
 begin
@@ -251,15 +248,14 @@ begin
       Include(Result, Option);
 end;
 
-procedure TEvsNodeProperties.SetObjectOptions(Value: TEvsGraphObjectOptions);
+procedure TfNodeProperties.SetObjectOptions(Value: TEvsGraphObjectOptions);
 var
   Option: TEvsGraphObjectOption;
 begin
   for Option := Low(TEvsGraphObjectOption) to High(TEvsGraphObjectOption) do
     AllOptions.Checked[Ord(Option)] := Option in Value;
 end;
-
-function TEvsNodeProperties.GetNodeOptions: TEvsGraphNodeOptions;
+function TfNodeProperties.GetNodeOptions: TEvsGraphNodeOptions;
 var
   Option: TEvsGraphNodeOption;
 begin
@@ -269,15 +265,16 @@ begin
       Include(Result, Option);
 end;
 
-procedure TEvsNodeProperties.SetNodeOptions(Value: TEvsGraphNodeOptions);
+procedure TfNodeProperties.SetNodeOptions(Value: TEvsGraphNodeOptions);
 var
   Option: TEvsGraphNodeOption;
 begin
   for Option := Low(TEvsGraphNodeOption) to High(TEvsGraphNodeOption) do
     AllOptions.Checked[Ord(Option) + Ord(High(TEvsGraphObjectOption)) + 1] := Option in Value;
 end;
+}
 
-procedure TEvsNodeProperties.btnBackgroundMarginsClick(Sender: TObject);
+procedure TfNodeProperties.btnBackgroundMarginsClick(Sender: TObject);
 begin
   //TMarginDialog.Execute(MarginRect);
 end;

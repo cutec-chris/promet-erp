@@ -26,7 +26,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, Buttons,
   DbCtrls, EditBtn, ComCtrls, ActnList, uExtControls, db, uPrometFrames,
-  uPrometFramesInplace, usimplegraph,Graphics,uBaseDbClasses,variants;
+  uPrometFramesInplace, usimplegraph,Graphics,uBaseDbClasses,variants,Utils;
 
 type
 
@@ -144,7 +144,9 @@ type
     ViewWholeGraph: TAction;
     ViewZoomIn: TAction;
     ViewZoomOut: TAction;
+    procedure acCancelExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure goDblClick(Graph: TEvsSimpleGraph; GraphObject: TEvsGraphObject);
     procedure ObjectsLinkExecute(Sender: TObject);
     procedure ObjectsNoneExecute(Sender: TObject);
     procedure ObjectsPentagonExecute(Sender: TObject);
@@ -167,6 +169,7 @@ type
     { public declarations }
     constructor Create(AOwner: TComponent); override;
     procedure New;override;
+    function OpenFromLink(aLink : string) : Boolean;override;
     procedure SetLanguage; override;
   end;
 
@@ -174,7 +177,11 @@ procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 
 implementation
 
-uses uData,uBaseDBInterface,uMainTreeFrame,uscheme,uIntfStrConsts;
+uses uData,uBaseDBInterface,uMainTreeFrame,uscheme,uIntfStrConsts,uSchemenodeproperties,
+  uschemelinkproperties;
+
+resourcestring
+  strNewScheme                     = 'Neues Schema';
 
 procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
 var
@@ -214,7 +221,7 @@ end;
 
 procedure TfShemeFrame.ObjectsNoneExecute(Sender: TObject);
 begin
-  if FEditable then
+  if not FEditable then
     FGraph.CommandMode := cmViewOnly
   else
     FGraph.CommandMode := cmEdit;
@@ -239,6 +246,22 @@ begin
       Data.StreamToBlobField(aMS,FDataSet.DataSet,'DATA');
       FDataSet.CascadicPost;
     end;
+end;
+
+procedure TfShemeFrame.goDblClick(Graph: TEvsSimpleGraph;
+  GraphObject: TEvsGraphObject);
+begin
+  if FGraph.SelectedObjects.Count > 0 then begin
+    if GraphObject.IsNode then
+      TfNodeProperties.Execute(FGraph.SelectedObjects)
+    else TfLinkProperties.Execute(FGraph.SelectedObjects);
+  end;
+end;
+
+procedure TfShemeFrame.acCancelExecute(Sender: TObject);
+begin
+  DataSet.CascadicCancel;
+  DoOpen;
 end;
 
 procedure TfShemeFrame.ObjectsPentagonExecute(Sender: TObject);
@@ -301,6 +324,7 @@ var
   aType: Char;
   aFound: Boolean;
   tmp: String;
+  aMS: TMemoryStream;
 begin
   TSchemeList(DataSet).OpenItem;
   FEditable := ((Data.Users.Rights.Right('PROJECTS') > RIGHT_READ));
@@ -346,7 +370,14 @@ begin
             end;
         end;
     end;
-
+  if DataSet.State<>dsInsert then
+    begin
+      aMS := TMemoryStream.Create;
+      Data.BlobFieldToStream(FDataSet.DataSet,'DATA',aMS);
+      aMS.Position:=0;
+      FGraph.LoadFromStream(aMS);
+      FDataSet.CascadicPost;
+    end;
 end;
 
 function TfShemeFrame.SetRights: Boolean;
@@ -375,7 +406,7 @@ begin
   FGraph.HorzScrollBar.Tracking:=True;
   FGraph.VertScrollBar.Tracking:=True;
 
-  //FGraph.OnObjectDblClick := @goDblClick;
+  FGraph.OnObjectDblClick:=@goDblClick;
   //FGraph.OnDblClick := @sgDblClick;
   FGraph.FixedScrollBars := True;
   FGraph.OnObjectChange:=@FGraphObjectChange;
@@ -392,6 +423,29 @@ begin
   DataSet.Open;
   DataSet.DataSet.Insert;
   DoOpen;
+end;
+
+function TfShemeFrame.OpenFromLink(aLink: string): Boolean;
+begin
+  Result := False;
+  if not ((copy(aLink,0,pos('@',aLink)-1) = 'SCHEME')
+  or (copy(aLink,0,pos('@',aLink)-1) = 'SCHEME.ID')) then exit;
+  if rpos('{',aLink) > 0 then
+    aLink := copy(aLink,0,rpos('{',aLink)-1)
+  else if rpos('(',aLink) > 0 then
+    aLink := copy(aLink,0,rpos('(',aLink)-1);
+  CloseConnection;
+  if not Assigned(FConnection) then
+    FConnection := Data.GetNewConnection;
+  DataSet := TSchemeList.CreateEx(Self,Data,FConnection);
+  if TbaseDbList(DataSet).SelectFromLink(aLink) then
+    FDataSet.Open;
+  if FDataSet.Count > 0 then
+    begin
+      TabCaption := TBaseDbList(FDataSet).Text.AsString;
+      DoOpen;
+      Result := True;
+    end;
 end;
 
 procedure TfShemeFrame.SetLanguage;

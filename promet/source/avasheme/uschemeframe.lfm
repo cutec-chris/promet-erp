@@ -214,7 +214,7 @@ inherited fShemeFrame: TfShemeFrame
       end
       object eName: TDBEdit
         Left = 4
-        Height = 25
+        Height = 21
         Hint = 'Die Projektnummer'
         Top = 12
         Width = 251
@@ -262,11 +262,11 @@ inherited fShemeFrame: TfShemeFrame
       end
       object cbStatus: TComboBox
         Left = 1
-        Height = 29
+        Height = 21
         Hint = 'hier können Sie den Status des Projektes ändern um es in neue Zustände zu überführen'
         Top = 12
         Width = 143
-        ItemHeight = 0
+        ItemHeight = 13
         Style = csDropDownList
         TabOrder = 0
       end
@@ -380,7 +380,8 @@ inherited fShemeFrame: TfShemeFrame
         Caption = 'Werkzeuge'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -558,7 +559,8 @@ inherited fShemeFrame: TfShemeFrame
         Caption = 'Zusätzlich'
         Font.Color = clMedGray
         Font.Height = 11
-        Font.Orientation = -900
+        Font.Orientation = 900
+        Layout = tlBottom
         ParentColor = False
         ParentFont = False
       end
@@ -579,6 +581,7 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'Abbrechen'
       Hint = 'verwirft alle Änderungen'
       ImageIndex = 75
+      OnExecute = acCancelExecute
     end
     object acSetTreeDir: TAction
       Caption = 'acSetTreeDir'

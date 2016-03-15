@@ -1,49 +1,34 @@
-object EvsNodeProperties: TEvsNodeProperties
-  Left = 461
-  Height = 534
-  Top = 178
+object fNodeProperties: TfNodeProperties
+  Left = 436
+  Height = 384
+  Top = 247
   Width = 686
   BorderStyle = bsDialog
-  Caption = 'Node Properties'
-  ClientHeight = 534
+  Caption = 'Eigenschaften'
+  ClientHeight = 384
   ClientWidth = 686
   Color = clBtnFace
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
-  LCLVersion = '1.7'
+  Position = poMainFormCenter
+  LCLVersion = '1.4.4.0'
   object Label1: TLabel
-    Left = 25
-    Height = 14
-    Top = 19
-    Width = 47
-    Caption = 'Caption:'
+    Left = 6
+    Height = 13
+    Top = 8
+    Width = 21
+    Caption = 'Text'
     ParentColor = False
-  end
-  object Label4: TLabel
-    Left = 25
-    Height = 14
-    Top = 91
-    Width = 47
-    Caption = 'Options:'
-    FocusControl = AllOptions
-    ParentColor = False
-  end
-  object Bevel1: TBevel
-    Left = 14
-    Height = 468
-    Top = 13
-    Width = 340
-    Style = bsRaised
   end
   object NodeShape: TRadioGroup
-    Left = 191
-    Height = 190
-    Top = 156
+    Left = 488
+    Height = 136
+    Top = 8
     Width = 153
     AutoFill = True
-    Caption = ' Shape '
+    Caption = 'Form'
     ChildSizing.LeftRightSpacing = 6
     ChildSizing.TopBottomSpacing = 6
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -52,31 +37,31 @@ object EvsNodeProperties: TEvsNodeProperties
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    TabOrder = 3
+    TabOrder = 2
   end
   object Colors: TGroupBox
-    Left = 23
+    Left = 334
     Height = 91
-    Top = 384
+    Top = 152
     Width = 153
-    Caption = ' Colors '
-    ClientHeight = 76
-    ClientWidth = 151
-    TabOrder = 5
+    Caption = 'Farben'
+    ClientHeight = 73
+    ClientWidth = 149
+    TabOrder = 4
     object Label2: TLabel
       Left = 14
-      Height = 14
+      Height = 13
       Top = 10
-      Width = 32
+      Width = 27
       Caption = 'Body:'
       FocusControl = NodeBodyColor
       ParentColor = False
     end
     object Label3: TLabel
       Left = 14
-      Height = 14
+      Height = 13
       Top = 44
-      Width = 43
+      Width = 34
       Caption = 'Border:'
       FocusControl = NodeBorderColor
       ParentColor = False
@@ -123,61 +108,61 @@ object EvsNodeProperties: TEvsNodeProperties
     end
   end
   object btnChangeFont: TButton
-    Left = 203
+    Left = 336
     Height = 25
-    Top = 448
+    Top = 280
     Width = 129
-    Caption = 'Change Font...'
+    Caption = 'Schriftart'
     OnClick = btnChangeFontClick
-    TabOrder = 7
+    TabOrder = 6
   end
   object NodeText: TMemo
-    Left = 36
-    Height = 53
-    Top = 32
+    Left = 8
+    Height = 304
+    Top = 24
     Width = 318
     ScrollBars = ssBoth
     TabOrder = 0
   end
   object GroupBox1: TGroupBox
-    Left = 25
-    Height = 123
-    Top = 156
+    Left = 336
+    Height = 136
+    Top = 8
     Width = 151
-    Caption = ' Caption Placement '
-    ClientHeight = 108
-    ClientWidth = 149
-    TabOrder = 2
+    Caption = 'Textausrichtung'
+    ClientHeight = 118
+    ClientWidth = 147
+    TabOrder = 1
     object Label5: TLabel
       Left = 14
-      Height = 14
+      Height = 13
       Top = 13
-      Width = 37
+      Width = 30
       Caption = 'Horiz.:'
       ParentColor = False
     end
     object Label6: TLabel
       Left = 14
-      Height = 14
+      Height = 13
       Top = 45
-      Width = 31
+      Width = 25
       Caption = 'Vert.:'
       ParentColor = False
     end
     object Label7: TLabel
       Left = 14
-      Height = 14
+      Height = 13
       Top = 78
-      Width = 42
+      Width = 35
       Caption = 'Margin:'
       ParentColor = False
     end
     object cbAlignment: TComboBox
       Left = 62
-      Height = 29
+      Height = 21
       Top = 10
       Width = 74
-      ItemHeight = 0
+      ItemHeight = 13
       Items.Strings = (
         'Left'
         'Center'
@@ -188,10 +173,10 @@ object EvsNodeProperties: TEvsNodeProperties
     end
     object cbLayout: TComboBox
       Left = 62
-      Height = 29
+      Height = 21
       Top = 42
       Width = 74
-      ItemHeight = 0
+      ItemHeight = 13
       Items.Strings = (
         'Top'
         'Center'
@@ -202,7 +187,7 @@ object EvsNodeProperties: TEvsNodeProperties
     end
     object edtMargin: TEdit
       Left = 62
-      Height = 24
+      Height = 21
       Top = 74
       Width = 57
       TabOrder = 2
@@ -210,7 +195,7 @@ object EvsNodeProperties: TEvsNodeProperties
     end
     object UpDownMargin: TUpDown
       Left = 119
-      Height = 24
+      Height = 21
       Top = 74
       Width = 16
       Associate = edtMargin
@@ -220,59 +205,39 @@ object EvsNodeProperties: TEvsNodeProperties
       Wrap = False
     end
   end
-  object AllOptions: TCheckListBox
-    Left = 25
-    Height = 51
-    Top = 104
-    Width = 318
-    Columns = 2
-    Items.Strings = (
-      'Linkable'
-      'Selectable'
-      'Show Caption'
-      'Movable'
-      'Resizable'
-      'Show Background'
-    )
-    ItemHeight = 20
-    TabOrder = 1
-    Data = {
-      06000000000000000000
-    }
-  end
   object Styles: TGroupBox
-    Left = 24
-    Height = 89
-    Top = 286
+    Left = 488
+    Height = 91
+    Top = 152
     Width = 153
-    Caption = ' Style '
-    ClientHeight = 74
-    ClientWidth = 151
-    TabOrder = 4
+    Caption = 'Aussehen'
+    ClientHeight = 73
+    ClientWidth = 149
+    TabOrder = 3
     object Label8: TLabel
       Left = 14
-      Height = 14
+      Height = 13
       Top = 10
-      Width = 18
+      Width = 15
       Caption = 'Fill:'
       FocusControl = FillStyle
       ParentColor = False
     end
     object Label9: TLabel
       Left = 14
-      Height = 14
+      Height = 13
       Top = 42
-      Width = 43
+      Width = 34
       Caption = 'Border:'
       FocusControl = BorderStyle
       ParentColor = False
     end
     object FillStyle: TComboBox
       Left = 62
-      Height = 25
+      Height = 21
       Top = 6
       Width = 73
-      ItemHeight = 0
+      ItemHeight = 13
       ItemIndex = 0
       Items.Strings = (
         'Solid'
@@ -290,10 +255,10 @@ object EvsNodeProperties: TEvsNodeProperties
     end
     object BorderStyle: TComboBox
       Left = 62
-      Height = 25
+      Height = 21
       Top = 40
       Width = 73
-      ItemHeight = 0
+      ItemHeight = 13
       ItemIndex = 0
       Items.Strings = (
         'Solid'
@@ -311,20 +276,20 @@ object EvsNodeProperties: TEvsNodeProperties
     end
   end
   object GroupBox3: TGroupBox
-    Left = 192
+    Left = 488
     Height = 89
-    Top = 352
+    Top = 248
     Width = 153
-    Caption = ' Background '
-    ClientHeight = 74
-    ClientWidth = 151
-    TabOrder = 6
+    Caption = 'Hintergrund'
+    ClientHeight = 71
+    ClientWidth = 149
+    TabOrder = 5
     object btnChangBkgnd: TButton
       Left = 14
       Height = 25
       Top = 10
       Width = 57
-      Caption = 'Change...'
+      Caption = 'Ändern...'
       OnClick = btnChangBkgndClick
       TabOrder = 0
     end
@@ -333,7 +298,7 @@ object EvsNodeProperties: TEvsNodeProperties
       Height = 25
       Top = 10
       Width = 57
-      Caption = 'Clear'
+      Caption = 'Löschen'
       OnClick = btnClearBackgroundClick
       TabOrder = 1
     end
@@ -342,15 +307,15 @@ object EvsNodeProperties: TEvsNodeProperties
       Height = 25
       Top = 40
       Width = 81
-      Caption = 'Margins...'
+      Caption = 'Abstand...'
       OnClick = btnBackgroundMarginsClick
       TabOrder = 2
     end
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 42
-    Top = 486
+    Height = 34
+    Top = 344
     Width = 674
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -360,7 +325,7 @@ object EvsNodeProperties: TEvsNodeProperties
     CloseButton.DefaultCaption = True
     CancelButton.Name = 'CancelButton'
     CancelButton.DefaultCaption = True
-    TabOrder = 8
+    TabOrder = 7
   end
   object FontDialog: TFontDialog
     Font.Color = clWindowText

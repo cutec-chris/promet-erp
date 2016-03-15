@@ -31,9 +31,6 @@ type
     acProjects: TAction;
     ActionList1: TActionList;
     bFfwd: TToolButton;
-    bSearch: TSpeedButton;
-    eContains: TEdit;
-    lbResults: TListBox;
     MainMenu: TMainMenu;
     miView: TMenuItem;
     MenuItem3: TMenuItem;
@@ -44,7 +41,6 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     pcPages: TExtMenuPageControl;
-    pSearch: TPanel;
     tvMain: TPanel;
     Splitter2: TSplitter;
     tbMenue: TToolButton;
@@ -120,6 +116,7 @@ begin
   //Projects
   uProjectFrame.AddToMainTree(acNewProject,nil);
   pcPages.AddTabClass(TfFilter,strProjectList,@AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
+  Data.RegisterLinkHandler('PROJECT',@fMainTreeFrame.OpenLink,TProject,TProjectList);
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
@@ -136,7 +133,7 @@ begin
   aFrame := TfProjectFrame.Create(Self);
   pcPages.AddTab(aFrame);
   aFrame.SetLanguage;
-  aFrame.OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;
+  //aFrame.OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;
   aFrame.New;
 end;
 

@@ -9,7 +9,7 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="2">
+    <Files Count="3">
       <Item1>
         <Filename Value="uschemeframe.pas"/>
         <UnitName Value="uschemeframe"/>
@@ -18,6 +18,10 @@
         <Filename Value="uschemenodeproperties.pas"/>
         <UnitName Value="uSchemenodeproperties"/>
       </Item2>
+      <Item3>
+        <Filename Value="uschemelinkproperties.pas"/>
+        <UnitName Value="uschemelinkproperties"/>
+      </Item3>
     </Files>
     <RequiredPkgs Count="5">
       <Item1>

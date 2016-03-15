@@ -7,7 +7,8 @@ unit pSheme;
 interface
 
 uses
-  uschemeframe, LazarusPackageIntf;
+  uschemeframe, uSchemenodeproperties, uschemelinkproperties, 
+  LazarusPackageIntf;
 
 implementation
 
