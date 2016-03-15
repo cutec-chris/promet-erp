@@ -141,4 +141,4 @@
 	url = https://github.com/tcs-ulli/script-plugin-diagram.git
 [submodule "promet/source/components/simplegraph"]
 	path = promet/source/components/simplegraph
-	url = git://git.code.sf.net/p/evssimplegraph/code
+	url = https://github.com/cutec-chris/evssimplegraph.git

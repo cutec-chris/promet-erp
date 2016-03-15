@@ -27,8 +27,8 @@ object fLinkProperties: TfLinkProperties
     Left = 24
     Height = 14
     Top = 367
-    Width = 47
-    Caption = 'Options:'
+    Width = 43
+    Caption = 'Options'
     FocusControl = AllOptions
     ParentColor = False
   end
@@ -50,25 +50,25 @@ object fLinkProperties: TfLinkProperties
     ClientWidth = 151
     TabOrder = 7
     object Shape1: TShape
-      Left = 68
+      Left = 88
       Height = 1
       Top = 18
-      Width = 67
+      Width = 47
       Brush.Style = bsClear
     end
     object Shape2: TShape
-      Left = 66
+      Left = 103
       Height = 1
-      Top = 37
-      Width = 69
+      Top = 39
+      Width = 32
       Brush.Style = bsClear
       Pen.Style = psDash
     end
     object Shape3: TShape
-      Left = 67
+      Left = 96
       Height = 1
       Top = 56
-      Width = 68
+      Width = 39
       Brush.Style = bsClear
       Pen.Style = psDot
     end
@@ -80,21 +80,22 @@ object fLinkProperties: TfLinkProperties
       Caption = 'Solid'
       Checked = True
       TabOrder = 0
+      TabStop = True
     end
     object StyleDash: TRadioButton
       Left = 14
       Height = 22
       Top = 29
-      Width = 54
-      Caption = 'Dash'
+      Width = 83
+      Caption = 'gestrichelt'
       TabOrder = 1
     end
     object StyleDot: TRadioButton
       Left = 14
       Height = 22
       Top = 48
-      Width = 45
-      Caption = 'Dot'
+      Width = 71
+      Caption = 'gedottet'
       TabOrder = 2
     end
   end
@@ -103,7 +104,7 @@ object fLinkProperties: TfLinkProperties
     Height = 88
     Top = 180
     Width = 153
-    Caption = ' Colors '
+    Caption = 'Farben'
     ClientHeight = 73
     ClientWidth = 151
     TabOrder = 8
@@ -111,8 +112,8 @@ object fLinkProperties: TfLinkProperties
       Left = 14
       Height = 14
       Top = 10
-      Width = 27
-      Caption = 'Line:'
+      Width = 26
+      Caption = 'Linie'
       FocusControl = LinkLineColor
       ParentColor = False
     end
@@ -120,8 +121,8 @@ object fLinkProperties: TfLinkProperties
       Left = 14
       Height = 14
       Top = 41
-      Width = 61
-      Caption = 'Begin/End:'
+      Width = 59
+      Caption = 'Start/Ende'
       FocusControl = LinkStyleColor
       ParentColor = False
     end
@@ -331,8 +332,8 @@ object fLinkProperties: TfLinkProperties
       Left = 14
       Height = 14
       Top = 10
-      Width = 32
-      Caption = 'Style:'
+      Width = 17
+      Caption = 'Stil'
       FocusControl = LineBeginStyle
       ParentColor = False
     end
@@ -340,12 +341,12 @@ object fLinkProperties: TfLinkProperties
       Left = 14
       Height = 14
       Top = 40
-      Width = 27
-      Caption = 'Size:'
+      Width = 35
+      Caption = 'Größe'
       ParentColor = False
     end
     object LineBeginStyle: TComboBox
-      Left = 51
+      Left = 53
       Height = 25
       Top = 7
       Width = 85
@@ -363,7 +364,7 @@ object fLinkProperties: TfLinkProperties
       Text = 'None'
     end
     object Edit2: TEdit
-      Left = 51
+      Left = 53
       Height = 24
       Top = 37
       Width = 68
@@ -371,7 +372,7 @@ object fLinkProperties: TfLinkProperties
       Text = '1'
     end
     object LineBeginSize: TUpDown
-      Left = 119
+      Left = 121
       Height = 24
       Top = 37
       Width = 16
@@ -388,7 +389,7 @@ object fLinkProperties: TfLinkProperties
     Height = 86
     Top = 276
     Width = 153
-    Caption = ' End '
+    Caption = ' Ende'
     ClientHeight = 71
     ClientWidth = 151
     TabOrder = 10
@@ -396,8 +397,8 @@ object fLinkProperties: TfLinkProperties
       Left = 14
       Height = 14
       Top = 10
-      Width = 32
-      Caption = 'Style:'
+      Width = 21
+      Caption = 'Stul'
       FocusControl = LineEndStyle
       ParentColor = False
     end
@@ -405,8 +406,8 @@ object fLinkProperties: TfLinkProperties
       Left = 14
       Height = 14
       Top = 40
-      Width = 27
-      Caption = 'Size:'
+      Width = 35
+      Caption = 'Größe'
       ParentColor = False
     end
     object LineEndStyle: TComboBox
