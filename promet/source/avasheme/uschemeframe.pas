@@ -26,7 +26,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, Buttons,
   DbCtrls, EditBtn, ComCtrls, ActnList, uExtControls, db, uPrometFrames,
-  uPrometFramesInplace, usimplegraph,Graphics,uBaseDbClasses,variants,Utils;
+  uPrometFramesInplace, usimplegraph, Graphics, Menus, uBaseDbClasses, variants,
+  Utils;
 
 type
 
@@ -47,6 +48,7 @@ type
     acSetTreeDir: TAction;
     acShowTreeDir: TAction;
     acStartTimeRegistering: TAction;
+    acEdit: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
     Bevel1: TBevel;
@@ -60,6 +62,7 @@ type
     bMenue1: TSpeedButton;
     bMenue2: TSpeedButton;
     bMenue3: TSpeedButton;
+    bMenue4: TSpeedButton;
     cbStatus: TComboBox;
     ClipboardBitmap: TAction;
     ClipboardMetafile: TAction;
@@ -71,8 +74,6 @@ type
     EditCut: TAction;
     EditDelete: TAction;
     EditInvertSelection: TAction;
-    EditLockLinks: TAction;
-    EditLockNodes: TAction;
     EditMakeAllSelectable: TAction;
     EditPaste: TAction;
     EditProperties: TAction;
@@ -116,6 +117,7 @@ type
     Panel10: TPanel;
     Panel2: TPanel;
     Panel7: TPanel;
+    pmContext: TPopupMenu;
     pToolbar: TPanel;
     Scheme: TDataSource;
     eName: TDBEdit;
@@ -135,7 +137,6 @@ type
     ToolButton11: TToolButton;
     ToolButton2: TSpeedButton;
     ToolButton3: TToolButton;
-    ToolButton4: TToolButton;
     ToolButton5: TToolButton;
     ToolButton6: TToolButton;
     ToolButton7: TToolButton;
@@ -150,6 +151,7 @@ type
     ViewZoomIn: TAction;
     ViewZoomOut: TAction;
     procedure acCancelExecute(Sender: TObject);
+    procedure acEditExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure goDblClick(Graph: TEvsSimpleGraph; GraphObject: TEvsGraphObject);
     procedure ObjectsLinkExecute(Sender: TObject);
@@ -160,7 +162,6 @@ type
     procedure ObjectsRoundRectExecute(Sender: TObject);
     procedure ObjectsTriangleExecute(Sender: TObject);
     procedure SchemeStateChange(Sender: TObject);
-    procedure ViewPanExecute(Sender: TObject);
     procedure ViewZoomInExecute(Sender: TObject);
     procedure ViewZoomOutExecute(Sender: TObject);
   private
@@ -220,20 +221,14 @@ end;
 
 { TfShemeFrame }
 
-procedure TfShemeFrame.ViewPanExecute(Sender: TObject);
-begin
-  FGraph.SnapToGrid:=False;
-  FGraph.CommandMode := cmPan;
-end;
-
 procedure TfShemeFrame.ViewZoomInExecute(Sender: TObject);
 begin
-  FGraph.ScaleBy(1,2);
+  FGraph.ChangeZoomBy(+10,zoCenter);
 end;
 
 procedure TfShemeFrame.ViewZoomOutExecute(Sender: TObject);
 begin
-  FGraph.ScaleBy(2,1);
+  FGraph.ChangeZoomBy(-10,zoCenter);
 end;
 
 procedure TfShemeFrame.ObjectsNoneExecute(Sender: TObject);
@@ -279,6 +274,21 @@ procedure TfShemeFrame.acCancelExecute(Sender: TObject);
 begin
   DataSet.CascadicCancel;
   DoOpen;
+end;
+
+procedure TfShemeFrame.acEditExecute(Sender: TObject);
+begin
+  FGraph.LockLinks := not acEdit.Checked;
+  FGraph.LockNodes := not acEdit.Checked;
+  if acEdit.Checked then
+    begin
+      if not FEditable then
+        FGraph.CommandMode := cmViewOnly
+      else
+        FGraph.CommandMode := cmEdit;
+    end
+  else
+    FGraph.CommandMode := cmPan;
 end;
 
 procedure TfShemeFrame.ObjectsPentagonExecute(Sender: TObject);
@@ -394,6 +404,11 @@ begin
       aMS.Position:=0;
       FGraph.LoadFromStream(aMS);
       FDataSet.CascadicPost;
+
+      FGraph.LockNodes:=True;
+      FGraph.LockLinks:=True;
+      acEdit.Checked:=not FGraph.LockNodes;
+      FGraph.CommandMode := cmPan;
     end;
 end;
 

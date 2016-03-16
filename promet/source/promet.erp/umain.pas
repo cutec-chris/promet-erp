@@ -91,6 +91,7 @@ type
     acProduction: TAction;
     acShowSearch: TAction;
     acSearchOptions: TAction;
+    acNewScheme: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -188,6 +189,7 @@ type
     procedure acNewObjectExecute(Sender: TObject);
     procedure acNewOrderExecute(Sender: TObject);
     procedure acNewProjectExecute(Sender: TObject);
+    procedure acNewSchemeExecute(Sender: TObject);
     procedure acNewScriptExecute(Sender: TObject);
     procedure acNewStatisticsExecute(Sender: TObject);
     procedure acNewTaskExecute(Sender: TObject);
@@ -304,6 +306,7 @@ type
     procedure AddTaskList(Sender: TObject);
     procedure AddMeetingList(Sender : TObject);
     procedure AddWiki(Sender: TObject);
+    procedure AddSchemeList(Sender : TObject);
     procedure AddElementList(Sender: TObject);
     function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
     procedure RefreshCalendar;
@@ -376,7 +379,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,lazutf8s
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
   uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts,
   ufinancialoptions,ubookfibuaccount,ucommandline,uobjectframe,uscriptframe,uprometscripts,
-  uPasswords,uArticleVersion
+  uPasswords,uArticleVersion,uscheme,uschemeframe
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -732,6 +735,19 @@ begin
     end;
 end;
 
+procedure TfMain.AddSchemeList(Sender: TObject);
+begin
+  with Sender as TfFilter do
+    begin
+      Caption := strSchemeList;
+      FilterType:='D';
+      DefaultRows:='GLOBALWIDTH:%;NAME:100;STATUS:60;';
+      Dataset := TSchemeList.Create(nil);
+      gList.OnDrawColumnCell:=nil;
+      AddToolbarAction(acNewScheme);
+    end;
+end;
+
 procedure TfMain.AddElementList(Sender: TObject);
 var
   aObj: TObjects;
@@ -776,6 +792,10 @@ begin
       aItem := TMenuItem.Create(aBtn);
       aBtn.DropdownMenu.Items.Add(aItem);
       aItem.Action := acNewMeeting;
+
+      aItem := TMenuItem.Create(aBtn);
+      aBtn.DropdownMenu.Items.Add(aItem);
+      aItem.Action := acNewScheme;
 
       aItem := TMenuItem.Create(aBtn);
       aBtn.DropdownMenu.Items.Add(aItem);
@@ -1242,6 +1262,17 @@ begin
       Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,TStatistic);
       fMain.pcPages.AddTabClass(TfFilter,strStatisticList,@fMain.AddStatisticList,Data.GetLinkIcon('STATISTICS@'),True);
       AddSearchAbleDataSet(TStatistic);
+      except
+      end;
+    end;
+  //Scheme
+  DoInfo('Scheme');
+  if (GetRight('SCHEME') > RIGHT_NONE) then
+    begin
+      try
+      Data.RegisterLinkHandler('SCHEME',@fMainTreeFrame.OpenLink,TSchemeList);
+      fMain.pcPages.AddTabClass(TfFilter,strSchemeList,@fMain.AddSchemeList,Data.GetLinkIcon('SCHEME@'),True);
+      AddSearchAbleDataSet(TSchemeList);
       except
       end;
     end;
@@ -2143,6 +2174,17 @@ begin
   pcPages.AddTab(aFrame);
   aFrame.SetLanguage;
   aFrame.OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;
+  aFrame.New;
+end;
+
+procedure TfMain.acNewSchemeExecute(Sender: TObject);
+var
+  aFrame: TfShemeFrame;
+begin
+  Application.ProcessMessages;
+  aFrame := TfShemeFrame.Create(Self);
+  pcPages.AddTab(aFrame);
+  aFrame.SetLanguage;
   aFrame.New;
 end;
 
@@ -3598,6 +3640,15 @@ begin
   else if (copy(aLink,0,8) = 'MEETINGS') then
     begin
       aFrame := TfMeetingFrame.Create(Self);
+      aFrame.OpenFromLink(aLink);
+      pcPages.AddTab(aFrame);
+      aFrame.SetLanguage;
+      Result := True;
+    end
+  else if (copy(aLink,0,7) = 'SCHEME@')
+       or (copy(aLink,0,10) = 'SCHEME.ID@') then
+    begin
+      aFrame := TfShemeFrame.Create(Self);
       aFrame.OpenFromLink(aLink);
       pcPages.AddTab(aFrame);
       aFrame.SetLanguage;

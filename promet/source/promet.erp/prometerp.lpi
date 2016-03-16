@@ -176,107 +176,111 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="26">
+    <RequiredPackages Count="27">
       <Item1>
-        <PackageName Value="KControlsLaz"/>
-        <DefaultFilename Value="../components/kcontrols/packages/kcontrols/kcontrolslaz.lpk"/>
+        <PackageName Value="pSheme"/>
+        <DefaultFilename Value="../avasheme/psheme.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="promet_scripts"/>
-        <DefaultFilename Value="../base/base_scripts/promet_scripts.lpk"/>
+        <PackageName Value="KControlsLaz"/>
+        <DefaultFilename Value="../components/kcontrols/packages/kcontrols/kcontrolslaz.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="pack_powerpdf"/>
+        <PackageName Value="promet_scripts"/>
+        <DefaultFilename Value="../base/base_scripts/promet_scripts.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="pOptions"/>
-        <DefaultFilename Value="../base/base_options/poptions.lpk"/>
+        <PackageName Value="pack_powerpdf"/>
       </Item4>
       <Item5>
-        <PackageName Value="lazreport"/>
+        <PackageName Value="pOptions"/>
+        <DefaultFilename Value="../base/base_options/poptions.lpk"/>
       </Item5>
       <Item6>
-        <PackageName Value="pvisualframes"/>
-        <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
+        <PackageName Value="lazreport"/>
       </Item6>
       <Item7>
-        <PackageName Value="pvisualforms"/>
-        <DefaultFilename Value="../base/base_forms/pvisualforms.lpk"/>
+        <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
       </Item7>
       <Item8>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="../base/base_forms/pvisualforms.lpk"/>
       </Item8>
       <Item9>
-        <PackageName Value="ptimes"/>
-        <DefaultFilename Value="../timeregistering/ptimes.lpk"/>
+        <PackageName Value="LazControls"/>
       </Item9>
       <Item10>
-        <PackageName Value="pDocManage"/>
-        <DefaultFilename Value="../base/base_docmanage/pdocmanage.lpk"/>
+        <PackageName Value="ptimes"/>
+        <DefaultFilename Value="../timeregistering/ptimes.lpk"/>
       </Item10>
       <Item11>
-        <PackageName Value="tabeditor"/>
-        <DefaultFilename Value="../base/base_editform/tabeditor.lpk"/>
+        <PackageName Value="pDocManage"/>
+        <DefaultFilename Value="../base/base_docmanage/pdocmanage.lpk"/>
       </Item11>
       <Item12>
-        <PackageName Value="statisticsaddon"/>
-        <DefaultFilename Value="../statistics/statisticsaddon.lpk"/>
+        <PackageName Value="tabeditor"/>
+        <DefaultFilename Value="../base/base_editform/tabeditor.lpk"/>
       </Item12>
       <Item13>
-        <PackageName Value="base_inet"/>
-        <DefaultFilename Value="../base/base_inet/base_inet.lpk"/>
+        <PackageName Value="statisticsaddon"/>
+        <DefaultFilename Value="../statistics/statisticsaddon.lpk"/>
       </Item13>
       <Item14>
-        <PackageName Value="prepair"/>
-        <DefaultFilename Value="../base/base_repair/prepair.lpk"/>
+        <PackageName Value="base_inet"/>
+        <DefaultFilename Value="../base/base_inet/base_inet.lpk"/>
       </Item14>
       <Item15>
-        <PackageName Value="pmessaging"/>
-        <DefaultFilename Value="../base/base_messaging/pmessaging.lpk"/>
+        <PackageName Value="prepair"/>
+        <DefaultFilename Value="../base/base_repair/prepair.lpk"/>
       </Item15>
       <Item16>
-        <PackageName Value="perp"/>
-        <DefaultFilename Value="../base/base_erp/perp.lpk"/>
+        <PackageName Value="pmessaging"/>
+        <DefaultFilename Value="../base/base_messaging/pmessaging.lpk"/>
       </Item16>
       <Item17>
-        <PackageName Value="pcalendar"/>
-        <DefaultFilename Value="../base/base_calendar/pcalendar.lpk"/>
+        <PackageName Value="perp"/>
+        <DefaultFilename Value="../base/base_erp/perp.lpk"/>
       </Item17>
       <Item18>
-        <PackageName Value="projectmanagement"/>
-        <DefaultFilename Value="../projectmanagement/projectmanagement.lpk"/>
+        <PackageName Value="pcalendar"/>
+        <DefaultFilename Value="../base/base_calendar/pcalendar.lpk"/>
       </Item18>
       <Item19>
-        <PackageName Value="ZVDateTimeCtrls"/>
-        <DefaultFilename Value="../components/ZVDateTimeCtrls/zvdatetimectrls.lpk"/>
+        <PackageName Value="projectmanagement"/>
+        <DefaultFilename Value="../projectmanagement/projectmanagement.lpk"/>
       </Item19>
       <Item20>
-        <PackageName Value="phelp"/>
-        <DefaultFilename Value="../base_help/phelp.lpk"/>
+        <PackageName Value="ZVDateTimeCtrls"/>
+        <DefaultFilename Value="../components/ZVDateTimeCtrls/zvdatetimectrls.lpk"/>
       </Item20>
       <Item21>
-        <PackageName Value="pPhones"/>
-        <DefaultFilename Value="../base/base_phone/pphones.lpk"/>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="../base_help/phelp.lpk"/>
       </Item21>
       <Item22>
-        <PackageName Value="TurboPowerIPro"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="pPhones"/>
+        <DefaultFilename Value="../base/base_phone/pphones.lpk"/>
       </Item22>
       <Item23>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="TurboPowerIPro"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item23>
       <Item24>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item24>
       <Item25>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="../../../general/general.lpk"/>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item25>
       <Item26>
-        <PackageName Value="LCL"/>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
       </Item26>
+      <Item27>
+        <PackageName Value="LCL"/>
+      </Item27>
     </RequiredPackages>
     <Units Count="50">
       <Unit0>

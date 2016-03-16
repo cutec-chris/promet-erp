@@ -294,7 +294,7 @@ begin
   with Sender as TfFilter do
     begin
       Caption := strSchemeList;
-      FilterType:='S';
+      FilterType:='D';
       DefaultRows:='GLOBALWIDTH:%;NAME:100;STATUS:60;';
       Dataset := TSchemeList.Create(nil);
       gList.OnDrawColumnCell:=nil;

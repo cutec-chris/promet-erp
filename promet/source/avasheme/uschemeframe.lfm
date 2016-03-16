@@ -352,10 +352,9 @@ inherited fShemeFrame: TfShemeFrame
     object Panel2: TPanel
       Left = 0
       Height = 206
-      Top = 42
+      Top = 72
       Width = 44
       Align = alTop
-      BorderSpacing.Top = 42
       BevelOuter = bvNone
       ClientHeight = 206
       ClientWidth = 44
@@ -397,59 +396,54 @@ inherited fShemeFrame: TfShemeFrame
         TabOrder = 0
         object ToolButton3: TToolButton
           Left = 1
-          Top = 22
-          Action = ObjectsNone
-        end
-        object ToolButton4: TToolButton
-          Left = 1
           Top = 0
-          Action = ViewPan
+          Action = ObjectsNone
         end
         object ToolButton5: TToolButton
           Left = 1
-          Top = 44
+          Top = 22
           Action = ObjectsRectangle
         end
         object ToolButton6: TToolButton
           Left = 1
-          Top = 66
+          Top = 44
           Action = ObjectsRhomboid
         end
         object ToolButton7: TToolButton
           Left = 1
-          Top = 110
+          Top = 88
           Action = ObjectsPentagon
         end
         object ToolButton8: TToolButton
           Left = 1
-          Top = 88
+          Top = 66
           Action = ObjectsRoundRect
         end
         object ToolButton9: TToolButton
           Left = 1
-          Top = 132
+          Top = 110
           Action = ObjectsTriangle
         end
         object ToolButton10: TToolButton
           Left = 1
-          Top = 154
+          Top = 132
           Action = ObjectsLink
         end
         object ToolButton11: TToolButton
           Left = 1
-          Top = 176
+          Top = 154
           Action = ObjectsBezier
         end
       end
     end
     object Panel7: TPanel
       Left = 0
-      Height = 56
-      Top = 248
+      Height = 72
+      Top = 0
       Width = 44
       Align = alTop
       BevelOuter = bvNone
-      ClientHeight = 56
+      ClientHeight = 72
       ClientWidth = 44
       TabOrder = 1
       object Bevel8: TBevel
@@ -465,7 +459,7 @@ inherited fShemeFrame: TfShemeFrame
       object bMenue1: TSpeedButton
         Left = 16
         Height = 24
-        Top = 4
+        Top = 0
         Width = 24
         Action = ViewZoomIn
         BorderSpacing.InnerBorder = 2
@@ -475,7 +469,7 @@ inherited fShemeFrame: TfShemeFrame
       end
       object ExtRotatedLabel4: TExtRotatedLabel
         Left = 0
-        Height = 52
+        Height = 68
         Top = 4
         Width = 14
         Align = alLeft
@@ -498,11 +492,24 @@ inherited fShemeFrame: TfShemeFrame
         Layout = blGlyphTop
         ShowCaption = False
       end
+      object bMenue4: TSpeedButton
+        Left = 16
+        Height = 20
+        Top = 48
+        Width = 20
+        Action = acEdit
+        AllowAllUp = True
+        BorderSpacing.InnerBorder = 2
+        Flat = True
+        GroupIndex = 4
+        Layout = blGlyphTop
+        ShowCaption = False
+      end
     end
     object Panel10: TPanel
       Left = 0
       Height = 56
-      Top = 304
+      Top = 278
       Width = 44
       Align = alTop
       BevelOuter = bvNone
@@ -683,6 +690,13 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'acDeleteThumb'
       Hint = 'Thumbnail entfernen'
       ImageIndex = 75
+    end
+    object acEdit: TAction
+      AutoCheck = True
+      Caption = 'Editieren'
+      GroupIndex = 4
+      ImageIndex = 67
+      OnExecute = acEditExecute
     end
   end
   object Scheme: TDataSource[3]
@@ -2147,18 +2161,6 @@ inherited fShemeFrame: TfShemeFrame
       Hint = 'Send To Back|Puts the selected items behind of the other items.'
       ImageIndex = 11
     end
-    object EditLockNodes: TAction
-      Category = 'Edit'
-      Caption = 'Lock Nodes'
-      Hint = 'Lock Nodes|Toggle nodes locked/unlocked to prevent/allow movement and resizing of the nodes'
-      ImageIndex = 36
-    end
-    object EditLockLinks: TAction
-      Category = 'Edit'
-      Caption = 'Lock Links/Lines'
-      Hint = 'Lock Links/Lines|Toggle links locked/unlocked to prevent/allow changing endpoints and breakpoints of links/lines'
-      ImageIndex = 37
-    end
     object EditProperties: TAction
       Category = 'Edit'
       Caption = 'Properties...'
@@ -2274,7 +2276,6 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'Pan Mode'
       Hint = 'Pan Mode|Changes the editor mode to pan mode.'
       ImageIndex = 39
-      OnExecute = ViewPanExecute
       ShortCut = 16416
     end
     object HelpAbout: TAction
@@ -2423,5 +2424,9 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'ObjectBezier'
       ImageIndex = 42
     end
+  end
+  object pmContext: TPopupMenu[6]
+    left = 200
+    top = 96
   end
 end
