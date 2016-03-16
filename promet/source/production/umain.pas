@@ -84,6 +84,8 @@ var
   fMain: TfMain;
 resourcestring
   strNoOrderFound                       = 'Es wurde kein Auftrag oder Artikel gefunden der zum Suchkriterium passt !';
+  strCreateNewOrder                     = 'Neuer Auftrag';
+  strNewOrderWillbeCreated              = 'Es wird ein %s für Artikel "%s" erstellt.';
 implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
@@ -144,13 +146,22 @@ begin
           FOrder.OrderType.Open;
           if FOrder.OrderType.Locate('SI_PROD;TYPE',VarArrayOf(['Y',7]),[]) then
             begin
-              FOrder.Insert;
-              FOrder.Positions.Insert;
-              //FOrder.Status.AsString:=FOrder.OrderType.FieldByName('STATUS').AsString;
-              FOrder.Positions.Assign(aMasterdata);
-              FOrder.Positions.Post;
-              FOrder.Post;
-              cbVersion.Enabled:=False;
+              if MessageDlg(strCreateNewOrder,Format(strNewOrderWillbeCreated,[FOrder.OrderType.FieldByName('STATUSNAME').AsString,aMasterdata.FieldByName('ID').AsString]),mtInformation,[mbOK,mbCancel],0) = mrOK then
+                begin
+                  FOrder.Insert;
+                  FOrder.Positions.Insert;
+                  //FOrder.Status.AsString:=FOrder.OrderType.FieldByName('STATUS').AsString;
+                  FOrder.Positions.Assign(aMasterdata);
+                  FOrder.Positions.Post;
+                  FOrder.Post;
+                  cbVersion.Enabled:=False;
+                end
+              else
+                begin
+                  eOrder.SelectAll;
+                  eOrder.SetFocus;
+                  exit;
+                end;
             end;
         end;
       aMasterdata.Free;
