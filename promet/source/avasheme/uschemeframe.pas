@@ -55,8 +55,11 @@ type
     Bevel6: TBevel;
     Bevel7: TBevel;
     Bevel8: TBevel;
+    Bevel9: TBevel;
     bExecute: TSpeedButton;
     bMenue1: TSpeedButton;
+    bMenue2: TSpeedButton;
+    bMenue3: TSpeedButton;
     cbStatus: TComboBox;
     ClipboardBitmap: TAction;
     ClipboardMetafile: TAction;
@@ -78,6 +81,7 @@ type
     EditSize: TAction;
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel4: TExtRotatedLabel;
+    ExtRotatedLabel5: TExtRotatedLabel;
     FormatAlignBottom: TAction;
     FormatAlignLeft: TAction;
     FormatAlignRight: TAction;
@@ -109,6 +113,7 @@ type
     ObjectsTriangle: TAction;
     OptionsConfirmDeletion: TAction;
     OptionsConfirmHookLink: TAction;
+    Panel10: TPanel;
     Panel2: TPanel;
     Panel7: TPanel;
     pToolbar: TPanel;
@@ -156,6 +161,8 @@ type
     procedure ObjectsTriangleExecute(Sender: TObject);
     procedure SchemeStateChange(Sender: TObject);
     procedure ViewPanExecute(Sender: TObject);
+    procedure ViewZoomInExecute(Sender: TObject);
+    procedure ViewZoomOutExecute(Sender: TObject);
   private
     { private declarations }
     FEditable: Boolean;
@@ -217,6 +224,16 @@ procedure TfShemeFrame.ViewPanExecute(Sender: TObject);
 begin
   FGraph.SnapToGrid:=False;
   FGraph.CommandMode := cmPan;
+end;
+
+procedure TfShemeFrame.ViewZoomInExecute(Sender: TObject);
+begin
+  FGraph.ScaleBy(1,2);
+end;
+
+procedure TfShemeFrame.ViewZoomOutExecute(Sender: TObject);
+begin
+  FGraph.ScaleBy(2,1);
 end;
 
 procedure TfShemeFrame.ObjectsNoneExecute(Sender: TObject);
@@ -405,10 +422,10 @@ begin
   FGraph.DoubleBuffered:=True;
   FGraph.HorzScrollBar.Tracking:=True;
   FGraph.VertScrollBar.Tracking:=True;
-
+  FGraph.SnapToGrid:=False;
   FGraph.OnObjectDblClick:=@goDblClick;
   //FGraph.OnDblClick := @sgDblClick;
-  FGraph.FixedScrollBars := True;
+  //FGraph.FixedScrollBars := True;
   FGraph.OnObjectChange:=@FGraphObjectChange;
 end;
 
