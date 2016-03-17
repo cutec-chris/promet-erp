@@ -150,8 +150,6 @@ type
     ViewPan: TAction;
     ViewTransparent: TAction;
     ViewWholeGraph: TAction;
-    ViewZoomIn: TAction;
-    ViewZoomOut: TAction;
     procedure acCancelExecute(Sender: TObject);
     procedure acCopyExecute(Sender: TObject);
     procedure acDeleteElementExecute(Sender: TObject);

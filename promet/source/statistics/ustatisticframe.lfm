@@ -3,8 +3,8 @@ inherited fStatisticFrame: TfStatisticFrame
   Width = 855
   ClientHeight = 698
   ClientWidth = 855
-  DesignLeft = 99
-  DesignTop = 181
+  DesignLeft = 143
+  DesignTop = 177
   object Splitter2: TSplitter[0]
     Cursor = crVSplit
     Left = 0
@@ -930,10 +930,7 @@ inherited fStatisticFrame: TfStatisticFrame
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
               end>
-            MouseTextActions = <>
             MouseSelActions = <>
-            VisibleSpecialChars = [vscSpace, vscTabAtLast]
-            SelectedColor.FrameEdges = sfeAround
             SelectedColor.BackPriority = 50
             SelectedColor.ForePriority = 50
             SelectedColor.FramePriority = 50
@@ -952,7 +949,6 @@ inherited fStatisticFrame: TfStatisticFrame
                 MouseActions = <>
                 MarkupInfo.Background = clBtnFace
                 MarkupInfo.Foreground = clNone
-                MarkupInfo.FrameEdges = sfeAround
                 DigitCount = 2
                 ShowOnlyLineNumbersMultiplesOf = 1
                 ZeroStart = False
@@ -969,7 +965,6 @@ inherited fStatisticFrame: TfStatisticFrame
                 MouseActions = <>
                 MarkupInfo.Background = clWhite
                 MarkupInfo.Foreground = clGray
-                MarkupInfo.FrameEdges = sfeAround
               end
               object SynGutterCodeFolding1: TSynGutterCodeFolding
                 MouseActions = <                
@@ -1000,7 +995,6 @@ inherited fStatisticFrame: TfStatisticFrame
                   end>
                 MarkupInfo.Background = clNone
                 MarkupInfo.Foreground = clGray
-                MarkupInfo.FrameEdges = sfeAround
                 MouseActionsExpanded = <                
                   item
                     ClickCount = ccAny
@@ -1543,10 +1537,7 @@ inherited fStatisticFrame: TfStatisticFrame
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
               end>
-            MouseTextActions = <>
             MouseSelActions = <>
-            VisibleSpecialChars = [vscSpace, vscTabAtLast]
-            SelectedColor.FrameEdges = sfeAround
             SelectedColor.BackPriority = 50
             SelectedColor.ForePriority = 50
             SelectedColor.FramePriority = 50
@@ -1565,7 +1556,6 @@ inherited fStatisticFrame: TfStatisticFrame
                 MouseActions = <>
                 MarkupInfo.Background = clBtnFace
                 MarkupInfo.Foreground = clNone
-                MarkupInfo.FrameEdges = sfeAround
                 DigitCount = 2
                 ShowOnlyLineNumbersMultiplesOf = 1
                 ZeroStart = False
@@ -1582,7 +1572,6 @@ inherited fStatisticFrame: TfStatisticFrame
                 MouseActions = <>
                 MarkupInfo.Background = clWhite
                 MarkupInfo.Foreground = clGray
-                MarkupInfo.FrameEdges = sfeAround
               end
               object SynGutterCodeFolding1: TSynGutterCodeFolding
                 MouseActions = <                
@@ -1613,7 +1602,6 @@ inherited fStatisticFrame: TfStatisticFrame
                   end>
                 MarkupInfo.Background = clNone
                 MarkupInfo.Foreground = clGray
-                MarkupInfo.FrameEdges = sfeAround
                 MouseActionsExpanded = <                
                   item
                     ClickCount = ccAny
@@ -2146,10 +2134,7 @@ inherited fStatisticFrame: TfStatisticFrame
                 ShiftMask = [ssShift, ssAlt, ssCtrl]
                 Command = emcMouseLink
               end>
-            MouseTextActions = <>
             MouseSelActions = <>
-            VisibleSpecialChars = [vscSpace, vscTabAtLast]
-            SelectedColor.FrameEdges = sfeAround
             SelectedColor.BackPriority = 50
             SelectedColor.ForePriority = 50
             SelectedColor.FramePriority = 50
@@ -2168,7 +2153,6 @@ inherited fStatisticFrame: TfStatisticFrame
                 MouseActions = <>
                 MarkupInfo.Background = clBtnFace
                 MarkupInfo.Foreground = clNone
-                MarkupInfo.FrameEdges = sfeAround
                 DigitCount = 2
                 ShowOnlyLineNumbersMultiplesOf = 1
                 ZeroStart = False
@@ -2185,7 +2169,6 @@ inherited fStatisticFrame: TfStatisticFrame
                 MouseActions = <>
                 MarkupInfo.Background = clWhite
                 MarkupInfo.Foreground = clGray
-                MarkupInfo.FrameEdges = sfeAround
               end
               object SynGutterCodeFolding1: TSynGutterCodeFolding
                 MouseActions = <                
@@ -2216,7 +2199,6 @@ inherited fStatisticFrame: TfStatisticFrame
                   end>
                 MarkupInfo.Background = clNone
                 MarkupInfo.Foreground = clGray
-                MarkupInfo.FrameEdges = sfeAround
                 MouseActionsExpanded = <                
                   item
                     ClickCount = ccAny
@@ -3379,23 +3361,12 @@ inherited fStatisticFrame: TfStatisticFrame
     Tag = 1
     Enabled = False
     AsmAttri.Foreground = clGreen
-    AsmAttri.FrameEdges = sfeAround
     CommentAttri.Foreground = clMoneyGreen
-    CommentAttri.FrameEdges = sfeAround
     CommentAttri.Style = [fsBold]
-    IDEDirectiveAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    KeyAttri.FrameEdges = sfeAround
     NumberAttri.Foreground = clNavy
-    NumberAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
     StringAttri.Foreground = clBlue
-    StringAttri.FrameEdges = sfeAround
     SymbolAttri.Foreground = clRed
-    SymbolAttri.FrameEdges = sfeAround
-    CaseLabelAttri.FrameEdges = sfeAround
     DirectiveAttri.Foreground = clRed
-    DirectiveAttri.FrameEdges = sfeAround
     DirectiveAttri.Style = [fsBold]
     CompilerMode = pcmFPC
     NestedComments = True
@@ -3405,21 +3376,6 @@ inherited fStatisticFrame: TfStatisticFrame
   object HigSQL: TSynSQLSyn[22]
     DefaultFilter = 'SQL-Dateien (*.sql)|*.sql'
     Enabled = False
-    CommentAttri.FrameEdges = sfeAround
-    DataTypeAttri.FrameEdges = sfeAround
-    DefaultPackageAttri.FrameEdges = sfeAround
-    ExceptionAttri.FrameEdges = sfeAround
-    FunctionAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    KeyAttri.FrameEdges = sfeAround
-    NumberAttri.FrameEdges = sfeAround
-    PLSQLAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    SQLPlusAttri.FrameEdges = sfeAround
-    StringAttri.FrameEdges = sfeAround
-    SymbolAttri.FrameEdges = sfeAround
-    TableNameAttri.FrameEdges = sfeAround
-    VariableAttri.FrameEdges = sfeAround
     SQLDialect = sqlSybase
     left = 732
     top = 140
