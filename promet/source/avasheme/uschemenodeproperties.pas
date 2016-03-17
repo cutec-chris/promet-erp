@@ -127,6 +127,7 @@ begin
       MarginRect := BackgroundMargins;
       //SetObjectOptions(Options);
       //SetNodeOptions(NodeOptions);
+
     end;
     if ShowModal = mrOK then
     begin
