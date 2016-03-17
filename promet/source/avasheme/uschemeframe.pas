@@ -157,6 +157,7 @@ type
     procedure acPasteExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure goDblClick(Graph: TEvsSimpleGraph; GraphObject: TEvsGraphObject);
+    procedure ObjectsBezierExecute(Sender: TObject);
     procedure ObjectsLinkExecute(Sender: TObject);
     procedure ObjectsNoneExecute(Sender: TObject);
     procedure ObjectsPentagonExecute(Sender: TObject);
@@ -262,6 +263,12 @@ begin
       TfNodeProperties.Execute(FGraph.SelectedObjects)
     else TfLinkProperties.Execute(FGraph.SelectedObjects);
   end;
+end;
+
+procedure TfShemeFrame.ObjectsBezierExecute(Sender: TObject);
+begin
+  FGraph.CommandMode := cmInsertLink;
+  FGraph.DefaultLinkClass := TEVSBezierLink;
 end;
 
 procedure TfShemeFrame.acCancelExecute(Sender: TObject);
