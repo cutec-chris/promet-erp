@@ -38,7 +38,6 @@ type
     acClose: TAction;
     acCopy: TAction;
     acDelete: TAction;
-    acDeleteThumb: TAction;
     acExport: TAction;
     acImport: TAction;
     acPaste: TAction;
@@ -49,6 +48,9 @@ type
     acShowTreeDir: TAction;
     acStartTimeRegistering: TAction;
     acEdit: TAction;
+    acDeleteElement: TAction;
+    acProperties: TAction;
+    acOpen: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
     Bevel1: TBevel;
@@ -59,9 +61,7 @@ type
     Bevel8: TBevel;
     Bevel9: TBevel;
     bExecute: TSpeedButton;
-    bMenue1: TSpeedButton;
     bMenue2: TSpeedButton;
-    bMenue3: TSpeedButton;
     bMenue4: TSpeedButton;
     cbStatus: TComboBox;
     ClipboardBitmap: TAction;
@@ -70,12 +70,8 @@ type
     CoolBar1: TToolBar;
     EditAlign: TAction;
     EditBringToFront: TAction;
-    EditCopy: TAction;
-    EditCut: TAction;
-    EditDelete: TAction;
     EditInvertSelection: TAction;
     EditMakeAllSelectable: TAction;
-    EditPaste: TAction;
     EditProperties: TAction;
     EditSelectAll: TAction;
     EditSendToBack: TAction;
@@ -102,6 +98,12 @@ type
     LinkRotateCCW: TAction;
     LinkRotateCW: TAction;
     LinkShrink: TAction;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     ObjectsBezier: TAction;
     ObjectsEllipse: TAction;
     ObjectsHexagon: TAction;
@@ -151,7 +153,10 @@ type
     ViewZoomIn: TAction;
     ViewZoomOut: TAction;
     procedure acCancelExecute(Sender: TObject);
+    procedure acCopyExecute(Sender: TObject);
+    procedure acDeleteElementExecute(Sender: TObject);
     procedure acEditExecute(Sender: TObject);
+    procedure acPasteExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure goDblClick(Graph: TEvsSimpleGraph; GraphObject: TEvsGraphObject);
     procedure ObjectsLinkExecute(Sender: TObject);
@@ -173,6 +178,9 @@ type
     procedure SetDataSet(const AValue: TBaseDBDataset);override;
     procedure DoOpen;override;
     function SetRights : Boolean;
+  protected
+    function ForEachCallback(GraphObject: TEvsGraphObject; UserData: integer
+      ): boolean;
   public
     { public declarations }
     constructor Create(AOwner: TComponent); override;
@@ -276,6 +284,11 @@ begin
   DoOpen;
 end;
 
+procedure TfShemeFrame.acCopyExecute(Sender: TObject);
+begin
+  FGraph.CopyToClipboard(True);
+end;
+
 procedure TfShemeFrame.acEditExecute(Sender: TObject);
 begin
   FGraph.LockLinks := not acEdit.Checked;
@@ -288,7 +301,15 @@ begin
         FGraph.CommandMode := cmEdit;
     end
   else
-    FGraph.CommandMode := cmPan;
+    begin
+      FGraph.ClearSelection;
+      FGraph.CommandMode := cmPan;
+    end;
+end;
+
+procedure TfShemeFrame.acPasteExecute(Sender: TObject);
+begin
+  FGraph.PasteFromClipboard;
 end;
 
 procedure TfShemeFrame.ObjectsPentagonExecute(Sender: TObject);
@@ -426,6 +447,116 @@ begin
   FGraph.Enabled := FEditable;
 end;
 
+const
+  // ForEachObject Actions
+  FEO_DELETE             = 00;
+  FEO_SELECT             = 01;
+  FEO_INVERTSELECTION    = 02;
+  FEO_SENDTOBACK         = 03;
+  FEO_BRINGTOFRONT       = 04;
+  FEO_MAKESELECTABLE     = 05;
+  FEO_SETFONTFACE        = 06;
+  FEO_SETFONTSIZE        = 07;
+  FEO_SETFONTBOLD        = 08;
+  FEO_SETFONTITALIC      = 09;
+  FEO_SETFONTUNDERLINE   = 10;
+  FEO_RESETFONTBOLD      = 11;
+  FEO_RESETFONTITALIC    = 12;
+  FEO_RESETFONTUNDERLINE = 13;
+  FEO_SETALIGNMENTLEFT   = 14;
+  FEO_SETALIGNMENTCENTER = 15;
+  FEO_SETALIGNMENTRIGHT  = 16;
+  FEO_SETLAYOUTTOP       = 17;
+  FEO_SETLAYOUTCENTER    = 18;
+  FEO_SETLAYOUTBOTTOM    = 19;
+  FEO_REVERSEDIRECTION   = 20;
+  FEO_ROTATE90CW         = 21;
+  FEO_ROTATE90CCW        = 22;
+  FEO_GROW25             = 23;
+  FEO_SHRINK25           = 24;
+
+function TfShemeFrame.ForEachCallback(GraphObject: TEvsGraphObject;
+  UserData: integer): boolean;
+var
+  RotateOrg: TPoint;
+begin
+  Result := True;
+  case UserData of
+    FEO_DELETE:
+      Result := GraphObject.Delete;
+    FEO_SELECT:
+      GraphObject.Selected := True;
+    FEO_INVERTSELECTION:
+      GraphObject.Selected := not GraphObject.Selected;
+    FEO_SENDTOBACK:
+      GraphObject.SendToBack;
+    FEO_BRINGTOFRONT:
+      GraphObject.BringToFront;
+    FEO_MAKESELECTABLE:
+      GraphObject.Options := GraphObject.Options + [goSelectable];
+    FEO_SETFONTBOLD:
+      GraphObject.Font.Style := GraphObject.Font.Style + [fsBold];
+    FEO_SETFONTITALIC:
+      GraphObject.Font.Style := GraphObject.Font.Style + [fsItalic];
+    FEO_SETFONTUNDERLINE:
+      GraphObject.Font.Style := GraphObject.Font.Style + [fsUnderline];
+    FEO_RESETFONTBOLD:
+      GraphObject.Font.Style := GraphObject.Font.Style - [fsBold];
+    FEO_RESETFONTITALIC:
+      GraphObject.Font.Style := GraphObject.Font.Style - [fsItalic];
+    FEO_RESETFONTUNDERLINE:
+      GraphObject.Font.Style := GraphObject.Font.Style - [fsUnderline];
+    FEO_SETALIGNMENTLEFT:
+      if GraphObject is TEvsGraphNode then
+        TEvsGraphNode(GraphObject).Alignment := taLeftJustify;
+    FEO_SETALIGNMENTCENTER:
+      if GraphObject is TEvsGraphNode then
+        TEvsGraphNode(GraphObject).Alignment := taCenter;
+    FEO_SETALIGNMENTRIGHT:
+      if GraphObject is TEvsGraphNode then
+        TEvsGraphNode(GraphObject).Alignment := taRightJustify;
+    FEO_SETLAYOUTTOP:
+      if GraphObject is TEvsGraphNode then
+        TEvsGraphNode(GraphObject).Layout := tlTop;
+    FEO_SETLAYOUTCENTER:
+      if GraphObject is TEvsGraphNode then
+        TEvsGraphNode(GraphObject).Layout := tlCenter;
+    FEO_SETLAYOUTBOTTOM:
+      if GraphObject is TEvsGraphNode then
+        TEvsGraphNode(GraphObject).Layout := tlBottom;
+    FEO_REVERSEDIRECTION:
+      if GraphObject is TEvsGraphLink then
+        TEvsGraphLink(GraphObject).Reverse;
+    FEO_ROTATE90CW:
+      if GraphObject is TEvsGraphLink then
+        with TEvsGraphLink(GraphObject) do
+        begin
+          RotateOrg := CenterOfPoints(Polyline);
+          Rotate(+Pi / 2, RotateOrg);
+        end;
+    FEO_ROTATE90CCW:
+      if GraphObject is TEvsGraphLink then
+        with TEvsGraphLink(GraphObject) do
+        begin
+          RotateOrg := CenterOfPoints(Polyline);
+          Rotate(-Pi / 2, RotateOrg);
+        end;
+    FEO_GROW25:
+      if GraphObject is TEvsGraphLink then
+        TEvsGraphLink(GraphObject).Scale(1.25);
+    FEO_SHRINK25:
+      if GraphObject is TEvsGraphLink then
+        TEvsGraphLink(GraphObject).Scale(0.75);
+  else
+    Result := False;
+  end;
+end;
+
+procedure TfShemeFrame.acDeleteElementExecute(Sender: TObject);
+begin
+  FGraph.ForEachObject(@ForEachCallback, FEO_DELETE, True);
+end;
+
 constructor TfShemeFrame.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -442,6 +573,7 @@ begin
   //FGraph.OnDblClick := @sgDblClick;
   //FGraph.FixedScrollBars := True;
   FGraph.OnObjectChange:=@FGraphObjectChange;
+  FGraph.PopupMenu := pmContext;
 end;
 
 procedure TfShemeFrame.New;

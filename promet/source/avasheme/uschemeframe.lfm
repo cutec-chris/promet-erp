@@ -352,7 +352,7 @@ inherited fShemeFrame: TfShemeFrame
     object Panel2: TPanel
       Left = 0
       Height = 206
-      Top = 72
+      Top = 56
       Width = 44
       Align = alTop
       BevelOuter = bvNone
@@ -438,12 +438,12 @@ inherited fShemeFrame: TfShemeFrame
     end
     object Panel7: TPanel
       Left = 0
-      Height = 72
+      Height = 56
       Top = 0
       Width = 44
       Align = alTop
       BevelOuter = bvNone
-      ClientHeight = 72
+      ClientHeight = 56
       ClientWidth = 44
       TabOrder = 1
       object Bevel8: TBevel
@@ -456,20 +456,9 @@ inherited fShemeFrame: TfShemeFrame
         BorderSpacing.Right = 4
         Shape = bsTopLine
       end
-      object bMenue1: TSpeedButton
-        Left = 16
-        Height = 24
-        Top = 0
-        Width = 24
-        Action = ViewZoomIn
-        BorderSpacing.InnerBorder = 2
-        Flat = True
-        Layout = blGlyphTop
-        ShowCaption = False
-      end
       object ExtRotatedLabel4: TExtRotatedLabel
         Left = 0
-        Height = 68
+        Height = 52
         Top = 4
         Width = 14
         Align = alLeft
@@ -481,21 +470,10 @@ inherited fShemeFrame: TfShemeFrame
         ParentColor = False
         ParentFont = False
       end
-      object bMenue3: TSpeedButton
-        Left = 16
-        Height = 24
-        Top = 24
-        Width = 24
-        Action = ViewZoomOut
-        BorderSpacing.InnerBorder = 2
-        Flat = True
-        Layout = blGlyphTop
-        ShowCaption = False
-      end
       object bMenue4: TSpeedButton
         Left = 16
         Height = 20
-        Top = 48
+        Top = 4
         Width = 20
         Action = acEdit
         AllowAllUp = True
@@ -509,7 +487,7 @@ inherited fShemeFrame: TfShemeFrame
     object Panel10: TPanel
       Left = 0
       Height = 56
-      Top = 278
+      Top = 262
       Width = 44
       Align = alTop
       BevelOuter = bvNone
@@ -662,9 +640,13 @@ inherited fShemeFrame: TfShemeFrame
     end
     object acCopy: TAction
       Caption = 'Kopieren'
+      ImageIndex = 23
+      OnExecute = acCopyExecute
     end
     object acPaste: TAction
       Caption = 'Einfügen'
+      ImageIndex = 80
+      OnExecute = acPasteExecute
     end
     object acDelete: TAction
       Caption = 'Löschen'
@@ -686,17 +668,24 @@ inherited fShemeFrame: TfShemeFrame
       Hint = 'Ansicht auf bestimmte Nutzer begrenzen'
       ImageIndex = 100
     end
-    object acDeleteThumb: TAction
-      Caption = 'acDeleteThumb'
-      Hint = 'Thumbnail entfernen'
-      ImageIndex = 75
-    end
     object acEdit: TAction
       AutoCheck = True
       Caption = 'Editieren'
       GroupIndex = 4
       ImageIndex = 67
       OnExecute = acEditExecute
+    end
+    object acDeleteElement: TAction
+      Caption = 'löschen'
+      ImageIndex = 60
+      OnExecute = acDeleteElementExecute
+    end
+    object acProperties: TAction
+      Caption = 'Eigenschaften'
+    end
+    object acOpen: TAction
+      Caption = 'Link Öffnen'
+      ImageIndex = 19
     end
   end
   object Scheme: TDataSource[3]
@@ -2091,34 +2080,6 @@ inherited fShemeFrame: TfShemeFrame
     Images = ImageList
     left = 168
     top = 160
-    object EditCut: TAction
-      Category = 'Edit'
-      Caption = 'Cut'
-      Hint = 'Cut|Cuts the selected items into the clipboard.'
-      ImageIndex = 5
-      ShortCut = 16472
-    end
-    object EditCopy: TAction
-      Category = 'Edit'
-      Caption = 'Copy'
-      Hint = 'Copy|Copies the selected items into the clipboard.'
-      ImageIndex = 6
-      ShortCut = 16451
-    end
-    object EditPaste: TAction
-      Category = 'Edit'
-      Caption = 'Paste'
-      Hint = 'Paste|Inserts content of the clipboard into the current graph.'
-      ImageIndex = 7
-      ShortCut = 16470
-    end
-    object EditDelete: TAction
-      Category = 'Edit'
-      Caption = 'Delete'
-      Hint = 'Delete|Deletes the selected items.'
-      ImageIndex = 8
-      ShortCut = 46
-    end
     object EditSelectAll: TAction
       Category = 'Edit'
       Caption = 'Select All'
@@ -2428,5 +2389,23 @@ inherited fShemeFrame: TfShemeFrame
   object pmContext: TPopupMenu[6]
     left = 200
     top = 96
+    object MenuItem1: TMenuItem
+      Action = acOpen
+    end
+    object MenuItem2: TMenuItem
+      Action = acProperties
+    end
+    object MenuItem3: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem4: TMenuItem
+      Action = acCopy
+    end
+    object MenuItem5: TMenuItem
+      Action = acPaste
+    end
+    object MenuItem6: TMenuItem
+      Action = acDeleteElement
+    end
   end
 end
