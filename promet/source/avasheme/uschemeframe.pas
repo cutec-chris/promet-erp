@@ -167,8 +167,6 @@ type
     procedure ObjectsRoundRectExecute(Sender: TObject);
     procedure ObjectsTriangleExecute(Sender: TObject);
     procedure SchemeStateChange(Sender: TObject);
-    procedure ViewZoomInExecute(Sender: TObject);
-    procedure ViewZoomOutExecute(Sender: TObject);
   private
     { private declarations }
     FEditable: Boolean;
@@ -228,16 +226,6 @@ end;
 {$R *.lfm}
 
 { TfShemeFrame }
-
-procedure TfShemeFrame.ViewZoomInExecute(Sender: TObject);
-begin
-  FGraph.ChangeZoomBy(+10,zoCenter);
-end;
-
-procedure TfShemeFrame.ViewZoomOutExecute(Sender: TObject);
-begin
-  FGraph.ChangeZoomBy(-10,zoCenter);
-end;
 
 procedure TfShemeFrame.ObjectsNoneExecute(Sender: TObject);
 begin
