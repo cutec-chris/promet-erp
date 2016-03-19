@@ -9,7 +9,7 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="4">
+    <Files Count="3">
       <Item1>
         <Filename Value="uprojectframe.lfm"/>
         <Type Value="LFM"/>
@@ -19,13 +19,9 @@
         <UnitName Value="uProjectFrame"/>
       </Item2>
       <Item3>
-        <Filename Value="uprojectoverview.pas"/>
-        <UnitName Value="uprojectoverview"/>
-      </Item3>
-      <Item4>
         <Filename Value="uminuteframe.pas"/>
         <UnitName Value="uminuteframe"/>
-      </Item4>
+      </Item3>
     </Files>
     <RequiredPkgs Count="5">
       <Item1>

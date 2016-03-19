@@ -7,7 +7,7 @@ unit projectmanagement;
 interface
 
 uses
-  uProjectFrame, uprojectoverview, uminuteframe, LazarusPackageIntf;
+  uProjectFrame, uminuteframe, LazarusPackageIntf;
 
 implementation
 
