@@ -604,7 +604,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="37">
+    <Exceptions Count="38">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -730,6 +730,9 @@
       <Item37>
         <Name Value="EPyException"/>
       </Item37>
+      <Item38>
+        <Name Value="EInterfaceException"/>
+      </Item38>
     </Exceptions>
   </Debugging>
 </CONFIG>
