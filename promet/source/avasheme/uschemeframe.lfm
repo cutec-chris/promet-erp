@@ -176,6 +176,8 @@ inherited fShemeFrame: TfShemeFrame
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
+        OnClick = sbMenueClick
+        PopupMenu = pmAction
       end
     end
     object Panel8: TPanel
@@ -637,6 +639,7 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'Zeiterfassung starten'
       Hint = 'Zeiterfassung mit Eintrag beginnen'
       ImageIndex = 64
+      OnExecute = acStartTimeRegisteringExecute
     end
     object acCopy: TAction
       Caption = 'Kopieren'
@@ -653,12 +656,15 @@ inherited fShemeFrame: TfShemeFrame
     object acDelete: TAction
       Caption = 'Löschen'
       ImageIndex = 60
+      OnExecute = acDeleteExecute
     end
     object acExport: TAction
       Caption = 'Exportieren'
+      OnExecute = acExportExecute
     end
     object acImport: TAction
       Caption = 'Importieren'
+      OnExecute = acImportExecute
     end
     object acPrint: TAction
       Caption = 'Drucken'
@@ -2394,6 +2400,42 @@ inherited fShemeFrame: TfShemeFrame
     end
     object MenuItem6: TMenuItem
       Action = acDeleteElement
+    end
+  end
+  object pmAction: TPopupMenu[7]
+    left = 136
+    top = 32
+    object miStartTimeregistering: TMenuItem
+      Action = acStartTimeRegistering
+    end
+    object MenuItem7: TMenuItem
+      Caption = '-'
+    end
+    object miCopy: TMenuItem
+      Action = acCopy
+    end
+    object miPaste: TMenuItem
+      Action = acPaste
+    end
+    object MenuItem8: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem9: TMenuItem
+      Action = acImport
+    end
+    object MenuItem10: TMenuItem
+      Action = acExport
+    end
+    object MenuItem11: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem12: TMenuItem
+    end
+    object miDelete: TMenuItem
+      Action = acDelete
+    end
+    object MenuItem13: TMenuItem
+      Action = acRights
     end
   end
 end
