@@ -1,4 +1,4 @@
-program avascheme;
+program avasch;
 
 {$mode objfpc}{$H+}
 

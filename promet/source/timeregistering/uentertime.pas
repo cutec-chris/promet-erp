@@ -944,7 +944,7 @@ begin
   if Column.FieldName = 'NOTE' then
     begin
       Editor := InplaceMemo;
-      InplaceMemo.Blocks.Text:=Times.FieldByName('NOTE').AsString;
+      InplaceMemo.Text:=Times.FieldByName('NOTE').AsString;
       InplaceMemo.OnChange:=@InplaceMemoChange;
     end;
 end;

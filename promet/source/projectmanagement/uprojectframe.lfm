@@ -1400,6 +1400,7 @@ inherited fprojectFrame: TfprojectFrame
       Caption = 'Zeiterfassung starten'
       Hint = 'Zeiterfassung mit Eintrag beginnen'
       ImageIndex = 64
+      OnExecute = acStartTimeRegisteringExecute
     end
     object acCopy: TAction
       Caption = 'Kopieren'

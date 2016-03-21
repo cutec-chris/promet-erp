@@ -79,7 +79,7 @@ procedure TfMain.DoCreate;
 begin
   with Application as IBaseApplication do
     begin
-      SetConfigName('Avascheme');
+      SetConfigName('Avasch');
     end;
   with Application as IBaseDbInterface do
     LoadMandants;

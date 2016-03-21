@@ -99,11 +99,22 @@ type
     LinkRotateCW: TAction;
     LinkShrink: TAction;
     MenuItem1: TMenuItem;
+    MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
+    MenuItem13: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
+    miCopy: TMenuItem;
+    miDelete: TMenuItem;
+    miPaste: TMenuItem;
+    miStartTimeregistering: TMenuItem;
     ObjectsBezier: TAction;
     ObjectsEllipse: TAction;
     ObjectsHexagon: TAction;
@@ -119,6 +130,7 @@ type
     Panel10: TPanel;
     Panel2: TPanel;
     Panel7: TPanel;
+    pmAction: TPopupMenu;
     pmContext: TPopupMenu;
     pToolbar: TPanel;
     Scheme: TDataSource;
@@ -153,9 +165,13 @@ type
     procedure acCancelExecute(Sender: TObject);
     procedure acCopyExecute(Sender: TObject);
     procedure acDeleteElementExecute(Sender: TObject);
+    procedure acDeleteExecute(Sender: TObject);
     procedure acEditExecute(Sender: TObject);
+    procedure acExportExecute(Sender: TObject);
+    procedure acImportExecute(Sender: TObject);
     procedure acPasteExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
+    procedure acStartTimeRegisteringExecute(Sender: TObject);
     procedure goDblClick(Graph: TEvsSimpleGraph; GraphObject: TEvsGraphObject);
     procedure ObjectsBezierExecute(Sender: TObject);
     procedure ObjectsLinkExecute(Sender: TObject);
@@ -165,6 +181,7 @@ type
     procedure ObjectsRhomboidExecute(Sender: TObject);
     procedure ObjectsRoundRectExecute(Sender: TObject);
     procedure ObjectsTriangleExecute(Sender: TObject);
+    procedure sbMenueClick(Sender: TObject);
     procedure SchemeStateChange(Sender: TObject);
   private
     { private declarations }
@@ -191,7 +208,7 @@ procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 implementation
 
 uses uData,uBaseDBInterface,uMainTreeFrame,uscheme,uIntfStrConsts,uSchemenodeproperties,
-  uschemelinkproperties;
+  uschemelinkproperties,Dialogs,uscriptimport;
 
 resourcestring
   strNewScheme                     = 'Neues Schema';
@@ -255,6 +272,11 @@ begin
     end;
 end;
 
+procedure TfShemeFrame.acStartTimeRegisteringExecute(Sender: TObject);
+begin
+
+end;
+
 procedure TfShemeFrame.goDblClick(Graph: TEvsSimpleGraph;
   GraphObject: TEvsGraphObject);
 begin
@@ -300,6 +322,18 @@ begin
     end;
 end;
 
+procedure TfShemeFrame.acExportExecute(Sender: TObject);
+begin
+  if fScriptImport.Execute(icExport,'D',FDataSet) then
+    DataSet.DataSet.Refresh;
+end;
+
+procedure TfShemeFrame.acImportExecute(Sender: TObject);
+begin
+  if fScriptImport.Execute(icImport,'D',FDataSet) then
+    DataSet.DataSet.Refresh;
+end;
+
 procedure TfShemeFrame.acPasteExecute(Sender: TObject);
 begin
   FGraph.PasteFromClipboard;
@@ -334,6 +368,11 @@ procedure TfShemeFrame.ObjectsTriangleExecute(Sender: TObject);
 begin
   FGraph.DefaultNodeClass := TEvsTriangularNode;
   FGraph.CommandMode := cmInsertNode;
+end;
+
+procedure TfShemeFrame.sbMenueClick(Sender: TObject);
+begin
+  TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
 end;
 
 procedure TfShemeFrame.SchemeStateChange(Sender: TObject);
@@ -548,6 +587,19 @@ end;
 procedure TfShemeFrame.acDeleteElementExecute(Sender: TObject);
 begin
   FGraph.ForEachObject(@ForEachCallback, FEO_DELETE, True);
+end;
+
+procedure TfShemeFrame.acDeleteExecute(Sender: TObject);
+begin
+  if MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes then
+    begin
+      Screen.Cursor := crHourglass;
+      Application.ProcessMessages;
+      FDataSet.CascadicCancel;
+      DataSet.Delete;
+      acClose.Execute;
+      Screen.Cursor := crDefault;
+    end;
 end;
 
 constructor TfShemeFrame.Create(AOwner: TComponent);

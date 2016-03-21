@@ -10,7 +10,7 @@
       </Flags>
       <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
-      <Title Value="avascheme"/>
+      <Title Value="avasch"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
     </General>
@@ -57,7 +57,7 @@
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
-        <Filename Value="avascheme.lpr"/>
+        <Filename Value="avasch.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
@@ -73,7 +73,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\avascheme"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\avasch"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

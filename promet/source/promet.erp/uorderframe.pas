@@ -63,6 +63,9 @@ type
     lCurrency2: TLabel;
     lCurrency3: TLabel;
     lCurrency4: TLabel;
+    MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
     PPaymentTargets: TfrDBDataSet;
     PaymentTargets: TDatasource;
     deDate1: TDBText;

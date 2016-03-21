@@ -174,6 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="&quot;--config-path=develä&quot; --mandant=Help"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -282,7 +283,7 @@
         <PackageName Value="LCL"/>
       </Item27>
     </RequiredPackages>
-    <Units Count="50">
+    <Units Count="43">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -301,7 +302,6 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -309,7 +309,6 @@
         <ComponentName Value="fAddressFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uAddressFrame"/>
       </Unit3>
       <Unit4>
         <Filename Value="upersonfinance.pas"/>
@@ -347,287 +346,233 @@
         <ResourceBaseClass Value="Form"/>
       </Unit8>
       <Unit9>
-        <Filename Value="uarticlestorageframe.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fArticleStorageFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit9>
-      <Unit10>
         <Filename Value="utextframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fTextFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit10>
-      <Unit11>
+      </Unit9>
+      <Unit10>
         <Filename Value="uscriptframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fScriptFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit11>
-      <Unit12>
-        <Filename Value="uarticlepositionframe.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fArticlePositionFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit12>
-      <Unit13>
+      </Unit10>
+      <Unit11>
         <Filename Value="uorderframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uOrderFrame"/>
-      </Unit13>
-      <Unit14>
+      </Unit11>
+      <Unit12>
         <Filename Value="uorderadditionalframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fOrderAdditionalFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uOrderAdditionalFrame"/>
-      </Unit14>
-      <Unit15>
+      </Unit12>
+      <Unit13>
         <Filename Value="uoverviewframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fOrderOverviewFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uOverviewFrame"/>
-      </Unit15>
-      <Unit16>
+      </Unit13>
+      <Unit14>
         <Filename Value="uorderdateframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fOrderDateFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit16>
-      <Unit17>
+      </Unit14>
+      <Unit15>
         <Filename Value="uchangestatus.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fChangeStatus"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit17>
-      <Unit18>
+      </Unit15>
+      <Unit16>
         <Filename Value="unewstorage.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fNewStorage"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit18>
-      <Unit19>
+      </Unit16>
+      <Unit17>
         <Filename Value="ubookaccounting.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fBookAccounting"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit19>
-      <Unit20>
+      </Unit17>
+      <Unit18>
         <Filename Value="urepairpositionframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fRepairPositionFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit20>
-      <Unit21>
-        <Filename Value="uarticlerepairframe.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="FArticlerepairFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit21>
-      <Unit22>
+      </Unit18>
+      <Unit19>
         <Filename Value="usystemoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fSystemOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit22>
-      <Unit23>
+      </Unit19>
+      <Unit20>
         <Filename Value="ufinancialoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fFinancialOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit23>
-      <Unit24>
+      </Unit20>
+      <Unit21>
         <Filename Value="uordertypeoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="forderTypeOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit24>
-      <Unit25>
+      </Unit21>
+      <Unit22>
         <Filename Value="ustoragetypeoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fStorageTypeOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit25>
-      <Unit26>
+      </Unit22>
+      <Unit23>
         <Filename Value="ucurrencyoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fCurrencyOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit26>
-      <Unit27>
+      </Unit23>
+      <Unit24>
         <Filename Value="ulanguageoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fLanguageOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit27>
-      <Unit28>
+      </Unit24>
+      <Unit25>
         <Filename Value="urepairoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fRepairOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit28>
-      <Unit29>
+      </Unit25>
+      <Unit26>
         <Filename Value="uphoneoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fPhoneOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit29>
-      <Unit30>
+      </Unit26>
+      <Unit27>
         <Filename Value="umailoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fMessageOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit30>
-      <Unit31>
+      </Unit27>
+      <Unit28>
         <Filename Value="umaileditoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fMailOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit31>
-      <Unit32>
-        <Filename Value="uarticletext.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fArticleTextFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uArticleText"/>
-      </Unit32>
-      <Unit33>
-        <Filename Value="ucopyarticledata.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fCopyArticleData"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit33>
-      <Unit34>
+      </Unit28>
+      <Unit29>
         <Filename Value="ufindtransaction.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fFindTransaction"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit34>
-      <Unit35>
+      </Unit29>
+      <Unit30>
         <Filename Value="uorderaddressframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fOrderAddress"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit35>
-      <Unit36>
-        <Filename Value="uarticlesupplierframe.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fArticleSupplierFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-      </Unit36>
-      <Unit37>
+      </Unit30>
+      <Unit31>
         <Filename Value="utimeframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fTimeFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit37>
-      <Unit38>
+      </Unit31>
+      <Unit32>
         <Filename Value="uwizardnewaccount.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fWizardNewAccount"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit38>
-      <Unit39>
+      </Unit32>
+      <Unit33>
         <Filename Value="ubookserial.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fBookSerial"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit39>
-      <Unit40>
+      </Unit33>
+      <Unit34>
         <Filename Value="upasswords.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fPasswords"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit40>
-      <Unit41>
+      </Unit34>
+      <Unit35>
         <Filename Value="ucategoryoptions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fCategoryOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit41>
-      <Unit42>
+      </Unit35>
+      <Unit36>
         <Filename Value="../base/changes.txt"/>
         <IsPartOfProject Value="True"/>
-      </Unit42>
-      <Unit43>
+      </Unit36>
+      <Unit37>
         <Filename Value="ucommandline.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fCommandline"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit43>
-      <Unit44>
+      </Unit37>
+      <Unit38>
         <Filename Value="ustoredpasswords.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fPasswords"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-      </Unit44>
-      <Unit45>
-        <Filename Value="uarticleframe.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fArticleFrame"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uArticleFrame"/>
-      </Unit45>
-      <Unit46>
+      </Unit38>
+      <Unit39>
         <Filename Value="uallobjects.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit46>
-      <Unit47>
+      </Unit39>
+      <Unit40>
         <Filename Value="uarticleversion.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fVersionate"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit47>
-      <Unit48>
+      </Unit40>
+      <Unit41>
         <Filename Value="upasswordgenerate.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fPWGenerate"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit48>
-      <Unit49>
+      </Unit41>
+      <Unit42>
         <Filename Value="../base/revision.inc"/>
         <IsPartOfProject Value="True"/>
-      </Unit49>
+      </Unit42>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -654,7 +599,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="37">
+    <Exceptions Count="38">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -780,6 +725,9 @@
       <Item37>
         <Name Value="EPyException"/>
       </Item37>
+      <Item38>
+        <Name Value="EInterfaceException"/>
+      </Item38>
     </Exceptions>
   </Debugging>
 </CONFIG>
