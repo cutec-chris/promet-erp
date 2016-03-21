@@ -174,7 +174,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help"/>
+        <CommandLineParams Value="&quot;--config-path=develä&quot; --mandant=Help"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -302,7 +302,6 @@
         <ComponentName Value="fPersonFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uPersonFrame"/>
       </Unit2>
       <Unit3>
         <Filename Value="uaddressframe.pas"/>
@@ -310,7 +309,6 @@
         <ComponentName Value="fAddressFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uAddressFrame"/>
       </Unit3>
       <Unit4>
         <Filename Value="upersonfinance.pas"/>
@@ -367,7 +365,6 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uOrderFrame"/>
       </Unit11>
       <Unit12>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -375,7 +372,6 @@
         <ComponentName Value="fOrderAdditionalFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uOrderAdditionalFrame"/>
       </Unit12>
       <Unit13>
         <Filename Value="uoverviewframe.pas"/>
@@ -383,7 +379,6 @@
         <ComponentName Value="fOrderOverviewFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
-        <UnitName Value="uOverviewFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderdateframe.pas"/>

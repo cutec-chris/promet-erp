@@ -4,7 +4,7 @@ object fMain: TfMain
   Top = 97
   Width = 970
   Caption = 'Avasheme'
-  ClientHeight = 694
+  ClientHeight = 693
   ClientWidth = 970
   Color = clWindow
   Menu = MainMenu
@@ -13,10 +13,10 @@ object fMain: TfMain
   OnDestroy = FormDestroy
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.4.4.0'
+  LCLVersion = '1.7'
   object tvMain: TPanel
     Left = 0
-    Height = 657
+    Height = 656
     Top = 37
     Width = 179
     Align = alLeft
@@ -25,7 +25,7 @@ object fMain: TfMain
   end
   object Splitter2: TSplitter
     Left = 179
-    Height = 657
+    Height = 656
     Top = 37
     Width = 5
     ResizeStyle = rsLine
@@ -88,7 +88,7 @@ object fMain: TfMain
   end
   object pcPages: TExtMenuPageControl
     Left = 184
-    Height = 657
+    Height = 656
     Top = 37
     Width = 786
     ActivePage = tsHelp
