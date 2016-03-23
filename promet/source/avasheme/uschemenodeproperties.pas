@@ -6,7 +6,8 @@ interface
 
 uses
   LCLIntf, LCLType, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  usimplegraph, ExtCtrls, StdCtrls, ComCtrls, ExtDlgs, CheckLst, ButtonPanel;
+  usimplegraph, ExtCtrls, StdCtrls, ComCtrls, ExtDlgs, CheckLst, ButtonPanel,
+  EditBtn;
 
 type
 
@@ -14,7 +15,9 @@ type
 
   TfNodeProperties = class(TForm)
     ButtonPanel1: TButtonPanel;
+    eLink: TEditButton;
     Label1: TLabel;
+    Label4: TLabel;
     NodeShape: TRadioGroup;
     Colors: TGroupBox;
     Label2: TLabel;
@@ -45,6 +48,8 @@ type
     btnChangBkgnd: TButton;
     btnClearBackground: TButton;
     btnBackgroundMargins: TButton;
+    procedure eLinkButtonClick(Sender: TObject);
+    function fSearchOpenItem(aLink: string): Boolean;
     procedure NodeBodyColorClick(Sender: TObject);
     procedure NodeBorderColorClick(Sender: TObject);
     procedure btnChangeFontClick(Sender: TObject);
@@ -72,7 +77,7 @@ function PrettyNodeClassName(const AClassName: string): string;
 
 implementation
 
-//uses MarginsProp;
+uses uSearch;
 
 {$R *.lfm}
 
@@ -114,7 +119,15 @@ begin
         tlBottom: cbLayout.ItemIndex := 2;
       end;
       UpDownMargin.Position := Margin;
-      NodeText.Lines.Text := Text;
+      eLink.Text := '';
+      if pos('[Link:',Text)>0 then
+        begin
+          NodeText.Lines.Text := copy(Text,0,pos('[Link:',Text)-1);
+          eLink.Text := copy(Text,pos('[Link:',Text)+6,length(Text));
+          eLink.Text := copy(eLink.Text,0,length(eLink.Text)-1);
+        end
+      else
+        NodeText.Lines.Text := Text;
       if Nodes.Count = 1 then
         NodeShape.ItemIndex := NodeShape.Items.IndexOfObject(TObject(ClassType))
       else
@@ -127,7 +140,6 @@ begin
       MarginRect := BackgroundMargins;
       //SetObjectOptions(Options);
       //SetNodeOptions(NodeOptions);
-
     end;
     if ShowModal = mrOK then
     begin
@@ -174,7 +186,10 @@ begin
             2: Layout := tlBottom;
           end;
           Margin := UpDownMargin.Position;
-          Text := NodeText.Lines.Text;
+          if NodeText.Lines.Text <> N[0].Text then
+            Text := NodeText.Lines.Text;
+          if eLink.Text<>'' then
+            Text := Text+'[Link:'+eLink.Text+']';
           Brush.Color := BodyColor.Brush.Color;
           Pen.Color := BorderColor.Brush.Color;
           Brush.Style := TBrushStyle(FillStyle.ItemIndex);
@@ -204,6 +219,18 @@ begin
   ColorDialog.Color := BodyColor.Brush.Color;
   if ColorDialog.Execute then
     BodyColor.Brush.Color := ColorDialog.Color;
+end;
+
+procedure TfNodeProperties.eLinkButtonClick(Sender: TObject);
+begin
+  fSearch.SetLanguage;
+  fSearch.OnOpenItem:=fSearchOpenItem;
+  fSearch.Execute(True,'SHEME','');
+end;
+
+function TfNodeProperties.fSearchOpenItem(aLink: string): Boolean;
+begin
+  eLink.Text:=aLink;
 end;
 
 procedure TfNodeProperties.NodeBorderColorClick(Sender: TObject);

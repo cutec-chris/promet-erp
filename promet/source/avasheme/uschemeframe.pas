@@ -172,6 +172,10 @@ type
     procedure acPasteExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acStartTimeRegisteringExecute(Sender: TObject);
+    procedure FGraphObjectClick(Graph: TEvsSimpleGraph;
+      GraphObject: TEvsGraphObject);
+    procedure FGraphObjectMouseEnter(Graph: TEvsSimpleGraph;
+      GraphObject: TEvsGraphObject);
     procedure goDblClick(Graph: TEvsSimpleGraph; GraphObject: TEvsGraphObject);
     procedure ObjectsBezierExecute(Sender: TObject);
     procedure ObjectsLinkExecute(Sender: TObject);
@@ -189,6 +193,8 @@ type
     FGraph: TEvsSimpleGraph;
     procedure FGraphObjectChange(Graph: TEvsSimpleGraph;
       GraphObject: TEvsGraphObject);
+    function OnCalcText(Sender: TObject; aCanvas: TCanvas; const aText: string;
+      const Rect: TRect): string;
     procedure SetDataSet(const AValue: TBaseDBDataset);override;
     procedure DoOpen;override;
     function SetRights : Boolean;
@@ -243,6 +249,17 @@ end;
 
 { TfShemeFrame }
 
+function TfShemeFrame.OnCalcText(Sender: TObject; aCanvas: TCanvas; const aText: string;
+  const Rect: TRect): string;
+var
+  tmpText: String;
+begin
+  tmpText := aText;
+  if pos('[Link:',aText)>0 then
+    tmpText :=copy(aText,0,pos('[Link:',aText)-1);
+  Result := MinimizeText(aCanvas,tmpText,Rect);
+end;
+
 procedure TfShemeFrame.ObjectsNoneExecute(Sender: TObject);
 begin
   if not FEditable then
@@ -275,6 +292,26 @@ end;
 procedure TfShemeFrame.acStartTimeRegisteringExecute(Sender: TObject);
 begin
 
+end;
+
+procedure TfShemeFrame.FGraphObjectClick(Graph: TEvsSimpleGraph;
+  GraphObject: TEvsGraphObject);
+var
+  aLink: String;
+begin
+  if pos('[Link:',GraphObject.Text)>0 then
+    begin
+      aLink := copy(GraphObject.Text,pos('[Link:',GraphObject.Text)+6,length(GraphObject.Text));
+      aLink := copy(aLink,0,length(aLink)-1);
+      Data.GotoLink(aLink);
+    end;
+end;
+
+procedure TfShemeFrame.FGraphObjectMouseEnter(Graph: TEvsSimpleGraph;
+  GraphObject: TEvsGraphObject);
+begin
+  if pos('[Link:',GraphObject.Text)>0 then
+    Screen.Cursor:=crHandPoint;
 end;
 
 procedure TfShemeFrame.goDblClick(Graph: TEvsSimpleGraph;
@@ -615,10 +652,12 @@ begin
   FGraph.VertScrollBar.Tracking:=True;
   FGraph.SnapToGrid:=False;
   FGraph.OnObjectDblClick:=@goDblClick;
-  //FGraph.OnDblClick := @sgDblClick;
+  FGraph.OnObjectClick:=@FGraphObjectClick;
+  FGraph.OnObjectMouseEnter:=@FGraphObjectMouseEnter;
   //FGraph.FixedScrollBars := True;
   FGraph.OnObjectChange:=@FGraphObjectChange;
   FGraph.PopupMenu := pmContext;
+  FGraph.OnCalcText:=@OnCalcText;
 end;
 
 procedure TfShemeFrame.New;
