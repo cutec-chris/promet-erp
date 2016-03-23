@@ -118,7 +118,7 @@ object fNodeProperties: TfNodeProperties
   end
   object NodeText: TMemo
     Left = 8
-    Height = 304
+    Height = 264
     Top = 24
     Width = 318
     ScrollBars = ssBoth
@@ -326,6 +326,27 @@ object fNodeProperties: TfNodeProperties
     CancelButton.Name = 'CancelButton'
     CancelButton.DefaultCaption = True
     TabOrder = 7
+  end
+  object eLink: TEditButton
+    Left = 8
+    Height = 21
+    Top = 316
+    Width = 318
+    ButtonCaption = '...'
+    ButtonWidth = 23
+    MaxLength = 0
+    NumGlyphs = 1
+    OnButtonClick = eLinkButtonClick
+    PasswordChar = #0
+    TabOrder = 8
+  end
+  object Label4: TLabel
+    Left = 8
+    Height = 13
+    Top = 296
+    Width = 37
+    Caption = 'Verweis'
+    ParentColor = False
   end
   object FontDialog: TFontDialog
     Font.Color = clWindowText
