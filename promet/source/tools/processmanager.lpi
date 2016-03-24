@@ -88,11 +88,15 @@
         <CommandLineParams Value="--mandant=Stora"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="1">
+    <RequiredPackages Count="2">
       <Item1>
+        <PackageName Value="promet_msgnetwork"/>
+        <DefaultFilename Value="../base/dbintfs/promet_msgnetwork.lpk"/>
+      </Item1>
+      <Item2>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
-      </Item1>
+      </Item2>
     </RequiredPackages>
     <Units Count="1">
       <Unit0>
