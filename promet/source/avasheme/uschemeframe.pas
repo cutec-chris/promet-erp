@@ -169,11 +169,12 @@ type
     procedure acEditExecute(Sender: TObject);
     procedure acExportExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
+    procedure acOpenExecute(Sender: TObject);
     procedure acPasteExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acStartTimeRegisteringExecute(Sender: TObject);
-    procedure FGraphObjectClick(Graph: TEvsSimpleGraph;
-      GraphObject: TEvsGraphObject);
+    procedure FGraphMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure FGraphObjectMouseEnter(Graph: TEvsSimpleGraph;
       GraphObject: TEvsGraphObject);
     procedure goDblClick(Graph: TEvsSimpleGraph; GraphObject: TEvsGraphObject);
@@ -294,16 +295,21 @@ begin
 
 end;
 
-procedure TfShemeFrame.FGraphObjectClick(Graph: TEvsSimpleGraph;
-  GraphObject: TEvsGraphObject);
+procedure TfShemeFrame.FGraphMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 var
+  GraphObject: TEvsGraphObject;
   aLink: String;
 begin
-  if pos('[Link:',GraphObject.Text)>0 then
+  if Assigned(FGraph.ObjectAtCursor) and (not acEdit.Checked) then
     begin
-      aLink := copy(GraphObject.Text,pos('[Link:',GraphObject.Text)+6,length(GraphObject.Text));
-      aLink := copy(aLink,0,length(aLink)-1);
-      Data.GotoLink(aLink);
+      GraphObject := FGraph.ObjectAtCursor;
+      if pos('[Link:',GraphObject.Text)>0 then
+        begin
+          aLink := copy(GraphObject.Text,pos('[Link:',GraphObject.Text)+6,length(GraphObject.Text));
+          aLink := copy(aLink,0,length(aLink)-1);
+          Data.GotoLink(aLink);
+        end;
     end;
 end;
 
@@ -369,6 +375,21 @@ procedure TfShemeFrame.acImportExecute(Sender: TObject);
 begin
   if fScriptImport.Execute(icImport,'D',FDataSet) then
     DataSet.DataSet.Refresh;
+end;
+
+procedure TfShemeFrame.acOpenExecute(Sender: TObject);
+var
+  GraphObject: TEvsGraphObject;
+  aLink: String;
+begin
+  GraphObject := FGraph.ObjectAtCursor;
+  if not Assigned(GraphObject) then exit;
+  if pos('[Link:',GraphObject.Text)>0 then
+    begin
+      aLink := copy(GraphObject.Text,pos('[Link:',GraphObject.Text)+6,length(GraphObject.Text));
+      aLink := copy(aLink,0,length(aLink)-1);
+      Data.GotoLink(aLink);
+    end;
 end;
 
 procedure TfShemeFrame.acPasteExecute(Sender: TObject);
@@ -652,7 +673,7 @@ begin
   FGraph.VertScrollBar.Tracking:=True;
   FGraph.SnapToGrid:=False;
   FGraph.OnObjectDblClick:=@goDblClick;
-  FGraph.OnObjectClick:=@FGraphObjectClick;
+  FGraph.OnMouseUp:=@FGraphMouseUp;
   FGraph.OnObjectMouseEnter:=@FGraphObjectMouseEnter;
   //FGraph.FixedScrollBars := True;
   FGraph.OnObjectChange:=@FGraphObjectChange;

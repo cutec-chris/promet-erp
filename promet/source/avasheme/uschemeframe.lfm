@@ -698,6 +698,7 @@ inherited fShemeFrame: TfShemeFrame
     object acOpen: TAction
       Caption = 'Link Öffnen'
       ImageIndex = 19
+      OnExecute = acOpenExecute
     end
   end
   object Scheme: TDataSource[3]
