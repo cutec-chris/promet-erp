@@ -91,7 +91,7 @@
     <RequiredPackages Count="2">
       <Item1>
         <PackageName Value="promet_msgnetwork"/>
-        <DefaultFilename Value="../base/dbintfs/promet_msgnetwork.lpk"/>
+        <DefaultFilename Value="../base/msgnetwork/promet_msgnetwork.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pcmdprometapp"/>
