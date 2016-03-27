@@ -43,9 +43,10 @@
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="545"/>
-        <CursorPos Y="552"/>
+        <TopLine Value="560"/>
+        <CursorPos Y="582"/>
         <FoldState Value=" T3rf031+"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
@@ -257,9 +258,8 @@
       <Unit33>
         <Filename Value="..\base\dbintfs\udocuments.pas"/>
         <UnitName Value="uDocuments"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
-        <TopLine Value="7"/>
+        <TopLine Value="85"/>
         <CursorPos X="40" Y="12"/>
         <UsageCount Value="48"/>
         <Loaded Value="True"/>
@@ -400,7 +400,6 @@
       </Unit55>
       <Unit56>
         <Filename Value="..\base\pcmdprometapp.pas"/>
-        <UnitName Value="pcmdprometapp"/>
         <EditorIndex Value="8"/>
         <CursorPos X="3" Y="10"/>
         <UsageCount Value="15"/>
@@ -452,7 +451,6 @@
       </Unit62>
       <Unit63>
         <Filename Value="..\..\..\general\src\Utils.pas"/>
-        <UnitName Value="Utils"/>
         <EditorIndex Value="10"/>
         <TopLine Value="191"/>
         <CursorPos X="4" Y="195"/>
@@ -787,7 +785,6 @@
       </Unit109>
       <Unit110>
         <Filename Value="..\components\zeos\src\plain\ZPlainPostgreSqlDriver.pas"/>
-        <UnitName Value="ZPlainPostgreSqlDriver"/>
         <EditorIndex Value="2"/>
         <TopLine Value="1156"/>
         <CursorPos X="73" Y="1163"/>
@@ -805,7 +802,6 @@
       </Unit111>
       <Unit112>
         <Filename Value="..\..\..\..\LKomponenten\tiopf\Core\tiCompress.pas"/>
-        <UnitName Value="tiCompress"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="5"/>
         <CursorPos X="15" Y="24"/>
@@ -813,21 +809,18 @@
       </Unit112>
       <Unit113>
         <Filename Value="..\..\..\..\LKomponenten\tiopf\Core\tiBaseObject.pas"/>
-        <UnitName Value="tiBaseObject"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="111"/>
         <UsageCount Value="10"/>
       </Unit113>
       <Unit114>
         <Filename Value="..\..\..\..\LKomponenten\tiopf\Core\tiCommandLineParams.pas"/>
-        <UnitName Value="tiCommandLineParams"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="97"/>
         <UsageCount Value="10"/>
       </Unit114>
       <Unit115>
         <Filename Value="..\..\..\..\LKomponenten\tiopf\Core\tiThread.pas"/>
-        <UnitName Value="tiThread"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="31"/>
         <UsageCount Value="10"/>
