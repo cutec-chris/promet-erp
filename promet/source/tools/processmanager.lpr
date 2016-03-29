@@ -127,6 +127,7 @@ end;
 destructor TProcessManager.Destroy;
 begin
   Data.ProcessClient.ShutDown;
+  FreeAndNil(NetworkDaemon);
   inherited Destroy;
 end;
 var
