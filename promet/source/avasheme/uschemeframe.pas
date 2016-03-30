@@ -177,6 +177,8 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure FGraphObjectMouseEnter(Graph: TEvsSimpleGraph;
       GraphObject: TEvsGraphObject);
+    procedure FGraphObjectMouseLeave(Graph: TEvsSimpleGraph;
+      GraphObject: TEvsGraphObject);
     procedure goDblClick(Graph: TEvsSimpleGraph; GraphObject: TEvsGraphObject);
     procedure ObjectsBezierExecute(Sender: TObject);
     procedure ObjectsLinkExecute(Sender: TObject);
@@ -301,7 +303,7 @@ var
   GraphObject: TEvsGraphObject;
   aLink: String;
 begin
-  if Assigned(FGraph.ObjectAtCursor) and (not acEdit.Checked) then
+  if (not acedit.Checked) and Assigned(FGraph.ObjectAtCursor) then
     begin
       GraphObject := FGraph.ObjectAtCursor;
       if pos('[Link:',GraphObject.Text)>0 then
@@ -318,6 +320,13 @@ procedure TfShemeFrame.FGraphObjectMouseEnter(Graph: TEvsSimpleGraph;
 begin
   if pos('[Link:',GraphObject.Text)>0 then
     Screen.Cursor:=crHandPoint;
+end;
+
+procedure TfShemeFrame.FGraphObjectMouseLeave(Graph: TEvsSimpleGraph;
+  GraphObject: TEvsGraphObject);
+begin
+  if pos('[Link:',GraphObject.Text)>0 then
+    Screen.Cursor:=crHandFlat;
 end;
 
 procedure TfShemeFrame.goDblClick(Graph: TEvsSimpleGraph;
@@ -675,6 +684,7 @@ begin
   FGraph.OnObjectDblClick:=@goDblClick;
   FGraph.OnMouseUp:=@FGraphMouseUp;
   FGraph.OnObjectMouseEnter:=@FGraphObjectMouseEnter;
+  FGraph.OnObjectMouseLeave:=@FGraphObjectMouseLeave;
   //FGraph.FixedScrollBars := True;
   FGraph.OnObjectChange:=@FGraphObjectChange;
   FGraph.PopupMenu := pmContext;
