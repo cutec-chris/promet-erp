@@ -41,8 +41,4 @@ object fmWikiPage: TfmWikiPage
     end>
   OnGetAction = DataModuleGetAction
   CreateSession = True
-  Height = 172
-  HorizontalOffset = 1004
-  VerticalOffset = 244
-  Width = 250
 end
