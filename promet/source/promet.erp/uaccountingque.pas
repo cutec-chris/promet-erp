@@ -325,7 +325,7 @@ begin
                   with BaseApplication as IBaseApplication do
                     begin
                       case Config.ReadInteger('DELETEMETHOD',0) of
-                      0:DelOK := DeleteFileUTF8(AppendPathDelim(GetInternalTempDir)+'output.ctx');
+                      0:DelOK := DeleteFile(UniToSys(AppendPathDelim(GetInternalTempDir)+'output.ctx'));
                       1:DelOK := DeleteSecure(AppendPathDelim(GetInternalTempDir)+'output.ctx');
                       2:DelOK := DeleteSecure(AppendPathDelim(GetInternalTempDir)+'output.ctx',dmDoD522022);
                       3:DelOK := DeleteSecure(AppendPathDelim(GetInternalTempDir)+'output.ctx',dmOverride);

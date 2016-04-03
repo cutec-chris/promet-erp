@@ -1,21 +1,21 @@
-{ Diese Datei wurde automatisch von Lazarus erzeugt. Sie darf nicht bearbeitet 
-  werden!
-  Dieser Quelltext dient nur dem Übersetzen und Installieren des Packages.
+{ This file was automatically created by Lazarus. Do not edit!
+  This source is only used to compile and install the package.
  }
 
-unit laz_twain; 
+unit laz_twain;
 
+{$warn 5023 off : no warning about unused units}
 interface
 
 uses
-DelphiTwain, DelphiTwainUtils, LazarusPackageIntf;
+  DelphiTwain, DelphiTwainUtils, LazarusPackageIntf;
 
 implementation
 
-procedure Register; 
+procedure Register;
 begin
-end; 
+end;
 
 initialization
-  RegisterPackage('laz_twain', @Register); 
+  RegisterPackage('laz_twain', @Register);
 end.

@@ -29,7 +29,7 @@ uses
   Forms, sysutils, lazreport, turbopoweripro, uMain,FileUtil,
   Process
   { you can add units after this }
-  ,uBaseVisualApplication, pphones, richmemopackage, zvdatetimectrls, general;
+  ,uBaseVisualApplication, pphones, zvdatetimectrls, general, Utils;
 
 {$R *.res}
 
@@ -43,15 +43,15 @@ begin
   Application := TBaseVisualApplication.Create(nil);
   {$ifdef WINDOWS}
   PlainName := copy(Application.Exename,0,length(Application.Exename)-length(ExtractFileExt(Application.Exename)));
-  IF FindFirstUTF8(PlainName+'*'+ExtractFileExt(Application.Exename), faDirectory, FindRec) = 0 THEN
+  IF FindFirst(UniToSys(PlainName+'*'+ExtractFileExt(Application.Exename)), faDirectory, FindRec) = 0 THEN
     REPEAT
       IF ((FindRec.Name <> '.') AND (FindRec.Name <> '..')) THEN
         begin
           if FindRec.Name <> ExtractFileName(Application.ExeName) then
             NewName := FindRec.Name;
         end;
-    UNTIL FindNextUTF8(FindRec) <> 0;
-  FindCloseUTF8(FindRec);
+    UNTIL FindNext(FindRec) <> 0;
+  FindClose(FindRec);
   if (NewName <> ExtractFileName(Application.ExeName)) and (NewName<>'') and (pos('_',NewName)=0) then
     begin
       aProcess := Tprocess.Create(nil);

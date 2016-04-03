@@ -118,7 +118,8 @@ var
 
 implementation
 {$R *.lfm}
-uses uData,uMain,uLogWait,LCLIntf,uAccountingque,uMainTreeFrame,usimpleprocess;
+uses uData,uMain,uLogWait,LCLIntf,uAccountingque,uMainTreeFrame,usimpleprocess,
+  LazFileUtils;
 resourcestring
   strAQBankingisnotinstalled                     = 'aqBanking ist nicht installiert ! aqBanking muss installiert sein um Online Banking zu bretreiben';
 { TfWizardNewAccount }

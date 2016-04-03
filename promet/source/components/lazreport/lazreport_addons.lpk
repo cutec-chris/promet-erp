@@ -39,8 +39,7 @@
     </Files>
     <RequiredPkgs Count="6">
       <Item1>
-        <PackageName Value="richmemopackage"/>
-        <DefaultFilename Value="../richmemo/richmemopackage.lpk"/>
+        <PackageName Value="KControlsLaz"/>
       </Item1>
       <Item2>
         <PackageName Value="lazbarcodes"/>

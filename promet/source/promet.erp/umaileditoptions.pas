@@ -27,7 +27,7 @@ interface
 uses
   Classes, SysUtils,  Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Buttons, uIntfStrConsts,LCLType, ButtonPanel,FileUtil,
-  ProcessUtils,uProcessManager,uLogWait;
+  ProcessUtils,uProcessManager,uLogWait,LazFileUtils;
 
 type
 

@@ -4102,7 +4102,7 @@ begin
     begin
       FTimereg.StopActualTime;
       FTimeReg.Destroy;
-      DeleteFileUTF8(GetTempDir+'PMSTimeregistering');
+      DeleteFile(UniToSys(GetTempDir+'PMSTimeregistering'));
     end;
   while FHistory.Count>15 do FHistory.Delete(0);
   with Application as IBaseDbInterface do

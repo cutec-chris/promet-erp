@@ -330,6 +330,7 @@
         <ComponentName Value="fAccountingQue"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uAccountingque"/>
       </Unit6>
       <Unit7>
         <Filename Value="ubankingdialog.pas"/>
@@ -365,6 +366,7 @@
         <ComponentName Value="fOrderFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderFrame"/>
       </Unit11>
       <Unit12>
         <Filename Value="uorderadditionalframe.pas"/>
@@ -484,6 +486,7 @@
         <ComponentName Value="fMailOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uMailEditoptions"/>
       </Unit28>
       <Unit29>
         <Filename Value="ufindtransaction.pas"/>
@@ -512,6 +515,7 @@
         <ComponentName Value="fWizardNewAccount"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uWizardnewaccount"/>
       </Unit32>
       <Unit33>
         <Filename Value="ubookserial.pas"/>
