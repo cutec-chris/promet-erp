@@ -231,7 +231,7 @@ end;
 
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  FOrder.Free;
+  //FOrder.Free;
   with Application as IBaseApplication do
     begin
       Data.ActiveUsers.DataSet.AfterScroll:=nil;
