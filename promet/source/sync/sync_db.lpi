@@ -26,7 +26,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS-Times2"/>
+        <CommandLineParams Value="--mandant=Stora --db=Central"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -45,9 +45,9 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="560"/>
-        <CursorPos Y="582"/>
-        <FoldState Value=" T3rf031+"/>
+        <TopLine Value="611"/>
+        <CursorPos X="106" Y="625"/>
+        <FoldState Value=" T3s3031."/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -826,7 +826,7 @@
         <UsageCount Value="10"/>
       </Unit115>
     </Units>
-    <JumpHistory Count="27" HistoryIndex="26">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="sync_db.lpr"/>
         <Caret Line="434" Column="30" TopLine="411"/>
@@ -935,6 +935,10 @@
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <Caret Line="1801" TopLine="1781"/>
       </Position27>
+      <Position28>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="567" Column="48" TopLine="560"/>
+      </Position28>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
