@@ -61,7 +61,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/smtpsender"/>
+      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/smtpsender"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

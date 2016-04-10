@@ -204,7 +204,7 @@ begin
   if pDetails.Visible then
     begin
       if Application.HasOption('execute') then
-      if FileExistsUTF8(Application.GetOptionValue('execute')) then
+      if FileExists(UniToSys(Application.GetOptionValue('execute'))) then
         begin
           aProcess := TProcessUTF8.Create(Self);
           aProcess.CommandLine:=Application.GetOptionValue('execute');
@@ -426,7 +426,7 @@ var
   FindRec: TSearchRec;
   NewNode: TTreeNode;
 begin
-  IF FindFirstUTF8(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'importdata'+DirectorySeparator+Node.GetTextPath)+'*', faDirectory, FindRec) = 0 THEN
+  IF FindFirst(UniToSys(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'importdata'+DirectorySeparator+Node.GetTextPath)+'*'), faDirectory, FindRec) = 0 THEN
     REPEAT
       IF ((FindRec.Name <> 'standard') AND (FindRec.Name <> '.') AND (FindRec.Name <> '..')) AND (FindRec.Attr and faDirectory = faDirectory) THEN
         begin
@@ -438,8 +438,8 @@ begin
             tvProfile.Items.Delete(NewNode);
           end;
         end;
-    UNTIL FindNextUTF8(FindRec) <> 0;
-  FindCloseUTF8(FindRec);
+    UNTIL FindNext(FindRec) <> 0;
+  FindClose(FindRec);
 end;
 procedure TfWizardNewMandant.SetLanguage;
 var
@@ -498,14 +498,14 @@ var
     try
       with aTable.DataSet as IBaseManageDB do
         aTableName := TableName;
-      if FileExistsUTF8(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'importdata'+DirectorySeparator+tvProfile.Selected.GetTextPath)+lowercase(aTableName)+'.csv') then
+      if FileExists(UniToSys(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'importdata'+DirectorySeparator+tvProfile.Selected.GetTextPath)+lowercase(aTableName)+'.csv')) then
         begin
           aTable.CreateTable;
           aTable.Open;
           if aTable.DataSet.IsEmpty then
             CSVImport(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'importdata'+DirectorySeparator+tvProfile.Selected.GetTextPath)+lowercase(aTableName)+'.csv',';',aTable.DataSet);
         end
-      else if FileExistsUTF8(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'importdata'+DirectorySeparator+'standard')+lowercase(aTableName)+'.csv') then
+      else if FileExists(UniToSys(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'importdata'+DirectorySeparator+'standard')+lowercase(aTableName)+'.csv')) then
         begin
           aTable.CreateTable;
           aTable.Open;
@@ -712,13 +712,13 @@ begin
               ChDir(AppendPathDelim(Application.Location));
               if Application.HasOption('c','config-path') then
                 begin
-                  if ExecProcess('tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text+'"',AppendPathDelim(Application.Location)) then
+                  if ExecProcess('sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text+'"',AppendPathDelim(Application.Location)) then
                     iDatabaseUpdated.Visible:=True;
-                  Clipboard.AsText:='tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text+'"';
+                  Clipboard.AsText:='sync_db'+ExtractFileExt(Application.ExeName)+' "--config-path='+Application.GetOptionValue('c','config-path')+'" "--mandant='+eMandantname.Text+'"';
                 end
               else
                 begin
-                  if ExecProcess('tools'+DirectorySeparator+'sync_db'+ExtractFileExt(Application.ExeName)+' "--mandant='+eMandantname.Text+'"',AppendPathDelim(Application.Location)) then
+                  if ExecProcess('sync_db'+ExtractFileExt(Application.ExeName)+' "--mandant='+eMandantname.Text+'"',AppendPathDelim(Application.Location)) then
                     iDatabaseUpdated.Visible:=True;
                 end;
             end;
@@ -776,12 +776,12 @@ begin
         begin
           with Application as IBaseDBInterface do
             begin
-              if FileExistsUTF8(AppendPathDelim(MandantPath)+'mandant.dbf') then
-                DeleteFileUTF8(AppendPathDelim(MandantPath)+'mandant.dbf');
-              if FileExistsUTF8(AppendPathDelim(MandantPath)+'mandant.dbt') then
-                DeleteFileUTF8(AppendPathDelim(MandantPath)+'mandant.dbt');
-              if FileExistsUTF8(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension) then
-                if DeleteFileUTF8(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension) then
+              if FileExists(UniToSys(AppendPathDelim(MandantPath)+'mandant.dbf')) then
+                DeleteFile(UniToSys(AppendPathDelim(MandantPath)+'mandant.dbf'));
+              if FileExists(UniToSys(AppendPathDelim(MandantPath)+'mandant.dbt')) then
+                DeleteFile(UniToSys(AppendPathDelim(MandantPath)+'mandant.dbt'));
+              if FileExists(UniToSys(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension)) then
+                if DeleteFile(UniToSys(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension)) then
                   ShowMessage(strSuccess);
             end;
           Application.Terminate;
@@ -791,7 +791,7 @@ begin
         begin
           with Application as IBaseDBInterface do
             begin
-              if not FileExistsUTF8(DirectoryEdit1.FileName) then
+              if not FileExists(UniToSys(DirectoryEdit1.FileName)) then
                 begin
                   result := 0;
                   exit;

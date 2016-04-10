@@ -53,9 +53,11 @@
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\syslog_server" ApplyConventions="False"/>
+    </Target>
     <SearchPaths>
-      <OtherUnitFiles Value="..\base"/>
-      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

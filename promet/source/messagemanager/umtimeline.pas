@@ -851,7 +851,7 @@ var
   aLink: String;
 begin
   if fTimeline.GotoActiveRow then
-    if FileExistsUTF8(GetTempDir+'PMSTimeregistering') then
+    if FileExists(UniToSys(GetTempDir+'PMSTimeregistering')) then
       begin
         aTask := TTask.Create(nil);
         aTask.SelectFromLink(fTimeline.DataSet.FieldByName('LINK').AsString);
@@ -1234,7 +1234,7 @@ procedure TfmTimeline.PopupMenu1Popup(Sender: TObject);
 begin
   acStartTimeRegistering.Visible := False;
   if fTimeline.GotoActiveRow then
-    acStartTimeRegistering.Visible := (Data.GetLinkIcon(fTimeline.DataSet.FieldByName('LINK').AsString) = IMAGE_TASK) and FileExistsUTF8(GetTempDir+'PMSTimeregistering');
+    acStartTimeRegistering.Visible := (Data.GetLinkIcon(fTimeline.DataSet.FieldByName('LINK').AsString) = IMAGE_TASK) and FileExists(UniToSys(GetTempDir+'PMSTimeregistering'));
 end;
 
 function TfmTimeline.SetLinkfromSearch(aLink: string): Boolean;

@@ -4172,7 +4172,7 @@ begin
         Application.Terminate;
         exit;
       end;
-  InstallExt('plink', 'Promet-ERP-Link', 'Promet-ERP Link',AppendPathDelim(AppendPathDelim(Application.Location)+'tools')+'linksender'+ExtractFileExt(Application.ExeName),'%1');
+  InstallExt('plink', 'Promet-ERP-Link', 'Promet-ERP Link',AppendPathDelim(Application.Location)+'linksender'+ExtractFileExt(Application.ExeName),'%1');
   FHistory := THistory.Create;
   FHistory.FwdAction := acForward;
   FHistory.RewAction := acBack;

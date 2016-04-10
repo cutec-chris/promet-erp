@@ -64,7 +64,7 @@
       <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\pstarter"/>
     </Target>
     <SearchPaths>
-      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

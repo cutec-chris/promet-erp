@@ -35,21 +35,18 @@
         <WorkingDirectory Value="\media\Daten\Source\promet\promet\help"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="3">
       <Item1>
         <PackageName Value="phelp"/>
         <DefaultFilename Value="..\base_help\phelp.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="richmemopackage"/>
-      </Item2>
-      <Item3>
         <PackageName Value="pVisualPrometApp"/>
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
-      </Item3>
-      <Item4>
+      </Item2>
+      <Item3>
         <PackageName Value="LCL"/>
-      </Item4>
+      </Item3>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
@@ -73,7 +70,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

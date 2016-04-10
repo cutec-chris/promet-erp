@@ -108,7 +108,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/processmanager"/>
+      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/processmanager"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

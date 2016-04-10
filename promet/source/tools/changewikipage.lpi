@@ -61,7 +61,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\changewikipage"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\changewikipage"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

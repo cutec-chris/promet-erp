@@ -268,7 +268,6 @@
       </Unit34>
       <Unit35>
         <Filename Value="mapi\MapiServices.pas"/>
-        <UnitName Value="MapiServices"/>
         <EditorIndex Value="1"/>
         <TopLine Value="1875"/>
         <CursorPos Y="1896"/>
@@ -465,7 +464,7 @@
       <Unit66>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="1555"/>
         <CursorPos Y="1587"/>
         <UsageCount Value="40"/>
@@ -482,8 +481,7 @@
       </Unit67>
       <Unit68>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <UnitName Value="usync"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="455"/>
         <CursorPos X="3" Y="480"/>
         <UsageCount Value="34"/>
@@ -547,11 +545,10 @@
       <Unit78>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="643"/>
         <CursorPos X="34" Y="664"/>
         <UsageCount Value="26"/>
-        <Loaded Value="True"/>
       </Unit78>
       <Unit79>
         <Filename Value="..\base\dbintfs\ucalendar.pas"/>
@@ -607,7 +604,6 @@
       </Unit87>
       <Unit88>
         <Filename Value="..\base\dbintfs\utask.pas"/>
-        <UnitName Value="utask"/>
         <EditorIndex Value="2"/>
         <TopLine Value="930"/>
         <CursorPos Y="951"/>
@@ -800,8 +796,7 @@
       </Unit118>
       <Unit119>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <UnitName Value="synautil"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="398"/>
         <CursorPos Y="422"/>
         <UsageCount Value="14"/>
@@ -824,7 +819,7 @@
     <Build>
       <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or;*.rc"/>
     </Build>
-    <JumpHistory Count="23" HistoryIndex="22">
+    <JumpHistory Count="22" HistoryIndex="21">
       <Position1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <Caret Line="414" TopLine="384"/>
@@ -878,52 +873,48 @@
         <Caret Line="589" Column="65" TopLine="561"/>
       </Position13>
       <Position14>
-        <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
-        <Caret Line="9" Column="91"/>
+        <Filename Value="sync_outlook_contacts.lpr"/>
+        <Caret Line="585" Column="33" TopLine="571"/>
       </Position14>
       <Position15>
         <Filename Value="sync_outlook_contacts.lpr"/>
-        <Caret Line="585" Column="33" TopLine="571"/>
+        <Caret Line="647" Column="51" TopLine="622"/>
       </Position15>
       <Position16>
         <Filename Value="sync_outlook_contacts.lpr"/>
-        <Caret Line="647" Column="51" TopLine="622"/>
+        <Caret Line="473" Column="39" TopLine="459"/>
       </Position16>
       <Position17>
         <Filename Value="sync_outlook_contacts.lpr"/>
-        <Caret Line="473" Column="39" TopLine="459"/>
+        <Caret Line="518" Column="41" TopLine="503"/>
       </Position17>
       <Position18>
         <Filename Value="sync_outlook_contacts.lpr"/>
-        <Caret Line="518" Column="41" TopLine="503"/>
+        <Caret Line="276" Column="34" TopLine="258"/>
       </Position18>
       <Position19>
         <Filename Value="sync_outlook_contacts.lpr"/>
-        <Caret Line="276" Column="34" TopLine="258"/>
+        <Caret Line="285" Column="38" TopLine="268"/>
       </Position19>
       <Position20>
         <Filename Value="sync_outlook_contacts.lpr"/>
-        <Caret Line="285" Column="38" TopLine="268"/>
+        <Caret Line="314" Column="50" TopLine="297"/>
       </Position20>
       <Position21>
         <Filename Value="sync_outlook_contacts.lpr"/>
-        <Caret Line="314" Column="50" TopLine="297"/>
+        <Caret Line="385" Column="34" TopLine="368"/>
       </Position21>
       <Position22>
         <Filename Value="sync_outlook_contacts.lpr"/>
-        <Caret Line="385" Column="34" TopLine="368"/>
-      </Position22>
-      <Position23>
-        <Filename Value="sync_outlook_contacts.lpr"/>
         <Caret Line="392" Column="38" TopLine="375"/>
-      </Position23>
+      </Position22>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\sync_outlook_contacts"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\sync_outlook_contacts"/>
     </Target>
     <SearchPaths>
       <OtherUnitFiles Value="mapi"/>

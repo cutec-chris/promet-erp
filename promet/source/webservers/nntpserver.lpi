@@ -107,6 +107,7 @@
       <Unit1>
         <Filename Value="ulnntp.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="uLNNTP"/>
       </Unit1>
       <Unit2>
         <Filename Value="uprometnntp.pas"/>
@@ -118,11 +119,11 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\nntpserver"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\nntpserver"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

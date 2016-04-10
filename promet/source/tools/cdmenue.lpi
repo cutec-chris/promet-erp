@@ -62,8 +62,11 @@
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\cdmenue"/>
+    </Target>
     <SearchPaths>
-      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
@@ -84,4 +87,4 @@
       </Options>
     </Linking>
   </CompilerOptions>
-</CONFIG>
+</CONFIG>

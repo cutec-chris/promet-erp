@@ -1,22 +1,22 @@
 object fMain: TfMain
-  Left = 468
+  Left = 467
   Height = 152
-  Top = 321
+  Top = 295
   Width = 340
   Caption = 'Archivestore'
-  ClientHeight = 131
+  ClientHeight = 129
   ClientWidth = 340
   Color = clWindow
   Menu = MainMenu
   OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '1.3'
+  LCLVersion = '1.7'
   object ZVDateTimePicker1: TZVDateTimePicker
     Left = 16
     Height = 23
     Top = 32
-    Width = 97
+    Width = 85
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
@@ -31,18 +31,20 @@ object fMain: TfMain
     Date = 41148
     Time = 0.781060185181559
     UseDefaultSeparators = True
+    HideDateTimeParts = []
+    MonthNames = 'Long'
   end
   object Label1: TLabel
     Left = 16
-    Height = 15
+    Height = 17
     Top = 8
-    Width = 22
+    Width = 21
     Caption = 'Von'
     ParentColor = False
   end
   object Label2: TLabel
     Left = 16
-    Height = 15
+    Height = 17
     Top = 72
     Width = 17
     Caption = 'Bis'
@@ -52,7 +54,7 @@ object fMain: TfMain
     Left = 16
     Height = 23
     Top = 96
-    Width = 97
+    Width = 85
     CenturyFrom = 1941
     MaxDate = 2958465
     MinDate = -53780
@@ -67,6 +69,8 @@ object fMain: TfMain
     Date = 41148
     Time = 0.781060185181559
     UseDefaultSeparators = True
+    HideDateTimeParts = []
+    MonthNames = 'Long'
   end
   object Button1: TButton
     Left = 144
@@ -132,4 +136,4 @@ object fMain: TfMain
     left = 128
     top = 48
   end
-end
+end

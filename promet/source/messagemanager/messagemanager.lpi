@@ -69,7 +69,7 @@
         <CommandLineParams Value="--config-path=/home/chris/.promet-cen/"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="9">
+    <RequiredPackages Count="8">
       <Item1>
         <PackageName Value="pvisualframes"/>
         <DefaultFilename Value="../base_frames/pvisualframes.lpk"/>
@@ -94,14 +94,11 @@
         <DefaultFilename Value="../../../general/general.lpk"/>
       </Item6>
       <Item7>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="FCL"/>
       </Item7>
       <Item8>
-        <PackageName Value="FCL"/>
-      </Item8>
-      <Item9>
         <PackageName Value="LCL"/>
-      </Item9>
+      </Item8>
     </RequiredPackages>
     <Units Count="5">
       <Unit0>
@@ -141,7 +138,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/messagemanager"/>
+      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/messagemanager"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

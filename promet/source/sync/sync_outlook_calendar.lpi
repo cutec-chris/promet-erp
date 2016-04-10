@@ -462,7 +462,7 @@
       <Unit66>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="1555"/>
         <CursorPos Y="1587"/>
         <UsageCount Value="41"/>
@@ -479,7 +479,6 @@
       </Unit67>
       <Unit68>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <UnitName Value="usync"/>
         <EditorIndex Value="1"/>
         <TopLine Value="516"/>
         <CursorPos X="82" Y="526"/>
@@ -544,11 +543,10 @@
       <Unit78>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1326"/>
         <CursorPos X="3" Y="1315"/>
         <UsageCount Value="27"/>
-        <Loaded Value="True"/>
       </Unit78>
       <Unit79>
         <Filename Value="..\base\dbintfs\ucalendar.pas"/>
@@ -604,7 +602,6 @@
       </Unit87>
       <Unit88>
         <Filename Value="..\base\dbintfs\utask.pas"/>
-        <UnitName Value="utask"/>
         <EditorIndex Value="2"/>
         <TopLine Value="807"/>
         <CursorPos Y="828"/>
@@ -798,8 +795,7 @@
       </Unit118>
       <Unit119>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <UnitName Value="synautil"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="398"/>
         <CursorPos Y="422"/>
         <UsageCount Value="15"/>
@@ -950,7 +946,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\sync_outlook_calendar"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\sync_outlook_calendar"/>
     </Target>
     <SearchPaths>
       <OtherUnitFiles Value="mapi"/>
