@@ -15,6 +15,6 @@ cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
 target=webserver_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
-zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile tools/webserver$TARGET_EXTENSION
+zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile webserver$TARGET_EXTENSION
 . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd $basedir
