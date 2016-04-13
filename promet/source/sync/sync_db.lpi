@@ -443,7 +443,7 @@
         <UsageCount Value="8"/>
       </Unit61>
       <Unit62>
-        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\fileutil.pas"/>
+        <Filename Value="C:\lazarus\components\lazutils\fileutil.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="74"/>
         <CursorPos X="23" Y="92"/>
@@ -458,21 +458,21 @@
         <Loaded Value="True"/>
       </Unit63>
       <Unit64>
-        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\fileutil.inc"/>
+        <Filename Value="C:\lazarus\components\lazutils\fileutil.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="301"/>
         <CursorPos X="32" Y="303"/>
         <UsageCount Value="8"/>
       </Unit64>
       <Unit65>
-        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\lazutf8.pas"/>
+        <Filename Value="C:\lazarus\components\lazutils\lazutf8.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="197"/>
         <CursorPos Y="210"/>
         <UsageCount Value="8"/>
       </Unit65>
       <Unit66>
-        <Filename Value="..\..\..\..\..\fpc\trunk\rtl\inc\ustringh.inc"/>
+        <Filename Value="C:\fpc\trunk\rtl\inc\ustringh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="116"/>
         <CursorPos X="10" Y="131"/>
@@ -613,13 +613,13 @@
         <UsageCount Value="8"/>
       </Unit85>
       <Unit86>
-        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\lazfileutils.pas"/>
+        <Filename Value="C:\lazarus\components\lazutils\lazfileutils.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="75" Y="76"/>
         <UsageCount Value="10"/>
       </Unit86>
       <Unit87>
-        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\unixlazfileutils.inc"/>
+        <Filename Value="C:\lazarus\components\lazutils\unixlazfileutils.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="218"/>
         <CursorPos X="19" Y="239"/>
@@ -635,13 +635,13 @@
         <Loaded Value="True"/>
       </Unit88>
       <Unit89>
-        <Filename Value="..\..\..\..\..\fpc\trunk\rtl\objpas\sysutils\filutilh.inc"/>
+        <Filename Value="C:\fpc\trunk\rtl\objpas\sysutils\filutilh.inc"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="10"/>
         <UsageCount Value="8"/>
       </Unit89>
       <Unit90>
-        <Filename Value="..\..\..\..\..\lazarus\components\lazutils\lazfileutils.inc"/>
+        <Filename Value="C:\lazarus\components\lazutils\lazfileutils.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
         <CursorPos X="10" Y="4"/>
@@ -697,35 +697,35 @@
         <UsageCount Value="13"/>
       </Unit97>
       <Unit98>
-        <Filename Value="..\..\..\..\..\fpc\trunk\packages\fcl-image\src\fpcanvas.pp"/>
+        <Filename Value="C:\fpc\trunk\packages\fcl-image\src\fpcanvas.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="299"/>
         <CursorPos X="26" Y="314"/>
         <UsageCount Value="8"/>
       </Unit98>
       <Unit99>
-        <Filename Value="..\..\..\..\..\fpc\trunk\packages\fcl-image\src\fpcanvas.inc"/>
+        <Filename Value="C:\fpc\trunk\packages\fcl-image\src\fpcanvas.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="340"/>
         <CursorPos X="24" Y="345"/>
         <UsageCount Value="8"/>
       </Unit99>
       <Unit100>
-        <Filename Value="..\..\..\..\..\lazarus\lcl\lclversion.pas"/>
+        <Filename Value="C:\lazarus\lcl\lclversion.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="15"/>
         <CursorPos X="14" Y="40"/>
         <UsageCount Value="8"/>
       </Unit100>
       <Unit101>
-        <Filename Value="..\..\..\..\..\lazarus\lcl\intfgraphics.pas"/>
+        <Filename Value="C:\lazarus\lcl\intfgraphics.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="6256"/>
         <CursorPos X="71" Y="6272"/>
         <UsageCount Value="8"/>
       </Unit101>
       <Unit102>
-        <Filename Value="..\..\..\..\..\lazarus\lcl\interfaces\gtk2\gtk2callback.inc"/>
+        <Filename Value="C:\lazarus\lcl\interfaces\gtk2\gtk2callback.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="495"/>
         <CursorPos Y="511"/>
@@ -777,7 +777,7 @@
         <UsageCount Value="8"/>
       </Unit108>
       <Unit109>
-        <Filename Value="..\..\..\..\..\fpc\trunk\packages\fcl-db\src\base\db.pas"/>
+        <Filename Value="C:\fpc\trunk\packages\fcl-db\src\base\db.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1646"/>
         <CursorPos X="15" Y="1659"/>
@@ -970,6 +970,15 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_db.lpr"/>
+        <Line Value="617"/>
+      </Item1>
+    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="aTableName"/>

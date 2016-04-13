@@ -166,6 +166,8 @@ type
     procedure BtZoomInClick(Sender: TObject);
     procedure BtZoomOutClick(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
+    procedure DataSetFieldsFieldsGetText(Sender: TField; var aText: string;
+      DisplayText: Boolean);
     procedure DataSetRemove(Sender: TObject);
     procedure DatasourceDataChange(Sender: TObject; Field: TField);
     procedure ExecuteTimerTimer(Sender: TObject);
@@ -669,6 +671,8 @@ begin
         StatisticResults.DataSet.Free;
       StatisticResults.DataSet := Data.GetNewDataSet(BuildSQL(DataSet.FieldByName('QUERRY').AsString),FConnection);
       StatisticResults.DataSet.Open;
+      for i := 0 to StatisticResults.DataSet.Fields.Count-1 do
+        StatisticResults.DataSet.Fields[i].OnGetText:=@DataSetFieldsFieldsGetText;
       if trim(smQuerry1.Lines.Text) <> '' then
         begin
           if Assigned(Detail.DataSet) then
@@ -942,6 +946,12 @@ begin
   FDataSet.FieldByName('STATUS').AsString:=tmp;
   acSave.Execute;
   DoOpen;
+end;
+
+procedure TfStatisticFrame.DataSetFieldsFieldsGetText(Sender: TField;
+  var aText: string; DisplayText: Boolean);
+begin
+  aText := copy(Sender.AsString,0,100);
 end;
 
 procedure TfStatisticFrame.DataSetRemove(Sender: TObject);
