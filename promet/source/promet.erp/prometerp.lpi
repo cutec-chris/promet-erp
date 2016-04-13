@@ -25,7 +25,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="458"/>
+      <BuildNr Value="459"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -177,6 +177,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=devel --mandant=Help"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">

@@ -4,7 +4,6 @@
 
 unit laz_twain;
 
-{$warn 5023 off : no warning about unused units}
 interface
 
 uses

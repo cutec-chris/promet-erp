@@ -3,8 +3,8 @@ inherited fStatisticFrame: TfStatisticFrame
   Width = 855
   ClientHeight = 698
   ClientWidth = 855
-  DesignLeft = 143
-  DesignTop = 177
+  DesignLeft = 330
+  DesignTop = 205
   object Splitter2: TSplitter[0]
     Cursor = crVSplit
     Left = 0
@@ -26,29 +26,41 @@ inherited fStatisticFrame: TfStatisticFrame
     ClientHeight = 354
     ClientWidth = 855
     TabOrder = 1
-    object pcTabs: TPageControl
+    object ToolBar: TToolBar
+      Left = 0
+      Height = 1
+      Top = 0
+      Width = 855
+      AutoSize = True
+      ButtonHeight = 32
+      Caption = 'ToolBar'
+      TabOrder = 0
+    end
+    object pcPages: TExtMenuPageControl
       Left = 8
       Height = 337
       Top = 9
       Width = 839
-      ActivePage = tsDescription
+      ActivePage = tsReport
       Align = alClient
       BorderSpacing.Around = 8
-      TabIndex = 2
-      TabOrder = 0
+      Images = fVisualControls.Images
+      TabIndex = 0
+      TabOrder = 1
+      NewTabImageIndex = 0
       object tsReport: TTabSheet
         Caption = 'Report'
-        ClientHeight = 4992
-        ClientWidth = 13440
+        ClientHeight = 309
+        ClientWidth = 831
         object Panel2: TPanel
           Left = 0
           Height = 27
           Top = 0
-          Width = 840
+          Width = 831
           Align = alTop
           BevelOuter = bvNone
           ClientHeight = 27
-          ClientWidth = 840
+          ClientWidth = 831
           TabOrder = 0
           object BtZoomOut: TBitBtn
             Left = 0
@@ -101,7 +113,7 @@ inherited fStatisticFrame: TfStatisticFrame
             Left = 46
             Height = 27
             Top = 0
-            Width = 79
+            Width = 78
             Align = alLeft
             AutoSize = True
             BorderSpacing.InnerBorder = 2
@@ -148,7 +160,7 @@ inherited fStatisticFrame: TfStatisticFrame
             TabOrder = 1
           end
           object BtZoomIn: TBitBtn
-            Left = 125
+            Left = 124
             Height = 27
             Top = 0
             Width = 46
@@ -196,9 +208,9 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object frPreview: TfrPreview
           Left = 0
-          Height = 285
+          Height = 282
           Top = 27
-          Width = 840
+          Width = 831
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
@@ -207,8 +219,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsResults: TTabSheet
         Caption = 'Ergebnisliste'
-        ClientHeight = 4976
-        ClientWidth = 13440
+        ClientHeight = 309
+        ClientWidth = 831
         object Panel1: TPanel
           Left = 0
           Height = 282
@@ -365,11 +377,11 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsDescription: TTabSheet
         Caption = 'Beschreibung'
-        ClientHeight = 311
+        ClientHeight = 309
         ClientWidth = 831
         object DBMemo1: TDBMemo
           Left = 0
-          Height = 311
+          Height = 309
           Top = 0
           Width = 831
           Align = alClient
@@ -380,16 +392,6 @@ inherited fStatisticFrame: TfStatisticFrame
           TabOrder = 0
         end
       end
-    end
-    object ToolBar: TToolBar
-      Left = 0
-      Height = 1
-      Top = 0
-      Width = 855
-      AutoSize = True
-      ButtonHeight = 32
-      Caption = 'ToolBar'
-      TabOrder = 1
     end
   end
   object Panel5: TPanel[2]
@@ -424,12 +426,12 @@ inherited fStatisticFrame: TfStatisticFrame
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 269
+          ClientHeight = 267
           ClientWidth = 847
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
-            Height = 217
+            Height = 215
             Top = 0
             Width = 847
             Align = alClient
@@ -1022,7 +1024,7 @@ inherited fStatisticFrame: TfStatisticFrame
           object lbErrors: TListBox
             Left = 0
             Height = 52
-            Top = 217
+            Top = 215
             Width = 847
             Align = alBottom
             ItemHeight = 0
@@ -1032,14 +1034,14 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsDetail: TTabSheet
           Caption = 'Detail'
-          ClientHeight = 4128
-          ClientWidth = 13664
+          ClientHeight = 267
+          ClientWidth = 847
           inline smQuerry1: TSynMemo
             Cursor = crIBeam
             Left = 0
-            Height = 269
+            Height = 267
             Top = 0
-            Width = 856
+            Width = 847
             Align = alClient
             Font.Height = -13
             Font.Name = 'Courier New'
@@ -2643,18 +2645,18 @@ inherited fStatisticFrame: TfStatisticFrame
         Left = 490
         Height = 44
         Top = 0
-        Width = 353
+        Width = 198
         Align = alLeft
         Anchors = [akTop, akLeft, akRight, akBottom]
         BevelOuter = bvNone
         ClientHeight = 44
-        ClientWidth = 353
+        ClientWidth = 198
         TabOrder = 5
         object Label6: TLabel
           Left = 5
           Height = 15
           Top = 0
-          Width = 348
+          Width = 193
           Align = alTop
           Anchors = [akLeft, akBottom]
           AutoSize = False
@@ -2677,9 +2679,9 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object eName: TDBEdit
           Left = 8
-          Height = 21
+          Height = 23
           Top = 16
-          Width = 303
+          Width = 182
           DataField = 'NAME'
           DataSource = Datasource
           Anchors = [akTop, akLeft, akRight]
@@ -2745,6 +2747,52 @@ inherited fStatisticFrame: TfStatisticFrame
           GroupIndex = 66
           OnClick = ToolButton5Click
           ShowCaption = False
+        end
+      end
+      object Panel9: TPanel
+        Left = 688
+        Height = 44
+        Top = 0
+        Width = 132
+        Align = alLeft
+        BevelOuter = bvNone
+        ClientHeight = 44
+        ClientWidth = 132
+        TabOrder = 7
+        object Label8: TLabel
+          Left = 4
+          Height = 15
+          Top = 0
+          Width = 124
+          Anchors = [akLeft, akRight, akBottom]
+          AutoSize = False
+          BorderSpacing.Left = 5
+          Caption = 'Status'
+          Font.Color = clMedGray
+          Font.Height = 11
+          ParentColor = False
+          ParentFont = False
+        end
+        object Bevel6: TBevel
+          Left = 0
+          Height = 36
+          Top = 4
+          Width = 8
+          Align = alLeft
+          BorderSpacing.Top = 4
+          BorderSpacing.Bottom = 4
+          Shape = bsLeftLine
+        end
+        object cbStatus: TComboBox
+          Left = 1
+          Height = 23
+          Hint = 'hier können Sie den Status des Kontaktes ändern um ihn in neue Zustände zu überführen'
+          Top = 15
+          Width = 128
+          ItemHeight = 15
+          OnSelect = cbStatusSelect
+          Style = csDropDownList
+          TabOrder = 0
         end
       end
     end
@@ -2850,7 +2898,6 @@ inherited fStatisticFrame: TfStatisticFrame
     DefaultCopies = 0
     InitialZoom = pzDefault
     Options = []
-    Preview = frPreview
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
     ShowProgress = False
     DataType = dtDataSource
