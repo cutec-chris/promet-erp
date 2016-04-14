@@ -1622,6 +1622,7 @@ begin
         fMain.acShowTreeExecute(nil);
         fSplash.Hide;
         fMain.Show;
+        Application.ProcessMessages;
         {$ifdef LINUX}
         pCloseTab.BorderSpacing.Top:=3;
         pSeparateWindow.BorderSpacing.Top:=3;
