@@ -12,22 +12,22 @@ object fTransfer: TfTransfer
   OnShow = FormShow
   Position = poMainFormCenter
   ShowInTaskBar = stAlways
-  LCLVersion = '1.3'
+  LCLVersion = '1.4.4.0'
   object lAccount: TLabel
     Left = 8
-    Height = 13
+    Height = 20
     Top = 8
-    Width = 31
+    Width = 40
     Caption = 'Konto'
     ParentColor = False
   end
   object cbAccount: TComboBox
     Left = 8
-    Height = 27
+    Height = 28
     Top = 24
     Width = 518
     Anchors = [akTop, akLeft, akRight]
-    ItemHeight = 0
+    ItemHeight = 20
     TabOrder = 0
   end
   object gbReciver: TGroupBox
@@ -37,16 +37,16 @@ object fTransfer: TfTransfer
     Width = 518
     Anchors = [akTop, akLeft, akRight, akBottom]
     Caption = 'Enpfänger'
-    ClientHeight = 253
+    ClientHeight = 243
     ClientWidth = 514
     Color = 11664634
     ParentColor = False
     TabOrder = 1
     object lName: TLabel
       Left = 6
-      Height = 13
+      Height = 20
       Top = 6
-      Width = 33
+      Width = 40
       Caption = 'Name'
       Font.Color = 19948
       ParentColor = False
@@ -54,9 +54,9 @@ object fTransfer: TfTransfer
     end
     object lRAccount: TLabel
       Left = 6
-      Height = 13
+      Height = 20
       Top = 54
-      Width = 110
+      Width = 135
       Caption = 'Kontonummer/IBAN'
       Font.Color = 19948
       ParentColor = False
@@ -64,9 +64,9 @@ object fTransfer: TfTransfer
     end
     object lRSortCode: TLabel
       Left = 294
-      Height = 13
+      Height = 20
       Top = 54
-      Width = 91
+      Width = 108
       Caption = 'Bankleitzahl/BIC'
       Font.Color = 19948
       ParentColor = False
@@ -92,9 +92,9 @@ object fTransfer: TfTransfer
     end
     object lAmount: TLabel
       Left = 118
-      Height = 13
-      Top = 137
-      Width = 38
+      Height = 20
+      Top = 134
+      Width = 44
       Caption = 'Betrag'
       Font.Color = 19948
       ParentColor = False
@@ -102,9 +102,9 @@ object fTransfer: TfTransfer
     end
     object lPurpose: TLabel
       Left = 6
-      Height = 13
+      Height = 20
       Top = 151
-      Width = 85
+      Width = 99
       Caption = 'Zahlungsgrund'
       Font.Color = 19948
       ParentColor = False
@@ -112,17 +112,17 @@ object fTransfer: TfTransfer
     end
     object lTextKey: TLabel
       Left = 349
-      Height = 13
-      Top = 119
-      Width = 73
-      Caption = 'textschlüssel'
+      Height = 20
+      Top = 112
+      Width = 85
+      Caption = 'Textschlüssel'
       Font.Color = 19948
       ParentColor = False
       ParentFont = False
     end
     object eName: TEdit
       Left = 6
-      Height = 25
+      Height = 24
       Top = 22
       Width = 495
       Anchors = [akTop, akLeft, akRight]
@@ -138,7 +138,7 @@ object fTransfer: TfTransfer
     end
     object eRAccount: TEdit
       Left = 6
-      Height = 25
+      Height = 24
       Top = 72
       Width = 280
       Font.CharSet = ANSI_CHARSET
@@ -152,7 +152,7 @@ object fTransfer: TfTransfer
     end
     object eRSortCode: TEdit
       Left = 294
-      Height = 25
+      Height = 24
       Top = 72
       Width = 207
       Font.CharSet = ANSI_CHARSET
@@ -166,7 +166,7 @@ object fTransfer: TfTransfer
     end
     object eAmount: TEdit
       Left = 262
-      Height = 25
+      Height = 24
       Top = 134
       Width = 80
       Font.CharSet = ANSI_CHARSET
@@ -181,7 +181,7 @@ object fTransfer: TfTransfer
     end
     object cbCurrency: TComboBox
       Left = 174
-      Height = 27
+      Height = 24
       Top = 134
       Width = 72
       Font.CharSet = ANSI_CHARSET
@@ -190,7 +190,7 @@ object fTransfer: TfTransfer
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
       Font.Style = [fsBold]
-      ItemHeight = 0
+      ItemHeight = 16
       ParentFont = False
       TabOrder = 3
       TabStop = False
@@ -198,7 +198,7 @@ object fTransfer: TfTransfer
     end
     object mPurpose: TMemo
       Left = 6
-      Height = 71
+      Height = 61
       Top = 173
       Width = 495
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -216,7 +216,7 @@ object fTransfer: TfTransfer
     end
     object cbtextKey: TComboBox
       Left = 349
-      Height = 27
+      Height = 24
       Top = 134
       Width = 152
       Anchors = [akTop, akLeft, akRight]
@@ -226,7 +226,7 @@ object fTransfer: TfTransfer
       Font.Pitch = fpVariable
       Font.Quality = fqDraft
       Font.Style = [fsBold]
-      ItemHeight = 0
+      ItemHeight = 16
       ItemIndex = 0
       Items.Strings = (
         '51 Gutschrift'
@@ -239,10 +239,10 @@ object fTransfer: TfTransfer
   end
   object bOK: TBitBtn
     AnchorSideRight.Control = bAbort
-    Left = 311
-    Height = 42
-    Top = 336
-    Width = 108
+    Left = 274
+    Height = 38
+    Top = 340
+    Width = 126
     Anchors = [akRight, akBottom]
     AutoSize = True
     BorderSpacing.InnerBorder = 4
@@ -254,10 +254,10 @@ object fTransfer: TfTransfer
     TabOrder = 2
   end
   object bAbort: TBitBtn
-    Left = 419
-    Height = 42
-    Top = 336
-    Width = 107
+    Left = 400
+    Height = 38
+    Top = 340
+    Width = 126
     Anchors = [akRight, akBottom]
     AutoSize = True
     BorderSpacing.InnerBorder = 4
@@ -268,4 +268,4 @@ object fTransfer: TfTransfer
     OnClick = bAbortClick
     TabOrder = 3
   end
-end
+end
