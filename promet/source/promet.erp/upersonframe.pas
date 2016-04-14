@@ -54,6 +54,7 @@ type
     bAssignTree: TSpeedButton;
     bChangeNumber: TSpeedButton;
     Bevel1: TBevel;
+    Bevel2: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
