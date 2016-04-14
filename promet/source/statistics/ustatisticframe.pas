@@ -48,6 +48,7 @@ type
     acIsScript: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
+    Bevel2: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel6: TBevel;

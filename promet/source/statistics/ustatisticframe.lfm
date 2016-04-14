@@ -50,7 +50,7 @@ inherited fStatisticFrame: TfStatisticFrame
       NewTabImageIndex = 0
       object tsReport: TTabSheet
         Caption = 'Report'
-        ClientHeight = 309
+        ClientHeight = 304
         ClientWidth = 831
         object Panel2: TPanel
           Left = 0
@@ -113,7 +113,7 @@ inherited fStatisticFrame: TfStatisticFrame
             Left = 46
             Height = 27
             Top = 0
-            Width = 78
+            Width = 86
             Align = alLeft
             AutoSize = True
             BorderSpacing.InnerBorder = 2
@@ -160,7 +160,7 @@ inherited fStatisticFrame: TfStatisticFrame
             TabOrder = 1
           end
           object BtZoomIn: TBitBtn
-            Left = 124
+            Left = 132
             Height = 27
             Top = 0
             Width = 46
@@ -208,7 +208,7 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object frPreview: TfrPreview
           Left = 0
-          Height = 282
+          Height = 277
           Top = 27
           Width = 831
           Align = alClient
@@ -406,18 +406,18 @@ inherited fStatisticFrame: TfStatisticFrame
     TabOrder = 2
     object pTop: TPanel
       Left = 0
-      Height = 295
-      Top = 44
+      Height = 289
+      Top = 50
       Width = 855
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 295
+      ClientHeight = 289
       ClientWidth = 855
       TabOrder = 0
       Visible = False
       object PageControl1: TPageControl
         Left = 0
-        Height = 295
+        Height = 289
         Top = 0
         Width = 855
         ActivePage = tsMaster
@@ -426,12 +426,12 @@ inherited fStatisticFrame: TfStatisticFrame
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 267
+          ClientHeight = 256
           ClientWidth = 847
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
-            Height = 215
+            Height = 204
             Top = 0
             Width = 847
             Align = alClient
@@ -1024,7 +1024,7 @@ inherited fStatisticFrame: TfStatisticFrame
           object lbErrors: TListBox
             Left = 0
             Height = 52
-            Top = 215
+            Top = 204
             Width = 847
             Align = alBottom
             ItemHeight = 0
@@ -2230,27 +2230,27 @@ inherited fStatisticFrame: TfStatisticFrame
     end
     object ToolBar1: TPanel
       Left = 0
-      Height = 44
+      Height = 50
       Top = 0
       Width = 855
       Align = alTop
       BevelOuter = bvNone
-      ClientHeight = 44
+      ClientHeight = 50
       ClientWidth = 855
       TabOrder = 1
       object Panel4: TPanel
         Left = 152
-        Height = 44
+        Height = 48
         Top = 0
         Width = 98
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 44
+        ClientHeight = 48
         ClientWidth = 98
         TabOrder = 0
         object Label3: TLabel
           Left = 5
-          Height = 12
+          Height = 16
           Top = 0
           Width = 93
           Align = alTop
@@ -2260,7 +2260,7 @@ inherited fStatisticFrame: TfStatisticFrame
           BorderSpacing.Left = 5
           Caption = 'Eintrag'
           Font.Color = clMedGray
-          Font.Height = 11
+          Font.Height = 13
           ParentColor = False
           ParentFont = False
         end
@@ -2333,17 +2333,17 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object Panel6: TPanel
         Left = 348
-        Height = 44
+        Height = 48
         Top = 0
         Width = 56
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 44
+        ClientHeight = 48
         ClientWidth = 56
         TabOrder = 1
         object Label4: TLabel
           Left = 5
-          Height = 15
+          Height = 19
           Top = 0
           Width = 51
           Align = alTop
@@ -2353,14 +2353,14 @@ inherited fStatisticFrame: TfStatisticFrame
           BorderSpacing.Left = 5
           Caption = 'Erweitert'
           Font.Color = clMedGray
-          Font.Height = 11
+          Font.Height = 13
           ParentColor = False
           ParentFont = False
         end
         object Bevel3: TBevel
           Left = 0
           Height = 21
-          Top = 19
+          Top = 23
           Width = 8
           Align = alLeft
           BorderSpacing.Top = 4
@@ -2455,12 +2455,12 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object pNav1: TPanel
         Left = 404
-        Height = 44
+        Height = 48
         Top = 0
         Width = 43
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 44
+        ClientHeight = 48
         ClientWidth = 43
         TabOrder = 2
         object Bevel7: TBevel
@@ -2520,12 +2520,12 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object pNav2: TPanel
         Left = 447
-        Height = 44
+        Height = 48
         Top = 0
         Width = 43
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 44
+        ClientHeight = 48
         ClientWidth = 43
         TabOrder = 3
         object Bevel8: TBevel
@@ -2587,12 +2587,12 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object pNav3: TPanel
         Left = 0
-        Height = 44
+        Height = 48
         Top = 0
         Width = 152
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 44
+        ClientHeight = 48
         ClientWidth = 152
         TabOrder = 4
         object bExecute1: TBitBtn
@@ -2643,18 +2643,18 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object Panel7: TPanel
         Left = 490
-        Height = 44
+        Height = 48
         Top = 0
         Width = 198
         Align = alLeft
         Anchors = [akTop, akLeft, akRight, akBottom]
         BevelOuter = bvNone
-        ClientHeight = 44
+        ClientHeight = 48
         ClientWidth = 198
         TabOrder = 5
         object Label6: TLabel
           Left = 5
-          Height = 15
+          Height = 19
           Top = 0
           Width = 193
           Align = alTop
@@ -2663,14 +2663,14 @@ inherited fStatisticFrame: TfStatisticFrame
           BorderSpacing.Left = 5
           Caption = 'Name'
           Font.Color = clMedGray
-          Font.Height = 11
+          Font.Height = 13
           ParentColor = False
           ParentFont = False
         end
         object Bevel4: TBevel
           Left = 0
           Height = 21
-          Top = 19
+          Top = 23
           Width = 8
           Align = alLeft
           BorderSpacing.Top = 4
@@ -2679,7 +2679,7 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object eName: TDBEdit
           Left = 8
-          Height = 23
+          Height = 28
           Top = 16
           Width = 182
           DataField = 'NAME'
@@ -2693,18 +2693,18 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object pTools: TPanel
         Left = 250
-        Height = 44
+        Height = 48
         Top = 0
         Width = 98
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 44
+        ClientHeight = 48
         ClientWidth = 98
         TabOrder = 6
         Visible = False
         object Label7: TLabel
           Left = 5
-          Height = 15
+          Height = 19
           Top = 0
           Width = 93
           Align = alTop
@@ -2714,7 +2714,7 @@ inherited fStatisticFrame: TfStatisticFrame
           BorderSpacing.Left = 5
           Caption = 'Werkzeuge'
           Font.Color = clMedGray
-          Font.Height = 11
+          Font.Height = 13
           ParentColor = False
           ParentFont = False
         end
@@ -2751,31 +2751,31 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object Panel9: TPanel
         Left = 688
-        Height = 44
+        Height = 48
         Top = 0
         Width = 132
         Align = alLeft
         BevelOuter = bvNone
-        ClientHeight = 44
+        ClientHeight = 48
         ClientWidth = 132
         TabOrder = 7
         object Label8: TLabel
           Left = 4
           Height = 15
-          Top = 0
+          Top = 4
           Width = 124
           Anchors = [akLeft, akRight, akBottom]
           AutoSize = False
           BorderSpacing.Left = 5
           Caption = 'Status'
           Font.Color = clMedGray
-          Font.Height = 11
+          Font.Height = 13
           ParentColor = False
           ParentFont = False
         end
         object Bevel6: TBevel
           Left = 0
-          Height = 36
+          Height = 40
           Top = 4
           Width = 8
           Align = alLeft
@@ -2785,15 +2785,23 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object cbStatus: TComboBox
           Left = 1
-          Height = 23
+          Height = 28
           Hint = 'hier können Sie den Status des Kontaktes ändern um ihn in neue Zustände zu überführen'
           Top = 15
           Width = 128
-          ItemHeight = 15
+          ItemHeight = 20
           OnSelect = cbStatusSelect
           Style = csDropDownList
           TabOrder = 0
         end
+      end
+      object Bevel2: TBevel
+        Left = 0
+        Height = 2
+        Top = 48
+        Width = 855
+        Align = alBottom
+        Shape = bsBottomLine
       end
     end
   end
