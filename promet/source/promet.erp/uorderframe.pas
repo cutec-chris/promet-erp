@@ -54,6 +54,7 @@ type
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
+    Bevel6: TBevel;
     bExecute1: TSpeedButton;
     cbCurrency: TDBComboBox;
     cbPaymentTarget: TComboBox;
