@@ -679,7 +679,7 @@ begin
           then
             StatisticResults.DataSet.Fields[i].OnGetText:=@DataSetFieldsFieldsGetText
           else if (StatisticResults.DataSet.Fields[i].DataType=ftFloat) then
-            TFloatField(StatisticResults.DataSet.Fields[i]).DisplayFormat:='#.##';
+            TFloatField(StatisticResults.DataSet.Fields[i]).DisplayFormat:='########.##';
         end;
       if trim(smQuerry1.Lines.Text) <> '' then
         begin
