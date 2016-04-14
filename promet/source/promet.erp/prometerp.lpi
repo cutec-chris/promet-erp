@@ -313,6 +313,7 @@
         <ComponentName Value="fAddressFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uAddressFrame"/>
       </Unit3>
       <Unit4>
         <Filename Value="upersonfinance.pas"/>
@@ -320,6 +321,7 @@
         <ComponentName Value="fPersonFinance"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPersonFinance"/>
       </Unit4>
       <Unit5>
         <Filename Value="uaccountingframe.pas"/>
@@ -327,6 +329,7 @@
         <ComponentName Value="fAccountingFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uAccountingFrame"/>
       </Unit5>
       <Unit6>
         <Filename Value="uaccountingque.pas"/>
@@ -342,6 +345,7 @@
         <ComponentName Value="fbankingDialog"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uBankingDialog"/>
       </Unit7>
       <Unit8>
         <Filename Value="uaccountingtransfer.pas"/>
@@ -349,6 +353,7 @@
         <ComponentName Value="fTransfer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uAccountingTransfer"/>
       </Unit8>
       <Unit9>
         <Filename Value="utextframe.pas"/>
@@ -356,6 +361,7 @@
         <ComponentName Value="fTextFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uTextFrame"/>
       </Unit9>
       <Unit10>
         <Filename Value="uscriptframe.pas"/>
@@ -378,6 +384,7 @@
         <ComponentName Value="fOrderAdditionalFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderAdditionalFrame"/>
       </Unit12>
       <Unit13>
         <Filename Value="uoverviewframe.pas"/>
@@ -385,6 +392,7 @@
         <ComponentName Value="fOrderOverviewFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOverviewFrame"/>
       </Unit13>
       <Unit14>
         <Filename Value="uorderdateframe.pas"/>
@@ -392,6 +400,7 @@
         <ComponentName Value="fOrderDateFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderDateFrame"/>
       </Unit14>
       <Unit15>
         <Filename Value="uchangestatus.pas"/>
@@ -399,6 +408,7 @@
         <ComponentName Value="fChangeStatus"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uChangeStatus"/>
       </Unit15>
       <Unit16>
         <Filename Value="unewstorage.pas"/>
@@ -406,6 +416,7 @@
         <ComponentName Value="fNewStorage"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uNewStorage"/>
       </Unit16>
       <Unit17>
         <Filename Value="ubookaccounting.pas"/>
@@ -413,6 +424,7 @@
         <ComponentName Value="fBookAccounting"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uBookAccounting"/>
       </Unit17>
       <Unit18>
         <Filename Value="urepairpositionframe.pas"/>
@@ -420,6 +432,7 @@
         <ComponentName Value="fRepairPositionFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uRepairPositionFrame"/>
       </Unit18>
       <Unit19>
         <Filename Value="usystemoptions.pas"/>
@@ -427,6 +440,7 @@
         <ComponentName Value="fSystemOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uSystemOptions"/>
       </Unit19>
       <Unit20>
         <Filename Value="ufinancialoptions.pas"/>
@@ -441,6 +455,7 @@
         <ComponentName Value="forderTypeOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderTypeOptions"/>
       </Unit21>
       <Unit22>
         <Filename Value="ustoragetypeoptions.pas"/>
@@ -448,6 +463,7 @@
         <ComponentName Value="fStorageTypeOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uStorageTypeOptions"/>
       </Unit22>
       <Unit23>
         <Filename Value="ucurrencyoptions.pas"/>
@@ -512,6 +528,7 @@
         <ComponentName Value="fTimeFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uTimeFrame"/>
       </Unit31>
       <Unit32>
         <Filename Value="uwizardnewaccount.pas"/>
@@ -527,6 +544,7 @@
         <ComponentName Value="fBookSerial"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uBookSerial"/>
       </Unit33>
       <Unit34>
         <Filename Value="upasswords.pas"/>
@@ -534,6 +552,7 @@
         <ComponentName Value="fPasswords"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uPasswords"/>
       </Unit34>
       <Unit35>
         <Filename Value="ucategoryoptions.pas"/>
