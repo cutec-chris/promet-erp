@@ -44,6 +44,7 @@ type
     acScreenshot: TAction;
     acSetActiveObject: TAction;
     ActionList1: TActionList;
+    Bevel2: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;
     Bevel5: TBevel;
