@@ -621,6 +621,10 @@
       </Options>
     </Linking>
     <Other>
+      <Verbosity>
+        <ShowNotes Value="False"/>
+        <ShowHints Value="False"/>
+      </Verbosity>
       <CustomOptions Value="-dHASMESSAGING"/>
     </Other>
   </CompilerOptions>
