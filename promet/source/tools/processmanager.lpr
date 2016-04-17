@@ -27,7 +27,7 @@ uses
   uData,Process, db, uSystemMessage,
   uPowerState, pcmdprometapp,math,uBaseCustomApplication,
   uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts,
-  uprometmsgnetwork;
+  uprometmsgnetwork,uappserverhttp,uappserverpubsub;
 type
   { TProcessManager }
 
@@ -127,7 +127,6 @@ end;
 destructor TProcessManager.Destroy;
 begin
   Data.ProcessClient.ShutDown;
-  FreeAndNil(NetworkDaemon);
   inherited Destroy;
 end;
 var
