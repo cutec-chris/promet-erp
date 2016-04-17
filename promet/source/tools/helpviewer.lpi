@@ -19,6 +19,9 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
+    </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
     </BuildModes>
@@ -79,6 +82,7 @@
     </Parsing>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
+      <TargetCPU Value="x86_64"/>
       <Optimizations>
         <OptimizationLevel Value="3"/>
       </Optimizations>
@@ -104,23 +108,4 @@
 -dSTATISTICS"/>
     </Other>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="5">
-      <Item1>
-        <Name Value="Exception"/>
-      </Item1>
-      <Item2>
-        <Name Value="FPImageException"/>
-      </Item2>
-      <Item3>
-        <Name Value="PNGImageException"/>
-      </Item3>
-      <Item4>
-        <Name Value="ESQLScannerError"/>
-      </Item4>
-      <Item5>
-        <Name Value="EProcess"/>
-      </Item5>
-    </Exceptions>
-  </Debugging>
 </CONFIG>

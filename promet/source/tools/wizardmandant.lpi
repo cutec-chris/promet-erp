@@ -18,6 +18,9 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
+    </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
     </BuildModes>
@@ -88,6 +91,7 @@ if TargetOS='darwin' then
 //end;"/>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
+      <TargetCPU Value="x86_64"/>
       <Optimizations>
         <OptimizationLevel Value="3"/>
       </Optimizations>
@@ -104,32 +108,4 @@ if TargetOS='darwin' then
       </Options>
     </Linking>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="8">
-      <Item1>
-        <Name Value="EStringListError"/>
-      </Item1>
-      <Item2>
-        <Name Value="EDatabaseError"/>
-      </Item2>
-      <Item3>
-        <Name Value="EConvertError"/>
-      </Item3>
-      <Item4>
-        <Name Value="EFCreateError"/>
-      </Item4>
-      <Item5>
-        <Name Value="Exception"/>
-      </Item5>
-      <Item6>
-        <Name Value="EZSQLException"/>
-      </Item6>
-      <Item7>
-        <Name Value="EZDatabaseError"/>
-      </Item7>
-      <Item8>
-        <Name Value="EProcess"/>
-      </Item8>
-    </Exceptions>
-  </Debugging>
 </CONFIG>

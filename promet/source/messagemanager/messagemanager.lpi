@@ -19,6 +19,9 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
+    </MacroValues>
     <BuildModes Count="2">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
@@ -146,6 +149,7 @@
     </SearchPaths>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
+      <TargetCPU Value="x86_64"/>
       <Optimizations>
         <OptimizationLevel Value="3"/>
       </Optimizations>
@@ -162,56 +166,4 @@
       </Options>
     </Linking>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="16">
-      <Item1>
-        <Name Value="EAbort"/>
-      </Item1>
-      <Item2>
-        <Name Value="ECodetoolError"/>
-      </Item2>
-      <Item3>
-        <Name Value="EFOpenError"/>
-      </Item3>
-      <Item4>
-        <Name Value="Exception"/>
-      </Item4>
-      <Item5>
-        <Name Value="EListError"/>
-      </Item5>
-      <Item6>
-        <Name Value="EConvertError"/>
-      </Item6>
-      <Item7>
-        <Name Value="EInterfaceCritical"/>
-      </Item7>
-      <Item8>
-        <Name Value="PNGImageException"/>
-      </Item8>
-      <Item9>
-        <Name Value="FPImageException"/>
-      </Item9>
-      <Item10>
-        <Name Value="EFCreateError"/>
-      </Item10>
-      <Item11>
-        <Name Value="EInvalidGraphic"/>
-      </Item11>
-      <Item12>
-        <Name Value="EGridException"/>
-      </Item12>
-      <Item13>
-        <Name Value="RunError(216)"/>
-      </Item13>
-      <Item14>
-        <Name Value="EAccessViolation"/>
-      </Item14>
-      <Item15>
-        <Name Value="EProcess"/>
-      </Item15>
-      <Item16>
-        <Name Value="EZSQLException"/>
-      </Item16>
-    </Exceptions>
-  </Debugging>
 </CONFIG>

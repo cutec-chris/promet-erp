@@ -28,6 +28,9 @@
       <BuildNr Value="460"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
+    </MacroValues>
     <BuildModes Count="5">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
@@ -610,6 +613,9 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <TargetCPU Value="x86_64"/>
+    </CodeGeneration>
     <Linking>
       <Debugging>
         <UseExternalDbgSyms Value="True"/>
@@ -628,136 +634,4 @@
       <CustomOptions Value="-dHASMESSAGING"/>
     </Other>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="38">
-      <Item1>
-        <Name Value="EVariantError"/>
-      </Item1>
-      <Item2>
-        <Name Value="EAccessViolation"/>
-      </Item2>
-      <Item3>
-        <Name Value="EZSQLException"/>
-      </Item3>
-      <Item4>
-        <Name Value="EConvertError"/>
-      </Item4>
-      <Item5>
-        <Name Value="EInvalidGraphic"/>
-        <Enabled Value="False"/>
-      </Item5>
-      <Item6>
-        <Name Value="EDatabaseError"/>
-      </Item6>
-      <Item7>
-        <Name Value="EReadError"/>
-        <Enabled Value="False"/>
-      </Item7>
-      <Item8>
-        <Name Value="EZDatabaseError"/>
-      </Item8>
-      <Item9>
-        <Name Value="EInvalidOperation"/>
-      </Item9>
-      <Item10>
-        <Name Value="Exception"/>
-      </Item10>
-      <Item11>
-        <Name Value="EListError"/>
-        <Enabled Value="False"/>
-      </Item11>
-      <Item12>
-        <Name Value="EParserError"/>
-        <Enabled Value="False"/>
-      </Item12>
-      <Item13>
-        <Name Value="EInterfaceCritical"/>
-        <Enabled Value="False"/>
-      </Item13>
-      <Item14>
-        <Name Value="EFOpenError"/>
-      </Item14>
-      <Item15>
-        <Name Value="ESQLParser"/>
-      </Item15>
-      <Item16>
-        <Name Value="EInOutError"/>
-        <Enabled Value="False"/>
-      </Item16>
-      <Item17>
-        <Name Value="EIpHtmlException"/>
-        <Enabled Value="False"/>
-      </Item17>
-      <Item18>
-        <Name Value="EProcess"/>
-      </Item18>
-      <Item19>
-        <Name Value="EGridException"/>
-        <Enabled Value="False"/>
-      </Item19>
-      <Item20>
-        <Name Value="EFCreateError"/>
-      </Item20>
-      <Item21>
-        <Name Value="ESQLScannerError"/>
-      </Item21>
-      <Item22>
-        <Name Value="FPImageException"/>
-      </Item22>
-      <Item23>
-        <Name Value="EComponentError"/>
-        <Enabled Value="False"/>
-      </Item23>
-      <Item24>
-        <Name Value="RunError(216)"/>
-      </Item24>
-      <Item25>
-        <Name Value="EheTextDrawerException"/>
-        <Enabled Value="False"/>
-      </Item25>
-      <Item26>
-        <Name Value="EAbstractError"/>
-        <Enabled Value="False"/>
-      </Item26>
-      <Item27>
-        <Name Value="EPropertyError"/>
-        <Enabled Value="False"/>
-      </Item27>
-      <Item28>
-        <Name Value="EDSError"/>
-        <Enabled Value="False"/>
-      </Item28>
-      <Item29>
-        <Name Value="RunError(211)"/>
-        <Enabled Value="False"/>
-      </Item29>
-      <Item30>
-        <Name Value="EMathParserException"/>
-      </Item30>
-      <Item31>
-        <Name Value="EPSCompilerException"/>
-      </Item31>
-      <Item32>
-        <Name Value="RunError(204)"/>
-      </Item32>
-      <Item33>
-        <Name Value="EInvalidPointer"/>
-      </Item33>
-      <Item34>
-        <Name Value="PixelCanvasException"/>
-      </Item34>
-      <Item35>
-        <Name Value="EPyImportError"/>
-      </Item35>
-      <Item36>
-        <Name Value="EPyIOError"/>
-      </Item36>
-      <Item37>
-        <Name Value="EPyException"/>
-      </Item37>
-      <Item38>
-        <Name Value="EInterfaceException"/>
-      </Item38>
-    </Exceptions>
-  </Debugging>
 </CONFIG>

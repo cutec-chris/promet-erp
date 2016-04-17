@@ -19,8 +19,11 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
-    <MacroValues Count="1">
+    <MacroValues Count="5">
       <Macro1 Name="LCLWidgetType" Value="nogui"/>
+      <Macro2 Name="LCLWidgetType" Value="gtk2"/>
+      <Macro3 Name="LCLWidgetType" Value="gtk2"/>
+      <Macro4 Name="LCLWidgetType" Value="gtk2"/>
     </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -64,6 +67,9 @@
         <CStyleOperator Value="False"/>
       </SyntaxOptions>
     </Parsing>
+    <CodeGeneration>
+      <TargetCPU Value="x86_64"/>
+    </CodeGeneration>
     <Linking>
       <Debugging>
         <UseExternalDbgSyms Value="True"/>
@@ -77,17 +83,4 @@
 -dSTATISTICS"/>
     </Other>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="3">
-      <Item1>
-        <Name Value="EAbort"/>
-      </Item1>
-      <Item2>
-        <Name Value="ECodetoolError"/>
-      </Item2>
-      <Item3>
-        <Name Value="EFOpenError"/>
-      </Item3>
-    </Exceptions>
-  </Debugging>
 </CONFIG>
