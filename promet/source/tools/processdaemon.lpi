@@ -53,7 +53,6 @@
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <CodeGeneration>
-      <TargetCPU Value="x86_64"/>
     </CodeGeneration>
   </CompilerOptions>
 </CONFIG>

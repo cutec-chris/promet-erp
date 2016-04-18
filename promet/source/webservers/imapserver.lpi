@@ -186,7 +186,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\imapserver"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\imapserver"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
