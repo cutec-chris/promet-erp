@@ -16,5 +16,7 @@ target=xmpp_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
 zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile message_xmpp$TARGET_EXTENSION
-. ../../setup/build-tools/doupload.sh $targetfile $targetcur
+if [ "$1" = "upload" ]; then
+  . ../../setup/build-tools/doupload.sh $targetfile $targetcur
+fi
 cd $basedir

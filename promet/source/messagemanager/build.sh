@@ -18,5 +18,7 @@ target=messagemanager_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
 zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile messagemanager$TARGET_EXTENSION
-. ../../setup/build-tools/doupload.sh $targetfile $targetcur
+if [ "$1" = "upload" ]; then
+  . ../../setup/build-tools/doupload.sh $targetfile $targetcur
+fi
 cd $basedir

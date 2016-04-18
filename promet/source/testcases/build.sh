@@ -12,7 +12,7 @@ if [ "$?" -ne "0" ]; then
 fi
 echo "Executing testcases..."
 ../../output/$TARGET_CPU-$TARGET_OS/consoletest --mandant=Test
-if [ "$?" -ne "0" ]; then
+if [ "$?" = "0" ]; then
   echo "."
   echo "testcases failed"
   exit 1

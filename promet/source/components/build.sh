@@ -16,15 +16,21 @@ if [ "$?" -ne "0" ]; then
   $grep -w "Error:" build.txt
   exit 1
 fi
-$lazbuild zeos/packages/lazarus/zcomponent.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+$lazbuild -b zeos/packages/lazarus/zcomponent.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed zeos"
   $grep -w "Error:" build.txt
   exit 1
 fi
-$lazbuild zeos/packages/lazarus/zcomponent_nogui.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+$lazbuild -b zeos/packages/lazarus/zcomponent_nogui.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed zeos_nogui"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild -b zeos/packages/kcontrols/packages/kcontrols/kcontrolslaz.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed kcontrols"
   $grep -w "Error:" build.txt
   exit 1
 fi
@@ -58,7 +64,7 @@ if [ "$?" -ne "0" ]; then
   $grep -w "Error:" build.txt
   exit 1
 fi
-$lazbuild thumbs/thumbctrl.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+$lazbuild -b thumbs/thumbctrl.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed thumbctrl"
   $grep -w "Error:" build.txt

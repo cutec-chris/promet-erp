@@ -60,47 +60,47 @@ build_default()
 
 build_server()
 {
-  . ./promet/source/tools/build.sh
+  . ./promet/source/tools/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/webservers/build_imap.sh
+  . ./promet/source/webservers/build_imap.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/webservers/build_dav.sh
+  . ./promet/source/webservers/build_dav.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/sync/build_mail.sh
+  . ./promet/source/sync/build_mail.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/sync/build_feed.sh
+  . ./promet/source/sync/build_feed.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/sync/build_mqtt.sh
+  . ./promet/source/sync/build_mqtt.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/sync/build_fhem.sh
+  . ./promet/source/sync/build_fhem.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/sync/build.sh
+  . ./promet/source/sync/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/webservers/build_webserver.sh
+  . ./promet/source/webservers/build_webserver.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/webservers/build_xmpp.sh
+  . ./promet/source/webservers/build_xmpp.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/scripts/build.sh
+  . ./promet/source/scripts/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
@@ -118,80 +118,80 @@ build_all()
 #  if [ "$?" -ne "0" ]; then
 #    exit 1
 #  fi
-  . ./promet/source/plugins/build.sh
+  . ./promet/source/plugins/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/tools/build.sh
+  . ./promet/source/tools/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/promet.erp/build.sh
+  . ./promet/source/promet.erp/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/tools/build_visual.sh
+  . ./promet/source/tools/build_visual.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/messagemanager/build.sh
+  . ./promet/source/messagemanager/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/meeting/build.sh
+  . ./promet/source/meeting/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/tools/build_archivestore.sh
+  . ./promet/source/tools/build_archivestore.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/statistics/build.sh
+  . ./promet/source/statistics/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/webservers/build_imap.sh
+  . ./promet/source/webservers/build_imap.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/sync/build_mail.sh
+  . ./promet/source/sync/build_mail.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/sync/build_feed.sh
+  . ./promet/source/sync/build_feed.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/sync/build_mqtt.sh
+  . ./promet/source/sync/build_mqtt.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/sync/build_fhem.sh
+  . ./promet/source/sync/build_fhem.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/sync/build.sh
+  . ./promet/source/sync/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
   if [ "x$TARGET_OS" != "xwin32" ]; then
-    . ./promet/help/build.sh
-    . ./promet/importdata/build.sh
+    . ./promet/help/build.sh $2
+    . ./promet/importdata/build.sh $2
   fi
   if [ "x$TARGET_OS" = "xwin32" ]; then
-    . ./promet/setup/i386-win32/build.sh
-    . ./promet/setup/i386-win32/change_wiki_windows.sh
+    . ./promet/setup/i386-win32/build.sh $2
+    . ./promet/setup/i386-win32/change_wiki_windows.sh $2
   fi
   if [ "x$TARGET_OS" = "xlinux" ]; then
-    . ./promet/setup/i386-linux/build.sh
-    . ./promet/setup/i386-linux/change_wiki.sh
+    . ./promet/setup/i386-linux/build.sh $2
+    . ./promet/setup/i386-linux/change_wiki.sh $2
   fi
 
-  . ./promet/source/webservers/build_webserver.sh
+  . ./promet/source/webservers/build_webserver.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/webservers/build_dav.sh
+  . ./promet/source/webservers/build_dav.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
@@ -248,29 +248,29 @@ clean_all()
 
 
 case $1 in
-       tests)  . ./promet/source/testcases/build.sh;;
-  components)  . ./promet/source/components/build.sh;;
-     plugins)  $BASH promet/source/plugins/build.sh;;
-       tools)  . ./promet/source/tools/build.sh;;
-      visual)  . ./promet/source/tools/build_visual.sh;;
-  importdata)  . ./promet/importdata/build.sh;;
-        help)  . ./promet/help/build.sh;;
-      promet)  . ./promet/source/promet.erp/build.sh;;
-  messageman)  . ./promet/source/messagemanager/build.sh;;
-     meeting)  . ./promet/source/meeting/build.sh;;
-     archive)  . ./promet/source/tools/build_archivestore.sh;;
-  statistics)  . ./promet/source/statistics/build.sh;;
-         web)  . ./promet/source/webservers/build_webserver.sh;;
-        imap)  . ./promet/source/webservers/build_imap.sh;;
-        xmpp)  . ./promet/source/webservers/build_xmpp.sh;;
-         dav)  . ./promet/source/webservers/build_dav.sh;;
-        mail)  . ./promet/source/sync/build_mail.sh;;
-        feed)  . ./promet/source/sync/build_feed.sh;;
-        mqtt)  . ./promet/source/sync/build_mqtt.sh;;
-        fhem)  . ./promet/source/sync/build_fhem.sh;;
-        sync)  . ./promet/source/sync/build.sh;;
-  winclients)  . ./promet/setup/i386-win32/build.sh;;
-  linclients)  . ./promet/setup/i386-linux/build.sh;;
+       tests)  . ./promet/source/testcases/build.sh $2;;
+  components)  . ./promet/source/components/build.sh $2;;
+     plugins)  $BASH promet/source/plugins/build.sh $2;;
+       tools)  . ./promet/source/tools/build.sh $2;;
+      visual)  . ./promet/source/tools/build_visual.sh $2;;
+  importdata)  . ./promet/importdata/build.sh $2;;
+        help)  . ./promet/help/build.sh $2;;
+      promet)  . ./promet/source/promet.erp/build.sh $2;;
+  messageman)  . ./promet/source/messagemanager/build.sh $2;;
+     meeting)  . ./promet/source/meeting/build.sh $2;;
+     archive)  . ./promet/source/tools/build_archivestore.sh $2;;
+  statistics)  . ./promet/source/statistics/build.sh $2;;
+         web)  . ./promet/source/webservers/build_webserver.sh $2;;
+        imap)  . ./promet/source/webservers/build_imap.sh $2;;
+        xmpp)  . ./promet/source/webservers/build_xmpp.sh $2;;
+         dav)  . ./promet/source/webservers/build_dav.sh $2;;
+        mail)  . ./promet/source/sync/build_mail.sh $2;;
+        feed)  . ./promet/source/sync/build_feed.sh $2;;
+        mqtt)  . ./promet/source/sync/build_mqtt.sh $2;;
+        fhem)  . ./promet/source/sync/build_fhem.sh $2;;
+        sync)  . ./promet/source/sync/build.sh $2;;
+  winclients)  . ./promet/setup/i386-win32/build.sh $2;;
+  linclients)  . ./promet/setup/i386-linux/build.sh $2;;
        clean)  clean_all;;
       server)  build_server;;
          all)  build_all;;
