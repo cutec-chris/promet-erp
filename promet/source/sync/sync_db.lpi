@@ -61,10 +61,9 @@
       <Unit2>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="1781"/>
-        <CursorPos Y="1801"/>
+        <TopLine Value="1753"/>
+        <CursorPos X="23" Y="1789"/>
         <UsageCount Value="111"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -386,6 +385,7 @@
       </Unit53>
       <Unit54>
         <Filename Value="..\base\changes.txt"/>
+        <IsVisibleTab Value="True"/>
         <CursorPos Y="9"/>
         <UsageCount Value="38"/>
         <Loaded Value="True"/>
