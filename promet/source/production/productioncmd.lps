@@ -9,13 +9,13 @@
         <Filename Value="productioncmd.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos Y="15"/>
+        <CursorPos X="17" Y="29"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\components\synapse\tlntsend.pas"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="171"/>
         <CursorPos Y="191"/>
         <UsageCount Value="11"/>
@@ -23,7 +23,7 @@
       </Unit1>
       <Unit2>
         <Filename Value="..\components\synapse\blcksock.pas"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="2416"/>
         <CursorPos X="30" Y="2467"/>
         <UsageCount Value="10"/>
@@ -31,11 +31,10 @@
       </Unit2>
       <Unit3>
         <Filename Value="C:\Programme\lazarus\fpc\2.6.4\source\packages\fcl-process\src\simpleipc.pp"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="458"/>
         <CursorPos X="19" Y="130"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit3>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
