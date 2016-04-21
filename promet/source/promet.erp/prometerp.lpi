@@ -25,7 +25,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="460"/>
+      <BuildNr Value="461"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=devel --mandant=Help"/>
+        <CommandLineParams Value="--config-path=devel --mandant=Help --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -626,7 +626,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="3">
+    <Exceptions Count="6">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -636,6 +636,15 @@
       <Item3>
         <Name Value="EZSQLException"/>
       </Item3>
+      <Item4>
+        <Name Value="EFCreateError"/>
+      </Item4>
+      <Item5>
+        <Name Value="EZDatabaseError"/>
+      </Item5>
+      <Item6>
+        <Name Value="EVariantError"/>
+      </Item6>
     </Exceptions>
   </Debugging>
 </CONFIG>
