@@ -784,7 +784,7 @@ begin
                 if DeleteFile(UniToSys(AppendPathDelim(MandantPath)+eMandantname.Text+MandantExtension)) then
                   ShowMessage(strSuccess);
             end;
-          Application.Terminate;
+          Close;
           exit;
         end;
       if rbFromFile.Checked then
@@ -804,7 +804,7 @@ begin
                   exit;
                 end;
             end;
-          Application.Terminate;
+          Close;
           exit;
         end;
     end;
