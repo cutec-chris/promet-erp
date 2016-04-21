@@ -317,7 +317,7 @@ begin
       BoundsRect := aBoundsRect;
       if Assigned(Data) then
         acDelete.Visible:=Data.Users.Rights.Right('HISTORY')>=RIGHT_DELETE;
-      minewestDownClick(nil);
+      //minewestDownClick(nil);
       Application.QueueAsyncCall(@AsyncScrollTop,0);
     end;
   if fmTimeline.WindowState=wsMinimized then
