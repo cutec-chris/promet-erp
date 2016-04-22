@@ -470,49 +470,41 @@ begin
 end;
 procedure TfPersonFrame.acSaveExecute(Sender: TObject);
 begin
-  if Assigned(FConnection) then
+  Save;
+  if FEmployeeOf <> '' then
     begin
-      FDataSet.CascadicPost;
-      if UseTransactions then
+      if (TTabSheet(Self.Parent).PageIndex-1 > -1)
+      and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].ControlCount > 0)
+      and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0] is TfPersonFrame) then
         begin
-          Data.CommitTransaction(FConnection);
-          Data.StartTransaction(FConnection);
-        end;
-      if FEmployeeOf <> '' then
-        begin
-          if (TTabSheet(Self.Parent).PageIndex-1 > -1)
-          and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].ControlCount > 0)
-          and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0] is TfPersonFrame) then
+          with TPerson(TfPersonFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).DataSet).Employees.DataSet do
             begin
-              with TPerson(TfPersonFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).DataSet).Employees.DataSet do
-                begin
-                  Append;
-                  FieldByName('EMPLOYEE').AsString := DataSet.FieldByName('ACCOUNTNO').AsString;
-                  FieldByName('NAME').AsString := DataSet.FieldByName('NAME').AsString;
-                  Post;
-                end;
+              Append;
+              FieldByName('EMPLOYEE').AsString := DataSet.FieldByName('ACCOUNTNO').AsString;
+              FieldByName('NAME').AsString := DataSet.FieldByName('NAME').AsString;
+              Post;
             end;
-          CloseFrame;
         end;
-      if FCustomerOf <> '' then
+      CloseFrame;
+    end;
+  if FCustomerOf <> '' then
+    begin
+      if (TTabSheet(Self.Parent).PageIndex-1 > -1)
+      and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].ControlCount > 0)
+      and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0] is TfOrderFrame) then
         begin
-          if (TTabSheet(Self.Parent).PageIndex-1 > -1)
-          and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].ControlCount > 0)
-          and (TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0] is TfOrderFrame) then
+          with TOrder(TfOrderFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).DataSet) do
             begin
-              with TOrder(TfOrderFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).DataSet) do
-                begin
-                  if Address.CanEdit then
-                    Address.DataSet.Cancel;
-                  if not CanEdit then Dataset.Edit;
-                  Address.DataSet.Append;
-                  Address.Assign(TPerson(Self.DataSet));
-                  TfOrderFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).GotoPosition;
-                  TfOrderFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).RefreshAddress;
-                end;
+              if Address.CanEdit then
+                Address.DataSet.Cancel;
+              if not CanEdit then Dataset.Edit;
+              Address.DataSet.Append;
+              Address.Assign(TPerson(Self.DataSet));
+              TfOrderFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).GotoPosition;
+              TfOrderFrame(TTabSheet(Self.Parent).PageControl.Pages[TTabSheet(Self.Parent).PageIndex-1].Controls[0]).RefreshAddress;
             end;
-          CloseFrame;
         end;
+      CloseFrame;
     end;
 end;
 
@@ -633,15 +625,7 @@ begin
 end;
 procedure TfPersonFrame.acCancelExecute(Sender: TObject);
 begin
-  if Assigned(FConnection) then
-    begin
-      FDataSet.CascadicCancel;
-      if UseTransactions then
-        begin
-          Data.RollbackTransaction(FConnection);
-          Data.StartTransaction(FConnection);
-        end;
-    end;
+  Abort;
 end;
 procedure TfPersonFrame.acAddAsOrderExecute(Sender: TObject);
 var
@@ -705,12 +689,7 @@ begin
       Screen.Cursor := crHourglass;
       Application.ProcessMessages;
       DataSet.Delete;
-      FDataSet.CascadicCancel;
-      if UseTransactions then
-        begin
-          Data.CommitTransaction(FConnection);
-          Data.StartTransaction(FConnection);
-        end;
+      Abort;
       acClose.Execute;
       Screen.Cursor := crDefault;
     end;
@@ -866,15 +845,10 @@ begin
   FContList.DataSet := nil;
   FContList.Parent := nil;
   FContList.Free;
-  if Assigned(FConnection) then
+  if Assigned(DataSet) then
     begin
-      CloseConnection(acSave.Enabled);
-      if Assigned(DataSet) then
-        begin
-          DataSet.Destroy;
-          DataSet := nil;
-        end;
-      FreeAndNil(FConnection);
+      DataSet.Destroy;
+      DataSet := nil;
     end;
   inherited Destroy;
 end;
@@ -882,11 +856,6 @@ function TfPersonFrame.OpenFromLink(aLink: string) : Boolean;
 begin
   inherited;
   Result := False;
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
-  if UseTransactions then
-    Data.StartTransaction(FConnection);
   DataSet := TPerson.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@CustomersStateChange;
   TPerson(DataSet).SelectFromLink(aLink);
@@ -900,11 +869,7 @@ begin
 end;
 procedure TfPersonFrame.New;
 begin
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
-  if UseTransactions then
-    Data.StartTransaction(FConnection);
+  New;
   DataSet := TPerson.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@CustomersStateChange;
   DataSet.Select(0);

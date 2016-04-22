@@ -375,12 +375,7 @@ begin
       Screen.Cursor := crHourglass;
       Application.ProcessMessages;
       DataSet.Delete;
-      FDataSet.CascadicCancel;
-      if UseTransactions then
-        begin
-          Data.CommitTransaction(FConnection);
-          Data.StartTransaction(FConnection);
-        end;
+      Abort;
       acClose.Execute;
       Screen.Cursor := crDefault;
     end;
@@ -455,11 +450,9 @@ begin
       acSave.Execute;
   if fSelectReport.Booked then
     begin
-//    DoOpen;
       FOpenLink := Data.BuildLink(DataSet.DataSet);
       Application.QueueAsyncCall(@DoOpenLink,PtrInt(nil));
     end;
-//  fMain.RefreshMessages;
 end;
 
 procedure TfOrderFrame.acRestartExecute(Sender: TObject);
@@ -474,15 +467,7 @@ begin
 end;
 procedure TfOrderFrame.acCancelExecute(Sender: TObject);
 begin
-  if Assigned(FConnection) then
-    begin
-      FDataSet.CascadicCancel;
-      if UseTransactions then
-        begin
-          Data.RollbackTransaction(FConnection);
-          Data.StartTransaction(FConnection);
-        end;
-    end;
+  Abort;
 end;
 procedure TfOrderFrame.acAddAddressExecute(Sender: TObject);
 var
@@ -513,16 +498,7 @@ begin
 end;
 procedure TfOrderFrame.acSaveExecute(Sender: TObject);
 begin
-  if Assigned(FConnection) then
-    begin
-      FPosFrame.Post;
-      FDataSet.CascadicPost;
-      if UseTransactions then
-        begin
-          Data.CommitTransaction(FConnection);
-          Data.StartTransaction(FConnection);
-        end;
-    end;
+  Save;
 end;
 procedure TfOrderFrame.ActiveSearchEndItemSearch(Sender: TObject);
 begin
@@ -596,7 +572,7 @@ begin
         end;
       if fChangeStatus.Execute then
         begin
-          DataSet.CascadicPost;
+          Save;
           if UseTransactions then
             begin
               with Application as IBaseDbInterface do
@@ -1043,14 +1019,7 @@ begin
   pcHeader.CloseAll;
   FPosFrame.Free;
   PreviewFrame.Free;
-  if Assigned(FConnection) then
-    begin
-      CloseConnection(acSave.Enabled);
-      DataSet.Destroy;
-      DataSet := nil;
-      FreeAndNil(FConnection);
-    end
-  else if Assigned(FDataSet) then
+  if Assigned(FDataSet) then
     begin
       DataSet.Destroy;
       DataSet := nil;
@@ -1067,11 +1036,7 @@ begin
     aLink := copy(aLink,0,rpos('(',aLink)-1);
   FPosFrame.Dataset:=nil;
   CloseConnection(acSave.Enabled);
-  FreeAndNil(FConnection);
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
-  if UseTransactions then
-    Data.StartTransaction(FConnection);
+  OpenConnection;
   FreeAndNil(FDataSet);
   DataSet := TOrder.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@OrdersStateChange;
@@ -1087,11 +1052,7 @@ begin
 end;
 procedure TfOrderFrame.New(aStatus: string);
 begin
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
-  if UseTransactions then
-    Data.StartTransaction(FConnection);
+  inherited New;
   FreeAndNil(FDataSet);
   DataSet := TOrder.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@OrdersStateChange;

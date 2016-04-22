@@ -625,12 +625,7 @@ end;
 
 procedure TfStatisticFrame.acCancelExecute(Sender: TObject);
 begin
-  if Assigned(FConnection) then
-    begin
-      FDataSet.CascadicCancel;
-//      Data.Rollback(FConnection);
-//      Data.StartTransaction(FConnection);
-    end;
+  Abort;
 end;
 
 procedure TfStatisticFrame.acDeleteExecute(Sender: TObject);
@@ -856,18 +851,13 @@ begin
 end;
 procedure TfStatisticFrame.acSaveExecute(Sender: TObject);
 begin
-  if Assigned(FConnection) then
+  Save;
+  if Assigned(FTreeNode) then
     begin
-      FDataSet.CascadicPost;
-//      Data.Commit(FConnection);
-//      Data.StartTransaction(FConnection);
-      if Assigned(FTreeNode) then
-        begin
-          TTreeEntry(FTreeNode.Data).Rec:=FDataSet.Id.AsVariant;
-          TTreeEntry(FTreeNode.Data).DataSourceType:=TStatistic;
-          with FDataSet.DataSet as IBaseManageDB do
-            TTreeEntry(FTreeNode.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(FDataSet.GetBookmark));;
-        end;
+      TTreeEntry(FTreeNode.Data).Rec:=FDataSet.Id.AsVariant;
+      TTreeEntry(FTreeNode.Data).DataSourceType:=TStatistic;
+      with FDataSet.DataSet as IBaseManageDB do
+        TTreeEntry(FTreeNode.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(FDataSet.GetBookmark));;
     end;
 end;
 procedure TfStatisticFrame.acSetTreeDirExecute(Sender: TObject);
@@ -1294,14 +1284,11 @@ begin
   Detail.DataSet:=nil;
   SubDetail.DataSet.Free;
   SubDetail.DataSet:=nil;
-  try
-    if Assigned(FConnection) then
-      begin
-        CloseConnection(acSave.Enabled);
-        FreeAndNil(FConnection);
-      end;
-  except
-  end;
+  if Assigned(DataSet) then
+    begin
+      DataSet.Destroy;
+      DataSet := nil;
+    end;
   FTables.Free;
   FVariables.Free;
   FVariableNames.Free;
@@ -1326,6 +1313,7 @@ var
   aValue: String;
   DoExec: Boolean = False;
 begin
+  inherited;
   Result := False;
   if not CanHandleLink(aLink) then exit;
   if rpos('{',aLink) > 0 then
@@ -1335,9 +1323,6 @@ begin
       aParams := copy(aLink,rpos('(',aLink),length(aLink));
       aLink := copy(aLink,0,rpos('(',aLink)-1);
     end;
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
   DataSet := TStatistic.CreateEx(Self,Data,FConnection);
   Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
   if FDataSet.Count > 0 then
@@ -1370,12 +1355,9 @@ begin
 end;
 procedure TfStatisticFrame.New;
 begin
+  inherited;
   SetRights;
   if not FEditable then exit;
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
-//  Data.StartTransaction(FConnection);
   DataSet := TStatistic.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   DataSet.Select(0);
