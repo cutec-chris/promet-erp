@@ -29,7 +29,7 @@ object fMinuteFrame: TfMinuteFrame
     end
     object lname: TLabel
       Left = 9
-      Height = 17
+      Height = 20
       Top = -4
       Width = 40
       Caption = 'Name'
@@ -49,14 +49,14 @@ object fMinuteFrame: TfMinuteFrame
     NewTabImageIndex = 59
     object tsInfo: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 387
-      ClientWidth = 850
+      ClientHeight = 385
+      ClientWidth = 846
       ImageIndex = 62
       object mInfo: TDBMemo
         Left = 8
-        Height = 372
+        Height = 370
         Top = 7
-        Width = 834
+        Width = 830
         Align = alBottom
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Around = 8
@@ -96,7 +96,7 @@ object fMinuteFrame: TfMinuteFrame
         BorderSpacing.Left = 5
         Caption = 'Eintrag'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         ParentColor = False
         ParentFont = False
       end
@@ -208,7 +208,7 @@ object fMinuteFrame: TfMinuteFrame
         BorderSpacing.Left = 5
         Caption = 'Erweitert'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         ParentColor = False
         ParentFont = False
       end

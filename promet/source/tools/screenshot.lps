@@ -16,7 +16,6 @@
         <ComponentName Value="fScreenshot"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="uscreenshotmain"/>
         <IsVisibleTab Value="True"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>

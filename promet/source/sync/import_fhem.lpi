@@ -56,7 +56,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\import_fhem"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\import_fhem"/>
     </Target>
     <SearchPaths>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>

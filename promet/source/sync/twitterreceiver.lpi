@@ -58,7 +58,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\twitterreceiver"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\twitterreceiver"/>
     </Target>
     <SearchPaths>
       <OtherUnitFiles Value="..\base"/>

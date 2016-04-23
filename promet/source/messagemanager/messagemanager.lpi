@@ -66,10 +66,9 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-cen/"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="9">
+    <RequiredPackages Count="8">
       <Item1>
         <PackageName Value="pvisualframes"/>
         <DefaultFilename Value="../base_frames/pvisualframes.lpk"/>
@@ -94,14 +93,11 @@
         <DefaultFilename Value="../../../general/general.lpk"/>
       </Item6>
       <Item7>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="FCL"/>
       </Item7>
       <Item8>
-        <PackageName Value="FCL"/>
-      </Item8>
-      <Item9>
         <PackageName Value="LCL"/>
-      </Item9>
+      </Item8>
     </RequiredPackages>
     <Units Count="5">
       <Unit0>
@@ -141,7 +137,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/messagemanager"/>
+      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/messagemanager"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
@@ -166,55 +162,10 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="16">
+    <Exceptions Count="1">
       <Item1>
-        <Name Value="EAbort"/>
-      </Item1>
-      <Item2>
-        <Name Value="ECodetoolError"/>
-      </Item2>
-      <Item3>
-        <Name Value="EFOpenError"/>
-      </Item3>
-      <Item4>
-        <Name Value="Exception"/>
-      </Item4>
-      <Item5>
-        <Name Value="EListError"/>
-      </Item5>
-      <Item6>
-        <Name Value="EConvertError"/>
-      </Item6>
-      <Item7>
-        <Name Value="EInterfaceCritical"/>
-      </Item7>
-      <Item8>
-        <Name Value="PNGImageException"/>
-      </Item8>
-      <Item9>
-        <Name Value="FPImageException"/>
-      </Item9>
-      <Item10>
-        <Name Value="EFCreateError"/>
-      </Item10>
-      <Item11>
-        <Name Value="EInvalidGraphic"/>
-      </Item11>
-      <Item12>
-        <Name Value="EGridException"/>
-      </Item12>
-      <Item13>
-        <Name Value="RunError(216)"/>
-      </Item13>
-      <Item14>
-        <Name Value="EAccessViolation"/>
-      </Item14>
-      <Item15>
         <Name Value="EProcess"/>
-      </Item15>
-      <Item16>
-        <Name Value="EZSQLException"/>
-      </Item16>
+      </Item1>
     </Exceptions>
   </Debugging>
 </CONFIG>

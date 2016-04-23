@@ -26,8 +26,7 @@ uses
   cthreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uerror, richmemopackage
-  { you can add units after this },
+  Forms, uerror,
 utableedit,
   upassword, uBaseVisualApplication, pimportexport;
 

@@ -59,7 +59,6 @@
         <ComponentName Value="dmSync"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="usyncdb"/>
         <EditorIndex Value="12"/>
         <TopLine Value="120"/>
         <CursorPos Y="37"/>
@@ -79,11 +78,10 @@
       <Unit3>
         <Filename Value="..\base\dbintfs\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="729"/>
         <CursorPos Y="754"/>
         <UsageCount Value="107"/>
-        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\base\dbintfs\udata.pas"/>
@@ -99,7 +97,6 @@
       </Unit5>
       <Unit6>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <UnitName Value="usync"/>
         <EditorIndex Value="14"/>
         <TopLine Value="57"/>
         <CursorPos X="25" Y="69"/>
@@ -144,7 +141,6 @@
         <TopLine Value="1367"/>
         <CursorPos X="37" Y="1386"/>
         <UsageCount Value="37"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\base\ubasevisualapplication.pas"/>
@@ -242,7 +238,6 @@
       </Unit27>
       <Unit28>
         <Filename Value="..\components\zeos\src\dbc\ZDbcPostgreSqlUtils.pas"/>
-        <UnitName Value="ZDbcPostgreSqlUtils"/>
         <EditorIndex Value="2"/>
         <TopLine Value="717"/>
         <CursorPos Y="729"/>
@@ -261,14 +256,12 @@
         <TopLine Value="1046"/>
         <CursorPos Y="1067"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcIntfs.pas"/>
         <TopLine Value="1150"/>
         <CursorPos Y="1173"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\base\usysmonitor.pas"/>
@@ -339,14 +332,12 @@
         <TopLine Value="1142"/>
         <CursorPos X="20" Y="1157"/>
         <UsageCount Value="4"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit42>
       <Unit43>
         <Filename Value="..\..\..\LKomponenten\zeos\src\core\ZTokenizer.pas"/>
         <TopLine Value="782"/>
         <CursorPos Y="800"/>
         <UsageCount Value="5"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit43>
       <Unit44>
         <Filename Value="..\..\output\i386-win32\sync_redmine.conf"/>
@@ -360,28 +351,24 @@
         <TopLine Value="776"/>
         <CursorPos X="20" Y="800"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit45>
       <Unit46>
         <Filename Value="..\..\..\LKomponenten\zeos\src\dbc\ZDbcPostgreSql.pas"/>
         <TopLine Value="470"/>
         <CursorPos Y="488"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\..\..\LKomponenten\zeos\src\plain\ZPlainPostgreSqlDriver.pas"/>
         <TopLine Value="963"/>
         <CursorPos Y="984"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit47>
       <Unit48>
         <Filename Value="..\..\..\LKomponenten\zeos\src\core\ZCollections.pas"/>
         <TopLine Value="484"/>
         <CursorPos Y="505"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit48>
       <Unit49>
         <Filename Value="..\base\dbintfs\uprojects.pas"/>
@@ -394,7 +381,6 @@
       </Unit49>
       <Unit50>
         <Filename Value="..\base\dbintfs\utask.pas"/>
-        <UnitName Value="utask"/>
         <EditorIndex Value="11"/>
         <TopLine Value="834"/>
         <CursorPos Y="853"/>
@@ -464,7 +450,6 @@
       </Unit59>
       <Unit60>
         <Filename Value="..\base\dbintfs\uimpvcal.pas"/>
-        <UnitName Value="uimpvcal"/>
         <EditorIndex Value="4"/>
         <TopLine Value="137"/>
         <CursorPos Y="151"/>
@@ -482,7 +467,6 @@
       </Unit61>
       <Unit62>
         <Filename Value="..\base\dbintfs\uvtools.pas"/>
-        <UnitName Value="uvtools"/>
         <EditorIndex Value="6"/>
         <CursorPos Y="24"/>
         <UsageCount Value="10"/>
@@ -490,7 +474,6 @@
       </Unit62>
       <Unit63>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <UnitName Value="synautil"/>
         <EditorIndex Value="8"/>
         <TopLine Value="86"/>
         <CursorPos X="10" Y="103"/>
@@ -508,7 +491,6 @@
       </Unit64>
       <Unit65>
         <Filename Value="..\components\zeos\src\component\ZAbstractRODataset.pas"/>
-        <UnitName Value="ZAbstractRODataset"/>
         <EditorIndex Value="7"/>
         <TopLine Value="1844"/>
         <CursorPos Y="1861"/>
@@ -644,7 +626,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\sync_owncloud"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\sync_owncloud"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

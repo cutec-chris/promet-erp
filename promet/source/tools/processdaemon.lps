@@ -2,181 +2,22 @@
 <CONFIG>
   <ProjectSession>
     <Version Value="9"/>
-    <BuildModes Active="Default"/>
-    <Units Count="9">
+    <BuildModes Active="Default">
+      <SessionMatrixOptions Count="1">
+        <Item1 ID="016116663394" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+      </SessionMatrixOptions>
+    </BuildModes>
+    <Units Count="1">
       <Unit0>
         <Filename Value="processdaemon.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="processdaemon"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="0"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="177"/>
-        <CursorPos X="45" Y="190"/>
-        <UsageCount Value="23"/>
+        <TopLine Value="217"/>
+        <CursorPos X="21" Y="227"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit0>
-      <Unit1>
-        <Filename Value="../../../../fpc/2.6_fixes/rtl/inc/cmem.pp"/>
-        <UnitName Value="cmem"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit1>
-      <Unit2>
-        <Filename Value="processmanager.lpr"/>
-        <UnitName Value="processmanager"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="223"/>
-        <CursorPos X="26" Y="10"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/objpas/classes/classesh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1586"/>
-        <CursorPos X="17" Y="1602"/>
-        <UsageCount Value="10"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/unix/tthread.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="171"/>
-        <CursorPos X="1" Y="184"/>
-        <UsageCount Value="10"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="../base/pdaemonprometapp.pas"/>
-        <UnitName Value="pdaemonprometapp"/>
-        <EditorIndex Value="2"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="19" Y="10"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="../base/ubasedaemonapplication.pas"/>
-        <UnitName Value="ubasedaemonapplication"/>
-        <EditorIndex Value="3"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="23" Y="17"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/packages/fcl-process/src/process.pp"/>
-        <UnitName Value="process"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="5"/>
-        <CursorPos X="32" Y="26"/>
-        <UsageCount Value="10"/>
-      </Unit7>
-      <Unit8>
-        <Filename Value="../../../../../../Programme/lazarus/fpc/2.6.2/source/rtl/objpas/sysutils/filutilh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="34"/>
-        <CursorPos X="3" Y="53"/>
-        <UsageCount Value="10"/>
-      </Unit8>
     </Units>
-    <General>
-      <ActiveWindowIndexAtStart Value="0"/>
-    </General>
-    <JumpHistory Count="22" HistoryIndex="21">
-      <Position1>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="197" Column="5" TopLine="161"/>
-      </Position1>
-      <Position2>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="8" Column="13" TopLine="1"/>
-      </Position2>
-      <Position3>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="82" Column="23" TopLine="76"/>
-      </Position3>
-      <Position4>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="66" Column="11" TopLine="45"/>
-      </Position4>
-      <Position5>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="17" Column="36" TopLine="7"/>
-      </Position5>
-      <Position6>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="18" Column="22" TopLine="1"/>
-      </Position6>
-      <Position7>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="21" Column="15" TopLine="3"/>
-      </Position7>
-      <Position8>
-        <Filename Value="processmanager.lpr"/>
-        <Caret Line="14" Column="36" TopLine="3"/>
-      </Position8>
-      <Position9>
-        <Filename Value="../base/pdaemonprometapp.pas"/>
-        <Caret Line="10" Column="19" TopLine="1"/>
-      </Position9>
-      <Position10>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="9" Column="44" TopLine="1"/>
-      </Position10>
-      <Position11>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="71" Column="17" TopLine="55"/>
-      </Position11>
-      <Position12>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="132" Column="79" TopLine="112"/>
-      </Position12>
-      <Position13>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="136" Column="7" TopLine="115"/>
-      </Position13>
-      <Position14>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="134" Column="3" TopLine="116"/>
-      </Position14>
-      <Position15>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="141" Column="29" TopLine="129"/>
-      </Position15>
-      <Position16>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="69" Column="1" TopLine="49"/>
-      </Position16>
-      <Position17>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="191" Column="21" TopLine="140"/>
-      </Position17>
-      <Position18>
-        <Filename Value="processmanager.lpr"/>
-        <Caret Line="39" Column="17" TopLine="33"/>
-      </Position18>
-      <Position19>
-        <Filename Value="processmanager.lpr"/>
-        <Caret Line="10" Column="37" TopLine="1"/>
-      </Position19>
-      <Position20>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="189" Column="1" TopLine="159"/>
-      </Position20>
-      <Position21>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="188" Column="29" TopLine="181"/>
-      </Position21>
-      <Position22>
-        <Filename Value="processdaemon.lpr"/>
-        <Caret Line="190" Column="53" TopLine="177"/>
-      </Position22>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
   </ProjectSession>
-  <EditorMacros Count="0"/>
 </CONFIG>

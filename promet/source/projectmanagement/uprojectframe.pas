@@ -723,14 +723,11 @@ begin
 end;
 procedure TfProjectFrame.acCancelExecute(Sender: TObject);
 begin
-  if Assigned(FConnection) then
+  Abort;
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     begin
-      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
-        begin
-          TfTaskFrame(pcPages.ActivePage.Controls[0]).DataSet.CascadicCancel;
-          TfTaskFrame(pcPages.ActivePage.Controls[0]).DoRefresh;
-        end;
-      FDataSet.CascadicCancel;
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).DataSet.CascadicCancel;
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).DoRefresh;
     end;
 end;
 
@@ -832,14 +829,11 @@ end;
 
 procedure TfProjectFrame.acSaveExecute(Sender: TObject);
 begin
-  if Assigned(FConnection) then
+  Save;
+  if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
     begin
-      if Assigned(pcPages.ActivePage) and (pcPages.ActivePage.ControlCount > 0) and (pcPages.ActivePage.Controls[0] is TfTaskFrame) then
-        begin
-          TfTaskFrame(pcPages.ActivePage.Controls[0]).Post;
-          TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
-        end;
-      FDataSet.CascadicPost;
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).Post;
+      TfTaskFrame(pcPages.ActivePage.Controls[0]).acRefresh.Execute;
     end;
 end;
 procedure TfProjectFrame.acSetTreeDirExecute(Sender: TObject);
@@ -1403,20 +1397,16 @@ destructor TfProjectFrame.Destroy;
 begin
   if Assigned(FOwners) then
     FOwners.Destroy;
-  if Assigned(FConnection) then
+  if Assigned(DataSet) then
     begin
-      if Assigned(FMeasurement) then
-        FreeAndNil(FMeasurement);
-      CloseConnection(acSave.Enabled);
       DataSet.Destroy;
       DataSet := nil;
-      FreeAndNil(FConnection);
     end;
-  //FreeAndNil(FProjectFlow);
   inherited Destroy;
 end;
 function TfProjectFrame.OpenFromLink(aLink: string) : Boolean;
 begin
+  inherited;
   Result := False;
   if not ((copy(aLink,0,pos('@',aLink)-1) = 'PROJECTS')
   or (copy(aLink,0,pos('@',aLink)-1) = 'PROJECTS.ID')) then exit;
@@ -1424,9 +1414,6 @@ begin
     aLink := copy(aLink,0,rpos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
     aLink := copy(aLink,0,rpos('(',aLink)-1);
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
   DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   if copy(aLink,0,pos('@',aLink)-1) = 'PROJECTS.ID' then
@@ -1449,9 +1436,7 @@ begin
 end;
 procedure TfProjectFrame.New;
 begin
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
+  inherited;
   TabCaption := strNewProject;
   DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;

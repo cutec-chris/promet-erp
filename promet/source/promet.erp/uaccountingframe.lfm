@@ -32,7 +32,7 @@ inherited fAccountingFrame: TfAccountingFrame
         Width = 31
         Caption = 'Konto'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         Layout = tlBottom
         ParentColor = False
         ParentFont = False
@@ -48,17 +48,17 @@ inherited fAccountingFrame: TfAccountingFrame
       end
       object Label1: TLabel
         Left = 6
-        Height = 13
+        Height = 20
         Top = 44
-        Width = 79
+        Width = 95
         Caption = 'Kontonummer'
         ParentColor = False
       end
       object DBText1: TDBText
         Left = 6
-        Height = 19
+        Height = 21
         Top = 57
-        Width = 65
+        Width = 57
         DataField = 'ACCOUNTNO'
         DataSource = dsAccount
         Font.Height = -16
@@ -67,9 +67,9 @@ inherited fAccountingFrame: TfAccountingFrame
       end
       object DBText2: TDBText
         Left = 128
-        Height = 19
+        Height = 21
         Top = 57
-        Width = 65
+        Width = 57
         DataField = 'SORTCODE'
         DataSource = dsAccount
         Font.Height = -16
@@ -78,15 +78,15 @@ inherited fAccountingFrame: TfAccountingFrame
       end
       object Label2: TLabel
         Left = 128
-        Height = 13
+        Height = 20
         Top = 44
-        Width = 28
+        Width = 32
         Caption = 'Bank'
         ParentColor = False
       end
       object eSearch: TDBEdit
         Left = 6
-        Height = 23
+        Height = 28
         Top = 12
         Width = 218
         DataField = 'NAME'
@@ -108,10 +108,10 @@ inherited fAccountingFrame: TfAccountingFrame
         Left = 232
         Height = 13
         Top = 0
-        Width = 42
+        Width = 40
         Caption = 'Notizen'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         Layout = tlBottom
         ParentColor = False
         ParentFont = False
@@ -164,7 +164,7 @@ inherited fAccountingFrame: TfAccountingFrame
       OnExecute = acSetCategoryExecute
     end
   end
-  object dsAccount: TDatasource[2]
+  object dsAccount: TDataSource[2]
     left = 24
     top = 40
   end

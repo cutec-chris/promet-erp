@@ -48,8 +48,10 @@ type
     acIsScript: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
+    Bevel2: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;
+    Bevel6: TBevel;
     Bevel7: TBevel;
     Bevel8: TBevel;
     bExecute: TSpeedButton;
@@ -57,6 +59,7 @@ type
     bExecute2: TSpeedButton;
     BtZoomIn: TBitBtn;
     BtZoomOut: TBitBtn;
+    cbStatus: TComboBox;
     Datasource: TDatasource;
     DBMemo1: TDBMemo;
     eName: TDBEdit;
@@ -76,6 +79,7 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    Label8: TLabel;
     lbErrors: TListBox;
     lStatus: TLabel;
     miCopy: TMenuItem;
@@ -104,12 +108,14 @@ type
     Panel3: TPanel;
     Panel4: TPanel;
     Panel5: TPanel;
+    Panel9: TPanel;
+    pcPages: TExtMenuPageControl;
+    pDetails: TPanel;
+    pSubDetails: TPanel;
     pTools: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
-    pcTabs: TPageControl;
     PDetail: TfrDBDataSet;
-    pDetails: TPanel;
     pNav1: TPanel;
     miDelete: TMenuItem;
     pmAction: TPopupMenu;
@@ -119,7 +125,6 @@ type
     ProcMenu: TPopupMenu;
     PStatisticresults: TfrDBDataSet;
     PSubDetail: TfrDBDataSet;
-    pSubDetails: TPanel;
     pTop: TPanel;
     SaveDialog: TSaveDialog;
     sbMenue: TSpeedButton;
@@ -137,10 +142,10 @@ type
     ToolButton3: TSpeedButton;
     ToolButton4: TSpeedButton;
     ToolButton5: TSpeedButton;
-    tsDescription: TTabSheet;
     ToolBar1: TPanel;
     ToolButton1: TSpeedButton;
     ToolButton2: TSpeedButton;
+    tsDescription: TTabSheet;
     tsDetail: TTabSheet;
     tsMaster: TTabSheet;
     tsReport: TTabSheet;
@@ -161,6 +166,9 @@ type
     procedure bEditFilterClick(Sender: TObject);
     procedure BtZoomInClick(Sender: TObject);
     procedure BtZoomOutClick(Sender: TObject);
+    procedure cbStatusSelect(Sender: TObject);
+    procedure DataSetFieldsFieldsGetText(Sender: TField; var aText: string;
+      DisplayText: Boolean);
     procedure DataSetRemove(Sender: TObject);
     procedure DatasourceDataChange(Sender: TObject; Field: TField);
     procedure ExecuteTimerTimer(Sender: TObject);
@@ -198,6 +206,7 @@ type
     function CheckSQL(DoFormat : Boolean = False) : Boolean;
     function BuildSQL(aIn : string) : string;
   protected
+    procedure AddHistory(Sender: TObject);
     procedure SetDataSet(const AValue: TBaseDBDataset);override;
     procedure DoOpen;override;
     function SetRights : Boolean;
@@ -486,7 +495,7 @@ begin
               aControl.Parent:= aPanel;
               aLabel.Left := 0;
               aBevel.Left:=1000;
-              pcTabs.ActivePage:=tsResults;
+              pcPages.ActivePage:=tsResults;
             end;
         end;
     end;
@@ -602,6 +611,13 @@ begin
   Result := ReplaceSQLFunctions(cFilter);
 end;
 
+procedure TfStatisticFrame.AddHistory(Sender: TObject);
+begin
+  TfHistoryFrame(Sender).BaseName:='STATISTIC';
+  TfHistoryFrame(Sender).DataSet := TStatistic(FDataSet).History;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
+end;
+
 procedure TfStatisticFrame.acCloseExecute(Sender: TObject);
 begin
   CloseFrame;
@@ -609,12 +625,7 @@ end;
 
 procedure TfStatisticFrame.acCancelExecute(Sender: TObject);
 begin
-  if Assigned(FConnection) then
-    begin
-      FDataSet.CascadicCancel;
-//      Data.Rollback(FConnection);
-//      Data.StartTransaction(FConnection);
-    end;
+  Abort;
 end;
 
 procedure TfStatisticFrame.acDeleteExecute(Sender: TObject);
@@ -656,6 +667,15 @@ begin
         StatisticResults.DataSet.Free;
       StatisticResults.DataSet := Data.GetNewDataSet(BuildSQL(DataSet.FieldByName('QUERRY').AsString),FConnection);
       StatisticResults.DataSet.Open;
+      for i := 0 to StatisticResults.DataSet.Fields.Count-1 do
+        begin
+          if (StatisticResults.DataSet.Fields[i].DataType=ftString)
+          or (StatisticResults.DataSet.Fields[i].DataType=ftMemo)
+          then
+            StatisticResults.DataSet.Fields[i].OnGetText:=@DataSetFieldsFieldsGetText
+          else if (StatisticResults.DataSet.Fields[i].DataType=ftFloat) then
+            TFloatField(StatisticResults.DataSet.Fields[i]).DisplayFormat:='########.##';
+        end;
       if trim(smQuerry1.Lines.Text) <> '' then
         begin
           if Assigned(Detail.DataSet) then
@@ -679,7 +699,7 @@ begin
       lStatus.Visible:=True;
       fSelectReport.ReportType:= copy(DataSet.Id.AsString,length(DataSet.Id.AsString)-3,4);
       tsResults.TabVisible:=True;
-      pcTabs.ActivePage := tsResults;
+      pcPages.ActivePage := tsResults;
       if (Data.Reports.Count > 0) and (DataSet.State<>dsInsert) then
         begin
           Printer.PrinterIndex:=-1;//Default Printer
@@ -690,11 +710,11 @@ begin
               tsReport.TabVisible:=True;
               frPreview.Clear;
               frPreview.Caption:='';
-              pcTabs.ActivePage := tsReport;
+              pcPages.ActivePage := tsReport;
             end;
         end
       else
-        pcTabs.ActivePage:=tsResults;
+        pcPages.ActivePage:=tsResults;
       Application.ProcessMessages;
       if tsReport.TabVisible then
         begin
@@ -714,7 +734,7 @@ begin
             end;
           end;
         end;
-      if (pcTabs.ActivePage = tsResults) and Visible then
+      if (pcPages.ActivePage = tsResults) and Visible then
         begin
           gList.SetFocus;
         end;
@@ -831,18 +851,13 @@ begin
 end;
 procedure TfStatisticFrame.acSaveExecute(Sender: TObject);
 begin
-  if Assigned(FConnection) then
+  Save;
+  if Assigned(FTreeNode) then
     begin
-      FDataSet.CascadicPost;
-//      Data.Commit(FConnection);
-//      Data.StartTransaction(FConnection);
-      if Assigned(FTreeNode) then
-        begin
-          TTreeEntry(FTreeNode.Data).Rec:=FDataSet.Id.AsVariant;
-          TTreeEntry(FTreeNode.Data).DataSourceType:=TStatistic;
-          with FDataSet.DataSet as IBaseManageDB do
-            TTreeEntry(FTreeNode.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(FDataSet.GetBookmark));;
-        end;
+      TTreeEntry(FTreeNode.Data).Rec:=FDataSet.Id.AsVariant;
+      TTreeEntry(FTreeNode.Data).DataSourceType:=TStatistic;
+      with FDataSet.DataSet as IBaseManageDB do
+        TTreeEntry(FTreeNode.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(FDataSet.GetBookmark));;
     end;
 end;
 procedure TfStatisticFrame.acSetTreeDirExecute(Sender: TObject);
@@ -917,6 +932,24 @@ end;
 procedure TfStatisticFrame.BtZoomOutClick(Sender: TObject);
 begin
   frPreview.Zoom:=frPreview.Zoom*0.9;
+end;
+
+procedure TfStatisticFrame.cbStatusSelect(Sender: TObject);
+var
+  tmp: String;
+begin
+  tmp := copy(cbStatus.text,pos('(',cbStatus.text)+1,length(cbStatus.text));
+  tmp := copy(tmp,0,pos(')',tmp)-1);
+  if not FDataSet.CanEdit then FDataSet.DataSet.Edit;
+  FDataSet.FieldByName('STATUS').AsString:=tmp;
+  acSave.Execute;
+  DoOpen;
+end;
+
+procedure TfStatisticFrame.DataSetFieldsFieldsGetText(Sender: TField;
+  var aText: string; DisplayText: Boolean);
+begin
+  aText := copy(Sender.AsString,0,100)
 end;
 
 procedure TfStatisticFrame.DataSetRemove(Sender: TObject);
@@ -1138,9 +1171,54 @@ begin
 end;
 
 procedure TfStatisticFrame.DoOpen;
+var
+  aType: Char;
+  aFound: Boolean;
+  tmp: String;
 begin
   tsReport.TabVisible:=False;
   SetRights;
+  cbStatus.Items.Clear;
+  cbStatus.Text := '';
+  aType := 'T';
+  if not Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]) then
+    begin
+      Data.SetFilter(Data.States,'');
+      aFound := Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,FDataSet.FieldByName('STATUS').AsString]),[loCaseInsensitive]);
+    end
+  else aFound := True;
+  if aFound then
+    begin
+      cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+      cbStatus.Text := Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')';
+    end
+  else cbStatus.Text:=FDataSet.FieldByName('STATUS').AsString;
+  tmp := trim(Data.States.FieldByName('DERIVATIVE').AsString);
+  if (length(tmp) = 0) or (tmp[length(tmp)] <> ';') then
+    tmp := tmp+';';
+  if tmp <> ';' then
+    begin
+      while pos(';',tmp) > 0 do
+        begin
+          if Data.States.DataSet.Locate('TYPE;STATUS',VarArrayOf([aType,copy(tmp,0,pos(';',tmp)-1)]),[loCaseInsensitive]) then
+            cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+          tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+        end;
+    end
+  else
+    begin
+      Data.SetFilter(Data.States,Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType));
+      with Data.States.DataSet do
+        begin
+          First;
+          while not eof do
+            begin
+              if cbStatus.Items.IndexOf(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')') = -1 then
+                cbStatus.Items.Add(Data.States.FieldByName('STATUSNAME').AsString+' ('+Data.States.FieldByName('STATUS').AsString+')');
+              Next;
+            end;
+        end;
+    end;
   Datasource.DataSet := DataSet.DataSet;
   DataSet.OnRemove:=@DataSetRemove;
   smQuerry.Lines.Text:=DataSet.FieldByName('QUERRY').AsString;
@@ -1162,6 +1240,7 @@ begin
         smQuerry.Highlighter:=HigPascal
       else smQuerry.Highlighter:=HigSQL;
     end;
+  pcPages.NewFrame(TfHistoryFrame,False,strHistory,@AddHistory);
   inherited DoOpen;
 end;
 function TfStatisticFrame.SetRights: Boolean;
@@ -1205,14 +1284,11 @@ begin
   Detail.DataSet:=nil;
   SubDetail.DataSet.Free;
   SubDetail.DataSet:=nil;
-  try
-    if Assigned(FConnection) then
-      begin
-        CloseConnection(acSave.Enabled);
-        FreeAndNil(FConnection);
-      end;
-  except
-  end;
+  if Assigned(DataSet) then
+    begin
+      DataSet.Destroy;
+      DataSet := nil;
+    end;
   FTables.Free;
   FVariables.Free;
   FVariableNames.Free;
@@ -1237,6 +1313,7 @@ var
   aValue: String;
   DoExec: Boolean = False;
 begin
+  inherited;
   Result := False;
   if not CanHandleLink(aLink) then exit;
   if rpos('{',aLink) > 0 then
@@ -1246,9 +1323,6 @@ begin
       aParams := copy(aLink,rpos('(',aLink),length(aLink));
       aLink := copy(aLink,0,rpos('(',aLink)-1);
     end;
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
   DataSet := TStatistic.CreateEx(Self,Data,FConnection);
   Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
   if FDataSet.Count > 0 then
@@ -1281,12 +1355,9 @@ begin
 end;
 procedure TfStatisticFrame.New;
 begin
+  inherited;
   SetRights;
   if not FEditable then exit;
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
-//  Data.StartTransaction(FConnection);
   DataSet := TStatistic.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
   DataSet.Select(0);

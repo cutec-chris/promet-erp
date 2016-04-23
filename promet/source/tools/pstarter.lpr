@@ -32,7 +32,7 @@ begin
   Application.Initialize;
   Proc := TProcessUTF8.Create(nil);
   Proc.Options := [poNoConsole, poNewProcessGroup, poWaitOnExit];
-  tmp := SysToUTF8(CmdLine);
+  tmp := SysToUni(CmdLine);
   tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
   LoadLanguage(copy(tmp,0,pos(' ',tmp)));
   tmp := trim(copy(tmp,pos(' ',tmp)+1,length(tmp)));
@@ -48,17 +48,17 @@ begin
     begin
       if (copy(tmp,0,1)='"') and (copy(tmp,length(tmp),1) = '"') then
         tmp := copy(tmp,2,length(tmp)-2);
-      if FileExistsUTF8(tmp) then break;
+      if FileExists(UniToSys(tmp)) then break;
       tmp := copy(tmp,pos(' ',tmp)+1,length(tmp));
       if (copy(tmp,0,1)='"') and (copy(tmp,length(tmp),1) = '"') then
         tmp := copy(tmp,2,length(tmp)-2);
-      if FileExistsUTF8(tmp) then break;
+      if FileExists(UniToSys(tmp)) then break;
     end;
   Elapsed := round((Now()-aStartTime)*SecsPerDay*1000);
   Elapsed := 6000-Elapsed;
   if Elapsed<0 then Elapsed := 0;
   sleep(Elapsed);
-  if FileExistsUTF8(tmp) then
+  if FileExists(UniToSys(tmp)) then
     begin
       while IsFileOpen(tmp) do sleep(1000);
     end;

@@ -6,103 +6,109 @@ echo "Building components..."
 # Build components
 $lazbuild dexif/dexif_package.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 1"
+  echo "build failed dexif"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild zvdatetimectrls/zvdatetimectrls.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 2"
+  echo "build failed zvdatetimectrls"
   $grep -w "Error:" build.txt
   exit 1
 fi
-$lazbuild zeos/packages/lazarus/zcomponent.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+$lazbuild -b zeos/packages/lazarus/zcomponent.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 3"
+  echo "build failed zeos"
   $grep -w "Error:" build.txt
   exit 1
 fi
-$lazbuild zeos/packages/lazarus/zcomponent_nogui.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+$lazbuild -b zeos/packages/lazarus/zcomponent_nogui.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 4"
+  echo "build failed zeos_nogui"
+  $grep -w "Error:" build.txt
+  exit 1
+fi
+$lazbuild -b zeos/packages/kcontrols/packages/kcontrols/kcontrolslaz.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  echo "build failed kcontrols"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild synapse/laz_synapse.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 11"
+  echo "build failed synapse"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild websockets/websockets.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 5"
+  echo "build failed websockets"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild uxmpp/source/uxmpp_laz.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 6"
+  echo "build failed xmpp"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild tvplanit/packages/v103_lazarus.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 7"
+  echo "build failed turbopower vplanit"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild tmqttclient/TMQTTClient/laz_mqtt.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 8"
+  echo "build failed mqtt"
   $grep -w "Error:" build.txt
   exit 1
 fi
-$lazbuild thumbs/thumbctrl.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+$lazbuild -b thumbs/thumbctrl.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 9"
+  echo "build failed thumbctrl"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild tapi/laz_tapi.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 10"
+  echo "build failed tapi"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild scanning/sanetools.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 12"
+  echo "build failed sane"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild powerpdf/pack_powerpdf.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 13"
+  echo "build failed powerpdf"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild pascalscript/Source/ppascalscriptfcl.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 15"
+  echo "build failed pascalscript fcl"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild pascalscript/Source/ppascalscriptlcl.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 14"
+  echo "build failed pascalscript lcl"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild lnet/lazaruspackage/lnetbase.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 16"
+  echo "build failed lnet"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild lazreport/lazreport_addons.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
-  echo "build failed 17"
+  echo "build failed lazreport addons"
   $grep -w "Error:" build.txt
   exit 1
 fi

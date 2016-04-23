@@ -29,7 +29,7 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="5">
       <Item1>
         <PackageName Value="pImportExport"/>
         <DefaultFilename Value="..\base\base_import\pimportexport.lpk"/>
@@ -42,17 +42,13 @@
         <PackageName Value="LCL"/>
       </Item3>
       <Item4>
-        <PackageName Value="richmemopackage"/>
-        <DefaultFilename Value="..\..\..\..\LKomponenten\richmemo\richmemopackage.lpk"/>
-      </Item4>
-      <Item5>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <PackageName Value="LCLBase"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
-      </Item6>
+      </Item5>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>
@@ -65,7 +61,6 @@
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="utableedit"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\base\upassword.pas"/>
@@ -84,7 +79,7 @@
       <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tableedit"/>
     </Target>
     <SearchPaths>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

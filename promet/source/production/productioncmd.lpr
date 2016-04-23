@@ -26,7 +26,7 @@ begin
       ExitCode:=253;
       exit;
     end;
-  aTL.Timeout:=20000;
+  aTL.Timeout:=40000;
   aTL.Send(trim(tmp)+#13#10);
   aRes := aTL.RecvString;
   if IsNumeric(aRes) then

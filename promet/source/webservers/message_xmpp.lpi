@@ -60,10 +60,10 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\tools\message_xmpp"/>
+      <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\message_xmpp"/>
     </Target>
     <SearchPaths>
-      <UnitOutputDirectory Value="..\..\output\$(TargetCPU)-$(TargetOS)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>

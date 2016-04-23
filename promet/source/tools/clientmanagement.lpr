@@ -7,10 +7,9 @@ uses
   cthreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uerror, richmemopackage
-  { you can add units after this },
+  Forms, uerror,
 uclientmnmtmain,
-  upassword, udata, pvisualprometapp, uBaseVisualApplication;
+  upassword, pvisualprometapp, uBaseVisualApplication;
 
 {$R *.res}
 
@@ -22,4 +21,4 @@ begin
   fMain.DoCreate;
   Application.Run;
 end.
-
+

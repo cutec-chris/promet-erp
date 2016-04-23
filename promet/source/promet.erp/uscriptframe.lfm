@@ -9,8 +9,8 @@ inherited fScriptFrame: TfScriptFrame
   DesignTop = 255
   object pcPages: TExtMenuPageControl[0]
     Left = 0
-    Height = 448
-    Top = 44
+    Height = 442
+    Top = 50
     Width = 650
     ActivePage = tsCommon
     Align = alClient
@@ -20,19 +20,19 @@ inherited fScriptFrame: TfScriptFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 421
+      ClientHeight = 409
       ClientWidth = 642
       object Label1: TLabel
         Left = 8
-        Height = 13
+        Height = 20
         Top = 8
-        Width = 64
+        Width = 89
         Caption = 'Beschreibung'
         ParentColor = False
       end
       object DBMemo1: TDBMemo
         Left = 8
-        Height = 384
+        Height = 372
         Top = 24
         Width = 624
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -49,28 +49,28 @@ inherited fScriptFrame: TfScriptFrame
   end
   object ToolBar1: TPanel[1]
     Left = 0
-    Height = 44
+    Height = 50
     Top = 0
     Width = 650
     Align = alTop
     BevelOuter = bvNone
-    ClientHeight = 44
+    ClientHeight = 50
     ClientWidth = 650
     TabOrder = 1
     object Panel4: TPanel
       Left = 0
-      Height = 44
+      Height = 48
       Top = 0
       Width = 68
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 44
+      ClientHeight = 48
       ClientWidth = 68
       TabOrder = 0
       object Label2: TLabel
         Left = 4
         Height = 15
-        Top = 0
+        Top = -2
         Width = 60
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -78,7 +78,7 @@ inherited fScriptFrame: TfScriptFrame
         BorderSpacing.Left = 5
         Caption = 'Eintrag'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         ParentColor = False
         ParentFont = False
       end
@@ -102,18 +102,18 @@ inherited fScriptFrame: TfScriptFrame
     end
     object Panel6: TPanel
       Left = 68
-      Height = 44
+      Height = 48
       Top = 0
       Width = 56
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 44
+      ClientHeight = 48
       ClientWidth = 56
       TabOrder = 1
       object Label3: TLabel
         Left = 4
         Height = 15
-        Top = 0
+        Top = -2
         Width = 48
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -121,13 +121,13 @@ inherited fScriptFrame: TfScriptFrame
         BorderSpacing.Left = 5
         Caption = 'Erweitert'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         ParentColor = False
         ParentFont = False
       end
       object Bevel3: TBevel
         Left = 0
-        Height = 36
+        Height = 40
         Top = 4
         Width = 8
         Align = alLeft
@@ -224,31 +224,31 @@ inherited fScriptFrame: TfScriptFrame
     end
     object Panel7: TPanel
       Left = 124
-      Height = 44
+      Height = 48
       Top = 0
       Width = 276
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 44
+      ClientHeight = 48
       ClientWidth = 276
       TabOrder = 2
       object Label4: TLabel
         Left = 4
         Height = 15
-        Top = 0
+        Top = -2
         Width = 268
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
         BorderSpacing.Left = 5
         Caption = 'Name'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         ParentColor = False
         ParentFont = False
       end
       object Bevel4: TBevel
         Left = 0
-        Height = 36
+        Height = 40
         Top = 4
         Width = 8
         Align = alLeft
@@ -258,7 +258,7 @@ inherited fScriptFrame: TfScriptFrame
       end
       object eArticleNumber: TDBEdit
         Left = 4
-        Height = 21
+        Height = 28
         Top = 13
         Width = 268
         DataField = 'NAME'
@@ -273,31 +273,31 @@ inherited fScriptFrame: TfScriptFrame
     end
     object Panel9: TPanel
       Left = 496
-      Height = 44
+      Height = 48
       Top = 0
       Width = 139
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 44
+      ClientHeight = 48
       ClientWidth = 139
       TabOrder = 4
       object Label6: TLabel
         Left = 4
         Height = 15
-        Top = 0
+        Top = -2
         Width = 131
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
         BorderSpacing.Left = 5
         Caption = 'Version'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         ParentColor = False
         ParentFont = False
       end
       object Bevel6: TBevel
         Left = 0
-        Height = 36
+        Height = 40
         Top = 4
         Width = 8
         Align = alLeft
@@ -307,22 +307,22 @@ inherited fScriptFrame: TfScriptFrame
       end
       object cbVersion: TComboBox
         Left = 4
-        Height = 21
+        Height = 28
         Hint = 'hier können Sie die zu bearbeitende Artikelversion auswählen.'#13#10'Wenn Sie eine neue version eingeben und das Feld verlassen,'#13#10'wird ein Dialog geöffnet in dem abgefragt wird was vom aktuellen'#13#10'Artikel übernommen werden soll, danach existiert der Atikel auch'#13#10'in der neuen Artikelversion.'
         Top = 12
         Width = 68
-        ItemHeight = 13
+        ItemHeight = 20
         OnExit = cbVersionExit
         OnSelect = cbVersionSelect
         TabOrder = 0
         TabStop = False
       end
       object cbActive: TDBCheckBox
-        Left = 93
-        Height = 17
+        Left = 78
+        Height = 24
         Hint = 'markiert diesen Artikel als aktiv'#13#10'(aktive Version)'
         Top = 4
-        Width = 42
+        Width = 57
         Anchors = [akTop, akRight]
         AutoSize = True
         Caption = 'Aktiv'
@@ -335,31 +335,31 @@ inherited fScriptFrame: TfScriptFrame
     end
     object Panel8: TPanel
       Left = 400
-      Height = 44
+      Height = 48
       Top = 0
       Width = 96
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 44
+      ClientHeight = 48
       ClientWidth = 96
       TabOrder = 3
       object Label5: TLabel
         Left = 4
         Height = 15
-        Top = 0
+        Top = -2
         Width = 88
         Anchors = [akLeft, akRight, akBottom]
         AutoSize = False
         BorderSpacing.Left = 5
         Caption = 'Status'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         ParentColor = False
         ParentFont = False
       end
       object Bevel5: TBevel
         Left = 0
-        Height = 36
+        Height = 40
         Top = 4
         Width = 8
         Align = alLeft
@@ -369,16 +369,24 @@ inherited fScriptFrame: TfScriptFrame
       end
       object cbStatus: TComboBox
         Left = 4
-        Height = 21
+        Height = 28
         Hint = 'hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen'
         Top = 12
         Width = 86
         Anchors = [akTop, akLeft, akRight]
-        ItemHeight = 13
+        ItemHeight = 20
         OnSelect = cbStatusSelect
         Style = csDropDownList
         TabOrder = 0
       end
+    end
+    object Bevel2: TBevel
+      Left = 0
+      Height = 2
+      Top = 48
+      Width = 650
+      Align = alBottom
+      Shape = bsBottomLine
     end
   end
   object Script: TDataSource[2]

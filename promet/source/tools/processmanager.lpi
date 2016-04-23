@@ -85,7 +85,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS-Times2"/>
+        <CommandLineParams Value="--mandant=Stora"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -108,7 +108,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/processmanager"/>
+      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/processmanager"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
@@ -125,26 +125,4 @@
       </Debugging>
     </Linking>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="6">
-      <Item1>
-        <Name Value="EAbort"/>
-      </Item1>
-      <Item2>
-        <Name Value="ECodetoolError"/>
-      </Item2>
-      <Item3>
-        <Name Value="EFOpenError"/>
-      </Item3>
-      <Item4>
-        <Name Value="EProcess"/>
-      </Item4>
-      <Item5>
-        <Name Value="EZSQLException"/>
-      </Item5>
-      <Item6>
-        <Name Value="EZDatabaseError"/>
-      </Item6>
-    </Exceptions>
-  </Debugging>
 </CONFIG>
