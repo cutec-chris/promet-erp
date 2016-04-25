@@ -330,12 +330,7 @@ begin
       Screen.Cursor := crHourglass;
       Application.ProcessMessages;
       DataSet.Delete;
-      FDataSet.CascadicCancel;
-      if UseTransactions then
-        begin
-          Data.CommitTransaction(FConnection);
-          Data.StartTransaction(FConnection);
-        end;
+      Abort;
       acClose.Execute;
       Screen.Cursor := crDefault;
     end;
