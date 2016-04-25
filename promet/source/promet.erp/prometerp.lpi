@@ -173,7 +173,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=devel --mandant=Help"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -626,7 +625,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="8">
+    <Exceptions Count="9">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -651,6 +650,9 @@
       <Item8>
         <Name Value="ESQLScannerError"/>
       </Item8>
+      <Item9>
+        <Name Value="EConvertError"/>
+      </Item9>
     </Exceptions>
   </Debugging>
 </CONFIG>

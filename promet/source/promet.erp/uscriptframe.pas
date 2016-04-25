@@ -151,16 +151,7 @@ resourcestring
   strShouldThisVersionated                   = 'Soll das Script versioniert werden ?';
 procedure TfScriptFrame.acSaveExecute(Sender: TObject);
 begin
-  FDataSet.CascadicPost;
-  fEditor.acSave.Execute;
-  if Assigned(FConnection) then
-    begin
-      if UseTransactions then
-        begin
-          Data.CommitTransaction(FConnection);
-          Data.StartTransaction(FConnection);
-        end;
-    end;
+  Save;
 end;
 
 procedure TfScriptFrame.acSetActiveObjectExecute(Sender: TObject);
@@ -320,15 +311,7 @@ begin
 end;
 procedure TfScriptFrame.acCancelExecute(Sender: TObject);
 begin
-  if Assigned(FConnection) then
-    begin
-      FDataSet.CascadicCancel;
-      if UseTransactions then
-        begin
-          Data.RollbackTransaction(FConnection);
-          Data.StartTransaction(FConnection);
-        end;
-    end;
+  Abort;
 end;
 procedure TfScriptFrame.acCloseExecute(Sender: TObject);
 begin
@@ -538,11 +521,10 @@ end;
 destructor TfScriptFrame.Destroy;
 begin
   FEditor.Free;
-  if Assigned(FConnection) then
+  if Assigned(DataSet) then
     begin
-      CloseConnection(acSave.Enabled);
+      DataSet.Destroy;
       DataSet := nil;
-      FreeAndNil(FConnection);
     end;
   inherited Destroy;
 end;
