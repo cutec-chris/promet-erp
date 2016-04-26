@@ -33,10 +33,10 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug --debug-sql"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="8">
+    <RequiredPackages Count="7">
       <Item1>
         <PackageName Value="pdocuments"/>
       </Item1>
@@ -44,23 +44,20 @@
         <PackageName Value="lazmouseandkeyinput"/>
       </Item2>
       <Item3>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="pVisualPrometApp"/>
       </Item3>
       <Item4>
-        <PackageName Value="pVisualPrometApp"/>
+        <PackageName Value="general"/>
       </Item4>
       <Item5>
-        <PackageName Value="general"/>
+        <PackageName Value="FPCUnitTestRunner"/>
       </Item5>
       <Item6>
-        <PackageName Value="FPCUnitTestRunner"/>
+        <PackageName Value="LCL"/>
       </Item6>
       <Item7>
-        <PackageName Value="LCL"/>
-      </Item7>
-      <Item8>
         <PackageName Value="FCL"/>
-      </Item8>
+      </Item7>
     </RequiredPackages>
     <Units Count="16">
       <Unit0>

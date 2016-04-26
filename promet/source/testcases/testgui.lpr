@@ -6,7 +6,7 @@ uses
 //  sheaptrc,
   {$IFDEF UNIX}cthreads,{$ENDIF}
   Interfaces, Forms, GuiTestRunner, lazmouseandkeyinput, general,
-  richmemopackage, pvisualprometapp, uBaseVisualApplication, tLogin, tdbtests,
+  pvisualprometapp, uBaseVisualApplication, tLogin, tdbtests,
   ucreatetable,
   utransaction,
   //utgridview,
