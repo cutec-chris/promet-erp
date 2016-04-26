@@ -869,7 +869,7 @@ begin
 end;
 procedure TfPersonFrame.New;
 begin
-  New;
+  Inherited;
   DataSet := TPerson.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@CustomersStateChange;
   DataSet.Select(0);
