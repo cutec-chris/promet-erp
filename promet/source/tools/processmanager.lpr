@@ -98,6 +98,12 @@ begin
   Info(aSystem+' running');
   Data.ProcessClient.Processes.Open;
   Data.ProcessClient.Processes.Parameters.Open;
+  if Data.ProcessClient.Locate('NAME',aSystem,[]) then
+    if Data.ProcessClient.FieldByName('STATUS').AsString='I' then
+      begin
+        Terminate;
+        exit;
+      end;
   aTime := Now();
   i := 0;
   while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do

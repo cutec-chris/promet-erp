@@ -102,6 +102,7 @@ begin
 end;
 procedure TableCreate.CloseTable;
 begin
+  aTable.Close;
   aTable.Destroy;
 end;
 procedure TableCreate.DeleteTable;
