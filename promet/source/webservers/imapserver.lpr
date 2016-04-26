@@ -1480,17 +1480,20 @@ end;
 
 function TPIMAPServer.ServerLogin(aSocket: TSTcpThread; aUser,
   aPasswort: string): Boolean;
+var
+  aUsers: TUser;
 begin
   Result := False;
   IMAPServer.InternalLock('Login',aSocket);
   try
     try
-      Data.Users.DataSet.Refresh;
+      aUsers := TUser.Create(nil);
+      aUsers.Open;
       with Self as IBaseDBInterface do
         begin
-          if Data.Users.DataSet.Locate('LOGINNAME',aUser,[loCaseInsensitive]) or Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
+          if aUsers.DataSet.Locate('LOGINNAME',aUser,[loCaseInsensitive]) or Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
             begin
-              if (Data.Users.CheckPasswort(aPasswort)) then
+              if (aUsers.CheckPasswort(aPasswort)) then
                 Result := True;
             end;
         end;
@@ -1502,11 +1505,8 @@ begin
             Error('Login failed:'+aUser);
         end;
       if Result then
-        begin
-          Data.RefreshUsersFilter;
-        end;
-      if Result then
-        aSocket.User:=Data.Users.Accountno.AsString;
+        aSocket.User:=aUsers.Accountno.AsString;
+      aUsers.Free;
     except
       Result := False;
     end;
@@ -1642,7 +1642,7 @@ begin
   aTime := Now();
   while not Terminated do
     begin
-      sleep(100);
+      CheckSynchronize(100);
       if (Now()-aTime) > ((1/HoursPerDay)) then
         begin
           break;

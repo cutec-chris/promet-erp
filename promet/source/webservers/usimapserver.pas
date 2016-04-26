@@ -39,6 +39,9 @@ type
     IdleState: boolean;
     SelNotify : pIMAPNotification;
     FDisableLog : Integer;
+    bThread : TSTcpThread;
+    bCommand : string;
+    procedure DoHandleCommand;
 
     function LoginUser(AThread: TSTcpThread;  Password: String; AuthMechanism : String ): String;
 
@@ -1512,6 +1515,11 @@ procedure TSImapServer.SocketRelease(ASocket: TSTcpThread);
 begin
 end;
 
+procedure TSImapServer.DoHandleCommand;
+begin
+  HandleCommand(bThread, bCommand);
+end;
+
 function TSImapServer.LoginUser(AThread: TSTcpThread; Password: String;
   AuthMechanism: String): String;
 var
@@ -1611,7 +1619,9 @@ begin
          Result := 'BAD Command failed (missing TAG)'
        end else begin
          TSImapThread(AThread).TmpData := '';
-         HandleCommand(AThread, copy(BufInStrm,0,length(BufInStrm)-2));
+         bThread := AThread;
+         bCommand:=copy(BufInStrm,0,length(BufInStrm)-2);
+         AThread.Synchronize(AThread,@DoHandleCommand);
          Result := ''
        end;
      end;

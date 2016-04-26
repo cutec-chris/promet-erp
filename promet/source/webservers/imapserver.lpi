@@ -142,7 +142,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help"/>
+        <CommandLineParams Value="&quot;--mandant=Stora&quot; --port=1043 --smtpport=5087 --server-log"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
