@@ -21,8 +21,8 @@ unit uOrderTypeOptions;
 interface
 uses
   Classes, SysUtils, FileUtil, DividerBevel, Forms, Controls, StdCtrls, DBGrids,
-  Buttons, DbCtrls, ExtCtrls, ComCtrls, db, uBaseDBClasses, uBaseERPDBClasses,
-  uOptionsFrame, uOrder;
+  Buttons, DbCtrls, ExtCtrls, ComCtrls, uExtControls, db, uBaseDBClasses,
+  uBaseERPDBClasses, uOptionsFrame, uOrder;
 type
 
   { TforderTypeOptions }
@@ -41,7 +41,7 @@ type
     eDefaultPosTyp: TDBEdit;
     eDerivates: TDBEdit;
     eNumberset: TDBEdit;
-    eOrderType: TDBComboBox;
+    eOrderType: TExtDBCombobox;
     gOrderStatus: TDBGrid;
     Label1: TLabel;
     Label2: TLabel;
