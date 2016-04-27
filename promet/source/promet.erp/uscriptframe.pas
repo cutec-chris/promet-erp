@@ -358,7 +358,10 @@ var
   aStream: TMemoryStream;
 begin
   pcPages.CloseAll;
-  TBaseScript(DataSet).OpenItem;
+  try
+    TBaseScript(DataSet).OpenItem;
+  except
+  end;
   TabCaption := TBaseScript(FDataSet).Text.AsString;
   Script.DataSet := DataSet.DataSet;
   SetRights;

@@ -162,10 +162,13 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="1">
+    <Exceptions Count="2">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
+      <Item2>
+        <Name Value="EFOpenError"/>
+      </Item2>
     </Exceptions>
   </Debugging>
 </CONFIG>
