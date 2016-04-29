@@ -36,7 +36,7 @@ inherited fShemeFrame: TfShemeFrame
         BorderSpacing.Left = 5
         Caption = 'Eintrag'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         ParentColor = False
         ParentFont = False
       end
@@ -79,7 +79,7 @@ inherited fShemeFrame: TfShemeFrame
         BorderSpacing.Left = 5
         Caption = 'Erweitert'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         ParentColor = False
         ParentFont = False
       end
@@ -200,7 +200,7 @@ inherited fShemeFrame: TfShemeFrame
         BorderSpacing.Left = 5
         Caption = 'Name'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         ParentColor = False
         ParentFont = False
       end
@@ -216,7 +216,7 @@ inherited fShemeFrame: TfShemeFrame
       end
       object eName: TDBEdit
         Left = 4
-        Height = 21
+        Height = 23
         Hint = 'Die Projektnummer'
         Top = 12
         Width = 251
@@ -248,7 +248,7 @@ inherited fShemeFrame: TfShemeFrame
         BorderSpacing.Left = 5
         Caption = 'Status'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         ParentColor = False
         ParentFont = False
       end
@@ -264,11 +264,11 @@ inherited fShemeFrame: TfShemeFrame
       end
       object cbStatus: TComboBox
         Left = 1
-        Height = 21
+        Height = 23
         Hint = 'hier können Sie den Status des Projektes ändern um es in neue Zustände zu überführen'
         Top = 12
         Width = 143
-        ItemHeight = 13
+        ItemHeight = 15
         Style = csDropDownList
         TabOrder = 0
       end
@@ -338,6 +338,65 @@ inherited fShemeFrame: TfShemeFrame
         ShowCaption = False
       end
     end
+    object Panel11: TPanel
+      Left = 570
+      Height = 44
+      Top = 0
+      Width = 182
+      Align = alLeft
+      BevelOuter = bvNone
+      ClientHeight = 44
+      ClientWidth = 182
+      TabOrder = 5
+      object Label7: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 174
+        Anchors = [akLeft, akRight, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Version'
+        Font.Color = clMedGray
+        Font.Height = 13
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel10: TBevel
+        Left = 0
+        Height = 36
+        Top = 4
+        Width = 8
+        Align = alLeft
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object cbVersion: TComboBox
+        Left = 4
+        Height = 23
+        Hint = 'hier können Sie die zu bearbeitende Artikelversion auswählen.'#13#10'Wenn Sie eine neue version eingeben und das Feld verlassen,'#13#10'wird ein Dialog geöffnet in dem abgefragt wird was vom aktuellen'#13#10'Artikel übernommen werden soll, danach existiert der Atikel auch'#13#10'in der neuen Artikelversion.'
+        Top = 12
+        Width = 124
+        ItemHeight = 15
+        TabOrder = 0
+        TabStop = False
+      end
+      object cbActive: TDBCheckBox
+        Left = 131
+        Height = 19
+        Hint = 'markiert diesen Artikel als aktiv'#13#10'(aktive Version)'
+        Top = 4
+        Width = 47
+        Anchors = [akTop, akRight]
+        AutoSize = True
+        Caption = 'Aktiv'
+        DataField = 'ACTIVE'
+        TabOrder = 1
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+      end
+    end
   end
   object pToolbar: TPanel[1]
     Left = 0
@@ -380,7 +439,7 @@ inherited fShemeFrame: TfShemeFrame
         AutoSize = False
         Caption = 'Werkzeuge'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         Font.Orientation = 900
         Layout = tlBottom
         ParentColor = False
@@ -468,7 +527,7 @@ inherited fShemeFrame: TfShemeFrame
         AutoSize = False
         Caption = 'Ansicht'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         Font.Orientation = 900
         Layout = tlBottom
         ParentColor = False
@@ -603,7 +662,7 @@ inherited fShemeFrame: TfShemeFrame
         AutoSize = False
         Caption = 'Zusätzlich'
         Font.Color = clMedGray
-        Font.Height = 11
+        Font.Height = 13
         Font.Orientation = 900
         Layout = tlBottom
         ParentColor = False

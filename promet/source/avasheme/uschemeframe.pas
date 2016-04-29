@@ -54,6 +54,7 @@ type
     ActionList: TActionList;
     ActionList1: TActionList;
     Bevel1: TBevel;
+    Bevel10: TBevel;
     Bevel3: TBevel;
     Bevel5: TBevel;
     Bevel6: TBevel;
@@ -63,7 +64,9 @@ type
     bExecute: TSpeedButton;
     bMenue2: TSpeedButton;
     bMenue4: TSpeedButton;
+    cbActive: TDBCheckBox;
     cbStatus: TComboBox;
+    cbVersion: TComboBox;
     ClipboardBitmap: TAction;
     ClipboardMetafile: TAction;
     ClipboardNative: TAction;
@@ -91,6 +94,7 @@ type
     HelpAbout: TAction;
     HelpUsage: TAction;
     ImageList: TImageList;
+    Label7: TLabel;
     LinkAddPoint: TAction;
     LinkGrow: TAction;
     LinkRemovePoint: TAction;
@@ -128,6 +132,7 @@ type
     OptionsConfirmDeletion: TAction;
     OptionsConfirmHookLink: TAction;
     Panel10: TPanel;
+    Panel11: TPanel;
     Panel2: TPanel;
     Panel7: TPanel;
     pmAction: TPopupMenu;
