@@ -39,25 +39,15 @@
         <CommandLineParams Value="--mandant=Test"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="5">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="pvisualforms"/>
-        <DefaultFilename Value="..\base_forms\pvisualforms.lpk"/>
-      </Item1>
-      <Item2>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
-      </Item2>
-      <Item3>
+      </Item1>
+      <Item2>
         <PackageName Value="pPrometDBIntfs"/>
         <DefaultFilename Value="..\base\dbintfs\pprometdbintfs.lpk"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="lazmouseandkeyinput"/>
-      </Item4>
-      <Item5>
-        <PackageName Value="LCL"/>
-      </Item5>
+      </Item2>
     </RequiredPackages>
     <Units Count="6">
       <Unit0>

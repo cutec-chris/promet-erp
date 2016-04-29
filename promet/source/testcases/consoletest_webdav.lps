@@ -4,12 +4,12 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="83">
+    <Units Count="84">
       <Unit0>
         <Filename Value="consoletest_webdav.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="88"/>
-        <CursorPos X="23" Y="108"/>
+        <TopLine Value="22"/>
+        <CursorPos X="29" Y="11"/>
         <UsageCount Value="64"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -17,8 +17,8 @@
         <Filename Value="twebdav.pas"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="244"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="250"/>
         <CursorPos Y="199"/>
         <FoldState Value=" T3jD0J3{"/>
         <UsageCount Value="49"/>
@@ -27,7 +27,7 @@
       <Unit2>
         <Filename Value="..\webservers\udavserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="1183"/>
         <CursorPos Y="1196"/>
         <UsageCount Value="49"/>
@@ -36,7 +36,7 @@
       <Unit3>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="358"/>
         <CursorPos Y="373"/>
         <UsageCount Value="45"/>
@@ -71,10 +71,11 @@
       </Unit7>
       <Unit8>
         <Filename Value="tdbtests.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="15"/>
-        <CursorPos X="23" Y="36"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="10"/>
+        <CursorPos X="38" Y="20"/>
         <UsageCount Value="22"/>
+        <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="uvisualtests.pas"/>
@@ -213,10 +214,11 @@
       <Unit32>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="304"/>
         <CursorPos Y="332"/>
         <UsageCount Value="14"/>
+        <Loaded Value="True"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\..\..\..\fpc\2.6_fixes\packages\fcl-fpcunit\src\fpcunit.pp"/>
@@ -293,7 +295,7 @@
       <Unit44>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="10"/>
         <TopLine Value="1407"/>
         <CursorPos X="30" Y="1429"/>
         <UsageCount Value="14"/>
@@ -541,7 +543,7 @@
       </Unit77>
       <Unit78>
         <Filename Value="..\webservers\uhttputil.pp"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="42"/>
         <CursorPos X="12" Y="56"/>
         <UsageCount Value="20"/>
@@ -565,7 +567,7 @@
       </Unit80>
       <Unit81>
         <Filename Value="..\..\..\general\src\Utils.pas"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="902"/>
         <CursorPos X="24" Y="921"/>
         <UsageCount Value="10"/>
@@ -574,132 +576,140 @@
       <Unit82>
         <Filename Value="..\base\base_forms\uselectreport.pas"/>
         <UnitName Value="uSelectReport"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="113"/>
         <CursorPos X="52" Y="128"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit82>
+      <Unit83>
+        <Filename Value="..\components\tvplanit\source\vpweekview.pas"/>
+        <UnitName Value="VpWeekView"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="799"/>
+        <CursorPos X="17" Y="818"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit83>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="263" TopLine="249"/>
+        <Caret Line="282" TopLine="259"/>
       </Position1>
       <Position2>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="275" TopLine="252"/>
+        <Caret Line="283" TopLine="260"/>
       </Position2>
       <Position3>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="279" TopLine="256"/>
+        <Caret Line="284" TopLine="261"/>
       </Position3>
       <Position4>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="280" TopLine="257"/>
+        <Caret Line="285" TopLine="262"/>
       </Position4>
       <Position5>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="282" TopLine="259"/>
+        <Caret Line="288" TopLine="265"/>
       </Position5>
       <Position6>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="283" TopLine="260"/>
+        <Caret Line="290" TopLine="267"/>
       </Position6>
       <Position7>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="284" TopLine="261"/>
+        <Caret Line="291" TopLine="268"/>
       </Position7>
       <Position8>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="285" TopLine="262"/>
+        <Caret Line="292" TopLine="269"/>
       </Position8>
       <Position9>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="288" TopLine="265"/>
+        <Caret Line="293" TopLine="270"/>
       </Position9>
       <Position10>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="290" TopLine="267"/>
+        <Caret Line="295" TopLine="272"/>
       </Position10>
       <Position11>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="291" TopLine="268"/>
+        <Caret Line="301" TopLine="287"/>
       </Position11>
       <Position12>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="292" TopLine="269"/>
+        <Caret Line="302" TopLine="287"/>
       </Position12>
       <Position13>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="293" TopLine="270"/>
+        <Caret Line="303" TopLine="287"/>
       </Position13>
       <Position14>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="295" TopLine="272"/>
+        <Caret Line="305" TopLine="287"/>
       </Position14>
       <Position15>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="301" TopLine="287"/>
+        <Caret Line="306" TopLine="287"/>
       </Position15>
       <Position16>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="302" TopLine="287"/>
+        <Caret Line="307" TopLine="287"/>
       </Position16>
       <Position17>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="303" TopLine="287"/>
+        <Caret Line="310" TopLine="287"/>
       </Position17>
       <Position18>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="305" TopLine="287"/>
+        <Caret Line="312" TopLine="289"/>
       </Position18>
       <Position19>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="306" TopLine="287"/>
+        <Caret Line="313" TopLine="290"/>
       </Position19>
       <Position20>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="307" TopLine="287"/>
+        <Caret Line="314" TopLine="291"/>
       </Position20>
       <Position21>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="310" TopLine="287"/>
+        <Caret Line="373" TopLine="358"/>
       </Position21>
       <Position22>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="312" TopLine="289"/>
+        <Caret Line="375" TopLine="358"/>
       </Position22>
       <Position23>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="313" TopLine="290"/>
+        <Caret Line="377" TopLine="358"/>
       </Position23>
       <Position24>
-        <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="314" TopLine="291"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="373" TopLine="358"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="375" TopLine="358"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="377" TopLine="358"/>
-      </Position27>
-      <Position28>
         <Filename Value="..\webservers\udavserver.pas"/>
         <Caret Line="1196" TopLine="1183"/>
-      </Position28>
-      <Position29>
+      </Position24>
+      <Position25>
         <Filename Value="..\base\base_forms\uselectreport.pas"/>
-      </Position29>
-      <Position30>
+      </Position25>
+      <Position26>
         <Filename Value="..\base\base_forms\uselectreport.pas"/>
         <Caret Line="128" Column="52" TopLine="113"/>
+      </Position26>
+      <Position27>
+        <Filename Value="..\components\tvplanit\source\vpweekview.pas"/>
+      </Position27>
+      <Position28>
+        <Filename Value="consoletest_webdav.lpr"/>
+        <Caret Line="108" Column="23" TopLine="88"/>
+      </Position28>
+      <Position29>
+        <Filename Value="consoletest_webdav.lpr"/>
+        <Caret Line="11" Column="29"/>
+      </Position29>
+      <Position30>
+        <Filename Value="tdbtests.pas"/>
+        <Caret Line="20" Column="38" TopLine="10"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
