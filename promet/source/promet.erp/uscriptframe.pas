@@ -149,6 +149,7 @@ resourcestring
   strChangeNumer                             = 'Nummer ändern';
   strNewArticle                              = 'neuer Artikel';
   strShouldThisVersionated                   = 'Soll das Script versioniert werden ?';
+  strNewScript                               = 'Neues Script';
 procedure TfScriptFrame.acSaveExecute(Sender: TObject);
 begin
   Save;
@@ -529,12 +530,7 @@ end;
 function TfScriptFrame.OpenFromLink(aLink: string) : Boolean;
 begin
   inherited;
-  CloseConnection;
-  if UseTransactions then
-    if not Assigned(FConnection) then
-      FConnection := Data.GetNewConnection;
-  if UseTransactions then
-    Data.StartTransaction(FConnection);
+  Result := False;
   DataSet := TBaseScript.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ScriptStateChange;
   TBaseDbList(DataSet).SelectFromLink(aLink);
@@ -552,12 +548,8 @@ end;
 
 procedure TfScriptFrame.New;
 begin
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
-  TabCaption := strNewArticle;
-  if UseTransactions then
-    Data.StartTransaction(FConnection);
+  Inherited;
+  TabCaption := strNewScript;
   DataSet := TBaseScript.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ScriptStateChange;
   DataSet.Select(0);
