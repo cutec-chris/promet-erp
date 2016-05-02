@@ -402,29 +402,29 @@ inherited fShemeFrame: TfShemeFrame
     Left = 0
     Height = 511
     Top = 44
-    Width = 44
+    Width = 64
     Align = alLeft
     BevelOuter = bvNone
     ClientHeight = 511
-    ClientWidth = 44
+    ClientWidth = 64
     ParentShowHint = False
     ShowHint = True
     TabOrder = 1
     object Panel2: TPanel
       Left = 0
-      Height = 206
-      Top = 56
-      Width = 44
+      Height = 78
+      Top = 192
+      Width = 64
       Align = alTop
       BevelOuter = bvNone
-      ClientHeight = 206
-      ClientWidth = 44
+      ClientHeight = 78
+      ClientWidth = 64
       TabOrder = 0
       object Bevel1: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 56
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -432,12 +432,12 @@ inherited fShemeFrame: TfShemeFrame
       end
       object ExtRotatedLabel1: TExtRotatedLabel
         Left = 0
-        Height = 202
+        Height = 74
         Top = 4
         Width = 14
         Align = alLeft
         AutoSize = False
-        Caption = 'Werkzeuge'
+        Caption = 'Formatierung'
         Font.Color = clMedGray
         Font.Height = 13
         Font.Orientation = 900
@@ -445,56 +445,58 @@ inherited fShemeFrame: TfShemeFrame
         ParentColor = False
         ParentFont = False
       end
-      object CoolBar1: TToolBar
-        Left = 16
-        Height = 202
+      object Panel1: TPanel
+        Left = 14
+        Height = 74
         Top = 4
-        Width = 28
+        Width = 50
         Align = alRight
-        EdgeBorders = []
-        EdgeInner = esNone
-        EdgeOuter = esNone
-        Images = ImageList
+        BevelOuter = bvNone
+        Caption = 'Panel1'
+        ClientHeight = 74
+        ClientWidth = 50
         TabOrder = 0
-        object ToolButton3: TToolButton
-          Left = 1
+        object CoolBar1: TToolBar
+          Left = 0
+          Height = 104
           Top = 0
-          Action = ObjectsNone
-        end
-        object ToolButton5: TToolButton
-          Left = 1
-          Top = 22
-          Action = ObjectsRectangle
-        end
-        object ToolButton6: TToolButton
-          Left = 1
-          Top = 44
-          Action = ObjectsRhomboid
-        end
-        object ToolButton7: TToolButton
-          Left = 1
-          Top = 88
-          Action = ObjectsPentagon
-        end
-        object ToolButton8: TToolButton
-          Left = 1
-          Top = 66
-          Action = ObjectsRoundRect
-        end
-        object ToolButton9: TToolButton
-          Left = 1
-          Top = 110
-          Action = ObjectsTriangle
-        end
-        object ToolButton10: TToolButton
-          Left = 1
-          Top = 132
-          Action = ObjectsLink
-        end
-        object ToolButton11: TToolButton
-          Left = 1
-          Top = 154
-          Action = ObjectsBezier
+          Width = 50
+          EdgeBorders = []
+          EdgeInner = esNone
+          EdgeOuter = esNone
+          Images = ImageList
+          TabOrder = 0
+          object ToolButton5: TToolButton
+            Left = 1
+            Top = 22
+            Action = FormatAlignTop
+          end
+          object ToolButton6: TToolButton
+            Left = 1
+            Top = 0
+            Action = EditProperties
+          end
+          object ToolButton7: TToolButton
+            Left = 24
+            Top = 0
+            Action = FormatAlignBottom
+          end
+          object ToolButton8: TToolButton
+            Left = 1
+            Top = 44
+            Action = FormatAlignLeft
+          end
+          object ToolButton9: TToolButton
+            Left = 24
+            Top = 44
+            Action = FormatAlignRight
+          end
+          object ToolButton13: TToolButton
+            Left = 24
+            Top = 22
+            Action = FormatVCenter
+            OnClick = ToolButton13Click
+          end
         end
       end
     end
@@ -502,17 +504,17 @@ inherited fShemeFrame: TfShemeFrame
       Left = 0
       Height = 56
       Top = 0
-      Width = 44
+      Width = 64
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 56
-      ClientWidth = 44
+      ClientWidth = 64
       TabOrder = 1
       object Bevel8: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 56
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -550,18 +552,18 @@ inherited fShemeFrame: TfShemeFrame
     object Panel10: TPanel
       Left = 0
       Height = 56
-      Top = 262
-      Width = 44
+      Top = 270
+      Width = 64
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 56
-      ClientWidth = 44
+      ClientWidth = 64
       TabOrder = 2
       object Bevel9: TBevel
         Left = 4
         Height = 4
         Top = 0
-        Width = 36
+        Width = 56
         Align = alTop
         BorderSpacing.Left = 4
         BorderSpacing.Right = 4
@@ -667,6 +669,121 @@ inherited fShemeFrame: TfShemeFrame
         Layout = tlBottom
         ParentColor = False
         ParentFont = False
+      end
+    end
+    object Panel3: TPanel
+      Left = 0
+      Height = 136
+      Top = 56
+      Width = 64
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 136
+      ClientWidth = 64
+      TabOrder = 3
+      object Bevel2: TBevel
+        Left = 4
+        Height = 4
+        Top = 0
+        Width = 56
+        Align = alTop
+        BorderSpacing.Left = 4
+        BorderSpacing.Right = 4
+        Shape = bsTopLine
+      end
+      object ExtRotatedLabel2: TExtRotatedLabel
+        Left = 0
+        Height = 132
+        Top = 4
+        Width = 14
+        Align = alLeft
+        AutoSize = False
+        Caption = 'Werkzeuge'
+        Font.Color = clMedGray
+        Font.Height = 13
+        Font.Orientation = 900
+        Layout = tlBottom
+        ParentColor = False
+        ParentFont = False
+      end
+      object Panel5: TPanel
+        Left = 14
+        Height = 132
+        Top = 4
+        Width = 50
+        Align = alRight
+        BevelOuter = bvNone
+        Caption = 'Panel1'
+        ClientHeight = 132
+        ClientWidth = 50
+        TabOrder = 0
+        object CoolBar2: TToolBar
+          Left = 0
+          Height = 202
+          Top = 0
+          Width = 50
+          EdgeBorders = []
+          EdgeInner = esNone
+          EdgeOuter = esNone
+          Images = ImageList
+          TabOrder = 0
+          object ToolButton4: TToolButton
+            Left = 1
+            Top = 0
+            Action = ObjectsNone
+          end
+          object ToolButton14: TToolButton
+            Left = 24
+            Top = 22
+            Action = ObjectsRectangle
+          end
+          object ToolButton15: TToolButton
+            Left = 24
+            Top = 0
+            Action = ObjectsRhomboid
+          end
+          object ToolButton16: TToolButton
+            Left = 1
+            Top = 22
+            Action = ObjectsPentagon
+          end
+          object ToolButton17: TToolButton
+            Left = 1
+            Top = 44
+            Action = ObjectsRoundRect
+          end
+          object ToolButton18: TToolButton
+            Left = 24
+            Top = 44
+            Action = ObjectsTriangle
+          end
+          object ToolButton19: TToolButton
+            Left = 1
+            Top = 66
+            Action = ObjectsLink
+          end
+          object ToolButton20: TToolButton
+            Left = 1
+            Top = 88
+            Action = EditBringToFront
+          end
+          object ToolButton21: TToolButton
+            Left = 24
+            Top = 66
+            Action = ObjectsBezier
+          end
+          object ToolButton22: TToolButton
+            Left = 24
+            Top = 88
+            Action = EditSendToBack
+          end
+          object ToolButton23: TToolButton
+            Left = 1
+            Top = 110
+            Action = EditLock
+            Enabled = False
+          end
+        end
       end
     end
   end
@@ -2187,12 +2304,14 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'Bring To Front'
       Hint = 'Bring To Front|Puts the selected items in front of the other items'
       ImageIndex = 12
+      OnExecute = EditBringToFrontExecute
     end
     object EditSendToBack: TAction
       Category = 'Edit'
       Caption = 'Send To Back'
       Hint = 'Send To Back|Puts the selected items behind of the other items.'
       ImageIndex = 11
+      OnExecute = EditSendToBackExecute
     end
     object EditProperties: TAction
       Category = 'Edit'
@@ -2226,6 +2345,7 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'Align Left'
       Hint = 'Align Left|Left-justifies text inside node.'
       ImageIndex = 19
+      OnExecute = FormatAlignLeftExecute
     end
     object FormatCenter: TAction
       Category = 'Format'
@@ -2239,12 +2359,14 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'Align Right'
       Hint = 'Align Right|Right-justifies text inside node.'
       ImageIndex = 21
+      OnExecute = FormatAlignRightExecute
     end
     object FormatAlignTop: TAction
       Category = 'Format'
       Caption = 'Align Top'
       Hint = 'Align Top|Top-justifies text inside node.'
       ImageIndex = 22
+      OnExecute = FormatAlignTopExecute
     end
     object FormatVCenter: TAction
       Category = 'Format'
@@ -2252,12 +2374,14 @@ inherited fShemeFrame: TfShemeFrame
       Checked = True
       Hint = 'Vertical Center|Vertically centers text inside node.'
       ImageIndex = 23
+      OnExecute = FormatVCenterExecute
     end
     object FormatAlignBottom: TAction
       Category = 'Format'
       Caption = 'Align Bottom'
       Hint = 'Align Bottom|Bottom-justifies text inside node.'
       ImageIndex = 24
+      OnExecute = FormatAlignBottomExecute
     end
     object ViewActualSize: TAction
       Category = 'View'
@@ -2441,6 +2565,12 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'ObjectBezier'
       ImageIndex = 42
       OnExecute = ObjectsBezierExecute
+    end
+    object EditLock: TAction
+      Category = 'Edit'
+      Caption = 'Lock/Unlock'
+      ImageIndex = 36
+      OnExecute = EditLockExecute
     end
   end
   object pmContext: TPopupMenu[6]

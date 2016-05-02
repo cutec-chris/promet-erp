@@ -51,10 +51,12 @@ type
     acDeleteElement: TAction;
     acProperties: TAction;
     acOpen: TAction;
+    EditLock: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
     Bevel1: TBevel;
     Bevel10: TBevel;
+    Bevel2: TBevel;
     Bevel3: TBevel;
     Bevel5: TBevel;
     Bevel6: TBevel;
@@ -71,6 +73,7 @@ type
     ClipboardMetafile: TAction;
     ClipboardNative: TAction;
     CoolBar1: TToolBar;
+    CoolBar2: TToolBar;
     EditAlign: TAction;
     EditBringToFront: TAction;
     EditInvertSelection: TAction;
@@ -80,6 +83,7 @@ type
     EditSendToBack: TAction;
     EditSize: TAction;
     ExtRotatedLabel1: TExtRotatedLabel;
+    ExtRotatedLabel2: TExtRotatedLabel;
     ExtRotatedLabel4: TExtRotatedLabel;
     ExtRotatedLabel5: TExtRotatedLabel;
     FormatAlignBottom: TAction;
@@ -131,9 +135,12 @@ type
     ObjectsTriangle: TAction;
     OptionsConfirmDeletion: TAction;
     OptionsConfirmHookLink: TAction;
+    Panel1: TPanel;
     Panel10: TPanel;
     Panel11: TPanel;
     Panel2: TPanel;
+    Panel3: TPanel;
+    Panel5: TPanel;
     Panel7: TPanel;
     pmAction: TPopupMenu;
     pmContext: TPopupMenu;
@@ -152,10 +159,19 @@ type
     sbMenue: TSpeedButton;
     ToolBar1: TPanel;
     ToolButton1: TSpeedButton;
-    ToolButton10: TToolButton;
-    ToolButton11: TToolButton;
+    ToolButton13: TToolButton;
+    ToolButton14: TToolButton;
+    ToolButton15: TToolButton;
+    ToolButton16: TToolButton;
+    ToolButton17: TToolButton;
+    ToolButton18: TToolButton;
+    ToolButton19: TToolButton;
     ToolButton2: TSpeedButton;
-    ToolButton3: TToolButton;
+    ToolButton20: TToolButton;
+    ToolButton21: TToolButton;
+    ToolButton22: TToolButton;
+    ToolButton23: TToolButton;
+    ToolButton4: TToolButton;
     ToolButton5: TToolButton;
     ToolButton6: TToolButton;
     ToolButton7: TToolButton;
@@ -178,12 +194,20 @@ type
     procedure acPasteExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acStartTimeRegisteringExecute(Sender: TObject);
+    procedure EditBringToFrontExecute(Sender: TObject);
+    procedure EditLockExecute(Sender: TObject);
+    procedure EditSendToBackExecute(Sender: TObject);
     procedure FGraphMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure FGraphObjectMouseEnter(Graph: TEvsSimpleGraph;
       GraphObject: TEvsGraphObject);
     procedure FGraphObjectMouseLeave(Graph: TEvsSimpleGraph;
       GraphObject: TEvsGraphObject);
+    procedure FormatAlignBottomExecute(Sender: TObject);
+    procedure FormatAlignLeftExecute(Sender: TObject);
+    procedure FormatAlignRightExecute(Sender: TObject);
+    procedure FormatAlignTopExecute(Sender: TObject);
+    procedure FormatVCenterExecute(Sender: TObject);
     procedure goDblClick(Graph: TEvsSimpleGraph; GraphObject: TEvsGraphObject);
     procedure ObjectsBezierExecute(Sender: TObject);
     procedure ObjectsLinkExecute(Sender: TObject);
@@ -195,6 +219,7 @@ type
     procedure ObjectsTriangleExecute(Sender: TObject);
     procedure sbMenueClick(Sender: TObject);
     procedure SchemeStateChange(Sender: TObject);
+    procedure ToolButton13Click(Sender: TObject);
   private
     { private declarations }
     FEditable: Boolean;
@@ -226,6 +251,33 @@ uses uData,uBaseDBInterface,uMainTreeFrame,uscheme,uIntfStrConsts,uSchemenodepro
 
 resourcestring
   strNewScheme                     = 'Neues Schema';
+const
+  // ForEachObject Actions
+  FEO_DELETE             = 00;
+  FEO_SELECT             = 01;
+  FEO_INVERTSELECTION    = 02;
+  FEO_SENDTOBACK         = 03;
+  FEO_BRINGTOFRONT       = 04;
+  FEO_MAKESELECTABLE     = 05;
+  FEO_SETFONTFACE        = 06;
+  FEO_SETFONTSIZE        = 07;
+  FEO_SETFONTBOLD        = 08;
+  FEO_SETFONTITALIC      = 09;
+  FEO_SETFONTUNDERLINE   = 10;
+  FEO_RESETFONTBOLD      = 11;
+  FEO_RESETFONTITALIC    = 12;
+  FEO_RESETFONTUNDERLINE = 13;
+  FEO_SETALIGNMENTLEFT   = 14;
+  FEO_SETALIGNMENTCENTER = 15;
+  FEO_SETALIGNMENTRIGHT  = 16;
+  FEO_SETLAYOUTTOP       = 17;
+  FEO_SETLAYOUTCENTER    = 18;
+  FEO_SETLAYOUTBOTTOM    = 19;
+  FEO_REVERSEDIRECTION   = 20;
+  FEO_ROTATE90CW         = 21;
+  FEO_ROTATE90CCW        = 22;
+  FEO_GROW25             = 23;
+  FEO_SHRINK25           = 24;
 
 procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
 var
@@ -286,20 +338,41 @@ procedure TfShemeFrame.acSaveExecute(Sender: TObject);
 var
   aMS: TMemoryStream;
 begin
-  if Assigned(FConnection) then
-    begin
-      FDataSet.Edit;
-      aMS := TMemoryStream.Create;
-      FGraph.SaveToStream(aMS);
-      aMS.Position:=0;
-      Data.StreamToBlobField(aMS,FDataSet.DataSet,'DATA');
-      FDataSet.CascadicPost;
-    end;
+  FDataSet.Edit;
+  aMS := TMemoryStream.Create;
+  FGraph.SaveToStream(aMS);
+  aMS.Position:=0;
+  Data.StreamToBlobField(aMS,FDataSet.DataSet,'DATA');
+  Save;
 end;
 
 procedure TfShemeFrame.acStartTimeRegisteringExecute(Sender: TObject);
 begin
 
+end;
+
+procedure TfShemeFrame.EditBringToFrontExecute(Sender: TObject);
+var
+  vCntr : Integer;
+begin
+  for vCntr := 0 to FGraph.SelectedObjects.Count -1 do
+     FGraph.SelectedObjects[vCntr].BringToFront;
+end;
+
+procedure TfShemeFrame.EditLockExecute(Sender: TObject);
+var
+  vCntr: Integer;
+begin
+//  for vCntr := 0 to FGraph.SelectedObjects.Count -1 do
+//     FGraph.SelectedObjects[vCntr].LoadFromStream();:=True;
+end;
+
+procedure TfShemeFrame.EditSendToBackExecute(Sender: TObject);
+var
+  vCntr : Integer;
+begin
+  for vCntr := 0 to FGraph.SelectedObjects.Count -1 do
+     FGraph.SelectedObjects[vCntr].SendToBack;
 end;
 
 procedure TfShemeFrame.FGraphMouseUp(Sender: TObject; Button: TMouseButton;
@@ -334,6 +407,32 @@ begin
     Screen.Cursor:=crHandFlat;
 end;
 
+procedure TfShemeFrame.FormatAlignBottomExecute(Sender: TObject);
+begin
+  FormatAlignTop.Checked := True;
+  FGraph.ForEachObject(@ForEachCallback, FEO_SETLAYOUTBOTTOM, True);
+end;
+
+procedure TfShemeFrame.FormatAlignLeftExecute(Sender: TObject);
+begin
+  FGraph.ForEachObject(@ForEachCallback, FEO_SETALIGNMENTLEFT, True);
+end;
+
+procedure TfShemeFrame.FormatAlignRightExecute(Sender: TObject);
+begin
+  FGraph.ForEachObject(@ForEachCallback, FEO_SETALIGNMENTRIGHT, True);
+end;
+
+procedure TfShemeFrame.FormatAlignTopExecute(Sender: TObject);
+begin
+  FGraph.ForEachObject(@ForEachCallback, FEO_SETLAYOUTTOP, True);
+end;
+
+procedure TfShemeFrame.FormatVCenterExecute(Sender: TObject);
+begin
+  FGraph.ForEachObject(@ForEachCallback, FEO_SETLAYOUTCENTER, True);
+end;
+
 procedure TfShemeFrame.goDblClick(Graph: TEvsSimpleGraph;
   GraphObject: TEvsGraphObject);
 begin
@@ -352,8 +451,7 @@ end;
 
 procedure TfShemeFrame.acCancelExecute(Sender: TObject);
 begin
-  DataSet.CascadicCancel;
-  DoOpen;
+  Abort;
 end;
 
 procedure TfShemeFrame.acCopyExecute(Sender: TObject);
@@ -456,6 +554,11 @@ begin
   acCancel.Enabled:= aEnabled;
 end;
 
+procedure TfShemeFrame.ToolButton13Click(Sender: TObject);
+begin
+
+end;
+
 procedure TfShemeFrame.SetDataSet(const AValue: TBaseDBDataset);
 begin
   inherited SetDataSet(AValue);
@@ -478,6 +581,7 @@ var
   tmp: String;
   aMS: TMemoryStream;
 begin
+  inherited;
   TSchemeList(DataSet).OpenItem;
   FEditable := ((Data.Users.Rights.Right('PROJECTS') > RIGHT_READ));
 
@@ -550,34 +654,6 @@ begin
 
   FGraph.Enabled := FEditable;
 end;
-
-const
-  // ForEachObject Actions
-  FEO_DELETE             = 00;
-  FEO_SELECT             = 01;
-  FEO_INVERTSELECTION    = 02;
-  FEO_SENDTOBACK         = 03;
-  FEO_BRINGTOFRONT       = 04;
-  FEO_MAKESELECTABLE     = 05;
-  FEO_SETFONTFACE        = 06;
-  FEO_SETFONTSIZE        = 07;
-  FEO_SETFONTBOLD        = 08;
-  FEO_SETFONTITALIC      = 09;
-  FEO_SETFONTUNDERLINE   = 10;
-  FEO_RESETFONTBOLD      = 11;
-  FEO_RESETFONTITALIC    = 12;
-  FEO_RESETFONTUNDERLINE = 13;
-  FEO_SETALIGNMENTLEFT   = 14;
-  FEO_SETALIGNMENTCENTER = 15;
-  FEO_SETALIGNMENTRIGHT  = 16;
-  FEO_SETLAYOUTTOP       = 17;
-  FEO_SETLAYOUTCENTER    = 18;
-  FEO_SETLAYOUTBOTTOM    = 19;
-  FEO_REVERSEDIRECTION   = 20;
-  FEO_ROTATE90CW         = 21;
-  FEO_ROTATE90CCW        = 22;
-  FEO_GROW25             = 23;
-  FEO_SHRINK25           = 24;
 
 function TfShemeFrame.ForEachCallback(GraphObject: TEvsGraphObject;
   UserData: integer): boolean;
@@ -698,9 +774,7 @@ end;
 
 procedure TfShemeFrame.New;
 begin
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
+  inherited;
   TabCaption := strNewScheme;
   DataSet := TSchemeList.CreateEx(Self,Data,FConnection);
   DataSet.Select(0);
@@ -711,6 +785,7 @@ end;
 
 function TfShemeFrame.OpenFromLink(aLink: string): Boolean;
 begin
+  inherited;
   Result := False;
   if not ((copy(aLink,0,pos('@',aLink)-1) = 'SCHEME')
   or (copy(aLink,0,pos('@',aLink)-1) = 'SCHEME.ID')) then exit;
@@ -718,9 +793,6 @@ begin
     aLink := copy(aLink,0,rpos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
     aLink := copy(aLink,0,rpos('(',aLink)-1);
-  CloseConnection;
-  if not Assigned(FConnection) then
-    FConnection := Data.GetNewConnection;
   DataSet := TSchemeList.CreateEx(Self,Data,FConnection);
   if TbaseDbList(DataSet).SelectFromLink(aLink) then
     FDataSet.Open;
