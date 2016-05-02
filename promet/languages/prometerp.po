@@ -10295,6 +10295,10 @@ msgctxt "uscriptframe.strnewarticle"
 msgid "neuer Artikel"
 msgstr ""
 
+#: uscriptframe.strnewscript
+msgid "Neues Script"
+msgstr ""
+
 #: uscriptframe.strprices
 msgctxt "uscriptframe.strprices"
 msgid "Preise"
