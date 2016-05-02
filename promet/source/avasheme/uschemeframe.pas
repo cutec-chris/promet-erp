@@ -26,8 +26,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, ExtCtrls, StdCtrls, Buttons,
   DbCtrls, EditBtn, ComCtrls, ActnList, uExtControls, db, uPrometFrames,
-  uPrometFramesInplace, usimplegraph, Graphics, Menus, uBaseDbClasses, variants,
-  Utils;
+  uPrometFramesInplace, usimplegraph, Graphics, Menus, ExtDlgs, uBaseDbClasses,
+  variants, Utils;
 
 type
 
@@ -51,6 +51,9 @@ type
     acDeleteElement: TAction;
     acProperties: TAction;
     acOpen: TAction;
+    acExportToImage: TAction;
+    Bevel11: TBevel;
+    bSave1: TSpeedButton;
     EditLock: TAction;
     ActionList: TActionList;
     ActionList1: TActionList;
@@ -99,6 +102,7 @@ type
     HelpUsage: TAction;
     ImageList: TImageList;
     Label7: TLabel;
+    Label8: TLabel;
     LinkAddPoint: TAction;
     LinkGrow: TAction;
     LinkRemovePoint: TAction;
@@ -138,6 +142,7 @@ type
     Panel1: TPanel;
     Panel10: TPanel;
     Panel11: TPanel;
+    Panel12: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Panel5: TPanel;
@@ -145,6 +150,7 @@ type
     pmAction: TPopupMenu;
     pmContext: TPopupMenu;
     pToolbar: TPanel;
+    SavePictureDialog1: TSavePictureDialog;
     Scheme: TDataSource;
     eName: TDBEdit;
     Label3: TLabel;
@@ -189,11 +195,11 @@ type
     procedure acDeleteExecute(Sender: TObject);
     procedure acEditExecute(Sender: TObject);
     procedure acExportExecute(Sender: TObject);
+    procedure acExportToImageExecute(Sender: TObject);
     procedure acImportExecute(Sender: TObject);
     procedure acOpenExecute(Sender: TObject);
     procedure acPasteExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
-    procedure acStartTimeRegisteringExecute(Sender: TObject);
     procedure EditBringToFrontExecute(Sender: TObject);
     procedure EditLockExecute(Sender: TObject);
     procedure EditSendToBackExecute(Sender: TObject);
@@ -247,7 +253,7 @@ procedure AddToMainTree(aAction : TAction;Node : TTreeNode);
 implementation
 
 uses uData,uBaseDBInterface,uMainTreeFrame,uscheme,uIntfStrConsts,uSchemenodeproperties,
-  uschemelinkproperties,Dialogs,uscriptimport;
+  uschemelinkproperties,Dialogs,uscriptimport,uthumbnails;
 
 resourcestring
   strNewScheme                     = 'Neues Schema';
@@ -337,18 +343,36 @@ end;
 procedure TfShemeFrame.acSaveExecute(Sender: TObject);
 var
   aMS: TMemoryStream;
+  aThumb: TThumbnails;
+  aStream: TMemoryStream;
 begin
   FDataSet.Edit;
   aMS := TMemoryStream.Create;
   FGraph.SaveToStream(aMS);
   aMS.Position:=0;
   Data.StreamToBlobField(aMS,FDataSet.DataSet,'DATA');
+  aThumb := TThumbnails.Create(nil);
+  try
+    aThumb.SelectByRefId(DataSet.Id.AsVariant);
+    aThumb.Open;
+    while aThumb.Count>0 do
+      aThumb.Delete;
+    aThumb.Append;
+    aThumb.FieldByName('REF_ID_ID').AsVariant:=DataSet.Id.AsVariant;
+    FGraph.SaveAsBitmap(GetTempDir+'ptemp.bmp');
+    aStream := TMemoryStream.Create;
+    if uthumbnails.GenerateThumbNail(GetTempDir+'ptemp.bmp',GetTempDir+'ptemp.bmp',aStream,'') then
+      begin
+        if aStream.Size>0 then
+          Data.StreamToBlobField(aStream,aThumb.DataSet,'THUMBNAIL');
+        aThumb.Post;
+      end;
+    aStream.Free;
+    DeleteFile(GetTempDir+'ptemp.bmp');
+  finally
+    aThumb.Free;
+  end;
   Save;
-end;
-
-procedure TfShemeFrame.acStartTimeRegisteringExecute(Sender: TObject);
-begin
-
 end;
 
 procedure TfShemeFrame.EditBringToFrontExecute(Sender: TObject);
@@ -481,6 +505,21 @@ procedure TfShemeFrame.acExportExecute(Sender: TObject);
 begin
   if fScriptImport.Execute(icExport,'D',FDataSet) then
     DataSet.DataSet.Refresh;
+end;
+
+procedure TfShemeFrame.acExportToImageExecute(Sender: TObject);
+var
+  aPic: TPicture;
+begin
+  if SavePictureDialog1.Execute then
+    begin
+      FGraph.SaveAsBitmap(GetTempDir+'ptemp.bmp');
+      aPic := TPicture.Create;
+      aPic.LoadFromFile(GetTempDir+'ptemp.bmp');
+      DeleteFile(GetTempDir+'ptemp.bmp');
+      aPic.SaveToFile(SavePictureDialog1.FileName);
+      aPic.Free;
+    end;
 end;
 
 procedure TfShemeFrame.acImportExecute(Sender: TObject);
