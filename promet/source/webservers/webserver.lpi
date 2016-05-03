@@ -122,7 +122,6 @@
         <ComponentName Value="AppDataServer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="udataserver"/>
       </Unit1>
       <Unit2>
         <Filename Value="uwebserver.pas"/>
@@ -130,7 +129,6 @@
         <ComponentName Value="TWebServer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="uwebserver"/>
       </Unit2>
       <Unit3>
         <Filename Value="uloggedout.pas"/>
@@ -138,20 +136,20 @@
         <ComponentName Value="loggedout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="uloggedout"/>
       </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/webserver"/>
+      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/webserver"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
     </SearchPaths>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
+      <TargetCPU Value="x86_64"/>
     </CodeGeneration>
     <Linking>
       <Debugging>
@@ -160,38 +158,4 @@
       <LinkSmart Value="True"/>
     </Linking>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="10">
-      <Item1>
-        <Name Value="EAbort"/>
-      </Item1>
-      <Item2>
-        <Name Value="ECodetoolError"/>
-      </Item2>
-      <Item3>
-        <Name Value="EFOpenError"/>
-      </Item3>
-      <Item4>
-        <Name Value="EZDatabaseError"/>
-      </Item4>
-      <Item5>
-        <Name Value="EAccessViolation"/>
-      </Item5>
-      <Item6>
-        <Name Value="RunError(216)"/>
-      </Item6>
-      <Item7>
-        <Name Value="EWriteError"/>
-      </Item7>
-      <Item8>
-        <Name Value="EFPHTTPError"/>
-      </Item8>
-      <Item9>
-        <Name Value="Exception"/>
-      </Item9>
-      <Item10>
-        <Name Value="EFPWebError"/>
-      </Item10>
-    </Exceptions>
-  </Debugging>
 </CONFIG>

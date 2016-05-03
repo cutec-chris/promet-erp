@@ -23,6 +23,9 @@
     <BuildModes Count="4">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="gtk2"/>
+        </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -46,6 +49,7 @@
               <OverflowChecks Value="True"/>
               <StackChecks Value="True"/>
             </Checks>
+            <TargetCPU Value="x86_64"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
@@ -216,35 +220,4 @@
 -dSTATISTICS"/>
     </Other>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="9">
-      <Item1>
-        <Name Value="EAbort"/>
-      </Item1>
-      <Item2>
-        <Name Value="ECodetoolError"/>
-      </Item2>
-      <Item3>
-        <Name Value="EFOpenError"/>
-      </Item3>
-      <Item4>
-        <Name Value="EZSQLException"/>
-      </Item4>
-      <Item5>
-        <Name Value="Exception"/>
-      </Item5>
-      <Item6>
-        <Name Value="RunError(216)"/>
-      </Item6>
-      <Item7>
-        <Name Value="EZDatabaseError"/>
-      </Item7>
-      <Item8>
-        <Name Value="EAccessViolation"/>
-      </Item8>
-      <Item9>
-        <Name Value="RunError(210)"/>
-      </Item9>
-    </Exceptions>
-  </Debugging>
 </CONFIG>

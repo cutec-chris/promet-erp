@@ -14,7 +14,7 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
-    <MacroValues Count="1">
+    <MacroValues Count="2">
       <Macro1 Name="LCLWidgetType" Value="nogui"/>
     </MacroValues>
     <BuildModes Count="1">
@@ -70,23 +70,13 @@
         <CStyleOperator Value="False"/>
       </SyntaxOptions>
     </Parsing>
+    <CodeGeneration>
+      <TargetCPU Value="x86_64"/>
+    </CodeGeneration>
     <Linking>
       <Debugging>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="3">
-      <Item1>
-        <Name Value="EZSQLException"/>
-      </Item1>
-      <Item2>
-        <Name Value="EZDatabaseError"/>
-      </Item2>
-      <Item3>
-        <Name Value="RunError(216)"/>
-      </Item3>
-    </Exceptions>
-  </Debugging>
 </CONFIG>
