@@ -283,6 +283,11 @@ begin
           cbVersion.Items.Add(aMasterdata.Version.AsString);
           aMasterdata.Next;
         end;
+      if cbVersion.Enabled then
+        begin
+          aMasterdata.Locate('ACTIVE','Y',[]);
+          cbVersion.Text:=aMasterdata.Version.AsString;
+        end;
     end;
   aMasterdata.Free;
 end;

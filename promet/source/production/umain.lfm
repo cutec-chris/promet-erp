@@ -28,9 +28,9 @@ object fMain: TfMain
     TabOrder = 0
     object Label1: TLabel
       Left = 8
-      Height = 32
+      Height = 34
       Top = 8
-      Width = 177
+      Width = 183
       Caption = 'Artikel oder Produktionsauftrag'#13#10'(scannen möglich)'
       Font.Height = -13
       ParentColor = False
@@ -38,7 +38,7 @@ object fMain: TfMain
     end
     object eOrder: TEdit
       Left = 56
-      Height = 21
+      Height = 23
       Hint = 'Geben Sie hier eine Produktionsauftragsnummer ein'#13#10'oder eine Artikelnummer und kleicken auf auswählen'
       Top = 48
       Width = 176
@@ -49,9 +49,9 @@ object fMain: TfMain
     end
     object Label2: TLabel
       Left = 8
-      Height = 16
+      Height = 17
       Top = 104
-      Width = 187
+      Width = 190
       Caption = 'Auftragsübersicht/Arbeitsschritte'
       Font.Height = -13
       ParentColor = False
@@ -81,7 +81,7 @@ object fMain: TfMain
       Width = 257
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderStyle = bsNone
-      DefaultItemHeight = 16
+      DefaultItemHeight = 18
       Images = fVisualControls.Images
       ReadOnly = True
       ScrollBars = ssAutoBoth
@@ -91,12 +91,12 @@ object fMain: TfMain
     end
     object cbVersion: TComboBox
       Left = 170
-      Height = 21
+      Height = 23
       Top = 72
       Width = 62
       Anchors = [akTop, akRight]
       Enabled = False
-      ItemHeight = 13
+      ItemHeight = 15
       Items.Strings = (
         'wählen Sie die Version des Artikels'
       )
