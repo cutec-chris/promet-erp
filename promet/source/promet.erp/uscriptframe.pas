@@ -104,8 +104,6 @@ type
     procedure cbVersionSelect(Sender: TObject);
     procedure eArticleNumberChange(Sender: TObject);
     procedure FEditorOpenUnit(aUnitName: string; X, Y: Integer);
-    procedure FrameEnter(Sender: TObject);
-    procedure FrameExit(Sender: TObject);
     function fSearchOpenItem(aLink: string): Boolean;
     procedure ScriptStateChange(Sender: TObject);
     procedure mShortTextExit(Sender: TObject);
@@ -244,16 +242,6 @@ begin
     data.GotoLink('SCRIPTS@'+aScript.Id.AsString);
   aScript.Free;
 end;
-
-procedure TfScriptFrame.FrameEnter(Sender: TObject);
-begin
-  ActionList1.State:=asNormal;
-end;
-procedure TfScriptFrame.FrameExit(Sender: TObject);
-begin
-  ActionList1.State:=asSuspended;
-end;
-
 function TfScriptFrame.fSearchOpenItem(aLink: string): Boolean;
 var
   aDataSetClass: TBaseDBDatasetClass;

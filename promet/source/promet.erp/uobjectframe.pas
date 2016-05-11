@@ -111,8 +111,6 @@ type
     procedure acSetTreeDirExecute(Sender: TObject);
     procedure bChangeNumberClick(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
-    procedure FrameEnter(Sender: TObject);
-    procedure FrameExit(Sender: TObject);
     procedure ElementStateChange(Sender: TObject);
     procedure mShortTextChange(Sender: TObject);
     procedure mShortTextExit(Sender: TObject);
@@ -266,15 +264,6 @@ begin
   FDataSet.FieldByName('STATUS').AsString:=tmp;
   acSave.Execute;
   DoOpen;
-end;
-
-procedure TfObjectFrame.FrameEnter(Sender: TObject);
-begin
-  ActionList1.State:=asNormal;
-end;
-procedure TfObjectFrame.FrameExit(Sender: TObject);
-begin
-  ActionList1.State:=asSuspended;
 end;
 procedure TfObjectFrame.ElementStateChange(Sender: TObject);
 begin

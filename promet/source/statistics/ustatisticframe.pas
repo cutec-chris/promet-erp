@@ -172,8 +172,6 @@ type
     procedure DataSetRemove(Sender: TObject);
     procedure DatasourceDataChange(Sender: TObject; Field: TField);
     procedure ExecuteTimerTimer(Sender: TObject);
-    procedure FrameEnter(Sender: TObject);
-    procedure FrameExit(Sender: TObject);
     procedure frReportGetValue(const ParName: String; var ParValue: Variant);
     procedure FSynCompletionExecute(Sender: TObject);
     procedure FSynCompletionSearchPosition(var aPosition: integer);
@@ -967,16 +965,6 @@ begin
   ExecuteTimer.Enabled:=False;
   acExecute.Execute;
 end;
-
-procedure TfStatisticFrame.FrameEnter(Sender: TObject);
-begin
-  //ActionList1.State:=asNormal;
-end;
-procedure TfStatisticFrame.FrameExit(Sender: TObject);
-begin
-  //ActionList1.State:=asSuspended;
-end;
-
 procedure TfStatisticFrame.frReportGetValue(const ParName: String;
   var ParValue: Variant);
 begin
