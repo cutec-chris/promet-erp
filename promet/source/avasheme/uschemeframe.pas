@@ -346,6 +346,7 @@ var
   aThumb: TThumbnails;
   aStream: TMemoryStream;
 begin
+  Save;
   FDataSet.Edit;
   aMS := TMemoryStream.Create;
   FGraph.SaveToStream(aMS);
@@ -372,7 +373,6 @@ begin
   finally
     aThumb.Free;
   end;
-  Save;
 end;
 
 procedure TfShemeFrame.EditBringToFrontExecute(Sender: TObject);
