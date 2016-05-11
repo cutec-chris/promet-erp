@@ -346,12 +346,12 @@ var
   aThumb: TThumbnails;
   aStream: TMemoryStream;
 begin
-  Save;
   FDataSet.Edit;
   aMS := TMemoryStream.Create;
   FGraph.SaveToStream(aMS);
   aMS.Position:=0;
   Data.StreamToBlobField(aMS,FDataSet.DataSet,'DATA');
+  Save;
   aThumb := TThumbnails.Create(nil);
   try
     aThumb.SelectByRefId(DataSet.Id.AsVariant);

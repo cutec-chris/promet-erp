@@ -909,7 +909,7 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'löschen'
       ImageIndex = 60
       OnExecute = acDeleteElementExecute
-      ShortCut = 16430
+      ShortCut = 46
     end
     object acProperties: TAction
       Caption = 'Eigenschaften'
