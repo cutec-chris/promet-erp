@@ -3,10 +3,8 @@ inherited fObjectFrame: TfObjectFrame
   Width = 650
   ClientHeight = 492
   ClientWidth = 650
-  OnEnter = FrameEnter
-  OnExit = FrameExit
-  DesignLeft = 359
-  DesignTop = 255
+  DesignLeft = 357
+  DesignTop = 203
   object pComponents: TPanel[0]
     Left = 0
     Height = 60
@@ -29,7 +27,7 @@ inherited fObjectFrame: TfObjectFrame
     end
     object eMatchCode: TDBEdit
       Left = 361
-      Height = 21
+      Height = 27
       Hint = 'Hier können Sie einen Suchbegriff angeben, '#13#10'um den Eintrag besser zu finden'
       Top = 22
       Width = 119
@@ -48,7 +46,7 @@ inherited fObjectFrame: TfObjectFrame
       Anchors = [akTop, akRight]
       Caption = 'Baum'
       ClientHeight = 30
-      ClientWidth = 61
+      ClientWidth = 63
       TabOrder = 0
       object bAssignTree: TSpeedButton
         Left = 2
@@ -88,9 +86,9 @@ inherited fObjectFrame: TfObjectFrame
     end
     object lShortText: TLabel
       Left = 8
-      Height = 13
+      Height = 17
       Top = 2
-      Width = 41
+      Width = 46
       Caption = 'Kurztext'
       ParentColor = False
     end
@@ -108,13 +106,13 @@ inherited fObjectFrame: TfObjectFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Notizen'
-      ClientHeight = 342
-      ClientWidth = 648
+      ClientHeight = 334
+      ClientWidth = 650
       object Memo1: TDBMemo
         Left = 0
-        Height = 342
+        Height = 334
         Top = 0
-        Width = 648
+        Width = 650
         Align = alClient
         DataField = 'NOTICE'
         DataSource = Element
@@ -333,7 +331,7 @@ inherited fObjectFrame: TfObjectFrame
       end
       object eArticleNumber: TDBEdit
         Left = 4
-        Height = 21
+        Height = 27
         Top = 13
         Width = 148
         DataField = 'NUMBER'
@@ -380,11 +378,11 @@ inherited fObjectFrame: TfObjectFrame
       end
       object cbStatus: TComboBox
         Left = 4
-        Height = 21
+        Height = 31
         Hint = 'hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen'
         Top = 12
         Width = 134
-        ItemHeight = 13
+        ItemHeight = 0
         OnSelect = cbStatusSelect
         Style = csDropDownList
         TabOrder = 0
@@ -450,14 +448,14 @@ inherited fObjectFrame: TfObjectFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 76
-    ClientWidth = 86
+    ClientHeight = 78
+    ClientWidth = 88
     TabOrder = 0
     object iArticle: TImage
       Left = 0
-      Height = 76
+      Height = 78
       Top = 0
-      Width = 86
+      Width = 88
       Align = alClient
       AutoSize = True
       PopupMenu = pmImage
