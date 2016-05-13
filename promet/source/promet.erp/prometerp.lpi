@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=devel --mandant=Help"/>
+        <CommandLineParams Value="--config-path=devel --mandant=Test --disbalethreads --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -626,40 +626,34 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="11">
+    <Exceptions Count="9">
       <Item1>
         <Name Value="EFOpenError"/>
       </Item1>
       <Item2>
-        <Name Value="EZSQLException"/>
+        <Name Value="EFCreateError"/>
       </Item2>
       <Item3>
-        <Name Value="EFCreateError"/>
+        <Name Value="EZDatabaseError"/>
       </Item3>
       <Item4>
-        <Name Value="EZDatabaseError"/>
+        <Name Value="EVariantError"/>
       </Item4>
       <Item5>
-        <Name Value="EVariantError"/>
+        <Name Value="ESQLParser"/>
       </Item5>
       <Item6>
-        <Name Value="ESQLParser"/>
+        <Name Value="ESQLScannerError"/>
       </Item6>
       <Item7>
-        <Name Value="ESQLScannerError"/>
+        <Name Value="EConvertError"/>
       </Item7>
       <Item8>
-        <Name Value="EConvertError"/>
+        <Name Value="EProcess"/>
       </Item8>
       <Item9>
-        <Name Value="EProcess"/>
+        <Name Value="Exception"/>
       </Item9>
-      <Item10>
-        <Name Value="RunError(216)"/>
-      </Item10>
-      <Item11>
-        <Name Value="EAccessViolation"/>
-      </Item11>
     </Exceptions>
   </Debugging>
 </CONFIG>
