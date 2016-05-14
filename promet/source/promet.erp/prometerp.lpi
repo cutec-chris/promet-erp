@@ -173,6 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -577,6 +578,7 @@
       <Unit39>
         <Filename Value="uallobjects.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="uAllObjects"/>
       </Unit39>
       <Unit40>
         <Filename Value="uarticleversion.pas"/>
@@ -625,7 +627,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="9">
+    <Exceptions Count="12">
       <Item1>
         <Name Value="EFOpenError"/>
       </Item1>
@@ -653,6 +655,15 @@
       <Item9>
         <Name Value="Exception"/>
       </Item9>
+      <Item10>
+        <Name Value="EStringListError"/>
+      </Item10>
+      <Item11>
+        <Name Value="EDatabaseError"/>
+      </Item11>
+      <Item12>
+        <Name Value="EZSQLException"/>
+      </Item12>
     </Exceptions>
   </Debugging>
 </CONFIG>
