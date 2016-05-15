@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -16,7 +16,7 @@
       <StringTable ProductVersion=""/>
     </VersionInfo>
     <MacroValues Count="1">
-      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
+      <Macro1 Name="LCLWidgetType" Value="nogui"/>
     </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="default" Default="True"/>
@@ -36,16 +36,15 @@
     </RunParams>
     <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="LAZ_MQTT"/>
-        <DefaultFilename Value="..\components\tmqttclient\TMQTTClient\laz_mqtt.lpk"/>
+        <PackageName Value="general_nogui"/>
       </Item1>
       <Item2>
-        <PackageName Value="pcmdprometapp"/>
-        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
+        <PackageName Value="LAZ_MQTT"/>
+        <DefaultFilename Value="..\components\tmqttclient\TMQTTClient\laz_mqtt.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="..\..\..\general\general.lpk"/>
+        <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item3>
     </RequiredPackages>
     <Units Count="1">
@@ -56,7 +55,7 @@
     </Units>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="11"/>
+    <Version Value="9"/>
     <PathDelim Value="\"/>
     <Target>
       <Filename Value="..\..\output\$(TargetCPU)-$(TargetOS)\import_mqtt"/>
@@ -70,13 +69,16 @@
         <UseAnsiStrings Value="False"/>
       </SyntaxOptions>
     </Parsing>
-    <CodeGeneration>
-      <TargetCPU Value="x86_64"/>
-    </CodeGeneration>
     <Linking>
       <Debugging>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
     </Linking>
+    <Other>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
   </CompilerOptions>
 </CONFIG>
