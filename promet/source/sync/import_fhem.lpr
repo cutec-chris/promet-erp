@@ -25,8 +25,8 @@ uses
   cthreads,
   {$ENDIF}
   Classes, SysUtils, CustApp
-  { you can add units after this },db,Utils,
-  FileUtil,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication, ufhem,
+  { you can add units after this },db,Utils, general_nogui,
+  uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication, ufhem,
   uBaseDbClasses,uMeasurement,
   uBaseApplication;
 
