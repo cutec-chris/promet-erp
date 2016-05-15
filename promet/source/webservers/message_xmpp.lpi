@@ -15,9 +15,6 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
-    <MacroValues Count="1">
-      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
-    </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="default" Default="True"/>
     </BuildModes>
@@ -36,20 +33,20 @@
     </RunParams>
     <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="promet_scripts"/>
-        <DefaultFilename Value="..\base\base_scripts\promet_scripts.lpk"/>
+        <PackageName Value="general_nogui"/>
+        <DefaultFilename Value="..\..\..\general\general_nogui.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="uxmpp_laz"/>
-        <DefaultFilename Value="..\components\uxmpp\source\uxmpp_laz.lpk"/>
+        <PackageName Value="promet_scripts"/>
+        <DefaultFilename Value="..\base\base_scripts\promet_scripts.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="pcmdprometapp"/>
-        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
+        <PackageName Value="uxmpp_laz"/>
+        <DefaultFilename Value="..\components\uxmpp\source\uxmpp_laz.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="..\..\..\general\general.lpk"/>
+        <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
       </Item4>
     </RequiredPackages>
     <Units Count="1">

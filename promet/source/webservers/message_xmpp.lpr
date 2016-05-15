@@ -26,10 +26,10 @@ uses
   cthreads,
   {$ENDIF}
   Classes, SysUtils, CustApp
-  { you can add units after this },db, Utils, FileUtil, uData, uIntfStrConsts,
-  pcmdprometapp, uBaseCustomApplication, uBaseApplication, uxmpp, synautil,
-  uPerson, uBaseDbClasses, uspeakinginterface, wikitohtml,uBaseDBInterface,
-  uprometcscript,uprometpascalscript,uprometpythonscript;
+  { you can add units after this },db, Utils, general_nogui, uData,
+  uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, uBaseApplication,
+  uxmpp, synautil, uPerson, uBaseDbClasses, uspeakinginterface, wikitohtml,
+  uBaseDBInterface, uprometcscript, uprometpascalscript, uprometpythonscript;
 
 type
   { PrometXMPPMessanger }
