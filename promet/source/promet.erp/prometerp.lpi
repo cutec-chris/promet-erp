@@ -25,7 +25,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="463"/>
+      <BuildNr Value="469"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help --debug-sql"/>
+        <CommandLineParams Value="--debug-sql --disablethreads"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -636,33 +636,43 @@
       </Item2>
       <Item3>
         <Name Value="EZDatabaseError"/>
+        <Enabled Value="False"/>
       </Item3>
       <Item4>
         <Name Value="EVariantError"/>
+        <Enabled Value="False"/>
       </Item4>
       <Item5>
         <Name Value="ESQLParser"/>
+        <Enabled Value="False"/>
       </Item5>
       <Item6>
         <Name Value="ESQLScannerError"/>
+        <Enabled Value="False"/>
       </Item6>
       <Item7>
         <Name Value="EConvertError"/>
+        <Enabled Value="False"/>
       </Item7>
       <Item8>
         <Name Value="EProcess"/>
+        <Enabled Value="False"/>
       </Item8>
       <Item9>
         <Name Value="Exception"/>
+        <Enabled Value="False"/>
       </Item9>
       <Item10>
         <Name Value="EStringListError"/>
+        <Enabled Value="False"/>
       </Item10>
       <Item11>
         <Name Value="EDatabaseError"/>
+        <Enabled Value="False"/>
       </Item11>
       <Item12>
         <Name Value="EZSQLException"/>
+        <Enabled Value="False"/>
       </Item12>
     </Exceptions>
   </Debugging>

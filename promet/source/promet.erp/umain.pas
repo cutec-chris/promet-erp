@@ -1849,7 +1849,7 @@ begin
       if not Data.GotoBookmark(Data.Tree,nData.Rec) then exit;
       aConn := Data.GetNewConnection;
       Data.StartTransaction(aConn);
-      ID := Data.Tree.Id.AsString;
+      ID := IntToStr(TREE_ID_DELETED_MESSAGES);
       aMessages := TMessageList.CreateEx(Self,Data);
       Data.SetFilter(aMessages,Data.QuoteField('TREEENTRY')+'='+ID);
       Data.DeletedItems.DataSet.Open;

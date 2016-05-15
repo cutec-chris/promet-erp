@@ -4,7 +4,7 @@ object fMain: TfMain
   Top = 131
   Width = 935
   Caption = 'Promet-ERP'
-  ClientHeight = 596
+  ClientHeight = 598
   ClientWidth = 935
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -17,10 +17,10 @@ object fMain: TfMain
   OnShow = FormShow
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '1.4.4.0'
+  LCLVersion = '1.7'
   object spTree: TSplitter
     Left = 283
-    Height = 558
+    Height = 560
     Top = 38
     Width = 5
     Color = clBtnFace
@@ -276,12 +276,12 @@ object fMain: TfMain
   end
   object tvMainAll: TPanel
     Left = 0
-    Height = 558
+    Height = 560
     Top = 38
     Width = 283
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 558
+    ClientHeight = 560
     ClientWidth = 283
     Color = clWindow
     DragMode = dmAutomatic
@@ -299,7 +299,7 @@ object fMain: TfMain
     end
     object tvMain: TPanel
       Left = 0
-      Height = 557
+      Height = 559
       Top = 1
       Width = 283
       Align = alClient
@@ -312,12 +312,12 @@ object fMain: TfMain
     end
     object tvSearchP: TPanel
       Left = 0
-      Height = 557
+      Height = 559
       Top = 1
       Width = 283
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 557
+      ClientHeight = 559
       ClientWidth = 283
       Color = clWindow
       DragMode = dmAutomatic
@@ -326,7 +326,7 @@ object fMain: TfMain
       Visible = False
       object eSearch: TEdit
         Left = 8
-        Height = 28
+        Height = 27
         Top = 11
         Width = 248
         Font.Color = clGrayText
@@ -340,7 +340,7 @@ object fMain: TfMain
         AnchorSideBottom.Control = eSearch
         AnchorSideBottom.Side = asrBottom
         Left = 258
-        Height = 28
+        Height = 27
         Top = 11
         Width = 23
         Action = acSearchOptions
@@ -351,13 +351,12 @@ object fMain: TfMain
       end
       object tvSearch: TTreeView
         Left = 0
-        Height = 517
+        Height = 519
         Top = 40
         Width = 283
         Align = alBottom
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderStyle = bsNone
-        DefaultItemHeight = 22
         DragMode = dmAutomatic
         Images = fVisualControls.Images
         ReadOnly = True
@@ -378,8 +377,8 @@ object fMain: TfMain
         Visible = False
         object lSearchtype: TLabel
           Left = 5
-          Height = 20
-          Top = 176
+          Height = 17
+          Top = 173
           Width = 239
           Align = alTop
           BorderSpacing.Around = 4
@@ -389,17 +388,18 @@ object fMain: TfMain
         object cbSearchType: TCheckListBox
           Left = 9
           Height = 135
-          Top = 33
+          Top = 30
           Width = 231
           Align = alTop
           BorderSpacing.Around = 8
           ItemHeight = 0
           OnClick = cbSearchTypeClick
           TabOrder = 1
+          TopIndex = -1
         end
         object lSearchIn: TLabel
           Left = 5
-          Height = 20
+          Height = 17
           Top = 5
           Width = 239
           Align = alTop
@@ -409,8 +409,8 @@ object fMain: TfMain
         end
         object cbSearchIn: TCheckListBox
           Left = 9
-          Height = 109
-          Top = 204
+          Height = 115
+          Top = 198
           Width = 231
           Align = alClient
           BorderSpacing.Around = 8
@@ -418,6 +418,7 @@ object fMain: TfMain
           OnClick = cbSearchTypeClick
           TabOrder = 0
           TabStop = False
+          TopIndex = -1
         end
       end
     end
@@ -426,18 +427,18 @@ object fMain: TfMain
     AnchorSideLeft.Control = spTree
     AnchorSideLeft.Side = asrBottom
     Left = 288
-    Height = 596
+    Height = 598
     Top = 0
     Width = 643
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
     Caption = 'pPages'
-    ClientHeight = 596
+    ClientHeight = 598
     ClientWidth = 643
     TabOrder = 3
     object pcPages: TExtMenuPageControl
       Left = 0
-      Height = 596
+      Height = 598
       Top = 0
       Width = 643
       ActivePage = tsStartpage

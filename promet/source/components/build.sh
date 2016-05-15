@@ -28,7 +28,7 @@ if [ "$?" -ne "0" ]; then
   $grep -w "Error:" build.txt
   exit 1
 fi
-$lazbuild -b zeos/packages/kcontrols/packages/kcontrols/kcontrolslaz.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
+$lazbuild -b kcontrols/packages/kcontrols/kcontrolslaz.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed kcontrols"
   $grep -w "Error:" build.txt
