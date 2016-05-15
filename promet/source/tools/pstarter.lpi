@@ -79,6 +79,7 @@
       <Checks>
         <StackChecks Value="True"/>
       </Checks>
+      <TargetCPU Value="x86_64"/>
     </CodeGeneration>
     <Linking>
       <Debugging>

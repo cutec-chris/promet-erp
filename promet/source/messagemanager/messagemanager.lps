@@ -4,14 +4,14 @@
     <Version Value="9"/>
     <BuildModes Active="Default">
       <SessionMatrixOptions Count="1">
-        <Item1 ID="539819260627" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+        <Item1 ID="927103177862" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SessionMatrixOptions>
     </BuildModes>
     <Units Count="5">
       <Unit0>
         <Filename Value="messagemanager.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="9"/>
         <CursorPos Y="22"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -35,9 +35,10 @@
         <ComponentName Value="fmTimeline"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="1218"/>
-        <CursorPos X="34" Y="1239"/>
+        <TopLine Value="299"/>
+        <CursorPos X="9" Y="320"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit2>

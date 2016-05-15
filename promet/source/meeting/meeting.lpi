@@ -50,7 +50,7 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="12">
+    <RequiredPackages Count="11">
       <Item1>
         <PackageName Value="pProjectbase"/>
         <DefaultFilename Value="..\base\base_pm\pprojectbase.lpk"/>
@@ -80,20 +80,17 @@
         <PackageName Value="LCL"/>
       </Item8>
       <Item9>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item9>
       <Item10>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCLBase"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item10>
       <Item11>
-        <PackageName Value="LCLBase"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
-      </Item11>
-      <Item12>
         <PackageName Value="pVisualPrometApp"/>
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
-      </Item12>
+      </Item11>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>

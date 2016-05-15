@@ -19,6 +19,9 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
+    <MacroValues Count="1">
+      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
+    </MacroValues>
     <BuildModes Count="2">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
@@ -145,6 +148,7 @@
     </SearchPaths>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
+      <TargetCPU Value="x86_64"/>
       <Optimizations>
         <OptimizationLevel Value="3"/>
       </Optimizations>
@@ -161,14 +165,4 @@
       </Options>
     </Linking>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="2">
-      <Item1>
-        <Name Value="EProcess"/>
-      </Item1>
-      <Item2>
-        <Name Value="EFOpenError"/>
-      </Item2>
-    </Exceptions>
-  </Debugging>
 </CONFIG>
