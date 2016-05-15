@@ -26,7 +26,7 @@ uses
   {$ENDIF}
   Classes, SysUtils, CustApp
   { you can add units after this },db,Utils, general_nogui,
-  FileUtil,uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
+  uData, uIntfStrConsts, pcmdprometapp,uBaseCustomApplication,
   MQTT,uBaseDbClasses,uMeasurement,
   uBaseApplication;
 
