@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default">
-      <SessionMatrixOptions Count="11">
+      <SessionMatrixOptions Count="13">
         <Item1 ID="590010015789" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
         <Item2 ID="420011688654" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
         <Item3 ID="733527838960" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
@@ -16,6 +16,8 @@
         <Item9 ID="664692755961" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
         <Item10 ID="425080343177" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
         <Item11 ID="923643986244" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+        <Item12 ID="489621779814" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+        <Item13 ID="685919616065" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SessionMatrixOptions>
     </BuildModes>
     <Units Count="1">
