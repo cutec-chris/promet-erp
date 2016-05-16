@@ -19,7 +19,7 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
-    <MacroValues Count="11">
+    <MacroValues Count="12">
       <Macro1 Name="LCLWidgetType" Value="nogui"/>
       <Macro2 Name="LCLWidgetType" Value="gtk2"/>
       <Macro3 Name="LCLWidgetType" Value="gtk2"/>
@@ -30,6 +30,7 @@
       <Macro8 Name="LCLWidgetType" Value="gtk2"/>
       <Macro9 Name="LCLWidgetType" Value="gtk2"/>
       <Macro10 Name="LCLWidgetType" Value="gtk2"/>
+      <Macro11 Name="LCLWidgetType" Value="gtk2"/>
     </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>

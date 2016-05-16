@@ -28,9 +28,6 @@
       <BuildNr Value="472"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
-    <MacroValues Count="1">
-      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
-    </MacroValues>
     <BuildModes Count="5">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
@@ -632,4 +629,20 @@
       <CustomOptions Value="-dHASMESSAGING"/>
     </Other>
   </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="4">
+      <Item1>
+        <Name Value="EProcess"/>
+      </Item1>
+      <Item2>
+        <Name Value="EDatabaseError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EConvertError"/>
+      </Item3>
+      <Item4>
+        <Name Value="EFOpenError"/>
+      </Item4>
+    </Exceptions>
+  </Debugging>
 </CONFIG>
