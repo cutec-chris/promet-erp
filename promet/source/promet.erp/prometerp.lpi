@@ -626,7 +626,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="4">
+    <Exceptions Count="6">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -639,6 +639,12 @@
       <Item4>
         <Name Value="EZDatabaseError"/>
       </Item4>
+      <Item5>
+        <Name Value="Exception"/>
+      </Item5>
+      <Item6>
+        <Name Value="EFCreateError"/>
+      </Item6>
     </Exceptions>
   </Debugging>
 </CONFIG>
