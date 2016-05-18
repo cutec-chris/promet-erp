@@ -1,27 +1,25 @@
 #!/bin/bash
 # path to lazbuild
-
-#if [ -e promet/source/base/version.inc ]
+if [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then
+    export TARGET_EXTENSION='.exe'
+  else
+    export TARGET_EXTENSION=''
+fi
 if [ "x$lazbuild" = "x" ]
   then
-  export lazbuild="lazbuild"
+  echo "$lazbuild"
   export grep="grep"
   export SED="sed"
   $SED 's/||/| |/g' /dev/null
   if [ "$?" -ne "0" ]; then
     export SED="$(PWD)/promet/setup/build-tools/sed.exe"
   fi
-  export TARGET_CPU=$( lazbuild -? | grep 'powerpc_64' | $SED -e 's/.*: //')
-  export TARGET_WIDGETSET=$( lazbuild -? | grep 'Carbon.' | $SED 's/.*: //')
-  export TARGET_OS=$( lazbuild -? | grep 'linux.' | $SED -e 's/.*: //')
+  export TARGET_CPU=$( $lazbuild -? | grep 'powerpc_64' | $SED -e 's/.*: //')
+  export TARGET_WIDGETSET=$( $lazbuild -? | grep 'Carbon.' | $SED 's/.*: //')
+  export TARGET_OS=$( $lazbuild -? | grep 'linux.' | $SED -e 's/.*: //')
   echo "CPU:$TARGET_CPU" 
   echo "OS:$TARGET_OS"
   echo "Widgetset:$TARGET_WIDGETSET"
-  if [ "x$TARGET_OS" = "xwin32" ]; then
-    export TARGET_EXTENSION='.exe'
-    else
-    export TARGET_EXTENSION=''
-  fi
   if [ "x$TARGET_CPU" = "xarm" ]; then
     export TARGET_OS='linux'
   fi
@@ -56,4 +54,3 @@ if [ "x$lazbuild" = "x" ]
     export BUILD_PARAMS=-q
   fi
 fi
-

@@ -64,46 +64,57 @@ build_server()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/webservers/build_imap.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/webservers/build_dav.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/sync/build_mail.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/sync/build_feed.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/sync/build_mqtt.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/sync/build_fhem.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/sync/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/webservers/build_webserver.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/webservers/build_xmpp.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/scripts/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
 }
 
 build_all()
@@ -111,40 +122,51 @@ build_all()
   clean_all
   echo "Building all..."
   . ./promet/source/components/build.sh
+  sleep 5
   . ./promet/source/testcases/build.sh
+  sleep 5
   build_server;
+  sleep 2
   . ./promet/source/promet.erp/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/tools/build_visual.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/messagemanager/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/meeting/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/tools/build_archivestore.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   . ./promet/source/statistics/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  sleep 2
   if [ "x$TARGET_OS" != "xwin32" ]; then
     . ./promet/help/build.sh $2
     . ./promet/importdata/build.sh $2
   fi
+  sleep 2
   if [ "x$TARGET_OS" = "xwin32" ]; then
     . ./promet/setup/i386-win32/build.sh $2
     . ./promet/setup/i386-win32/change_wiki_windows.sh $2
   fi
+  sleep 2
   if [ "x$TARGET_OS" = "xlinux" ]; then
     . ./promet/setup/i386-linux/build.sh $2
     . ./promet/setup/i386-linux/change_wiki.sh $2
