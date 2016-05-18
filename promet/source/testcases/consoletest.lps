@@ -14,6 +14,7 @@
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <CursorPos X="3" Y="11"/>
         <UsageCount Value="35"/>
         <Loaded Value="True"/>
