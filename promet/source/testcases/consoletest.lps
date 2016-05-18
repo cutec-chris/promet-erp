@@ -10,16 +10,42 @@
         <Item3 ID="722410265450" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SessionMatrixOptions>
     </BuildModes>
-    <Units Count="1">
+    <Units Count="3">
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos X="3" Y="11"/>
         <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="230"/>
+        <CursorPos Y="250"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="uordertest.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="33"/>
+        <CursorPos Y="53"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit2>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory Count="2" HistoryIndex="1">
+      <Position1>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="11" Column="3"/>
+      </Position1>
+      <Position2>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
+        <Caret Line="250" TopLine="230"/>
+      </Position2>
+    </JumpHistory>
   </ProjectSession>
 </CONFIG>
