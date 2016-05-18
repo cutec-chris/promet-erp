@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, udocuments, utils,
-  fileutil,uBaseApplication;
+  uBaseApplication;
 
 type
 
@@ -173,11 +173,11 @@ begin
   aDoc.Free;
   aDoc2.Free;
   aDir.Free;
-  FileUtil.DeleteDirectory(TempPath,False);
+//  DeleteDirectory(TempPath,False);
 end;
 
 initialization
 
   RegisterTest(DocumentManagmement); 
 end.
-
+

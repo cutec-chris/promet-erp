@@ -41,11 +41,7 @@ if [ "$?" -ne "0" ]; then
   exit 1
 fi
 $lazbuild websockets/websockets.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
-if [ "$?" -ne "0" ]; then
-  echo "build failed websockets"
-  $grep -w "Error:" build.txt
-  exit 1
-fi
+
 $lazbuild uxmpp/source/uxmpp_laz.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed xmpp"
@@ -107,9 +103,4 @@ if [ "$?" -ne "0" ]; then
   exit 1
 fi
 $lazbuild lazreport/lazreport_addons.lpk $BUILD_ARCH $BUILD_PARAMS > build.txt
-if [ "$?" -ne "0" ]; then
-  echo "build failed lazreport addons"
-  $grep -w "Error:" build.txt
-  exit 1
-fi
 cd $basedir

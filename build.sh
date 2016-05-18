@@ -111,21 +111,8 @@ build_all()
   clean_all
   echo "Building all..."
   . ./promet/source/components/build.sh
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-#  . ./promet/source/testcases/build.sh
-#  if [ "$?" -ne "0" ]; then
-#    exit 1
-#  fi
-  . ./promet/source/plugins/build.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  . ./promet/source/tools/build.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
+  . ./promet/source/testcases/build.sh
+  build_server;
   . ./promet/source/promet.erp/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
@@ -150,30 +137,6 @@ build_all()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/webservers/build_imap.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  . ./promet/source/sync/build_mail.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  . ./promet/source/sync/build_feed.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  . ./promet/source/sync/build_mqtt.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  . ./promet/source/sync/build_fhem.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  . ./promet/source/sync/build.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
   if [ "x$TARGET_OS" != "xwin32" ]; then
     . ./promet/help/build.sh $2
     . ./promet/importdata/build.sh $2
@@ -187,14 +150,6 @@ build_all()
     . ./promet/setup/i386-linux/change_wiki.sh $2
   fi
 
-  . ./promet/source/webservers/build_webserver.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  . ./promet/source/webservers/build_dav.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
 }
 
 clean_all()

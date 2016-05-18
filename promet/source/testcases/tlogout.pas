@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, uData,
-  Dialogs, Forms, uBaseApplication;
+  Dialogs, uBaseApplication;
 
 type
 
@@ -31,4 +31,4 @@ initialization
 
   RegisterTest(LogoutTest); 
 end.
-
+

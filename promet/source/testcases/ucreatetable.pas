@@ -3,7 +3,7 @@ unit ucreatetable;
 interface
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, uData, uBaseDbClasses,db,
-  uBaseDBInterface,Forms,uBaseDatasetInterfaces;
+  uBaseDBInterface,uBaseDatasetInterfaces;
 type
   TSubTable = class(TBaseDBDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;

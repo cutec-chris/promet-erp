@@ -5,7 +5,7 @@ unit tLogin;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry, uData, Forms,
+  Classes, SysUtils, fpcunit, testutils, testregistry, uData,
   Dialogs, uBaseApplication, uBaseDbInterface;
 
 type
@@ -43,4 +43,4 @@ initialization
 
   RegisterTest(LoginTest);
 end.
-
+
