@@ -478,6 +478,10 @@ begin
           end;
       finally
         aSyncStamps.Free;
+        SyncDB.Tables.DataSet.Edit;
+        SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').Clear;
+        SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').Clear;
+        SyncDB.Tables.DataSet.Post;
       end;
     end;
 end;
@@ -632,6 +636,7 @@ begin
                                               inc(SyncedTables,FSyncedCount);
                                               if (SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = FOldTime) and (FSyncedCount>1) then
                                                 inc(SyncedTables,SyncTable(SyncDB,uData.Data,FDest.GetDB));
+                                              if (SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = FOldTime) then break;
                                             except
                                               on e : Exception do
                                                 Error(e.Message);
