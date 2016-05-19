@@ -7,7 +7,7 @@ echo "Building webserver..."
 $lazbuild webserver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed"
-  $grep -w "Error:" build.txt
+  tail -n 10  build.txt
 #  exit 1
 #  build fails on old compilers
 fi

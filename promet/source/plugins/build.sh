@@ -7,37 +7,37 @@ echo "Building plugins..."
 $lazbuild dwgfile/dwgfile.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed"
-  $grep -w "Error:" build.txt
+  tail -n 10 build.txt
 fi
 $lazbuild mindmap/mindmap.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed"
-  $grep -w "Error:" build.txt
+  tail -n 10 build.txt
 fi
 $lazbuild oofile/oofile.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed"
-  $grep -w "Error:" build.txt
+  tail -n 10 build.txt
 fi
 $lazbuild solidworks/solidworks.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed"
-  $grep -w "Error:" build.txt
+  tail -n 10 build.txt
 fi
 $lazbuild target3001/target3001.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed"
-  $grep -w "Error:" build.txt
+  tail -n 10 build.txt
 fi
 $lazbuild vectorfile/vectorfile.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed"
-  $grep -w "Error:" build.txt
+  tail -n 10 build.txt
 fi
 $lazbuild winthumb/winthumb.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed"
-  $grep -w "Error:" build.txt
+  tail -n 10 build.txt
 fi
 
 #set -xv

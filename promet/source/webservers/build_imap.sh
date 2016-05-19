@@ -7,7 +7,7 @@ echo "Building imapserver..."
 $lazbuild imapserver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed"
-  $grep -w "Error:" build.txt
+  tail -n 10 build.txt
   exit 1
 fi
 cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
