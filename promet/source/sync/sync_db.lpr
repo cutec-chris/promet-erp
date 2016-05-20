@@ -288,7 +288,7 @@ var
     if (not RestoreTime) and SetTime then
       begin
         SyncDB.Tables.DataSet.Edit;
-        if aLastRowTime>0 then
+        if (aLastRowTime>0) and (aOldTime<>aLastRowTime) then
           SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aLastRowTime
         else
           SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aGlobalTime;
@@ -635,11 +635,8 @@ begin
                                             FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                                             try
                                               FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
-                                              FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,600);
+                                              FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                               inc(SyncedTables,FSyncedCount);
-                                              if (SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = FOldTime) and (FSyncedCount>1) then
-                                                inc(SyncedTables,SyncTable(SyncDB,uData.Data,FDest.GetDB));
-                                              if (SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = FOldTime) then Continue;
                                             except
                                               on e : Exception do
                                                 Error(e.Message);
