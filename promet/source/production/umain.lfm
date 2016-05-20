@@ -43,6 +43,7 @@ object fMain: TfMain
       Top = 48
       Width = 176
       Anchors = [akTop, akLeft, akRight]
+      OnExit = eOrderExit
       OnKeyPress = eOrderKeyPress
       TabOrder = 0
       Text = '<Auftragsnummer oder Artikel>'

@@ -483,7 +483,8 @@ begin
         SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').Clear;
         SyncDB.Tables.DataSet.Post;
       end;
-    end;
+    end
+  else Info('Table "'+SyncDB.Tables.DataSet.FieldByName('NAME').AsString+'" ist gesperrt von anderem Prozess')
 end;
 function TSyncDBApp.GetSingleInstance: Boolean;
 begin

@@ -28,6 +28,9 @@ uses
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, uOrder,
   uBaseDbInterface,uBaseDbClasses,fautomationform;
 type
+
+  { TfMain }
+
   TfMain = class(TForm)
     acLogin: TAction;
     acLogout: TAction;
@@ -63,6 +66,7 @@ type
     procedure acLogoutExecute(Sender: TObject);
     procedure acSearchMasterdataExecute(Sender: TObject);
     procedure DoRestoreConfig(Data: PtrInt);
+    procedure eOrderExit(Sender: TObject);
     procedure eOrderKeyPress(Sender: TObject; var Key: char);
     procedure FAutomationSelectStep(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -205,6 +209,36 @@ procedure TfMain.DoRestoreConfig(Data: PtrInt);
 begin
   with Application as IBaseApplication do
     RestoreConfig; //Must be called when Mainform is Visible
+end;
+
+procedure TfMain.eOrderExit(Sender: TObject);
+var
+  aMasterdata: TMasterdata;
+begin
+  aMasterdata := TMasterdata.Create(nil);
+  aMasterdata.Select(eOrder.Text);
+  aMasterdata.Open;
+  if aMasterdata.Count>0 then
+    begin
+      eOrder.Text:=aMasterdata.Number.AsString;
+      cbVersion.Text:=aMasterdata.Version.AsString;
+      aMasterdata.Select(aMasterdata.Number.AsString);
+      aMasterdata.Open;
+      cbVersion.Enabled:=aMasterdata.Count>1;
+      cbVersion.Items.Clear;
+      aMasterdata.First;
+      while not aMasterdata.EOF do
+        begin
+          cbVersion.Items.Add(aMasterdata.Version.AsString);
+          aMasterdata.Next;
+        end;
+      if cbVersion.Enabled then
+        begin
+          aMasterdata.Locate('ACTIVE','Y',[]);
+          cbVersion.Text:=aMasterdata.Version.AsString;
+        end;
+    end;
+  aMasterdata.Free;
 end;
 
 procedure TfMain.eOrderKeyPress(Sender: TObject; var Key: char);
