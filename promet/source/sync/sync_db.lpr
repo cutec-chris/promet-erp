@@ -28,7 +28,7 @@ uses
   pcmdprometapp, uData, db, uBaseDBInterface, uBaseApplication,
   uBaseCustomApplication, uBaseDbClasses, uSync, uOrder, uPerson, uMasterdata,
   uMessages,Utils,uminiconvencoding,uBaseDatasetInterfaces,utask,uCalendar,
-  uProjects,uDocuments;
+  uProjects,uDocuments,dateutils;
 type
 
   { TSyncDBApp }
@@ -152,16 +152,16 @@ begin
                 end;
             end;
         end;
-      if aSource.FieldByName('TIMESTAMPD').AsDateTime > aLastRowTime then
-        aLastRowTime:=aSource.FieldByName('TIMESTAMPD').AsDateTime;
+      if LocalTimeToUniversal(aSource.FieldByName('TIMESTAMPD').AsDateTime) > aLastRowTime then
+        aLastRowTime:=LocalTimeToUniversal(aSource.FieldByName('TIMESTAMPD').AsDateTime);
       if SyncOut and DoPost then
         if aDest.FieldDefs.IndexOf('TIMESTAMPD') > -1 then
           if not aDest.FieldByName('TIMESTAMPD').IsNull then
-            if aDest.FieldByName('TIMESTAMPD').AsDateTime < aFirstSyncedRow then
-              aFirstSyncedRow:=aDest.FieldByName('TIMESTAMPD').AsDateTime;
+            if LocalTimeToUniversal(aDest.FieldByName('TIMESTAMPD').AsDateTime) < aFirstSyncedRow then
+              aFirstSyncedRow:=LocalTimeToUniversal(aDest.FieldByName('TIMESTAMPD').AsDateTime);
       if aDest.FieldDefs.IndexOf('TIMESTAMPD') > -1 then
         if aDest.FieldByName('TIMESTAMPD').IsNull then
-          aDest.FieldByName('TIMESTAMPD').AsDateTime:=Now();
+          aDest.FieldByName('TIMESTAMPD').AsDateTime:=LocalTimeToUniversal(Now());
       if DoPost then
         aDest.Post;
       //TODO-:TimestampD must be not actial Time !!!
@@ -178,7 +178,7 @@ begin
           aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
           aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
           aSyncError.FieldByName('REMOTE_ID').AsString:=SyncTbl.FieldByName('SQL_ID').AsString;
-          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
+          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=LocalTimeToUniversal(Now());
           aSyncError.FieldByName('REMOTE_TIME').AsDateTime:=SyncTbl.FieldByName('TIMESTAMPD').AsDateTime;
           aSyncError.FieldByName('ERROR').AsString:='Y';
           aSyncError.Post;
@@ -214,7 +214,7 @@ begin
           aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
           aSyncError.FieldByName('LOCAL_ID').AsVariant:=aSource.FieldByName('REF_ID_ID').AsVariant;
           aSyncError.FieldByName('REMOTE_ID').AsString:=aSource.FieldByName('REF_ID_ID').AsString;
-          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
+          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=LocalTimeToUniversal(Now());
           aSyncError.FieldByName('ERROR').AsString:='Y';
           aSyncError.Post;
           aSyncError.Free;
@@ -299,14 +299,14 @@ var
 begin
   Result := 0;
   aTable := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
-  if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<(Now()-1)) then
+  if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<(LocalTimeToUniversal(Now())-1)) then
     begin
       SyncDB.Tables.DataSet.Edit;
       SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString:=Utils.GetSystemName;
-      SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime:=Now();
+      SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime:=LocalTimeToUniversal(Now());
       SyncDB.Tables.DataSet.Post;
-      aFirstSyncedRow:=Now();
-      aLastSetTime := Now();
+      aFirstSyncedRow:=LocalTimeToUniversal(Now());
+      aLastSetTime := LocalTimeToUniversal(Now());
       bFirstSyncedRow:=aFirstSyncedRow;
       aTableName := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
       if (not SourceDM.TableExists(aTableName))
@@ -537,7 +537,7 @@ begin
   FLog := TStringList.Create;
   FTables := TStringList.Create;
   FAddLog:=False;
-  aGlobalTime := Now();
+  aGlobalTime := LocalTimeToUniversal(Now());
   FTempDataSet := nil;
   with BaseApplication as IBaseApplication do
     begin
