@@ -4,6 +4,7 @@ cd promet/source/plugins
 . ../../setup/build-tools/setup_enviroment.sh
 echo "Building plugins..."
 # Build components
+echo $lazbuild dwgfile/dwgfile.lpi
 $lazbuild dwgfile/dwgfile.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
   echo "build failed"
