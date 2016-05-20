@@ -281,6 +281,7 @@ var
   aLastSetTime: TDateTime;
   aSyncOutTime: TDateTime;
   aSQLF: String;
+  aTable: String;
 
   procedure UpdateTime(DoSetIt : Boolean = True);
   begin
@@ -297,6 +298,7 @@ var
 
 begin
   Result := 0;
+  aTable := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
   if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<(Now()-1)) then
     begin
       SyncDB.Tables.DataSet.Edit;
@@ -313,7 +315,7 @@ begin
           if (SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y')
           or (SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y')
           then
-            (BaseApplication as IBaseApplication).Info(Format(strTableNotExists,[SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
+            (BaseApplication as IBaseApplication).Info(Format(strTableNotExists,[aTable]));
           exit;
         end;
       aSyncStamps := TSyncStamps.CreateEx(Self,DestDM);
@@ -637,7 +639,7 @@ begin
                                               inc(SyncedTables,FSyncedCount);
                                               if (SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = FOldTime) and (FSyncedCount>1) then
                                                 inc(SyncedTables,SyncTable(SyncDB,uData.Data,FDest.GetDB));
-                                              if (SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = FOldTime) then break;
+                                              if (SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = FOldTime) then Continue;
                                             except
                                               on e : Exception do
                                                 Error(e.Message);
