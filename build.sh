@@ -37,25 +37,25 @@ fi
 build_default()
 {
   echo "Building default..."
-  . ./promet/source/plugins/build.sh
-  . ./promet/source/tools/build.sh
+  . ./promet/source/plugins/build.sh $2
+  . ./promet/source/tools/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/tools/build_visual.sh
+  . ./promet/source/tools/build_visual.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/messagemanager/build.sh
+  . ./promet/source/messagemanager/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
-  . ./promet/source/promet.erp/build.sh
+  . ./promet/source/promet.erp/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
   . ./promet/help/build.sh
-  . ./promet/importdata/build.sh
+  . ./promet/importdata/build.sh $2
 }
 
 build_server()
@@ -125,7 +125,7 @@ build_all()
   sleep 5
   . ./promet/source/testcases/build.sh
   sleep 5
-  build_server;
+  build_server $1 $2;
   sleep 2
   . ./promet/source/promet.erp/build.sh $2
   if [ "$?" -ne "0" ]; then
@@ -158,8 +158,8 @@ build_all()
   fi
   sleep 2
   if [ "x$TARGET_OS" != "xwin32" ]; then
-    . ./promet/help/build.sh $2
-    . ./promet/importdata/build.sh $2
+    . ./promet/help/build.sh "$2"
+    . ./promet/importdata/build.sh "$2"
   fi
   sleep 2
   if [ "x$TARGET_OS" = "xwin32" ]; then
@@ -249,7 +249,7 @@ case $1 in
   winclients)  . ./promet/setup/i386-win32/build.sh $2;;
   linclients)  . ./promet/setup/i386-linux/build.sh $2;;
        clean)  clean_all;;
-      server)  build_server;;
-         all)  build_all;;
-           *)  build_default;;
+      server)  build_server $1 $2;;
+         all)  build_all $1 $2;;
+           *)  build_default $1 $2;;
 esac
