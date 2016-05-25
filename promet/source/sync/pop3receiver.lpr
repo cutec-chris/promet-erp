@@ -147,7 +147,7 @@ var
 begin
   Userrec := Data.GetBookmark(Data.Users);
   if not Data.Users.Locate('NAME',aUSer,[]) then exit;
-  aConnection := Data.GetNewConnection;
+  aConnection := Data.MainConnection;
   MessageIndex := TMessageList.CreateEx(Self,Data,aConnection);
   MessageIndex.CreateTable;
   DeletedItems := TDeletedItems.CreateEx(Self,Data,aConnection);
@@ -363,7 +363,6 @@ begin
   MessageIndex.Free;
   DeletedItems.Free;
   Message.Free;
-  aConnection.Free;
   Data.GotoBookmark(Data.Users,Userrec);
 end;
 

@@ -119,7 +119,6 @@ build_server()
 
 build_all()
 {
-  clean_all
   echo "Building all..."
   . ./promet/source/components/build.sh
   sleep 5
