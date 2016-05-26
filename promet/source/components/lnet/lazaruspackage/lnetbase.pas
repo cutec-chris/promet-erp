@@ -1,14 +1,14 @@
-{ Tento súbor bol automaticky vytvorený Lazarom. Prosím neurpavovať!
-  Tento zdrojový kód je použitý len na preloženie a nainštalovanie tohoto 
-    balíčka.
+{ This file was automatically created by Lazarus. Do not edit!
+  This source is only used to compile and install the package.
  }
 
-unit lnetbase; 
+unit lnetbase;
 
+{$warn 5023 off : no warning about unused units}
 interface
 
 uses
-    lNet, lEvents, lCommon, lFTP, lsmtp, lTelnet, lhttp, lwebserver, 
+  lNet, lEvents, lCommon, lFTP, lsmtp, lTelnet, lhttp, lwebserver, 
   lMimeWrapper, lHTTPUtil, lControlStack, lMimeStreams, lMimeTypes, lProcess, 
   lSpawnFCGI, lStrBuffer, ltimer, lNetSSL, lThreadEvents, fastcgi_base;
 
