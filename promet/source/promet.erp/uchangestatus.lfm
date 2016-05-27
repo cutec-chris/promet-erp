@@ -9,6 +9,7 @@ object fChangeStatus: TfChangeStatus
   KeyPreview = True
   OnKeyUp = FormKeyUp
   Position = poMainFormCenter
+  ShowHint = True
   LCLVersion = '1.4.4.0'
   object lOrder: TLabel
     Left = 8
