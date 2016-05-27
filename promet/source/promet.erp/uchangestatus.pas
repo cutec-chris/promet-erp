@@ -34,6 +34,7 @@ type
   TfChangeStatus = class(TForm)
     bAbort: TBitBtn;
     bOK: TBitBtn;
+    cbFiltered: TCheckBox;
     lOrder: TLabel;
     lChange: TLabel;
     lTarget: TLabel;

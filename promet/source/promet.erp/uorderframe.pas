@@ -572,6 +572,8 @@ begin
         end;
       if fChangeStatus.Execute then
         begin
+          if not fChangeStatus.cbFiltered.Checked then
+            FPosFrame.GridView.ClearFilters;
           Save;
           if UseTransactions then
             begin
