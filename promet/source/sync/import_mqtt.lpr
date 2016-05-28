@@ -71,7 +71,7 @@ var
   aObject: String;
 begin
   try
-    writeln(topic+':'+payload);
+    Log(topic,payload);
     aProp := copy(topic,rpos('/',topic)+1,length(topic));
     topic:=copy(topic,0,length(topic)-(length(aProp)+1));
     if pos(':',aProp)>0 then

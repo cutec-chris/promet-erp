@@ -3,9 +3,9 @@ program changewikipage;
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Interfaces,
   Classes, SysUtils, pcmdprometapp, CustApp ,uBaseCustomApplication,
   uBaseDBInterface,uWiki,uData,LConvEncoding

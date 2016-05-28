@@ -21,9 +21,9 @@ program sync_db;
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Classes, SysUtils, CustApp,
   pcmdprometapp, uData, db, uBaseDBInterface, uBaseApplication,
   uBaseCustomApplication, uBaseDbClasses, uSync, uOrder, uPerson, uMasterdata,
@@ -517,6 +517,7 @@ var
   SyncedTables: Integer;
   FSyncedCount: Integer;
   FOldTime: String;
+  SyncCount: Integer;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
@@ -626,9 +627,10 @@ begin
                                         SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                       end;
                                     SyncedTables := (SyncDB.Tables.Count*4);
-                                    while SyncedTables>(SyncDB.Tables.Count*2) do
+                                    while (SyncedTables>(SyncDB.Tables.Count*2)) and (SyncCount<5) do
                                       begin
                                         SyncedTables:=0;
+                                        SyncCount := 0;
                                         SyncDB.Tables.DataSet.First;
                                         while not SyncDB.Tables.DataSet.EOF do
                                           begin
@@ -643,6 +645,7 @@ begin
                                             end;
                                             SyncDB.Tables.DataSet.Next;
                                           end;
+                                        inc(SyncCount);
                                       end;
                                   end;
                                 DBLogout;

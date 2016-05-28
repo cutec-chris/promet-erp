@@ -340,7 +340,7 @@ begin
                                 FieldByName('DATATYP').AsString := 'HTML';
                                 Post;
                                 tmp := '';
-                                if Assigned(aMessageNode) then
+                                if Assigned(aMessageNode) and Assigned(aMessageNode.FirstChild) then
                                   begin
                                     tmp := aMessageNode.FirstChild.NodeValue;
                                     if tmp = '' then

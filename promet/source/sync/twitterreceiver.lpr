@@ -22,9 +22,9 @@ Created 13.06.2014
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Classes, SysUtils, CustApp
   { you can add units after this },db, Utils, uData,
   uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, wiki2html_pkg,

@@ -72,6 +72,7 @@ begin
   aInfo := copy(aInfo,pos(' ',aInfo)+1,length(aInfo));
   payload := copy(aInfo,0,pos('<',aInfo)-1);
   aObject := Dev;
+  Log(Dev+'/'+reading,payload);
   aprop := reading;
   try
     if not TryStrToFloat(payload,PayloadFloat) then
