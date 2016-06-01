@@ -367,7 +367,8 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,lazutf8s
   uPersonFrame, uPrometFrames, uMessageFrame, uMessageEdit, LCLType, uCalendarFrame,
   uAccounting,uAccountingFrame,uAccountingQue,uAccountingTransfer,uMessages,uDocuments,
   uOrder,uArticleFrame,uMasterdata,uOrderFrame,uBookAccounting,
-  uOptions,uUserOptions,uMandantOptions,uSystemOptions,uStateOptions,uCategoryOptions,uOrderTypeOptions,
+  uOptions,uUserOptions,uMandantOptions,utableoptions,uSystemOptions,uStateOptions,
+  uCategoryOptions,uOrderTypeOptions,
   uUserFieldDefOptions,uStorageTypeOptions,uCurrencyOptions,uLanguageOptions,
   uRepairOptions, uSyncOptions, uDocumentOptions, uPhoneOptions, uMailOptions,
   uScriptOptions,uvisualoptions,uProcessManager,
@@ -393,6 +394,7 @@ resourcestring
   strNewOrder                   = '%s erstellen';
   strWIki                       = 'Wiki';
   strSystem                     = 'System';
+  strDatabaseSettings           = 'Datenbankeinstellungen';
   strScripts                    = 'Scripte';
   strStates                     = 'Status';
   strCategory                   = 'Kategorie';
@@ -4277,6 +4279,7 @@ begin
           fOptions.RegisterOptionsFrame(TfMandantOptions.Create(fOptions),strMandant,strMasterdataOptions);
           fOptions.RegisterOptionsFrame(TfUserOptions.Create(fOptions),strUsers,strMasterdataOptions);
           fOptions.RegisterOptionsFrame(TfSystemOptions.Create(fOptions),strSystem,strMasterdataOptions);
+          fOptions.RegisterOptionsFrame(TfTableOptions.Create(fOptions),strDatabaseSettings,strMasterdataOptions);
           fOptions.RegisterOptionsFrame(TfStateOptions.Create(fOptions),strStates,strMasterdataOptions);
           fOptions.RegisterOptionsFrame(TfCategoryOptions.Create(fOptions),strCategory,strMasterdataOptions);
           fOptions.RegisterOptionsFrame(TfFinancialOptions.Create(fOptions),strFinance,strMasterdataOptions);
