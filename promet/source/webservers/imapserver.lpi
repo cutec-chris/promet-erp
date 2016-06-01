@@ -23,9 +23,6 @@
     <BuildModes Count="4">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
-        <MacroValues Count="1">
-          <Macro1 Name="LCLWidgetType" Value="gtk2"/>
-        </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -146,7 +143,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--mandant=Stora&quot; --port=1043 --smtpport=5087 --server-log"/>
+        <CommandLineParams Value="&quot;--mandant=Stora&quot; --port=1043 --smtpport=5087 --server-log --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
