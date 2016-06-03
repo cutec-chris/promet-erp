@@ -208,8 +208,6 @@ type
     procedure SetDataSet(const AValue: TBaseDBDataset);override;
     procedure DoOpen;override;
     function SetRights : Boolean;
-    procedure DoEnter; override;
-    procedure DoExit; override;
   public
     { public declarations }
     constructor Create(AOwner: TComponent); override;
@@ -1242,16 +1240,6 @@ begin
   bEditFilter.Visible:=FEditable;
   eName.Enabled := FEditable;
   DBMemo1.ReadOnly:=not FEditable;
-end;
-
-procedure TfStatisticFrame.DoEnter;
-begin
-  //dont Disable Actionlist, Lazreport catches Focus
-end;
-
-procedure TfStatisticFrame.DoExit;
-begin
-  //dont Disable Actionlist, Lazreport catches Focus
 end;
 
 constructor TfStatisticFrame.Create(AOwner: TComponent);
