@@ -230,7 +230,8 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uIntfStrConsts,uMainTreeFrame,uBaseDBInterface,
   uFilterFrame,uBaseSearch,Utils,uBaseERPDBClasses,uSelectReport,
   uNRights,uSearch,LCLProc,utask,fpsqltree,fpsqlscanner,SynEditMarks,LCLIntf,
-  fpspreadsheet, fpsallformats,uFormAnimate,SynBeautifier,Printers,fpsTypes;
+  fpspreadsheet, fpsallformats,uFormAnimate,SynBeautifier,Printers,fpsTypes,
+  uError;
 {$R *.lfm}
 resourcestring
     strQueryTime                  = 'Abfragezeit: %s Anzahl Datensätze: %d';
@@ -742,9 +743,14 @@ begin
     except
       on E : Exception do
         begin
+          tsReport.Visible:=False;
+          tsResults.Visible:=False;
+          tsDescription.Visible:=True;
+          pcPages.ActivePage:=tsDescription;
           acExecute.Enabled:=True;
           bExecute1.Action := acExecute;
-          raise Exception.Create(e.Message+lineending+BuildSQL(DataSet.FieldByName('QUERRY').AsString));
+
+          fError.ShowError(e.Message+lineending+BuildSQL(DataSet.FieldByName('QUERRY').AsString));
         end;
     end;
   finally

@@ -173,6 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="&quot;--config-path=ForumPG&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -626,7 +627,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="8">
+    <Exceptions Count="10">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -651,6 +652,12 @@
       <Item8>
         <Name Value="EConvertError"/>
       </Item8>
+      <Item9>
+        <Name Value="EVariantError"/>
+      </Item9>
+      <Item10>
+        <Name Value="ESQLParser"/>
+      </Item10>
     </Exceptions>
   </Debugging>
 </CONFIG>
