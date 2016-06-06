@@ -225,7 +225,6 @@ type
     procedure ObjectsTriangleExecute(Sender: TObject);
     procedure sbMenueClick(Sender: TObject);
     procedure SchemeStateChange(Sender: TObject);
-    procedure ToolButton13Click(Sender: TObject);
   private
     { private declarations }
     FEditable: Boolean;
@@ -243,6 +242,7 @@ type
   public
     { public declarations }
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
     procedure New;override;
     function OpenFromLink(aLink : string) : Boolean;override;
     procedure SetLanguage; override;
@@ -593,11 +593,6 @@ begin
   acCancel.Enabled:= aEnabled;
 end;
 
-procedure TfShemeFrame.ToolButton13Click(Sender: TObject);
-begin
-
-end;
-
 procedure TfShemeFrame.SetDataSet(const AValue: TBaseDBDataset);
 begin
   inherited SetDataSet(AValue);
@@ -610,7 +605,11 @@ end;
 procedure TfShemeFrame.FGraphObjectChange(Graph: TEvsSimpleGraph;
   GraphObject: TEvsGraphObject);
 begin
-  DataSet.Edit;
+  try
+    if Assigned(FDataSet) then
+      DataSet.Edit;
+  except
+  end;
 end;
 
 procedure TfShemeFrame.DoOpen;
@@ -809,6 +808,12 @@ begin
   FGraph.OnObjectChange:=@FGraphObjectChange;
   FGraph.PopupMenu := pmContext;
   FGraph.OnCalcText:=@OnCalcText;
+end;
+
+destructor TfShemeFrame.Destroy;
+begin
+  FGraph.OnObjectChange:=nil;
+  inherited Destroy;
 end;
 
 procedure TfShemeFrame.New;

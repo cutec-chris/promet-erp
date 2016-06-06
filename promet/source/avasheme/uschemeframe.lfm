@@ -3,8 +3,8 @@ inherited fShemeFrame: TfShemeFrame
   Width = 819
   ClientHeight = 555
   ClientWidth = 819
-  DesignLeft = 352
-  DesignTop = 229
+  DesignLeft = 380
+  DesignTop = 247
   object ToolBar1: TPanel[0]
     Left = 0
     Height = 44
@@ -539,7 +539,6 @@ inherited fShemeFrame: TfShemeFrame
             Left = 24
             Top = 22
             Action = FormatVCenter
-            OnClick = ToolButton13Click
           end
         end
       end
