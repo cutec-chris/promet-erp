@@ -225,7 +225,6 @@ type
     procedure aFrameTfFilterDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure aFrameTfFilterDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
-    procedure aInvPosCloseClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure aItemClick(Sender: TObject);
     procedure ApplicationProperties1ShowHint(var HintStr: string;
       var CanShow: Boolean; var HintInfo: THintInfo);
@@ -2803,11 +2802,6 @@ begin
   then
     Accept := True;
 end;
-procedure TfMain.aInvPosCloseClose(Sender: TObject;
-  var CloseAction: TCloseAction);
-begin
-  TInventoryPos(TfFilter(Sender).DataSet).Inventory.Free;
-end;
 procedure TfMain.aItemClick(Sender: TObject);
 begin
   FHistory.HistoryIndex:=TMenuItem(Sender).Tag;
@@ -3627,7 +3621,6 @@ begin
           DefaultRows:='GLOBALWIDTH:%;POSNO:25;IDENT:70;SHORTTEXT:120;STORAGE:30;QUANTITY:30;QUANTITYC:30;QUANTITYU:50;';
           Dataset := aInv.Positions;
           DestroyDataSet:=False;
-          TfFilter(aFrame).OnClose:=@aInvPosCloseClose;
           if aInv.FieldByName('DATE').IsNull then
             begin
               TfFilter(aFrame).Editable:=True;
