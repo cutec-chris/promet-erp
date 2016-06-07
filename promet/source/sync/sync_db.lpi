@@ -43,14 +43,16 @@
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="3" Y="26"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="611"/>
+        <CursorPos Y="631"/>
         <FoldState Value=" T3sH031Z"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="718"/>
         <CursorPos X="39" Y="734"/>
         <UsageCount Value="12"/>
@@ -59,16 +61,16 @@
       <Unit2>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="1815"/>
-        <CursorPos Y="1852"/>
+        <CursorPos Y="1850"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="59" Y="27"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
@@ -91,7 +93,7 @@
       </Unit5>
       <Unit6>
         <Filename Value="..\components\synapse\synautil.pas"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="531"/>
         <CursorPos X="60" Y="548"/>
         <UsageCount Value="10"/>
@@ -99,12 +101,10 @@
       </Unit6>
       <Unit7>
         <Filename Value="..\components\zeos\src\plain\ZPlainPostgreSqlDriver.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1151"/>
         <CursorPos Y="1169"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit7>
     </Units>

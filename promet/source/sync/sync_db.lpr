@@ -627,10 +627,10 @@ begin
                                         SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                       end;
                                     SyncedTables := (SyncDB.Tables.Count*4);
+                                    SyncCount := 0;
                                     while (SyncedTables>(SyncDB.Tables.Count*2)) and (SyncCount<5) do
                                       begin
                                         SyncedTables:=0;
-                                        SyncCount := 0;
                                         SyncDB.Tables.DataSet.First;
                                         while not SyncDB.Tables.DataSet.EOF do
                                           begin
