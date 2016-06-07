@@ -408,7 +408,7 @@ begin
             aMessage.FieldByName('TREEENTRY').AsVariant:=FParent;
             aMessage.Post;
           end;
-        aMessage.Free;
+        FreeAndNil(aMessage);
       end;
   finally
     Unlock;
@@ -525,9 +525,15 @@ begin
     InternalSetFlags(aMessage,StringToFlagMask(Flags));
     aMessage.Post;
     Data.CommitTransaction(aMessage.Connection);
-    aMessage.Free;
+    FreeAndNil(aMessage);
   except
     Result := 'NO APPEND error';
+    if Assigned(aMessage) then
+      begin
+        aMessage.CascadicCancel;
+        FreeandNil(aMessage);
+      end;
+    Data.RollbackTransaction(aMessage.Connection);
   end;
   InternalUnlock('AppendMessage');
   //RefreshFolder(AThread);
