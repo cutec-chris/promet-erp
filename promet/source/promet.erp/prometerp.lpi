@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -467,6 +467,7 @@
         <ComponentName Value="fCurrencyOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uCurrencyOptions"/>
       </Unit23>
       <Unit24>
         <Filename Value="ulanguageoptions.pas"/>
@@ -474,6 +475,7 @@
         <ComponentName Value="fLanguageOptions"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uLanguageOptions"/>
       </Unit24>
       <Unit25>
         <Filename Value="urepairoptions.pas"/>
@@ -627,7 +629,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="10">
+    <Exceptions Count="11">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -658,6 +660,9 @@
       <Item10>
         <Name Value="ESQLParser"/>
       </Item10>
+      <Item11>
+        <Name Value="EStringListError"/>
+      </Item11>
     </Exceptions>
   </Debugging>
 </CONFIG>

@@ -937,10 +937,12 @@ procedure TStarterThread.DoCreate;
 var
   aDataSet: TBaseDBDataset;
 begin
+  {
   aDataSet := DataSetType.CreateEx(nil,Data,aConn);
   aDataSet.CreateTable;
   aDataSet.Destroy;
   Application.ProcessMessages;
+  }
 end;
 
 procedure TStarterThread.RefreshTasks;
