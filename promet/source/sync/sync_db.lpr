@@ -282,6 +282,8 @@ var
   aSyncOutTime: TDateTime;
   aSQLF: String;
   aTable: String;
+  aCRT: TBaseDBDatasetClass;
+  tCRT: TBaseDBDataset;
 
   procedure UpdateTime(DoSetIt : Boolean = True);
   begin
@@ -299,6 +301,13 @@ var
 begin
   Result := 0;
   aTable := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
+  if DestDM.DataSetFromLink('@'+aTable,aCRT) then
+    begin
+      tCRT := aCRT.CreateEx(nil,DestDM);
+      tCRT.CreateTable;
+      tCRT.Open;
+      tCRT.Free;
+    end;
   if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<(LocalTimeToUniversal(Now())-1)) then
     begin
       SyncDB.Tables.DataSet.Edit;
@@ -611,15 +620,6 @@ begin
                                     DoCreateTable(TDeletedItems);
                                     DoCreateTable(TSyncStamps);
                                     DoCreateTable(TDocuments);
-                                    aTable := TOrder.CreateEx(Self,uData.Data);
-                                    aTable.CreateTable;
-                                    TOrder(aTable).Positions.Open;
-                                    aTable.Free;
-                                    DoCreateTable(TPerson);
-                                    DoCreateTable(TMasterdata);
-                                    DoCreateTable(TProject);
-                                    DoCreateTable(TTask);
-                                    DoCreateTable(TCalendar);
                                     SyncDB.Tables.Open;
                                     if SyncDB.Tables.DataSet.Locate('NAME','USERFIELDDEFS',[loCaseInSensitive]) then
                                       begin
@@ -628,7 +628,7 @@ begin
                                       end;
                                     SyncedTables := (SyncDB.Tables.Count*4);
                                     SyncCount := 0;
-                                    while (SyncedTables>(SyncDB.Tables.Count*2)) and (SyncCount<5) do
+                                    while (SyncedTables>(SyncDB.Tables.Count*2)) and (SyncCount<3) do
                                       begin
                                         SyncedTables:=0;
                                         SyncDB.Tables.DataSet.First;
