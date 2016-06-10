@@ -120,10 +120,6 @@ build_server()
 build_all()
 {
   echo "Building all..."
-  . ./promet/source/components/build.sh
-  sleep 5
-  . ./promet/source/testcases/build.sh
-  sleep 5
   build_server $1 $2;
   sleep 2
   . ./promet/source/promet.erp/build.sh $2
@@ -170,7 +166,6 @@ build_all()
     . ./promet/setup/i386-linux/build.sh $2
     . ./promet/setup/i386-linux/change_wiki.sh $2
   fi
-
 }
 
 clean_all()

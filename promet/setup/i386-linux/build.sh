@@ -159,8 +159,9 @@ SubProgram="aqbanking"
 sudo -S rm -rf $BuildDir
 add_std_files;
 build_deb;
-. ../../setup/build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
-
+if [ "$1" = "upload" ]; then
+  . ../../setup/build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
+fi
 cd $basedir
 
 

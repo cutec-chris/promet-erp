@@ -39,7 +39,9 @@ targetcur=$target-current.zip
 rm $basedir/promet/setup/output/$BUILD_VERSION/$targetfile
 zip -rq $basedir/promet/setup/output/$BUILD_VERSION/$targetfile tools\*.*
 cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
-. ../../setup/build-tools/doupload.sh $targetfile $targetcur
+if [ "$1" = "upload" ]; then
+  . ../../setup/build-tools/doupload.sh $targetfile $targetcur
+fi
 cd ..
 
 cd $basedir

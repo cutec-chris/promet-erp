@@ -10,5 +10,7 @@ target=importdata
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
 zip -rq $basedir/promet/setup/output/$BUILD_VERSION/$targetfile importdata
-. setup/build-tools/doupload.sh $targetfile $targetcur
+if [ "$1" = "upload" ]; then
+  . setup/build-tools/doupload.sh $targetfile $targetcur
+fi
 cd $basedir
