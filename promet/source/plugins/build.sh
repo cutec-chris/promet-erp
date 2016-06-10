@@ -3,6 +3,7 @@ basedir=$(pwd)
 cd promet/source/plugins
 . ../../setup/build-tools/setup_enviroment.sh
 echo "Building plugins..."
+echo $(pwd)
 # Build components
 echo $lazbuild dwgfile/dwgfile.lpi
 $lazbuild dwgfile/dwgfile.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt

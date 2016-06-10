@@ -226,7 +226,7 @@ clean_all()
 case $1 in
        tests)  . ./promet/source/testcases/build.sh $2;;
   components)  . ./promet/source/components/build.sh $2;;
-     plugins)  $BASH promet/source/plugins/build.sh $2;;
+     plugins)  . ./promet/source/plugins/build.sh $2;;
        tools)  . ./promet/source/tools/build.sh $2;;
       visual)  . ./promet/source/tools/build_visual.sh $2;;
   importdata)  . ./promet/importdata/build.sh $2;;
