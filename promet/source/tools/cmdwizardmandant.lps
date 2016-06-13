@@ -28,6 +28,7 @@
       <Unit0>
         <Filename Value="cmdwizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <TopLine Value="80"/>
         <CursorPos X="25" Y="95"/>
         <UsageCount Value="23"/>
