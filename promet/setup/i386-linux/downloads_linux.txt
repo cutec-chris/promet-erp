@@ -7,12 +7,12 @@ Alle untenstehenden Installationen sind Version VERSION erstellt CREATEDDATE.<br
 |-
 | || [[Bild:deb.png]] || [[Bild:rpm.png]]
 |-
-|Hauptprogramm||[http://downloads.free-erp.de/promet-erp_VERSION_ARCH-gtk2.deb Promet-ERP Debian Package für Ubuntu,Debian Linux (32 bit)  Mb]||[http://www.free-erp.de/downloads/promet-erp-VERSION-2.ARCH.rpm Promet-ERP RPM Package für Suse,Redhat Linux (32 bit)  Mb]
+|Hauptprogramm||[http://downloads.free-erp.de/promet-erp_VERSION_ARCH-gtk2.deb Promet-ERP Debian Package für Ubuntu,Debian Linux]||[http://www.free-erp.de/downloads/promet-erp-VERSION-2.ARCH.rpm Promet-ERP RPM Package für Suse,Redhat Linux]
 |-
-|Statistics||[http://downloads.free-erp.de/promet-erp-statistics_VERSION_ARCH-gtk2.deb Statistics Debian Package für Ubuntu,Debian Linux (32 bit) 5 Mb]||[http://downloads.free-erp.de/promet-erp-statistics-VERSION-2.ARCH.rpm Statistics RPM Package für Suse,Redhat Linux (32 bit) 5 Mb]
+|Statistics||[http://downloads.free-erp.de/promet-erp-statistics_VERSION_ARCH-gtk2.deb Statistics Debian Package für Ubuntu,Debian Linux]||[http://downloads.free-erp.de/promet-erp-statistics-VERSION-2.ARCH.rpm Statistics RPM Package für Suse,Redhat Linux]
 |-
-|Zeiterfassung||[http://downloads.free-erp.de/promet-erp-timeregistering_VERSION_ARCH-gtk2.deb Zeiterfassung Debian Package für Ubuntu,Debian Linux (32 bit) 1 Mb]||[http://downloads.free-erp.de/promet-erp-timeregistering-VERSION-2.ARCH.rpm Zeiterfassung RPM Package für Suse,Redhat Linux (32 bit) 1 Mb]
+|Zeiterfassung||[http://downloads.free-erp.de/promet-erp-timeregistering_VERSION_ARCH-gtk2.deb Zeiterfassung Debian Package für Ubuntu,Debian Linux]||[http://downloads.free-erp.de/promet-erp-timeregistering-VERSION-2.ARCH.rpm Zeiterfassung RPM Package für Suse,Redhat Linux]
 |-
-|Services||[http://downloads.free-erp.de/promet-erp-services_VERSION_ARCH-gtk2.deb Webservices Debian Package für Ubuntu,Debian Linux (32 bit)]||[http://downloads.free-erp.de/promet-erp-services-VERSION-2.ARCH.rpm Webservices RPM Package für Suse,Redhat Linux (32 bit) 1 Mb]
+|Services||[http://downloads.free-erp.de/promet-erp-services_VERSION_ARCH-gtk2.deb Webservices Debian Package für Ubuntu,Debian Linux]||[http://downloads.free-erp.de/promet-erp-services-VERSION-2.ARCH.rpm Webservices RPM Package für Suse,Redhat Linux]
 
 |}

@@ -12,9 +12,9 @@ cat downloads_windows.txt | \
       -e "s/CREATEDDATE/$Date/g" \
   > act_downloads.txt
 lazbuild ../../source/tools/changewikipage.lpi > build.txt
-../../output/i386-win32/tools/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/windows act_downloads.txt
-../../output/i386-win32/tools/changewikipage --mandant=Stora Promet-ERP/changes ../../source/base/changes.txt
-../../output/i386-win32/tools/sync_db --mandant=Stora
+../../output/i386-win32/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/windows act_downloads.txt
+../../output/i386-win32/changewikipage --mandant=Stora Promet-ERP/changes ../../source/base/changes.txt
+../../output/i386-win32/sync_db --mandant=Stora
 Year=`date +%y`
 Month=`date +%m`
 Day=`date +%d`
