@@ -120,7 +120,7 @@
 	url = https://github.com/tcs-ulli/script-plugin-hexfiles.git
 [submodule "promet/source/scripts/plugins/serialport"]
 	path = promet/source/scripts/plugins/serialport
-	url = https://github.com/tcs-ulli/script-plugin-serialport.git
+	url = https://github.com/cutec-chris/script-plugin-serialport.git
 [submodule "promet/source/scripts/plugins/dbus"]
 	path = promet/source/scripts/plugins/dbus
 	url = https://github.com/tcs-ulli/script-plugin-dbus.git
