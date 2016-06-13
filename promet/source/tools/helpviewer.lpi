@@ -19,9 +19,6 @@
     <VersionInfo>
       <StringTable ProductVersion=""/>
     </VersionInfo>
-    <MacroValues Count="1">
-      <Macro1 Name="LCLWidgetType" Value="gtk2"/>
-    </MacroValues>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
     </BuildModes>
@@ -41,7 +38,7 @@
     <RequiredPackages Count="3">
       <Item1>
         <PackageName Value="phelp"/>
-        <DefaultFilename Value="..\base_help\phelp.lpk"/>
+        <DefaultFilename Value="..\base\base_help\phelp.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="pVisualPrometApp"/>
@@ -82,7 +79,6 @@
     </Parsing>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
-      <TargetCPU Value="x86_64"/>
       <Optimizations>
         <OptimizationLevel Value="3"/>
       </Optimizations>
