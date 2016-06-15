@@ -173,6 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -628,7 +629,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="11">
+    <Exceptions Count="12">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -662,6 +663,9 @@
       <Item11>
         <Name Value="EStringListError"/>
       </Item11>
+      <Item12>
+        <Name Value="ESQLScannerError"/>
+      </Item12>
     </Exceptions>
   </Debugging>
 </CONFIG>
