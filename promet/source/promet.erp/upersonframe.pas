@@ -153,6 +153,7 @@ type
     function fSearchValidateItem(aLink: string): Boolean;
     procedure lFirmNameClick(Sender: TObject);
     procedure sbMenueClick(Sender: TObject);
+    procedure SearchEmployee(Sender: TObject);
     procedure TfListFrameFListDragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure TfListFrameFListDragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
@@ -315,6 +316,12 @@ procedure TfPersonFrame.sbMenueClick(Sender: TObject);
 begin
   TSpeedButton(Sender).PopupMenu.PopUp(TSpeedButton(Sender).ClientOrigin.x,TSpeedButton(Sender).ClientOrigin.y+TSpeedButton(Sender).Height);
 end;
+
+procedure TfPersonFrame.SearchEmployee(Sender: TObject);
+begin
+
+end;
+
 procedure TfPersonFrame.TfListFrameFListDragDrop(Sender, Source: TObject; X,
   Y: Integer);
 var
@@ -1198,6 +1205,17 @@ begin
       dnNavigator.VisibleButtons:=[nbDelete,nbEdit,nbPost,nbCancel,nbRefresh];
       dnNavigator.Top := dnNavigator.Top+22;
       dnNavigator.Height := dnNavigator.Height-22;
+      aButton := TSpeedButton.Create(TfListFrame(Sender));
+      aButton.Top:=dnNavigator.Top-22;
+      aButton.Left := dnNavigator.Left;
+      aButton.Height := 22;
+      aButton.Width := dnNavigator.Width;
+      aButton.Parent := dnNavigator.Parent;
+      aBitmap := TBitmap.Create;
+      fVisualControls.Images.GetBitmap(73,aBitmap);
+      aButton.Glyph.Assign(aBitmap);
+      aBitmap.Free;
+      aButton.OnClick:=@SearchEmployee;
       aButton := TSpeedButton.Create(TfListFrame(Sender));
       aButton.Top:=dnNavigator.Top-22;
       aButton.Left := dnNavigator.Left;
