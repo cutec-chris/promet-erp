@@ -1,31 +1,48 @@
 program productioncmd;
 
-uses laz_synapse,blcksock,sysutils,tlntsend, general_nogui,Utils
+uses laz_synapse,blcksock,sysutils,tlntsend, general_nogui,Utils,uprometmsgclient
   {$ifdef WINDOWS}
   ,Windows
   {$endif}
   ;
 
 var
-  aSocket: TTCPBlockSocket;
+  Msg : TPrometMsgClient;
   tmp: String;
   i: Integer;
-  aTL: TTelnetSend;
-  aRes: String;
+
+procedure OnPublish(Topic, Value: string);
+begin
+
+end;
+
 begin
   ExitCode:=255;
-  tmp := '';
-  for i := 1 to Paramcount do
-    tmp := tmp+' '+ParamStr(i);
-  aTL := TTelnetSend.Create;
-  aTL.TargetHost:='localhost';
-  aTL.TargetPort:='9874';
-  if not aTL.Login then
-    begin
-      aTL.Free;
+  Msg := TPrometMsgClient.Create;
+  try
+    if not Msg.Connected then
+      begin
+        sleep(200);
+        if not Msg.Connected then
+          begin
+            ExitCode := 252;
+            exit;
+          end;
+      end;
+    tmp := '';
+    for i := 1 to Paramcount do
+      tmp := tmp+' '+ParamStr(i);
+    if not Msg.Sub('/'+GetSystemName+'/avad/*') then
       ExitCode:=253;
-      exit;
-    end;
+    Msg.OnPublish:=@OnPublish;
+    if not Msg.Pub('/'+GetSystemName+'/avad/execute',tmp) then
+      ExitCode:=253;
+
+  finally
+    Msg.Free;
+  end;
+
+{
   aTL.Timeout:=40000;
   aTL.Send(trim(tmp)+#13#10);
   aRes := aTL.RecvString;
@@ -39,5 +56,6 @@ begin
       ExitCode:=254;
     end;
   aTL.Free;
+}
 end.
 

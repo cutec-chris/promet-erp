@@ -4,18 +4,19 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="4">
+    <Units Count="8">
       <Unit0>
         <Filename Value="productioncmd.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="17" Y="29"/>
-        <UsageCount Value="23"/>
+        <TopLine Value="13"/>
+        <CursorPos X="26" Y="38"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\components\synapse\tlntsend.pas"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="171"/>
         <CursorPos Y="191"/>
         <UsageCount Value="11"/>
@@ -23,11 +24,10 @@
       </Unit1>
       <Unit2>
         <Filename Value="..\components\synapse\blcksock.pas"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="2416"/>
-        <CursorPos X="30" Y="2467"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="3827"/>
+        <CursorPos Y="3860"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="C:\Programme\lazarus\fpc\2.6.4\source\packages\fcl-process\src\simpleipc.pp"/>
@@ -36,128 +36,169 @@
         <CursorPos X="19" Y="130"/>
         <UsageCount Value="10"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="..\base\base_erp\fautomationform.pas"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="22"/>
+        <CursorPos X="15" Y="44"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="46"/>
+        <CursorPos Y="82"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\base\msgclient\msgclient.pas"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\general\src\Utils.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="880"/>
+        <CursorPos Y="908"/>
+        <UsageCount Value="10"/>
+      </Unit7>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="28"/>
+        <Caret Line="33" TopLine="13"/>
       </Position1>
       <Position2>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="27" Column="33"/>
+        <Caret Line="34" TopLine="13"/>
       </Position2>
       <Position3>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="28"/>
+        <Caret Line="35" TopLine="13"/>
       </Position3>
       <Position4>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="29"/>
+        <Caret Line="37" TopLine="13"/>
       </Position4>
       <Position5>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="28"/>
+        <Caret Line="38" TopLine="13"/>
       </Position5>
       <Position6>
-        <Filename Value="productioncmd.lpr"/>
-        <Caret Line="27"/>
+        <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
+        <Caret Line="74" TopLine="46"/>
       </Position6>
       <Position7>
-        <Filename Value="..\components\synapse\tlntsend.pas"/>
-        <Caret Line="191" TopLine="171"/>
+        <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
+        <Caret Line="75" TopLine="46"/>
       </Position7>
       <Position8>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2417" TopLine="2398"/>
+        <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
+        <Caret Line="76" TopLine="46"/>
       </Position8>
       <Position9>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2418" TopLine="2398"/>
+        <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
+        <Caret Line="85" Column="17" TopLine="45"/>
       </Position9>
       <Position10>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2419" TopLine="2398"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="21" TopLine="13"/>
       </Position10>
       <Position11>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2420" TopLine="2398"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="22" TopLine="13"/>
       </Position11>
       <Position12>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2421" TopLine="2398"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="23" TopLine="13"/>
       </Position12>
       <Position13>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2423" TopLine="2398"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="32" TopLine="13"/>
       </Position13>
       <Position14>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2424" TopLine="2398"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="33" TopLine="13"/>
       </Position14>
       <Position15>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2425" TopLine="2398"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="34" TopLine="13"/>
       </Position15>
       <Position16>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2426" TopLine="2398"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="35" TopLine="13"/>
       </Position16>
       <Position17>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2429" TopLine="2398"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="37" TopLine="13"/>
       </Position17>
       <Position18>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2430" TopLine="2398"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="38" TopLine="13"/>
       </Position18>
       <Position19>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2431" TopLine="2399"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="42" TopLine="13"/>
       </Position19>
       <Position20>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2467" TopLine="2449"/>
+        <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
+        <Caret Line="28" Column="50" TopLine="5"/>
       </Position20>
       <Position21>
-        <Filename Value="..\components\synapse\blcksock.pas"/>
-        <Caret Line="2472" TopLine="2449"/>
+        <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
+        <Caret Line="82" TopLine="46"/>
       </Position21>
       <Position22>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="21" Column="32"/>
+        <Caret Line="21" TopLine="13"/>
       </Position22>
       <Position23>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="28"/>
+        <Caret Line="22" TopLine="13"/>
       </Position23>
       <Position24>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="30" Column="21"/>
+        <Caret Line="23" TopLine="13"/>
       </Position24>
       <Position25>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="38" Column="12"/>
+        <Caret Line="32" TopLine="13"/>
       </Position25>
       <Position26>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="46" Column="26" TopLine="13"/>
+        <Caret Line="33" TopLine="13"/>
       </Position26>
       <Position27>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="35" Column="13" TopLine="16"/>
+        <Caret Line="34" TopLine="13"/>
       </Position27>
       <Position28>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="3" Column="83"/>
+        <Caret Line="35" TopLine="13"/>
       </Position28>
       <Position29>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="34" Column="37" TopLine="16"/>
+        <Caret Line="37" TopLine="13"/>
       </Position29>
       <Position30>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="39" Column="14"/>
+        <Caret Line="38" TopLine="13"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="productioncmd.lpr"/>
+        <Line Value="21"/>
+      </Item1>
+    </BreakPoints>
+  </Debugging>
 </CONFIG>
