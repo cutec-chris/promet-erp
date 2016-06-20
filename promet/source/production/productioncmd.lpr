@@ -37,7 +37,12 @@ begin
     Msg.OnPublish:=@OnPublish;
     if not Msg.Pub('/'+GetSystemName+'/avad/execute',tmp) then
       ExitCode:=253;
+    if Msg.Receive(100)='OK' then
+      begin
 
+      end
+    else
+      ExitCode:=254;
   finally
     Msg.Free;
   end;
