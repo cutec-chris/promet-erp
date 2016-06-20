@@ -127,6 +127,7 @@ end;
 constructor TProcessManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
+  FreeAndNil(FMsgClient);
   StopOnException:=True;
   //PowerStateMonitor := TPowerStateMonitor.Create;
 end;

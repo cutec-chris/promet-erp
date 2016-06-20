@@ -9,8 +9,8 @@
         <Filename Value="productioncmd.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="13"/>
-        <CursorPos X="26" Y="38"/>
+        <TopLine Value="17"/>
+        <CursorPos X="39" Y="33"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -50,7 +50,7 @@
         <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
         <EditorIndex Value="1"/>
         <TopLine Value="46"/>
-        <CursorPos Y="82"/>
+        <CursorPos X="17" Y="75"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit5>
@@ -70,135 +70,124 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="33" TopLine="13"/>
+        <Caret Line="23" TopLine="13"/>
       </Position1>
       <Position2>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="34" TopLine="13"/>
+        <Caret Line="32" TopLine="13"/>
       </Position2>
       <Position3>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="35" TopLine="13"/>
+        <Caret Line="33" TopLine="13"/>
       </Position3>
       <Position4>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="37" TopLine="13"/>
+        <Caret Line="34" TopLine="13"/>
       </Position4>
       <Position5>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="38" TopLine="13"/>
+        <Caret Line="35" TopLine="13"/>
       </Position5>
       <Position6>
-        <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <Caret Line="74" TopLine="46"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="37" TopLine="13"/>
       </Position6>
       <Position7>
-        <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <Caret Line="75" TopLine="46"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="38" Column="17" TopLine="13"/>
       </Position7>
       <Position8>
         <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <Caret Line="76" TopLine="46"/>
+        <Caret Line="82" TopLine="46"/>
       </Position8>
       <Position9>
-        <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <Caret Line="85" Column="17" TopLine="45"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="21" TopLine="13"/>
       </Position9>
       <Position10>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="21" TopLine="13"/>
+        <Caret Line="22" TopLine="13"/>
       </Position10>
       <Position11>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="22" TopLine="13"/>
+        <Caret Line="23" TopLine="13"/>
       </Position11>
       <Position12>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="23" TopLine="13"/>
+        <Caret Line="32" TopLine="13"/>
       </Position12>
       <Position13>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="32" TopLine="13"/>
+        <Caret Line="33" TopLine="13"/>
       </Position13>
       <Position14>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="33" TopLine="13"/>
+        <Caret Line="34" TopLine="13"/>
       </Position14>
       <Position15>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="34" TopLine="13"/>
+        <Caret Line="35" TopLine="13"/>
       </Position15>
       <Position16>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="35" TopLine="13"/>
+        <Caret Line="37" TopLine="13"/>
       </Position16>
       <Position17>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="37" TopLine="13"/>
+        <Caret Line="38" TopLine="13"/>
       </Position17>
       <Position18>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="38" TopLine="13"/>
+        <Caret Line="39" TopLine="13"/>
       </Position18>
       <Position19>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="42" TopLine="13"/>
+        <Caret Line="38" Column="17" TopLine="13"/>
       </Position19>
       <Position20>
         <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <Caret Line="28" Column="50" TopLine="5"/>
+        <Caret Line="75" Column="17" TopLine="46"/>
       </Position20>
       <Position21>
-        <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <Caret Line="82" TopLine="46"/>
+        <Filename Value="productioncmd.lpr"/>
+        <Caret Line="21" TopLine="13"/>
       </Position21>
       <Position22>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="21" TopLine="13"/>
+        <Caret Line="22" TopLine="13"/>
       </Position22>
       <Position23>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="22" TopLine="13"/>
+        <Caret Line="23" TopLine="13"/>
       </Position23>
       <Position24>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="23" TopLine="13"/>
+        <Caret Line="32" TopLine="13"/>
       </Position24>
       <Position25>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="32" TopLine="13"/>
+        <Caret Line="33" TopLine="13"/>
       </Position25>
       <Position26>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="33" TopLine="13"/>
+        <Caret Line="34" TopLine="13"/>
       </Position26>
       <Position27>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="34" TopLine="13"/>
+        <Caret Line="35" TopLine="13"/>
       </Position27>
       <Position28>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="35" TopLine="13"/>
+        <Caret Line="37" TopLine="13"/>
       </Position28>
       <Position29>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="37" TopLine="13"/>
+        <Caret Line="38" TopLine="13"/>
       </Position29>
       <Position30>
         <Filename Value="productioncmd.lpr"/>
-        <Caret Line="38" TopLine="13"/>
+        <Caret Line="42" TopLine="13"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="productioncmd.lpr"/>
-        <Line Value="21"/>
-      </Item1>
-    </BreakPoints>
-  </Debugging>
 </CONFIG>
