@@ -4573,7 +4573,7 @@ begin
     begin
       if TTreeEntry(aSel.Data).Link<>'' then
         begin
-          DragObject := TDragEntry.Create(Self);
+          DragObject := TDragEntry.Create(Sender as TControl);
           with DragObject as TDragEntry do
             Links := TTreeEntry(aSel.Data).Link;
         end;
