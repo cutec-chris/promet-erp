@@ -207,6 +207,7 @@ resourcestring
   strBirthdayFrom               = 'Geburtstag von %s';
   strNewPerson                  = 'neuer Kontakt';
   strAddedFromEmployees         = 'Dies ist ein neuer Mitarbeiter/Mitglied das aus einem Kontakt erstellt wurde. Sobald Sie speichern, wird zum ursprünglichen Kontakt zurückgesprungen und ein Eintrag in dessen Mitarbeitern gemacht.';
+  strAddNewPersonsFromDragDrop  = 'fügen Sie weitere Mitarbeiter/Mitglieder per Drag&Drop aus der Suche ein';
 
   scTelephone                   = 'TEL  Telefon';
   scBusinessPhone               = 'TELB Telefon Geschäftlich';
@@ -1190,6 +1191,7 @@ procedure TfPersonFrame.AddList(Sender: TObject);
 var
   aButton: TSpeedButton;
   aBitmap: TBitmap;
+  aLabel: TLabel;
 begin
   with TfListFrame(Sender) do
     begin
@@ -1215,19 +1217,16 @@ begin
       fVisualControls.Images.GetBitmap(73,aBitmap);
       aButton.Glyph.Assign(aBitmap);
       aBitmap.Free;
-      aButton.OnClick:=@SearchEmployee;
-      aButton := TSpeedButton.Create(TfListFrame(Sender));
-      aButton.Top:=dnNavigator.Top-22;
-      aButton.Left := dnNavigator.Left;
-      aButton.Height := 22;
-      aButton.Width := dnNavigator.Width;
-      aButton.Parent := dnNavigator.Parent;
-      aBitmap := TBitmap.Create;
-      fVisualControls.Images.GetBitmap(73,aBitmap);
-      aButton.Glyph.Assign(aBitmap);
-      aBitmap.Free;
       aButton.OnClick:=@AddNewEmployee;
+      aButton.Hint:=strNewPerson;
       FList.DestroyDataSet:=False;
+      aLabel := TLabel.Create(TfListFrame(Sender));
+      aLabel.Parent := TfListFrame(Sender);
+      aLabel.Caption:=strAddNewPersonsFromDragDrop;
+      aLabel.Align:=alTop;
+      aLabel.Color:=clInfoBk;
+      aLabel.Font.Color:=clInfoText;
+      aLabel.BorderSpacing.Around:=8;
     end;
   TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
