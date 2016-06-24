@@ -324,52 +324,52 @@ end;
 
 procedure TfPersonFrame.TfListFrameFListDragDrop(Sender, Source: TObject; X,
   Y: Integer);
+  procedure AddPosition(aLink : string);
+  var
+    aPersons: TPersonList;
+    aEmployee: String;
+    aName: String;
+  begin
+    aPersons := TPersonList.CreateEx(Self,Data);
+    aPersons.SelectFromLink(aLink);
+    aPersons.Open;
+    aEmployee := aPersons.FieldByName('ACCOUNTNO').AsString;
+    aName := aPersons.FieldByName('NAME').AsString;
+    aPersons.free;
+    if (aEmployee<>'') and (aName<>'') then
+      begin
+        if (TPerson(DataSet).Employees.Changed) then
+          TPerson(DataSet).Employees.Post;
+        if not (TPerson(DataSet).Employees.Canedit) then
+          TPerson(DataSet).Employees.Append;
+        TPerson(DataSet).Employees.FieldByName('EMPLOYEE').AsString := aEmployee;
+        TPerson(DataSet).Employees.FieldByName('NAME').AsString := aName;
+        TPerson(DataSet).Employees.DataSet.Post;
+      end;
+  end;
+
 var
-  nData: TTreeEntry;
-  aEmployee,aName : string;
-  aRec: String;
-  OldFilter: String;
-  aPersons: TPersonList;
+  aLinks: String;
 begin
-  if (Source = fMainTreeFrame.tvMain) then
+  if Source is TDragEntry then
     begin
-      nData := TTreeEntry(fMainTreeFrame.tvMain.Selected.Data);
-      aPersons := TPersonList.CreateEx(Self,Data);
-      Data.SetFilter(aPersons,nData.Filter);
-      aEmployee := aPersons.FieldByName('ACCOUNTNO').AsString;
-      aName := aPersons.FieldByName('NAME').AsString;
-      aPersons.free;
-    end
-  else if (Source = fSearch.sgResults) then
-    begin
-      aPersons := TPersonList.CreateEx(Self,Data);
-      Data.SetFilter(aPersons,Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(fSearch.sgResults.Cells[1,fSearch.sgResults.Row]));
-      if aPersons.DataSet.Locate('ACCOUNTNO',fSearch.sgResults.Cells[1,fSearch.sgResults.Row],[loCaseInsensitive,loPartialKey]) then
+      aLinks := TDragEntry(Source).Links;
+      while pos(';',aLinks)>0 do
         begin
-          aEmployee := aPersons.FieldByName('ACCOUNTNO').AsString;
-          aName := aPersons.FieldByName('NAME').AsString;
+          AddPosition(copy(aLinks,0,pos(';',aLinks)-1));
+          aLinks := copy(aLinks,pos(';',aLinks)+1,length(aLinks));
         end;
-      aPersons.Free;
-    end
-  else exit;
-  TPerson(DataSet).Employees.DataSet.Append;
-  TPerson(DataSet).Employees.FieldByName('EMPLOYEE').AsString := aEmployee;
-  TPerson(DataSet).Employees.FieldByName('NAME').AsString := aName;
-  TPerson(DataSet).Employees.DataSet.Post;
+      AddPosition(aLinks);
+    end;
 end;
 procedure TfPersonFrame.TfListFrameFListDragOver(Sender, Source: TObject; X,
   Y: Integer; State: TDragState; var Accept: Boolean);
 begin
   Accept := False;
-  if (Source = fMainTreeFrame.tvMain)
-  and ((TTreeEntry(fMainTreeFrame.tvMain.Selected.Data).Typ = etCustomer)
-  or (TTreeEntry(fMainTreeFrame.tvMain.Selected.Data).Typ = etSupplier)) then
-    Accept := True;
-  if Assigned(fSearch) and (Source = fSearch.sgResults) then
+  if Source is TDragEntry then
     begin
-      with fSearch.sgResults do
-        if Data.GetLinkIcon(fSearch.sgResults.Cells[4,fSearch.sgResults.Row])= IMAGE_PERSON then
-          Accept := True;
+      Accept := pos('CUSTOMERS' ,TDragEntry(Source).Links)>0;
+      exit;
     end;
 end;
 procedure TfPersonFrame.TfListFrameFListViewDetails(Sender: TObject);
