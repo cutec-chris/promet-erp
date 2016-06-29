@@ -28,7 +28,7 @@ uses
   pcmdprometapp, uData, db, uBaseDBInterface, uBaseApplication,
   uBaseCustomApplication, uBaseDbClasses, uSync, uOrder, uPerson, uMasterdata,
   uMessages,Utils,uminiconvencoding,uBaseDatasetInterfaces,utask,uCalendar,
-  uProjects,uDocuments,dateutils;
+  uProjects,uDocuments,dateutils,uBaseERPDBClasses,uscheme;
 type
 
   { TSyncDBApp }
@@ -301,7 +301,7 @@ var
 begin
   Result := 0;
   aTable := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
-  if DestDM.DataSetFromLink('@'+aTable,aCRT) then
+  if DestDM.DataSetFromName(aTable,aCRT) then
     begin
       tCRT := aCRT.CreateEx(nil,DestDM);
       tCRT.CreateTable;
