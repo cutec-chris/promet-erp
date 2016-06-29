@@ -43,7 +43,6 @@
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos X="59" Y="31"/>
         <FoldState Value=" T3sU05d"/>
         <UsageCount Value="211"/>
@@ -69,6 +68,7 @@
       <Unit3>
         <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="788"/>
         <CursorPos Y="811"/>
@@ -124,7 +124,7 @@
         <UsageCount Value="10"/>
       </Unit9>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sync_db.lpr"/>
         <Caret Line="304" TopLine="281"/>
@@ -241,6 +241,10 @@
         <Filename Value="sync_db.lpr"/>
         <Caret Line="166" TopLine="144"/>
       </Position29>
+      <Position30>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="31" Column="59"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
