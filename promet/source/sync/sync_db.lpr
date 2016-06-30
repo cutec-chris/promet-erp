@@ -28,7 +28,7 @@ uses
   pcmdprometapp, uData, db, uBaseDBInterface, uBaseApplication,
   uBaseCustomApplication, uBaseDbClasses, uSync, uOrder, uPerson, uMasterdata,
   uMessages,Utils,uminiconvencoding,uBaseDatasetInterfaces,utask,uCalendar,
-  uProjects,uDocuments,dateutils,uBaseERPDBClasses,uscheme;
+  uProjects,uDocuments,dateutils,uBaseERPDBClasses,uscheme,uprometscripts;
 type
 
   { TSyncDBApp }
@@ -325,6 +325,10 @@ begin
           or (SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y')
           then
             (BaseApplication as IBaseApplication).Info(Format(strTableNotExists,[aTable]));
+          SyncDB.Tables.DataSet.Edit;
+          SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').Clear;
+          SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').Clear;
+          SyncDB.Tables.DataSet.Post;
           exit;
         end;
       aSyncStamps := TSyncStamps.CreateEx(Self,DestDM);
