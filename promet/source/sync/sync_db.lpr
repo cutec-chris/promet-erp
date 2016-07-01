@@ -190,14 +190,17 @@ begin
       if SyncDB.Tables.DataSet.FieldByName('NAME').AsString = 'DELETEDITEMS' then //Delete Items from DB
         begin
           aDelTable := copy(aSource.FieldByName('LINK').AsString,0,pos('@',aSource.FieldByName('LINK').AsString)-1);
-          if pos('.ID',aDelTable) > 0 then
-            aDelTable := copy(aDelTable,0,pos('.ID',aDelTable)-1);
-          if (aDelTable <> '') and (aDelTable <> 'ACTIVEUSERS') then
+          if DestDM.TableExists(aDelTable) then
             begin
-              aDel := DestDM.GetNewDataSet('select * from '+DestDM.QuoteField(aDelTable)+' where '+DestDM.QuoteField('SQL_ID')+'='+DestDM.QuoteValue(aSource.FieldByName('REF_ID_ID').AsString));
-              adel.Open;
-              if aDel.RecordCount>0 then
-                aDel.Delete;
+              if pos('.ID',aDelTable) > 0 then
+                aDelTable := copy(aDelTable,0,pos('.ID',aDelTable)-1);
+              if (aDelTable <> '') and (aDelTable <> 'ACTIVEUSERS') then
+                begin
+                  aDel := DestDM.GetNewDataSet('select * from '+DestDM.QuoteField(aDelTable)+' where '+DestDM.QuoteField('SQL_ID')+'='+DestDM.QuoteValue(aSource.FieldByName('REF_ID_ID').AsString));
+                  adel.Open;
+                  if aDel.RecordCount>0 then
+                    aDel.Delete;
+                end;
             end;
         end;
     except
