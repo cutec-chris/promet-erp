@@ -25,7 +25,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="473"/>
+      <BuildNr Value="474"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -173,7 +173,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -629,7 +628,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="12">
+    <Exceptions Count="13">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -666,6 +665,9 @@
       <Item12>
         <Name Value="ESQLScannerError"/>
       </Item12>
+      <Item13>
+        <Name Value="EListError"/>
+      </Item13>
     </Exceptions>
   </Debugging>
 </CONFIG>
