@@ -72,6 +72,7 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    function fSearchValidateItem(aLink: string): Boolean;
     function SetOrderfromSearch(aLink: string): Boolean;
     procedure tvStepSelectionChanged(Sender: TObject);
   private
@@ -201,6 +202,7 @@ procedure TfMain.acSearchMasterdataExecute(Sender: TObject);
 begin
   fSearch.SetLanguage;
   fSearch.OnOpenItem:=@SetOrderfromSearch;
+  fSearch.OnValidateItem:=@fSearchValidateItem;
   fSearch.AllowSearchTypes(strOrders+','+strMasterdata);
   fSearch.Execute(True,'PRODSE','');
 end;
@@ -294,6 +296,18 @@ begin
     begin
       Application.QueueAsyncCall(@DoRestoreConfig,0);
     end;
+end;
+
+function TfMain.fSearchValidateItem(aLink: string): Boolean;
+var
+  aMd: TMasterdata;
+begin
+  aMd := TMasterdata.Create(nil);
+  aMd.SelectFromLink(aLink);
+  aMd.Open;
+  aMd.Positions.Open;
+  Result := aMd.Positions.Count>0;
+  aMd.Free;
 end;
 
 function TfMain.SetOrderfromSearch(aLink: string): Boolean;
