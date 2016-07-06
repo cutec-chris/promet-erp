@@ -1220,6 +1220,7 @@ begin
       DoSynchronize(@DoCreate);
       except
       end;
+      AddSearchAbleDataSet(TBaseScript);
     end;
   //Lists
   DoInfo('Lists');
