@@ -44,8 +44,8 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="672"/>
-        <CursorPos Y="701"/>
+        <TopLine Value="555"/>
+        <CursorPos X="38" Y="685"/>
         <FoldState Value=" T3sb05E"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
@@ -63,7 +63,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="281"/>
         <CursorPos X="14" Y="304"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -72,7 +72,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="795"/>
         <CursorPos X="8" Y="844"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -112,7 +112,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="172"/>
         <CursorPos Y="200"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -129,7 +129,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="3667"/>
         <CursorPos Y="3710"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -172,7 +172,7 @@
         <EditorIndex Value="5"/>
         <TopLine Value="641"/>
         <CursorPos X="45" Y="680"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit16>
     </Units>

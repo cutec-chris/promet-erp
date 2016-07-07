@@ -220,7 +220,7 @@ uses uData,uBaseVisualControls,uOrderAdditionalFrame,uOverviewFrame,
   uDetailPositionFrame,uBaseVisualApplication,uPersonFrame,uPersonFinance,
   uAccountingTransfer,uPrometFramesInplace,Utils,uorderaddressframe,uMessageEdit,
   uNRights,uBookSerial,uBaseApplication,utextpositionframe,urepairimageframe,
-  LCLVersion,uscriptimport;
+  LCLVersion,uscriptimport,uCreateProductionOrder;
 resourcestring
   strAdditional                       = 'Zusätzlich';
   strDates                            = 'Datum';
@@ -1062,7 +1062,16 @@ begin
   DataSet.Open;
   if aStatus <> '' then
     if not TOrder(DataSet).OrderType.DataSet.Locate('STATUS',aStatus,[]) then exit;
-  DataSet.DataSet.Insert;
+  if TOrder(DataSet).OrderType.FieldByName('SI_PROD').AsString='Y' then
+    begin
+      if not fCreateProductionOrder.Execute(TOrder(DataSet),'','') then
+        begin
+          acClose.Execute;
+          exit;
+        end;
+    end
+  else
+    DataSet.DataSet.Insert;
   DoOpen(False);
   acSave.Enabled := False;
   acCancel.Enabled:= False;

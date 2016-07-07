@@ -94,7 +94,7 @@ resourcestring
 implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
-  uprometpythonscript,genpascalscript,Synautil,genscript;
+  uprometpythonscript,genpascalscript,Synautil,genscript,uCreateProductionOrder;
 
 procedure TfMain.DoCreate;
 begin
@@ -140,36 +140,15 @@ begin
   else FOrder.Close;
   if FOrder.Count<=0 then
     begin
-      //Find Article and Create Order
-      aMasterdata := TMasterdata.Create(nil);
-      aMasterdata.SelectFromNumber(eOrder.Text);
-      aMasterdata.Open;
-      if cbVersion.Enabled and (cbVersion.Text<>'') then
-        aMasterdata.Locate('VERSION',cbVersion.Text,[]);
-      if aMasterdata.Count>0 then
+      //if cbVersion.Enabled and (cbVersion.Text<>'') then
+      FOrder.OrderType.Open;
+      if FOrder.OrderType.Locate('SI_PROD;TYPE',VarArrayOf(['Y',7]),[]) then
+      if not fCreateProductionOrder.Execute(FOrder,eOrder.Text,cbVersion.Text) then
         begin
-          FOrder.OrderType.Open;
-          if FOrder.OrderType.Locate('SI_PROD;TYPE',VarArrayOf(['Y',7]),[]) then
-            begin
-              if MessageDlg(strCreateNewOrder,Format(strNewOrderWillbeCreated,[FOrder.OrderType.FieldByName('STATUSNAME').AsString,aMasterdata.FieldByName('ID').AsString]),mtInformation,[mbOK,mbCancel],0) = mrOK then
-                begin
-                  FOrder.Insert;
-                  FOrder.Positions.Insert;
-                  //FOrder.Status.AsString:=FOrder.OrderType.FieldByName('STATUS').AsString;
-                  FOrder.Positions.Assign(aMasterdata);
-                  FOrder.Positions.Post;
-                  FOrder.Post;
-                  cbVersion.Enabled:=False;
-                end
-              else
-                begin
-                  eOrder.SelectAll;
-                  eOrder.SetFocus;
-                  exit;
-                end;
-            end;
+          eOrder.SelectAll;
+          eOrder.SetFocus;
+          exit;
         end;
-      aMasterdata.Free;
     end;
   if FOrder.Count>0 then
     eOrder.Text:=FOrder.Number.AsString;
@@ -302,12 +281,15 @@ function TfMain.fSearchValidateItem(aLink: string): Boolean;
 var
   aMd: TMasterdata;
 begin
+  Result := True;
+  {
   aMd := TMasterdata.Create(nil);
   aMd.SelectFromLink(aLink);
   aMd.Open;
   aMd.Positions.Open;
   Result := aMd.Positions.Count>0;
   aMd.Free;
+  }
 end;
 
 function TfMain.SetOrderfromSearch(aLink: string): Boolean;
