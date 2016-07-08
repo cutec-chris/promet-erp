@@ -1,0 +1,23 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uoptions.strautomationoptions
+msgid "Automation/Synchronisation"
+msgstr ""
+
+#: uoptions.strgeneraloptions
+msgid "Globale Einstellungen"
+msgstr ""
+
+#: uoptions.strmasterdataoptions
+msgid "Stammdaten"
+msgstr ""
+
+#: uoptions.strpersonaloptions
+msgid "Persönliche Einstellungen"
+msgstr ""
+
+#: uoptions.strsavechanges
+msgid "sollen Änderungen gesichert werden ?"
+msgstr ""
+

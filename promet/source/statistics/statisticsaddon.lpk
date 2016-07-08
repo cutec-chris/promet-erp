@@ -8,8 +8,6 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
-      <CodeGeneration>
-      </CodeGeneration>
     </CompilerOptions>
     <Files Count="2">
       <Item1>
@@ -21,6 +19,11 @@
         <UnitName Value="ustatisticframe"/>
       </Item2>
     </Files>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="../../languages"/>
+      <EnableI18NForLFM Value="True"/>
+    </i18n>
     <RequiredPkgs Count="7">
       <Item1>
         <PackageName Value="laz_fpspreadsheet"/>

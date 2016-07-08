@@ -1,0 +1,11 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uimportoptions.strexportfailed
+msgid "Export fehlgeschlagen !"
+msgstr ""
+
+#: uimportoptions.strimportfailed
+msgid "Import fehlgeschlagen !"
+msgstr ""
+

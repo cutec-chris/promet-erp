@@ -1,0 +1,23 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: fautomationform.strdopick
+msgid "kommissionieren"
+msgstr ""
+
+#: fautomationform.strnotmoresteps
+msgid "Es sind keine (weiteren) Arbeitschritte vorhanden.<br><br>Um einen neuen Auftrag auswählen zu können müssen Sie den Auftrag (ab)schließen"
+msgstr ""
+
+#: fautomationform.strpartiallyproblematic
+msgid "Achtung Teile des Auftrages sind in nicht freigegebenem Zustand !"
+msgstr ""
+
+#: fautomationform.strrun
+msgid "Ausführen"
+msgstr ""
+
+#: fautomationform.strrunning
+msgid "wird ausgeführt..."
+msgstr ""
+

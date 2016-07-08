@@ -1,0 +1,43 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uganttview.strcancelchanges
+msgid "Sollen wirklich alle Änderungen verworfen werden ?"
+msgstr ""
+
+#: uganttview.strchangemilestones
+msgid "Meilensteine ändern"
+msgstr ""
+
+#: uganttview.strcollectingdependencies
+msgid "Abhängigkeiten werden ermittelt..."
+msgstr ""
+
+#: uganttview.strcollectingresourcetimes
+msgid "... Urlaubszeiten ermitteln"
+msgstr ""
+
+#: uganttview.strcollectingtasks
+msgid "Ansicht wird aufgebaut..."
+msgstr ""
+
+#: uganttview.strcommitchanges
+msgid "Sollen wirklich alle Änderungen in die Aufgaben eingetragen werden ?"
+msgstr ""
+
+#: uganttview.strfindcriticalpath
+msgid "kritischen Pfad finden"
+msgstr ""
+
+#: uganttview.strnewtask
+msgid "neue Aufgabe"
+msgstr ""
+
+#: uganttview.strnosnapshot
+msgid "<keiner>"
+msgstr ""
+
+#: uganttview.strsnapshot
+msgid "Snapshot"
+msgstr ""
+

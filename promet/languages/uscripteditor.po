@@ -1,0 +1,39 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uscripteditor.strscriptrunning
+msgid "Das Script wurde gestartet"
+msgstr ""
+
+#: uscripteditor.str_compile_error
+msgid "Fehler beim kompilieren !"
+msgstr ""
+
+#: uscripteditor.str_form_title
+msgid "Editor"
+msgstr ""
+
+#: uscripteditor.str_form_title_running
+msgid "Editor - Running"
+msgstr ""
+
+#: uscripteditor.str_inputbox_title
+msgid "Script"
+msgstr ""
+
+#: uscripteditor.str_notsaved
+msgid "Script wurde noch nicht gespeichert, jetzt speichern?"
+msgstr ""
+
+#: uscripteditor.str_successfully_executed
+msgid "Erfolgreich ausgeführt"
+msgstr ""
+
+#: uscripteditor.str_text_notfound
+msgid "Text not found"
+msgstr ""
+
+#: uscripteditor.str_unnamed
+msgid "Unnamed"
+msgstr ""
+

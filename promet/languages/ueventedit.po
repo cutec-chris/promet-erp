@@ -1,0 +1,7 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ueventedit.streventinpast
+msgid "Das Ereignis liegt in der Vergangenheit"
+msgstr ""
+

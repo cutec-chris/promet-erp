@@ -1,0 +1,27 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uprojectframe.stractivestatus
+msgid "Der gewähte Status ist ein aktiver Status, sollen alle aktiven Aufgaben aktiviert werden ?"
+msgstr ""
+
+#: uprojectframe.strenterprocessname
+msgid "geben Sie einen neuen Namen für den Prozess an"
+msgstr ""
+
+#: uprojectframe.strinactivestatus
+msgid "Der gewähte Status ist kein aktiver Status, sollen alle aktiven Aufgaben deaktiviert werden ?"
+msgstr ""
+
+#: uprojectframe.strnewproject
+msgid "neues Projekt"
+msgstr ""
+
+#: uprojectframe.strnoparent
+msgid "<kein Vorfahr>"
+msgstr ""
+
+#: uprojectframe.strprocessname
+msgid "Prozessname"
+msgstr ""
+

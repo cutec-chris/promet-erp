@@ -25,14 +25,14 @@ echo "building package..."
 #      -e "s/ARCH/$Arch/g" \
 #      -e "s/ARCHFPC/$Archfpc/g" \
 #      -e "s/CREATEDDATE/$Date/g" \
-#  > $BuildDir/App/AppInfo/Appinfo.ini
+#  > $BuildDir/App/AppInfo/appinfo.ini
 #rm $BuildDir/App/AppInfo/Launcher/Splash.jpg
 cat Appinfo.ini | \
   sed -b -e "s/VERSION/$Version/g" \
       -e "s/ARCH/$Arch/g" \
       -e "s/ARCHFPC/$Archfpc/g" \
       -e "s/CREATEDDATE/$Date/g" \
-  > $BuildDir/App/AppInfo/Appinfo.ini
+  > $BuildDir/App/AppInfo/appinfo.ini
 cp
 /c/PortableApps.comInstaller/PortableApps.comInstaller.exe $BuildDir
 cp $BuildDir/*.paf.exe ../output

@@ -1,0 +1,31 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: umeetingframe.strentermeetingname
+msgid "geben Sie einen neuen Namen für die Besprechung an"
+msgstr ""
+
+#: umeetingframe.strmeetingname
+msgid "Besprechungsname"
+msgstr ""
+
+#: umeetingframe.strnewmeeting
+msgid "neue Besprechung"
+msgstr ""
+
+#: umeetingframe.strnouserselected
+msgid "Es ist kein Benutzer oder Verantwortlicher zugewiesen !"
+msgstr ""
+
+#: umeetingframe.strsearchfrommeetings
+msgid "Mit Öffnen wird das gewählte Projekt in die Liste übernommen"
+msgstr ""
+
+#: umeetingframe.strsearchfromusers
+msgid "Mit Öffnen wird der gewählte Nutzer in die Liste übernommen"
+msgstr ""
+
+#: umeetingframe.strunassigned
+msgid "kein Bezug"
+msgstr ""
+

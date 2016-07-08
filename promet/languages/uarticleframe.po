@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: uarticleframe.strnewarticle
+msgid "neuer Artikel"
+msgstr "new Aticle"
+
+#: uarticleframe.strpiecelist
+msgid "Stückliste"
+msgstr "Piecelist"
+
+#: uarticleframe.strprices
+msgid "Preise"
+msgstr "Prices"
+
+#: uarticleframe.strproperties
+msgid "Eigenschaften"
+msgstr "Propertys"
+
+#: uarticleframe.strrepair
+msgid "Reparatur"
+msgstr "Repair"
+
+#: uarticleframe.strstorage
+msgid "Lager"
+msgstr "Storage"
+
+#: uarticleframe.strsupplier
+msgid "Lieferant"
+msgstr "Supplier"
+
+#: uarticleframe.strtexts
+msgid "Texte"
+msgstr "Texts"

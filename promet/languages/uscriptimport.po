@@ -1,0 +1,51 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uscriptimport.strconfiguredatasource
+msgid "Setzen Sie die Quelle / Einstellungen der Datenquelle und klicken Sie OK"
+msgstr ""
+
+#: uscriptimport.strcreateanformat
+msgid "Bitte erstellen Sei ein Datenformat. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf."
+msgstr ""
+
+#: uscriptimport.strdatadestination
+msgid "Datenausgabe"
+msgstr ""
+
+#: uscriptimport.strdataexport
+msgid "Datenexport"
+msgstr ""
+
+#: uscriptimport.strdataimport
+msgid "Datenimport"
+msgstr ""
+
+#: uscriptimport.strdatasource
+msgid "Datenquelle"
+msgstr ""
+
+#: uscriptimport.strerrorcompiling
+msgid "Fehlerhafters Importscript"
+msgstr ""
+
+#: uscriptimport.strimporterclassnotfound
+msgid "Datenquellenklasse wurde nicht gefunden !"
+msgstr ""
+
+#: uscriptimport.strpleaseenteranformatname
+msgid "Bitte geben Sie einen Namen für das Format an !"
+msgstr ""
+
+#: uscriptimport.strpleasselectanimportfilebeforeedit
+msgid "Bitte wählen Sie eine Datenquellenklasse !"
+msgstr ""
+
+#: uscriptimport.strselectandatasource
+msgid "Bitte wählen Sie eine Datenquelle"
+msgstr ""
+
+#: uscriptimport.strselectanformat
+msgid "Bitte wählen Sie ein Datenformat, oder erstellen Sie ein neues. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf."
+msgstr ""
+
