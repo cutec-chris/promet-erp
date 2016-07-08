@@ -94,7 +94,8 @@ resourcestring
 implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
-  uprometpythonscript,genpascalscript,Synautil,genscript,uCreateProductionOrder;
+  uprometpythonscript,genpascalscript,Synautil,genscript,uCreateProductionOrder,
+  uprometpascalscript,unumbersetempty;
 
 procedure TfMain.DoCreate;
 begin
@@ -368,6 +369,12 @@ begin
     Application.ProcessMessages;
 end;
 
+function InternalNumbersetEmpty(aNumberset : string) : Boolean;
+begin
+  Result := fNumbersetEmpty.Execute(aNumberset);
+end;
+
 initialization
   genpascalscript.DoSleep:=@InternalSleep;
+  uprometpascalscript.OnNumbersetEmpty:=@InternalNumbersetEmpty;
 end.
