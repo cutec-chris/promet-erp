@@ -21,8 +21,148 @@ msgid ""
 "startenwieder startenwieder startenwieder startenwieder startenwieder "
 "startenwieder startenwieder startenwieder startenwieder startenwieder "
 "startenwieder startenwieder startenwieder startenwieder startenwieder "
-"startenwieder starten"
-msgstr "-"
+"startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder "
+"starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen "
+"Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z."
+"b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder "
+"startenwieder starten(aktive Version)(aktive Version)(Menü)wieder "
+"startenwieder starten(aktive Version)wieder starten(aktive Version)"
+"(Menü)wieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder starten(Menü)beim "
+"speichern im Kontakteditor wird dieser sofort in den Auftrag "
+"übernommenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenbeim speichern im Kontakteditor wird "
+"dieser sofort in den Auftrag übernommenbeim speichern im Kontakteditor wird "
+"dieser sofort in den Auftrag übernommen(Menü)(Menü)(Menü)(Menü)wieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder "
+"starten(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)"
+"(aktive Version)(aktive Version)wieder starten(aktive Version)wieder "
+"startenwieder starten(Menü)wieder startenwieder starten(Menü)(Menü)(Menü)"
+"(Menü)(Menü)wieder starten(Menü)wieder startenwieder starten(Menü)(Menü)"
+"(Menü)(Menü)wieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)"
+"(Menü)(Menü)(Menü)(Menü)wieder startenwieder starten(Menü)wieder "
+"startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)"
+"(Menü)(Menü)wieder starten(Menü)(aktive Version)(Menü)(Menü)wieder "
+"starten(Menü)(aktive Version)(aktive Version)wieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)"
+"(Menü)wieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder starten(aktive Version)wieder startenwieder startenwieder "
+"starten(Menü)wieder startenwieder startenwieder startenwieder starten(Menü)"
+"(aktive Version)(Menü)(Menü)(Menü)wieder startenwieder startenwieder "
+"starten(Menü)(Menü)wieder startenwieder startenwieder startenwieder "
+"startenwieder starten(aktive Version)wieder starten(Menü)wieder starten(Menü)"
+"(Menü)(Menü)(Menü)wieder starten(aktive Version)(aktive Version)(aktive "
+"Version)wieder startenwieder startenDies ist auch mit diesem Flag nur mit "
+"Recht \"Rechte vergeben\" möglich(Menü)(Menü)(aktive Version)(Menü)(Menü)"
+"(Menü)(Menü)(Menü)(Menü)wieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder starten(aktive Version)(aktive Version)(aktive Version)(aktive "
+"Version)(aktive Version)(aktive Version)(aktive Version)(Menü)(Menü)(Menü)"
+"(aktive Version)(aktive Version)(aktive Version)(aktive Version)(aktive "
+"Version)(aktive Version)(aktive Version)wieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder starten(aktive "
+"Version)wieder startenwieder starten(Menü)(Menü)(Menü)(aktive Version)"
+"(aktive Version)wieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder starten(aktive Version)(aktive Version)(aktive "
+"Version)(aktive Version)Dies ist auch mit diesem Flag nur mit Recht \"Rechte "
+"vergeben\" möglich(Menü)(Menü)wieder startenwieder starten(aktive Version)"
+"(aktive Version)(aktive Version)(aktive Version)(Menü)(Menü)wieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenDies ist auch "
+"mit diesem Flag nur mit Recht \"Rechte vergeben\" möglich(aktive Version)"
+"(aktive Version)(aktive Version)(Menü)(Menü)(Menü)(Menü)(Menü)Später wird "
+"dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet "
+"gesetztSpäter wird dieses z.b. bei Importern/Exportern oder "
+"Produktionsaufträgen vom Promet gesetztSpäter wird dieses z.b. bei Importern/"
+"Exportern oder Produktionsaufträgen vom Promet gesetzt(Menü)(Menü)(aktive "
+"Version)(Menü)Später wird dieses z.b. bei Importern/Exportern oder "
+"Produktionsaufträgen vom Promet gesetzt(aktive Version)(aktive Version)"
+"(aktive Version)(aktive Version)wieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"starten(aktive Version)(Menü)(Menü)(Menü)(Menü)wieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenSpäter wird "
+"dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet "
+"gesetztSpäter wird dieses z.b. bei Importern/Exportern oder "
+"Produktionsaufträgen vom Promet gesetztwieder startenwieder startenwieder "
+"startenwieder startenwieder startenbeim speichern im Kontakteditor wird "
+"dieser sofort in den Auftrag übernommenSpäter wird dieses z.b. bei Importern/"
+"Exportern oder Produktionsaufträgen vom Promet gesetztwieder startenwieder "
+"startenwieder startenwieder startenSpäter wird dieses z.b. bei Importern/"
+"Exportern oder Produktionsaufträgen vom Promet gesetztwieder startenwieder "
+"startenwieder startenwieder starten(Menü)Später wird dieses z.b. bei "
+"Importern/Exportern oder Produktionsaufträgen vom Promet gesetztSpäter wird "
+"dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet "
+"gesetztwieder startenwieder startenSpäter wird dieses z.b. bei Importern/"
+"Exportern oder Produktionsaufträgen vom Promet gesetztSpäter wird dieses z."
+"b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetztDies "
+"ist auch mit diesem Flag nur mit Recht \"Rechte vergeben\" möglichDies ist "
+"auch mit diesem Flag nur mit Recht \"Rechte vergeben\" möglichDies ist auch "
+"mit diesem Flag nur mit Recht \"Rechte vergeben\" möglichDies ist auch mit "
+"diesem Flag nur mit Recht \"Rechte vergeben\" möglichDies ist auch mit "
+"diesem Flag nur mit Recht \"Rechte vergeben\" möglichDies ist auch mit "
+"diesem Flag nur mit Recht \"Rechte vergeben\" möglichDies ist auch mit "
+"diesem Flag nur mit Recht \"Rechte vergeben\" möglichSpäter wird dieses z.b. "
+"bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetztwieder "
+"startenwieder starten(Menü)werden nur die sichtbaren Positionen in den neuen "
+"Status übernommen(Menü)(Menü)"
+msgstr ""
+"incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder "
+"startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(aktive "
+"Version)(aktive Version)(aktive Version)(aktive Version)(aktive Version)"
+"(aktive Version)(aktive Version)wieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder starten(Menü)(Menü)wieder startenwieder startenwieder "
+"starten(Menü)(Menü)wieder startenwieder starten(Menü)z.b. 0.05 als 5-Rappen "
+"Rundung in der Schweizz.b. 0.05 als 5-Rappen Rundung in der Schweiz(Üblich z."
+"b. auf Kassenbons auf Rechnungen unüblich)wieder startenwieder startenwieder "
+"startenwieder starten(aktive Version)(aktive Version)(Menü)wieder "
+"startenwieder starten(aktive Version)wieder starten(aktive Version)"
+"(Menü)wieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder starten(Menü)beim "
+"speichern im Kontakteditor wird dieser sofort in den Auftrag "
+"übernommenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenbeim speichern im Kontakteditor wird "
+"dieser sofort in den Auftrag übernommenbeim speichern im Kontakteditor wird "
+"dieser sofort in den Auftrag übernommen(Menü)(Menü)(Menü)(Menü)wieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder "
+"starten(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive Version)"
+"(aktive Version)(aktive Version)wieder starten(aktive Version)wieder "
+"startenwieder starten(Menü)wieder startenwieder starten(Menü)(Menü)(Menü)"
+"(Menü)(Menü)wieder starten(Menü)wieder startenwieder starten(Menü)(Menü)"
+"(Menü)(Menü)wieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)"
+"(Menü)(Menü)(Menü)(Menü)wieder startenwieder starten(Menü)wieder "
+"startenwieder startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)"
+"(Menü)(Menü)wieder starten(Menü)(aktive Version)(Menü)(Menü)wieder "
+"starten(Menü)(aktive Version)(aktive Version)wieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)"
+"(Menü)wieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder startenwieder startenwieder startenwieder startenwieder "
+"startenwieder starten(aktive Version)wieder startenwieder startenwieder "
+"starten"
 
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
@@ -348,14 +488,32 @@ msgstr "Auflösung"
 msgid "hier können Sie die Auflösung in Punkten pro Inch (dpi) einstellen"
 msgstr "hier können Sie die Auflösung in Punkten pro Inch (dpi) einstellen"
 
-#: tfaddressframe.bpastefromclipboard.hint
-msgid "Addresse aus Zwischenablage einfügen"
-msgstr "Addresse aus Zwischenablage einfügen"
-
 #: tfaddressframe.cbactive.caption
 msgctxt "TFADDRESSFRAME.CBACTIVE.CAPTION"
 msgid "Aktiv"
 msgstr "Aktiv"
+
+#: tfaddressframe.editcopy1.caption
+#, fuzzy
+msgid "&Kopieren"
+msgstr "Kopieren"
+
+#: tfaddressframe.editcopy1.hint
+#, fuzzy
+msgctxt "TFADDRESSFRAME.EDITCOPY1.HINT"
+msgid "Kopieren"
+msgstr "Kopieren"
+
+#: tfaddressframe.editpaste1.caption
+#, fuzzy
+msgid "&Einfügen"
+msgstr "Einfügen"
+
+#: tfaddressframe.editpaste1.hint
+#, fuzzy
+msgctxt "TFADDRESSFRAME.EDITPASTE1.HINT"
+msgid "Einfügen"
+msgstr "Einfügen"
 
 #: tfaddressframe.extrotatedlabel1.caption
 msgctxt "TFADDRESSFRAME.EXTROTATEDLABEL1.CAPTION"
@@ -385,11 +543,6 @@ msgstr "Typ"
 msgctxt "TFADDRESSFRAME.GADRESSES.HINT"
 msgid "wählen Sie hier eine Adresse"
 msgstr "wählen Sie hier eine Adresse"
-
-#: tfaddressframe.label1.caption
-msgctxt "TFADDRESSFRAME.LABEL1.CAPTION"
-msgid "Adressen"
-msgstr "Adressen"
 
 #: tfaddressframe.ladditional.caption
 msgctxt "TFADDRESSFRAME.LADDITIONAL.CAPTION"
@@ -431,10 +584,6 @@ msgctxt "TFADDRESSFRAME.LTITLE.CAPTION"
 msgid "Anrede"
 msgstr "Anrede"
 
-#: tfaddressframe.paddress.caption
-msgid "gewählte Adresse"
-msgstr "gewählte Adresse"
-
 #: tfaddserial.caption
 msgid "Serienummer hinzufügen"
 msgstr "Serienummer hinzufügen"
@@ -446,6 +595,11 @@ msgstr "-"
 #: tfaddserial.larticle.caption
 msgid "lArticle"
 msgstr "Artikel"
+
+#: tfarticleframe.acaddimage.caption
+msgctxt "tfarticleframe.acaddimage.caption"
+msgid "aus Bilddatei laden"
+msgstr "aus Bilddatei laden"
 
 #: tfarticleframe.accancel.caption
 msgctxt "TFARTICLEFRAME.ACCANCEL.CAPTION"
@@ -472,15 +626,67 @@ msgctxt "TFARTICLEFRAME.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Löschen"
 
+#: tfarticleframe.acdeletethumb.caption
+#, fuzzy
+msgctxt "tfarticleframe.acdeletethumb.caption"
+msgid "acDeleteThumb"
+msgstr "-"
+
+#: tfarticleframe.acdeletethumb.hint
+#, fuzzy
+msgctxt "tfarticleframe.acdeletethumb.hint"
+msgid "Thumbnail entfernen"
+msgstr "Dokument entfernen"
+
+#: tfarticleframe.acexport.caption
+#, fuzzy
+msgctxt "TFARTICLEFRAME.ACEXPORT.CAPTION"
+msgid "Exportieren"
+msgstr "Exportieren"
+
+#: tfarticleframe.acimport.caption
+#, fuzzy
+msgctxt "TFARTICLEFRAME.ACIMPORT.CAPTION"
+msgid "Importieren"
+msgstr "Importieren"
+
+#: tfarticleframe.acnew.caption
+#, fuzzy
+msgctxt "TFARTICLEFRAME.ACNEW.CAPTION"
+msgid "Neuer Artikel"
+msgstr "Neuer Artikel"
+
+#: tfarticleframe.acnew.hint
+#, fuzzy
+msgctxt "TFARTICLEFRAME.ACNEW.HINT"
+msgid "erstellt einen neuen Artikel"
+msgstr "erstellt einen neuen Artikel"
+
 #: tfarticleframe.acpaste.caption
 msgctxt "TFARTICLEFRAME.ACPASTE.CAPTION"
 msgid "Einfügen"
 msgstr "Einfügen"
 
+#: tfarticleframe.acpasteimage.caption
+#, fuzzy
+msgctxt "tfarticleframe.acpasteimage.caption"
+msgid "aus Zwischenablage einfügen"
+msgstr "aus Zwischenablage einfügen"
+
 #: tfarticleframe.acprint.caption
 msgctxt "TFARTICLEFRAME.ACPRINT.CAPTION"
 msgid "acPrint"
 msgstr "-"
+
+#: tfarticleframe.acrestart.caption
+#, fuzzy
+msgid "Dublizieren"
+msgstr "pausieren"
+
+#: tfarticleframe.acrestart.hint
+#, fuzzy
+msgid "Dupliziert den Artikel"
+msgstr "speichert den Artikel"
 
 #: tfarticleframe.acrights.caption
 msgctxt "TFARTICLEFRAME.ACRIGHTS.CAPTION"
@@ -496,6 +702,12 @@ msgstr "Speichern"
 msgctxt "tfarticleframe.acsave.hint"
 msgid "Speichert alle Änderungen in die Datenbank"
 msgstr "Speichert alle Änderungen in die Datenbank"
+
+#: tfarticleframe.acscreenshot.caption
+#, fuzzy
+msgctxt "tfarticleframe.acscreenshot.caption"
+msgid "aus Bildschirmfoto erstellen"
+msgstr "neues Konto erstellen"
 
 #: tfarticleframe.acsettreedir.caption
 msgctxt "tfarticleframe.acsettreedir.caption"
@@ -516,6 +728,12 @@ msgstr "Zeiterfassung starten"
 msgctxt "TFARTICLEFRAME.BCHANGENUMBER.CAPTION"
 msgid "..."
 msgstr "..."
+
+#: tfarticleframe.bchangenumber.hint
+#, fuzzy
+msgctxt "TFARTICLEFRAME.BCHANGENUMBER.HINT"
+msgid "Nummer ändern"
+msgstr "Nummer ändern"
 
 #: tfarticleframe.cbactive.caption
 msgctxt "TFARTICLEFRAME.CBACTIVE.CAPTION"
@@ -571,9 +789,10 @@ msgid "Ist dieser Eintrag ein Verkaufsartikel "
 msgstr "Ist dieser Eintrag ein Verkaufsartikel "
 
 #: tfarticleframe.cbstatus.hint
+#, fuzzy
 msgctxt "TFARTICLEFRAME.CBSTATUS.HINT"
 msgid ""
-"hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu "
+"hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu "
 "überführen"
 msgstr ""
 "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu "
@@ -594,10 +813,19 @@ msgctxt "TFARTICLEFRAME.CBVERSION.HINT"
 msgid "hier können Sie die zu bearbeitende Artikelversion auswählen."
 msgstr "hier können Sie die zu bearbeitende Artikelversion auswählen."
 
+#: tfarticleframe.dbcheckbox4.caption
+msgid "ist Vorlage"
+msgstr "ist Vorlage"
+
 #: tfarticleframe.ematchcode.hint
 msgctxt "TFARTICLEFRAME.EMATCHCODE.HINT"
 msgid "Hier können Sie einen Suchbegriff angeben, "
 msgstr "Hier können Sie einen Suchbegriff angeben, "
+
+#: tfarticleframe.erepairtime.hint
+msgctxt "tfarticleframe.erepairtime.hint"
+msgid "Wenn dieses Feld befüllt ist, findet diese Zeit "
+msgstr "Wenn dieses Feld befüllt ist, findet diese Zeit "
 
 #: tfarticleframe.gbtree.caption
 msgctxt "TFARTICLEFRAME.GBTREE.CAPTION"
@@ -654,6 +882,16 @@ msgctxt "TFARTICLEFRAME.LQUANTITYUNIT.CAPTION"
 msgid "Mengeneinheit"
 msgstr "Mengeneinheit"
 
+#: tfarticleframe.lrepairtime.caption
+#, fuzzy
+msgid "max. Reparaturzeit"
+msgstr "Reparatur"
+
+#: tfarticleframe.lrepairtime.hint
+msgctxt "TFARTICLEFRAME.LREPAIRTIME.HINT"
+msgid "Wenn dieses Feld befüllt ist, findet diese Zeit "
+msgstr "Wenn dieses Feld befüllt ist, findet diese Zeit "
+
 #: tfarticleframe.lshorttext.caption
 msgctxt "TFARTICLEFRAME.LSHORTTEXT.CAPTION"
 msgid "Kurztext"
@@ -691,6 +929,12 @@ msgstr "-"
 
 #: tfarticleframe.menuitem2.caption
 msgctxt "TFARTICLEFRAME.MENUITEM2.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tfarticleframe.menuitem7.caption
+#, fuzzy
+msgctxt "TFARTICLEFRAME.MENUITEM7.CAPTION"
 msgid "-"
 msgstr "-"
 
@@ -783,6 +1027,8 @@ msgid "Lieferzeit"
 msgstr "Lieferzeit"
 
 #: tfarticlesupplierframe.ldelivertime1.caption
+#, fuzzy
+msgctxt "tfarticlesupplierframe.ldelivertime1.caption"
 msgid "fügen Sie weitere Lieferanten per Drag&Drop aus der Suche ein"
 msgstr "fügen Sie weitere Lieferanten per Drag&Drop aus der Suche ein"
 
@@ -804,6 +1050,10 @@ msgstr "-"
 msgctxt "TFARTICLETEXTFRAME.EXTROTATEDLABEL1.CAPTION"
 msgid "Navigation"
 msgstr "Navigation"
+
+#: tfarticletextframe.extrotatedlabel2.caption
+msgid "Edit"
+msgstr "Editieren"
 
 #: tfarticletextframe.ltexttyp.caption
 msgid "Textart"
@@ -843,6 +1093,39 @@ msgstr "Restbetrag"
 msgctxt "TFBOOKACCOUNTING.MEAMOUNT.TEXT"
 msgid "0,00"
 msgstr "0,00"
+
+#: tfbookfibuaccount.caption
+#, fuzzy
+msgid "Buchhaltungskonto zuordnen"
+msgstr "Buchung zuordnen"
+
+#: tfbookfibuaccount.cbwholelist.caption
+msgid "gesamte Liste auf dieses Konto setzen"
+msgstr "gesamte Liste auf dieses Konto setzen"
+
+#: tfbookfibuaccount.cbwholelist.hint
+msgid ""
+"setzt die gesamte Liste (Filtern Sie um gewünschte Datensätze zu wählen)"
+msgstr ""
+"setzt die gesamte Liste (Filtern Sie um gewünschte Datensätze zu wählen)"
+
+#: tfbookfibuaccount.gaccounts.columns[0].title.caption
+#, fuzzy
+msgctxt "TFBOOKFIBUACCOUNT.GACCOUNTS.COLUMNS[0].TITLE.CAPTION"
+msgid "ACCOUNTNO"
+msgstr "-"
+
+#: tfbookfibuaccount.gaccounts.columns[1].title.caption
+#, fuzzy
+msgctxt "TFBOOKFIBUACCOUNT.GACCOUNTS.COLUMNS[1].TITLE.CAPTION"
+msgid "NAME"
+msgstr "-"
+
+#: tfbookfibuaccount.label1.caption
+#, fuzzy
+msgctxt "TFBOOKFIBUACCOUNT.LABEL1.CAPTION"
+msgid "Suche"
+msgstr "Suche"
 
 #: tfbookserial.caption
 msgid "Serienummer ein/ausbuchen"
@@ -969,6 +1252,15 @@ msgstr "&Ok"
 msgid "Status ändern"
 msgstr "Status ändern"
 
+#: tfchangestatus.cbfiltered.caption
+#, fuzzy
+msgid "nur sichtbare Zeilen"
+msgstr "Sichtbare Spalten"
+
+#: tfchangestatus.cbfiltered.hint
+msgid "Wenn Sie Positionen gefiltert haben (Filterzeile) "
+msgstr "Wenn Sie Positionen gefiltert haben (Filterzeile) "
+
 #: tfchangestatus.lchange.caption
 msgctxt "TFCHANGESTATUS.LCHANGE.CAPTION"
 msgid "Änderung"
@@ -995,9 +1287,49 @@ msgstr "-"
 msgid "lSystemColors"
 msgstr "System Farben"
 
-#: tfcopyarticledata.caption
-msgid "fCopyArticleData"
+#: tfcommandline.aceditscript.caption
+msgid "acEditScript"
+msgstr "Script editieren"
+
+#: tfcommandline.acnewscript.caption
+#, fuzzy
+msgid "acNewScript"
 msgstr "-"
+
+#: tfcommandline.input.hint
+#, fuzzy
+msgctxt "tfcommandline.input.hint"
+msgid "geben Sie hier Ihre Frage oder Befehl ein"
+msgstr "geben Sie hier den namen des Kontaktes an"
+
+#: tfcommandline.label1.caption
+msgid ">"
+msgstr ">"
+
+#: tfcommandline.label3.caption
+#, fuzzy
+msgid "Administration"
+msgstr "Administrative data"
+
+#: tfcommandline.panel2.caption
+#, fuzzy
+msgid "Panel2"
+msgstr "-"
+
+#: tfcommandline.toolbar1.caption
+#, fuzzy
+msgctxt "TFCOMMANDLINE.TOOLBAR1.CAPTION"
+msgid "ToolBar1"
+msgstr "-"
+
+#: tfcopyarticledata.caption
+#, fuzzy
+msgid "Artikel kopieren"
+msgstr "In Artikel konvertieren"
+
+#: tfcopyarticledata.cbactivate.caption
+msgid "neue version aktiv machen"
+msgstr "neue version aktiv machen"
 
 #: tfcopyarticledata.cbcopyprices.caption
 msgctxt "TFCOPYARTICLEDATA.CBCOPYPRICES.CAPTION"
@@ -1025,33 +1357,40 @@ msgstr "Daten die in den neuen Artikel / Artikelversion übernommen werden"
 
 #: tfcurrencyoptions.dgcurrency.columns[0].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[0].TITLE.CAPTION"
-msgid "SYMBOL"
-msgstr "-"
+msgid "Symbol"
+msgstr "Symbol"
 
 #: tfcurrencyoptions.dgcurrency.columns[1].title.caption
+#, fuzzy
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[1].TITLE.CAPTION"
-msgid "NAME"
-msgstr "-"
+msgid "Name"
+msgstr "Name"
 
 #: tfcurrencyoptions.dgcurrency.columns[2].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[2].TITLE.CAPTION"
-msgid "MASK"
-msgstr "-"
+msgid "Maske"
+msgstr "Maske"
 
 #: tfcurrencyoptions.dgcurrency.columns[3].title.caption
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[3].TITLE.CAPTION"
-msgid "DECIMALPL"
-msgstr "-"
+msgid "Faktor"
+msgstr "Faktor"
 
 #: tfcurrencyoptions.dgcurrency.columns[4].title.caption
+#, fuzzy
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[4].TITLE.CAPTION"
-msgid "FACTOR"
-msgstr "-"
+msgid "Standard"
+msgstr "Standartdrucker"
 
 #: tfcurrencyoptions.dgcurrency.columns[5].title.caption
+#, fuzzy
 msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[5].TITLE.CAPTION"
-msgid "DEFAULTCUR"
-msgstr "-"
+msgid "Dezimalstellen"
+msgstr "%s erstellen"
+
+#: tfcurrencyoptions.dgcurrency.columns[6].title.caption
+msgid "Runden auf"
+msgstr "Runden auf"
 
 #: tfcustomer.acactionmenue.caption
 msgid "acActionMenue"
@@ -2069,6 +2408,8 @@ msgid "01:00"
 msgstr "-"
 
 #: tfentertime.lproject.caption
+#, fuzzy
+msgctxt "tfentertime.lproject.caption"
 msgid "Projekt"
 msgstr "Projekt"
 
@@ -2320,6 +2661,24 @@ msgstr "-"
 msgctxt "TFFILTERTABS.MICLOSE.CAPTION"
 msgid "Schliessen"
 msgstr "Schliessen"
+
+#: tffinancialoptions.gcategory.columns[0].title.caption
+#, fuzzy
+msgctxt "TFFINANCIALOPTIONS.GCATEGORY.COLUMNS[0].TITLE.CAPTION"
+msgid "Konto"
+msgstr "Konto"
+
+#: tffinancialoptions.gcategory.columns[1].title.caption
+#, fuzzy
+msgctxt "TFFINANCIALOPTIONS.GCATEGORY.COLUMNS[1].TITLE.CAPTION"
+msgid "Name"
+msgstr "Name"
+
+#: tffinancialoptions.gcategory.columns[2].title.caption
+#, fuzzy
+msgctxt "TFFINANCIALOPTIONS.GCATEGORY.COLUMNS[2].TITLE.CAPTION"
+msgid "Aktiv"
+msgstr "Aktiv"
 
 #: tffindtransaction.caption
 msgid "Buchung zuordnen"
@@ -2712,6 +3071,11 @@ msgstr "setzt alle Listenelemente zurück"
 msgid "Tab Schliessen"
 msgstr "Tab Schliessen"
 
+#: tfmain.acclosetab.hint
+#, fuzzy
+msgid "Schließt das aktuelle Tab"
+msgstr "löscht das aktuelle Tab"
+
 #: tfmain.accollectinventory.caption
 msgid "acCollectInventory"
 msgstr "-"
@@ -2719,6 +3083,11 @@ msgstr "-"
 #: tfmain.accombinesaleitems.caption
 msgid "acCombineSaleItems"
 msgstr "-"
+
+#: tfmain.accommandline.caption
+#, fuzzy
+msgid "Kommandozeile"
+msgstr "Befehl"
 
 #: tfmain.accontact.caption
 msgctxt "TFMAIN.ACCONTACT.CAPTION"
@@ -2737,6 +3106,10 @@ msgstr "Eintrag löschen"
 #: tfmain.acdeletewholemessagedir.caption
 msgid "Alle Nachrichten löschen"
 msgstr "Alle Nachrichten löschen"
+
+#: tfmain.acelements.caption
+msgid "Alle Elemente"
+msgstr "Alle Elemente"
 
 #: tfmain.acforward.caption
 msgctxt "TFMAIN.ACFORWARD.CAPTION"
@@ -2764,6 +3137,11 @@ msgstr "Abmelden"
 msgctxt "TFMAIN.ACMASTERDATA.CAPTION"
 msgid "Artikel"
 msgstr "Artikel"
+
+#: tfmain.acmasterdataversionate.caption
+#, fuzzy
+msgid "Artikel versionieren"
+msgstr "In Artikel konvertieren"
 
 #: tfmain.acmeetings.caption
 msgid "acMeetings"
@@ -2803,6 +3181,8 @@ msgid "Neuer Artikel"
 msgstr "Neuer Artikel"
 
 #: tfmain.acnewmasterdata.hint
+#, fuzzy
+msgctxt "tfmain.acnewmasterdata.hint"
 msgid "erstellt einen neuen Artikel"
 msgstr "erstellt einen neuen Artikel"
 
@@ -2818,6 +3198,10 @@ msgstr "Neue Nachricht"
 msgid "Neue Nachricht schreiben"
 msgstr "Neue Nachricht schreiben"
 
+#: tfmain.acnewobject.caption
+msgid "neues Element"
+msgstr "neues Element"
+
 #: tfmain.acneworder.caption
 msgid "Neuer Auftrag"
 msgstr "Neuer Auftrag"
@@ -2830,6 +3214,16 @@ msgstr "erstellt einen neuen Auftrag"
 msgctxt "TFMAIN.ACNEWPROJECT.CAPTION"
 msgid "Neues Projekt"
 msgstr "Neues Projekt"
+
+#: tfmain.acnewscheme.caption
+#, fuzzy
+msgid "Neues Schema"
+msgstr "Neue e-Mail"
+
+#: tfmain.acnewscript.caption
+#, fuzzy
+msgid "neues Script"
+msgstr "neue Liste"
 
 #: tfmain.acnewstatistics.caption
 msgid "neue Statistik"
@@ -2859,6 +3253,12 @@ msgctxt "TFMAIN.ACORDERS.CAPTION"
 msgid "Vorgänge"
 msgstr "Vorgänge"
 
+#: tfmain.acpasswords.caption
+#, fuzzy
+msgctxt "TFMAIN.ACPASSWORDS.CAPTION"
+msgid "Passwörter"
+msgstr "Passwörter"
+
 #: tfmain.acpausetime.caption
 msgctxt "TFMAIN.ACPAUSETIME.CAPTION"
 msgid "acPauseTime"
@@ -2867,6 +3267,12 @@ msgstr "-"
 #: tfmain.acpausetime.hint
 msgid "Zeiterfassung pausieren /"
 msgstr "Zeiterfassung pausieren /"
+
+#: tfmain.acproduction.caption
+#, fuzzy
+msgctxt "TFMAIN.ACPRODUCTION.CAPTION"
+msgid "Produktion"
+msgstr "Produktion"
 
 #: tfmain.acprojectoverview.caption
 msgid "Projektübersicht"
@@ -2893,14 +3299,34 @@ msgstr "Grobplanung"
 msgid "Zahlungsliste"
 msgstr "Zahlungsliste"
 
+#: tfmain.acsaleslistbook.caption
+msgctxt "tfmain.acsaleslistbook.caption"
+msgid "auf Fibu Konto buchen"
+msgstr "auf Fibu Konto buchen"
+
+#: tfmain.acsaleslistbook.hint
+msgctxt "TFMAIN.ACSALESLISTBOOK.HINT"
+msgid "auf Fibu Konto buchen"
+msgstr "auf Fibu Konto buchen"
+
 #: tfmain.acsaleslistpay.caption
 msgid "acSalesListPay"
 msgstr "-"
 
+#: tfmain.acsearchoptions.caption
+msgid "acSearchOptions"
+msgstr "Such Optionen"
+
+#: tfmain.acshowsearch.caption
+#, fuzzy
+msgid "Suche anzeigen"
+msgstr "Kunde anzeigen"
+
 #: tfmain.acshowtree.caption
+#, fuzzy
 msgctxt "TFMAIN.ACSHOWTREE.CAPTION"
-msgid "Baum"
-msgstr "Baum"
+msgid "Baum anzeigen"
+msgstr "Baumeintrag anzeigen"
 
 #: tfmain.acshowtree.hint
 msgid "Baum anzeigen/ausblenden"
@@ -2917,6 +3343,11 @@ msgstr "Standardeintrag starten"
 #: tfmain.acstartpage.caption
 msgctxt "TFMAIN.ACSTARTPAGE.CAPTION"
 msgid "Startseite"
+msgstr "Startseite"
+
+#: tfmain.acstartpage.hint
+#, fuzzy
+msgid "wechselt zur Startseite"
 msgstr "Startseite"
 
 #: tfmain.acstatistics.caption
@@ -2944,9 +3375,9 @@ msgstr "-"
 msgid "acWindowize"
 msgstr "-"
 
-#: tfmain.bffwd.hint
-msgid "Vor (zum nächsten Eintrag) gehen"
-msgstr "Vor (zum nächsten Eintrag) gehen"
+#: tfmain.acwindowize.hint
+msgid "aktuelles Tab in separates Fenster wandeln"
+msgstr "aktuelles Tab in separates Fenster wandeln"
 
 #: tfmain.bpausetime.caption
 msgctxt "tfmain.bpausetime.caption"
@@ -2962,8 +3393,9 @@ msgctxt "TFMAIN.CAPTION"
 msgid "Promet-ERP"
 msgstr "Promet-ERP"
 
-#: tfmain.econtains.text
-msgctxt "TFMAIN.ECONTAINS.TEXT"
+#: tfmain.esearch.text
+#, fuzzy
+msgctxt "TFMAIN.ESEARCH.TEXT"
 msgid "<hier tippen um zu suchen>"
 msgstr "<hier tippen um zu suchen>"
 
@@ -2972,34 +3404,31 @@ msgctxt "TFMAIN.LABEL3.CAPTION"
 msgid "Navigation"
 msgstr "Navigation"
 
-#: tfmain.label4.caption
-msgctxt "TFMAIN.LABEL4.CAPTION"
-msgid "Ansicht"
-msgstr "Ansicht"
-
-#: tfmain.label5.caption
-msgctxt "TFMAIN.LABEL5.CAPTION"
-msgid "Suche"
-msgstr "Suche"
-
 #: tfmain.label6.caption
 msgctxt "TFMAIN.LABEL6.CAPTION"
 msgid "Zeit"
 msgstr "Zeit"
 
-#: tfmain.label7.caption
-msgid "erfassung"
-msgstr "erfassung"
+#: tfmain.lsearchin.caption
+#, fuzzy
+msgctxt "TFMAIN.LSEARCHIN.CAPTION"
+msgid "Suche in"
+msgstr "Suche in"
 
-#: tfmain.label8.caption
-msgctxt "TFMAIN.LABEL8.CAPTION"
-msgid "Start"
-msgstr "Start"
+#: tfmain.lsearchtype.caption
+#, fuzzy
+msgctxt "TFMAIN.LSEARCHTYPE.CAPTION"
+msgid "Suchtypen"
+msgstr "Suchtypen"
 
 #: tfmain.menuitem1.caption
 msgctxt "TFMAIN.MENUITEM1.CAPTION"
 msgid "New Item1"
 msgstr "-"
+
+#: tfmain.menuitem12.caption
+msgid "Werkzeuge"
+msgstr "Werkzeuge"
 
 #: tfmain.mihelp.caption
 msgid "Hilfe"
@@ -3030,17 +3459,18 @@ msgctxt "tfmain.miview.caption"
 msgid "Ansicht"
 msgstr "Ansicht"
 
-#: tfmain.psearch.caption
-msgid "pSearch"
+#: tfmain.ppages.caption
+msgid "pPages"
 msgstr "-"
-
-#: tfmain.tbmenue.hint
-msgid "Zurück (zum letzten Eintrag) gehen"
-msgstr "Zurück (zum letzten Eintrag) gehen"
 
 #: tfmain.toolbar1.caption
 msgctxt "TFMAIN.TOOLBAR1.CAPTION"
 msgid "ToolBar1"
+msgstr "-"
+
+#: tfmain.toolbar2.caption
+#, fuzzy
+msgid "ToolBar2"
 msgstr "-"
 
 #: tfmain.tsstartpage.caption
@@ -3562,6 +3992,8 @@ msgid "Verweise"
 msgstr "Verweise"
 
 #: tfmasterdata.tspiecelist.caption
+#, fuzzy
+msgctxt "tfmasterdata.tspiecelist.caption"
 msgid "Stückliste"
 msgstr "Stückliste"
 
@@ -3734,6 +4166,195 @@ msgstr "Bestand/Charge"
 #: tfnewstorage.larticlewithoutstorage.caption
 msgid "lArticlewithoutStorage"
 msgstr "-"
+
+#: tfobjectframe.acaddimage.caption
+msgctxt "TFOBJECTFRAME.ACADDIMAGE.CAPTION"
+msgid "aus Bilddatei laden"
+msgstr "aus Bilddatei laden"
+
+#: tfobjectframe.accancel.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACCANCEL.CAPTION"
+msgid "Abbrechen"
+msgstr "Abbrechen"
+
+#: tfobjectframe.accancel.hint
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACCANCEL.HINT"
+msgid "verwirft alle Änderungen"
+msgstr "verwirft alle Änderungen"
+
+#: tfobjectframe.acclose.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACCLOSE.CAPTION"
+msgid "acClose"
+msgstr "-"
+
+#: tfobjectframe.accopy.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACCOPY.CAPTION"
+msgid "Kopieren"
+msgstr "Kopieren"
+
+#: tfobjectframe.acdelete.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACDELETE.CAPTION"
+msgid "Löschen"
+msgstr "Löschen"
+
+#: tfobjectframe.acpaste.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACPASTE.CAPTION"
+msgid "Einfügen"
+msgstr "Einfügen"
+
+#: tfobjectframe.acpasteimage.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACPASTEIMAGE.CAPTION"
+msgid "aus Zwischenablage einfügen"
+msgstr "aus Zwischenablage einfügen"
+
+#: tfobjectframe.acprint.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACPRINT.CAPTION"
+msgid "acPrint"
+msgstr "-"
+
+#: tfobjectframe.acrights.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACRIGHTS.CAPTION"
+msgid "Rechte"
+msgstr "Rechte"
+
+#: tfobjectframe.acsave.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACSAVE.CAPTION"
+msgid "Speichern"
+msgstr "Speichern"
+
+#: tfobjectframe.acsave.hint
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACSAVE.HINT"
+msgid "Speichert alle Änderungen in die Datenbank"
+msgstr "Speichert alle Änderungen in die Datenbank"
+
+#: tfobjectframe.acscreenshot.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACSCREENSHOT.CAPTION"
+msgid "aus Bildschirmfoto erstellen"
+msgstr "neues Konto erstellen"
+
+#: tfobjectframe.acsettreedir.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACSETTREEDIR.CAPTION"
+msgid "acSetTreeDir"
+msgstr "-"
+
+#: tfobjectframe.acshowtreedir.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.ACSHOWTREEDIR.CAPTION"
+msgid "acShowTreeDir"
+msgstr "-"
+
+#: tfobjectframe.cbstatus.hint
+#, fuzzy
+msgctxt "TFOBJECTFRAME.CBSTATUS.HINT"
+msgid ""
+"hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu "
+"überführen"
+msgstr ""
+"hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu "
+"überführen"
+
+#: tfobjectframe.ematchcode.hint
+#, fuzzy
+msgctxt "TFOBJECTFRAME.EMATCHCODE.HINT"
+msgid "Hier können Sie einen Suchbegriff angeben, "
+msgstr "Hier können Sie einen Suchbegriff angeben, "
+
+#: tfobjectframe.gbtree.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.GBTREE.CAPTION"
+msgid "Baum"
+msgstr "Baum"
+
+#: tfobjectframe.label2.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.LABEL2.CAPTION"
+msgid "Eintrag"
+msgstr "Eintrag"
+
+#: tfobjectframe.label3.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.LABEL3.CAPTION"
+msgid "Erweitert"
+msgstr "Erweitert"
+
+#: tfobjectframe.label4.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.LABEL4.CAPTION"
+msgid "Nummer"
+msgstr "Nummer"
+
+#: tfobjectframe.label5.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.LABEL5.CAPTION"
+msgid "Status"
+msgstr "Status"
+
+#: tfobjectframe.lmatchcode.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.LMATCHCODE.CAPTION"
+msgid "Suchbegriff"
+msgstr "Suchbegriff"
+
+#: tfobjectframe.lshorttext.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.LSHORTTEXT.CAPTION"
+msgid "Kurztext"
+msgstr "Kurztext"
+
+#: tfobjectframe.menuitem1.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.MENUITEM1.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tfobjectframe.menuitem2.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.MENUITEM2.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tfobjectframe.mistarttimeregistering.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.MISTARTTIMEREGISTERING.CAPTION"
+msgid "Zeiterfassung starten"
+msgstr "Zeiterfassung starten"
+
+#: tfobjectframe.mshorttext.hint
+#, fuzzy
+msgctxt "TFOBJECTFRAME.MSHORTTEXT.HINT"
+msgid "Der Kurztext des Eintrags"
+msgstr "Der Kurztext des Eintrags"
+
+#: tfobjectframe.ppreviewimage.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.PPREVIEWIMAGE.CAPTION"
+msgid "kein Bild"
+msgstr "kein Bild"
+
+#: tfobjectframe.sbmenue.hint
+#, fuzzy
+msgctxt "TFOBJECTFRAME.SBMENUE.HINT"
+msgid "zusätzliche Optionen"
+msgstr "zusätzliche Optionen"
+
+#: tfobjectframe.tscommon.caption
+#, fuzzy
+msgctxt "TFOBJECTFRAME.TSCOMMON.CAPTION"
+msgid "Notizen"
+msgstr "Notizen"
 
 #: tfofficeoptions.cancelbutton.caption
 msgctxt "TFOFFICEOPTIONS.CANCELBUTTON.CAPTION"
@@ -4547,6 +5168,12 @@ msgstr "hier können Sie ein Vorgabelager auswählen"
 msgid "Kommission"
 msgstr "Kommission"
 
+#: tforderadditionalframe.lcommission1.caption
+#, fuzzy
+msgctxt "TFORDERADDITIONALFRAME.LCOMMISSION1.CAPTION"
+msgid "Projekt"
+msgstr "Projekt"
+
 #: tforderadditionalframe.lshipping.caption
 msgctxt "TFORDERADDITIONALFRAME.LSHIPPING.CAPTION"
 msgid "Versandart"
@@ -4584,11 +5211,6 @@ msgstr "-"
 #: tforderaddress.acsearchaddress.hint
 msgid "Adresse/Kontakt suchen und einfügen"
 msgstr "Adresse/Kontakt suchen und einfügen"
-
-#: tforderaddress.badressnew2.hint
-msgctxt "TFORDERADDRESS.BADRESSNEW2.HINT"
-msgid "zu Kontakt gehen"
-msgstr "zu Kontakt gehen"
 
 #: tforderdateframe.lapproved.caption
 msgctxt "TFORDERDATEFRAME.LAPPROVED.CAPTION"
@@ -4666,6 +5288,18 @@ msgstr "Löschen"
 msgid "löscht den Vorgang"
 msgstr "löscht den Vorgang"
 
+#: tforderframe.acexport.caption
+#, fuzzy
+msgctxt "TFORDERFRAME.ACEXPORT.CAPTION"
+msgid "Exportieren"
+msgstr "Exportieren"
+
+#: tforderframe.acimport.caption
+#, fuzzy
+msgctxt "TFORDERFRAME.ACIMPORT.CAPTION"
+msgid "Importieren"
+msgstr "Importieren"
+
 #: tforderframe.acmarkasdone.caption
 msgid "als Fertig markieren"
 msgstr "als Fertig markieren"
@@ -4691,6 +5325,16 @@ msgstr "-"
 #: tforderframe.acprint.hint
 msgid "Zeigt die Druckbelegliste"
 msgstr "Zeigt die Druckbelegliste"
+
+#: tforderframe.acrestart.caption
+#, fuzzy
+msgid "Duplizieren"
+msgstr "Kopieren"
+
+#: tforderframe.acrestart.hint
+#, fuzzy
+msgid "Dupliziert den Auftrag"
+msgstr "neuer Auftrag"
 
 #: tforderframe.acrights.caption
 msgctxt "TFORDERFRAME.ACRIGHTS.CAPTION"
@@ -4818,6 +5462,12 @@ msgstr "-"
 
 #: tforderframe.menuitem6.caption
 msgctxt "TFORDERFRAME.MENUITEM6.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tforderframe.menuitem9.caption
+#, fuzzy
+msgctxt "TFORDERFRAME.MENUITEM9.CAPTION"
 msgid "-"
 msgstr "-"
 
@@ -5155,6 +5805,8 @@ msgid "TYPE"
 msgstr "-"
 
 #: tforders.gadresses.columns[1].tcolumntitle.caption
+#, fuzzy
+msgctxt "tforders.gadresses.columns[1].tcolumntitle.caption"
 msgid "ACCOUNTNO"
 msgstr "-"
 
@@ -5654,45 +6306,52 @@ msgstr "ist Untervorgang"
 msgid "Ist der Vorgang ein Untervorgang ?"
 msgstr "Ist der Vorgang ein Untervorgang ?"
 
-#: tfordertypeoptions.cbsiacc.caption
-msgctxt "TFORDERTYPEOPTIONS.CBSIACC.CAPTION"
-msgid "Buchhaltung"
-msgstr "Buchhaltung"
-
-#: tfordertypeoptions.cbsiinvo.caption
-msgctxt "TFORDERTYPEOPTIONS.CBSIINVO.CAPTION"
-msgid "Rechnungsausgang"
-msgstr "Rechnungsausgang"
-
-#: tfordertypeoptions.cbsiinvr.caption
-msgctxt "TFORDERTYPEOPTIONS.CBSIINVR.CAPTION"
-msgid "Rechnungseingang"
-msgstr "Rechnungseingang"
-
-#: tfordertypeoptions.cbsiorder.caption
-msgctxt "TFORDERTYPEOPTIONS.CBSIORDER.CAPTION"
-msgid "Vorgang"
-msgstr "Vorgang"
-
-#: tfordertypeoptions.cbsipos.caption
-msgctxt "TFORDERTYPEOPTIONS.CBSIPOS.CAPTION"
-msgid "Kasse"
-msgstr "Kasse"
-
-#: tfordertypeoptions.cbsiprod.caption
-msgctxt "TFORDERTYPEOPTIONS.CBSIPROD.CAPTION"
-msgid "Produktion"
-msgstr "Produktion"
-
 #: tfordertypeoptions.cbtexttyp.hint
 msgid ""
 "Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird"
 msgstr ""
 "Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird"
 
+#: tfordertypeoptions.checkbox1.caption
+#, fuzzy
+msgid "Position runden"
+msgstr "Position"
+
+#: tfordertypeoptions.checkbox1.hint
+msgid "Soll schon der Bruttopreis in der Position gerundet werden ?"
+msgstr "Soll schon der Bruttopreis in der Position gerundet werden ?"
+
+#: tfordertypeoptions.checkbox2.caption
+msgid "Vorgang nach buchen änderbar"
+msgstr "Vorgang nach buchen änderbar"
+
+#: tfordertypeoptions.checkbox2.hint
+msgid "Standardmäßig sind Vorgänge nach dme Buchen nicht mehr bearbeitbar"
+msgstr "Standardmäßig sind Vorgänge nach dem Buchen nicht mehr bearbeitbar"
+
+#: tfordertypeoptions.checkbox3.caption
+#, fuzzy
+msgid "in Auftrag sichtbar"
+msgstr "Auftragsübersicht"
+
+#: tfordertypeoptions.checkbox4.caption
+#, fuzzy
+msgid "in Produktion sichtbar"
+msgstr "Produktion"
+
+#: tfordertypeoptions.checkbox5.caption
+#, fuzzy
+msgid "Kopie anlegen"
+msgstr "Kunde anzeigen"
+
 #: tfordertypeoptions.dividerbevel1.caption
 msgid "Buchen"
 msgstr "Buchen"
+
+#: tfordertypeoptions.dividerbevel2.caption
+#, fuzzy
+msgid "Runden"
+msgstr "Senden"
 
 #: tfordertypeoptions.edefaultpostyp.hint
 msgid "Welcher Positionstyp soll Standardmäßig verwendet werden ?"
@@ -5713,15 +6372,6 @@ msgid ""
 msgstr ""
 "Der Typ des Auftrages hiermit wird entschieden ob Spezialeigenschaften "
 "gebucht werden"
-
-#: tfordertypeoptions.gbvisibility.caption
-msgctxt "TFORDERTYPEOPTIONS.GBVISIBILITY.CAPTION"
-msgid "Sichtbarkeit"
-msgstr "Sichtbarkeit"
-
-#: tfordertypeoptions.gbvisibility.hint
-msgid "Wo soll der Vorgang sichtbar sein ?"
-msgstr "Wo soll der Vorgang sichtbar sein ?"
 
 #: tfordertypeoptions.gorderstatus.columns[0].title.caption
 msgctxt "TFORDERTYPEOPTIONS.GORDERSTATUS.COLUMNS[0].TITLE.CAPTION"
@@ -5765,10 +6415,19 @@ msgctxt "TFORDERTYPEOPTIONS.LTYPE.CAPTION"
 msgid "Typ"
 msgstr "Typ"
 
+#: tfordertypeoptions.lvimages.hint
+msgid ""
+"Hier können Sie ein Bild für den Vorgangstypen einstellen welches in den "
+"Listen angezeigt werden kann"
+msgstr ""
+"Hier können Sie ein Bild für den Vorgangstypen einstellen welches in den "
+"Listen angezeigt werden kann"
+
 #: tfordertypeoptions.rgaddchist.caption
+#, fuzzy
 msgctxt "TFORDERTYPEOPTIONS.RGADDCHIST.CAPTION"
-msgid "Kundenhistorie"
-msgstr "Kundenhistorie"
+msgid "Kunden-Verlauf"
+msgstr "Kundennummer"
 
 #: tfordertypeoptions.rgadddunning.caption
 msgctxt "TFORDERTYPEOPTIONS.RGADDDUNNING.CAPTION"
@@ -5809,6 +6468,93 @@ msgstr "im Lager buchen"
 msgctxt "TFORDERTYPEOPTIONS.RGADDTOMAINORDER.CAPTION"
 msgid "Lagereintrag im Vorgang"
 msgstr "Lagereintrag im Vorgang"
+
+#: tform1.bitbtn2.caption
+#, fuzzy
+msgctxt "tform1.bitbtn2.caption"
+msgid "To Clipboard"
+msgstr "-"
+
+#: tform1.bitbtn3.caption
+msgid "Show/Hide password"
+msgstr "Passwort anzeigen/verstecken"
+
+#: tform1.caption
+msgctxt "tform1.caption"
+msgid "Advanced Password Generator"
+msgstr "Passwort Generator"
+
+#: tform1.checkbox1.caption
+msgctxt "tform1.checkbox1.caption"
+msgid "feste Größe"
+msgstr "feste Größe"
+
+#: tform1.checkbox2.caption
+msgctxt "tform1.checkbox2.caption"
+msgid "Kleinbuchstaben (a-z)"
+msgstr "Kleinbuchstaben (a-z)"
+
+#: tform1.checkbox3.caption
+msgctxt "tform1.checkbox3.caption"
+msgid "GROSS Buchstaben (A-Z)"
+msgstr "GROSS Buchstaben (A-Z)"
+
+#: tform1.checkbox4.caption
+msgctxt "tform1.checkbox4.caption"
+msgid "Ziffern (0-9)"
+msgstr "Ziffern (0-9)"
+
+#: tform1.checkbox5.caption
+msgctxt "tform1.checkbox5.caption"
+msgid "Eindeutige zeichen"
+msgstr "Eindeutige zeichen"
+
+#: tform1.checkbox5.hint
+msgctxt "tform1.checkbox5.hint"
+msgid "No similar character will be generated"
+msgstr "keine gleichen Zeichen werden generiert"
+
+#: tform1.checkbox6.caption
+#, fuzzy
+msgctxt "tform1.checkbox6.caption"
+msgid "Spezialzeichen"
+msgstr "Speichern"
+
+#: tform1.checkbox6.hint
+msgctxt "tform1.checkbox6.hint"
+msgid "Special characters as:$@&#!+%"
+msgstr "Spezialzeichen wie:$@&#!+%"
+
+#: tform1.edit2.hint
+msgctxt "tform1.edit2.hint"
+msgid "Your characters goes here"
+msgstr "Eigene Zeichen:"
+
+#: tform1.groupbox1.caption
+#, fuzzy
+msgctxt "tform1.groupbox1.caption"
+msgid " Options "
+msgstr "Optionen"
+
+#: tform1.groupbox2.caption
+msgctxt "tform1.groupbox2.caption"
+msgid " Result "
+msgstr "Ergebis"
+
+#: tform1.image1.hint
+msgctxt "tform1.image1.hint"
+msgid "At least 8 character recommended!"
+msgstr "Mindestens 8 Zeichen werden empfolen"
+
+#: tform1.label1.caption
+msgctxt "tform1.label1.caption"
+msgid "Min. Größe:"
+msgstr "Min. Größe:"
+
+#: tform1.label2.caption
+msgctxt "tform1.label2.caption"
+msgid "Max. Größe:"
+msgstr "Max. Größe:"
 
 #: tfpassword.bok.caption
 msgctxt "TFPASSWORD.BOK.CAPTION"
@@ -5863,14 +6609,106 @@ msgctxt "TFPASSWORD.LUSER.CAPTION"
 msgid "Benutzer"
 msgstr "Benutzer"
 
+#: tfpasswords.accopy.caption
+msgid "acCopy"
+msgstr "Kopieren"
+
+#: tfpasswords.acgenerate.caption
+msgid "acGenerate"
+msgstr "Generieren"
+
 #: tfpasswords.caption
+#, fuzzy
+msgctxt "tfpasswords.caption"
 msgid "Passwörter"
 msgstr "Passwörter"
 
+#: tfpasswords.datasetcancel1.caption
+#, fuzzy
+msgid "&Cancel"
+msgstr "Abbrechen"
+
+#: tfpasswords.datasetcancel1.hint
+#, fuzzy
+msgctxt "TFPASSWORDS.DATASETCANCEL1.HINT"
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: tfpasswords.datasetdelete1.caption
+#, fuzzy
+msgid "&Delete"
+msgstr "-"
+
+#: tfpasswords.datasetdelete1.hint
+#, fuzzy
+msgid "Delete"
+msgstr "-"
+
+#: tfpasswords.datasetinsert1.caption
+#, fuzzy
+msgid "&Insert"
+msgstr "-"
+
+#: tfpasswords.datasetinsert1.hint
+#, fuzzy
+msgid "Insert"
+msgstr "-"
+
+#: tfpasswords.datasetpost1.caption
+msgid "P&ost"
+msgstr "Speichern"
+
+#: tfpasswords.datasetpost1.hint
+#, fuzzy
+msgid "Post"
+msgstr "Postfach"
+
+#: tfpasswords.datasetrefresh1.caption
+msgid "&Refresh"
+msgstr "Aktualisieren"
+
+#: tfpasswords.datasetrefresh1.hint
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+#: tfpasswords.dbgrid1.columns[0].title.caption
+#, fuzzy
+msgctxt "TFPASSWORDS.DBGRID1.COLUMNS[0].TITLE.CAPTION"
+msgid "Name"
+msgstr "Name"
+
+#: tfpasswords.dbgrid1.columns[1].title.caption
+msgid "Quelle/Seite"
+msgstr "Quelle/Seite"
+
+#: tfpasswords.dbgrid1.columns[2].title.caption
+#, fuzzy
+msgctxt "TFPASSWORDS.DBGRID1.COLUMNS[2].TITLE.CAPTION"
+msgid "Benutzername"
+msgstr "Benutzername"
+
+#: tfpasswords.dbgrid1.columns[3].title.caption
+#, fuzzy
+msgctxt "TFPASSWORDS.DBGRID1.COLUMNS[3].TITLE.CAPTION"
+msgid "Passwort"
+msgstr "Passwort"
+
+#: tfpasswords.dbgrid1.columns[4].title.caption
+#, fuzzy
+msgctxt "TFPASSWORDS.DBGRID1.COLUMNS[4].TITLE.CAPTION"
+msgid "Datum"
+msgstr "Datum"
+
 #: tfpasswords.toolbar1.caption
+#, fuzzy
 msgctxt "TFPASSWORDS.TOOLBAR1.CAPTION"
-msgid "ToolBar1"
-msgstr "--"
+msgid "tbTop"
+msgstr "-"
+
+#: tfpasswords.toolbutton3.caption
+#, fuzzy
+msgid "ToolButton3"
+msgstr "-"
 
 #: tfpersonaloptions.badd.caption
 msgctxt "TFPERSONALOPTIONS.BADD.CAPTION"
@@ -6094,6 +6932,10 @@ msgstr "Zahlungsziel"
 msgid "acAddAsOrder"
 msgstr "-"
 
+#: tfpersonframe.acaddimage.caption
+msgid "acAddImage"
+msgstr "Bild hinzufügen"
+
 #: tfpersonframe.accancel.caption
 msgctxt "TFPERSONFRAME.ACCANCEL.CAPTION"
 msgid "Abbrechen"
@@ -6123,6 +6965,18 @@ msgctxt "TFPERSONFRAME.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Löschen"
 
+#: tfpersonframe.acdeletethumb.caption
+#, fuzzy
+msgctxt "TFPERSONFRAME.ACDELETETHUMB.CAPTION"
+msgid "acDeleteThumb"
+msgstr "-"
+
+#: tfpersonframe.acdeletethumb.hint
+#, fuzzy
+msgctxt "TFPERSONFRAME.ACDELETETHUMB.HINT"
+msgid "Thumbnail entfernen"
+msgstr "Dokument entfernen"
+
 #: tfpersonframe.acexport.caption
 msgctxt "TFPERSONFRAME.ACEXPORT.CAPTION"
 msgid "Exportieren"
@@ -6145,6 +6999,11 @@ msgstr "erstellt einen neuen Auftrag für diesen Kontakt"
 msgctxt "TFPERSONFRAME.ACPASTE.CAPTION"
 msgid "Einfügen"
 msgstr "Einfügen"
+
+#: tfpersonframe.acpasteimage.caption
+#, fuzzy
+msgid "acPasteImage"
+msgstr "-"
 
 #: tfpersonframe.acprint.caption
 msgctxt "TFPERSONFRAME.ACPRINT.CAPTION"
@@ -6169,6 +7028,10 @@ msgstr "Speichern"
 msgctxt "TFPERSONFRAME.ACSAVE.HINT"
 msgid "Speichert alle Änderungen in die Datenbank"
 msgstr "Speichert alle Änderungen in die Datenbank"
+
+#: tfpersonframe.acscreenshot.caption
+msgid "acScreenshot"
+msgstr "Bildschirmfoto erstellen"
 
 #: tfpersonframe.acsettreedir.caption
 msgctxt "TFPERSONFRAME.ACSETTREEDIR.CAPTION"
@@ -6209,9 +7072,10 @@ msgid "wählen Sie hier die Sprache des Kontaktes"
 msgstr "wählen Sie hier die Sprache des Kontaktes"
 
 #: tfpersonframe.cbstatus.hint
+#, fuzzy
 msgctxt "TFPERSONFRAME.CBSTATUS.HINT"
 msgid ""
-"hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu "
+"hier können Sie den Status des Kontaktes ändern um ihn in neue Zustände zu "
 "überführen"
 msgstr ""
 "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu "
@@ -6284,6 +7148,12 @@ msgstr "Mitglied/Mitarbeiter von"
 #: tfpersonframe.lfirmname.caption
 msgctxt "TFPERSONFRAME.LFIRMNAME.CAPTION"
 msgid "lFirmName"
+msgstr "-"
+
+#: tfpersonframe.lhint.caption
+#, fuzzy
+msgctxt "TFPERSONFRAME.LHINT.CAPTION"
+msgid "lHint"
 msgstr "-"
 
 #: tfpersonframe.lmatchcode.caption
@@ -6427,6 +7297,90 @@ msgstr "Verweise"
 msgctxt "TFPROJECT.TVDESCRIPTION.CAPTION"
 msgid "Beschreibung"
 msgstr "Beschreibung"
+
+#: tfpwgenerate.bshowpw.caption
+#, fuzzy
+msgctxt "TFPWGENERATE.BSHOWPW.CAPTION"
+msgid "Passwort zeigen/verstecken"
+msgstr "Programm zeigen/verstecken"
+
+#: tfpwgenerate.caption
+#, fuzzy
+msgctxt "TFPWGENERATE.CAPTION"
+msgid "Paswort Generator"
+msgstr "Passwort ändern"
+
+#: tfpwgenerate.cbfixedsize.caption
+msgctxt "TFPWGENERATE.CBFIXEDSIZE.CAPTION"
+msgid "feste Größe"
+msgstr "feste Größe"
+
+#: tfpwgenerate.cblowercase.caption
+msgctxt "TFPWGENERATE.CBLOWERCASE.CAPTION"
+msgid "Kleinbuchstaben (a-z)"
+msgstr "Kleinbuchstaben (a-z)"
+
+#: tfpwgenerate.cbnumbers.caption
+msgctxt "TFPWGENERATE.CBNUMBERS.CAPTION"
+msgid "Ziffern (0-9)"
+msgstr "Ziffern (0-9)"
+
+#: tfpwgenerate.cbspecial.caption
+#, fuzzy
+msgctxt "TFPWGENERATE.CBSPECIAL.CAPTION"
+msgid "Spezialzeichen"
+msgstr "Speichern"
+
+#: tfpwgenerate.cbspecial.hint
+msgctxt "TFPWGENERATE.CBSPECIAL.HINT"
+msgid "Special characters as:$@&#!+%"
+msgstr "Spezialzeichen wie:$@&#!+%"
+
+#: tfpwgenerate.cbuni.caption
+msgctxt "TFPWGENERATE.CBUNI.CAPTION"
+msgid "Eindeutige zeichen"
+msgstr "Eindeutige zeichen"
+
+#: tfpwgenerate.cbuni.hint
+msgctxt "TFPWGENERATE.CBUNI.HINT"
+msgid "No similar character will be generated"
+msgstr ""
+
+#: tfpwgenerate.cbuppercase.caption
+msgctxt "TFPWGENERATE.CBUPPERCASE.CAPTION"
+msgid "GROSS Buchstaben (A-Z)"
+msgstr ""
+
+#: tfpwgenerate.edit2.hint
+msgctxt "TFPWGENERATE.EDIT2.HINT"
+msgid "Your characters goes here"
+msgstr ""
+
+#: tfpwgenerate.groupbox1.caption
+#, fuzzy
+msgctxt "TFPWGENERATE.GROUPBOX1.CAPTION"
+msgid " Options "
+msgstr "Optionen"
+
+#: tfpwgenerate.groupbox2.caption
+msgctxt "TFPWGENERATE.GROUPBOX2.CAPTION"
+msgid " Result "
+msgstr ""
+
+#: tfpwgenerate.image1.hint
+msgctxt "TFPWGENERATE.IMAGE1.HINT"
+msgid "At least 8 character recommended!"
+msgstr ""
+
+#: tfpwgenerate.label1.caption
+msgctxt "TFPWGENERATE.LABEL1.CAPTION"
+msgid "Min. Größe:"
+msgstr ""
+
+#: tfpwgenerate.label2.caption
+msgctxt "TFPWGENERATE.LABEL2.CAPTION"
+msgid "Max. Größe:"
+msgstr ""
 
 #: tframe1.baddform1.hint
 msgctxt "TFRAME1.BADDFORM1.HINT"
@@ -6947,6 +7901,201 @@ msgstr ""
 "Der Sandkastenmodus ist aktiv, Sie haben diesen entweder gerade beendet oder "
 "eine Aktion erfordert dessen Beendigung. "
 
+#: tfscriptframe.acaddimage.caption
+msgctxt "TFSCRIPTFRAME.ACADDIMAGE.CAPTION"
+msgid "aus Bilddatei laden"
+msgstr ""
+
+#: tfscriptframe.accancel.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACCANCEL.CAPTION"
+msgid "Abbrechen"
+msgstr "Abbrechen"
+
+#: tfscriptframe.accancel.hint
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACCANCEL.HINT"
+msgid "verwirft alle Änderungen"
+msgstr "verwirft alle Änderungen"
+
+#: tfscriptframe.acclose.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACCLOSE.CAPTION"
+msgid "acClose"
+msgstr "-"
+
+#: tfscriptframe.accopy.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACCOPY.CAPTION"
+msgid "Kopieren"
+msgstr "Kopieren"
+
+#: tfscriptframe.acdelete.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACDELETE.CAPTION"
+msgid "Löschen"
+msgstr "Löschen"
+
+#: tfscriptframe.acpaste.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACPASTE.CAPTION"
+msgid "Einfügen"
+msgstr "Einfügen"
+
+#: tfscriptframe.acpasteimage.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACPASTEIMAGE.CAPTION"
+msgid "aus Zwischenablage einfügen"
+msgstr "aus Zwischenablage einfügen"
+
+#: tfscriptframe.acprint.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACPRINT.CAPTION"
+msgid "acPrint"
+msgstr "-"
+
+#: tfscriptframe.acrights.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACRIGHTS.CAPTION"
+msgid "Rechte"
+msgstr "Rechte"
+
+#: tfscriptframe.acsave.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACSAVE.CAPTION"
+msgid "Speichern"
+msgstr "Speichern"
+
+#: tfscriptframe.acsave.hint
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACSAVE.HINT"
+msgid "Speichert alle Änderungen in die Datenbank"
+msgstr "Speichert alle Änderungen in die Datenbank"
+
+#: tfscriptframe.acscreenshot.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACSCREENSHOT.CAPTION"
+msgid "aus Bildschirmfoto erstellen"
+msgstr "neues Konto erstellen"
+
+#: tfscriptframe.acsetactiveobject.caption
+msgid "ActualObject setzen"
+msgstr ""
+
+#: tfscriptframe.acsetactiveobject.hint
+msgid "Ermöglicht es die Variable ActiveObject im Script"
+msgstr ""
+
+#: tfscriptframe.acsettreedir.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACSETTREEDIR.CAPTION"
+msgid "acSetTreeDir"
+msgstr "-"
+
+#: tfscriptframe.acshowtreedir.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.ACSHOWTREEDIR.CAPTION"
+msgid "acShowTreeDir"
+msgstr "-"
+
+#: tfscriptframe.cbactive.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.CBACTIVE.CAPTION"
+msgid "Aktiv"
+msgstr "Aktiv"
+
+#: tfscriptframe.cbactive.hint
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.CBACTIVE.HINT"
+msgid "markiert diesen Artikel als aktiv"
+msgstr "markiert diesen Artikel als aktiv"
+
+#: tfscriptframe.cbstatus.hint
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.CBSTATUS.HINT"
+msgid ""
+"hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu "
+"überführen"
+msgstr ""
+"hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu "
+"überführen"
+
+#: tfscriptframe.cbversion.hint
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.CBVERSION.HINT"
+msgid "hier können Sie die zu bearbeitende Artikelversion auswählen."
+msgstr "hier können Sie die zu bearbeitende Artikelversion auswählen."
+
+#: tfscriptframe.label1.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.LABEL1.CAPTION"
+msgid "Beschreibung"
+msgstr "Beschreibung"
+
+#: tfscriptframe.label2.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.LABEL2.CAPTION"
+msgid "Eintrag"
+msgstr "Eintrag"
+
+#: tfscriptframe.label3.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.LABEL3.CAPTION"
+msgid "Erweitert"
+msgstr "Erweitert"
+
+#: tfscriptframe.label4.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.LABEL4.CAPTION"
+msgid "Name"
+msgstr "Name"
+
+#: tfscriptframe.label5.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.LABEL5.CAPTION"
+msgid "Status"
+msgstr "Status"
+
+#: tfscriptframe.label6.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.LABEL6.CAPTION"
+msgid "Version"
+msgstr "Version"
+
+#: tfscriptframe.menuitem1.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.MENUITEM1.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tfscriptframe.menuitem2.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.MENUITEM2.CAPTION"
+msgid "-"
+msgstr "-"
+
+#: tfscriptframe.mistarttimeregistering.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.MISTARTTIMEREGISTERING.CAPTION"
+msgid "Zeiterfassung starten"
+msgstr "Zeiterfassung starten"
+
+#: tfscriptframe.sbmenue.hint
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.SBMENUE.HINT"
+msgid "zusätzliche Optionen"
+msgstr "zusätzliche Optionen"
+
+#: tfscriptframe.tscommon.caption
+#, fuzzy
+msgctxt "TFSCRIPTFRAME.TSCOMMON.CAPTION"
+msgid "Allgemein"
+msgstr "Allgemein"
+
+#: tfscriptframe.tsscript.caption
+msgid "Script"
+msgstr ""
+
 #: tfsearch.acopen.caption
 msgctxt "TFSEARCH.ACOPEN.CAPTION"
 msgid "acOpen"
@@ -6992,10 +8141,14 @@ msgid "Suchergebnisse"
 msgstr "Suchergebnisse"
 
 #: tfsearch.lsearchin.caption
+#, fuzzy
+msgctxt "tfsearch.lsearchin.caption"
 msgid "Suche in"
 msgstr "Suche in"
 
 #: tfsearch.lsearchtype.caption
+#, fuzzy
+msgctxt "tfsearch.lsearchtype.caption"
 msgid "Suchtypen"
 msgstr "Suchtypen"
 
@@ -7198,6 +8351,8 @@ msgid "System Monitor"
 msgstr "System Monitor"
 
 #: tfsysmonitor.tbtop.caption
+#, fuzzy
+msgctxt "tfsysmonitor.tbtop.caption"
 msgid "tbTop"
 msgstr "-"
 
@@ -7266,6 +8421,17 @@ msgctxt "TFSYSTEMOPTIONS.GUNITS.COLUMNS[0].TITLE.CAPTION"
 msgid "NAME"
 msgstr "--"
 
+#: tfsystemoptions.gunits1.columns[0].title.caption
+#, fuzzy
+msgctxt "TFSYSTEMOPTIONS.GUNITS1.COLUMNS[0].TITLE.CAPTION"
+msgid "NAME"
+msgstr "-"
+
+#: tfsystemoptions.gunits1.columns[1].title.caption
+#, fuzzy
+msgid "TYP"
+msgstr "-"
+
 #: tfsystemoptions.gvat.columns[0].title.caption
 msgctxt "TFSYSTEMOPTIONS.GVAT.COLUMNS[0].TITLE.CAPTION"
 msgid "ID"
@@ -7300,6 +8466,11 @@ msgstr "Zahlungsziele"
 msgctxt "TFSYSTEMOPTIONS.LUNITS.CAPTION"
 msgid "Mengeneinheiten"
 msgstr "Mengeneinheiten"
+
+#: tfsystemoptions.lunits1.caption
+#, fuzzy
+msgid "Texttypen"
+msgstr "Texttyp"
 
 #: tfsystemoptions.lvat.caption
 msgctxt "TFSYSTEMOPTIONS.LVAT.CAPTION"
@@ -7403,6 +8574,8 @@ msgid "Bis"
 msgstr "Bis"
 
 #: tftasks.lpriority.caption
+#, fuzzy
+msgctxt "tftasks.lpriority.caption"
 msgid "Priorität"
 msgstr "Priorität"
 
@@ -7576,8 +8749,22 @@ msgid "Bankleitzahl/BIC"
 msgstr "Bankleitzahl/BIC"
 
 #: tftransfer.ltextkey.caption
-msgid "textschlüssel"
+#, fuzzy
+msgid "Textschlüssel"
 msgstr "textschlüssel"
+
+#: tfversionate.caption
+#, fuzzy
+msgid "neue Version"
+msgstr "neuer Kontakt"
+
+#: tfversionate.cbactivate.caption
+msgid "neue Version aktivieren"
+msgstr ""
+
+#: tfversionate.label1.caption
+msgid "Versionsbezeichnung"
+msgstr ""
 
 #: tfviewmessage.mocopy.caption
 msgctxt "TFVIEWMESSAGE.MOCOPY.CAPTION"
@@ -7691,6 +8878,12 @@ msgctxt "TFWIZARDNEWACCOUNT.BABORT3.CAPTION"
 msgid "bAbort0"
 msgstr "-"
 
+#: tfwizardnewaccount.babort4.caption
+#, fuzzy
+msgctxt "TFWIZARDNEWACCOUNT.BABORT4.CAPTION"
+msgid "bAbort0"
+msgstr "-"
+
 #: tfwizardnewaccount.bnext0.caption
 msgctxt "TFWIZARDNEWACCOUNT.BNEXT0.CAPTION"
 msgid "bNext0"
@@ -7706,6 +8899,12 @@ msgctxt "TFWIZARDNEWACCOUNT.BNEXT3.CAPTION"
 msgid "bNext0"
 msgstr "-"
 
+#: tfwizardnewaccount.bnext4.caption
+#, fuzzy
+msgctxt "TFWIZARDNEWACCOUNT.BNEXT4.CAPTION"
+msgid "bNext0"
+msgstr "-"
+
 #: tfwizardnewaccount.bprev0.caption
 msgctxt "TFWIZARDNEWACCOUNT.BPREV0.CAPTION"
 msgid "bPrev0"
@@ -7718,6 +8917,12 @@ msgstr "Zurück"
 
 #: tfwizardnewaccount.bprev3.caption
 msgctxt "TFWIZARDNEWACCOUNT.BPREV3.CAPTION"
+msgid "bPrev0"
+msgstr "-"
+
+#: tfwizardnewaccount.bprev4.caption
+#, fuzzy
+msgctxt "TFWIZARDNEWACCOUNT.BPREV4.CAPTION"
 msgid "bPrev0"
 msgstr "-"
 
@@ -7768,12 +8973,20 @@ msgstr ""
 "Zugang mehrere Konten haben"
 
 #: tfwizardnewaccount.ldescription1.caption
+#, fuzzy
+msgctxt "tfwizardnewaccount.ldescription1.caption"
 msgid "lDescription0"
 msgstr "-"
 
 #: tfwizardnewaccount.ldescription2.caption
 msgid "geben Sie hier die Zugangsdaten die Sie von Ihrer Bank erhalten an"
 msgstr "geben Sie hier die Zugangsdaten die Sie von Ihrer Bank erhalten an"
+
+#: tfwizardnewaccount.ldescription3.caption
+#, fuzzy
+msgctxt "TFWIZARDNEWACCOUNT.LDESCRIPTION3.CAPTION"
+msgid "lDescription0"
+msgstr "-"
 
 #: tfwizardnewaccount.lfintsname.caption
 msgid "Serveradresse (http://...)"
@@ -7784,14 +8997,16 @@ msgctxt "TFWIZARDNEWACCOUNT.LNAME.CAPTION"
 msgid "lName"
 msgstr "-"
 
+#: tfwizardnewaccount.lname1.caption
+#, fuzzy
+msgctxt "TFWIZARDNEWACCOUNT.LNAME1.CAPTION"
+msgid "lName"
+msgstr "-"
+
 #: tfwizardnewaccount.lsortcode.caption
 msgctxt "TFWIZARDNEWACCOUNT.LSORTCODE.CAPTION"
 msgid "Bankleitzahl"
 msgstr "Bankleitzahl"
-
-#: tfwizardnewaccount.radiobutton1.caption
-msgid "manuell geführtes Konto"
-msgstr "manuell geführtes Konto"
 
 #: tfwizardnewaccount.rbexistinguser.caption
 msgid "Konto von bestehendem Online Banking Zugang"
@@ -7800,6 +9015,12 @@ msgstr "Konto von bestehendem Online Banking Zugang"
 #: tfwizardnewaccount.rbhbci.caption
 msgid "Chipkaten HBCI Konto"
 msgstr "Chipkaten HBCI Konto"
+
+#: tfwizardnewaccount.rbmanualaccount.caption
+#, fuzzy
+msgctxt "TFWIZARDNEWACCOUNT.RBMANUALACCOUNT.CAPTION"
+msgid "manuell geführtes Konto"
+msgstr "manuell geführtes Konto"
 
 #: tfwizardnewaccount.rbmobiletan.caption
 msgid "Mobile Tan HBCI Konto"
@@ -8150,13 +9371,17 @@ msgstr "P In produktion auflösen"
 msgid "Sie können kein Lager mit Inhalt löschen"
 msgstr "Sie können kein Lager mit Inhalt löschen"
 
-#: uarticleframe.strchangenumer
-msgid "Nummer ändern"
-msgstr "Nummer ändern"
-
 #: uarticleframe.strnewarticle
+#, fuzzy
+msgctxt "uarticleframe.strnewarticle"
 msgid "neuer Artikel"
 msgstr "neuer Artikel"
+
+#: uarticleframe.strpiecelist
+#, fuzzy
+msgctxt "uarticleframe.strpiecelist"
+msgid "Stückliste"
+msgstr "Stückliste"
 
 #: uarticleframe.strprices
 msgctxt "uarticleframe.strprices"
@@ -8706,6 +9931,11 @@ msgstr "Farbauswahl"
 msgid "Systemfarben"
 msgstr "Systemfarben"
 
+#: ucommandline.strsentencenotvalid
+#, fuzzy
+msgid "Das wurde leider nicht verstanden !"
+msgstr "Datenquellenklasse wurde nicht gefunden !"
+
 #: ucustomer.scbirthday
 msgid "BIR  Geburstag"
 msgstr "BIR  Geburstag"
@@ -9136,6 +10366,11 @@ msgctxt "umain.strcurrencies"
 msgid "Währungen"
 msgstr "Währungen"
 
+#: umain.strdatabasesettings
+#, fuzzy
+msgid "Datenbankeinstellungen"
+msgstr "Narichteneinstellungen"
+
 #: umain.strdeletingmessages
 msgid "lösche Nachrichten, noch %d Nachichten"
 msgstr "lösche Nachrichten, noch %d Nachichten"
@@ -9194,6 +10429,10 @@ msgctxt "umain.strrepair"
 msgid "Reparatur"
 msgstr "Reparatur"
 
+#: umain.strscripts
+msgid "Scripte"
+msgstr ""
+
 #: umain.strsearchtext
 msgctxt "umain.strsearchtext"
 msgid "<hier tippen um zu suchen>"
@@ -9216,6 +10455,11 @@ msgstr "System"
 #: umain.struserfielddefs
 msgid "Benutzerfelder"
 msgstr "Benutzerfelder"
+
+#: umain.strvisualoptions
+#, fuzzy
+msgid "Ansichtsoptionen"
+msgstr "Ansicht"
 
 #: umain.strwiki
 msgctxt "umain.strwiki"
@@ -9245,6 +10489,54 @@ msgstr "%d Neue unbekannte Nachrichten"
 #: unewstorage.strselectanstorage
 msgid "wählen Sie ein Lager für Artikel %s Version %s Name %s"
 msgstr "wählen Sie ein Lager für Artikel %s Version %s Name %s"
+
+#: uobjectframe.strchangenumer
+#, fuzzy
+msgctxt "uobjectframe.strchangenumer"
+msgid "Nummer ändern"
+msgstr "Nummer ändern"
+
+#: uobjectframe.strnewarticle
+#, fuzzy
+msgctxt "uobjectframe.strnewarticle"
+msgid "neuer Artikel"
+msgstr "neuer Artikel"
+
+#: uobjectframe.strprices
+#, fuzzy
+msgctxt "uobjectframe.strprices"
+msgid "Preise"
+msgstr "Preise"
+
+#: uobjectframe.strproperties
+#, fuzzy
+msgctxt "uobjectframe.strproperties"
+msgid "Eigenschaften"
+msgstr "Eigenschaften"
+
+#: uobjectframe.strrepair
+#, fuzzy
+msgctxt "uobjectframe.strrepair"
+msgid "Reparatur"
+msgstr "Reparatur"
+
+#: uobjectframe.strstorage
+#, fuzzy
+msgctxt "uobjectframe.strstorage"
+msgid "Lager"
+msgstr "Lager"
+
+#: uobjectframe.strsupplier
+#, fuzzy
+msgctxt "uobjectframe.strsupplier"
+msgid "Lieferant"
+msgstr "Lieferant"
+
+#: uobjectframe.strtexts
+#, fuzzy
+msgctxt "uobjectframe.strtexts"
+msgid "Texte"
+msgstr "Texte"
 
 #: uorderframe.stradditional
 msgctxt "uorderframe.stradditional"
@@ -9444,6 +10736,20 @@ msgctxt "upersonframe.sctelephone"
 msgid "TEL  Telefon"
 msgstr "TEL  Telefon"
 
+#: upersonframe.straddedfromemployees
+msgid ""
+"Dies ist ein neuer Mitarbeiter/Mitglied das aus einem Kontakt erstellt "
+"wurde. Sobald Sie speichern, wird zum ursprünglichen Kontakt "
+"zurückgesprungen und ein Eintrag in dessen Mitarbeitern gemacht."
+msgstr ""
+
+#: upersonframe.straddnewpersonsfromdragdrop
+#, fuzzy
+msgctxt "upersonframe.straddnewpersonsfromdragdrop"
+msgid ""
+"fügen Sie weitere Mitarbeiter/Mitglieder per Drag&Drop aus der Suche ein"
+msgstr "fügen Sie weitere Lieferanten per Drag&Drop aus der Suche ein"
+
 #: upersonframe.straddress
 msgctxt "upersonframe.straddress"
 msgid "Adresse"
@@ -9508,6 +10814,63 @@ msgstr "repariert"
 msgctxt "urepairpositionframe.strwaitingforcustomer"
 msgid "wartet auf Kunden"
 msgstr "wartet auf Kunden"
+
+#: uscriptframe.strchangenumer
+#, fuzzy
+msgctxt "uscriptframe.strchangenumer"
+msgid "Nummer ändern"
+msgstr "Nummer ändern"
+
+#: uscriptframe.strnewarticle
+#, fuzzy
+msgctxt "uscriptframe.strnewarticle"
+msgid "neuer Artikel"
+msgstr "neuer Artikel"
+
+#: uscriptframe.strnewscript
+#, fuzzy
+msgid "Neues Script"
+msgstr "Neue Nachricht"
+
+#: uscriptframe.strprices
+#, fuzzy
+msgctxt "uscriptframe.strprices"
+msgid "Preise"
+msgstr "Preise"
+
+#: uscriptframe.strproperties
+#, fuzzy
+msgctxt "uscriptframe.strproperties"
+msgid "Eigenschaften"
+msgstr "Eigenschaften"
+
+#: uscriptframe.strrepair
+#, fuzzy
+msgctxt "uscriptframe.strrepair"
+msgid "Reparatur"
+msgstr "Reparatur"
+
+#: uscriptframe.strshouldthisversionated
+msgid "Soll das Script versioniert werden ?"
+msgstr ""
+
+#: uscriptframe.strstorage
+#, fuzzy
+msgctxt "uscriptframe.strstorage"
+msgid "Lager"
+msgstr "Lager"
+
+#: uscriptframe.strsupplier
+#, fuzzy
+msgctxt "uscriptframe.strsupplier"
+msgid "Lieferant"
+msgstr "Lieferant"
+
+#: uscriptframe.strtexts
+#, fuzzy
+msgctxt "uscriptframe.strtexts"
+msgid "Texte"
+msgstr "Texte"
 
 #: usearch.strcontactelement
 msgctxt "usearch.strcontactelement"
@@ -9710,8 +11073,122 @@ msgstr "SQLite basierte Datenank"
 msgid "Unbekannter Datenbanktyp"
 msgstr "Unbekannter Datenbanktyp"
 
-#~ msgid "neue Person"
-#~ msgstr "neuer Kontakt"
+#~ msgid ""
+#~ "incl Unteraufträgewieder starten(Menü)(Menü)wieder startenwieder "
+#~ "startenwieder startenwieder startenwieder startenwieder startenwieder "
+#~ "startenwieder startenwieder starten(Menü)wieder startenwieder "
+#~ "startenwieder startenwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)"
+#~ "(Menü)(Menü)(aktive Version)(aktive Version)(aktive Version)(aktive "
+#~ "Version)(aktive Version)(aktive Version)(aktive Version)wieder "
+#~ "startenwieder startenwieder startenwieder startenwieder startenwieder "
+#~ "startenwieder startenwieder startenwieder startenwieder startenwieder "
+#~ "startenwieder startenwieder startenwieder startenwieder startenwieder "
+#~ "startenwieder startenwieder startenwieder starten"
+#~ msgstr "-"
+
+#~ msgid "Addresse aus Zwischenablage einfügen"
+#~ msgstr "Addresse aus Zwischenablage einfügen"
+
+#~ msgctxt "TFADDRESSFRAME.LABEL1.CAPTION"
+#~ msgid "Adressen"
+#~ msgstr "Adressen"
+
+#~ msgid "gewählte Adresse"
+#~ msgstr "gewählte Adresse"
+
+#~ msgid "fCopyArticleData"
+#~ msgstr "-"
+
+#~ msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[0].TITLE.CAPTION"
+#~ msgid "SYMBOL"
+#~ msgstr "-"
+
+#~ msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[2].TITLE.CAPTION"
+#~ msgid "MASK"
+#~ msgstr "-"
+
+#~ msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[3].TITLE.CAPTION"
+#~ msgid "DECIMALPL"
+#~ msgstr "-"
+
+#~ msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[4].TITLE.CAPTION"
+#~ msgid "FACTOR"
+#~ msgstr "-"
+
+#~ msgctxt "TFCURRENCYOPTIONS.DGCURRENCY.COLUMNS[5].TITLE.CAPTION"
+#~ msgid "DEFAULTCUR"
+#~ msgstr "-"
+
+#~ msgctxt "TFMAIN.ACSHOWTREE.CAPTION"
+#~ msgid "Baum"
+#~ msgstr "Baum"
+
+#~ msgid "Vor (zum nächsten Eintrag) gehen"
+#~ msgstr "Vor (zum nächsten Eintrag) gehen"
+
+#~ msgctxt "TFMAIN.ECONTAINS.TEXT"
+#~ msgid "<hier tippen um zu suchen>"
+#~ msgstr "<hier tippen um zu suchen>"
+
+#~ msgctxt "TFMAIN.LABEL4.CAPTION"
+#~ msgid "Ansicht"
+#~ msgstr "Ansicht"
+
+#~ msgid "erfassung"
+#~ msgstr "erfassung"
+
+#~ msgctxt "TFMAIN.LABEL8.CAPTION"
+#~ msgid "Start"
+#~ msgstr "Start"
+
+#~ msgid "pSearch"
+#~ msgstr "-"
+
+#~ msgid "Zurück (zum letzten Eintrag) gehen"
+#~ msgstr "Zurück (zum letzten Eintrag) gehen"
+
+#~ msgctxt "TFORDERADDRESS.BADRESSNEW2.HINT"
+#~ msgid "zu Kontakt gehen"
+#~ msgstr "zu Kontakt gehen"
+
+#~ msgctxt "TFORDERTYPEOPTIONS.CBSIACC.CAPTION"
+#~ msgid "Buchhaltung"
+#~ msgstr "Buchhaltung"
+
+#~ msgctxt "TFORDERTYPEOPTIONS.CBSIINVO.CAPTION"
+#~ msgid "Rechnungsausgang"
+#~ msgstr "Rechnungsausgang"
+
+#~ msgctxt "TFORDERTYPEOPTIONS.CBSIINVR.CAPTION"
+#~ msgid "Rechnungseingang"
+#~ msgstr "Rechnungseingang"
+
+#~ msgctxt "TFORDERTYPEOPTIONS.CBSIORDER.CAPTION"
+#~ msgid "Vorgang"
+#~ msgstr "Vorgang"
+
+#~ msgctxt "TFORDERTYPEOPTIONS.CBSIPOS.CAPTION"
+#~ msgid "Kasse"
+#~ msgstr "Kasse"
+
+#~ msgctxt "TFORDERTYPEOPTIONS.CBSIPROD.CAPTION"
+#~ msgid "Produktion"
+#~ msgstr "Produktion"
+
+#~ msgctxt "TFORDERTYPEOPTIONS.GBVISIBILITY.CAPTION"
+#~ msgid "Sichtbarkeit"
+#~ msgstr "Sichtbarkeit"
+
+#~ msgid "Wo soll der Vorgang sichtbar sein ?"
+#~ msgstr "Wo soll der Vorgang sichtbar sein ?"
+
+#~ msgctxt "TFORDERTYPEOPTIONS.RGADDCHIST.CAPTION"
+#~ msgid "Kundenhistorie"
+#~ msgstr "Kundenhistorie"
+
+#~ msgctxt "TFPASSWORDS.TOOLBAR1.CAPTION"
+#~ msgid "ToolBar1"
+#~ msgstr "--"
 
 #~ msgctxt "TFACCOUNTINGQUE.FACCOUNTINGQUE.CAPTION"
 #~ msgid "Warteschlange"
@@ -9757,9 +11234,6 @@ msgstr "Unbekannter Datenbanktyp"
 
 #~ msgid "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
 #~ msgstr "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
-
-#~ msgid "geben Sie hier den namen des Kontaktes an"
-#~ msgstr "geben Sie hier den namen des Kontaktes an"
 
 #~ msgid ""
 #~ "setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
@@ -9840,15 +11314,9 @@ msgstr "Unbekannter Datenbanktyp"
 #~ msgid "Stammdaten"
 #~ msgstr "Artikel"
 
-#~ msgid "Neuer Artikel"
-#~ msgstr "Neuer Artikel"
-
 #~ msgctxt "TFMAIN.ACNEWCUSTOMER.CAPTION"
 #~ msgid "Neuer Kontakt"
 #~ msgstr "Neuer Kontakt"
-
-#~ msgid "Neue e-Mail"
-#~ msgstr "Neue e-Mail"
 
 #~ msgid "Neuen Mandanten anlegen"
 #~ msgstr "Neuen Mandanten anlegen"
@@ -9895,9 +11363,6 @@ msgstr "Unbekannter Datenbanktyp"
 #~ msgid "acShowCurrentControl"
 #~ msgstr "-"
 
-#~ msgid "Programm zeigen/verstecken"
-#~ msgstr "Programm zeigen/verstecken"
-
 #~ msgid "Hilfe zeigen/verstecken"
 #~ msgstr "Hilfe zeigen/verstecken"
 
@@ -9939,9 +11404,6 @@ msgstr "Unbekannter Datenbanktyp"
 #~ msgid "Neu"
 #~ msgstr "Neu"
 
-#~ msgid "Ansicht"
-#~ msgstr "Ansicht"
-
 #~ msgctxt "TFMAIN.SBSANDBOX.CAPTION"
 #~ msgid "testmode"
 #~ msgstr "-"
@@ -9949,14 +11411,8 @@ msgstr "Unbekannter Datenbanktyp"
 #~ msgid "Der Sandkastenmodus erlaubt es Ihnen änderungen zu"
 #~ msgstr "Der Sandkastenmodus erlaubt es Ihnen änderungen zu"
 
-#~ msgid "ToolButton2"
-#~ msgstr "-"
-
 #~ msgid "Zeiterfassung mit Eintrag beginnen"
 #~ msgstr "Zeiterfassung mit Eintrag beginnen"
-
-#~ msgid "markiert diesen Artikel als aktiv"
-#~ msgstr "markiert diesen Artikel als aktiv"
 
 #~ msgid "wählt den Eintrag in einer anderen Sprache aus"
 #~ msgstr "wählt den Eintrag in einer anderen Sprache aus"
@@ -9985,9 +11441,6 @@ msgstr "Unbekannter Datenbanktyp"
 #~ msgid "Bei allen Buchungen werden "
 #~ msgstr "Bei allen Buchungen werden "
 
-#~ msgid "hier können Sie die zu bearbeitende Artikelversion auswählen."
-#~ msgstr "hier können Sie die zu bearbeitende Artikelversion auswählen."
-
 #~ msgid "Barcode / EAN"
 #~ msgstr "Barcode / EAN"
 
@@ -10008,9 +11461,6 @@ msgstr "Unbekannter Datenbanktyp"
 
 #~ msgid "Gewicht"
 #~ msgstr "Gewicht"
-
-#~ msgid "Der Kurztext des Eintrags"
-#~ msgstr "Der Kurztext des Eintrags"
 
 #~ msgid "acForward"
 #~ msgstr "-"
@@ -10034,9 +11484,6 @@ msgstr "Unbekannter Datenbanktyp"
 
 #~ msgid "Kasse"
 #~ msgstr "Kasse"
-
-#~ msgid "Produktion"
-#~ msgstr "Produktion"
 
 #~ msgid "SYMBOL"
 #~ msgstr "-"
@@ -10122,9 +11569,6 @@ msgstr "Unbekannter Datenbanktyp"
 #~ msgid "Zahlungsziele"
 #~ msgstr "Zahlungsziele"
 
-#~ msgid "Rechte"
-#~ msgstr "Rechte"
-
 #~ msgid "Einleitung"
 #~ msgstr "Einleitung"
 
@@ -10142,13 +11586,6 @@ msgstr "Unbekannter Datenbanktyp"
 
 #~ msgid "zu Kontakt gehen"
 #~ msgstr "zu Kontakt gehen"
-
-#~ msgid ""
-#~ "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu "
-#~ "überführen"
-#~ msgstr ""
-#~ "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu "
-#~ "überführen"
 
 #~ msgid "hier können Sie ein Vorgabelager auswählen"
 #~ msgstr "hier können Sie ein Vorgabelager auswählen"
@@ -10240,10 +11677,6 @@ msgstr "Unbekannter Datenbanktyp"
 #~ msgid "bPrev0"
 #~ msgstr "-"
 
-#~ msgctxt "TFWIZARDNEWACCOUNT.FWIZARDNEWACCOUNT.CAPTION"
-#~ msgid "neues Konto erstellen"
-#~ msgstr "neues Konto erstellen"
-
 #~ msgctxt "TFWIZARDNEWACCOUNT.LACCOUNT.CAPTION"
 #~ msgid "Konto"
 #~ msgstr "Konto"
@@ -10297,9 +11730,6 @@ msgstr "Unbekannter Datenbanktyp"
 #~ msgid "Manuell geführtes Konto erstellen"
 #~ msgstr "Manuell geführtes Konto erstellen"
 
-#~ msgid "Lieferant"
-#~ msgstr "Lieferant"
-
 #~ msgid "Baugruppe"
 #~ msgstr "Baugruppe"
 
@@ -10317,6 +11747,3 @@ msgstr "Unbekannter Datenbanktyp"
 
 #~ msgid "Neue Inventur"
 #~ msgstr "Neue Inventur"
-
-#~ msgid "<hier tippen um zu suchen>"
-#~ msgstr "<hier tippen um zu suchen>"

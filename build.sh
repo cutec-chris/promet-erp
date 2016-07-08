@@ -241,6 +241,7 @@ case $1 in
         fhem)  . ./promet/source/sync/build_fhem.sh $2;;
         sync)  . ./promet/source/sync/build.sh $2;;
   winclients)  . ./promet/setup/i386-win32/build.sh $2;;
+    portable)  . ./promet/setup/portableapps/build.sh $2;;
   linclients)  . ./promet/setup/i386-linux/build.sh $2;;
        clean)  clean_all;;
       server)  build_server $1 $2;;
