@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: umanagedocframe.strmakelinktodocuments
+msgid ""
+"Soll ein Verweis in dne Dateien des Eintrags angelegt werden ?\n"
+"So können Sie auch vom Eintrag aus das Dokument schnell finden\n"
+msgstr ""
+"Should this document also linked in the files of the entry ?\n"
+"So you can easyly Access the document also from entry.\n"
+
+#: umanagedocframe.strnewdoc
+msgid "Neues Dokument"
+msgstr "new Document"
+
+#: umanagedocframe.strnotext
+msgid "kein Text gefunden, oder keine OCR Anwendung installiert !"
+msgstr "no Text found or no OCR application installed !"
+
+#: umanagedocframe.strsetdate
+msgid "Soll das Datum %s als Belegdatum gesetzt werden ?"
+msgstr "Should the date %s set as order date ?"
+
+#: umanagedocframe.strsettag
+msgid "alle markierten setzen"
+msgstr "set all marked"
+
+#: umanagedocframe.strtag
+msgid "Tag"
+msgstr "Tag"

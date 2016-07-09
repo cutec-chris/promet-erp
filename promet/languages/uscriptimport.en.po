@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: uscriptimport.strconfiguredatasource
+msgid "Setzen Sie die Quelle / Einstellungen der Datenquelle und klicken Sie OK"
+msgstr "Set the Source/Settings for the datasource and click OK"
+
+#: uscriptimport.strcreateanformat
+msgid "Bitte erstellen Sei ein Datenformat. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf."
+msgstr "Please create an dataformat. For that you have to enter an Name and click the configure button."
+
+#: uscriptimport.strdatadestination
+msgid "Datenausgabe"
+msgstr "Data output"
+
+#: uscriptimport.strdataexport
+msgid "Datenexport"
+msgstr "Dataexport"
+
+#: uscriptimport.strdataimport
+msgid "Datenimport"
+msgstr "Dataimport"
+
+#: uscriptimport.strdatasource
+msgid "Datenquelle"
+msgstr "Datasource"
+
+#: uscriptimport.strerrorcompiling
+msgid "Fehlerhafters Importscript"
+msgstr "Errornous importscript"
+
+#: uscriptimport.strimporterclassnotfound
+msgid "Datenquellenklasse wurde nicht gefunden !"
+msgstr "Dataclass wasnt found !"
+
+#: uscriptimport.strpleaseenteranformatname
+msgid "Bitte geben Sie einen Namen für das Format an !"
+msgstr "Please enter an Name for the Format !"
+
+#: uscriptimport.strpleasselectanimportfilebeforeedit
+msgid "Bitte wählen Sie eine Datenquellenklasse !"
+msgstr "Please enter an Name for the dataclass !"
+
+#: uscriptimport.strselectandatasource
+msgid "Bitte wählen Sie eine Datenquelle"
+msgstr "Please select an Datasource"
+
+#: uscriptimport.strselectanformat
+msgid "Bitte wählen Sie ein Datenformat, oder erstellen Sie ein neues. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf."
+msgstr "Please create an dataformat or create an new. For that you have to enter an Name and click the configure button."

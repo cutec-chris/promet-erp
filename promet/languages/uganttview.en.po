@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: uganttview.strcancelchanges
+msgid "Sollen wirklich alle Änderungen verworfen werden ?"
+msgstr "Are you sure to reset all changes ?"
+
+#: uganttview.strchangemilestones
+msgid "Meilensteine ändern"
+msgstr "Change milestones"
+
+#: uganttview.strcollectingdependencies
+msgid "Abhängigkeiten werden ermittelt..."
+msgstr "Dependencies are determined..."
+
+#: uganttview.strcollectingresourcetimes
+msgid "... Urlaubszeiten ermitteln"
+msgstr "... Find vacations"
+
+#: uganttview.strcollectingtasks
+msgid "Ansicht wird aufgebaut..."
+msgstr "View is created..."
+
+#: uganttview.strcommitchanges
+msgid "Sollen wirklich alle Änderungen in die Aufgaben eingetragen werden ?"
+msgstr "Save all changes to Tasks ?"
+
+#: uganttview.strfindcriticalpath
+msgid "kritischen Pfad finden"
+msgstr "find critical path"
+
+#: uganttview.strnewtask
+msgid "neue Aufgabe"
+msgstr "new Task"
+
+#: uganttview.strnosnapshot
+msgid "<keiner>"
+msgstr "<None>"
+
+#: uganttview.strsnapshot
+msgid "Snapshot"
+msgstr "Snapshot"

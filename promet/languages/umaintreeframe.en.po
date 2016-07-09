@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: umaintreeframe.straccountingque
+msgid "Warteschlange"
+msgstr "Waiting que"
+
+#: umaintreeframe.strbanking
+msgid "Bankverbindungen"
+msgstr "Bank accounts"
+
+#: umaintreeframe.strfinancial
+msgid "Finanzen"
+msgstr "Financial"
+
+#: umaintreeframe.strmycalendar
+msgid "Mein Kalender"
+msgstr "My calendar"
+
+#: umaintreeframe.strmytasks
+msgid "meine Aufgaben"
+msgstr "My tasks"
+
+#: umaintreeframe.strnewaccount
+msgid "Neues Konto"
+msgstr "new Account"
+
+#: umaintreeframe.strnewtransfer
+msgid "Neue Überweisung"
+msgstr "new Transfer"
+
+#: umaintreeframe.strrealmove
+msgid "Verzeichnis wirklich nach \"%s\" verschieben ?"
+msgstr "Do you real want to move the Directory to \"%s\" ?"
+
+#: umaintreeframe.strrestartnessesary
+msgid "Starten Sie die Anwendung neu !"
+msgstr "Please restart the application !"

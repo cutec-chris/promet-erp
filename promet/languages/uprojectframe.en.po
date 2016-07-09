@@ -1,0 +1,36 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: uprojectframe.stractivestatus
+msgid "Der gewähte Status ist ein aktiver Status, sollen alle aktiven Aufgaben aktiviert werden ?"
+msgstr "The selected state is an active status, all active tasks should be enabled?"
+
+#: uprojectframe.strenterprocessname
+msgid "geben Sie einen neuen Namen für den Prozess an"
+msgstr "Enter an Name for the meeting"
+
+#: uprojectframe.strinactivestatus
+msgid "Der gewähte Status ist kein aktiver Status, sollen alle aktiven Aufgaben deaktiviert werden ?"
+msgstr "The selected status is no active status, to disable all active tasks?"
+
+#: uprojectframe.strnewproject
+msgid "neues Projekt"
+msgstr "New Project"
+
+#: uprojectframe.strnoparent
+msgid "<kein Vorfahr>"
+msgstr "<no Parent>"
+
+#: uprojectframe.strprocessname
+msgid "Prozessname"
+msgstr "Processname"

@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: ustatisticframe.strenteranname
+msgid "geben Sie einen Namen an"
+msgstr "enter a name"
+
+#: ustatisticframe.strerrorbuildingreport
+msgid "Es ist ein Fehler beim erstellen des Reports aufgetreten."
+msgstr "Error on creating report"
+
+#: ustatisticframe.strgenerating
+msgid "Abfrage wird ausgeführt..."
+msgstr "Querry running..."
+
+#: ustatisticframe.strname
+msgid "Name"
+msgstr "Name"
+
+#: ustatisticframe.strnewdir
+msgid "Neues Verzeichnis"
+msgstr "New directory"
+
+#: ustatisticframe.strnewstatistic
+msgid "Neue Statistik"
+msgstr "New statistic"
+
+#: ustatisticframe.strnotenougthrights
+msgid "Sie besitzen nicht genügend Rechte um diese Anwendung zu nutzen"
+msgstr "You dont have enougth rights to use this application"
+
+#: ustatisticframe.strquerytime
+msgid "Abfragezeit: %s Anzahl Datensätze: %d"
+msgstr "Querrytime: %s Recordcount: %d"
+
+#: ustatisticframe.strstatisticchanged
+msgid "Die Statistik wurde geändert, sollen die Änderungen gespeichert werden ?"
+msgstr "The statistic was changed, should it be saved ?"
+
+#: ustatisticframe.strunnamed
+msgid "Unbenannte Statistik"
+msgstr "Unknown statistic"

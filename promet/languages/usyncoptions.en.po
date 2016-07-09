@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: usyncoptions.strconnectionsuccesful
+msgid "Verbindungstest erfolgreich !"
+msgstr "Connectiontest successful !"
+
+#: usyncoptions.strfailedtoloadmandants
+msgid "Laden der Mandanten fehlgeschlagen"
+msgstr "Mandant loading failed !"
+
+#: usyncoptions.strinserttables
+msgid ""
+"Sollen zum Synchronisieren die Standardtabellen als Vorgabe eingefügt "
+"werden ?\n"
+"(Sie müssen alle zu synchronisierenden Tabellen angeben und könenn dann pro "
+"tabelle einsetllen in welche Richtungen und unter welchen Umständen "
+"synchronisiert werden soll)\n"
+msgstr "Should the standard Tables be inserted to this sync profile ?\n"
+
+#: usyncoptions.strsetpropertysfailed
+msgid "Der Datenbankverbindungsstring beinhaltet Fehler"
+msgstr "Connectionstring is errornous !"
+
+#: usyncoptions.strsynciddontmatch
+msgid ""
+"Die SyncID der entfernten Datenbank stimmt nicht mit der eingestellten "
+"überein, soll die SyncID übernommen werden ?"
+msgstr ""
+"The syncID of the remote Database dosent fit to the local should the remote "
+"SyncId are used ?"

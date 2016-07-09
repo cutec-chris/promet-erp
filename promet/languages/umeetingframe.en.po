@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: umeetingframe.strentermeetingname
+msgid "geben Sie einen neuen Namen für die Besprechung an"
+msgstr "Enter an Name for the meeting"
+
+#: umeetingframe.strmeetingname
+msgid "Besprechungsname"
+msgstr "Meetingname"
+
+#: umeetingframe.strnewmeeting
+msgid "neue Besprechung"
+msgstr "newMeeting"
+
+#: umeetingframe.strnouserselected
+msgid "Es ist kein Benutzer oder Verantwortlicher zugewiesen !"
+msgstr "Thers no user or responsable assigned !"
+
+#: umeetingframe.strsearchfrommeetings
+msgid "Mit Öffnen wird das gewählte Projekt in die Liste übernommen"
+msgstr "With open the selected Project is added to list"
+
+#: umeetingframe.strsearchfromusers
+msgid "Mit Öffnen wird der gewählte Nutzer in die Liste übernommen"
+msgstr "With open the selected user is added to list"
+
+#: umeetingframe.strunassigned
+msgid "kein Bezug"
+msgstr "no relation"

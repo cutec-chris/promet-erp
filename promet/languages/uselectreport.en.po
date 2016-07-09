@@ -1,0 +1,72 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: uselectreport.strbooking
+msgid "Vorgang wird gebucht..."
+msgstr "Order is booked..."
+
+#: uselectreport.strcantpreparereport
+msgid "Das aufbereiten des Beleges ist fehlgeschlagen !"
+msgstr ""
+
+#: uselectreport.strdefaultprinter
+msgid "Standarddrucker"
+msgstr "Standardprinter"
+
+#: uselectreport.strdispatchtypenotfound
+msgid "Versandart nicht gefunden !"
+msgstr "Shipping method not found!"
+
+#: uselectreport.strdocumentdefaultprinter
+msgid "Drucker aus Beleg"
+msgstr "Printer from Report"
+
+#: uselectreport.strfileexport
+msgid "Dateiausgabe"
+msgstr "File output"
+
+#: uselectreport.strgeneratingmail
+msgid "e-Mail wird generiert..."
+msgstr "e-mail will be generated ..."
+
+#: uselectreport.strmeeting
+msgid "Besprechung"
+msgstr "Meeting"
+
+#: uselectreport.strnomailaddress
+msgid "Der Kontakt hat keine e-Mail Adresse"
+msgstr "The Contact has no e-Mail Address"
+
+#: uselectreport.strnooutput
+msgid "keine Ausgabe"
+msgstr "no output"
+
+#: uselectreport.strpostingfailed
+msgid "Fehler beim Buchen !"
+msgstr "Error on booking!"
+
+#: uselectreport.strpreparingreport
+msgid "Ausdruck wird vorbereitet..."
+msgstr "Report is being prepared ..."
+
+#: uselectreport.strprint
+msgid "Ausgabe"
+msgstr "Output"
+
+#: uselectreport.strprintbook
+msgid "Ausgabe+Buchen"
+msgstr "Output+Booking"
+
+#: uselectreport.strprintingreport
+msgid "Ausdruck wird gedruckt..."
+msgstr "Printing..."

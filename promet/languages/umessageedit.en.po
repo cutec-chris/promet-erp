@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: umessageedit.stractionmessagesend
+msgid "Nachricht gesendet"
+msgstr "Message sent"
+
+#: umessageedit.straddinglistentry
+msgid "Verarbeite Eintrag \"%s\""
+msgstr "Processing entry \"%s\""
+
+#: umessageedit.straddingmail
+msgid "erstelle Mail an \"%s\""
+msgstr "create Mail to \"%s"
+
+#: umessageedit.straddingparts
+msgid "Adding Parts..."
+msgstr "Adding Parts..."
+
+#: umessageedit.straddingusers
+msgid "Adding Users..."
+msgstr "Adding Users..."
+
+#: umessageedit.strencodingmessage
+msgid "Encoding Message..."
+msgstr "Encoding Message..."
+
+#: umessageedit.strfailedtoaddreceiveradress
+msgid "Konnte Empfängeradresse nicht hinzufügen (möglicherweise ist diese ungültig) !"
+msgstr "Coudnt add Receiver adress (maybe its invalid ?)"
+
+#: umessageedit.strfailedtoaddsenderaddress
+msgid "Konnte Absenderadresse nicht hinzufügen (möglicherweise ist diese ungültig) !"
+msgstr "Coudnt add Sender Address (maybe its invalid ?)"
+
+#: umessageedit.strfailedtosendmail
+msgid "Mailversand fehlgeschlagen !"
+msgstr "sending mail failed"
+
+#: umessageedit.strloggingin
+msgid "Logging In..."
+msgstr "Logging In..."
+
+#: umessageedit.strloggingout
+msgid "Logging out..."
+msgstr "Logging out..."
+
+#: umessageedit.strmailsubjectclear
+msgid "Das Betreff Feld in Ihrer e-Mail sollte nicht leer sein, das wird von vielen Spam Filtern als Spam gewertet."
+msgstr "The Subject field in your e-mail should not be empty, which is regarded by many spam filters as spam."
+
+#: umessageedit.strrealleavemail
+msgid "Möchten Sie die Nachricht wirklich verwerfen ?"
+msgstr "Do you really want to discard the message?"
+
+#: umessageedit.strsendingmessage
+msgid "Sending Message..."
+msgstr "Sending Message..."
