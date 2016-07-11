@@ -14,3 +14,4 @@ msgstr ""
 #: ucreateproductionorder.strmasterdatawithoutpiecelist
 msgid "Der Artikel hat keine Stückliste, wirklich erstellen ?"
 msgstr "This article has no piecelist, are you sure to create an clean production order ?"
+

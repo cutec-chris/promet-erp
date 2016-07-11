@@ -50,3 +50,4 @@ msgstr "The statistic was changed, should it be saved ?"
 #: ustatisticframe.strunnamed
 msgid "Unbenannte Statistik"
 msgstr "Unknown statistic"
+

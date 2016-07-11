@@ -70,3 +70,4 @@ msgstr "Output+Booking"
 #: uselectreport.strprintingreport
 msgid "Ausdruck wird gedruckt..."
 msgstr "Printing..."
+

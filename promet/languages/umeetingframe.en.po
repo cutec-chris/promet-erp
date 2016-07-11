@@ -38,3 +38,4 @@ msgstr "With open the selected user is added to list"
 #: umeetingframe.strunassigned
 msgid "kein Bezug"
 msgstr "no relation"
+

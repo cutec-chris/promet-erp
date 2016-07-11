@@ -30,3 +30,4 @@ msgstr "Personal settings"
 #: uoptions.strsavechanges
 msgid "sollen Änderungen gesichert werden ?"
 msgstr "Should the changes be saved?"
+

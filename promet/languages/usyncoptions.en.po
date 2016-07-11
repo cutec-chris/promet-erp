@@ -21,21 +21,15 @@ msgstr "Mandant loading failed !"
 
 #: usyncoptions.strinserttables
 msgid ""
-"Sollen zum Synchronisieren die Standardtabellen als Vorgabe eingefügt "
-"werden ?\n"
-"(Sie müssen alle zu synchronisierenden Tabellen angeben und könenn dann pro "
-"tabelle einsetllen in welche Richtungen und unter welchen Umständen "
-"synchronisiert werden soll)\n"
-msgstr "Should the standard Tables be inserted to this sync profile ?\n"
+"Sollen zum Synchronisieren die Standardtabellen als Vorgabe eingefügt werden ?\n"
+"(Sie müssen alle zu synchronisierenden Tabellen angeben und könenn dann pro tabelle einsetllen in welche Richtungen und unter welchen Umständen synchronisiert werden soll)\n"
+msgstr "Should the standard Tables be inserted to this sync profile ?"
 
 #: usyncoptions.strsetpropertysfailed
 msgid "Der Datenbankverbindungsstring beinhaltet Fehler"
 msgstr "Connectionstring is errornous !"
 
 #: usyncoptions.strsynciddontmatch
-msgid ""
-"Die SyncID der entfernten Datenbank stimmt nicht mit der eingestellten "
-"überein, soll die SyncID übernommen werden ?"
-msgstr ""
-"The syncID of the remote Database dosent fit to the local should the remote "
-"SyncId are used ?"
+msgid "Die SyncID der entfernten Datenbank stimmt nicht mit der eingestellten überein, soll die SyncID übernommen werden ?"
+msgstr "The syncID of the remote Database dosent fit to the local should the remote SyncId are used ?"
+

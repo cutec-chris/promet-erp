@@ -18,3 +18,4 @@ msgstr "%d of %d Entries are shown"
 #: ufilterframe.strrecordcount
 msgid "%d Einträge"
 msgstr "%d entries"
+

@@ -46,3 +46,4 @@ msgstr "Do you real want to move the Directory to \"%s\" ?"
 #: umaintreeframe.strrestartnessesary
 msgid "Starten Sie die Anwendung neu !"
 msgstr "Please restart the application !"
+

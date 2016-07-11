@@ -50,3 +50,4 @@ msgstr "<None>"
 #: uganttview.strsnapshot
 msgid "Snapshot"
 msgstr "Snapshot"
+
