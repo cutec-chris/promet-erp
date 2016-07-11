@@ -98,7 +98,7 @@ begin
     aSource := SyncTbl
   else
     aSource := SourceDM.GetNewDataSet('select * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+SourceDM.QuoteField('SQL_ID')+'='+SourceDM.QuoteValue(SyncTbl.FieldByName('SQL_ID').AsString));
-  aDest := DestDM.GetNewDataSet('select * from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+DestDM.QuoteField('SQL_ID')+'='+DestDM.QuoteValue(SyncTbl.FieldByName('SQL_ID').AsString));
+  aDest := DestDM.GetNewDataSet('select * from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+DestDM.QuoteField('SQL_ID')+'='+DestDM.QuoteValue(SyncTbl.FieldByName('SQL_ID').AsString),DestDM.MainConnection);
   with aDest as IBaseManageDB do
     UpdateStdFields := False;
   try
@@ -139,9 +139,9 @@ begin
                 begin
                   tmp := ConvertEncoding(aSource.FieldByName(aFieldName).AsString,GuessEncoding(aSource.FieldByName(aFieldName).AsString),EncodingUTF8);
                   if (aDest.FieldByName(aFieldName).DataType = ftString)
-                  and (aDest.FieldByName(aFieldName).AsString <> tmp) then
+                  and (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant) then
                     begin
-                      aDest.FieldByName(aFieldName).AsString := tmp;
+                      aDest.FieldByName(aFieldName).AsString := aSource.FieldByName(aFieldName).AsString;
                       DoPost := True;
                     end
                   else if (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant) then
@@ -152,13 +152,13 @@ begin
                 end;
             end;
         end;
-      if LocalTimeToUniversal(aSource.FieldByName('TIMESTAMPD').AsDateTime) > aLastRowTime then
-        aLastRowTime:=LocalTimeToUniversal(aSource.FieldByName('TIMESTAMPD').AsDateTime);
+      if aSource.FieldByName('TIMESTAMPD').AsDateTime > aLastRowTime then
+        aLastRowTime:=aSource.FieldByName('TIMESTAMPD').AsDateTime;
       if SyncOut and DoPost then
         if aDest.FieldDefs.IndexOf('TIMESTAMPD') > -1 then
           if not aDest.FieldByName('TIMESTAMPD').IsNull then
-            if LocalTimeToUniversal(aDest.FieldByName('TIMESTAMPD').AsDateTime) < aFirstSyncedRow then
-              aFirstSyncedRow:=LocalTimeToUniversal(aDest.FieldByName('TIMESTAMPD').AsDateTime);
+            if aDest.FieldByName('TIMESTAMPD').AsDateTime < aFirstSyncedRow then
+              aFirstSyncedRow:=aDest.FieldByName('TIMESTAMPD').AsDateTime;
       if aDest.FieldDefs.IndexOf('TIMESTAMPD') > -1 then
         if aDest.FieldByName('TIMESTAMPD').IsNull then
           aDest.FieldByName('TIMESTAMPD').AsDateTime:=LocalTimeToUniversal(Now());
