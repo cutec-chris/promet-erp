@@ -145,3 +145,6 @@
 [submodule "promet/source/scripts/plugins/net"]
 	path = promet/source/scripts/plugins/net
 	url = https://github.com/cutec-chris/script-plugin-net.git
+[submodule "promet/source/scripts/plugins/opencv"]
+	path = promet/source/scripts/plugins/opencv
+	url = https://github.com/cutec-chris/script-plugin-opencv.git
