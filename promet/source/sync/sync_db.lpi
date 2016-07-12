@@ -43,8 +43,9 @@
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="666"/>
-        <CursorPos X="76" Y="673"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="218"/>
+        <CursorPos Y="240"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -67,10 +68,9 @@
       <Unit3>
         <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="1995"/>
-        <CursorPos Y="2004"/>
+        <TopLine Value="1881"/>
+        <CursorPos X="85" Y="1897"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit3>
@@ -128,7 +128,6 @@
         <EditorIndex Value="4"/>
         <TopLine Value="3670"/>
         <CursorPos X="42" Y="3711"/>
-        <FoldState Value=" T7VJ{A132:"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit10>
@@ -203,123 +202,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="166" TopLine="144"/>
+        <Caret Line="168" Column="55" TopLine="151"/>
       </Position1>
       <Position2>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="187" TopLine="151"/>
+        <Caret Line="166" TopLine="151"/>
       </Position2>
       <Position3>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="171" Column="43" TopLine="151"/>
+        <Caret Line="187" TopLine="151"/>
       </Position3>
       <Position4>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="168" Column="55" TopLine="151"/>
+        <Caret Line="174" TopLine="151"/>
       </Position4>
       <Position5>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="166" TopLine="151"/>
-      </Position5>
-      <Position6>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="187" TopLine="151"/>
-      </Position6>
-      <Position7>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="174" TopLine="151"/>
-      </Position7>
-      <Position8>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <Caret Line="324" TopLine="294"/>
-      </Position8>
-      <Position9>
+      </Position5>
+      <Position6>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <Caret Line="325" TopLine="294"/>
-      </Position9>
-      <Position10>
+      </Position6>
+      <Position7>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <Caret Line="326" TopLine="294"/>
+      </Position7>
+      <Position8>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="171" Column="57" TopLine="151"/>
+      </Position8>
+      <Position9>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="173" Column="27" TopLine="151"/>
+      </Position9>
+      <Position10>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="170" Column="44" TopLine="151"/>
       </Position10>
       <Position11>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="171" Column="57" TopLine="151"/>
+        <Caret Line="166" TopLine="151"/>
       </Position11>
       <Position12>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="173" Column="27" TopLine="151"/>
+        <Caret Line="693" Column="35" TopLine="676"/>
       </Position12>
       <Position13>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="170" Column="44" TopLine="151"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="102" Column="14" TopLine="88"/>
       </Position13>
       <Position14>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="166" TopLine="151"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1471" Column="114" TopLine="1441"/>
       </Position14>
       <Position15>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="693" Column="35" TopLine="676"/>
+        <Caret Line="716" Column="37" TopLine="675"/>
       </Position15>
       <Position16>
-        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
-        <Caret Line="102" Column="14" TopLine="88"/>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="698" Column="26" TopLine="675"/>
       </Position16>
       <Position17>
-        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
-        <Caret Line="1471" Column="114" TopLine="1441"/>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="704" Column="19" TopLine="675"/>
       </Position17>
       <Position18>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="716" Column="37" TopLine="675"/>
+        <Caret Line="694" Column="64" TopLine="675"/>
       </Position18>
       <Position19>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="698" Column="26" TopLine="675"/>
+        <Caret Line="541" Column="22" TopLine="500"/>
       </Position19>
       <Position20>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="704" Column="19" TopLine="675"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="3710" TopLine="3667"/>
       </Position20>
       <Position21>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="694" Column="64" TopLine="675"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="373" Column="10" TopLine="351"/>
       </Position21>
       <Position22>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="541" Column="22" TopLine="500"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="3712" Column="42" TopLine="3669"/>
       </Position22>
       <Position23>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="3710" TopLine="3667"/>
+        <Caret Line="3711" Column="42" TopLine="3670"/>
       </Position23>
       <Position24>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="373" Column="10" TopLine="351"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1448" Column="38" TopLine="1441"/>
       </Position24>
       <Position25>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="3712" Column="42" TopLine="3669"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="113" Column="20" TopLine="91"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="3711" Column="42" TopLine="3670"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="171" Column="31" TopLine="136"/>
       </Position26>
       <Position27>
         <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
-        <Caret Line="1448" Column="38" TopLine="1441"/>
+        <Caret Line="336" Column="142" TopLine="312"/>
       </Position27>
       <Position28>
         <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
-        <Caret Line="113" Column="20" TopLine="91"/>
+        <Caret Line="163" Column="98" TopLine="150"/>
       </Position28>
       <Position29>
         <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
-        <Caret Line="171" Column="31" TopLine="136"/>
+        <Caret Line="1897" Column="85" TopLine="1881"/>
       </Position29>
       <Position30>
-        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
-        <Caret Line="336" Column="142" TopLine="312"/>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="239" Column="14" TopLine="218"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -352,7 +351,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="4">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -365,22 +364,8 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="sync_db.lpr"/>
-        <Line Value="237"/>
-      </Item2>
-      <Item3>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="sync_db.lpr"/>
         <Line Value="214"/>
-      </Item3>
-      <Item4>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
-        <Line Value="2004"/>
-      </Item4>
+      </Item2>
     </BreakPoints>
     <Exceptions Count="5">
       <Item1>
