@@ -555,7 +555,6 @@ var
 begin
   FLog := TStringList.Create;
   FTables := TStringList.Create;
-  FAddLog:=False;
   aGlobalTime := LocalTimeToUniversal(Now());
   FTempDataSet := nil;
   with BaseApplication as IBaseApplication do
@@ -596,6 +595,7 @@ begin
             begin
               Info('starting:'+SyncDB.DataSet.FieldByName('NAME').AsString);
               try
+              FAddLog:=False;
               if not SyncDB.CanEdit then SyncDB.DataSet.Edit;
               SyncDB.DataSet.FieldByName('INPROGRESS').AsString := 'Y';
               SyncDB.DataSet.Post;
@@ -627,7 +627,6 @@ begin
                                 if SyncDB.DataSet.FieldByName('SYNCOFFS').AsInteger = aSyncOffs then
                                   begin
                                     DoCreateTable(TDeletedItems);
-                                    DoCreateTable(TSyncStamps);
                                     DoCreateTable(TDocuments);
                                     SyncDB.Tables.Open;
                                     if SyncDB.Tables.DataSet.Locate('NAME','USERFIELDDEFS',[loCaseInSensitive]) then
