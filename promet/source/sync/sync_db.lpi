@@ -44,8 +44,8 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="609"/>
-        <CursorPos Y="630"/>
+        <TopLine Value="188"/>
+        <CursorPos Y="214"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -376,15 +376,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="sync_db.lpr"/>
-        <Line Value="214"/>
-      </Item1>
-    </BreakPoints>
     <Exceptions Count="5">
       <Item1>
         <Name Value="EZSQLException"/>
