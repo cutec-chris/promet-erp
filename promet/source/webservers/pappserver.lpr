@@ -17,7 +17,7 @@
   MA 02111-1307, USA.
 Created 01.06.2010
 *******************************************************************************}
-program processmanager;
+program pappserver;
 {$mode objfpc}{$H+}
 uses
   {$IFDEF UNIX}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="9"/>
+    <BuildModes Active="Default">
+      <SessionMatrixOptions Count="1">
+        <Item1 ID="199189307643" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+      </SessionMatrixOptions>
+    </BuildModes>
+    <Units Count="1">
+      <Unit0>
+        <Filename Value="processmanager.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <TopLine Value="107"/>
+        <CursorPos Y="143"/>
+        <UsageCount Value="182"/>
+        <Loaded Value="True"/>
+      </Unit0>
+    </Units>
+    <Build>
+      <CleanOutputFileMask Value="*.ppu;*.ppl;*.o;*.or"/>
+    </Build>
+    <JumpHistory HistoryIndex="-1"/>
+  </ProjectSession>
+</CONFIG>
