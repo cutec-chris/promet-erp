@@ -54,6 +54,10 @@ build_default()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  . ./promet/source/production/build.sh $2
+  if [ "$?" -ne "0" ]; then
+    exit 1
+  fi
   . ./promet/help/build.sh
   . ./promet/importdata/build.sh $2
 }
@@ -122,21 +126,7 @@ build_all()
   echo "Building all..."
   build_server $1 $2;
   sleep 2
-  . ./promet/source/promet.erp/build.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  sleep 2
-  . ./promet/source/tools/build_visual.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  sleep 2
-  . ./promet/source/messagemanager/build.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  sleep 2
+  build_default $1 $2;
   . ./promet/source/meeting/build.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1

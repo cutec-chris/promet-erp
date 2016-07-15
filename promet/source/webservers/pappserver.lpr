@@ -25,9 +25,9 @@ uses
   {$ENDIF}
   Classes, SysUtils, CustApp, uBaseDBInterface,
   uData,Process, db, uSystemMessage,
-  uPowerState, pcmdprometapp,math,uBaseCustomApplication,
+  uPowerState, pcmdprometapp,math,uBaseCustomApplication, upwebdavserver,
   uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts,
-  uprometmsgnetwork,uappserverhttp,uappserverpubsub;
+  uprometmsgnetwork,uappserverhttp,uappserverpubsub,uprometwikiserver;
 type
   { TProcessManager }
 
