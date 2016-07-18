@@ -860,8 +860,10 @@ procedure TfStatisticFrame.acQueryBuilderExecute(Sender: TObject);
 begin
   if not Assigned(FVisualQueryEngine) then
     begin
-      FVisualQueryEngine := TOQBEngine.Create(nil);
+      FVisualQueryEngine := TOQBEnginePromet.Create(nil);
       FBuilder := TOQBuilderDialog.Create(nil);
+      FBuilder.ShowButtons:=[bRunQuery];
+      FVisualQueryEngine.DatabaseName:='Promet';
       FBuilder.OQBEngine := FVisualQueryEngine;
     end;
   if FBuilder.Execute then

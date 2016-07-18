@@ -50,8 +50,8 @@ inherited fStatisticFrame: TfStatisticFrame
       NewTabImageIndex = 0
       object tsReport: TTabSheet
         Caption = 'Report'
-        ClientHeight = 309
-        ClientWidth = 831
+        ClientHeight = 618
+        ClientWidth = 1662
         object Panel2: TPanel
           Left = 0
           Height = 27
@@ -219,8 +219,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsResults: TTabSheet
         Caption = 'Ergebnisliste'
-        ClientHeight = 309
-        ClientWidth = 831
+        ClientHeight = 618
+        ClientWidth = 1662
         object Panel1: TPanel
           Left = 0
           Height = 278
@@ -377,8 +377,8 @@ inherited fStatisticFrame: TfStatisticFrame
       end
       object tsDescription: TTabSheet
         Caption = 'Beschreibung'
-        ClientHeight = 309
-        ClientWidth = 831
+        ClientHeight = 618
+        ClientWidth = 1662
         object DBMemo1: TDBMemo
           Left = 0
           Height = 309
@@ -426,8 +426,8 @@ inherited fStatisticFrame: TfStatisticFrame
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 261
-          ClientWidth = 847
+          ClientHeight = 522
+          ClientWidth = 1694
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -1035,8 +1035,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsDetail: TTabSheet
           Caption = 'Detail'
-          ClientHeight = 254
-          ClientWidth = 849
+          ClientHeight = 508
+          ClientWidth = 1698
           inline smQuerry1: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -1632,8 +1632,8 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object tsSubDetail: TTabSheet
           Caption = 'Sub Detail'
-          ClientHeight = 254
-          ClientWidth = 849
+          ClientHeight = 508
+          ClientWidth = 1698
           inline smQuerry2: TSynMemo
             Cursor = crIBeam
             Left = 0
@@ -2377,7 +2377,6 @@ inherited fStatisticFrame: TfStatisticFrame
             FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
             FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
           }
-          GroupIndex = 10
           OnClick = bEditFilterClick
           ShowCaption = False
         end
