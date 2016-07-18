@@ -24,30 +24,34 @@
       <OutDir Value="../../languages"/>
       <EnableI18NForLFM Value="True"/>
     </i18n>
-    <RequiredPkgs Count="7">
+    <RequiredPkgs Count="8">
       <Item1>
-        <PackageName Value="laz_fpspreadsheet"/>
-        <DefaultFilename Value="../components/fpspreadsheet/laz_fpspreadsheet.lpk"/>
+        <PackageName Value="lazopenqbuilder_promet"/>
+        <DefaultFilename Value="../components/openqbuilder/lazopenqbuilder_promet.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="pvisualframes"/>
-        <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
+        <PackageName Value="laz_fpspreadsheet"/>
+        <DefaultFilename Value="../components/fpspreadsheet/laz_fpspreadsheet.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="lazreport"/>
+        <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="TAChartLazarusPkg"/>
+        <PackageName Value="lazreport"/>
       </Item4>
       <Item5>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="TAChartLazarusPkg"/>
       </Item5>
       <Item6>
-        <PackageName Value="lcl"/>
+        <PackageName Value="SynEdit"/>
       </Item6>
       <Item7>
-        <PackageName Value="FCL"/>
+        <PackageName Value="lcl"/>
       </Item7>
+      <Item8>
+        <PackageName Value="FCL"/>
+      </Item8>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

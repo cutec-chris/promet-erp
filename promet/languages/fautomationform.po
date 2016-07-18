@@ -5,6 +5,10 @@ msgstr "Content-Type: text/plain; charset=UTF-8"
 msgid "kommissionieren"
 msgstr ""
 
+#: fautomationform.strloading
+msgid "Auftragsdaten werden geladen..."
+msgstr ""
+
 #: fautomationform.strnotmoresteps
 msgid "Es sind keine (weiteren) Arbeitschritte vorhanden.<br><br>Um einen neuen Auftrag auswählen zu können müssen Sie den Auftrag (ab)schließen"
 msgstr ""
