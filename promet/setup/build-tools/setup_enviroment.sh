@@ -18,7 +18,7 @@ if [ "x$lazbuild" = "x" ]
   export TARGET_CPU=$( $lazbuild -? | grep 'powerpc_64' | $SED -e 's/.*: //')
   export TARGET_WIDGETSET=$( $lazbuild -? | grep 'Carbon.' | $SED 's/.*: //')
   export TARGET_OS=$( $lazbuild -? | grep 'linux.' | $SED -e 's/.*: //')
-  echo "CPU:$TARGET_CPU" 
+  echo "CPU:$TARGET_CPU"
   echo "OS:$TARGET_OS"
   echo "Widgetset:$TARGET_WIDGETSET"
   if [ "x$TARGET_CPU" = "xarm" ]; then

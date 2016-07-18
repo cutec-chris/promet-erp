@@ -53,29 +53,19 @@ type
   { TWebDAVServerSocket }
 
   TWebDAVServerSocket = class(TObject)
-  private
-    FCtag: TLGetCTag;
-    FDelete: TLFileEvent;
-    FGet: TLFileStreamDateEvent;
-    FGetDirList: TLGetDirectoryList;
-    FMkCol: TLFileEvent;
-    FPost: TLFileStreamEvent;
-    FPut: TLFileStreamEvent;
-    FreadAllowed: TLFileEvent;
-    FUserLogin: TLLoginEvent;
-    FWriteAllowed: TLFileEvent;
-  public
-    property OnGetDirectoryList : TLGetDirectoryList read FGetDirList write FGetDirList;
-    property OnMkCol : TLFileEvent read FMkCol write FMkCol;
-    property OnDelete : TLFileEvent read FDelete write FDelete;
-    property OnPutFile : TLFileStreamEvent read FPut write FPut;
-    property OnPostFile : TLFileStreamEvent read FPost write FPost;
-    property OnGetFile : TLFileStreamDateEvent read FGet write FGet;
-    property OnReadAllowed : TLFileEvent read FreadAllowed write FReadAllowed;
-    property OnWriteAllowed : TLFileEvent read FWriteAllowed write FWriteAllowed;
-    property OnUserLogin : TLLoginEvent read FUserLogin write FUserLogin;
-    property OngetCTag : TLGetCTag read FCtag write FCtag;
   end;
+
+var
+  OnGetDirectoryList : TLGetDirectoryList;
+  OnMkCol : TLFileEvent;
+  OnDelete : TLFileEvent;
+  OnPutFile : TLFileStreamEvent;
+  OnPostFile : TLFileStreamEvent;
+  OnGetFile : TLFileStreamDateEvent;
+  OnReadAllowed : TLFileEvent;
+  OnWriteAllowed : TLFileEvent;
+  OnUserLogin : TLLoginEvent;
+  OnGetCTag : TLGetCTag;
 
 {
   TXmlOutput = class(TMemoryStreamOutput)
@@ -753,10 +743,6 @@ begin
       TLHTTPServerSocket(FSocket).Startmemoryresponse(TMemoryOutput(Self));
     end;
 end;
-function TXmlOutput.BuildStatus(aStatus: TLHTTPStatus): string;
-begin
-  Result := 'HTTP/1.1 '+IntToStr(HTTPStatusCodes[aStatus])+' '+HTTPTexts[aStatus];
-end;
 function TXmlOutput.HandleInput(ABuffer: pchar; ASize: integer): integer;
 begin
   FIn.WriteString(ABuffer);
@@ -838,6 +824,11 @@ begin
     ADocument.Free;
 end;
 }
+function BuildStatus(aStatus: TLHTTPStatus): string;
+begin
+  Result := 'HTTP/1.1 '+IntToStr(HTTPStatusCodes[aStatus])+' '+HTTPTexts[aStatus];
+end;
+
 function DAVReportHandleXMLRequest(aDocument: TXMLDocument): Boolean;
 var
   aProperties: TStringList;
@@ -926,8 +917,8 @@ var
     aPropStat.AppendChild(aProp);
 
     aStream := TStringStream.Create('');
-    if Assigned(TLWebDAVServer(Socket.Creator).FGet) then
-      TLWebDAVServer(Socket.Creator).FGet(aPath,aStream,FLastModified,FMimeType,FeTag);
+    if Assigned(OnGetFile) then
+      OnGetFile(aPath,aStream,FLastModified,FMimeType,FeTag);
     if (FindProp(':getetag') > -1) and (FeTag<>'')  then
       begin
         aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':getetag')]);
