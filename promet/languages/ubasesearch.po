@@ -1,0 +1,19 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ubasesearch.strfulltext
+msgid "Volltext"
+msgstr ""
+
+#: ubasesearch.stridents
+msgid "Idents"
+msgstr ""
+
+#: ubasesearch.strmatchcode
+msgid "Suchbegriffe"
+msgstr ""
+
+#: ubasesearch.strshortnames
+msgid "Kurztexte"
+msgstr ""
+

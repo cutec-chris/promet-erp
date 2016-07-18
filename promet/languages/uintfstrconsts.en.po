@@ -1,0 +1,918 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.7\n"
+
+#: uintfstrconsts.strabort
+msgid "Abbrechen"
+msgstr "Abort"
+
+#: uintfstrconsts.straccount
+msgid "Konto"
+msgstr "Account"
+
+#: uintfstrconsts.straccountexchange
+msgid "Bankbuchungen"
+msgstr "Bank postings"
+
+#: uintfstrconsts.straccounts
+msgid "Konten"
+msgstr "Accounts"
+
+#: uintfstrconsts.stractionmessagereceived
+msgid "%s - empfangen"
+msgstr "%s received."
+
+#: uintfstrconsts.stradresses
+msgid "Adressen"
+msgstr "Addresses"
+
+#: uintfstrconsts.strallelements
+msgid "Elemente"
+msgstr "Elements"
+
+#: uintfstrconsts.stralternativerowcolor
+msgid "Alternative Zeilenfarbe"
+msgstr "Alternate row color"
+
+#: uintfstrconsts.strarchive
+msgid "Archiv"
+msgstr "Archive"
+
+#: uintfstrconsts.strarticlelist
+msgid "Artikelliste"
+msgstr "Article list"
+
+#: uintfstrconsts.strassemblyexchanged
+msgid "Baugruppentausch"
+msgstr "Assembly exchange"
+
+#: uintfstrconsts.strattatchments
+msgid "Anhänge"
+msgstr "Attatchments"
+
+#: uintfstrconsts.strattplan
+msgid "Anwesenheitsplan"
+msgstr "Attandanceplan"
+
+#: uintfstrconsts.strbadaddress
+msgid "BAD Geschäftsadresse"
+msgstr "BAD Business Adress"
+
+#: uintfstrconsts.strbarcode
+msgid "Barcode"
+msgstr "Barcode"
+
+#: uintfstrconsts.strcalendar
+msgid "Kalender"
+msgstr "Calendar"
+
+#: uintfstrconsts.strcall
+msgid "Anruf"
+msgstr "Call"
+
+#: uintfstrconsts.strcantaccessfile
+msgid ""
+"Auf die Datei \"%s\" kann nicht zugegriffen werden,\n"
+"kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle\n"
+msgstr "The file '%s' cannot be accessed,copy this file ggf on your computer or mount the source\n"
+
+#: uintfstrconsts.strcantgetclipboardcontents
+msgid "Konnte keine Zwischenablagedaten holen."
+msgstr "Could get no Clipboard data."
+
+#: uintfstrconsts.strcategorychanged
+msgid "Kategorie geändetr auf %s"
+msgstr "Category changed to %s"
+
+#: uintfstrconsts.strchangenumer
+msgid "Nummer ändern"
+msgstr "Change number"
+
+#: uintfstrconsts.strcheckingforupdate
+msgid "prüfe auf Update..."
+msgstr "check for update..."
+
+#: uintfstrconsts.strclipboard
+msgid "Zwischenablage"
+msgstr "Clip&board"
+
+#: uintfstrconsts.strclose
+msgid "Schliessen"
+msgstr "Close"
+
+#: uintfstrconsts.strclosingpleasewait
+msgid "wird beendet..."
+msgstr "stops..."
+
+#: uintfstrconsts.strcombiteitems
+msgid "Sollen die Elemente \"%s\" und \"%s\" wirklich verschmolzen werden ?"
+msgstr "Do you really want to merge \"%s\" and \"%s\" ?"
+
+#: uintfstrconsts.strcommandline
+msgid "Komandozeile"
+msgstr "Commmandline"
+
+#: uintfstrconsts.strcommission
+msgid "Komission"
+msgstr "Commission"
+
+#: uintfstrconsts.strcontact
+msgid "Kontakt"
+msgstr "Contact"
+
+#: uintfstrconsts.strcontinuesearch
+msgid "weitersuchen"
+msgstr "Find Next"
+
+#: uintfstrconsts.strcosts
+msgid "Kosten"
+msgstr "Costs"
+
+#: uintfstrconsts.strcreatedby
+msgid "erstellt von"
+msgstr "created by"
+
+#: uintfstrconsts.strcreatingforms
+msgid "erstelle Formulare ..."
+msgstr "creating forms..."
+
+#: uintfstrconsts.strcurrency
+msgid "Währung"
+msgstr "Currency"
+
+#: uintfstrconsts.strcustomercont
+msgid "Kontaktdaten"
+msgstr "Contact information"
+
+#: uintfstrconsts.strcustomerlist
+msgid "Kontaktliste"
+msgstr "Contact List"
+
+#: uintfstrconsts.strcustomers
+msgid "Kontakte"
+msgstr "Contacts"
+
+#: uintfstrconsts.strdadaddress
+msgid "DAD Lieferadresse"
+msgstr "DAD Delivery Adress"
+
+#: uintfstrconsts.strdatasetmustbeininsertmode
+msgid "Sie können lediglich in neue Einträge Daten aus der Zwischenablage einfügen, bitte legen Sie zuvor einen neuen Eintrag an."
+msgstr ""
+
+#: uintfstrconsts.strdate
+msgid "Datum"
+msgstr "Date"
+
+#: uintfstrconsts.strdescription
+msgid "Beschreibung"
+msgstr "Description"
+
+#: uintfstrconsts.strdestinationnotselected
+msgid "kein Zielmandant gewählt (--destination) !"
+msgstr ""
+
+#: uintfstrconsts.strdiscarded
+msgid "entsorgt"
+msgstr ""
+
+#: uintfstrconsts.strdispatchtyoes
+msgid "Versandarten"
+msgstr ""
+
+#: uintfstrconsts.strdocuments
+msgid "Dokumente/Bilder"
+msgstr ""
+
+#: uintfstrconsts.strdocumentsonly
+msgid "Dokumente"
+msgstr ""
+
+#: uintfstrconsts.strdue
+msgid "Bis"
+msgstr ""
+
+#: uintfstrconsts.strduedatechanged
+msgid "Zieldatum geändert zu %s"
+msgstr ""
+
+#: uintfstrconsts.strduedatedeleted
+msgid "Zieldatum entfernt"
+msgstr ""
+
+#: uintfstrconsts.stredit
+msgid "bearbeiten"
+msgstr ""
+
+#: uintfstrconsts.stredited
+msgid "bearbeitet"
+msgstr ""
+
+#: uintfstrconsts.stremail
+msgid "e-Mail"
+msgstr ""
+
+#: uintfstrconsts.strenteranfiltername
+msgid "geben Sie einen Namen für den neuen Filter an"
+msgstr ""
+
+#: uintfstrconsts.strerror
+msgid "Error"
+msgstr ""
+
+#: uintfstrconsts.strerrordatabasestructurenotactual
+msgid "Die Struktur Ihrer Datenbank ist nicht aktuell, bitte wenden Sie sich an Ihren Administrator order updaten Sie diese mit dem Updatedatabase Tool."
+msgstr ""
+
+#: uintfstrconsts.strexitted
+msgid "quitted"
+msgstr ""
+
+#: uintfstrconsts.strexternemail
+msgid "externes e-Mail Programm"
+msgstr ""
+
+#: uintfstrconsts.strfailed
+msgid "fehlgeschlagen !"
+msgstr ""
+
+#: uintfstrconsts.strfailedtoloadmandants
+msgid "Mandanten konnten nicht gelanden werden !"
+msgstr ""
+
+#: uintfstrconsts.strfavourites
+msgid "Favoriten"
+msgstr ""
+
+#: uintfstrconsts.strfile
+msgid "Datei"
+msgstr ""
+
+#: uintfstrconsts.strfiles
+msgid "Dateien"
+msgstr ""
+
+#: uintfstrconsts.strfilternotfound
+msgid "Der Filter \"%s\" wurde nicht gefunden !"
+msgstr ""
+
+#: uintfstrconsts.strfinance
+msgid "Finanzen"
+msgstr ""
+
+#: uintfstrconsts.strfinish
+msgid "Fertigstellen"
+msgstr ""
+
+#: uintfstrconsts.strfinished
+msgid "beendet"
+msgstr ""
+
+#: uintfstrconsts.strfullpercent
+msgid "Auslastung:%d%%"
+msgstr ""
+
+#: uintfstrconsts.strganttview
+msgid "Gantt Ansicht"
+msgstr ""
+
+#: uintfstrconsts.strgotofeed
+msgid "vollen Artikel anzeigen"
+msgstr ""
+
+#: uintfstrconsts.strhistory
+msgid "Verlauf"
+msgstr ""
+
+#: uintfstrconsts.striadaddress
+msgid "IAD Rechnungsadresse"
+msgstr ""
+
+#: uintfstrconsts.strid
+msgid "ID"
+msgstr ""
+
+#: uintfstrconsts.strimage
+msgid "Bild"
+msgstr ""
+
+#: uintfstrconsts.strimages
+msgid "Bilder"
+msgstr ""
+
+#: uintfstrconsts.strimportexport
+msgid "Import/Export"
+msgstr ""
+
+#: uintfstrconsts.strinfocolor
+msgid "Farbe für aktives Feld"
+msgstr ""
+
+#: uintfstrconsts.strinventory
+msgid "Inventuren"
+msgstr ""
+
+#: uintfstrconsts.strinventorypos
+msgid "Inventurpositionen"
+msgstr ""
+
+#: uintfstrconsts.strisnew
+msgid "neuwertig"
+msgstr ""
+
+#: uintfstrconsts.stritem
+msgid "Eintrag"
+msgstr ""
+
+#: uintfstrconsts.stritemnotsaved
+msgid "Das Objekt ist nicht gespeichert, jetzt speichern ?"
+msgstr ""
+
+#: uintfstrconsts.stritemopened
+msgid "Eintrag \"%s\" geöffnet"
+msgstr ""
+
+#: uintfstrconsts.strkeywords
+msgid "Suchbegriffe"
+msgstr ""
+
+#: uintfstrconsts.strlanguages
+msgid "Sprachen"
+msgstr ""
+
+#: uintfstrconsts.strlinks
+msgid "Verweise"
+msgstr ""
+
+#: uintfstrconsts.strlists
+msgid "Listen"
+msgstr ""
+
+#: uintfstrconsts.strlocation
+msgid "Ort"
+msgstr ""
+
+#: uintfstrconsts.strloginfailed
+msgid "Login fehlgeschlagen"
+msgstr ""
+
+#: uintfstrconsts.strmandant
+msgid "Mandant"
+msgstr ""
+
+#: uintfstrconsts.strmandantdetails
+msgid "Mandantendetails"
+msgstr ""
+
+#: uintfstrconsts.strmandantnotselected
+msgid "kein Mandant gewählt (--mandant) !"
+msgstr ""
+
+#: uintfstrconsts.strmasterdata
+msgid "Artikel"
+msgstr ""
+
+#: uintfstrconsts.strmeasurement
+msgid "Messungen"
+msgstr ""
+
+#: uintfstrconsts.strmeetinglist
+msgid "Besprechungsliste"
+msgstr ""
+
+#: uintfstrconsts.strmeetings
+msgid "Besprechungen"
+msgstr ""
+
+#: uintfstrconsts.strmeetingusers
+msgid "Teilnehmer"
+msgstr ""
+
+#: uintfstrconsts.strmessage
+msgid "Nachricht"
+msgstr ""
+
+#: uintfstrconsts.strmessages
+msgid "Nachrichten"
+msgstr ""
+
+#: uintfstrconsts.strmessagespampoints
+msgid "Spampunkte: "
+msgstr ""
+
+#: uintfstrconsts.strname
+msgid "Name"
+msgstr ""
+
+#: uintfstrconsts.strnewdir
+msgid "Neues Verzeichnis"
+msgstr ""
+
+#: uintfstrconsts.strnewlist
+msgid "Neue Liste"
+msgstr ""
+
+#: uintfstrconsts.strnewname
+msgid "neuer Name"
+msgstr ""
+
+#: uintfstrconsts.strnewnumber
+msgid "neue Nummer"
+msgstr ""
+
+#: uintfstrconsts.strneworder
+msgid "als "
+msgstr ""
+
+#: uintfstrconsts.strnewvoucher
+msgid "neuer Beleg"
+msgstr ""
+
+#: uintfstrconsts.strnext
+msgid "Weiter"
+msgstr ""
+
+#: uintfstrconsts.strnodatafound
+msgid "kein Eintrag gefunden !"
+msgstr ""
+
+#: uintfstrconsts.strnodirectoryselected
+msgid ""
+"Sie müssen ein Verzeichnis auswählen,\n"
+"bevor Sie den Eintrag zu einem diesem zuordnen können.\n"
+msgstr ""
+
+#: uintfstrconsts.strnofilter
+msgid "*"
+msgstr ""
+
+#: uintfstrconsts.strnorightstosavecomplexfilers
+msgid "Sie haben nicht die erforderliche Berechtigungstufe um komplexe Filter zu speichern !"
+msgstr ""
+
+#: uintfstrconsts.strnoselectfilter
+msgid "<kein Filter>"
+msgstr ""
+
+#: uintfstrconsts.strnotsupported
+msgid "nicht unterstützt ! (Interner Fehler)"
+msgstr ""
+
+#: uintfstrconsts.strnumberchanged
+msgid "Nummer geändert zu %s"
+msgstr ""
+
+#: uintfstrconsts.strnumbersets
+msgid "Nummernkreise"
+msgstr ""
+
+#: uintfstrconsts.strobject
+msgid "Objekt"
+msgstr ""
+
+#: uintfstrconsts.strobjectlist
+msgid "Elementliste"
+msgstr ""
+
+#: uintfstrconsts.strorder
+msgid "Auftrag"
+msgstr ""
+
+#: uintfstrconsts.strorderlist
+msgid "Auftragsliste"
+msgstr ""
+
+#: uintfstrconsts.strorders
+msgid "Aufträge"
+msgstr ""
+
+#: uintfstrconsts.stroverview
+msgid "Übersicht"
+msgstr ""
+
+#: uintfstrconsts.strpadaddress
+msgid "PAD Privatadresse"
+msgstr ""
+
+#: uintfstrconsts.strpaygroups
+msgid "Zahlungsgruppen"
+msgstr ""
+
+#: uintfstrconsts.strpaymenttargets
+msgid "Zahlungsziele"
+msgstr ""
+
+#: uintfstrconsts.strpermissions
+msgid "Zugriffsrechte"
+msgstr ""
+
+#: uintfstrconsts.strpleasewait
+msgid "Bitte warten"
+msgstr ""
+
+#: uintfstrconsts.strpositioncalc
+msgid "Positionskalkulation"
+msgstr ""
+
+#: uintfstrconsts.strpositions
+msgid "Positionen"
+msgstr ""
+
+#: uintfstrconsts.strpositiontype
+msgid "Positionstypen"
+msgstr ""
+
+#: uintfstrconsts.strprev
+msgid "Zurück"
+msgstr ""
+
+#: uintfstrconsts.strprices
+msgid "Preise"
+msgstr ""
+
+#: uintfstrconsts.strpricetypes
+msgid "Preistypen"
+msgstr ""
+
+#: uintfstrconsts.strprioritychanged
+msgid "Priorität geändert zu %s"
+msgstr ""
+
+#: uintfstrconsts.strprocess
+msgid "Prozess"
+msgstr ""
+
+#: uintfstrconsts.strprocesses
+msgid "Prozesse"
+msgstr ""
+
+#: uintfstrconsts.strproduction
+msgid "Fertigung"
+msgstr ""
+
+#: uintfstrconsts.strproductionorders
+msgid "Fertigungsaufträge"
+msgstr ""
+
+#: uintfstrconsts.strproject
+msgid "Projekt"
+msgstr ""
+
+#: uintfstrconsts.strprojectlist
+msgid "Projektliste"
+msgstr ""
+
+#: uintfstrconsts.strprojectnumber
+msgid "Projektnummer"
+msgstr ""
+
+#: uintfstrconsts.strprojects
+msgid "Projekte"
+msgstr ""
+
+#: uintfstrconsts.strproperties
+msgid "Eigenschaften"
+msgstr ""
+
+#: uintfstrconsts.strquantity
+msgid "Menge"
+msgstr ""
+
+#: uintfstrconsts.strreadingoptions
+msgid "lese Optionen ..."
+msgstr ""
+
+#: uintfstrconsts.strrealdelete
+msgid "möchten Sie diesen Eintrag wirklich löschen ?"
+msgstr ""
+
+#: uintfstrconsts.strrefobject
+msgid "Referenzobjekt"
+msgstr ""
+
+#: uintfstrconsts.strrename
+msgid "Umbenennen"
+msgstr ""
+
+#: uintfstrconsts.strrepairassembly
+msgid "Baugruppen"
+msgstr ""
+
+#: uintfstrconsts.strrepaired
+msgid "repariert"
+msgstr ""
+
+#: uintfstrconsts.strrepairparts
+msgid "Reparaturteile"
+msgstr ""
+
+#: uintfstrconsts.strrepairproblems
+msgid "Reparaturprobleme"
+msgstr ""
+
+#: uintfstrconsts.strreports
+msgid "Belege"
+msgstr ""
+
+#: uintfstrconsts.strresponsable
+msgid "Verantwortlicher"
+msgstr ""
+
+#: uintfstrconsts.strrevision
+msgid "Revision"
+msgstr ""
+
+#: uintfstrconsts.strrunsoneverymashine
+msgid "läuft auf allen Maschienen"
+msgstr ""
+
+#: uintfstrconsts.strsaleslist
+msgid "Zahlungsliste"
+msgstr ""
+
+#: uintfstrconsts.strschemelist
+msgid "Schema"
+msgstr ""
+
+#: uintfstrconsts.strsearch
+msgid "Suche"
+msgstr ""
+
+#: uintfstrconsts.strsearchfromdocumentsmode
+msgid "Diese Suche wurde aus der Dokumentenverwaltung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch mit dem Dokument verknüpft."
+msgstr ""
+
+#: uintfstrconsts.strsearchfromhistorymode
+msgid "Diese Suche wurde aus einem Verlauf gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch mit dem Verlaufseintrag verknüpft."
+msgstr ""
+
+#: uintfstrconsts.strsearchfrommailselect
+msgid "Hier könenn Sie einen Benutzer oder Kontakt zum informieren suchen, wenn Sie die Suche abbrechen müssen Sie den zu Informierenden im e-Mail Programm suchen"
+msgstr ""
+
+#: uintfstrconsts.strsearchfromorder
+msgid "Mit Öffnen wird der gewählte Eintrag in den Auftrag übernommen"
+msgstr ""
+
+#: uintfstrconsts.strsearchfromprojects
+msgid "Mit Öffnen wird das gewählte Projekt als Vorfahr übernommen"
+msgstr ""
+
+#: uintfstrconsts.strsearchfromtimeregisteringmode
+msgid "Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in die Zeiterfassung übernommen."
+msgstr ""
+
+#: uintfstrconsts.strsentencenotvalid
+msgid "Das wurde leider nicht verstanden !"
+msgstr ""
+
+#: uintfstrconsts.strserial
+msgid "Serienummer"
+msgstr ""
+
+#: uintfstrconsts.strserver
+msgid "Server"
+msgstr ""
+
+#: uintfstrconsts.strshortname
+msgid "Kurztext"
+msgstr ""
+
+#: uintfstrconsts.strsortcode
+msgid "Bankleitzahl"
+msgstr ""
+
+#: uintfstrconsts.strspreetsheet
+msgid "Tabellen"
+msgstr ""
+
+#: uintfstrconsts.strstandard
+msgid "Standard"
+msgstr "Standard"
+
+#: uintfstrconsts.strstart
+msgid "Start"
+msgstr "Start"
+
+#: uintfstrconsts.strstartingnexttimeout
+msgid "Der process wird demnächst wieder gestartet"
+msgstr "The process will be restarted soon"
+
+#: uintfstrconsts.strstartingprocess
+msgid "Der process wird (neu) gestartet"
+msgstr "The process will be restarted"
+
+#: uintfstrconsts.strstartingprocesstimeout
+msgid "Timeout überschritten"
+msgstr "Timeout overdune"
+
+#: uintfstrconsts.strstatisticlist
+msgid "Statistikliste"
+msgstr "Statisticlist"
+
+#: uintfstrconsts.strstatistics
+msgid "Statistiken"
+msgstr "Statistics"
+
+#: uintfstrconsts.strstatuschanged
+msgid "Status geändert von %s zu %s"
+msgstr "Status changed from %s to %s"
+
+#: uintfstrconsts.strstorage
+msgid "Lager"
+msgstr "Storage"
+
+#: uintfstrconsts.strstructure
+msgid "Struktur"
+msgstr "Structure"
+
+#: uintfstrconsts.strsummary
+msgid "Zusammenfassung"
+msgstr "Summary"
+
+#: uintfstrconsts.strsupplier
+msgid "Lieferanten"
+msgstr "Supplier"
+
+#: uintfstrconsts.strsync
+msgid "Synchronisation"
+msgstr "Synchronisation"
+
+#: uintfstrconsts.strtargetcosts
+msgid "Zielkosten"
+msgstr "Targetcosts"
+
+#: uintfstrconsts.strtask
+msgid "Aufgabe"
+msgstr "Task"
+
+#: uintfstrconsts.strtaskplan
+msgid "Aufgabenplan"
+msgstr "Taskplan"
+
+#: uintfstrconsts.strtasks
+msgid "Aufgaben"
+msgstr "Tasks"
+
+#: uintfstrconsts.strtexts
+msgid "Texte"
+msgstr "Texts"
+
+#: uintfstrconsts.strtexttypes
+msgid "Texttypen"
+msgstr "Text types"
+
+#: uintfstrconsts.strthisaccountdontexists
+msgid "Dieses Konto scheint auf diesem Computer nicht eingerichtet zu sein, richten Sie es zuerst ein !"
+msgstr "This account seems to be not set up this computer, you set it up first!"
+
+#: uintfstrconsts.strtimelist
+msgid "Time List"
+msgstr "Time list"
+
+#: uintfstrconsts.strtimetools
+msgid "Zeiterfassung"
+msgstr "Time Tracking"
+
+#: uintfstrconsts.strtree
+msgid "Baum"
+msgstr "Tree"
+
+#: uintfstrconsts.strtype
+msgid "Typ"
+msgstr "Type"
+
+#: uintfstrconsts.strunknown
+msgid "Unbekannt"
+msgstr "Unknown"
+
+#: uintfstrconsts.strunknowndbtype
+msgid "Unbekannter Datenbanktyp"
+msgstr "Unknown database type"
+
+#: uintfstrconsts.strusernotfound
+msgid "benutzer nicht gefunden !"
+msgstr "User not found !"
+
+#: uintfstrconsts.struserrights
+msgid "Benutzerrechte"
+msgstr "User rights"
+
+#: uintfstrconsts.strusers
+msgid "Benutzer"
+msgstr "User"
+
+#: uintfstrconsts.strversion
+msgid "Version"
+msgstr "Version"
+
+#: uintfstrconsts.strvoucher
+msgid "Beleg"
+msgstr "Document"
+
+#: uintfstrconsts.strwaitingforcustomer
+msgid "wartet auf Kunden"
+msgstr "waiting for customer"
+
+#: uintfstrconsts.strwiki
+msgid "Wiki"
+msgstr "Wiki"
+
+#: uintfstrconsts.strwikimainpagetext
+#, fuzzy
+msgid ""
+"==Willkommen zur Promet Wiki==<br>\n"
+"<br>\n"
+"Sie können dieses Wiki als zentralen Wissenspool verstehen. Sie können hier Informationen jeglicher Art strukturiert ablegen.<br>\n"
+"<br>\n"
+"Dazu stehen Ihnen interne Links [[Ihre erste Seite]] durch die Sie auch ganz einfach neue Sieten anlegen könenn einfach indem Sie, sie anlegen und draufklicken. Externe Links, zu beliebigen Websites [http://www.ullihome.de www.ullihome.de], Aufzählungen\n"
+"*1\n"
+"*2\n"
+"*3\n"
+"===Überschriften===\n"
+"====In verschiedenen Größen====\n"
+"und ähnliche Elemente zur Verfügung.\n"
+msgstr ""
+"==Willkommen zur Promet Wiki==<br>\n"
+"<br>\n"
+"Sie können dieses Wiki als zentralen Wissenspool verstehen. Sie können hier Informationen jeglicher Art strukturiert ablegen.<br>\n"
+"<br>\n"
+"Dazu stehen Ihnen interne Links [[Ihre erste Seite]] durch die Sie auch ganz einfach neue Sieten anlegen könenn einfach indem Sie, sie anlegen und draufklicken. Externe Links, zu beliebigen Websites [http://www.ullihome.de www.ullihome.de], Aufzählungen\n"
+"*1\n"
+"*2\n"
+"*3\n"
+"===Überschriften===\n"
+"====In verschiedenen Größen====\n"
+"und ähnliche Elemente zur Verfügung.\n"
+
+#: uintfstrconsts.strwikipage
+msgid "Wiki Seite"
+msgstr "Wiki page"
+
+#: uintfstrconsts.strworker
+msgid "Bearbeiter"
+msgstr "Editor"
+
+#: uintfstrconsts.strwrongpassword
+msgid "Das eingegebene Passwort stimmt nicht mit dem von Ihnen erstellten überein"
+msgstr "The entered password matches not the created"
+
+#: uintfstrconsts.vinfo
+#, fuzzy
+msgid ""
+"www:  http://www.cu-tec.de\n"
+"mail: info@cu-tec.de\n"
+"\n"
+"Lizenz:\n"
+"Die Software und ihre Dokumentation wird wie sie ist zur\n"
+"Verfuegung gestellt. Da Fehlfunktionen auch bei ausfuehrlich\n"
+"getesteter Software durch die Vielzahl an verschiedenen\n"
+"Rechnerkonfigurationen niemals ausgeschlossen werden koennen,\n"
+"uebernimmt der Autor keinerlei Haftung fuer jedwede Folgeschaeden,\n"
+"die sich durch direkten oder indirekten Einsatz der Software\n"
+"oder der Dokumentation ergeben. Uneingeschraenkt ausgeschlossen\n"
+"ist vor allem die Haftung fuer Schaeden aus entgangenem Gewinn,\n"
+"Betriebsunterbrechung, Verlust von Informationen und Daten und\n"
+"Schaeden an anderer Software, auch wenn diese dem Autor bekannt\n"
+"sein sollten. Ausschliesslich der Benutzer haftet fuer Folgen der\n"
+"Benutzung dieser Software.\n"
+"\n"
+"erstellt mit Freepascal + Lazarus\n"
+"http://www.freepascal.org, http://lazarus.freepascal.org\n"
+"Iconset von:\n"
+"http://www.famfamfam.com/lab/icons/silk/\n"
+"Rem Objects PascalScript von:\n"
+"https://github.com/remobjects/pascalscript\n"
+msgstr ""
+"www:  http://www.cu-tec.de\n"
+"mail: info@cu-tec.de\n"
+"\n"
+"Lizenz:\n"
+"Die Software und ihre Dokumentation wird wie sie ist zur\n"
+"Verfuegung gestellt. Da Fehlfunktionen auch bei ausfuehrlich\n"
+"getesteter Software durch die Vielzahl an verschiedenen\n"
+"Rechnerkonfigurationen niemals ausgeschlossen werden koennen,\n"
+"uebernimmt der Autor keinerlei Haftung fuer jedwede Folgeschaeden,\n"
+"die sich durch direkten oder indirekten Einsatz der Software\n"
+"oder der Dokumentation ergeben. Uneingeschraenkt ausgeschlossen\n"
+"ist vor allem die Haftung fuer Schaeden aus entgangenem Gewinn,\n"
+"Betriebsunterbrechung, Verlust von Informationen und Daten und\n"
+"Schaeden an anderer Software, auch wenn diese dem Autor bekannt\n"
+"sein sollten. Ausschliesslich der Benutzer haftet fuer Folgen der\n"
+"Benutzung dieser Software.\n"
+"\n"
+"erstellt mit Freepascal + Lazarus\n"
+"http://www.freepascal.org, http://lazarus.freepascal.org\n"
+"Iconset von:\n"
+"http://www.famfamfam.com/lab/icons/silk/\n"
+"Rem Objects PascalScript von:\n"
+"https://github.com/remobjects/pascalscript\n"
