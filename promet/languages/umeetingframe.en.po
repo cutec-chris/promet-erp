@@ -11,31 +11,35 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
 
+#: umeeting.strcreatedfrom
+msgid "aus \"%s\" erstellt"
+msgstr ""
+
 #: umeetingframe.strentermeetingname
 msgid "geben Sie einen neuen Namen für die Besprechung an"
-msgstr "Enter an Name for the meeting"
+msgstr ""
 
 #: umeetingframe.strmeetingname
 msgid "Besprechungsname"
-msgstr "Meetingname"
+msgstr ""
 
 #: umeetingframe.strnewmeeting
 msgid "neue Besprechung"
-msgstr "newMeeting"
+msgstr ""
 
 #: umeetingframe.strnouserselected
 msgid "Es ist kein Benutzer oder Verantwortlicher zugewiesen !"
-msgstr "Thers no user or responsable assigned !"
+msgstr ""
 
 #: umeetingframe.strsearchfrommeetings
 msgid "Mit Öffnen wird das gewählte Projekt in die Liste übernommen"
-msgstr "With open the selected Project is added to list"
+msgstr ""
 
 #: umeetingframe.strsearchfromusers
 msgid "Mit Öffnen wird der gewählte Nutzer in die Liste übernommen"
-msgstr "With open the selected user is added to list"
+msgstr ""
 
 #: umeetingframe.strunassigned
 msgid "kein Bezug"
-msgstr "no relation"
+msgstr ""
 

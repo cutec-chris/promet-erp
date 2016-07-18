@@ -1,6 +1,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: umeeting.strcreatedfrom
+msgid "aus \"%s\" erstellt"
+msgstr ""
+
 #: umeetingframe.strentermeetingname
 msgid "geben Sie einen neuen Namen für die Besprechung an"
 msgstr ""

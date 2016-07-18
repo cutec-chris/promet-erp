@@ -11,43 +11,47 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
 
+#: ustatistic.stryqlfail
+msgid "YQL Abfrage fehlgeschlagen:"
+msgstr ""
+
 #: ustatisticframe.strenteranname
 msgid "geben Sie einen Namen an"
-msgstr "enter a name"
+msgstr ""
 
 #: ustatisticframe.strerrorbuildingreport
 msgid "Es ist ein Fehler beim erstellen des Reports aufgetreten."
-msgstr "Error on creating report"
+msgstr ""
 
 #: ustatisticframe.strgenerating
 msgid "Abfrage wird ausgeführt..."
-msgstr "Querry running..."
+msgstr ""
 
 #: ustatisticframe.strname
 msgid "Name"
-msgstr "Name"
+msgstr ""
 
 #: ustatisticframe.strnewdir
 msgid "Neues Verzeichnis"
-msgstr "New directory"
+msgstr ""
 
 #: ustatisticframe.strnewstatistic
 msgid "Neue Statistik"
-msgstr "New statistic"
+msgstr ""
 
 #: ustatisticframe.strnotenougthrights
 msgid "Sie besitzen nicht genügend Rechte um diese Anwendung zu nutzen"
-msgstr "You dont have enougth rights to use this application"
+msgstr ""
 
 #: ustatisticframe.strquerytime
 msgid "Abfragezeit: %s Anzahl Datensätze: %d"
-msgstr "Querrytime: %s Recordcount: %d"
+msgstr ""
 
 #: ustatisticframe.strstatisticchanged
 msgid "Die Statistik wurde geändert, sollen die Änderungen gespeichert werden ?"
-msgstr "The statistic was changed, should it be saved ?"
+msgstr ""
 
 #: ustatisticframe.strunnamed
 msgid "Unbenannte Statistik"
-msgstr "Unknown statistic"
+msgstr ""
 
