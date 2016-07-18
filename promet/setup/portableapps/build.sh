@@ -4,6 +4,7 @@ cd promet/setup/portableapps
 echo "Building portableaps stuff..."
 TmpDir=$TMP
 BuildDir=$TmpDir/software_build
+echo "cleaning up..."
 rm -rf $BuildDir
 echo "copy to builddir..."
 mkdir -p $BuildDir/App/AppInfo
@@ -41,7 +42,21 @@ cp $TmpDir/*.paf.exe ../output
 cd $BuildDir
 rm        $basedir/promet/setup/output/promet-erp-$Version.i386-win32-portable.zip
 zip -9 -r $basedir/promet/setup/output/promet-erp-$Version.i386-win32-portable.zip .
-echo "cleaning up..."
+
+#Build Firebird Version
+cp -r ../i386-win32/firebird-embedded/* $BuildDir/Promet-ERP/App/promet
+cat Appinfo_firebird.ini | \
+  sed -b -e "s/VERSION/$Version/g" \
+      -e "s/ARCH/$Arch/g" \
+      -e "s/ARCHFPC/$Archfpc/g" \
+      -e "s/CREATEDDATE/$Date/g" \
+  > $BuildDir/App/AppInfo/appinfo.ini
+/c/Windows/system32/cmd.exe "/C c:\PortableApps.comInstaller\PortableApps.comInstaller.exe %TEMP%\software_build
+"
+cp $TmpDir/*.paf.exe ../output
+cd $BuildDir
+rm        $basedir/promet/setup/output/promet-erp-firebird-$Version.i386-win32-portable.zip
+zip -9 -r $basedir/promet/setup/output/promet-erp-firebird-$Version.i386-win32-portable.zip .
 
 cd $basedir
 

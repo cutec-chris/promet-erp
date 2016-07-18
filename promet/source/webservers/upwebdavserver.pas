@@ -137,251 +137,6 @@ implementation
 {
 uses lHTTPUtil,lMimeTypes,Base64;
 
-function TDAVReportOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
-var
-  aProperties: TStringList;
-  aUser: string;
-  aPrefix: String;
-  aItems: TStringList;
-  aPropNode: TDOMElement;
-  i: Integer;
-  aMSRes: TDOMElement;
-  aDepth: Integer;
-  bProperties: TStringList;
-  tmp: DOMString;
-  tmp1: String;
-  a: Integer;
-  Attr: TDOMNode;
-  aAttrPrefix: String;
-  aLocalName: String;
-  Attr1: TDOMAttr;
-  aNSName: String;
-  tmp2: DOMString;
-  Path: string;
-  aDirList : TLDirectoryList;
-  aNode: TDOMNode;
-  aFilter : string = '';
-
-  procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D');
-  var
-    aResponse: TDOMElement;
-    aHref: TDOMElement;
-    aPropStat: TDOMElement;
-    aStatus: TDOMElement;
-    aPropC: TDOMElement;
-    aProp: TDOMElement;
-    a: Integer;
-    aLock: TDOMElement;
-    aLockEntry: TDOMElement;
-    aNotFoundProp : TStrings;
-    aPropD: TDOMNode;
-    aPropE: TDOMNode;
-    aPropF: TDOMNode;
-    b: Integer;
-    aPropG: TDOMNode;
-    aStream : TStringStream;
-    FLastModified : TDateTime;
-    FMimeType,FeTag : string;
-    function FindProp(aprop : string) : Integer;
-    var
-      b : Integer;
-    begin
-      b := 0;
-      while b < aNotFoundProp.Count do
-        begin
-          if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
-            begin
-              Result := b;
-              exit;
-            end
-          else inc(b);
-        end;
-      Result := -1;
-    end;
-    procedure RemoveProp(aProp : string);
-    var
-      b : Integer;
-    begin
-      b := 0;
-      while b < aNotFoundProp.Count do
-        begin
-          if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
-            aNotFoundProp.Delete(b)
-          else inc(b);
-        end;
-    end;
-  begin
-    writeln('CreateResponse:'+aPath+' '+prefix);
-    aNotFoundProp := TStringList.Create;
-    aNotFoundProp.AddStrings(Properties);
-    aResponse := aDocument.CreateElement(prefix+':response');
-    aParent.AppendChild(aResponse);
-    aHref := aDocument.CreateElement(prefix+':href');
-    aResponse.AppendChild(aHref);
-    aHRef.AppendChild(aDocument.CreateTextNode(aPath));
-    aPropStat := aDocument.CreateElement(prefix+':propstat');
-    aResponse.AppendChild(aPropStat);
-    aProp := aDocument.CreateElement(prefix+':'+'prop');
-    aPropStat.AppendChild(aProp);
-
-    aStream := TStringStream.Create('');
-    if Assigned(TLWebDAVServer(Socket.Creator).FGet) then
-      TLWebDAVServer(Socket.Creator).FGet(aPath,aStream,FLastModified,FMimeType,FeTag);
-    if (FindProp(':getetag') > -1) and (FeTag<>'')  then
-      begin
-        aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':getetag')]);
-        aPropC.AppendChild(aDocument.CreateTextNode(FeTag));
-        aProp.AppendChild(apropC);
-        removeProp(':getetag');
-      end;
-    if (FindProp(':calendar-data') > -1) and (aStream.DataString<>'')  then
-      begin
-        aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-data')]);
-        aPropC.AppendChild(aDocument.CreateTextNode(aStream.DataString));
-        aProp.AppendChild(apropC);
-        removeProp(':calendar-data');
-      end;
-
-    aStream.Free;
-    aStatus := aDocument.CreateElement(prefix+':status');
-    aPropStat.AppendChild(aStatus);
-    aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsOK)));
-    if aNotFoundProp.Count>0 then
-      begin
-        aPropStat := aDocument.CreateElement(prefix+':propstat');
-        aResponse.AppendChild(aPropStat);
-        aProp := aDocument.CreateElement(prefix+':'+'prop');
-        aPropStat.AppendChild(aProp);
-        for a := 0 to aNotFoundProp.Count-1 do
-          begin
-            aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[a]);
-            aProp.AppendChild(aPropC);
-            writeln('Property not found:'+aNotFoundProp.ValueFromIndex[a]);
-          end;
-        aStatus := aDocument.CreateElement(prefix+':status');
-        aPropStat.AppendChild(aStatus);
-        aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsNotFound)));
-      end;
-    aNotFoundProp.Free;
-  end;
-  procedure RecourseFilter(aNode : TDOMNode);
-  var
-    b: Integer;
-  begin
-    if pos(':vevent',lowercase(aNode.NodeName))>0 then
-
-    for b := 0 to aNode.ChildNodes.Count-1 do
-      RecourseFilter(aNode.ChildNodes[i]);
-  end;
-
-begin
-  aProperties := TStringList.Create;
-  bProperties := TStringList.Create;
-  writeln('***REPORT:'+HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument));
-  aItems := TStringList.Create;
-  if FSocket.Parameters[hpAuthorization] <> '' then
-    begin
-      aUser := FSocket.Parameters[hpAuthorization];
-      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
-      if Assigned(TLWebDAVServer(FSocket.Creator).OnUserLogin) then
-        TLWebDAVServer(FSocket.Creator).OnUserLogin(copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
-    end;
-  Path := TLHTTPServerSocket(FSocket).FRequestInfo.Argument;
-  if copy(Path,0,1) <> '/' then Path := '/'+Path;
-  if Assigned(aDocument.DocumentElement) then
-    begin
-      if trim(copy(aDocument.DocumentElement.FirstChild.NodeName,0,pos(':',aDocument.DocumentElement.FirstChild.NodeName)-1)) <> '' then
-        aPrefix := trim(copy(aDocument.DocumentElement.FirstChild.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
-      aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
-      for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
-        begin
-          Attr := aDocument.DocumentElement.Attributes[a];
-          aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
-          aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
-          aNSName := Attr.NodeValue;
-          if (aAttrPrefix = 'xmlns') and (aLocalName<>'') then
-            begin
-              Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
-              Attr1.NodeValue:=aNSName;
-              aMSRes.Attributes.setNamedItem(Attr1);
-            end;
-        end;
-      aPropNode := TDOMElement(aDocument.DocumentElement.FindNode(aPrefix+':prop'));
-      if Assigned(aPropNode) then
-      for i := 0 to aPropNode.ChildNodes.Count-1 do
-        begin
-          tmp := aPropNode.ChildNodes.Item[i].NodeName;
-          tmp := copy(tmp,pos(':',tmp)+1,length(tmp));
-          tmp1 := copy(aPropNode.ChildNodes.Item[i].NodeName,0,pos(':',aPropNode.ChildNodes.Item[i].NodeName)-1);
-          if aPropNode.ChildNodes.Item[i].NamespaceURI<>'' then
-            tmp := aPropNode.ChildNodes.Item[i].NamespaceURI+':'+tmp
-          else
-            begin
-              for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
-                begin
-                  Attr := aDocument.DocumentElement.Attributes[a];
-                  aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
-                  aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
-                  if (aAttrPrefix = 'xmlns') and (aLocalName = tmp1) then
-                    begin
-                      case lowercase(Attr.NodeValue) of
-                      'dav:':tmp := 'D:'+tmp;
-                      'urn:ietf:params:xml:ns:caldav':tmp := 'C:'+tmp;
-                      'http://calendarserver.org/ns/':tmp := 'CS:'+tmp;
-                      end;
-                    end;
-                  if (aAttrPrefix = 'xmlns') then
-                    begin
-                      Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
-                      Attr1.Value:=Attr.NodeValue;
-                      aMSRes.Attributes.setNamedItemNS(Attr1);
-                    end;
-                end;
-              if pos(':',tmp)=0 then
-                tmp := tmp1+':'+tmp;
-            end;
-          aProperties.Values[lowercase(tmp)]:=aPropNode.ChildNodes.Item[i].NodeName;
-          writeln('Wanted:'+tmp+'='+aPropNode.ChildNodes.Item[i].NodeName);
-        end;
-      aPropNode := TDOMElement(aDocument.DocumentElement);
-      for i := 0 to aPropNode.ChildNodes.Count-1 do
-        begin
-          tmp := aPropNode.ChildNodes.Item[i].NodeName;
-          if pos(':href',lowercase(tmp)) > 0 then
-            aItems.Add(aPropNode.ChildNodes.Item[i].FirstChild.NodeValue);
-          if pos(':filter',lowercase(tmp)) > 0 then
-            begin
-              RecourseFilter(aPropNode.ChildNodes.Item[i]);
-            end;
-        end;
-      if aItems.Count=0 then
-        begin //we report all ??!
-          aDirList := TLDirectoryList.Create;
-          if TLWebDAVServer(TLWebDAVServerSocket(FSocket).Creator).FGetDirList(Path,1,aDirList) then
-            for i := 0 to aDirList.Count-1 do
-              begin
-                aItems.Add(Path+aDirList[i].Name);
-              end;
-          aDirList.Free;
-        end;
-      aDocument.DocumentElement.Free;
-    end
-  else
-    aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
-  aDocument.AppendChild(aMSRes);
-  aDepth := StrToIntDef(TLHTTPServerSocket(FSocket).Parameters[hpDepth],0);
-  for i := 0 to aItems.Count-1 do
-    begin
-      bProperties.Assign(aProperties);
-      CreateResponse(aItems[i],aMSRes,bProperties);
-    end;
-  aProperties.Free;
-  bProperties.Free;
-  aItems.Free;
-  TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsMultiStatus;
-  Result:=True;
-end;
-
 procedure TFileStreamOutput.DoneInput;
 var
   FModified : TDateTime;
@@ -1082,33 +837,308 @@ begin
   if Assigned(ADocument) then
     ADocument.Free;
 end;
-constructor TLWebDAVURIHandler.Create;
-begin
-  Methods := [hmOptions,hmPropfind,hmLock,hmUnlock,hmMkCol,hmDelete,hmReport];
-end;
-procedure TLWebDAVServer.RegisterHandlers;
-begin
-  URIHandler := TLWebDAVURIHandler.Create;
-  FileHandler := TLWebDAVFileHandler.Create;
-  Self.RegisterHandler(URIHandler);
-  Self.RegisterHandler(FileHandler);
-end;
-constructor TLWebDAVServer.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  SocketClass := TLWebDAVServerSocket;
-  RegisterHandlers;
-end;
-destructor TLWebDAVServer.Destroy;
-begin
-  URIHandler.Destroy;
-  FileHandler.Destroy;
-  inherited Destroy;
-end;
 }
-function HandleDAVRequest(Sender : TObject;Method, URL: string;Headers : TStringList;Input,Output : TStream): Integer;
-begin
+function DAVReportHandleXMLRequest(aDocument: TXMLDocument): Boolean;
+var
+  aProperties: TStringList;
+  aUser: string;
+  aPrefix: String;
+  aItems: TStringList;
+  aPropNode: TDOMElement;
+  i: Integer;
+  aMSRes: TDOMElement;
+  aDepth: Integer;
+  bProperties: TStringList;
+  tmp: DOMString;
+  tmp1: String;
+  a: Integer;
+  Attr: TDOMNode;
+  aAttrPrefix: String;
+  aLocalName: String;
+  Attr1: TDOMAttr;
+  aNSName: String;
+  tmp2: DOMString;
+  Path: string;
+  aDirList : TLDirectoryList;
+  aNode: TDOMNode;
+  aFilter : string = '';
 
+  procedure CreateResponse(aPath : string;aParent : TDOMElement;Properties : TStrings;ns : string = 'DAV:';prefix : string = 'D');
+  var
+    aResponse: TDOMElement;
+    aHref: TDOMElement;
+    aPropStat: TDOMElement;
+    aStatus: TDOMElement;
+    aPropC: TDOMElement;
+    aProp: TDOMElement;
+    a: Integer;
+    aLock: TDOMElement;
+    aLockEntry: TDOMElement;
+    aNotFoundProp : TStrings;
+    aPropD: TDOMNode;
+    aPropE: TDOMNode;
+    aPropF: TDOMNode;
+    b: Integer;
+    aPropG: TDOMNode;
+    aStream : TStringStream;
+    FLastModified : TDateTime;
+    FMimeType,FeTag : string;
+    function FindProp(aprop : string) : Integer;
+    var
+      b : Integer;
+    begin
+      b := 0;
+      while b < aNotFoundProp.Count do
+        begin
+          if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
+            begin
+              Result := b;
+              exit;
+            end
+          else inc(b);
+        end;
+      Result := -1;
+    end;
+    procedure RemoveProp(aProp : string);
+    var
+      b : Integer;
+    begin
+      b := 0;
+      while b < aNotFoundProp.Count do
+        begin
+          if pos(lowercase(aProp),lowercase(aNotFoundProp.Names[b])) > 0 then
+            aNotFoundProp.Delete(b)
+          else inc(b);
+        end;
+    end;
+  begin
+    writeln('CreateResponse:'+aPath+' '+prefix);
+    aNotFoundProp := TStringList.Create;
+    aNotFoundProp.AddStrings(Properties);
+    aResponse := aDocument.CreateElement(prefix+':response');
+    aParent.AppendChild(aResponse);
+    aHref := aDocument.CreateElement(prefix+':href');
+    aResponse.AppendChild(aHref);
+    aHRef.AppendChild(aDocument.CreateTextNode(aPath));
+    aPropStat := aDocument.CreateElement(prefix+':propstat');
+    aResponse.AppendChild(aPropStat);
+    aProp := aDocument.CreateElement(prefix+':'+'prop');
+    aPropStat.AppendChild(aProp);
+
+    aStream := TStringStream.Create('');
+    if Assigned(TLWebDAVServer(Socket.Creator).FGet) then
+      TLWebDAVServer(Socket.Creator).FGet(aPath,aStream,FLastModified,FMimeType,FeTag);
+    if (FindProp(':getetag') > -1) and (FeTag<>'')  then
+      begin
+        aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':getetag')]);
+        aPropC.AppendChild(aDocument.CreateTextNode(FeTag));
+        aProp.AppendChild(apropC);
+        removeProp(':getetag');
+      end;
+    if (FindProp(':calendar-data') > -1) and (aStream.DataString<>'')  then
+      begin
+        aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[FindProp(':calendar-data')]);
+        aPropC.AppendChild(aDocument.CreateTextNode(aStream.DataString));
+        aProp.AppendChild(apropC);
+        removeProp(':calendar-data');
+      end;
+
+    aStream.Free;
+    aStatus := aDocument.CreateElement(prefix+':status');
+    aPropStat.AppendChild(aStatus);
+    aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsOK)));
+    if aNotFoundProp.Count>0 then
+      begin
+        aPropStat := aDocument.CreateElement(prefix+':propstat');
+        aResponse.AppendChild(aPropStat);
+        aProp := aDocument.CreateElement(prefix+':'+'prop');
+        aPropStat.AppendChild(aProp);
+        for a := 0 to aNotFoundProp.Count-1 do
+          begin
+            aPropC := aDocument.CreateElement(aNotFoundProp.ValueFromIndex[a]);
+            aProp.AppendChild(aPropC);
+            writeln('Property not found:'+aNotFoundProp.ValueFromIndex[a]);
+          end;
+        aStatus := aDocument.CreateElement(prefix+':status');
+        aPropStat.AppendChild(aStatus);
+        aStatus.AppendChild(aDocument.CreateTextNode(BuildStatus(hsNotFound)));
+      end;
+    aNotFoundProp.Free;
+  end;
+  procedure RecourseFilter(aNode : TDOMNode);
+  var
+    b: Integer;
+  begin
+    if pos(':vevent',lowercase(aNode.NodeName))>0 then
+
+    for b := 0 to aNode.ChildNodes.Count-1 do
+      RecourseFilter(aNode.ChildNodes[i]);
+  end;
+
+begin
+  aProperties := TStringList.Create;
+  bProperties := TStringList.Create;
+  writeln('***REPORT:'+HTTPDecode(TLHTTPServerSocket(FSocket).FRequestInfo.Argument));
+  aItems := TStringList.Create;
+  if FSocket.Parameters[hpAuthorization] <> '' then
+    begin
+      aUser := FSocket.Parameters[hpAuthorization];
+      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+      if Assigned(TLWebDAVServer(FSocket.Creator).OnUserLogin) then
+        TLWebDAVServer(FSocket.Creator).OnUserLogin(copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
+    end;
+  Path := TLHTTPServerSocket(FSocket).FRequestInfo.Argument;
+  if copy(Path,0,1) <> '/' then Path := '/'+Path;
+  if Assigned(aDocument.DocumentElement) then
+    begin
+      if trim(copy(aDocument.DocumentElement.FirstChild.NodeName,0,pos(':',aDocument.DocumentElement.FirstChild.NodeName)-1)) <> '' then
+        aPrefix := trim(copy(aDocument.DocumentElement.FirstChild.NodeName,0,pos(':',aDocument.DocumentElement.NodeName)-1));
+      aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
+      for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
+        begin
+          Attr := aDocument.DocumentElement.Attributes[a];
+          aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
+          aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
+          aNSName := Attr.NodeValue;
+          if (aAttrPrefix = 'xmlns') and (aLocalName<>'') then
+            begin
+              Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
+              Attr1.NodeValue:=aNSName;
+              aMSRes.Attributes.setNamedItem(Attr1);
+            end;
+        end;
+      aPropNode := TDOMElement(aDocument.DocumentElement.FindNode(aPrefix+':prop'));
+      if Assigned(aPropNode) then
+      for i := 0 to aPropNode.ChildNodes.Count-1 do
+        begin
+          tmp := aPropNode.ChildNodes.Item[i].NodeName;
+          tmp := copy(tmp,pos(':',tmp)+1,length(tmp));
+          tmp1 := copy(aPropNode.ChildNodes.Item[i].NodeName,0,pos(':',aPropNode.ChildNodes.Item[i].NodeName)-1);
+          if aPropNode.ChildNodes.Item[i].NamespaceURI<>'' then
+            tmp := aPropNode.ChildNodes.Item[i].NamespaceURI+':'+tmp
+          else
+            begin
+              for a := 0 to aDocument.DocumentElement.Attributes.Length-1 do
+                begin
+                  Attr := aDocument.DocumentElement.Attributes[a];
+                  aAttrPrefix := copy(Attr.NodeName,0,pos(':',Attr.NodeName)-1);
+                  aLocalName := copy(Attr.NodeName,pos(':',Attr.NodeName)+1,length(Attr.NodeName));
+                  if (aAttrPrefix = 'xmlns') and (aLocalName = tmp1) then
+                    begin
+                      case lowercase(Attr.NodeValue) of
+                      'dav:':tmp := 'D:'+tmp;
+                      'urn:ietf:params:xml:ns:caldav':tmp := 'C:'+tmp;
+                      'http://calendarserver.org/ns/':tmp := 'CS:'+tmp;
+                      end;
+                    end;
+                  if (aAttrPrefix = 'xmlns') then
+                    begin
+                      Attr1 := aDocument.DocumentElement.OwnerDocument.CreateAttribute('xmlns:'+aLocalName);
+                      Attr1.Value:=Attr.NodeValue;
+                      aMSRes.Attributes.setNamedItemNS(Attr1);
+                    end;
+                end;
+              if pos(':',tmp)=0 then
+                tmp := tmp1+':'+tmp;
+            end;
+          aProperties.Values[lowercase(tmp)]:=aPropNode.ChildNodes.Item[i].NodeName;
+          writeln('Wanted:'+tmp+'='+aPropNode.ChildNodes.Item[i].NodeName);
+        end;
+      aPropNode := TDOMElement(aDocument.DocumentElement);
+      for i := 0 to aPropNode.ChildNodes.Count-1 do
+        begin
+          tmp := aPropNode.ChildNodes.Item[i].NodeName;
+          if pos(':href',lowercase(tmp)) > 0 then
+            aItems.Add(aPropNode.ChildNodes.Item[i].FirstChild.NodeValue);
+          if pos(':filter',lowercase(tmp)) > 0 then
+            begin
+              RecourseFilter(aPropNode.ChildNodes.Item[i]);
+            end;
+        end;
+      if aItems.Count=0 then
+        begin //we report all ??!
+          aDirList := TLDirectoryList.Create;
+          if TLWebDAVServer(TLWebDAVServerSocket(FSocket).Creator).FGetDirList(Path,1,aDirList) then
+            for i := 0 to aDirList.Count-1 do
+              begin
+                aItems.Add(Path+aDirList[i].Name);
+              end;
+          aDirList.Free;
+        end;
+      aDocument.DocumentElement.Free;
+    end
+  else
+    aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
+  aDocument.AppendChild(aMSRes);
+  aDepth := StrToIntDef(TLHTTPServerSocket(FSocket).Parameters[hpDepth],0);
+  for i := 0 to aItems.Count-1 do
+    begin
+      bProperties.Assign(aProperties);
+      CreateResponse(aItems[i],aMSRes,bProperties);
+    end;
+  aProperties.Free;
+  bProperties.Free;
+  aItems.Free;
+  TLHTTPServerSocket(FSocket).FResponseInfo.Status:=hsMultiStatus;
+  Result:=True;
+end;
+
+function HandleDAVRequest(Sender : TObject;Method, URL: string;Headers : TStringList;Input,Output : TStream): Integer;
+var
+  ADoc: TXMLDocument;
+begin
+  Result := 500;
+  try
+    case Uppercase(Method) of //Plain Request
+    'GET','PUT','POST':
+      begin
+
+      end
+    else //XML Request
+      begin
+        ADoc := TXMLDocument.Create;
+        try
+          if Input.Size>0 then
+            ReadXMLFile(ADoc,Input);
+          case Uppercase(Method) of
+          'OPTIONS':
+            begin
+
+            end;
+          'PROPFIND':
+            begin
+
+            end;
+          'REPORT':
+            begin
+              if DAVReportHandleXMLRequest(ADoc) then
+                begin
+                end;
+            end;
+          'LOCK','UNLOCK':
+            begin
+
+            end;
+          'MKCOL':
+            begin
+
+            end;
+          'DELETE':
+            begin
+
+            end;
+          end;
+        finally
+          aDoc.Free;
+        end;
+      end;
+    end;
+  except
+    on e : Exception do
+      begin
+        Result := 500;
+      end;
+  end;
 end;
 
 function TLDirectoryList.Get(Index: Integer): TLFile;

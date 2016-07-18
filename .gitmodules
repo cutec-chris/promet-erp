@@ -148,3 +148,6 @@
 [submodule "promet/source/scripts/plugins/opencv"]
 	path = promet/source/scripts/plugins/opencv
 	url = https://github.com/cutec-chris/script-plugin-opencv.git
+[submodule "promet/source/components/openqbuilder"]
+	path = promet/source/components/openqbuilder
+	url = https://github.com/cutec-chris/lazopenqbuilder.git

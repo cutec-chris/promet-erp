@@ -26,7 +26,8 @@ uses
   ExtCtrls, DbCtrls, StdCtrls, uExtControls, DBZVDateTimePicker, db,
   uPrometFrames, uPrometFramesInplace, uBaseDBClasses, Dialogs, Spin, EditBtn,
   DBGrids, variants,uStatistic,SynCompletion, SynHighlighterPas,md5,LCLType,
-  TASeries, TACustomSeries,fpsqlparser,Clipbrd,uBaseVisualApplication,uBaseDatasetInterfaces;
+  TASeries, TACustomSeries,fpsqlparser,Clipbrd,uBaseVisualApplication,
+  uBaseDatasetInterfaces,QBuilder;
 type
 
   { TfStatisticFrame }
@@ -46,8 +47,10 @@ type
     acFormatSQL: TAction;
     acCopyToNewTable: TAction;
     acIsScript: TAction;
+    acQueryBuilder: TAction;
     ActionList1: TActionList;
     bEditFilter: TSpeedButton;
+    bEditFilter1: TSpeedButton;
     Bevel2: TBevel;
     Bevel3: TBevel;
     Bevel4: TBevel;
@@ -159,6 +162,7 @@ type
     procedure acExportExecute(Sender: TObject);
     procedure acFormatSQLExecute(Sender: TObject);
     procedure acPrintExecute(Sender: TObject);
+    procedure acQueryBuilderExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acSetTreeDirExecute(Sender: TObject);
@@ -200,6 +204,8 @@ type
     FVariableNames : TStringList;
     FTables : TStringList;
     FTreeNode : TTreeNode;
+    FBuilder: TOQBuilderDialog;
+    FVisualQueryEngine :TOQBEngine;
     procedure ParseForms(Filter: string);
     function CheckSQL(DoFormat : Boolean = False) : Boolean;
     function BuildSQL(aIn : string) : string;
@@ -231,7 +237,7 @@ uses uData,uProjects,uHistoryFrame,uLinkFrame,uImageFrame,uDocuments,
   uFilterFrame,uBaseSearch,Utils,uBaseERPDBClasses,uSelectReport,
   uNRights,uSearch,LCLProc,utask,fpsqltree,fpsqlscanner,SynEditMarks,LCLIntf,
   fpspreadsheet, fpsallformats,uFormAnimate,SynBeautifier,Printers,fpsTypes,
-  uError;
+  uError,qbepromet;
 {$R *.lfm}
 resourcestring
     strQueryTime                  = 'Abfragezeit: %s Anzahl Datensätze: %d';
@@ -849,6 +855,21 @@ begin
       fSelectReport.Execute;
     end;
 end;
+
+procedure TfStatisticFrame.acQueryBuilderExecute(Sender: TObject);
+begin
+  if not Assigned(FVisualQueryEngine) then
+    begin
+      FVisualQueryEngine := TOQBEngine.Create(nil);
+      FBuilder := TOQBuilderDialog.Create(nil);
+      FBuilder.OQBEngine := FVisualQueryEngine;
+    end;
+  if FBuilder.Execute then
+    begin
+
+    end;
+end;
+
 procedure TfStatisticFrame.acRightsExecute(Sender: TObject);
 begin
   fNRights.Execute(DataSet.Id.AsVariant);
