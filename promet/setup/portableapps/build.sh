@@ -4,7 +4,7 @@ cd promet/setup/portableapps
 echo "Building portableaps stuff..."
 TmpDir=$TMP
 BuildDir=$TmpDir/software_build
-rm -rf $BuildDir
+#rm -rf $BuildDir
 echo "copy to builddir..."
 mkdir -p $BuildDir/App/AppInfo
 cp -r ./Promet-ERP/* $BuildDir
@@ -27,13 +27,9 @@ echo "building package..."
 #      -e "s/CREATEDDATE/$Date/g" \
 #  > $BuildDir/App/AppInfo/appinfo.ini
 #rm $BuildDir/App/AppInfo/Launcher/Splash.jpg
-cat Appinfo.ini | \
-  sed -b -e "s/VERSION/$Version/g" \
-      -e "s/ARCH/$Arch/g" \
-      -e "s/ARCHFPC/$Archfpc/g" \
-      -e "s/CREATEDDATE/$Date/g" \
-  > $BuildDir/App/AppInfo/appinfo.ini
-cp
+#cp appinfo.ini $BuildDir/App/AppInfo/appinfo.ini
+#awk '{gsub(/VERSION/,"$Version")}' $BuildDir/App/AppInfo/appinfo.ini
+#perl -pi -e 's/VERSION/$Version/g' $BuildDir/App/AppInfo/appinfo.ini
 /c/PortableApps.comInstaller/PortableApps.comInstaller.exe $BuildDir
 cp $BuildDir/*.paf.exe ../output
 cd $BuildDir

@@ -17,10 +17,8 @@ msgid "Einträge kombinieren"
 msgstr ""
 
 #: tfaccountingframe.acfindtransaction.caption
-#, fuzzy
-#| msgid "EintrÃ¤ge kombinierenacFindTransaction"
 msgid "acFindTransaction"
-msgstr "Merge entrysfind Transaction"
+msgstr "Find Transaction"
 
 #: tfaccountingframe.acgotovoucher.caption
 msgctxt "TFACCOUNTINGFRAME.ACGOTOVOUCHER.CAPTION"
@@ -32,8 +30,6 @@ msgid "Online Update"
 msgstr "Online update"
 
 #: tfaccountingframe.acpastelinkasvoucher.caption
-#, fuzzy
-#| msgid "Verweis als Beleg einfÃ¼gen"
 msgctxt "TFACCOUNTINGFRAME.ACPASTELINKASVOUCHER.CAPTION"
 msgid "Verweis als Beleg einfügen"
 msgstr "Add Link as Proof"
@@ -83,8 +79,6 @@ msgid "Bank"
 msgstr "Bank"
 
 #: tfaccountingque.bclose.caption
-#, fuzzy
-#| msgid "&SchlieÃen"
 msgctxt "TFACCOUNTINGQUE.BCLOSE.CAPTION"
 msgid "&Schließen"
 msgstr "&Close"
@@ -130,14 +124,10 @@ msgid "Name"
 msgstr "Name"
 
 #: tfaccountingque.lvque.hint
-#, fuzzy
-#| msgid "Die Liste mit auszufÃ¼hrenden Abfragen"
 msgid "Die Liste mit auszuführenden Abfragen"
-msgstr "Que with Querys"
+msgstr "Que of Querys"
 
 #: tfaccounts.acaddrequest.hint
-#, fuzzy
-#| msgid "Einen Kontenabrufauftrag zur Warteschlange hinzufÃ¼gen"
 msgid "Einen Kontenabrufauftrag zur Warteschlange hinzufügen"
 msgstr "Adds an Accountupdate to Que"
 
@@ -146,8 +136,6 @@ msgid "als Verweis kopieren"
 msgstr "Copy as Link"
 
 #: tfaccounts.acdelete.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFACCOUNTS.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Delete"
@@ -176,15 +164,11 @@ msgid "Importieren"
 msgstr "Import"
 
 #: tfaccounts.acopen.caption
-#, fuzzy
-#| msgid "Ãffnen"
 msgctxt "TFACCOUNTS.ACOPEN.CAPTION"
 msgid "Öffnen"
-msgstr "open"
+msgstr "Open"
 
 #: tfaccounts.acpastelinkasvoucher.caption
-#, fuzzy
-#| msgid "Verweis als Beleg einfÃ¼gen"
 msgctxt "tfaccounts.acpastelinkasvoucher.caption"
 msgid "Verweis als Beleg einfügen"
 msgstr "Add Link as Proof"
@@ -204,8 +188,6 @@ msgid "zeigt die Buchungsdetails an"
 msgstr "shows the booking details"
 
 #: tfaccounts.acviewlist.hint
-#, fuzzy
-#| msgid "zeigt die BuchungsÃ¼bersicht an"
 msgid "zeigt die Buchungsübersicht an"
 msgstr "shows the Booking overview"
 
@@ -225,8 +207,6 @@ msgid "Kategorie"
 msgstr "Category"
 
 #: tfaccounts.lcurrency.caption
-#, fuzzy
-#| msgid "WÃ¤hrung"
 msgctxt "TFACCOUNTS.LCURRENCY.CAPTION"
 msgid "Währung"
 msgstr "Currency"
@@ -277,33 +257,25 @@ msgid "Panel4"
 msgstr "-"
 
 #: tfaccounts.sbprev.hint
-#, fuzzy
-#| msgid "geht eine Buchung zurÃ¼ck"
 msgid "geht eine Buchung zurück"
-msgstr "prior booking"
+msgstr "prior Booking"
 
 #: tfaccounts.sbprev1.hint
 msgid "geht eine Buchung vor"
 msgstr "next booking"
 
 #: tfacquire.babort.caption
-#, fuzzy
-#| msgid "&SchlieÃen"
 msgctxt "TFACQUIRE.BABORT.CAPTION"
 msgid "&Schließen"
 msgstr "&Close"
 
 #: tfacquire.bcloseanduse.caption
-#, fuzzy
-#| msgid "Ãbernehmen und Schliessen"
 msgid "Übernehmen und Schliessen"
 msgstr "Save an Close"
 
 #: tfacquire.bcloseanduse.hint
-#, fuzzy
-#| msgid "Ã¼bernimmt alle gescannten Bilder in die "
 msgid "übernimmt alle gescannten Bilder in die "
-msgstr "use all scanned pictures "
+msgstr "use all scanned pictures in the "
 
 #: tfacquire.bpreviewscan.caption
 msgid "Vorschauscan"
@@ -327,14 +299,10 @@ msgid "Texterkennung"
 msgstr "OCR"
 
 #: tfacquire.cbocr.hint
-#, fuzzy
-#| msgid "fÃ¼hrt eine Texterkennung (OCR) durch und "
 msgid "führt eine Texterkennung (OCR) durch und "
 msgstr "makes an OCR and "
 
 #: tfacquire.cbtype.hint
-#, fuzzy
-#| msgid "wÃ¤hlen Sie hier das Format in dem das "
 msgid "wählen Sie hier das Format in dem das "
 msgstr "chose the Format to save the "
 
@@ -11383,4 +11351,3 @@ msgstr "SQLite based Database"
 #: uzeosdm.strunknowndbtype
 msgid "Unbekannter Datenbanktyp"
 msgstr "unknown Databasetype"
-
