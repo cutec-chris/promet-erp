@@ -857,6 +857,9 @@ begin
 end;
 
 procedure TfStatisticFrame.acQueryBuilderExecute(Sender: TObject);
+var
+  aSL: TStringList;
+  aStrm: TStream;
 begin
   if not Assigned(FVisualQueryEngine) then
     begin
@@ -866,10 +869,22 @@ begin
       FVisualQueryEngine.DatabaseName:='Promet';
       FBuilder.OQBEngine := FVisualQueryEngine;
     end;
-  if FBuilder.Execute then
+  aSL := TStringList.Create;
+  aStrm := Data.BlobFieldStream(DataSet.DataSet,'QUERRYBLD');
+  aSL.LoadFromStream(aStrm);
+  aStrm.Free;
+  if FBuilder.Execute(aSL) then
     begin
-
+      FDataSet.Edit;
+      aSL.Clear;
+      FBuilder.SaveToStringList(aSL);
+      aStrm := TStringStream.Create('');
+      aSL.SaveToStream(aStrm);
+      aStrm.Position:=0;
+      Data.StreamToBlobField(aStrm,DataSet.DataSet,'QUERRYBLD');
+      aStrm.Free;
     end;
+  aSL.Free;
 end;
 
 procedure TfStatisticFrame.acRightsExecute(Sender: TObject);

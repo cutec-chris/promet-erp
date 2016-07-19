@@ -50,8 +50,8 @@ inherited fStatisticFrame: TfStatisticFrame
       NewTabImageIndex = 0
       object tsReport: TTabSheet
         Caption = 'Report'
-        ClientHeight = 618
-        ClientWidth = 1662
+        ClientHeight = 309
+        ClientWidth = 831
         object Panel2: TPanel
           Left = 0
           Height = 27
@@ -426,8 +426,8 @@ inherited fStatisticFrame: TfStatisticFrame
         TabOrder = 0
         object tsMaster: TTabSheet
           Caption = 'Master'
-          ClientHeight = 522
-          ClientWidth = 1694
+          ClientHeight = 261
+          ClientWidth = 847
           inline smQuerry: TSynMemo
             Cursor = crIBeam
             Left = 0
