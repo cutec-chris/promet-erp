@@ -868,6 +868,9 @@ begin
       FBuilder.ShowButtons:=[bRunQuery];
       FVisualQueryEngine.DatabaseName:='Promet';
       FBuilder.OQBEngine := FVisualQueryEngine;
+      FVisualQueryEngine.ShowSystemTables:=False;
+      FVisualQueryEngine.NameQuote:=Data.QuoteField('')[1];
+      FVisualQueryEngine.ValueQuote:=Data.QuoteValue('')[1];
     end;
   aSL := TStringList.Create;
   aStrm := Data.BlobFieldStream(DataSet.DataSet,'QUERRYBLD');
@@ -883,6 +886,11 @@ begin
       aStrm.Position:=0;
       Data.StreamToBlobField(aStrm,DataSet.DataSet,'QUERRYBLD');
       aStrm.Free;
+      if (FDataSet.FieldByName('QUERRY').AsString='') or (copy(FDataSet.FieldByName('QUERRY').AsString,0,40)='--Automatically Created by QuerryBuilder') then
+        begin
+          FDataSet.FieldByName('QUERRY').AsString := '--Automatically Created by QuerryBuilder'+#10#13+FBuilder.GenerateSQL;
+          smQuerry.Text:=FDataSet.FieldByName('QUERRY').AsString;
+        end;
     end;
   aSL.Free;
 end;
@@ -1402,9 +1410,9 @@ begin
   acCancel.Enabled:= False;
   FTreeNode := AddEntry('','S',etStatistic,TStatistic(DataSet));
   DataSet.Change;
-  bEditFilter.Down:=True;
+  {bEditFilter.Down:=True;
   bEditFilterClick(nil);
-  smQuerry.SetFocus;
+  smQuerry.SetFocus;}
   ProjectsStateChange(Self);
   tsReport.TabVisible:=False;
 end;

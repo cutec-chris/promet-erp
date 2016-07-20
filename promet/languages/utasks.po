@@ -89,3 +89,37 @@ msgstr ""
 msgid "Bearbeitungsstatus"
 msgstr ""
 
+#: utasks.strassignedtasks
+msgid "Aufgaben: %s"
+msgstr ""
+
+#: utasks.strchangedependencies
+msgid "Sollen Abhängigkeiten der gelöschten Aufgaben aufgelöst werden ? (längere Dauer)"
+msgstr ""
+
+#: utasks.strfailed
+msgid "Fehlgeschlagen"
+msgstr ""
+
+#: utasks.strmytasks
+msgid "von mir erstellte Aufgaben: %s"
+msgstr ""
+
+#: utasks.strrecordcount
+msgid "Anzahl: %d"
+msgstr ""
+
+#: utasks.strsearchbfromtasks
+msgid "Mit Öffnen wird der gewählte Benutzer in die Aufgabe übernommen"
+msgstr ""
+
+#: utasks.strsearchfromtasks
+msgid "Mit Öffnen wird das gewählte Projekt in die Aufgabe übernommen"
+msgstr ""
+
+#: utasks.strunterminateddependencies
+msgid ""
+"Es gibt unterminierte Abhängigkeiten für diese Aufgabe:\n"
+"%s\n"
+msgstr ""
+

@@ -89,3 +89,11 @@ msgstr ""
 msgid "Bearbeitungsstatus"
 msgstr ""
 
+#: utaskplan.strchangemilestones
+msgid "Sollen Meilensteintermine auch geändert werden ?"
+msgstr ""
+
+#: utaskplan.strsavetaskchanges
+msgid "Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?"
+msgstr ""
+

@@ -2285,8 +2285,9 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object bEditFilter: TSpeedButton
           AnchorSideLeft.Side = asrBottom
-          Left = 64
+          Left = 96
           Height = 28
+          Hint = 'SQL Editor öffnen'
           Top = 11
           Width = 32
           AllowAllUp = True
@@ -2333,9 +2334,9 @@ inherited fStatisticFrame: TfStatisticFrame
         end
         object bEditFilter1: TSpeedButton
           AnchorSideLeft.Side = asrBottom
-          Left = 96
+          Left = 64
           Height = 28
-          Top = 12
+          Top = 11
           Width = 32
           Action = acQueryBuilder
           AllowAllUp = True
@@ -2382,7 +2383,7 @@ inherited fStatisticFrame: TfStatisticFrame
         end
       end
       object Panel6: TPanel
-        Left = 378
+        Left = 421
         Height = 48
         Top = 0
         Width = 56
@@ -2504,7 +2505,7 @@ inherited fStatisticFrame: TfStatisticFrame
         end
       end
       object pNav1: TPanel
-        Left = 434
+        Left = 280
         Height = 48
         Top = 0
         Width = 43
@@ -2742,7 +2743,7 @@ inherited fStatisticFrame: TfStatisticFrame
         end
       end
       object pTools: TPanel
-        Left = 280
+        Left = 323
         Height = 48
         Top = 0
         Width = 98
@@ -2891,6 +2892,7 @@ inherited fStatisticFrame: TfStatisticFrame
     end
     object acPrint: TAction
       Caption = 'Drucken'
+      Hint = 'Drucken oder Report bearbeiten'
       OnExecute = acPrintExecute
     end
     object acRights: TAction
@@ -2930,6 +2932,7 @@ inherited fStatisticFrame: TfStatisticFrame
     end
     object acQueryBuilder: TAction
       Caption = 'acQueryBuilder'
+      Hint = 'Visuellen Editor (Querry Builder) öffnen'
       OnExecute = acQueryBuilderExecute
     end
   end
