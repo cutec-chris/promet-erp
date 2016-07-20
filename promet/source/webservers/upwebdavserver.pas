@@ -9,20 +9,30 @@ implementation
 var
   DavServer : TWebDAVMaster = nil;
 
-function HandleDAVRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers : TStringList;Input,Output : TStream): Integer;
+function HandleDAVRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers : TStringList;Input,Output : TMemoryStream): Integer;
 var
   i: Integer;
   aSock: TDAVSession = nil;
+  aParameters: TStringList;
 begin
-  if not Assigned(DavServer) then
-    begin
-      DavServer := TWebDAVMaster.Create;
-    end;
-  for i := 0 to Sender.Objects.Count-1 do
-    if TObject(Sender.Objects[i]) is TDAVSession then
-      aSock := TDAVSession(Sender.Objects[i]);
-  if not Assigned(aSock) then
-    aSock := TDAVSession.Create(DavServer);
+  Result := 500;
+  try
+    if not Assigned(DavServer) then
+      begin
+        DavServer := TWebDAVMaster.Create;
+      end;
+    for i := 0 to Sender.Objects.Count-1 do
+      if TObject(Sender.Objects[i]) is TDAVSession then
+        aSock := TDAVSession(Sender.Objects[i]);
+    if not Assigned(aSock) then
+      begin
+        aParameters := TStringList.Create;
+        aSock := TDAVSession.Create(DavServer,aParameters);
+      end;
+    Result := aSock.ProcessHttpRequest(Method,URL,Headers,Input,Output);
+  except
+    Result:=500;
+  end;
 end;
 
 initialization

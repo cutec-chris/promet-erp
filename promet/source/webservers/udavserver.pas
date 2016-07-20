@@ -83,13 +83,16 @@ type
     FURI: string;
     FHeadersOut : TStringList;
     FUser: string;
+  protected
+    InputData : TMemoryStream;
+    OutputData : TMemoryStream;
   public
-    constructor Create(aCreator : TObject);
+    constructor Create(aCreator: TObject; aParameters: TStrings);
     property URI : string read FURI;
     property Status : Integer read FStatus write FStatus;
     property HeaderOut : TStringList read FHeadersOut write FHeadersOut;
-    function ProcessHttpRequest(Request, aURI: string;Headers : TStringList; InputData,
-      OutputData: TMemoryStream): integer;
+    function ProcessHttpRequest(Request, aURI: string; Headers: TStringList;
+      aInputData, aOutputData: TMemoryStream): integer;
     function CheckAuth: Boolean;
     property User : string read FUser write FUser;
     property Creator : TObject read FCreator;
@@ -391,14 +394,14 @@ var
   FMimeType : string;
 begin
   TDAVSession(FSocket).Status := 500;
-  TWebDAVMaster(TDAVSocket(FSocket).Creator).Lock;
+  TWebDAVMaster(TDAVSession(FSocket).Creator).Lock;
   if Assigned(Event) then
     if Event(TDAVSession(FSocket),HTTPDecode(TDAVSession(FSocket).URI),Foutput,FModified,FMimeType,FeTag) then
       begin
         TDAVSession(FSocket).Status := 200;
-        //TDAVSocket(FSocket).HeaderOut.Add('Last-Modified: '+ LocalTimeToGMT(FModified));
+        //TDAVSession(FSocket).HeaderOut.Add('Last-Modified: '+ LocalTimeToGMT(FModified));
       end;
-  TWebDAVMaster(TDAVSocket(FSocket).Creator).Unlock;
+  TWebDAVMaster(TDAVSession(FSocket).Creator).Unlock;
 end;
 
 constructor TFileStreamOutput.Create(ASocket: TDAVSession; aIn,
@@ -418,9 +421,9 @@ begin
   TDAVSession(FSocket).Status := 500;
   TWebDAVMaster(TDAVSession(FSocket).Creator).Lock;
   if BaseApplication.HasOption('debug') then
-    writeln('<'+MemoryStreamToString(TDAVSocket(FSocket).InputData));
+    writeln('<'+MemoryStreamToString(TDAVSession(FSocket).InputData));
   if Assigned(Event) then
-    if Event(TDAVSession(FSocket),HTTPDecode(TDAVSession(FSocket).URI),TDAVSocket(FSocket).InputData,FeTag,FStatus) then
+    if Event(TDAVSession(FSocket),HTTPDecode(TDAVSession(FSocket).URI),TDAVSession(FSocket).InputData,FeTag,FStatus) then
       TDAVSession(FSocket).Status:=FStatus;
   TWebDAVMaster(TDAVSession(FSocket).Creator).Unlock;
 end;
@@ -508,7 +511,7 @@ end;
 constructor TDAVSocket.Create(hsock: tSocket);
 begin
   inherited Create(hsock);
-  Session := TDAVSession.Create(Creator);
+  Session := TDAVSession.Create(Creator,Parameters);
 end;
 
 destructor TDAVSocket.Destroy;
@@ -519,17 +522,20 @@ end;
 
 function TDAVSocket.ProcessHttpRequest(Request, aURI: string): integer;
 begin
-  ;
+  Result := Session.ProcessHttpRequest(Request,aURI,Headers,InputData,OutputData);
 end;
 
-constructor TDAVSession.Create(aCreator: TObject);
+constructor TDAVSession.Create(aCreator: TObject; aParameters: TStrings);
 begin
   FUser:='';
   FCreator := aCreator;
+  FParameters := aParameters;
+  InputData:=nil;
+  OutputData:=nil;
 end;
 
 function TDAVSession.ProcessHttpRequest(Request, aURI: string;
-  Headers: TStringList; InputData, OutputData: TMemoryStream): integer;
+  Headers: TStringList; aInputData, aOutputData: TMemoryStream): integer;
 var
   Res : TStreamOutput = nil;
 
@@ -542,6 +548,8 @@ var
   end;
 
 begin
+  Self.InputData := aInputData;
+  Self.OutputData := aOutputData;
   if Assigned(TWebDAVMaster(Creator).OnAccess) then
     TWebDAVMaster(Creator).OnAccess(Self,'<'+Request+' '+aURI);
   FURI:=aURI;
@@ -657,6 +665,8 @@ begin
   finally
     HeaderOut.Free;
   end;
+  InputData:=nil;
+  OutputData:=nil;
 end;
 
 { TWebDAVMaster }
