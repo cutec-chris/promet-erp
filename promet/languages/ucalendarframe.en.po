@@ -15,7 +15,3 @@ msgstr ""
 msgid "Anwesend"
 msgstr ""
 
-#: ucalendarframe.streventsthisweek
-msgid "diese Woche: %d"
-msgstr ""
-

@@ -83,7 +83,7 @@ msgstr "Call"
 msgid ""
 "Auf die Datei \"%s\" kann nicht zugegriffen werden,\n"
 "kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle\n"
-msgstr "The file '%s' cannot be accessed,copy this file ggf on your computer or mount the source\n"
+msgstr "The file '%s' cannot be accessed,copy this file ggf on your computer or mount the source"
 
 #: uintfstrconsts.strcantgetclipboardcontents
 msgid "Konnte keine Zwischenablagedaten holen."
@@ -916,3 +916,4 @@ msgstr ""
 "http://www.famfamfam.com/lab/icons/silk/\n"
 "Rem Objects PascalScript von:\n"
 "https://github.com/remobjects/pascalscript\n"
+
