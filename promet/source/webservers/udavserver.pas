@@ -132,8 +132,8 @@ type
     FWriteAllowed: TDAVFileEvent;
     FCS : TCriticalSection;
   public
-    constructor Create;
-    destructor Destroy;
+    constructor Create;virtual;
+    destructor Destroy;virtual;
     procedure Lock;
     procedure Unlock;
     property OnGetDirectoryList : TDAVGetDirectoryList read FGetDirList write FGetDirList;

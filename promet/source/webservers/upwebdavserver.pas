@@ -4,10 +4,19 @@ interface
 uses
   Classes, SysUtils, dom, xmlread, xmlwrite, uappserverhttp,udavserver,uAppServer;
 
+type
+
+  { TPrometWebDAVMaster }
+
+  TPrometWebDAVMaster = class(TWebDAVMaster)
+  public
+    constructor Create;override;
+  end;
+
 implementation
 
 var
-  DavServer : TWebDAVMaster = nil;
+  DavServer : TPrometWebDAVMaster = nil;
 
 function HandleDAVRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers : TStringList;Input,Output : TMemoryStream): Integer;
 var
@@ -19,7 +28,7 @@ begin
   try
     if not Assigned(DavServer) then
       begin
-        DavServer := TWebDAVMaster.Create;
+        DavServer := TPrometWebDAVMaster.Create;
       end;
     for i := 0 to Sender.Objects.Count-1 do
       if TObject(Sender.Objects[i]) is TDAVSession then
@@ -33,6 +42,13 @@ begin
   except
     Result:=500;
   end;
+end;
+
+{ TPrometWebDAVMaster }
+
+constructor TPrometWebDAVMaster.Create;
+begin
+  inherited Create;
 end;
 
 initialization
