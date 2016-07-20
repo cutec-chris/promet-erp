@@ -2,13 +2,17 @@ unit upwebdavserver;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, dom, xmlread, xmlwrite, uappserverhttp,udavserver,uAppServer;
+  Classes, SysUtils, dom, xmlread, xmlwrite, uappserverhttp,udavserver,uAppServer,
+  uprometdavserver;
 
 type
 
   { TPrometWebDAVMaster }
 
   TPrometWebDAVMaster = class(TWebDAVMaster)
+    procedure ServerAccess(aSocket: TDAVSession; Info: string);
+  private
+    ServerFunctions : TPrometServerFunctions;
   public
     constructor Create;override;
   end;
@@ -23,6 +27,8 @@ var
   i: Integer;
   aSock: TDAVSession = nil;
   aParameters: TStringList;
+  s: String;
+  tmp: String;
 begin
   Result := 500;
   try
@@ -36,7 +42,16 @@ begin
     if not Assigned(aSock) then
       begin
         aParameters := TStringList.Create;
+        aParameters.NameValueSeparator:=':';
+        aParameters.CaseSensitive:=False;
         aSock := TDAVSession.Create(DavServer,aParameters);
+      end;
+    aParameters.Clear;
+    for i := 0 to Headers.Count-1 do
+      begin
+        s := Headers[i];
+        tmp := copy(s,0,pos(':',s)-1);
+        aParameters.Add(lowercase(tmp)+':'+trim(copy(s,pos(':',s)+1,length(s))));
       end;
     Result := aSock.ProcessHttpRequest(Method,URL,Headers,Input,Output);
   except
@@ -46,9 +61,24 @@ end;
 
 { TPrometWebDAVMaster }
 
+procedure TPrometWebDAVMaster.ServerAccess(aSocket: TDAVSession; Info: string);
+begin
+  writeln('DAV:'+Info);
+end;
+
 constructor TPrometWebDAVMaster.Create;
 begin
   inherited Create;
+  ServerFunctions := TPrometServerFunctions.Create;
+  OnAccess:=@ServerAccess;
+  OnGetDirectoryList:=@ServerFunctions.ServerGetDirectoryList;
+  OnMkCol:=@ServerFunctions.ServerMkCol;
+  OnDelete:=@ServerFunctions.ServerDelete;
+  OnPutFile:=@ServerFunctions.ServerPutFile;
+  OnGetFile:=@ServerFunctions.ServerGetFile;
+  OnReadAllowed:=@ServerFunctions.ServerReadAllowed;
+  OnWriteAllowed:=@ServerFunctions.ServerReadAllowed;
+  OnUserLogin:=@ServerFunctions.ServerUserLogin;
 end;
 
 initialization

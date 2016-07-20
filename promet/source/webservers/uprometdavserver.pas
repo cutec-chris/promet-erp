@@ -37,17 +37,17 @@ type
       aDocuments: TDocuments; aPath: string);
     procedure AddDocumentToFileList(aFileList: TDAVDirectoryList;
       aDocuments: TDocuments; FullPath: string);
-    function ServerDelete(aSocket: TDAVSocket; aDir: string): Boolean;
-    function ServerGetDirectoryList(aSocket: TDAVSocket; aDir: string;
+    function ServerDelete(aSocket: TDAVSession; aDir: string): Boolean;
+    function ServerGetDirectoryList(aSocket: TDAVSession; aDir: string;
       aDepth: Integer; var aDirList: TDAVDirectoryList): Boolean;
-    function ServerGetFile(aSocket: TDAVSocket; aDir: string; Stream: TStream;
+    function ServerGetFile(aSocket: TDAVSession; aDir: string; Stream: TStream;
       var LastModified: TDateTime; var MimeType: string; var eTag: string
-      ): Boolean;
-    function ServerMkCol(aSocket: TDAVSocket; aDir: string): Boolean;
-    function ServerPutFile(aSocket: TDAVSocket; aDir: string; Stream: TStream;
+  ): Boolean;
+    function ServerMkCol(aSocket: TDAVSession; aDir: string): Boolean;
+    function ServerPutFile(aSocket: TDAVSession; aDir: string; Stream: TStream;
       var eTag: string; var FStatus: Integer): Boolean;
-    function ServerReadAllowed(aSocket: TDAVSocket; aDir: string): Boolean;
-    function ServerUserLogin(aSocket: TDAVSocket; aUser, aPassword: string
+    function ServerReadAllowed(aSocket: TDAVSession; aDir: string): Boolean;
+    function ServerUserLogin(aSocket: TDAVSession; aUser, aPassword: string
       ): Boolean;
   end;
 
@@ -93,7 +93,7 @@ begin
   m := bias mod 60;
   Result := FormatDateTime('yyyy-mm-dd',aDate)+'T'+FormatDateTime('hh:nn:ss',aDate,WebFormatSettings)+ Result + SysUtils.Format('%.2d:%.2d', [h, m]);
 end;
-function TPrometServerFunctions.ServerDelete(aSocket: TDAVSocket; aDir: string): Boolean;
+function TPrometServerFunctions.ServerDelete(aSocket: TDAVSession; aDir: string): Boolean;
 var
   aDocuments: TDocuments;
   aDocument: TDocument;
@@ -210,7 +210,7 @@ begin
       aDocuments.Free;
     end;
 end;
-function TPrometServerFunctions.ServerGetDirectoryList(aSocket: TDAVSocket; aDir: string;
+function TPrometServerFunctions.ServerGetDirectoryList(aSocket: TDAVSession; aDir: string;
   aDepth: Integer; var aDirList: TDAVDirectoryList): Boolean;
 var
   aItem: TDAVFile;
@@ -574,7 +574,7 @@ begin
       aDocuments.Free;
     end;
 end;
-function TPrometServerFunctions.ServerGetFile(aSocket: TDAVSocket; aDir: string;
+function TPrometServerFunctions.ServerGetFile(aSocket: TDAVSession; aDir: string;
   Stream: TStream; var LastModified: TDateTime; var MimeType: string;
   var eTag: string): Boolean;
 var
@@ -729,7 +729,7 @@ begin
         end;
     end;
 end;
-function TPrometServerFunctions.ServerMkCol(aSocket: TDAVSocket; aDir: string): Boolean;
+function TPrometServerFunctions.ServerMkCol(aSocket: TDAVSession; aDir: string): Boolean;
 var
   aDocuments: TDocuments;
   aDocument: TDocument;
@@ -776,7 +776,7 @@ begin
     end;
   aDocuments.Free;
 end;
-function TPrometServerFunctions.ServerPutFile(aSocket: TDAVSocket; aDir: string;
+function TPrometServerFunctions.ServerPutFile(aSocket: TDAVSession; aDir: string;
   Stream: TStream; var eTag: string; var FStatus: Integer): Boolean;
 var
   aDocuments: TDocuments;
@@ -956,12 +956,12 @@ begin
       aDocuments2.Free;
     end;
 end;
-function TPrometServerFunctions.ServerReadAllowed(aSocket: TDAVSocket; aDir: string
+function TPrometServerFunctions.ServerReadAllowed(aSocket: TDAVSession; aDir: string
   ): Boolean;
 begin
   Result := aSocket.User<>'';
 end;
-function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSocket; aUser,
+function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
   aPassword: string): Boolean;
 begin
   Data.Users.Open;
