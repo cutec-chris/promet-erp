@@ -247,13 +247,11 @@ begin
       aDirList.Add(aItem);
       if aDepth>0 then
         begin
-          aDocuments := TDocuments.Create(nil);
-          aDocuments.GetUsedFields;
-          aDocuments.Select(1,'D',0);
-          aDocuments.Open;
-          AddDocumentsToFileList(aDirList,aDocuments,'/');
-          aDocuments.Free;
+          aItem := TDAVFile.Create('/webdav',True);
+          aDirList.Add(aItem);
           aItem := TDAVFile.Create('/caldav',True);
+          aDirList.Add(aItem);
+          aItem := TDAVFile.Create('/carddav',True);
           aDirList.Add(aItem);
           aItem := TDAVFile.Create('/ical',True);
           aDirList.Add(aItem);
@@ -553,7 +551,7 @@ begin
         aDir := aDir+'/';
       if aDocuments.OpenPath(aDir,'/') then
         begin
-          AddDocumentsToFileList(aDirList,aDocuments,aDir);
+          AddDocumentsToFileList(aDirList,aDocuments,'/webdav/'+aDir);
           Result := True;
         end
       else
@@ -567,7 +565,7 @@ begin
               while not aDocuments.DataSet.EOF do
                 begin
                   if aDocuments.FileName = aFile then
-                    AddDocumentToFileList(aDirList,aDocuments,aDir+aFile);
+                    AddDocumentToFileList(aDirList,aDocuments,'/webdav/'+aDir+aFile);
                   aDocuments.DataSet.Next;
                 end;
             end;
@@ -746,6 +744,7 @@ begin
       if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
   Data.RefreshUsersFilter;
+  aDir := copy(aDir,8,length(aDir));
   aDocuments := TDocuments.Create(nil);
   aDocuments.Select(1,'D',0);
   aDocuments.Open;
