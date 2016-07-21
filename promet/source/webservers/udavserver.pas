@@ -552,12 +552,14 @@ begin
   Self.OutputData := aOutputData;
   if Assigned(TWebDAVMaster(Creator).OnAccess) then
     TWebDAVMaster(Creator).OnAccess(Self,'<'+Request+' '+aURI);
+  writeln(Headers.Text);
   FURI:=aURI;
   HeaderOut := TStringList.Create;
   HeaderOut.Add('Content-type: text/xml');
   HeaderOut.Add('Content-Charset: utf8');
   try
     Result := 500;
+    CheckAuth;
     case Request of
     'OPTIONS':
        begin
@@ -581,7 +583,6 @@ begin
        end;
     'GET','HEAD':
        begin
-         CheckAuth;
          TWebDAVMaster(Creator).Lock;
          if Assigned(TWebDAVMaster(Creator).OnReadAllowed)
          and (not TWebDAVMaster(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
@@ -598,7 +599,6 @@ begin
        end;
     'PUT':
        begin
-         CheckAuth;
          TWebDAVMaster(Creator).Lock;
          if Assigned(TWebDAVMaster(Creator).OnReadAllowed)
          and (not TWebDAVMaster(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
@@ -615,7 +615,6 @@ begin
        end;
     'POST':
        begin
-         CheckAuth;
          TWebDAVMaster(Creator).Lock;
          if Assigned(TWebDAVMaster(Creator).OnReadAllowed)
          and (not TWebDAVMaster(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
@@ -632,13 +631,11 @@ begin
        end;
     'MKCOL':
        begin
-         CheckAuth;
          AddDAVheaders;
          Res := TDAVMkColOutput.Create(Self,InputData,OutputData);
        end;
     'DELETE':
        begin
-         CheckAuth;
          AddDAVheaders;
          Res := TDAVDeleteOutput.Create(Self,InputData,OutputData);
        end;

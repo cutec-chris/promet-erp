@@ -548,6 +548,7 @@ begin
       aDir := copy(aDir,8,length(aDir));
       aDocuments := TDocuments.Create(nil);
       aDocuments.Select(1,'D',0);
+      aDocuments.Open;
       if copy(aDir,length(aDir),1) <> '/' then
         aDir := aDir+'/';
       if aDocuments.OpenPath(aDir,'/') then
@@ -970,10 +971,11 @@ begin
   Data.Users.Open;
   Result := (Data.Users.DataSet.Locate('NAME',aUser,[]) or Data.Users.DataSet.Locate('LOGINNAME',aUser,[])) and (Data.Users.Leaved.IsNull);
   if Result then
-    Result := Data.Users.CheckPasswort(aPassword);
+    Result := Data.Users.CheckPasswort(trim(aPassword));
   if not Result then
     begin
       aSocket.User:='';
+      writeln('Auth from "'+aUser+'" failed !');
     end
   else aSocket.User:=Data.Users.Id.AsString;
 end;
