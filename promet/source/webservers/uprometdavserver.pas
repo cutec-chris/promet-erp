@@ -437,7 +437,7 @@ begin
     end
   //Standard CardDAV Paths
   else if (copy(aDir,0,8) = '/carddav')
-       or (copy(aDir,0,19) = '/.well-known/carddav')
+       or (copy(aDir,0,20) = '/.well-known/carddav')
     then
     begin
       aFullDir := aDir;
@@ -543,8 +543,9 @@ begin
       else Result:=False;
     end
   //Files from Documents/Files
-  else
+  else if copy(aDir,0,7) = '/webdav' then
     begin
+      aDir := copy(aDir,8,length(aDir));
       aDocuments := TDocuments.Create(nil);
       aDocuments.Select(1,'D',0);
       if copy(aDir,length(aDir),1) <> '/' then
@@ -689,8 +690,9 @@ begin
           aTasks.Free;
         end;
     end
-  else
+  else if (copy(aDir,0,7) = 'webdav/') then
     begin
+      aDir := copy(aDir,8,length(aDir));
       Mimetype := '';
       aDocuments := TDocuments.Create(nil);
       aDocuments.Select(1,'D',0);
@@ -909,8 +911,9 @@ begin
       aCal.Free;
       sl.Free;
     end
-  else
+  else if (copy(aDir,0,7) = '/webdav') then
     begin
+      aDir := copy(aDir,8,length(aDir));
       aDocuments := TDocuments.Create(nil);
       aDocuments.Select(1,'D',0);
       aDocuments.Open;
