@@ -14,7 +14,7 @@ msgstr ""
 # Christian U. <ulrich@tcs-germany.de>, 2015.
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
-msgstr ""
+msgstr "combine items"
 
 #: tfaccountingframe.acfindtransaction.caption
 msgid "acFindTransaction"
@@ -316,27 +316,19 @@ msgid "Bild erfassen"
 msgstr "Aquire image"
 
 #: tfacquire.lbdevices.hint
-#, fuzzy
-#| msgid "wÃ¤hlen Sie hier das GerÃ¤t von dem Sie Bilder importieren mÃ¶chten"
 msgid "wählen Sie hier das Gerät von dem Sie Bilder importieren möchten"
 msgstr "close the device to aquire from"
 
 #: tfacquire.ldevice.caption
-#, fuzzy
-#| msgid "GerÃ¤t"
 msgid "Gerät"
 msgstr "Device"
 
 #: tfacquire.lresolution.caption
-#, fuzzy
-#| msgid "AuflÃ¶sung"
 msgctxt "TFACQUIRE.LRESOLUTION.CAPTION"
 msgid "Auflösung"
 msgstr "Resolution"
 
 #: tfacquire.tbresolution.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie die AuflÃ¶sung in Punkten pro Inch (dpi) einstellen"
 msgid "hier können Sie die Auflösung in Punkten pro Inch (dpi) einstellen"
 msgstr "here you can set the resolution in dpi"
 
@@ -355,14 +347,10 @@ msgid "Kopieren"
 msgstr "Copy"
 
 #: tfaddressframe.editpaste1.caption
-#, fuzzy
-#| msgid "&EinfÃ¼gen"
 msgid "&Einfügen"
 msgstr "&Paste"
 
 #: tfaddressframe.editpaste1.hint
-#, fuzzy
-#| msgid "EinfÃ¼gen"
 msgctxt "TFADDRESSFRAME.EDITPASTE1.HINT"
 msgid "Einfügen"
 msgstr "Paste"
@@ -392,15 +380,11 @@ msgid "Typ"
 msgstr "Typ"
 
 #: tfaddressframe.gadresses.hint
-#, fuzzy
-#| msgid "wÃ¤hlen Sie hier eine Adresse"
 msgctxt "TFADDRESSFRAME.GADRESSES.HINT"
 msgid "wählen Sie hier eine Adresse"
 msgstr "select an address here"
 
 #: tfaddressframe.ladditional.caption
-#, fuzzy
-#| msgid "ZusÃ¤tzlich"
 msgctxt "TFADDRESSFRAME.LADDITIONAL.CAPTION"
 msgid "Zusätzlich"
 msgstr "Additional"
@@ -431,8 +415,6 @@ msgid "Postleitzahl"
 msgstr "Zip"
 
 #: tfaddressframe.lstreet.caption
-#, fuzzy
-#| msgid "StraÃe"
 msgctxt "TFADDRESSFRAME.LSTREET.CAPTION"
 msgid "Straße"
 msgstr "Street"
@@ -443,10 +425,8 @@ msgid "Anrede"
 msgstr "Title"
 
 #: tfaddserial.caption
-#, fuzzy
-#| msgid "Serienummer hinzufÃ¼gen"
 msgid "Serienummer hinzufügen"
-msgstr "add serialnumber"
+msgstr "Add serialnumber"
 
 #: tfaddserial.cbserial.text
 msgid "cbSerial"
@@ -467,8 +447,6 @@ msgid "Abbrechen"
 msgstr "Abort"
 
 #: tfarticleframe.accancel.hint
-#, fuzzy
-#| msgid "verwirft alle Ãnderungen"
 msgctxt "tfarticleframe.accancel.hint"
 msgid "verwirft alle Änderungen"
 msgstr "reject all changes"
@@ -484,8 +462,6 @@ msgid "Kopieren"
 msgstr "Copy"
 
 #: tfarticleframe.acdelete.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFARTICLEFRAME.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Delete"
@@ -493,21 +469,19 @@ msgstr "Delete"
 #: tfarticleframe.acdeletethumb.caption
 msgctxt "tfarticleframe.acdeletethumb.caption"
 msgid "acDeleteThumb"
-msgstr ""
+msgstr "Delete Thumbnail"
 
 #: tfarticleframe.acdeletethumb.hint
 msgctxt "tfarticleframe.acdeletethumb.hint"
 msgid "Thumbnail entfernen"
-msgstr ""
+msgstr "Remove thumbnail"
 
 #: tfarticleframe.acexport.caption
-#, fuzzy
 msgctxt "tfarticleframe.acexport.caption"
 msgid "Exportieren"
 msgstr "Export"
 
 #: tfarticleframe.acimport.caption
-#, fuzzy
 msgctxt "tfarticleframe.acimport.caption"
 msgid "Importieren"
 msgstr "Import"
@@ -523,15 +497,11 @@ msgid "erstellt einen neuen Artikel"
 msgstr "creates an new Article"
 
 #: tfarticleframe.acpaste.caption
-#, fuzzy
-#| msgid "EinfÃ¼gen"
 msgctxt "TFARTICLEFRAME.ACPASTE.CAPTION"
 msgid "Einfügen"
 msgstr "insert"
 
 #: tfarticleframe.acpasteimage.caption
-#, fuzzy
-#| msgid "aus Zwischenablage einfÃ¼gen"
 msgctxt "tfarticleframe.acpasteimage.caption"
 msgid "aus Zwischenablage einfügen"
 msgstr "paste from Clipboard"
@@ -543,11 +513,11 @@ msgstr "Print"
 
 #: tfarticleframe.acrestart.caption
 msgid "Dublizieren"
-msgstr ""
+msgstr "Duplicate"
 
 #: tfarticleframe.acrestart.hint
 msgid "Dupliziert den Artikel"
-msgstr ""
+msgstr "Duplicate the Article"
 
 #: tfarticleframe.acrights.caption
 msgctxt "TFARTICLEFRAME.ACRIGHTS.CAPTION"
@@ -560,8 +530,6 @@ msgid "Speichern"
 msgstr "save"
 
 #: tfarticleframe.acsave.hint
-#, fuzzy
-#| msgid "Speichert alle Ãnderungen in die Datenbank"
 msgctxt "tfarticleframe.acsave.hint"
 msgid "Speichert alle Änderungen in die Datenbank"
 msgstr "Saves all changes to database"
@@ -592,8 +560,6 @@ msgid "..."
 msgstr "..."
 
 #: tfarticleframe.bchangenumber.hint
-#, fuzzy
-#| msgid "Nummer Ã¤ndern"
 msgctxt "TFARTICLEFRAME.BCHANGENUMBER.HINT"
 msgid "Nummer ändern"
 msgstr "Change number"
@@ -609,8 +575,6 @@ msgid "markiert diesen Artikel als aktiv"
 msgstr "makes the article as active"
 
 #: tfarticleframe.cblanguage.hint
-#, fuzzy
-#| msgid "wÃ¤hlt den Eintrag in einer anderen Sprache aus"
 msgctxt "TFARTICLEFRAME.CBLANGUAGE.HINT"
 msgid "wählt den Eintrag in einer anderen Sprache aus"
 msgstr "selects the entry in another language"
@@ -654,8 +618,6 @@ msgid "Ist dieser Eintrag ein Verkaufsartikel "
 msgstr "Is this article for sale ? "
 
 #: tfarticleframe.cbstatus.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie den Status des Artikels Ã¤ndern um ihn in neue ZustÃ¤nde zu Ã¼berfÃ¼hren"
 msgctxt "TFARTICLEFRAME.CBSTATUS.HINT"
 msgid "hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen"
 msgstr "here you can change the Status of the artikle"
@@ -671,8 +633,6 @@ msgid "Bei allen Buchungen werden "
 msgstr "use on all bookings"
 
 #: tfarticleframe.cbversion.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie die zu bearbeitende Artikelversion auswÃ¤hlen."
 msgctxt "TFARTICLEFRAME.CBVERSION.HINT"
 msgid "hier können Sie die zu bearbeitende Artikelversion auswählen."
 msgstr "here you can select the version of the article"
@@ -682,15 +642,11 @@ msgid "ist Vorlage"
 msgstr "Is template"
 
 #: tfarticleframe.ematchcode.hint
-#, fuzzy
-#| msgid "Hier kÃ¶nnen Sie einen Suchbegriff angeben, "
 msgctxt "TFARTICLEFRAME.EMATCHCODE.HINT"
 msgid "Hier können Sie einen Suchbegriff angeben, "
 msgstr "here you can add an search term"
 
 #: tfarticleframe.erepairtime.hint
-#, fuzzy
-#| msgid "Wenn dieses Feld befÃ¼llt ist, findet diese Zeit "
 msgctxt "tfarticleframe.erepairtime.hint"
 msgid "Wenn dieses Feld befüllt ist, findet diese Zeit "
 msgstr "When this Field is filled, these time finds "
@@ -755,8 +711,6 @@ msgid "max. Reparaturzeit"
 msgstr "max. Repairtime"
 
 #: tfarticleframe.lrepairtime.hint
-#, fuzzy
-#| msgid "Wenn dieses Feld befÃ¼llt ist, findet diese Zeit "
 msgctxt "TFARTICLEFRAME.LREPAIRTIME.HINT"
 msgid "Wenn dieses Feld befüllt ist, findet diese Zeit "
 msgstr "When this Field is filled, there time finds "
@@ -782,8 +736,6 @@ msgid "Kategorie"
 msgstr "Category"
 
 #: tfarticleframe.lwarrenty.caption
-#, fuzzy
-#| msgid "GewÃ¤hrleistung"
 msgctxt "TFARTICLEFRAME.LWARRENTY.CAPTION"
 msgid "Gewährleistung"
 msgstr "Warrenty"
@@ -804,7 +756,6 @@ msgid "-"
 msgstr "-"
 
 #: tfarticleframe.menuitem7.caption
-#, fuzzy
 msgctxt "tfarticleframe.menuitem7.caption"
 msgid "-"
 msgstr "-"
@@ -820,8 +771,6 @@ msgid "kein Bild"
 msgstr "no Image"
 
 #: tfarticleframe.sbmenue.hint
-#, fuzzy
-#| msgid "zusÃ¤tzliche Optionen"
 msgctxt "tfarticleframe.sbmenue.hint"
 msgid "zusätzliche Optionen"
 msgstr "Additional options"
@@ -886,8 +835,6 @@ msgid "Preis"
 msgstr "Prices"
 
 #: tfarticlesupplierframe.gsupplierprices.columns[4].title.caption
-#, fuzzy
-#| msgid "WÃ¤hrung"
 msgctxt "TFARTICLESUPPLIERFRAME.GSUPPLIERPRICES.COLUMNS[4].TITLE.CAPTION"
 msgid "Währung"
 msgstr "Currency"
@@ -902,8 +849,6 @@ msgid "Lieferzeit"
 msgstr "Supplier"
 
 #: tfarticlesupplierframe.ldelivertime1.caption
-#, fuzzy
-#| msgid "fÃ¼gen Sie weitere Lieferanten per Drag&Drop aus der Suche ein"
 msgid "fügen Sie weitere Lieferanten per Drag&Drop aus der Suche ein"
 msgstr "add more positions with Drag&Drop from search"
 
@@ -928,7 +873,7 @@ msgstr "Navigation"
 
 #: tfarticletextframe.extrotatedlabel2.caption
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: tfarticletextframe.ltexttyp.caption
 msgid "Textart"
@@ -978,8 +923,6 @@ msgid "gesamte Liste auf dieses Konto setzen"
 msgstr "assign whole list to this account"
 
 #: tfbookfibuaccount.cbwholelist.hint
-#, fuzzy
-#| msgid "setzt die gesamte Liste (Filtern Sie um gewÃ¼nschte DatensÃ¤tze zu wÃ¤hlen)"
 msgid "setzt die gesamte Liste (Filtern Sie um gewünschte Datensätze zu wählen)"
 msgstr "assigns the whole List to this account (Filter to select the rows)"
 
@@ -1120,25 +1063,21 @@ msgid "&Ok"
 msgstr "&Ok"
 
 #: tfchangestatus.caption
-#, fuzzy
-#| msgid "Status Ã¤ndern"
 msgid "Status ändern"
 msgstr "change Status"
 
 #: tfchangestatus.cbfiltered.caption
 msgid "nur sichtbare Zeilen"
-msgstr ""
+msgstr "only visible rows"
 
 #: tfchangestatus.cbfiltered.hint
 msgid "Wenn Sie Positionen gefiltert haben (Filterzeile) "
-msgstr ""
+msgstr "If you have filtered positions (filter row)"
 
 #: tfchangestatus.lchange.caption
-#, fuzzy
-#| msgid "Ãnderung"
 msgctxt "TFCHANGESTATUS.LCHANGE.CAPTION"
 msgid "Änderung"
-msgstr "change"
+msgstr "Changes"
 
 #: tfchangestatus.lorder.caption
 msgctxt "TFCHANGESTATUS.LORDER.CAPTION"
@@ -1220,8 +1159,6 @@ msgid "Texte"
 msgstr "Texts"
 
 #: tfcopyarticledata.lfeaturesfornewarticleversion.caption
-#, fuzzy
-#| msgid "Daten die in den neuen Artikel / Artikelversion Ã¼bernommen werden"
 msgid "Daten die in den neuen Artikel / Artikelversion übernommen werden"
 msgstr "Use data for new Article/Version"
 
@@ -1264,14 +1201,10 @@ msgid "acActionMenue"
 msgstr "-"
 
 #: tfcustomer.acactionmenue.hint
-#, fuzzy
-#| msgid "Ã¶ffnet eine Liste mit Aktionen"
 msgid "öffnet eine Liste mit Aktionen"
 msgstr "opens an menu with further actions"
 
 #: tfcustomer.acaddimage.caption
-#, fuzzy
-#| msgid "Bild hinzufÃ¼gen"
 msgid "Bild hinzufügen"
 msgstr "add image"
 
@@ -1285,14 +1218,10 @@ msgid "..."
 msgstr "..."
 
 #: tfcustomer.acchangecustomernumber.hint
-#, fuzzy
-#| msgid "klicken Sie hier um die Kundennummer zu Ã¤ndern"
 msgid "klicken Sie hier um die Kundennummer zu ändern"
 msgstr "click here to change the Accountno"
 
 #: tfcustomer.acclipboardtoimage.caption
-#, fuzzy
-#| msgid "Aus Zwischenablage einfÃ¼gen"
 msgid "Aus Zwischenablage einfügen"
 msgstr "paste from clipboard"
 
@@ -1311,21 +1240,15 @@ msgid "kopiert die aktuelle Adresse in die Zwischenablage"
 msgstr "copys the address to clipboard"
 
 #: tfcustomer.acdelete.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFCUSTOMER.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Delete"
 
 #: tfcustomer.acdeleteemployee.caption
-#, fuzzy
-#| msgid "Mitarbeiter lÃ¶schen"
 msgid "Mitarbeiter löschen"
 msgstr "delete menber"
 
 #: tfcustomer.acdeleteemployee.hint
-#, fuzzy
-#| msgid "lÃ¶scht den gewÃ¤hlten Mitarbeiter"
 msgid "löscht den gewählten Mitarbeiter"
 msgstr "deletes the selected menber"
 
@@ -1334,8 +1257,6 @@ msgid "Mitarbeiter aus Baum"
 msgstr "member from tree"
 
 #: tfcustomer.acemployeefromtree.hint
-#, fuzzy
-#| msgid "fÃ¼gt den im Baum gewÃ¤hlten Kontakt als Mitarbeiter hinzu"
 msgid "fügt den im Baum gewählten Kontakt als Mitarbeiter hinzu"
 msgstr "adds the person, selected in tree"
 
@@ -1373,8 +1294,6 @@ msgid "acMenue"
 msgstr "-"
 
 #: tfcustomer.acmenue.hint
-#, fuzzy
-#| msgid "Ã¶ffnet ein MenÃ¼ mit weiteren MÃ¶glichkeiten"
 msgctxt "TFCUSTOMER.ACMENUE.HINT"
 msgid "öffnet ein Menü mit weiteren Möglichkeiten"
 msgstr "opens an menu with more actions"
@@ -1402,8 +1321,6 @@ msgid "neuer Auftrag"
 msgstr "new order"
 
 #: tfcustomer.acpaste.caption
-#, fuzzy
-#| msgid "EinfÃ¼gen"
 msgctxt "TFCUSTOMER.ACPASTE.CAPTION"
 msgid "Einfügen"
 msgstr "insert"
@@ -1441,15 +1358,11 @@ msgid "zeigt den Kontakt im Baum an "
 msgstr "shows the entry in tree "
 
 #: tfcustomer.actransfer.caption
-#, fuzzy
-#| msgid "Ãberweisung erstellen"
 msgctxt "TFCUSTOMER.ACTRANSFER.CAPTION"
 msgid "Überweisung erstellen"
 msgstr "create bank transfer"
 
 #: tfcustomer.actransfer.hint
-#, fuzzy
-#| msgid "erstellt eine Ãberweisung an die gewÃ¤hlte bankverbindung / den Kontakt"
 msgid "erstellt eine Überweisung an die gewählte bankverbindung / den Kontakt"
 msgstr "cerates an bank transfer to the selected account of this contact"
 
@@ -1458,8 +1371,6 @@ msgid "Kunde anzeigen"
 msgstr "show contact"
 
 #: tfcustomer.acviewdetails.hint
-#, fuzzy
-#| msgid "zeigt den gewÃ¤hlten Kontakt an"
 msgid "zeigt den gewählten Kontakt an"
 msgstr "shows the selected contact"
 
@@ -1468,8 +1379,6 @@ msgid "Kundenliste anzeigen"
 msgstr "show contact list"
 
 #: tfcustomer.acviewlist.hint
-#, fuzzy
-#| msgid "zeigt die KontaktÃ¼bersicht an"
 msgid "zeigt die Kontaktübersicht an"
 msgstr "shows the contact list"
 
@@ -1484,22 +1393,16 @@ msgid "weist den Eintrag einem Verzeichnis im Baum zu"
 msgstr "adds the entry to the directory thats selected in tree"
 
 #: tfcustomer.bdelform.hint
-#, fuzzy
-#| msgid "lÃ¶scht das aktuelle Tab"
 msgctxt "TFCUSTOMER.BDELFORM.HINT"
 msgid "löscht das aktuelle Tab"
 msgstr "deletes the actual tab"
 
 #: tfcustomer.beditform.hint
-#, fuzzy
-#| msgid "hiermit kÃ¶nnen Sie den Tabdesigner aufrufen,"
 msgctxt "TFCUSTOMER.BEDITFORM.HINT"
 msgid "hiermit können Sie den Tabdesigner aufrufen,"
 msgstr "enter the Tab designer"
 
 #: tfcustomer.btransfer.hint
-#, fuzzy
-#| msgid "erstellt eine Ãberweisung an die gewÃ¤hlte Bankverbindung / den Kontakt"
 msgctxt "tfcustomer.btransfer.hint"
 msgid "erstellt eine Überweisung an die gewählte Bankverbindung / den Kontakt"
 msgstr "cerates an bank transfer to the selected account of this contact"
@@ -1510,35 +1413,25 @@ msgid "Aktiv"
 msgstr "active"
 
 #: tfcustomer.cbcurrency.hint
-#, fuzzy
-#| msgid "setzt eine StandartwÃ¤hrung fÃ¼r den Kontakt mit der jeder Vorgang fÃ¼r den Kontakt vorbelegt wird"
 msgid "setzt eine Standartwährung für den Kontakt mit der jeder Vorgang für den Kontakt vorbelegt wird"
 msgstr "sets an standard currency for the contact all orders are created with that currency"
 
 #: tfcustomer.cbdiscontgroup.hint
-#, fuzzy
-#| msgid "setzt eine Rabattgruppe fÃ¼r den Kontakt"
 msgctxt "tfcustomer.cbdiscontgroup.hint"
 msgid "setzt eine Rabattgruppe für den Kontakt"
 msgstr "creates an discount group for the contact"
 
 #: tfcustomer.cblanguage.hint
-#, fuzzy
-#| msgid "wÃ¤hlen Sie hier die Sprache des Kontaktes"
 msgctxt "tfcustomer.cblanguage.hint"
 msgid "wählen Sie hier die Sprache des Kontaktes"
 msgstr "select the language of the contact"
 
 #: tfcustomer.cbpaymenttarget.hint
-#, fuzzy
-#| msgid "setzt ein Zahlungsziel mit dem die VorgÃ¤nge fÃ¼r diesen Kontakt vorbelegt werden"
 msgctxt "tfcustomer.cbpaymenttarget.hint"
 msgid "setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
 msgstr "sets an standard currency for the contact all orders are created with that currency"
 
 #: tfcustomer.cbstate.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie den Status des Kontaktes setzen/Ã¤ndern"
 msgid "hier können Sie den Status des Kontaktes setzen/ändern"
 msgstr "here you can change the Status of the contact"
 
@@ -1557,15 +1450,11 @@ msgid "geben Sie hier den namen des Kontaktes an"
 msgstr "add the name of the contact here"
 
 #: tfcustomer.ediscont.hint
-#, fuzzy
-#| msgid "setzt eine Rabatt mit dem die VorgÃ¤nge fÃ¼r diesen Kontakt vorbelegt werden"
 msgctxt "tfcustomer.ediscont.hint"
 msgid "setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
 msgstr "sets an standard currency for the contact all orders are created with that currency"
 
 #: tfcustomer.ematchcode.hint
-#, fuzzy
-#| msgid "Hier kÃ¶nnen Sie einen Suchbegriff angeben, "
 msgctxt "TFCUSTOMER.EMATCHCODE.HINT"
 msgid "Hier können Sie einen Suchbegriff angeben, "
 msgstr "Here you can add an search term, "
@@ -1578,21 +1467,19 @@ msgstr "Contacts"
 #: tfcustomer.gadresses.columns[0].tcolumntitle.caption
 msgctxt "TFCUSTOMER.GADRESSES.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ADDRNO"
-msgstr "-"
+msgstr "Adress Number"
 
 #: tfcustomer.gadresses.columns[1].tcolumntitle.caption
 msgctxt "TFCUSTOMER.GADRESSES.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "DESCR"
-msgstr "-"
+msgstr "Description"
 
 #: tfcustomer.gadresses.columns[2].tcolumntitle.caption
 msgctxt "TFCUSTOMER.GADRESSES.COLUMNS[2].TCOLUMNTITLE.CAPTION"
 msgid "TYPE"
-msgstr "-"
+msgstr "type"
 
 #: tfcustomer.gadresses.hint
-#, fuzzy
-#| msgid "wÃ¤hlen Sie hier eine Adresse"
 msgctxt "TFCUSTOMER.GADRESSES.HINT"
 msgid "wählen Sie hier eine Adresse"
 msgstr "select an address here"
@@ -1600,21 +1487,19 @@ msgstr "select an address here"
 #: tfcustomer.gbanking.columns[0].tcolumntitle.caption
 msgctxt "tfcustomer.gbanking.columns[0].tcolumntitle.caption"
 msgid "SORTCODE"
-msgstr "-"
+msgstr "Sortcode"
 
 #: tfcustomer.gbanking.columns[1].tcolumntitle.caption
 msgctxt "tfcustomer.gbanking.columns[1].tcolumntitle.caption"
 msgid "ACCOUNT"
-msgstr "-"
+msgstr "Account"
 
 #: tfcustomer.gbanking.columns[2].tcolumntitle.caption
 msgctxt "tfcustomer.gbanking.columns[2].tcolumntitle.caption"
 msgid "INSTITUTE"
-msgstr "-"
+msgstr "Institute"
 
 #: tfcustomer.gbanking.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie Bankverbindungen des Kontaktes verwalten"
 msgctxt "tfcustomer.gbanking.hint"
 msgid "hier können Sie Bankverbindungen des Kontaktes verwalten"
 msgstr "here you can manage the bank accounts of the contact"
@@ -1636,38 +1521,34 @@ msgstr "Entry"
 #: tfcustomer.gcontact.columns[2].tcolumntitle.caption
 msgctxt "TFCUSTOMER.GCONTACT.COLUMNS[2].TCOLUMNTITLE.CAPTION"
 msgid "DESCR"
-msgstr "-"
+msgstr "Description"
 
 #: tfcustomer.gcontact.columns[3].tcolumntitle.caption
 msgid "ACTIVE"
-msgstr "-"
+msgstr "Active"
 
 #: tfcustomer.gcontact.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie sÃ¤mtliche Kontaktdaten "
 msgid "hier können Sie sämtliche Kontaktdaten "
 msgstr "here you can manage Contact data "
 
 #: tfcustomer.gemployees.columns[0].tcolumntitle.caption
 msgid "EMPLOYEE"
-msgstr "-"
+msgstr "Employee"
 
 #: tfcustomer.gemployees.columns[1].tcolumntitle.caption
 msgctxt "TFCUSTOMER.GEMPLOYEES.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "NAME"
-msgstr "-"
+msgstr "Name"
 
 #: tfcustomer.gemployees.columns[2].tcolumntitle.caption
 msgid "DEPARTMENT"
-msgstr "-"
+msgstr "Department:"
 
 #: tfcustomer.gemployees.columns[3].tcolumntitle.caption
 msgid "POSITION"
-msgstr "-"
+msgstr "Position"
 
 #: tfcustomer.ladditional.caption
-#, fuzzy
-#| msgid "ZusÃ¤tzlich"
 msgctxt "TFCUSTOMER.LADDITIONAL.CAPTION"
 msgid "Zusätzlich"
 msgstr "Additional"
@@ -1688,8 +1569,6 @@ msgid "Ort"
 msgstr "Location"
 
 #: tfcustomer.lcurrency.caption
-#, fuzzy
-#| msgid "WÃ¤hrung"
 msgctxt "TFCUSTOMER.LCURRENCY.CAPTION"
 msgid "Währung"
 msgstr "Currency"
@@ -1764,8 +1643,6 @@ msgid "Status"
 msgstr "Status"
 
 #: tfcustomer.lstreet.caption
-#, fuzzy
-#| msgid "StraÃe"
 msgctxt "tfcustomer.lstreet.caption"
 msgid "Straße"
 msgstr "Street"
@@ -1809,8 +1686,6 @@ msgid "Panel3"
 msgstr "-"
 
 #: tfcustomer.pimage.caption
-#, fuzzy
-#| msgid "kein Bild verfÃ¼gbar"
 msgid "kein Bild verfügbar"
 msgstr "no Image avalible"
 
@@ -1820,15 +1695,11 @@ msgid "kein Bild"
 msgstr "no Image"
 
 #: tfcustomer.sbaddimage.hint
-#, fuzzy
-#| msgid "Ã¶ffnet einen Dialog zum auswÃ¤hlen "
 msgctxt "TFCUSTOMER.SBADDIMAGE.HINT"
 msgid "öffnet einen Dialog zum auswählen "
 msgstr "opens an Dialog to select "
 
 #: tfcustomer.sbclipboardtoimage.hint
-#, fuzzy
-#| msgid "fÃ¼gt ein Bild aus der Zwischenablage ein"
 msgctxt "TFCUSTOMER.SBCLIPBOARDTOIMAGE.HINT"
 msgid "fügt ein Bild aus der Zwischenablage ein"
 msgstr "adds an image from clipboard"
@@ -1917,15 +1788,11 @@ msgid "Datenformat"
 msgstr "Dataformat"
 
 #: tfdataimport.linfo.caption
-#, fuzzy
-#| msgid "Bitte wÃ¤hlen Sie ein Datenformat"
 msgctxt "TFDATAIMPORT.LINFO.CAPTION"
 msgid "Bitte wählen Sie ein Datenformat"
 msgstr "please select an data format"
 
 #: tfdatainput.badd.caption
-#, fuzzy
-#| msgid "hinzufÃ¼gen"
 msgid "hinzufügen"
 msgstr "add"
 
@@ -1934,8 +1801,6 @@ msgid "entfernen"
 msgstr "remove"
 
 #: tfdatainput.binsertcommand.caption
-#, fuzzy
-#| msgid "Befehl einfÃ¼gen"
 msgid "Befehl einfügen"
 msgstr "add command"
 
@@ -1968,8 +1833,6 @@ msgid "gbProperties"
 msgstr "-"
 
 #: tfdisposition.bcheck.caption
-#, fuzzy
-#| msgid "PrÃ¼fen"
 msgid "Prüfen"
 msgstr "Check"
 
@@ -2006,8 +1869,6 @@ msgid "lFilenameValue"
 msgstr "-"
 
 #: tfdocproperties.llastchanged.caption
-#, fuzzy
-#| msgid "Zuletzt geÃ¤ndert"
 msgid "Zuletzt geändert"
 msgstr "last changes"
 
@@ -2028,11 +1889,9 @@ msgid "zu dieser Revision auschecken"
 msgstr "checkout to this revision"
 
 #: tfdocproperties.sglog.columns.title.caption
-#, fuzzy
-#| msgid "Ãnderung"
 msgctxt "TFDOCPROPERTIES.SGLOG.COLUMNS.TITLE.CAPTION"
 msgid "Änderung"
-msgstr "Achange"
+msgstr "Change"
 
 #: tfdocproperties.tscommon.caption
 msgctxt "TFDOCPROPERTIES.TSCOMMON.CAPTION"
@@ -2076,21 +1935,15 @@ msgid "Standartaktion verwenden"
 msgstr "use Standart actions"
 
 #: tfdocumentaddoptions.caption
-#, fuzzy
-#| msgid "Dokument hinzufÃ¼gen"
 msgctxt "TFDOCUMENTADDOPTIONS.CAPTION"
 msgid "Dokument hinzufügen"
-msgstr "add document"
+msgstr "Add Document"
 
 #: tfdocumentaddoptions.cbaddtomessages.caption
-#, fuzzy
-#| msgid "zu Narichten hinzufÃ¼gen"
 msgid "zu Narichten hinzufügen"
 msgstr "add to messages"
 
 #: tfdocumentaddoptions.cbdeletefromfilesystem.caption
-#, fuzzy
-#| msgid "im Dateisystem lÃ¶schen"
 msgid "im Dateisystem löschen"
 msgstr "delete in filesystem"
 
@@ -2140,7 +1993,7 @@ msgstr "-"
 #: tfeditmail.cbtype.text
 msgctxt "TFEDITMAIL.CBTYPE.TEXT"
 msgid "TEXT"
-msgstr "-"
+msgstr "Text"
 
 #: tfeditmail.ecc.text
 msgid "eCC"
@@ -2177,8 +2030,6 @@ msgid "als"
 msgstr "as"
 
 #: tfeditmail.lwith.caption
-#, fuzzy
-#| msgid "Ã¼ber"
 msgid "über"
 msgstr "over"
 
@@ -2187,10 +2038,8 @@ msgid "pMain"
 msgstr "-"
 
 #: tfeditmail.tsattatchments.caption
-#, fuzzy
-#| msgid "AnhÃ¤nge"
 msgid "Anhänge"
-msgstr "Attatchements"
+msgstr "Attatchments"
 
 #: tfeditmail.tscontent.caption
 msgid "Inhalt"
@@ -2210,8 +2059,6 @@ msgid "zu Eintrag gehen"
 msgstr "goto entry"
 
 #: tfentertime.acinsert.caption
-#, fuzzy
-#| msgid "neuen Eintrag einfÃ¼gen"
 msgid "neuen Eintrag einfügen"
 msgstr "add new entry"
 
@@ -2233,32 +2080,22 @@ msgid "Als neuen Eintrag benutzen"
 msgstr "use as new entry"
 
 #: tfentertime.acuseasnewentry.hint
-#, fuzzy
-#| msgid "Ãbernimmt die Eintragungen in den aktuellen Eintrag"
 msgid "Übernimmt die Eintragungen in den aktuellen Eintrag"
 msgstr "uses the settings in actual entry"
 
 #: tfentertime.baddjob.hint
-#, fuzzy
-#| msgid "FÃ¼gt den aktuellen Text zur persÃ¶nlichen "
 msgid "Fügt den aktuellen Text zur persönlichen "
 msgstr "Adds the actual text to your personal "
 
 #: tfentertime.bchange.caption
-#, fuzzy
-#| msgid "Ã¼bernehmen"
 msgid "übernehmen"
 msgstr "apply"
 
 #: tfentertime.bchange.hint
-#, fuzzy
-#| msgid "Ã¼bernimmt Ãnderungen "
 msgid "übernimmt Änderungen "
 msgstr "apply Changes "
 
 #: tfentertime.bdeletejob.hint
-#, fuzzy
-#| msgid "LÃ¶scht den ausgewÃ¤hlten Eintrag aus der "
 msgid "Löscht den ausgewählten Eintrag aus der "
 msgstr "Deletes the actual entry from your "
 
@@ -2267,8 +2104,6 @@ msgid "pausieren"
 msgstr "pause"
 
 #: tfentertime.bpause.hint
-#, fuzzy
-#| msgid "pausiert die aktuelle TÃ¤tigkeit"
 msgid "pausiert die aktuelle Tätigkeit"
 msgstr "pauses the actual activity"
 
@@ -2291,8 +2126,6 @@ msgid "beenden"
 msgstr "close"
 
 #: tfentertime.bstop.hint
-#, fuzzy
-#| msgid "Beendet die aktuelle TÃ¤tigkeit"
 msgid "Beendet die aktuelle Tätigkeit"
 msgstr "stops the actual activity"
 
@@ -2322,27 +2155,25 @@ msgstr "Timeregistering"
 
 #: tfentertime.glist.columns[0].tcolumntitle.caption
 msgid "START"
-msgstr "-"
+msgstr "Start"
 
 #: tfentertime.glist.columns[1].tcolumntitle.caption
 msgid "END"
-msgstr "-"
+msgstr "End"
 
 #: tfentertime.glist.columns[2].tcolumntitle.caption
 msgid "LINK"
-msgstr "-"
+msgstr "Link"
 
 #: tfentertime.glist.columns[3].tcolumntitle.caption
 msgid "JOB"
-msgstr "-"
+msgstr "Job"
 
 #: tfentertime.glist.columns[4].tcolumntitle.caption
 msgid "ISPAUSE"
-msgstr "-"
+msgstr "Pause"
 
 #: tfentertime.ilink.hint
-#, fuzzy
-#| msgid "Zeigt an ob eine gÃ¼ltige verknÃ¼pfung "
 msgctxt "TFENTERTIME.ILINK.HINT"
 msgid "Zeigt an ob eine gültige verknüpfung "
 msgstr "Show if an link is valid "
@@ -2430,8 +2261,6 @@ msgid "Normalzeit"
 msgstr "Normaltime"
 
 #: tfentertime.semaxresults.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie die Zahl der maximalen Filterergebnisse angeben"
 msgctxt "TFENTERTIME.SEMAXRESULTS.HINT"
 msgid "hier können Sie die Zahl der maximalen Filterergebnisse angeben"
 msgstr "here you can set an limit for the filter results"
@@ -2455,8 +2284,6 @@ msgid "Abbrechen"
 msgstr "Cancel"
 
 #: tfeventedit.cballday.caption
-#, fuzzy
-#| msgid "GanztÃ¤gig"
 msgid "Ganztägig"
 msgstr "Whole day"
 
@@ -2541,8 +2368,6 @@ msgid "Startzeit"
 msgstr "Starttime"
 
 #: tffilter.accopylink.caption
-#, fuzzy
-#| msgid "als VerknÃ¼pfung kopieren"
 msgctxt "TFFILTER.ACCOPYLINK.CAPTION"
 msgid "als Verknüpfung kopieren"
 msgstr "copy as link"
@@ -2553,8 +2378,6 @@ msgid "acDeleteFilter"
 msgstr "Delete filter"
 
 #: tffilter.acdeletefilter.hint
-#, fuzzy
-#| msgid "lÃ¶scht den Filter"
 msgid "löscht den Filter"
 msgstr "deletes the filter"
 
@@ -2563,14 +2386,10 @@ msgid "Filtern"
 msgstr "Filter"
 
 #: tffilter.acfilter.hint
-#, fuzzy
-#| msgid "aktiviert den gewÃ¤hlten Filter, "
 msgid "aktiviert den gewählten Filter, "
 msgstr "activates the actual Filter, "
 
 #: tffilter.acopen.caption
-#, fuzzy
-#| msgid "Ãffnen"
 msgctxt "TFFILTER.ACOPEN.CAPTION"
 msgid "Öffnen"
 msgstr "Open"
@@ -2588,8 +2407,6 @@ msgid "acSaveFilterPublic"
 msgstr "-"
 
 #: tffilter.acsavefilterpublic.hint
-#, fuzzy
-#| msgid "speichert den Filter Ã¶ffentlich"
 msgid "speichert den Filter öffentlich"
 msgstr "saves the filter public"
 
@@ -2598,8 +2415,6 @@ msgid "zeigt/verbirgt den Filtereditor"
 msgstr "shows/hides the filter editor"
 
 #: tffilter.cbfilter.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie einen Filter wÃ¤hlen um die Liste einzuschrÃ¤nken"
 msgid "hier können Sie einen Filter wählen um die Liste einzuschränken"
 msgstr "here you can select an filter"
 
@@ -2609,8 +2424,6 @@ msgid "Filterergebnisse begrenzen auf"
 msgstr "limit filterresults to"
 
 #: tffilter.gheader.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie die Liste einschrÃ¤nken, "
 msgid "hier können Sie die Liste einschränken, "
 msgstr "here you can filter the list, "
 
@@ -2620,14 +2433,10 @@ msgid "Filter"
 msgstr "Filter"
 
 #: tffilter.pright.hint
-#, fuzzy
-#| msgid "Mithilfe dieser Zeitleiste kÃ¶nnen"
 msgid "Mithilfe dieser Zeitleiste können"
 msgstr "with this timeline you can set an filter to tha clicked date"
 
 #: tffilter.semaxresults.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie die Zahl der maximalen Filterergebnisse angeben"
 msgctxt "TFFILTER.SEMAXRESULTS.HINT"
 msgid "hier können Sie die Zahl der maximalen Filterergebnisse angeben"
 msgstr "here you can set an limit to the actual filter"
@@ -2685,8 +2494,6 @@ msgid "Filtern nach"
 msgstr "Filter with"
 
 #: tfhistoryframe.accopylink.caption
-#, fuzzy
-#| msgid "als VerknÃ¼pfung kopieren"
 msgctxt "TFHISTORYFRAME.ACCOPYLINK.CAPTION"
 msgid "als Verknüpfung kopieren"
 msgstr "copy as link"
@@ -2698,11 +2505,11 @@ msgstr "Filter"
 
 #: tfhistoryframe.glist.columns[0].tcolumntitle.caption
 msgid "ACTIONICON"
-msgstr "-"
+msgstr " "
 
 #: tfhistoryframe.glist.columns[1].tcolumntitle.caption
 msgid "ACTION"
-msgstr "-"
+msgstr "Action"
 
 #: tfhistoryframe.glist.columns[2].tcolumntitle.caption
 msgctxt "TFHISTORYFRAME.GLIST.COLUMNS[2].TCOLUMNTITLE.CAPTION"
@@ -2764,35 +2571,35 @@ msgstr "Ident"
 #: tfinventory.gpositions.columns[2].tcolumntitle.caption
 msgctxt "TFINVENTORY.GPOSITIONS.COLUMNS[2].TCOLUMNTITLE.CAPTION"
 msgid "SHORTTEXT"
-msgstr "-"
+msgstr "Shorttext"
 
 #: tfinventory.gpositions.columns[3].tcolumntitle.caption
 msgid "VERSION"
-msgstr "-"
+msgstr "Version"
 
 #: tfinventory.gpositions.columns[4].tcolumntitle.caption
 msgctxt "TFINVENTORY.GPOSITIONS.COLUMNS[4].TCOLUMNTITLE.CAPTION"
 msgid "LANGUAGE"
-msgstr "-"
+msgstr "Language"
 
 #: tfinventory.gpositions.columns[5].tcolumntitle.caption
 msgctxt "TFINVENTORY.GPOSITIONS.COLUMNS[5].TCOLUMNTITLE.CAPTION"
 msgid "PRICE"
-msgstr "-"
+msgstr "Price"
 
 #: tfinventory.gpositions.columns[6].tcolumntitle.caption
 msgctxt "TFINVENTORY.GPOSITIONS.COLUMNS[6].TCOLUMNTITLE.CAPTION"
 msgid "STORAGE"
-msgstr "-"
+msgstr "Storage"
 
 #: tfinventory.gpositions.columns[7].tcolumntitle.caption
 msgctxt "TFINVENTORY.GPOSITIONS.COLUMNS[7].TCOLUMNTITLE.CAPTION"
 msgid "QUANTITY"
-msgstr "-"
+msgstr "Quantity"
 
 #: tfinventory.gpositions.columns[8].tcolumntitle.caption
 msgid "QUANTITYC"
-msgstr "-"
+msgstr "Quantity invoiced"
 
 #: tflanguageoptions.dgcountrys.columns[0].title.caption
 msgctxt "TFLANGUAGEOPTIONS.DGCOUNTRYS.COLUMNS[0].TITLE.CAPTION"
@@ -2802,7 +2609,7 @@ msgstr "ID"
 #: tflanguageoptions.dgcountrys.columns[1].title.caption
 msgctxt "TFLANGUAGEOPTIONS.DGCOUNTRYS.COLUMNS[1].TITLE.CAPTION"
 msgid "NAME"
-msgstr "-"
+msgstr "Name"
 
 #: tflanguageoptions.dgcountrys.columns[2].title.caption
 msgctxt "TFLANGUAGEOPTIONS.DGCOUNTRYS.COLUMNS[2].TITLE.CAPTION"
@@ -2817,45 +2624,45 @@ msgstr "ID"
 #: tflanguageoptions.dgdispatchtypes.columns[1].title.caption
 msgctxt "TFLANGUAGEOPTIONS.DGDISPATCHTYPES.COLUMNS[1].TITLE.CAPTION"
 msgid "COUNTRY"
-msgstr "-"
+msgstr "Country"
 
 #: tflanguageoptions.dgdispatchtypes.columns[2].title.caption
 msgctxt "TFLANGUAGEOPTIONS.DGDISPATCHTYPES.COLUMNS[2].TITLE.CAPTION"
 msgid "NAME"
-msgstr "-"
+msgstr "name"
 
 #: tflanguageoptions.dgdispatchtypes.columns[3].title.caption
 msgctxt "TFLANGUAGEOPTIONS.DGDISPATCHTYPES.COLUMNS[3].TITLE.CAPTION"
 msgid "OUTPUTDRV"
-msgstr "-"
+msgstr "Output Driver"
 
 #: tflanguageoptions.dgdispatchtypes.columns[4].title.caption
 msgid "WEIGHT"
-msgstr "-"
+msgstr "Weight"
 
 #: tflanguageoptions.dgdispatchtypes.columns[5].title.caption
 msgid "ARTICLE"
-msgstr "-"
+msgstr "Article"
 
 #: tflanguageoptions.glanguages.columns[0].title.caption
 msgctxt "TFLANGUAGEOPTIONS.GLANGUAGES.COLUMNS[0].TITLE.CAPTION"
 msgid "LANGUAGE"
-msgstr "-"
+msgstr "Language"
 
 #: tflanguageoptions.glanguages.columns[1].title.caption
 msgctxt "TFLANGUAGEOPTIONS.GLANGUAGES.COLUMNS[1].TITLE.CAPTION"
 msgid "ISO6391"
-msgstr "-"
+msgstr "ISO6391"
 
 #: tflanguageoptions.glanguages.columns[2].title.caption
 msgctxt "TFLANGUAGEOPTIONS.GLANGUAGES.COLUMNS[2].TITLE.CAPTION"
 msgid "ISO6392"
-msgstr "-"
+msgstr "ISO6392"
 
 #: tflanguageoptions.glanguages.columns[3].title.caption
 msgctxt "TFLANGUAGEOPTIONS.GLANGUAGES.COLUMNS[3].TITLE.CAPTION"
 msgid "DEFAULTLNG"
-msgstr "-"
+msgstr "Default language"
 
 #: tflanguageoptions.lcompclose.caption
 msgctxt "TFLANGUAGEOPTIONS.LCOMPCLOSE.CAPTION"
@@ -2863,15 +2670,11 @@ msgid "Schlussformel"
 msgstr "Complementary close"
 
 #: tflanguageoptions.lcountries.caption
-#, fuzzy
-#| msgid "LÃ¤nder"
 msgctxt "TFLANGUAGEOPTIONS.LCOUNTRIES.CAPTION"
 msgid "Länder"
 msgstr "Countrys"
 
 #: tflanguageoptions.lcurrency.caption
-#, fuzzy
-#| msgid "WÃ¤hrung"
 msgctxt "TFLANGUAGEOPTIONS.LCURRENCY.CAPTION"
 msgid "Währung"
 msgstr "Currency"
@@ -2912,8 +2715,6 @@ msgid "acFilter"
 msgstr "Filter"
 
 #: tflinks.acpastelinks.caption
-#, fuzzy
-#| msgid "Verweis(e) einfÃ¼gen"
 msgid "Verweis(e) einfügen"
 msgstr "Insert link(s)"
 
@@ -2924,27 +2725,27 @@ msgstr "Show in Order"
 #: tflinks.glist.columns[0].tcolumntitle.caption
 msgctxt "tflinks.glist.columns[0].tcolumntitle.caption"
 msgid "ICON"
-msgstr "-"
+msgstr "Icon"
 
 #: tflinks.glist.columns[1].tcolumntitle.caption
 msgctxt "TFLINKS.GLIST.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "NAME"
-msgstr "-"
+msgstr "Name"
 
 #: tflinks.glist.columns[2].tcolumntitle.caption
 msgctxt "TFLINKS.GLIST.COLUMNS[2].TCOLUMNTITLE.CAPTION"
 msgid "REFERENCE"
-msgstr "-"
+msgstr "Reference"
 
 #: tflinks.glist.columns[3].tcolumntitle.caption
 msgctxt "TFLINKS.GLIST.COLUMNS[3].TCOLUMNTITLE.CAPTION"
 msgid "CHANGEDBY"
-msgstr "-"
+msgstr "Changed By"
 
 #: tflinks.glist.columns[4].tcolumntitle.caption
 msgctxt "TFLINKS.GLIST.COLUMNS[4].TCOLUMNTITLE.CAPTION"
 msgid "TIMESTAMPD"
-msgstr "-"
+msgstr "Timestamp"
 
 #: tflinks.glist.hint
 msgctxt "TFLINKS.GLIST.HINT"
@@ -2983,14 +2784,10 @@ msgid "Archiviert Mails nach erfolgrechem Abruf "
 msgstr "Archives the message after successful receiving "
 
 #: tfmailoptions.cbdelete.caption
-#, fuzzy
-#| msgid "nach Abruf lÃ¶schen"
 msgid "nach Abruf löschen"
 msgstr "delete menber"
 
 #: tfmailoptions.cbdelete.hint
-#, fuzzy
-#| msgid "lÃ¶scht Mails nach erfolgrechem Abruf "
 msgid "löscht Mails nach erfolgrechem Abruf "
 msgstr "deletes the message after successful receiving "
 
@@ -3049,8 +2846,6 @@ msgid "Kalendar"
 msgstr "Calendar"
 
 #: tfmain.acchangepasswort.caption
-#, fuzzy
-#| msgid "Passwort Ã¤ndern"
 msgid "Passwort ändern"
 msgstr "change password"
 
@@ -3059,8 +2854,6 @@ msgid "acClearList"
 msgstr "Clear List"
 
 #: tfmain.acclearlist.hint
-#, fuzzy
-#| msgid "setzt alle Listenelemente zurÃ¼ck"
 msgid "setzt alle Listenelemente zurück"
 msgstr "resets all list entrys"
 
@@ -3070,7 +2863,7 @@ msgstr "Close Tab"
 
 #: tfmain.acclosetab.hint
 msgid "Schließt das aktuelle Tab"
-msgstr ""
+msgstr "Closes the current tab"
 
 #: tfmain.accollectinventory.caption
 msgid "acCollectInventory"
@@ -3090,21 +2883,15 @@ msgid "Kontaktliste"
 msgstr "Contactlist"
 
 #: tfmain.acdeletelisteentry.caption
-#, fuzzy
-#| msgid "lÃ¶schen"
 msgctxt "TFMAIN.ACDELETELISTEENTRY.CAPTION"
 msgid "löschen"
 msgstr "delete"
 
 #: tfmain.acdeletelisteentry.hint
-#, fuzzy
-#| msgid "Eintrag lÃ¶schen"
 msgid "Eintrag löschen"
 msgstr "delte entry"
 
 #: tfmain.acdeletewholemessagedir.caption
-#, fuzzy
-#| msgid "Alle Nachrichten lÃ¶schen"
 msgid "Alle Nachrichten löschen"
 msgstr "delete all Messages"
 
@@ -3216,7 +3003,7 @@ msgstr "New Project"
 
 #: tfmain.acnewscheme.caption
 msgid "Neues Schema"
-msgstr ""
+msgstr "New scheme"
 
 #: tfmain.acnewscript.caption
 msgid "neues Script"
@@ -3241,22 +3028,16 @@ msgid "Neuen Termin erfassen"
 msgstr "create an new appointment"
 
 #: tfmain.acopen.caption
-#, fuzzy
-#| msgid "Ãffnen"
 msgctxt "TFMAIN.ACOPEN.CAPTION"
 msgid "Öffnen"
-msgstr "open"
+msgstr "Open"
 
 #: tfmain.acorders.caption
-#, fuzzy
-#| msgid "VorgÃ¤nge"
 msgctxt "TFMAIN.ACORDERS.CAPTION"
 msgid "Vorgänge"
 msgstr "Orders"
 
 #: tfmain.acpasswords.caption
-#, fuzzy
-#| msgid "PasswÃ¶rter"
 msgctxt "TFMAIN.ACPASSWORDS.CAPTION"
 msgid "Passwörter"
 msgstr "Passwords"
@@ -3271,16 +3052,13 @@ msgid "Zeiterfassung pausieren /"
 msgstr "pause timeregistering"
 
 #: tfmain.acproduction.caption
-#, fuzzy
 msgctxt "tfmain.acproduction.caption"
 msgid "Produktion"
 msgstr "Produktion"
 
 #: tfmain.acprojectoverview.caption
-#, fuzzy
-#| msgid "ProjektÃ¼bersicht"
 msgid "Projektübersicht"
-msgstr "Projectoverview"
+msgstr "Project overview"
 
 #: tfmain.acprojects.caption
 msgctxt "TFMAIN.ACPROJECTS.CAPTION"
@@ -3319,11 +3097,11 @@ msgstr "Sales List Pay"
 
 #: tfmain.acsearchoptions.caption
 msgid "acSearchOptions"
-msgstr ""
+msgstr "Search Options"
 
 #: tfmain.acshowsearch.caption
 msgid "Suche anzeigen"
-msgstr ""
+msgstr "Show search"
 
 #: tfmain.acshowtree.caption
 msgctxt "TFMAIN.ACSHOWTREE.CAPTION"
@@ -3378,7 +3156,7 @@ msgstr "Windowize"
 
 #: tfmain.acwindowize.hint
 msgid "aktuelles Tab in separates Fenster wandeln"
-msgstr ""
+msgstr "show current tab in a separate window"
 
 #: tfmain.bpausetime.caption
 msgctxt "tfmain.bpausetime.caption"
@@ -3395,10 +3173,9 @@ msgid "Promet-ERP"
 msgstr "Promet-ERP"
 
 #: tfmain.esearch.text
-#, fuzzy
 msgctxt "tfmain.esearch.text"
 msgid "<hier tippen um zu suchen>"
-msgstr "<insert tap to search>"
+msgstr "<type here to search>"
 
 #: tfmain.label3.caption
 msgctxt "TFMAIN.LABEL3.CAPTION"
@@ -3411,13 +3188,11 @@ msgid "Zeit"
 msgstr "Time"
 
 #: tfmain.lsearchin.caption
-#, fuzzy
 msgctxt "tfmain.lsearchin.caption"
 msgid "Suche in"
 msgstr "Search in"
 
 #: tfmain.lsearchtype.caption
-#, fuzzy
 msgctxt "tfmain.lsearchtype.caption"
 msgid "Suchtypen"
 msgstr "Searchtypes"
@@ -3425,7 +3200,7 @@ msgstr "Searchtypes"
 #: tfmain.menuitem1.caption
 msgctxt "TFMAIN.MENUITEM1.CAPTION"
 msgid "New Item1"
-msgstr "-"
+msgstr "New Item"
 
 #: tfmain.menuitem12.caption
 msgid "Werkzeuge"
@@ -3489,8 +3264,6 @@ msgid "..."
 msgstr "..."
 
 #: tfmasterdata.acchangearticlenumber.hint
-#, fuzzy
-#| msgid "klicken Sie hier um die Artikelnummer zu Ã¤ndern"
 msgid "klicken Sie hier um die Artikelnummer zu ändern"
 msgstr "klick here to change the articlenumber"
 
@@ -3504,8 +3277,6 @@ msgid "In Artikel konvertieren"
 msgstr "convert to article"
 
 #: tfmasterdata.acconverttopiecelist.caption
-#, fuzzy
-#| msgid "In StÃ¼ckliste konvertieren"
 msgid "In Stückliste konvertieren"
 msgstr "convert to piecelist"
 
@@ -3515,8 +3286,6 @@ msgid "Kopieren"
 msgstr "Copy"
 
 #: tfmasterdata.acdelete.caption
-#, fuzzy
-#| msgid "lÃ¶schen"
 msgctxt "TFMASTERDATA.ACDELETE.CAPTION"
 msgid "löschen"
 msgstr "delete"
@@ -3536,8 +3305,6 @@ msgid "Exportieren"
 msgstr "Export"
 
 #: tfmasterdata.acimagetoclipboard.caption
-#, fuzzy
-#| msgid "aus Zwischenablage einfÃ¼gen"
 msgctxt "TFMASTERDATA.ACIMAGETOCLIPBOARD.CAPTION"
 msgid "aus Zwischenablage einfügen"
 msgstr "paste from clipboard"
@@ -3553,8 +3320,6 @@ msgid "acMenue"
 msgstr "-"
 
 #: tfmasterdata.acmenue.hint
-#, fuzzy
-#| msgid "Ã¶ffnet ein MenÃ¼ mit weiteren MÃ¶glichkeiten"
 msgctxt "TFMASTERDATA.ACMENUE.HINT"
 msgid "öffnet ein Menü mit weiteren Möglichkeiten"
 msgstr "opens an menu with more options"
@@ -3564,8 +3329,6 @@ msgid "legt einen neuen Artikel an"
 msgstr "creates an new article"
 
 #: tfmasterdata.acpaste.caption
-#, fuzzy
-#| msgid "EinfÃ¼gen"
 msgctxt "TFMASTERDATA.ACPASTE.CAPTION"
 msgid "Einfügen"
 msgstr "Paste"
@@ -3588,14 +3351,10 @@ msgid "In Webshop hochladen"
 msgstr "upload to Webshop"
 
 #: tfmasterdata.acviewdetails.hint
-#, fuzzy
-#| msgid "zeigt den gewÃ¤hlten Eintrag an"
 msgid "zeigt den gewählten Eintrag an"
 msgstr "shows the corresponding Entry"
 
 #: tfmasterdata.acviewlist.hint
-#, fuzzy
-#| msgid "zeigt die StammdatenÃ¼bersicht an"
 msgid "zeigt die Stammdatenübersicht an"
 msgstr "shows the Articlelist"
 
@@ -3605,15 +3364,11 @@ msgid "erstellt ein neues Tab"
 msgstr "creates an new Tab"
 
 #: tfmasterdata.bdelform.hint
-#, fuzzy
-#| msgid "lÃ¶scht das aktuelle Tab"
 msgctxt "TFMASTERDATA.BDELFORM.HINT"
 msgid "löscht das aktuelle Tab"
 msgstr "deletes the actual Tab"
 
 #: tfmasterdata.beditform.hint
-#, fuzzy
-#| msgid "hiermit kÃ¶nnen Sie den Tabdesigner aufrufen,"
 msgctxt "TFMASTERDATA.BEDITFORM.HINT"
 msgid "hiermit können Sie den Tabdesigner aufrufen,"
 msgstr "here you can start the Tabdesigner"
@@ -3628,8 +3383,6 @@ msgid "markiert diesen Artikel als aktiv"
 msgstr "marks the article as active"
 
 #: tfmasterdata.cblanguage.hint
-#, fuzzy
-#| msgid "wÃ¤hlt den Eintrag in einer anderen Sprache aus"
 msgctxt "tfmasterdata.cblanguage.hint"
 msgid "wählt den Eintrag in einer anderen Sprache aus"
 msgstr "selectes this entry in another language"
@@ -3665,8 +3418,6 @@ msgid "Ist dieser Eintrag ein Verkaufsartikel "
 msgstr "Is this article for sale ? "
 
 #: tfmasterdata.cbstate.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie den Status des Eintrags setzen/Ã¤ndern"
 msgid "hier können Sie den Status des Eintrags setzen/ändern"
 msgstr "Here you can set/change the status of the entry"
 
@@ -3681,19 +3432,15 @@ msgid "Bei allen Buchungen werden "
 msgstr "Use on all bookings "
 
 #: tfmasterdata.cbversion.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie die zu bearbeitende Artikelversion auswÃ¤hlen."
 msgctxt "tfmasterdata.cbversion.hint"
 msgid "hier können Sie die zu bearbeitende Artikelversion auswählen."
 msgstr "here you can select the version of the article"
 
 #: tfmasterdata.dgtexts.columns[0].tcolumntitle.caption
 msgid "TEXTTYPE"
-msgstr "-"
+msgstr "Text type"
 
 #: tfmasterdata.ematchcode.hint
-#, fuzzy
-#| msgid "Hier kÃ¶nnen Sie einen Suchbegriff angeben, "
 msgctxt "TFMASTERDATA.EMATCHCODE.HINT"
 msgid "Hier können Sie einen Suchbegriff angeben, "
 msgstr "Here you can enter an search term, "
@@ -3706,7 +3453,7 @@ msgstr "Masterdata"
 #: tfmasterdata.gassemblys.columns[0].tcolumntitle.caption
 msgctxt "TFMASTERDATA.GASSEMBLYS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "ASSEMBLY"
-msgstr "-"
+msgstr "Assembly"
 
 #: tfmasterdata.gbtree.caption
 msgctxt "TFMASTERDATA.GBTREE.CAPTION"
@@ -3716,53 +3463,53 @@ msgstr "Tree"
 #: tfmasterdata.gparts.columns[0].tcolumntitle.caption
 msgctxt "TFMASTERDATA.GPARTS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "PART"
-msgstr "-"
+msgstr "Part"
 
 #: tfmasterdata.gprices.columns[0].tcolumntitle.caption
 msgid "PTYPE"
-msgstr "-"
+msgstr "Type"
 
 #: tfmasterdata.gprices.columns[1].tcolumntitle.caption
 msgctxt "TFMASTERDATA.GPRICES.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "PRICE"
-msgstr "-"
+msgstr "Price"
 
 #: tfmasterdata.gprices.columns[2].tcolumntitle.caption
 msgctxt "TFMASTERDATA.GPRICES.COLUMNS[2].TCOLUMNTITLE.CAPTION"
 msgid "CURRENCY"
-msgstr "-"
+msgstr "Currency"
 
 #: tfmasterdata.gprices.columns[3].tcolumntitle.caption
 msgctxt "TFMASTERDATA.GPRICES.COLUMNS[3].TCOLUMNTITLE.CAPTION"
 msgid "CUSTOMER"
-msgstr "-"
+msgstr "Customer"
 
 #: tfmasterdata.gprices.columns[4].tcolumntitle.caption
 msgctxt "TFMASTERDATA.GPRICES.COLUMNS[4].TCOLUMNTITLE.CAPTION"
 msgid "MINCOUNT"
-msgstr "-"
+msgstr "Minimal Count"
 
 #: tfmasterdata.gprices.columns[5].tcolumntitle.caption
 msgctxt "TFMASTERDATA.GPRICES.COLUMNS[5].TCOLUMNTITLE.CAPTION"
 msgid "MAXCOUNT"
-msgstr "-"
+msgstr "Maximal Count"
 
 #: tfmasterdata.gprices.columns[6].tcolumntitle.caption
 msgid "VALIDFROM"
-msgstr "-"
+msgstr "Valid from"
 
 #: tfmasterdata.gprices.columns[7].tcolumntitle.caption
 msgid "VALIDTO"
-msgstr "-"
+msgstr "Valid to"
 
 #: tfmasterdata.gproperties.columns[0].tcolumntitle.caption
 msgid "PROPERTY"
-msgstr "-"
+msgstr "Property"
 
 #: tfmasterdata.gproperties.columns[1].tcolumntitle.caption
 msgctxt "TFMASTERDATA.GPROPERTIES.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "VALUE"
-msgstr "-"
+msgstr "Value"
 
 #: tfmasterdata.gproperties.columns[2].tcolumntitle.caption
 msgid "UNIT"
@@ -3911,8 +3658,6 @@ msgid "Version"
 msgstr "Version"
 
 #: tfmasterdata.lwarrenty.caption
-#, fuzzy
-#| msgid "GewÃ¤hrleistung"
 msgctxt "tfmasterdata.lwarrenty.caption"
 msgid "Gewährleistung"
 msgstr "Warrenty"
@@ -3972,15 +3717,11 @@ msgid "kein Bild"
 msgstr "no Picture"
 
 #: tfmasterdata.sbaddimage.hint
-#, fuzzy
-#| msgid "Ã¶ffnet einen Dialog zum auswÃ¤hlen "
 msgctxt "TFMASTERDATA.SBADDIMAGE.HINT"
 msgid "öffnet einen Dialog zum auswählen "
 msgstr "shows an open-Dialog to select "
 
 #: tfmasterdata.sbclipboardtoimage.hint
-#, fuzzy
-#| msgid "fÃ¼gt ein Bild aus der Zwischenablage ein"
 msgctxt "TFMASTERDATA.SBCLIPBOARDTOIMAGE.HINT"
 msgid "fügt ein Bild aus der Zwischenablage ein"
 msgstr "pasts an picture from clipboard"
@@ -4026,8 +3767,6 @@ msgid "Verweise"
 msgstr "Links"
 
 #: tfmasterdata.tspiecelist.caption
-#, fuzzy
-#| msgid "StÃ¼ckliste"
 msgctxt "tfmasterdata.tspiecelist.caption"
 msgid "Stückliste"
 msgstr "Picelist"
@@ -4068,27 +3807,19 @@ msgid "Neu"
 msgstr "New"
 
 #: tfmessageoptions.bdelete.caption
-#, fuzzy
-#| msgid "lÃ¶schen"
 msgctxt "TFMESSAGEOPTIONS.BDELETE.CAPTION"
 msgid "löschen"
 msgstr "delete"
 
 #: tfmessages.acanswer.hint
-#, fuzzy
-#| msgid "erstellt eine Antwort zur gewÃ¤hlten Nachricht und Ã¶ffnet den nachrichteneditor"
 msgid "erstellt eine Antwort zur gewählten Nachricht und öffnet den nachrichteneditor"
 msgstr "Creates an answer to the selected Mail an opens the Messageeditor"
 
 #: tfmessages.acarchivemail.hint
-#, fuzzy
-#| msgid "verschiebt die gewÃ¤hlte(n) Nachricht(en) ins Archiv"
 msgid "verschiebt die gewählte(n) Nachricht(en) ins Archiv"
-msgstr "Moves the selectid Message to Archive"
+msgstr "moves the selected (n) message (s) to the archive"
 
 #: tfmessages.accopylink.caption
-#, fuzzy
-#| msgid "als VerknÃ¼pfung kopieren"
 msgctxt "TFMESSAGES.ACCOPYLINK.CAPTION"
 msgid "als Verknüpfung kopieren"
 msgstr "copy as Link"
@@ -4098,8 +3829,6 @@ msgid "geht zum Kontakt der Nachricht, oder erstellt einen neuen."
 msgstr "Opens the contact for this message, or creates an new one"
 
 #: tfmessages.acdeletemail.hint
-#, fuzzy
-#| msgid "lÃ¶scht die gewÃ¤hlt(en) Nachricht(en)"
 msgid "löscht die gewählt(en) Nachricht(en)"
 msgstr "deletes the selected message(s)"
 
@@ -4109,33 +3838,23 @@ msgid "acForward"
 msgstr "Forward"
 
 #: tfmessages.acforward.hint
-#, fuzzy
-#| msgid "erstellt eine weiterleitung der gewÃ¤hlten Nachricht und Ã¶ffnet den Nachrichteneditor"
 msgid "erstellt eine weiterleitung der gewählten Nachricht und öffnet den Nachrichteneditor"
 msgstr "creates an forwared message and opens the message editor"
 
 #: tfmessages.acmarkread.hint
-#, fuzzy
-#| msgid "setzt die gewÃ¤hlte Nachricht(en) als gelesen"
 msgid "setzt die gewählte Nachricht(en) als gelesen"
-msgstr "marks the selected message(s) as read"
+msgstr "marks the selected message (s) as read"
 
 #: tfmessages.acnew.hint
-#, fuzzy
-#| msgid "erstellt eine neue Nachricht und Ã¶ffnet den Nachrichteneditor"
 msgid "erstellt eine neue Nachricht und öffnet den Nachrichteneditor"
 msgstr "creates an new message and opens it in message editor"
 
 #: tfmessages.acopen.caption
-#, fuzzy
-#| msgid "Ãffnen"
 msgctxt "TFMESSAGES.ACOPEN.CAPTION"
 msgid "Öffnen"
 msgstr "open"
 
 #: tfmessages.acprintmail.hint
-#, fuzzy
-#| msgid "druckt die gewÃ¤hlte Nachricht"
 msgid "druckt die gewählte Nachricht"
 msgstr "prints the selected message"
 
@@ -4149,8 +3868,6 @@ msgid "Kontaktadresse kopieren"
 msgstr "copy contact adress"
 
 #: tfmimetypeedit.caption
-#, fuzzy
-#| msgid "Ãffnen mit..."
 msgid "Öffnen mit..."
 msgstr "open with..."
 
@@ -4163,14 +3880,10 @@ msgid "Mime Typen"
 msgstr "Mime Types"
 
 #: tfmimetypeedit.lopenwith.caption
-#, fuzzy
-#| msgid "Ãffnen mit (%s wird dabei durch den Dateinamen ersetzt)"
 msgid "Öffnen mit (%s wird dabei durch den Dateinamen ersetzt)"
 msgstr "open with (%s will be replaced by filename)"
 
 #: tfnewstorage.caption
-#, fuzzy
-#| msgid "Lager auswÃ¤hlen"
 msgid "Lager auswählen"
 msgstr "select storage"
 
@@ -4231,8 +3944,6 @@ msgid "Abbrechen"
 msgstr "Cancel"
 
 #: tfobjectframe.accancel.hint
-#, fuzzy
-#| msgid "verwirft alle Ãnderungen"
 msgctxt "TFOBJECTFRAME.ACCANCEL.HINT"
 msgid "verwirft alle Änderungen"
 msgstr "reject all changes"
@@ -4248,22 +3959,16 @@ msgid "Kopieren"
 msgstr "Copy"
 
 #: tfobjectframe.acdelete.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFOBJECTFRAME.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Delete"
 
 #: tfobjectframe.acpaste.caption
-#, fuzzy
-#| msgid "EinfÃ¼gen"
 msgctxt "TFOBJECTFRAME.ACPASTE.CAPTION"
 msgid "Einfügen"
 msgstr "Paste"
 
 #: tfobjectframe.acpasteimage.caption
-#, fuzzy
-#| msgid "aus Zwischenablage einfÃ¼gen"
 msgctxt "TFOBJECTFRAME.ACPASTEIMAGE.CAPTION"
 msgid "aus Zwischenablage einfügen"
 msgstr "paste from clipboard"
@@ -4284,8 +3989,6 @@ msgid "Speichern"
 msgstr "save"
 
 #: tfobjectframe.acsave.hint
-#, fuzzy
-#| msgid "Speichert alle Ãnderungen in die Datenbank"
 msgctxt "TFOBJECTFRAME.ACSAVE.HINT"
 msgid "Speichert alle Änderungen in die Datenbank"
 msgstr "Saves all changes to database"
@@ -4306,15 +4009,11 @@ msgid "acShowTreeDir"
 msgstr "-"
 
 #: tfobjectframe.cbstatus.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie den Status des Artikels Ã¤ndern um ihn in neue ZustÃ¤nde zu Ã¼berfÃ¼hren"
 msgctxt "TFOBJECTFRAME.CBSTATUS.HINT"
 msgid "hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen"
 msgstr "here you can change the Status of the artikle"
 
 #: tfobjectframe.ematchcode.hint
-#, fuzzy
-#| msgid "Hier kÃ¶nnen Sie einen Suchbegriff angeben, "
 msgctxt "TFOBJECTFRAME.EMATCHCODE.HINT"
 msgid "Hier können Sie einen Suchbegriff angeben, "
 msgstr "Here you can enter an search term, "
@@ -4380,8 +4079,6 @@ msgid "kein Bild"
 msgstr "no Picture"
 
 #: tfobjectframe.sbmenue.hint
-#, fuzzy
-#| msgid "zusÃ¤tzliche Optionen"
 msgctxt "TFOBJECTFRAME.SBMENUE.HINT"
 msgid "zusätzliche Optionen"
 msgstr "Additional options"
@@ -4397,8 +4094,6 @@ msgid "Abbrechen"
 msgstr "Abort"
 
 #: tfofficeoptions.closebutton.caption
-#, fuzzy
-#| msgid "&SchlieÃen"
 msgctxt "TFOFFICEOPTIONS.CLOSEBUTTON.CAPTION"
 msgid "&Schließen"
 msgstr "&Close"
@@ -4428,8 +4123,6 @@ msgid "Auftragstypen"
 msgstr "ordertypes"
 
 #: tfoptions.bdelete.caption
-#, fuzzy
-#| msgid "lÃ¶schen"
 msgctxt "TFOPTIONS.BDELETE.CAPTION"
 msgid "löschen"
 msgstr "delete"
@@ -4444,8 +4137,6 @@ msgid "Neu"
 msgstr "New"
 
 #: tfoptions.bresetpassword.caption
-#, fuzzy
-#| msgid "Passwort zurÃ¼cksetzen"
 msgid "Passwort zurücksetzen"
 msgstr "reset passwort"
 
@@ -4583,8 +4274,6 @@ msgid "Value added tax"
 msgstr "Value added tax"
 
 #: tfoptions.closebutton.caption
-#, fuzzy
-#| msgid "&SchlieÃen"
 msgctxt "TFOPTIONS.CLOSEBUTTON.CAPTION"
 msgid "&Schließen"
 msgstr "&Close"
@@ -4597,37 +4286,37 @@ msgstr "ID"
 #: tfoptions.dgcountrys.columns[1].tcolumntitle.caption
 msgctxt "TFOPTIONS.DGCOUNTRYS.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "NAME"
-msgstr "-"
+msgstr "Name"
 
 #: tfoptions.dgcurrency.columns[0].tcolumntitle.caption
 msgctxt "tfoptions.dgcurrency.columns[0].tcolumntitle.caption"
 msgid "SYMBOL"
-msgstr "-"
+msgstr "Symbol"
 
 #: tfoptions.dgcurrency.columns[1].tcolumntitle.caption
 msgctxt "TFOPTIONS.DGCURRENCY.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "NAME"
-msgstr "-"
+msgstr "Name"
 
 #: tfoptions.dgcurrency.columns[2].tcolumntitle.caption
 msgctxt "tfoptions.dgcurrency.columns[2].tcolumntitle.caption"
 msgid "MASK"
-msgstr "-"
+msgstr "Mask"
 
 #: tfoptions.dgcurrency.columns[3].tcolumntitle.caption
 msgctxt "tfoptions.dgcurrency.columns[3].tcolumntitle.caption"
 msgid "DECIMALPL"
-msgstr "-"
+msgstr "Decimal places"
 
 #: tfoptions.dgcurrency.columns[4].tcolumntitle.caption
 msgctxt "tfoptions.dgcurrency.columns[4].tcolumntitle.caption"
 msgid "FACTOR"
-msgstr "-"
+msgstr "Factor"
 
 #: tfoptions.dgcurrency.columns[5].tcolumntitle.caption
 msgctxt "tfoptions.dgcurrency.columns[5].tcolumntitle.caption"
 msgid "DEFAULTCUR"
-msgstr "-"
+msgstr "Default"
 
 #: tfoptions.dgdispatchtypes.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.DGDISPATCHTYPES.COLUMNS[0].TCOLUMNTITLE.CAPTION"
@@ -4637,17 +4326,17 @@ msgstr "ID"
 #: tfoptions.dgdispatchtypes.columns[1].tcolumntitle.caption
 msgctxt "tfoptions.dgdispatchtypes.columns[1].tcolumntitle.caption"
 msgid "COUNTRY"
-msgstr "-"
+msgstr "Country"
 
 #: tfoptions.dgdispatchtypes.columns[2].tcolumntitle.caption
 msgctxt "TFOPTIONS.DGDISPATCHTYPES.COLUMNS[2].TCOLUMNTITLE.CAPTION"
 msgid "NAME"
-msgstr "-"
+msgstr "Name"
 
 #: tfoptions.dgdispatchtypes.columns[3].tcolumntitle.caption
 msgctxt "tfoptions.dgdispatchtypes.columns[3].tcolumntitle.caption"
 msgid "OUTPUTDRV"
-msgstr "-"
+msgstr "Output Driver"
 
 #: tfoptions.foptions.caption
 msgctxt "TFOPTIONS.FOPTIONS.CAPTION"
@@ -4662,57 +4351,57 @@ msgstr "Visibility"
 #: tfoptions.glanguages.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.GLANGUAGES.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "LANGUAGE"
-msgstr "-"
+msgstr "Language"
 
 #: tfoptions.glanguages.columns[1].tcolumntitle.caption
 msgctxt "tfoptions.glanguages.columns[1].tcolumntitle.caption"
 msgid "ISO6391"
-msgstr "-"
+msgstr "ISO6391"
 
 #: tfoptions.glanguages.columns[2].tcolumntitle.caption
 msgctxt "tfoptions.glanguages.columns[2].tcolumntitle.caption"
 msgid "ISO6392"
-msgstr "-"
+msgstr "ISO6392"
 
 #: tfoptions.glanguages.columns[3].tcolumntitle.caption
 msgctxt "tfoptions.glanguages.columns[3].tcolumntitle.caption"
 msgid "DEFAULTLNG"
-msgstr "-"
+msgstr "Default"
 
 #: tfoptions.gnumbers.columns[0].tcolumntitle.caption
 msgctxt "tfoptions.gnumbers.columns[0].tcolumntitle.caption"
 msgid "TABLENAME"
-msgstr "-"
+msgstr "Name"
 
 #: tfoptions.gnumbers.columns[1].tcolumntitle.caption
 msgctxt "TFOPTIONS.GNUMBERS.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "TYPE"
-msgstr "-"
+msgstr "Type"
 
 #: tfoptions.gnumbers.columns[2].tcolumntitle.caption
 msgctxt "tfoptions.gnumbers.columns[2].tcolumntitle.caption"
 msgid "INCR"
-msgstr "-"
+msgstr "Increment by"
 
 #: tfoptions.gnumbers.columns[3].tcolumntitle.caption
 msgctxt "tfoptions.gnumbers.columns[3].tcolumntitle.caption"
 msgid "ACTUAL"
-msgstr "-"
+msgstr "Actual"
 
 #: tfoptions.gnumbers.columns[4].tcolumntitle.caption
 msgctxt "tfoptions.gnumbers.columns[4].tcolumntitle.caption"
 msgid "STOP"
-msgstr "-"
+msgstr "Stop"
 
 #: tfoptions.gorderstatus.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.GORDERSTATUS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "STATUS"
-msgstr "-"
+msgstr "Status"
 
 #: tfoptions.gorderstatus.columns[1].tcolumntitle.caption
 msgctxt "TFOPTIONS.GORDERSTATUS.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "STATUSNAME"
-msgstr "-"
+msgstr "Status Name"
 
 #: tfoptions.gpaymenttargets.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.GPAYMENTTARGETS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
@@ -4722,52 +4411,52 @@ msgstr "ID"
 #: tfoptions.gpaymenttargets.columns[1].tcolumntitle.caption
 msgctxt "TFOPTIONS.GPAYMENTTARGETS.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "NAME"
-msgstr "-"
+msgstr "Name"
 
 #: tfoptions.gpaymenttargets.columns[2].tcolumntitle.caption
 msgctxt "TFOPTIONS.GPAYMENTTARGETS.COLUMNS[2].TCOLUMNTITLE.CAPTION"
 msgid "TEXT"
-msgstr "-"
+msgstr "Text"
 
 #: tfoptions.gpaymenttargets.columns[3].tcolumntitle.caption
 msgctxt "tfoptions.gpaymenttargets.columns[3].tcolumntitle.caption"
 msgid "CASHDISC"
-msgstr "-"
+msgstr "Cash Discount"
 
 #: tfoptions.gpaymenttargets.columns[4].tcolumntitle.caption
 msgctxt "tfoptions.gpaymenttargets.columns[4].tcolumntitle.caption"
 msgid "CASHDISCD"
-msgstr "-"
+msgstr "Cash Discount"
 
 #: tfoptions.gpaymenttargets.columns[5].tcolumntitle.caption
 msgctxt "tfoptions.gpaymenttargets.columns[5].tcolumntitle.caption"
 msgid "DAYS"
-msgstr "-"
+msgstr "Days"
 
 #: tfoptions.gpaymenttargets.columns[6].tcolumntitle.caption
 msgctxt "tfoptions.gpaymenttargets.columns[6].tcolumntitle.caption"
 msgid "DEFAULTPT"
-msgstr "-"
+msgstr "Default"
 
 #: tfoptions.grepairproblem.columns[0].tcolumntitle.caption
 msgctxt "tfoptions.grepairproblem.columns[0].tcolumntitle.caption"
 msgid "PROBLEM"
-msgstr "-"
+msgstr "Problem"
 
 #: tfoptions.gstates.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.GSTATES.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "TYPE"
-msgstr "-"
+msgstr "Type"
 
 #: tfoptions.gstates.columns[1].tcolumntitle.caption
 msgctxt "TFOPTIONS.GSTATES.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "STATUS"
-msgstr "-"
+msgstr "Status"
 
 #: tfoptions.gstates.columns[2].tcolumntitle.caption
 msgctxt "TFOPTIONS.GSTATES.COLUMNS[2].TCOLUMNTITLE.CAPTION"
 msgid "STATUSNAME"
-msgstr "-"
+msgstr "Status Name"
 
 #: tfoptions.gstorage.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.GSTORAGE.COLUMNS[0].TCOLUMNTITLE.CAPTION"
@@ -4777,17 +4466,17 @@ msgstr "ID"
 #: tfoptions.gstorage.columns[1].tcolumntitle.caption
 msgctxt "TFOPTIONS.GSTORAGE.COLUMNS[1].TCOLUMNTITLE.CAPTION"
 msgid "NAME"
-msgstr "-"
+msgstr "Name"
 
 #: tfoptions.gstorage.columns[2].tcolumntitle.caption
 msgctxt "tfoptions.gstorage.columns[2].tcolumntitle.caption"
 msgid "DEFAULTST"
-msgstr "-"
+msgstr "Default Storage"
 
 #: tfoptions.gunits.columns[0].tcolumntitle.caption
 msgctxt "TFOPTIONS.GUNITS.COLUMNS[0].TCOLUMNTITLE.CAPTION"
 msgid "NAME"
-msgstr "-"
+msgstr "Name"
 
 #: tfoptions.guserfields.columns[0].tcolumntitle.caption
 msgid "TTABLE"
@@ -4859,8 +4548,6 @@ msgid "Schlussformel"
 msgstr "complimentary close"
 
 #: tfoptions.lcountries.caption
-#, fuzzy
-#| msgid "LÃ¤nder"
 msgctxt "TFOPTIONS.LCOUNTRIES.CAPTION"
 msgid "Länder"
 msgstr "Countrys"
@@ -4870,8 +4557,6 @@ msgid "lCRM"
 msgstr "-"
 
 #: tfoptions.lcurrency.caption
-#, fuzzy
-#| msgid "WÃ¤hrung"
 msgctxt "TFOPTIONS.LCURRENCY.CAPTION"
 msgid "Währung"
 msgstr "Currency"
@@ -4939,8 +4624,6 @@ msgid "e-Mail"
 msgstr "e-Mail"
 
 #: tfoptions.lmandantdetails.caption
-#, fuzzy
-#| msgid "Hier kÃ¶nnen Sie globale Variablen hinterlegtn die z.b. in den Reports verwendet werden kÃ¶nnen. "
 msgid "Hier können Sie globale Variablen hinterlegtn die z.b. in den Reports verwendet werden können. "
 msgstr "Here you can add variables that can be used in reports"
 
@@ -4968,8 +4651,6 @@ msgid "Nummernkreis"
 msgstr "Numberset"
 
 #: tfoptions.lonlyonnextstart.caption
-#, fuzzy
-#| msgid "Sie mÃ¼ssen die Anwendu neu starten und ein Datenbankupdate durchfÃ¼hren um die Ãnderungen zu Ã¼bernehmen"
 msgid "Sie müssen die Anwendu neu starten und ein Datenbankupdate durchführen um die Änderungen zu übernehmen"
 msgstr "You must restart the application to apply changes"
 
@@ -5076,27 +4757,19 @@ msgid "Mehrwertsteuer"
 msgstr "VAT"
 
 #: tfoptions.menuitem1.caption
-#, fuzzy
-#| msgid "Rechte Ã¤ndern"
 msgid "Rechte ändern"
 msgstr "change rights"
 
 #: tfoptions.menuitem2.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFOPTIONS.MENUITEM2.CAPTION"
 msgid "Löschen"
 msgstr "Delete"
 
 #: tfoptions.menuitem3.caption
-#, fuzzy
-#| msgid "Ãndern"
 msgid "Ändern"
 msgstr "change"
 
 #: tfoptions.mideleteright.caption
-#, fuzzy
-#| msgid "Recht entfernen / Ã¼bergeordnetes Recht benutzen"
 msgid "Recht entfernen / übergeordnetes Recht benutzen"
 msgstr "remove right/use higher right"
 
@@ -5160,8 +4833,6 @@ msgid "Lagereintrag im Vorgang"
 msgstr "storageentry in order"
 
 #: tfoptions.tscurrency.caption
-#, fuzzy
-#| msgid "WÃ¤hrungen"
 msgctxt "tfoptions.tscurrency.caption"
 msgid "Währungen"
 msgstr "Currencys"
@@ -5213,8 +4884,6 @@ msgid "Benutzer"
 msgstr "Users"
 
 #: tforderadditionalframe.cbstorage.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie ein Vorgabelager auswÃ¤hlen"
 msgctxt "TFORDERADDITIONALFRAME.CBSTORAGE.HINT"
 msgid "hier können Sie ein Vorgabelager auswählen"
 msgstr "here you can select an standard storage"
@@ -5243,8 +4912,6 @@ msgid "acDeleteAddress"
 msgstr "Delete adress"
 
 #: tforderaddress.acdeleteaddress.hint
-#, fuzzy
-#| msgid "Adresse lÃ¶schen"
 msgid "Adresse löschen"
 msgstr "delete adress"
 
@@ -5265,17 +4932,13 @@ msgid "acSerachAddress"
 msgstr "search Address"
 
 #: tforderaddress.acsearchaddress.hint
-#, fuzzy
-#| msgid "Adresse/Kontakt suchen und einfÃ¼gen"
 msgid "Adresse/Kontakt suchen und einfügen"
 msgstr "search for Adress/Contact"
 
 #: tforderdateframe.lapproved.caption
-#, fuzzy
-#| msgid "bestÃ¤tigt"
 msgctxt "TFORDERDATEFRAME.LAPPROVED.CAPTION"
 msgid "bestätigt"
-msgstr "affirmed"
+msgstr "confirmed"
 
 #: tforderdateframe.ldelivered.caption
 msgctxt "TFORDERDATEFRAME.LDELIVERED.CAPTION"
@@ -5307,8 +4970,6 @@ msgid "acAddAddress"
 msgstr "add Adress"
 
 #: tforderframe.acaddaddress.hint
-#, fuzzy
-#| msgid "neue Adresse einfÃ¼gen"
 msgid "neue Adresse einfügen"
 msgstr "Add new adress"
 
@@ -5318,11 +4979,9 @@ msgid "Abbrechen"
 msgstr "Abort"
 
 #: tforderframe.accancel.hint
-#, fuzzy
-#| msgid "verwirft alle Ãnderungen"
 msgctxt "TFORDERFRAME.ACCANCEL.HINT"
 msgid "verwirft alle Änderungen"
-msgstr "reject changes"
+msgstr "discard all changes"
 
 #: tforderframe.acclose.caption
 msgctxt "TFORDERFRAME.ACCLOSE.CAPTION"
@@ -5339,33 +4998,25 @@ msgid "In die Zwischenablage kopieren"
 msgstr "copy to clipboard"
 
 #: tforderframe.accreatetransfer.caption
-#, fuzzy
-#| msgid "Ãberweisung erstellen"
 msgctxt "TFORDERFRAME.ACCREATETRANSFER.CAPTION"
 msgid "Überweisung erstellen"
 msgstr "create bank transfer"
 
 #: tforderframe.acdelete.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFORDERFRAME.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Delete"
 
 #: tforderframe.acdelete.hint
-#, fuzzy
-#| msgid "lÃ¶scht den Vorgang"
 msgid "löscht den Vorgang"
 msgstr "deletes the Order"
 
 #: tforderframe.acexport.caption
-#, fuzzy
 msgctxt "tforderframe.acexport.caption"
 msgid "Exportieren"
 msgstr "Export"
 
 #: tforderframe.acimport.caption
-#, fuzzy
 msgctxt "tforderframe.acimport.caption"
 msgid "Importieren"
 msgstr "Import"
@@ -5379,17 +5030,13 @@ msgid "markiert den Vorgang als fertig"
 msgstr "makrs the Order as done"
 
 #: tforderframe.acpaste.caption
-#, fuzzy
-#| msgid "EinfÃ¼gen"
 msgctxt "TFORDERFRAME.ACPASTE.CAPTION"
 msgid "Einfügen"
 msgstr "insert"
 
 #: tforderframe.acpaste.hint
-#, fuzzy
-#| msgid "Aus der zwischenablage EinfÃ¼gen"
 msgid "Aus der zwischenablage Einfügen"
-msgstr "paste from clipboard"
+msgstr "Paste from Clipboard"
 
 #: tforderframe.acprint.caption
 msgctxt "TFORDERFRAME.ACPRINT.CAPTION"
@@ -5402,11 +5049,11 @@ msgstr "shows the Report list"
 
 #: tforderframe.acrestart.caption
 msgid "Duplizieren"
-msgstr ""
+msgstr "Duplicate"
 
 #: tforderframe.acrestart.hint
 msgid "Dupliziert den Auftrag"
-msgstr ""
+msgstr "Duplicates the order"
 
 #: tforderframe.acrights.caption
 msgctxt "TFORDERFRAME.ACRIGHTS.CAPTION"
@@ -5419,11 +5066,9 @@ msgid "Speichern"
 msgstr "save"
 
 #: tforderframe.acsave.hint
-#, fuzzy
-#| msgid "Speichert alle Ãnderungen in die Datenbank"
 msgctxt "TFORDERFRAME.ACSAVE.HINT"
 msgid "Speichert alle Änderungen in die Datenbank"
-msgstr "Saves all changes to database"
+msgstr "Saves all changes to the database"
 
 #: tforderframe.acstarttimeregistering.caption
 msgctxt "TFORDERFRAME.ACSTARTTIMEREGISTERING.CAPTION"
@@ -5435,8 +5080,6 @@ msgid "Zeiterfassung auf disen Eintrag beginnen"
 msgstr "start timeregistering with entry"
 
 #: tforderframe.cbstatus.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie den Status des vorgangs Ã¤ndern um ihn in neue ZustÃ¤nde zu Ã¼berfÃ¼hren"
 msgctxt "TFORDERFRAME.CBSTATUS.HINT"
 msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
 msgstr "here you can change the Status of the order"
@@ -5482,8 +5125,6 @@ msgid "Daten"
 msgstr "Data"
 
 #: tforderframe.lcurrency.caption
-#, fuzzy
-#| msgid "WÃ¤hrung"
 msgctxt "TFORDERFRAME.LCURRENCY.CAPTION"
 msgid "Währung"
 msgstr "Currency"
@@ -5540,14 +5181,11 @@ msgid "-"
 msgstr "-"
 
 #: tforderframe.menuitem9.caption
-#, fuzzy
 msgctxt "tforderframe.menuitem9.caption"
 msgid "-"
 msgstr "-"
 
 #: tforderframe.sbmenue.hint
-#, fuzzy
-#| msgid "zusÃ¤tzliche Optionen"
 msgctxt "TFORDERFRAME.SBMENUE.HINT"
 msgid "zusätzliche Optionen"
 msgstr "Additional options"
@@ -5572,23 +5210,17 @@ msgid "Notizen"
 msgstr "Notice"
 
 #: tforderoverviewframe.tvorderview.hint
-#, fuzzy
-#| msgid "Eine Ãbersicht Ã¼ber die Auftragsstruktur"
 msgctxt "TFORDEROVERVIEWFRAME.TVORDERVIEW.HINT"
 msgid "Eine Übersicht über die Auftragsstruktur"
 msgstr "An overview for the orderstructure"
 
 #: tforders.acaddressfromtree.hint
-#, fuzzy
-#| msgid "fÃ¼gt den im Baum markierten Kontakt ein"
 msgid "fügt den im Baum markierten Kontakt ein"
 msgstr "Adds the in tree selected contact"
 
 #: tforders.accheckstorage.caption
-#, fuzzy
-#| msgid "Lagerinhalte neu prÃ¼fen"
 msgid "Lagerinhalte neu prüfen"
-msgstr "test the storagecontents"
+msgstr "Check bearing contents"
 
 #: tforders.acclipboardtoimage.caption
 msgctxt "TFORDERS.ACCLIPBOARDTOIMAGE.CAPTION"
@@ -5606,35 +5238,25 @@ msgid "Kopieren"
 msgstr "Copy"
 
 #: tforders.accreatetransfer.caption
-#, fuzzy
-#| msgid "Ãberweisung erstellen"
 msgctxt "TFORDERS.ACCREATETRANSFER.CAPTION"
 msgid "Überweisung erstellen"
 msgstr "Create an transferal"
 
 #: tforders.acdeladdress.hint
-#, fuzzy
-#| msgid "lÃ¶scht den Kontakt aus der Liste"
 msgid "löscht den Kontakt aus der Liste"
 msgstr "deletes the contact from list"
 
 #: tforders.acdelete.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFORDERS.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Delete"
 
 #: tforders.acdelpos.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFORDERS.ACDELPOS.CAPTION"
 msgid "Löschen"
 msgstr "delete"
 
 #: tforders.acdelpos.hint
-#, fuzzy
-#| msgid "lÃ¶scht eine oder mehrer Position(en)"
 msgid "löscht eine oder mehrer Position(en)"
 msgstr "deletes one or more positions"
 
@@ -5644,8 +5266,6 @@ msgid "Zeiterfassung beginnen"
 msgstr "start timeregistering"
 
 #: tforders.acenterpositiontime.hint
-#, fuzzy
-#| msgid "startet die Zeiterfassung auf die gewÃ¤hlte Position"
 msgid "startet die Zeiterfassung auf die gewählte Position"
 msgstr "starts the timeregistering with the selected position"
 
@@ -5665,10 +5285,8 @@ msgid "acMenue1"
 msgstr "-"
 
 #: tforders.acgoto.hint
-#, fuzzy
-#| msgid "zeigt eine Liste mit MÃ¶glichkeiten zu anderen EintrÃ¤gen zu wechseln"
 msgid "zeigt eine Liste mit Möglichkeiten zu anderen Einträgen zu wechseln"
-msgstr "shows a list with options to goto other entrys"
+msgstr "displays a list of options to switch to other entries"
 
 #: tforders.acgotocustomer.caption
 msgctxt "tforders.acgotocustomer.caption"
@@ -5723,8 +5341,6 @@ msgid "legt einen neuen Vorgang an"
 msgstr "creates an new ordr"
 
 #: tforders.acnewaddress.hint
-#, fuzzy
-#| msgid "legt einen neuen Kontakt an und Ã¶ffnet den Kontakteditor"
 msgid "legt einen neuen Kontakt an und öffnet den Kontakteditor"
 msgstr "creates an new contact and opens the contact editor"
 
@@ -5802,15 +5418,11 @@ msgid "erstellt ein neues Tab"
 msgstr "creates an new tab"
 
 #: tforders.bdelform.hint
-#, fuzzy
-#| msgid "lÃ¶scht das aktuelle Tab"
 msgctxt "TFORDERS.BDELFORM.HINT"
 msgid "löscht das aktuelle Tab"
 msgstr "deletes the actual tab"
 
 #: tforders.bdelform1.hint
-#, fuzzy
-#| msgid "lÃ¶scht das aktuelle Tab"
 msgctxt "TFORDERS.BDELFORM1.HINT"
 msgid "löscht das aktuelle Tab"
 msgstr "deletes the actual tab"
@@ -5821,29 +5433,21 @@ msgid "zeigt/versteckt die Positionsdetails"
 msgstr "shows/hides the positiondetails"
 
 #: tforders.beditform.hint
-#, fuzzy
-#| msgid "hiermit kÃ¶nnen Sie den Tabdesigner aufrufen,"
 msgctxt "TFORDERS.BEDITFORM.HINT"
 msgid "hiermit können Sie den Tabdesigner aufrufen,"
 msgstr "here you can start the tab designer"
 
 #: tforders.beditform1.hint
-#, fuzzy
-#| msgid "hiermit kÃ¶nnen Sie den Tabdesigner aufrufen,"
 msgctxt "TFORDERS.BEDITFORM1.HINT"
 msgid "hiermit können Sie den Tabdesigner aufrufen,"
 msgstr "here you can start the tab designer"
 
 #: tforders.cbstatus.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie den Status des vorgangs Ã¤ndern um ihn in neue ZustÃ¤nde zu Ã¼berfÃ¼hren"
 msgctxt "tforders.cbstatus.hint"
 msgid "hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen"
 msgstr "here you can change the Status of the order"
 
 #: tforders.cbstorage.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie ein Vorgabelager auswÃ¤hlen"
 msgctxt "tforders.cbstorage.hint"
 msgid "hier können Sie ein Vorgabelager auswählen"
 msgstr "here you can select an standard storage"
@@ -5909,8 +5513,6 @@ msgid "Die automatisch vergebene eindeutige Vorgangsnummer"
 msgstr "the automatically created ordernumber"
 
 #: tforders.ecommission.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie eine Auftragskommision hinterlegen"
 msgid "hier können Sie eine Auftragskommision hinterlegen"
 msgstr "here you can set an commission for the order"
 
@@ -5949,8 +5551,6 @@ msgid "CITY"
 msgstr "-"
 
 #: tforders.gadresses.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie Liefer/Rechnungsadressen hinterlegen"
 msgid "hier können Sie Liefer/Rechnungsadressen hinterlegen"
 msgstr "here you can add delivery/invoice adresses"
 
@@ -6070,8 +5670,6 @@ msgid "+MwSt"
 msgstr "+VAT"
 
 #: tforders.lapproved.caption
-#, fuzzy
-#| msgid "bestÃ¤tigt"
 msgctxt "tforders.lapproved.caption"
 msgid "bestätigt"
 msgstr "confirmed"
@@ -6091,8 +5689,6 @@ msgid "Allgemeinpreis"
 msgstr "common price"
 
 #: tforders.lcurrency.caption
-#, fuzzy
-#| msgid "WÃ¤hrung"
 msgctxt "TFORDERS.LCURRENCY.CAPTION"
 msgid "Währung"
 msgstr "Currency"
@@ -6466,22 +6062,20 @@ msgid "Vorgang nach buchen änderbar"
 msgstr "Order is changeable after booking"
 
 #: tfordertypeoptions.checkbox2.hint
-#, fuzzy
-#| msgid "StandardmÃ¤Ãig sind VorgÃ¤nge nach dme Buchen nicht mehr bearbeitbar"
 msgid "Standardmäßig sind Vorgänge nach dme Buchen nicht mehr bearbeitbar"
-msgstr "In standard orders are not changeable after booking in some cases that could make sence"
+msgstr "By default Orders are not changeable after booking"
 
 #: tfordertypeoptions.checkbox3.caption
 msgid "in Auftrag sichtbar"
-msgstr ""
+msgstr "visible in order"
 
 #: tfordertypeoptions.checkbox4.caption
 msgid "in Produktion sichtbar"
-msgstr ""
+msgstr "visible in production"
 
 #: tfordertypeoptions.checkbox5.caption
 msgid "Kopie anlegen"
-msgstr ""
+msgstr "Create a copy"
 
 #: tfordertypeoptions.dividerbevel1.caption
 msgid "Buchen"
@@ -6552,8 +6146,6 @@ msgid "Typ"
 msgstr "Typ"
 
 #: tfordertypeoptions.lvimages.hint
-#, fuzzy
-#| msgid "Hier kÃ¶nnen Sie ein Bild fÃ¼r den Vorgangstypen einstellen welches in den Listen angezeigt werden kann"
 msgid "Hier können Sie ein Bild für den Vorgangstypen einstellen welches in den Listen angezeigt werden kann"
 msgstr "Here you can select an image for the order type thats shown in lists"
 
@@ -6617,8 +6209,6 @@ msgid "Advanced Password Generator"
 msgstr "Password generator"
 
 #: tform1.checkbox1.caption
-#, fuzzy
-#| msgid "feste GrÃ¶Ãe"
 msgctxt "tform1.checkbox1.caption"
 msgid "feste Größe"
 msgstr "fixed size"
@@ -6679,15 +6269,11 @@ msgid "At least 8 character recommended!"
 msgstr "At least 8 character recommended!"
 
 #: tform1.label1.caption
-#, fuzzy
-#| msgid "Min. GrÃ¶Ãe:"
 msgctxt "tform1.label1.caption"
 msgid "Min. Größe:"
 msgstr "Min. Size:"
 
 #: tform1.label2.caption
-#, fuzzy
-#| msgid "Max. GrÃ¶Ãe:"
 msgctxt "tform1.label2.caption"
 msgid "Max. Größe:"
 msgstr "Max. Size:"
@@ -6836,8 +6422,6 @@ msgid "Neu"
 msgstr "New"
 
 #: tfpersonaloptions.bdelete.caption
-#, fuzzy
-#| msgid "lÃ¶schen"
 msgctxt "TFPERSONALOPTIONS.BDELETE.CAPTION"
 msgid "löschen"
 msgstr "delete"
@@ -6856,8 +6440,6 @@ msgid "beim beginnen eines neuen"
 msgstr "to start an new"
 
 #: tfpersonaloptions.closebutton.caption
-#, fuzzy
-#| msgid "&SchlieÃen"
 msgctxt "TFPERSONALOPTIONS.CLOSEBUTTON.CAPTION"
 msgid "&Schließen"
 msgstr "&Close"
@@ -6896,8 +6478,6 @@ msgid "erlaubte Telefonleitungen"
 msgstr "allowed Telephonelines"
 
 #: tfpersonaloptions.lcheckformailevery.caption
-#, fuzzy
-#| msgid "alle x Minuten nach Narichten prÃ¼fen"
 msgid "alle x Minuten nach Narichten prüfen"
 msgstr "check exery x minute for Messages"
 
@@ -6922,20 +6502,14 @@ msgid "&Ok"
 msgstr "&Ok"
 
 #: tfpersonaloptions.rbdeletedod522022.caption
-#, fuzzy
-#| msgid "nach DoD522022 methode lÃ¶schen (7x Ã¼berschreiben)"
 msgid "nach DoD522022 methode löschen (7x überschreiben)"
 msgstr "delete with DoD522022 method (override 7 times)"
 
 #: tfpersonaloptions.rbdeletenormal.caption
-#, fuzzy
-#| msgid "normal lÃ¶schen"
 msgid "normal löschen"
 msgstr "delete normally"
 
 #: tfpersonaloptions.rbdeletesecure.caption
-#, fuzzy
-#| msgid "Sicher lÃ¶schen (35x Ã¼berschreiben)"
 msgid "Sicher löschen (35x überschreiben)"
 msgstr "delete secure (override 35 times)"
 
@@ -6983,8 +6557,6 @@ msgid "erstellt eine Überweisung an die gewählte Bankverbindung / den Kontakt"
 msgstr "cerates an bank transfer to the selected account of this contact"
 
 #: tfpersonfinance.btransfer1.hint
-#, fuzzy
-#| msgid "prÃ¼ft die Bankverbindung auf GÃ¼ltigkeit"
 msgid "prüft die Bankverbindung auf Gültigkeit"
 msgstr "check is the Account is valid"
 
@@ -7041,8 +6613,6 @@ msgid "INSTITUTE"
 msgstr "-"
 
 #: tfpersonfinance.gbanking.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie Bankverbindungen des Kontaktes verwalten"
 msgctxt "TFPERSONFINANCE.GBANKING.HINT"
 msgid "hier können Sie Bankverbindungen des Kontaktes verwalten"
 msgstr "here you can manage the bank accounts of the contact"
@@ -7053,8 +6623,6 @@ msgid "Bankverbindungen"
 msgstr "Bank accounts"
 
 #: tfpersonfinance.lcurrency.caption
-#, fuzzy
-#| msgid "WÃ¤hrung"
 msgctxt "TFPERSONFINANCE.LCURRENCY.CAPTION"
 msgid "Währung"
 msgstr "Currency"
@@ -7109,8 +6677,6 @@ msgid "Kopieren"
 msgstr "Copy"
 
 #: tfpersonframe.acdelete.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFPERSONFRAME.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Delete"
@@ -7118,12 +6684,12 @@ msgstr "Delete"
 #: tfpersonframe.acdeletethumb.caption
 msgctxt "tfpersonframe.acdeletethumb.caption"
 msgid "acDeleteThumb"
-msgstr ""
+msgstr "Delete Thumbnail"
 
 #: tfpersonframe.acdeletethumb.hint
 msgctxt "tfpersonframe.acdeletethumb.hint"
 msgid "Thumbnail entfernen"
-msgstr ""
+msgstr "Remove thumbnail"
 
 #: tfpersonframe.acexport.caption
 msgctxt "TFPERSONFRAME.ACEXPORT.CAPTION"
@@ -7140,14 +6706,10 @@ msgid "Neuen Auftrag erstellen"
 msgstr "create Order"
 
 #: tfpersonframe.acneworder.hint
-#, fuzzy
-#| msgid "erstellt einen neuen Auftrag fÃ¼r diese Person"
 msgid "erstellt einen neuen Auftrag für diese Person"
 msgstr "creates an new order for this contact"
 
 #: tfpersonframe.acpaste.caption
-#, fuzzy
-#| msgid "EinfÃ¼gen"
 msgctxt "TFPERSONFRAME.ACPASTE.CAPTION"
 msgid "Einfügen"
 msgstr "insert"
@@ -7227,8 +6789,6 @@ msgid "wählen Sie hier die Sprache des Kontaktes"
 msgstr "select the language of the contact"
 
 #: tfpersonframe.cbstatus.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie den Status des Kontaktes Ã¤ndern um ihn in neue ZustÃ¤nde zu Ã¼berfÃ¼hren"
 msgctxt "TFPERSONFRAME.CBSTATUS.HINT"
 msgid "hier können Sie den Status des Kontaktes ändern um ihn in neue Zustände zu überführen"
 msgstr "here you can change the Status of the contact"
@@ -7244,8 +6804,6 @@ msgid "setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist"
 msgstr "check these field if the contact is an distributor"
 
 #: tfpersonframe.ematchcode.hint
-#, fuzzy
-#| msgid "Hier kÃ¶nnen Sie einen Suchbegriff angeben, "
 msgctxt "TFPERSONFRAME.EMATCHCODE.HINT"
 msgid "Hier können Sie einen Suchbegriff angeben, "
 msgstr "here you can add an search term"
@@ -7352,8 +6910,6 @@ msgid "erlaubte Telefonleitungen"
 msgstr "alloed Telephonelines"
 
 #: tfprocesslist.bclose.caption
-#, fuzzy
-#| msgid "&SchlieÃen"
 msgctxt "TFPROCESSLIST.BCLOSE.CAPTION"
 msgid "&Schließen"
 msgstr "&Close"
@@ -7373,8 +6929,6 @@ msgid "es sind noch Prozesse aktiv (gestartete Prozesse aus der Dokumentenverwal
 msgstr "there are processes active (startet Documents from Documentmanagement) close these before you close promet."
 
 #: tfproject.acdelete.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFPROJECT.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Delete"
@@ -7466,8 +7020,6 @@ msgid "Paswort Generator"
 msgstr "Paswort Generator"
 
 #: tfpwgenerate.cbfixedsize.caption
-#, fuzzy
-#| msgid "feste GrÃ¶Ãe"
 msgctxt "TFPWGENERATE.CBFIXEDSIZE.CAPTION"
 msgid "feste Größe"
 msgstr "fixed size"
@@ -7528,15 +7080,11 @@ msgid "At least 8 character recommended!"
 msgstr "At least 8 character recommended!"
 
 #: tfpwgenerate.label1.caption
-#, fuzzy
-#| msgid "Min. GrÃ¶Ãe:"
 msgctxt "TFPWGENERATE.LABEL1.CAPTION"
 msgid "Min. Größe:"
 msgstr "Min. Size:"
 
 #: tfpwgenerate.label2.caption
-#, fuzzy
-#| msgid "Max. GrÃ¶Ãe:"
 msgctxt "TFPWGENERATE.LABEL2.CAPTION"
 msgid "Max. Größe:"
 msgstr "Max. Size:"
@@ -7547,8 +7095,6 @@ msgid "erstellt ein neues Tab"
 msgstr "cretes an new Tab"
 
 #: tframe1.bdelform1.hint
-#, fuzzy
-#| msgid "lÃ¶scht das aktuelle Tab"
 msgctxt "TFRAME1.BDELFORM1.HINT"
 msgid "löscht das aktuelle Tab"
 msgstr "deletes the actual Tab"
@@ -7559,8 +7105,6 @@ msgid "zeigt/versteckt die Positionsdetails"
 msgstr "shows/hides the Position details"
 
 #: tframe1.beditform1.hint
-#, fuzzy
-#| msgid "hiermit kÃ¶nnen Sie den Tabdesigner aufrufen,"
 msgctxt "TFRAME1.BEDITFORM1.HINT"
 msgid "hiermit können Sie den Tabdesigner aufrufen,"
 msgstr "here you can start the Tabeditor"
@@ -7798,14 +7342,10 @@ msgid "zu Revision auschecken"
 msgstr "checkout to Revision"
 
 #: tfrdocumentmanagement.accopyaslink.caption
-#, fuzzy
-#| msgid "Als VerknÃ¼pfung kopieren"
 msgid "Als Verknüpfung kopieren"
 msgstr "copy as Link"
 
 #: tfrdocumentmanagement.accopylink.caption
-#, fuzzy
-#| msgid "als VerknÃ¼pfung kopieren"
 msgctxt "TFRDOCUMENTMANAGEMENT.ACCOPYLINK.CAPTION"
 msgid "als Verknüpfung kopieren"
 msgstr "copy as Link"
@@ -7836,14 +7376,10 @@ msgid "Datei bearbeiten"
 msgstr "edit File"
 
 #: tfrdocumentmanagement.acexecute.caption
-#, fuzzy
-#| msgid "AusfÃ¼hren"
 msgid "Ausführen"
 msgstr "Execute"
 
 #: tfrdocumentmanagement.acexecute.hint
-#, fuzzy
-#| msgid "fÃ¼hrt die Dokumentenaktion aus "
 msgid "führt die Dokumentenaktion aus "
 msgstr "executes the documentaction"
 
@@ -7901,8 +7437,6 @@ msgid "Dokumente hinzufügen"
 msgstr "Add documents"
 
 #: tfrdocumentmanagement.bdocuremove.hint
-#, fuzzy
-#| msgid "lÃ¶scht das gewÃ¤hlte Dokument"
 msgid "löscht das gewählte Dokument"
 msgstr "deletes the selected document"
 
@@ -8124,8 +7658,6 @@ msgid "Kopieren"
 msgstr "Copy"
 
 #: tfscriptframe.acdelete.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFSCRIPTFRAME.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Delete"
@@ -8173,11 +7705,11 @@ msgstr "create from screenshot"
 
 #: tfscriptframe.acsetactiveobject.caption
 msgid "ActualObject setzen"
-msgstr ""
+msgstr "set Actual Object"
 
 #: tfscriptframe.acsetactiveobject.hint
 msgid "Ermöglicht es die Variable ActiveObject im Script"
-msgstr ""
+msgstr "Allows the Active Object variable in the script"
 
 #: tfscriptframe.acsettreedir.caption
 msgctxt "TFSCRIPTFRAME.ACSETTREEDIR.CAPTION"
@@ -8200,15 +7732,11 @@ msgid "markiert diesen Artikel als aktiv"
 msgstr "makes the article as active"
 
 #: tfscriptframe.cbstatus.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie den Status des Artikels Ã¤ndern um ihn in neue ZustÃ¤nde zu Ã¼berfÃ¼hren"
 msgctxt "TFSCRIPTFRAME.CBSTATUS.HINT"
 msgid "hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen"
 msgstr "here you can change the Status of the artikle"
 
 #: tfscriptframe.cbversion.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie die zu bearbeitende Artikelversion auswÃ¤hlen."
 msgctxt "TFSCRIPTFRAME.CBVERSION.HINT"
 msgid "hier können Sie die zu bearbeitende Artikelversion auswählen."
 msgstr "here you can select the version of the article"
@@ -8295,8 +7823,6 @@ msgid "Suche wärend des Tippens"
 msgstr "Search while typing"
 
 #: tfsearch.cbcontains.caption
-#, fuzzy
-#| msgid "enthÃ¤lt"
 msgid "enthält"
 msgstr "contains"
 
@@ -8364,15 +7890,11 @@ msgid "bucht den Report"
 msgstr "books the report"
 
 #: tfselectreport.bclose.caption
-#, fuzzy
-#| msgid "&SchlieÃen"
 msgctxt "TFSELECTREPORT.BCLOSE.CAPTION"
 msgid "&Schließen"
 msgstr "&Close"
 
 #: tfselectreport.bclose.hint
-#, fuzzy
-#| msgid "schlieÃt das Fenster"
 msgid "schließt das Fenster"
 msgstr "closes the window"
 
@@ -8391,10 +7913,8 @@ msgid "Text bearbeiten"
 msgstr "edit text"
 
 #: tfselectreport.bedittext.hint
-#, fuzzy
-#| msgid "hiermit kÃ¶nnen Sie den Text der zusÃ¤tzlichen Ausgabe (e-Mail, SMS) bearbeiten."
 msgid "hiermit können Sie den Text der zusätzlichen Ausgabe (e-Mail, SMS) bearbeiten."
-msgstr "her you can edit the text of Message of additional output"
+msgstr "her you can edit the text of Message of additional output (e-Mail,SMS)"
 
 #: tfselectreport.bpreview.caption
 msgid "Vorschau"
@@ -8440,8 +7960,6 @@ msgid "Stellen Sie hier ein, wie viele Kopien des Reports gedruckt werden sollen
 msgstr "Here you can set how many copys of the report will be printed"
 
 #: tfselectreport.epages.hint
-#, fuzzy
-#| msgid "hier kÃ¶nnen Sie festlegen, welche Seiten gedruckt werden sollen,"
 msgid "hier können Sie festlegen, welche Seiten gedruckt werden sollen,"
 msgstr "here you can set wich pages of the report are printed"
 
@@ -8490,8 +8008,6 @@ msgid "Abbrechen"
 msgstr "Abort"
 
 #: tfselecttemplate.bdelete.caption
-#, fuzzy
-#| msgid "lÃ¶schen"
 msgctxt "TFSELECTTEMPLATE.BDELETE.CAPTION"
 msgid "löschen"
 msgstr "delete"
@@ -8628,7 +8144,7 @@ msgstr "-"
 
 #: tfsystemoptions.gunits1.columns[1].title.caption
 msgid "TYP"
-msgstr ""
+msgstr "Type"
 
 #: tfsystemoptions.gvat.columns[0].title.caption
 msgctxt "TFSYSTEMOPTIONS.GVAT.COLUMNS[0].TITLE.CAPTION"
@@ -8667,7 +8183,7 @@ msgstr "Quantityunits"
 
 #: tfsystemoptions.lunits1.caption
 msgid "Texttypen"
-msgstr ""
+msgstr "Text types"
 
 #: tfsystemoptions.lvat.caption
 msgctxt "TFSYSTEMOPTIONS.LVAT.CAPTION"
@@ -8683,8 +8199,6 @@ msgid "Zeiten automatisch erfassen"
 msgstr "Collect times automatically"
 
 #: tftasks.acdelete.caption
-#, fuzzy
-#| msgid "LÃ¶schen"
 msgctxt "TFTASKS.ACDELETE.CAPTION"
 msgid "Löschen"
 msgstr "Delete"
@@ -9146,8 +8660,6 @@ msgid "cbExisting"
 msgstr "-"
 
 #: tfwizardnewaccount.checkbox1.caption
-#, fuzzy
-#| msgid "Zugang fÃ¼r bereits vorhandenes Konto"
 msgid "Zugang für bereits vorhandenes Konto"
 msgstr "Credencials for existing Account"
 
@@ -9225,8 +8737,6 @@ msgid "Chipkaten HBCI Konto"
 msgstr "Chipcard HBCI Account"
 
 #: tfwizardnewaccount.rbmanualaccount.caption
-#, fuzzy
-#| msgid "manuell gefÃ¼hrtes Konto"
 msgctxt "TFWIZARDNEWACCOUNT.RBMANUALACCOUNT.CAPTION"
 msgid "manuell geführtes Konto"
 msgstr "manual managed Account"
@@ -9315,8 +8825,6 @@ msgid "bPrev0"
 msgstr "-"
 
 #: tfwizardnewmandant.cbexistingdatabase.caption
-#, fuzzy
-#| msgid "exitierende Datenbank (keine Vorgabewerte einfÃ¼gen)"
 msgid "exitierende Datenbank (keine Vorgabewerte einfügen)"
 msgstr "existing Database (dont import Standarddata)"
 
@@ -9349,8 +8857,6 @@ msgid "Neuen Mandanten erstellen"
 msgstr "Create new mandant"
 
 #: tfwizardnewmandant.lcreatingdatabase.caption
-#, fuzzy
-#| msgid "erstelle Tabellen (wenn nÃ¶tig)"
 msgid "erstelle Tabellen (wenn nötig)"
 msgstr "create Tables (if nessesary)"
 
@@ -9379,8 +8885,6 @@ msgid "Mit diesem Assistenten können Sie einen neuen Mandanten erstellen, wähl
 msgstr "With this wizard, you can create a new client, select this in the first step, a language for the client, and enter among them a name. You must also select here whether the database should be filled with default data or not."
 
 #: tfwizardnewmandant.ldescription1.caption
-#, fuzzy
-#| msgid "WÃ¤hlen Sie hier ein Profil mit Vorgabewerten aus"
 msgid "Wählen Sie hier ein Profil mit Vorgabewerten aus"
 msgstr "Here you can select an profile with importdata"
 
@@ -9568,8 +9072,6 @@ msgid "Eintragsnummer ändern"
 msgstr "Change entry number"
 
 #: uarticle.strnosupplierselected
-#, fuzzy
-#| msgid "wÃ¤hlen Sie zuerst einen Lieferanten !"
 msgid "wählen Sie zuerst einen Lieferanten !"
 msgstr "first select a supplier!"
 
@@ -9708,8 +9210,6 @@ msgid "Kategorie"
 msgstr "Category"
 
 #: ubasedatamodule.strchangedby
-#, fuzzy
-#| msgid "geÃ¤ndert von"
 msgid "geändert von"
 msgstr "edited by"
 
@@ -9720,8 +9220,6 @@ msgid "geändert am"
 msgstr "changed on"
 
 #: ubasedatamodule.strchecked
-#, fuzzy
-#| msgid "geprÃ¼ft"
 msgctxt "ubasedatamodule.strchecked"
 msgid "geprüft"
 msgstr "checked"
@@ -9754,8 +9252,6 @@ msgid "erstellt am"
 msgstr "created at"
 
 #: ubasedatamodule.strcurrency
-#, fuzzy
-#| msgid "WÃ¤hrung"
 msgctxt "ubasedatamodule.strcurrency"
 msgid "Währung"
 msgstr "Currency"
@@ -9776,8 +9272,6 @@ msgid "Datum"
 msgstr "Date"
 
 #: ubasedatamodule.strdeletedmessages
-#, fuzzy
-#| msgid "gelÃ¶schte Narichten"
 msgid "gelöschte Narichten"
 msgstr "deleted Messages"
 
@@ -9852,8 +9346,6 @@ msgid "Sprache"
 msgstr "Language"
 
 #: ubasedatamodule.strlink
-#, fuzzy
-#| msgid "VerknÃ¼pfung"
 msgid "Verknüpfung"
 msgstr "Link"
 
@@ -10199,11 +9691,9 @@ msgid "BIR  Geburstag"
 msgstr "BIR birthday"
 
 #: ucustomer.scbusinessmail
-#, fuzzy
-#| msgid "MLB  e-Mail GeschÃ¤ftlich"
 msgctxt "ucustomer.scbusinessmail"
 msgid "MLB  e-Mail Geschäftlich"
-msgstr "MLB e-mail Business"
+msgstr "MLB Business email"
 
 #: ucustomer.scbusinessmobilephone
 #, fuzzy
@@ -10306,8 +9796,6 @@ msgid "Buchung abgebrochen"
 msgstr "Canceled booking"
 
 #: udata.strinvalidlinkid
-#, fuzzy
-#| msgid "UngÃ¼ltige verknÃ¼pfung"
 msgid "Ungültige verknüpfung"
 msgstr "Invalid shortcut"
 
@@ -10495,14 +9983,10 @@ msgid "Encoding Message..."
 msgstr "Encoding Message..."
 
 #: ueditmail.strfailedtoaddreceiveradress
-#, fuzzy
-#| msgid "Konnte EmpfÃ¤ngeradresse nicht hinzufÃ¼gen (mÃ¶glicherweise ist diese ungÃ¼ltig) !"
 msgid "Konnte Empfängeradresse nicht hinzufügen (möglicherweise ist diese ungültig) !"
 msgstr "Could not add recipient address (possibly this is invalid)!"
 
 #: ueditmail.strfailedtoaddsenderaddress
-#, fuzzy
-#| msgid "Konnte Absenderadresse nicht hinzufÃ¼gen (mÃ¶glicherweise ist diese ungÃ¼ltig) !"
 msgid "Konnte Absenderadresse nicht hinzufügen (möglicherweise ist diese ungültig) !"
 msgstr "Could not add sender address (possibly this is invalid)!"
 
@@ -10524,8 +10008,6 @@ msgid "Das Betreff Feld in Ihrer e-Mail sollte nicht leer sein, das wird von vie
 msgstr "The Subject field in your e-mail should not be empty, which is regarded by many spam filters as spam."
 
 #: ueditmail.strrealleavemail
-#, fuzzy
-#| msgid "MÃ¶chten Sie die Nachricht wirklich verwerfen ?"
 msgid "Möchten Sie die Nachricht wirklich verwerfen ?"
 msgstr "Do you really want to discard the message?"
 
@@ -10554,8 +10036,6 @@ msgstr ""
 "was terminated today, do you have continued to work in meantime?\n"
 
 #: uentertime.strinvalidtimeformat
-#, fuzzy
-#| msgid "UngÃ¼ltiges Zeitformat !"
 msgid "Ungültiges Zeitformat !"
 msgstr "Invalid time format!"
 
@@ -10580,8 +10060,6 @@ msgid "Das Ereignis liegt in der Vergangenheit"
 msgstr "The event is in the past"
 
 #: ufilterframe.strenteranfiltername
-#, fuzzy
-#| msgid "geben Sie einen Namen fÃ¼r den neuen Filter an"
 msgid "geben Sie einen Namen für den neuen Filter an"
 msgstr "enter a name for the new filter"
 
@@ -10595,8 +10073,6 @@ msgid "*"
 msgstr "*"
 
 #: uimpclipboardcontact.strinsertnewcontact
-#, fuzzy
-#| msgid "neuen Kontakt einfÃ¼gen ?"
 msgid "neuen Kontakt einfügen ?"
 msgstr "Insert a new contact?"
 
@@ -10636,19 +10112,15 @@ msgid "Kategorie"
 msgstr "Category"
 
 #: umain.strcurrencies
-#, fuzzy
-#| msgid "WÃ¤hrungen"
 msgctxt "umain.strcurrencies"
 msgid "Währungen"
 msgstr "Currencies"
 
 #: umain.strdatabasesettings
 msgid "Datenbankeinstellungen"
-msgstr ""
+msgstr "Database Settings"
 
 #: umain.strdeletingmessages
-#, fuzzy
-#| msgid "lÃ¶sche Nachrichten, noch %d Nachichten"
 msgid "lösche Nachrichten, noch %d Nachichten"
 msgstr "delete messages,% d Nachichten"
 
@@ -10936,10 +10408,8 @@ msgid "repariert"
 msgstr "repaired"
 
 #: uorders.strstatuschanged
-#, fuzzy
-#| msgid "Status geÃ¤ndert zu %s"
 msgid "Status geändert zu %s"
-msgstr "Status changed to %s"
+msgstr "Changed status to%s"
 
 #: uorders.strwaitingforcustomer
 msgctxt "uorders.strwaitingforcustomer"
@@ -10947,14 +10417,10 @@ msgid "wartet auf Kunden"
 msgstr "waiting for customers"
 
 #: upersonfinance.stribannotvalid
-#, fuzzy
-#| msgid "Die IBAN Nummer ist UNGÃLTIG !"
 msgid "Die IBAN Nummer ist UNGÜLTIG !"
 msgstr "The IBAN number is INVALID!"
 
 #: upersonfinance.stribanvalid
-#, fuzzy
-#| msgid "Die IBAN Nummer scheint GÃLTIG zu sein oder keine IBAN Nummer !"
 msgid "Die IBAN Nummer scheint GÜLTIG zu sein oder keine IBAN Nummer !"
 msgstr "The IBAN number seems to be VALID or no IBAN number!"
 
@@ -10963,22 +10429,16 @@ msgid "BIR  Geburtstag"
 msgstr "BIR birthday"
 
 #: upersonframe.scbusinessmail
-#, fuzzy
-#| msgid "MLB  e-Mail GeschÃ¤ftlich"
 msgctxt "upersonframe.scbusinessmail"
 msgid "MLB  e-Mail Geschäftlich"
-msgstr "MLB e-mail Business"
+msgstr "MLB Business email"
 
 #: upersonframe.scbusinessmobilephone
-#, fuzzy
-#| msgid "CELB Mobiltelefon GeschÃ¤ftlich"
 msgctxt "upersonframe.scbusinessmobilephone"
 msgid "CELB Mobiltelefon Geschäftlich"
 msgstr "CELB Mobile Phone Business"
 
 #: upersonframe.scbusinessphone
-#, fuzzy
-#| msgid "TELB Telefon GeschÃ¤ftlich"
 msgctxt "upersonframe.scbusinessphone"
 msgid "TELB Telefon Geschäftlich"
 msgstr "TELB Business Phone"
@@ -11029,14 +10489,12 @@ msgid "TEL  Telefon"
 msgstr "TEL  Telephone"
 
 #: upersonframe.straddedfromemployees
-#, fuzzy
-#| msgid "Dies ist ein neuer Mitarbeiter/Mitglied das aus einem Kontakt erstellt wurde. Sobald Sie speichern, wird zum ursprÃ¼nglichen Kontakt zurÃ¼ckgesprungen und ein Eintrag in dessen Mitarbeitern gemacht."
 msgid "Dies ist ein neuer Mitarbeiter/Mitglied das aus einem Kontakt erstellt wurde. Sobald Sie speichern, wird zum ursprünglichen Kontakt zurückgesprungen und ein Eintrag in dessen Mitarbeitern gemacht."
-msgstr "This is an Member/Employee of another contact, when you save it you will transferred to the other contact."
+msgstr "This is a new employee / member that was created from a contact. When you save, the system jumps back to the original contact and made an entry in his employees."
 
 #: upersonframe.straddnewpersonsfromdragdrop
 msgid "fügen Sie weitere Mitarbeiter/Mitglieder per Drag&Drop aus der Suche ein"
-msgstr ""
+msgstr "add an employee / member via drag & drop from the search"
 
 #: upersonframe.straddress
 msgctxt "upersonframe.straddress"
@@ -11048,8 +10506,6 @@ msgid "Geburtstag von %s"
 msgstr "Birthday of% s"
 
 #: upersonframe.strchangecustomernumer
-#, fuzzy
-#| msgid "Kundennumer Ã¤ndern"
 msgctxt "upersonframe.strchangecustomernumer"
 msgid "Kundennumer ändern"
 msgstr "Change customer number"
@@ -11064,10 +10520,8 @@ msgid "Info"
 msgstr "Info"
 
 #: upersonframe.strinserteventforbirthday
-#, fuzzy
-#| msgid "MÃ¶chten Sie fÃ¼r diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?"
 msgid "Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?"
-msgstr "Want to create an entry in your calendar for this birthday?"
+msgstr "Would you like to create an entry in your calendar for this birthday?"
 
 #: upersonframe.strnewperson
 msgid "neuer Kontakt"
@@ -11106,11 +10560,9 @@ msgid "wartet auf Kunden"
 msgstr "waiting for customers"
 
 #: uscriptframe.strchangenumer
-#, fuzzy
-#| msgid "Nummer Ã¤ndern"
 msgctxt "uscriptframe.strchangenumer"
 msgid "Nummer ändern"
-msgstr "change Number"
+msgstr "Change number"
 
 #: uscriptframe.strnewarticle
 msgctxt "uscriptframe.strnewarticle"
@@ -11119,7 +10571,7 @@ msgstr "new Aticle"
 
 #: uscriptframe.strnewscript
 msgid "Neues Script"
-msgstr ""
+msgstr "new Script"
 
 #: uscriptframe.strprices
 msgctxt "uscriptframe.strprices"
@@ -11174,16 +10626,12 @@ msgid "Postleitzahl"
 msgstr "Postal code"
 
 #: usearch.strsearchfromordermode
-#, fuzzy
-#| msgid "Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag Ã¶ffnen, wird dieser automatisch in den aktuellen Vorgang Ã¼bernommen."
 msgid "Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in den aktuellen Vorgang übernommen."
-msgstr "This search has been launched from the task management when you open an item, it will automatically be saved to the current operation."
+msgstr "This search has been launched from the order management when you open an item, it will automatically be saved to the current operation."
 
 #: usearch.strsearchfromtimeregisteringmode
-#, fuzzy
-#| msgid "Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag Ã¶ffnen, wird dieser automatisch in die Zeiterfassung Ã¼bernommen."
 msgid "Diese Suche wurde aus der Zeiterfassung gestartet, wenn Sie einen Eintrag öffnen, wird dieser automatisch in die Zeiterfassung übernommen."
-msgstr "This search was started from the time of capture, when you open an item, it is automatically transferred to the time recording."
+msgstr "This search was started from the timesheet when you open an entry, it is automatically transferred to the time recording."
 
 #: usearch.strshortnames
 msgid "Kurztexte"
@@ -11249,8 +10697,6 @@ msgid "Ausdruck wird gedruckt..."
 msgstr "Expression is printed ..."
 
 #: utasks.stractivestartedisnull
-#, fuzzy
-#| msgid "keine Startzeit ist fÃ¼r die aktive Aufgabe verfÃ¼gbar !"
 msgid "keine Startzeit ist für die aktive Aufgabe verfügbar !"
 msgstr "no start time is available for the active task!"
 
@@ -11276,8 +10722,6 @@ msgid "Hoch"
 msgstr "High"
 
 #: utasks.strpriority5
-#, fuzzy
-#| msgid "HÃ¶her"
 msgid "Höher"
 msgstr "Higher"
 
@@ -11313,10 +10757,8 @@ msgid "aqBanking ist nicht installiert ! aqBanking muss installiert sein um Onli
 msgstr "aqbanking is not installed! be aqbanking must be installed to bretreiben to Online Banking"
 
 #: uwizardnewmandant.strcheckandcorrectdbfailed
-#, fuzzy
-#| msgid "Das prÃ¼fen der Datenbank fÃ¼r Mandant %s ist fehlgeschlagen"
 msgid "Das prüfen der Datenbank für Mandant %s ist fehlgeschlagen"
-msgstr "The check of the database for client% s failed"
+msgstr "The check of the database for client%s failed"
 
 #: uwizardnewmandant.strdbase
 msgid "DBase Datenbank"
@@ -11335,8 +10777,6 @@ msgid "Das erstellen der Datenbank ist fehlgeschlagen"
 msgstr "The create the database failed"
 
 #: uwizardnewmandant.strselectprofile
-#, fuzzy
-#| msgid "WÃ¤hlen Sie ein Profil"
 msgid "Wählen Sie ein Profil"
 msgstr "Select a profile"
 
@@ -11351,4 +10791,3 @@ msgstr "SQLite based Database"
 #: uzeosdm.strunknowndbtype
 msgid "Unbekannter Datenbanktyp"
 msgstr "unknown Databasetype"
-

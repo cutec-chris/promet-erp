@@ -12,10 +12,10 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 
 msgid "persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)"
-msgstr "Content-Type: text/plain; charset=UTF-8"
+msgstr "personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list)"
 
 msgid "persönlichen Aufgabenliste (Dropdownliste)"
-msgstr "Personal tasklist (Dropdownlist)"
+msgstr "personal task list (drop-down list)"
 
 #: tfmain.acchangepasswort.caption
 msgid "Passwort ändern"

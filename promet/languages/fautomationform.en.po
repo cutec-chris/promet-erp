@@ -17,7 +17,7 @@ msgstr "Picking."
 
 #: fautomationform.strloading
 msgid "Auftragsdaten werden geladen..."
-msgstr ""
+msgstr "Order data is loading ..."
 
 #: fautomationform.strnotmoresteps
 msgid "Es sind keine (weiteren) Arbeitschritte vorhanden.<br><br>Um einen neuen Auftrag auswählen zu können müssen Sie den Auftrag (ab)schließen"
@@ -34,4 +34,3 @@ msgstr "Execute"
 #: fautomationform.strrunning
 msgid "wird ausgeführt..."
 msgstr "Running..."
-
