@@ -437,6 +437,11 @@ begin
   if Parameters.Values['authorization'] <> '' then
     begin
       aUser := Parameters.Values['authorization'];
+      if lowercase(copy(aUser,0,pos(' ',aUser)-1))='negotiate' then
+        begin
+          Status:=511;
+          exit;
+        end;
       aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
       TWebDAVMaster(Creator).Lock;
       if Assigned(TWebDAVMaster(Creator).OnUserLogin) then
@@ -495,7 +500,9 @@ begin
   if Assigned(aDocument.DocumentElement) then
     aDocument.DocumentElement.Free;
   aDocument.AppendChild(aOptionsRes);
-  FSocket.Status:=200;
+  if Result then
+    FSocket.Status:=200;
+  {
   TWebDAVMaster(FSocket.Creator).Lock;
   if Assigned(TWebDAVMaster(FSocket.Creator).OnReadAllowed) and (not TWebDAVMaster(FSocket.Creator).OnReadAllowed(TDAVSession(FSocket),Path)) then
     begin
@@ -504,6 +511,7 @@ begin
       Result := True;
     end;
   TWebDAVMaster(FSocket.Creator).Unlock;
+  }
 end;
 
 { TDAVSocket }
@@ -559,7 +567,6 @@ begin
   HeaderOut.Add('Content-Charset: utf8');
   try
     Result := 500;
-    CheckAuth;
     case Request of
     'OPTIONS':
        begin
@@ -841,7 +848,9 @@ begin
   else
     begin
       TDAVSession(FSocket).HeaderOut.Add('ContentLength: 0');
-      TDAVSession(FSocket).Status:=403;
+      TDAVSession(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
+      if TDAVSession(FSocket).Status=500 then
+        TDAVSession(FSocket).Status:=403;
       FOut.Clear;
       //TODO:??TDAVSession(FSocket).OutputData := Self.FOut;
     end;
