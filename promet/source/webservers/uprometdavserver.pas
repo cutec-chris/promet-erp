@@ -551,7 +551,7 @@ begin
         aDir := aDir+'/';
       if aDocuments.OpenPath(aDir,'/') then
         begin
-          AddDocumentsToFileList(aDirList,aDocuments,'/webdav/'+aDir);
+          AddDocumentsToFileList(aDirList,aDocuments,'/webdav'+aDir);
           Result := True;
         end
       else
@@ -565,7 +565,7 @@ begin
               while not aDocuments.DataSet.EOF do
                 begin
                   if aDocuments.FileName = aFile then
-                    AddDocumentToFileList(aDirList,aDocuments,'/webdav/'+aDir+aFile);
+                    AddDocumentToFileList(aDirList,aDocuments,'/webdav'+aDir+aFile);
                   aDocuments.DataSet.Next;
                 end;
             end;
