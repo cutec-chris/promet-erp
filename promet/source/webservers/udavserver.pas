@@ -849,8 +849,7 @@ begin
     begin
       TDAVSession(FSocket).HeaderOut.Add('ContentLength: 0');
       TDAVSession(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
-      if TDAVSession(FSocket).Status=500 then
-        TDAVSession(FSocket).Status:=403;
+      TDAVSession(FSocket).Status:=403;
       FOut.Clear;
       //TODO:??TDAVSession(FSocket).OutputData := Self.FOut;
     end;
