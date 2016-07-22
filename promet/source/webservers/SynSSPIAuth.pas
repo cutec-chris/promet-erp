@@ -69,12 +69,12 @@ unit SynSSPIAuth;
 
 }
 
-{$I Synopse.inc} // define HASINLINE and other compatibility switches
+{.$I Synopse.inc} // define HASINLINE and other compatibility switches
 
 interface
 
 uses
-  Windows, SysUtils, SynCommons;
+  Windows, SysUtils;
 
 type
   /// Windows Authentication context handle

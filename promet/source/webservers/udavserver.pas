@@ -260,7 +260,10 @@ type
 
 implementation
 
-uses base64,Utils,uhttputil,uBaseApplication;
+uses base64,Utils,uhttputil,uBaseApplication
+  {$ifdef WINDOWS}
+  ,SynSSPIAuth
+  {$endif};
 
 function InternURLEncode(aURL : string) : string;
 begin
