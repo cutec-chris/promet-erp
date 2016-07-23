@@ -262,7 +262,7 @@ implementation
 
 uses base64,Utils,uhttputil,uBaseApplication
   {$ifdef WINDOWS}
-  ,SynSSPIAuth
+  //,SynSSPIAuth
   {$endif};
 
 function InternURLEncode(aURL : string) : string;

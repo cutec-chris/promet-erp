@@ -18,6 +18,8 @@ unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/imp
 unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/messagemanager_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/plugins_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/visualtools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/sqliteclient_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/win32tools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 rm $BuildDir/App/promet/helpviewer.exe
 unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/mailreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 echo "building package..."
@@ -44,15 +46,15 @@ rm        $basedir/promet/setup/output/promet-erp-$Version.i386-win32-portable.z
 zip -9 -r $basedir/promet/setup/output/promet-erp-$Version.i386-win32-portable.zip .
 
 #Build Firebird Version
-cp -r ../i386-win32/firebird-embedded/* $BuildDir/Promet-ERP/App/promet
-cat Appinfo_firebird.ini | \
-  sed -b -e "s/VERSION/$Version/g" \
-      -e "s/ARCH/$Arch/g" \
-      -e "s/ARCHFPC/$Archfpc/g" \
-      -e "s/CREATEDDATE/$Date/g" \
-  > $BuildDir/App/AppInfo/appinfo.ini
-/c/Windows/system32/cmd.exe "/C c:\PortableApps.comInstaller\PortableApps.comInstaller.exe %TEMP%\software_build
-"
+#cp -r ../i386-win32/firebird-embedded/* $BuildDir/Promet-ERP/App/promet
+#cat Appinfo_firebird.ini | \
+#  sed -b -e "s/VERSION/$Version/g" \
+#      -e "s/ARCH/$Arch/g" \
+#      -e "s/ARCHFPC/$Archfpc/g" \
+#      -e "s/CREATEDDATE/$Date/g" \
+#  > $BuildDir/App/AppInfo/appinfo.ini
+#/c/Windows/system32/cmd.exe "/C c:\PortableApps.comInstaller\PortableApps.comInstaller.exe %TEMP%\software_build
+#"
 cp $TmpDir/*.paf.exe ../output
 cd $BuildDir
 rm        $basedir/promet/setup/output/promet-erp-firebird-$Version.i386-win32-portable.zip
