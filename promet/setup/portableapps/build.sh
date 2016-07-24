@@ -90,6 +90,10 @@ fi
 #  . ../build-tools/doupload.sh $targetfile $targetcur
 #fi
 
+if [ "$1" = "upload" ]; then
+  . change_wiki.sh
+fi
+
 cd $basedir
 
 

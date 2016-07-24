@@ -16,9 +16,9 @@ cat downloads_portable.txt | \
       -e "s/ZIP_SIZE/$ZipSize Mb/g" \
       -e "s/CREATEDDATE/$Date/g" \
   > act_downloads_portable.txt
-../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/portable act_downloads_portable.txt
-../../output/x86_64-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
-../../output/x86_64-linux/tools/sync_db --mandant=Stora
+../../output/i386-win32/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/portable act_downloads_portable.txt
+../../output/i386-win32/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
+../../output/i386-win32/sync_db --mandant=Stora
 cat ../promet_erp_portable_clean.xml | \
   sed -e "s/PROGVERSION/$Version/g" \
       -e "s/WIN_SIZEB/$WinSizeB/g" \
@@ -29,4 +29,4 @@ cat ../promet_erp_portable_clean.xml | \
       -e "s/MONTH/$Month/g" \
       -e "s/DAY/$Day/g" \
   > promet_erp_portable.xml
-scp -P 232 promet_erp_portable.xml autoupload@ullihome.de:promet_upload_target
+scp -P 232 promet_erp_portable.xml autoupload@178.254.12.54:promet_upload_target
