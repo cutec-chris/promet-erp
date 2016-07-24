@@ -7,6 +7,10 @@
 *.dbg
 *.exe
 *.db
+*.zip
+*.deb
+*.lps
+.fuse*
 promet/source/scripts/tinkerforge/*
 lib*/
 promet/output/i386-win32/importdata/*

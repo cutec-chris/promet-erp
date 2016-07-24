@@ -15,6 +15,11 @@ if [ "x$lazbuild" = "x" ]
   if [ "$?" -ne "0" ]; then
     export SED="$(PWD)/promet/setup/build-tools/sed.exe"
   fi
+  export SQLITE3="sqlite3"
+  $SQLITE3 's/||/| |/g' /dev/null
+  if [ "$?" -ne "0" ]; then
+    export SQLITE3="$(PWD)/promet/setup/build-tools/sqlite3.exe"
+  fi
   export TARGET_CPU=$( $lazbuild -? | grep 'powerpc_64' | $SED -e 's/.*: //')
   export TARGET_WIDGETSET=$( $lazbuild -? | grep 'Carbon.' | $SED 's/.*: //')
   export TARGET_OS=$( $lazbuild -? | grep 'linux.' | $SED -e 's/.*: //')
