@@ -905,6 +905,7 @@ var
   aLocalName,aNSName: String;
   Attr1: TDOMAttr;
   tmp2: DOMString;
+  IgnoreNotFound: Boolean = false;
 
   function AddNS(anPrefix,aNS : string) : string;
   var
@@ -1193,7 +1194,7 @@ var
     aPropStat.AppendChild(aStatus);
     aTextNode := aDocument.CreateTextNode(BuildStatus(200,'OK'));
     aStatus.AppendChild(atextNode);
-    if aNotFoundProp.Count>0 then
+    if (aNotFoundProp.Count>0) and (not IgnoreNotFound) then
       begin
         aPropStat := aDocument.CreateElement(prefix+':propstat');
         aResponse.AppendChild(aPropStat);
@@ -1263,13 +1264,14 @@ begin
     aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
   if aProperties.Count=0 then //Register all props implicit request
     begin
-      aProperties.Values['d:displayname']:='d:displayname';
-      aProperties.Values['d:resourcetype']:='d:resourcetype';
-      aProperties.Values['d:getcontentlength']:='d:getcontentlength';
-      aProperties.Values['d:creationdate']:='d:creationdate';
-      aProperties.Values['d:getetag']:='d:getetag';
-      aProperties.Values['d:getlastmodified']:='d:getlastmodified';
-      aProperties.Values['d:getcontenttype']:='d:getcontenttype';
+      aProperties.Values['d:displayname']:=aPrefix+':displayname';
+      aProperties.Values['d:resourcetype']:=aPrefix+':resourcetype';
+      aProperties.Values['d:getcontentlength']:=aPrefix+':getcontentlength';
+      aProperties.Values['d:creationdate']:=aPrefix+':creationdate';
+      aProperties.Values['d:getetag']:=aPrefix+':getetag';
+      aProperties.Values['d:getlastmodified']:=aPrefix+':getlastmodified';
+      aProperties.Values['d:getcontenttype']:=aPrefix+':getcontenttype';
+      IgnoreNotFound := True;
     end;
   aDocument.AppendChild(aMSRes);
   if copy(Path,0,1) <> '/' then Path := '/'+Path;

@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils, udavserver, uDocuments, uBaseDbClasses, uCalendar,
   utask,Utils,uData,variants,uBaseDatasetInterfaces,synautil,
-  DateUtils, uimpvcal,uhttputil;
+  DateUtils, uimpvcal,uhttputil,math;
 
 type
 
@@ -1015,7 +1015,7 @@ begin
         aFile.Properties.Values['getcontenttype'] := 'text/plain';
       aFile.Properties.Values['creationdate'] := BuildISODate(aDocuments.CreationDate);
       aFile.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(aDocuments.LastModified),WebFormatSettings)+' GMT';
-      aFile.Properties.Values['getcontentlength'] := IntToStr(aDocuments.Size);
+      aFile.Properties.Values['getcontentlength'] := IntToStr(max(aDocuments.Size,0));
       aFile.Properties.Values['getetag'] := aDocuments.Number.AsString+IntToStr(trunc(frac(aDocuments.TimeStamp.AsDateTime)*1000));
       aFile.CurrentUser:='/users/'+Data.Users.FieldByName('NAME').AsString;
     end;

@@ -19,8 +19,6 @@ type
     function SendRequest(aRequest: string): string;
   published
     procedure SetUp; override;
-    procedure CheckPropfindImplicitAllProp;
-    procedure CheckPropfindAllprop;
     procedure PropfindRoot;
     procedure FindPrincipal;
     procedure FindPrincipalOnWellKnown;
@@ -31,6 +29,8 @@ type
     procedure CheckReportWithoutRequest;
     procedure CheckReport2;
     procedure CheckOptionsSubPath;
+    procedure CheckPropfindImplicitAllProp;
+    procedure CheckPropfindAllprop;
   end;
 
   { TestSocket }
@@ -295,13 +295,13 @@ begin
   +'<?xml version="1.0" encoding="UTF-8" ?>'+#13
   +'<propfind xmlns="DAV:" xmlns:CAL="urn:ietf:params:xml:ns:caldav" xmlns:CARD="urn:ietf:params:xml:ns:carddav"><prop><allprop/></prop></propfind>'+#13);
   Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to Allprop');
-  Check(pos('d:displayname',aRes)>0,'d:displayname missing');
-  Check(pos('d:resourcetype',aRes)>0,'d:resourcetype missing');
-  Check(pos('d:getcontentlength',aRes)>0,'d:getcontentlength missing');
-  Check(pos('d:creationdate',aRes)>0,'d:creationdate missing');
-  Check(pos('d:getetag',aRes)>0,'d:getetag missing');
-  Check(pos('d:getlastmodified',aRes)>0,'d:getlastmodified missing');
-  Check(pos('d:getcontenttype',aRes)>0,'d:getcontenttype missing');
+  Check(pos('D:displayname',aRes)>0,'d:displayname missing');
+  Check(pos('D:resourcetype',aRes)>0,'d:resourcetype missing');
+  Check(pos('D:getcontentlength',aRes)>0,'d:getcontentlength missing');
+  Check(pos('D:creationdate',aRes)>0,'d:creationdate missing');
+  Check(pos('D:getetag',aRes)>0,'d:getetag missing');
+  Check(pos('D:getlastmodified',aRes)>0,'d:getlastmodified missing');
+  Check(pos('D:getcontenttype',aRes)>0,'d:getcontenttype missing');
 end;
 
 procedure TWebDAVTest.CheckPropfindImplicitAllProp;
@@ -314,13 +314,13 @@ begin
   +'content-type:application/xml; charset=utf-8'+#13
   +''+#13);
   Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to Allprop');
-  Check(pos('d:displayname',aRes)>0,'d:displayname missing');
-  Check(pos('d:resourcetype',aRes)>0,'d:resourcetype missing');
-  Check(pos('d:getcontentlength',aRes)>0,'d:getcontentlength missing');
-  Check(pos('d:creationdate',aRes)>0,'d:creationdate missing');
-  Check(pos('d:getetag',aRes)>0,'d:getetag missing');
-  Check(pos('d:getlastmodified',aRes)>0,'d:getlastmodified missing');
-  Check(pos('d:getcontenttype',aRes)>0,'d:getcontenttype missing');
+  Check(pos('D:displayname',aRes)>0,':displayname missing');
+  Check(pos('D:resourcetype',aRes)>0,'d:resourcetype missing');
+  Check(pos('D:getcontentlength',aRes)>0,'d:getcontentlength missing');
+  Check(pos('D:creationdate',aRes)>0,'d:creationdate missing');
+  Check(pos('D:getetag',aRes)>0,'d:getetag missing');
+  Check(pos('D:getlastmodified',aRes)>0,'d:getlastmodified missing');
+  Check(pos('D:getcontenttype',aRes)>0,'d:getcontenttype missing');
 end;
 
 initialization
