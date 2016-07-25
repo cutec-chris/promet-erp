@@ -19,6 +19,8 @@ type
     function SendRequest(aRequest: string): string;
   published
     procedure SetUp; override;
+    procedure CheckPropfindImplicitAllProp;
+    procedure CheckPropfindAllprop;
     procedure PropfindRoot;
     procedure FindPrincipal;
     procedure FindPrincipalOnWellKnown;
@@ -279,6 +281,46 @@ begin
    'OPTIONS /caldav/Testkalender%20alle/ HTTP 1.1'+#13
   +'');
   Check(copy(aRes,0,pos(#13,aRes)-1)='200','Wrong Answer to Subpath Option');
+end;
+
+procedure TWebDAVTest.CheckPropfindAllprop;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND /caldav/ HTTP 1.1'+#13
+  +'depth:1'+#13
+  +'content-type:application/xml; charset=utf-8'+#13
+  +''+#13
+  +'<?xml version="1.0" encoding="UTF-8" ?>'+#13
+  +'<propfind xmlns="DAV:" xmlns:CAL="urn:ietf:params:xml:ns:caldav" xmlns:CARD="urn:ietf:params:xml:ns:carddav"><prop><allprop/></prop></propfind>'+#13);
+  Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to Allprop');
+  Check(pos('d:displayname',aRes)>0,'d:displayname missing');
+  Check(pos('d:resourcetype',aRes)>0,'d:resourcetype missing');
+  Check(pos('d:getcontentlength',aRes)>0,'d:getcontentlength missing');
+  Check(pos('d:creationdate',aRes)>0,'d:creationdate missing');
+  Check(pos('d:getetag',aRes)>0,'d:getetag missing');
+  Check(pos('d:getlastmodified',aRes)>0,'d:getlastmodified missing');
+  Check(pos('d:getcontenttype',aRes)>0,'d:getcontenttype missing');
+end;
+
+procedure TWebDAVTest.CheckPropfindImplicitAllProp;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND /caldav/ HTTP 1.1'+#13
+  +'depth:1'+#13
+  +'content-type:application/xml; charset=utf-8'+#13
+  +''+#13);
+  Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to Allprop');
+  Check(pos('d:displayname',aRes)>0,'d:displayname missing');
+  Check(pos('d:resourcetype',aRes)>0,'d:resourcetype missing');
+  Check(pos('d:getcontentlength',aRes)>0,'d:getcontentlength missing');
+  Check(pos('d:creationdate',aRes)>0,'d:creationdate missing');
+  Check(pos('d:getetag',aRes)>0,'d:getetag missing');
+  Check(pos('d:getlastmodified',aRes)>0,'d:getlastmodified missing');
+  Check(pos('d:getcontenttype',aRes)>0,'d:getcontenttype missing');
 end;
 
 initialization

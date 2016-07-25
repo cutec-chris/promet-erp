@@ -1251,7 +1251,9 @@ begin
               if pos(':',tmp)=0 then
                 tmp := tmp1+':'+tmp;
             end;
-          aProperties.Values[lowercase(tmp)]:=aPropNode.ChildNodes.Item[i].NodeName;
+          if lowercase(tmp)=':allprop' then //Allprop request mostly used by Microsoft clients we return only an standard set of props like sabre also do.
+          else
+            aProperties.Values[lowercase(tmp)]:=aPropNode.ChildNodes.Item[i].NodeName;
           if BaseApplication.HasOption('debug') then
             writeln('Wanted:'+tmp+'='+aPropNode.ChildNodes.Item[i].NodeName);
         end;
@@ -1259,6 +1261,16 @@ begin
     end
   else
     aMSRes := aDocument.CreateElement(aPrefix+':multistatus');
+  if aProperties.Count=0 then //Register all props implicit request
+    begin
+      aProperties.Values['d:displayname']:='d:displayname';
+      aProperties.Values['d:resourcetype']:='d:resourcetype';
+      aProperties.Values['d:getcontentlength']:='d:getcontentlength';
+      aProperties.Values['d:creationdate']:='d:creationdate';
+      aProperties.Values['d:getetag']:='d:getetag';
+      aProperties.Values['d:getlastmodified']:='d:getlastmodified';
+      aProperties.Values['d:getcontenttype']:='d:getcontenttype';
+    end;
   aDocument.AppendChild(aMSRes);
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   aDepth := StrToIntDef(trim(FSocket.Parameters.Values['depth']),0);

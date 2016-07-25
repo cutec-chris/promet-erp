@@ -36,7 +36,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Test"/>
+        <CommandLineParams Value="--mandant=Test --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
