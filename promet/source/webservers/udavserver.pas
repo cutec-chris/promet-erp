@@ -562,7 +562,6 @@ begin
   Self.OutputData := aOutputData;
   if Assigned(TWebDAVMaster(Creator).OnAccess) then
     TWebDAVMaster(Creator).OnAccess(Self,'<'+Request+' '+aURI);
-  writeln(Headers.Text);
   FURI:=aURI;
   HeaderOut := TStringList.Create;
   HeaderOut.Add('Content-type: text/xml');
@@ -825,7 +824,7 @@ begin
   FIn.Position:=0;
   if BaseApplication.HasOption('debug') then
     begin
-      writeln('<'+TDAVSocket(FSocket).Parameters.Text);
+      writeln('<'+TDAVSession(FSocket).Parameters.Text);
       writeln('<'+MemoryStreamToString(Fin));
     end;
   try

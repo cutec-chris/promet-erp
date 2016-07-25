@@ -33,9 +33,8 @@ type
 
   { TestSocket }
 
-  TestSocket = class(TDAVSocket)
+  TestSocket = class(TDAVSession)
   public
-    constructor Create(hsock: tSocket); override;
   end;
 
 implementation
@@ -43,50 +42,51 @@ implementation
 var
   Socket : TestSocket;
   aReq : TStringList;
-  Server : TWebDAVServer;
+  Server : TWebDAVMaster;
   ServerFunctions: TPrometServerFunctions;
   UserURL,UserCalenderURL : string;
 
 { TestSocket }
 
-constructor TestSocket.Create(hsock: tSocket);
-begin
-  Headers := TStringList.Create;
-  Parameters := TStringList.Create;
-  Parameters.NameValueSeparator:=':';
-  InputData := TMemoryStream.Create;
-  OutputData := TMemoryStream.Create;
-end;
 function TWebDAVTest.SendRequest(aRequest: string): string;
 var
   aURL, tmp: String;
+  aInStream: TMemoryStream;
+  aOutStream: TMemoryStream;
+  aHeader: TStringList;
 begin
   aReq.Text:=aRequest;
   aURL := aReq[0];
   aReq.Delete(0);
-  Socket.Headers.Clear;
+  aHeader := TStringList.Create;
+  aHeader.Clear;
   while (aReq.Count>0) and (aReq[0]<>'') do
     begin
-      Socket.Headers.Add(aReq[0]);
+      aHeader.Add(aReq[0]);
       aReq.Delete(0);
     end;
   if aReq.Count>0 then
     aReq.Delete(0);
-  aReq.SaveToStream(Socket.InputData);
   tmp := copy(aURL,pos(' ',aURL)+1,length(aURL));
   tmp := trim(copy(tmp,0,pos('HTTP',tmp)-1));
-  Socket.ProcessHttpRequest(copy(aURL,0,pos(' ',aURL)-1),tmp);
-  Result := IntToStr(Socket.Status)+LineEnding+MemoryStreamToString(Socket.OutputData);
+  aInStream := TMemoryStream.Create;
+  aOutStream := TMemoryStream.Create;
+  aReq.SaveToStream(aInStream);
+  aInStream.Position:=0;
+  Socket.ProcessHttpRequest(copy(aURL,0,pos(' ',aURL)-1),tmp,aHeader,aInStream,aOutStream);
+  Result := IntToStr(Socket.Status)+LineEnding+MemoryStreamToString(aOutStream);
+  aInStream.Free;
+  aOutStream.Free;
+  aHeader.Free;
 end;
 procedure TWebDAVTest.SetUp;
 begin
   inherited SetUp;
   aReq := TStringList.Create;
-  Socket := TestSocket.Create(0);
-  Server := TWebDAVServer.Create;
-  Socket.Creator:=Server;
+  Server := TWebDAVMaster.Create;
+  Socket := TestSocket.Create(Server,TStringList.Create);
   Socket.User:=Data.Users.Id.AsString;
-  data.Users.Locate('NAME','Administrator',[]);
+  Data.Users.Locate('NAME','Administrator',[]);
   ServerFunctions := TPrometServerFunctions.Create;
   Server.OnGetDirectoryList:=@ServerFunctions.ServerGetDirectoryList;
   Server.OnMkCol:=@ServerFunctions.ServerMkCol;
@@ -115,7 +115,7 @@ begin
   +'  </d:prop>'+#13
   +'</d:propfind>'+#13
   );
-  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to PropfindRoot');
+  Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to PropfindRoot');
 end;
 procedure TWebDAVTest.FindPrincipal;
 var
@@ -132,7 +132,7 @@ begin
   +'     <d:current-user-principal />'+#13
   +'  </d:prop>'+#13
   +'</d:propfind>'+#13);
-  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Propfind Principal');
+  Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to Propfind Principal');
   tmp := copy(ares,pos('d:current-user-principal',aRes)+24,length(aRes));
   tmp := copy(tmp,2,pos('/d:current-user-principal',tmp)-3);
   tmp := trim(Stringreplace(tmp,#10,'',[rfReplaceAll]));
@@ -157,7 +157,7 @@ begin
   +'     <d:current-user-principal />'+#13
   +'  </d:prop>'+#13
   +'</d:propfind>'+#13);
-  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Propfind Principal');
+  Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to Propfind Principal');
   tmp := copy(ares,pos('d:current-user-principal',aRes)+24,length(aRes));
   tmp := copy(tmp,2,pos('/d:current-user-principal',tmp)-3);
   tmp := trim(Stringreplace(tmp,#10,'',[rfReplaceAll]));
@@ -182,7 +182,7 @@ begin
   +'     <c:calendar-home-set />'+#13
   +'  </d:prop>'+#13
   +'</d:propfind>'+#13);
-  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
+  Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
   tmp := copy(ares,pos('c:calendar-home-set',aRes)+20,length(aRes));
   tmp := copy(tmp,2,pos('/c:calendar-home-set',tmp)-3);
   tmp := trim(Stringreplace(tmp,#10,'',[rfReplaceAll]));
@@ -210,7 +210,7 @@ begin
   +'     <c:supported-calendar-component-set />'+#13
   +'  </d:prop>'+#13
   +'</d:propfind>'+#13);
-  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
+  Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
 end;
 
 procedure TWebDAVTest.CheckNamespaceUsage;
@@ -224,7 +224,7 @@ begin
   +''+#13
   +'<?xml version="1.0" encoding="UTF-8" ?>'+#13
   +'<propfind xmlns="DAV:" xmlns:CAL="urn:ietf:params:xml:ns:caldav" xmlns:CARD="urn:ietf:params:xml:ns:carddav"><prop><CAL:supported-calendar-component-set /><resourcetype /><displayname /><current-user-privilege-set /><n0:calendar-color xmlns:n0="http://apple.com/ns/ical/" /><CAL:calendar-description /><CAL:calendar-timezone /></prop></propfind>'+#13);
-  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
+  Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
   Check(pos('xmlns:D="DAV:"',aRes)>0,'DAV Namespace missing');
   Check(pos('xmlns:CAL="urn:ietf:params:xml:ns:caldav"',aRes)>0,'CalDAV Namespace missing');
   Check(pos('xmlns:CARD="urn:ietf:params:xml:ns:carddav"',aRes)>0,'CardDAV Namespace missing');
@@ -250,7 +250,7 @@ begin
   +'connection:keep-alive'+#13
   +''+#13
   +'<?xml version="1.0" encoding="utf-8" ?><A:calendar-query xmlns:A="urn:ietf:params:xml:ns:caldav" xmlns:B="DAV:"><B:prop><B:getcontenttype/><B:getetag/></B:prop><A:filter><A:comp-filter name="VCALENDAR"><A:comp-filter name="VTODO"/></A:comp-filter></A:filter></A:calendar-query>');
-  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
+  Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
   Check(pos('B:multistatus',aRes)>0,'Wrong Namespace');
 end;
 
@@ -267,7 +267,7 @@ begin
   +'connection:keep-alive'+#13
   +''+#13
   +'<?xml version="1.0" encoding="utf-8" ?><A:calendar-query xmlns:A="urn:ietf:params:xml:ns:caldav" xmlns:B="DAV:"><B:prop><B:getcontenttype/><B:getetag/></B:prop><A:filter><A:comp-filter name="VCALENDAR"><A:comp-filter name="VTODO"/></A:comp-filter></A:filter></A:calendar-query>');
-  Check(copy(aRes,0,pos(#10,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
+  Check(copy(aRes,0,pos(#13,aRes)-1)='207','Wrong Answer to Calendar Home Sets');
   Check(pos('B:multistatus',aRes)>0,'Wrong Namespace');
 end;
 
@@ -278,7 +278,7 @@ begin
   aRes := SendRequest(
    'OPTIONS /caldav/Testkalender%20alle/ HTTP 1.1'+#13
   +'');
-  Check(copy(aRes,0,pos(#10,aRes)-1)='200','Wrong Answer to Subpath Option');
+  Check(copy(aRes,0,pos(#13,aRes)-1)='200','Wrong Answer to Subpath Option');
 end;
 
 initialization
