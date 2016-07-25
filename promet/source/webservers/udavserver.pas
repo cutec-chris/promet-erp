@@ -479,6 +479,7 @@ var
   aDirList : TDAVDirectoryList;
   AuthReq: Boolean;
 begin
+  FSocket.Status:=500;
   Result := Inherited HandleXMLRequest(aDocument);
   FindDefaultPrefix(aDocument);
   aOptionsRes := aDocument.CreateElementNS('DAV:',aPrefix+':options-response');
@@ -503,9 +504,8 @@ begin
   if Assigned(aDocument.DocumentElement) then
     aDocument.DocumentElement.Free;
   aDocument.AppendChild(aOptionsRes);
-  if Result then
+  if FSocket.Status=500 then
     FSocket.Status:=200;
-  {
   TWebDAVMaster(FSocket.Creator).Lock;
   if Assigned(TWebDAVMaster(FSocket.Creator).OnReadAllowed) and (not TWebDAVMaster(FSocket.Creator).OnReadAllowed(TDAVSession(FSocket),Path)) then
     begin
@@ -514,7 +514,6 @@ begin
       Result := True;
     end;
   TWebDAVMaster(FSocket.Creator).Unlock;
-  }
 end;
 
 { TDAVSocket }
@@ -852,7 +851,8 @@ begin
     begin
       TDAVSession(FSocket).HeaderOut.Add('ContentLength: 0');
       TDAVSession(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
-      TDAVSession(FSocket).Status:=403;
+      if TDAVSession(FSocket).Status=200 then
+        TDAVSession(FSocket).Status:=403;
       FOut.Clear;
       //TODO:??TDAVSession(FSocket).OutputData := Self.FOut;
     end;
