@@ -440,9 +440,9 @@ begin
   if Parameters.Values['authorization'] <> '' then
     begin
       aUser := Parameters.Values['authorization'];
-      if lowercase(copy(aUser,0,pos(' ',aUser)-1))='negotiate' then
+      if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
         begin
-          Status:=511;
+          Status:=401;
           exit;
         end;
       aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));

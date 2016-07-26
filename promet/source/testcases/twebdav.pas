@@ -31,7 +31,9 @@ type
     procedure CheckOptionsSubPath;
     procedure CheckPropfindImplicitAllProp;
     procedure CheckPropfindAllprop;
-    procedure DesktopIni;
+    procedure NonExistingElement;
+    procedure NonExistingElement2;
+    procedure GetFile;
     procedure MkCol;
     procedure DeleteCol;
   end;
@@ -303,7 +305,7 @@ begin
   Check(pos('D:getetag',aRes)>0,'d:getetag missing');
 end;
 
-procedure TWebDAVTest.DesktopIni;
+procedure TWebDAVTest.NonExistingElement;
 var
   aRes: String;
 begin
@@ -311,6 +313,26 @@ begin
    'PROPFIND /caldav/desktop.ini HTTP/1.1'+#13
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind to non existent file');
+end;
+
+procedure TWebDAVTest.NonExistingElement2;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND /webdav/desktop.ini HTTP/1.1'+#13
+   +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind to non existent file');
+  Check(pos('/desktop.ini',aRes)=0,'Server tells that non existent Element exists');
+end;
+
+procedure TWebDAVTest.GetFile;
+var
+  aRes: String;
+begin
+  aRes := SendRequest('GET '+HTTPEncode('/webdav/äöü.txt')+' HTTP 1.1'+#13
+  +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='200','Not able to get File');
 end;
 
 procedure TWebDAVTest.MkCol;
@@ -323,8 +345,12 @@ begin
 end;
 
 procedure TWebDAVTest.DeleteCol;
+var
+  aRes: String;
 begin
-
+  aRes := SendRequest('DELETE /webdav/litmus/ HTTP 1.1'+#13
+  +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='200','Wrong Answer to Delete Col');
 end;
 
 procedure TWebDAVTest.CheckPropfindImplicitAllProp;

@@ -32,6 +32,8 @@ type
   { TPrometServerFunctions }
 
   TPrometServerFunctions = class
+  private
+    function FindVirtualDocumentPath(var aDir : string;var aID : Variant;var aType : string) : Boolean;
   public
     procedure AddDocumentsToFileList(aFileList: TDAVDirectoryList;
       aDocuments: TDocuments; aPath: string);
@@ -103,6 +105,8 @@ var
   aDirs: TTree;
   aCal: TCalendar;
   aTasks: TTaskList;
+  aID: Variant;
+  aType: string;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -180,10 +184,10 @@ begin
         end;
       aCal.Free;
     end
-  else
+  else if FindVirtualDocumentPath(aDir,aID,aType) then
     begin
       aDocuments := TDocuments.Create(nil);
-      aDocuments.Select(1,'D',0);
+      aDocuments.Select(aId,aType,0);
       aDocuments.Open;
       if copy(aDir,length(aDir),1) = '/' then
         aDir := copy(aDir,0,length(aDir)-1);
@@ -224,6 +228,8 @@ var
   IsCalendarUser: Boolean = false;
   aTasks: TTaskList;
   aDel: TDeletedItems;
+  aID: Variant;
+  aType: string;
 begin
   Result := false;
   if aSocket.User='' then exit;
@@ -548,11 +554,10 @@ begin
       else Result:=False;
     end
   //Files from Documents/Files
-  else if copy(aDir,0,7) = '/webdav' then
+  else if FindVirtualDocumentPath(aDir,aID,aType) then
     begin
-      aDir := copy(aDir,8,length(aDir));
       aDocuments := TDocuments.Create(nil);
-      aDocuments.Select(1,'D',0);
+      aDocuments.Select(aId,aType,0);
       aDocuments.Open;
       if copy(aDir,length(aDir),1) <> '/' then
         aDir := aDir+'/';
@@ -599,6 +604,8 @@ var
   aParent,aDirPar : Variant;
   aDirs: TTree;
   aTasks: TTaskList;
+  aID: Variant;
+  aType: string;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -699,13 +706,12 @@ begin
           aTasks.Free;
         end;
     end
-  else if (copy(aDir,0,7) = 'webdav/') then
+  else if FindVirtualDocumentPath(aDir,aID,aType) then
     begin
-      aDir := copy(aDir,8,length(aDir));
       Mimetype := '';
       aDocuments := TDocuments.Create(nil);
       try
-      aDocuments.Select(1,'D',0);
+      aDocuments.Select(aId,aType,0);
       aDocuments.Open;
       if rpos('/',aDir) > 1 then
         Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)),'/')
@@ -752,6 +758,8 @@ var
   aDocuments: TDocuments;
   aDocument: TDocument;
   Subfolder: Boolean = False;
+  aId: Variant;
+  aType: string;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -761,39 +769,41 @@ begin
       if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
   Data.RefreshUsersFilter;
-  aDir := copy(aDir,8,length(aDir));
-  aDocuments := TDocuments.Create(nil);
-  aDocuments.Select(1,'D',0);
-  aDocuments.Open;
-  if copy(aDir,length(aDir),1)='/' then
-    aDir := copy(aDir,0,length(aDir)-1);
-  if (rpos('/',aDir) > 1) then
+  if FindVirtualDocumentPath(aDir,aId,aType) then
     begin
-      Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)-1),'/');
-      Subfolder := True;
-    end
-  else Result := True;
-  if Result then
-    begin
-      Result := False;
-      aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
-      aDocument := TDocument.Create(nil);
-      if SubFolder then
-        aDocument.BaseParent := aDocuments
-      else
+      aDocuments := TDocuments.Create(nil);
+      aDocuments.Select(aId,aType,0);
+      aDocuments.Open;
+      if copy(aDir,length(aDir),1)='/' then
+        aDir := copy(aDir,0,length(aDir)-1);
+      if (rpos('/',aDir) > 1) then
         begin
-          aDocument.Ref_ID := aDocuments.Ref_ID;
-          aDocument.BaseTyp:=aDocuments.BaseTyp;
-          aDocument.BaseID:=aDocuments.BaseID;
-          aDocument.BaseVersion:=aDocuments.BaseVersion;
-          aDocument.BaseLanguage:=aDocuments.BaseLanguage;
+          Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)-1),'/');
+          Subfolder := True;
+        end
+      else Result := True;
+      if Result then
+        begin
+          Result := False;
+          aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
+          aDocument := TDocument.Create(nil);
+          if SubFolder then
+            aDocument.BaseParent := aDocuments
+          else
+            begin
+              aDocument.Ref_ID := aDocuments.Ref_ID;
+              aDocument.BaseTyp:=aDocuments.BaseTyp;
+              aDocument.BaseID:=aDocuments.BaseID;
+              aDocument.BaseVersion:=aDocuments.BaseVersion;
+              aDocument.BaseLanguage:=aDocuments.BaseLanguage;
+            end;
+          aDocument.Insert;
+          aDocument.CreateDirectory(aDir);
+          aDocument.Free;
+          Result := True;
         end;
-      aDocument.Insert;
-      aDocument.CreateDirectory(aDir);
-      aDocument.Free;
-      Result := True;
+      aDocuments.Free;
     end;
-  aDocuments.Free;
 end;
 function TPrometServerFunctions.ServerPutFile(aSocket: TDAVSession; aDir: string;
   Stream: TStream; var eTag: string; var FStatus: Integer): Boolean;
@@ -811,6 +821,8 @@ var
   aCal: TCalendar;
   sl: TStringList;
   aTasks: TTaskList;
+  aID: Variant;
+  aType: string;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -928,17 +940,16 @@ begin
       aCal.Free;
       sl.Free;
     end
-  else if (copy(aDir,0,7) = '/webdav') then
+  else if FindVirtualDocumentPath(aDir,aID,aType) then
     begin
-      aDir := copy(aDir,8,length(aDir));
       aDocuments := TDocuments.Create(nil);
-      aDocuments.Select(1,'D',0);
+      aDocuments.Select(aID,aType,0);
       aDocuments.Open;
       if rpos('/',aDir) > 1 then
         Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)-1),'/')
       else Result := True;
       aDocuments2 := TDocuments.Create(nil);
-      aDocuments2.Select(1,'D',0);
+      aDocuments2.Select(aID,aType,0);
       aDocuments2.Open;
       if rpos('/',aDir) > 1 then
         Result := aDocuments2.OpenPath(copy(aDir,0,rpos('/',aDir)),'/')
@@ -995,6 +1006,20 @@ begin
     end
   else aSocket.User:=Data.Users.Id.AsString;
 end;
+
+function TPrometServerFunctions.FindVirtualDocumentPath(var aDir: string;
+  var aID: Variant; var aType: string): Boolean;
+begin
+  Result := False;
+  if copy(aDir,0,7)='/webdav' then
+    begin
+      aDir := copy(aDir,8,length(aDir));
+      aId := 1;
+      aType := 'D';
+      Result := True;
+    end;
+end;
+
 procedure TPrometServerFunctions.AddDocumentsToFileList(aFileList: TDAVDirectoryList;
   aDocuments: TDocuments;aPath : string);
 var
