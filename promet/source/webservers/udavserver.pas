@@ -1274,6 +1274,7 @@ begin
       IgnoreNotFound := True;
     end;
   aDocument.AppendChild(aMSRes);
+  AddNS('D','DAV:');
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   aDepth := StrToIntDef(trim(FSocket.Parameters.Values['depth']),0);
   aDirList := TDAVDirectoryList.Create;

@@ -323,6 +323,7 @@ begin
   Check(pos('D:displayname',aRes)>0,':displayname missing');
   Check(pos('D:resourcetype',aRes)>0,'d:resourcetype missing');
   Check(pos('D:getetag',aRes)>0,'d:getetag missing');
+  Check(pos('xmlns:D="DAV:"',aRes)>0,'DAV Namespace missing');
   {
   curl -i -X PROPFIND http://192.168.177.120:10081/remote.php/webdav/
 HTTP/1.1 207 Multi-Status
