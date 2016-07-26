@@ -31,7 +31,9 @@ type
     procedure CheckOptionsSubPath;
     procedure CheckPropfindImplicitAllProp;
     procedure CheckPropfindAllprop;
+    procedure DesktopIni;
     procedure MkCol;
+    procedure DeleteCol;
   end;
 
   { TestSocket }
@@ -301,6 +303,16 @@ begin
   Check(pos('D:getetag',aRes)>0,'d:getetag missing');
 end;
 
+procedure TWebDAVTest.DesktopIni;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND /caldav/desktop.ini HTTP/1.1'+#13
+   +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind to non existent file');
+end;
+
 procedure TWebDAVTest.MkCol;
 var
   aRes: String;
@@ -308,6 +320,11 @@ begin
   aRes := SendRequest('MKCOL /webdav/litmus/ HTTP 1.1'+#13
   +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='200','Wrong Answer to MkCol');
+end;
+
+procedure TWebDAVTest.DeleteCol;
+begin
+
 end;
 
 procedure TWebDAVTest.CheckPropfindImplicitAllProp;
@@ -324,76 +341,6 @@ begin
   Check(pos('D:resourcetype',aRes)>0,'d:resourcetype missing');
   Check(pos('D:getetag',aRes)>0,'d:getetag missing');
   Check(pos('xmlns:D="DAV:"',aRes)>0,'DAV Namespace missing');
-  {
-  curl -i -X PROPFIND http://192.168.177.120:10081/remote.php/webdav/
-HTTP/1.1 207 Multi-Status
-Server: nginx
-Date: Tue, 26 Jul 2016 02:51:42 GMT
-Content-Type: application/xml; charset=utf-8
-Transfer-Encoding: chunked
-Connection: keep-alive
-X-Powered-By: PHP/7.0.8
-Expires: Thu, 19 Nov 1981 08:52:00 GMT
-Cache-Control: no-store, no-cache, must-revalidate
-Pragma: no-cache
-Set-Cookie: oc_sessionPassphrase=kPRtkW%2FtAas%2FOAkwJGudA55iNJOzaSWdYbynVIpJuwxryX0idpSidTEjLOFCVPqlvxNChxa1b1GoEuT4x%2F0ilw7qEPgqCpZBdD3MOWznxDmc6%2BcvdzdXAcRPZybJclAW; path=/; HttpOnly
-Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; frame-src *; img-src * data: blob:; font-src 'self' data:; media-src *; connect-src *
-Set-Cookie: nc_sameSiteCookielax=true; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=lax
-Set-Cookie: nc_sameSiteCookiestrict=true; path=/; httponly;expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=strict
-Set-Cookie: ocal0ualegse=ffcdldk13nj87pf9p7vr25rlu5; path=/; HttpOnly
-Vary: Brief,Prefer
-DAV: 1, 3, extended-mkcol
-
-<?xml version="1.0"?>
-<d:multistatus xmlns:d="DAV:" xmlns:s="http://sabredav.org/ns" xmlns:oc="http://owncloud.org/ns">
- <d:response>
-  <d:href>/remote.php/webdav/</d:href>
-  <d:propstat>
-   <d:prop>
-    <d:getlastmodified>Mon, 25 Jul 2016 21:28:04 GMT</d:getlastmodified>
-    <d:resourcetype>
-     <d:collection/>
-    </d:resourcetype>
-    <d:quota-used-bytes>714783</d:quota-used-bytes>
-    <d:quota-available-bytes>-3</d:quota-available-bytes>
-    <d:getetag>&quot;579684649174f&quot;</d:getetag>
-   </d:prop>
-   <d:status>HTTP/1.1 200 OK</d:status>
-  </d:propstat>
- </d:response>
- <d:response>
-  <d:href>/remote.php/webdav/Documents/</d:href>
-  <d:propstat>
-   <d:prop>
-    <d:getlastmodified>Mon, 25 Jul 2016 21:28:04 GMT</d:getlastmodified>
-    <d:resourcetype>
-     <d:collection/>
-    </d:resourcetype>
-    <d:quota-used-bytes>36227</d:quota-used-bytes>
-    <d:quota-available-bytes>-3</d:quota-available-bytes>
-    <d:getetag>&quot;57968464839e7&quot;</d:getetag>
-   </d:prop>
-   <d:status>HTTP/1.1 200 OK</d:status>
-  </d:propstat>
- </d:response>
- <d:response>
-  <d:href>/remote.php/webdav/Photos/</d:href>
-  <d:propstat>
-   <d:prop>
-    <d:getlastmodified>Mon, 25 Jul 2016 21:28:03 GMT</d:getlastmodified>
-    <d:resourcetype>
-     <d:collection/>
-    </d:resourcetype>
-    <d:quota-used-bytes>678556</d:quota-used-bytes>
-    <d:quota-available-bytes>-3</d:quota-available-bytes>
-    <d:getetag>&quot;579684639230b&quot;</d:getetag>
-   </d:prop>
-   <d:status>HTTP/1.1 200 OK</d:status>
-  </d:propstat>
- </d:response>
-</d:multistatus>
-
-  }
 end;
 
 initialization

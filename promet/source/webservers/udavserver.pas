@@ -710,7 +710,9 @@ end;
 
 function TDAVDirectoryList.Get(Index: Integer): TDAVFile;
 begin
-  Result := TDAVFile(Items[Index]);
+  Result := nil;
+  if Index<Count then
+    Result := TDAVFile(Items[Index]);
 end;
 
 procedure TDAVDirectoryList.Put(Index: Integer; AValue: TDAVFile);
@@ -1302,7 +1304,7 @@ begin
         begin
           if aDirList[i].Path='' then
             Createresponse(Path+aDirList[i].Name,aMSres,aProperties,aNs,aPrefix,aDirList[i])
-          else
+          else if Assigned(aDirList[i]) then
             Createresponse(aDirList[i].Path+aDirList[i].Name,aMSres,aProperties,aNs,aPrefix,aDirList[i]);
         end;
     end

@@ -227,6 +227,7 @@ var
 begin
   Result := false;
   if aSocket.User='' then exit;
+  try
   aDir := HTTPDecode(aDir);
   if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then
     begin
@@ -365,7 +366,11 @@ begin
                 end;
               aCal.Free;
             end
-          else aItem.Free;
+          else
+            begin
+              aDirList.Remove(aItem);
+              aItem.Free;
+            end;
           while not aDirs.EOF do
             begin
               TmpPath := aBaseDir+aDirs.Text.AsString;
@@ -522,6 +527,7 @@ begin
               aItem.Properties.Values['creationdate'] := BuildISODate(Now());
               aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
               sl := TStringList.Create;
+              {
               aCal := TCalendar.Create(nil);
               aCal.SelectByUser(Data.Users.Accountno.AsString);
               aCal.Open;
@@ -532,6 +538,7 @@ begin
               aItem.Properties.Values['getcontentlength'] := IntToStr(Stream.Size);
               Stream.Free;
               sl.Free;
+              }
               if Assigned(aDirList) then
                 aDirList.Add(aItem)
               else aDirList := aItem;
@@ -573,6 +580,9 @@ begin
         end;
       aDocuments.Free;
     end;
+  except
+    Result:=False;
+  end;
 end;
 function TPrometServerFunctions.ServerGetFile(aSocket: TDAVSession; aDir: string;
   Stream: TStream; var LastModified: TDateTime; var MimeType: string;
@@ -694,6 +704,7 @@ begin
       aDir := copy(aDir,8,length(aDir));
       Mimetype := '';
       aDocuments := TDocuments.Create(nil);
+      try
       aDocuments.Select(1,'D',0);
       aDocuments.Open;
       if rpos('/',aDir) > 1 then
@@ -706,6 +717,7 @@ begin
           if aDocuments.SelectFile(aDir) then
             begin
               aDocument := TDocument.Create(nil);
+              try
               aDocument.SelectByNumber(aDocuments.DataSet.FieldByName('NUMBER').AsVariant);
               aDocument.Open;
               if aDocument.Count > 0 then
@@ -725,9 +737,14 @@ begin
                     MimeType := GetMimeTypeforExtension(ExtractFileExt(aDocuments.FileName));
                   Result := True;
                 end;
-              aDocument.Free;
+              finally
+                aDocument.Free;
+              end;
             end;
         end;
+      finally
+        aDocuments.Free;
+      end;
     end;
 end;
 function TPrometServerFunctions.ServerMkCol(aSocket: TDAVSession; aDir: string): Boolean;
