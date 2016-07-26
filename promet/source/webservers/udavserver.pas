@@ -1545,6 +1545,10 @@ begin
   if Assigned(TWebDAVMaster(FSocket.Creator).OnMkCol) then
     Result := TWebDAVMaster(FSocket.Creator).OnMkCol(TDAVSession(FSocket),aPath);
   TWebDAVMaster(FSocket.Creator).Unlock;
+  if Result then
+    FSocket.FStatus:=200
+  else
+    FSocket.FStatus:=403;
 end;
 
 

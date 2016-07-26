@@ -8,8 +8,9 @@
       <Unit0>
         <Filename Value="consoletest_webdav.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="5" Y="10"/>
-        <UsageCount Value="66"/>
+        <TopLine Value="4"/>
+        <CursorPos Y="131"/>
+        <UsageCount Value="67"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -17,26 +18,27 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <CursorPos Y="34"/>
-        <UsageCount Value="51"/>
+        <TopLine Value="316"/>
+        <CursorPos X="70" Y="327"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\webservers\udavserver.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="1241"/>
-        <CursorPos X="55" Y="1272"/>
-        <UsageCount Value="51"/>
+        <TopLine Value="645"/>
+        <CursorPos Y="675"/>
+        <UsageCount Value="52"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="150"/>
-        <CursorPos Y="373"/>
-        <UsageCount Value="47"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="750"/>
+        <CursorPos Y="780"/>
+        <UsageCount Value="48"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -44,7 +46,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="81" Y="24"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="51"/>
       </Unit4>
       <Unit5>
         <Filename Value="tlogin.pas"/>
@@ -53,7 +55,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="16"/>
         <CursorPos Y="31"/>
-        <UsageCount Value="51"/>
+        <UsageCount Value="52"/>
       </Unit5>
       <Unit6>
         <Filename Value="utzugferd.pas"/>
@@ -71,7 +73,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="5"/>
         <CursorPos X="38" Y="20"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -214,7 +216,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="304"/>
         <CursorPos Y="332"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit32>
       <Unit33>
@@ -292,10 +294,10 @@
       <Unit44>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="1407"/>
         <CursorPos X="30" Y="1429"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit44>
       <Unit45>
@@ -563,19 +565,18 @@
       </Unit80>
       <Unit81>
         <Filename Value="..\..\..\general\src\Utils.pas"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="902"/>
         <CursorPos X="24" Y="921"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit81>
       <Unit82>
         <Filename Value="..\base\base_forms\uselectreport.pas"/>
         <UnitName Value="uSelectReport"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="113"/>
         <CursorPos X="52" Y="128"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit82>
       <Unit83>
@@ -590,128 +591,128 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1256" TopLine="1231"/>
+        <Caret Line="1542" TopLine="1519"/>
       </Position1>
       <Position2>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1257" TopLine="1231"/>
+        <Caret Line="1544" TopLine="1519"/>
       </Position2>
       <Position3>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1258" TopLine="1231"/>
+        <Caret Line="1545" TopLine="1519"/>
       </Position3>
       <Position4>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1260" TopLine="1231"/>
+        <Caret Line="1546" TopLine="1519"/>
       </Position4>
       <Position5>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1256" TopLine="1231"/>
+        <Caret Line="1547" TopLine="1519"/>
       </Position5>
       <Position6>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1257" TopLine="1231"/>
+        <Caret Line="1548" TopLine="1519"/>
       </Position6>
       <Position7>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1258" TopLine="1231"/>
+        <Caret Line="1549" TopLine="1519"/>
       </Position7>
       <Position8>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1256" TopLine="1231"/>
+        <Caret Line="1552" TopLine="1519"/>
       </Position8>
       <Position9>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1258" Column="52" TopLine="1247"/>
+        <Caret Line="843" TopLine="825"/>
       </Position9>
       <Position10>
-        <Filename Value="twebdav.pas"/>
-        <Caret Line="314" TopLine="280"/>
+        <Filename Value="..\webservers\udavserver.pas"/>
+        <Caret Line="845" TopLine="825"/>
       </Position10>
       <Position11>
-        <Filename Value="twebdav.pas"/>
-        <Caret Line="313" Column="12" TopLine="284"/>
+        <Filename Value="..\webservers\udavserver.pas"/>
+        <Caret Line="846" TopLine="825"/>
       </Position11>
       <Position12>
-        <Filename Value="twebdav.pas"/>
-        <Caret Line="311" Column="3" TopLine="284"/>
+        <Filename Value="..\webservers\udavserver.pas"/>
+        <Caret Line="858" TopLine="828"/>
       </Position12>
       <Position13>
-        <Filename Value="twebdav.pas"/>
-        <Caret Line="23" TopLine="11"/>
+        <Filename Value="..\webservers\udavserver.pas"/>
+        <Caret Line="860" TopLine="830"/>
       </Position13>
       <Position14>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1235" TopLine="1223"/>
+        <Caret Line="862" TopLine="832"/>
       </Position14>
       <Position15>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1273" TopLine="1251"/>
+        <Caret Line="654" TopLine="636"/>
       </Position15>
       <Position16>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1274" TopLine="1251"/>
+        <Caret Line="655" TopLine="636"/>
       </Position16>
       <Position17>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1235" TopLine="1213"/>
+        <Caret Line="656" TopLine="636"/>
       </Position17>
       <Position18>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1263" TopLine="1241"/>
+        <Caret Line="657" TopLine="636"/>
       </Position18>
       <Position19>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1264" TopLine="1241"/>
+        <Caret Line="658" TopLine="636"/>
       </Position19>
       <Position20>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1266" TopLine="1241"/>
+        <Caret Line="671" TopLine="641"/>
       </Position20>
       <Position21>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1267" TopLine="1241"/>
+        <Caret Line="673" TopLine="643"/>
       </Position21>
       <Position22>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1268" TopLine="1241"/>
+        <Caret Line="674" TopLine="644"/>
       </Position22>
       <Position23>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1269" TopLine="1241"/>
+        <Caret Line="675" TopLine="645"/>
       </Position23>
       <Position24>
-        <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1270" TopLine="1241"/>
+        <Filename Value="twebdav.pas"/>
+        <Caret Line="80" TopLine="62"/>
       </Position24>
       <Position25>
-        <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1271" TopLine="1241"/>
+        <Filename Value="twebdav.pas"/>
+        <Caret Line="81" TopLine="62"/>
       </Position25>
       <Position26>
-        <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1272" TopLine="1241"/>
+        <Filename Value="twebdav.pas"/>
+        <Caret Line="82" TopLine="62"/>
       </Position26>
       <Position27>
-        <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1274" TopLine="1241"/>
+        <Filename Value="twebdav.pas"/>
+        <Caret Line="83" TopLine="62"/>
       </Position27>
       <Position28>
-        <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1272" Column="48" TopLine="1260"/>
+        <Filename Value="twebdav.pas"/>
+        <Caret Line="84" TopLine="62"/>
       </Position28>
       <Position29>
-        <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1237" Column="17" TopLine="1224"/>
+        <Filename Value="twebdav.pas"/>
+        <Caret Line="310" TopLine="291"/>
       </Position29>
       <Position30>
-        <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1272" Column="55" TopLine="1241"/>
+        <Filename Value="twebdav.pas"/>
+        <Caret Line="311" TopLine="291"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="3">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -719,6 +720,20 @@
         <Source Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-image\src\fpimage.inc"/>
         <Line Value="177"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="..\webservers\udavserver.pas"/>
+        <Line Value="1540"/>
+      </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="..\webservers\udavserver.pas"/>
+        <Line Value="653"/>
+      </Item3>
     </BreakPoints>
   </Debugging>
 </CONFIG>
