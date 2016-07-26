@@ -730,15 +730,6 @@ begin
                 begin
                   aDocument.CheckoutToStream(Stream);
                   LastModified:=aDocument.LastModified;
-                  //TODO:fix this
-                  {
-                  if Assigned(MimeList) then
-                    begin
-                      lIndex := MimeList.IndexOf(ExtractFileExt(aDocuments.FileName));
-                      if lIndex >= 0 then
-                        MimeType := TStringObject(MimeList.Objects[lIndex]).Str;
-                    end;
-                  }
                   if MimeType = '' then
                     MimeType := GetMimeTypeforExtension(ExtractFileExt(aDocuments.FileName));
                   Result := True;

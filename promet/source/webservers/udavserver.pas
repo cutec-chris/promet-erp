@@ -260,7 +260,7 @@ type
 
 implementation
 
-uses base64,Utils,uhttputil,uBaseApplication
+uses base64,Utils,uhttputil,uBaseApplication,synautil
   {$ifdef WINDOWS}
   //,SynSSPIAuth
   {$endif};
@@ -396,13 +396,15 @@ var
   FModified : TDateTime;
   FMimeType : string;
 begin
+  TDAVSession(FSocket).CheckAuth;
   TDAVSession(FSocket).Status := 500;
   TWebDAVMaster(TDAVSession(FSocket).Creator).Lock;
   if Assigned(Event) then
     if Event(TDAVSession(FSocket),HTTPDecode(TDAVSession(FSocket).URI),Foutput,FModified,FMimeType,FeTag) then
       begin
         TDAVSession(FSocket).Status := 200;
-        //TDAVSession(FSocket).HeaderOut.Add('Last-Modified: '+ LocalTimeToGMT(FModified));
+        TDAVSession(FSocket).HeaderOut.Add('Last-Modified: '+Rfc822DateTime(LocalTimeToGMT(FModified)));
+        TDAVSession(FSocket).HeaderOut.Add('Content-Type: '+ FMimeType);
       end;
   TWebDAVMaster(TDAVSession(FSocket).Creator).Unlock;
 end;
@@ -421,6 +423,7 @@ var
   FeTag : string;
   FStatus : Integer;
 begin
+  TDAVSession(FSocket).CheckAuth;
   TDAVSession(FSocket).Status := 500;
   TWebDAVMaster(TDAVSession(FSocket).Creator).Lock;
   if BaseApplication.HasOption('debug') then
@@ -551,6 +554,8 @@ var
 
   procedure AddDAVheaders;
   begin
+    HeaderOut.Add('Content-type: text/xml');
+    HeaderOut.Add('Content-Charset: utf8');
     HeaderOut.Add('DAV: 1,2, access-control, calendar-access');
     HeaderOut.Add('DAV: <http://apache.org/dav/propset/fs/1>');
     HeaderOut.Add('MS-Author-Via: DAV');
@@ -564,8 +569,6 @@ begin
     TWebDAVMaster(Creator).OnAccess(Self,'<'+Request+' '+aURI);
   FURI:=aURI;
   HeaderOut := TStringList.Create;
-  HeaderOut.Add('Content-type: text/xml');
-  HeaderOut.Add('Content-Charset: utf8');
   try
     Result := 500;
     case Request of
@@ -591,6 +594,7 @@ begin
        end;
     'GET','HEAD':
        begin
+         CheckAuth;
          TWebDAVMaster(Creator).Lock;
          if Assigned(TWebDAVMaster(Creator).OnReadAllowed)
          and (not TWebDAVMaster(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
@@ -607,6 +611,7 @@ begin
        end;
     'PUT':
        begin
+         CheckAuth;
          TWebDAVMaster(Creator).Lock;
          if Assigned(TWebDAVMaster(Creator).OnReadAllowed)
          and (not TWebDAVMaster(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
@@ -623,6 +628,7 @@ begin
        end;
     'POST':
        begin
+         CheckAuth;
          TWebDAVMaster(Creator).Lock;
          if Assigned(TWebDAVMaster(Creator).OnReadAllowed)
          and (not TWebDAVMaster(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
