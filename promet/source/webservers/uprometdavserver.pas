@@ -35,8 +35,8 @@ type
   private
     function FindVirtualDocumentPath(var aDir : string;var aID : Variant;var aType : string) : Boolean;
   public
-    procedure AddDocumentsToFileList(aFileList: TDAVDirectoryList;
-      aDocuments: TDocuments; aPath: string);
+    function AddDocumentsToFileList(aFileList: TDAVDirectoryList;
+      aDocuments: TDocuments; aPath,aFilter: string) : Boolean;
     procedure AddDocumentToFileList(aFileList: TDAVDirectoryList;
       aDocuments: TDocuments; FullPath: string);
     function ServerDelete(aSocket: TDAVSession; aDir: string): Boolean;
@@ -179,6 +179,11 @@ begin
                 begin
                   atasks.Delete;
                 end
+            end;
+          Result := aTasks.Count=1;
+          if Result then
+            begin
+              aTasks.Delete;
             end;
           aTasks.Free;
         end;
@@ -477,7 +482,7 @@ begin
                   aItem.IsCalendarUser:=IsCalendarUser;
                   aCal := TCalendar.Create(nil);
                   aCal.Filter(Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(aDirs.Id.AsString));
-                  //if aCal.TimeStamp.AsDateTime>aDel.TimeStamp.AsDateTime then
+                  //if aCal.TimeStamp.AsDateTime<aDel.TimeStamp.AsDateTime then
                     aItem.Properties.Values['getctag'] := StringReplace(aCal.TimeStamp.AsString,' ','',[rfReplaceAll])
                   //else
                   //  aItem.Properties.Values['getctag'] := Stringreplace(aDel.TimeStamp.AsString,' ','',[rfReplaceAll])
@@ -559,12 +564,15 @@ begin
       aDocuments := TDocuments.Create(nil);
       aDocuments.Select(aId,aType,0);
       aDocuments.Open;
+      aFile := '';
       if copy(aDir,length(aDir),1) <> '/' then
-        aDir := aDir+'/';
+        begin
+          aFile := ExtractFileName(aDir);
+          aDir := copy(aDir,0,rpos('/',aDir)-1);
+        end;
       if aDocuments.OpenPath(aDir,'/') then
         begin
-          AddDocumentsToFileList(aDirList,aDocuments,'/webdav'+aDir);
-          Result := True;
+          Result := AddDocumentsToFileList(aDirList,aDocuments,'/webdav'+aDir,aFile);
         end
       else
         begin
@@ -1011,16 +1019,22 @@ begin
     end;
 end;
 
-procedure TPrometServerFunctions.AddDocumentsToFileList(aFileList: TDAVDirectoryList;
-  aDocuments: TDocuments;aPath : string);
+function TPrometServerFunctions.AddDocumentsToFileList(
+  aFileList: TDAVDirectoryList; aDocuments: TDocuments; aPath, aFilter: string
+  ): Boolean;
 var
   aFile: TDAVFile;
   lIndex: Integer;
 begin
+  Result := False;
   aDocuments.DataSet.First;
   while not aDocuments.DataSet.EOF do
     begin
-      AddDocumentToFileList(aFileList,aDocuments,aPath+aDocuments.FileName);
+      if (aFilter = '') or (aDocuments.FileName=aFilter) then
+        begin
+          AddDocumentToFileList(aFileList,aDocuments,aPath+aDocuments.FileName);
+          Result := True;
+        end;
       aDocuments.DataSet.Next;
     end;
 end;

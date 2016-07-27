@@ -34,6 +34,8 @@ type
     procedure NonExistingElement;
     procedure NonExistingElement2;
     procedure GetFile;
+    procedure PropfindFile;
+    procedure PropfindDir;
     procedure MkCol;
     procedure DeleteCol;
   end;
@@ -330,9 +332,33 @@ procedure TWebDAVTest.GetFile;
 var
   aRes: String;
 begin
-  aRes := SendRequest('GET '+HTTPEncode('/webdav/äöü.txt')+' HTTP 1.1'+#13
+  aRes := SendRequest('GET '+'/webdav/'+HTTPEncode('äöü.txt')+' HTTP 1.1'+#13
   +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='200','Not able to get File');
+end;
+
+procedure TWebDAVTest.PropfindFile;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND '+'/webdav/'+HTTPEncode('äöü.txt')+' HTTP/1.1'+#13
+   +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
+  Check(pos(':href>/webdav/'+HTTPEncode('äöü.txt'),aRes)=0,'Server tells that no Element exists');
+  //TODO:check for Entrys only one entry for THAT File should exists
+end;
+
+procedure TWebDAVTest.PropfindDir;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND '+'/webdav/ HTTP/1.1'+#13
+   +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
+  //Check(pos('D:href>/webdav/',aRes)=0,'Server tells that no Element exists'); //Sophos dont likes this :/
+  //TODO:check for Entrys only one entry for THAT File should exists
 end;
 
 procedure TWebDAVTest.MkCol;

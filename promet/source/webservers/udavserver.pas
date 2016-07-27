@@ -648,6 +648,11 @@ begin
          AddDAVheaders;
          Res := TDAVMkColOutput.Create(Self,InputData,OutputData);
        end;
+    'LOCK','UNLOCK':
+       begin
+         AddDAVheaders;
+         Status:=200;
+       end;
     'DELETE':
        begin
          AddDAVheaders;
@@ -973,8 +978,8 @@ var
     aHref := aDocument.CreateElement(prefix+':href');
     RemoveProp(':href');
     aResponse.AppendChild(aHref);
-    if not (Assigned(aFile) and (not aFile.IsDir)) then
-      if copy(aPath,length(aPath),1) <> '/' then aPath := aPath+'/';
+//    if not (Assigned(aFile) and (not aFile.IsDir)) then
+//      if copy(aPath,length(aPath),1) <> '/' then exit; //Allow only Resulting / for Dirs or not Assigned aFile
     aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(aPath)));
     aPropStat := aDocument.CreateElement(prefix+':propstat');
     aResponse.AppendChild(aPropStat);
@@ -1302,10 +1307,8 @@ begin
   TWebDAVMaster(FSocket.Creator).Unlock;
   if Assigned(aDirList) then
     begin
-      if not aDirList.HasPath(Path) then
+      if (copy(Path,length(Path),1) = '/') and (not aDirList.HasPath(Path)) then
         Createresponse(Path,aMSres,aProperties,aNS,aPrefix);
-      if copy(Path,length(Path),1) <> '/' then
-        Path := Path+'/';
       for i := 0 to aDirList.Count-1 do
         begin
           if aDirList[i].Path='' then
