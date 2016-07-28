@@ -1097,7 +1097,6 @@ begin
             end;
         end;
     end;
-
 end;
 
 function TPrometServerFunctions.AddDocumentsToFileList(
@@ -1150,7 +1149,6 @@ begin
   aFile.Properties.Values['creationdate'] := BuildISODate(aDocuments.CreationDate);
   aFileList.Add(aFile);
 end;
-
 
 end.
 

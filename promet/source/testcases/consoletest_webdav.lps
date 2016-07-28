@@ -18,8 +18,8 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="346"/>
-        <CursorPos Y="368"/>
+        <TopLine Value="369"/>
+        <CursorPos Y="411"/>
         <UsageCount Value="54"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -37,7 +37,6 @@
         <EditorIndex Value="4"/>
         <TopLine Value="300"/>
         <CursorPos Y="585"/>
-        <FoldState Value=" T0o54{}0E161W"/>
         <UsageCount Value="50"/>
         <Loaded Value="True"/>
       </Unit3>

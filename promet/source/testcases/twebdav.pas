@@ -408,7 +408,6 @@ begin
 end;
 
 initialization
-
   RegisterTest(TWebDAVTest);
 end.
 
