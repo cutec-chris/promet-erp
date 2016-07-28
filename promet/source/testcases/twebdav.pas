@@ -37,6 +37,7 @@ type
     procedure PropfindFile;
     procedure PropfindDir;
     procedure PropfindSubDir;
+    procedure PropFindDynamicFolder;
     procedure MkCol;
     procedure DeleteCol;
   end;
@@ -371,6 +372,18 @@ begin
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
   Check(pos('D:href>/webdav/apps/',aRes)>0,'Server tells that no Element exists');
   Check(pos('D:href>/webdav/apps/kitchensink',aRes)>0,'Server tells that no Element exists');
+end;
+
+procedure TWebDAVTest.PropFindDynamicFolder;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND '+'/masterdata HTTP/1.1'+#13
+   +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
+  Check(pos('D:href>/masterdata/',aRes)>0,'Server tells that no Element exists');
+  Check(pos('D:href>/masterdata/by-id',aRes)>0,'Server tells that no Element exists');
 end;
 
 procedure TWebDAVTest.MkCol;

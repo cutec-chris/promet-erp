@@ -618,6 +618,7 @@ begin
             aFullDir := aFullDir+'/';
           aItem := TDAVFile.Create(aFullDir+'by-id',True);
           aDirList.Add(aItem);
+          Result:=True;
         end;
     end;
   except
