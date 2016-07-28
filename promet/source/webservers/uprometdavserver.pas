@@ -33,7 +33,7 @@ type
 
   TPrometServerFunctions = class
   private
-    function FindVirtualDocumentPath(var aDir: string; var aID: Variant;
+    function FindVirtualDocumentPath(var aRemovedPath,aDir: string; var aID: Variant;
       var aType: string; var aLevel: Integer=0): Boolean;
   public
     function AddDocumentsToFileList(aFileList: TDAVDirectoryList;
@@ -109,6 +109,7 @@ var
   aID: Variant;
   aType: string;
   aLevel: Integer;
+  aRemovedPath: string;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -191,7 +192,7 @@ begin
         end;
       aCal.Free;
     end
-  else if FindVirtualDocumentPath(aDir,aID,aType,aLevel) then
+  else if FindVirtualDocumentPath(aRemovedPath,aDir,aID,aType,aLevel) then
     begin
       if aLevel = 6 then
         begin
@@ -242,6 +243,7 @@ var
   aType: string;
   i: Integer;
   aLevel: Integer;
+  aRemovedPath: string;
 begin
   Result := false;
   if aSocket.User='' then exit;
@@ -576,7 +578,7 @@ begin
       else Result:=False;
     end
   //Files from Documents/Files
-  else if FindVirtualDocumentPath(aDir,aID,aType,aLevel) then
+  else if FindVirtualDocumentPath(aRemovedPath,aDir,aID,aType,aLevel) then
     begin
       if aLevel = 6 then
         begin
@@ -590,7 +592,7 @@ begin
               aDir := copy(aDir,0,rpos('/',aDir)-1);
             end;
           if aDocuments.OpenPath(aDir,'/') then
-            Result := AddDocumentsToFileList(aDirList,aDocuments,'/webdav'+aDir,aFile)
+            Result := AddDocumentsToFileList(aDirList,aDocuments,aRemovedPath+aDir,aFile)
           else
             begin
               aDir := copy(aDir,0,length(aDir)-1);
@@ -602,7 +604,7 @@ begin
                   while not aDocuments.DataSet.EOF do
                     begin
                       if aDocuments.FileName = aFile then
-                        AddDocumentToFileList(aDirList,aDocuments,'/webdav'+aDir+aFile);
+                        AddDocumentToFileList(aDirList,aDocuments,aRemovedPath+aDir+aFile);
                       aDocuments.DataSet.Next;
                     end;
                 end;
@@ -640,6 +642,7 @@ var
   aID: Variant;
   aType: string;
   aLevel: Integer;
+  aRemovedPath: string;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -740,7 +743,7 @@ begin
           aTasks.Free;
         end;
     end
-  else if FindVirtualDocumentPath(aDir,aID,aType,aLevel) then
+  else if FindVirtualDocumentPath(aRemovedPath,aDir,aID,aType,aLevel) then
     begin
       Mimetype := '';
       if aLevel=6 then
@@ -789,6 +792,7 @@ var
   aId: Variant;
   aType: string;
   aLevel: Integer;
+  aRemovedPath: string;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -798,7 +802,7 @@ begin
       if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
   Data.RefreshUsersFilter;
-  if FindVirtualDocumentPath(aDir,aId,aType,aLevel) then
+  if FindVirtualDocumentPath(aRemovedPath,aDir,aId,aType,aLevel) then
     begin
       if aLevel=6 then
         begin
@@ -856,6 +860,7 @@ var
   aID: Variant;
   aType: string;
   aLevel: Integer;
+  aRemovedPath: string;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -973,7 +978,7 @@ begin
       aCal.Free;
       sl.Free;
     end
-  else if FindVirtualDocumentPath(aDir,aID,aType,aLevel) then
+  else if FindVirtualDocumentPath(aRemovedPath,aDir,aID,aType,aLevel) then
     begin
       if aLevel=6 then
         begin
@@ -1043,8 +1048,9 @@ begin
   else aSocket.User:=Data.Users.Id.AsString;
 end;
 
-function TPrometServerFunctions.FindVirtualDocumentPath(var aDir: string;
-  var aID: Variant; var aType: string; var aLevel : Integer = 0): Boolean;
+function TPrometServerFunctions.FindVirtualDocumentPath(var aRemovedPath,
+  aDir: string; var aID: Variant; var aType: string; var aLevel: Integer
+  ): Boolean;
 var
   i: Integer;
   DataSet: TBaseDBList;
@@ -1053,6 +1059,7 @@ begin
   Result := False;
   if copy(aDir,0,7)='/webdav' then
     begin
+      aRemovedPath:='/webdav';
       aDir := copy(aDir,8,length(aDir));
       aId := 1;
       aType := 'D';
@@ -1070,10 +1077,12 @@ begin
             begin
               aLevel := 1;
               Result:=True;
+              aRemovedPath:=copy(aDir,0,pos('/',aDir)-1);
               aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
               if copy(aDir,0,pos('/',aDir)-1)='by-id' then
                 begin
                   aLevel:=2;
+                  aRemovedPath:=aRemovedPath+'/by-id';
                   aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
                   DataSet := TBaseDbList(DatasetClasses[i].aClass.Create(nil));
                   aType:= DataSet.GetTyp;
@@ -1087,7 +1096,8 @@ begin
             end;
         end;
     end;
-
+  if copy(aRemovedPath,length(aRemovedPath),1) <> '/' then
+    aRemovedPath := aRemovedPath+'/';
 end;
 
 function TPrometServerFunctions.AddDocumentsToFileList(
