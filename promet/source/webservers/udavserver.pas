@@ -267,7 +267,7 @@ uses base64,Utils,uhttputil,uBaseApplication,synautil
 
 function InternURLEncode(aURL : string) : string;
 begin
-  Result := StringReplace(Utils.HTTPEncode(aURL),'%2f','/',[rfReplaceAll,rfIgnoreCase])
+  Result := StringReplace(Utils.HTTPEncode(aURL),'%2f','/',[rfReplaceAll,rfIgnoreCase]);
 end;
 
 { TWebDAVServer }
@@ -978,8 +978,6 @@ var
     aHref := aDocument.CreateElement(prefix+':href');
     RemoveProp(':href');
     aResponse.AppendChild(aHref);
-//    if not (Assigned(aFile) and (not aFile.IsDir)) then
-//      if copy(aPath,length(aPath),1) <> '/' then exit; //Allow only Resulting / for Dirs or not Assigned aFile
     aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(aPath)));
     aPropStat := aDocument.CreateElement(prefix+':propstat');
     aResponse.AppendChild(aPropStat);
