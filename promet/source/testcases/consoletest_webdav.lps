@@ -16,7 +16,6 @@
       <Unit1>
         <Filename Value="twebdav.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <TopLine Value="369"/>
         <CursorPos Y="411"/>
@@ -34,6 +33,7 @@
       <Unit3>
         <Filename Value="..\webservers\uprometdavserver.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <TopLine Value="300"/>
         <CursorPos Y="585"/>

@@ -1070,17 +1070,17 @@ begin
       for i := 0 to length(DatasetClasses)-1 do
         begin
           tmp := DatasetClasses[i].aName;
-          tmp := copy(aDir,0,length(tmp)+2);
+          tmp := copy(aDir,0,length(tmp)+1);
           if (DatasetClasses[i].aClass.InheritsFrom(TBaseDBList)
           and (tmp='/'+lowercase(DatasetClasses[i].aName))) then
             begin
               aLevel := 1;
               Result:=True;
-              if pos('/',aDir)>0 then
-                aRemovedDir:=copy(aDir,0,pos('/',aDir))
+              if pos('/',copy(aDir,2,length(aDir)))>0 then
+                aRemovedDir:=copy(aDir,0,pos('/',copy(aDir,2,length(aDir)))+2)
               else aRemovedDir:=aDir;
-              aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
-              if copy(aDir,0,pos('/',aDir)-1)='by-id' then
+              aDir := copy(aDir,pos('/',copy(aDir,2,length(aDir)))+2,length(aDir));
+              if (copy(aDir,0,pos('/',aDir)-1)='by-id') or (aDir = 'by-id') then
                 begin
                   aLevel:=2;
                   aRemovedDir+='by-id/';
