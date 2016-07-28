@@ -591,6 +591,8 @@ begin
               aFile := ExtractFileName(aDir);
               aDir := copy(aDir,0,rpos('/',aDir)-1);
             end;
+          if copy(aDir,length(aDir),1) = '/' then
+            aDir := copy(aDir,0,length(aDir)-1);
           if aDocuments.OpenPath(aDir,'/') then
             Result := AddDocumentsToFileList(aDirList,aDocuments,aRemovedPath+aDir,aFile)
           else

@@ -359,7 +359,7 @@ begin
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
   Check(pos('D:href>/webdav/',aRes)>0,'Server tells that no Element exists'); //Sophos dont likes this :/
-  //TODO:check for Entrys only one entry for THAT File should exists
+  Check(pos(':href>/webdav/'+HTTPEncode('äöü.txt'),aRes)>0,'Server tells that File äöü.txt not exists');
 end;
 
 procedure TWebDAVTest.PropfindDirWithoutTrailingSlash;
