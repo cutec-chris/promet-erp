@@ -281,6 +281,7 @@ begin
             if DatasetClasses[i].aClass.InheritsFrom(TBaseDBList) and (
                (DatasetClasses[i].aName='MASTERDATA')
             or (DatasetClasses[i].aName='MEETING')
+            or (DatasetClasses[i].aName='PROJECTS')
                 ) then
               begin
                 aItem := TDAVFile.Create('/'+lowercase(DatasetClasses[i].aName),True);
@@ -618,6 +619,12 @@ begin
             aFullDir := aFullDir+'/';
           aItem := TDAVFile.Create(aFullDir+'by-id',True);
           aDirList.Add(aItem);
+          Result:=True;
+        end
+      else if aLevel=2 then //by-id
+        begin
+          if copy(aFullDir,length(aFullDir),1) <> '/' then
+            aFullDir := aFullDir+'/';
           Result:=True;
         end;
     end;
@@ -1086,13 +1093,20 @@ begin
                   aLevel:=2;
                   aRemovedDir+='by-id/';
                   aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
-                  DataSet := TBaseDbList(DatasetClasses[i].aClass.Create(nil));
-                  aType:= DataSet.GetTyp;
-                  DataSet.SelectFromNumber(copy(aDir,0,pos('/',aDir)-1));
-                  DataSet.Open;
-                  Result := DataSet.Count>0;
-                  aID:=DataSet.Id.AsVariant;
-                  DataSet.Free;
+                  if length(aDir)>0 then
+                    begin
+                      DataSet := TBaseDbList(TBaseDbListClass(DatasetClasses[i].aClass).Create(nil));
+                      if Assigned(DataSet) then
+                        begin
+                          DataSet.SelectFromNumber(copy(aDir,0,pos('/',aDir)-1));
+                          DataSet.Open;
+                          Result := DataSet.Count>0;
+                          aID:=DataSet.Id.AsVariant;
+                          aType:= DataSet.GetTyp;
+                          DataSet.Free;
+                          if Result then aLevel:=6;
+                        end;
+                    end;
                 end;
               break;
             end;

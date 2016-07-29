@@ -16,19 +16,19 @@
       <Unit1>
         <Filename Value="twebdav.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="362"/>
-        <CursorPos Y="387"/>
+        <TopLine Value="294"/>
+        <CursorPos Y="316"/>
         <UsageCount Value="54"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\webservers\udavserver.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="836"/>
-        <CursorPos Y="854"/>
+        <TopLine Value="642"/>
+        <CursorPos Y="664"/>
         <UsageCount Value="54"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -599,128 +599,128 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="854" TopLine="846"/>
+        <Caret Line="1279" TopLine="1253"/>
       </Position1>
       <Position2>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1243" TopLine="1225"/>
+        <Caret Line="1280" TopLine="1253"/>
       </Position2>
       <Position3>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="909" TopLine="890"/>
+        <Caret Line="1281" TopLine="1253"/>
       </Position3>
       <Position4>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1244" TopLine="1226"/>
+        <Caret Line="1282" TopLine="1253"/>
       </Position4>
       <Position5>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1245" TopLine="1226"/>
+        <Caret Line="1283" TopLine="1253"/>
       </Position5>
       <Position6>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1246" TopLine="1226"/>
+        <Caret Line="1284" TopLine="1253"/>
       </Position6>
       <Position7>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1247" TopLine="1226"/>
+        <Caret Line="1285" TopLine="1253"/>
       </Position7>
       <Position8>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1275" TopLine="1257"/>
+        <Caret Line="1287" TopLine="1253"/>
       </Position8>
       <Position9>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1276" TopLine="1257"/>
+        <Caret Line="1288" TopLine="1253"/>
       </Position9>
       <Position10>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1278" TopLine="1257"/>
+        <Caret Line="1289" TopLine="1253"/>
       </Position10>
       <Position11>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1279" TopLine="1257"/>
+        <Caret Line="1290" TopLine="1275"/>
       </Position11>
       <Position12>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1280" TopLine="1257"/>
+        <Caret Line="1291" TopLine="1275"/>
       </Position12>
       <Position13>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1281" TopLine="1257"/>
+        <Caret Line="1292" TopLine="1275"/>
       </Position13>
       <Position14>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1282" TopLine="1257"/>
+        <Caret Line="1293" TopLine="1275"/>
       </Position14>
       <Position15>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1283" TopLine="1257"/>
+        <Caret Line="1305" TopLine="1275"/>
       </Position15>
       <Position16>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1284" TopLine="1257"/>
+        <Caret Line="1306" TopLine="1275"/>
       </Position16>
       <Position17>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1285" TopLine="1257"/>
+        <Caret Line="1308" TopLine="1293"/>
       </Position17>
       <Position18>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1287" TopLine="1257"/>
+        <Caret Line="1310" TopLine="1293"/>
       </Position18>
       <Position19>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1288" TopLine="1258"/>
+        <Caret Line="1322" TopLine="1305"/>
       </Position19>
       <Position20>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1289" TopLine="1259"/>
+        <Caret Line="1323" TopLine="1305"/>
       </Position20>
       <Position21>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1290" TopLine="1260"/>
+        <Caret Line="1324" TopLine="1305"/>
       </Position21>
       <Position22>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1291" TopLine="1261"/>
+        <Caret Line="1325" TopLine="1305"/>
       </Position22>
       <Position23>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1292" TopLine="1262"/>
+        <Caret Line="1331" TopLine="1296"/>
       </Position23>
       <Position24>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="1293" TopLine="1263"/>
+        <Caret Line="1332" TopLine="1287"/>
       </Position24>
       <Position25>
-        <Filename Value="..\webservers\uprometdavserver.pas"/>
-        <Caret Line="621" Column="23" TopLine="592"/>
+        <Filename Value="..\webservers\udavserver.pas"/>
+        <Caret Line="856" TopLine="833"/>
       </Position25>
       <Position26>
         <Filename Value="..\webservers\udavserver.pas"/>
-        <Caret Line="854" TopLine="836"/>
+        <Caret Line="858" TopLine="833"/>
       </Position26>
       <Position27>
-        <Filename Value="twebdav.pas"/>
-        <Caret Line="381" TopLine="362"/>
+        <Filename Value="..\webservers\udavserver.pas"/>
+        <Caret Line="859" TopLine="833"/>
       </Position27>
       <Position28>
-        <Filename Value="twebdav.pas"/>
-        <Caret Line="384" TopLine="362"/>
+        <Filename Value="..\webservers\udavserver.pas"/>
+        <Caret Line="871" TopLine="835"/>
       </Position28>
       <Position29>
-        <Filename Value="twebdav.pas"/>
-        <Caret Line="385" TopLine="362"/>
+        <Filename Value="..\webservers\udavserver.pas"/>
+        <Caret Line="873" TopLine="837"/>
       </Position29>
       <Position30>
-        <Filename Value="twebdav.pas"/>
-        <Caret Line="386" TopLine="362"/>
+        <Filename Value="..\webservers\udavserver.pas"/>
+        <Caret Line="868" Column="21" TopLine="839"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="2">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -728,6 +728,13 @@
         <Source Value="C:\Programme\lazarus\fpc\2.4.4\source\packages\fcl-image\src\fpimage.inc"/>
         <Line Value="177"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="twebdav.pas"/>
+        <Line Value="316"/>
+      </Item2>
     </BreakPoints>
   </Debugging>
 </CONFIG>

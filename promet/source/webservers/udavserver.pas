@@ -1305,7 +1305,7 @@ begin
   TWebDAVMaster(FSocket.Creator).Unlock;
   if Assigned(aDirList) then
     begin
-      if (not aDirList.HasPath(Path)) then
+      if (not aDirList.HasPath(Path)) and (aDirList.Count>0) then
         Createresponse(Path,aMSres,aProperties,aNS,aPrefix);
       for i := 0 to aDirList.Count-1 do
         begin
