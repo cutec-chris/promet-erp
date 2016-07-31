@@ -5,8 +5,7 @@ if [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then
   else
     export TARGET_EXTENSION=''
 fi
-if [ "x$lazbuild" = "x" ]
-  then
+if [ "x$lazbuild" = "x" ] then
   export lazbuild="lazbuild$TARGET_EXTENSION"
   echo "$lazbuild"
   export grep="grep"

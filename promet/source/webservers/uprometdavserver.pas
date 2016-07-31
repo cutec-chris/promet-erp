@@ -269,7 +269,7 @@ begin
       aDirList.Add(aItem);
       if aDepth>0 then
         begin
-          aItem := TDAVFile.Create('/webdav',True);
+          aItem := TDAVFile.Create('/files',True);
           aDirList.Add(aItem);
           aItem := TDAVFile.Create('/caldav',True);
           aDirList.Add(aItem);
@@ -280,8 +280,7 @@ begin
           for i := 0 to length(DatasetClasses)-1 do
             if DatasetClasses[i].aClass.InheritsFrom(TBaseDBList) and (
                (DatasetClasses[i].aName='MASTERDATA')
-            or (DatasetClasses[i].aName='MEETING')
-            or (DatasetClasses[i].aName='PROJECTS')
+            or (DatasetClasses[i].aName='PROJECT')
                 ) then
               begin
                 aItem := TDAVFile.Create('/'+lowercase(DatasetClasses[i].aName),True);
@@ -544,39 +543,36 @@ begin
   //Ical Calendar
   else if copy(aDir,0,5) = '/ical' then
     begin
-      if Data.Users.DataSet.Active then
+      Result:=True;
+      aFullDir := aDir;
+      if copy(aFullDir,length(aFullDir),1) <> '/' then
+        aFullDir := aFullDir+'/';
+      aDir := copy(aDir,6,length(aDir));
+      //Add ics file
+      aItem := TDAVFile.Create(aFullDir+Data.Users.Text.AsString+'.ics',False);
+      if (aDir = aItem.Name) or (aDir = '') then
         begin
-          aFullDir := aDir;
-          if copy(aFullDir,length(aFullDir),1) <> '/' then
-            aFullDir := aFullDir+'/';
-          aDir := copy(aDir,7,length(aDir));
-          //Add ics file
-          aItem := TDAVFile.Create(aFullDir+Data.Users.Text.AsString+'.ics',False);
-          if (aDir = aItem.Name) or (aDir = '') then
-            begin
-              aItem.Properties.Values['getcontenttype'] := 'text/calendar';
-              aItem.Properties.Values['creationdate'] := BuildISODate(Now());
-              aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
-              sl := TStringList.Create;
-              {
-              aCal := TCalendar.Create(nil);
-              aCal.SelectByUser(Data.Users.Accountno.AsString);
-              aCal.Open;
-              VCalExport(aCal,sl);
-              aCal.Free;
-              Stream := TMemoryStream.Create;
-              sl.SaveToStream(Stream);
-              aItem.Properties.Values['getcontentlength'] := IntToStr(Stream.Size);
-              Stream.Free;
-              sl.Free;
-              }
-              if Assigned(aDirList) then
-                aDirList.Add(aItem)
-              else aDirList := aItem;
-            end
-          else aItem.Free;
+          aItem.Properties.Values['getcontenttype'] := 'text/calendar';
+          aItem.Properties.Values['creationdate'] := BuildISODate(Now());
+          aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
+          sl := TStringList.Create;
+          {
+          aCal := TCalendar.Create(nil);
+          aCal.SelectByUser(Data.Users.Accountno.AsString);
+          aCal.Open;
+          VCalExport(aCal,sl);
+          aCal.Free;
+          Stream := TMemoryStream.Create;
+          sl.SaveToStream(Stream);
+          aItem.Properties.Values['getcontentlength'] := IntToStr(Stream.Size);
+          Stream.Free;
+          sl.Free;
+          }
+          if Assigned(aDirList) then
+            aDirList.Add(aItem)
+          else aDirList := aItem;
         end
-      else Result:=False;
+      else aItem.Free;
     end
   //Files from Documents/Files
   else if FindVirtualDocumentPath(aRemovedDir,aDir,aID,aType,aLevel) then
@@ -625,6 +621,8 @@ begin
         begin
           if copy(aFullDir,length(aFullDir),1) <> '/' then
             aFullDir := aFullDir+'/';
+          aItem := TDAVFile.Create(aFullDir+'Help.txt',False);
+          aDirList.Add(aItem);
           Result:=True;
         end;
     end;
@@ -651,6 +649,7 @@ var
   aType: string;
   aLevel: Integer;
   aRemovedDir: string;
+  aSL: TStringList;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -789,6 +788,20 @@ begin
           finally
             aDocuments.Free;
           end;
+        end
+      else if aLevel=2 then
+        begin
+          if pos('/by-id/Help.txt',aParent)>0 then
+            begin
+              MimeType:='text/text';
+              aSL := TStringList.Create;
+              aSL.Add('==Open Documents stored in Promet-ERP/Avamm Files==');
+              aSL.Add('');
+              aSL.Add('You can add the Number of an Promet-ERP/Avamm Element to this Path and access the Files stored in the Tab "Files".');
+              aSL.Add('Not all Elements can be displayed in This Path so none are Displayed.');
+              aSL.SaveToStream(Stream);
+              aSL.Free;
+            end;
         end;
     end;
 end;
@@ -1064,10 +1077,10 @@ var
   tmp: String;
 begin
   Result := False;
-  if copy(aDir,0,7)='/webdav' then
+  if copy(aDir,0,6)='/files' then
     begin
-      aRemovedDir:='/webdav/';
-      aDir := copy(aDir,9,length(aDir));
+      aRemovedDir:='/files/';
+      aDir := copy(aDir,8,length(aDir));
       aId := 1;
       aType := 'D';
       aLevel:=6;
@@ -1093,6 +1106,7 @@ begin
                   aLevel:=2;
                   aRemovedDir+='by-id/';
                   aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
+                  if aDir = 'by-id' then aDir := '';
                   if length(aDir)>0 then
                     begin
                       DataSet := TBaseDbList(TBaseDbListClass(DatasetClasses[i].aClass).Create(nil));

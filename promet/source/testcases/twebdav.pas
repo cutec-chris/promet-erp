@@ -38,6 +38,7 @@ type
     procedure PropfindDir;
     procedure PropfindSubDir;
     procedure PropFindDynamicFolder;
+    procedure PropFindByID;
     procedure MkCol;
     procedure DeleteCol;
   end;
@@ -324,7 +325,7 @@ var
   aRes: String;
 begin
   aRes := SendRequest(
-   'PROPFIND /webdav/desktop.ini HTTP/1.1'+#13
+   'PROPFIND /files/desktop.ini HTTP/1.1'+#13
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind to non existent file');
   Check(pos('/desktop.ini',aRes)=0,'Server tells that non existent Element exists');
@@ -334,7 +335,7 @@ procedure TWebDAVTest.GetFile;
 var
   aRes: String;
 begin
-  aRes := SendRequest('GET '+'/webdav/'+HTTPEncode('äöü.txt')+' HTTP 1.1'+#13
+  aRes := SendRequest('GET '+'/files/'+HTTPEncode('äöü.txt')+' HTTP 1.1'+#13
   +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='200','Not able to get File');
 end;
@@ -344,10 +345,10 @@ var
   aRes: String;
 begin
   aRes := SendRequest(
-   'PROPFIND '+'/webdav/'+HTTPEncode('äöü.txt')+' HTTP/1.1'+#13
+   'PROPFIND '+'/files/'+HTTPEncode('äöü.txt')+' HTTP/1.1'+#13
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
-  Check(pos(':href>/webdav/'+HTTPEncode('äöü.txt'),aRes)>0,'Server tells that File äöü.txt not exists');
+  Check(pos(':href>/files/'+HTTPEncode('äöü.txt'),aRes)>0,'Server tells that File äöü.txt not exists');
 end;
 
 procedure TWebDAVTest.PropfindDir;
@@ -355,10 +356,10 @@ var
   aRes: String;
 begin
   aRes := SendRequest(
-   'PROPFIND '+'/webdav/ HTTP/1.1'+#13
+   'PROPFIND '+'/files/ HTTP/1.1'+#13
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
-  //Check(pos('D:href>/webdav/',aRes)=0,'Server tells that no Element exists'); //Sophos dont likes this :/
+  //Check(pos('D:href>/files/',aRes)=0,'Server tells that no Element exists'); //Sophos dont likes this :/
   //TODO:check for Entrys only one entry for THAT File should exists
 end;
 
@@ -367,11 +368,11 @@ var
   aRes: String;
 begin
   aRes := SendRequest(
-   'PROPFIND '+'/webdav/apps/ HTTP/1.1'+#13
+   'PROPFIND '+'/files/apps/ HTTP/1.1'+#13
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
-  Check(pos('D:href>/webdav/apps/',aRes)>0,'Server tells that no Element exists');
-  Check(pos('D:href>/webdav/apps/kitchensink',aRes)>0,'Server tells that no Element exists');
+  Check(pos('D:href>/files/apps/',aRes)>0,'Server tells that no Element exists');
+  Check(pos('D:href>/files/apps/kitchensink',aRes)>0,'Server tells that no Element exists');
 end;
 
 procedure TWebDAVTest.PropFindDynamicFolder;
@@ -386,11 +387,22 @@ begin
   Check(pos('D:href>/masterdata/by-id',aRes)>0,'Server tells that no Element exists');
 end;
 
+procedure TWebDAVTest.PropFindByID;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND '+'/masterdata/by-id HTTP/1.1'+#13
+   +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
+  Check(pos('D:href>/masterdata/by-id',aRes)>0,'Server tells that no Element exists');
+end;
+
 procedure TWebDAVTest.MkCol;
 var
   aRes: String;
 begin
-  aRes := SendRequest('MKCOL /webdav/litmus/ HTTP 1.1'+#13
+  aRes := SendRequest('MKCOL /files/litmus/ HTTP 1.1'+#13
   +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='200','Wrong Answer to MkCol');
 end;
@@ -399,7 +411,7 @@ procedure TWebDAVTest.DeleteCol;
 var
   aRes: String;
 begin
-  aRes := SendRequest('DELETE /webdav/litmus/ HTTP 1.1'+#13
+  aRes := SendRequest('DELETE /files/litmus/ HTTP 1.1'+#13
   +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='200','Wrong Answer to Delete Col');
 end;

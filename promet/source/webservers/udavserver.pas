@@ -1291,6 +1291,25 @@ begin
   aDirList := TDAVDirectoryList.Create;
   TWebDAVMaster(FSocket.Creator).Lock;
   Result := DoGetDirectoryList(Path,aDepth,aDirList);
+  if not Result then
+    begin
+      //No direct Path found, try to fond it in Parent Path
+      tmp := Path;
+      if copy(tmp,length(tmp),1)='/' then
+        tmp := copy(tmp,0,length(tmp)-1);
+      tmp := copy(tmp,0,RPos('/',tmp)-1);
+      Result := DoGetDirectoryList(tmp,aDepth,aDirList);
+      if Result then
+        begin
+          i := 0;
+          while i < aDirList.Count do
+            begin
+              if aDirList[i].Name <> copy(Path,rpos('/',Path)+1,length(Path)) then
+                aDirList.Delete(i)
+              else inc(i);
+            end;
+        end;
+    end;
   {
   for i := 1 to aDepth do
     begin
