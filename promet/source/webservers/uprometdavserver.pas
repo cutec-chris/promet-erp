@@ -609,7 +609,7 @@ begin
             end;
           aDocuments.Free;
         end
-      else if aLevel=1 then
+      else if (aLevel=1) and (aDir = '') then
         begin
           if copy(aFullDir,length(aFullDir),1) <> '/' then
             aFullDir := aFullDir+'/';
@@ -617,12 +617,28 @@ begin
           aDirList.Add(aItem);
           Result:=True;
         end
-      else if aLevel=2 then //by-id
+      else if (aLevel=2) then //by-id
         begin
           if copy(aFullDir,length(aFullDir),1) <> '/' then
             aFullDir := aFullDir+'/';
           aItem := TDAVFile.Create(aFullDir+'Help.txt',False);
+          aItem.Properties.Values['getcontenttype'] := 'text/text';
           aDirList.Add(aItem);
+          Result:=True;
+        end
+      else if (aLevel=3) then //dynamic content
+        begin
+          if copy(aFullDir,length(aFullDir),1) <> '/' then
+            aFullDir := aFullDir+'/';
+          aItem := TDAVFile.Create(aFullDir+'item.xml',False);
+          aItem.Properties.Values['getcontenttype'] := 'text/xml';
+          aDirList.Add(aItem);
+          aItem := TDAVFile.Create(aFullDir+'item.json',False);
+          aItem.Properties.Values['getcontenttype'] := 'text/json';
+          aDirList.Add(aItem);
+          aItem := TDAVFile.Create(aFullDir+'documents',true);
+          aDirList.Add(aItem);
+
           Result:=True;
         end;
     end;
@@ -653,6 +669,7 @@ var
 begin
   Result := False;
   if aSocket.User='' then exit;
+  aFullDir := aDir;
   if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then
     begin
       Data.Users.Filter('',0);
@@ -675,7 +692,6 @@ begin
        or (copy(aDir,0,19) = '/.well-known/caldav')
        then
     begin
-      aFullDir := aDir;
       if copy(aFullDir,0,1) = '/' then
         aFullDir := copy(aFullDir,2,length(aFullDir)-1);
       aDir := copy(aDir,8,length(aDir));
@@ -791,7 +807,7 @@ begin
         end
       else if aLevel=2 then
         begin
-          if pos('/by-id/Help.txt',aParent)>0 then
+          if pos('/by-id/Help.txt',aFullDir)>0 then
             begin
               MimeType:='text/text';
               aSL := TStringList.Create;
@@ -801,6 +817,7 @@ begin
               aSL.Add('Not all Elements can be displayed in This Path so none are Displayed.');
               aSL.SaveToStream(Stream);
               aSL.Free;
+              Result:=True;
             end;
         end;
     end;
@@ -1076,6 +1093,7 @@ var
   DataSet: TBaseDBList;
   tmp: String;
 begin
+  aLevel:=0;
   Result := False;
   if copy(aDir,0,6)='/files' then
     begin
@@ -1098,27 +1116,42 @@ begin
               aLevel := 1;
               Result:=True;
               if pos('/',copy(aDir,2,length(aDir)))>0 then
-                aRemovedDir:=copy(aDir,0,pos('/',copy(aDir,2,length(aDir)))+2)
+                aRemovedDir:=copy(aDir,0,pos('/',copy(aDir,2,length(aDir)))+1)
               else aRemovedDir:=aDir;
-              aDir := copy(aDir,pos('/',copy(aDir,2,length(aDir)))+2,length(aDir));
+              aDir := copy(aDir,length(aRemovedDir)+1,length(aDir));
               if (copy(aDir,0,pos('/',aDir)-1)='by-id') or (aDir = 'by-id') then
                 begin
                   aLevel:=2;
                   aRemovedDir+='by-id/';
                   aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
-                  if aDir = 'by-id' then aDir := '';
+                  if aDir = 'by-id' then
+                    begin
+                      aDir := '';
+                    end;
                   if length(aDir)>0 then
                     begin
                       DataSet := TBaseDbList(TBaseDbListClass(DatasetClasses[i].aClass).Create(nil));
                       if Assigned(DataSet) then
                         begin
-                          DataSet.SelectFromNumber(copy(aDir,0,pos('/',aDir)-1));
+                          if pos('/',aDir)>0 then
+                            tmp := copy(aDir,0,pos('/',aDir)-1)
+                          else tmp := aDir;
+                          DataSet.SelectFromNumber(aDir);
                           DataSet.Open;
                           Result := DataSet.Count>0;
+                          aRemovedDir+=copy(aDir,0,pos('/',aDir));
+                          aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
                           aID:=DataSet.Id.AsVariant;
                           aType:= DataSet.GetTyp;
                           DataSet.Free;
-                          if Result then aLevel:=6;
+                          if Result then
+                            aLevel:=3
+                          else aLevel:=0;
+                          if (copy(aDir,0,9)='documents') and Result then
+                            begin
+                              aLevel:=6;
+                            end;
+                          Result := True;
                         end;
                     end;
                 end;

@@ -33,12 +33,15 @@ type
     procedure CheckPropfindAllprop;
     procedure NonExistingElement;
     procedure NonExistingElement2;
+    procedure NonExistingElement3;
     procedure GetFile;
     procedure PropfindFile;
     procedure PropfindDir;
     procedure PropfindSubDir;
     procedure PropFindDynamicFolder;
     procedure PropFindByID;
+    procedure GetHelpDynamicFolder;
+    procedure GetDynamicFolderContent;
     procedure MkCol;
     procedure DeleteCol;
   end;
@@ -331,6 +334,17 @@ begin
   Check(pos('/desktop.ini',aRes)=0,'Server tells that non existent Element exists');
 end;
 
+procedure TWebDAVTest.NonExistingElement3;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND /masterdata/desktop.ini HTTP/1.1'+#13
+   +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind to non existent file');
+  Check(pos('/desktop.ini<',aRes)=0,'Server tells that non existent Element exists');
+end;
+
 procedure TWebDAVTest.GetFile;
 var
   aRes: String;
@@ -396,6 +410,24 @@ begin
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
   Check(pos('D:href>/masterdata/by-id',aRes)>0,'Server tells that no Element exists');
+end;
+
+procedure TWebDAVTest.GetHelpDynamicFolder;
+var
+  aRes: String;
+begin
+  aRes := SendRequest('GET /masterdata/by-id/Help.txt HTTP 1.1'+#13
+  +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='200','Cant get Help.txt');
+end;
+
+procedure TWebDAVTest.GetDynamicFolderContent;
+var
+  aRes: String;
+begin
+  aRes := SendRequest('PROPFIND /masterdata/by-id/F2 HTTP 1.1'+#13
+  +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Dynamic Folder Content');
 end;
 
 procedure TWebDAVTest.MkCol;
