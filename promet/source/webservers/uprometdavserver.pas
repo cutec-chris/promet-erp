@@ -34,7 +34,7 @@ type
   TPrometServerFunctions = class
   private
     function FindVirtualDocumentPath(var aRemovedDir, aDir: string;
-      var aID: Variant; var aType: string; var aLevel: Integer=0): Boolean;
+      var aID: Variant; var aType: string; var aLevel: Integer): Boolean;
   public
     function AddDocumentsToFileList(aFileList: TDAVDirectoryList;
       aDocuments: TDocuments; aPath,aFilter: string) : Boolean;
@@ -1087,7 +1087,7 @@ begin
 end;
 
 function TPrometServerFunctions.FindVirtualDocumentPath(var aRemovedDir,aDir: string;
-  var aID: Variant; var aType: string; var aLevel : Integer = 0): Boolean;
+  var aID: Variant; var aType: string; var aLevel : Integer): Boolean;
 var
   i: Integer;
   DataSet: TBaseDBList;
