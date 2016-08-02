@@ -5,3 +5,7 @@ msgstr "Content-Type: text/plain; charset=UTF-8"
 msgid "Anwesend"
 msgstr ""
 
+#: ucalendarframe.streventsthisweek
+msgid "diese Woche: %d"
+msgstr ""
+

@@ -3,7 +3,7 @@
 	url = https://github.com/silvioprog/brookframework.git
 [submodule "promet/source/components/powerpdf"]
 	path = promet/source/components/powerpdf
-	url = https://github.com/tcs-ulli/PowerPDF
+	url = https://github.com/cutec-chris/PowerPDF
 [submodule "promet/source/components/tvplanit"]
 	path = promet/source/components/tvplanit
 	url = https://github.com/tcs-ulli/tvplanit
