@@ -900,6 +900,7 @@ var
   aLevel: Integer;
   aRemovedDir: string;
 begin
+  FStatus:=500;
   Result := False;
   if aSocket.User='' then exit;
   if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then
@@ -1048,6 +1049,7 @@ begin
                   aFStream.Free;
                   aFiles := aDocument.CollectCheckInFiles(GetTempDir+'promettemp');
                   aDocument.CheckinFiles(aFiles,GetTempDir+'promettemp');
+                  FStatus:=200;
                   Result := True;
                 end
               else
@@ -1058,6 +1060,7 @@ begin
                   else
                     aDocument.AddFromStream(aFileName,'',Stream);
                   Result := True;
+                  FStatus:=200;
                 end;
                 aDocument.Free;
             end;
@@ -1136,7 +1139,7 @@ begin
                           if pos('/',aDir)>0 then
                             tmp := copy(aDir,0,pos('/',aDir)-1)
                           else tmp := aDir;
-                          DataSet.SelectFromNumber(aDir);
+                          DataSet.SelectFromNumber(tmp);
                           DataSet.Open;
                           Result := DataSet.Count>0;
                           aRemovedDir+=copy(aDir,0,pos('/',aDir));
@@ -1150,6 +1153,10 @@ begin
                           if (copy(aDir,0,9)='documents') and Result then
                             begin
                               aLevel:=6;
+                              aRemovedDir+='documents/';
+                              if pos('/',aDir)>0 then
+                                aDir := copy(aDir,pos('/',aDir)+1,length(aDir))
+                              else aDir := '';
                             end;
                           Result := True;
                         end;
