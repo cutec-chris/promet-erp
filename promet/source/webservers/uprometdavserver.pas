@@ -34,7 +34,8 @@ type
   TPrometServerFunctions = class
   private
     function FindVirtualDocumentPath(var aRemovedDir, aDir: string;
-      var aID: Variant; var aType: string; var aLevel: Integer): Boolean;
+      var aID: Variant; var aType: string; var aLevel: Integer;
+  var aClass: TBaseDBDatasetClass): Boolean;
   public
     function AddDocumentsToFileList(aFileList: TDAVDirectoryList;
       aDocuments: TDocuments; aPath,aFilter: string) : Boolean;
@@ -110,6 +111,7 @@ var
   aType: string;
   aLevel: Integer;
   aRemovedDir: string;
+  aClass: TBaseDBDatasetClass;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -192,7 +194,7 @@ begin
         end;
       aCal.Free;
     end
-  else if FindVirtualDocumentPath(aRemovedDir,aDir,aID,aType,aLevel) then
+  else if FindVirtualDocumentPath(aRemovedDir,aDir,aID,aType,aLevel,aClass) then
     begin
       if aLevel = 6 then
         begin
@@ -244,6 +246,7 @@ var
   i: Integer;
   aLevel: Integer;
   aRemovedDir: string;
+  aClass: TBaseDBDatasetClass;
 begin
   Result := false;
   if aSocket.User='' then exit;
@@ -575,7 +578,7 @@ begin
       else aItem.Free;
     end
   //Files from Documents/Files
-  else if FindVirtualDocumentPath(aRemovedDir,aDir,aID,aType,aLevel) then
+  else if FindVirtualDocumentPath(aRemovedDir,aDir,aID,aType,aLevel,aClass) then
     begin
       if aLevel = 6 then
         begin
@@ -633,10 +636,10 @@ begin
           aItem := TDAVFile.Create(aFullDir+'item.xml',False);
           aItem.Properties.Values['getcontenttype'] := 'text/xml';
           aDirList.Add(aItem);
-          aItem := TDAVFile.Create(aFullDir+'item.json',False);
-          aItem.Properties.Values['getcontenttype'] := 'text/json';
-          aDirList.Add(aItem);
-          aItem := TDAVFile.Create(aFullDir+'documents',true);
+          //aItem := TDAVFile.Create(aFullDir+'item.json',False);
+          //aItem.Properties.Values['getcontenttype'] := 'text/json';
+          //aDirList.Add(aItem);
+          aItem := TDAVFile.Create(aFullDir+'files',true);
           aDirList.Add(aItem);
 
           Result:=True;
@@ -666,6 +669,9 @@ var
   aLevel: Integer;
   aRemovedDir: string;
   aSL: TStringList;
+  aClass: TBaseDBDatasetClass;
+  aDataSet: TBaseDBDataset;
+  aSS: TStringStream;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -766,7 +772,7 @@ begin
           aTasks.Free;
         end;
     end
-  else if FindVirtualDocumentPath(aRemovedDir,aDir,aID,aType,aLevel) then
+  else if FindVirtualDocumentPath(aRemovedDir,aDir,aID,aType,aLevel,aClass) then
     begin
       Mimetype := '';
       if aLevel=6 then
@@ -805,6 +811,26 @@ begin
             aDocuments.Free;
           end;
         end
+      else if (aLevel=3) then //dynamic content
+        begin
+          if aDir = 'item.xml' then
+            begin
+              aDataSet := aClass.Create(nil);
+              aDataSet.Select(aID);
+              aDataSet.Open;
+              if aDataSet.Count>0 then
+                begin
+                  aSS := TStringStream.Create(aDataSet.ExportToXML);
+                  Stream.CopyFrom(aSS,0);
+                  aSS.Free;
+                  Result:=True;
+                end;
+              aDataSet.Free;
+            end
+          else if aDir = 'item.json' then
+            begin
+            end;
+        end
       else if aLevel=2 then
         begin
           if pos('/by-id/Help.txt',aFullDir)>0 then
@@ -831,6 +857,7 @@ var
   aType: string;
   aLevel: Integer;
   aRemovedDir: string;
+  aClass: TBaseDBDatasetClass;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -840,7 +867,7 @@ begin
       if not Data.Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
   Data.RefreshUsersFilter;
-  if FindVirtualDocumentPath(aRemovedDir,aDir,aId,aType,aLevel) then
+  if FindVirtualDocumentPath(aRemovedDir,aDir,aId,aType,aLevel,aClass) then
     begin
       if aLevel=6 then
         begin
@@ -899,6 +926,7 @@ var
   aType: string;
   aLevel: Integer;
   aRemovedDir: string;
+  aClass: TBaseDBDatasetClass;
 begin
   FStatus:=500;
   Result := False;
@@ -1017,7 +1045,7 @@ begin
       aCal.Free;
       sl.Free;
     end
-  else if FindVirtualDocumentPath(aRemovedDir,aDir,aID,aType,aLevel) then
+  else if FindVirtualDocumentPath(aRemovedDir,aDir,aID,aType,aLevel,aClass) then
     begin
       if aLevel=6 then
         begin
@@ -1089,8 +1117,9 @@ begin
   else aSocket.User:=Data.Users.Id.AsString;
 end;
 
-function TPrometServerFunctions.FindVirtualDocumentPath(var aRemovedDir,aDir: string;
-  var aID: Variant; var aType: string; var aLevel : Integer): Boolean;
+function TPrometServerFunctions.FindVirtualDocumentPath(var aRemovedDir,
+  aDir: string; var aID: Variant; var aType: string; var aLevel: Integer;
+  var aClass: TBaseDBDatasetClass): Boolean;
 var
   i: Integer;
   DataSet: TBaseDBList;
@@ -1116,6 +1145,7 @@ begin
           if (DatasetClasses[i].aClass.InheritsFrom(TBaseDBList)
           and (tmp='/'+lowercase(DatasetClasses[i].aName))) then
             begin
+              aClass:=DatasetClasses[i].aClass;
               aLevel := 1;
               Result:=True;
               if pos('/',copy(aDir,2,length(aDir)))>0 then
@@ -1150,10 +1180,10 @@ begin
                           if Result then
                             aLevel:=3
                           else aLevel:=0;
-                          if (copy(aDir,0,9)='documents') and Result then
+                          if (copy(aDir,0,5)='files') and Result then
                             begin
                               aLevel:=6;
-                              aRemovedDir+='documents/';
+                              aRemovedDir+='files/';
                               if pos('/',aDir)>0 then
                                 aDir := copy(aDir,pos('/',aDir)+1,length(aDir))
                               else aDir := '';
