@@ -26,7 +26,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --db=ProdChina"/>
+        <CommandLineParams Value="--mandant=TCS"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -44,8 +44,8 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="188"/>
-        <CursorPos Y="214"/>
+        <TopLine Value="164"/>
+        <CursorPos X="20" Y="181"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>

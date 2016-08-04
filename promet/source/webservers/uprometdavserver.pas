@@ -247,6 +247,8 @@ var
   aLevel: Integer;
   aRemovedDir: string;
   aClass: TBaseDBDatasetClass;
+  tmp: String;
+  aDataSet: TBaseDBDataset;
 begin
   Result := false;
   if aSocket.User='' then exit;
@@ -618,6 +620,17 @@ begin
             aFullDir := aFullDir+'/';
           aItem := TDAVFile.Create(aFullDir+'by-id',True);
           aDirList.Add(aItem);
+          Data.Tree.Open;
+          tmp := Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType)+' AND '+Data.QuoteField('PARENT')+'=0';
+          Data.Tree.DataSet.Filter:=tmp;
+          Data.Tree.DataSet.Filtered:=True;
+          Data.Tree.DataSet.First;
+          while not Data.Tree.EOF do
+            begin
+              aItem := TDAVFile.Create(aFullDir+Data.Tree.FieldByName('NAME').AsString,True);
+              aDirList.Add(aItem);
+              Data.Tree.Next;
+            end;
           Result:=True;
         end
       else if (aLevel=2) then //by-id
@@ -643,6 +656,31 @@ begin
           aDirList.Add(aItem);
 
           Result:=True;
+        end
+      else if (aLevel=4) then //Tree Dir
+        begin
+          if Assigned(aClass) then
+            begin
+              aDataSet := aClass.Create(nil);
+              TBaseDbList(aDataSet).SelectFromTreeEntry(Data.Tree.FieldByName('SQL_ID').AsLargeInt);
+              aDataSet.Open;
+              while not aDataSet.EOF do
+                begin
+                  aItem := TDAVFile.Create(aFullDir+TBaseDbList(aDataSet).Number.AsString,True);
+                  aDirList.Add(aItem);
+                  aDataSet.Next;
+                end;
+              aDataSet.Free;
+            end;
+          Data.Tree.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType)+' AND '+Data.QuoteField('PARENT')+'='+IntToStr(Data.Tree.FieldByName('SQL_ID').AsLargeInt);
+          Data.Tree.DataSet.First;
+          while not Data.Tree.EOF do
+            begin
+              aItem := TDAVFile.Create(aFullDir+Data.Tree.FieldByName('NAME').AsString,True);
+              aDirList.Add(aItem);
+              Data.Tree.Next;
+            end;
+          Result := True;
         end;
     end;
   except
@@ -1124,6 +1162,34 @@ var
   i: Integer;
   DataSet: TBaseDBList;
   tmp: String;
+  aParent: Int64;
+  aOldFilter: String;
+
+  procedure FindArticle;
+  begin
+    if pos('/',aDir)>0 then
+      tmp := copy(aDir,0,pos('/',aDir)-1)
+    else tmp := aDir;
+    DataSet.SelectFromNumber(tmp);
+    DataSet.Open;
+    Result := DataSet.Count>0;
+    aRemovedDir+=copy(aDir,0,pos('/',aDir));
+    aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
+    aID:=DataSet.Id.AsVariant;
+    aType:= DataSet.GetTyp;
+    if Result then
+      aLevel:=3
+    else aLevel:=0;
+    if (copy(aDir,0,5)='files') and Result then
+      begin
+        aLevel:=6;
+        aRemovedDir+='files/';
+        if pos('/',aDir)>0 then
+          aDir := copy(aDir,pos('/',aDir)+1,length(aDir))
+        else aDir := '';
+      end;
+  end;
+
 begin
   aLevel:=0;
   Result := False;
@@ -1147,6 +1213,8 @@ begin
             begin
               aClass:=DatasetClasses[i].aClass;
               aLevel := 1;
+              DataSet := TBaseDbList(TBaseDbListClass(DatasetClasses[i].aClass).Create(nil));
+              aType:=DataSet.GetTyp;
               Result:=True;
               if pos('/',copy(aDir,2,length(aDir)))>0 then
                 aRemovedDir:=copy(aDir,0,pos('/',copy(aDir,2,length(aDir)))+1)
@@ -1163,35 +1231,42 @@ begin
                     end;
                   if length(aDir)>0 then
                     begin
-                      DataSet := TBaseDbList(TBaseDbListClass(DatasetClasses[i].aClass).Create(nil));
                       if Assigned(DataSet) then
                         begin
-                          if pos('/',aDir)>0 then
-                            tmp := copy(aDir,0,pos('/',aDir)-1)
-                          else tmp := aDir;
-                          DataSet.SelectFromNumber(tmp);
-                          DataSet.Open;
-                          Result := DataSet.Count>0;
-                          aRemovedDir+=copy(aDir,0,pos('/',aDir));
-                          aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
-                          aID:=DataSet.Id.AsVariant;
-                          aType:= DataSet.GetTyp;
-                          DataSet.Free;
-                          if Result then
-                            aLevel:=3
-                          else aLevel:=0;
-                          if (copy(aDir,0,5)='files') and Result then
-                            begin
-                              aLevel:=6;
-                              aRemovedDir+='files/';
-                              if pos('/',aDir)>0 then
-                                aDir := copy(aDir,pos('/',aDir)+1,length(aDir))
-                              else aDir := '';
-                            end;
+                          FindArticle;
                           Result := True;
                         end;
                     end;
+                end
+              else //Verzeichnis aus data.Tree??
+                begin
+                  if pos('/',aDir)>0 then
+                    tmp := copy(aDir,0,pos('/',aDir)-1)
+                  else tmp := aDir;
+                  Data.Tree.Open;
+                  aParent := 0;
+                  aOldFilter := '';
+                  Data.Tree.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType)+' AND '+Data.QuoteField('PARENT')+'='+IntToStr(aParent);
+                  Data.Tree.DataSet.Filtered:=True;
+                  Data.Tree.DataSet.First;
+                  while Data.Tree.DataSet.Locate('NAME',tmp,[]) do
+                    begin
+                      aLevel:=4;//Tree Dir
+                      aRemovedDir+=tmp+'/';
+                      aDir := copy(aDir,length(tmp)+2,length(aDir));
+                      aParent := Data.Tree.FieldByName('SQL_ID').AsLargeInt;
+                      aOldFilter:=Data.Tree.DataSet.Filter;
+                      Data.Tree.DataSet.Filter:=Data.QuoteField('TYPE')+'='+Data.QuoteValue(aType)+' AND '+Data.QuoteField('PARENT')+'='+IntToStr(aParent);
+                      Data.Tree.DataSet.First;
+                      if pos('/',aDir)>0 then
+                        tmp := copy(aDir,0,pos('/',aDir)-1)
+                      else tmp := aDir;
+                    end;
+                  Data.Tree.DataSet.Filter:=aOldFilter;
+                  if tmp<>'' then
+                    FindArticle;
                 end;
+              DataSet.Free;
               break;
             end;
         end;
