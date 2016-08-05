@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, udavserver, uDocuments, uBaseDbClasses, uCalendar,
-  utask,Utils,uData,variants,uBaseDatasetInterfaces,synautil,
+  utask,Utils,uData,variants,uBaseDatasetInterfaces, db,synautil,
   DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface;
 
 type
@@ -1164,6 +1164,7 @@ var
   tmp: String;
   aParent: Int64;
   aOldFilter: String;
+  aOldRec: variant;
 
   procedure FindArticle;
   begin
@@ -1251,6 +1252,7 @@ begin
                   Data.Tree.DataSet.First;
                   while Data.Tree.DataSet.Locate('NAME',tmp,[]) do
                     begin
+                      aOldRec := Data.Tree.GetBookmark;
                       aLevel:=4;//Tree Dir
                       aRemovedDir+=tmp+'/';
                       aDir := copy(aDir,length(tmp)+2,length(aDir));
@@ -1263,6 +1265,7 @@ begin
                       else tmp := aDir;
                     end;
                   Data.Tree.DataSet.Filter:=aOldFilter;
+                  Data.Tree.GotoBookmark(aOldRec);
                   if tmp<>'' then
                     FindArticle;
                 end;
