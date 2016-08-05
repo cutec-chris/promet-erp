@@ -601,11 +601,14 @@ begin
   fTimelineDataSet := TBaseHistory.Create(nil);
   fTimelineDataSet.CreateTable;
   Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),200);
+  ProgTimerTimer(nil);
   SwitchAnimationOff;
 end;
 
 procedure TfMain.DataModuleDestroy(Sender: TObject);
 begin
+  if Assigned(ProcessManager) and (ProcessManager.Active) then
+    ProcessManager.Terminate(1);
   FreeAndNil(ProcessManager);
 end;
 

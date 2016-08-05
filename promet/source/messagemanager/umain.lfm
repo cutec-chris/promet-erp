@@ -142,7 +142,7 @@ object fMain: TfMain
   end
   object ProgTimer: TTimer
     Enabled = False
-    Interval = 120000
+    Interval = 60000
     OnTimer = ProgTimerTimer
     left = 64
     top = 112
