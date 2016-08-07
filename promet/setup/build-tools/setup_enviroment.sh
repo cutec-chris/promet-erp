@@ -5,18 +5,18 @@ if [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then
   else
     export TARGET_EXTENSION=''
 fi
-if [ "x$lazbuild" = "x" ] then
+if [ "x$lazbuild" = "x" ]
+  then
   export lazbuild="lazbuild$TARGET_EXTENSION"
   echo "$lazbuild"
   export grep="grep"
   export SED="sed"
+  export SQLITE3="sqlite3"
   $SED 's/||/| |/g' /dev/null
   if [ "$?" -ne "0" ]; then
     export SED="$(PWD)/promet/setup/build-tools/sed.exe"
   fi
-  export SQLITE3="sqlite3"
-  $SQLITE3 's/||/| |/g' /dev/null
-  if [ "$?" -ne "0" ]; then
+  if [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then
     export SQLITE3="$(PWD)/promet/setup/build-tools/sqlite3.exe"
   fi
   export TARGET_CPU=$( $lazbuild -? | grep 'powerpc_64' | $SED -e 's/.*: //')

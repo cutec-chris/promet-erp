@@ -1,6 +1,6 @@
 #!/bin/bash
 basedir=$(pwd)
-cd promet/source/production
+cd promet/source/production/
 . ../../setup/build-tools/setup_enviroment.sh
 echo "Building Avad..."
 # Build components
