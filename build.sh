@@ -7,7 +7,6 @@
 # tools - compiling commandline plugins
 # web - compiling webserver
 # imap - compiling imapserver
-# dav - compiling dav server
 # xmpp - compiling xmpp messaging interface
 # mail - send/reveive mail components
 # feed - reveive feed and social components
@@ -70,11 +69,6 @@ build_server()
   fi
   sleep 2
   . ./promet/source/webservers/build_imap.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  sleep 2
-  . ./promet/source/webservers/build_dav.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
@@ -224,7 +218,6 @@ case $1 in
          web)  . ./promet/source/webservers/build_webserver.sh $2;;
         imap)  . ./promet/source/webservers/build_imap.sh $2;;
         xmpp)  . ./promet/source/webservers/build_xmpp.sh $2;;
-         dav)  . ./promet/source/webservers/build_dav.sh $2;;
         mail)  . ./promet/source/sync/build_mail.sh $2;;
         feed)  . ./promet/source/sync/build_feed.sh $2;;
         mqtt)  . ./promet/source/sync/build_mqtt.sh $2;;

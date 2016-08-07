@@ -31,42 +31,46 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="10">
+    <RequiredPackages Count="11">
       <Item1>
-        <PackageName Value="pvisualframes"/>
-        <DefaultFilename Value="..\base_frames\pvisualframes.lpk"/>
+        <PackageName Value="lazopenqbuilder_promet"/>
+        <DefaultFilename Value="..\components\openqbuilder\lazopenqbuilder_promet.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="laz_fpspreadsheet"/>
+        <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="..\base_frames\pvisualframes.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="TAChartLazarusPkg"/>
+        <PackageName Value="laz_fpspreadsheet"/>
       </Item3>
       <Item4>
-        <PackageName Value="lazreport"/>
+        <PackageName Value="TAChartLazarusPkg"/>
       </Item4>
       <Item5>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="lazreport"/>
       </Item5>
       <Item6>
-        <PackageName Value="phelp"/>
-        <DefaultFilename Value="..\base_help\phelp.lpk"/>
+        <PackageName Value="SynEdit"/>
       </Item6>
       <Item7>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="..\..\..\general\general.lpk"/>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="..\base_help\phelp.lpk"/>
       </Item7>
       <Item8>
-        <PackageName Value="LCL"/>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="..\..\..\general\general.lpk"/>
       </Item8>
       <Item9>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="LCL"/>
       </Item9>
       <Item10>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="FCL"/>
         <MinVersion Major="1" Release="1" Valid="True"/>
       </Item10>
+      <Item11>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
+      </Item11>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>
