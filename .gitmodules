@@ -6,7 +6,7 @@
 	url = https://github.com/cutec-chris/PowerPDF
 [submodule "promet/source/components/tvplanit"]
 	path = promet/source/components/tvplanit
-	url = https://github.com/tcs-ulli/tvplanit
+	url = https://github.com/cutec-chris/tvplanit
 [submodule "promet/source/components/besen"]
 	path = promet/source/components/besen
 	url = https://github.com/tcs-ulli/besen.git
@@ -27,7 +27,7 @@
 	url = https://github.com/cutec-chris/general.git
 [submodule "promet/source/components/fpspreadsheet"]
 	path = promet/source/components/fpspreadsheet
-	url = https://github.com/tcs-ulli/fpspreadsheet
+	url = https://github.com/cutec-chris/fpspreadsheet
 [submodule "promet/source/components/synapse"]
 	path = promet/source/components/synapse
 	url = https://github.com/cutec-chris/Ararat-Synapse.git
