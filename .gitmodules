@@ -129,7 +129,7 @@
 	url = https://github.com/tcs-ulli/script-plugin-usb.git
 [submodule "promet/source/scripts/plugins/video"]
 	path = promet/source/scripts/plugins/video
-	url = https://github.com/tcs-ulli/script-plugin-video.git
+	url = https://github.com/cutec-chris/script-plugin-video.git
 [submodule "promet/source/scripts/plugins/audio"]
 	path = promet/source/scripts/plugins/audio
 	url = https://github.com/cutec-chris/script-plugin-audio.git
