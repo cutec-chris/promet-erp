@@ -151,3 +151,6 @@
 [submodule "promet/source/components/openqbuilder"]
 	path = promet/source/components/openqbuilder
 	url = https://github.com/cutec-chris/lazopenqbuilder.git
+[submodule "promet/source/components/directx"]
+	path = promet/source/components/directx
+	url = https://github.com/cutec-chris/directx.git
