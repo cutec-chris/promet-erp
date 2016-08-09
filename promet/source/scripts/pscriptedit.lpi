@@ -90,18 +90,21 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCL"/>
       </Item1>
       <Item2>
-        <PackageName Value="pscripts"/>
-        <DefaultFilename Value="..\base\base_scripts\pscripts.lpk"/>
+        <PackageName Value="FCL"/>
       </Item2>
       <Item3>
+        <PackageName Value="pscripts"/>
+        <DefaultFilename Value="..\base\base_scripts\pscripts.lpk"/>
+      </Item3>
+      <Item4>
         <PackageName Value="pVisualPrometApp"/>
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
-      </Item3>
+      </Item4>
     </RequiredPackages>
     <Units Count="1">
       <Unit0>
@@ -122,7 +125,6 @@
     <Parsing>
       <SyntaxOptions>
         <CStyleOperator Value="False"/>
-        <UseAnsiStrings Value="False"/>
       </SyntaxOptions>
     </Parsing>
     <CodeGeneration>
