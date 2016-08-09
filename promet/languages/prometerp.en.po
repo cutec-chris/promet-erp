@@ -6580,6 +6580,10 @@ msgctxt "TFPERSONFINANCE.CBPAYMENTTARGET.HINT"
 msgid "setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden"
 msgstr "sets an payment target for the contact all orders are created with that"
 
+#: tfpersonfinance.ecustnumber.hint
+msgid "Eigene Kundennummer beim Lieferanten"
+msgstr ""
+
 #: tfpersonfinance.ediscont.hint
 #, fuzzy
 #| msgid "setzt eine Rabatt mit dem die VorgÃ¤nge fÃ¼r diesen Kontakt vorbelegt werden"
@@ -6631,6 +6635,12 @@ msgstr "Currency"
 msgctxt "TFPERSONFINANCE.LDISCONT.CAPTION"
 msgid "Rabatt"
 msgstr "discount"
+
+#: tfpersonfinance.ldiscont1.caption
+#, fuzzy
+msgctxt "tfpersonfinance.ldiscont1.caption"
+msgid "Kundennummer"
+msgstr "Customernumber"
 
 #: tfpersonfinance.ldiscontgroup.caption
 msgctxt "TFPERSONFINANCE.LDISCONTGROUP.CAPTION"

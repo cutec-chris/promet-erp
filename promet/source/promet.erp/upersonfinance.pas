@@ -39,12 +39,14 @@ type
     Banking: TDatasource;
     dnAccounts: TDBNavigator;
     eDiscont: TDBEdit;
+    eCustNumber: TDBEdit;
     ExtRotatedLabel1: TExtRotatedLabel;
     ExtRotatedLabel2: TExtRotatedLabel;
     gBanking: TDBGrid;
     lBanking: TLabel;
     lCurrency: TLabel;
     lDiscont: TLabel;
+    lDiscont1: TLabel;
     lDiscontGroup: TLabel;
     lPaymenttarget: TLabel;
     Panel1: TPanel;
