@@ -5172,29 +5172,11 @@ msgctxt "TFORDERFRAME.LPAYMENTTARGET.CAPTION"
 msgid "Zahlungsziel"
 msgstr ""
 
-#: tforderframe.menuitem1.caption
-msgctxt "TFORDERFRAME.MENUITEM1.CAPTION"
-msgid "-"
-msgstr ""
-
-#: tforderframe.menuitem2.caption
-msgctxt "TFORDERFRAME.MENUITEM2.CAPTION"
-msgid "-"
-msgstr ""
-
-#: tforderframe.menuitem6.caption
-msgctxt "TFORDERFRAME.MENUITEM6.CAPTION"
-msgid "-"
-msgstr ""
-
-#: tforderframe.menuitem9.caption
-msgctxt "TFORDERFRAME.MENUITEM9.CAPTION"
-msgid "-"
-msgstr ""
-
 #: tforderframe.sbmenue.hint
 msgctxt "TFORDERFRAME.SBMENUE.HINT"
-msgid "zusätzliche Optionen"
+msgid ""
+"zusätzliche Optionen\n"
+"(Menü)\n"
 msgstr ""
 
 #: tforderframe.tabsheet3.caption
