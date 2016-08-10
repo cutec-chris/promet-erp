@@ -11,6 +11,7 @@
       <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
       <Title Value="pscriptedit"/>
+      <UseAppBundle Value="False"/>
       <UseXPManifest Value="True"/>
     </General>
     <BuildModes Count="3">

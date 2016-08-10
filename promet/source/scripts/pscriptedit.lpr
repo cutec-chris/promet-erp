@@ -10,10 +10,11 @@ uses
   Forms, uerror, uScriptEditor, uBaseApplication,uData,uBaseDBInterface,
   pvisualprometapp, uBaseVisualApplication,uPerson;
 
-{$R *.res}
-
 var
   aPerson: TPerson;
+
+{$R *.res}
+
 begin
   Application.Free;
   Application := TBaseVisualApplication.Create(nil);
