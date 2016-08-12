@@ -254,8 +254,8 @@ begin
                               if aHist.Count=0 then //Entry not there already
                                 begin
                                   //Check for Person who send
+                                  CustomerCont := TPersonContactData.Create(Self);
                                   try
-                                    CustomerCont := TPersonContactData.Create(Self);
                                     if Data.IsSQLDb then
                                       Data.SetFilter(CustomerCont,Data.QuoteField('TYPE')+'='+Data.QuoteValue('SON')+' AND UPPER('+Data.QuoteField('DATA')+')=UPPER('+Data.QuoteValue(uid)+')')
                                     else
@@ -302,7 +302,7 @@ begin
                                         UpdateStdFields := False;
                                       if IsRootItem then
                                         begin
-                                          inc(Retry,6);
+                                          inc(Retry,1);
                                           Somethingimported:=True;
                                           Info('new Entry from '+author);
                                           Customers.History.AddItem(Customers.DataSet,text,'',author,nil,ACICON_EXTERNALCHANGED,'',False,False);
@@ -312,7 +312,7 @@ begin
                                         begin
                                           if aHist.Count>0 then
                                             begin
-                                              inc(Retry,6);
+                                              inc(Retry,1);
                                               Somethingimported:=True;
                                               with aHist.DataSet as IBaseManageDB do
                                                 UpdateStdFields := False;
@@ -369,7 +369,7 @@ begin
                   if aId <> '' then
                     begin
                       omailaccounts := copy(omailaccounts,0,length(omailaccounts)-1)+aId+';';
-                      try
+                      {try
                       if Data.IsSQLDB then
                         begin
                           aDS := Data.GetNewDataSet('UPDATE '+Data.QuoteField('HISTORY')+' SET '+Data.QuoteField('PARENT')+' = '+Data.QuoteField('HISTPAR')+'.'+Data.QuoteField('SQL_ID')+' FROM '+Data.QuoteField('HISTORY')+' AS '+Data.QuoteField('HISTORYB')+' INNER JOIN '+Data.QuoteField('HISTORY')+' AS '+Data.QuoteField('HISTPAR')+' ON '+Data.QuoteField('HISTORYB')+'.'+Data.QuoteField('REFOBJECT')+'='+Data.QuoteField('HISTPAR')+'.'+Data.QuoteField('PARENTSTR')+' WHERE '+Data.QuoteField('HISTORY')+'.'+Data.QuoteField('PARENTSTR')+' is not NULL AND '+Data.QuoteField('HISTORY')+'.'+Data.QuoteField('PARENT')+' is NULL');
@@ -377,7 +377,7 @@ begin
                           aDS.Free;
                         end;
                       except
-                      end;
+                      end;}
                     end
                   else
                     ReplaceOmailaccounts:=False;
