@@ -10,12 +10,12 @@
         <Item3 ID="722410265450" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SessionMatrixOptions>
     </BuildModes>
-    <Units Count="3">
+    <Units Count="4">
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="3" Y="11"/>
+        <CursorPos X="9" Y="24"/>
         <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -30,17 +30,28 @@
       <Unit2>
         <Filename Value="uordertest.pas"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="12"/>
+        <TopLine Value="59"/>
         <CursorPos X="51" Y="96"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="tdbtests.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="3"/>
+        <CursorPos X="25" Y="18"/>
+        <UsageCount Value="10"/>
+      </Unit3>
     </Units>
-    <JumpHistory Count="1">
+    <JumpHistory Count="2" HistoryIndex="1">
       <Position1>
         <Filename Value="consoletest.lpr"/>
         <Caret Line="11" Column="3"/>
       </Position1>
+      <Position2>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="14" Column="8"/>
+      </Position2>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

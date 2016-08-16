@@ -649,9 +649,9 @@ begin
           aItem := TDAVFile.Create(aFullDir+'item.xml',False);
           aItem.Properties.Values['getcontenttype'] := 'text/xml';
           aDirList.Add(aItem);
-          //aItem := TDAVFile.Create(aFullDir+'item.json',False);
-          //aItem.Properties.Values['getcontenttype'] := 'text/json';
-          //aDirList.Add(aItem);
+          aItem := TDAVFile.Create(aFullDir+'item.json',False);
+          aItem.Properties.Values['getcontenttype'] := 'text/json';
+          aDirList.Add(aItem);
           aItem := TDAVFile.Create(aFullDir+'files',true);
           aDirList.Add(aItem);
 
@@ -867,6 +867,17 @@ begin
             end
           else if aDir = 'item.json' then
             begin
+              aDataSet := aClass.Create(nil);
+              aDataSet.Select(aID);
+              aDataSet.Open;
+              if aDataSet.Count>0 then
+                begin
+                  aSS := TStringStream.Create(aDataSet.ExportToJSON);
+                  Stream.CopyFrom(aSS,0);
+                  aSS.Free;
+                  Result:=True;
+                end;
+              aDataSet.Free;
             end;
         end
       else if aLevel=2 then

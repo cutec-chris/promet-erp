@@ -30,7 +30,7 @@ const
 procedure PersonTest.Create;
 begin
   aPerson := TPerson.Create(nil);
-  aPerson.CreateTable;//get sure that the table is there
+  aPerson.Open;
   aPerson.Insert;
   Randomize;
   aPerson.Text.AsString := CName[Random(High(CName))]+Name[Random(High(Name))];

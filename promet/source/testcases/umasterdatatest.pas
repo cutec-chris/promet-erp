@@ -28,7 +28,7 @@ var
 procedure MasterdataTest.Create;
 begin
   aMD := TMasterdata.Create(nil);
-  aMD.CreateTable;//get sure that the table is there
+  aMD.Open;
   aMD.Insert;
   Randomize;
   aMD.Text.AsString := Article1[Random(High(Article1))]+'zange '+Article2[Random(High(Article2))];
