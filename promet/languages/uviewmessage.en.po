@@ -18,3 +18,4 @@ msgstr "The message was not downloaded for security reasons!"
 #: uviewmessage.stropentoviewitem
 msgid "Bitte klicken Sie doppelt auf diesen Eintrag um ihn anzuzeigen"
 msgstr "Please double-click this entry to display it"
+

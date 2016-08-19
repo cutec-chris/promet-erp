@@ -106,3 +106,4 @@ msgstr "Should milestonedated also be changed ?"
 #: utaskplan.strsavetaskchanges
 msgid "Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?"
 msgstr "To edit this task all chanegs to this task must be savedm save ?"
+

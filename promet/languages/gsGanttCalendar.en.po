@@ -50,3 +50,4 @@ msgstr ""
 #: gsganttcalendar.strtime
 msgid "Dauer"
 msgstr "Duration"
+

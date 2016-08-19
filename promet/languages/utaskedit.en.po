@@ -118,3 +118,4 @@ msgstr "Dependencies"
 #: utaskedit.stredittask
 msgid "Aufgabe bearbeiten"
 msgstr "Edit task"
+
