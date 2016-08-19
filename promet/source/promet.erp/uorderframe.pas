@@ -901,7 +901,7 @@ begin
   acDelete.Enabled:=Editable and (Data.Users.Rights.Right('ORDERS') > RIGHT_WRITE);
   cbPaymentTarget.Enabled := Editable;
   cbCurrency.Enabled := Editable;
-  acRestart.Enabled:=not Editable;
+  acRestart.Enabled:=True;
   for i := 0 to pAddresses.ControlCount-1 do
     TfOrderAddress(pAddresses.Controls[i]).SetRights(Editable);
   acRights.Enabled:=Data.Users.Rights.Right('ORDERS') >= RIGHT_PERMIT;

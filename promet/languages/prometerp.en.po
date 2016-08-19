@@ -11,6 +11,9 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
 
+msgid "(Menü)"
+msgstr ""
+
 # Christian U. <ulrich@tcs-germany.de>, 2015.
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
@@ -5165,13 +5168,37 @@ msgctxt "TFORDERFRAME.LPAYMENTTARGET.CAPTION"
 msgid "Zahlungsziel"
 msgstr "payment target"
 
+#: tforderframe.menuitem1.caption
+#, fuzzy
+msgctxt "tforderframe.menuitem1.caption"
+msgid "-"
+msgstr "-"
+
+#: tforderframe.menuitem2.caption
+#, fuzzy
+msgctxt "tforderframe.menuitem2.caption"
+msgid "-"
+msgstr "-"
+
+#: tforderframe.menuitem6.caption
+#, fuzzy
+msgctxt "tforderframe.menuitem6.caption"
+msgid "-"
+msgstr "-"
+
+#: tforderframe.menuitem9.caption
+#, fuzzy
+msgctxt "tforderframe.menuitem9.caption"
+msgid "-"
+msgstr "-"
+
 #: tforderframe.sbmenue.hint
 #, fuzzy
-#| msgid "zusätzliche Optionen"
+#| msgid ""
+#| "zusätzliche Optionen\n"
+#| "(Menü)\n"
 msgctxt "TFORDERFRAME.SBMENUE.HINT"
-msgid ""
-"zusätzliche Optionen\n"
-"(Menü)\n"
+msgid "zusätzliche Optionen"
 msgstr "Additional options"
 
 #: tforderframe.tabsheet3.caption
