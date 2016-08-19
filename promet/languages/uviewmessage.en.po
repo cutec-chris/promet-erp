@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: uviewmessage.strmessagenotdownloaded
+msgid "Die Naricht wurde aus Sicherheitsgründen nicht heruntergeladen !"
+msgstr "The message was not downloaded for security reasons!"
+
+#: uviewmessage.stropentoviewitem
+msgid "Bitte klicken Sie doppelt auf diesen Eintrag um ihn anzuzeigen"
+msgstr "Please double-click this entry to display it"

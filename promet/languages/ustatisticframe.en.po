@@ -13,7 +13,7 @@ msgstr ""
 
 #: ustatistic.stryqlfail
 msgid "YQL Abfrage fehlgeschlagen:"
-msgstr ""
+msgstr "YQL Query failed:"
 
 #: ustatisticframe.strenteranname
 msgid "geben Sie einen Namen an"
@@ -54,4 +54,3 @@ msgstr ""
 #: ustatisticframe.strunnamed
 msgid "Unbenannte Statistik"
 msgstr ""
-

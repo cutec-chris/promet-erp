@@ -13,7 +13,7 @@ msgstr ""
 
 #: fautomationform.strdopick
 msgid "kommissionieren"
-msgstr "Picking."
+msgstr "Picking"
 
 #: fautomationform.strloading
 msgid "Auftragsdaten werden geladen..."
@@ -21,7 +21,7 @@ msgstr "Order data is loading ..."
 
 #: fautomationform.strnotmoresteps
 msgid "Es sind keine (weiteren) Arbeitschritte vorhanden.<br><br>Um einen neuen Auftrag auswählen zu können müssen Sie den Auftrag (ab)schließen"
-msgstr "There are no (further) steps.<br><br>You must select a new order (ab) connect the job"
+msgstr "There are no (further) steps.<br><br>To select an new order, you must close this one."
 
 #: fautomationform.strpartiallyproblematic
 msgid "Achtung Teile des Auftrages sind in nicht freigegebenem Zustand !"
@@ -34,4 +34,3 @@ msgstr "Execute"
 #: fautomationform.strrunning
 msgid "wird ausgeführt..."
 msgstr "Running..."
-

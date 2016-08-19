@@ -9,39 +9,38 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.8\n"
 
 #: usync.strsynchedin
 msgid "Synchronisation eingehend %s"
-msgstr ""
+msgstr "Synchronisation incomming %s"
 
 #: usync.strsynchedout
 msgid "Synchronisation ausgehend %s"
-msgstr ""
+msgstr "Synchronisation outgoing %s"
 
 #: usync.strsyncnewrecord
 msgid "neuer Datensatz"
-msgstr ""
+msgstr "new Row"
 
 #: usyncoptions.strconnectionsuccesful
 msgid "Verbindungstest erfolgreich !"
-msgstr ""
+msgstr "Connectiontest succesful!"
 
 #: usyncoptions.strfailedtoloadmandants
 msgid "Laden der Mandanten fehlgeschlagen"
-msgstr ""
+msgstr "Failed to load mandants"
 
 #: usyncoptions.strinserttables
 msgid ""
 "Sollen zum Synchronisieren die Standardtabellen als Vorgabe eingefügt werden ?\n"
 "(Sie müssen alle zu synchronisierenden Tabellen angeben und könenn dann pro tabelle einsetllen in welche Richtungen und unter welchen Umständen synchronisiert werden soll)\n"
-msgstr ""
+msgstr "Should the standard tables be added to the synchronisation profile ?\n"
 
 #: usyncoptions.strsetpropertysfailed
 msgid "Der Datenbankverbindungsstring beinhaltet Fehler"
-msgstr ""
+msgstr "Databasesettings contains errors."
 
 #: usyncoptions.strsynciddontmatch
 msgid "Die SyncID der entfernten Datenbank stimmt nicht mit der eingestellten überein, soll die SyncID übernommen werden ?"
-msgstr ""
-
+msgstr "The SyncID of the remote Database dont match the local, should them be synchronized ?"
