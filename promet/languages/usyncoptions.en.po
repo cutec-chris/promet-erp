@@ -35,7 +35,7 @@ msgstr "Failed to load mandants"
 msgid ""
 "Sollen zum Synchronisieren die Standardtabellen als Vorgabe eingefügt werden ?\n"
 "(Sie müssen alle zu synchronisierenden Tabellen angeben und könenn dann pro tabelle einsetllen in welche Richtungen und unter welchen Umständen synchronisiert werden soll)\n"
-msgstr "Should the standard tables be added to the synchronisation profile ?\n"
+msgstr "Should the standard tables be added to the synchronisation profile ?"
 
 #: usyncoptions.strsetpropertysfailed
 msgid "Der Datenbankverbindungsstring beinhaltet Fehler"
@@ -44,3 +44,4 @@ msgstr "Databasesettings contains errors."
 #: usyncoptions.strsynciddontmatch
 msgid "Die SyncID der entfernten Datenbank stimmt nicht mit der eingestellten überein, soll die SyncID übernommen werden ?"
 msgstr "The SyncID of the remote Database dont match the local, should them be synchronized ?"
+

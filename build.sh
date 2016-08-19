@@ -5,7 +5,6 @@
 # components - compiling components needed
 # plugins - compiling plugins
 # tools - compiling commandline plugins
-# web - compiling webserver
 # imap - compiling imapserver
 # xmpp - compiling xmpp messaging interface
 # mail - send/reveive mail components
@@ -94,11 +93,6 @@ build_server()
   fi
   sleep 2
   . ./promet/source/sync/build.sh $2
-  if [ "$?" -ne "0" ]; then
-    exit 1
-  fi
-  sleep 2
-  . ./promet/source/webservers/build_webserver.sh $2
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
@@ -215,7 +209,6 @@ case $1 in
      meeting)  . ./promet/source/meeting/build.sh $2;;
      archive)  . ./promet/source/tools/build_archivestore.sh $2;;
   statistics)  . ./promet/source/statistics/build.sh $2;;
-         web)  . ./promet/source/webservers/build_webserver.sh $2;;
         imap)  . ./promet/source/webservers/build_imap.sh $2;;
         xmpp)  . ./promet/source/webservers/build_xmpp.sh $2;;
         mail)  . ./promet/source/sync/build_mail.sh $2;;

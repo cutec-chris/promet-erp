@@ -23,3 +23,4 @@ msgid ""
 msgstr ""
 "Should the user really be deleted ?\n"
 "Normally you should only set an leave-date.\n"
+
