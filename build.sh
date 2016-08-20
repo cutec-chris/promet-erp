@@ -137,12 +137,14 @@ build_all()
   sleep 2
   if [ "x$TARGET_OS" = "xwin32" ]; then
     . ./promet/setup/i386-win32/build.sh $2
-    . ./promet/setup/i386-win32/change_wiki_windows.sh $2
+    . ./promet/setup/i386-win32/change_wiki_windows.sh
+    . ./promet/setup/portableapps/build.sh $2
+    . ./promet/setup/portableapps/change_wiki.sh
   fi
   sleep 2
   if [ "x$TARGET_OS" = "xlinux" ]; then
     . ./promet/setup/i386-linux/build.sh $2
-    . ./promet/setup/i386-linux/change_wiki.sh $2
+    . ./promet/setup/i386-linux/change_wiki.sh
   fi
 }
 

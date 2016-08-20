@@ -1,4 +1,6 @@
 #!/bin/bash
+basedir=$(pwd)
+cd promet/setup/portableapps
 lazbuild ../../source/tools/changewikipage.lpi
 Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
@@ -30,3 +32,4 @@ cat ../promet_erp_portable_clean.xml | \
       -e "s/DAY/$Day/g" \
   > promet_erp_portable.xml
 scp -P 232 promet_erp_portable.xml autoupload@178.254.12.54:promet_upload_target
+cd $basedir
