@@ -45,6 +45,7 @@ begin
   end;
   StopOnException := True;
   if not Login then raise Exception.Create('Login failed !');
+  writeln('logged in...');
   aWiki := TWikiList.Create(nil);
   aPage := TStringList.Create;
   try
@@ -61,8 +62,10 @@ begin
       aWiki.DataSet.FieldByName('DATA').AsString := aPage.Text;
       aWiki.DataSet.FieldByName('TIMESTAMPD').AsDateTime:=Now();
       aWiki.DataSet.Post;
-      Writeln('Wiki Page "'+Params[ParamCount-1]+'" geändert !');
-    end;
+      Writeln('Wiki Page "'+Params[ParamCount-1]+'" changed !');
+    end
+  else
+    Writeln('Wiki Page "'+Params[ParamCount-1]+'" not found !');
   aPage.Free;
   aWiki.Free;
   DoExit;
