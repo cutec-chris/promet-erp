@@ -144,7 +144,7 @@ build_all()
   sleep 2
   if [ "x$TARGET_OS" = "xlinux" ]; then
     . ./promet/setup/i386-linux/build.sh $2
-    . ./promet/setup/i386-linux/change_wiki.sh
+    . ./promet/setup/i386-linux/change_wiki_linux.sh
   fi
 }
 
