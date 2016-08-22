@@ -1,4 +1,4 @@
-msgid ""
+msgid "(Menü)"
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
@@ -10,9 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
-
-msgid "(Menü)"
-msgstr "(Menu)"
+"(Menu)\n"
 
 # Christian U. <ulrich@tcs-germany.de>, 2015.
 #: tfaccountingframe.accombineitems.caption
@@ -10564,3 +10562,4 @@ msgstr "SQLite based Database"
 #: uzeosdm.strunknowndbtype
 msgid "Unbekannter Datenbanktyp"
 msgstr "unknown Databasetype"
+
