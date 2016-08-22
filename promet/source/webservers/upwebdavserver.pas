@@ -45,6 +45,7 @@ begin
         aParameters.NameValueSeparator:=':';
         aParameters.CaseSensitive:=False;
         aSock := TDAVSession.Create(DavServer,aParameters);
+        Sender.Objects.Add(aSock);
       end;
     aParameters.Clear;
     for i := 0 to Headers.Count-1 do

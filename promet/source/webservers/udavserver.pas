@@ -78,6 +78,8 @@ type
   TDAVSession = class
   private
     FCreator: TObject;
+    FData: Pointer;
+    FDestroy: TNotifyEvent;
     FParameters: TStrings;
     FStatus: Integer;
     FURI: string;
@@ -88,6 +90,7 @@ type
     OutputData : TMemoryStream;
   public
     constructor Create(aCreator: TObject; aParameters: TStrings);
+    destructor Destroy; override;
     property URI : string read FURI;
     property Status : Integer read FStatus write FStatus;
     property HeaderOut : TStringList read FHeadersOut write FHeadersOut;
@@ -97,6 +100,8 @@ type
     property User : string read FUser write FUser;
     property Creator : TObject read FCreator;
     property Parameters : TStrings read FParameters write FParameters;
+    property Data : Pointer read FData write FData;
+    property OnDestroy : TNotifyEvent read FDestroy write FDestroy;
   end;
 
   { TDAVSocket }
@@ -545,6 +550,14 @@ begin
   FParameters := aParameters;
   InputData:=nil;
   OutputData:=nil;
+  Data:=nil;
+end;
+
+destructor TDAVSession.Destroy;
+begin
+  if Assigned(FDestroy) then
+    FDestroy(Self);
+  inherited Destroy;
 end;
 
 function TDAVSession.ProcessHttpRequest(Request, aURI: string;
