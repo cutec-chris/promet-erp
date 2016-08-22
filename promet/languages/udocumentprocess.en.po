@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: udocumentprocess.strcantdeletetempdirectory
+msgid "Das temporäre Verzeichnis konnte nicht gelöscht werden !"
+msgstr "The temporary directory could not be deleted!"
+
+#: udocumentprocess.strcheckinfailed
+msgid "Holen der Dateien fehlgeschlagen, das Temporäre Verzeichnis wurde nicht gelöscht !"
+msgstr "Failed to get the files, the temporary directory was not removed!"
+
+#: udocumentprocess.strfailedexecuteprocess
+msgid "Möglicherweise ist das auführen von \"%s\" fehlgeschlagen, Rückgabewert: %d"
+msgstr "Execution of \"%s\" failed, return value: %d"
+
+#: udocumentprocess.strnovalidcommand
+msgid "Sie haben einen ungültigen befehl in den Dateiaktionen angegeben. Gültige Befehle müssen mit exec: oder mkdir: beginnen."
+msgstr "You have specified an invalid command in the document actions. Valid commands must with exec: or mkdir: start."

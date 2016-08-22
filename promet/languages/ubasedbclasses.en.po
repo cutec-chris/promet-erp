@@ -1,0 +1,422 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: ubasedbclasses.straccountno
+msgid "Kontonummer"
+msgstr "Accountno"
+
+#: ubasedbclasses.straction
+msgid "Aktion"
+msgstr "Action"
+
+#: ubasedbclasses.stractive
+msgid "Aktiv"
+msgstr "active"
+
+#: ubasedbclasses.stradditional
+msgid "Zusätzlich"
+msgstr "Additional"
+
+#: ubasedbclasses.stradress
+msgid "Adresse"
+msgstr "Adress"
+
+#: ubasedbclasses.strarchive
+msgid "Archiv"
+msgstr "Archive"
+
+#: ubasedbclasses.strassembly
+msgid "Baugruppe"
+msgstr "Assembly"
+
+#: ubasedbclasses.stravalible
+msgid "Verfügbar"
+msgstr "Available"
+
+#: ubasedbclasses.strballance
+msgid "Kontostand"
+msgstr "Bank balance"
+
+#: ubasedbclasses.strcategory
+msgid "Kategorie"
+msgstr "Category"
+
+#: ubasedbclasses.strchangedby
+msgid "geändert von"
+msgstr "edited by"
+
+#: ubasedbclasses.strchangeddate
+msgid "geändert am"
+msgstr "changed on"
+
+#: ubasedbclasses.strchecked
+msgid "geprüft"
+msgstr "tested"
+
+#: ubasedbclasses.strcheckingtable
+msgid ""
+"Prüfe Tabelle \n"
+"%s\n"
+msgstr ""
+"testing table \n"
+"%s\n"
+
+#: ubasedbclasses.strcity
+msgid "Stadt"
+msgstr "Town"
+
+#: ubasedbclasses.strcommonprice
+msgid "Allgemeinpreis"
+msgstr "Commonprice"
+
+#: ubasedbclasses.strcostcentre
+msgid "Kostenstelle"
+msgstr "Kostaccount"
+
+#: ubasedbclasses.strcreateddate
+msgid "erstellt am"
+msgstr "created at"
+
+#: ubasedbclasses.strcurrency
+msgid "Währung"
+msgstr "Currency"
+
+#: ubasedbclasses.strcustomernumber
+msgid "Kundennummer"
+msgstr "Accountno"
+
+#: ubasedbclasses.strdata
+msgid "Daten"
+msgstr "Data"
+
+#: ubasedbclasses.strdate
+msgid "Datum"
+msgstr "Date"
+
+#: ubasedbclasses.strdeletedmessages
+msgid "gelöschte Narichten"
+msgstr "deleted Messages"
+
+#: ubasedbclasses.strdelivered
+msgid "geliefert"
+msgstr "delivered"
+
+#: ubasedbclasses.strdepartment
+msgid "Abteilung"
+msgstr "Department"
+
+#: ubasedbclasses.strdescription
+msgid "Beschreibung"
+msgstr "Description"
+
+#: ubasedbclasses.strdiscount
+msgid "Rabatt"
+msgstr "Discount"
+
+#: ubasedbclasses.strdone
+msgid "erledigt"
+msgstr "done"
+
+#: ubasedbclasses.stremployee
+msgid "Mitarbeiter"
+msgstr "Employee"
+
+#: ubasedbclasses.strend
+msgid "Ende"
+msgstr "End"
+
+#: ubasedbclasses.strfailedshowingdatafrom
+msgid "konnten Daten von %s nicht anzeigen"
+msgstr "fail to display data from %s"
+
+#: ubasedbclasses.strfullvat
+msgid "Volle MwSt"
+msgstr "Full VAT"
+
+#: ubasedbclasses.strgrossprice
+msgid "Bruttopreis"
+msgstr "Gross Price"
+
+#: ubasedbclasses.strhalfvat
+msgid "Halbe MwSt"
+msgstr "Half VAT"
+
+#: ubasedbclasses.strident
+msgctxt "ubasedbclasses.strident"
+msgid "Nummer"
+msgstr "Number"
+
+#: ubasedbclasses.strinstitute
+msgid "Institut"
+msgstr "Institute"
+
+#: ubasedbclasses.strland
+msgid "Land"
+msgstr "Country"
+
+#: ubasedbclasses.strlanguage
+msgid "Sprache"
+msgstr "Language"
+
+#: ubasedbclasses.strlink
+msgid "Verweis"
+msgstr "Reference"
+
+#: ubasedbclasses.strlogmessages
+msgid "Logs"
+msgstr "Logs"
+
+#: ubasedbclasses.strmatchcode
+msgid "Suchbegriff"
+msgstr "Matchcode"
+
+#: ubasedbclasses.strmaxcount
+msgid "Max.Anzahl"
+msgstr "Max.Count"
+
+#: ubasedbclasses.strmincount
+msgid "Min.Anzahl"
+msgstr "Min.Count"
+
+#: ubasedbclasses.strneedsaction
+msgid "benötigt Hilfe"
+msgstr "Help needed"
+
+#: ubasedbclasses.strnetprice
+msgid "Nettopreis"
+msgstr "Net price"
+
+#: ubasedbclasses.strnotes
+msgid "Notizen"
+msgstr "Notice"
+
+#: ubasedbclasses.strnumber
+msgctxt "ubasedbclasses.strnumber"
+msgid "Nummer"
+msgstr "Number"
+
+#: ubasedbclasses.strnumbersetdontexists
+msgid "Nummernkreis \"%s\" existiert nicht !"
+msgstr "Number range '%s' does not exist!"
+
+#: ubasedbclasses.strnumbersetempty
+msgid "Nummernkreis \"%s\" ist leer !"
+msgstr "Number range '%s' is empty!"
+
+#: ubasedbclasses.stropeningtable
+msgid ""
+"öffne Tabelle \n"
+"%s\n"
+msgstr ""
+"open table\n"
+"%s\n"
+
+#: ubasedbclasses.strorderno
+msgid "Vorgangsnummer"
+msgstr "Ordernumber"
+
+#: ubasedbclasses.stroriginaldate
+msgid "Originaldatum"
+msgstr "Original date"
+
+#: ubasedbclasses.strowner
+msgid "Eigentümer"
+msgstr "Owner"
+
+#: ubasedbclasses.strpaid
+msgid "bezahlt"
+msgstr "payed"
+
+#: ubasedbclasses.strpart
+msgid "Bauteil"
+msgstr "Component"
+
+#: ubasedbclasses.strpassword
+msgid "Passwort"
+msgstr "Password"
+
+#: ubasedbclasses.strpastetoanwrongdataset
+msgid "Diese Daten können nicht in diese Art Eintrag eingefügt werden"
+msgstr "This data can not be inserted into this type entry"
+
+#: ubasedbclasses.strpause
+msgid "Pause"
+msgstr "Pause"
+
+#: ubasedbclasses.strpaymenttarget
+msgid "Zahlungsziel"
+msgstr "Paymenttarget"
+
+#: ubasedbclasses.strplace
+msgid "Ort"
+msgstr "Location"
+
+#: ubasedbclasses.strposition
+msgid "Position"
+msgstr "Position"
+
+#: ubasedbclasses.strposno
+msgid "Pos.Nr."
+msgstr "Pos.No."
+
+#: ubasedbclasses.strpostalcode
+msgid "Postleitzahl"
+msgstr "Zip"
+
+#: ubasedbclasses.strpostbox
+msgid "Postfach"
+msgstr "PO Box"
+
+#: ubasedbclasses.strprice
+msgid "Preis"
+msgstr "Prices"
+
+#: ubasedbclasses.strpricetype
+msgid "Preistyp"
+msgstr "Price Type"
+
+#: ubasedbclasses.strproblem
+msgid "Problem"
+msgstr "Problem"
+
+#: ubasedbclasses.strproperty
+msgid "Eigenschaft"
+msgstr "Property"
+
+#: ubasedbclasses.strpurchaseprice
+msgid "Einkaufspreis"
+msgstr "Buyprice"
+
+#: ubasedbclasses.strpurpose
+msgid "Zahlungsgrund"
+msgstr "Paymentdescription"
+
+#: ubasedbclasses.strquantitycalculated
+msgid "Menge berechnet"
+msgstr "Calculated amount"
+
+#: ubasedbclasses.strquantitydelivered
+msgid "Menge geliefert"
+msgstr "Quantity supplied"
+
+#: ubasedbclasses.strquantityunit
+msgid "Mengeneinheit"
+msgstr "Quantityunit"
+
+#: ubasedbclasses.strread
+msgid "gelesen"
+msgstr "read"
+
+#: ubasedbclasses.strreference
+msgid "Referenz"
+msgstr "Reference"
+
+#: ubasedbclasses.strreserved
+msgid "Reserviert"
+msgstr "Reserved"
+
+#: ubasedbclasses.strsellprice
+msgid "Verkaufspreis"
+msgstr "Sellprice"
+
+#: ubasedbclasses.strsender
+msgid "Absender"
+msgstr "Sender"
+
+#: ubasedbclasses.strsendmessages
+msgid "gesendete Narichten"
+msgstr "sent Messages"
+
+#: ubasedbclasses.strshorttext
+msgid "Kurztext"
+msgstr "Shorttext"
+
+#: ubasedbclasses.strspam
+msgid "Spam"
+msgstr "Spam"
+
+#: ubasedbclasses.strstate
+msgid "Bundesland"
+msgstr "State"
+
+#: ubasedbclasses.strstatus
+msgid "Status"
+msgstr "Status"
+
+#: ubasedbclasses.strstorage
+msgid "Lager"
+msgstr "Storage"
+
+#: ubasedbclasses.strsubject
+msgid "Betreff"
+msgstr "Subject"
+
+#: ubasedbclasses.strtablename
+msgid "Tabellenname"
+msgstr "Tablename"
+
+#: ubasedbclasses.strtask
+msgid "Aufgabe"
+msgstr "Task"
+
+#: ubasedbclasses.strtenderposno
+msgid "Aus.Nr."
+msgstr "Aus.No."
+
+#: ubasedbclasses.strtext
+msgid "Text"
+msgstr "Text"
+
+#: ubasedbclasses.strtexttyp
+msgid "Text Typ"
+msgstr "Text Type"
+
+#: ubasedbclasses.strtime
+msgid "Zeit"
+msgstr "Time"
+
+#: ubasedbclasses.strtitle
+msgid "Titel"
+msgstr "Title"
+
+#: ubasedbclasses.strunit
+msgid "Einheit"
+msgstr "Unit"
+
+#: ubasedbclasses.strunknownmessages
+msgid "Unbekannte Narichten"
+msgstr "Unknown Narichten"
+
+#: ubasedbclasses.strunsorted
+msgid "Unsortiert"
+msgstr "Unsorted"
+
+#: ubasedbclasses.struser
+msgid "Benutzer"
+msgstr "User"
+
+#: ubasedbclasses.strvalidfrom
+msgid "gültig ab"
+msgstr "Valid from"
+
+#: ubasedbclasses.strvalidto
+msgid "gültig bis"
+msgstr "valid to"
+
+#: ubasedbclasses.strvalue
+msgid "Wert"
+msgstr "Value"
+
+#: ubasedbclasses.strvat
+msgid "MwSt"
+msgstr "VAT"

@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,4 +26,3 @@ msgstr "%s unsent messages"
 #: umessageframe.strnewunknownmessagecview
 msgid "%s Neue unbekannte Nachrichten"
 msgstr "%s new unknown messages"
-

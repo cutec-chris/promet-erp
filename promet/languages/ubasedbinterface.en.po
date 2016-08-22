@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: ubasedbinterface.strenteranname
+msgid "enter an Name"
+msgstr "enter an Name"
+
+#: ubasedbinterface.strfor
+msgid "für"
+msgstr "for"
+
+#: ubasedbinterface.strguest
+msgid "Gast"
+msgstr "Guest"
+
+#: ubasedbinterface.strprojectprocess
+msgid "Projekt/Prozess"
+msgstr "Project/Process"
+
+#: ubasedbinterface.strscreenshotname
+msgid "Screenshot Name"
+msgstr "Screenshot name"
+
+#: ubasedbinterface.strsqlinjection
+msgid "Versuchte SQL Injection !"
+msgstr "Trial of SQL Injection !"
+
+#: ubasedbinterface.strwebsite
+msgid "Webseite"
+msgstr "Website"

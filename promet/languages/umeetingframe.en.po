@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,33 +13,32 @@ msgstr ""
 
 #: umeeting.strcreatedfrom
 msgid "aus \"%s\" erstellt"
-msgstr ""
+msgstr "created from '%s'"
 
 #: umeetingframe.strentermeetingname
 msgid "geben Sie einen neuen Namen für die Besprechung an"
-msgstr ""
+msgstr "Enter an Name for the meeting"
 
 #: umeetingframe.strmeetingname
 msgid "Besprechungsname"
-msgstr ""
+msgstr "Meeting name"
 
 #: umeetingframe.strnewmeeting
 msgid "neue Besprechung"
-msgstr ""
+msgstr "new Meeting"
 
 #: umeetingframe.strnouserselected
 msgid "Es ist kein Benutzer oder Verantwortlicher zugewiesen !"
-msgstr ""
+msgstr "It is not a user or person responsible assigned to!"
 
 #: umeetingframe.strsearchfrommeetings
 msgid "Mit Öffnen wird das gewählte Projekt in die Liste übernommen"
-msgstr ""
+msgstr "Open the selected project in the list is applied"
 
 #: umeetingframe.strsearchfromusers
 msgid "Mit Öffnen wird der gewählte Nutzer in die Liste übernommen"
-msgstr ""
+msgstr "Open the selected user in the list is applied"
 
 #: umeetingframe.strunassigned
 msgid "kein Bezug"
-msgstr ""
-
+msgstr "no reference"

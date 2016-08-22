@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,7 +17,7 @@ msgstr "Order is booked..."
 
 #: uselectreport.strcantpreparereport
 msgid "Das aufbereiten des Beleges ist fehlgeschlagen !"
-msgstr ""
+msgstr "Prepare the document failed!"
 
 #: uselectreport.strdefaultprinter
 msgid "Standarddrucker"
@@ -70,4 +70,3 @@ msgstr "Output+Booking"
 #: uselectreport.strprintingreport
 msgid "Ausdruck wird gedruckt..."
 msgstr "Printing..."
-

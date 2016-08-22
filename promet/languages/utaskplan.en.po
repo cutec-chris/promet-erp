@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -106,4 +106,3 @@ msgstr "Should milestonedated also be changed ?"
 #: utaskplan.strsavetaskchanges
 msgid "Um die Aufgabe zu bearbeiten müssen alle Änderungen gespeichert werden, Sollen alle Änderungen gespeichert werden ?"
 msgstr "To edit this task all chanegs to this task must be savedm save ?"
-

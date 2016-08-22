@@ -22,4 +22,3 @@ msgstr "O add positions to order"
 #: uarticlepositionframe.strpiecelisttypeproduction
 msgid "P In produktion auflösen"
 msgstr "P add positions to production order"
-

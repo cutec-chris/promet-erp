@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: uorder.stralreadyposted
+msgid "Der Vorgang ist bereits gebucht !"
+msgstr "The process is already fully booked!"
+
+#: uorder.strbookingaborted
+msgid "Buchung abgebrochen"
+msgstr "Canceled booking"
+
+#: uorder.strdispatchtypenotfound
+msgid "Die gewählte Versandart existiert nicht !"
+msgstr "The selected shipping method does not exist!"
+
+#: uorder.strmainordernotfound
+msgid "Hauptvorgang nicht gefunden !"
+msgstr "Main order not found!"
+
+#: uorder.strnumbersetnotfound
+msgid "Nummernkreis nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
+msgstr "Numberset not found, please contact your administrator"
+
+#: uorder.strorderactionpost
+msgid "Vorgang als %s gebucht"
+msgstr "Order booked as %s"
+
+#: uorder.strorderposted
+msgid "Vorgang gebucht"
+msgstr "Order booked"
+
+#: uorder.strorders
+msgid "Aufträge"
+msgstr "Orders"
+
+#: uorder.strstatusnotfound
+msgid "Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
+msgstr "Status type is not found, please contact your administrator"

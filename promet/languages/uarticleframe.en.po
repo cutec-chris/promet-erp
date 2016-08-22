@@ -42,4 +42,3 @@ msgstr "Supplier"
 #: uarticleframe.strtexts
 msgid "Texte"
 msgstr "Texts"
-

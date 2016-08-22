@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Christian Ulrich <info@cu-tec.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -34,4 +34,3 @@ msgstr "The entry cant be found !"
 #: ulinkframe.strlinknotvalid
 msgid "Der Verweis zeigt auf eine ungültige Artikelversion, soll die Version angelegt werden ?"
 msgstr "This entry links to an invalid Articleversion, should the Version be created ?"
-
