@@ -769,6 +769,10 @@ msgstr ""
 msgid "Time List"
 msgstr ""
 
+#: uintfstrconsts.strtimeregistration
+msgid "Zeitaufschreibung"
+msgstr ""
+
 #: uintfstrconsts.strtimetools
 msgid "Zeiterfassung"
 msgstr ""

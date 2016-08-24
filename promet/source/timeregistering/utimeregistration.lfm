@@ -21,8 +21,10 @@ inherited fTimeRegistration: TfTimeRegistration
       Top = 32
       Width = 272
       ItemHeight = 15
+      OnSelect = cbUserSelect
+      Sorted = True
+      Style = csDropDownList
       TabOrder = 0
-      Text = 'cbUser'
     end
     object lUser: TLabel
       Left = 16
@@ -33,11 +35,12 @@ inherited fTimeRegistration: TfTimeRegistration
       ParentColor = False
     end
     object deFrom: TDateEdit
-      Left = 336
+      Left = 352
       Height = 23
       Top = 32
       Width = 103
       CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      OnAcceptDate = deFromAcceptDate
       OKCaption = 'OK'
       CancelCaption = 'Cancel'
       DateOrder = doNone
@@ -47,11 +50,12 @@ inherited fTimeRegistration: TfTimeRegistration
       TabOrder = 1
     end
     object deTo: TDateEdit
-      Left = 488
+      Left = 472
       Height = 23
       Top = 32
       Width = 103
       CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      OnAcceptDate = deFromAcceptDate
       OKCaption = 'OK'
       CancelCaption = 'Cancel'
       DateOrder = doNone
@@ -61,7 +65,7 @@ inherited fTimeRegistration: TfTimeRegistration
       TabOrder = 2
     end
     object lFrom: TLabel
-      Left = 336
+      Left = 352
       Height = 15
       Top = 16
       Width = 21
@@ -69,12 +73,39 @@ inherited fTimeRegistration: TfTimeRegistration
       ParentColor = False
     end
     object lTo: TLabel
-      Left = 488
+      Left = 472
       Height = 15
       Top = 16
       Width = 15
       Caption = 'Bis'
       ParentColor = False
     end
+    object Button1: TButton
+      Left = 312
+      Height = 25
+      Top = 30
+      Width = 32
+      Caption = '<'
+      OnClick = Button1Click
+      TabOrder = 3
+    end
+  end
+  object pTimeList: TPanel[1]
+    Left = 0
+    Height = 598
+    Top = 64
+    Width = 804
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 1
+  end
+  object Button2: TButton[2]
+    Left = 584
+    Height = 25
+    Top = 30
+    Width = 32
+    Caption = '>'
+    OnClick = Button2Click
+    TabOrder = 2
   end
 end

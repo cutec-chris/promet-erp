@@ -127,8 +127,6 @@ type
     procedure eLinkChange(Sender: TObject);
     procedure eProjectButtonClick(Sender: TObject);
     procedure FListFilterChanged(Sender: TObject);
-    procedure FListGetCellText(Sender: TObject; DataCol: Integer;
-      Column: TColumn; var aText: string);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -185,6 +183,8 @@ type
     procedure RemoveEditors;
   public
     { public declarations }
+    procedure FListGetCellText(Sender: TObject; DataCol: Integer;
+      Column: TColumn; var aText: string);
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy;override;
     procedure SetupDB;
@@ -212,6 +212,15 @@ function GetWorkTime(User : string) : Integer;
 function CorrectHouredTimeWithSpareTime(User : string;Day : TDateTime;Hours : Integer) : Integer;
 function GetFreeTime(User : string;Day : TDateTime;Hours : Integer) : Integer;
 function GetFreeDayTime(User : string;Day : TDateTime) : Integer;
+resourcestring
+  strStart                      = 'beginnen';
+  strChange                     = 'austauschen';
+  strTimeRegistration           = 'Zeiterfassung';
+  strContinuePreviousTimeEntry  = 'Zeiterfassung für'+lineending+'%s'+lineending+'%s'+lineending+'%s'+lineending+lineending+'wurde heute beendet (%s), haben Sie in der Zwischenzeit daran weitergearbeitet?';
+  strPause                      = '»Pause«';
+  strInvalidTimeFormat          = 'Ungültiges Zeitformat !';
+  strEndTimeNotSet              = 'Der letzte Zeiteintrag wurde nicht abgeschlossen,'+lineending+' bitte korrigieren Sie die Endzeit und starten Sie einen neuen Eintrag manuell!';
+  strWorkTimeOverdune           = 'Ihre Regelarbeitszeit wurde überschritten';
 implementation
 {$R *.lfm}
 uses
@@ -222,15 +231,6 @@ uses
   ,Windows
   {$ENDIF}
   ;
-resourcestring
-  strStart                      = 'beginnen';
-  strChange                     = 'austauschen';
-  strTimeRegistration           = 'Zeiterfassung';
-  strContinuePreviousTimeEntry  = 'Zeiterfassung für'+lineending+'%s'+lineending+'%s'+lineending+'%s'+lineending+lineending+'wurde heute beendet (%s), haben Sie in der Zwischenzeit daran weitergearbeitet?';
-  strPause                      = '»Pause«';
-  strInvalidTimeFormat          = 'Ungültiges Zeitformat !';
-  strEndTimeNotSet              = 'Der letzte Zeiteintrag wurde nicht abgeschlossen,'+lineending+' bitte korrigieren Sie die Endzeit und starten Sie einen neuen Eintrag manuell!';
-  strWorkTimeOverdune           = 'Ihre Regelarbeitszeit wurde überschritten';
 procedure TfEnterTime.RadioButton2Change(Sender: TObject);
 begin
   Calculate;
@@ -274,7 +274,7 @@ var
 begin
   FList.gList.EditorMode:=False;
   FList.gList.SelectedColumn.Field.Text:=aLink;
-  if FList.gList.SelectedColumn.FieldName='PROEJCT' then
+  if FList.gList.SelectedColumn.FieldName='PROJECT' then
     begin
       aProject := TProject.Create(nil);
       aProject.SelectFromLink(aLink);
@@ -862,6 +862,7 @@ const
   memowidth = 300; // 10 Zeichen
 var
   s: string;
+  nF: Extended;
 begin
   if not Assigned(Column) then exit;
   if not Assigned(Column.Field) then exit;
@@ -884,6 +885,11 @@ begin
     begin
       with Application as IBaseDbInterface do
         aText := Data.GetLinkDesc(Column.Field.AsString);
+    end
+  else if (Column.FieldName = 'DURATION') then
+    begin
+      if TryStrToFloat(aText,nF) then
+        aText := DayTimeToStr(nF);
     end
   else
     begin

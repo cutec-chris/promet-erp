@@ -92,6 +92,7 @@ type
     acShowSearch: TAction;
     acSearchOptions: TAction;
     acNewScheme: TAction;
+    acTimeRegistration: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -215,6 +216,7 @@ type
     procedure acTaskPlanExecute(Sender: TObject);
     procedure acTasksExecute(Sender: TObject);
     procedure acTimeRegisteringExecute(Sender: TObject);
+    procedure acTimeRegistrationExecute(Sender: TObject);
     procedure acWikiExecute(Sender: TObject);
     procedure acWindowizeExecute(Sender: TObject);
     procedure aFrameInvDragDrop(Sender, Source: TObject; X, Y: Integer);
@@ -340,7 +342,6 @@ type
     procedure NewConn;
     procedure StartReceive;
     procedure DoStartupType;
-    procedure DoCreate;
     procedure RefreshTasks;
     procedure Expand;
     procedure AddWiki;
@@ -379,7 +380,7 @@ uses uBaseDBInterface,uIntfStrConsts,uSearch,uFilterFrame,uPerson,uData,lazutf8s
   uTimeFrame,uTimeOptions,uWizardnewaccount,uCalendar,uRoughpklanningframe,uStatistic,
   uOptionsFrame,uprojectoverviewframe,uimportoptions,uEventEdit,uGeneralStrConsts,
   ufinancialoptions,ubookfibuaccount,ucommandline,uobjectframe,uscriptframe,uprometscripts,
-  uPasswords,uArticleVersion,uscheme,uschemeframe
+  uPasswords,uArticleVersion,uscheme,uschemeframe,utimeregistration
   {$ifdef WINDOWS}
   {$ifdef CPU32}
   ,uTAPIPhone
@@ -869,6 +870,10 @@ begin
           TTreeEntry(MainNode.Data).Typ := etTimeRegistering;
           fMain.FTimeReg.Node := MainNode;
           fMain.FTimeReg.RefreshNode;
+          Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(MainNode,'',TTreeEntry.Create);
+          TTreeEntry(Node1.Data).Typ := etTimeRegisteringsmall;
+          Node := fMainTreeFrame.tvMain.Items.AddChildObject(MainNode,'',TTreeEntry.Create);
+          TTreeEntry(Node.Data).Typ := etTimeRegistration;
         end;
     end;
   except
@@ -932,19 +937,6 @@ begin
         end;
     end;
 end;
-
-procedure TStarterThread.DoCreate;
-var
-  aDataSet: TBaseDBDataset;
-begin
-  {
-  aDataSet := DataSetType.CreateEx(nil,Data,aConn);
-  aDataSet.CreateTable;
-  aDataSet.Destroy;
-  Application.ProcessMessages;
-  }
-end;
-
 procedure TStarterThread.RefreshTasks;
 begin
   uTasks.RefreshTasks(fMain.FTaskNode);
@@ -1090,7 +1082,6 @@ begin
   //Documents
   DoInfo('Documents');
   DataSetType:=TDocuments;
-  DoSynchronize(@DoCreate);
   Data.RegisterLinkHandler('ALLOBJECTS',@fMainTreeFrame.OpenLink,TObjects);
   Data.RegisterLinkHandler('SCRIPTS',@fMainTreeFrame.OpenLink,TBaseScript);
   //Messages
@@ -1099,7 +1090,6 @@ begin
     begin
       try
         DataSetType:=TMessageList;
-        Synchronize(@DoCreate);
         fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
         Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,uMessages.TMessage);
         AddSearchAbleDataSet(TMessageList);
@@ -1123,7 +1113,6 @@ begin
     begin
       try
       DataSetType:=TCalendar;
-      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
       DoSynchronize(@DoCalendar);
       except
@@ -1135,7 +1124,6 @@ begin
     begin
       try
       DataSetType:=TOrder;
-      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
       Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,TOrder);
       AddSearchAbleDataSet(TOrderList);
@@ -1148,7 +1136,6 @@ begin
     begin
       try
       DataSetType:=TOrder;
-      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strProductionOrders,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
       Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,TOrder);
       AddSearchAbleDataSet(TOrderList);
@@ -1161,9 +1148,7 @@ begin
     begin
       try
       DataSetType:=TPerson;
-      DoSynchronize(@DoCreate);
       DataSetType:=TCountries;
-      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strCustomerList,@fMain.AddCustomerList,Data.GetLinkIcon('CUSTOMERS@'),True);
       Data.RegisterLinkHandler('CUSTOMERS',@fMainTreeFrame.OpenLink,TPerson);
       AddSearchAbleDataSet(TPersonList);
@@ -1178,7 +1163,6 @@ begin
     begin
       try
       DataSetType:=TMasterdata;
-      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strArticleList,@fMain.AddMasterdataList,Data.GetLinkIcon('MASTERDATA@'),True);
       Data.RegisterLinkHandler('MASTERDATA',@fMainTreeFrame.OpenLink,TMasterdata);
       AddSearchAbleDataSet(TMasterdataList);
@@ -1191,7 +1175,6 @@ begin
     begin
       try
       DataSetType:=TProject;
-      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strProjectList,@fMain.AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
       Data.RegisterLinkHandler('PROJECT',@fMainTreeFrame.OpenLink,TProject);
       AddSearchAbleDataSet(TProjectList);
@@ -1217,7 +1200,6 @@ begin
       Data.RegisterLinkHandler('DOCUMENTS',@fMainTreeFrame.OpenLink,TDocument);
       Data.RegisterLinkHandler('DOCPAGES',@fMainTreeFrame.OpenLink,TDocPages);
       DataSetType:=TDocPages;
-      DoSynchronize(@DoCreate);
       except
       end;
       AddSearchAbleDataSet(TBaseScript);
@@ -1228,7 +1210,6 @@ begin
     begin
       try
       DataSetType:=TLists;
-      DoSynchronize(@DoCreate);
       Data.RegisterLinkHandler('LISTS',@fMainTreeFrame.OpenLink,TLists);
       AddSearchAbleDataSet(TLists);
       except
@@ -1240,7 +1221,6 @@ begin
     begin
       try
       DataSetType:=TMeetings;
-      DoSynchronize(@DoCreate);
       fMain.pcPages.AddTabClass(TfFilter,strMeetingList,@fMain.AddMeetingList,-1,True);
       Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink,TMeetings);
       AddSearchAbleDataSet(TMeetings);
@@ -1253,7 +1233,6 @@ begin
     begin
       try
       DataSetType:=TInventorys;
-      DoSynchronize(@DoCreate);
       Data.RegisterLinkHandler('INVENTORY',@fMainTreeFrame.OpenLink,TInventorys);
       except
       end;
@@ -2627,6 +2606,14 @@ begin
     end;
 end;
 
+procedure TfMain.acTimeRegistrationExecute(Sender: TObject);
+var
+  RoughFrame: TfTimeRegistration;
+begin
+  RoughFrame := TfTimeRegistration.Create(Self);
+  pcPages.AddTab(RoughFrame);
+end;
+
 procedure TfMain.acWikiExecute(Sender: TObject);
 var
   i: Integer;
@@ -3198,6 +3185,14 @@ begin
   etTaskPlan:
     begin
       acTaskPlan.Execute;
+    end;
+  etTimeRegistration:
+    begin
+      acTimeRegistration.Execute;
+    end;
+  etTimeregisteringSmall:
+    begin
+      acTimeRegistering.Execute;
     end;
   etAttPlan:
     begin

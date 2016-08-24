@@ -1,4 +1,4 @@
-msgid "(Menü)"
+msgid "(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten"
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
@@ -11,9 +11,6 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
 "(Menu)\n"
-
-msgid "wieder starten"
-msgstr ""
 
 # Christian U. <ulrich@tcs-germany.de>, 2015.
 #: tfaccountingframe.accombineitems.caption
@@ -3149,6 +3146,10 @@ msgstr "Tasks"
 msgctxt "TFMAIN.ACTIMEREGISTERING.CAPTION"
 msgid "Zeiterfassung"
 msgstr "Timeregistering"
+
+#: tfmain.actimeregistration.caption
+msgid "Zeitaufschreibung"
+msgstr ""
 
 #: tfmain.acwiki.caption
 msgid "acWiki"

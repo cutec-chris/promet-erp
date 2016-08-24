@@ -1,27 +1,8 @@
-TFENTERTIME.FENTERTIME.CAPTION=Zeiterfassung
-TFENTERTIME.BSTART.HINT=beginnt die Zeiterfassung, mit den links 
-eingegebenen Daten
-TFENTERTIME.BSTART.CAPTION=beginnen
-TFENTERTIME.BPAUSE.HINT=pausiert die aktuelle Tätigkeit
-TFENTERTIME.BPAUSE.CAPTION=pausieren
-TFENTERTIME.BSTOP.HINT=Beendet die aktuelle Tätigkeit
-TFENTERTIME.BSTOP.CAPTION=beenden
+TFENTERTIME.CAPTION=Zeiterfassung
 TFENTERTIME.RBNORMALTIME.CAPTION=Normalzeit
 TFENTERTIME.RBINDUSTRIALTIME.CAPTION=Industriezeit
-TFENTERTIME.LJOB1.CAPTION=Aufgabe
-TFENTERTIME.ILINK.HINT=Zeigt an ob eine gültige verknüpfung 
-in Eintrag/Projekt enthalten ist
-TFENTERTIME.ELINK.HINT=Suchen Sie mithilfe des Buttons einen passenden Eintrag
-oder geben Sie einen freien Text ein
-TFENTERTIME.LENTRY.CAPTION=Eintrag
-TFENTERTIME.LNOTES.CAPTION=Notizen
-TFENTERTIME.LTIMES.CAPTION=Erfasste Zeiten
 TFENTERTIME.CBSHOWDIALOG.CAPTION=Dialog alle
 TFENTERTIME.LSHOWMIN.CAPTION=min zeigen
-TFENTERTIME.BADDJOB.HINT=Fügt den aktuellen Text zur persönlichen 
-Aufgabenliste (Dropdownliste) hinzu
-TFENTERTIME.BDELETEJOB.HINT=Löscht den ausgewählten Eintrag aus der 
-persönlichen Aufgabenliste (Dropdownliste)
 TFENTERTIME.LTIMETODAY.CAPTION=Zeit heute
 TFENTERTIME.LTIMETODAYVALUE.CAPTION=7:00
 TFENTERTIME.LTIMEWEEK.CAPTION=aktuelle
@@ -32,29 +13,51 @@ TFENTERTIME.LTIMEWEEK1.CAPTION=aktueller
 Monat
 TFENTERTIME.LPAUSES.CAPTION=Pausen
 TFENTERTIME.LPAUSESVALUE.CAPTION=01:00
-TFENTERTIME.BPRINT.HINT=Drucken
-TFENTERTIME.BCHANGE.HINT=übernimmt Änderungen 
-in die aktive Tätigkeit
-TFENTERTIME.BCHANGE.CAPTION=übernehmen
-TFENTERTIME.SPEEDBUTTON2.CAPTION=?
-TFENTERTIME.GLIST.COLUMNS[0].TCOLUMNTITLE.CAPTION=START
-TFENTERTIME.GLIST.COLUMNS[1].TCOLUMNTITLE.CAPTION=END
-TFENTERTIME.GLIST.COLUMNS[2].TCOLUMNTITLE.CAPTION=LINK
-TFENTERTIME.GLIST.COLUMNS[3].TCOLUMNTITLE.CAPTION=JOB
-TFENTERTIME.GLIST.COLUMNS[4].TCOLUMNTITLE.CAPTION=ISPAUSE
-TFENTERTIME.CBMAXRESULTS.CAPTION=Filterergebnisse begrenzen auf
-TFENTERTIME.SEMAXRESULTS.HINT=hier können Sie die Zahl der maximalen Filterergebnisse angeben
-TFENTERTIME.LTIMES1.CAPTION=Aktueller Zeiteintrag
-TFENTERTIME.ELINK1.HINT=Suchen Sie mithilfe des Buttons einen passenden Eintrag
+TFENTERTIME.BCHANGE.HINT=übernimmt die eingegebenen
+Daten in den aktuellen Zeiteintrag
+TFENTERTIME.BSTOP.HINT=Beendet die Zeiterfassung bis
+sie wieder begonnen wird
+TFENTERTIME.BPAUSE.HINT=Paisiert den aktuellen 
+Zeiteintrag
+TFENTERTIME.BSTART.HINT=Startet die Zeiterfassung mit 
+den eingegebenen Daten
+TFENTERTIME.LNOTES.CAPTION=Notizen
+TFENTERTIME.LJOB1.CAPTION=Kategorie
+TFENTERTIME.BADDJOB.HINT=Fügt den aktuellen Text zur persönlichen 
+Aufgabenliste (Dropdownliste) hinzu
+TFENTERTIME.BDELETEJOB.HINT=Löscht den ausgewählten Eintrag aus der 
+persönlichen Aufgabenliste (Dropdownliste)
+TFENTERTIME.ELINK.HINT=Suchen Sie mithilfe des Buttons einen passenden Eintrag
 oder geben Sie einen freien Text ein
+TFENTERTIME.ILINK.HINT=Zeigt an ob ein gültiger Verweis 
+in Eintrag/Projekt enthalten ist
+TFENTERTIME.LENTRY.CAPTION=Eintrag
 TFENTERTIME.LPROJECT.CAPTION=Projekt
+TFENTERTIME.EPROJECT.HINT=Suchen Sie mithilfe des Buttons einen passenden Eintrag
+oder geben Sie einen freien Text ein
+TFENTERTIME.ILINK1.HINT=Zeigt an ob eine gültiger Verweis 
+in Eintrag/Projekt enthalten ist
+TFENTERTIME.LJOB2.CAPTION=Aufgabe
+TFENTERTIME.ILINK3.HINT=Zeigt an ob eine gültiger Verweis 
+in Eintrag/Projekt enthalten ist
+TFENTERTIME.BADDJOB1.HINT=neue Aufgabe hinzufügen
+übernimmt gleichzeitig das gewählte Projekt in die Aufgabe
+TFENTERTIME.BTASKDONE.HINT=gewählte Aufgabe abschießen
+TFENTERTIME.LACTIVEENTRY.CAPTION=Aktueller Eintrag
+TFENTERTIME.LTIMELIST.CAPTION=Zeitliste
 TFENTERTIME.ACFILTER.CAPTION=acFilter
 TFENTERTIME.ACPRINT.CAPTION=Drucken
-TFENTERTIME.ACUSEASNEWENTRY.CAPTION=Als neuen Eintrag benutzen
-TFENTERTIME.ACUSEASNEWENTRY.HINT=Übernimmt die Eintragungen in den aktuellen Eintrag
+TFENTERTIME.ACPRINT.HINT=zeigt die Auswahl der Druckbelege
 TFENTERTIME.ACGOTOID.CAPTION=zu Eintrag gehen
-TFENTERTIME.ACMINIMIZETOTRAY.CAPTION=acMinimizeToTray
 TFENTERTIME.ACMINIMIZETOTRAY.HINT=In die Startleistenablage minimieren
 TFENTERTIME.ACINSERT.CAPTION=neuen Eintrag einfügen
+TFENTERTIME.ACINSERT.HINT=Fügt einen neuen Zeiteintrag ein
+TFENTERTIME.ACSTARTSTANDARTENTRY.CAPTION=Standardeintrag starten
+TFENTERTIME.ACSTART.CAPTION=beginnen
+TFENTERTIME.ACUSE.CAPTION=übernehmen
+TFENTERTIME.ACPAUSE.CAPTION=pausieren
+TFENTERTIME.ACSTOP.CAPTION=beenden
+TFENTERTIME.ACUSEASNEWENTRY.CAPTION=als neuen Eintrag benutzen
+TFENTERTIME.ACDELETE.CAPTION=löschen
+TFENTERTIME.ACDELETE.HINT=löscht den gewählten Eintrag
 TFENTERTIME.MENUITEM3.CAPTION=-
-TFENTERTIME.MENUITEM1.CAPTION=Eintrag benutzen

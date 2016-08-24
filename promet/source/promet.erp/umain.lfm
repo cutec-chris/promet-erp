@@ -904,6 +904,7 @@ object fMain: TfMain
     end
     object acElements: TAction
       Caption = 'Alle Elemente'
+      ImageIndex = 14
       OnExecute = acElementsExecute
     end
     object acNewObject: TAction
@@ -951,6 +952,11 @@ object fMain: TfMain
       Caption = 'Neues Schema'
       ImageIndex = 88
       OnExecute = acNewSchemeExecute
+    end
+    object acTimeRegistration: TAction
+      Caption = 'Zeitaufschreibung'
+      ImageIndex = 24
+      OnExecute = acTimeRegistrationExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties
