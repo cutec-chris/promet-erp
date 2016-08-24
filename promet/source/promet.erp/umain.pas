@@ -4161,10 +4161,6 @@ begin
     end;
   with Application as TBaseVisualApplication do
     OnUserTabAdded:=@ApplicationTBaseVisualApplicationUserTabAdded;
-  with BaseApplication as TBaseVisualApplication do
-    begin
-      LoadLanguageMenu(miLanguage);
-    end;
   with Application as IBaseDbInterface do
     if not LoadMandants then
       begin
@@ -4220,6 +4216,8 @@ procedure TfMain.FormShow(Sender: TObject);
 begin
   with Application as IBaseApplication do
     RestoreConfig; //Must be called when Mainform is Visible
+  with Application as TBaseVisualApplication do
+    LoadLanguageMenu(miLanguage);
 end;
 
 procedure TfMain.fSearchActiveSearchItemFound(aIdent: string; aName: string;

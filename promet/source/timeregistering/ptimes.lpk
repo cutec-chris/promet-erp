@@ -10,7 +10,7 @@
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="6">
+    <Files Count="7">
       <Item1>
         <Filename Value="uentertime.lfm"/>
         <Type Value="LFM"/>
@@ -35,6 +35,10 @@
         <Filename Value="utimeoptions.pas"/>
         <UnitName Value="uTimeOptions"/>
       </Item6>
+      <Item7>
+        <Filename Value="utimeregistration.pas"/>
+        <UnitName Value="utimeregistration"/>
+      </Item7>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

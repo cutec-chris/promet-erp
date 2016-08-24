@@ -4,11 +4,10 @@
 
 unit ptimes;
 
-{$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  uEnterTime, uTimeOptions, LazarusPackageIntf;
+  uEnterTime, uTimeOptions, utimeregistration, LazarusPackageIntf;
 
 implementation
 
