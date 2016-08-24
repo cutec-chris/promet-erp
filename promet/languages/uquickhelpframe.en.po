@@ -18,3 +18,4 @@ msgid ""
 msgstr ""
 "Do you wnat that the quickhelp is never shown again ?\n"
 "When you click no, on the next session the quickhelp is shown again\n"
+

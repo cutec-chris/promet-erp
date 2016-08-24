@@ -18,3 +18,4 @@ msgstr "Present"
 #: ucalendarframe.streventsthisweek
 msgid "diese Woche: %d"
 msgstr "This week: %d"
+

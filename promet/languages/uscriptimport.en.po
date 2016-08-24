@@ -58,3 +58,4 @@ msgstr "Please select an Datasource"
 #: uscriptimport.strselectanformat
 msgid "Bitte wählen Sie ein Datenformat, oder erstellen Sie ein neues. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf."
 msgstr "Please create an dataformat or create an new. For that you have to enter an Name and click the configure button."
+

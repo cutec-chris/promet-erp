@@ -66,3 +66,4 @@ msgstr "Do you really want to discard the message?"
 #: umessageedit.strsendingmessage
 msgid "Sending Message..."
 msgstr "Sending Message..."
+

@@ -1,0 +1,43 @@
+object PrintData: TPrintData
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  OldCreateOrder = False
+  Height = 288
+  HorizontalOffset = 550
+  VerticalOffset = 203
+  Width = 259
+  object Report: TfrReport
+    InitialZoom = pzDefault
+    Options = []
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    ShowProgress = False
+    DataType = dtDataSet
+    OnGetValue = ReportGetValue
+    left = 32
+    top = 24
+  end
+  object frTNPDFExport1: TfrTNPDFExport
+    left = 96
+    top = 24
+  end
+  object frRoundRectObject1: TfrRoundRectObject
+    left = 32
+    top = 76
+  end
+  object frCheckBoxObject1: TfrCheckBoxObject
+    left = 96
+    top = 76
+  end
+  object frShapeObject1: TfrShapeObject
+    left = 32
+    top = 128
+  end
+  object frUserDataset1: TfrUserDataset
+    left = 121
+    top = 147
+  end
+  object frDesigner1: TfrDesigner
+    left = 179
+    top = 48
+  end
+end

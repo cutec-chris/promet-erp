@@ -26,3 +26,4 @@ msgstr "%s unsent messages"
 #: umessageframe.strnewunknownmessagecview
 msgid "%s Neue unbekannte Nachrichten"
 msgstr "%s new unknown messages"
+

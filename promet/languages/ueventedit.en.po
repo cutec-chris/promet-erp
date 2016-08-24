@@ -14,3 +14,4 @@ msgstr ""
 #: ueventedit.streventinpast
 msgid "Das Ereignis liegt in der Vergangenheit"
 msgstr "The event is in the past"
+

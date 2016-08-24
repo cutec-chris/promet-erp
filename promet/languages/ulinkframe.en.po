@@ -34,3 +34,4 @@ msgstr "The entry cant be found !"
 #: ulinkframe.strlinknotvalid
 msgid "Der Verweis zeigt auf eine ungültige Artikelversion, soll die Version angelegt werden ?"
 msgstr "This entry links to an invalid Articleversion, should the Version be created ?"
+

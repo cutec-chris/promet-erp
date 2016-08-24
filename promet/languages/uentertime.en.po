@@ -35,7 +35,7 @@ msgstr ""
 msgid ""
 "Der letzte Zeiteintrag wurde nicht abgeschlossen,\n"
 " bitte korrigieren Sie die Endzeit und starten Sie einen neuen Eintrag manuell!\n"
-msgstr "The last time was not stopped, please correct the entry manually.\n"
+msgstr "The last time was not stopped, please correct the entry manually."
 
 #: uentertime.strinvalidtimeformat
 msgid "Ungültiges Zeitformat !"
@@ -56,3 +56,4 @@ msgstr "Timeregistering"
 #: uentertime.strworktimeoverdune
 msgid "Ihre Regelarbeitszeit wurde überschritten"
 msgstr "Your Standard work-time is over."
+

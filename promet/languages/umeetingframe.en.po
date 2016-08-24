@@ -42,3 +42,4 @@ msgstr "Open the selected user in the list is applied"
 #: umeetingframe.strunassigned
 msgid "kein Bezug"
 msgstr "no reference"
+
