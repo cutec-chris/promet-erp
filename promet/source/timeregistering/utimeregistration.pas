@@ -217,6 +217,7 @@ begin
   FList.Editable:=True;
   FList.OnGetCellText:=@fEnterTime.FListGetCellText;
   FList.OnFilterChanged:=@FListFilterChanged;
+  FList.pTop.Visible:=False;
   cbUser.Clear;
   cbUser.Items.Add(Data.Users.Text.AsString);
 
