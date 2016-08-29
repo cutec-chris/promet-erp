@@ -89,6 +89,24 @@ inherited fTimeRegistration: TfTimeRegistration
       OnClick = Button1Click
       TabOrder = 3
     end
+    object Button3: TButton
+      Left = 584
+      Height = 25
+      Top = 30
+      Width = 32
+      Caption = '>'
+      OnClick = Button2Click
+      TabOrder = 4
+    end
+    object Button2: TSpeedButton
+      Left = 624
+      Height = 25
+      Top = 30
+      Width = 32
+      Action = acDelete
+      OnClick = Button2Click
+      ShowCaption = False
+    end
   end
   object pTimeList: TPanel[1]
     Left = 0
@@ -99,13 +117,14 @@ inherited fTimeRegistration: TfTimeRegistration
     BevelOuter = bvNone
     TabOrder = 1
   end
-  object Button2: TButton[2]
-    Left = 584
-    Height = 25
-    Top = 30
-    Width = 32
-    Caption = '>'
-    OnClick = Button2Click
-    TabOrder = 2
+  object ActionList1: TActionList[2]
+    Images = fVisualControls.Images
+    left = 591
+    top = 79
+    object acDelete: TAction
+      Caption = 'löschen'
+      ImageIndex = 60
+      OnExecute = acDeleteExecute
+    end
   end
 end

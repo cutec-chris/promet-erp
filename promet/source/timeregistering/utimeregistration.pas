@@ -24,16 +24,19 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, EditBtn, uPrometFrames, uFilterFrame, uBaseDbClasses, uTimes,
-  ugridview,db;
+  StdCtrls, EditBtn, ActnList, Buttons, uPrometFrames, uFilterFrame,
+  uBaseDbClasses, uTimes, ugridview, db;
 
 type
 
   { TfTimeRegistration }
 
   TfTimeRegistration = class(TPrometMainFrame)
+    acDelete: TAction;
+    ActionList1: TActionList;
     Button1: TButton;
-    Button2: TButton;
+    Button2: TSpeedButton;
+    Button3: TButton;
     cbUser: TComboBox;
     deFrom: TDateEdit;
     deTo: TDateEdit;
@@ -42,6 +45,7 @@ type
     lUser: TLabel;
     pTimeList: TPanel;
     pToolbar: TPanel;
+    procedure acDeleteExecute(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure cbUserSelect(Sender: TObject);
@@ -101,6 +105,12 @@ begin
   deFrom.Date:=deFrom.Date-1;
   deTo.Date:=deTo.Date-1;
   cbUserSelect(nil);
+end;
+
+procedure TfTimeRegistration.acDeleteExecute(Sender: TObject);
+begin
+  if (MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes) then
+    FDataSet.Delete;
 end;
 
 procedure TfTimeRegistration.Button2Click(Sender: TObject);
