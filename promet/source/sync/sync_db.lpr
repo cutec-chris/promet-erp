@@ -124,6 +124,13 @@ begin
               FreeAndNil(aDest);
               exit;
             end;
+          if aDest.FieldByName('TIMESTAMPD').AsDateTime>aSource.FieldByName('TIMESTAMPD').AsDateTime then
+            begin
+              (BaseApplication as IBaseApplication).Info(Format('Dest is newer than Source, aborting ID:%s',[aSource.FieldByName('SQL_ID').AsString]));
+              FreeAndNil(aSource);
+              FreeAndNil(aDest);
+              exit;
+            end;
           aDest.Edit;
           FTempNewCounter := 0;
           FreeAndNil(FTempDataSet);
@@ -243,28 +250,35 @@ function BuildFilter(aSourceDM,aDestDM : TBaseDBModule;aTime : TDateTime = 0) : 
 var
   aFilter: String;
 begin
-  if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = '' then
-    aFilter := ''
-  else
+  if GetOptionValue('sql_id')='' then
     begin
-      if aTime = 0 then
-        aTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
-      if aTime > SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime then
-        aTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
-      if BaseApplication.HasOption('w','wholeday') then
-        begin
-          aFilter := '(('+aSourceDM.QuoteField('TIMESTAMPD')+'=';
-          aFilter := aFilter+aSourceDM.DateToFilter(aTime);
-          aFilter := aFilter+')) or ('+aSourceDM.QuoteField('TIMESTAMPD')+'>';
-          aFilter := aFilter+aSourceDM.DateToFilter(aTime);
-          aFilter := aFilter+')';
-        end
+      if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = '' then
+        aFilter := ''
       else
         begin
-          aFilter := '('+aSourceDM.QuoteField('TIMESTAMPD')+'>';
-          aFilter := aFilter+aSourceDM.DateTimeToFilter(aTime);
-          aFilter := aFilter+')';
+          if aTime = 0 then
+            aTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
+          if aTime > SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime then
+            aTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
+          if BaseApplication.HasOption('w','wholeday') then
+            begin
+              aFilter := '(('+aSourceDM.QuoteField('TIMESTAMPD')+'=';
+              aFilter := aFilter+aSourceDM.DateToFilter(aTime);
+              aFilter := aFilter+')) or ('+aSourceDM.QuoteField('TIMESTAMPD')+'>';
+              aFilter := aFilter+aSourceDM.DateToFilter(aTime);
+              aFilter := aFilter+')';
+            end
+          else
+            begin
+              aFilter := '('+aSourceDM.QuoteField('TIMESTAMPD')+'>';
+              aFilter := aFilter+aSourceDM.DateTimeToFilter(aTime);
+              aFilter := aFilter+')';
+            end;
         end;
+    end
+  else
+    begin
+      aFilter := '('+aSourceDM.QuoteField('SQL_ID')+'='+Data.QuoteValue(GetOptionValue('sql_id'))+')'
     end;
   Result := aFilter;
 end;
@@ -642,15 +656,18 @@ begin
                                         SyncDB.Tables.DataSet.First;
                                         while not SyncDB.Tables.DataSet.EOF do
                                           begin
-                                            FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
-                                            try
-                                              FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
-                                              FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB);
-                                              inc(SyncedTables,FSyncedCount);
-                                            except
-                                              on e : Exception do
-                                                Error(e.Message);
-                                            end;
+                                            if (GetOptionValue('table')='') or (GetOptionValue('table')=SyncDB.Tables.DataSet.FieldByName('NAME').AsString) then
+                                              begin
+                                                FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                                                try
+                                                  FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
+                                                  FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB);
+                                                  inc(SyncedTables,FSyncedCount);
+                                                except
+                                                  on e : Exception do
+                                                    Error(e.Message);
+                                                end;
+                                              end;
                                             SyncDB.Tables.DataSet.Next;
                                           end;
                                         inc(SyncCount);

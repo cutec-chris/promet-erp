@@ -104,7 +104,6 @@ inherited fTimeRegistration: TfTimeRegistration
       Top = 30
       Width = 32
       Action = acDelete
-      OnClick = Button2Click
       ShowCaption = False
     end
   end

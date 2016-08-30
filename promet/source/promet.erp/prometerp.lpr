@@ -38,6 +38,7 @@ var
   FindRec: TSearchRec;
   NewName: TFilename;
   aProcess: TProcess;
+  i: Integer;
 begin
   Application.Free;
   Application := TBaseVisualApplication.Create(nil);
@@ -57,6 +58,8 @@ begin
       aProcess := Tprocess.Create(nil);
       aProcess.Options:=[];
       aProcess.CommandLine:=AppendPathDelim(Application.Location)+NewName;
+      for i :=  1 to Paramcount do
+        aProcess.CommandLine := aProcess.CommandLine+' '+ParamStrUTF8(i);
       aProcess.Execute;
       aProcess.Free;
       Application.Terminate;
