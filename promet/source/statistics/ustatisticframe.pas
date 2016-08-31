@@ -264,7 +264,7 @@ begin
   Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(MainNode,'',TTreeEntry.Create);
   TTreeEntry(Node1.Data).Rec := aList.GetBookmark;
   with aList.DataSet as IBaseManageDB do
-    TTreeEntry(Node1.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(aList.GetBookmark));
+    TTreeEntry(Node1.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(aList.Id.AsString);
   TTreeEntry(Node1.Data).DataSourceType := TBaseDBDataSetClass(aList.ClassType);
   TTreeEntry(Node1.Data).Text[0] := aList.Text.AsString;
   TTreeEntry(Node1.Data).Typ := aTyp;
@@ -907,7 +907,7 @@ begin
       TTreeEntry(FTreeNode.Data).Rec:=FDataSet.Id.AsVariant;
       TTreeEntry(FTreeNode.Data).DataSourceType:=TStatistic;
       with FDataSet.DataSet as IBaseManageDB do
-        TTreeEntry(FTreeNode.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(IntToStr(FDataSet.GetBookmark));;
+        TTreeEntry(FTreeNode.Data).Filter:=Data.QuoteField(TableName)+'.'+Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(FDataSet.Id.AsString);;
     end;
 end;
 procedure TfStatisticFrame.acSetTreeDirExecute(Sender: TObject);
