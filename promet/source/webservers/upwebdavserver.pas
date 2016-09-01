@@ -45,6 +45,7 @@ begin
         aParameters.NameValueSeparator:=':';
         aParameters.CaseSensitive:=False;
         aSock := TDAVSession.Create(DavServer,aParameters);
+        aSock.Socket := Sender;
         Sender.Objects.Add(aSock);
       end;
     aParameters.Clear;

@@ -28,15 +28,13 @@ uses
   DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface;
 
 type
-
   { TPrometServerFunctions }
-
   TPrometServerFunctions = class
     procedure aSocketDestroy(Sender: TObject);
   private
     function FindVirtualDocumentPath(aSocket: TDAVSession; var aRemovedDir,
       aDir: string; var aID: Variant; var aType: string; var aLevel: Integer;
-  var aClass: TBaseDBDatasetClass): Boolean;
+    var aClass: TBaseDBDatasetClass): Boolean;
     procedure CreateDataModule(aSocket : TDAVSession);
   public
     function AddDocumentsToFileList(aSocket: TDAVSession;aFileList: TDAVDirectoryList;
@@ -120,12 +118,6 @@ begin
   Result := False;
   if aSocket.User='' then exit;
   CreateDataModule(aSocket);
-  if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
-    begin
-      TBaseDBModule(aSocket.Data).Users.Filter('',0);
-      if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then exit;
-    end;
-  TBaseDBModule(aSocket.Data).RefreshUsersFilter;
   Result:=True;
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
@@ -1174,8 +1166,6 @@ end;
 
 procedure TPrometServerFunctions.aSocketDestroy(Sender: TObject);
 begin
-  if Assigned(TDAVSession(Sender).Data) then
-    TBaseDBModule(TDAVSession(Sender).Data).Free;
 end;
 
 function TPrometServerFunctions.FindVirtualDocumentPath(aSocket : TDAVSession;var aRemovedDir,
@@ -1299,16 +1289,15 @@ begin
     end;
 end;
 procedure TPrometServerFunctions.CreateDataModule(aSocket: TDAVSession);
-var
-  aClass : TBaseDBModuleClass;
 begin
-  if not Assigned(aSocket.Data) then
+  //TODO:select rigth User
+  aSocket.Data := uData.Data;
+  if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
     begin
-      aClass := TBaseDBModuleClass(Data.ClassType);
-      aSocket.Data := aClass.Create(nil);
-      TBaseDBModule(aSocket.Data).SetProperties(Data.Properties);
-      aSocket.OnDestroy:=@aSocketDestroy;
+      TBaseDBModule(aSocket.Data).Users.Filter('',0);
+      if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
+  TBaseDBModule(aSocket.Data).RefreshUsersFilter;
 end;
 function TPrometServerFunctions.AddDocumentsToFileList(aSocket: TDAVSession;
   aFileList: TDAVDirectoryList; aDocuments: TDocuments; aPath, aFilter: string

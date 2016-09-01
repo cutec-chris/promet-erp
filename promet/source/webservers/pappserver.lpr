@@ -108,6 +108,7 @@ begin
   i := 0;
   while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do
     begin
+      while CheckSynchronize(500) do;
       if i > 10 then
         begin
           i := 0;
@@ -117,8 +118,7 @@ begin
               exit;
             end;
         end;
-      while CheckSynchronize(50) do;
-      sleep(600);
+      while CheckSynchronize(500) do;
       inc(i);
     end;
   // stop program loop
