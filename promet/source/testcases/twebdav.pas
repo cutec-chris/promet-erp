@@ -101,6 +101,7 @@ begin
   Server := TWebDAVMaster.Create;
   Socket := TestSocket.Create(Server,TStringList.Create);
   Socket.User:=Data.Users.Id.AsString;
+  Socket.Socket:=nil;
   Data.Users.Locate('NAME','Administrator',[]);
   ServerFunctions := TPrometServerFunctions.Create;
   Server.OnGetDirectoryList:=@ServerFunctions.ServerGetDirectoryList;

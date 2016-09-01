@@ -249,6 +249,7 @@ var
 begin
   Result := false;
   if aSocket.User='' then exit;
+  CreateDataModule(aSocket);
   try
   aDir := HTTPDecode(aDir);
   if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
@@ -907,6 +908,7 @@ var
 begin
   Result := False;
   if aSocket.User='' then exit;
+  CreateDataModule(aSocket);
   if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
     begin
       TBaseDBModule(aSocket.Data).Users.Filter('',0);
@@ -977,6 +979,7 @@ begin
   FStatus:=500;
   Result := False;
   if aSocket.User='' then exit;
+  CreateDataModule(aSocket);
   if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
     begin
       TBaseDBModule(aSocket.Data).Users.Filter('',0);
@@ -1147,6 +1150,7 @@ function TPrometServerFunctions.ServerReadAllowed(aSocket: TDAVSession; aDir: st
   ): Boolean;
 begin
   Result := aSocket.User<>'';
+  CreateDataModule(aSocket);
 end;
 function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
   aPassword: string): Boolean;
@@ -1325,6 +1329,8 @@ var
   lIndex: Integer;
 begin
   aFile := TDAVFile.Create(FullPath,aDocuments.IsDir);
+  if aSocket.User='' then exit;
+  CreateDataModule(aSocket);
   if not aDocuments.IsDir then
     begin
       //TODO:fix this

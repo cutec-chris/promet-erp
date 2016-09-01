@@ -463,7 +463,9 @@ function TDAVSession.CheckAuth: Boolean;
 begin
   if Parameters.Values['authorization'] <> '' then
     begin
-      Socket.Synchronize(Socket,@DoCheckauth);
+      if Assigned(Socket) then
+        Socket.Synchronize(Socket,@DoCheckauth)
+      else DoCheckAuth;
       Result := FBoolResult;
     end;
 end;
@@ -686,39 +688,53 @@ begin
          HeaderOut.Add('DAV: version-control,checkout,working-resource');
          HeaderOut.Add('DAV: 1, calendar-access, calendar-schedule, calendar-proxy');
          HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL');
-         Socket.Synchronize(Socket,@DoOptionsRequest);
+         if Assigned(Socket) then
+           Socket.Synchronize(Socket,@DoOptionsRequest)
+         else DoOptionsRequest;
        end;
     'REPORT':
        begin
          AddDAVheaders;
          HeaderOut.Add('DAV: version-control,checkout,working-resource');
          HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL');
-         Socket.Synchronize(Socket,@DoReportRequest);
+         if Assigned(Socket) then
+           Socket.Synchronize(Socket,@DoReportRequest)
+         else DoReportRequest;
        end;
     'PROPFIND':
        begin
          AddDAVheaders;
-         Socket.Synchronize(Socket,@DoPropfindRequest);
+         if Assigned(Socket) then
+           Socket.Synchronize(Socket,@DoPropfindRequest)
+         else DoPropfindRequest;
        end;
     'GET','HEAD':
        begin
          CheckAuth;
-         Socket.Synchronize(Socket,@DoGetRequest);
+         if Assigned(Socket) then
+           Socket.Synchronize(Socket,@DoGetRequest)
+         else DoGetRequest;
        end;
     'PUT':
        begin
          CheckAuth;
-         Socket.Synchronize(Socket,@DoPutrequest);
+         if Assigned(Socket) then
+           Socket.Synchronize(Socket,@DoPutrequest)
+         else DoPutRequest;
        end;
     'POST':
        begin
          CheckAuth;
-         Socket.Synchronize(Socket,@DoPostRequest);
+         if Assigned(Socket) then
+           Socket.Synchronize(Socket,@DoPostRequest)
+         else DoPostRequest;
        end;
     'MKCOL':
        begin
          AddDAVheaders;
-         Socket.Synchronize(Socket,@DoMkColRequest);
+         if Assigned(Socket) then
+           Socket.Synchronize(Socket,@DoMkColRequest)
+         else DoMkColRequest;
        end;
     'LOCK','UNLOCK':
        begin
@@ -728,12 +744,16 @@ begin
     'DELETE':
        begin
          AddDAVheaders;
-         Socket.Synchronize(Socket,@DoDeleteRequest);
+         if Assigned(Socket) then
+           Socket.Synchronize(Socket,@DoDeleteRequest)
+         else DoDeleteRequest;
        end;
     end;
     if Assigned(FOutputResult) then
       begin
-        Socket.Synchronize(Socket,@DoProcessInput);
+        if Assigned(Socket) then
+          Socket.Synchronize(Socket,@DoProcessInput)
+        else DoProcessInput;
         if Status<>0 then
           Result := Status;
         Headers.Clear;
