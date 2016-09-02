@@ -39,6 +39,7 @@ type
     procedure PropfindDir;
     procedure PropfindSubDir;
     procedure PropFindDynamicFolder;
+    procedure PropFindDynamicFolderWithoutTrailingSlash;
     procedure PropFindByID;
     procedure GetHelpDynamicFolder;
     procedure GetDynamicFolderContent;
@@ -400,6 +401,18 @@ begin
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
   Check(pos('D:href>/masterdata/',aRes)>0,'Server tells that no Element exists');
   Check(pos('D:href>/masterdata/by-id',aRes)>0,'Server tells that no Element exists');
+end;
+
+procedure TWebDAVTest.PropFindDynamicFolderWithoutTrailingSlash;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND '+'/masterdata/Unsortiert HTTP/1.1'+#13
+   +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
+  Check(pos('D:href>/masterdata/Unsortiert/1',aRes)>0,'Server tells that no Element exists');
+  Check(pos('D:href>/masterdata/Unsortiert/Unterordner',aRes)>0,'Server tells that no Element exists');
 end;
 
 procedure TWebDAVTest.PropFindByID;

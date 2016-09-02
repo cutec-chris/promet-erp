@@ -664,7 +664,7 @@ begin
               aDataSet.Open;
               while not aDataSet.EOF do
                 begin
-                  aItem := TDAVFile.Create(aFullDir+TBaseDbList(aDataSet).Number.AsString,True);
+                  aItem := TDAVFile.Create(StringReplace(aFullDir+'/'+TBaseDbList(aDataSet).Number.AsString,'//','/',[rfReplaceAll]),True);
                   aDirList.Add(aItem);
                   aDataSet.Next;
                 end;
@@ -674,7 +674,7 @@ begin
           TBaseDBModule(aSocket.Data).Tree.DataSet.First;
           while not TBaseDBModule(aSocket.Data).Tree.EOF do
             begin
-              aItem := TDAVFile.Create(aFullDir+TBaseDBModule(aSocket.Data).Tree.FieldByName('NAME').AsString,True);
+              aItem := TDAVFile.Create(StringReplace(aFullDir+'/'+TBaseDBModule(aSocket.Data).Tree.FieldByName('NAME').AsString,'//','/',[rfReplaceAll]),True);
               aDirList.Add(aItem);
               TBaseDBModule(aSocket.Data).Tree.Next;
             end;
