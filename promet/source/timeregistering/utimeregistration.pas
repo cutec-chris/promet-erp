@@ -95,7 +95,7 @@ begin
       aFilter := Data.QuoteField('REF_ID')+'='+Data.QuoteValue(FUser.Id.AsString);
       FRef := FUser.Id.AsVariant;
     end;
-  aFilter := aFilter+' AND '+Data.QuoteField('START')+'>'+Data.DateTimeToFilter(trunc(deFrom.Date))+' AND '+Data.QuoteField('START')+'<'+Data.DateTimeToFilter(trunc(deTo.Date)+1);
+  aFilter := aFilter+' AND '+Data.QuoteField('START')+'>='+Data.DateTimeToFilter(trunc(deFrom.Date))+' AND '+Data.QuoteField('START')+'<='+Data.DateTimeToFilter(trunc(deTo.Date)+1);
   FTimes.Filter(aFilter);
   FList.DataSet:=FTimes;
 end;
@@ -110,7 +110,7 @@ end;
 procedure TfTimeRegistration.acDeleteExecute(Sender: TObject);
 begin
   if (MessageDlg(strRealdelete,mtInformation,[mbYes,mbNo],0) = mrYes) then
-    FDataSet.Delete;
+    FTimes.Delete;
 end;
 
 procedure TfTimeRegistration.Button2Click(Sender: TObject);
