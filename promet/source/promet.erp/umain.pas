@@ -1038,11 +1038,11 @@ end;
 
 procedure TStarterThread.DoSynchronize(AMethod: TThreadMethod);
 begin
-  {$ifdef WINDOWS}
+  {.$ifdef WINDOWS}
   Synchronize(AMethod);
-  {$else}
-  AMethod;
-  {$ENDIF}
+  {.$else}
+  //AMethod;
+  {.$ENDIF}
 end;
 
 constructor TStarterThread.Create(aSuspended: Boolean);

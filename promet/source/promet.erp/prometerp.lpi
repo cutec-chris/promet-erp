@@ -628,7 +628,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="14">
+    <Exceptions Count="15">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -671,6 +671,9 @@
       <Item14>
         <Name Value="FPImageException"/>
       </Item14>
+      <Item15>
+        <Name Value="PNGImageException"/>
+      </Item15>
     </Exceptions>
   </Debugging>
 </CONFIG>
