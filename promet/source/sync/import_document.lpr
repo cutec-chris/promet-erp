@@ -26,9 +26,9 @@ uses
   cthreads,
   {$ENDIF}
   Classes, SysUtils, CustApp,
-  { you can add units after this }db, Utils, FileUtil, Forms, uData,
+  { you can add units after this }db, Utils, uData,
   uIntfStrConsts, pcmdprometapp, uBaseCustomApplication, uBaseApplication,
-  uDocuments, uBaseDocPages,uOCR, pocr,Graphics, Interfaces;
+  uDocuments, uBaseDocPages;
 
 type
 
@@ -57,12 +57,10 @@ var
   aType: String;
   aDocPage: TDocPages;
   Texts: TList;
-  aPic: TPicture;
   aDoc: TDocument;
   aFullStream: TMemoryStream;
   AInfo: TSearchRec;
   aText: TStringList;
-  aUnpaper: TUnPaperProcess;
   i: Integer;
   ss: TStringStream;
   aFolder: String;
@@ -79,11 +77,11 @@ var
       begin
         writeln('OCR on '+aDocPage.FieldByName('NAME').AsString);
         try
-          Texts := DoOCR(aDoc);
+          //Texts := DoOCR(aDoc);
           aText := TStringList.Create;
           for a := 0 to Texts.Count-1 do
             begin
-              FixText(TStringList(Texts[a]));
+              //FixText(TStringList(Texts[a]));
               atext.AddStrings(TStringList(Texts[a]));
             end;
           aDocPage.Edit;
@@ -150,7 +148,7 @@ begin
             on e : Exception do
               begin
                 writeln('Error:'+e.Message);
-                Application.Terminate;
+                BaseApplication.Terminate;
                 exit;
               end;
           end;
