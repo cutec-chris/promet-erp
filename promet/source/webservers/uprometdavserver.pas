@@ -618,6 +618,9 @@ begin
             aFullDir := aFullDir+'/';
           aItem := TDAVFile.Create(aFullDir+'by-id',True);
           aDirList.Add(aItem);
+          aItem := TDAVFile.Create(aFullDir+'list.json',False);
+          aItem.Properties.Values['getcontenttype'] := 'application/json';
+          aDirList.Add(aItem);
           TBaseDBModule(aSocket.Data).Tree.Open;
           tmp := TBaseDBModule(aSocket.Data).QuoteField('TYPE')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aType)+' AND '+TBaseDBModule(aSocket.Data).QuoteField('PARENT')+'=0';
           TBaseDBModule(aSocket.Data).Tree.DataSet.Filter:=tmp;
@@ -648,7 +651,7 @@ begin
           aItem.Properties.Values['getcontenttype'] := 'text/xml';
           aDirList.Add(aItem);
           aItem := TDAVFile.Create(aFullDir+'item.json',False);
-          aItem.Properties.Values['getcontenttype'] := 'text/json';
+          aItem.Properties.Values['getcontenttype'] := 'application/json';
           aDirList.Add(aItem);
           aItem := TDAVFile.Create(aFullDir+'files',true);
           aDirList.Add(aItem);
@@ -811,7 +814,23 @@ begin
   else if FindVirtualDocumentPath(aSocket,aRemovedDir,aDir,aID,aType,aLevel,aClass) then
     begin
       Mimetype := '';
-      if aLevel=6 then
+      if aLevel=1 then //direkt auf Dataset ebene
+        begin
+          if aDir = 'list.json' then
+            begin
+              MimeType:='application/json';
+              aDataSet := aClass.Create(nil);
+              aDataSet.Open;
+              while not aDataSet.EOF do
+                begin
+
+                  aDataSet.Next;
+                end;
+              aDataSet.Free;
+              Result:=True;
+            end;
+        end
+      else if aLevel=6 then
         begin
           aDocuments := TDocuments.Create(nil);
           try
@@ -851,6 +870,7 @@ begin
         begin
           if aDir = 'item.xml' then
             begin
+              MimeType:='text/xml';
               aDataSet := aClass.Create(nil);
               aDataSet.Select(aID);
               aDataSet.Open;
@@ -865,6 +885,7 @@ begin
             end
           else if aDir = 'item.json' then
             begin
+              MimeType:='application/json';
               aDataSet := aClass.Create(nil);
               aDataSet.Select(aID);
               aDataSet.Open;
@@ -1190,11 +1211,11 @@ var
     else tmp := aDir;
     DataSet.SelectFromNumber(tmp);
     DataSet.Open;
-    Result := DataSet.Count>0;
     aID:=DataSet.Id.AsVariant;
     aType:= DataSet.GetTyp;
-    if Result then
+    if DataSet.Count>0 then
       begin
+        Result := True;
         aLevel:=3;
         if pos('/',aDir)>0 then
           begin
@@ -1207,8 +1228,9 @@ var
             aDir := '';
           end;
       end;
-    if (copy(aDir,0,5)='files') and Result then
+    if (copy(aDir,0,5)='files') and (DataSet.Count>0) then
       begin
+        Result := True;
         aLevel:=6;
         aRemovedDir+='files/';
         if pos('/',aDir)>0 then

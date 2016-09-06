@@ -19,6 +19,7 @@ type
     function SendRequest(aRequest: string): string;
   published
     procedure SetUp; override;
+    procedure GetJsonList;
     procedure PropfindRoot;
     procedure FindPrincipal;
     procedure FindPrincipalOnWellKnown;
@@ -471,6 +472,15 @@ begin
   aRes := SendRequest('DELETE /files/litmus/ HTTP 1.1'+#13
   +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='200','Wrong Answer to Delete Col');
+end;
+
+procedure TWebDAVTest.GetJsonList;
+var
+  aRes: String;
+begin
+  aRes := SendRequest('GET /masterdata/list.json HTTP 1.1'+#13
+  +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='200','Wrong Answer to JsonList');
 end;
 
 procedure TWebDAVTest.CheckPropfindImplicitAllProp;
