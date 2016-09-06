@@ -640,7 +640,7 @@ begin
           aDirList.Add(aItem);
           Result:=True;
         end
-      else if (aLevel=3) then //dynamic content
+      else if (aLevel=3) and (aDir='') then //dynamic content
         begin
           if copy(aFullDir,length(aFullDir),1) <> '/' then
             aFullDir := aFullDir+'/';
@@ -1191,13 +1191,22 @@ var
     DataSet.SelectFromNumber(tmp);
     DataSet.Open;
     Result := DataSet.Count>0;
-    aRemovedDir+=copy(aDir,0,pos('/',aDir));
-    aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
     aID:=DataSet.Id.AsVariant;
     aType:= DataSet.GetTyp;
     if Result then
-      aLevel:=3
-    else aLevel:=0;
+      begin
+        aLevel:=3;
+        if pos('/',aDir)>0 then
+          begin
+            aRemovedDir+=copy(aDir,0,pos('/',aDir));
+            aDir := copy(aDir,pos('/',aDir)+1,length(aDir));
+          end
+        else
+          begin
+            aRemovedDir+=aDir;
+            aDir := '';
+          end;
+      end;
     if (copy(aDir,0,5)='files') and Result then
       begin
         aLevel:=6;

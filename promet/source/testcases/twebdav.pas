@@ -40,6 +40,7 @@ type
     procedure PropfindSubDir;
     procedure PropFindDynamicFolder;
     procedure PropFindDynamicFolderWithoutTrailingSlash;
+    procedure PropFindDynamicFolderNonExistentFile;
     procedure PropFindByID;
     procedure GetHelpDynamicFolder;
     procedure GetDynamicFolderContent;
@@ -322,7 +323,7 @@ begin
   aRes := SendRequest(
    'PROPFIND /caldav/desktop.ini HTTP/1.1'+#13
    +''+#13);
-  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind to non existent file');
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='404','Wrong Answer to Propfind to non existent file');
 end;
 
 procedure TWebDAVTest.NonExistingElement2;
@@ -332,7 +333,7 @@ begin
   aRes := SendRequest(
    'PROPFIND /files/desktop.ini HTTP/1.1'+#13
    +''+#13);
-  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind to non existent file');
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='404','Wrong Answer to Propfind to non existent file');
   Check(pos('/desktop.ini',aRes)=0,'Server tells that non existent Element exists');
 end;
 
@@ -343,7 +344,7 @@ begin
   aRes := SendRequest(
    'PROPFIND /masterdata/desktop.ini HTTP/1.1'+#13
    +''+#13);
-  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind to non existent file');
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='404','Wrong Answer to Propfind to non existent file');
   Check(pos('/desktop.ini<',aRes)=0,'Server tells that non existent Element exists');
 end;
 
@@ -413,6 +414,16 @@ begin
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
   Check(pos('D:href>/masterdata/Unsortiert/1',aRes)>0,'Server tells that no Element exists');
   Check(pos('D:href>/masterdata/Unsortiert/Unterordner',aRes)>0,'Server tells that no Element exists');
+end;
+
+procedure TWebDAVTest.PropFindDynamicFolderNonExistentFile;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND '+'/masterdata/Unsortiert/100081/Thumbs.db HTTP/1.1'+#13
+   +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='404','Wrong Answer to Propfind');
 end;
 
 procedure TWebDAVTest.PropFindByID;

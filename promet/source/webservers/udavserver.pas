@@ -1009,6 +1009,7 @@ var
   Attr1: TDOMAttr;
   tmp2: DOMString;
   IgnoreNotFound: Boolean = false;
+  SomethingFound : Boolean = false;
 
   function AddNS(anPrefix,aNS : string) : string;
   var
@@ -1075,6 +1076,7 @@ var
     aPropStat.AppendChild(aProp);
     if Assigned(aFile) then
       begin
+        SomethingFound:=True;
         aPropC := nil;
         if (FindProp(':resourcetype') > -1)  then
           begin
@@ -1437,6 +1439,8 @@ begin
       TDAVSession(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
       Result := True;
     end;
+  if not SomethingFound then
+    TDAVSession(FSocket).Status:=404;
   TWebDAVMaster(FSocket.Creator).Unlock;
 end;
 function TDAVReportOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
