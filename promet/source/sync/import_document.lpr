@@ -137,7 +137,7 @@ begin
       if aType = '' then aType := 'D';
       if aFolder<>'' then
         aFolder := AppendPathDelim(aFolder);
-      while FindFirstUTF8(aFolder+'*.jpg',faAnyFile,AInfo)=0 do
+      while FindFirst(UniToSys(aFolder+'*.jpg'),faAnyFile,AInfo)=0 do
         begin
           writeln('importing File '+AInfo.Name);
           try
@@ -159,13 +159,13 @@ begin
 
           aDocPage.Free;
           writeln('deleting File '+AInfo.Name);
-          if not DeleteFileUTF8(aFolder+AInfo.Name) then
+          if not DeleteFile(UniToSys(aFolder+AInfo.Name)) then
             begin
               writeln('error deleting File '+AInfo.Name);
               Terminate;
               exit;
             end;
-          FindCloseUTF8(AInfo);
+          FindClose(AInfo);
         end;
     end;
 
