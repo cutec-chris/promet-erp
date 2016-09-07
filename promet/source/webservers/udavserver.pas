@@ -1438,8 +1438,8 @@ begin
       TDAVSession(FSocket).Status:=401;
       TDAVSession(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
       Result := True;
-    end;
-  if not SomethingFound then
+    end
+  else if not SomethingFound then
     TDAVSession(FSocket).Status:=404;
   TWebDAVMaster(FSocket.Creator).Unlock;
 end;

@@ -711,6 +711,8 @@ var
   aClass: TBaseDBDatasetClass;
   aDataSet: TBaseDBDataset;
   aSS: TStringStream;
+  tmp: String;
+  i: Integer;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -819,13 +821,27 @@ begin
           if aDir = 'list.json' then
             begin
               MimeType:='application/json';
+              sl := TStringList.Create;
+              sl.Add('[');
               aDataSet := aClass.Create(nil);
               aDataSet.Open;
               while not aDataSet.EOF do
                 begin
-
+                  if sl.Count>1 then
+                    sl[sl.Count-1] := sl[sl.Count-1]+',';
+                  tmp := '{ id:"'+aDataSet.Id.AsString+'"';
+                  for i := 1 to aDataSet.DataSet.Fields.Count-1 do
+                    begin
+                      if i<aDataSet.DataSet.Fields.Count then tmp += ',';
+                      tmp += aDataSet.DataSet.Fields[i].FieldName+':"'+aDataSet.DataSet.Fields[i].AsString+'"';
+                    end;
+                  tmp+=' }';
+                  sl.Add(tmp);
                   aDataSet.Next;
                 end;
+              sl.Add(']');
+              sl.SaveToStream(Stream);
+              sl.Free;
               aDataSet.Free;
               Result:=True;
             end;
