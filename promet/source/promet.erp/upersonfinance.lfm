@@ -3,8 +3,8 @@ inherited fPersonFinance: TfPersonFinance
   Width = 602
   ClientHeight = 339
   ClientWidth = 602
-  DesignLeft = 455
-  DesignTop = 175
+  DesignLeft = 454
+  DesignTop = 150
   object lCurrency: TLabel[0]
     Left = 56
     Height = 17

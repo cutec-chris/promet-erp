@@ -10,11 +10,13 @@ if [ "$?" -ne "0" ]; then
   tail -n 10 build.txt
   exit 1
 fi
+cd plugins
+bash build.sh
 cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
 target=pscript_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
-zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile pscript$TARGET_EXTENSION
+zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile pscript$TARGET_EXTENSION scriptplugins/*.so scriptplugins/*.dll
 if [ "$1" = "upload" ]; then
   . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 fi
