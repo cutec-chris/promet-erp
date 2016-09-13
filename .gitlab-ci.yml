@@ -1,6 +1,5 @@
 before_script:
-  script:
-    - git submodule update --init --recursive
+  - git submodule update --init --recursive
 build:
   script:
     - bash build.sh all
