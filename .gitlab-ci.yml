@@ -14,6 +14,6 @@ build-linux-x86-64:
   tags:
     - linux-x64
 build-linux-arm:
-  script: bash build.sh all
+  script: bash build.sh server
   tags:
     - linux-arm
