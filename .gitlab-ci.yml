@@ -9,3 +9,7 @@ build-linux-i386:
   script: bash build.sh all
   tags:
     - linux-i386
+build-linux-x86-64:
+  script: bash build.sh all
+  tags:
+    - linux-x64
