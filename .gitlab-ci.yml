@@ -1,9 +1,6 @@
 before_script:
   - git submodule update --init --recursive
-build:
-  script:
-    - bash build.sh all
-    
+
 build-windows:
   script: git-bash build.sh all
   tags:
