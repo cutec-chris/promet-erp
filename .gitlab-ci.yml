@@ -7,8 +7,8 @@ build:
 build-windows:
   script: git-bash build.sh all
   tags:
-    - Windows*
+    - windows-i386
 build-linux-i386:
   script: bash build.sh all
   tags:
-    - Linux,i386
+    - linux-i386
