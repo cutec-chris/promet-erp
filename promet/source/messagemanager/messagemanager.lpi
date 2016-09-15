@@ -71,19 +71,19 @@
     <RequiredPackages Count="8">
       <Item1>
         <PackageName Value="pvisualframes"/>
-        <DefaultFilename Value="../base_frames/pvisualframes.lpk"/>
+        <DefaultFilename Value="../base/base_frames/pvisualframes.lpk" Prefer="True"/>
       </Item1>
       <Item2>
         <PackageName Value="phelp"/>
-        <DefaultFilename Value="../base_help/phelp.lpk"/>
+        <DefaultFilename Value="../base/base_help/phelp.lpk" Prefer="True"/>
       </Item2>
       <Item3>
         <PackageName Value="wiki2html_pkg"/>
-        <DefaultFilename Value="../base_wiki/wiki2html_pkg.lpk"/>
+        <DefaultFilename Value="../base/base_wiki/wiki2html_pkg.lpk" Prefer="True"/>
       </Item3>
       <Item4>
         <PackageName Value="pvisualforms"/>
-        <DefaultFilename Value="../base_forms/pvisualforms.lpk"/>
+        <DefaultFilename Value="../base/base_forms/pvisualforms.lpk" Prefer="True"/>
       </Item4>
       <Item5>
         <PackageName Value="TurboPowerIPro"/>
