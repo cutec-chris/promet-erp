@@ -38,10 +38,11 @@
       </Item1>
       <Item2>
         <PackageName Value="pvisualframes"/>
-        <DefaultFilename Value="..\base_frames\pvisualframes.lpk"/>
+        <DefaultFilename Value="..\base\base_frames\pvisualframes.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="laz_fpspreadsheet"/>
+        <DefaultFilename Value="..\components\fpspreadsheet\laz_fpspreadsheet.lpk"/>
       </Item3>
       <Item4>
         <PackageName Value="TAChartLazarusPkg"/>
