@@ -8,17 +8,17 @@
       <Unit0>
         <Filename Value="consoletest_webdav.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="55"/>
-        <CursorPos Y="131"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="98"/>
+        <CursorPos X="15" Y="119"/>
         <UsageCount Value="78"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="twebdav.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="56"/>
+        <TopLine Value="77"/>
         <CursorPos X="16" Y="64"/>
         <UsageCount Value="63"/>
         <Loaded Value="True"/>
@@ -38,7 +38,6 @@
         <EditorIndex Value="4"/>
         <TopLine Value="912"/>
         <CursorPos Y="934"/>
-        <FoldState Value=" T0n54T022E16121D2 TM HnZ211l"/>
         <UsageCount Value="59"/>
         <Loaded Value="True"/>
       </Unit3>
