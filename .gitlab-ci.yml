@@ -1,26 +1,43 @@
+stages: 
+  - build 
+  - test
+  - publish
+  
 before_script:
   - git submodule sync
   - git submodule update --init --recursive
 
 build-windows:
+  stage: build 
   script: git-bash build.sh all
   tags:
     - windows-i386
 build-linux-i386:
+  stage: build 
   script: bash build.sh all
   tags:
     - linux-i386
-test-linux-i386:
-  script: 
-    - lazbuild promet/source/testcases/consoletest.lpi
-    - promet/source/output/i386-linux/consoletest
-  tags:
-    - linux-i386
 build-linux-x86-64:
+  stage: build 
   script: bash build.sh all
   tags:
     - linux-x64
 build-linux-arm:
+  stage: build 
   script: bash build.sh server
   tags:
     - linux-arm
+basetest-linux-i386:
+  stage: test 
+  script: 
+    - lazbuild promet/source/testcases/consoletest.lpi
+    - promet/output/i386-linux/consoletest
+  tags:
+    - linux-i386
+webdavtest-linux-i386:
+  stage: test 
+  script: 
+    - lazbuild promet/source/testcases/consoletest_webdav.lpi
+    - promet/output/i386-linux/consoletest_webdav
+  tags:
+    - linux-i386
