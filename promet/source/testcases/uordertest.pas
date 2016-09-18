@@ -49,8 +49,9 @@ begin
   if a>0 then
     aPerson.DataSet.MoveBy(a);
   aOrder.Address.Assign(aPerson);
+  aOrder.Address.Post;
   aPerson.Free;
-  Check(aOrder.Address.Count=1,'Person insert failed')
+  Check(aOrder.Address.Count=1,'Adress insert failed '+IntToStr(aOrder.Address.Count))
 end;
 
 procedure OrderTest.FillPosition1;
@@ -72,6 +73,7 @@ end;
 
 procedure OrderTest.CheckVatCalculation;
 begin
+  aOrder.Positions.Edit;
   aOrder.Positions.FieldByName('SELLPRICE').AsString:='5';
   Check(aOrder.Positions.FieldByName('GROSSPRICE').AsString = StringReplace('5.95','.',DecimalSeparator,[rfReplaceAll]),'MwSt from 5 is:'+aOrder.Positions.FieldByName('GROSSPRICE').AsString);
 end;
