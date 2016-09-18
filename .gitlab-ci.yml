@@ -10,6 +10,12 @@ build-linux-i386:
   script: bash build.sh all
   tags:
     - linux-i386
+test-linux-i386:
+  script: 
+    - lazbuild promet/source/testcases/consoletest.lpi
+    - promet/source/output/i386-linux/consoletest
+  tags:
+    - linux-i386
 build-linux-x86-64:
   script: bash build.sh all
   tags:
