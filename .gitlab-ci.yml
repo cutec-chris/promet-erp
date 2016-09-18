@@ -7,6 +7,21 @@ before_script:
   - git submodule sync
   - git submodule update --init --recursive
 
+basetest-linux-i386:
+  stage: test 
+  script: 
+    - lazbuild promet/source/testcases/consoletest.lpi
+    - promet/output/i386-linux/consoletest --mandant=help --config-path=./promet/help/config
+  tags:
+    - linux-i386
+webdavtest-linux-i386:
+  stage: test 
+  script: 
+    - lazbuild promet/source/testcases/consoletest_webdav.lpi
+    - promet/output/i386-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
+  tags:
+    - linux-i386
+
 build-windows:
   stage: build 
   script: git-bash build.sh all
@@ -27,17 +42,4 @@ build-linux-arm:
   script: bash build.sh server
   tags:
     - linux-arm
-basetest-linux-i386:
-  stage: test 
-  script: 
-    - lazbuild promet/source/testcases/consoletest.lpi
-    - promet/output/i386-linux/consoletest
-  tags:
-    - linux-i386
-webdavtest-linux-i386:
-  stage: test 
-  script: 
-    - lazbuild promet/source/testcases/consoletest_webdav.lpi
-    - promet/output/i386-linux/consoletest_webdav
-  tags:
-    - linux-i386
+
