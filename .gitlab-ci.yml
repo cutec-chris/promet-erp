@@ -1,6 +1,6 @@
 stages: 
-  - build 
   - test
+  - build 
   - publish
   
 before_script:
