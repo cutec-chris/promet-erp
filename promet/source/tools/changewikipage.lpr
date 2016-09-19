@@ -6,9 +6,8 @@ uses
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}
-  Interfaces,
   Classes, SysUtils, pcmdprometapp, CustApp ,uBaseCustomApplication,
-  uBaseDBInterface,uWiki,uData,LConvEncoding
+  uBaseDBInterface,uWiki,uData
   { you can add units after this };
 
 resourcestring
