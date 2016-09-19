@@ -4,7 +4,6 @@ stages:
   - publish
   
 before_script:
-  - git clean -fdx
   - git submodule sync
   - git submodule update --init --recursive
 
@@ -40,7 +39,9 @@ build-linux-x86-64:
     - linux-x64
 build-linux-arm:
   stage: build 
-  script: bash build.sh server
+  script:
+    - git clean -fdx
+    - bash build.sh server
   tags:
     - linux-arm
 
