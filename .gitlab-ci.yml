@@ -4,6 +4,7 @@ stages:
   - publish
   
 before_script:
+  - git clean -fdx
   - git submodule sync
   - git submodule update --init --recursive
 
