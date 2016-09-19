@@ -89,7 +89,9 @@ cp ../errors.txt $BuildDir/usr/lib/$Program
 cp add-systray-icon.sh $BuildDir/usr/lib/$Program
 sudo -S chmod -R 644 $BuildDir/usr/lib/$Program/languages/
 build_deb;
-. ../../setup/build-tools/doupload.sh ${Program}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}_current_${Arch}-$Widgetset.deb
+if [ "$1" = "upload" ]; then
+  . ../../setup/build-tools/doupload.sh ${Program}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}_current_${Arch}-$Widgetset.deb
+fi
 
 SubProgram="statistics"
 sudo -S rm -rf $BuildDir
@@ -106,7 +108,9 @@ install -m 644 general/statistics.desktop $BuildDir/usr/share/applications/prome
 ln -s /usr/lib/$Program/statistics.starter $BuildDir/usr/bin/promet-erp-statistics
 chmod 666 $BuildDir/usr/bin/promet-erp-statistics
 build_deb;
-. ../../setup/build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
+if [ "$1" = "upload" ]; then
+  . ../../setup/build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
+fi
 
 SubProgram="timeregistering"
 sudo -S rm -rf $BuildDir
@@ -123,7 +127,9 @@ install -m 644 general/timeregistering.desktop $BuildDir/usr/share/applications/
 ln -s /usr/lib/$Program/timeregistering.starter $BuildDir/usr/bin/promet-erp-timeregistering
 chmod 666 $BuildDir/usr/bin/promet-erp-statistics
 build_deb;
-. ../../setup/build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
+if [ "$1" = "upload" ]; then
+  . ../../setup/build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
+fi
 
 SubProgram="services"
 sudo -S rm -rf $BuildDir
@@ -147,13 +153,17 @@ install -m 644 general/statistics.desktop $BuildDir/usr/share/applications/prome
 ln -s /usr/lib/$Program/statistics.starter $BuildDir/usr/bin/promet-erp-statistics
 chmod 666 $BuildDir/usr/bin/promet-erp-statistics
 build_deb;
-. ../../setup/build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
+if [ "$1" = "upload" ]; then
+  . ../../setup/build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
+fi
 
 SubProgram="ocr"
 sudo -S rm -rf $BuildDir
 add_std_files;
 build_deb;
-. ../../setup/build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
+if [ "$1" = "upload" ]; then
+  . ../../setup/build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
+fi
 
 SubProgram="aqbanking"
 sudo -S rm -rf $BuildDir
