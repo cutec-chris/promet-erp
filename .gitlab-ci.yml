@@ -1,6 +1,7 @@
 stages: 
   - test
   - build 
+  - upload
   - publish
   
 before_script:
@@ -27,23 +28,38 @@ build:windows:
   script: git-bash build.sh all
   tags:
     - windows-i386
-publish:windows:
-  stage: publish
+  only:
+    - master
+upload:windows:
+  stage: upload
   script: git-bash build.sh upload
   dependencies:
-  - build:windows
+    - build:windows
+  tags:
+    - windows-i386
+publish:windows:
+  stage: publish
+  script: git-bash promet/setup/i386-win32/change_wiki_windows.sh
+  dependencies:
+    - build:windows
+  tags:
+    - windows-i386
+  only:
+    - tags
 
 build:linux:i386:
   stage: build 
   script: bash build.sh all
   tags:
     - linux-i386
+  only:
+    - master
     
-publish:linux:i386:
-  stage: publish
+upload:linux:i386:
+  stage: upload
   script: bash build.sh upload
   dependencies:
-  - build:linux:i386
+    - build:linux:i386
   tags:
     - linux-i386
   
@@ -52,9 +68,11 @@ build:linux:x86-64:
   script: bash build.sh all
   tags:
     - linux-x64
+  only:
+    - master
 
-publish:linux:x86-64:
-  stage: publish
+upload:linux:x86-64:
+  stage: upload
   script: bash build.sh upload
   dependencies:
   - build:linux:i386
@@ -68,9 +86,11 @@ build:linux:arm:
     - bash build.sh server
   tags:
     - linux-arm
+  only:
+    - master
 
-publish:linux:arm:
-  stage: publish
+upload:linux:arm:
+  stage: upload
   script: bash build.sh upload
   dependencies:
   - build:linux:arm
