@@ -7,7 +7,7 @@ stages:
 before_script:
   - git submodule sync
   - git submodule update --init --recursive
-
+#Tests
 basetest-linux-i386:
   stage: test 
   script: 
@@ -22,7 +22,7 @@ webdavtest-linux-i386:
     - promet/output/i386-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
   tags:
     - linux-i386
-
+#Build
 build:windows:
   stage: build 
   script: git-bash build.sh all
@@ -30,6 +30,11 @@ build:windows:
     - windows-i386
   only:
     - master
+  cache:
+    paths:
+      - promet/setup/output
+    key: "$CI_BUILD_NAME"
+    untracked: true
 upload:windows:
   stage: upload
   script: git-bash build.sh upload
@@ -54,6 +59,11 @@ build:linux:i386:
     - linux-i386
   only:
     - master
+  cache:
+    paths:
+      - promet/setup/output
+    key: "$CI_BUILD_NAME"
+    untracked: true
     
 upload:linux:i386:
   stage: upload
@@ -70,6 +80,11 @@ build:linux:x86-64:
     - linux-x64
   only:
     - master
+  cache:
+    paths:
+      - promet/setup/output
+    key: "$CI_BUILD_NAME"
+    untracked: true
 
 upload:linux:x86-64:
   stage: upload
@@ -88,6 +103,11 @@ build:linux:arm:
     - linux-arm
   only:
     - master
+  cache:
+    paths:
+      - promet/setup/output
+    key: "$CI_BUILD_NAME"
+    untracked: true
 
 upload:linux:arm:
   stage: upload
