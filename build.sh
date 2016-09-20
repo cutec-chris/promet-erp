@@ -148,6 +148,16 @@ build_all()
   fi
 }
 
+upload()
+{
+  if [ "x$TARGET_OS" = "xwin32" ]; then
+    . ./promet/setup/i386-win32/upload.sh
+  fi
+  if [ "x$TARGET_OS" = "xlinux" ]; then
+    . ./promet/setup/i386-linux/upload.sh
+  fi
+}
+
 clean_all()
 {
   rm -f -r $OUTPUT_DIR
@@ -221,6 +231,7 @@ case $1 in
   winclients)  . ./promet/setup/i386-win32/build.sh $2;;
     portable)  . ./promet/setup/portableapps/build.sh $2;;
   linclients)  . ./promet/setup/i386-linux/build.sh $2;;
+      upload)  upload;;
        clean)  clean_all;;
       server)  build_server $1 $2;;
          all)  build_all $1 $2;;
