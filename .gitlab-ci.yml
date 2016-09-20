@@ -41,7 +41,7 @@ publish:windows:
   stage: publish
   script: git-bash promet/setup/i386-win32/change_wiki_windows.sh
   dependencies:
-    - build:windows
+    - upload:windows
   tags:
     - windows-i386
   only:
