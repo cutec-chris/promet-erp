@@ -22,22 +22,35 @@ webdavtest-linux-i386:
   tags:
     - linux-i386
 
-build-windows:
+build:windows:
   stage: build 
   script: git-bash build.sh all
   tags:
     - windows-i386
-build-linux-i386:
+#deploy:windows:
+#  stage: deploy
+#  script: git-bash build.sh all upload
+#  dependencies:
+#  - build:windows
+
+build:linux:i386:
   stage: build 
   script: bash build.sh all
   tags:
     - linux-i386
-build-linux-x86-64:
+    
+deploy:linux:i386:
+  stage: deploy
+  script: git-bash build.sh all upload
+  dependencies:
+  - build:linux:i386
+  
+build:linux:x86-64:
   stage: build 
   script: bash build.sh all
   tags:
     - linux-x64
-build-linux-arm:
+build:linux:arm:
   stage: build 
   script:
     - git clean -fdx
