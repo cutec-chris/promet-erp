@@ -40,7 +40,7 @@ build:linux:i386:
     - linux-i386
     
 deploy:linux:i386:
-  stage: deploy
+  stage: publish
   script: git-bash build.sh all upload
   dependencies:
   - build:linux:i386
