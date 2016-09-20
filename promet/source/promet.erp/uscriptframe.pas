@@ -237,9 +237,9 @@ var
   aScript: TBaseScript;
 begin
   aScript := TBaseScript.Create(nil);
-  aScript.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aUnitName));
+  aScript.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aUnitName)+' AND '+data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y'));
   if aScript.Count>0 then
-    data.GotoLink('SCRIPTS@'+aScript.Id.AsString);
+    Data.GotoLink('SCRIPTS@'+aScript.Id.AsString);
   aScript.Free;
 end;
 function TfScriptFrame.fSearchOpenItem(aLink: string): Boolean;
