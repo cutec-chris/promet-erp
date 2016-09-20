@@ -28,7 +28,7 @@ build:windows:
   tags:
     - windows-i386
 publish:windows:
-  stage: deploy
+  stage: publish
   script: git-bash build.sh upload
   dependencies:
   - build:windows
