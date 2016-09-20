@@ -7,6 +7,7 @@ stages:
 before_script:
   - git submodule sync
   - git submodule update --init --recursive
+  - git submodule foreach git reset --hard
 
 basetest-linux-i386:
   stage: test 
@@ -41,7 +42,7 @@ publish:windows:
   stage: publish
   script: git-bash promet/setup/i386-win32/change_wiki_windows.sh
   dependencies:
-    - build:windows
+    - upload:windows
   tags:
     - windows-i386
   only:
