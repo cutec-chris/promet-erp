@@ -1008,6 +1008,7 @@ begin
   FPosFrame.InplaceFrames[5] := TfRepairPositionFrame.Create(FPosFrame);
   FPosFrame.InplaceFrames[6] := TfQSPositionFrame.Create(FPosFrame);
   FPosFrame.InplaceFrames[8] := TfRepairImageFrame.Create(FPosFrame);
+  FPosFrame.InplaceFrames[9] := TfDetailPositionFrame.Create(FPosFrame);
   FPosFrame.FormName:='ORD';
   PreviewFrame := TfPreview.Create(Self);
   PreviewFrame.Parent := pPreviewT;
