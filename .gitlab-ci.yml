@@ -27,11 +27,11 @@ build:windows:
   script: git-bash build.sh all
   tags:
     - windows-i386
-#deploy:windows:
-#  stage: deploy
-#  script: git-bash build.sh all upload
-#  dependencies:
-#  - build:windows
+publish:windows:
+  stage: deploy
+  script: git-bash build.sh upload
+  dependencies:
+  - build:windows
 
 build:linux:i386:
   stage: build 
@@ -39,17 +39,28 @@ build:linux:i386:
   tags:
     - linux-i386
     
-deploy:linux:i386:
+publish:linux:i386:
   stage: publish
-  script: git-bash build.sh all upload
+  script: bash build.sh upload
   dependencies:
   - build:linux:i386
+  tags:
+    - linux-i386
   
 build:linux:x86-64:
   stage: build 
   script: bash build.sh all
   tags:
     - linux-x64
+
+publish:linux:x86-64:
+  stage: publish
+  script: bash build.sh upload
+  dependencies:
+  - build:linux:i386
+  tags:
+    - linux-x64
+
 build:linux:arm:
   stage: build 
   script:
@@ -58,3 +69,10 @@ build:linux:arm:
   tags:
     - linux-arm
 
+publish:linux:arm:
+  stage: publish
+  script: bash build.sh upload
+  dependencies:
+  - build:linux:arm
+  tags:
+    - linux-arm
