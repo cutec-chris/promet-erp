@@ -4,7 +4,6 @@ stages:
   - publish
   
 before_script:
-  - git clean -fdx
   - git submodule sync
   - git submodule update --init --recursive
 
@@ -23,24 +22,57 @@ webdavtest-linux-i386:
   tags:
     - linux-i386
 
-build-windows:
+build:windows:
   stage: build 
   script: git-bash build.sh all
   tags:
     - windows-i386
-build-linux-i386:
+publish:windows:
+  stage: deploy
+  script: git-bash build.sh upload
+  dependencies:
+  - build:windows
+
+build:linux:i386:
   stage: build 
   script: bash build.sh all
   tags:
     - linux-i386
-build-linux-x86-64:
+    
+publish:linux:i386:
+  stage: publish
+  script: bash build.sh upload
+  dependencies:
+  - build:linux:i386
+  tags:
+    - linux-i386
+  
+build:linux:x86-64:
   stage: build 
   script: bash build.sh all
   tags:
     - linux-x64
-build-linux-arm:
+
+publish:linux:x86-64:
+  stage: publish
+  script: bash build.sh upload
+  dependencies:
+  - build:linux:i386
+  tags:
+    - linux-x64
+
+build:linux:arm:
   stage: build 
-  script: bash build.sh server
+  script:
+    - git clean -fdx
+    - bash build.sh server
   tags:
     - linux-arm
 
+publish:linux:arm:
+  stage: publish
+  script: bash build.sh upload
+  dependencies:
+  - build:linux:arm
+  tags:
+    - linux-arm
