@@ -7,7 +7,6 @@ stages:
 before_script:
   - git submodule sync
   - git submodule update --init --recursive
-  - git submodule foreach git reset --hard
 
 basetest-linux-i386:
   stage: test 
@@ -83,7 +82,7 @@ upload:linux:x86-64:
 build:linux:arm:
   stage: build 
   script:
-    - git clean -fdx
+    - git submodule foreach git reset --hard
     - bash build.sh server
   tags:
     - linux-arm
