@@ -22,8 +22,8 @@ begin
   with Application as IBaseDbInterface do
     LoadMandants;
   Application.CreateForm(TfScriptEditor,fScriptEditor);
-  fScriptEditor.ShowInTaskBar:=stAlways;
   fScriptEditor.Hide;
+  fScriptEditor.ShowInTaskBar:=stAlways;
   with Application as IBaseApplication do
     begin
       RestoreConfig;

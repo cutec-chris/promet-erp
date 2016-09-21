@@ -1,4 +1,4 @@
-msgid ""
+msgid "persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)"
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
@@ -10,12 +10,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
-
-msgid "persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)persönlichen Aufgabenliste (Dropdownliste)"
-msgstr "personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list)"
+"personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list) personal task list (drop-down list)personal task list (drop-down list)\n"
 
 msgid "persönlichen Aufgabenliste (Dropdownliste)"
-msgstr "personal task list (drop-down list)"
+msgstr ""
 
 #: tfmain.acchangepasswort.caption
 msgid "Passwort ändern"
@@ -129,3 +127,4 @@ msgstr "Project"
 #: umain.strnotloggedin
 msgid "Sie sind nicht angemeldet, melden Sie sich an um Zeiten erfassen zu können !"
 msgstr "Login to enter times"
+

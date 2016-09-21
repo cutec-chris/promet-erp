@@ -35,7 +35,7 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="8">
+    <RequiredPackages Count="7">
       <Item1>
         <PackageName Value="phelp"/>
         <DefaultFilename Value="..\base\phelp.lpk"/>
@@ -53,18 +53,15 @@
         <DefaultFilename Value="..\base\pvisualprometapp.lpk" Prefer="True"/>
       </Item4>
       <Item5>
-        <PackageName Value="richmemopackage"/>
-      </Item5>
-      <Item6>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="lazreport"/>
       </Item6>
       <Item7>
-        <PackageName Value="lazreport"/>
-      </Item7>
-      <Item8>
         <PackageName Value="LCL"/>
-      </Item8>
+      </Item7>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>
@@ -77,7 +74,6 @@
         <ComponentName Value="fMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="umain"/>
       </Unit1>
       <Unit2>
         <Filename Value="utimeoptions.pas"/>

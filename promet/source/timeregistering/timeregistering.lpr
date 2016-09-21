@@ -10,7 +10,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms
   { you can add units after this },
-umain, lazcontrols, lazreport, richmemopackage, pvisualprometapp,
+umain, lazcontrols, lazreport, pvisualprometapp,
 uBaseVisualApplication, ptimes, uTimeOptions;
 
 {$R *.res}
