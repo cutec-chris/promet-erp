@@ -23,7 +23,7 @@ webdavtest-linux-i386:
   tags:
     - linux-i386
 #Build
-build:windows:
+build-windows:
   stage: build 
   script: git-bash build.sh all
   tags:
@@ -35,14 +35,19 @@ build:windows:
       - promet/setup/output
     key: "$CI_BUILD_NAME"
     untracked: true
-upload:windows:
+upload-windows:
   stage: upload
   script: git-bash build.sh upload
   dependencies:
-    - build:windows
+    - build-windows
   tags:
     - windows-i386
-publish:windows:
+  cache:
+    paths:
+      - promet/setup/output
+    key: "$CI_BUILD_NAME"
+    untracked: true
+publish-windows:
   stage: publish
   script: git-bash promet/setup/i386-win32/change_wiki_windows.sh
   dependencies:
@@ -51,6 +56,11 @@ publish:windows:
     - windows-i386
   only:
     - tags
+  cache:
+    paths:
+      - promet/setup/output
+    key: "$CI_BUILD_NAME"
+    untracked: true
 
 build:linux:i386:
   stage: build 
