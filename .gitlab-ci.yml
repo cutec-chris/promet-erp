@@ -72,6 +72,11 @@ upload:linux:i386:
     - build:linux:i386
   tags:
     - linux-i386
+  cache:
+    paths:
+      - promet/setup/output
+    key: "$CI_BUILD_NAME"
+    untracked: true
   
 build:linux:x86-64:
   stage: build 
