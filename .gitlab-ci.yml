@@ -102,6 +102,7 @@ upload:linux:x86-64:
 build:linux:arm:
   stage: build 
   script:
+    - git clean -fdx
     - git submodule foreach git reset --hard
     - bash build.sh server
   tags:
