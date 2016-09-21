@@ -26,7 +26,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --db=ForumPG"/>
+        <CommandLineParams Value="--mandant=TCS --db=ProdChina"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -45,7 +45,7 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="397"/>
-        <CursorPos X="41" Y="401"/>
+        <CursorPos X="68" Y="415"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
