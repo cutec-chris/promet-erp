@@ -5,7 +5,7 @@ stages:
   - publish
   
 before_script:
-  - git submodule sync
+  - git submodule sync --recursive
   - git submodule update --init --recursive
 #Tests
 basetest-linux-i386:
