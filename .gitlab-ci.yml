@@ -30,7 +30,7 @@ build-windows:
     - windows-i386
   only:
     - master
-  cache:
+  artifacts:
     paths:
       - promet/setup/output
 upload-windows:
@@ -40,7 +40,7 @@ upload-windows:
     - build-windows
   tags:
     - windows-i386
-  cache:
+  artifacts:
     paths:
       - promet/setup/output
 publish-windows:
@@ -52,9 +52,6 @@ publish-windows:
     - windows-i386
   only:
     - tags
-  cache:
-    paths:
-      - promet/setup/output
 
 build:linux:i386:
   stage: build 
@@ -63,9 +60,6 @@ build:linux:i386:
     - linux-i386
   only:
     - master
-  cache:
-    paths:
-      - promet/setup/output
 
 upload:linux:i386:
   stage: upload
@@ -74,9 +68,6 @@ upload:linux:i386:
     - build:linux:i386
   tags:
     - linux-i386
-  cache:
-    paths:
-      - promet/setup/output
 
 build:linux:x86-64:
   stage: build 
@@ -85,7 +76,7 @@ build:linux:x86-64:
     - linux-x64
   only:
     - master
-  cache:
+  artifacts:
     paths:
       - promet/setup/output
 
@@ -107,7 +98,7 @@ build:linux:arm:
     - linux-arm
   only:
     - master
-  cache:
+  artifacts:
     paths:
       - promet/setup/output
 
@@ -122,5 +113,6 @@ upload:linux:arm:
 cleanup_build_job:
   stage: build
   script:
-  - cleanup build when failed
+  - rm -R promet
+  - rm -R general
   when: on_failure
