@@ -25,7 +25,9 @@ webdavtest-linux-i386:
 #Build
 build-windows:
   stage: build 
-  script: git-bash build.sh all
+  script: 
+    - git submodule sync --recursive
+    - git-bash build.sh all
   tags:
     - windows-i386
   only:
@@ -89,6 +91,10 @@ upload:linux:x86-64:
     - linux-x64
 
 build:linux:arm:
+  before_script:
+    - git submodule sync
+    - git submodule foreach git submodule update
+    - git submodule update --init --recursive
   stage: build 
   script:
     - git clean -fdx
