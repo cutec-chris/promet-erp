@@ -120,7 +120,7 @@ upload:linux:arm:
     - linux-arm
     
 cleanup_build_job:
-  stage: cleanup_build
+  stage: build
   script:
   - rm -R promet
   - rm -R general
