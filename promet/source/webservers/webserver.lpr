@@ -25,7 +25,7 @@ program webserver;
 uses
   {$IFDEF UNIX}cwstring,cthreads,{$ENDIF}
   ubasehttpapplication, pfcgiprometapp,Interfaces,
-  uBaseApplication, udataserver, uwebserver, uloggedout;
+  uBaseApplication, uwebserver, uloggedout;
 begin
   Application.DefaultModule:='loggedout';
   with BaseApplication as IBaseApplication do

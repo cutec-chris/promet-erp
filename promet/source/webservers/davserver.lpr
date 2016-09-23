@@ -32,7 +32,7 @@ type
   { TSVNServer }
 
   TSVNServer = class(TBaseCustomApplication)
-    procedure ServerAccess(aSocket : TDAVSocket;AMessage: string);
+    procedure ServerAccess(aSocket : TDAVSession;AMessage: string);
   private
     Server : TWebDAVServer;
     ServerFunctions: TPrometServerFunctions;
@@ -42,7 +42,7 @@ type
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
-procedure TSVNServer.ServerAccess(aSocket: TDAVSocket; AMessage: string);
+procedure TSVNServer.ServerAccess(aSocket: TDAVSession; AMessage: string);
 begin
   writeln(AMessage);
 end;
@@ -72,15 +72,15 @@ begin
   if not Login then exit;
   Server := TWebDAVServer.Create;
   ServerFunctions := TPrometServerFunctions.Create;
-  Server.OnAccess:=@ServerAccess;
-  Server.OnGetDirectoryList:=@ServerFunctions.ServerGetDirectoryList;
-  Server.OnMkCol:=@ServerFunctions.ServerMkCol;
-  Server.OnDelete:=@ServerFunctions.ServerDelete;
-  Server.OnPutFile:=@ServerFunctions.ServerPutFile;
-  Server.OnGetFile:=@ServerFunctions.ServerGetFile;
-  Server.OnReadAllowed:=@ServerFunctions.ServerReadAllowed;
-  Server.OnWriteAllowed:=@ServerFunctions.ServerReadAllowed;
-  Server.OnUserLogin:=@ServerFunctions.ServerUserLogin;
+  Server.Master.OnAccess:=@ServerAccess;
+  Server.Master.OnGetDirectoryList:=@ServerFunctions.ServerGetDirectoryList;
+  Server.Master.OnMkCol:=@ServerFunctions.ServerMkCol;
+  Server.Master.OnDelete:=@ServerFunctions.ServerDelete;
+  Server.Master.OnPutFile:=@ServerFunctions.ServerPutFile;
+  Server.Master.OnGetFile:=@ServerFunctions.ServerGetFile;
+  Server.Master.OnReadAllowed:=@ServerFunctions.ServerReadAllowed;
+  Server.Master.OnWriteAllowed:=@ServerFunctions.ServerReadAllowed;
+  Server.Master.OnUserLogin:=@ServerFunctions.ServerUserLogin;
   writeln('Login to Database OK');
   Server.Start;
   Data.Users.DataSet.Close;

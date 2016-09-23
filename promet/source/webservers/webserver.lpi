@@ -111,32 +111,25 @@
         <PackageName Value="FCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="3">
       <Unit0>
         <Filename Value="webserver.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="udataserver.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="AppDataServer"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="DataModule"/>
-      </Unit1>
-      <Unit2>
         <Filename Value="uwebserver.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="TWebServer"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-      </Unit2>
-      <Unit3>
+      </Unit1>
+      <Unit2>
         <Filename Value="uloggedout.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="loggedout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-      </Unit3>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
