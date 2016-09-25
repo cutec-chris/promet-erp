@@ -7,6 +7,13 @@ stages:
 before_script:
   - git submodule sync --recursive
   - git submodule update --init --recursive
+  
+variables:
+  GIT_STRATEGY: fetch
+  # or clone
+  # fetch or clone only the last 3 commits
+  GIT_DEPTH: "3"
+
 #Tests
 basetest-linux-i386:
   stage: test 
@@ -27,7 +34,7 @@ build-windows:
   stage: build 
   script: 
     - git submodule sync --recursive
-    - git-bash build.sh all
+    - bash build.sh all
   tags:
     - windows-i386
   only:
@@ -36,16 +43,15 @@ build-windows:
     paths:
       - promet/setup/output
 upload-windows:
+  before_script:
   stage: upload
-  script: git-bash build.sh upload
+  script: bash build.sh upload
   dependencies:
     - build-windows
   tags:
     - windows-i386
-  artifacts:
-    paths:
-      - promet/setup/output
 publish-windows:
+  before_script:
   stage: publish
   script: git-bash promet/setup/i386-win32/change_wiki_windows.sh
   dependencies:
@@ -62,8 +68,12 @@ build:linux:i386:
     - linux-i386
   only:
     - master
+  artifacts:
+    paths:
+      - promet/setup/output
 
 upload:linux:i386:
+  before_script:
   stage: upload
   script: bash build.sh upload
   dependencies:
@@ -83,6 +93,7 @@ build:linux:x86-64:
       - promet/setup/output
 
 upload:linux:x86-64:
+  before_script:
   stage: upload
   script: bash build.sh upload
   dependencies:
@@ -91,6 +102,8 @@ upload:linux:x86-64:
     - linux-x64
 
 build:linux:arm:
+  variables:
+    GIT_DEPTH: ""
   before_script:
     - git submodule sync
     - git submodule foreach git submodule update
@@ -109,6 +122,9 @@ build:linux:arm:
       - promet/setup/output
 
 upload:linux:arm:
+  before_script:
+  variables:
+    GIT_DEPTH: ""
   stage: upload
   script: bash build.sh upload
   dependencies:
@@ -116,9 +132,3 @@ upload:linux:arm:
   tags:
     - linux-arm
     
-cleanup_build_job:
-  stage: build
-  script:
-  - rm -R promet
-  - rm -R general
-  when: on_failure
