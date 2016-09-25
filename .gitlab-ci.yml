@@ -62,6 +62,9 @@ build:linux:i386:
     - linux-i386
   only:
     - master
+  artifacts:
+    paths:
+      - promet/setup/output
 
 upload:linux:i386:
   stage: upload
