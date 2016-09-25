@@ -34,7 +34,7 @@ build-windows:
   stage: build 
   script: 
     - git submodule sync --recursive
-    - git-bash build.sh all
+    - bash build.sh all
   tags:
     - windows-i386
   only:
@@ -45,7 +45,7 @@ build-windows:
 upload-windows:
   before_script:
   stage: upload
-  script: git-bash build.sh upload
+  script: bash build.sh upload
   dependencies:
     - build-windows
   tags:
