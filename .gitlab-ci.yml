@@ -116,9 +116,3 @@ upload:linux:arm:
   tags:
     - linux-arm
     
-cleanup_build_job:
-  stage: build
-  script:
-  - rm -R promet
-  - rm -R general
-  when: on_failure
