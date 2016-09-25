@@ -129,4 +129,11 @@
       </Debugging>
     </Linking>
   </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="1">
+      <Item1>
+        <Name Value="EZSQLException"/>
+      </Item1>
+    </Exceptions>
+  </Debugging>
 </CONFIG>
