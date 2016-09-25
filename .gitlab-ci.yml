@@ -101,6 +101,8 @@ upload:linux:x86-64:
     - linux-x64
 
 build:linux:arm:
+  variables:
+    GIT_DEPTH: ""
   before_script:
     - git submodule sync
     - git submodule foreach git submodule update
@@ -119,6 +121,8 @@ build:linux:arm:
       - promet/setup/output
 
 upload:linux:arm:
+  variables:
+    GIT_DEPTH: ""
   stage: upload
   script: bash build.sh upload
   dependencies:
