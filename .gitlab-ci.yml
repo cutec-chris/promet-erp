@@ -43,16 +43,15 @@ build-windows:
     paths:
       - promet/setup/output
 upload-windows:
+  before_script:
   stage: upload
   script: git-bash build.sh upload
   dependencies:
     - build-windows
   tags:
     - windows-i386
-  artifacts:
-    paths:
-      - promet/setup/output
 publish-windows:
+  before_script:
   stage: publish
   script: git-bash promet/setup/i386-win32/change_wiki_windows.sh
   dependencies:
@@ -74,6 +73,7 @@ build:linux:i386:
       - promet/setup/output
 
 upload:linux:i386:
+  before_script:
   stage: upload
   script: bash build.sh upload
   dependencies:
@@ -93,6 +93,7 @@ build:linux:x86-64:
       - promet/setup/output
 
 upload:linux:x86-64:
+  before_script:
   stage: upload
   script: bash build.sh upload
   dependencies:
@@ -121,6 +122,7 @@ build:linux:arm:
       - promet/setup/output
 
 upload:linux:arm:
+  before_script:
   variables:
     GIT_DEPTH: ""
   stage: upload
