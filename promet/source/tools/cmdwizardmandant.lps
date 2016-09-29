@@ -1,40 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Default">
-      <SessionMatrixOptions Count="17">
-        <Item1 ID="590010015789" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item2 ID="420011688654" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item3 ID="733527838960" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item4 ID="241379485735" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item5 ID="705804656362" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item6 ID="443593654795" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item7 ID="256360215578" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item8 ID="981153258705" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item9 ID="664692755961" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item10 ID="425080343177" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item11 ID="923643986244" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item12 ID="489621779814" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item13 ID="685919616065" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item14 ID="612722961427" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item15 ID="367836379409" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item16 ID="873710963793" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item17 ID="306877142195" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-      </SessionMatrixOptions>
-    </BuildModes>
-    <Units Count="1">
+    <BuildModes Active="Default"/>
+    <Units Count="2">
       <Unit0>
         <Filename Value="cmdwizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="80"/>
         <CursorPos X="25" Y="95"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
+        <UnitName Value="wikitohtml"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="100"/>
+        <CursorPos X="1" Y="146"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit1>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="7" HistoryIndex="6">
+      <Position1>
+        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
+        <Caret Line="245" Column="1" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
+        <Caret Line="80" Column="1" TopLine="34"/>
+      </Position3>
+      <Position4>
+        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
+        <Caret Line="50" Column="1" TopLine="6"/>
+      </Position4>
+      <Position5>
+        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
+        <Caret Line="54" Column="1" TopLine="44"/>
+      </Position5>
+      <Position6>
+        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
+        <Caret Line="116" Column="1" TopLine="79"/>
+      </Position6>
+      <Position7>
+        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
+        <Caret Line="228" Column="19" TopLine="205"/>
+      </Position7>
+    </JumpHistory>
   </ProjectSession>
 </CONFIG>
