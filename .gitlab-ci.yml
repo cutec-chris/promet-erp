@@ -33,7 +33,7 @@ webdavtest-linux-i386:
 build-windows:
   stage: build 
   variables:
-    GIT_STRATEGY: clone
+#    GIT_STRATEGY: clone
   script: 
     - git submodule sync --recursive
     - bash build.sh all
@@ -106,7 +106,7 @@ upload:linux:x86-64:
 build:linux:arm:
   variables:
     GIT_DEPTH: ""
-    GIT_STRATEGY: clone
+#    GIT_STRATEGY: clone
   before_script:
     - git submodule sync
     - git submodule foreach git submodule update
