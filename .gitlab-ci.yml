@@ -15,21 +15,17 @@ variables:
   GIT_DEPTH: "3"
 
 #Tests
-basetest-linux-i386:
+basetest-linux:
   image: buildhost-lazarus-x64
   stage: test 
   script: 
     - lazbuild promet/source/testcases/consoletest.lpi
     - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
-  tags:
-    - linux-i386
-webdavtest-linux-i386:
+webdavtest-linux:
   stage: test 
   script: 
     - lazbuild promet/source/testcases/consoletest_webdav.lpi
     - promet/output/i386-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
-  tags:
-    - linux-i386
 #Build
 build-windows:
   stage: build 
