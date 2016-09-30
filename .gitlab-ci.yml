@@ -21,11 +21,15 @@ basetest-linux:
   script: 
     - lazbuild promet/source/testcases/consoletest.lpi
     - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
+  tags:
+    - docker
 webdavtest-linux:
   stage: test 
   script: 
     - lazbuild promet/source/testcases/consoletest_webdav.lpi
     - promet/output/i386-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
+  tags:
+    - docker
 #Build
 build-windows:
   stage: build 
