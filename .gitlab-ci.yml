@@ -16,10 +16,11 @@ variables:
 
 #Tests
 basetest-linux-i386:
+  image: buildhost-lazarus-x64
   stage: test 
   script: 
     - lazbuild promet/source/testcases/consoletest.lpi
-    - promet/output/i386-linux/consoletest --mandant=help --config-path=./promet/help/config
+    - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
   tags:
     - linux-i386
 webdavtest-linux-i386:
