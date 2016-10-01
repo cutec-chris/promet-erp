@@ -88,7 +88,10 @@ upload:linux:i386:
 build:linux:x86-64:
   image: build-lazarus-x64:latest
   stage: build 
-  script: bash build.sh all
+  script: 
+    - git clean -fdx
+    - git submodule foreach git reset --hard
+    - bash build.sh all
   tags:
     - docker-lazarus-x64
   only:
