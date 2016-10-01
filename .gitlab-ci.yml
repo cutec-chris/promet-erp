@@ -88,11 +88,12 @@ upload:linux:i386:
     - linux-i386
 
 build:linux:x86-64:
-  image: build-lazarus-x64:latest
+#  image: build-lazarus-x64:latest
   stage: build 
   script: bash build.sh all
   tags:
-    - docker-lazarus-x64
+    - linux-x64
+#    - docker-lazarus-x64
   only:
     - master
   artifacts:
