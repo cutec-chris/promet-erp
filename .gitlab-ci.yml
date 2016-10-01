@@ -28,7 +28,7 @@ webdavtest-linux:
   stage: test 
   script: 
     - lazbuild promet/source/testcases/consoletest_webdav.lpi
-    - promet/output/i386-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
+    - promet/output/x86_64-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
   tags:
     - docker-lazarus-x64
 #Build
@@ -86,10 +86,11 @@ upload:linux:i386:
     - linux-i386
 
 build:linux:x86-64:
+  image: build-lazarus-x64:latest
   stage: build 
   script: bash build.sh all
   tags:
-    - linux-x64
+    - docker-lazarus-x64
   only:
     - master
   artifacts:
