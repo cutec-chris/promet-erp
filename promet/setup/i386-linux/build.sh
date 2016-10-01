@@ -148,9 +148,26 @@ mkdir -p $BuildDir/usr/share/pixmaps/
 mkdir -p $BuildDir/usr/share/applications
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
+mkdir -p $BuildDir/etc/init.d/
+
+ln -s /usr/lib/$Program/tools/imapserver $BuildDir/usr/bin/promet-erp-imap
+ln -s /usr/lib/$Program/tools/davserver $BuildDir/usr/bin/promet-erp-dav
+ln -s /usr/lib/$Program/tools/webserver $BuildDir/usr/bin/promet-erp-appbase
+ln -s /usr/lib/$Program/tools/mta $BuildDir/usr/bin/promet-erp-mta
+ln -s /usr/lib/$Program/tools/nntpserver $BuildDir/usr/bin/promet-erp-nntp
+ln -s /usr/lib/$Program/tools/syslog $BuildDir/usr/bin/promet-erp-syslog
+chmod 666 $BuildDir/usr/bin/promet-erp-imap
+chmod 666 $BuildDir/usr/bin/promet-erp-dav
+chmod 666 $BuildDir/usr/bin/promet-erp-appbase
+chmod 666 $BuildDir/usr/bin/promet-erp-mta
+chmod 666 $BuildDir/usr/bin/promet-erp-nntp
+
+cp ../i386-linux/debian/promet-process.sh $BuildDir/etc/init.d/promet-process
+chmod 666 $BuildDir/etc/init.d/promet-process
+chmod +x $BuildDir/etc/init.d/promet-process
+
 install -m 644 ../../resources/world_icon_statistics.png $BuildDir/usr/share/pixmaps/prometerp-statistics.png
 install -m 644 general/statistics.desktop $BuildDir/usr/share/applications/prometerp-statistics.desktop
-ln -s /usr/lib/$Program/statistics.starter $BuildDir/usr/bin/promet-erp-statistics
 chmod 666 $BuildDir/usr/bin/promet-erp-statistics
 build_deb;
 if [ "$1" = "upload" ]; then
