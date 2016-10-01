@@ -24,6 +24,7 @@ basetest-linux:
   tags:
     - docker-lazarus-x64
 webdavtest-linux:
+  image: build-lazarus-x64:latest
   stage: test 
   script: 
     - lazbuild promet/source/testcases/consoletest_webdav.lpi
