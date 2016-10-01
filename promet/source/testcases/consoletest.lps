@@ -29,11 +29,10 @@
       </Unit1>
       <Unit2>
         <Filename Value="uordertest.pas"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="39"/>
         <CursorPos X="25" Y="76"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="tdbtests.pas"/>
@@ -44,7 +43,8 @@
       </Unit3>
       <Unit4>
         <Filename Value="upersontest.pas"/>
-        <EditorIndex Value="3"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <CursorPos Y="32"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -60,7 +60,7 @@
       <Unit6>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="445"/>
         <CursorPos Y="473"/>
         <UsageCount Value="10"/>
@@ -69,7 +69,7 @@
       <Unit7>
         <Filename Value="..\base\dbintfs\uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="442"/>
         <CursorPos Y="458"/>
         <UsageCount Value="10"/>
@@ -78,7 +78,7 @@
       <Unit8>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="358"/>
         <CursorPos Y="1909"/>
         <UsageCount Value="10"/>
@@ -93,12 +93,10 @@
       </Unit9>
       <Unit10>
         <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="215"/>
-        <CursorPos X="61" Y="227"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="212"/>
+        <CursorPos X="23" Y="228"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.4\rtl\objpas\sysutils\sysstrh.inc"/>
@@ -109,14 +107,13 @@
       </Unit11>
       <Unit12>
         <Filename Value="..\components\besen\src\BESENObjectDateConstructor.pas"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="79"/>
         <CursorPos X="207" Y="97"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit12>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="21" HistoryIndex="20">
       <Position1>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <Caret Line="458" TopLine="440"/>
@@ -170,68 +167,37 @@
         <Caret Line="468" TopLine="440"/>
       </Position13>
       <Position14>
-        <Filename Value="uordertest.pas"/>
-        <Caret Line="52" TopLine="36"/>
-      </Position14>
-      <Position15>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <Caret Line="472" TopLine="444"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1907" TopLine="1890"/>
       </Position15>
       <Position16>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1907" TopLine="1890"/>
+        <Caret Line="1908" TopLine="1890"/>
       </Position16>
       <Position17>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1908" TopLine="1890"/>
+        <Caret Line="1909" TopLine="1890"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="1909" TopLine="1890"/>
-      </Position18>
-      <Position19>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <Caret Line="473" TopLine="445"/>
-      </Position19>
-      <Position20>
-        <Filename Value="uordertest.pas"/>
-        <Caret Line="53" TopLine="36"/>
-      </Position20>
-      <Position21>
-        <Filename Value="uordertest.pas"/>
-        <Caret Line="54" TopLine="36"/>
-      </Position21>
-      <Position22>
-        <Filename Value="uordertest.pas"/>
-        <Caret Line="51" TopLine="36"/>
-      </Position22>
-      <Position23>
+      </Position18>
+      <Position19>
         <Filename Value="consoletest.lpr"/>
         <Caret Line="36" Column="49" TopLine="22"/>
-      </Position23>
-      <Position24>
+      </Position19>
+      <Position20>
         <Filename Value="consoletest.lpr"/>
         <Caret Line="127" Column="18" TopLine="107"/>
-      </Position24>
-      <Position25>
+      </Position20>
+      <Position21>
         <Filename Value="consoletest.lpr"/>
         <Caret Line="122" Column="33" TopLine="103"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
-        <Caret Line="258" Column="7" TopLine="239"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
-        <Caret Line="226" Column="54" TopLine="76"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
-        <Caret Line="258" Column="6" TopLine="233"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\components\besen\src\BESENObjectDateConstructor.pas"/>
-      </Position29>
+      </Position21>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
