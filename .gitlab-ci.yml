@@ -7,6 +7,8 @@ stages:
 before_script:
   - git submodule sync --recursive
   - git submodule update --init --recursive
+  - git clean -fdx
+  - git submodule foreach git reset --hard
   
 variables:
   GIT_STRATEGY: fetch
@@ -19,8 +21,6 @@ basetest-linux:
   image: build-lazarus-x64:latest
   stage: test 
   script: 
-    - git clean -fdx
-    - git submodule foreach git reset --hard
     - lazbuild promet/source/testcases/consoletest.lpi
     - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
   tags:
@@ -29,8 +29,6 @@ webdavtest-linux:
   image: build-lazarus-x64:latest
   stage: test 
   script: 
-    - git clean -fdx
-    - git submodule foreach git reset --hard
     - lazbuild promet/source/testcases/consoletest_webdav.lpi
     - promet/output/x86_64-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
   tags:
