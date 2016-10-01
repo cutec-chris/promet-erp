@@ -16,7 +16,7 @@ variables:
 
 #Tests
 basetest-linux:
-  image: buildhost-lazarus-x64
+  image: build-lazarus-x64:latest
   stage: test 
   script: 
     - lazbuild promet/source/testcases/consoletest.lpi
