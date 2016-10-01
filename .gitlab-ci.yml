@@ -19,6 +19,8 @@ basetest-linux:
   image: build-lazarus-x64:latest
   stage: test 
   script: 
+    - git clean -fdx
+    - git submodule foreach git reset --hard
     - lazbuild promet/source/testcases/consoletest.lpi
     - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
   tags:
@@ -27,6 +29,8 @@ webdavtest-linux:
   image: build-lazarus-x64:latest
   stage: test 
   script: 
+    - git clean -fdx
+    - git submodule foreach git reset --hard
     - lazbuild promet/source/testcases/consoletest_webdav.lpi
     - promet/output/x86_64-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
   tags:
@@ -88,10 +92,7 @@ upload:linux:i386:
 build:linux:x86-64:
   image: build-lazarus-x64:latest
   stage: build 
-  script: 
-    - git clean -fdx
-    - git submodule foreach git reset --hard
-    - bash build.sh all
+  script: bash build.sh all
   tags:
     - docker-lazarus-x64
   only:
