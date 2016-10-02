@@ -129,6 +129,7 @@ build:linux:arm:
   artifacts:
     paths:
       - promet/setup/output
+  allow_failure: true      
 
 upload:linux:arm:
   before_script:
