@@ -133,12 +133,14 @@ build:linux:arm:
 
 upload:linux:arm:
   before_script:
+    - git clean -fdx
   variables:
     GIT_DEPTH: ""
   stage: upload
-  script: bash build.sh upload
+  script: 
+    - bash build.sh upload
   dependencies:
-  - build:linux:arm
+    - build:linux:arm
   tags:
     - linux-arm
     
