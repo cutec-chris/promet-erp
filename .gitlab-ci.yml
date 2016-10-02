@@ -21,7 +21,7 @@ basetest-linux:
   image: build-lazarus-x64:latest
   stage: test 
   script: 
-    - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip -y
+    - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
     - lazbuild promet/source/testcases/consoletest.lpi
     - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
   tags:
@@ -71,7 +71,7 @@ publish-windows:
 build:linux:i386:
   stage: build 
   script: 
-    - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip -y
+    - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
     - bash build.sh all
   tags:
     - linux-i386
@@ -94,7 +94,7 @@ build:linux:x86-64:
 #  image: build-lazarus-x64:latest
   stage: build 
   script: 
-    - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip -y
+    - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
     - bash build.sh all
   tags:
     - linux-x64
@@ -124,7 +124,7 @@ build:linux:arm:
     - git submodule update --init --recursive
   stage: build 
   script:
-    - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip -y
+    - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
     - git clean -fdx
     - git submodule foreach git reset --hard
     - bash build.sh server
