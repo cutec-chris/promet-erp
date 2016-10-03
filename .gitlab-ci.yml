@@ -71,7 +71,7 @@ publish-windows:
 build:linux:i386:
   stage: build 
   script: 
-    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST 
+    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT
     - bash build.sh all
   tags:
     - linux-i386
@@ -94,7 +94,7 @@ build:linux:x86-64:
 #  image: build-lazarus-x64:latest
   stage: build 
   script: 
-    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST 
+    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT 
     - bash build.sh all
   tags:
     - linux-x64
@@ -119,7 +119,6 @@ build:linux:arm:
     GIT_DEPTH: ""
 #    GIT_STRATEGY: clone
   before_script:
-    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST 
     - git submodule sync
     - git submodule foreach git submodule update
     - git submodule update --init --recursive
