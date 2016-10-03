@@ -71,7 +71,6 @@ publish-windows:
 build:linux:i386:
   stage: build 
   script: 
-    - apt-get install sshpass
     - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST 
     - bash build.sh all
   tags:
@@ -95,7 +94,6 @@ build:linux:x86-64:
 #  image: build-lazarus-x64:latest
   stage: build 
   script: 
-    - apt-get install sshpass
     - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST 
     - bash build.sh all
   tags:
@@ -121,7 +119,6 @@ build:linux:arm:
     GIT_DEPTH: ""
 #    GIT_STRATEGY: clone
   before_script:
-    - apt-get install sshpass
     - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST 
     - git submodule sync
     - git submodule foreach git submodule update
