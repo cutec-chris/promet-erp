@@ -9,7 +9,6 @@ before_script:
   - git submodule update --init --recursive
   - git clean -fdx
   - git submodule foreach git reset --hard
-  - ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST < $AUTOUPLOAD_PW
   
 variables:
   GIT_STRATEGY: fetch
@@ -72,6 +71,8 @@ publish-windows:
 build:linux:i386:
   stage: build 
   script: 
+    - sudo apt-get install sshpass
+    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST 
     - bash build.sh all
   tags:
     - linux-i386
@@ -94,6 +95,8 @@ build:linux:x86-64:
 #  image: build-lazarus-x64:latest
   stage: build 
   script: 
+    - sudo apt-get install sshpass
+    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST 
     - bash build.sh all
   tags:
     - linux-x64
@@ -118,6 +121,8 @@ build:linux:arm:
     GIT_DEPTH: ""
 #    GIT_STRATEGY: clone
   before_script:
+    - sudo apt-get install sshpass
+    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST 
     - git submodule sync
     - git submodule foreach git submodule update
     - git submodule update --init --recursive
