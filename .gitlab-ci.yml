@@ -9,6 +9,7 @@ before_script:
   - git submodule update --init --recursive
   - git clean -fdx
   - git submodule foreach git reset --hard
+  - ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST < AUTOUPLOAD_PW
   
 variables:
   GIT_STRATEGY: fetch
