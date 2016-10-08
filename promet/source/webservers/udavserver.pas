@@ -290,7 +290,7 @@ uses base64,Utils,uhttputil,uBaseApplication,synautil
 
 function InternURLEncode(aURL : string) : string;
 begin
-  Result := StringReplace(Utils.HTTPEncode(aURL),'%2f','/',[rfReplaceAll,rfIgnoreCase]);
+  Result := StringReplace(Utils.HTTPEncode(PChar(aURL)),'%2f','/',[rfReplaceAll,rfIgnoreCase]);
 end;
 
 { TWebDAVServer }
