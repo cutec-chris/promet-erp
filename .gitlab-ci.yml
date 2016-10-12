@@ -35,7 +35,7 @@ webdavtest-linux:
   tags:
     - docker-lazarus-x64
 #Build
-build-windows:
+build:windows:
   stage: build 
   variables:
 #    GIT_STRATEGY: clone
@@ -49,24 +49,6 @@ build-windows:
   artifacts:
     paths:
       - promet/setup/output
-upload-windows:
-  before_script:
-  stage: upload
-  script: bash build.sh upload
-  dependencies:
-    - build-windows
-  tags:
-    - windows-i386
-publish-windows:
-  before_script:
-  stage: publish
-  script: git-bash promet/setup/i386-win32/change_wiki_windows.sh
-  dependencies:
-    - upload-windows
-  tags:
-    - windows-i386
-  only:
-    - tags
 
 build:linux:i386:
   stage: build 
@@ -80,15 +62,6 @@ build:linux:i386:
   artifacts:
     paths:
       - promet/setup/output
-
-upload:linux:i386:
-  before_script:
-  stage: upload
-  script: bash build.sh upload
-  dependencies:
-    - build:linux:i386
-  tags:
-    - linux-i386
 
 build:linux:x86-64:
 #  image: build-lazarus-x64:latest
@@ -104,15 +77,6 @@ build:linux:x86-64:
   artifacts:
     paths:
       - promet/setup/output
-
-upload:linux:x86-64:
-  before_script:
-  stage: upload
-  script: bash build.sh upload
-  dependencies:
-  - build:linux:i386
-  tags:
-    - linux-x64
 
 build:linux:arm:
   variables:
@@ -136,16 +100,15 @@ build:linux:arm:
       - promet/setup/output
   allow_failure: true      
 
-upload:linux:arm:
+upload:all:
   before_script:
-    - git clean -fdx
-  variables:
-    GIT_DEPTH: ""
   stage: upload
-  script: 
-    - bash build.sh upload
+  script: bash build.sh upload
   dependencies:
+    - build:linux:i386
+    - build:linux:x64
     - build:linux:arm
+    - build:windows
   tags:
-    - linux-arm
-    
+    - linux-x64
+
