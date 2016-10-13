@@ -115,11 +115,13 @@ build:linux:arm:
 
 upload:all:
   before_script:
-    - ls promet/setup/output/*
+    - ls -l promet/setup/output/*
   stage: upload
   script:
     - bash build.sh upload
   dependencies:
+    - build:linux:arm
+    - build:linux:i386
     - build:linux:x86-64
     - build:windows
   tags:
