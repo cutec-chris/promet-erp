@@ -1,6 +1,10 @@
 Die automatische Build Umgebung sieht im Moment so aus:
-Master: Linux Host
-Windows: wine verzeichnis lazarus_wine im promet root verzeichnis des git repositores, inno setup installiert (ispack tut gute dienste)
-Linux i386: es wird in einer VM gebaut, im homeverzeichnis des bauenden benutzers ist lazarus und promet-erp.git ausgecheckt
-Linux x86_64: der Master baut direkt
+Eine GitLab instanz steuert die Builds. Die entsprechende .yml Datei liegt im root Verzeichnis
+Ein 64Bit Runner mit Docker installiert baut die Tests und führt sie aus
+Danach bauen jewails Linux,Linux64,Windows,RaspberryPi Hosts mit gitlab Runnern und jewails Lazarus installiert alle Executables für die einzelnen Plattformen
+Danach werden alle gebauten Binarys per ssh auf den Webserver hochgeladen
+Danach wird eine Alpha Wikiseite erstellt die alle Executables listet
+
+Bei neuen Versionen werden die regulären Downloadseiten angepasst
+
 MacOS: MacOS 10.5 Client der minimac heisst hat im home Verzeichnis des Benuters das git unter promet und lazarus unter lazarus liegen ssh key muss vorhanden sein
