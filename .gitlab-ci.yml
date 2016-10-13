@@ -46,7 +46,7 @@ build:windows:
     - windows-i386
   only:
     - master
-  artifacts:
+  cache:
     paths:
       - promet/setup/output
 
@@ -59,7 +59,7 @@ build:linux:i386:
     - linux-i386
   only:
     - master
-  artifacts:
+  cache:
     paths:
       - promet/setup/output
 
@@ -74,7 +74,7 @@ build:linux:x86-64:
 #    - docker-lazarus-x64
   only:
     - master
-  artifacts:
+  cache:
     paths:
       - promet/setup/output
 
@@ -95,7 +95,7 @@ build:linux:arm:
     - linux-arm
   only:
     - master
-  artifacts:
+  cache:
     paths:
       - promet/setup/output
   allow_failure: true      
