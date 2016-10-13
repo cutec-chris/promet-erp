@@ -46,9 +46,10 @@ build:windows:
     - windows-i386
   only:
     - master
-  cache:
+  artifacts:
     paths:
       - promet/setup/output
+    expire_in: 1 week  
 
 build:linux:i386:
   stage: build 
@@ -62,6 +63,10 @@ build:linux:i386:
   cache:
     paths:
       - promet/setup/output
+  artifacts:
+    paths:
+      - promet/setup/output
+    expire_in: 1 week  
 
 build:linux:x86-64:
 #  image: build-lazarus-x64:latest
@@ -77,6 +82,10 @@ build:linux:x86-64:
   cache:
     paths:
       - promet/setup/output
+  artifacts:
+    paths:
+      - promet/setup/output
+    expire_in: 1 week  
 
 build:linux:arm:
   variables:
@@ -98,6 +107,10 @@ build:linux:arm:
   cache:
     paths:
       - promet/setup/output
+  artifacts:
+    paths:
+      - promet/setup/output
+    expire_in: 1 week  
   allow_failure: true      
 
 upload:all:
@@ -105,9 +118,7 @@ upload:all:
   stage: upload
   script: bash build.sh upload
   dependencies:
-    - build:linux:i386
     - build:linux:x86-64
-    - build:linux:arm
     - build:windows
   tags:
     - linux-x64
