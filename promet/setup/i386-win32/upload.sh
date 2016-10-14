@@ -9,7 +9,7 @@ TARGET_OS=$2
 target=sqliteclient_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
-cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
+cd $basedir/promet/setup/output
 . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd $basedir
 cd promet/setup/i386-win32
@@ -17,7 +17,7 @@ cd promet/setup/i386-win32
 target=mysqlclient_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
-cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
+cd $basedir/promet/setup/output
 . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd $basedir
 cd promet/setup/i386-win32
@@ -26,7 +26,7 @@ cd postgres_client
 target=postgresclient_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
-cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
+cd $basedir/promet/setup/output
 . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd ..
 
@@ -35,7 +35,16 @@ cd promet/setup/i386-win32
 target=win32tools_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
-cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
+cd $basedir/promet/setup/output
+. ../../setup/build-tools/doupload.sh $targetfile $targetcur
+cd ..
+
+cd $basedir
+cd promet/setup/i386-win32
+target=*_$TARGET_CPU-$TARGET_OS
+targetfile=$target-$BUILD_VERSION.zip
+targetcur=$target-current.zip
+cd $basedir/promet/setup/output
 . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd ..
 
