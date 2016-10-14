@@ -118,7 +118,7 @@ upload:all:
   stage: upload
   script:
     - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT
-    - bash promet/setup/output/upload_builds.sh
+    - bash promet/setup/upload_builds.sh
   dependencies:
     - build:linux:arm
     - build:linux:i386
