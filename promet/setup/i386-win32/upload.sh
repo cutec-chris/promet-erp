@@ -3,6 +3,8 @@ basedir=$(pwd)
 cd promet/setup/i386-win32
 . ../../setup/build-tools/setup_enviroment.sh
 echo "Uploading win32 stuff..."
+TARGET_CPU=$1
+TARGET_OS=$2
 # Build components
 target=sqliteclient_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
