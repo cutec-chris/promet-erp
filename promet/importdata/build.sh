@@ -9,7 +9,7 @@ echo "Building importdata..."
 target=importdata
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
-zip -rq $basedir/promet/setup/output/$BUILD_VERSION/$targetfile importdata
+zip -rq $basedir/promet/setup/output/$targetfile importdata
 if [ "$1" = "upload" ]; then
   . setup/build-tools/doupload.sh $targetfile $targetcur
 fi

@@ -14,7 +14,7 @@ cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
 target=meeting_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
-zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile meetingminutes$TARGET_EXTENSION
+zip $basedir/promet/setup/output/$targetfile meetingminutes$TARGET_EXTENSION
 if [ "$1" = "upload" ]; then
   . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 fi

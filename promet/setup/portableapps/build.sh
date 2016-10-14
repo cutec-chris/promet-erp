@@ -12,16 +12,16 @@ cp -r ./Promet-ERP/* $BuildDir
 mkdir -p $BuildDir/App/promet/tools
 mkdir -p $BuildDir/App/promet/plugins
 # Create Install Dir
-unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/prometerp_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/help-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/importdata-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/messagemanager_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/plugins_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/visualtools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/sqliteclient_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/win32tools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/prometerp_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/help-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/importdata-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/messagemanager_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/plugins_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/visualtools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/sqliteclient_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/win32tools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 rm $BuildDir/App/promet/helpviewer.exe
-unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/$BUILD_VERSION/mailreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/mailreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 echo "building package..."
 rm $TmpDir/*.paf.exe
 cat Appinfo_devel.ini | \
@@ -48,15 +48,15 @@ cat Appinfo.ini | \
   > $BuildDir/App/AppInfo/appinfo.ini
 /c/Windows/system32/cmd.exe "/C c:\PortableApps.comInstaller\PortableApps.comInstaller.exe %TEMP%\software_build
 "
-cp $TmpDir/*.paf.exe ../output/$BUILD_VERSION
+cp $TmpDir/*.paf.exe ../output
 targetfile=PrometERPPortable_$BUILD_VERSION_Development_Test_1.paf.exe
 targetcur=PrometERPPortable_current_Development_Test_1.paf.exe
 if [ "$1" = "upload" ]; then
   . ../build-tools/doupload.sh $targetfile $targetcur
 fi
 cd $BuildDir
-rm        $basedir/promet/setup/output/$BUILD_VERSION/promet-erp-$Version.i386-win32-portable.zip
-zip -9 -r $basedir/promet/setup/output/$BUILD_VERSION/promet-erp-$Version.i386-win32-portable.zip .
+rm        $basedir/promet/setup/output/promet-erp-$Version.i386-win32-portable.zip
+zip -9 -r $basedir/promet/setup/output/promet-erp-$Version.i386-win32-portable.zip .
 cd $basedir
 cd promet/setup/portableapps
 targetfile=promet-erp-$BUILD_VERSION.i386-win32-portable.zip
@@ -75,7 +75,7 @@ fi
 #  > $BuildDir/App/AppInfo/appinfo.ini
 #/c/Windows/system32/cmd.exe "/C c:\PortableApps.comInstaller\PortableApps.comInstaller.exe %TEMP%\software_build
 #"
-#cp $TmpDir/*.paf.exe ../output/$BUILD_VERSION
+#cp $TmpDir/*.paf.exe ../output
 #cd $BuildDir
 #targetfile=PrometERPPortable-firebird_$BUILD_VERSION.paf.exe
 #targetcur=PrometERPPortable-firebird_current.paf.exe

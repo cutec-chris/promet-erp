@@ -30,9 +30,9 @@ build_deb()
   echo "building package..."
   sudo -S dpkg-deb --build $BuildDir
   if [ "x${SubProgram}" = "x" ]; then
-    cp $TmpDir/software_build.deb ../output/$BUILD_VERSION/${Program}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb
+    cp $TmpDir/software_build.deb ../output/${Program}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb
   elif [ "x${SubProgram}" <> "x" ]; then
-    cp $TmpDir/software_build.deb ../output/$BUILD_VERSION/${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb
+    cp $TmpDir/software_build.deb ../output/${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb
   fi
 }
 
@@ -60,13 +60,13 @@ Program="promet-erp"
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 add_std_files;
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/prometerp_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/help-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/importdata-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/messagemanager_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/plugins_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/visualtools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/mailreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/prometerp_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/help-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/importdata-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/messagemanager_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/plugins_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/visualtools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/mailreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 mkdir -p $BuildDir/usr/share/pixmaps/
 install -m 644 ../../resources/world_icon64.png $BuildDir/usr/share/pixmaps/$Program.png
 mkdir -p $BuildDir/usr/share/applications/
@@ -98,7 +98,7 @@ sudo -S rm -rf $BuildDir
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 add_std_files;
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/statistics_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/statistics_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 mkdir -p $BuildDir/usr/share/pixmaps/
 mkdir -p $BuildDir/usr/share/applications
 mkdir -p $BuildDir/usr/bin/
@@ -117,7 +117,7 @@ sudo -S rm -rf $BuildDir
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 add_std_files;
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/timeregistering_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/timeregistering_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 mkdir -p $BuildDir/usr/share/pixmaps/
 mkdir -p $BuildDir/usr/share/applications
 mkdir -p $BuildDir/usr/bin/
@@ -136,14 +136,14 @@ sudo -S rm -rf $BuildDir
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 add_std_files;
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/tools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/davserver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/feedreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/fhemreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/mqttreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/imapserver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/sync_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/$BUILD_VERSION/webserver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/tools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/davserver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/feedreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/fhemreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/mqttreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/imapserver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/sync_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/webserver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 mkdir -p $BuildDir/usr/share/pixmaps/
 mkdir -p $BuildDir/usr/share/applications
 mkdir -p $BuildDir/usr/bin/
