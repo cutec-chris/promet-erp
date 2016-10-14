@@ -48,7 +48,7 @@ cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
 target=plugins_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
-zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile plugins/*.wlx
+zip $basedir/promet/setup/output/$targetfile plugins/*.wlx
 if [ "$1" = "upload" ]; then
   . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 fi

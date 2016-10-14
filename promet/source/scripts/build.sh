@@ -16,7 +16,7 @@ cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
 target=pscript_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
-zip $basedir/promet/setup/output/$BUILD_VERSION/$targetfile pscript$TARGET_EXTENSION scriptplugins/*.so scriptplugins/*.dll
+zip $basedir/promet/setup/output/$targetfile pscript$TARGET_EXTENSION scriptplugins/*.so scriptplugins/*.dll
 if [ "$1" = "upload" ]; then
   . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 fi
