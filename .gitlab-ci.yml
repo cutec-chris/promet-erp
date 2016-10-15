@@ -59,9 +59,6 @@ build:linux:i386:
     - linux-i386
   only:
     - master
-  cache:
-    paths:
-      - promet/setup/output
   artifacts:
     paths:
       - promet/setup/output
@@ -78,9 +75,6 @@ build:linux:x86-64:
 #    - docker-lazarus-x64
   only:
     - master
-  cache:
-    paths:
-      - promet/setup/output
   artifacts:
     paths:
       - promet/setup/output
@@ -103,9 +97,6 @@ build:linux:arm:
     - linux-arm
   only:
     - master
-  cache:
-    paths:
-      - promet/setup/output
   artifacts:
     paths:
       - promet/setup/output
@@ -124,6 +115,10 @@ upload:all:
     - build:linux:i386
     - build:linux:x86-64
     - build:windows
+  artifacts:
+    paths:
+      - promet/setup/output/act_alphadownload.txt
+    expire_in: 1 week
   tags:
     - linux-x64
 
