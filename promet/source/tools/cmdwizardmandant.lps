@@ -32,7 +32,7 @@
         <UnitName Value="uPowerState"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <CursorPos Y="20"/>
+        <CursorPos X="15" Y="21"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit3>
