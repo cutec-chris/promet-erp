@@ -40,7 +40,8 @@ cd $basedir/promet/setup/output
 . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd ..
 
-for f in *.zip
+cd $basedir
+for f in *$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 do
   echo "Processing $f file..."
   # take action on each file. $f store current file name

@@ -39,7 +39,7 @@ SubProgram="aqbanking"
 
 echo "====Zip Dateien====" >> ./promet/setup/output/act_alphadownload.txt
 echo "Diese Downloads werden normalerweise intern vom Windows Setup oder Updatern intern verwendet. Sie können jedoch auch verwendet werden um sich eine maßgeschneiderte Installation zusammenzubauen Sie können einfach in ein Verzeichnis entpackt werden und von dort gestartet." >> ./promet/setup/output/act_alphadownload.txt
-for f in *.zip
+for f in *$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 do
   echo "Processing $f file..."
   # take action on each file. $f store current file name
