@@ -29,8 +29,9 @@ targetcur=$target-current.zip
 cd $basedir/promet/setup/output
 . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd ..
-
 cd $basedir
+echo "====Zip Dateien====" >> ./promet/setup/output/act_alphadownload.txt
+echo "Diese Downloads werden normalerweise intern vom Windows Setup oder Updatern intern verwendet. Sie können jedoch auch verwendet werden um sich eine maßgeschneiderte Installation zusammenzubauen Sie können einfach in ein Verzeichnis entpackt werden und von dort gestartet." >> ./promet/setup/output/act_alphadownload.txt
 cd promet/setup/i386-win32
 target=win32tools_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
@@ -39,15 +40,18 @@ cd $basedir/promet/setup/output
 . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd ..
 
-cd $basedir
-cd promet/setup/i386-win32
-target=*_$TARGET_CPU-$TARGET_OS
-targetfile=$target-$BUILD_VERSION.zip
-targetcur=$target-current.zip
-cd $basedir/promet/setup/output
-. ../../setup/build-tools/doupload.sh $targetfile $targetcur
-cd ..
-
+for f in *.zip
+do
+  echo "Processing $f file..."
+  # take action on each file. $f store current file name
+  cd promet/setup/i386-win32
+  targetfile=$f
+  targetcur=$target-current.zip
+  cd $basedir/promet/setup/output
+  . ../../setup/build-tools/doupload.sh $targetfile $targetcur
+  cd ..
+  cd $basedir
+  done
 cd $basedir
 
 

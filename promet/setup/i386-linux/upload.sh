@@ -36,6 +36,21 @@ SubProgram="ocr"
 
 SubProgram="aqbanking"
 . ../build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
+
+echo "====Zip Dateien====" >> ./promet/setup/output/act_alphadownload.txt
+echo "Diese Downloads werden normalerweise intern vom Windows Setup oder Updatern intern verwendet. Sie können jedoch auch verwendet werden um sich eine maßgeschneiderte Installation zusammenzubauen Sie können einfach in ein Verzeichnis entpackt werden und von dort gestartet." >> ./promet/setup/output/act_alphadownload.txt
+for f in *.zip
+do
+  echo "Processing $f file..."
+  # take action on each file. $f store current file name
+  cd promet/setup/i386-win32
+  targetfile=$f
+  targetcur=$target-current.zip
+  cd $basedir/promet/setup/output
+  . ../../setup/build-tools/doupload.sh $targetfile $targetcur
+  cd ..
+  cd $basedir
+  done
 cd $basedir
 
 
