@@ -106,6 +106,9 @@ build_server()
   if [ "$?" -ne "0" ]; then
     exit 1
   fi
+  if [ "x$TARGET_OS" = "xlinux" ]; then
+    . ./promet/setup/i386-linux/build_server.sh $2
+  fi
   sleep 2
 }
 
