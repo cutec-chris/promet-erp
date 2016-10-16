@@ -168,7 +168,11 @@ begin
               aFirstSyncedRow:=aDest.FieldByName('TIMESTAMPD').AsDateTime;
       if aDest.FieldDefs.IndexOf('TIMESTAMPD') > -1 then
         if aDest.FieldByName('TIMESTAMPD').IsNull then
+          {$IF FPC_FULLVERSION>20600}
           aDest.FieldByName('TIMESTAMPD').AsDateTime:=LocalTimeToUniversal(Now());
+          {$ELSE}
+          aDest.FieldByName('TIMESTAMPD').AsDateTime:=Now();
+          {$ENDIF}
       if DoPost then
         aDest.Post;
       //TODO-:TimestampD must be not actial Time !!!
@@ -185,7 +189,11 @@ begin
           aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
           aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
           aSyncError.FieldByName('REMOTE_ID').AsString:=SyncTbl.FieldByName('SQL_ID').AsString;
+          {$IF FPC_FULLVERSION>20600}
           aSyncError.FieldByName('SYNC_TIME').AsDateTime:=LocalTimeToUniversal(Now());
+          {$ELSE}
+          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
+          {$ENDIF}
           aSyncError.FieldByName('REMOTE_TIME').AsDateTime:=SyncTbl.FieldByName('TIMESTAMPD').AsDateTime;
           aSyncError.FieldByName('ERROR').AsString:='Y';
           aSyncError.Post;
@@ -224,7 +232,11 @@ begin
           aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
           aSyncError.FieldByName('LOCAL_ID').AsVariant:=aSource.FieldByName('REF_ID_ID').AsVariant;
           aSyncError.FieldByName('REMOTE_ID').AsString:=aSource.FieldByName('REF_ID_ID').AsString;
+          {$IF FPC_FULLVERSION>20600}
           aSyncError.FieldByName('SYNC_TIME').AsDateTime:=LocalTimeToUniversal(Now());
+          {$ELSE}
+          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
+          {$ENDIF}
           aSyncError.FieldByName('ERROR').AsString:='Y';
           aSyncError.Post;
           aSyncError.Free;
@@ -327,14 +339,14 @@ begin
       tCRT.Open;
       tCRT.Free;
     end;
-  if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<(LocalTimeToUniversal(Now())-1)) then
+  if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-1)) then
     begin
       SyncDB.Tables.DataSet.Edit;
       SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString:=Utils.GetSystemName;
-      SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime:=LocalTimeToUniversal(Now());
+      SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime:={$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now());
       SyncDB.Tables.DataSet.Post;
-      aFirstSyncedRow:=LocalTimeToUniversal(Now());
-      aLastSetTime := LocalTimeToUniversal(Now());
+      aFirstSyncedRow:={$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now());
+      aLastSetTime := {$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now());
       bFirstSyncedRow:=aFirstSyncedRow;
       aTableName := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
       if (not SourceDM.TableExists(aTableName))
@@ -569,7 +581,11 @@ var
 begin
   FLog := TStringList.Create;
   FTables := TStringList.Create;
+  {$IF FPC_FULLVERSION>20600}
   aGlobalTime := LocalTimeToUniversal(Now());
+  {$ELSE}
+  aGlobalTime := Now();
+  {$ENDIF}
   FTempDataSet := nil;
   with BaseApplication as IBaseApplication do
     begin
