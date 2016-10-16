@@ -9,15 +9,15 @@ add_std_files()
   cp debian/copyright $BuildDir/usr/share/doc/$Program$Subprogram/copyright
   gzip --best $BuildDir/usr/share/doc/$Program$Subprogram/changelog
   gzip --best $BuildDir/usr/share/doc/$Program$Subprogram/changelog.Debian
-  sudo -S chmod 644 $BuildDir/usr/share/doc/$Program$Subprogram/*
+  fakeroot chmod 644 $BuildDir/usr/share/doc/$Program$Subprogram/*
 }
 
 build_deb()
 {
   echo "fixing permissions ..."
-  sudo find $BuildDir -type d -print0 | xargs -0 sudo -S chmod 755  # this is needed, don't ask me why
-  sudo find $BuildDir -type f -print0 | xargs -0 sudo -S chmod a+r  # this is needed, don't ask me why
-  sudo chown -hR root:root $BuildDir/usr
+  fakeroot find $BuildDir -type d -print0 | xargs -0 sudo -S chmod 755  # this is needed, don't ask me why
+  fakeroot find $BuildDir -type f -print0 | xargs -0 sudo -S chmod a+r  # this is needed, don't ask me why
+  fakeroot chown -hR root:root $BuildDir/usr
   DebSize=$(sudo du -s $BuildDir | cut -f1)
   echo "creating control file..."
   mkdir -p $BuildDir/DEBIAN
@@ -28,7 +28,7 @@ build_deb()
     > $BuildDir/DEBIAN/control
   chmod 755 $BuildDir/DEBIAN
   echo "building package..."
-  sudo -S dpkg-deb --build $BuildDir
+  fakeroot dpkg-deb --build $BuildDir
   if [ "x${SubProgram}" = "x" ]; then
     cp $TmpDir/software_build.deb ../output/${Program}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb
   elif [ "x${SubProgram}" <> "x" ]; then
@@ -55,7 +55,7 @@ if [ "x$Arch" = "xx86_64" ]; then
 fi
 
 
-sudo -S rm -rf $BuildDir
+fakeroot rm -rf $BuildDir
 Program="promet-erp"
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
@@ -87,14 +87,14 @@ cp ../../languages/*.txt $BuildDir/usr/lib/$Program/languages
 cp ../warnings.txt $BuildDir/usr/lib/$Program
 cp ../errors.txt $BuildDir/usr/lib/$Program
 cp add-systray-icon.sh $BuildDir/usr/lib/$Program
-sudo -S chmod -R 644 $BuildDir/usr/lib/$Program/languages/
+fakeroot chmod -R 644 $BuildDir/usr/lib/$Program/languages/
 build_deb;
 if [ "$1" = "upload" ]; then
   . ../../setup/build-tools/doupload.sh ${Program}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}_current_${Arch}-$Widgetset.deb
 fi
 
 SubProgram="statistics"
-sudo -S rm -rf $BuildDir
+fakeroot rm -rf $BuildDir
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 add_std_files;
@@ -113,7 +113,7 @@ if [ "$1" = "upload" ]; then
 fi
 
 SubProgram="timeregistering"
-sudo -S rm -rf $BuildDir
+fakeroot rm -rf $BuildDir
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 add_std_files;
@@ -132,7 +132,7 @@ if [ "$1" = "upload" ]; then
 fi
 
 SubProgram="aqbanking"
-sudo -S rm -rf $BuildDir
+fakeroot rm -rf $BuildDir
 add_std_files;
 build_deb;
 if [ "$1" = "upload" ]; then
