@@ -122,3 +122,14 @@ upload:all:
   tags:
     - linux-x64
 
+update:containers:
+  before_script:
+    - ls -l promet/setup/output/*
+  stage: upload
+  script:
+    - bash promet/setup/build_containers.sh
+  dependencies:
+    - upload:all
+  artifacts:
+  tags:
+    - docker-lazarus-x64
