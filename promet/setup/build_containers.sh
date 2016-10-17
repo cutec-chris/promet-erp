@@ -1,4 +1,5 @@
 #!/bin/bash
+. ./promet/setup/build-tools/setup_enviroment.sh
 cd /tmp
 git clone http://192.168.177.120:10080/promet/promet-client-docker.git
 cd promet-client-docker

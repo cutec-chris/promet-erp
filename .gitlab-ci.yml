@@ -130,5 +130,5 @@ update:containers:
     - bash promet/setup/build_containers.sh
   artifacts:
   tags:
-    - docker-lazarus-x64
+    - docker-x64
   allow_failure: true
