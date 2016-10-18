@@ -128,7 +128,6 @@ update:containers:
   stage: upload
   script:
     - bash promet/setup/build_containers.sh
-  artifacts:
   tags:
     - docker-x64
   allow_failure: true
