@@ -15,7 +15,7 @@
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
         <TopLine Value="7"/>
-        <CursorPos X="33" Y="122"/>
+        <CursorPos X="9" Y="24"/>
         <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -29,10 +29,12 @@
       </Unit1>
       <Unit2>
         <Filename Value="uordertest.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="39"/>
-        <CursorPos X="25" Y="76"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="75"/>
+        <CursorPos X="3" Y="83"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="tdbtests.pas"/>
@@ -43,7 +45,7 @@
       </Unit3>
       <Unit4>
         <Filename Value="upersontest.pas"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="4"/>
         <CursorPos Y="32"/>
         <UsageCount Value="10"/>
@@ -60,16 +62,15 @@
       <Unit6>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="445"/>
-        <CursorPos Y="473"/>
+        <EditorIndex Value="5"/>
+        <CursorPos X="15" Y="23"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\base\dbintfs\uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="442"/>
         <CursorPos Y="458"/>
         <UsageCount Value="10"/>
@@ -78,14 +79,14 @@
       <Unit8>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="358"/>
         <CursorPos Y="1909"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.4\packages\fcl-fpcunit\src\fpcunit.pp"/>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.4\packages\fcl-fpcunit\src\fpcunit.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="147"/>
         <CursorPos X="20" Y="168"/>
@@ -93,14 +94,14 @@
       </Unit9>
       <Unit10>
         <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="212"/>
         <CursorPos Y="227"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
-        <Filename Value="..\..\..\..\..\..\..\usr\share\fpcsrc\2.6.4\rtl\objpas\sysutils\sysstrh.inc"/>
+        <Filename Value="C:\usr\share\fpcsrc\2.6.4\rtl\objpas\sysutils\sysstrh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="58"/>
         <CursorPos X="10" Y="76"/>
@@ -116,15 +117,14 @@
       <Unit13>
         <Filename Value="..\base\dbintfs\utimes.pas"/>
         <UnitName Value="uTimes"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="97"/>
         <CursorPos X="73" Y="113"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit13>
     </Units>
-    <JumpHistory Count="22" HistoryIndex="21">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <Caret Line="458" TopLine="440"/>
@@ -213,6 +213,14 @@
         <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
         <Caret Line="228" Column="23" TopLine="212"/>
       </Position22>
+      <Position23>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="24" Column="9" TopLine="7"/>
+      </Position23>
+      <Position24>
+        <Filename Value="uordertest.pas"/>
+        <Caret Line="19" Column="23"/>
+      </Position24>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
