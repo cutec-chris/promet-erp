@@ -34,6 +34,18 @@ webdavtest-linux:
     - promet/output/x86_64-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
   tags:
     - docker-lazarus-x64
+mysql-test:
+  image: build-lazarus-x64:latest
+  services:
+    - mysql:latest
+  variables:
+    # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
+    MYSQL_DATABASE: testdb
+    MYSQL_ROOT_PASSWORD: password
+  stage: test 
+  script: 
+    - lazbuild promet/source/testcases/consoletest.lpi
+    - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
 #Build
 build:windows:
   stage: build 
