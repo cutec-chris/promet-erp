@@ -43,7 +43,8 @@ mysql-test:
     MYSQL_DATABASE: testdb
     MYSQL_ROOT_PASSWORD: password
   stage: test 
-  script: 
+  script:  
+    - sudo apt-get install -y mysql-client libmysqlclient-dev
     - lazbuild promet/source/testcases/consoletest.lpi
     - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
   tags:
