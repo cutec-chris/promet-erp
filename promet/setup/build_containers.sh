@@ -8,9 +8,9 @@ cd /tmp
 rm Dockerfile*
 wget http://192.168.177.120:10080/promet/promet-client-docker/raw/master/Dockerfile.template
 
-Content=$(cat ./Dockerfile.template | sed -e "s/VERSION/$BUILD_VERSION/g")
+Content=$(cat ./Dockerfile.template | sed -e "s/PVERSION/$BUILD_VERSION/g")
 Content=${Content//\\/\\\\} # \
-Content=${Content//\//\\\/} # /
+#Content=${Content//\//\\\/} # /
 Content=${Content//\'/\\\'} # ' (not strictly needed ?)
 Content=${Content//\"/\\\"} # "
 Content=${Content//   /\\t} # \t (tab)
