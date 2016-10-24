@@ -1,27 +1,37 @@
 #!/bin/bash
 . ./promet/setup/build-tools/setup_enviroment.sh
 
-CI_BUILD_TOKEN=sR7hRWM6e6nky9wNYt8
+CI_BUILD_TOKEN=sR7hRWM6e6nky9wNYt8-
+API_BUILD_TOKEN=f1wdzddUx8y5yvNTym1-
 
 cd /tmp
-rm -R promet-client-docker
-git clone http://gitlab-ci-token:$CI_BUILD_TOKEN@192.168.177.120:10080/promet/promet-client-docker.git
-cd promet-client-docker
+rm Dockerfile*
+wget http://192.168.177.120:10080/promet/promet-client-docker/raw/master/Dockerfile.template
 
 Content=$(cat ./Dockerfile.template | sed -e "s/VERSION/$BUILD_VERSION/g")
+Content=${Content//\\/\\\\} # \
+Content=${Content//\//\\\/} # /
+Content=${Content//\'/\\\'} # ' (not strictly needed ?)
+Content=${Content//\"/\\\"} # "
+Content=${Content//   /\\t} # \t (tab)
+Content=${Content//
+/\\\n} # \n (newline)
+Content=${Content//^M/\\\r} # \r (carriage return)
+Content=${Content//^L/\\\f} # \f (form feed)
+Content=${Content//^H/\\\b} # \b (backspace)
 
 PAYLOAD=$(cat << 'JSON'
 {
   "branch_name": "master",
-  "commit_message": "Automatic updated Version",
+  "commit_message": "Patch Version in Dockerfile",
   "actions": [
     {
       "action": "update",
       "file_path": "Dockerfile",
-      "content": "$Content"
-    }
-  ]
-}
+      "content": "
 JSON
 )
-curl --request POST --header "PRIVATE-TOKEN: $CI_BUILD_TOKEN" --header "Content-Type: application/json" --data "$PAYLOAD" http://192.168.177.120:10080/api/v3/projects/114/repository/commits
+echo $PAYLOAD$Content'"}]}' > Dockerfile.tmp
+
+curl -vv --request POST --header "PRIVATE-TOKEN: $API_BUILD_TOKEN" --header "Content-Type: application/json" --data @Dockerfile.tmp http://192.168.177.120:10080/api/v3/projects/114/repository/commits
+#curl -vv --request GET --header "PRIVATE-TOKEN: $API_BUILD_TOKEN" --header "Content-Type: application/json" http://192.168.177.120:10080/api/v3/projects/114/repository/commits
