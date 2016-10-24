@@ -158,7 +158,7 @@ upload:all:
 update:containers:
   before_script:
     - ls -l promet/setup/output/*
-  stage: upload
+  stage: publish
   script:
     - bash promet/setup/build_containers.sh
   dependencies:
