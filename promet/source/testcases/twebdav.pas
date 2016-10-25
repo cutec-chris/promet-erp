@@ -422,7 +422,7 @@ var
   aRes: String;
 begin
   aRes := SendRequest(
-   'PROPFIND '+'/masterdata/Unsortiert/100081/Thumbs.db HTTP/1.1'+#13
+   'PROPFIND '+'/masterdata/Unsortiert/100164/Thumbs.db HTTP/1.1'+#13
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='404','Wrong Answer to Propfind');
 end;
