@@ -68,6 +68,7 @@ begin
   aOrder.Positions.Insert;
   aOrder.Positions.Assign(aMD);
   Check(aOrder.Positions.FieldByName('POSNO').AsString = '1');
+  aOrder.Positions.Post;
   aMd.Free;
 end;
 
@@ -87,32 +88,30 @@ end;
 procedure OrderTest.FillPosition2;
 begin
   aOrder.Positions.Insert;
-  aOrder.Positions.FieldByName('SHORTTEXT').AsString:='Position 2';
+  aOrder.Positions.FieldByName('SHORTTEXT').AsString:='Installation';
   Check(aOrder.Positions.FieldByName('POSNO').AsString = '2');
   aOrder.Positions.FieldByName('SELLPRICE').AsString:='5';
   aOrder.Positions.PosCalc.Append;
-  aOrder.Positions.PosCalc.FieldByName('TYPE').AsString:='SAP';
-  aOrder.Positions.PosCalc.FieldByName('PRICE').AsFloat:=5;
-  aOrder.Positions.PosCalc.Append;
   aOrder.Positions.PosCalc.FieldByName('MINCOUNT').AsInteger:=5;
-  aOrder.Positions.PosCalc.FieldByName('TYPE').AsString:='SAP';
+  aOrder.Positions.PosCalc.FieldByName('TYPE').AsString:='VK';
   aOrder.Positions.PosCalc.FieldByName('PRICE').AsFloat:=2.5;
-  aOrder.Positions.FieldByName('QUANTITY').AsString:='2';
+  Check(aOrder.Positions.FieldByName('POSNO').AsString = '2','PosNo:'+aOrder.Positions.FieldByName('POSNO').AsString);
+  aOrder.Positions.Post;
+  Check(aOrder.Positions.FieldByName('POSNO').AsString = '2','PosNo:'+aOrder.Positions.FieldByName('POSNO').AsString);
+  Check(aOrder.Positions.Count = 2,'Pos Count='+IntToStr(aOrder.Positions.Count));
 end;
 
 procedure OrderTest.CheckSumCalculation;
 begin
-  aOrder.DataSet.Post;
-  Check(aOrder.FieldByName('NETPRICE').AsFloat = 35);
-  aOrder.CascadicPost;
+  Check(aOrder.DataSet.FieldByName('NETPRICE').AsFloat = 30);
 end;
 
 procedure OrderTest.CheckPriceCalculation;
 begin
   aOrder.Positions.Edit;
-  aOrder.Positions.FieldByName('QUANTITY').AsString:='10';
+  aOrder.Positions.FieldByName('QUANTITY').AsString:='10';//Mincount of 5 gives 2.5 as price
   aOrder.Positions.Post;
-  //Check(aOrder.FieldByName('NETPRICE').AsFloat = 50);
+  Check(aOrder.FieldByName('NETPRICE').AsFloat = 50,'Ordercalculation failed '+FloatToStr(aOrder.FieldByName('NETPRICE').AsFloat));
 end;
 
 procedure OrderTest.CheckPost;

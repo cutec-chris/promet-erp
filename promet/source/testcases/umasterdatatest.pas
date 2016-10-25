@@ -9,11 +9,14 @@ uses
 
 type
 
+  { MasterdataTest }
+
   MasterdataTest= class(TTestCase)
   published
     procedure Create;
     procedure CheckHistory;
     procedure SelectfromLink;
+    procedure Delete;
     procedure Free;
   end;
 
@@ -45,6 +48,12 @@ begin
   aMD.SelectFromLink(Data.BuildLink(aMD.DataSet));
   aMD.Open;
   Check(aMD.Count = 1,'Selected Count = '+IntToStr(aMD.Count))
+end;
+
+procedure MasterdataTest.Delete;
+begin
+  aMd.Delete;
+  Check(aMD.Count = 0,'Selected Count = '+IntToStr(aMD.Count))
 end;
 
 procedure MasterdataTest.Free;

@@ -86,7 +86,9 @@ end;
 
 procedure TTransactionTest.FreeOrders;
 begin
+  aOrder.Delete;
   aOrder.Free;
+  bOrder.Delete;
   bOrder.Free;
   aOrderList.Free;
 end;
@@ -101,4 +103,4 @@ initialization
 
   RegisterTest(TTransactionTest);
 end.
-
+
