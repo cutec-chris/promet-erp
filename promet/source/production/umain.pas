@@ -191,6 +191,7 @@ procedure TfMain.DoRestoreConfig(Data: PtrInt);
 begin
   with Application as IBaseApplication do
     RestoreConfig; //Must be called when Mainform is Visible
+  WindowState:=wsMaximized;
 end;
 
 procedure TfMain.eOrderExit(Sender: TObject);
