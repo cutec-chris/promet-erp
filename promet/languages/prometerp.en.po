@@ -1,4 +1,4 @@
-msgid "(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten"
+msgid "(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)"
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"

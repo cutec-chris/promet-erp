@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = 380
+  Left = 385
   Height = 621
-  Top = 105
+  Top = 136
   Width = 935
   Caption = 'Promet-ERP'
   ClientHeight = 601
@@ -52,7 +52,7 @@ object fMain: TfMain
       TabOrder = 0
       object Label3: TLabel
         Left = 35
-        Height = 13
+        Height = 12
         Top = 1
         Width = 187
         Alignment = taCenter
@@ -60,7 +60,7 @@ object fMain: TfMain
         BorderSpacing.Left = 5
         Caption = 'Navigation'
         Font.Color = clMedGray
-        Font.Height = 13
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
       end
@@ -153,7 +153,7 @@ object fMain: TfMain
       object Label6: TLabel
         Left = 4
         Height = 15
-        Top = -3
+        Top = 0
         Width = 55
         Alignment = taCenter
         Anchors = [akLeft, akRight, akBottom]
@@ -161,7 +161,7 @@ object fMain: TfMain
         BorderSpacing.Left = 5
         Caption = 'Zeit'
         Font.Color = clMedGray
-        Font.Height = 13
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
       end
