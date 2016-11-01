@@ -140,7 +140,7 @@ uses uMasterdata,uData,uArticlePositionFrame,uDocuments,uDocumentFrame,
   uMainTreeFrame,uPrometFramesInplace,uarticlesupplierframe,
   uNRights,uBaseVisualApplication,uWikiFrame,uWiki,ufinance,
   uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,uprometscripts,
-  uprometpascalscript,uBaseDatasetInterfaces,uSearch;
+  uprometpascalscript,uBaseDatasetInterfaces,uSearch,uscriptimport;
 resourcestring
   strPrices                                  = 'Preise';
   strProperties                              = 'Eigenschaften';
