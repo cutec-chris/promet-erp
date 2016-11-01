@@ -76,7 +76,7 @@ inherited fScriptFrame: TfScriptFrame
         BorderSpacing.Left = 5
         Caption = 'Eintrag'
         Font.Color = clMedGray
-        Font.Height = 13
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
       end
@@ -119,7 +119,7 @@ inherited fScriptFrame: TfScriptFrame
         BorderSpacing.Left = 5
         Caption = 'Erweitert'
         Font.Color = clMedGray
-        Font.Height = 13
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
       end
@@ -240,7 +240,7 @@ inherited fScriptFrame: TfScriptFrame
         BorderSpacing.Left = 5
         Caption = 'Name'
         Font.Color = clMedGray
-        Font.Height = 13
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
       end
@@ -289,7 +289,7 @@ inherited fScriptFrame: TfScriptFrame
         BorderSpacing.Left = 5
         Caption = 'Version'
         Font.Color = clMedGray
-        Font.Height = 13
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
       end
@@ -351,7 +351,7 @@ inherited fScriptFrame: TfScriptFrame
         BorderSpacing.Left = 5
         Caption = 'Status'
         Font.Color = clMedGray
-        Font.Height = 13
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
       end
@@ -462,6 +462,10 @@ inherited fScriptFrame: TfScriptFrame
       Hint = 'Ermöglicht es die Variable ActiveObject im Script'#13#10'auf ein beliebiges Promet Element zu setzen'#13#10'Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt'
       OnExecute = acSetActiveObjectExecute
     end
+    object acImport: TAction
+      Caption = 'Importieren'
+      OnExecute = acImportExecute
+    end
   end
   object pmAction: TPopupMenu[4]
     left = 88
@@ -480,6 +484,12 @@ inherited fScriptFrame: TfScriptFrame
     end
     object miPaste: TMenuItem
       Action = acPaste
+    end
+    object MenuItem8: TMenuItem
+      Caption = '-'
+    end
+    object MenuItem9: TMenuItem
+      Action = acImport
     end
     object MenuItem2: TMenuItem
       Caption = '-'

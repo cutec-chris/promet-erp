@@ -36,6 +36,8 @@ TFSCRIPTFRAME.ACSETACTIVEOBJECT.CAPTION=ActualObject setzen
 TFSCRIPTFRAME.ACSETACTIVEOBJECT.HINT=Ermöglicht es die Variable ActiveObject im Script
 auf ein beliebiges Promet Element zu setzen
 Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt
+TFSCRIPTFRAME.ACIMPORT.CAPTION=Importieren
 TFSCRIPTFRAME.MISTARTTIMEREGISTERING.CAPTION=Zeiterfassung starten
 TFSCRIPTFRAME.MENUITEM1.CAPTION=-
+TFSCRIPTFRAME.MENUITEM8.CAPTION=-
 TFSCRIPTFRAME.MENUITEM2.CAPTION=-

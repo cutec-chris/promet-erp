@@ -43,6 +43,7 @@ type
     acAddImage: TAction;
     acScreenshot: TAction;
     acSetActiveObject: TAction;
+    acImport: TAction;
     ActionList1: TActionList;
     Bevel2: TBevel;
     Bevel3: TBevel;
@@ -63,6 +64,8 @@ type
     Label6: TLabel;
     MandantDetails: TDatasource;
     MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
+    MenuItem9: TMenuItem;
     Panel8: TPanel;
     Panel9: TPanel;
     Script: TDatasource;
@@ -95,6 +98,7 @@ type
     procedure acCloseExecute(Sender: TObject);
     procedure acCopyExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
+    procedure acImportExecute(Sender: TObject);
     procedure acRightsExecute(Sender: TObject);
     procedure acSaveExecute(Sender: TObject);
     procedure acSetActiveObjectExecute(Sender: TObject);
@@ -324,6 +328,16 @@ begin
       Screen.Cursor := crDefault;
     end;
 end;
+
+procedure TfScriptFrame.acImportExecute(Sender: TObject);
+begin
+  if fScriptImport.Execute(icImport,'S',FDataSet) then
+    begin
+      DataSet.DataSet.Refresh;
+      DoOpen;
+    end;
+end;
+
 procedure TfScriptFrame.acRightsExecute(Sender: TObject);
 begin
   fNRights.Execute(DataSet.Id.AsVariant);
