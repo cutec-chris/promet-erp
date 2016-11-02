@@ -59,6 +59,8 @@ type
     cbCurrency: TDBComboBox;
     cbPaymentTarget: TComboBox;
     cbStatus: TComboBox;
+    DBGrid1: TDBGrid;
+    DBGrid2: TDBGrid;
     eVAT1: TDBEdit;
     lCurrency1: TLabel;
     lCurrency2: TLabel;
@@ -1055,13 +1057,14 @@ begin
   New('');
 end;
 procedure TfOrderFrame.New(aStatus: string);
+var
+  aId : Variant;
 begin
   inherited New;
   FreeAndNil(FDataSet);
   DataSet := TOrder.CreateEx(Self,Data,FConnection);
+  TOrder(DataSet).OrderType.Open;
   DataSet.OnChange:=@OrdersStateChange;
-  DataSet.Select(0);
-  DataSet.Open;
   if aStatus <> '' then
     if not TOrder(DataSet).OrderType.DataSet.Locate('STATUS',aStatus,[]) then exit;
   if TOrder(DataSet).OrderType.FieldByName('SI_PROD').AsString='Y' then
@@ -1071,6 +1074,12 @@ begin
           acClose.Execute;
           exit;
         end;
+      aId := TOrder(DataSet).Id.AsVariant;
+      TOrder(DataSet).Free;
+      DataSet := TOrder.CreateEx(Self,Data,FConnection);
+      DataSet.OnChange:=@OrdersStateChange;
+      DataSet.Select(aId);
+      DataSet.Open;
     end
   else
     DataSet.DataSet.Insert;

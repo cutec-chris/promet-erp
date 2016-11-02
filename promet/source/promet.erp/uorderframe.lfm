@@ -773,7 +773,31 @@ inherited fOrderFrame: TfOrderFrame
       TabStop = False
     end
   end
-  object ActionList: TActionList[5]
+  object DBGrid2: TDBGrid[5]
+    Left = 504
+    Height = 112
+    Top = 248
+    Width = 381
+    Color = clWindow
+    Columns = <>
+    DataSource = OrderPos
+    Enabled = False
+    TabOrder = 5
+    Visible = False
+  end
+  object DBGrid1: TDBGrid[6]
+    Left = 504
+    Height = 112
+    Top = 136
+    Width = 381
+    Color = clWindow
+    Columns = <>
+    DataSource = Orders
+    Enabled = False
+    TabOrder = 6
+    Visible = False
+  end
+  object ActionList: TActionList[7]
     Images = fVisualControls.Images
     left = 840
     top = 96
@@ -859,16 +883,16 @@ inherited fOrderFrame: TfOrderFrame
       OnExecute = acRestartExecute
     end
   end
-  object Orders: TDataSource[6]
+  object Orders: TDataSource[8]
     OnStateChange = OrdersStateChange
     left = 680
     top = 40
   end
-  object OrderAddress: TDataSource[7]
+  object OrderAddress: TDataSource[9]
     left = 680
     top = 96
   end
-  object pmAction: TPopupMenu[8]
+  object pmAction: TPopupMenu[10]
     left = 840
     top = 152
     object miStartTimeregistering: TMenuItem
@@ -983,23 +1007,23 @@ inherited fOrderFrame: TfOrderFrame
       Action = acRights
     end
   end
-  object OrderPos: TDataSource[9]
+  object OrderPos: TDataSource[11]
     left = 680
     top = 152
   end
-  object OrderRepair: TDataSource[10]
+  object OrderRepair: TDataSource[12]
     left = 680
     top = 208
   end
-  object OrderRepairDetail: TDataSource[11]
+  object OrderRepairDetail: TDataSource[13]
     left = 680
     top = 256
   end
-  object OrderImages: TDataSource[12]
+  object OrderImages: TDataSource[14]
     left = 680
     top = 304
   end
-  object frReport: TfrReport[13]
+  object frReport: TfrReport[15]
     DefaultCopies = 0
     InitialZoom = pzDefault
     Options = []
@@ -1009,54 +1033,54 @@ inherited fOrderFrame: TfOrderFrame
     left = 840
     top = 224
   end
-  object POrders: TfrDBDataSet[14]
+  object POrders: TfrDBDataSet[16]
     DataSource = Orders
     left = 752
     top = 40
   end
-  object POrderAddress: TfrDBDataSet[15]
+  object POrderAddress: TfrDBDataSet[17]
     DataSource = OrderAddress
     left = 752
     top = 96
   end
-  object POrderPos: TfrDBDataSet[16]
+  object POrderPos: TfrDBDataSet[18]
     DataSource = OrderPos
     left = 752
     top = 152
   end
-  object POrderRepair: TfrDBDataSet[17]
+  object POrderRepair: TfrDBDataSet[19]
     DataSource = OrderRepair
     left = 752
     top = 224
   end
-  object pOrderRepairDetail: TfrDBDataSet[18]
+  object pOrderRepairDetail: TfrDBDataSet[20]
     DataSource = OrderRepairDetail
     left = 752
     top = 256
   end
-  object POrderImages: TfrDBDataSet[19]
+  object POrderImages: TfrDBDataSet[21]
     DataSource = OrderImages
     left = 752
     top = 288
   end
-  object MandantDetails: TDataSource[20]
+  object MandantDetails: TDataSource[22]
     left = 840
     top = 40
   end
-  object Users: TDataSource[21]
+  object Users: TDataSource[23]
     left = 680
     top = 352
   end
-  object PUsers: TfrDBDataSet[22]
+  object PUsers: TfrDBDataSet[24]
     DataSource = Users
     left = 752
     top = 320
   end
-  object PaymentTargets: TDataSource[23]
+  object PaymentTargets: TDataSource[25]
     left = 680
     top = 400
   end
-  object PPaymentTargets: TfrDBDataSet[24]
+  object PPaymentTargets: TfrDBDataSet[26]
     DataSource = PaymentTargets
     left = 752
     top = 352
