@@ -430,6 +430,8 @@ begin
   Data.MandantDetails.Open;
   OrderRepair.DataSet := TOrder(DataSet).Positions.Repair.DataSet;
   OrderRepairDetail.DataSet := TOrder(DataSet).Positions.Repair.Details.DataSet;
+  OrderImages.DataSet := TOrder(DataSet).Positions.Images.DataSet;
+  TOrder(DataSet).Positions.Images.Open;
   Users.DataSet := Data.Users.DataSet;
   PaymentTargets.DataSet := Data.PaymentTargets.DataSet;
   fSelectReport.DataSet := DataSet;
@@ -455,6 +457,7 @@ begin
       FOpenLink := Data.BuildLink(DataSet.DataSet);
       Application.QueueAsyncCall(@DoOpenLink,PtrInt(nil));
     end;
+  TOrder(DataSet).Positions.Images.Close;
 end;
 
 procedure TfOrderFrame.acRestartExecute(Sender: TObject);
@@ -1082,7 +1085,7 @@ begin
       DataSet.Open;
     end
   else
-    DataSet.DataSet.Insert;
+    DataSet.Insert;
   DoOpen(False);
   acSave.Enabled := False;
   acCancel.Enabled:= False;

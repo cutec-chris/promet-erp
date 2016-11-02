@@ -222,9 +222,9 @@ inherited fOrderFrame: TfOrderFrame
               Top = 0
               Width = 447
               TabStop = False
-              ActivePage = tsNote1
+              ActivePage = tsHeader1
               Align = alClient
-              TabIndex = 0
+              TabIndex = 1
               TabOrder = 0
               object tsNote1: TTabSheet
                 Caption = 'Notizen'
@@ -246,13 +246,13 @@ inherited fOrderFrame: TfOrderFrame
               end
               object tsHeader1: TTabSheet
                 Caption = 'Kopftext'
-                ClientHeight = 65
-                ClientWidth = 443
+                ClientHeight = 79
+                ClientWidth = 439
                 object mOrderNote4: TDBMemo
                   Left = 0
-                  Height = 67
+                  Height = 79
                   Top = 0
-                  Width = 192
+                  Width = 439
                   Align = alClient
                   DataField = 'HEADERTEXT'
                   DataSource = Orders
