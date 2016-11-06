@@ -26,7 +26,7 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
       <BuildNr Value="487"/>
-      <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion=""/>
+      <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP"/>
     </VersionInfo>
     <BuildModes Count="5">
       <Item1 Name="Default" Default="True"/>
@@ -173,7 +173,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -629,52 +628,54 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="15">
+    <Exceptions Count="12">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
       <Item2>
         <Name Value="EFOpenError"/>
+        <Enabled Value="False"/>
       </Item2>
       <Item3>
         <Name Value="EZSQLException"/>
+        <Enabled Value="False"/>
       </Item3>
       <Item4>
         <Name Value="EZDatabaseError"/>
+        <Enabled Value="False"/>
       </Item4>
       <Item5>
         <Name Value="Exception"/>
+        <Enabled Value="False"/>
       </Item5>
       <Item6>
         <Name Value="EFCreateError"/>
+        <Enabled Value="False"/>
       </Item6>
       <Item7>
         <Name Value="EDatabaseError"/>
+        <Enabled Value="False"/>
       </Item7>
       <Item8>
         <Name Value="EConvertError"/>
+        <Enabled Value="False"/>
       </Item8>
       <Item9>
         <Name Value="EVariantError"/>
+        <Enabled Value="False"/>
       </Item9>
       <Item10>
         <Name Value="ESQLParser"/>
+        <Enabled Value="False"/>
       </Item10>
       <Item11>
         <Name Value="EStringListError"/>
+        <Enabled Value="False"/>
       </Item11>
       <Item12>
-        <Name Value="ESQLScannerError"/>
-      </Item12>
-      <Item13>
-        <Name Value="EListError"/>
-      </Item13>
-      <Item14>
-        <Name Value="FPImageException"/>
-      </Item14>
-      <Item15>
         <Name Value="PNGImageException"/>
-      </Item15>
+        <Enabled Value="False"/>
+      </Item12>
     </Exceptions>
   </Debugging>
 </CONFIG>

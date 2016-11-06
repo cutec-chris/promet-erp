@@ -507,6 +507,7 @@ begin
     begin
       TabCaption := strCustomerList;
       FilterType:='C';
+      FilterRow:=True;
       DefaultRows:='GLOBALWIDTH:%;ACCOUNTNO:100;NAME:400;MATCHCODE:200;';
       Dataset := TPersonList.Create(nil);
       //gList.OnDrawColumnCell:=nil;
@@ -520,6 +521,7 @@ begin
     begin
       TabCaption := strArticleList;
       FilterType:='M';
+      FilterRow:=True;
       DefaultRows:='GLOBALWIDTH:%;ID:150;VERSION:100;LANGUAGE:60;MATCHCODE:200;SHORTTEXT:400;';
       Dataset := TMasterdataList.Create(nil);
       //gList.OnDrawColumnCell:=nil;
@@ -540,6 +542,7 @@ begin
       Tag := 0; //Type Orders
       TabCaption := strOrderList;
       FilterType:='O';
+      FilterRow:=True;
       DefaultRows:='GLOBALWIDTH:%;STATUS:50;NUMBER:100;CUSTNO:100;CUSTNAME:300;PAYEDON:28;DELIVERED:28;DONE:28;';
       Dataset := TOrderList.Create(nil);
       TOrderList(DataSet).OrderType.Filter('');
@@ -571,6 +574,7 @@ begin
       Tag:=1; //Productionorders
       TabCaption := strProductionOrders;
       FilterType:='OP';
+      FilterRow:=True;
       DefaultRows:='GLOBALWIDTH:%;STATUS:50;NUMBER:100;CUSTNO:100;CUSTNAME:300;PAYEDON:28;DELIVERED:28;DONE:28;';
       Dataset := TOrderList.Create(nil);
       TOrderList(DataSet).OrderType.Filter('');
@@ -606,6 +610,7 @@ begin
     begin
       TabCaption := strStatisticList;
       FilterType:='U';
+      FilterRow:=True;
       DefaultRows:='GLOBALWIDTH:%;NAME:100;CHANGEDBY:30;TIMESTAMPD:50;';
       Dataset := TStatistic.Create(nil);
       if Data.Users.Rights.Right('STATISTICS') > RIGHT_READ then
@@ -619,6 +624,7 @@ begin
     begin
       TabCaption := strLists;
       FilterType:='L';
+      FilterRow:=True;
       DefaultRows:='GLOBALWIDTH:%;NAME:100;';
       Dataset := TLists.Create(nil);
       //gList.OnDrawColumnCell:=nil;
@@ -643,6 +649,7 @@ begin
     begin
       TabCaption := strInventory;
       FilterType:='INV';
+      FilterRow:=True;
       DefaultRows:='GLOBALWIDTH:%;INVNO:40;DESC:100;DATE:70;CREATEDBY:30;';
       Dataset := TInventorys.Create(nil);
       //gList.OnDrawColumnCell:=nil;
@@ -658,6 +665,7 @@ begin
     begin
       TabCaption := strSalesList;
       FilterType:='S';
+      FilterRow:=True;
       DefaultRows:='GLOBALWIDTH:%;PAYEDON:100;ORDERNO:100;STATUS:30;NUMBER:100;CUSTNO:70;CUSTNAME:100;NETPRICE:50;DISCOUNT:50;VATH:50;VATF:50;GROSSPRICE:100;ACCOUNT:100;';
       ads := TAccountingJournal.Create(nil);
       ads.CreateTable;
@@ -683,6 +691,7 @@ begin
     begin
       TabCaption := strProjectList;
       FilterType:='P';
+      FilterRow:=True;
       DefaultRows:='GLOBALWIDTH:%;TYPE:30;ID:70;NAME:100;STATUS:60;';
       Dataset := TProjectList.Create(nil);
       with DataSet.DataSet as IBaseDbFilter do
@@ -720,6 +729,7 @@ begin
   with Sender as TfFilter do
     begin
       TabCaption := strMeetingList;
+      FilterRow:=True;
       FilterType:='E';
       DefaultRows:='GLOBALWIDTH:%;NAME:200;STATUS:60;DATE:100;CREATEDBY:60;';
       Dataset := TMeetings.Create(nil);
@@ -743,6 +753,7 @@ begin
     begin
       Caption := strSchemeList;
       FilterType:='SH';
+      FilterRow:=True;
       DefaultRows:='GLOBALWIDTH:%;NAME:100;STATUS:60;';
       Dataset := TSchemeList.Create(nil);
       gList.OnDrawColumnCell:=nil;
@@ -760,6 +771,7 @@ begin
     begin
       TabCaption := strObjectList;
       FilterType:='D';
+      FilterRow:=True;
       DefaultRows:='GLOBALWIDTH:%;ICON:10;NAME:100;NUMBER:70;STATUS:60;';
       aObj := TObjects.Create(nil);
       with aObj.DataSet as IBaseDbFilter do
