@@ -664,7 +664,6 @@ begin
   acExecute.Enabled:=False;
   aTime := GetTickCount;
   frPreview.Caption:=strGenerating;
-  tsResults.TabVisible:=False;
   tsDescription.TabVisible:=False;
   try
     try
@@ -703,7 +702,6 @@ begin
       lStatus.Caption:=Format(strQueryTime,[MSecToTimeStr(aTime),StatisticResults.DataSet.RecordCount]);
       lStatus.Visible:=True;
       fSelectReport.ReportType:= copy(DataSet.Id.AsString,length(DataSet.Id.AsString)-3,4);
-      tsResults.TabVisible:=True;
       pcPages.ActivePage := tsResults;
       if (Data.Reports.Count > 0) and (DataSet.State<>dsInsert) then
         begin
@@ -750,7 +748,6 @@ begin
       on E : Exception do
         begin
           tsReport.Visible:=False;
-          tsResults.Visible:=False;
           tsDescription.Visible:=True;
           pcPages.ActivePage:=tsDescription;
           acExecute.Enabled:=True;
