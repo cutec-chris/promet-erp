@@ -319,15 +319,17 @@ inherited fPersonFrame: TfPersonFrame
     Height = 321
     Top = 171
     Width = 627
+    ActivePage = tsCustomerCont
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 2
     NewTabImageIndex = 59
     object tsCustomerCont: TTabSheet
       Caption = 'Kontaktdaten'
-      ClientHeight = 586
-      ClientWidth = 1238
+      ClientHeight = 293
+      ClientWidth = 619
       ImageIndex = 51
+      OnShow = tsCustomerContShow
       object pCont: TPanel
         Left = 44
         Height = 293

@@ -159,6 +159,7 @@ type
       State: TDragState; var Accept: Boolean);
     procedure TfListFrameFListViewDetails(Sender: TObject);
     procedure TPersonCustomerContDataSetAfterPost(aDataSet: TDataSet);
+    procedure tsCustomerContShow(Sender: TObject);
   private
     { private declarations }
     FContList : TfFilter;
@@ -419,6 +420,13 @@ begin
       fCalendar.Free;
     end;
 end;
+
+procedure TfPersonFrame.tsCustomerContShow(Sender: TObject);
+begin
+  if Assigned(FContList) then
+    FContList.ShowFrame;
+end;
+
 procedure TfPersonFrame.bChangeNumberClick(Sender: TObject);
 var
   str: String;
@@ -830,6 +838,7 @@ begin
       gList.PopupMenu:=nil;
       gList.OnEditButtonClick:=@FContListgListEditButtonClick;
     end;
+  FContList.ShowFrame;
   FContList.OnDrawColumnCell:=@FContListDrawColumnCell;
   cbLanguage.Items.Clear;
   Data.Languages.Open;
