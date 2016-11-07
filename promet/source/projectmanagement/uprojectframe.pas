@@ -1351,6 +1351,7 @@ begin
   finally
     DataSet.DataSet.EnableControls;
   end;
+  pcPages.Change;
   Reopen := False;
 end;
 function TfProjectFrame.SetRights: Boolean;

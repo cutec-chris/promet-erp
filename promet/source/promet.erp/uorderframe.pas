@@ -880,6 +880,7 @@ begin
   //All what not depends on new order
   if TOrder(DataSet).Address.Count > 0 then
     TOrder(DataSet).Address.DataSet.Locate('TYPE','DAD',[loPartialKey]);
+  pcHeader.Change;
 end;
 function TfOrderFrame.SetRights : Boolean;
 var

@@ -1181,6 +1181,7 @@ begin
   else
     pcPages.PageIndex:=oldIndex;
   eName.SetFocus;
+  pcPages.Change;
   inherited DoOpen;
 end;
 function TfPersonFrame.SetRights: Boolean;
