@@ -9,8 +9,16 @@ msgstr ""
 msgid "Auftragsdaten werden geladen..."
 msgstr ""
 
+#: fautomationform.strnewnumbers
+msgid "Code"
+msgstr ""
+
 #: fautomationform.strnotmoresteps
 msgid "Es sind keine (weiteren) Arbeitschritte vorhanden.<br><br>Um einen neuen Auftrag auswählen zu können müssen Sie den Auftrag (ab)schließen"
+msgstr ""
+
+#: fautomationform.strnumbersetempty
+msgid "Nummernkreis erschöpft"
 msgstr ""
 
 #: fautomationform.strpartiallyproblematic

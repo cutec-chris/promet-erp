@@ -19,9 +19,17 @@ msgstr "Picking"
 msgid "Auftragsdaten werden geladen..."
 msgstr "Order data is loading ..."
 
+#: fautomationform.strnewnumbers
+msgid "Code"
+msgstr ""
+
 #: fautomationform.strnotmoresteps
 msgid "Es sind keine (weiteren) Arbeitschritte vorhanden.<br><br>Um einen neuen Auftrag auswählen zu können müssen Sie den Auftrag (ab)schließen"
 msgstr "There are no (further) steps.<br><br>To select an new order, you must close this one."
+
+#: fautomationform.strnumbersetempty
+msgid "Nummernkreis erschöpft"
+msgstr ""
 
 #: fautomationform.strpartiallyproblematic
 msgid "Achtung Teile des Auftrages sind in nicht freigegebenem Zustand !"
