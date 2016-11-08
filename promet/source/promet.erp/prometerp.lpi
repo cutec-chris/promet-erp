@@ -649,7 +649,6 @@
       </Item5>
       <Item6>
         <Name Value="EFCreateError"/>
-        <Enabled Value="False"/>
       </Item6>
       <Item7>
         <Name Value="EDatabaseError"/>

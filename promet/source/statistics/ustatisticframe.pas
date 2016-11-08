@@ -664,7 +664,8 @@ begin
   acExecute.Enabled:=False;
   aTime := GetTickCount;
   frPreview.Caption:=strGenerating;
-  tsDescription.TabVisible:=False;
+  pcPages.ActivePage:=tsResults;
+  Application.ProcessMessages;
   try
     try
       if Assigned(StatisticResults.DataSet) then
