@@ -175,5 +175,5 @@ update:alpha-wiki:
   dependencies:
     - upload:all
   tags:
-    - docker-lazarus-x64
+    - docker-x64
   allow_failure: true
