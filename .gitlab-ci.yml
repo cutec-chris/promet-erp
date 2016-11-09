@@ -166,3 +166,14 @@ update:containers:
   tags:
     - docker-x64
   allow_failure: true
+update:alpha-wiki:
+  before_script:
+    - ls -l promet/setup/output/*
+  stage: publish
+  script:
+    - bash promet/setup/change_wiki_alpha.sh
+  dependencies:
+    - upload:all
+  tags:
+    - docker-lazarus-x64
+  allow_failure: true
