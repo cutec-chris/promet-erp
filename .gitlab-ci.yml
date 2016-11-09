@@ -34,39 +34,39 @@ webdavtest-linux:
     - promet/output/x86_64-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
   tags:
     - docker-lazarus-x64
-mysql-test:
-  image: build-lazarus-x64:latest
-  services:
-    - mysql:latest
-  variables:
-    # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
-    MYSQL_DATABASE: promet
-    MYSQL_USER: promet
-    MYSQL_ROOT_PASSWORD: password
-  stage: test 
-  script:  
-    - sudo apt-get install -y mysql-client libmysqlclient-dev
-    - lazbuild promet/source/testcases/consoletest.lpi
-    - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
-  tags:
-    - docker-lazarus-x64
-  allow_failure: true
-firebird-test:
-  image: build-lazarus-x64:latest
-  services:
-    - mysql:latest
-  variables:
-    # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
-    ISC_USER: promet
-    ISC_PASSWD: password
-  stage: test 
-  script:  
-    - sudo apt-get install -y mysql-client libmysqlclient-dev
-    - lazbuild promet/source/testcases/consoletest.lpi
-    - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
-  tags:
-    - docker-lazarus-x64
-  allow_failure: true
+#mysql-test:
+#  image: build-lazarus-x64:latest
+#  services:
+#    - mysql:latest
+#  variables:
+#    # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
+#    MYSQL_DATABASE: promet
+#    MYSQL_USER: promet
+#    MYSQL_ROOT_PASSWORD: password
+#  stage: test 
+#  script:  
+#    - sudo apt-get install -y mysql-client libmysqlclient-dev
+#    - lazbuild promet/source/testcases/consoletest.lpi
+#    - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
+#  tags:
+#    - docker-lazarus-x64
+#  allow_failure: true
+#firebird-test:
+#  image: build-lazarus-x64:latest
+#  services:
+#    - mysql:latest
+#  variables:
+#    # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
+#    ISC_USER: promet
+#    ISC_PASSWD: password
+#  stage: test 
+#  script:  
+#    - sudo apt-get install -y mysql-client libmysqlclient-dev
+#    - lazbuild promet/source/testcases/consoletest.lpi
+#    - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
+#  tags:
+#    - docker-lazarus-x64
+#  allow_failure: true
 #Build
 build:windows:
   stage: build 
@@ -167,6 +167,7 @@ update:containers:
     - docker-x64
   allow_failure: true
 update:alpha-wiki:
+  image: build-lazarus-x64:latest
   before_script:
     - ls -l promet/setup/output/*
   stage: publish
@@ -175,5 +176,5 @@ update:alpha-wiki:
   dependencies:
     - upload:all
   tags:
-    - docker-x64
+    - docker-lazarus-x64
   allow_failure: true
