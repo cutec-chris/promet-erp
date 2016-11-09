@@ -401,7 +401,7 @@ inherited fOrderFrame: TfOrderFrame
         BorderSpacing.Left = 5
         Caption = 'Eintrag'
         Font.Color = clMedGray
-        Font.Height = 13
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
       end
@@ -471,7 +471,7 @@ inherited fOrderFrame: TfOrderFrame
         BorderSpacing.Left = 5
         Caption = 'Erweitert'
         Font.Color = clMedGray
-        Font.Height = 13
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
       end
@@ -592,7 +592,7 @@ inherited fOrderFrame: TfOrderFrame
         BorderSpacing.Left = 8
         Caption = 'Status'
         Font.Color = clMedGray
-        Font.Height = 13
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
       end
@@ -638,7 +638,7 @@ inherited fOrderFrame: TfOrderFrame
         BorderSpacing.Left = 8
         Caption = 'Daten'
         Font.Color = clMedGray
-        Font.Height = 13
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
       end
