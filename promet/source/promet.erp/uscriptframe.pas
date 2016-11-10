@@ -241,7 +241,10 @@ var
   aScript: TBaseScript;
 begin
   aScript := TBaseScript.Create(nil);
-  aScript.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aUnitName)+' AND '+data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y'));
+  if pos('_',aUnitName)>0 then
+    aScript.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(copy(aUnitName,0,pos('_',aUnitName)-1))+' AND UPPER('+data.QuoteField('VERSION')+')=UPPER('+Data.QuoteValue(copy(aUnitName,pos('_',aUnitName)+1,length(aUnitName)))+')')
+  else
+    aScript.Filter(Data.QuoteField('NAME')+'='+Data.QuoteValue(aUnitName)+' AND '+data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y'));
   if aScript.Count>0 then
     Data.GotoLink('SCRIPTS@'+aScript.Id.AsString);
   aScript.Free;
