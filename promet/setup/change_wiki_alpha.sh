@@ -6,6 +6,7 @@ Version=$(echo $Version | sed 's/\n//g');
 Arch=`dpkg --print-architecture`
 Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
 Date=`date`
+mkdir ~/.prometerp
 echo $STORA_CONN > ~/.prometerp/Stora.perml
 
 lazbuild ../source/tools/changewikipage.lpi
