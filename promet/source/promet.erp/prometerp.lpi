@@ -587,6 +587,7 @@
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fVersionate"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uArticleVersion"/>
       </Unit40>
       <Unit41>
         <Filename Value="upasswordgenerate.pas"/>
