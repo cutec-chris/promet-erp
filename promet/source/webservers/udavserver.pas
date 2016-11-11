@@ -671,8 +671,10 @@ function TDAVSession.ProcessHttpRequest(Request, aURI: string;
     HeaderOut.Add('MS-Author-Via: DAV');
     HeaderOut.Add('Vary: Accept-Encoding');
   end;
-
+var
+  aTime : Int64;
 begin
+  aTime := GetTicks;
   Self.InputData := aInputData;
   Self.OutputData := aOutputData;
   if Assigned(TWebDAVMaster(Creator).OnAccess) then
@@ -759,7 +761,7 @@ begin
         Headers.Clear;
         Headers.AddStrings(HeaderOut);
         if Assigned(TWebDAVMaster(Creator).OnAccess) then
-          TWebDAVMaster(Creator).OnAccess(Self,'>'+IntToStr(Result));
+          TWebDAVMaster(Creator).OnAccess(Self,'>'+IntToStr(Result)+' in '+IntToStr(GetTicks-aTime)+' ms');
       end
     else
       begin
@@ -768,7 +770,7 @@ begin
         if Status<>0 then
           Result := Status;
         if Assigned(TWebDAVMaster(Creator).OnAccess) then
-          TWebDAVMaster(Creator).OnAccess(Self,'>'+IntToStr(Result));
+          TWebDAVMaster(Creator).OnAccess(Self,'>'+IntToStr(Result)+' in '+IntToStr(GetTicks-aTime)+' ms');
       end;
   finally
     HeaderOut.Free;

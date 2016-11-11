@@ -19,6 +19,7 @@ type
     function SendRequest(aRequest: string): string;
   published
     procedure SetUp; override;
+    procedure PropFindError;
     procedure GetJsonList;
     procedure PropfindRoot;
     procedure FindPrincipal;
@@ -116,6 +117,17 @@ begin
   Server.OnWriteAllowed:=@ServerFunctions.ServerReadAllowed;
   Server.OnUserLogin:=@ServerFunctions.ServerUserLogin;
 end;
+
+procedure TWebDAVTest.PropFindError;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND PROPFIND /masterdata/Unsortiert/desktop.ini HTTP/1.1'+#13
+   +''+#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='404','Wrong Answer to Propfind to non existent file');
+end;
+
 procedure TWebDAVTest.PropfindRoot;
 var
   aRes: String;
