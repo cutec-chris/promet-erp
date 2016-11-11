@@ -123,7 +123,7 @@ var
   aRes: String;
 begin
   aRes := SendRequest(
-   'PROPFIND PROPFIND /masterdata/Unsortiert/desktop.ini HTTP/1.1'+#13
+   'PROPFIND /masterdata/Unsortiert/desktop.ini HTTP/1.1'+#13
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='404','Wrong Answer to Propfind to non existent file');
 end;
@@ -422,11 +422,11 @@ var
   aRes: String;
 begin
   aRes := SendRequest(
-   'PROPFIND '+'/masterdata/Unsortiert HTTP/1.1'+#13
+   'PROPFIND '+'/masterdata/Robotics HTTP/1.1'+#13
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
-  Check(pos('D:href>/masterdata/Unsortiert/1',aRes)>0,'Server tells that no Element exists');
-  Check(pos('D:href>/masterdata/Unsortiert/Unterordner',aRes)>0,'Server tells that no Element exists');
+  //Check(pos('D:href>/masterdata/Robotics/Dobot',aRes)>0,'Server tells that no Element exists');
+  //Check(pos('D:href>/masterdata/Unsortiert/Unterordner',aRes)>0,'Server tells that no Element exists');
 end;
 
 procedure TWebDAVTest.PropFindDynamicFolderNonExistentFile;

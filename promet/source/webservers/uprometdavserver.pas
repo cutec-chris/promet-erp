@@ -658,7 +658,7 @@ begin
 
           Result:=True;
         end
-      else if (aLevel=4) then //Tree Dir
+      else if (aLevel=4) and (aRemovedDir=aFullDir) then //Tree Dir
         begin
           if Assigned(aClass) then
             begin
