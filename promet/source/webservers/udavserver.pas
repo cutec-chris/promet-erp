@@ -1007,7 +1007,7 @@ var
   a: Integer;
   Attr, aChildNode: TDOMNode;
   aAttrPrefix: String;
-  aLocalName,aNSName: String;
+  aLocalName,aNSName, tmpPath, tmpPath2: String;
   Attr1: TDOMAttr;
   tmp2: DOMString;
   IgnoreNotFound: Boolean = false;
@@ -1419,17 +1419,24 @@ begin
   if Assigned(aDirList) then
     begin
       if (not aDirList.HasPath(Path)) and (aDirList.Count>0) then
-        Createresponse(Path,aMSres,aProperties,aNS,aPrefix);
+        begin
+          Createresponse(Path,aMSres,aProperties,aNS,aPrefix);
+          SomethingFound:=True;
+        end;
       for i := 0 to aDirList.Count-1 do
         begin
           if aDirList[i].Path='' then
-            Createresponse(Path+aDirList[i].Name,aMSres,aProperties,aNs,aPrefix,aDirList[i])
+            tmpPath := Path+aDirList[i].Name
           else if Assigned(aDirList[i]) then
-            Createresponse(aDirList[i].Path+aDirList[i].Name,aMSres,aProperties,aNs,aPrefix,aDirList[i]);
+            tmpPath := aDirList[i].Path+aDirList[i].Name;
+          tmpPath2:=HTTPDecode(TDAVSession(FSocket).URI);
+          if CountOccurences('/',tmpPath)-CountOccurences('/',tmpPath2)<=aDepth then
+            Createresponse(tmpPath,aMSres,aProperties,aNs,aPrefix,aDirList[i]);
         end;
     end
   else if Assigned(aDirList) and (aDirList is TDAVFile) then
     begin
+      SomethingFound:=True;
       Createresponse(Path,aMSres,aProperties,aNs,aPrefix,TDAVFile(aDirList));
     end;
   aDirList.Free;
@@ -1441,7 +1448,7 @@ begin
       TDAVSession(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
       Result := True;
     end
-  else if not SomethingFound then
+  else if (not SomethingFound) then
     TDAVSession(FSocket).Status:=404;
   TWebDAVMaster(FSocket.Creator).Unlock;
 end;

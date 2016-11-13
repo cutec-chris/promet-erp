@@ -16,9 +16,6 @@
     <i18n>
       <EnableI18N LFM="False"/>
     </i18n>
-    <VersionInfo>
-      <StringTable ProductVersion=""/>
-    </VersionInfo>
     <MacroValues Count="1">
       <Macro1 Name="LCLWidgetType" Value="nogui"/>
     </MacroValues>
@@ -36,7 +33,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">

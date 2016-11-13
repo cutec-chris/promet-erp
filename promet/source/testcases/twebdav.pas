@@ -8,7 +8,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry,udavserver,
-  Sockets,uhttputil,uprometdavserver,uData;
+  Sockets,uhttputil,uprometdavserver,uData,Utils;
 
 type
 
@@ -19,6 +19,8 @@ type
     function SendRequest(aRequest: string): string;
   published
     procedure SetUp; override;
+    procedure PropFindDepth0;
+    procedure PropFindDepth1;
     procedure PropFindError;
     procedure GetJsonList;
     procedure PropfindRoot;
@@ -126,6 +128,34 @@ begin
    'PROPFIND /masterdata/Unsortiert/desktop.ini HTTP/1.1'+#13
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='404','Wrong Answer to Propfind to non existent file');
+end;
+
+procedure TWebDAVTest.PropFindDepth0;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND /masterdata/ HTTP/1.1'+#13
+  +'Depth: 0'+#13
+  +'Prefer: return-minimal'+#13
+  +'Content-Type: application/xml; charset=utf-8'+#13
+  +#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to PropfindRoot');
+  Check(CountOccurences('<D:href',aRes)=1,'Wrong Answer Count to Depth 0 ('+IntToStr(CountOccurences('href',aRes))+')');
+end;
+
+procedure TWebDAVTest.PropFindDepth1;
+var
+  aRes: String;
+begin
+  aRes := SendRequest(
+   'PROPFIND /masterdata/ HTTP/1.1'+#13
+  +'Depth: 1'+#13
+  +'Prefer: return-minimal'+#13
+  +'Content-Type: application/xml; charset=utf-8'+#13
+  +#13);
+  Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to PropfindRoot');
+  Check(CountOccurences('<D:href',aRes)=1,'Wrong Answer Count to Depth 0 ('+IntToStr(CountOccurences('href',aRes))+')');
 end;
 
 procedure TWebDAVTest.PropfindRoot;
