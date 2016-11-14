@@ -81,9 +81,13 @@ begin
   aReq.Delete(0);
   aHeader := TStringList.Create;
   aHeader.Clear;
+  Socket.Parameters.Clear;
+  Socket.Parameters.Delimiter:=':';
   while (aReq.Count>0) and (aReq[0]<>'') do
     begin
-      aHeader.Add(aReq[0]);
+      aHeader.Add(lowercase(aReq[0]));
+      tmp := copy(aReq[0],0,pos(':',aReq[0])-1);
+      Socket.Parameters.Values[lowercase(tmp)] :=  trim(copy(aReq[0],pos(':',aReq[0])+1,length(aReq[0])));
       aReq.Delete(0);
     end;
   if aReq.Count>0 then
@@ -155,7 +159,7 @@ begin
   +'Content-Type: application/xml; charset=utf-8'+#13
   +#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to PropfindRoot');
-  Check(CountOccurences('<D:href',aRes)=1,'Wrong Answer Count to Depth 0 ('+IntToStr(CountOccurences('href',aRes))+')');
+  Check(CountOccurences('<D:href',aRes)>1,'Wrong Answer Count to Depth 0 ('+IntToStr(CountOccurences('href',aRes))+')');
 end;
 
 procedure TWebDAVTest.PropfindRoot;
@@ -429,6 +433,7 @@ var
 begin
   aRes := SendRequest(
    'PROPFIND '+'/files/apps/ HTTP/1.1'+#13
+   +'Depth: 1'+#13
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
   Check(pos('D:href>/files/apps/',aRes)>0,'Server tells that no Element exists');
@@ -441,6 +446,7 @@ var
 begin
   aRes := SendRequest(
    'PROPFIND '+'/masterdata HTTP/1.1'+#13
+   +'Depth: 1'+#13
    +''+#13);
   Check(copy(aRes,0,pos(LineEnding,aRes)-1)='207','Wrong Answer to Propfind');
   Check(pos('D:href>/masterdata/',aRes)>0,'Server tells that no Element exists');

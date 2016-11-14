@@ -836,13 +836,13 @@ begin
   Result:=False;
   if pos(#0,aPath)>0 then
     aPath := copy(aPath,0,pos(#0,aPath)-1);
-  if copy(aPath,length(aPath),1)='/' then
+  if (copy(aPath,length(aPath),1)='/') and (length(aPath)>1) then
     aPath := copy(aPath,0,length(aPath)-1);
   for i := 0 to Count-1 do
     begin
       tmp := Files[i].Path;
       tmp += Files[i].Name;
-      if copy(tmp,length(tmp),1)='/' then
+      if (copy(tmp,length(tmp),1)='/') and (length(tmp)>1) then
         tmp := copy(tmp,0,length(tmp)-1);
       if tmp=aPath then
         begin
@@ -1423,16 +1423,19 @@ begin
           Createresponse(Path,aMSres,aProperties,aNS,aPrefix);
           SomethingFound:=True;
         end;
-      for i := 0 to aDirList.Count-1 do
-        begin
-          if aDirList[i].Path='' then
-            tmpPath := Path+aDirList[i].Name
-          else if Assigned(aDirList[i]) then
-            tmpPath := aDirList[i].Path+aDirList[i].Name;
-          tmpPath2:=HTTPDecode(TDAVSession(FSocket).URI);
-          if CountOccurences('/',tmpPath)-CountOccurences('/',tmpPath2)<=aDepth then
-            Createresponse(tmpPath,aMSres,aProperties,aNs,aPrefix,aDirList[i]);
-        end;
+      if (aDepth>0) or (not SomethingFound) then
+        for i := 0 to aDirList.Count-1 do
+          begin
+            if aDirList[i].Path='' then
+              tmpPath := Path+aDirList[i].Name
+            else if Assigned(aDirList[i]) then
+              tmpPath := aDirList[i].Path+aDirList[i].Name;
+            tmpPath2:=HTTPDecode(TDAVSession(FSocket).URI);
+            if (length(tmpPath)>length(tmpPath2)) and (copy(tmpPath,length(tmpPath),1)='/') then
+              tmpPath2+='/';
+            if CountOccurences('/',tmpPath)-CountOccurences('/',tmpPath2)<=aDepth then
+              Createresponse(tmpPath,aMSres,aProperties,aNs,aPrefix,aDirList[i]);
+          end;
     end
   else if Assigned(aDirList) and (aDirList is TDAVFile) then
     begin
