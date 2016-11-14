@@ -509,7 +509,7 @@ begin
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   if pos('trunk',Path) > 0 then
     Path := StringReplace(Path,'trunk','!svn/act',[]);
-  aDepth := StrToIntDef(trim(FSocket.Parameters.Values['depth']),0);
+  aDepth := StrToIntDef(trim(FSocket.Parameters.Values['depth']),1);
   aDirList := TDAVDirectoryList.Create;
   TWebDAVMaster(FSocket.Creator).Lock;
   Result := DoGetDirectoryList(Path,aDepth,aDirList);
