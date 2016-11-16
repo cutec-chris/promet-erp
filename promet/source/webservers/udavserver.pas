@@ -1381,7 +1381,7 @@ begin
   aDocument.AppendChild(aMSRes);
   AddNS('D','DAV:');
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
-  aDepth := StrToIntDef(trim(FSocket.Parameters.Values['depth']),0);
+  aDepth := StrToIntDef(trim(FSocket.Parameters.Values['depth']),1);
   aDirList := TDAVDirectoryList.Create;
   TWebDAVMaster(FSocket.Creator).Lock;
   Result := DoGetDirectoryList(Path,aDepth,aDirList);
