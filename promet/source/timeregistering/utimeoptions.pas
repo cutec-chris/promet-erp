@@ -9,6 +9,9 @@ uses
   EditBtn, Buttons, uOptionsFrame;
 
 type
+
+  { TfTimeOptions }
+
   TfTimeOptions = class(TOptionsFrame)
     bAddJob: TSpeedButton;
     bDeleteJob: TSpeedButton;
@@ -16,6 +19,7 @@ type
     cbMinimizeonStartTime: TCheckBox;
     cbStartwithStandart: TCheckBox;
     cbWorkTimeMessage: TCheckBox;
+    cbExternalTimeEditing: TCheckBox;
     eJob: TComboBox;
     eLink: TEditButton;
     eProject: TEditButton;
@@ -101,6 +105,7 @@ begin
       cbMinimizeonStartTime.Checked := DBConfig.ReadString('TIMEREGCLOSEONSTART','Y') <> 'N';
       cbStartwithStandart.Checked := DBConfig.ReadString('TIMESTANDARTSTART','Y') = 'Y';
       cbWorkTimeMessage.Checked := DBConfig.ReadString('WORKTIMEMESSAGE','N') = 'Y';
+      cbExternalTimeEditing.Checked := DBConfig.ReadString('EXTERNALTIMEEDITING','N') = 'Y';
       eJob.Items.Text:=DBConfig.ReadString('JOBS','');
       eProject.Text:=Data.GetLinkDesc(DBConfig.ReadString('TIMEPROJECT',''));
       FStandartProject := DBConfig.ReadString('TIMEPROJECT','');
@@ -128,6 +133,10 @@ begin
         DBConfig.WriteString('TIMESTANDARTSTART','N')
       else
         DBConfig.WriteString('TIMESTANDARTSTART','');
+      if not cbExternalTimeEditing.Checked then
+        DBConfig.WriteString('EXTERNALTIMEEDITING','N')
+      else
+        DBConfig.WriteString('EXTERNALTIMEEDITING','Y');
       DBConfig.WriteString('TIMEPROJECT',FStandartProject);
       DBConfig.WriteString('TIMELINK',FStandartLink);
       DBConfig.WriteString('TIMEJOB',eJob.Text);

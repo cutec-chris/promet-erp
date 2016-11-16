@@ -235,12 +235,15 @@ begin
   if aRight > RIGHT_READ then
     begin
       FUser := TUser.Create(nil);
-      FUser.Filter(Data.QuoteField('LOGINACTIVE')+'<>'+Data.QuoteValue('Y'));
       FUser.Open;
       FUser.First;
       while not FUser.EOF do
         begin
-          cbUser.Items.Add(FUser.Text.AsString);
+          if ((FUser.FieldByName('LOGINACTIVE').AsString<>'Y')
+          or (FUser.Options.GetOption('','EXTERNALTIMEEDITING','N')='Y'))
+          and (FUser.FieldByName('TYPE').AsString<>'G')
+          then
+            cbUser.Items.Add(FUser.Text.AsString);
           FUser.Next;
         end;
     end;

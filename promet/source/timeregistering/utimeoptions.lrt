@@ -1,14 +1,14 @@
 TFTIMEOPTIONS.CBMINIMIZEONSTARTTIME.HINT=beim beginnen eines neuen
 Zeiteintrages, wird die Anwendung minimiert
 TFTIMEOPTIONS.CBMINIMIZEONSTARTTIME.CAPTION=Minimieren beim Beginnen
-TFTIMEOPTIONS.CBSTARTWITHSTANDART.CAPTION=mit Standarteintrag starten
-TFTIMEOPTIONS.LACTIVEENTRY.CAPTION=Standarteintrag
+TFTIMEOPTIONS.CBSTARTWITHSTANDART.CAPTION=mit Standardeintrag starten
+TFTIMEOPTIONS.LACTIVEENTRY.CAPTION=Standardeintrag
 TFTIMEOPTIONS.LPROJECT.CAPTION=Projekt
 TFTIMEOPTIONS.EPROJECT.HINT=Suchen Sie mithilfe des Buttons einen passenden Eintrag
 oder geben Sie einen freien Text ein
 TFTIMEOPTIONS.ELINK.HINT=Suchen Sie mithilfe des Buttons einen passenden Eintrag
 oder geben Sie einen freien Text ein
-TFTIMEOPTIONS.ILINK.HINT=Zeigt an ob eine gültige verknüpfung 
+TFTIMEOPTIONS.ILINK.HINT=Zeigt an ob ein gültiger Verweis 
 in Eintrag/Projekt enthalten ist
 TFTIMEOPTIONS.LENTRY.CAPTION=Eintrag
 TFTIMEOPTIONS.LABEL1.CAPTION=Kategorie
@@ -18,4 +18,5 @@ Aufgabenliste (Dropdownliste) hinzu
 TFTIMEOPTIONS.BDELETEJOB.HINT=Löscht den ausgewählten Eintrag aus der 
 persönlichen Aufgabenliste (Dropdownliste)
 TFTIMEOPTIONS.LNOTES.CAPTION=Notizen
-TFTIMEOPTIONS.CBWORKTIMEMESSAGE.CAPTION=Meldung bei Arbeitszeitüberschreitung
+TFTIMEOPTIONS.CBWORKTIMEMESSAGE.CAPTION=Meldung bei Arbeitszeitüberschreitung
+TFTIMEOPTIONS.CBEXTERNALTIMEEDITING.CAPTION=Verwaltung darf eigene Zeiten editieren
