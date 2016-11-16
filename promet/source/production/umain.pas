@@ -73,6 +73,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     function fSearchValidateItem(aLink: string): Boolean;
+    function OpenWikiLink(aLink: string; Sender: TObject): Boolean;
     function SetOrderfromSearch(aLink: string): Boolean;
     procedure tvStepSelectionChanged(Sender: TObject);
   private
@@ -95,7 +96,7 @@ implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
   uprometpythonscript,genpascalscript,Synautil,genscript,uCreateProductionOrder,
-  uprometpascalscript,unumbersetempty;
+  uprometpascalscript,unumbersetempty,uWikiFrame,uWiki;
 
 procedure TfMain.DoCreate;
 begin
@@ -120,6 +121,7 @@ begin
   acLogin.Enabled:=False;
   acLogout.Enabled:=True;
   FOrder := TOrder.Create(nil);
+  Data.RegisterLinkHandler('WIKI',@OpenWikiLink,TWikiList);
 end;
 procedure TfMain.acLoadOrderExecute(Sender: TObject);
 var
@@ -292,6 +294,23 @@ begin
   Result := aMd.Positions.Count>0;
   aMd.Free;
   }
+end;
+
+function TfMain.OpenWikiLink(aLink: string; Sender: TObject): Boolean;
+var
+  aFrame: TfWikiFrame;
+  FWindow: TForm;
+begin
+  aFrame := TfWikiFrame.Create(Self);
+  aFrame.SetLanguage;
+  TfWikiFrame(aFrame).SetRights(Data.Users.Rights.Right('WIKI')>RIGHT_READ);
+  aFrame.OpenFromLink(aLink);
+  FWindow := TForm.Create(Application);
+  aFrame.Parent:=FWindow;
+  FWindow.Show;
+  fWindow.Width:=aFrame.Width;
+  fWindow.Height:=aFrame.Height;
+  aFrame.Align:=alClient;
 end;
 
 function TfMain.SetOrderfromSearch(aLink: string): Boolean;
