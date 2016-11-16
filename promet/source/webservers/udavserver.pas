@@ -100,6 +100,7 @@ type
     procedure DoPostRequest;
     procedure DoProcessInput;
     procedure DoDeleteRequest;
+    procedure DoMoveRequest;
     procedure DoMkColRequest;
   protected
     FSocket: TThread;
@@ -140,6 +141,8 @@ type
   TDAVLoginEvent = function(aSocket : TDAVSession;aUser,aPassword : string) : Boolean of object;
   TDAVAccessEvent = procedure(aSocket : TDAVSession;Info : string) of object;
 
+  { TWebDAVMaster }
+
   TWebDAVMaster = class(TObject)
   private
     FAccess: TDAVAccessEvent;
@@ -148,6 +151,7 @@ type
     FGet: TDAVFileStreamDateEvent;
     FGetDirList: TDAVGetDirectoryList;
     FMkCol: TDAVFileEvent;
+    FMove: TDAVFileEvent;
     FPost: TDAVFileStreamEvent;
     FPut: TDAVFileStreamEvent;
     FreadAllowed: TDAVFileEvent;
@@ -162,6 +166,7 @@ type
     property OnGetDirectoryList : TDAVGetDirectoryList read FGetDirList write FGetDirList;
     property OnMkCol : TDAVFileEvent read FMkCol write FMkCol;
     property OnDelete : TDAVFileEvent read FDelete write FDelete;
+    property OnMove : TDAVFileEvent read FMove write FDelete;
     property OnPutFile : TDAVFileStreamEvent read FPut write FPut;
     property OnPostFile : TDAVFileStreamEvent read FPost write FPost;
     property OnGetFile : TDAVFileStreamDateEvent read FGet write FGet;
@@ -276,6 +281,10 @@ type
   protected
     function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;override;
   end;
+  TDAVMoveOutput = class(TXmlOutput)
+  protected
+    function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;override;
+  end;
   TDAVReportOutput = class(TMultistatusXmlOutput)
   protected
     function HandleXMLRequest(aDocument : TXMLDocument) : Boolean;override;
@@ -291,6 +300,26 @@ uses base64,Utils,uhttputil,uBaseApplication,synautil
 function InternURLEncode(aURL : string) : string;
 begin
   Result := StringReplace(Utils.HTTPEncode(PChar(aURL)),'%2f','/',[rfReplaceAll,rfIgnoreCase]);
+end;
+
+{ TDAVMoveOutput }
+
+function TDAVMoveOutput.HandleXMLRequest(aDocument: TXMLDocument): Boolean;
+var
+  aPath: String;
+begin
+  Result := inherited HandleXMLRequest(aDocument);
+  TWebDAVMaster(FSocket.Creator).Lock;
+  aPath := HTTPDecode(TDAVSession(FSocket).URI);
+  if pos(#0,apath)>0 then
+    aPath := copy(aPath,0,pos(#0,aPath)-1);
+  if Assigned(TWebDAVMaster(FSocket.Creator).OnMove) then
+    Result := TWebDAVMaster(FSocket.Creator).OnMove(TDAVSession(FSocket),aPath);
+  TWebDAVMaster(FSocket.Creator).Unlock;
+  if Result then
+    FSocket.FStatus:=200
+  else
+    FSocket.FStatus:=403;
 end;
 
 { TWebDAVServer }
@@ -578,6 +607,11 @@ begin
   FOutputResult := TDAVDeleteOutput.Create(Self,InputData,OutputData);
 end;
 
+procedure TDAVSession.DoMoveRequest;
+begin
+  FOutputResult := TDAVMoveOutput.Create(Self,InputData,OutputData);
+end;
+
 procedure TDAVSession.DoMkColRequest;
 begin
   FOutputResult := TDAVMkColOutput.Create(Self,InputData,OutputData);
@@ -749,6 +783,13 @@ begin
          if Assigned(Socket) then
            Socket.Synchronize(Socket,@DoDeleteRequest)
          else DoDeleteRequest;
+       end;
+    'MOVE':
+       begin
+         AddDAVheaders;
+         if Assigned(Socket) then
+           Socket.Synchronize(Socket,@DoMoveRequest)
+         else DoMoveRequest;
        end;
     end;
     if Assigned(FOutputResult) then

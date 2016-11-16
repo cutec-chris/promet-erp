@@ -275,6 +275,18 @@ msgstr ""
 msgid "Gantt Ansicht"
 msgstr ""
 
+#: uintfstrconsts.strgoodwillcredit
+msgid "Kulanzgutschrift"
+msgstr ""
+
+#: uintfstrconsts.strgoodwillexchange
+msgid "Kulanzaustausch"
+msgstr ""
+
+#: uintfstrconsts.strgoodwillrepair
+msgid "Kulanzreparatur"
+msgstr ""
+
 #: uintfstrconsts.strgotofeed
 msgid "vollen Artikel anzeigen"
 msgstr ""

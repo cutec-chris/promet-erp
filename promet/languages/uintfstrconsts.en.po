@@ -285,6 +285,18 @@ msgstr "Usage: %d%%"
 msgid "Gantt Ansicht"
 msgstr "Gantt view"
 
+#: uintfstrconsts.strgoodwillcredit
+msgid "Kulanzgutschrift"
+msgstr ""
+
+#: uintfstrconsts.strgoodwillexchange
+msgid "Kulanzaustausch"
+msgstr ""
+
+#: uintfstrconsts.strgoodwillrepair
+msgid "Kulanzreparatur"
+msgstr ""
+
 #: uintfstrconsts.strgotofeed
 msgid "vollen Artikel anzeigen"
 msgstr "show full article"

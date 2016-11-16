@@ -256,6 +256,9 @@ begin
   cbOperation.Items.Add(strWaitingforCustomer);
   cbOperation.Items.Add(strAssemblyexchanged);
   cbOperation.Items.Add(strIsNew);
+  cbOperation.Items.Add(strGoodwillRepair);
+  cbOperation.Items.Add(strGoodwillExchange);
+  cbOperation.Items.Add(strGoodwillCredit);
 end;
 procedure TfRepairPositionFrame.SetRights(Editable: Boolean);
 begin

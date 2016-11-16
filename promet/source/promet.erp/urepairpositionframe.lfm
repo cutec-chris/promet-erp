@@ -10,77 +10,77 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
   DesignTop = 315
   object Panel1: TPanel[0]
     Left = 0
-    Height = 222
-    Top = 36
+    Height = 227
+    Top = 31
     Width = 718
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 222
+    ClientHeight = 227
     ClientWidth = 718
     TabOrder = 0
     object lVersion1: TLabel
       Left = 3
-      Height = 20
+      Height = 15
       Top = 54
-      Width = 49
+      Width = 39
       Caption = 'Version'
       ParentColor = False
     end
     object lSerial1: TLabel
       Left = 4
-      Height = 20
+      Height = 15
       Top = 2
-      Width = 52
+      Width = 42
       Caption = 'Serienn.'
       ParentColor = False
     end
     object lErrordescription: TLabel
       Left = 4
-      Height = 20
-      Top = 151
-      Width = 129
+      Height = 15
+      Top = 161
+      Width = 104
       Anchors = [akLeft, akBottom]
       Caption = 'Fehlerbeschreibung'
       ParentColor = False
     end
     object lNotesforCustomer: TLabel
       Left = 150
-      Height = 20
-      Top = 151
-      Width = 120
+      Height = 15
+      Top = 161
+      Width = 96
       Anchors = [akLeft, akBottom]
       Caption = 'Notizen für Kunde'
       ParentColor = False
     end
     object lInternalNotes: TLabel
-      Left = 550
-      Height = 20
-      Top = 151
-      Width = 102
+      Left = 571
+      Height = 15
+      Top = 161
+      Width = 81
       Anchors = [akRight, akBottom]
       Caption = 'Interne Notizen'
       ParentColor = False
     end
     object lOperation: TLabel
-      Left = 591
-      Height = 20
+      Left = 605
+      Height = 15
       Top = 0
-      Width = 67
+      Width = 53
       Anchors = [akTop, akRight]
       Caption = 'Operation'
       ParentColor = False
     end
     object lFoundProblems: TLabel
       Left = 80
-      Height = 20
+      Height = 15
       Top = 2
-      Width = 139
+      Width = 111
       Caption = 'gefundene Probleme'
       ParentColor = False
     end
     object eSerial1: TDBEdit
       Left = 3
-      Height = 28
+      Height = 23
       Top = 24
       Width = 68
       DataField = 'SERIAL'
@@ -92,31 +92,31 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
     end
     object cbVersion1: TDBComboBox
       Left = 3
-      Height = 28
+      Height = 23
       Top = 72
       Width = 69
       DataField = 'VERSION'
       DataSource = Position
-      ItemHeight = 20
+      ItemHeight = 15
       MaxLength = 0
       TabOrder = 1
     end
     object cbOperation: TDBComboBox
       Left = 591
-      Height = 28
+      Height = 23
       Top = 19
       Width = 124
       Anchors = [akTop, akRight]
       DataField = 'OPERATION'
       DataSource = Repair
-      ItemHeight = 20
+      ItemHeight = 15
       MaxLength = 0
       TabOrder = 3
     end
     object mErrordesc: TDBMemo
       Left = 4
       Height = 51
-      Top = 171
+      Top = 176
       Width = 138
       Anchors = [akLeft, akBottom]
       DataField = 'ERRDESC'
@@ -127,7 +127,7 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
     object mNotes: TDBMemo
       Left = 150
       Height = 51
-      Top = 171
+      Top = 176
       Width = 394
       Anchors = [akLeft, akRight, akBottom]
       DataField = 'NOTES'
@@ -138,7 +138,7 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
     object mInternalNotes: TDBMemo
       Left = 550
       Height = 51
-      Top = 171
+      Top = 176
       Width = 163
       Anchors = [akRight, akBottom]
       DataField = 'INTNOTES'
@@ -184,7 +184,7 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
     end
     object gProblems: TExtDBGrid
       Left = 80
-      Height = 119
+      Height = 124
       Top = 24
       Width = 466
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -221,7 +221,7 @@ inherited fRepairPositionFrame: TfRepairPositionFrame
   end
   object lInfo: TLabel[1]
     Left = 8
-    Height = 20
+    Height = 15
     Top = 8
     Width = 702
     Align = alTop
