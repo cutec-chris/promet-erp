@@ -17,9 +17,6 @@
     <i18n>
       <EnableI18N LFM="False"/>
     </i18n>
-    <VersionInfo>
-      <StringTable ProductVersion=""/>
-    </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
     </BuildModes>
@@ -31,8 +28,9 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Stora Promet-ERP\downloads downloads.txt"/>
+        <CommandLineParams Value="--mandant=Stora Promet-ERP\dowloadplattforms\alpha ..\output\act_alphadownload.txt"/>
         <LaunchingApplication PathPlusParams="\usr\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+        <WorkingDirectory Value="\media\Daten\Source\promet\promet\setup"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">

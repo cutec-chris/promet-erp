@@ -174,6 +174,7 @@ update:alpha-wiki:
     - ls -l promet/setup/output/*
   stage: publish
   script:
+    - bash build.sh server
     - bash promet/setup/change_wiki_alpha.sh
   dependencies:
     - upload:all

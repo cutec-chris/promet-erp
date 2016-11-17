@@ -8,8 +8,10 @@
       <Unit0>
         <Filename Value="cmdwizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="50" Y="9"/>
+        <TopLine Value="39"/>
+        <CursorPos Y="62"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -30,7 +32,6 @@
       <Unit3>
         <Filename Value="..\base\upowerstate.pas"/>
         <UnitName Value="uPowerState"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <CursorPos X="15" Y="21"/>
         <UsageCount Value="10"/>

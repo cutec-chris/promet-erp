@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}
   Classes, SysUtils, pcmdprometapp, CustApp ,uBaseCustomApplication,
-  uBaseDBInterface,uWiki,uData
+  uBaseDBInterface,uWiki,uData,uBaseApplication
   { you can add units after this };
 
 resourcestring
@@ -42,9 +42,32 @@ begin
     Terminate;
     Exit;
   end;
-  StopOnException := True;
-  if not Login then raise Exception.Create('Login failed !');
-  writeln('logged in...');
+  Info('changewikipage starting...');
+  with BaseApplication as IBaseDbInterface do
+    begin
+      Info('loading mandants...');
+      if not LoadMandants then
+        begin
+          Error(strFailedtoLoadMandants);
+          raise Exception.Create(strFailedtoLoadMandants);
+          Terminate;
+        end;
+      if not HasOption('m','mandant') then
+        begin
+          Error(strMandantnotSelected);
+          raise Exception.Create(strMandantnotSelected);
+          Terminate;
+        end;
+      Info('login...');
+      if not DBLogin(GetOptionValue('m','mandant'),'',False,False) then
+        begin
+          Error(strLoginFailed+' '+LastError);
+          raise Exception.Create(strLoginFailed+' '+LastError);
+          Terminate;
+        end;
+      uData.Data := Data;
+    end;
+  Info('changewikipage login successful');
   aWiki := TWikiList.Create(nil);
   aPage := TStringList.Create;
   try
