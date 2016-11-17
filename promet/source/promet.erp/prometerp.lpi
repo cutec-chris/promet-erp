@@ -173,7 +173,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -647,14 +646,12 @@
       </Item4>
       <Item5>
         <Name Value="Exception"/>
-        <Enabled Value="False"/>
       </Item5>
       <Item6>
         <Name Value="EFCreateError"/>
       </Item6>
       <Item7>
         <Name Value="EDatabaseError"/>
-        <Enabled Value="False"/>
       </Item7>
       <Item8>
         <Name Value="EConvertError"/>
@@ -666,6 +663,7 @@
       </Item9>
       <Item10>
         <Name Value="ESQLParser"/>
+        <Enabled Value="False"/>
       </Item10>
       <Item11>
         <Name Value="EStringListError"/>
@@ -677,6 +675,7 @@
       </Item12>
       <Item13>
         <Name Value="ESQLScannerError"/>
+        <Enabled Value="False"/>
       </Item13>
     </Exceptions>
   </Debugging>
