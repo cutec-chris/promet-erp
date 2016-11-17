@@ -7,10 +7,7 @@ stages:
 before_script:
   - git submodule sync --recursive
   - git submodule update --init --recursive
-  - git clean -ffdx
-  - git reset --hard
-  - git submodule foreach git reset --hard
-  
+
 variables:
   GIT_STRATEGY: fetch
   # or clone
@@ -76,6 +73,7 @@ build:windows:
 #    GIT_STRATEGY: clone
   script: 
     - git submodule sync --recursive
+    - bash build.sh clean
     - bash build.sh all
   tags:
     - windows-i386
@@ -89,6 +87,7 @@ build:windows:
 build:linux:i386:
   stage: build 
   script: 
+    - bash build.sh clean
     - bash build.sh all
   tags:
     - linux-i386
@@ -104,6 +103,7 @@ build:linux:x86-64:
   stage: build 
   script: 
     - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT 
+    - bash build.sh clean
     - bash build.sh all
   tags:
     - linux-x64
