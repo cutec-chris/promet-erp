@@ -116,6 +116,7 @@ begin
   ServerFunctions := TPrometServerFunctions.Create;
   Server.OnGetDirectoryList:=@ServerFunctions.ServerGetDirectoryList;
   Server.OnMkCol:=@ServerFunctions.ServerMkCol;
+  Server.OnMove:=@ServerFunctions.ServerMove;
   Server.OnDelete:=@ServerFunctions.ServerDelete;
   Server.OnPutFile:=@ServerFunctions.ServerPutFile;
   Server.OnGetFile:=@ServerFunctions.ServerGetFile;

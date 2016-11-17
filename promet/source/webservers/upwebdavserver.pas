@@ -76,6 +76,7 @@ begin
   OnGetDirectoryList:=@ServerFunctions.ServerGetDirectoryList;
   OnMkCol:=@ServerFunctions.ServerMkCol;
   OnDelete:=@ServerFunctions.ServerDelete;
+  OnMove:=@ServerFunctions.ServerMove;
   OnPutFile:=@ServerFunctions.ServerPutFile;
   OnGetFile:=@ServerFunctions.ServerGetFile;
   OnReadAllowed:=@ServerFunctions.ServerReadAllowed;

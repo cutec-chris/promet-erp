@@ -136,6 +136,7 @@ type
   TDAVGetDirectoryList = function(aSocket : TDAVSession;aDir : string;a3 : Integer;var aDirList : TDAVDirectoryList) : Boolean of object;
   TDAVGetCTag = function(aSocket : TDAVSession;aDir : string;var aCTag : Int64) : Boolean of object;
   TDAVFileEvent = function(aSocket : TDAVSession;aDir : string) : Boolean of object;
+  TDAVFileEvent2 = function(aSocket : TDAVSession;aDir,aDir2 : string) : Boolean of object;
   TDAVFileStreamEvent = function(aSocket : TDAVSession;aDir : string;Stream : TStream;var eTag : string;var Result : Integer) : Boolean of object;
   TDAVFileStreamDateEvent = function(aSocket : TDAVSession;aDir : string;Stream : TStream;var FLastModified : TDateTime;var MimeType : string;var eTag : string) : Boolean of object;
   TDAVLoginEvent = function(aSocket : TDAVSession;aUser,aPassword : string) : Boolean of object;
@@ -151,7 +152,7 @@ type
     FGet: TDAVFileStreamDateEvent;
     FGetDirList: TDAVGetDirectoryList;
     FMkCol: TDAVFileEvent;
-    FMove: TDAVFileEvent;
+    FMove: TDAVFileEvent2;
     FPost: TDAVFileStreamEvent;
     FPut: TDAVFileStreamEvent;
     FreadAllowed: TDAVFileEvent;
@@ -166,7 +167,7 @@ type
     property OnGetDirectoryList : TDAVGetDirectoryList read FGetDirList write FGetDirList;
     property OnMkCol : TDAVFileEvent read FMkCol write FMkCol;
     property OnDelete : TDAVFileEvent read FDelete write FDelete;
-    property OnMove : TDAVFileEvent read FMove write FDelete;
+    property OnMove : TDAVFileEvent2 read FMove write FMove;
     property OnPutFile : TDAVFileStreamEvent read FPut write FPut;
     property OnPostFile : TDAVFileStreamEvent read FPost write FPost;
     property OnGetFile : TDAVFileStreamDateEvent read FGet write FGet;
@@ -314,7 +315,7 @@ begin
   if pos(#0,apath)>0 then
     aPath := copy(aPath,0,pos(#0,aPath)-1);
   if Assigned(TWebDAVMaster(FSocket.Creator).OnMove) then
-    Result := TWebDAVMaster(FSocket.Creator).OnMove(TDAVSession(FSocket),aPath);
+    Result := TWebDAVMaster(FSocket.Creator).OnMove(TDAVSession(FSocket),aPath,TDAVSession(FSocket).Parameters.Values['destination']);
   TWebDAVMaster(FSocket.Creator).Unlock;
   if Result then
     FSocket.FStatus:=200
