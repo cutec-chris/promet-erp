@@ -288,7 +288,7 @@ begin
             begin
               Result := False;
               aFromDir := copy(aFromDir,rpos('/',aFromDir)+1,length(aFromDir));
-              aToDir := copy(aToDir,rpos('/',aToDir)+1,length(aToDiry));
+              aToDir := copy(aToDir,rpos('/',aToDir)+1,length(aToDir));
               if aDocuments.SelectFile(aFromDir) then
                 begin
                   aDocument := TDocument.Create(nil);

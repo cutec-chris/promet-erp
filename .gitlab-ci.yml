@@ -7,17 +7,19 @@ stages:
 before_script:
   - git submodule sync --recursive
   - git submodule update --init --recursive
-  - git clean -fdx
+  - git clean -ffdx
+  - git reset --hard
   - git submodule foreach git reset --hard
   
 variables:
   GIT_STRATEGY: fetch
   # or clone
   # fetch or clone only the last 3 commits
-  GIT_DEPTH: "3"
 
 #Tests
 basetest-linux:
+  variables:
+#    GIT_STRATEGY: clone
   image: build-lazarus-x64:latest
   stage: test 
   script: 
