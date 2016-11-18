@@ -10,6 +10,7 @@ mkdir ~/.prometerp
 echo $STORA_CONN > ~/.prometerp/Stora.perml
 
 lazbuild ../source/tools/changewikipage.lpi
+lazbuild ../source/sync/sync_db.lpi
 echo Promet-ERP/dowloadplattforms/linux-$Archfpc
 ../output/$Archfpc-linux/changewikipage --mandant=Stora --debug Promet-ERP/dowloadplattforms/alpha ../output/act_alphadownload.txt
 ../output/$Archfpc-linux/changewikipage --mandant=Stora --debug Promet-ERP/changes ../source/base/changes.txt
