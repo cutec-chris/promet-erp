@@ -30,18 +30,14 @@ cd $basedir/promet/setup/output
 . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd ..
 
-cd $basedir
+cd $basedir/promet/setup/output
 for f in *$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 do
   echo "Processing $f file..."
   # take action on each file. $f store current file name
-  cd promet/setup/i386-win32
   targetfile=$f
   targetcur=$target-current.zip
-  cd $basedir/promet/setup/output
   . ../../setup/build-tools/doupload.sh $targetfile $targetcur
-  cd ..
-  cd $basedir
   done
 cd $basedir
 
