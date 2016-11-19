@@ -12,11 +12,9 @@ for f in *.paf.exe
 do
   echo "Processing $f file..."
   # take action on each file. $f store current file name
-  cd promet/setup/i386-win32
   targetfile=$f
-  targetcur=$target-current.paf.exe
   cd $basedir/promet/setup/output
-  . ../../setup/build-tools/doupload.sh $targetfile $targetcur
+  . ../../setup/build-tools/doupload.sh $targetfile
   cd ..
   cd $basedir
   done
@@ -72,5 +70,4 @@ targetcur=$target-current.zip
 cd $basedir/promet/setup/output
 . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 cd ..
-
-
+cd $basedir
