@@ -1,5 +1,6 @@
 #!/bin/bash
 basedir=$(pwd)
+. promet/setup/build-tools/setup_enviroment.sh
 if [ "x$STORA_CONN" != "x" ]; then
   mkdir ~/.prometerp
   echo "SQL" > ~/.prometerp/Stora.perml
@@ -11,16 +12,34 @@ fi
 . ./promet/setup/i386-win32/change_wiki_windows.sh
 . ./promet/setup/portableapps/change_wiki.sh
 
-cd $basedir/promet/setup/output
-for f in *$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
-do
-  echo "Processing $f file..."
-  # take action on each file. $f store current file name
-  targetfile=$f
-  targetcur=$target-current.zip
+set_current()
+{
+  targetfile=$1_i386-win32-$BUILD_VERSION.zip
+  targetcur=$1_i386-win32-current.zip
   ssh $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT "cd promet_upload_target;ln -s -f $targetfile $targetcur"
-  done
-cd $basedir
+}
+
+set_current avad;
+set_current feedreceiver;
+set_current fhemreceiver;
+set_current imapserver;
+set_current mailreceiver;
+set_current meeting;
+set_current messagemanager;
+set_current mqttreceiver;
+set_current mysqlclient;
+set_current plugins;
+set_current postgresclient;
+set_current prometerp;
+set_current pscript;
+set_current sqliteclient;
+set_current statistics;
+set_current sync;
+set_current tools;
+set_current visualtools;
+set_current win32tools;
+set_current xmpp;
+
 
 
 cd $basedir
