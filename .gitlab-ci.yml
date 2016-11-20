@@ -180,3 +180,15 @@ update:alpha-wiki:
   tags:
     - docker-lazarus-x64
   allow_failure: true
+deploy:new_version:
+  before_script:
+    - ls -l promet/setup/output/*
+  stage: publish
+  dependencies:
+    - upload:all
+  script:
+    - bash promet/setup/change_wiki_version.sh
+  tags:
+    - docker-lazarus-x64
+  only:
+  - tags
