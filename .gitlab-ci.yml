@@ -23,6 +23,8 @@ basetest-linux:
     - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
     - lazbuild promet/source/testcases/consoletest.lpi
     - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
+  only:
+    - master
   tags:
     - docker-lazarus-x64
 webdavtest-linux:
@@ -31,6 +33,8 @@ webdavtest-linux:
   script: 
     - lazbuild promet/source/testcases/consoletest_webdav.lpi
     - promet/output/x86_64-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
+  only:
+    - master
   tags:
     - docker-lazarus-x64
 #mysql-test:
@@ -145,6 +149,8 @@ upload:all:
   script:
     - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT
     - bash promet/setup/upload_builds.sh
+  only:
+    - master
   dependencies:
     - build:linux:arm
     - build:linux:i386
@@ -165,6 +171,8 @@ update:containers:
     - bash promet/setup/build_containers.sh
   dependencies:
     - upload:all
+  only:
+    - master
   tags:
     - docker-x64
   allow_failure: true
@@ -175,6 +183,8 @@ update:alpha-wiki:
   stage: publish
   script:
     - bash promet/setup/change_wiki_alpha.sh
+  only:
+    - master
   dependencies:
     - upload:all
   tags:
