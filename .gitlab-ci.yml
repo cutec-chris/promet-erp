@@ -196,6 +196,6 @@ deploy:new_version:
   script:
     - bash promet/setup/change_wiki_version.sh
   tags:
-    - docker-x64
+    - linux-x64
   only:
   - tags
