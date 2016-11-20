@@ -182,10 +182,8 @@ update:alpha-wiki:
   allow_failure: true
 deploy:new_version:
   before_script:
-    - ls -l promet/setup/output/*
+    - ls -l
   stage: publish
-  dependencies:
-    - upload:all
   script:
     - bash promet/setup/change_wiki_version.sh
   tags:
