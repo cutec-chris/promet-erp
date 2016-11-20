@@ -191,9 +191,9 @@ update:alpha-wiki:
     - docker-lazarus-x64
   allow_failure: true
 deploy:new_version:
+  image: build-lazarus-x64:latest
   before_script:
     - ls -l
-  stage: publish
   script:
     - bash promet/setup/change_wiki_version.sh
   tags:
