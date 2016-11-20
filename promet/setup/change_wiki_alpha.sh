@@ -6,9 +6,11 @@ Version=$(echo $Version | sed 's/\n//g');
 Arch=`dpkg --print-architecture`
 Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
 Date=`date`
-mkdir ~/.prometerp
-echo "SQL" > ~/.prometerp/Stora.perml
-echo $STORA_CONN >> ~/.prometerp/Stora.perml
+if [ "x$STORA_CONN" != "x" ]; then
+  mkdir ~/.prometerp
+  echo "SQL" > ~/.prometerp/Stora.perml
+  echo $STORA_CONN >> ~/.prometerp/Stora.perml
+fi
 
 lazbuild ../source/tools/changewikipage.lpi
 lazbuild ../source/sync/sync_db.lpi

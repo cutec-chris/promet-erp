@@ -3,8 +3,14 @@ basedir=$(pwd)
 cd promet/setup/i386-linux
 Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
-Arch=`dpkg --print-architecture`
-Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
+RArchfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
+if [ "x$1" == "x" ]; then
+  Arch=`dpkg --print-architecture`
+  Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
+else
+  Arch=$1
+  Archfpc=$2
+fi
 Date=`date`
 
 cat ./downloads_linux.txt | \
@@ -14,7 +20,7 @@ cat ./downloads_linux.txt | \
   > act_downloads_linux.txt
 lazbuild ../../source/tools/changewikipage.lpi
 echo Promet-ERP/dowloadplattforms/linux-$Archfpc
-../../output/$Archfpc-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/linux-$Archfpc act_downloads_linux.txt
-../../output/$Archfpc-linux/changewikipage --mandant=Stora Promet-ERP/changes ../../source/base/changes.txt
-../../output/$Archfpc-linux/sync_db --mandant=Stora
+../../output/$RArchfpc-linux/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/linux-$Archfpc act_downloads_linux.txt
+../../output/$RArchfpc-linux/changewikipage --mandant=Stora Promet-ERP/changes ../../source/base/changes.txt
+../../output/$RArchfpc-linux/sync_db --mandant=Stora
 cd $basedir

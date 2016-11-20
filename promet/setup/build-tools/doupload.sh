@@ -10,7 +10,6 @@ echo "uploading $1..."
 scp -P $AUTOUPLOAD_PORT $basedir/promet/setup/output/$1 $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST:promet_upload_target
 if [ "x$?" = "x0" ]
   then
-  ssh $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT "cd promet_upload_target;ln -s -f $FILE $2"
   echo "[http://downloads.free-erp.de/$1 $1]" >> act_alphadownload.txt
   echo "Upload erfolgreich, Alpha Eintrag !"
 fi
