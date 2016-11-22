@@ -173,7 +173,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=devel --mandant=Help"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -660,7 +659,6 @@
       </Item8>
       <Item9>
         <Name Value="EVariantError"/>
-        <Enabled Value="False"/>
       </Item9>
       <Item10>
         <Name Value="ESQLParser"/>
