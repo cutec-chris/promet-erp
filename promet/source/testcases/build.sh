@@ -17,9 +17,9 @@ if [ "$?" -ne "0" ]; then
   exit 1
 fi
 echo "Executing testcases..."
-../../output/$TARGET_CPU-$TARGET_OS/consoletest --mandant=help --config-path=./promet/help/config
+../../output/$TARGET_CPU-$TARGET_OS/consoletest --mandant=help --config-path=../../help/config
 if [ "$?" = "0" ]; then
-  ../../output/$TARGET_CPU-$TARGET_OS/consoletest --mandant=help --config-path=./promet/help/config
+  ../../output/$TARGET_CPU-$TARGET_OS/consoletest --mandant=help --config-path=../../help/config
 fi
 if [ "$?" = "0" ]; then
   echo "."
