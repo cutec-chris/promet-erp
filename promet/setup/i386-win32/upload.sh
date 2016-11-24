@@ -18,6 +18,16 @@ do
   cd ..
   cd $basedir
   done
+for f in *.portable.zip
+do
+  echo "Processing $f file..."
+  # take action on each file. $f store current file name
+  targetfile=$f
+  cd $basedir/promet/setup/output
+  . ../../setup/build-tools/doupload.sh $targetfile
+  cd ..
+  cd $basedir
+  done
 
 cd $basedir
 echo "====Zip Dateien====" >> ./promet/setup/output/act_alphadownload.txt
