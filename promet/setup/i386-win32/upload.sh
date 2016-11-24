@@ -18,6 +18,7 @@ do
   cd ..
   cd $basedir
   done
+cd $basedir/promet/setup/output
 for f in *.portable.zip
 do
   echo "Processing $f file..."
