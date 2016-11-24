@@ -19,10 +19,9 @@ basetest-linux:
 #    GIT_STRATEGY: clone
   image: build-lazarus-x64:latest
   stage: test 
-  script: 
+  script:
     - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
-    - lazbuild promet/source/testcases/consoletest.lpi
-    - promet/output/x86_64-linux/consoletest --mandant=help --config-path=./promet/help/config
+    - promet/source/testcases/build.sh
   only:
     - master
   tags:
@@ -31,8 +30,8 @@ webdavtest-linux:
   image: build-lazarus-x64:latest
   stage: test 
   script: 
-    - lazbuild promet/source/testcases/consoletest_webdav.lpi
-    - promet/output/x86_64-linux/consoletest_webdav --mandant=help --config-path=./promet/help/config
+    - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
+    - promet/source/testcases/build_webdav.sh
   only:
     - master
   tags:

@@ -20,6 +20,7 @@ unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/plugins_$TARGET_CP
 unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/visualtools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/sqliteclient_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/win32tools_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/sync_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 rm $BuildDir/App/promet/helpviewer.exe
 unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/mailreceiver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 echo "building package..."
