@@ -16,10 +16,14 @@ if [ "$?" -ne "0" ]; then
   tail -n 10 build.txt
   exit 1
 fi
+cd $basedir
 echo "Executing testcases..."
-../../output/$TARGET_CPU-$TARGET_OS/consoletest --mandant=help --config-path=../../help/config
+./promet/output/$TARGET_CPU-$TARGET_OS/consoletest --mandant=help --config-path=./promet/help/config
 if [ "$?" = "0" ]; then
-  ../../output/$TARGET_CPU-$TARGET_OS/consoletest --mandant=help --config-path=../../help/config
+  ./promet/output/$TARGET_CPU-$TARGET_OS/consoletest --mandant=help --config-path=./promet/help/config
+fi
+if [ "$?" = "0" ]; then
+  ./promet/output/$TARGET_CPU-$TARGET_OS/consoletest --mandant=help --config-path=./promet/help/config
 fi
 if [ "$?" = "0" ]; then
   echo "."
