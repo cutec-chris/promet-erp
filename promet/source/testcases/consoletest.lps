@@ -10,12 +10,12 @@
         <Item3 ID="722410265450" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SessionMatrixOptions>
     </BuildModes>
-    <Units Count="19">
+    <Units Count="20">
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="101"/>
-        <CursorPos Y="142"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="5" Y="22"/>
         <UsageCount Value="37"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -29,7 +29,6 @@
       </Unit1>
       <Unit2>
         <Filename Value="uordertest.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="91"/>
         <CursorPos Y="119"/>
@@ -52,11 +51,10 @@
       </Unit4>
       <Unit5>
         <Filename Value="..\components\zeos\src\component\ZAbstractRODataset.pas"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="3011"/>
         <CursorPos Y="3032"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit5>
       <Unit6>
@@ -71,7 +69,7 @@
       <Unit7>
         <Filename Value="..\base\dbintfs\uperson.pas"/>
         <UnitName Value="uPerson"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="442"/>
         <CursorPos Y="458"/>
         <UsageCount Value="11"/>
@@ -80,7 +78,7 @@
       <Unit8>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="1918"/>
         <CursorPos Y="1948"/>
         <UsageCount Value="11"/>
@@ -149,7 +147,7 @@
       <Unit17>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="1688"/>
         <CursorPos Y="1712"/>
         <UsageCount Value="11"/>
@@ -164,6 +162,12 @@
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit18>
+      <Unit19>
+        <Filename Value="umasterdatatest.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="26"/>
+        <UsageCount Value="10"/>
+      </Unit19>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
