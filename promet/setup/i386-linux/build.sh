@@ -14,6 +14,7 @@ add_std_files()
 
 build_deb()
 {
+  echo "building deb for ${Program}-${SubProgram}"
   echo "fixing permissions ..."
   fakeroot find $BuildDir -type d -print0 | xargs -0 sudo -S chmod 755  # this is needed, don't ask me why
   fakeroot find $BuildDir -type f -print0 | xargs -0 sudo -S chmod a+r  # this is needed, don't ask me why
