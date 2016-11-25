@@ -25,7 +25,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="490"/>
+      <BuildNr Value="491"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion="7.0.0.487"/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Local"/>
+        <CommandLineParams Value="--config-path=devel --mandant=Help --debug-sql"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -639,7 +639,6 @@
       </Item2>
       <Item3>
         <Name Value="EZSQLException"/>
-        <Enabled Value="False"/>
       </Item3>
       <Item4>
         <Name Value="EZDatabaseError"/>
@@ -666,7 +665,6 @@
       </Item10>
       <Item11>
         <Name Value="EStringListError"/>
-        <Enabled Value="False"/>
       </Item11>
       <Item12>
         <Name Value="PNGImageException"/>
