@@ -19,7 +19,7 @@ do
   cd $basedir
   done
 cd $basedir/promet/setup/output
-for f in *.portable.zip
+for f in *-portable.zip
 do
   echo "Processing $f file..."
   # take action on each file. $f store current file name
