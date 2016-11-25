@@ -2,6 +2,7 @@
 
 add_std_files()
 {
+  echo "\e[33mAdding Std Files for ${Program}-${SubProgram}"
   echo "copyright and changelog files..."
   mkdir -p $BuildDir/usr/share/doc/$Program$Subprogram
   cp debian/changelog.Debian $BuildDir/usr/share/doc/$Program$Subprogram/
@@ -14,7 +15,7 @@ add_std_files()
 
 build_deb()
 {
-  echo "building deb for ${Program}-${SubProgram}"
+  echo "\e[33mbuilding deb for ${Program}-${SubProgram}"
   echo "fixing permissions ..."
   fakeroot find $BuildDir -type d -print0 | xargs -0 sudo -S chmod 755  # this is needed, don't ask me why
   fakeroot find $BuildDir -type f -print0 | xargs -0 sudo -S chmod a+r  # this is needed, don't ask me why
@@ -40,7 +41,7 @@ build_deb()
 basedir=$(pwd)
 cd promet/setup/i386-linux
 . ../../setup/build-tools/setup_enviroment.sh
-echo "Building linux packages..."
+echo "\e[33mBuilding linux packages..."
 # Packages
 cd $basedir
 cd promet/setup/i386-linux
