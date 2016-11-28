@@ -73,6 +73,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     function fSearchValidateItem(aLink: string): Boolean;
+    procedure LoadWikiIndex(Data: PtrInt);
     function OpenWikiLink(aLink: string; Sender: TObject): Boolean;
     function SetOrderfromSearch(aLink: string): Boolean;
     procedure tvStepSelectionChanged(Sender: TObject);
@@ -96,7 +97,7 @@ implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
   uprometpythonscript,genpascalscript,Synautil,genscript,uCreateProductionOrder,
-  uprometpascalscript,unumbersetempty,uWikiFrame,uWiki;
+  uprometpascalscript,unumbersetempty,uWikiFrame,uWiki,wikitohtml;
 
 procedure TfMain.DoCreate;
 begin
@@ -122,6 +123,7 @@ begin
   acLogout.Enabled:=True;
   FOrder := TOrder.Create(nil);
   Data.RegisterLinkHandler('WIKI',@OpenWikiLink,TWikiList);
+  Application.QueueAsyncCall(@LoadWikiIndex,0);
 end;
 procedure TfMain.acLoadOrderExecute(Sender: TObject);
 var
@@ -294,6 +296,24 @@ begin
   Result := aMd.Positions.Count>0;
   aMd.Free;
   }
+end;
+
+procedure TfMain.LoadWikiIndex(Data: PtrInt);
+var
+  aPage: TWikiList;
+  aHTML: TSimpleIpHtml;
+  ss: TStringStream;
+begin
+  aPage := TWikiList.Create(nil);
+  if aPage.FindWikiPage('Avad-Help/index') then
+    begin
+      aHTML := TSimpleIPHtml.Create;
+      ss := TStringStream.Create(WikiText2HTML(aPage.FieldByName('DATA').AsString,'','',True));
+      aHTML.LoadFromStream(ss);
+      ss.Free;
+      FAutomation.ipHTML.SetHtml(aHTML);
+    end;
+  aPage.Free;
 end;
 
 function TfMain.OpenWikiLink(aLink: string; Sender: TObject): Boolean;

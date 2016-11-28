@@ -406,7 +406,10 @@ end;
 procedure TfOrderFrame.acImportExecute(Sender: TObject);
 begin
   if fScriptImport.Execute(icImport,'O',FDataSet) then
-    DataSet.DataSet.Refresh;
+    begin
+      DataSet.DataSet.Refresh;
+      FPosFrame.Refresh;
+    end;
 end;
 
 procedure TfOrderFrame.acMarkasDoneExecute(Sender: TObject);
