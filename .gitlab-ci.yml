@@ -163,6 +163,7 @@ upload:all:
     - linux-x64
 
 update:containers:
+  image: build-lazarus-x64:latest
   before_script:
     - ls -l promet/setup/output/*
   stage: publish
