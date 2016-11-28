@@ -173,7 +173,7 @@ update:containers:
   only:
     - master
   tags:
-    - docker-x64
+    - docker-lazarus-x64
   allow_failure: true
 update:alpha-wiki:
   image: build-lazarus-x64:latest
