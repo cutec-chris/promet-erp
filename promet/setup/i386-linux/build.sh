@@ -59,6 +59,7 @@ fi
 
 sudo -S rm -rf $BuildDir
 Program="promet-erp"
+SubProgram=""
 mkdir -p $BuildDir
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
