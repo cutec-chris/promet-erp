@@ -57,8 +57,9 @@ if [ "x$Arch" = "xx86_64" ]; then
 fi
 
 
-fakeroot rm -rf $BuildDir
+sudo -S rm -rf $BuildDir
 Program="promet-erp"
+mkdir -p $BuildDir
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 add_std_files;
@@ -89,14 +90,14 @@ cp ../../languages/*.txt $BuildDir/usr/lib/$Program/languages
 cp ../warnings.txt $BuildDir/usr/lib/$Program
 cp ../errors.txt $BuildDir/usr/lib/$Program
 cp add-systray-icon.sh $BuildDir/usr/lib/$Program
-fakeroot chmod -R 644 $BuildDir/usr/lib/$Program/languages/
+sudo -S chmod -R 644 $BuildDir/usr/lib/$Program/languages/
 build_deb;
 if [ "$1" = "upload" ]; then
   . ../../setup/build-tools/doupload.sh ${Program}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}_current_${Arch}-$Widgetset.deb
 fi
 
 SubProgram="statistics"
-fakeroot rm -rf $BuildDir
+sudo -S rm -rf $BuildDir
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 add_std_files;
@@ -115,7 +116,7 @@ if [ "$1" = "upload" ]; then
 fi
 
 SubProgram="timeregistering"
-fakeroot rm -rf $BuildDir
+sudo -S rm -rf $BuildDir
 mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 add_std_files;
@@ -134,7 +135,7 @@ if [ "$1" = "upload" ]; then
 fi
 
 SubProgram="aqbanking"
-fakeroot rm -rf $BuildDir
+sudo -S rm -rf $BuildDir
 add_std_files;
 build_deb;
 if [ "$1" = "upload" ]; then
