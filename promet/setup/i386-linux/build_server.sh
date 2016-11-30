@@ -56,6 +56,7 @@ fi
 
 
 sudo -S rm -rf $BuildDir
+sudo -S rm -rf /tmp/*
 fakeroot rm -rf $BuildDir
 Program="promet-erp"
 mkdir -p $BuildDir/usr/bin/
