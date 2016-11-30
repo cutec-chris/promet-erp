@@ -13,6 +13,10 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
+#: fautomationform.strnoorderloaded
+msgid "Es ist kein Auftrag geladen oder das Problem wurde nicht gefunden !"
+msgstr ""
+
 #: fautomationform.strnotmoresteps
 msgid "Es sind keine (weiteren) Arbeitschritte vorhanden.<br><br>Um einen neuen Auftrag auswählen zu können müssen Sie den Auftrag (ab)schließen"
 msgstr ""

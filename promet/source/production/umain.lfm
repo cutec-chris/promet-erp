@@ -15,7 +15,6 @@ object fMain: TfMain
   ShowHint = True
   LCLVersion = '1.4.4.0'
   Visible = True
-  WindowState = wsMaximized
   object Panel1: TPanel
     Left = 0
     Height = 696

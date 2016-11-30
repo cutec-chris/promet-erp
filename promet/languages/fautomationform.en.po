@@ -23,6 +23,10 @@ msgstr "Order data is loading ..."
 msgid "Code"
 msgstr ""
 
+#: fautomationform.strnoorderloaded
+msgid "Es ist kein Auftrag geladen oder das Problem wurde nicht gefunden !"
+msgstr ""
+
 #: fautomationform.strnotmoresteps
 msgid "Es sind keine (weiteren) Arbeitschritte vorhanden.<br><br>Um einen neuen Auftrag auswählen zu können müssen Sie den Auftrag (ab)schließen"
 msgstr "There are no (further) steps.<br><br>To select an new order, you must close this one."
