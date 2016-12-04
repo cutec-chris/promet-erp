@@ -553,11 +553,22 @@ begin
   aDocument.AppendChild(aOptionsRes);
   if FSocket.Status=500 then
     FSocket.Status:=200;
+
   TWebDAVMaster(FSocket.Creator).Lock;
   if Assigned(TWebDAVMaster(FSocket.Creator).OnReadAllowed) and (not TWebDAVMaster(FSocket.Creator).OnReadAllowed(TDAVSession(FSocket),Path)) then
     begin
-      FSocket.Status:=401;
-      TDAVSession(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
+      if TDAVSession(FSocket).Parameters.Values['access-control-request-headers']<>'' then
+        begin
+          FSocket.Status:=200;
+          TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
+          TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Methods: GET, OPTIONS');
+          TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Headers: Authorization');
+        end
+      else
+        begin
+          FSocket.Status:=401;
+          TDAVSession(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
+        end;
       Result := True;
     end;
   TWebDAVMaster(FSocket.Creator).Unlock;
