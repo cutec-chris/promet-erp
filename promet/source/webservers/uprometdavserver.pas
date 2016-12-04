@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, udavserver, uDocuments, uBaseDbClasses, uCalendar,
-  utask,Utils,variants,uBaseDatasetInterfaces, db,synautil,
+  utask,Utils,variants,uBaseDatasetInterfaces, db,synautil,uPerson,
   DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface;
 
 type
@@ -371,11 +371,18 @@ begin
             if DatasetClasses[i].aClass.InheritsFrom(TBaseDBList) and (
                (DatasetClasses[i].aName='MASTERDATA')
             or (DatasetClasses[i].aName='PROJECT')
+            or (DatasetClasses[i].aName='TASK')
+            or (DatasetClasses[i].aName='MESSAGE')
+            or (DatasetClasses[i].aName='TIMES')
+            or (DatasetClasses[i].aName='MEETING')
+            or (DatasetClasses[i].aName='ORDER')
+            or (DatasetClasses[i].aName='PERSON')
                 ) then
               begin
                 aItem := TDAVFile.Create('/'+lowercase(DatasetClasses[i].aName),True);
                 aDirList.Add(aItem);
-              end;
+              end
+            else writeln('Dataset not used:'+DatasetClasses[i].aName);
         end;
     end
   //Principals
@@ -929,6 +936,7 @@ begin
               sl.Add(']');
               sl.SaveToStream(Stream);
               sl.Free;
+              Stream.Position:=0;
               aDataSet.Free;
               Result:=True;
             end;
