@@ -458,6 +458,7 @@ begin
         TDAVSession(FSocket).Status := 200;
         TDAVSession(FSocket).HeaderOut.Add('Last-Modified: '+Rfc822DateTime(LocalTimeToGMT(FModified)));
         TDAVSession(FSocket).HeaderOut.Add('Content-Type: '+ FMimeType);
+        TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
         Foutput.Position:=0;
       end;
   TWebDAVMaster(TDAVSession(FSocket).Creator).Unlock;
@@ -565,7 +566,7 @@ begin
           FSocket.Status:=200;
           TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
           TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Methods: GET, OPTIONS');
-          TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Headers: Authorization');
+          TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Headers: Authorization,X-Requested-With');
         end
       else
         begin
@@ -1004,12 +1005,12 @@ begin
       WriteXML(ADoc,FOut);
       //Self.FBufferSize := FOut.Size;
       FOut.Position:=0;
-      TDAVSession(FSocket).HeaderOut.Add('ContentLength: '+IntToStr(FOut.Size));
+      //TDAVSession(FSocket).HeaderOut.Add('Content-Length: '+IntToStr(FOut.Size));
       //TODO:??TDAVSession(FSocket).OutputData := Self.FOut;
     end
   else
     begin
-      TDAVSession(FSocket).HeaderOut.Add('ContentLength: 0');
+      //TDAVSession(FSocket).HeaderOut.Add('Content-Length: 0');
       TDAVSession(FSocket).HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
       if TDAVSession(FSocket).Status=200 then
         TDAVSession(FSocket).Status:=403;

@@ -805,11 +805,16 @@ var
   aClass: TBaseDBDatasetClass;
   aDataSet: TBaseDBDataset;
   aSS: TStringStream;
-  tmp: String;
+  tmp, aParams: String;
   i: Integer;
 begin
   Result := False;
   if aSocket.User='' then exit;
+  if pos('?',aDir)>0 then
+    begin
+      aParams := copy(aDir,pos('?',aDir)+1,length(aDir));
+      aDir := copy(aDir,0,pos('?',aDir)-1);
+    end;
   aFullDir := aDir;
   if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
     begin
@@ -1105,7 +1110,7 @@ var
   aID: Variant;
   aType: string;
   aLevel: Integer;
-  aRemovedDir: string;
+  aRemovedDir, aParams: string;
   aClass: TBaseDBDatasetClass;
 begin
   FStatus:=500;
@@ -1118,6 +1123,11 @@ begin
       if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
   Result := True;
+  if pos('?',aDir)>0 then
+    begin
+      aParams := copy(aDir,pos('?',aDir)+1,length(aDir));
+      aDir := copy(aDir,0,pos('?',aDir)-1);
+    end;
   TBaseDBModule(aSocket.Data).RefreshUsersFilter;
   if copy(aDir,0,1)<>'/' then
     aDir := '/'+aDir;
