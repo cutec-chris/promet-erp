@@ -458,6 +458,7 @@ begin
         TDAVSession(FSocket).Status := 200;
         TDAVSession(FSocket).HeaderOut.Add('Last-Modified: '+Rfc822DateTime(LocalTimeToGMT(FModified)));
         TDAVSession(FSocket).HeaderOut.Add('Content-Type: '+ FMimeType);
+        Foutput.Position:=0;
       end;
   TWebDAVMaster(TDAVSession(FSocket).Creator).Unlock;
 end;
@@ -536,6 +537,8 @@ begin
     aActivityCollection := aDocument.CreateElement(aPrefix+':activity-collection-set');
   aOptionsRes.AppendChild(aActivityCollection);
   aHref := aDocument.CreateElement(aPrefix+':href');
+  if pos('?',Path)>0 then
+    Path := copy(path,0,pos('?',Path)-1);
   if copy(Path,0,1) <> '/' then Path := '/'+Path;
   if pos('trunk',Path) > 0 then
     Path := StringReplace(Path,'trunk','!svn/act',[]);
