@@ -39,6 +39,10 @@ msgstr ""
 msgid "Achtung Teile des Auftrages sind in nicht freigegebenem Zustand !"
 msgstr "Important parts of the contract are in non-shared state!"
 
+#: fautomationform.strproblemsend
+msgid "Die Störung wurde Eingetragen !"
+msgstr ""
+
 #: fautomationform.strrun
 msgid "Ausführen"
 msgstr "Execute"
