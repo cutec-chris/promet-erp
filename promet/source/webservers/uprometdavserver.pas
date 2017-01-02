@@ -1332,7 +1332,8 @@ var
     else tmp := aDir;
     DataSet.SelectFromNumber(tmp);
     DataSet.Open;
-    aID:=DataSet.Id.AsVariant;
+    if Assigned(DataSet.Id) then
+      aID:=DataSet.Id.AsVariant;
     aType:= DataSet.GetTyp;
     if DataSet.Count>0 then
       begin
