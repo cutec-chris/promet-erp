@@ -1436,7 +1436,7 @@ begin
                     end;
                   TBaseDBModule(aSocket.Data).Tree.DataSet.Filter:=aOldFilter;
                   TBaseDBModule(aSocket.Data).Tree.GotoBookmark(aOldRec);
-                  if tmp<>'' then
+                  if IsNumeric(tmp) then
                     FindArticle;
                 end;
               DataSet.Free;
