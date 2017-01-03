@@ -451,6 +451,7 @@ var
 begin
   TDAVSession(FSocket).CheckAuth;
   TDAVSession(FSocket).Status := 500;
+  TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
   TWebDAVMaster(TDAVSession(FSocket).Creator).Lock;
   if Assigned(Event) then
     if Event(TDAVSession(FSocket),HTTPDecode(TDAVSession(FSocket).URI),Foutput,FModified,FMimeType,FeTag) then
@@ -458,7 +459,6 @@ begin
         TDAVSession(FSocket).Status := 200;
         TDAVSession(FSocket).HeaderOut.Add('Last-Modified: '+Rfc822DateTime(LocalTimeToGMT(FModified)));
         TDAVSession(FSocket).HeaderOut.Add('Content-Type: '+ FMimeType);
-        TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
         Foutput.Position:=0;
       end;
   TWebDAVMaster(TDAVSession(FSocket).Creator).Unlock;
@@ -557,16 +557,18 @@ begin
   aDocument.AppendChild(aOptionsRes);
   if FSocket.Status=500 then
     FSocket.Status:=200;
-
+  if TDAVSession(FSocket).Parameters.Values['access-control-request-headers']<>'' then
+    begin
+      TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
+      TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Methods: GET, OPTIONS');
+      TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Headers: Authorization,X-Requested-With');
+    end;
   TWebDAVMaster(FSocket.Creator).Lock;
   if Assigned(TWebDAVMaster(FSocket.Creator).OnReadAllowed) and (not TWebDAVMaster(FSocket.Creator).OnReadAllowed(TDAVSession(FSocket),Path)) then
     begin
       if TDAVSession(FSocket).Parameters.Values['access-control-request-headers']<>'' then
         begin
           FSocket.Status:=200;
-          TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
-          TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Methods: GET, OPTIONS');
-          TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Headers: Authorization,X-Requested-With');
         end
       else
         begin

@@ -130,6 +130,7 @@ begin
   if TBaseWebSession(Session).CheckLogin(ARequest,AResponse,True) then
     begin
       AResponse.Code:=500;
+      AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
       aStatistic := TStatistic.Create(nil);
       aStatistic.Open;
       aStat := ARequest.QueryFields.Values['name'];
@@ -144,7 +145,6 @@ begin
           aDS.Free;
           AResponse.Code:=200;
           AResponse.ContentType:='text/javascript;charset=utf-8';
-          AResponse.CustomHeaders.Add('Access-Control-Allow-Origin: *');
         end
       else
         begin
