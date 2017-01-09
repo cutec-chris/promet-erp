@@ -921,7 +921,7 @@ begin
             begin
               MimeType:='application/json';
               sl := TStringList.Create;
-              sl.Add('[');
+              sl.Add('Data:[');
               aDataSet := aClass.Create(nil);
               aDataSet.Open;
               while not aDataSet.EOF do
