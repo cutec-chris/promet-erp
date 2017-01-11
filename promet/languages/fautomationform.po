@@ -29,6 +29,10 @@ msgstr ""
 msgid "Achtung Teile des Auftrages sind in nicht freigegebenem Zustand !"
 msgstr ""
 
+#: fautomationform.strproblemat
+msgid "Störung %s bei %s"
+msgstr ""
+
 #: fautomationform.strproblemsend
 msgid "Die Störung wurde Eingetragen !"
 msgstr ""
