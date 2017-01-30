@@ -78,6 +78,7 @@ begin
   OnDelete:=@ServerFunctions.ServerDelete;
   OnMove:=@ServerFunctions.ServerMove;
   OnPutFile:=@ServerFunctions.ServerPutFile;
+  OnPostFile:=@ServerFunctions.ServerPutFile;
   OnGetFile:=@ServerFunctions.ServerGetFile;
   OnReadAllowed:=@ServerFunctions.ServerReadAllowed;
   OnWriteAllowed:=@ServerFunctions.ServerReadAllowed;

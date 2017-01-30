@@ -480,6 +480,7 @@ var
 begin
   TDAVSession(FSocket).CheckAuth;
   TDAVSession(FSocket).Status := 500;
+  TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
   TWebDAVMaster(TDAVSession(FSocket).Creator).Lock;
   if BaseApplication.HasOption('debug') then
     writeln('<'+MemoryStreamToString(TDAVSession(FSocket).InputData));
