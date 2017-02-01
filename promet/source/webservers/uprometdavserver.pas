@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils, udavserver, uDocuments, uBaseDbClasses, uCalendar,
   utask,Utils,variants,uBaseDatasetInterfaces, db,synautil,uPerson,
-  DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface,fpjson,jsonparser;
+  DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface,fpjson,jsonparser,utimes;
 
 type
   { TPrometServerFunctions }
@@ -805,8 +805,10 @@ var
   aClass: TBaseDBDatasetClass;
   aDataSet: TBaseDBDataset;
   aSS: TStringStream;
-  tmp, aParams: String;
+  tmp: String;
   i: Integer;
+  aParams: String;
+  aParamDec: TStringList;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -923,6 +925,27 @@ begin
               sl := TStringList.Create;
               sl.Add('[');
               aDataSet := aClass.Create(nil);
+              aParamDec := TStringList.Create;
+              aParamDec.Delimiter:='&';
+              tmp := copy(aSocket.URI,pos('?',aSocket.URI)+1,length(aSocket.URI))+'&';
+              while pos('&',tmp)>0 do
+                begin
+                  aParamDec.Add(copy(tmp,0,pos('&',tmp)-1));
+                  tmp := copy(tmp,pos('&',tmp)+1,length(tmp));
+                end;
+              if aParamDec.Values['filter']<>'' then
+                aDataSet.ActualFilter:=aParamDec.Values['filter'];
+              if aDataSet is TTimes then
+                begin
+                  if aDataSet.ActualFilter <> '' then
+                    aDataSet.ActualFilter:=aDataSet.ActualFilter+' AND '+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)
+                  else
+                    aDataSet.ActualFilter:=Data.QuoteField('REF_ID')+'='+Data.QuoteField(Data.Users.Id.AsString);
+                end;
+              if aParamDec.Values['limit']<>'' then
+                aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(aParamDec.Values['limit']),500);
+              writeln(aParamDec.Text);
+              aParamDec.Free;
               aDataSet.Open;
               while not aDataSet.EOF do
                 begin
