@@ -34,6 +34,7 @@ webdavtest-linux:
     - promet/source/testcases/build_webdav.sh
   only:
     - master
+  allow_failure: true      
   tags:
     - docker-lazarus-x64
 #mysql-test:
