@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils, udavserver, uDocuments, uBaseDbClasses, uCalendar,
   utask,Utils,variants,uBaseDatasetInterfaces, db,synautil,uPerson,
-  DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface;
+  DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface,fpjson,jsonparser,utimes;
 
 type
   { TPrometServerFunctions }
@@ -805,8 +805,10 @@ var
   aClass: TBaseDBDatasetClass;
   aDataSet: TBaseDBDataset;
   aSS: TStringStream;
-  tmp, aParams: String;
+  tmp: String;
   i: Integer;
+  aParams: String;
+  aParamDec: TStringList;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -921,18 +923,39 @@ begin
             begin
               MimeType:='application/json';
               sl := TStringList.Create;
-              sl.Add('Data:[');
+              sl.Add('[');
               aDataSet := aClass.Create(nil);
+              aParamDec := TStringList.Create;
+              aParamDec.Delimiter:='&';
+              tmp := copy(aSocket.URI,pos('?',aSocket.URI)+1,length(aSocket.URI))+'&';
+              while pos('&',tmp)>0 do
+                begin
+                  aParamDec.Add(copy(tmp,0,pos('&',tmp)-1));
+                  tmp := copy(tmp,pos('&',tmp)+1,length(tmp));
+                end;
+              if aParamDec.Values['filter']<>'' then
+                aDataSet.ActualFilter:=aParamDec.Values['filter'];
+              if aDataSet is TTimes then
+                begin
+                  if aDataSet.ActualFilter <> '' then
+                    aDataSet.ActualFilter:=aDataSet.ActualFilter+' AND '+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)
+                  else
+                    aDataSet.ActualFilter:=Data.QuoteField('REF_ID')+'='+Data.QuoteField(Data.Users.Id.AsString);
+                end;
+              if aParamDec.Values['limit']<>'' then
+                aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(aParamDec.Values['limit']),500);
+              writeln(aParamDec.Text);
+              aParamDec.Free;
               aDataSet.Open;
               while not aDataSet.EOF do
                 begin
                   if sl.Count>1 then
                     sl[sl.Count-1] := sl[sl.Count-1]+',';
-                  tmp := '{ id:"'+aDataSet.Id.AsString+'"';
+                  tmp := '{ "id":"'+aDataSet.Id.AsString+'"';
                   for i := 1 to aDataSet.DataSet.Fields.Count-1 do
                     begin
                       if i<aDataSet.DataSet.Fields.Count then tmp += ',';
-                      tmp += aDataSet.DataSet.Fields[i].FieldName+':"'+aDataSet.DataSet.Fields[i].AsString+'"';
+                      tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'":"'+StringToJSONString(aDataSet.DataSet.Fields[i].AsString)+'"';
                     end;
                   tmp+=' }';
                   sl.Add(tmp);
@@ -1112,6 +1135,13 @@ var
   aLevel: Integer;
   aRemovedDir, aParams: string;
   aClass: TBaseDBDatasetClass;
+  Mimetype: String;
+  aJParser: TJSONParser;
+  aData: TJSONData;
+  aDataSet: TBaseDBDataset;
+  aField: TJSONStringType;
+  a: Integer;
+  NotFound: Boolean;
 begin
   FStatus:=500;
   Result := False;
@@ -1238,7 +1268,62 @@ begin
     end
   else if FindVirtualDocumentPath(aSocket,aRemovedDir,aDir,aID,aType,aLevel,aClass) then
     begin
-      if aLevel=6 then
+      Mimetype := '';
+      if aLevel=1 then //direkt auf Dataset ebene
+        begin
+          if aDir = 'list.json' then
+            begin
+              MimeType:='application/json';
+              aJParser := TJSONParser.Create(Stream);
+              aData := aJParser.Parse;
+              if (aData is TJSONArray) and Assigned(TJSONArray(aData)[0]) and Assigned(TJSONArray(aData)[0].FindPath('id')) then
+                begin
+                  aDataSet := aClass.Create(nil);
+                  aDataSet.Select(TJSONArray(aData)[0].FindPath('id').AsInt64);
+                  aDataSet.Open;
+                  if aDataSet.Count = 0 then
+                    aDataSet.Append
+                  else aDataSet.Edit;
+                  NotFound := False;
+                  for a := 0 to TJSONArray(aData)[0].Count-1 do
+                    begin
+                      if TJSONArray(aData)[0] is TJSONObject then
+                        aField := TJSONObject(TJSONArray(aData)[0]).Names[a];
+                      if Assigned(aDataSet.FieldByName(aField)) then
+                        begin
+                          if ((TJSONArray(aData)[0].Items[a].Value = '0')
+                          or  (TJSONArray(aData)[0].Items[a].Value = '1'))
+                          and (aDataSet.FieldByName(aField).Size=1) then
+                            begin
+                              if TJSONArray(aData)[0].Items[a].Value = '1' then
+                                aDataSet.FieldByName(aField).AsString:='Y'
+                              else
+                                aDataSet.FieldByName(aField).AsString:='N';
+                            end
+                          else
+                            aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value
+
+                        end
+                      else if aField = 'id' then
+                        begin
+                        if aDataSet.Id.AsVariant<>TJSONArray(aData)[0].Items[a].Value then
+                          aDataSet.Id.AsVariant:=TJSONArray(aData)[0].Items[a].Value;
+                        end
+                      else NotFound := True;
+                    end;
+                  if aDataSet.Changed and (not NotFound) then
+                    begin
+                      aDataSet.Post;
+                      FStatus:=200;
+                    end
+                  else aDataSet.Cancel;
+                  aDataSet.Free;
+                end;
+              aJParser.Free;
+              Result:=True;
+            end;
+        end
+      else if aLevel=6 then
         begin
           aDocuments := TDocuments.Create(nil);
           aDocuments.Select(aID,aType,0);
