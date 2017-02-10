@@ -1276,6 +1276,7 @@ begin
               MimeType:='application/json';
               aJParser := TJSONParser.Create(Stream);
               aData := aJParser.Parse;
+              {$IF FPC_FULLVERSION>20600}
               if (aData is TJSONArray) and Assigned(TJSONArray(aData)[0]) and Assigned(TJSONArray(aData)[0].FindPath('id')) then
                 begin
                   aDataSet := aClass.Create(nil);
@@ -1319,6 +1320,7 @@ begin
                   else aDataSet.Cancel;
                   aDataSet.Free;
                 end;
+              {$ENDIF}
               aJParser.Free;
               Result:=True;
             end;
