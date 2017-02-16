@@ -64,11 +64,13 @@ end;
 procedure PrometCmdApp.aScriptWrite(const s: string);
 begin
   write(s);
+  flush(output);
 end;
 
 procedure PrometCmdApp.aScriptWriteln(const s: string);
 begin
   writeln(s);
+  flush(output);
 end;
 
 procedure PrometCmdApp.bScriptRunLine(Sender: TScript; Module: string;
