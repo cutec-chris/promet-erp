@@ -64,13 +64,13 @@ end;
 procedure PrometCmdApp.aScriptWrite(const s: string);
 begin
   write(s);
-  flush(output);
 end;
 
 procedure PrometCmdApp.aScriptWriteln(const s: string);
 begin
+  with BaseApplication as IBaseApplication do
+    Log(ParamStr(ParamCount)+'/INFO',s);
   writeln(s);
-  flush(output);
 end;
 
 procedure PrometCmdApp.bScriptRunLine(Sender: TScript; Module: string;
