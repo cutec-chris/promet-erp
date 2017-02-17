@@ -76,7 +76,7 @@ end;
 procedure PrometCmdApp.bScriptRunLine(Sender: TScript; Module: string;
   Position, Row, Col: Integer);
 begin
-  CheckSynchronize(10);
+  //CheckSynchronize(1);
 end;
 
 procedure PrometCmdApp.DoRun;
