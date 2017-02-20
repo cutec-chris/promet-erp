@@ -156,6 +156,7 @@ begin
                     begin
                       aStream := SourceDM.BlobFieldStream(aSource,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                       DestDM.StreamToBlobField(aStream,aDest,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                      aStream.Free;
                     end
                   else if (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant) then
                     begin

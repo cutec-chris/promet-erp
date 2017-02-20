@@ -316,6 +316,7 @@ begin
                             end
                           else
                             begin
+                              {
                               if DoArchive then
                                 begin
                                   if pop.Retr(MID) then //Naricht holen
@@ -327,7 +328,7 @@ begin
                                         end;
                                     end;
                                 end
-                              else if DoDelete then
+                              else }if DoDelete then
                                 pop.Dele(MID);
                             end;
                           msg.Free;

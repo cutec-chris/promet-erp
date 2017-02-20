@@ -11,9 +11,6 @@
       <SessionStorage Value="InIDEConfig"/>
       <MainUnit Value="0"/>
     </General>
-    <VersionInfo>
-      <StringTable ProductVersion=""/>
-    </VersionInfo>
     <MacroValues Count="1">
       <Macro1 Name="LCLWidgetType" Value="nogui"/>
     </MacroValues>
