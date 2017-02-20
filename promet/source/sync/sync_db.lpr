@@ -76,6 +76,7 @@ var
   DoPost: Boolean = False;
   aSyncError: TSyncItems;
   tmp: String;
+  aStream: TStream;
 begin
   try
   Result := True;
@@ -150,6 +151,11 @@ begin
                     begin
                       aDest.FieldByName(aFieldName).AsString := aSource.FieldByName(aFieldName).AsString;
                       DoPost := True;
+                    end
+                  else if (aDest.FieldByName(aFieldName).IsBlob) then
+                    begin
+                      aStream := SourceDM.BlobFieldStream(aSource,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                      DestDM.StreamToBlobField(aStream,aDest,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                     end
                   else if (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant) then
                     begin
