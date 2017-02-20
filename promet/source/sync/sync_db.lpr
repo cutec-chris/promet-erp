@@ -675,9 +675,11 @@ begin
                                         SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                       end;
                                     SyncedTables := (SyncDB.Tables.Count*4);
-                                    SyncCount := 0;
-                                    while (SyncedTables>(SyncDB.Tables.Count*2)) and (SyncCount<3) do
+                                    SyncCount := 1;
+                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
+                                    while (SyncCount>aSyncCount) do
                                       begin
+                                        SyncCount := 0;
                                         SyncedTables:=0;
                                         SyncDB.Tables.DataSet.First;
                                         while not SyncDB.Tables.DataSet.EOF do
@@ -687,8 +689,6 @@ begin
                                                 FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                                                 try
                                                   FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
-                                                  aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
-
                                                   FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
                                                   inc(SyncedTables,FSyncedCount);
                                                 except

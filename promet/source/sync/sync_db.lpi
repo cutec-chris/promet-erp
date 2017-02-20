@@ -40,14 +40,15 @@
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="664"/>
-        <CursorPos Y="692"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="667"/>
+        <CursorPos X="51" Y="683"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="705"/>
         <CursorPos X="37" Y="745"/>
         <UsageCount Value="23"/>
@@ -64,7 +65,7 @@
       <Unit3>
         <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="1288"/>
         <CursorPos X="5" Y="1315"/>
         <UsageCount Value="30"/>
@@ -95,12 +96,10 @@
       </Unit6>
       <Unit7>
         <Filename Value="..\components\zeos\src\plain\ZPlainPostgreSqlDriver.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1138"/>
-        <CursorPos Y="1170"/>
+        <CursorPos X="23" Y="1161"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit7>
       <Unit8>
@@ -164,7 +163,7 @@
       </Unit15>
       <Unit16>
         <Filename Value="..\base\dbintfs\uprometscripts.pas"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="641"/>
         <CursorPos X="45" Y="680"/>
         <UsageCount Value="23"/>
@@ -216,7 +215,7 @@
       <Unit22>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="1534"/>
         <CursorPos X="33" Y="1575"/>
         <UsageCount Value="17"/>
