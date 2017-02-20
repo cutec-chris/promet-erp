@@ -154,9 +154,12 @@ begin
                     end
                   else if (aDest.FieldByName(aFieldName).IsBlob) then
                     begin
-                      aStream := SourceDM.BlobFieldStream(aSource,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
-                      DestDM.StreamToBlobField(aStream,aDest,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
-                      aStream.Free;
+                      if (not aDest.FieldByName(aFieldName).IsNull) then
+                        begin
+                          aStream := SourceDM.BlobFieldStream(aSource,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                          DestDM.StreamToBlobField(aStream,aDest,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                          aStream.Free;
+                        end;
                     end
                   else if (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant) then
                     begin
@@ -568,7 +571,7 @@ var
   SyncedTables: Integer;
   FSyncedCount: Integer;
   FOldTime: String;
-  SyncCount: Integer;
+  SyncCount, aSyncCount: Integer;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
@@ -684,7 +687,9 @@ begin
                                                 FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                                                 try
                                                   FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
-                                                  FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB);
+                                                  aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
+
+                                                  FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
                                                   inc(SyncedTables,FSyncedCount);
                                                 except
                                                   on e : Exception do
