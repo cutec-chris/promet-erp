@@ -40,9 +40,7 @@
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="140"/>
-        <CursorPos X="65" Y="155"/>
+        <CursorPos X="20" Y="153"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -66,9 +64,10 @@
       <Unit3>
         <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="1887"/>
-        <CursorPos X="89" Y="1909"/>
+        <TopLine Value="1899"/>
+        <CursorPos X="65" Y="1921"/>
         <UsageCount Value="30"/>
         <Loaded Value="True"/>
       </Unit3>
