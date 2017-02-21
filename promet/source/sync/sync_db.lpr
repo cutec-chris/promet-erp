@@ -675,11 +675,12 @@ begin
                                         SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                       end;
                                     SyncedTables := (SyncDB.Tables.Count*4);
-                                    SyncCount := 1;
-                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
-                                    while (SyncCount>aSyncCount) do
+                                    SyncCount := 0;
+                                    aSyncCount := 0;
+                                    while ((SyncedTables>=aSyncCount) and (SyncedTables>0)) do
                                       begin
                                         SyncCount := 0;
+                                        aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
                                         SyncedTables:=0;
                                         SyncDB.Tables.DataSet.First;
                                         while not SyncDB.Tables.DataSet.EOF do
