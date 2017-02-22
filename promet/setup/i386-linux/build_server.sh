@@ -80,6 +80,18 @@ mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 mkdir -p $BuildDir/etc/init.d/
 
+mkdir -p $BuildDir/usr/lib/$Program/web
+wget https://github.com/cutec-chris/promet-app-config-dx/archive/master.zip /tmp/master.zip
+unzip -u -d $BuildDir/usr/lib/$Program/web /tmp/master.zip
+wget https://github.com/cutec-chris/promet-app-tasks-dx/archive/master.zip /tmp/master.zip
+unzip -u -d $BuildDir/usr/lib/$Program/web /tmp/master.zip
+wget https://github.com/cutec-chris/promet-app-times-dx/archive/master.zip /tmp/master.zip
+unzip -u -d $BuildDir/usr/lib/$Program/web /tmp/master.zip
+
+rm $BuildDir/usr/lib/$Program/web/*.md
+rm $BuildDir/usr/lib/$Program/web/LISCENSE
+rm $BuildDir/usr/lib/$Program/web/.gitmodules
+
 ln -s /usr/lib/$Program/tools/imapserver $BuildDir/usr/bin/promet-erp-imap
 ln -s /usr/lib/$Program/tools/davserver $BuildDir/usr/bin/promet-erp-dav
 ln -s /usr/lib/$Program/tools/webserver $BuildDir/usr/bin/promet-erp-appbase
