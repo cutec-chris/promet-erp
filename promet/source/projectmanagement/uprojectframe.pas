@@ -1304,16 +1304,19 @@ begin
     end;
 
   pcPages.AddTabClass(TfTaskFrame,strTasks,@AddTasks);
-  Inserted := DataSet.State=dsInsert;
-  TProject(DataSet).Tasks.Open;
-  if (TProject(DataSet).Tasks.Count > 0) or Inserted then
+  if not Assigned(pcPages.GetTab(TfTaskFrame)) then
     begin
-      aTasks := TfTaskFrame.Create(Self);
-      pcPages.AddTab(aTasks,True);
-      aTasks.GridView.GotoRowNumber(aTasks.GridView.gList.FixedRows);
+      Inserted := DataSet.State=dsInsert;
+      TProject(DataSet).Tasks.Open;
+      if (TProject(DataSet).Tasks.Count > 0) or Inserted then
+        begin
+          aTasks := TfTaskFrame.Create(Self);
+          pcPages.AddTab(aTasks,True);
+          aTasks.GridView.GotoRowNumber(aTasks.GridView.gList.FixedRows);
+        end;
+      if Inserted or (TProject(DataSet).Tasks.Count = 0) then
+        pcPages.PageIndex:=0;
     end;
-  if Inserted or (TProject(DataSet).Tasks.Count = 0) then
-    pcPages.PageIndex:=0;
   if (DataSet.State<> dsInsert) and (DataSet.Id.AsVariant<>Null) and (not Assigned(pcPages.GetTab(TfWikiFrame))) then
     begin
       aWiki := TWikiList.Create(nil);
