@@ -572,6 +572,7 @@ var
   FSyncedCount: Integer;
   FOldTime: String;
   SyncCount, aSyncCount: Integer;
+  BlockSizeReached: Boolean;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
@@ -679,6 +680,7 @@ begin
                                     aSyncCount := 0;
                                     while ((SyncedTables>=aSyncCount) and (SyncedTables>0)) do
                                       begin
+                                        BlockSizeReached := False;
                                         SyncCount := 0;
                                         aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
                                         SyncedTables:=0;
@@ -691,6 +693,8 @@ begin
                                                 try
                                                   FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                                                   FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
+                                                  if (FSyncedCount=aSyncCount) and (aSyncCount>0) then
+                                                    BlockSizeReached:=True;
                                                   inc(SyncedTables,FSyncedCount);
                                                 except
                                                   on e : Exception do
@@ -699,6 +703,7 @@ begin
                                               end;
                                             SyncDB.Tables.DataSet.Next;
                                           end;
+                                        if not BlockSizeReached then break;
                                         inc(SyncCount);
                                       end;
                                   end;
