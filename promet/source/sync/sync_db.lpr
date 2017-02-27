@@ -154,12 +154,9 @@ begin
                     end
                   else if (aDest.FieldByName(aFieldName).IsBlob) then
                     begin
-                      if (not aDest.FieldByName(aFieldName).IsNull) then
-                        begin
-                          aStream := SourceDM.BlobFieldStream(aSource,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
-                          DestDM.StreamToBlobField(aStream,aDest,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
-                          aStream.Free;
-                        end;
+                      aStream := SourceDM.BlobFieldStream(aSource,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                      DestDM.StreamToBlobField(aStream,aDest,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                      aStream.Free;
                     end
                   else if (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant) then
                     begin

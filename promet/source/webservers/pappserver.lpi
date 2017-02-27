@@ -82,7 +82,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --db=ProdChina"/>
+        <CommandLineParams Value="&quot;--mandant=TCS&quot; &quot;--user=Christian Ulrich&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
