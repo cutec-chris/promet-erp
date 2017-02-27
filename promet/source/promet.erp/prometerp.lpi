@@ -173,6 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="&quot;--config-path=devel&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -671,7 +672,6 @@
       </Item12>
       <Item13>
         <Name Value="ESQLScannerError"/>
-        <Enabled Value="False"/>
       </Item13>
     </Exceptions>
   </Debugging>

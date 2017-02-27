@@ -40,18 +40,18 @@
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="134"/>
-        <CursorPos Y="160"/>
+        <TopLine Value="110"/>
+        <CursorPos X="32" Y="142"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="705"/>
         <CursorPos X="37" Y="745"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -60,7 +60,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="1690"/>
         <CursorPos Y="1712"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -69,7 +69,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="1288"/>
         <CursorPos X="5" Y="1315"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -167,7 +167,7 @@
         <EditorIndex Value="6"/>
         <TopLine Value="641"/>
         <CursorPos X="45" Y="680"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -219,7 +219,7 @@
         <EditorIndex Value="5"/>
         <TopLine Value="1534"/>
         <CursorPos X="33" Y="1575"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit22>
       <Unit23>
@@ -234,7 +234,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="780"/>
         <CursorPos X="49" Y="784"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit24>
