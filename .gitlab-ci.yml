@@ -24,6 +24,7 @@ basetest-linux:
     - promet/source/testcases/build.sh
   only:
     - master
+  allow_failure: true      
   tags:
     - docker-lazarus-x64
 webdavtest-linux:
