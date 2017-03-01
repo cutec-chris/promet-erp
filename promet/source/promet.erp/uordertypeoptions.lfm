@@ -1,18 +1,18 @@
 inherited forderTypeOptions: TforderTypeOptions
   Height = 412
-  Width = 591
+  Width = 619
   ClientHeight = 412
-  ClientWidth = 591
+  ClientWidth = 619
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
-  DesignLeft = 481
-  DesignTop = 211
+  DesignLeft = 449
+  DesignTop = 291
   object gOrderStatus: TDBGrid[0]
     Left = 8
     Height = 356
     Top = 48
-    Width = 209
+    Width = 252
     Align = alClient
     BorderSpacing.Top = 40
     BorderSpacing.Around = 8
@@ -26,11 +26,12 @@ inherited forderTypeOptions: TforderTypeOptions
       end    
       item
         Title.Caption = 'STATUSNAME'
-        Width = 80
+        Width = 160
         FieldName = 'STATUSNAME'
       end    
       item
         Title.Caption = 'ICON'
+        Width = 30
         FieldName = 'ICON'
       end>
     DataSource = OrderTypeDS
@@ -58,18 +59,18 @@ inherited forderTypeOptions: TforderTypeOptions
     VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
   end
   object PageControl1: TPageControl[2]
-    Left = 225
+    Left = 268
     Height = 412
     Top = 0
-    Width = 366
-    ActivePage = tsPost
+    Width = 351
+    ActivePage = tsCommon
     Align = alRight
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 2
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
       ClientHeight = 384
-      ClientWidth = 358
+      ClientWidth = 343
       object lType: TLabel
         Left = 8
         Height = 15
@@ -83,7 +84,7 @@ inherited forderTypeOptions: TforderTypeOptions
         Height = 23
         Hint = 'Der Typ des Auftrages hiermit wird entschieden ob Spezialeigenschaften gebucht werden'
         Top = 24
-        Width = 344
+        Width = 329
         Anchors = [akTop, akLeft, akRight]
         DataField = 'TYPE'
         DataSource = OrderTypeDS
@@ -106,7 +107,7 @@ inherited forderTypeOptions: TforderTypeOptions
       object Label2: TLabel
         Left = 8
         Height = 15
-        Top = 56
+        Top = 200
         Width = 89
         Caption = 'Standard Texttyp'
         ParentColor = False
@@ -115,7 +116,7 @@ inherited forderTypeOptions: TforderTypeOptions
         Left = 8
         Height = 23
         Hint = 'Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird'
-        Top = 72
+        Top = 216
         Width = 126
         ItemHeight = 15
         OnChange = cbTextTypChange
@@ -124,7 +125,7 @@ inherited forderTypeOptions: TforderTypeOptions
       object lDerivates: TLabel
         Left = 8
         Height = 15
-        Top = 104
+        Top = 56
         Width = 61
         Caption = 'Ableitbar in'
         ParentColor = False
@@ -133,7 +134,7 @@ inherited forderTypeOptions: TforderTypeOptions
         Left = 8
         Height = 23
         Hint = 'In welche Vorgangstypen ist der Vorgang wandelbar ?'#13#10'z.b. Angebot->Auftrag->Lieferschein (AU;LI)'
-        Top = 120
+        Top = 72
         Width = 126
         DataField = 'DERIVATIVE'
         DataSource = OrderTypeDS
@@ -144,7 +145,7 @@ inherited forderTypeOptions: TforderTypeOptions
       object lNumberset: TLabel
         Left = 8
         Height = 15
-        Top = 152
+        Top = 104
         Width = 79
         Caption = 'Nummernkreis'
         ParentColor = False
@@ -153,7 +154,7 @@ inherited forderTypeOptions: TforderTypeOptions
         Left = 8
         Height = 23
         Hint = 'In welchen Nummernkreis werden die Nummern gebucht ?'#13#10'(Nummernkreise können Sie Optionen->System anlegen)'
-        Top = 168
+        Top = 120
         Width = 126
         DataField = 'NUMBERSET'
         DataSource = OrderTypeDS
@@ -164,7 +165,7 @@ inherited forderTypeOptions: TforderTypeOptions
       object lDefaultPosTyp: TLabel
         Left = 8
         Height = 15
-        Top = 200
+        Top = 152
         Width = 65
         Caption = 'Positionstyp'
         ParentColor = False
@@ -173,7 +174,7 @@ inherited forderTypeOptions: TforderTypeOptions
         Left = 8
         Height = 23
         Hint = 'Welcher Positionstyp soll Standardmäßig verwendet werden ?'
-        Top = 216
+        Top = 168
         Width = 126
         DataField = 'DEFPOSTYP'
         DataSource = OrderTypeDS
@@ -212,6 +213,7 @@ inherited forderTypeOptions: TforderTypeOptions
       object CheckBox3: TDBCheckBox
         Left = 152
         Height = 19
+        Hint = 'Soll der Auftragsstatus unter "Aufträge" sichtbar sein ?'
         Top = 168
         Width = 118
         AutoSize = True
@@ -225,6 +227,7 @@ inherited forderTypeOptions: TforderTypeOptions
       object CheckBox4: TDBCheckBox
         Left = 152
         Height = 19
+        Hint = 'Soll der Auftragsstatus unter "Produktion" sichtbar sein ?'
         Top = 198
         Width = 137
         AutoSize = True
@@ -238,6 +241,7 @@ inherited forderTypeOptions: TforderTypeOptions
       object CheckBox5: TDBCheckBox
         Left = 152
         Height = 19
+        Hint = 'soll vom Beleg zwingend eine Kopie angelegt werden'#13#10'oder wird der bestehende Beleg gewandelt ?'
         Top = 100
         Width = 95
         AutoSize = True
@@ -252,7 +256,7 @@ inherited forderTypeOptions: TforderTypeOptions
     object tsDetails: TTabSheet
       Caption = 'Details'
       ClientHeight = 384
-      ClientWidth = 358
+      ClientWidth = 303
       object tsDetails1: TTabSheet
         Caption = 'Details'
         ClientHeight = 0
@@ -278,11 +282,36 @@ inherited forderTypeOptions: TforderTypeOptions
         ValueChecked = 'Y'
         ValueUnchecked = 'N'
       end
+      object Label1: TLabel
+        Left = -47
+        Height = 13
+        Top = 56
+        Width = 47
+        Anchors = [akTop, akRight]
+        AutoSize = False
+        Caption = 'Bild'
+        ParentColor = False
+      end
+      object lvImages: TListView
+        Left = 8
+        Height = 304
+        Hint = 'Hier können Sie ein Bild für den Vorgangstypen einstellen welches in den Listen angezeigt werden kann'
+        Top = 72
+        Width = 289
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Columns = <>
+        Font.Height = -1
+        ParentFont = False
+        ReadOnly = True
+        ShowColumnHeaders = False
+        SmallImages = fVisualControls.StatusImages
+        TabOrder = 3
+      end
     end
     object tsPost: TTabSheet
       Caption = 'Buchen'
       ClientHeight = 384
-      ClientWidth = 358
+      ClientWidth = 343
       object rgAddDunning: TDBRadioGroup
         Left = 8
         Height = 40
@@ -475,7 +504,7 @@ inherited forderTypeOptions: TforderTypeOptions
     end
   end
   object OrderTypeDS: TDataSource[3]
-    left = 440
-    top = 96
+    left = 536
+    top = 80
   end
 end

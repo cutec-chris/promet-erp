@@ -22,8 +22,12 @@ Bei Rechnungen z.b. muss das auch zwingend so sein
 Bei einigen Belegen wie z.b. Reparaturbelegen macht es aber Sinn diese später noch bearbeiten zu können
 Dies ist auch mit diesem Flag nur mit Recht "Rechte vergeben" möglich
 TFORDERTYPEOPTIONS.CHECKBOX2.CAPTION=nach buchen änderbar
+TFORDERTYPEOPTIONS.CHECKBOX3.HINT=Soll der Auftragsstatus unter "Aufträge" sichtbar sein ?
 TFORDERTYPEOPTIONS.CHECKBOX3.CAPTION=in Auftrag sichtbar
+TFORDERTYPEOPTIONS.CHECKBOX4.HINT=Soll der Auftragsstatus unter "Produktion" sichtbar sein ?
 TFORDERTYPEOPTIONS.CHECKBOX4.CAPTION=in Produktion sichtbar
+TFORDERTYPEOPTIONS.CHECKBOX5.HINT=soll vom Beleg zwingend eine Kopie angelegt werden
+oder wird der bestehende Beleg gewandelt ?
 TFORDERTYPEOPTIONS.CHECKBOX5.CAPTION=Kopie anlegen
 TFORDERTYPEOPTIONS.TSDETAILS.CAPTION=Details
 TFORDERTYPEOPTIONS.TSDETAILS1.CAPTION=Details
@@ -32,6 +36,8 @@ TFORDERTYPEOPTIONS.TSDETAILS3.CAPTION=Details
 TFORDERTYPEOPTIONS.CHECKBOX1.HINT=Soll schon der Bruttopreis in der Position gerundet werden ?
 (Üblich z.b. auf Kassenbons auf Rechnungen unüblich)
 TFORDERTYPEOPTIONS.CHECKBOX1.CAPTION=Position runden
+TFORDERTYPEOPTIONS.LABEL1.CAPTION=Bild
+TFORDERTYPEOPTIONS.LVIMAGES.HINT=Hier können Sie ein Bild für den Vorgangstypen einstellen welches in den Listen angezeigt werden kann
 TFORDERTYPEOPTIONS.TSPOST.CAPTION=Buchen
 TFORDERTYPEOPTIONS.RGADDDUNNING.CAPTION=Mahnwesen
 TFORDERTYPEOPTIONS.RGADDTOMAINORDER.CAPTION=Lagereintrag im Vorgang

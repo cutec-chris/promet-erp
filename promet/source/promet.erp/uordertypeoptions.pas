@@ -41,11 +41,13 @@ type
     eNumberset: TDBEdit;
     eOrderType: TExtDBCombobox;
     gOrderStatus: TDBGrid;
+    Label1: TLabel;
     Label2: TLabel;
     lDefaultPosTyp: TLabel;
     lDerivates: TLabel;
     lNumberset: TLabel;
     lType: TLabel;
+    lvImages: TListView;
     OrderTypeDS: TDatasource;
     PageControl1: TPageControl;
     rgAddCHist: TDBRadioGroup;

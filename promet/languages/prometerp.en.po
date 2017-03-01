@@ -1,4 +1,4 @@
-msgid "(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)"
+msgid "(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)"
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
@@ -11,6 +11,9 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
 "(Menu)\n"
+
+msgid "(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)"
+msgstr ""
 
 # Christian U. <ulrich@tcs-germany.de>, 2015.
 #: tfaccountingframe.accombineitems.caption
@@ -6033,7 +6036,9 @@ msgid "Soll schon der Bruttopreis in der Position gerundet werden ?"
 msgstr "Should the gross price in position be round?"
 
 #: tfordertypeoptions.checkbox2.caption
-msgid "Vorgang nach buchen änderbar"
+#, fuzzy
+#| msgid "Vorgang nach buchen änderbar"
+msgid "nach buchen änderbar"
 msgstr "Order is changeable after booking"
 
 #: tfordertypeoptions.checkbox2.hint
@@ -6051,14 +6056,6 @@ msgstr "visible in production"
 #: tfordertypeoptions.checkbox5.caption
 msgid "Kopie anlegen"
 msgstr "Create a copy"
-
-#: tfordertypeoptions.dividerbevel1.caption
-msgid "Buchen"
-msgstr "Book"
-
-#: tfordertypeoptions.dividerbevel2.caption
-msgid "Runden"
-msgstr "Round"
 
 #: tfordertypeoptions.edefaultpostyp.hint
 msgid "Welcher Positionstyp soll Standardmäßig verwendet werden ?"
@@ -6166,6 +6163,42 @@ msgstr "book in Storage"
 msgctxt "TFORDERTYPEOPTIONS.RGADDTOMAINORDER.CAPTION"
 msgid "Lagereintrag im Vorgang"
 msgstr "Storageentry in order"
+
+#: tfordertypeoptions.tscommon.caption
+#, fuzzy
+msgctxt "tfordertypeoptions.tscommon.caption"
+msgid "Allgemein"
+msgstr "Common"
+
+#: tfordertypeoptions.tsdetails.caption
+#, fuzzy
+msgctxt "tfordertypeoptions.tsdetails.caption"
+msgid "Details"
+msgstr "Details"
+
+#: tfordertypeoptions.tsdetails1.caption
+#, fuzzy
+msgctxt "tfordertypeoptions.tsdetails1.caption"
+msgid "Details"
+msgstr "Details"
+
+#: tfordertypeoptions.tsdetails2.caption
+#, fuzzy
+msgctxt "tfordertypeoptions.tsdetails2.caption"
+msgid "Details"
+msgstr "Details"
+
+#: tfordertypeoptions.tsdetails3.caption
+#, fuzzy
+msgctxt "tfordertypeoptions.tsdetails3.caption"
+msgid "Details"
+msgstr "Details"
+
+#: tfordertypeoptions.tspost.caption
+#, fuzzy
+msgctxt "tfordertypeoptions.tspost.caption"
+msgid "Buchen"
+msgstr "Book"
 
 #: tform1.bitbtn2.caption
 msgctxt "tform1.bitbtn2.caption"
@@ -7301,6 +7334,7 @@ msgid "aus vorlage erstellen"
 msgstr "create from Template"
 
 #: tfrdocumentmanagement.acdetails.caption
+msgctxt "tfrdocumentmanagement.acdetails.caption"
 msgid "Details"
 msgstr "Details"
 
