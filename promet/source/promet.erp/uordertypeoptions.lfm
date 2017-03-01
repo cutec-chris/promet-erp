@@ -1,53 +1,21 @@
 inherited forderTypeOptions: TforderTypeOptions
-  Height = 428
-  Width = 524
-  ClientHeight = 428
-  ClientWidth = 524
+  Height = 412
+  Width = 591
+  ClientHeight = 412
+  ClientWidth = 591
   ParentShowHint = False
   ShowHint = True
   TabOrder = 0
   DesignLeft = 481
   DesignTop = 211
-  object lType: TLabel[0]
-    Left = 176
-    Height = 15
-    Top = 8
-    Width = 20
-    Caption = 'Typ'
-    ParentColor = False
-  end
-  object lDerivates: TLabel[1]
-    Left = 176
-    Height = 15
-    Top = 52
-    Width = 61
-    Caption = 'Ableitbar in'
-    ParentColor = False
-  end
-  object lNumberset: TLabel[2]
-    Left = 302
-    Height = 15
-    Top = 52
-    Width = 79
-    Anchors = [akTop, akRight]
-    Caption = 'Nummernkreis'
-    ParentColor = False
-  end
-  object lDefaultPosTyp: TLabel[3]
-    Left = 428
-    Height = 15
-    Top = 52
-    Width = 65
-    Anchors = [akTop, akRight]
-    Caption = 'Positionstyp'
-    ParentColor = False
-  end
-  object gOrderStatus: TDBGrid[4]
+  object gOrderStatus: TDBGrid[0]
     Left = 8
-    Height = 370
-    Top = 46
-    Width = 160
-    Anchors = [akTop, akLeft, akBottom]
+    Height = 356
+    Top = 48
+    Width = 209
+    Align = alClient
+    BorderSpacing.Top = 40
+    BorderSpacing.Around = 8
     BorderStyle = bsNone
     Color = clWindow
     Columns = <    
@@ -70,248 +38,7 @@ inherited forderTypeOptions: TforderTypeOptions
     TabOrder = 0
     TitleStyle = tsNative
   end
-  object eDerivates: TDBEdit[5]
-    Left = 176
-    Height = 23
-    Hint = 'In welche Vorgangstypen ist der Vorgang wandelbar ?'#13#10'z.b. Angebot->Auftrag->Lieferschein (AU;LI)'
-    Top = 68
-    Width = 131
-    DataField = 'DERIVATIVE'
-    DataSource = OrderTypeDS
-    Anchors = [akTop, akLeft, akRight]
-    CharCase = ecNormal
-    MaxLength = 0
-    TabOrder = 1
-  end
-  object rgAddStorage: TDBRadioGroup[6]
-    Left = 176
-    Height = 40
-    Top = 273
-    Width = 161
-    Caption = 'im Lager buchen'
-    Columns = 3
-    DataField = 'B_STORAGE'
-    DataSource = OrderTypeDS
-    Items.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-    TabOrder = 2
-    Values.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-  end
-  object rgAddJournal: TDBRadioGroup[7]
-    Left = 344
-    Height = 40
-    Top = 312
-    Width = 168
-    Caption = 'Belegjournal'
-    Columns = 3
-    DataField = 'B_JOURNAL'
-    DataSource = OrderTypeDS
-    Items.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-    TabOrder = 3
-    Values.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-  end
-  object rgAddSerials: TDBRadioGroup[8]
-    Left = 176
-    Height = 40
-    Top = 313
-    Width = 161
-    Caption = 'Serienummern buchen'
-    Columns = 4
-    DataField = 'B_SERIALS'
-    DataSource = OrderTypeDS
-    Items.Strings = (
-      'P'
-      '+'
-      '0'
-      '-'
-    )
-    TabOrder = 4
-    Values.Strings = (
-      'P'
-      '+'
-      '0'
-      '-'
-    )
-  end
-  object rgAddINVR: TDBRadioGroup[9]
-    Left = 296
-    Height = 40
-    Top = 352
-    Width = 112
-    Caption = 'Rechnungseingang'
-    Columns = 3
-    DataField = 'B_INVR'
-    DataSource = OrderTypeDS
-    Items.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-    TabOrder = 5
-    Values.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-  end
-  object rgAddINVO: TDBRadioGroup[10]
-    Left = 176
-    Height = 40
-    Top = 352
-    Width = 112
-    Caption = 'Rechnungsausgang'
-    Columns = 3
-    DataField = 'B_INVO'
-    DataSource = OrderTypeDS
-    Items.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-    TabOrder = 6
-    Values.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-  end
-  object rgAddDunning: TDBRadioGroup[11]
-    Left = 368
-    Height = 40
-    Top = 232
-    Width = 144
-    Caption = 'Mahnwesen'
-    Columns = 3
-    DataField = 'B_DUNNING'
-    DataSource = OrderTypeDS
-    Items.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-    TabOrder = 7
-    Values.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-  end
-  object rgAddCHist: TDBRadioGroup[12]
-    Left = 416
-    Height = 40
-    Top = 352
-    Width = 96
-    Caption = 'Kunden-Verlauf'
-    Columns = 3
-    DataField = 'B_CHIST'
-    DataSource = OrderTypeDS
-    Items.Strings = (
-      '+'
-      '0'
-    )
-    TabOrder = 8
-    Values.Strings = (
-      '+'
-      '0'
-    )
-  end
-  object eNumberset: TDBEdit[13]
-    Left = 314
-    Height = 23
-    Hint = 'In welchen Nummernkreis werden die Nummern gebucht ?'#13#10'(Nummernkreise können Sie Optionen->System anlegen)'
-    Top = 68
-    Width = 99
-    DataField = 'NUMBERSET'
-    DataSource = OrderTypeDS
-    Anchors = [akTop, akRight]
-    CharCase = ecNormal
-    MaxLength = 0
-    TabOrder = 9
-  end
-  object eDefaultPosTyp: TDBEdit[14]
-    Left = 425
-    Height = 23
-    Hint = 'Welcher Positionstyp soll Standardmäßig verwendet werden ?'
-    Top = 68
-    Width = 95
-    DataField = 'DEFPOSTYP'
-    DataSource = OrderTypeDS
-    Anchors = [akTop, akRight]
-    CharCase = ecNormal
-    MaxLength = 0
-    TabOrder = 10
-  end
-  object cbIsDerivate: TDBCheckBox[15]
-    Left = 176
-    Height = 19
-    Hint = 'Ist der Vorgang ein Untervorgang ?'#13#10'(Vorgang wird unter dem abgeleiteten angezeigt z.b. Lieferschein)'
-    Top = 96
-    Width = 145
-    Caption = 'ist Untervorgang'
-    DataField = 'ISDERIVATE'
-    DataSource = OrderTypeDS
-    TabOrder = 11
-    ValueChecked = 'Y'
-    ValueUnchecked = 'N'
-  end
-  object rgAddreserved: TDBRadioGroup[16]
-    Left = 344
-    Height = 40
-    Top = 273
-    Width = 168
-    Caption = 'als reserviert buchen'
-    Columns = 3
-    DataField = 'B_RESERVED'
-    DataSource = OrderTypeDS
-    Items.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-    TabOrder = 12
-    Values.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-  end
-  object rgAddToMainorder: TDBRadioGroup[17]
-    Left = 176
-    Height = 40
-    Top = 232
-    Width = 184
-    Caption = 'Lagereintrag im Vorgang'
-    Columns = 3
-    DataField = 'B_STORDER'
-    DataSource = OrderTypeDS
-    Items.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-    TabOrder = 13
-    Values.Strings = (
-      '+'
-      '0'
-      '-'
-    )
-  end
-  object DBNavigator1: TDBNavigator[18]
+  object DBNavigator1: TDBNavigator[1]
     Left = 8
     Height = 25
     Top = 8
@@ -327,168 +54,427 @@ inherited forderTypeOptions: TforderTypeOptions
     ClientWidth = 158
     DataSource = OrderTypeDS
     Options = []
-    TabOrder = 14
+    TabOrder = 1
     VisibleButtons = [nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
   end
-  object cbTextTyp: TComboBox[19]
-    Left = 393
-    Height = 23
-    Hint = 'Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird'
-    Top = 24
-    Width = 126
-    Anchors = [akTop, akRight]
-    ItemHeight = 15
-    OnChange = cbTextTypChange
-    TabOrder = 15
+  object PageControl1: TPageControl[2]
+    Left = 225
+    Height = 412
+    Top = 0
+    Width = 366
+    ActivePage = tsPost
+    Align = alRight
+    TabIndex = 2
+    TabOrder = 2
+    object tsCommon: TTabSheet
+      Caption = 'Allgemein'
+      ClientHeight = 384
+      ClientWidth = 358
+      object lType: TLabel
+        Left = 8
+        Height = 15
+        Top = 8
+        Width = 20
+        Caption = 'Typ'
+        ParentColor = False
+      end
+      object eOrderType: TExtDBCombobox
+        Left = 8
+        Height = 23
+        Hint = 'Der Typ des Auftrages hiermit wird entschieden ob Spezialeigenschaften gebucht werden'
+        Top = 24
+        Width = 344
+        Anchors = [akTop, akLeft, akRight]
+        DataField = 'TYPE'
+        DataSource = OrderTypeDS
+        ItemHeight = 15
+        Items.Strings = (
+          '0 Offer'
+          '1 Order'
+          '2 Bill of delivery'
+          '3 Invoice'
+          '4 Monition'
+          '5 Storno'
+          '6 Bon'
+          '7 Production order'
+          '8 Order to supplier'
+        )
+        MaxLength = 0
+        Sorted = True
+        TabOrder = 0
+      end
+      object Label2: TLabel
+        Left = 8
+        Height = 15
+        Top = 56
+        Width = 89
+        Caption = 'Standard Texttyp'
+        ParentColor = False
+      end
+      object cbTextTyp: TComboBox
+        Left = 8
+        Height = 23
+        Hint = 'Der Text der aus dem Artikel Standardmäßig in den Vorgang übernommen wird'
+        Top = 72
+        Width = 126
+        ItemHeight = 15
+        OnChange = cbTextTypChange
+        TabOrder = 1
+      end
+      object lDerivates: TLabel
+        Left = 8
+        Height = 15
+        Top = 104
+        Width = 61
+        Caption = 'Ableitbar in'
+        ParentColor = False
+      end
+      object eDerivates: TDBEdit
+        Left = 8
+        Height = 23
+        Hint = 'In welche Vorgangstypen ist der Vorgang wandelbar ?'#13#10'z.b. Angebot->Auftrag->Lieferschein (AU;LI)'
+        Top = 120
+        Width = 126
+        DataField = 'DERIVATIVE'
+        DataSource = OrderTypeDS
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 2
+      end
+      object lNumberset: TLabel
+        Left = 8
+        Height = 15
+        Top = 152
+        Width = 79
+        Caption = 'Nummernkreis'
+        ParentColor = False
+      end
+      object eNumberset: TDBEdit
+        Left = 8
+        Height = 23
+        Hint = 'In welchen Nummernkreis werden die Nummern gebucht ?'#13#10'(Nummernkreise können Sie Optionen->System anlegen)'
+        Top = 168
+        Width = 126
+        DataField = 'NUMBERSET'
+        DataSource = OrderTypeDS
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 3
+      end
+      object lDefaultPosTyp: TLabel
+        Left = 8
+        Height = 15
+        Top = 200
+        Width = 65
+        Caption = 'Positionstyp'
+        ParentColor = False
+      end
+      object eDefaultPosTyp: TDBEdit
+        Left = 8
+        Height = 23
+        Hint = 'Welcher Positionstyp soll Standardmäßig verwendet werden ?'
+        Top = 216
+        Width = 126
+        DataField = 'DEFPOSTYP'
+        DataSource = OrderTypeDS
+        CharCase = ecNormal
+        MaxLength = 0
+        TabOrder = 4
+      end
+      object cbIsDerivate: TDBCheckBox
+        Left = 152
+        Height = 19
+        Hint = 'Ist der Vorgang ein Untervorgang ?'#13#10'(Vorgang wird unter dem abgeleiteten angezeigt z.b. Lieferschein)'
+        Top = 72
+        Width = 108
+        AutoSize = True
+        Caption = 'ist Untervorgang'
+        DataField = 'ISDERIVATE'
+        DataSource = OrderTypeDS
+        TabOrder = 5
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+      end
+      object CheckBox2: TDBCheckBox
+        Left = 152
+        Height = 19
+        Hint = 'Standardmäßig sind Vorgänge nach dme Buchen nicht mehr bearbeitbar'#13#10'Bei Rechnungen z.b. muss das auch zwingend so sein'#13#10'Bei einigen Belegen wie z.b. Reparaturbelegen macht es aber Sinn diese später noch bearbeiten zu können'#13#10'Dies ist auch mit diesem Flag nur mit Recht "Rechte vergeben" möglich'
+        Top = 128
+        Width = 139
+        AutoSize = True
+        Caption = 'nach buchen änderbar'
+        DataField = 'CHANGEABLE'
+        DataSource = OrderTypeDS
+        TabOrder = 6
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+      end
+      object CheckBox3: TDBCheckBox
+        Left = 152
+        Height = 19
+        Top = 168
+        Width = 118
+        AutoSize = True
+        Caption = 'in Auftrag sichtbar'
+        DataField = 'SI_ORDER'
+        DataSource = OrderTypeDS
+        TabOrder = 7
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+      end
+      object CheckBox4: TDBCheckBox
+        Left = 152
+        Height = 19
+        Top = 198
+        Width = 137
+        AutoSize = True
+        Caption = 'in Produktion sichtbar'
+        DataField = 'SI_PROD'
+        DataSource = OrderTypeDS
+        TabOrder = 8
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+      end
+      object CheckBox5: TDBCheckBox
+        Left = 152
+        Height = 19
+        Top = 100
+        Width = 95
+        AutoSize = True
+        Caption = 'Kopie anlegen'
+        DataField = 'DOCOPY'
+        DataSource = OrderTypeDS
+        TabOrder = 9
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+      end
+    end
+    object tsDetails: TTabSheet
+      Caption = 'Details'
+      ClientHeight = 384
+      ClientWidth = 358
+      object tsDetails1: TTabSheet
+        Caption = 'Details'
+        ClientHeight = 0
+        ClientWidth = 0
+        object tsDetails2: TTabSheet
+          Caption = 'Details'
+        end
+      end
+      object tsDetails3: TTabSheet
+        Caption = 'Details'
+      end
+      object CheckBox1: TDBCheckBox
+        Left = 8
+        Height = 19
+        Hint = 'Soll schon der Bruttopreis in der Position gerundet werden ?'#13#10'(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)'
+        Top = 16
+        Width = 104
+        AutoSize = True
+        Caption = 'Position runden'
+        DataField = 'ROUNDPOS'
+        DataSource = OrderTypeDS
+        TabOrder = 2
+        ValueChecked = 'Y'
+        ValueUnchecked = 'N'
+      end
+    end
+    object tsPost: TTabSheet
+      Caption = 'Buchen'
+      ClientHeight = 384
+      ClientWidth = 358
+      object rgAddDunning: TDBRadioGroup
+        Left = 8
+        Height = 40
+        Top = 160
+        Width = 144
+        Caption = 'Mahnwesen'
+        Columns = 3
+        DataField = 'B_DUNNING'
+        DataSource = OrderTypeDS
+        Items.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+        TabOrder = 0
+        Values.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+      end
+      object rgAddToMainorder: TDBRadioGroup
+        Left = 8
+        Height = 40
+        Top = 56
+        Width = 184
+        Caption = 'Lagereintrag im Vorgang'
+        Columns = 3
+        DataField = 'B_STORDER'
+        DataSource = OrderTypeDS
+        Items.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+        TabOrder = 1
+        Values.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+      end
+      object rgAddStorage: TDBRadioGroup
+        Left = 8
+        Height = 40
+        Top = 8
+        Width = 161
+        Caption = 'im Lager buchen'
+        Columns = 3
+        DataField = 'B_STORAGE'
+        DataSource = OrderTypeDS
+        Items.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+        TabOrder = 2
+        Values.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+      end
+      object rgAddSerials: TDBRadioGroup
+        Left = 176
+        Height = 40
+        Top = 160
+        Width = 161
+        Caption = 'Serienummern buchen'
+        Columns = 4
+        DataField = 'B_SERIALS'
+        DataSource = OrderTypeDS
+        Items.Strings = (
+          'P'
+          '+'
+          '0'
+          '-'
+        )
+        TabOrder = 3
+        Values.Strings = (
+          'P'
+          '+'
+          '0'
+          '-'
+        )
+      end
+      object rgAddJournal: TDBRadioGroup
+        Left = 8
+        Height = 40
+        Top = 256
+        Width = 168
+        Caption = 'Belegjournal'
+        Columns = 3
+        DataField = 'B_JOURNAL'
+        DataSource = OrderTypeDS
+        Items.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+        TabOrder = 4
+        Values.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+      end
+      object rgAddINVR: TDBRadioGroup
+        Left = 225
+        Height = 40
+        Top = 208
+        Width = 112
+        Caption = 'Rechnungseingang'
+        Columns = 3
+        DataField = 'B_INVR'
+        DataSource = OrderTypeDS
+        Items.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+        TabOrder = 5
+        Values.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+      end
+      object rgAddINVO: TDBRadioGroup
+        Left = 8
+        Height = 40
+        Top = 208
+        Width = 112
+        Caption = 'Rechnungsausgang'
+        Columns = 3
+        DataField = 'B_INVO'
+        DataSource = OrderTypeDS
+        Items.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+        TabOrder = 6
+        Values.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+      end
+      object rgAddCHist: TDBRadioGroup
+        Left = 241
+        Height = 40
+        Top = 256
+        Width = 96
+        Caption = 'Kunden-Verlauf'
+        Columns = 3
+        DataField = 'B_CHIST'
+        DataSource = OrderTypeDS
+        Items.Strings = (
+          '+'
+          '0'
+        )
+        TabOrder = 7
+        Values.Strings = (
+          '+'
+          '0'
+        )
+      end
+      object rgAddreserved: TDBRadioGroup
+        Left = 8
+        Height = 40
+        Top = 104
+        Width = 168
+        Caption = 'als reserviert buchen'
+        Columns = 3
+        DataField = 'B_RESERVED'
+        DataSource = OrderTypeDS
+        Items.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+        TabOrder = 8
+        Values.Strings = (
+          '+'
+          '0'
+          '-'
+        )
+      end
+    end
   end
-  object lvImages: TListView[20]
-    Left = 425
-    Height = 96
-    Hint = 'Hier können Sie ein Bild für den Vorgangstypen einstellen welches in den Listen angezeigt werden kann'
-    Top = 112
-    Width = 94
-    Anchors = [akTop, akRight]
-    Columns = <>
-    Font.Height = -1
-    ParentFont = False
-    ReadOnly = True
-    ShowColumnHeaders = False
-    SmallImages = fVisualControls.StatusImages
-    TabOrder = 16
-    ViewStyle = vsSmallIcon
-    OnSelectItem = lvImagesSelectItem
-  end
-  object Label1: TLabel[21]
-    Left = 425
-    Height = 13
-    Top = 96
-    Width = 47
-    Anchors = [akTop, akRight]
-    AutoSize = False
-    Caption = 'Bild'
-    ParentColor = False
-  end
-  object Label2: TLabel[22]
-    Left = 400
-    Height = 15
-    Top = 8
-    Width = 89
-    Anchors = [akTop, akRight]
-    Caption = 'Standard Texttyp'
-    ParentColor = False
-  end
-  object DividerBevel1: TDividerBevel[23]
-    Left = 176
-    Height = 15
-    Top = 216
-    Width = 334
-    Caption = 'Buchen'
-    Anchors = [akTop, akLeft, akRight]
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
-  object DividerBevel2: TDividerBevel[24]
-    Left = 176
-    Height = 15
-    Top = 181
-    Width = 240
-    Caption = 'Runden'
-    Anchors = [akTop, akLeft, akRight]
-    BiDiMode = bdRightToLeft
-    Font.Style = [fsBold]
-    ParentBiDiMode = False
-    ParentFont = False
-  end
-  object CheckBox1: TDBCheckBox[25]
-    Left = 176
-    Height = 19
-    Hint = 'Soll schon der Bruttopreis in der Position gerundet werden ?'#13#10'(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)'
-    Top = 197
-    Width = 104
-    AutoSize = True
-    Caption = 'Position runden'
-    DataField = 'ROUNDPOS'
-    DataSource = OrderTypeDS
-    TabOrder = 17
-    ValueChecked = 'Y'
-    ValueUnchecked = 'N'
-  end
-  object CheckBox2: TDBCheckBox[26]
-    Left = 176
-    Height = 17
-    Hint = 'Standardmäßig sind Vorgänge nach dme Buchen nicht mehr bearbeitbar'#13#10'Bei Rechnungen z.b. muss das auch zwingend so sein'#13#10'Bei einigen Belegen wie z.b. Reparaturbelegen macht es aber Sinn diese später noch bearbeiten zu können'#13#10'Dies ist auch mit diesem Flag nur mit Recht "Rechte vergeben" möglich'
-    Top = 116
-    Width = 169
-    Caption = 'Vorgang nach buchen änderbar'
-    DataField = 'CHANGEABLE'
-    DataSource = OrderTypeDS
-    TabOrder = 18
-    ValueChecked = 'Y'
-    ValueUnchecked = 'N'
-  end
-  object CheckBox3: TDBCheckBox[27]
-    Left = 176
-    Height = 17
-    Top = 144
-    Width = 169
-    Caption = 'in Auftrag sichtbar'
-    DataField = 'SI_ORDER'
-    DataSource = OrderTypeDS
-    TabOrder = 19
-    ValueChecked = 'Y'
-    ValueUnchecked = 'N'
-  end
-  object CheckBox4: TDBCheckBox[28]
-    Left = 176
-    Height = 17
-    Top = 162
-    Width = 169
-    Caption = 'in Produktion sichtbar'
-    DataField = 'SI_PROD'
-    DataSource = OrderTypeDS
-    TabOrder = 20
-    ValueChecked = 'Y'
-    ValueUnchecked = 'N'
-  end
-  object CheckBox5: TDBCheckBox[29]
-    Left = 314
-    Height = 19
-    Top = 96
-    Width = 95
-    AutoSize = True
-    Caption = 'Kopie anlegen'
-    DataField = 'DOCOPY'
-    DataSource = OrderTypeDS
-    TabOrder = 21
-    ValueChecked = 'Y'
-    ValueUnchecked = 'N'
-  end
-  object eOrderType: TExtDBCombobox[30]
-    Left = 176
-    Height = 23
-    Hint = 'Der Typ des Auftrages hiermit wird entschieden ob Spezialeigenschaften gebucht werden'
-    Top = 24
-    Width = 210
-    Anchors = [akTop, akLeft, akRight]
-    DataField = 'TYPE'
-    DataSource = OrderTypeDS
-    ItemHeight = 15
-    Items.Strings = (
-      '0 Offer'
-      '1 Order'
-      '2 Bill of delivery'
-      '3 Invoice'
-      '4 Monition'
-      '5 Storno'
-      '6 Bon'
-      '7 Production order'
-      '8 Order to supplier'
-    )
-    MaxLength = 0
-    Sorted = True
-    TabOrder = 22
-  end
-  object OrderTypeDS: TDataSource[31]
+  object OrderTypeDS: TDataSource[3]
     left = 440
     top = 96
   end
