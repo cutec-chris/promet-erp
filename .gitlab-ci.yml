@@ -21,7 +21,7 @@ basetest-linux:
   stage: test 
   script:
     - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
-    - build.sh clean 
+    - ./build.sh clean 
     - promet/source/testcases/build.sh
   only:
     - master
