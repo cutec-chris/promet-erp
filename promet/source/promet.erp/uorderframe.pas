@@ -767,6 +767,7 @@ begin
   Orders.DataSet := FDataSet.DataSet;
   if not FDataSet.DataSet.Active then
     FDataSet.Open;
+  TOrder(FDataSet).OpenItem;
   if not TOrder(fDataSet).Address.DataSet.Active then
     TOrder(fDataSet).Address.DataSet.Open;
   OrderAddress.DataSet := TOrder(fDataSet).Address.DataSet;
