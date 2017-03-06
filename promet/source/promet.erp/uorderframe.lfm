@@ -203,8 +203,8 @@ inherited fOrderFrame: TfOrderFrame
         NewTabImageIndex = 59
         object tsCommon: TTabSheet
           Caption = 'Adressen/Texte'
-          ClientHeight = 214
-          ClientWidth = 1320
+          ClientHeight = 107
+          ClientWidth = 660
           ImageIndex = 7
           object pAddress: TPanel
             Left = 0
@@ -246,8 +246,8 @@ inherited fOrderFrame: TfOrderFrame
               end
               object tsHeader1: TTabSheet
                 Caption = 'Kopftext'
-                ClientHeight = 158
-                ClientWidth = 878
+                ClientHeight = 79
+                ClientWidth = 439
                 object mOrderNote4: TDBMemo
                   Left = 0
                   Height = 79

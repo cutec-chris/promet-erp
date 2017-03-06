@@ -822,6 +822,8 @@ begin
     pcHeader.AddTab(TfOrderOverviewFrame.Create(Self),False);
 
   pcHeader.AddTabClass(TfOrderDateFrame,strDates,@AddDates);
+  if Assigned(pcHeader.GetTab(TfOrderDateFrame)) then
+    pcHeader.GetTab(TfOrderDateFrame).Free;
   aFrame := TfOrderDateFrame.Create(Self);
   if TfOrderDateFrame(aFrame).IsNeeded(FDataSet.DataSet) or (DataSet.State=dsInsert) then
     begin
