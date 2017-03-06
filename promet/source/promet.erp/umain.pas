@@ -554,6 +554,7 @@ begin
           TOrderList(DataSet).OrderType.Next;
         end;
       aFilter := copy(aFilter,4,length(aFilter));
+      aFilter := '('+aFilter+') AND ('+Data.QuoteField('ACTIVE')+'<>'+Data.QuoteValue('N')+')';
       BaseFilter:=aFilter;
       acFilter.Execute;
       OnDrawColumnCell:=@fOrderFrame.gListDrawColumnCell;
