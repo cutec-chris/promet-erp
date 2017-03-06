@@ -143,7 +143,7 @@ begin
           and (aDest.FieldDefs.IndexOf(aFieldName) > -1)
           then
             begin
-              if (not aSource.FieldByName(aFieldName).IsNull) then
+              if (not aSource.FieldByName(aFieldName).IsNull) or (aSource.FieldByName(aFieldName).IsBlob) or (aDest.FieldByName(aFieldName).IsBlob) then
                 begin
                   tmp := ConvertEncoding(aSource.FieldByName(aFieldName).AsString,GuessEncoding(aSource.FieldByName(aFieldName).AsString),EncodingUTF8);
                   if (aDest.FieldByName(aFieldName).DataType = ftString)
@@ -152,9 +152,10 @@ begin
                       aDest.FieldByName(aFieldName).AsString := aSource.FieldByName(aFieldName).AsString;
                       DoPost := True;
                     end
-                  else if (aDest.FieldByName(aFieldName).IsBlob) then
+                  else if (aSource.FieldByName(aFieldName).IsBlob) or (aDest.FieldByName(aFieldName).IsBlob) then
                     begin
                       aStream := SourceDM.BlobFieldStream(aSource,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                      aStream.Position:=0;
                       DestDM.StreamToBlobField(aStream,aDest,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                       aStream.Free;
                     end
