@@ -1085,4 +1085,22 @@ inherited fOrderFrame: TfOrderFrame
     left = 752
     top = 352
   end
+  object OrderQMTest: TDataSource[27]
+    left = 600
+    top = 208
+  end
+  object OrderQMTestDetail: TDataSource[28]
+    left = 600
+    top = 256
+  end
+  object POrderQMTest: TfrDBDataSet[29]
+    DataSource = OrderQMTest
+    left = 560
+    top = 208
+  end
+  object POrderQMTestDetail: TfrDBDataSet[30]
+    DataSource = OrderQMTestDetail
+    left = 560
+    top = 256
+  end
 end

@@ -69,6 +69,10 @@ type
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
+    OrderQMTest: TDataSource;
+    OrderQMTestDetail: TDataSource;
+    POrderQMTest: TfrDBDataSet;
+    POrderQMTestDetail: TfrDBDataSet;
     PPaymentTargets: TfrDBDataSet;
     PaymentTargets: TDatasource;
     deDate1: TDBText;
@@ -428,11 +432,14 @@ begin
   TOrder(DataSet).OnGetStorage:=@TOrderGetStorage;
   TOrder(DataSet).OnGetSerial:=@TOrderGetSerial;
   fSelectReport.ReportType := 'OR'+DataSet.FieldByName('STATUS').AsString;
+  frReport.DataType:=dtDataSource;
   fSelectReport.Report := frReport;
   MandantDetails.DataSet := Data.MandantDetails.DataSet;
   Data.MandantDetails.Open;
   OrderRepair.DataSet := TOrder(DataSet).Positions.Repair.DataSet;
   OrderRepairDetail.DataSet := TOrder(DataSet).Positions.Repair.Details.DataSet;
+  OrderQMTest.DataSet := TOrder(DataSet).Positions.QMTest.DataSet;
+  OrderQMTestDetail.DataSet := TOrder(DataSet).Positions.QMTest.Details.DataSet;
   OrderImages.DataSet := TOrder(DataSet).Positions.Images.DataSet;
   TOrder(DataSet).Positions.Images.Open;
   Users.DataSet := Data.Users.DataSet;
