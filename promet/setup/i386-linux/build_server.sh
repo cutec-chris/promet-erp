@@ -80,13 +80,19 @@ mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 mkdir -p $BuildDir/etc/init.d/
 
-mkdir -p $BuildDir/usr/lib/$Program/web
+mkdir -p $BuildDir/usr/lib/$Program/web2
 wget https://github.com/cutec-chris/promet-app-config-dx/archive/master.zip /tmp/master.zip
-unzip -u -d $BuildDir/usr/lib/$Program/web /tmp/master.zip
+unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
+mv -r $BuildDir/usr/lib/$Program/promet-app-config-dx/* $BuildDir/usr/lib/$Program/web2
+rm -r $BuildDir/usr/lib/$Program/promet-app-config-dx
 wget https://github.com/cutec-chris/promet-app-tasks-dx/archive/master.zip /tmp/master.zip
-unzip -u -d $BuildDir/usr/lib/$Program/web /tmp/master.zip
+unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
+mv -r $BuildDir/usr/lib/$Program/promet-app-tasks-dx/* $BuildDir/usr/lib/$Program/web2
+rm -r $BuildDir/usr/lib/$Program/promet-app-tasks-dx
 wget https://github.com/cutec-chris/promet-app-times-dx/archive/master.zip /tmp/master.zip
-unzip -u -d $BuildDir/usr/lib/$Program/web /tmp/master.zip
+unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
+mv -r $BuildDir/usr/lib/$Program/promet-app-times-dx/* $BuildDir/usr/lib/$Program/web2
+rm -r $BuildDir/usr/lib/$Program/promet-app-times-dx
 
 rm $BuildDir/usr/lib/$Program/web/*.md
 rm $BuildDir/usr/lib/$Program/web/LISCENSE
