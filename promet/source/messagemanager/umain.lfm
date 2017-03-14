@@ -1,6 +1,5 @@
 object fMain: TfMain
   OnCreate = DataModuleCreate
-  OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 176
   HorizontalOffset = 595

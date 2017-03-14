@@ -53,7 +53,6 @@ type
     procedure aItemClick(Sender: TObject);
     procedure ApplicationEndSession(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
-    procedure DataModuleDestroy(Sender: TObject);
     procedure IPCTimerTimer(Sender: TObject);
     function OpenLink(aLink: string; Sender: TObject): Boolean;
     procedure ProgTimerTimer(Sender: TObject);
@@ -70,7 +69,6 @@ type
     InformRecTime : TDateTime;
     FHistory : TBaseHistory;
     fTimelineDataSet: TBaseHistory;
-    ProcessManager: TProcess;
     function CommandReceived(Sender : TObject;aCommand : string) : Boolean;
     procedure SetBaseref(AValue: LargeInt);
     procedure SetFilter(AValue: string);
@@ -127,10 +125,6 @@ begin
   if Assigned(fmTimeline) and fmTimeline.Visible then exit;
   with BaseApplication as IBaseApplication do
     Debug('ProgTimer:Enter');
-  if Assigned(ProcessManager) and (not ProcessManager.Active) then
-    FreeAndNil(ProcessManager);
-  if not Assigned(ProcessManager) then
-    ProcessManager := StartProcessManager(FMandant,FUser);
   aTime:=GetTickCount;
   ProgTimer.Enabled:=False;
   if acHistory.Enabled then
@@ -379,7 +373,6 @@ var
         end;
   end;
 begin
-  ProcessManager:=nil;
   TrayIcon.AnimateInterval:=200;
   aRefresh:=0;
   Application.OnEndSession:=@ApplicationEndSession;
@@ -603,13 +596,6 @@ begin
   Data.SetFilter(fTimelineDataSet,trim(fMain.Filter+' '+fMain.Filter2),200);
   ProgTimerTimer(nil);
   SwitchAnimationOff;
-end;
-
-procedure TfMain.DataModuleDestroy(Sender: TObject);
-begin
-  if Assigned(ProcessManager) and (ProcessManager.Active) then
-    ProcessManager.Terminate(1);
-  FreeAndNil(ProcessManager);
 end;
 
 procedure TfMain.acHistoryExecute(Sender: TObject);
