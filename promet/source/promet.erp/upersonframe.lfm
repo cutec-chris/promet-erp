@@ -1,23 +1,23 @@
 inherited fPersonFrame: TfPersonFrame
   Height = 492
-  Width = 627
+  Width = 630
   ClientHeight = 492
-  ClientWidth = 627
+  ClientWidth = 630
   DesignLeft = 497
   DesignTop = 193
   object pComponents: TPanel[0]
     Left = 0
     Height = 90
     Top = 81
-    Width = 627
+    Width = 630
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 90
-    ClientWidth = 627
+    ClientWidth = 630
     TabOrder = 1
     TabStop = True
     object lMatchCode: TLabel
-      Left = 310
+      Left = 313
       Height = 18
       Top = 0
       Width = 128
@@ -27,7 +27,7 @@ inherited fPersonFrame: TfPersonFrame
       ParentColor = False
     end
     object eMatchCode: TExtDBEdit
-      Left = 310
+      Left = 313
       Height = 23
       Hint = 'Hier können Sie einen Suchbegriff angeben, '#13#10'um den Eintrag besser zu finden'
       Top = 20
@@ -41,12 +41,15 @@ inherited fPersonFrame: TfPersonFrame
       TabStop = False
     end
     object cbLanguage: TExtDBCombobox
-      Left = 310
+      AnchorSideTop.Control = eMatchCode
+      AnchorSideTop.Side = asrBottom
+      Left = 313
       Height = 23
       Hint = 'wählen Sie hier die Sprache des Kontaktes'
-      Top = 52
+      Top = 48
       Width = 112
       Anchors = [akTop, akRight]
+      BorderSpacing.Top = 5
       DataField = 'LANGUAGE'
       DataSource = Customers
       ItemHeight = 15
@@ -56,7 +59,7 @@ inherited fPersonFrame: TfPersonFrame
       TabStop = False
     end
     object cbSupplier: TDBCheckBox
-      Left = 445
+      Left = 448
       Height = 19
       Hint = 'setzen Sie dieses Feld wenn der Kontakt ein Lieferant ist'
       Top = 52
@@ -71,7 +74,7 @@ inherited fPersonFrame: TfPersonFrame
       ValueUnchecked = 'C'
     end
     object gbTree: TGroupBox
-      Left = 446
+      Left = 449
       Height = 48
       Top = 0
       Width = 65
@@ -104,12 +107,14 @@ inherited fPersonFrame: TfPersonFrame
       end
     end
     object eName: TDBMemo
+      AnchorSideBottom.Control = cbLanguage
+      AnchorSideBottom.Side = asrBottom
       Left = 64
-      Height = 52
+      Height = 51
       Hint = 'geben Sie hier den namen des Kontaktes an'
       Top = 20
-      Width = 238
-      Anchors = [akTop, akLeft, akRight]
+      Width = 241
+      Anchors = [akTop, akLeft, akRight, akBottom]
       DataField = 'NAME'
       DataSource = Customers
       OnChange = eNameChange
@@ -289,9 +294,11 @@ inherited fPersonFrame: TfPersonFrame
       }
     end
     object lCustomerof: TLabel
+      AnchorSideTop.Control = eName
+      AnchorSideTop.Side = asrBottom
       Left = 4
       Height = 15
-      Top = 72
+      Top = 71
       Width = 130
       Caption = 'Mitglied/Mitarbeiter von'
       ParentColor = False
@@ -300,10 +307,11 @@ inherited fPersonFrame: TfPersonFrame
     object lFirmName: TLabel
       AnchorSideLeft.Control = lCustomerof
       AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = lCustomerof
       Cursor = crHandPoint
       Left = 138
       Height = 15
-      Top = 72
+      Top = 71
       Width = 59
       BorderSpacing.Left = 4
       Caption = 'lFirmName'
@@ -318,7 +326,7 @@ inherited fPersonFrame: TfPersonFrame
     Left = 0
     Height = 321
     Top = 171
-    Width = 627
+    Width = 630
     ActivePage = tsCustomerCont
     Align = alClient
     TabIndex = 0
@@ -327,14 +335,14 @@ inherited fPersonFrame: TfPersonFrame
     object tsCustomerCont: TTabSheet
       Caption = 'Kontaktdaten'
       ClientHeight = 293
-      ClientWidth = 619
+      ClientWidth = 622
       ImageIndex = 51
       OnShow = tsCustomerContShow
       object pCont: TPanel
         Left = 44
         Height = 293
         Top = 0
-        Width = 575
+        Width = 578
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
@@ -413,11 +421,11 @@ inherited fPersonFrame: TfPersonFrame
     Left = 0
     Height = 50
     Top = 31
-    Width = 627
+    Width = 630
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 50
-    ClientWidth = 627
+    ClientWidth = 630
     TabOrder = 3
     object Panel4: TPanel
       Left = 0
@@ -766,7 +774,7 @@ inherited fPersonFrame: TfPersonFrame
       Left = 0
       Height = 2
       Top = 48
-      Width = 627
+      Width = 630
       Align = alBottom
       Shape = bsBottomLine
     end
@@ -774,7 +782,7 @@ inherited fPersonFrame: TfPersonFrame
   object pPreviewImage: TPanel[3]
     AnchorSideTop.Control = lHint
     AnchorSideTop.Side = asrBottom
-    Left = 518
+    Left = 521
     Height = 120
     Top = 31
     Width = 98
@@ -912,7 +920,7 @@ inherited fPersonFrame: TfPersonFrame
     Left = 8
     Height = 15
     Top = 8
-    Width = 611
+    Width = 614
     Align = alTop
     BorderSpacing.Around = 8
     Caption = 'lHint'

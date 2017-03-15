@@ -1,18 +1,17 @@
 inherited fAddressFrame: TfAddressFrame
-  Height = 385
+  Height = 396
   Width = 697
-  ClientHeight = 385
+  ClientHeight = 396
   ClientWidth = 697
   DesignLeft = 392
-  DesignTop = 284
   object pToolbar: TPanel[0]
     Left = 653
-    Height = 385
+    Height = 396
     Top = 0
     Width = 44
     Align = alRight
     BevelOuter = bvNone
-    ClientHeight = 385
+    ClientHeight = 396
     ClientWidth = 44
     TabOrder = 1
     object Panel2: TPanel
@@ -115,42 +114,6 @@ inherited fAddressFrame: TfAddressFrame
         Width = 24
         Action = EditCopy1
         Flat = True
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C57342C1C67545E6C87545FEC775
-          45F3C87545F3C77545F3C77545F3C87546F4C57444E8CA7F53F1FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C77949EDFCF3ECFFFAF1E8FFFAF0
-          E7FFFBF1E9FFFBF2EAFFFBF2EAFFFBF2EBFFFDF4EEFFCA8054F9FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00CF8253FFEFF1E7FFFFE9D9FFFFEA
-          DBFFFFE9D9FFFFE7D7FFFFE5D2FFFFE2CBFFEFF2E8FFCE8156FFFFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00CC8352FBFBF5EEFFFFE9D9FFFFEA
-          DBFFFFE9D9FFFFE7D7FFFFE5D2FFFFE2CBFFFBF6EFFFCC8355FEC7794AB9C879
-          4BCEC87545DDC77545D4C87545D4C77545D4CA8452FFFFF7F1FFFFE9D9FFFFEA
-          DBFFFFE9D9FFFFE7D7FFFFE5D2FFFFE2CBFFFFF7F1FFCB8555FEC87C4ED3FCF3
-          ECDEFAF1E8DEFAF0E7DEFBF1E9DEFBF2EADEE4BA91FFFFF7F0FFFFE7D5FFFDE7
-          D6FFFDE6D4FFFCE4D0FFFBE3CBFFFADCC2FFFEF3E8FFCC8656FECF8253DEEFF1
-          E7DEFFE9D9DEFFEADBDEFFE9D9DEFFE7D7DEE4BB91FFFFF7F2FFFEE7D5FFFEE7
-          D5FFFDE5D1FFFAE0CAFFF9DEC4FFF7D9BCFFFDF2E7FFCC8757FECC8352DBFBF5
-          EEDEFFE9D9DEFFEADBDEFFE9D9DEFFE7D7DEE4BB92FFFEF7F1FFFCE5D2FFFCE4
-          D1FFFBE2CCFFF9DDC4FFF6D7BBFFF3D1AFFFFAEFE4FFCC8758FECA8452DBFFF7
-          F1DEFFE9D9DEFFEADBDEFFE9D9DEFFE7D7DEE4BB92FFFEF6F0FFFCE2CDFFFCE3
-          CDFFFADFC8FFF7D9BCFFF5E9DDFFFAF3EBFFFBF8F3FFCA8353FECB8553DBFFF7
-          F0DEFFE7D5DEFDE7D6DEFDE6D4DEFCE4D0DEE4BB93FFFEF5EDFFFCDEC5FFFBE0
-          C7FFF9DCC2FFF5D3B4FFFEF9F3FFFAE2C4FFECC193FFC37D4893CB8654DBFFF7
-          F2DEFEE7D5DEFEE7D5DEFDE5D1DEFAE0CADEE5BE96FFFFFFFEFFFDF3E9FFFDF3
-          EAFFFCF2E8FFFAEFE3FFFAF2E7FFEABB88FFCF8555B3B4693D0CCB8655DBFEF7
-          F1DEFCE5D2DEFCE4D1DEFBE2CCDEF9DDC4DEEAC39DFFE6BF96FFE4BB92FFE4BB
-          92FFD1A06CF5D09E6DF6CC965FDAC479427EB2673C09FFFFFF00CB8655DBFEF6
-          F0DEFCE2CDDEFCE3CDDEFADFC8DEF7D9BCDEF5E9DDDEFAF3EBDEFBF8F3DECD95
-          65DCFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00CB8656DAFEF5
-          EDDEFCDEC5DEFBE0C7DEF9DCC2DEF5D3B4DEFEF9F3DEFAE2C4DEECC193DEC37D
-          4880FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00CA8554D0FFFF
-          FFDBFDF3E9DEFDF3EADEFCF2E8DEFAEFE3DEFAF2E7DEEABB88DECF85559CB469
-          3D0AFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C77947AACC86
-          55CECC8857DECB8856DBCC8856DBCB8757DBCA8350D0C479426EB2673C08FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
-        }
         Layout = blGlyphTop
         ShowCaption = False
       end
@@ -161,42 +124,6 @@ inherited fAddressFrame: TfAddressFrame
         Width = 24
         Action = EditPaste1
         Flat = True
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF005E5E5E025B5B5B775858588A5555558A5252
-          528A4F4F4F8A4C4C4C8A4A4A4A8A4848488A4646468A444444662063984A2063
-          98CF206398FF206398FF206398FF246395FF587388FFF7F7F7FFF0F0F0FFF0F0
-          F0FFF0F0F0FFF0F0F0FFF0F0F0FFF0F0F0FFF3F3F3FA46464684206398C262A5
-          D7FF65A8DAFF64A6D9FF62A4D8FF629FD1FF758EA4FFEFEFEFFFE7E7E7FFE7E7
-          E7FFE7E7E7FFE7E7E7FFE6E6E6FFE6E6E6FFECECECFA49494984206398FF68AB
-          DCFF488ECFFF468BCEFF4387CDFF4484C6FF6885A1FFF0F0F0FFB4B4B4FFB4B4
-          B4FFB4B4B4FFB4B4B4FFB4B4B4FFB3B3B3FFEDEDEDFA4C4C4C84206398FF69AE
-          DCFF4A93D1FF488FD0FF468BCEFF4788C7FF6C88A3FFF0F0F0FFE8E8E8FFE8E8
-          E8FFE7E7E7FFE7E7E7FFE7E7E7FFE7E7E7FFEDEDEDFA4F4F4F84206398FF6BB1
-          DEFF4D97D3FF4B93D2FF488FD0FF4A8CC9FF6F8BA5FFF1F1F1FFB6B6B6FFB5B5
-          B5FFB5B5B5FFB4B4B4FFB4B4B4FFB4B4B4FFEDEDEDFA53535384206398FF6DB3
-          DFFF509CD5FF4E98D3FF4B94D1FF4C91CBFF708EA7FFF1F1F1FFE9E9E9FFE9E9
-          E9FFE8E8E8FFE8E8E8FFE8E8E8FFE7E7E7FFEDEDEDFA56565684206398FF70B5
-          E0FF529FD7FF509CD6FF4E98D4FF4F95CDFF7391AAFFF1F1F1FFB7B7B7FFB6B6
-          B6FFB6B6B6FFB6B6B6FFB5B5B5FFB5B5B5FFEEEEEEFA5A5A5A84206398FF73B7
-          E1FF57A3D7FF53A0D7FF509DD5FF5299CFFF7594ACFFF8F8F8FFF2F2F2FFF2F2
-          F2FFF2F2F2FFF2F2F2FFF2F2F2FFF1F1F1FFF4F4F4FA5E5E5E84206398FF76B9
-          E2FF5CA7D9FF58A4D8FF53A0D7FF539ED5FF618BA9FF6488A1FF6487A1FF6386
-          A0FF69879FFF4A6881FF6A6A6A8A6868688A6565658A62626263206398FF7ABB
-          E3FF61AADBFF5AA5D9FF53A0D7FF529FD7FF529FD7FF529FD7FF529FD7FF529F
-          D7FF62A3D8FF206398FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00206398FF7CBD
-          E4FF65AEDDFF62ABDCFF5EA8DAFF5CA7D9FF5CA7D9FF5CA7D9FF5CA7D9FF529F
-          D7FF62A3D8FF206398FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00206398FF7FBF
-          E4FF69B2DEFF4A9BDAFF4497DCFF4396DCFF4296DCFF4295DCFF4195DBFF519E
-          D6FF6CB2DEFF206398FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00206398E071B3
-          DBFE7EBFE4FF4E9DDFFFB5EEFDFF75D4F0FF75D4F0FFB5EEFDFF4B9BDEFF6EB4
-          E0FF6DB3DFF9206398F3FFFFFF00FFFFFF00FFFFFF00FFFFFF00206398322063
-          98B2206398FF3775A4FFB6EFFEFF80DBF3FF80DBF3FFB6EFFEFF2E6EA1FF2063
-          98FF206398A520639853FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF002063982A206398FF206398FF206398FF206398FF206398FF206398F0FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
-        }
         Layout = blGlyphTop
         ShowCaption = False
       end
@@ -204,7 +131,7 @@ inherited fAddressFrame: TfAddressFrame
   end
   object gAdresses: TDBGrid[1]
     Left = 367
-    Height = 377
+    Height = 388
     Hint = 'wählen Sie hier eine Adresse'
     Top = 4
     Width = 282
@@ -237,7 +164,7 @@ inherited fAddressFrame: TfAddressFrame
   end
   object Splitter1: TSplitter[2]
     Left = 358
-    Height = 385
+    Height = 396
     Top = 0
     Width = 5
     Align = alRight
@@ -436,9 +363,12 @@ inherited fAddressFrame: TfAddressFrame
       }
     end
     object mAddress: TDBMemo
+      AnchorSideTop.Control = lStreet
+      AnchorSideTop.Side = asrBottom
+      AnchorSideBottom.Control = lLand
       Left = 10
-      Height = 53
-      Top = 143
+      Height = 62
+      Top = 147
       Width = 340
       Anchors = [akTop, akLeft, akRight, akBottom]
       DataField = 'ADDRESS'
@@ -448,20 +378,20 @@ inherited fAddressFrame: TfAddressFrame
     end
     object cbTitle: TDBComboBox
       Left = 246
-      Height = 21
+      Height = 23
       Top = 65
       Width = 104
       Anchors = [akTop, akRight]
       DataField = 'TITLE'
       DataSource = Address
-      ItemHeight = 13
+      ItemHeight = 15
       MaxLength = 0
       OnEnter = cbTitleEnter
       TabOrder = 0
     end
     object eName: TDBEdit
       Left = 10
-      Height = 21
+      Height = 23
       Top = 65
       Width = 94
       DataField = 'NAME'
@@ -473,7 +403,7 @@ inherited fAddressFrame: TfAddressFrame
     end
     object eCallingName: TDBEdit
       Left = 110
-      Height = 21
+      Height = 23
       Top = 65
       Width = 128
       DataField = 'CNAME'
@@ -484,33 +414,39 @@ inherited fAddressFrame: TfAddressFrame
       TabOrder = 2
     end
     object eCity: TDBEdit
+      AnchorSideTop.Control = lLand
+      AnchorSideTop.Side = asrBottom
       Left = 202
-      Height = 21
-      Top = 228
+      Height = 25
+      Top = 224
       Width = 148
       DataField = 'CITY'
       DataSource = Address
-      Anchors = [akLeft, akRight, akBottom]
+      Anchors = [akTop, akLeft, akRight, akBottom]
       CharCase = ecNormal
       MaxLength = 0
       TabOrder = 6
     end
     object eZip: TDBEdit
+      AnchorSideTop.Control = lLand
+      AnchorSideTop.Side = asrBottom
       Left = 106
-      Height = 21
-      Top = 228
+      Height = 25
+      Top = 224
       Width = 89
       DataField = 'ZIP'
       DataSource = Address
-      Anchors = [akLeft, akBottom]
+      Anchors = [akTop, akLeft, akBottom]
       CharCase = ecNormal
       MaxLength = 0
       TabOrder = 5
     end
     object eAdditional: TDBEdit
+      AnchorSideTop.Control = lAdditional
+      AnchorSideTop.Side = asrBottom
       Left = 10
-      Height = 21
-      Top = 103
+      Height = 23
+      Top = 105
       Width = 340
       DataField = 'ADDITIONAL'
       DataSource = Address
@@ -530,18 +466,21 @@ inherited fAddressFrame: TfAddressFrame
       ParentColor = False
     end
     object lAdditional: TLabel
+      AnchorSideTop.Control = eName
+      AnchorSideTop.Side = asrBottom
       Left = 10
-      Height = 13
-      Top = 89
-      Width = 47
+      Height = 15
+      Top = 90
+      Width = 53
+      BorderSpacing.Top = 2
       Caption = 'Zusätzlich'
       ParentColor = False
     end
     object lName: TLabel
       Left = 10
-      Height = 13
+      Height = 15
       Top = 49
-      Width = 63
+      Width = 73
       Caption = 'Name / Firma'
       ParentColor = False
     end
@@ -556,49 +495,58 @@ inherited fAddressFrame: TfAddressFrame
       ParentColor = False
     end
     object lCity: TLabel
+      AnchorSideTop.Control = lLand
       Left = 202
-      Height = 13
-      Top = 211
-      Width = 16
+      Height = 15
+      Top = 209
+      Width = 17
       Anchors = [akLeft, akBottom]
       Caption = 'Ort'
       ParentColor = False
     end
     object lPostalCode: TLabel
+      AnchorSideTop.Control = lLand
       Left = 106
-      Height = 13
-      Top = 211
-      Width = 54
+      Height = 15
+      Top = 209
+      Width = 60
       Anchors = [akLeft, akBottom]
       Caption = 'Postleitzahl'
       ParentColor = False
     end
     object lLand: TLabel
+      AnchorSideTop.Control = mAddress
+      AnchorSideTop.Side = asrBottom
       Left = 10
-      Height = 13
-      Top = 211
-      Width = 23
+      Height = 15
+      Top = 209
+      Width = 26
       Anchors = [akLeft, akBottom]
       Caption = 'Land'
       ParentColor = False
     end
     object lStreet: TLabel
+      AnchorSideTop.Control = eAdditional
+      AnchorSideTop.Side = asrBottom
       Left = 10
-      Height = 13
-      Top = 129
-      Width = 32
+      Height = 15
+      Top = 132
+      Width = 33
+      BorderSpacing.Top = 4
       Caption = 'Straße'
       ParentColor = False
     end
     object cbLand: TExtDBCombobox
+      AnchorSideTop.Control = lLand
+      AnchorSideTop.Side = asrBottom
       Left = 11
-      Height = 21
-      Top = 228
+      Height = 23
+      Top = 224
       Width = 90
-      Anchors = [akLeft, akBottom]
+      Anchors = [akTop, akLeft, akBottom]
       DataField = 'COUNTRY'
       DataSource = Address
-      ItemHeight = 13
+      ItemHeight = 15
       MaxLength = 0
       OnChange = cbLandChange
       Sorted = True
