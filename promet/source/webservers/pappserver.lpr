@@ -72,54 +72,60 @@ begin
       if not LoadMandants then
         begin
           Error(strFailedtoLoadMandants);
-          raise Exception.Create(strFailedtoLoadMandants);
-          Terminate;
         end;
       if not HasOption('m','mandant') then
         begin
           Error(strMandantnotSelected);
-          raise Exception.Create(strMandantnotSelected);
-          Terminate;
         end;
       Info('login...');
       if not DBLogin(GetOptionValue('m','mandant'),'',False,False) then
         begin
           Error(strLoginFailed+' '+LastError);
-          raise Exception.Create(strLoginFailed+' '+LastError);
-          Terminate;
+        end
+      else
+        begin
+          Info('processmanager login successful');
+          uData.Data := Data;
         end;
-      uData.Data := Data;
     end;
-  Info('processmanager login successful');
-  Data.ProcessClient.Startup;
   aSystem := GetSystemName;
   if HasOption('systemname') then
     aSystem:=GetOptionValue('systemname');
   Info(aSystem+' running');
-  Data.ProcessClient.Processes.Open;
-  Data.ProcessClient.Processes.Parameters.Open;
-  if Data.ProcessClient.Locate('NAME',aSystem,[]) then
-    if Data.ProcessClient.FieldByName('STATUS').AsString='I' then
-      begin
-        Terminate;
-        exit;
-      end;
-  aTime := Now();
-  i := 0;
-  while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do
+  if not Assigned(uData.Data) then
+    Info('Waiting for Mandant Configuration');
+  while not Assigned(uData.Data) do
     begin
-      while CheckSynchronize(500) do;
-      if i > 60 then
+      CheckSynchronize(500);
+    end;
+  if Assigned(uData.Data) then
+    begin
+      Data.ProcessClient.Startup;
+      Data.ProcessClient.Processes.Open;
+      Data.ProcessClient.Processes.Parameters.Open;
+      if Data.ProcessClient.Locate('NAME',aSystem,[]) then
+        if Data.ProcessClient.FieldByName('STATUS').AsString='I' then
+          begin
+            Terminate;
+            exit;
+          end;
+      aTime := Now();
+      i := 0;
+      while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do
         begin
-          i := 0;
-          if not Data.ProcessClient.ProcessAll(aSystem) then
+          while CheckSynchronize(500) do;
+          if i > 60 then
             begin
-              Terminate;
-              exit;
+              i := 0;
+              if not Data.ProcessClient.ProcessAll(aSystem) then
+                begin
+                  Terminate;
+                  exit;
+                end;
             end;
+          while CheckSynchronize(500) do;
+          inc(i);
         end;
-      while CheckSynchronize(500) do;
-      inc(i);
     end;
   // stop program loop
   Terminate;
