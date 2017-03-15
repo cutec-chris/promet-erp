@@ -58,7 +58,7 @@ inherited fAccountingFrame: TfAccountingFrame
         Left = 6
         Height = 21
         Top = 57
-        Width = 57
+        Width = 54
         DataField = 'ACCOUNTNO'
         DataSource = dsAccount
         Font.Height = -16
@@ -69,7 +69,7 @@ inherited fAccountingFrame: TfAccountingFrame
         Left = 128
         Height = 21
         Top = 57
-        Width = 57
+        Width = 54
         DataField = 'SORTCODE'
         DataSource = dsAccount
         Font.Height = -16
@@ -87,7 +87,7 @@ inherited fAccountingFrame: TfAccountingFrame
       object eSearch: TDBEdit
         Left = 6
         Height = 28
-        Top = 12
+        Top = 14
         Width = 218
         DataField = 'NAME'
         DataSource = dsAccount
@@ -98,7 +98,7 @@ inherited fAccountingFrame: TfAccountingFrame
       object DBMemo1: TDBMemo
         Left = 232
         Height = 64
-        Top = 12
+        Top = 14
         Width = 400
         DataField = 'NOTES'
         DataSource = dsAccount

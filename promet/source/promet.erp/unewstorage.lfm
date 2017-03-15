@@ -10,13 +10,14 @@ object fNewStorage: TfNewStorage
   KeyPreview = True
   OnKeyDown = FormKeyDown
   Position = poMainFormCenter
-  LCLVersion = '1.3'
+  LCLVersion = '1.4.4.0'
   object lArticlewithoutStorage: TLabel
-    Left = 0
-    Height = 13
-    Top = 0
-    Width = 493
+    Left = 4
+    Height = 20
+    Top = 4
+    Width = 485
     Align = alTop
+    BorderSpacing.Around = 4
     Caption = 'lArticlewithoutStorage'
     ParentColor = False
     WordWrap = True
@@ -47,8 +48,8 @@ object fNewStorage: TfNewStorage
   end
   object ButtonPanel1: TButtonPanel
     Left = 6
-    Height = 42
-    Top = 347
+    Height = 38
+    Top = 351
     Width = 481
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -107,19 +108,19 @@ object fNewStorage: TfNewStorage
   end
   object Label1: TLabel
     Left = 6
-    Height = 13
+    Height = 20
     Top = 227
-    Width = 97
+    Width = 113
     Caption = 'Bestand/Charge'
     Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
   end
-  object StorageType: TDatasource
+  object StorageType: TDataSource
     left = 32
-    top = 38
+    top = 24
   end
-  object Storage: TDatasource
+  object Storage: TDataSource
     left = 32
     top = 264
   end

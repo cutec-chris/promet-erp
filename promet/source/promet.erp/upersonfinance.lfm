@@ -7,38 +7,38 @@ inherited fPersonFinance: TfPersonFinance
   DesignTop = 150
   object lCurrency: TLabel[0]
     Left = 56
-    Height = 15
-    Top = 10
-    Width = 49
+    Height = 20
+    Top = 23
+    Width = 59
     Caption = 'Währung'
     ParentColor = False
   end
   object cbCurrency: TExtDBCombobox[1]
-    Left = 163
-    Height = 23
+    Left = 168
+    Height = 28
     Hint = 'setzt eine Standardwährung für den Kontakt mit der jeder Vorgang für den Kontakt vorbelegt wird'
-    Top = 10
+    Top = 23
     Width = 80
     DataField = 'CURRENCY'
     DataSource = Customer
-    ItemHeight = 15
+    ItemHeight = 20
     MaxLength = 0
     Sorted = True
     TabOrder = 0
   end
   object lDiscont: TLabel[2]
     Left = 56
-    Height = 15
-    Top = 46
-    Width = 34
+    Height = 20
+    Top = 57
+    Width = 44
     Caption = 'Rabatt'
     ParentColor = False
   end
   object eDiscont: TDBEdit[3]
-    Left = 163
-    Height = 23
+    Left = 168
+    Height = 28
     Hint = 'setzt eine Rabatt mit dem die Vorgänge für diesen Kontakt vorbelegt werden'
-    Top = 46
+    Top = 57
     Width = 80
     DataField = 'DISCOUNT'
     DataSource = Customer
@@ -48,53 +48,53 @@ inherited fPersonFinance: TfPersonFinance
   end
   object lDiscontGroup: TLabel[4]
     Left = 56
-    Height = 15
-    Top = 82
-    Width = 72
+    Height = 20
+    Top = 91
+    Width = 92
     Caption = 'Rabattgruppe'
     ParentColor = False
   end
   object cbDiscontGroup: TExtDBCombobox[5]
-    Left = 163
-    Height = 23
+    Left = 168
+    Height = 28
     Hint = 'setzt eine Rabattgruppe für den Kontakt'
-    Top = 82
+    Top = 91
     Width = 249
     Anchors = [akTop, akLeft, akRight]
     DataField = 'DISCOUNTGR'
     DataSource = Customer
-    ItemHeight = 15
+    ItemHeight = 20
     MaxLength = 0
     Sorted = True
     TabOrder = 2
   end
   object lPaymenttarget: TLabel[6]
     Left = 56
-    Height = 15
-    Top = 118
-    Width = 66
+    Height = 20
+    Top = 125
+    Width = 83
     Caption = 'Zahlungsziel'
     ParentColor = False
   end
   object cbPaymenttarget: TExtDBCombobox[7]
-    Left = 163
-    Height = 23
+    Left = 168
+    Height = 28
     Hint = 'setzt ein Zahlungsziel mit dem die Vorgänge für diesen Kontakt vorbelegt werden'
-    Top = 118
+    Top = 125
     Width = 249
     Anchors = [akTop, akLeft, akRight]
     DataField = 'PAYMENTTAR'
     DataSource = Customer
-    ItemHeight = 15
+    ItemHeight = 20
     MaxLength = 0
     Sorted = True
     TabOrder = 3
   end
   object lBanking: TLabel[8]
     Left = 56
-    Height = 15
+    Height = 20
     Top = 192
-    Width = 100
+    Width = 123
     Caption = 'Bankverbindungen'
     ParentColor = False
   end
@@ -326,10 +326,10 @@ inherited fPersonFinance: TfPersonFinance
     end
   end
   object eCustNumber: TDBEdit[11]
-    Left = 163
-    Height = 23
+    Left = 168
+    Height = 28
     Hint = 'Eigene Kundennummer beim Lieferanten'
-    Top = 152
+    Top = 159
     Width = 249
     DataField = 'EACCOUNT'
     DataSource = Customer
@@ -339,9 +339,9 @@ inherited fPersonFinance: TfPersonFinance
   end
   object lDiscont1: TLabel[12]
     Left = 56
-    Height = 15
-    Top = 152
-    Width = 87
+    Height = 20
+    Top = 159
+    Width = 105
     Caption = 'Kundennummer'
     ParentColor = False
   end

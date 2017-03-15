@@ -1,11 +1,11 @@
 inherited fAddressFrame: TfAddressFrame
   Height = 396
-  Width = 697
+  Width = 725
   ClientHeight = 396
-  ClientWidth = 697
+  ClientWidth = 725
   DesignLeft = 392
   object pToolbar: TPanel[0]
-    Left = 653
+    Left = 681
     Height = 396
     Top = 0
     Width = 44
@@ -130,7 +130,7 @@ inherited fAddressFrame: TfAddressFrame
     end
   end
   object gAdresses: TDBGrid[1]
-    Left = 367
+    Left = 395
     Height = 388
     Hint = 'wählen Sie hier eine Adresse'
     Top = 4
@@ -163,7 +163,7 @@ inherited fAddressFrame: TfAddressFrame
     TitleStyle = tsNative
   end
   object Splitter1: TSplitter[2]
-    Left = 358
+    Left = 386
     Height = 396
     Top = 0
     Width = 5
@@ -174,11 +174,11 @@ inherited fAddressFrame: TfAddressFrame
     Left = 0
     Height = 260
     Top = 0
-    Width = 358
+    Width = 386
     Align = alClient
     BevelOuter = bvNone
     ClientHeight = 260
-    ClientWidth = 358
+    ClientWidth = 386
     Constraints.MaxHeight = 260
     Constraints.MaxWidth = 580
     TabOrder = 3
@@ -196,7 +196,7 @@ inherited fAddressFrame: TfAddressFrame
       ValueUnchecked = 'N'
     end
     object Image3: TImage
-      Left = 298
+      Left = 326
       Height = 49
       Top = 2
       Width = 52
@@ -367,9 +367,9 @@ inherited fAddressFrame: TfAddressFrame
       AnchorSideTop.Side = asrBottom
       AnchorSideBottom.Control = lLand
       Left = 10
-      Height = 62
-      Top = 147
-      Width = 340
+      Height = 34
+      Top = 170
+      Width = 368
       Anchors = [akTop, akLeft, akRight, akBottom]
       DataField = 'ADDRESS'
       DataSource = Address
@@ -377,23 +377,27 @@ inherited fAddressFrame: TfAddressFrame
       TabOrder = 4
     end
     object cbTitle: TDBComboBox
-      Left = 246
-      Height = 23
-      Top = 65
+      AnchorSideTop.Control = lTitle
+      AnchorSideTop.Side = asrBottom
+      Left = 274
+      Height = 28
+      Top = 68
       Width = 104
       Anchors = [akTop, akRight]
       DataField = 'TITLE'
       DataSource = Address
-      ItemHeight = 15
+      ItemHeight = 20
       MaxLength = 0
       OnEnter = cbTitleEnter
       TabOrder = 0
     end
     object eName: TDBEdit
+      AnchorSideTop.Control = lTitle
+      AnchorSideTop.Side = asrBottom
       Left = 10
-      Height = 23
-      Top = 65
-      Width = 94
+      Height = 28
+      Top = 68
+      Width = 122
       DataField = 'NAME'
       DataSource = Address
       Anchors = [akTop, akLeft, akRight]
@@ -402,9 +406,11 @@ inherited fAddressFrame: TfAddressFrame
       TabOrder = 1
     end
     object eCallingName: TDBEdit
-      Left = 110
-      Height = 23
-      Top = 65
+      AnchorSideTop.Control = lTitle
+      AnchorSideTop.Side = asrBottom
+      Left = 138
+      Height = 28
+      Top = 68
       Width = 128
       DataField = 'CNAME'
       DataSource = Address
@@ -419,7 +425,7 @@ inherited fAddressFrame: TfAddressFrame
       Left = 202
       Height = 25
       Top = 224
-      Width = 148
+      Width = 176
       DataField = 'CITY'
       DataSource = Address
       Anchors = [akTop, akLeft, akRight, akBottom]
@@ -445,9 +451,9 @@ inherited fAddressFrame: TfAddressFrame
       AnchorSideTop.Control = lAdditional
       AnchorSideTop.Side = asrBottom
       Left = 10
-      Height = 23
-      Top = 105
-      Width = 340
+      Height = 28
+      Top = 118
+      Width = 368
       DataField = 'ADDITIONAL'
       DataSource = Address
       Anchors = [akTop, akLeft, akRight]
@@ -456,12 +462,11 @@ inherited fAddressFrame: TfAddressFrame
       TabOrder = 3
     end
     object lTitle: TLabel
-      Left = 247
-      Height = 13
-      Top = 51
-      Width = 103
-      Anchors = [akTop, akRight]
-      AutoSize = False
+      AnchorSideLeft.Control = cbTitle
+      Left = 274
+      Height = 20
+      Top = 48
+      Width = 48
       Caption = 'Anrede'
       ParentColor = False
     end
@@ -469,37 +474,36 @@ inherited fAddressFrame: TfAddressFrame
       AnchorSideTop.Control = eName
       AnchorSideTop.Side = asrBottom
       Left = 10
-      Height = 15
-      Top = 90
-      Width = 53
+      Height = 20
+      Top = 98
+      Width = 66
       BorderSpacing.Top = 2
       Caption = 'Zusätzlich'
       ParentColor = False
     end
     object lName: TLabel
       Left = 10
-      Height = 15
+      Height = 20
       Top = 49
-      Width = 73
+      Width = 91
       Caption = 'Name / Firma'
       ParentColor = False
     end
     object lCallingName: TLabel
-      Left = 110
-      Height = 14
+      Left = 140
+      Height = 20
       Top = 49
-      Width = 123
+      Width = 59
       Anchors = [akTop, akRight]
-      AutoSize = False
       Caption = 'Vorname'
       ParentColor = False
     end
     object lCity: TLabel
       AnchorSideTop.Control = lLand
       Left = 202
-      Height = 15
-      Top = 209
-      Width = 17
+      Height = 20
+      Top = 204
+      Width = 21
       Anchors = [akLeft, akBottom]
       Caption = 'Ort'
       ParentColor = False
@@ -507,9 +511,9 @@ inherited fAddressFrame: TfAddressFrame
     object lPostalCode: TLabel
       AnchorSideTop.Control = lLand
       Left = 106
-      Height = 15
-      Top = 209
-      Width = 60
+      Height = 20
+      Top = 204
+      Width = 75
       Anchors = [akLeft, akBottom]
       Caption = 'Postleitzahl'
       ParentColor = False
@@ -518,9 +522,9 @@ inherited fAddressFrame: TfAddressFrame
       AnchorSideTop.Control = mAddress
       AnchorSideTop.Side = asrBottom
       Left = 10
-      Height = 15
-      Top = 209
-      Width = 26
+      Height = 20
+      Top = 204
+      Width = 32
       Anchors = [akLeft, akBottom]
       Caption = 'Land'
       ParentColor = False
@@ -529,9 +533,9 @@ inherited fAddressFrame: TfAddressFrame
       AnchorSideTop.Control = eAdditional
       AnchorSideTop.Side = asrBottom
       Left = 10
-      Height = 15
-      Top = 132
-      Width = 33
+      Height = 20
+      Top = 150
+      Width = 42
       BorderSpacing.Top = 4
       Caption = 'Straße'
       ParentColor = False
@@ -540,13 +544,13 @@ inherited fAddressFrame: TfAddressFrame
       AnchorSideTop.Control = lLand
       AnchorSideTop.Side = asrBottom
       Left = 11
-      Height = 23
+      Height = 28
       Top = 224
       Width = 90
       Anchors = [akTop, akLeft, akBottom]
       DataField = 'COUNTRY'
       DataSource = Address
-      ItemHeight = 15
+      ItemHeight = 20
       MaxLength = 0
       OnChange = cbLandChange
       Sorted = True

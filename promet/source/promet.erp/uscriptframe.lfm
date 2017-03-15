@@ -18,20 +18,20 @@ inherited fScriptFrame: TfScriptFrame
     NewTabImageIndex = 59
     object tsCommon: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 414
+      ClientHeight = 409
       ClientWidth = 642
       object Label1: TLabel
         Left = 8
-        Height = 15
+        Height = 20
         Top = 8
-        Width = 72
+        Width = 89
         Caption = 'Beschreibung'
         ParentColor = False
       end
       object DBMemo1: TDBMemo
         Left = 8
-        Height = 377
-        Top = 24
+        Height = 364
+        Top = 32
         Width = 624
         Anchors = [akTop, akLeft, akRight, akBottom]
         DataField = 'NOTE'
@@ -256,7 +256,7 @@ inherited fScriptFrame: TfScriptFrame
       end
       object eArticleNumber: TDBEdit
         Left = 4
-        Height = 23
+        Height = 28
         Top = 13
         Width = 268
         DataField = 'NAME'
@@ -305,22 +305,22 @@ inherited fScriptFrame: TfScriptFrame
       end
       object cbVersion: TComboBox
         Left = 4
-        Height = 23
+        Height = 28
         Hint = 'hier können Sie die zu bearbeitende Artikelversion auswählen.'#13#10'Wenn Sie eine neue version eingeben und das Feld verlassen,'#13#10'wird ein Dialog geöffnet in dem abgefragt wird was vom aktuellen'#13#10'Artikel übernommen werden soll, danach existiert der Atikel auch'#13#10'in der neuen Artikelversion.'
         Top = 12
         Width = 68
-        ItemHeight = 15
+        ItemHeight = 20
         OnExit = cbVersionExit
         OnSelect = cbVersionSelect
         TabOrder = 0
         TabStop = False
       end
       object cbActive: TDBCheckBox
-        Left = 88
-        Height = 19
+        Left = 78
+        Height = 24
         Hint = 'markiert diesen Artikel als aktiv'#13#10'(aktive Version)'
         Top = 4
-        Width = 47
+        Width = 57
         Anchors = [akTop, akRight]
         AutoSize = True
         Caption = 'Aktiv'
@@ -367,12 +367,12 @@ inherited fScriptFrame: TfScriptFrame
       end
       object cbStatus: TComboBox
         Left = 4
-        Height = 23
+        Height = 28
         Hint = 'hier können Sie den Status des Artikels ändern um ihn in neue Zustände zu überführen'
         Top = 12
         Width = 86
         Anchors = [akTop, akLeft, akRight]
-        ItemHeight = 15
+        ItemHeight = 20
         OnSelect = cbStatusSelect
         Style = csDropDownList
         TabOrder = 0
