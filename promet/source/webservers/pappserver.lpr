@@ -27,7 +27,7 @@ uses
   uData,Process, db, uSystemMessage,
   uPowerState, pcmdprometapp,math,uBaseCustomApplication,uprometwikiserver, upwebdavserver,
   uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts,
-  uprometmsgnetwork,uappserverhttp,uappserverpubsub;
+  uprometmsgnetwork,uappserverhttp,uappserverpubsub, upconfigurationserver;
 type
   { TProcessManager }
 

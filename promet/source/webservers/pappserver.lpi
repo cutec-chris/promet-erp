@@ -94,7 +94,7 @@
         <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="pappserver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -103,6 +103,10 @@
         <Filename Value="upwebdavserver.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="upconfigurationserver.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

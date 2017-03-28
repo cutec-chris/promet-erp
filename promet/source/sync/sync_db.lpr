@@ -691,33 +691,30 @@ begin
                                     SyncedTables := (SyncDB.Tables.Count*4);
                                     SyncCount := 0;
                                     aSyncCount := 0;
-                                    while ((SyncedTables>=aSyncCount) and (SyncedTables>0)) do
+                                    BlockSizeReached := False;
+                                    SyncCount := 0;
+                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
+                                    SyncedTables:=0;
+                                    SyncDB.Tables.DataSet.First;
+                                    while not SyncDB.Tables.DataSet.EOF do
                                       begin
-                                        BlockSizeReached := False;
-                                        SyncCount := 0;
-                                        aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
-                                        SyncedTables:=0;
-                                        SyncDB.Tables.DataSet.First;
-                                        while not SyncDB.Tables.DataSet.EOF do
+                                        if (GetOptionValue('table')='') or (GetOptionValue('table')=SyncDB.Tables.DataSet.FieldByName('NAME').AsString) then
                                           begin
-                                            if (GetOptionValue('table')='') or (GetOptionValue('table')=SyncDB.Tables.DataSet.FieldByName('NAME').AsString) then
-                                              begin
-                                                FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
-                                                try
+                                            FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                                            try
+                                              FSyncedCount:=2;
+                                              while FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString do
+                                                begin
                                                   FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                                                   FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
-                                                  if (FSyncedCount=aSyncCount) and (aSyncCount>0) then
-                                                    BlockSizeReached:=True;
                                                   inc(SyncedTables,FSyncedCount);
-                                                except
-                                                  on e : Exception do
-                                                    Error(e.Message);
                                                 end;
-                                              end;
-                                            SyncDB.Tables.DataSet.Next;
+                                            except
+                                              on e : Exception do
+                                                Error(e.Message);
+                                            end;
                                           end;
-                                        if not BlockSizeReached then break;
-                                        inc(SyncCount);
+                                        SyncDB.Tables.DataSet.Next;
                                       end;
                                   end;
                                 DBLogout;
