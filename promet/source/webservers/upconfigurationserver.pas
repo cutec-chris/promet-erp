@@ -21,7 +21,7 @@ unit upconfigurationserver;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uappserverhttp,uAppServer;
+  Classes, SysUtils, uappserverhttp,uAppServer,uData;
 
 implementation
 
@@ -31,9 +31,11 @@ var
   aParameters: TStringList;
   s: String;
   tmp: String;
+  aResult: TStringList;
 begin
   Result := 500;
   aParameters := TStringList.Create;
+  aResult := TStringList.Create;
   try
     aParameters.Clear;
     for i := 0 to Headers.Count-1 do
@@ -49,11 +51,19 @@ begin
           begin
             Result := 200;
 
+          end
+        else if lowercase(url) = 'status' then
+          begin
+            if Assigned(uData.Data) then
+              Result := 403
+            else
+              Result := 200;
           end;
       end;
   except
     Result:=500;
   end;
+  aResult.Free;
   aParameters.Free;
 end;
 
