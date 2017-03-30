@@ -408,7 +408,7 @@ begin
             or (pos('update',lowercase(aFilter)) > 0)
             or (pos('delete',lowercase(aFilter)) > 0) then exit;
 
-            aSQLF := '';
+            aSQLF := ' order by '+Data.QuoteField('TIMESTAMPD')+' asc';
             if aFilter <> '' then
               aSQLF := ' where '+aFilter+' order by '+Data.QuoteField('TIMESTAMPD')+' asc';
             if SyncCount=0 then
@@ -437,7 +437,7 @@ begin
             or (pos('update',lowercase(aFilter)) > 0)
             or (pos('delete',lowercase(aFilter)) > 0) then exit;
 
-            aSQLF:='';
+            aSQLF:=' order by '+Data.QuoteField('TIMESTAMPD')+' asc';
             if aFilter <> '' then
               aSQLF := ' where '+aFilter+' order by '+Data.QuoteField('TIMESTAMPD')+' asc';
             if SyncCount=0 then
@@ -703,7 +703,7 @@ begin
                                             FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                                             try
                                               FSyncedCount:=2;
-                                              while FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString do
+                                              while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) or (FSyncedCount=aSyncCount) do
                                                 begin
                                                   FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                                                   FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
