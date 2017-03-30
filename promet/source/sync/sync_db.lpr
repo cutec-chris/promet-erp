@@ -703,10 +703,15 @@ begin
                                             FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                                             try
                                               FSyncedCount:=2;
-                                              while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) or (FSyncedCount=aSyncCount) do
+                                              while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) do
                                                 begin
                                                   FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                                                   FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
+                                                  inc(SyncedTables,FSyncedCount);
+                                                end;
+                                              if (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
+                                                begin
+                                                  FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                                   inc(SyncedTables,FSyncedCount);
                                                 end;
                                             except

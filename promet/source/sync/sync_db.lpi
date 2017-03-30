@@ -41,8 +41,8 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="419"/>
-        <CursorPos Y="454"/>
+        <TopLine Value="685"/>
+        <CursorPos X="106" Y="714"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
