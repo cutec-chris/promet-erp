@@ -703,6 +703,8 @@ begin
                                             FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
                                             try
                                               FSyncedCount:=2;
+                                              if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString='' then
+                                                FOldTime:='a';
                                               while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) do
                                                 begin
                                                   FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
