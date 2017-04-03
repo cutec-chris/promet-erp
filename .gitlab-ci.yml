@@ -17,7 +17,7 @@ variables:
 basetest-linux:
   variables:
 #    GIT_STRATEGY: clone
-  image: docker-linux-x64:latest
+  image: docker-lazarus-x64:latest
   stage: test 
   script:
     - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
@@ -26,9 +26,9 @@ basetest-linux:
     - master
   allow_failure: true      
   tags:
-    - docker-linux-x64
+    - docker-lazarus-x64
 webdavtest-linux:
-  image: docker-linux-x64:latest
+  image: docker-lazarus-x64:latest
   stage: test 
   script: 
     - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
@@ -37,7 +37,7 @@ webdavtest-linux:
     - master
   allow_failure: true      
   tags:
-    - docker-linux-x64
+    - docker-lazarus-x64
 #mysql-test:
 #  image: build-lazarus-x64:latest
 #  services:
@@ -104,15 +104,14 @@ build:linux:i386:
     expire_in: 1 week  
 
 build:linux:x86-64:
-  image: docker-linux-x64:latest
+  image: docker-lazarus-x64:latest
   stage: build 
   script: 
     - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT 
     - bash build.sh clean
     - bash build.sh all
   tags:
-    - docker-linux-x64
-#    - docker-lazarus-x64
+    - docker-lazarus-x64
   only:
     - master
   artifacts:
