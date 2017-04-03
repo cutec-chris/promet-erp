@@ -17,25 +17,25 @@ variables:
 basetest-linux:
   variables:
 #    GIT_STRATEGY: clone
-  image: docker-lazarus-x64:latest
+  image: build-lazarus-x64:latest
   stage: test 
   script:
     - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
     - promet/source/testcases/build.sh
   only:
     - master
-  allow_failure: true      
+#  allow_failure: true      
   tags:
     - docker-lazarus-x64
 webdavtest-linux:
-  image: docker-lazarus-x64:latest
+  image: build-lazarus-x64:latest
   stage: test 
   script: 
     - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
     - promet/source/testcases/build_webdav.sh
   only:
     - master
-  allow_failure: true      
+#  allow_failure: true      
   tags:
     - docker-lazarus-x64
 #mysql-test:
