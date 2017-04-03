@@ -90,12 +90,13 @@ build:windows:
     expire_in: 1 week  
 
 build:linux:i386:
+  image: build-lazarus-i386
   stage: build 
   script: 
     - bash build.sh clean
     - bash build.sh all
   tags:
-    - linux-i386
+    - docker-lazarus-x64
   only:
     - master
   artifacts:
@@ -104,7 +105,7 @@ build:linux:i386:
     expire_in: 1 week  
 
 build:linux:x86-64:
-  image: docker-lazarus-x64:latest
+  image: build-lazarus-x64:latest
   stage: build 
   script: 
     - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT 
