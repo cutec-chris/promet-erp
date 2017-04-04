@@ -18,7 +18,7 @@
 	url = https://github.com/tcs-ulli/zvdatetimecontrols
 [submodule "promet/source/components/zvdatetimectrls"]
 	path = promet/source/components/zvdatetimectrls
-	url = https://github.com/tcs-ulli/zvdatetimecontrols
+	url = https://github.com/cutec-chris/zvdatetimecontrols
 [submodule "promet/source/components/thumbs"]
 	path = promet/source/components/thumbs
 	url = https://github.com/cutec-chris/lazarus-thumbviewer
