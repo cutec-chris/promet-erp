@@ -36,6 +36,8 @@ begin
   Result := 500;
   aParameters := TStringList.Create;
   aResult := TStringList.Create;
+  if pos('?',Url)>0 then
+    Url := copy(URL,0,pos('?',Url)-1);
   try
     aParameters.Clear;
     for i := 0 to Headers.Count-1 do
