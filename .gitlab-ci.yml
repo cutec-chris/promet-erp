@@ -108,7 +108,7 @@ build:linux:x86-64:
   image: build-lazarus-x64:latest
   stage: build 
   script: 
-    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT 
+#    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT 
     - bash build.sh clean
     - bash build.sh all
   tags:
