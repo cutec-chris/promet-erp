@@ -20,7 +20,7 @@ basetest-linux:
   image: build-lazarus-x64:latest
   stage: test 
   script:
-    - apt-get install sqlite3 libusb-dev libsane-dev zip git -y
+#    - apt-get install sqlite3 libusb-dev libsane-dev zip git -y
     - promet/source/testcases/build.sh
   only:
     - master
@@ -31,7 +31,7 @@ webdavtest-linux:
   image: build-lazarus-x64:latest
   stage: test 
   script: 
-    - apt-get install sqlite3 libusb-dev libsane-dev zip git -y
+#    - apt-get install sqlite3 libusb-dev libsane-dev zip git -y
     - promet/source/testcases/build_webdav.sh
   only:
     - master
