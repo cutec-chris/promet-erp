@@ -7,8 +7,9 @@ if [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then
 fi
 if [ "x$lazbuild" = "x" ]
   then
-  export lazbuild="lazbuild$TARGET_EXTENSION"
-  echo "$lazbuild"
+  export lazbuild_orig="lazbuild$TARGET_EXTENSION"
+  echo "$lazbuild_orig"
+  export lazbuild="$(PWD)/promet/setup/build-tools/build.sh"
   export grep="grep"
   export SED="sed"
   export SQLITE3="sqlite3"
