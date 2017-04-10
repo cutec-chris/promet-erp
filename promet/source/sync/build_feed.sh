@@ -6,11 +6,17 @@ echo "Building feed components..."
 # Build components
 $lazbuild feedreceiver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
+  $lazbuild feedreceiver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
+if [ "$?" -ne "0" ]; then
   echo "build failed"
   $grep -w "Error:" build.txt
   exit 1
 fi
 $lazbuild twitterreceiver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  $lazbuild twitterreceiver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
 if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt
