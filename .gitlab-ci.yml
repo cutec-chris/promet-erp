@@ -148,7 +148,7 @@ upload:all:
     - ls -l promet/setup/output/*
   stage: upload
   script:
-    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT
+#    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT
     - bash promet/setup/upload_builds.sh
   only:
     - master
