@@ -6,6 +6,9 @@ echo "Building messagemanager..."
 # Build components
 $lazbuild messagemanager.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
+  $lazbuild messagemanager.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
+if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt
   exit 1
