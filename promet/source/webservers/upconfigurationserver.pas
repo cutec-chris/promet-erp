@@ -21,9 +21,11 @@ unit upconfigurationserver;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, uappserverhttp,uAppServer,uData;
+  Classes, SysUtils, uappserverhttp,uAppServer, uData;
 
 implementation
+
+uses uBaseApplication,uBaseDBInterface,uIntfStrConsts,uEncrypt;
 
 function HandleConfigRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers : TStringList;Input,Output : TMemoryStream): Integer;
 var
@@ -32,6 +34,11 @@ var
   s: String;
   tmp: String;
   aResult: TStringList;
+  aType: String;
+  aServer: String;
+  aPW: String;
+  aUser: String;
+  aOptions: String;
 begin
   Result := 500;
   aParameters := TStringList.Create;
@@ -48,11 +55,43 @@ begin
       end;
     if copy(lowercase(url),0,15)='/configuration/' then
       begin
+        Headers.Add('Access-Control-Allow-Origin: *');
+        Headers.Add('Access-Control-Allow-Methods: GET, OPTIONS');
+        Headers.Add('Access-Control-Allow-Headers: Authorization,X-Requested-With');
         Url := copy(url,16,length(url));
         if lowercase(url) = 'add' then
           begin
-            Result := 200;
-
+            Result := 500;
+            aResult.LoadFromStream(Input);
+            if pos(':',aResult.Text)>0 then
+              begin
+                tmp := copy(aResult.Text,pos(':',aResult.Text)+1,length(aResult.Text));
+                aType := copy(tmp,0,pos(';',tmp)-1);
+                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                aServer := copy(tmp,0,pos(';',tmp)-1);
+                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                aUser := copy(tmp,0,pos(';',tmp)-1);
+                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                aPW := copy(tmp,0,pos(';',tmp)-1);
+                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                aOptions := tmp;
+                Result := 503;
+                //TODO:check if DB Connection works
+                with BaseApplication as IBaseDbInterface,BaseApplication as  IBaseApplication do
+                  begin
+                    aResult.Clear;
+                    aResult.Add('SQL:'+aType+';'+aServer+';'+aUser+';'+Encrypt(aPW,99998));
+                    aResult.SaveToFile(GetOurConfigDir+'standard.perml');
+                    Info('loading mandants...');
+                    if not LoadMandants then
+                      begin
+                        Error(strFailedtoLoadMandants);
+                      end
+                    else
+                      Result := 200;
+                  end;
+              end;
+            aResult.Clear;
           end
         else if lowercase(url) = 'status' then
           begin
