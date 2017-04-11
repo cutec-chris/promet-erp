@@ -36,6 +36,7 @@ if [ "x$lazbuild" = "x" ]
   Month=`date +%m`
   Day=`date +%d`
   export BUILD_DATE=20$Year$Month$Day
+  echo $(pwd)
   Version=$(cat promet/source/base/version.inc).$(cat promet/source/base/revision.inc)
   export BUILD_VERSION=$(echo $Version);
   if [ "x$TARGET_OS" != "xwin32" ]; then
