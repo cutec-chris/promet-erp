@@ -145,6 +145,8 @@ build:linux:arm:
 
 upload:all:
   before_script:
+    - git submodule sync --recursive
+    - git submodule update --init --recursive
     - ls -l promet/setup/output/*
   stage: upload
   script:
