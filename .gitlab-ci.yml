@@ -20,7 +20,7 @@ basetest-linux:
   image: build-lazarus-x64:latest
   stage: test 
   script:
-    - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
+#    - apt-get install sqlite3 libusb-dev libsane-dev zip git -y
     - promet/source/testcases/build.sh
   only:
     - master
@@ -31,7 +31,7 @@ webdavtest-linux:
   image: build-lazarus-x64:latest
   stage: test 
   script: 
-    - apt-get install lazarus sqlite3 libusb-dev libsane-dev zip git -y
+#    - apt-get install sqlite3 libusb-dev libsane-dev zip git -y
     - promet/source/testcases/build_webdav.sh
   only:
     - master
@@ -148,7 +148,7 @@ upload:all:
     - ls -l promet/setup/output/*
   stage: upload
   script:
-    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT
+#    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT
     - bash promet/setup/upload_builds.sh
   only:
     - master

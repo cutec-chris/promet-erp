@@ -6,6 +6,9 @@ echo "Building sync..."
 # Build components
 $lazbuild sync_db.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
+  $lazbuild sync_db.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
+if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt
   exit 1

@@ -56,7 +56,8 @@ if [ "x$lazbuild" = "x" ]
   elif [ $TARGET_CPU ]
     then export BUILD_ARCH=$(echo "--cpu=$TARGET_CPU")
   fi
-  if [ "x$TARGET_CPU" != "xarm" ]; then
-    export BUILD_PARAMS=-q
+  if [ "x$TARGET_CPU" != "xarm" ];
+    then export BUILD_PARAMS="-B -q"
+    else export BUILD_PARAMS="-B"
   fi
 fi

@@ -23,7 +23,8 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --db=Backup --syncblocks=1000"/>
+        <CommandLineParams Value="--mandant=TCS --db=ProdChina"/>
+        <WorkingDirectory Value="C:\Quellen\promet-erp\promet\output\i386-win32\"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -36,19 +37,19 @@
         <MinVersion Valid="True"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="26">
+    <Units Count="32">
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="685"/>
-        <CursorPos X="62" Y="707"/>
+        <TopLine Value="742"/>
+        <CursorPos Y="773"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="27"/>
         <CursorPos X="55" Y="718"/>
         <UsageCount Value="32"/>
@@ -57,7 +58,7 @@
       <Unit2>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="1691"/>
         <CursorPos Y="1714"/>
         <UsageCount Value="39"/>
@@ -66,9 +67,9 @@
       <Unit3>
         <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="2365"/>
-        <CursorPos X="53" Y="2372"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="1906"/>
+        <CursorPos Y="1928"/>
         <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit3>
@@ -164,7 +165,7 @@
       </Unit15>
       <Unit16>
         <Filename Value="..\base\dbintfs\uprometscripts.pas"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="641"/>
         <CursorPos X="45" Y="680"/>
         <UsageCount Value="32"/>
@@ -174,8 +175,8 @@
         <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="217"/>
-        <CursorPos Y="251"/>
-        <UsageCount Value="8"/>
+        <CursorPos Y="248"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit17>
       <Unit18>
@@ -216,7 +217,7 @@
       <Unit22>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="1534"/>
         <CursorPos X="33" Y="1575"/>
         <UsageCount Value="26"/>
@@ -231,142 +232,171 @@
       </Unit23>
       <Unit24>
         <Filename Value="..\components\zeos\src\plain\ZPlainSqLiteDriver.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="780"/>
-        <CursorPos X="49" Y="784"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="797"/>
+        <CursorPos Y="818"/>
         <UsageCount Value="15"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="5"/>
         <CursorPos X="21" Y="24"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit25>
+      <Unit26>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcIntfs.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1274"/>
+        <CursorPos Y="1296"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteStatement.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="325"/>
+        <CursorPos Y="348"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcGenericResolver.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="879"/>
+        <CursorPos Y="900"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteResultSet.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="907"/>
+        <CursorPos Y="929"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcCachedResultSet.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2030"/>
+        <CursorPos Y="2065"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="..\components\zeos\src\component\ZAbstractDataset.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="527"/>
+        <CursorPos Y="551"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit31>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="25" HistoryIndex="24">
       <Position1>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="359" TopLine="349"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1928" TopLine="1901"/>
       </Position1>
       <Position2>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="360" TopLine="349"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1929" TopLine="1901"/>
       </Position2>
       <Position3>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="361" TopLine="349"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1930" TopLine="1901"/>
       </Position3>
       <Position4>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="373" TopLine="355"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1931" TopLine="1901"/>
       </Position4>
       <Position5>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="374" TopLine="355"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1932" TopLine="1901"/>
       </Position5>
       <Position6>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="375" Column="25" TopLine="355"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1933" TopLine="1901"/>
       </Position6>
       <Position7>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="280" Column="67" TopLine="261"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1934" TopLine="1901"/>
       </Position7>
       <Position8>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="281" Column="67" TopLine="261"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1935" TopLine="1901"/>
       </Position8>
       <Position9>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="282" Column="67" TopLine="261"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1936" TopLine="1901"/>
       </Position9>
       <Position10>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="327" TopLine="304"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1937" TopLine="1901"/>
       </Position10>
       <Position11>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="329" TopLine="304"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1938" TopLine="1914"/>
       </Position11>
       <Position12>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="330" TopLine="304"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1939" TopLine="1914"/>
       </Position12>
       <Position13>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="331" TopLine="304"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1942" TopLine="1914"/>
       </Position13>
       <Position14>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="332" TopLine="304"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1972" TopLine="1944"/>
       </Position14>
       <Position15>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="334" TopLine="304"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1973" TopLine="1944"/>
       </Position15>
       <Position16>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="336" TopLine="304"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1974" TopLine="1944"/>
       </Position16>
       <Position17>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="541" TopLine="519"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1975" TopLine="1944"/>
       </Position17>
       <Position18>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="543" TopLine="519"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1976" TopLine="1944"/>
       </Position18>
       <Position19>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="544" TopLine="519"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1978" TopLine="1944"/>
       </Position19>
       <Position20>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="545" TopLine="519"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1979" TopLine="1944"/>
       </Position20>
       <Position21>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="546" TopLine="519"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1980" TopLine="1944"/>
       </Position21>
       <Position22>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="547" TopLine="519"/>
+        <Filename Value="..\components\zeos\src\plain\ZPlainSqLiteDriver.pas"/>
+        <Caret Line="818" TopLine="797"/>
       </Position22>
       <Position23>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="550" TopLine="519"/>
+        <Filename Value="..\components\zeos\src\plain\ZPlainSqLiteDriver.pas"/>
+        <Caret Line="818" TopLine="797"/>
       </Position23>
       <Position24>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="551" TopLine="519"/>
+        <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1979" TopLine="1941"/>
       </Position24>
       <Position25>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="552" TopLine="519"/>
+        <Filename Value="..\components\zeos\src\plain\ZPlainSqLiteDriver.pas"/>
+        <Caret Line="818" TopLine="797"/>
       </Position25>
-      <Position26>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="553" TopLine="519"/>
-      </Position26>
-      <Position27>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="425" Column="34" TopLine="403"/>
-      </Position27>
-      <Position28>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="460" Column="34" TopLine="430"/>
-      </Position28>
-      <Position29>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="708" TopLine="686"/>
-      </Position29>
-      <Position30>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="423" Column="50" TopLine="401"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -400,7 +430,7 @@
   <Debugging>
     <Watches Count="1">
       <Item1>
-        <Expression Value="aSQL"/>
+        <Expression Value="Result^"/>
       </Item1>
     </Watches>
     <Exceptions Count="6">

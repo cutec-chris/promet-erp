@@ -5,11 +5,17 @@ cd promet/source/tools
 echo "Building tools..."
 $lazbuild cmdwizardmandant.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
+  $lazbuild cmdwizardmandant.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
+if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt
   exit 1
 fi
 $lazbuild checkin.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  $lazbuild checkin.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
 if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt
@@ -17,11 +23,17 @@ if [ "$?" -ne "0" ]; then
 fi
 $lazbuild checkout.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
+  $lazbuild checkout.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
+if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt
   exit 1
 fi
 $lazbuild processdaemon.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  $lazbuild processdaemon.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
 if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt
@@ -29,11 +41,17 @@ if [ "$?" -ne "0" ]; then
 fi
 $lazbuild ../webservers/pappserver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
+  $lazbuild ../webservers/pappserver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
+if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt
   exit 1
 fi
 $lazbuild ../sync/import_document.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  $lazbuild ../sync/import_document.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
 if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt

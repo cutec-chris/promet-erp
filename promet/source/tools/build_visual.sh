@@ -6,17 +6,26 @@ echo "Building visual tools..."
 # Build components
 $lazbuild wizardmandant.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
+  $lazbuild wizardmandant.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
+if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt
   exit 1
 fi
 $lazbuild pstarter.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ "$?" -ne "0" ]; then
+  $lazbuild pstarter.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
+if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt
   exit 1
 fi
 $lazbuild helpviewer.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+if [ "$?" -ne "0" ]; then
+  $lazbuild helpviewer.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+fi
 if [ "$?" -ne "0" ]; then
   echo "build failed"
   tail -n 10 build.txt
