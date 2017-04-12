@@ -81,22 +81,25 @@ mkdir -p $BuildDir/usr/lib/$Program
 mkdir -p $BuildDir/etc/init.d/
 
 mkdir -p $BuildDir/usr/lib/$Program/web2
-wget https://github.com/cutec-chris/promet-app-config-dx/archive/master.zip -O /tmp/master.zip
-unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
-mv $BuildDir/usr/lib/$Program/promet-app-config-dx-master/* $BuildDir/usr/lib/$Program/web2
-rm -r $BuildDir/usr/lib/$Program/promet-app-config-dx-master
+#Task App
 wget https://github.com/cutec-chris/promet-app-tasks-dx/archive/master.zip -O /tmp/master.zip
 unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
 mv $BuildDir/usr/lib/$Program/promet-app-tasks-dx-master/* $BuildDir/usr/lib/$Program/web2
 rm -r $BuildDir/usr/lib/$Program/promet-app-tasks-dx-master
-wget https://github.com/cutec-chris/promet-app-times-dx-master/archive/master.zip -O /tmp/master.zip
+#Timeregistering App
+wget https://github.com/cutec-chris/promet-app-times-dx/archive/master.zip -O /tmp/master.zip
 unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
-mv $BuildDir/usr/lib/$Program/promet-app-times-dx/* $BuildDir/usr/lib/$Program/web2
+mv $BuildDir/usr/lib/$Program/promet-app-times-dx-master/* $BuildDir/usr/lib/$Program/web2
 rm -r $BuildDir/usr/lib/$Program/promet-app-times-dx-master
+#Config App - must be last since it has index.html for all apps
+wget https://github.com/cutec-chris/promet-app-config-dx/archive/master.zip -O /tmp/master.zip
+unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
+mv $BuildDir/usr/lib/$Program/promet-app-config-dx-master/* $BuildDir/usr/lib/$Program/web2
+rm -r $BuildDir/usr/lib/$Program/promet-app-config-dx-master
 
-rm $BuildDir/usr/lib/$Program/web/*.md
-rm $BuildDir/usr/lib/$Program/web/LISCENSE
-rm $BuildDir/usr/lib/$Program/web/.gitmodules
+rm $BuildDir/usr/lib/$Program/web2/*.md
+rm $BuildDir/usr/lib/$Program/web2/LICENSE
+rm $BuildDir/usr/lib/$Program/web2/.gitmodules
 
 ln -s /usr/lib/$Program/tools/imapserver $BuildDir/usr/bin/promet-erp-imap
 ln -s /usr/lib/$Program/tools/davserver $BuildDir/usr/bin/promet-erp-dav
