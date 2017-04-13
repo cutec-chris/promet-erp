@@ -975,6 +975,7 @@ object fMain: TfMain
     end
   end
   object RefreshTimer: TIdleTimer
+    Enabled = False
     Interval = 30000
     OnTimer = DoRefreshActiveTab
     left = 72
