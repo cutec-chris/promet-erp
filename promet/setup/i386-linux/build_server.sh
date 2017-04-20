@@ -96,6 +96,16 @@ wget https://github.com/cutec-chris/promet-app-config-dx/archive/master.zip -O /
 unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
 mv $BuildDir/usr/lib/$Program/promet-app-config-dx-master/* $BuildDir/usr/lib/$Program/web2
 rm -r $BuildDir/usr/lib/$Program/promet-app-config-dx-master
+#appbase
+wget https://github.com/cutec-chris/promet-appbase/archive/master.zip -O /tmp/master.zip
+unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
+mv $BuildDir/usr/lib/$Program/promet-appbase-master/* $BuildDir/usr/lib/$Program/web2/appbase
+rm -r $BuildDir/usr/lib/$Program/promet-appbase-master
+#dhtmlx
+wget https://github.com/cutec-chris/dhtmlx/archive/master.zip -O /tmp/master.zip
+unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
+mv $BuildDir/usr/lib/$Program/dhtmlx-master/* $BuildDir/usr/lib/$Program/web2/codebase
+rm -r $BuildDir/usr/lib/$Program/dhtmlx-master
 
 rm $BuildDir/usr/lib/$Program/web2/*.md
 rm $BuildDir/usr/lib/$Program/web2/LICENSE

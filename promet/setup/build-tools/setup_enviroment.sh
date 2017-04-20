@@ -11,6 +11,7 @@ if [ "x$lazbuild" = "x" ]
   echo "$lazbuild"
   export grep="grep"
   export SED="sed"
+  export TARGET_WIDGETSET="gtk2";
   export SQLITE3="sqlite3"
   $SED 's/||/| |/g' /dev/null
   if [ "$?" -ne "0" ]; then
