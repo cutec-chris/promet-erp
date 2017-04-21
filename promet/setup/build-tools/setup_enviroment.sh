@@ -11,7 +11,6 @@ if [ "x$lazbuild" = "x" ]
   echo "$lazbuild"
   export grep="grep"
   export SED="sed"
-  export TARGET_WIDGETSET="gtk2";
   export SQLITE3="sqlite3"
   $SED 's/||/| |/g' /dev/null
   if [ "$?" -ne "0" ]; then
@@ -25,6 +24,9 @@ if [ "x$lazbuild" = "x" ]
   export TARGET_OS=$( $lazbuild -? | grep 'linux.' | $SED -e 's/.*: //')
   echo "CPU:$TARGET_CPU"
   echo "OS:$TARGET_OS"
+  if [ "x$TARGET_WIDGETSET" = "x" ]; then
+    export TARGET_WIDGETSET='gtk2'
+  fi
   echo "Widgetset:$TARGET_WIDGETSET"
   if [ "x$TARGET_CPU" = "xarm" ]; then
     export TARGET_OS='linux'
