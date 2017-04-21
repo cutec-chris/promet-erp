@@ -98,6 +98,7 @@ begin
                         if not LoadMandants then
                           begin
                             Error(strFailedtoLoadMandants);
+                            DeleteFile(GetOurConfigDir+'standard.perml');
                           end
                         else
                           begin
@@ -109,6 +110,7 @@ begin
                                 aResult.Text := LastError;
                                 aresult.SaveToStream(Output);
                                 Output.Position:=0;
+                                DeleteFile(GetOurConfigDir+'standard.perml');
                               end;
                           end;
                       end;
