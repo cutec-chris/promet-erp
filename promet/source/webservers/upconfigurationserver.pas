@@ -56,6 +56,7 @@ begin
       end;
     if copy(lowercase(url),0,15)='/configuration/' then
       begin
+        headers.Clear;
         Headers.Add('Access-Control-Allow-Origin: *');
         Headers.Add('Access-Control-Allow-Methods: GET, OPTIONS, POST');
         Headers.Add('Access-Control-Allow-Headers: Authorization,X-Requested-With');
@@ -84,22 +85,34 @@ begin
                     tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
                     aOptions := tmp;
                     Result := 503;
+                    aResult.Clear;
                     //TODO:check if DB Connection works
                     with BaseApplication as IBaseDbInterface,BaseApplication as  IBaseApplication do
                       begin
                         aResult.Clear;
-                        aResult.Add('SQL:'+aType+';'+aServer+';'+aDB+';'+aUser+';'+Encrypt(aPW,99998));
+                        aResult.Add('SQL');
+                        aResult.Add(aType+';'+aServer+';'+aDB+';'+aUser+';'+Encrypt(aPW,99998));
                         aResult.SaveToFile(GetOurConfigDir+'standard.perml');
+                        aResult.Clear;
                         Info('loading mandants...');
                         if not LoadMandants then
                           begin
                             Error(strFailedtoLoadMandants);
                           end
                         else
-                          Result := 200;
+                          begin
+                            if DBLogin('standard','') then
+                              Result := 200
+                            else
+                              begin
+                                Result := 403;
+                                aResult.Text := LastError;
+                                aresult.SaveToStream(Output);
+                                Output.Position:=0;
+                              end;
+                          end;
                       end;
                   end;
-                aResult.Clear;
               end;
           end
         else if lowercase(url) = 'status' then
