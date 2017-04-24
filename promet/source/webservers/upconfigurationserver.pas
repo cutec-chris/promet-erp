@@ -103,7 +103,10 @@ begin
                         else
                           begin
                             if DBLogin('standard','') then
-                              Result := 200
+                              begin
+                                Result := 200;
+                                uData.Data := GetDB;
+                              end
                             else
                               begin
                                 Result := 403;
