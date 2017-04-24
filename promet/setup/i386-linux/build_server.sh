@@ -74,6 +74,7 @@ unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/mqttreceiver
 unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/imapserver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/sync_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/webserver_$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
+unzip -u -d $BuildDir/usr/lib/$Program $basedir/promet/setup/output/help-$BUILD_VERSION.zip
 mkdir -p $BuildDir/usr/share/pixmaps/
 mkdir -p $BuildDir/usr/share/applications
 mkdir -p $BuildDir/usr/bin/
