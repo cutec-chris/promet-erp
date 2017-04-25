@@ -92,6 +92,16 @@ wget https://github.com/cutec-chris/promet-app-times-dx/archive/master.zip -O /t
 unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
 mv $BuildDir/usr/lib/$Program/promet-app-times-dx-master/* $BuildDir/usr/lib/$Program/web2
 rm -r $BuildDir/usr/lib/$Program/promet-app-times-dx-master
+#Meeting App
+wget https://github.com/cutec-chris/promet-app-meeting-dx/archive/master.zip -O /tmp/master.zip
+unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
+mv $BuildDir/usr/lib/$Program/promet-app-meeting-dx-master/* $BuildDir/usr/lib/$Program/web2
+rm -r $BuildDir/usr/lib/$Program/promet-app-meeting-dx-master
+#Project App
+wget https://github.com/cutec-chris/promet-app-project-dx/archive/master.zip -O /tmp/master.zip
+unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
+mv $BuildDir/usr/lib/$Program/promet-app-project-dx-master/* $BuildDir/usr/lib/$Program/web2
+rm -r $BuildDir/usr/lib/$Program/promet-app-project-dx-master
 #Config App - must be last since it has index.html for all apps
 wget https://github.com/cutec-chris/promet-app-config-dx/archive/master.zip -O /tmp/master.zip
 unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
