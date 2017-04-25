@@ -115,6 +115,7 @@ build_server()
 build_all()
 {
   echo "Building all..."
+  . ./promet/help/build.sh "$2"
   build_server $1 $2;
   sleep 2
   build_default $1 $2;
@@ -134,7 +135,6 @@ build_all()
   fi
   sleep 2
   if [ "x$TARGET_OS" != "xwin32" ]; then
-    . ./promet/help/build.sh "$2"
     . ./promet/importdata/build.sh "$2"
   fi
   sleep 2
