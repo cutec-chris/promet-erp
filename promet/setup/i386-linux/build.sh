@@ -81,6 +81,7 @@ install general/$Program.starter $BuildDir/usr/lib/$Program/
 install general/helpviewer.starter $BuildDir/usr/lib/$Program/
 install general/wizardmandant.starter $BuildDir/usr/lib/$Program/
 ln -s /usr/lib/$Program/helpviewer.starter $BuildDir/usr/bin/promet-erp-help
+chmod 777 $BuildDir/usr/bin/promet-erp/help.db
 chmod 666 $BuildDir/usr/bin/promet-erp-help
 ln -s /usr/lib/$Program/$Program.starter $BuildDir/usr/bin/$Program
 chmod 666 $BuildDir/usr/bin/$Program
