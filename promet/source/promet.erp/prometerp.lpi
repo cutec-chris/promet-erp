@@ -630,7 +630,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="13">
+    <Exceptions Count="14">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -672,6 +672,9 @@
       <Item13>
         <Name Value="ESQLScannerError"/>
       </Item13>
+      <Item14>
+        <Name Value="EParserError"/>
+      </Item14>
     </Exceptions>
   </Debugging>
 </CONFIG>
