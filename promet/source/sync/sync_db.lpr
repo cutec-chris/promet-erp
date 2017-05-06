@@ -585,7 +585,7 @@ var
   SyncedTables: Integer;
   FSyncedCount: Integer;
   FOldTime: String;
-  SyncCount, aSyncCount: Integer;
+  SyncCount, aSyncCount, FOldSyncCount: Integer;
   BlockSizeReached: Boolean;
   procedure DoCreateTable(aTableC : TClass);
   var
@@ -705,9 +705,10 @@ begin
                                               FSyncedCount:=2;
                                               if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString='' then
                                                 FOldTime:='a';
-                                              while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) do
+                                              while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) and (FOldSyncCount<>FSyncedCount) do
                                                 begin
                                                   FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
+                                                  FOldSyncCount := FSyncedCount;
                                                   FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
                                                   inc(SyncedTables,FSyncedCount);
                                                 end;
@@ -762,7 +763,7 @@ begin
               end;
               Info(SyncDB.FieldByName('NAME').AsString+' sync done.');
             end
-          else Info('ignoring:'+SyncDB.FieldByName('NAME').AsString+' (already started)');
+          else Info('ignoring:'+SyncDB.FieldByName('NAME').AsString+' (inactive or overrode with --db)');
         end;
       SyncDB.DataSet.Next;
     end;
