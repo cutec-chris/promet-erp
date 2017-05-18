@@ -1,28 +1,16 @@
 #Tests
-basetest-linux:
-  variables:
-#    GIT_STRATEGY: clone
-  image: build-lazarus-x64:latest
-  stage: test 
-  script:
-#    - apt-get install sqlite3 libusb-dev libsane-dev zip git -y
-    - promet/source/testcases/build.sh
-  only:
-    - master
-#  allow_failure: true      
-  tags:
-    - docker-lazarus-x64
-webdavtest-linux:
-  image: build-lazarus-x64:latest
-  stage: test 
-  script: 
-#    - apt-get install sqlite3 libusb-dev libsane-dev zip git -y
-    - promet/source/testcases/build_webdav.sh
-  only:
-    - master
-#  allow_failure: true      
-  tags:
-    - docker-lazarus-x64
+pipeline:
+  basetest-linux:
+    image: build-lazarus-x64:latest
+    stage: test 
+    commands:
+      - promet/source/testcases/build.sh
+  webdavtest-linux:
+    image: build-lazarus-x64:latest
+    stage: test 
+    commands: 
+      - promet/source/testcases/build_webdav.sh
+
 #mysql-test:
 #  image: build-lazarus-x64:latest
 #  services:
