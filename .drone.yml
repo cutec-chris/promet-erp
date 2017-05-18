@@ -57,133 +57,129 @@ webdavtest-linux:
 #    - docker-lazarus-x64
 #  allow_failure: true
 #Build
-build:windows:
-  stage: build 
-  variables:
-#    GIT_STRATEGY: clone
-  script: 
-    - git submodule sync --recursive
-    - bash build.sh clean
-    - bash build.sh all
-  tags:
-    - windows-i386
-  only:
-    - master
-  artifacts:
-    paths:
-      - promet/setup/output
-    expire_in: 1 week  
+#build:windows:
+#  stage: build 
+#  variables:
+#  script: 
+#    - git submodule sync --recursive
+#    - bash build.sh clean
+#    - bash build.sh all
+#  tags:
+#    - windows-i386
+#  only:
+#    - master
+#  artifacts:
+#    paths:
+#      - promet/setup/output
+#    expire_in: 1 week  
 
-build:linux:i386:
-  image: build-lazarus-i386
-  stage: build 
-  script: 
-    - bash build.sh clean
-    - bash build.sh all
-  tags:
-    - docker-lazarus-x64
-  only:
-    - master
-  artifacts:
-    paths:
-      - promet/setup/output
-    expire_in: 1 week  
+#build:linux:i386:
+#  image: build-lazarus-i386
+#  stage: build 
+#  script: 
+#    - bash build.sh clean
+#    - bash build.sh all
+#  tags:
+#    - docker-lazarus-x64
+#  only:
+#    - master
+#  artifacts:
+#    paths:
+#      - promet/setup/output
+#    expire_in: 1 week  
 
-build:linux:x86-64:
-  image: build-lazarus-x64:latest
-  stage: build 
-  script: 
-#    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT 
-    - bash build.sh clean
-    - bash build.sh all
-  tags:
-    - docker-lazarus-x64
-  only:
-    - master
-  artifacts:
-    paths:
-      - promet/setup/output
-    expire_in: 1 week  
+#build:linux:x86-64:
+#  image: build-lazarus-x64:latest
+#  stage: build 
+#  script: 
+#    - bash build.sh clean
+#    - bash build.sh all
+#  tags:
+#    - docker-lazarus-x64
+#  only:
+#    - master
+#  artifacts:
+#    paths:
+#      - promet/setup/output
+#    expire_in: 1 week  
 
-build:linux:arm:
-  variables:
-    GIT_DEPTH: ""
-#    GIT_STRATEGY: clone
-  before_script:
-    - git submodule sync
-    - git submodule foreach git submodule update
-    - git submodule update --init --recursive
-  stage: build 
-  script:
-    - git clean -fdx
-    - git submodule foreach git reset --hard
-    - bash build.sh server
-  tags:
-    - linux-arm
-  only:
-    - master
-  artifacts:
-    paths:
-      - promet/setup/output
-    expire_in: 1 week  
-  allow_failure: true      
+#build:linux:arm:
+#  variables:
+#    GIT_DEPTH: ""
+#  before_script:
+#    - git submodule sync
+#    - git submodule foreach git submodule update
+#    - git submodule update --init --recursive
+#  stage: build 
+#  script:
+#    - git clean -fdx
+#    - git submodule foreach git reset --hard
+#    - bash build.sh server
+#  tags:
+#    - linux-arm
+#  only:
+#    - master
+#  artifacts:
+#    paths:
+#      - promet/setup/output
+#    expire_in: 1 week  
+#  allow_failure: true      
 
-upload:all:
-  before_script:
-    - git submodule sync --recursive
-    - git submodule update --init --recursive
-    - ls -l promet/setup/output/*
-  stage: upload
-  script:
-#    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT
-    - bash promet/setup/upload_builds.sh
-  only:
-    - master
-  dependencies:
-    - build:linux:arm
-    - build:linux:i386
-    - build:linux:x86-64
-    - build:windows
-  artifacts:
-    paths:
-      - promet/setup/output/act_alphadownload.txt
-    expire_in: 1 week
-  tags:
-    - linux-x64
+#upload:all:
+#  before_script:
+#    - git submodule sync --recursive
+#    - git submodule update --init --recursive
+#    - ls -l promet/setup/output/*
+#  stage: upload
+#  script:
+#    - bash promet/setup/upload_builds.sh
+#  only:
+#    - master
+#  dependencies:
+#    - build:linux:arm
+#    - build:linux:i386
+#    - build:linux:x86-64
+ #   - build:windows
+#  artifacts:
+#    paths:
+#      - promet/setup/output/act_alphadownload.txt
+#    expire_in: 1 week
+#  tags:
+#    - linux-x64
 
-update:containers:
-  before_script:
-    - ls -l promet/setup/output/*
-  stage: publish
-  script:
-    - bash promet/setup/build_containers.sh
-  dependencies:
-    - upload:all
-  only:
-    - master
-  tags:
-    - linux-x64
-  allow_failure: true
-update:alpha-wiki:
-  image: build-lazarus-x64:latest
-  before_script:
-    - ls -l promet/setup/output/*
-  stage: publish
-  script:
-    - bash promet/setup/change_wiki_alpha.sh
-  only:
-    - master
-  dependencies:
-    - upload:all
-  tags:
-    - docker-lazarus-x64
-  allow_failure: true
-deploy:new_version:
-  before_script:
-    - ls -l
-  script:
-    - bash promet/setup/change_wiki_version.sh
-  tags:
-    - linux-x64
-  only:
-  - tags
+#update:containers:
+#  before_script:
+#    - ls -l promet/setup/output/*
+#  stage: publish
+#  script:
+#    - bash promet/setup/build_containers.sh
+#  dependencies:
+#    - upload:all
+#  only:
+#    - master
+#  tags:
+#    - linux-x64
+#  allow_failure: true
+#update:alpha-wiki:
+#  image: build-lazarus-x64:latest
+#  before_script:
+#    - ls -l promet/setup/output/*
+#  stage: publish
+#  script:
+#    - bash promet/setup/change_wiki_alpha.sh
+#  only:
+#    - master
+#  dependencies:
+#    - upload:all
+#  tags:
+#    - docker-lazarus-x64
+#  allow_failure: true
+#deploy:new_version:
+#  before_script:
+#    - ls -l
+#  script:
+#    - bash promet/setup/change_wiki_version.sh
+#  tags:
+#    - linux-x64
+#  only:
+#  - tags
