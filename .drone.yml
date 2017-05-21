@@ -1,3 +1,6 @@
+clone:
+  image: plugins/git
+  depth: 1
 #Tests
 pipeline:
   basetest-linux:
