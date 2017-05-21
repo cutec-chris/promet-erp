@@ -1,8 +1,8 @@
-clone:
-  image: plugins/git
-  depth: 1
 #Tests
 pipeline:
+  clone:
+    image: plugins/git
+    depth: 1
   basetest-linux:
     image: build-lazarus-x64:latest
     stage: test 
