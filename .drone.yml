@@ -1,3 +1,5 @@
+workspace:
+  path: src/gogs/promet-erp
 #Tests
 pipeline:
   clone:
