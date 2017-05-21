@@ -9,6 +9,7 @@ pipeline:
     image: build-lazarus-x64:latest
     stage: test 
     commands:
+      - lazbuild promet/source/components/zeos/packages/lazarus/zcore.lpk
       - lazbuild promet/source/components/zeos/packages/lazarus/zcomponent_nogui.lpk
       - promet/source/testcases/build.sh
   webdavtest-linux:
