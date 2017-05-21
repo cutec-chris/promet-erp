@@ -4,7 +4,7 @@ cd promet/source/testcases
 . ../../setup/build-tools/setup_enviroment.sh
 echo "Building testcases..."
 # Build components
-$lazbuild consoletest.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+$lazbuild consoletest.lpi $BUILD_ARCH $BUILD_PARAMS 
 if [ "$?" -ne "0" ]; then
   $lazbuild consoletest.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 fi
