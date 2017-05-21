@@ -67,24 +67,23 @@ pipeline:
 #    paths:
 #      - promet/setup/output
 #    expire_in: 1 week  
+  build-linux-i386:
+    image: build-lazarus-i386
+    stage: build 
+    commands: 
+      - bash build.sh clean
+      - bash build.sh all
+    when:
+      - master
 
-   build-linux-i386:
-     image: build-lazarus-i386
-     stage: build 
-     commands: 
-       - bash build.sh clean
-       - bash build.sh all
-     when:
-       - master
-
-   build-linux-x86-64:
-     image: build-lazarus-x64:latest
-     stage: build 
-     commands: 
-       - bash build.sh clean
-       - bash build.sh all
-     when:
-       - master
+  build-linux-x86-64:
+    image: build-lazarus-x64:latest
+    stage: build 
+    commands: 
+      - bash build.sh clean
+      - bash build.sh all
+    when:
+      - master
 
 #build:linux:arm:
 #  variables:
