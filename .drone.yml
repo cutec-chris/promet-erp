@@ -3,6 +3,8 @@ pipeline:
   clone:
     image: plugins/git
     depth: 1
+    recursive: true
+    submodule_update_remote: true
   basetest-linux:
     image: build-lazarus-x64:latest
     stage: test 
