@@ -1,5 +1,7 @@
 #Tests
 pipeline:
+  env:
+    - DEBUG=true
   clone:
     image: plugins/git
     depth: 1
