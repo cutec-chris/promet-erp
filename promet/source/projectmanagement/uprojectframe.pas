@@ -78,8 +78,8 @@ type
     DBCheckBox2: TDBCheckBox;
     DBCheckBox3: TDBCheckBox;
     DBCheckBox4: TDBCheckBox;
-    DBZVDateTimePicker4: TDBZVDateTimePicker;
-    DBZVDateTimePicker5: TDBZVDateTimePicker;
+    eWish: TDBZVDateTimePicker;
+    eCreated: TDBZVDateTimePicker;
     eInitiator: TEditButton;
     eParent: TEditButton;
     eManager: TEditButton;
@@ -88,9 +88,9 @@ type
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
-    Label14: TLabel;
+    lCreated: TLabel;
     Label15: TLabel;
-    Label8: TLabel;
+    lWish: TLabel;
     Label9: TLabel;
     lVAT1: TLabel;
     lVAT2: TLabel;
@@ -121,11 +121,11 @@ type
     Shape4: TShape;
     Tasks: TDatasource;
     DBZVDateTimePicker1: TDBZVDateTimePicker;
-    DBZVDateTimePicker3: TDBZVDateTimePicker;
+    eTarget: TDBZVDateTimePicker;
     dImport: TOpenDialog;
     eNumber: TDBEdit;
     History: TDatasource;
-    Label1: TLabel;
+    lTarget: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
