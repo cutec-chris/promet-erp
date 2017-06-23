@@ -3,8 +3,8 @@ inherited fprojectFrame: TfprojectFrame
   Width = 812
   ClientHeight = 493
   ClientWidth = 812
-  DesignLeft = 445
-  DesignTop = 182
+  DesignLeft = 465
+  DesignTop = 219
   object pComponents: TPanel[0]
     Left = 0
     Height = 48
@@ -28,9 +28,9 @@ inherited fprojectFrame: TfprojectFrame
     end
     object lname: TLabel
       Left = 9
-      Height = 20
+      Height = 15
       Top = -2
-      Width = 40
+      Width = 32
       Caption = 'Name'
       ParentColor = False
     end
@@ -41,7 +41,7 @@ inherited fprojectFrame: TfprojectFrame
       Width = 65
       Anchors = [akTop, akRight]
       Caption = 'Baum'
-      ClientHeight = 23
+      ClientHeight = 28
       ClientWidth = 61
       TabOrder = 1
       object bAssignTree: TSpeedButton
@@ -135,15 +135,15 @@ inherited fprojectFrame: TfprojectFrame
     NewTabImageIndex = 59
     object tsInfo: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 320
+      ClientHeight = 325
       ClientWidth = 804
       ImageIndex = 62
       object mInfo: TDBMemo
-        AnchorSideTop.Control = eCreated
+        AnchorSideTop.Control = DBCheckBox4
         AnchorSideTop.Side = asrBottom
         Left = 8
-        Height = 161
-        Top = 151
+        Height = 170
+        Top = 147
         Width = 788
         Align = alBottom
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -157,10 +157,10 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = lCreated
         AnchorSideTop.Side = asrBottom
         Left = 133
-        Height = 28
+        Height = 23
         Hint = 'Drücken Sie N um das Datum zu löschen'
-        Top = 115
-        Width = 95
+        Top = 90
+        Width = 79
         DataField = 'END'
         DataSource = Projects
         ReadOnly = False
@@ -181,9 +181,9 @@ inherited fprojectFrame: TfprojectFrame
       end
       object lTarget: TLabel
         Left = 8
-        Height = 20
+        Height = 15
         Top = -1
-        Width = 174
+        Width = 139
         Caption = 'Ziel /Fertigstellungsdatum'
         ParentColor = False
         WordWrap = True
@@ -192,9 +192,9 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = eWish
         AnchorSideTop.Side = asrBottom
         Left = 133
-        Height = 20
-        Top = 95
-        Width = 68
+        Height = 15
+        Top = 75
+        Width = 55
         Caption = 'Enddatum'
         ParentColor = False
       end
@@ -202,10 +202,10 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = lTarget
         AnchorSideTop.Side = asrBottom
         Left = 10
-        Height = 28
+        Height = 23
         Hint = 'Drücken Sie N um das Datum zu löschen'
-        Top = 19
-        Width = 95
+        Top = 14
+        Width = 79
         DataField = 'TARGET'
         DataSource = Projects
         ReadOnly = False
@@ -228,9 +228,9 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = eTarget
         AnchorSideTop.Side = asrBottom
         Left = 8
-        Height = 20
-        Top = 47
-        Width = 94
+        Height = 15
+        Top = 37
+        Width = 78
         Caption = 'Wunschtermin'
         ParentColor = False
         WordWrap = True
@@ -239,10 +239,10 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = lWish
         AnchorSideTop.Side = asrBottom
         Left = 10
-        Height = 28
+        Height = 23
         Hint = 'Drücken Sie N um das Datum zu löschen'
-        Top = 67
-        Width = 95
+        Top = 52
+        Width = 79
         DataField = 'PLANTARGET'
         DataSource = Projects
         ReadOnly = False
@@ -265,8 +265,8 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = lWish
         AnchorSideTop.Side = asrBottom
         Left = 133
-        Height = 28
-        Top = 67
+        Height = 23
+        Top = 52
         Width = 72
         MaxValue = 999999
         OnChange = sePriorityChange
@@ -277,9 +277,9 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = eTarget
         AnchorSideTop.Side = asrBottom
         Left = 133
-        Height = 20
-        Top = 47
-        Width = 53
+        Height = 15
+        Top = 37
+        Width = 42
         Caption = 'Priorität'
         ParentColor = False
       end
@@ -287,9 +287,9 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = eTarget
         AnchorSideTop.Side = asrBottom
         Left = 240
-        Height = 20
-        Top = 47
-        Width = 65
+        Height = 15
+        Top = 37
+        Width = 50
         Caption = 'Kategorie'
         ParentColor = False
       end
@@ -297,12 +297,12 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = lWish
         AnchorSideTop.Side = asrBottom
         Left = 240
-        Height = 28
-        Top = 67
+        Height = 23
+        Top = 52
         Width = 178
         DataField = 'CATEGORY'
         DataSource = Projects
-        ItemHeight = 20
+        ItemHeight = 15
         MaxLength = 0
         OnSelect = cbCategorySelect
         Sorted = True
@@ -310,9 +310,9 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label11: TLabel
         Left = 240
-        Height = 20
+        Height = 15
         Top = -1
-        Width = 80
+        Width = 63
         Caption = 'Projektleiter'
         ParentColor = False
       end
@@ -320,9 +320,9 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = lTarget
         AnchorSideTop.Side = asrBottom
         Left = 240
-        Height = 28
+        Height = 23
         Hint = 'Der Projektleiter des Projetes/Prozesses'
-        Top = 19
+        Top = 14
         Width = 178
         ButtonWidth = 23
         Glyph.Data = {
@@ -370,10 +370,10 @@ inherited fprojectFrame: TfprojectFrame
       end
       object DBCheckBox1: TDBCheckBox
         Left = 432
-        Height = 24
+        Height = 19
         Hint = 'schickt eine Nachricht an den Vorgesetzten '#13#10'wenn Aufgaben erledigt oder wiedereröffnet werden'
         Top = 72
-        Width = 184
+        Width = 146
         AutoSize = True
         Caption = 'Vorgesetzte informieren'
         DataField = 'INFORMLEADER'
@@ -384,10 +384,10 @@ inherited fprojectFrame: TfprojectFrame
       end
       object DBCheckBox2: TDBCheckBox
         Left = 432
-        Height = 24
+        Height = 19
         Hint = 'schickt eine Nachricht an den Projektleiter'#13#10'wenn Aufgaben erledigt oder wiedereröffnet werde'
         Top = 96
-        Width = 185
+        Width = 148
         AutoSize = True
         Caption = 'Projektleiter informieren'
         DataField = 'INFORMPMANAGER'
@@ -431,9 +431,9 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label13: TLabel
         Left = 659
-        Height = 20
+        Height = 15
         Top = 1
-        Width = 44
+        Width = 35
         Caption = 'Ampel'
         ParentColor = False
         Visible = False
@@ -451,10 +451,10 @@ inherited fprojectFrame: TfprojectFrame
       end
       object DBCheckBox3: TDBCheckBox
         Left = 432
-        Height = 24
+        Height = 19
         Hint = 'Wenn abgehakt wird das Projekt aus der Projektübersicht und Grobplanung ausgeschlossen'#13#10'Wenn angehakt wird es in beiden angezeigt'#13#10'Standardmäßig wird es in der Projektübersicht angezeigt, in der Grobplanung nicht'
         Top = 48
-        Width = 251
+        Width = 201
         AutoSize = True
         Caption = 'anzeige in Grobplanung/Übersicht'
         DataField = 'GROSSPLANNING'
@@ -467,9 +467,9 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = eWish
         AnchorSideTop.Side = asrBottom
         Left = 10
-        Height = 20
-        Top = 95
-        Width = 114
+        Height = 15
+        Top = 75
+        Width = 92
         Caption = 'Erstellungsdatum'
         ParentColor = False
       end
@@ -477,10 +477,10 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = lCreated
         AnchorSideTop.Side = asrBottom
         Left = 10
-        Height = 28
+        Height = 23
         Hint = 'Drücken Sie N um das Datum zu löschen'
-        Top = 115
-        Width = 95
+        Top = 90
+        Width = 79
         DataField = 'CREATEDAT'
         DataSource = Projects
         ReadOnly = False
@@ -502,7 +502,7 @@ inherited fprojectFrame: TfprojectFrame
       object bProjectColor: TColorButton
         Left = 627
         Height = 25
-        Top = 120
+        Top = 114
         Width = 24
         BorderWidth = 2
         ButtonColorSize = 16
@@ -513,9 +513,9 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = eWish
         AnchorSideTop.Side = asrBottom
         Left = 240
-        Height = 20
-        Top = 95
-        Width = 95
+        Height = 15
+        Top = 75
+        Width = 75
         Caption = 'Klassifizierung'
         ParentColor = False
       end
@@ -523,12 +523,12 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = lCreated
         AnchorSideTop.Side = asrBottom
         Left = 240
-        Height = 28
-        Top = 115
+        Height = 23
+        Top = 90
         Width = 178
         DataField = 'CLASS'
         DataSource = Projects
-        ItemHeight = 20
+        ItemHeight = 15
         MaxLength = 0
         OnSelect = cbCategorySelect
         Sorted = True
@@ -537,9 +537,9 @@ inherited fprojectFrame: TfprojectFrame
       object DBCheckBox4: TDBCheckBox
         AnchorSideBottom.Control = eCreated
         Left = 432
-        Height = 24
+        Height = 19
         Top = 120
-        Width = 95
+        Width = 75
         AutoSize = True
         Caption = 'ist Vorlage'
         DataField = 'ISTEMPLATE'
@@ -552,9 +552,9 @@ inherited fprojectFrame: TfprojectFrame
         AnchorSideTop.Control = lTarget
         AnchorSideTop.Side = asrBottom
         Left = 432
-        Height = 28
+        Height = 23
         Hint = 'Der Projektleiter des Projetes/Prozesses'
-        Top = 19
+        Top = 14
         Width = 194
         ButtonWidth = 23
         Glyph.Data = {
@@ -602,9 +602,9 @@ inherited fprojectFrame: TfprojectFrame
       end
       object Label15: TLabel
         Left = 432
-        Height = 20
+        Height = 15
         Top = -1
-        Width = 52
+        Width = 41
         Caption = 'Initiator'
         ParentColor = False
       end
@@ -821,7 +821,7 @@ inherited fprojectFrame: TfprojectFrame
       end
       object eNumber: TDBEdit
         Left = 4
-        Height = 28
+        Height = 23
         Hint = 'Die Projektnummer'
         Top = 12
         Width = 84
@@ -880,11 +880,11 @@ inherited fprojectFrame: TfprojectFrame
       end
       object cbStatus: TComboBox
         Left = 1
-        Height = 28
+        Height = 23
         Hint = 'hier können Sie den Status des Projektes ändern um es in neue Zustände zu überführen'
         Top = 12
         Width = 143
-        ItemHeight = 20
+        ItemHeight = 15
         OnSelect = cbStatusSelect
         Style = csDropDownList
         TabOrder = 0
@@ -991,13 +991,13 @@ inherited fprojectFrame: TfprojectFrame
       end
       object cbType: TExtDBCombobox
         Left = 4
-        Height = 28
+        Height = 23
         Top = 12
         Width = 69
         Anchors = [akTop, akLeft, akRight]
         DataField = 'TYPE'
         DataSource = Projects
-        ItemHeight = 20
+        ItemHeight = 15
         Items.Strings = (
           'C Prozess'
           'P Projekt'
@@ -1074,7 +1074,7 @@ inherited fprojectFrame: TfprojectFrame
       end
       object eParent: TEditButton
         Left = 9
-        Height = 28
+        Height = 23
         Hint = 'der Vorfahr des Projektes/Prozesses'
         Top = 14
         Width = 130
@@ -1202,14 +1202,14 @@ inherited fprojectFrame: TfprojectFrame
         EdgeBorders = []
         EdgeInner = esNone
         EdgeOuter = esNone
+        Images = fVisualControls.Images
         TabOrder = 0
         Transparent = True
         object bExecute2: TToolButton
           Left = 1
           Top = 0
-          Caption = 'Gantt Ansicht'
+          Action = acGantt
           DropdownMenu = PopupMenu1
-          ImageIndex = 104
           OnClick = acGanttExecute
           ShowCaption = False
           Style = tbsDropDown
@@ -1398,7 +1398,7 @@ inherited fprojectFrame: TfprojectFrame
     end
   end
   object ActionList1: TActionList[5]
-    Images = fVisualControls.HistoryImages
+    Images = fVisualControls.Images
     left = 196
     top = 64
     object acSave: TAction
@@ -1518,11 +1518,47 @@ inherited fprojectFrame: TfprojectFrame
     top = 64
   end
   object pmAction: TPopupMenu[7]
-    Images = fVisualControls.HistoryImages
+    Images = fVisualControls.Images
     left = 248
     top = 24
     object miStartTimeregistering: TMenuItem
       Action = acStartTimeRegistering
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00A2A2
+        A20CA2A2A2D8A2A2A2F9A2A2A22BFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF003B8842EE43904AFF337A38FF869788EBA2A2A218FFFFFF00FFFFFF00B4B4
+        B415B4B4B4F3DBDBDBFFB3B3B2ED7C5A2F817B582CC07B582CED7B582CED7B58
+        2CC045914AF778CA81FF60B168FF337B38FF5A8A5E52FFFFFF00FFFFFF00FFFF
+        FF00C6C6C641D3D3D3FFC2BFBDFC9C6B3BFFA66C35FFAE6F37FFAE6F37FFA66C
+        35FF519B52FF7FCE89FF7ECF88FF62B26AFF347E3AFA2E763336FFFFFF00FFFF
+        FF008C653667A38869F5AF7844FFBB8C5EFFC29371FFC49174FFC38F71FFBF90
+        6CFF59A65CFF86D290FF6ECA7AFF82D18BFF64B46DFF35803CF7FFFFFF00966D
+        3B34966D3BD5B37D46FFC29971FFD8AA89FFEFDFCFFFFAF6F3FFFAF5F3FFEFDF
+        D1FF61B165FF8CD597FF76CF83FF88D492FF6BBA74FF3D8B44FFFFFFFF00A175
+        4180B0804AFFC69B6FFFD9AA88FFFFFEEBFFFFFAEEFFFFFDF2FFFFFEF2FFFFFC
+        EFFF6ABF73FF92D99EFF92D99DFF77C581FF59AA61FF45964D36FFFFFF00AC7E
+        48C0BF8F58FFCDA381FFF0DBC1FFFFF7E6FFFAF2E3FFC5C0B6FFF1EDDEFFFFFC
+        E8FF6EC577FF97DCA3FF81CE8DFF64B96EFF94894DCDFFFFFF00FFFFFF00B787
+        4EEDC99C66FFCF9F80FFFAF3E2FFFDF6E9FFF2F0E3FF8D8C84FF817F77FFD2CF
+        C2FF72CA7CFF66C371FF62BE6DFFB2A266FFB7874EEDFFFFFF00FFFFFF00C290
+        54EDCEA671FFD1A589FFFAF6E9FFFDF8EEFFFFFFF9FF818079FFB1AEA4FF817F
+        77FFC9C6BAFFDBE7BFFFC99672FFCEA671FFC29054EDFFFFFF00FFFFFF00CD99
+        5BC0D3AC75FFD9B798FFF1E3D6FFFEFBF5FFF5F5F3FF9F9E95FFF0F0E9FFF8F8
+        F2FFBEB9ADFFF0DAC2FFD2AA87FFD3AC75FFCD995BC0FFFFFF00FFFFFF00B39D
+        748BD3AD77FFDFC49AFFDEBDAAFFFFFFFFFFF0F0EEFFE7E5DAFFFFFFF7FFFFFF
+        F7FFFFFEF3FFDCB498FFDBC096FFC2AA7EFFC69F6A85FFFFFF000099DD3D0A9A
+        D8D92E9CC5F5DEBF8AFFE2C9A7FFDFBFAEFFF1E3DCFFF3F1ECFFF4F1EBFFF1E2
+        D9FFDCBAA3FFDFC39EFF8CB1A9FF38A6D1F80E9AD6CE0099DD2700A0E37D7CD1
+        F2ED61C3E8EF3AA4C6FBE2C792FFE6D1A9FFE0C2A6FFD5AE96FFD5AB92FFDEBD
+        A0FFE4CFA6FFBFC19EFF47B2D7FDABE3F6FC29B0E8D900A0E32700A7E97B5DC9
+        F1E5B5E8F9FF61C7EBEF3AAACCF3ECC488FFE9CB94FFE7D09DFFE7D09DFFE9CB
+        94FFDEC28EFF32AAD0F581D3F0F573D0F3EA00A7E9CD00A7E90500AEEF0500AE
+        EF8A5BCBF4E4BFECFAFF5CCBF1E94DB2C9C4FABC74C0FABC74EDFABC74EDFABC
+        74C051B2C8C269CFF2EC7CD6F6ED00AEEFC900AEEF1DFFFFFF00FFFFFF0000B5
+        F40200B5F48000B5F4D100B5F4CA00B5F407FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF0000B5F41700B5F4D100B5F4C900B5F427FFFFFF00FFFFFF00
+      }
     end
     object MenuItem1: TMenuItem
       Caption = '-'
@@ -1547,12 +1583,120 @@ inherited fprojectFrame: TfprojectFrame
     end
     object MenuItem12: TMenuItem
       Action = acRegorganize
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00D587
+        57D5D58351FFD17D4BFFD17945AFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00D99165CCDFA4
+        81FFEAC2ABFFEAC0A8FFDC9971FFD17B47AFFFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00DB976FFFEDC8
+        B3FFE7B89BFFE6B498FFEAC3ABFFDE9C73FFD17D49AFFFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00DD9F79FFEDCC
+        B7FFE8BDA3FFE4B192FFE6B69AFFEAC3ACFFDE9C74FFD37F4DACFFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00DFA57F92E6B3
+        94FFEECCB8FFE9BEA5FFE5B394FFE6B79BFFEAC4ADFFDE9E78FFD3814FACFFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00DFA5
+        8392E6B498FFEECDBAFFE9BFA5FFE5B496FFE7B99DFFEBC6AEFFDE9F79FFD583
+        51AAFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00E1A78592E6B799FFEECEBBFFE9C0A7FFE8BDA3FFECC8B3FFDFA481FFD289
+        5DC9FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00E1A98792E6B79CFFEFCFBCFFEECEBAFFE2AE8CFFD29B7BFF8888
+        88F786868623FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00E1A98992E7B99CFFE6B698FFD8A98CFFD2D2D2FFB5B5
+        B5FF898989FE878787FB858585FB838383D681818170FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00E3AD8B92DAA788CF929292FBC7C7C7FFCCCC
+        CCFFC7C7C7FFC6C6C6FFC3C3C3FFC0C0C0FF848484F582828270FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0095959548939393FED4D4
+        D4FFC8C8C8FFBCBCBCFFBABABAFFC2C2C2FFC4C4C4FF858585D6FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00969696FCDDDD
+        DDFFC5C5C5FF8F8F8FC18D8D8DC3ACACACFFD7D7D7FF878787FBFFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00989898FBE4E4
+        E4FFCFCFCFFF929292C2FFFFFF008E8E8EFF8C8C8CFF8A8A8AFBFFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9BD6E2E2
+        E2FFE7E7E7FFB9B9B9FF939393FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF009D9D9D709B9B
+        9BF5E4E4E4FFEEEEEEFF969696FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF009E9E
+        9E709C9C9CD69B9B9BFB999999FBFFFFFF00FFFFFF00FFFFFF00
+      }
     end
     object miDelete: TMenuItem
       Action = acDelete
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000A46534CCA46534FFA46534FFA46534FFA46534FFA46534FFA46534FFA465
+        34FFA46534FFA46534FFA46534FFA46534CC0000000000000000000000000000
+        0000A46534FFE5CCB4FFDBB795FFDBB694FFDAB492FFDAB390FFD9AD86FFD8AA
+        83FFD7A87FFFD7A67DFFE0BE9FFFA46534FF0000000000000000000000000000
+        0000A46534FFE8D3C0FFE7D1BBFFE7D1BCFFE6CEB7FFE6CEB7FFE6CEB7FFE6CE
+        B7FFE6CDB6FFE6CCB5FFE6CCB6FFA46534FF0000000000000000000000000000
+        0000A46534CCA46534FFA46534FFA46534FFA46534FFA46534FFA46534FFA465
+        34FFA46534FFA46534FFA46534FFA46534CC0000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000
+      }
     end
     object MenuItem6: TMenuItem
       Action = acRights
+      Bitmap.Data = {
+        36040000424D3604000000000000360000002800000010000000100000000100
+        2000000000000004000064000000640000000000000000000000FFFFFF00369D
+        D9FF3199D8FF2C94D7FF2890D6FF238CD5FF1E88D4FF1A84D3FF1580D2FF117C
+        D1FF0E79D1FF0A76D0FF0773CFFF0470CFFF016ECEFFFFFFFF00FFFFFF003DA3
+        DAFFBCEBFAFFBCEBFCFFBFEEFEFFC6F4FFFFCEF8FFFFD3FAFFFFD0F8FFFFC7F2
+        FFFFBAE9FCFFB3E4F9FFB0E2F8FFB0E2F8FF0571CFFFFFFFFF00FFFFFF0043A8
+        DBFFBFECFBFF59CFF5FF41B0ECFF4EBAEFFF5AC2EFFF60C6EFFF5CC4EFFF4CB6
+        EFFF37A5E6FF2A9AE1FF38B8EEFFB1E3F8FF0975D0FFFFFFFF00FFFFFF0049AD
+        DCFFC1EEFBFF5FD3F7FF6CDBFCFF7FE5FFFF8FEDFFFF97F2FFFF93EDFFFF7CDF
+        FFFF5BCCF8FF46BEEFFF3CBAEEFFB3E3F9FF0E79D1FFFFFFFF00FFFFFF004EB2
+        DDFFC3EFFBFF65D6F8FF4CB6ECFF5ABDEFFF95EBFFFF3097DDFF4D82ABFF84E1
+        FFFF41A9E9FF329FE1FF42BEEFFFB4E5F9FF137ED2FFFFFFFF00FFFFFF0053B7
+        DEFFC6F0FCFF6AD9F8FF7CE2FDFF90E8FFFF99E9FFFF329FDFFF548BB2FF8AE2
+        FFFF6AD0F9FF50C5F1FF46C1F0FFB6E7F9FF1883D3FFFFFFFF00FFFFFF0058BB
+        DFFFC7F1FCFF6FDCF9FF56BBEDFF61BDEFFF9BE7FFFF35A6E2FF4BA4E1FF90E2
+        FFFF49ADE9FF38A4E3FF49C4F0FFB8E8F9FF1E88D4FFFFFFFF00FFFFFF005CBF
+        E0FFC8F3FCFF75DFF9FF89E6FDFF95E7FFFF9AE5FFFFAAEEFFFFA8EDFFFF99E3
+        FFFF74D5F9FF59CCF3FF4FC8F1FFBBE9FAFF248DD5FFFFFFFF00FFFFFF0060C2
+        E1FFC9F3FCFFCBF3FDFFD4F6FEFFD7F6FFFFD8F4FFFFE0F8FFFFDFF8FFFFDAF5
+        FFFFCDF1FCFFC2EDFAFFBDEBFAFFBDEBFAFF2B93D6FFFFFFFF00FFFFFF0061C3
+        E1FF88A0A8FF919191FF8E8E8EFF5AB9DCFF55B8DFFF51B5DEFF4DB1DDFF49AD
+        DCFF46A8D7FF787878FF767676FF657E8DFF3199D8FFFFFFFF00FFFFFF00FFFF
+        FF00999999C3C6C6C6FF949494FF8F8F8F08FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF007E7E7E087D7D7DFFABABABFF767676C3FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF009D9D9DAEC4C4C4FFA1A1A1FF93939329FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF0082828229898989FFA9A9A9FF797979AEFFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00A1A1A175BABABAFFBFBFBFFF989898DD9494941F919191058E8E8E058A8A
+        8A1F878787E5A8A8A8FF9E9E9EFF7D7D7D75FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00A4A4A40CA1A1A1DBC4C4C4FFBEBEBEFFA1A1A1FF969696FF939393FF9797
+        97FFAEAEAEFFAEAEAEFF848484DB81818109FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00A4A4A430A2A2A2DEBCBCBCFFCACACAFFCCCCCCFFCACACAFFC2C2
+        C2FFADADADFF8C8C8CDE89898930FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00A5A5A50CA3A3A381A0A0A0BA9D9D9DCC9A9A9ACC9797
+        97BA949494819090900CFFFFFF00FFFFFF00FFFFFF00FFFFFF00
+      }
     end
   end
   object dImport: TOpenDialog[8]
@@ -1606,6 +1750,7 @@ inherited fprojectFrame: TfprojectFrame
     top = 64
   end
   object PopupMenu1: TPopupMenu[17]
+    Images = fVisualControls.Images
     left = 304
     top = 112
     object MenuItem7: TMenuItem
