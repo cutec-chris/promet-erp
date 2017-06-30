@@ -1,9 +1,7 @@
-#!/bin/bash
-docker run --name=ci_build_64 build-lazarus-x64
-docker exec ci_build_64 git clone --depth=1 http://192.168.177.120:10090/promet/promet-erp.git
-docker exec ci_build_64 cd promet-erp
-docker exec ci_build_64 git submodule sync --recursive
-docker exec ci_build_64 git submodule update --init --recursive
-
-docker kill ci_build_64
-docker rm ci_build_64
+#x86-64
+docker run --rm -v /home/chris/gogs/jenkins/workspace/Promet-ERP:/root build-lazarus-x64 bash /root/build.sh
+#i386
+docker run --rm -v /home/chris/gogs/jenkins/workspace/Promet-ERP:/root build-lazarus-i386 bash /root/build.sh
+#armhf
+#sudo apt-get install qemu-user-static
+docker run --rm -v /home/chris/gogs/jenkins/workspace/Promet-ERP:/root -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static  build-lazarus-armhf bash /root/build.sh
