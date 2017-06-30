@@ -13,7 +13,7 @@ Functions
 
 Development
 ===========
-<a href="http://192.168.177.120:10091/promet/promet-erp"><img src="http://192.168.177.120:10091/api/badges/promet/promet-erp/status.svg"/></a>
+<a href='http://192.168.177.120:10091/job/Promet-ERP'><img src='http://192.168.177.120:10091/job/Promet-ERP/badge/icon'></a>
 
 Needs actual Lazarus Version > 1.2.2
 
