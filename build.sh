@@ -18,7 +18,8 @@
 # all - compiling all
 # default - compiling program only (using by default)
 cd $(dirname "$0")
-ls
+git submodule sync --recursive
+git submodule update --init --recursive
 . ./promet/setup/build-tools/setup_enviroment.sh
 
 if [ -d $BUILD_DIR ]
