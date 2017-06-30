@@ -17,6 +17,7 @@
 # importdata - Zip the standard Importdata
 # all - compiling all
 # default - compiling program only (using by default)
+cd $(pwd)
 . ./promet/setup/build-tools/setup_enviroment.sh
 
 if [ -d $BUILD_DIR ]
