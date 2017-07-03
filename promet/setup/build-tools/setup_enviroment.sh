@@ -1,9 +1,12 @@
 #!/bin/bash
 # path to lazbuild
-if [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then
+if [ "$(expr substr $(uname -s) 1 5)" = "MINGW" ]; then
     export TARGET_EXTENSION='.exe'
   else
     export TARGET_EXTENSION=''
+fi
+if [ "$(expr substr $(uname -s) 1 5)" = "Windo" ]; then
+    export TARGET_EXTENSION='.exe'
 fi
 if [ "x$lazbuild" = "x" ]
   then
@@ -16,7 +19,10 @@ if [ "x$lazbuild" = "x" ]
   if [ $? -ne 0 ]; then
     export SED="$(PWD)/promet/setup/build-tools/sed.exe"
   fi
-  if [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then
+  if [ "$(expr substr $(uname -s) 1 5)" = "MINGW" ]; then
+    export SQLITE3="$(PWD)/promet/setup/build-tools/sqlite3.exe"
+  fi
+  if [ "$(expr substr $(uname -s) 1 5)" = "Windo" ]; then
     export SQLITE3="$(PWD)/promet/setup/build-tools/sqlite3.exe"
   fi
   export TARGET_CPU=$( $lazbuild -? | grep 'powerpc_64' | $SED -e 's/.*: //')
