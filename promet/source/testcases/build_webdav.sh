@@ -5,13 +5,13 @@ cd promet/source/testcases
 echo "Building testcases..."
 # Build components
 $lazbuild consoletest_webdav.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
-if [ "$?" -ne "0" ]; then
+if [ $? -ne 0 ]; then
   $lazbuild consoletest_webdav.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 fi
-if [ "$?" -ne "0" ]; then
+if [ $? -ne 0 ]; then
   $lazbuild consoletest_webdav.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 fi
-if [ "$?" -ne "0" ]; then
+if [ $? -ne 0 ]; then
   echo "build failed"
   tail -n 10 build.txt
   exit 1

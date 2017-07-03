@@ -37,23 +37,23 @@ build_default()
   echo "Building default..."
   . ./promet/source/plugins/build.sh $2
   . ./promet/source/tools/build.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   . ./promet/source/tools/build_visual.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   . ./promet/source/messagemanager/build.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   . ./promet/source/promet.erp/build.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   . ./promet/source/production/build.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   . ./promet/help/build.sh
@@ -63,47 +63,47 @@ build_default()
 build_server()
 {
   . ./promet/source/tools/build.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   sleep 2
   . ./promet/source/webservers/build_imap.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   sleep 2
   . ./promet/source/sync/build_mail.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   sleep 2
   . ./promet/source/sync/build_feed.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   sleep 2
   . ./promet/source/sync/build_mqtt.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   sleep 2
   . ./promet/source/sync/build_fhem.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   sleep 2
   . ./promet/source/sync/build.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   sleep 2
   . ./promet/source/webservers/build_xmpp.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   sleep 2
   . ./promet/source/scripts/build.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   if [ "x$TARGET_OS" = "xlinux" ]; then
@@ -120,17 +120,17 @@ build_all()
   sleep 2
   build_default $1 $2;
   . ./promet/source/meeting/build.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   sleep 2
   . ./promet/source/tools/build_archivestore.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   sleep 2
   . ./promet/source/statistics/build.sh $2
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
   sleep 2

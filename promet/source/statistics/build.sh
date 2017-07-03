@@ -5,7 +5,7 @@ cd promet/source/statistics
 echo "Building statistics..."
 # Build components
 $lazbuild statistics.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
-if [ "$?" -ne "0" ]; then
+if [ $? -ne 0 ]; then
   echo "build failed"
   tail -n 10 build.txt
   exit 1

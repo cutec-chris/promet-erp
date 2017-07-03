@@ -13,7 +13,7 @@ if [ "x$lazbuild" = "x" ]
   export SED="sed"
   export SQLITE3="sqlite3"
   $SED 's/||/| |/g' /dev/null
-  if [ "$?" -ne "0" ]; then
+  if [ $? -ne 0 ]; then
     export SED="$(PWD)/promet/setup/build-tools/sed.exe"
   fi
   if [ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]; then

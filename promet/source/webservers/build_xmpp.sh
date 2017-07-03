@@ -5,10 +5,10 @@ cd promet/source/webservers
 echo "Building xmpp components..."
 # Build components
 $lazbuild message_xmpp.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
-if [ "$?" -ne "0" ]; then
+if [ $? -ne 0 ]; then
   $lazbuild message_xmpp.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 fi
-if [ "$?" -ne "0" ]; then
+if [ $? -ne 0 ]; then
   echo "build failed"
   tail -n 10 build.txt
 #  exit 1

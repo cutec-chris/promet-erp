@@ -5,19 +5,19 @@ cd promet/source/sync
 echo "Building mail components..."
 # Build components
 $lazbuild smtpsender.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
-if [ "$?" -ne "0" ]; then
+if [ $? -ne 0 ]; then
   $lazbuild smtpsender.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 fi
-if [ "$?" -ne "0" ]; then
+if [ $? -ne 0 ]; then
   echo "build failed"
   tail -n 10 build.txt
   exit 1
 fi
 $lazbuild pop3receiver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
-if [ "$?" -ne "0" ]; then
+if [ $? -ne 0 ]; then
   $lazbuild pop3receiver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 fi
-if [ "$?" -ne "0" ]; then
+if [ $? -ne 0 ]; then
   echo "build failed"
   tail -n 10 build.txt
   exit 1
