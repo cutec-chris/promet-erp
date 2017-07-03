@@ -60,7 +60,7 @@ if [ "x$lazbuild" = "x" ]
     then export BUILD_ARCH=$(echo "--cpu=$TARGET_CPU")
   fi
   if [ "x$TARGET_CPU" != "xarm" ];
-    then export BUILD_PARAMS="-B -q"
+    then export BUILD_PARAMS="-B -q --primary-config-path=~/.lazarus"
     else export BUILD_PARAMS="-B"
   fi
 fi

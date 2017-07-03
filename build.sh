@@ -17,6 +17,7 @@
 # importdata - Zip the standard Importdata
 # all - compiling all
 # default - compiling program only (using by default)
+cd $(dirname "$0")
 . ./promet/setup/build-tools/setup_enviroment.sh
 
 if [ -d $BUILD_DIR ]
@@ -32,6 +33,11 @@ if [ -d $OUTPUT_DIR ]
     mkdir -p $OUTPUT_DIR
 fi
 
+get_submodules()
+{
+  git submodule sync --recursive
+  git submodule update --init --recursive
+}
 build_default()
 {
   echo "Building default..."
@@ -233,6 +239,7 @@ case $1 in
   linclients)  . ./promet/setup/i386-linux/build.sh $2;;
       upload)  upload;;
        clean)  clean_all;;
+  submodules)  get_submodules;;
       server)  build_server $1 $2;;
          all)  build_all $1 $2;;
            *)  build_default $1 $2;;
