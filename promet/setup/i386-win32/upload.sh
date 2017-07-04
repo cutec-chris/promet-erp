@@ -6,7 +6,7 @@ echo "Uploading win32 stuff..."
 TARGET_CPU=$1
 TARGET_OS=$2
 cd $basedir
-echo "====Portable Installation====" >> ./promet/setup/output/act_alphadownload.txt
+echo "====Portable Installation====" >> /tmp/act_alphadownload.txt
 cd $basedir/promet/setup/output
 for f in *.paf.exe
 do
@@ -31,7 +31,7 @@ do
   done
 
 cd $basedir
-echo "====Zip Dateien====" >> ./promet/setup/output/act_alphadownload.txt
+echo "====Zip Dateien====" >> /tmp/act_alphadownload.txt
 echo "Diese Downloads werden normalerweise intern vom Windows Setup oder Updatern intern verwendet. Sie können jedoch auch verwendet werden um sich eine maßgeschneiderte Installation zusammenzubauen. Sie können einfach in ein Verzeichnis entpackt werden und von dort gestartet." >> ./promet/setup/output/act_alphadownload.txt
 cd promet/setup/i386-win32
 target=win32tools_$TARGET_CPU-$TARGET_OS
@@ -52,7 +52,7 @@ do
   done
 cd $basedir
 
-echo "====Bibliotheken====" >> ./promet/setup/output/act_alphadownload.txt
+echo "====Bibliotheken====" >> /tmp/act_alphadownload.txt
 # Build components
 target=sqliteclient_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
