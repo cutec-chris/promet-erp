@@ -32,7 +32,7 @@ do
 
 cd $basedir
 echo "====Zip Dateien====" >> /tmp/act_alphadownload.txt
-echo "Diese Downloads werden normalerweise intern vom Windows Setup oder Updatern intern verwendet. Sie können jedoch auch verwendet werden um sich eine maßgeschneiderte Installation zusammenzubauen. Sie können einfach in ein Verzeichnis entpackt werden und von dort gestartet." >> ./promet/setup/output/act_alphadownload.txt
+echo "Diese Downloads werden normalerweise intern vom Windows Setup oder Updatern intern verwendet. Sie können jedoch auch verwendet werden um sich eine maßgeschneiderte Installation zusammenzubauen. Sie können einfach in ein Verzeichnis entpackt werden und von dort gestartet." >> /tmp/act_alphadownload.txt
 cd promet/setup/i386-win32
 target=win32tools_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
