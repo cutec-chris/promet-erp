@@ -38,7 +38,7 @@ SubProgram="aqbanking"
 . ../build-tools/doupload.sh ${Program}-${SubProgram}_${BUILD_VERSION}_${Arch}-$TARGET_WIDGETSET.deb ${Program}-${SubProgram}_current_${Arch}-$Widgetset.deb
 
 echo "====Zip Dateien====" >> /tmp/act_alphadownload.txt
-echo "Diese Dateien können einfach in ein Verzeichnis entpackt werden und von dort gestartet werden." >> $basedir/promet/setup/output/act_alphadownload.txt
+echo "Diese Dateien können einfach in ein Verzeichnis entpackt werden und von dort gestartet werden." >> /tmp/act_alphadownload.txt
 for f in *$TARGET_CPU-$TARGET_OS-$BUILD_VERSION.zip
 do
   echo "Processing $f file..."

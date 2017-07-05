@@ -1,29 +1,34 @@
-STATUS;STATUSNAME;TYPE;ICON;ISDERIVATE;DERIVATIVE;NUMBERSET;DEFPOSTYP;TEXTTYP;SI_ORDER;SI_POS;SI_PROD;SI_ACC;SI_INVR;SI_INVO;B_STORAGE;B_RESERVED;B_STORDER;B_JOURNAL;B_SERIALS;B_INVR;B_INVO;B_DUNNING;B_CHIST
-AN;Angebot;0;21;N;"AU;SR;AA;PR";OFFER;;;Y;N;N;N;N;N;0;0;0;0;0;0;0;0;+
-AU;Auftrag;1;65;N;"RS;LI;AS;NB";ORDERS;;;Y;N;N;N;N;N;0;+;0;0;0;0;0;0;+
-LI;Lieferschein;2;66;Y;SL;BILLOFDELI;;;Y;N;N;N;N;N;-;-;+;0;-;0;0;0;+
-TR;Teilrechnung;3;61;Y;;INVOICE;;;Y;N;N;N;N;Y;0;0;0;0;0;0;-;0;+
-SR;Sofortrechnung;3;61;N;"SS;GA;LI";INVOICE;;;Y;N;N;N;N;Y;-;0;+;0;-;0;-;0;+
-RS;Schlussrechnung;3;61;N;"SS;GA";INVOICE;;;Y;N;N;N;N;Y;0;0;0;0;0;0;-;0;+
-BS;Bestellung;8;58;N;"BE;ER;BSS";ORDERINB;;;Y;N;N;N;N;N;0;0;0;0;0;0;0;0;+
-BE;Bestellungseingang;2;47;Y;;ORDERIN;;;Y;N;N;N;N;N;+;0;+;0;+;0;0;0;+
-SL;Lieferschein Storno;5;30;N;;BILLOFDELI;;;Y;N;N;N;N;N;+;+;-;0;+;0;0;0;+
-SS;Storno Rechnung;5;30;N;"RS;LI";INVOICE;;;Y;N;N;N;N;N;0;0;0;0;0;0;+;0;+
-BON;Bon;6;37;N;;;;;N;N;N;N;N;N;-;0;+;0;-;0;0;0;+
-AA;Abgelehntes Angebot;0;30;N;AN;OFFER;;;Y;N;N;N;N;N;0;0;0;0;0;0;0;0;+
-GA;Gutschrift Ausgang;5;62;N;;INVOICEG;;;Y;N;N;N;N;N;+;0;0;0;+;0;+;0;+
-BSS;Bestellungsstorno;5;58;N;;ORDERINB;;;Y;N;N;N;N;N;0;0;0;0;0;0;0;0;+
-RE;Reparatureingang;1;58;N;RB;REPAIR;RP;;Y;N;N;N;N;N;+;0;+;0;0;0;0;0;+
-RB;Reparaturbearbeitung;1;58;N;"RS;LI";REPAIR;RP;;Y;N;N;N;N;N;0;0;0;0;0;0;0;0;+
-PA;Produktionsauftrag;7;58;N;"PZ;PX;PS;PM;ER";PRODUCTION;;;N;N;Y;N;N;N;0;-;0;0;0;0;0;0;0
-PZ;Produktionszugang;7;58;Y;;PRODUCTION;;;N;N;Y;N;N;N;+;+;+;0;0;0;0;0;0
-PX;Produktionsausfall;7;58;Y;;PRODUCTION;;;N;N;Y;N;N;N;+;+;+;0;0;0;0;0;0
-LE;Lagerentnahme;1;36;N;;BILLOFDELI;;;Y;N;N;N;N;N;-;;+;0;-;0;0;0;+
-PS;Storno Produktionsauftrag;5;30;N;;PRODUCTION;;;N;N;Y;N;N;N;0;+;0;0;0;0;0;0;+
-GP;Gutschrift Proforma;5;62;N;;INVOICEG;;;Y;N;N;N;N;N;0;-;0;0;0;0;+;0;+
-NB;Nicht berechneter Auftrag;3;21;N;RS;ORDERS;;;Y;N;N;N;N;N;0;0;0;0;0;0;0;0;+
-ER;Eingangsrechnung;3;32;N;;INVOICEIN2;;;Y;N;N;N;N;N;0;0;0;0;0;0;0;0;+
-PER;Eingangsrechnung n.B.;3;32;N;;INVOICEIN2;;;Y;N;N;N;N;N;0;0;0;0;0;0;0;0;+
-AS;Auftragstorno;1;30;N;;ORDERS;;;Y;N;N;N;N;N;0;-;0;0;0;0;0;0;0
-PR;Proformarechnung;1;35;N;"RS;LI;GP";ORDERS;;;Y;N;N;N;N;Y;0;+;0;0;0;0;-;0;+
-SER;Storno Eingangsrechnung;5;30;N;;INVOICEIN2;;;Y;N;N;Y;N;N;0;0;0;0;0;+;0;0;0
+STATUS;STATUSNAME;TYPE;ICON;ISDERIVATE;DERIVATIVE;NUMBERSET;DEFPOSTYP;TEXTTYP;SI_ORDER;SI_POS;SI_PROD;SI_ACC;SI_INVR;SI_INVO;B_STORAGE;B_RESERVED;B_STORDER;B_JOURNAL;B_SERIALS;B_INVR;B_INVO;B_DUNNING;B_CHIST;ROUNDPOS;CHANGEABLE;DOCOPY;
+"AN";"Angebot";"0";"21";"N";"AU;SR;AA;PR";"OFFER";"";"";"Y";"N";"N";"N";"N";"N";"0";"0";"0";"0";"0";"0";"0";"0";"+";"";"";"";
+"AU";"Auftrag";"1";"65";"N";"RS;LI;AS;NB;TR";"ORDERS";"";"";"Y";"N";"N";"N";"N";"N";"0";"+";"0";"0";"0";"0";"0";"0";"+";"";"";"";
+"LI";"Lieferschein";"2";"66";"Y";"SL;TR";"BILLOFDELI";"";"";"Y";"N";"N";"N";"N";"N";"-";"-";"+";"0";"-";"0";"0";"0";"+";"";"";"";
+"TR";"Teilrechnung";"3";"61";"Y";"";"INVOICE";"";"";"Y";"N";"N";"N";"N";"Y";"0";"0";"0";"0";"0";"0";"-";"0";"+";"";"";"";
+"SR";"Sofortrechnung";"3";"61";"N";"SS;GA;LI";"INVOICE";"";"";"Y";"N";"N";"N";"N";"Y";"-";"0";"+";"0";"-";"0";"-";"0";"+";"";"";"";
+"RS";"Schlussrechnung";"3";"61";"N";"SS;GA";"INVOICE";"";"";"Y";"N";"N";"N";"N";"Y";"0";"0";"0";"0";"0";"0";"-";"0";"+";"";"";"";
+"BS";"Bestellung";"8";"58";"N";"BE;ER;BSS";"ORDERINB";"";"";"Y";"N";"N";"N";"N";"N";"0";"0";"0";"0";"0";"0";"0";"0";"+";"";"";"";
+"BE";"Bestellungseingang";"2";"47";"Y";"";"ORDERIN";"";"";"Y";"N";"N";"N";"N";"N";"+";"0";"+";"0";"+";"0";"0";"0";"+";"";"";"";
+"SL";"Lieferschein Storno";"5";"30";"N";"";"BILLOFDELI";"";"";"Y";"N";"N";"N";"N";"N";"+";"+";"-";"0";"+";"0";"0";"0";"+";"";"";"";
+"SS";"Storno Rechnung";"5";"30";"N";"RS;LI";"INVOICE";"";"";"Y";"N";"N";"N";"N";"N";"0";"0";"0";"0";"0";"0";"+";"0";"+";"";"";"";
+"BON";"Bon";"6";"37";"N";"";"";"";"";"Y";"N";"N";"N";"N";"N";"-";"0";"+";"0";"-";"0";"0";"0";"+";"";"";"";
+"AA";"Abgelehntes Angebot";"0";"30";"N";"AN";"OFFER";"";"";"Y";"N";"N";"N";"N";"N";"0";"0";"0";"0";"0";"0";"0";"0";"+";"";"";"";
+"GA";"Gutschrift Ausgang";"5";"62";"N";"";"INVOICEG";"";"";"Y";"N";"N";"N";"N";"N";"+";"0";"0";"0";"+";"0";"+";"0";"+";"";"";"";
+"BSS";"Bestellungsstorno";"5";"58";"N";"";"ORDERINB";"";"";"Y";"N";"N";"N";"N";"N";"0";"0";"0";"0";"0";"0";"0";"0";"+";"";"";"";
+"RE";"Reparatureingang";"1";"58";"N";"RB";"REPAIR";"RI";"";"Y";"N";"N";"N";"N";"N";"+";"0";"+";"0";"0";"0";"0";"0";"+";"";"N";"";
+"RB";"Reparaturbearbeitung";"1";"58";"N";"RS;LI";"REPAIR";"RI";"";"Y";"N";"N";"N";"N";"N";"0";"0";"0";"0";"0";"0";"0";"0";"+";"";"Y";"";
+"PA";"Produktionsauftrag";"7";"58";"N";"PZ;PX;PS;PM;ER";"PRODUCTION";"";"";"N";"N";"Y";"N";"N";"N";"0";"-";"0";"0";"0";"0";"0";"0";"0";"";"";"N";
+"PZ";"Produktionszugang";"7";"58";"N";"";"PRODUCTION";"";"";"N";"N";"N";"N";"N";"N";"+";"+";"+";"0";"0";"0";"0";"0";"0";"";"";"N";
+"PX";"Produktionsausfall";"7";"58";"Y";"";"PRODUCTION";"";"";"N";"N";"N";"N";"N";"N";"+";"+";"+";"0";"0";"0";"0";"0";"0";"";"";"N";
+"LE";"Lagerentnahme";"1";"36";"N";"";"BILLOFDELI";"";"";"Y";"N";"N";"N";"N";"N";"-";"";"+";"0";"-";"0";"0";"0";"+";"";"";"";
+"PS";"Storno Produktionsauftrag";"5";"30";"N";"";"PRODUCTION";"";"";"N";"N";"Y";"N";"N";"N";"0";"+";"0";"0";"0";"0";"0";"0";"+";"";"";"";
+"GP";"Gutschrift Proforma";"5";"62";"N";"";"INVOICEG";"";"";"Y";"N";"N";"N";"N";"N";"0";"-";"0";"0";"0";"0";"+";"0";"+";"";"";"";
+"NB";"Nicht berechneter Auftrag";"3";"21";"N";"RS";"ORDERS";"";"";"Y";"N";"N";"N";"N";"N";"0";"0";"0";"0";"0";"0";"0";"0";"+";"";"";"";
+"ER";"Eingangsrechnung";"3";"32";"N";"";"INVOICEIN2";"";"";"Y";"N";"N";"N";"N";"N";"0";"0";"0";"0";"0";"0";"0";"0";"+";"";"";"";
+"PER";"Eingangsrechnung n.B.";"3";"32";"N";"";"INVOICEIN2";"";"";"Y";"N";"N";"N";"N";"N";"0";"0";"0";"0";"0";"0";"0";"0";"+";"";"";"";
+"AS";"Auftragstorno";"1";"30";"N";"";"ORDERS";"";"";"Y";"N";"N";"N";"N";"N";"0";"-";"0";"0";"0";"0";"0";"0";"0";"";"";"";
+"PR";"Proformarechnung";"1";"35";"N";"RS;LI;GP";"ORDERS";"";"";"Y";"N";"N";"N";"N";"Y";"0";"+";"0";"0";"0";"0";"-";"0";"+";"";"";"";
+"SER";"Storno Eingangsrechnung";"5";"30";"N";"";"INVOICEIN2";"";"";"Y";"N";"N";"Y";"N";"N";"0";"0";"0";"0";"0";"+";"0";"0";"0";"";"";"";
+"PE";"Produktionseingang";"";"";"";"";"";"";"";"N";"";"Y";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"PA1";"Produktion Abteilung 1";"";"";"";"PA2";"";"";"";"Y";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"PA2";"Produktion Abteilung 2";"";"";"";"PAF;PA1";"";"";"";"Y";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"PAF";"Produktion abgeschlossen";"";"";"";"";"";"";"";"Y";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";"";
+"QS";"Qualitätsprüfung";"1";"";"N";"";"ORDERS";"DS";"";"Y";"";"N";"";"";"";"0";"0";"0";"0";"+";"0";"0";"0";"0";"";"Y";"N";
