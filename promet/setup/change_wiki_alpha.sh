@@ -19,5 +19,5 @@ echo Promet-ERP/dowloadplattforms/linux-$Archfpc
 ../output/$Archfpc-linux/changewikipage --mandant=Stora /tmp/act_alphadownload.txt
 ../output/$Archfpc-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
 ../output/$Archfpc-linux/sync_db --mandant=Stora --db=Help
-../output/$Archfpc-linux/sync_db --mandant=Stora --db=Server1
+../output/$Archfpc-linux/sync_db --mandant=Stora --db=Server3
 cd $basedir
