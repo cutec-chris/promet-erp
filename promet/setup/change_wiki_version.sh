@@ -1,6 +1,9 @@
 #!/bin/bash
 basedir=$(pwd)
 . promet/setup/build-tools/setup_enviroment.sh
+cd $(dirname "$0")
+cd ..
+cd ..
 if [ "x$STORA_CONN" != "x" ]; then
   mkdir ~/.prometerp
   echo "SQL" > ~/.prometerp/Stora.perml

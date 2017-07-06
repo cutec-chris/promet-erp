@@ -9,3 +9,7 @@ docker run --rm -v /home/chris/gogs/jenkins/workspace/Promet-ERP:/root build-laz
 #armhf-linux
 #sudo apt-get install qemu-user-static
 docker run --rm -v /home/chris/gogs/jenkins/workspace/Promet-ERP:/root -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static  build-lazarus-armhf bash /root/build.sh server
+#upload
+cd /home/chris/gogs/jenkins/workspace/promet/Promet-ERP
+bash promet/setup/upload_builds.sh
+#change wiki

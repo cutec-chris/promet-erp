@@ -52,7 +52,7 @@ $lazbuild ../sync/import_document.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ $? -ne 0 ]; then
   $lazbuild ../sync/import_document.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 fi
-$lazbuild ../sync/changewikipage.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
+$lazbuild changewikipage.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 
 if [ $? -ne 0 ]; then
   echo "build failed"
