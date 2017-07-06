@@ -5,7 +5,7 @@ Version=$(sed 's/\r//g' ../source/base/version.inc).$(sed 's/\r//g' ../source/ba
 Version=$(echo $Version | sed 's/\n//g');
 Arch=`dpkg --print-architecture`
 Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
-if [ "x$Archfpc" != "x" ]; then
+if [ "x$Archfpc" = "x" ]; then
   Archfpc=x86_64
 fi
 Date=`date`
