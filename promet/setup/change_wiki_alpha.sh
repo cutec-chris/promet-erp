@@ -12,8 +12,6 @@ if [ "x$STORA_CONN" != "x" ]; then
   echo $STORA_CONN >> ~/.prometerp/Stora.perml
 fi
 
-lazbuild ../source/tools/changewikipage.lpi
-lazbuild ../source/sync/sync_db.lpi
 echo Promet-ERP/dowloadplattforms/linux-$Archfpc
 ../output/$Archfpc-linux/changewikipage --mandant=Stora /tmp/act_alphadownload.txt
 ../output/$Archfpc-linux/changewikipage --mandant=Stora Promet-ERP/changes ../source/base/changes.txt
