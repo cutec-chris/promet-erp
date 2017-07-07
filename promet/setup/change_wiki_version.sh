@@ -24,7 +24,7 @@ set_current()
 {
   targetfile=$1_i386-win32-$BUILD_VERSION.zip
   targetcur=$1_i386-win32-current.zip
-  ssh $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT "cd promet_upload_target;ln -s -f $targetfile $targetcur"
+  ssh $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT "cd $AUTOUPLOAD_TARGET;ln -s -f $targetfile $targetcur"
 }
 
 set_current avad;
