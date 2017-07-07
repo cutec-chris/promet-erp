@@ -5,9 +5,10 @@ FILE=$(basename "$1")
 AUTOUPLOAD_PORT=10202
 AUTOUPLOAD_USER=root
 AUTOUPLOAD_HOST=downloads.free-erp.de
+AUTOUPLOAD_TARGET=/sites/
 
 echo "uploading $1..."
-scp -P $AUTOUPLOAD_PORT $basedir/promet/setup/output/$1 $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST:/sites/
+scp -P $AUTOUPLOAD_PORT $basedir/promet/setup/output/$1 $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST:$AUTOUPLOAD_TARGET
 if [ "x$?" = "x0" ]
   then
   echo "[http://downloads.free-erp.de/$1 $1]" >> /tmp/act_alphadownload.txt

@@ -1,6 +1,7 @@
 #!/bin/bash
 basedir=$(pwd)
 . promet/setup/build-tools/setup_enviroment.sh
+. promet/setup/build-tools/doupload.sh x x
 cd $(dirname "$0")
 cd ..
 cd ..
@@ -8,6 +9,10 @@ if [ "x$STORA_CONN" != "x" ]; then
   mkdir ~/.prometerp
   echo "SQL" > ~/.prometerp/Stora.perml
   echo $STORA_CONN >> ~/.prometerp/Stora.perml
+fi
+RArchfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
+if [ "x$RArchfpc" = "x" ]; then
+  RArchfpc=x86_64
 fi
 . ./promet/setup/i386-linux/change_wiki_linux.sh i386 i386
 . ./promet/setup/i386-linux/change_wiki_linux.sh x86_64 amd64

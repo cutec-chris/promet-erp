@@ -3,7 +3,6 @@ basedir=$(pwd)
 cd promet/setup/i386-win32/
 Version=$(sed 's/\r//g' ../../source/base/version.inc).$(sed 's/\r//g' ../../source/base/revision.inc)
 Version=$(echo $Version | sed 's/\n//g');
-Archfpc=$(fpc -h | grep 'Compiler version' | sed 's/.*for \([^ ]\+\)$/\1/')
 Date=`date`
 if [[ "$(uname)" == 'Linux' ]]; then
    platform='linux'
@@ -17,9 +16,9 @@ cat downloads_windows.txt | \
       -e "s/CREATEDDATE/$Date/g" \
   > act_downloads.txt
 lazbuild ../../source/tools/changewikipage.lpi > build.txt
-../../output/$Archfpc-$platform/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/windows act_downloads.txt
-../../output/$Archfpc-$platform/changewikipage --mandant=Stora Promet-ERP/changes ../../source/base/changes.txt
-../../output/$Archfpc-$platform/sync_db --mandant=Stora
+../../output/$RArchfpc-$platform/changewikipage --mandant=Stora Promet-ERP/dowloadplattforms/windows act_downloads.txt
+../../output/$RArchfpc-$platform/changewikipage --mandant=Stora Promet-ERP/changes ../../source/base/changes.txt
+../../output/$RArchfpc-$platform/sync_db --mandant=Stora --db=Server3
 Year=`date +%y`
 Month=`date +%m`
 Day=`date +%d`
@@ -30,5 +29,5 @@ cat ../promet_erp_clean.xml | \
       -e "s/MONTH/$Month/g" \
       -e "s/DAY/$Day/g" \
   > promet_erp.xml
-scp -P 232 promet_erp.xml autoupload@178.254.12.54:promet_upload_target
+scp -P $AUTOUPLOAD_PORT promet_erp.xml $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST:$AUTOUPLOAD_TARGET
 cd $basedir
