@@ -49,7 +49,8 @@ begin
         aSock := TDAVSession.Create(DavServer,aParameters);
         aSock.Socket := Sender;
         Sender.Objects.Add(aSock);
-      end;
+      end
+    else aParameters := TStringList(aSock.Parameters);
     aParameters.Clear;
     for i := 0 to Headers.Count-1 do
       begin
