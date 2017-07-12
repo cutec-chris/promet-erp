@@ -15,8 +15,8 @@ if [ "x$RArchfpc" = "x" ]; then
   RArchfpc=x86_64
 fi
 . ./promet/setup/i386-linux/change_wiki_linux.sh i386 i386
-. ./promet/setup/i386-linux/change_wiki_linux.sh x86_64 amd64
-. ./promet/setup/i386-linux/change_wiki_linux.sh arm arm
+. ./promet/setup/i386-linux/change_wiki_linux.sh amd64 amd64
+. ./promet/setup/i386-linux/change_wiki_arm_linux.sh arm arm
 . ./promet/setup/i386-win32/change_wiki_windows.sh
 . ./promet/setup/portableapps/change_wiki.sh
 

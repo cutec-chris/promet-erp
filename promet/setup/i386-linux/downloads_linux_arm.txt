@@ -1,0 +1,12 @@
+==Installationen==
+Alle untenstehenden Installationen sind Version VERSION erstellt CREATEDDATE.<br>
+Änderungen finden Sie in der [[Promet-ERP/changes|Änderungsliste]].
+
+{|
+|Installation||'''Linux Debian'''
+|-
+| || [[Bild:deb.png]] || [[Bild:rpm.png]]
+|-
+|Services||[http://downloads.free-erp.de/promet-erp-services_VERSION_ARCH-gtk2.deb Webservices Debian Package für Ubuntu,Debian Linux]
+
+|}
