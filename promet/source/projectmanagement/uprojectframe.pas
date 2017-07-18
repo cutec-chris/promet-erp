@@ -1339,7 +1339,7 @@ begin
                   aWikiPage.LeftBar:=True;
                 end
               else aWikiPage.Free;
-              if aWiki.FieldByName('CAPTION').AsString = strOverview then
+              if (aWiki.FieldByName('CAPTION').AsString = strOverview) or (Uppercase(aWiki.FieldByName('NAME').AsString)='OVERVIEW')  then
                 begin
                   pcPages.Pages[aWikiIdx+1].PageIndex:=0;
                   pcPages.PageIndex:=0;

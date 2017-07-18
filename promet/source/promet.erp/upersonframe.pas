@@ -1165,7 +1165,7 @@ begin
               else FreeAndNil(aWikiPage);
               if Assigned(aWikiPage) then
                 begin
-                  if aWiki.FieldByName('CAPTION').AsString = strOverview then
+                  if (aWiki.FieldByName('CAPTION').AsString = strOverview) or (Uppercase(aWiki.FieldByName('NAME').AsString)='OVERVIEW')  then
                     begin
                       pcPages.Pages[aWikiIdx+1].PageIndex:=0;
                       pcPages.PageIndex:=0;
