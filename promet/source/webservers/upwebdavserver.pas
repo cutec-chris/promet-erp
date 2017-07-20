@@ -62,6 +62,7 @@ begin
   except
     Result:=500;
   end;
+  aParameters.Free;
 end;
 
 { TPrometWebDAVMaster }

@@ -45,6 +45,11 @@ type
 const
   RefreshAll = 15;//5 mins refresh
 
+procedure OnShowException(Msg: ShortString);
+begin
+  writeln('Exception:'+Msg);
+end;
+
 { TProcProcess }
 procedure TProcessManager.ProcessManagerException(Sender: TObject; E: Exception
   );
@@ -111,6 +116,7 @@ begin
           end;
       aTime := Now();
       i := 0;
+      try
       while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do
         begin
           while CheckSynchronize(500) do;
@@ -126,6 +132,10 @@ begin
           while CheckSynchronize(500) do;
           inc(i);
         end;
+      except
+        on e : Exception do
+          writeln('Exception:'+e.Message);
+      end;
     end;
   // stop program loop
   Terminate;
@@ -135,6 +145,7 @@ begin
   inherited Create(TheOwner);
   FreeAndNil(FMsgClient);
   StopOnException:=True;
+  OnException:=@ProcessManagerException;
   //PowerStateMonitor := TPowerStateMonitor.Create;
 end;
 destructor TProcessManager.Destroy;

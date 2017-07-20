@@ -710,6 +710,7 @@ destructor TDAVSession.Destroy;
 begin
   if Assigned(FDestroy) then
     FDestroy(Self);
+  FParameters.Free;
   inherited Destroy;
 end;
 

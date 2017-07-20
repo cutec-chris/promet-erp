@@ -82,7 +82,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Stora"/>
+        <CommandLineParams Value="--mandant=Stora --restarttime=1"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
