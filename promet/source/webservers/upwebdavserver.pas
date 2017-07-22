@@ -26,7 +26,6 @@ function HandleDAVRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers :
 var
   i: Integer;
   aSock: TDAVSession = nil;
-  aParameters: TStringList;
   s: String;
   tmp: String;
 begin
@@ -43,26 +42,21 @@ begin
         aSock := TDAVSession(Sender.Objects[i]);
     if not Assigned(aSock) then
       begin
-        aParameters := TStringList.Create;
-        aParameters.NameValueSeparator:=':';
-        aParameters.CaseSensitive:=False;
-        aSock := TDAVSession.Create(DavServer,aParameters);
+        aSock := TDAVSession.Create(DavServer);
         aSock.Socket := Sender;
         Sender.Objects.Add(aSock);
-      end
-    else aParameters := TStringList(aSock.Parameters);
-    aParameters.Clear;
+      end;
+    aSock.Parameters.Clear;
     for i := 0 to Headers.Count-1 do
       begin
         s := Headers[i];
         tmp := copy(s,0,pos(':',s)-1);
-        aParameters.Add(lowercase(tmp)+':'+trim(copy(s,pos(':',s)+1,length(s))));
+        aSock.Parameters.Add(lowercase(tmp)+':'+trim(copy(s,pos(':',s)+1,length(s))));
       end;
     Result := aSock.ProcessHttpRequest(Method,URL,Headers,Input,Output);
   except
     Result:=500;
   end;
-  aParameters.Free;
 end;
 
 { TPrometWebDAVMaster }
