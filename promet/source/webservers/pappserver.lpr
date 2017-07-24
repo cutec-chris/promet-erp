@@ -60,7 +60,7 @@ procedure TProcessManager.DoRun;
 var
   aTime: TDateTime;
   aSystem: String;
-  i: Integer;
+  i, b: Integer;
 begin
   GetLog.LogType:=ltSystem;
   GetLog.Active:=False;
@@ -119,7 +119,7 @@ begin
       try
       while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do
         begin
-          while CheckSynchronize(500) do;
+          for b := 0 to 10 do if not CheckSynchronize(500) then break;
           if i > 60 then
             begin
               i := 0;
@@ -129,7 +129,7 @@ begin
                   exit;
                 end;
             end;
-          while CheckSynchronize(500) do;
+          for b := 0 to 10 do if not CheckSynchronize(500) then break;
           inc(i);
         end;
       except

@@ -107,7 +107,7 @@ type
     InputData : TMemoryStream;
     OutputData : TMemoryStream;
   public
-    constructor Create(aCreator: TObject; aParameters: TStrings);
+    constructor Create(aCreator: TObject);
     destructor Destroy; override;
     property URI : string read FURI;
     property Status : Integer read FStatus write FStatus;
@@ -586,7 +586,7 @@ end;
 constructor TDAVSocket.Create(hsock: tSocket);
 begin
   inherited Create(hsock);
-  Session := TDAVSession.Create(Creator,Parameters);
+  Session := TDAVSession.Create(Creator);
   Session.FSocket := Self;
 end;
 
@@ -696,11 +696,11 @@ begin
     end;
 end;
 
-constructor TDAVSession.Create(aCreator: TObject; aParameters: TStrings);
+constructor TDAVSession.Create(aCreator: TObject);
 begin
   FUser:='';
   FCreator := aCreator;
-  FParameters := aParameters;
+  FParameters := TStringList.Create;
   InputData:=nil;
   OutputData:=nil;
   Data:=nil;
@@ -710,6 +710,8 @@ destructor TDAVSession.Destroy;
 begin
   if Assigned(FDestroy) then
     FDestroy(Self);
+  FParameters.Free;
+  FParameters := nil;
   inherited Destroy;
 end;
 
