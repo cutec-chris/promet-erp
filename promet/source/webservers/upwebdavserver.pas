@@ -31,6 +31,7 @@ var
 begin
   Result := 500;
   if BaseApplication.HasOption('nodav') then exit;
+  if pos('/configuration/',Url)=1 then exit;
   if not Assigned(uData.Data) then exit;
   try
     if not Assigned(DavServer) then
