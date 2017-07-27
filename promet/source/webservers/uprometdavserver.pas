@@ -955,7 +955,7 @@ begin
                   for i := 1 to aDataSet.DataSet.Fields.Count-1 do
                     begin
                       if i<aDataSet.DataSet.Fields.Count then tmp += ',';
-                      tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'":"'+StringToJSONString(aDataSet.DataSet.Fields[i].AsString)+'"';
+                      tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'":"'+StringReplace(StringToJSONString(aDataSet.DataSet.Fields[i].AsString),'','*',[rfReplaceAll])+'"';
                     end;
                   tmp+=' }';
                   sl.Add(tmp);
@@ -1143,7 +1143,7 @@ var
   a: Integer;
   NotFound: Boolean;
 begin
-  FStatus:=500;
+  FStatus:=400;
   Result := False;
   if aSocket.User='' then exit;
   CreateDataModule(aSocket);
@@ -1312,10 +1312,18 @@ begin
                         end
                       else NotFound := True;
                     end;
-                  if aDataSet.Changed and (not NotFound) then
+                  if aDataSet.CanEdit and (not NotFound) then
                     begin
-                      aDataSet.Post;
-                      FStatus:=200;
+                      try
+                        aDataSet.Post;
+                        FStatus:=200;
+                      except
+                        on e : Exception do
+                          begin
+                            FStatus := 409;
+                            aDataSet.Cancel;
+                          end;
+                      end;
                     end
                   else aDataSet.Cancel;
                   aDataSet.Free;

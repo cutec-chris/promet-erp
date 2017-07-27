@@ -56,6 +56,7 @@ begin
       end;
     if copy(lowercase(url),0,15)='/configuration/' then
       begin
+        Result := 400;
         headers.Clear;
         Headers.Add('Access-Control-Allow-Origin: *');
         Headers.Add('Access-Control-Allow-Methods: GET, OPTIONS, POST');
@@ -67,7 +68,7 @@ begin
               Result := 200
             else
               begin
-                Result := 500;
+                Result := 400;
                 Input.Position:=0;
                 aResult.LoadFromStream(Input);
                 if pos(':',aResult.Text)>0 then
@@ -129,7 +130,7 @@ begin
           end;
       end;
   except
-    Result:=500;
+    Result:=400;
   end;
   aResult.Free;
   aParameters.Free;

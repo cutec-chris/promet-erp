@@ -449,6 +449,7 @@ var
   FModified : TDateTime;
   FMimeType : string;
 begin
+  FModified:=Now();
   TDAVSession(FSocket).CheckAuth;
   TDAVSession(FSocket).Status := 500;
   TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
@@ -648,7 +649,9 @@ begin
     end;
   aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
   if Assigned(TWebDAVMaster(Creator).OnUserLogin) then
-    TWebDAVMaster(Creator).OnUserLogin(TDAVSession(Self),copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
+    FBoolResult := TWebDAVMaster(Creator).OnUserLogin(TDAVSession(Self),copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
+  if not FBoolResult then
+    Status := 403;
 end;
 
 procedure TDAVSession.DoOptionsRequest;
@@ -701,6 +704,8 @@ begin
   FUser:='';
   FCreator := aCreator;
   FParameters := TStringList.Create;
+  FParameters.Delimiter:=':';
+  FParameters.NameValueSeparator:=':';
   InputData:=nil;
   OutputData:=nil;
   Data:=nil;

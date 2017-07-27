@@ -59,7 +59,7 @@ begin
   except
     on e : Exception do
       begin
-        Result := 500;
+        Result := 400;
         sl := TStringList.Create;
         sl.Add(e.Message);
         sl.SaveToStream(Output);
