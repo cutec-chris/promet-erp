@@ -28,6 +28,7 @@ var
   aSock: TDAVSession = nil;
   s: String;
   tmp: String;
+  sl: TStringList;
 begin
   Result := 500;
   if BaseApplication.HasOption('nodav') then exit;
@@ -56,7 +57,14 @@ begin
       end;
     Result := aSock.ProcessHttpRequest(Method,URL,Headers,Input,Output);
   except
-    Result:=500;
+    on e : Exception do
+      begin
+        Result := 500;
+        sl := TStringList.Create;
+        sl.Add(e.Message);
+        sl.SaveToStream(Output);
+        sl.Free;
+      end;
   end;
 end;
 
