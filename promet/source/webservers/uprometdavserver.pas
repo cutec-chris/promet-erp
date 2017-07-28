@@ -1279,7 +1279,10 @@ begin
               {$IF FPC_FULLVERSION>20600}
               if (aData is TJSONArray) and Assigned(TJSONArray(aData)[0]) and Assigned(TJSONArray(aData)[0].FindPath('id')) then
                 begin
-                  aDataSet := aClass.Create(nil);
+                  if aClass = TTimes then
+                    aDataSet := TTimes.CreateEx(nil,Data,nil,Data.Users.DataSet)
+                  else
+                    aDataSet := aClass.Create(nil);
                   aDataSet.Select(TJSONArray(aData)[0].FindPath('id').AsInt64);
                   aDataSet.Open;
                   if aDataSet.Count = 0 then
