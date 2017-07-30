@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=devel --mandant=Help"/>
+        <CommandLineParams Value="--mandant=Stora --nodav"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
