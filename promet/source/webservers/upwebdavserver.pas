@@ -15,6 +15,7 @@ type
     ServerFunctions : TPrometServerFunctions;
   public
     constructor Create;override;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -71,8 +72,6 @@ begin
   end;
 end;
 
-{ TPrometWebDAVMaster }
-
 procedure TPrometWebDAVMaster.ServerAccess(aSocket: TDAVSession; Info: string);
 begin
   writeln('DAV:'+Info);
@@ -95,8 +94,15 @@ begin
   OnUserLogin:=@ServerFunctions.ServerUserLogin;
 end;
 
+destructor TPrometWebDAVMaster.Destroy;
+begin
+  ServerFunctions.Free;
+  inherited Destroy;
+end;
+
 initialization
   uappserverhttp.RegisterHTTPHandler(@HandleDAVRequest);
-
+finalization
+  FreeAndNil(DavServer);
 end.
 
