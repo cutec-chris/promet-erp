@@ -1274,6 +1274,7 @@ begin
           if aDir = 'list.json' then
             begin
               MimeType:='application/json';
+              Stream.Position:=0;
               aJParser := TJSONParser.Create(Stream);
               aData := aJParser.Parse;
               {$IF FPC_FULLVERSION>20600}
@@ -1329,7 +1330,6 @@ begin
                             sl.Add(e.Message);
                             sl.SaveToStream(TDAVSession(aSocket).OutputData);
                             sl.Free;
-                            TDAVSession(aSocket).OutputData.Position:=0;
                           end;
                       end;
                     end
