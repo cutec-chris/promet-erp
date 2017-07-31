@@ -104,9 +104,10 @@ type
     procedure DoMkColRequest;
   protected
     FSocket: TThread;
+  public
     InputData : TMemoryStream;
     OutputData : TMemoryStream;
-  public
+    Resultstatus : string;
     constructor Create(aCreator: TObject);
     destructor Destroy; override;
     property URI : string read FURI;
@@ -451,7 +452,7 @@ var
 begin
   FModified:=Now();
   TDAVSession(FSocket).CheckAuth;
-  TDAVSession(FSocket).Status := 500;
+  TDAVSession(FSocket).Status := 404;
   TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
   TWebDAVMaster(TDAVSession(FSocket).Creator).Lock;
   if Assigned(Event) then
@@ -480,7 +481,7 @@ var
   FStatus : Integer;
 begin
   TDAVSession(FSocket).CheckAuth;
-  TDAVSession(FSocket).Status := 500;
+  TDAVSession(FSocket).Status := 404;
   TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
   TWebDAVMaster(TDAVSession(FSocket).Creator).Lock;
   if BaseApplication.HasOption('debug') then
@@ -709,6 +710,7 @@ begin
   InputData:=nil;
   OutputData:=nil;
   Data:=nil;
+  Resultstatus:='';
 end;
 
 destructor TDAVSession.Destroy;

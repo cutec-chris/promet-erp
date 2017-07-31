@@ -22,7 +22,7 @@ implementation
 var
   DavServer : TPrometWebDAVMaster = nil;
 
-function HandleDAVRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers : TStringList;Input,Output : TMemoryStream): Integer;
+function HandleDAVRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers : TStringList;Input,Output : TMemoryStream;ResultStatusText : string): Integer;
 var
   i: Integer;
   aSock: TDAVSession = nil;
@@ -30,9 +30,11 @@ var
   tmp: String;
   sl: TStringList;
 begin
-  Result := 500;
+  Result := 404;
+  ResultStatusText := '';
   if BaseApplication.HasOption('nodav') then exit;
   if pos('/configuration/',Url)=1 then exit;
+  if pos('/wiki/',Url)=1 then exit;
   if not Assigned(uData.Data) then exit;
   try
     if not Assigned(DavServer) then
@@ -56,10 +58,11 @@ begin
         aSock.Parameters.Add(lowercase(tmp)+':'+trim(copy(s,pos(':',s)+1,length(s))));
       end;
     Result := aSock.ProcessHttpRequest(Method,URL,Headers,Input,Output);
+    ResultStatusText:=aSock.ResultStatus;
   except
     on e : Exception do
       begin
-        Result := 400;
+        Result := 500;
         sl := TStringList.Create;
         sl.Add(e.Message);
         sl.SaveToStream(Output);

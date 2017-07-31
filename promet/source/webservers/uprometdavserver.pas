@@ -1143,7 +1143,7 @@ var
   a: Integer;
   NotFound: Boolean;
 begin
-  FStatus:=400;
+  FStatus:=500;
   Result := False;
   if aSocket.User='' then exit;
   CreateDataModule(aSocket);
@@ -1325,6 +1325,11 @@ begin
                           begin
                             FStatus := 409;
                             aDataSet.Cancel;
+                            sl := TStringList.Create;
+                            sl.Add(e.Message);
+                            sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                            sl.Free;
+                            TDAVSession(aSocket).OutputData.Position:=0;
                           end;
                       end;
                     end
@@ -1384,7 +1389,8 @@ begin
           aDocuments.Free;
           aDocuments2.Free;
         end;
-    end;
+    end
+  else fStatus := 404;
 end;
 function TPrometServerFunctions.ServerReadAllowed(aSocket: TDAVSession; aDir: string
   ): Boolean;

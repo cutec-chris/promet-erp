@@ -27,7 +27,7 @@ implementation
 
 uses uBaseApplication,uBaseDBInterface,uIntfStrConsts,uEncrypt;
 
-function HandleConfigRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers : TStringList;Input,Output : TMemoryStream): Integer;
+function HandleConfigRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers : TStringList;Input,Output : TMemoryStream;ResultStatusText : string): Integer;
 var
   i: Integer;
   aParameters: TStringList;
@@ -41,7 +41,8 @@ var
   aOptions: String;
   aDB: String;
 begin
-  Result := 500;
+  Result := 404;
+  ResultStatusText := '';
   aParameters := TStringList.Create;
   aResult := TStringList.Create;
   if pos('?',Url)>0 then
@@ -56,7 +57,6 @@ begin
       end;
     if copy(lowercase(url),0,15)='/configuration/' then
       begin
-        Result := 400;
         headers.Clear;
         Headers.Add('Access-Control-Allow-Origin: *');
         Headers.Add('Access-Control-Allow-Methods: GET, OPTIONS, POST');
@@ -130,7 +130,7 @@ begin
           end;
       end;
   except
-    Result:=400;
+    Result:=500;
   end;
   aResult.Free;
   aParameters.Free;
