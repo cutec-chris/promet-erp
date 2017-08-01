@@ -1289,52 +1289,65 @@ begin
                   if aDataSet.Count = 0 then
                     aDataSet.Append
                   else aDataSet.Edit;
-                  NotFound := False;
-                  for a := 0 to TJSONArray(aData)[0].Count-1 do
-                    begin
-                      if TJSONArray(aData)[0] is TJSONObject then
-                        aField := TJSONObject(TJSONArray(aData)[0]).Names[a];
-                      if Assigned(aDataSet.FieldByName(aField)) then
-                        begin
-                          if ((TJSONArray(aData)[0].Items[a].Value = '0')
-                          or  (TJSONArray(aData)[0].Items[a].Value = '1'))
-                          and (aDataSet.FieldByName(aField).Size=1) then
-                            begin
-                              if TJSONArray(aData)[0].Items[a].Value = '1' then
-                                aDataSet.FieldByName(aField).AsString:='Y'
-                              else
-                                aDataSet.FieldByName(aField).AsString:='N';
-                            end
-                          else
-                            aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value
-
-                        end
-                      else if aField = 'id' then
-                        begin
-                        if aDataSet.Id.AsVariant<>TJSONArray(aData)[0].Items[a].Value then
-                          aDataSet.Id.AsVariant:=TJSONArray(aData)[0].Items[a].Value;
-                        end
-                      else NotFound := True;
-                    end;
-                  if aDataSet.CanEdit and (not NotFound) then
-                    begin
-                      try
-                        aDataSet.Post;
-                        FStatus:=200;
-                      except
-                        on e : Exception do
+                  try
+                    NotFound := False;
+                    for a := 0 to TJSONArray(aData)[0].Count-1 do
+                      begin
+                        if TJSONArray(aData)[0] is TJSONObject then
+                          aField := TJSONObject(TJSONArray(aData)[0]).Names[a];
+                        if Assigned(aDataSet.FieldByName(aField)) then
                           begin
-                            FStatus := 409;
-                            aDataSet.Cancel;
-                            sl := TStringList.Create;
-                            sl.Add(e.Message);
-                            sl.SaveToStream(TDAVSession(aSocket).OutputData);
-                            sl.Free;
-                          end;
+                            if ((TJSONArray(aData)[0].Items[a].Value = '0')
+                            or  (TJSONArray(aData)[0].Items[a].Value = '1'))
+                            and (aDataSet.FieldByName(aField).Size=1) then
+                              begin
+                                if TJSONArray(aData)[0].Items[a].Value = '1' then
+                                  aDataSet.FieldByName(aField).AsString:='Y'
+                                else
+                                  aDataSet.FieldByName(aField).AsString:='N';
+                              end
+                            else
+                              aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value
+
+                          end
+                        else if aField = 'id' then
+                          begin
+                          if aDataSet.Id.AsVariant<>TJSONArray(aData)[0].Items[a].Value then
+                            aDataSet.Id.AsVariant:=TJSONArray(aData)[0].Items[a].Value;
+                          end
+                        else NotFound := True;
                       end;
-                    end
-                  else aDataSet.Cancel;
-                  aDataSet.Free;
+                    if aDataSet.CanEdit and (not NotFound) then
+                      begin
+                        try
+                          aDataSet.Post;
+                          FStatus:=200;
+                        except
+                          on e : Exception do
+                            begin
+                              FStatus := 409;
+                              aDataSet.Cancel;
+                              sl := TStringList.Create;
+                              sl.Add(e.Message);
+                              sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                              sl.Free;
+                            end;
+                        end;
+                      end
+                    else aDataSet.Cancel;
+                    aDataSet.Free;
+                  except
+                    on e : Exception do
+                      begin
+                        FStatus := 409;
+                        aDataSet.Cancel;
+                        sl := TStringList.Create;
+                        sl.Add(e.Message);
+                        sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                        sl.Free;
+                        aDataSet.Free;
+                      end;
+                  end;
                 end;
               {$ENDIF}
               aJParser.Free;

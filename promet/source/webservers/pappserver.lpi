@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -82,7 +82,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Stora --restarttime=1"/>
+        <CommandLineParams Value="--mandant=TCS"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -133,7 +133,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="4">
+    <Exceptions Count="5">
       <Item1>
         <Name Value="EZSQLException"/>
       </Item1>
@@ -146,6 +146,9 @@
       <Item4>
         <Name Value="EDatabaseError"/>
       </Item4>
+      <Item5>
+        <Name Value="EVariantError"/>
+      </Item5>
     </Exceptions>
   </Debugging>
 </CONFIG>
