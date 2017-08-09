@@ -109,7 +109,7 @@ begin
   inherited SetUp;
   aReq := TStringList.Create;
   Server := TWebDAVMaster.Create;
-  Socket := TestSocket.Create(Server,TStringList.Create);
+  Socket := TestSocket.Create(Server);
   Socket.User:=Data.Users.Id.AsString;
   Socket.Socket:=nil;
   Data.Users.Locate('NAME','Administrator',[]);
