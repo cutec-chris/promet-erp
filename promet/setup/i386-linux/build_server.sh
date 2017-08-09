@@ -83,8 +83,8 @@ mkdir -p $BuildDir/etc/init.d/
 
 git clone https://github.com/cutec-chris/promet-apps $BuildDir/usr/lib/$Program/web2
 cd $BuildDir/usr/lib/$Program/web2
-git submodules init
-git submodules update
+git submodule init
+git submodule update
 
 rm $BuildDir/usr/lib/$Program/web2/*.md
 rm $BuildDir/usr/lib/$Program/web2/LICENSE
