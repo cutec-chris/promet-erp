@@ -81,42 +81,10 @@ mkdir -p $BuildDir/usr/bin/
 mkdir -p $BuildDir/usr/lib/$Program
 mkdir -p $BuildDir/etc/init.d/
 
-mkdir -p $BuildDir/usr/lib/$Program/web2
-#Task App
-wget https://github.com/cutec-chris/promet-app-tasks-dx/archive/master.zip -O /tmp/master.zip
-unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
-mv $BuildDir/usr/lib/$Program/promet-app-tasks-dx-master/* $BuildDir/usr/lib/$Program/web2
-rm -r $BuildDir/usr/lib/$Program/promet-app-tasks-dx-master
-#Timeregistering App
-wget https://github.com/cutec-chris/promet-app-times-dx/archive/master.zip -O /tmp/master.zip
-unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
-mv $BuildDir/usr/lib/$Program/promet-app-times-dx-master/* $BuildDir/usr/lib/$Program/web2
-rm -r $BuildDir/usr/lib/$Program/promet-app-times-dx-master
-#Meeting App
-wget https://github.com/cutec-chris/promet-app-meeting-dx/archive/master.zip -O /tmp/master.zip
-unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
-mv $BuildDir/usr/lib/$Program/promet-app-meeting-dx-master/* $BuildDir/usr/lib/$Program/web2
-rm -r $BuildDir/usr/lib/$Program/promet-app-meeting-dx-master
-#Project App
-wget https://github.com/cutec-chris/promet-app-project-dx/archive/master.zip -O /tmp/master.zip
-unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
-mv $BuildDir/usr/lib/$Program/promet-app-project-dx-master/* $BuildDir/usr/lib/$Program/web2
-rm -r $BuildDir/usr/lib/$Program/promet-app-project-dx-master
-#Config App - must be last since it has index.html for all apps
-wget https://github.com/cutec-chris/promet-app-config-dx/archive/master.zip -O /tmp/master.zip
-unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
-mv $BuildDir/usr/lib/$Program/promet-app-config-dx-master/* $BuildDir/usr/lib/$Program/web2
-rm -r $BuildDir/usr/lib/$Program/promet-app-config-dx-master
-#appbase
-wget https://github.com/cutec-chris/promet-appbase/archive/master.zip -O /tmp/master.zip
-unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
-mv $BuildDir/usr/lib/$Program/promet-appbase-master/* $BuildDir/usr/lib/$Program/web2/appbase
-rm -r $BuildDir/usr/lib/$Program/promet-appbase-master
-#dhtmlx
-wget https://github.com/cutec-chris/dhtmlx/archive/master.zip -O /tmp/master.zip
-unzip -u -d $BuildDir/usr/lib/$Program /tmp/master.zip
-mv $BuildDir/usr/lib/$Program/dhtmlx-master/* $BuildDir/usr/lib/$Program/web2/codebase
-rm -r $BuildDir/usr/lib/$Program/dhtmlx-master
+git clone https://github.com/cutec-chris/promet-apps $BuildDir/usr/lib/$Program/web2
+cd $BuildDir/usr/lib/$Program/web2
+git submodules init
+git submodules update
 
 rm $BuildDir/usr/lib/$Program/web2/*.md
 rm $BuildDir/usr/lib/$Program/web2/LICENSE

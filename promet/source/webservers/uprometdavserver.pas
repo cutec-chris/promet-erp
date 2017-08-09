@@ -25,7 +25,8 @@ interface
 uses
   Classes, SysUtils, udavserver, uDocuments, uBaseDbClasses, uCalendar,
   utask,Utils,variants,uBaseDatasetInterfaces, db,synautil,uPerson,
-  DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface,fpjson,jsonparser,utimes;
+  DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface,fpjson,jsonparser,utimes,
+  uwiki;
 
 type
   { TPrometServerFunctions }
@@ -747,6 +748,9 @@ begin
           aItem := TDAVFile.Create(aFullDir+'item.json',False);
           aItem.Properties.Values['getcontenttype'] := 'application/json';
           aDirList.Add(aItem);
+          aItem := TDAVFile.Create(aFullDir+'overview.html',False);
+          aItem.Properties.Values['getcontenttype'] := 'text/html';
+          aDirList.Add(aItem);
           aItem := TDAVFile.Create(aFullDir+'files',true);
           aDirList.Add(aItem);
 
@@ -809,6 +813,7 @@ var
   i: Integer;
   aParams: String;
   aParamDec: TStringList;
+  aWiki: TWikiList;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -1036,6 +1041,21 @@ begin
                   Result:=True;
                 end;
               aDataSet.Free;
+            end
+          else if aDir = 'overview.html' then
+            begin
+              MimeType:='text/html';
+              aWiki := TWikiList.Create(nil);
+              if aWiki.FindWikiPage('Promet-ERP-Help/forms/tf'+aClass.ClassName+'/overview') then
+                begin
+                  aWiki.Variables.Values['SQL_ID']:=aID;
+                  aSL := TStringList.Create;
+                  aSL.Text := aWiki.PageAsHtml();
+                  aSL.SaveToStream(Stream);
+                  aSL.Free;
+                  Result:=True;
+                end;
+              aWiki.Free;
             end;
         end
       else if aLevel=2 then
