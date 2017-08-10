@@ -11,6 +11,10 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "Language: en\n"
 
+#: fautomationform.strabortwarning
+msgid "Achtung das Abbrechen des Ablaufes kann zu unerwünschten Nebenwirkungen führen, wirklich abbrechen ?"
+msgstr ""
+
 #: fautomationform.strdopick
 msgid "kommissionieren"
 msgstr "Picking"

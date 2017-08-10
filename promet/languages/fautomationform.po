@@ -1,6 +1,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: fautomationform.strabortwarning
+msgid "Achtung das Abbrechen des Ablaufes kann zu unerwünschten Nebenwirkungen führen, wirklich abbrechen ?"
+msgstr ""
+
 #: fautomationform.strdopick
 msgid "kommissionieren"
 msgstr ""
