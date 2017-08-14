@@ -456,7 +456,7 @@ begin
   TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
   TWebDAVMaster(TDAVSession(FSocket).Creator).Lock;
   if Assigned(Event) then
-    if Event(TDAVSession(FSocket),HTTPDecode(TDAVSession(FSocket).URI),Foutput,FModified,FMimeType,FeTag) then
+    if Event(TDAVSession(FSocket),TDAVSession(FSocket).URI,Foutput,FModified,FMimeType,FeTag) then
       begin
         TDAVSession(FSocket).Status := 200;
         TDAVSession(FSocket).HeaderOut.Add('Last-Modified: '+Rfc822DateTime(LocalTimeToGMT(FModified)));

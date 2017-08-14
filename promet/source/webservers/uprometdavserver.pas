@@ -822,6 +822,7 @@ begin
       aParams := copy(aDir,pos('?',aDir)+1,length(aDir));
       aDir := copy(aDir,0,pos('?',aDir)-1);
     end;
+  aDir := HTTPDecode(aDir);
   aFullDir := aDir;
   if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
     begin
