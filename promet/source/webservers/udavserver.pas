@@ -459,7 +459,8 @@ begin
     if Event(TDAVSession(FSocket),TDAVSession(FSocket).URI,Foutput,FModified,FMimeType,FeTag) then
       begin
         TDAVSession(FSocket).Status := 200;
-        TDAVSession(FSocket).HeaderOut.Add('Last-Modified: '+Rfc822DateTime(LocalTimeToGMT(FModified)));
+        if not BaseApplication.HasOption('nocache') then
+          TDAVSession(FSocket).HeaderOut.Add('Last-Modified: '+Rfc822DateTime(LocalTimeToGMT(FModified)));
         TDAVSession(FSocket).HeaderOut.Add('Content-Type: '+ FMimeType);
         Foutput.Position:=0;
       end;
@@ -1443,7 +1444,8 @@ begin
       aProperties.Values['d:getcontentlength']:=aPrefix+':getcontentlength';
       aProperties.Values['d:creationdate']:=aPrefix+':creationdate';
       aProperties.Values['d:getetag']:=aPrefix+':getetag';
-      aProperties.Values['d:getlastmodified']:=aPrefix+':getlastmodified';
+      if not BaseApplication.HasOption('nocache') then
+        aProperties.Values['d:getlastmodified']:=aPrefix+':getlastmodified';
       aProperties.Values['d:getcontenttype']:=aPrefix+':getcontenttype';
       IgnoreNotFound := True;
     end;

@@ -82,7 +82,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS"/>
+        <CommandLineParams Value="--mandant=TCS --nocache"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
