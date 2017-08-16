@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, udavserver, uDocuments, uBaseDbClasses, uCalendar,
-  utask,Utils,variants,uBaseDatasetInterfaces, db,synautil,uPerson,
+  utask,Utils,variants,uBaseDatasetInterfaces, db,synautil,uPerson,uBaseDocPages,
   DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface,fpjson,jsonparser,utimes,
   uwiki;
 
@@ -378,6 +378,7 @@ begin
             or (DatasetClasses[i].aName='MEETING')
             or (DatasetClasses[i].aName='ORDER')
             or (DatasetClasses[i].aName='PERSON')
+            or (DatasetClasses[i].aName='DOCPAGES')
                 ) then
               begin
                 aItem := TDAVFile.Create('/'+lowercase(DatasetClasses[i].aName),True);
