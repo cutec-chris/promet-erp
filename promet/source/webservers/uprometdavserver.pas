@@ -334,6 +334,7 @@ var
   aClass: TBaseDBDatasetClass;
   tmp: String;
   aDataSet: TBaseDBDataset;
+  aWiki: TWikiList;
 begin
   Result := false;
   if aSocket.User='' then exit;
@@ -749,9 +750,23 @@ begin
           aItem := TDAVFile.Create(aFullDir+'item.json',False);
           aItem.Properties.Values['getcontenttype'] := 'application/json';
           aDirList.Add(aItem);
-          aItem := TDAVFile.Create(aFullDir+'overview.html',False);
-          aItem.Properties.Values['getcontenttype'] := 'text/html';
-          aDirList.Add(aItem);
+          aWiki := TWikiList.Create(nil);
+          case aClass.ClassName of
+          'TMasterdata':tmp := 'TArticle'
+          else tmp := aClass.ClassName;
+          end;
+          tmp := copy(tmp,2,length(tmp))+'Frame';
+          if aWiki.FindWikiFolder('Promet-ERP-Help/forms/tf'+tmp+'/') then
+            begin
+              while not aWiki.EOF do
+                begin
+                  aItem := TDAVFile.Create(aFullDir+aWiki.FieldByName('NAME').AsString+'.html',False);
+                  aItem.Properties.Values['getcontenttype'] := 'text/html';
+                  aDirList.Add(aItem);
+                  aWiki.Next;
+                end;
+            end;
+          aWiki.Free;
           aItem := TDAVFile.Create(aFullDir+'files',true);
           aDirList.Add(aItem);
 
@@ -1044,18 +1059,31 @@ begin
                 end;
               aDataSet.Free;
             end
-          else if aDir = 'overview.html' then
+          else if pos('.html',aDir)>0 then
             begin
               MimeType:='text/html';
               aWiki := TWikiList.Create(nil);
-              if aWiki.FindWikiPage('Promet-ERP-Help/forms/tf'+aClass.ClassName+'/overview') then
+              case aClass.ClassName of
+              'TMasterdata':tmp := 'TArticle'
+              else tmp := aClass.ClassName;
+              end;
+              tmp := copy(tmp,2,length(tmp))+'Frame';
+              if aWiki.FindWikiPage('Promet-ERP-Help/forms/tf'+tmp+'/'+copy(aDir,0,pos('.html',aDir)-1)) then
                 begin
-                  aWiki.Variables.Values['SQL_ID']:=aID;
-                  aSL := TStringList.Create;
-                  aSL.Text := aWiki.PageAsHtml();
-                  aSL.SaveToStream(Stream);
-                  aSL.Free;
-                  Result:=True;
+                  aDataSet := aClass.Create(nil);
+                  aDataSet.Select(aID);
+                  aDataSet.Open;
+                  if aDataSet.Count>0 then
+                    begin
+                      aWiki.Variables.Values['SQL_ID']:=aID;
+                      aWiki.Variables.Values['ID'] := TBaseDbList(aDataSet).Number.AsString;
+                      aWiki.Variables.Values['TEXT'] := TBaseDbList(aDataSet).Text.AsString;
+                      aSL := TStringList.Create;
+                      aSL.Text := aWiki.PageAsHtml();
+                      aSL.SaveToStream(Stream);
+                      aSL.Free;
+                      Result:=True;
+                    end;
                 end;
               aWiki.Free;
             end;
