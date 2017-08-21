@@ -134,7 +134,7 @@ begin
         end;
       except
         on e : Exception do
-          writeln('Exception:'+e.Message);
+          Error('Exception:'+e.Message);
       end;
     end;
   // stop program loop
