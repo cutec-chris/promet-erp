@@ -26,7 +26,7 @@ uses
   Classes, SysUtils, udavserver, uDocuments, uBaseDbClasses, uCalendar,
   utask,Utils,variants,uBaseDatasetInterfaces, db,synautil,uPerson,uBaseDocPages,
   DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface,fpjson,jsonparser,utimes,
-  uwiki;
+  uwiki,uBaseApplication;
 
 type
   { TPrometServerFunctions }
@@ -1458,13 +1458,31 @@ end;
 function TPrometServerFunctions.ServerReadAllowed(aSocket: TDAVSession; aDir: string
   ): Boolean;
 begin
-  Result := aSocket.User<>'';
   CreateDataModule(aSocket);
+  if ((BaseApplication.HasOption('u','user'))
+  and (TBaseDBModule(aSocket.Data).Users.Active)
+  and ((TBaseDBModule(aSocket.Data).Users.FieldByName('NAME').AsString=BaseApplication.GetOptionValue('u','user')) or (TBaseDBModule(aSocket.Data).Users.FieldByName('LOGINNAME').AsString=BaseApplication.GetOptionValue('u','user')))
+  ) then
+    begin
+      aSocket.User:=BaseApplication.GetOptionValue('u','user');
+      Result := True;
+      exit;
+    end;
+  Result := aSocket.User<>'';
 end;
 function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
   aPassword: string): Boolean;
 begin
   CreateDataModule(aSocket);
+  if ((BaseApplication.HasOption('u','user'))
+  and (TBaseDBModule(aSocket.Data).Users.Active)
+  and ((TBaseDBModule(aSocket.Data).Users.FieldByName('NAME').AsString=BaseApplication.GetOptionValue('u','user')) or (TBaseDBModule(aSocket.Data).Users.FieldByName('LOGINNAME').AsString=BaseApplication.GetOptionValue('u','user')))
+  ) then
+    begin
+      aSocket.User:=BaseApplication.GetOptionValue('u','user');
+      Result := True;
+      exit;
+    end;
   TBaseDBModule(aSocket.Data).Users.Open;
   Result := (TBaseDBModule(aSocket.Data).Users.DataSet.Locate('NAME',aUser,[]) or TBaseDBModule(aSocket.Data).Users.DataSet.Locate('LOGINNAME',aUser,[])) and (TBaseDBModule(aSocket.Data).Users.Leaved.IsNull);
   if Result then

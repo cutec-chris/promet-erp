@@ -83,7 +83,7 @@ begin
           Error(strMandantnotSelected);
         end;
       Info('login...');
-      if (not DBLogin(GetOptionValue('m','mandant'),'',False,False)) and (not DBLogin('standard','',False,False)) then
+      if (not DBLogin(GetOptionValue('m','mandant'),GetOptionValue('u','user'),False,False)) and (not DBLogin('standard','',False,False)) then
         begin
           Error(strLoginFailed+' '+LastError);
         end
