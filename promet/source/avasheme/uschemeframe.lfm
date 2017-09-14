@@ -866,13 +866,11 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'Kopieren'
       ImageIndex = 23
       OnExecute = acCopyExecute
-      ShortCut = 16451
     end
     object acPaste: TAction
       Caption = 'Einfügen'
       ImageIndex = 80
       OnExecute = acPasteExecute
-      ShortCut = 16470
     end
     object acDelete: TAction
       Caption = 'Löschen'

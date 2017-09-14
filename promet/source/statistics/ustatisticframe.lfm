@@ -3386,7 +3386,6 @@ inherited fStatisticFrame: TfStatisticFrame
     top = 304
     object miCopy: TMenuItem
       Caption = 'Kopieren'
-      ShortCut = 16451
       OnClick = miCopyClick
     end
   end

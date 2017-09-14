@@ -1459,24 +1459,22 @@ function TPrometServerFunctions.ServerReadAllowed(aSocket: TDAVSession; aDir: st
   ): Boolean;
 begin
   CreateDataModule(aSocket);
-  if ((BaseApplication.HasOption('u','user'))
+  if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
   and (TBaseDBModule(aSocket.Data).Users.Active)
   and ((TBaseDBModule(aSocket.Data).Users.FieldByName('NAME').AsString=BaseApplication.GetOptionValue('u','user')) or (TBaseDBModule(aSocket.Data).Users.FieldByName('LOGINNAME').AsString=BaseApplication.GetOptionValue('u','user')))
+  and (TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')))))
   ) then
-    begin
-      aSocket.User:=BaseApplication.GetOptionValue('u','user');
-      Result := True;
-      exit;
-    end;
+    aSocket.User:=BaseApplication.GetOptionValue('u','user');
   Result := aSocket.User<>'';
 end;
 function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
   aPassword: string): Boolean;
 begin
   CreateDataModule(aSocket);
-  if ((BaseApplication.HasOption('u','user'))
+  if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
   and (TBaseDBModule(aSocket.Data).Users.Active)
   and ((TBaseDBModule(aSocket.Data).Users.FieldByName('NAME').AsString=BaseApplication.GetOptionValue('u','user')) or (TBaseDBModule(aSocket.Data).Users.FieldByName('LOGINNAME').AsString=BaseApplication.GetOptionValue('u','user')))
+  and (TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')))))
   ) then
     begin
       aSocket.User:=BaseApplication.GetOptionValue('u','user');
