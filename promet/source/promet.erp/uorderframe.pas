@@ -717,7 +717,7 @@ begin
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'O',DataSet.FieldByName('ORDERNO').AsString,Null,Null);
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'O',DataSet.FieldByName('ORDERNO').AsString,Null,Null,0);
       TPrometInplaceFrame(Sender).SetRights(FEditable);
     end;
 end;

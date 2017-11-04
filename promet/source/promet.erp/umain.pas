@@ -3326,7 +3326,7 @@ begin
             pHeader.Visible := True;
             pToolbar.Visible := False;
             DataSet := TDocuments.Create(nil);
-            Refresh(1,'D','1',Null,Null);
+            Refresh(1,'D','1',Null,Null,0);
           end;
     end;
   end;

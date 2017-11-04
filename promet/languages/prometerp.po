@@ -3051,7 +3051,9 @@ msgid "acPauseTime"
 msgstr ""
 
 #: tfmain.acpausetime.hint
-msgid "Zeiterfassung pausieren /"
+msgid ""
+"Zeiterfassung pausieren /\n"
+"wieder starten\n"
 msgstr ""
 
 #: tfmain.acproduction.caption
@@ -3171,7 +3173,9 @@ msgid "acPauseTime"
 msgstr ""
 
 #: tfmain.bpausetime.hint
-msgid "Zeiterfassung pausieren/"
+msgid ""
+"Zeiterfassung pausieren/\n"
+"wieder starten\n"
 msgstr ""
 
 #: tfmain.caption

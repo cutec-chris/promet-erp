@@ -938,7 +938,7 @@ begin
     begin
       aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
-      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'C',DataSet.FieldByName('ACCOUNTNO').AsString,Null,Null);
+      TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'C',DataSet.FieldByName('ACCOUNTNO').AsString,Null,Null,0);
     end;
   FDocumentFrame := TfDocumentFrame(Sender);
   aItem := TMenuItem.Create(TfDocumentFrame(Sender).pmDocumentAction);
