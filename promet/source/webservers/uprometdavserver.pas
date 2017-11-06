@@ -1464,7 +1464,7 @@ begin
   and ((TBaseDBModule(aSocket.Data).Users.FieldByName('NAME').AsString=BaseApplication.GetOptionValue('u','user')) or (TBaseDBModule(aSocket.Data).Users.FieldByName('LOGINNAME').AsString=BaseApplication.GetOptionValue('u','user')))
   and (TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')))))
   ) then
-    aSocket.User:=BaseApplication.GetOptionValue('u','user');
+    aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
   Result := aSocket.User<>'';
 end;
 function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
@@ -1477,12 +1477,14 @@ begin
   and (TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')))))
   ) then
     begin
-      aSocket.User:=BaseApplication.GetOptionValue('u','user');
+      aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
       Result := True;
       exit;
     end;
   TBaseDBModule(aSocket.Data).Users.Open;
   Result := (TBaseDBModule(aSocket.Data).Users.DataSet.Locate('NAME',aUser,[]) or TBaseDBModule(aSocket.Data).Users.DataSet.Locate('LOGINNAME',aUser,[])) and (TBaseDBModule(aSocket.Data).Users.Leaved.IsNull);
+  if (BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))) then
+    Result := (TBaseDBModule(aSocket.Data).Users.DataSet.Locate('NAME',BaseApplication.GetOptionValue('u','user'),[]) or TBaseDBModule(aSocket.Data).Users.DataSet.Locate('LOGINNAME',BaseApplication.GetOptionValue('u','user'),[])) and (TBaseDBModule(aSocket.Data).Users.Leaved.IsNull);
   if Result then
     Result := TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(aPassword));
   if not Result then
