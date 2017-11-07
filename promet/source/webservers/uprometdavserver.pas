@@ -1192,6 +1192,7 @@ var
   aField: TJSONStringType;
   a: Integer;
   NotFound: Boolean;
+  ss: TStringStream;
 begin
   FStatus:=500;
   Result := False;
@@ -1402,6 +1403,60 @@ begin
               {$ENDIF}
               aJParser.Free;
               Result:=True;
+            end
+          else if aDir = 'new/item.json' then
+            begin
+              Stream.Position:=0;
+              ss := TStringStream.Create('');
+              ss.CopyFrom(Stream,0);
+              try
+                aDataSet := aClass.Create(nil);
+                aDataSet.Append;
+                aDataSet.ImportFromJSON(ss.DataString);
+                aDataSet.Post;
+                aDataSet.Free;
+                result := True;
+                FStatus:=200;
+              except
+                on e : Exception do
+                  begin
+                    FStatus := 409;
+                    aDataSet.Cancel;
+                    sl := TStringList.Create;
+                    sl.Add(e.Message);
+                    sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                    sl.Free;
+                    aDataSet.Free;
+                  end;
+              end;
+              ss.Free;
+            end
+          else if aDir = 'new/item.xml' then
+            begin
+              Stream.Position:=0;
+              ss := TStringStream.Create('');
+              ss.CopyFrom(Stream,0);
+              try
+                aDataSet := aClass.Create(nil);
+                aDataSet.Append;
+                aDataSet.ImportFromXML(ss.DataString);
+                aDataSet.Post;
+                aDataSet.Free;
+                result := True;
+                FStatus:=200;
+              except
+                on e : Exception do
+                  begin
+                    FStatus := 409;
+                    aDataSet.Cancel;
+                    sl := TStringList.Create;
+                    sl.Add(e.Message);
+                    sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                    sl.Free;
+                    aDataSet.Free;
+                  end;
+              end;
+              ss.Free;
             end;
         end
       else if aLevel=6 then
