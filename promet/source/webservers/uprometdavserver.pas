@@ -1411,9 +1411,7 @@ begin
               ss.CopyFrom(Stream,0);
               try
                 aDataSet := aClass.Create(nil);
-                aDataSet.Append;
                 aDataSet.ImportFromJSON(ss.DataString);
-                aDataSet.Post;
                 aDataSet.Free;
                 result := True;
                 FStatus:=200;
@@ -1438,9 +1436,7 @@ begin
               ss.CopyFrom(Stream,0);
               try
                 aDataSet := aClass.Create(nil);
-                aDataSet.Append;
                 aDataSet.ImportFromXML(ss.DataString);
-                aDataSet.Post;
                 aDataSet.Free;
                 result := True;
                 FStatus:=200;
