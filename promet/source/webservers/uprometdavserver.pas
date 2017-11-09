@@ -1526,6 +1526,9 @@ begin
       if Result then
         aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
     end;
+  if not Result then
+    with BaseApplication as IBaseApplication do
+      Info('DAV: read permitted to "'+aDir+'"');
 end;
 function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
   aPassword: string): Boolean;
@@ -1554,7 +1557,8 @@ begin
   if not Result then
     begin
       aSocket.User:='';
-      writeln('Auth from "'+aUser+'" failed !');
+      with BaseApplication as IBaseApplication do
+        Info('Auth from "'+aUser+'" failed !');
     end
   else aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
 end;
