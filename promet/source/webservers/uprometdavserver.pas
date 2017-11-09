@@ -1517,6 +1517,15 @@ begin
   ) then
     aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
   Result := aSocket.User<>'';
+  if (not Result) and (BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))) then
+    begin
+      TBaseDBModule(aSocket.Data).Users.Open;
+      Result := (TBaseDBModule(aSocket.Data).Users.DataSet.Locate('NAME',BaseApplication.GetOptionValue('u','user'),[]) or TBaseDBModule(aSocket.Data).Users.DataSet.Locate('LOGINNAME',BaseApplication.GetOptionValue('u','user'),[])) and (TBaseDBModule(aSocket.Data).Users.Leaved.IsNull);
+      if Result then
+        Result := TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')));
+      if Result then
+        aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
+    end;
 end;
 function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
   aPassword: string): Boolean;
@@ -1535,8 +1544,12 @@ begin
   TBaseDBModule(aSocket.Data).Users.Open;
   Result := (TBaseDBModule(aSocket.Data).Users.DataSet.Locate('NAME',aUser,[]) or TBaseDBModule(aSocket.Data).Users.DataSet.Locate('LOGINNAME',aUser,[])) and (TBaseDBModule(aSocket.Data).Users.Leaved.IsNull);
   if (BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))) then
-    Result := (TBaseDBModule(aSocket.Data).Users.DataSet.Locate('NAME',BaseApplication.GetOptionValue('u','user'),[]) or TBaseDBModule(aSocket.Data).Users.DataSet.Locate('LOGINNAME',BaseApplication.GetOptionValue('u','user'),[])) and (TBaseDBModule(aSocket.Data).Users.Leaved.IsNull);
-  if Result then
+    begin
+      Result := (TBaseDBModule(aSocket.Data).Users.DataSet.Locate('NAME',BaseApplication.GetOptionValue('u','user'),[]) or TBaseDBModule(aSocket.Data).Users.DataSet.Locate('LOGINNAME',BaseApplication.GetOptionValue('u','user'),[])) and (TBaseDBModule(aSocket.Data).Users.Leaved.IsNull);
+      if Result then
+        Result := TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')));
+    end
+  else if Result then
     Result := TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(aPassword));
   if not Result then
     begin
