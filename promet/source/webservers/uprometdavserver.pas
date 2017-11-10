@@ -26,7 +26,7 @@ uses
   Classes, SysUtils, udavserver, uDocuments, uBaseDbClasses, uCalendar,
   utask,Utils,variants,uBaseDatasetInterfaces, db,synautil,uPerson,uBaseDocPages,
   DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface,fpjson,jsonparser,utimes,
-  uwiki,uBaseApplication;
+  uwiki,uBaseApplication,fpsqlparser, fpsqlscanner, fpsqltree,uStatistic;
 
 type
   { TPrometServerFunctions }
@@ -830,6 +830,9 @@ var
   aParams: String;
   aParamDec: TStringList;
   aWiki: TWikiList;
+  aDS: TDataSet;
+  QueryFields: TStringList;
+  aStmt: TSQLStatemnt;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -1103,6 +1106,58 @@ begin
               Result:=True;
             end;
         end;
+    end
+  else if (aDir = '/sql.json') then //direct SQL Query (very limited for sequrity reasons)
+    begin
+      QueryFields := TStringList.Create;
+      QueryFields.Text:=aParams;
+      aStmt := TSQLStatemnt.Create;
+      aStmt.SQL:= AddSQLLimit(queryFields.Values['ql'],100,TBaseDBModule(aSocket.Data));
+      try
+        if not aStmt.Parse then
+          aStmt.SQL:=queryFields.Values['ql'];
+        if aStmt.Parse then
+          begin
+            aDS := TBaseDBModule(aSocket.Data).GetNewDataSet(aStmt.FormatedSQL);
+            with aDS as IBaseDBFilter do
+              begin
+                FetchRows:=20;
+                Limit := 100;
+              end;
+            aDS.Open;
+            sl := TStringList.Create;
+            sl.Add('[');
+            while not aDS.EOF do
+              begin
+                if sl.Count>1 then
+                  sl[sl.Count-1] := sl[sl.Count-1]+',';
+                tmp := '{';
+                for i := 1 to aDS.Fields.Count-1 do
+                  begin
+                    if (i<aDS.Fields.Count) and (i>1) then tmp += ',';
+                    tmp += '"'+StringToJSONString(aDS.Fields[i].FieldName)+'":"'+StringReplace(StringToJSONString(aDS.Fields[i].AsString),'','*',[rfReplaceAll])+'"';
+                  end;
+                tmp+=' }';
+                sl.Add(tmp);
+                aDS.Next;
+              end;
+            sl.Add(']');
+            sl.SaveToStream(Stream);
+            aDS.Free;
+            result := True;
+          end;
+      except
+        on e : Exception do
+          begin
+            aSocket.Status := 409;
+            sl := TStringList.Create;
+            sl.Add(e.Message);
+            sl.SaveToStream(TDAVSession(aSocket).OutputData);
+            sl.Free;
+          end;
+      end;
+      QueryFields.Free;
+      aStmt.Free;
     end;
 end;
 function TPrometServerFunctions.ServerMkCol(aSocket: TDAVSession; aDir: string): Boolean;
