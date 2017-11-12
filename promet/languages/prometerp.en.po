@@ -6416,6 +6416,12 @@ msgctxt "TFPASSWORDS.DBGRID1.COLUMNS[4].TITLE.CAPTION"
 msgid "Datum"
 msgstr "Date"
 
+#: tfpasswords.label1.caption
+#, fuzzy
+msgctxt "tfpasswords.label1.caption"
+msgid "Filter"
+msgstr "Filter"
+
 #: tfpasswords.toolbar1.caption
 msgctxt "TFPASSWORDS.TOOLBAR1.CAPTION"
 msgid "tbTop"
@@ -6424,6 +6430,10 @@ msgstr "-"
 #: tfpasswords.toolbutton3.caption
 msgid "ToolButton3"
 msgstr "-"
+
+#: tfpasswords.toolbutton8.caption
+msgid "ToolButton8"
+msgstr ""
 
 #: tfpersonaloptions.badd.caption
 msgctxt "TFPERSONALOPTIONS.BADD.CAPTION"

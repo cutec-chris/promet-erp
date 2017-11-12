@@ -25,7 +25,7 @@ interface
 
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, DBGrids,
-  ComCtrls, ActnList, DBActns,uPasswordSave, Grids;
+  ComCtrls, ActnList, DBActns,uPasswordSave, Grids, StdCtrls,Clipbrd;
 
 type
 
@@ -40,6 +40,8 @@ type
     DataSetInsert1: TDataSetInsert;
     DataSetPost1: TDataSetPost;
     DataSetRefresh1: TDataSetRefresh;
+    eFilter: TEdit;
+    Label1: TLabel;
     PwSave: TDatasource;
     DBGrid1: TDBGrid;
     ToolBar1: TToolBar;
@@ -50,11 +52,16 @@ type
     ToolButton5: TToolButton;
     ToolButton6: TToolButton;
     ToolButton7: TToolButton;
+    ToolButton8: TToolButton;
+    procedure acCopyExecute(Sender: TObject);
     procedure acGenerateExecute(Sender: TObject);
     procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure eFilterChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormDestroy(Sender: TObject);
+    procedure Label1Click(Sender: TObject);
+    procedure ToolButton8Click(Sender: TObject);
   private
     { private declarations }
   public
@@ -73,13 +80,24 @@ uses uData,upasswordgenerate;
 
 { TfPasswords }
 
-procedure TfPasswords.FormDestroy(Sender: TObject);
-begin
-end;
-
 procedure TfPasswords.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   DataSet.Free;
+end;
+
+procedure TfPasswords.FormDestroy(Sender: TObject);
+begin
+
+end;
+
+procedure TfPasswords.Label1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TfPasswords.ToolButton8Click(Sender: TObject);
+begin
+
 end;
 
 procedure TfPasswords.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -94,6 +112,12 @@ begin
     DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 end;
 
+procedure TfPasswords.eFilterChange(Sender: TObject);
+begin
+  DataSet.Filter(Data.ProcessTerm(Data.QuoteField('NAME')+'='+Data.QuoteValue('*'+eFilter.Text+'*'))+' OR '+Data.ProcessTerm(Data.QuoteField('SITE')+'='+Data.QuoteValue('*'+eFilter.Text+'*')));
+  DataSet.Open;
+end;
+
 procedure TfPasswords.acGenerateExecute(Sender: TObject);
 begin
   if fPWGenerate.Execute then
@@ -101,6 +125,11 @@ begin
       DataSet.Edit;
       DataSet.FieldByName('PASSWORD').AsString:=fPWGenerate.ePassword.Text;
     end;
+end;
+
+procedure TfPasswords.acCopyExecute(Sender: TObject);
+begin
+  Clipboard.AsText:=Dataset.FieldByName('PASSWORD').AsString;
 end;
 
 function TfPasswords.Execute: Boolean;
