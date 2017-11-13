@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -82,7 +82,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG -u RMA -p SBD2a6dkyslxtL8w"/>
+        <CommandLineParams Value="--mandant=Server3 --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
