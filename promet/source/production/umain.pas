@@ -26,7 +26,7 @@ uses
   Buttons, Menus, ActnList, XMLPropStorage, StdCtrls, Utils, uExtControls,
   uIntfStrConsts, db, memds, FileUtil, ipHTML, Translations, md5,
   ComCtrls, ExtCtrls, DbCtrls, Grids, uSystemMessage, uOrder,
-  uBaseDbInterface,uBaseDbClasses,fautomationform;
+  uBaseDbInterface,uBaseDbClasses,fautomationform,uselectorder;
 type
 
   { TfMain }
@@ -65,6 +65,7 @@ type
     procedure acLoginExecute(Sender: TObject);
     procedure acLogoutExecute(Sender: TObject);
     procedure acSearchMasterdataExecute(Sender: TObject);
+    procedure acSearchOrderExecute(Sender: TObject);
     procedure DoRestoreConfig(Data: PtrInt);
     procedure eOrderExit(Sender: TObject);
     procedure eOrderKeyPress(Sender: TObject; var Key: char);
@@ -97,7 +98,7 @@ implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
   uprometpythonscript,genpascalscript,Synautil,genscript,uCreateProductionOrder,
-  uprometpascalscript,unumbersetempty,uWikiFrame,uWiki,wikitohtml;
+  uprometpascalscript,unumbersetempty,uWikiFrame,uWiki,wikitohtml,ubaseconfig;
 
 procedure TfMain.DoCreate;
 begin
@@ -191,10 +192,21 @@ begin
   fSearch.Execute(True,'PRODSE','');
 end;
 
+procedure TfMain.acSearchOrderExecute(Sender: TObject);
+begin
+  if fSelectOrder.Execute then
+    begin
+      eOrder.Text := fSelectOrder.Order.DataSet.FieldByName('ORDERNO').AsString;
+      acLoadOrder.Execute;
+    end;
+end;
+
 procedure TfMain.DoRestoreConfig(Data: PtrInt);
 begin
   with Application as IBaseApplication do
-    RestoreConfig; //Must be called when Mainform is Visible
+    begin
+      RestoreConfig; //Must be called when Mainform is Visible
+    end;
   //WindowState:=wsMaximized;
 end;
 

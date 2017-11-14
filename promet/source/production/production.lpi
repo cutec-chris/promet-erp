@@ -70,7 +70,7 @@
         <DefaultFilename Value="..\base\pvisualprometapp.lpk"/>
       </Item10>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="production.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -82,6 +82,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="uselectorder.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fSelectOrder"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
