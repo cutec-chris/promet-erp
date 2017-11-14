@@ -4029,12 +4029,15 @@ begin
           Data.Tree.DataSet.First;
           while not Data.Tree.dataSet.EOF do
             begin
-              Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
-              TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
-              TTreeEntry(Node1.Data).DataSource := Data.Tree;
-              TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
-              TTreeEntry(Node1.Data).Typ := etDir;
-              fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
+              if Data.Tree.DataSet.FieldByName('PARENT').AsString='0' then
+                begin
+                  Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
+                  TTreeEntry(Node1.Data).Rec := Data.GetBookmark(Data.Tree);
+                  TTreeEntry(Node1.Data).DataSource := Data.Tree;
+                  TTreeEntry(Node1.Data).Text[0] := Data.Tree.FieldByName('NAME').AsString;
+                  TTreeEntry(Node1.Data).Typ := etDir;
+                  fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
+                end;
               Data.Tree.DataSet.Next;
             end;
           Data.Tree.DataSet.Filtered:=False;
