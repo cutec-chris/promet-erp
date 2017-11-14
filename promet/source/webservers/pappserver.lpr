@@ -23,11 +23,13 @@ uses
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}
-  Classes, SysUtils, CustApp, uBaseDBInterface,
-  uData,Process, db, uSystemMessage,
-  uPowerState, pcmdprometapp,math,uBaseCustomApplication,uprometwikiserver, upwebdavserver,
-  uBaseApplication,Utils,uProcessManagement,eventlog,uIntfStrConsts,
-  uprometmsgnetwork,uappserverhttp,uappserverpubsub, upconfigurationserver;
+  Classes, Interfaces,
+  SysUtils, CustApp, uBaseDBInterface, uData, Process, db,
+  uSystemMessage, uPowerState, pcmdprometapp, math, uBaseCustomApplication,
+  uprometwikiserver, upwebdavserver, uBaseApplication, Utils,
+  lazreportpdfexport, uProcessManagement, eventlog, uIntfStrConsts,
+  uprometmsgnetwork, uappserverhttp, uappserverpubsub, upconfigurationserver,
+  uwebreports;
 type
   { TProcessManager }
 

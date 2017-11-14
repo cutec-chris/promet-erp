@@ -8,7 +8,7 @@ uses
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, uerror, general,
-umain, pvisualprometapp, uBaseVisualApplication;
+umain, pvisualprometapp, uBaseVisualApplication, uselectorder;
 
 {$R *.res}
 
@@ -18,6 +18,7 @@ begin
   Application.Initialize;
   fMain.DoCreate;
   Application.CreateForm(TfMain, fMain);
+  Application.CreateForm(TfSelectOrder, fSelectOrder);
   Application.Run;
 end.
 

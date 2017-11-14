@@ -1,0 +1,40 @@
+object fWebReports: TfWebReports
+  OldCreateOrder = False
+  Height = 222
+  HorizontalOffset = 252
+  VerticalOffset = 401
+  Width = 150
+  object frReport1: TfrReport
+    InitialZoom = pzDefault
+    Options = []
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    DataType = dtDataSet
+    left = 13
+    top = 19
+  end
+  object frBarCodeObject1: TfrBarCodeObject
+    left = 80
+    top = 19
+  end
+  object frRoundRectObject1: TfrRoundRectObject
+    left = 80
+    top = 72
+  end
+  object frShapeObject1: TfrShapeObject
+    left = 12
+    top = 72
+  end
+  object frTNPDFExport1: TfrTNPDFExport
+    left = 12
+    top = 122
+  end
+  object frTextExport1: TfrTextExport
+    ShowExportParamsDlg = False
+    left = 80
+    top = 122
+  end
+  object frHTMExport1: TfrHTMExport
+    left = 12
+    top = 176
+  end
+end

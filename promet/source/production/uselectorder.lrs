@@ -1,0 +1,28 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TfSelectOrder','FORMDATA',[
+  'TPF0'#13'TfSelectOrder'#12'fSelectOrder'#4'Left'#3#239#1#6'Height'#3'm'#1#3
+  +'Top'#3#150#1#5'Width'#3#248#2#7'Caption'#6#18'Auftrag ausw'#195#164'hlen'#12
+  +'ClientHeight'#3'm'#1#11'ClientWidth'#3#248#2#8'OnCreate'#7#10'FormCreate'#9
+  +'OnDestroy'#7#11'FormDestroy'#10'LCLVersion'#6#7'1.4.4.0'#0#7'TDBGrid'#6'gOr'
+  +'der'#4'Left'#2#8#6'Height'#3#16#1#3'Top'#2'0'#5'Width'#3#232#2#7'Anchors'#11
+  +#5'akTop'#6'akLeft'#7'akRight'#8'akBottom'#0#5'Color'#7#8'clWindow'#7'Column'
+  +'s'#14#1#13'Title.Caption'#6#6'Status'#5'Width'#2'<'#9'FieldName'#6#6'STATUS'
+  +#0#1#13'Title.Caption'#6#9'Kommision'#5'Width'#2'x'#9'FieldName'#6#10'COMMIS'
+  +'SION'#0#1#13'Title.Caption'#6#7'Auftrag'#5'Width'#2'x'#9'FieldName'#6#7'ORD'
+  +'ERNO'#0#1#13'Title.Caption'#6#7'Produkt'#5'Width'#3#200#0#9'FieldName'#6#3
+  +'PID'#0#1#13'Title.Caption'#6#5'Menge'#5'Width'#2'F'#9'FieldName'#6#8'QUANTI'
+  +'TY'#0#1#13'Title.Caption'#6#10'Best'#195#164'tigt'#5'Width'#2'x'#9'FieldNam'
+  +'e'#6#5'DAPPR'#0#0#10'DataSource'#7#5'Order'#8'ReadOnly'#9#8'TabOrder'#2#0#10
+  +'TitleStyle'#7#8'tsNative'#10'OnDblClick'#7#14'gOrderDblClick'#0#0#5'TEdit'#7
+  +'eFilter'#4'Left'#3#184#0#6'Height'#2#23#3'Top'#2#10#5'Width'#3#208#0#8'OnCh'
+  +'ange'#7#13'eFilterChange'#8'TabOrder'#2#1#0#0#6'TLabel'#6'Label1'#4'Left'#2
+  +#8#6'Height'#2#15#3'Top'#2#13#5'Width'#3#159#0#7'Caption'#6' Filter nach Arb'
+  +'eitsplatz/Artikel'#11'ParentColor'#8#0#0#12'TButtonPanel'#12'ButtonPanel1'#4
+  +'Left'#2#6#6'Height'#2'"'#3'Top'#3'E'#1#5'Width'#3#236#2#13'OKButton.Name'#6
+  +#8'OKButton'#23'OKButton.DefaultCaption'#9#15'HelpButton.Name'#6#10'HelpButt'
+  +'on'#25'HelpButton.DefaultCaption'#9#16'CloseButton.Name'#6#11'CloseButton'
+  +#26'CloseButton.DefaultCaption'#9#17'CancelButton.Name'#6#12'CancelButton'#27
+  +'CancelButton.DefaultCaption'#9#8'TabOrder'#2#2#11'ShowButtons'#11#4'pbOK'#8
+  +'pbCancel'#0#0#0#11'TDataSource'#5'Order'#4'left'#2'D'#3'top'#2']'#0#0#0
+]);

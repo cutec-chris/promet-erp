@@ -192,6 +192,7 @@ object fMain: TfMain
     object acSearchOrder: TAction
       Caption = 'acSearchOrder'
       ImageIndex = 7
+      OnExecute = acSearchOrderExecute
     end
     object acCloseOrder: TAction
       Caption = 'Auftrag (ab)schließen'
