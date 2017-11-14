@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -15,9 +15,6 @@
     <i18n>
       <EnableI18N LFM="False"/>
     </i18n>
-    <MacroValues Count="1">
-      <Macro1 Name="LCLWidgetType" Value="nogui"/>
-    </MacroValues>
     <BuildModes Count="3">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
@@ -76,9 +73,6 @@
           </Linking>
         </CompilerOptions>
       </Item3>
-      <SharedMatrixOptions Count="1">
-        <Item1 ID="257198877362" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
-      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -88,26 +82,20 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS"/>
+        <CommandLineParams Value="--mandant=Server3 --debug"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="lazreportpdfexport"/>
-      </Item1>
-      <Item2>
-        <PackageName Value="lazreport"/>
-      </Item2>
-      <Item3>
         <PackageName Value="promet_msgnetwork"/>
         <DefaultFilename Value="../base/msgnetwork/promet_msgnetwork.lpk"/>
-      </Item3>
-      <Item4>
+      </Item1>
+      <Item2>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
-      </Item4>
+      </Item2>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="3">
       <Unit0>
         <Filename Value="pappserver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -120,12 +108,6 @@
         <Filename Value="upconfigurationserver.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
-      <Unit3>
-        <Filename Value="uwebreports.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="fWebReports"/>
-        <ResourceBaseClass Value="DataModule"/>
-      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
