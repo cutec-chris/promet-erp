@@ -86,6 +86,7 @@
         <Filename Value="uselectorder.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fSelectOrder"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit2>
     </Units>

@@ -85,6 +85,22 @@ object fSelectOrder: TfSelectOrder
     TabOrder = 2
     ShowButtons = [pbOK, pbCancel]
   end
+  object Label2: TLabel
+    Left = 432
+    Height = 15
+    Top = 13
+    Width = 56
+    Caption = 'und Status'
+    ParentColor = False
+  end
+  object eStatus: TEdit
+    Left = 512
+    Height = 23
+    Top = 10
+    Width = 80
+    OnChange = eFilterChange
+    TabOrder = 3
+  end
   object Order: TDataSource
     left = 68
     top = 93

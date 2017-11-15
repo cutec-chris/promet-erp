@@ -24,5 +24,9 @@ LazarusResources.Add('TfSelectOrder','FORMDATA',[
   +'on'#25'HelpButton.DefaultCaption'#9#16'CloseButton.Name'#6#11'CloseButton'
   +#26'CloseButton.DefaultCaption'#9#17'CancelButton.Name'#6#12'CancelButton'#27
   +'CancelButton.DefaultCaption'#9#8'TabOrder'#2#2#11'ShowButtons'#11#4'pbOK'#8
-  +'pbCancel'#0#0#0#11'TDataSource'#5'Order'#4'left'#2'D'#3'top'#2']'#0#0#0
+  +'pbCancel'#0#0#0#6'TLabel'#6'Label2'#4'Left'#3#176#1#6'Height'#2#15#3'Top'#2
+  +#13#5'Width'#2'8'#7'Caption'#6#10'und Status'#11'ParentColor'#8#0#0#5'TEdit'
+  +#7'eStatus'#4'Left'#3#0#2#6'Height'#2#23#3'Top'#2#10#5'Width'#2'P'#8'OnChang'
+  +'e'#7#13'eFilterChange'#8'TabOrder'#2#3#0#0#11'TDataSource'#5'Order'#4'left'
+  +#2'D'#3'top'#2']'#0#0#0
 ]);
