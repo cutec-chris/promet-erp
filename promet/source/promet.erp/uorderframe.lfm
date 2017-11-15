@@ -58,7 +58,7 @@ inherited fOrderFrame: TfOrderFrame
       TabOrder = 3
       object lPaymentTarget: TLabel
         Left = 7
-        Height = 20
+        Height = 15
         Top = 5
         Width = 295
         Anchors = [akTop, akLeft, akRight]
@@ -66,39 +66,39 @@ inherited fOrderFrame: TfOrderFrame
         ParentColor = False
       end
       object lCurrency: TLabel
-        Left = 582
-        Height = 20
+        Left = 592
+        Height = 15
         Top = 5
-        Width = 59
+        Width = 49
         Anchors = [akTop, akRight]
         Caption = 'Währung'
         ParentColor = False
       end
       object cbPaymentTarget: TComboBox
         Left = 6
-        Height = 28
+        Height = 23
         Top = 24
         Width = 296
         Anchors = [akTop, akLeft, akRight]
-        ItemHeight = 20
+        ItemHeight = 15
         OnSelect = cbPaymentTargetSelect
         TabOrder = 0
       end
       object cbCurrency: TDBComboBox
         Left = 581
-        Height = 28
+        Height = 23
         Top = 24
         Width = 72
         Anchors = [akTop, akRight]
         DataField = 'CURRENCY'
         DataSource = Orders
-        ItemHeight = 20
+        ItemHeight = 15
         MaxLength = 0
         TabOrder = 4
       end
       object eGross: TDBEdit
         Left = 508
-        Height = 28
+        Height = 23
         Top = 24
         Width = 64
         DataField = 'GROSSPRICE'
@@ -110,7 +110,7 @@ inherited fOrderFrame: TfOrderFrame
       end
       object eVAT: TDBEdit
         Left = 392
-        Height = 28
+        Height = 23
         Top = 24
         Width = 52
         DataField = 'VATH'
@@ -122,7 +122,7 @@ inherited fOrderFrame: TfOrderFrame
       end
       object eNet: TDBEdit
         Left = 308
-        Height = 28
+        Height = 23
         Top = 24
         Width = 76
         DataField = 'NETPRICE'
@@ -133,44 +133,44 @@ inherited fOrderFrame: TfOrderFrame
         TabOrder = 1
       end
       object lCurrency1: TLabel
-        Left = 308
-        Height = 20
+        Left = 316
+        Height = 15
         Top = 5
-        Width = 38
+        Width = 30
         Anchors = [akTop, akRight]
         Caption = 'Netto'
         ParentColor = False
       end
       object lCurrency2: TLabel
-        Left = 393
-        Height = 20
+        Left = 403
+        Height = 15
         Top = 5
-        Width = 49
+        Width = 39
         Anchors = [akTop, akRight]
         Caption = 'MwSt 1'
         ParentColor = False
       end
       object lCurrency3: TLabel
-        Left = 508
-        Height = 20
+        Left = 516
+        Height = 15
         Top = 5
-        Width = 41
+        Width = 33
         Anchors = [akTop, akRight]
         Caption = 'Brutto'
         ParentColor = False
       end
       object lCurrency4: TLabel
-        Left = 449
-        Height = 20
+        Left = 459
+        Height = 15
         Top = 5
-        Width = 49
+        Width = 39
         Anchors = [akTop, akRight]
         Caption = 'MwSt 2'
         ParentColor = False
       end
       object eVAT1: TDBEdit
         Left = 449
-        Height = 28
+        Height = 23
         Top = 24
         Width = 52
         DataField = 'VATF'
@@ -203,22 +203,22 @@ inherited fOrderFrame: TfOrderFrame
         NewTabImageIndex = 59
         object tsCommon: TTabSheet
           Caption = 'Adressen/Texte'
-          ClientHeight = 114
+          ClientHeight = 119
           ClientWidth = 660
           ImageIndex = 7
           object pAddress: TPanel
             Left = 0
-            Height = 114
+            Height = 119
             Top = 0
             Width = 660
             Align = alClient
             BevelOuter = bvNone
-            ClientHeight = 114
+            ClientHeight = 119
             ClientWidth = 660
             TabOrder = 0
             object tsFooter1: TPageControl
               Left = 213
-              Height = 114
+              Height = 119
               Top = 0
               Width = 447
               TabStop = False
@@ -246,11 +246,11 @@ inherited fOrderFrame: TfOrderFrame
               end
               object tsHeader1: TTabSheet
                 Caption = 'Kopftext'
-                ClientHeight = 81
+                ClientHeight = 91
                 ClientWidth = 439
                 object mOrderNote4: TDBMemo
                   Left = 0
-                  Height = 81
+                  Height = 91
                   Top = 0
                   Width = 439
                   Align = alClient
@@ -283,24 +283,24 @@ inherited fOrderFrame: TfOrderFrame
             end
             object Panel1: TPanel
               Left = 0
-              Height = 114
+              Height = 119
               Top = 0
               Width = 38
               Align = alLeft
               BevelOuter = bvNone
-              ClientHeight = 114
+              ClientHeight = 119
               ClientWidth = 38
               TabOrder = 1
               object Panel3: TPanel
                 Left = 0
-                Height = 91
+                Height = 96
                 Top = 17
                 Width = 38
                 Align = alTop
                 Anchors = [akTop, akLeft, akRight, akBottom]
                 BorderSpacing.Top = 17
                 BevelOuter = bvNone
-                ClientHeight = 91
+                ClientHeight = 96
                 ClientWidth = 38
                 TabOrder = 0
                 object Bevel1: TBevel
@@ -315,7 +315,7 @@ inherited fOrderFrame: TfOrderFrame
                 end
                 object ExtRotatedLabel1: TExtRotatedLabel
                   Left = 0
-                  Height = 87
+                  Height = 92
                   Top = 4
                   Width = 14
                   Align = alLeft
@@ -342,7 +342,7 @@ inherited fOrderFrame: TfOrderFrame
             end
             object pAddresses: TPanel
               Left = 38
-              Height = 114
+              Height = 119
               Top = 0
               Width = 170
               Align = alLeft
@@ -351,7 +351,7 @@ inherited fOrderFrame: TfOrderFrame
             end
             object Splitter1: TSplitter
               Left = 208
-              Height = 114
+              Height = 119
               Top = 0
               Width = 5
             end
@@ -608,11 +608,11 @@ inherited fOrderFrame: TfOrderFrame
       end
       object cbStatus: TComboBox
         Left = 4
-        Height = 28
+        Height = 23
         Hint = 'hier können Sie den Status des vorgangs ändern um ihn in neue Zustände zu überführen'
         Top = 12
         Width = 268
-        ItemHeight = 20
+        ItemHeight = 15
         OnSelect = cbStatusSelect
         Style = csDropDownList
         TabOrder = 0
@@ -655,9 +655,9 @@ inherited fOrderFrame: TfOrderFrame
       object lOrdernumber1: TLabel
         AnchorSideLeft.Side = asrBottom
         Left = 4
-        Height = 20
+        Height = 15
         Top = 12
-        Width = 117
+        Width = 96
         BorderSpacing.Left = 20
         Caption = 'Vorgangsnummer'
         ParentColor = False
@@ -665,10 +665,10 @@ inherited fOrderFrame: TfOrderFrame
       object lNumber1: TLabel
         AnchorSideLeft.Control = deDate1
         AnchorSideLeft.Side = asrBottom
-        Left = 194
-        Height = 20
+        Left = 173
+        Height = 15
         Top = 12
-        Width = 58
+        Width = 48
         BorderSpacing.Left = 11
         Caption = 'Nummer'
         ParentColor = False
@@ -676,10 +676,10 @@ inherited fOrderFrame: TfOrderFrame
       object lDate1: TLabel
         AnchorSideLeft.Control = lOrdernumber1
         AnchorSideLeft.Side = asrBottom
-        Left = 132
-        Height = 20
+        Left = 111
+        Height = 15
         Top = 13
-        Width = 45
+        Width = 36
         BorderSpacing.Left = 11
         Caption = 'Datum'
         ParentColor = False
@@ -691,7 +691,7 @@ inherited fOrderFrame: TfOrderFrame
         Left = 4
         Height = 17
         Hint = 'Die automatisch vergebene eindeutige Vorgangsnummer'
-        Top = 32
+        Top = 27
         Width = 98
         BorderSpacing.Left = 4
         Constraints.MinWidth = 90
@@ -706,10 +706,10 @@ inherited fOrderFrame: TfOrderFrame
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = lOrdernumber1
         AnchorSideTop.Side = asrBottom
-        Left = 132
+        Left = 111
         Height = 17
         Hint = 'das Buchungsdatum'
-        Top = 32
+        Top = 27
         Width = 51
         BorderSpacing.Left = 11
         Constraints.MinWidth = 50
@@ -725,10 +725,10 @@ inherited fOrderFrame: TfOrderFrame
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Control = lOrdernumber1
         AnchorSideTop.Side = asrBottom
-        Left = 194
+        Left = 173
         Height = 17
         Hint = 'Die Buchungsnummer'
-        Top = 32
+        Top = 27
         Width = 72
         BorderSpacing.Left = 11
         Constraints.MinWidth = 50

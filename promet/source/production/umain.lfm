@@ -110,6 +110,7 @@ object fMain: TfMain
       Width = 257
       Action = acCloseOrder
       Anchors = [akLeft, akRight, akBottom]
+      Caption = 'Auftrag schließen'
       TabOrder = 3
     end
     object SpeedButton3: TSpeedButton

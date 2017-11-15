@@ -12,6 +12,9 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "(Menu)\n"
 
+msgid "(Menü)"
+msgstr ""
+
 # Christian U. <ulrich@tcs-germany.de>, 2015.
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
@@ -10143,16 +10146,6 @@ msgctxt "uorderframe.stradditional"
 msgid "Zusätzlich"
 msgstr "Additional"
 
-#: uorderframe.strchangein
-msgctxt "uorderframe.strchangein"
-msgid "geändert in"
-msgstr "changed to"
-
-#: uorderframe.strchangeorderin
-msgctxt "uorderframe.strchangeorderin"
-msgid "%s %s ist das richtig ?"
-msgstr "%s %s is this correct ?."
-
 #: uorderframe.strcustomerhasnoaddress
 msgctxt "uorderframe.strcustomerhasnoaddress"
 msgid "Der Kontakt hat keine Adresse, möchten Sie eine hinzufügen ?"
@@ -10163,24 +10156,10 @@ msgctxt "uorderframe.strdates"
 msgid "Datum"
 msgstr "Date"
 
-#: uorderframe.strderivate
-msgctxt "uorderframe.strderivate"
-msgid "angeleitet to"
-msgstr "instructed to"
-
 #: uorderframe.strnocustomerfound
 msgctxt "uorderframe.strnocustomerfound"
 msgid "kein Kunde gefunden !"
 msgstr "Not a customer found!"
-
-#: uorderframe.strnoordertypeselected
-msgid "Zu dieser Belegart ist kein Auftragstyp ausgewählt, er kann nicht gewandelt werden !"
-msgstr "No contract type selected for this document type, it can not be changed!"
-
-#: uorderframe.strordertochange
-msgctxt "uorderframe.strordertochange"
-msgid "Auftrag %s %s wird"
-msgstr "Order% s% s"
 
 #: uorderframe.strsearchfromorderaddress
 msgid "Die Suche waurde aus der Auftragsverwaltung gestartet wenn Sie eine Addresse auswählen, wird diese in dne aktuellen Auftrag übernommen"

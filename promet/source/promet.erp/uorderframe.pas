@@ -232,11 +232,6 @@ resourcestring
   strDates                            = 'Datum';
   strSearchfromOrderAddress           = 'Die Suche waurde aus der Auftragsverwaltung gestartet wenn Sie eine Addresse auswählen, wird diese in dne aktuellen Auftrag übernommen';
   strNoCustomerFound                  = 'kein Kunde gefunden !';
-  strOrderToChange                    = 'Auftrag %s %s wird';
-  strChangeIn                         = 'geändert in';
-  strDerivate                         = 'angeleitet to';
-  strNoOrderTypeSelected              = 'Zu dieser Belegart ist kein Auftragstyp ausgewählt, er kann nicht gewandelt werden !';
-  strChangeOrderIn                    = '%s %s ist das richtig ?';
   strCustomerhasNoAddress             = 'Der Kontakt hat keine Adresse, möchten Sie eine hinzufügen ?';
 
 procedure TfOrderFrame.OnSendMessage(aReport: TfrReport; aMail: string; aSubject: string;
