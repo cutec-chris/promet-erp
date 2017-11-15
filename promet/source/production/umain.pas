@@ -168,6 +168,7 @@ begin
 end;
 procedure TfMain.acCloseOrderExecute(Sender: TObject);
 begin
+  Application.QueueAsyncCall(@LoadWikiIndex,0);
   fAutomation.Clear;
   tvStep.Items.Clear;
   eOrder.Enabled:=True;

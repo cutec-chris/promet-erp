@@ -112,7 +112,11 @@ begin
   +' left  join '+Data.QuoteField('ORDERPOS')+' as OP2 on OP2.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('SQL_ID')+' and OP2.'+Data.QuoteField('PARENT')+' is NULL'
   +' order by '+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('TIMESTAMPD')+' desc';
   with Order.DataSet as IBaseDbFilter do
-    FullSQL := aSQL;
+    begin
+      if FullSQL <> aSQL then
+        FullSQL := aSQL
+      else Order.DataSet.Refresh;
+    end;
   Order.DataSet.Open;
 end;
 
