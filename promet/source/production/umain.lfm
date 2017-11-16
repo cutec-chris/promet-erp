@@ -187,7 +187,7 @@ object fMain: TfMain
     end
     object acSearchMasterdata: TAction
       Caption = '...'
-      ImageIndex = 14
+      ImageIndex = 0
       OnExecute = acSearchMasterdataExecute
     end
     object acSearchOrder: TAction
