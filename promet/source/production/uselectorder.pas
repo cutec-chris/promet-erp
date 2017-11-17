@@ -56,7 +56,7 @@ var
 
 implementation
 
-uses uData,uBaseDatasetInterfaces,ubaseconfig;
+uses uData,uBaseDatasetInterfaces,ubaseconfig,uStatistic;
 
 { TfSelectOrder }
 
@@ -106,11 +106,12 @@ var
 begin
   if not Assigned(Order.DataSet) then exit;
   aSql :=
-   'select distinct top 100 '+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('STATUS')+','+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('COMMISSION')+','+Data.QuoteField('ORDERNO')+','+Data.QuoteField('PID')+',OP2.'+Data.QuoteField('QUANTITY')+','+Data.QuoteField('DAPPR')+','+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('TIMESTAMPD')+' from '+Data.QuoteField('ORDERS')
+   'select distinct '+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('STATUS')+','+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('COMMISSION')+','+Data.QuoteField('ORDERNO')+','+Data.QuoteField('PID')+',OP2.'+Data.QuoteField('QUANTITY')+','+Data.QuoteField('DAPPR')+','+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('TIMESTAMPD')+' from '+Data.QuoteField('ORDERS')
   +' inner join '+Data.QuoteField('ORDERTYPE')+' on '+Data.QuoteField('ORDERTYPE')+'.'+Data.QuoteField('STATUS')+'='+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('STATUS')+' and '+Data.QuoteField('ORDERTYPE')+'.'+Data.QuoteField('TYPE')+'=7'
   +' inner join '+Data.QuoteField('ORDERPOS')+' as OP1 on OP1.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('SQL_ID')+' and OP1.'+Data.QuoteField('IDENT')+' like '''+Data.ProcessTerm(eFilter.Text+'*')+''' and '+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('STATUS')+' like '''+Data.ProcessTerm(eStatus.Text+'*')+''''
   +' left  join '+Data.QuoteField('ORDERPOS')+' as OP2 on OP2.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('SQL_ID')+' and OP2.'+Data.QuoteField('PARENT')+' is NULL'
   +' order by '+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('TIMESTAMPD')+' desc';
+  AddSQLLimit(aSQL,50);
   with Order.DataSet as IBaseDbFilter do
     begin
       if FullSQL <> aSQL then
