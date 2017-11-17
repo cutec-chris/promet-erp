@@ -26,7 +26,7 @@ uses
   Classes, SysUtils, udavserver, uDocuments, uBaseDbClasses, uCalendar,
   utask,Utils,variants,uBaseDatasetInterfaces, db,synautil,uPerson,uBaseDocPages,
   DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface,fpjson,jsonparser,utimes,
-  uwiki,uBaseApplication,fpsqlparser, fpsqlscanner, fpsqltree,uStatistic;
+  uwiki,uBaseApplication,fpsqlparser, fpsqlscanner, fpsqltree,uStatistic,uwebreports;
 
 type
   { TPrometServerFunctions }
@@ -335,6 +335,7 @@ var
   tmp: String;
   aDataSet: TBaseDBDataset;
   aWiki: TWikiList;
+  aReportType: String;
 begin
   Result := false;
   if aSocket.User='' then exit;
@@ -679,35 +680,67 @@ begin
     begin
       if aLevel = 6 then
         begin
-          aDocuments := TDocuments.Create(nil);
-          aDocuments.Select(aId,aType,0);
-          aDocuments.Open;
-          aFile := '';
-          if copy(aDir,length(aDir),1) <> '/' then
+          if pos('/files/',aRemovedDir)>0 then
             begin
-              aFile := ExtractFileName(aDir);
-              aDir := copy(aDir,0,rpos('/',aDir)-1);
-            end;
-          if aDocuments.OpenPath(aDir,'/') then
-            Result := AddDocumentsToFileList(aSocket,aDirList,aDocuments,aRemovedDir+aDir,aFile)
-          else
-            begin
-              aDir := copy(aDir,0,length(aDir)-1);
-              aFile := HTTPDecode(copy(aDir,rpos('/',aDir)+1,length(aDir)));
-              aDir := copy(aDir,0,rpos('/',aDir));
-              if ((aDir = '') or (aDir = '/') or aDocuments.OpenPath(aDir,'/')) and (aDocuments.Active) then
+              aDir := copy(aRemovedDir,pos('/files/',aRemovedDir)+7,length(aRemovedDir));
+              aDocuments := TDocuments.Create(nil);
+              aDocuments.Select(aId,aType,0);
+              aDocuments.Open;
+              aFile := '';
+              if copy(aDir,length(aDir),1) <> '/' then
                 begin
-                  aDocuments.DataSet.First;
-                  while not aDocuments.DataSet.EOF do
-                    begin
-                      if aDocuments.FileName = aFile then
-                        AddDocumentToFileList(aSocket,aDirList,aDocuments,aRemovedDir+aDir+aFile);
-                      aDocuments.DataSet.Next;
-                    end;
+                  aFile := ExtractFileName(aDir);
+                  aDir := copy(aDir,0,rpos('/',aDir)-1);
                 end;
-              Result := True;
+              if aDocuments.OpenPath(aDir,'/') then
+                Result := AddDocumentsToFileList(aSocket,aDirList,aDocuments,aRemovedDir+aDir,aFile)
+              else
+                begin
+                  aDir := copy(aDir,0,length(aDir)-1);
+                  aFile := HTTPDecode(copy(aDir,rpos('/',aDir)+1,length(aDir)));
+                  aDir := copy(aDir,0,rpos('/',aDir));
+                  if ((aDir = '') or (aDir = '/') or aDocuments.OpenPath(aDir,'/')) and (aDocuments.Active) then
+                    begin
+                      aDocuments.DataSet.First;
+                      while not aDocuments.DataSet.EOF do
+                        begin
+                          if aDocuments.FileName = aFile then
+                            AddDocumentToFileList(aSocket,aDirList,aDocuments,aRemovedDir+aDir+aFile);
+                          aDocuments.DataSet.Next;
+                        end;
+                    end;
+                  Result := True;
+                end;
+              aDocuments.Free;
+            end
+          else if copy(aRemovedDir,length(aRemovedDir)-8,9) = '/reports/' then
+            begin
+              if aDir = '' then
+                begin
+                  if copy(aFullDir,length(aFullDir),1) <> '/' then
+                    aFullDir := aFullDir+'/';
+                  case aType of
+                  'A':aReportType := 'MAS';
+                  'P':aReportType := 'PRJ';
+                  else aReportType:='';
+                  end;
+                   TBaseDBModule(aSocket.Data).Reports.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aReportType));
+                   with TBaseDBModule(aSocket.Data).Reports do
+                     begin
+                       First;
+                       while not EOF do
+                         begin
+                           aItem := TDAVFile.Create(aFullDir+FieldByName('NAME').AsString+'.pdf',False);
+                           aItem.Properties.Values['getcontenttype'] := 'application/pdf';
+                           aItem.Properties.Values['creationdate'] := BuildISODate(Now());
+                           aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
+                           aDirList.Add(aItem);
+                           Next;
+                         end;
+                     end;
+                   Result := True;
+                end;
             end;
-          aDocuments.Free;
         end
       else if (aLevel=1) and (aDir = '') then
         begin
@@ -768,6 +801,8 @@ begin
             end;
           aWiki.Free;
           aItem := TDAVFile.Create(aFullDir+'files',true);
+          aDirList.Add(aItem);
+          aItem := TDAVFile.Create(aFullDir+'reports',true);
           aDirList.Add(aItem);
 
           Result:=True;
@@ -833,6 +868,8 @@ var
   aDS: TDataSet;
   QueryFields: TStringList;
   aStmt: TSQLStatemnt;
+  aReportType: String;
+  aFStream: TFileStream;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -968,8 +1005,7 @@ begin
                     aDataSet.ActualFilter:=Data.QuoteField('REF_ID')+'='+Data.QuoteField(Data.Users.Id.AsString);
                 end;
               if aParamDec.Values['limit']<>'' then
-                aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(aParamDec.Values['limit']),500);
-              writeln(aParamDec.Text);
+                aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(aParamDec.Values['limit']),100);
               aParamDec.Free;
               aDataSet.Open;
               while not aDataSet.EOF do
@@ -996,39 +1032,101 @@ begin
         end
       else if aLevel=6 then
         begin
-          aDocuments := TDocuments.Create(nil);
-          try
-          aDocuments.Select(aId,aType,0);
-          aDocuments.Open;
-          if rpos('/',aDir) > 1 then
-            Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)),'/')
-          else Result := True;
-          if Result then
+          if pos('/files/',aRemovedDir)>0 then
             begin
-              Result := False;
-              aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
-              if aDocuments.SelectFile(aDir) then
+              aDocuments := TDocuments.Create(nil);
+              try
+              aDocuments.Select(aId,aType,0);
+              aDocuments.Open;
+              if rpos('/',aDir) > 1 then
+                Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)),'/')
+              else Result := True;
+              if Result then
                 begin
-                  aDocument := TDocument.Create(nil);
-                  try
-                  aDocument.SelectByNumber(aDocuments.DataSet.FieldByName('NUMBER').AsVariant);
-                  aDocument.Open;
-                  if aDocument.Count > 0 then
+                  Result := False;
+                  aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
+                  if aDocuments.SelectFile(aDir) then
                     begin
-                      aDocument.CheckoutToStream(Stream);
-                      LastModified:=aDocument.LastModified;
-                      if MimeType = '' then
-                        MimeType := GetMimeTypeforExtension(ExtractFileExt(aDocuments.FileName));
-                      Result := True;
+                      aDocument := TDocument.Create(nil);
+                      try
+                      aDocument.SelectByNumber(aDocuments.DataSet.FieldByName('NUMBER').AsVariant);
+                      aDocument.Open;
+                      if aDocument.Count > 0 then
+                        begin
+                          aDocument.CheckoutToStream(Stream);
+                          LastModified:=aDocument.LastModified;
+                          if MimeType = '' then
+                            MimeType := GetMimeTypeforExtension(ExtractFileExt(aDocuments.FileName));
+                          Result := True;
+                        end;
+                      finally
+                        aDocument.Free;
+                      end;
                     end;
-                  finally
-                    aDocument.Free;
-                  end;
+                end;
+              finally
+                aDocuments.Free;
+              end;
+            end
+          else if pos('/reports/',aRemovedDir)>0 then
+            begin
+              aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
+              if copy(aFullDir,length(aFullDir),1) <> '/' then
+                aFullDir := aFullDir+'/';
+              case aType of
+              'A':aReportType := 'MAS';
+              'P':aReportType := 'PRJ';
+              else aReportType:='';
+              end;
+              TBaseDBModule(aSocket.Data).Reports.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aReportType));
+              if TBaseDBModule(aSocket.Data).Reports.Locate('NAME',copy(aDir,0,rpos('.',aDir)-1),[]) then
+                begin
+                  with TBaseDBModule(aSocket.Data).Reports.FieldByName('REPORT') as TBlobField do
+                    if not TBaseDBModule(aSocket.Data).Reports.FieldByName('REPORT').IsNull then
+                      begin
+                        with BaseApplication as IBaseApplication do
+                          begin
+                            TBaseDBModule(aSocket.Data).BlobFieldToFile(TBaseDBModule(aSocket.Data).Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
+                            fWebReports.Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+                            DeleteFile(UniToSys(GetInternalTempDir+'preport.lrf'));
+                            Result := True;
+                          end;
+                      end;
+                  if Result then
+                    begin
+                      aDataSet := aClass.Create(nil);
+                      aDataSet.Select(aId);
+                      aDataSet.Open;
+                      fWebReports.RegisterDataSet(aDataSet);
+                      Result:=fWebReports.ExportToPDF(GetTempPath+'rpv.pdf') and FileExists(GetTempPath+'rpv.pdf');
+                      if Result then
+                        begin
+                          aFStream:= TFileStream.Create(GetTempPath+'rpv.pdf',fmOpenRead);
+                          Stream.CopyFrom(aFStream,0);
+                          Stream.Position:=0;
+                          aFStream.Free;
+                          DeleteFile(UniToSys(GetTempPath+'rpv.pdf'));
+                        end
+                      else
+                        begin
+                          aSocket.Status := 409;
+                          sl := TStringList.Create;
+                          sl.Add(fWebReports.LastError);
+                          sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                          sl.Free;
+                        end;
+                      aDataSet.Free;
+                    end
+                  else
+                    begin
+                      aSocket.Status := 404;
+                      sl := TStringList.Create;
+                      sl.Add('Report not found (in database)!');
+                      sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                      sl.Free;
+                    end;
                 end;
             end;
-          finally
-            aDocuments.Free;
-          end;
         end
       else if (aLevel=3) then //dynamic content
         begin
@@ -1510,7 +1608,7 @@ begin
               ss.Free;
             end;
         end
-      else if aLevel=6 then
+      else if aLevel=6 then //virtual directories (files,reports)
         begin
           aDocuments := TDocuments.Create(nil);
           aDocuments.Select(aID,aType,0);
@@ -1663,6 +1761,15 @@ var
         Result := True;
         aLevel:=6;
         aRemovedDir+='files/';
+        if pos('/',aDir)>0 then
+          aDir := copy(aDir,pos('/',aDir)+1,length(aDir))
+        else aDir := '';
+      end;
+    if (copy(aDir,0,7)='reports') and (DataSet.Count>0) then
+      begin
+        Result := True;
+        aLevel:=6;
+        aRemovedDir+='reports/';
         if pos('/',aDir)>0 then
           aDir := copy(aDir,pos('/',aDir)+1,length(aDir))
         else aDir := '';

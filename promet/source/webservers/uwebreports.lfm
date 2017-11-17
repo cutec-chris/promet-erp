@@ -4,10 +4,13 @@ object fWebReports: TfWebReports
   HorizontalOffset = 252
   VerticalOffset = 401
   Width = 150
-  object frReport1: TfrReport
+  object Report: TfrReport
     InitialZoom = pzDefault
+    ModalPreview = False
+    ModifyPrepared = False
     Options = []
     PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    ShowProgress = False
     DataType = dtDataSet
     left = 13
     top = 19
@@ -24,10 +27,6 @@ object fWebReports: TfWebReports
     left = 12
     top = 72
   end
-  object frTNPDFExport1: TfrTNPDFExport
-    left = 12
-    top = 122
-  end
   object frTextExport1: TfrTextExport
     ShowExportParamsDlg = False
     left = 80
@@ -36,5 +35,13 @@ object fWebReports: TfWebReports
   object frHTMExport1: TfrHTMExport
     left = 12
     top = 176
+  end
+  object frTNPDFExport1: TfrTNPDFExport
+    left = 18
+    top = 128
+  end
+  object frDBDataSet1: TfrDBDataSet
+    left = 97
+    top = 179
   end
 end

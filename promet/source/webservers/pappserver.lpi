@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -82,18 +82,24 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Server3 --debug"/>
+        <CommandLineParams Value="--mandant=TCS"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="promet_msgnetwork"/>
-        <DefaultFilename Value="../base/msgnetwork/promet_msgnetwork.lpk"/>
+        <PackageName Value="lazreportpdfexport"/>
       </Item1>
       <Item2>
+        <PackageName Value="lazreport"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="promet_msgnetwork"/>
+        <DefaultFilename Value="../base/msgnetwork/promet_msgnetwork.lpk"/>
+      </Item3>
+      <Item4>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
-      </Item2>
+      </Item4>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>
@@ -131,7 +137,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="6">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EZSQLException"/>
       </Item1>
@@ -150,6 +156,9 @@
       <Item6>
         <Name Value="EJSON"/>
       </Item6>
+      <Item7>
+        <Name Value="EParserError"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>
