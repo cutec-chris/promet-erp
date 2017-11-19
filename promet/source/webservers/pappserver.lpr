@@ -29,7 +29,7 @@ uses
   uprometwikiserver, upwebdavserver, uBaseApplication, Utils,
   lazreportpdfexport, uProcessManagement, eventlog, uIntfStrConsts,
   uprometmsgnetwork, uappserverhttp, uappserverpubsub, upconfigurationserver,
-  uwebreports;
+  uwebreports, pack_powerpdf;
 type
   { TProcessManager }
 
