@@ -48,8 +48,13 @@ begin
   Result := False;
   LastError:='Unknown Error';
   try
+  {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
+  FOR i := 0 TO ExportFilters.Count - 1 DO
+     if pos('PDF',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
+  {$ELSE}
   FOR i := 0 TO frFiltersCount - 1 DO
      if pos('PDF',Uppercase(frFilters[i].FilterDesc)) > 0 then
+  {$ENDIF}
       if Report.PrepareReport then
         begin
           {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
