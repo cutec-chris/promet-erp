@@ -719,26 +719,37 @@ begin
                 begin
                   if copy(aFullDir,length(aFullDir),1) <> '/' then
                     aFullDir := aFullDir+'/';
+                  aDataSet := aClass.Create(nil);
+                  aDataSet.Select(aId);
+                  aDataSet.Open;
                   case aType of
-                  'A':aReportType := 'MAS';
+                  'M':aReportType := 'MAS';
                   'P':aReportType := 'PRJ';
+                  'C':aReportType := 'CUSD';
+                  'S':aReportType := 'SHMD'; //Shema
+                  'W':aReportType := 'WIKI'; //Wiki
+                  'O':aReportType := 'OR'+aDataSet.FieldByName('STATUS').AsString;
                   else aReportType:='';
                   end;
-                   TBaseDBModule(aSocket.Data).Reports.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aReportType));
-                   with TBaseDBModule(aSocket.Data).Reports do
-                     begin
-                       First;
-                       while not EOF do
-                         begin
-                           aItem := TDAVFile.Create(aFullDir+FieldByName('NAME').AsString+'.pdf',False);
-                           aItem.Properties.Values['getcontenttype'] := 'application/pdf';
-                           aItem.Properties.Values['creationdate'] := BuildISODate(Now());
-                           aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
-                           aDirList.Add(aItem);
-                           Next;
-                         end;
-                     end;
-                   Result := True;
+                  aDataSet.Free;
+                  TBaseDBModule(aSocket.Data).Reports.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aReportType));
+                  if (aReportType<>'') then
+                    begin
+                      with TBaseDBModule(aSocket.Data).Reports do
+                        begin
+                          First;
+                          while not EOF do
+                            begin
+                              aItem := TDAVFile.Create(aFullDir+FieldByName('NAME').AsString+'.pdf',False);
+                              aItem.Properties.Values['getcontenttype'] := 'application/pdf';
+                              aItem.Properties.Values['creationdate'] := BuildISODate(Now());
+                              aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
+                              aDirList.Add(aItem);
+                              Next;
+                            end;
+                        end;
+                      Result := True;
+                    end;
                 end;
             end;
         end
@@ -1073,59 +1084,76 @@ begin
               aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
               if copy(aFullDir,length(aFullDir),1) <> '/' then
                 aFullDir := aFullDir+'/';
+              aDataSet := aClass.Create(nil);
+              aDataSet.Select(aId);
+              aDataSet.Open;
               case aType of
-              'A':aReportType := 'MAS';
+              'M':aReportType := 'MAS';
               'P':aReportType := 'PRJ';
+              'C':aReportType := 'CUSD';
+              'S':aReportType := 'SHMD'; //Shema
+              'W':aReportType := 'WIKI'; //Wiki
+              'O':aReportType := 'OR'+aDataSet.FieldByName('STATUS').AsString;
               else aReportType:='';
               end;
               TBaseDBModule(aSocket.Data).Reports.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aReportType));
-              if TBaseDBModule(aSocket.Data).Reports.Locate('NAME',copy(aDir,0,rpos('.',aDir)-1),[]) then
+              TBaseDBModule(aSocket.Data).Reports.DataSet.Refresh;
+              if TBaseDBModule(aSocket.Data).Reports.Locate('NAME',copy(aDir,0,rpos('.',aDir)-1),[]) and (aReportType<>'') then
                 begin
-                  with TBaseDBModule(aSocket.Data).Reports.FieldByName('REPORT') as TBlobField do
-                    if not TBaseDBModule(aSocket.Data).Reports.FieldByName('REPORT').IsNull then
-                      begin
-                        with BaseApplication as IBaseApplication do
-                          begin
-                            TBaseDBModule(aSocket.Data).BlobFieldToFile(TBaseDBModule(aSocket.Data).Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
-                            fWebReports.Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
-                            DeleteFile(UniToSys(GetInternalTempDir+'preport.lrf'));
-                            Result := True;
-                          end;
-                      end;
-                  if Result then
-                    begin
-                      aDataSet := aClass.Create(nil);
-                      aDataSet.Select(aId);
-                      aDataSet.Open;
-                      fWebReports.RegisterDataSet(aDataSet);
-                      Result:=fWebReports.ExportToPDF(GetTempPath+'rpv.pdf') and FileExists(GetTempPath+'rpv.pdf');
-                      if Result then
+                  fWebReports := TfWebReports.Create(nil);
+                  try
+                    with TBaseDBModule(aSocket.Data).Reports.FieldByName('REPORT') as TBlobField do
+                      if not TBaseDBModule(aSocket.Data).Reports.FieldByName('REPORT').IsNull then
                         begin
-                          aFStream:= TFileStream.Create(GetTempPath+'rpv.pdf',fmOpenRead);
-                          Stream.CopyFrom(aFStream,0);
-                          Stream.Position:=0;
-                          aFStream.Free;
-                          DeleteFile(UniToSys(GetTempPath+'rpv.pdf'));
-                        end
-                      else
-                        begin
-                          aSocket.Status := 409;
-                          sl := TStringList.Create;
-                          sl.Add(fWebReports.LastError);
-                          sl.SaveToStream(TDAVSession(aSocket).OutputData);
-                          sl.Free;
+                          with BaseApplication as IBaseApplication do
+                            begin
+                              TBaseDBModule(aSocket.Data).BlobFieldToFile(TBaseDBModule(aSocket.Data).Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
+                              fWebReports.Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+                              DeleteFile(UniToSys(GetInternalTempDir+'preport.lrf'));
+                              Result := True;
+                            end;
                         end;
-                      aDataSet.Free;
-                    end
-                  else
-                    begin
-                      aSocket.Status := 404;
-                      sl := TStringList.Create;
-                      sl.Add('Report not found (in database)!');
-                      sl.SaveToStream(TDAVSession(aSocket).OutputData);
-                      sl.Free;
+                    if Result then
+                      begin
+                        fWebReports.RegisterDataSet(aDataSet.DataSet,False);
+                        fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).Users.DataSet,False);
+                        fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).PaymentTargets.DataSet,False);
+                        fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).MandantDetails.DataSet,False);
+                        Result:=fWebReports.ExportToPDF(GetTempPath+'rpv.pdf') and FileExists(GetTempPath+'rpv.pdf');
+                        if Result then
+                          begin
+                            aFStream:= TFileStream.Create(GetTempPath+'rpv.pdf',fmOpenRead);
+                            Stream.CopyFrom(aFStream,0);
+                            Stream.Position:=0;
+                            aFStream.Free;
+                            DeleteFile(UniToSys(GetTempPath+'rpv.pdf'));
+                          end
+                        else
+                          begin
+                            aSocket.Status := 409;
+                            MimeType:='text/text';
+                            sl := TStringList.Create;
+                            sl.Add(fWebReports.LastError);
+                            sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                            sl.Free;
+                          end;
+                      end
+                    else
+                      begin
+                        aSocket.Status := 404;
+                        sl := TStringList.Create;
+                        sl.Add('Report not found (in database)!');
+                        sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                        sl.Free;
+                      end;
+                  finally
+                    try
+                      fWebReports.Free;
+                    except
                     end;
+                  end;
                 end;
+              aDataSet.Free;
             end;
         end
       else if (aLevel=3) then //dynamic content
@@ -1248,6 +1276,7 @@ begin
         on e : Exception do
           begin
             aSocket.Status := 409;
+            MimeType:='text/text';
             sl := TStringList.Create;
             sl.Add(e.Message);
             sl.SaveToStream(TDAVSession(aSocket).OutputData);
@@ -1530,6 +1559,7 @@ begin
                           on e : Exception do
                             begin
                               FStatus := 409;
+                              MimeType:='text/text';
                               aDataSet.Cancel;
                               sl := TStringList.Create;
                               sl.Add(e.Message);
@@ -1544,6 +1574,7 @@ begin
                     on e : Exception do
                       begin
                         FStatus := 409;
+                        MimeType:='text/text';
                         aDataSet.Cancel;
                         sl := TStringList.Create;
                         sl.Add(e.Message);
@@ -1572,6 +1603,7 @@ begin
                 on e : Exception do
                   begin
                     FStatus := 409;
+                    MimeType:='text/text';
                     aDataSet.Cancel;
                     sl := TStringList.Create;
                     sl.Add(e.Message);
@@ -1597,6 +1629,7 @@ begin
                 on e : Exception do
                   begin
                     FStatus := 409;
+                    MimeType:='text/text';
                     aDataSet.Cancel;
                     sl := TStringList.Create;
                     sl.Add(e.Message);

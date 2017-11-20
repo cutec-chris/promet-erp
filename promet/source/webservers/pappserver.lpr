@@ -145,7 +145,6 @@ end;
 constructor TProcessManager.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-  fWebReports := TfWebReports.Create(Self);
   FreeAndNil(FMsgClient);
   StopOnException:=True;
   OnException:=@ProcessManagerException;

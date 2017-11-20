@@ -21,13 +21,15 @@ type
     frShapeObject1: TfrShapeObject;
     frTextExport1: TfrTextExport;
     frTNPDFExport1: TfrTNPDFExport;
+    procedure ReportGetValue(const ParName: String; var ParValue: Variant);
   private
     { private declarations }
   public
     { public declarations }
     LastError : string;
     function ExportToPDF(aFile: string): Boolean;
-    procedure RegisterDataSet(aDataSet : TBaseDBDataset);
+    procedure RegisterDataSet(aDataSet: TDataset; DeleteComponents: Boolean=True;
+      aIdent: Integer=0);
   end;
 
 var
@@ -35,11 +37,21 @@ var
 
 implementation
 
-uses uBaseApplication,Utils,LCLVersion;
+uses uBaseApplication,Utils,LCLVersion,dateutils;
 
 {$R *.lfm}
 
 { TfWebReports }
+
+procedure TfWebReports.ReportGetValue(const ParName: String;
+  var ParValue: Variant);
+begin
+  if uppercase(ParName) = 'WEEKNO' then
+    ParValue := IntToStr(WeekOfTheYear(Now()))
+  else if uppercase(ParName) = 'WEEKDAY' then
+    ParValue := IntToStr(DayOfTheWeek(Now()))
+  ;
+end;
 
 function TfWebReports.ExportToPDF(aFile : string): Boolean;
 var
@@ -72,33 +84,57 @@ begin
   end;
 end;
 
-procedure TfWebReports.RegisterDataSet(aDataSet: TBaseDBDataset);
+procedure TfWebReports.RegisterDataSet(aDataSet: TDataset;DeleteComponents : Boolean = True;aIdent : Integer = 0);
 var
   i: Integer;
   aDS: TfrDBDataSet;
   aDSo: TDataSource;
+  NewTableName: String;
 begin
   i := 0;
-  while i < ComponentCount do
-    if Components[i] is TfrDBDataSet then
-      Components[i].Free
-    else inc(i);
-  while i < ComponentCount do
-    if Components[i] is TDatasource then
-      Components[i].Free
-    else inc(i);
-  aDS := TfrDBDataSet.Create(Self);
-  aDSo := TDataSource.Create(Self);
-  with aDataSet.DataSet as IBaseManageDB do
+  if DeleteComponents then
     begin
-      aDS.Name:='P'+Tablename;
-      aDS.OpenDataSource:=True;
-      aDSo.Name:=Tablename;
-      aDS.DataSource := aDSo;
-      aDSo.DataSet := aDataSet.DataSet;
-      aDataSet.Open;
-      writeln(aDataSet.DataSet.RecordCount);
+      while i < ComponentCount do
+        if Components[i] is TfrDBDataSet then
+          Components[i].Free
+        else inc(i);
+      while i < ComponentCount do
+        if Components[i] is TDatasource then
+          Components[i].Free
+        else inc(i);
     end;
+  try
+    with aDataSet as IBaseManageDB do
+      begin
+        case lowercase(TableName) of
+        'orderaddr':NewTableName := 'OrderAddress';
+        else
+          NewTableName := TableName;
+        end;
+        if (FindComponent('P'+NewTableName)=nil) and (FindComponent(NewTableName)=nil) then
+          begin
+            aDS := TfrDBDataSet.Create(nil);
+            aDSo := TDataSource.Create(nil);
+            aDS.Name:='P'+NewTableName;
+            aDS.OpenDataSource:=True;
+            aDSo.Name:=NewTableName;
+            aDS.DataSource := aDSo;
+            aDSo.DataSet := aDataSet;
+            aDataSet.Open;
+            Self.InsertComponent(aDS);
+            Self.InsertComponent(aDSo);
+            writeln(Format('%'+IntToStr(aIdent)+'s',[''])+'DataSet registered:'+NewTableName+'=',aDataSet.RecordCount);
+            with aDataSet as IBaseSubDataSets do
+              begin
+                for i := 0 to GetCount-1 do
+                   begin
+                     RegisterDataSet(TBaseDBDataset(SubDataSet[i]).DataSet,False,aIdent+2);
+                   end;
+              end;
+          end;
+      end;
+  except
+  end;
 end;
 
 end.
