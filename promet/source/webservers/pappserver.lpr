@@ -153,7 +153,8 @@ begin
 end;
 destructor TProcessManager.Destroy;
 begin
-  Data.ProcessClient.ShutDown;
+  if Assigned(Data) then
+    Data.ProcessClient.ShutDown;
   inherited Destroy;
 end;
 var

@@ -88,12 +88,11 @@ begin
       Components[i].Free
     else inc(i);
   aDS := TfrDBDataSet.Create(Self);
-  Self.InsertComponent(aDS);
   aDSo := TDataSource.Create(Self);
-  Self.InsertComponent(aDSo);
   with aDataSet.DataSet as IBaseManageDB do
     begin
       aDS.Name:='P'+Tablename;
+      aDS.OpenDataSource:=True;
       aDSo.Name:=Tablename;
       aDS.DataSource := aDSo;
       aDSo.DataSet := aDataSet.DataSet;

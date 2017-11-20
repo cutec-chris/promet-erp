@@ -1,8 +1,8 @@
 object fWebReports: TfWebReports
   OldCreateOrder = False
   Height = 222
-  HorizontalOffset = 252
-  VerticalOffset = 401
+  HorizontalOffset = 245
+  VerticalOffset = 389
   Width = 150
   object Report: TfrReport
     InitialZoom = pzDefault
