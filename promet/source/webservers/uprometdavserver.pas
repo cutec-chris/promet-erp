@@ -1023,7 +1023,7 @@ begin
                 begin
                   if sl.Count>1 then
                     sl[sl.Count-1] := sl[sl.Count-1]+',';
-                  tmp := '{ "id":"'+aDataSet.Id.AsString+'"';
+                  tmp := '{ "sql_id":"'+aDataSet.Id.AsString+'"';
                   for i := 1 to aDataSet.DataSet.Fields.Count-1 do
                     begin
                       if i<aDataSet.DataSet.Fields.Count then tmp += ',';
@@ -1511,13 +1511,13 @@ begin
               aJParser := TJSONParser.Create(Stream);
               aData := aJParser.Parse;
               {$IF FPC_FULLVERSION>20600}
-              if (aData is TJSONArray) and Assigned(TJSONArray(aData)[0]) and Assigned(TJSONArray(aData)[0].FindPath('id')) then
+              if (aData is TJSONArray) and Assigned(TJSONArray(aData)[0]) and Assigned(TJSONArray(aData)[0].FindPath('sql_id')) then
                 begin
                   if aClass = TTimes then
                     aDataSet := TTimes.CreateEx(nil,Data,nil,Data.Users.DataSet)
                   else
                     aDataSet := aClass.Create(nil);
-                  aDataSet.Select(TJSONArray(aData)[0].FindPath('id').AsInt64);
+                  aDataSet.Select(TJSONArray(aData)[0].FindPath('sql_id').AsInt64);
                   aDataSet.Open;
                   if aDataSet.Count = 0 then
                     aDataSet.Append
@@ -1543,7 +1543,7 @@ begin
                               aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value
 
                           end
-                        else if aField = 'id' then
+                        else if aField = 'sql_id' then
                           begin
                           if aDataSet.Id.AsVariant<>TJSONArray(aData)[0].Items[a].Value then
                             aDataSet.Id.AsVariant:=TJSONArray(aData)[0].Items[a].Value;
