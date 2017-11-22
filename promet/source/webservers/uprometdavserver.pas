@@ -1539,10 +1539,21 @@ begin
                                 else
                                   aDataSet.FieldByName(aField).AsString:='N';
                               end
-                            else if (aDataSet.FieldByName(aField).DataType=ftDateTime) and (TJSONArray(aData)[0].Items[a].Value<>'') then
-                              aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value
+                            else if (aDataSet.FieldByName(aField).DataType=ftDateTime) then
+                              begin
+                                if (TJSONArray(aData)[0].Items[a].Value='')
+                                or (TJSONArray(aData)[0].Items[a].Value='null') then
+                                  aDataSet.FieldByName(aField).Clear
+                                else
+                                  aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value;
+                              end
                             else if aDataSet.FieldByName(aField).AsVariant<>TJSONArray(aData)[0].Items[a].Value then
-                              aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value
+                              begin
+                                if (TJSONArray(aData)[0].Items[a].Value='null') then
+                                  aDataSet.FieldByName(aField).Clear
+                                else
+                                  aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value
+                              end;
                           end
                         else if aField = 'sql_id' then
                           begin
