@@ -61,6 +61,7 @@ begin
         Headers.Add('Access-Control-Allow-Origin: *');
         Headers.Add('Access-Control-Allow-Methods: GET, OPTIONS, POST');
         Headers.Add('Access-Control-Allow-Headers: Authorization,X-Requested-With');
+        Headers.Add('Cache-Control: no-cache');
         Url := copy(url,16,length(url));
         if lowercase(url) = 'add' then
           begin

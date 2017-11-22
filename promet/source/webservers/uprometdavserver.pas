@@ -1539,9 +1539,10 @@ begin
                                 else
                                   aDataSet.FieldByName(aField).AsString:='N';
                               end
-                            else
+                            else if (aDataSet.FieldByName(aField).DataType=ftDateTime) and (TJSONArray(aData)[0].Items[a].Value<>'') then
                               aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value
-
+                            else if aDataSet.FieldByName(aField).AsVariant<>TJSONArray(aData)[0].Items[a].Value then
+                              aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value
                           end
                         else if aField = 'sql_id' then
                           begin
@@ -1771,6 +1772,11 @@ var
     else tmp := aDir;
     DataSet.SelectFromNumber(tmp);
     DataSet.Open;
+    if DataSet.Count=0 then
+      begin
+        DataSet.Select(tmp);
+        DataSet.Open;
+      end;
     if Assigned(DataSet.Id) then
       aID:=DataSet.Id.AsVariant;
     aType:= DataSet.GetTyp;
