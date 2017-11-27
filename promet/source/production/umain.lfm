@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = 279
+  Left = 122
   Height = 716
-  Top = 92
+  Top = 142
   Width = 1153
   Caption = 'Avad'
   ClientHeight = 696
@@ -156,7 +156,25 @@ object fMain: TfMain
     Width = 865
     Align = alClient
     BevelOuter = bvNone
+    ClientHeight = 696
+    ClientWidth = 865
     TabOrder = 1
+    object lFirstProduction: TLabel
+      Left = 8
+      Height = 15
+      Top = 8
+      Width = 849
+      Align = alTop
+      BorderSpacing.Around = 8
+      Caption = 'Achtung ! Dieser Artikel wird (in dieser Version) zum ersten mal gefertigt, bitte informieren Sie bei Aufälligkeiten die Qualitätssicherung.'
+      Color = clInfoBk
+      Font.Color = clInfoText
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      Visible = False
+    end
   end
   object Splitter1: TSplitter
     Left = 287

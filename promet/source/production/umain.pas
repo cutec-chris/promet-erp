@@ -45,6 +45,7 @@ type
     eOrder: TEdit;
     Label1: TLabel;
     Label2: TLabel;
+    lFirstProduction: TLabel;
     MainMenu: TMainMenu;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -98,7 +99,7 @@ implementation
 {$R *.lfm}
 uses uBaseApplication, uData,uMasterdata,uSearch,variants,uBaseERPDBClasses,
   uprometpythonscript,genpascalscript,Synautil,genscript,uCreateProductionOrder,
-  uprometpascalscript,unumbersetempty,uWikiFrame,uWiki,wikitohtml,ubaseconfig;
+  uprometpascalscript,unumbersetempty,uWikiFrame,uWiki,wikitohtml,ubaseconfig,uStatistic;
 
 procedure TfMain.DoCreate;
 begin
@@ -177,6 +178,7 @@ begin
   acLoadOrder.Enabled:=True;
   acCloseOrder.Enabled:=False;
   cbVersion.Enabled := False;
+  lFirstProduction.Visible:=False;
 end;
 procedure TfMain.acLogoutExecute(Sender: TObject);
 begin
@@ -383,6 +385,9 @@ begin
 end;
 
 procedure TfMain.DoOpen;
+var
+  aSql: String;
+  aOrder: TDataSet;
 begin
   eOrder.Enabled:=FOrder.Count>0;
   eOrder.Text:=FOrder.Number.AsString;
@@ -399,6 +404,20 @@ begin
       FOrder.Positions.Open;
       FOrder.Positions.First;
       FAutomation.DataSet := FOrder.Positions;
+      try
+        aSql :=
+         'select distinct '+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('STATUS')+','+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('COMMISSION')+','+Data.QuoteField('ORDERNO')+','+Data.QuoteField('PID')+',OP2.'+Data.QuoteField('QUANTITY')+','+Data.QuoteField('DAPPR')+','+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('TIMESTAMPD')+' from '+Data.QuoteField('ORDERS')
+        +' inner join '+Data.QuoteField('ORDERTYPE')+' on '+Data.QuoteField('ORDERTYPE')+'.'+Data.QuoteField('STATUS')+'='+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('STATUS')//+' and '+Data.QuoteField('ORDERTYPE')+'.'+Data.QuoteField('TYPE')+'=7'
+        +' inner join '+Data.QuoteField('ORDERPOS')+' as OP2 on OP2.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('SQL_ID')+' and OP2.'+Data.QuoteField('PARENT')+' is NULL and OP2.'+Data.QuoteField('IDENT')+'='+Data.QuoteValue(FOrder.Positions.FieldByName('IDENT').AsString)+' and OP2.'+Data.QuoteField('VERSION')+'='+Data.QuoteValue(FOrder.Positions.FieldByName('VERSION').AsString)+' and OP2.'+Data.QuoteField('QUANTITYD')+'>0'
+        +' where '+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('ORDERNO')+'<>'+Data.QuoteValue(FOrder.Number.AsString)
+        +' order by '+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('TIMESTAMPD')+' desc';
+        AddSQLLimit(aSQL,5);
+        aOrder := Data.GetNewDataSet(aSQL);
+        aOrder.Open;
+        lFirstProduction.Visible:=aOrder.RecordCount=0;
+        aOrder.Free;
+      except
+      end;
       FAutomation.DoOpen;
     end;
   tvStep.Items.Assign(FAutomation.tvStep.Items);
