@@ -122,7 +122,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="5">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
@@ -138,6 +138,12 @@
       <Item5>
         <Name Value="Exception"/>
       </Item5>
+      <Item6>
+        <Name Value="PNGImageException"/>
+      </Item6>
+      <Item7>
+        <Name Value="FPImageException"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>

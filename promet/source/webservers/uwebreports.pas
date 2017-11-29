@@ -5,8 +5,9 @@ unit uwebreports;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LR_Class, LR_DBSet, LR_BarC, LR_RRect, LR_Shape,
-  LR_E_TXT, LR_E_HTM, lr_e_pdf,uBaseDbClasses,uBaseDBInterface,uBaseDatasetInterfaces,db;
+  Classes, SysUtils, FileUtil, LR_e_htmldiv, LR_e_img, LR_Class, LR_DBSet,
+  LR_BarC, LR_RRect, LR_Shape, LR_E_TXT, LR_E_HTM, lr_e_pdf, uBaseDbClasses,
+  uBaseDBInterface, uBaseDatasetInterfaces, db;
 
 type
 
@@ -16,6 +17,7 @@ type
     frBarCodeObject1: TfrBarCodeObject;
     frDBDataSet1: TfrDBDataSet;
     frHTMExport1: TfrHTMExport;
+    frImageExport1: TfrImageExport;
     Report: TfrReport;
     frRoundRectObject1: TfrRoundRectObject;
     frShapeObject1: TfrShapeObject;
@@ -28,6 +30,9 @@ type
     { public declarations }
     LastError : string;
     function ExportToPDF(aFile: string): Boolean;
+    function ExportToHTML : string;
+    function ExportToText : string;
+    function ExportToPNG(aFile: string): Boolean;
     procedure RegisterDataSet(aDataSet: TDataset; DeleteComponents: Boolean=True;
       aIdent: Integer=0);
   end;
@@ -66,6 +71,111 @@ begin
   {$ELSE}
   FOR i := 0 TO frFiltersCount - 1 DO
      if pos('PDF',Uppercase(frFilters[i].FilterDesc)) > 0 then
+  {$ENDIF}
+      if Report.PrepareReport then
+        begin
+          {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
+          Report.ExportTo(ExportFilters[i].ClassRef,aFile);
+          {$ELSE}
+          Report.ExportTo(frFilters[i].ClassRef,aFile);
+          {$ENDIF}
+          Result := True;
+        end;
+    if not Result then
+      LastError:='Report not found !';
+  except
+    on e : Exception do
+      LastError:=e.Message;
+  end;
+end;
+
+function TfWebReports.ExportToHTML: string;
+var
+  i: Integer;
+  sl: TStringList;
+  aFile: String;
+begin
+  Result := '';
+  LastError:='Unknown Error';
+  aFile := GetTempDir+'preport.html';
+  try
+  {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
+  FOR i := 0 TO ExportFilters.Count - 1 DO
+     if pos('PDF',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
+  {$ELSE}
+  FOR i := 0 TO frFiltersCount - 1 DO
+     if pos('HTML',Uppercase(frFilters[i].FilterDesc)) > 0 then
+  {$ENDIF}
+      if Report.PrepareReport then
+        begin
+          {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
+          Report.ExportTo(ExportFilters[i].ClassRef,aFile);
+          {$ELSE}
+          Report.ExportTo(frFilters[i].ClassRef,aFile);
+          {$ENDIF}
+          sl := TStringList.Create;
+          sl.LoadFromFile(aFile);
+          result := sl.Text;
+          sl.Free;
+        end;
+    if Result='' then
+      LastError:='Report not found !';
+  except
+    on e : Exception do
+      LastError:=e.Message;
+  end;
+end;
+
+function TfWebReports.ExportToText: string;
+var
+  i: Integer;
+  sl: TStringList;
+  aFile: String;
+begin
+  Result := '';
+  LastError:='Unknown Error';
+  aFile := GetTempDir+'preport.html';
+  try
+  {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
+  FOR i := 0 TO ExportFilters.Count - 1 DO
+     if pos('PDF',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
+  {$ELSE}
+  FOR i := 0 TO frFiltersCount - 1 DO
+     if pos('TXT',Uppercase(frFilters[i].FilterDesc)) > 0 then
+  {$ENDIF}
+      if Report.PrepareReport then
+        begin
+          {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
+          Report.ExportTo(ExportFilters[i].ClassRef,aFile);
+          {$ELSE}
+          Report.ExportTo(frFilters[i].ClassRef,aFile);
+          {$ENDIF}
+          sl := TStringList.Create;
+          sl.LoadFromFile(aFile);
+          result := sl.Text;
+          sl.Free;
+        end;
+    if Result='' then
+      LastError:='Report not found !';
+  except
+    on e : Exception do
+      LastError:=e.Message;
+  end;
+end;
+
+function TfWebReports.ExportToPNG(aFile: string): Boolean;
+var
+  i: Integer;
+begin
+  Result := False;
+  LastError:='Unknown Error';
+  try
+  {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
+  FOR i := 0 TO ExportFilters.Count - 1 DO
+     if pos('PDF',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
+  {$ELSE}
+  FOR i := 0 TO frFiltersCount - 1 DO
+     if pos('PNG',Uppercase(frFilters[i].FilterDesc)) > 0 then
   {$ENDIF}
       if Report.PrepareReport then
         begin
@@ -123,7 +233,7 @@ begin
             aDataSet.Open;
             Self.InsertComponent(aDS);
             Self.InsertComponent(aDSo);
-            writeln(Format('%'+IntToStr(aIdent)+'s',[''])+'DataSet registered:'+NewTableName+'=',aDataSet.RecordCount);
+            //debugln(Format('%'+IntToStr(aIdent)+'s',[''])+'DataSet registered:'+NewTableName+'=',aDataSet.RecordCount);
             with aDataSet as IBaseSubDataSets do
               begin
                 for i := 0 to GetCount-1 do

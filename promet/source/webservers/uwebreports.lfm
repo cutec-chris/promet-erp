@@ -17,25 +17,21 @@ object fWebReports: TfWebReports
     top = 19
   end
   object frBarCodeObject1: TfrBarCodeObject
-    left = 80
+    left = 97
     top = 19
   end
   object frRoundRectObject1: TfrRoundRectObject
-    left = 80
+    left = 97
     top = 72
   end
   object frShapeObject1: TfrShapeObject
-    left = 12
+    left = 18
     top = 72
   end
   object frTextExport1: TfrTextExport
     ShowExportParamsDlg = False
-    left = 80
-    top = 122
-  end
-  object frHTMExport1: TfrHTMExport
-    left = 12
-    top = 176
+    left = 97
+    top = 128
   end
   object frTNPDFExport1: TfrTNPDFExport
     left = 18
@@ -44,5 +40,13 @@ object fWebReports: TfWebReports
   object frDBDataSet1: TfrDBDataSet
     left = 97
     top = 179
+  end
+  object frHTMExport1: TfrHTMExport
+    left = 18
+    top = 184
+  end
+  object frImageExport1: TfrImageExport
+    left = 97
+    top = 237
   end
 end
