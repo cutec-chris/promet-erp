@@ -85,25 +85,28 @@
         <CommandLineParams Value="--mandant=TCS -u RMA -p SBD2a6dkyslxtL8w"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="5">
+    <RequiredPackages Count="6">
       <Item1>
-        <PackageName Value="pack_powerpdf"/>
-        <DefaultFilename Value="../components/powerpdf/pack_powerpdf.lpk"/>
+        <PackageName Value="lr_extexp"/>
       </Item1>
       <Item2>
-        <PackageName Value="lazreportpdfexport"/>
+        <PackageName Value="pack_powerpdf"/>
+        <DefaultFilename Value="../components/powerpdf/pack_powerpdf.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="lazreport"/>
+        <PackageName Value="lazreportpdfexport"/>
       </Item3>
       <Item4>
-        <PackageName Value="promet_msgnetwork"/>
-        <DefaultFilename Value="../base/msgnetwork/promet_msgnetwork.lpk"/>
+        <PackageName Value="lazreport"/>
       </Item4>
       <Item5>
+        <PackageName Value="promet_msgnetwork"/>
+        <DefaultFilename Value="../base/msgnetwork/promet_msgnetwork.lpk"/>
+      </Item5>
+      <Item6>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
-      </Item5>
+      </Item6>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>
