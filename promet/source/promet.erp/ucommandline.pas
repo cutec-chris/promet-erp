@@ -72,6 +72,7 @@ begin
   if Key = VK_RETURN then
     begin
       Key := 0;
+      CheckSentence(Input.Text);
       Input.text := '';
       Output.ScrollBy(0,-100);
     end
