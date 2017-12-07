@@ -996,7 +996,7 @@ begin
             begin
               MimeType:='application/json';
               sl := TStringList.Create;
-              sl.Add('[');
+              sl.Add('{[');
               aDataSet := aClass.Create(nil);
               aParamDec := TStringList.Create;
               aParamDec.Delimiter:='&';
@@ -1023,17 +1023,26 @@ begin
                 begin
                   if sl.Count>1 then
                     sl[sl.Count-1] := sl[sl.Count-1]+',';
-                  tmp := '{ "sql_id":"'+aDataSet.Id.AsString+'"';
+                  tmp := '{ "sql_id": '+aDataSet.Id.AsString;
                   for i := 1 to aDataSet.DataSet.Fields.Count-1 do
                     begin
                       if i<aDataSet.DataSet.Fields.Count then tmp += ',';
-                      tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'":"'+StringReplace(StringToJSONString(aDataSet.DataSet.Fields[i].AsString),'','*',[rfReplaceAll])+'"';
+                      if aDataSet.DataSet.Fields[i].IsNull then
+                        tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": null'
+                      else if (aDataSet.DataSet.FieldDefs[i].DataType=ftDate)
+                           or (aDataSet.DataSet.FieldDefs[i].DataType=ftDateTime) then
+                        tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": "'+synautil.Rfc822DateTime(aDataSet.DataSet.Fields[i].AsDateTime)+'"'
+                      else if (aDataSet.DataSet.FieldDefs[i].DataType=ftInteger)
+                           or (aDataSet.DataSet.FieldDefs[i].DataType=ftLargeint) then
+                        tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": '+aDataSet.DataSet.Fields[i].AsString
+                      else
+                        tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": "'+StringReplace(StringToJSONString(aDataSet.DataSet.Fields[i].AsString),'','*',[rfReplaceAll])+'"';
                     end;
                   tmp+=' }';
                   sl.Add(tmp);
                   aDataSet.Next;
                 end;
-              sl.Add(']');
+              sl.Add(']}');
               sl.SaveToStream(Stream);
               sl.Free;
               Stream.Position:=0;
@@ -1131,7 +1140,9 @@ begin
                         else
                           begin
                             aSocket.Status := 409;
-                            MimeType:='text/text';
+                            MimeType:='text/plain';
+                            with BaseApplication as IBaseApplication do
+                              Error('Print Error "'+fWebReports.LastError+'"');
                             sl := TStringList.Create;
                             sl.Add(fWebReports.LastError);
                             sl.SaveToStream(TDAVSession(aSocket).OutputData);
@@ -1276,7 +1287,9 @@ begin
         on e : Exception do
           begin
             aSocket.Status := 409;
-            MimeType:='text/text';
+            MimeType:='text/plain';
+            with BaseApplication as IBaseApplication do
+              Error('Error "'+e.Message+'"');
             sl := TStringList.Create;
             sl.Add(e.Message);
             sl.SaveToStream(TDAVSession(aSocket).OutputData);
@@ -1571,8 +1584,10 @@ begin
                           on e : Exception do
                             begin
                               FStatus := 409;
-                              MimeType:='text/text';
+                              MimeType:='text/plain';
                               aDataSet.Cancel;
+                              with BaseApplication as IBaseApplication do
+                                Error('Error "'+e.Message+'"');
                               sl := TStringList.Create;
                               sl.Add(e.Message);
                               sl.SaveToStream(TDAVSession(aSocket).OutputData);
@@ -1586,8 +1601,10 @@ begin
                     on e : Exception do
                       begin
                         FStatus := 409;
-                        MimeType:='text/text';
+                        MimeType:='text/plain';
                         aDataSet.Cancel;
+                        with BaseApplication as IBaseApplication do
+                          Error('Error "'+e.Message+'"');
                         sl := TStringList.Create;
                         sl.Add(e.Message);
                         sl.SaveToStream(TDAVSession(aSocket).OutputData);
@@ -1615,8 +1632,10 @@ begin
                 on e : Exception do
                   begin
                     FStatus := 409;
-                    MimeType:='text/text';
+                    MimeType:='text/plain';
                     aDataSet.Cancel;
+                    with BaseApplication as IBaseApplication do
+                      Error('Error "'+e.Message+'"');
                     sl := TStringList.Create;
                     sl.Add(e.Message);
                     sl.SaveToStream(TDAVSession(aSocket).OutputData);
@@ -1641,8 +1660,10 @@ begin
                 on e : Exception do
                   begin
                     FStatus := 409;
-                    MimeType:='text/text';
+                    MimeType:='text/plain';
                     aDataSet.Cancel;
+                    with BaseApplication as IBaseApplication do
+                      Error('Error "'+e.Message+'"');
                     sl := TStringList.Create;
                     sl.Add(e.Message);
                     sl.SaveToStream(TDAVSession(aSocket).OutputData);
