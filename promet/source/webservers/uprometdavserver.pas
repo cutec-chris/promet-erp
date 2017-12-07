@@ -1098,7 +1098,9 @@ begin
               end;
               TBaseDBModule(aSocket.Data).Reports.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aReportType));
               TBaseDBModule(aSocket.Data).Reports.DataSet.Refresh;
-              if TBaseDBModule(aSocket.Data).Reports.Locate('NAME',copy(aDir,0,rpos('.',aDir)-1),[]) and (aReportType<>'') then
+              //writeln(IntToStr(TBaseDBModule(aSocket.Data).Reports.DataSet.RecordCount),TBaseDBModule(aSocket.Data).Reports.FieldByName('NAME').AsString);
+              tmp := copy(aDir,0,rpos('.',aDir)-1);
+              if TBaseDBModule(aSocket.Data).Reports.Locate('NAME',tmp,[loCaseInsensitive]) and (aReportType<>'') then
                 begin
                   fWebReports := TfWebReports.Create(nil);
                   try
@@ -1119,14 +1121,14 @@ begin
                         fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).Users.DataSet,False);
                         fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).PaymentTargets.DataSet,False);
                         fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).MandantDetails.DataSet,False);
-                        Result:=fWebReports.ExportToPDF(GetTempPath+'rpv.pdf') and FileExists(GetTempPath+'rpv.pdf');
+                        Result:=fWebReports.ExportToPDF(GetTempPath+DirectorySeparator+'rpv.pdf') and FileExists(GetTempPath+DirectorySeparator+'rpv.pdf');
                         if Result then
                           begin
-                            aFStream:= TFileStream.Create(GetTempPath+'rpv.pdf',fmOpenRead);
+                            aFStream:= TFileStream.Create(GetTempPath+DirectorySeparator+'rpv.pdf',fmOpenRead);
                             Stream.CopyFrom(aFStream,0);
                             Stream.Position:=0;
                             aFStream.Free;
-                            DeleteFile(UniToSys(GetTempPath+'rpv.pdf'));
+                            DeleteFile(UniToSys(GetTempPath+DirectorySeparator+'rpv.pdf'));
                           end
                         else
                           begin
