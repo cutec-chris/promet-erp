@@ -58,7 +58,6 @@ object fSelectOrder: TfSelectOrder
     Height = 23
     Top = 10
     Width = 208
-    OnChange = eFilterChange
     TabOrder = 1
   end
   object Label1: TLabel
@@ -98,7 +97,6 @@ object fSelectOrder: TfSelectOrder
     Height = 23
     Top = 10
     Width = 80
-    OnChange = eFilterChange
     TabOrder = 3
   end
   object Order: TDataSource

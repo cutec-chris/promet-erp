@@ -15,18 +15,17 @@ LazarusResources.Add('TfSelectOrder','FORMDATA',[
   +'TY'#0#1#13'Title.Caption'#6#10'Best'#195#164'tigt'#5'Width'#2'x'#9'FieldNam'
   +'e'#6#5'DAPPR'#0#0#10'DataSource'#7#5'Order'#8'ReadOnly'#9#8'TabOrder'#2#0#10
   +'TitleStyle'#7#8'tsNative'#10'OnDblClick'#7#14'gOrderDblClick'#0#0#5'TEdit'#7
-  +'eFilter'#4'Left'#3#184#0#6'Height'#2#23#3'Top'#2#10#5'Width'#3#208#0#8'OnCh'
-  +'ange'#7#13'eFilterChange'#8'TabOrder'#2#1#0#0#6'TLabel'#6'Label1'#4'Left'#2
-  +#8#6'Height'#2#15#3'Top'#2#13#5'Width'#3#159#0#7'Caption'#6' Filter nach Arb'
-  +'eitsplatz/Artikel'#11'ParentColor'#8#0#0#12'TButtonPanel'#12'ButtonPanel1'#4
-  +'Left'#2#6#6'Height'#2'"'#3'Top'#3'E'#1#5'Width'#3#236#2#13'OKButton.Name'#6
-  +#8'OKButton'#23'OKButton.DefaultCaption'#9#15'HelpButton.Name'#6#10'HelpButt'
-  +'on'#25'HelpButton.DefaultCaption'#9#16'CloseButton.Name'#6#11'CloseButton'
-  +#26'CloseButton.DefaultCaption'#9#17'CancelButton.Name'#6#12'CancelButton'#27
-  +'CancelButton.DefaultCaption'#9#8'TabOrder'#2#2#11'ShowButtons'#11#4'pbOK'#8
-  +'pbCancel'#0#0#0#6'TLabel'#6'Label2'#4'Left'#3#176#1#6'Height'#2#15#3'Top'#2
-  +#13#5'Width'#2'8'#7'Caption'#6#10'und Status'#11'ParentColor'#8#0#0#5'TEdit'
-  +#7'eStatus'#4'Left'#3#0#2#6'Height'#2#23#3'Top'#2#10#5'Width'#2'P'#8'OnChang'
-  +'e'#7#13'eFilterChange'#8'TabOrder'#2#3#0#0#11'TDataSource'#5'Order'#4'left'
-  +#2'D'#3'top'#2']'#0#0#0
+  +'eFilter'#4'Left'#3#184#0#6'Height'#2#23#3'Top'#2#10#5'Width'#3#208#0#8'TabO'
+  +'rder'#2#1#0#0#6'TLabel'#6'Label1'#4'Left'#2#8#6'Height'#2#15#3'Top'#2#13#5
+  +'Width'#3#159#0#7'Caption'#6' Filter nach Arbeitsplatz/Artikel'#11'ParentCol'
+  +'or'#8#0#0#12'TButtonPanel'#12'ButtonPanel1'#4'Left'#2#6#6'Height'#2'"'#3'To'
+  +'p'#3'E'#1#5'Width'#3#236#2#13'OKButton.Name'#6#8'OKButton'#23'OKButton.Defa'
+  +'ultCaption'#9#15'HelpButton.Name'#6#10'HelpButton'#25'HelpButton.DefaultCap'
+  +'tion'#9#16'CloseButton.Name'#6#11'CloseButton'#26'CloseButton.DefaultCaptio'
+  +'n'#9#17'CancelButton.Name'#6#12'CancelButton'#27'CancelButton.DefaultCaptio'
+  +'n'#9#8'TabOrder'#2#2#11'ShowButtons'#11#4'pbOK'#8'pbCancel'#0#0#0#6'TLabel'
+  +#6'Label2'#4'Left'#3#176#1#6'Height'#2#15#3'Top'#2#13#5'Width'#2'8'#7'Captio'
+  +'n'#6#10'und Status'#11'ParentColor'#8#0#0#5'TEdit'#7'eStatus'#4'Left'#3#0#2
+  +#6'Height'#2#23#3'Top'#2#10#5'Width'#2'P'#8'TabOrder'#2#3#0#0#11'TDataSource'
+  +#5'Order'#4'left'#2'D'#3'top'#2']'#0#0#0
 ]);

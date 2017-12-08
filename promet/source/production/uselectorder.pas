@@ -75,6 +75,8 @@ begin
     eFilter.Text:=Config.ReadString('Workplace','');
   with Application as IBaseConfig do
     eStatus.Text:=Config.ReadString('WorkplaceStatus','');
+  eStatus.OnChange:=@eFilterChange;
+  eFilter.OnChange:=@eFilterChange;
 end;
 
 procedure TfSelectOrder.FormDestroy(Sender: TObject);
