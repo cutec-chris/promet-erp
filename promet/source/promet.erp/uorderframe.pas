@@ -47,6 +47,7 @@ type
     acImport: TAction;
     acExport: TAction;
     acRestart: TAction;
+    acCombineItems: TAction;
     ActionList: TActionList;
     bAddressDelete1: TSpeedButton;
     Bevel1: TBevel;
@@ -66,6 +67,8 @@ type
     lCurrency2: TLabel;
     lCurrency3: TLabel;
     lCurrency4: TLabel;
+    MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
@@ -154,6 +157,7 @@ type
     procedure acAddAddressExecute(Sender: TObject);
     procedure acCancelExecute(Sender: TObject);
     procedure acCloseExecute(Sender: TObject);
+    procedure acCombineItemsExecute(Sender: TObject);
     procedure acCreateTransferExecute(Sender: TObject);
     procedure acDeleteExecute(Sender: TObject);
     procedure acExportExecute(Sender: TObject);
@@ -167,6 +171,7 @@ type
     procedure ActiveSearchEndItemSearch(Sender: TObject);
     procedure cbPaymentTargetSelect(Sender: TObject);
     procedure cbStatusSelect(Sender: TObject);
+    function fSearchOpenItem(aLink: string): Boolean;
     procedure lbResultsDblClick(Sender: TObject);
     procedure OrdersStateChange(Sender: TObject);
     procedure sbMenueClick(Sender: TObject);
@@ -345,6 +350,19 @@ procedure TfOrderFrame.acCloseExecute(Sender: TObject);
 begin
   CloseFrame;
 end;
+
+procedure TfOrderFrame.acCombineItemsExecute(Sender: TObject);
+var
+  i: Integer;
+begin
+  fSearch.SetLanguage;
+  fSearch.OnOpenItem:=@fSearchOpenItem;
+  //fSearch.OnValidateItem:=@fSearchValidateItem;
+  fSearch.AllowSearchTypes(strOrders);
+  //fSearch.eContains.Text:=eName.Text;
+  fSearch.Execute(True,'COMBORDER','');
+end;
+
 procedure TfOrderFrame.acCreateTransferExecute(Sender: TObject);
 var
   aFilter: String;
@@ -604,6 +622,13 @@ begin
   else
     RestoreStatus;
 end;
+
+function TfOrderFrame.fSearchOpenItem(aLink: string): Boolean;
+begin
+  if MessageDlg(Format(strCombiteItems,[Data.GetLinkDesc(Data.BuildLink(Dataset.DataSet)),Data.GetLinkDesc(aLink)]),mtConfirmation,[mbYes,mbNo],0) = mrNo then exit;
+  TOrder(DataSet).CombineItems(aLink);
+end;
+
 procedure TfOrderFrame.lbResultsDblClick(Sender: TObject);
 var
   aPerson: TPerson;

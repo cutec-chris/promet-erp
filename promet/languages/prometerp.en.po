@@ -1,4 +1,4 @@
-msgid "(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Menü)(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetztwieder starten(Menü)"
+msgid "(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Menü)(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetztwieder starten(Menü)(Menü)(Menü)"
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
@@ -11,6 +11,9 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
 "(Menu)\n"
+
+msgid "(Menü)"
+msgstr ""
 
 # Christian U. <ulrich@tcs-germany.de>, 2015.
 #: tfaccountingframe.accombineitems.caption
@@ -5001,6 +5004,10 @@ msgctxt "TFORDERFRAME.ACCLOSE.CAPTION"
 msgid "acClose"
 msgstr "-"
 
+#: tforderframe.accombineitems.caption
+msgid "Aufträge verschmelzen"
+msgstr ""
+
 #: tforderframe.accopy.caption
 msgctxt "TFORDERFRAME.ACCOPY.CAPTION"
 msgid "Kopieren"
@@ -5182,6 +5189,12 @@ msgstr "payment target"
 msgctxt "tforderframe.menuitem1.caption"
 msgid "-"
 msgstr "-"
+
+#: tforderframe.menuitem10.caption
+#, fuzzy
+msgctxt "tforderframe.menuitem10.caption"
+msgid "-"
+msgstr "c"
 
 #: tforderframe.menuitem2.caption
 msgctxt "tforderframe.menuitem2.caption"
