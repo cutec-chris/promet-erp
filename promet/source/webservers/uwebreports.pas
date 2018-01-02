@@ -35,6 +35,8 @@ type
     function ExportToPNG(aFile: string): Boolean;
     procedure RegisterDataSet(aDataSet: TDataset; DeleteComponents: Boolean=True;
       aIdent: Integer=0);
+    procedure ManualRegisterDataSet(aDataSet: TDataset; aName: string;
+      DeleteComponents: Boolean);
   end;
 
 var
@@ -241,6 +243,46 @@ begin
                      RegisterDataSet(TBaseDBDataset(SubDataSet[i]).DataSet,False,aIdent+2);
                    end;
               end;
+          end;
+      end;
+  except
+  end;
+end;
+
+procedure TfWebReports.ManualRegisterDataSet(aDataSet: TDataset; aName: string;
+  DeleteComponents: Boolean);
+var
+  i: Integer;
+  aDS: TfrDBDataSet;
+  aDSo: TDataSource;
+begin
+  i := 0;
+  if DeleteComponents then
+    begin
+      while i < ComponentCount do
+        if Components[i] is TfrDBDataSet then
+          Components[i].Free
+        else inc(i);
+      while i < ComponentCount do
+        if Components[i] is TDatasource then
+          Components[i].Free
+        else inc(i);
+    end;
+  try
+    with aDataSet as IBaseManageDB do
+      begin
+        if (FindComponent('P'+aName)=nil) and (FindComponent(aName)=nil) then
+          begin
+            aDS := TfrDBDataSet.Create(nil);
+            aDSo := TDataSource.Create(nil);
+            aDS.Name:='P'+aName;
+            aDS.OpenDataSource:=True;
+            aDSo.Name:=aName;
+            aDS.DataSource := aDSo;
+            aDSo.DataSet := aDataSet;
+            aDataSet.Open;
+            Self.InsertComponent(aDS);
+            Self.InsertComponent(aDSo);
           end;
       end;
   except
