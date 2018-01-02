@@ -1000,7 +1000,7 @@ begin
             begin
               MimeType:='application/json';
               sl := TStringList.Create;
-              sl.Add('{[');
+              sl.Add('[');
               aDataSet := aClass.Create(nil);
               aParamDec := TStringList.Create;
               aParamDec.Delimiter:='&';
@@ -1046,7 +1046,7 @@ begin
                   sl.Add(tmp);
                   aDataSet.Next;
                 end;
-              sl.Add(']}');
+              sl.Add(']');
               sl.SaveToStream(Stream);
               sl.Free;
               Stream.Position:=0;
