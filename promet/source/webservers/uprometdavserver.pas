@@ -885,6 +885,7 @@ var
   StatisticResultsDataSet: TDataSet = nil;
   DetailDataSet: TDataSet = nil;
   SubDetailDataSet: TDataSet = nil;
+  aDirList: TDAVDirectoryList;
 begin
   Result := False;
   if aSocket.User='' then exit;
@@ -1283,6 +1284,32 @@ begin
               aSL.Free;
               Result:=True;
             end;
+        end;
+      if (not Result) and (aDir = '.json') then
+        begin
+          aDirList := TDAVDirectoryList.Create;
+          TWebDAVMaster(aSocket.Creator).Lock;
+          Result := ServerGetDirectoryList(aSocket,StringReplace(aFullDir,'/.json','/',[]),1,aDirList);
+          TWebDAVMaster(aSocket.Creator).Unlock;
+          sl := TStringList.Create;
+          sl.Add('[');
+          for i := 0 to aDirList.Count-1 do
+            begin
+              tmp := '{';
+              tmp += '"Name":"'+StringToJSONString(aDirList.Files[i].Name)+'"';
+              if aDirList.Files[i].IsDir then
+                tmp += ',"IsDir":true'
+              else
+                tmp += ',"IsDir":false';
+              tmp += ',"Path":"'+StringToJSONString(aDirList.Files[i].Path)+'"';
+              tmp+=' }';
+              sl.Add(tmp);
+            end;
+          sl.Add(']');
+          sl.SaveToStream(Stream);
+          result := True;
+          aDirList.Free;
+          sl.Free;
         end;
     end
   else if (aDir = '/sql.json') then //direct SQL Query (very limited for sequrity reasons)
