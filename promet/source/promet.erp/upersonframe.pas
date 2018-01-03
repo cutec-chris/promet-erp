@@ -166,7 +166,10 @@ type
     FCustomerOf: string;
     FEmployeeOf: string;
     FEditable : Boolean;
+    Reopen: Boolean;
     FDocumentFrame: TfDocumentFrame;
+    FMeasurement: TMeasurement;
+    procedure AddMeasurement(Sender: TObject);
     procedure AddAddress(Sender: TObject);
     procedure AddFinance(Sender: TObject);
     procedure AddHistory(Sender: TObject);
@@ -197,7 +200,7 @@ uses uData, uPerson, uBaseVisualControls, uBaseDBInterface, uAddressFrame,
   uOrderFrame,uOrder,VpData,uCalendarFrame, uImpVCard,uPrometFramesInplace,
   uNRights,uSelectReport,uBaseVisualApplication,uWiki,uWikiFrame,
   uLanguageUtils,uthumbnails,Clipbrd,uscreenshotmain,uBaseApplication,
-  uscriptimport;
+  uscriptimport,umeasurements;
 {$R *.lfm}
 resourcestring
   strAddress                    = 'Adresse';
@@ -425,6 +428,12 @@ procedure TfPersonFrame.tsCustomerContShow(Sender: TObject);
 begin
   if Assigned(FContList) then
     FContList.ShowFrame;
+end;
+
+procedure TfPersonFrame.AddMeasurement(Sender: TObject);
+begin
+  TfMeasurementFrame(Sender).DataSet := FMeasurement;
+  TPrometInplaceFrame(Sender).SetRights(FEditable);
 end;
 
 procedure TfPersonFrame.bChangeNumberClick(Sender: TObject);
@@ -826,6 +835,7 @@ var
   i: Integer;
 begin
   inherited Create(AOwner);
+  Reopen := False;
   FContList := TfFilter.Create(Self);
   with FContList do
     begin
@@ -1122,6 +1132,20 @@ begin
 
   TPerson(DataSet).Employees.Open;
   pcPages.NewFrame(TfListFrame,(TPerson(DataSet).Employees.Count > 0),strEmployees,@AddList,False,strEmployees);
+
+  pcPages.AddTabClass(TfMeasurementFrame,strMeasurement,@AddMeasurement);
+  if not Reopen then
+    begin
+      FreeAndNil(FMeasurement);
+      try
+        FMeasurement := TMeasurement.CreateEx(nil,Data,DataSet.Connection,DataSet.DataSet);
+        FMeasurement.CreateTable;
+        FMeasurement.Open;
+        if FMeasurement.Count>0 then
+          pcPages.AddTab(TfMeasurementFrame.Create(Self),False);
+      except
+      end;
+    end;
 
   if Data.IsSQLDb then
     begin
