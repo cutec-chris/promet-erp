@@ -1587,6 +1587,7 @@ begin
         begin
           if aDir = 'list.json' then
             begin
+              {
               MimeType:='application/json';
               Stream.Position:=0;
               aJParser := TJSONParser.Create(Stream);
@@ -1684,6 +1685,7 @@ begin
               {$ENDIF}
               aJParser.Free;
               Result:=True;
+              }
             end
           else if aDir = 'new/item.json' then
             begin
