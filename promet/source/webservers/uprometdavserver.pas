@@ -1296,12 +1296,12 @@ begin
           for i := 0 to aDirList.Count-1 do
             begin
               tmp := '{';
-              tmp += '"Name":"'+StringToJSONString(aDirList.Files[i].Name)+'"';
+              tmp += '"name":"'+StringToJSONString(aDirList.Files[i].Name)+'"';
               if aDirList.Files[i].IsDir then
-                tmp += ',"IsDir":true'
+                tmp += ',"isdir":true'
               else
-                tmp += ',"IsDir":false';
-              tmp += ',"Path":"'+StringToJSONString(aDirList.Files[i].Path)+'"';
+                tmp += ',"isdir":false';
+              tmp += ',"path":"'+StringToJSONString(aDirList.Files[i].Path)+'"';
               tmp+=' }';
               sl.Add(tmp);
             end;
