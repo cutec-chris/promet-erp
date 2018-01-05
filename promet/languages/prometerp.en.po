@@ -12,6 +12,9 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "(Menu)\n"
 
+msgid "(Menü)"
+msgstr ""
+
 # Christian U. <ulrich@tcs-germany.de>, 2015.
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
