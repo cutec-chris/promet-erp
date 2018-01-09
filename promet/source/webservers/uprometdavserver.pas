@@ -1302,7 +1302,9 @@ begin
               else
                 tmp += ',"isdir":false';
               tmp += ',"path":"'+StringToJSONString(aDirList.Files[i].Path)+'"';
-              tmp+=' }';
+              if i= aDirList.Count-1 then
+                tmp+=' }'
+              else tmp += ' },';
               sl.Add(tmp);
             end;
           sl.Add(']');
