@@ -1852,6 +1852,8 @@ begin
         Info('Auth from "'+aUser+'" failed !');
     end
   else aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
+  if Result then
+    TBaseDBModule(aSocket.Data).RegisterLinkHandlers;
 end;
 
 procedure TPrometServerFunctions.aSocketDestroy(Sender: TObject);
