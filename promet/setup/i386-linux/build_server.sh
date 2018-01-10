@@ -85,6 +85,8 @@ git clone https://github.com/cutec-chris/promet-apps $BuildDir/usr/lib/$Program/
 cd $BuildDir/usr/lib/$Program/web2
 git submodule init
 git submodule update
+cd $basedir
+cd promet/setup/i386-linux
 
 rm $BuildDir/usr/lib/$Program/web2/*.md
 rm $BuildDir/usr/lib/$Program/web2/LICENSE
