@@ -1020,8 +1020,7 @@ begin
                   else
                     aDataSet.ActualFilter:=Data.QuoteField('REF_ID')+'='+Data.QuoteField(Data.Users.Id.AsString);
                 end;
-              if aParamDec.Values['limit']<>'' then
-                aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(aParamDec.Values['limit']),100);
+              aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(aParamDec.Values['limit']),100);
               aParamDec.Free;
               aDataSet.Open;
               while not aDataSet.EOF do
