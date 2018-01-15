@@ -716,7 +716,7 @@ begin
             end
           else if copy(aRemovedDir,length(aRemovedDir)-8,9) = '/reports/' then
             begin
-              if aDir = '' then
+              if (aDir = '') or (aDir = '/') then
                 begin
                   if copy(aFullDir,length(aFullDir),1) <> '/' then
                     aFullDir := aFullDir+'/';
@@ -894,6 +894,8 @@ begin
       aParams := copy(aDir,pos('?',aDir)+1,length(aDir));
       aDir := copy(aDir,0,pos('?',aDir)-1);
     end;
+  QueryFields := TStringList.Create;
+  QueryFields.Text:=aParams;
   aDir := HTTPDecode(aDir);
   aFullDir := aDir;
   if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
@@ -1315,8 +1317,6 @@ begin
     end
   else if (aDir = '/sql.json') then //direct SQL Query (very limited for sequrity reasons)
     begin
-      QueryFields := TStringList.Create;
-      QueryFields.Text:=aParams;
       aStmt := TSQLStatemnt.Create;
       aStmt.SQL:= AddSQLLimit(queryFields.Values['ql'],100,TBaseDBModule(aSocket.Data));
       try
@@ -1365,9 +1365,9 @@ begin
             sl.Free;
           end;
       end;
-      QueryFields.Free;
       aStmt.Free;
     end;
+  QueryFields.Free;
 end;
 function TPrometServerFunctions.ServerMkCol(aSocket: TDAVSession; aDir: string): Boolean;
 var
@@ -1588,7 +1588,6 @@ begin
         begin
           if aDir = 'list.json' then
             begin
-              {
               MimeType:='application/json';
               Stream.Position:=0;
               aJParser := TJSONParser.Create(Stream);
@@ -1686,7 +1685,6 @@ begin
               {$ENDIF}
               aJParser.Free;
               Result:=True;
-              }
             end
           else if aDir = 'new/item.json' then
             begin
