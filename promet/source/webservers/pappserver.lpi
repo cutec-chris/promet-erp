@@ -144,7 +144,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="9">
+    <Exceptions Count="11">
       <Item1>
         <Name Value="EZSQLException"/>
       </Item1>
@@ -172,6 +172,12 @@
       <Item9>
         <Name Value="EScannerError"/>
       </Item9>
+      <Item10>
+        <Name Value="RunError(211)"/>
+      </Item10>
+      <Item11>
+        <Name Value="EAbstractError"/>
+      </Item11>
     </Exceptions>
   </Debugging>
 </CONFIG>

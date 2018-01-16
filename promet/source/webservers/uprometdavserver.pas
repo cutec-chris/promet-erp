@@ -886,9 +886,9 @@ var
   DetailDataSet: TDataSet = nil;
   SubDetailDataSet: TDataSet = nil;
   aDirList: TDAVDirectoryList;
+  nStream: TStream;
 begin
   Result := False;
-  if aSocket.User='' then exit;
   if pos('?',aDir)>0 then
     begin
       aParams := copy(aDir,pos('?',aDir)+1,length(aDir));
@@ -898,7 +898,9 @@ begin
   QueryFields.Text:=aParams;
   aDir := HTTPDecode(aDir);
   aFullDir := aDir;
-  if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
+  try
+  if (aSocket.User='') and (pos('thumbnails',aDir)=0) then exit;
+  if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) and (pos('thumbnails',aDir)=0) then
     begin
       TBaseDBModule(aSocket.Data).Users.Filter('',0);
       if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then exit;
@@ -999,20 +1001,20 @@ begin
       Mimetype := '';
       if aLevel=1 then //direkt auf Dataset ebene
         begin
+          aParamDec := TStringList.Create;
+          aParamDec.Delimiter:='&';
+          tmp := copy(aSocket.URI,pos('?',aSocket.URI)+1,length(aSocket.URI))+'&';
+          while pos('&',tmp)>0 do
+            begin
+              aParamDec.Add(copy(tmp,0,pos('&',tmp)-1));
+              tmp := copy(tmp,pos('&',tmp)+1,length(tmp));
+            end;
           if aDir = 'list.json' then
             begin
               MimeType:='application/json';
               sl := TStringList.Create;
               sl.Add('[');
               aDataSet := aClass.Create(nil);
-              aParamDec := TStringList.Create;
-              aParamDec.Delimiter:='&';
-              tmp := copy(aSocket.URI,pos('?',aSocket.URI)+1,length(aSocket.URI))+'&';
-              while pos('&',tmp)>0 do
-                begin
-                  aParamDec.Add(copy(tmp,0,pos('&',tmp)-1));
-                  tmp := copy(tmp,pos('&',tmp)+1,length(tmp));
-                end;
               if aParamDec.Values['filter']<>'' then
                 aDataSet.ActualFilter:=aParamDec.Values['filter'];
               if aDataSet is TTimes then
@@ -1023,7 +1025,6 @@ begin
                     aDataSet.ActualFilter:=Data.QuoteField('REF_ID')+'='+Data.QuoteField(Data.Users.Id.AsString);
                 end;
               aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(aParamDec.Values['limit']),100);
-              aParamDec.Free;
               aDataSet.Open;
               while not aDataSet.EOF do
                 begin
@@ -1054,7 +1055,28 @@ begin
               Stream.Position:=0;
               aDataSet.Free;
               Result:=True;
+            end
+          else if (copy(aDir,0,11)='thumbnails/') then
+            begin
+              aDataSet := aClass.Create(nil);
+              aDir := ExtractFileName(aDir);
+              aDir := copy(aDir,0,pos('.',aDir)-1);
+              aDataSet.Select(aDir);
+              with aDataSet.DataSet as IBaseDBFilter do
+                Fields := '';
+              aDataSet.Open;
+              if aDataSet.Count>0 then
+                begin
+                  if aDataSet.FieldByName('THUMBNAIL') <> nil then
+                    begin
+                      (aDataSet.FieldByName('THUMBNAIL') as TBlobField).SaveToStream(Stream);
+                      if Stream.Size>0 then
+                        Result := True;
+                    end;
+                end;
+              aDataSet.Free;
             end;
+          aParamDec.Free;
         end
       else if aLevel=6 then
         begin
@@ -1367,7 +1389,9 @@ begin
       end;
       aStmt.Free;
     end;
-  QueryFields.Free;
+  finally
+    QueryFields.Free;
+  end;
 end;
 function TPrometServerFunctions.ServerMkCol(aSocket: TDAVSession; aDir: string): Boolean;
 var
@@ -1814,6 +1838,8 @@ begin
       if Result then
         aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
     end;
+  if pos('thumbnails/',aDir)>0 then
+    Result := True;
   if not Result then
     with BaseApplication as IBaseApplication do
       Info('DAV: read permitted to "'+aDir+'"');
