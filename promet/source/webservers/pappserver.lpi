@@ -21,7 +21,7 @@
         <CompilerOptions>
           <Version Value="11"/>
           <Target>
-            <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/tools/processmanager"/>
+            <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/processmanager"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -35,7 +35,6 @@
           <CodeGeneration>
             <Checks>
               <IOChecks Value="True"/>
-              <RangeChecks Value="True"/>
               <OverflowChecks Value="True"/>
               <StackChecks Value="True"/>
             </Checks>
