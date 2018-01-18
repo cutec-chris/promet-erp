@@ -45,6 +45,7 @@
           <Linking>
             <Debugging>
               <UseHeaptrc Value="True"/>
+              <TrashVariables Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
@@ -143,7 +144,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="11">
+    <Exceptions Count="12">
       <Item1>
         <Name Value="EZSQLException"/>
       </Item1>
@@ -177,6 +178,9 @@
       <Item11>
         <Name Value="EAbstractError"/>
       </Item11>
+      <Item12>
+        <Name Value="EConvertError"/>
+      </Item12>
     </Exceptions>
   </Debugging>
 </CONFIG>

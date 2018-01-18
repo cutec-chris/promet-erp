@@ -77,7 +77,7 @@ type
 
   { TDAVSession }
 
-  TDAVSession = class
+  TDAVSession = class(TComponent)
   private
     FCreator: TObject;
     FData: Pointer;

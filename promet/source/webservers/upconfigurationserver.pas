@@ -25,7 +25,7 @@ uses
 
 implementation
 
-uses uBaseApplication,uBaseDBInterface,uIntfStrConsts,uEncrypt;
+uses uBaseApplication,uBaseDBInterface,uIntfStrConsts,uEncrypt,base64;
 
 function HandleConfigRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers : TStringList;Input,Output : TMemoryStream;ResultStatusText : string): Integer;
 var
@@ -40,10 +40,14 @@ var
   aUser: String;
   aOptions: String;
   aDB: String;
+  aPassword: String;
+  sl: TStringList;
 begin
   Result := 404;
   ResultStatusText := '';
   aParameters := TStringList.Create;
+  aParameters.Delimiter:=':';
+  aParameters.NameValueSeparator:=':';
   aResult := TStringList.Create;
   if pos('?',Url)>0 then
     Url := copy(URL,0,pos('?',Url)-1);
@@ -128,8 +132,53 @@ begin
               Result := 403
             else
               Result := 200;
+          end
+        else if lowercase(url)='userstatus' then
+          begin
+            aUser := aParameters.Values['authorization'];
+            if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
+              begin
+                aResult.Free;
+                aParameters.Free;
+                Result:=401;
+                exit;
+              end;
+            Result:=401;
+            aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+            aPassword := copy(aUser,pos(':',aUser)+1,length(aUser));
+            aUser := copy(aUser,0,pos(':',aUser)-1);
+            if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
+            and (TBaseDBModule(uData.Data).Users.Active)
+            and ((TBaseDBModule(uData.Data).Users.FieldByName('NAME').AsString=BaseApplication.GetOptionValue('u','user')) or (TBaseDBModule(uData.Data).Users.FieldByName('LOGINNAME').AsString=BaseApplication.GetOptionValue('u','user')))
+            and (TBaseDBModule(uData.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')))))
+            ) then
+              begin
+                Result := 200;
+              end;
+            TBaseDBModule(uData.Data).Users.Open;
+            if (TBaseDBModule(uData.Data).Users.DataSet.Locate('NAME',aUser,[]) or TBaseDBModule(uData.Data).Users.DataSet.Locate('LOGINNAME',aUser,[])) and (TBaseDBModule(uData.Data).Users.Leaved.IsNull) then
+              Result := 200;
+            if (BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))) then
+              begin
+                if (TBaseDBModule(uData.Data).Users.DataSet.Locate('NAME',BaseApplication.GetOptionValue('u','user'),[]) or TBaseDBModule(uData.Data).Users.DataSet.Locate('LOGINNAME',BaseApplication.GetOptionValue('u','user'),[])) and (TBaseDBModule(uData.Data).Users.Leaved.IsNull) then
+                  Result := 200;
+                if Result = 200 then
+                  if not TBaseDBModule(uData.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password'))) then
+                    Result := 401;
+              end
+            else if Result=200 then
+              if not TBaseDBModule(uData.Data).Users.CheckPasswort(trim(aPassword)) then
+                Result := 401;
+            if Result = 200 then
+              begin
+                sl := TStringList.Create;
+                sl.Add('{"username": "'+Data.Users.FieldByName('NAME').AsString+'"');
+                sl.Add('}');
+                sl.SaveToStream(Output);
+                Output.Position:=0;
+              end;
           end;
-      end;
+      end
   except
     Result:=500;
   end;

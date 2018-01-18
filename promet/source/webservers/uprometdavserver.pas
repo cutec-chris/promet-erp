@@ -898,13 +898,9 @@ begin
   QueryFields.Text:=aParams;
   aDir := HTTPDecode(aDir);
   aFullDir := aDir;
-  try
   if (aSocket.User='') and (pos('thumbnails',aDir)=0) then exit;
-  if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) and (pos('thumbnails',aDir)=0) then
-    begin
-      TBaseDBModule(aSocket.Data).Users.Filter('',0);
-      if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then exit;
-    end;
+  CreateDataModule(aSocket);
+  try
   if aDir = 'ical/'+TBaseDBModule(aSocket.Data).Users.Text.AsString+'.ics' then
     begin
       sl := TStringList.Create;
@@ -1875,8 +1871,6 @@ begin
         Info('Auth from "'+aUser+'" failed !');
     end
   else aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
-  if Result then
-    TBaseDBModule(aSocket.Data).RegisterLinkHandlers;
 end;
 
 procedure TPrometServerFunctions.aSocketDestroy(Sender: TObject);
@@ -2029,15 +2023,26 @@ begin
     end;
 end;
 procedure TPrometServerFunctions.CreateDataModule(aSocket: TDAVSession);
+var
+  aType: TBaseDBModuleClass;
 begin
-  //TODO:select rigth User
+  {
+  aType := TBaseDBModuleClass(uData.Data.ClassType);
+  aSocket.Data := aType.Create(aSocket);
+  with TBaseDBModule(aSocket.Data) do
+    begin
+      SetProperties(uData.Data.Properties);
+    end;
+  }
   aSocket.Data := uData.Data;
+  //TODO:select rigth User
   if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
     begin
       TBaseDBModule(aSocket.Data).Users.Filter('',0);
       if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
   TBaseDBModule(aSocket.Data).RefreshUsersFilter;
+  TBaseDBModule(aSocket.Data).RegisterLinkHandlers;
 end;
 function TPrometServerFunctions.AddDocumentsToFileList(aSocket: TDAVSession;
   aFileList: TDAVDirectoryList; aDocuments: TDocuments; aPath, aFilter: string
