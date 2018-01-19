@@ -42,6 +42,11 @@ var
   aDB: String;
   aPassword: String;
   sl: TStringList;
+  function BuildRight(aRight : string) : string;
+  begin
+    Result := '{"'+aRight+'": '+IntToStr(Data.Users.Rights.Right('DOCUMENTS'))+'}';
+  end;
+
 begin
   Result := 404;
   ResultStatusText := '';
@@ -173,6 +178,32 @@ begin
               begin
                 sl := TStringList.Create;
                 sl.Add('{"username": "'+Data.Users.FieldByName('NAME').AsString+'"');
+                sl.Add(',"rights": [');
+                sl.Add(BuildRight('DOCUMENTS')+',');
+                sl.Add(BuildRight('HISTORY')+',');
+                sl.Add(BuildRight('LISTS')+',');
+                sl.Add(BuildRight('TREE')+',');
+                sl.Add(BuildRight('MESSAGES')+',');
+                sl.Add(BuildRight('CALENDAR')+',');
+                sl.Add(BuildRight('ORDERS')+',');
+                sl.Add(BuildRight('PRODUCTION')+',');
+                sl.Add(BuildRight('CUSTOMERS')+',');
+                sl.Add(BuildRight('MASTERDATA')+',');
+                sl.Add(BuildRight('TASKS')+',');
+                sl.Add(BuildRight('WIKI')+',');
+                sl.Add(BuildRight('PROJECTS')+',');
+                sl.Add(BuildRight('SHEME')+',');
+                sl.Add(BuildRight('REPORTS')+',');
+                sl.Add(BuildRight('STORAGE')+',');
+                sl.Add(BuildRight('DISPOSITION')+',');
+                sl.Add(BuildRight('WEBSHOP')+',');
+                sl.Add(BuildRight('INVENTORY')+',');
+                sl.Add(BuildRight('ACCOUNTING')+',');
+                sl.Add(BuildRight('TIMEREG')+',');
+                sl.Add(BuildRight('STATISTICS')+',');
+                sl.Add(BuildRight('OPTIONS')+',');
+                sl.Add(BuildRight('MEETINGS'));
+                sl.Add(']');
                 sl.Add('}');
                 sl.SaveToStream(Output);
                 Output.Position:=0;
