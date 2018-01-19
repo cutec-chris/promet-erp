@@ -1104,7 +1104,7 @@ begin
       try
         DataSetType:=TMessageList;
         fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
-        Data.RegisterLinkHandler('MESSAGEIDX',@fMainTreeFrame.OpenLink,uMessages.TMessage);
+        Data.RegisterLinkHandler('MESSAGES',@fMainTreeFrame.OpenLink,uMessages.TMessage);
         AddSearchAbleDataSet(TMessageList);
       except
       end;
@@ -2957,8 +2957,7 @@ begin
                       aTask.Insert;
                       aTask.FieldByName('SUMMARY').AsString:=aMessage.Text.AsString;
                       aTask.FieldByName('USER').AsString:=Data.Users.FieldByName('ACCOUNTNO').AsString;
-                      aMessage.Content.Open;
-                      aTask.FieldByName('DESC').AsString:=aMessage.Content.AsString;
+                      aTask.FieldByName('DESC').AsString:=aMessage.AsString;
                       aTask.DataSet.Post;
                       aTask.Links.Add(Data.BuildLink(aMessage.DataSet));
                       aTask.Free;
@@ -3376,7 +3375,9 @@ begin
         end
       else aFrame.Free;
     end
-  else if copy(aLink,0,10) = 'MESSAGEIDX' then
+  else if (copy(aLink,0,10) = 'MESSAGEIDX')
+       or (copy(aLink,0,8) = 'MESSAGES')
+  then
     begin
       aMessageEdit := TfMessageEdit.Create(nil);
       aMessageEdit.OpenFromLink(aLink);

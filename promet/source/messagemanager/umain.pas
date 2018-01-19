@@ -442,6 +442,7 @@ begin
         begin
           try
             Data.RegisterLinkHandler('MESSAGEIDX',@OpenLink,TMessage);
+            Data.RegisterLinkHandler('MESSAGES',@OpenLink,TMessage);
             AddSearchAbleDataSet(TMessageList);
           except
           end;
