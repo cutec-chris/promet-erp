@@ -749,10 +749,8 @@ begin
                       aMessage.DataSet.FieldByName('SENDDATE').AsDateTime := Now();
                       aMessage.DataSet.FieldByName('READ').AsString := 'N';
                       aMessage.DataSet.Post;
-                      aMessage.Content.Insert;
-                      aMessage.Content.DataSet.FieldByName('DATATYP').AsString:='PLAIN';
-                      aMessage.Content.DataSet.FieldByName('DATA').AsString:=FLog.Text;
-                      aMessage.Content.DataSet.Post;
+                      aMessage.DataSet.FieldByName('DATATYP').AsString:='PLAIN';
+                      aMessage.DataSet.FieldByName('DATA').AsString:=FLog.Text;
                       aMessage.Free;
                       FLog.Clear;
                     end;

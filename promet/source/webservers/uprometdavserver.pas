@@ -898,7 +898,7 @@ begin
   QueryFields.Text:=aParams;
   aDir := HTTPDecode(aDir);
   aFullDir := aDir;
-  if (aSocket.User='') and (pos('thumbnails',aDir)=0) then exit;
+  if (aSocket.User='') and (pos('blobdata',aDir)=0) then exit;
   CreateDataModule(aSocket);
   try
   if aDir = 'ical/'+TBaseDBModule(aSocket.Data).Users.Text.AsString+'.ics' then
@@ -1052,8 +1052,10 @@ begin
               aDataSet.Free;
               Result:=True;
             end
-          else if (copy(aDir,0,11)='thumbnails/') then
+          else if (copy(aDir,0,9)='blobdata/') then
             begin
+              tmp := copy(aDir,10,length(aDir));
+              tmp := Uppercase(copy(tmp,0,pos('/',tmp)-1));
               aDataSet := aClass.Create(nil);
               aDir := ExtractFileName(aDir);
               aDir := copy(aDir,0,pos('.',aDir)-1);
@@ -1063,12 +1065,10 @@ begin
               aDataSet.Open;
               if aDataSet.Count>0 then
                 begin
-                  if aDataSet.FieldByName('THUMBNAIL') <> nil then
-                    begin
-                      (aDataSet.FieldByName('THUMBNAIL') as TBlobField).SaveToStream(Stream);
-                      if Stream.Size>0 then
-                        Result := True;
-                    end;
+                  nStream := TBaseDBModule(aSocket.Data).BlobFieldStream(aDataSet.DataSet,tmp);
+                  Stream.CopyFrom(nStream,0);
+                  if Stream.Size>0 then
+                    Result := True;
                 end;
               aDataSet.Free;
             end;
@@ -1834,7 +1834,7 @@ begin
       if Result then
         aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
     end;
-  if pos('thumbnails/',aDir)>0 then
+  if pos('blobdata/',aDir)>0 then
     Result := True;
   if not Result then
     with BaseApplication as IBaseApplication do
