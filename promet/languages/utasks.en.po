@@ -128,6 +128,7 @@ msgid "Mit Öffnen wird das gewählte Projekt in die Aufgabe übernommen"
 msgstr "With opening the selected project is added to the task"
 
 #: utasks.strunterminateddependencies
+#, fuzzy,badformat
 msgid ""
 "Es gibt unterminierte Abhängigkeiten für diese Aufgabe:\n"
 "%s\n"

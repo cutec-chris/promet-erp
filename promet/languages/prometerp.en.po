@@ -8878,6 +8878,7 @@ msgid "Benutzername"
 msgstr "Username"
 
 #: uaccountingframe.strtransactionequaltoorder
+#, fuzzy,badformat
 msgctxt "uaccountingframe.strtransactionequaltoorder"
 msgid ""
 "Ist die Buchung:\n"
@@ -8961,6 +8962,7 @@ msgid "Der Zahlungsgrund besteht aus zu vielen Zeilen"
 msgstr "The reason for the payment consists of too many lines"
 
 #: uaccounts.strtransactionequaltoorder
+#, fuzzy,badformat
 msgctxt "uaccounts.strtransactionequaltoorder"
 msgid ""
 "Ist die Buchung:\n"
@@ -9226,6 +9228,7 @@ msgid "Ende"
 msgstr "End"
 
 #: ubasedatamodule.strfailedshowingdatafrom
+#, fuzzy,badformat
 msgid "konnten Daten von %s nicht anzeigen"
 msgstr "fail to display data from% s"
 
@@ -9293,6 +9296,7 @@ msgid "Nummer"
 msgstr "Number"
 
 #: ubasedatamodule.stropeningtable
+#, fuzzy,badformat
 msgid ""
 "öffne Tabelle \n"
 "%s\n"
@@ -9526,10 +9530,12 @@ msgid "MwSt"
 msgstr "VAT"
 
 #: ubookserial.strbookserial
+#, fuzzy,badformat
 msgid "Scannen Sie die Seriennummer für Position %s, Artikel %s"
 msgstr "Scan the serial number for position% s,% s items"
 
 #: ucalendar.streventsthisweek
+#, fuzzy,badformat
 msgid "Termine diese Woche: %d"
 msgstr "Events this week:% d"
 
@@ -9655,6 +9661,7 @@ msgid "TEL  Telefon"
 msgstr "TEL  Telephone"
 
 #: ucustomer.strbirthdayfrom
+#, fuzzy,badformat
 msgid "Geburztag von %s"
 msgstr "Geburztag% s"
 
@@ -9700,6 +9707,7 @@ msgid "Nummernkreis nicht gefunden, bitte wenden Sie sich an Ihren Administrator
 msgstr "Number Range not found, please contact your administrator"
 
 #: udata.strorderactionpost
+#, fuzzy,badformat
 msgid "Vorgang als %s gebucht"
 msgstr "Booked process than% s"
 
@@ -9716,6 +9724,7 @@ msgid "Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
 msgstr "Status type is not found, please contact your administrator"
 
 #: udata.strstoringfailed
+#, fuzzy,badformat
 msgid ""
 "Fehler beim Speichern:\n"
 "%s\n"
@@ -9823,14 +9832,17 @@ msgid "Das temporäre Verzeichnis konnte nicht gelöscht werden !"
 msgstr "The temporary directory could not be deleted!"
 
 #: udocumentmanagement.strcheckingoutfile
+#, fuzzy,badformat
 msgid "Hole %s"
 msgstr "Hole% s"
 
 #: udocumentmanagement.strfailedcreatingdiff
+#, fuzzy,badformat
 msgid "konnte Differenzdatei von Datei %s nicht erstellen"
 msgstr "difference could not create file by file% s"
 
 #: udocumentmanagement.strfailedexecuteprocess
+#, fuzzy,badformat
 msgid "Möglicherweise ist das auführen von \"%s\" fehlgeschlagen, Rückgabewert: %d"
 msgstr "The execute Page Possibly from \"% s\" failed, return value:% d"
 
@@ -9960,6 +9972,7 @@ msgid "Feed"
 msgstr "Feed"
 
 #: umaileditoptions.strservicenotinstalled
+#, fuzzy,badformat
 msgid "Der Dienst %s ist derzeit nicht installiert !"
 msgstr "The% s service is currently not installed!"
 
@@ -9991,6 +10004,7 @@ msgid "Datenbankeinstellungen"
 msgstr "Database Settings"
 
 #: umain.strdeletingmessages
+#, fuzzy,badformat
 msgid "lösche Nachrichten, noch %d Nachichten"
 msgstr "delete messages,% d Nachichten"
 
@@ -10022,6 +10036,7 @@ msgid "Neue Inventur"
 msgstr "new Inventory"
 
 #: umain.strneworder
+#, fuzzy,badformat
 msgid "%s erstellen"
 msgstr "Create% s"
 
@@ -10085,6 +10100,7 @@ msgid "Wiki"
 msgstr "Wiki"
 
 #: umessages.strnewmessagecount
+#, fuzzy,badformat
 msgid ""
 "%d neue Nachrichten\n"
 "%d unbekannte neue Nachrichten empfangen\n"
@@ -10093,6 +10109,7 @@ msgstr ""
 "% D unknown receive new messages\n"
 
 #: umessages.strnewmessagecview
+#, fuzzy,badformat
 msgid "%d Neue Nachrichten"
 msgstr "% D new messages"
 
@@ -10101,6 +10118,7 @@ msgid "Neue Nachrichten"
 msgstr "New messages"
 
 #: umessages.strnewunknownmessagecview
+#, fuzzy,badformat
 msgid "%d Neue unbekannte Nachrichten"
 msgstr "% D new unknown messages"
 
@@ -10220,6 +10238,7 @@ msgid "Zu dieser Belegart ist kein Auftragstyp ausgewählt, er kann nicht gebuch
 msgstr "No contract type selected for this document type, it can not be booked!"
 
 #: uorders.strordertochange
+#, fuzzy,badformat
 msgctxt "uorders.strordertochange"
 msgid "Auftrag %s %s wird"
 msgstr "Order% s% s"
@@ -10324,6 +10343,7 @@ msgid "Adresse"
 msgstr "Adress"
 
 #: upersonframe.strbirthdayfrom
+#, fuzzy,badformat
 msgid "Geburtstag von %s"
 msgstr "Birthday of% s"
 
