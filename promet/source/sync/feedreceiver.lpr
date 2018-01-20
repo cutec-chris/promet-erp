@@ -325,18 +325,12 @@ begin
                                 Post;
                               end;
                             Data.SetFilter(Message,Data.QuoteField('ID')+'='+Data.QuoteValue(MID));
-                            with Message.Content.DataSet do
+                            with Message.DataSet do
                               begin
-                                Open;
-                                if not Message.Content.DataSet.Locate('ID',MID,[]) then
-                                  Insert
-                                else
-                                  Edit;
+                                Edit;
                                 FieldByName('ID').AsString := MID;
                                 FieldByName('SQL_ID').AsInteger := BMID;
                                 FieldByName('TIMESTAMPD').AsDateTime := Now();
-                                if FieldDefs.IndexOf('TIMESTAMPT') <> -1 then
-                                  FieldByName('TIMESTAMPT').AsFloat := Frac(Now());
                                 FieldByName('DATATYP').AsString := 'HTML';
                                 Post;
                                 tmp := '';
@@ -351,7 +345,7 @@ begin
                                 tmp := tmp+'<br><a href='''+aLinkValue+'''>'+strGotoFeed+'</a>';
                                 tmp := '<html><body>'+tmp+'</body></html>';
                                 ss := TStringStream.Create(tmp);
-                                Data.StreamToBlobField(ss,Message.Content.DataSet,'DATA');
+                                Data.StreamToBlobField(ss,Message.DataSet,'DATA');
                                 ss.Free;
                                 MessageHandler.SendCommand('prometerp','Message.refresh');
                                 Data.Users.History.AddMessageItem(Message.DataSet,Message.ToString,MessageIndex.FieldbyName('SUBJECT').AsString,'Feed','MESSAGEIDX@'+MID+'{'+MessageIndex.FieldbyName('SUBJECT').AsString+'}');
