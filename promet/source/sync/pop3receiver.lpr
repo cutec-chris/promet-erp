@@ -179,7 +179,7 @@ begin
           pop.AuthType:=POP3AuthAll;
           pop.AutoTLS:=True;
           pop.Timeout:=12000;
-          pop.Sock.ConnectionTimeout:=12000;
+          //pop.Sock.ConnectionTimeout:=12000;
           tmp := mailaccounts;
           tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
           if copy(tmp,0,2) <> 'L:' then
