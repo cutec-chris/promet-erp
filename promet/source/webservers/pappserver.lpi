@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="9"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -81,16 +81,9 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--config-path=devel --mandant=Help"/>
+        <FormatVersion Value="1"/>
+        <CommandLineParams Value="--mandant=TCS"/>
       </local>
-      <FormatVersion Value="2"/>
-      <Modes Count="1">
-        <Mode0 Name="default">
-          <local>
-            <CommandLineParams Value="--config-path=devel --mandant=Help"/>
-          </local>
-        </Mode0>
-      </Modes>
     </RunParams>
     <RequiredPackages Count="6">
       <Item1>
