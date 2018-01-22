@@ -1646,6 +1646,8 @@ begin
                                 if (TJSONArray(aData)[0].Items[a].Value='')
                                 or (TJSONArray(aData)[0].Items[a].Value='null') then
                                   aDataSet.FieldByName(aField).Clear
+                                else if (synautil.DecodeRfcDateTime(TJSONArray(aData)[0].Items[a].Value) <> 0) then
+                                  aDataSet.FieldByName(aField).AsDateTime:=synautil.DecodeRfcDateTime(TJSONArray(aData)[0].Items[a].Value)
                                 else
                                   aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value;
                               end
