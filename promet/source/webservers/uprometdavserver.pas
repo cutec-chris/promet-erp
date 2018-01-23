@@ -26,7 +26,8 @@ uses
   Classes, SysUtils, udavserver, uDocuments, uBaseDbClasses, uCalendar,
   utask,Utils,variants,uBaseDatasetInterfaces, db,synautil,uPerson,uBaseDocPages,
   DateUtils, uimpvcal,uhttputil,math,uBaseDBInterface,fpjson,jsonparser,utimes,
-  uwiki,uBaseApplication,fpsqlparser, fpsqlscanner, fpsqltree,uStatistic,uwebreports;
+  uwiki,uBaseApplication,fpsqlparser, fpsqlscanner, fpsqltree,uStatistic,uwebreports,
+  base64;
 
 type
   { TPrometServerFunctions }
@@ -1818,7 +1819,10 @@ begin
 end;
 function TPrometServerFunctions.ServerReadAllowed(aSocket: TDAVSession; aDir: string
   ): Boolean;
+var
+  aUser: String;
 begin
+  if aSocket=nil then exit;
   CreateDataModule(aSocket);
   if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
   and (TBaseDBModule(aSocket.Data).Users.Active)
@@ -1835,6 +1839,13 @@ begin
         Result := TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')));
       if Result then
         aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
+    end;
+  if (not Result) and (pos('login=',aSocket.Parameters.Values['cookie'])>0) then
+    begin
+      aUser := copy(aSocket.Parameters.Values['cookie'],pos('login=',aSocket.Parameters.Values['cookie'])+6,length(aSocket.Parameters.Values['cookie']));
+      aUser := copy(aUser,0,pos(';',aUser)-1);
+      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+      Result := TWebDAVMaster(aSocket.Creator).OnUserLogin(aSocket,copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
     end;
   if pos('blobdata/',aDir)>0 then
     Result := True;
@@ -2028,6 +2039,7 @@ procedure TPrometServerFunctions.CreateDataModule(aSocket: TDAVSession);
 var
   aType: TBaseDBModuleClass;
 begin
+  if Assigned(aSocket.Data) then exit;
   {
   aType := TBaseDBModuleClass(uData.Data.ClassType);
   aSocket.Data := aType.Create(aSocket);
@@ -2038,6 +2050,9 @@ begin
   }
   aSocket.Data := uData.Data;
   //TODO:select rigth User
+  if not Assigned(aSocket.Data) then exit;
+  if not Assigned(aSocket) then exit;
+  if not Assigned(TBaseDBModule(aSocket.Data).Users) then exit;
   if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
     begin
       TBaseDBModule(aSocket.Data).Users.Filter('',0);

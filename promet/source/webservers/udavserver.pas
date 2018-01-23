@@ -646,8 +646,16 @@ begin
   aUser := Parameters.Values['authorization'];
   if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
     begin
-      Status:=401;
-      exit;
+      if pos('login=',Parameters.Values['cookie'])>0 then
+        begin
+          aUser := copy(Parameters.Values['cookie'],pos('login=',Parameters.Values['cookie'])+6,length(Parameters.Values['cookie']));
+          aUser := copy(aUser,0,pos(';',aUser)-1);
+        end
+      else
+        begin
+          Status:=401;
+          exit;
+        end;
     end;
   aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
   if Assigned(TWebDAVMaster(Creator).OnUserLogin) then

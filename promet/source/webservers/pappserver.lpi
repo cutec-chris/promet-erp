@@ -21,7 +21,7 @@
         <CompilerOptions>
           <Version Value="11"/>
           <Target>
-            <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/processmanager"/>
+            <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/pappserver"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
