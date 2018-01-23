@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="9"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -25,7 +25,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="507"/>
+      <BuildNr Value="508"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion="7.0.0.487"/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -172,16 +172,9 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--config-path=/home/chris/.promet-cen/"/>
+        <FormatVersion Value="1"/>
+        <CommandLineParams Value="--mandant=TCS"/>
       </local>
-      <FormatVersion Value="2"/>
-      <Modes Count="1">
-        <Mode0 Name="default">
-          <local>
-            <CommandLineParams Value="--config-path=/home/chris/.promet-cen/"/>
-          </local>
-        </Mode0>
-      </Modes>
     </RunParams>
     <RequiredPackages Count="27">
       <Item1>

@@ -720,7 +720,11 @@ begin
                                                 end;
                                             except
                                               on e : Exception do
-                                                Error(e.Message);
+                                                begin
+                                                  Error(e.Message);
+                                                  FLog.Add('=====Error=====');
+                                                  FLog.Add(e.Message);
+                                                end;
                                             end;
                                           end;
                                         SyncDB.Tables.DataSet.Next;
@@ -748,9 +752,9 @@ begin
                       aMessage.DataSet.FieldByName('SENDER').AsString := 'SyncDB';
                       aMessage.DataSet.FieldByName('SENDDATE').AsDateTime := Now();
                       aMessage.DataSet.FieldByName('READ').AsString := 'N';
-                      aMessage.DataSet.Post;
                       aMessage.DataSet.FieldByName('DATATYP').AsString:='PLAIN';
                       aMessage.DataSet.FieldByName('DATA').AsString:=FLog.Text;
+                      aMessage.DataSet.Post;
                       aMessage.Free;
                       FLog.Clear;
                     end;

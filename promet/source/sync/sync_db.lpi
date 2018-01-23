@@ -41,8 +41,8 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="730"/>
-        <CursorPos Y="754"/>
+        <TopLine Value="724"/>
+        <CursorPos X="70" Y="726"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -296,7 +296,7 @@
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit31>
     </Units>
-    <JumpHistory Count="26" HistoryIndex="25">
+    <JumpHistory Count="27" HistoryIndex="26">
       <Position1>
         <Filename Value="..\base\dblayer_zeos\uzeosdbdm.pas"/>
         <Caret Line="1928" TopLine="1901"/>
@@ -401,6 +401,10 @@
         <Filename Value="sync_db.lpr"/>
         <Caret Line="706" Column="64" TopLine="682"/>
       </Position26>
+      <Position27>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="725" Column="55" TopLine="703"/>
+      </Position27>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
