@@ -48,6 +48,7 @@ type
     function SyncRow(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
     function SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;
       SyncCount: Integer=0): Integer;
+    procedure CollectSubDataSets(SyncDB : TSyncDB;DestDM : TBaseDBModule);
   protected
     procedure DoRun; override;
     function GetSingleInstance : Boolean; override;
@@ -344,6 +345,7 @@ begin
     begin
       tCRT := aCRT.CreateEx(nil,DestDM);
       tCRT.CreateTable;
+      tCRT.Select(0);
       tCRT.Open;
       tCRT.Free;
     end;
@@ -556,6 +558,46 @@ begin
     end
   else Info('Table "'+SyncDB.Tables.DataSet.FieldByName('NAME').AsString+'" ist gesperrt von anderem Prozess')
 end;
+
+procedure TSyncDBApp.CollectSubDataSets(SyncDB: TSyncDB; DestDM: TBaseDBModule);
+var
+  aRec : Variant;
+  aCRT: TBaseDBDatasetClass;
+  tCRT: TBaseDBDataset;
+  i: Integer;
+begin
+  debug('SUBDATASETS for '+SyncDB.Tables.FieldByName('NAME').AsString);
+  aRec := SyncDB.Tables.GetBookmark;
+  if DestDM.DataSetFromName(SyncDB.Tables.FieldByName('NAME').AsString,aCRT) then
+    begin
+      tCRT := aCRT.CreateEx(nil,DestDM);
+      with tCRT.DataSet as IBaseSubDataSets do
+        begin
+          for i := 0 to GetCount-1 do
+            begin
+              debug('  '+TBaseDBDataset(SubDataSet[i]).TableName);
+              if SyncDB.Tables.Locate('NAME',TBaseDBDataset(SubDataSet[i]).TableName,[loCaseInsensitive])
+              and (SyncDB.Tables.FieldByName('PARENT').AsVariant<>aRec)
+              and (SyncDB.Tables.FieldByName('NAME').AsString<>'HISTORY')
+              and (SyncDB.Tables.FieldByName('NAME').AsString<>'IMAGES')
+              and (SyncDB.Tables.FieldByName('NAME').AsString<>'DOCUMENTS')
+              and (SyncDB.Tables.FieldByName('NAME').AsString<>'DELETEDITEMS')
+              and (SyncDB.Tables.FieldByName('NAME').AsString<>'MEASUREMENTS')
+              then
+                begin
+                  SyncDB.Tables.Edit;
+                  SyncDB.Tables.FieldByName('PARENT').AsVariant:=aRec;
+                  SyncDB.Tables.Post;
+                end;
+            end;
+        end;
+      tCRT.Free;
+    end
+  else
+    debug('  -> has no Class');
+  SyncDB.Tables.GotoBookmark(aRec);
+end;
+
 function TSyncDBApp.GetSingleInstance: Boolean;
 begin
   Result := False;
@@ -587,6 +629,7 @@ var
   FOldTime: String;
   SyncCount, aSyncCount, FOldSyncCount: Integer;
   BlockSizeReached: Boolean;
+  aTableName: String;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
@@ -603,6 +646,55 @@ var
     except
     end;
   end;
+  procedure DoSyncTables(IgnoreParent : Boolean = False);
+  var
+    aRec2 : Variant;
+  begin
+    SyncDB.Tables.DataSet.First;
+    while not SyncDB.Tables.DataSet.EOF do
+      begin
+        if ((GetOptionValue('table')='') or (GetOptionValue('table')=SyncDB.Tables.DataSet.FieldByName('NAME').AsString))
+        and (SyncDB.Tables.FieldByName('PARENT').IsNull or IgnoreParent) then
+          begin
+            CollectSubDatasets(SyncDB,FDest.GetDB);
+            aTableName := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
+            FTables.Add(aTableName);
+            try
+              FSyncedCount:=2;
+              FOldSyncCount:=0;
+              if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString='' then
+                FOldTime:='a';
+              while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) and (FOldSyncCount<>FSyncedCount) do
+                begin
+                  FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
+                  FOldSyncCount := FSyncedCount;
+                  FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
+                  inc(SyncedTables,FSyncedCount);
+                end;
+              if (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
+                begin
+                  FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB);
+                  inc(SyncedTables,FSyncedCount);
+                end;
+            except
+              on e : Exception do
+                begin
+                  Error(e.Message);
+                  FLog.Add('=====Error=====');
+                  FLog.Add(e.Message);
+                end;
+            end;
+            //Sync Sub Tables
+            aRec2 := SyncDB.Tables.GetBookmark;
+            SyncDB.Tables.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(aRec2));
+            DoSyncTables(True);
+            SyncDB.Tables.Filter('');
+            SyncDB.Tables.GotoBookmark(aRec2);
+          end;
+        SyncDB.Tables.DataSet.Next;
+      end;
+  end;
+
 begin
   FLog := TStringList.Create;
   FTables := TStringList.Create;
@@ -695,40 +787,7 @@ begin
                                     SyncCount := 0;
                                     aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
                                     SyncedTables:=0;
-                                    SyncDB.Tables.DataSet.First;
-                                    while not SyncDB.Tables.DataSet.EOF do
-                                      begin
-                                        if (GetOptionValue('table')='') or (GetOptionValue('table')=SyncDB.Tables.DataSet.FieldByName('NAME').AsString) then
-                                          begin
-                                            FTables.Add(SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
-                                            try
-                                              FSyncedCount:=2;
-                                              FOldSyncCount:=0;
-                                              if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString='' then
-                                                FOldTime:='a';
-                                              while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) and (FOldSyncCount<>FSyncedCount) do
-                                                begin
-                                                  FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
-                                                  FOldSyncCount := FSyncedCount;
-                                                  FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
-                                                  inc(SyncedTables,FSyncedCount);
-                                                end;
-                                              if (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
-                                                begin
-                                                  FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB);
-                                                  inc(SyncedTables,FSyncedCount);
-                                                end;
-                                            except
-                                              on e : Exception do
-                                                begin
-                                                  Error(e.Message);
-                                                  FLog.Add('=====Error=====');
-                                                  FLog.Add(e.Message);
-                                                end;
-                                            end;
-                                          end;
-                                        SyncDB.Tables.DataSet.Next;
-                                      end;
+                                    DoSyncTables;
                                   end;
                                 DBLogout;
                               end
