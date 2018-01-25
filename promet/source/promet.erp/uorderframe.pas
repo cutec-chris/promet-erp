@@ -450,9 +450,13 @@ begin
   MandantDetails.DataSet := Data.MandantDetails.DataSet;
   Data.MandantDetails.Open;
   OrderRepair.DataSet := TOrder(DataSet).Positions.Repair.DataSet;
+  TOrder(DataSet).Positions.Repair.Open;
   OrderRepairDetail.DataSet := TOrder(DataSet).Positions.Repair.Details.DataSet;
+  TOrder(DataSet).Positions.Repair.Details.Open;
   OrderQMTest.DataSet := TOrder(DataSet).Positions.QMTest.DataSet;
+  TOrder(DataSet).Positions.QMTest.Open;
   OrderQMTestDetail.DataSet := TOrder(DataSet).Positions.QMTest.Details.DataSet;
+  TOrder(DataSet).Positions.QMTest.Details.Open;
   OrderImages.DataSet := TOrder(DataSet).Positions.Images.DataSet;
   TOrder(DataSet).Positions.Images.Open;
   Users.DataSet := Data.Users.DataSet;

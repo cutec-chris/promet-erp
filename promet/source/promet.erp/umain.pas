@@ -1856,26 +1856,7 @@ begin
       aTime := GetTickCount;
       while not aMessages.DataSet.EOF do
         begin
-{
-          if Data.IsSQLDB then
-            aMessages.DataSet.Delete
-          else
-}
-            begin
-              if GetTickCount-aTime > 1000 then
-                begin
-                  fWaitForm.ShowInfo(Format(strDeletingMessages,[a]));
-                  aTime := GetTickCount;
-                end;
-              aMessage := uMessages.TMessage.CreateEx(Self,Data,aConn);
-              aMessage.Select(aMessages.Id.AsInteger);
-              aMessage.Open;
-              aMessage.Delete;
-              aMessage.Free;
-              a := a-1;
-              aMessages.DataSet.Next;
-              if not fWaitForm.Visible then break;
-            end;
+          aMessages.Delete
         end;
 {      if Data.IsSQLDB then
         begin
