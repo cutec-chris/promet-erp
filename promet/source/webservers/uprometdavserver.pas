@@ -1621,6 +1621,8 @@ begin
                   else
                     aDataSet := aClass.Create(nil);
                   aDataSet.Select(TJSONArray(aData)[0].FindPath('sql_id').AsInt64);
+                  with aDataSet.DataSet as IBaseDbFilter do
+                    Fields := '';
                   aDataSet.Open;
                   if aDataSet.Count = 0 then
                     aDataSet.Append
@@ -1716,6 +1718,8 @@ begin
               ss.CopyFrom(Stream,0);
               try
                 aDataSet := aClass.Create(nil);
+                with aDataSet.DataSet as IBaseDbFilter do
+                  Fields := '';
                 aDataSet.ImportFromJSON(ss.DataString);
                 aDataSet.Free;
                 result := True;
@@ -1744,6 +1748,8 @@ begin
               ss.CopyFrom(Stream,0);
               try
                 aDataSet := aClass.Create(nil);
+                with aDataSet.DataSet as IBaseDbFilter do
+                  Fields := '';
                 aDataSet.ImportFromXML(ss.DataString);
                 aDataSet.Free;
                 result := True;
@@ -1843,8 +1849,10 @@ begin
   if (not Result) and (pos('login=',aSocket.Parameters.Values['cookie'])>0) then
     begin
       aUser := copy(aSocket.Parameters.Values['cookie'],pos('login=',aSocket.Parameters.Values['cookie'])+6,length(aSocket.Parameters.Values['cookie']));
-      aUser := copy(aUser,0,pos(';',aUser)-1);
-      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+      if pos(';',aUser)>0 then
+        aUser := copy(aUser,0,pos(';',aUser)-1);
+      if aUser <> '' then
+        aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
       Result := TWebDAVMaster(aSocket.Creator).OnUserLogin(aSocket,copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
     end;
   if pos('blobdata/',aDir)>0 then
