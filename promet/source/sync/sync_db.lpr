@@ -583,6 +583,7 @@ begin
               and (SyncDB.Tables.FieldByName('NAME').AsString<>'DOCUMENTS')
               and (SyncDB.Tables.FieldByName('NAME').AsString<>'DELETEDITEMS')
               and (SyncDB.Tables.FieldByName('NAME').AsString<>'MEASUREMENTS')
+              and (SyncDB.Tables.FieldByName('NAME').AsString<>'LINKS')
               then
                 begin
                   SyncDB.Tables.Edit;
