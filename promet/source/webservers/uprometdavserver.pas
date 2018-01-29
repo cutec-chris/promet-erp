@@ -881,7 +881,6 @@ var
   tmp: String;
   i: Integer;
   aParams: String;
-  aParamDec: TStringList;
   aWiki: TWikiList;
   aDS: TDataSet;
   QueryFields: TStringList;
@@ -901,7 +900,13 @@ begin
       aDir := copy(aDir,0,pos('?',aDir)-1);
     end;
   QueryFields := TStringList.Create;
-  QueryFields.Text:=aParams;
+  QueryFields.Delimiter:='=';
+  tmp := copy(aSocket.URI,pos('?',aSocket.URI)+1,length(aSocket.URI))+'&';
+  while pos('&',tmp)>0 do
+    begin
+      QueryFields.Add(copy(tmp,0,pos('&',tmp)-1));
+      tmp := copy(tmp,pos('&',tmp)+1,length(tmp));
+    end;
   aDir := HTTPDecode(aDir);
   aFullDir := aDir;
   if (aSocket.User='') and (pos('blobdata',aDir)=0) then exit;
@@ -1003,22 +1008,14 @@ begin
       Mimetype := '';
       if aLevel=1 then //direkt auf Dataset ebene
         begin
-          aParamDec := TStringList.Create;
-          aParamDec.Delimiter:='&';
-          tmp := copy(aSocket.URI,pos('?',aSocket.URI)+1,length(aSocket.URI))+'&';
-          while pos('&',tmp)>0 do
-            begin
-              aParamDec.Add(copy(tmp,0,pos('&',tmp)-1));
-              tmp := copy(tmp,pos('&',tmp)+1,length(tmp));
-            end;
           if aDir = 'list.json' then
             begin
               MimeType:='application/json';
               sl := TStringList.Create;
               sl.Add('[');
               aDataSet := aClass.Create(nil);
-              if aParamDec.Values['filter']<>'' then
-                aDataSet.ActualFilter:=aParamDec.Values['filter'];
+              if QueryFields.Values['filter']<>'' then
+                aDataSet.ActualFilter:=QueryFields.Values['filter'];
               if aDataSet is TTimes then
                 begin
                   if aDataSet.ActualFilter <> '' then
@@ -1026,7 +1023,7 @@ begin
                   else
                     aDataSet.ActualFilter:=Data.QuoteField('REF_ID')+'='+Data.QuoteField(Data.Users.Id.AsString);
                 end;
-              aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(aParamDec.Values['limit']),100);
+              aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(QueryFields.Values['limit']),100);
               aDataSet.Open;
               while not aDataSet.EOF do
                 begin
@@ -1078,7 +1075,6 @@ begin
                 end;
               aDataSet.Free;
             end;
-          aParamDec.Free;
         end
       else if aLevel=6 then
         begin
