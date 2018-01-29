@@ -747,6 +747,11 @@ begin
                               aItem.Properties.Values['creationdate'] := BuildISODate(Now());
                               aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
                               aDirList.Add(aItem);
+                              aItem := TDAVFile.Create(aFullDir+FieldByName('NAME').AsString+'.png',False);
+                              aItem.Properties.Values['getcontenttype'] := 'image/png';
+                              aItem.Properties.Values['creationdate'] := BuildISODate(Now());
+                              aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
+                              aDirList.Add(aItem);
                               Next;
                             end;
                         end;
@@ -1190,10 +1195,22 @@ begin
                         fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).Users.DataSet,False);
                         fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).PaymentTargets.DataSet,False);
                         fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).MandantDetails.DataSet,False);
-                        Result:=fWebReports.ExportToPDF(GetTempPath+DirectorySeparator+'rpv.pdf') and FileExists(GetTempPath+DirectorySeparator+'rpv.pdf');
+                        tmp := lowercase(copy(aDir,rpos('.',aDir)+1,length(aDir)));
+                        if tmp = 'pdf' then
+                          Result:=fWebReports.ExportToPDF(GetTempPath+DirectorySeparator+'rpv.'+tmp) and FileExists(GetTempPath+DirectorySeparator+'rpv.'+tmp)
+                        else if tmp = 'png' then
+                          Result:=fWebReports.ExportToPNG(GetTempPath+DirectorySeparator+'rpv.'+tmp) and FileExists(GetTempPath+DirectorySeparator+'rpv.'+tmp)
+//                        else if tmp = 'html' then
+//                          Result:=fWebReports.ExportToHTML(GetTempPath+DirectorySeparator+'rpv.'+tmp) and FileExists(GetTempPath+DirectorySeparator+'rpv.'+tmp)
+                        else Result := False;
                         if Result then
                           begin
-                            aFStream:= TFileStream.Create(GetTempPath+DirectorySeparator+'rpv.pdf',fmOpenRead);
+                            case tmp of
+                            'pdf':MimeType:='application/pdf';
+                            'png':MimeType:='image/png';
+                            'html':MimeType:='text/html';
+                            end;
+                            aFStream:= TFileStream.Create(GetTempPath+DirectorySeparator+'rpv.'+tmp,fmOpenRead);
                             Stream.CopyFrom(aFStream,0);
                             Stream.Position:=0;
                             aFStream.Free;
