@@ -44,7 +44,7 @@ var
 
 implementation
 
-uses uBaseApplication,Utils,LCLVersion,dateutils;
+uses uBaseApplication,Utils,LCLVersion,dateutils,Graphics;
 
 {$R *.lfm}
 
@@ -168,6 +168,12 @@ end;
 function TfWebReports.ExportToPNG(aFile: string): Boolean;
 var
   i: Integer;
+  aImg: TPortableNetworkGraphic;
+  tmp: String;
+  aNImg: TPortableNetworkGraphic;
+  aTop: Integer;
+  Changed: Boolean;
+  a: Integer;
 begin
   Result := False;
   LastError:='Unknown Error';
@@ -187,6 +193,26 @@ begin
           Report.ExportTo(frFilters[i].ClassRef,aFile);
           {$ENDIF}
           Result := True;
+          aImg := TPortableNetworkGraphic.Create;
+          aNImg := TPortableNetworkGraphic.Create;
+          aImg.LoadFromFile(aFile);
+          tmp := ChangeFileExt(aFile,'');
+          Changed := False;
+          a := 2;
+          while FileExists(tmp+'_'+IntToStr(a)+'.png') do
+            begin
+              aNImg.LoadFromFile(tmp+'_'+IntToStr(a)+'.png');
+              aTop := aImg.Height;
+              aImg.Height:=aImg.Height+aNImg.Height;
+              aImg.Canvas.Draw(0,aTop,aNImg);
+              DeleteFile(tmp+'_'+IntToStr(a)+'.png');
+              Changed := True;
+              inc(a);
+            end;
+          if Changed then
+            aImg.SaveToFile(aFile);
+          aImg.Free;
+          aNImg.Free;
         end;
     if not Result then
       LastError:='Report not found !';
