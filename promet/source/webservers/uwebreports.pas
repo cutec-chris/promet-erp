@@ -174,46 +174,44 @@ var
   aTop: Integer;
   Changed: Boolean;
   a: Integer;
+  FZoom: Integer;
+  FBmp: TPortableNetworkGraphic;
+  MaxX: Integer;
+  MaxY: Integer;
+  TmpVisible: Boolean;
 begin
   Result := False;
   LastError:='Unknown Error';
   try
-  {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
-  FOR i := 0 TO ExportFilters.Count - 1 DO
-     if pos('PDF',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
-  {$ELSE}
-  FOR i := 0 TO frFiltersCount - 1 DO
-     if pos('PNG',Uppercase(frFilters[i].FilterDesc)) > 0 then
-  {$ENDIF}
-      if Report.PrepareReport then
-        begin
-          {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
-          Report.ExportTo(ExportFilters[i].ClassRef,aFile);
-          {$ELSE}
-          Report.ExportTo(frFilters[i].ClassRef,aFile);
-          {$ENDIF}
-          Result := True;
-          aImg := TPortableNetworkGraphic.Create;
-          aNImg := TPortableNetworkGraphic.Create;
-          aImg.LoadFromFile(aFile);
-          tmp := ChangeFileExt(aFile,'');
-          Changed := False;
-          a := 2;
-          while FileExists(tmp+'_'+IntToStr(a)+'.png') do
-            begin
-              aNImg.LoadFromFile(tmp+'_'+IntToStr(a)+'.png');
-              aTop := aImg.Height;
-              aImg.Height:=aImg.Height+aNImg.Height;
-              aImg.Canvas.Draw(0,aTop,aNImg);
-              DeleteFile(tmp+'_'+IntToStr(a)+'.png');
-              Changed := True;
-              inc(a);
-            end;
-          if Changed then
-            aImg.SaveToFile(aFile);
-          aImg.Free;
-          aNImg.Free;
-        end;
+    if Report.PrepareReport then
+      begin
+        FBmp := TPortableNetworkGraphic.Create;
+        FZoom := 1;
+        MaxX := 0;
+        MaxY := 0;
+        for i := 0 to Report.EMFPages.Count-1 do
+           begin
+             if Round(Report.EMFPages[i]^.PrnInfo.Pgw * FZoom)>MaxX then
+               MaxX := Round(Report.EMFPages[i]^.PrnInfo.Pgw * FZoom);
+             MaxY := MaxY+Round(Report.EMFPages[i]^.PrnInfo.Pgh * FZoom);
+           end;
+        FBmp.SetSize(MaxX,MaxY);
+        FBmp.Canvas.Brush.Color := clWhite;
+        FBmp.Canvas.Brush.Style := bsSolid;
+        FBmp.Canvas.FillRect(0, 0, FBmp.Width, FBmp.Height);
+        MaxY := 0;
+        for i := 0 to Report.EMFPages.Count-1 do
+           begin
+             TmpVisible := CurReport.EMFPages[i]^.Visible;
+             CurReport.EMFPages[i]^.Visible := True;
+             CurReport.EMFPages.Draw(i, FBmp.Canvas, Rect(0, MaxY, Round(Report.EMFPages[i]^.PrnInfo.Pgw * FZoom), Round(Report.EMFPages[i]^.PrnInfo.Pgh * FZoom)));
+             CurReport.EMFPages[i]^.Visible := TmpVisible;
+             MaxY := MaxY+Round(Report.EMFPages[i]^.PrnInfo.Pgh * FZoom);
+           end;
+        FBmp.SaveToFile(aFile);
+        FBmp.Free;
+        Result := True;
+      end;
     if not Result then
       LastError:='Report not found !';
   except
