@@ -815,6 +815,10 @@ msgstr "Unknown"
 msgid "Unbekannter Datenbanktyp"
 msgstr "Unknown database type"
 
+#: uintfstrconsts.strunrepaired
+msgid "unrepariert"
+msgstr ""
+
 #: uintfstrconsts.strusernotfound
 msgid "benutzer nicht gefunden !"
 msgstr "User not found !"
