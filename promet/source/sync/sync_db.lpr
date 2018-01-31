@@ -47,7 +47,7 @@ type
     aFirstSyncedRow : TDateTime;
     function SyncRow(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
     function SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;
-      SyncCount: Integer=0): Integer;
+      SyncCount: Integer=0;aMinDate : TDateTime = 0): Integer;
     procedure CollectSubDataSets(SyncDB : TSyncDB;DestDM : TBaseDBModule);
   protected
     procedure DoRun; override;
@@ -266,7 +266,8 @@ begin
     end;
   end;
 end;
-function TSyncDBApp.SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;SyncCount : Integer = 0): Integer;
+function TSyncDBApp.SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;
+  SyncCount: Integer; aMinDate: TDateTime): Integer;
 function BuildFilter(aSourceDM,aDestDM : TBaseDBModule;aTime : TDateTime = 0) : string;
 var
   aFilter: String;
@@ -349,7 +350,7 @@ begin
       tCRT.Open;
       tCRT.Free;
     end;
-  if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-1)) then
+  if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) then
     begin
       SyncDB.Tables.DataSet.Edit;
       SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString:=Utils.GetSystemName;
@@ -379,6 +380,8 @@ begin
         if aFilter <> '' then
           bFilter := bFilter+' AND '+aFilter;
         aSyncTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
+        if (aMinDate>0) and (aMinDate<aSyncOutTime) then
+          aSyncTime:=aMinDate;
         if SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y' then
           begin
             with aSyncStamps.DataSet as IBaseDbFilter do
@@ -484,6 +487,7 @@ begin
                       //RestoreTime := True;
                     end;
                   end;
+                  if not aSyncOut.Active then break;
                   aSyncOut.Next;
                 end;
               aSyncOut.Destroy;
@@ -558,17 +562,21 @@ begin
     end
   else Info('Table "'+SyncDB.Tables.DataSet.FieldByName('NAME').AsString+'" ist gesperrt von anderem Prozess')
 end;
-
 procedure TSyncDBApp.CollectSubDataSets(SyncDB: TSyncDB; DestDM: TBaseDBModule);
 var
   aRec : Variant;
   aCRT: TBaseDBDatasetClass;
   tCRT: TBaseDBDataset;
   i: Integer;
+  nTableName: String;
 begin
   debug('SUBDATASETS for '+SyncDB.Tables.FieldByName('NAME').AsString);
   aRec := SyncDB.Tables.GetBookmark;
-  if DestDM.DataSetFromName(SyncDB.Tables.FieldByName('NAME').AsString,aCRT) then
+  case SyncDB.Tables.FieldByName('NAME').AsString of
+  'CUSTOMERS':nTableName := 'PERSONS'
+  else nTableName:=SyncDB.Tables.FieldByName('NAME').AsString;
+  end;
+  if DestDM.DataSetFromName(nTableName,aCRT) then
     begin
       tCRT := aCRT.CreateEx(nil,DestDM);
       with tCRT.DataSet as IBaseSubDataSets do
@@ -584,6 +592,7 @@ begin
               and (SyncDB.Tables.FieldByName('NAME').AsString<>'DELETEDITEMS')
               and (SyncDB.Tables.FieldByName('NAME').AsString<>'MEASUREMENTS')
               and (SyncDB.Tables.FieldByName('NAME').AsString<>'LINKS')
+              and (SyncDB.Tables.FieldByName('NAME').AsString<>'TASKS')
               then
                 begin
                   SyncDB.Tables.Edit;
@@ -598,7 +607,6 @@ begin
     debug('  -> has no Class');
   SyncDB.Tables.GotoBookmark(aRec);
 end;
-
 function TSyncDBApp.GetSingleInstance: Boolean;
 begin
   Result := False;
@@ -631,6 +639,7 @@ var
   SyncCount, aSyncCount, FOldSyncCount: Integer;
   BlockSizeReached: Boolean;
   aTableName: String;
+  aMS: TMemoryStream;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
@@ -647,50 +656,72 @@ var
     except
     end;
   end;
-  procedure DoSyncTables(IgnoreParent : Boolean = False);
+  procedure DoSyncTables(IgnoreParent : Boolean = False;MinimalDate : TDateTime = 0);
   var
     aRec2 : Variant;
+    aMinDate: TDateTime;
+    Fullsynced: Boolean;
   begin
     SyncDB.Tables.DataSet.First;
     while not SyncDB.Tables.DataSet.EOF do
       begin
         if ((GetOptionValue('table')='') or (GetOptionValue('table')=SyncDB.Tables.DataSet.FieldByName('NAME').AsString))
-        and (SyncDB.Tables.FieldByName('PARENT').IsNull or IgnoreParent) then
+        and (SyncDB.Tables.FieldByName('PARENT').IsNull or IgnoreParent)
+        then
           begin
             CollectSubDatasets(SyncDB,FDest.GetDB);
-            aTableName := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
-            FTables.Add(aTableName);
-            try
-              FSyncedCount:=2;
-              FOldSyncCount:=0;
-              if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString='' then
-                FOldTime:='a';
-              while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) and (FOldSyncCount<>FSyncedCount) do
-                begin
-                  FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
-                  FOldSyncCount := FSyncedCount;
-                  FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
-                  inc(SyncedTables,FSyncedCount);
+            if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) then
+              begin
+                aTableName := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
+                FTables.Add(aTableName);
+                try
+                  FSyncedCount:=2;
+                  FOldSyncCount:=0;
+                  Fullsynced := False;
+                  if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString='' then
+                    FOldTime:='a';
+                  while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) and (FOldSyncCount<>FSyncedCount) do
+                    begin
+                      FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
+                      FOldSyncCount := FSyncedCount;
+                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
+                      Fullsynced:=FSyncedCount < aSyncCount;
+                      inc(SyncedTables,FSyncedCount);
+                    end;
+                  if (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
+                    begin
+                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,MinimalDate);
+                      inc(SyncedTables,FSyncedCount);
+                    end;
+                except
+                  on e : Exception do
+                    begin
+                      Error(e.Message);
+                      FLog.Add('=====Error=====');
+                      FLog.Add(e.Message);
+                      SyncDB.Tables.Edit;
+                      SyncDB.Tables.FieldByName('LOCKEDBY').Clear;
+                      SyncDB.Tables.FieldByName('LOCKEDAT').Clear;
+                      SyncDB.Tables.Post;
+                    end;
                 end;
-              if (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
-                begin
-                  FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB);
-                  inc(SyncedTables,FSyncedCount);
-                end;
-            except
-              on e : Exception do
-                begin
-                  Error(e.Message);
-                  FLog.Add('=====Error=====');
-                  FLog.Add(e.Message);
-                end;
-            end;
-            //Sync Sub Tables
-            aRec2 := SyncDB.Tables.GetBookmark;
-            SyncDB.Tables.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(aRec2));
-            DoSyncTables(True);
-            SyncDB.Tables.Filter('');
-            SyncDB.Tables.GotoBookmark(aRec2);
+                //Sync Sub Tables
+                if Fullsynced then
+                  begin
+                    aRec2 := SyncDB.Tables.GetBookmark;
+                    aMinDate:=0;
+                    if SyncDB.Tables.FieldByName('LTIMESTAMP').AsString<>'' then
+                      begin
+                        aMinDate := SyncDB.Tables.FieldByName('LTIMESTAMP').AsDateTime;
+                        if (aMinDate>MinimalDate) and (MinimalDate>0) then
+                          aMinDate:=MinimalDate;
+                      end;
+                    SyncDB.Tables.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(aRec2));
+                    DoSyncTables(True,aMinDate);
+                    SyncDB.Tables.Filter('');
+                    SyncDB.Tables.GotoBookmark(aRec2);
+                  end;
+              end;
           end;
         SyncDB.Tables.DataSet.Next;
       end;
@@ -786,7 +817,7 @@ begin
                                     aSyncCount := 0;
                                     BlockSizeReached := False;
                                     SyncCount := 0;
-                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
+                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),2500);
                                     SyncedTables:=0;
                                     DoSyncTables;
                                   end;
@@ -813,8 +844,11 @@ begin
                       aMessage.DataSet.FieldByName('SENDDATE').AsDateTime := Now();
                       aMessage.DataSet.FieldByName('READ').AsString := 'N';
                       aMessage.DataSet.FieldByName('DATATYP').AsString:='PLAIN';
-                      aMessage.DataSet.FieldByName('DATA').AsString:=FLog.Text;
                       aMessage.DataSet.Post;
+                      aMS := TMemoryStream.Create;
+                      Flog.SaveToStream(aMS);
+                      Data.StreamToBlobField(aMS,aMessage.DataSet,'DATA');
+                      aMS.Free;
                       aMessage.Free;
                       FLog.Clear;
                     end;
