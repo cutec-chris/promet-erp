@@ -1210,7 +1210,7 @@ begin
                             Stream.CopyFrom(aFStream,0);
                             Stream.Position:=0;
                             aFStream.Free;
-                            DeleteFile(UniToSys(GetTempPath+DirectorySeparator+'rpv.'+tmp));
+                            //TODO:DeleteFile(UniToSys(GetTempPath+DirectorySeparator+'rpv.'+tmp));
                           end
                         else
                           begin

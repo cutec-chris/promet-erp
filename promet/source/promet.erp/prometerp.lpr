@@ -59,7 +59,7 @@ begin
       aProcess.Options:=[];
       aProcess.CommandLine:=AppendPathDelim(Application.Location)+NewName;
       for i :=  1 to Paramcount do
-        aProcess.CommandLine := aProcess.CommandLine+' '+ParamStrUTF8(i);
+        aProcess.CommandLine := aProcess.CommandLine+' '+ParamStr(i);
       aProcess.Execute;
       aProcess.Free;
       Application.Terminate;
