@@ -16,6 +16,8 @@ msgid "neuer Artikel"
 msgstr "new Aticle"
 
 #: uarticleframe.strpiecelist
+#, fuzzy
+#| msgid "StÃ¼ckliste"
 msgid "Stückliste"
 msgstr "Piecelist"
 

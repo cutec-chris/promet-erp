@@ -752,6 +752,11 @@ begin
                               aItem.Properties.Values['creationdate'] := BuildISODate(Now());
                               aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
                               aDirList.Add(aItem);
+                              aItem := TDAVFile.Create(aFullDir+FieldByName('NAME').AsString+'.html',False);
+                              aItem.Properties.Values['getcontenttype'] := 'text/html';
+                              aItem.Properties.Values['creationdate'] := BuildISODate(Now());
+                              aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
+                              aDirList.Add(aItem);
                               Next;
                             end;
                         end;
@@ -892,6 +897,8 @@ var
   SubDetailDataSet: TDataSet = nil;
   aDirList: TDAVDirectoryList;
   nStream: TStream;
+  aFS: TFileStream;
+  aMS: TStringStream;
 begin
   Result := False;
   if pos('?',aDir)>0 then
@@ -1196,8 +1203,15 @@ begin
                           Result:=fWebReports.ExportToPDF(GetTempPath+DirectorySeparator+'rpv.'+tmp) and FileExists(GetTempPath+DirectorySeparator+'rpv.'+tmp)
                         else if tmp = 'png' then
                           Result:=fWebReports.ExportToPNG(GetTempPath+DirectorySeparator+'rpv.'+tmp) and FileExists(GetTempPath+DirectorySeparator+'rpv.'+tmp)
-//                        else if tmp = 'html' then
-//                          Result:=fWebReports.ExportToHTML(GetTempPath+DirectorySeparator+'rpv.'+tmp) and FileExists(GetTempPath+DirectorySeparator+'rpv.'+tmp)
+                        else if tmp = 'html' then
+                          begin
+                            aMS := TStringStream.Create(fWebReports.ExportToHTML);
+                            aFS := TFileStream.Create(GetTempPath+DirectorySeparator+'rpv.'+tmp,fmCreate);
+                            aFS.CopyFrom(aMS,0);
+                            aFS.Free;
+                            aMS.Free;
+                            Result := True;
+                          end
                         else Result := False;
                         if Result then
                           begin

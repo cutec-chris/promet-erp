@@ -12,6 +12,8 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 
 #: uprojectoverviewframe.strprojectoverview
+#, fuzzy
+#| msgid "ProjektÃ¼bersicht"
 msgid "Projektübersicht"
 msgstr "Projectoverview"
 
