@@ -152,6 +152,7 @@ begin
 end;
 destructor TProcessManager.Destroy;
 begin
+  Info('Shutting down ...');
   if Assigned(Data) then
     Data.ProcessClient.ShutDown;
   inherited Destroy;

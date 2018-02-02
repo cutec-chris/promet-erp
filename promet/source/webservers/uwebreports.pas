@@ -23,6 +23,7 @@ type
     frShapeObject1: TfrShapeObject;
     frTextExport1: TfrTextExport;
     frTNPDFExport1: TfrTNPDFExport;
+    procedure DataModuleDestroy(Sender: TObject);
     procedure ReportGetValue(const ParName: String; var ParValue: Variant);
   private
     { private declarations }
@@ -58,6 +59,20 @@ begin
   else if uppercase(ParName) = 'WEEKDAY' then
     ParValue := IntToStr(DayOfTheWeek(Now()))
   ;
+end;
+
+procedure TfWebReports.DataModuleDestroy(Sender: TObject);
+var
+  i : Integer;
+begin
+  while i < ComponentCount do
+    if Components[i] is TfrDBDataSet then
+      Components[i].Free
+    else inc(i);
+  while i < ComponentCount do
+    if Components[i] is TDatasource then
+      Components[i].Free
+    else inc(i);
 end;
 
 function TfWebReports.ExportToPDF(aFile : string): Boolean;

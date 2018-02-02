@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="10"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -49,6 +49,9 @@
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
+          <Other>
+            <WriteFPCLogo Value="False"/>
+          </Other>
         </CompilerOptions>
       </Item2>
       <Item3 Name="Release">
@@ -81,16 +84,9 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--mandant=TCS"/>
+        <FormatVersion Value="1"/>
+        <CommandLineParams Value="--mandant=TCS --restarttime=1"/>
       </local>
-      <FormatVersion Value="2"/>
-      <Modes Count="1">
-        <Mode0 Name="default">
-          <local>
-            <CommandLineParams Value="--mandant=TCS"/>
-          </local>
-        </Mode0>
-      </Modes>
     </RunParams>
     <RequiredPackages Count="6">
       <Item1>
