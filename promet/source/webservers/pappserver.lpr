@@ -20,6 +20,8 @@ Created 01.06.2010
 program pappserver;
 {$mode objfpc}{$H+}
 uses
+  {$define FPC_HEAPTRC_EXTRA}
+  heaptrc_big,
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}

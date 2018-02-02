@@ -6,7 +6,7 @@ msgid "Setzen Sie die Quelle / Einstellungen der Datenquelle und klicken Sie OK"
 msgstr ""
 
 #: uscriptimport.strcreateanformat
-msgid "Bitte erstellen Sei ein Datenformat. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf."
+msgid "Bitte erstellen Sei ein Datenformat. Geben Sie dazu einen Namen fÃ¼r das neue Format ein, und klicken Sie den Konfigurieren Knopf."
 msgstr ""
 
 #: uscriptimport.strdatadestination
@@ -34,18 +34,18 @@ msgid "Datenquellenklasse wurde nicht gefunden !"
 msgstr ""
 
 #: uscriptimport.strpleaseenteranformatname
-msgid "Bitte geben Sie einen Namen für das Format an !"
+msgid "Bitte geben Sie einen Namen fÃ¼r das Format an !"
 msgstr ""
 
 #: uscriptimport.strpleasselectanimportfilebeforeedit
-msgid "Bitte wählen Sie eine Datenquellenklasse !"
+msgid "Bitte wÃ¤hlen Sie eine Datenquellenklasse !"
 msgstr ""
 
 #: uscriptimport.strselectandatasource
-msgid "Bitte wählen Sie eine Datenquelle"
+msgid "Bitte wÃ¤hlen Sie eine Datenquelle"
 msgstr ""
 
 #: uscriptimport.strselectanformat
-msgid "Bitte wählen Sie ein Datenformat, oder erstellen Sie ein neues. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf."
+msgid "Bitte wÃ¤hlen Sie ein Datenformat, oder erstellen Sie ein neues. Geben Sie dazu einen Namen fÃ¼r das neue Format ein, und klicken Sie den Konfigurieren Knopf."
 msgstr ""
 

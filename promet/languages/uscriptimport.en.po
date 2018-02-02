@@ -16,7 +16,9 @@ msgid "Setzen Sie die Quelle / Einstellungen der Datenquelle und klicken Sie OK"
 msgstr "Set the Source/Settings for the datasource and click OK"
 
 #: uscriptimport.strcreateanformat
-msgid "Bitte erstellen Sei ein Datenformat. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf."
+#, fuzzy
+#| msgid "Bitte erstellen Sei ein Datenformat. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf."
+msgid "Bitte erstellen Sei ein Datenformat. Geben Sie dazu einen Namen fÃ¼r das neue Format ein, und klicken Sie den Konfigurieren Knopf."
 msgstr "Please create an dataformat. For that you have to enter an Name and click the configure button."
 
 #: uscriptimport.strdatadestination
@@ -44,18 +46,26 @@ msgid "Datenquellenklasse wurde nicht gefunden !"
 msgstr "Dataclass wasnt found !"
 
 #: uscriptimport.strpleaseenteranformatname
-msgid "Bitte geben Sie einen Namen für das Format an !"
+#, fuzzy
+#| msgid "Bitte geben Sie einen Namen für das Format an !"
+msgid "Bitte geben Sie einen Namen fÃ¼r das Format an !"
 msgstr "Please enter an Name for the Format !"
 
 #: uscriptimport.strpleasselectanimportfilebeforeedit
-msgid "Bitte wählen Sie eine Datenquellenklasse !"
+#, fuzzy
+#| msgid "Bitte wählen Sie eine Datenquellenklasse !"
+msgid "Bitte wÃ¤hlen Sie eine Datenquellenklasse !"
 msgstr "Please enter an Name for the dataclass !"
 
 #: uscriptimport.strselectandatasource
-msgid "Bitte wählen Sie eine Datenquelle"
+#, fuzzy
+#| msgid "Bitte wählen Sie eine Datenquelle"
+msgid "Bitte wÃ¤hlen Sie eine Datenquelle"
 msgstr "Please select an Datasource"
 
 #: uscriptimport.strselectanformat
-msgid "Bitte wählen Sie ein Datenformat, oder erstellen Sie ein neues. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf."
+#, fuzzy
+#| msgid "Bitte wählen Sie ein Datenformat, oder erstellen Sie ein neues. Geben Sie dazu einen Namen für das neue Format ein, und klicken Sie den Konfigurieren Knopf."
+msgid "Bitte wÃ¤hlen Sie ein Datenformat, oder erstellen Sie ein neues. Geben Sie dazu einen Namen fÃ¼r das neue Format ein, und klicken Sie den Konfigurieren Knopf."
 msgstr "Please create an dataformat or create an new. For that you have to enter an Name and click the configure button."
 

@@ -206,6 +206,7 @@ begin
                 sl.Add(']');
                 sl.Add('}');
                 sl.SaveToStream(Output);
+                sl.Free;
                 Output.Position:=0;
               end;
           end;
