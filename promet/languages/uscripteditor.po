@@ -26,7 +26,7 @@ msgid "Script wurde noch nicht gespeichert, jetzt speichern?"
 msgstr ""
 
 #: uscripteditor.str_successfully_executed
-msgid "Erfolgreich ausgefÃ¼hrt"
+msgid "Erfolgreich ausgeführt"
 msgstr ""
 
 #: uscripteditor.str_text_notfound

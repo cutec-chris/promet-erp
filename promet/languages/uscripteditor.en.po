@@ -38,7 +38,7 @@ msgstr "Script wasnt saved until now, save ?"
 #: uscripteditor.str_successfully_executed
 #, fuzzy
 #| msgid "Erfolgreich ausgeführt"
-msgid "Erfolgreich ausgefÃ¼hrt"
+msgid "Erfolgreich ausgeführt"
 msgstr "Successfully executed"
 
 #: uscripteditor.str_text_notfound
