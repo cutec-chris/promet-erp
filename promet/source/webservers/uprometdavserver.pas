@@ -1224,7 +1224,7 @@ begin
                             Stream.CopyFrom(aFStream,0);
                             Stream.Position:=0;
                             aFStream.Free;
-                            //TODO:DeleteFile(UniToSys(GetTempPath+DirectorySeparator+'rpv.'+tmp));
+                            DeleteFile(UniToSys(GetTempPath+DirectorySeparator+'rpv.'+tmp));
                           end
                         else
                           begin
@@ -1892,6 +1892,7 @@ function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
   aPassword: string): Boolean;
 begin
   CreateDataModule(aSocket);
+  if not Assigned(BaseApplication) then exit;
   if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
   and (TBaseDBModule(aSocket.Data).Users.Active)
   and ((TBaseDBModule(aSocket.Data).Users.FieldByName('NAME').AsString=BaseApplication.GetOptionValue('u','user')) or (TBaseDBModule(aSocket.Data).Users.FieldByName('LOGINNAME').AsString=BaseApplication.GetOptionValue('u','user')))
