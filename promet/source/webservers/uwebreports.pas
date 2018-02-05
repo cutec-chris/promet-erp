@@ -5,9 +5,9 @@ unit uwebreports;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LR_e_htmldiv, LR_e_img, LR_Class, LR_DBSet,
+  Classes, SysUtils, FileUtil, LR_Class, LR_DBSet,
   LR_BarC, LR_RRect, LR_Shape, LR_E_TXT, LR_E_HTM, lr_e_pdf, uBaseDbClasses,
-  uBaseDBInterface, uBaseDatasetInterfaces, db;
+  uBaseDBInterface, uBaseDatasetInterfaces, db, LR_e_img;
 
 type
 

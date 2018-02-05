@@ -46,7 +46,7 @@ object fWebReports: TfWebReports
     top = 184
   end
   object frImageExport1: TfrImageExport
-    left = 97
-    top = 237
+    left = 96
+    top = 240
   end
 end

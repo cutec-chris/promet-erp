@@ -1869,6 +1869,7 @@ var
   aUser: String;
 begin
   if aSocket=nil then exit;
+  if not Assigned(BaseApplication) then exit;
   CreateDataModule(aSocket);
   if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
   and (TBaseDBModule(aSocket.Data).Users.Active)
