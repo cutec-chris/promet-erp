@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LR_Class, LR_DBSet,
   LR_BarC, LR_RRect, LR_Shape, LR_E_TXT, LR_E_HTM, lr_e_pdf, uBaseDbClasses,
-  uBaseDBInterface, uBaseDatasetInterfaces, db, LR_e_img;
+  uBaseDBInterface, uBaseDatasetInterfaces, db, LR_e_img, Printers;
 
 type
 
@@ -86,6 +86,7 @@ begin
   FOR i := 0 TO ExportFilters.Count - 1 DO
      if pos('PDF',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
   {$ELSE}
+  Printer.PrinterIndex:=-1;
   FOR i := 0 TO frFiltersCount - 1 DO
      if pos('PDF',Uppercase(frFilters[i].FilterDesc)) > 0 then
   {$ENDIF}
@@ -201,6 +202,7 @@ begin
   FOR i := 0 TO ExportFilters.Count - 1 DO
      if pos('PNG',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
   {$ELSE}
+  Printer.PrinterIndex:=-1;
   FOR i := 0 TO frFiltersCount - 1 DO
      if pos('PNG',Uppercase(frFilters[i].FilterDesc)) > 0 then
   {$ENDIF}
