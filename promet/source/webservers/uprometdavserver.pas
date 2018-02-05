@@ -1199,13 +1199,27 @@ begin
                         fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).PaymentTargets.DataSet,False);
                         fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).MandantDetails.DataSet,False);
                         tmp := lowercase(copy(aDir,rpos('.',aDir)+1,length(aDir)));
+                        DeleteFile(UniToSys(GetTempPath+DirectorySeparator+'rpv.'+tmp));
                         if tmp = 'pdf' then
                           Result:=fWebReports.ExportToPDF(GetTempPath+DirectorySeparator+'rpv.'+tmp) and FileExists(GetTempPath+DirectorySeparator+'rpv.'+tmp)
-                        else if tmp = 'png' then
-                          Result:=fWebReports.ExportToPNG(GetTempPath+DirectorySeparator+'rpv.'+tmp) and FileExists(GetTempPath+DirectorySeparator+'rpv.'+tmp)
+                        else if (tmp = 'png')
+                             or (tmp = 'jpg')
+                             or (tmp = 'jpeg')
+                             or (tmp = 'bmp')
+                             then
+                          Result:=fWebReports.ExportToImage(GetTempPath+DirectorySeparator+'rpv.'+tmp) and FileExists(GetTempPath+DirectorySeparator+'rpv.'+tmp)
                         else if tmp = 'html' then
                           begin
                             aMS := TStringStream.Create(fWebReports.ExportToHTML);
+                            aFS := TFileStream.Create(GetTempPath+DirectorySeparator+'rpv.'+tmp,fmCreate);
+                            aFS.CopyFrom(aMS,0);
+                            aFS.Free;
+                            aMS.Free;
+                            Result := True;
+                          end
+                        else if tmp = 'txt' then
+                          begin
+                            aMS := TStringStream.Create(fWebReports.ExportToText);
                             aFS := TFileStream.Create(GetTempPath+DirectorySeparator+'rpv.'+tmp,fmCreate);
                             aFS.CopyFrom(aMS,0);
                             aFS.Free;
@@ -1224,7 +1238,6 @@ begin
                             Stream.CopyFrom(aFStream,0);
                             Stream.Position:=0;
                             aFStream.Free;
-                            DeleteFile(UniToSys(GetTempPath+DirectorySeparator+'rpv.'+tmp));
                           end
                         else
                           begin

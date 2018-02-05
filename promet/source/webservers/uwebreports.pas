@@ -33,7 +33,7 @@ type
     function ExportToPDF(aFile: string): Boolean;
     function ExportToHTML : string;
     function ExportToText : string;
-    function ExportToPNG(aFile: string): Boolean;
+    function ExportToImage(aFile: string): Boolean;
     procedure RegisterDataSet(aDataSet: TDataset; DeleteComponents: Boolean=True;
       aIdent: Integer=0);
     procedure ManualRegisterDataSet(aDataSet: TDataset; aName: string;
@@ -118,7 +118,7 @@ begin
   try
   {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
   FOR i := 0 TO ExportFilters.Count - 1 DO
-     if pos('PDF',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
+     if pos('HTML',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
   {$ELSE}
   FOR i := 0 TO frFiltersCount - 1 DO
      if pos('HTML',Uppercase(frFilters[i].FilterDesc)) > 0 then
@@ -155,7 +155,7 @@ begin
   try
   {$IF ((LCL_MAJOR >= 1) and (LCL_MINOR > 5))}
   FOR i := 0 TO ExportFilters.Count - 1 DO
-     if pos('PDF',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
+     if pos('TXT',Uppercase(ExportFilters[i].FilterDesc)) > 0 then
   {$ELSE}
   FOR i := 0 TO frFiltersCount - 1 DO
      if pos('TXT',Uppercase(frFilters[i].FilterDesc)) > 0 then
@@ -180,7 +180,7 @@ begin
   end;
 end;
 
-function TfWebReports.ExportToPNG(aFile: string): Boolean;
+function TfWebReports.ExportToImage(aFile: string): Boolean;
 var
   i: Integer;
   aImg: TPortableNetworkGraphic;
