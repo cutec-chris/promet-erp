@@ -157,3 +157,6 @@
 [submodule "promet/source/scripts/plugins/dxfwrite"]
 	path = promet/source/scripts/plugins/dxfwrite
 	url = https://github.com/cutec-chris/script-plugin-dxfwrite.git
+[submodule "promet/source/components/fpreport"]
+	path = promet/source/components/fpreport
+	url = https://github.com/cutec-chris/fpReport.git
