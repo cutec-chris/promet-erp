@@ -58,11 +58,7 @@ var
   i : Integer;
 begin
   while i < ComponentCount do
-    if Components[i] is TComponent then
-      Components[i].Free
-    else inc(i);
-  while i < ComponentCount do
-    if Components[i] is TDatasource then
+    if Components[i] is TFPReportDatasetData then
       Components[i].Free
     else inc(i);
   Report.Free;
@@ -125,11 +121,7 @@ begin
   if DeleteComponents then
     begin
       while i < ComponentCount do
-        if Components[i] is TComponent then
-          Components[i].Free
-        else inc(i);
-      while i < ComponentCount do
-        if Components[i] is TDatasource then
+        if Components[i] is TFPReportDatasetData then
           Components[i].Free
         else inc(i);
     end;
@@ -173,11 +165,7 @@ begin
   if DeleteComponents then
     begin
       while i < ComponentCount do
-        if Components[i] is TComponent then
-          Components[i].Free
-        else inc(i);
-      while i < ComponentCount do
-        if Components[i] is TDatasource then
+        if Components[i] is TFPReportDatasetData then
           Components[i].Free
         else inc(i);
     end;
@@ -315,10 +303,8 @@ begin
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
                           TFPReportMemo(aObj).Text:=SysToUTF8(GetProperty(aDataNode,'Memo'));
                           TFPReportMemo(aObj).Frame.BackgroundColor:=StringToColor(GetProperty(nPage.ChildNodes.Item[j],'FillColor'));
-                          if pos(aData.Name+'.',TFPReportMemo(aObj).Text)>0 then
-                            TFPReportMemo(aObj).Text := StringReplace(TFPReportMemo(aObj).Text,aData.Name+'.','',[rfReplaceAll]);
                           if pos(copy(aData.Name,2,system.length(aData.Name))+'.',TFPReportMemo(aObj).Text)>0 then
-                            TFPReportMemo(aObj).Text := StringReplace(TFPReportMemo(aObj).Text,copy(aData.Name,2,system.length(aData.Name))+'.','',[rfReplaceAll]);
+                            TFPReportMemo(aObj).Text := StringReplace(TFPReportMemo(aObj).Text,copy(aData.Name,2,system.length(aData.Name))+'.',aData.Name+'.',[rfReplaceAll]);
                         end;
                       end;
                       if Assigned(aObj) and (aObj is TFPReportElement) then
