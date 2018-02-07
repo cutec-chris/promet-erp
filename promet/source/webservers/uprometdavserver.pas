@@ -1153,7 +1153,7 @@ begin
                           with BaseApplication as IBaseApplication do
                             begin
                               TBaseDBModule(aSocket.Data).BlobFieldToFile(TBaseDBModule(aSocket.Data).Reports.DataSet,'REPORT',GetInternalTempDir+'preport.lrf');
-                              fWebReports.Report.LoadFromFile(GetInternalTempDir+'preport.lrf');
+                              fWebReports.LoadFromFile(GetInternalTempDir+'preport.lrf');
                               DeleteFile(UniToSys(GetInternalTempDir+'preport.lrf'));
                               Result := True;
                             end;
