@@ -302,6 +302,13 @@ begin
                           aObj := TFPReportMemo.Create(ourBand);
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
                           TFPReportMemo(aObj).Text:=SysToUTF8(GetProperty(aDataNode,'Memo'));
+                          aDataNode := nPage.ChildNodes.Item[j].FindNode('Font');
+{
+                          if (GetProperty(aDataNode,'Name')='') or (Report.) then
+                            TFPReportMemo(aObj).Font.Name:='ArialMT'
+                          else
+                            TFPReportMemo(aObj).Font.Name:=GetProperty(aDataNode,'Name')+'MT';}
+                          TFPReportMemo(aObj).Font.Size:=StrToIntDef(GetProperty(aDataNode,'Size'),TFPReportMemo(aObj).Font.Size);
                           TFPReportMemo(aObj).Frame.BackgroundColor:=StringToColor(GetProperty(nPage.ChildNodes.Item[j],'FillColor'));
                           if pos(copy(aData.Name,2,system.length(aData.Name))+'.',TFPReportMemo(aObj).Text)>0 then
                             TFPReportMemo(aObj).Text := StringReplace(TFPReportMemo(aObj).Text,copy(aData.Name,2,system.length(aData.Name))+'.',aData.Name+'.',[rfReplaceAll]);
