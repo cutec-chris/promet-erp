@@ -1147,6 +1147,45 @@ begin
                 begin
                   fWebReports := TfWebReports.Create(nil);
                   try
+                  if aDataSet is TStatistic then
+                    begin
+                      if Assigned(StatisticResultsDataSet) then
+                        StatisticResultsDataSet.Free;
+                      StatisticResultsDataSet := Data.GetNewDataSet(TStatistic(aDataSet).BuildQuerry(QueryFields));
+                      StatisticResultsDataSet.Open;
+                      for i := 0 to StatisticResultsDataSet.Fields.Count-1 do
+                        begin
+                          if (StatisticResultsDataSet.Fields[i].DataType=ftString)
+                          or (StatisticResultsDataSet.Fields[i].DataType=ftMemo)
+                          then
+//                                  StatisticResultsDataSet.Fields[i].OnGetText:=@DataSetFieldsFieldsGetText
+                          else if (StatisticResultsDataSet.Fields[i].DataType=ftFloat) then
+                            TFloatField(StatisticResultsDataSet.Fields[i]).DisplayFormat:='########.##';
+                        end;
+                      fWebReports.ManualRegisterDataSet(StatisticResultsDataSet,'StatisticResults',False);
+                      if trim(aDataSet.FieldByName('DETAIL').AsString) <> '' then
+                        begin
+                          if Assigned(DetailDataSet) then
+                            DetailDataSet.Free;
+                          DetailDataSet := Data.GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('DETAIL').AsString),aDataSet.Connection,StatisticResultsDataSet);
+                          DetailDataSet.Open;
+                          fWebReports.ManualRegisterDataSet(DetailDataSet,'Details',False);
+                          if trim(aDataSet.FieldByName('SUBDETAIL').AsString) <> '' then
+                            begin
+                              if Assigned(SubDetailDataSet) then
+                                SubDetailDataSet.Free;
+                              SubDetailDataSet := Data.GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('SUBDETAIL').AsString),aDataSet.Connection,DetailDataSet);
+                              SubDetailDataSet.Open;
+                              fWebReports.ManualRegisterDataSet(SubDetailDataSet,'SubDetails',False);
+                            end;
+                        end;
+                    end
+                  else
+                    fWebReports.RegisterDataSet(aDataSet.DataSet,False);
+                  fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).Users.DataSet,False);
+                  fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).PaymentTargets.DataSet,False);
+                  fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).MandantDetails.DataSet,False);
+                  tmp := lowercase(copy(aDir,rpos('.',aDir)+1,length(aDir)));
                     with TBaseDBModule(aSocket.Data).Reports.FieldByName('REPORT') as TBlobField do
                       if not TBaseDBModule(aSocket.Data).Reports.FieldByName('REPORT').IsNull then
                         begin
@@ -1160,45 +1199,6 @@ begin
                         end;
                     if Result then
                       begin
-                        if aDataSet is TStatistic then
-                          begin
-                            if Assigned(StatisticResultsDataSet) then
-                              StatisticResultsDataSet.Free;
-                            StatisticResultsDataSet := Data.GetNewDataSet(TStatistic(aDataSet).BuildQuerry(QueryFields));
-                            StatisticResultsDataSet.Open;
-                            for i := 0 to StatisticResultsDataSet.Fields.Count-1 do
-                              begin
-                                if (StatisticResultsDataSet.Fields[i].DataType=ftString)
-                                or (StatisticResultsDataSet.Fields[i].DataType=ftMemo)
-                                then
-//                                  StatisticResultsDataSet.Fields[i].OnGetText:=@DataSetFieldsFieldsGetText
-                                else if (StatisticResultsDataSet.Fields[i].DataType=ftFloat) then
-                                  TFloatField(StatisticResultsDataSet.Fields[i]).DisplayFormat:='########.##';
-                              end;
-                            fWebReports.ManualRegisterDataSet(StatisticResultsDataSet,'StatisticResults',False);
-                            if trim(aDataSet.FieldByName('DETAIL').AsString) <> '' then
-                              begin
-                                if Assigned(DetailDataSet) then
-                                  DetailDataSet.Free;
-                                DetailDataSet := Data.GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('DETAIL').AsString),aDataSet.Connection,StatisticResultsDataSet);
-                                DetailDataSet.Open;
-                                fWebReports.ManualRegisterDataSet(DetailDataSet,'Details',False);
-                                if trim(aDataSet.FieldByName('SUBDETAIL').AsString) <> '' then
-                                  begin
-                                    if Assigned(SubDetailDataSet) then
-                                      SubDetailDataSet.Free;
-                                    SubDetailDataSet := Data.GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('SUBDETAIL').AsString),aDataSet.Connection,DetailDataSet);
-                                    SubDetailDataSet.Open;
-                                    fWebReports.ManualRegisterDataSet(SubDetailDataSet,'SubDetails',False);
-                                  end;
-                              end;
-                          end
-                        else
-                          fWebReports.RegisterDataSet(aDataSet.DataSet,False);
-                        fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).Users.DataSet,False);
-                        fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).PaymentTargets.DataSet,False);
-                        fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).MandantDetails.DataSet,False);
-                        tmp := lowercase(copy(aDir,rpos('.',aDir)+1,length(aDir)));
                         DeleteFile(UniToSys(GetTempPath+DirectorySeparator+'rpv.'+tmp));
                         if tmp = 'pdf' then
                           Result:=fWebReports.ExportToPDF(GetTempPath+DirectorySeparator+'rpv.'+tmp) and FileExists(GetTempPath+DirectorySeparator+'rpv.'+tmp)

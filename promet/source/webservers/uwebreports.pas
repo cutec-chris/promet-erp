@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, uBaseDbClasses,
   uBaseDBInterface, uBaseDatasetInterfaces, db,
   fpreport, fpreportfpimageexport, fpreporthtmlexport, fpreportpdfexport,fpreportdb,
-  DOM,XMLRead;
+  DOM,XMLRead,fpjsonreport;
 
 type
 
@@ -19,7 +19,7 @@ type
     { private declarations }
   public
     { public declarations }
-    Report: TFPReport;
+    Report: TFPJSONReport;
     LastError : string;
     function ExportToPDF(aFile: string): Boolean;
     function ExportToHTML : string;
@@ -39,7 +39,7 @@ var
 
 implementation
 
-uses uBaseApplication,Utils,dateutils;
+uses uBaseApplication,Utils,dateutils,Graphics;
 
 { TfWebReports }
 {
@@ -149,7 +149,7 @@ begin
             aDS.DataSet := aDataSet;
             aDataSet.Open;
             Self.InsertComponent(aDS);
-            //debugln(Format('%'+IntToStr(aIdent)+'s',[''])+'DataSet registered:'+NewTableName+'=',aDataSet.RecordCount);
+            //writeln(Format('%'+IntToStr(aIdent)+'s',[''])+'DataSet registered:'+NewTableName+'=',aDataSet.RecordCount);
             with aDataSet as IBaseSubDataSets do
               begin
                 for i := 0 to GetCount-1 do
@@ -211,6 +211,11 @@ var
   aBand: TFPReportCustomBand;
   aObj: TFPReportElement;
   aDataNode: TDOMNode;
+  tmp: String;
+  ourBand: TFPReportCustomBand;
+  OffsetTop: TFPReportUnits;
+  OffsetLeft: TFPReportUnits;
+  aData: TFPReportData;
 
   function GetProperty(aNode : TDOMNode;aName : string) : string;
   var
@@ -223,7 +228,30 @@ var
         Result := bNode.Attributes.GetNamedItem('Value').NodeValue;
   end;
 
+  function PixelsToMM(Const Dist: double) : TFPReportUnits;
+  begin
+    Result:=Dist*(1/2.83);
+  end;
+
+  function FindBand(aPage : TFPReportPage;aTop : double) : TFPReportCustomBand;
+  var
+    b : Integer;
+  begin
+    Result := nil;
+    for b := 0 to aPage.BandCount-1 do
+      begin
+        if (aTop>=aPage.Bands[b].Layout.Top)
+        and (aTop<=aPage.Bands[b].Layout.Top+aPage.Bands[b].Layout.Height) then
+          begin
+            Result := aPage.Bands[b];
+            break;
+          end;
+      end;
+  end;
+
 begin
+  if PaperManager.PaperCount=0 then
+    PaperManager.RegisterStandardSizes;
   ReadXMLFile(LazReport, aFile);
   BaseNode := LazReport.DocumentElement.FindNode('LazReport');
   if not Assigned(BaseNode) then exit;
@@ -234,45 +262,102 @@ begin
       with Pages.ChildNodes do
         begin
           for i := 0 to (Count - 1) do
-            if copy(Item[i].NodeName,0,4)='Page' then
+            if (copy(Item[i].NodeName,0,4)='Page') and (Item[i].NodeName<>'PageCount') then
               begin
                 aPage := TFPReportPage.Create(Report);
                 aPage.PageSize.PaperName:='A4';
+                if GetProperty(Item[i],'Width')<>'' then
+                  aPage.PageSize.Width := round(PixelsToMM(StrToFloatDef(GetProperty(Item[i],'Width'),aPage.PageSize.Width)));
+                if GetProperty(Item[i],'Height')<>'' then
+                  aPage.PageSize.Height := round(PixelsToMM(StrToFloatDef(GetProperty(Item[i],'Height'),aPage.PageSize.Width)));
+                aDataNode := Item[i].FindNode('Margins');
+                if Assigned(aDataNode) then
+                  begin
+                    aPage.Margins.Top:=PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Top'),aPage.Margins.Top));
+                    aPage.Margins.Left:=PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'left'),aPage.Margins.Left));
+                    aPage.Margins.Right:=PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Right'),aPage.Margins.Right));
+                    aPage.Margins.Bottom:=PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Bottom'),aPage.Margins.Bottom));
+                  end;
                 nPage := Item[i];
                 for j := 0 to nPage.ChildNodes.Count-1 do
                   if copy(nPage.ChildNodes.Item[j].NodeName,0,6)='Object' then
                     begin
                       aObj := nil;
+                      ourBand := nil;
                       case GetProperty(nPage.ChildNodes.Item[j],'ClassName') of
                       'TfrBandView':
                         begin
                           case GetProperty(nPage.ChildNodes.Item[j],'BandType') of
                           'btReportTitle':aBand := TFPReportTitleBand.Create(aPage);
-                          'btMasterData':aBand := TFPReportDataBand.Create(aPage);
+                          'btMasterData':
+                            begin
+                              aBand := TFPReportDataBand.Create(aPage);
+                              aData := TFPreportData(Self.FindComponent(GetProperty(nPage.ChildNodes.Item[j],'DatasetStr')));
+                              if Assigned(aData) then
+                                begin
+                                  aPage.Data := aData;
+                                  TFPReportDataBand(aBand).Data := aData;
+                                end;
+                            end;
                           'btMasterHeader':aBand := TFPReportDataHeaderBand.Create(aPage);
                           'btMasterFooter':aBand := TFPReportDataFooterBand.Create(aPage);
                           'btPageHeader':aBand := TFPReportPageHeaderBand.Create(aPage);
                           'btPageFooter':aBand := TFPReportPageFooterBand.Create(aPage);
-                          else aBand := TFPReportCustomBand.Create(aPage);
-                          aObj := aBand;
+                          else aBand := TFPReportDataBand.Create(aPage);
                           end;
+                          aObj := aBand;
                         end;
                       'TfrMemoView':
                         begin
-                          aObj := TFPReportMemo.Create(aBand);
+                          aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
+                          ourBand := FindBand(aPage,PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Top'),0)));
+                          aObj := TFPReportMemo.Create(ourBand);
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
-                          TFPReportMemo(aObj).Text:=GetProperty(aDataNode,'Memo');
+                          TFPReportMemo(aObj).Text:=SysToUTF8(GetProperty(aDataNode,'Memo'));
+                          TFPReportMemo(aObj).Frame.BackgroundColor:=StringToColor(GetProperty(nPage.ChildNodes.Item[j],'FillColor'));
+                          if pos(aData.Name+'.',TFPReportMemo(aObj).Text)>0 then
+                            TFPReportMemo(aObj).Text := StringReplace(TFPReportMemo(aObj).Text,aData.Name+'.','',[rfReplaceAll]);
+                          if pos(copy(aData.Name,2,system.length(aData.Name))+'.',TFPReportMemo(aObj).Text)>0 then
+                            TFPReportMemo(aObj).Text := StringReplace(TFPReportMemo(aObj).Text,copy(aData.Name,2,system.length(aData.Name))+'.','',[rfReplaceAll]);
                         end;
                       end;
                       if Assigned(aObj) and (aObj is TFPReportElement) then
                         begin
+                          TFPReportMemo(aObj).Name:=GetProperty(nPage.ChildNodes.Item[j],'Name');
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
                           if Assigned(aDataNode) then
                             begin
-                              TFPReportElement(aObj).Layout.Top:=StrToFloatDef(GetProperty(aDataNode,'Top'),TFPReportElement(aObj).Layout.Top);
-                              TFPReportElement(aObj).Layout.Left:=StrToFloatDef(GetProperty(aDataNode,'Left'),TFPReportElement(aObj).Layout.Left);
-                              TFPReportElement(aObj).Layout.Width:=StrToFloatDef(GetProperty(aDataNode,'Width'),TFPReportElement(aObj).Layout.Width);
-                              TFPReportElement(aObj).Layout.Height:=StrToFloatDef(GetProperty(aDataNode,'Height'),TFPReportElement(aObj).Layout.Height);
+                              if Assigned(ourBand) then
+                                OffsetTop := ourBand.Layout.Top
+                              else OffsetTop := 0;
+                              OffsetLeft :=0;
+                              if not (aObj is TFPReportCustomBand) then
+                                OffsetLeft := aPage.Margins.Left;
+                              TFPReportElement(aObj).Layout.Top:=PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Top'),TFPReportElement(aObj).Layout.Top))-OffsetTop;
+                              TFPReportElement(aObj).Layout.Left:=PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Left'),TFPReportElement(aObj).Layout.Left))-OffsetLeft;
+                              TFPReportElement(aObj).Layout.Width:=PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Width'),TFPReportElement(aObj).Layout.Width));
+                              TFPReportElement(aObj).Layout.Height:=PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Height'),TFPReportElement(aObj).Layout.Height));
+                            end;
+                          aDataNode := nPage.ChildNodes.Item[j].FindNode('Frames');
+                          if Assigned(aDataNode) then
+                            begin
+                              tmp := GetProperty(aDataNode,'FrameBorders');
+                              TFPReportElement(aObj).Frame.Width := StrToIntDef(GetProperty(aDataNode,'FrameWidth'),0);
+                              if TFPReportElement(aObj).Frame.Width>0 then
+                                TFPReportElement(aObj).Frame.Shape:=fsRectangle;
+                              TFPReportElement(aObj).Frame.Lines:=[flTop, flBottom, flLeft, flRight];
+                              if tmp <> '' then
+                                begin
+                                  TFPReportElement(aObj).Frame.Lines:=[];
+                                  if pos('frbBottom',tmp)>0 then
+                                    TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flBottom];
+                                  if pos('frbTop',tmp)>0 then
+                                    TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flTop];
+                                  if pos('frbLeft',tmp)>0 then
+                                    TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flLeft];
+                                  if pos('frbRight',tmp)>0 then
+                                    TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flRight];
+                                end;
                             end;
                         end;
                     end
@@ -281,13 +366,14 @@ begin
               end;
         end;
     end;
+  Report.SaveToFile(GetTempDir+'areport.json');
   LazReport.Free;
 end;
 
 constructor TfWebReports.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  Report := TFPReport.Create(Self);
+  Report := TFPJSONReport.Create(Self);
 end;
 
 end.
