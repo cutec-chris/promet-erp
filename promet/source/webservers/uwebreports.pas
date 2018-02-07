@@ -7,7 +7,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, uBaseDbClasses,
   uBaseDBInterface, uBaseDatasetInterfaces, db,
-  fpreport, fpreportfpimageexport, fpreporthtmlexport, fpreportpdfexport;
+  fpreport, fpreportfpimageexport, fpreporthtmlexport, fpreportpdfexport,fpreportdb,
+  DOM,XMLRead;
 
 type
 
@@ -18,6 +19,7 @@ type
     { private declarations }
   public
     { public declarations }
+    Report: TFPReport;
     LastError : string;
     function ExportToPDF(aFile: string): Boolean;
     function ExportToHTML : string;
@@ -28,6 +30,7 @@ type
     procedure ManualRegisterDataSet(aDataSet: TDataset; aName: string;
       DeleteComponents: Boolean);
     procedure LoadFromFile(aFile : string);
+    constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   end;
 
@@ -62,6 +65,7 @@ begin
     if Components[i] is TDatasource then
       Components[i].Free
     else inc(i);
+  Report.Free;
 end;
 
 function TfWebReports.ExportToPDF(aFile : string): Boolean;
@@ -95,16 +99,26 @@ begin
 end;
 
 function TfWebReports.ExportToImage(aFile: string): Boolean;
+var
+  aExp: TFPReportExportfpImage;
 begin
   Result := False;
   LastError:='Unknown Error';
+  try
+    aExp:=TFPReportExportfpImage.Create(Self);
+    aExp.BaseFileName:=aFile;
+    Report.RunReport;
+    Report.RenderReport(aExp);
+    aExp.Free;
+    Result := True;
+  except
+  end;
 end;
 
 procedure TfWebReports.RegisterDataSet(aDataSet: TDataset;DeleteComponents : Boolean = True;aIdent : Integer = 0);
 var
   i: Integer;
-//  aDS: TfrDBDataSet;
-  aDSo: TDataSource;
+  aDS: TFPReportDatasetData;
   NewTableName: String;
 begin
   i := 0;
@@ -129,16 +143,12 @@ begin
         end;
         if (FindComponent('P'+NewTableName)=nil) and (FindComponent(NewTableName)=nil) then
           begin
-//            aDS := TfrDBDataSet.Create(nil);
-            aDSo := TDataSource.Create(nil);
-//            aDS.Name:='P'+NewTableName;
-//            aDS.OpenDataSource:=True;
-            aDSo.Name:=NewTableName;
-//            aDS.DataSource := aDSo;
-            aDSo.DataSet := aDataSet;
+            aDS := TFPReportDatasetData.Create(nil);
+            aDS.Name:='P'+NewTableName;
+            //aDS.OpenDataSource:=True;
+            aDS.DataSet := aDataSet;
             aDataSet.Open;
-//            Self.InsertComponent(aDS);
-            Self.InsertComponent(aDSo);
+            Self.InsertComponent(aDS);
             //debugln(Format('%'+IntToStr(aIdent)+'s',[''])+'DataSet registered:'+NewTableName+'=',aDataSet.RecordCount);
             with aDataSet as IBaseSubDataSets do
               begin
@@ -157,8 +167,7 @@ procedure TfWebReports.ManualRegisterDataSet(aDataSet: TDataset; aName: string;
   DeleteComponents: Boolean);
 var
   i: Integer;
-//  aDS: TfrDBDataSet;
-  aDSo: TDataSource;
+  aDS: TFPReportDatasetData;
 begin
   i := 0;
   if DeleteComponents then
@@ -177,16 +186,12 @@ begin
       begin
         if (FindComponent('P'+aName)=nil) and (FindComponent(aName)=nil) then
           begin
-//            aDS := TfrDBDataSet.Create(nil);
-            aDSo := TDataSource.Create(nil);
-//            aDS.Name:='P'+aName;
+            aDS := TFPReportDatasetData.Create(nil);
+            aDS.Name:='P'+aName;
 //            aDS.OpenDataSource:=True;
-            aDSo.Name:=aName;
-//            aDS.DataSource := aDSo;
-            aDSo.DataSet := aDataSet;
+            aDS.DataSet := aDataSet;
             aDataSet.Open;
-//            Self.InsertComponent(aDS);
-            Self.InsertComponent(aDSo);
+            Self.InsertComponent(aDS);
           end;
       end;
   except
@@ -194,8 +199,95 @@ begin
 end;
 
 procedure TfWebReports.LoadFromFile(aFile: string);
-begin
+var
+  LazReport: TXMLDocument;
+  i: Integer;
+  j: Integer;
+  Pages: TDOMNode;
+  aPage: TFPReportPage;
+  Config: TDOMNode;
+  BaseNode: TDOMNode;
+  nPage: TDOMNode;
+  aBand: TFPReportCustomBand;
+  aObj: TFPReportElement;
+  aDataNode: TDOMNode;
 
+  function GetProperty(aNode : TDOMNode;aName : string) : string;
+  var
+    bNode: TDOMNode;
+  begin
+    Result := '';
+    bNode := aNode.FindNode(aName);
+    if Assigned(bNode) then
+      if Assigned(bNode.Attributes.GetNamedItem('Value')) then
+        Result := bNode.Attributes.GetNamedItem('Value').NodeValue;
+  end;
+
+begin
+  ReadXMLFile(LazReport, aFile);
+  BaseNode := LazReport.DocumentElement.FindNode('LazReport');
+  if not Assigned(BaseNode) then exit;
+  Pages := BaseNode.FindNode('Pages');
+  if Assigned(Pages) then
+    begin
+      Report.TwoPass:= GetProperty(Pages,'DoublePass') = 'True';
+      with Pages.ChildNodes do
+        begin
+          for i := 0 to (Count - 1) do
+            if copy(Item[i].NodeName,0,4)='Page' then
+              begin
+                aPage := TFPReportPage.Create(Report);
+                aPage.PageSize.PaperName:='A4';
+                nPage := Item[i];
+                for j := 0 to nPage.ChildNodes.Count-1 do
+                  if copy(nPage.ChildNodes.Item[j].NodeName,0,6)='Object' then
+                    begin
+                      aObj := nil;
+                      case GetProperty(nPage.ChildNodes.Item[j],'ClassName') of
+                      'TfrBandView':
+                        begin
+                          case GetProperty(nPage.ChildNodes.Item[j],'BandType') of
+                          'btReportTitle':aBand := TFPReportTitleBand.Create(aPage);
+                          'btMasterData':aBand := TFPReportDataBand.Create(aPage);
+                          'btMasterHeader':aBand := TFPReportDataHeaderBand.Create(aPage);
+                          'btMasterFooter':aBand := TFPReportDataFooterBand.Create(aPage);
+                          'btPageHeader':aBand := TFPReportPageHeaderBand.Create(aPage);
+                          'btPageFooter':aBand := TFPReportPageFooterBand.Create(aPage);
+                          else aBand := TFPReportCustomBand.Create(aPage);
+                          aObj := aBand;
+                          end;
+                        end;
+                      'TfrMemoView':
+                        begin
+                          aObj := TFPReportMemo.Create(aBand);
+                          aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
+                          TFPReportMemo(aObj).Text:=GetProperty(aDataNode,'Memo');
+                        end;
+                      end;
+                      if Assigned(aObj) and (aObj is TFPReportElement) then
+                        begin
+                          aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
+                          if Assigned(aDataNode) then
+                            begin
+                              TFPReportElement(aObj).Layout.Top:=StrToFloatDef(GetProperty(aDataNode,'Top'),TFPReportElement(aObj).Layout.Top);
+                              TFPReportElement(aObj).Layout.Left:=StrToFloatDef(GetProperty(aDataNode,'Left'),TFPReportElement(aObj).Layout.Left);
+                              TFPReportElement(aObj).Layout.Width:=StrToFloatDef(GetProperty(aDataNode,'Width'),TFPReportElement(aObj).Layout.Width);
+                              TFPReportElement(aObj).Layout.Height:=StrToFloatDef(GetProperty(aDataNode,'Height'),TFPReportElement(aObj).Layout.Height);
+                            end;
+                        end;
+                    end
+                  else writeln(nPage.ChildNodes.Item[j].NodeName);
+                Report.AddPage(aPage);
+              end;
+        end;
+    end;
+  LazReport.Free;
+end;
+
+constructor TfWebReports.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  Report := TFPReport.Create(Self);
 end;
 
 end.
