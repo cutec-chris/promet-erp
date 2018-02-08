@@ -118,6 +118,7 @@ var
   aTop: Integer;
   nFile: String;
   Canvas: TFPImageCanvas;
+  aWidth: Integer;
 begin
   Result := False;
   LastError:='Unknown Error';
@@ -128,6 +129,7 @@ begin
     Report.RenderReport(aExp);
     a := 1;
     aTop := 0;
+    aWidth := 0;
     Changed := False;
     aNImg := TFPMemoryImage.Create(0,0);
     aImg := TFPMemoryImage.Create(0,0);
@@ -136,12 +138,25 @@ begin
     while FileExists(nFile) do
       begin
         aNImg.LoadFromFile(nFile);
-        aImg.SetSize(aNImg.Width,aNImg.Height+aTop);
-        Canvas.Brush.FPColor := TColorToFPColor(clBlack);
-        Canvas.Brush.Style:=bsSolid;
-        Canvas.Pen.FPColor := TColorToFPColor(clWhite);
-        Canvas.Rectangle(0,aTop,aNImg.Width,aNImg.Height);
-        Canvas.Draw(0,aTop,aNImg);
+        aTop := aTop+aNImg.Height+1;
+        if aNImg.Width>aWidth then
+          aWidth:=aNImg.Width;
+        inc(a);
+        nFile := ChangeFileExt(aFile,'')+Format(aExp.SequenceFormat,[a])+'.png';
+      end;
+    aImg.SetSize(aWidth+2,aTop+2);
+    Canvas.Brush.FPColor := TColorToFPColor(clWhite);
+    Canvas.Brush.Style:=bsSolid;
+    Canvas.Pen.FPColor := TColorToFPColor(clBlack);
+    Canvas.Pen.Style:=psSolid;
+    aTop := 0;
+    a := 1;
+    nFile := ChangeFileExt(aFile,'')+Format(aExp.SequenceFormat,[a])+'.png';
+    while FileExists(nFile) do
+      begin
+        aNImg.LoadFromFile(nFile);
+        Canvas.Rectangle(0,aTop,aWidth+1,aTop+aNImg.Height+1);
+        Canvas.Draw(1,aTop+1,aNImg);
         DeleteFile(nFile);
         aTop := aTop+aNImg.Height;
         Changed := True;
@@ -272,7 +287,7 @@ var
 
   function PixelsToMM(Const Dist: double) : TFPReportUnits;
   begin
-    Result:=Dist*(1/3);
+    Result:=Dist*(1/3.5);
   end;
   function PageToMM(Const Dist: double) : TFPReportUnits;
   begin
@@ -357,6 +372,7 @@ begin
                                   TFPReportDataBand(aBand).Data := aData;
                                 end;
                               aMasterData := TFPReportDataBand(aBand);
+                              aMasterData.StretchMode:=smActualHeight;
                             end;
                           'btMasterHeader':
                             begin
@@ -391,6 +407,10 @@ begin
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
                           ourBand := FindBand(aPage,PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Top'),0)));
                           aObj := TFPReportMemo.Create(ourBand);
+                          //TFPReportMemo(aObj).TextAlignment.Vertical:=TFPReportVertTextAlignment.tlCenter;
+                          TFPReportMemo(aObj).TextAlignment.TopMargin:=1;
+                          TFPReportMemo(aObj).TextAlignment.BottomMargin:=1;
+                          TFPReportMemo(aObj).StretchMode:=smActualHeight;
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
                           TFPReportMemo(aObj).Text:=FixDataFields(SysToUTF8(GetProperty(aDataNode,'Memo')));
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Font');
