@@ -8,15 +8,17 @@ uses
   Classes, SysUtils, FileUtil, uBaseDbClasses,
   uBaseDBInterface, uBaseDatasetInterfaces, db,
   fpreport, fpreportfpimageexport, fpreporthtmlexport, fpreportpdfexport,fpreportdb,
-  DOM,XMLRead,fpjsonreport,FPReadPNG,FPimage,FPCanvas,FPImgCanv,fpTTF;
+  DOM,XMLRead,fpjsonreport,FPReadPNG,FPimage,FPCanvas,FPImgCanv,fpTTF,fpReportHTMLParser;
 
 type
 
   { TfWebReports }
 
   TfWebReports = class(TComponent)
+    procedure aParserFoundText(Text: string);
   private
     { private declarations }
+    FTxt : string;
   public
     { public declarations }
     Report: TFPJSONReport;
@@ -64,6 +66,11 @@ begin
   Report.Free;
 end;
 
+procedure TfWebReports.aParserFoundText(Text: string);
+begin
+  FTxt:=FTxt+Text;
+end;
+
 function TfWebReports.ExportToPDF(aFile : string): Boolean;
 var
   i: Integer;
@@ -90,23 +97,59 @@ end;
 function TfWebReports.ExportToHTML: string;
 var
   i: Integer;
-  sl: TStringList;
+  sl,sla: TStringList;
   aFile: String;
+  aExp: TFPReportExportHTML;
+  a: Integer;
+  nFile: String;
+  tmp: String;
 begin
   Result := '';
+  sl := TStringList.Create;
+  sla := TStringList.Create;
   LastError:='Unknown Error';
-  aFile := GetTempDir+'preport.html';
+  try
+    aExp:=TFPReportExportHTML.Create(Self);
+    aExp.BaseFileName:=ChangeFileExt(aFile,'')+'.html';
+    Report.RunReport;
+    Report.RenderReport(aExp);
+    a := 1;
+    nFile := ChangeFileExt(aFile,'')+Format(aExp.SequenceFormat,[a])+'.html';
+    while FileExists(nFile) do
+      begin
+        sl.LoadFromFile(nFile);
+        tmp := sl.Text;
+        tmp := copy(tmp,pos('<body>',tmp)+6,length(tmp));
+        tmp := copy(tmp,0,pos('</body>',tmp)-1);
+        sla.Text := sla.text+'<div>'+tmp+'</div>';
+        inc(a);
+        nFile := ChangeFileExt(aFile,'')+Format(aExp.SequenceFormat,[a])+'.html';
+      end;
+    aExp.Free;
+    Result := '<body>'+sla.Text+'</body>';
+  except
+    on e : Exception do
+      begin
+        LastError:=e.Message;
+        Result := '';
+      end;
+  end;
+  sl.Free;
+  sla.Free;
 end;
 
 function TfWebReports.ExportToText: string;
 var
-  i: Integer;
-  sl: TStringList;
-  aFile: String;
+  aParser: THTMLParser;
 begin
   Result := '';
   LastError:='Unknown Error';
-  aFile := GetTempDir+'preport.html';
+  aParser := THTMLParser.Create(ExportToHTML);
+  aParser.OnFoundText:=@aParserFoundText;
+  FTxt:='';
+  aParser.Exec;
+  aParser.Free;
+  result := FTxt;
 end;
 
 function TfWebReports.ExportToImage(aFile: string): Boolean;
