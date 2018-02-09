@@ -570,7 +570,7 @@ var
   i: Integer;
   nTableName: String;
 begin
-  //debug('SUBDATASETS for '+SyncDB.Tables.FieldByName('NAME').AsString);
+  debug('SUBDATASETS for '+SyncDB.Tables.FieldByName('NAME').AsString);
   aRec := SyncDB.Tables.GetBookmark;
   case SyncDB.Tables.FieldByName('NAME').AsString of
   'CUSTOMERS':nTableName := 'PERSONS'
@@ -583,7 +583,7 @@ begin
         begin
           for i := 0 to GetCount-1 do
             begin
-              //debug('  '+TBaseDBDataset(SubDataSet[i]).TableName);
+              debug('  '+TBaseDBDataset(SubDataSet[i]).TableName);
               if SyncDB.Tables.Locate('NAME',TBaseDBDataset(SubDataSet[i]).TableName,[loCaseInsensitive])
               and (SyncDB.Tables.FieldByName('PARENT').AsVariant<>aRec)
               and (SyncDB.Tables.FieldByName('NAME').AsString<>'HISTORY')
@@ -656,23 +656,26 @@ var
     except
     end;
   end;
-  procedure DoSyncTables(IgnoreParent : Boolean = False;MinimalDate : TDateTime = 0);
+  procedure DoSyncTables(IgnoreParent : Boolean = False;MinimalDate : TDateTime = 0;aLevel : Integer = 0);
   var
     aRec2 : Variant;
     aMinDate: TDateTime;
     Fullsynced: Boolean;
+    aLastFilter: String;
   begin
+    if aLevel>4 then exit;
     SyncDB.Tables.DataSet.First;
     while not SyncDB.Tables.DataSet.EOF do
       begin
         if ((GetOptionValue('table')='') or (GetOptionValue('table')=SyncDB.Tables.DataSet.FieldByName('NAME').AsString))
-        and (SyncDB.Tables.FieldByName('PARENT').IsNull or IgnoreParent)
+        and (SyncDB.Tables.FieldByName('PARENT').IsNull)
+        or IgnoreParent
         then
           begin
-            CollectSubDatasets(SyncDB,FDest.GetDB);
             if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) then
               begin
                 aTableName := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
+                writeln(IntToStr(aLevel)+'=====Synching Table:'+aTableName+'=======');
                 FTables.Add(aTableName);
                 try
                   FSyncedCount:=2;
@@ -711,6 +714,7 @@ var
                 if Fullsynced then
                   begin
                     aRec2 := SyncDB.Tables.GetBookmark;
+                    aLastFilter := SyncDB.Tables.ActualFilter;
                     aMinDate:=0;
                     if SyncDB.Tables.FieldByName('LTIMESTAMP').AsString<>'' then
                       begin
@@ -719,8 +723,9 @@ var
                           aMinDate:=MinimalDate;
                       end;
                     SyncDB.Tables.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(aRec2));
-                    DoSyncTables(True,aMinDate);
-                    SyncDB.Tables.Filter('');
+                    if not SyncDB.Tables.GotoBookmark(aRec2) then
+                      DoSyncTables(True,aMinDate,aLevel+1);
+                    SyncDB.Tables.Filter(aLastFilter);
                     SyncDB.Tables.GotoBookmark(aRec2);
                   end;
               end;
@@ -814,6 +819,13 @@ begin
                                         DoCreateTable(TUserfielddefs);
                                         SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                       end;
+                                    SyncDB.Tables.DataSet.First;
+                                    while not SyncDB.Tables.DataSet.EOF do
+                                      begin
+                                        CollectSubDatasets(SyncDB,FDest.GetDB);
+                                        SyncDB.Tables.DataSet.Next;
+                                      end;
+                                    SyncDB.Tables.DataSet.First;
                                     SyncedTables := (SyncDB.Tables.Count*4);
                                     SyncCount := 0;
                                     aSyncCount := 0;
