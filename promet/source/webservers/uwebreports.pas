@@ -57,7 +57,7 @@ end;
 }
 destructor TfWebReports.Destroy;
 var
-  i : Integer;
+  i : Integer = 0;
 begin
   while i < ComponentCount do
     if Components[i] is TFPReportDatasetData then
@@ -242,10 +242,10 @@ begin
         else
           NewTableName := TableName;
         end;
-        if (FindComponent('P'+NewTableName)=nil) and (FindComponent(NewTableName)=nil) then
+        if (FindComponent(NewTableName)=nil) and (FindComponent(NewTableName)=nil) then
           begin
             aDS := TFPReportDatasetData.Create(nil);
-            aDS.Name:='P'+NewTableName;
+            aDS.Name:=NewTableName;
             //aDS.OpenDataSource:=True;
             aDS.DataSet := aDataSet;
             aDataSet.Open;
@@ -281,10 +281,10 @@ begin
   try
     with aDataSet as IBaseManageDB do
       begin
-        if (FindComponent('P'+aName)=nil) and (FindComponent(aName)=nil) then
+        if (FindComponent(aName)=nil) and (FindComponent(aName)=nil) then
           begin
             aDS := TFPReportDatasetData.Create(nil);
-            aDS.Name:='P'+aName;
+            aDS.Name:=aName;
 //            aDS.OpenDataSource:=True;
             aDS.DataSet := aDataSet;
             aDataSet.Open;
@@ -316,6 +316,7 @@ var
   aFont: TFPFontCacheItem;
   aColor: TColor;
   aMasterData: TFPReportDataBand;
+  aDetailBand: TFPReportDataBand;
 
   function GetProperty(aNode : TDOMNode;aName : string) : string;
   var
@@ -354,10 +355,18 @@ var
   end;
 
   function FixDataFields(aFieldName : string) : string;
+  var
+    k : Integer = 0;
   begin
-    if Assigned(aData) then
-      Result := StringReplace(aFieldName,copy(aData.Name,2,system.length(aData.Name))+'.',aData.Name+'.',[rfReplaceAll])
-    else result := aFieldName;
+    Result := aFieldName;
+    {
+    while k < ComponentCount do
+      begin
+        if Components[i] is TFPReportDatasetData then
+          Result := StringReplace(Result,copy(TFPReportDatasetData(Components[i]).Name,2,system.length(TFPReportDatasetData(Components[i]).Name))+'.',TFPReportDatasetData(Components[i]).Name+'.',[rfReplaceAll,rfIgnoreCase]);
+        inc(k);
+      end;
+    }
   end;
 
 begin
@@ -378,6 +387,7 @@ begin
             if (copy(Item[i].NodeName,0,4)='Page') and (Item[i].NodeName<>'PageCount') then
               begin
                 aMasterData := nil;
+                aDetailBand := nil;
                 aData := nil;
                 aPage := TFPReportPage.Create(Report);
                 aPage.PageSize.PaperName:='A4';
@@ -428,6 +438,31 @@ begin
                               aBand := TFPReportDataFooterBand.Create(aPage);
                               if Assigned(aMasterData) then
                                 aMasterData.FooterBand := TFPReportDataFooterBand(aBand);
+                            end;
+                          'btDetailData':
+                            begin
+                              aBand := TFPReportDataBand.Create(aPage);
+                              aData := TFPreportData(Self.FindComponent(GetProperty(nPage.ChildNodes.Item[j],'DatasetStr')));
+                              if Assigned(aData) then
+                                begin
+                                  aPage.Data := aData;
+                                  TFPReportDataBand(aBand).Data := aData;
+                                end;
+                              TFPReportDataBand(aBand).MasterBand := aMasterData;
+                              TFPReportDataBand(aBand).StretchMode:=smActualHeight;
+                              aDetailBand := TFPReportDataBand(aBand);
+                            end;
+                          'btDetailHeader':
+                            begin
+                              aBand := TFPReportDataHeaderBand.Create(aPage);
+                              if Assigned(aDetailBand) then
+                                aDetailBand.HeaderBand := TFPReportDataHeaderBand(aBand);
+                            end;
+                          'btDetailFooter':
+                            begin
+                              aBand := TFPReportDataFooterBand.Create(aPage);
+                              if Assigned(aDetailBand) then
+                                aDetailBand.FooterBand := TFPReportDataFooterBand(aBand);
                             end;
                           'btPageHeader':aBand := TFPReportPageHeaderBand.Create(aPage);
                           'btPageFooter':aBand := TFPReportPageFooterBand.Create(aPage);
