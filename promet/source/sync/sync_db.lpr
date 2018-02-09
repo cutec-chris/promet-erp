@@ -342,7 +342,7 @@ begin
   aTable := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
   if not ((SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y')
        or (SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y')) then exit;
-  if DestDM.DataSetFromName(aTable,aCRT) then
+  if (not DestDM.TableExists(aTable)) and (DestDM.DataSetFromName(aTable,aCRT)) then
     begin
       tCRT := aCRT.CreateEx(nil,DestDM);
       tCRT.CreateTable;
@@ -570,7 +570,7 @@ var
   i: Integer;
   nTableName: String;
 begin
-  debug('SUBDATASETS for '+SyncDB.Tables.FieldByName('NAME').AsString);
+  //debug('SUBDATASETS for '+SyncDB.Tables.FieldByName('NAME').AsString);
   aRec := SyncDB.Tables.GetBookmark;
   case SyncDB.Tables.FieldByName('NAME').AsString of
   'CUSTOMERS':nTableName := 'PERSONS'
@@ -583,7 +583,7 @@ begin
         begin
           for i := 0 to GetCount-1 do
             begin
-              debug('  '+TBaseDBDataset(SubDataSet[i]).TableName);
+              //debug('  '+TBaseDBDataset(SubDataSet[i]).TableName);
               if SyncDB.Tables.Locate('NAME',TBaseDBDataset(SubDataSet[i]).TableName,[loCaseInsensitive])
               and (SyncDB.Tables.FieldByName('PARENT').AsVariant<>aRec)
               and (SyncDB.Tables.FieldByName('NAME').AsString<>'HISTORY')
@@ -680,12 +680,14 @@ var
                   Fullsynced := False;
                   if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString='' then
                     FOldTime:='a';
-                  while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) and (FOldSyncCount<>FSyncedCount) do
+                  //while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) and (FOldSyncCount<>FSyncedCount) do
                     begin
                       FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                       FOldSyncCount := FSyncedCount;
                       FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
-                      Fullsynced:=FSyncedCount < aSyncCount;
+                      if aSyncCount > 0 then
+                        Fullsynced:=FSyncedCount < aSyncCount
+                      else Fullsynced:=True;
                       inc(SyncedTables,FSyncedCount);
                     end;
                   if (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
@@ -817,7 +819,7 @@ begin
                                     aSyncCount := 0;
                                     BlockSizeReached := False;
                                     SyncCount := 0;
-                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),2500);
+                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
                                     SyncedTables:=0;
                                     DoSyncTables;
                                   end;
