@@ -250,6 +250,7 @@ begin
             aDS.DataSet := aDataSet;
             aDataSet.Open;
             Self.InsertComponent(aDS);
+            Report.ReportData.AddReportData(aDS);
             //writeln(Format('%'+IntToStr(aIdent)+'s',[''])+'DataSet registered:'+NewTableName+'=',aDataSet.RecordCount);
             with aDataSet as IBaseSubDataSets do
               begin
@@ -288,6 +289,7 @@ begin
 //            aDS.OpenDataSource:=True;
             aDS.DataSet := aDataSet;
             aDataSet.Open;
+            Report.ReportData.AddReportData(aDS);
             Self.InsertComponent(aDS);
           end;
       end;
@@ -359,14 +361,12 @@ var
     k : Integer = 0;
   begin
     Result := aFieldName;
-    {
     while k < ComponentCount do
       begin
         if Components[i] is TFPReportDatasetData then
-          Result := StringReplace(Result,copy(TFPReportDatasetData(Components[i]).Name,2,system.length(TFPReportDatasetData(Components[i]).Name))+'.',TFPReportDatasetData(Components[i]).Name+'.',[rfReplaceAll,rfIgnoreCase]);
+          Result := StringReplace(Result,TFPReportDatasetData(Components[i]).Name+'.',TFPReportDatasetData(Components[i]).Name+'.',[rfReplaceAll,rfIgnoreCase]);
         inc(k);
       end;
-    }
   end;
 
 begin
@@ -418,7 +418,10 @@ begin
                           'btMasterData':
                             begin
                               aBand := TFPReportDataBand.Create(aPage);
-                              aData := TFPreportData(Self.FindComponent(GetProperty(nPage.ChildNodes.Item[j],'DatasetStr')));
+                              tmp := GetProperty(nPage.ChildNodes.Item[j],'DatasetStr');
+                              if copy(tmp,1,1)='P' then
+                                tmp := copy(tmp,2,system.length(tmp));
+                              aData := TFPreportData(Self.FindComponent(tmp));
                               if Assigned(aData) then
                                 begin
                                   aPage.Data := aData;
@@ -442,10 +445,12 @@ begin
                           'btDetailData':
                             begin
                               aBand := TFPReportDataBand.Create(aPage);
-                              aData := TFPreportData(Self.FindComponent(GetProperty(nPage.ChildNodes.Item[j],'DatasetStr')));
+                              tmp := GetProperty(nPage.ChildNodes.Item[j],'DatasetStr');
+                              if copy(tmp,1,1)='P' then
+                                tmp := copy(tmp,2,system.length(tmp));
                               if Assigned(aData) then
                                 begin
-                                  aPage.Data := aData;
+                                  aPage.Data := TFPreportData(Self.FindComponent(tmp));
                                   TFPReportDataBand(aBand).Data := aData;
                                 end;
                               TFPReportDataBand(aBand).MasterBand := aMasterData;
