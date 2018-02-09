@@ -359,12 +359,13 @@ var
   function FixDataFields(aFieldName : string) : string;
   var
     k : Integer = 0;
+    atmp : string;
   begin
     Result := aFieldName;
     while k < ComponentCount do
       begin
-        if Components[i] is TFPReportDatasetData then
-          Result := StringReplace(Result,TFPReportDatasetData(Components[i]).Name+'.',TFPReportDatasetData(Components[i]).Name+'.',[rfReplaceAll,rfIgnoreCase]);
+        if Components[k] is TFPReportDatasetData then
+          Result := StringReplace(Result,TFPReportDatasetData(Components[k]).Name+'.',TFPReportDatasetData(Components[k]).Name+'.',[rfReplaceAll,rfIgnoreCase]);
         inc(k);
       end;
   end;
