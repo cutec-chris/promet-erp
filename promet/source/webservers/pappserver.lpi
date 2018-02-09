@@ -83,7 +83,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS"/>
+        <CommandLineParams Value="--config-path=devel --mandant=Help"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
