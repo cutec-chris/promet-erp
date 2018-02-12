@@ -251,8 +251,8 @@ begin
             aDS.Name:=NewTableName;
             //aDS.OpenDataSource:=True;
             aDS.DataSet := aDataSet;
-            aDataSet.Open;
             Self.InsertComponent(aDS);
+            aDS.Open;
             Report.ReportData.AddReportData(aDS);
             //writeln(Format('%'+IntToStr(aIdent)+'s',[''])+'DataSet registered:'+NewTableName+'=',aDataSet.RecordCount);
             with aDataSet as IBaseSubDataSets do
@@ -289,9 +289,8 @@ begin
           begin
             aDS := TFPReportDatasetData.Create(nil);
             aDS.Name:=aName;
-//            aDS.OpenDataSource:=True;
             aDS.DataSet := aDataSet;
-            aDataSet.Open;
+            aDS.Open;
             Report.ReportData.AddReportData(aDS);
             Self.InsertComponent(aDS);
           end;
@@ -322,6 +321,7 @@ var
   aColor: TColor;
   aMasterData: TFPReportDataBand;
   aDetailBand: TFPReportDataBand;
+  HasFrame: Boolean;
 
   function GetProperty(aNode : TDOMNode;aName : string) : string;
   var
@@ -517,8 +517,6 @@ begin
                             TFPReportMemo(aObj).Font.Name:=aFont.PostScriptName
                           else TFPReportMemo(aObj).UseParentFont := true;
                           TFPReportMemo(aObj).Font.Size:=StrToIntDef(GetProperty(aDataNode,'Size'),TFPReportMemo(aObj).Font.Size);
-                          aColor := StringToColor(GetProperty(nPage.ChildNodes.Item[j],'FillColor'));
-                          TFPReportMemo(aObj).Frame.BackgroundColor:= RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
                         end;
                       end;
                       if Assigned(aObj) and (aObj is TFPReportElement) then
@@ -538,14 +536,18 @@ begin
                               TFPReportElement(aObj).Layout.Width:=PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Width'),TFPReportElement(aObj).Layout.Width));
                               TFPReportElement(aObj).Layout.Height:=PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Height'),TFPReportElement(aObj).Layout.Height));
                             end;
+                          HasFrame:=False;
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Frames');
                           if Assigned(aDataNode) then
                             begin
-                              tmp := GetProperty(aDataNode,'FrameBorders');
+                              TFPReportElement(aObj).Frame.Shape:=fsNone;
+                              if GetProperty(aDataNode,'FrameColor')<>'' then
+                                begin
+                                  aColor := StringToColor(GetProperty(aDataNode,'FrameColor'));
+                                  TFPReportElement(aObj).Frame.Color:= RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
+                                end;
                               TFPReportElement(aObj).Frame.Width := StrToIntDef(GetProperty(aDataNode,'FrameWidth'),0);
-                              if TFPReportElement(aObj).Frame.Width>0 then
-                                TFPReportElement(aObj).Frame.Shape:=fsRectangle;
-                              TFPReportElement(aObj).Frame.Lines:=[flTop, flBottom, flLeft, flRight];
+                              tmp := GetProperty(aDataNode,'FrameBorders');
                               if tmp <> '' then
                                 begin
                                   TFPReportElement(aObj).Frame.Lines:=[];
@@ -557,6 +559,21 @@ begin
                                     TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flLeft];
                                   if pos('frbRight',tmp)>0 then
                                     TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flRight];
+                                  HasFrame := True;
+                                end
+                              else TFPReportElement(aObj).Frame.Lines:=[];
+                            end;
+                          if (aObj is TFPReportMemo)
+                          and (GetProperty(nPage.ChildNodes.Item[j],'FillColor')<>'clNone')
+                          and (GetProperty(nPage.ChildNodes.Item[j],'FillColor')<>'') then
+                            begin
+                              aColor := StringToColor(GetProperty(nPage.ChildNodes.Item[j],'FillColor'));
+                              TFPReportMemo(aObj).Frame.BackgroundColor:= RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
+                              TFPReportMemo(aObj).Frame.Shape:=fsRectangle;
+                              if not HasFrame then
+                                begin
+                                  TFPReportMemo(aObj).Frame.Color:=RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
+                                  TFPReportMemo(aObj).Frame.Pen:=psClear;
                                 end;
                             end;
                         end;
