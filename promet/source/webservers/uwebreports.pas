@@ -454,11 +454,8 @@ begin
                               tmp := GetProperty(nPage.ChildNodes.Item[j],'DatasetStr');
                               if copy(tmp,1,1)='P' then
                                 tmp := copy(tmp,2,system.length(tmp));
-                              if Assigned(aData) then
-                                begin
-                                  aPage.Data := TFPreportData(Self.FindComponent(tmp));
-                                  TFPReportDataBand(aBand).Data := aData;
-                                end;
+                              if Self.FindComponent(tmp) <> nil then
+                                TFPReportDataBand(aBand).Data := TFPreportData(Self.FindComponent(tmp));
                               TFPReportDataBand(aBand).MasterBand := aMasterData;
                               TFPReportDataBand(aBand).StretchMode:=smActualHeight;
                               aDetailBand := TFPReportDataBand(aBand);
@@ -501,7 +498,7 @@ begin
                           TFPReportMemo(aObj).TextAlignment.TopMargin:=1;
                           TFPReportMemo(aObj).TextAlignment.BottomMargin:=1;
                           TFPReportMemo(aObj).StretchMode:=smActualHeight;
-                          case GetProperty(aDataNode,'Alignment') of
+                          case GetProperty(nPage.ChildNodes.Item[j],'Alignment') of
                           'taRightJustify':TFPReportMemo(aObj).TextAlignment.Horizontal:=taRightJustified;
                           'taCenter':TFPReportMemo(aObj).TextAlignment.Horizontal:=taCentered;
                           end;
@@ -517,11 +514,20 @@ begin
                             TFPReportMemo(aObj).Font.Name:=aFont.PostScriptName
                           else TFPReportMemo(aObj).UseParentFont := true;
                           TFPReportMemo(aObj).Font.Size:=StrToIntDef(GetProperty(aDataNode,'Size'),TFPReportMemo(aObj).Font.Size);
+                          aColor := StringToColor(GetProperty(aDataNode,'Color'));
+                          TFPReportMemo(aObj).Font.Color:= RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
+                        end;
+                      'TfrLineView':
+                        begin
+                          aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
+                          ourBand := FindBand(aPage,PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Top'),0)));
+                          aObj := TFPReportMemo.Create(ourBand);
+                          TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flTop];
                         end;
                       end;
                       if Assigned(aObj) and (aObj is TFPReportElement) then
                         begin
-                          TFPReportMemo(aObj).Name:=GetProperty(nPage.ChildNodes.Item[j],'Name');
+                          TFPReportElement(aObj).Name:=GetProperty(nPage.ChildNodes.Item[j],'Name');
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
                           if Assigned(aDataNode) then
                             begin
@@ -586,11 +592,22 @@ begin
   LazReport.Free;
 end;
 
+Procedure BuiltinIFS(Var Result : TFPExpressionResult; Const Args : TExprParameterArray);
+
+begin
+  If Args[0].resBoolean then
+    Result.resString:=Args[1].resString
+  else
+    Result.resString:=Args[2].resString
+end;
+
 constructor TfWebReports.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   Report := TFPJSONReport.Create(Self);
 end;
 
+initialization
+  BuiltinIdentifiers.AddFunction(bcBoolean,'IF','S','BSS',@BuiltinIFS);
 end.
 
