@@ -8,7 +8,8 @@ uses
   Classes, SysUtils, FileUtil, uBaseDbClasses,
   uBaseDBInterface, uBaseDatasetInterfaces, db,
   fpreport, fpreportfpimageexport, fpreporthtmlexport, fpreportpdfexport,fpreportdb,
-  DOM,XMLRead,fpjsonreport,FPReadPNG,FPimage,FPCanvas,FPImgCanv,fpTTF,fpReportHTMLParser;
+  DOM,XMLRead,fpjsonreport,FPReadPNG,FPimage,FPCanvas,FPImgCanv,fpTTF,fpReportHTMLParser,
+  fprepexprpars;
 
 type
 
@@ -187,10 +188,10 @@ begin
         inc(a);
         nFile := ChangeFileExt(aFile,'')+Format(aExp.SequenceFormat,[a])+'.png';
       end;
-    aImg.SetSize(aWidth+2,aTop+2);
+    aImg.SetSize(aWidth+4,aTop+4);
     Canvas.Brush.FPColor := TColorToFPColor(clWhite);
     Canvas.Brush.Style:=bsSolid;
-    Canvas.Pen.FPColor := TColorToFPColor(clBlack);
+    Canvas.Pen.FPColor := TColorToFPColor(clWhite);
     Canvas.Pen.Style:=psSolid;
     aTop := 0;
     a := 1;
@@ -198,8 +199,10 @@ begin
     while FileExists(nFile) do
       begin
         aNImg.LoadFromFile(nFile);
-        Canvas.Rectangle(0,aTop,aWidth+1,aTop+aNImg.Height+1);
-        Canvas.Draw(1,aTop+1,aNImg);
+        Canvas.Rectangle(0,aTop,aWidth+4,aTop+aNImg.Height+4);
+        Canvas.Pen.FPColor := TColorToFPColor(clBlack);
+        Canvas.Rectangle(1,aTop+1,aWidth+2,aTop+aNImg.Height+2);
+        Canvas.Draw(2,aTop+2,aNImg);
         DeleteFile(nFile);
         aTop := aTop+aNImg.Height;
         Changed := True;
@@ -368,6 +371,7 @@ var
           Result := StringReplace(Result,TFPReportDatasetData(Components[k]).Name+'.',TFPReportDatasetData(Components[k]).Name+'.',[rfReplaceAll,rfIgnoreCase]);
         inc(k);
       end;
+    Result := StringReplace(Result,'PAGE#','PageNo',[rfReplaceAll,rfIgnoreCase]);
   end;
 
 begin
@@ -392,6 +396,7 @@ begin
                 aData := nil;
                 aPage := TFPReportPage.Create(Report);
                 aPage.PageSize.PaperName:='A4';
+                aPage.Font.Name:='ArialMT';
                 if GetProperty(Item[i],'Width')<>'' then
                   aPage.PageSize.Width := round(PageToMM(StrToFloatDef(GetProperty(Item[i],'Width'),aPage.PageSize.Width)));
                 if GetProperty(Item[i],'Height')<>'' then
@@ -476,7 +481,8 @@ begin
                             begin
                               aBand := TFPReportGroupHeaderBand.Create(aPage);
                               tmp := GetProperty(nPage.ChildNodes.Item[j],'Condition');
-                              tmp := copy(tmp,2,system.length(tmp)-2);//remove []
+                              if copy(tmp,0,1)='[' then
+                                tmp := copy(tmp,2,system.length(tmp)-2);//remove []
                               tmp := FixDataFields(tmp);
                               TFPReportGroupHeaderBand(aBand).GroupCondition:=tmp;
                             end;
@@ -495,17 +501,21 @@ begin
                           TFPReportMemo(aObj).TextAlignment.TopMargin:=1;
                           TFPReportMemo(aObj).TextAlignment.BottomMargin:=1;
                           TFPReportMemo(aObj).StretchMode:=smActualHeight;
+                          case GetProperty(aDataNode,'Alignment') of
+                          'taRightJustify':TFPReportMemo(aObj).TextAlignment.Horizontal:=taRightJustified;
+                          'taCenter':TFPReportMemo(aObj).TextAlignment.Horizontal:=taCentered;
+                          end;
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
                           TFPReportMemo(aObj).Text:=FixDataFields(SysToUTF8(GetProperty(aDataNode,'Memo')));
+                          TFPReportMemo(aObj).UseParentFont := False;
+                          TFPReportMemo(aObj).Options:=[moAllowHTML];
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Font');
-                          if (GetProperty(aDataNode,'Name')='') or (gTTFontCache.Find(GetProperty(aDataNode,'Name'),false,false)=nil) then
-                            TFPReportMemo(aObj).Font.Name:='ArialMT'
-                          else
-                            begin
-                              aFont := gTTFontCache.Find(GetProperty(aDataNode,'Name'),false,false);
-                              if Assigned(aFont) then
-                                TFPReportMemo(aObj).Font.Name:=aFont.PostScriptName;
-                            end;
+                          aFont := gTTFontCache.Find(GetProperty(aDataNode,'Name'),false,false);
+                          if not Assigned(aFont) then
+                            aFont := gTTFontCache.Find('Arial',false,false);
+                          if Assigned(aFont) then
+                            TFPReportMemo(aObj).Font.Name:=aFont.PostScriptName
+                          else TFPReportMemo(aObj).UseParentFont := true;
                           TFPReportMemo(aObj).Font.Size:=StrToIntDef(GetProperty(aDataNode,'Size'),TFPReportMemo(aObj).Font.Size);
                           aColor := StringToColor(GetProperty(nPage.ChildNodes.Item[j],'FillColor'));
                           TFPReportMemo(aObj).Frame.BackgroundColor:= RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
