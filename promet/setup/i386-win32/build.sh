@@ -43,7 +43,7 @@ target=win32tools_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
 rm $basedir/promet/setup/output/$targetfile
-zip -rq $basedir/promet/setup/output/$targetfile tools\*.*
+zip -rq $basedir/promet/setup/output/$targetfile tools\*.* freetype-6.dll
 cd $basedir/promet/output
 if [ "$1" = "upload" ]; then
   . ../../setup/build-tools/doupload.sh $targetfile $targetcur
