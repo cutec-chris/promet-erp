@@ -441,7 +441,6 @@ begin
                                   TFPReportDataBand(aBand).Data := aData;
                                 end;
                               aMasterData := TFPReportDataBand(aBand);
-                              aMasterData.StretchMode:=smActualHeight;
                             end;
                           'btMasterHeader':
                             begin
@@ -464,7 +463,6 @@ begin
                               if Self.FindComponent(tmp) <> nil then
                                 TFPReportDataBand(aBand).Data := TFPreportData(Self.FindComponent(tmp));
                               TFPReportDataBand(aBand).MasterBand := aMasterData;
-                              TFPReportDataBand(aBand).StretchMode:=smActualHeight;
                               aDetailBand := TFPReportDataBand(aBand);
                             end;
                           'btDetailHeader':
@@ -494,6 +492,8 @@ begin
                           else
                             aBand := TFPReportCustomBand.Create(aPage);
                           end;
+                          if Assigned(aBand) then
+                            TFPReportDataBand(aBand).StretchMode:=smActualHeight;
                           aObj := aBand;
                         end;
                       'TfrMemoView':
@@ -531,7 +531,8 @@ begin
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
                           ourBand := FindBand(aPage,PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Top'),0)));
                           aObj := TFPReportMemo.Create(ourBand);
-                          TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flTop];
+                          TFPReportElement(aObj).Frame.Lines :=[flTop];
+                          TFPReportMemo(aObj).StretchMode:=smActualHeight;
                         end;
                       end;
                       if Assigned(aObj) and (aObj is TFPReportElement) then
