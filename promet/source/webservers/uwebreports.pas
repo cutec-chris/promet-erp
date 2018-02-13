@@ -343,7 +343,7 @@ var
 
   function PixelsToMM(Const Dist: double) : TFPReportUnits;
   begin
-    Result:=Dist*(1/3.5);
+    Result:=Dist*(1/3.76);
   end;
   function PageToMM(Const Dist: double) : TFPReportUnits;
   begin
@@ -501,14 +501,14 @@ begin
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
                           ourBand := FindBand(aPage,PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Top'),0)));
                           aObj := TFPReportMemo.Create(ourBand);
-                          //TFPReportMemo(aObj).TextAlignment.Vertical:=TFPReportVertTextAlignment.tlCenter;
-                          TFPReportMemo(aObj).TextAlignment.TopMargin:=1;
-                          TFPReportMemo(aObj).TextAlignment.BottomMargin:=1;
-                          TFPReportMemo(aObj).StretchMode:=smActualHeight;
                           case GetProperty(nPage.ChildNodes.Item[j],'Alignment') of
                           'taRightJustify':TFPReportMemo(aObj).TextAlignment.Horizontal:=taRightJustified;
                           'taCenter':TFPReportMemo(aObj).TextAlignment.Horizontal:=taCentered;
                           end;
+                          TFPReportMemo(aObj).StretchMode:=smActualHeight;
+                          TFPReportMemo(aObj).TextAlignment.Vertical:=TFPReportVertTextAlignment.tlCenter;
+                          //TFPReportMemo(aObj).TextAlignment.TopMargin:=1;
+                          //TFPReportMemo(aObj).TextAlignment.BottomMargin:=1;
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
                           TFPReportMemo(aObj).Text:=FixDataFields(SysToUTF8(GetProperty(aDataNode,'Memo')));
                           TFPReportMemo(aObj).UseParentFont := False;
@@ -530,9 +530,9 @@ begin
                         begin
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
                           ourBand := FindBand(aPage,PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Top'),0)));
-                          aObj := TFPReportMemo.Create(ourBand);
-                          TFPReportElement(aObj).Frame.Lines :=[flTop];
-                          TFPReportMemo(aObj).StretchMode:=smActualHeight;
+                          aObj := TFPReportShape.Create(ourBand);
+                          TFPReportShape(aObj).ShapeType:=stLine;
+                          TFPReportShape(aObj).Orientation:=orEast;
                         end;
                       end;
                       if Assigned(aObj) and (aObj is TFPReportElement) then
