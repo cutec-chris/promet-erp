@@ -27,7 +27,7 @@ type
     function ExportToPDF(aFile: string): Boolean;
     function ExportToHTML : string;
     function ExportToText : string;
-    function ExportToImage(aFile: string): Boolean;
+    function ExportToImage(aFile: string;DrawFrame : Boolean = True): Boolean;
     procedure RegisterDataSet(aDataSet: TDataset; DeleteComponents: Boolean=True;
       aIdent: Integer=0);
     procedure ManualRegisterDataSet(aDataSet: TDataset; aName: string;
@@ -62,7 +62,11 @@ var
 begin
   while i < ComponentCount do
     if Components[i] is TFPReportDatasetData then
-      Components[i].Free
+      begin
+        TFPReportDatasetData(Components[i]).DataSet.Open;
+        TFPReportDatasetData(Components[i]).DataSet := nil;
+        Components[i].Free
+      end
     else inc(i);
   Report.Free;
 end;
@@ -153,7 +157,7 @@ begin
   result := FTxt;
 end;
 
-function TfWebReports.ExportToImage(aFile: string): Boolean;
+function TfWebReports.ExportToImage(aFile: string; DrawFrame: Boolean): Boolean;
 var
   aExp: TFPReportExportfpImage;
   a: Integer;
@@ -201,7 +205,8 @@ begin
         aNImg.LoadFromFile(nFile);
         Canvas.Rectangle(0,aTop,aWidth+4,aTop+aNImg.Height+4);
         Canvas.Pen.FPColor := TColorToFPColor(clBlack);
-        Canvas.Rectangle(1,aTop+1,aWidth+2,aTop+aNImg.Height+2);
+        if DrawFrame then
+          Canvas.Rectangle(1,aTop+1,aWidth+2,aTop+aNImg.Height+2);
         Canvas.Draw(2,aTop+2,aNImg);
         DeleteFile(nFile);
         aTop := aTop+aNImg.Height;
@@ -322,6 +327,8 @@ var
   aMasterData: TFPReportDataBand;
   aDetailBand: TFPReportDataBand;
   HasFrame: Boolean;
+  aBold: Boolean;
+  aItalic: Boolean;
 
   function GetProperty(aNode : TDOMNode;aName : string) : string;
   var
@@ -507,9 +514,11 @@ begin
                           TFPReportMemo(aObj).UseParentFont := False;
                           TFPReportMemo(aObj).Options:=[moAllowHTML];
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Font');
-                          aFont := gTTFontCache.Find(GetProperty(aDataNode,'Name'),false,false);
+                          aBold := pos('fsBold',GetProperty(aDataNode,'Style'))>0;
+                          aItalic := pos('fsItalic',GetProperty(aDataNode,'Style'))>0;
+                          aFont := gTTFontCache.Find(GetProperty(aDataNode,'Name'),aBold,aItalic);
                           if not Assigned(aFont) then
-                            aFont := gTTFontCache.Find('Arial',false,false);
+                            aFont := gTTFontCache.Find('Arial',aBold,aItalic);
                           if Assigned(aFont) then
                             TFPReportMemo(aObj).Font.Name:=aFont.PostScriptName
                           else TFPReportMemo(aObj).UseParentFont := true;
