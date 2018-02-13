@@ -218,6 +218,7 @@ begin
     if Changed then
       aImg.SaveToFile(aFile);
     aImg.Free;
+    aNImg.Free;
     Result := Changed;
   except
     on e : Exception do
@@ -329,6 +330,7 @@ var
   HasFrame: Boolean;
   aBold: Boolean;
   aItalic: Boolean;
+  aSize: Integer;
 
   function GetProperty(aNode : TDOMNode;aName : string) : string;
   var
@@ -469,13 +471,19 @@ begin
                             begin
                               aBand := TFPReportDataHeaderBand.Create(aPage);
                               if Assigned(aDetailBand) then
-                                aDetailBand.HeaderBand := TFPReportDataHeaderBand(aBand);
+                                begin
+                                  aDetailBand.HeaderBand := TFPReportDataHeaderBand(aBand);
+                                  TFPReportDataHeaderBand(aBand).Data := aDetailBand.Data;
+                                end;
                             end;
                           'btDetailFooter':
                             begin
                               aBand := TFPReportDataFooterBand.Create(aPage);
                               if Assigned(aDetailBand) then
-                                aDetailBand.FooterBand := TFPReportDataFooterBand(aBand);
+                                begin
+                                  aDetailBand.FooterBand := TFPReportDataFooterBand(aBand);
+                                  TFPReportDataFooterBand(aBand).Data := aDetailBand.Data;
+                                end;
                             end;
                           'btPageHeader':aBand := TFPReportPageHeaderBand.Create(aPage);
                           'btPageFooter':aBand := TFPReportPageFooterBand.Create(aPage);
@@ -505,14 +513,16 @@ begin
                           'taRightJustify':TFPReportMemo(aObj).TextAlignment.Horizontal:=taRightJustified;
                           'taCenter':TFPReportMemo(aObj).TextAlignment.Horizontal:=taCentered;
                           end;
+                          case GetProperty(nPage.ChildNodes.Item[j],'Layout') of
+                          'tlCenter':TFPReportMemo(aObj).TextAlignment.Vertical:=TFPReportVertTextAlignment.tlCenter;
+                          'tlTop':TFPReportMemo(aObj).TextAlignment.Vertical:=TFPReportVertTextAlignment.tlTop;
+                          'tlBottom':TFPReportMemo(aObj).TextAlignment.Vertical:=TFPReportVertTextAlignment.tlBottom;
+                          end;
                           TFPReportMemo(aObj).StretchMode:=smActualHeight;
-                          TFPReportMemo(aObj).TextAlignment.Vertical:=TFPReportVertTextAlignment.tlCenter;
-                          //TFPReportMemo(aObj).TextAlignment.TopMargin:=1;
-                          //TFPReportMemo(aObj).TextAlignment.BottomMargin:=1;
+                          TFPReportMemo(aObj).TextAlignment.TopMargin:=1;
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
                           TFPReportMemo(aObj).Text:=FixDataFields(SysToUTF8(GetProperty(aDataNode,'Memo')));
                           TFPReportMemo(aObj).UseParentFont := False;
-                          TFPReportMemo(aObj).Options:=[moAllowHTML];
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Font');
                           aBold := pos('fsBold',GetProperty(aDataNode,'Style'))>0;
                           aItalic := pos('fsItalic',GetProperty(aDataNode,'Style'))>0;
@@ -522,7 +532,9 @@ begin
                           if Assigned(aFont) then
                             TFPReportMemo(aObj).Font.Name:=aFont.PostScriptName
                           else TFPReportMemo(aObj).UseParentFont := true;
-                          TFPReportMemo(aObj).Font.Size:=StrToIntDef(GetProperty(aDataNode,'Size'),TFPReportMemo(aObj).Font.Size);
+                          aSize := StrToIntDef(GetProperty(aDataNode,'Size'),TFPReportMemo(aObj).Font.Size);
+                          if aSize>5 then dec(aSize);
+                          TFPReportMemo(aObj).Font.Size:=aSize;
                           aColor := StringToColor(GetProperty(aDataNode,'Color'));
                           TFPReportMemo(aObj).Font.Color:= RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
                         end;

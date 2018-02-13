@@ -44,6 +44,7 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
+              <UseHeaptrc Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
@@ -83,7 +84,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS -u RMA -p SBD2a6dkyslxtL8w"/>
+        <CommandLineParams Value="--mandant=TCS -u RMA -p SBD2a6dkyslxtL8w --restarttime=1"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
