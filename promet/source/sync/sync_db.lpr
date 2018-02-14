@@ -129,8 +129,6 @@ begin
           if aDest.FieldByName('TIMESTAMPD').AsDateTime>aSource.FieldByName('TIMESTAMPD').AsDateTime then
             begin
               (BaseApplication as IBaseApplication).Info(Format('Dest is newer than Source, aborting ID:%s',[aSource.FieldByName('SQL_ID').AsString]));
-              FreeAndNil(aSource);
-              FreeAndNil(aDest);
               exit;
             end;
           aDest.Edit;
@@ -513,13 +511,12 @@ begin
                 (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncIn.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
               end;
             try
-              if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+              if SyncCount>0 then //Use Transactions only when Partially syncing We dont want to lock for an long time
                 SourceDM.StartTransaction(SourceDM.MainConnection);
               while not aSyncIn.EOF do
                 begin
                   try
                     SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False);
-                    inc(Result);
                   except
                     begin
                       dec(Result);
@@ -679,11 +676,11 @@ var
                 FTables.Add(aTableName);
                 try
                   FSyncedCount:=2;
-                  FOldSyncCount:=0;
+                  FOldSyncCount:=-1;
                   Fullsynced := False;
                   if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString='' then
                     FOldTime:='a';
-                  //while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) and (FOldSyncCount<>FSyncedCount) do
+                  while not Fullsynced do
                     begin
                       FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                       FOldSyncCount := FSyncedCount;
@@ -691,11 +688,6 @@ var
                       if aSyncCount > 0 then
                         Fullsynced:=FSyncedCount < aSyncCount
                       else Fullsynced:=True;
-                      inc(SyncedTables,FSyncedCount);
-                    end;
-                  if (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
-                    begin
-                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,MinimalDate);
                       inc(SyncedTables,FSyncedCount);
                     end;
                 except
