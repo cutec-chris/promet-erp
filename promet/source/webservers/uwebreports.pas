@@ -42,7 +42,7 @@ var
 
 implementation
 
-uses uBaseApplication,Utils,dateutils,Graphics;
+uses uBaseApplication,Utils,dateutils,Graphics,base64,FPReadGif,FPReadJPEG;
 
 { TfWebReports }
 {
@@ -333,16 +333,22 @@ var
   aBold: Boolean;
   aItalic: Boolean;
   aSize: Integer;
+  ss: TStringStream;
+  aReader: TFPCustomImageReader;
+  fs: TFileStream;
+  cd: integer;
+  B: Byte;
+  k: Integer;
 
-  function GetProperty(aNode : TDOMNode;aName : string) : string;
+  function GetProperty(aNode : TDOMNode;aName : string;aValue : string = 'Value') : string;
   var
     bNode: TDOMNode;
   begin
     Result := '';
     bNode := aNode.FindNode(aName);
     if Assigned(bNode) then
-      if Assigned(bNode.Attributes.GetNamedItem('Value')) then
-        Result := bNode.Attributes.GetNamedItem('Value').NodeValue;
+      if Assigned(bNode.Attributes.GetNamedItem(aValue)) then
+        Result := bNode.Attributes.GetNamedItem(aValue).NodeValue;
   end;
 
   function PixelsToMM(Const Dist: double) : TFPReportUnits;
@@ -563,6 +569,38 @@ begin
                           aObj := TFPReportShape.Create(ourBand);
                           TFPReportShape(aObj).ShapeType:=stLine;
                           TFPReportShape(aObj).Orientation:=orEast;
+                        end;
+                      'TfrPictureView':
+                        begin
+                          aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
+                          ourBand := FindBand(aPage,PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Top'),0)));
+                          aObj := TFPReportImage.Create(ourBand);
+                          aDataNode := nPage.ChildNodes.Item[j].FindNode('Picture');
+                          aReader:=nil;
+                          case lowercase(GetProperty(aDataNode,'Type','Ext')) of
+                          'jpeg','jpg':aReader := TFPReaderJPEG.Create;
+                          'png':aReader := TFPReaderPNG.create;
+                          'gif':aReader := TFPReaderGif.Create;
+                          end;
+                          if Assigned(aReader) then
+                            begin
+                              tmp := GetProperty(aDataNode,'Data');
+                              ss := TStringStream.Create('');
+                              if tmp<>'' then
+                                for k:=1 to (system.length(tmp) div 2) do begin
+                                  Val('$'+tmp[k*2-1]+tmp[k*2], B, cd);
+                                  ss.Write(B, 1);
+                                end;
+                              ss.Position:=0;
+                              fs := TFileStream.Create(GetTempDir+'repimage.'+GetProperty(aDataNode,'Type','Ext'),fmCreate);
+                              fs.CopyFrom(ss,0);
+                              fs.Free;
+                              TFPReportImage(aObj).LoadFromFile(GetTempDir+'repimage.'+GetProperty(aDataNode,'Type','Ext'));
+                              TFPReportImage(aObj).Stretched:=True;
+                              DeleteFile(GetTempDir+'repimage.'+GetProperty(aDataNode,'Type','Ext'));
+                              ss.Free;
+                            end;
+                          aReader.Free;
                         end;
                       end;
                       if Assigned(aObj) and (aObj is TFPReportElement) then
