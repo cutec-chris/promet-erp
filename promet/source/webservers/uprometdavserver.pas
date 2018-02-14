@@ -1169,14 +1169,14 @@ begin
                             DetailDataSet.Free;
                           DetailDataSet := Data.GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('DETAIL').AsString),aDataSet.Connection,StatisticResultsDataSet);
                           DetailDataSet.Open;
-                          fWebReports.ManualRegisterDataSet(DetailDataSet,'Details',False);
+                          fWebReports.ManualRegisterDataSet(DetailDataSet,'Detail',False);
                           if trim(aDataSet.FieldByName('SUBDETAIL').AsString) <> '' then
                             begin
                               if Assigned(SubDetailDataSet) then
                                 SubDetailDataSet.Free;
                               SubDetailDataSet := Data.GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('SUBDETAIL').AsString),aDataSet.Connection,DetailDataSet);
                               SubDetailDataSet.Open;
-                              fWebReports.ManualRegisterDataSet(SubDetailDataSet,'SubDetails',False);
+                              fWebReports.ManualRegisterDataSet(SubDetailDataSet,'SubDetail',False);
                             end;
                         end;
                     end

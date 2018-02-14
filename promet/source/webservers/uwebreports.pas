@@ -325,6 +325,8 @@ var
   aData: TFPReportData;
   aFont: TFPFontCacheItem;
   aColor: TColor;
+  aDetailHeader : TFPReportDataHeaderBand;
+  aDetailFooter : TFPReportDataFooterBand;
   aMasterData: TFPReportDataBand;
   aDetailBand: TFPReportDataBand;
   HasFrame: Boolean;
@@ -402,6 +404,8 @@ begin
               begin
                 aMasterData := nil;
                 aDetailBand := nil;
+                aDetailHeader := nil;
+                aDetailFooter := nil;
                 aData := nil;
                 aPage := TFPReportPage.Create(Report);
                 aPage.PageSize.PaperName:='A4';
@@ -466,6 +470,18 @@ begin
                                 TFPReportDataBand(aBand).Data := TFPreportData(Self.FindComponent(tmp));
                               TFPReportDataBand(aBand).MasterBand := aMasterData;
                               aDetailBand := TFPReportDataBand(aBand);
+                              if Assigned(aDetailHeader) then
+                                begin
+                                  aDetailHeader.Data := TFPReportDataBand(aBand).Data;
+                                  TFPReportDataBand(aBand).HeaderBand := aDetailHeader;
+                                  aDetailHeader := nil;
+                                end;
+                              if Assigned(aDetailFooter) then
+                                begin
+                                  aDetailFooter.Data := TFPReportDataBand(aBand).Data;
+                                  TFPReportDataBand(aBand).FooterBand := aDetailFooter;
+                                  aDetailFooter := nil;
+                                end;
                             end;
                           'btDetailHeader':
                             begin
@@ -474,7 +490,8 @@ begin
                                 begin
                                   aDetailBand.HeaderBand := TFPReportDataHeaderBand(aBand);
                                   TFPReportDataHeaderBand(aBand).Data := aDetailBand.Data;
-                                end;
+                                end
+                              else aDetailHeader := TFPReportDataHeaderBand(aBand);
                             end;
                           'btDetailFooter':
                             begin
@@ -483,7 +500,8 @@ begin
                                 begin
                                   aDetailBand.FooterBand := TFPReportDataFooterBand(aBand);
                                   TFPReportDataFooterBand(aBand).Data := aDetailBand.Data;
-                                end;
+                                end
+                              else aDetailFooter := TFPReportDataFooterBand(aBand);
                             end;
                           'btPageHeader':aBand := TFPReportPageHeaderBand.Create(aPage);
                           'btPageFooter':aBand := TFPReportPageFooterBand.Create(aPage);

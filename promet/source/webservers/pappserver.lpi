@@ -39,8 +39,10 @@
               <StackChecks Value="True"/>
             </Checks>
             <Optimizations>
+              <OptimizationLevel Value="2"/>
               <VariablesInRegisters Value="True"/>
             </Optimizations>
+            <SmallerCode Value="True"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
@@ -84,7 +86,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS -u RMA -p SBD2a6dkyslxtL8w --restarttime=1"/>
+        <CommandLineParams Value="--mandant=TCS -u RMA -p SBD2a6dkyslxtL8w"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
