@@ -9,7 +9,7 @@ uses
   uBaseDBInterface, uBaseDatasetInterfaces, db,
   fpreport, fpreportfpimageexport, fpreporthtmlexport, fpreportpdfexport,fpreportdb,
   DOM,XMLRead,fpjsonreport,FPReadPNG,FPimage,FPCanvas,FPImgCanv,fpTTF,fpReportHTMLParser,
-  fprepexprpars;
+  fprepexprpars,nr_intrp;
 
 type
 
@@ -37,12 +37,164 @@ type
     destructor Destroy; override;
   end;
 
+  { RFPInterpreter }
+
+  RFPInterpreter = class(TfrInterpretator)
+  public
+    procedure GetValue(const Name: String; var Value: Variant); override;
+    procedure SetValue(const Name: String; Value: Variant); override;
+    procedure DoFunction(const name: String; p1, p2, p3: Variant;
+      var val: Variant); override;
+  end;
+
+  { TFPReportScriptMemo }
+
+  TFPReportScriptMemo = class(TFPReportMemo)
+  private
+    FScript: TfrInterpretator;
+    FScriptSource: string;
+    FPrepared : TStringList;
+    procedure SetScript(AValue: string);
+  protected
+    function PrepareObject(aRTParent: TFPReportElement): TFPReportElement; override;
+  public
+    property Script : string read FScriptSource write SetScript;
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+  end;
+
 var
   fWebReports: TfWebReports;
+  ActualElement : TFPReportElement;
 
 implementation
 
-uses uBaseApplication,Utils,dateutils,Graphics,base64,FPReadGif,FPReadJPEG;
+uses uBaseApplication,Utils,dateutils,Graphics,base64,FPReadGif,FPReadJPEG,variants;
+
+{ RFPInterpreter }
+
+procedure RFPInterpreter.GetValue(const Name: String; var Value: Variant);
+var
+  tmp: String;
+  aObj: TFPReportElement;
+  aVar: TFPReportVariable;
+  aData: TComponent;
+  aColor: TColor;
+begin
+  tmp := Name;
+  aObj := ActualElement;
+  if not Assigned(aObj) then exit;
+  aVar := aObj.Report.Variables.FindVariable(Name);
+  if Assigned(aVar) then
+    begin
+      Value := aVar.Value;
+      exit;
+    end
+  else
+    begin
+      if pos('.',tmp)>0 then
+        begin
+          aData := fWebReports.FindComponent(copy(tmp,0,pos('.',tmp)-1));
+          if Assigned(aData) then
+            begin
+              tmp := StringReplace(copy(tmp,pos('.',tmp)+1,length(tmp)),'"','',[rfReplaceAll]);
+              Value := TFPReportData(aData).FieldValues[tmp];
+              exit;
+            end;
+        end
+
+    end;
+  if copy(Name,0,2) = 'cl' then
+    begin
+      aColor :=StringToColor(Name);
+      Value:=RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
+    end;
+end;
+
+procedure RFPInterpreter.SetValue(const Name: String; Value: Variant);
+var
+  tmp: String;
+  aObj: TFPReportElement;
+begin
+  tmp := Name;
+  if pos('.',tmp)>0 then
+    begin
+      aObj := TFPReportElement(fWebReports.Report.FindComponent(copy(tmp,0,pos('.',tmp)-1)));
+      tmp := copy(tmp,pos('.',tmp)+1,length(tmp));
+    end
+  else
+    aObj := ActualElement;
+  if not Assigned(aObj) then exit;
+  case lowercase(tmp) of
+  'left':aObj.Layout.Left:=Value;
+  'top':aObj.Layout.Top:=Value;
+  'height':aObj.Layout.Height:=Value;
+  'width':aObj.Layout.Width:=Value;
+  'fontcolor':
+    begin
+      TFPReportMemo(aObj).Font.Color:= uint32(Value);
+
+    end;
+  'fontstyle':
+    begin
+      case Value of
+      0: //none
+        begin
+//          TFPReportMemo(aObj).Font.Name
+        end;
+     end;
+    end;
+  end;
+end;
+
+procedure RFPInterpreter.DoFunction(const name: String; p1, p2, p3: Variant;
+  var val: Variant);
+var
+  tmp: String;
+begin
+  tmp := Name;
+end;
+
+{ TFPReportScriptMemo }
+
+procedure TFPReportScriptMemo.SetScript(AValue: string);
+var
+  mFr: TStringList;
+  mErr: TStringList;
+  tmp: String;
+begin
+  if FScriptSource=AValue then Exit;
+  FScriptSource:=AValue;
+  mFr := TStringList.Create;
+  mFr.Text:=FScriptSource;
+  mErr:= TStringList.Create;
+  FScript.PrepareScript(mFr,FPrepared,mErr);
+  tmp := mErr.Text;
+  mFr.Free;
+  mErr.Free;
+end;
+
+function TFPReportScriptMemo.PrepareObject(aRTParent: TFPReportElement
+  ): TFPReportElement;
+begin
+  ActualElement := Self;
+  FScript.DoScript(FPrepared);
+  Result:=inherited PrepareObject(aRTParent);
+end;
+
+constructor TFPReportScriptMemo.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FScript := RFPInterpreter.Create;
+  FPrepared := TStringList.Create;
+end;
+
+destructor TFPReportScriptMemo.Destroy;
+begin
+  FPrepared.Free;
+  FScript.Free;
+  inherited Destroy;
+end;
 
 { TfWebReports }
 {
@@ -532,7 +684,15 @@ begin
                         begin
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
                           ourBand := FindBand(aPage,PixelsToMM(StrToFloatDef(GetProperty(aDataNode,'Top'),0)));
-                          aObj := TFPReportMemo.Create(ourBand);
+                          aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
+                          if GetProperty(aDataNode,'Script') <> '' then
+                            begin
+                              aObj := TFPReportScriptMemo.Create(ourBand);
+                              TFPReportScriptMemo(aObj).Script := GetProperty(aDataNode,'Script');
+                            end
+                          else
+                            aObj := TFPReportMemo.Create(ourBand);
+                          aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
                           case GetProperty(nPage.ChildNodes.Item[j],'Alignment') of
                           'taRightJustify':TFPReportMemo(aObj).TextAlignment.Horizontal:=taRightJustified;
                           'taCenter':TFPReportMemo(aObj).TextAlignment.Horizontal:=taCentered;

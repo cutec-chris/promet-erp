@@ -23,7 +23,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --db=ForumPG --syncblocks=5000"/>
+        <CommandLineParams Value="--mandant=TCS --db=ForumPG --syncblocks=15000"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -41,8 +41,8 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="349"/>
-        <CursorPos X="66" Y="367"/>
+        <TopLine Value="337"/>
+        <CursorPos X="32" Y="380"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -51,7 +51,7 @@
         <EditorIndex Value="9"/>
         <TopLine Value="254"/>
         <CursorPos X="74" Y="262"/>
-        <UsageCount Value="43"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -60,7 +60,7 @@
         <EditorIndex Value="8"/>
         <TopLine Value="1690"/>
         <CursorPos Y="1713"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="70"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -69,7 +69,7 @@
         <EditorIndex Value="10"/>
         <TopLine Value="1016"/>
         <CursorPos Y="1036"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="70"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -77,7 +77,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="683"/>
         <CursorPos Y="706"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit4>
       <Unit5>
@@ -85,7 +85,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="367"/>
         <CursorPos X="30" Y="391"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit5>
       <Unit6>
@@ -93,14 +93,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="531"/>
         <CursorPos X="60" Y="548"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="1"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\components\zeos\src\plain\ZPlainPostgreSqlDriver.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1138"/>
         <CursorPos Y="1170"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit7>
       <Unit8>
@@ -109,7 +109,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="294"/>
         <CursorPos Y="318"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="58"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -118,7 +118,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1269"/>
         <CursorPos Y="1311"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="2"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
@@ -126,7 +126,7 @@
         <EditorIndex Value="5"/>
         <TopLine Value="2048"/>
         <CursorPos Y="2073"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="55"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -134,42 +134,42 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="110"/>
         <CursorPos X="22" Y="131"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="2"/>
       </Unit11>
       <Unit12>
         <Filename Value="C:\lazarus144\fpc\2.6.4\source\rtl\morphos\graphics.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2177"/>
         <CursorPos X="40" Y="2199"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="3"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\base\base_scripts\uprometpascalscript.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="11"/>
         <CursorPos X="37" Y="34"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="2"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\..\general\pascal_script\genpascalscript.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="45"/>
         <CursorPos X="32" Y="67"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="2"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\..\general\src\genscript.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="14"/>
         <CursorPos X="3" Y="36"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="2"/>
       </Unit15>
       <Unit16>
         <Filename Value="..\base\dbintfs\uprometscripts.pas"/>
         <EditorIndex Value="12"/>
         <TopLine Value="641"/>
         <CursorPos X="45" Y="680"/>
-        <UsageCount Value="43"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -177,7 +177,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="217"/>
         <CursorPos Y="248"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit17>
       <Unit18>
@@ -185,7 +185,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="681"/>
         <CursorPos X="41" Y="689"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit18>
       <Unit19>
@@ -194,7 +194,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2"/>
         <CursorPos X="65" Y="24"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="2"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\base\base_options\usyncoptions.pas"/>
@@ -202,7 +202,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="179"/>
         <CursorPos X="19" Y="188"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="10"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\base\uwizardnewmandant.pas"/>
@@ -213,7 +213,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="395"/>
         <CursorPos X="42" Y="420"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="3"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
@@ -221,7 +221,7 @@
         <EditorIndex Value="11"/>
         <TopLine Value="1202"/>
         <CursorPos X="25" Y="1208"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="57"/>
         <Loaded Value="True"/>
       </Unit22>
       <Unit23>
@@ -229,7 +229,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="26"/>
         <CursorPos X="68" Y="48"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="3"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\components\zeos\src\plain\zplainsqlitedriver.pas"/>
@@ -237,7 +237,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="797"/>
         <CursorPos Y="818"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit24>
       <Unit25>
@@ -245,7 +245,7 @@
         <EditorIndex Value="7"/>
         <TopLine Value="5"/>
         <CursorPos X="21" Y="24"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit25>
       <Unit26>
@@ -253,7 +253,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1274"/>
         <CursorPos Y="1296"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit26>
       <Unit27>
@@ -261,7 +261,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="325"/>
         <CursorPos Y="348"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit27>
       <Unit28>
@@ -269,7 +269,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="879"/>
         <CursorPos Y="900"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit28>
       <Unit29>
@@ -277,7 +277,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="907"/>
         <CursorPos Y="929"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit29>
       <Unit30>
@@ -285,7 +285,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2030"/>
         <CursorPos Y="2065"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit30>
       <Unit31>
@@ -293,7 +293,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="527"/>
         <CursorPos Y="551"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="4"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit31>
       <Unit32>
@@ -302,7 +302,7 @@
         <EditorIndex Value="6"/>
         <TopLine Value="99"/>
         <CursorPos X="3" Y="121"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit32>
       <Unit33>
@@ -311,7 +311,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="1751"/>
         <CursorPos Y="1774"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit33>
       <Unit34>
@@ -320,7 +320,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="716"/>
         <CursorPos X="37" Y="750"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit34>
       <Unit35>
@@ -329,7 +329,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="979"/>
         <CursorPos X="32" Y="1022"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit35>
       <Unit36>
@@ -337,14 +337,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1592"/>
         <CursorPos X="15" Y="1612"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="4"/>
       </Unit36>
       <Unit37>
         <Filename Value="C:\lazarus144\fpc\2.6.4\source\packages\fcl-db\src\base\dataset.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2015"/>
         <CursorPos X="3" Y="2018"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="4"/>
       </Unit37>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
