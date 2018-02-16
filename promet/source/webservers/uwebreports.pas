@@ -58,6 +58,8 @@ type
   protected
     function PrepareObject(aRTParent: TFPReportElement): TFPReportElement; override;
   public
+    function ExpandMacro(const s: String; const AIsExpr: boolean
+      ): TFPReportString; override;
     property Script : string read FScriptSource write SetScript;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -70,6 +72,20 @@ var
 implementation
 
 uses uBaseApplication,Utils,dateutils,Graphics,base64,FPReadGif,FPReadJPEG,variants;
+
+function PixelsToMM(Const Dist: double) : TFPReportUnits;
+begin
+  Result:=Dist*(1/3.76);
+end;
+function MMToPixels(Const Dist: double) : Integer;
+begin
+  Result:=round(Dist*(3.76));
+end;
+
+function PageToMM(Const Dist: double) : TFPReportUnits;
+begin
+  Result:=Dist*(1/2.83);
+end;
 
 { RFPInterpreter }
 
@@ -84,30 +100,52 @@ begin
   tmp := Name;
   aObj := ActualElement;
   if not Assigned(aObj) then exit;
-  aVar := aObj.Report.Variables.FindVariable(Name);
-  if Assigned(aVar) then
+  if pos('.',tmp)>0 then
     begin
-      Value := aVar.Value;
-      exit;
+      aData := fWebReports.FindComponent(copy(tmp,0,pos('.',tmp)-1));
+      if Assigned(aData) then
+        begin
+          tmp := StringReplace(copy(tmp,pos('.',tmp)+1,length(tmp)),'"','',[rfReplaceAll]);
+          Value := TFPReportData(aData).FieldValues[tmp];
+          exit;
+        end;
+    end;
+  if pos('.',tmp)>0 then
+    begin
+      aObj := TFPReportElement(fWebReports.Report.FindRecursive(copy(tmp,0,pos('.',tmp)-1)));
+      tmp := copy(tmp,pos('.',tmp)+1,length(tmp));
     end
   else
+    aObj := ActualElement;
+  if Assigned(aObj) then
     begin
-      if pos('.',tmp)>0 then
+      case lowercase(tmp) of
+      'left':Value := MMToPixels(aObj.Parent.Layout.Left+aObj.Layout.Left);
+      'top':Value := MMToPixels(aObj.Parent.Layout.Left+aObj.Layout.Top);
+      'height':Value := MMToPixels(aObj.Layout.Height);
+      'width':Value := MMToPixels(aObj.Layout.Width);
+      'fillcolor':
         begin
-          aData := fWebReports.FindComponent(copy(tmp,0,pos('.',tmp)-1));
-          if Assigned(aData) then
-            begin
-              tmp := StringReplace(copy(tmp,pos('.',tmp)+1,length(tmp)),'"','',[rfReplaceAll]);
-              Value := TFPReportData(aData).FieldValues[tmp];
-              exit;
-            end;
-        end
-
+          Value := TFPReportMemo(aObj).Frame.BackgroundColor;
+        end;
+      'fontcolor':
+        begin
+          Value := TFPReportMemo(aObj).Font.Color;
+        end;
+      end;
+      if Value <> Null then exit;
     end;
-  if copy(Name,0,2) = 'cl' then
+  if StringToColorDef(Name,clDefault) <> clDefault then
     begin
       aColor :=StringToColor(Name);
       Value:=RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
+      exit;
+    end;
+  tmp := TFPReportScriptMemo(aObj).ExpandMacro(Name,True);
+  if tmp <> '' then
+    begin
+      Value := tmp;
+      exit;
     end;
 end;
 
@@ -122,21 +160,26 @@ begin
   tmp := Name;
   if pos('.',tmp)>0 then
     begin
-      aObj := TFPReportElement(fWebReports.Report.FindComponent(copy(tmp,0,pos('.',tmp)-1)));
+      aObj := TFPReportElement(fWebReports.Report.FindRecursive(copy(tmp,0,pos('.',tmp)-1)));
       tmp := copy(tmp,pos('.',tmp)+1,length(tmp));
     end
   else
     aObj := ActualElement;
   if not Assigned(aObj) then exit;
+  if Value=null then exit;
   case lowercase(tmp) of
-  'left':aObj.Layout.Left:=Value;
-  'top':aObj.Layout.Top:=Value;
-  'height':aObj.Layout.Height:=Value;
-  'width':aObj.Layout.Width:=Value;
+  'left':aObj.Layout.Left:=PixelsToMM(Value);//-aObj.Parent.Layout.Left;
+  'top':aObj.Layout.Top:=PixelsToMM(Value);//-aObj.Parent.Layout.Top;
+  'height':aObj.Layout.Height:=PixelsToMM(Value);
+  'width':aObj.Layout.Width:=PixelsToMM(Value);
+  'fillcolor':
+    begin
+      TFPReportMemo(aObj).Frame.BackgroundColor:= uint32(Value);
+      TFPReportMemo(aObj).Frame.Shape:=fsRectangle;
+    end;
   'fontcolor':
     begin
       TFPReportMemo(aObj).Font.Color:= uint32(Value);
-
     end;
   'fontstyle':
     begin
@@ -189,8 +232,19 @@ function TFPReportScriptMemo.PrepareObject(aRTParent: TFPReportElement
   ): TFPReportElement;
 begin
   ActualElement := Self;
-  FScript.DoScript(FPrepared);
+  try
+    FScript.DoScript(FPrepared);
+  except
+    on e : Exception do
+      Self.Text:=e.Message;
+  end;
   Result:=inherited PrepareObject(aRTParent);
+end;
+
+function TFPReportScriptMemo.ExpandMacro(const s: String; const AIsExpr: boolean
+  ): TFPReportString;
+begin
+  Result:=inherited ExpandMacro(s, AIsExpr);
 end;
 
 constructor TFPReportScriptMemo.Create(AOwner: TComponent);
@@ -514,15 +568,6 @@ var
         Result := bNode.Attributes.GetNamedItem(aValue).NodeValue;
   end;
 
-  function PixelsToMM(Const Dist: double) : TFPReportUnits;
-  begin
-    Result:=Dist*(1/3.76);
-  end;
-  function PageToMM(Const Dist: double) : TFPReportUnits;
-  begin
-    Result:=Dist*(1/2.83);
-  end;
-
   function FindBand(aPage : TFPReportPage;aTop : double) : TFPReportCustomBand;
   var
     b : Integer;
@@ -552,6 +597,7 @@ var
         inc(k);
       end;
     Result := StringReplace(Result,'PAGE#','PageNo',[rfReplaceAll,rfIgnoreCase]);
+    Result := StringReplace(Result,'[DATE]','[TODAY]',[rfReplaceAll,rfIgnoreCase]);
   end;
 
 begin
@@ -699,7 +745,7 @@ begin
                           if GetProperty(aDataNode,'Script') <> '' then
                             begin
                               aObj := TFPReportScriptMemo.Create(ourBand);
-                              TFPReportScriptMemo(aObj).Script := GetProperty(aDataNode,'Script');
+                              TFPReportScriptMemo(aObj).Script := FixDataFields(GetProperty(aDataNode,'Script'));
                             end
                           else
                             aObj := TFPReportMemo.Create(ourBand);
@@ -802,10 +848,10 @@ begin
                                   TFPReportElement(aObj).Frame.Color:= RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
                                 end;
                               TFPReportElement(aObj).Frame.Width := StrToIntDef(GetProperty(aDataNode,'FrameWidth'),0);
+                              TFPReportElement(aObj).Frame.Lines:=[];
                               tmp := GetProperty(aDataNode,'FrameBorders');
                               if tmp <> '' then
                                 begin
-                                  TFPReportElement(aObj).Frame.Lines:=[];
                                   if pos('frbBottom',tmp)>0 then
                                     TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flBottom];
                                   if pos('frbTop',tmp)>0 then
@@ -815,8 +861,7 @@ begin
                                   if pos('frbRight',tmp)>0 then
                                     TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flRight];
                                   HasFrame := True;
-                                end
-                              else TFPReportElement(aObj).Frame.Lines:=[];
+                                end;
                             end;
                           if (aObj is TFPReportMemo)
                           and (GetProperty(nPage.ChildNodes.Item[j],'FillColor')<>'clNone')
