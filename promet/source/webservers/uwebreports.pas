@@ -47,9 +47,14 @@ type
       var val: Variant); override;
   end;
 
+  { TFPReportPrometMemo }
+
+  TFPReportPrometMemo = class(TFPReportMemo)
+  end;
+
   { TFPReportScriptMemo }
 
-  TFPReportScriptMemo = class(TFPReportMemo)
+  TFPReportScriptMemo = class(TFPReportPrometMemo)
   private
     FScript: TfrInterpretator;
     FScriptSource: string;
@@ -753,7 +758,7 @@ begin
                               TFPReportScriptMemo(aObj).Script := FixDataFields(GetProperty(aDataNode,'Script'));
                             end
                           else
-                            aObj := TFPReportMemo.Create(ourBand);
+                            aObj := TFPReportPrometMemo.Create(ourBand);
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Size');
                           case GetProperty(nPage.ChildNodes.Item[j],'Alignment') of
                           'taRightJustify':TFPReportMemo(aObj).TextAlignment.Horizontal:=taRightJustified;
@@ -765,6 +770,8 @@ begin
                           'tlBottom':TFPReportMemo(aObj).TextAlignment.Vertical:=TFPReportVertTextAlignment.tlBottom;
                           end;
                           TFPReportMemo(aObj).StretchMode:=smActualHeight;
+                          if GetProperty(nPage.ChildNodes.Item[j],'Flags') = '3' then
+                            TFPReportMemo(aObj).StretchMode:=smMaxHeight;
                           TFPReportMemo(aObj).TextAlignment.TopMargin:=1;
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
                           TFPReportMemo(aObj).Text:=FixDataFields(SysToUTF8(GetProperty(aDataNode,'Memo')));
