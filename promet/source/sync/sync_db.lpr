@@ -472,7 +472,7 @@ begin
                 (BaseApplication as IBaseApplication).Info(aFilter);
               end;
             try
-              if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+              if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We diont want to lock for an long time
                 DestDM.StartTransaction(DestDM.MainConnection);
               while not aSyncOut.EOF do
                 begin
@@ -490,12 +490,12 @@ begin
                 end;
               aSyncOut.Destroy;
               aSyncOutTime := aLastRowTime;
-              if SyncCount>0 then
+              if BaseApplication.HasOption('usetransactions') then
                 DestDM.CommitTransaction(DestDM.MainConnection);
             except
               on e : Exception do
                 begin
-                  if SyncCount>0 then
+                  if BaseApplication.HasOption('usetransactions') then
                     DestDM.RollbackTransaction(DestDM.MainConnection);
                 end;
             end;
@@ -511,7 +511,7 @@ begin
                 (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncIn.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
               end;
             try
-              if SyncCount>0 then //Use Transactions only when Partially syncing We dont want to lock for an long time
+              if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We dont want to lock for an long time
                 SourceDM.StartTransaction(SourceDM.MainConnection);
               while not aSyncIn.EOF do
                 begin
@@ -530,12 +530,12 @@ begin
               aSyncIn.Destroy;
               if aSyncOutTime<aLastRowTime then
                 aLastRowTime:=aSyncOutTime;
-              if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+              if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We diont want to lock for an long time
                 SourceDM.CommitTransaction(SourceDM.MainConnection);
             except
               on e : Exception do
                 begin
-                  if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+                  if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We diont want to lock for an long time
                     SourceDM.RollbackTransaction(SourceDM.MainConnection);
                 end;
             end;

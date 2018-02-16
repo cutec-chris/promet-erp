@@ -115,6 +115,9 @@ procedure RFPInterpreter.SetValue(const Name: String; Value: Variant);
 var
   tmp: String;
   aObj: TFPReportElement;
+  aBold: Boolean = false;
+  aItalic: Boolean = false;
+  aFont: TFPFontCacheItem;
 begin
   tmp := Name;
   if pos('.',tmp)>0 then
@@ -140,9 +143,17 @@ begin
       case Value of
       0: //none
         begin
-//          TFPReportMemo(aObj).Font.Name
         end;
-     end;
+      2:
+        begin
+          aBold:=True;
+        end;
+      end;
+      aFont := gTTFontCache.Find(TFPReportMemo(aObj).Font.Name);
+      if Assigned(aFont) then
+        aFont := gTTFontCache.Find(aFont.FamilyName,aBold,aItalic);
+      if Assigned(aFont) then
+        TFPReportMemo(aObj).Font.Name:=aFont.PostScriptName
     end;
   end;
 end;
