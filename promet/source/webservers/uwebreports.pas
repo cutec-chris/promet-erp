@@ -100,13 +100,18 @@ begin
   tmp := Name;
   aObj := ActualElement;
   if not Assigned(aObj) then exit;
+  if Name = 'TODAY' then
+    begin
+      Value := Now();
+      exit;
+    end;
   if pos('.',tmp)>0 then
     begin
       aData := fWebReports.FindComponent(copy(tmp,0,pos('.',tmp)-1));
       if Assigned(aData) then
         begin
           tmp := StringReplace(copy(tmp,pos('.',tmp)+1,length(tmp)),'"','',[rfReplaceAll]);
-          Value := TFPReportData(aData).FieldValues[tmp];
+          Value := TFPReportDatasetData(aData).DataSet.FieldByName(tmp).AsVariant;
           exit;
         end;
     end;
