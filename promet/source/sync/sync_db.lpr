@@ -129,8 +129,6 @@ begin
           if aDest.FieldByName('TIMESTAMPD').AsDateTime>aSource.FieldByName('TIMESTAMPD').AsDateTime then
             begin
               (BaseApplication as IBaseApplication).Info(Format('Dest is newer than Source, aborting ID:%s',[aSource.FieldByName('SQL_ID').AsString]));
-              FreeAndNil(aSource);
-              FreeAndNil(aDest);
               exit;
             end;
           aDest.Edit;
@@ -342,7 +340,7 @@ begin
   aTable := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
   if not ((SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y')
        or (SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y')) then exit;
-  if DestDM.DataSetFromName(aTable,aCRT) then
+  if (not DestDM.TableExists(aTable)) and (DestDM.DataSetFromName(aTable,aCRT)) then
     begin
       tCRT := aCRT.CreateEx(nil,DestDM);
       tCRT.CreateTable;
@@ -474,7 +472,7 @@ begin
                 (BaseApplication as IBaseApplication).Info(aFilter);
               end;
             try
-              if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+              if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We diont want to lock for an long time
                 DestDM.StartTransaction(DestDM.MainConnection);
               while not aSyncOut.EOF do
                 begin
@@ -492,12 +490,12 @@ begin
                 end;
               aSyncOut.Destroy;
               aSyncOutTime := aLastRowTime;
-              if SyncCount>0 then
+              if BaseApplication.HasOption('usetransactions') then
                 DestDM.CommitTransaction(DestDM.MainConnection);
             except
               on e : Exception do
                 begin
-                  if SyncCount>0 then
+                  if BaseApplication.HasOption('usetransactions') then
                     DestDM.RollbackTransaction(DestDM.MainConnection);
                 end;
             end;
@@ -513,13 +511,12 @@ begin
                 (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncIn.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
               end;
             try
-              if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+              if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We dont want to lock for an long time
                 SourceDM.StartTransaction(SourceDM.MainConnection);
               while not aSyncIn.EOF do
                 begin
                   try
                     SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False);
-                    inc(Result);
                   except
                     begin
                       dec(Result);
@@ -533,12 +530,12 @@ begin
               aSyncIn.Destroy;
               if aSyncOutTime<aLastRowTime then
                 aLastRowTime:=aSyncOutTime;
-              if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+              if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We diont want to lock for an long time
                 SourceDM.CommitTransaction(SourceDM.MainConnection);
             except
               on e : Exception do
                 begin
-                  if SyncCount>0 then //Use Transactions only when Partially syncing We diont want to lock for an long time
+                  if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We diont want to lock for an long time
                     SourceDM.RollbackTransaction(SourceDM.MainConnection);
                 end;
             end;
@@ -656,41 +653,41 @@ var
     except
     end;
   end;
-  procedure DoSyncTables(IgnoreParent : Boolean = False;MinimalDate : TDateTime = 0);
+  procedure DoSyncTables(IgnoreParent : Boolean = False;MinimalDate : TDateTime = 0;aLevel : Integer = 0);
   var
     aRec2 : Variant;
     aMinDate: TDateTime;
     Fullsynced: Boolean;
+    aLastFilter: String;
   begin
+    if aLevel>4 then exit;
     SyncDB.Tables.DataSet.First;
     while not SyncDB.Tables.DataSet.EOF do
       begin
         if ((GetOptionValue('table')='') or (GetOptionValue('table')=SyncDB.Tables.DataSet.FieldByName('NAME').AsString))
-        and (SyncDB.Tables.FieldByName('PARENT').IsNull or IgnoreParent)
+        and (SyncDB.Tables.FieldByName('PARENT').IsNull)
+        or IgnoreParent
         then
           begin
-            CollectSubDatasets(SyncDB,FDest.GetDB);
             if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) then
               begin
                 aTableName := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
+                writeln(IntToStr(aLevel)+'=====Synching Table:'+aTableName+'=======');
                 FTables.Add(aTableName);
                 try
                   FSyncedCount:=2;
-                  FOldSyncCount:=0;
+                  FOldSyncCount:=-1;
                   Fullsynced := False;
                   if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString='' then
                     FOldTime:='a';
-                  while (FOldTime <> SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) and (FOldSyncCount<>FSyncedCount) do
+                  while not Fullsynced do
                     begin
                       FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                       FOldSyncCount := FSyncedCount;
                       FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
-                      Fullsynced:=FSyncedCount < aSyncCount;
-                      inc(SyncedTables,FSyncedCount);
-                    end;
-                  if (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
-                    begin
-                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,MinimalDate);
+                      if aSyncCount > 0 then
+                        Fullsynced:=FSyncedCount < aSyncCount
+                      else Fullsynced:=True;
                       inc(SyncedTables,FSyncedCount);
                     end;
                 except
@@ -709,6 +706,7 @@ var
                 if Fullsynced then
                   begin
                     aRec2 := SyncDB.Tables.GetBookmark;
+                    aLastFilter := SyncDB.Tables.ActualFilter;
                     aMinDate:=0;
                     if SyncDB.Tables.FieldByName('LTIMESTAMP').AsString<>'' then
                       begin
@@ -717,8 +715,9 @@ var
                           aMinDate:=MinimalDate;
                       end;
                     SyncDB.Tables.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(aRec2));
-                    DoSyncTables(True,aMinDate);
-                    SyncDB.Tables.Filter('');
+                    if not SyncDB.Tables.GotoBookmark(aRec2) then
+                      DoSyncTables(True,aMinDate,aLevel+1);
+                    SyncDB.Tables.Filter(aLastFilter);
                     SyncDB.Tables.GotoBookmark(aRec2);
                   end;
               end;
@@ -812,12 +811,19 @@ begin
                                         DoCreateTable(TUserfielddefs);
                                         SyncTable(SyncDB,uData.Data,FDest.GetDB);
                                       end;
+                                    SyncDB.Tables.DataSet.First;
+                                    while not SyncDB.Tables.DataSet.EOF do
+                                      begin
+                                        CollectSubDatasets(SyncDB,FDest.GetDB);
+                                        SyncDB.Tables.DataSet.Next;
+                                      end;
+                                    SyncDB.Tables.DataSet.First;
                                     SyncedTables := (SyncDB.Tables.Count*4);
                                     SyncCount := 0;
                                     aSyncCount := 0;
                                     BlockSizeReached := False;
                                     SyncCount := 0;
-                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),2500);
+                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
                                     SyncedTables:=0;
                                     DoSyncTables;
                                   end;

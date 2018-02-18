@@ -39,12 +39,14 @@
               <StackChecks Value="True"/>
             </Checks>
             <Optimizations>
+              <OptimizationLevel Value="2"/>
               <VariablesInRegisters Value="True"/>
             </Optimizations>
+            <SmallerCode Value="True"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <TrashVariables Value="True"/>
+              <UseHeaptrc Value="True"/>
               <UseExternalDbgSyms Value="True"/>
             </Debugging>
           </Linking>
@@ -87,28 +89,19 @@
         <CommandLineParams Value="--mandant=TCS"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="lr_extexp"/>
+        <PackageName Value="fpreport_fcl"/>
+        <DefaultFilename Value="../components/fpReport/fpreport_fcl.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="pack_powerpdf"/>
-        <DefaultFilename Value="../components/powerpdf/pack_powerpdf.lpk"/>
-      </Item2>
-      <Item3>
-        <PackageName Value="lazreportpdfexport"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="lazreport"/>
-      </Item4>
-      <Item5>
         <PackageName Value="promet_msgnetwork"/>
         <DefaultFilename Value="../base/msgnetwork/promet_msgnetwork.lpk"/>
-      </Item5>
-      <Item6>
+      </Item2>
+      <Item3>
         <PackageName Value="pcmdprometapp"/>
         <DefaultFilename Value="../base/pcmdprometapp.lpk"/>
-      </Item6>
+      </Item3>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>
