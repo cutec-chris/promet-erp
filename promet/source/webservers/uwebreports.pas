@@ -774,7 +774,7 @@ begin
                             TFPReportMemo(aObj).StretchMode:=smMaxHeight;
                           TFPReportMemo(aObj).TextAlignment.TopMargin:=1;
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
-                          TFPReportMemo(aObj).Text:=FixDataFields(SysToUTF8(GetProperty(aDataNode,'Memo')));
+                          TFPReportMemo(aObj).Text:=FixDataFields(SysToUni(GetProperty(aDataNode,'Memo')));
                           TFPReportMemo(aObj).UseParentFont := False;
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Font');
                           aBold := pos('fsBold',GetProperty(aDataNode,'Style'))>0;
