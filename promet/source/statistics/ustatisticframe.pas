@@ -563,7 +563,7 @@ begin
   sl := TStringList.Create;
   aFilter := aIn;
   cFilter := aFilter;
-  sl.Text:=aFilter;
+  sl.Text:=Data.Preprocess(aFilter);
   //with Application as IBaseDBInterface do
     begin
       if Data.Users.Rights.Right('STATISTICS') <= RIGHT_DELETE then
