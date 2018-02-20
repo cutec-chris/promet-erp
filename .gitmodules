@@ -84,7 +84,7 @@
 	url = https://github.com/cutec-chris/hunspell.git
 [submodule "promet/source/plugins/target3001"]
 	path = promet/source/plugins/target3001
-	url = https://github.com/tcs-ulli/lister-plugin-target3001.git
+	url = https://github.com/cutec-chris/lister-plugin-target3001.git
 [submodule "promet/source/plugins/mindmap"]
 	path = promet/source/plugins/mindmap
 	url = https://github.com/tcs-ulli/lister-plugin-mindmap.git
