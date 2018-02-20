@@ -28,7 +28,7 @@
       <OutDir Value="../../languages"/>
       <EnableI18NForLFM Value="True"/>
     </i18n>
-    <RequiredPkgs Count="5">
+    <RequiredPkgs Count="2">
       <Item1>
         <PackageName Value="pvisualframes"/>
         <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
@@ -37,16 +37,6 @@
         <PackageName Value="uGraphRTM"/>
         <DefaultFilename Value="../components/simplegraph/Package/ugraphrtm.lpk"/>
       </Item2>
-      <Item3>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="../../../general/general.lpk"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="LCL"/>
-      </Item4>
-      <Item5>
-        <PackageName Value="FCL"/>
-      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

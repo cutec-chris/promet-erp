@@ -37,7 +37,7 @@
         <UnitName Value="lr_richview"/>
       </Item6>
     </Files>
-    <RequiredPkgs Count="6">
+    <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="KControlsLaz"/>
       </Item1>
@@ -55,9 +55,6 @@
         <PackageName Value="lazreport"/>
         <MinVersion Minor="9" Release="9"/>
       </Item5>
-      <Item6>
-        <PackageName Value="FCL"/>
-      </Item6>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

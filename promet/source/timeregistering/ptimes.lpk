@@ -45,21 +45,11 @@
       <OutDir Value="../../languages"/>
       <EnableI18NForLFM Value="True"/>
     </i18n>
-    <RequiredPkgs Count="4">
+    <RequiredPkgs Count="1">
       <Item1>
-        <PackageName Value="pOptions"/>
-        <DefaultFilename Value="../base/base_options/poptions.lpk"/>
-      </Item1>
-      <Item2>
         <PackageName Value="pvisualframes"/>
         <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
-      </Item2>
-      <Item3>
-        <PackageName Value="lcl"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="FCL"/>
-      </Item4>
+      </Item1>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

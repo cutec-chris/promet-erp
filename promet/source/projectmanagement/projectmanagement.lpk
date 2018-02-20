@@ -28,7 +28,7 @@
       <OutDir Value="../../languages"/>
       <EnableI18NForLFM Value="True"/>
     </i18n>
-    <RequiredPkgs Count="5">
+    <RequiredPkgs Count="2">
       <Item1>
         <PackageName Value="tabeditor"/>
         <DefaultFilename Value="../editform/tabeditor.lpk"/>
@@ -37,16 +37,6 @@
         <PackageName Value="pProjectbase"/>
         <DefaultFilename Value="../base/base_pm/pprojectbase.lpk"/>
       </Item2>
-      <Item3>
-        <PackageName Value="general"/>
-        <DefaultFilename Value="../../../general/general.lpk"/>
-      </Item3>
-      <Item4>
-        <PackageName Value="lcl"/>
-      </Item4>
-      <Item5>
-        <PackageName Value="FCL"/>
-      </Item5>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

@@ -24,7 +24,7 @@
       <OutDir Value="../../languages"/>
       <EnableI18NForLFM Value="True"/>
     </i18n>
-    <RequiredPkgs Count="8">
+    <RequiredPkgs Count="3">
       <Item1>
         <PackageName Value="lazopenqbuilder_promet"/>
         <DefaultFilename Value="../components/openqbuilder/lazopenqbuilder_promet.lpk"/>
@@ -37,21 +37,6 @@
         <PackageName Value="pvisualframes"/>
         <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
       </Item3>
-      <Item4>
-        <PackageName Value="lazreport"/>
-      </Item4>
-      <Item5>
-        <PackageName Value="TAChartLazarusPkg"/>
-      </Item5>
-      <Item6>
-        <PackageName Value="SynEdit"/>
-      </Item6>
-      <Item7>
-        <PackageName Value="lcl"/>
-      </Item7>
-      <Item8>
-        <PackageName Value="FCL"/>
-      </Item8>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
