@@ -39,8 +39,6 @@ if [ $? -ne 0 ]; then
   tail -n 10 build.txt
   exit 1
 fi
-$lazbuild ../components/powerpdf/pack_powerpdf.lpk
-$lazbuild ../base/pvisualprometapp.lpk
 $lazbuild ../webservers/pappserver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ $? -ne 0 ]; then
   $lazbuild ../webservers/pappserver.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt

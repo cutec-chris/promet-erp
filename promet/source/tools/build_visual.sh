@@ -4,6 +4,9 @@ cd promet/source/tools
 . ../../setup/build-tools/setup_enviroment.sh
 echo "Building visual tools..."
 # Build components
+$lazbuild -q ../components/powerpdf/pack_powerpdf.lpk
+$lazbuild -q ../components/fpreport/fpreport_fcl.lpk
+$lazbuild -q ../base/pvisualprometapp.lpk
 $lazbuild wizardmandant.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
 if [ $? -ne 0 ]; then
   $lazbuild wizardmandant.lpi $BUILD_ARCH $BUILD_PARAMS > build.txt
