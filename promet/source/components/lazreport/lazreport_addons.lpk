@@ -40,6 +40,7 @@
     <RequiredPkgs Count="5">
       <Item1>
         <PackageName Value="KControlsLaz"/>
+        <DefaultFilename Value="../kcontrols/packages/kcontrols/kcontrolslaz.lpk"/>
       </Item1>
       <Item2>
         <PackageName Value="lazbarcodes"/>
