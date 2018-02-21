@@ -592,9 +592,9 @@ begin
             if BaseApplication.HasOption('syncblocks') and (aFilter<>'') then
               begin
                 try
-                  FTempDataSet := DestDM.GetNewDataSet('select MIN('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('mintime')+',MAX('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('maxtime')+' from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+aFilter,DestDM.MainConnection);
+                  FTempDataSet := DestDM.GetNewDataSet('select COUNT(*) as '+DestDM.QuoteField('dscount')+',MIN('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('mintime')+',MAX('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('maxtime')+' from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+aFilter,DestDM.MainConnection);
                   FTempDataSet.Open;
-                  if FTempDataSet.RecordCount>0 then
+                  if (FTempDataSet.RecordCount>0) and (FTempDataSet.FieldByName('dscount').AsInteger<10000) then
                     begin
                       TempMinTime := FTempDataSet.FieldByName('mintime').AsDateTime;
                       TempMaxTime := FTempDataSet.FieldByName('maxtime').AsDateTime;

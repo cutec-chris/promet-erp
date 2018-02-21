@@ -23,7 +23,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --db=ForumPG --syncblocks=1000"/>
+        <CommandLineParams Value="--mandant=TCS --db=ForumPG --syncblocks=100"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -36,13 +36,13 @@
         <MinVersion Valid="True"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="33">
+    <Units Count="34">
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="585"/>
-        <CursorPos Y="615"/>
+        <TopLine Value="589"/>
+        <CursorPos Y="597"/>
         <FoldState Value=" T3mf0{g T0t3AQ021y"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
@@ -52,16 +52,16 @@
         <EditorIndex Value="6"/>
         <TopLine Value="254"/>
         <CursorPos X="74" Y="262"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="81"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="85"/>
+        <TopLine Value="84"/>
         <CursorPos X="14" Y="147"/>
-        <UsageCount Value="86"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -70,7 +70,7 @@
         <EditorIndex Value="7"/>
         <TopLine Value="1215"/>
         <CursorPos Y="1239"/>
-        <UsageCount Value="87"/>
+        <UsageCount Value="88"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -95,7 +95,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="274"/>
         <CursorPos X="15" Y="296"/>
-        <UsageCount Value="72"/>
+        <UsageCount Value="73"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -131,7 +131,7 @@
         <EditorIndex Value="9"/>
         <TopLine Value="641"/>
         <CursorPos X="45" Y="680"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="81"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -172,7 +172,7 @@
         <EditorIndex Value="8"/>
         <TopLine Value="1187"/>
         <CursorPos X="25" Y="1208"/>
-        <UsageCount Value="74"/>
+        <UsageCount Value="75"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -189,7 +189,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="5"/>
         <CursorPos X="21" Y="24"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
@@ -246,7 +246,7 @@
         <EditorIndex Value="3"/>
         <TopLine Value="69"/>
         <CursorPos X="3" Y="121"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="59"/>
         <Loaded Value="True"/>
       </Unit25>
       <Unit26>
@@ -298,130 +298,139 @@
         <Filename Value="..\base\pcmdprometapp.pas"/>
         <EditorIndex Value="5"/>
         <CursorPos X="3" Y="11"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit32>
+      <Unit33>
+        <Filename Value="..\components\zeos\src\dbc\zdbccache.pas"/>
+        <UnitName Value="ZDbcCache"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1438"/>
+        <CursorPos X="42" Y="1446"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit33>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="129" TopLine="97"/>
+        <Caret Line="92" TopLine="69"/>
       </Position1>
       <Position2>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="130" TopLine="97"/>
+        <Caret Line="171" TopLine="150"/>
       </Position2>
       <Position3>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="171" TopLine="154"/>
+        <Caret Line="620" Column="56" TopLine="593"/>
       </Position3>
       <Position4>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="199" TopLine="177"/>
+        <Caret Line="606" Column="26" TopLine="517"/>
       </Position4>
       <Position5>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="92" TopLine="69"/>
+        <Caret Line="597" Column="24" TopLine="517"/>
       </Position5>
       <Position6>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="171" TopLine="150"/>
+        <Caret Line="596" TopLine="517"/>
       </Position6>
       <Position7>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="620" Column="56" TopLine="593"/>
+        <Caret Line="597" TopLine="517"/>
       </Position7>
       <Position8>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="606" Column="26" TopLine="517"/>
+        <Caret Line="599" TopLine="517"/>
       </Position8>
       <Position9>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="597" Column="24" TopLine="517"/>
+        <Caret Line="600" TopLine="517"/>
       </Position9>
       <Position10>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="596" TopLine="517"/>
+        <Caret Line="601" TopLine="517"/>
       </Position10>
       <Position11>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="597" TopLine="517"/>
+        <Caret Line="602" TopLine="517"/>
       </Position11>
       <Position12>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="599" TopLine="517"/>
+        <Caret Line="603" TopLine="517"/>
       </Position12>
       <Position13>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="600" TopLine="517"/>
+        <Caret Line="604" TopLine="517"/>
       </Position13>
       <Position14>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="601" TopLine="517"/>
+        <Caret Line="605" TopLine="517"/>
       </Position14>
       <Position15>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="602" TopLine="517"/>
+        <Caret Line="606" TopLine="517"/>
       </Position15>
       <Position16>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="603" TopLine="517"/>
+        <Caret Line="607" TopLine="517"/>
       </Position16>
       <Position17>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="604" TopLine="517"/>
+        <Caret Line="608" TopLine="518"/>
       </Position17>
       <Position18>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="605" TopLine="517"/>
+        <Caret Line="609" TopLine="519"/>
       </Position18>
       <Position19>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="606" TopLine="517"/>
+        <Caret Line="610" TopLine="520"/>
       </Position19>
       <Position20>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="607" TopLine="517"/>
+        <Caret Line="611" TopLine="547"/>
       </Position20>
       <Position21>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="608" TopLine="518"/>
+        <Caret Line="612" TopLine="548"/>
       </Position21>
       <Position22>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="609" TopLine="519"/>
+        <Caret Line="613" TopLine="549"/>
       </Position22>
       <Position23>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="610" TopLine="520"/>
+        <Caret Line="623" TopLine="601"/>
       </Position23>
       <Position24>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="611" TopLine="547"/>
+        <Caret Line="595" TopLine="519"/>
       </Position24>
       <Position25>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="612" TopLine="548"/>
+        <Caret Line="596" TopLine="519"/>
       </Position25>
       <Position26>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="613" TopLine="549"/>
+        <Caret Line="597" TopLine="519"/>
       </Position26>
       <Position27>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="623" TopLine="601"/>
+        <Caret Line="610" TopLine="591"/>
       </Position27>
       <Position28>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="595" TopLine="519"/>
+        <Caret Line="600" TopLine="591"/>
       </Position28>
       <Position29>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="596" TopLine="519"/>
+        <Caret Line="599" TopLine="589"/>
       </Position29>
       <Position30>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="597" TopLine="519"/>
+        <Caret Line="617" TopLine="589"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
