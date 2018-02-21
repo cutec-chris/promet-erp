@@ -279,7 +279,7 @@ var
   aDelTable: String;
   aDel: TDataSet;
 begin
-  Result := False;exit;
+  Result := False;exit;//Too many errors at time (upsert would help but is not avalible on most dbs)
   try
   Result := True;
   if SyncTbl.FieldCount>2 then
@@ -290,14 +290,14 @@ begin
     try
       if not aSource.Active then
         aSource.Open;
-      aSQL := 'INSERT OR UPDATE (';
+      aSQL := 'INSERT INTO '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' (';
       for i := 0 to aSource.FieldCount-1 do
         begin
           aFieldName := aSource.Fields[i].FieldName;
           if not (aSource.FieldByName(aFieldName).IsBlob) then
             begin
               aSQL+=SourceDM.QuoteField(aSource.Fields[i].FieldName);
-              if i<aSource.FieldCount then aSQL+=',';
+              if i<aSource.FieldCount-1 then aSQL+=',';
             end
           else
             begin
@@ -317,15 +317,30 @@ begin
               //TODO:DestDM.StreamToBlobField(aStream,aDest,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
               aStream.Free;
             end
+          else if (aSource.FieldDefs.Find(aFieldName).DataType=ftLargeint) or (aSource.FieldDefs.Find(aFieldName).DataType=ftInteger) then
+            begin
+              aSQL+= DestDM.QuoteValue(IntToStr(aSource.FieldByName(aFieldName).AsLargeInt));
+              if i<aSource.FieldCount-1 then aSQL+=',';
+            end
+          else if aSource.FieldDefs.Find(aFieldName).DataType=ftDateTime then
+            begin
+              aSQL+= DestDM.DateToFilter(aSource.FieldByName(aFieldName).AsDateTime);
+              if i<aSource.FieldCount-1 then aSQL+=',';
+            end
+          else if aSource.FieldDefs.Find(aFieldName).DataType=ftFloat then
+            begin
+              aSQL+= DestDM.QuoteValue(StringReplace(aSource.FieldByName(aFieldName).AsString,',','.',[rfReplaceAll]));
+              if i<aSource.FieldCount-1 then aSQL+=',';
+            end
           else if aSource.FieldByName(aFieldName).IsNull then
             begin
               aSQL+= 'NULL';
-              if i<aSource.FieldCount then aSQL+=',';
+              if i<aSource.FieldCount-1 then aSQL+=',';
             end
           else
             begin
               aSQL+= DestDM.QuoteValue(aSource.FieldByName(aFieldName).AsString);
-              if i<aSource.FieldCount then aSQL+=',';
+              if i<aSource.FieldCount-1 then aSQL+=',';
             end;
         end;
       aSQL+=');';
@@ -335,25 +350,6 @@ begin
     except
       on e : exception do
         begin
-          if SyncDB.Tables.DataSet.FieldByName('NAME').AsString = 'DELETEDITEMS' then //Delete Items from DB
-            (BaseApplication as IBaseApplication).Warning(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]))
-          else
-            (BaseApplication as IBaseApplication).Error(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]));
-          aSyncError := TSyncItems.CreateEx(nil,SyncDB.DataModule);
-          aSyncError.Insert;
-          aSyncError.FieldByName('LOCAL_ID').AsVariant:=SyncTbl.FieldByName('SQL_ID').AsVariant;
-          aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
-          aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
-          aSyncError.FieldByName('REMOTE_ID').AsString:=SyncTbl.FieldByName('SQL_ID').AsString;
-          {$IF FPC_FULLVERSION>20600}
-          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=LocalTimeToUniversal(Now());
-          {$ELSE}
-          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
-          {$ENDIF}
-          aSyncError.FieldByName('REMOTE_TIME').AsDateTime:=SyncTbl.FieldByName('TIMESTAMPD').AsDateTime;
-          aSyncError.FieldByName('ERROR').AsString:='Y';
-          aSyncError.Post;
-          aSyncError.Free;
           result := False;
         end;
     end;
@@ -377,25 +373,7 @@ begin
     except
       on e : exception do
         begin
-          if FTables.IndexOf(aDelTable) > -1 then
-            begin
-              (BaseApplication as IBaseApplication).Info(Format(strRowDeleteFailed,[aDelTable,aSource.FieldByName('REF_ID_ID').AsString,e.Message]));
-            end
-          else (BaseApplication as IBaseApplication).Info(Format(strRowDeleteFailed,[aDelTable,aSource.FieldByName('REF_ID_ID').AsString,e.Message]));
-          aSyncError := TSyncItems.CreateEx(nil,SyncDB.DataModule);
-          aSyncError.Insert;
-          aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
-          aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
-          aSyncError.FieldByName('LOCAL_ID').AsVariant:=aSource.FieldByName('REF_ID_ID').AsVariant;
-          aSyncError.FieldByName('REMOTE_ID').AsString:=aSource.FieldByName('REF_ID_ID').AsString;
-          {$IF FPC_FULLVERSION>20600}
-          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=LocalTimeToUniversal(Now());
-          {$ELSE}
-          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
-          {$ENDIF}
-          aSyncError.FieldByName('ERROR').AsString:='Y';
-          aSyncError.Post;
-          aSyncError.Free;
+          Result := False;
         end;
     end;
   finally
