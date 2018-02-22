@@ -980,7 +980,7 @@ begin
                                     aSyncCount := 0;
                                     BlockSizeReached := False;
                                     SyncCount := 0;
-                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
+                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),15000);
                                     SyncedTables:=0;
                                     DoSyncTables;
                                   end;
