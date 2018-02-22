@@ -41,8 +41,8 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="589"/>
-        <CursorPos Y="597"/>
+        <TopLine Value="580"/>
+        <CursorPos Y="596"/>
         <FoldState Value=" T3mf0{g T0t3AQ021y"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
@@ -463,6 +463,15 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_db.lpr"/>
+        <Line Value="596"/>
+      </Item1>
+    </BreakPoints>
     <Watches Count="2">
       <Item1>
         <Expression Value="aTableName"/>
