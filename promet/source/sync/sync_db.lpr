@@ -439,6 +439,7 @@ var
   TempMinTime: TDateTime;
   TempMaxTime: TDateTime;
   tmp: String;
+  aSyncCount: Integer;
 
   procedure UpdateTime(DoSetIt : Boolean = True);
   begin
@@ -592,10 +593,14 @@ begin
             if BaseApplication.HasOption('syncblocks') and (aFilter<>'') then
               begin
                 try
-                  tmp := 'select COUNT(*) as '+DestDM.QuoteField('dscount')+',MIN('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('mintime')+',MAX('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('maxtime')+' from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+aFilter;
+                  aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
+                  if DestDM.LimitAfterSelect then
+                    tmp := 'select COUNT(*) as '+DestDM.QuoteField('dscount')+',MIN('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('mintime')+',MAX('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('maxtime')+' from ( select '+Format(SourceDM.LimitSTMT,[IntToStr(aSyncCount)])+' '+DestDm.QuoteField('TIMESTAMPD')+' from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+aSQLF+') '+SyncDB.Tables.DataSet.FieldByName('NAME').AsString
+                  else
+                    tmp := 'select COUNT(*) as '+DestDM.QuoteField('dscount')+',MIN('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('mintime')+',MAX('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('maxtime')+' from ( select '+DestDm.QuoteField('TIMESTAMPD')+' from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+aSQLF+' '+Format(DestDM.LimitSTMT,[IntToStr(aSyncCount)])+') '+SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
                   FTempDataSet := DestDM.GetNewDataSet(tmp,DestDM.MainConnection);
                   FTempDataSet.Open;
-                  if (FTempDataSet.RecordCount>0) and (FTempDataSet.FieldByName('dscount').AsInteger<10000) then
+                  if (FTempDataSet.RecordCount>0) and (FTempDataSet.FieldByName('dscount').AsInteger<50000) then
                     begin
                       TempMinTime := FTempDataSet.FieldByName('mintime').AsDateTime;
                       TempMaxTime := FTempDataSet.FieldByName('maxtime').AsDateTime;
