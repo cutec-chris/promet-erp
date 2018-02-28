@@ -76,7 +76,7 @@ var
 
 implementation
 
-uses uBaseApplication,Utils,dateutils,Graphics,base64,FPReadGif,FPReadJPEG,variants;
+uses uBaseApplication,Utils,dateutils,base64,FPReadGif,FPReadJPEG,variants;
 
 function PixelsToMM(Const Dist: double) : TFPReportUnits;
 begin
@@ -100,7 +100,6 @@ var
   aObj: TFPReportElement;
   aVar: TFPReportVariable;
   aData: TComponent;
-  aColor: TColor;
 begin
   tmp := Name;
   aObj := ActualElement;
@@ -145,12 +144,14 @@ begin
       end;
       if Value <> Null then exit;
     end;
+  {TODO:
   if StringToColorDef(Name,clDefault) <> clDefault then
     begin
       aColor :=StringToColor(Name);
       Value:=RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
       exit;
     end;
+  }
   tmp := TFPReportScriptMemo(aObj).ExpandMacro(Name,True);
   if tmp <> '' then
     begin
@@ -420,9 +421,9 @@ begin
         nFile := ChangeFileExt(aFile,'')+Format(aExp.SequenceFormat,[a])+'.png';
       end;
     aImg.SetSize(aWidth+4,aTop+4);
-    Canvas.Brush.FPColor := TColorToFPColor(clWhite);
+    Canvas.Brush.FPColor := colWhite;
     Canvas.Brush.Style:=bsSolid;
-    Canvas.Pen.FPColor := TColorToFPColor(clWhite);
+    Canvas.Pen.FPColor := colWhite;
     Canvas.Pen.Style:=psSolid;
     aTop := 0;
     a := 1;
@@ -431,7 +432,7 @@ begin
       begin
         aNImg.LoadFromFile(nFile);
         Canvas.Rectangle(0,aTop,aWidth+4,aTop+aNImg.Height+4);
-        Canvas.Pen.FPColor := TColorToFPColor(clBlack);
+        Canvas.Pen.FPColor := colBlack;
         if DrawFrame then
           Canvas.Rectangle(1,aTop+1,aWidth+2,aTop+aNImg.Height+2);
         Canvas.Draw(2,aTop+2,aNImg);
@@ -551,7 +552,6 @@ var
   OffsetLeft: TFPReportUnits;
   aData: TFPReportData;
   aFont: TFPFontCacheItem;
-  aColor: TColor;
   aDetailHeader : TFPReportDataHeaderBand;
   aDetailFooter : TFPReportDataFooterBand;
   aMasterData: TFPReportDataBand;
@@ -566,6 +566,21 @@ var
   cd: integer;
   B: Byte;
   k: Integer;
+  aColor: Integer;
+  function Blue(rgb: Integer): BYTE;
+  begin
+    Result := (rgb shr 16) and $000000ff;
+  end;
+
+  function Green(rgb: Integer): BYTE;
+  begin
+    Result := (rgb shr 8) and $000000ff;
+  end;
+
+  function Red(rgb: Integer): BYTE;
+  begin
+    Result := rgb and $000000ff;
+  end;
 
   function GetProperty(aNode : TDOMNode;aName : string;aValue : string = 'Value') : string;
   var
@@ -788,7 +803,7 @@ begin
                           aSize := StrToIntDef(GetProperty(aDataNode,'Size'),TFPReportMemo(aObj).Font.Size);
                           if aSize>5 then dec(aSize);
                           TFPReportMemo(aObj).Font.Size:=aSize;
-                          aColor := StringToColor(GetProperty(aDataNode,'Color'));
+                          aColor := StrToInt(GetProperty(aDataNode,'Color'));
                           TFPReportMemo(aObj).Font.Color:= RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
                         end;
                       'TfrLineView':
@@ -856,7 +871,7 @@ begin
                               TFPReportElement(aObj).Frame.Shape:=fsNone;
                               if GetProperty(aDataNode,'FrameColor')<>'' then
                                 begin
-                                  aColor := StringToColor(GetProperty(aDataNode,'FrameColor'));
+                                  aColor := StrToInt(GetProperty(aDataNode,'FrameColor'));
                                   TFPReportElement(aObj).Frame.Color:= RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
                                 end;
                               TFPReportElement(aObj).Frame.Width := StrToIntDef(GetProperty(aDataNode,'FrameWidth'),0);
@@ -879,7 +894,7 @@ begin
                           and (GetProperty(nPage.ChildNodes.Item[j],'FillColor')<>'clNone')
                           and (GetProperty(nPage.ChildNodes.Item[j],'FillColor')<>'') then
                             begin
-                              aColor := StringToColor(GetProperty(nPage.ChildNodes.Item[j],'FillColor'));
+                              aColor := StrToInt(GetProperty(nPage.ChildNodes.Item[j],'FillColor'));
                               TFPReportMemo(aObj).Frame.BackgroundColor:= RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
                               TFPReportMemo(aObj).Frame.Shape:=fsRectangle;
                               if not HasFrame then
