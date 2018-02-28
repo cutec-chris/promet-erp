@@ -979,16 +979,8 @@ begin
       end;
     if aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,false) then
       aStartPagetext:=aWiki.FieldByName('DATA').AsString;
-    if not fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,True) then
-      begin
-        if aWiki.FindWikiPage('Promet-ERP-Help/users/Administrator') then
-          aStartPagetext := aWiki.FieldByName('DATA').AsString
-        else aStartPagetext:='[[Include:Promet-ERP-Help/index]]';
-        fMain.WikiFrame.DataSet.Edit;
-        fMain.WikiFrame.DataSet.FieldByName('DATA').AsString:=aStartPagetext;
-        fMain.WikiFrame.DataSet.Post;
-        fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,False);
-      end;
+    if not fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,false) then
+      fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/Administrator',false);
   except
     fMain.WikiFrame.DataSet.Cancel;
   end;
