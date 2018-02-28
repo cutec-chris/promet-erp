@@ -122,7 +122,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="7">
+    <Exceptions Count="10">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
@@ -144,6 +144,15 @@
       <Item7>
         <Name Value="FPImageException"/>
       </Item7>
+      <Item8>
+        <Name Value="EInOutError"/>
+      </Item8>
+      <Item9>
+        <Name Value="EExprParser"/>
+      </Item9>
+      <Item10>
+        <Name Value="RunError(103)"/>
+      </Item10>
     </Exceptions>
   </Debugging>
 </CONFIG>
