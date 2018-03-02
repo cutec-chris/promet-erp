@@ -977,9 +977,7 @@ begin
       begin
         aUser.Locate('SQL_ID',aUser.FieldByName('PARENT').AsVariant,[]);
       end;
-    if aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,false) then
-      aStartPagetext:=aWiki.FieldByName('DATA').AsString;
-    if not fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+Data.Users.UserName.AsString,false) then
+    if not fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,false) then
       fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/Administrator',false);
   except
     fMain.WikiFrame.DataSet.Cancel;
@@ -1244,10 +1242,10 @@ begin
     end;
   //Statistics
   DoInfo('Statistics');
+  Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,TStatistic);
   if (GetRight('STATISTICS') > RIGHT_NONE) then
     begin
       try
-      Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,TStatistic);
       fMain.pcPages.AddTabClass(TfFilter,strStatisticList,@fMain.AddStatisticList,Data.GetLinkIcon('STATISTICS@'),True);
       AddSearchAbleDataSet(TStatistic);
       except
