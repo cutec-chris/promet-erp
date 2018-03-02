@@ -810,6 +810,10 @@ begin
                           aFont := gTTFontCache.Find(GetProperty(aDataNode,'Name'),aBold,aItalic);
                           if not Assigned(aFont) then
                             aFont := gTTFontCache.Find('Arial',aBold,aItalic);
+                          if not Assigned(aFont) then
+                            aFont := gTTFontCache.Find('FreeSans',aBold,aItalic);
+                          if not Assigned(aFont) then
+                            aFont := gTTFontCache.Find('DejaVu',aBold,aItalic);
                           if Assigned(aFont) then
                             TFPReportMemo(aObj).Font.Name:=aFont.PostScriptName
                           else TFPReportMemo(aObj).UseParentFont := true;
