@@ -814,6 +814,20 @@ begin
                             aFont := gTTFontCache.Find('FreeSans',aBold,aItalic);
                           if not Assigned(aFont) then
                             aFont := gTTFontCache.Find('DejaVu',aBold,aItalic);
+                          if not Assigned(aFont) then
+                            begin
+                              with gTTFontCache do
+                                for b := 0 to Count-1 do
+                                  begin
+                                    if (pos('sans',lowercase(Items[b].FamilyName)) > 0) and (Items[b].IsItalic = AItalic)
+                                        and (Items[b].IsBold = ABold)
+                                    then
+                                      begin
+                                        aFont := Items[b];
+                                        break;
+                                      end;
+                                  end;
+                            end;
                           if Assigned(aFont) then
                             TFPReportMemo(aObj).Font.Name:=aFont.PostScriptName
                           else TFPReportMemo(aObj).UseParentFont := true;
