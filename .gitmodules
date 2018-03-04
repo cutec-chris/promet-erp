@@ -160,3 +160,6 @@
 [submodule "promet/source/components/fpreport"]
 	path = promet/source/components/fpreport
 	url = https://github.com/cutec-chris/fpReport.git
+[submodule "promet/source/components/avamm-db-layer"]
+	path = promet/source/components/avamm-db-layer
+	url = https://github.com/cutec-chris/avamm-db-layer.git
