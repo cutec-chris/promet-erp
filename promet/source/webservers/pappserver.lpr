@@ -23,7 +23,7 @@ uses
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}
-  Classes,Interfaces, SysUtils, CustApp, uBaseDBInterface, uData, Process, db,
+  Classes, SysUtils, CustApp, uBaseDBInterface, uData, Process, db,
   uSystemMessage, uPowerState, pcmdprometapp, math, uBaseCustomApplication,
   uprometwikiserver, upwebdavserver, uBaseApplication, Utils,
   uProcessManagement, eventlog,
