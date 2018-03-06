@@ -21,10 +21,6 @@ msgstr ""
 msgid "Screenshot Name"
 msgstr ""
 
-#: ubasedbinterface.strsqlinjection
-msgid "Versuchte SQL Injection !"
-msgstr ""
-
 #: ubasedbinterface.strwebsite
 msgid "Webseite"
 msgstr ""

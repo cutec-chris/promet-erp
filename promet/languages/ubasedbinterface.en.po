@@ -31,10 +31,7 @@ msgstr "Project/Process"
 msgid "Screenshot Name"
 msgstr "Screenshot name"
 
-#: ubasedbinterface.strsqlinjection
-msgid "Versuchte SQL Injection !"
-msgstr "Trial of SQL Injection !"
-
 #: ubasedbinterface.strwebsite
 msgid "Webseite"
 msgstr "Website"
+
