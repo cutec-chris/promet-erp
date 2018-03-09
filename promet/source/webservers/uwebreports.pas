@@ -940,7 +940,7 @@ begin
               end;
         end;
     end;
-  Report.SaveToFile(GetTempDir+'areport.json');
+  //Report.SaveToFile(GetTempDir+'areport.json');
   LazReport.Free;
 end;
 
