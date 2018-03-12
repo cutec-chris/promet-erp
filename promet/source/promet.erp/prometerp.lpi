@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Stora"/>
+        <CommandLineParams Value="--config-path=devel --mandant=Help --debug"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -622,7 +622,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="14">
+    <Exceptions Count="15">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -659,7 +659,6 @@
       </Item11>
       <Item12>
         <Name Value="PNGImageException"/>
-        <Enabled Value="False"/>
       </Item12>
       <Item13>
         <Name Value="ESQLScannerError"/>
@@ -667,6 +666,9 @@
       <Item14>
         <Name Value="EParserError"/>
       </Item14>
+      <Item15>
+        <Name Value="FPImageException"/>
+      </Item15>
     </Exceptions>
   </Debugging>
 </CONFIG>
