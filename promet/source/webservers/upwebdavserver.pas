@@ -23,7 +23,7 @@ implementation
 var
   DavServer : TPrometWebDAVMaster = nil;
 
-function HandleDAVRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers : TStringList;Input,Output : TMemoryStream;ResultStatusText : string): Integer;
+function HandleDAVRequest(Sender : TAppNetworkThrd;Method, URL: string;SID : string;Parameters,Headers : TStringList;Input,Output : TMemoryStream;ResultStatusText : string): Integer;
 var
   i: Integer;
   aSock: TDAVSession = nil;

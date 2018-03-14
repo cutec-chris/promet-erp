@@ -27,7 +27,7 @@ implementation
 
 uses uBaseApplication,uBaseDBInterface,uIntfStrConsts,uEncrypt,base64;
 
-function HandleConfigRequest(Sender : TAppNetworkThrd;Method, URL: string;Headers : TStringList;Input,Output : TMemoryStream;ResultStatusText : string): Integer;
+function HandleConfigRequest(Sender : TAppNetworkThrd;Method, URL: string;SID : string;Parameters,Headers : TStringList;Input,Output : TMemoryStream;ResultStatusText : string): Integer;
 var
   i: Integer;
   aParameters: TStringList;
