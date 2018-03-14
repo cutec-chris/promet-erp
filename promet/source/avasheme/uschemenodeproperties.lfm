@@ -1,11 +1,11 @@
 object fNodeProperties: TfNodeProperties
   Left = 436
-  Height = 384
+  Height = 413
   Top = 247
   Width = 686
   BorderStyle = bsDialog
   Caption = 'Eigenschaften'
-  ClientHeight = 384
+  ClientHeight = 413
   ClientWidth = 686
   Color = clBtnFace
   Font.Color = clWindowText
@@ -23,8 +23,8 @@ object fNodeProperties: TfNodeProperties
     ParentColor = False
   end
   object NodeShape: TRadioGroup
-    Left = 488
-    Height = 136
+    Left = 520
+    Height = 160
     Top = 8
     Width = 153
     AutoFill = True
@@ -42,11 +42,12 @@ object fNodeProperties: TfNodeProperties
   object Colors: TGroupBox
     Left = 334
     Height = 91
-    Top = 152
-    Width = 153
+    Top = 175
+    Width = 170
+    Anchors = [akLeft, akBottom]
     Caption = 'Farben'
     ClientHeight = 73
-    ClientWidth = 149
+    ClientWidth = 166
     TabOrder = 4
     object Label2: TLabel
       Left = 14
@@ -110,28 +111,30 @@ object fNodeProperties: TfNodeProperties
   object btnChangeFont: TButton
     Left = 336
     Height = 25
-    Top = 280
+    Top = 307
     Width = 129
+    Anchors = [akLeft, akBottom]
     Caption = 'Schriftart'
     OnClick = btnChangeFontClick
     TabOrder = 6
   end
   object NodeText: TMemo
     Left = 8
-    Height = 264
+    Height = 297
     Top = 24
     Width = 318
+    Anchors = [akTop, akLeft, akBottom]
     ScrollBars = ssBoth
     TabOrder = 0
   end
   object GroupBox1: TGroupBox
     Left = 336
-    Height = 136
+    Height = 160
     Top = 8
-    Width = 151
+    Width = 168
     Caption = 'Textausrichtung'
-    ClientHeight = 118
-    ClientWidth = 147
+    ClientHeight = 142
+    ClientWidth = 164
     TabOrder = 1
     object Label5: TLabel
       Left = 14
@@ -161,7 +164,7 @@ object fNodeProperties: TfNodeProperties
       Left = 62
       Height = 21
       Top = 10
-      Width = 74
+      Width = 91
       ItemHeight = 13
       Items.Strings = (
         'Left'
@@ -175,7 +178,7 @@ object fNodeProperties: TfNodeProperties
       Left = 62
       Height = 21
       Top = 42
-      Width = 74
+      Width = 90
       ItemHeight = 13
       Items.Strings = (
         'Top'
@@ -189,12 +192,12 @@ object fNodeProperties: TfNodeProperties
       Left = 62
       Height = 21
       Top = 74
-      Width = 57
+      Width = 71
       TabOrder = 2
       Text = '0'
     end
     object UpDownMargin: TUpDown
-      Left = 119
+      Left = 133
       Height = 21
       Top = 74
       Width = 16
@@ -206,10 +209,11 @@ object fNodeProperties: TfNodeProperties
     end
   end
   object Styles: TGroupBox
-    Left = 488
+    Left = 520
     Height = 91
-    Top = 152
+    Top = 175
     Width = 153
+    Anchors = [akLeft, akBottom]
     Caption = 'Aussehen'
     ClientHeight = 73
     ClientWidth = 149
@@ -276,10 +280,11 @@ object fNodeProperties: TfNodeProperties
     end
   end
   object GroupBox3: TGroupBox
-    Left = 488
+    Left = 520
     Height = 89
-    Top = 248
+    Top = 275
     Width = 153
+    Anchors = [akLeft, akBottom]
     Caption = 'Hintergrund'
     ClientHeight = 71
     ClientWidth = 149
@@ -315,7 +320,7 @@ object fNodeProperties: TfNodeProperties
   object ButtonPanel1: TButtonPanel
     Left = 6
     Height = 34
-    Top = 344
+    Top = 373
     Width = 674
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
@@ -330,8 +335,9 @@ object fNodeProperties: TfNodeProperties
   object eLink: TEditButton
     Left = 8
     Height = 21
-    Top = 316
+    Top = 343
     Width = 318
+    Anchors = [akLeft, akBottom]
     ButtonCaption = '...'
     ButtonWidth = 23
     MaxLength = 0
@@ -343,10 +349,20 @@ object fNodeProperties: TfNodeProperties
   object Label4: TLabel
     Left = 8
     Height = 13
-    Top = 296
+    Top = 323
     Width = 37
+    Anchors = [akLeft, akBottom]
     Caption = 'Verweis'
     ParentColor = False
+  end
+  object SpeedButton1: TSpeedButton
+    Left = 328
+    Height = 21
+    Top = 343
+    Width = 23
+    Action = acPasteFromLink
+    Anchors = [akLeft, akBottom]
+    ShowCaption = False
   end
   object FontDialog: TFontDialog
     Font.Color = clWindowText
@@ -388,5 +404,16 @@ object fNodeProperties: TfNodeProperties
     Title = 'Select Background'
     left = 294
     top = 248
+  end
+  object ActionList1: TActionList
+    Images = fVisualControls.Images
+    left = 640
+    top = 24
+    object acPasteFromLink: TAction
+      Caption = 'acPasteFromLink'
+      Hint = 'Link einfügen'
+      ImageIndex = 70
+      OnExecute = acPasteFromLinkExecute
+    end
   end
 end

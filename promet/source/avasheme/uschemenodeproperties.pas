@@ -7,13 +7,15 @@ interface
 uses
   LCLIntf, LCLType, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   usimplegraph, ExtCtrls, StdCtrls, ComCtrls, ExtDlgs, CheckLst, ButtonPanel,
-  EditBtn;
+  EditBtn, Buttons, ActnList;
 
 type
 
   { TfNodeProperties }
 
   TfNodeProperties = class(TForm)
+    acPasteFromLink: TAction;
+    ActionList1: TActionList;
     ButtonPanel1: TButtonPanel;
     eLink: TEditButton;
     Label1: TLabel;
@@ -35,6 +37,7 @@ type
     BorderColor: TShape;
     cbLayout: TComboBox;
     edtMargin: TEdit;
+    SpeedButton1: TSpeedButton;
     UpDownMargin: TUpDown;
     Label5: TLabel;
     Label6: TLabel;
@@ -48,6 +51,7 @@ type
     btnChangBkgnd: TButton;
     btnClearBackground: TButton;
     btnBackgroundMargins: TButton;
+    procedure acPasteFromLinkExecute(Sender: TObject);
     procedure eLinkButtonClick(Sender: TObject);
     function fSearchOpenItem(aLink: string): Boolean;
     procedure NodeBodyColorClick(Sender: TObject);
@@ -77,7 +81,7 @@ function PrettyNodeClassName(const AClassName: string): string;
 
 implementation
 
-uses uSearch;
+uses uSearch,Clipbrd,uBaseVisualApplication;
 
 {$R *.lfm}
 
@@ -226,6 +230,21 @@ begin
   fSearch.SetLanguage;
   fSearch.OnOpenItem:=fSearchOpenItem;
   fSearch.Execute(True,'SHEME','');
+end;
+
+procedure TfNodeProperties.acPasteFromLinkExecute(Sender: TObject);
+var
+  Stream: TStringStream;
+begin
+  if Clipboard.HasFormat(LinkClipboardFormat) then
+    begin
+      Stream := TStringstream.Create('');
+      if Clipboard.GetFormat(LinkClipboardFormat,Stream) then
+        begin
+          eLink.Text:=Stream.DataString;
+        end;
+      Stream.Free;
+    end;
 end;
 
 function TfNodeProperties.fSearchOpenItem(aLink: string): Boolean;
