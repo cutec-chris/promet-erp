@@ -384,7 +384,7 @@ inherited fStatisticFrame: TfStatisticFrame
           Top = 0
           Width = 831
           Align = alClient
-          DataField = 'DESCRIPTION'
+          DataField = 'DESC'
           DataSource = Datasource
           Font.Height = -16
           ParentFont = False

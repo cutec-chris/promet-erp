@@ -153,7 +153,7 @@ inherited fprojectFrame: TfprojectFrame
         Top = 0
         Width = 671
         Align = alClient
-        DataField = 'DESCRIPTION'
+        DataField = 'DESC'
         DataSource = Projects
         TabOrder = 0
       end

@@ -311,7 +311,7 @@ begin
   if DataSet.Count>0 then
     begin
       if not DataSet.CanEdit then DataSet.DataSet.Edit;
-      DataSet.FieldByName('DESCRIPTION').AsString := mDesc.Lines.Text;
+      DataSet.FieldByName('DESC').AsString := mDesc.Lines.Text;
     end;
 end;
 procedure TfMain.mDescKeyPress(Sender: TObject; var Key: char);
@@ -542,7 +542,7 @@ begin
   if DataSet.Count>0 then
     begin
       eName.Text:=DataSet.FieldByName('NAME').AsString;
-      mDesc.Lines.Text:=DataSet.FieldByName('DESCRIPTION').AsString;
+      mDesc.Lines.Text:=DataSet.FieldByName('DESC').AsString;
       Panel2.Enabled:=True;
       pClipboard.Color:=clWindow;
       pClipboard.Caption:='';

@@ -857,6 +857,8 @@ begin
   try
   if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
     begin
+      if not Assigned(fOptions) then
+        Application.CreateForm(TfOptions,fOptions);
       fOptions.RegisterOptionsFrame(TfTimeOptions.Create(fOptions),strTimetools,strPersonalOptions);
       Application.CreateForm(TfEnterTime,fMain.FTimeReg);
       fMain.FTimeReg.Node:=MainNode;
@@ -2038,6 +2040,7 @@ begin
   fWizardNewAccount.SetLanguage;
   fWizardNewAccount.InitWizard;
   fWizardNewAccount.ShowModal;
+  FreeAndNil(fOptions);
 end;
 
 procedure TfMain.acNewContactExecute(Sender: TObject);
