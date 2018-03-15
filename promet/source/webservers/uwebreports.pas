@@ -809,9 +809,9 @@ begin
                           aItalic := pos('fsItalic',GetProperty(aDataNode,'Style'))>0;
                           aFont := gTTFontCache.Find(GetProperty(aDataNode,'Name'),aBold,aItalic);
                           if not Assigned(aFont) then
-                            aFont := gTTFontCache.Find('Arial',aBold,aItalic);
+                            aFont := gTTFontCache.Find('LiberationSans',aBold,aItalic);
                           if not Assigned(aFont) then
-                            aFont := gTTFontCache.Find('FreeSans',aBold,aItalic);
+                            aFont := gTTFontCache.Find('Arial',aBold,aItalic);
                           if not Assigned(aFont) then
                             aFont := gTTFontCache.Find('DejaVu',aBold,aItalic);
                           if not Assigned(aFont) then
