@@ -12,6 +12,9 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "(Menu)\n"
 
+msgid "wieder starten"
+msgstr ""
+
 # Christian U. <ulrich@tcs-germany.de>, 2015.
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
@@ -10044,6 +10047,10 @@ msgstr "Create% s"
 msgctxt "umain.strnewtermin"
 msgid "Neuer Termin"
 msgstr "New Appointment"
+
+#: umain.strnostartpage
+msgid "<b>keine Startseite vorhanden, bitte fragen Sie Ihren Administrator nach der Einrichtung einer Startseite</b>"
+msgstr ""
 
 #: umain.strordertype
 msgctxt "umain.strordertype"

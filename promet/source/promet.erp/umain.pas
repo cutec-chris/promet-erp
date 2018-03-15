@@ -414,6 +414,8 @@ resourcestring
   strInventory                  = 'Inventur';
   strDeletingMessages           = 'lösche Nachrichten, noch %d Nachichten';
   strLogin                      = 'Login...';
+  strNoStartPage = '<b>keine Startseite vorhanden, bitte fragen Sie Ihren '
+    +'Administrator nach der Einrichtung einer Startseite</b>';
 
 function OnMessageReceived(aMessage: string): Boolean;
 var
@@ -980,7 +982,8 @@ begin
         aUser.Locate('SQL_ID',aUser.FieldByName('PARENT').AsVariant,[]);
       end;
     if not fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,false) then
-      fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/Administrator',false);
+      if not fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/Administrator',false) then
+        fMain.WikiFrame.ShowHTML(strNoStartPage);
   except
     fMain.WikiFrame.DataSet.Cancel;
   end;
