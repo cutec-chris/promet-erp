@@ -634,7 +634,6 @@
       </Item3>
       <Item4>
         <Name Value="EZDatabaseError"/>
-        <Enabled Value="False"/>
       </Item4>
       <Item5>
         <Name Value="Exception"/>
