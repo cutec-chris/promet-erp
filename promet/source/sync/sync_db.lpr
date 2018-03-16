@@ -48,7 +48,7 @@ type
     function SyncRow(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
     function SyncRowDirect(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
     function SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;
-      SyncCount: Integer=0;var aMinDate : TDateTime = 0): Integer;
+      SyncCount: Integer;var aMinDate : TDateTime): Integer;
     procedure CollectSubDataSets(SyncDB : TSyncDB;DestDM : TBaseDBModule);
   protected
     procedure DoRun; override;
