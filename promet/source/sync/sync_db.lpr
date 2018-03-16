@@ -48,7 +48,7 @@ type
     function SyncRow(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
     function SyncRowDirect(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
     function SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;
-      SyncCount: Integer=0;aMinDate : TDateTime = 0): Integer;
+      SyncCount: Integer=0;var aMinDate : TDateTime = 0): Integer;
     procedure CollectSubDataSets(SyncDB : TSyncDB;DestDM : TBaseDBModule);
   protected
     procedure DoRun; override;
@@ -380,7 +380,7 @@ begin
 end;
 
 function TSyncDBApp.SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;
-  SyncCount: Integer; aMinDate: TDateTime): Integer;
+  SyncCount: Integer; var aMinDate: TDateTime): Integer;
 function BuildFilter(aSourceDM,aDestDM : TBaseDBModule;aTime : TDateTime = 0) : string;
 var
   aFilter: String;
@@ -395,6 +395,12 @@ begin
             aTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
           if aTime > SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime then
             aTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
+          if (aTime > aMinDate) and (aMinDate>0) then
+            aTime := aMinDate;
+          if aMinDate = 0 then
+            aMinDate:=aTime
+          else if aTime < aMinDate then
+            aMinDate:=aTime;
           if BaseApplication.HasOption('w','wholeday') then
             begin
               aFilter := '(('+aSourceDM.QuoteField('TIMESTAMPD')+'=';
@@ -497,8 +503,6 @@ begin
         if aFilter <> '' then
           bFilter := bFilter+' AND '+aFilter;
         aSyncTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
-        if (aMinDate>0) and (aMinDate<aSyncOutTime) then
-          aSyncTime:=aMinDate;
         if SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y' then
           begin
             with aSyncStamps.DataSet as IBaseDbFilter do
@@ -794,6 +798,7 @@ var
   BlockSizeReached: Boolean;
   aTableName: String;
   aMS: TMemoryStream;
+  aIMinDate: TDateTime = 0;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
@@ -841,7 +846,7 @@ var
                     begin
                       FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                       FOldSyncCount := FSyncedCount;
-                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount);
+                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount,MinimalDate);
                       if aSyncCount > 0 then
                         Fullsynced:=FSyncedCount < aSyncCount
                       else Fullsynced:=True;
@@ -966,7 +971,7 @@ begin
                                     if SyncDB.Tables.DataSet.Locate('NAME','USERFIELDDEFS',[loCaseInSensitive]) then
                                       begin
                                         DoCreateTable(TUserfielddefs);
-                                        SyncTable(SyncDB,uData.Data,FDest.GetDB);
+                                        SyncTable(SyncDB,uData.Data,FDest.GetDB,0,aIMinDate);
                                       end;
                                     SyncDB.Tables.DataSet.First;
                                     while not SyncDB.Tables.DataSet.EOF do
