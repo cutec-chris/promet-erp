@@ -832,7 +832,7 @@ begin
                             end;
                           {$ifdef UNIX}
                           if (not FontFound) and Assigned(aFont) then
-                            writeln('using Font "'+aFont.FamilyName+'" instead "'+GetProperty(aDataNode,'Name')+'"';
+                            writeln('using Font "'+aFont.FamilyName+'" instead "'+GetProperty(aDataNode,'Name')+'"');
                           {$endif}
                           if Assigned(aFont) then
                             TFPReportMemo(aObj).Font.Name:=aFont.PostScriptName
