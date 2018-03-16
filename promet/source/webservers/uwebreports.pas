@@ -580,6 +580,7 @@ var
   B: Byte;
   k: Integer;
   aColor: Integer;
+  FontFound: Boolean;
   function Blue(rgb: Integer): BYTE;
   begin
     Result := (rgb shr 16) and $000000ff;
@@ -808,6 +809,7 @@ begin
                           aBold := pos('fsBold',GetProperty(aDataNode,'Style'))>0;
                           aItalic := pos('fsItalic',GetProperty(aDataNode,'Style'))>0;
                           aFont := gTTFontCache.Find(GetProperty(aDataNode,'Name'),aBold,aItalic);
+                          FontFound := not Assigned(aFont);
                           if not Assigned(aFont) then
                             aFont := gTTFontCache.Find('LiberationSans',aBold,aItalic);
                           if not Assigned(aFont) then
@@ -828,6 +830,10 @@ begin
                                       end;
                                   end;
                             end;
+                          {$ifdef UNIX}
+                          if (not FontFound) and Assigned(aFont) then
+                            debugln('using Font "'+aFont.FamilyName+'" instead "'+GetProperty(aDataNode,'Name')+'"';
+                          {$endif}
                           if Assigned(aFont) then
                             TFPReportMemo(aObj).Font.Name:=aFont.PostScriptName
                           else TFPReportMemo(aObj).UseParentFont := true;
