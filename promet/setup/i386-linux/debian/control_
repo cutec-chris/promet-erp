@@ -5,7 +5,7 @@ Section: office
 Priority: optional
 Maintainer: Christian Ulrich <info@free-erp.de>
 Architecture: ARCH
-Depends:  libc6,bsdiff
+Depends:  libc6,bsdiff,fonts-liberation
 Installed-Size: DEBSIZE
 Recommends: promet-erp-statistics
 Suggests: promet-erp-services
