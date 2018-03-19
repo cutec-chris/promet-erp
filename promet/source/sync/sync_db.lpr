@@ -446,6 +446,7 @@ var
   TempMaxTime: TDateTime;
   tmp: String;
   aSyncCount: Integer;
+  DoUnlock: Boolean;
 
   procedure UpdateTime(DoSetIt : Boolean = True);
   begin
@@ -473,12 +474,16 @@ begin
       tCRT.Open;
       tCRT.Free;
     end;
-  if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) then
+  if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString=Utils.GetSystemName) or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) then
     begin
-      SyncDB.Tables.DataSet.Edit;
-      SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString:=Utils.GetSystemName;
-      SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime:={$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now());
-      SyncDB.Tables.DataSet.Post;
+      DoUnlock := not (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString=Utils.GetSystemName);
+      if DoUnlock then
+        begin
+          SyncDB.Tables.DataSet.Edit;
+          SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString:=Utils.GetSystemName;
+          SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime:={$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now());
+          SyncDB.Tables.DataSet.Post;
+        end;
       aFirstSyncedRow:={$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now());
       aLastSetTime := {$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now());
       bFirstSyncedRow:=aFirstSyncedRow;
@@ -490,10 +495,13 @@ begin
           or (SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y')
           then
             (BaseApplication as IBaseApplication).Info(Format(strTableNotExists,[aTable]));
-          SyncDB.Tables.DataSet.Edit;
-          SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').Clear;
-          SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').Clear;
-          SyncDB.Tables.DataSet.Post;
+          if DoUnlock then
+            begin
+              SyncDB.Tables.DataSet.Edit;
+              SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').Clear;
+              SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').Clear;
+              SyncDB.Tables.DataSet.Post;
+            end;
           exit;
         end;
       aSyncStamps := TSyncStamps.CreateEx(Self,DestDM);
@@ -631,8 +639,6 @@ begin
               end
             else FreeAndNil(FTempDataSet);
             try
-              if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We diont want to lock for an long time
-                DestDM.StartTransaction(DestDM.MainConnection);
               while not aSyncOut.EOF do
                 begin
                   try
@@ -650,13 +656,10 @@ begin
                 end;
               aSyncOut.Destroy;
               aSyncOutTime := aLastRowTime;
-              if BaseApplication.HasOption('usetransactions') then
-                DestDM.CommitTransaction(DestDM.MainConnection);
             except
               on e : Exception do
                 begin
-                  if BaseApplication.HasOption('usetransactions') then
-                    DestDM.RollbackTransaction(DestDM.MainConnection);
+
                 end;
             end;
           end;
@@ -671,8 +674,6 @@ begin
                 (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncIn.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
               end;
             try
-              if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We dont want to lock for an long time
-                SourceDM.StartTransaction(SourceDM.MainConnection);
               while not aSyncIn.EOF do
                 begin
                   try
@@ -691,13 +692,9 @@ begin
               aSyncIn.Destroy;
               if aSyncOutTime<aLastRowTime then
                 aLastRowTime:=aSyncOutTime;
-              if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We diont want to lock for an long time
-                SourceDM.CommitTransaction(SourceDM.MainConnection);
             except
               on e : Exception do
                 begin
-                  if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We diont want to lock for an long time
-                    SourceDM.RollbackTransaction(SourceDM.MainConnection);
                 end;
             end;
           end;
@@ -712,10 +709,13 @@ begin
           end;
       finally
         aSyncStamps.Free;
-        SyncDB.Tables.DataSet.Edit;
-        SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').Clear;
-        SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').Clear;
-        SyncDB.Tables.DataSet.Post;
+        if DoUnlock then
+          begin
+            SyncDB.Tables.DataSet.Edit;
+            SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').Clear;
+            SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').Clear;
+            SyncDB.Tables.DataSet.Post;
+          end;
       end;
     end
   else Info('Table "'+SyncDB.Tables.DataSet.FieldByName('NAME').AsString+'" ist gesperrt von anderem Prozess')
@@ -834,6 +834,19 @@ var
             if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) then
               begin
                 aTableName := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
+                if aLevel=0 then
+                  begin
+                    //Lock Level 0 Table and start Transaction
+                    SyncDB.Tables.DataSet.Edit;
+                    SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString:=Utils.GetSystemName;
+                    SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime:={$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now());
+                    SyncDB.Tables.DataSet.Post;
+                    if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We diont want to lock for an long time
+                      begin
+                        FDest.GetDB.StartTransaction(FDest.GetDB.MainConnection);
+                        uData.Data.StartTransaction(uData.Data.MainConnection);
+                      end;
+                  end;
                 writeln(IntToStr(aLevel)+'=====Synching Table:'+aTableName+'=======');
                 FTables.Add(aTableName);
                 try
@@ -881,6 +894,19 @@ var
                       DoSyncTables(True,aMinDate,aLevel+1);
                     SyncDB.Tables.Filter(aLastFilter);
                     SyncDB.Tables.GotoBookmark(aRec2);
+                  end;
+                if aLevel=0 then
+                  begin
+                    if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We diont want to lock for an long time
+                      begin
+                        FDest.GetDB.CommitTransaction(FDest.GetDB.MainConnection);
+                        uData.Data.CommitTransaction(uData.Data.MainConnection);
+                      end;
+                    //UnLock Level 0 Table and Rollback Transaction
+                    SyncDB.Tables.Edit;
+                    SyncDB.Tables.FieldByName('LOCKEDBY').Clear;
+                    SyncDB.Tables.FieldByName('LOCKEDAT').Clear;
+                    SyncDB.Tables.Post;
                   end;
               end;
           end;
