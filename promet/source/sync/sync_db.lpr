@@ -397,10 +397,6 @@ begin
             aTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
           if (aTime > aMinDate) and (aMinDate>0) then
             aTime := aMinDate;
-          if aMinDate = 0 then
-            aMinDate:=aTime
-          else if aTime < aMinDate then
-            aMinDate:=aTime;
           if BaseApplication.HasOption('w','wholeday') then
             begin
               aFilter := '(('+aSourceDM.QuoteField('TIMESTAMPD')+'=';
@@ -458,6 +454,8 @@ var
         else
           SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aGlobalTime;
         SyncDB.Tables.DataSet.Post;
+        if aMinDate>SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime then
+          aMinDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
       end;
   end;
 
@@ -706,6 +704,8 @@ begin
             aSyncStamps.DataSet.FieldByName('NAME').AsString:=aTableName;
             aSyncStamps.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aFirstSyncedRow;
             aSyncStamps.DataSet.Post;
+            if aMinDate>SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime then
+              aMinDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
           end;
       finally
         aSyncStamps.Free;
