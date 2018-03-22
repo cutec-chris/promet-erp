@@ -846,12 +846,6 @@ object fMain: TfMain
       ImageIndex = 65
       OnExecute = acStandartTimeExecute
     end
-    object acRefreshOrderList: TAction
-      Caption = 'Auftragsliste Neu aufbauen'
-      Hint = 'Auftragsliste neu aufbauen'
-      ImageIndex = 22
-      OnExecute = acRefreshOrderListExecute
-    end
     object acAttPlan: TAction
       Caption = 'Anwesenheitsplan'
       ImageIndex = 4
@@ -957,6 +951,11 @@ object fMain: TfMain
       Caption = 'Zeitaufschreibung'
       ImageIndex = 24
       OnExecute = acTimeRegistrationExecute
+    end
+    object acNewProductionOrder: TAction
+      Caption = 'acNewProductionOrder'
+      ImageIndex = 89
+      OnExecute = acNewProductionOrderExecute
     end
   end
   object ApplicationProperties1: TApplicationProperties

@@ -74,7 +74,6 @@ type
     acTaskPlan: TAction;
     acPauseTime: TAction;
     acStandartTime: TAction;
-    acRefreshOrderList: TAction;
     acAttPlan: TAction;
     acNewAccount: TAction;
     acRoughPlanning: TAction;
@@ -93,6 +92,7 @@ type
     acSearchOptions: TAction;
     acNewScheme: TAction;
     acTimeRegistration: TAction;
+    acNewProductionOrder: TAction;
     acWindowize: TAction;
     acWiki: TAction;
     ActionList1: TActionList;
@@ -189,6 +189,7 @@ type
     procedure acNewMessageExecute(Sender: TObject);
     procedure acNewObjectExecute(Sender: TObject);
     procedure acNewOrderExecute(Sender: TObject);
+    procedure acNewProductionOrderExecute(Sender: TObject);
     procedure acNewProjectExecute(Sender: TObject);
     procedure acNewSchemeExecute(Sender: TObject);
     procedure acNewScriptExecute(Sender: TObject);
@@ -202,7 +203,6 @@ type
     procedure acProductionExecute(Sender: TObject);
     procedure acProjectOverviewExecute(Sender: TObject);
     procedure acProjectsExecute(Sender: TObject);
-    procedure acRefreshOrderListExecute(Sender: TObject);
     procedure acRoughPlanningExecute(Sender: TObject);
     procedure acSalesListBookExecute(Sender: TObject);
     procedure acSalesListExecute(Sender: TObject);
@@ -562,8 +562,6 @@ begin
       OnDrawColumnCell:=@fOrderFrame.gListDrawColumnCell;
       if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
         AddToolbarAction(acNewOrder);
-      if Data.Users.Rights.Right('ORDERS') >= RIGHT_PERMIT then
-        AddContextAction(acRefreshOrderList);
     end;
 end;
 
@@ -593,9 +591,7 @@ begin
       acFilter.Execute;
       OnDrawColumnCell:=@fOrderFrame.gListDrawColumnCell;
       if Data.Users.Rights.Right('ORDERS') > RIGHT_READ then
-        AddToolbarAction(acNewOrder);
-      if Data.Users.Rights.Right('ORDERS') >= RIGHT_PERMIT then
-        AddContextAction(acRefreshOrderList);
+        AddToolbarAction(acNewProductionOrder);
     end;
 end;
 
@@ -2139,6 +2135,23 @@ begin
   aFrame.SetLanguage;
   aFrame.New;
 end;
+
+procedure TfMain.acNewProductionOrderExecute(Sender: TObject);
+var
+  aFrame: TfOrderFrame;
+  aOrderT: TOrderTyp;
+begin
+  Application.ProcessMessages;
+  aFrame := TfOrderFrame.Create(Self);
+  aOrderT := TOrderTyp.Create(nil);
+  pcPages.AddTab(aFrame);
+  aFrame.SetLanguage;
+  aOrderT.Open;
+  aOrderT.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue('7'));
+  aFrame.New(aOrderT.FieldByName('STATUS').AsString);
+  aOrderT.Free;
+end;
+
 procedure TfMain.acNewProjectExecute(Sender: TObject);
 var
   aFrame: TfProjectFrame;
@@ -2324,24 +2337,6 @@ begin
       AddprojectList(aFrame);
       aFrame.Open;
     end;
-end;
-
-procedure TfMain.acRefreshOrderListExecute(Sender: TObject);
-var
-  aOrders: TOrderList;
-  aOrder: TOrder;
-begin
-  aOrders := TOrderList.Create(nil);
-  Data.SetFilter(aOrders,Data.ProcessTerm(Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('')),0);
-  while not aOrders.EOF do
-    begin
-      aOrder:=TOrder.Create(nil);
-      aOrder.Select(aOrders.FieldByName('ORDERNO').AsString);
-      aOrder.Open;
-      aOrder.Free;
-      aOrders.DataSet.Refresh;
-    end;
-  aOrders.Free;
 end;
 
 procedure TfMain.acRoughPlanningExecute(Sender: TObject);
