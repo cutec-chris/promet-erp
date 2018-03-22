@@ -23,7 +23,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS"/>
+        <CommandLineParams Value="--mandant=TCS --table=HISTORY"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -36,20 +36,20 @@
         <MinVersion Valid="True"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="36">
+    <Units Count="37">
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="687"/>
-        <CursorPos X="52" Y="705"/>
-        <FoldState Value=" T3mf0{gV"/>
+        <TopLine Value="126"/>
+        <CursorPos X="39" Y="161"/>
+        <FoldState Value=" T3nF0{g7"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="10"/>
         <TopLine Value="254"/>
         <CursorPos X="74" Y="262"/>
         <UsageCount Value="87"/>
@@ -75,7 +75,7 @@
       <Unit4>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="294"/>
         <CursorPos Y="326"/>
         <UsageCount Value="71"/>
@@ -92,7 +92,7 @@
       <Unit6>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="274"/>
         <CursorPos X="15" Y="296"/>
         <UsageCount Value="79"/>
@@ -128,7 +128,7 @@
       </Unit10>
       <Unit11>
         <Filename Value="..\base\dbintfs\uprometscripts.pas"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="12"/>
         <TopLine Value="641"/>
         <CursorPos X="45" Y="680"/>
         <UsageCount Value="87"/>
@@ -169,7 +169,7 @@
       <Unit16>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="1187"/>
         <CursorPos X="25" Y="1208"/>
         <UsageCount Value="81"/>
@@ -186,7 +186,7 @@
       </Unit17>
       <Unit18>
         <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="5"/>
         <CursorPos X="21" Y="24"/>
         <UsageCount Value="69"/>
@@ -274,10 +274,11 @@
       </Unit28>
       <Unit29>
         <Filename Value="C:\lazarus144\fpc\2.6.4\source\packages\fcl-db\src\base\db.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="87"/>
-        <CursorPos X="3" Y="110"/>
-        <UsageCount Value="8"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="386"/>
+        <CursorPos X="14" Y="405"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit29>
       <Unit30>
         <Filename Value="C:\lazarus144\fpc\2.6.4\source\packages\fcl-db\src\base\dataset.inc"/>
@@ -295,7 +296,7 @@
       </Unit31>
       <Unit32>
         <Filename Value="..\base\pcmdprometapp.pas"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="9"/>
         <CursorPos X="3" Y="11"/>
         <UsageCount Value="34"/>
         <Loaded Value="True"/>
@@ -313,8 +314,8 @@
         <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
         <UnitName Value="uAbstractDBLayer"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="881"/>
-        <CursorPos X="29" Y="899"/>
+        <TopLine Value="958"/>
+        <CursorPos Y="997"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit34>
@@ -327,127 +328,137 @@
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit35>
+      <Unit36>
+        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
+        <UnitName Value="ZAbstractRODataset"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="4568"/>
+        <CursorPos X="16" Y="4589"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit36>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="641" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="913" TopLine="903"/>
       </Position1>
       <Position2>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="642" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="914" TopLine="903"/>
       </Position2>
       <Position3>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="643" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="915" TopLine="903"/>
       </Position3>
       <Position4>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="650" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="916" TopLine="903"/>
       </Position4>
       <Position5>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="651" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="917" TopLine="903"/>
       </Position5>
       <Position6>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="640" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="918" TopLine="903"/>
       </Position6>
       <Position7>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="641" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="920" TopLine="903"/>
       </Position7>
       <Position8>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="642" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="930" TopLine="903"/>
       </Position8>
       <Position9>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="643" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="933" TopLine="903"/>
       </Position9>
       <Position10>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="650" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="935" TopLine="903"/>
       </Position10>
       <Position11>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="651" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="937" TopLine="903"/>
       </Position11>
       <Position12>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="640" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="939" TopLine="904"/>
       </Position12>
       <Position13>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="641" TopLine="622"/>
+        <Caret Line="149" TopLine="117"/>
       </Position13>
       <Position14>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="642" TopLine="622"/>
+        <Caret Line="146" TopLine="117"/>
       </Position14>
       <Position15>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="643" TopLine="622"/>
+        <Caret Line="147" TopLine="117"/>
       </Position15>
       <Position16>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="650" TopLine="622"/>
+        <Caret Line="146" TopLine="117"/>
       </Position16>
       <Position17>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="651" TopLine="622"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="948" TopLine="926"/>
       </Position17>
       <Position18>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="697" Column="10" TopLine="676"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="949" TopLine="926"/>
       </Position18>
       <Position19>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="705" TopLine="681"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="950" TopLine="926"/>
       </Position19>
       <Position20>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="684" Column="83" TopLine="681"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="951" TopLine="926"/>
       </Position20>
       <Position21>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="711" TopLine="681"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="956" TopLine="932"/>
       </Position21>
       <Position22>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="700" TopLine="681"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="996" TopLine="958"/>
       </Position22>
       <Position23>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="706" Column="54" TopLine="681"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="997" TopLine="958"/>
       </Position23>
       <Position24>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="703" TopLine="681"/>
+        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
+        <Caret Line="4584" TopLine="4563"/>
       </Position24>
       <Position25>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="704" TopLine="681"/>
+        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
+        <Caret Line="4585" TopLine="4563"/>
       </Position25>
       <Position26>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="705" TopLine="681"/>
+        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
+        <Caret Line="4586" TopLine="4563"/>
       </Position26>
       <Position27>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="706" TopLine="681"/>
+        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
+        <Caret Line="4588" TopLine="4563"/>
       </Position27>
       <Position28>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="707" TopLine="681"/>
+        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
+        <Caret Line="4589" TopLine="4563"/>
       </Position28>
       <Position29>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="711" TopLine="681"/>
+        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
+        <Caret Line="4591" Column="4" TopLine="4572"/>
       </Position29>
       <Position30>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="712" TopLine="681"/>
+        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
+        <Caret Line="4589" Column="16" TopLine="4568"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -480,6 +491,15 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_db.lpr"/>
+        <Line Value="1080"/>
+      </Item1>
+    </BreakPoints>
     <Watches Count="1">
       <Item1>
         <Expression Value="aFieldName"/>

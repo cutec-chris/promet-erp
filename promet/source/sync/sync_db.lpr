@@ -79,6 +79,7 @@ var
   aSyncError: TSyncItems;
   tmp: String;
   aStream: TStream;
+  bStream: TStringStream;
 begin
   try
   Result := True;
@@ -130,9 +131,10 @@ begin
           and (aDest.FieldDefs.IndexOf(aFieldName) > -1)
           then
             begin
-              if (not aSource.FieldByName(aFieldName).IsNull) or (aSource.FieldByName(aFieldName).IsBlob) or (aDest.FieldByName(aFieldName).IsBlob) then
+              if not ((aSource.FieldByName(aFieldName).IsNull) and (aDest.FieldByName(aFieldName).IsNull)) then
                 begin
-                  tmp := ConvertEncoding(aSource.FieldByName(aFieldName).AsString,GuessEncoding(aSource.FieldByName(aFieldName).AsString),EncodingUTF8);
+                  if not (aSource.FieldByName(aFieldName).IsBlob) or (aDest.FieldByName(aFieldName).IsBlob) then
+                    tmp := ConvertEncoding(aSource.FieldByName(aFieldName).AsString,GuessEncoding(aSource.FieldByName(aFieldName).AsString),EncodingUTF8);
                   if (aDest.FieldByName(aFieldName).DataType = ftString)
                   and (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant) then
                     begin
@@ -141,10 +143,25 @@ begin
                     end
                   else if (aSource.FieldByName(aFieldName).IsBlob) or (aDest.FieldByName(aFieldName).IsBlob) then
                     begin
-                      aStream := SourceDM.BlobFieldStream(aSource,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                      if (aSource.FieldByName(aFieldName).IsBlob) then
+                        begin
+                          aStream := TMemoryStream.Create;
+                          SourceDM.BlobFieldToStream(aSource,aFieldName,aStream)
+                        end
+                      else
+                        aStream := TStringStream.Create(aSource.FieldByName(aFieldName).AsString);
                       aStream.Position:=0;
-                      DestDM.StreamToBlobField(aStream,aDest,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString);
+                      if (aDest.FieldByName(aFieldName).IsBlob) then
+                        DestDM.StreamToBlobField(aStream,aDest,aFieldName,SyncDB.Tables.DataSet.FieldByName('NAME').AsString)
+                      else
+                        begin
+                          bStream := TStringStream.Create('');
+                          bStream.CopyFrom(aStream,0);
+                          aDest.FieldByName(aFieldName).AsString := bStream.DataString;
+                          bStream.Free;
+                        end;
                       aStream.Free;
+                      DoPost := True;
                     end
                   else if (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant) then
                     begin
