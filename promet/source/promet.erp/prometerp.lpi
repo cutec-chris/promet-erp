@@ -173,6 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <CommandLineParams Value="--config-path=ForumPG"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
