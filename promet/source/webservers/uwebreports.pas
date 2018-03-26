@@ -705,14 +705,10 @@ begin
                           'btMasterHeader':
                             begin
                               aBand := TFPReportDataHeaderBand.Create(aPage);
-                              if Assigned(aMasterData) then
-                                aMasterData.HeaderBand := TFPReportDataHeaderBand(aBand);
                             end;
                           'btMasterFooter':
                             begin
                               aBand := TFPReportDataFooterBand.Create(aPage);
-                              if Assigned(aMasterData) then
-                                aMasterData.FooterBand := TFPReportDataFooterBand(aBand);
                             end;
                           'btDetailData':
                             begin
@@ -727,13 +723,11 @@ begin
                               if Assigned(aDetailHeader) then
                                 begin
                                   aDetailHeader.Data := TFPReportDataBand(aBand).Data;
-                                  TFPReportDataBand(aBand).HeaderBand := aDetailHeader;
                                   aDetailHeader := nil;
                                 end;
                               if Assigned(aDetailFooter) then
                                 begin
                                   aDetailFooter.Data := TFPReportDataBand(aBand).Data;
-                                  TFPReportDataBand(aBand).FooterBand := aDetailFooter;
                                   aDetailFooter := nil;
                                 end;
                             end;
@@ -742,7 +736,6 @@ begin
                               aBand := TFPReportDataHeaderBand.Create(aPage);
                               if Assigned(aDetailBand) then
                                 begin
-                                  aDetailBand.HeaderBand := TFPReportDataHeaderBand(aBand);
                                   TFPReportDataHeaderBand(aBand).Data := aDetailBand.Data;
                                 end
                               else aDetailHeader := TFPReportDataHeaderBand(aBand);
@@ -752,7 +745,6 @@ begin
                               aBand := TFPReportDataFooterBand.Create(aPage);
                               if Assigned(aDetailBand) then
                                 begin
-                                  aDetailBand.FooterBand := TFPReportDataFooterBand(aBand);
                                   TFPReportDataFooterBand(aBand).Data := aDetailBand.Data;
                                 end
                               else aDetailFooter := TFPReportDataFooterBand(aBand);
