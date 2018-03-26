@@ -25,7 +25,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="511"/>
+      <BuildNr Value="512"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion="7.0.0.487"/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -173,7 +173,6 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=ForumPG"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -622,7 +621,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="15">
+    <Exceptions Count="16">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -668,6 +667,9 @@
       <Item15>
         <Name Value="FPImageException"/>
       </Item15>
+      <Item16>
+        <Name Value="EPrinter"/>
+      </Item16>
     </Exceptions>
   </Debugging>
 </CONFIG>
