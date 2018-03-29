@@ -68,7 +68,9 @@ msgid "BAD Geschäftsadresse"
 msgstr "BAD Business Adress"
 
 #: uintfstrconsts.strbarcode
-msgid "Barcode"
+#, fuzzy
+#| msgid "Barcode"
+msgid "Barcode/PLZ"
 msgstr "Barcode"
 
 #: uintfstrconsts.strcalendar

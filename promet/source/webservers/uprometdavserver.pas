@@ -1386,7 +1386,6 @@ begin
             aDS := TBaseDBModule(aSocket.Data).GetNewDataSet(aStmt.FormatedSQL);
             with aDS as IBaseDBFilter do
               begin
-                FetchRows:=20;
                 Limit := 100;
               end;
             aDS.Open;
