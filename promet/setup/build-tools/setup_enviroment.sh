@@ -31,8 +31,8 @@ if [ "x$lazbuild" = "x" ]
   echo "CPU:$TARGET_CPU"
   echo "OS:$TARGET_OS"
   if [ "x$TARGET_WIDGETSET" = "x" ]; then
-  
     if [ $TARGET_EXTENSION='.exe' ]; then
+      echo "Ignoring Target_Widgetset in Windows"
     else
       export TARGET_WIDGETSET='gtk2'
     fi 
