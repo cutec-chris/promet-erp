@@ -26,7 +26,7 @@ unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/mailreceiver_$TARG
 echo "building package..."
 rm $TmpDir/*.paf.exe
 cat Appinfo_devel.ini | \
-  sed -b -e "s/VERSION/$Version/g" \
+  sed -e "s/VERSION/$Version/g" \
       -e "s/ARCH/$Arch/g" \
       -e "s/ARCHFPC/$Archfpc/g" \
       -e "s/CREATEDDATE/$Date/g" \
