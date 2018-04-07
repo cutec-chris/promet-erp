@@ -69,7 +69,7 @@ WIN_DIR='Z:\'$WIN_DIR
 #WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wineconsole "$WIN_DIR\compress.bat" 'Z:'$(echo $BuildDir | sed 's/\//\\/g') $WIN_DIR
 echo "building package..."
 cat Appinfo_devel.ini | \
-  sed -e "s/VERSION/$Version/g" \
+  $SED -e "s/VERSION/$Version/g" \
       -e "s/ARCH/$Arch/g" \
       -e "s/ARCHFPC/$Archfpc/g" \
       -e "s/CREATEDDATE/$Date/g" \
@@ -77,7 +77,7 @@ cat Appinfo_devel.ini | \
 #WINEPREFIX=$FULL_NAME/../../../lazarus_wine/ wine "c:\PortableApps.comInstaller\PortableApps.comInstaller.exe" 'Z:'$(echo $BuildDir | sed 's/\//\\/g')'\Promet-ERP'
 rm $BuildDir/Promet-ERP/App/AppInfo/Launcher/Splash.jpg
 cat Appinfo.ini | \
-  sed -e "s/VERSION/$Version/g" \
+  $SED -e "s/VERSION/$Version/g" \
       -e "s/ARCH/$Arch/g" \
       -e "s/ARCHFPC/$Archfpc/g" \
       -e "s/CREATEDDATE/$Date/g" \
