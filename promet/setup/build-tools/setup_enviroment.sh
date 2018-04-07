@@ -31,7 +31,11 @@ if [ "x$lazbuild" = "x" ]
   echo "CPU:$TARGET_CPU"
   echo "OS:$TARGET_OS"
   if [ "x$TARGET_WIDGETSET" = "x" ]; then
-    export TARGET_WIDGETSET='gtk2'
+  
+    if [ $TARGET_EXTENSION='.exe' ]; then
+    else
+      export TARGET_WIDGETSET='gtk2'
+    fi 
   fi
   echo "Widgetset:$TARGET_WIDGETSET"
   if [ "x$TARGET_CPU" = "xarm" ]; then
