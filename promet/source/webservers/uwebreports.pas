@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, uBaseDbClasses,
   uBaseDBInterface, uBaseDatasetInterfaces, db,
   fpreport, fpreportfpimageexport, fpreporthtmlexport, fpreportpdfexport,fpreportdb,
-  DOM,XMLRead,fpjsonreport,FPReadPNG,FPimage,FPCanvas,FPImgCanv,fpTTF,fprephtmlparser,
+  DOM,XMLRead,fpjsonreport,FPReadPNG,FPimage,FPCanvas,FPImgCanv,fpTTF,fpReportHTMLParser,
   fprepexprpars,nr_intrp;
 
 type
