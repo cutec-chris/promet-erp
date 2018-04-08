@@ -26,11 +26,7 @@ unzip -u -d $BuildDir/App/promet $basedir/promet/setup/output/mailreceiver_$TARG
 echo "building package..."
 rm $TmpDir/*.paf.exe
 cat Appinfo_devel.ini | \
-  sed -b -e "s/VERSION/$Version/g" \
-      -e "s/ARCH/$Arch/g" \
-      -e "s/ARCHFPC/$Archfpc/g" \
-      -e "s/CREATEDDATE/$Date/g" \
-  > $BuildDir/App/AppInfo/appinfo.ini
+  $SED "s/VERSION/$Version/g" > $BuildDir/App/AppInfo/appinfo.ini
 rm $BuildDir/App/AppInfo/Launcher/Splash.jpg
 /c/Windows/system32/cmd.exe "/C c:\PortableApps.comInstaller\PortableApps.comInstaller.exe %TEMP%\software_build
 "
@@ -42,11 +38,7 @@ if [ "$1" = "upload" ]; then
 fi
 rm $TmpDir/*.paf.exe
 cat Appinfo.ini | \
-  sed -b -e "s/VERSION/$Version/g" \
-      -e "s/ARCH/$Arch/g" \
-      -e "s/ARCHFPC/$Archfpc/g" \
-      -e "s/CREATEDDATE/$Date/g" \
-  > $BuildDir/App/AppInfo/appinfo.ini
+  $SED "s/VERSION/$Version/g" > $BuildDir/App/AppInfo/appinfo.ini
 /c/Windows/system32/cmd.exe "/C c:\PortableApps.comInstaller\PortableApps.comInstaller.exe %TEMP%\software_build
 "
 cp $TmpDir/*.paf.exe ../output
