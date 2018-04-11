@@ -835,7 +835,7 @@ var
   procedure DoSyncTables(IgnoreParent : Boolean = False;MinimalDate : TDateTime = 0;aLevel : Integer = 0);
   var
     aRec2 : Variant;
-    aMinDate: TDateTime;
+    aMinDate: TDateTime=0;
     Fullsynced: Boolean;
     aLastFilter: String;
   begin
@@ -872,6 +872,13 @@ var
                   Fullsynced := False;
                   if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString='' then
                     FOldTime:='a';
+                  aMinDate:=0;
+                  if SyncDB.Tables.FieldByName('LTIMESTAMP').AsString<>'' then
+                    begin
+                      aMinDate := SyncDB.Tables.FieldByName('LTIMESTAMP').AsDateTime;
+                      if (aMinDate>MinimalDate) and (MinimalDate>0) then
+                        aMinDate:=MinimalDate;
+                    end;
                   while not Fullsynced do
                     begin
                       FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
@@ -899,13 +906,6 @@ var
                   begin
                     aRec2 := SyncDB.Tables.GetBookmark;
                     aLastFilter := SyncDB.Tables.ActualFilter;
-                    aMinDate:=0;
-                    if SyncDB.Tables.FieldByName('LTIMESTAMP').AsString<>'' then
-                      begin
-                        aMinDate := SyncDB.Tables.FieldByName('LTIMESTAMP').AsDateTime;
-                        if (aMinDate>MinimalDate) and (MinimalDate>0) then
-                          aMinDate:=MinimalDate;
-                      end;
                     SyncDB.Tables.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(aRec2));
                     if not SyncDB.Tables.GotoBookmark(aRec2) then
                       DoSyncTables(True,aMinDate,aLevel+1);
