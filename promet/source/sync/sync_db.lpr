@@ -460,12 +460,15 @@ var
   tmp: String;
   aSyncCount: Integer;
   DoUnlock: Boolean;
+  aLastRowTimeOut: TDateTime = 0;
 
   procedure UpdateTime(DoSetIt : Boolean = True);
   begin
     if (not RestoreTime) and SetTime then
       begin
         SyncDB.Tables.DataSet.Edit;
+        if (aLastRowTimeOut>0) and (aLastRowTimeOut<aLastRowTime) then
+          aLastRowTime := aLastRowTimeOut;
         if (aLastRowTime>0) and (aOldTime<>aLastRowTime) then
           SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aLastRowTime
         else
@@ -534,7 +537,7 @@ begin
             while not aSyncStamps.DataSet.EOF do
               begin
                 if aSyncStamps.FieldByName('NAME').AsString=aTableName then
-                  if aSyncStamps.DataSet.FieldByName('TIMESTAMPD').AsDateTime < aSyncTime then
+                  if (aSyncStamps.DataSet.FieldByName('TIMESTAMPD').AsDateTime < aSyncTime) and (aSyncStamps.DataSet.FieldByName('TIMESTAMPD').AsDateTime < aMinDate) then
                     begin
                       aSyncTime:=aSyncStamps.FieldByName('LTIMESTAMP').AsDateTime;
                       (BaseApplication as IBaseApplication).Info(Format(strSyncStamp,[aSyncStamps.FieldByName('FROM').AsString,aSyncStamps.FieldByName('NAME').AsString,aSyncStamps.FieldByName('LTIMESTAMP').AsString]));
@@ -681,6 +684,7 @@ begin
         aFilter := BuildFilter(DestDM,SourceDM,aSyncTime);
         if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
           begin
+            aLastRowTimeOut := aLastRowTime;
             aOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
             aLastRowTime:=aOldTime;
             if (aSyncIn.RecordCount > 0) then
@@ -838,6 +842,7 @@ var
     aMinDate: TDateTime=0;
     Fullsynced: Boolean;
     aLastFilter: String;
+    iMinimalDate: TDateTime;
   begin
     if aLevel>4 then exit;
     SyncDB.Tables.DataSet.First;
@@ -879,11 +884,13 @@ var
                       if (aMinDate>MinimalDate) and (MinimalDate>0) then
                         aMinDate:=MinimalDate;
                     end;
+                  iMinimalDate := MinimalDate;
                   while not Fullsynced do
                     begin
                       FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                       FOldSyncCount := FSyncedCount;
-                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount,MinimalDate);
+                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount,iMinimalDate);
+                      iMinimalDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
                       if aSyncCount > 0 then
                         Fullsynced:=FSyncedCount < aSyncCount
                       else Fullsynced:=True;
