@@ -16,7 +16,7 @@ uses
   {$IFDEF WINDOWS}
   Windows,
   {$ENDIF}
-  FileUtil
+  FileUtil,LCLIntf
   { add your units here }, uprogramended, general,uLanguageUtils;
 
 var
@@ -43,7 +43,14 @@ begin
     tmp := copy(tmp,2,length(tmp)-2);
   Proc.CommandLine := tmp;
   if Proc.CommandLine = '' then exit;
-  Proc.Execute;
+  try
+    Proc.Execute;
+  except
+    begin
+      if not OpenDocument(tmp) then
+        raise;
+    end;
+  end;
   while pos(' ',tmp)>0 do
     begin
       if (copy(tmp,0,1)='"') and (copy(tmp,length(tmp),1) = '"') then
