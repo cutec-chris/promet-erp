@@ -641,17 +641,18 @@ end;
 
 procedure TDAVSession.DoCheckAuth;
 var
-  aUser: String;
+  aUser: String = '';
 begin
-  aUser := Parameters.Values['authorization'];
-  if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
+  if pos('login=',Parameters.Values['cookie'])>0 then
     begin
-      if pos('login=',Parameters.Values['cookie'])>0 then
-        begin
-          aUser := copy(Parameters.Values['cookie'],pos('login=',Parameters.Values['cookie'])+6,length(Parameters.Values['cookie']));
-          aUser := copy(aUser,0,pos(';',aUser)-1);
-        end
-      else
+      aUser := copy(Parameters.Values['cookie'],pos('login=',Parameters.Values['cookie'])+6,length(Parameters.Values['cookie']));
+      if pos(';',aUser)>0 then
+        aUser := copy(aUser,0,pos(';',aUser)-1);
+    end;
+  if aUser = '' then
+    begin
+      aUser := Parameters.Values['authorization'];
+      if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
         begin
           Status:=401;
           exit;
