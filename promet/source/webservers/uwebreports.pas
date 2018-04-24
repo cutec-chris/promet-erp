@@ -581,6 +581,7 @@ var
   k: Integer;
   aColor: Integer;
   FontFound: Boolean;
+  aFlag: Integer;
   function Blue(rgb: Integer): BYTE;
   begin
     Result := (rgb shr 16) and $000000ff;
@@ -791,7 +792,8 @@ begin
                           'tlBottom':TFPReportMemo(aObj).TextAlignment.Vertical:=TFPReportVertTextAlignment.tlBottom;
                           end;
                           TFPReportMemo(aObj).StretchMode:=smActualHeight;
-                          if GetProperty(nPage.ChildNodes.Item[j],'Flags') = '3' then
+                          aFlag := StrToIntDef(GetProperty(nPage.ChildNodes.Item[j],'Flags'),0);
+                          if aFlag and 3 = 3 then
                             TFPReportMemo(aObj).StretchMode:=smMaxHeight;
                           TFPReportMemo(aObj).TextAlignment.TopMargin:=1;
                           aDataNode := nPage.ChildNodes.Item[j].FindNode('Data');
@@ -916,7 +918,7 @@ begin
                                     TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flLeft];
                                   if pos('frbRight',tmp)>0 then
                                     TFPReportElement(aObj).Frame.Lines := TFPReportElement(aObj).Frame.Lines+[flRight];
-                                  HasFrame := True;
+                                  HasFrame := TFPReportElement(aObj).Frame.Lines<>[];
                                 end;
                             end;
                           if (aObj is TFPReportMemo)
@@ -924,6 +926,7 @@ begin
                           and (GetProperty(nPage.ChildNodes.Item[j],'FillColor')<>'') then
                             begin
                               aColor := StrToIntDef(GetProperty(nPage.ChildNodes.Item[j],'FillColor'),0);
+                              TFPReportMemo(aObj).Frame.Pen:=psClear;
                               TFPReportMemo(aObj).Frame.BackgroundColor:= RGBToReportColor(Red(aColor),Green(aColor),Blue(aColor));
                               TFPReportMemo(aObj).Frame.Shape:=fsRectangle;
                               if not HasFrame then
