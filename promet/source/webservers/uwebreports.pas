@@ -563,15 +563,6 @@ begin
   Report.LoadFromFile(aFile);
 end;
 
-Procedure BuiltinIFS(Var Result : TFPExpressionResult; Const Args : TExprParameterArray);
-
-begin
-  If Args[0].resBoolean then
-    Result.resString:=Args[1].resString
-  else
-    Result.resString:=Args[2].resString
-end;
-
 constructor TfWebReports.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -580,7 +571,5 @@ begin
   Report.OnSetCustomproperties:=@ReportSetCustomproperties;
 end;
 
-initialization
-  BuiltinIdentifiers.AddFunction(bcBoolean,'IF','S','BSS',@BuiltinIFS);
 end.
 

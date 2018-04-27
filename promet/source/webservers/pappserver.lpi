@@ -142,7 +142,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="14">
+    <Exceptions Count="13">
       <Item1>
         <Name Value="EZSQLException"/>
       </Item1>
@@ -180,11 +180,8 @@
         <Name Value="EConvertError"/>
       </Item12>
       <Item13>
-        <Name Value="EExprScanner"/>
+        <Name Value="EExprParser"/>
       </Item13>
-      <Item14>
-        <Name Value="EInvalidReportError"/>
-      </Item14>
     </Exceptions>
   </Debugging>
 </CONFIG>
