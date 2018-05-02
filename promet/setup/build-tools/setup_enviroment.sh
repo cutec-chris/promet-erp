@@ -32,7 +32,7 @@ if [ "x$lazbuild" = "x" ]
   echo "OS:$TARGET_OS"
   if [ "x$TARGET_WIDGETSET" = "x" ]; then
     if [ "x$TARGET_EXTENSION"="x.exe" ]; then
-      echo "Ignoring Target_Widgetset in Windows"
+      echo "Ignoring Target_Widgetset in Windows ($(uname -s))"
     else
       export TARGET_WIDGETSET='gtk2'
     fi 
