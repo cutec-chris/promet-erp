@@ -1,12 +1,11 @@
 #!/bin/bash
 # path to lazbuild
+export TARGET_EXTENSION=''
 if [ "$(expr substr $(uname -s) 1 5)" = "MINGW" ]; then
-    export TARGET_EXTENSION='.exe'
-  else
-    export TARGET_EXTENSION=''
+  export TARGET_EXTENSION='.exe'
 fi
 if [ "$(expr substr $(uname -s) 1 5)" = "Windo" ]; then
-    export TARGET_EXTENSION='.exe'
+  export TARGET_EXTENSION='.exe'
 fi
 if [ "x$lazbuild" = "x" ]
   then
@@ -31,7 +30,7 @@ if [ "x$lazbuild" = "x" ]
   echo "CPU:$TARGET_CPU"
   echo "OS:$TARGET_OS"
   if [ "x$TARGET_WIDGETSET" = "x" ]; then
-    if [ "x$TARGET_EXTENSION"="x.exe" ]; then
+    if [ "x$TARGET_EXTENSION" = "x.exe" ]; then
       echo "Ignoring Target_Widgetset in Windows ($(uname -s))"
     else
       export TARGET_WIDGETSET='gtk2'
