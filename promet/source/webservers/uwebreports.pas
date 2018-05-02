@@ -55,6 +55,7 @@ type
     FScript: TfrInterpretator;
     FScriptSource: string;
     FPrepared : TStringList;
+    FText: string;
     procedure SetScript(AValue: string);
   protected
     function PrepareObject(aRTParent: TFPReportElement): TFPReportElement; override;
