@@ -48,14 +48,9 @@ type
       var val: Variant); override;
   end;
 
-  { TFPReportPrometMemo }
-
-  TFPReportPrometMemo = class(TFPReportMemo)
-  end;
-
   { TFPReportScriptMemo }
 
-  TFPReportScriptMemo = class(TFPReportPrometMemo)
+  TFPReportScriptMemo = class(TFPReportMemo)
   private
     FScript: TfrInterpretator;
     FScriptSource: string;
@@ -69,6 +64,11 @@ type
     property Script : string read FScriptSource write SetScript;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
+  end;
+
+  { TFPReportPrometMemo }
+
+  TFPReportPrometMemo = class(TFPReportScriptMemo)
   end;
 
 var
