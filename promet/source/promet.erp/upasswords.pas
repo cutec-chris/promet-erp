@@ -60,6 +60,7 @@ type
     procedure eFilterChange(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure Label1Click(Sender: TObject);
     procedure ToolButton8Click(Sender: TObject);
   private
@@ -88,6 +89,11 @@ end;
 procedure TfPasswords.FormDestroy(Sender: TObject);
 begin
 
+end;
+
+procedure TfPasswords.FormShow(Sender: TObject);
+begin
+  eFilterChange(nil);
 end;
 
 procedure TfPasswords.Label1Click(Sender: TObject);
