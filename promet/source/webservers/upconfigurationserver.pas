@@ -153,27 +153,12 @@ begin
             aPassword := copy(aUser,pos(':',aUser)+1,length(aUser));
             aUser := copy(aUser,0,pos(':',aUser)-1);
             if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
-            and (TBaseDBModule(uData.Data).Users.Active)
-            and ((TBaseDBModule(uData.Data).Users.FieldByName('NAME').AsString=BaseApplication.GetOptionValue('u','user')) or (TBaseDBModule(uData.Data).Users.FieldByName('LOGINNAME').AsString=BaseApplication.GetOptionValue('u','user')))
-            and (TBaseDBModule(uData.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')))))
-            ) then
-              begin
-                Result := 200;
-              end;
-            TBaseDBModule(uData.Data).Users.Open;
-            if (TBaseDBModule(uData.Data).Users.DataSet.Locate('NAME',aUser,[]) or TBaseDBModule(uData.Data).Users.DataSet.Locate('LOGINNAME',aUser,[])) and (TBaseDBModule(uData.Data).Users.Leaved.IsNull) then
+            and TBaseDBModule(uData.Data).Authenticate(BaseApplication.GetOptionValue('u','user'),BaseApplication.GetOptionValue('p','password'))))
+            then
               Result := 200;
-            if (BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))) then
-              begin
-                if (TBaseDBModule(uData.Data).Users.DataSet.Locate('NAME',BaseApplication.GetOptionValue('u','user'),[]) or TBaseDBModule(uData.Data).Users.DataSet.Locate('LOGINNAME',BaseApplication.GetOptionValue('u','user'),[])) and (TBaseDBModule(uData.Data).Users.Leaved.IsNull) then
-                  Result := 200;
-                if Result = 200 then
-                  if not TBaseDBModule(uData.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password'))) then
-                    Result := 401;
-              end
-            else if Result=200 then
-              if not TBaseDBModule(uData.Data).Users.CheckPasswort(trim(aPassword)) then
-                Result := 401;
+            if (Result = 401) then
+              if TBaseDBModule(uData.Data).Authenticate(aUser,aPassword) then
+                Result := 200;
             if Result = 200 then
               begin
                 sl := TStringList.Create;

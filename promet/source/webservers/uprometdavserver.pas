@@ -1871,21 +1871,10 @@ begin
   if not Assigned(BaseApplication) then exit;
   CreateDataModule(aSocket);
   if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
-  and (TBaseDBModule(aSocket.Data).Users.Active)
-  and ((TBaseDBModule(aSocket.Data).Users.FieldByName('NAME').AsString=BaseApplication.GetOptionValue('u','user')) or (TBaseDBModule(aSocket.Data).Users.FieldByName('LOGINNAME').AsString=BaseApplication.GetOptionValue('u','user')))
-  and (TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')))))
-  ) then
+  and TBaseDBModule(aSocket.Data).Authenticate(BaseApplication.GetOptionValue('u','user'),BaseApplication.GetOptionValue('p','password'))))
+  then
     aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
   Result := aSocket.User<>'';
-  if (not Result) and (BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))) then
-    begin
-      TBaseDBModule(aSocket.Data).Users.Open;
-      Result := (TBaseDBModule(aSocket.Data).Users.DataSet.Locate('NAME',BaseApplication.GetOptionValue('u','user'),[]) or TBaseDBModule(aSocket.Data).Users.DataSet.Locate('LOGINNAME',BaseApplication.GetOptionValue('u','user'),[])) and (TBaseDBModule(aSocket.Data).Users.Leaved.IsNull);
-      if Result then
-        Result := TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')));
-      if Result then
-        aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
-    end;
   if (not Result) and (pos('login=',aSocket.Parameters.Values['cookie'])>0) then
     begin
       aUser := copy(aSocket.Parameters.Values['cookie'],pos('login=',aSocket.Parameters.Values['cookie'])+6,length(aSocket.Parameters.Values['cookie']));
@@ -1907,25 +1896,13 @@ begin
   CreateDataModule(aSocket);
   if not Assigned(BaseApplication) then exit;
   if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
-  and (TBaseDBModule(aSocket.Data).Users.Active)
-  and ((TBaseDBModule(aSocket.Data).Users.FieldByName('NAME').AsString=BaseApplication.GetOptionValue('u','user')) or (TBaseDBModule(aSocket.Data).Users.FieldByName('LOGINNAME').AsString=BaseApplication.GetOptionValue('u','user')))
-  and (TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')))))
-  ) then
+  and TBaseDBModule(aSocket.Data).Authenticate(BaseApplication.GetOptionValue('u','user'),BaseApplication.GetOptionValue('p','password'))))
+  then
     begin
       aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
       Result := True;
       exit;
     end;
-  TBaseDBModule(aSocket.Data).Users.Open;
-  Result := (TBaseDBModule(aSocket.Data).Users.DataSet.Locate('NAME',aUser,[]) or TBaseDBModule(aSocket.Data).Users.DataSet.Locate('LOGINNAME',aUser,[])) and (TBaseDBModule(aSocket.Data).Users.Leaved.IsNull);
-  if (BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))) then
-    begin
-      Result := (TBaseDBModule(aSocket.Data).Users.DataSet.Locate('NAME',BaseApplication.GetOptionValue('u','user'),[]) or TBaseDBModule(aSocket.Data).Users.DataSet.Locate('LOGINNAME',BaseApplication.GetOptionValue('u','user'),[])) and (TBaseDBModule(aSocket.Data).Users.Leaved.IsNull);
-      if Result then
-        Result := TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(BaseApplication.GetOptionValue('p','password')));
-    end
-  else if Result then
-    Result := TBaseDBModule(aSocket.Data).Users.CheckPasswort(trim(aPassword));
   if not Result then
     begin
       aSocket.User:='';
