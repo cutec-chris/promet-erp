@@ -799,6 +799,7 @@ begin
   if not FDataSet.DataSet.Active then
     FDataSet.Open;
   TOrder(FDataSet).OpenItem;
+  Editable := SetRights;
   if not TOrder(fDataSet).Address.DataSet.Active then
     TOrder(fDataSet).Address.DataSet.Open;
   OrderAddress.DataSet := TOrder(fDataSet).Address.DataSet;
@@ -841,7 +842,6 @@ begin
         cbStatus.Items.Add(TOrder(FDataSet).OrderType.FieldByName('STATUSNAME').AsString+' ('+TOrder(FDataSet).OrderType.FieldByName('STATUS').AsString+')');
       tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
     end;
-  Editable := SetRights;
   RefreshAddress;
 
   pcHeader.NewFrame(TfOrderAdditionalFrame,(FDataSet.State = dsInsert) or TfOrderAdditionalFrame(aFrame).IsNeeded(FDataSet.DataSet),strAdditional,@AddAdditional);
@@ -930,12 +930,13 @@ begin
   OrderType := StrToIntDef(trim(copy(TOrder(FDataSet).OrderType.FieldByName('TYPE').AsString,0,2)),0);
   FEditable := Application.HasOption('e','editall') or ((Data.Users.Rights.Right('ORDERS') > RIGHT_READ) and (DataSet.FieldByName('DATE').IsNull));
   EditAble := FEditable;
-  Result := Editable;
   if (Data.Users.Rights.Right('ORDERS') > RIGHT_DELETE) and (TOrder(FDataSet).OrderType.FieldByName('CHANGEABLE').AsString='Y') then
     begin
       Editable := True;
       Editable2:=True;
     end;
+  FEditable := Editable;
+  Result := Editable;
   cbStatus.Enabled:=(not Editable) and (Data.Users.Rights.Right('ORDERS') > RIGHT_READ);
   if Editable2 then
     cbStatus.Enabled:=True;
