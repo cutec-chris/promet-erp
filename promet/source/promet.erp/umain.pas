@@ -3325,6 +3325,7 @@ var
 begin
   Result := False;
   Screen.Cursor:=crHourGlass;
+  try
   Application.ProcessMessages;
   if not Application.HasOption('o','doubleopen') then
     begin
@@ -3401,7 +3402,11 @@ begin
     end
   else if copy(aLink,0,6) = 'ORDERS' then
     begin
-      if Data.Users.Rights.Right('ORDERS') < RIGHT_READ then exit;
+      if (Data.Users.Rights.Right('ORDERS') < RIGHT_READ)
+      and (Data.Users.Rights.Right('PRODUCTION') < RIGHT_READ) then
+        begin
+          exit;
+        end;
       aFrame := TfOrderFrame.Create(Self);
       aFrame.SetLanguage;
       if aFrame.OpenFromLink(aLink) then
@@ -3647,7 +3652,9 @@ begin
   ;
   if Result then
     FHistory.Add(aLink);
-  Screen.Cursor:=crDefault;
+  finally
+    Screen.Cursor:=crDefault;
+  end;
 end;
 procedure TfMain.fMainTreeFrameSelectionChanged(aEntry: TTreeEntry);
 var

@@ -930,7 +930,7 @@ begin
   OrderType := StrToIntDef(trim(copy(TOrder(FDataSet).OrderType.FieldByName('TYPE').AsString,0,2)),0);
   FEditable := Application.HasOption('e','editall') or ((Data.Users.Rights.Right('ORDERS') > RIGHT_READ) and (DataSet.FieldByName('DATE').IsNull));
   EditAble := FEditable;
-  if (Data.Users.Rights.Right('ORDERS') > RIGHT_DELETE) and (TOrder(FDataSet).OrderType.FieldByName('CHANGEABLE').AsString='Y') then
+  if (Data.Users.Rights.Right('ORDERS') > RIGHT_READ) and (TOrder(FDataSet).OrderType.FieldByName('CHANGEABLE').AsString='Y') then
     begin
       Editable := True;
       Editable2:=True;
