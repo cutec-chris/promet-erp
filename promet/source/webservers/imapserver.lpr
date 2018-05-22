@@ -1493,16 +1493,7 @@ begin
   IMAPServer.InternalLock('Login',aSocket);
   try
     try
-      aUsers := TUser.Create(nil);
-      aUsers.Open;
-      with Self as IBaseDBInterface do
-        begin
-          if aUsers.DataSet.Locate('LOGINNAME',aUser,[loCaseInsensitive]) or Data.Users.DataSet.Locate('NAME',aUser,[loCaseInsensitive]) then
-            begin
-              if (aUsers.CheckPasswort(aPasswort)) then
-                Result := True;
-            end;
-        end;
+      Result := Data.Authenticate(aUser,aPasswort);
       with Self as IBaseApplication do
         begin
           if Result then
@@ -1511,8 +1502,7 @@ begin
             Error('Login failed:'+aUser);
         end;
       if Result then
-        aSocket.User:=aUsers.Accountno.AsString;
-      aUsers.Free;
+        aSocket.User:=Data.Users.Accountno.AsString;
     except
       Result := False;
     end;
