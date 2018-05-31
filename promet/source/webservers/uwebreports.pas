@@ -13,17 +13,25 @@ uses
 
 type
 
+  { TInternalFPLazReport }
+
+  TInternalFPLazReport = class(TFPLazReport)
+  public
+    function FixDataFields(aFieldName: string): string; override;
+  end;
+
   { TfWebReports }
 
   TfWebReports = class(TComponent)
     procedure aParserFoundText(Text: string);
+    procedure ReportLog(Sender: TOBject; const Msg: String);
     procedure ReportSetCustomproperties(Sender: TObject; Data: TDOMNode);
   private
     { private declarations }
     FTxt : string;
   public
     { public declarations }
-    Report: TFPLazReport;
+    Report: TInternalFPLazReport;
     LastError : string;
     function ExportToPDF(aFile: string): Boolean;
     function ExportToHTML : string;
@@ -80,6 +88,13 @@ var
 implementation
 
 uses uBaseApplication,Utils,variants,FPimage,fpTTF,FPCanvas,FPImgCanv;
+
+{ TInternalFPLazReport }
+
+function TInternalFPLazReport.FixDataFields(aFieldName: string): string;
+begin
+  Result:=inherited FixDataFields(aFieldName);
+end;
 
 
 { RFPInterpreter }
@@ -310,6 +325,11 @@ end;
 procedure TfWebReports.aParserFoundText(Text: string);
 begin
   FTxt:=FTxt+Text;
+end;
+
+procedure TfWebReports.ReportLog(Sender: TOBject; const Msg: String);
+begin
+  writeln('Convert:'+Msg);
 end;
 
 procedure TfWebReports.ReportSetCustomproperties(Sender: TObject; Data: TDOMNode
@@ -567,13 +587,14 @@ begin
     PaperManager.RegisterStandardSizes;
   gTTFontCache.ReadStandardFonts;
   gTTFontCache.BuildFontCache;
+  Report.OnLog:=@ReportLog;
   Report.LoadFromFile(aFile);
 end;
 
 constructor TfWebReports.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  Report := TFPLazReport.Create(Self);
+  Report := TInternalFPLazReport.Create(Self);
   Report.MemoClass:=TFPReportPrometMemo;
   Report.OnSetCustomproperties:=@ReportSetCustomproperties;
 end;
