@@ -62,6 +62,7 @@ type
   public
     function ExpandMacro(const s: String; const AIsExpr: boolean
       ): TFPReportString; override;
+    procedure RecalcLayout; override;
     property Script : string read FScriptSource write SetScript;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -258,6 +259,11 @@ function TFPReportScriptMemo.ExpandMacro(const s: String; const AIsExpr: boolean
   ): TFPReportString;
 begin
   Result:=inherited ExpandMacro(s, AIsExpr);
+end;
+
+procedure TFPReportScriptMemo.RecalcLayout;
+begin
+  inherited RecalcLayout;
 end;
 
 constructor TFPReportScriptMemo.Create(AOwner: TComponent);
