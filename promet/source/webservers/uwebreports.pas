@@ -67,6 +67,7 @@ type
     procedure SetScript(AValue: string);
   protected
     function PrepareObject(aRTParent: TFPReportElement): TFPReportElement; override;
+    procedure ParseText; override;
   public
     function ExpandMacro(const s: String; const AIsExpr: boolean
       ): TFPReportString; override;
@@ -87,7 +88,7 @@ var
 
 implementation
 
-uses uBaseApplication,Utils,variants,FPimage,fpTTF,FPCanvas,FPImgCanv;
+uses uBaseApplication,Utils,variants,FPimage,fpTTF,FPCanvas,FPImgCanv,synautil;
 
 { TInternalFPLazReport }
 
@@ -268,6 +269,14 @@ begin
       Self.Text:=e.Message;
   end;
   Result:=inherited PrepareObject(aRTParent);
+end;
+
+procedure TFPReportScriptMemo.ParseText;
+begin
+  try
+    inherited ParseText;
+  except
+  end;
 end;
 
 function TFPReportScriptMemo.ExpandMacro(const s: String; const AIsExpr: boolean
