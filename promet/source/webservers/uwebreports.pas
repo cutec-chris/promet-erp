@@ -276,6 +276,14 @@ begin
   try
     inherited ParseText;
   except
+    begin
+      Text := StringReplace(Text,'[','',[rfReplaceAll]);
+      Text := '['+StringReplace(Text,']','',[rfReplaceAll])+']';
+      try
+        inherited ParseText;
+      except
+      end;
+    end;
   end;
 end;
 
