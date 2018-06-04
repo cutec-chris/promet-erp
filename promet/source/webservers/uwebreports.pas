@@ -272,16 +272,24 @@ begin
 end;
 
 procedure TFPReportScriptMemo.ParseText;
+var
+  tmp: String;
 begin
   try
     inherited ParseText;
   except
     begin
-      Text := StringReplace(Text,'[','',[rfReplaceAll]);
-      Text := '['+StringReplace(Text,']','',[rfReplaceAll])+']';
+      tmp := synautil.GetBetween('[',']',Text);
+      tmp := copy(Text,0,pos(tmp,Text)-1)+StringReplace(StringReplace(tmp,'[','',[rfReplaceAll]),']','',[rfReplaceAll])+']'+copy(Text,rpos(']',Text)+1,length(Text));
+      Text := tmp;
       try
         inherited ParseText;
       except
+        on e : Exception do
+          begin
+            fWebReports.ReportLog(nil,e.Message);
+            Text := '';
+          end;
       end;
     end;
   end;
