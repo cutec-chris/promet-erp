@@ -328,15 +328,16 @@ destructor TfWebReports.Destroy;
 var
   i : Integer = 0;
 begin
+  gTTFontCache.Clear;
   while i < ComponentCount do
     if Components[i] is TFPReportDatasetData then
       begin
-        TFPReportDatasetData(Components[i]).DataSet.Open;
         TFPReportDatasetData(Components[i]).DataSet := nil;
         Components[i].Free
       end
     else inc(i);
-  Report.Free;
+  Report.Destroy;
+  inherited;
 end;
 
 procedure TfWebReports.aParserFoundText(Text: string);
@@ -575,7 +576,10 @@ begin
     begin
       while i < ComponentCount do
         if Components[i] is TFPReportDatasetData then
-          Components[i].Free
+          begin
+            TFPReportDatasetData(Components[i]).DataSet := nil;
+            Components[i].Free
+          end
         else inc(i);
     end;
   try
@@ -583,7 +587,7 @@ begin
       begin
         if (FindComponent(aName)=nil) and (FindComponent(aName)=nil) then
           begin
-            aDS := TFPReportDatasetData.Create(nil);
+            aDS := TFPReportDatasetData.Create(Self);
             aDS.Name:=aName;
             aDS.DataSet := aDataSet;
             aDS.Open;

@@ -102,6 +102,7 @@ type
     procedure DoDeleteRequest;
     procedure DoMoveRequest;
     procedure DoMkColRequest;
+    procedure SetData(AValue: Pointer);
   protected
     FSocket: TThread;
   public
@@ -119,7 +120,7 @@ type
     property User : string read FUser write FUser;
     property Creator : TObject read FCreator;
     property Parameters : TStrings read FParameters write FParameters;
-    property Data : Pointer read FData write FData;
+    property Data : Pointer read FData write SetData;
     property Socket : TThread read FSocket write FSocket;
     property OnDestroy : TNotifyEvent read FDestroy write FDestroy;
   end;
@@ -637,6 +638,12 @@ end;
 procedure TDAVSession.DoMkColRequest;
 begin
   FOutputResult := TDAVMkColOutput.Create(Self,InputData,OutputData);
+end;
+
+procedure TDAVSession.SetData(AValue: Pointer);
+begin
+  if FData=AValue then Exit;
+  FData:=AValue;
 end;
 
 procedure TDAVSession.DoCheckAuth;

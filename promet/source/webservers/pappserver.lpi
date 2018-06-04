@@ -52,6 +52,7 @@
           </Linking>
           <Other>
             <WriteFPCLogo Value="False"/>
+            <CustomOptions Value="-dDEBUG"/>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -86,7 +87,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS"/>
+        <CommandLineParams Value="--mandant=TCS --restarttime=1"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">

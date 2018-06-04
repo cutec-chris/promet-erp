@@ -1181,7 +1181,8 @@ begin
                         end;
                     end
                   else
-                    fWebReports.RegisterDataSet(aDataSet.DataSet,False);
+                    fWebReports.RegisterDataSet(aDataSet.DataSet,False)
+                  ;
                   fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).Users.DataSet,False);
                   fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).PaymentTargets.DataSet,False);
                   fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).MandantDetails.DataSet,False);
@@ -1260,13 +1261,10 @@ begin
                         sl.Free;
                       end;
                   finally
-                    try
-                      fWebReports.Free;
-                    except
-                    end;
+                    fWebReports.Destroy;
                   end;
                 end;
-              aDataSet.Free;
+              aDataSet.Destroy;
             end;
         end
       else if (aLevel=3) then //dynamic content
@@ -1897,6 +1895,7 @@ begin
   if not Assigned(BaseApplication) then exit;
   if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
   and TBaseDBModule(aSocket.Data).Authenticate(BaseApplication.GetOptionValue('u','user'),BaseApplication.GetOptionValue('p','password'))))
+  or (TBaseDBModule(aSocket.Data).Authenticate(aUser,aPassword))
   then
     begin
       aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;

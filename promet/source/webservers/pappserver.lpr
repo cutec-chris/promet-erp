@@ -63,6 +63,10 @@ var
   aSystem: String;
   i, b: Integer;
 begin
+  {$IFDEF DEBUG}
+  DeleteFile('heap.trc');
+  SetHeapTraceOutput('heap.trc');
+  {$ENDIF}
   GetLog.LogType:=ltSystem;
   GetLog.Active:=False;
   if CanWriteToProgramDir and HasOption('debug') then
