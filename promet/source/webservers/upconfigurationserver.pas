@@ -42,6 +42,7 @@ var
   aDB: String;
   aPassword: String;
   sl: TStringList;
+  oldOrigin: String;
   function BuildRight(aRight : string) : string;
   begin
     Result := '{"'+aRight+'": '+IntToStr(Data.Users.Rights.Right('DOCUMENTS'))+'}';
@@ -64,8 +65,12 @@ begin
         tmp := copy(s,0,pos(':',s)-1);
         aParameters.Add(lowercase(tmp)+':'+trim(copy(s,pos(':',s)+1,length(s))));
       end;
+    oldOrigin := Headers.Values['Access-Control-Allow-Origin'];
     headers.Clear;
-    Headers.Add('Access-Control-Allow-Origin: *');
+    if oldOrigin<>'' then
+      Headers.Add('Access-Control-Allow-Origin: '+oldOrigin)
+    else
+      Headers.Add('Access-Control-Allow-Origin: *');
     Headers.Add('Access-Control-Allow-Methods: GET, OPTIONS, POST');
     Headers.Add('Access-Control-Allow-Headers: Authorization,X-Requested-With');
     Headers.Add('Cache-Control: no-cache');
