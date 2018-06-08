@@ -64,68 +64,68 @@ begin
         tmp := copy(s,0,pos(':',s)-1);
         aParameters.Add(lowercase(tmp)+':'+trim(copy(s,pos(':',s)+1,length(s))));
       end;
+    headers.Clear;
+    Headers.Add('Access-Control-Allow-Origin: *');
+    Headers.Add('Access-Control-Allow-Methods: GET, OPTIONS, POST');
+    Headers.Add('Access-Control-Allow-Headers: Authorization,X-Requested-With');
+    Headers.Add('Cache-Control: no-cache');
+    if lowercase(Method) = 'options' then
+      begin
+        Result := 200;
+        exit;
+      end;
     if copy(lowercase(url),0,15)='/configuration/' then
       begin
-        headers.Clear;
-        Headers.Add('Access-Control-Allow-Origin: *');
-        Headers.Add('Access-Control-Allow-Methods: GET, OPTIONS, POST');
-        Headers.Add('Access-Control-Allow-Headers: Authorization,X-Requested-With');
-        Headers.Add('Cache-Control: no-cache');
         Url := copy(url,16,length(url));
         if lowercase(url) = 'add' then
           begin
-            if lowercase(Method) = 'options' then
-              Result := 200
-            else
+            Result := 400;
+            Input.Position:=0;
+            aResult.LoadFromStream(Input);
+            if pos(':',aResult.Text)>0 then
               begin
-                Result := 400;
-                Input.Position:=0;
-                aResult.LoadFromStream(Input);
-                if pos(':',aResult.Text)>0 then
+                tmp := copy(aResult.Text,pos(':',aResult.Text)+1,length(aResult.Text));
+                aType := copy(tmp,0,pos(';',tmp)-1);
+                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                aServer := copy(tmp,0,pos(';',tmp)-1);
+                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                aDB := copy(tmp,0,pos(';',tmp)-1);
+                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                aUser := copy(tmp,0,pos(';',tmp)-1);
+                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                aPW := copy(tmp,0,pos(';',tmp)-1);
+                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                aOptions := tmp;
+                Result := 503;
+                aResult.Clear;
+                //TODO:check if DB Connection works
+                with BaseApplication as IBaseDbInterface,BaseApplication as  IBaseApplication do
                   begin
-                    tmp := copy(aResult.Text,pos(':',aResult.Text)+1,length(aResult.Text));
-                    aType := copy(tmp,0,pos(';',tmp)-1);
-                    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-                    aServer := copy(tmp,0,pos(';',tmp)-1);
-                    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-                    aDB := copy(tmp,0,pos(';',tmp)-1);
-                    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-                    aUser := copy(tmp,0,pos(';',tmp)-1);
-                    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-                    aPW := copy(tmp,0,pos(';',tmp)-1);
-                    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-                    aOptions := tmp;
-                    Result := 503;
                     aResult.Clear;
-                    //TODO:check if DB Connection works
-                    with BaseApplication as IBaseDbInterface,BaseApplication as  IBaseApplication do
+                    aResult.Add('SQL');
+                    aResult.Add(aType+';'+aServer+';'+aDB+';'+aUser+';'+Encrypt(aPW,99998));
+                    aResult.SaveToFile(GetOurConfigDir+'standard.perml');
+                    aResult.Clear;
+                    Info('loading mandants...');
+                    if not LoadMandants then
                       begin
-                        aResult.Clear;
-                        aResult.Add('SQL');
-                        aResult.Add(aType+';'+aServer+';'+aDB+';'+aUser+';'+Encrypt(aPW,99998));
-                        aResult.SaveToFile(GetOurConfigDir+'standard.perml');
-                        aResult.Clear;
-                        Info('loading mandants...');
-                        if not LoadMandants then
+                        Error(strFailedtoLoadMandants);
+                        DeleteFile(GetOurConfigDir+'standard.perml');
+                      end
+                    else
+                      begin
+                        if DBLogin('standard','') then
                           begin
-                            Error(strFailedtoLoadMandants);
-                            DeleteFile(GetOurConfigDir+'standard.perml');
+                            Result := 200;
+                            uData.Data := GetDB;
                           end
                         else
                           begin
-                            if DBLogin('standard','') then
-                              begin
-                                Result := 200;
-                                uData.Data := GetDB;
-                              end
-                            else
-                              begin
-                                Result := 403;
-                                aResult.Text := LastError;
-                                aresult.SaveToStream(Output);
-                                Output.Position:=0;
-                                DeleteFile(GetOurConfigDir+'standard.perml');
-                              end;
+                            Result := 403;
+                            aResult.Text := LastError;
+                            aresult.SaveToStream(Output);
+                            Output.Position:=0;
+                            DeleteFile(GetOurConfigDir+'standard.perml');
                           end;
                       end;
                   end;
