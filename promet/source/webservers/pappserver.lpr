@@ -91,11 +91,13 @@ begin
       if (not DBLogin(GetOptionValue('m','mandant'),GetOptionValue('u','user'),False,False)) and (not DBLogin('standard','',False,False)) then
         begin
           Error(strLoginFailed+' '+LastError);
+          InitMsgNetwork;
         end
       else
         begin
           Info('processmanager login successful');
           uData.Data := Data;
+          InitMsgNetwork;
         end;
     end;
   aSystem := GetSystemName;

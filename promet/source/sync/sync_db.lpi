@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <PathDelim Value="\"/>
     <General>
       <MainUnit Value="0"/>
@@ -49,7 +49,7 @@
       </Unit0>
       <Unit1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="254"/>
         <CursorPos X="74" Y="262"/>
         <UsageCount Value="96"/>
@@ -75,7 +75,7 @@
       <Unit4>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="294"/>
         <CursorPos Y="318"/>
         <UsageCount Value="80"/>
@@ -92,7 +92,7 @@
       <Unit6>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="274"/>
         <CursorPos X="15" Y="296"/>
         <UsageCount Value="88"/>
@@ -128,7 +128,7 @@
       </Unit10>
       <Unit11>
         <Filename Value="..\base\dbintfs\uprometscripts.pas"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="641"/>
         <CursorPos X="45" Y="680"/>
         <UsageCount Value="96"/>
@@ -169,7 +169,7 @@
       <Unit16>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <TopLine Value="1187"/>
         <CursorPos X="25" Y="1208"/>
         <UsageCount Value="90"/>
@@ -186,7 +186,7 @@
       </Unit17>
       <Unit18>
         <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="5"/>
         <CursorPos X="21" Y="24"/>
         <UsageCount Value="78"/>
@@ -274,11 +274,10 @@
       </Unit28>
       <Unit29>
         <Filename Value="C:\lazarus144\fpc\2.6.4\source\packages\fcl-db\src\base\db.pas"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="386"/>
         <CursorPos X="14" Y="405"/>
         <UsageCount Value="19"/>
-        <Loaded Value="True"/>
       </Unit29>
       <Unit30>
         <Filename Value="C:\lazarus144\fpc\2.6.4\source\packages\fcl-db\src\base\dataset.inc"/>
@@ -296,8 +295,8 @@
       </Unit31>
       <Unit32>
         <Filename Value="..\base\pcmdprometapp.pas"/>
-        <EditorIndex Value="9"/>
-        <CursorPos X="55" Y="15"/>
+        <EditorIndex Value="8"/>
+        <CursorPos X="55" Y="14"/>
         <UsageCount Value="43"/>
         <Loaded Value="True"/>
       </Unit32>
