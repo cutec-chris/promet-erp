@@ -23,11 +23,55 @@ interface
 uses
   Classes, SysUtils, uappserverhttp,uAppServer, uData;
 
+type
+
+  { TConfigSession }
+
+  TConfigSession = class
+  private
+    FSocket: TAppNetworkThrd;
+  public
+    Url : string;
+    Headers : TStringList;
+    Method : string;
+    Result : Integer;
+    Input,Output : TMemoryStream;
+    property Socket : TAppNetworkThrd read FSocket write FSocket;
+    procedure ProcessConfigRequest;
+  end;
+
 implementation
 
 uses uBaseApplication,uBaseDBInterface,uIntfStrConsts,uEncrypt,base64;
 
 function HandleConfigRequest(Sender : TAppNetworkThrd;Method, URL: string;SID : string;Parameters,Headers : TStringList;Input,Output : TMemoryStream;ResultStatusText : string): Integer;
+var
+  aSock: TConfigSession = nil;
+  i: Integer;
+begin
+  Result := 404;
+  ResultStatusText := '';
+  for i := 0 to Sender.Objects.Count-1 do
+    if TObject(Sender.Objects[i]) is TConfigSession then
+      aSock := TConfigSession(Sender.Objects[i]);
+  if not Assigned(aSock) then
+    begin
+      aSock := TConfigSession.Create;
+      aSock.Socket := Sender;
+      Sender.Objects.Add(aSock);
+    end;
+  aSock.Url:=Url;
+  aSock.Headers := Headers;
+  aSock.Method:=Method;
+  aSock.Input := Input;
+  aSock.Output := Output;
+  Sender.Synchronize(Sender,@aSock.ProcessConfigRequest);
+  Result := aSock.Result;
+end;
+
+{ TConfigSession }
+
+procedure TConfigSession.ProcessConfigRequest;
 var
   i: Integer;
   aParameters: TStringList;
@@ -47,10 +91,7 @@ var
   begin
     Result := '{"'+aRight+'": '+IntToStr(Data.Users.Rights.Right('DOCUMENTS'))+'}';
   end;
-
 begin
-  Result := 404;
-  ResultStatusText := '';
   aParameters := TStringList.Create;
   aParameters.Delimiter:=':';
   aParameters.NameValueSeparator:=':';
