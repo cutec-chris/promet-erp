@@ -42,7 +42,8 @@ type
 
 implementation
 
-uses uBaseApplication,uBaseDBInterface,uIntfStrConsts,uEncrypt,base64;
+uses uBaseApplication,uBaseDBInterface,uIntfStrConsts,uEncrypt,base64,uBaseDbClasses,
+  uWiki;
 
 function HandleConfigRequest(Sender : TAppNetworkThrd;Method, URL: string;SID : string;Parameters,Headers : TStringList;Input,Output : TMemoryStream;ResultStatusText : string): Integer;
 var
@@ -87,6 +88,9 @@ var
   aPassword: String;
   sl: TStringList;
   oldOrigin: String;
+  aWiki: TWikiList;
+  bUser: TUser;
+  aStartPage: String;
   function BuildRight(aRight : string) : string;
   begin
     Result := '{"'+aRight+'": '+IntToStr(Data.Users.Rights.Right('DOCUMENTS'))+'}';
@@ -207,8 +211,31 @@ begin
                 Result := 200;
             if Result = 200 then
               begin
+                aWiki := TWikiList.Create(nil);
+                aWiki.CreateTable;
+                try
+                  bUser := TUser.Create(nil);
+                  bUser.Open;
+                  bUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
+                  while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+bUser.UserName.AsString)) and (not bUser.FieldByName('PARENT').IsNull) do
+                    begin
+                      bUser.Locate('SQL_ID',bUser.FieldByName('PARENT').AsVariant,[]);
+                    end;
+                  aStartPage := 'Promet-ERP-Help/users/'+bUser.UserName.AsString;
+                  if not aWiki.FindWikiPage(aStartPage) then
+                    begin
+                      aStartPage:='Promet-ERP-Help/users/Administrator';
+                      if not aWiki.FindWikiPage(aStartPage) then
+                        aStartPage:='';
+                    end;
+                except
+                end;
+                aWiki.Free;
+                bUser.Free;
                 sl := TStringList.Create;
                 sl.Add('{"username": "'+Data.Users.FieldByName('NAME').AsString+'"');
+                if aStartPage<>'' then;
+                  sl.Add(',"startpage": "'+aStartPage+'"');
                 sl.Add(',"rights": [');
                 sl.Add(BuildRight('DOCUMENTS')+',');
                 sl.Add(BuildRight('HISTORY')+',');
