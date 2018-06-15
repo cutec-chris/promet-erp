@@ -192,7 +192,8 @@ begin
     sock.SendString(protocol + ' ' + IntTostr(ResultCode) + CRLF);
     if protocol <> '' then
     begin
-      headers.Add('Content-length: ' + IntTostr(OutputData.Size));
+      if pos('CONTENT-LENGTH:',UpperCase(Headers.Text))=0 then
+        headers.Add('Content-length: ' + IntTostr(OutputData.Size));
       if close then
         headers.Add('Connection: close');
       headers.Add('Date: ' + Rfc822DateTime(now));
@@ -214,32 +215,7 @@ function TTCPHttpThrd.ProcessHttpRequest(Request, URI: string): integer;
 var
   l: TStringlist;
 begin
-// sample of precessing HTTP request:
-// InputData is uploaded document, headers is stringlist with request headers.
-// Request is type of request and URI is URI of request
-// OutputData is document with reply, headers is stringlist with reply headers.
-// Result is result code
   result := 504;
-  if request = 'GET' then
-  begin
-    headers.Clear;
-    headers.Add('Content-type: Text/Html');
-    l := TStringList.Create;
-    try
-      l.Add('<html>');
-      l.Add('<head></head>');
-      l.Add('<body>');
-      l.Add('Request Uri: ' + uri);
-      l.Add('<br>');
-      l.Add('No SocketClass Assigned !');
-      l.Add('</body>');
-      l.Add('</html>');
-      l.SaveToStream(OutputData);
-    finally
-      l.free;
-    end;
-    Result := 200;
-  end;
 end;
 
 end.

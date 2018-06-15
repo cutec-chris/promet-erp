@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -34,8 +34,6 @@
           </Parsing>
           <CodeGeneration>
             <Checks>
-              <IOChecks Value="True"/>
-              <OverflowChecks Value="True"/>
               <StackChecks Value="True"/>
             </Checks>
             <Optimizations>
@@ -87,7 +85,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=Stora"/>
+        <CommandLineParams Value="--mandant=TCS"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
