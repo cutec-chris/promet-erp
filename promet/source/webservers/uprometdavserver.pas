@@ -774,6 +774,12 @@ begin
           aItem := TDAVFile.Create(aFullDir+'list.json',False);
           aItem.Properties.Values['getcontenttype'] := 'application/json';
           aDirList.Add(aItem);
+          aItem := TDAVFile.Create(aFullDir+'dhtmlx.json',False);
+          aItem.Properties.Values['getcontenttype'] := 'application/json';
+          aDirList.Add(aItem);
+          aItem := TDAVFile.Create(aFullDir+'extjs.json',False);
+          aItem.Properties.Values['getcontenttype'] := 'application/json';
+          aDirList.Add(aItem);
           TBaseDBModule(aSocket.Data).Tree.Open;
           tmp := TBaseDBModule(aSocket.Data).QuoteField('TYPE')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aType)+' AND '+TBaseDBModule(aSocket.Data).QuoteField('PARENT')+'=0';
           TBaseDBModule(aSocket.Data).Tree.DataSet.Filter:=tmp;
@@ -1284,7 +1290,10 @@ begin
                 end;
               aDataSet.Free;
             end
-          else if aDir = 'item.json' then
+          else if (aDir = 'item.json')
+               or (aDir = 'dhtmlx.json')
+               or (aDir = 'extjs.json')
+               then
             begin
               MimeType:='application/json';
               aDataSet := aClass.Create(nil);
@@ -1292,7 +1301,11 @@ begin
               aDataSet.Open;
               if aDataSet.Count>0 then
                 begin
-                  aSS := TStringStream.Create(aDataSet.ExportToJSON);
+                  case aDir of
+                  'item.json':aSS := TStringStream.Create(aDataSet.ExportToJSON);
+                  'dhtmlx.json':aSS := TStringStream.Create(aDataSet.ExportToJSON(emDhtmlX));
+                  'extjs.json':aSS := TStringStream.Create(aDataSet.ExportToJSON(emExtJS));
+                  end;
                   Stream.CopyFrom(aSS,0);
                   aSS.Free;
                   Result:=True;
