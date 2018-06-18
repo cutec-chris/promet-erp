@@ -926,6 +926,7 @@ begin
   if (aSocket.User='') and (pos('blobdata',aDir)=0) then exit;
   CreateDataModule(aSocket);
   try
+  try
   if aDir = 'ical/'+TBaseDBModule(aSocket.Data).Users.Text.AsString+'.ics' then
     begin
       sl := TStringList.Create;
@@ -1038,33 +1039,45 @@ begin
                 end;
               aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(QueryFields.Values['limit']),100);
               aDataSet.Open;
+              if aDataSet.DataSet.FieldDefs.Count=0 then
+                raise Exception.Create('Fielddefs Clear');
               if QueryFields.Values['mode']='extjs' then
                 begin
                   sl.Add('{');
                   sl.Add('"metaData" : { "fields" : [');
                   for i := 0 to aDataSet.DataSet.FieldDefs.Count-1 do
                     begin
-                      case aDataSet.DataSet.FieldDefs[i].DataType of
-                      ftString,
-                      ftWideString,ftMemo,ftWideMemo:
-                        begin
-                          if aDataSet.DataSet.FieldDefs[i].Size>0 then
-                            tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "string", "maxlen":'+IntToStr(aDataSet.DataSet.FieldByName(aDataSet.DataSet.FieldDefs[i].Name).DisplayWidth)+'}'
-                          else
-                            tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "string"}';
-                        end;
-                      ftInteger,ftSmallint,ftLargeint:
-                        tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "int"}';
-                      ftDateTime,ftDate:
-                        tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "date"}';
+                      if aDataSet.DataSet.FieldDefs[i].Name = 'SQL_ID' then
+                        tmp := '{ "name": "sql_id", "type": "int"}'
                       else
-                        tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "auto"}';
-                      end;
+                        begin
+                          case aDataSet.DataSet.FieldDefs[i].DataType of
+                          ftString,
+                          ftWideString,ftMemo,ftWideMemo:
+                            begin
+                              if aDataSet.DataSet.FieldDefs[i].Size>0 then
+                                tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "string", "maxlen":'+IntToStr(aDataSet.DataSet.FieldByName(aDataSet.DataSet.FieldDefs[i].Name).DisplayWidth)+'}'
+                              else
+                                tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "string"}';
+                            end;
+                          ftInteger,ftSmallint,ftLargeint:
+                            tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "int"}';
+                          ftDateTime,ftDate:
+                            tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "date"}';
+                          ftFloat:
+                            tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "float"}';
+                          else
+                            begin
+                              writeln('Unknown Fieldtype:'+IntToStr(Integer(aDataSet.DataSet.FieldDefs[i].DataType)));
+                              tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "auto"}';
+                            end;
+                          end;
+                        end;
                       if i<aDataSet.DataSet.FieldDefs.Count-1 then
                         tmp+=',';
                       sl.Add(tmp);
                     end;
-                  sl.Add('], "root" : "Data", "idField" : "sql_id"');
+                  sl.Add('], "root" : "Data", "idField" : "SQL_ID"');
                   sl.Add('},');
                   sl.Add('"Data" : [');
                 end
@@ -1467,6 +1480,19 @@ begin
       end;
       aStmt.Free;
     end;
+  except
+    on e : Exception do
+      begin
+        aSocket.Status := 409;
+        MimeType:='text/plain';
+        with BaseApplication as IBaseApplication do
+          Error('Error "'+e.Message+'"');
+        sl := TStringList.Create;
+        sl.Add(e.Message);
+        sl.SaveToStream(TDAVSession(aSocket).OutputData);
+        sl.Free;
+      end;
+  end;
   finally
     QueryFields.Free;
   end;
