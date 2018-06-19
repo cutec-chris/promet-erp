@@ -769,53 +769,39 @@ begin
          HeaderOut.Add('DAV: version-control,checkout,working-resource');
          HeaderOut.Add('DAV: 1, calendar-access, calendar-schedule, calendar-proxy');
          HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL');
-         if Assigned(Socket) then
-           Socket.Synchronize(Socket,@DoOptionsRequest)
-         else DoOptionsRequest;
+         DoOptionsRequest;
        end;
     'REPORT':
        begin
          AddDAVheaders;
          HeaderOut.Add('DAV: version-control,checkout,working-resource');
          HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL');
-         if Assigned(Socket) then
-           Socket.Synchronize(Socket,@DoReportRequest)
-         else DoReportRequest;
+         DoReportRequest;
        end;
     'PROPFIND':
        begin
          AddDAVheaders;
-         if Assigned(Socket) then
-           Socket.Synchronize(Socket,@DoPropfindRequest)
-         else DoPropfindRequest;
+         DoPropfindRequest;
        end;
     'GET','HEAD':
        begin
          CheckAuth;
-         if Assigned(Socket) then
-           Socket.Synchronize(Socket,@DoGetRequest)
-         else DoGetRequest;
+         DoGetRequest;
        end;
     'PUT':
        begin
          CheckAuth;
-         if Assigned(Socket) then
-           Socket.Synchronize(Socket,@DoPutrequest)
-         else DoPutRequest;
+         DoPutRequest;
        end;
     'POST':
        begin
          CheckAuth;
-         if Assigned(Socket) then
-           Socket.Synchronize(Socket,@DoPostRequest)
-         else DoPostRequest;
+         DoPostRequest;
        end;
     'MKCOL':
        begin
          AddDAVheaders;
-         if Assigned(Socket) then
-           Socket.Synchronize(Socket,@DoMkColRequest)
-         else DoMkColRequest;
+         DoMkColRequest;
        end;
     'LOCK','UNLOCK':
        begin
@@ -825,16 +811,12 @@ begin
     'DELETE':
        begin
          AddDAVheaders;
-         if Assigned(Socket) then
-           Socket.Synchronize(Socket,@DoDeleteRequest)
-         else DoDeleteRequest;
+         DoDeleteRequest;
        end;
     'MOVE':
        begin
          AddDAVheaders;
-         if Assigned(Socket) then
-           Socket.Synchronize(Socket,@DoMoveRequest)
-         else DoMoveRequest;
+         DoMoveRequest;
        end;
     end;
     if Assigned(FOutputResult) then
