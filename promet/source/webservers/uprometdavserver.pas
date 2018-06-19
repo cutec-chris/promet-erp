@@ -905,6 +905,7 @@ var
   nStream: TStream;
   aFS: TFileStream;
   aMS: TStringStream;
+  aInitCount: Integer;
 begin
   Result := False;
   if pos('?',aDir)>0 then
@@ -924,6 +925,7 @@ begin
   aFullDir := aDir;
   if (aSocket.User='') and (pos('blobdata',aDir)=0) then exit;
   CreateDataModule(aSocket);
+  try
   try
   if aDir = 'ical/'+TBaseDBModule(aSocket.Data).Users.Text.AsString+'.ics' then
     begin
@@ -1025,7 +1027,6 @@ begin
             begin
               MimeType:='application/json';
               sl := TStringList.Create;
-              sl.Add('[');
               aDataSet := aClass.Create(nil);
               if QueryFields.Values['filter']<>'' then
                 aDataSet.ActualFilter:=QueryFields.Values['filter'];
@@ -1038,9 +1039,54 @@ begin
                 end;
               aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(QueryFields.Values['limit']),100);
               aDataSet.Open;
+              if aDataSet.DataSet.FieldDefs.Count=0 then
+                raise Exception.Create('Fielddefs Clear');
+              if QueryFields.Values['mode']='extjs' then
+                begin
+                  sl.Add('{');
+                  sl.Add('"metaData" : { "fields" : [');
+                  for i := 0 to aDataSet.DataSet.FieldDefs.Count-1 do
+                    begin
+                      if aDataSet.DataSet.FieldDefs[i].Name = 'SQL_ID' then
+                        tmp := '{ "name": "sql_id", "type": "int"}'
+                      else
+                        begin
+                          case aDataSet.DataSet.FieldDefs[i].DataType of
+                          ftString,
+                          ftWideString,ftMemo,ftWideMemo:
+                            begin
+                              if aDataSet.DataSet.FieldDefs[i].Size>0 then
+                                tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "string", "maxlen":'+IntToStr(aDataSet.DataSet.FieldByName(aDataSet.DataSet.FieldDefs[i].Name).DisplayWidth)+'}'
+                              else
+                                tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "string"}';
+                            end;
+                          ftInteger,ftSmallint,ftLargeint:
+                            tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "int"}';
+                          ftDateTime,ftDate:
+                            tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "date"}';
+                          ftFloat:
+                            tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "float"}';
+                          else
+                            begin
+                              writeln('Unknown Fieldtype:'+IntToStr(Integer(aDataSet.DataSet.FieldDefs[i].DataType)));
+                              tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "auto"}';
+                            end;
+                          end;
+                        end;
+                      if i<aDataSet.DataSet.FieldDefs.Count-1 then
+                        tmp+=',';
+                      sl.Add(tmp);
+                    end;
+                  sl.Add('], "root" : "Data", "idField" : "SQL_ID"');
+                  sl.Add('},');
+                  sl.Add('"Data" : [');
+                end
+              else
+                sl.Add('[');
+              aInitCount := sl.Count;
               while not aDataSet.EOF do
                 begin
-                  if sl.Count>1 then
+                  if sl.Count>aInitCount then
                     sl[sl.Count-1] := sl[sl.Count-1]+',';
                   tmp := '{ "sql_id": '+aDataSet.Id.AsString;
                   for i := 1 to aDataSet.DataSet.Fields.Count-1 do
@@ -1062,6 +1108,8 @@ begin
                   aDataSet.Next;
                 end;
               sl.Add(']');
+              if QueryFields.Values['mode']='extjs' then
+                sl.Add('}');
               sl.SaveToStream(Stream);
               sl.Free;
               Stream.Position:=0;
@@ -1291,8 +1339,6 @@ begin
               aDataSet.Free;
             end
           else if (aDir = 'item.json')
-               or (aDir = 'dhtmlx.json')
-               or (aDir = 'extjs.json')
                then
             begin
               MimeType:='application/json';
@@ -1303,8 +1349,6 @@ begin
                 begin
                   case aDir of
                   'item.json':aSS := TStringStream.Create(aDataSet.ExportToJSON);
-                  'dhtmlx.json':aSS := TStringStream.Create(aDataSet.ExportToJSON(emDhtmlX));
-                  'extjs.json':aSS := TStringStream.Create(aDataSet.ExportToJSON(emExtJS));
                   end;
                   Stream.CopyFrom(aSS,0);
                   aSS.Free;
@@ -1436,6 +1480,19 @@ begin
       end;
       aStmt.Free;
     end;
+  except
+    on e : Exception do
+      begin
+        aSocket.Status := 409;
+        MimeType:='text/plain';
+        with BaseApplication as IBaseApplication do
+          Error('Error "'+e.Message+'"');
+        sl := TStringList.Create;
+        sl.Add(e.Message);
+        sl.SaveToStream(TDAVSession(aSocket).OutputData);
+        sl.Free;
+      end;
+  end;
   finally
     QueryFields.Free;
   end;
@@ -1528,6 +1585,7 @@ var
   a: Integer;
   NotFound: Boolean;
   ss: TStringStream;
+  aPData: TJSONData;
 begin
   FStatus:=500;
   Result := False;
@@ -1659,10 +1717,12 @@ begin
         begin
           if aDir = 'list.json' then
             begin
+              //TODO:support ExtJS Format (find Root Node)
               MimeType:='application/json';
               Stream.Position:=0;
               aJParser := TJSONParser.Create(Stream);
-              aData := aJParser.Parse;
+              aPData := aJParser.Parse;
+              aData := aPData;
               {$IF FPC_FULLVERSION>20600}
               if (aData is TJSONArray) and Assigned(TJSONArray(aData)[0]) and Assigned(TJSONArray(aData)[0].FindPath('sql_id')) then
                 begin
