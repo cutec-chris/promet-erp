@@ -451,6 +451,13 @@ var
   FModified : TDateTime;
   FMimeType : string;
 begin
+  if Assigned(TWebDAVMaster(FSocket.Creator).OnReadAllowed)
+  and (not TWebDAVMaster(FSocket.Creator).OnReadAllowed(FSocket,HTTPDecode(FSocket.URI))) then
+    begin
+      FSocket.Status:=401;
+      FSocket.HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
+      exit;
+    end;
   FModified:=Now();
   TDAVSession(FSocket).CheckAuth;
   TDAVSession(FSocket).Status := 404;
@@ -482,6 +489,13 @@ var
   FeTag : string;
   FStatus : Integer;
 begin
+  if Assigned(TWebDAVMaster(FSocket.Creator).OnReadAllowed)
+  and (not TWebDAVMaster(FSocket.Creator).OnReadAllowed(FSocket,HTTPDecode(FSocket.URI))) then
+    begin
+      FSocket.Status:=401;
+      FSocket.HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
+      exit;
+    end;
   TDAVSession(FSocket).CheckAuth;
   TDAVSession(FSocket).Status := 404;
   TDAVSession(FSocket).HeaderOut.Add('Access-Control-Allow-Origin: *');
@@ -607,17 +621,8 @@ end;
 
 procedure TDAVSession.DoPostRequest;
 begin
-  if Assigned(TWebDAVMaster(Creator).OnReadAllowed)
-  and (not TWebDAVMaster(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
-    begin
-      Status:=401;
-      HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
-    end
-  else
-    begin
-      FOutputResult := TFileStreamInput.Create(Self,InputData,OutputData);
-      TFileStreamInput(FOutputResult).Event:=TWebDAVMaster(Creator).FPost;
-    end;
+  FOutputResult := TFileStreamInput.Create(Self,InputData,OutputData);
+  TFileStreamInput(FOutputResult).Event:=TWebDAVMaster(Creator).FPost;
 end;
 
 procedure TDAVSession.DoProcessInput;
@@ -662,6 +667,7 @@ begin
       if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
         begin
           Status:=401;
+          HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
           exit;
         end;
     end;
@@ -689,32 +695,14 @@ end;
 
 procedure TDAVSession.DoGetRequest;
 begin
-  if Assigned(TWebDAVMaster(Creator).OnReadAllowed)
-  and (not TWebDAVMaster(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
-    begin
-      Status:=401;
-      HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
-    end
-  else
-    begin
-      FOutputResult := TFileStreamOutput.Create(Self,InputData,OutputData);
-      TFileStreamOutput(FOutputResult).Event:=TWebDAVMaster(Creator).FGet;
-    end;
+  FOutputResult := TFileStreamOutput.Create(Self,InputData,OutputData);
+  TFileStreamOutput(FOutputResult).Event:=TWebDAVMaster(Creator).FGet;
 end;
 
 procedure TDAVSession.DoPutRequest;
 begin
-  if Assigned(TWebDAVMaster(Creator).OnReadAllowed)
-  and (not TWebDAVMaster(Creator).OnReadAllowed(Self,HTTPDecode(URI))) then
-    begin
-      Status:=401;
-      HeaderOut.Add('WWW-Authenticate: Basic realm="Promet-ERP"');
-    end
-  else
-    begin
-      FOutputResult := TFileStreamInput.Create(Self,InputData,OutputData);
-      TFileStreamInput(FOutputResult).Event:=TWebDAVMaster(Creator).FPut;
-    end;
+  FOutputResult := TFileStreamInput.Create(Self,InputData,OutputData);
+  TFileStreamInput(FOutputResult).Event:=TWebDAVMaster(Creator).FPut;
 end;
 
 constructor TDAVSession.Create(aCreator: TObject);
@@ -785,17 +773,14 @@ begin
        end;
     'GET','HEAD':
        begin
-         CheckAuth;
          DoGetRequest;
        end;
     'PUT':
        begin
-         CheckAuth;
          DoPutRequest;
        end;
     'POST':
        begin
-         CheckAuth;
          DoPostRequest;
        end;
     'MKCOL':
