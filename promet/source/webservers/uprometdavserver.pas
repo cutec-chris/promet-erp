@@ -1955,6 +1955,15 @@ begin
         aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
       Result := TWebDAVMaster(aSocket.Creator).OnUserLogin(aSocket,copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
     end;
+  if (not Result) then
+    begin
+      aUser := aSocket.Parameters.Values['authorization'];
+      if pos(';',aUser)>0 then
+        aUser := copy(aUser,0,pos(';',aUser)-1);
+      if aUser <> '' then
+        aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+      Result := TWebDAVMaster(aSocket.Creator).OnUserLogin(aSocket,copy(aUser,0,pos(':',aUser)-1),copy(aUser,pos(':',aUser)+1,length(aUser)));
+    end;
   if pos('blobdata/',aDir)>0 then
     Result := True;
   if not Result then

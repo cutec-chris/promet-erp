@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -85,7 +85,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS"/>
+        <CommandLineParams Value="--mandant=Stora"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -141,7 +141,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="15">
+    <Exceptions Count="17">
       <Item1>
         <Name Value="EZSQLException"/>
       </Item1>
@@ -187,6 +187,12 @@
       <Item15>
         <Name Value="EExprScanner"/>
       </Item15>
+      <Item16>
+        <Name Value="RunError(216)"/>
+      </Item16>
+      <Item17>
+        <Name Value="EAccessViolation"/>
+      </Item17>
     </Exceptions>
   </Debugging>
 </CONFIG>
