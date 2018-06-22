@@ -906,6 +906,55 @@ var
   aFS: TFileStream;
   aMS: TStringStream;
   aInitCount: Integer;
+
+  procedure ExportDataSet(bDataSet : TDataSet;Output : TStrings);
+  var
+    c: Integer;
+  begin
+    if QueryFields.Values['mode']='extjs' then
+      begin
+        Output.Add('{');
+        Output.Add('"metaData" : { "fields" : [');
+        for c := 0 to bDataSet.FieldDefs.Count-1 do
+          begin
+            if bDataSet.FieldDefs[c].Name = 'SQL_ID' then
+              tmp := '{ "name": "sql_id", "type": "int"}'
+            else
+              begin
+                case bDataSet.FieldDefs[c].DataType of
+                ftString,
+                ftWideString,ftMemo,ftWideMemo:
+                  begin
+                    if bDataSet.FieldDefs[c].Size>0 then
+                      tmp := '{ "name": "'+bDataSet.FieldDefs[c].Name+'", "type": "string", "maxlen":'+IntToStr(bDataSet.FieldByName(bDataSet.FieldDefs[c].Name).DisplayWidth)+'}'
+                    else
+                      tmp := '{ "name": "'+bDataSet.FieldDefs[c].Name+'", "type": "string"}';
+                  end;
+                ftInteger,ftSmallint,ftLargeint:
+                  tmp := '{ "name": "'+bDataSet.FieldDefs[c].Name+'", "type": "int"}';
+                ftDateTime,ftDate:
+                  tmp := '{ "name": "'+bDataSet.FieldDefs[c].Name+'", "type": "date"}';
+                ftFloat:
+                  tmp := '{ "name": "'+bDataSet.FieldDefs[c].Name+'", "type": "float"}';
+                else
+                  begin
+                    writeln('Unknown Fieldtype:'+IntToStr(Integer(bDataSet.FieldDefs[c].DataType)));
+                    tmp := '{ "name": "'+bDataSet.FieldDefs[c].Name+'", "type": "auto"}';
+                  end;
+                end;
+              end;
+            if c<bDataSet.FieldDefs.Count-1 then
+              tmp+=',';
+            Output.Add(tmp);
+          end;
+        Output.Add('], "root" : "Data", "idField" : "SQL_ID"');
+        Output.Add('},');
+        Output.Add('"Data" : [');
+      end
+    else
+      Output.Add('[');
+  end;
+
 begin
   Result := False;
   if pos('?',aDir)>0 then
@@ -1041,48 +1090,7 @@ begin
               aDataSet.Open;
               if aDataSet.DataSet.FieldDefs.Count=0 then
                 raise Exception.Create('Fielddefs Clear');
-              if QueryFields.Values['mode']='extjs' then
-                begin
-                  sl.Add('{');
-                  sl.Add('"metaData" : { "fields" : [');
-                  for i := 0 to aDataSet.DataSet.FieldDefs.Count-1 do
-                    begin
-                      if aDataSet.DataSet.FieldDefs[i].Name = 'SQL_ID' then
-                        tmp := '{ "name": "sql_id", "type": "int"}'
-                      else
-                        begin
-                          case aDataSet.DataSet.FieldDefs[i].DataType of
-                          ftString,
-                          ftWideString,ftMemo,ftWideMemo:
-                            begin
-                              if aDataSet.DataSet.FieldDefs[i].Size>0 then
-                                tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "string", "maxlen":'+IntToStr(aDataSet.DataSet.FieldByName(aDataSet.DataSet.FieldDefs[i].Name).DisplayWidth)+'}'
-                              else
-                                tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "string"}';
-                            end;
-                          ftInteger,ftSmallint,ftLargeint:
-                            tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "int"}';
-                          ftDateTime,ftDate:
-                            tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "date"}';
-                          ftFloat:
-                            tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "float"}';
-                          else
-                            begin
-                              writeln('Unknown Fieldtype:'+IntToStr(Integer(aDataSet.DataSet.FieldDefs[i].DataType)));
-                              tmp := '{ "name": "'+aDataSet.DataSet.FieldDefs[i].Name+'", "type": "auto"}';
-                            end;
-                          end;
-                        end;
-                      if i<aDataSet.DataSet.FieldDefs.Count-1 then
-                        tmp+=',';
-                      sl.Add(tmp);
-                    end;
-                  sl.Add('], "root" : "Data", "idField" : "SQL_ID"');
-                  sl.Add('},');
-                  sl.Add('"Data" : [');
-                end
-              else
-                sl.Add('[');
+              ExportDataSet(aDataSet.DataSet,sl);
               aInitCount := sl.Count;
               while not aDataSet.EOF do
                 begin
@@ -1445,22 +1453,7 @@ begin
               end;
             aDS.Open;
             sl := TStringList.Create;
-            sl.Add('[');
-            while not aDS.EOF do
-              begin
-                if sl.Count>1 then
-                  sl[sl.Count-1] := sl[sl.Count-1]+',';
-                tmp := '{';
-                for i := 1 to aDS.Fields.Count-1 do
-                  begin
-                    if (i<aDS.Fields.Count) and (i>1) then tmp += ',';
-                    tmp += '"'+StringToJSONString(aDS.Fields[i].FieldName)+'":"'+StringReplace(StringToJSONString(aDS.Fields[i].AsString),'','*',[rfReplaceAll])+'"';
-                  end;
-                tmp+=' }';
-                sl.Add(tmp);
-                aDS.Next;
-              end;
-            sl.Add(']');
+            ExportDataSet(aDS,sl);
             sl.SaveToStream(Stream);
             aDS.Free;
             result := True;
