@@ -926,7 +926,7 @@ var
                 ftWideString,ftMemo,ftWideMemo:
                   begin
                     if bDataSet.FieldDefs[c].Size>0 then
-                      tmp := '{ "name": "'+bDataSet.FieldDefs[c].Name+'", "type": "string", "maxlen":'+IntToStr(bDataSet.FieldByName(bDataSet.FieldDefs[c].Name).DisplayWidth)+'}'
+                      tmp := '{ "name": "'+bDataSet.FieldDefs[c].Name+'", "type": "string", "maxlen": '+IntToStr(bDataSet.FieldByName(bDataSet.FieldDefs[c].Name).DisplayWidth)+'}'
                     else
                       tmp := '{ "name": "'+bDataSet.FieldDefs[c].Name+'", "type": "string"}';
                   end;
@@ -1355,8 +1355,10 @@ begin
               aDataSet.Open;
               if aDataSet.Count>0 then
                 begin
-                  case aDir of
-                  'item.json':aSS := TStringStream.Create(aDataSet.ExportToJSON);
+                  case QueryFields.Values['mode'] of
+                  'extjs':aSS := TStringStream.Create(aDataSet.ExportToJSON(emExtJS));
+                  else
+                    aSS := TStringStream.Create(aDataSet.ExportToJSON);
                   end;
                   Stream.CopyFrom(aSS,0);
                   aSS.Free;
