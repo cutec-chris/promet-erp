@@ -973,11 +973,11 @@ begin
     aUser := TUser.Create(nil);
     aUser.Open;
     aUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
-    while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString)) and (not aUser.FieldByName('PARENT').IsNull) do
+    while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+StringReplace(aUser.UserName.AsString,' ','_',[rfReplaceAll]))) and (not aUser.FieldByName('PARENT').IsNull) do
       begin
         aUser.Locate('SQL_ID',aUser.FieldByName('PARENT').AsVariant,[]);
       end;
-    if not fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+aUser.UserName.AsString,false) then
+    if not fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/'+StringReplace(aUser.UserName.AsString,' ','_',[rfReplaceAll]),false) then
       if not fMain.WikiFrame.OpenWikiPage('Promet-ERP-Help/users/Administrator',false) then
         fMain.WikiFrame.ShowHTML(strNoStartPage);
   except

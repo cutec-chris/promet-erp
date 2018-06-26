@@ -93,7 +93,7 @@ var
   aStartPage: String;
   function BuildRight(aRight : string) : string;
   begin
-    Result := '{"'+aRight+'": '+IntToStr(Data.Users.Rights.Right('DOCUMENTS'))+'}';
+    Result := '{"'+aRight+'": '+IntToStr(Data.Users.Rights.Right(aRight))+'}';
   end;
 begin
   aParameters := TStringList.Create;
@@ -217,11 +217,11 @@ begin
                   bUser := TUser.Create(nil);
                   bUser.Open;
                   bUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
-                  while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+bUser.UserName.AsString)) and (not bUser.FieldByName('PARENT').IsNull) do
+                  while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+StringReplace(bUser.UserName.AsString,' ','_',[rfReplaceAll]))) and (not bUser.FieldByName('PARENT').IsNull) do
                     begin
                       bUser.Locate('SQL_ID',bUser.FieldByName('PARENT').AsVariant,[]);
                     end;
-                  aStartPage := 'Promet-ERP-Help/users/'+bUser.UserName.AsString;
+                  aStartPage := 'Promet-ERP-Help/users/'+StringReplace(bUser.UserName.AsString,' ','_',[rfReplaceAll]);
                   if not aWiki.FindWikiPage(aStartPage) then
                     begin
                       aStartPage:='Promet-ERP-Help/users/Administrator';
