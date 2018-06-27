@@ -66,7 +66,7 @@ begin
   aSock.Method:=Method;
   aSock.Input := Input;
   aSock.Output := Output;
-  Sender.Synchronize(Sender,@aSock.ProcessConfigRequest);
+  Sender.InternalSynchronize(Sender,@aSock.ProcessConfigRequest);
   Result := aSock.Result;
 end;
 

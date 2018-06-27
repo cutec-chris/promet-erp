@@ -23,7 +23,8 @@ unit udavserver;
 interface
 
 uses
-  Classes, SysUtils,uhttpserver, dom, xmlread, xmlwrite,syncobjs,Sockets;
+  Classes, SysUtils,uhttpserver, dom, xmlread, xmlwrite,syncobjs,Sockets,
+  uAppServer;
 
 type
   TDAVFile = class;
@@ -74,6 +75,7 @@ type
   end;
 
   TStreamOutput = class;
+  TDAVSocket = class;
 
   { TDAVSession }
 
@@ -104,7 +106,7 @@ type
     procedure DoMkColRequest;
     procedure SetData(AValue: Pointer);
   protected
-    FSocket: TThread;
+    FSocket: TAppNetworkThrd;
   public
     InputData : TMemoryStream;
     OutputData : TMemoryStream;
@@ -121,7 +123,7 @@ type
     property Creator : TObject read FCreator;
     property Parameters : TStrings read FParameters write FParameters;
     property Data : Pointer read FData write SetData;
-    property Socket : TThread read FSocket write FSocket;
+    property Socket : TAppNetworkThrd read FSocket write FSocket;
     property OnDestroy : TNotifyEvent read FDestroy write FDestroy;
   end;
 
@@ -133,6 +135,7 @@ type
     constructor Create(hsock: tSocket);override;
     destructor Destroy; override;
     function ProcessHttpRequest(Request, aURI: string): integer; override;
+    procedure InternalSynchronize(Sender:TThread;AMethod: TThreadMethod);
   end;
 
   TDAVGetDirectoryList = function(aSocket : TDAVSession;aDir : string;a3 : Integer;var aDirList : TDAVDirectoryList) : Boolean of object;
@@ -515,7 +518,7 @@ begin
   if Parameters.Values['authorization'] <> '' then
     begin
       if Assigned(Socket) then
-        Socket.Synchronize(Socket,@DoCheckauth)
+        Socket.InternalSynchronize(Socket,@DoCheckauth)
       else DoCheckAuth;
       Result := FBoolResult;
     end;
@@ -605,7 +608,6 @@ constructor TDAVSocket.Create(hsock: tSocket);
 begin
   inherited Create(hsock);
   Session := TDAVSession.Create(Creator);
-  Session.FSocket := Self;
 end;
 
 destructor TDAVSocket.Destroy;
@@ -617,6 +619,14 @@ end;
 function TDAVSocket.ProcessHttpRequest(Request, aURI: string): integer;
 begin
   Result := Session.ProcessHttpRequest(Request,aURI,Headers,InputData,OutputData);
+end;
+
+procedure TDAVSocket.InternalSynchronize(Sender: TThread; AMethod: TThreadMethod
+  );
+begin
+  EnterCriticalsection(GlobalLock);
+  AMethod();
+  LeaveCriticalsection(GlobalLock);
 end;
 
 procedure TDAVSession.DoPostRequest;
@@ -807,7 +817,7 @@ begin
     if Assigned(FOutputResult) then
       begin
         if Assigned(Socket) then
-          Socket.Synchronize(Socket,@DoProcessInput)
+          Socket.InternalSynchronize(Socket,@DoProcessInput)
         else DoProcessInput;
         if Status<>0 then
           Result := Status;

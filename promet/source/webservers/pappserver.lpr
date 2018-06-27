@@ -28,7 +28,7 @@ uses
   uprometwikiserver, upwebdavserver, uBaseApplication, Utils,
   uProcessManagement, eventlog,
   uIntfStrConsts, uprometmsgnetwork, uappserverhttp, uappserverpubsub,
-  upconfigurationserver, uwebreports;
+  upconfigurationserver, uwebreports,uAppServer;
 type
   { TProcessManager }
 
@@ -62,6 +62,7 @@ var
   aTime: TDateTime;
   aSystem: String;
   i, b: Integer;
+  Data2: TBaseDBModule;
 begin
   {$IFDEF DEBUG}
   DeleteFile('heap.trc');
@@ -98,6 +99,8 @@ begin
           Info('processmanager login successful');
           uData.Data := Data;
           InitMsgNetwork;
+          Data2 := TBaseDBModule.Create(nil);
+          Data2.SetProperties(Data.Properties);
         end;
     end;
   aSystem := GetSystemName;
@@ -108,15 +111,16 @@ begin
     Info('Waiting for Mandant Configuration');
   while not Assigned(uData.Data) do
     begin
-      CheckSynchronize(50);
+      //CheckSynchronize(50);
+      sleep(50);
     end;
   if Assigned(uData.Data) then
     begin
-      Data.ProcessClient.Startup;
-      Data.ProcessClient.Processes.Open;
-      Data.ProcessClient.Processes.Parameters.Open;
-      if Data.ProcessClient.Locate('NAME',aSystem,[]) then
-        if Data.ProcessClient.FieldByName('STATUS').AsString='I' then
+      Data2.ProcessClient.Startup;
+      Data2.ProcessClient.Processes.Open;
+      Data2.ProcessClient.Processes.Parameters.Open;
+      if Data2.ProcessClient.Locate('NAME',aSystem,[]) then
+        if Data2.ProcessClient.FieldByName('STATUS').AsString='I' then
           begin
             Terminate;
             exit;
@@ -126,23 +130,27 @@ begin
       try
       while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do
         begin
-          CheckSynchronize(5);
+          //CheckSynchronize(5);
+          sleep(10);
           if i > 60000 then
             begin
               i := 0;
-              if not Data.ProcessClient.ProcessAll(aSystem) then
+              //EnterCriticalsection(GlobalLock);
+              if not Data2.ProcessClient.ProcessAll(aSystem) then
                 begin
                   Terminate;
                   exit;
                 end;
+              //LeaveCriticalsection(GlobalLock);
             end;
-          CheckSynchronize(5);
+          //CheckSynchronize(5);
           inc(i);
         end;
       except
         on e : Exception do
           Error('Exception:'+e.Message);
       end;
+      Data2.Free;
     end;
   // stop program loop
   Terminate;

@@ -3,7 +3,7 @@ unit uhttpserver;
 interface
 
 uses
-  Classes, blcksock, Synautil, SysUtils,Sockets;
+  Classes, blcksock, Synautil, SysUtils,Sockets,uAppServer;
 
 type
   TTCPHttpThrd = class;
