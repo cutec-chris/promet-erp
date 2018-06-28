@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <PathDelim Value="\"/>
     <General>
       <MainUnit Value="0"/>
@@ -23,7 +23,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --table=ORDERS --syncblocks=1000"/>
+        <CommandLineParams Value="--mandant=TCS --retry"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -36,32 +36,31 @@
         <MinVersion Valid="True"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="37">
+    <Units Count="38">
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="676"/>
-        <CursorPos X="74" Y="697"/>
-        <FoldState Value=" T3nF0{g7"/>
+        <TopLine Value="883"/>
+        <CursorPos X="64" Y="907"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
         <EditorIndex Value="9"/>
-        <TopLine Value="254"/>
-        <CursorPos X="74" Y="262"/>
-        <UsageCount Value="96"/>
+        <TopLine Value="616"/>
+        <CursorPos X="29" Y="642"/>
+        <UsageCount Value="97"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="97"/>
-        <CursorPos Y="112"/>
-        <UsageCount Value="98"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="1556"/>
+        <CursorPos Y="1580"/>
+        <UsageCount Value="99"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -75,10 +74,10 @@
       <Unit4>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="294"/>
         <CursorPos Y="318"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="81"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -92,9 +91,9 @@
       <Unit6>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="274"/>
-        <CursorPos X="15" Y="296"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="1541"/>
+        <CursorPos Y="1568"/>
         <UsageCount Value="88"/>
         <Loaded Value="True"/>
       </Unit6>
@@ -131,7 +130,7 @@
         <EditorIndex Value="11"/>
         <TopLine Value="641"/>
         <CursorPos X="45" Y="680"/>
-        <UsageCount Value="96"/>
+        <UsageCount Value="97"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -172,7 +171,7 @@
         <EditorIndex Value="10"/>
         <TopLine Value="1187"/>
         <CursorPos X="25" Y="1208"/>
-        <UsageCount Value="90"/>
+        <UsageCount Value="91"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -189,7 +188,7 @@
         <EditorIndex Value="7"/>
         <TopLine Value="5"/>
         <CursorPos X="21" Y="24"/>
-        <UsageCount Value="78"/>
+        <UsageCount Value="79"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
@@ -296,8 +295,8 @@
       <Unit32>
         <Filename Value="..\base\pcmdprometapp.pas"/>
         <EditorIndex Value="8"/>
-        <CursorPos X="55" Y="14"/>
-        <UsageCount Value="43"/>
+        <CursorPos X="3" Y="10"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit32>
       <Unit33>
@@ -312,152 +311,160 @@
       <Unit34>
         <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
         <UnitName Value="uAbstractDBLayer"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="958"/>
-        <CursorPos Y="997"/>
-        <UsageCount Value="21"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="299"/>
+        <CursorPos Y="307"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="1288"/>
-        <CursorPos Y="1312"/>
-        <UsageCount Value="21"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="1216"/>
+        <CursorPos Y="1240"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="4568"/>
         <CursorPos X="16" Y="4589"/>
         <UsageCount Value="19"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit36>
+      <Unit37>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <UnitName Value="uBaseDatasetInterfaces"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="798"/>
+        <CursorPos Y="825"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit37>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="733" TopLine="711"/>
+        <Caret Line="520" TopLine="502"/>
       </Position1>
       <Position2>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="734" TopLine="711"/>
+        <Caret Line="521" TopLine="502"/>
       </Position2>
       <Position3>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="739" TopLine="711"/>
+        <Caret Line="522" TopLine="502"/>
       </Position3>
       <Position4>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="889" TopLine="869"/>
+        <Caret Line="523" TopLine="502"/>
       </Position4>
       <Position5>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="890" TopLine="869"/>
+        <Caret Line="524" TopLine="502"/>
       </Position5>
       <Position6>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="891" TopLine="869"/>
+        <Caret Line="525" TopLine="502"/>
       </Position6>
       <Position7>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="893" TopLine="869"/>
+        <Caret Line="540" TopLine="505"/>
       </Position7>
       <Position8>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="886" TopLine="869"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1563" TopLine="1541"/>
       </Position8>
       <Position9>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="887" TopLine="869"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1568" TopLine="1541"/>
       </Position9>
       <Position10>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="888" TopLine="869"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1564" TopLine="1541"/>
       </Position10>
       <Position11>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="469" Column="56" TopLine="444"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1565" TopLine="1541"/>
       </Position11>
       <Position12>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="470" Column="85" TopLine="444"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1567" TopLine="1541"/>
       </Position12>
       <Position13>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="616" Column="24" TopLine="607"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1568" TopLine="1541"/>
       </Position13>
       <Position14>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="661" Column="27" TopLine="635"/>
+        <Caret Line="541" TopLine="506"/>
       </Position14>
       <Position15>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="84" Column="3" TopLine="69"/>
+        <Caret Line="542" TopLine="507"/>
       </Position15>
       <Position16>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="685" TopLine="665"/>
+        <Caret Line="419" TopLine="397"/>
       </Position16>
       <Position17>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="688" Column="60" TopLine="665"/>
+        <Caret Line="420" TopLine="397"/>
       </Position17>
       <Position18>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="684" Column="13" TopLine="617"/>
+        <Caret Line="422" TopLine="397"/>
       </Position18>
       <Position19>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="688" TopLine="667"/>
+        <Caret Line="426" TopLine="397"/>
       </Position19>
       <Position20>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="689" TopLine="667"/>
+        <Caret Line="427" TopLine="397"/>
       </Position20>
       <Position21>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="690" TopLine="667"/>
+        <Caret Line="428" TopLine="397"/>
       </Position21>
       <Position22>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="692" TopLine="667"/>
+        <Caret Line="430" TopLine="397"/>
       </Position22>
       <Position23>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="693" TopLine="667"/>
+        <Caret Line="432" TopLine="397"/>
       </Position23>
       <Position24>
-        <Filename Value="..\base\ubasecustomapplication.pas"/>
-        <Caret Line="316" TopLine="294"/>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="442" TopLine="422"/>
       </Position24>
       <Position25>
-        <Filename Value="..\base\ubasecustomapplication.pas"/>
-        <Caret Line="317" TopLine="294"/>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="443" TopLine="422"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base\ubasecustomapplication.pas"/>
-        <Caret Line="318" TopLine="294"/>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="444" TopLine="422"/>
       </Position26>
       <Position27>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="695" TopLine="676"/>
+        <Caret Line="104" Column="90" TopLine="93"/>
       </Position27>
       <Position28>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="696" TopLine="676"/>
+        <Caret Line="904" TopLine="883"/>
       </Position28>
       <Position29>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="698" TopLine="676"/>
+        <Caret Line="905" TopLine="883"/>
       </Position29>
       <Position30>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="699" TopLine="676"/>
+        <Caret Line="906" TopLine="883"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -490,12 +497,21 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_db.lpr"/>
+        <Line Value="904"/>
+      </Item1>
+    </BreakPoints>
     <Watches Count="1">
       <Item1>
-        <Expression Value="aFieldName"/>
+        <Expression Value="aSQL"/>
       </Item1>
     </Watches>
-    <Exceptions Count="6">
+    <Exceptions Count="7">
       <Item1>
         <Name Value="EZSQLException"/>
       </Item1>
@@ -514,6 +530,9 @@
       <Item6>
         <Name Value="EDatabaseError"/>
       </Item6>
+      <Item7>
+        <Name Value="EConvertError"/>
+      </Item7>
     </Exceptions>
   </Debugging>
 </CONFIG>

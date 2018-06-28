@@ -44,6 +44,7 @@ type
     FLog : TStringList;
     FTables : TStringList;
     FAddLog : Boolean;
+    aSyncError: TSyncItems;
     aFirstSyncedRow : TDateTime;
     function SyncRow(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
     function SyncRowDirect(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
@@ -76,7 +77,6 @@ var
   aDel: TDataSet = nil;
   aDelTable: String;
   DoPost: Boolean = False;
-  aSyncError: TSyncItems;
   tmp: String;
   aStream: TStream;
   bStream: TStringStream;
@@ -187,6 +187,15 @@ begin
           {$ENDIF}
       if DoPost then
         aDest.Post;
+      //remove SyncError Items on succesful synced Table
+      aSyncError.SelectByReference(SyncTbl.FieldByName('SQL_ID').AsVariant);
+      aSyncError.Open;
+      while not aSyncError.EOF do
+        begin
+          if aSyncError.FieldByName('ERROR').AsString='Y' then
+            aSyncError.Delete
+          else aSyncError.Next;
+        end;
       //TODO-:TimestampD must be not actial Time !!!
     except
       on e : exception do
@@ -196,20 +205,24 @@ begin
           else
             (BaseApplication as IBaseApplication).Error(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]));
           aSyncError := TSyncItems.CreateEx(nil,SyncDB.DataModule);
-          aSyncError.Insert;
-          aSyncError.FieldByName('LOCAL_ID').AsVariant:=SyncTbl.FieldByName('SQL_ID').AsVariant;
-          aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
-          aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
-          aSyncError.FieldByName('REMOTE_ID').AsString:=SyncTbl.FieldByName('SQL_ID').AsString;
-          {$IF FPC_FULLVERSION>20600}
-          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=LocalTimeToUniversal(Now());
-          {$ELSE}
-          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
-          {$ENDIF}
-          aSyncError.FieldByName('REMOTE_TIME').AsDateTime:=SyncTbl.FieldByName('TIMESTAMPD').AsDateTime;
-          aSyncError.FieldByName('ERROR').AsString:='Y';
-          aSyncError.Post;
-          aSyncError.Free;
+          aSyncError.SelectByReference(SyncTbl.FieldByName('SQL_ID').AsVariant);
+          aSyncError.Open;
+          if not aSyncError.Locate('ERROR','Y',[loCaseInsensitive]) then
+            begin
+              aSyncError.Insert;
+              aSyncError.FieldByName('LOCAL_ID').AsVariant:=SyncTbl.FieldByName('SQL_ID').AsVariant;
+              aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
+              aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
+              aSyncError.FieldByName('REMOTE_ID').AsString:=SyncTbl.FieldByName('SQL_ID').AsString;
+              {$IF FPC_FULLVERSION>20600}
+              aSyncError.FieldByName('SYNC_TIME').AsDateTime:=LocalTimeToUniversal(Now());
+              {$ELSE}
+              aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
+              {$ENDIF}
+              aSyncError.FieldByName('REMOTE_TIME').AsDateTime:=SyncTbl.FieldByName('TIMESTAMPD').AsDateTime;
+              aSyncError.FieldByName('ERROR').AsString:='Y';
+              aSyncError.Post;
+            end;
           result := False;
         end;
     end;
@@ -238,20 +251,23 @@ begin
               (BaseApplication as IBaseApplication).Info(Format(strRowDeleteFailed,[aDelTable,aSource.FieldByName('REF_ID_ID').AsString,e.Message]));
             end
           else (BaseApplication as IBaseApplication).Info(Format(strRowDeleteFailed,[aDelTable,aSource.FieldByName('REF_ID_ID').AsString,e.Message]));
-          aSyncError := TSyncItems.CreateEx(nil,SyncDB.DataModule);
-          aSyncError.Insert;
-          aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
-          aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
-          aSyncError.FieldByName('LOCAL_ID').AsVariant:=aSource.FieldByName('REF_ID_ID').AsVariant;
-          aSyncError.FieldByName('REMOTE_ID').AsString:=aSource.FieldByName('REF_ID_ID').AsString;
-          {$IF FPC_FULLVERSION>20600}
-          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=LocalTimeToUniversal(Now());
-          {$ELSE}
-          aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
-          {$ENDIF}
-          aSyncError.FieldByName('ERROR').AsString:='Y';
-          aSyncError.Post;
-          aSyncError.Free;
+          aSyncError.SelectByReference(SyncTbl.FieldByName('SQL_ID').AsVariant);
+          aSyncError.Open;
+          if not aSyncError.Locate('ERROR','Y',[loCaseInsensitive]) then
+            begin
+              aSyncError.Insert;
+              aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
+              aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
+              aSyncError.FieldByName('LOCAL_ID').AsVariant:=aSource.FieldByName('REF_ID_ID').AsVariant;
+              aSyncError.FieldByName('REMOTE_ID').AsString:=aSource.FieldByName('REF_ID_ID').AsString;
+              {$IF FPC_FULLVERSION>20600}
+              aSyncError.FieldByName('SYNC_TIME').AsDateTime:=LocalTimeToUniversal(Now());
+              {$ELSE}
+              aSyncError.FieldByName('SYNC_TIME').AsDateTime:=Now();
+              {$ENDIF}
+              aSyncError.FieldByName('ERROR').AsString:='Y';
+              aSyncError.Post;
+            end;
         end;
     end;
   finally
@@ -280,7 +296,6 @@ var
   aFieldName: String;
   tmp: String;
   aStream: TStream;
-  aSyncError: TSyncItems;
   aDelTable: String;
   aDel: TDataSet;
 begin
@@ -811,7 +826,6 @@ var
   LoggedIn: Boolean;
   aMessage: TMessage;
   aRec: db.LargeInt;
-  aSyncError: TSyncItems;
   SyncedTables: Integer;
   FSyncedCount: Integer;
   FOldTime: String;
@@ -843,6 +857,7 @@ var
     Fullsynced: Boolean;
     aLastFilter: String;
     iMinimalDate: TDateTime;
+    nSQL: TDataSet;
   begin
     if aLevel>4 then exit;
     SyncDB.Tables.DataSet.First;
@@ -883,6 +898,14 @@ var
                       aMinDate := SyncDB.Tables.FieldByName('LTIMESTAMP').AsDateTime;
                       if (aMinDate>MinimalDate) and (MinimalDate>0) then
                         aMinDate:=MinimalDate;
+                    end;
+                  if HasOption('retry') then
+                    begin
+                      nSQL := Data.GetNewDataSet('select min('+Data.QuoteField('TIMESTAMPD')+') as mintime from '+Data.QuoteField(aSyncError.TableName)+' where '+Data.QuoteField('SYNCTABLE')+'='+Data.QuoteValue(aTableName));
+                      nSQL.Open;
+                      if (nSQL.FieldByName('mintime').AsDateTime<MinimalDate) or (MinimalDate=0) then
+                        MinimalDate :=nSQL.FieldByName('mintime').AsDateTime;
+                      nSQL.Free;
                     end;
                   iMinimalDate := MinimalDate;
                   while not Fullsynced do
@@ -972,7 +995,6 @@ begin
   SyncDB.Open;
   aSyncError := TSyncItems.CreateEx(nil,SyncDB.DataModule);
   aSyncError.CreateTable;
-  aSyncError.Free;
   while not SyncDB.DataSet.EOF do
     begin
       FLog.Clear;
@@ -1085,6 +1107,7 @@ begin
   FreeAndNil(FTempDataSet);
   SyncDB.Destroy;
   FLog.Free;
+  aSyncError.Free;
   FTables.Free;
   BaseApplication.Terminate;
 end;
