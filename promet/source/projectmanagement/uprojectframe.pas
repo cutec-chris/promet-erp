@@ -753,7 +753,7 @@ begin
   Application.MainForm.Hide;
   Application.ProcessMessages;
   Application.CreateForm(TfScreenshot,fScreenshot);
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     fScreenshot.SaveTo:=AppendPathDelim(GetInternalTempDir)+'screenshot.jpg';
   fScreenshot.Show;
   while fScreenshot.Visible do Application.ProcessMessages;
@@ -773,7 +773,7 @@ begin
         begin
           if not DataSet.CanEdit then
             DataSet.Insert;
-          with BaseApplication as IBaseApplication do
+          if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
             iPreview.Picture.LoadFromFile(AppendPathDelim(GetInternalTempDir)+'screenshot.jpg');
           DataSet.Post;
         end;

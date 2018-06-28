@@ -266,7 +266,7 @@ begin
       end;
       Inc(i);
     end;
-    with BaseApplication as IBaseApplication do
+    if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
       Debug('Error parsing quoted string: No closing quotation mark');
 
   end
@@ -293,13 +293,13 @@ begin
           else
           begin
             InStr := '';
-            with BaseApplication as IBaseApplication do
+            if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
               Debug('Error parsing literal string: literal too short');
           end;
           exit;
         end;
       end;
-      with BaseApplication as IBaseApplication do
+      if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
         Debug('Error parsing literal string: malformed literal');
 
     end
@@ -339,7 +339,7 @@ begin
       Chr := Str[Length(Str)]
     else
     begin
-      with BaseApplication as IBaseApplication do
+      if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
         Warning('IMAP: Missing required argument');
       Chr := #0;
     end;
@@ -365,7 +365,7 @@ begin
   begin
     if Chr <> '(' then
     begin
-      with BaseApplication as IBaseApplication do
+      if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
         Warning('IMAP: Missing required argument in SEARCH command');
       Chr := #0;
       exit;
@@ -373,7 +373,7 @@ begin
     ParseSearchPgm(Args, SearchPgm, Chr);
     if Chr <> ')' then
     begin
-      with BaseApplication as IBaseApplication do
+      if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
         Warning('IMAP: Missing required closing paren in SEARCH command');
       Chr := #0;
     end
@@ -416,7 +416,7 @@ begin
       end;
     'K': if Key = 'KEYWORD' then
       begin
-        with BaseApplication as IBaseApplication do
+        if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
           Warning('IMAP: the KEYWORD search is not implemented.');
         GetAString(Args, Chr);
       end;
@@ -438,7 +438,7 @@ begin
               SearchPgm.Subs.Add(Sub)
             else
             begin
-              with BaseApplication as IBaseApplication do
+              if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
                 Warning('IMAP: Missing argument in SEARCH NOT command');
               Sub.Free;
             end
@@ -471,7 +471,7 @@ begin
                 SearchPgm.Subs.Add(Sub)
               else
               begin
-                with BaseApplication as IBaseApplication do
+                if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
                   Warning('IMAP: Missing argument in SEARCH OR command');
                 Sub.Free;
               end
@@ -528,7 +528,7 @@ begin
         SearchPgm.FlagsUnset := FLAGSEEN
       else if Key = 'UNKEYWORD' then
         begin
-          with BaseApplication as IBaseApplication do
+          if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
             Warning('IMAP: the KEYWORD search is not implemented.');
           GetAString(Args, Chr);
         end;

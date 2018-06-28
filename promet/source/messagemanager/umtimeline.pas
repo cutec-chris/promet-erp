@@ -278,7 +278,7 @@ var
   aBoundsRect: TRect;
   aTime: DWORD;
 begin
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     Debug('Execute:Enter');
   aTime:=GetTickCount;
   if not Assigned(Self) then
@@ -328,7 +328,7 @@ begin
   IdleTimer1.Enabled:=True;
   fTimeline.SetActive;
   Application.QueueAsyncCall(@AsyncScrollTop,0);
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     Debug('Execute:Exit - '+IntToStr(GetTickCount-aTime));
 end;
 constructor TfmTimeline.Create(TheOwner: TComponent);
@@ -351,7 +351,7 @@ begin
   if Assigned(FQuickHelpFrame) then exit;
   if not Assigned(Data) then exit;
   aWiki := TWikiList.Create(nil);
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
   if aWiki.FindWikiPage('Promet-ERP-Help/workflows/tftimeline') then
     begin
       FQuickHelpFrame := TfQuickHelpFrame.Create(nil);
@@ -651,7 +651,7 @@ begin
   Application.ProcessMessages;
   acSend.Enabled:=False;
   Application.CreateForm(TfScreenshot,fScreenshot);
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     fScreenshot.SaveTo:=AppendPathDelim(GetInternalTempDir)+aName;
   fScreenshot.Show;
   while fScreenshot.Visible do Application.ProcessMessages;
@@ -659,7 +659,7 @@ begin
   fScreenshot := nil;
   aDocument := TDocument.CreateEx(Self,Data);
   aDocument.Select(aId,'H',0);
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     aDocument.AddFromFile(AppendPathDelim(GetInternalTempDir)+aName);
   aDocument.Free;
   Self.Show;
@@ -905,7 +905,7 @@ begin
     end
   else
     fTimeline.gList.TopRow:=0;
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     Debug('AsyncScrollTop:'+IntToStr(GetTickCount-aTime));
 end;
 

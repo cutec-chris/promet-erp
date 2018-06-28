@@ -166,6 +166,7 @@ end;
 destructor TProcessManager.Destroy;
 begin
   Info('Shutting down ...');
+  EnterCriticalsection(GlobalLock);
   if Assigned(Data) then
     Data.ProcessClient.ShutDown;
   inherited Destroy;

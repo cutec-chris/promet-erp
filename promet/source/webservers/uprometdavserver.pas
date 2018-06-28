@@ -1306,7 +1306,7 @@ begin
                           begin
                             aSocket.Status := 409;
                             MimeType:='text/plain';
-                            with BaseApplication as IBaseApplication do
+                            if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
                               Error('Print Error "'+fWebReports.LastError+'"');
                             sl := TStringList.Create;
                             sl.Add(fWebReports.LastError);
@@ -1394,6 +1394,7 @@ begin
                       aSL.Free;
                       Result:=True;
                     end;
+                  aDataSet.Free;
                 end;
               aWiki.Free;
             end;
@@ -1468,7 +1469,7 @@ begin
           begin
             aSocket.Status := 409;
             MimeType:='text/plain';
-            with BaseApplication as IBaseApplication do
+            if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
               Error('Error "'+e.Message+'"');
             sl := TStringList.Create;
             sl.Add(e.Message);
@@ -1483,7 +1484,7 @@ begin
       begin
         aSocket.Status := 409;
         MimeType:='text/plain';
-        with BaseApplication as IBaseApplication do
+        if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
           Error('Error "'+e.Message+'"');
         sl := TStringList.Create;
         sl.Add(e.Message);
@@ -1788,7 +1789,7 @@ begin
                               FStatus := 409;
                               MimeType:='text/plain';
                               aDataSet.Cancel;
-                              with BaseApplication as IBaseApplication do
+                              if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
                                 Error('Error "'+e.Message+'"');
                               sl := TStringList.Create;
                               sl.Add(e.Message);
@@ -1805,7 +1806,7 @@ begin
                         FStatus := 409;
                         MimeType:='text/plain';
                         aDataSet.Cancel;
-                        with BaseApplication as IBaseApplication do
+                        if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
                           Error('Error "'+e.Message+'"');
                         sl := TStringList.Create;
                         sl.Add(e.Message);
@@ -1838,7 +1839,7 @@ begin
                     FStatus := 409;
                     MimeType:='text/plain';
                     aDataSet.Cancel;
-                    with BaseApplication as IBaseApplication do
+                    if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
                       Error('Error "'+e.Message+'"');
                     sl := TStringList.Create;
                     sl.Add(e.Message);
@@ -1868,7 +1869,7 @@ begin
                     FStatus := 409;
                     MimeType:='text/plain';
                     aDataSet.Cancel;
-                    with BaseApplication as IBaseApplication do
+                    if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
                       Error('Error "'+e.Message+'"');
                     sl := TStringList.Create;
                     sl.Add(e.Message);
@@ -1965,7 +1966,7 @@ begin
   if pos('blobdata/',aDir)>0 then
     Result := True;
   if not Result then
-    with BaseApplication as IBaseApplication do
+    if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
       Info('DAV: read permitted to "'+aDir+'"');
 end;
 function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
@@ -1985,7 +1986,7 @@ begin
   if not Result then
     begin
       aSocket.User:='';
-      with BaseApplication as IBaseApplication do
+      if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
         Info('Auth from "'+aUser+'" failed !');
     end
   else aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;

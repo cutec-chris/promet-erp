@@ -42,7 +42,7 @@ procedure DocumentManagmement.CreateFile;
 var
   sl: TStringList;
 begin
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     TempPath := AppendPathDelim(GetInternalTempDir)+'ptc';
   ForceDirectories(TempPath);
   sl := TStringList.Create;

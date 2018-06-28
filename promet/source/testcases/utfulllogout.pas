@@ -19,7 +19,7 @@ implementation
 
 procedure TFullLogout.Logout;
 begin
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     Logout;
 end;
 

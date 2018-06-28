@@ -21,9 +21,9 @@ implementation
 
 procedure LogoutTest.Logout;
 begin
-//  with BaseApplication as IBaseApplication do
+//  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
 //    Logout;
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     DoExit;
 end;
 

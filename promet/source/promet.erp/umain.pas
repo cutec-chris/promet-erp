@@ -1354,7 +1354,7 @@ begin
           Caption := MandantName+' - Promet-ERP';
         if Assigned(TBaseVisualApplication(Application).MessageHandler) then
           TBaseVisualApplication(Application).MessageHandler.RegisterCommandHandler(@CommandReceived);
-        with BaseApplication as IBaseApplication do
+        if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
           debug('BaseLogin: '+IntToStr(GetTickCount64-aTime));
         WikiFrame := TfWikiFrame.Create(nil);
         WikiFrame.Parent := fMain.tsStartpage;
@@ -1619,7 +1619,7 @@ begin
   finally
   end;
   TBaseVisualApplication(BaseApplication).LoginDone;
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     debug('LoginTime: '+IntToStr(GetTickCount64-aTime));
   fSplash.Hide;
   fMain.Show;
@@ -4087,7 +4087,7 @@ end;
 
 procedure TfMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     Debug('fMain:FormClose enter');
   fMain.Hide;
   IPCTimer.Enabled:=False;
@@ -4126,7 +4126,7 @@ begin
     pcPages.CloseAll;
   except
   end;
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     Debug('fMain:FormClose exit');
 end;
 procedure TfMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);

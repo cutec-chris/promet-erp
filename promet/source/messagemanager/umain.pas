@@ -123,7 +123,7 @@ begin
   if not Assigned(Data) then exit;
   if not Data.Ping(Data.MainConnection) then exit;
   if Assigned(fmTimeline) and fmTimeline.Visible then exit;
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     Debug('ProgTimer:Enter');
   aTime:=GetTickCount;
   ProgTimer.Enabled:=False;
@@ -203,7 +203,7 @@ begin
   //TrayIcon.Visible:=True;
   {$ENDIF}
   ProgTimer.Enabled:=True;
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     Debug('ProgTimer:Exit - '+IntToStr(GetTickCount-aTime));
 end;
 procedure TfMain.TrayIconClick(Sender: TObject);

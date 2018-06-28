@@ -32,7 +32,7 @@ end;
 
 procedure LoginTest.Login;
 begin
-  with BaseApplication as IBaseApplication do
+  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     Login;
   with BaseApplication as IBaseDbInterface do
     uData.Data := getDB;

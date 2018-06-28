@@ -283,7 +283,7 @@ begin
     // check authentication
     if TSImapThread(AThread).CurrentUserName = '' then
     begin
-      with BaseApplication as IBaseApplication do
+      if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
         Warning(Format('This command need authentication, but client is not authenticated yet: %s',[nCmdLine]));
       SendResTag(AThread,'BAD Authentication required!');
       exit;
@@ -353,7 +353,7 @@ begin
 
     if not Assigned(TSImapThread(AThread).Selected) then
     begin
-      with BaseApplication as IBaseApplication do
+      if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
         Warning(Format('This command need a mailbox be selected, but there is no mailbox selected yet: %s',[nCmdLine]));
       SendResTag(AThread,'BAD Selection of a mailbox is required!');
       exit;
@@ -403,13 +403,13 @@ begin
 
     // unknown (sub-) command
     SendResTag(AThread,'BAD Command not implemented.');
-    with BaseApplication as IBaseApplication do
+    if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
       Warning(Format('Unsupported IMAP-command: %s', [nCmdLine]));
 
   except
     on E: Exception do
     begin
-      with BaseApplication as IBaseApplication do
+      if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
         Error('HandleCommand.ErrorCommand:' + LogCmdLine);
     end;
   end;
@@ -666,14 +666,14 @@ begin
   Mailbox := CutFirstParam(Par);
   if (Mailbox = '') or (Par = '') then
   begin
-    with BaseApplication as IBaseApplication do
+    if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
       Warning('IMAP-server - Missing arguments for APPEND.');
     SendResTag(AThread,'BAD arguments missing for APPEND!');
     exit;
   end;
   if not MBExists(AThread,Mailbox) then
   begin
-    with BaseApplication as IBaseApplication do
+    if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
       Warning('IMAP-server: Unknown mailbox for APPEND');
     SendResTag(AThread,'NO [TRYCREATE] APPEND error: mailbox not known');
     exit;
@@ -700,7 +700,7 @@ begin
     Time := DateTimeToUnixTime(nowGMT);
   if Par = '' then
   begin
-    with BaseApplication as IBaseApplication do
+    if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
       Warning('IMAP-server - Message missing for APPEND.');
     SendResTag(AThread,'NO APPEND without message literal!');
     exit;
@@ -708,7 +708,7 @@ begin
   MessageText := CutFirstParam(Par);
   if MessageText = '' then
   begin
-    with BaseApplication as IBaseApplication do
+    if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
       Warning('IMAP-server - Message missing for APPEND.');
     SendResTag(AThread,'NO APPEND without message text!');
     exit;

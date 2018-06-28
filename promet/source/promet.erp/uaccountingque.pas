@@ -236,7 +236,7 @@ begin
           CmdLn := 'aqbanking-cli request --transactions --balance';
           CmdLn := CmdLn+' --bank='+trim(Accounts.FieldByName('SORTCODE').AsString);
           CmdLn := CmdLn+' --account='+trim(Accounts.FieldByName('ACCOUNTNO').AsString);
-          with BaseApplication as IBaseApplication do
+          if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
             CmdLn := CmdLn+' --ctxfile='+AppendPathDelim(GetInternalTempDir)+'output.ctx';
           if Accounts.Exchange.Count>0 then
             CmdLn := CmdLn+' --fromdate='+FormatDateTime('YYYYMMDD',Accounts.Exchange.FieldByName('VALUEDATE').AsDateTime-1);
@@ -289,7 +289,7 @@ begin
           if not DontHide then
             begin
               IData := TStringList.Create;
-              with BaseApplication as IBaseApplication do
+              if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
                 CmdLn := 'aqbanking-cli listbal --ctxfile='+AppendPathDelim(GetInternalTempDir)+'output.ctx';
               if FileExists(AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+'aqbanking-cli'+ExtractFileExt(Application.Exename)) then
                 CmdLn := AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+CmdLn;
@@ -303,7 +303,7 @@ begin
                       tmp := copy(tmp,pos(#9,tmp)+1,length(tmp));
                       tmp1 := copy(tmp,pos(#9,tmp)+1,length(tmp));
                     end;
-                  with BaseApplication as IBaseApplication do
+                  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
                     CmdLn := 'aqbanking-cli listtrans --ctxfile='+AppendPathDelim(GetInternalTempDir)+'output.ctx --outfile='+AppendPathDelim(GetInternalTempDir)+'output.csv';
                   if FileExists(AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+'aqbanking-cli'+ExtractFileExt(Application.Exename)) then
                     CmdLn := AppendPathDelim(AppendPathDelim(AppendPathDelim(AppendPathDelim(ExtractFilePath(Application.Exename))+'tools')+'aqbanking')+'bin')+CmdLn;
