@@ -282,7 +282,10 @@ begin
               if copy(aToDir,length(aToDir),1) = '/' then
                 aToDir := copy(aToDir,0,length(aToDir)-1);
               if rpos('/',aToDir) > 1 then
-                Result := aDocuments2.OpenPath(copy(aToDir,0,rpos('/',aToDir)),'/')
+                begin
+                  Result := aDocuments2.OpenPath(copy(aToDir,0,rpos('/',aToDir)),'/');
+                  if not Result then FreeAndNil(aDocuments2);
+                end
               else Result := True;
             end;
 
@@ -307,6 +310,7 @@ begin
                     end;
                   aDocument.Free;
                 end;
+              FreeAndNil(aDocuments2);
             end;
           aDocuments.Free;
         end;
@@ -1329,7 +1333,7 @@ begin
                     FreeAndNil(SubDetailDataSet);
                   end;
                 end;
-              aDataSet.Destroy;
+              aDataSet.Free;
             end;
         end
       else if (aLevel=3) then //dynamic content
