@@ -115,7 +115,7 @@ type
     destructor Destroy; override;
     property URI : string read FURI;
     property Status : Integer read FStatus write FStatus;
-    property HeaderOut : TStringList read FHeadersOut write FHeadersOut;
+    property HeaderOut : TStringList read FHeadersOut;
     function ProcessHttpRequest(Request, aURI: string; Headers: TStringList;
       aInputData, aOutputData: TMemoryStream): integer;
     function CheckAuth: Boolean;
@@ -720,6 +720,7 @@ begin
   FUser:='';
   FCreator := aCreator;
   FParameters := TStringList.Create;
+  FHeadersOut := TStringList.Create;
   FParameters.Delimiter:=':';
   FParameters.NameValueSeparator:=':';
   InputData:=nil;
@@ -730,6 +731,9 @@ end;
 
 destructor TDAVSession.Destroy;
 begin
+  FreeAndNil(OutputData);
+  FreeAndNil(InputData);
+  FreeAndNil(FHeadersOut);
   if Assigned(FDestroy) then
     FDestroy(Self);
   FParameters.Free;
@@ -757,89 +761,84 @@ begin
   if Assigned(TWebDAVMaster(Creator).OnAccess) then
     TWebDAVMaster(Creator).OnAccess(Self,'<'+Request+' '+aURI);
   FURI:=aURI;
-  HeaderOut := TStringList.Create;
-  try
-    Result := 500;
-    case Request of
-    'OPTIONS':
-       begin
-         AddDAVheaders;
-         HeaderOut.Add('DAV: version-control,checkout,working-resource');
-         HeaderOut.Add('DAV: 1, calendar-access, calendar-schedule, calendar-proxy');
-         HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL');
-         DoOptionsRequest;
-       end;
-    'REPORT':
-       begin
-         AddDAVheaders;
-         HeaderOut.Add('DAV: version-control,checkout,working-resource');
-         HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL');
-         DoReportRequest;
-       end;
-    'PROPFIND':
-       begin
-         AddDAVheaders;
-         DoPropfindRequest;
-       end;
-    'GET','HEAD':
-       begin
-         DoGetRequest;
-       end;
-    'PUT':
-       begin
-         DoPutRequest;
-       end;
-    'POST':
-       begin
-         DoPostRequest;
-       end;
-    'MKCOL':
-       begin
-         AddDAVheaders;
-         DoMkColRequest;
-       end;
-    'LOCK','UNLOCK':
-       begin
-         AddDAVheaders;
-         Status:=200;
-       end;
-    'DELETE':
-       begin
-         AddDAVheaders;
-         DoDeleteRequest;
-       end;
-    'MOVE':
-       begin
-         AddDAVheaders;
-         DoMoveRequest;
-       end;
-    end;
-    if Assigned(FOutputResult) then
-      begin
-        if Assigned(Socket) then
-          Socket.InternalSynchronize(Socket,@DoProcessInput)
-        else DoProcessInput;
-        if Status<>0 then
-          Result := Status;
-        Headers.Clear;
-        Headers.AddStrings(HeaderOut);
-        if Assigned(TWebDAVMaster(Creator).OnAccess) then
-          TWebDAVMaster(Creator).OnAccess(Self,'>'+IntToStr(Result)+' in '+IntToStr(GetTicks-aTime)+' ms');
-      end
-    else
-      begin
-        Headers.Clear;
-        Headers.AddStrings(HeaderOut);
-        if Status<>0 then
-          Result := Status;
-        if Assigned(TWebDAVMaster(Creator).OnAccess) then
-          TWebDAVMaster(Creator).OnAccess(Self,'>'+IntToStr(Result)+' in '+IntToStr(GetTicks-aTime)+' ms');
-      end;
-  finally
-    HeaderOut.Free;
+  Result := 500;
+  case Request of
+  'OPTIONS':
+     begin
+       AddDAVheaders;
+       HeaderOut.Add('DAV: version-control,checkout,working-resource');
+       HeaderOut.Add('DAV: 1, calendar-access, calendar-schedule, calendar-proxy');
+       HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL');
+       DoOptionsRequest;
+     end;
+  'REPORT':
+     begin
+       AddDAVheaders;
+       HeaderOut.Add('DAV: version-control,checkout,working-resource');
+       HeaderOut.Add('allow: GET, HEAD, POST, OPTIONS, MKCOL, DELETE, PUT, LOCK, UNLOCK, COPY, MOVE, PROPFIND, SEARCH, REPORT, MKCALENDAR, ACL');
+       DoReportRequest;
+     end;
+  'PROPFIND':
+     begin
+       AddDAVheaders;
+       DoPropfindRequest;
+     end;
+  'GET','HEAD':
+     begin
+       DoGetRequest;
+     end;
+  'PUT':
+     begin
+       DoPutRequest;
+     end;
+  'POST':
+     begin
+       DoPostRequest;
+     end;
+  'MKCOL':
+     begin
+       AddDAVheaders;
+       DoMkColRequest;
+     end;
+  'LOCK','UNLOCK':
+     begin
+       AddDAVheaders;
+       Status:=200;
+     end;
+  'DELETE':
+     begin
+       AddDAVheaders;
+       DoDeleteRequest;
+     end;
+  'MOVE':
+     begin
+       AddDAVheaders;
+       DoMoveRequest;
+     end;
   end;
-  InputData:=nil;
-  OutputData:=nil;
+  if Assigned(FOutputResult) then
+    begin
+      if Assigned(Socket) then
+        Socket.InternalSynchronize(Socket,@DoProcessInput)
+      else DoProcessInput;
+      if Status<>0 then
+        Result := Status;
+      Headers.Clear;
+      Headers.AddStrings(HeaderOut);
+      if Assigned(TWebDAVMaster(Creator).OnAccess) then
+        TWebDAVMaster(Creator).OnAccess(Self,'>'+IntToStr(Result)+' in '+IntToStr(GetTicks-aTime)+' ms');
+    end
+  else
+    begin
+      Headers.Clear;
+      Headers.AddStrings(HeaderOut);
+      if Status<>0 then
+        Result := Status;
+      if Assigned(TWebDAVMaster(Creator).OnAccess) then
+        TWebDAVMaster(Creator).OnAccess(Self,'>'+IntToStr(Result)+' in '+IntToStr(GetTicks-aTime)+' ms');
+    end;
+  InputData := nil;
+  OutputData := nil;
 end;
 
 { TWebDAVMaster }

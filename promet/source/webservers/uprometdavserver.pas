@@ -2010,6 +2010,7 @@ var
   aParent: Int64;
   aOldFilter: String;
   aOldRec: variant;
+  m1: Cardinal;
 
   procedure FindArticle;
   begin
@@ -2197,8 +2198,6 @@ var
   lIndex: Integer;
 begin
   aFile := TDAVFile.Create(FullPath,aDocuments.IsDir);
-  if aSocket.User='' then exit;
-  CreateDataModule(aSocket);
   if not aDocuments.IsDir then
     begin
       //TODO:fix this
