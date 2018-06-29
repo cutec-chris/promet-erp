@@ -731,8 +731,6 @@ end;
 
 destructor TDAVSession.Destroy;
 begin
-  FreeAndNil(OutputData);
-  FreeAndNil(InputData);
   FreeAndNil(FHeadersOut);
   if Assigned(FDestroy) then
     FDestroy(Self);

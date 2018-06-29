@@ -24,7 +24,6 @@ type
 
   TfWebReports = class(TComponent)
     procedure aParserFoundText(Text: string);
-    procedure ReportLog(Sender: TOBject; const Msg: String);
     procedure ReportSetCustomproperties(Sender: TObject; Data: TDOMNode);
   private
     { private declarations }
@@ -287,7 +286,7 @@ begin
       except
         on e : Exception do
           begin
-            fWebReports.ReportLog(nil,e.Message);
+            //TODO:fWebReports.ReportLog(nil,e.Message);
             Text := '';
           end;
       end;
@@ -351,11 +350,6 @@ end;
 procedure TfWebReports.aParserFoundText(Text: string);
 begin
   FTxt:=FTxt+Text;
-end;
-
-procedure TfWebReports.ReportLog(Sender: TOBject; const Msg: String);
-begin
-  writeln('Convert:'+Msg);
 end;
 
 procedure TfWebReports.ReportSetCustomproperties(Sender: TObject; Data: TDOMNode
@@ -616,7 +610,6 @@ begin
     PaperManager.RegisterStandardSizes;
   gTTFontCache.ReadStandardFonts;
   gTTFontCache.BuildFontCache;
-  Report.OnLog:=@ReportLog;
   Report.LoadFromFile(aFile);
 end;
 
