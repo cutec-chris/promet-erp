@@ -910,7 +910,6 @@ var
   aFS: TFileStream;
   aMS: TStringStream;
   aInitCount: Integer;
-  m1: Cardinal;
 
   procedure ExportDataSet(bDataSet : TDataSet;Output : TStrings);
   var
@@ -961,7 +960,6 @@ var
   end;
 
 begin
-  m1 := GetHeapStatus.TotalAllocated;
   Result := False;
   if pos('?',aDir)>0 then
     begin
@@ -1502,8 +1500,6 @@ begin
   finally
     QueryFields.Free;
   end;
-  if GetHeapStatus.TotalAllocated<>m1 then
-    writeln('ServerGetFile Leak ',GetHeapStatus.TotalAllocated-m1);
 end;
 function TPrometServerFunctions.ServerMkCol(aSocket: TDAVSession; aDir: string): Boolean;
 var
