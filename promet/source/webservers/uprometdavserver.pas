@@ -910,6 +910,7 @@ var
   aFS: TFileStream;
   aMS: TStringStream;
   aInitCount: Integer;
+  m1: Cardinal;
 
   procedure ExportDataSet(bDataSet : TDataSet;Output : TStrings);
   var
@@ -960,6 +961,7 @@ var
   end;
 
 begin
+  m1 := GetHeapStatus.TotalAllocated;
   Result := False;
   if pos('?',aDir)>0 then
     begin
@@ -1032,6 +1034,7 @@ begin
                 end;
             end;
           aParent := aDirs.Id.AsVariant;
+          aDirs.Free;
         end;
       aCal := TCalendar.Create(aSocket);
       aCal.Filter(TBaseDBModule(aSocket.Data).QuoteField('ORIGID')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aFile));
@@ -1499,6 +1502,8 @@ begin
   finally
     QueryFields.Free;
   end;
+  if GetHeapStatus.TotalAllocated<>m1 then
+    writeln('ServerGetFile Leak ',GetHeapStatus.TotalAllocated-m1);
 end;
 function TPrometServerFunctions.ServerMkCol(aSocket: TDAVSession; aDir: string): Boolean;
 var
@@ -1940,7 +1945,9 @@ function TPrometServerFunctions.ServerReadAllowed(aSocket: TDAVSession; aDir: st
   ): Boolean;
 var
   aUser: String;
+  m1: Cardinal;
 begin
+  m1 := GetHeapStatus.TotalAllocated;
   if aSocket=nil then exit;
   if not Assigned(BaseApplication) then exit;
   CreateDataModule(aSocket);
@@ -1972,6 +1979,8 @@ begin
   if not Result then
     if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
       Info('DAV: read permitted to "'+aDir+'"');
+  if GetHeapStatus.TotalAllocated<>m1 then
+    writeln('ServerReadAllowed Leak ',GetHeapStatus.TotalAllocated-m1);
 end;
 function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
   aPassword: string): Boolean;
@@ -2063,6 +2072,7 @@ var
   end;
 
 begin
+  m1 := GetHeapStatus.TotalAllocated;
   aLevel:=0;
   Result := False;
   if copy(aDir,0,6)='/files' then
@@ -2145,6 +2155,8 @@ begin
             end;
         end;
     end;
+  if GetHeapStatus.TotalAllocated<>m1 then
+    writeln('FindVirtualDocumentPath Leak ',GetHeapStatus.TotalAllocated-m1);
 end;
 procedure TPrometServerFunctions.CreateDataModule(aSocket: TDAVSession);
 var

@@ -514,7 +514,10 @@ end;
 { TStreamOutput }
 
 function TDAVSession.CheckAuth: Boolean;
+var
+  m1: Cardinal;
 begin
+  m1 := GetHeapStatus.TotalAllocated;
   if Parameters.Values['authorization'] <> '' then
     begin
       if Assigned(Socket) then
@@ -522,6 +525,8 @@ begin
       else DoCheckAuth;
       Result := FBoolResult;
     end;
+  if GetHeapStatus.TotalAllocated<>m1 then
+    writeln('Memory Leak ',GetHeapStatus.TotalAllocated-m1);
 end;
 
 constructor TStreamOutput.Create(ASocket: TDAVSession; aIn, aOut: TMemoryStream);
@@ -754,7 +759,9 @@ function TDAVSession.ProcessHttpRequest(Request, aURI: string;
   end;
 var
   aTime : Int64;
+  m1: Cardinal;
 begin
+  m1 := GetHeapStatus.TotalAllocated;
   aTime := GetTicks;
   Self.InputData := aInputData;
   Self.OutputData := aOutputData;
@@ -839,6 +846,8 @@ begin
     end;
   InputData := nil;
   OutputData := nil;
+  if GetHeapStatus.TotalAllocated<>m1 then
+    writeln('DAV request Leak ',GetHeapStatus.TotalAllocated-m1);
 end;
 
 { TWebDAVMaster }

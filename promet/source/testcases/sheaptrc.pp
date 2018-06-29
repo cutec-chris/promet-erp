@@ -17,9 +17,9 @@ interface
 
 {$inline on}
 
-{$Ifdef FPC_HEAPTRC_EXTRA}
+{$ifdef FPC_HEAPTRC_EXTRA}
   {$define EXTRA}
-{.$endif FPC_HEAPTRC_EXTRA}
+{$endif FPC_HEAPTRC_EXTRA}
 
 {$checkpointer off}
 {$goto on}
@@ -52,9 +52,9 @@ const
   { tracing level
     splitted in two if memory is released !! }
 {$ifdef EXTRA}
-  tracesize = 32;
+  tracesize = 16;
 {$else EXTRA}
-  tracesize = 8;
+  tracesize = 64;
 {$endif EXTRA}
   { install heaptrc memorymanager }
   useheaptrace : boolean=true;

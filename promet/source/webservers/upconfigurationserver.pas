@@ -96,184 +96,188 @@ var
     Result := '{"'+aRight+'": '+IntToStr(Data.Users.Rights.Right(aRight))+'}';
   end;
 begin
-  aParameters := TStringList.Create;
-  aParameters.Delimiter:=':';
-  aParameters.NameValueSeparator:=':';
-  aResult := TStringList.Create;
-  if pos('?',Url)>0 then
-    Url := copy(URL,0,pos('?',Url)-1);
-  try
-    aParameters.Clear;
-    for i := 0 to Headers.Count-1 do
-      begin
-        s := Headers[i];
-        tmp := copy(s,0,pos(':',s)-1);
-        aParameters.Add(lowercase(tmp)+':'+trim(copy(s,pos(':',s)+1,length(s))));
-      end;
-    oldOrigin := Headers.Values['Access-Control-Allow-Origin'];
-    headers.Clear;
-    if oldOrigin<>'' then
-      Headers.Add('Access-Control-Allow-Origin: '+oldOrigin)
-    else
-      Headers.Add('Access-Control-Allow-Origin: *');
-    Headers.Add('Access-Control-Allow-Methods: GET, OPTIONS, POST');
-    Headers.Add('Access-Control-Allow-Headers: Authorization,X-Requested-With');
-    Headers.Add('Cache-Control: no-cache');
-    if lowercase(Method) = 'options' then
-      begin
-        Result := 200;
-        exit;
-      end;
-    if copy(lowercase(url),0,15)='/configuration/' then
-      begin
-        Url := copy(url,16,length(url));
-        if lowercase(url) = 'add' then
+  Result := 404;
+  if copy(lowercase(url),0,15)='/configuration/' then
+    begin
+      aParameters := TStringList.Create;
+      aParameters.Delimiter:=':';
+      aParameters.NameValueSeparator:=':';
+      aResult := TStringList.Create;
+      if pos('?',Url)>0 then
+        Url := copy(URL,0,pos('?',Url)-1);
+      try
+        aParameters.Clear;
+        for i := 0 to Headers.Count-1 do
           begin
-            Result := 400;
-            Input.Position:=0;
-            aResult.LoadFromStream(Input);
-            if pos(':',aResult.Text)>0 then
+            s := Headers[i];
+            tmp := copy(s,0,pos(':',s)-1);
+            aParameters.Add(lowercase(tmp)+':'+trim(copy(s,pos(':',s)+1,length(s))));
+          end;
+        oldOrigin := Headers.Values['Access-Control-Allow-Origin'];
+        headers.Clear;
+        if oldOrigin<>'' then
+          Headers.Add('Access-Control-Allow-Origin: '+oldOrigin)
+        else
+          Headers.Add('Access-Control-Allow-Origin: *');
+        Headers.Add('Access-Control-Allow-Methods: GET, OPTIONS, POST');
+        Headers.Add('Access-Control-Allow-Headers: Authorization,X-Requested-With');
+        Headers.Add('Cache-Control: no-cache');
+        if lowercase(Method) = 'options' then
+          begin
+            Result := 200;
+            exit;
+          end;
+        if copy(lowercase(url),0,15)='/configuration/' then
+          begin
+            Url := copy(url,16,length(url));
+            if lowercase(url) = 'add' then
               begin
-                tmp := copy(aResult.Text,pos(':',aResult.Text)+1,length(aResult.Text));
-                aType := copy(tmp,0,pos(';',tmp)-1);
-                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-                aServer := copy(tmp,0,pos(';',tmp)-1);
-                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-                aDB := copy(tmp,0,pos(';',tmp)-1);
-                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-                aUser := copy(tmp,0,pos(';',tmp)-1);
-                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-                aPW := copy(tmp,0,pos(';',tmp)-1);
-                tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
-                aOptions := tmp;
-                Result := 503;
-                aResult.Clear;
-                //TODO:check if DB Connection works
-                with BaseApplication as IBaseDbInterface,BaseApplication as  IBaseApplication do
+                Result := 400;
+                Input.Position:=0;
+                aResult.LoadFromStream(Input);
+                if pos(':',aResult.Text)>0 then
                   begin
+                    tmp := copy(aResult.Text,pos(':',aResult.Text)+1,length(aResult.Text));
+                    aType := copy(tmp,0,pos(';',tmp)-1);
+                    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                    aServer := copy(tmp,0,pos(';',tmp)-1);
+                    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                    aDB := copy(tmp,0,pos(';',tmp)-1);
+                    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                    aUser := copy(tmp,0,pos(';',tmp)-1);
+                    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                    aPW := copy(tmp,0,pos(';',tmp)-1);
+                    tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+                    aOptions := tmp;
+                    Result := 503;
                     aResult.Clear;
-                    aResult.Add('SQL');
-                    aResult.Add(aType+';'+aServer+';'+aDB+';'+aUser+';'+Encrypt(aPW,99998));
-                    aResult.SaveToFile(GetOurConfigDir+'standard.perml');
-                    aResult.Clear;
-                    Info('loading mandants...');
-                    if not LoadMandants then
+                    //TODO:check if DB Connection works
+                    with BaseApplication as IBaseDbInterface,BaseApplication as  IBaseApplication do
                       begin
-                        Error(strFailedtoLoadMandants);
-                        DeleteFile(GetOurConfigDir+'standard.perml');
-                      end
-                    else
-                      begin
-                        if DBLogin('standard','') then
+                        aResult.Clear;
+                        aResult.Add('SQL');
+                        aResult.Add(aType+';'+aServer+';'+aDB+';'+aUser+';'+Encrypt(aPW,99998));
+                        aResult.SaveToFile(GetOurConfigDir+'standard.perml');
+                        aResult.Clear;
+                        Info('loading mandants...');
+                        if not LoadMandants then
                           begin
-                            Result := 200;
-                            uData.Data := GetDB;
+                            Error(strFailedtoLoadMandants);
+                            DeleteFile(GetOurConfigDir+'standard.perml');
                           end
                         else
                           begin
-                            Result := 403;
-                            aResult.Text := LastError;
-                            aresult.SaveToStream(Output);
-                            Output.Position:=0;
-                            DeleteFile(GetOurConfigDir+'standard.perml');
+                            if DBLogin('standard','') then
+                              begin
+                                Result := 200;
+                                uData.Data := GetDB;
+                              end
+                            else
+                              begin
+                                Result := 403;
+                                aResult.Text := LastError;
+                                aresult.SaveToStream(Output);
+                                Output.Position:=0;
+                                DeleteFile(GetOurConfigDir+'standard.perml');
+                              end;
                           end;
                       end;
                   end;
-              end;
-          end
-        else if lowercase(url) = 'status' then
-          begin
-            if Assigned(uData.Data) then
-              Result := 403
-            else
-              Result := 200;
-          end
-        else if lowercase(url)='userstatus' then
-          begin
-            aUser := aParameters.Values['authorization'];
-            if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
+              end
+            else if lowercase(url) = 'status' then
               begin
-                aResult.Free;
-                aParameters.Free;
+                if Assigned(uData.Data) then
+                  Result := 403
+                else
+                  Result := 200;
+              end
+            else if lowercase(url)='userstatus' then
+              begin
+                aUser := aParameters.Values['authorization'];
+                if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
+                  begin
+                    aResult.Free;
+                    aParameters.Free;
+                    Result:=401;
+                    exit;
+                  end;
                 Result:=401;
-                exit;
-              end;
-            Result:=401;
-            aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
-            aPassword := copy(aUser,pos(':',aUser)+1,length(aUser));
-            aUser := copy(aUser,0,pos(':',aUser)-1);
-            if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
-            and TBaseDBModule(uData.Data).Authenticate(BaseApplication.GetOptionValue('u','user'),BaseApplication.GetOptionValue('p','password'))))
-            then
-              Result := 200;
-            if (Result = 401) then
-              if TBaseDBModule(uData.Data).Authenticate(aUser,aPassword) then
-                Result := 200;
-            if Result = 200 then
-              begin
-                aWiki := TWikiList.Create(nil);
-                aWiki.CreateTable;
-                try
-                  bUser := TUser.Create(nil);
-                  bUser.Open;
-                  bUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
-                  while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+StringReplace(bUser.UserName.AsString,' ','_',[rfReplaceAll]))) and (not bUser.FieldByName('PARENT').IsNull) do
-                    begin
-                      bUser.Locate('SQL_ID',bUser.FieldByName('PARENT').AsVariant,[]);
-                    end;
-                  aStartPage := 'Promet-ERP-Help/users/'+StringReplace(bUser.UserName.AsString,' ','_',[rfReplaceAll]);
-                  if not aWiki.FindWikiPage(aStartPage) then
-                    begin
-                      aStartPage:='Promet-ERP-Help/users/Administrator';
+                aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+                aPassword := copy(aUser,pos(':',aUser)+1,length(aUser));
+                aUser := copy(aUser,0,pos(':',aUser)-1);
+                if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
+                and TBaseDBModule(uData.Data).Authenticate(BaseApplication.GetOptionValue('u','user'),BaseApplication.GetOptionValue('p','password'))))
+                then
+                  Result := 200;
+                if (Result = 401) then
+                  if TBaseDBModule(uData.Data).Authenticate(aUser,aPassword) then
+                    Result := 200;
+                if Result = 200 then
+                  begin
+                    aWiki := TWikiList.Create(nil);
+                    aWiki.CreateTable;
+                    try
+                      bUser := TUser.Create(nil);
+                      bUser.Open;
+                      bUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
+                      while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+StringReplace(bUser.UserName.AsString,' ','_',[rfReplaceAll]))) and (not bUser.FieldByName('PARENT').IsNull) do
+                        begin
+                          bUser.Locate('SQL_ID',bUser.FieldByName('PARENT').AsVariant,[]);
+                        end;
+                      aStartPage := 'Promet-ERP-Help/users/'+StringReplace(bUser.UserName.AsString,' ','_',[rfReplaceAll]);
                       if not aWiki.FindWikiPage(aStartPage) then
-                        aStartPage:='';
+                        begin
+                          aStartPage:='Promet-ERP-Help/users/Administrator';
+                          if not aWiki.FindWikiPage(aStartPage) then
+                            aStartPage:='';
+                        end;
+                    except
                     end;
-                except
-                end;
-                aWiki.Free;
-                bUser.Free;
-                sl := TStringList.Create;
-                sl.Add('{"username": "'+Data.Users.FieldByName('NAME').AsString+'"');
-                if aStartPage<>'' then;
-                  sl.Add(',"startpage": "'+aStartPage+'"');
-                sl.Add(',"rights": [');
-                sl.Add(BuildRight('DOCUMENTS')+',');
-                sl.Add(BuildRight('HISTORY')+',');
-                sl.Add(BuildRight('LISTS')+',');
-                sl.Add(BuildRight('TREE')+',');
-                sl.Add(BuildRight('MESSAGES')+',');
-                sl.Add(BuildRight('CALENDAR')+',');
-                sl.Add(BuildRight('ORDERS')+',');
-                sl.Add(BuildRight('PRODUCTION')+',');
-                sl.Add(BuildRight('CUSTOMERS')+',');
-                sl.Add(BuildRight('MASTERDATA')+',');
-                sl.Add(BuildRight('TASKS')+',');
-                sl.Add(BuildRight('WIKI')+',');
-                sl.Add(BuildRight('PROJECTS')+',');
-                sl.Add(BuildRight('SHEME')+',');
-                sl.Add(BuildRight('REPORTS')+',');
-                sl.Add(BuildRight('STORAGE')+',');
-                sl.Add(BuildRight('DISPOSITION')+',');
-                sl.Add(BuildRight('WEBSHOP')+',');
-                sl.Add(BuildRight('INVENTORY')+',');
-                sl.Add(BuildRight('ACCOUNTING')+',');
-                sl.Add(BuildRight('TIMEREG')+',');
-                sl.Add(BuildRight('STATISTICS')+',');
-                sl.Add(BuildRight('OPTIONS')+',');
-                sl.Add(BuildRight('MEETINGS'));
-                sl.Add(']');
-                sl.Add('}');
-                sl.SaveToStream(Output);
-                sl.Free;
-                Output.Position:=0;
+                    aWiki.Free;
+                    bUser.Free;
+                    sl := TStringList.Create;
+                    sl.Add('{"username": "'+Data.Users.FieldByName('NAME').AsString+'"');
+                    if aStartPage<>'' then;
+                      sl.Add(',"startpage": "'+aStartPage+'"');
+                    sl.Add(',"rights": [');
+                    sl.Add(BuildRight('DOCUMENTS')+',');
+                    sl.Add(BuildRight('HISTORY')+',');
+                    sl.Add(BuildRight('LISTS')+',');
+                    sl.Add(BuildRight('TREE')+',');
+                    sl.Add(BuildRight('MESSAGES')+',');
+                    sl.Add(BuildRight('CALENDAR')+',');
+                    sl.Add(BuildRight('ORDERS')+',');
+                    sl.Add(BuildRight('PRODUCTION')+',');
+                    sl.Add(BuildRight('CUSTOMERS')+',');
+                    sl.Add(BuildRight('MASTERDATA')+',');
+                    sl.Add(BuildRight('TASKS')+',');
+                    sl.Add(BuildRight('WIKI')+',');
+                    sl.Add(BuildRight('PROJECTS')+',');
+                    sl.Add(BuildRight('SHEME')+',');
+                    sl.Add(BuildRight('REPORTS')+',');
+                    sl.Add(BuildRight('STORAGE')+',');
+                    sl.Add(BuildRight('DISPOSITION')+',');
+                    sl.Add(BuildRight('WEBSHOP')+',');
+                    sl.Add(BuildRight('INVENTORY')+',');
+                    sl.Add(BuildRight('ACCOUNTING')+',');
+                    sl.Add(BuildRight('TIMEREG')+',');
+                    sl.Add(BuildRight('STATISTICS')+',');
+                    sl.Add(BuildRight('OPTIONS')+',');
+                    sl.Add(BuildRight('MEETINGS'));
+                    sl.Add(']');
+                    sl.Add('}');
+                    sl.SaveToStream(Output);
+                    sl.Free;
+                    Output.Position:=0;
+                  end;
               end;
-          end;
-      end
-  except
-    Result:=500;
-  end;
-  aResult.Free;
-  aParameters.Free;
+          end
+      except
+        Result:=500;
+      end;
+      aResult.Free;
+      aParameters.Free;
+    end;
 end;
 
 { TPrometWebDAVMaster }

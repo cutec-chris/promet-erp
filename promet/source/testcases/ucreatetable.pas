@@ -107,15 +107,12 @@ begin
 end;
 procedure TableCreate.DeleteTable;
 begin
-  AssertFalse(Data.TableExists('TESTSUBTABLE'));
-  AssertTrue(Data.DropTable('TESTTABLE'));
-  AssertFalse('TableExists',Data.TableExists('TESTTABLE'));
+  Data.ExecuteDirect('DROP TABLE '+Data.QuoteField('TESTTABLE'));
+  Data.Tables.Clear;
 end;
 procedure TableCreate.OpenTransaction;
 begin
   aTransaction := Data.GetNewConnection;
-  Data.StartTransaction(aTransaction,True);
-  AssertFalse('TableExists in Transaction',Data.TableExists('TESTTABLE',aTransaction));
 end;
 procedure TableCreate.CreateTableInTransaction;
 begin
@@ -153,8 +150,8 @@ end;
 procedure TableCreate.DeleteTableInTransaction;
 begin
   try
-    Data.DropTable('TESTSUBTABLE');
-    Data.DropTable('TESTTABLE');
+    Data.ExecuteDirect('DROP TABLE '+Data.QuoteField('TESTSUBTABLE'));
+    Data.ExecuteDirect('DROP TABLE '+Data.QuoteField('TESTTABLE'));
   except
   end;
 end;

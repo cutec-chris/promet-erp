@@ -33,10 +33,13 @@ var
   aHist: TBaseHistory;
 begin
   aHist := TBaseHistory.Create(nil);
-  with aHist.DataSet as IBaseDbFilter do
-    Check(FetchRows=20,'FetchRows:'+IntToStr(FetchRows));
-  aHist.Open;
-  Check(aHist.DataSet.RecordCount<=20,'Fetched Rows:'+IntToStr(aHist.DataSet.RecordCount));
+  if Data.GetDBType<>'sqlite' then
+    begin
+      with aHist.DataSet as IBaseDbFilter do
+        Check(FetchRows=20,'FetchRows:'+IntToStr(FetchRows));
+      aHist.Open;
+      Check(aHist.DataSet.RecordCount<=20,'Fetched Rows:'+IntToStr(aHist.DataSet.RecordCount));
+    end;
   aHist.Free;
 end;
 
