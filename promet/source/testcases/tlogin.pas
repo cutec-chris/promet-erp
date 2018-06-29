@@ -40,7 +40,8 @@ begin
 end;
 
 initialization
-
   RegisterTest(LoginTest);
+finalization
+  FreeANdNil(uData.Data);
 end.
 
