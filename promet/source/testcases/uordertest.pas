@@ -21,6 +21,7 @@ type
     procedure FillPosition2;
     procedure CheckSumCalculation;
     procedure CheckPriceCalculation;
+    procedure AppendSubTotal;
     procedure CheckPost;
     procedure ConvertAU;
     procedure ConvertLI;
@@ -112,6 +113,11 @@ begin
   aOrder.Positions.FieldByName('QUANTITY').AsString:='10';//Mincount of 5 gives 2.5 as price
   aOrder.Positions.Post;
   Check(aOrder.FieldByName('NETPRICE').AsFloat = 50,'Ordercalculation failed '+FloatToStr(aOrder.FieldByName('NETPRICE').AsFloat));
+end;
+
+procedure OrderTest.AppendSubTotal;
+begin
+  aOrder.Positions.AppendSubTotal;
 end;
 
 procedure OrderTest.CheckPost;
