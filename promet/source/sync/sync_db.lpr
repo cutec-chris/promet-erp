@@ -88,11 +88,11 @@ begin
   if SyncTbl.FieldCount>2 then
     aSource := SyncTbl
   else
-    aSource := SourceDM.GetNewDataSet('select * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+SourceDM.QuoteField('SQL_ID')+'='+SourceDM.QuoteValue(SyncTbl.FieldByName('SQL_ID').AsString));
+    aSource := SourceDM.GetNewDataSet('select * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+SourceDM.QuoteField('SQL_ID')+'='+SourceDM.QuoteValue(IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt)));
   if Assigned(FTempDataSet) and (SyncDB.Tables.DataSet.FieldByName('NAME').AsString=FTempDataSetName) then
     aDest := FTempDataSet
   else
-    aDest := DestDM.GetNewDataSet('select * from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+DestDM.QuoteField('SQL_ID')+'='+DestDM.QuoteValue(SyncTbl.FieldByName('SQL_ID').AsString),DestDM.MainConnection);
+    aDest := DestDM.GetNewDataSet('select * from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+DestDM.QuoteField('SQL_ID')+'='+DestDM.QuoteValue(IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt)),DestDM.MainConnection);
   with aDest as IBaseManageDB do
     UpdateStdFields := False;
   try
@@ -119,7 +119,7 @@ begin
             end;
           if aDest.FieldByName('TIMESTAMPD').AsDateTime>aSource.FieldByName('TIMESTAMPD').AsDateTime then
             begin
-              (BaseApplication as IBaseApplication).Info(Format('Dest is newer than Source, aborting ID:%s',[aSource.FieldByName('SQL_ID').AsString]));
+              (BaseApplication as IBaseApplication).Info(Format('Dest is newer than Source, aborting ID:%s',[IntToStr(aSource.FieldByName('SQL_ID').AsLargeInt)]));
               exit;
             end;
           aDest.Edit;
@@ -201,9 +201,9 @@ begin
       on e : exception do
         begin
           if SyncDB.Tables.DataSet.FieldByName('NAME').AsString = 'DELETEDITEMS' then //Delete Items from DB
-            (BaseApplication as IBaseApplication).Warning(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]))
+            (BaseApplication as IBaseApplication).Warning(Format(strRowSyncFailed,[IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt),e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]))
           else
-            (BaseApplication as IBaseApplication).Error(Format(strRowSyncFailed,[SyncTbl.FieldByName('SQL_ID').AsString,e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]));
+            (BaseApplication as IBaseApplication).Error(Format(strRowSyncFailed,[IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt),e.Message,SyncTbl.FieldByName('TIMESTAMPD').AsString]));
           aSyncError := TSyncItems.CreateEx(nil,SyncDB.DataModule);
           aSyncError.SelectByReference(SyncTbl.FieldByName('SQL_ID').AsVariant);
           aSyncError.Open;
@@ -213,7 +213,7 @@ begin
               aSyncError.FieldByName('LOCAL_ID').AsVariant:=SyncTbl.FieldByName('SQL_ID').AsVariant;
               aSyncError.FieldByName('SYNCTYPE').AsString:='sync_db';
               aSyncError.FieldByName('SYNCTABLE').AsString:=SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
-              aSyncError.FieldByName('REMOTE_ID').AsString:=SyncTbl.FieldByName('SQL_ID').AsString;
+              aSyncError.FieldByName('REMOTE_ID').AsString:=IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt);
               {$IF FPC_FULLVERSION>20600}
               aSyncError.FieldByName('SYNC_TIME').AsDateTime:=LocalTimeToUniversal(Now());
               {$ELSE}
@@ -305,7 +305,7 @@ begin
   if SyncTbl.FieldCount>2 then
     aSource := SyncTbl
   else
-    aSource := SourceDM.GetNewDataSet('select * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+SourceDM.QuoteField('SQL_ID')+'='+SourceDM.QuoteValue(SyncTbl.FieldByName('SQL_ID').AsString));
+    aSource := SourceDM.GetNewDataSet('select * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+SourceDM.QuoteField('SQL_ID')+'='+SourceDM.QuoteValue(IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt)));
   try
     try
       if not aSource.Active then
@@ -916,7 +916,8 @@ var
                       iMinimalDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
                       if aSyncCount > 0 then
                         Fullsynced:=FSyncedCount < aSyncCount
-                      else Fullsynced:=True;
+                      else
+                        Fullsynced:=True;
                       inc(SyncedTables,FSyncedCount);
                     end;
                 except
@@ -1057,7 +1058,7 @@ begin
                                     aSyncCount := 0;
                                     BlockSizeReached := False;
                                     SyncCount := 0;
-                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),15000);
+                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),10000);
                                     SyncedTables:=0;
                                     DoSyncTables;
                                   end;
