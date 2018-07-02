@@ -2,7 +2,7 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <BuildModes Active="Default">
       <SessionMatrixOptions Count="3">
         <Item1 ID="767039364805" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
@@ -14,7 +14,8 @@
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="3" Y="24"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="13" Y="25"/>
         <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -75,11 +76,9 @@
       <Unit8>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
         <TopLine Value="900"/>
         <CursorPos X="11" Y="920"/>
-        <FoldState Value=" T0.cEk-"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit8>
