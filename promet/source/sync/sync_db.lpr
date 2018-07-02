@@ -511,14 +511,19 @@ begin
   aTable := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
   if not ((SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y')
        or (SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y')) then exit;
-  if (DestDM.DataSetFromName(aTable,aCRT)) then
-    begin
-      tCRT := aCRT.CreateEx(nil,DestDM);
-      tCRT.CreateTable;
-      tCRT.Select(0);
-      tCRT.Open;
-      tCRT.Free;
-    end;
+  try
+    if (DestDM.DataSetFromName(aTable,aCRT)) then
+      begin
+        tCRT := aCRT.CreateEx(nil,DestDM);
+        tCRT.CreateTable;
+        tCRT.Select(0);
+        tCRT.Open;
+        tCRT.Free;
+      end;
+  except
+    on e : exception do
+      writeln('failed to update Table ! ',e.Message);
+  end;
   if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString=Utils.GetSystemName) or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) then
     begin
       DoUnlock := not (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString=Utils.GetSystemName);
