@@ -163,7 +163,17 @@ begin
                       aStream.Free;
                       DoPost := True;
                     end
-                  else if (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant) then
+                  else if (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant)
+                       and (aFieldName <> 'TIMESTAMPD')
+                       then
+                    begin
+                      aDest.FieldByName(aFieldName).AsVariant := aSource.FieldByName(aFieldName).AsVariant;
+                      DoPost := True;
+                    end
+                  else if (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant)
+                       and (aFieldName = 'TIMESTAMPD')
+                       and (RoundTo(aDest.FieldByName(aFieldName).AsFloat,2)<>roundTo(aSource.FieldByName(aFieldName).AsFloat,2))
+                       then
                     begin
                       aDest.FieldByName(aFieldName).AsVariant := aSource.FieldByName(aFieldName).AsVariant;
                       DoPost := True;
@@ -186,15 +196,17 @@ begin
           aDest.FieldByName('TIMESTAMPD').AsDateTime:=Now();
           {$ENDIF}
       if DoPost then
-        aDest.Post;
-      //remove SyncError Items on succesful synced Table
-      aSyncError.SelectByReference(SyncTbl.FieldByName('SQL_ID').AsVariant);
-      aSyncError.Open;
-      while not aSyncError.EOF do
         begin
-          if aSyncError.FieldByName('ERROR').AsString='Y' then
-            aSyncError.Delete
-          else aSyncError.Next;
+          aDest.Post;
+          //remove SyncError Items on succesful synced Table
+          aSyncError.SelectByReference(SyncTbl.FieldByName('SQL_ID').AsVariant);
+          aSyncError.Open;
+          while not aSyncError.EOF do
+            begin
+              if aSyncError.FieldByName('ERROR').AsString='Y' then
+                aSyncError.Delete
+              else aSyncError.Next;
+            end;
         end;
       //TODO-:TimestampD must be not actial Time !!!
     except
