@@ -20,6 +20,13 @@ type
     function FixDataFields(aFieldName: string): string; override;
   end;
 
+  { TAvammDataSetData }
+
+  TAvammDataSetData = class(TFPReportDatasetData)
+  protected
+    procedure DoClose; override;
+  end;
+
   { TfWebReports }
 
   TfWebReports = class(TComponent)
@@ -88,6 +95,13 @@ var
 implementation
 
 uses uBaseApplication,Utils,variants,FPimage,fpTTF,FPCanvas,FPImgCanv,synautil;
+
+{ TAvammDataSetData }
+
+procedure TAvammDataSetData.DoClose;
+begin
+  //do nothing
+end;
 
 { TInternalFPLazReport }
 
@@ -546,9 +560,8 @@ begin
         end;
         if (FindComponent(NewTableName)=nil) and (FindComponent(NewTableName)=nil) then
           begin
-            aDS := TFPReportDatasetData.Create(nil);
+            aDS := TAvammDataSetData.Create(nil);
             aDS.Name:=NewTableName;
-            //aDS.OpenDataSource:=True;
             aDS.DataSet := aDataSet;
             Self.InsertComponent(aDS);
             aDS.Open;
@@ -589,7 +602,7 @@ begin
       begin
         if (FindComponent(aName)=nil) and (FindComponent(aName)=nil) then
           begin
-            aDS := TFPReportDatasetData.Create(Self);
+            aDS := TAvammDataSetData.Create(Self);
             aDS.Name:=aName;
             aDS.DataSet := aDataSet;
             aDS.Open;
