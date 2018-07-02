@@ -40,25 +40,25 @@
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="26"/>
-        <CursorPos X="26" Y="32"/>
+        <TopLine Value="499"/>
+        <CursorPos X="89" Y="511"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\base\dbintfs\usync.pas"/>
-        <EditorIndex Value="9"/>
-        <TopLine Value="601"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="562"/>
         <CursorPos X="29" Y="642"/>
-        <UsageCount Value="99"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="366"/>
-        <CursorPos X="7" Y="388"/>
+        <TopLine Value="1391"/>
+        <CursorPos X="58" Y="1562"/>
         <UsageCount Value="101"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -73,11 +73,10 @@
       <Unit4>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="294"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="282"/>
         <CursorPos Y="318"/>
-        <UsageCount Value="83"/>
+        <UsageCount Value="84"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
@@ -91,10 +90,11 @@
       <Unit6>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="1541"/>
-        <CursorPos Y="1568"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="1553"/>
+        <CursorPos Y="1575"/>
         <UsageCount Value="90"/>
+        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\base\base_erp\fautomationform.pas"/>
@@ -126,10 +126,10 @@
       </Unit10>
       <Unit11>
         <Filename Value="..\base\dbintfs\uprometscripts.pas"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <TopLine Value="641"/>
         <CursorPos X="45" Y="680"/>
-        <UsageCount Value="99"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -167,10 +167,10 @@
       <Unit16>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="1187"/>
         <CursorPos X="25" Y="1208"/>
-        <UsageCount Value="93"/>
+        <UsageCount Value="94"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -184,10 +184,10 @@
       </Unit17>
       <Unit18>
         <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="5"/>
         <CursorPos X="21" Y="24"/>
-        <UsageCount Value="81"/>
+        <UsageCount Value="82"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
@@ -258,9 +258,9 @@
         <Filename Value="..\base\dbintfs\uprojects.pas"/>
         <UnitName Value="uProjects"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="683"/>
-        <CursorPos X="26" Y="731"/>
-        <UsageCount Value="44"/>
+        <TopLine Value="407"/>
+        <CursorPos Y="430"/>
+        <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit27>
       <Unit28>
@@ -294,9 +294,9 @@
       </Unit31>
       <Unit32>
         <Filename Value="..\base\pcmdprometapp.pas"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <CursorPos X="3" Y="10"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="47"/>
         <Loaded Value="True"/>
       </Unit32>
       <Unit33>
@@ -312,17 +312,18 @@
         <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
         <UnitName Value="uAbstractDBLayer"/>
         <EditorIndex Value="2"/>
-        <CursorPos X="30" Y="86"/>
-        <UsageCount Value="24"/>
+        <TopLine Value="341"/>
+        <CursorPos Y="365"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="103"/>
-        <CursorPos X="14" Y="124"/>
-        <UsageCount Value="24"/>
+        <TopLine Value="432"/>
+        <CursorPos Y="456"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit35>
       <Unit36>
@@ -337,10 +338,11 @@
       <Unit37>
         <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
         <UnitName Value="uBaseDatasetInterfaces"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="544"/>
-        <CursorPos X="3" Y="545"/>
-        <UsageCount Value="13"/>
+        <TopLine Value="550"/>
+        <CursorPos X="3" Y="571"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit37>
       <Unit38>
@@ -351,119 +353,127 @@
         <UsageCount Value="10"/>
       </Unit38>
     </Units>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="129" TopLine="108"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1003" TopLine="981"/>
       </Position1>
       <Position2>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="130" TopLine="108"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1004" TopLine="981"/>
       </Position2>
       <Position3>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="131" TopLine="108"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1005" TopLine="981"/>
       </Position3>
       <Position4>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="134" TopLine="108"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="914" TopLine="893"/>
       </Position4>
       <Position5>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="136" TopLine="108"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1112" TopLine="1090"/>
       </Position5>
       <Position6>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="137" TopLine="108"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1113" TopLine="1090"/>
       </Position6>
       <Position7>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="138" TopLine="108"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1114" TopLine="1090"/>
       </Position7>
       <Position8>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="144" TopLine="109"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1115" TopLine="1090"/>
       </Position8>
       <Position9>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="166" TopLine="145"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1116" TopLine="1090"/>
       </Position9>
       <Position10>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="174" TopLine="150"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="916" TopLine="893"/>
       </Position10>
       <Position11>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="176" TopLine="150"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="917" TopLine="893"/>
       </Position11>
       <Position12>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="181" TopLine="162"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="918" TopLine="893"/>
       </Position12>
       <Position13>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="182" TopLine="162"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="765" TopLine="743"/>
       </Position13>
       <Position14>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="188" TopLine="162"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="766" TopLine="743"/>
       </Position14>
       <Position15>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="189" TopLine="162"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="767" TopLine="743"/>
       </Position15>
       <Position16>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="191" TopLine="162"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1252" TopLine="1230"/>
       </Position16>
       <Position17>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="192" TopLine="162"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1253" TopLine="1230"/>
       </Position17>
       <Position18>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="193" TopLine="162"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="1254" TopLine="1230"/>
       </Position18>
       <Position19>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="196" TopLine="169"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="768" TopLine="743"/>
       </Position19>
       <Position20>
-        <Filename Value="sync_db.lpr"/>
-        <Caret Line="229" TopLine="208"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="363" TopLine="341"/>
       </Position20>
       <Position21>
         <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="257" Column="26" TopLine="251"/>
+        <Caret Line="364" TopLine="341"/>
       </Position21>
       <Position22>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="372" Column="42" TopLine="354"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="454" TopLine="432"/>
       </Position22>
       <Position23>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="381" Column="42" TopLine="360"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="455" TopLine="432"/>
       </Position23>
       <Position24>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="90" Column="31" TopLine="78"/>
+        <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
+        <Caret Line="456" TopLine="432"/>
       </Position24>
       <Position25>
         <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="372" Column="44" TopLine="348"/>
+        <Caret Line="365" TopLine="341"/>
       </Position25>
       <Position26>
         <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
-        <Caret Line="800" Column="45" TopLine="799"/>
+        <Caret Line="918" Column="96" TopLine="891"/>
       </Position26>
       <Position27>
         <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
-        <Caret Line="912" Column="96" TopLine="891"/>
+        <Caret Line="594" Column="106" TopLine="556"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1580" TopLine="1556"/>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="517" Column="33" TopLine="499"/>
       </Position28>
+      <Position29>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="508" TopLine="499"/>
+      </Position29>
+      <Position30>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="517" Column="58" TopLine="499"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -495,9 +505,18 @@
     </Other>
   </CompilerOptions>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_db.lpr"/>
+        <Line Value="507"/>
+      </Item1>
+    </BreakPoints>
     <Watches Count="1">
       <Item1>
-        <Expression Value="aSQL"/>
+        <Expression Value="tmpSize"/>
       </Item1>
     </Watches>
     <Exceptions Count="7">

@@ -499,7 +499,7 @@ begin
   aTable := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
   if not ((SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y')
        or (SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y')) then exit;
-  if (not DestDM.TableExists(aTable)) and (DestDM.DataSetFromName(aTable,aCRT)) then
+  if (not DestDM.TableExists(aTable) or DestDm.ShouldCheckTable(aTable)) and (DestDM.DataSetFromName(aTable,aCRT)) then
     begin
       tCRT := aCRT.CreateEx(nil,DestDM);
       tCRT.CreateTable;
