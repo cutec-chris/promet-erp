@@ -1,9 +1,0 @@
-{ This is an automatically generated lazarus resource file }
-
-LazarusResources.Add('TaData','FORMDATA',[
-  'TPF0'#6'TaData'#5'aData'#8'OnCreate'#7#16'DataModuleCreate'#14'OldCreateOrde'
-  +'r'#8#6'Height'#2#127#16'HorizontalOffset'#3#192#2#14'VerticalOffset'#3's'#1
-  +#5'Width'#3#200#0#0#4'TDbf'#5'dbase'#8'FilePath'#6#25'C:\Prometheus\Update\D'
-  +'BS\'#9'IndexDefs'#14#0#9'TableName'#6#12'Contact1.DBF'#10'TableLevel'#2#4#13
-  +'FilterOptions'#11#0#4'left'#2#23#3'top'#2#8#0#0#0
-]);
