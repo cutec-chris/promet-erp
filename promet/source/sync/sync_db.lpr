@@ -85,22 +85,26 @@ begin
   Result := True;
   if Assigned(FTempDataSet) and (FTempDataSetName = SyncDB.Tables.DataSet.FieldByName('NAME').AsString) and FTempDataSet.Locate('SQL_ID',SyncTbl.FieldByName('SQL_ID').AsVariant,[]) and BaseApplication.HasOption('d','dontupdate') then
     exit;
-  if SyncTbl.FieldCount>2 then
-    aSource := SyncTbl
-  else
-    aSource := SourceDM.GetNewDataSet('select * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+SourceDM.QuoteField('SQL_ID')+'='+SourceDM.QuoteValue(IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt)));
   if Assigned(FTempDataSet) and (SyncDB.Tables.DataSet.FieldByName('NAME').AsString=FTempDataSetName) then
     aDest := FTempDataSet
   else
     aDest := DestDM.GetNewDataSet('select * from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+DestDM.QuoteField('SQL_ID')+'='+DestDM.QuoteValue(IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt)),DestDM.MainConnection);
+  if not aDest.Active then
+    aDest.Open;
+  if RoundTo(aDest.FieldByName('TIMESTAMPD').AsDateTime,3)=RoundTo(SyncTbl.FieldByName('TIMESTAMPD').AsDateTime,3) then
+    begin
+      exit;
+    end;
+  if SyncTbl.FieldCount>2 then
+    aSource := SyncTbl
+  else
+    aSource := SourceDM.GetNewDataSet('select * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+SourceDM.QuoteField('SQL_ID')+'='+SourceDM.QuoteValue(IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt)));
   with aDest as IBaseManageDB do
     UpdateStdFields := False;
   try
     try
       if not aSource.Active then
         aSource.Open;
-      if not aDest.Active then
-        aDest.Open;
       if not aDest.Locate('SQL_ID',aSource.FieldByName('SQL_ID').AsVariant,[]) then
         begin
           aDest.Append;
