@@ -49,7 +49,7 @@ type
     function SyncRow(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
     function SyncRowDirect(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
     function SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;
-      SyncCount: Integer;var aMinDate : TDateTime): Integer;
+      SyncCount: Integer;var aMinDate : TDateTime;DontsetTimestamp : Boolean = False): Integer;
     procedure CollectSubDataSets(SyncDB : TSyncDB;DestDM : TBaseDBModule);
   protected
     procedure DoRun; override;
@@ -424,7 +424,8 @@ begin
 end;
 
 function TSyncDBApp.SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;
-  SyncCount: Integer; var aMinDate: TDateTime): Integer;
+  SyncCount: Integer; var aMinDate: TDateTime; DontsetTimestamp: Boolean
+  ): Integer;
 function BuildFilter(aSourceDM,aDestDM : TBaseDBModule;aTime : TDateTime = 0) : string;
 var
   aFilter: String;
@@ -439,7 +440,7 @@ begin
             aTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
           if aTime > SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime then
             aTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
-          if (aTime > aMinDate) and (aMinDate>0) then
+          if ((aTime > aMinDate) and (aMinDate>0)) or (DontsetTimestamp and (aMinDate>0)) then
             aTime := aMinDate;
           if BaseApplication.HasOption('w','wholeday') then
             begin
@@ -491,7 +492,7 @@ var
 
   procedure UpdateTime(DoSetIt : Boolean = True);
   begin
-    if (not RestoreTime) and SetTime then
+    if (not DontsetTimestamp) and (not RestoreTime) and SetTime then
       begin
         SyncDB.Tables.DataSet.Edit;
         if (aLastRowTimeOut>0) and (aLastRowTimeOut<aLastRowTime) then
@@ -524,9 +525,14 @@ begin
     on e : exception do
       writeln('failed to update Table ! ',e.Message);
   end;
-  if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString=Utils.GetSystemName) or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) then
+  if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString=Utils.GetSystemName) or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) or DontsetTimestamp then
     begin
       DoUnlock := not (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString=Utils.GetSystemName);
+      if DontsetTimestamp then
+        begin
+          DoUnlock:=False;
+          SyncCount:=0;
+        end;
       if DoUnlock then
         begin
           SyncDB.Tables.DataSet.Edit;
@@ -652,7 +658,8 @@ begin
                 (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncOut.RecordCount,'<',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
                 (BaseApplication as IBaseApplication).Info(aFilter);
               end;
-            if BaseApplication.HasOption('syncblocks') and (aFilter<>'') then
+
+{            if BaseApplication.HasOption('syncblocks') and (aFilter<>'') then
               begin
                 try
                   aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
@@ -687,7 +694,7 @@ begin
                   FreeAndNil(FTempDataSet);
                 end;
               end
-            else FreeAndNil(FTempDataSet);
+            else }FreeAndNil(FTempDataSet);
             try
               while not aSyncOut.EOF do
                 begin
@@ -851,6 +858,8 @@ var
   aTableName: String;
   aMS: TMemoryStream;
   aIMinDate: TDateTime = 0;
+  tmp: String;
+  tmpf: Extended;
   procedure DoCreateTable(aTableC : TClass);
   var
     aTableName: string;
@@ -867,7 +876,7 @@ var
     except
     end;
   end;
-  procedure DoSyncTables(IgnoreParent : Boolean = False;MinimalDate : TDateTime = 0;aLevel : Integer = 0);
+  procedure DoSyncTables(IgnoreParent : Boolean = False;MinimalDate : TDateTime = 0;aLevel : Integer = 0;DontSetTimestamp : Boolean = false);
   var
     aRec2 : Variant;
     aMinDate: TDateTime=0;
@@ -885,10 +894,10 @@ var
         or IgnoreParent
         then
           begin
-            if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) then
+            if (SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString='') or (SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime<({$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now())-0.25)) or DontSetTimestamp then
               begin
                 aTableName := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
-                if aLevel=0 then
+                if (aLevel=0) and (not DontSetTimestamp) then
                   begin
                     //Lock Level 0 Table and start Transaction
                     SyncDB.Tables.DataSet.Edit;
@@ -929,7 +938,7 @@ var
                     begin
                       FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                       FOldSyncCount := FSyncedCount;
-                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount,iMinimalDate);
+                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount,iMinimalDate,DontSetTimestamp);
                       iMinimalDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
                       if aSyncCount > 0 then
                         Fullsynced:=FSyncedCount < aSyncCount
@@ -943,10 +952,13 @@ var
                       Error(e.Message);
                       FLog.Add('=====Error=====');
                       FLog.Add(e.Message);
-                      SyncDB.Tables.Edit;
-                      SyncDB.Tables.FieldByName('LOCKEDBY').Clear;
-                      SyncDB.Tables.FieldByName('LOCKEDAT').Clear;
-                      SyncDB.Tables.Post;
+                      if not DontSetTimestamp then
+                        begin
+                          SyncDB.Tables.Edit;
+                          SyncDB.Tables.FieldByName('LOCKEDBY').Clear;
+                          SyncDB.Tables.FieldByName('LOCKEDAT').Clear;
+                          SyncDB.Tables.Post;
+                        end;
                     end;
                 end;
                 //Sync Sub Tables
@@ -956,7 +968,7 @@ var
                     aLastFilter := SyncDB.Tables.ActualFilter;
                     SyncDB.Tables.Filter(Data.QuoteField('PARENT')+'='+Data.QuoteValue(aRec2));
                     if not SyncDB.Tables.GotoBookmark(aRec2) then
-                      DoSyncTables(True,aMinDate,aLevel+1);
+                      DoSyncTables(True,aMinDate,aLevel+1,DontSetTimestamp);
                     SyncDB.Tables.Filter(aLastFilter);
                     SyncDB.Tables.GotoBookmark(aRec2);
                   end;
@@ -968,10 +980,13 @@ var
                         uData.Data.CommitTransaction(uData.Data.MainConnection);
                       end;
                     //UnLock Level 0 Table and Rollback Transaction
-                    SyncDB.Tables.Edit;
-                    SyncDB.Tables.FieldByName('LOCKEDBY').Clear;
-                    SyncDB.Tables.FieldByName('LOCKEDAT').Clear;
-                    SyncDB.Tables.Post;
+                    if not DontSetTimestamp then
+                      begin
+                        SyncDB.Tables.Edit;
+                        SyncDB.Tables.FieldByName('LOCKEDBY').Clear;
+                        SyncDB.Tables.FieldByName('LOCKEDAT').Clear;
+                        SyncDB.Tables.Post;
+                      end;
                   end;
               end;
           end;
@@ -1077,7 +1092,15 @@ begin
                                     SyncCount := 0;
                                     aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),10000);
                                     SyncedTables:=0;
-                                    DoSyncTables;
+                                    if HasOption('starttime') then
+                                      begin
+                                        tmp := GetOptionValue('starttime');
+                                        if TryStrToFloat(tmp,tmpf) then
+                                          DoSyncTables(False,Now()+tmpf,0,true)
+                                        else DoSyncTables;
+                                      end
+                                    else
+                                      DoSyncTables;
                                   end;
                                 DBLogout;
                               end
