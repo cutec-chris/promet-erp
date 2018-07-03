@@ -436,7 +436,7 @@ var
 begin
   if GetOptionValue('sql_id')='' then
     begin
-      if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = '' then
+      if (SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString = '') and (not DontsetTimestamp) then
         aFilter := ''
       else
         begin
@@ -922,13 +922,12 @@ var
                   Fullsynced := False;
                   if SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString='' then
                     FOldTime:='a';
-                  aMinDate:=0;
-                  if SyncDB.Tables.FieldByName('LTIMESTAMP').AsString<>'' then
-                    begin
-                      aMinDate := SyncDB.Tables.FieldByName('LTIMESTAMP').AsDateTime;
-                      if (aMinDate>MinimalDate) and (MinimalDate>0) then
-                        aMinDate:=MinimalDate;
-                    end;
+                  if not DontSetTimestamp then
+                    aMinDate:=0;
+                  if (SyncDB.Tables.FieldByName('LTIMESTAMP').AsString<>'') then
+                    aMinDate := SyncDB.Tables.FieldByName('LTIMESTAMP').AsDateTime;
+                  if (((aMinDate>MinimalDate) or DontSetTimestamp) and (MinimalDate>0)) then
+                    aMinDate:=MinimalDate;
                   if HasOption('retry') then
                     begin
                       nSQL := Data.GetNewDataSet('select min('+Data.QuoteField('TIMESTAMPD')+') as mintime from '+Data.QuoteField(aSyncError.TableName)+' where '+Data.QuoteField('SYNCTABLE')+'='+Data.QuoteValue(aTableName));
