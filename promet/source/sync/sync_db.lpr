@@ -90,8 +90,8 @@ begin
     aDest := DestDM.GetNewDataSet('select * from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+DestDM.QuoteField('SQL_ID')+'='+DestDM.QuoteValue(IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt)),DestDM.MainConnection);
   if not aDest.Active then
     aDest.Open;
-//  if RoundTo(aDest.FieldByName('TIMESTAMPD').AsDateTime,4)=RoundTo(SyncTbl.FieldByName('TIMESTAMPD').AsDateTime,3) then
-//    exit;
+  if RoundTo(aDest.FieldByName('TIMESTAMPD').AsDateTime,3)=RoundTo(SyncTbl.FieldByName('TIMESTAMPD').AsDateTime,3) then
+    exit;
   if SyncTbl.FieldCount>2 then
     aSource := SyncTbl
   else
@@ -195,6 +195,13 @@ begin
           aDest.FieldByName('TIMESTAMPD').AsDateTime:=LocalTimeToUniversal(Now());
           {$ELSE}
           aDest.FieldByName('TIMESTAMPD').AsDateTime:=Now();
+          {$ENDIF}
+      if (aDest.FieldDefs.IndexOf('LOCKEDAT') > -1) and (not aDest.FieldByName('LOCKEDAT').ReadOnly) then
+        if aDest.FieldByName('LOCKEDAT').IsNull then
+          {$IF FPC_FULLVERSION>20600}
+          aDest.FieldByName('LOCKEDAT').AsDateTime:=LocalTimeToUniversal(Now());
+          {$ELSE}
+          aDest.FieldByName('LOCKEDAT').AsDateTime:=Now();
           {$ENDIF}
       if DoPost then
         begin
@@ -539,7 +546,6 @@ begin
             if (aFilter<>'') and (aTableName<>'DOCUMENTS') then
               begin
                 try
-                  aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),0);
                   if DestDM.LimitAfterSelect then
                     tmp := 'select COUNT(*) as '+DestDM.QuoteField('dscount')+',MIN('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('mintime')+',MAX('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('maxtime')+' from ( select '+Format(SourceDM.LimitSTMT,[IntToStr(aSyncCount)])+' '+DestDm.QuoteField('TIMESTAMPD')+' from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+aSQLF+') '+SyncDB.Tables.DataSet.FieldByName('NAME').AsString
                   else
@@ -779,7 +785,7 @@ var
                     SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString:=Utils.GetSystemName;
                     SyncDB.Tables.DataSet.FieldByName('LOCKEDAT').AsDateTime:={$IF FPC_FULLVERSION>20600}LocalTimeToUniversal{$ENDIF}(Now());
                     SyncDB.Tables.DataSet.Post;
-                    if not BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We dont want to lock for an long time
+                    if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We dont want to lock for an long time
                       begin
                         FDest.GetDB.StartTransaction(FDest.GetDB.MainConnection);
                         uData.Data.StartTransaction(uData.Data.MainConnection);
@@ -818,6 +824,11 @@ var
                         Fullsynced:=FSyncedCount < aSyncCount
                       else
                         Fullsynced:=True;
+                      try
+                        //if (FSyncedCount>0) and FDest.GetDB.IsSQLDB then
+                        //  FDest.GetDB.ExecuteDirect('update '+FDest.GetDB.QuoteField(aTableName)+' set '+FDest.GetDB.QuoteField('LOCKEDAT')+'=null where '+FDest.GetDB.QuoteField('LOCKEDAT')+' is not null');
+                      except
+                      end;
                       inc(SyncedTables,FSyncedCount);
                     end;
                 except
@@ -848,7 +859,7 @@ var
                   end;
                 if aLevel=0 then
                   begin
-                    if not BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We dont want to lock for an long time
+                    if BaseApplication.HasOption('usetransactions') then //Use Transactions only when Partially syncing We dont want to lock for an long time
                       begin
                         FDest.GetDB.CommitTransaction(FDest.GetDB.MainConnection);
                         uData.Data.CommitTransaction(uData.Data.MainConnection);
@@ -946,6 +957,7 @@ begin
                                 if SyncDB.DataSet.FieldByName('SYNCOFFS').AsInteger = aSyncOffs then
                                   begin
                                     DoCreateTable(TDeletedItems);
+                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),10000);
                                     SyncDB.Tables.Open;
                                     if SyncDB.Tables.DataSet.Locate('NAME','USERFIELDDEFS',[loCaseInSensitive]) then
                                       begin
@@ -961,10 +973,8 @@ begin
                                     SyncDB.Tables.DataSet.First;
                                     SyncedTables := (SyncDB.Tables.Count*4);
                                     SyncCount := 0;
-                                    aSyncCount := 0;
                                     BlockSizeReached := False;
                                     SyncCount := 0;
-                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),10000);
                                     SyncedTables:=0;
                                     if HasOption('starttime') then
                                       begin
