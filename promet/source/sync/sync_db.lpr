@@ -69,7 +69,7 @@ resourcestring
 function TSyncDBApp.SyncRow(SyncDB: TSyncDB; SyncTbl: TDataSet; SourceDM,
   DestDM: TBaseDBModule;SyncOut : Boolean = True) : Boolean;
 var
-  aSource: TDataSet;
+  aSource: TDataSet = nil;
   aDest: TDataSet;
   i: Integer;
   aFieldName: String;
@@ -87,18 +87,21 @@ begin
   if Assigned(FTempDataSet) and (SyncDB.Tables.DataSet.FieldByName('NAME').AsString=FTempDataSetName) and FTempDataSet.Locate('SQL_ID',SyncTbl.FieldByName('SQL_ID').AsVariant,[]) then
     aDest := FTempDataSet
   else
-    aDest := DestDM.GetNewDataSet('select * from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+DestDM.QuoteField('SQL_ID')+'='+DestDM.QuoteValue(IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt)),DestDM.MainConnection);
-  if not aDest.Active then
-    aDest.Open;
+    begin
+      aDest := DestDM.GetNewDataSet('select * from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+DestDM.QuoteField('SQL_ID')+'='+DestDM.QuoteValue(IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt)),DestDM.MainConnection);
+      aDest.Open;
+    end;
+  try
   if RoundTo(aDest.FieldByName('TIMESTAMPD').AsDateTime,3)=RoundTo(SyncTbl.FieldByName('TIMESTAMPD').AsDateTime,3) then
-    exit;
+    begin
+      exit;
+    end;
   if SyncTbl.FieldCount>2 then
     aSource := SyncTbl
   else
     aSource := SourceDM.GetNewDataSet('select * from '+SourceDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+' where '+SourceDM.QuoteField('SQL_ID')+'='+SourceDM.QuoteValue(IntToStr(SyncTbl.FieldByName('SQL_ID').AsLargeInt)));
   with aDest as IBaseManageDB do
     UpdateStdFields := False;
-  try
     try
       if not aSource.Active then
         aSource.Open;
