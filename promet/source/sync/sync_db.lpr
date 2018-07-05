@@ -93,9 +93,7 @@ begin
     end;
   try
   if RoundTo(aDest.FieldByName('TIMESTAMPD').AsDateTime,3)=RoundTo(SyncTbl.FieldByName('TIMESTAMPD').AsDateTime,3) then
-    begin
-      exit;
-    end;
+    exit;
   if SyncTbl.FieldCount>2 then
     aSource := SyncTbl
   else
@@ -605,6 +603,7 @@ begin
                 end;
             end;
           end;
+        FreeAndNil(FTempDataSet);
         aFilter := BuildFilter(DestDM,SourceDM,aSyncTime);
         if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
           begin
@@ -774,7 +773,7 @@ var
     while not SyncDB.Tables.DataSet.EOF do
       begin
         if ((GetOptionValue('table')='') or (GetOptionValue('table')=SyncDB.Tables.DataSet.FieldByName('NAME').AsString))
-        and (SyncDB.Tables.FieldByName('PARENT').IsNull)
+        and ((SyncDB.Tables.FieldByName('PARENT').IsNull) or (GetOptionValue('table')=SyncDB.Tables.DataSet.FieldByName('NAME').AsString))
         or IgnoreParent
         then
           begin
