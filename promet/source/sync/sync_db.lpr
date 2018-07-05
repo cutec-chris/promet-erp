@@ -40,6 +40,8 @@ type
     FTempDataSetName : string;
     FDest : TBaseDBInterface;
     aGlobalTime : TDateTime;
+    LastRowTimeIn : TDateTime;
+    LastRowTimeOut : TDateTime;
     aLastRowTime : TDateTime;
     FLog : TStringList;
     FTables : TStringList;
@@ -357,7 +359,6 @@ var
   aTableName: String;
   RestoreTime: Boolean = False;
   SetTime : Boolean = False;
-  aOldTime: TDateTime;
   aSyncStamps: TSyncStamps;
   aSyncTime: TDateTime;
   bFilter: String;
@@ -373,22 +374,20 @@ var
   tmp: String;
   aSyncCount: Integer;
   DoUnlock: Boolean;
-  aLastRowTimeOut: TDateTime = 0;
 
   procedure UpdateTime(DoSetIt : Boolean = True);
   begin
-    if (not DontsetTimestamp) and (not RestoreTime) and SetTime then
+    if (not DontsetTimestamp) and (not RestoreTime) {and SetTime} then
       begin
         SyncDB.Tables.DataSet.Edit;
-        if (aLastRowTimeOut>0) and (aLastRowTimeOut<aLastRowTime) then
-          aLastRowTime := aLastRowTimeOut;
-        if (aLastRowTime>0) and (aOldTime<>aLastRowTime) then
-          SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aLastRowTime
-        else
-          SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aGlobalTime;
+        aLastRowTime:=LastRowTimeIn;
+        if (LastRowTimeOut>0) and ((LastRowTimeOut<LastRowTimeIn) or (aLastRowTime=0)) then
+          aLastRowTime := LastRowTimeOut;
+        if (aLastRowTime>0) then
+          SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime := aLastRowTime;
         SyncDB.Tables.DataSet.Post;
-        if aMinDate>SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime then
-          aMinDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
+        if aMinDate>aLastRowTime then
+          aMinDate:=aLastRowTime;
       end;
   end;
 
@@ -532,10 +531,9 @@ begin
         aSyncOutTime:=aGlobalTime;
 
 //Then sync them
+        aLastRowTime:=0;
         if SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y' then //Out
           begin
-            aOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
-            aLastRowTime:=aOldTime;
             if aSyncOut.RecordCount > 0 then
               begin
                 TimeSet := True;
@@ -603,13 +601,12 @@ begin
                 end;
             end;
           end;
+        LastRowTimeOut:=aLastRowTime;
+        aLastRowTime:=0;
         FreeAndNil(FTempDataSet);
         aFilter := BuildFilter(DestDM,SourceDM,aSyncTime);
         if SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y' then //In
           begin
-            aLastRowTimeOut := aLastRowTime;
-            aOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
-            aLastRowTime:=aOldTime;
             if (aSyncIn.RecordCount > 0) then
               begin
                 SetTime := True;
@@ -639,6 +636,8 @@ begin
                 end;
             end;
           end;
+        LastRowTimeIn:=aLastRowTime;
+        aLastRowTime:=0;
         UpdateTime;
         if (aFirstSyncedRow<bFirstSyncedRow) and (not RestoreTime) then
           begin
@@ -782,6 +781,8 @@ var
                 aTableName := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
                 if (aLevel=0) and (not DontSetTimestamp) then
                   begin
+                    LastRowTimeIn:=0;
+                    LastRowTimeOut:=0;
                     //Lock Level 0 Table and start Transaction
                     SyncDB.Tables.DataSet.Edit;
                     SyncDB.Tables.DataSet.FieldByName('LOCKEDBY').AsString:=Utils.GetSystemName;
