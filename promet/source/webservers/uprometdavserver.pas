@@ -60,7 +60,7 @@ type
 
 implementation
 
-uses uData;
+uses uData,uAbstractDBLayer;
 
 const
   WebFormatSettings : TFormatSettings = (
@@ -1142,9 +1142,8 @@ begin
               aDataSet.Open;
               if aDataSet.Count>0 then
                 begin
-                  nStream := TBaseDBModule(aSocket.Data).BlobFieldStream(aDataSet.DataSet,tmp);
-                  Stream.CopyFrom(nStream,0);
-                  if Stream.Size>0 then
+                  Stream.Position:=0;
+                  if TAbstractDBModule(aSocket.Data).BlobFieldToStream(aDataSet.DataSet,tmp,Stream,-1) then
                     Result := True;
                 end;
               aDataSet.Free;
