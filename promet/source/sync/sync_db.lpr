@@ -94,7 +94,7 @@ begin
       aDest.Open;
     end;
   try
-  if RoundTo(aDest.FieldByName('TIMESTAMPD').AsDateTime,3)=RoundTo(SyncTbl.FieldByName('TIMESTAMPD').AsDateTime,3) then
+  if aDest.FieldByName('TIMESTAMPD').AsDateTime=SyncTbl.FieldByName('TIMESTAMPD').AsDateTime then
     exit;
   if SyncTbl.FieldCount>2 then
     aSource := SyncTbl
@@ -176,7 +176,7 @@ begin
                     end
                   else if (aDest.FieldByName(aFieldName).AsVariant <> aSource.FieldByName(aFieldName).AsVariant)
                        and (aFieldName = 'TIMESTAMPD')
-                       and (RoundTo(aDest.FieldByName(aFieldName).AsFloat,2)<>roundTo(aSource.FieldByName(aFieldName).AsFloat,2))
+                       and (aDest.FieldByName(aFieldName).AsFloat<>aSource.FieldByName(aFieldName).AsFloat)
                        then
                     begin
                       aDest.FieldByName(aFieldName).AsVariant := aSource.FieldByName(aFieldName).AsVariant;
