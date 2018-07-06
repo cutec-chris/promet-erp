@@ -1089,7 +1089,7 @@ begin
                   if aDataSet.ActualFilter <> '' then
                     aDataSet.ActualFilter:=aDataSet.ActualFilter+' AND '+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)
                   else
-                    aDataSet.ActualFilter:=Data.QuoteField('REF_ID')+'='+Data.QuoteField(Data.Users.Id.AsString);
+                    aDataSet.ActualFilter:=Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString);
                 end;
               aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(QueryFields.Values['limit']),100);
               aDataSet.Open;
