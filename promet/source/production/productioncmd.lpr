@@ -15,9 +15,17 @@ var
 begin
   ExitCode:=255;
   tmp := '';
-  for i := 1 to Paramcount do
-    tmp := tmp+' '+ParamStr(i);
   aTL := TTelnetSend.Create;
+  aTL.Timeout:=40000;
+  for i := 1 to Paramcount do
+    begin
+      if copy(ParamStr(i),0,10)='--timeout=' then
+        begin
+          aTL.Timeout:=StrToIntDef(copy(ParamStr(i),11,length(ParamStr(i))),40)*1000;
+        end
+      else
+        tmp := tmp+' '+ParamStr(i);
+    end;
   aTL.TargetHost:='localhost';
   aTL.TargetPort:='9874';
   if not aTL.Login then
@@ -26,7 +34,6 @@ begin
       ExitCode:=253;
       exit;
     end;
-  aTL.Timeout:=40000;
   aTL.Send(trim(tmp)+#13#10);
   aRes := aTL.RecvString;
   if IsNumeric(aRes) then
