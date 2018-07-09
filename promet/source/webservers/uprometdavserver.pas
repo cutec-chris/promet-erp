@@ -1113,6 +1113,8 @@ begin
                       else if (aDataSet.DataSet.FieldDefs[i].DataType=ftInteger)
                            or (aDataSet.DataSet.FieldDefs[i].DataType=ftLargeint) then
                         tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": '+aDataSet.DataSet.Fields[i].AsString
+                      else if (aDataSet.DataSet.FieldDefs[i].DataType=ftFloat) then
+                        tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": '+Format('%.3f',[aDataSet.DataSet.Fields[i].AsFloat])
                       else
                         tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": "'+StringReplace(StringToJSONString(aDataSet.DataSet.Fields[i].AsString),'','*',[rfReplaceAll])+'"';
                     end;
