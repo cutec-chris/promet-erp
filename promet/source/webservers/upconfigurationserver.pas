@@ -187,31 +187,41 @@ begin
             else if lowercase(url) = 'status' then
               begin
                 if Assigned(uData.Data) then
-                  Result := 403
+                  begin
+                    if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password')))) then
+                      Result := 403
+                    else
+                      Result := 401;
+                  end
                 else
                   Result := 200;
               end
             else if lowercase(url)='userstatus' then
               begin
-                aUser := aParameters.Values['authorization'];
-                if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
-                  begin
-                    aResult.Free;
-                    aParameters.Free;
-                    Result:=401;
-                    exit;
-                  end;
-                Result:=401;
-                aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
-                aPassword := copy(aUser,pos(':',aUser)+1,length(aUser));
-                aUser := copy(aUser,0,pos(':',aUser)-1);
                 if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
                 and TBaseDBModule(uData.Data).Authenticate(BaseApplication.GetOptionValue('u','user'),BaseApplication.GetOptionValue('p','password'))))
                 then
-                  Result := 200;
-                if (Result = 401) then
-                  if TBaseDBModule(uData.Data).Authenticate(aUser,aPassword) then
+                  begin
                     Result := 200;
+                  end
+                else
+                  begin
+                    aUser := aParameters.Values['authorization'];
+                    if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
+                      begin
+                        aResult.Free;
+                        aParameters.Free;
+                        Result:=401;
+                        exit;
+                      end;
+                    Result:=401;
+                    aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+                    aPassword := copy(aUser,pos(':',aUser)+1,length(aUser));
+                    aUser := copy(aUser,0,pos(':',aUser)-1);
+                    if (Result = 401) then
+                      if TBaseDBModule(uData.Data).Authenticate(aUser,aPassword) then
+                        Result := 200;
+                  end;
                 if Result = 200 then
                   begin
                     aWiki := TWikiList.Create(nil);
