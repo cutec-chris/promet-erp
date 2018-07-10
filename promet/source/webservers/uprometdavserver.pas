@@ -957,6 +957,35 @@ var
       end
     else
       Output.Add('[');
+    aInitCount := sl.Count;
+    while not aDataSet.EOF do
+      begin
+        if sl.Count>aInitCount then
+          sl[sl.Count-1] := sl[sl.Count-1]+',';
+        tmp := '{ "sql_id": '+aDataSet.Id.AsString;
+        for c := 1 to aDataSet.DataSet.Fields.Count-1 do
+          begin
+            if c<aDataSet.DataSet.Fields.Count then tmp += ',';
+            if aDataSet.DataSet.Fields[c].IsNull then
+              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": null'
+            else if (aDataSet.DataSet.FieldDefs[c].DataType=ftDate)
+                 or (aDataSet.DataSet.FieldDefs[c].DataType=ftDateTime) then
+              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": "'+synautil.Rfc822DateTime(aDataSet.DataSet.Fields[c].AsDateTime)+'"'
+            else if (aDataSet.DataSet.FieldDefs[c].DataType=ftInteger)
+                 or (aDataSet.DataSet.FieldDefs[c].DataType=ftLargeint) then
+              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": '+aDataSet.DataSet.Fields[c].AsString
+            else if (aDataSet.DataSet.FieldDefs[c].DataType=ftFloat) then
+              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": '+StringReplace(Format('%.3f',[aDataSet.DataSet.Fields[c].AsFloat]),DecimalSeparator,'.',[rfReplaceAll])
+            else
+              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": "'+StringReplace(StringToJSONString(aDataSet.DataSet.Fields[c].AsString),'','*',[rfReplaceAll])+'"';
+          end;
+        tmp+=' }';
+        sl.Add(tmp);
+        aDataSet.Next;
+      end;
+    sl.Add(']');
+    if QueryFields.Values['mode']='extjs' then
+      sl.Add('}');
   end;
 
 begin
@@ -1096,35 +1125,6 @@ begin
               if aDataSet.DataSet.FieldDefs.Count=0 then
                 raise Exception.Create('Fielddefs Clear');
               ExportDataSet(aDataSet.DataSet,sl);
-              aInitCount := sl.Count;
-              while not aDataSet.EOF do
-                begin
-                  if sl.Count>aInitCount then
-                    sl[sl.Count-1] := sl[sl.Count-1]+',';
-                  tmp := '{ "sql_id": '+aDataSet.Id.AsString;
-                  for i := 1 to aDataSet.DataSet.Fields.Count-1 do
-                    begin
-                      if i<aDataSet.DataSet.Fields.Count then tmp += ',';
-                      if aDataSet.DataSet.Fields[i].IsNull then
-                        tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": null'
-                      else if (aDataSet.DataSet.FieldDefs[i].DataType=ftDate)
-                           or (aDataSet.DataSet.FieldDefs[i].DataType=ftDateTime) then
-                        tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": "'+synautil.Rfc822DateTime(aDataSet.DataSet.Fields[i].AsDateTime)+'"'
-                      else if (aDataSet.DataSet.FieldDefs[i].DataType=ftInteger)
-                           or (aDataSet.DataSet.FieldDefs[i].DataType=ftLargeint) then
-                        tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": '+aDataSet.DataSet.Fields[i].AsString
-                      else if (aDataSet.DataSet.FieldDefs[i].DataType=ftFloat) then
-                        tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": '+Format('%.3f',[aDataSet.DataSet.Fields[i].AsFloat])
-                      else
-                        tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[i].FieldName)+'": "'+StringReplace(StringToJSONString(aDataSet.DataSet.Fields[i].AsString),'','*',[rfReplaceAll])+'"';
-                    end;
-                  tmp+=' }';
-                  sl.Add(tmp);
-                  aDataSet.Next;
-                end;
-              sl.Add(']');
-              if QueryFields.Values['mode']='extjs' then
-                sl.Add('}');
               sl.SaveToStream(Stream);
               sl.Free;
               Stream.Position:=0;
