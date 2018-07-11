@@ -5,7 +5,7 @@ unit twikitest;
 interface
 
 uses
-Classes, SysUtils, fpcunit, testutils, testregistry, uWiki;
+Classes, SysUtils, fpcunit, testutils, testregistry, uWiki, uBaseDbClasses;
 
 type
 
@@ -13,6 +13,8 @@ type
 
   TWikiTestC= class(TTestCase)
   published
+    procedure CreateUser;
+    procedure UserRights;
     procedure CreateWikiList;
     procedure FindAdminStartPage;
     procedure ConvertToHtml;
@@ -23,8 +25,24 @@ implementation
 
 var
   aWikiList: TWikiList;
+  aUser: TUser;
 
 { TWikiTestC }
+
+procedure TWikiTestC.CreateUser;
+begin
+  aUser := TUser.Create(nil);
+  aUser.Open;
+end;
+
+procedure TWikiTestC.UserRights;
+var
+  tmp: Integer;
+begin
+  tmp := aUser.Rights.Right('DOCUMENTS');
+  tmp := aUser.Rights.Right('HISTORY');
+  tmp := aUser.Rights.Right('LISTS');
+end;
 
 procedure TWikiTestC.CreateWikiList;
 begin
@@ -46,6 +64,7 @@ end;
 procedure TWikiTestC.Free;
 begin
   aWikiList.Free;
+  aUser.Free;
 end;
 
 initialization
