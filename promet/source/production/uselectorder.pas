@@ -108,10 +108,10 @@ var
 begin
   if not Assigned(Order.DataSet) then exit;
   aSql :=
-   'select distinct '+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('STATUS')+','+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('COMMISSION')+','+Data.QuoteField('ORDERNO')+','+Data.QuoteField('PID')+',OP2.'+Data.QuoteField('QUANTITY')+','+Data.QuoteField('DAPPR')+','+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('TIMESTAMPD')+' from '+Data.QuoteField('ORDERS')
-  +' inner join '+Data.QuoteField('ORDERTYPE')+' on '+Data.QuoteField('ORDERTYPE')+'.'+Data.QuoteField('STATUS')+'='+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('STATUS')+' and '+Data.QuoteField('ORDERTYPE')+'.'+Data.QuoteField('TYPE')+'=7'
-  +' inner join '+Data.QuoteField('ORDERPOS')+' as OP1 on OP1.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('SQL_ID')+' and OP1.'+Data.QuoteField('IDENT')+' like '''+Data.ProcessTerm(eFilter.Text+'*')+''' and '+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('STATUS')+' like '''+Data.ProcessTerm(eStatus.Text+'*')+''''
-  +' left  join '+Data.QuoteField('ORDERPOS')+' as OP2 on OP2.'+Data.QuoteField('REF_ID')+'='+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('SQL_ID')+' and OP2.'+Data.QuoteField('PARENT')+' is NULL';
+   'select distinct '+Data.GetFullTableName('ORDERS')+'.'+Data.QuoteField('STATUS')+','+Data.GetFullTableName('ORDERS')+'.'+Data.QuoteField('COMMISSION')+','+Data.QuoteField('ORDERNO')+','+Data.QuoteField('PID')+',OP2.'+Data.QuoteField('QUANTITY')+','+Data.QuoteField('DAPPR')+','+Data.GetFullTableName('ORDERS')+'.'+Data.QuoteField('TIMESTAMPD')+' from '+Data.GetFullTableName('ORDERS')
+  +' inner join '+Data.GetFullTableName('ORDERTYPE')+' on '+Data.GetFullTableName('ORDERTYPE')+'.'+Data.QuoteField('STATUS')+'='+Data.GetFullTableName('ORDERS')+'.'+Data.QuoteField('STATUS')+' and '+Data.GetFullTableName('ORDERTYPE')+'.'+Data.QuoteField('TYPE')+'=7'
+  +' inner join '+Data.GetFullTableName('ORDERPOS')+' as OP1 on OP1.'+Data.QuoteField('REF_ID')+'='+Data.GetFullTableName('ORDERS')+'.'+Data.QuoteField('SQL_ID')+' and OP1.'+Data.QuoteField('IDENT')+' like '''+Data.ProcessTerm(eFilter.Text+'*')+''' and '+Data.GetFullTableName('ORDERS')+'.'+Data.QuoteField('STATUS')+' like '''+Data.ProcessTerm(eStatus.Text+'*')+''''
+  +' left  join '+Data.GetFullTableName('ORDERPOS')+' as OP2 on OP2.'+Data.QuoteField('REF_ID')+'='+Data.GetFullTableName('ORDERS')+'.'+Data.QuoteField('SQL_ID')+' and OP2.'+Data.QuoteField('PARENT')+' is NULL';
   if Data.GetDBType<>'postgres' then
    aSQL += ' order by '+Data.QuoteField('ORDERS')+'.'+Data.QuoteField('DAPPR'); //dont works on postgres
   AddSQLLimit(aSQL,50);
