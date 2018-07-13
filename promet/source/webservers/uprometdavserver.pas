@@ -1942,9 +1942,7 @@ function TPrometServerFunctions.ServerReadAllowed(aSocket: TDAVSession; aDir: st
   ): Boolean;
 var
   aUser: String;
-  m1: Cardinal;
 begin
-  m1 := GetHeapStatus.TotalAllocated;
   if aSocket=nil then exit;
   if not Assigned(BaseApplication) then exit;
   CreateDataModule(aSocket);
@@ -1976,8 +1974,6 @@ begin
   if not Result then
     if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
       Info('DAV: read permitted to "'+aDir+'"');
-  if GetHeapStatus.TotalAllocated<>m1 then
-    writeln('ServerReadAllowed Leak ',GetHeapStatus.TotalAllocated-m1);
 end;
 function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
   aPassword: string): Boolean;
@@ -2016,7 +2012,6 @@ var
   aParent: Int64;
   aOldFilter: String;
   aOldRec: variant;
-  m1: Cardinal;
 
   procedure FindArticle;
   begin
@@ -2069,7 +2064,6 @@ var
   end;
 
 begin
-  m1 := GetHeapStatus.TotalAllocated;
   aLevel:=0;
   Result := False;
   if copy(aDir,0,6)='/files' then
@@ -2152,8 +2146,6 @@ begin
             end;
         end;
     end;
-  if GetHeapStatus.TotalAllocated<>m1 then
-    writeln('FindVirtualDocumentPath Leak ',GetHeapStatus.TotalAllocated-m1);
 end;
 procedure TPrometServerFunctions.CreateDataModule(aSocket: TDAVSession);
 var
