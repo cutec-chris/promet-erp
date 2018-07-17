@@ -1648,7 +1648,7 @@ var
   Found: Boolean = false;
   aFrame: TfFilter;
 begin
-  if Data.Users.Rights.Right('CUSTOMERS') < RIGHT_READ then exit;
+  if Data.Users.Rights.Right('CUSTOMERS') < RIGHT_VIEW then exit;
   Application.ProcessMessages;
   for i := 0 to pcPages.PageCount-2 do
     if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TPersonList) then
@@ -1945,7 +1945,7 @@ var
   Found: Boolean = false;
   aFrame: TfFilter;
 begin
-  if Data.Users.Rights.Right('MASTERDATA') < RIGHT_READ then exit;
+  if Data.Users.Rights.Right('MASTERDATA') < RIGHT_VIEW then exit;
   Application.ProcessMessages;
   for i := 0 to pcPages.PageCount-2 do
     if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TMasterdataList) then
@@ -2029,7 +2029,7 @@ var
   Found: Boolean = false;
   aFrame: TfMessageFrame;
 begin
-  if Data.Users.Rights.Right('MESSAGES') < RIGHT_READ then exit;
+  if Data.Users.Rights.Right('MESSAGES') < RIGHT_VIEW then exit;
   Screen.Cursor:=crHourglass;
   for i := 0 to pcPages.PageCount-2 do
     if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfMessageFrame) then
@@ -2271,7 +2271,7 @@ var
   Found: Boolean = false;
   aFrame: TfFilter;
 begin
-  if Data.Users.Rights.Right('ORDERS') < RIGHT_READ then exit;
+  if Data.Users.Rights.Right('ORDERS') < RIGHT_VIEW then exit;
   Application.ProcessMessages;
   for i := 0 to pcPages.PageCount-2 do
     if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TOrderList) and (TfFilter(pcPages.Pages[i].Controls[0]).Tag=0) then
@@ -2341,7 +2341,7 @@ var
   Found: Boolean = False;
   aFrame: TfFilter;
 begin
-  if Data.Users.Rights.Right('PROJECTS') < RIGHT_READ then exit;
+  if Data.Users.Rights.Right('PROJECTS') < RIGHT_VIEW then exit;
   Application.ProcessMessages;
   for i := 0 to pcPages.PageCount-2 do
     if (pcPages.Pages[i].ControlCount > 0) and (pcPages.Pages[i].Controls[0] is TfFilter) and (TfFilter(pcPages.Pages[i].Controls[0]).Dataset is TProjectList) then
@@ -3358,7 +3358,7 @@ begin
     end;
   if copy(aLink,0,8) = 'CUSTOMER' then
     begin
-      if Data.Users.Rights.Right('CUSTOMERS') < RIGHT_READ then exit;
+      if Data.Users.Rights.Right('CUSTOMERS') < RIGHT_VIEW then exit;
       aFrame := TfPersonFrame.Create(Self);
       aFrame.SetLanguage;
       if aFrame.OpenFromLink(aLink) then
@@ -3377,7 +3377,7 @@ begin
     end
   else if copy(aLink,0,10) = 'MASTERDATA' then
     begin
-      if Data.Users.Rights.Right('MASTERDATA') < RIGHT_READ then exit;
+      if Data.Users.Rights.Right('MASTERDATA') < RIGHT_VIEW then exit;
       aFrame := TfArticleFrame.Create(Self);
       aFrame.SetLanguage;
       if aFrame.OpenFromLink(aLink) then
@@ -3419,8 +3419,8 @@ begin
     end
   else if copy(aLink,0,6) = 'ORDERS' then
     begin
-      if (Data.Users.Rights.Right('ORDERS') < RIGHT_READ)
-      and (Data.Users.Rights.Right('PRODUCTION') < RIGHT_READ) then
+      if (Data.Users.Rights.Right('ORDERS') < RIGHT_VIEW)
+      and (Data.Users.Rights.Right('PRODUCTION') < RIGHT_VIEW) then
         begin
           exit;
         end;
@@ -3450,7 +3450,7 @@ begin
     end
   else if (copy(aLink,0,10) = 'STATISTICS') then
     begin
-      if Data.Users.Rights.Right('STATISTICS') < RIGHT_READ then exit;
+      if Data.Users.Rights.Right('STATISTICS') < RIGHT_VIEW then exit;
       aFrame := TfStatisticFrame.Create(Self);
       aFrame.OpenFromLink(aLink);
       pcPages.AddTab(aFrame);
@@ -3459,7 +3459,7 @@ begin
     end
   else if (copy(aLink,0,8) = 'PROJECTS') then
     begin
-      if Data.Users.Rights.Right('PROJECTS') < RIGHT_READ then exit;
+      if Data.Users.Rights.Right('PROJECTS') < RIGHT_VIEW then exit;
       aFrame := TfProjectFrame.Create(Self);
       aFrame.SetLanguage;
       TfProjectFrame(aFrame).OnStartTime:=@SenderTfMainTaskFrameControlsSenderTfMainTaskFrameTfTaskFrameStartTime;
@@ -3550,7 +3550,7 @@ begin
     end
   else if (copy(aLink,0,9) = 'DOCUMENTS') then
     begin
-      if Data.Users.Rights.Right('DOCUMENTS') < RIGHT_READ then exit;
+      if Data.Users.Rights.Right('DOCUMENTS') < RIGHT_VIEW then exit;
       aDoc:=TDocuments.CreateEx(Self,Data);
       aDoc.SelectByLink(aLink);
       aDoc.Open;
