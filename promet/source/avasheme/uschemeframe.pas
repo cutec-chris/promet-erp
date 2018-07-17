@@ -289,7 +289,7 @@ procedure AddToMainTree(aAction: TAction; Node: TTreeNode);
 var
   Node1: TTreeNode;
 begin
-  if (Data.Users.Rights.Right('SCHEME') > RIGHT_NONE) then
+  if (Data.Users.Rights.Right('SCHEME') > RIGHT_VIEW) then
     begin
       Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
       TTreeEntry(Node1.Data).Typ := etAction;

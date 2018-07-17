@@ -77,7 +77,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS -u RMA -p SBD2a6dkyslxtL8w"/>
+        <CommandLineParams Value="--mandant=TCS"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">

@@ -68,29 +68,29 @@ end;
 procedure TfFollow.FormCreate(Sender: TObject);
 begin
   //Messages
-  if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+  if Data.Users.Rights.Right('MESSAGES') > RIGHT_VIEW then
     begin
       AddSearchAbleDataSet(TMessageList);
     end;
   //Add Contacts
-  if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
+  if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_VIEW then
     begin
       AddSearchAbleDataSet(TPersonList);
       AddSearchAbleDataSet(TPersonContactData);
       AddSearchAbleDataSet(TPersonAddress);
     end;
   //Add Masterdata stuff
-  if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
+  if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_VIEW) then
     begin
       AddSearchAbleDataSet(TMasterdataList);
     end;
   //Projects
-  if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
+  if (Data.Users.Rights.Right('PROJECTS') > RIGHT_VIEW) then
     begin
       AddSearchAbleDataSet(TProjectList);
     end;
   //Wiki
-  if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
+  if (Data.Users.Rights.Right('WIKI') > RIGHT_VIEW) then
     begin
       AddSearchAbleDataSet(TWikiList);
     end;

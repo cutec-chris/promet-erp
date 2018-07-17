@@ -853,7 +853,7 @@ end;
 procedure TStarterThread.AddTimeReg;
 begin
   try
-  if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
+  if (Data.Users.Rights.Right('TIMEREG') > RIGHT_VIEW) then
     begin
       if not Assigned(fOptions) then
         Application.CreateForm(TfOptions,fOptions);
@@ -874,7 +874,7 @@ end;
 procedure TStarterThread.AddTimeReg2;
 begin
   try
-  if (Data.Users.Rights.Right('TIMEREG') > RIGHT_NONE) then
+  if (Data.Users.Rights.Right('TIMEREG') > RIGHT_VIEW) then
     begin
       if Assigned(fMain.FTimeReg) then
         begin
@@ -1094,9 +1094,12 @@ begin
     begin
       try
         DataSetType:=TMessageList;
-        fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
+        if GetRight('MESSAGES') > RIGHT_VIEW then
+          begin
+            fMain.pcPages.AddTabClass(TfMessageFrame,strMessages,nil,Data.GetLinkIcon('MESSAGEIDX@'),True);
+            AddSearchAbleDataSet(TMessageList);
+          end;
         Data.RegisterLinkHandler('MESSAGES',@fMainTreeFrame.OpenLink,uMessages.TMessage);
-        AddSearchAbleDataSet(TMessageList);
       except
       end;
     end;
@@ -1117,7 +1120,8 @@ begin
     begin
       try
       DataSetType:=TCalendar;
-      fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
+      if GetRight('CALENDAR') > RIGHT_VIEW then
+        fMain.pcPages.AddTabClass(TfCalendarFrame,strCalendar,@fMain.AddCalendar,Data.GetLinkIcon('CALENDAR@'),True);
       DoSynchronize(@DoCalendar);
       except
       end;
@@ -1128,7 +1132,8 @@ begin
     begin
       try
       DataSetType:=TOrder;
-      fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
+      if GetRight('ORDERS') > RIGHT_VIEW then
+        fMain.pcPages.AddTabClass(TfFilter,strOrderList,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
       Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,TOrder);
       AddSearchAbleDataSet(TOrderList);
       except
@@ -1140,7 +1145,8 @@ begin
     begin
       try
       DataSetType:=TOrder;
-      fMain.pcPages.AddTabClass(TfFilter,strProductionOrders,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
+      if GetRight('PRODUCTION') > RIGHT_VIEW then
+        fMain.pcPages.AddTabClass(TfFilter,strProductionOrders,@fMain.AddOrderList,Data.GetLinkIcon('ORDERS@'),True);
       Data.RegisterLinkHandler('ORDERS',@fMainTreeFrame.OpenLink,TOrder);
       AddSearchAbleDataSet(TOrderList);
       except
@@ -1153,7 +1159,8 @@ begin
       try
       DataSetType:=TPerson;
       DataSetType:=TCountries;
-      fMain.pcPages.AddTabClass(TfFilter,strCustomerList,@fMain.AddCustomerList,Data.GetLinkIcon('CUSTOMERS@'),True);
+      if GetRight('CUSTOMERS') > RIGHT_VIEW then
+        fMain.pcPages.AddTabClass(TfFilter,strCustomerList,@fMain.AddCustomerList,Data.GetLinkIcon('CUSTOMERS@'),True);
       Data.RegisterLinkHandler('CUSTOMERS',@fMainTreeFrame.OpenLink,TPerson);
       AddSearchAbleDataSet(TPersonList);
       AddSearchAbleDataSet(TPersonContactData);
@@ -1167,9 +1174,12 @@ begin
     begin
       try
       DataSetType:=TMasterdata;
-      fMain.pcPages.AddTabClass(TfFilter,strArticleList,@fMain.AddMasterdataList,Data.GetLinkIcon('MASTERDATA@'),True);
+      if GetRight('MASTERDATA') > RIGHT_VIEW then
+        begin
+          fMain.pcPages.AddTabClass(TfFilter,strArticleList,@fMain.AddMasterdataList,Data.GetLinkIcon('MASTERDATA@'),True);
+          AddSearchAbleDataSet(TMasterdataList);
+        end;
       Data.RegisterLinkHandler('MASTERDATA',@fMainTreeFrame.OpenLink,TMasterdata);
-      AddSearchAbleDataSet(TMasterdataList);
       except
       end;
     end;
@@ -1179,9 +1189,12 @@ begin
     begin
       try
       DataSetType:=TProject;
-      fMain.pcPages.AddTabClass(TfFilter,strProjectList,@fMain.AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
+      if GetRight('PROJECT') > RIGHT_VIEW then
+        begin
+          fMain.pcPages.AddTabClass(TfFilter,strProjectList,@fMain.AddProjectList,Data.GetLinkIcon('PROJECTS@'),True);
+          AddSearchAbleDataSet(TProjectList);
+        end;
       Data.RegisterLinkHandler('PROJECT',@fMainTreeFrame.OpenLink,TProject);
-      AddSearchAbleDataSet(TProjectList);
       except
       end;
     end;
@@ -1191,8 +1204,11 @@ begin
   if (GetRight('WIKI') > RIGHT_NONE) then
     begin
       try
-      fMain.pcPages.AddTabClass(TfWikiFrame,strWiki,@fMain.AddWiki,Data.GetLinkIcon('WIKI@'),True);
-      AddSearchAbleDataSet(TWikiList);
+      if GetRight('WIKI') > RIGHT_VIEW then
+        begin
+          fMain.pcPages.AddTabClass(TfWikiFrame,strWiki,@fMain.AddWiki,Data.GetLinkIcon('WIKI@'),True);
+          AddSearchAbleDataSet(TWikiList);
+        end;
       except
       end;
     end;
@@ -1225,9 +1241,12 @@ begin
     begin
       try
       DataSetType:=TMeetings;
-      fMain.pcPages.AddTabClass(TfFilter,strMeetingList,@fMain.AddMeetingList,-1,True);
+      if GetRight('WIKI') > RIGHT_VIEW then
+        begin
+          fMain.pcPages.AddTabClass(TfFilter,strMeetingList,@fMain.AddMeetingList,-1,True);
+          AddSearchAbleDataSet(TMeetings);
+        end;
       Data.RegisterLinkHandler('MEETINGS',@fMainTreeFrame.OpenLink,TMeetings);
-      AddSearchAbleDataSet(TMeetings);
       except
       end;
     end;
@@ -1243,12 +1262,15 @@ begin
     end;
   //Statistics
   DoInfo('Statistics');
-  Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,TStatistic);
   if (GetRight('STATISTICS') > RIGHT_NONE) then
     begin
+      Data.RegisterLinkHandler('STATISTICS',@fMainTreeFrame.OpenLink,TStatistic);
       try
-      fMain.pcPages.AddTabClass(TfFilter,strStatisticList,@fMain.AddStatisticList,Data.GetLinkIcon('STATISTICS@'),True);
-      AddSearchAbleDataSet(TStatistic);
+      if (GetRight('STATISTICS') > RIGHT_VIEW) then
+        begin
+          fMain.pcPages.AddTabClass(TfFilter,strStatisticList,@fMain.AddStatisticList,Data.GetLinkIcon('STATISTICS@'),True);
+          AddSearchAbleDataSet(TStatistic);
+        end;
       except
       end;
     end;
@@ -1258,8 +1280,11 @@ begin
     begin
       try
       Data.RegisterLinkHandler('SCHEME',@fMainTreeFrame.OpenLink,TSchemeList);
-      fMain.pcPages.AddTabClass(TfFilter,strSchemeList,@fMain.AddSchemeList,Data.GetLinkIcon('SCHEME@'),True);
-      AddSearchAbleDataSet(TSchemeList);
+      if (GetRight('SCHEME') > RIGHT_VIEW) then
+        begin
+          fMain.pcPages.AddTabClass(TfFilter,strSchemeList,@fMain.AddSchemeList,Data.GetLinkIcon('SCHEME@'),True);
+          AddSearchAbleDataSet(TSchemeList);
+        end;
       except
       end;
     end;
@@ -1396,7 +1421,7 @@ begin
                 else if tmp = GetEntryText(etMessages) then
                   begin
                     //Messages
-                    if Data.Users.Rights.Right('MESSAGES') > RIGHT_NONE then
+                    if Data.Users.Rights.Right('MESSAGES') > RIGHT_VIEW then
                       begin
                         NewMenu;
                         miNew.Action := fMain.acMessages;
@@ -1412,7 +1437,7 @@ begin
                 else if tmp = GetEntryText(etTasks) then
                   begin
                     //Tasks
-                    if (Data.Users.Rights.Right('TASKS') > RIGHT_NONE) then
+                    if (Data.Users.Rights.Right('TASKS') > RIGHT_VIEW) then
                       begin
                         NewNode;
                         Node.Height := 34;
@@ -1425,7 +1450,7 @@ begin
                 else if tmp = GetEntryText(etCalendar) then
                   begin
                     //PIM
-                    if Data.Users.Rights.Right('CALENDAR') > RIGHT_NONE then
+                    if Data.Users.Rights.Right('CALENDAR') > RIGHT_VIEW then
                       begin
                         NewMenu;
                         miNew.Action := fMain.acCalendar;
@@ -1440,7 +1465,7 @@ begin
                 else if tmp = GetEntryText(etOrders) then
                   begin
                     //Orders,Production,...
-                    if Data.Users.Rights.Right('ORDERS') > RIGHT_NONE then
+                    if Data.Users.Rights.Right('ORDERS') > RIGHT_VIEW then
                       begin
                         NewMenu;
                         miNew.Action := fMain.acOrders;
@@ -1454,7 +1479,7 @@ begin
                 else if tmp = GetEntryText(etProduction) then
                   begin
                     //Orders,Production,...
-                    if Data.Users.Rights.Right('PRODUCTION') > RIGHT_NONE then
+                    if Data.Users.Rights.Right('PRODUCTION') > RIGHT_VIEW then
                       begin
                         NewMenu;
                         miNew.Action := fMain.acProduction;
@@ -1468,7 +1493,7 @@ begin
                 else if tmp = GetEntryText(etCustomers) then
                   begin
                     //Contacts
-                    if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_NONE then
+                    if Data.Users.Rights.Right('CUSTOMERS') > RIGHT_VIEW then
                       begin
                         NewMenu;
                         miNew.Action := fMain.acContact;
@@ -1482,7 +1507,7 @@ begin
                 else if tmp = GetEntryText(etMasterdata) then
                   begin
                     //Add Masterdata stuff
-                    if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_NONE) then
+                    if (Data.Users.Rights.Right('MASTERDATA') > RIGHT_VIEW) then
                       begin
                         NewMenu;
                         miNew.Action := fMain.acMasterdata;
@@ -1496,7 +1521,7 @@ begin
                 else if tmp = GetEntryText(etProjects) then
                   begin
                     //Projects
-                    if (Data.Users.Rights.Right('PROJECTS') > RIGHT_NONE) then
+                    if (Data.Users.Rights.Right('PROJECTS') > RIGHT_VIEW) then
                       begin
                         NewNode;
                         Node.Height := 32;
@@ -1508,7 +1533,7 @@ begin
                 else if tmp = GetEntryText(etWiki) then
                   begin
                     //Wiki
-                    if (Data.Users.Rights.Right('WIKI') > RIGHT_NONE) then
+                    if (Data.Users.Rights.Right('WIKI') > RIGHT_VIEW) then
                       begin
                         NewNode;
                         Node.Height := 34;
@@ -1519,7 +1544,7 @@ begin
                 else if tmp = GetEntryText(etDocuments) then
                   begin
                     //Documents
-                    if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_NONE) then
+                    if (Data.Users.Rights.Right('DOCUMENTS') > RIGHT_VIEW) then
                       begin
                         Node := fMainTreeFrame.tvMain.Items.AddChildObject(nil,'',TTreeEntry.Create);
                         Node.Height := 34;
@@ -1535,7 +1560,7 @@ begin
                 else if tmp = GetEntryText(etLists) then
                   begin
                     //Lists
-                    if (Data.Users.Rights.Right('LISTS') > RIGHT_NONE) then
+                    if (Data.Users.Rights.Right('LISTS') > RIGHT_VIEW) then
                       begin
                         NewNode;
                         TTreeEntry(Node.Data).Typ := etLists;
@@ -1545,7 +1570,7 @@ begin
                 else if tmp = GetEntryText(etMeetings) then
                   begin
                     //Meetings
-                    if (Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE) then
+                    if (Data.Users.Rights.Right('MEETINGS') > RIGHT_VIEW) then
                       begin
                         NewNode;
                         TTreeEntry(Node.Data).Typ := etMeetings;
@@ -1555,7 +1580,7 @@ begin
                 else if tmp = GetEntryText(etInventory) then
                   begin
                     //Inventory
-                    if (Data.Users.Rights.Right('INVENTORY') > RIGHT_NONE) then
+                    if (Data.Users.Rights.Right('INVENTORY') > RIGHT_VIEW) then
                       begin
                         NewNode;
                         TTreeEntry(Node.Data).Typ := etInventory;
@@ -1565,8 +1590,8 @@ begin
                 else if tmp = GetEntryText(etFinancial) then
                   begin
                     //Financial
-                    if (Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE)
-                    or (Data.Users.Rights.Right('SALESLIST') > RIGHT_NONE) then
+                    if (Data.Users.Rights.Right('BANKACCNTS') > RIGHT_VIEW)
+                    or (Data.Users.Rights.Right('SALESLIST') > RIGHT_VIEW) then
                       begin
                         NewNode;
                         Node.Height := 34;
@@ -1577,7 +1602,7 @@ begin
                 else if tmp = GetEntryText(etStatistics) then
                   begin
                     //Statistics
-                    if (Data.Users.Rights.Right('STATISTICS') > RIGHT_NONE) then
+                    if (Data.Users.Rights.Right('STATISTICS') > RIGHT_VIEW) then
                       begin
                         NewMenu;
                         miNew.Action := fMain.acStatistics;
@@ -1585,14 +1610,6 @@ begin
                         Node.Height := 34;
                         TTreeEntry(Node.Data).Typ := etStatistics;
                       end;
-                    SomethingFound:=True;
-                  end
-                else if tmp = GetEntryText(etAllObjects) then
-                  begin
-                    NewMenu;
-                    miNew.Action := fMain.acElements;
-                    NewNode;
-                    TTreeEntry(Node.Data).Typ := etAllObjects;
                     SomethingFound:=True;
                   end;
                 aItems.Delete(0);
@@ -4036,12 +4053,12 @@ begin
         end;
       etMeetings:
         begin
-          if Data.Users.Rights.Right('MEETINGS') > RIGHT_NONE then
+          if Data.Users.Rights.Right('MEETINGS') > RIGHT_VIEW then
             umeetingframe.AddToMainTree(fMain.acNewMeeting,Node);
         end;
       etFinancial:
         begin
-          if Data.Users.Rights.Right('BANKACCNTS') > RIGHT_NONE then
+          if Data.Users.Rights.Right('BANKACCNTS') > RIGHT_VIEW then
             begin
               Data.RegisterLinkHandler('ACCOUNTEXCHANGE',@fMainTreeFrame.OpenLink,TAccountExchange);
               Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
@@ -4068,7 +4085,7 @@ begin
               Node2 := fMainTreeFrame.tvMain.Items.AddChildObject(Node1,'',TTreeEntry.Create);
               TTreeEntry(Node2.Data).Typ := etAccountingQue;
             end;
-          if Data.Users.Rights.Right('SALESLIST') > RIGHT_NONE then
+          if Data.Users.Rights.Right('SALESLIST') > RIGHT_VIEW then
             begin
               fMain.pcPages.AddTabClass(TfFilter,strSalesList,@fMain.AddSalesList,-1,True);
               Node1 := fMainTreeFrame.tvMain.Items.AddChildObject(Node,'',TTreeEntry.Create);
@@ -4111,12 +4128,15 @@ begin
       else
         DBConfig.WriteString('TREENODE','');
     end;
-  if Assigned(fOptions) then
-    FreeAndNil(fOptions);
-  if Assigned(fHelpContainer) then
-    FreeAndNil(fHelpContainer);
-  if Assigned(tsStartpage) and (tsStartpage.ControlCount > 0) then
-    tsStartpage.Controls[0].Destroy;
+  try
+    if Assigned(fOptions) then
+      FreeAndNil(fOptions);
+    if Assigned(fHelpContainer) then
+      FreeAndNil(fHelpContainer);
+    if Assigned(tsStartpage) and (tsStartpage.ControlCount > 0) then
+      tsStartpage.Controls[0].Destroy;
+  except
+  end;
   with Application as IBaseApplication do
     begin
       SaveConfig;

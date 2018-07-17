@@ -67,24 +67,24 @@ begin
   aConnection := Data.GetNewConnection;
   aVat := TVat.CreateEx(Self,Data,aConnection);
   VatDS.DataSet := aVat.DataSet;
-  aNumbers := TNumbersets.CreateEx(Self,Data,aConnection);
+  aNumbers := TNumbersets.CreateEx(nil,Data,aConnection);
   NumbersDS.DataSet := aNumbers.DataSet;
   aUnits := TUnits.CreateEx(Self,Data,aConnection);
   UnitsDS.DataSet := aUnits.DataSet;
   aPaymentTargets := TPaymentTargets.CreateEx(Self,Data,aConnection);
   PaymentTargetsDS.DataSet := aPaymentTargets.DataSet;
-  aTexts := TTextTypes.CreateEx(Self,Data,aConnection);
+  aTexts := TTextTypes.CreateEx(nil,Data,aConnection);
   TextsDS.DataSet := aTexts.DataSet;
 end;
 destructor TfSystemOptions.Destroy;
 begin
-  aTexts.Destroy;
-  aNumbers.Destroy;
-  aVat.Destroy;
-  aUnits.Destroy;
-  aPaymentTargets.Destroy;
-  aConnection.Destroy;
-  inherited Destroy;
+  try
+    aTexts.Destroy;
+    aNumbers.Destroy;
+    aConnection.Destroy;
+    inherited Destroy;
+  except
+  end;
 end;
 procedure TfSystemOptions.StartTransaction;
 begin
