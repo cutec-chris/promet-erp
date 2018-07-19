@@ -1750,9 +1750,10 @@ begin
                           aField := TJSONObject(TJSONArray(aData)[0]).Names[a];
                         if Assigned(aDataSet.FieldByName(aField)) then
                           begin
-                            if ((TJSONArray(aData)[0].Items[a].Value = '0')
+                            if (aDataSet.FieldByName(aField).Size=1)
+                            and ((TJSONArray(aData)[0].Items[a].Value = '0')
                             or  (TJSONArray(aData)[0].Items[a].Value = '1'))
-                            and (aDataSet.FieldByName(aField).Size=1) then
+                            then
                               begin
                                 if TJSONArray(aData)[0].Items[a].Value = '1' then
                                   aDataSet.FieldByName(aField).AsString:='Y'
@@ -1761,17 +1762,18 @@ begin
                               end
                             else if (aDataSet.FieldByName(aField).DataType=ftDateTime) then
                               begin
-                                if (TJSONArray(aData)[0].Items[a].Value='')
+                                if (TJSONArray(aData)[0].Items[a].Value = null)
+                                or (TJSONArray(aData)[0].Items[a].Value='')
                                 or (TJSONArray(aData)[0].Items[a].Value='null') then
                                   aDataSet.FieldByName(aField).Clear
-                                else if (synautil.DecodeRfcDateTime(TJSONArray(aData)[0].Items[a].Value) <> 0) then
-                                  aDataSet.FieldByName(aField).AsDateTime:=synautil.DecodeRfcDateTime(TJSONArray(aData)[0].Items[a].Value)
+                                else if (synautil.DecodeRfcDateTime(TJSONArray(aData)[0].Items[a].AsString) <> 0) then
+                                  aDataSet.FieldByName(aField).AsDateTime:=synautil.DecodeRfcDateTime(TJSONArray(aData)[0].Items[a].AsString)
                                 else
                                   aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value;
                               end
                             else if aDataSet.FieldByName(aField).AsVariant<>TJSONArray(aData)[0].Items[a].Value then
                               begin
-                                if (TJSONArray(aData)[0].Items[a].Value='null') then
+                                if (TJSONArray(aData)[0].Items[a].Value = null) or (TJSONArray(aData)[0].Items[a].AsString='null') then
                                   aDataSet.FieldByName(aField).Clear
                                 else
                                   aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value
