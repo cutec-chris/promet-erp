@@ -23,7 +23,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --db=ProdChina --starttime=-30000 --table=DOCUMENTS"/>
+        <CommandLineParams Value="--mandant=TCS --db=ProdChina --starttime=-30 --table=DOCUMENTS"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -40,9 +40,10 @@
       <Unit0>
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="213"/>
-        <CursorPos X="18" Y="270"/>
-        <FoldState Value=" T0r28D0112121x"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="277"/>
+        <CursorPos Y="278"/>
+        <FoldState Value=" T0r38D0112121-"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -244,7 +245,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="777"/>
         <CursorPos Y="813"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
         <Loaded Value="True"/>
       </Unit25>
       <Unit26>
@@ -279,10 +280,9 @@
       </Unit29>
       <Unit30>
         <Filename Value="..\base\pcmdprometapp.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <CursorPos X="3" Y="10"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="51"/>
         <Loaded Value="True"/>
       </Unit30>
       <Unit31>
@@ -298,9 +298,9 @@
         <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
         <UnitName Value="uAbstractDBLayer"/>
         <EditorIndex Value="6"/>
-        <TopLine Value="341"/>
-        <CursorPos Y="365"/>
-        <UsageCount Value="45"/>
+        <TopLine Value="961"/>
+        <CursorPos Y="982"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit32>
       <Unit33>
@@ -308,8 +308,8 @@
         <UnitName Value="uZeosDBDM"/>
         <EditorIndex Value="8"/>
         <TopLine Value="1247"/>
-        <CursorPos Y="1271"/>
-        <UsageCount Value="49"/>
+        <CursorPos Y="1283"/>
+        <UsageCount Value="50"/>
         <Loaded Value="True"/>
       </Unit33>
       <Unit34>
@@ -327,7 +327,7 @@
         <EditorIndex Value="7"/>
         <TopLine Value="540"/>
         <CursorPos Y="555"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit35>
       <Unit36>
@@ -395,123 +395,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="138" TopLine="112"/>
+        <Caret Line="172" TopLine="150"/>
       </Position1>
       <Position2>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="140" TopLine="112"/>
+        <Caret Line="178" TopLine="150"/>
       </Position2>
       <Position3>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="141" TopLine="112"/>
+        <Caret Line="179" TopLine="150"/>
       </Position3>
       <Position4>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="142" TopLine="112"/>
+        <Caret Line="180" TopLine="150"/>
       </Position4>
       <Position5>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="143" TopLine="112"/>
+        <Caret Line="183" TopLine="150"/>
       </Position5>
       <Position6>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="148" TopLine="113"/>
+        <Caret Line="184" TopLine="150"/>
       </Position6>
       <Position7>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="188" TopLine="173"/>
+        <Caret Line="133" TopLine="112"/>
       </Position7>
       <Position8>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="189" TopLine="173"/>
+        <Caret Line="134" TopLine="112"/>
       </Position8>
       <Position9>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="190" TopLine="173"/>
+        <Caret Line="136" TopLine="112"/>
       </Position9>
       <Position10>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="191" TopLine="173"/>
+        <Caret Line="189" TopLine="168"/>
       </Position10>
       <Position11>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="192" TopLine="173"/>
+        <Caret Line="190" TopLine="168"/>
       </Position11>
       <Position12>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="193" TopLine="173"/>
+        <Caret Line="191" TopLine="168"/>
       </Position12>
       <Position13>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="195" TopLine="173"/>
+        <Caret Line="192" TopLine="168"/>
       </Position13>
       <Position14>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="196" TopLine="173"/>
+        <Caret Line="193" TopLine="168"/>
       </Position14>
       <Position15>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="202" TopLine="173"/>
+        <Caret Line="194" TopLine="168"/>
       </Position15>
       <Position16>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="203" TopLine="173"/>
+        <Caret Line="195" TopLine="168"/>
       </Position16>
       <Position17>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="205" TopLine="173"/>
+        <Caret Line="196" TopLine="168"/>
       </Position17>
       <Position18>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="209" TopLine="189"/>
+        <Caret Line="197" TopLine="168"/>
       </Position18>
       <Position19>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="211" TopLine="189"/>
+        <Caret Line="203" TopLine="168"/>
       </Position19>
       <Position20>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="213" TopLine="189"/>
+        <Caret Line="204" TopLine="181"/>
       </Position20>
       <Position21>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="214" TopLine="189"/>
+        <Caret Line="206" TopLine="181"/>
       </Position21>
       <Position22>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="215" TopLine="189"/>
+        <Caret Line="210" TopLine="181"/>
       </Position22>
       <Position23>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="252" TopLine="231"/>
+        <Caret Line="212" TopLine="181"/>
       </Position23>
       <Position24>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="253" TopLine="231"/>
+        <Caret Line="214" TopLine="181"/>
       </Position24>
       <Position25>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="297" TopLine="276"/>
+        <Caret Line="215" TopLine="181"/>
       </Position25>
       <Position26>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="298" TopLine="276"/>
+        <Caret Line="216" TopLine="181"/>
       </Position26>
       <Position27>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="299" TopLine="276"/>
+        <Caret Line="218" TopLine="183"/>
       </Position27>
       <Position28>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="300" TopLine="276"/>
+        <Caret Line="219" TopLine="184"/>
       </Position28>
       <Position29>
         <Filename Value="sync_db.lpr"/>
-        <Caret Line="301" TopLine="276"/>
+        <Caret Line="253" TopLine="232"/>
       </Position29>
       <Position30>
-        <Filename Value="..\base\pcmdprometapp.pas"/>
-        <Caret Line="10" Column="3"/>
+        <Filename Value="sync_db.lpr"/>
+        <Caret Line="254" TopLine="232"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -544,7 +544,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
+    <BreakPoints Count="3">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -552,10 +552,24 @@
         <Source Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
         <Line Value="573"/>
       </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_db.lpr"/>
+        <Line Value="227"/>
+      </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="sync_db.lpr"/>
+        <Line Value="225"/>
+      </Item3>
     </BreakPoints>
     <Watches Count="1">
       <Item1>
-        <Expression Value="tmpSize"/>
+        <Expression Value="aFieldName"/>
       </Item1>
     </Watches>
     <Exceptions Count="7">

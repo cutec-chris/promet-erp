@@ -133,7 +133,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="17">
+    <Exceptions Count="18">
       <Item1>
         <Name Value="EZSQLException"/>
       </Item1>
@@ -185,6 +185,9 @@
       <Item17>
         <Name Value="EAccessViolation"/>
       </Item17>
+      <Item18>
+        <Name Value="EXMLReadError"/>
+      </Item18>
     </Exceptions>
   </Debugging>
 </CONFIG>

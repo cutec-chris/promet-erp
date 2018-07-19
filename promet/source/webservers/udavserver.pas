@@ -581,6 +581,7 @@ begin
   Result := DoGetDirectoryList(Path,aDepth,aDirList);
   TWebDAVMaster(FSocket.Creator).Unlock;
   aDirList.Free;
+  Result := True;
 
   aHRef.AppendChild(aDocument.CreateTextNode(InternURLEncode(Path)));
   aActivityCollection.AppendChild(aHref);

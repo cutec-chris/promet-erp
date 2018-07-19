@@ -133,6 +133,7 @@ begin
           aFieldName := aDest.Fields[i].FieldName;
           if (aSource.FieldDefs.IndexOf(aFieldName) > -1)
           and (aDest.FieldDefs.IndexOf(aFieldName) > -1)
+          and (aFieldName<>'LOCKEDAT')
           then
             begin
               if not ((aSource.FieldByName(aFieldName).IsNull) and (aDest.FieldByName(aFieldName).IsNull)) then
