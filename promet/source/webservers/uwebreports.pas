@@ -550,6 +550,7 @@ begin
           Components[i].Free
         else inc(i);
     end;
+  if aDataSet = nil then exit;
   try
     with aDataSet as IBaseManageDB do
       begin
