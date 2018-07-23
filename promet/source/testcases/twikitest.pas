@@ -5,7 +5,7 @@ unit twikitest;
 interface
 
 uses
-Classes, SysUtils, fpcunit, testutils, testregistry, uWiki, uBaseDbClasses;
+Classes, SysUtils, fpcunit, testutils, testregistry, uWiki, uBaseDbClasses,Utils;
 
 type
 
@@ -18,6 +18,7 @@ type
     procedure CreateWikiList;
     procedure FindAdminStartPage;
     procedure ConvertToHtml;
+    procedure CheckSQLErrors;
     procedure Free;
   end;
 
@@ -26,6 +27,7 @@ implementation
 var
   aWikiList: TWikiList;
   aUser: TUser;
+  aHtml: String;
 
 { TWikiTestC }
 
@@ -55,10 +57,22 @@ begin
 end;
 
 procedure TWikiTestC.ConvertToHtml;
+var
+  aTime: Int64;
 begin
-  AssertTrue(aWikiList.ExportToHTML(GetTempDir+'test.html',@aWikiList.BasicWikiInclude));
-  //AssertTrue(FileExists(GetTempDir+'test.html'));
-  //AssertTrue(DeleteFile(GetTempDir+'test.html'))
+  aTime := GetTicks;
+  aHtml := aWikiList.PageAsHtml(True,True);
+  aTime := GetTicks-aTime;
+  writeln('Time: ',aTime);
+end;
+
+procedure TWikiTestC.CheckSQLErrors;
+var
+  aTxt: String;
+begin
+  aTxt := copy(aHtml,pos('error:',aHtml),length(aHtml));
+  aTxt := copy(aTxt,0,pos('<',atxt)-1);
+  AssertTrue('Error in SQL:'+aTxt,pos('error:',aHtml)=0);
 end;
 
 procedure TWikiTestC.Free;
