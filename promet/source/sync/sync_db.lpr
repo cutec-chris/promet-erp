@@ -961,6 +961,9 @@ begin
                                 if SyncDB.DataSet.FieldByName('SYNCOFFS').AsInteger = aSyncOffs then
                                   begin
                                     DoCreateTable(TDeletedItems);
+                                    DoCreateTable(TDocuments);
+                                    DoCreateTable(TLanguages);
+                                    DoCreateTable(TTree);
                                     aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),10000);
                                     SyncDB.Tables.Open;
                                     if SyncDB.Tables.DataSet.Locate('NAME','USERFIELDDEFS',[loCaseInSensitive]) then
