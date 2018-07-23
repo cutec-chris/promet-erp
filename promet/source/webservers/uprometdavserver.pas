@@ -60,7 +60,7 @@ type
 
 implementation
 
-uses uData,uAbstractDBLayer;
+uses uAbstractDBLayer,uData;
 
 const
   WebFormatSettings : TFormatSettings = (
@@ -738,7 +738,7 @@ begin
                   else aReportType:='';
                   end;
                   aDataSet.Free;
-                  TBaseDBModule(aSocket.Data).Reports.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aReportType));
+                  TBaseDBModule(aSocket.Data).Reports.Filter(TbaseDbModule(aSocket.Data).QuoteField('TYPE')+'='+TbaseDbModule(aSocket.Data).QuoteValue(aReportType));
                   if (aReportType<>'') then
                     begin
                       with TBaseDBModule(aSocket.Data).Reports do
@@ -1116,9 +1116,9 @@ begin
               if aDataSet is TTimes then
                 begin
                   if aDataSet.ActualFilter <> '' then
-                    aDataSet.ActualFilter:=aDataSet.ActualFilter+' AND '+Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString)
+                    aDataSet.ActualFilter:=aDataSet.ActualFilter+' AND '+TbaseDbModule(aSocket.Data).QuoteField('REF_ID')+'='+TbaseDbModule(aSocket.Data).QuoteValue(TbaseDbModule(aSocket.Data).Users.Id.AsString)
                   else
-                    aDataSet.ActualFilter:=Data.QuoteField('REF_ID')+'='+Data.QuoteValue(Data.Users.Id.AsString);
+                    aDataSet.ActualFilter:=TbaseDbModule(aSocket.Data).QuoteField('REF_ID')+'='+TbaseDbModule(aSocket.Data).QuoteValue(TbaseDbModule(aSocket.Data).Users.Id.AsString);
                 end;
               aDataSet.ActualLimit:=StrToIntDef(HTTPDecode(QueryFields.Values['limit']),100);
               aDataSet.Open;
@@ -1207,7 +1207,7 @@ begin
               'O':aReportType := 'OR'+aDataSet.FieldByName('STATUS').AsString;
               else aReportType:='';
               end;
-              TBaseDBModule(aSocket.Data).Reports.Filter(Data.QuoteField('TYPE')+'='+Data.QuoteValue(aReportType));
+              TBaseDBModule(aSocket.Data).Reports.Filter(TbaseDbModule(aSocket.Data).QuoteField('TYPE')+'='+TbaseDbModule(aSocket.Data).QuoteValue(aReportType));
               TBaseDBModule(aSocket.Data).Reports.DataSet.Refresh;
               //writeln(IntToStr(TBaseDBModule(aSocket.Data).Reports.DataSet.RecordCount),TBaseDBModule(aSocket.Data).Reports.FieldByName('NAME').AsString);
               tmp := copy(aDir,0,rpos('.',aDir)-1);
@@ -1219,7 +1219,7 @@ begin
                     begin
                       if Assigned(StatisticResultsDataSet) then
                         StatisticResultsDataSet.Free;
-                      StatisticResultsDataSet := Data.GetNewDataSet(TStatistic(aDataSet).BuildQuerry(QueryFields));
+                      StatisticResultsDataSet := TbaseDbModule(aSocket.Data).GetNewDataSet(TStatistic(aDataSet).BuildQuerry(QueryFields));
                       StatisticResultsDataSet.Open;
                       for i := 0 to StatisticResultsDataSet.Fields.Count-1 do
                         begin
@@ -1235,14 +1235,14 @@ begin
                         begin
                           if Assigned(DetailDataSet) then
                             DetailDataSet.Free;
-                          DetailDataSet := Data.GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('DETAIL').AsString),aDataSet.Connection,StatisticResultsDataSet);
+                          DetailDataSet := TbaseDbModule(aSocket.Data).GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('DETAIL').AsString),aDataSet.Connection,StatisticResultsDataSet);
                           DetailDataSet.Open;
                           fWebReports.ManualRegisterDataSet(DetailDataSet,'Detail',False);
                           if trim(aDataSet.FieldByName('SUBDETAIL').AsString) <> '' then
                             begin
                               if Assigned(SubDetailDataSet) then
                                 SubDetailDataSet.Free;
-                              SubDetailDataSet := Data.GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('SUBDETAIL').AsString),aDataSet.Connection,DetailDataSet);
+                              SubDetailDataSet := TbaseDbModule(aSocket.Data).GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('SUBDETAIL').AsString),aDataSet.Connection,DetailDataSet);
                               SubDetailDataSet.Open;
                               fWebReports.ManualRegisterDataSet(SubDetailDataSet,'SubDetail',False);
                             end;
@@ -1591,6 +1591,7 @@ var
   NotFound: Boolean;
   ss: TStringStream;
   aPData: TJSONData;
+  aDate: Boolean;
 begin
   FStatus:=500;
   Result := False;
@@ -1732,7 +1733,7 @@ begin
               if (aData is TJSONArray) and Assigned(TJSONArray(aData)[0]) and Assigned(TJSONArray(aData)[0].FindPath('sql_id')) then
                 begin
                   if aClass = TTimes then
-                    aDataSet := TTimes.CreateEx(aSocket,Data,nil,Data.Users.DataSet)
+                    aDataSet := TTimes.CreateEx(aSocket,TbaseDbModule(aSocket.Data),nil,TbaseDbModule(aSocket.Data).Users.DataSet)
                   else
                     aDataSet := aClass.Create(aSocket);
                   aDataSet.Select(TJSONArray(aData)[0].FindPath('sql_id').AsInt64);
@@ -1766,10 +1767,12 @@ begin
                                 or (TJSONArray(aData)[0].Items[a].Value='')
                                 or (TJSONArray(aData)[0].Items[a].Value='null') then
                                   aDataSet.FieldByName(aField).Clear
-                                else if (synautil.DecodeRfcDateTime(TJSONArray(aData)[0].Items[a].AsString) <> 0) then
-                                  aDataSet.FieldByName(aField).AsDateTime:=synautil.DecodeRfcDateTime(TJSONArray(aData)[0].Items[a].AsString)
-                                else
-                                  aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value;
+                                else begin
+                                  if ConvertISODate(TJSONArray(aData)[0].Items[a].AsString)<>0 then
+                                    aDataSet.FieldByName(aField).AsDateTime:=ConvertISODate(TJSONArray(aData)[0].Items[a].AsString,False)
+                                  else
+                                    aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value;
+                                end;
                               end
                             else if aDataSet.FieldByName(aField).AsVariant<>TJSONArray(aData)[0].Items[a].Value then
                               begin
