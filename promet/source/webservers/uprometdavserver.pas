@@ -87,21 +87,6 @@ const
     LongDayNames:  ('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
     TwoDigitYearCenturyWindow: 50;
   );
-function BuildISODate(aDate : TDateTime) : string;
-var
-  bias: Integer;
-  h, m: Integer;
-begin
-  bias := TimeZoneBias;
-  if bias >= 0 then
-    Result := '+'
-  else
-    Result := '-';
-  bias := Abs(bias);
-  h := bias div 60;
-  m := bias mod 60;
-  Result := FormatDateTime('yyyy-mm-dd',aDate)+'T'+FormatDateTime('hh:nn:ss',aDate,WebFormatSettings)+ Result + SysUtils.Format('%.2d:%.2d', [h, m]);
-end;
 function TPrometServerFunctions.ServerDelete(aSocket: TDAVSession; aDir: string): Boolean;
 var
   aDocuments: TDocuments;
@@ -970,7 +955,7 @@ var
               tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": null'
             else if (aDataSet.DataSet.FieldDefs[c].DataType=ftDate)
                  or (aDataSet.DataSet.FieldDefs[c].DataType=ftDateTime) then
-              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": '+BuildISODate(aDataSet.DataSet.Fields[c].AsDateTime)
+              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": "'+BuildISODate(aDataSet.DataSet.Fields[c].AsDateTime)+'"'
             else if (aDataSet.DataSet.FieldDefs[c].DataType=ftInteger)
                  or (aDataSet.DataSet.FieldDefs[c].DataType=ftLargeint) then
               tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": '+aDataSet.DataSet.Fields[c].AsString
