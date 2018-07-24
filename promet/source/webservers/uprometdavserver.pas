@@ -970,7 +970,7 @@ var
               tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": null'
             else if (aDataSet.DataSet.FieldDefs[c].DataType=ftDate)
                  or (aDataSet.DataSet.FieldDefs[c].DataType=ftDateTime) then
-              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": "'+synautil.Rfc822DateTime(aDataSet.DataSet.Fields[c].AsDateTime)+'"'
+              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": '+BuildISODate(aDataSet.DataSet.Fields[c].AsDateTime)
             else if (aDataSet.DataSet.FieldDefs[c].DataType=ftInteger)
                  or (aDataSet.DataSet.FieldDefs[c].DataType=ftLargeint) then
               tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": '+aDataSet.DataSet.Fields[c].AsString
