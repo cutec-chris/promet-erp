@@ -1236,9 +1236,12 @@ begin
                   else
                     fWebReports.RegisterDataSet(aDataSet.DataSet,False)
                   ;
-                  fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).Users.DataSet,False);
-                  fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).PaymentTargets.DataSet,False);
-                  fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).MandantDetails.DataSet,False);
+                  try
+                    fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).Users.DataSet,False);
+                    fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).PaymentTargets.DataSet,False);
+                    fWebReports.RegisterDataSet(TBaseDBModule(aSocket.Data).MandantDetails.DataSet,False);
+                  except
+                  end;
                   tmp := lowercase(copy(aDir,rpos('.',aDir)+1,length(aDir)));
                     with TBaseDBModule(aSocket.Data).Reports.FieldByName('REPORT') as TBlobField do
                       if not TBaseDBModule(aSocket.Data).Reports.FieldByName('REPORT').IsNull then
