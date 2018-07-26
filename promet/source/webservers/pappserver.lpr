@@ -111,7 +111,7 @@ begin
     Info('Waiting for Mandant Configuration');
   while not Assigned(uData.Data) do
     begin
-      //CheckSynchronize(50);
+      CheckSynchronize(50);
       sleep(50);
     end;
   if Assigned(uData.Data) then
