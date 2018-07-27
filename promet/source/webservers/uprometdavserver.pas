@@ -1580,6 +1580,8 @@ var
   ss: TStringStream;
   aPData: TJSONData;
   aDate: Boolean;
+  aRecNo: Integer;
+  NotFoundFields : TStringList;
 begin
   FStatus:=500;
   Result := False;
@@ -1724,96 +1726,129 @@ begin
                     aDataSet := TTimes.CreateEx(aSocket,TbaseDbModule(aSocket.Data),nil,TbaseDbModule(aSocket.Data).Users.DataSet)
                   else
                     aDataSet := aClass.Create(aSocket);
-                  aDataSet.Select(TJSONArray(aData)[0].FindPath('sql_id').AsInt64);
-                  with aDataSet.DataSet as IBaseDbFilter do
-                    Fields := '';
-                  aDataSet.Open;
-                  if aDataSet.Count = 0 then
-                    aDataSet.Append
-                  else aDataSet.Edit;
-                  try
-                    NotFound := False;
-                    for a := 0 to TJSONArray(aData)[0].Count-1 do
-                      begin
-                        if TJSONArray(aData)[0] is TJSONObject then
-                          aField := TJSONObject(TJSONArray(aData)[0]).Names[a];
-                        if Assigned(aDataSet.FieldByName(aField)) then
-                          begin
-                            if (aDataSet.FieldByName(aField).Size=1)
-                            and ((TJSONArray(aData)[0].Items[a].Value = '0')
-                            or  (TJSONArray(aData)[0].Items[a].Value = '1'))
-                            then
+                  NotFoundFields := TStringList.Create;
+                  for aRecNo := 0 to TJSONArray(aData).Count-1 do
+                    begin
+                      aDataSet.Select(TJSONArray(aData)[aRecNo].FindPath('sql_id').AsInt64);
+                      with aDataSet.DataSet as IBaseDbFilter do
+                        Fields := '';
+                      aDataSet.Open;
+                      if (not Assigned(TJSONArray(aData)[aRecNo].FindPath('DELETED'))) or (lowercase(TJSONArray(aData)[aRecNo].FindPath('DELETED').AsString)<>'y') then
+                        begin
+                          NotFoundFields.Clear;
+                          if aDataSet.Count = 0 then
+                            aDataSet.Append
+                          else aDataSet.Edit;
+                          try
+                            NotFound := False;
+                            for a := 0 to TJSONArray(aData)[aRecNo].Count-1 do
                               begin
-                                if TJSONArray(aData)[0].Items[a].Value = '1' then
-                                  aDataSet.FieldByName(aField).AsString:='Y'
+                                if TJSONArray(aData)[aRecNo] is TJSONObject then
+                                  aField := TJSONObject(TJSONArray(aData)[aRecNo]).Names[a];
+                                if Assigned(aDataSet.FieldByName(aField)) then
+                                  begin
+                                    if (aDataSet.FieldByName(aField).Size=1)
+                                    and ((TJSONArray(aData)[aRecNo].Items[a].Value = '0')
+                                    or  (TJSONArray(aData)[aRecNo].Items[a].Value = '1'))
+                                    then
+                                      begin
+                                        if TJSONArray(aData)[aRecNo].Items[a].Value = '1' then
+                                          aDataSet.FieldByName(aField).AsString:='Y'
+                                        else
+                                          aDataSet.FieldByName(aField).AsString:='N';
+                                      end
+                                    else if (aDataSet.FieldByName(aField).DataType=ftDateTime) then
+                                      begin
+                                        if (TJSONArray(aData)[aRecNo].Items[a].Value = null)
+                                        or (TJSONArray(aData)[aRecNo].Items[a].Value='')
+                                        or (TJSONArray(aData)[aRecNo].Items[a].Value='null') then
+                                          aDataSet.FieldByName(aField).Clear
+                                        else begin
+                                          if ConvertISODate(TJSONArray(aData)[aRecNo].Items[a].AsString)<>0 then
+                                            aDataSet.FieldByName(aField).AsDateTime:=ConvertISODate(TJSONArray(aData)[aRecNo].Items[a].AsString,False)
+                                          else
+                                            aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[aRecNo].Items[a].Value;
+                                        end;
+                                      end
+                                    else if aDataSet.FieldByName(aField).AsVariant<>TJSONArray(aData)[aRecNo].Items[a].Value then
+                                      begin
+                                        if (TJSONArray(aData)[aRecNo].Items[a].Value = null) or (TJSONArray(aData)[aRecNo].Items[a].AsString='null') then
+                                          aDataSet.FieldByName(aField).Clear
+                                        else
+                                          aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[aRecNo].Items[a].Value
+                                      end;
+                                  end
+                                else if aField = 'sql_id' then
+                                  begin
+                                  if aDataSet.Id.AsVariant<>TJSONArray(aData)[aRecNo].Items[a].Value then
+                                    aDataSet.Id.AsVariant:=TJSONArray(aData)[aRecNo].Items[a].Value;
+                                  end
                                 else
-                                  aDataSet.FieldByName(aField).AsString:='N';
-                              end
-                            else if (aDataSet.FieldByName(aField).DataType=ftDateTime) then
-                              begin
-                                if (TJSONArray(aData)[0].Items[a].Value = null)
-                                or (TJSONArray(aData)[0].Items[a].Value='')
-                                or (TJSONArray(aData)[0].Items[a].Value='null') then
-                                  aDataSet.FieldByName(aField).Clear
-                                else begin
-                                  if ConvertISODate(TJSONArray(aData)[0].Items[a].AsString)<>0 then
-                                    aDataSet.FieldByName(aField).AsDateTime:=ConvertISODate(TJSONArray(aData)[0].Items[a].AsString,False)
-                                  else
-                                    aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value;
-                                end;
-                              end
-                            else if aDataSet.FieldByName(aField).AsVariant<>TJSONArray(aData)[0].Items[a].Value then
-                              begin
-                                if (TJSONArray(aData)[0].Items[a].Value = null) or (TJSONArray(aData)[0].Items[a].AsString='null') then
-                                  aDataSet.FieldByName(aField).Clear
-                                else
-                                  aDataSet.FieldByName(aField).AsVariant:=TJSONArray(aData)[0].Items[a].Value
+                                  begin
+                                    NotFoundFields.Add(aField);
+                                    NotFound := True;
+                                  end;
                               end;
-                          end
-                        else if aField = 'sql_id' then
+                          except
+                            on e : Exception do
+                              begin
+                                FStatus := 409;
+                                MimeType:='text/plain';
+                                aDataSet.Cancel;
+                                if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
+                                  Error('Error "'+e.Message+'"');
+                                sl := TStringList.Create;
+                                sl.Add(e.Message);
+                                sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                                sl.Free;
+                                aDataSet.Free;
+                              end;
+                          end;
+                        if aDataSet.CanEdit and (not NotFound) then
                           begin
-                          if aDataSet.Id.AsVariant<>TJSONArray(aData)[0].Items[a].Value then
-                            aDataSet.Id.AsVariant:=TJSONArray(aData)[0].Items[a].Value;
+                            try
+                              aDataSet.Post;
+                              if FStatus<> 409 then
+                                FStatus:=200;
+                            except
+                              on e : Exception do
+                                begin
+                                  FStatus := 409;
+                                  MimeType:='text/plain';
+                                  aDataSet.Cancel;
+                                  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
+                                    Error('Error "'+e.Message+'"');
+                                  sl := TStringList.Create;
+                                  sl.Add(e.Message);
+                                  sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                                  sl.Free;
+                                end;
+                            end;
                           end
-                        else NotFound := True;
-                      end;
-                    if aDataSet.CanEdit and (not NotFound) then
-                      begin
-                        try
-                          aDataSet.Post;
-                          FStatus:=200;
-                        except
-                          on e : Exception do
+                        else
+                          begin
+                            FStatus := 409;
+                            MimeType:='text/plain';
+                            aDataSet.Cancel;
+                            sl := TStringList.Create;
+                            sl.Add('Error "Some Fields where not Found"');
+                            sl.AddStrings(NotFoundFields);
+                            sl.SaveToStream(TDAVSession(aSocket).OutputData);
+                            sl.Free;
+                            aDataSet.Cancel;
+                          end;
+                      end
+                      else if aDataSet.Count=1 then
+                        begin
+                          if aDataSet.Delete then
                             begin
-                              FStatus := 409;
-                              MimeType:='text/plain';
-                              aDataSet.Cancel;
-                              if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
-                                Error('Error "'+e.Message+'"');
-                              sl := TStringList.Create;
-                              sl.Add(e.Message);
-                              sl.SaveToStream(TDAVSession(aSocket).OutputData);
-                              sl.Free;
+                              if FStatus<> 409 then
+                                FStatus:=200;
                             end;
                         end;
-                      end
-                    else aDataSet.Cancel;
-                    aDataSet.Free;
-                  except
-                    on e : Exception do
-                      begin
-                        FStatus := 409;
-                        MimeType:='text/plain';
-                        aDataSet.Cancel;
-                        if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
-                          Error('Error "'+e.Message+'"');
-                        sl := TStringList.Create;
-                        sl.Add(e.Message);
-                        sl.SaveToStream(TDAVSession(aSocket).OutputData);
-                        sl.Free;
-                        aDataSet.Free;
-                      end;
-                  end;
+                    end;
+                  aDataSet.Free;
+                  NotFoundFields.Free;
                 end;
               {$ENDIF}
               aJParser.Free;

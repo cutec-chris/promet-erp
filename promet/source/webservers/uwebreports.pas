@@ -572,7 +572,8 @@ begin
               begin
                 for i := 0 to GetCount-1 do
                    begin
-                     RegisterDataSet(TBaseDBDataset(SubDataSet[i]).DataSet,False,aIdent+2);
+                     if Assigned(SubDataSet[i]) then
+                       RegisterDataSet(TBaseDBDataset(SubDataSet[i]).DataSet,False,aIdent+2);
                    end;
               end;
           end;
