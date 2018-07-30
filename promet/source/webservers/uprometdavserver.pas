@@ -2028,6 +2028,7 @@ end;
 
 procedure TPrometServerFunctions.aSocketDestroy(Sender: TObject);
 begin
+  TBaseDBModule(Data).CriticalSection.Leave;
 end;
 
 function TPrometServerFunctions.FindVirtualDocumentPath(aSocket : TDAVSession;var aRemovedDir,
@@ -2188,7 +2189,7 @@ begin
       SetProperties(uData.Data.Properties);
     end;
   }
-  aSocket.Data := uData.Data;
+  aSocket.Data := uData.GetData;
   //TODO:select rigth User
   if not Assigned(aSocket.Data) then exit;
   if not Assigned(aSocket) then exit;

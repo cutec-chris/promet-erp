@@ -103,6 +103,7 @@ begin
           Data2.SetProperties(Data.Properties);
         end;
     end;
+  uData.InitMultiData(8);
   aSystem := GetSystemName;
   if HasOption('systemname') then
     aSystem:=GetOptionValue('systemname');
