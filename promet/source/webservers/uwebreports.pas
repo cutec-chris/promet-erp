@@ -552,6 +552,7 @@ begin
     end;
   if aDataSet = nil then exit;
   try
+    if not Supports(aDataSet,IBaseManageDB) then exit;
     with aDataSet as IBaseManageDB do
       begin
         case lowercase(TableName) of
