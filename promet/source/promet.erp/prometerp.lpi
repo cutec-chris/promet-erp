@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=ForumPG --debug --debug-sql"/>
+        <CommandLineParams Value="--config-path=ForumPG"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">

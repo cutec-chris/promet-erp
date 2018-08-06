@@ -2014,6 +2014,8 @@ begin
   then
     begin
       aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
+      TBaseDBModule(aSocket.Data).RefreshUsersFilter;
+      TBaseDBModule(aSocket.Data).RegisterLinkHandlers;
       Result := True;
       exit;
     end;
