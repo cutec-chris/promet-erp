@@ -124,7 +124,7 @@ begin
         end
       else
         begin
-          aDirs := TTree.Create(aSocket);
+          aDirs := TTree.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aDirs.Filter(TBaseDBModule(aSocket.Data).QuoteField('TYPE')+'='+TBaseDBModule(aSocket.Data).QuoteValue('A'));
           aDirPar := null;
           Result := True;
@@ -144,7 +144,7 @@ begin
             end;
           aParent := aDirs.Id.AsVariant;
         end;
-      aCal := TCalendar.Create(aSocket);
+      aCal := TCalendar.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
       aCal.Filter(TBaseDBModule(aSocket.Data).QuoteField('ORIGID')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aFile));
       if (aCal.Count=0) and IsNumeric(aFile) then
         begin
@@ -158,7 +158,7 @@ begin
         end
       else
         begin
-          aTasks := TTaskList.Create(aSocket);
+          aTasks := TTaskList.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aTasks.Filter(TBaseDBModule(aSocket.Data).QuoteField('ORIGIDS')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aFile));
           if (aTasks.Count=0) and IsNumeric(aFile) then
             begin
@@ -183,7 +183,7 @@ begin
     begin
       if aLevel = 6 then
         begin
-          aDocuments := TDocuments.Create(aSocket);
+          aDocuments := TDocuments.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aDocuments.Select(aId,aType,0);
           aDocuments.Open;
           if copy(aDir,length(aDir),1) = '/' then
@@ -197,7 +197,7 @@ begin
               aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
               if aDocuments.SelectFile(aDir) then
                 begin
-                  aDocument := TDocument.Create(aSocket);
+                  aDocument := TDocument.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                   aDocument.SelectByNumber(aDocuments.DataSet.FieldByName('NUMBER').AsVariant);
                   aDocument.Open;
                   if aDocument.Count > 0 then
@@ -250,7 +250,7 @@ begin
     begin
       if aLevel = 6 then
         begin
-          aDocuments := TDocuments.Create(aSocket);
+          aDocuments := TDocuments.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aDocuments.Select(aId,aType,0);
           aDocuments.Open;
           if copy(aFromDir,length(aFromDir),1) = '/' then
@@ -261,7 +261,7 @@ begin
 
           if Result then
             begin
-              aDocuments2 := TDocuments.Create(aSocket);
+              aDocuments2 := TDocuments.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               aDocuments2.Select(aId2,aType2,0);
               aDocuments2.Open;
               if copy(aToDir,length(aToDir),1) = '/' then
@@ -281,7 +281,7 @@ begin
               aToDir := copy(aToDir,rpos('/',aToDir)+1,length(aToDir));
               if aDocuments.SelectFile(aFromDir) then
                 begin
-                  aDocument := TDocument.Create(aSocket);
+                  aDocument := TDocument.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                   aDocument.SelectByNumber(aDocuments.DataSet.FieldByName('NUMBER').AsVariant);
                   aDocument.Open;
                   while not aDocument.EOF do
@@ -419,7 +419,7 @@ begin
               aDir := copy(aDir,0,rpos('/',aDir)-1);
             end;
           //Add CalDAV Calendars
-          aDirs := TTree.Create(aSocket);
+          aDirs := TTree.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aDirs.Filter(TBaseDBModule(aSocket.Data).QuoteField('TYPE')+'='+TBaseDBModule(aSocket.Data).QuoteValue('A'));
           if not (Assigned(aItem) and (aItem.Path = aBaseDir+aDir+'/')) then
             begin
@@ -435,12 +435,12 @@ begin
               aItem.IsCalendarUser:=IsCalendarUser;
               aItem.CurrentUserPrincipal:='/users/'+TBaseDBModule(aSocket.Data).Users.FieldByName('NAME').AsString;
               //Select last SQL_ID as ctag
-              aDel := TDeletedItems.Create(aSocket);
+              aDel := TDeletedItems.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               aDel.ActualLimit:=1;
               aDel.SortFields:='TIMESTAMPD';
               aDel.SortDirection:= sdDescending;
               aDel.Open;
-              aCal := TCalendar.Create(aSocket);
+              aCal := TCalendar.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               aCal.SelectByUser(TBaseDBModule(aSocket.Data).Users.Accountno.AsString);
               aCal.ActualLimit:=1;
               aCal.SortFields:='TIMESTAMPD';
@@ -470,7 +470,7 @@ begin
                       aDirList.Add(aItem);
                       aCal.Next;
                     end;
-                  aTasks := TTaskList.Create(aSocket);
+                  aTasks := TTaskList.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                   aTasks.SelectActiveByUser(TBaseDBModule(aSocket.Data).Users.Accountno.AsString);
                   aTasks.Open;
                   while not aTasks.EOF do
@@ -512,12 +512,12 @@ begin
                       aItem.IsCalendar:=True;
                       aItem.IsCalendarUser:=IsCalendarUser;
                       aItem.CurrentUserPrincipal:='/users/'+TBaseDBModule(aSocket.Data).Users.FieldByName('NAME').AsString;
-                      aDel := TDeletedItems.Create(aSocket);
+                      aDel := TDeletedItems.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                       aDel.ActualLimit:=1;
                       aDel.SortFields:='TIMESTAMPD';
                       aDel.SortDirection:= sdDescending;
                       aDel.Open;
-                      aCal := TCalendar.Create(aSocket);
+                      aCal := TCalendar.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                       aCal.ActualLimit:=1;
                       aCal.Filter(TBaseDBModule(aSocket.Data).QuoteField('REF_ID_ID')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aDirs.Id.AsString));
                       aCal.SortFields:='TIMESTAMPD';
@@ -582,7 +582,7 @@ begin
               aDir := copy(aDir,0,rpos('/',aDir)-1);
             end;
           //Add CardDAV Books
-          aDirs := TTree.Create(aSocket);
+          aDirs := TTree.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aDirs.Filter(TBaseDBModule(aSocket.Data).QuoteField('TYPE')+'='+TBaseDBModule(aSocket.Data).QuoteValue('F'));
           while not aDirs.EOF do
             begin
@@ -591,7 +591,7 @@ begin
                 begin
                   aItem.IsCalendar:=True;
                   aItem.IsCalendarUser:=IsCalendarUser;
-                  aCal := TCalendar.Create(aSocket);
+                  aCal := TCalendar.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                   aCal.Filter(TBaseDBModule(aSocket.Data).QuoteField('REF_ID_ID')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aDirs.Id.AsString));
                   //if aCal.TimeStamp.AsDateTime<aDel.TimeStamp.AsDateTime then
                     aItem.Properties.Values['getctag'] := StringReplace(aCal.TimeStamp.AsString,' ','',[rfReplaceAll])
@@ -649,7 +649,7 @@ begin
           aItem.Properties.Values['getlastmodified'] := FormatDateTime('ddd, dd mmm yyyy hh:nn:ss',LocalTimeToGMT(Now()),WebFormatSettings)+' GMT';
           sl := TStringList.Create;
           {
-          aCal := TCalendar.Create(aSocket);
+          aCal := TCalendar.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aCal.SelectByUser(TBaseDBModule(aSocket.Data).Users.Accountno.AsString);
           aCal.Open;
           VCalExport(aCal,sl);
@@ -674,7 +674,7 @@ begin
           if pos('/files/',aRemovedDir)>0 then
             begin
               aDir := copy(aRemovedDir,pos('/files/',aRemovedDir)+7,length(aRemovedDir));
-              aDocuments := TDocuments.Create(aSocket);
+              aDocuments := TDocuments.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               aDocuments.Select(aId,aType,0);
               aDocuments.Open;
               aFile := '';
@@ -710,7 +710,7 @@ begin
                 begin
                   if copy(aFullDir,length(aFullDir),1) <> '/' then
                     aFullDir := aFullDir+'/';
-                  aDataSet := aClass.Create(aSocket);
+                  aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                   aDataSet.Select(aId);
                   aDataSet.Open;
                   case aType of
@@ -801,7 +801,7 @@ begin
           aItem := TDAVFile.Create(aFullDir+'item.json',False);
           aItem.Properties.Values['getcontenttype'] := 'application/json';
           aDirList.Add(aItem);
-          aWiki := TWikiList.Create(aSocket);
+          aWiki := TWikiList.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           case aClass.ClassName of
           'TMasterdata':tmp := 'TArticle'
           else tmp := aClass.ClassName;
@@ -829,7 +829,7 @@ begin
         begin
           if Assigned(aClass) then
             begin
-              aDataSet := aClass.Create(aSocket);
+              aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               TBaseDbList(aDataSet).SelectFromTreeEntry(TBaseDBModule(aSocket.Data).Tree.FieldByName('SQL_ID').AsLargeInt);
               aDataSet.Open;
               while not aDataSet.EOF do
@@ -997,7 +997,7 @@ begin
   if aDir = 'ical/'+TBaseDBModule(aSocket.Data).Users.Text.AsString+'.ics' then
     begin
       sl := TStringList.Create;
-      aCal := TCalendar.Create(aSocket);
+      aCal := TCalendar.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
       aCal.SelectByUser(TBaseDBModule(aSocket.Data).Users.Accountno.AsString);
       aCal.Open;
       VCalExport(aCal,sl);
@@ -1027,7 +1027,7 @@ begin
         end
       else
         begin
-          aDirs := TTree.Create(aSocket);
+          aDirs := TTree.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aDirs.Filter(TBaseDBModule(aSocket.Data).QuoteField('TYPE')+'='+TBaseDBModule(aSocket.Data).QuoteValue('A'));
           aDirPar := null;
           Result := True;
@@ -1048,7 +1048,7 @@ begin
           aParent := aDirs.Id.AsVariant;
           aDirs.Free;
         end;
-      aCal := TCalendar.Create(aSocket);
+      aCal := TCalendar.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
       aCal.Filter(TBaseDBModule(aSocket.Data).QuoteField('ORIGID')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aFile));
       if (aCal.Count=0) and IsNumeric(aFile) then
         begin
@@ -1067,7 +1067,7 @@ begin
       aCal.Free;
       if (not result) and (aDir = 'home') then //check for taks
         begin
-          aTasks := TTaskList.Create(aSocket);
+          aTasks := TTaskList.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aTasks.Filter(TBaseDBModule(aSocket.Data).QuoteField('ORIGIDS')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aFile));
           if (aTasks.Count=0) and IsNumeric(aFile) then
             begin
@@ -1095,7 +1095,7 @@ begin
             begin
               MimeType:='application/json';
               sl := TStringList.Create;
-              aDataSet := aClass.Create(aSocket);
+              aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               if QueryFields.Values['filter']<>'' then
                 aDataSet.ActualFilter:=QueryFields.Values['filter'];
               if aDataSet is TTimes then
@@ -1120,7 +1120,7 @@ begin
             begin
               tmp := copy(aDir,10,length(aDir));
               tmp := Uppercase(copy(tmp,0,pos('/',tmp)-1));
-              aDataSet := aClass.Create(aSocket);
+              aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               aDir := ExtractFileName(aDir);
               aDir := copy(aDir,0,pos('.',aDir)-1);
               aDataSet.Select(aDir);
@@ -1140,7 +1140,7 @@ begin
         begin
           if pos('/files/',aRemovedDir)>0 then
             begin
-              aDocuments := TDocuments.Create(aSocket);
+              aDocuments := TDocuments.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               try
               aDocuments.Select(aId,aType,0);
               aDocuments.Open;
@@ -1153,7 +1153,7 @@ begin
                   aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
                   if aDocuments.SelectFile(aDir) then
                     begin
-                      aDocument := TDocument.Create(aSocket);
+                      aDocument := TDocument.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                       try
                       aDocument.SelectByNumber(aDocuments.DataSet.FieldByName('NUMBER').AsVariant);
                       aDocument.Open;
@@ -1179,7 +1179,7 @@ begin
               aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
               if copy(aFullDir,length(aFullDir),1) <> '/' then
                 aFullDir := aFullDir+'/';
-              aDataSet := aClass.Create(aSocket);
+              aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               aDataSet.Select(aId);
               aDataSet.Open;
               case aType of
@@ -1331,7 +1331,7 @@ begin
           if aDir = 'item.xml' then
             begin
               MimeType:='text/xml';
-              aDataSet := aClass.Create(aSocket);
+              aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               aDataSet.Select(aID);
               aDataSet.Open;
               if aDataSet.Count>0 then
@@ -1347,7 +1347,7 @@ begin
                then
             begin
               MimeType:='application/json';
-              aDataSet := aClass.Create(aSocket);
+              aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               aDataSet.Select(aID);
               aDataSet.Open;
               if aDataSet.Count>0 then
@@ -1366,7 +1366,7 @@ begin
           else if pos('.html',aDir)>0 then
             begin
               MimeType:='text/html';
-              aWiki := TWikiList.Create(aSocket);
+              aWiki := TWikiList.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               case aClass.ClassName of
               'TMasterdata':tmp := 'TArticle'
               else tmp := aClass.ClassName;
@@ -1374,7 +1374,7 @@ begin
               tmp := copy(tmp,2,length(tmp))+'Frame';
               if aWiki.FindWikiPage('Promet-ERP-Help/forms/tf'+tmp+'/'+copy(aDir,0,pos('.html',aDir)-1)) then
                 begin
-                  aDataSet := aClass.Create(aSocket);
+                  aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                   aDataSet.Select(aID);
                   aDataSet.Open;
                   if aDataSet.Count>0 then
@@ -1514,7 +1514,7 @@ begin
     begin
       if aLevel=6 then
         begin
-          aDocuments := TDocuments.Create(aSocket);
+          aDocuments := TDocuments.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aDocuments.Select(aId,aType,0);
           aDocuments.Open;
           if copy(aDir,length(aDir),1)='/' then
@@ -1529,7 +1529,7 @@ begin
             begin
               Result := False;
               aDir := copy(aDir,rpos('/',aDir)+1,length(aDir));
-              aDocument := TDocument.Create(aSocket);
+              aDocument := TDocument.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               if SubFolder then
                 aDocument.BaseParent := aDocuments
               else
@@ -1618,7 +1618,7 @@ begin
         end
       else
         begin
-          aDirs := TTree.Create(aSocket);
+          aDirs := TTree.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aDirs.Filter(TBaseDBModule(aSocket.Data).QuoteField('TYPE')+'='+TBaseDBModule(aSocket.Data).QuoteValue('A'));
           aDirPar := null;
           Result := True;
@@ -1643,7 +1643,7 @@ begin
       sl := TStringList.Create;
       Stream.Position:=0;
       sl.LoadFromStream(Stream);
-      aCal := TCalendar.Create(aSocket);
+      aCal := TCalendar.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
       aCal.Filter(TBaseDBModule(aSocket.Data).QuoteField('ORIGID')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aFile));
       if (aCal.Count=0) and IsNumeric(aFile) then
         begin
@@ -1665,7 +1665,7 @@ begin
       else
         begin
           //todo ???
-          aTasks := TTaskList.Create(aSocket);
+          aTasks := TTaskList.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aTasks.Filter(TBaseDBModule(aSocket.Data).QuoteField('ORIGIDS')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aFile));
           if (aTasks.Count=0) and IsNumeric(aFile) then
             begin
@@ -1725,7 +1725,7 @@ begin
                   if aClass = TTimes then
                     aDataSet := TTimes.CreateEx(aSocket,TbaseDbModule(aSocket.Data),nil,TbaseDbModule(aSocket.Data).Users.DataSet)
                   else
-                    aDataSet := aClass.Create(aSocket);
+                    aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                   NotFoundFields := TStringList.Create;
                   for aRecNo := 0 to TJSONArray(aData).Count-1 do
                     begin
@@ -1860,7 +1860,7 @@ begin
               ss := TStringStream.Create('');
               ss.CopyFrom(Stream,0);
               try
-                aDataSet := aClass.Create(aSocket);
+                aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                 with aDataSet.DataSet as IBaseDbFilter do
                   Fields := '';
                 aDataSet.ImportFromJSON(ss.DataString);
@@ -1890,7 +1890,7 @@ begin
               ss := TStringStream.Create('');
               ss.CopyFrom(Stream,0);
               try
-                aDataSet := aClass.Create(aSocket);
+                aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                 with aDataSet.DataSet as IBaseDbFilter do
                   Fields := '';
                 aDataSet.ImportFromXML(ss.DataString);
@@ -1917,13 +1917,13 @@ begin
         end
       else if aLevel=6 then //virtual directories (files,reports)
         begin
-          aDocuments := TDocuments.Create(aSocket);
+          aDocuments := TDocuments.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aDocuments.Select(aID,aType,0);
           aDocuments.Open;
           if rpos('/',aDir) > 1 then
             Result := aDocuments.OpenPath(copy(aDir,0,rpos('/',aDir)-1),'/')
           else Result := True;
-          aDocuments2 := TDocuments.Create(aSocket);
+          aDocuments2 := TDocuments.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
           aDocuments2.Select(aID,aType,0);
           aDocuments2.Open;
           if rpos('/',aDir) > 1 then
@@ -1932,7 +1932,7 @@ begin
           if Result then
             begin
               Result := False;
-              aDocument := TDocument.Create(aSocket);
+              aDocument := TDocument.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
               aFileName := ExtractFileName(aDir);
               if ADocuments2.SelectFile(aFileName) then //Checkin existing File
                 begin
@@ -2117,7 +2117,7 @@ begin
             begin
               aClass:=DatasetClasses[i].aClass;
               aLevel := 1;
-              DataSet := TBaseDbList(TBaseDbListClass(DatasetClasses[i].aClass).Create(aSocket));
+              DataSet := TBaseDbList(TBaseDbListClass(DatasetClasses[i].aClass).CreateEx(aSocket,TBaseDBModule(aSocket.Data)));
               aType:=DataSet.GetTyp;
               Result:=True;
               if pos('/',copy(aDir,2,length(aDir)))>0 then
