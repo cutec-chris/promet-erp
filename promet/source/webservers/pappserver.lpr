@@ -104,7 +104,7 @@ begin
         end;
     end;
   if Assigned(Data) then
-    uData.InitMultiData(4);
+    uData.InitMultiData(8);
   aSystem := GetSystemName;
   if HasOption('systemname') then
     aSystem:=GetOptionValue('systemname');
@@ -113,7 +113,7 @@ begin
     Info('Waiting for Mandant Configuration');
   while not Assigned(uData.Data) do
     begin
-      //CheckSynchronize(50);
+      CheckSynchronize(50);
       sleep(50);
     end;
   if Assigned(uData.Data) then
@@ -133,7 +133,7 @@ begin
       while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do
         begin
           CheckSynchronize(5);
-          sleep(10);
+          //sleep(10);
           if i > 60000 then
             begin
               i := 0;
@@ -145,7 +145,7 @@ begin
                 end;
               //LeaveCriticalsection(GlobalLock);
             end;
-          //CheckSynchronize(5);
+          CheckSynchronize(5);
           inc(i);
         end;
       except

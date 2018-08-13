@@ -91,6 +91,7 @@ var
   aWiki: TWikiList;
   bUser: TUser;
   aStartPage: String;
+  tmpData: TBaseDBModule;
   function BuildRight(aRight : string) : string;
   begin
     Result := '{"'+aRight+'": '+IntToStr(Data.Users.Rights.Right(aRight))+'}';
@@ -279,6 +280,16 @@ begin
                     sl.SaveToStream(Output);
                     sl.Free;
                     Output.Position:=0;
+                  end;
+              end
+            else if lowercase(url)='dbstatus' then
+              begin
+                Result := 500;
+                tmpData := uData.GetData;
+                if Assigned(tmpData) then
+                  begin
+                    Result := 200;
+                    tmpData.CriticalSection.Leave;
                   end;
               end;
           end
