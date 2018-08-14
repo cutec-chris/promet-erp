@@ -133,17 +133,14 @@ begin
       while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do
         begin
           CheckSynchronize(5);
-          //sleep(10);
           if i > 60000 then
             begin
               i := 0;
-              //EnterCriticalsection(GlobalLock);
               if not Data2.ProcessClient.ProcessAll(aSystem) then
                 begin
                   Terminate;
                   exit;
                 end;
-              //LeaveCriticalsection(GlobalLock);
             end;
           CheckSynchronize(5);
           inc(i);
