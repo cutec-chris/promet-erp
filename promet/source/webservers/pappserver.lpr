@@ -136,11 +136,16 @@ begin
           if i > 60000 then
             begin
               i := 0;
-              if not Data2.ProcessClient.ProcessAll(aSystem) then
-                begin
-                  Terminate;
-                  exit;
-                end;
+              EnterCriticalsection(GlobalLock);
+              try
+                if not Data2.ProcessClient.ProcessAll(aSystem) then
+                  begin
+                    Terminate;
+                    exit;
+                  end;
+              finally
+                LeaveCriticalsection(GlobalLock);
+              end;
             end;
           CheckSynchronize(5);
           inc(i);

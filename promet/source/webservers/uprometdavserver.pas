@@ -36,9 +36,9 @@ type
     function FindVirtualDocumentPath(aSocket: TDAVSession; var aRemovedDir,
       aDir: string; var aID: Variant; var aType: string; var aLevel: Integer;
     var aClass: TBaseDBDatasetClass): Boolean;
-    procedure CreateDataModule(aSocket : TDAVSession);
-    procedure DestroyDataModule(aSocket : TDAVSession);
   public
+    procedure DoLock(aSocket : TDAVSession);
+    procedure DoUnlock(aSocket : TDAVSession);
     function AddDocumentsToFileList(aSocket: TDAVSession;aFileList: TDAVDirectoryList;
       aDocuments: TDocuments; aPath,aFilter: string) : Boolean;
     procedure AddDocumentToFileList(aSocket: TDAVSession;
@@ -105,7 +105,6 @@ var
 begin
   Result := False;
   if aSocket.User='' then exit;
-  CreateDataModule(aSocket);
   try
     Result:=True;
     if copy(aDir,0,1)<>'/' then
@@ -213,7 +212,6 @@ begin
           end;
       end;
   finally
-    DestroyDataModule(aSocket);
   end;
 end;
 
@@ -242,7 +240,6 @@ var
 begin
   Result := False;
   if aSocket.User='' then exit;
-  CreateDataModule(aSocket);
   try
     Result:=True;
     if copy(aFromDir,0,1)<>'/' then
@@ -306,7 +303,6 @@ begin
           end;
       end;
   finally
-    DestroyDataModule(aSocket);
   end;
 end;
 
@@ -337,7 +333,6 @@ var
 begin
   Result := false;
   if aSocket.User='' then exit;
-  CreateDataModule(aSocket);
   try
   try
     aDir := HTTPDecode(aDir);
@@ -347,7 +342,7 @@ begin
         if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then exit;
       end;
     aFullDir := aDir;
-    TBaseDBModule(aSocket.Data).RefreshUsersFilter;
+    //TBaseDBModule(aSocket.Data).RefreshUsersFilter;
     //Root
     if aDir = '/' then
       begin
@@ -864,7 +859,6 @@ begin
     Result:=False;
   end;
   finally
-    DestroyDataModule(aSocket);
   end;
 end;
 function TPrometServerFunctions.ServerGetFile(aSocket: TDAVSession; aDir: string;
@@ -1003,7 +997,6 @@ begin
   aDir := HTTPDecode(aDir);
   aFullDir := aDir;
   if (aSocket.User='') and (pos('blobdata',aDir)=0) then exit;
-  CreateDataModule(aSocket);
   try
   try
     if aDir = 'ical/'+TBaseDBModule(aSocket.Data).Users.Text.AsString+'.ics' then
@@ -1423,9 +1416,9 @@ begin
         if (not Result) and (aDir = '.json') then
           begin
             aDirList := TDAVDirectoryList.Create;
-            TWebDAVMaster(aSocket.Creator).Lock;
+            //TWebDAVMaster(aSocket.Creator).Lock(aSocket);
             Result := ServerGetDirectoryList(aSocket,StringReplace(aFullDir,'/.json','/',[]),1,aDirList);
-            TWebDAVMaster(aSocket.Creator).Unlock;
+            //TWebDAVMaster(aSocket.Creator).Unlock(aSocket);
             sl := TStringList.Create;
             sl.Add('[');
             for i := 0 to aDirList.Count-1 do
@@ -1516,7 +1509,6 @@ var
 begin
   Result := False;
   if aSocket.User='' then exit;
-  CreateDataModule(aSocket);
   try
     if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
       begin
@@ -1563,7 +1555,6 @@ begin
           end;
       end;
   finally
-    DestroyDataModule(aSocket);
   end;
 end;
 function TPrometServerFunctions.ServerPutFile(aSocket: TDAVSession; aDir: string;
@@ -1603,7 +1594,6 @@ begin
   FStatus:=500;
   Result := False;
   if aSocket.User='' then exit;
-  CreateDataModule(aSocket);
   try
     if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
       begin
@@ -1984,7 +1974,6 @@ begin
       end
     else fStatus := 404;
   finally
-    DestroyDataModule(aSocket);
   end;
 end;
 function TPrometServerFunctions.ServerReadAllowed(aSocket: TDAVSession; aDir: string
@@ -1994,7 +1983,6 @@ var
 begin
   if aSocket=nil then exit;
   if not Assigned(BaseApplication) then exit;
-  CreateDataModule(aSocket);
   try
     if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
     and TBaseDBModule(aSocket.Data).Authenticate(BaseApplication.GetOptionValue('u','user'),BaseApplication.GetOptionValue('p','password'))))
@@ -2031,7 +2019,6 @@ end;
 function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
   aPassword: string): Boolean;
 begin
-  CreateDataModule(aSocket);
   try
     if not Assigned(BaseApplication) then exit;
     if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
@@ -2053,7 +2040,6 @@ begin
       end
     else aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
   finally
-    DestroyDataModule(aSocket);
   end;
 end;
 
@@ -2202,19 +2188,11 @@ begin
         end;
     end;
 end;
-procedure TPrometServerFunctions.CreateDataModule(aSocket: TDAVSession);
+procedure TPrometServerFunctions.DoLock(aSocket: TDAVSession);
 var
   aType: TBaseDBModuleClass;
 begin
   if Assigned(aSocket.Data) then exit;
-  {
-  aType := TBaseDBModuleClass(uData.Data.ClassType);
-  aSocket.Data := aType.Create(aSocket);
-  with TBaseDBModule(aSocket.Data) do
-    begin
-      SetProperties(uData.Data.Properties);
-    end;
-  }
   aSocket.Data := uData.GetData;
   //TODO:select rigth User
   if not Assigned(aSocket.Data) then exit;
@@ -2225,11 +2203,11 @@ begin
       TBaseDBModule(aSocket.Data).Users.Filter('',0);
       if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
-  TBaseDBModule(aSocket.Data).RefreshUsersFilter;
-  TBaseDBModule(aSocket.Data).RegisterLinkHandlers;
+  //TBaseDBModule(aSocket.Data).RefreshUsersFilter;
+  //TBaseDBModule(aSocket.Data).RegisterLinkHandlers;
 end;
 
-procedure TPrometServerFunctions.DestroyDataModule(aSocket: TDAVSession);
+procedure TPrometServerFunctions.DoUnlock(aSocket: TDAVSession);
 begin
   if not Assigned(aSocket) then exit;
   TBaseDBModule(aSocket.Data).CriticalSection.Leave;

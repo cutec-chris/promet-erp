@@ -92,6 +92,8 @@ begin
   OnReadAllowed:=@ServerFunctions.ServerReadAllowed;
   OnWriteAllowed:=@ServerFunctions.ServerReadAllowed;
   OnUserLogin:=@ServerFunctions.ServerUserLogin;
+  OnLock:=@ServerFunctions.DoLock;
+  OnUnLock:=@ServerFunctions.DoUnlock;
 end;
 
 destructor TPrometWebDAVMaster.Destroy;
