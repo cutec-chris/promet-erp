@@ -832,7 +832,7 @@ begin
   if Assigned(FOutputResult) then
     begin
       if Assigned(Socket) then
-        Socket.InternalSynchronize(Socket,@DoProcessInput,true)
+        Socket.InternalSynchronize(Socket,@DoProcessInput,false)
       else DoProcessInput;
       if Status<>0 then
         Result := Status;
