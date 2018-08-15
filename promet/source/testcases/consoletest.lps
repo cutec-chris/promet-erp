@@ -14,25 +14,24 @@
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="7"/>
-        <CursorPos X="4" Y="25"/>
+        <TopLine Value="9"/>
+        <CursorPos X="16" Y="16"/>
         <UsageCount Value="42"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="sheaptrc.pp"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="8"/>
         <CursorPos X="80" Y="10"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
-        <Filename Value="twikitest.pas"/>
+        <Filename Value="tmultidbtest.pas"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="42"/>
-        <CursorPos X="52" Y="57"/>
+        <CursorPos Y="13"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -46,7 +45,7 @@
       </Unit3>
       <Unit4>
         <Filename Value="uordertest.pas"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="10"/>
         <TopLine Value="106"/>
         <CursorPos X="19" Y="125"/>
         <UsageCount Value="12"/>
@@ -54,7 +53,7 @@
       </Unit4>
       <Unit5>
         <Filename Value="tdbtests.pas"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="9"/>
         <CursorPos Y="28"/>
         <UsageCount Value="11"/>
@@ -78,7 +77,7 @@
       <Unit8>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="900"/>
         <CursorPos X="11" Y="920"/>
         <UsageCount Value="12"/>
@@ -109,7 +108,7 @@
       </Unit11>
       <Unit12>
         <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="13"/>
         <TopLine Value="835"/>
         <CursorPos Y="860"/>
         <UsageCount Value="12"/>
@@ -132,7 +131,7 @@
       <Unit15>
         <Filename Value="..\base\dbintfs\utimes.pas"/>
         <UnitName Value="uTimes"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="12"/>
         <TopLine Value="97"/>
         <CursorPos X="73" Y="113"/>
         <UsageCount Value="12"/>
@@ -183,7 +182,7 @@
       </Unit21>
       <Unit22>
         <Filename Value="ucreatetable.pas"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="7"/>
         <CursorPos Y="112"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
@@ -191,7 +190,7 @@
       <Unit23>
         <Filename Value="..\base\dbintfs\udata.pas"/>
         <UnitName Value="uData"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="9"/>
         <CursorPos X="19" Y="30"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
@@ -281,7 +280,7 @@
       <Unit35>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="213"/>
         <CursorPos Y="239"/>
         <UsageCount Value="10"/>
@@ -290,7 +289,7 @@
       <Unit36>
         <Filename Value="tlogin.pas"/>
         <UnitName Value="tLogin"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <CursorPos X="25" Y="45"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -298,7 +297,7 @@
       <Unit37>
         <Filename Value="..\base\dbintfs\uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="371"/>
         <CursorPos X="47" Y="370"/>
         <UsageCount Value="10"/>
@@ -306,15 +305,14 @@
       </Unit37>
       <Unit38>
         <Filename Value="C:\Users\Ulrich\AppData\Local\Temp\test.html"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="1878"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="HTML"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="13" Y="49"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -426,20 +424,20 @@
         <Caret Line="860" TopLine="835"/>
       </Position26>
       <Position27>
-        <Filename Value="twikitest.pas"/>
-        <Caret Line="66" Column="27" TopLine="31"/>
-      </Position27>
-      <Position28>
-        <Filename Value="twikitest.pas"/>
-        <Caret Line="67" TopLine="31"/>
-      </Position28>
-      <Position29>
         <Filename Value="..\base\dbintfs\uwiki.pas"/>
         <Caret Line="471" TopLine="459"/>
+      </Position27>
+      <Position28>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="25" Column="6"/>
+      </Position28>
+      <Position29>
+        <Filename Value="tmultidbtest.pas"/>
+        <Caret Line="8" Column="54"/>
       </Position29>
       <Position30>
-        <Filename Value="..\base\dbintfs\uwiki.pas"/>
-        <Caret Line="370" Column="47" TopLine="371"/>
+        <Filename Value="tmultidbtest.pas"/>
+        <Caret Line="20" Column="29"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

@@ -3,7 +3,7 @@ unit upwebdavserver;
 interface
 uses
   Classes, SysUtils, dom, xmlread, xmlwrite, uappserverhttp,udavserver,uAppServer,
-  uprometdavserver,uData,uBaseApplication;
+  uprometdavserver,uBaseApplication;
 
 type
 
@@ -36,7 +36,6 @@ begin
   if BaseApplication.HasOption('nodav') then exit;
   if pos('/configuration/',Url)=1 then exit;
   if pos('/wiki/',Url)=1 then exit;
-  if not Assigned(uData.Data) then exit;
   try
     if not Assigned(DavServer) then
       begin

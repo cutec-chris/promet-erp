@@ -532,9 +532,7 @@ function TDAVSession.CheckAuth: Boolean;
 begin
   if Parameters.Values['authorization'] <> '' then
     begin
-      if Assigned(Socket) then
-        Socket.InternalSynchronize(Socket,@DoCheckauth,False)
-      else DoCheckAuth;
+      DoCheckAuth;
       Result := FBoolResult;
     end;
 end;

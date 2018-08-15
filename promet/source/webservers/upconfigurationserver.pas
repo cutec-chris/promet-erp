@@ -94,7 +94,7 @@ var
   tmpData: TBaseDBModule;
   function BuildRight(aRight : string) : string;
   begin
-    Result := '{"'+aRight+'": '+IntToStr(Data.Users.Rights.Right(aRight))+'}';
+    Result := '{"'+aRight+'": '+IntToStr(tmpData.Users.Rights.Right(aRight))+'}';
   end;
 begin
   Result := 404;
@@ -171,7 +171,7 @@ begin
                             if DBLogin('standard','') then
                               begin
                                 Result := 200;
-                                uData.Data := GetDB;
+                                uData.DataM := GetDB;
                               end
                             else
                               begin
@@ -187,7 +187,7 @@ begin
               end
             else if lowercase(url) = 'status' then
               begin
-                if Assigned(uData.Data) then
+                if Assigned(uData.DataM) then
                   begin
                     if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password')))) then
                       Result := 403
@@ -199,99 +199,105 @@ begin
               end
             else if lowercase(url)='userstatus' then
               begin
-                if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
-                and TBaseDBModule(uData.Data).Authenticate(BaseApplication.GetOptionValue('u','user'),BaseApplication.GetOptionValue('p','password'))))
-                then
-                  begin
-                    Result := 200;
-                  end
-                else
-                  begin
-                    aUser := aParameters.Values['authorization'];
-                    if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
-                      begin
-                        aResult.Free;
-                        aParameters.Free;
-                        Result:=401;
-                        exit;
-                      end;
-                    Result:=401;
-                    aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
-                    aPassword := copy(aUser,pos(':',aUser)+1,length(aUser));
-                    aUser := copy(aUser,0,pos(':',aUser)-1);
-                    if (Result = 401) then
-                      if TBaseDBModule(uData.Data).Authenticate(aUser,aPassword) then
-                        Result := 200;
-                  end;
-                if Result = 200 then
-                  begin
-                    aWiki := TWikiList.Create(nil);
-                    aWiki.CreateTable;
-                    try
-                      bUser := TUser.Create(nil);
-                      bUser.Open;
-                      bUser.Locate('SQL_ID',Data.Users.Id.AsVariant,[]);
-                      while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+StringReplace(bUser.UserName.AsString,' ','_',[rfReplaceAll]))) and (not bUser.FieldByName('PARENT').IsNull) do
+                tmpData := uData.Data;
+                tmpData.CriticalSection.Enter;
+                try
+                  if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
+                  and TBaseDBModule(tmpData).Authenticate(BaseApplication.GetOptionValue('u','user'),BaseApplication.GetOptionValue('p','password'))))
+                  then
+                    begin
+                      Result := 200;
+                    end
+                  else
+                    begin
+                      aUser := aParameters.Values['authorization'];
+                      if lowercase(copy(aUser,0,pos(' ',aUser)-1))<>'basic' then
                         begin
-                          bUser.Locate('SQL_ID',bUser.FieldByName('PARENT').AsVariant,[]);
+                          aResult.Free;
+                          aParameters.Free;
+                          Result:=401;
+                          exit;
                         end;
-                      aStartPage := 'Promet-ERP-Help/users/'+StringReplace(bUser.UserName.AsString,' ','_',[rfReplaceAll]);
-                      if not aWiki.FindWikiPage(aStartPage) then
-                        begin
-                          aStartPage:='Promet-ERP-Help/users/Administrator';
-                          if not aWiki.FindWikiPage(aStartPage) then
-                            aStartPage:='';
-                        end;
-                    except
+                      Result:=401;
+                      aUser := DecodeStringBase64(copy(aUser,pos(' ',aUser)+1,length(aUser)));
+                      aPassword := copy(aUser,pos(':',aUser)+1,length(aUser));
+                      aUser := copy(aUser,0,pos(':',aUser)-1);
+                      if (Result = 401) then
+                        if TBaseDBModule(tmpData).Authenticate(aUser,aPassword) then
+                          Result := 200;
                     end;
-                    aWiki.Free;
-                    bUser.Free;
-                    sl := TStringList.Create;
-                    sl.Add('{"username": "'+Data.Users.FieldByName('NAME').AsString+'"');
-                    if aStartPage<>'' then;
-                      sl.Add(',"startpage": "'+aStartPage+'"');
-                    sl.Add(',"rights": [');
-                    sl.Add(BuildRight('DOCUMENTS')+',');
-                    sl.Add(BuildRight('HISTORY')+',');
-                    sl.Add(BuildRight('LISTS')+',');
-                    sl.Add(BuildRight('TREE')+',');
-                    sl.Add(BuildRight('MESSAGES')+',');
-                    sl.Add(BuildRight('CALENDAR')+',');
-                    sl.Add(BuildRight('ORDERS')+',');
-                    sl.Add(BuildRight('PRODUCTION')+',');
-                    sl.Add(BuildRight('CUSTOMERS')+',');
-                    sl.Add(BuildRight('MASTERDATA')+',');
-                    sl.Add(BuildRight('TASKS')+',');
-                    sl.Add(BuildRight('WIKI')+',');
-                    sl.Add(BuildRight('PROJECTS')+',');
-                    sl.Add(BuildRight('SHEME')+',');
-                    sl.Add(BuildRight('REPORTS')+',');
-                    sl.Add(BuildRight('STORAGE')+',');
-                    sl.Add(BuildRight('DISPOSITION')+',');
-                    sl.Add(BuildRight('WEBSHOP')+',');
-                    sl.Add(BuildRight('INVENTORY')+',');
-                    sl.Add(BuildRight('ACCOUNTING')+',');
-                    sl.Add(BuildRight('TIMEREG')+',');
-                    sl.Add(BuildRight('STATISTICS')+',');
-                    sl.Add(BuildRight('OPTIONS')+',');
-                    sl.Add(BuildRight('MEETINGS'));
-                    sl.Add(']');
-                    sl.Add('}');
-                    sl.SaveToStream(Output);
-                    sl.Free;
-                    Output.Position:=0;
-                  end;
-              end
-            else if lowercase(url)='dbstatus' then
-              begin
-                Result := 500;
-                tmpData := uData.GetData(50);
-                if Assigned(tmpData) then
-                  begin
-                    Result := 200;
+                  if Result = 200 then
+                    begin
+                      aWiki := TWikiList.CreateEx(nil,tmpData);
+                      aWiki.CreateTable;
+                      try
+                        bUser := TUser.CreateEx(nil,tmpData);
+                        bUser.Open;
+                        bUser.Locate('SQL_ID',tmpData.Users.Id.AsVariant,[]);
+                        while (not aWiki.FindWikiPage('Promet-ERP-Help/users/'+StringReplace(bUser.UserName.AsString,' ','_',[rfReplaceAll]))) and (not bUser.FieldByName('PARENT').IsNull) do
+                          begin
+                            bUser.Locate('SQL_ID',bUser.FieldByName('PARENT').AsVariant,[]);
+                          end;
+                        aStartPage := 'Promet-ERP-Help/users/'+StringReplace(bUser.UserName.AsString,' ','_',[rfReplaceAll]);
+                        if not aWiki.FindWikiPage(aStartPage) then
+                          begin
+                            aStartPage:='Promet-ERP-Help/users/Administrator';
+                            if not aWiki.FindWikiPage(aStartPage) then
+                              aStartPage:='';
+                          end;
+                      except
+                      end;
+                      aWiki.Free;
+                      bUser.Free;
+                      sl := TStringList.Create;
+                      sl.Add('{"username": "'+tmpData.Users.FieldByName('NAME').AsString+'"');
+                      if aStartPage<>'' then;
+                        sl.Add(',"startpage": "'+aStartPage+'"');
+                      sl.Add(',"rights": [');
+                      sl.Add(BuildRight('DOCUMENTS')+',');
+                      sl.Add(BuildRight('HISTORY')+',');
+                      sl.Add(BuildRight('LISTS')+',');
+                      sl.Add(BuildRight('TREE')+',');
+                      sl.Add(BuildRight('MESSAGES')+',');
+                      sl.Add(BuildRight('CALENDAR')+',');
+                      sl.Add(BuildRight('ORDERS')+',');
+                      sl.Add(BuildRight('PRODUCTION')+',');
+                      sl.Add(BuildRight('CUSTOMERS')+',');
+                      sl.Add(BuildRight('MASTERDATA')+',');
+                      sl.Add(BuildRight('TASKS')+',');
+                      sl.Add(BuildRight('WIKI')+',');
+                      sl.Add(BuildRight('PROJECTS')+',');
+                      sl.Add(BuildRight('SHEME')+',');
+                      sl.Add(BuildRight('REPORTS')+',');
+                      sl.Add(BuildRight('STORAGE')+',');
+                      sl.Add(BuildRight('DISPOSITION')+',');
+                      sl.Add(BuildRight('WEBSHOP')+',');
+                      sl.Add(BuildRight('INVENTORY')+',');
+                      sl.Add(BuildRight('ACCOUNTING')+',');
+                      sl.Add(BuildRight('TIMEREG')+',');
+                      sl.Add(BuildRight('STATISTICS')+',');
+                      sl.Add(BuildRight('OPTIONS')+',');
+                      sl.Add(BuildRight('MEETINGS'));
+                      sl.Add(']');
+                      sl.Add('}');
+                      sl.SaveToStream(Output);
+                      sl.Free;
+                      Output.Position:=0;
+                    end;
+                  finally
                     tmpData.CriticalSection.Leave;
                   end;
-              end;
+                end
+              else if lowercase(url)='dbstatus' then
+                begin
+                  Result := 500;
+                  tmpData := uData.GetData(50);
+                  if tmpData <> uData.DataM then
+                    begin
+                      Result := 200;
+                      tmpData.CriticalSection.Leave;
+                    end;
+                end;
           end
       except
         Result:=500;

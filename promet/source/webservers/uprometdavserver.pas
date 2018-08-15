@@ -2019,16 +2019,21 @@ end;
 function TPrometServerFunctions.ServerUserLogin(aSocket: TDAVSession; aUser,
   aPassword: string): Boolean;
 begin
+  Result := False;
   try
+    TBaseDBModule(aSocket.Data).CriticalSection.Enter;
     if not Assigned(BaseApplication) then exit;
     if ((BaseApplication.HasOption('u','user') and (BaseApplication.HasOption('p','password'))
     and TBaseDBModule(aSocket.Data).Authenticate(BaseApplication.GetOptionValue('u','user'),BaseApplication.GetOptionValue('p','password'))))
     or (TBaseDBModule(aSocket.Data).Authenticate(aUser,aPassword))
     then
       begin
-        aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
-        TBaseDBModule(aSocket.Data).RefreshUsersFilter;
-        TBaseDBModule(aSocket.Data).RegisterLinkHandlers;
+        if aSocket.User<>TBaseDBModule(aSocket.Data).Users.Id.AsString then
+          begin
+            aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
+            TBaseDBModule(aSocket.Data).RefreshUsersFilter;
+            TBaseDBModule(aSocket.Data).RegisterLinkHandlers;
+          end;
         Result := True;
         exit;
       end;
@@ -2040,6 +2045,7 @@ begin
       end
     else aSocket.User:=TBaseDBModule(aSocket.Data).Users.Id.AsString;
   finally
+    TBaseDBModule(aSocket.Data).CriticalSection.Leave;
   end;
 end;
 
@@ -2193,18 +2199,23 @@ var
   aType: TBaseDBModuleClass;
 begin
   if Assigned(aSocket.Data) then exit;
-  aSocket.Data := uData.GetData;
+  aSocket.Data := uData.GetData(StrToIntDef(aSocket.User,0));
+  if not Assigned(aSocket.Data) then raise Exception.Create('No more Data Modules !');
+  TBaseDBModule(aSocket.Data).CriticalSection.Enter;
+  writeln('Socket::',Int64(aSocket.Data));
   //TODO:select rigth User
   if not Assigned(aSocket.Data) then exit;
   if not Assigned(aSocket) then exit;
   if not Assigned(TBaseDBModule(aSocket.Data).Users) then exit;
+  {
   if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
     begin
       TBaseDBModule(aSocket.Data).Users.Filter('',0);
       if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then exit;
     end;
-  //TBaseDBModule(aSocket.Data).RefreshUsersFilter;
-  //TBaseDBModule(aSocket.Data).RegisterLinkHandlers;
+  TBaseDBModule(aSocket.Data).RefreshUsersFilter;
+  TBaseDBModule(aSocket.Data).RegisterLinkHandlers;
+  }
 end;
 
 procedure TPrometServerFunctions.DoUnlock(aSocket: TDAVSession);
