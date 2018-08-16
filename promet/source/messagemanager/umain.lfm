@@ -5,6 +5,7 @@ object fMain: TfMain
   HorizontalOffset = 595
   VerticalOffset = 247
   Width = 248
+  PPI = 96
   object TrayIcon: TTrayIcon
     BalloonFlags = bfInfo
     BalloonTimeout = 6000

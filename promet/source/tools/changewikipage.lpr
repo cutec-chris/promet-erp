@@ -65,7 +65,7 @@ begin
           raise Exception.Create(strLoginFailed+' '+LastError);
           Terminate;
         end;
-      uData.Data := Data;
+      uData.DataM := Data;
     end;
   Info('changewikipage login successful');
   aWiki := TWikiList.Create(nil);

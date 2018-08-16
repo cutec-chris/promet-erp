@@ -429,7 +429,7 @@ begin
                   exit;
                 end;
             end;
-          uData.Data := Data;
+          uData.DataM := Data;
         end;
       Info('messagemanager login successful');
       TrayIcon.Hint:=strHint+LineEnding+FMandant+' '+FUser;

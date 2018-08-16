@@ -907,7 +907,7 @@ begin
         raise Exception.Create(strMandantnotSelected);
       if not DBLogin(GetOptionValue('m','mandant'),GetOptionValue('u','user')) then
         raise Exception.Create(strLoginFailed+' '+LastError);
-      uData.Data := Data;
+      uData.DataM := Data;
     end;
   Info('login ok.');
   DecodeDate(Now(),y,m,d);
