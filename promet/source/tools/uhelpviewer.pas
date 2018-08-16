@@ -59,7 +59,7 @@ begin
             Application.Terminate;
             exit;
           end;
-      uData.Data := Data;
+      uData.DataM := Data;
       Data.Users.DataSet.Open;
     end;
   Data.RegisterLinkHandler('WIKI@',@OpenWikiLink,TWikiList);
@@ -94,4 +94,4 @@ begin
 end;
 
 end.
-
+
