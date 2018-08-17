@@ -375,6 +375,7 @@ var
   tmp: String;
   aSyncCount: Integer;
   DoUnlock: Boolean;
+  ResultIn: Integer;
 
   procedure UpdateTime(DoSetIt : Boolean = True);
   begin
@@ -394,6 +395,7 @@ var
 
 begin
   Result := 0;
+  ResultIn := 0;
   aTable := SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
   if not ((SyncDB.Tables.DataSet.FieldByName('ACTIVEOUT').AsString = 'Y')
        or (SyncDB.Tables.DataSet.FieldByName('ACTIVE').AsString = 'Y')) then exit;
@@ -618,9 +620,10 @@ begin
                 begin
                   try
                     SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False);
+                    inc(ResultIn);
                   except
                     begin
-                      dec(Result);
+                      dec(ResultIn);
                       //RestoreTime:=True;
                     end;
                   end;
@@ -661,7 +664,10 @@ begin
           end;
       end;
     end
-  else Info('Table "'+SyncDB.Tables.DataSet.FieldByName('NAME').AsString+'" ist gesperrt von anderem Prozess')
+  else Info('Table "'+SyncDB.Tables.DataSet.FieldByName('NAME').AsString+'" ist gesperrt von anderem Prozess');
+  if (Resultin > 0)
+  and (Resultin > Result) then
+    Result := ResultIn;
 end;
 procedure TSyncDBApp.CollectSubDataSets(SyncDB: TSyncDB; DestDM: TBaseDBModule);
 var
@@ -823,6 +829,11 @@ var
                       FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                       FOldSyncCount := FSyncedCount;
                       FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount,iMinimalDate,DontSetTimestamp);
+                      if iMinimalDate=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime then //when Date is not changed then break
+                        begin
+                          writeln('!!! Warning: more than '+IntToStr(aSyncCount)+' Rows changed in one batch triggering full sync');
+                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,DontSetTimestamp);
+                        end;
                       iMinimalDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
                       if aSyncCount > 0 then
                         Fullsynced:=FSyncedCount < aSyncCount
