@@ -104,7 +104,10 @@ begin
         end;
     end;
   if Assigned(Data) then
-    uData.InitMultiData(8);
+    begin
+      if HasOption('dbpool') then
+        uData.InitMultiData(StrToIntDef(GetOptionValue('dbpool'),0));
+    end;
   aSystem := GetSystemName;
   if HasOption('systemname') then
     aSystem:=GetOptionValue('systemname');
