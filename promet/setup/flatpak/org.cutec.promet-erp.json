@@ -1,0 +1,22 @@
+{
+    "app-id": "org.cutec.Promet-ERP",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "1.6",
+    "sdk": "org.freedesktop.Sdk",
+    "command": "promet-erp",
+    "modules": [
+        {
+            "name": "promet-erp",
+            "buildsystem": "simple",
+            "build-commands": [
+                "bash build.sh"
+            ],
+            "sources": [
+                {
+                    "type": "path",
+                    "path": "../../../promet-erp"
+                }
+            ]
+        }
+    ]
+}
