@@ -61,9 +61,9 @@ begin
 
 
   aMs := TMasterdata.CreateEx(nil,FData);
-  writeln(Integer(Self),' opening...');
+  writeln(PtrInt(Self),' opening...');
   aMs.Open;  //fetch first records
-  writeln(Integer(Self),' open');
+  writeln(PtrInt(Self),' open');
   //aMs.Locate('ID','nonextistingident',[]); //fetch all Data and iterate over it
   aMs.Free;
 

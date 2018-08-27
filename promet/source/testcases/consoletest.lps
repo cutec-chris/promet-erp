@@ -2,7 +2,7 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <BuildModes Active="Default">
       <SessionMatrixOptions Count="3">
         <Item1 ID="767039364805" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
@@ -30,9 +30,10 @@
       </Unit1>
       <Unit2>
         <Filename Value="tmultidbtest.pas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="64"/>
-        <CursorPos X="15" Y="94"/>
+        <TopLine Value="44"/>
+        <CursorPos X="17" Y="66"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -54,7 +55,6 @@
       </Unit4>
       <Unit5>
         <Filename Value="tdbtests.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="15"/>
         <CursorPos Y="49"/>
@@ -167,8 +167,8 @@
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
         <EditorIndex Value="16"/>
-        <TopLine Value="1223"/>
-        <CursorPos Y="1247"/>
+        <TopLine Value="47"/>
+        <CursorPos X="31" Y="65"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit19>
@@ -197,8 +197,8 @@
         <Filename Value="..\base\dbintfs\udata.pas"/>
         <UnitName Value="uData"/>
         <EditorIndex Value="15"/>
-        <TopLine Value="52"/>
-        <CursorPos Y="78"/>
+        <TopLine Value="64"/>
+        <CursorPos X="47" Y="93"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit23>
@@ -206,8 +206,8 @@
         <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
         <UnitName Value="uAbstractDBLayer"/>
         <EditorIndex Value="8"/>
-        <TopLine Value="666"/>
-        <CursorPos Y="693"/>
+        <TopLine Value="123"/>
+        <CursorPos X="29" Y="132"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit24>
@@ -391,124 +391,124 @@
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1216" TopLine="1194"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="688" TopLine="666"/>
       </Position1>
       <Position2>
-        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
-        <Caret Line="2863" TopLine="2841"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="689" TopLine="666"/>
       </Position2>
       <Position3>
-        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
-        <Caret Line="890" TopLine="868"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="692" TopLine="666"/>
       </Position3>
       <Position4>
         <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="435" TopLine="413"/>
+        <Caret Line="693" TopLine="666"/>
       </Position4>
       <Position5>
-        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
-        <Caret Line="442" Column="47" TopLine="418"/>
+        <Filename Value="..\base\dbintfs\udata.pas"/>
+        <Caret Line="77" TopLine="52"/>
       </Position5>
       <Position6>
-        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
-        <Caret Line="440" Column="17" TopLine="418"/>
+        <Filename Value="..\base\dbintfs\udata.pas"/>
+        <Caret Line="78" TopLine="52"/>
       </Position6>
       <Position7>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="435" Column="28" TopLine="423"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1214" TopLine="1194"/>
       </Position7>
       <Position8>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="209" Column="6" TopLine="206"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1215" TopLine="1194"/>
       </Position8>
       <Position9>
-        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
-        <Caret Line="439" Column="26" TopLine="418"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1216" TopLine="1194"/>
       </Position9>
       <Position10>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1215" Column="78" TopLine="1194"/>
+        <Caret Line="1217" TopLine="1194"/>
       </Position10>
       <Position11>
-        <Filename Value="tdbtests.pas"/>
-        <Caret Line="49" TopLine="15"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1222" TopLine="1194"/>
       </Position11>
       <Position12>
-        <Filename Value="..\base\dbintfs\udata.pas"/>
-        <Caret Line="77" TopLine="52"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1227" TopLine="1194"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base\dbintfs\udata.pas"/>
-        <Caret Line="78" TopLine="52"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1244" TopLine="1223"/>
       </Position13>
       <Position14>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="688" TopLine="666"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1245" TopLine="1223"/>
       </Position14>
       <Position15>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="689" TopLine="666"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1246" TopLine="1223"/>
       </Position15>
       <Position16>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="692" TopLine="666"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1247" TopLine="1223"/>
       </Position16>
       <Position17>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="693" TopLine="666"/>
+        <Filename Value="tdbtests.pas"/>
+        <Caret Line="49" TopLine="15"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base\dbintfs\udata.pas"/>
-        <Caret Line="77" TopLine="52"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="130" Column="25" TopLine="114"/>
       </Position18>
       <Position19>
-        <Filename Value="..\base\dbintfs\udata.pas"/>
-        <Caret Line="78" TopLine="52"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="93" Column="71" TopLine="78"/>
       </Position19>
       <Position20>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1214" TopLine="1194"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="208" Column="3" TopLine="205"/>
       </Position20>
       <Position21>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1215" TopLine="1194"/>
+        <Filename Value="..\base\dbintfs\udata.pas"/>
+        <Caret Line="93" Column="50" TopLine="63"/>
       </Position21>
       <Position22>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1216" TopLine="1194"/>
+        <Caret Line="65" Column="32" TopLine="59"/>
       </Position22>
       <Position23>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1217" TopLine="1194"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="132" Column="80" TopLine="109"/>
       </Position23>
       <Position24>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1222" TopLine="1194"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="74" Column="21" TopLine="56"/>
       </Position24>
       <Position25>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1227" TopLine="1194"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="269" Column="23" TopLine="260"/>
       </Position25>
       <Position26>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1244" TopLine="1223"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="118" Column="17" TopLine="100"/>
       </Position26>
       <Position27>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1245" TopLine="1223"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="842" Column="20" TopLine="808"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1246" TopLine="1223"/>
+        <Filename Value="..\base\dbintfs\udata.pas"/>
+        <Caret Line="93" Column="47" TopLine="64"/>
       </Position28>
       <Position29>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1247" TopLine="1223"/>
+        <Caret Line="65" Column="31" TopLine="47"/>
       </Position29>
       <Position30>
-        <Filename Value="tdbtests.pas"/>
-        <Caret Line="49" TopLine="15"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="132" Column="29" TopLine="123"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
