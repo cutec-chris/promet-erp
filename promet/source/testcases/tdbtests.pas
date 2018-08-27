@@ -16,6 +16,7 @@ type
   published
     procedure Escaping;
     procedure FetchAll;
+    procedure GetTableName;
   end;
 
 implementation
@@ -41,6 +42,11 @@ begin
       Check(aHist.DataSet.RecordCount<=20,'Fetched Rows:'+IntToStr(aHist.DataSet.RecordCount));
     end;
   aHist.Free;
+end;
+
+procedure TDBTest.GetTableName;
+begin
+  Check(Data.GetFullTableName('STATISTICS',False) = Data.QuoteField('STATISTICS'));
 end;
 
 

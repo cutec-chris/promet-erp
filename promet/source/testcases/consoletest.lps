@@ -2,7 +2,7 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <BuildModes Active="Default">
       <SessionMatrixOptions Count="3">
         <Item1 ID="767039364805" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
@@ -10,30 +10,31 @@
         <Item3 ID="722410265450" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SessionMatrixOptions>
     </BuildModes>
-    <Units Count="46">
+    <Units Count="47">
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <CursorPos X="3" Y="16"/>
-        <UsageCount Value="46"/>
+        <TopLine Value="10"/>
+        <CursorPos X="8" Y="15"/>
+        <UsageCount Value="47"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="sheaptrc.pp"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="281"/>
         <CursorPos Y="303"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="tmultidbtest.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="62"/>
-        <CursorPos X="64" Y="66"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="64"/>
+        <CursorPos X="15" Y="94"/>
         <UsageCount Value="22"/>
+        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
@@ -45,7 +46,7 @@
       </Unit3>
       <Unit4>
         <Filename Value="uordertest.pas"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="17"/>
         <TopLine Value="106"/>
         <CursorPos X="19" Y="125"/>
         <UsageCount Value="14"/>
@@ -53,9 +54,10 @@
       </Unit4>
       <Unit5>
         <Filename Value="tdbtests.pas"/>
-        <EditorIndex Value="13"/>
-        <TopLine Value="9"/>
-        <CursorPos Y="28"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="15"/>
+        <CursorPos Y="49"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit5>
@@ -69,9 +71,9 @@
       <Unit7>
         <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
-        <EditorIndex Value="9"/>
-        <TopLine Value="4374"/>
-        <CursorPos Y="4398"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="2130"/>
+        <CursorPos Y="2153"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -79,7 +81,7 @@
       <Unit8>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="18"/>
         <TopLine Value="900"/>
         <CursorPos X="11" Y="920"/>
         <UsageCount Value="14"/>
@@ -96,9 +98,9 @@
       <Unit10>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="7"/>
-        <TopLine Value="1551"/>
-        <CursorPos Y="1578"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="2841"/>
+        <CursorPos Y="2863"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit10>
@@ -111,7 +113,7 @@
       </Unit11>
       <Unit12>
         <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="20"/>
         <TopLine Value="835"/>
         <CursorPos Y="860"/>
         <UsageCount Value="14"/>
@@ -134,7 +136,7 @@
       <Unit15>
         <Filename Value="..\base\dbintfs\utimes.pas"/>
         <UnitName Value="uTimes"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="19"/>
         <TopLine Value="97"/>
         <CursorPos X="73" Y="113"/>
         <UsageCount Value="14"/>
@@ -164,9 +166,9 @@
       <Unit19>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="1208"/>
-        <CursorPos X="37" Y="1217"/>
+        <EditorIndex Value="16"/>
+        <TopLine Value="1223"/>
+        <CursorPos Y="1247"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit19>
@@ -186,7 +188,7 @@
       </Unit21>
       <Unit22>
         <Filename Value="ucreatetable.pas"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="14"/>
         <CursorPos Y="112"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
@@ -194,18 +196,18 @@
       <Unit23>
         <Filename Value="..\base\dbintfs\udata.pas"/>
         <UnitName Value="uData"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="15"/>
         <TopLine Value="52"/>
-        <CursorPos X="3" Y="80"/>
+        <CursorPos Y="78"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
         <UnitName Value="uAbstractDBLayer"/>
-        <EditorIndex Value="11"/>
-        <TopLine Value="493"/>
-        <CursorPos Y="638"/>
+        <EditorIndex Value="8"/>
+        <TopLine Value="666"/>
+        <CursorPos Y="693"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit24>
@@ -213,8 +215,8 @@
         <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
         <EditorIndex Value="6"/>
-        <TopLine Value="765"/>
-        <CursorPos X="43" Y="804"/>
+        <TopLine Value="1222"/>
+        <CursorPos Y="1247"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit25>
@@ -249,9 +251,9 @@
       <Unit30>
         <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
         <UnitName Value="uBaseDatasetInterfaces"/>
-        <EditorIndex Value="8"/>
-        <TopLine Value="671"/>
-        <CursorPos Y="695"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="418"/>
+        <CursorPos X="26" Y="439"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit30>
@@ -266,10 +268,11 @@
       <Unit32>
         <Filename Value="..\base\dbintfs\umasterdata.pas"/>
         <UnitName Value="uMasterdata"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="781"/>
-        <CursorPos Y="803"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="800"/>
+        <CursorPos X="15" Y="803"/>
         <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\base\dbintfs\uaccounting.pas"/>
@@ -288,7 +291,7 @@
       <Unit35>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="10"/>
         <TopLine Value="71"/>
         <CursorPos Y="362"/>
         <UsageCount Value="12"/>
@@ -297,7 +300,7 @@
       <Unit36>
         <Filename Value="tlogin.pas"/>
         <UnitName Value="tLogin"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="12"/>
         <TopLine Value="4"/>
         <CursorPos X="63" Y="17"/>
         <UsageCount Value="12"/>
@@ -306,7 +309,7 @@
       <Unit37>
         <Filename Value="..\base\dbintfs\uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="13"/>
         <TopLine Value="370"/>
         <CursorPos X="47" Y="370"/>
         <UsageCount Value="12"/>
@@ -321,22 +324,20 @@
       </Unit38>
       <Unit39>
         <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="13" Y="49"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit39>
       <Unit40>
         <Filename Value="tlogout.pas"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos Y="25"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit40>
       <Unit41>
         <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="13"/>
         <CursorPos X="15" Y="48"/>
         <UsageCount Value="12"/>
@@ -346,7 +347,7 @@
         <Filename Value="..\components\zeos\src\component\zdatasetutils.pas"/>
         <UnitName Value="ZDatasetUtils"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="670"/>
+        <TopLine Value="682"/>
         <CursorPos Y="705"/>
         <UsageCount Value="11"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -372,139 +373,147 @@
       <Unit45>
         <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
         <UnitName Value="ZDbcCachedResultSet"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="2476"/>
         <CursorPos Y="2516"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit45>
+      <Unit46>
+        <Filename Value="..\components\zeos\src\component\zsqlstrings.pas"/>
+        <UnitName Value="ZSqlStrings"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="401"/>
+        <CursorPos Y="440"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit46>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2497" TopLine="2475"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1216" TopLine="1194"/>
       </Position1>
       <Position2>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2499" TopLine="2475"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2863" TopLine="2841"/>
       </Position2>
       <Position3>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2500" TopLine="2475"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="890" TopLine="868"/>
       </Position3>
       <Position4>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2504" TopLine="2475"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="435" TopLine="413"/>
       </Position4>
       <Position5>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2513" TopLine="2476"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="442" Column="47" TopLine="418"/>
       </Position5>
       <Position6>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2515" TopLine="2476"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="440" Column="17" TopLine="418"/>
       </Position6>
       <Position7>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2516" TopLine="2476"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="435" Column="28" TopLine="423"/>
       </Position7>
       <Position8>
-        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
-        <Caret Line="4395" TopLine="4374"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="209" Column="6" TopLine="206"/>
       </Position8>
       <Position9>
-        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
-        <Caret Line="4396" TopLine="4374"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="439" Column="26" TopLine="418"/>
       </Position9>
       <Position10>
-        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
-        <Caret Line="4402" TopLine="4374"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1215" Column="78" TopLine="1194"/>
       </Position10>
       <Position11>
-        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
-        <Caret Line="4389" TopLine="4374"/>
+        <Filename Value="tdbtests.pas"/>
+        <Caret Line="49" TopLine="15"/>
       </Position11>
       <Position12>
-        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
-        <Caret Line="4392" TopLine="4374"/>
+        <Filename Value="..\base\dbintfs\udata.pas"/>
+        <Caret Line="77" TopLine="52"/>
       </Position12>
       <Position13>
-        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
-        <Caret Line="4393" TopLine="4374"/>
+        <Filename Value="..\base\dbintfs\udata.pas"/>
+        <Caret Line="78" TopLine="52"/>
       </Position13>
       <Position14>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2497" TopLine="2476"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="688" TopLine="666"/>
       </Position14>
       <Position15>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2499" TopLine="2476"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="689" TopLine="666"/>
       </Position15>
       <Position16>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2500" TopLine="2476"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="692" TopLine="666"/>
       </Position16>
       <Position17>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2504" TopLine="2476"/>
+        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
+        <Caret Line="693" TopLine="666"/>
       </Position17>
       <Position18>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2513" TopLine="2476"/>
+        <Filename Value="..\base\dbintfs\udata.pas"/>
+        <Caret Line="77" TopLine="52"/>
       </Position18>
       <Position19>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2515" TopLine="2476"/>
+        <Filename Value="..\base\dbintfs\udata.pas"/>
+        <Caret Line="78" TopLine="52"/>
       </Position19>
       <Position20>
-        <Filename Value="..\components\zeos\src\dbc\zdbccachedresultset.pas"/>
-        <Caret Line="2516" TopLine="2476"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1214" TopLine="1194"/>
       </Position20>
       <Position21>
-        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
-        <Caret Line="4395" TopLine="4374"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1215" TopLine="1194"/>
       </Position21>
       <Position22>
-        <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
-        <Caret Line="4398" TopLine="4374"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="1216" TopLine="1194"/>
       </Position22>
       <Position23>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1223" TopLine="1207"/>
+        <Caret Line="1217" TopLine="1194"/>
       </Position23>
       <Position24>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1229" TopLine="1207"/>
+        <Caret Line="1222" TopLine="1194"/>
       </Position24>
       <Position25>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1230" TopLine="1207"/>
+        <Caret Line="1227" TopLine="1194"/>
       </Position25>
       <Position26>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1231" TopLine="1207"/>
+        <Caret Line="1244" TopLine="1223"/>
       </Position26>
       <Position27>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1232" TopLine="1207"/>
+        <Caret Line="1245" TopLine="1223"/>
       </Position27>
       <Position28>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1210" Column="47" TopLine="1207"/>
+        <Caret Line="1246" TopLine="1223"/>
       </Position28>
       <Position29>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="130" Column="31" TopLine="109"/>
+        <Caret Line="1247" TopLine="1223"/>
       </Position29>
       <Position30>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1217" Column="37" TopLine="1208"/>
+        <Filename Value="tdbtests.pas"/>
+        <Caret Line="49" TopLine="15"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
-    <BreakPoints Count="3">
+    <BreakPoints Count="1">
       <Item1>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
@@ -512,25 +521,6 @@
         <Source Value="sheaptrc.pp"/>
         <Line Value="303"/>
       </Item1>
-      <Item2>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Line Value="535"/>
-      </Item2>
-      <Item3>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
-        <Line Value="4398"/>
-      </Item3>
     </BreakPoints>
-    <Watches Count="1">
-      <Item1>
-        <Expression Value="Inp"/>
-      </Item1>
-    </Watches>
   </Debugging>
 </CONFIG>

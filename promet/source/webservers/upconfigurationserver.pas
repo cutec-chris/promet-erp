@@ -157,7 +157,7 @@ begin
                       begin
                         aResult.Clear;
                         aResult.Add('SQL');
-                        aResult.Add(aType+';'+aServer+';'+aDB+';'+aUser+';'+Encrypt(aPW,99998));
+                        aResult.Add(aType+';'+aServer+';'+aDB+';'+aUser+';'+Encrypt(aPW,word(99998)));
                         aResult.SaveToFile(GetOurConfigDir+'standard.perml');
                         aResult.Clear;
                         Info('loading mandants...');

@@ -21,8 +21,11 @@ program pappserver;
 {$mode objfpc}{$H+}
 uses
   {$IFDEF UNIX}
-  cthreads,
+  cthreads,cmem,
   {$ENDIF}
+  {$IFDEF DEBUG}
+  heaptrc,
+  {$endif}
   Classes, SysUtils, CustApp, uBaseDBInterface, uData, Process, db,
   uSystemMessage, uPowerState, pcmdprometapp, math, uBaseCustomApplication,
   uprometwikiserver, upwebdavserver, uBaseApplication, Utils,
