@@ -76,7 +76,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=devel --mandant=ForumPG --restarttime=1 --dbpool=4"/>
+        <CommandLineParams Value="--config-path=devel --mandant=ForumPG --restarttime=1"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">

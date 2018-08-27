@@ -744,6 +744,7 @@ end;
 destructor TDAVSession.Destroy;
 begin
   FreeAndNil(FHeadersOut);
+  FreeAndNil(FOutputResult);
   if Assigned(FDestroy) then
     FDestroy(Self);
   FParameters.Free;
@@ -936,6 +937,11 @@ end;
 
 destructor TDAVDirectoryList.Destroy;
 begin
+  while Count > 0 do
+    begin
+      TDAVFile(Items[0]).Free;
+      Delete(0);
+    end;
   inherited Destroy;
 end;
 
