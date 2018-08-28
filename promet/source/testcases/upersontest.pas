@@ -6,9 +6,11 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry,
-  uPerson;
+  uPerson,fpjson,jsonparser,uBaseDbClasses;
 
 type
+
+  { PersonTest }
 
   PersonTest= class(TTestCase)
   published
@@ -16,6 +18,8 @@ type
     procedure CreateAddress;
     procedure CheckHistory;
     procedure SelectfromLink;
+    procedure ExportToJSON;
+    procedure ExportToJSONExtMode;
     procedure Free;
   end;
 
@@ -66,6 +70,30 @@ begin
   aPerson.SelectFromLink(Data.BuildLink(aPerson.DataSet));
   aPerson.Open;
   Check(aPerson.Count = 1,'Selected Count = '+IntToStr(aPerson.Count))
+end;
+
+procedure PersonTest.ExportToJSON;
+var
+  Parser: TJSONParser;
+  aData: TJSONData;
+begin
+  Parser := TJSONParser.Create;
+  Parser.Create(aPerson.ExportToJSON);
+  aData := Parser.Parse;
+  Parser.Free;
+  aData.Free;
+end;
+
+procedure PersonTest.ExportToJSONExtMode;
+var
+  Parser: TJSONParser;
+  aData: TJSONData;
+begin
+  Parser := TJSONParser.Create;
+  Parser.Create(aPerson.ExportToJSON(emExtJS));
+  aData := Parser.Parse;
+  Parser.Free;
+  aData.Free;
 end;
 
 procedure PersonTest.Free;
