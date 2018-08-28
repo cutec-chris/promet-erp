@@ -2,7 +2,7 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <BuildModes Active="Default">
       <SessionMatrixOptions Count="3">
         <Item1 ID="767039364805" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
@@ -10,55 +10,54 @@
         <Item3 ID="722410265450" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SessionMatrixOptions>
     </BuildModes>
-    <Units Count="47">
+    <Units Count="63">
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
         <TopLine Value="10"/>
-        <CursorPos X="8" Y="15"/>
-        <UsageCount Value="47"/>
+        <CursorPos X="7" Y="26"/>
+        <UsageCount Value="50"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="sheaptrc.pp"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="19"/>
         <TopLine Value="281"/>
         <CursorPos Y="303"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="tmultidbtest.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="44"/>
-        <CursorPos X="17" Y="66"/>
-        <UsageCount Value="22"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="48"/>
+        <CursorPos Y="84"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="..\components\zeos\src\dbc\ZDbcSqLiteUtils.pas"/>
+        <Filename Value="..\components\zeos\src\dbc\zdbcsqliteutils.pas"/>
+        <UnitName Value="ZDbcSqLiteUtils"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="230"/>
-        <CursorPos Y="250"/>
+        <CursorPos X="62" Y="247"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit3>
       <Unit4>
         <Filename Value="uordertest.pas"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="21"/>
         <TopLine Value="106"/>
         <CursorPos X="19" Y="125"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="tdbtests.pas"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="15"/>
+        <EditorIndex Value="5"/>
         <CursorPos Y="49"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -71,20 +70,19 @@
       <Unit7>
         <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
-        <EditorIndex Value="7"/>
-        <TopLine Value="2130"/>
-        <CursorPos Y="2153"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2420"/>
+        <CursorPos Y="2441"/>
+        <UsageCount Value="11"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\base\dbintfs\uorder.pas"/>
         <UnitName Value="uOrder"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="22"/>
         <TopLine Value="900"/>
         <CursorPos X="11" Y="920"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -98,10 +96,10 @@
       <Unit10>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="2841"/>
-        <CursorPos Y="2863"/>
-        <UsageCount Value="13"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="556"/>
+        <CursorPos X="31" Y="592"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -113,10 +111,10 @@
       </Unit11>
       <Unit12>
         <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="24"/>
         <TopLine Value="835"/>
         <CursorPos Y="860"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
@@ -136,10 +134,10 @@
       <Unit15>
         <Filename Value="..\base\dbintfs\utimes.pas"/>
         <UnitName Value="uTimes"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="23"/>
         <TopLine Value="97"/>
         <CursorPos X="73" Y="113"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit15>
       <Unit16>
@@ -166,10 +164,10 @@
       <Unit19>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="16"/>
-        <TopLine Value="47"/>
-        <CursorPos X="31" Y="65"/>
-        <UsageCount Value="14"/>
+        <EditorIndex Value="20"/>
+        <TopLine Value="384"/>
+        <CursorPos X="49" Y="406"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
@@ -188,37 +186,33 @@
       </Unit21>
       <Unit22>
         <Filename Value="ucreatetable.pas"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="-1"/>
         <CursorPos Y="112"/>
-        <UsageCount Value="13"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="14"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\base\dbintfs\udata.pas"/>
         <UnitName Value="uData"/>
-        <EditorIndex Value="15"/>
-        <TopLine Value="64"/>
-        <CursorPos X="47" Y="93"/>
-        <UsageCount Value="13"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="52"/>
+        <CursorPos Y="78"/>
+        <UsageCount Value="14"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
         <UnitName Value="uAbstractDBLayer"/>
-        <EditorIndex Value="8"/>
-        <TopLine Value="123"/>
-        <CursorPos X="29" Y="132"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="42"/>
+        <CursorPos Y="64"/>
+        <UsageCount Value="13"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="1222"/>
-        <CursorPos Y="1247"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1381"/>
+        <CursorPos X="25" Y="1414"/>
+        <UsageCount Value="13"/>
       </Unit25>
       <Unit26>
         <Filename Value="C:\lazarus144\fpc\2.6.4\source\rtl\inc\crth.inc"/>
@@ -251,10 +245,10 @@
       <Unit30>
         <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
         <UnitName Value="uBaseDatasetInterfaces"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="418"/>
-        <CursorPos X="26" Y="439"/>
-        <UsageCount Value="12"/>
+        <EditorIndex Value="8"/>
+        <TopLine Value="84"/>
+        <CursorPos X="14" Y="103"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit30>
       <Unit31>
@@ -268,11 +262,10 @@
       <Unit32>
         <Filename Value="..\base\dbintfs\umasterdata.pas"/>
         <UnitName Value="uMasterdata"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="800"/>
         <CursorPos X="15" Y="803"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\base\dbintfs\uaccounting.pas"/>
@@ -291,28 +284,26 @@
       <Unit35>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="71"/>
         <CursorPos Y="362"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="13"/>
       </Unit35>
       <Unit36>
         <Filename Value="tlogin.pas"/>
         <UnitName Value="tLogin"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
-        <CursorPos X="63" Y="17"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <CursorPos Y="45"/>
+        <UsageCount Value="13"/>
       </Unit36>
       <Unit37>
         <Filename Value="..\base\dbintfs\uwiki.pas"/>
         <UnitName Value="uWiki"/>
-        <EditorIndex Value="13"/>
-        <TopLine Value="370"/>
-        <CursorPos X="47" Y="370"/>
-        <UsageCount Value="12"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="594"/>
+        <CursorPos X="27" Y="611"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit37>
       <Unit38>
@@ -337,11 +328,10 @@
       <Unit41>
         <Filename Value="..\base\dbintfs\ubaseapplication.pas"/>
         <UnitName Value="uBaseApplication"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos X="15" Y="48"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="13"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\components\zeos\src\component\zdatasetutils.pas"/>
@@ -357,7 +347,7 @@
         <UnitName Value="ZAbstractDataset"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="186"/>
-        <CursorPos Y="208"/>
+        <CursorPos Y="222"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit43>
@@ -383,132 +373,264 @@
         <Filename Value="..\components\zeos\src\component\zsqlstrings.pas"/>
         <UnitName Value="ZSqlStrings"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="401"/>
-        <CursorPos Y="440"/>
+        <TopLine Value="373"/>
+        <CursorPos X="49" Y="389"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit46>
+      <Unit47>
+        <Filename Value="..\base\base_erp\uarticleframe.pas"/>
+        <UnitName Value="uArticleFrame"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="589"/>
+        <CursorPos X="42" Y="620"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="..\base\base_frames\uhistoryframe.pas"/>
+        <UnitName Value="uHistoryFrame"/>
+        <EditorIndex Value="11"/>
+        <TopLine Value="291"/>
+        <CursorPos X="41" Y="313"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="..\base\base_messaging\umimemessages.pas"/>
+        <UnitName Value="uMimeMessages"/>
+        <EditorIndex Value="12"/>
+        <TopLine Value="232"/>
+        <CursorPos X="44" Y="244"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="..\base\base_messaging\ureceivemessage.pas"/>
+        <EditorIndex Value="13"/>
+        <TopLine Value="215"/>
+        <CursorPos X="54" Y="241"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="..\base\base_options\uscriptoptions.pas"/>
+        <UnitName Value="uScriptOptions"/>
+        <EditorIndex Value="14"/>
+        <TopLine Value="97"/>
+        <CursorPos X="40" Y="119"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="..\base\base_options\uuseroptions.pas"/>
+        <EditorIndex Value="15"/>
+        <TopLine Value="300"/>
+        <CursorPos X="41" Y="322"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="..\base\base_pm\uattendanceplan.pas"/>
+        <EditorIndex Value="16"/>
+        <TopLine Value="757"/>
+        <CursorPos X="39" Y="785"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="..\base\base_pm\uprojectimport.pas"/>
+        <EditorIndex Value="17"/>
+        <TopLine Value="135"/>
+        <CursorPos X="53" Y="157"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="..\base\base_pm\uroughpklanningframe.pas"/>
+        <EditorIndex Value="18"/>
+        <TopLine Value="279"/>
+        <CursorPos X="34" Y="287"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit55>
+      <Unit56>
+        <Filename Value="..\base\dbintfs\uprometscripts.pas"/>
+        <EditorIndex Value="9"/>
+        <TopLine Value="36"/>
+        <CursorPos X="5" Y="58"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="..\base\dbintfs\uprocessmanagement.pas"/>
+        <UnitName Value="uProcessManagement"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="258"/>
+        <CursorPos Y="280"/>
+        <UsageCount Value="10"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="C:\lazarus144\fpc\2.6.4\source\rtl\objpas\classes\compon.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="503"/>
+        <CursorPos X="3" Y="508"/>
+        <UsageCount Value="10"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="C:\lazarus144\fpc\2.6.4\source\rtl\objpas\classes\classesh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1700"/>
+        <CursorPos X="18" Y="1734"/>
+        <UsageCount Value="10"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="twikitest.pas"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="73"/>
+        <CursorPos X="54" Y="85"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="..\components\sqlparser\sqlscanner.pp"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="541"/>
+        <CursorPos X="45" Y="281"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit61>
+      <Unit62>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <UnitName Value="uStatistic"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="58"/>
+        <CursorPos X="17" Y="81"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit62>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="688" TopLine="666"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="365" Column="25" TopLine="346"/>
       </Position1>
       <Position2>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="689" TopLine="666"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="181" Column="35" TopLine="159"/>
       </Position2>
       <Position3>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="692" TopLine="666"/>
+        <Filename Value="tmultidbtest.pas"/>
+        <Caret Line="57" TopLine="46"/>
       </Position3>
       <Position4>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="693" TopLine="666"/>
+        <Filename Value="tmultidbtest.pas"/>
+        <Caret Line="69" Column="47" TopLine="46"/>
       </Position4>
       <Position5>
-        <Filename Value="..\base\dbintfs\udata.pas"/>
-        <Caret Line="77" TopLine="52"/>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="16" Column="5"/>
       </Position5>
       <Position6>
-        <Filename Value="..\base\dbintfs\udata.pas"/>
-        <Caret Line="78" TopLine="52"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="366" Column="23" TopLine="346"/>
       </Position6>
       <Position7>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1214" TopLine="1194"/>
+        <Caret Line="538" Column="3" TopLine="529"/>
       </Position7>
       <Position8>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1215" TopLine="1194"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="368" TopLine="346"/>
       </Position8>
       <Position9>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1216" TopLine="1194"/>
+        <Filename Value="..\base\dbintfs\uprometscripts.pas"/>
+        <Caret Line="58" Column="5" TopLine="36"/>
       </Position9>
       <Position10>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1217" TopLine="1194"/>
+        <Caret Line="532" Column="22" TopLine="529"/>
       </Position10>
       <Position11>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1222" TopLine="1194"/>
+        <Caret Line="533" Column="30" TopLine="524"/>
       </Position11>
       <Position12>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1227" TopLine="1194"/>
+        <Caret Line="794" Column="36" TopLine="776"/>
       </Position12>
       <Position13>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1244" TopLine="1223"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="2869" TopLine="2847"/>
       </Position13>
       <Position14>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1245" TopLine="1223"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1573" Column="15" TopLine="1567"/>
       </Position14>
       <Position15>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1246" TopLine="1223"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="316" Column="15" TopLine="312"/>
       </Position15>
       <Position16>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="1247" TopLine="1223"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="1576" Column="27" TopLine="1567"/>
       </Position16>
       <Position17>
-        <Filename Value="tdbtests.pas"/>
-        <Caret Line="49" TopLine="15"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="32" Column="37" TopLine="25"/>
       </Position17>
       <Position18>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="130" Column="25" TopLine="114"/>
+        <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
+        <Caret Line="592" Column="31" TopLine="556"/>
       </Position18>
       <Position19>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="93" Column="71" TopLine="78"/>
+        <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
+        <Caret Line="122" Column="58" TopLine="101"/>
       </Position19>
       <Position20>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="208" Column="3" TopLine="205"/>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="16" Column="3"/>
       </Position20>
       <Position21>
-        <Filename Value="..\base\dbintfs\udata.pas"/>
-        <Caret Line="93" Column="50" TopLine="63"/>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="26" Column="9" TopLine="4"/>
       </Position21>
       <Position22>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="65" Column="32" TopLine="59"/>
+        <Filename Value="twikitest.pas"/>
+        <Caret Line="22" Column="37"/>
       </Position22>
       <Position23>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="132" Column="80" TopLine="109"/>
+        <Filename Value="twikitest.pas"/>
+        <Caret Line="24" Column="30"/>
       </Position23>
       <Position24>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="74" Column="21" TopLine="56"/>
+        <Filename Value="twikitest.pas"/>
+        <Caret Line="104" TopLine="67"/>
       </Position24>
       <Position25>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="269" Column="23" TopLine="260"/>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="16" Column="5" TopLine="4"/>
       </Position25>
       <Position26>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="118" Column="17" TopLine="100"/>
+        <Filename Value="consoletest.lpr"/>
+        <Caret Line="26" Column="7" TopLine="10"/>
       </Position26>
       <Position27>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="842" Column="20" TopLine="808"/>
+        <Filename Value="..\base\dbintfs\uwiki.pas"/>
+        <Caret Line="324" Column="31" TopLine="314"/>
       </Position27>
       <Position28>
-        <Filename Value="..\base\dbintfs\udata.pas"/>
-        <Caret Line="93" Column="47" TopLine="64"/>
+        <Filename Value="..\base\dbintfs\uwiki.pas"/>
+        <Caret Line="615" TopLine="594"/>
       </Position28>
       <Position29>
-        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
-        <Caret Line="65" Column="31" TopLine="47"/>
+        <Filename Value="..\base\dbintfs\ustatistic.pas"/>
+        <Caret Line="701" Column="32" TopLine="680"/>
       </Position29>
       <Position30>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="132" Column="29" TopLine="123"/>
+        <Filename Value="..\base\dbintfs\uwiki.pas"/>
+        <Caret Line="611" Column="27" TopLine="594"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
