@@ -336,7 +336,7 @@ begin
   try
   try
     aDir := HTTPDecode(aDir);
-    if Assigned(aSocket.Data) and (not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[])) then
+    if (not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[])) then
       begin
         TBaseDBModule(aSocket.Data).Users.Filter('',0);
         if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then exit;

@@ -66,7 +66,6 @@ begin
 
     aMs := TMasterdata.CreateEx(nil,nData);
     writeln(Integer(Self),' opening...');
-    writeln(Integer(Self),' SQL:',(aMs.DataSet as IBaseDBFilter).GetSQL);
     aMs.Open;  //fetch first records
     writeln(Integer(Self),' open');
     //aMs.Locate('ID','nonextistingident',[]); //fetch all Data and iterate over it
