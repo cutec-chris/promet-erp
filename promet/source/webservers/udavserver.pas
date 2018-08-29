@@ -851,6 +851,7 @@ begin
       if Assigned(TWebDAVMaster(Creator).OnAccess) then
         TWebDAVMaster(Creator).OnAccess(Self,'>'+IntToStr(Result)+' in '+IntToStr(GetTicks-aTime)+' ms');
     end;
+  FreeAndNil(FOutputResult);
   finally
     TWebDAVMaster(Creator).Unlock(Self);
   end;
@@ -1066,8 +1067,9 @@ end;
 
 destructor TXmlOutput.Destroy;
 begin
-  FIn.Free;
-  FOut.Free;
+//  FIn.Free;
+//  FOut.Free;
+  ADoc.Free;
   aNotFoundProp.Free;
   inherited Destroy;
 end;

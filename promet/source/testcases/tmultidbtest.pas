@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, fpcunit, testutils, testregistry, uBaseDbClasses,Utils, db,
-  uData,uBaseDBInterface,uMasterdata;
+  uData,uBaseDBInterface,uMasterdata,uBaseDatasetInterfaces;
 
 type
   { TMultiDBTestC }
@@ -50,24 +50,35 @@ procedure TMultiDataThread.Execute;
 var
   aData: TDataSet;
   aMs: TMasterdata;
+  nData: TBaseDBModule;
 begin
+  try
+    nData := TBaseDBModule.Create(nil);
+    writeln(FData.Properties);
+    nData.SetProperties(FData.Properties);
+    {
+    aData := FData.GetNewDataSet('select * from "MASTERDATA"');
+    aData.Open;
+    aData.Locate('ID','nonextistingident',[]); //fetch all Data and iterate over it
+    aData.Free;
+    }
 
-  {
-  aData := FData.GetNewDataSet('select * from "MASTERDATA"');
-  aData.Open;
-  aData.Locate('ID','nonextistingident',[]); //fetch all Data and iterate over it
-  aData.Free;
-  }
 
+    aMs := TMasterdata.CreateEx(nil,nData);
+    writeln(Integer(Self),' opening...');
+    aMs.Open;  //fetch first records
+    writeln(Integer(Self),' open');
+    //aMs.Locate('ID','nonextistingident',[]); //fetch all Data and iterate over it
+    aMs.Free;
 
-  aMs := TMasterdata.CreateEx(nil,FData);
-  writeln(PtrInt(Self),' opening...');
-  aMs.Open;  //fetch first records
-  writeln(PtrInt(Self),' open');
-  //aMs.Locate('ID','nonextistingident',[]); //fetch all Data and iterate over it
-  aMs.Free;
+    nData.Free;
 
-  FData.CriticalSection.Leave;
+  except
+    on e : Exception do
+      writeln(Integer(Self),' Exception '+e.Message);
+  end;
+
+  //FData.CriticalSection.Leave;
   Done := True;
 end;
 

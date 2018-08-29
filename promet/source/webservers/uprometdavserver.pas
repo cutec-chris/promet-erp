@@ -336,7 +336,7 @@ begin
   try
   try
     aDir := HTTPDecode(aDir);
-    if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then
+    if (not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[])) then
       begin
         TBaseDBModule(aSocket.Data).Users.Filter('',0);
         if not TBaseDBModule(aSocket.Data).Users.Locate('SQL_ID',aSocket.User,[]) then exit;
@@ -677,7 +677,6 @@ begin
           begin
             if pos('/files/',aRemovedDir)>0 then
               begin
-                aDir := copy(aRemovedDir,pos('/files/',aRemovedDir)+7,length(aRemovedDir));
                 aDocuments := TDocuments.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                 aDocuments.Select(aId,aType,0);
                 aDocuments.Open;
@@ -2069,7 +2068,10 @@ var
     DataSet.Open;
     if DataSet.Count=0 then
       begin
-        DataSet.Select(tmp);
+        if IsNumeric(tmp) then
+          DataSet.Select(tmp)
+        else
+          DataSet.Select(Null);
         DataSet.Open;
       end;
     if Assigned(DataSet.Id) then

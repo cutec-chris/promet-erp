@@ -110,6 +110,7 @@ begin
   aReq := TStringList.Create;
   Server := TWebDAVMaster.Create;
   Socket := TestSocket.Create(Server);
+  Socket.Data:=uData.DataM;
   Socket.User:=Data.Users.Id.AsString;
   Socket.Socket:=nil;
   Data.Users.Locate('NAME','Administrator',[]);
