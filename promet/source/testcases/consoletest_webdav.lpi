@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <PathDelim Value="\"/>
     <General>
       <Flags>
@@ -36,15 +36,22 @@
         <CommandLineParams Value="&quot;--config-path=devel&quot; --mandant=Help --debug"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="pcmdprometapp"/>
-        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
+        <PackageName Value="fpreport_fcl"/>
       </Item1>
       <Item2>
+        <PackageName Value="promet_msgnetwork"/>
+        <DefaultFilename Value="..\base\msgnetwork\promet_msgnetwork.lpk"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="pcmdprometapp"/>
+        <DefaultFilename Value="..\base\pcmdprometapp.lpk"/>
+      </Item3>
+      <Item4>
         <PackageName Value="pPrometDBIntfs"/>
         <DefaultFilename Value="..\base\dbintfs\pprometdbintfs.lpk"/>
-      </Item2>
+      </Item4>
     </RequiredPackages>
     <Units Count="6">
       <Unit0>

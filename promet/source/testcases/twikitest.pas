@@ -5,7 +5,7 @@ unit twikitest;
 interface
 
 uses
-Classes, SysUtils, fpcunit, testutils, testregistry, uWiki, uBaseDbClasses;
+Classes, SysUtils, fpcunit, testutils, testregistry, uWiki, uBaseDbClasses,Utils;
 
 type
 
@@ -18,6 +18,10 @@ type
     procedure CreateWikiList;
     procedure FindAdminStartPage;
     procedure ConvertToHtml;
+    procedure CheckSQLErrors;
+    procedure FindMasterdataOverviewPage;
+    procedure ConvertToHtml2;
+    procedure CheckSQLErrors2;
     procedure Free;
   end;
 
@@ -26,6 +30,7 @@ implementation
 var
   aWikiList: TWikiList;
   aUser: TUser;
+  aHtml: String;
 
 { TWikiTestC }
 
@@ -55,10 +60,48 @@ begin
 end;
 
 procedure TWikiTestC.ConvertToHtml;
+var
+  aTime: Int64;
 begin
-  AssertTrue(aWikiList.ExportToHTML(GetTempDir+'test.html',@aWikiList.BasicWikiInclude));
-  //AssertTrue(FileExists(GetTempDir+'test.html'));
-  //AssertTrue(DeleteFile(GetTempDir+'test.html'))
+  aTime := GetTicks;
+  aHtml := aWikiList.PageAsHtml(True,True);
+  aTime := GetTicks-aTime;
+  writeln('Time: ',aTime);
+end;
+
+procedure TWikiTestC.CheckSQLErrors;
+var
+  aTxt: String;
+begin
+  aTxt := copy(aHtml,pos('error:',aHtml),length(aHtml));
+  aTxt := copy(aTxt,0,pos('<',atxt)-1);
+  AssertTrue('Error in SQL:'+aTxt,pos('error:',aHtml)=0);
+end;
+
+procedure TWikiTestC.FindMasterdataOverviewPage;
+begin
+  AssertTrue(aWikiList.FindWikiPage('Promet-ERP-Help/forms/tfArticleFrame/overview'));
+  aWikiList.Variables.Values['ID'] := '100210';
+  aWikiList.Variables.Values['SQL_ID'] := '4294920268';
+end;
+
+procedure TWikiTestC.ConvertToHtml2;
+var
+  aTime: Int64;
+begin
+  aTime := GetTicks;
+  aHtml := aWikiList.PageAsHtml(True,True);
+  aTime := GetTicks-aTime;
+  writeln('Time: ',aTime);
+end;
+
+procedure TWikiTestC.CheckSQLErrors2;
+var
+  aTxt: String;
+begin
+  aTxt := copy(aHtml,pos('error:',aHtml),length(aHtml));
+  aTxt := copy(aTxt,0,pos('<',atxt)-1);
+  AssertTrue('Error in SQL:'+aTxt,pos('error:',aHtml)=0);
 end;
 
 procedure TWikiTestC.Free;
@@ -71,4 +114,5 @@ initialization
 
   RegisterTest(TWikiTestC);
 end.
+
 

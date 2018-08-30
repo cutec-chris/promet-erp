@@ -29,7 +29,7 @@ uses
   uData, uBaseCustomApplication,uBaseDbClasses,
   synautil,httpsend, laz_synapse,uMessages,uDocuments,uBaseDbInterface,
   dom,xmlread,md5, uIntfStrConsts, pcmdprometapp,Variants,
-  uBaseApplication,uminiconvencoding;
+  uBaseApplication,uminiconvencoding,ssl_openssl;
 
 type
 
@@ -165,12 +165,13 @@ begin
   Info('Importing for User '+Data.Users.DataSet.FieldByName('NAME').AsString);
   with Self as IBaseDbInterface do
     mailaccounts := DBConfig.ReadString('MAILACCOUNTS','');
+  http := THTTPSend.Create;
   while pos('|',mailaccounts) > 0 do
     begin  //Servertype;RSS Feed
       if copy(mailaccounts,0,pos(';',mailaccounts)-1) = 'FEED' then
         begin
+          http.Clear;
           mailaccounts := copy(mailaccounts,pos(';',mailaccounts)+1,length(mailaccounts));
-          http := THTTPSend.Create;
           http.Headers.OnChange:=@httpHeadersChange;
           http.UserAgent:='Mozilla/5.0 (Windows NT 5.1; rv:6.0.2)';
           Info('Importing Feed '+copy(mailaccounts,0,pos(';',mailaccounts)-1));
@@ -183,10 +184,16 @@ begin
           http.HTTPMethod('GET',aSource);
           if HasOption('debug') then
             http.Document.SaveToFile('/tmp/rss.xml');
-          if http.ResultCode = 302 then
+          if (http.ResultCode = 302)
+          or (http.ResultCode = 301)
+          then
             begin
               aLoc := Copy(http.Headers.Text, Pos('location:', LowerCase(http.Headers.Text)) + 9, MaxInt);
-              aLoc := LowerCase(Copy(aLoc, 1, Pos(#10, aLoc) - 1));
+              aLoc := trim(LowerCase(Copy(aLoc, 1, Pos(#10, aLoc) - 1)));
+              Info('>>redirecting Feed '+aLoc);
+              http.Clear;
+              if aLastMessage>0 then
+                http.Headers.Add('If-Modified-Since: '+synautil.Rfc822DateTime(aLastMessage));
               http.HTTPMethod('GET',aLoc);
               if HasOption('debug') then
                 http.Document.SaveToFile('/tmp/rss.xml');
@@ -205,7 +212,6 @@ begin
                   FeedType := 'ATOM'
                 else
                   FeedType := 'RSS';
-                http.Free;
                 if FeedType = 'ATOM' then
                   aFeedName := copy(DoDecode(aNode.FindNode('title').FirstChild.NodeValue),0,99);
                 if Assigned(aNode) then
@@ -378,10 +384,13 @@ begin
                   end;
               end;
               Doc.Free;
-            end;
+            end
+          else
+            Warning('failed to import Feed:'+http.ResultString);
         end;
       mailaccounts := copy(mailaccounts,pos('|',mailaccounts)+1,length(mailaccounts));
     end;
+  http.Free;
   Message.Destroy;
   MessageIndex.Destroy;
 end;
@@ -409,4 +418,5 @@ begin
   Application.Run;
   Application.Free;
 end.
+
 

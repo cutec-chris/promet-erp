@@ -35,13 +35,13 @@ begin
   if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     Login;
   with BaseApplication as IBaseDbInterface do
-    uData.Data := getDB;
+    uData.DataM := getDB;
   AssertNotNull('Data not Assigned',Data);
 end;
 
 initialization
   RegisterTest(LoginTest);
 finalization
-  FreeANdNil(uData.Data);
+  FreeANdNil(uData.DataM);
 end.
 
