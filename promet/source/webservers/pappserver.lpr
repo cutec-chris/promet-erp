@@ -106,11 +106,6 @@ begin
           Data2.SetProperties(Data.Properties);
         end;
     end;
-  if Assigned(Data) then
-    begin
-      if HasOption('dbpool') then
-        uData.InitMultiData(StrToIntDef(GetOptionValue('dbpool'),0));
-    end;
   aSystem := GetSystemName;
   if HasOption('systemname') then
     aSystem:=GetOptionValue('systemname');

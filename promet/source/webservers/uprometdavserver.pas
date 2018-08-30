@@ -2201,7 +2201,7 @@ var
   aType: TBaseDBModuleClass;
 begin
   if Assigned(aSocket.Data) then exit;
-  aSocket.Data := uData.GetData(StrToIntDef(aSocket.User,0));
+  aSocket.Data := uData.Data;//uData.GetData(StrToIntDef(aSocket.User,0));
   if not Assigned(aSocket.Data) then raise Exception.Create('No more Data Modules !');
   TBaseDBModule(aSocket.Data).CriticalSection.Enter;
   writeln('Socket::',Int64(aSocket.Data));

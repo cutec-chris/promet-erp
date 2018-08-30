@@ -291,7 +291,7 @@ begin
               else if lowercase(url)='dbstatus' then
                 begin
                   Result := 500;
-                  tmpData := uData.GetData(50);
+                  tmpData := uData.Data;//GetData(50);
                   if tmpData <> uData.DataM then
                     begin
                       Result := 200;
