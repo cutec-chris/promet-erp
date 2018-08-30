@@ -26,7 +26,7 @@ type
     FTest : TMultiDBTestC;
   public
     Done : Boolean;
-    constructor Create(Data : TBaseDBModule;Test : TMultiDBTestC);
+    constructor Create(Test : TMultiDBTestC);
     procedure Execute; override;
   end;
 
@@ -37,12 +37,10 @@ var
 
 { TMultiDataThread }
 
-constructor TMultiDataThread.Create(Data: TBaseDBModule;Test : TMultiDBTestC);
+constructor TMultiDataThread.Create(Test : TMultiDBTestC);
 begin
-  FData := Data;
   Done := False;
   FTest := Test;
-  FTest.AssertTrue(FData.Authenticate('Administrator',''));
   inherited Create(False);
 end;
 
@@ -50,12 +48,11 @@ procedure TMultiDataThread.Execute;
 var
   aData: TDataSet;
   aMs: TMasterdata;
-  nData: TBaseDBModule;
 begin
   try
-    nData := TBaseDBModule.Create(nil);
-    writeln(FData.Properties);
-    nData.SetProperties(FData.Properties);
+    FData := TBaseDBModule.Create(nil);
+    FData.SetProperties(Data.Properties);
+    FTest.AssertTrue(FData.Authenticate('Administrator',''));
     {
     aData := FData.GetNewDataSet('select * from "MASTERDATA"');
     aData.Open;
@@ -63,22 +60,19 @@ begin
     aData.Free;
     }
 
-
-    aMs := TMasterdata.CreateEx(nil,nData);
+    aMs := TMasterdata.CreateEx(nil,FData);
     writeln(Integer(Self),' opening...');
     aMs.Open;  //fetch first records
     writeln(Integer(Self),' open');
-    //aMs.Locate('ID','nonextistingident',[]); //fetch all Data and iterate over it
+    aMs.Locate('ID','nonextistingident',[]); //fetch all Data and iterate over it
     aMs.Free;
 
-    nData.Free;
+    FData.Free;
 
   except
     on e : Exception do
-      writeln(Integer(Self),' Exception '+e.Message);
+      FTest.AssertFalse(e.Message,True);
   end;
-
-  //FData.CriticalSection.Leave;
   Done := True;
 end;
 
@@ -93,9 +87,9 @@ procedure TMultiDBTestC.CreateThreads;
 var
   i: Integer;
 begin
-  Setlength(aThreads,4);
+  Setlength(aThreads,1);
   for i := 0 to length(aThreads)-1 do
-    aThreads[i] := TMultiDataThread.Create(uData.GetData,Self);
+    aThreads[i] := TMultiDataThread.Create(Self);
 end;
 
 procedure TMultiDBTestC.WaitForThreads;
