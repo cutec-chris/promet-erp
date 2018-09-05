@@ -13,7 +13,6 @@ type
 
   TMultiDBTestC= class(TTestCase)
   published
-    procedure UpgradeDatabase;
     procedure CreateThreads;
     procedure WaitForThreads;
   end;
@@ -77,11 +76,6 @@ begin
 end;
 
 { TMultiDBTestC }
-
-procedure TMultiDBTestC.UpgradeDatabase;
-begin
-  InitMultiData(4);
-end;
 
 procedure TMultiDBTestC.CreateThreads;
 var
