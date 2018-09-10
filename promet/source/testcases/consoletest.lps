@@ -10,29 +10,28 @@
         <Item3 ID="722410265450" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SessionMatrixOptions>
     </BuildModes>
-    <Units Count="69">
+    <Units Count="85">
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="8"/>
-        <CursorPos X="60" Y="13"/>
-        <UsageCount Value="54"/>
+        <EditorIndex Value="9"/>
+        <CursorPos X="3" Y="7"/>
+        <UsageCount Value="56"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="sheaptrc.pp"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="281"/>
-        <CursorPos Y="303"/>
-        <UsageCount Value="36"/>
+        <TopLine Value="701"/>
+        <CursorPos Y="722"/>
+        <UsageCount Value="38"/>
       </Unit1>
       <Unit2>
         <Filename Value="tmultidbtest.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="9"/>
-        <CursorPos Y="16"/>
-        <UsageCount Value="26"/>
+        <EditorIndex Value="10"/>
+        <CursorPos X="24" Y="84"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -54,8 +53,8 @@
       <Unit5>
         <Filename Value="tdbtests.pas"/>
         <EditorIndex Value="5"/>
-        <CursorPos X="36" Y="24"/>
-        <UsageCount Value="16"/>
+        <CursorPos Y="29"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
@@ -68,8 +67,8 @@
         <Filename Value="..\components\zeos\src\component\zabstractrodataset.pas"/>
         <UnitName Value="ZAbstractRODataset"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="2420"/>
-        <CursorPos Y="2441"/>
+        <TopLine Value="34"/>
+        <CursorPos X="37" Y="63"/>
         <UsageCount Value="11"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit7>
@@ -95,7 +94,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="3109"/>
         <CursorPos Y="3133"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -141,10 +140,11 @@
       </Unit16>
       <Unit17>
         <Filename Value="utransaction.pas"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="54"/>
-        <CursorPos X="4" Y="91"/>
-        <UsageCount Value="10"/>
+        <CursorPos X="65" Y="73"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit17>
       <Unit18>
         <Filename Value="..\base\dbintfs\ubaseerpdbclasses.pas"/>
@@ -157,10 +157,10 @@
       <Unit19>
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="433"/>
-        <CursorPos Y="454"/>
-        <UsageCount Value="18"/>
+        <CursorPos X="12" Y="440"/>
+        <UsageCount Value="19"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
@@ -194,19 +194,19 @@
       <Unit24>
         <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
         <UnitName Value="uAbstractDBLayer"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="657"/>
         <CursorPos Y="680"/>
         <UsageCount Value="15"/>
-        <Loaded Value="True"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="765"/>
-        <CursorPos Y="787"/>
-        <UsageCount Value="13"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="281"/>
+        <CursorPos X="9" Y="308"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
       </Unit25>
       <Unit26>
         <Filename Value="C:\lazarus144\fpc\2.6.4\source\rtl\inc\crth.inc"/>
@@ -239,10 +239,10 @@
       <Unit30>
         <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
         <UnitName Value="uBaseDatasetInterfaces"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="582"/>
         <CursorPos X="53" Y="600"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit30>
       <Unit31>
@@ -278,10 +278,10 @@
       <Unit35>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="28"/>
         <CursorPos X="64" Y="25"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit35>
       <Unit36>
@@ -309,11 +309,10 @@
       </Unit38>
       <Unit39>
         <Filename Value="..\base\msgclient\uprometmsgclient.pas"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="36"/>
         <CursorPos Y="58"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="13"/>
       </Unit39>
       <Unit40>
         <Filename Value="tlogout.pas"/>
@@ -342,9 +341,9 @@
         <Filename Value="..\components\zeos\src\component\zabstractdataset.pas"/>
         <UnitName Value="ZAbstractDataset"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="186"/>
-        <CursorPos Y="222"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="542"/>
+        <CursorPos Y="564"/>
+        <UsageCount Value="11"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit43>
       <Unit44>
@@ -514,148 +513,167 @@
       <Unit66>
         <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
         <UnitName Value="uSQLDBDM"/>
-        <TopLine Value="389"/>
-        <CursorPos X="37" Y="431"/>
-        <UsageCount Value="12"/>
+        <TopLine Value="384"/>
+        <CursorPos X="86" Y="388"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit66>
       <Unit67>
         <Filename Value="C:\lazarus144\fpc\2.6.4\source\packages\fcl-db\src\sqldb\sqldb.pp"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <CursorPos Y="1100"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="..\components\synapse\blcksock.pas"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="2588"/>
         <CursorPos Y="2610"/>
+        <UsageCount Value="11"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="..\components\zeos\src\component\zabstractconnection.pas"/>
+        <UnitName Value="ZAbstractConnection"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="870"/>
+        <CursorPos Y="894"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="..\components\zeos\src\component\zcomponent.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="8"/>
+        <CursorPos X="11" Y="48"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="..\components\zeos\src\zeos.inc"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="10" Y="480"/>
+        <UsageCount Value="11"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="..\components\zeos\src\core\zclasses.pas"/>
+        <UnitName Value="ZClasses"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="208"/>
+        <CursorPos X="3" Y="230"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="..\components\zeos\src\dbc\zdbcoraclestatement.pas"/>
+        <UnitName Value="ZDbcOracleStatement"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="578"/>
+        <CursorPos X="84" Y="616"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit73>
+      <Unit74>
+        <Filename Value="..\components\zeos\src\dbc\ZDbcProperties.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="322"/>
+        <CursorPos X="39" Y="343"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit74>
+      <Unit75>
+        <Filename Value="..\components\zeos\src\dbc\zdbcasastatement.pas"/>
+        <UnitName Value="ZDbcASAStatement"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="386"/>
+        <CursorPos X="61" Y="408"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit75>
+      <Unit76>
+        <Filename Value="..\components\zeos\src\plain\zplaindblibdriver.pas"/>
+        <UnitName Value="ZPlainDbLibDriver"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="133"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit76>
+      <Unit77>
+        <Filename Value="..\components\zeos\src\dbc\zdbcoracle.pas"/>
+        <UnitName Value="ZDbcOracle"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="39"/>
+        <CursorPos X="46" Y="61"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit77>
+      <Unit78>
+        <Filename Value="..\components\zeos\src\dbc\zdbcpooled.pas"/>
+        <UnitName Value="ZDbcPooled"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="774"/>
+        <CursorPos X="42" Y="790"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit78>
+      <Unit79>
+        <Filename Value="..\components\zeos\src\plain\zplainsqlitedriver.pas"/>
+        <UnitName Value="ZPlainSqLiteDriver"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2"/>
+        <CursorPos X="43" Y="18"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit79>
+      <Unit80>
+        <Filename Value="..\components\zeos\src\dbc\zdbcsqlite.pas"/>
+        <UnitName Value="ZDbcSqLite"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="323"/>
+        <CursorPos Y="358"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit80>
+      <Unit81>
+        <Filename Value="..\components\zeos\src\dbc\zdbcconnection.pas"/>
+        <UnitName Value="ZDbcConnection"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1231"/>
+        <CursorPos Y="1253"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit81>
+      <Unit82>
+        <Filename Value="..\components\zeos\src\dbc\zdbcstatement.pas"/>
+        <UnitName Value="ZDbcStatement"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit82>
+      <Unit83>
+        <Filename Value="..\components\zeos\src\zeoslazarus.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="40"/>
+        <UsageCount Value="10"/>
+      </Unit83>
+      <Unit84>
+        <Filename Value="C:\lazarus144\components\lazutils\lazutf8.pas"/>
+        <UnitName Value="LazUTF8"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit68>
+      </Unit84>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="2" HistoryIndex="1">
       <Position1>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="528" TopLine="493"/>
+        <Filename Value="tdbtests.pas"/>
+        <Caret Line="29"/>
       </Position1>
       <Position2>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="490" TopLine="468"/>
+        <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
+        <Caret Line="440" Column="12" TopLine="433"/>
       </Position2>
-      <Position3>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="492" TopLine="487"/>
-      </Position3>
-      <Position4>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="498" TopLine="487"/>
-      </Position4>
-      <Position5>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="501" TopLine="487"/>
-      </Position5>
-      <Position6>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="504" TopLine="487"/>
-      </Position6>
-      <Position7>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="505" TopLine="487"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="506" TopLine="487"/>
-      </Position8>
-      <Position9>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="507" TopLine="487"/>
-      </Position9>
-      <Position10>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="508" TopLine="487"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="509" TopLine="487"/>
-      </Position11>
-      <Position12>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="510" TopLine="487"/>
-      </Position12>
-      <Position13>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="511" TopLine="487"/>
-      </Position13>
-      <Position14>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="518" TopLine="496"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="519" TopLine="496"/>
-      </Position15>
-      <Position16>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="521" TopLine="496"/>
-      </Position16>
-      <Position17>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="522" TopLine="496"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="523" TopLine="496"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="521" TopLine="496"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="641" TopLine="619"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="521" TopLine="500"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="522" TopLine="500"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="523" TopLine="500"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="524" TopLine="500"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="529" TopLine="500"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="521" TopLine="501"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\components\avamm-db-layer\uabstractdblayer.pas"/>
-        <Caret Line="680" TopLine="657"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="642" TopLine="620"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
-        <Caret Line="641" TopLine="620"/>
-      </Position29>
-      <Position30>
-        <Filename Value="tmultidbtest.pas"/>
-        <Caret Line="54" Column="33" TopLine="31"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

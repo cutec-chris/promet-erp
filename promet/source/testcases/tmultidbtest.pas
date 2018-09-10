@@ -81,7 +81,7 @@ procedure TMultiDBTestC.CreateThreads;
 var
   i: Integer;
 begin
-  Setlength(aThreads,1);
+  Setlength(aThreads,30);
   for i := 0 to length(aThreads)-1 do
     aThreads[i] := TMultiDataThread.Create(Self);
 end;

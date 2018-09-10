@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -25,7 +25,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="518"/>
+      <BuildNr Value="533"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion="7.0.0.487"/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=devel --mandant=ForumPG"/>
+        <CommandLineParams Value="--mandant=TCS"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -622,7 +622,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="16">
+    <Exceptions Count="12">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -630,47 +630,35 @@
         <Name Value="EFOpenError"/>
       </Item2>
       <Item3>
-        <Name Value="EZSQLException"/>
+        <Name Value="EFCreateError"/>
       </Item3>
       <Item4>
-        <Name Value="EZDatabaseError"/>
+        <Name Value="EVariantError"/>
       </Item4>
       <Item5>
-        <Name Value="Exception"/>
+        <Name Value="ESQLParser"/>
       </Item5>
       <Item6>
-        <Name Value="EFCreateError"/>
+        <Name Value="EStringListError"/>
       </Item6>
       <Item7>
-        <Name Value="EDatabaseError"/>
+        <Name Value="PNGImageException"/>
       </Item7>
       <Item8>
-        <Name Value="EConvertError"/>
+        <Name Value="ESQLScannerError"/>
       </Item8>
       <Item9>
-        <Name Value="EVariantError"/>
+        <Name Value="EParserError"/>
       </Item9>
       <Item10>
-        <Name Value="ESQLParser"/>
+        <Name Value="FPImageException"/>
       </Item10>
       <Item11>
-        <Name Value="EStringListError"/>
+        <Name Value="EPrinter"/>
       </Item11>
       <Item12>
-        <Name Value="PNGImageException"/>
+        <Name Value="Exception"/>
       </Item12>
-      <Item13>
-        <Name Value="ESQLScannerError"/>
-      </Item13>
-      <Item14>
-        <Name Value="EParserError"/>
-      </Item14>
-      <Item15>
-        <Name Value="FPImageException"/>
-      </Item15>
-      <Item16>
-        <Name Value="EPrinter"/>
-      </Item16>
     </Exceptions>
   </Debugging>
 </CONFIG>

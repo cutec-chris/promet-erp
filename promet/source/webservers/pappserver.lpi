@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -76,7 +76,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --restarttime=1"/>
+        <CommandLineParams Value="--mandant=TCS"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
@@ -132,61 +132,52 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="18">
+    <Exceptions Count="15">
       <Item1>
-        <Name Value="EZSQLException"/>
+        <Name Value="EVariantError"/>
       </Item1>
       <Item2>
-        <Name Value="EZDatabaseError"/>
+        <Name Value="EJSON"/>
       </Item2>
       <Item3>
-        <Name Value="Exception"/>
+        <Name Value="EParserError"/>
       </Item3>
       <Item4>
-        <Name Value="EDatabaseError"/>
+        <Name Value="EComponentError"/>
       </Item4>
       <Item5>
-        <Name Value="EVariantError"/>
+        <Name Value="EScannerError"/>
       </Item5>
       <Item6>
-        <Name Value="EJSON"/>
+        <Name Value="RunError(211)"/>
       </Item6>
       <Item7>
-        <Name Value="EParserError"/>
+        <Name Value="EAbstractError"/>
       </Item7>
       <Item8>
-        <Name Value="EComponentError"/>
+        <Name Value="EConvertError"/>
       </Item8>
       <Item9>
-        <Name Value="EScannerError"/>
+        <Name Value="EExprParser"/>
       </Item9>
       <Item10>
-        <Name Value="RunError(211)"/>
+        <Name Value="EInvalidReportError"/>
       </Item10>
       <Item11>
-        <Name Value="EAbstractError"/>
+        <Name Value="EExprScanner"/>
       </Item11>
       <Item12>
-        <Name Value="EConvertError"/>
+        <Name Value="RunError(216)"/>
       </Item12>
       <Item13>
-        <Name Value="EExprParser"/>
+        <Name Value="EAccessViolation"/>
       </Item13>
       <Item14>
-        <Name Value="EInvalidReportError"/>
+        <Name Value="EXMLReadError"/>
       </Item14>
       <Item15>
-        <Name Value="EExprScanner"/>
+        <Name Value="Exception"/>
       </Item15>
-      <Item16>
-        <Name Value="RunError(216)"/>
-      </Item16>
-      <Item17>
-        <Name Value="EAccessViolation"/>
-      </Item17>
-      <Item18>
-        <Name Value="EXMLReadError"/>
-      </Item18>
     </Exceptions>
   </Debugging>
 </CONFIG>
