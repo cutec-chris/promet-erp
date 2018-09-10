@@ -60,9 +60,9 @@ begin
     }
 
     aMs := TMasterdata.CreateEx(nil,FData);
-    writeln(Integer(Self),' opening...');
+    writeln(PtrInt(Self),' opening...');
     aMs.Open;  //fetch first records
-    writeln(Integer(Self),' open');
+    writeln(PtrInt(Self),' open');
     aMs.Locate('ID','nonextistingident',[]); //fetch all Data and iterate over it
     aMs.Free;
 
@@ -81,7 +81,7 @@ procedure TMultiDBTestC.CreateThreads;
 var
   i: Integer;
 begin
-  Setlength(aThreads,30);
+  Setlength(aThreads,3);
   for i := 0 to length(aThreads)-1 do
     aThreads[i] := TMultiDataThread.Create(Self);
 end;

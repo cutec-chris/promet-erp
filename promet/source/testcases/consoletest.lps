@@ -2,7 +2,7 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <BuildModes Active="Default">
       <SessionMatrixOptions Count="3">
         <Item1 ID="767039364805" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
@@ -10,11 +10,11 @@
         <Item3 ID="722410265450" Modes="Default" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
       </SessionMatrixOptions>
     </BuildModes>
-    <Units Count="85">
+    <Units Count="86">
       <Unit0>
         <Filename Value="consoletest.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="7"/>
         <CursorPos X="3" Y="7"/>
         <UsageCount Value="56"/>
         <Loaded Value="True"/>
@@ -29,8 +29,9 @@
       </Unit1>
       <Unit2>
         <Filename Value="tmultidbtest.pas"/>
-        <EditorIndex Value="10"/>
-        <CursorPos X="24" Y="84"/>
+        <EditorIndex Value="8"/>
+        <TopLine Value="62"/>
+        <CursorPos X="23" Y="84"/>
         <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -52,7 +53,7 @@
       </Unit4>
       <Unit5>
         <Filename Value="tdbtests.pas"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <CursorPos Y="29"/>
         <UsageCount Value="17"/>
         <Loaded Value="True"/>
@@ -91,7 +92,7 @@
       <Unit10>
         <Filename Value="..\base\dbintfs\ubasedbclasses.pas"/>
         <UnitName Value="uBaseDbClasses"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="3109"/>
         <CursorPos Y="3133"/>
         <UsageCount Value="16"/>
@@ -140,7 +141,7 @@
       </Unit16>
       <Unit17>
         <Filename Value="utransaction.pas"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="54"/>
         <CursorPos X="65" Y="73"/>
         <UsageCount Value="11"/>
@@ -202,7 +203,7 @@
       <Unit25>
         <Filename Value="..\components\avamm-db-layer\dblayer_zeos\uzeosdbdm.pas"/>
         <UnitName Value="uZeosDBDM"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="281"/>
         <CursorPos X="9" Y="308"/>
         <UsageCount Value="14"/>
@@ -239,7 +240,7 @@
       <Unit30>
         <Filename Value="..\components\avamm-db-layer\ubasedatasetinterfaces.pas"/>
         <UnitName Value="uBaseDatasetInterfaces"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="582"/>
         <CursorPos X="53" Y="600"/>
         <UsageCount Value="16"/>
@@ -278,7 +279,7 @@
       <Unit35>
         <Filename Value="..\base\ubasecustomapplication.pas"/>
         <UnitName Value="uBaseCustomApplication"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="28"/>
         <CursorPos X="64" Y="25"/>
         <UsageCount Value="15"/>
@@ -450,10 +451,12 @@
       <Unit57>
         <Filename Value="..\base\dbintfs\uprocessmanagement.pas"/>
         <UnitName Value="uProcessManagement"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="258"/>
-        <CursorPos Y="280"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="254"/>
+        <CursorPos X="5" Y="278"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit57>
       <Unit58>
         <Filename Value="C:\lazarus144\fpc\2.6.4\source\rtl\objpas\classes\compon.inc"/>
@@ -520,10 +523,9 @@
       </Unit66>
       <Unit67>
         <Filename Value="C:\lazarus144\fpc\2.6.4\source\packages\fcl-db\src\sqldb\sqldb.pp"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="-1"/>
         <CursorPos Y="1100"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="..\components\synapse\blcksock.pas"/>
@@ -659,13 +661,19 @@
       <Unit84>
         <Filename Value="C:\lazarus144\components\lazutils\lazutf8.pas"/>
         <UnitName Value="LazUTF8"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit84>
+      <Unit85>
+        <Filename Value="..\base\dbintfs\uprometpubsub.pas"/>
+        <EditorIndex Value="9"/>
+        <TopLine Value="115"/>
+        <CursorPos X="47" Y="128"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-      </Unit84>
+      </Unit85>
     </Units>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="tdbtests.pas"/>
         <Caret Line="29"/>
@@ -674,6 +682,34 @@
         <Filename Value="..\base\dbintfs\ubasedbinterface.pas"/>
         <Caret Line="440" Column="12" TopLine="433"/>
       </Position2>
+      <Position3>
+        <Filename Value="..\components\avamm-db-layer\dblayer_sqldb\usqldbdm.pas"/>
+        <Caret Line="388" Column="86" TopLine="384"/>
+      </Position3>
+      <Position4>
+        <Filename Value="tmultidbtest.pas"/>
+        <Caret Line="84" Column="23" TopLine="62"/>
+      </Position4>
+      <Position5>
+        <Filename Value="..\base\dbintfs\uprometpubsub.pas"/>
+        <Caret Line="128" Column="47" TopLine="115"/>
+      </Position5>
+      <Position6>
+        <Filename Value="..\base\dbintfs\uprocessmanagement.pas"/>
+        <Caret Line="278" Column="6" TopLine="258"/>
+      </Position6>
+      <Position7>
+        <Filename Value="..\base\dbintfs\uprocessmanagement.pas"/>
+        <Caret Line="87" Column="5" TopLine="67"/>
+      </Position7>
+      <Position8>
+        <Filename Value="..\base\dbintfs\uprocessmanagement.pas"/>
+        <Caret Line="259" Column="3" TopLine="254"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\base\dbintfs\uprocessmanagement.pas"/>
+        <Caret Line="87" Column="17" TopLine="69"/>
+      </Position9>
     </JumpHistory>
   </ProjectSession>
   <Debugging>
