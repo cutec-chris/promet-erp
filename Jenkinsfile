@@ -8,16 +8,13 @@ pipeline {
         }
         stage('Checkout submodules') {
             agent {
-                node {
-                    label 'Buildhost x64'
-                    customWorkspace '../workspace'
-                }
                 docker {
                     image 'cutec/buildhost-lazarus-x64'
                     args '-v $WORKSPACE:/root'
                 }
             }            
             steps {
+                unstash 'scm'
                 sh '/root/build.sh submodules'
             }
         }
