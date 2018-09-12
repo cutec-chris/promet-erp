@@ -4,12 +4,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
+                sh "docker run --rm -v '${env.WORKSPACE}':/root cutec/buildhost-lazarus-x64 bash /root/build.sh submodules'
             } 
         }
-       stage('Checkout submodules') {
-           steps { 
-               sh "docker run --rm -v '${env.WORKSPACE}':'/project'  busybox cat /project/Dockerfile"
-           }    
-       }        
     }
 }
