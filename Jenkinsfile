@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                sh "docker run --rm -v /docker/gogs/jenkins/'${${env.WORKSPACE}:17}':'/root' cutec/buildhost-lazarus-x64 bash /root/build.sh submodules"
+                sh "docker run --rm -v /docker/gogs/jenkins/'${env.WORKSPACE:17}':'/root' cutec/buildhost-lazarus-x64 bash /root/build.sh submodules"
             } 
         }
     }
