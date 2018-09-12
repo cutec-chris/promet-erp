@@ -9,6 +9,7 @@ pipeline {
         stage('Checkout submodules') {
             agent {
                 node {
+                label "Buildhost x64"
                 docker {
                     image 'cutec/buildhost-lazarus-x64'
                     args '-v $WORKSPACE:/root'
