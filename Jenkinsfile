@@ -7,14 +7,9 @@ pipeline {
             } 
         }
        stage('Checkout submodules') {
-            steps {
-                unstash 'scm'
-                script{
-                    docker.image('cutec/buildhost-lazarus-x64').inside{ 
-                        sh '/root/build.sh submodules'
-                    }
-                }
-            }
-        }        
+           steps { 
+               sh "docker run --rm -v '${env.WORKSPACE}':'/project'  busybox cat /project/Dockerfile"
+           }    
+       }        
     }
 }
