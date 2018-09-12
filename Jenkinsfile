@@ -9,14 +9,14 @@ pipeline {
         stage('Checkout submodules') {
             agent {
                 node {
-                label "Buildhost x64"
+                    label 'Buildhost x64'
+                    customWorkspace '../workspace'
+                }
                 docker {
                     image 'cutec/buildhost-lazarus-x64'
                     args '-v $WORKSPACE:/root'
                 }
-                customWorkspace '../workspace'
-                }    
-            }
+            }            
             steps {
                 sh '/root/build.sh submodules'
             }
