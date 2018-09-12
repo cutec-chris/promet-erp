@@ -22,7 +22,8 @@ pipeline {
                     "Linux-armhf" : {
                         catchError {
                             sh "docker run --rm -v /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}':'/root' -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static  cutec/buildhost-lazarus-armhf bash /root/build.sh server"
-                        }                        
+                        } 
+                        currentBuild.result = 'SUCCESS'
                         echo currentBuild.result
                     }
                 )
