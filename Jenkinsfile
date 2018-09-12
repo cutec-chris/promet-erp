@@ -17,6 +17,7 @@ pipeline {
                         echo 'done'
                     }
                 )
+            }    
      }/*            
           parallel (
             sh "docker run --rm -v /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}':'/root/promet' cutec/buildhost-lazarus-windows bash z:/root/promet/build.sh all"
