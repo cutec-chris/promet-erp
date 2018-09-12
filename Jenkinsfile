@@ -12,6 +12,7 @@ pipeline {
                     image 'cutec/buildhost-lazarus-x64'
                     args '-v $WORKSPACE:/root'
                 }
+                customWorkspace '../workspace'
             }
             steps {
                 sh '/root/build.sh submodules'
