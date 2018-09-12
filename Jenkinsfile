@@ -1,10 +1,5 @@
 pipeline {
     agent any
-    environment {
-        WORKSPACE_HOST = WORKSPACE.
-        DISABLE_AUTH = 'true'
-        DB_ENGINE    = 'sqlite'
-    }
     stages {
         stage('Checkout') {
             steps {
