@@ -6,17 +6,15 @@ pipeline {
                 checkout scm
             } 
         }
-        stage('Checkout submodules') {
-            agent {
-                docker {
-                    image 'cutec/buildhost-lazarus-x64'
-                    args '-v $WORKSPACE:/root'
-                }
-            }            
+       stage('Checkout submodules') {
             steps {
                 unstash 'scm'
-                sh '/root/build.sh submodules'
+                script{
+                    docker.image('cutec/buildhost-lazarus-x64').inside{ 
+                        sh '/root/build.sh submodules'
+                    }
+                }
             }
-        }
+        }        
     }
 }
