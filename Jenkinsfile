@@ -31,4 +31,9 @@ pipeline {
             }    
         }    
     }
+    post {
+        always {
+            archiveArtifacts artifacts: '/docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}'/output/', fingerprint: true
+        }
+    }
 }
