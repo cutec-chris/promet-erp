@@ -33,7 +33,7 @@ pipeline {
     }
     post {
         always {
-            archiveArtifacts artifacts: "/docker/gogs/jenkins/home${env.WORKSPACE.substring(17,env.WORKSPACE.length())}/promet/output/*", fingerprint: true
+            archiveArtifacts artifacts: "promet/output/*", fingerprint: true
         }
     }
 }
