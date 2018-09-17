@@ -33,8 +33,8 @@ pipeline {
     }
     post {
         always {
-            sh 'rm -r promet/output/*.compiled'    
-            sh 'rm -r promet/output/*.dbg'    
+            sh 'rm -rf promet/output/*/*.compiled'    
+            sh 'rm -rf promet/output/*/*.dbg'    
             archiveArtifacts artifacts: "promet/output/", fingerprint: true
         }
         failure {
