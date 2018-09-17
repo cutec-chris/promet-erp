@@ -35,5 +35,10 @@ pipeline {
         always {
             archiveArtifacts artifacts: "promet/output/", fingerprint: true
         }
+        failure {
+            mail to: 'jenkins@chris.ullihome.de',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}"
+        }        
     }
 }
