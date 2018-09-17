@@ -33,7 +33,7 @@ pipeline {
     }
     post {
         always {
-            archiveArtifacts artifacts: "promet/output/*", fingerprint: true
+            archiveArtifacts artifacts: "promet/output/", fingerprint: true
         }
     }
 }
