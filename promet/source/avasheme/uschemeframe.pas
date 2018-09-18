@@ -52,7 +52,10 @@ type
     acProperties: TAction;
     acOpen: TAction;
     acExportToImage: TAction;
+    ZoomIn: TAction;
+    ZoomOut: TAction;
     Bevel11: TBevel;
+    Bevel4: TBevel;
     bSave1: TSpeedButton;
     EditLock: TAction;
     ActionList: TActionList;
@@ -103,6 +106,7 @@ type
     ImageList: TImageList;
     Label7: TLabel;
     Label8: TLabel;
+    Label9: TLabel;
     LinkAddPoint: TAction;
     LinkGrow: TAction;
     LinkRemovePoint: TAction;
@@ -143,6 +147,7 @@ type
     Panel10: TPanel;
     Panel11: TPanel;
     Panel12: TPanel;
+    Panel13: TPanel;
     Panel2: TPanel;
     Panel3: TPanel;
     Panel5: TPanel;
@@ -151,6 +156,8 @@ type
     pmContext: TPopupMenu;
     pToolbar: TPanel;
     SavePictureDialog1: TSavePictureDialog;
+    sbMenue1: TSpeedButton;
+    sbMenue2: TSpeedButton;
     Scheme: TDataSource;
     eName: TDBEdit;
     Label3: TLabel;
@@ -225,6 +232,8 @@ type
     procedure ObjectsTriangleExecute(Sender: TObject);
     procedure sbMenueClick(Sender: TObject);
     procedure SchemeStateChange(Sender: TObject);
+    procedure ZoomInExecute(Sender: TObject);
+    procedure ZoomOutExecute(Sender: TObject);
   private
     { private declarations }
     FEditable: Boolean;
@@ -591,6 +600,18 @@ begin
   aEnabled := DataSet.CanEdit or DataSet.Changed;
   acSave.Enabled := aEnabled;
   acCancel.Enabled:= aEnabled;
+end;
+
+procedure TfShemeFrame.ZoomInExecute(Sender: TObject);
+begin
+  if FGraph.Zoom<200 then
+    FGraph.Zoom := FGraph.Zoom+10;
+end;
+
+procedure TfShemeFrame.ZoomOutExecute(Sender: TObject);
+begin
+  if FGraph.Zoom>10 then
+    FGraph.Zoom := FGraph.Zoom-10;
 end;
 
 procedure TfShemeFrame.SetDataSet(const AValue: TBaseDBDataset);

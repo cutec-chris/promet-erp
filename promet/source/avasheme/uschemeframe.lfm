@@ -1,19 +1,19 @@
 inherited fShemeFrame: TfShemeFrame
   Height = 555
-  Width = 819
+  Width = 859
   ClientHeight = 555
-  ClientWidth = 819
+  ClientWidth = 859
   DesignLeft = 380
   DesignTop = 247
   object ToolBar1: TPanel[0]
     Left = 0
     Height = 44
     Top = 0
-    Width = 819
+    Width = 859
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 44
-    ClientWidth = 819
+    ClientWidth = 859
     TabOrder = 0
     object Panel4: TPanel
       Left = 0
@@ -59,7 +59,7 @@ inherited fShemeFrame: TfShemeFrame
       end
     end
     object Panel6: TPanel
-      Left = 165
+      Left = 232
       Height = 44
       Top = 0
       Width = 56
@@ -181,7 +181,7 @@ inherited fShemeFrame: TfShemeFrame
       end
     end
     object Panel8: TPanel
-      Left = 221
+      Left = 288
       Height = 44
       Top = 0
       Width = 259
@@ -229,7 +229,7 @@ inherited fShemeFrame: TfShemeFrame
       end
     end
     object Panel9: TPanel
-      Left = 480
+      Left = 547
       Height = 44
       Top = 0
       Width = 146
@@ -339,7 +339,7 @@ inherited fShemeFrame: TfShemeFrame
       end
     end
     object Panel11: TPanel
-      Left = 626
+      Left = 693
       Height = 44
       Top = 0
       Width = 182
@@ -439,6 +439,60 @@ inherited fShemeFrame: TfShemeFrame
         BorderSpacing.Top = 4
         BorderSpacing.Bottom = 4
         Shape = bsLeftLine
+      end
+    end
+    object Panel13: TPanel
+      Left = 165
+      Height = 44
+      Top = 0
+      Width = 67
+      Align = alLeft
+      BevelOuter = bvNone
+      ClientHeight = 44
+      ClientWidth = 67
+      TabOrder = 7
+      object Label9: TLabel
+        Left = 4
+        Height = 15
+        Top = 0
+        Width = 59
+        Alignment = taCenter
+        Anchors = [akLeft, akRight, akBottom]
+        AutoSize = False
+        BorderSpacing.Left = 5
+        Caption = 'Ansicht'
+        Font.Color = clMedGray
+        Font.Height = 13
+        ParentColor = False
+        ParentFont = False
+      end
+      object Bevel4: TBevel
+        Left = 0
+        Height = 36
+        Top = 4
+        Width = 8
+        Align = alLeft
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Shape = bsLeftLine
+      end
+      object sbMenue1: TSpeedButton
+        Left = 4
+        Height = 28
+        Top = 12
+        Width = 32
+        Action = ZoomIn
+        Flat = True
+        ShowCaption = False
+      end
+      object sbMenue2: TSpeedButton
+        Left = 35
+        Height = 28
+        Top = 12
+        Width = 32
+        Action = ZoomOut
+        Flat = True
+        ShowCaption = False
       end
     end
   end
@@ -2617,6 +2671,18 @@ inherited fShemeFrame: TfShemeFrame
       Caption = 'Lock/Unlock'
       ImageIndex = 36
       OnExecute = EditLockExecute
+    end
+    object ZoomIn: TAction
+      Category = 'View'
+      Caption = 'ZoomIn'
+      ImageIndex = 26
+      OnExecute = ZoomInExecute
+    end
+    object ZoomOut: TAction
+      Category = 'View'
+      Caption = 'ZoomOut'
+      ImageIndex = 25
+      OnExecute = ZoomOutExecute
     end
   end
   object pmContext: TPopupMenu[6]
