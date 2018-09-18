@@ -1,4 +1,4 @@
-msgid "(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Menü)(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetztwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten"
+msgid "(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Menü)(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetztwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten"
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
@@ -11,9 +11,6 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
 "(Menu)\n"
-
-msgid "wieder starten"
-msgstr ""
 
 # Christian U. <ulrich@tcs-germany.de>, 2015.
 #: tfaccountingframe.accombineitems.caption
