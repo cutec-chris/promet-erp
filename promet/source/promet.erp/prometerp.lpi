@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="9"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -173,7 +173,8 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS"/>
+        <CommandLineParams Value="--config-path=&quot;v:/Shanghai/Avad/Data/config/&quot;"/>
+        <WorkingDirectory Value="V:/Shanghai/Avad/App/promet"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
@@ -622,7 +623,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="12">
+    <Exceptions Count="13">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -659,6 +660,9 @@
       <Item12>
         <Name Value="Exception"/>
       </Item12>
+      <Item13>
+        <Name Value="EZSQLException"/>
+      </Item13>
     </Exceptions>
   </Debugging>
 </CONFIG>
