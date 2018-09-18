@@ -173,7 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--config-path=&quot;v:/Shanghai/Avad/Data/config/&quot;"/>
+        <CommandLineParams Value="--mandant=TCS"/>
         <WorkingDirectory Value="V:/Shanghai/Avad/App/promet"/>
       </local>
     </RunParams>

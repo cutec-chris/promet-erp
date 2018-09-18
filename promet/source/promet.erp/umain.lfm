@@ -1,7 +1,7 @@
 object fMain: TfMain
-  Left = 385
+  Left = 349
   Height = 621
-  Top = 136
+  Top = 205
   Width = 935
   Caption = 'Promet-ERP'
   ClientHeight = 601
