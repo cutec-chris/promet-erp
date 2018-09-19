@@ -40,6 +40,7 @@ pipeline {
                     try {
                         dir(env.WORKSPACE) {
                             sh "set +e"
+                            sh "ls -l"
                             sh "bash /promet/setup/upload_builds.sh"
                         }
                     }
