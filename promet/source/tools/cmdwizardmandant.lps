@@ -4,11 +4,10 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="4">
+    <Units Count="5">
       <Unit0>
         <Filename Value="cmdwizardmandant.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="39"/>
         <CursorPos Y="62"/>
@@ -32,13 +31,24 @@
       <Unit3>
         <Filename Value="..\base\upowerstate.pas"/>
         <UnitName Value="uPowerState"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <CursorPos X="15" Y="21"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="..\components\zeos\src\core\zencoding.pas"/>
+        <UnitName Value="ZEncoding"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="2034"/>
+        <CursorPos X="7" Y="2055"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit4>
     </Units>
-    <JumpHistory Count="8" HistoryIndex="7">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
       </Position1>
@@ -70,6 +80,10 @@
         <Filename Value="cmdwizardmandant.lpr"/>
         <Caret Line="9" Column="50"/>
       </Position8>
+      <Position9>
+        <Filename Value="..\components\zeos\src\core\zencoding.pas"/>
+        <Caret Line="2055" Column="7" TopLine="2034"/>
+      </Position9>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
