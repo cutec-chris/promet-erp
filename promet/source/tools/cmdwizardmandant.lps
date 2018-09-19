@@ -16,6 +16,7 @@
       </Unit0>
       <Unit1>
         <Filename Value="..\base\base_wiki\wikitohtml.pas"/>
+        <IsVisibleTab Value="True"/>
         <CursorPos X="41" Y="24"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -39,7 +40,6 @@
       <Unit4>
         <Filename Value="..\components\zeos\src\core\zencoding.pas"/>
         <UnitName Value="ZEncoding"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <TopLine Value="2034"/>
         <CursorPos X="7" Y="2055"/>
