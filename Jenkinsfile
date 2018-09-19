@@ -31,13 +31,18 @@ pipeline {
         }    
         stage('Upload') {
             steps {
-                //sh "cd /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}'"
-                catchError {
-                    dir(env.WORKSPACE) {
-                        sh "set +e"
-                        sh "bash /promet/setup/upload_builds.sh"
+                script {
+                    try {
+                        dir(env.WORKSPACE) {
+                            sh "set +e"
+                            sh "bash /promet/setup/upload_builds.sh"
+                        }
                     }
-                }    
+                    catch (exc) {
+                        echo 'Upload failed!'
+                        currentBuild.result = 'SUCCESS'
+                    }
+                }                
                 echo currentBuild.result
             }
         }
