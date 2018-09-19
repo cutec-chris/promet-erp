@@ -33,10 +33,14 @@ pipeline {
         stage('Upload') {
             steps {
                 //sh "cd /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}'"
-                dir(env.WORKSPACE) {
-                  sh "bash /promet/setup/upload_builds.sh"
-                  sh "set +e"
-                }
+                catchError {
+                    dir(env.WORKSPACE) {
+                        sh "bash /promet/setup/upload_builds.sh"
+                        sh "set +e"
+                    }
+                }    
+                sh "set +e"
+                echo currentBuild.result
             }
         }
     }
@@ -52,10 +56,11 @@ pipeline {
             archiveArtifacts artifacts: "promet/output/", fingerprint: true
         }
         failure {
-            cleanWs()
+            //cleanWs()
             mail to: 'jenkins@chris.ullihome.de',
                  subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "Something is wrong with ${env.BUILD_URL}"
+                 body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+                 <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>"""
         }       
     }
 }
