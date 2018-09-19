@@ -33,8 +33,10 @@ pipeline {
         stage('Upload') {
             steps {
                 //sh "cd /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}'"
-                sh "bash /promet/setup/upload_builds.sh"
-                sh "set +e"
+                dir(env.WORKSPACE) {
+                  sh "bash /promet/setup/upload_builds.sh"
+                  sh "set +e"
+                }
             }
         }
     }
