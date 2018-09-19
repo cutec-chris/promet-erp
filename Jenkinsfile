@@ -21,10 +21,9 @@ pipeline {
                     },
                     "Linux-armhf" : {
                         catchError {
-                            sh "docker run --rm -v /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}':'/root' -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static  cutec/buildhost-lazarus-armhf bash /root/build.sh server"
                             sh "set +e"
+                            sh "docker run --rm -v /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}':'/root' -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static  cutec/buildhost-lazarus-armhf bash /root/build.sh server"
                         } 
-                        sh "set +e"
                         echo currentBuild.result
                     }
                 )
@@ -35,12 +34,10 @@ pipeline {
                 //sh "cd /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}'"
                 catchError {
                     dir(env.WORKSPACE) {
-                        sh "bash /promet/setup/upload_builds.sh"
                         sh "set +e"
+                        sh "bash /promet/setup/upload_builds.sh"
                     }
                 }    
-                currentBuild.result = 'SUCCESS'
-                sh "set +e"
                 echo currentBuild.result
             }
         }
