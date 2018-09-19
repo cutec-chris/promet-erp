@@ -41,7 +41,7 @@ pipeline {
                         dir(env.WORKSPACE) {
                             sh "set +e"
                             sh "ls -l"
-                            sh "bash /promet/setup/upload_builds.sh"
+                            sh "bash promet/setup/upload_builds.sh"
                         }
                     }
                     catch (exc) {
