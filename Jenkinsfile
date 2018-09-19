@@ -49,9 +49,10 @@ pipeline {
             archiveArtifacts artifacts: "promet/output/", fingerprint: true
         }
         failure {
+            cleanWs()
             mail to: 'jenkins@chris.ullihome.de',
                  subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
                  body: "Something is wrong with ${env.BUILD_URL}"
-        }        
+        }       
     }
 }
