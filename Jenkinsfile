@@ -39,6 +39,7 @@ pipeline {
                         sh "set +e"
                     }
                 }    
+                currentBuild.result = 'SUCCESS'
                 sh "set +e"
                 echo currentBuild.result
             }
