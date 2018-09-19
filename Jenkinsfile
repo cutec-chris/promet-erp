@@ -18,22 +18,24 @@ pipeline {
                     },
                     "Linux-x86" : {
                         sh "docker run --rm -v /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}':'/root' cutec/buildhost-lazarus-i386 bash /root/build.sh"
-                    }/*,
+                    },
                     "Linux-armhf" : {
                         catchError {
                             sh "docker run --rm -v /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}':'/root' -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static  cutec/buildhost-lazarus-armhf bash /root/build.sh server"
+                            sh "set +e"
                         } 
+                        sh "set +e"
                         currentBuild.result = 'SUCCESS'
                         echo currentBuild.result
                     }
-                    */
                 )
             }    
         }    
         stage('Upload') {
             steps {
-                sh "cd /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}'"
+                //sh "cd /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}'"
                 sh "bash /promet/setup/upload_builds.sh"
+                sh "set +e"
             }
         }
     }
