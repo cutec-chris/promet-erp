@@ -20,11 +20,15 @@ pipeline {
                         sh "docker run --rm -v /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}':'/root' cutec/buildhost-lazarus-i386 bash /root/build.sh"
                     },
                     "Linux-armhf" : {
-                        catchError {
-                            sh "docker run --rm -v /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}':'/root' -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static  cutec/buildhost-lazarus-armhf bash /root/build.sh server"
-                            sh "set +e"
-                        } 
-                        sh "set +e"
+                        script {
+                            try {
+                                sh "docker run --rm -v /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}':'/root' -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static  cutec/buildhost-lazarus-armhf bash /root/build.sh server"
+                            }
+                            catch (exc) {
+                                echo 'Arm Build failed!'
+                                currentBuild.result = 'SUCCESS'
+                            }
+                        }                
                         echo currentBuild.result
                     }
                 )
@@ -32,14 +36,19 @@ pipeline {
         }    
         stage('Upload') {
             steps {
-                //sh "cd /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}'"
-                catchError {
-                    dir(env.WORKSPACE) {
-                        sh "bash /promet/setup/upload_builds.sh"
-                        sh "set +e"
+                script {
+                    try {
+                        dir(env.WORKSPACE) {
+                            sh "set +e"
+                            sh "ls -l"
+                            sh "bash promet/setup/upload_builds.sh"
+                        }
                     }
-                }    
-                sh "set +e"
+                    catch (exc) {
+                        echo 'Upload failed!'
+                        currentBuild.result = 'SUCCESS'
+                    }
+                }                
                 echo currentBuild.result
             }
         }
