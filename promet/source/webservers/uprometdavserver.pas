@@ -145,7 +145,7 @@ begin
             aParent := aDirs.Id.AsVariant;
           end;
         aCal := TCalendar.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
-        aCal.Filter(TBaseDBModule(aSocket.Data).QuoteField('ORIGID')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aFile));
+        aCal.Filter(TBaseDBModule(aSocket.Data).QuoteField('OLD_ID')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aFile));
         if (aCal.Count=0) and IsNumeric(aFile) then
           begin
             aCal.Select(aFile);
@@ -465,8 +465,8 @@ begin
                     aCal.Open;
                     while not aCal.EOF do
                       begin
-                        if aCal.FieldByName('ORIGID').AsString<>'' then
-                          aItem := TDAVFile.Create(aFullDir+aCal.FieldByName('ORIGID').AsString+'.ics')
+                        if aCal.FieldByName('OLD_ID').AsString<>'' then
+                          aItem := TDAVFile.Create(aFullDir+aCal.FieldByName('OLD_ID').AsString+'.ics')
                         else
                           aItem := TDAVFile.Create(aFullDir+aCal.Id.AsString+'.ics');
                         aItem.Properties.Values['getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
@@ -543,8 +543,8 @@ begin
                             aCal.Open;
                             while not aCal.EOF do
                               begin
-                                if aCal.FieldByName('ORIGID').AsString<>'' then
-                                  aItem := TDAVFile.Create(aFullDir+aCal.FieldByName('ORIGID').AsString+'.ics')
+                                if aCal.FieldByName('OLD_ID').AsString<>'' then
+                                  aItem := TDAVFile.Create(aFullDir+aCal.FieldByName('OLD_ID').AsString+'.ics')
                                 else
                                   aItem := TDAVFile.Create(aFullDir+aCal.Id.AsString+'.ics');
                                 aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
@@ -616,8 +616,8 @@ begin
                         aCal.Open;
                         while not aCal.EOF do
                           begin
-                            if aCal.FieldByName('ORIGID').AsString<>'' then
-                              aItem := TDAVFile.Create(aFullDir+aCal.FieldByName('ORIGID').AsString+'.ics')
+                            if aCal.FieldByName('OLD_ID').AsString<>'' then
+                              aItem := TDAVFile.Create(aFullDir+aCal.FieldByName('OLD_ID').AsString+'.ics')
                             else
                               aItem := TDAVFile.Create(aFullDir+aCal.Id.AsString+'.ics');
                             aItem.Properties.Values['D:getetag'] := aCal.Id.AsString+IntToStr(trunc(frac(aCal.TimeStamp.AsDateTime)*1000));
@@ -1651,7 +1651,7 @@ begin
         Stream.Position:=0;
         sl.LoadFromStream(Stream);
         aCal := TCalendar.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
-        aCal.Filter(TBaseDBModule(aSocket.Data).QuoteField('ORIGID')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aFile));
+        aCal.Filter(TBaseDBModule(aSocket.Data).QuoteField('OLD_ID')+'='+TBaseDBModule(aSocket.Data).QuoteValue(aFile));
         if (aCal.Count=0) and IsNumeric(aFile) then
           begin
             aCal.Select(aFile);

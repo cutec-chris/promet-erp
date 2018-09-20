@@ -173,8 +173,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS"/>
-        <WorkingDirectory Value="V:/Shanghai/Avad/App/promet"/>
+        <CommandLineParams Value="--config-path=devel"/>
       </local>
     </RunParams>
     <RequiredPackages Count="27">
