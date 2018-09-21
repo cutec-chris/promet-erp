@@ -134,7 +134,7 @@ begin
       while (not Terminated) and ((Now()-aTime) < ((1/MinsPerDay)*StrToIntDef(GetOptionValue('restarttime'),1200))) do
         begin
           CheckSynchronize(5);
-          if i > 60000 then
+          if i > (60000/10) then
             begin
               i := 0;
               EnterCriticalsection(GlobalLock);
