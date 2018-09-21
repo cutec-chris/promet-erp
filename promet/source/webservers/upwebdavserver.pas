@@ -44,21 +44,27 @@ begin
     for i := 0 to Sender.Objects.Count-1 do
       if TObject(Sender.Objects[i]) is TDAVSession then
         aSock := TDAVSession(Sender.Objects[i]);
+    if Assigned(aSock) and not TDAVSession(aSock).CanHandleRequest then
+      aSock := nil;
     if not Assigned(aSock) then
       begin
         aSock := TDAVSession.Create(DavServer);
         aSock.Socket := Sender;
         Sender.Objects.Add(aSock);
       end;
-    aSock.Parameters.Clear;
-    for i := 0 to Headers.Count-1 do
-      begin
-        s := Headers[i];
-        tmp := copy(s,0,pos(':',s)-1);
-        aSock.Parameters.Add(lowercase(tmp)+':'+trim(copy(s,pos(':',s)+1,length(s))));
-      end;
-    Result := aSock.ProcessHttpRequest(Method,URL,Headers,Input,Output);
-    ResultStatusText:=aSock.ResultStatus;
+    try
+      aSock.Parameters.Clear;
+      for i := 0 to Headers.Count-1 do
+        begin
+          s := Headers[i];
+          tmp := copy(s,0,pos(':',s)-1);
+          aSock.Parameters.Add(lowercase(tmp)+':'+trim(copy(s,pos(':',s)+1,length(s))));
+        end;
+      Result := aSock.ProcessHttpRequest(Method,URL,Headers,Input,Output);
+      ResultStatusText:=aSock.ResultStatus;
+    finally
+      aSock.DoneRequest;
+    end;
   except
     on e : Exception do
       begin

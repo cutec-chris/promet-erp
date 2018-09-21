@@ -92,6 +92,7 @@ type
 
     FBoolResult : Boolean;
     FOutputResult : TStreamOutput;
+    FLock : TCriticalSection;
 
     procedure DoCheckAuth;
     procedure DoOptionsRequest;
@@ -119,6 +120,8 @@ type
     function ProcessHttpRequest(Request, aURI: string; Headers: TStringList;
       aInputData, aOutputData: TMemoryStream): integer;
     function CheckAuth: Boolean;
+    function CanHandleRequest : Boolean;
+    procedure DoneRequest;
     property User : string read FUser write FUser;
     property Creator : TObject read FCreator;
     property Parameters : TStrings read FParameters write FParameters;
@@ -537,6 +540,16 @@ begin
     end;
 end;
 
+function TDAVSession.CanHandleRequest: Boolean;
+begin
+  Result := FLock.TryEnter;
+end;
+
+procedure TDAVSession.DoneRequest;
+begin
+  FLock.Leave;
+end;
+
 constructor TStreamOutput.Create(ASocket: TDAVSession; aIn, aOut: TMemoryStream);
 begin
   FSocket := ASocket;
@@ -739,10 +752,12 @@ begin
   OutputData:=nil;
   Data:=nil;
   Resultstatus:='';
+  FLock := TCriticalSection.Create;
 end;
 
 destructor TDAVSession.Destroy;
 begin
+  FLock.Free;
   FreeAndNil(FHeadersOut);
   FreeAndNil(FOutputResult);
   if Assigned(FDestroy) then
@@ -833,7 +848,7 @@ begin
   if Assigned(FOutputResult) then
     begin
       if Assigned(Socket) then
-        Socket.InternalSynchronize(Socket,@DoProcessInput,false)
+        Socket.InternalSynchronize(Socket,@DoProcessInput,true)
       else DoProcessInput;
       if Status<>0 then
         Result := Status;
