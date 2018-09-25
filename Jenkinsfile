@@ -43,6 +43,7 @@ pipeline {
                             sh "ls -l"
                             sh "bash promet/setup/upload_builds.sh"
                             sh "bash promet/setup/change_wiki_alpha.sh"
+                            sh "bash promet/setup/build_containers.sh"
                         }
                     }
                     catch (exc) {
