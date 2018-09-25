@@ -834,6 +834,11 @@ var
                           writeln('!!! Warning: more than '+IntToStr(aSyncCount)+' Rows changed in one batch triggering full sync');
                           FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,DontSetTimestamp);
                         end;
+                      if (FSyncedCount = aSyncCount) and (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
+                        begin
+                          writeln('!!! Warning: no change in Synctime triggering full sync');
+                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,DontSetTimestamp);
+                        end;
                       iMinimalDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
                       if aSyncCount > 0 then
                         Fullsynced:=FSyncedCount < aSyncCount
