@@ -40,9 +40,8 @@ pipeline {
                     try {
                         dir(env.WORKSPACE) {
                             sh "set +e"
-                            sh "ls -l"
-                            sh "bash promet/setup/upload_builds.sh"
-                            sh "bash promet/setup/change_wiki_alpha.sh"
+                            sh "docker run --rm -v /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}':'/root' cutec/buildhost-lazarus-x64  bash /root/promet/setup/upload_builds.sh"
+                            sh "docker run --rm -v /docker/gogs/jenkins/home'${env.WORKSPACE.substring(17,env.WORKSPACE.length())}':'/root' cutec/buildhost-lazarus-x64  bash /root/promet/setup/change_wiki_alpha.sh"
                             sh "bash promet/setup/build_containers.sh"
                         }
                     }
