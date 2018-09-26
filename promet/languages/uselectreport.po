@@ -41,6 +41,10 @@ msgstr ""
 msgid "keine Ausgabe"
 msgstr ""
 
+#: uselectreport.strnopreview
+msgid "keine Vorschau"
+msgstr ""
+
 #: uselectreport.strpostingfailed
 msgid "Fehler beim Buchen !"
 msgstr ""

@@ -51,6 +51,10 @@ msgstr "The Contact has no e-Mail Address"
 msgid "keine Ausgabe"
 msgstr "no output"
 
+#: uselectreport.strnopreview
+msgid "keine Vorschau"
+msgstr ""
+
 #: uselectreport.strpostingfailed
 msgid "Fehler beim Buchen !"
 msgstr "Error on booking!"
