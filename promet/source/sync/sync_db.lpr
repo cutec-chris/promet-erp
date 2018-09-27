@@ -95,7 +95,11 @@ begin
     end;
   try
   if aDest.FieldByName('TIMESTAMPD').AsDateTime=SyncTbl.FieldByName('TIMESTAMPD').AsDateTime then
-    exit;
+    begin
+      if aLastRowTime = 0 then
+        aLastRowTime:=aDest.FieldByName('TIMESTAMPD').AsDateTime;
+      exit;
+    end;
   if SyncTbl.FieldCount>2 then
     aSource := SyncTbl
   else
@@ -124,6 +128,8 @@ begin
           if aDest.FieldByName('TIMESTAMPD').AsDateTime>aSource.FieldByName('TIMESTAMPD').AsDateTime then
             begin
               (BaseApplication as IBaseApplication).Info(Format('Dest is newer than Source, aborting ID:%s',[IntToStr(aSource.FieldByName('SQL_ID').AsLargeInt)]));
+              if aSource.FieldByName('TIMESTAMPD').AsDateTime > aLastRowTime then
+                aLastRowTime:=aSource.FieldByName('TIMESTAMPD').AsDateTime;
               exit;
             end;
           aDest.Edit;
@@ -829,7 +835,7 @@ var
                       FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                       FOldSyncCount := FSyncedCount;
                       FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount,iMinimalDate,DontSetTimestamp);
-                      if iMinimalDate=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime then //when Date is not changed then break
+                      if (FSyncedCount > 0) and (iMinimalDate=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime) then //when Date is not changed then break
                         begin
                           writeln('!!! Warning: more than '+IntToStr(aSyncCount)+' Rows changed in one batch triggering full sync');
                           FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,DontSetTimestamp);
