@@ -96,7 +96,7 @@ begin
   try
   if aDest.FieldByName('TIMESTAMPD').AsDateTime=SyncTbl.FieldByName('TIMESTAMPD').AsDateTime then
     begin
-      if aLastRowTime = 0 then
+      if aDest.FieldByName('TIMESTAMPD').AsDateTime > aLastRowTime then
         aLastRowTime:=aDest.FieldByName('TIMESTAMPD').AsDateTime;
       exit;
     end;
