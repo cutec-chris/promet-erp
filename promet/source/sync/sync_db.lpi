@@ -23,7 +23,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --db=ForumPGN --table=WIKI"/>
+        <CommandLineParams Value="--mandant=TCS --db=ForumPGN --table=ORDERPOS --starttime=-60"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -549,7 +549,7 @@
         <Expression Value="aFieldName"/>
       </Item1>
     </Watches>
-    <Exceptions Count="7">
+    <Exceptions Count="8">
       <Item1>
         <Name Value="EZSQLException"/>
       </Item1>
@@ -571,6 +571,9 @@
       <Item7>
         <Name Value="EConvertError"/>
       </Item7>
+      <Item8>
+        <Name Value="EVariantError"/>
+      </Item8>
     </Exceptions>
   </Debugging>
 </CONFIG>
