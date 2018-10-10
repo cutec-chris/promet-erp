@@ -281,7 +281,7 @@
         <PackageName Value="LCL"/>
       </Item27>
     </RequiredPackages>
-    <Units Count="42">
+    <Units Count="43">
       <Unit0>
         <Filename Value="prometerp.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -591,6 +591,14 @@
         <Filename Value="../base/revision.inc"/>
         <IsPartOfProject Value="True"/>
       </Unit41>
+      <Unit42>
+        <Filename Value="uorderadressdetail.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fEditAdress"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uOrderAdressDetail"/>
+      </Unit42>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

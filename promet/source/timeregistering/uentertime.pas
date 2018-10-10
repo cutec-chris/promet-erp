@@ -640,9 +640,9 @@ begin
             aRes := MessageDlg(strTimeRegistration,Format(strContinuePreviousTimeEntry,[Data.GetLinkDesc(Times.FieldByName('LINK').AsString),Data.GetLinkDesc(Times.FieldByName('PROJECT').AsString),Times.FieldByName('JOB').AsString,Times.FieldByName('END').AsString]),mtConfirmation,[mbYes,mbNo],0);
           if aRes = mrYes then
             begin
-              Times.DataSet.Edit;
+              Times.Edit;
               Times.FieldByName('END').Clear;
-              Times.DataSet.Post;
+              Times.Post;
               exit;
             end;
         end;
@@ -659,7 +659,7 @@ begin
               Times.FieldByName('NOTE').AsString := DBConfig.ReadString('TIMENOTES','');
               Times.FieldByName('START').AsFloat := Now();
               Times.FieldByName('END').Clear;
-              Times.DataSet.Post;
+              Times.Post;
             end
           else
             begin

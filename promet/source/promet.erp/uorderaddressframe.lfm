@@ -21,12 +21,12 @@ object fOrderAddress: TfOrderAddress
     TabOrder = 0
     object cbType: TComboBox
       Left = 4
-      Height = 21
+      Height = 23
       Top = 4
       Width = 196
       Align = alTop
       BorderSpacing.Around = 4
-      ItemHeight = 13
+      ItemHeight = 15
       OnSelect = cbTypeSelect
       Style = csDropDownList
       TabOrder = 0
@@ -34,10 +34,11 @@ object fOrderAddress: TfOrderAddress
     end
     object mAddress: TMemo
       Left = 4
-      Height = 65
-      Top = 29
-      Width = 196
+      Height = 63
+      Top = 31
+      Width = 172
       Align = alClient
+      BorderSpacing.Right = 24
       BorderSpacing.Around = 4
       Font.Color = clSilver
       Lines.Strings = (
@@ -54,6 +55,14 @@ object fOrderAddress: TfOrderAddress
       ParentFont = False
       TabOrder = 1
       WordWrap = False
+    end
+    object SpeedButton1: TSpeedButton
+      Left = 177
+      Height = 22
+      Top = 31
+      Width = 23
+      Caption = '...'
+      OnClick = SpeedButton1Click
     end
   end
   object pToolbar: TPanel

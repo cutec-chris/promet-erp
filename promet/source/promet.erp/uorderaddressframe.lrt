@@ -1,3 +1,4 @@
+TFORDERADDRESS.SPEEDBUTTON1.CAPTION=...
 TFORDERADDRESS.ACINSERTADDRESS.CAPTION=acInsertAddress
 TFORDERADDRESS.ACINSERTADDRESS.HINT=Neunen Kontakt anlegen
 beim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommen

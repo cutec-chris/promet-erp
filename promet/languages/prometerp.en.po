@@ -1,4 +1,4 @@
-msgid "(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Menü)(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetztwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten"
+msgid "(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder starten(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Menü)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Üblich z.b. auf Kassenbons auf Rechnungen unüblich)(Menü)(Menü)(Menü)Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetztwieder starten(Menü)(Menü)(Menü)(Menü)(Menü)wieder startenwieder startenwieder startenwieder startenwieder starten(Menü)wieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenwieder startenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommenbeim speichern im Kontakteditor wird dieser sofort in den Auftrag übernommen"
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
@@ -885,6 +885,7 @@ msgid "fbankingDialog"
 msgstr "-"
 
 #: tfbankingdialog.label1.caption
+msgctxt "tfbankingdialog.label1.caption"
 msgid "Label1"
 msgstr "-"
 
@@ -1976,6 +1977,58 @@ msgstr "Name"
 msgctxt "TFDOCUMENTADDOPTIONS.LOPTIONS.CAPTION"
 msgid "Optionen"
 msgstr "Options"
+
+#: tfeditadress.caption
+msgid "Adresse bearbeiten"
+msgstr ""
+
+#: tfeditadress.ladditional.caption
+#, fuzzy
+msgctxt "tfeditadress.ladditional.caption"
+msgid "Zusätzlich"
+msgstr "Additional"
+
+#: tfeditadress.lcallingname.caption
+#, fuzzy
+msgctxt "tfeditadress.lcallingname.caption"
+msgid "Vorname"
+msgstr "First name"
+
+#: tfeditadress.lcity.caption
+#, fuzzy
+msgctxt "tfeditadress.lcity.caption"
+msgid "Ort"
+msgstr "Location"
+
+#: tfeditadress.lland.caption
+#, fuzzy
+msgctxt "tfeditadress.lland.caption"
+msgid "Land"
+msgstr "Country"
+
+#: tfeditadress.lname.caption
+#, fuzzy
+msgctxt "tfeditadress.lname.caption"
+msgid "Name / Firma"
+msgstr "Name/Firm"
+
+#: tfeditadress.lpostalcode.caption
+#, fuzzy
+msgctxt "tfeditadress.lpostalcode.caption"
+msgid "Postleitzahl"
+msgstr "Postal code"
+
+#: tfeditadress.lstreet.caption
+#, fuzzy
+msgctxt "tfeditadress.lstreet.caption"
+msgid "Straße"
+msgstr "Street"
+
+#: tfeditadress.ltitle.caption
+#, fuzzy
+msgctxt "tfeditadress.ltitle.caption"
+msgid "Anrede"
+msgstr "Title"
 
 #: tfeditmail.acclose.caption
 msgctxt "TFEDITMAIL.ACCLOSE.CAPTION"
@@ -4943,6 +4996,12 @@ msgstr "search Address"
 #: tforderaddress.acsearchaddress.hint
 msgid "Adresse/Kontakt suchen und einfügen"
 msgstr "search for Adress/Contact"
+
+#: tforderaddress.speedbutton1.caption
+#, fuzzy
+msgctxt "tforderaddress.speedbutton1.caption"
+msgid "..."
+msgstr "..."
 
 #: tforderdateframe.lapproved.caption
 msgctxt "TFORDERDATEFRAME.LAPPROVED.CAPTION"

@@ -44,6 +44,7 @@ type
     Panel1: TPanel;
     pToolbar: TPanel;
     SearchTimer: TTimer;
+    SpeedButton1: TSpeedButton;
     procedure acDeleteAddressExecute(Sender: TObject);
     procedure acGotoAddressExecute(Sender: TObject);
     procedure acInsertAddressExecute(Sender: TObject);
@@ -61,6 +62,7 @@ type
       );
     procedure mAddressKeyPress(Sender: TObject; var Key: char);
     procedure SearchTimerTimer(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     FDataSet: TOrderAddress;
     FSearchKey: TSearchKey;
@@ -83,7 +85,7 @@ type
 implementation
 {$R *.lfm}
 uses uIntfStrConsts,uPersonFrame,uMainTreeFrame,uData,uPerson,uOrderFrame,
-  uSearch,uBaseDBInterface,uAddressFrame,uBaseVisualApplication;
+  uSearch,uBaseDBInterface,uAddressFrame,uBaseVisualApplication,uOrderAdressDetail;
 procedure TfOrderAddress.cbTypeSelect(Sender: TObject);
 begin
   if (DataSet.State = dsInsert) or DataSet.GotoBookmark(Rec) then
@@ -332,6 +334,15 @@ begin
     if Assigned(FSearchKey) then
       FSearchKey(Self,Left+mAddress.Left,mAddress.Top+Canvas.TextExtent('xYg').cy,aKey,[],mAddress.Lines[0]);
 end;
+
+procedure TfOrderAddress.SpeedButton1Click(Sender: TObject);
+begin
+  fEditadress.setLanguage;
+  fEditAdress.cDatasource.DataSet := Datasource.DataSet;
+  if GotoAddress and fEditAdress.Execute then
+    mAddress.Text:=DataSet.ToString;
+end;
+
 procedure TfOrderAddress.SetDataSet(AValue: TOrderAddress);
 var
   i: Integer;

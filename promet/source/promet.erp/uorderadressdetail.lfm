@@ -1,0 +1,222 @@
+object fEditAdress: TfEditAdress
+  Left = 515
+  Height = 273
+  Top = 370
+  Width = 417
+  Caption = 'Adresse bearbeiten'
+  ClientHeight = 273
+  ClientWidth = 417
+  LCLVersion = '1.4.4.0'
+  object mAddress: TDBMemo
+    AnchorSideTop.Control = lStreet
+    AnchorSideTop.Side = asrBottom
+    AnchorSideBottom.Control = lLand
+    Left = 8
+    Height = 76
+    Top = 105
+    Width = 394
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    DataField = 'ADDRESS'
+    DataSource = cDatasource
+    TabOrder = 4
+  end
+  object cbTitle: TDBComboBox
+    AnchorSideTop.Control = lTitle
+    AnchorSideTop.Side = asrBottom
+    Left = 298
+    Height = 23
+    Top = 23
+    Width = 104
+    Anchors = [akTop, akRight]
+    DataField = 'TITLE'
+    DataSource = cDatasource
+    ItemHeight = 15
+    MaxLength = 0
+    TabOrder = 2
+  end
+  object eName: TDBEdit
+    AnchorSideTop.Control = lTitle
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 23
+    Top = 23
+    Width = 148
+    DataField = 'NAME'
+    DataSource = cDatasource
+    Anchors = [akTop, akLeft, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 0
+  end
+  object eCallingName: TDBEdit
+    AnchorSideTop.Control = lTitle
+    AnchorSideTop.Side = asrBottom
+    Left = 162
+    Height = 23
+    Top = 23
+    Width = 128
+    DataField = 'CNAME'
+    DataSource = cDatasource
+    Anchors = [akTop, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 1
+  end
+  object eCity: TDBEdit
+    AnchorSideTop.Control = lLand
+    AnchorSideTop.Side = asrBottom
+    Left = 200
+    Height = 25
+    Top = 196
+    Width = 202
+    DataField = 'CITY'
+    DataSource = cDatasource
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 7
+  end
+  object eZip: TDBEdit
+    AnchorSideTop.Control = lLand
+    AnchorSideTop.Side = asrBottom
+    Left = 104
+    Height = 25
+    Top = 196
+    Width = 89
+    DataField = 'ZIP'
+    DataSource = cDatasource
+    Anchors = [akTop, akLeft, akBottom]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 6
+  end
+  object eAdditional: TDBEdit
+    AnchorSideTop.Control = lAdditional
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 23
+    Top = 63
+    Width = 394
+    DataField = 'ADDITIONAL'
+    DataSource = cDatasource
+    Anchors = [akTop, akLeft, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 3
+  end
+  object lTitle: TLabel
+    AnchorSideLeft.Control = cbTitle
+    Left = 298
+    Height = 15
+    Top = 8
+    Width = 38
+    Caption = 'Anrede'
+    ParentColor = False
+  end
+  object lAdditional: TLabel
+    AnchorSideTop.Control = eName
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 15
+    Top = 48
+    Width = 53
+    BorderSpacing.Top = 2
+    Caption = 'Zusätzlich'
+    ParentColor = False
+  end
+  object lName: TLabel
+    Left = 8
+    Height = 15
+    Top = 9
+    Width = 73
+    Caption = 'Name / Firma'
+    ParentColor = False
+  end
+  object lCallingName: TLabel
+    Left = 162
+    Height = 15
+    Top = 9
+    Width = 48
+    Anchors = [akTop, akRight]
+    Caption = 'Vorname'
+    ParentColor = False
+  end
+  object lCity: TLabel
+    AnchorSideTop.Control = lLand
+    Left = 200
+    Height = 15
+    Top = 181
+    Width = 17
+    Anchors = [akLeft, akBottom]
+    Caption = 'Ort'
+    ParentColor = False
+  end
+  object lPostalCode: TLabel
+    AnchorSideTop.Control = lLand
+    Left = 104
+    Height = 15
+    Top = 181
+    Width = 60
+    Anchors = [akLeft, akBottom]
+    Caption = 'Postleitzahl'
+    ParentColor = False
+  end
+  object lLand: TLabel
+    AnchorSideTop.Control = mAddress
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 15
+    Top = 181
+    Width = 26
+    Anchors = [akLeft, akBottom]
+    Caption = 'Land'
+    ParentColor = False
+  end
+  object lStreet: TLabel
+    AnchorSideTop.Control = eAdditional
+    AnchorSideTop.Side = asrBottom
+    Left = 8
+    Height = 15
+    Top = 90
+    Width = 33
+    BorderSpacing.Top = 4
+    Caption = 'Straße'
+    ParentColor = False
+  end
+  object cbLand: TExtDBCombobox
+    AnchorSideTop.Control = lLand
+    AnchorSideTop.Side = asrBottom
+    Left = 9
+    Height = 23
+    Top = 196
+    Width = 90
+    Anchors = [akTop, akLeft, akBottom]
+    DataField = 'COUNTRY'
+    DataSource = cDatasource
+    ItemHeight = 15
+    MaxLength = 0
+    Sorted = True
+    TabOrder = 5
+    TabStop = False
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 233
+    Width = 405
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 8
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object cDatasource: TDataSource
+    left = 24
+    top = 32
+  end
+end
