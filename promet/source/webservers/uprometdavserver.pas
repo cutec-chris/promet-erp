@@ -2065,15 +2065,18 @@ var
       tmp := copy(aDir,0,pos('/',aDir)-1)
     else tmp := aDir;
     DataSet.SelectFromNumber(tmp);
-    DataSet.Open;
-    if DataSet.Count=0 then
-      begin
-        if IsNumeric(tmp) then
-          DataSet.Select(tmp)
-        else
-          DataSet.Select(Null);
-        DataSet.Open;
-      end;
+    try
+      DataSet.Open;
+      if DataSet.Count=0 then
+        begin
+          if IsNumeric(tmp) then
+            DataSet.Select(tmp)
+          else
+            DataSet.Select(Null);
+          DataSet.Open;
+        end;
+    except
+    end;
     if Assigned(DataSet.Id) then
       aID:=DataSet.Id.AsVariant;
     aType:= DataSet.GetTyp;
