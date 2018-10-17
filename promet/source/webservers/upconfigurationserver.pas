@@ -296,6 +296,11 @@ begin
                     begin
                       Result := 200;
                       tmpData.CriticalSection.Leave;
+                    end
+                  else if tmpData.CriticalSection.TryEnter then
+                    begin
+                      Result := 200;
+                      tmpData.CriticalSection.Leave;
                     end;
                 end;
           end
