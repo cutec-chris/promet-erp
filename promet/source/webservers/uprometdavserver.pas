@@ -2079,9 +2079,9 @@ var
     end;
     if Assigned(DataSet.Id) then
       aID:=DataSet.Id.AsVariant;
-    aType:= DataSet.GetTyp;
     if DataSet.Count>0 then
       begin
+        aType:= DataSet.GetTyp;
         Result := True;
         aLevel:=3;
         if pos('/',aDir)>0 then

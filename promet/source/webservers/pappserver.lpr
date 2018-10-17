@@ -102,8 +102,8 @@ begin
           Info('processmanager login successful');
           uData.DataM := Data;
           InitMsgNetwork;
-          Data2 := TBaseDBModule.Create(nil);
-          Data2.SetProperties(Data.Properties);
+          Data2 := DataM;//TBaseDBModule.Create(nil);
+          //Data2.SetProperties(Data.Properties);
         end;
     end;
   aSystem := GetSystemName;
@@ -137,7 +137,7 @@ begin
           if i > (60000/10) then
             begin
               i := 0;
-              //EnterCriticalsection(GlobalLock);
+              EnterCriticalsection(GlobalLock);
               try
                 if not Data2.ProcessClient.ProcessAll(aSystem) then
                   begin
@@ -145,7 +145,7 @@ begin
                     exit;
                   end;
               finally
-                //LeaveCriticalsection(GlobalLock);
+                LeaveCriticalsection(GlobalLock);
               end;
             end;
           CheckSynchronize(5);
