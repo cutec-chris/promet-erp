@@ -547,7 +547,6 @@ end;
 
 procedure TDAVSession.DoneRequest;
 begin
-  FLock.Leave;
 end;
 
 constructor TStreamOutput.Create(ASocket: TDAVSession; aIn, aOut: TMemoryStream);
